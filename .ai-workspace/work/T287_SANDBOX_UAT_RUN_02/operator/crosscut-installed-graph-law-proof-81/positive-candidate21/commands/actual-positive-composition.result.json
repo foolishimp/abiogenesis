@@ -1,0 +1,33 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/driver.mjs",
+    "--artifact-path",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "--artifact-sha256",
+    "a6e9ed7a905ed36d5575ce3a394f8d2a30a418718f6eb5f7cff86461480fb673",
+    "--install-host",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host",
+    "--expected-content",
+    "sha256:571eec0a28bfdb1461aaab8d6bf641950c808fe0e06ef27bffe33b303b404146",
+    "--expected-manifest",
+    "sha256:7fd686312577b6c7d32db894dc80bebc05eb89c8496b8c3a8fd1de39b773dcba",
+    "--evidence-root",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/execution"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21",
+  "started": "2026-10-08T09:25:27.061Z",
+  "environmentKeys": [
+    "PATH",
+    "npm_config_offline"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 77338.151125,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "",
+  "stderr": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    'advance',\n-   'terminal'\n  ]\n\n    at executeInstalledGraphProof (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/driver.mjs:143:10)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/driver.mjs:183:3 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [ 'advance' ],\n  expected: [ 'advance', 'terminal' ],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.7.0\n"
+}

@@ -1,0 +1,8 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RESULT_LINEAGE_INTEGRATION_DESIGN_WRITER_01",
+  "returnsTo": "Executive",
+  "sourceCodeCandidateRuntimeGitEffects": 0,
+  "HOWTrackingEffects": "exact insertion and three tracking appends",
+  "writesStopped": true
+}

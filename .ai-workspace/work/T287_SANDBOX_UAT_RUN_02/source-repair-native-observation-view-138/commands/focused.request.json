@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-reporter=spec",
+    "--test-name-pattern=native observation facts|selector planning preserves|fold and assessment consume|C2 assessment binds|framed synthesis binds|framed Testing prerequisite",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "controlledEnvironment": {
+    "ABI5_DEFAULT_LIBRARY_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/isolated",
+    "ABI5_NATIVE_OBSERVATION_CAPTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/capture.json",
+    "NODE_OPTIONS": "unset"
+  },
+  "scope": "actual owner unit checks only; no installed/native/provider proof"
+}

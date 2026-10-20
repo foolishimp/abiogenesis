@@ -1,0 +1,133 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.workspace.bind",
+      "memberKey": "bind"
+    },
+    "invocationRef": "invocation://abiogenesis/b4a192208ab36fd7ce1eae799a24aca7c4d3ddd7e51372d223a7076df3d20205",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "binding": {
+          "ref": "workspace-binding://abiogenesis/ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132",
+          "digest": "sha256:ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132"
+        },
+        "installedSet": [
+          {
+            "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f/585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674",
+            "digest": "sha256:ec928a64f5ce091a2416a31dec6ef6f9953e974c63351537625f9bcf48f3cd79"
+          },
+          {
+            "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674",
+            "digest": "sha256:bf985baa8d93292e1153eb30af5e5d1244651310716ca4670a321665bd7dacde"
+          }
+        ],
+        "resolvedLock": {
+          "ref": "product-lock://abiogenesis/585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674",
+          "digest": "sha256:585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674"
+        },
+        "declaredRoots": [
+          {
+            "rootKind": "toolchain",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/products/core34"
+          },
+          {
+            "rootKind": "product",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/products/dev15/node_modules/@odd-glc/route-one-typescript"
+          },
+          {
+            "rootKind": "event_log",
+            "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events"
+          },
+          {
+            "rootKind": "runtime_state",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/invocation/runtime"
+          },
+          {
+            "rootKind": "projection",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/invocation/projections"
+          },
+          {
+            "rootKind": "archive",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/invocation/archives"
+          }
+        ],
+        "provenance": [
+          {
+            "ref": "artifact-truth-projection://abiogenesis/a429d8e8108d886380b40f49d2d4834f33ba8243f142f18324ff5be72efdfa9e",
+            "digest": "sha256:a429d8e8108d886380b40f49d2d4834f33ba8243f142f18324ff5be72efdfa9e"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "product_workspace_binding_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "eventResource": {
+        "kind": "abg_event_resource_completion",
+        "schemaVersion": "5.0.0",
+        "acquisitionKind": "reopen",
+        "entryPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+          "prefixLength": 318392510,
+          "prefixDigest": "sha256:5723a688071c3380394fa3e20a37cbe351cac6dd006cc2cbffcc9c8d430292b6",
+          "storeIdentity": {
+            "device": 16777230,
+            "inode": 459405010,
+            "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+          },
+          "coordinateDigest": "sha256:40e0144cbfb764e4ff8773c251f05886ff52ba482df9f70e7ee94bdd79e66a61"
+        },
+        "successor": {
+          "kind": "acquired_abg_event_resource_selection",
+          "schemaVersion": "5.0.0",
+          "prefix": {
+            "kind": "durable_prefix_coordinate",
+            "schemaVersion": "5.0.0",
+            "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+            "prefixLength": 318398506,
+            "prefixDigest": "sha256:8f30f3c0e042519199feada2a73d2b79e0e74d62a26a039213ed2783147c7142",
+            "storeIdentity": {
+              "device": 16777230,
+              "inode": 459405010,
+              "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+            },
+            "coordinateDigest": "sha256:1e4fc5d9c0fe4e71820dc708d75df2faa6b2f587fe5a0d16deddc2a526faac04"
+          }
+        },
+        "receiptDigest": "sha256:c3857ea3067887b13e57e23bc527d5c8d32bc9929d8fe0699ec7d791d95289be"
+      },
+      "workspaceAuthority": {
+        "ref": "workspace-authority://abiogenesis/c2f9961fc1d535fb9f6b3c39521963c4f8ea902e4e0c205aad97fdc0d695466d",
+        "digest": "sha256:c2f9961fc1d535fb9f6b3c39521963c4f8ea902e4e0c205aad97fdc0d695466d"
+      },
+      "admittedInstalls": [
+        {
+          "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f/585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674",
+          "digest": "sha256:ec928a64f5ce091a2416a31dec6ef6f9953e974c63351537625f9bcf48f3cd79"
+        },
+        {
+          "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674",
+          "digest": "sha256:bf985baa8d93292e1153eb30af5e5d1244651310716ca4670a321665bd7dacde"
+        }
+      ],
+      "resolvedLock": {
+        "ref": "product-lock://abiogenesis/585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674",
+        "digest": "sha256:585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674"
+      },
+      "binding": {
+        "ref": "workspace-binding://abiogenesis/ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132",
+        "digest": "sha256:ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132"
+      }
+    },
+    "failure": null
+  }
+}

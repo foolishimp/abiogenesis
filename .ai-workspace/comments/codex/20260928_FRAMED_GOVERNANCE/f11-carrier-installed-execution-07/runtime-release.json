@@ -1,0 +1,25 @@
+{
+  "operation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "roleTransition": "conditional external preparation Worker -> released Runtime Worker",
+  "RootSeparateMessageRelease": true,
+  "RootMessage": "Root Executive conjoins CLOSED independent Q08 GO e0f783af, accepts preparation, and explicitly releases exact input-acceptance.json 7372 B SHA256 25daf2e829ca8a5b1139968e1356afd9e99d36f01ad36c61614698a166537f37 for supervised actual whole carrier under unchanged grant. First failure stops/freeze/Root triangulation; no repair or retry.",
+  "inputAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07/input-acceptance.json",
+    "bytes": 7372,
+    "sha256": "25daf2e829ca8a5b1139968e1356afd9e99d36f01ad36c61614698a166537f37"
+  },
+  "releasedAt": "2026-10-02T07:49:59.610258+00:00",
+  "allExactGrantJoinsVerified": true,
+  "ownerImportsPreparationResourceReopenHelperRuntimeBeforeRelease": 0,
+  "initialEventPhysical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+    "bytes": 2490814,
+    "sha256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464698960
+  },
+  "defaultHeapHOME": "unchanged",
+  "realProviderCalls": 0,
+  "noSetupHelloTests18Commands": true
+}

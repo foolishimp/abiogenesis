@@ -1,0 +1,29 @@
+{
+  "role": "Independent Reviewer188",
+  "status": "CLOSED_BOUNDED_GO",
+  "frozenAt": "2026-10-09T08:36:25.613470+00:00",
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/freeze.json",
+    "sha256": "afcac14d24334cfe9055231e138f3e501821ccca7c4838d8b1888fc33d6f16ec",
+    "byteCount": 22867
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-review-188/return.md",
+      "sha256": "49e2ba92284f9f421e4fef5a0c7f305787fcfd36c09fef7b44ad002bb342b4ae",
+      "byteCount": 3289
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-review-188/pins.json",
+      "sha256": "64b7c601c746a26580e265b91f2cd7ea8f9475cfc4c8b2ced1fafa5775b22143",
+      "byteCount": 5789
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-review-188/notice-186-documentary-limit.md",
+      "sha256": "18472fe2f061280e7b9e5d5a4e17c676d2f2c9579cfea17c2361b209fe69d432",
+      "byteCount": 729
+    }
+  ],
+  "effects": "Only new188 documentary review files; all canonical/campaign/runtime bytes read-only",
+  "stop": "No execution or retry activation; Root separately owns189"
+}

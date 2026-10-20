@@ -1,0 +1,13 @@
+{
+  "sourceCutAuthor": "Root_Executive_selection_recorded_by_Writer",
+  "sourceCutSHA256": "ecb4cd8ee495e75e623566b20fa868982c2cfed1408a2a1369141acd3fa625db",
+  "originalSources": "every exact1106 source row retains sourceAuthor/origin/selectedRelation; C03 original attribution chain is separately retained",
+  "acceptedNativeSourceAuthor": "/root/native_applicability_design under separately CLOSED Source Worker T287_NATIVE_DECLARATION_APPLICABILITY_SOURCE_01",
+  "nativeSourceFreezeSHA256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+  "trackingSnapshotAuthor": "Root Writer tracking, bound exactly before construction",
+  "builderReportActor": "/root/native_applicability_design under separate Worker T287_RC1_SUCCESSOR_CONSTRUCTION_04",
+  "derivedOutputOwners": "existing clean/TypeScript/qualification assets/Product manifest builders; copy/build authorship does not replace source/code semantic authorship",
+  "sourceRepair": false,
+  "ambientGeneratedMutation": false,
+  "qualificationActorIndependence": "future assessment must bind actual source authors and assessors; separate builder role alone does not establish independence"
+}

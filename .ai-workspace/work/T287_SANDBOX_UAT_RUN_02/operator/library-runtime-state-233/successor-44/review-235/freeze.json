@@ -1,0 +1,47 @@
+{
+  "kind": "independent_source44_review_freeze",
+  "status": "CLOSED",
+  "verdict": "BOUNDED_GO",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/freeze.json",
+    "sha256": "ced70e64a04020e91ef23e01c26e8cf293ed013613f92ac50e9f3df535759c39",
+    "bytes": 22078
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/review-235/review.md",
+      "sha256": "0166d7e3d2a35f956b79dee0baf8a6bfc9521dfb98ac4ad43a1deb4ff101d611",
+      "bytes": 5335
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/review-235/pins.json",
+      "sha256": "741d9fb9c69ef9ef508d9563c83ba1b2cf36734598a449ea266a0ad8f5b6b46f",
+      "bytes": 13266
+    }
+  ],
+  "verification": {
+    "uniqueSubjectPinsIncludingFreeze": 853,
+    "bytesRead": 20775615,
+    "mismatches": 0,
+    "sourcePopulation": 264,
+    "sourceChanged": [
+      "abg/native_work_reacquisition.ts"
+    ],
+    "sourceUnchanged": 263,
+    "emissionPopulation": 528,
+    "emissionChanged": [
+      "abg/native_work_reacquisition.js"
+    ],
+    "emissionUnchanged": 527,
+    "declarationsByteExact43": 264,
+    "newTestsOrOwnerInvocations": 0
+  },
+  "scope": "Canonical Testing publication-to-occurrence construction correspondence; ordinary installed continuation16 is the next joint proof.",
+  "exclusions": [
+    "Controlled lower premises are not installed/native/C2 admission.",
+    "Fresh private request/currentness, original Data Mapper capacity/UAT and release qualification remain unproved.",
+    "No tests, owner/resource/native/model/worksite/Source/package/Git effects."
+  ],
+  "stop": true
+}
+

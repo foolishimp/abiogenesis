@@ -1,0 +1,150 @@
+{
+  "status": "closed_runtime_failed_after_admitted_authored_design_before_assessment",
+  "run": {
+    "digest": "sha256:43439dab56302bf8bc5bfa09184435276810d73475df61c3dfe16d6c91f0d127",
+    "ref": "run://abiogenesis/31c1969a2776ffb9e3120571e64fe06faac0ac290e0d9b78b1ecb4138db1f3b4"
+  },
+  "publicTerminalResult": null,
+  "publicReplayStatus": "failed",
+  "currentPrefix": {
+    "coordinateDigest": "sha256:d9d7086ab47280c8b44b232bfeb6838349aabf30382e1823ae08d8e6381e85ea",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:22081c65ad328fac4dfc28e05e3050226d7f82085efdb03683bfbc555c180827",
+    "prefixLength": 399209962,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "actualFirstCause": {
+    "admissionEventDigest": "sha256:b1e4a81cac41ff88d0c845cd41371aa4944fc5d3088deb50d201368f2ab0dc28",
+    "admissionEventRef": "event://abiogenesis/15b220caff67fecd1ebaf47b4c0bff8af1d0bc7fce11f06b4e75486c3d21ebec",
+    "availability": "retained",
+    "basisId": "execution-basis://abiogenesis/b9247cf64483946085e1fbd0783e90db28bc39bcfc608a2d7ab95996a0a1f8ea",
+    "cCallRef": "c-call:sha256:4f32665323a747bd0ea8b11e16d91718e974be61dc295c40827ec659d6906edb",
+    "causationEventRefs": [
+      "event://abiogenesis/470b32691cb17b470bb590096d4676315b79a41199910e884a342449815a89a4"
+    ],
+    "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+    "errorClass": "TypeError",
+    "errorCode": null,
+    "evidenceDigest": "sha256:3037062acd1d59b5f56f188e65acca0b8f6fea8762923912a27b4ddbe3a99f70",
+    "evidenceRef": "evidence://abiogenesis/3037062acd1d59b5f56f188e65acca0b8f6fea8762923912a27b4ddbe3a99f70",
+    "failureClass": "implementation_exception",
+    "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+    "frameId": "frame://abiogenesis/d9725c2753b6ea8c83af6cf82a60ea811c7011e35c460c0f4625c65b870bbb3a",
+    "graphCallId": "graph-call://abiogenesis/78270b0122d72b46d0f2546a882b77993df6062e6ab6c6d80d06638f52d5bd59",
+    "inputDigest": "sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566",
+    "kind": "undispatched_owner_failure_evidence",
+    "outputDigest": "sha256:24faefccaf79c9d1ece023b864c713e28d2caa683db6d43918168d2dfdcc9602",
+    "reason": "thrown",
+    "runId": "run://abiogenesis/31c1969a2776ffb9e3120571e64fe06faac0ac290e0d9b78b1ecb4138db1f3b4",
+    "schemaVersion": "5.0.0",
+    "stage": "preparation",
+    "subject": {
+      "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+      "errorClass": "TypeError",
+      "errorCode": null,
+      "message": "{\"cause\":\"declared_bound_overflow\",\"kind\":\"native_instruction_assembly_refusal\",\"policy\":\"assembly://odd-glc/generic-lifecycle/design@5\",\"role\":\"assessor\",\"unresolvedRefs\":[\"maxPromptBytes\"]}",
+      "messageTruncated": false,
+      "reason": "thrown",
+      "stack": "TypeError: {\"cause\":\"declared_bound_overflow\",\"kind\":\"native_instruction_assembly_refusal\",\"policy\":\"assembly://odd-glc/generic-lifecycle/design@5\",\"role\":\"assessor\",\"unresolvedRefs\":[\"maxPromptBytes\"]}\n    at requireNativeInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/products/core38/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js:537:15)\n    at prepareInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/products/core38/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js:404:19)\n    at actor (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/products/core38/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js:43:133)\n    at realizeSemanticRevisionAssessor (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/products/core38/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js:71:94)\n    at invokeLeafOwnerBoundary (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/products/core38/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:461:32)",
+      "stackTruncated": false,
+      "stage": "preparation"
+    },
+    "subjectDigest": "sha256:2a0315f673d115f2503dd267f719b6e33af8d739ccaaf338f0173a8759f033c2"
+  },
+  "authorResult": {
+    "ordinal": 87788,
+    "eventId": "event://abiogenesis/94cfb63982bd996312e6b965854633d5bc14ead7ce924ecdf2a5fd3e4a5a8832",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/first-cause-suffix/87788-c_call_result_admitted.jsonl",
+    "sha256": "359b374ef0f091489a09076d604b84cd2e7986d95326a145f31e3a7f22cbc49a",
+    "payload": {
+      "cCallRef": "c-call:sha256:e1fd5ac4dc927db7f7a94bd0991a6742531b4ac36bb2af7913b608ae7bc11abc",
+      "contractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+      "evidenceRefs": [
+        "evidence://abiogenesis/06ec0d30a55469d1c2b9453390ac78bb1b981baa7a9626fd7d29dcee8140d369"
+      ],
+      "resultClass": "success",
+      "resultDigest": "sha256:a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+      "resultRef": "result://abiogenesis/a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+      "valueDigest": "sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566",
+      "valueKind": "semantic_revision_envelope"
+    }
+  },
+  "authorJudgment": {
+    "ordinal": 87790,
+    "eventId": "event://abiogenesis/2151aee44cb9f6126ad662d750bfed7734c8fb54496b69de185d139c686f19df",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/first-cause-suffix/87790-c_call_judged.jsonl",
+    "sha256": "1ae2c6c2200062de427ddf9ba8e37e399fad601ed14e46a8d3f4c84f2aecb4ef",
+    "payload": {
+      "cCallRef": "c-call:sha256:e1fd5ac4dc927db7f7a94bd0991a6742531b4ac36bb2af7913b608ae7bc11abc",
+      "contractRef": "contract://abiogenesis/semantic-stage/judgment@5",
+      "judgment": "advance",
+      "judgmentDigest": "sha256:443fb85005ae8fb582bd4316946955596ec5360de40bb0f919f5003d4f0897ba",
+      "judgmentRef": "judgment://abiogenesis/443fb85005ae8fb582bd4316946955596ec5360de40bb0f919f5003d4f0897ba",
+      "predicateRef": "predicate://abiogenesis/semantic-revision/authored@5",
+      "reasonRef": "reason://abiogenesis/semantic-revision/relation-satisfied@5",
+      "replayStateDigest": "sha256:3e234b72ba1330f3d1402b92e0b1787805ff222feefff8505f9a30038aa114fa",
+      "resultDigest": "sha256:a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+      "resultRef": "result://abiogenesis/a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+      "retryAttemptRef": null
+    }
+  },
+  "admittedDesign": {
+    "stageRef": "stage://odd-glc/generic-lifecycle/design@5",
+    "assetRef": "semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df",
+    "assetDigest": "sha256:75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df",
+    "assessment": null,
+    "candidateKind": "semantic_job_asset_candidate",
+    "candidateCanonicalBytes": 74650,
+    "source": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/4f365a064f221dbf39324764937e5fbeebb01e743b06418d8cb772f850c82b39",
+      "cCallRef": "c-call:sha256:e1fd5ac4dc927db7f7a94bd0991a6742531b4ac36bb2af7913b608ae7bc11abc",
+      "inputDigest": "sha256:65c2fdd777a0a33038a84a9425bb4fd1beebb3d6f9a0c49503c6e9428c31ad28",
+      "promptDigest": "sha256:2da62ebc511eee925ea1251e77f2c0cbc0ec8304754d7648f95ebfc0dd6897cd",
+      "transportDigest": "sha256:2c03b15ac57b57edcfae684803d5502f87fd3bb68179448025ac2bf40f91d250"
+    }
+  },
+  "preservedPriorAssets": [
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/intent@5",
+      "assetRef": "semantic-job-asset://abiogenesis/9f9c337f3df0d254747a496e15ef01663c42cd6274368164f8cee900338c4c0a",
+      "assetDigest": "sha256:9f9c337f3df0d254747a496e15ef01663c42cd6274368164f8cee900338c4c0a",
+      "assessmentDisposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/product@5",
+      "assetRef": "semantic-job-asset://abiogenesis/0f5e3bf0a1e555a1b418b15cc3236ff76dffedbf8c5378b6cf01c39caaa16560",
+      "assetDigest": "sha256:0f5e3bf0a1e555a1b418b15cc3236ff76dffedbf8c5378b6cf01c39caaa16560",
+      "assessmentDisposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5",
+      "assetRef": "semantic-job-asset://abiogenesis/7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+      "assetDigest": "sha256:7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+      "assessmentDisposition": "satisfied"
+    }
+  ],
+  "correctedMaterializationBoundary": "Installed success Result semantic-revision/envelope@5 and advance/authored J demonstrate this occurrence passed the corrected raw-to-canonical result admission boundary; independent assessment was not reached.",
+  "publicEvidenceCorrection": "first-cause-public-evidence.json bodies:[] is a caller extractor omission: the actual Public run_evidence projection returned a data URI holding full diagnostic message/stack, decoded in public-first-cause.json.",
+  "readOnlyContinuationFinding": {
+    "available": false,
+    "scope": "Existing selected native-intake/correction route; no new invocation attempted",
+    "source": "preparation/products/core38/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/semantic_revision.js",
+    "relations": [
+      "79-111 operationalAuthorFailure requires author implementation/locus and refusal.role author.",
+      "148-151 alternative assessor eligibility requires an actual non-satisfied assessment envelope.",
+      "166-176 predecessor selection requires all assets assessed satisfied; the authored Design asset retains assessment:null."
+    ],
+    "consequence": "An assessment-only continuation of this exact authored Design is not supplied by this route. No author repetition, request transplant or semantic-failure fabrication is justified."
+  },
+  "unknowns": [
+    "Failed assessor draft byte count and component inventory",
+    "Lawful assessment-only continuation after a future selected correction",
+    "Independent semantic acceptability of authored Design and full application outcome"
+  ]
+}

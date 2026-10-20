@@ -1,0 +1,33 @@
+{
+  "originalSourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+    "bytes": 1920828,
+    "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+    "mode": 420
+  },
+  "copiedRecords": 6515,
+  "soleChangedCopyRecord": {
+    "path": "readiness-stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "preimage": {
+      "path": "readiness-stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "kind": "file",
+      "bytes": 22555,
+      "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+      "mode": 420
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/readiness-stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "bytes": 22568,
+      "sha256": "d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4",
+      "mode": 420
+    }
+  },
+  "compiledSourceReusedByteExact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+    "bytes": 56202,
+    "sha256": "e6cbf21433251b46dafcb149298a4539217eefd497dccaddc32442598e3c570c",
+    "mode": 420
+  },
+  "noBuildOrCompile": true,
+  "interpretation": "Every original copied physical body/mode is conserved except the exact one-field test successor."
+}

@@ -1,0 +1,158 @@
+{
+  "status": "CLOSED_SOURCE_READINESS",
+  "head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "selected": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "aaf274e2585130ded1c637b1c34317fb8bd7f277281ae96d3f5d2de428ee6c7a",
+      "byteCount": 51621
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "c07c875fffb72e9c5f1659917e4e860ab6e88934a59590ede1bd031c2da85a33",
+      "byteCount": 31896
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "0d47b1cc1f15fbf821ae3e7e4803bca491ce2abbbc8e123c3c10f4a04431837c",
+      "byteCount": 143466
+    }
+  ],
+  "protected": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "byteCount": 93690,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "d30b3de24a8615a5e0aefe3f025f4a4ab9b8539148eaae801eb1a150263d73ce",
+      "byteCount": 33507,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "sha256": "6b73778a52dfd32bf357f7c902798dee3c40ce4bff37c78607492cbf7d7decf5",
+      "byteCount": 21207,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "sha256": "fb140fcb9868ff66147e677216442f6f501aaa73d87288318a6fddf057d7aa8a",
+      "byteCount": 8161,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "5667d5a2a814d95f55f85be4026f13c6d169c7e50fc5adf2227142d5e9d655b9",
+      "byteCount": 21730,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "c6d71578b4dfcce6b28b85cfeca78c132dc5582229fe7635880d27371ced2f03",
+      "byteCount": 34763,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+      "byteCount": 23659,
+      "unchanged": true
+    }
+  ],
+  "generated": {
+    "memberCount": 934,
+    "unchangedCount": 931,
+    "changedCount": 3,
+    "changes": [
+      {
+        "relativePath": "build/code/src/abg/default_library.js",
+        "preimage": {
+          "relativePath": "build/code/src/abg/default_library.js",
+          "sha256": "b7ec72df9b773416c1f0f6c4d9b93398a4e0871d46cd3ff07f243eff186030d8",
+          "byteCount": 31623
+        },
+        "postimage": {
+          "relativePath": "build/code/src/abg/default_library.js",
+          "sha256": "633fc8610abb16c0df64c50674cbbd1e5f9d3998c4661aa96d45996614b8a5aa",
+          "byteCount": 31678
+        }
+      },
+      {
+        "relativePath": "contracts/capabilities/capability-definition-graph.json",
+        "preimage": {
+          "relativePath": "contracts/capabilities/capability-definition-graph.json",
+          "sha256": "2c1eab1e9b1342819fd064ed39dff18692d0fc78d57313f4ca9bfd48e13cd742",
+          "byteCount": 197474
+        },
+        "postimage": {
+          "relativePath": "contracts/capabilities/capability-definition-graph.json",
+          "sha256": "d947891110a8f3c80b7cd3c4f2b18128fa55fb7d21a90bc9526bd5878520af4d",
+          "byteCount": 197474
+        }
+      },
+      {
+        "relativePath": "product-toolchain-manifest.json",
+        "preimage": {
+          "relativePath": "product-toolchain-manifest.json",
+          "sha256": "632e7f77076f06b3862d7893971ffd034edefd9a91524f828394ae047723d5ec",
+          "byteCount": 3171685
+        },
+        "postimage": {
+          "relativePath": "product-toolchain-manifest.json",
+          "sha256": "eff1f1ea632fc735ceb9e90cec6a431d5e52a122a0b26c211fc30754bc1af286",
+          "byteCount": 3171685
+        }
+      }
+    ],
+    "preimageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-repair-120/generated-preimages.json",
+      "sha256": "736062a12ca8bac25319349acf25a7cfbc84e1f09a2e8cb365513b841c7bf2b5",
+      "byteCount": 172970
+    }
+  },
+  "build": {
+    "executable": "npm",
+    "args": [
+      "run",
+      "build"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "startedAt": "2026-10-08T16:47:31.872Z",
+    "endedAt": "2026-10-08T16:48:03.254Z",
+    "wallMs": 31380.421625,
+    "exitCode": 0,
+    "signal": null
+  },
+  "focused": {
+    "executable": "node",
+    "args": [
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern",
+      "fold and assessment consume|C2 assessment binds a separate current DataMapper",
+      "test_env/tests/t287-default-library.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "startedAt": "2026-10-08T16:48:27.982Z",
+    "endedAt": "2026-10-08T16:48:29.156Z",
+    "wallMs": 1172.99475,
+    "exitCode": 0,
+    "signal": null
+  },
+  "focusedSummary": {
+    "pass": 2,
+    "fail": 0,
+    "skip": 0
+  },
+  "controlledPremises": "Real acquired DataMapper26-source plan; exact original4 bytes, other22 scratch file bytes, negative helper measurements, occurrence/index/source-basis/invalidation premises controlled. Actual typed owners and physical contexts. No command, model, runtime admission or UAT semantic credit.",
+  "open": "Independent source/proof review, successor packing/installed native UAT; completed118 measurement remains immutable and full original outcome remains unearned."
+}

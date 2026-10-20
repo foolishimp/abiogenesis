@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-08T22:35:09.854626+00:00",
+  "classification": "Recorder-only count premise; no owner invocation or new runtime failure",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-130/freeze-execution.py",
+    "sha256": "c96002145276b8a194ae19572d3fed8742737a48c72e595d6978ad227a15371a",
+    "byteCount": 13697
+  },
+  "failure": {
+    "name": "AssertionError",
+    "line": 91,
+    "premise": "Exactly one new c_call_result_admitted"
+  },
+  "actual": "Three actual admitted Results: preserved source state176008, selection preparation176028, provider failure176063. Initial state reuses source valueDigest; preparation earns no app credit.",
+  "effects": "No execution readiness/return/freeze output written before failure."
+}

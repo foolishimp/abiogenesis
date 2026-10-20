@@ -1,0 +1,107 @@
+{
+  "recordedAt": "2026-10-06T12:29:47.070Z",
+  "role": "Operator",
+  "sourceAnchor": "main@0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "method": {
+    "release": "STDO2.5.1RC2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "worksite-causality"
+  ],
+  "product": "fixed 15-family ABI5.0 / GOAL035 / T287 seven external UATs",
+  "acceptedRoutes": "Reuse executive retest05/06, accepted C2, default-library, native-work, public contracts and run-environment HOWs; original seven workload meanings unchanged",
+  "release": {
+    "root": "Explicit role transition and execution release for only parallel-js then data-mapper-full",
+    "sourceReviewReturnSha256": "1e52076ca9d720357e447eac1a423c1290541ace1c0c899d1d971722ff904111",
+    "proofReviewReturnSha256": "cc385b7b9df0328a0e651e8b5036d356491ede0493cb3c98f6a9dde1b8aa238b",
+    "workerReturnSha256": "babfb362907e5e279d2a5729a1148ffb4cb86f4491b71b728c23c03c02e177ed",
+    "workerFreezeSha256": "31108522a49366cb9bdf6c645df9e2501049f29433c623bdd4b6dc2376d097cc",
+    "correctionReportSha256": "2060018103bebb4097b2e02756cdca1234ba2241a1cde4ed31316cf1299d6ff7",
+    "rustServiceAcceptance": "Same authentic unchanged native Run under accepted corrected checker; original failed summary/seal remain failed; no new Run/time/model credit"
+  },
+  "preimages": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+      "bytes": 10620905
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "bytes": 2328
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "bytes": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "bytes": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "a7c639158059ed39bdabde8825e1b03fcec7a470ebab26cec8246245ee8ca67b",
+      "bytes": 23083
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "bytes": 23452
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "bbc1dd8ee7cbcd4a2f1332a2f3509ce17fad836d6d578b4afede999852e61fcf",
+      "bytes": 34763
+    }
+  ],
+  "expectedInstalledAbiContentDigest": "sha256:403dd393cd35f306764070c4861c799464373bc736bd348c7f9b64ce157f9310",
+  "cases": [
+    "parallel-js",
+    "data-mapper-full"
+  ],
+  "commands": [
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+        "--case",
+        "parallel-js"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+        "--case",
+        "data-mapper-full"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    }
+  ],
+  "recorder": {
+    "timeoutMs": 4200000,
+    "maxOutputBytes": 1048576
+  },
+  "nativeBudgets": {
+    "processTimeoutMs": 3600000,
+    "model": "claude-opus-5-5",
+    "maxTurns": 24,
+    "maxUsdPerDispatch": 5,
+    "inactivityTimeoutMs": 900000,
+    "absoluteTimeoutMs": 1200000
+  },
+  "permittedEffects": "New Operator records here and supported harness new clean native archives/worksites/runtime plus original declared actor/helper/toolchain/workload effects only",
+  "proofExit": "Actual native independent UAT on original material; terminal parent without unresolved supports; both fresh full typed terminals agree and replay closed; acquired original oracle satisfied; protected originals and both installed barriers conserved. Data Mapper keeps all eight reports, depth, compiled mutant and restored baseline proof.",
+  "stop": "ANY nonpass/refusal/blocked/timeout/truncation/identity drift stops both; no own retry/repair/next case; only sealed truthful PASS permits Data Mapper"
+}

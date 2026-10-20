@@ -1,0 +1,101 @@
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 test:unit
+> node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs
+
+✔ native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights (7.601166ms)
+✔ native validator rejects crossed raw/output and child closure; exact declaration owner refuses extra calls (3.0745ms)
+✔ closed Product carriers preserve all controlled supplied source observations; no fabricated cover qualifies native currentness (12.878167ms)
+✔ missing reordered duplicate changed or crossed retained members refuse at real Product constructor (13.608542ms)
+✔ real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm (31.022375ms)
+✔ raw namespaces, attempt/task/artifact and actor/tool mismatches remain refused (40.698208ms)
+✔ step and terminal predicates preserve honest command failure but reject incomplete or crossed final carriers (41.377917ms)
+(node:1271) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ synthetic current native lookup maps all controlled retained C0 owners only under exact witness (19.763292ms)
+✔ synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners (4.979375ms)
+✔ synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity (4.6735ms)
+✔ synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1 (3.540125ms)
+✔ synthetic current-prefix consumption refuses another exact producer, unresolved admission and ignores unrelated scope (3.059416ms)
+✔ canonical native entry and occurrence owners refuse same-Run transfer, standalone task, foreign GF and missing native basis (1.946625ms)
+✔ M5 GTL exposes exactly seven direct C constructors (1.056083ms)
+✔ M5 C.compose is canonical, flat, and identity-eliding (0.118667ms)
+✔ M5 GraphFunction composition preserves exact left and right identity (28.698834ms)
+✔ M5 GraphFunction promotion preserves topology and semantic truth (19.307708ms)
+✔ M5 native constructors refuse invalid batch, retry, and F_H realization (0.142334ms)
+✔ M5 native GTL constructs all ten graph relations with derived identities (0.432667ms)
+✔ M5 same-object relation is one validator-owned canonical identity witness (17.668042ms)
+✔ M5 closure validation distinguishes run and child GraphCall scope (31.887583ms)
+✔ M5 whole-program validation admits exact recursion law and refuses its substitutes (46.669375ms)
+✔ M5 whole-program validation binds gate law to published Rule and Evaluator declarations (44.456458ms)
+✔ M5 fan-out materialization derives one exact task per admitted input member (12.292041ms)
+✔ M5 fan-out and fan-in outer contracts equal their declared vectors (28.350541ms)
+✔ M5 native GraphFunction composition materializes source GTL without a second executable carrier (17.908083ms)
+✔ M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL (17.2465ms)
+✔ M5 whole-program validation refuses forged or widened graph-edge declarations (19.650375ms)
+✔ M5 raw admission and validator reject invented or contradictory C data (2.125042ms)
+✔ M4 independently authored data fixture remains one valid direct C.of Program (8.720875ms)
+✔ M5 whole-root validation keeps F_H interaction keys out of executable resolution (10.118083ms)
+﹣ M5 resolves and independently validates the complete executable root set (0.035542ms) # requires retained Thread 2 installed consumer proof
+﹣ M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases (0.022834ms) # requires retained Thread 2 installed consumer proof
+﹣ M5 F_H-only roots produce one valid empty executable-resolution set (0.0155ms) # requires retained Thread 2 installed consumer proof
+✔ M5 B-001 preserves lane-owned Claude execution posture (0.5725ms)
+✔ M5 native report keeps its original host schema presentation (0.071834ms)
+✔ M5 schema literal placeholders remain opaque while ordinary templates and append positions expand (0.346125ms)
+✔ M5 requested structured output uses only the final carrier and preserves raw/schema refusal (27.259958ms)
+✔ M5 B-001 bounds append arguments for all four transport contracts (0.33075ms)
+✔ M5 B-001 gives agent-specific sandbox binding precedence (0.112292ms)
+✔ M5 transport identity changes with parser and prompt-delivery semantics (2.96025ms)
+✔ M5 B-001 crosses a real worker process, parser, tool event, and archive (29.881584ms)
+✔ M5 Bash tool identity ignores only optional string description metadata (345.724542ms)
+✔ M5 B-001 rejects tool activity only in the closed-prompt lane (24.858166ms)
+✔ M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool (99.7555ms)
+✔ M5 ABG transport force-terminates a worker that ignores SIGTERM (432.569791ms)
+✔ M5 ABG transport renews its inactivity lease only from observed progress (286.577625ms)
+✔ M5 ABG transport does not renew from unacknowledged output (156.730375ms)
+✔ M5 ABG transport excludes semantic output emitted after its timeout boundary (158.906833ms)
+✔ M5 ABG transport excludes descendant output emitted after direct-process exit (286.631459ms)
+(node:1389) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ ordinary native runtime declaration passes the existing raw/Program owner (7.874083ms)
+✔ native source joins and cloned judgment retain their actual assessment; no owning adapter (17.64525ms)
+✔ caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree (15.048791ms)
+✔ declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse (36.437583ms)
+✔ same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses (15.440875ms)
+﹣ material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction (0.034583ms) # SKIP
+✔ different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation (303.0895ms)
+ℹ {"distinctModuleRoot":"/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-module-owner-12cMBt/build/code/src","before":{"catalog":1,"execution":4,"state":1,"assessment":1,"verdict":0,"terminal":1,"replay":1,"sourceRead":8,"environment":2},"after":{"catalog":1,"execution":8,"state":3,"assessment":1,"verdict":0,"terminal":1,"replay":1,"sourceRead":17,"environment":3},"premises":"Native admission/environment/terminal mappings supplied by existing fixture. Actual invoking leaf boundary, Result clone, separately loaded implementation/semantics and unchanged native proof owner executed; no installed qualification claim."}
+(node:1390) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (682.077792ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+✔ native revision complete publication admits unique carriers and retains the exact factory graph (19.038ms)
+✔ native revision installed descriptor loader discovers every declared leaf through module exports (3.578375ms)
+✔ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (117.431666ms)
+✔ native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings (361.709583ms)
+ℹ Component proof: exact historical admission tables, real ancestry/acquisition reuse, binding-cover algorithm and current physical context; no installed/provider or original operational-failure admission claim.
+✔ Product author recovery values retain accepted stages under an explicit failed-stage premise (44.315416ms)
+ℹ Product derivation only: supplied failed-stage premise and value coordinates; no intake, call, prefix or producer admission claim.
+✔ Product assessor recovery values preserve pending Design and select assessment-first without reauthoring (82.894791ms)
+ℹ {"scope":"Product values and declared assessment-first graph only; operational role supplied, no intake or runtime admission claim","retainedInput":null,"successorDigest":"sha256:b72c45a8b40048a9268df06bb4f02b781c95dd5df1aa60b689696a87897f94da","asset":"semantic-job-asset://abiogenesis/06864f5248d60558f5fee0e572a36e0416690bec46903259a4f004638b489614","assets":4,"program":"program://odd-glc/native-semantic-revision/from-design-assessment@5"}
+✔ native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix (681.508958ms)
+ℹ {"claim":"component producer to Evidence-only projection","parentDigest":"sha256:0a7bb0968407615d49f6a3ba51305d4fa22cf2acb72d72344e405f00c53f352c","successorDigest":"sha256:eccf2f121a72b9fa5174c895e774dbcb554ed7bc6c96cac6047a02493950be26","preservedStages":4,"retainedObligations":1,"oldConstruction":"result://abiogenesis/5d93fc295cc411d85023750418e001b3d7e3002b8de7574a95d12b1ec8eadf97","oldExecution":"result://abiogenesis/ac2e5305880b55c068ae1735f383e4a37fa5ee46017fd1d3d7f26548d33de3d6","premises":"CCall/fibre, native-source, traversal-current-input, binding/install and invalidation admissions supplied; real fold provenance, recovery owner, physical context, cover algorithm, pure constructors and declared caller selection exercised; no actor, command, installed Run or qualification"}
+﹣ native D2 retained empty-obligation selector composes with all fifteen unchanged obligations (0.259084ms) # explicit retained Design/selector evidence directory required
+(node:1427) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ atomic_call: actual assessment owner remains evidence; no duplicate result leaf (61.544791ms)
+✔ flat_composition: actual assessment owner remains evidence; no duplicate result leaf (83.733458ms)
+✔ edge_program: actual assessment owner remains evidence; no duplicate result leaf (112.787833ms)
+✔ flat_composition: finite declaration passes actual raw/Program validation (22.93ms)
+✔ edge_program: finite declaration passes actual raw/Program validation (19.305916ms)
+✔ same final value does not hide a missing first step, wrong composition or foreign Result (186.029334ms)
+✔ order, value chain, declared coverage and intermediate expectations remain material (229.100667ms)
+✔ edge: the same final value cannot replace declared kind, role order or intermediate provenance (586.18075ms)
+✔ edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red (340.348458ms)
+ℹ tests 75
+ℹ suites 0
+ℹ pass 70
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 5
+ℹ todo 0
+ℹ duration_ms 8306.682834

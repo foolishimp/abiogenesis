@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--expose-gc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/diagnostic.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "started": "2026-10-07T14:06:23.081289+00:00",
+  "diagnosticOnly": true,
+  "timeoutMs": 180000,
+  "defaultHeap": true,
+  "noRuntimeControlChange": true,
+  "completed": "2026-10-07T14:06:48.041578+00:00",
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 24959.605874988483,
+  "timedOut": false,
+  "diagnosticTimeoutSignals": [],
+  "truncated": false,
+  "pid": 37847,
+  "pgid": 37847,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/command.stdout",
+    "byteCount": 1678,
+    "sha256": "b871e1c85a8e88ce72141ffc290543df70441a15b70e73b1df099a5e06cca8b4"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/command.stderr",
+    "byteCount": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

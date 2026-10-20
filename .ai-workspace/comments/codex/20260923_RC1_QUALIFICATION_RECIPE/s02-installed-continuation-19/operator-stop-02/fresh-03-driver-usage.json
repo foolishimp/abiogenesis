@@ -1,0 +1,15 @@
+{
+  "pid": 78910,
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/fresh-read-03.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-read-input.json"
+  ],
+  "elapsedMs": 8321.764,
+  "exitCode": 1,
+  "signal": null,
+  "peakRSSBytes": 754860032,
+  "userSeconds": 8.296789,
+  "systemSeconds": 0.350097,
+  "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+}

@@ -1,0 +1,14 @@
+{
+  "pid": 51448,
+  "processGroup": 51448,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/failed-readback-failed-run_replay.jsonl"
+  ],
+  "startedAt": "2026-10-02T04:48:38.922Z",
+  "mode": "failed-readback",
+  "label": "failed-run_replay",
+  "capMs": 60000
+}

@@ -1,0 +1,35 @@
+{
+  "reproduction": {
+    "command": "node --experimental-vm-modules --test --test-name-pattern='native acquisition child' test_env/tests/d2-binding-transition.test.mjs",
+    "expectedExitCode": 1,
+    "actualExitCode": 1,
+    "wallSeconds": 0.32,
+    "userSeconds": 0.35,
+    "systemSeconds": 0.04,
+    "peakRssBytes": 210468864,
+    "meaning": "Before source correction one exact acquisition covered; a second equal-content acquisition in another Run caused basis_fork_detected at the new regression assertion."
+  },
+  "compile": {
+    "command": "node node_modules/typescript/bin/tsc -p tsconfig.json",
+    "exitCode": 0,
+    "wallSeconds": 5.51,
+    "userSeconds": 9.43,
+    "systemSeconds": 0.2,
+    "peakRssBytes": 1011957760
+  },
+  "focused": {
+    "command": "node --experimental-vm-modules --test test_env/tests/d2-binding-transition.test.mjs",
+    "exitCode": 0,
+    "pass": 10,
+    "fail": 0,
+    "skip": 0,
+    "wallSeconds": 29.43,
+    "userSeconds": 26.81,
+    "systemSeconds": 3.23,
+    "peakRssBytes": 656769024
+  },
+  "diffCheck": {
+    "exitCode": 0
+  },
+  "premises": "Existing bindingHarness: actual Product guards, native leaf reconstruction and binding algorithms; supplied basis/install/final CCall lookup facts. New source/context are pure component premises. No real journal, physical acquisition, actor, installed run or qualification."
+}

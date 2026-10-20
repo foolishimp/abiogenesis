@@ -1,0 +1,1624 @@
+{
+  "status": "CLOSED",
+  "liveOwnedProcesses": [],
+  "observedPids": [
+    55937,
+    57189,
+    57190,
+    57354,
+    57355,
+    57511,
+    57512,
+    57589,
+    57594,
+    57597,
+    57598,
+    57613,
+    57614,
+    57775,
+    57780,
+    57936,
+    57937,
+    57976,
+    57977,
+    57981,
+    57982,
+    58005,
+    58006,
+    58139,
+    58140,
+    58296,
+    58297,
+    58346,
+    58347,
+    58362,
+    58363,
+    58400,
+    58401,
+    58449,
+    58450,
+    58485,
+    58486,
+    58501,
+    58502,
+    58635,
+    58636,
+    58796,
+    58797,
+    58890,
+    58891,
+    58906,
+    58907,
+    58952,
+    58953,
+    59030,
+    59031,
+    59032,
+    59033,
+    59108,
+    59109,
+    59213,
+    59214,
+    59229,
+    59230,
+    59243,
+    59244,
+    59378,
+    59379,
+    59529,
+    59530,
+    59631,
+    59632,
+    59656,
+    59657,
+    59697,
+    59698,
+    59757,
+    59758,
+    59781,
+    59782
+  ],
+  "pidProbes": [
+    {
+      "pid": 55937,
+      "state": "absent"
+    },
+    {
+      "pid": 57189,
+      "state": "absent"
+    },
+    {
+      "pid": 57190,
+      "state": "absent"
+    },
+    {
+      "pid": 57354,
+      "state": "absent"
+    },
+    {
+      "pid": 57355,
+      "state": "absent"
+    },
+    {
+      "pid": 57511,
+      "state": "absent"
+    },
+    {
+      "pid": 57512,
+      "state": "absent"
+    },
+    {
+      "pid": 57589,
+      "state": "absent"
+    },
+    {
+      "pid": 57594,
+      "state": "absent"
+    },
+    {
+      "pid": 57597,
+      "state": "absent"
+    },
+    {
+      "pid": 57598,
+      "state": "absent"
+    },
+    {
+      "pid": 57613,
+      "state": "absent"
+    },
+    {
+      "pid": 57614,
+      "state": "absent"
+    },
+    {
+      "pid": 57775,
+      "state": "absent"
+    },
+    {
+      "pid": 57780,
+      "state": "absent"
+    },
+    {
+      "pid": 57936,
+      "state": "absent"
+    },
+    {
+      "pid": 57937,
+      "state": "absent"
+    },
+    {
+      "pid": 57976,
+      "state": "absent"
+    },
+    {
+      "pid": 57977,
+      "state": "absent"
+    },
+    {
+      "pid": 57981,
+      "state": "absent"
+    },
+    {
+      "pid": 57982,
+      "state": "absent"
+    },
+    {
+      "pid": 58005,
+      "state": "absent"
+    },
+    {
+      "pid": 58006,
+      "state": "absent"
+    },
+    {
+      "pid": 58139,
+      "state": "absent"
+    },
+    {
+      "pid": 58140,
+      "state": "absent"
+    },
+    {
+      "pid": 58296,
+      "state": "absent"
+    },
+    {
+      "pid": 58297,
+      "state": "absent"
+    },
+    {
+      "pid": 58346,
+      "state": "absent"
+    },
+    {
+      "pid": 58347,
+      "state": "absent"
+    },
+    {
+      "pid": 58362,
+      "state": "absent"
+    },
+    {
+      "pid": 58363,
+      "state": "absent"
+    },
+    {
+      "pid": 58400,
+      "state": "absent"
+    },
+    {
+      "pid": 58401,
+      "state": "absent"
+    },
+    {
+      "pid": 58449,
+      "state": "absent"
+    },
+    {
+      "pid": 58450,
+      "state": "absent"
+    },
+    {
+      "pid": 58485,
+      "state": "absent"
+    },
+    {
+      "pid": 58486,
+      "state": "absent"
+    },
+    {
+      "pid": 58501,
+      "state": "absent"
+    },
+    {
+      "pid": 58502,
+      "state": "absent"
+    },
+    {
+      "pid": 58635,
+      "state": "absent"
+    },
+    {
+      "pid": 58636,
+      "state": "absent"
+    },
+    {
+      "pid": 58796,
+      "state": "absent"
+    },
+    {
+      "pid": 58797,
+      "state": "absent"
+    },
+    {
+      "pid": 58890,
+      "state": "absent"
+    },
+    {
+      "pid": 58891,
+      "state": "absent"
+    },
+    {
+      "pid": 58906,
+      "state": "absent"
+    },
+    {
+      "pid": 58907,
+      "state": "absent"
+    },
+    {
+      "pid": 58952,
+      "state": "absent"
+    },
+    {
+      "pid": 58953,
+      "state": "absent"
+    },
+    {
+      "pid": 59030,
+      "state": "absent"
+    },
+    {
+      "pid": 59031,
+      "state": "absent"
+    },
+    {
+      "pid": 59032,
+      "state": "absent"
+    },
+    {
+      "pid": 59033,
+      "state": "absent"
+    },
+    {
+      "pid": 59108,
+      "state": "absent"
+    },
+    {
+      "pid": 59109,
+      "state": "absent"
+    },
+    {
+      "pid": 59213,
+      "state": "absent"
+    },
+    {
+      "pid": 59214,
+      "state": "absent"
+    },
+    {
+      "pid": 59229,
+      "state": "absent"
+    },
+    {
+      "pid": 59230,
+      "state": "absent"
+    },
+    {
+      "pid": 59243,
+      "state": "absent"
+    },
+    {
+      "pid": 59244,
+      "state": "absent"
+    },
+    {
+      "pid": 59378,
+      "state": "absent"
+    },
+    {
+      "pid": 59379,
+      "state": "absent"
+    },
+    {
+      "pid": 59529,
+      "state": "absent"
+    },
+    {
+      "pid": 59530,
+      "state": "absent"
+    },
+    {
+      "pid": 59631,
+      "state": "absent"
+    },
+    {
+      "pid": 59632,
+      "state": "absent"
+    },
+    {
+      "pid": 59656,
+      "state": "absent"
+    },
+    {
+      "pid": 59657,
+      "state": "absent"
+    },
+    {
+      "pid": 59697,
+      "state": "absent"
+    },
+    {
+      "pid": 59698,
+      "state": "absent"
+    },
+    {
+      "pid": 59757,
+      "state": "absent"
+    },
+    {
+      "pid": 59758,
+      "state": "absent"
+    },
+    {
+      "pid": 59781,
+      "state": "absent"
+    },
+    {
+      "pid": 59782,
+      "state": "absent"
+    }
+  ],
+  "driver": {
+    "pid": 55937,
+    "processGroup": 55937,
+    "command": [
+      "node",
+      "--max-old-space-size=4096",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/driver.mjs"
+    ],
+    "elapsedMs": 338105.609,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "peakRSSBytes": 5381554176,
+    "userSeconds": 275.422144,
+    "systemSeconds": 47.473016,
+    "observation": "wait4 actual driver; macOS ru_maxrss bytes; native children independently observed"
+  },
+  "nativeCliProcesses": [
+    {
+      "path": "s02-conformance-bounded-recursion-native-process.json",
+      "pid": 58636,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-bounded-recursion.jsonl"
+      ],
+      "elapsedMs": 11245.614,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 1918468096,
+      "userSeconds": 14.833804,
+      "systemSeconds": 0.533848,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-native-process.json",
+      "pid": 59379,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-fan-out-hello.jsonl"
+      ],
+      "elapsedMs": 11406.091,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 1949122560,
+      "userSeconds": 15.041618,
+      "systemSeconds": 0.528829,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-conformance-hello-compose-native-process.json",
+      "pid": 57355,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-hello-compose.jsonl"
+      ],
+      "elapsedMs": 11219.539,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 1932263424,
+      "userSeconds": 14.563523,
+      "systemSeconds": 0.691012,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-conformance-hello-gate-native-process.json",
+      "pid": 58140,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-hello-gate.jsonl"
+      ],
+      "elapsedMs": 11160.822,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 1956675584,
+      "userSeconds": 14.681208999999999,
+      "systemSeconds": 0.535521,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-native-process.json",
+      "pid": 57780,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-hello-workflow.jsonl"
+      ],
+      "elapsedMs": 11155.293,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 1946288128,
+      "userSeconds": 14.774086,
+      "systemSeconds": 0.49402199999999996,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-gate-advance-native-process.json",
+      "pid": 58297,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-advance.jsonl"
+      ],
+      "elapsedMs": 4712.475,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 648888320,
+      "userSeconds": 3.480288,
+      "systemSeconds": 1.927063,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-native-process.json",
+      "pid": 58363,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-advance-run_replay.jsonl"
+      ],
+      "elapsedMs": 695.614,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 338165760,
+      "userSeconds": 0.756641,
+      "systemSeconds": 0.08832899999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-gate-advance-run_result-native-process.json",
+      "pid": 58347,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-advance-run_result.jsonl"
+      ],
+      "elapsedMs": 683.001,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 338165760,
+      "userSeconds": 0.746567,
+      "systemSeconds": 0.083522,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-gate-block-native-process.json",
+      "pid": 58401,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-block.jsonl"
+      ],
+      "elapsedMs": 3080.847,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 721616896,
+      "userSeconds": 2.436484,
+      "systemSeconds": 1.023987,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-gate-block-run_replay-native-process.json",
+      "pid": 58486,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-block-run_replay.jsonl"
+      ],
+      "elapsedMs": 699.908,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 336871424,
+      "userSeconds": 0.7659389999999999,
+      "systemSeconds": 0.087389,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-gate-block-run_result-native-process.json",
+      "pid": 58450,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-block-run_result.jsonl"
+      ],
+      "elapsedMs": 686.88,
+      "exitCode": 1,
+      "signal": null,
+      "peakRSSBytes": 354304000,
+      "userSeconds": 0.7530939999999999,
+      "systemSeconds": 0.083784,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-nested-compose-native-process.json",
+      "pid": 57512,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-nested-compose.jsonl"
+      ],
+      "elapsedMs": 5986.114,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 784809984,
+      "userSeconds": 3.807519,
+      "systemSeconds": 2.6117879999999998,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-native-process.json",
+      "pid": 57598,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-nested-compose-run_replay.jsonl"
+      ],
+      "elapsedMs": 672.983,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 336347136,
+      "userSeconds": 0.705927,
+      "systemSeconds": 0.093128,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-nested-compose-run_result-native-process.json",
+      "pid": 57594,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-nested-compose-run_result.jsonl"
+      ],
+      "elapsedMs": 678.188,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 336756736,
+      "userSeconds": 0.702823,
+      "systemSeconds": 0.09963,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-ordered-vector-native-process.json",
+      "pid": 59530,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-ordered-vector.jsonl"
+      ],
+      "elapsedMs": 8705.571,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 847036416,
+      "userSeconds": 5.077105,
+      "systemSeconds": 4.148734,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-native-process.json",
+      "pid": 59657,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-ordered-vector-run_replay.jsonl"
+      ],
+      "elapsedMs": 831.852,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 365510656,
+      "userSeconds": 0.981548,
+      "systemSeconds": 0.08399899999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-native-process.json",
+      "pid": 59632,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-ordered-vector-run_result.jsonl"
+      ],
+      "elapsedMs": 837.025,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 364199936,
+      "userSeconds": 0.976224,
+      "systemSeconds": 0.09188299999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-partial-vector-native-process.json",
+      "pid": 59698,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-partial-vector.jsonl"
+      ],
+      "elapsedMs": 5741.013,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 774488064,
+      "userSeconds": 3.789512,
+      "systemSeconds": 2.434017,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-native-process.json",
+      "pid": 59782,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-partial-vector-run_replay.jsonl"
+      ],
+      "elapsedMs": 835.059,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 345178112,
+      "userSeconds": 0.9739899999999999,
+      "systemSeconds": 0.08708099999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-partial-vector-run_result-native-process.json",
+      "pid": 59758,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-partial-vector-run_result.jsonl"
+      ],
+      "elapsedMs": 829.982,
+      "exitCode": 1,
+      "signal": null,
+      "peakRSSBytes": 351485952,
+      "userSeconds": 0.966927,
+      "systemSeconds": 0.088507,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-bound-native-process.json",
+      "pid": 59109,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-bound.jsonl"
+      ],
+      "elapsedMs": 9191.138,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 801701888,
+      "userSeconds": 5.125386,
+      "systemSeconds": 4.628827,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-native-process.json",
+      "pid": 59230,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-bound-run_replay.jsonl"
+      ],
+      "elapsedMs": 801.046,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 360284160,
+      "userSeconds": 0.908632,
+      "systemSeconds": 0.09403,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-native-process.json",
+      "pid": 59214,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-bound-run_result.jsonl"
+      ],
+      "elapsedMs": 781.881,
+      "exitCode": 1,
+      "signal": null,
+      "peakRSSBytes": 362561536,
+      "userSeconds": 0.886946,
+      "systemSeconds": 0.09003599999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-child-block-native-process.json",
+      "pid": 58953,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-child-block.jsonl"
+      ],
+      "elapsedMs": 6828.341,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 651034624,
+      "userSeconds": 4.670203,
+      "systemSeconds": 3.133839,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-native-process.json",
+      "pid": 59033,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-child-block-run_replay.jsonl"
+      ],
+      "elapsedMs": 760.322,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 347766784,
+      "userSeconds": 0.843557,
+      "systemSeconds": 0.089873,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-native-process.json",
+      "pid": 59031,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-child-block-run_result.jsonl"
+      ],
+      "elapsedMs": 754.622,
+      "exitCode": 1,
+      "signal": null,
+      "peakRSSBytes": 350912512,
+      "userSeconds": 0.830881,
+      "systemSeconds": 0.089763,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-foldback-native-process.json",
+      "pid": 58797,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback.jsonl"
+      ],
+      "elapsedMs": 9123.911,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 842285056,
+      "userSeconds": 5.1014289999999995,
+      "systemSeconds": 4.57545,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-native-process.json",
+      "pid": 58907,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback-run_replay.jsonl"
+      ],
+      "elapsedMs": 737.451,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 345161728,
+      "userSeconds": 0.815885,
+      "systemSeconds": 0.084343,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-native-process.json",
+      "pid": 58891,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback-run_result.jsonl"
+      ],
+      "elapsedMs": 731.871,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 348782592,
+      "userSeconds": 0.806213,
+      "systemSeconds": 0.086906,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-transparent-child-native-process.json",
+      "pid": 57937,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-transparent-child.jsonl"
+      ],
+      "elapsedMs": 3991.864,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 720568320,
+      "userSeconds": 2.8383469999999997,
+      "systemSeconds": 1.5497779999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-native-process.json",
+      "pid": 57982,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-transparent-child-run_replay.jsonl"
+      ],
+      "elapsedMs": 660.145,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 334430208,
+      "userSeconds": 0.707473,
+      "systemSeconds": 0.07763099999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-transparent-child-run_result-native-process.json",
+      "pid": 57977,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-transparent-child-run_result.jsonl"
+      ],
+      "elapsedMs": 661.445,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 320667648,
+      "userSeconds": 0.699618,
+      "systemSeconds": 0.081899,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-view-bounded-recursion-native-process.json",
+      "pid": 58502,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-bounded-recursion.jsonl"
+      ],
+      "elapsedMs": 11072.868,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 2016100352,
+      "userSeconds": 14.674326,
+      "systemSeconds": 0.478655,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-view-fan-out-hello-native-process.json",
+      "pid": 59244,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-fan-out-hello.jsonl"
+      ],
+      "elapsedMs": 11055.333,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 2033287168,
+      "userSeconds": 14.691971,
+      "systemSeconds": 0.524147,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-view-hello-compose-native-process.json",
+      "pid": 57190,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-hello-compose.jsonl"
+      ],
+      "elapsedMs": 11139.3,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 2036531200,
+      "userSeconds": 14.489596,
+      "systemSeconds": 0.678613,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-view-hello-gate-native-process.json",
+      "pid": 58006,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-hello-gate.jsonl"
+      ],
+      "elapsedMs": 11065.387,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 2058878976,
+      "userSeconds": 14.575687,
+      "systemSeconds": 0.5080049999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    },
+    {
+      "path": "s02-view-hello-workflow-native-process.json",
+      "pid": 57614,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-hello-workflow.jsonl"
+      ],
+      "elapsedMs": 10909.752,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 2017542144,
+      "userSeconds": 14.48247,
+      "systemSeconds": 0.492357,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+    }
+  ],
+  "processStarts": [
+    {
+      "path": "driver-process-start.json",
+      "pid": 55937,
+      "processGroup": 55937,
+      "command": [
+        "node",
+        "--max-old-space-size=4096",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/driver.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02",
+      "budgetMs": 3600000,
+      "startedAt": 1790870149.877651,
+      "environment": {
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/cache/npm",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/cache/npm-prefix",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/config/user.npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/config/global.npmrc",
+        "GIT_CONFIG_GLOBAL": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/config/global.gitconfig",
+        "GIT_CONFIG_SYSTEM": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/config/system.gitconfig",
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "NODE_OPTIONS": "--max-old-space-size=4096"
+      }
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-process-start.json",
+      "pid": 58635,
+      "processGroup": 58635,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-bounded-recursion.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:43.413Z",
+      "mode": "s02",
+      "label": "conformance-bounded-recursion",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-process-start.json",
+      "pid": 59378,
+      "processGroup": 59378,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-fan-out-hello.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:49.661Z",
+      "mode": "s02",
+      "label": "conformance-fan-out-hello",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-conformance-hello-compose-process-start.json",
+      "pid": 57354,
+      "processGroup": 57354,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-hello-compose.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:57:53.032Z",
+      "mode": "s02",
+      "label": "conformance-hello-compose",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-conformance-hello-gate-process-start.json",
+      "pid": 58139,
+      "processGroup": 58139,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-hello-gate.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:01.075Z",
+      "mode": "s02",
+      "label": "conformance-hello-gate",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-conformance-hello-workflow-process-start.json",
+      "pid": 57775,
+      "processGroup": 57775,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-hello-workflow.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:28.157Z",
+      "mode": "s02",
+      "label": "conformance-hello-workflow",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-gate-advance-process-start.json",
+      "pid": 58296,
+      "processGroup": 58296,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-advance.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:15.226Z",
+      "mode": "s02",
+      "label": "gate-advance",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-gate-advance-run_replay-process-start.json",
+      "pid": 58362,
+      "processGroup": 58362,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-advance-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:21.578Z",
+      "mode": "s02",
+      "label": "gate-advance-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-gate-advance-run_result-process-start.json",
+      "pid": 58346,
+      "processGroup": 58346,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-advance-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:20.555Z",
+      "mode": "s02",
+      "label": "gate-advance-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-gate-block-process-start.json",
+      "pid": 58400,
+      "processGroup": 58400,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-block.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:25.254Z",
+      "mode": "s02",
+      "label": "gate-block",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-gate-block-run_replay-process-start.json",
+      "pid": 58485,
+      "processGroup": 58485,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-block-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:29.994Z",
+      "mode": "s02",
+      "label": "gate-block-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-gate-block-run_result-process-start.json",
+      "pid": 58449,
+      "processGroup": 58449,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-block-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:28.958Z",
+      "mode": "s02",
+      "label": "gate-block-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-nested-compose-process-start.json",
+      "pid": 57511,
+      "processGroup": 57511,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-nested-compose.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:07.332Z",
+      "mode": "s02",
+      "label": "nested-compose",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-nested-compose-run_replay-process-start.json",
+      "pid": 57597,
+      "processGroup": 57597,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-nested-compose-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:14.958Z",
+      "mode": "s02",
+      "label": "nested-compose-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-nested-compose-run_result-process-start.json",
+      "pid": 57589,
+      "processGroup": 57589,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-nested-compose-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:13.934Z",
+      "mode": "s02",
+      "label": "nested-compose-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-ordered-vector-process-start.json",
+      "pid": 59529,
+      "processGroup": 59529,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-ordered-vector.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:01:04.153Z",
+      "mode": "s02",
+      "label": "ordered-vector",
+      "capMs": 720000
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-process-start.json",
+      "pid": 59656,
+      "processGroup": 59656,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-ordered-vector-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:01:14.983Z",
+      "mode": "s02",
+      "label": "ordered-vector-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-ordered-vector-run_result-process-start.json",
+      "pid": 59631,
+      "processGroup": 59631,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-ordered-vector-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:01:13.691Z",
+      "mode": "s02",
+      "label": "ordered-vector-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-partial-vector-process-start.json",
+      "pid": 59697,
+      "processGroup": 59697,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-partial-vector.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:01:18.958Z",
+      "mode": "s02",
+      "label": "partial-vector",
+      "capMs": 720000
+    },
+    {
+      "path": "s02-partial-vector-run_replay-process-start.json",
+      "pid": 59781,
+      "processGroup": 59781,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-partial-vector-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:01:26.896Z",
+      "mode": "s02",
+      "label": "partial-vector-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-partial-vector-run_result-process-start.json",
+      "pid": 59757,
+      "processGroup": 59757,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-partial-vector-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:01:25.582Z",
+      "mode": "s02",
+      "label": "partial-vector-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-recursive-bound-process-start.json",
+      "pid": 59108,
+      "processGroup": 59108,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-bound.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:24.743Z",
+      "mode": "s02",
+      "label": "recursive-bound",
+      "capMs": 720000
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-process-start.json",
+      "pid": 59229,
+      "processGroup": 59229,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-bound-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:35.932Z",
+      "mode": "s02",
+      "label": "recursive-bound-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-recursive-bound-run_result-process-start.json",
+      "pid": 59213,
+      "processGroup": 59213,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-bound-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:34.723Z",
+      "mode": "s02",
+      "label": "recursive-bound-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-recursive-child-block-process-start.json",
+      "pid": 58952,
+      "processGroup": 58952,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-child-block.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:12.233Z",
+      "mode": "s02",
+      "label": "recursive-child-block",
+      "capMs": 720000
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-process-start.json",
+      "pid": 59032,
+      "processGroup": 59032,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-child-block-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:20.962Z",
+      "mode": "s02",
+      "label": "recursive-child-block-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-process-start.json",
+      "pid": 59030,
+      "processGroup": 59030,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-child-block-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:19.803Z",
+      "mode": "s02",
+      "label": "recursive-child-block-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-recursive-foldback-process-start.json",
+      "pid": 58796,
+      "processGroup": 58796,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:57.570Z",
+      "mode": "s02",
+      "label": "recursive-foldback",
+      "capMs": 720000
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-process-start.json",
+      "pid": 58906,
+      "processGroup": 58906,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:08.482Z",
+      "mode": "s02",
+      "label": "recursive-foldback-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-process-start.json",
+      "pid": 58890,
+      "processGroup": 58890,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:07.374Z",
+      "mode": "s02",
+      "label": "recursive-foldback-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-transparent-child-process-start.json",
+      "pid": 57936,
+      "processGroup": 57936,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-transparent-child.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:42.180Z",
+      "mode": "s02",
+      "label": "transparent-child",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-transparent-child-run_replay-process-start.json",
+      "pid": 57981,
+      "processGroup": 57981,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-transparent-child-run_replay.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:47.759Z",
+      "mode": "s02",
+      "label": "transparent-child-run_replay",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-transparent-child-run_result-process-start.json",
+      "pid": 57976,
+      "processGroup": 57976,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-transparent-child-run_result.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:46.768Z",
+      "mode": "s02",
+      "label": "transparent-child-run_result",
+      "capMs": 180000
+    },
+    {
+      "path": "s02-view-bounded-recursion-process-start.json",
+      "pid": 58501,
+      "processGroup": 58501,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-bounded-recursion.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:59:31.308Z",
+      "mode": "s02",
+      "label": "view-bounded-recursion",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-view-fan-out-hello-process-start.json",
+      "pid": 59243,
+      "processGroup": 59243,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-fan-out-hello.jsonl"
+      ],
+      "startedAt": "2026-10-01T16:00:37.473Z",
+      "mode": "s02",
+      "label": "view-fan-out-hello",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-view-hello-compose-process-start.json",
+      "pid": 57189,
+      "processGroup": 57189,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-hello-compose.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:57:40.887Z",
+      "mode": "s02",
+      "label": "view-hello-compose",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-view-hello-gate-process-start.json",
+      "pid": 58005,
+      "processGroup": 58005,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-hello-gate.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:49.000Z",
+      "mode": "s02",
+      "label": "view-hello-gate",
+      "capMs": 360000
+    },
+    {
+      "path": "s02-view-hello-workflow-process-start.json",
+      "pid": 57613,
+      "processGroup": 57613,
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-view-hello-workflow.jsonl"
+      ],
+      "startedAt": "2026-10-01T15:58:16.214Z",
+      "mode": "s02",
+      "label": "view-hello-workflow",
+      "capMs": 360000
+    }
+  ],
+  "nativeExitCounts": {
+    "0": 33,
+    "1": 4
+  },
+  "exit1Meaning": "Four truthful run_result owner not_found refusals for four expected blocked Runs; every other native CLI exited0.",
+  "timedOut": false,
+  "finalRuntimeLockAbsent": true,
+  "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/tmp/abiogenesis-event-store-locks-v5/16777230-464244056.lock",
+  "maxCliPeakRSSBytes": 2058878976,
+  "maxCliPeakRSSRecord": "s02-view-hello-gate-native-process.json",
+  "closureBasis": "Every actual native CLI reaped by observer wait4; each wrapper reaped by driver close; driver reaped by supervisor wait4. All owned PID probes are retained with denied observations explicit."
+}

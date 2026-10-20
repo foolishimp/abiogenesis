@@ -1,3 +1,5 @@
+import type { RuntimeEventPrefix } from "./event_prefix.js";
+import type { RuntimeEventScan } from "./runtime_history.js";
 import { projectSelectedActionOperation, continuationOperationWorkspaceCorresponds } from "./construction_continuation.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { Sha256Digest } from "../shared/digests.js";
@@ -13,7 +15,7 @@ import {
   type RuntimeEvent,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -75,8 +77,14 @@ export type EffectfulPublicInvocationTruth =
       artifactTruthCode: ExactPrefixArtifactTruthProjectionRefusalCode | null;
     }>;
 
+/** @internal The owned input is distinct from a Public full-prefix output. */
+type OwnedExplicitInvocationTruthPrefix = DurablePrefixCoordinate | RuntimeEventPrefix;
+/** @internal */
+export type OwnedEffectfulPublicInvocationTruth = EffectfulPublicInvocationTruth extends infer T ? T extends { prefix: unknown }
+  ? Omit<T, "prefix"> & { readonly prefix: OwnedExplicitInvocationTruthPrefix } : never : never;
+
 function invalidHistory(
-  prefix: ExplicitInvocationTruthPrefix,
+  prefix: OwnedExplicitInvocationTruthPrefix,
   invocationRef: string,
   code: Extract<
     EffectfulPublicInvocationTruth,
@@ -84,7 +92,7 @@ function invalidHistory(
   >["code"],
   eventRefs: readonly string[] = [],
   artifactTruthCode: ExactPrefixArtifactTruthProjectionRefusalCode | null = null,
-): EffectfulPublicInvocationTruth {
+): OwnedEffectfulPublicInvocationTruth {
   return deepFreeze({
     kind: "effectful_public_invocation_truth_invalid_history" as const,
     schemaVersion: "5.0.0" as const,
@@ -100,17 +108,27 @@ function invalidHistory(
 export function projectEffectfulPublicInvocationTruthAtPrefix(
   prefix: ExplicitInvocationTruthPrefix,
   invocationRef: string,
-): EffectfulPublicInvocationTruth {
-  let events: readonly RuntimeEvent[];
+): EffectfulPublicInvocationTruth;
+/** @internal */
+export function projectEffectfulPublicInvocationTruthAtPrefix(
+  prefix: OwnedExplicitInvocationTruthPrefix,
+  invocationRef: string,
+): OwnedEffectfulPublicInvocationTruth;
+export function projectEffectfulPublicInvocationTruthAtPrefix(
+  prefix: OwnedExplicitInvocationTruthPrefix,
+  invocationRef: string,
+): OwnedEffectfulPublicInvocationTruth {
+  let events: RuntimeEventScan;
   let artifactRows: readonly Readonly<{
     operationId: string;
     invocationRef: string;
     invocationDigest: string;
     admissionEventRef: string;
   }>[];
-  if (prefix.kind === "validated_runtime_event_prefix") {
+  if (prefix.kind === "runtime_validation_event_prefix") return invalidHistory(prefix, invocationRef, "prefix_invalid");
+  if (prefix.kind === "validated_runtime_event_prefix" || prefix.kind === "owned_runtime_event_prefix") {
     try {
-      events = runtimeEventsFromValidatedPrefix(prefix);
+      events = runtimeEventBodiesAtPrefix(prefix);
       artifactRows = projectArtifactTruth(prefix).artifacts;
     } catch {
       return invalidHistory(
@@ -121,7 +139,7 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
     }
   } else {
     try {
-      events = runtimeEventsFromValidatedPrefix(
+      events = runtimeEventBodiesAtPrefix(
         selectValidatedRuntimeEventPrefix(
           readRuntimeEventsAtDurablePrefix(prefix),
         ),

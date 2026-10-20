@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "capturedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/test-postimages-04/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "sha256": "d6090750306ce5a58d1071a14cee7deb11616446ab635684924c8d3e7fa7f1a6",
+    "byteCount": 10612,
+    "failedCutPreimageSha256": "b6ccb22c2c9e67472558a8ad2501a65386d5f746b5d1c0ddc43c175d6117c03a"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "capturedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/test-postimages-04/test_env/tests/t287-event-body-encoding.test.mjs",
+    "sha256": "27ba114391e22a0af70c7b99c6b4379c39b16d31cd7729b96a75bad00dcd888f",
+    "byteCount": 38481,
+    "failedCutPreimageSha256": "81278a3b1ef02f80b68eee841ef551926639d95d41ca0970f2aa901f41ed675b"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "capturedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/test-postimages-04/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "sha256": "83f7863c48788f125cce23ca433a459544b6dacee76a6f99d2040a614efff4b9",
+    "byteCount": 24037,
+    "failedCutPreimageSha256": "03b0373acd2b2ba15fe7597de4a68f02a39314cc07ff82987d2b6eb417638683"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "capturedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/test-postimages-04/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "sha256": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a",
+    "byteCount": 10486,
+    "failedCutPreimageSha256": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a"
+  }
+]

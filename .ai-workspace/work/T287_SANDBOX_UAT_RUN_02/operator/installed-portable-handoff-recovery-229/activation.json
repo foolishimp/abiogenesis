@@ -1,0 +1,32 @@
+{
+  "role": "Operator229",
+  "grant": "Root ONE actual verified31 interruption maintenance / portable closeHandoff value /29-owned resource /29 published preserving run-stopped /Source41 /normalclose; no model/native/app invocation",
+  "basis": "fixed15 ABI5.0 GOAL035/T287 STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "selectedRCAAction": "Root conjoined223 retention/contract RCA and accepted225/226 portable-close repair +227/228 immutable publication. Maintenance31 returns a value handoff;29 cold-acquires its own nominal owner. Preserve198 separately retained immutable receipts. No Product/schema/limit change.",
+  "conjoinedPublication228": {
+    "returnSha256": "42158a62b4768f0649957ec6405d7e63c4aa4d427278d36d9c22e07ccaabb280",
+    "freezeSha256": "0741321381af04a0185ddf39eade09de77fece7e47532bade82e50fdf3dc1d1c"
+  },
+  "originCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recover-stop-source.mjs",
+    "sha256": "73df318ebe7ccda0d86edbfdb638faed9528092e484b3f2eb28fa6b93df232bf",
+    "byteCount": 23017
+  },
+  "selectedResource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recovered-close-handoff.json",
+    "sha256": "10a1f7047255f068840dd33f8d01763941287ed913e4fad55705e82b3325ce05",
+    "byteCount": 1472
+  },
+  "expectedCurrent": {
+    "byteLength": 2142089296,
+    "digest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277"
+  },
+  "limits": {
+    "outerMs": 19260000,
+    "outerBytes": 536870912,
+    "stockHeap": true,
+    "inheritedEnvironment": true
+  },
+  "noNativeQualityClock": true
+}

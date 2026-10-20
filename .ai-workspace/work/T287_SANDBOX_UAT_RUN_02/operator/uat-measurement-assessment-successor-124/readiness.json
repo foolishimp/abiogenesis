@@ -1,0 +1,161 @@
+{
+  "status": "CLOSED PUBLICATION READINESS; no native release or qualification",
+  "source120Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-repair-120/freeze.json",
+    "sha256": "f6680e8d617409ecb7c4c45871b805fd797acb2ba802545a1b852ae783261a45",
+    "byteCount": 12076
+  },
+  "reusedBuildOnly": true,
+  "additionalBuildCount": 0,
+  "actualPackCount": 1,
+  "actualOfflineInstallCount": 1,
+  "actualInstalledArtifactVerificationCount": 1,
+  "identity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-24/identity.json",
+    "sha256": "afce266d1bf8a15b9b6f3439376dfd7bc579f8c0253572ce8629d597d373745c",
+    "byteCount": 4266
+  },
+  "exacthost": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host-preparation/exacthost-identity.json",
+    "sha256": "b6b308b670aeecbf5b37cd5c2318b25f74005d0c03b047aca7004c617fa8b72f",
+    "byteCount": 3193
+  },
+  "source120Postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "aaf274e2585130ded1c637b1c34317fb8bd7f277281ae96d3f5d2de428ee6c7a",
+      "byteCount": 51621
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "c07c875fffb72e9c5f1659917e4e860ab6e88934a59590ede1bd031c2da85a33",
+      "byteCount": 31896
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "0d47b1cc1f15fbf821ae3e7e4803bca491ce2abbbc8e123c3c10f4a04431837c",
+      "byteCount": 143466
+    }
+  ],
+  "generated": {
+    "count": 934,
+    "changed": 3,
+    "unchanged": 931,
+    "declarationsUnchanged": true
+  },
+  "package": {
+    "count": 5265,
+    "unchanged": 5262,
+    "exactChanged": 3,
+    "pathsTypesModesEqual": true,
+    "metadataDependenciesEqual": true,
+    "externalFixtureExclusionExact": true
+  },
+  "canonicalOwnerParity": {
+    "kind": "bounded_deterministic_generation_parity",
+    "productContentDigest": "sha256:0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+    "payloadMembers": 5263,
+    "publicCatalogRows": 75,
+    "capabilityCount": 16,
+    "catalogDigest": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7",
+    "contributionManifestDigest": "sha256:9bb4fc769b3e8819c2e7c8d9682583525fc61d833008672560a7ec534cbb1b3a",
+    "capabilityGraphCoordinate": {
+      "assetLocator": {
+        "contentDigest": "sha256:d947891110a8f3c80b7cd3c4f2b18128fa55fb7d21a90bc9526bd5878520af4d",
+        "mediaType": "application/json",
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "schemaVersion": "5.0.0"
+      },
+      "graphDigest": "sha256:82caff37f03dae389dd54d63b37ab5ba3c0382e3b225bea97f24f6ffc67c728c",
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0"
+    },
+    "assetLocationsVerified": 53,
+    "declarationInventoryDigestLocationsVerified": 14352,
+    "currentNativeRuntimeAssetMatchesOwnedEventCalculus": true,
+    "noBuildTestRuntimeAdmissionOrQualificationClaim": true,
+    "canonicalManifestDigest": "sha256:656dd1c49614336e87a6b859537a771e136d6efba8faa894f9498fa941a7df25",
+    "rawManifestDigest": "sha256:eff1f1ea632fc735ceb9e90cec6a431d5e52a122a0b26c211fc30754bc1af286",
+    "catalogDifferenceCount": 0,
+    "publicNonDigestMetadataUnchanged": true,
+    "publications": 10,
+    "contributions": 47,
+    "contributionDifferenceCount": 61,
+    "completeContributionValueReconstructed": true
+  },
+  "nativeDeclarationCatalogParity": {
+    "nativeClosures": 15,
+    "nativeLocatorRows": 50,
+    "nativeTypedContractDigestsRecomputed": 23,
+    "publicCatalogOwnerBindingComplete": true,
+    "publicProposalRows": 21,
+    "capabilityDifferenceCount": 310,
+    "capabilityDifferenceKeyCounts": {
+      "graphDigest": 1,
+      "capabilityDefinitionDigest": 34,
+      "capabilityDefinitionRef": 34,
+      "productContentDigest": 241
+    },
+    "allDeclarationBytesUnchanged": true,
+    "noSourceSemanticOrRuntimeClaim": true
+  },
+  "actualInstalledContentMatches": true,
+  "receipts": {
+    "pack": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/commands/pack.result.json",
+      "sha256": "a1c4839a229763bee2e177397c08160c39b5132f431a88bf58318da13faba73c",
+      "byteCount": 863
+    },
+    "essential-parity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/commands/essential-parity.result.json",
+      "sha256": "41688fa83d3b1a152a73fe0dc10ce5db96a7cdac9021aec1f566aeb50ee97457",
+      "byteCount": 2040
+    },
+    "metadata-parity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/commands/metadata-parity.result.json",
+      "sha256": "75916042d715808aa74cb228f95868bfe173e53e88d449d34f78008b93c2e12e",
+      "byteCount": 981
+    },
+    "member-comparison": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/commands/member-comparison.result.json",
+      "sha256": "95290edc796c76c6abba84f54907de8947a5c17dd283d87db669d19a3a1e8a45",
+      "byteCount": 831
+    },
+    "extracted-joins": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/commands/extracted-joins.result.json",
+      "sha256": "135d117d203464217b1b4995b7247380f511b60134f93c212d79cada82ed5cf4",
+      "byteCount": 638
+    },
+    "clean-host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/commands/clean-host.result.json",
+      "sha256": "be36b81ec383b0f77d1656040229c45dceb61ed49eb4c49507e6133d118a2ea0",
+      "byteCount": 1057
+    },
+    "config-validation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/commands/config-validation.result.json",
+      "sha256": "f921896115cc6954a14ef5337d1b655277a2dc5814c8b540cd83f0c42319878c",
+      "byteCount": 1828
+    }
+  },
+  "resumeConfig": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/resume-config.json",
+    "sha256": "9fbca1db1155351fd5b28a613ec786a84e268257767a6333c748b4e4f285bd09",
+    "byteCount": 2991
+  },
+  "setup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/setup.json",
+    "sha256": "4086dd8b70fb4a785a40f26e473d018d10c9ad26d875d2132cfb7b25be1e4a51",
+    "byteCount": 3026
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/selected-conservation.json",
+    "sha256": "e3c9a9e4f913db90047e7d2da5e3e5c002154bfe24167906dfe385ae00e6475b",
+    "byteCount": 2392
+  },
+  "providerOwnerConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/provider-owner-conservation.json",
+    "sha256": "a02b6cc91d50dc988e551550905696e5e2153dfec1d0b1c634736a3d16b8b9f7",
+    "byteCount": 5108
+  },
+  "limits": "Source and package readiness only; no model, native invocation/source-result reuse, application proof, full UAT, global capacity, P0 closure, qualification or release claim. Independent publication review and accepted122 before dispatch."
+}

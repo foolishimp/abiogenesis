@@ -1,0 +1,14 @@
+{
+  "label": "positive/renderer",
+  "pid": 64599,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/fresh-renderer.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/positive/owner-output.json"
+  ],
+  "startedAt": "2026-09-30T05:06:02.012Z",
+  "code": 0,
+  "signal": null,
+  "elapsedMs": 22.186165999999503,
+  "exitObserved": true
+}

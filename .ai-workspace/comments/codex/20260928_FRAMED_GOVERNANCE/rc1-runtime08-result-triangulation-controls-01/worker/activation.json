@@ -1,0 +1,59 @@
+{
+  "status": "ACTIVE",
+  "role": "Worker technical frame",
+  "operation": "T287_RUNTIME08_RESULT_CONTRACT_TRIANGULATION_01",
+  "actor": "/root/q03_input_review",
+  "allSevenSectionsRead": true,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/worker-request.txt",
+    "bytes": 3532,
+    "sha256": "b74aa0807e5f94ba7769291d1b57c4bc0330d04f3d1472767a92cc6d1528f3a9",
+    "mode": 420
+  },
+  "dependencies": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/input-acceptance.json",
+      "bytes": 12693,
+      "sha256": "5ed6404c7bb1292573b627501ce952e690f63008108b10cb1b861e41f09f7fe8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+      "bytes": 20126,
+      "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708",
+      "mode": 420
+    }
+  ],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/worker"
+  ],
+  "startedAt": "2026-10-02T11:38:04.696658+00:00",
+  "ProductFrame": {
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "fixedFeatures": 15,
+    "features": [
+      "F04",
+      "F11",
+      "F15"
+    ],
+    "goal": "GOAL035",
+    "workItem": "T287",
+    "WHAT": "Native output admission must preserve typed judgment, original task/plan/law/actor/prefix/evidence lineage; a rejected candidate is not J.",
+    "HOW": "Bounded exact producer/guard/consumer tracing and necessary pure structural discrimination only.",
+    "scopeClass": "technical inspection; reentry recommendation pending evidence"
+  },
+  "independentAssurance": false,
+  "authorshipResidual": "This actor authored the C07 GTL/test source increment and Q09 preparation; it cannot independently assure those realizations.",
+  "prohibitedEffects": [
+    "implementation",
+    "build",
+    "owner",
+    "resourceopen",
+    "helper",
+    "Run",
+    "qualification",
+    "Git",
+    "provider",
+    "retry"
+  ]
+}

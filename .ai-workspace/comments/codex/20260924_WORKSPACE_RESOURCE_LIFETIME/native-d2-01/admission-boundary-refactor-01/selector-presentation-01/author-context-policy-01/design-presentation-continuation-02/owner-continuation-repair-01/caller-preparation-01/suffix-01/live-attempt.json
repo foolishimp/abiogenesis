@@ -1,0 +1,40 @@
+{
+  "startedAt": "2026-09-25T15:30:17.494Z",
+  "launchDigest": "sha256:992e36378bdd8931350dd86a887b01c935609cf9255f63c3312a4997b1dcd8e5",
+  "preparedLaunchDigest": "sha256:decf87b4846bfb59fd9c0046ce49b3bc8d885b74590104e8bc7f5eecffd7a8b8",
+  "afterReceiptPath": null,
+  "installedBefore": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5c34c976ba905ec4c4024c308e9fc18a4ba15be2a536ac006255414107840e91/b9a567ce4d78782fb5010bad257abeaf8289a124b66bf071947cbd6d2981e981",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "productContentDigest": "sha256:5c34c976ba905ec4c4024c308e9fc18a4ba15be2a536ac006255414107840e91"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/b9a567ce4d78782fb5010bad257abeaf8289a124b66bf071947cbd6d2981e981",
+      "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.15",
+      "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e"
+    }
+  ],
+  "transport": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "5"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:64d2a2e971603ad180dab7a009392bb71004f4cec7ce85e525bdda386e2bab44"
+  }
+}

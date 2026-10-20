@@ -1,0 +1,99 @@
+{
+  "status": "PUBLIC_ROOT_AND_WITNESS_ADMITTED",
+  "sourceRun": {
+    "digest": "sha256:63a3f3048de463796332f89c159b15262a321719239895574d3046605d22feee",
+    "ref": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:6a3e7700cfe9e1badc79166753a3a1646f2ce3d143c8eea58a8a6bcef64e189b",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:fa48db8aba07673ebdb3cde85006e5c98a6574c134819bf8f83864b19dd3229c",
+    "prefixLength": 216334690,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "currentWitnessProduct": {
+    "artifactDigest": "sha256:758321d64dcbac39855f1bb95bafce90fb49148c202c7f60adb62d3af9cbf009",
+    "productContentDigest": "sha256:2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f",
+    "manifestDigest": "sha256:36bf7a6ad3beec53bf904fc5a654566d1598b15eb06bc86f6550475144d3ad22",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "reusedSourceRoot": {
+    "call": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/witness-01/calls/00-original-public-run-status.json",
+      "sha256": "896a92b3f415b9283ee621bdf4364dcc0707d710f2aa1cb8fdd744608a82cb30"
+    },
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/witness-01/receipts/00-original-public-run-status.json",
+      "sha256": "911c45096d621a1c0373de59e40847da09403e121ff88f6784940946b5a6b6ac"
+    }
+  },
+  "root": {
+    "ref": "execution-basis://abiogenesis/3b289e0a6c901b962dbe487fb98ab9872a76005cdf93555c0779bc72b167906e",
+    "digest": "sha256:3b289e0a6c901b962dbe487fb98ab9872a76005cdf93555c0779bc72b167906e"
+  },
+  "W0": {
+    "ref": "workspace-binding://abiogenesis/834644a1529d32cbcbda1137c0361f25903879b73f6263a9247ee8ef7be94c7e",
+    "digest": "sha256:834644a1529d32cbcbda1137c0361f25903879b73f6263a9247ee8ef7be94c7e"
+  },
+  "W1": {
+    "ref": "workspace-binding://abiogenesis/ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132",
+    "digest": "sha256:ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132"
+  },
+  "statusInvocation": "invocation://abiogenesis/ff1d738f527dcd645519439cb62033495e45d1e46ca08ca0cbefb2622f9f541b",
+  "witnessInvocation": "invocation://abiogenesis/670b84e53f25a4f94b1dcaa5e1392fef93ebe26323d5f0f4d59a2e5bdefe08b4",
+  "witness": {
+    "outcomeKind": "result",
+    "value": {
+      "act": "reprice",
+      "witnessedAct": {
+        "ref": "witnessed-act://abiogenesis/c9efe4bc064484175a424b2a0a52ddfb8603af41769ea658f131bead2edf5ad3",
+        "digest": "sha256:c9efe4bc064484175a424b2a0a52ddfb8603af41769ea658f131bead2edf5ad3"
+      },
+      "admittedEvent": {
+        "ref": "event://abiogenesis/04a5bb6e7655bbf80ebf1c4a23dd3a26dc219540277d90a7bee5ebdfb52e3767",
+        "digest": "sha256:04a5bb6e7655bbf80ebf1c4a23dd3a26dc219540277d90a7bee5ebdfb52e3767"
+      },
+      "evidence": [
+        {
+          "ref": "workspace-binding://abiogenesis/834644a1529d32cbcbda1137c0361f25903879b73f6263a9247ee8ef7be94c7e",
+          "digest": "sha256:834644a1529d32cbcbda1137c0361f25903879b73f6263a9247ee8ef7be94c7e"
+        },
+        {
+          "ref": "workspace-binding://abiogenesis/ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132",
+          "digest": "sha256:ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132"
+        }
+      ]
+    }
+  },
+  "successorPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "prefixLength": 318405346,
+    "prefixDigest": "sha256:9ff23aef7ec406ae15caff6f9981020081e856ca2aab96d5644622c2d17d67f4",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 459405010,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+    },
+    "coordinateDigest": "sha256:b9010bdc61721abce6929847dbc9375af7f711fda76e8c10ed1411b59d0b940d"
+  },
+  "calls": [
+    {
+      "label": "original-root-binding-reprice",
+      "definitionKey": {
+        "operationId": "abg.operation.witness.admit",
+        "memberKey": "reprice"
+      },
+      "invocationRef": "invocation://abiogenesis/670b84e53f25a4f94b1dcaa5e1392fef93ebe26323d5f0f4d59a2e5bdefe08b4"
+    }
+  ]
+}

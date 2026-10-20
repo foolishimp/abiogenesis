@@ -1,0 +1,212 @@
+{
+  "status": "FROZEN",
+  "role": "HarnessWorker122",
+  "selectedFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": "main727f1dbc / fixed15 ABI5 GOAL035 T287 / STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "triage": "Root-conjoined121: actual118 C2 helper snapshot reports versus oracle application-root acquisition; no criterion/producer migration selected",
+  "changes": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/preimages/independent-oracle.mjs",
+        "sha256": "f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+        "byteCount": 23659
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+        "sha256": "4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b",
+        "byteCount": 25236
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/preimages/harness.test.mjs",
+        "sha256": "de913911b9347fc63615ded0a41a12d09ee60794e1d8c03c10f4780ef811de4a",
+        "byteCount": 51551
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+        "sha256": "5c027de1834f5dd5b36b7b93c7c2771f47d233b85af5fccb47d2f75109cb4101",
+        "byteCount": 67591
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/preimages/README.md",
+        "sha256": "c859e95c9b504a3b07faa612f9164519043f8966e7e76bc3d0c8d8a711b45c4e",
+        "byteCount": 2041
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/README.md",
+        "sha256": "e6d7555654f8a31334b686a0098a828454ee540b5e0a31ad5f72881a355520e7",
+        "byteCount": 2983
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/preimages/scenarios.json",
+        "sha256": "c6d71578b4dfcce6b28b85cfeca78c132dc5582229fe7635880d27371ced2f03",
+        "byteCount": 34763
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+        "sha256": "22d433085d9d4cf81221e45d566442c391cc35cb3fa7238a36a6d416c63a71d9",
+        "byteCount": 34763
+      }
+    }
+  ],
+  "acquisitionSuccession": {
+    "onlySevenDerivedPairsChanged": true,
+    "allOtherJSONValuesEqual": true,
+    "pairs": [
+      {
+        "scenario": "basic-cli",
+        "digest": {
+          "before": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "after": "sha256:4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b"
+        },
+        "byteCount": {
+          "before": 23659,
+          "after": 25236
+        }
+      },
+      {
+        "scenario": "js-tenant-test",
+        "digest": {
+          "before": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "after": "sha256:4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b"
+        },
+        "byteCount": {
+          "before": 23659,
+          "after": 25236
+        }
+      },
+      {
+        "scenario": "js-sdlc-bootstrap",
+        "digest": {
+          "before": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "after": "sha256:4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b"
+        },
+        "byteCount": {
+          "before": 23659,
+          "after": 25236
+        }
+      },
+      {
+        "scenario": "rust-cli",
+        "digest": {
+          "before": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "after": "sha256:4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b"
+        },
+        "byteCount": {
+          "before": 23659,
+          "after": 25236
+        }
+      },
+      {
+        "scenario": "rust-service",
+        "digest": {
+          "before": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "after": "sha256:4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b"
+        },
+        "byteCount": {
+          "before": 23659,
+          "after": 25236
+        }
+      },
+      {
+        "scenario": "parallel-js",
+        "digest": {
+          "before": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "after": "sha256:4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b"
+        },
+        "byteCount": {
+          "before": 23659,
+          "after": 25236
+        }
+      },
+      {
+        "scenario": "data-mapper-full",
+        "digest": {
+          "before": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "after": "sha256:4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b"
+        },
+        "byteCount": {
+          "before": 23659,
+          "after": 25236
+        }
+      }
+    ]
+  },
+  "READMEPreimagePrefixUnchanged": true,
+  "checks": [
+    {
+      "label": "syntax-oracle",
+      "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/commands/syntax-oracle.request.json",
+      "result": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/commands/syntax-oracle.result.json",
+      "exitCode": 0,
+      "wallMs": 23.057833000000002
+    },
+    {
+      "label": "syntax-harness",
+      "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/commands/syntax-harness.request.json",
+      "result": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/commands/syntax-harness.result.json",
+      "exitCode": 0,
+      "wallMs": 20.066208999999994
+    },
+    {
+      "label": "focused-harness",
+      "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/commands/focused-harness.request.json",
+      "result": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/commands/focused-harness.result.json",
+      "exitCode": 0,
+      "wallMs": 811.822667
+    }
+  ],
+  "testSelection": "^(Owned XML|Owned report repair|Seven exact original workloads|Source-use attribution refuses)",
+  "counts": {
+    "tests": 13,
+    "pass": 13,
+    "fail": 0,
+    "skip": 0
+  },
+  "authenticReference": {
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418",
+    "store": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418/resources/events/runtime.events.jsonl",
+    "storeStatByteCount": 24516728,
+    "admissionOrdinal": 1738,
+    "offset": 11164798,
+    "byteCount": 1791926,
+    "sha256": "4fc78ef2fdfc62581d93157bc6a8545d4f9696c4d1bc9feab3dcd0a4db605e4d",
+    "runRef": "run://abiogenesis/c8e518744ee561de31bb98fb8f2b07f512e654caa33684acb22541710a8fb0e5",
+    "authenticatedBy": "bounded exact slice + published C2 task/result judgment; literal XML digest/length checks"
+  },
+  "readOnlyOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+      "byteCount": 36805
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "byteCount": 7569
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+      "sha256": "0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa",
+      "byteCount": 109703
+    }
+  ],
+  "claims": [
+    "selected current original command keeps its validated observation, plan and report tuples",
+    "eight authentic118 XMLs acquired outside app: named report identities/floor/depth-name joins satisfy; full UAT remains unmet",
+    "controlled consumer-only fixtures reject digest/length/path/set/symlink/source failures, latest red cannot use old green/depth names, episodes cannot borrow unrelated archived XML or multiply one kill",
+    "six original Hello mechanical command/source cases and exact acquisition guards preserved",
+    "original request/rubric/source/policy JSON values, distinct sixteen-mutant and dynamic episode criteria unchanged"
+  ],
+  "limits": [
+    "controlled fixtures have explicit lower owner-validation/artifact premises, no native admission or semantic UAT credit",
+    "authentic118 is historical on its original Run; no candidate24/source binding reuse claim",
+    "no provider/native/application/build/package/runner/120source/Git effects",
+    "native UAT context/body sufficiency and whole installed original UAT remain runtime reproof obligations"
+  ]
+}

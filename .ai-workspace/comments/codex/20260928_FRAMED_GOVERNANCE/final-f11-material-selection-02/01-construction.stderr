@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/construct-selection.py", line 150, in <module>
+    assert start>=0,('selection reason anchor absent',ref,anchor)
+           ^^^^^^^^
+AssertionError: ('selection reason anchor absent', 'repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts', 'frame_opened')

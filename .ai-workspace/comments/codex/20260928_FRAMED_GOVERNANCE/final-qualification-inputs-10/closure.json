@@ -1,0 +1,10 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_10",
+  "workResult": "NO_GO_PACKET_PREPARATION_EXTERNAL_BYTE_BUDGET",
+  "closedAt": "2026-10-02T17:04:24.448223+00:00",
+  "writesStoppedAfterFreeze": true,
+  "returnsTo": "Root Executive",
+  "noRetryOrRepair": true
+}

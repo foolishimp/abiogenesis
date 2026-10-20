@@ -1,0 +1,69 @@
+{
+  "kind": "reference_frame_evaluation_result",
+  "activationId": "T287_RC1_S02_SUBSTITUTION_REVIEW_01",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "status": "CLOSED",
+  "result": "satisfied",
+  "actor": "/root/rc1_s02_review",
+  "capabilityEnvelope": "Independent Product/Design/Integration/Identity/Effects/Proof inspection of one exact installed deterministic graph-substitution execution. No runtime operation grant.",
+  "basis": {
+    "workGovernance": "stdo://releases/v2.5.1-rc.2/",
+    "qualificationLaw": "C02/Q02 named immutable RC1 basis",
+    "workerFreezeSha256": "563a3db9354aac6616a42ce8350defb1fa9a27da1acd6c8bcae4adc149e74012",
+    "candidateFreezeSha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+    "archiveDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+    "productDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01",
+      "freezeSha256": "563a3db9354aac6616a42ce8350defb1fa9a27da1acd6c8bcae4adc149e74012",
+      "returnSha256": "a0dc22a22705c0dfcb2e74f61b86bfd994c25b55aa5bfdd22ebd52dab3be4b9d",
+      "recordCount": 6024,
+      "fileBytes": 721060002
+    }
+  },
+  "semanticAuthority": "Current Product/S02, REQ-L-GTL3-SUBSTITUTE, REQ-P-QUAL-064A and accepted direct-GTL realization",
+  "evaluationAuthority": "Separately granted independent Reviewer; exact RC2 frame method",
+  "operationAuthority": "Report-only Writer only in this review directory; original Product/ABG operation owners retain effects/admission",
+  "decisionAuthority": "Root Executive owns bounded acceptance and coverage disposition; native F11/sole AF22 retain qualification authority",
+  "claims": [
+    {
+      "claim": "contract/context sufficiency",
+      "result": "satisfied",
+      "scope": "One fixed World input, exact C02 graph-substitution positive, original native receipts and cold reads"
+    },
+    {
+      "claim": "actual producer-consumer congruence",
+      "result": "satisfied",
+      "scope": "One fixed World input, exact C02 graph-substitution positive, original native receipts and cold reads"
+    },
+    {
+      "claim": "exact native path",
+      "result": "satisfied",
+      "scope": "One fixed World input, exact C02 graph-substitution positive, original native receipts and cold reads"
+    },
+    {
+      "claim": "ordinary source-blind deterministic typed-caller usability",
+      "result": "satisfied",
+      "scope": "One fixed World input, exact C02 graph-substitution positive, original native receipts and cold reads"
+    }
+  ],
+  "findings": [],
+  "recommendation": "Accept only the bounded installed S02 graph-substitution positive; no new runtime repair indicated.",
+  "residualUncertainty": [
+    "Current OS process enumeration unavailable because sandbox denied ps; original wait4/observer closure verified and actual lock absent.",
+    "Other input populations, nearest-negative/malformed/remaining S02 and whole-Product sufficiency unproved.",
+    "Arbitrary LLM user/assessment usability unexercised; deterministic native caller only.",
+    "Observed memory/compute cost, not capacity or performance acceptance."
+  ],
+  "invalidation": [
+    "Changed qualifying Product/Program/GraphFunction/law/owner contract/selected catalog/view/input/authority/event-prefix/evidence bytes",
+    "Material rival runtime path or counterexample undermining this exact selected relation",
+    "Missing actor independence or changed grant territory"
+  ],
+  "evidence": [
+    "evidence.json",
+    "return.md"
+  ],
+  "consumingConjunction": "Root Executive folds bounded claim into existing exact-candidate coverage schedule; F11 later judges complete same-subject applicability and sufficiency",
+  "closedAt": "2026-10-01T15:18:17.540111+00:00"
+}

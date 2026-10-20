@@ -1,0 +1,12 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_TYPED_SOURCE_ACCEPTANCE_C09_RELEASE_WRITER_01",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-source-acceptance-c09-release-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md append only"
+  ],
+  "grant": "Conjoin exact independent Source GO and physical C08 GO, accept typed component and release prepared C09 construction dependency.",
+  "returnsTo": "Executive"
+}

@@ -1,0 +1,42 @@
+{
+  "status": "CLOSED ordinary caller construction; actual admission pending",
+  "invocation": {
+    "ref": "invocation://abiogenesis/ad4a5a381de6b084051ccbfc8ba6db3ba830f0322843e71fd6c7df50ea37aa1b",
+    "digest": "sha256:ad4a5a381de6b084051ccbfc8ba6db3ba830f0322843e71fd6c7df50ea37aa1b"
+  },
+  "sourceRun": {
+    "digest": "sha256:63a3f3048de463796332f89c159b15262a321719239895574d3046605d22feee",
+    "ref": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:6a3e7700cfe9e1badc79166753a3a1646f2ce3d143c8eea58a8a6bcef64e189b",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:fa48db8aba07673ebdb3cde85006e5c98a6574c134819bf8f83864b19dd3229c",
+    "prefixLength": 216334690,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "currentPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "prefixLength": 366073203,
+    "prefixDigest": "sha256:321867b91a29948c0adb3fac115baa5a4aed6aa0dd7795bcbdf321ad5b2008f3",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 459405010,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+    },
+    "coordinateDigest": "sha256:fc88b4986b47e716a95d694e42098d7313a28e132556d212dc45e2cc27696593"
+  },
+  "witnessInvocation": "invocation://abiogenesis/229ac60d74281e4c75a7cc7b49639436e3303c8261c65bedaea876899e34b422",
+  "requestUnchanged": true,
+  "resourceChange": "actual witness close and dependent transport slot through definitionCall",
+  "basisPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/readback-basis.json",
+  "basisSha256": "sha256:0bd0a4c348c1697abae681f7151a3cc8554e1203416842b87d89db939634d12d"
+}

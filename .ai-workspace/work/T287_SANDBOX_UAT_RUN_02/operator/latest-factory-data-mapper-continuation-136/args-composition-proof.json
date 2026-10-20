@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "classification": "Installed-owner argument/plan composition only; no model/actor/Run/native admission",
+  "operatorControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+    "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+    "byteCount": 1723
+  },
+  "capturedBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "offset": 1404602415,
+    "byteCount": 1525455,
+    "sha256": "9ffa301518dfa88608c7a95b3249e9b2448af1e68a86769a5d20e5adbbe9efa9",
+    "ref": "transport-binding://abiogenesis/7b7008609a2bb627e9ec9bc8cd623abf8d1e6692fa7b862f96bbc35d8c59eb91"
+  },
+  "prompt": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b830cf5f7334bb57-prompt.txt",
+    "sha256": "b75699fd92274cee14608eca90e1a427dfee8df78068f97044ec725247c7c03b",
+    "byteCount": 722105,
+    "unchangedHistoricalDeadline": true
+  },
+  "contractDigest": "sha256:830d1c231cb9b01d349e10c43ff9a644ca434faabf682640783118b088d010d7",
+  "argumentDigest": "sha256:2d72ee870ef4176aca52cb07fff0b17026f1430a91b1a4373332ca56ad7ba71e",
+  "planDigest": "sha256:69c356f0f68737fc993a24e4debc475b50d3eadfb9747ac4257507a9b48569e4",
+  "canonicalResponseDigest": "sha256:c7cc8d29fbd93cc559e9c41400478d36dda1c8fb72edaef84b3a2df9f04c5ed2",
+  "carrierResponseDigest": "sha256:d73cbf4ed4df16e61e0c8e53ae8aba44a9a399d7c6a4582713a56d8a24031a8b",
+  "exactlyOneAppendSystemPrompt": true,
+  "appendDeclarationExact": true,
+  "baseArgumentsEqualCapturedNativeBinding": true,
+  "strictSchemaProtocolToolsAndLimitsUnchanged": true,
+  "schemaWitness": "Actual authenticated binding argument reproduces byte-for-byte; deep equality to canonical assembly request and full schema root fields retained",
+  "effectiveConfigurationDifference": "provider.appendArgs only",
+  "environmentNames": [
+    "ABG_TS_CLAUDE_APPEND_ARGS",
+    "ABG_TS_CLAUDE_COMMAND",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+    "ABG_TS_FP_TERMINATION_GRACE_MS",
+    "ABG_TS_FP_TIMEOUT_MS",
+    "ABG_TS_WORKER_SANDBOX",
+    "CLAUDE_CODE_OAUTH_TOKEN",
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "staticPlanEnvironmentNames": [
+    "ABG_TS_CLAUDE_APPEND_ARGS"
+  ],
+  "credentialValues": "Not serialized, printed or hashed; static plan environment includes only non-secret argument policy",
+  "clockTest": {
+    "classification": "Synthetic timestamp for pure shared-control calculation only; not actual native start/checkpoint",
+    "nativeT0": "2026-10-09T00:00:00.000Z",
+    "qualityCheckpointUTC": "2026-10-09T05:00:00.000Z",
+    "durationMs": 18000000,
+    "anchor": "nativeCLIcommand.request.started"
+  },
+  "nativeDispatch": false
+}

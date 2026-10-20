@@ -1,0 +1,10 @@
+{
+  "stage": "audit-changed-pair-preparation",
+  "name": "Error",
+  "message": "current-source-use: null",
+  "stack": "Error: current-source-use: null\n    at Module.prepareInstalledContinuation (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/helpers/continuation.mjs:356:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/run-14.mjs:190:14",
+  "observation": null,
+  "completedPhases": [],
+  "normalClose": null,
+  "disposition": "STOP; Root RCA/action before retry"
+}

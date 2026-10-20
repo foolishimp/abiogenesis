@@ -12,6 +12,13 @@ import { isRunEnvironmentEvidence, type RunEnvironmentEvidence,
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { lstatSync, readFileSync, realpathSync } from "node:fs";
+import { isRunEnvironmentDeclaration } from "../gtl/stdo_run_environment.js";
+import { WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY } from "../gtl/worksite_command_execution.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
+import type { ProductInstall } from "./environment.js";
+import { parseProductManifest } from "./verify_product.js";
+import { modulePublicationSemanticDigest } from "./publication.js";
 
 const ref = v.pipe(v.string(), v.minLength(1));
 const path = v.pipe(ref, v.check(isAbsolute));
@@ -213,6 +220,94 @@ export function runEnvironmentRecordMembers(format: RunEnvironmentDeclaration["d
     throw new TypeError("invalid generic member inventory");
   return record.members;
 }
+
+function checkRunEnvironmentRecord(dependency: RunEnvironmentDeclaration["dependencies"][number], bytes: Buffer): void {
+  if (sha256Bytes(bytes) !== dependency.recordDigest ||
+      hash(runEnvironmentRecordMembers(dependency.recordFormat, bytes)) !== hash(dependency.members))
+    throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/dependencies/" + dependency.dependencyRef + "/record");
+}
+function checkRunEnvironmentMember(member: RunEnvironmentDeclaration["contexts"][number]["members"][number], bytes: Buffer): void {
+  if (bytes.length !== member.byteCount || sha256Bytes(bytes) !== member.digest)
+    throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/context/" + member.memberRef);
+}
+function checkedRunEnvironmentSpan(binding: RunEnvironmentDeclaration["roles"][number]["sourceBindings"][number], bytes: Buffer): Buffer {
+  if (binding.startByte < 0 || binding.startByte >= binding.endByte || binding.endByte > bytes.length ||
+      sha256Bytes(bytes.subarray(binding.startByte, binding.endByte)) !== binding.spanDigest)
+    throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/sourceBinding/" + binding.memberRef);
+  return bytes.subarray(binding.startByte, binding.endByte);
+}
+
+/** @internal Existing C2 material relation, consumed only by the private
+ * declaration comparison. Actual admitted installs are supplied by ABG; this
+ * function independently reads both installed materials and returns only a
+ * transient consumed meaning. It grants no install, source or receipt authority. */
+export function compareInstalledC2ContextMaterial(
+  historical: Readonly<ModulePublication>, current: Readonly<ModulePublication>,
+  historicalInstall: ProductInstall, currentInstall: ProductInstall,
+): JsonValue | null {
+  try {
+    const acquire = (publication: Readonly<ModulePublication>, install: ProductInstall) => {
+      if (publication.moduleRef !== "module://abiogenesis/worksite/command-execution@5" ||
+          install.kind !== "product_install" || install.disposition !== "admitted" || !install.admissionEventRef ||
+          install.productId !== publication.owningProductId || install.artifactDigest !== publication.artifactDigest ||
+          install.productContentDigest !== publication.productContentDigest || install.manifestDigest !== publication.productManifestDigest ||
+          !isAbsolute(install.installedRoot) || realpathSync(install.installedRoot) !== install.installedRoot)
+        throw new TypeError("C2 Context lacks its exact actual installed owner");
+      const file = (memberPath: string): Buffer => {
+        const absolute = resolve(install.installedRoot, memberPath), stat = lstatSync(absolute);
+        if (!inside(install.installedRoot, absolute) || !stat.isFile() || stat.isSymbolicLink() || realpathSync(absolute) !== absolute)
+          throw new TypeError("C2 Context material is not its canonical installed file");
+        return readFileSync(absolute);
+      };
+      const manifestBytes = file("product-toolchain-manifest.json");
+      const manifest = parseProductManifest(JSON.parse(new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(manifestBytes)));
+      if (manifest === null || hash(manifest) !== install.manifestDigest || manifest.productId !== install.productId ||
+          manifest.packageName !== install.packageName || manifest.packageVersion !== install.packageVersion ||
+          manifest.productContentDigest !== install.productContentDigest || manifest.descriptorRef !== install.descriptorRef ||
+          manifest.contributionManifestRef !== install.contributionManifestRef ||
+          manifest.contributionManifestDigest !== install.contributionManifestDigest)
+        throw new TypeError("C2 Context installed manifest differs from its admitted identity");
+      const bindings = manifest.contributionManifest.publicationBindings.filter(row => row.moduleRef === publication.moduleRef);
+      if (bindings.length !== 1 || bindings[0]!.publicationDigest !== modulePublicationSemanticDigest(publication))
+        throw new TypeError("C2 Context declaration differs from its installed publication");
+      const environments = publication.runEnvironments ?? [];
+      if (environments.length !== 1 || !isRunEnvironmentDeclaration(environments[0]))
+        throw new TypeError("C2 Context has no unique complete declaration");
+      const environment = environments[0];
+      if (environment.corpusAccess !== null || environment.accesses.length !== 0 || environment.dependencies.length !== 1 ||
+          environment.contexts.length !== 1 || environment.roles.length !== 1)
+        throw new TypeError("C2 Context has unproved consumption");
+      const dependency = environment.dependencies[0]!, context = environment.contexts[0]!, role = environment.roles[0]!;
+      if (dependency.recordFormat !== "member_inventory@1" || dependency.members.length !== 1 || context.members.length !== 1 ||
+          role.graphFunctionRef !== WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef || role.programLocusRef !== WORKSITE_COMMAND_EXECUTION_IDS.nodeRef ||
+          role.role !== "command_executor" || role.accessRefs.length !== 0 || role.sourceBindings.length !== 1 ||
+          role.contextPolicy.selectors.includes("full_source"))
+        throw new TypeError("C2 Context is not the declared renderer-only consumption");
+      const member = context.members[0]!, binding = role.sourceBindings[0]!, recordPath = WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.path;
+      if (manifest.productRelativeLocators.filter(path => path === recordPath).length !== 1 ||
+          manifest.productRelativeLocators.filter(path => path === member.path).length !== 1)
+        throw new TypeError("C2 Context material is outside its installed inventory");
+      checkRunEnvironmentRecord(dependency, file(recordPath));
+      const memberBytes = file(member.path);
+      checkRunEnvironmentMember(member, memberBytes);
+      const span = checkedRunEnvironmentSpan(binding, memberBytes);
+      if (span.length === memberBytes.length || !span.equals(Buffer.from(role.policy.text, "utf8")))
+        throw new TypeError("C2 Context consumption is not its complete identified renderer span");
+      // The value is private comparison meaning, never a rewritten declaration.
+      const { recordDigest: _recordDigest, inventoryDigest: _dependencyInventory, members, ...dependencyMeaning } = dependency;
+      const { inventoryDigest: _contextInventory, members: contextMembers, ...contextMeaning } = context;
+      const { memberDigest: _memberDigest, startByte: _startByte, endByte: _endByte, ...bindingMeaning } = binding;
+      const meaning = { ...environment,
+        dependencies: [{ ...dependencyMeaning, members: members.map(({ digest: _digest, ...member }) => member) }],
+        contexts: [{ ...contextMeaning, members: contextMembers.map(({ digest: _digest, byteCount: _byteCount, ...member }) => member) }],
+        roles: [{ ...role, sourceBindings: [{ ...bindingMeaning, consumedByteCount: span.length, consumedSource: span.toString("base64") }] }],
+      };
+      return { span, meaning };
+    };
+    const old = acquire(historical, historicalInstall), next = acquire(current, currentInstall);
+    return old.span.equals(next.span) && hash(old.meaning) === hash(next.meaning) ? old.meaning as unknown as JsonValue : null;
+  } catch { return null; }
+}
 export type RunEnvironmentObservation = Readonly<{ kind: "run_environment_observed"; evidence: RunEnvironmentEvidence | null }> |
   Readonly<{ kind: "run_environment_refusal"; cause: StdoEnvironmentRefusalCause; issuePath: string }>;
 export async function observeRunEnvironment(input: {
@@ -251,8 +346,7 @@ export async function observeRunEnvironment(input: {
     for (const dep of d.dependencies) {
       const physical = r.dependencies.find(x => x.dependencyRef === dep.dependencyRef)!;
       const recordBytes = await readFile(physical.recordPath);
-      if (sha256Bytes(recordBytes) !== dep.recordDigest || hash(runEnvironmentRecordMembers(dep.recordFormat, recordBytes)) !== hash(dep.members))
-        throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/dependencies/" + dep.dependencyRef + "/record");
+      checkRunEnvironmentRecord(dep, recordBytes);
       // The published record owns membership. Co-located external Definitions,
       // release evidence or other unselected files are not dependency members.
       for (const m of dep.members) {
@@ -270,14 +364,13 @@ export async function observeRunEnvironment(input: {
       const dep = d.dependencies.find(x => x.basisRef === c.sourceLocator)!;
       return { contextRef: c.contextRef, members: c.members.map(m => {
         const b = observedBytes.get(dep.dependencyRef + "\0" + m.path)!;
-        if (b.length !== m.byteCount || sha256Bytes(b) !== m.digest) throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/context/" + m.memberRef);
+        checkRunEnvironmentMember(m, b);
         return { memberRef: m.memberRef, path: m.path, ...encoded(b) };
       }) };
     });
     for (const role of d.roles) for (const binding of role.sourceBindings) {
       const row = contexts.find(c => c.contextRef === binding.contextRef)!.members.find(m => m.memberRef === binding.memberRef)!;
-      if (sha256Bytes(Buffer.from(row.base64, "base64").subarray(binding.startByte, binding.endByte)) !== binding.spanDigest)
-        throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/sourceBinding/" + binding.memberRef);
+      checkedRunEnvironmentSpan(binding, Buffer.from(row.base64, "base64"));
     }
     let corpusDocuments: RunEnvironmentEvidence["corpusDocuments"] = null;
     const accesses: RunEnvironmentEvidence["accesses"] = [], corpus = d.corpusAccess;

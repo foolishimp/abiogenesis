@@ -1,0 +1,23 @@
+{
+  "source": {
+    "call": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/preparation/calls/00-verify-core28.json",
+      "sha256": "8a805e2b77e0c2cfd6baeae5482c4afc54a88fefb61359ad8f268a3d2d71f5b9"
+    },
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/preparation/receipts/00-verify-core28.json",
+      "sha256": "ab86700e31f66441b2504ed333437089357c9f021c969637f1abc21478872087"
+    }
+  },
+  "reference": {
+    "invocation": {
+      "ref": "invocation://abiogenesis/5e3fdb84c71b929bdc56528e032210d949733dd13d85e8f4cd17a049b22fbd5b",
+      "digest": "sha256:5e3fdb84c71b929bdc56528e032210d949733dd13d85e8f4cd17a049b22fbd5b"
+    },
+    "outcome": {
+      "ref": "product-verification://abiogenesis/64017c7a5dacfcfdc6da1707304503d899cf336c0b97afe1c8ea78f745b47db7",
+      "digest": "sha256:64017c7a5dacfcfdc6da1707304503d899cf336c0b97afe1c8ea78f745b47db7"
+    }
+  },
+  "observedInThisSetup": false
+}

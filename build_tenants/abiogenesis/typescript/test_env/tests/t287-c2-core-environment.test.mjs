@@ -9,6 +9,8 @@ import * as p from '../../build/code/src/product/index.js';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import { validRunEnvironmentProgram, runEnvironmentForProgram } from '../../build/code/src/gtl/stdo_run_environment.js';
 import { projectRunEnvironmentRoleEvidence } from '../../build/code/src/abg/stdo_environment.js';
+import { selectValidatedRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
+import { deepFreeze } from '../../build/code/src/shared/immutable.js';
 import { worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt } from '../../build/code/src/product/worksite_command_execution.js';
 import { worksiteCommandExecutionAttemptRef } from '../../build/code/src/abg/instruction_assembly.js';
 import { privateOwner } from '../support/r10-private-owner-harness.mjs';
@@ -83,16 +85,31 @@ test('observed root C2 assembles the single exact helper request from actual con
   implementationRef:ids.implementationRef,inputContractRef:ids.taskContractRef,outputContractRef:ids.observationContractRef};
  const nativeOwner={events,inputRef:'input://component',inputDigest:hash(task),inputValue:task,call,
   execution:{basisRef:'basis://component',basisDigest:hash('basis'),basisClass:'root',invocationAdmissionRef,programRef:program.programRef}};
- const assemblyOwner=await privateOwner('abg/instruction_assembly.js',[],{'./execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>nativeOwner}});
+ // The lower invocation/Event premise is supplied, not admitted by this
+ // component test. Immutable prefix selection and indexed role projection
+ // use their actual owners.
+ let omitEnvironment=false;
+ const selectedOwner=()=>{
+  const payload=structuredClone(events[0].payload);if(omitEnvironment)delete payload.runEnvironment;
+  const admitted={
+   ...events[0],payload,eventTime:'2026-10-10T00:00:00.000Z',aggregateType:'invocation',aggregateId:invocationAdmissionRef,
+   parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://c2-context/component',
+   workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://component',eventId:'event://c2-context/component',
+   admissionOrdinal:1,payloadDigest:hash(payload)};
+  const {events:unused,...facts}=nativeOwner;
+  return {...facts,prefix:selectValidatedRuntimeEventPrefix(deepFreeze([admitted]))};
+ };
+ const assemblyOwner=await privateOwner('abg/instruction_assembly.js',[],{'./execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:selectedOwner}});
  const basis={publication,graphFunction:publication.graphFunctions.find(g=>g.name===ids.graphFunctionRef),predecessorPrefix:{coordinateDigest:hash('component-prefix')}};
  const assembled=assemblyOwner.constructWorksiteNativeInstructionAssembly(basis,task);assert.ok(assembled);
  const plan=worksiteCommandExecutionHelperPlan(task,worksiteCommandExecutionAttemptRef(call));
  assert.equal(assembled.envelope.sections.task.ownerPrompt,renderWorksiteCommandExecutionPrompt(task,plan));
  assert.equal(assembled.plan.runEnvironment.environmentDigest,hash(declaration));assert.equal(assembled.request.inputDigest,hash(task));
+ assert.deepEqual(assembled.envelope.sections.role.sourceContent,projected.sourceContent,'indexed projection retains the observed policy bytes');
  assert.ok(Buffer.byteLength(assembled.request.prompt)<16000,'bounded mechanical relay context, no full qualification source prompt');
- const original=events[0].payload.runEnvironment;delete events[0].payload.runEnvironment;
+ omitEnvironment=true;
  assert.equal(assemblyOwner.constructWorksiteNativeInstructionAssembly(basis,task),null,'missing admitted environment refuses');
- events[0].payload.runEnvironment=original;
+ omitEnvironment=false;
  assert.equal(assemblyOwner.constructWorksiteNativeInstructionAssembly(basis,{...task,taskDigest:hash('changed')}),null);
  const foreign=structuredClone(basis);foreign.publication.programs.find(x=>x.programRef===ids.programRef).programRef='program://foreign';
  assert.equal(assemblyOwner.constructWorksiteNativeInstructionAssembly(foreign,task),null);

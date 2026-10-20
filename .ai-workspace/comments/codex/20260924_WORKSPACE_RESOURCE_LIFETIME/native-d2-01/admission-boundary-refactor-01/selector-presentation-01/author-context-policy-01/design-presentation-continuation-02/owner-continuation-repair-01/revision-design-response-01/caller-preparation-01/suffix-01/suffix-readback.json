@@ -1,0 +1,52 @@
+{
+  "kind": "native_semantic_revision_suffix_readback",
+  "run": {
+    "digest": "sha256:fcca87f120053ef28bd83f7f1b8420bf9c6195beb112d1f3b55f19023424e810",
+    "ref": "run://abiogenesis/a6d993ab5e81dbc9ae08d5069f68ae1503224100fe537634a8658513aba55dbd"
+  },
+  "result": null,
+  "prefix": {
+    "coordinateDigest": "sha256:158f2797ef17d8d84e1311b989db109966ecb367de10caeb786523e69e0997dd",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9f311db837d306c352dd8467e8aa06b8d8d2e671586a5b8e3f4347132169c1d5",
+    "prefixLength": 316064006,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 102952.576125,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/suffix-01/read-run_result.json",
+      "resultDigest": "sha256:8f3cdb26d548a14c17a67c208fd7e2e71916a184814f4854bfa7485f10edf03a",
+      "observation": "result_absent_not_found"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 104482.58850000001,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/suffix-01/read-run_replay.json",
+      "resultDigest": "sha256:f31001562118bbc50deab74c71a521a0596103574ca6381e687481c3766e0841"
+    }
+  ],
+  "installedAfter": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/85a5074f4a675fcf86ba62e3e582c57a94993ebf89f4590f7313e3b7261bc771/17082cb1e2d2521a7f15e0e006a41118303c4e9f45af330beff9007d9b47aaa4",
+      "productContentDigest": "sha256:85a5074f4a675fcf86ba62e3e582c57a94993ebf89f4590f7313e3b7261bc771"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/17082cb1e2d2521a7f15e0e006a41118303c4e9f45af330beff9007d9b47aaa4",
+      "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e"
+    }
+  ],
+  "inputDigest": "sha256:089595741188b713a3f7b8d25e92b5eb44e34852554846a0fc0a5920d7e4f808",
+  "duplicateSdkProjection": false,
+  "status": "no_completed_suffix_result",
+  "boundary": "Ordinary Public terminal Result/replay, typed revision/job conservation and existing oracle/artifact checks; no duplicate SDK reconstruction or application acceptance inferred from native completion."
+}

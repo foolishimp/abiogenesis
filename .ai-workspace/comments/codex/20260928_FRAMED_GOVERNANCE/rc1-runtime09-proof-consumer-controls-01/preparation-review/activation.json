@@ -1,0 +1,14 @@
+{
+  "operation": "T287_F11_C09_PROOF_CONSUMER_PREPARATION_REVIEW_10",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T09:55:14.198973+00:00",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/preparation-review-request.txt",
+  "grantBytes": 2369,
+  "grantSHA256": "fd49fd827bfffc6b623764ed5014c1a935392cdcfe6d6c8c0a39c0566d50cbd1",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/preparation-freeze.json",
+  "subjectBytes": 14546,
+  "subjectSHA256": "04c42137e3ac1f054f9c383a39e8c13c70654e610a8e591779d9d9e5572184fd",
+  "effects": "pure reads/hash/compare plus new review report only; no imports/Run/resource/probe/repair"
+}

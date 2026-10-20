@@ -1,0 +1,9 @@
+{
+  "head": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "initialHead": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "indexSha256": "2b0e5154a5b9145385b027bc82b54bb9da07ba740c86e01d5816dd261f38ae88",
+  "initialIndexSha256": "ec46bac8e76e787d61fb13c2b4e7239643dcd42b699801c3ab79b705309801ae",
+  "cachedDiff": "",
+  "unmerged": "",
+  "explanation": "Root reported its independent git status without GIT_OPTIONAL_LOCKS=0 refreshed the index stat cache; no Worker Git mutation. Index is preserved, not reset/restored. Root reported resulting SHA256 2b0e5154a5b9145385b027bc82b54bb9da07ba740c86e01d5816dd261f38ae88."
+}

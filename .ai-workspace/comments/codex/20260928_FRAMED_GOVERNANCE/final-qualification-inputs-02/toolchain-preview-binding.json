@@ -1,0 +1,24 @@
+{
+  "status": "exact_immutable_Product_manifest_preview",
+  "nativeGuard": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+    "digest": "sha256:3e14d15f29656e9bb3e37b5d2bc110104523c349f09911b1f1353890d570eb81",
+    "relation": "basis.productContentDigest == owner.productContentDigest; basis.productManifest.digest == owner.manifestDigest; basis.toolchain.digest == owner.manifestDigest"
+  },
+  "ProductManifest": {
+    "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "digest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+  },
+  "toolchain": {
+    "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "digest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+  },
+  "manifestFileByteDigest": "sha256:ccae3c530199a813bc943f8d07a0cf90ee89e3201839082c2df6744ae57e9518",
+  "manifestCanonicalDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+  "auxiliaryBuildConfiguration": {
+    "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/toolchain.json",
+    "digest": "sha256:c8a694ddb749b3f8e2aa7c76afacf2e074b9b15ab12411b0dca8eb877037f8b1",
+    "meaning": "Node/npm build configuration evidence; not the native Product toolchain manifest"
+  },
+  "limit": "Only the immutable preview relation is corrected; actual native owner/install/W/tenant inputs and qualification remain absent."
+}

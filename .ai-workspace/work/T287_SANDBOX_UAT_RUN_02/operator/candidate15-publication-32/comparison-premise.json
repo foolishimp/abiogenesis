@@ -1,0 +1,18 @@
+{
+  "failedSourceSha256": "8f31324060d774aedfc8b23fb8dcbca2cdde778096c2315badfb378fad719a9c",
+  "failedSourceBytes": 3605,
+  "initialException": "RuntimeError: Public catalog/group drift",
+  "stage": "whole Public catalog equality assertion before extraction/owner verification",
+  "rootDisposition": "Incorrect comparison premise; exactly69 supported content-derived fields accepted conditionally on owner recomputation",
+  "expectedConsequences": {
+    "catalogDigest": 1,
+    "declarationInventoryDigestForFrozenDefaultLibraryDts": 47,
+    "nativeContractDigest": 21
+  },
+  "owningLaw": [
+    "scripts/generate-product-manifest.mjs:550-555",
+    "scripts/generate-product-manifest.mjs:997-1031",
+    "code/src/product/verify_product.ts:2385-2397,2494-2506"
+  ],
+  "noSourceBuildRepack": true
+}

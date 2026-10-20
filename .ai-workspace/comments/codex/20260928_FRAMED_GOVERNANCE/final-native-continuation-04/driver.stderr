@@ -1,0 +1,2 @@
+TypeError: Cannot read properties of undefined (reading 'runRef')
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver.mjs:22:640

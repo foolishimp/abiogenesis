@@ -1,0 +1,55 @@
+{
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/activation.json",
+      "bytes": 625,
+      "sha256": "3d5f46702932a610eb34d5bf6f9075564a5985b673f1a4935d477749f0956594"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/closure.json",
+      "bytes": 1253,
+      "sha256": "51a209b59c7bf74a239dab04d33a1b22942996cbcff28b023c6abadee4805e62"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/preparation-review-input.json",
+      "bytes": 2640,
+      "sha256": "b819506e62c91a8b12afd2aeaf3b7656616c9d58a1ad4e389c987fe49732d471"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/preparation-review-request.txt",
+      "bytes": 2369,
+      "sha256": "fd49fd827bfffc6b623764ed5014c1a935392cdcfe6d6c8c0a39c0566d50cbd1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/runtime-input.json",
+      "bytes": 3291,
+      "sha256": "d7c6f449117fcd817778e854c51b47c6ad77e7c44ec2064c46e5f15233de8d5b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/runtime-request.txt",
+      "bytes": 3020,
+      "sha256": "7068a31a7cbb2e8b1c01a474d1c7958aef85c1f94274401e00bd93e22fc597ee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/subject-pins.json",
+      "bytes": 2439,
+      "sha256": "ecd7250fb75daa0327d81b9bb9f7137927793296994ff87b014864a9eb44ee35"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/triage.md",
+      "bytes": 3353,
+      "sha256": "64f1531ae10442d994f2d0de3d81e41ec7392a08e981ef8d62c7ba9b3063b7a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/worker-input.json",
+      "bytes": 4201,
+      "sha256": "f1e9bf848cdd32d295c798cbdb6e1ae5235173eac0e522a517bc81f94a684cbd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/worker-request.txt",
+      "bytes": 3930,
+      "sha256": "684d02b0ad016fe1601e103405d7f673c99723dd977a6f37162b7874a21deb4f"
+    }
+  ],
+  "writesStopped": true
+}

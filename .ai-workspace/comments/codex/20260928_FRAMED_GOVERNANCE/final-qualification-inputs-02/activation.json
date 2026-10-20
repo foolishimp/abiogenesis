@@ -1,0 +1,29 @@
+{
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_02",
+  "role": "external-input Worker",
+  "previousRole": "Independent construction02 Reviewer CLOSED and accepted; explicit transition",
+  "actor": "/root/s03_independent_review",
+  "profile": "Astra/max",
+  "separateSessionIdentity": "not separately available",
+  "changeClass": "realization_refactor",
+  "at": "2026-09-30T08:01:36.835492+00:00",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02",
+  "operationGrant": "Construct exact unbound successor Q inputs from accepted C02/Q01; Product-manifest preview correction and current caller routes only",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-controls-02/request.txt",
+    "bytes": 8021,
+    "sha256": "2f44595315f6ffa264b0414b6230cff96ebb03fe50c64b23cca648927bc62d6d",
+    "installedACExactJoin": true,
+    "acSHA256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8"
+  },
+  "effects": "external input files plus at most five bounded pure construction/validation groups; no staging/recipe/test/native/provider/build/package/install/Git effect",
+  "authorityLimit": "Root request grants external input construction, not the Product-owner qualification slot",
+  "excluded": [
+    "own F11 scope grouping/material adequacy",
+    "authorship chains or independence judgments",
+    "moving native setup03 and resource",
+    "real or invented runtime bindings",
+    "qualification or release"
+  ],
+  "protectedEnvironment": "HOME/home/CODEX_HOME unchanged"
+}

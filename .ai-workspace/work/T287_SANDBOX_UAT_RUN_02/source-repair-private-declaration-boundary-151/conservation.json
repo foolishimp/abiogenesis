@@ -1,0 +1,31 @@
+{
+  "sourceCount": 263,
+  "exactChangedSources": [
+    "code/src/abg/invocation_admission.ts",
+    "code/src/product/run_invocation_operation.ts"
+  ],
+  "other261SourcePinsEqual": true,
+  "canonicalGeneratedMembership": 934,
+  "all934CanonicalGeneratedPinsEqual": true,
+  "old148PartialGenerationPlaceholdersPreserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3,
+      "mode": "0o644"
+    }
+  ],
+  "compilerGeneratorProductMethodControlsEqual": true,
+  "old148FourReceiptPinsEqual": true,
+  "candidate25IdentityFreezeAndArchiveEqual": true,
+  "archiveProof": "commands/native-declaration-closure.result.json authenticates exact old25 bytes before sequential in-memory member acquisition",
+  "historicalSource143And148LiveSelectedFields": "two live Source fields superseded only by151 annotations; immutable historical retained preimages/receipts stay byte-exact",
+  "noCurrentAppOrRuntimeAcquisition": true,
+  "noNormalBuildPackInstall": true
+}

@@ -53,6 +53,7 @@ import {
   admitInstalledProductInput,
   validateInstalledInvocationBasis,
   type ProductInvocationSourceResultBasis,
+  type GovernanceCoveredSourceUse,
 } from "./semantics.js";
 
 export type RunInvocationMemberKey = "invoke" | "start";
@@ -94,6 +95,8 @@ export interface PreparedProductRunInvocation<M extends RunInvocationMemberKey> 
   readonly admittedInput: Readonly<Record<string, JsonValue>>;
   readonly rawInput: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
+  /** @internal */
+  readonly currentSourceUse?: GovernanceCoveredSourceUse;
   readonly policy: ReturnType<typeof constructRootInvocationPolicy>;
   readonly grants: readonly CapabilityGrant[];
   readonly authority: InvocationAuthority;
@@ -449,6 +452,8 @@ export async function prepareProductRunInvocation<
   readonly workspaceBinding: WorkspaceBinding;
   readonly verifyInstallAdmission: (install: ProductInstall) => boolean;
   readonly transportResourceAssertion: JsonValue;
+  /** @internal Owner-bound preparation, never a raw resource/assertion field. */
+  readonly deriveCurrentSourceUse?: (source: ProductInvocationSourceResultBasis, resolution: LoadedProductExecutionResolution) => GovernanceCoveredSourceUse | null;
 }>): Promise<ProductRunInvocationPreparation<M>> {
   const { memberKey, invocation, resources } = input;
   if (
@@ -531,6 +536,9 @@ export async function prepareProductRunInvocation<
     inputCarrier.contract.ref as string,
     inputCarrier.value,
   );
+  const currentSourceUse = admittedSource !== null && (admittedSource.workspaceBindingId !== input.workspaceBinding.bindingId ||
+    admittedSource.workspaceBindingDigest !== input.workspaceBinding.bindingDigest)
+    ? input.deriveCurrentSourceUse?.(admittedSource, resolution) ?? null : null;
   if (
     admittedInput === null ||
     !validateInstalledInvocationBasis(resolution.productSemantics, {
@@ -544,6 +552,7 @@ export async function prepareProductRunInvocation<
       catalogView: resources.catalogView,
       catalogApplications: resources.applications,
       sourceResultBasis: admittedSource,
+      ...(currentSourceUse === null ? {} : { currentSourceUse: () => currentSourceUse }),
     })
   ) {
     return preparationRefusal(memberKey, "invalid_input", ["/input"]);
@@ -678,6 +687,7 @@ export async function prepareProductRunInvocation<
     admittedInput,
     rawInput,
     sourceResultBasis: admittedSource,
+    ...(currentSourceUse === null ? {} : { currentSourceUse }),
     policy,
     grants,
     authority,

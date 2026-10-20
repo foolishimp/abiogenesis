@@ -1,0 +1,38 @@
+{
+  "kind": "executive_failure_disposition_and_selection",
+  "status": "ACCEPTED_ACTUAL_FAILURE_EVIDENCE_REPAIR_SELECTED",
+  "operation": "T287_EXEC06_CONJUNCTION_AND_REPAIR_GRANTS_01",
+  "actor": "/root Executive",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "actualRuntimeFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+    "bytes": 20017,
+    "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+    "rootPhysicalVerification": "77records1004894047B/5dirs/0links/full census+external pins/prefix/inode"
+  },
+  "closedSourceReview": {
+    "operation": "T287_EXEC06_FP_SOURCE_REVIEW_01",
+    "actor": "/root/rc1_c03_install_review",
+    "freezeSHA256": "4d89b6bfab38a308fb683c54d43f2912e74eb2853afb4164646c22373a4220f9",
+    "workResult": "GO_BOUNDED_REPAIR"
+  },
+  "closedCallerReview": {
+    "operation": "T287_EXEC06_INDEPENDENT_CALLER_REVIEW_01",
+    "actor": "/root separately activated nonauthor Reviewer",
+    "reportSHA256": "7f3adb1b2890390075e4cdcfb1dc3c565679016eefc491e1171791aa6f324699",
+    "workResult": "GO_BOUNDED_EXTERNAL_CALLER_REPAIR",
+    "independence": "Root authored grants/triage, not inherited Q06 caller/flow; source frame separate"
+  },
+  "authorDiagnostic": "q03 inherited-caller author advice is explicitly not independent assurance",
+  "triangulation": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/triangulation.json",
+  "supportedCause": "Existing borrowed proof operation reaches F_D but omitted at actual F_P arg5; qualification fallback lacks explicit resources. Owner/preparation/current child checks had already succeeded. No generic child-context defect/new HOW/WHAT change needed.",
+  "separateCallerCause": "Root non-expanding reads receive an undeclared qualificationResources field; flow checks Public result rather than actual runtime_failed/null terminal outcome.",
+  "smallestReentry": "realization_refactor at existing F_P dispatcher plus external caller",
+  "wholePath": "Actual successor installed wrapper child/J/foldback/parent/6coldreads/freshF11/sole nongreenAF22 remains mandatory; local source/caller passes do not close it.",
+  "refusalLabelCorrection": "Closed Root caller review provisional not_ready label is corrected by actual projectRunResult/nativeRefusalCode: failed/stopped without terminal Result selects ABSENT->target_absent->not_found/exit1. Actual corrected read remains unexecuted; no label substitutes for producer outcome. Preserve original report.",
+  "selectedOperations": [
+    "T287_F11_FP_PROOF_DELIVERY_REALIZATION_01",
+    "T287_F11_CALLER_REPAIR_AND_FAILED_READBACK_01"
+  ],
+  "excluded": "All earlier accepted subjects/evidence/dirty unrelated work remain; no provider/18qualcommands/Hello/Git/publication/semanticpass."
+}

@@ -1,0 +1,17 @@
+{
+  "activation": "T287_G1_G3_C10_CONSTRUCTION_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Worker",
+  "allSevenSectionsRead": true,
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-grant.txt",
+    "bytes": 6025,
+    "sha256": "7f254642a603b1f90e7ce2a992f11c60bf84119a845a42f10687171a07d07a86",
+    "mode": 420
+  },
+  "activatedAt": "2026-10-04T04:28:32.302384+00:00",
+  "newTerritoryInitiallyAbsent": true,
+  "onlyInitialFile": "final-controls/initialize.py",
+  "defaultHeapAndHOMEUnchanged": true
+}

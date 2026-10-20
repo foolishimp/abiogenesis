@@ -1,0 +1,21 @@
+{
+  "source55": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/replay-abort-resource-recovery-55/recover.mjs",
+    "sha256": "3d42b136c41ca4015b6f336805faedd05cc7bebb62ee6232b89913df6c51e070",
+    "byteCount": 7461
+  },
+  "source55Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/replay-abort-resource-recovery-55/freeze.json",
+    "sha256": "eba9f142c83a63074baa680d9dbcedc3615450c140e28fad2eddea0cd1fa5126"
+  },
+  "source56Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/replay-owner-memory-discriminator-56/freeze.json",
+    "sha256": "bda781e5e852c665bb8f7982c9479b82faa78205a97ebb4c2d7243fe0b732fdc"
+  },
+  "interruption": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/replay-owner-memory-discriminator-56/commands/mechanism-diagnostic.result.json",
+    "sha256": "2d473b197eb5db32ad0ca0d6de691570ffba58ae6200623d215af0f3cc16b226",
+    "byteCount": 9688
+  },
+  "delta": "Phase-only selections: owner5261/exact123B lock/inode467609449, frozen56 interruption+ESRCH evidence, resolvedRootmaintenance57 identifiers. Same existingSDK18/handoff/authority/effects/oneinvoke/defaultheap/caps."
+}

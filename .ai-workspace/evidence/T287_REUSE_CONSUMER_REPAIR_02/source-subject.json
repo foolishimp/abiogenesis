@@ -1,0 +1,53 @@
+{
+  "status": "UNACCEPTED_FAILED_READINESS",
+  "Source": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10687,
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+      "mode": 420,
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+        "bytes": 10917,
+        "sha256": "0974a3d320452d98c58e01f11aa154935ffddbc5ed985c2708f0458a46059cc1",
+        "originalPreimageReference": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/retained-installed-consumer.mjs"
+      },
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_02",
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_02/retained-installed-consumer.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 8505,
+      "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+      "mode": 420,
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+        "bytes": 4999,
+        "sha256": "79832a41d30f1a42d26f576e095c87ca9afe105bd8bdfe8afd16aa0e9642c182",
+        "originalPreimageReference": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/prepare-retained-setup-binding.mjs"
+      },
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_02",
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_02/prepare-retained-setup-binding.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 17051,
+      "sha256": "36de7b9dd32e5c34f43b65daaa53ab51cbfac563a1f24abe6a9c2e848c5341d9",
+      "mode": 420,
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+        "bytes": 13285,
+        "sha256": "e69f874005b1227512fc1bc27a20c4b31a17fe94900dcdcacaf87a2bb316fc1a",
+        "originalPreimageReference": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/t287-retained-installed-consumer.test.mjs"
+      },
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_02",
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_02/t287-retained-installed-consumer.test.mjs"
+    }
+  ],
+  "original01FreezeConserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/final-freeze.json",
+    "bytes": 129263,
+    "sha256": "ec869d41cddedb92e3d116b2e89a62558ce3c604b24b30979032cb575efd3bda",
+    "mode": 420
+  }
+}

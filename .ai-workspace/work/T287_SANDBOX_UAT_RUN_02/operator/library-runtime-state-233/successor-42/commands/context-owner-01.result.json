@@ -1,0 +1,17 @@
+{
+  "kind": "source42_c2_context_readiness",
+  "sourceCut": 42,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/check-context-owner-01.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 454.175042,
+  "input": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/dependency-cut-42-inputs.json",
+  "emission": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/dependency-cut-42-emission.json",
+  "limits": [
+    "Isolated pure declaration/member/span correspondence plus existing disposable context observation/assembly test",
+    "Lower component artifact/native assembly and A/W/grant facts explicitly controlled; no actual Product installation/ABG admission/Worker/native/original resource effects"
+  ]
+}

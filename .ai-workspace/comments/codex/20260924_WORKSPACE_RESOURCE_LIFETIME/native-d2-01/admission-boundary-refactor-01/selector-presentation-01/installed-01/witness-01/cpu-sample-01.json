@@ -1,0 +1,8 @@
+{
+  "parentPid": 76937,
+  "phase": "genuine_reprice_witness",
+  "observedEpoch": 1790305449.6861498,
+  "children": [],
+  "caveat": "Single OS stack sample of an existing operation; no timing attribution or repeated runtime.",
+  "status": "witness_node_already_closed_or_unavailable; no sample attempted"
+}

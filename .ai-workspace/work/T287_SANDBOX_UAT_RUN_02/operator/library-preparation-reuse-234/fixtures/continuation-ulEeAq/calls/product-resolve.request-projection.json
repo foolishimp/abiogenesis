@@ -1,0 +1,212 @@
+{
+  "invocation": {
+    "kind": "public_invocation",
+    "schemaVersion": "5.0.0",
+    "invocationContract": {
+      "contractCatalog": {
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "productContentDigest": "sha256:68edb1926565879f44c9f43462ef8847d8e4844d1e1988bbc2b843eac6772f7e",
+        "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+        "catalogVersion": "5.0.0",
+        "catalogDigest": "sha256:00ebb9f5bdf944fb6e9a2b450a79ebe430dd1a108572e66809308cfe21cadbe4"
+      },
+      "flatRow": {
+        "contractId": "abg.schema.public-operation-invocation",
+        "contractVersion": "5.0.0",
+        "contractDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6"
+      },
+      "nestedSelector": {
+        "selectorKind": "schema_definition",
+        "definitionKey": null,
+        "slot": null,
+        "definitionRef": "#/$defs/PublicInvocation"
+      }
+    },
+    "definitionRef": "public-function://abiogenesis/product/resolve/resolve@5",
+    "definitionVersion": "5.0.0",
+    "definitionDigest": "sha256:e49ae7073b51b8a03562c9de86ae8e0be006b8e6cdf9a366d0762651e9998ebc",
+    "definitionKey": {
+      "operationId": "abg.operation.product.resolve",
+      "memberKey": "resolve"
+    },
+    "contractCatalog": {
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "productContentDigest": "sha256:68edb1926565879f44c9f43462ef8847d8e4844d1e1988bbc2b843eac6772f7e",
+      "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+      "catalogVersion": "5.0.0",
+      "catalogDigest": "sha256:00ebb9f5bdf944fb6e9a2b450a79ebe430dd1a108572e66809308cfe21cadbe4"
+    },
+    "invocationAuthority": {
+      "kind": "invocation_authority",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "slots": {
+        "workspace_binding": null,
+        "product_set": null,
+        "dependency_lock": null,
+        "catalog_scope": null,
+        "execution_program": null,
+        "graph_function": null,
+        "input_contract": null,
+        "session_policy": null,
+        "capability_grants": {
+          "requiredCapabilityRefs": [
+            "abg.capability.install.bind-products@5"
+          ],
+          "grants": [
+            {
+              "ref": "capability-grant://abiogenesis/399b55449f5f1153003385c2c3f9fd33eae1d67862e4bee98547e492257b2fdf",
+              "digest": "sha256:399b55449f5f1153003385c2c3f9fd33eae1d67862e4bee98547e492257b2fdf"
+            }
+          ]
+        },
+        "actor": null,
+        "transport_steering": null,
+        "verification_references": [
+          {
+            "invocation": {
+              "ref": "invocation://abiogenesis/f1da0dfdb9c5499ae9dbf22957374e6ccdc37287b56c770a6ea888819734def4",
+              "digest": "sha256:f1da0dfdb9c5499ae9dbf22957374e6ccdc37287b56c770a6ea888819734def4"
+            },
+            "outcome": {
+              "ref": "product-verification://abiogenesis/5d67b30d7e15aa8b5e28e167db0d86b1a315da4ebcf46f9638da816317c86be8",
+              "digest": "sha256:5d67b30d7e15aa8b5e28e167db0d86b1a315da4ebcf46f9638da816317c86be8"
+            }
+          },
+          {
+            "invocation": {
+              "ref": "invocation://abiogenesis/0ee0e7ab360ffad983db6222571d3b6eaedb7c8eb62cd0473253a9a4bfb75e0b",
+              "digest": "sha256:0ee0e7ab360ffad983db6222571d3b6eaedb7c8eb62cd0473253a9a4bfb75e0b"
+            },
+            "outcome": {
+              "ref": "product-verification://abiogenesis/73c05c5ff8b1df22531f2d769a452731f4d4302ffbb97bc1c6b38d1ae9878440",
+              "digest": "sha256:73c05c5ff8b1df22531f2d769a452731f4d4302ffbb97bc1c6b38d1ae9878440"
+            }
+          }
+        ],
+        "execution_basis": null
+      },
+      "authorityDigest": "sha256:9ae8abee5d81758a78881284957cbf2d833c4dba9150a747658e2eb97db2185e"
+    },
+    "requestContract": {
+      "contractCatalog": {
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "productContentDigest": "sha256:68edb1926565879f44c9f43462ef8847d8e4844d1e1988bbc2b843eac6772f7e",
+        "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+        "catalogVersion": "5.0.0",
+        "catalogDigest": "sha256:00ebb9f5bdf944fb6e9a2b450a79ebe430dd1a108572e66809308cfe21cadbe4"
+      },
+      "flatRow": {
+        "contractId": "abg.operation.product.resolve",
+        "contractVersion": "5.0.0",
+        "contractDigest": "sha256:393c7131803d2c5904e3cdc225069b3f3caf5077ed69fa8e7e7a35b2910b3343"
+      },
+      "nestedSelector": {
+        "selectorKind": "operation_definition_slot",
+        "definitionKey": {
+          "operationId": "abg.operation.product.resolve",
+          "memberKey": "resolve"
+        },
+        "slot": "request",
+        "definitionRef": "#/definitions/0/requestContract/identity"
+      }
+    },
+    "requestRef": "request://abi5-tests/continuation/missing-source/product-resolve",
+    "requestDigest": "sha256:6fd71b1808a6908f27b1f853c47d7aae735af90716b347bb902c68ffec48709b",
+    "request": {
+      "requirements": [
+        {
+          "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+          "packageVersion": "5.0.0-rc.1",
+          "requiredContractRefs": [],
+          "requiredCapabilityRefs": []
+        },
+        {
+          "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+          "packageVersion": "5.0.0",
+          "requiredContractRefs": [],
+          "requiredCapabilityRefs": []
+        }
+      ],
+      "verifiedCandidates": [
+        {
+          "invocation": {
+            "ref": "invocation://abiogenesis/f1da0dfdb9c5499ae9dbf22957374e6ccdc37287b56c770a6ea888819734def4",
+            "digest": "sha256:f1da0dfdb9c5499ae9dbf22957374e6ccdc37287b56c770a6ea888819734def4"
+          },
+          "outcome": {
+            "ref": "product-verification://abiogenesis/5d67b30d7e15aa8b5e28e167db0d86b1a315da4ebcf46f9638da816317c86be8",
+            "digest": "sha256:5d67b30d7e15aa8b5e28e167db0d86b1a315da4ebcf46f9638da816317c86be8"
+          }
+        },
+        {
+          "invocation": {
+            "ref": "invocation://abiogenesis/0ee0e7ab360ffad983db6222571d3b6eaedb7c8eb62cd0473253a9a4bfb75e0b",
+            "digest": "sha256:0ee0e7ab360ffad983db6222571d3b6eaedb7c8eb62cd0473253a9a4bfb75e0b"
+          },
+          "outcome": {
+            "ref": "product-verification://abiogenesis/73c05c5ff8b1df22531f2d769a452731f4d4302ffbb97bc1c6b38d1ae9878440",
+            "digest": "sha256:73c05c5ff8b1df22531f2d769a452731f4d4302ffbb97bc1c6b38d1ae9878440"
+          }
+        }
+      ]
+    },
+    "expectedResultContract": {
+      "contractCatalog": {
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "productContentDigest": "sha256:68edb1926565879f44c9f43462ef8847d8e4844d1e1988bbc2b843eac6772f7e",
+        "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+        "catalogVersion": "5.0.0",
+        "catalogDigest": "sha256:00ebb9f5bdf944fb6e9a2b450a79ebe430dd1a108572e66809308cfe21cadbe4"
+      },
+      "flatRow": {
+        "contractId": "abg.operation.product.resolve",
+        "contractVersion": "5.0.0",
+        "contractDigest": "sha256:393c7131803d2c5904e3cdc225069b3f3caf5077ed69fa8e7e7a35b2910b3343"
+      },
+      "nestedSelector": {
+        "selectorKind": "operation_definition_slot",
+        "definitionKey": {
+          "operationId": "abg.operation.product.resolve",
+          "memberKey": "resolve"
+        },
+        "slot": "result",
+        "definitionRef": "#/definitions/0/resultContract/identity"
+      }
+    },
+    "expectedRefusalContract": {
+      "contractCatalog": {
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "productContentDigest": "sha256:68edb1926565879f44c9f43462ef8847d8e4844d1e1988bbc2b843eac6772f7e",
+        "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+        "catalogVersion": "5.0.0",
+        "catalogDigest": "sha256:00ebb9f5bdf944fb6e9a2b450a79ebe430dd1a108572e66809308cfe21cadbe4"
+      },
+      "flatRow": {
+        "contractId": "abg.operation.product.resolve",
+        "contractVersion": "5.0.0",
+        "contractDigest": "sha256:393c7131803d2c5904e3cdc225069b3f3caf5077ed69fa8e7e7a35b2910b3343"
+      },
+      "nestedSelector": {
+        "selectorKind": "operation_definition_slot",
+        "definitionKey": {
+          "operationId": "abg.operation.product.resolve",
+          "memberKey": "resolve"
+        },
+        "slot": "refusal",
+        "definitionRef": "#/definitions/0/refusalContract/identity"
+      }
+    },
+    "expectedNonTerminalContract": null,
+    "correlationRef": "request://abi5-tests/continuation/missing-source",
+    "eventTime": "2026-10-10T05:55:23.974Z",
+    "provenanceRefs": [],
+    "invocationRef": "invocation://abiogenesis/a95e2367bbde531a97efae91993fb69e714a8d4870e3413dd825e88dd29dc155",
+    "invocationDigest": "sha256:a95e2367bbde531a97efae91993fb69e714a8d4870e3413dd825e88dd29dc155"
+  },
+  "resourcesDigest": "sha256:6cbcf1cc01a2b4e526098b79a438bb178ec8bda26dbdca259e969e0031a9ceab",
+  "resourceKind": "product_resolution_resource_assertion",
+  "entryPrefix": null
+}

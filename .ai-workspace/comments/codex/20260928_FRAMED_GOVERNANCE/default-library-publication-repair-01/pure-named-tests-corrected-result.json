@@ -1,0 +1,11 @@
+{
+  "name": "pure-named-tests-corrected",
+  "exitCode": 0,
+  "elapsedMs": 384.7725000232458,
+  "selectedNames": [
+    "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+    "installed root publication precondition rejects a bad non-selected publication",
+    "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation"
+  ],
+  "fullMixedFileRun": false
+}

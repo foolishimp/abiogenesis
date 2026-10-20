@@ -1,0 +1,24 @@
+{
+  "kind": "report_only_writer_close",
+  "activationId": "T287_RC1_S02_SUBSTITUTION_REVIEW_REPORT_01",
+  "evaluationActivation": "T287_RC1_S02_SUBSTITUTION_REVIEW_01",
+  "role": "Writer",
+  "actor": "/root/rc1_s02_review",
+  "status": "CLOSED",
+  "closedAt": "2026-10-01T15:18:17.540111+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-review-01"
+  ],
+  "writtenSubjects": [
+    "writer-activation.json",
+    "evidence.json",
+    "return.md",
+    "evaluation.json",
+    "closure.json",
+    "freeze.json"
+  ],
+  "runtimeEffects": 0,
+  "sourceBuildTrackingGitChanges": 0,
+  "modelMetadata": "Not supplied by activation; no model identity or prior semantic authorship fabricated.",
+  "next": "Return to Root; no further activation or changes."
+}

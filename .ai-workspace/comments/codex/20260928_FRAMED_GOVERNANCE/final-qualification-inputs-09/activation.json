@@ -1,0 +1,117 @@
+{
+  "status": "ACTIVE",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_09",
+  "actor": "/root/q03_input_review",
+  "allSevenSectionsRead": true,
+  "startedAt": "2026-10-02T10:35:05.696270+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-install-and-input-controls-01/inputs-request.txt",
+    "bytes": 4707,
+    "sha256": "93a1957038c968d263f7d12affd090506c922ca261df21fa94c7f843765e4cb8",
+    "mode": 420
+  },
+  "RootSetupAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup07-generated04-acceptance-q09-selection-01/acceptance.json",
+    "bytes": 7276,
+    "sha256": "c4007c52781d9aaf3ee98f177a421d7b6e25e2712820c5cf523d02a256ecaab8",
+    "mode": 420
+  },
+  "dependencies": {
+    "setupFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/freeze.json",
+      "bytes": 3901259,
+      "sha256": "3df72c96b7d1424a7bd7811dc077adc2646bdf93ab767eef13ebde77add3f7e4",
+      "mode": 420
+    },
+    "installedAuthorityHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/installed-authority-handoff.json",
+      "bytes": 7336106,
+      "sha256": "80b73295e33dc8ff6a1ec6e3c2498caf7fdbf176c8665e52841b7a8457820e95",
+      "mode": 420
+    },
+    "closedEventResourceHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/closed-event-resource-handoff.json",
+      "bytes": 3581045,
+      "sha256": "1ebc192747874ba1605b6f091c263b88d7935262f891f5227259b06464f65320",
+      "mode": 420
+    },
+    "generatedFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-04/freeze.json",
+      "bytes": 3988,
+      "sha256": "3143a250a47b1ddb8f08fc5e1881db1c0bc40e94d324eed41d1ef0d4d0a7faf9",
+      "mode": 420
+    },
+    "candidateAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-acceptance-and-runtime-selection-01/acceptance.json",
+      "bytes": 4167,
+      "sha256": "85017f5b8ca8b321ddade38c561639881f37922ea24cb34d018528493615780c",
+      "mode": 420
+    }
+  },
+  "actualEventPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/events/runtime.events.jsonl",
+    "bytes": 2490814,
+    "sha256": "aee5f944be49a7d6aee3c1dd53717d490c52cd1015ff863409ded58fec08f2f7",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464793566
+  },
+  "preparationDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+    "bytes": 865006,
+    "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+    "mode": 292
+  },
+  "strictCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11/ordinary-caller.mjs",
+    "bytes": 18118,
+    "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+    "mode": 420
+  },
+  "parentChildFoldbackDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11/flow-driver.mjs",
+    "bytes": 6502,
+    "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+    "mode": 420
+  },
+  "ProductFrame": {
+    "fixedFeatures": 15,
+    "features": [
+      "F11",
+      "F15"
+    ],
+    "goal": "GOAL035",
+    "workItem": "T287",
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "reentry": "realization_refactor",
+    "WHAT": "Complete mechanically coherent current candidate input; semantic qualification and actual native traversal remain open.",
+    "HOW": "Reuse Q08 author-known pure constructors, strict caller, declared q07 semantic member namespace, source provenance, current producer request and actual C07/Setup07 coordinates."
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09"
+  ],
+  "sourceAuthorshipIndependence": "This Worker authored C07 GTL/test increment; preparation supplies truthful author records and cannot confer independent assessment.",
+  "setupOperationMapping": {
+    "authorizedAndBeforeEffectsRecordedOperation": "T287_F11_C07_INSTALLED_SETUP_07",
+    "authoritativeActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/runtime-activation.json",
+      "bytes": 2645,
+      "sha256": "768c8659f15be57256e5a0be123b486557b02b2b61fde074f753a41525f531c6",
+      "mode": 420
+    },
+    "frozenSummaryAndClosureOperationLabel": "T287_F11_C07_INSTALLED_SETUP_06",
+    "classification": "P3 external saved-report donor counter label, not actual task/installation identity",
+    "triangulation": {
+      "Identity": "Actual pre-import activation, Root grant, actor URI, roots, binding and eventinode belong07. Only derived summary suffix retained06.",
+      "Effects": "All actual effects were authorized07; no rerun or payload change indicated.",
+      "Proof": "Consume actual activation/grant/body/inode tuple; preserve erroneous derived labels with explicit mapping.",
+      "Integration": "Future adapters take operation ID from exact grant rather than blind C06-to-C07 replacement.",
+      "ProductDesign": "No change to runtime WHAT/HOW/installation relations."
+    },
+    "originalFreezePreserved": true
+  },
+  "all18QualificationCommandsUnexecuted": true,
+  "nativeTaskRunJHelperProviderEffects": 0,
+  "independentAssurance": false
+}

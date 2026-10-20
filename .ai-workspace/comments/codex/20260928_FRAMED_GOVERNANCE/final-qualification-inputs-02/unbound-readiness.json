@@ -1,0 +1,29 @@
+{
+  "status": "valid_exact_unbound_input_cut",
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/107360f76fdbdfa7920d912aac2edc10ecaf80ca88406190748f28d834c40101",
+    "digest": "sha256:107360f76fdbdfa7920d912aac2edc10ecaf80ca88406190748f28d834c40101"
+  },
+  "recipe": "sha256:99770779369b9d7ee2470b8a1df7930b8e6aec2062e46acc2a375d4554b392f0",
+  "ProductToolchainManifest": {
+    "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "digest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+  },
+  "auxiliaryBuildConfiguration": {
+    "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/toolchain.json",
+    "digest": "sha256:c8a694ddb749b3f8e2aa7c76afacf2e074b9b15ab12411b0dca8eb877037f8b1",
+    "meaning": "Node/npm build configuration evidence; not the native Product toolchain manifest"
+  },
+  "nativeSlots": {
+    "installedProduct": null,
+    "workspaceBinding": null,
+    "tenantManifest": null
+  },
+  "executionSelectionRef": "absent",
+  "isQualificationBasisReady": false,
+  "missing": "Genuine current native environment/producer, attribution and independent semantic/native assessment",
+  "stagingPerformed": false,
+  "recipeExecuted": false,
+  "testsExecuted": false,
+  "nativeCalls": 0
+}

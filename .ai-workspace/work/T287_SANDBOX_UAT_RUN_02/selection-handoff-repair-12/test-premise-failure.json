@@ -1,0 +1,38 @@
+{
+  "disposition": "routine_test_premise_correction",
+  "tests": 15,
+  "pass": 12,
+  "fail": 2,
+  "liveSkipped": 1,
+  "issues": [
+    {
+      "line": 267,
+      "actual": "null",
+      "cause": "test supplied nonexistent parent implementation ref instead of evaluate-parent"
+    },
+    {
+      "line": 394,
+      "actual": 45,
+      "expected": 44,
+      "cause": "test included canonical assessment-schema read path in original application-artifact count"
+    }
+  ],
+  "productionChangeRequired": false,
+  "retained": [
+    {
+      "path": "default-library.receipt.json",
+      "sha256": "f948ced1aa00a07c8cc495b8ff3a18f9f09a0d32f6a20af06ef25ad7b5ab8b55",
+      "byteLength": 481
+    },
+    {
+      "path": "default-library.stdout.log",
+      "sha256": "76dea6ec82cd1245b1afc3d76ac47e614f56bfe790c7fc9a2a0507be5e7305f8",
+      "byteLength": 35959
+    },
+    {
+      "path": "default-library.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    }
+  ]
+}

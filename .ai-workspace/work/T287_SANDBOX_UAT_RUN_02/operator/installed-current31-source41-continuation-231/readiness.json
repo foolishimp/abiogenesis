@@ -1,0 +1,174 @@
+{
+  "disposition": "CLOSED/HOLD: actual31 Public Product resolve transport aborted before new installations/setup/native run",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "product": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "actualAttempt": {
+    "started": "2026-10-09T19:03:28.225Z",
+    "wallMs": 266124.137292,
+    "exitCode": null,
+    "signal": "SIGABRT",
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "recorderPID": 30714,
+    "ownerPID": 30716,
+    "toolSession": 89667
+  },
+  "completed": [
+    {
+      "stage": "native31-preverify-complete",
+      "elapsedMs": 20313.811166000003
+    },
+    {
+      "stage": "consumer-preverify-complete",
+      "elapsedMs": 20324.885291000002
+    },
+    {
+      "stage": "packed-resource-correspondence-complete",
+      "elapsedMs": 20325.298375000002
+    },
+    {
+      "stage": "early-fixed-product-resolve-complete",
+      "elapsedMs": 23949.702291
+    },
+    {
+      "stage": "acquisition-complete",
+      "elapsedMs": 63645.785416
+    },
+    {
+      "stage": "terminal-resource-complete",
+      "elapsedMs": 258352.286291
+    },
+    {
+      "stage": "old-environment-complete",
+      "elapsedMs": 258353.567166
+    },
+    {
+      "stage": "product-verify-0-grant-complete",
+      "elapsedMs": 258456.360583
+    },
+    {
+      "stage": "product-verify-0-complete",
+      "elapsedMs": 258685.153708
+    },
+    {
+      "stage": "product-verify-1-grant-complete",
+      "elapsedMs": 258706.746708
+    },
+    {
+      "stage": "product-verify-1-complete",
+      "elapsedMs": 258786.443416
+    },
+    {
+      "stage": "product-resolve-grant-complete",
+      "elapsedMs": 258865.436708
+    }
+  ],
+  "source41": {
+    "basisRef": "invocation-source-result://abiogenesis/c0bce28a2a30c4926a0b8dc4aa5167361f2dc51e3e026bcafdd08c63abac041f",
+    "basisDigest": "sha256:c0bce28a2a30c4926a0b8dc4aa5167361f2dc51e3e026bcafdd08c63abac041f",
+    "inputDigest": "sha256:6538aedc3658881219d484ab3c8dc67ea1ff2b7704a60f02634572ef6c2a7046",
+    "observations": 41,
+    "sourceResultRef": "result://abiogenesis/a8746cb4c4fbbe7e6021dccd54f99bfad76bad50b4314ccbfb58f87da3db767c",
+    "admissionEventRef": "event://abiogenesis/ff6651b0c22c4861c0d2cce04b867fa2405a9b9de0af29b64ce26d52d738cf08",
+    "judgmentEventRef": "event://abiogenesis/2e7871bbf6d8519f6a5b41bdd2eccd563a9f6ba5c37650d06759618024b1a9df"
+  },
+  "failedBoundary": "Public Product resolve transport entered after grant and request projection; no returned resolve outcome. Exact JS allocation/line and dominant retainer unproved by retained native stack.",
+  "memory": {
+    "maximumCheckpointRSSBytes": 6316851200,
+    "maximumCheckpointHeapUsedBytes": 4122878272,
+    "lastCheckpoint": {
+      "rss": 4627677184,
+      "heapUsed": 4109176072,
+      "heapTotal": 4175298560,
+      "external": 2471970,
+      "arrayBuffers": 59663
+    },
+    "sampleCaveat": "Checkpoint values; no exact peak or dominant-retainer claim."
+  },
+  "residue": {
+    "logStat": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "device": 16777231,
+      "inode": 468327400,
+      "byteCount": 2142096875,
+      "mtimeNs": "1791571498568642895"
+    },
+    "existingGenuineHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/final-close-handoff.json",
+      "sha256": "1d878dfda0fe80700f983e103eba64a449d0bcbc852372168335737bb68b5779",
+      "byteCount": 1472
+    },
+    "deadOwnerLock": {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+      "device": 16777231,
+      "inode": 469618651,
+      "byteCount": 124,
+      "sha256": "0a5f1b52a55e5688c368bd0c819861095141c8a8898dddd68180922cd78d3066",
+      "base64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY4MzI3NDAwLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6MzA3MTYsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+      "owner": {
+        "device": 16777231,
+        "inode": 468327400,
+        "kind": "abiogenesis_event_store_append_lock",
+        "ownerPid": 30716,
+        "schemaVersion": "5.0.0"
+      }
+    },
+    "ownedProcessesGroupsAbsent": true,
+    "normalCloseReturned": false
+  },
+  "conservation": {
+    "physicalRows": 49,
+    "allBytesInodesUnchanged": true,
+    "entryPhysicalDigest": "sha256:32da61f7f6f3a98967e37eef6e29177ea5920b25d5f5e63ceac639fd7554b72a",
+    "latestSource41Result": "result://abiogenesis/a8746cb4c4fbbe7e6021dccd54f99bfad76bad50b4314ccbfb58f87da3db767c",
+    "prior16DetectionsRestores44Green": "Historical authenticated219 contribution preserved; no new credit earned.",
+    "noNewRunModelAppSourceGit": true
+  },
+  "proofs": {
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/commands/current-source-preparation.result.json",
+      "sha256": "ba36db092be5c61125e5dddece0b2bb2e43ba178f043abf47f3831df369529ba",
+      "byteCount": 23659
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/commands/current-source-preparation.stderr",
+      "sha256": "49d30a9373b762851da88e3c23f2a8b5dbbd628eb76d47334c0bafc2d38f4f80",
+      "byteCount": 7672
+    },
+    "source41": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/stages/010-source-initial.json",
+      "sha256": "29e8646cafbb5eaba988e5baf1ea12e80b1c497249c44f827fd37b4353a59b97",
+      "byteCount": 889
+    },
+    "historicalSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/historical-source-discriminator.json",
+      "sha256": "8b729ad329e0dcb556f7a99adec045eda5d4d23547f6b7773578820962c8976d",
+      "byteCount": 865
+    },
+    "lastEntered": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/stages/026-product-resolve-transport-start.json",
+      "sha256": "19fd7f0ea3b336f601dca5077e1c8525f55baad92dfbae7fbe6c625db989da15",
+      "byteCount": 242
+    },
+    "failedResolveRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/calls/product-resolve.request-projection.json",
+      "sha256": "b97d48f3c56acaa9429cbbb1915c18cb2cbd70e444bd555bf17a177d289ba3be",
+      "byteCount": 15416
+    },
+    "conservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/stopped-conservation.json",
+      "sha256": "421a6416eb02320ec4d90e1d34199f25a54f83f80b1786140a980d17bb80cb2b",
+      "byteCount": 16422
+    },
+    "firstCause": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/actual-first-cause.json",
+      "sha256": "e744f5d9616838e737a1eab407b275768d4fafbdfb065f3ce6e57d2e5c5cb123",
+      "byteCount": 3600
+    }
+  },
+  "preservedOperatorFailure": "Initial25.823s coordinate-versus-lock record assertion preserved; only expected lockId/lockDigest projection changed in attempt-b. Actual pre-history owner identities matched.",
+  "nextAction": "Root causal triage before any retry or maintenance; preserve dead lock and all completed actual receipts. Native231 authorization was conditional on positive setup/preparation and was not exercised.",
+  "qualityWindow": "No nativeCLI was spawned; new5h clock not started.",
+  "open": "Actual31 installs/binding/catalog/current-use/covers/preparation/native/C2/UAT/capacity/P0/release remain open."
+}

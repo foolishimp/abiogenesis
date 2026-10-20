@@ -1,0 +1,18 @@
+{
+  "kind": "finite_caller_budget_proposal_no_runtime_authority",
+  "nominalPreflightMs": 180000,
+  "totalSetupBudgetMs": 600000,
+  "totalFlowBudgetMs": 600000,
+  "driverBudgetMs": 600000,
+  "stages": {
+    "setup": 180000,
+    "conformance": 180000,
+    "assessment": 180000,
+    "selfConformance": 180000,
+    "verdict": 180000,
+    "read": 60000
+  },
+  "heap": "default; unchanged",
+  "RootRuntimeAdoptionRequired": true,
+  "supervisorBeforeImports": true
+}

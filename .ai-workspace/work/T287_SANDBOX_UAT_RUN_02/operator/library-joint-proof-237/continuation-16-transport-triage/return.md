@@ -1,0 +1,13 @@
+# CLOSED16 selected transport cause — STOP
+
+Frame: fixed ABI5.0/GOAL035/T287/STDO2.5.1rc2; `f-worksite-causality` with interface integration, transport identity and Proof. This is one read of the stopped occurrence, with no repair or transport retry.
+
+The first false comparison in the existing `exactExchange` is `observation.disposition === "success"`: actual `failure`. All 12 preceding comparisons match, including complete dispatched request digest, actor/binding/implementation/input/plan/renderer/prompt/contracts and lane. Failure class is `transport_failure`; recorded tool count and tool vector are both zero. The later tool requirements also fail independently; the runtime conjunction stops at disposition.
+
+The authentic actor result event `c45cd529…` and its byte-authenticated transport/stderr artifacts identify the origin: actual command is the unchanged [responder09](../continuation-09/responder.mjs), supplied the `worksite_command_execution_worker_result` acknowledgment schema. It exits 1, without a signal or timeout, at line102: `TypeError: Unexpected native response schema; assessment is not selected`. Stdout/output are empty. That selected branch rejects the C2 schema before invoking the canonical Bash helper. The current candidate is still `broken\n`; all three protected fixture inputs match. This establishes the fixture defect behind the lawful framework refusal, rather than an identity-guard defect.
+
+Actual request SHA `03401b36…`; native plan `9b12b7b1…`; expected helper input SHA `aea739eb…`/643B. Complete scalar comparisons and schema are in [exchange-comparison.json](exchange-comparison.json), selected causal coordinates in [selected-events.json](selected-events.json), and existing artifact paths/hashes/482B literal stderr in [transport-artifacts.json](transport-artifacts.json). Prompt/task/history bodies were not copied.
+
+One actual owner acquisition/read/normal-close passed in 1.419s, exit0/signalnull/no timeout or truncation. [normal-close.json](normal-close.json) SHA `7b79a2395ee2acb168078743508ad8f9e5ebfa79ae166c1ec062f1efade18e73`/2332B returns exactly the previous16 handoff at 32,758,262B/`4350f5f1…`/`782900f8…`. Stat/inode/mtime, candidate and protected files are unchanged; lock and fixture native processes are absent. The original Data Mapper was untouched. Two pre-owner path/glob lookup errors are disclosed in preflight; neither invoked an owner.
+
+No Source/helper/responder changes, native command or retry were performed. Framework and installed44 acceptance remain bounded as previously recorded. Root alone selects the fixture repair and affected native reproof.

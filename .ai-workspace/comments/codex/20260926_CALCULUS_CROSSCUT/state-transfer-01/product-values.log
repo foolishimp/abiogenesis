@@ -1,0 +1,12 @@
+✔ Product author recovery values retain accepted stages under an explicit failed-stage premise (95.428208ms)
+ℹ Product derivation only: supplied failed-stage premise and value coordinates; no intake, call, prefix or producer admission claim.
+✔ Product assessor recovery values preserve pending Design and select assessment-first without reauthoring (106.10475ms)
+ℹ {"scope":"Product values and declared assessment-first graph only; operational role supplied, no intake or runtime admission claim","retainedInput":null,"successorDigest":"sha256:ab32de428ae57ab0ad063606e32e488f71d3feb0af05f8af732e1a0ca27b593e","asset":"semantic-job-asset://abiogenesis/77f4c0763528513c8617dfee52f9a829738767121d83fd08a1689973c9d11578","assets":4,"program":"program://odd-glc/native-semantic-revision/from-design-assessment@5"}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 487.468334

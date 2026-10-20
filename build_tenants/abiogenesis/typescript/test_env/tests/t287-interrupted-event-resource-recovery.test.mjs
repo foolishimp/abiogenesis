@@ -83,6 +83,8 @@ test('genuinely interrupted owner recovers once, keeps lock through validation a
  finally{fs.readSync=before;syncBuiltinESMExports();}
  assert.equal(result.kind,'abg_event_resource_recovery_receipt');assert.equal(result.outcome.kind,'recovered',JSON.stringify(result));
  assert.equal(logReads,1);assert.equal(readBytes,f.bytes.length);assert.equal(result.outcome.validatedEventCount,3);
+ assert.notStrictEqual(store.captureDurablePrefixCoordinate(result.outcome.closeHandoff.prefix),result.outcome.closeHandoff.prefix,
+  'portable recovery handoff has no nominal runtime-history association');
  assert(!fs.existsSync(f.lockPath));assert.deepEqual(fs.readFileSync(f.path),f.bytes);
  assert.equal(fs.statSync(f.path).ino,f.selection.lastCloseHandoff.reopenAuthority.inode);
  assert.equal(store.reopenEventStore(f.selection.lastCloseHandoff.reopenAuthority).kind,'event_store_reopen_refusal','old handoff stays stale');

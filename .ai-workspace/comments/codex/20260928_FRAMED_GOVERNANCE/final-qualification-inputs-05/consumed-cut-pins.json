@@ -1,0 +1,55 @@
+{
+  "kind": "exact_closed_dependency_pins",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c04-review-and-q05-controls-01/q05-worker-request.txt",
+      "bytes": 7733,
+      "sha256": "c9ebc97fe8afa89ceda89dbb647e79aaa222ae66e3f9ad98d003d5691be09646",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+      "bytes": 140595,
+      "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/freeze.json",
+      "bytes": 1212521,
+      "sha256": "2296636418d8851ed2ce61932fb9be64eccecc41e445e61c1052e10745cbad97",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+      "bytes": 848706,
+      "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/command-environment.mjs",
+      "bytes": 10344,
+      "sha256": "437288b5120b688ca2caa06e84385b3688e7f93aeb40666bccbdfbedf51644e4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/conformance-resources.mjs",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c04-acceptance-and-installed-setup-controls-01/acceptance.json",
+      "bytes": 1068,
+      "sha256": "771620283cb16a09c5ef7a25bd39c52b747d8248a6b96dc6f5f579349054d753",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/freeze.json",
+      "bytes": 4321,
+      "sha256": "6d08fe93bdcf8781587b3b2c7909cb78436891097c7a236fcbb848f8d7b8d44e",
+      "mode": 420
+    }
+  ],
+  "F11DonorRecordsVerified": 18,
+  "currentRuntimeBindings": null
+}

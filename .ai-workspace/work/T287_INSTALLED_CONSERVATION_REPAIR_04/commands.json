@@ -1,0 +1,20 @@
+{
+  "flow": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "--test",
+      "--test-concurrency=1",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_04/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs"
+    ],
+    "mode": "flow"
+  },
+  "cold": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "--test",
+      "--test-concurrency=1",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_04/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs"
+    ],
+    "mode": "cold"
+  }
+}

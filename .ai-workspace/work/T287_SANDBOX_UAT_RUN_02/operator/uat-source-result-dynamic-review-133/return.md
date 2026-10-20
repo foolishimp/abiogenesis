@@ -1,0 +1,15 @@
+Product Frame: fixed fifteen-family ABI5 5.0, GOAL035/T287, STDO2.5.1rc2 manifest `3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782`; external Data Mapper UAT. Frame `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality`, joined existing Public invocation integration. Native owners retain sole admission authority.
+
+CLOSED GO for the exact prepared130 launch, conditional on ordinary admission and conserved immutable/current prerequisites. All31 dynamic pins matched;14 current installed owner pins and the prior131 subject matched. No static or dynamic source-to-input counterexample found.
+
+Bounded raw acquisition confirms174956 successful state Result,174960 advancing causal judgment, and175991 genuine `run_stopped`/blocked. Native129 exited0 without timeout, truncation or signal; its Run/resource close-handoff agrees with prepared reopen. No inferred OS stop supplies authority. Closed prefix is175991 events/1398511166B/digest `89c73404…06bc92f4`; no whole-log read/hash/replay was performed by this review.
+
+Installed24's one canonical preparation exited0 in132783.549333ms. Source basis `ed83216c…d7ca35` names exact Result `b5e95b06…045356`, original Public authority and historical producer/CCall/admission/judgment coordinates. Independent canonical basis/value/request/Public-authority/reopen/steering digest checks pass. Quiescence/latest applicability was computed by the existing owner, not reconstructed by a caller.
+
+Prepared input deeply equals the complete authentic30-observation/nonterminal parent: original demand, synthesis, unresolved support, every observation and producer value survive. No terminal reset, Result retagging, SourceNone fallback or workspace copy exists. New Public invocation `4328556a…d03542` is distinct and its canonical digest validates.
+
+Same candidate24, Program/View/W, input contract, allowlist, catalog applications, actor, provider/environment/dependency coordinates and permission scope are conserved. All48 physical files and one absence matched; device/inode/length and selected lock absence agree. Native resource assertion and run-environment reconstruction pass. Canonical ingress still rederives source applicability and exact Program/View/W/input and grants at actual use (`invocation_admission.ts:1389–1429`).
+
+Launcher retains native18060000ms/268435456B and external19260000ms/536870912B controls. New quality time starts at actual spawn; old clock and evidence remain historical. It performs one ordinary installed CLI call, without private event admission. Future invalidation or nonquiescence must refuse rather than select an older snapshot.
+
+Prior12 genuine detections/restorations and44 green remain source provenance. Four INV obligations/full original16-mutant UAT remain unmet. New admission, provider/native continuation, fresh Public reads, independent resumed oracle and memory/global-capacity/release closure are unearned. Root alone releases dispatch. One reviewer convenience-export lookup was invalid; corrected supported Public shape/canonical checks passed, with no native execution or guard failure. Review stopped after documentary effects.

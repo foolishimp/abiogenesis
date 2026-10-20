@@ -1,0 +1,38 @@
+{
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/freeze.json",
+    "bytes": 1927723,
+    "sha256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+    "mode": 420
+  },
+  "failedCheckFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/freeze.json",
+    "bytes": 12252,
+    "sha256": "5715b514ff7502e91c2f72410f03a62f284ca39ea19f32d72b8d3aebc38016b7",
+    "mode": 420
+  },
+  "canonicalTestPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+    "bytes": 6838,
+    "sha256": "0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7",
+    "mode": 420
+  },
+  "actualTypedHookSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "bytes": 19603,
+    "sha256": "b6919041f617814eae22d48b2b6e646fe1b2f9edc889708134f911472398f581",
+    "mode": 420
+  },
+  "readonlyTenantRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "newTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01",
+  "expectedCases": 32,
+  "firstFixtureCause": "Wrong projection-coordinate type instead of actual exported producer return type for functional runtime hook.",
+  "secondFixtureCause": "ExactOptionalPropertyTypes produces legitimate missing-field TS2375 omitted by the test whitelist.",
+  "lawfulReentry": "realization_refactor of test fixture/caller only",
+  "frames": {
+    "ProductDesign": "Shared functional evidence contract/HOW5.1 unchanged.",
+    "IntegrationType": "Test must derive real hook through NonNullable<ReturnType<typeof projectInstalledLeafSemantics>>; source compiler alreadypass and other omission errors occurred.",
+    "Proof": "Prior aggregate test failed with32TS2339 header diagnostics; retain intended20TS2322/10TS2375 cases without pass credit.",
+    "EffectsIdentityReuse": "All53 previousfiles194731B verified; code/524emittedbodies and successfulcallback remainimmutable; no recompile/copy/Run/provider."
+  }
+}

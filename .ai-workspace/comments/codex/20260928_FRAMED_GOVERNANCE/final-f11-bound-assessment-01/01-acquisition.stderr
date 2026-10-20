@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/prepare-inputs.py", line 214, in <module>
+    assert projection['prefix']['prefixDigest'] == 'sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

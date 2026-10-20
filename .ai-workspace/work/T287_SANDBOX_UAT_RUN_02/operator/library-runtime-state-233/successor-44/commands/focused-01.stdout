@@ -1,0 +1,37 @@
+(node:79545) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ reference preparation resolves exact dependencies in leaf and builtin fallbacks before warm reuse (34.627458ms)
+✔ cold admitted preparation consumes Result/J without declaration resolution or history reread (55.010666ms)
+✔ inline request and task identities remain unchanged through cold admitted consumption (25.772709ms)
+✔ library prepare-testing reuses the invoking private operation and its actual F_D origin (97.730959ms)
+ℹ Canonical module-publication definition and leaf/descriptor binding with actual library preparation/matcher and cold F_D Result/J/evidence relations; raw/foreign/tampered definition and materialization identities refuse. Physical constructors are real. Source/environment/cover/CCall and implementation-set lookups are controlled lower premises, not new native or installed admission.
+✔ library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards (46.401833ms)
+ℹ Actual library/task/native occurrence/declaration/closed-source code and physical context checks. Synthetic invocation-root plus source/environment/cover/CCall/set/terminal premises are controlled; the entered-refused callback case tests only its handoff contract. No installed Testing/C2, actual first-null or no-effects claim.
+✔ reacquisition publishes one ordinary F_D with existing C2 output and native owner semantics (5.323083ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 565.423083
+
+✖ failing tests:
+
+test at input-01/test_env/tests/t287-native-work-reacquisition.test.mjs:158:1
+✖ reference preparation resolves exact dependencies in leaf and builtin fallbacks before warm reuse (34.627458ms)
+  AssertionError [ERR_ASSERTION]: same immutable dependency reuses establishment
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/input-01/test_env/tests/t287-native-work-reacquisition.test.mjs:165:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

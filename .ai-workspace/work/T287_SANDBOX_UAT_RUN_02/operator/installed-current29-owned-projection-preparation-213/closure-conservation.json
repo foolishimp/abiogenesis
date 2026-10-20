@@ -1,0 +1,37 @@
+{
+  "finalCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/final-close-handoff.json",
+    "sha256": "a174afdd863e8fad4d5dd17105e69c7d40127cb06cbc79d7a37a72451c52afb5",
+    "byteCount": 1472
+  },
+  "finalResourceReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/final-resource-receipt.json",
+    "sha256": "de37f49d4023b1536c653096c86879541102b41c70abb714947475d54b9baafb",
+    "byteCount": 2488
+  },
+  "logStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1697740744,
+    "mtimeNs": "1791553718701904497"
+  },
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/physical-conservation.json",
+    "sha256": "4ee9ff463f779d58e0aa1f5901111eec5d068bc191ddff8184ab4bae08acfea2",
+    "byteCount": 13875
+  },
+  "quiescence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/execution-quiescence.json",
+    "sha256": "cb34fe6996fd95f0af9663a013b66cb88839e4aa4bfc701f3a926895b9a1984e",
+    "byteCount": 820
+  },
+  "currentEntry204": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/final-close-handoff.json",
+    "sha256": "ac019aa4430e554d406d6e20a409167bc35361341b50513432ad1eed5d26e02b",
+    "byteCount": 1472
+  },
+  "noManualLogReadHashReparse": true,
+  "actualAppendOnlyOwnerEffectsPreserved": true,
+  "newEventBytes": 3827383
+}

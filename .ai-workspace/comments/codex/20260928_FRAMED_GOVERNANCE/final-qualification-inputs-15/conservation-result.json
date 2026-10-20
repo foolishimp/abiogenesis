@@ -1,0 +1,32 @@
+{
+  "kind": "original_cut_conservation",
+  "q04Before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/freeze.json",
+    "bytes": 1212521,
+    "sha256": "2296636418d8851ed2ce61932fb9be64eccecc41e445e61c1052e10745cbad97",
+    "mode": 420
+  },
+  "q04After": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/freeze.json",
+    "bytes": 1212521,
+    "sha256": "2296636418d8851ed2ce61932fb9be64eccecc41e445e61c1052e10745cbad97",
+    "mode": 420
+  },
+  "q04AllRecordsBeforeAfter": 5229,
+  "c03Before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+    "bytes": 388347,
+    "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+    "mode": 420
+  },
+  "c03After": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+    "bytes": 388347,
+    "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+    "mode": 420
+  },
+  "ownerInputsUnchanged": 10,
+  "allSelectedOriginalBodiesModesUnchanged": 3294,
+  "immutableNodeUnchanged": true,
+  "productMutation": false
+}

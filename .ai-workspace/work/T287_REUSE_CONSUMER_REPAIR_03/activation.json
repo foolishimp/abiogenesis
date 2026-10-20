@@ -1,0 +1,48 @@
+{
+  "operation": "T287_REUSE_CONSUMER_REPAIR_03",
+  "role": "Worker",
+  "actor": "/root/native_applicability_design",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-04T19:42:27.107145+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+    "bytes": 46293,
+    "sha256": "8366f7a3e51bd33178d4583d66e7927a59fc44ba541cbd1ce2afab31fb216674",
+    "mode": 420
+  },
+  "section": "Corrupt-archive oracle continuation, 2026-10-05",
+  "sourceEntries": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10687,
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 8505,
+      "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 17051,
+      "sha256": "36de7b9dd32e5c34f43b65daaa53ab51cbfac563a1f24abe6a9c2e848c5341d9",
+      "mode": 420
+    }
+  ],
+  "SourceWriteOnly": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+  "writeRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_03",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_03"
+  ],
+  "defaultHeap": true,
+  "HOME": "/Users/jim",
+  "budgetsSeconds": {
+    "current": 180,
+    "historical": 60,
+    "overall": 600,
+    "terminationGrace": 5
+  },
+  "retries": 0
+}

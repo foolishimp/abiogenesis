@@ -1,0 +1,15 @@
+{
+  "operation": "T287_EXEC06_CALLER_REVIEW_ROUTING_01",
+  "role": "Writer",
+  "actor": "/root",
+  "previousRole": "Executive",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/independent-caller-sections.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/independent-caller-request.txt",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/independent-caller-routing-activation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/independent-caller-routing-closure.json"
+  ],
+  "purpose": "Preserve disclosed Q06 author diagnostic; route caller assurance to distinct author-independent Reviewer",
+  "sourceCandidateRuntimeNetworkGitEffects": 0,
+  "activatedAt": "2026-10-02T04:20:50.607955+00:00"
+}

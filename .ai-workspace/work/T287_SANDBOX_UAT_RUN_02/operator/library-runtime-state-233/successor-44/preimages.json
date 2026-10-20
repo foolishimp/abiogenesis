@@ -1,0 +1,26 @@
+{
+  "kind": "source44_selected_preimages",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "relativePath": "code/src/abg/native_work_reacquisition.ts",
+      "sha256": "fe23097a2ea5e7c94e2c8b7a15c6b7e420f02efdcbc8dac61e6c5f39dd117639",
+      "bytes": 35961,
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/preimages/code/src/abg/native_work_reacquisition.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "relativePath": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "62487a78f7afe96d8cf8f55fb94570d636d9c30978cb12d236b70a4c66cd0de1",
+      "bytes": 61582,
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/preimages/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "relativePath": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "bba4d6d1734bf94ae7f29031a12d9dd0eecb6be78cf05fc6ec08269042ffe4b5",
+      "bytes": 47135,
+      "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/preimages/test_env/tests/t287-native-work-reacquisition.test.mjs"
+    }
+  ]
+}

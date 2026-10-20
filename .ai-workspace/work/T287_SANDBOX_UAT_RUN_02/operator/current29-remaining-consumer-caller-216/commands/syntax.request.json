@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216/prepare.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216",
+  "started": "2026-10-09T14:21:20.188074+00:00",
+  "effects": "Parse-only syntax check; imports/resources/owners not executed."
+}

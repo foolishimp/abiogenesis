@@ -1,0 +1,14 @@
+{
+  "role": "Writer_CLOSED_root_resumes_Executive",
+  "executionPostimage": "12ee1c96601155c60ab950d4a32dc83b15dbf95acc922c0ac8197257ec4ef0bb",
+  "controls": {
+    "law-request.txt": {
+      "bytes": 3645,
+      "sha256": "878cdae0d5971ddeaf84bd61c5515c5d5ae5f6447a132cc2558191e7ac6eb789"
+    },
+    "design-request.txt": {
+      "bytes": 3708,
+      "sha256": "08de08cc4f06504a81506090ea66281c4526d925e7da8ee04e67638f7d23e640"
+    }
+  }
+}

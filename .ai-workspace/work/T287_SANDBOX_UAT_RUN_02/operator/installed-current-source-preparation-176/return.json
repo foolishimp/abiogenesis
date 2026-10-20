@@ -1,0 +1,106 @@
+{
+  "role": "Worker176 CLOSED/HOLD",
+  "outcome": "104 genuine witness operations completed; complete current-source-use projector refused before Product preparation",
+  "firstCause": {
+    "stage": "covers-complete",
+    "name": "AssertionError",
+    "message": "Actual current26→historical24 covered source use refused",
+    "rawStack": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/first-cause.json",
+      "sha256": "68e55e3470bef64ce10dfc249aded521b4b2aad5e79d1608899131fd9f799eb9",
+      "byteCount": 804
+    },
+    "status": "exact internal refusal predicate unresolved; Root RCA/action before retry"
+  },
+  "oneCommand": {
+    "started": "2026-10-09T06:02:04.250Z",
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 327653.671042,
+    "timedOut": false,
+    "truncated": false
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/readiness.json",
+    "sha256": "cd52cff5b5967e4115408b4074958e24aedfd1fdc1037aa8611cb6c205e9fcc0",
+    "byteCount": 9830
+  },
+  "actualCurrentClosePrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1686258635,
+    "prefixDigest": "sha256:8acaa9862be4a108bac3946fe09f4403a08bff344f21ac34ad813add5679c858",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:ff5594c3372286b496c953a58086b20f1c30a38e593c8848eb8ac5cbdbe641ca"
+  },
+  "closeHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/final-close-handoff.json",
+    "sha256": "99d5f7e4bc2ecf0abe8aca89e2a9c5a3acf128704ad75460de76ab61d572c2ee",
+    "byteCount": 1472
+  },
+  "newCatalogAndView": [
+    {
+      "operation": "catalog-admit26",
+      "invocationRef": "invocation://abiogenesis/041f9fb202e4ef0220cb994110b9ca7d1524a532f7e63e9ee4ac438810ea3f1f",
+      "coordinate": {
+        "ref": "graph-function-catalog://abiogenesis/0acd31a97d505b7028f8617ec541855c2606f7b442c90151dd05b00e6a38de34",
+        "digest": "sha256:0acd31a97d505b7028f8617ec541855c2606f7b442c90151dd05b00e6a38de34"
+      },
+      "actualOwnerOutcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/calls/catalog-admit26.outcome.json",
+        "sha256": "fbfd7f43dfe0a4d747871259e5fd5efce895622d17b803ba0db1f8c3129257b5",
+        "byteCount": 173665
+      },
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/calls/catalog-admit26.request-projection.json",
+        "sha256": "a0ca9a22b6cbf3be3c04cfc134b27bb1abfcf2a6ce5ba813e8a328b08d204300",
+        "byteCount": 15744
+      }
+    },
+    {
+      "operation": "catalog-view26",
+      "invocationRef": "invocation://abiogenesis/6257913e290e2457c755e24161fe52719bd03686c16e3581c37a0da369647e64",
+      "coordinate": {
+        "ref": "graph-function-catalog-view://abiogenesis/1a43a611f4e7c7540543dbe520665c31385bfe30cff282cf65d1d8d672324a72",
+        "digest": "sha256:1a43a611f4e7c7540543dbe520665c31385bfe30cff282cf65d1d8d672324a72"
+      },
+      "actualOwnerOutcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/calls/catalog-view26.outcome.json",
+        "sha256": "7251ee7f9428f20da898a9c33f61be4c0038c7f56061d6a2694fcce2d51d631e",
+        "byteCount": 2265
+      },
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/calls/catalog-view26.request-projection.json",
+        "sha256": "4fadda1c430995bf4360850b122881a392de6ee06f2db96e67518c9da06fae4e",
+        "byteCount": 15372
+      }
+    }
+  ],
+  "witnessOperations": 104,
+  "completedWitnessPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/completed-witnesses.json",
+    "sha256": "2d1dde6d6bbbce56a1d3f1d0fd5547c78fa1904990bc20bfbde40f8eca563a52",
+    "byteCount": 125452
+  },
+  "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+  "sourceObservations": 34,
+  "sourceNonterminal": true,
+  "sourceCurrentnessOwnerBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/source-current.json",
+    "sha256": "0581af8364d40155e12b627f558ad135f3645e3a70b0e4a815a5cb1dba7996e9",
+    "byteCount": 2414005
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/closure-conservation.json",
+    "sha256": "95ced6db753fa99c6f965e699e30c5170a0de36bb984e2e0dcf0c3504c5cbdfe",
+    "byteCount": 20634
+  },
+  "preserved": "Prior native26/consumer/binding admissions reused unchanged; current catalog/view/104witness effects committed; no136/171 root reset; all49 physical observations unchanged.",
+  "limits": "D2 individual covers and rederived original34 source do not establish accepted complete current-use or prepared Product continuation. No native Run/model/app/UAT execution, full capacity/P1 failure capsule/release qualification. Actual scalar outcomes/nullable absence preserved without fabricated carrier.",
+  "stopped": true
+}

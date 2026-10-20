@@ -1,0 +1,158 @@
+{
+  "operation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "phase": "continued-02-after-preimage-control-only-stop",
+  "actor": "/root/native_applicability_design",
+  "operationBasisSHA256": "54e2cbf171123dc89b4a816d0d3cc598202fa53722ffe1821ec0488f40bd3db7",
+  "sevenCurrentControlsConsumeAuthenticatedData": [
+    "compare-wrapper.mjs",
+    "correspondence.py",
+    "execute.py",
+    "finalize.py",
+    "prepare.py",
+    "validate-installed-publications.mjs",
+    "verify-installed.mjs"
+  ],
+  "stoppedPredecessorPreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-freeze.json",
+    "bytes": 551888,
+    "sha256": "cafb80009dd2bdb8980252c92dc30b0c4792afe86eb1c8a13fa5435fb504cb2d",
+    "mode": 420
+  },
+  "donor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls",
+  "acceptedAlgorithm": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-controls",
+  "records": [
+    {
+      "name": "compare-wrapper.mjs",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/compare-wrapper.mjs",
+      "donorSHA256": "b5392b360ab57e3b7fd0e0648cc29f8b1f3930a5cbdb21a15cbf59dbd6ddd51f",
+      "donorBytes": 9485,
+      "postimagePath": "final-controls/compare-wrapper.mjs",
+      "postimageSHA256": "e80ffaa84cea74ff8d1ff85c5d870011eded436c0df50c0cc44bf1ddfe96b915",
+      "postimageBytes": 9485,
+      "mode": 420,
+      "adaptation": "current Root basis authentication pin",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "correspondence.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/correspondence.py",
+      "donorSHA256": "5332a551278574aebfb5f630b71b5003296cc152843a243e0dd8e8effd44942c",
+      "donorBytes": 8553,
+      "postimagePath": "final-controls/correspondence.py",
+      "postimageSHA256": "434192807b3d398743c2fa61b26ad63ae5988735ccb3d537ed4fbd1be99e4568",
+      "postimageBytes": 8553,
+      "mode": 420,
+      "adaptation": "current Root basis authentication pin",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "execute.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/execute.py",
+      "donorSHA256": "2e0a192eff0861a2ca9c12c44e000dc9a427ec2fac77909b2724459cfabd4981",
+      "donorBytes": 7227,
+      "postimagePath": "final-controls/execute.py",
+      "postimageSHA256": "a309cdf633c0dc0dc4a502f9f0bee31d27fc6633ab50598a65d83a7d98c81fbc",
+      "postimageBytes": 7227,
+      "mode": 420,
+      "adaptation": "current Root basis authentication pin",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "finalize.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/finalize.py",
+      "donorSHA256": "5e598834926bc45fd2e7812ba8379df52b51f2bd4d28cf17bba781436fcc9f59",
+      "donorBytes": 20353,
+      "postimagePath": "final-controls/finalize.py",
+      "postimageSHA256": "c2d54fae8dd40a95ee76589507eef67125e48a88222265f4734ae44a6a6e4925",
+      "postimageBytes": 20353,
+      "mode": 420,
+      "adaptation": "current Root basis authentication pin",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "prepare-wrapper-comparison.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/prepare-wrapper-comparison.py",
+      "donorSHA256": "ab2c67f28501889503ff1648d5843d5c8cd4d6fe04f881270a6b660d4bb55b78",
+      "donorBytes": 4463,
+      "postimagePath": "final-controls/prepare-wrapper-comparison.py",
+      "postimageSHA256": "ab2c67f28501889503ff1648d5843d5c8cd4d6fe04f881270a6b660d4bb55b78",
+      "postimageBytes": 4463,
+      "mode": 420,
+      "adaptation": "unchanged accepted algorithm",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "prepare.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/prepare.py",
+      "donorSHA256": "9d62093626320045b8e9e374273acb891d58c00031be489388f542911f3b0039",
+      "donorBytes": 12032,
+      "postimagePath": "final-controls/prepare.py",
+      "postimageSHA256": "406f36d3dfc5b76ae6866b0ee6f4e78f2c4eb0f2cbabfec3fb65df4cf9b2e3be",
+      "postimageBytes": 14307,
+      "mode": 420,
+      "adaptation": "current Root basis authentication pin; structural exact additions and physical absence preflight before copies",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "run-build.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/run-build.py",
+      "donorSHA256": "bdec6da11043bcafbc2511861977c39d260b157a07be9661f48edde199d3ccb8",
+      "donorBytes": 1236,
+      "postimagePath": "final-controls/run-build.py",
+      "postimageSHA256": "bdec6da11043bcafbc2511861977c39d260b157a07be9661f48edde199d3ccb8",
+      "postimageBytes": 1236,
+      "mode": 420,
+      "adaptation": "unchanged accepted algorithm",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "run-installed-readiness.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/run-installed-readiness.py",
+      "donorSHA256": "7d403f4d52d400eebecb74571405b3b2d3d3cd95b55a05cde42583cdc0ae80ae",
+      "donorBytes": 1002,
+      "postimagePath": "final-controls/run-installed-readiness.py",
+      "postimageSHA256": "7d403f4d52d400eebecb74571405b3b2d3d3cd95b55a05cde42583cdc0ae80ae",
+      "postimageBytes": 1002,
+      "mode": 420,
+      "adaptation": "unchanged accepted algorithm",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "run-package.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/run-package.py",
+      "donorSHA256": "6db24cceccb593640e4be4ad7312fc8ba54d8c7594568a556c330095c1313f0d",
+      "donorBytes": 1203,
+      "postimagePath": "final-controls/run-package.py",
+      "postimageSHA256": "6db24cceccb593640e4be4ad7312fc8ba54d8c7594568a556c330095c1313f0d",
+      "postimageBytes": 1203,
+      "mode": 420,
+      "adaptation": "unchanged accepted algorithm",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "validate-installed-publications.mjs",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/validate-installed-publications.mjs",
+      "donorSHA256": "09afcda564b6c12a969de8a52a2c5020c858ebb97d477853f3543712bf839c3b",
+      "donorBytes": 5145,
+      "postimagePath": "final-controls/validate-installed-publications.mjs",
+      "postimageSHA256": "d0eec27f70560be357d39842359fe21983365656f65a21c8e4d34585636f7ffd",
+      "postimageBytes": 5145,
+      "mode": 420,
+      "adaptation": "current Root basis authentication pin",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "verify-installed.mjs",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/verify-installed.mjs",
+      "donorSHA256": "4da693fbb3760426ddb28eb1a307b4a4672dc5d1745062e4cae10c035583b39c",
+      "donorBytes": 6536,
+      "postimagePath": "final-controls/verify-installed.mjs",
+      "postimageSHA256": "4874965156101e6852a15c7e8bcfb9e83e90edd10c2f0469ca77236216496209",
+      "postimageBytes": 6536,
+      "mode": 420,
+      "adaptation": "current Root basis authentication pin",
+      "historicalSourceAndC07RoutesConserved": true
+    }
+  ],
+  "sourceAndSemanticChanges": 0
+}

@@ -1,0 +1,310 @@
+{
+  "status": "CLOSED_CHANGES_REQUIRED_STOP",
+  "role": "Independent Reviewer144",
+  "closed": "2026-10-09T01:26:35.609934+00:00",
+  "basisManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/return.md",
+    "sha256": "6af4147aad2e4e054cc4f0b8dc51259a85bff8ef78e35d84e5ddf14db4d57f70",
+    "byteCount": 4109
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/readiness.json",
+    "sha256": "b55c01215679d519a2b0e40c2853956c13b0309d26b92966e56bcf12f27ca75e",
+    "byteCount": 9491
+  },
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/freeze.json",
+    "sha256": "460d70b13380e29108985cc21ef95b3094e1fb3a36036af6758b1ee6c4d21c29",
+    "byteCount": 35718
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js",
+      "sha256": "8776b3b5a2c5122fd969b9db84614e5462fc08b1626bbeb9f01b09b314597892",
+      "byteCount": 238898
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call_outcome.js",
+      "sha256": "ef4509a3aa9a09108618d3689db11a8e7e6b41e9cb138ef9d1e92321763e86c2",
+      "byteCount": 57237
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/child_lifecycle.js",
+      "sha256": "c3f05384fa3eab2981a87418ffa674ad83df055d317d211ecbed578659343bfe",
+      "byteCount": 8515
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_contract_profiles.js",
+      "sha256": "d0a47b6028e5403d57e93863896165485c8ea42825445f0cba6ffe57810e3e10",
+      "byteCount": 8443
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_failure.js",
+      "sha256": "2f2337a4258a5896b0b9642721e4b015fce5b8d8505ba63d3aaa2b4d50a99ae4",
+      "byteCount": 11584
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/traversal_route.js",
+      "sha256": "98fc4f08faedebe83b8dc58b492d4b88a7c3ab6c9ad9288b5499a80adce27ea4",
+      "byteCount": 184403
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/ccall_lifecycle.js",
+      "sha256": "61b5bc0a4066dfbb2d2ce420ae7c069bef12be5dcb1aaf4eff0778b82c4310a9",
+      "byteCount": 33629
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/graph_execute.js",
+      "sha256": "1c1860ea7c6420234d5a23834114a37215137aabae37707606a835eb036abd3e",
+      "byteCount": 43099
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/route_proposal.js",
+      "sha256": "452345bbf9f3220b6382e3bb29bd0d466f4d4a6989cfadb194008e0080367039",
+      "byteCount": 31954
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js",
+      "sha256": "0fb87e5388a7bf1273eb390ebf2f6c86d5ca884d9f7e8e4fe9819e4c7cb0bfdb",
+      "byteCount": 70116
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/digests.js",
+      "sha256": "c49125e6657d04f87a844c5456e55dd19ad84df0f2c161998ffe3d97c56e6117",
+      "byteCount": 944
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/activation.json",
+      "sha256": "5a7363e98bc1c944af38dbeaf7639256cf99a4602c7c6ad8e73d9d776b7f6548",
+      "byteCount": 1135
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/causal-route.json",
+      "sha256": "61993c599105841e22343622f102794a4cd815eeee510e3d05ecaa8a34ae9d5a",
+      "byteCount": 1654
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/diagnostic-correspondence.json",
+      "sha256": "dfea674113c1ea4426f75fe4ca7bb867ea20754a4ff1ff765b84715112644ea5",
+      "byteCount": 1597
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/diagnostic-correspondence.mjs",
+      "sha256": "8db05a52b90a9c53b332ca2bca330d77117b3349213a8ae57ab9da425fb68433",
+      "byteCount": 3293
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/finding.json",
+      "sha256": "0134d2d4198df45bfd16e78a01c776928e0e2fcfc780c34cb073b5944898cae4",
+      "byteCount": 1819
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/immutable-owner-selector-correction.json",
+      "sha256": "70532864e05fbe2e4ec970c2b0acbf530412d5ff218da6cb4675cb2378bdb971",
+      "byteCount": 1058
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/reacquisition.json",
+      "sha256": "5b5bfcc60fce5ed42da85066db2fa5b1ab97ed2774587589f3bde7653edbfe22",
+      "byteCount": 1250
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/readiness.json",
+      "sha256": "b55c01215679d519a2b0e40c2853956c13b0309d26b92966e56bcf12f27ca75e",
+      "byteCount": 9491
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/return.md",
+      "sha256": "6af4147aad2e4e054cc4f0b8dc51259a85bff8ef78e35d84e5ddf14db4d57f70",
+      "byteCount": 4109
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/setup-premise-correction.json",
+      "sha256": "9ada30099411a1e1b881178aac59ac794f0ee42ce7e5eba84baa3c6090cc22b4",
+      "byteCount": 452
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "a195281811bac8860dacebfbd489c5aaec7e3d79439bc89dd035891c9ed30813",
+      "byteCount": 76599
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/tests/t287-recursive-failure-reuse-control.test.mjs",
+      "sha256": "0800417da92e655bb16f401d294c249c2dcd28637805912178e27ed37c765c36",
+      "byteCount": 29259
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/commands/focused-owner-sixth.result.json",
+      "sha256": "8a78e4d71533ab144c3b786cdcad0b6eae08af5fdbe8785ca9f61f6ecdda13c2",
+      "byteCount": 164
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/commands/focused-owner-sixth.stdout",
+      "sha256": "39f0cc591eee5dfe2f0768ffed43f636189749e5f2a81d0025e9e4d8dea24dff",
+      "byteCount": 3537
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/commands/isolated-compile-final.result.json",
+      "sha256": "4183ddf6ba4fcd992b060e8875c18e8c97cf390217037bea6778732ccff2b04f",
+      "byteCount": 163
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/conservation.json",
+      "sha256": "17602734bd2f25f11ee190a8ac3af585819d606434e2de358d4e99822338b1f4",
+      "byteCount": 1540
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/freeze.json",
+      "sha256": "460d70b13380e29108985cc21ef95b3094e1fb3a36036af6758b1ee6c4d21c29",
+      "byteCount": 35718
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/postimages/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "ee8baae788e9b7bc5064600d1bedd7446cca8ec9b15d088397d10f6c8cd32361",
+      "byteCount": 35898
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/postimages/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "481a6f654bbccfcc0d456fd4d47cf5082d77541581240f5855ef883e82996abd",
+      "byteCount": 34249
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/postimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "ffb492428b6fd19b364cecb17bc7d353eaaecb06d2ccc8acf5c2d1160f0a0301",
+      "byteCount": 29100
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/proof-observation.json",
+      "sha256": "b6f4d477749564ee6e257a6752c0ca8634dd0c2cc6d150a78ae356ce010b811e",
+      "byteCount": 5204
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/readiness.json",
+      "sha256": "fbb9f8f1d7f9125a131e4b6b75ed0555cf646bb63e1067f07ac899e1ad345695",
+      "byteCount": 43974
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/return.md",
+      "sha256": "0708ccc5b809553ef791e6073e89b9611adba52e513b63fb10330baa60df6865",
+      "byteCount": 2999
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/reuse-fixture.mjs",
+      "sha256": "2e4c59c49a3254be0c3936df4fa7906343840df5adb525d5280db7514962d8f1",
+      "byteCount": 1865
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/run-targeted-sixth.mjs",
+      "sha256": "c7f4f7a5e230bacb1b4d247d4e9af855f93c2fedf06f9aa443f640a9af552da3",
+      "byteCount": 1683
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/source.diff",
+      "sha256": "3afabf4fc6740a42ac07bab01cce708e200628029745e74bbeccd13f8f70b314",
+      "byteCount": 22059
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "byteCount": 11790
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sha256": "1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7",
+      "byteCount": 275535
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "sha256": "97774ea7ad08052a4031f8388577fa558cbbd4a294178731711a70ba119fdb58",
+      "byteCount": 69320
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/child_lifecycle.ts",
+      "sha256": "1191dbf7d1a8cb3183d3c46c46e5653def40b040d6ad640adb0868c7316918dc",
+      "byteCount": 9529
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "sha256": "c850ccedbe55721ffd3b26b6ddce894702aebbd8245b5010a9c4bd883f3264e1",
+      "byteCount": 9628
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+      "sha256": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994",
+      "byteCount": 13253
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "sha256": "6c2af3755c2c97514dda0206b5ab2927ae290739c4609b6a8ecfcaf28b882335",
+      "byteCount": 212646
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "sha256": "3cb0d09a18e00af62bbb1d8ff4518fa7de04befdb3ba979fe06b1d2bb1ad01e4",
+      "byteCount": 35923
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6",
+      "byteCount": 47589
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "ee8baae788e9b7bc5064600d1bedd7446cca8ec9b15d088397d10f6c8cd32361",
+      "byteCount": 35898
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+      "sha256": "031e2c3829e711d45523d4b83472670b2d42f5179e465c424fffcdd9bfa90200",
+      "byteCount": 37768
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "byteCount": 25514
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "481a6f654bbccfcc0d456fd4d47cf5082d77541581240f5855ef883e82996abd",
+      "byteCount": 34249
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "ffb492428b6fd19b364cecb17bc7d353eaaecb06d2ccc8acf5c2d1160f0a0301",
+      "byteCount": 29100
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "sha256": "3676304839a52127559e1897450e0d149a289b4c59f2311e4251c46a813f5173",
+      "byteCount": 73179
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "byteCount": 16326
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "byteCount": 93690
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "sha256": "3db608b13aa61e13d68ecef484561d90aa3e1dfee3cba4b36fce1d913cd87502",
+      "byteCount": 8926
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-RECURSE.md",
+      "sha256": "448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c",
+      "byteCount": 1677
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    }
+  ],
+  "limits": "Bounded Source/owner proof review; no new installed/native/UAT/P0 acceptance or repair effects."
+}

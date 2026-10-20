@@ -1,0 +1,114 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer, report-only",
+  "operation": "T287_RUNTIME07_SAVED_REPORT_FINALIZATION_02",
+  "actor": "/root/native_applicability_design",
+  "activatedAt": "2026-10-02T08:23:12.100972+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-saved-report-finalization-controls-02/request.txt",
+    "bytes": 3149,
+    "sha256": "d8ffaf440f9ef844292f61d273ae5be970294f5b46cd710ef0a2a9e14707e284",
+    "mode": 420
+  },
+  "sections": [
+    {
+      "label": "Role",
+      "text": "Separately activate /root/native_applicability_design Writer T287_RUNTIME07_SAVED_REPORT_FINALIZATION_02, report-only. End previous report Writer01 as stopped on namespace NameError with saved failure evidence. RuntimeWorker07 remains stopped after one native failure; no Runtime authority."
+    },
+    {
+      "label": "Subject and originating relation",
+      "text": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07 saved ten report bodies and actual closed event2750762B/c65057eb. HOME wrong-producer issue already localized. Saved-tail execution then lacked rows. Origin is a report continuation relying on partial Python locals, not Product runtime. Complete repair cone is all closure/return/freeze report dependencies; bind these explicitly from their actual saved producer records."
+    },
+    {
+      "label": "Exact effect territory",
+      "text": "Write only NEW /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02 activation/failed-tail preservation/self-contained finalizer/closure, and remaining /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/closure.json, return.md, final-runtime-freeze.json. Existing accounting/evidence/payloads/scripts remain unchanged. No source/fixture/candidate/input/install/store effects."
+    },
+    {
+      "label": "Self-contained operation",
+      "text": "Create a self-contained report finalizer from actual saved accounting/first-violated-relations/handoff/conservation/owner-census/actor evidence and appended-runtime-records.json. Bind records, all used values, timers and complete census explicitly; do not eval another partial original tail or rely on unstated Python locals. Preserve all failed attempts. Finish honest stopped Runtime/report closures and final complete file/directory/mode census from saved measurements only. Routine report-field bindings within this exact cone may be resolved from their producer without repeated tiny re-grants; no other repair allowed."
+    },
+    {
+      "label": "Validation and effects",
+      "text": "Check every free report name is locally defined or explicitly supplied from saved data before finalization. No payload reproof, full old source rehash, imports/owner preparation/Runtime/readbacks/helpers/tests/builds/providers/network/Git. Original event bytes, actual native artifact pins, accounting and saved report bodies stay exact. Final census is reporting only."
+    },
+    {
+      "label": "Truth and cost",
+      "text": "Keep actual one Public call/one controlled helper/exit0/native contract_failure/failed child foldback/run_stopped/zero completedRun or cold reads/F11/AF22; original prefix/inode conserved. Report-only elapsed separately, no rerun. Independent source localization is separate, no cause from reporter inferred. Preserve explicit unknown actual preimage refusal detail until independent closed review."
+    },
+    {
+      "label": "Closed return",
+      "text": "Close current Writer and stopped original Runtime operation with honest role attribution, final-runtime-freeze.json exact final pin/counts/census, stop writes. This external reporter completion confers no functionality or release pass. Root alone conjoins and selects source re-entry."
+    }
+  ],
+  "installedAC": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "priorRuntimeOperation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "priorRuntimeState": "STOPPED at first actual native raw-result failure; no further Runtime authority",
+  "priorReportWriterOperation": "T287_RUNTIME07_REPORT_FINALIZATION_01",
+  "priorReportWriterState": "STOPPED_ON_NAMEERROR_AFTER_ACCOUNTING_SAVED",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/closure.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/return.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/final-runtime-freeze.json"
+  ],
+  "protectedSavedReports": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/actual-actor-transport-evidence.json",
+      "bytes": 105559,
+      "sha256": "2e417d452e72cd007bea4f27add6bb4cf2ea228a0776b5fa9f29078be838103f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/available-native-verification-preimages.json",
+      "bytes": 3228,
+      "sha256": "0c9bf2a282e38260884a31f4e90e971178aa58353322be47565add3bcc2b4c96"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/appended-runtime-records.json",
+      "bytes": 305336,
+      "sha256": "d9d895d04e507d66bc549e24ee99e65c991831ff470d4f47131a007ea7f10645"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/first-violated-relations.json",
+      "bytes": 20550,
+      "sha256": "047d03737ad283172f14ec938e6e5c3f1dbe441a035f4b32407adfccec6666cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/closed-event-resource-handoff.json",
+      "bytes": 2612,
+      "sha256": "448bdb6a900500522a46e54f19b170629494b95d5257392c55071090ca34e21e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/closed-runtime-events.jsonl",
+      "bytes": 2750762,
+      "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/appended-durable-records.bin",
+      "bytes": 259948,
+      "sha256": "c473ec4f2c586b4b9d9148cfababec0476c3fc3382bd2b546a34138696585fa2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/owner-resource-census.json",
+      "bytes": 6837926,
+      "sha256": "c1f7b2e59a1001bf14411e88d7ce43b6f477ef20f3d563690637f0df0d50e437"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/conservation.json",
+      "bytes": 7929,
+      "sha256": "4e9c296728ba50edc2bd3fa24476bba005ddd0e703302d8e40682ed12895efe8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/accounting.json",
+      "bytes": 47017,
+      "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+      "mode": 420
+    }
+  ],
+  "externalEventProofReused": "closed-event-resource-handoff.json physical2750762B/c65057eb, originalPrefix/inode conserved; no resource reopen or payload reproof",
+  "additionalRuntimeOwnerImportsReadbacksHelpersSourceEffects": 0
+}

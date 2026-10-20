@@ -502,7 +502,8 @@ function loadTypeScript(): typeof TypeScript {
   return (compilerModule.default ?? compilerModule) as typeof TypeScript;
 }
 
-function installedToolchainProductContentDigest(): Sha256Digest | null {
+/** @internal Current linker basis; reused resolutions retain this check. */
+export function installedToolchainProductContentDigest(): Sha256Digest | null {
   try {
     const manifest = JSON.parse(
       readFileSync(

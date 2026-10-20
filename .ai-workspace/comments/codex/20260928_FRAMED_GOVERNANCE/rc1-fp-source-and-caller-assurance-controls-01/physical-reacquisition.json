@@ -1,0 +1,5 @@
+{
+  "source": "6558 regular body hashes/bytes/modes +2link targets/lstat modes/648dir census +2canonical source postimages verified",
+  "caller": "82regular body hashes/bytes/modes/7dir modes/fullcensus/0links and actual externalprefix SHA/dev/inode/mtime/mode verified",
+  "consumerCorrection": "Prior read-only verification incorrectly assumed source directories were objects; actual producer supplies strings. Corrected interpretation succeeds without changing producer. Tool/Integration/Proof scope; no Product defect/effect."
+}

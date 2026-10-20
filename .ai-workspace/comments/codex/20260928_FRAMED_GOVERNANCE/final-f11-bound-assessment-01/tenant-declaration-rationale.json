@@ -1,0 +1,12 @@
+{
+  "source": "Exact C02 published capability rows and owned Public contracts",
+  "claimMeaning": "Declares the existing capability/Public ownership and referenced proof population; no green realized conformance verdict is asserted",
+  "declaredClaims": 15,
+  "rowsWithoutOwnedPublicContracts": [
+    "abg.capability.graph-function.consensus@5"
+  ],
+  "originalProofReferences": "Taken unchanged from the actual published graph; retained references are not independently accepted proof adequate for a release claim",
+  "realizationAndEvidenceAdequacy": "Unassessed; required downstream independent tenant J remains open",
+  "actualWriter": "/root/f11_binding_plan",
+  "grant": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-controls-01/request.txt"
+}

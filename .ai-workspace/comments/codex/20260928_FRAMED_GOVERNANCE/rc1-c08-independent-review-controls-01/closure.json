@@ -1,0 +1,9 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C08_CONSTRUCTION_ASSURANCE_GRANT_WRITER_01",
+  "returnsTo": "Executive",
+  "reviewerNotActivated": true,
+  "sourceRuntimeGitEffects": 0
+}

@@ -1,0 +1,498 @@
+{
+  "kind": "graph_function_catalog_view",
+  "catalogBasisDigest": "sha256:b40a7249bf6e37dc73cecd24451852cbf4efc111c8a06c2a2058d1fd449240b5",
+  "allowlist": [
+    "graph-function://abiogenesis/conformance/hello-compose@5"
+  ],
+  "entries": [
+    {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/hello-compose@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/hello-compose@5",
+      "definitionDigest": "sha256:11d9da420d6fb3be64800f1f9e7fbe3b950794ef405d5442f60c750cb4f0c647",
+      "definition": {
+        "declarations": {
+          "abg.closure_contract": "contract://abiogenesis/conformance/hello-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/hello-evidence@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/hello-transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/conformance/emit-hello-output@5",
+          "effect://abiogenesis/conformance/normalize-hello-input@5"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/hello-input@5",
+            "contract://abiogenesis/conformance/hello-output@5",
+            "contract://abiogenesis/conformance/normalized-hello-input@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/hello-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/hello-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/hello-compose@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/hello-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "all-fd",
+          "conformance",
+          "hello-compose"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/hello-compose@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/hello-compose@5",
+              "term": {
+                "inputCarrierRef": "contract://abiogenesis/conformance/hello-input@5",
+                "kind": "c_compose",
+                "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                "terms": [
+                  {
+                    "armId": "arm://abiogenesis/conformance/hello-compose/normalize-fd@5",
+                    "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                    "fibre": "F_D",
+                    "inputCarrierRef": "contract://abiogenesis/conformance/hello-input@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "programLocusRef": "locus://abiogenesis/conformance/hello-compose/normalize@5",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                      "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                      "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalize-fd@5",
+                      "inputContractRef": "contract://abiogenesis/conformance/hello-input@5",
+                      "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                      "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                    },
+                    "resultBearing": false,
+                    "stageRole": "transform",
+                    "vectorIndex": 0
+                  },
+                  {
+                    "batchRef": "batch://abiogenesis/conformance/hello-compose/checks@5",
+                    "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "kind": "c_batch",
+                    "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "taskInputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "taskOutputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "tasks": [
+                      {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized-identity@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/batch-first@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": false,
+                        "stageRole": "batch_check",
+                        "vectorIndex": 1
+                      },
+                      {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized-identity@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/batch-second@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": false,
+                        "stageRole": "batch_check",
+                        "vectorIndex": 2
+                      }
+                    ]
+                  },
+                  {
+                    "budget": 2,
+                    "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "kind": "c_retry",
+                    "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                    "term": {
+                      "consequence": {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/render-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-compose-result@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/render@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-render-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/hello-output@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": true,
+                        "stageRole": "consequence",
+                        "vectorIndex": 5
+                      },
+                      "evaluate": {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized-identity@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/edge-evaluate@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": false,
+                        "stageRole": "evaluate",
+                        "vectorIndex": 4
+                      },
+                      "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                      "kind": "c_edge",
+                      "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                      "transform": {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized-identity@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/edge-transform@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": false,
+                        "stageRole": "transform",
+                        "vectorIndex": 3
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/hello-compose@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/hello-compose@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/hello-compose@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:3357416c2f5a90cd54a233b3373443de69ced330ff0823a42f34983a81470f1c"
+    }
+  ],
+  "byHandle": {
+    "graph-function://abiogenesis/conformance/hello-compose@5": {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/hello-compose@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/hello-compose@5",
+      "definitionDigest": "sha256:11d9da420d6fb3be64800f1f9e7fbe3b950794ef405d5442f60c750cb4f0c647",
+      "definition": {
+        "declarations": {
+          "abg.closure_contract": "contract://abiogenesis/conformance/hello-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/hello-evidence@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/hello-transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/conformance/emit-hello-output@5",
+          "effect://abiogenesis/conformance/normalize-hello-input@5"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/hello-input@5",
+            "contract://abiogenesis/conformance/hello-output@5",
+            "contract://abiogenesis/conformance/normalized-hello-input@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/hello-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/hello-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/hello-compose@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/hello-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "all-fd",
+          "conformance",
+          "hello-compose"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/hello-compose@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/hello-compose@5",
+              "term": {
+                "inputCarrierRef": "contract://abiogenesis/conformance/hello-input@5",
+                "kind": "c_compose",
+                "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                "terms": [
+                  {
+                    "armId": "arm://abiogenesis/conformance/hello-compose/normalize-fd@5",
+                    "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                    "fibre": "F_D",
+                    "inputCarrierRef": "contract://abiogenesis/conformance/hello-input@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "programLocusRef": "locus://abiogenesis/conformance/hello-compose/normalize@5",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                      "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                      "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalize-fd@5",
+                      "inputContractRef": "contract://abiogenesis/conformance/hello-input@5",
+                      "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                      "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                    },
+                    "resultBearing": false,
+                    "stageRole": "transform",
+                    "vectorIndex": 0
+                  },
+                  {
+                    "batchRef": "batch://abiogenesis/conformance/hello-compose/checks@5",
+                    "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "kind": "c_batch",
+                    "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "taskInputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "taskOutputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "tasks": [
+                      {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized-identity@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/batch-first@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": false,
+                        "stageRole": "batch_check",
+                        "vectorIndex": 1
+                      },
+                      {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized-identity@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/batch-second@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": false,
+                        "stageRole": "batch_check",
+                        "vectorIndex": 2
+                      }
+                    ]
+                  },
+                  {
+                    "budget": 2,
+                    "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                    "kind": "c_retry",
+                    "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                    "term": {
+                      "consequence": {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/render-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-compose-result@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/render@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-render-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/hello-output@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": true,
+                        "stageRole": "consequence",
+                        "vectorIndex": 5
+                      },
+                      "evaluate": {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized-identity@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/edge-evaluate@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": false,
+                        "stageRole": "evaluate",
+                        "vectorIndex": 4
+                      },
+                      "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                      "kind": "c_edge",
+                      "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                      "transform": {
+                        "armId": "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
+                        "compositionRef": "composition://abiogenesis/conformance/hello-compose@5",
+                        "fibre": "F_D",
+                        "inputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-normalized-identity@5",
+                        "kind": "c_of",
+                        "outputCarrierRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                        "programLocusRef": "locus://abiogenesis/conformance/hello-compose/edge-transform@5",
+                        "requirement": {
+                          "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                          "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                          "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+                          "inputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                          "kind": "executable_leaf_requirement",
+                          "outputContractRef": "contract://abiogenesis/conformance/normalized-hello-input@5",
+                          "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                        },
+                        "resultBearing": false,
+                        "stageRole": "transform",
+                        "vectorIndex": 3
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/hello-compose@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/hello-compose@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/hello-compose@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:3357416c2f5a90cd54a233b3373443de69ced330ff0823a42f34983a81470f1c"
+    }
+  },
+  "declarationEntries": [],
+  "declarationsByHandle": {},
+  "viewDigest": "sha256:ccf9dd670867f15208a463a142fae1b72272fcdd8b9feeda2095bc3541faad05"
+}

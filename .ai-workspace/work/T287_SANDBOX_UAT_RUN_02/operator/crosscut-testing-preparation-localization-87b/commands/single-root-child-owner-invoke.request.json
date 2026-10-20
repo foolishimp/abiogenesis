@@ -1,0 +1,12 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b",
+  "started": "2026-10-08T08:35:50.236Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 180000
+}

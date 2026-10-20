@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "run": {
+    "ref": "run://abiogenesis/6f642652d6a55bda784eacdebf63038fd2e767c939a28dc59d86a72c24d51e11",
+    "digest": "sha256:fcab567902049fe1cb7e9fac0b4979bc266d32adf980a148797d228bc4f2717f"
+  },
+  "reader": {
+    "artifactDigest": "sha256:2840b889d9207b48f7b1492934d3158a25352efa7b942f8ea58992ed15b57bcc",
+    "productContentDigest": "sha256:2c7bab8f7425a2a675fd7c8666349391fefae76150823f5cc3050eb57cd9176a",
+    "manifestDigest": "sha256:11e22a986898a4d91a75162f12f45452d6a1dc631b08bdad975dea657c72db1f",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "frontiers": 0,
+  "rendering": "",
+  "zeroAppend": true,
+  "beforePhysical": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59",
+  "afterPrefix": {
+    "coordinateDigest": "sha256:c6f9e643169de2357fb92df60aea8dbb749317e988e7cfa565ef1e354994424e",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59",
+    "prefixLength": 4689421,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 463811526
+    }
+  },
+  "cliPid": 64596,
+  "rendererPid": 64599,
+  "cliElapsedMs": 768.7152079999996,
+  "rendererElapsedMs": 22.186165999999503
+}

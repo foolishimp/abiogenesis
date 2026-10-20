@@ -1,0 +1,24 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--input-type=module",
+    "--eval",
+    "import {pathToFileURL} from 'node:url'; const {execute}=await import(pathToFileURL(process.argv[1])); console.log(JSON.stringify(await execute(process.argv[2])));",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82",
+  "started": "2026-10-08T07:43:10.465Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 29.055125,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "",
+  "stderr": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: 82 activation is preparation-only; execute is separately released\n+ actual - expected\n\n+ '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json'\n- '--prepare'\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver.mjs:155:37\n    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/[eval1]:1:57 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json',\n  expected: '--prepare',\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.7.0\n"
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminators-controls-01/f11-request.txt",
+    "bytes": 6478,
+    "sha256": "397aada726b74672dd125dfea00c644acc182fef9a323be0ed9d2515f6151693",
+    "verified": true
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/acceptance.json",
+    "bytes": 1218,
+    "sha256": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f",
+    "verified": true
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+    "bytes": 44443,
+    "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+    "verified": true
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/freeze.json",
+    "bytes": 26203,
+    "sha256": "51bfa2ad75ab9d2c0858998c7e4a82a6e7a4269a4c277c842af07ae1c7f6da1c",
+    "verified": true
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/freeze.json",
+    "bytes": 4321,
+    "sha256": "6d08fe93bdcf8781587b3b2c7909cb78436891097c7a236fcbb848f8d7b8d44e",
+    "verified": true
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    "bytes": 36658,
+    "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+    "verified": true
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10426739,
+    "sha256": "f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+    "verified": true
+  }
+]

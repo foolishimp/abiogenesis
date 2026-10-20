@@ -1,0 +1,245 @@
+{
+  "kind": "stripped_declaration_component_check",
+  "declarations": 264,
+  "skipLibCheck": false,
+  "elapsedMs": 1133.4054170000002,
+  "diagnostics": [
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/abg/definition_event_resource.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/abg/project_read_operation_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/abg/runtime_liveness_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/abg/stdo_environment.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/abg/terminal_result_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2339,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/contracts.d.ts",
+      "start": 5118,
+      "message": "Property 'semanticAuthority' does not exist on type 'GtlConstructionAuthorityBinding'."
+    },
+    {
+      "code": 2339,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/contracts.d.ts",
+      "start": 5690,
+      "message": "Property 'kind' does not exist on type 'CatalogContribution'."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/requirement_handoff.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/semantic_job.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/semantic_stage.d.ts",
+      "start": 116,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/serialization.d.ts",
+      "start": 903,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/serialization.d.ts",
+      "start": 7769,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/serialization.d.ts",
+      "start": 30463,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/serialization_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/gtl/stdo_run_environment.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/hog/ccall_lifecycle.d.ts",
+      "start": 24,
+      "message": "Cannot find module 'effect/Effect' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/hog/graph_execute.d.ts",
+      "start": 24,
+      "message": "Cannot find module 'effect/Effect' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/admission_authority.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/catalog_operation_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/declaration_application.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/default_library.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/default_library_fulfillment.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2344,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/default_library_fulfillment.d.ts",
+      "start": 29071,
+      "message": "Type '\"policies\"' does not satisfy the constraint 'never'."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/environment_operation_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/public_contract_publication.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/release_acceptance.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/release_snapshot_definition_bindings.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/release_snapshot_operations.d.ts",
+      "start": 90,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/requirement_handoff.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/semantic_job.d.ts",
+      "start": 297,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/product/stdo_environment.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/shared/capability_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/shared/effect_definition.d.ts",
+      "start": 24,
+      "message": "Cannot find module 'effect/Effect' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/shared/effect_definition.d.ts",
+      "start": 63,
+      "message": "Cannot find module 'effect/Exit' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/shared/static_definition_bindings.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/validator/conformance_operation.d.ts",
+      "start": 2936,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/validator/qualification_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2307,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/validator/self_conformance_contracts.d.ts",
+      "start": 19,
+      "message": "Cannot find module 'valibot' or its corresponding type declarations."
+    },
+    {
+      "code": 2339,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-15/build/code/src/validator/validation.d.ts",
+      "start": 3761,
+      "message": "Property 'kind' does not exist on type 'CatalogContribution'."
+    }
+  ],
+  "limits": [
+    "Type linkage only; no normal publication or runtime readiness"
+  ]
+}

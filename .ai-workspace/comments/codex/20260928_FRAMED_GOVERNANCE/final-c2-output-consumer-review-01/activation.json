@@ -1,0 +1,14 @@
+{
+  "activation": "T287_C2_OUTPUT_CONSUMER_REVIEW_01",
+  "actor": "/root/current_authority_review",
+  "independence": "Authored the CLOSED finding; did not author the successor, whose Worker is /root/s03_phase_b",
+  "roleTransition": "Independent Reviewer to report-only Writer for observations, concise return and one freeze",
+  "request": "../final-c2-output-consumer-review-controls-01/request.txt",
+  "requestBytes": 4137,
+  "requestSha256": "b76ac609dad0865d23a73bdd89ccf49606b4be9c0db471df5567a1dd779d51ce",
+  "method": "Consumed Root's exact installed-a_c joined request; reused selected STDO2.5.1-rc.1, prior Product Frame, F-END-TO-END-INTERFACE-INTEGRATION and SP-03/SP-08. No new a_c invocation is claimed.",
+  "writeTerritory": "this report directory only",
+  "limits": {"aggregateCheckMs":180000,"perProcessMs":60000,"terminationGraceMs":1000},
+  "effects": "frozen source/record reads and pure non-mutating checks only; no repair, fixture regeneration, native/resource/worksite/provider/network/helper/build/install/suite/qualification/Git/sibling/delegation effect",
+  "memory": "Focused registry search found no relevant memory; no memory claim is used."
+}

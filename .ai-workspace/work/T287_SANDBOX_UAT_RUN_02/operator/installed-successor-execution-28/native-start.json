@@ -1,0 +1,24 @@
+{
+  "role": "Operator28 external observation only",
+  "nativeRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e/commands/lifecycle-start.request.json",
+    "sha256": "5b95a43008332a5c9a3ae984685f67c4bac73979365bfdac819ef2e7a6184b5c",
+    "byteCount": 1169
+  },
+  "t0": "2026-10-06T20:52:43.725Z",
+  "commonDeadlineUTC": "2026-10-07T01:52:43.725Z",
+  "commonDeadlineAEDT": "2026-10-07T12:52:43.725+11:00",
+  "cliPid": 54440,
+  "harnessPid": 50291,
+  "recorderPid": 50289,
+  "runRef": "run://abiogenesis/7475f0c763491449d92614bb322dd5eb130edc2b496cf2ab9ae8361512dba921",
+  "transfer": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e/supplied-work-transfer.json",
+    "sha256": "6a92e49d11e9a925406c9b0c91527cb9576c0a5600e199e23ff384748f6244e1",
+    "byteCount": 14978
+  },
+  "originals": 4,
+  "authors": 26,
+  "invocationSource": "none",
+  "oldProducerCreditImported": false
+}

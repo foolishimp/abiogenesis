@@ -1,0 +1,14 @@
+{
+  "pid": 72423,
+  "processGroup": 72423,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-bind.jsonl"
+  ],
+  "startedAt": "2026-10-02T02:42:24.892Z",
+  "mode": "setup",
+  "label": "bind",
+  "capMs": 180000
+}

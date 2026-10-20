@@ -1,0 +1,31 @@
+{
+  "status": "CLOSED_CONSTRUCTION_ONLY_RUNTIME_NOT_SELECTED",
+  "identity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-28/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052",
+    "archiveBytes": 10166665,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite28-install-l3d6qzfi/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite28-install-l3d6qzfi",
+    "archiveMembers": 5233
+  },
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite28-install-l3d6qzfi/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-28/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-28/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052",
+      "productContentDigest": "sha256:23773410b335c9d6db7d8a9cb71c79e4aacc3fd1efc4382c4681f42f6817c668",
+      "manifestDigest": "sha256:23ff85b3d3986684e43d75a64dcc3eb779d9de3f48cf94e175f8b6942c7e7903",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubject": "a10ed0a7ffce8e9381636ed9128638e759b8e3390d756e5cbcaf1489e7b687db",
+  "sourceReturn": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/return.md",
+  "buildInputsPreserved": 259,
+  "generatedChanged": 2,
+  "memberCorrespondence": 5233,
+  "testsReused": "Frozen routed-undispatched correction; six focused checks retained, no rerun",
+  "nativeExecution": false
+}

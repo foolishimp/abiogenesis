@@ -1,0 +1,770 @@
+{
+  "role": "UAT Operator",
+  "status": "STOPPED_FIRST_NATIVE_NONPASS",
+  "case": "basic-cli",
+  "remainingCasesNotExecuted": [
+    "js-tenant-test",
+    "js-sdlc-bootstrap",
+    "rust-cli",
+    "rust-service",
+    "parallel-js",
+    "data-mapper-full"
+  ],
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "nativeArchive": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488",
+  "nativeSummary": {
+    "scenario": "basic-cli",
+    "runId": "2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488",
+    "mode": "run",
+    "status": "failed",
+    "uatPass": false,
+    "runtimeDisposition": "result",
+    "terminalAvailable": false,
+    "independentOracle": "indeterminate",
+    "reason": "Original application obligations or terminal evidence remain incomplete"
+  },
+  "wrapper": {
+    "started": "2026-10-06T06:50:48.864Z",
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 516978.262542,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "earliestCommandPreparationFailure": {
+    "admissionOrdinal": 4397,
+    "kind": "c_call_result_admitted",
+    "eventId": "event://abiogenesis/9bdded917b31af6badb97de49515b57b90f7a3fded94d5521e49ef16e41926a5",
+    "eventTime": "2026-10-06T06:59:20.013Z",
+    "runId": "run://abiogenesis/ade5538e1ed6075147c127ca26cc78afee9959162bb677303f9d3641a83eaaa4",
+    "graphCallId": "graph-call://abiogenesis/bd63faf8451c05cbab24088bd803a26bbd8c119120376afd024832804c3ebfc4",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "cCallRef": "c-call:sha256:0682c268a28c882e70a22c040f7d58d34207ea692ffc335ca257dcba8b016dc7",
+    "resultClass": "failure",
+    "contractRef": "contract://abiogenesis/worksite/command-execution-failure@5",
+    "resultRef": "result://abiogenesis/c05581e23896431e404b987d236cdfa25a3043ae5147832deff8d19f9f4ecd99",
+    "resultDigest": "sha256:c05581e23896431e404b987d236cdfa25a3043ae5147832deff8d19f9f4ecd99",
+    "valueDigest": "sha256:2f50af7fb3fa2e7d003ccd4238c89babce86cadc8573784165cb9bea81b907f2",
+    "diagnosticSourcePath": "payload.value.diagnosticRef",
+    "diagnosticUriSha256": "4630aef45599d2e9d84f4371f38ed1382f06f65dd14346c9a73c0f553430085f",
+    "decodedDiagnosticSha256": "3aa3172ddfb493614064fee9ebcdbd6acc0b6bb146d1a4c177c020ced7f3166b",
+    "decodedDiagnostic": {
+      "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+      "errorClass": "TypeError",
+      "errorCode": null,
+      "message": "actor inactivity timeout must exceed the task's closed helper execution budget",
+      "messageTruncated": false,
+      "reason": "thrown",
+      "stack": "TypeError: actor inactivity timeout must exceed the task's closed helper execution budget\n    at realizeWorksiteCommandExecution (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_execution.js:459:15)\n    at invokeLeafOwnerBoundary (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:477:32)",
+      "stackTruncated": false,
+      "stage": "preparation"
+    }
+  },
+  "downstreamDiagnostics": [
+    {
+      "admissionOrdinal": 4399,
+      "kind": "c_call_judged",
+      "eventId": "event://abiogenesis/37aed1f1110e59227d645108006d427d6c125511de4869a29e3f0153dca968fb",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "cCallRef": "c-call:sha256:0682c268a28c882e70a22c040f7d58d34207ea692ffc335ca257dcba8b016dc7",
+      "judgment": "blocked"
+    },
+    {
+      "admissionOrdinal": 4406,
+      "kind": "c_call_result_admitted",
+      "eventId": "event://abiogenesis/2c567787a22672d4849bb08ba23d2fb503d2fb1a8255d319fabb0f909b89019e",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "cCallRef": "c-call:sha256:0df60d22891e6136d837b76f973d3d6732a0fe3a3070bf23b18118aec294f8ee",
+      "resultClass": "failure"
+    },
+    {
+      "admissionOrdinal": 4419,
+      "kind": "c_call_result_admitted",
+      "eventId": "event://abiogenesis/7f04641d8010d06b0a1c234790867f85e3ea76d39e4c3a061b67e1203c22780a",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "cCallRef": "c-call:sha256:226f09848b90a059332752d26e6bde2cac6e826e39dfe968f1b8704276da02fc",
+      "resultClass": "failure"
+    },
+    {
+      "admissionOrdinal": 4429,
+      "kind": "runtime_failure_observed",
+      "eventId": "event://abiogenesis/dc0019f0c61cad319fb9c795bfa98861487608e57369319bd54c84e3b14dadfd",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "stage": "route",
+      "diagnosticRef": "diagnostic://abiogenesis/hog/application-foldback-mismatch@5",
+      "failureRef": "runtime-failure://abiogenesis/391c44fcb351abb36656d0c91e8069553a9798c827c809742d293284bdb7a995"
+    }
+  ],
+  "nativeLifecycle": {
+    "exitCode": 0,
+    "ownerOutcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:70ebb8c881b1cbcad6c7ba4038d3928ecd34a4fab1479d6574b4702f1390e203",
+      "ref": "run://abiogenesis/ade5538e1ed6075147c127ca26cc78afee9959162bb677303f9d3641a83eaaa4"
+    },
+    "graphCall": {
+      "digest": "sha256:60ff230cd3e6767f3ebab8ee3da8ec196bf91cc7c72ba5911a627b5419ead6cc",
+      "ref": "graph-call://abiogenesis/4732e9ff6d58f7b36bfbf52180b86dc66612ff01b46ae1402fbf3286af8af634"
+    },
+    "stop": {
+      "digest": "sha256:9c2151abb5b883eb321f2aeb136077d46b727eab55c7d8ffdcf5604f36c73010",
+      "ref": "event://abiogenesis/dc0019f0c61cad319fb9c795bfa98861487608e57369319bd54c84e3b14dadfd"
+    },
+    "result": null,
+    "terminalResult": null
+  },
+  "freshReadbacks": [
+    {
+      "memberKey": "run_result",
+      "ownerOutcomeKind": "refusal",
+      "refusal": {
+        "code": "not_found",
+        "evidenceRefs": [],
+        "issuePaths": []
+      }
+    },
+    {
+      "memberKey": "run_replay",
+      "ownerOutcomeKind": "result",
+      "status": "failed",
+      "terminalResult": null,
+      "source": {
+        "digest": "sha256:70ebb8c881b1cbcad6c7ba4038d3928ecd34a4fab1479d6574b4702f1390e203",
+        "ref": "run://abiogenesis/ade5538e1ed6075147c127ca26cc78afee9959162bb677303f9d3641a83eaaa4"
+      }
+    }
+  ],
+  "installIdentityBefore": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/2556f8f8e967bbc8da9cc66f17275fe1adc9d5bea6a60f27f03471a8a7c3562e/6f07de9dd101b656b678b2dc53009fed9bb60dc1213a5e27ecba5980f5615640",
+      "admissionEventRef": "event://abiogenesis/f37323fa998b29082735274c1e9e7576de4ce9c9189b347ff503afd03e08e82f",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09",
+      "productContentDigest": "sha256:2556f8f8e967bbc8da9cc66f17275fe1adc9d5bea6a60f27f03471a8a7c3562e",
+      "manifestDigest": "sha256:fb62f57861143963aca250bbe4e55474fd39f035c4a232863490e387077f8a16",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/d5f33e2c1bcaec5df66ff58c23971dfdbe178c5ae65341485e4e5fa291dfff03/6f07de9dd101b656b678b2dc53009fed9bb60dc1213a5e27ecba5980f5615640",
+      "admissionEventRef": "event://abiogenesis/008a9b92afb73ad64438b73c598778bdca84269e289216b286dfd7269b3c0c5d",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:7adcdc5fb8232663dea0ef79a9483efd6b264a51184e183b8550cc952c85f93e",
+      "productContentDigest": "sha256:d5f33e2c1bcaec5df66ff58c23971dfdbe178c5ae65341485e4e5fa291dfff03",
+      "manifestDigest": "sha256:da13da0a35c4f9e66aadf7f68e99738a3c78ae6d8d954d19c1d0168c4deb463f",
+      "contentMatches": true
+    }
+  ],
+  "installIdentityAfter": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/2556f8f8e967bbc8da9cc66f17275fe1adc9d5bea6a60f27f03471a8a7c3562e/6f07de9dd101b656b678b2dc53009fed9bb60dc1213a5e27ecba5980f5615640",
+      "admissionEventRef": "event://abiogenesis/f37323fa998b29082735274c1e9e7576de4ce9c9189b347ff503afd03e08e82f",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09",
+      "productContentDigest": "sha256:2556f8f8e967bbc8da9cc66f17275fe1adc9d5bea6a60f27f03471a8a7c3562e",
+      "manifestDigest": "sha256:fb62f57861143963aca250bbe4e55474fd39f035c4a232863490e387077f8a16",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/d5f33e2c1bcaec5df66ff58c23971dfdbe178c5ae65341485e4e5fa291dfff03/6f07de9dd101b656b678b2dc53009fed9bb60dc1213a5e27ecba5980f5615640",
+      "admissionEventRef": "event://abiogenesis/008a9b92afb73ad64438b73c598778bdca84269e289216b286dfd7269b3c0c5d",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:7adcdc5fb8232663dea0ef79a9483efd6b264a51184e183b8550cc952c85f93e",
+      "productContentDigest": "sha256:d5f33e2c1bcaec5df66ff58c23971dfdbe178c5ae65341485e4e5fa291dfff03",
+      "manifestDigest": "sha256:da13da0a35c4f9e66aadf7f68e99738a3c78ae6d8d954d19c1d0168c4deb463f",
+      "contentMatches": true
+    }
+  ],
+  "installedZeroDelta": true,
+  "eventKinds": {
+    "public_operation_artifact_admitted": 3,
+    "public_operation_admitted": 1,
+    "invocation_admitted": 1,
+    "implementation_admitted": 1,
+    "basis_admitted": 3,
+    "run_segment_opened": 1,
+    "graph_call_opened": 7,
+    "frame_opened": 7,
+    "runtime_activity_probe_observed": 2227,
+    "traversal_cursor_entered": 7,
+    "c_call_opened": 17,
+    "c_call_fibre_selected": 17,
+    "c_call_evidenced": 17,
+    "abg_admitted_body_reference_record": 8,
+    "c_call_judged": 17,
+    "c_call_result_admitted": 13,
+    "traversal_route_admitted": 16,
+    "actor_transport_binding_admitted": 3,
+    "actor_invocation_started": 3,
+    "actor_process_started": 3,
+    "actor_process_stdout_observed": 2033,
+    "actor_process_exited": 3,
+    "actor_result_artifact_observed": 3,
+    "actor_invocation_closed": 3,
+    "terminal_reached": 3,
+    "frame_closed": 3,
+    "graph_call_closed": 3,
+    "child_foldback_admitted": 5,
+    "runtime_failure_observed": 1
+  },
+  "actorResults": [
+    {
+      "eventId": "event://abiogenesis/d28436e35e41e7c3f30abb07b5f60251fbec3ba07175a6d55aa961aa543cb18b",
+      "actorInvocationRef": "actor-invocation://abiogenesis/68eb0970764c33a224f09d9758938173c6b2f369e0b74969711595854154220d",
+      "cCallRef": "c-call:sha256:e2a63df2131ef2b4b3beed881322a25e3d0d6745f9aa4179b1404bd1aa96e813",
+      "implementationRef": "implementation://abiogenesis/default-library/select@5",
+      "disposition": "success",
+      "processStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "timeoutClass": null,
+      "toolCallCount": 0,
+      "stdoutByteLength": 152773,
+      "stderrByteLength": 0,
+      "nativeResultAssessmentDisposition": "admitted"
+    },
+    {
+      "eventId": "event://abiogenesis/3e35d72c89a964fdb84583d462e12702aa0db61338e16b4171494a0d23771d08",
+      "actorInvocationRef": "actor-invocation://abiogenesis/200571f7b03a88569e03cc0daccff8de851a75243cce7dd7a0afd2358bb0d065",
+      "cCallRef": "c-call:sha256:97ef4c901fefb111ed80199eb0130550a845df8ba555f433552eec5579d8d1bb",
+      "implementationRef": "implementation://abiogenesis/worksite/native-work-fp@5",
+      "disposition": "success",
+      "processStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "timeoutClass": null,
+      "toolCallCount": 11,
+      "stdoutByteLength": 461163,
+      "stderrByteLength": 0,
+      "nativeResultAssessmentDisposition": "admitted"
+    },
+    {
+      "eventId": "event://abiogenesis/43d68e0ae5e2f2de026f11952010446b509a5098103383b927e05813a8a392d1",
+      "actorInvocationRef": "actor-invocation://abiogenesis/8bede33c378d8e62d8d0438537b55c6561efea3063da3b21533be269a6980dd4",
+      "cCallRef": "c-call:sha256:6151cd4fe0b1c48223585a68ed041a934172bfba06f380ec94e64e2af7f2e815",
+      "implementationRef": "implementation://abiogenesis/default-library/select@5",
+      "disposition": "success",
+      "processStatus": 0,
+      "processSignal": null,
+      "timedOut": false,
+      "timeoutClass": null,
+      "toolCallCount": 0,
+      "stdoutByteLength": 191438,
+      "stderrByteLength": 0,
+      "nativeResultAssessmentDisposition": "admitted"
+    }
+  ],
+  "providerResults": [
+    {
+      "streamPath": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/resources/archives/fp-45ef15893dcff625-stdout.log",
+      "streamSha256": "813ca6acbb1954a17d43af6665beec5b245fb64fee98d3abe19d804e3ad0a9ef",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 45630,
+      "duration_api_ms": 35913,
+      "num_turns": 2,
+      "total_cost_usd": 0.298,
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 3692,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 28019,
+          "webSearchRequests": 0,
+          "costUSD": 0.298,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 648,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      }
+    },
+    {
+      "streamPath": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/resources/archives/fp-cd10bb9a5dcbdfe7-stdout.log",
+      "streamSha256": "7e0578102592db0c03355e34c26bf710695b5469188d6344054ba234ac37f77e",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 40194,
+      "duration_api_ms": 29077,
+      "num_turns": 2,
+      "total_cost_usd": 0.24634399999999998,
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 3310,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 22517,
+          "webSearchRequests": 0,
+          "costUSD": 0.24634399999999998,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 689,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      }
+    },
+    {
+      "streamPath": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/resources/archives/fp-fbad8802d8e609d3-stdout.log",
+      "streamSha256": "f4f2128f8e7c211d177b48d5fd7684da4e6982c4728412a66bf0270af8555c70",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 114614,
+      "duration_api_ms": 76048,
+      "num_turns": 13,
+      "total_cost_usd": 0.4933852,
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 12,
+          "outputTokens": 8836,
+          "cacheReadInputTokens": 145726,
+          "cacheCreationInputTokens": 35934,
+          "webSearchRequests": 0,
+          "costUSD": 0.4933852,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 1105,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      }
+    }
+  ],
+  "observedProviderCostUsd": "1.03772919999999998",
+  "providerResultDurationMs": 200438,
+  "timings": {
+    "totalWrapperWallMs": 516978.262542,
+    "preNativeStartMs": 295392.0,
+    "nativeLifecycleWallMs": 216062.44716600003,
+    "freshReadsWallMs": 3674.4587919999612,
+    "otherPostNativeAndWrapperMs": 1849.3565839999937,
+    "commandTimings": [
+      {
+        "command": "acquire-bootstrap",
+        "started": "2026-10-06T06:50:49.081Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 515.8891669999999,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "catalog-admit",
+        "started": "2026-10-06T06:54:29.818Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 25777.907999999996,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "catalog-view",
+        "started": "2026-10-06T06:54:56.710Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 21975.30812500001,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "lifecycle-start",
+        "started": "2026-10-06T06:55:44.256Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 216062.44716600003,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "pack-consumer",
+        "started": "2026-10-06T06:51:29.588Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 144.55645899999945,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "preflight-node",
+        "started": "2026-10-06T06:50:48.904Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 15.375083,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "preflight-npm",
+        "started": "2026-10-06T06:50:48.920Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 54.600457999999996,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "preflight-provider",
+        "started": "2026-10-06T06:50:48.975Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 105.07970800000001,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "product-install-0",
+        "started": "2026-10-06T06:52:59.601Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 44584.480125,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "product-install-1",
+        "started": "2026-10-06T06:53:44.493Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 22632.90387499999,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "product-resolve",
+        "started": "2026-10-06T06:52:34.604Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 24787.63824999999,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "product-verify-0",
+        "started": "2026-10-06T06:51:29.922Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 40524.11366599999,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "product-verify-1",
+        "started": "2026-10-06T06:52:10.514Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 20658.723541999992,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "program-conformance",
+        "started": "2026-10-06T06:55:19.260Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 22147.13708299998,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "run_replay",
+        "started": "2026-10-06T06:59:23.947Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 1877.4630829999805,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "run_result",
+        "started": "2026-10-06T06:59:22.096Z",
+        "exitCode": 1,
+        "signal": null,
+        "wallMs": 1796.9957089999807,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "workspace-bind",
+        "started": "2026-10-06T06:54:07.440Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 21527.23575000002,
+        "timedOut": false,
+        "truncated": false
+      },
+      {
+        "command": "workspace-create",
+        "started": "2026-10-06T06:51:09.524Z",
+        "exitCode": 0,
+        "signal": null,
+        "wallMs": 20058.290958999998,
+        "timedOut": false,
+        "truncated": false
+      }
+    ]
+  },
+  "resourceAndBudgetCoordinates": {
+    "configPath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-05.json",
+    "configSha256": "933b5e860e8ed0bba45608e501e871cf3868e99f78c81e8931af3fff72cff838",
+    "processTimeoutMs": 3600000,
+    "recursionBound": 12,
+    "providerModel": "claude-opus-5-5",
+    "maxTurns": 24,
+    "maxBudgetUsd": 5,
+    "inactivityTimeoutMs": 120000,
+    "absoluteTimeoutMs": 600000,
+    "originalCommandBudgetSource": "prepared-definition-call.json#/invocation/request/input/value/original/testing/commands",
+    "originalCommands": [
+      {
+        "args": [
+          "generated/hello-world.mjs"
+        ],
+        "timeoutMs": 60000
+      },
+      {
+        "args": [
+          "--test",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs"
+        ],
+        "timeoutMs": 120000
+      }
+    ],
+    "preparedCallPin": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/prepared-definition-call.json",
+      "bytes": 28911946,
+      "sha256": "2535356d12fa185e8a0756f2ddbbdbf10c35b511d5803189ff3b93951bff6219"
+    }
+  },
+  "independentOracle": {
+    "disposition": "indeterminate",
+    "criteria": [
+      {
+        "id": "original-source:source/basic-cli/source.original.txt",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "source/basic-cli/source.original.txt",
+          "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+        ],
+        "reason": "The immutable acquired source/oracle must retain its exact bytes."
+      },
+      {
+        "id": "original-source:source/basic-cli/obligations.json",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "source/basic-cli/obligations.json",
+          "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+        ],
+        "reason": "The immutable acquired source/oracle must retain its exact bytes."
+      },
+      {
+        "id": "original-source:source/basic-cli/oracle.json",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "source/basic-cli/oracle.json",
+          "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+        ],
+        "reason": "The immutable acquired source/oracle must retain its exact bytes."
+      },
+      {
+        "id": "execution:command://abiogenesis-sandbox-uat/basic-cli/cli",
+        "disposition": "indeterminate",
+        "evidenceRefs": [],
+        "reason": "No exact selected C2 producer/contract/Run observation, publicly owner-validated against its task and the resolved original command, was supplied."
+      },
+      {
+        "id": "execution:command://abiogenesis-sandbox-uat/basic-cli/tests",
+        "disposition": "indeterminate",
+        "evidenceRefs": [],
+        "reason": "No exact selected C2 producer/contract/Run observation, publicly owner-validated against its task and the resolved original command, was supplied."
+      },
+      {
+        "id": "artifact:specification/project-conformance.md",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "specification/project-conformance.md"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:design/implementation-design.md",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "design/implementation-design.md"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:generated/hello-world.mjs",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "generated/hello-world.mjs"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:design/test-design.md",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "design/test-design.md"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:test/component/hello-cli.test.mjs",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "test/component/hello-cli.test.mjs"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:test/uat/hello-cli.uat.test.mjs",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "test/uat/hello-cli.uat.test.mjs"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:test-execution-plan.json",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "test-execution-plan.json"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "original-test-floor",
+        "disposition": "indeterminate",
+        "evidenceRefs": [],
+        "reason": "The real admitted original node:test plan must meet its unchanged pass floor."
+      },
+      {
+        "id": "original-stdout",
+        "disposition": "indeterminate",
+        "evidenceRefs": [],
+        "reason": "Actual original CLI stdout must be exact."
+      }
+    ],
+    "unresolvedCriteria": [
+      "execution:command://abiogenesis-sandbox-uat/basic-cli/cli",
+      "execution:command://abiogenesis-sandbox-uat/basic-cli/tests",
+      "original-test-floor",
+      "original-stdout"
+    ],
+    "reason": "basic-cli: independent mechanical original-contract checks indeterminate. Native independent semantic UAT, exact installed runtime admission and fresh result/replay closure remain separate necessary evidence."
+  },
+  "originalSourcesConserved": true,
+  "sourceConservation": [
+    {
+      "path": "source/basic-cli/source.original.txt",
+      "expected": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "observed": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "path": "source/basic-cli/obligations.json",
+      "expected": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+      "observed": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+    },
+    {
+      "path": "source/basic-cli/oracle.json",
+      "expected": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "observed": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    }
+  ],
+  "durablePrefix": {
+    "coordinateDigest": "sha256:ce2eee02ac170847900911a207c4b679292ac72f1df771e18d62ef2d61a541b1",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:8b7dd4b91352ae464acb5d75131dfcfc63c89dcd286ae78b0463ed72e97cae1f",
+    "prefixLength": 18662054,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 466242706
+    }
+  },
+  "eventResourcePin": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/resources/events/runtime.events.jsonl",
+    "bytes": 18662054,
+    "sha256": "8b7dd4b91352ae464acb5d75131dfcfc63c89dcd286ae78b0463ed72e97cae1f"
+  },
+  "eventResourceEqualsClosedPrefix": true,
+  "eventCount": 4429,
+  "selectedPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/freeze.json",
+      "bytes": 139373,
+      "sha256": "9cdbb2b45c71b94608dae4eff3cc76a59553079c183314b8bda6084bbba6868c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10620458,
+      "sha256": "ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-05.json",
+      "bytes": 2327,
+      "sha256": "933b5e860e8ed0bba45608e501e871cf3868e99f78c81e8931af3fff72cff838"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-auth-02.json",
+      "bytes": 2315,
+      "sha256": "413824692abe66b374973af16446fa28a1b0d8626f79aaf5ce2b34a3ee31588b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/coordinate-review-05/return.md",
+      "bytes": 5780,
+      "sha256": "45e93306aa3e2d42eeff5423535786b2bc0b0c7ed525ab0c48afd09dcec76210"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/proof-review-05/caller-return.md",
+      "bytes": 5969,
+      "sha256": "1c167164a23d368f5ed2d35f1941a7dfa7d3bb369f60bf713e12cbbba5c7314a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/proof-review-05/candidate-identity-return.md",
+      "bytes": 5108,
+      "sha256": "66bf280c623fec34a2ea7b0393c0fa4c81f069054a9ff9b85022bd83604be2cb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "bytes": 34763,
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 26196,
+      "sha256": "9e54810f1c485ae53a6d2a167d491dfed9a6aee14763b1cbfbf380fc79bde53d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 22857,
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 17357,
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb"
+    }
+  ],
+  "limitations": "Three successful actor transports and seven satisfied artifact-existence criteria are bounded observations. No actual owner-validated original C2 CLI/test observations, stdout or test floor; no terminal result or UAT credit. Operator makes no repair or disposition decision."
+}

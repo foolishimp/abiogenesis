@@ -1,0 +1,5 @@
+{
+  "compileMs": 600000,
+  "regressionMs": 180000,
+  "typesMs": 180000
+}

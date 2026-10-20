@@ -1,0 +1,30 @@
+{
+  "timingScope": "Baseline helper bypasses prepareRead; repaired Public Run truth covers it. Held semantic identity is additional verification, not a repeated cold read. No full CLI comparison.",
+  "baselinePhasesMs": {
+    "prefix_authenticated_and_selected": 36883.714458,
+    "semantic_projection_complete": 21907.244874999997
+  },
+  "repairedPhasesMs": {
+    "history_reopened": 24433.456709,
+    "prepared_run_truth_complete": 20457.155040999998,
+    "held_semantic_identity_complete": 1788.8951670000024
+  },
+  "identicalProjectionDigest": true,
+  "projectionDigest": "sha256:dc7123652132ba8002776ef46f9ea438f2fa2f2f40a0ca21077fd7c6bf759be0",
+  "identicalEventCounts": true,
+  "identicalSelectedLogicalBytes": true,
+  "journalMetadataUnchanged": true,
+  "ownerClosePrefixUnchanged": true,
+  "sourceProvedRemovedWholeLogicalEventSerializationsPerColdRead": 257442,
+  "canonicalWorkComparisonMs": {
+    "baselineColdDecodeInclusive": 31638.704,
+    "repairedColdDecodeInclusive": 21974.629,
+    "baselineColdPhaseCanonicalInclusive": 22196.391,
+    "repairedColdPhaseCanonicalInclusive": 13021.001,
+    "baselineColdPhaseDecoderDirectCanonical": 11631.336,
+    "repairedColdPhaseDecoderDirectCanonical": 2793.372
+  },
+  "samplingLimit": "Inclusive CPU samples are approximate wall-time attribution, not invocation counts. Phase cut assignment may straddle the sampling/profile-start offset by approximately 25 ms.",
+  "actors": 0,
+  "eventWrites": 0
+}

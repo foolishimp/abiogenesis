@@ -1,0 +1,23 @@
+{
+  "kind": "bounded_fixture_index_correspondence_cause_action",
+  "failure": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/commands/focused-01.result.json",
+      "sha256": "ef49e1a9fa409d1928d758f920b3c1a5e6d731c29eb76ebdc3f1a4e82dc6f0ab",
+      "bytes": 970
+    },
+    "fixture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-01/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "c44bff69d6d18b6b69e7413e8f73321eb5ed51aadbbaea77802a86f7a00a2411",
+      "bytes": 41417
+    },
+    "cause": "Existing VM indexedRuntimeEvents ignored the supplied cold prefix and returned the preparation-only before vector, hiding later Result/J/evidence/parent rows.",
+    "selectedAction": "Root-selected test-only correction: retain synthetic invocation-root premise, delegate all other queries to the actual prefix owner. Production and HOW unchanged.",
+    "correctedFixture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-02/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "b974a2706b629e296dd65da7cebae4514e394a39a3726dc6b3a6aaf7415d7d51",
+      "bytes": 41407
+    }
+  },
+  "counterexample": "Expected old38 canonical-binding refusal preserved in both preimage-discriminator receipts; not a successor39 runtime failure."
+}

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "<stdin>", line 14, in <module>
+  File "<stdin>", line 7, in pin
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: '/opt/homebrew/Cellar/node/24.7.0/bin/node' is not in the subpath of '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript'

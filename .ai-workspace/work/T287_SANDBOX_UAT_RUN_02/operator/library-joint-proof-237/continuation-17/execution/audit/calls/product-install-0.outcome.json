@@ -1,0 +1,82 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.product.install",
+      "memberKey": "install"
+    },
+    "invocationRef": "invocation://abiogenesis/65a3da2a06310a0cf8e37e72cf3e71ab0f1e9b5792cea01876e1202887e12110",
+    "exitCode": 1,
+    "ownerOutput": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "target_failure",
+        "issuePaths": [
+          "/targetRoot"
+        ],
+        "evidenceRefs": []
+      }
+    },
+    "resources": {
+      "kind": "product_install_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "eventResource": {
+        "kind": "abg_event_resource_completion",
+        "schemaVersion": "5.0.0",
+        "acquisitionKind": "reopen",
+        "entryPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+          "prefixLength": 32758262,
+          "prefixDigest": "sha256:4350f5f17e39e115c0dcd5f8fee43df9902e42d2556449c98ffeaf711e230f9e",
+          "storeIdentity": {
+            "device": 16777231,
+            "inode": 469917053,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+          },
+          "coordinateDigest": "sha256:782900f814ac04f8623000ba058356e2f10a5b0ce8e27fccff92bc9cb6984b5e"
+        },
+        "successor": {
+          "kind": "acquired_abg_event_resource_selection",
+          "schemaVersion": "5.0.0",
+          "prefix": {
+            "kind": "durable_prefix_coordinate",
+            "schemaVersion": "5.0.0",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+            "prefixLength": 32758262,
+            "prefixDigest": "sha256:4350f5f17e39e115c0dcd5f8fee43df9902e42d2556449c98ffeaf711e230f9e",
+            "storeIdentity": {
+              "device": 16777231,
+              "inode": 469917053,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+            },
+            "coordinateDigest": "sha256:782900f814ac04f8623000ba058356e2f10a5b0ce8e27fccff92bc9cb6984b5e"
+          }
+        },
+        "receiptDigest": "sha256:1fb5cbb8544a259fc6713795d8f80270659fd9f918745c64883871fd853502c9"
+      },
+      "packedArtifact": {
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/publication/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "digest": "sha256:192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+      },
+      "resolvedLock": {
+        "ref": "product-lock://abiogenesis/d3781e8c67c48e6aa22ca151af4b170f135ce3c753f2cbc01b0b9747b4ce2b54",
+        "digest": "sha256:d3781e8c67c48e6aa22ca151af4b170f135ce3c753f2cbc01b0b9747b4ce2b54"
+      },
+      "targetRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/execution/audit/installed-native",
+      "installCandidate": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3/d3781e8c67c48e6aa22ca151af4b170f135ce3c753f2cbc01b0b9747b4ce2b54",
+        "digest": "sha256:3179a2836c43bc9e3908993aa1ac1deeb5c4545c56586b4cb39a2ee503ec4a98"
+      },
+      "installedProduct": null,
+      "installManifest": null,
+      "installerManifest": null
+    },
+    "failure": null
+  }
+}

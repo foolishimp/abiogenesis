@@ -1,0 +1,36 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "18e1eac0d22a12f1d041947bb0e60a3f568ab10be7ce1ad604b3e6b5af610475",
+    "byteCount": 10640868
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/scratch/successor/package/product-toolchain-manifest.json",
+    "sha256": "475e2b7fec78a95884a4253585634076bd1343e3b8eb37c957b542c1e666b91b",
+    "byteCount": 3171685
+  },
+  "installHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/host",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "expectedContentDigest": "sha256:68edb1926565879f44c9f43462ef8847d8e4844d1e1988bbc2b843eac6772f7e",
+  "expectedManifestDigest": "sha256:7e7d7cd99198259967c2fb4caeb00cf1e9444e0b2acd195589d83e1a979ae0c5",
+  "fixtures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/scratch/successor/package/node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888,
+      "relativePath": "node_modules/fast-uri/test/fixtures/uri-js-parse.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/scratch/successor/package/node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688,
+      "relativePath": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/scratch/successor/package/node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544,
+      "relativePath": "node_modules/json-schema-traverse/spec/fixtures/schema.js"
+    }
+  ]
+}

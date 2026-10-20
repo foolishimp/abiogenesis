@@ -1,0 +1,29 @@
+{
+  "operation": "T287_C09_INSTALLED_CARRIER_ASSURANCE_03",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "closedAt": "2026-10-03T11:29:23.159155+00:00",
+  "recommendation": "GO_INSTALLED_MECHANICAL_CARRIER_ONLY",
+  "blockingCounterexamples": [],
+  "nativeEffects": 0,
+  "importsTestsBuildsOwnerCallsProbesProviderNetworkGit": 0,
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime11-release-and-assurance-01/whole-review",
+  "writesAfterFreeze": "STOPPED",
+  "RootAloneAccepts": true,
+  "residuals": [
+    "parent-alias release applicability",
+    "genuine semantic qualification and independence",
+    "material/context sufficiency",
+    "green AF22 and release/publication authorization",
+    "ambient process census"
+  ],
+  "readerCorrections": [
+    "native stdout owns a receipt wrapper; compare its receipt/ownerOutput",
+    "owner census paths are relative to Setup resources, as the actual finalizer states",
+    "preparation mode fields are integer; current final freeze modes have their own declared representation",
+    "historical start-event pin authenticates its original prefix after authorized append",
+    "whole-carrier originalChildJProof is the retained original descriptor; actual F11 input separately selects the native child",
+    "selected frozen proof source is src/abg/qualification_proof.ts; no guessed implementation path was admitted"
+  ]
+}

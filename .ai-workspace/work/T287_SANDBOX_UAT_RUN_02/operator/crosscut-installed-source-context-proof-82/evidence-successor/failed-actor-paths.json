@@ -1,0 +1,13 @@
+{
+  "bindingEventId": "event://abiogenesis/aaeebc60bcbf2469bd1127e762ec620d7f4236eee87a54eadc63e0f6012e506e",
+  "ordinal": 351,
+  "paths": {
+    "output": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Ok123u/workspace/.ai-workspace/archive/fp-b19d388a0e1b3c3a-output.txt",
+    "prompt": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Ok123u/workspace/.ai-workspace/archive/fp-b19d388a0e1b3c3a-prompt.txt",
+    "stderr": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Ok123u/workspace/.ai-workspace/archive/fp-b19d388a0e1b3c3a-stderr.log",
+    "stdout": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Ok123u/workspace/.ai-workspace/archive/fp-b19d388a0e1b3c3a-stdout.log",
+    "transport": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Ok123u/workspace/.ai-workspace/archive/fp-b19d388a0e1b3c3a-transport.json"
+  },
+  "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/evidence-successor/protocol.mjs",
+  "parser": "claude_stream_json"
+}

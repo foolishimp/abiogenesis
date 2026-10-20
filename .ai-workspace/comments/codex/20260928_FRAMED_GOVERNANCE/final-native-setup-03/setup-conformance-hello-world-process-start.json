@@ -1,0 +1,14 @@
+{
+  "pid": 76197,
+  "processGroup": 76197,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-conformance-hello-world.jsonl"
+  ],
+  "startedAt": "2026-09-30T08:05:42.196Z",
+  "mode": "setup",
+  "label": "conformance-hello-world",
+  "capMs": 600000
+}

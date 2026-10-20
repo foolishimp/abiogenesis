@@ -1,0 +1,14 @@
+{
+  "status": "CLOSED_BOUNDED_CALLER_READINESS_GO_NO_EXECUTION",
+  "reviewer": 217,
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-review-217/return.md",
+    "sha256": "25c8cc8eb7045053d00b35d70bd03a0d81f8e2f58a79f099f046396826ed410b",
+    "byteCount": 3237
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-review-217/pins.json",
+    "sha256": "5aa859f5a12ad1cda397a58a688d6af52744c15c6e04b608cfc24d346444fabd",
+    "byteCount": 2317
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "activationRef": "T287_RC1_S03_INPUT_PREPARATION_01",
+  "role": "Worker",
+  "status": "CLOSED",
+  "disposition": "preparation_ready",
+  "executionReady": false,
+  "pendingOwner": "Root accepted frozen C03 and separate exact execution grant",
+  "sourcePinCount": 44,
+  "caseCount": 2,
+  "prospectiveWorkloadAndReadCalls": 10,
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01",
+  "closedAt": "2026-10-01T19:49:03.956209+00:00",
+  "noReviewerActivation": true
+}

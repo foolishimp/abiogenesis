@@ -1,0 +1,79 @@
+{
+  "sourceBindings": [
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "sha256": "7a50e8282b36d0601660845993dec674c50a1eaa04591c5664a8bf80001d90b9",
+      "relation": "482-528: current exact-prefix environment projection; authenticated artifact owner; same A/W/installs/lock/productSet at latest prefix"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "sha256": "96e179167006d9f0f4d648ab6c8abf5844076f361adef4fe4821290a2181136a",
+      "relation": "664-677,711-748: prefix/count/last admission ordinal included in projection digest/ref; rows survive lawful unrelated Run advancement"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "bc34094fd232bd8438b4bb34dd380e823fbcd0689b67d90d0e8d9854f3a63d91",
+      "relation": "1991-2119: current projection cold prefix acquisition is O_RDONLY/fstat/read/close plus byte/event validation; no event owner acquisition or writes"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "bb1b24e30d8c4668444481085530aca5f5ab3ce935677cbc882faa83208004bf",
+      "relation": "457-495,706-780,2002-2050,2075-2166: exact observed-input task, helper plan and actual artifact-to-observation ownership"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "sha256": "1e23f1fd06fcad5668eb0bb1944a76821c2c2d0eda8fcafd73554343a33c0e70",
+      "relation": "191-202,218-280: future exact context resources and read_context observation against fresh invocation authority"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "sha256": "683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100",
+      "relation": "614-638: future Product preparation consumes actual context resource owner observation"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "sha256": "83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550",
+      "relation": "1100-1114,1303-1324: supported wrapper transports actual runEnvironmentResources into Product preparation"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+      "sha256": "576df199d0c3275358253884266385f34689cce21cc2ed9604b3238ab6e83498",
+      "relation": "8-29: typed terminal producer, not obsolete provenance"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "sha256": "cf50d1120b7a73aa8f09554a06793c419576bdf6d030c27d8af03c7168dd7e9b",
+      "relation": "212-232: future actual successful observed Result and exact producer basis relation"
+    },
+    {
+      "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "sha256": "a5802f5cd7dcc267356f4d0769de320ac58e17b5a7b94d0d8ee88e70e56e5fcb",
+      "relation": "694-746: future genuine Result/J/Program/invocation/locus and prefix identity to qualification; no fabricated success inputs"
+    }
+  ],
+  "pastForwardTraversal": "Reused CLOSED C2 and reader analysis; no new owner/runtime repair",
+  "pureCallsExecuted": [
+    "Q02 selectedFiles reads declared origin inventory",
+    "supported installed abg.projectExactPrefixWorkspaceEnvironment reads/authenticates current prefix",
+    "external current-input checker and local counterexamples"
+  ],
+  "futureCallsOnly": [
+    "ProductVerificationPort.verify/selectOwnedProductVerification",
+    "constructStart fresh invocation authority and DIRECT_INVOKE grants",
+    "constructRunEnvironmentResources and observeRunEnvironment",
+    "unchanged Q02 constructObservedProducerTask then actual ProductRunInvocationPort.prepare",
+    "one ordinary Public start and two fresh CLI reads",
+    "accepted output reader task/plan/helper-artifact snapshot binding for reports/comparison/925reads and cold Result/replay"
+  ],
+  "qualificationFutureRoute": "validator qualification contracts -> ABG qualification proof -> actual Result/J/prefix -> constructQualificationVerificationMaterial. Producer slots unbound until successful genuine C2; no tenantManifest/executionSelectionRef/qualificationBasis minted."
+}

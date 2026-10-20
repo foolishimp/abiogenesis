@@ -1,0 +1,16 @@
+{
+  "disposition": "CLOSED/HOLD on the two exact claims; Root owns repair/reproof",
+  "subjectInputsSha256": "a8a010a3e620f74a723f3f23aab2d484de09dea70c6789e04ed4e1969546e8b5",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/review.md",
+      "sha256": "355afa372c9d2be44f8695b780856192599cb4397d027b91df0450afb2920679",
+      "byteCount": 6635
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/pins.json",
+      "sha256": "43b56fbfcce35c335f1d92ed1985e281bea80c748743f2b93e5318d24acc9b32",
+      "byteCount": 10353
+    }
+  ]
+}

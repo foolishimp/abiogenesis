@@ -1,0 +1,26 @@
+{
+  "stage": "current-run-context-complete",
+  "at": "2026-10-09T18:44:49.650Z",
+  "wallMs": 234053.55966600002,
+  "pid": 17206,
+  "memory": {
+    "rss": 4237148160,
+    "heapTotal": 3906109440,
+    "heapUsed": 3812180056,
+    "external": 2537974,
+    "arrayBuffers": 125667
+  },
+  "maxRSSKiB": 8026512,
+  "run": {
+    "ref": "run://abiogenesis/6ea5bad308dc191a2e84cb887b3555ce26c5d2f20e33ed6b142b6b505c83d43c",
+    "digest": "sha256:aa0af6e1aedbd6e45e9fd0f0b392e1b768dcb5d904a4aa120873112805bd3fbc"
+  },
+  "executionBasis": {
+    "ref": "execution-basis://abiogenesis/275802b288623214debd9ab2c937a1d2e63b22e69452242e5924a2d42c16f815",
+    "digest": "sha256:275802b288623214debd9ab2c937a1d2e63b22e69452242e5924a2d42c16f815"
+  },
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/bf8106ce57111f92cce58b2d2694b833e3ade73a97d3f36d199299a282501e99",
+    "digest": "sha256:bf8106ce57111f92cce58b2d2694b833e3ade73a97d3f36d199299a282501e99"
+  }
+}

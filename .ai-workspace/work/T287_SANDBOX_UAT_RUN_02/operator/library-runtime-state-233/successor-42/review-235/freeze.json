@@ -1,0 +1,37 @@
+{
+  "kind": "independent_source_review_freeze",
+  "status": "CLOSED",
+  "disposition": "BOUNDED_GO",
+  "sourceCut": 42,
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/freeze.json",
+    "sha256": "ad241c2472d846dac6c72cd43f319a369e17aad2eaa82c3afed23a3e065e2ac3",
+    "bytes": 14711
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/review-235/review.md",
+      "sha256": "4eda96161d8954e6f013d6e0fb9fe48719e2de4d7587b48bcb7209b32e02232f",
+      "bytes": 4291
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/review-235/pins.json",
+      "sha256": "4d8ee130367a0aea2b36d55a758d704286de3da0fb2545855a0657c35f976971",
+      "bytes": 10298
+    }
+  ],
+  "selectedPinCount": 33,
+  "scope": "Four scalar C2 context member/span coordinates completing Source41's material publication dependency",
+  "authority": {
+    "productSha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+    "frameSha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+    "stdoManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "remainingExit": "Ordinary14 generation/package, installed complete Program/context correspondence and native Testing",
+  "limits": [
+    "Controlled definition/context component premises; no actual Product installation or runtime admission proof",
+    "No unique actual12 first-throw attribution; no C2, original capacity, UAT or release qualification",
+    "Reviewer executed no tests, owners, publication, resource, native or worksite effects"
+  ],
+  "stop": true
+}

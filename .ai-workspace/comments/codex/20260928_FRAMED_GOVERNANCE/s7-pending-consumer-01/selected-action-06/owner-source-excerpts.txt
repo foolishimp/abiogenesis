@@ -1,0 +1,176 @@
+code/src/abg/construction_continuation.ts SHA256 38e18af48a88f40b8b28cb52e767f6faee3d745fed69a4b887e815f1686d9fd6
+501: export type SelectedActionUseRequest = Readonly<{ run: SelectedCoordinate; continuation: SelectedCoordinate;
+502:   selectedAction: SelectedCoordinate; basisRelation: Readonly<{ kind: "same_basis" }> |
+503:     Readonly<{ kind: "authority_changed"; coveringReprice: SelectedCoordinate }> }>;
+504: 
+505: function pendingSelectedOccurrence(candidates: readonly SelectedActionContinuation[]): SelectedActionContinuation | null {
+506:   const current = candidates.length === 1 ? candidates[0] : undefined;
+507:   return current?.status === "open" ? current : null;
+508: }
+509: 
+510: /** Same owner predicate for new admission and cold operation correspondence. A
+511:  * covering witness never substitutes for a fresh current semantic selection. */
+512: export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest) {
+513:   const source = projectSelectedActionContinuations(prefix, request.run.ref).find(c =>
+514:     c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
+515:   if (source === undefined) return { kind: "refused" as const, code: "missing_continuation" as const };
+516:   if (source.status !== "open") return { kind: "refused" as const, code: "resolved_continuation" as const };
+517:   const sourceScope = projectOpenedTraversalScopeForFrameAtPrefix(prefix, source.frameId);
+518:   if (sourceScope?.runDigest !== request.run.digest) return { kind: "refused" as const, code: "basis_mismatch" as const };
+519:   const sourceBasis = projectExactExecutionBasisAtPrefix(prefix, source.executionBasisRef);
+520:   const selectedRows = indexedRuntimeEvents(prefix, "kind:construction_intent_selected").filter(e => isRecord(e.payload) &&
+521:     e.payload.nextActionProjectionRef === request.selectedAction.ref && e.payload.nextActionProjectionDigest === request.selectedAction.digest);
+522:   const candidates = selectedRows.flatMap(e => typeof e.runId === "string" ? projectSelectedActionContinuations(prefix, e.runId)
+523:     .filter(c => c.intentAdmissionEventRef === e.eventId) : []);
+524:   const current = pendingSelectedOccurrence(candidates);
+525:   if (current === null) return { kind: "refused" as const, code: "stale_action" as const };
+526:   const currentBasis = projectExactExecutionBasisAtPrefix(prefix, current.executionBasisRef);
+527:   if (sourceBasis === null || currentBasis === null) return { kind: "refused" as const, code: "basis_mismatch" as const };
+528:   let coveringEventRef: string | null = null;
+529:   if (request.basisRelation.kind === "same_basis") {
+530:     if (source.continuationRef !== current.continuationRef || sourceBasis.basisRef !== currentBasis.basisRef)
+531:       return { kind: "refused" as const, code: "action_mismatch" as const };
+532:   } else {
+533:     const before = projectAdmittedWorkspaceBindingAtCoordinate(prefix, sourceBasis.workspaceBindingId, sourceBasis.workspaceBindingDigest);
+534:     const after = projectAdmittedWorkspaceBindingAtCoordinate(prefix, currentBasis.workspaceBindingId, currentBasis.workspaceBindingDigest);
+535:     const covers = before === null || after === null ? null : projectWitnessedWorkspaceBindingCover(prefix, before, after, [sourceBasis]);
+536:     // The witness result coordinate is the admitted act, not a caller's assertion.
+537:     const coordinate = request.basisRelation.coveringReprice;
+538:     const witness = one(indexedRuntimeEvents(prefix, "kind:declaration_reprice_admitted").filter(e =>
+539:       covers?.includes(e.eventId) && isRecord(e.payload) && e.payload.witnessedActRef === coordinate.ref && e.payload.witnessedActDigest === coordinate.digest));
+540:     const sourceEvent = indexedRuntimeEvents(prefix, "kind:construction_intent_selected").find(e => e.eventId === source.intentAdmissionEventRef);
+541:     const currentEvent = selectedRows[0];
+542:     const oldSelection = isRecord(sourceEvent?.payload) ? sourceEvent.payload.nextActionProjection : null;
+543:     const selection = isRecord(currentEvent?.payload) ? currentEvent.payload.nextActionProjection : null;
+544:     if (source.continuationRef === current.continuationRef || witness === null || currentEvent === undefined ||
+545:       witness.admissionOrdinal <= (sourceEvent?.admissionOrdinal ?? Infinity) || currentEvent.admissionOrdinal <= witness.admissionOrdinal ||
+546:       !isRecord(oldSelection) || !isRecord(selection) || !Array.isArray(selection.lawfulBasisRefs) ||
+547:       !selection.lawfulBasisRefs.includes(source.continuationRef) || !selection.lawfulBasisRefs.includes(coordinate.ref) ||
+548:       selection.targetOutcomeRef !== oldSelection.targetOutcomeRef || !Array.isArray(oldSelection.targetObligationRefs) ||
+549:       !Array.isArray(selection.targetObligationRefs) || !oldSelection.targetObligationRefs.every(r => (selection.targetObligationRefs as JsonValue[]).includes(r)))
+550:       return { kind: "refused" as const, code: "reprice_mismatch" as const };
+559: export function prepareSelectedActionContinuation(prefix: ValidatedRuntimeEventPrefix,
+560:   use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution) {
+561:   const root = rehydrateExecutionBasisAtPrefix(prefix, use.currentBasis.basisRef);
+562:   if (root === null || root.basisClass !== "root" || root.constructionContinuationUse !== undefined ||
+563:     root.programRef !== resolution.program.programRef || root.programDigest !== hash(resolution.program) ||
+564:     root.programValidationRef !== resolution.programValidation.validationRef || root.graphFunctionRef !== resolution.graphFunction.name) return null;
+565:   const graph = materializeGraph(resolution.graphFunction, { invocationAdmissionRef: root.invocationAdmissionRef,
+566:     admittedInputRef: root.rawInputAdmissionRef, admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue });
+567:   const graphValidation = validateGraph(graph, resolution.programValidation, resolution.graphFunction, {
+568:     invocationAdmissionRef: root.invocationAdmissionRef, admittedInputRef: root.rawInputAdmissionRef,
+569:     admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue });
+570:   if (graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== root.graphValidationRef ||
+571:     graph.materializationRef !== root.graphRef || graph.materializationDigest !== root.graphDigest) return null;
+572:   const selected = use.current;
+573:   const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, graph, { cursorRef: selected.heldCursorRef,
+574:     cursorDigest: selected.heldCursorDigest, executionBasisRef: root.basisRef, runId: selected.runId,
+code/src/product/declaration_closure.ts SHA256 572c226b91a8d7c1bc4911f26427306ec0aa00a081b08fb92a0e737ddc195354
+881:     ),
+882:   );
+883:   const publicationDigests = Object.freeze(
+884:     publications.map(modulePublicationSemanticDigest),
+885:   );
+886:   const body = deepFreeze({
+887:     closureScope,
+888:     catalogBasisDigest: catalog.basisDigest,
+889:     catalogViewDigest: catalogView.viewDigest,
+890:     programRef,
+891:     rootGraphFunctionRefs,
+892:     selectedGraphFunctionRef: closureScope === "execution"
+893:       ? requestedGraphFunctionRef
+894:       : null,
+895:     programPublicationDigest: modulePublicationSemanticDigest(programPublication),
+896:     publicationDigests,
+897:     graphFunctionOwners,
+898:     contractOwners,
+899:     evaluatorOwners,
+900:     ruleOwners,
+901:     implementationBindingOwners,
+902:     closureContractOwners,
+903:     semanticsOwner,
+904:   });
+905:   const closureDigest = sha256Canonical(body as unknown as JsonValue);
+906:   return deepFreeze({
+907:     kind: closureScope === "execution"
+908:       ? "resolved_execution_declaration_closure" as const
+code/src/product/catalog_operations.ts SHA256 0369dafbfd7f21f366394d560095429303892d85fb033df77f6b2a2e0834cfee
+205:   }
+206:   return {
+207:     ...(lifecycleAdmission?.kind === "raw_admitted_value" ? { semanticLifecyclePublication: lifecycleAdmission } : {}),
+208:     ...(sourceAdmission?.kind === "raw_admitted_value" ? { semanticSourcePublication: sourceAdmission } : {}),
+209:     declarationBasisDigest: declarationClosure.closureDigest,
+210:     programPublication: programPublicationAdmission,
+211:     program: programAdmission,
+212:     graphFunctions: graphFunctions as readonly RawAdmittedValue<GraphFunction>[],
+213:     contracts: contracts as readonly RawAdmittedValue<ContractDeclaration>[],
+214:     evaluators: declarationPublications.flatMap((publication) =>
+code/src/product/execution_resolution.ts SHA256 73d296ac7dbcab675c5a1f9a1399459356d81f9cd34772a0d037a6daf0a1e920
+489:   ) {
+490:     return refusal(
+491:       "incompatible_or_unproven",
+492:       "dependency",
+493:       "execution resolution requires one ABG-admitted install per exact Catalog readiness candidate",
+494:     );
+495:   }
+496: 
+497:   const programDeclarationClosure = resolveProgramDeclarationClosure(
+498:     reconstructedCatalog,
+499:     reconstructedView,
+500:     input.programRef,
+501:   );
+502:   if (programDeclarationClosure.kind !== "resolved_program_declaration_closure") {
+503:     return closureRefusal(programDeclarationClosure);
+504:   }
+505:   const programPublication = programDeclarationClosure.programPublication;
+506:   const programMatches = programPublication.programs.filter((candidate) =>
+507:     candidate.programRef === programDeclarationClosure.programRef
+508:   );
+717: 
+718:   const validationInput = constructCatalogProgramValidationInput(
+719:     reconstructedCatalog,
+720:     reconstructedView,
+721:     programDeclarationClosure,
+722:     program,
+723:   );
+724:   if (
+725:     "kind" in validationInput &&
+726:     validationInput.kind === "raw_admission_refusal"
+727:   ) {
+728:     return refusal(
+729:       "incompatible_or_unproven",
+730:       "declaration_closure",
+731:       validationInput.message,
+732:     );
+733:   }
+734:   const programValidation = validateProgram(
+735:     validationInput as import("../validator/index.js").ProgramValidationInput,
+736:   );
+737:   if (programValidation.kind !== "program_validation") {
+738:     return refusal(
+739:       programValidation.diagnostics.some((diagnostic) =>
+740:           diagnostic.code === "duplicate_identity"
+741:         )
+code/src/validator/validation.ts SHA256 f74055b27496707775f6a0e7f15e2331ae385364ba43ce703fc15cd2ff8a65e0
+1839:   const transitiveReachableInteractionLeafKeys = interactionLeafRows.map((row) => row.requirementKey);
+1840:   const sourceDigest = sha256Canonical({
+1841:     publicationDigest: sha256Canonical(publication as unknown as JsonValue),
+1842:     declarationBasisDigest: input.declarationBasisDigest,
+1843:     programDigest: input.program.subjectDigest,
+1844:     graphFunctionDigests,
+1845:     contractDigests,
+1846:     implementationBindingDigests,
+1847:     closureContractDigests,
+1848:     executableLeafRows,
+1849:     interactionLeafRows,
+1850:   } as unknown as JsonValue);
+1851:   const validation = deepFreeze({
+1852:     kind: "program_validation",
+1853:     schemaVersion: "5.0.0",
+1854:     disposition: "valid",
+1855:     validationRef: `program-validation://abiogenesis/${sourceDigest.slice("sha256:".length)}`,
+1856:     sourceDigest,
+1857:     publicationDigest: sha256Canonical(publication as unknown as JsonValue),
+1858:     programRef: program.programRef,
+1859:     programDigest: input.program.subjectDigest,
+1860:     graphFunctionDigests,

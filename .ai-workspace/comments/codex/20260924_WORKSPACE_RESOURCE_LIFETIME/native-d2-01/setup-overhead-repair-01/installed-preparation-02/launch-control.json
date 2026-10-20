@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/prepare.mjs"
+  ],
+  "subject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/prepare.mjs",
+      "sha256": "926a0a761f7affc670c75ca4e7312b63177169e5447782b57aa69a36f796fbf0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/selection.json",
+      "sha256": "4025e6446df8b8c2a6a8ecdcc42bad7fac075e395f1d86eef213e3cc433c10a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller-subject.json",
+      "sha256": "8767131e965351140e488a5886425ba4d432941a0f70e5bd243a56cb6a39b7d6"
+    }
+  ],
+  "effect": "one setup only; no actor/run/witness",
+  "heap": "default",
+  "priorEntryBytes": 112775961
+}

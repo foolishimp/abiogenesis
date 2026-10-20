@@ -1,0 +1,24 @@
+{
+  "phases": [
+    {
+      "phase": "installed-publications",
+      "exitCode": 0,
+      "stdout": "{\"pid\": 23618, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 397.3248330876231}\n",
+      "stderr": ""
+    },
+    {
+      "phase": "wrapper-preparation",
+      "exitCode": 0,
+      "stdout": "{\"requiredContracts\": 3, \"requiredCapabilities\": 2, \"historicalRequiredPackagedBodies\": 309, \"currentRequiredPackagedBodies\": 309, \"wrapperNativeRows\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "phase": "wrapper-compatibility",
+      "exitCode": 0,
+      "stdout": "{\"pid\": 23695, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 433.6292091757059}\n",
+      "stderr": ""
+    }
+  ],
+  "elapsedMs": 12016.942915972322,
+  "stoppedOnFirstFailure": false
+}

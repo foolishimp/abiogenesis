@@ -1,0 +1,24 @@
+{
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/installed-current29/node_modules/@abiogenesis/typescript-tenant",
+  "native": {
+    "artifactDigest": "sha256:88dc395a20d4ac0056224144e3cf5eab91411a5558018b34ec6f44e72a84ac2a",
+    "productContentDigest": "sha256:4b0c7e13951bbd278588ae276816a661e04b3106e1171d776ffd3d9735121fa8",
+    "verificationRef": "product-verification://abiogenesis/90ece7c80b3aa0467eee64eb8948c6ed523a83eac600425990ab0060e60a63bc",
+    "verificationDigest": "sha256:90ece7c80b3aa0467eee64eb8948c6ed523a83eac600425990ab0060e60a63bc"
+  },
+  "consumer": {
+    "artifactDigest": "sha256:70f2fa9bd8e9206672b88f18f80b2db7817e7892413a0bc39ea23e144c3f6761",
+    "productContentDigest": "sha256:bb5343e6d864bf7631ddc97e65888447f01f42e901d3f0118dea51d477a86755"
+  },
+  "sourcePublicAuthorityDigest": "sha256:c63b2883358c97e3226c9b43c6a276df042bd75d6c36575811cb888c121c6f95",
+  "originalDigest": "sha256:2ffa07372d1ca52fbd465a79a4394f58c9567a5cf8dff3e898f66335cb47ee83",
+  "operation": {
+    "operationId": "abg.operation.witness.admit",
+    "memberKey": "run-stopped"
+  },
+  "contentContract": {
+    "ref": "contract://abiogenesis/witness/run-stopped@5",
+    "digest": "sha256:875d96f956aace57f44b50855da1cf95a7a5d5c0afa6d73884049e03df783795"
+  },
+  "nominalVerifierResultsRetained": true
+}

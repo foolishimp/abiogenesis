@@ -1,3 +1,5 @@
+import type { RuntimeReplayGuard } from "../abg/replay.js";
+import type { OwnedJudgedCCallOutcomeReceipt, OwnedBlockedCCallOutcomeReceipt } from "../abg/c_call_outcome.js";
 import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
 import { constructTraversalCursorCandidate } from "../abg/traversal_cursor.js";
 import type { RawAdmittedValue } from "../validator/raw_admission.js";
@@ -14,6 +16,7 @@ import type { FanOutCompletionAdmission } from "../abg/fan_out.js";
 import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
 import type {
   CompletedRetryProgressPlan,
+  OwnedCompletedRetryProgressPlan,
   RetryCompletedProgressAdmission,
   RetryProgressAdmission,
 } from "../abg/retry.js";
@@ -109,7 +112,7 @@ function graphRouteCandidate(input: Readonly<{
   judgmentRef: string | null;
   consumedAvailabilityRefs: readonly string[];
   contractRef: string | null;
-  replayState: ReplayState;
+  replayState: RuntimeReplayGuard;
   extras?: GraphRouteExtras;
 }>): RouteCandidate {
   return completeRouteCandidate({
@@ -173,6 +176,25 @@ export function proposeStructuralRoute(
   targetCursor: TraversalCursor,
   routeKind: "advance" | "retry",
   replayState: ReplayState,
+  completedProgresses?: readonly RetryCompletedProgressAdmission[],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeStructuralRoute(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  routeKind: "advance" | "retry",
+  replayState: RuntimeReplayGuard,
+  completedProgresses?: readonly RetryCompletedProgressAdmission[],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeStructuralRoute(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  routeKind: "advance" | "retry",
+  replayState: RuntimeReplayGuard,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
 ): RouteCandidate | RouteProposalRefusal {
@@ -212,6 +234,25 @@ export function proposeRetryRoute(
   cCall: CCall,
   progress: RetryProgressAdmission,
   replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeRetryRoute(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  cCall: CCall,
+  progress: RetryProgressAdmission,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeRetryRoute(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  cCall: CCall,
+  progress: RetryProgressAdmission,
+  replayState: RuntimeReplayGuard,
   contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
   if (
@@ -255,6 +296,23 @@ export function proposeTerminalRoute(
   cCall: CCall,
   judgment: AdmittedCCallJudgment,
   replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeTerminalRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeTerminalRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
   contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
   if (judgment.judgment !== "advance") {
@@ -300,6 +358,33 @@ export function proposeJudgedRoute(
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
   replayState: ReplayState,
+  contractRef: string,
+  completedProgresses?: readonly RetryCompletedProgressAdmission[],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeJudgedRoute(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor | null,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+  completedProgresses?: readonly RetryCompletedProgressAdmission[],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeJudgedRoute(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor | null,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
   contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
@@ -362,6 +447,29 @@ export function proposeGraphSpanReentryRoute(
   replayState: ReplayState,
   contractRef: string,
   projection: Readonly<GraphSpanReentryProjection>,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeGraphSpanReentryRoute(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+  projection: Readonly<GraphSpanReentryProjection>,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeGraphSpanReentryRoute(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+  projection: Readonly<GraphSpanReentryProjection>,
 ): RouteCandidate | RouteProposalRefusal {
   const application = graph.template.applications.find(
     (candidate) =>
@@ -419,6 +527,25 @@ export function proposeGapStopRoute(
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
   replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeGapStopRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeGapStopRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
   contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
   const projection =
@@ -490,6 +617,25 @@ export function proposeBlockedRoute(
   judgmentRef: string,
   replayState: ReplayState,
   contractRef: string,
+  stoppedProgressRefs?: readonly string[],
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeBlockedRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  judgmentRef: string,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+  stoppedProgressRefs?: readonly string[],
+): RouteCandidate | RouteProposalRefusal;
+export function proposeBlockedRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  judgmentRef: string,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
   stoppedProgressRefs: readonly string[] = [],
 ): RouteCandidate | RouteProposalRefusal {
   if (
@@ -523,6 +669,25 @@ export function proposeFailedRoute(
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
   replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeFailedRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeFailedRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
   contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
   if (
@@ -561,7 +726,7 @@ export function proposeFailedRoute(
  * route candidate and binds the corresponding admitted evidence.
  */
 function selectedCCallOutcomeRoute(
-  outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+  outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt,
 ): "re_enter" | "gap_stop" | null {
   if (
     outcome.disposition !== "judged" ||
@@ -586,6 +751,21 @@ export function deriveSelectedCCallOutcomeTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursor,
   outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+): TraversalCursor | RouteProposalRefusal | null | undefined;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function deriveSelectedCCallOutcomeTarget(
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursor,
+  outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt,
+  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+): TraversalCursor | RouteProposalRefusal | null | undefined;
+export function deriveSelectedCCallOutcomeTarget(
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursor,
+  outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt,
   definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
 ): TraversalCursor | RouteProposalRefusal | null | undefined {
@@ -629,6 +809,29 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
   targetCursor: TraversalCursor | null;
   outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt;
   completedRetryProgress?: CompletedRetryProgressPlan;
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+  terminalizeNonAdvance: boolean;
+  registeredSelectionDefinitionDigests?: Readonly<Record<string, `sha256:${string}`>>;
+}>): TraversalTransitionCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeCCallOutcomeTransition(input: Readonly<{
+  graph: Readonly<GtlGraph>;
+  graphFunction: Readonly<GraphFunction>;
+  sourceCursor: TraversalCursor;
+  targetCursor: TraversalCursor | null;
+  outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt;
+  completedRetryProgress?: OwnedCompletedRetryProgressPlan;
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+  terminalizeNonAdvance: boolean;
+  registeredSelectionDefinitionDigests?: Readonly<Record<string, `sha256:${string}`>>;
+}>): TraversalTransitionCandidate | RouteProposalRefusal;
+export function proposeCCallOutcomeTransition(input: Readonly<{
+  graph: Readonly<GtlGraph>;
+  graphFunction: Readonly<GraphFunction>;
+  sourceCursor: TraversalCursor;
+  targetCursor: TraversalCursor | null;
+  outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt;
+  completedRetryProgress?: OwnedCompletedRetryProgressPlan;
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   terminalizeNonAdvance: boolean;
   registeredSelectionDefinitionDigests?: Readonly<Record<string, `sha256:${string}`>>;
@@ -757,6 +960,23 @@ export function proposeHoldRoute(
   judgment: AdmittedCCallJudgment,
   replayState: ReplayState,
   contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeHoldRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeHoldRoute(
+  graph: Readonly<GtlGraph>,
+  stop: RouteSourceLocus,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
   if (
     !isMaterializedGtlGraph(graph) ||
@@ -794,6 +1014,25 @@ export function proposeInteractionResumeTerminalRoute(
   judgment: AdmittedCCallJudgment,
   resume: FhInteractionResumeAdmission,
   replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeInteractionResumeTerminalRoute(
+  graph: Readonly<GtlGraph>,
+  cursor: RouteSourceLocus["cursor"],
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  resume: FhInteractionResumeAdmission,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeInteractionResumeTerminalRoute(
+  graph: Readonly<GtlGraph>,
+  cursor: RouteSourceLocus["cursor"],
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  resume: FhInteractionResumeAdmission,
+  replayState: RuntimeReplayGuard,
   contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
   const continuation = deriveCSourceContinuation(
@@ -847,6 +1086,33 @@ export function proposeInteractionResumeRoute(
   judgment: AdmittedCCallJudgment,
   resume: FhInteractionResumeAdmission,
   replayState: ReplayState,
+  contractRef: string,
+  completedProgresses?: readonly RetryCompletedProgressAdmission[],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeInteractionResumeRoute(
+  graph: Readonly<GtlGraph>,
+  cursor: TraversalCursor,
+  targetCursor: TraversalCursor | null,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  resume: FhInteractionResumeAdmission,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+  completedProgresses?: readonly RetryCompletedProgressAdmission[],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeInteractionResumeRoute(
+  graph: Readonly<GtlGraph>,
+  cursor: TraversalCursor,
+  targetCursor: TraversalCursor | null,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  resume: FhInteractionResumeAdmission,
+  replayState: RuntimeReplayGuard,
   contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
@@ -920,6 +1186,33 @@ export function proposeFanOutRoute(
   completion: FanOutCompletionAdmission,
   replayState: ReplayState,
   contractRef: string,
+  completedProgresses?: readonly RetryCompletedProgressAdmission[],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeFanOutRoute(
+  graph: Readonly<GtlGraph>,
+  application: Readonly<FanOutApplication>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor | null,
+  cCall: CCall,
+  completion: FanOutCompletionAdmission,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+  completedProgresses?: readonly RetryCompletedProgressAdmission[],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeFanOutRoute(
+  graph: Readonly<GtlGraph>,
+  application: Readonly<FanOutApplication>,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor | null,
+  cCall: CCall,
+  completion: FanOutCompletionAdmission,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
   definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
@@ -986,6 +1279,37 @@ export function proposeRecursionRoute(
   judgment: AdmittedCCallJudgment,
   foldback: ApplicationChildFoldbackAdmission | null,
   replayState: ReplayState,
+  contractRef: string,
+  routeKind: "advance" | "blocked",
+  preparationRefusal?:
+    | ApplicationChildPreparationRefusalAdmission
+    | null,
+): RouteCandidate | RouteProposalRefusal;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeRecursionRoute(
+  graph: Readonly<GtlGraph>,
+  application: Readonly<RecurseApplication>,
+  sourceCursor: RouteSourceLocus["cursor"],
+  targetCursor: RouteSourceLocus["cursor"] | null,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  foldback: ApplicationChildFoldbackAdmission | null,
+  replayState: RuntimeReplayGuard,
+  contractRef: string,
+  routeKind: "advance" | "blocked",
+  preparationRefusal?:
+    | ApplicationChildPreparationRefusalAdmission
+    | null,
+): RouteCandidate | RouteProposalRefusal;
+export function proposeRecursionRoute(
+  graph: Readonly<GtlGraph>,
+  application: Readonly<RecurseApplication>,
+  sourceCursor: RouteSourceLocus["cursor"],
+  targetCursor: RouteSourceLocus["cursor"] | null,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  foldback: ApplicationChildFoldbackAdmission | null,
+  replayState: RuntimeReplayGuard,
   contractRef: string,
   routeKind: "advance" | "blocked",
   preparationRefusal:

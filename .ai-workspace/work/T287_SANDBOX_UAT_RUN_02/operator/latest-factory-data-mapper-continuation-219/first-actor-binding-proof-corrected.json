@@ -1,0 +1,34 @@
+{
+  "ordinal": 207171,
+  "offset": 1703226651,
+  "byteCount": 1679811,
+  "sha256": "9be8824c84ffe341eadbeda8067aa28da7eaf8e1b3b9e12a306993d268e6e16b",
+  "exactOneCurrentRootControl": true,
+  "toolsEmpty": true,
+  "wireSchemaTopKeys": [
+    "type",
+    "properties",
+    "required",
+    "additionalProperties"
+  ],
+  "responseJsonSchemaDigest": "sha256:a7dd21db5518d19c0de14dcb64fd451f0a3644caa8a99e4e8844d7f67569ca55",
+  "transportBindingRef": "transport-binding://abiogenesis/0554331f2a98d3aa9ef2c301644b427da03f3764376070677252cd7b5421fa6b",
+  "transportBindingDigest": "sha256:0554331f2a98d3aa9ef2c301644b427da03f3764376070677252cd7b5421fa6b",
+  "transportPlanDigest": "sha256:7f4ead88f84ee3608dfb5a0635fc261843788f0fa35c097969293a5cdaa7fd05",
+  "promptDigest": "sha256:bb830703382322c3b69cd979befdf01f871bb9b68aeab6d177146da041cd1e89",
+  "lane": "closed_prompt_proof",
+  "parser": "claude_stream_json",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c153fac879f32684-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c153fac879f32684-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c153fac879f32684-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c153fac879f32684-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c153fac879f32684-transport.json"
+  },
+  "command": "/Users/jim/.local/bin/claude",
+  "timeoutMs": 18030000,
+  "absoluteTimeoutMs": 18040000,
+  "terminationGraceMs": 5000,
+  "originalCarriedObservations": 34,
+  "causeOfSupersededCarrier": "A diagnostic recursive args walk overwrote the actual top-level args result with carried historical command args. This corrected carrier selects payload.args directly; original carrier remains preserved."
+}

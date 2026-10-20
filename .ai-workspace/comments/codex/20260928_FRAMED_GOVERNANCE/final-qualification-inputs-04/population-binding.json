@@ -1,0 +1,42 @@
+{
+  "status": "prepared_unexecuted",
+  "effectiveSourceAndGenerated": 1936,
+  "selectedSourcePreimages": 1106,
+  "emittedGenerated": 830,
+  "derivedAuthorityCopies": 96,
+  "changedDerivedAuthorityBodies": 12,
+  "allQualificationMembers": 4554,
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/1ff09198a2fddfbc5b42d33eef3f9022b291aa1d266f3f6a11bedea4afbf4b92",
+    "digest": "sha256:1ff09198a2fddfbc5b42d33eef3f9022b291aa1d266f3f6a11bedea4afbf4b92"
+  },
+  "protectedInputs": 3277,
+  "sourceInputBindings": 780,
+  "auxiliaryInputBindings": 2496,
+  "commands": 18,
+  "predicates": 19,
+  "testGroups": 8,
+  "selectedTitles": 46,
+  "lintFiles": 332,
+  "expectedOutputs": 927,
+  "singleRecipeSelfInput": true,
+  "q02": {
+    "commands": 13,
+    "predicates": 14,
+    "groups": 5,
+    "titles": 30,
+    "protectedInputs": 716,
+    "outputs": 925,
+    "meaning": "prior original RC1 selection/oracles; never a C03 observed result"
+  },
+  "pending": [
+    "actual A/W and grant",
+    "observed protected inputs and source set",
+    "Task/attempt/helper artifact and snapshot root",
+    "actual C2 command/predicate/test/lint/compare reports and fresh Result/replay",
+    "actual material/selection admission",
+    "whole current F11 independent assessment/J",
+    "AF22 installed_rc verdict and all missing scenario joins",
+    "AF25 publication/human original owner ruling/tapped-release"
+  ]
+}

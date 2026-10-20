@@ -1,0 +1,28 @@
+{
+  "stage": "inspection",
+  "command": [
+    "/usr/local/bin/python3",
+    "-B",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02/inspect.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02",
+  "capMs": 60000,
+  "terminationGraceMs": 1000,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02/tmp",
+    "XDG_CACHE_HOME": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02/cache",
+    "XDG_CONFIG_HOME": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02/config",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "HOME_home_CODEX_HOMEUnchanged": true,
+  "scope": "Review output only; no native/Product construction effect",
+  "pid": 65638,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "ownedExitObserved": true,
+  "elapsedMs": 3728.692874778062,
+  "stdoutSHA256": "73cdae7653e05b232f4cf3ea3c08a3a6b9f260987c352a019d7c052cb7a38a54",
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

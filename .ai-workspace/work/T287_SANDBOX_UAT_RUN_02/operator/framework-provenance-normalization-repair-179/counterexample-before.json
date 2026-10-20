@@ -1,0 +1,158 @@
+{
+  "preimageComparatorResult": null,
+  "selectedPublications": 4,
+  "orderOnlyCoordinates": 24,
+  "perPublication": [
+    {
+      "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+      "historicalPublicationDigest": "sha256:5c435efd26afbc23c18006e07fc05586ae683cf756e941a080029d760a84b8c3",
+      "currentPublicationDigest": "sha256:5c435efd26afbc23c18006e07fc05586ae683cf756e941a080029d760a84b8c3",
+      "differences": []
+    },
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "historicalPublicationDigest": "sha256:4178163ca9239b0cac3d4cb29ce3931343204d032ce84934cfa3243b5ddc142f",
+      "currentPublicationDigest": "sha256:0ac29094ddd5d656b09dc5a92e0ef5c76ea21f2262ab22ec62dc5d6f492010d0",
+      "differences": [
+        {
+          "path": "/contributions/0/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/0/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/1/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/1/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/2/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/2/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/3/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/3/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/4/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/4/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/5/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/5/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/6/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/6/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        }
+      ]
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "historicalPublicationDigest": "sha256:af4a152acc6ca79b129bf5d54d47b7a4c9c71d8cd1fcbbad61c23057927fd30e",
+      "currentPublicationDigest": "sha256:a35d74c3bea859a05e9034d1f24982e32b674a6ddb05cfd8dfd1df9d77ff4ede",
+      "differences": [
+        {
+          "path": "/contributions/0/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/0/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/1/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/1/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/2/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/2/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        }
+      ]
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "historicalPublicationDigest": "sha256:3f39c34b39ddabe45ba53597d49cb7898a178e2c4d744727950cb26fe4b6e33a",
+      "currentPublicationDigest": "sha256:991fdc70428143ded537aa54e1d5e20325bae1a89ed23d53a681993dd81c751d",
+      "differences": [
+        {
+          "path": "/contributions/0/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/0/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        },
+        {
+          "path": "/contributions/1/provenanceRefs/0",
+          "historical": "publication:manifest",
+          "current": "publication:artifact"
+        },
+        {
+          "path": "/contributions/1/provenanceRefs/1",
+          "historical": "publication:artifact",
+          "current": "publication:manifest"
+        }
+      ]
+    }
+  ],
+  "unchangedMeaningAfterOnlyRoleInventoryOrdering": true,
+  "completeProjectorFirstInnerRefusal": "unobserved; this is an independently reproduced sufficient blocker",
+  "authenticCatalogueReconstructionOrInvocationAdmissionClaim": false,
+  "actualCampaignEventResourceRead": false
+}

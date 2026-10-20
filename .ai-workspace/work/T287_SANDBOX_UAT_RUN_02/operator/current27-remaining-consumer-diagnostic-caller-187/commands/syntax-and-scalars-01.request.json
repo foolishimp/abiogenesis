@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/prepare.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187",
+  "started": "2026-10-09T08:23:45.265586+00:00",
+  "meaning": "Changed caller syntax and small frozen185-coordinate/helper consistency only; no actual script/resource/owner execution"
+}

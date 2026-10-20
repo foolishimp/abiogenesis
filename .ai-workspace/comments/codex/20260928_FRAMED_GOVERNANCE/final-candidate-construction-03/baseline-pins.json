@@ -1,0 +1,71 @@
+{
+  "C02FreezeSHA256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+  "Q02FreezeSHA256": "a4c2b5afd94fd7402b6bbfc732e691eb345dbcf4334a0300de490f607b9aad79",
+  "acceptedLawFreezeSHA256": "a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872",
+  "C02ReusedControls": [
+    {
+      "path": "source-members.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 462976,
+      "sha256": "97084ee92da69e16acae12ca609b8d80af65c300933d7f3e49632cbe01360042"
+    },
+    {
+      "path": "source-freeze-manifest.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1045999,
+      "sha256": "98316a687a3ef45aa2e3fd1b6c94429c30c3feddd119b4f15600d3f771e11cc6"
+    },
+    {
+      "path": "dependency-archives.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10215,
+      "sha256": "e6deef0b1e55fee03c90a0c146cf439fd847461362884dd4c48b8b3b2938b3bb"
+    },
+    {
+      "path": "prepare.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8600,
+      "sha256": "62a881d4351b09e79d35276ab5dc571e3d6ca4524db9fe578c14ac46b5310e02"
+    },
+    {
+      "path": "execute-once.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4081,
+      "sha256": "270a5b2b4e10e210047ffcf931e7804e74c85aac4db6977aef671d16ceb58669"
+    },
+    {
+      "path": "correspondence.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2634,
+      "sha256": "19099eb8c3b470a40ea3177a9911eaba7214aa7da8326a40a3ca835da8e2b447"
+    },
+    {
+      "path": "verify-installed.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4982,
+      "sha256": "c5980018fbc3f43652cfae2d23ce0665ea470833026134a6a2d2ea8904fecf1c"
+    },
+    {
+      "path": "validate-installed-publications.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3801,
+      "sha256": "4f9f51f222e5e9da24b55f748bcf5a8dfd1c6732450fd75357c4a961874cd15b"
+    },
+    {
+      "path": "budgets.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 449,
+      "sha256": "7ddc19b3a097c0087c1e08665ea1d3bdcbf59f447fcf8a4873d2af6d0d0eb865"
+    }
+  ],
+  "meaning": "Exact immutable donor references; C02/Q02 remain RC1 and are not relabeled as this successor"
+}

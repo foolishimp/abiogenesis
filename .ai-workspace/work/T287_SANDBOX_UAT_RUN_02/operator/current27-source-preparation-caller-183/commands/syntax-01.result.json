@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "file": "prepare.mjs",
+      "exitCode": 0,
+      "wallMs": 25.40441701421514,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "verify-artifacts.mjs",
+      "exitCode": 0,
+      "wallMs": 20.016749971546233,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "packed-resources.mjs",
+      "exitCode": 0,
+      "wallMs": 19.08145798370242,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "binding-inputs.mjs",
+      "exitCode": 0,
+      "wallMs": 18.19479197729379,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "operation-resource.mjs",
+      "exitCode": 0,
+      "wallMs": 17.989958985708654,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "pass": true,
+  "runtimeExecution": false
+}

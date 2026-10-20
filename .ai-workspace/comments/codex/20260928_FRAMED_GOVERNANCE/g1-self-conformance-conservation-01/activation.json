@@ -1,0 +1,28 @@
+{
+  "operation": "T287_G1_FINDING_CONSERVATION_REALIZATION_01",
+  "role": "Worker",
+  "at": "2026-10-04T03:29:26.765413+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/g1-grant.txt",
+    "bytes": 5050,
+    "sha256": "555228a1af2a76b0b00ca1714e24bc6ba7c8fe0558ee83cca968c4ce2c55c0fc",
+    "mode": 420
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01"
+  ],
+  "reEntry": "realization_refactor",
+  "priorReviewer": "CLOSED",
+  "defaultHeap": true,
+  "HOME": "/Users/jim",
+  "firstMutation": "this activation record; no prior workload/source effect",
+  "budgetsSeconds": {
+    "preimage": 90,
+    "compile": 180,
+    "focused": 90,
+    "terminationGrace": 5
+  },
+  "noRuntimeProviderInstallGit": true
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.project.read",
+      "memberKey": "run_status"
+    },
+    "invocationRef": "invocation://abiogenesis/092a8c166d4faaf85a30425d0cfb339155511f15505c7c9225c345728a4875d5",
+    "exitCode": 70,
+    "ownerOutput": null,
+    "resources": null,
+    "failure": {
+      "failureKind": "typed_execution_fault",
+      "fault": {
+        "kind": "definition_execution_fault",
+        "schemaVersion": "5.0.0",
+        "definitionKey": {
+          "operationId": "abg.operation.project.read",
+          "memberKey": "run_status"
+        },
+        "stage": "resource_admission",
+        "code": "invalid_resource_assertion",
+        "message": "definition resources differ from the owner-authored structural contract",
+        "evidence": {}
+      },
+      "cause": "Error: {\"kind\":\"definition_execution_fault\",\"schemaVersion\":\"5.0.0\",\"definitionKey\":{\"operationId\":\"abg.operation.project.read\",\"memberKey\":\"run_status\"},\"stage\":\"resource_admission\",\"code\":\"invalid_resource_assertion\",\"message\":\"definition resources differ from the owner-authored structural contract\",\"evidence\":{}}"
+    }
+  }
+}

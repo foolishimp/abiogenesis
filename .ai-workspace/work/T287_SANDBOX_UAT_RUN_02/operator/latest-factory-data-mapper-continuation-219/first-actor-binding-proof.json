@@ -1,0 +1,10 @@
+{
+  "ordinal": 207171,
+  "offset": 1703226651,
+  "byteCount": 1679811,
+  "sha256": "9be8824c84ffe341eadbeda8067aa28da7eaf8e1b3b9e12a306993d268e6e16b",
+  "argsPath": "/payload/instructionAssembly/envelope/sections/task/testing/commands/0/args",
+  "argCount": 1,
+  "optionNames": [],
+  "exactOneCurrentRootControl": false
+}

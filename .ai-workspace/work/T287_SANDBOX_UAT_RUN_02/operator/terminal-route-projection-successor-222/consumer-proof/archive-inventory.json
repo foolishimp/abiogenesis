@@ -1,0 +1,59 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+    "sha256": "0b356a5a266a30c045f83e9347e2bf9f4e190f8547e94383daa7937e397259af",
+    "byteCount": 6173
+  },
+  "memberCount": 7,
+  "members": [
+    {
+      "path": "build/publication.json",
+      "sha256": "589f6b44872b5aefb0155837308e0c941150dae816547bc8d50998de33ce6307",
+      "byteCount": 27497,
+      "mode": 420
+    },
+    {
+      "path": "build/semantics.mjs",
+      "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3",
+      "byteCount": 757,
+      "mode": 420
+    },
+    {
+      "path": "contracts/assessment.schema.json",
+      "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7",
+      "byteCount": 462,
+      "mode": 420
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "byteCount": 247,
+      "mode": 420
+    },
+    {
+      "path": "contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "byteCount": 75,
+      "mode": 420
+    },
+    {
+      "path": "package.json",
+      "sha256": "b3c0508b232f123eae0cae3d779ef7f0bc3b0329a29ce70bd04593f4feab7700",
+      "byteCount": 540,
+      "mode": 420
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "a0d7606a904372aea51ea5b29a893dc4666eaeec9267e69cd17283a07303a357",
+      "byteCount": 4864,
+      "mode": 420
+    }
+  ],
+  "allArchivePathsTypesModesBytesEqualInstalledConsumer": true,
+  "installedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/physical-import-program-proof.json",
+    "sha256": "51c4c197b2cfa6295f2d1aa9f75b05ca3d1ac3f602a4471231d1b57df4814c46",
+    "byteCount": 11375
+  },
+  "scope": "Exact immutable seven-member consumer archive and installed payload correspondence; no runtime or admission claim."
+}

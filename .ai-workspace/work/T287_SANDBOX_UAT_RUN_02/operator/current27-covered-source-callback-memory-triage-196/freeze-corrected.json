@@ -1,0 +1,55 @@
+{
+  "status": "CLOSED_RCA_ONLY_STOPPED",
+  "at": "2026-10-09T09:59:35.048249+00:00",
+  "originalFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-covered-source-callback-memory-triage-196/freeze.json",
+    "sha256": "6b96973c49869f2eaf3cf03a44a0963cae9df10ce9881aa46d33d74811232787",
+    "byteCount": 10494
+  },
+  "correctionScope": "Prospective fourth test surface only; original immutable report preserved. No Source/runtime/acceptance changes.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-covered-source-callback-memory-triage-196/return.md",
+      "sha256": "edc647ed8fbdb7873024465c92d49f059dcaae53950aa0f91a31e73a8b8639fb",
+      "byteCount": 7129
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-covered-source-callback-memory-triage-196/freeze.json",
+      "sha256": "6b96973c49869f2eaf3cf03a44a0963cae9df10ce9881aa46d33d74811232787",
+      "byteCount": 10494
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-covered-source-callback-memory-triage-196/test-surface-limitation.md",
+      "sha256": "7c97266b0bd465e58611f886f4c15e42cd94ccab1f600027b18d98c81a9ba6f5",
+      "byteCount": 2253
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "sha256": "2edfda3b7c7e518a8b37868aa6677ea5180eabb43ca9ea9de32978ea9c471d50",
+      "byteCount": 7373
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+      "sha256": "b6d6097c16e63b3b2c0a900768378ceba389fab70a735a38fbab06827aeab88d",
+      "byteCount": 11707
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-query-reuse.test.mjs",
+      "sha256": "9cb00f611eeec2967ab1095f27d827d5fbe30a1a07c409544e92ccc12c181bd2",
+      "byteCount": 11210
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+      "byteCount": 39274
+    }
+  ],
+  "selectedActualOwnerTestProposal": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+    "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+    "byteCount": 39274
+  },
+  "authority": "Future Executive selection required; no implementation/retry grant",
+  "newExecution": false,
+  "sourceChanged": false
+}

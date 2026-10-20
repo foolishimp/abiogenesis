@@ -1,0 +1,296 @@
+{
+  "kind": "external_attribution_input_read_model",
+  "notLaunchReady": true,
+  "subjectInventory": {
+    "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+  },
+  "chains": [
+    {
+      "sourceActivation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "readiness": "incomplete_original_carrier_and_identity_joins",
+      "candidateChain": {
+        "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+        "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+        "deltaRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+        "closureRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+        "authorRef": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+        "actorIdentityRef": null,
+        "authorityRef": null,
+        "scopeRefs": [
+          "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+          "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+          "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+          "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs"
+        ],
+        "postimageMembers": [
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "digest": "sha256:a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+            "byteCount": 15165
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "digest": "sha256:c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+            "byteCount": 32200
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "digest": "sha256:e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+            "byteCount": 84829
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "digest": "sha256:a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+            "byteCount": 32193
+          }
+        ],
+        "changes": [
+          {
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "preimageMemberRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_operation_contracts.ts",
+            "postimageMemberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts"
+          },
+          {
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "preimageMemberRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_definition_bindings.ts",
+            "postimageMemberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts"
+          },
+          {
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "preimageMemberRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_ports.ts",
+            "postimageMemberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts"
+          },
+          {
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "patchPath": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "preimageMemberRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/test_env/support/t287-s03-automatic.mjs",
+            "postimageMemberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs"
+          }
+        ],
+        "attributionSources": [
+          {
+            "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+            "startByte": 0,
+            "endByte": 884,
+            "spanDigest": "sha256:55f1291ee3c2996c08f1082c35350f0271ba4b238268bf149b539157aa613638"
+          },
+          {
+            "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+            "startByte": 0,
+            "endByte": 477,
+            "spanDigest": "sha256:a0da27ad70876dce6e42e05e72a445a7b7ef5aa9122d9cb2606a531410c96d83"
+          },
+          {
+            "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+            "startByte": 0,
+            "endByte": 876,
+            "spanDigest": "sha256:e85fadca0f0a1c4fc512c581ed9e28e8065fd551d889d836ac07fa55cd5ff1b1"
+          }
+        ]
+      },
+      "sourceClaims": {
+        "authorRefMeaning": "Exact original Worker activation label, not an established concrete actor identity.",
+        "grantRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+        "closedReturnRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md"
+      },
+      "pending": [
+        "original carrier compatibility",
+        "source-grounded Worker-to-concrete-actor correspondence",
+        "grant-chain correspondence to published Product authority slot",
+        "actual independent attribution assessment"
+      ],
+      "excludedRows": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+          "changedAtOriginalCut": false,
+          "originalPostimageSha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+          "currentSha256": "sha256:74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+          "reason": "unchanged at this activation"
+        }
+      ]
+    },
+    {
+      "sourceActivation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "readiness": "incomplete_original_carrier_and_identity_joins",
+      "candidateChain": {
+        "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+        "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages.json",
+        "deltaRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+        "closureRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+        "authorRef": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+        "actorIdentityRef": null,
+        "authorityRef": null,
+        "scopeRefs": [
+          "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+          "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs"
+        ],
+        "postimageMembers": [
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "digest": "sha256:f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+            "byteCount": 55572
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "digest": "sha256:83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550",
+            "byteCount": 81875
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "digest": "sha256:f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+            "byteCount": 9773
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "digest": "sha256:ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+            "byteCount": 5203
+          }
+        ],
+        "changes": [
+          {
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "preimageMemberRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "postimageMemberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts"
+          },
+          {
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "preimageMemberRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "postimageMemberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts"
+          },
+          {
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "patchPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "preimageMemberRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "postimageMemberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs"
+          },
+          {
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "patchPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "preimageMemberRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "postimageMemberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs"
+          }
+        ],
+        "attributionSources": [
+          {
+            "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+            "startByte": 0,
+            "endByte": 456,
+            "spanDigest": "sha256:b905d64148109bbe285a0d309a5fcd5a2e28a5296d1baa075c7585061b5037b0"
+          },
+          {
+            "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+            "startByte": 0,
+            "endByte": 433,
+            "spanDigest": "sha256:d55876c5c8b539acb9b68c6f456eb3b1d1ce52abce57f54718d83a90daa99c99"
+          },
+          {
+            "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+            "startByte": 0,
+            "endByte": 1368,
+            "spanDigest": "sha256:6922a30d72842443da26d82d1bf1d5734b24ecfcff5c5e9f47fab51be8190efa"
+          }
+        ]
+      },
+      "sourceClaims": {
+        "authorRefMeaning": "Exact original Worker activation label, not an established concrete actor identity.",
+        "grantRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+        "closedReturnRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md"
+      },
+      "pending": [
+        "original carrier compatibility",
+        "source-grounded Worker-to-concrete-actor correspondence",
+        "grant-chain correspondence to published Product authority slot",
+        "actual independent attribution assessment"
+      ],
+      "excludedRows": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+          "changedAtOriginalCut": false,
+          "originalPostimageSha256": "683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100",
+          "currentSha256": "sha256:683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100",
+          "reason": "unchanged at this activation"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+          "changedAtOriginalCut": true,
+          "originalPostimageSha256": "f6e0caff40ac037c43abc60c65b7ad388aa55f40cb3afd4dfc828e8f3c887770",
+          "currentSha256": "sha256:bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c",
+          "reason": "postimage is not the current inventory member"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+          "changedAtOriginalCut": false,
+          "originalPostimageSha256": "27760b07207376d5c682d76bff2a497a31d139c9e1152190afdf6984c0c5edb8",
+          "currentSha256": "sha256:ace4f586186b0ee61f979c5e634232205e87ff3670175c9a738447cadf22b079",
+          "reason": "unchanged at this activation"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+          "changedAtOriginalCut": false,
+          "originalPostimageSha256": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2",
+          "currentSha256": "sha256:199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2",
+          "reason": "unchanged at this activation"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+          "changedAtOriginalCut": true,
+          "originalPostimageSha256": "43d69b23acc807031b0aab971851cc6e656edaa33808193b0ead069be9637b07",
+          "currentSha256": "sha256:cb7aeeb806f3e5ed9275d51a928a335698a06f2ce1ea1aaa93cd5af49ad1607b",
+          "reason": "postimage is not the current inventory member"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+          "changedAtOriginalCut": true,
+          "originalPostimageSha256": "6b3bb3055fbdfbc1c7430987a5d13ca101fb6955fe915596760844babfd03e9e",
+          "currentSha256": "sha256:f966726a252d2aac3109d685b7f7e49d89c1f8c7d3836b34313d4f2152f39bc8",
+          "reason": "current generated output belongs to C generation relation"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+          "changedAtOriginalCut": true,
+          "originalPostimageSha256": "d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f",
+          "currentSha256": "sha256:d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f",
+          "reason": "current generated output belongs to C generation relation"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.d.ts",
+          "changedAtOriginalCut": true,
+          "originalPostimageSha256": "852608263015800f45625d9b9ebd439c5108044e173f8eefb710c34c8b7b8b05",
+          "currentSha256": "sha256:852608263015800f45625d9b9ebd439c5108044e173f8eefb710c34c8b7b8b05",
+          "reason": "current generated output belongs to C generation relation"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/build/code/src/owner_bindings/run_invocation.js",
+          "changedAtOriginalCut": true,
+          "originalPostimageSha256": "ae5b54f63ea2ca165e7f91e5ccba84eebf6996f886801387342da3c7a5c58429",
+          "currentSha256": "sha256:ae5b54f63ea2ca165e7f91e5ccba84eebf6996f886801387342da3c7a5c58429",
+          "reason": "current generated output belongs to C generation relation"
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/build/code/src/owner_bindings/run_invocation.d.ts",
+          "changedAtOriginalCut": false,
+          "originalPostimageSha256": "c380a90e8d58c40db9207ffa8f37acbe6ecbb05295071be1b238577520e7d321",
+          "currentSha256": "sha256:c380a90e8d58c40db9207ffa8f37acbe6ecbb05295071be1b238577520e7d321",
+          "reason": "unchanged at this activation"
+        }
+      ]
+    }
+  ],
+  "scopeMapping": "Exact member refs only; per-rule group mapping remains a later separately constructed input."
+}

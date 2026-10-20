@@ -1,0 +1,13 @@
+{
+  "name": "@abiogenesis-fixtures/registered-selection",
+  "version": "5.0.0",
+  "type": "module",
+  "exports": {
+    "./publication": "./build/publication.json"
+  },
+  "files": [
+    "build",
+    "contracts",
+    "product-toolchain-manifest.json"
+  ]
+}

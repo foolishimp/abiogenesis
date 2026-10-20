@@ -1,0 +1,14 @@
+{
+  "label": "focused-test-syntax",
+  "args": [
+    "/opt/homebrew/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs"
+  ],
+  "started": "2026-10-08T05:45:49.871316+00:00",
+  "exitCode": 0,
+  "wallMs": 23.843125032726675,
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "parseOnly": true
+}

@@ -1,0 +1,14 @@
+{
+  "process": "process-authority-source",
+  "command": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/process-authority-source.py"
+  ],
+  "elapsedMs": 47.84191679209471,
+  "exitCode": 0,
+  "timedOut": false,
+  "ownedGroupSignals": [],
+  "stdout": "process-authority-source.stdout",
+  "stderr": "process-authority-source.stderr",
+  "nativeCalls": 0
+}

@@ -1,0 +1,17 @@
+{
+  "status": "superseded_local_receipt_correction_premise",
+  "exception": "TypeError: product.projectWorksiteCommandExecutionBudget is not a function at eval1:18",
+  "cause": "String substitution matched an embedded prior source string instead of the operative call.",
+  "exactFirstExecutedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/owner-import.first-actual-eval-source.txt",
+    "sha256": "fe52aa0c6fe2e1db5a06351ad58c547ed2d7e0a51084ba55b6de54bfea464e18",
+    "byteCount": 25858
+  },
+  "exactSecondExecutedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/owner-import.second-actual-eval-source.txt",
+    "sha256": "9e0f97a552e1c36107a78a1c5c6dfcd227bf67d30e86e293093baa944e05294c",
+    "byteCount": 38973
+  },
+  "priorGeneratedSourceSnapshotIsNotExactExecutedFirstSource": true,
+  "correction": "Direct import of existing packaged worksite_command_execution.js exports; no substitution, Source/interface/budget change or native effects."
+}

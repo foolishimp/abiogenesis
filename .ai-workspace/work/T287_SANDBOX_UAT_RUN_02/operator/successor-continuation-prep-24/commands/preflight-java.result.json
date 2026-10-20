@@ -1,0 +1,25 @@
+{
+  "executable": "/opt/homebrew/opt/openjdk@11/bin/java",
+  "args": [
+    "-version"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24",
+  "started": "2026-10-06T20:36:57.371Z",
+  "environmentKeys": [
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 20000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 33.89149999999995,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "",
+  "stderr": "openjdk version \"11.0.28\" 2025-07-15\nOpenJDK Runtime Environment Homebrew (build 11.0.28+0)\nOpenJDK 64-Bit Server VM Homebrew (build 11.0.28+0, mixed mode)\n"
+}

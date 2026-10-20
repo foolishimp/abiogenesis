@@ -1,0 +1,134 @@
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
+@@ -283,6 +283,48 @@
+ import { runtimeEventPrefixDigest } from "./event_prefix.js";
+ import type { RuntimeEventCandidate } from "./event_store.js";
+ 
++/** Both continuation variants are workspace operations. Run-scoped sources
++ * remain authenticated payload coordinates; they are never envelope causes.
++ * Extra causes are passed to the unchanged event owner, never filtered/repaired. */
++function constructionContinuationOperationCandidate(
++  invocation: NonNullable<ReturnType<typeof projectExactInvocationAdmissionAtPrefix>>,
++  grant: CapabilityGrant, basis: PublicOperationAdmissionBasis,
++  selection: Readonly<Record<string, JsonValue>>,
++): RuntimeEventCandidate {
++  return {
++    kind: "public_operation_admitted", eventTime: basis.eventTime, aggregateType: "workspace",
++    aggregateId: invocation.workspaceBindingId, parentAggregateId: basis.invocationRef,
++    causationEventRefs: [invocation.admissionEventRef, ...basis.causationEventRefs], correlationId: basis.correlationId,
++    workflowVersion: "5.0.0", scopeClass: "workspace", basisId: invocation.authorityRef,
++    payload: {
++      ...selection,
++      definitionDigest: basis.definitionDigest, invocationRef: basis.invocationRef,
++      invocationPayloadDigest: basis.invocationPayloadDigest, invocationDigest: basis.invocationDigest,
++      actorRef: grant.actorRef, authorityRef: invocation.authorityRef, authorityDigest: invocation.authorityDigest,
++      capabilityGrantRefs: [grant.grantRef], capabilityGrant: grant as unknown as JsonValue, capabilityRef: grant.capabilityRef,
++      policyRef: invocation.policyRef, policyDigest: invocation.policyDigest,
++      workspaceBindingId: invocation.workspaceBindingId, workspaceBindingDigest: invocation.workspaceBindingDigest,
++      catalogBasisRef: invocation.catalogBasisRef, catalogBasisDigest: invocation.catalogBasisDigest,
++      catalogViewId: invocation.catalogViewId, catalogViewDigest: invocation.catalogViewDigest,
++      programRef: invocation.programRef, programDigest: invocation.programDigest,
++      graphFunctionRef: invocation.graphFunctionRef, graphFunctionDigest: invocation.graphFunctionDigest,
++    },
++  };
++}
++
++/** The shared cold envelope join consumes the already reconstructed work grant.
++ * Variant owners separately authenticate their exact pending source/use facts. */
++export function continuationOperationWorkspaceCorresponds(operation: RuntimeEvent,
++  invocation: NonNullable<ReturnType<typeof projectExactInvocationAdmissionAtPrefix>>): boolean {
++  const p = operation.payload;
++  return operation.kind === "public_operation_admitted" && operation.scopeClass === "workspace" &&
++    operation.runId === undefined && operation.aggregateType === "workspace" &&
++    operation.aggregateId === invocation.workspaceBindingId && operation.basisId === invocation.authorityRef &&
++    isRecord(p) && operation.parentAggregateId === p.invocationRef &&
++    operation.causationEventRefs.includes(invocation.admissionEventRef) &&
++    p.authorityRef === invocation.authorityRef && p.authorityDigest === invocation.authorityDigest;
++}
++
+ const preparedOperations = new WeakSet<object>();
+ export function prepareConstructionContinuationOperation(prefix: ValidatedRuntimeEventPrefix,
+   prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis) {
+@@ -297,28 +339,12 @@
+     indexedRuntimeEvents(prefix, "kind:basis_admitted").some(e => isRecord(e.payload) &&
+       isRecord(e.payload.constructionContinuationUse) && e.payload.constructionContinuationUse.continuationRef === continuation.continuationRef))
+     throw new TypeError("current-intent admission requires unused exact pending work and a new admitted-operation grant");
+-  const candidate: RuntimeEventCandidate = {
+-    kind: "public_operation_admitted", eventTime: basis.eventTime, aggregateType: "workspace",
+-    aggregateId: invocation.workspaceBindingId, parentAggregateId: basis.invocationRef,
+-    causationEventRefs: [invocation.admissionEventRef, ...basis.causationEventRefs], correlationId: basis.correlationId,
+-    workflowVersion: "5.0.0", scopeClass: "workspace", basisId: invocation.authorityRef,
+-    payload: {
+-      operationId: "abg.operation.run.continue", memberKey: "current_intent", variant: "current_intent",
+-      continuationKind: "construction_intent", continuationRef: continuation.continuationRef,
+-      continuationDigest: continuation.continuationDigest, currentIntentRef: continuation.constructionIntentRef,
+-      currentIntentDigest: continuation.constructionIntentDigest,
+-      definitionDigest: basis.definitionDigest, invocationRef: basis.invocationRef,
+-      invocationPayloadDigest: basis.invocationPayloadDigest, invocationDigest: basis.invocationDigest,
+-      actorRef: grant.actorRef, authorityRef: invocation.authorityRef, authorityDigest: invocation.authorityDigest,
+-      capabilityGrantRefs: [grant.grantRef], capabilityGrant: grant as unknown as JsonValue, capabilityRef: grant.capabilityRef,
+-      policyRef: invocation.policyRef, policyDigest: invocation.policyDigest,
+-      workspaceBindingId: invocation.workspaceBindingId, workspaceBindingDigest: invocation.workspaceBindingDigest,
+-      catalogBasisRef: invocation.catalogBasisRef, catalogBasisDigest: invocation.catalogBasisDigest,
+-      catalogViewId: invocation.catalogViewId, catalogViewDigest: invocation.catalogViewDigest,
+-      programRef: invocation.programRef, programDigest: invocation.programDigest,
+-      graphFunctionRef: invocation.graphFunctionRef, graphFunctionDigest: invocation.graphFunctionDigest,
+-    },
+-  };
++  const candidate = constructionContinuationOperationCandidate(invocation, grant, basis, {
++    operationId: "abg.operation.run.continue", memberKey: "current_intent", variant: "current_intent",
++    continuationKind: "construction_intent", continuationRef: continuation.continuationRef,
++    continuationDigest: continuation.continuationDigest, currentIntentRef: continuation.constructionIntentRef,
++    currentIntentDigest: continuation.constructionIntentDigest,
++  });
+   const plan = Object.freeze({ kind: "prepared_construction_continuation_operation" as const,
+     prepared, candidate, predecessorDigest: runtimeEventPrefixDigest(prefix) });
+   preparedOperations.add(plan);
+@@ -566,13 +592,8 @@
+     basis.authorityScopeDigest !== invocation.workspaceBindingDigest)
+     throw new TypeError("selected-action use requires exact current work and separate operation authority");
+   return admitRuntimeEventTransactionAtDurablePrefix(store, predecessorPrefix, () => {
+-    const operation = admitRuntimeEvent(store, {
+-      kind: "public_operation_admitted", eventTime: basis.eventTime, aggregateType: "workspace",
+-      aggregateId: invocation.workspaceBindingId, parentAggregateId: basis.invocationRef,
+-      causationEventRefs: [invocation.admissionEventRef, source.openedEventRef, ...(current.openedEventRef === source.openedEventRef ? [] : [current.openedEventRef]),
+-        ...(use.coveringEventRef === null ? [] : [use.coveringEventRef]), ...basis.causationEventRefs], correlationId: basis.correlationId,
+-      workflowVersion: "5.0.0", scopeClass: "workspace", basisId: invocation.authorityRef,
+-      payload: {
++    const operation = admitRuntimeEvent(store, constructionContinuationOperationCandidate(invocation, grant,
++      { ...basis, causationEventRefs: [...(use.coveringEventRef === null ? [] : [use.coveringEventRef]), ...basis.causationEventRefs] }, {
+         operationId: "abg.operation.run.continue", memberKey: "selected_action", variant: "selected_action", continuationKind: "selected_action",
+         continuationRef: source.continuationRef, continuationDigest: source.continuationDigest,
+         currentContinuationRef: current.continuationRef, currentContinuationDigest: current.continuationDigest,
+@@ -581,18 +602,7 @@
+         currentIntentRef: current.constructionIntentRef, currentIntentDigest: current.constructionIntentDigest,
+         executionBasisRef: prepared.root.basisRef, executionBasisDigest: prepared.root.basisDigest,
+         basisRelation: use.request.basisRelation as unknown as JsonValue,
+-        definitionDigest: basis.definitionDigest, invocationRef: basis.invocationRef,
+-        invocationPayloadDigest: basis.invocationPayloadDigest, invocationDigest: basis.invocationDigest,
+-        actorRef: grant.actorRef, authorityRef: invocation.authorityRef, authorityDigest: invocation.authorityDigest,
+-        capabilityGrantRefs: [grant.grantRef], capabilityGrant: grant as unknown as JsonValue, capabilityRef: grant.capabilityRef,
+-        policyRef: invocation.policyRef, policyDigest: invocation.policyDigest,
+-        workspaceBindingId: invocation.workspaceBindingId, workspaceBindingDigest: invocation.workspaceBindingDigest,
+-        catalogBasisRef: invocation.catalogBasisRef, catalogBasisDigest: invocation.catalogBasisDigest,
+-        catalogViewId: invocation.catalogViewId, catalogViewDigest: invocation.catalogViewDigest,
+-        programRef: invocation.programRef, programDigest: invocation.programDigest,
+-        graphFunctionRef: invocation.graphFunctionRef, graphFunctionDigest: invocation.graphFunctionDigest,
+-      },
+-    });
++      }));
+     if (source.continuationRef !== current.continuationRef) admitRuntimeEvent(store, {
+       kind: "continuation_superseded", eventTime: basis.eventTime, aggregateType: "continuation", aggregateId: source.continuationRef,
+       parentAggregateId: source.frameId, causationEventRefs: [source.openedEventRef, operation.eventId], correlationId: basis.correlationId,
+@@ -629,9 +639,8 @@
+     p.policyRef !== use.invocation.policyRef || p.policyDigest !== use.invocation.policyDigest ||
+     p.actorRef !== use.invocation.actorRef || p.capabilityGrant.actorRef !== use.invocation.actorRef ||
+     p.capabilityGrant.policyRef !== use.invocation.policyRef || p.capabilityGrant.operationId !== "abg.operation.run.continue" ||
+-    operation.aggregateId !== use.invocation.workspaceBindingId || operation.basisId !== use.invocation.authorityRef ||
+-    !operation.causationEventRefs.includes(use.invocation.admissionEventRef) || !operation.causationEventRefs.includes(use.source.openedEventRef) ||
+-    !operation.causationEventRefs.includes(use.current.openedEventRef) || (use.coveringEventRef !== null && !operation.causationEventRefs.includes(use.coveringEventRef))) return null;
++    !continuationOperationWorkspaceCorresponds(operation, use.invocation) ||
++    (use.coveringEventRef !== null && !operation.causationEventRefs.includes(use.coveringEventRef))) return null;
+   return { operationId: "abg.operation.run.continue" as const, publicInvocationRef: p.invocationRef,
+     ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
+     publicOperationEventRef: operation.eventId, admissionEventRef: operation.eventId };

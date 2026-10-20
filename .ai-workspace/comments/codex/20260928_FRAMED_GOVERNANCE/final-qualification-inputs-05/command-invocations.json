@@ -1,0 +1,40 @@
+{
+  "kind": "mechanical_command_invocations",
+  "tool": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "mode": 365
+  },
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05",
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/home",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/tmp",
+    "LANG": "C",
+    "LC_ALL": "C"
+  },
+  "NODE_OPTIONS": null,
+  "heapOverride": null,
+  "qualificationCommandsExecuted": 0,
+  "invocations": [
+    {
+      "ordinal": 0,
+      "purpose": "pinned mechanical tool identity",
+      "executable": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+      "args": [
+        "--version"
+      ],
+      "timeoutMs": 30000
+    },
+    {
+      "ordinal": 1,
+      "purpose": "one complete published-owner readiness driver",
+      "executable": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/readiness-driver.mjs"
+      ],
+      "timeoutMs": 120000
+    }
+  ]
+}

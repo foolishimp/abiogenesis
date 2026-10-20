@@ -1,0 +1,24 @@
+{
+  "assessment": {
+    "digest": "sha256:815d9810d6e358483ea84716efd41f598066a08c73816a45f1837ed22384fe7e",
+    "ref": "evidence://abiogenesis/conformance/815d9810d6e358483ea84716efd41f598066a08c73816a45f1837ed22384fe7e"
+  },
+  "diagnostics": [],
+  "disposition": "passed",
+  "evidence": [
+    {
+      "digest": "sha256:815d9810d6e358483ea84716efd41f598066a08c73816a45f1837ed22384fe7e",
+      "ref": "evidence://abiogenesis/conformance/815d9810d6e358483ea84716efd41f598066a08c73816a45f1837ed22384fe7e"
+    }
+  ],
+  "inventory": {
+    "digest": "sha256:e0bc2929597de55a69321b677062d0280bb85a49abf77a737000b8bfb580f26e",
+    "ref": "gtl-inventory://abiogenesis/e0bc2929597de55a69321b677062d0280bb85a49abf77a737000b8bfb580f26e"
+  },
+  "program": {
+    "digest": "sha256:138b0ad13b3fa3466aeb092ce7dd2d407eb0a978beb603b9abd15536921b90e6",
+    "ref": "program://abiogenesis/conformance/hello-substitute@5"
+  },
+  "repairAffordances": [],
+  "violatedAuthorities": []
+}

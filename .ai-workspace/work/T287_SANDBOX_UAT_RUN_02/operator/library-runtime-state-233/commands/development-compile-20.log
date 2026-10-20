@@ -1,0 +1,3 @@
+source/code/src/abg/fan_out.ts(264,54): error TS2345: Argument of type 'Omit<AdmitFanOutCompletionInput, "replayState"> & { readonly replayState: RuntimeReplayGuard; }' is not assignable to parameter of type 'AdmitFanOutCompletionInput'.
+  Types of property 'replayState' are incompatible.
+    Type 'RuntimeReplayGuard' is missing the following properties from type 'ReplayState': kind, schemaVersion, cCalls, routes, and 5 more.

@@ -1,0 +1,18 @@
+{
+  "cause": "Frozen preparation record() pretty-printed the CLI request; installed CLI correctly requires one nonblank JSON line before owner entry.",
+  "action": "New CLI file uses JSON.stringify of the same decoded request; only new launch argv points to it. Prior preparation and failed launch remain immutable.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/calls/continuation-start.request.jsonl",
+    "sha256": "1a8b545b63482fdc20ff329145c0c2beaf53fe9f43a831cf1ebef744e550db80",
+    "byteCount": 68003846
+  },
+  "target": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/calls/continuation-start-219b.request.jsonl",
+    "sha256": "449235667cec3c04de79a800f4005bb5a973242b81e6c9ce6236ea61a7fc1d03",
+    "byteCount": 49490693
+  },
+  "oneNonblankLine": true,
+  "deepStructuredEquality": true,
+  "authorityInputBodyAndSourceDigestsUnchanged": true,
+  "noHistoryAcquisitionOrPreparationRerun": true
+}

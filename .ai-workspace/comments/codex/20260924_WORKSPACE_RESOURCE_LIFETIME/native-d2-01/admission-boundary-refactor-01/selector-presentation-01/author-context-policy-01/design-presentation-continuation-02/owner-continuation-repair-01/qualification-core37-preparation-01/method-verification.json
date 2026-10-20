@@ -1,0 +1,26 @@
+{
+  "command": [
+    "stdo",
+    "verify",
+    "v2.5.1-rc.1",
+    "--manifest-sha256",
+    "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64"
+  ],
+  "exitCode": 0,
+  "failures": [],
+  "release": {
+    "commit": "dc4742d08af0a1c42c437a4ce645ea7ca55f3a3a",
+    "cut": "v2.5.1-rc.1",
+    "project_release_namespace": "specification_methodology",
+    "project_subtree_root": "specification_methodology",
+    "project_subtree_tree": "00d7144449ca85af8746bbc7912e344dce55f80e",
+    "qualified_ref": "refs/tags/specification_methodology/v2.5.1-rc.1",
+    "standards_tree": "5d16a82623e9e9450585d877e3d9ed49f132d250",
+    "tag_object": "b80e82e123f7f88eb0dffd9339f8ead9c733d153",
+    "tree": "eaf8358b09d3defcc5c85dd812961849480ab0c7"
+  },
+  "installedManifestDigest": "sha256:5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+  "verifiedStandardsMembers": 52,
+  "standardsMemberSet": "c6a3189ef79aeb4e3f75eb8fd8fba2f1126ea450df3ec59087273c56c03e3795",
+  "claim": "Inventory verification, not a claim to have read all members."
+}

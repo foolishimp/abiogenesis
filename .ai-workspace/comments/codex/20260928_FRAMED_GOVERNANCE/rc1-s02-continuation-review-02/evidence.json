@@ -1,0 +1,1423 @@
+{
+  "kind": "independent_review_evidence",
+  "schemaVersion": "5.0.0",
+  "reviewActivation": "T287_RC1_S02_CONTINUATION_REVIEW_02",
+  "actor": "/root/rc1_s02_continuation_review",
+  "acquiredAt": "2026-10-01T16:29:53.558978+00:00",
+  "independence": "Original source oracles acquired before actual Worker native execution; only the notified CLOSED freeze evaluated. No native runtime/tool/model effects by Reviewer. Root checks not substituted for this evaluation.",
+  "governance": {
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "manifestDigest": "sha256:3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "definitionDigest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+  },
+  "exactSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/freeze.json",
+    "bytes": 110554,
+    "sha256": "4ea6a784630b1ebefe7cb099b0289e21e2633109c123c7ff93b5bff378989654"
+  },
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/return.md",
+    "bytes": 10563,
+    "sha256": "aa245fc52c4a319a5b262624c3fd823ceb81a99ae55325fe70222da90df32349"
+  },
+  "sourceAcquisition": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 66413,
+      "sha256": "108207726681c787bae7a63271f1eff2834bbba83e65ca94396063c9ccab1363"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 16531,
+      "sha256": "33939c54db28a76cee08841731258cfdebcd870975a749d84a5d957466b7469d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+      "bytes": 4590,
+      "sha256": "e0ee14f7fa7094459f7cef099078174735fd7088388a1d31e90c67819dc34573"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 387254,
+      "sha256": "d7d8941e831c8d0bee507643ef8904b3b3a3be560181f48f5361b9837edd7082"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/manifest.json",
+      "bytes": 12434,
+      "sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/stdo_bootstrap.md",
+      "bytes": 5772,
+      "sha256": "f7bec3f86d9f24d1fb22acc553ade2eb0861105ec4cd2f1afa7290cc85c5b61a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/REFERENCE_FRAME_METHOD.md",
+      "bytes": 55118,
+      "sha256": "6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "bytes": 133684,
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-compose.test.mjs",
+      "bytes": 6196,
+      "sha256": "c1609914d7db49791458ecf57e29569eff678a5f9b3573151c4f3e82f976b3b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-workflow.test.mjs",
+      "bytes": 3981,
+      "sha256": "69382820988d99e9954ee230def004062cff5e7e3c54b02db9eba5a7ca4116ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-gate.test.mjs",
+      "bytes": 5747,
+      "sha256": "2faaf6c443510ac0137238576c637bc3bbcb8e81c37ff22cdf0592f799773234"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs",
+      "bytes": 21515,
+      "sha256": "c36cfc0e0eaa08c9678cf4c3728bf4f803d1e471e91abfdd8a3135e568a82cbf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fan-out.test.mjs",
+      "bytes": 8214,
+      "sha256": "2e4a00603c3bd1dc148938c4f1f4c355f82438a1a149e89ccb63876eda3f6474"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/hello_world.ts",
+      "bytes": 96708,
+      "sha256": "b0ccd37dec574f0e948c9a296f66b252aa7cbd36dd1e6c2dece64e75f5bdd423"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/recursion.ts",
+      "bytes": 19186,
+      "sha256": "6f8b23f9782acdace0b64525d057905139d2ae63cbb13b494b157dcc5c36acf9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/fan_out.ts",
+      "bytes": 22572,
+      "sha256": "7bc033fd5631bc3382ab500b5a97935a192bdde7725f46bbeb0e4a313acaf668"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 32200,
+      "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/child_lifecycle.ts",
+      "bytes": 9529,
+      "sha256": "1191dbf7d1a8cb3183d3c46c46e5653def40b040d6ad640adb0868c7316918dc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "bytes": 42177,
+      "sha256": "a85834c84e94aff4092c6228a341c6ec56134eb210433e0d2c40b6778bd1f460"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/fan_out.ts",
+      "bytes": 11702,
+      "sha256": "7ca1c7aba0cf1a98dbcdee100828fb46657bc24443469475ef47a63e7a59c488"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "bytes": 38714,
+      "sha256": "b4f427f00750451ba646375a7dc8dca9cf01f1de118979f81ed3e20e46d17906"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/implementation/fan_out.ts",
+      "bytes": 3605,
+      "sha256": "b1287c56c08119d19e4ad14d25d98e5ce6bb1027b9906cab3639eb44b00b560d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "bytes": 8497,
+      "sha256": "94bc47fd10f6fd27bf1223993d6e468b35c0fcceeb5d56730c7538f8ed4b9287"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "bytes": 53790,
+      "sha256": "931c3998c103e932215eee4a952e4575db91a20a5e128187054ac62048479c28"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-carrier-02/cases.json",
+      "bytes": 17232,
+      "sha256": "13d1e26980b9270f02a7a636911e880bb203d6048966bd9bcca1658bca8279ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/cases.json",
+      "bytes": 6047,
+      "sha256": "4c9bcd556c136ef77c9da264361166f0a2005b7ba4bd2ea33d15fc836fd4308f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/cases.json",
+      "bytes": 5413,
+      "sha256": "df772a1691c9b53a167f4ade6a6f12b3d79b367b0435ab6ed5d1a03526fb1eb3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-13/assertions.mjs",
+      "bytes": 19538,
+      "sha256": "99aa99208be2a005504d523a9c9f0ec86f8398da38a106480c3f31807fb36d28"
+    }
+  ],
+  "verification": {
+    "allFrozenRecordsVerified": 478,
+    "allFrozenRecordBytes": 2385034761,
+    "allFrozenRecordErrors": [],
+    "originalImmutableRecordsVerified": 6023,
+    "originalAppendException": "Only original resources/events/runtime.events.jsonl may advance; original67/2701191 byte prefix, static snapshot, old receipts and handoff remain exact.",
+    "originalPrefixSHA256": "c4c1c28232cd3a89d7233a03485c113e2f2df0c76d7a9432ca9d610c56c2aa90",
+    "oldHandOffIdentical": true,
+    "allPreEffectRecordsVerified": 36,
+    "externalPinsVerified": 27,
+    "finalRawSHA256": "aa313be7193a9443b8e7d2523da2b27f762004e7a8a2e6b601fb42618d498672",
+    "finalEvents": 1067,
+    "finalBytes": 6137505,
+    "storeDevice": 16777230,
+    "storeInode": 464244056,
+    "allEventIdsUnique": true,
+    "allAdmissionOrdinalsContinuous": true,
+    "allCausationRefsEarlierAndPresent": true,
+    "actualNativeWireDefinitionsAndContractsCompared": 37,
+    "actualRuntimeInvocationOwnerAuthorityCompared": 9,
+    "coldNativeReadsCompared": 18,
+    "coldReadPrefixAppendBytes": 0,
+    "selectedCausalSpinesCompared": 42,
+    "actualSourceOraclesCompared": 9,
+    "runtimeLockAbsentAtReview": true,
+    "freshCLIOrRuntimeCallsByReviewer": 0,
+    "providerOrModelCallsByReviewer": 0,
+    "independentSourceMembersMatchedToC02Freeze": [
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-compose.test.mjs",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-workflow.test.mjs",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-gate.test.mjs",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fan-out.test.mjs",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/hello_world.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/recursion.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/fan_out.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/child_lifecycle.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/fan_out.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/implementation/fan_out.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts"
+    ]
+  },
+  "cases": [
+    {
+      "case": "nested-compose",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-compose.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/hello-compose@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-compose@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "  World  "
+      },
+      "expectedOutput": {
+        "kind": "hello_world_output",
+        "schemaVersion": "5.0.0",
+        "message": "Hello World"
+      },
+      "actualRootDisposition": "completed",
+      "run": {
+        "digest": "sha256:20765b69d498782038e6a15846e57b1b77acd12125a5bef366e2eee671a73917",
+        "ref": "run://abiogenesis/1d013ad529b6557a5af34fbbead63a5a23c4148f0c7439b716b4a01b313b6bb0"
+      },
+      "graphCall": {
+        "digest": "sha256:b1399ad5a6d66d5f47feee771c6336abb2077d1abdb901c232a4a1e6681f907f",
+        "ref": "graph-call://abiogenesis/9d877525042b0d599e8eae370de362d7e7202e31015ad03164e42fa2d407e0cd"
+      },
+      "admissionOrdinals": [
+        68,
+        193
+      ],
+      "events": 126,
+      "cCallSpines": 6,
+      "graphCalls": 1,
+      "frames": 1,
+      "foldbacks": 0,
+      "lastEvent": "run_closed",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-nested-compose-run_result-stdout.json",
+            "bytes": 6207,
+            "sha256": "b81494efe5ce6bfbb33d4098607acaa89084c4b41b04257c7b52974938f8156b"
+          },
+          "nativePid": 57594,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": null,
+          "refusalCode": null,
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-nested-compose-run_replay-stdout.json",
+            "bytes": 5862,
+            "sha256": "4aaba15fe94994cbc052c629c5e6aa4890e1220203f13076aadd82abf3e18d5d"
+          },
+          "nativePid": 57598,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "closed",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/nested-compose-proof.json",
+        "bytes": 17329,
+        "sha256": "1b293b89cebd19a35031f0cd8210ddb1c4ce91db6eb1e0b3bca86e9e5ebe260b"
+      }
+    },
+    {
+      "case": "transparent-child",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-workflow.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/hello-workflow@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-workflow@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "World"
+      },
+      "expectedOutput": {
+        "kind": "hello_world_output",
+        "schemaVersion": "5.0.0",
+        "message": "Hello World"
+      },
+      "actualRootDisposition": "completed",
+      "run": {
+        "digest": "sha256:c291c73c6b9adc94656adebe2a9e6b1a810fdca29fe31a11d9a7fcc5ee45ccf7",
+        "ref": "run://abiogenesis/93bf611ecabebd53a13ac17033ef68eeb6ee20289c3a6f7865087841052aaf6a"
+      },
+      "graphCall": {
+        "digest": "sha256:519cf40c31270714249630048e4074620ef4c58028dbc6b7fd945a1e5da610ff",
+        "ref": "graph-call://abiogenesis/ab79369fcd0629baba96683501fd6a158020532ce0258480dfecef93955bfc3a"
+      },
+      "admissionOrdinals": [
+        194,
+        251
+      ],
+      "events": 58,
+      "cCallSpines": 2,
+      "graphCalls": 2,
+      "frames": 2,
+      "foldbacks": 1,
+      "lastEvent": "run_closed",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-transparent-child-run_result-stdout.json",
+            "bytes": 6209,
+            "sha256": "c7ba152f340d66fceaca2996632b1faaedca19acf788f3bda7f443e753289393"
+          },
+          "nativePid": 57977,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": null,
+          "refusalCode": null,
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-transparent-child-run_replay-stdout.json",
+            "bytes": 5864,
+            "sha256": "ca53fcc0b9062492772a33c68a829013116e96bf2ecfae3efe495cd81078a245"
+          },
+          "nativePid": 57982,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "closed",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/transparent-child-proof.json",
+        "bytes": 9744,
+        "sha256": "af2981834b1a375fdbd2ff472da14c6a8fcd0673614db30f0bfc48d2722c561c"
+      }
+    },
+    {
+      "case": "gate-advance",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-gate.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/hello-gate@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-gate@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "World"
+      },
+      "expectedOutput": {
+        "kind": "hello_world_output",
+        "schemaVersion": "5.0.0",
+        "message": "Hello World"
+      },
+      "actualRootDisposition": "completed",
+      "run": {
+        "digest": "sha256:5a1f632c6bab6084d6d82ed37bfc0afc49fd13e77e1bf2902cda1fff21bed164",
+        "ref": "run://abiogenesis/b9334fb54e21855ba5a2ae6d9dbc56a2e28ac9db456d5230a2f27b0a10456632"
+      },
+      "graphCall": {
+        "digest": "sha256:62c4400ac2b65451f76c56b9ed4458a0715cb2fe34f0cfbfff2a004db252e1c7",
+        "ref": "graph-call://abiogenesis/ba138ab18ff964928b92cabdaecdc16a3522e1efb9dad4af7974823585e67aff"
+      },
+      "admissionOrdinals": [
+        252,
+        328
+      ],
+      "events": 77,
+      "cCallSpines": 3,
+      "graphCalls": 2,
+      "frames": 2,
+      "foldbacks": 1,
+      "lastEvent": "run_closed",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-advance-run_result-stdout.json",
+            "bytes": 6201,
+            "sha256": "20c34e99f5afb8b1ae8c803ae3cdb90fe81fd49bd2ebb3e3c1fcc24be60b049d"
+          },
+          "nativePid": 58347,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": null,
+          "refusalCode": null,
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-advance-run_replay-stdout.json",
+            "bytes": 5856,
+            "sha256": "c023ff3523c811211938cf2ad0b0020e7a38bfde2477a917317a46019cbea0c2"
+          },
+          "nativePid": 58363,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "closed",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/gate-advance-proof.json",
+        "bytes": 11686,
+        "sha256": "ddb9d745e297c03b66a0e0f8fcfd3d53314cb497b71ce49d2f80cf793edd1b96"
+      }
+    },
+    {
+      "case": "gate-block",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-gate.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/hello-gate@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-gate@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "Blocked"
+      },
+      "expectedOutput": null,
+      "actualRootDisposition": "blocked",
+      "run": {
+        "digest": "sha256:241bb5ab4414afe3183b7a1c9719ccea6e0c4f926ca6b98bf37e98c2902aba9e",
+        "ref": "run://abiogenesis/5e8b01274d46a540f312ad21dd2c1c0a705a333afe47f1ed83384e0c65706f53"
+      },
+      "graphCall": {
+        "digest": "sha256:2797258db94c489b57323d16096ca279e4796757d26cbc4d699c005b7b457b45",
+        "ref": "graph-call://abiogenesis/c9803885b0dc9e328945d3e45ed0a98192ad26c73e36a526d1e6b1468ecc931b"
+      },
+      "admissionOrdinals": [
+        329,
+        357
+      ],
+      "events": 29,
+      "cCallSpines": 1,
+      "graphCalls": 1,
+      "frames": 1,
+      "foldbacks": 0,
+      "lastEvent": "run_stopped",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-block-run_result-stdout.json",
+            "bytes": 2585,
+            "sha256": "1a60d94ce8464ea7fccf9054e4f0182086f5ac8eae71a1c8270711884f43b176"
+          },
+          "nativePid": 58450,
+          "nativeExit": 1,
+          "outcomeKind": "refusal",
+          "projectionStatus": null,
+          "refusalCode": "not_found",
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-gate-block-run_replay-stdout.json",
+            "bytes": 3497,
+            "sha256": "55e1b09811481b25f5d0736279f346d719f8591bfc06828c8e6f8140cd585e77"
+          },
+          "nativePid": 58486,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "blocked",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/gate-block-proof.json",
+        "bytes": 4947,
+        "sha256": "83691b8aa878e5a714d8a22e00955c9784cb97435f0789ded8af5eb372e9fbaf"
+      }
+    },
+    {
+      "case": "recursive-foldback",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "input": {
+        "kind": "bounded_recursion_state",
+        "schemaVersion": "5.0.0",
+        "blockedChildRemaining": null,
+        "remaining": 3,
+        "terminal": false,
+        "trace": []
+      },
+      "expectedOutput": {
+        "kind": "bounded_recursion_state",
+        "schemaVersion": "5.0.0",
+        "blockedChildRemaining": null,
+        "remaining": 0,
+        "terminal": true,
+        "trace": [
+          2,
+          1,
+          0
+        ]
+      },
+      "actualRootDisposition": "completed",
+      "run": {
+        "digest": "sha256:745519c8f4a01b71a98de8970454376a3423a4472657b155809595178403ab03",
+        "ref": "run://abiogenesis/8c52a260c143482b9be76df621c5fcd0c9bab13f31a838d4341c9fb647b64551"
+      },
+      "graphCall": {
+        "digest": "sha256:6a757f1d1358bd939126e4e1e2cdea8295bacc1f821e904052e13ffbc2617948",
+        "ref": "graph-call://abiogenesis/3a4908fc30664ecdb809bc623ecccb9c877ae6598b517ce560b6a06d8e084564"
+      },
+      "admissionOrdinals": [
+        358,
+        520
+      ],
+      "events": 163,
+      "cCallSpines": 7,
+      "graphCalls": 4,
+      "frames": 4,
+      "foldbacks": 3,
+      "lastEvent": "run_closed",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback-run_result-stdout.json",
+            "bytes": 6288,
+            "sha256": "c0d2165256c4fddf561e94a7c36d7e3f1bf7d57bf43def56d2c4cdb93762b060"
+          },
+          "nativePid": 58891,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": null,
+          "refusalCode": null,
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback-run_replay-stdout.json",
+            "bytes": 5943,
+            "sha256": "c4c5438f05f9aa2fa3d0e9830958312a057118ae7a8ddb4a7f6c85a1954c9b1e"
+          },
+          "nativePid": 58907,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "closed",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/recursive-foldback-proof.json",
+        "bytes": 20079,
+        "sha256": "bd4f760957cc6a4b05e8987a149c2bfaf4f84afb41315995e8c304ce80081d2a"
+      }
+    },
+    {
+      "case": "recursive-child-block",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "input": {
+        "kind": "bounded_recursion_state",
+        "schemaVersion": "5.0.0",
+        "blockedChildRemaining": 2,
+        "remaining": 3,
+        "terminal": false,
+        "trace": []
+      },
+      "expectedOutput": null,
+      "actualRootDisposition": "blocked",
+      "run": {
+        "digest": "sha256:2927503e35739b21ee1bc461fbdfd37df0097982f8e0ee95f2f5d574eddff1aa",
+        "ref": "run://abiogenesis/b345a9efe1de66ce6babfc0458896eb851cd971507f978d9b1cee429dc7b06a0"
+      },
+      "graphCall": {
+        "digest": "sha256:677ba4846ed1a15f2276f58ad1b02c389a6dd24f24283247009b5b5355783f71",
+        "ref": "graph-call://abiogenesis/420959c26d72d1c64783c96c4a8a2b78b0d6d7b52cba86bc2e638f08fbde85d8"
+      },
+      "admissionOrdinals": [
+        521,
+        614
+      ],
+      "events": 94,
+      "cCallSpines": 4,
+      "graphCalls": 3,
+      "frames": 3,
+      "foldbacks": 2,
+      "lastEvent": "run_stopped",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-child-block-run_result-stdout.json",
+            "bytes": 2585,
+            "sha256": "626a138f4a4636cc07cd74073d647a4cfab41ca704863b7b70349867809e09bd"
+          },
+          "nativePid": 59031,
+          "nativeExit": 1,
+          "outcomeKind": "refusal",
+          "projectionStatus": null,
+          "refusalCode": "not_found",
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-child-block-run_replay-stdout.json",
+            "bytes": 3497,
+            "sha256": "0524027d84260d9b60dfda3ea45320c053d9c83965a3e6b68d7e615aa2bb65ce"
+          },
+          "nativePid": 59033,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "blocked",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/recursive-child-block-proof.json",
+        "bytes": 11108,
+        "sha256": "a510acc9a2cc3aa8da5c0a7fcad843e02941907ebab0d68f73db58dd72d0c9b3"
+      }
+    },
+    {
+      "case": "recursive-bound",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "input": {
+        "kind": "bounded_recursion_state",
+        "schemaVersion": "5.0.0",
+        "blockedChildRemaining": null,
+        "remaining": 5,
+        "terminal": false,
+        "trace": []
+      },
+      "expectedOutput": null,
+      "actualRootDisposition": "blocked",
+      "run": {
+        "digest": "sha256:cfca2a72ed624c9f6432565064594d4fc42cfb699cd1abec2fba12d5004fd93f",
+        "ref": "run://abiogenesis/9bcab30d4996878a7bc227e8a7a79cdae5c451fcc7e9b6c6b7f20425913df4eb"
+      },
+      "graphCall": {
+        "digest": "sha256:edb33ddcd7bde30722fb9e87b40c1404f33719bd8bfe0a3bb013b30f44508adc",
+        "ref": "graph-call://abiogenesis/06915ba592f4434e1698538e9bea6558687b260a5e255c4ac18d34d2211e772b"
+      },
+      "admissionOrdinals": [
+        615,
+        773
+      ],
+      "events": 159,
+      "cCallSpines": 7,
+      "graphCalls": 4,
+      "frames": 4,
+      "foldbacks": 3,
+      "lastEvent": "run_stopped",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-bound-run_result-stdout.json",
+            "bytes": 2585,
+            "sha256": "d49d132e7eb0642649fe06e9ee5f569183ecb4c5f4bdae12afcc7ac1522d30ca"
+          },
+          "nativePid": 59214,
+          "nativeExit": 1,
+          "outcomeKind": "refusal",
+          "projectionStatus": null,
+          "refusalCode": "not_found",
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-bound-run_replay-stdout.json",
+            "bytes": 3497,
+            "sha256": "958ad69975cb3e8cf8d37217153895350f0764f2036b9e7c39191dffa7e6b854"
+          },
+          "nativePid": 59230,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "blocked",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/recursive-bound-proof.json",
+        "bytes": 17176,
+        "sha256": "75da0f853f7f75cbc871205fbecb0cd2a79bfa8d31257acf564a6e20b9338318"
+      }
+    },
+    {
+      "case": "ordered-vector",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fan-out.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/fan-out-hello@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/fan-out-hello@5",
+      "input": {
+        "kind": "fan_out_hello_vector_input",
+        "schemaVersion": "5.0.0",
+        "members": [
+          {
+            "ordinal": 0,
+            "memberRef": "fan-out-member://abiogenesis/conformance/0/Alpha",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Alpha"
+            }
+          },
+          {
+            "ordinal": 1,
+            "memberRef": "fan-out-member://abiogenesis/conformance/1/Beta",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Beta"
+            }
+          },
+          {
+            "ordinal": 2,
+            "memberRef": "fan-out-member://abiogenesis/conformance/2/Gamma",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Gamma"
+            }
+          }
+        ]
+      },
+      "expectedOutput": {
+        "kind": "fan_out_hello_summary",
+        "schemaVersion": "5.0.0",
+        "count": 3,
+        "messages": [
+          "Hello Alpha",
+          "Hello Beta",
+          "Hello Gamma"
+        ]
+      },
+      "actualRootDisposition": "completed",
+      "run": {
+        "digest": "sha256:f1959685e0c45d24d70555df4e032817cbf087755f845734f4ef0b67c3ad0ea0",
+        "ref": "run://abiogenesis/3f8b220a41c200ea099f866fb71c91fcd41748102de2eb295ec1da223377c7b5"
+      },
+      "graphCall": {
+        "digest": "sha256:6db75ccadf530d6de55dc6e4c73cb4d825cdac362ef1ea1c7ce66fb9a39aac8a",
+        "ref": "graph-call://abiogenesis/94be194eef296234af5dbe5e1977c924a16cb49f930e04762ad354b02eb3a287"
+      },
+      "admissionOrdinals": [
+        774,
+        968
+      ],
+      "events": 195,
+      "cCallSpines": 8,
+      "graphCalls": 5,
+      "frames": 5,
+      "foldbacks": 4,
+      "lastEvent": "run_closed",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-ordered-vector-run_result-stdout.json",
+            "bytes": 6262,
+            "sha256": "1a525122f05d67f39673ae3826841440116200ae88beaa1e5290dd2dec2d011c"
+          },
+          "nativePid": 59632,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": null,
+          "refusalCode": null,
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-ordered-vector-run_replay-stdout.json",
+            "bytes": 5917,
+            "sha256": "e9f04033b41387bb359aceb7a35d3e20281bb82d3a9dbfe1b857d720f0fc86e2"
+          },
+          "nativePid": 59657,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "closed",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/ordered-vector-proof.json",
+        "bytes": 23239,
+        "sha256": "6739dcb4a53eaf707c4dc90dabf0e0732ac34552c4747153329e83f8115a496b"
+      }
+    },
+    {
+      "case": "partial-vector",
+      "result": "satisfied",
+      "sourceRoutes": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fan-out.test.mjs"
+      ],
+      "programRef": "program://abiogenesis/conformance/fan-out-hello@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/fan-out-hello@5",
+      "input": {
+        "kind": "fan_out_hello_vector_input",
+        "schemaVersion": "5.0.0",
+        "members": [
+          {
+            "ordinal": 0,
+            "memberRef": "fan-out-member://abiogenesis/conformance/0/Alpha",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Alpha"
+            }
+          },
+          {
+            "ordinal": 1,
+            "memberRef": "fan-out-member://abiogenesis/conformance/1/Beta",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": true,
+              "subject": "Beta"
+            }
+          },
+          {
+            "ordinal": 2,
+            "memberRef": "fan-out-member://abiogenesis/conformance/2/Gamma",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Gamma"
+            }
+          }
+        ]
+      },
+      "expectedOutput": null,
+      "actualRootDisposition": "blocked",
+      "run": {
+        "digest": "sha256:5e871a54372cfd6ae5d48fac42f98ebbcab67dcb290ad1f33030e199b2a7fd19",
+        "ref": "run://abiogenesis/592fc2d351b86afbef6e50ec44e0cadb4833e5da7a5423d9e91ade344b41cb96"
+      },
+      "graphCall": {
+        "digest": "sha256:f932a2b369729c882afcdc1c3acbc3809f68f7ea560b00d533b17eddefb62918",
+        "ref": "graph-call://abiogenesis/d21ae35f908f420c11840d5c4bb03bbb809a0f204102c7455e9a3ba503ad17dd"
+      },
+      "admissionOrdinals": [
+        969,
+        1067
+      ],
+      "events": 99,
+      "cCallSpines": 4,
+      "graphCalls": 3,
+      "frames": 3,
+      "foldbacks": 2,
+      "lastEvent": "run_stopped",
+      "nativeReads": {
+        "run_result": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-partial-vector-run_result-stdout.json",
+            "bytes": 2585,
+            "sha256": "c53324b5d57c52781ec121159bbdc6916ae7114865cf272caaf63e65846f6df9"
+          },
+          "nativePid": 59758,
+          "nativeExit": 1,
+          "outcomeKind": "refusal",
+          "projectionStatus": null,
+          "refusalCode": "not_found",
+          "prefixConserved": true
+        },
+        "run_replay": {
+          "receipt": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-partial-vector-run_replay-stdout.json",
+            "bytes": 3497,
+            "sha256": "0ec0bddd4a215fdc66046e00ed6bc68e3ed08ebfdeaf53cc4fe419609b7faaac"
+          },
+          "nativePid": 59782,
+          "nativeExit": 0,
+          "outcomeKind": "result",
+          "projectionStatus": "blocked",
+          "refusalCode": null,
+          "prefixConserved": true
+        }
+      },
+      "independentPredicateChecks": [
+        "Exact source-fixed input/output or typed-stop relation",
+        "Each CCall -> F_D -> evidence -> admitted Result -> J and real route with same scope/basis/causation",
+        "Case-specific declaration topology, value/cardinality/order, parent/child lifecycle and admitted foldback",
+        "Real root terminal/Frame/GraphCall/Run closure or truthful no-terminal stopped root",
+        "Actual installed Public owner authority, current definition coordinate, handoff and both distinct cold receipts"
+      ],
+      "proofSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/partial-vector-proof.json",
+        "bytes": 12102,
+        "sha256": "e4c25950cdef065e660d40718d4e5b71f777c210d26e92b33b94b1811540ecfb"
+      }
+    }
+  ],
+  "nativeProcesses": [
+    {
+      "label": "view-hello-compose",
+      "pid": 57190,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11139.3,
+      "peakRSSBytes": 2036531200
+    },
+    {
+      "label": "conformance-hello-compose",
+      "pid": 57355,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11219.539,
+      "peakRSSBytes": 1932263424
+    },
+    {
+      "label": "nested-compose",
+      "pid": 57512,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 5986.114,
+      "peakRSSBytes": 784809984
+    },
+    {
+      "label": "nested-compose-run_result",
+      "pid": 57594,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 678.188,
+      "peakRSSBytes": 336756736
+    },
+    {
+      "label": "nested-compose-run_replay",
+      "pid": 57598,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 672.983,
+      "peakRSSBytes": 336347136
+    },
+    {
+      "label": "view-hello-workflow",
+      "pid": 57614,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 10909.752,
+      "peakRSSBytes": 2017542144
+    },
+    {
+      "label": "conformance-hello-workflow",
+      "pid": 57780,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11155.293,
+      "peakRSSBytes": 1946288128
+    },
+    {
+      "label": "transparent-child",
+      "pid": 57937,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 3991.864,
+      "peakRSSBytes": 720568320
+    },
+    {
+      "label": "transparent-child-run_result",
+      "pid": 57977,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 661.445,
+      "peakRSSBytes": 320667648
+    },
+    {
+      "label": "transparent-child-run_replay",
+      "pid": 57982,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 660.145,
+      "peakRSSBytes": 334430208
+    },
+    {
+      "label": "view-hello-gate",
+      "pid": 58006,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11065.387,
+      "peakRSSBytes": 2058878976
+    },
+    {
+      "label": "conformance-hello-gate",
+      "pid": 58140,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11160.822,
+      "peakRSSBytes": 1956675584
+    },
+    {
+      "label": "gate-advance",
+      "pid": 58297,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 4712.475,
+      "peakRSSBytes": 648888320
+    },
+    {
+      "label": "gate-advance-run_result",
+      "pid": 58347,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 683.001,
+      "peakRSSBytes": 338165760
+    },
+    {
+      "label": "gate-advance-run_replay",
+      "pid": 58363,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 695.614,
+      "peakRSSBytes": 338165760
+    },
+    {
+      "label": "gate-block",
+      "pid": 58401,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 3080.847,
+      "peakRSSBytes": 721616896
+    },
+    {
+      "label": "gate-block-run_result",
+      "pid": 58450,
+      "exitCode": 1,
+      "signal": null,
+      "elapsedMs": 686.88,
+      "peakRSSBytes": 354304000
+    },
+    {
+      "label": "gate-block-run_replay",
+      "pid": 58486,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 699.908,
+      "peakRSSBytes": 336871424
+    },
+    {
+      "label": "view-bounded-recursion",
+      "pid": 58502,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11072.868,
+      "peakRSSBytes": 2016100352
+    },
+    {
+      "label": "conformance-bounded-recursion",
+      "pid": 58636,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11245.614,
+      "peakRSSBytes": 1918468096
+    },
+    {
+      "label": "recursive-foldback",
+      "pid": 58797,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 9123.911,
+      "peakRSSBytes": 842285056
+    },
+    {
+      "label": "recursive-foldback-run_result",
+      "pid": 58891,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 731.871,
+      "peakRSSBytes": 348782592
+    },
+    {
+      "label": "recursive-foldback-run_replay",
+      "pid": 58907,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 737.451,
+      "peakRSSBytes": 345161728
+    },
+    {
+      "label": "recursive-child-block",
+      "pid": 58953,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 6828.341,
+      "peakRSSBytes": 651034624
+    },
+    {
+      "label": "recursive-child-block-run_result",
+      "pid": 59031,
+      "exitCode": 1,
+      "signal": null,
+      "elapsedMs": 754.622,
+      "peakRSSBytes": 350912512
+    },
+    {
+      "label": "recursive-child-block-run_replay",
+      "pid": 59033,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 760.322,
+      "peakRSSBytes": 347766784
+    },
+    {
+      "label": "recursive-bound",
+      "pid": 59109,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 9191.138,
+      "peakRSSBytes": 801701888
+    },
+    {
+      "label": "recursive-bound-run_result",
+      "pid": 59214,
+      "exitCode": 1,
+      "signal": null,
+      "elapsedMs": 781.881,
+      "peakRSSBytes": 362561536
+    },
+    {
+      "label": "recursive-bound-run_replay",
+      "pid": 59230,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 801.046,
+      "peakRSSBytes": 360284160
+    },
+    {
+      "label": "view-fan-out-hello",
+      "pid": 59244,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11055.333,
+      "peakRSSBytes": 2033287168
+    },
+    {
+      "label": "conformance-fan-out-hello",
+      "pid": 59379,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 11406.091,
+      "peakRSSBytes": 1949122560
+    },
+    {
+      "label": "ordered-vector",
+      "pid": 59530,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 8705.571,
+      "peakRSSBytes": 847036416
+    },
+    {
+      "label": "ordered-vector-run_result",
+      "pid": 59632,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 837.025,
+      "peakRSSBytes": 364199936
+    },
+    {
+      "label": "ordered-vector-run_replay",
+      "pid": 59657,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 831.852,
+      "peakRSSBytes": 365510656
+    },
+    {
+      "label": "partial-vector",
+      "pid": 59698,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 5741.013,
+      "peakRSSBytes": 774488064
+    },
+    {
+      "label": "partial-vector-run_result",
+      "pid": 59758,
+      "exitCode": 1,
+      "signal": null,
+      "elapsedMs": 829.982,
+      "peakRSSBytes": 351485952
+    },
+    {
+      "label": "partial-vector-run_replay",
+      "pid": 59782,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 835.059,
+      "peakRSSBytes": 345178112
+    }
+  ],
+  "processClosure": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/process-closure.json",
+      "bytes": 65688,
+      "sha256": "eca6bb8e47eb9835378270891432f3ee5cec1e6faade487049e8143a22876097"
+    },
+    "all37NativeWait4Returns": "normal exit, no signal/timeout",
+    "driverWait4Returned": true,
+    "ownedPIDsRecordedAbsent": 75,
+    "liveOwnedProcessesRecorded": [],
+    "currentPsNotRequiredOrPerformed": true,
+    "limits": "Retained wait4/reap and post-closure probe evidence supports owned process closure; no broader host-process claim."
+  },
+  "cost": {
+    "driverElapsedMs": 338105.609,
+    "driverPeakRSSBytes": 5381554176,
+    "driverUserSeconds": 275.422144,
+    "driverSystemSeconds": 47.473016,
+    "maxNativeCliPeakRSSBytes": 2058878976,
+    "maxNativeCliPeakRSSRecord": "s02-view-hello-gate-native-process.json",
+    "sumNativeCliElapsedMs": 182130.54799999998,
+    "sumNativeCliUserSeconds": 197.963448,
+    "sumNativeCliSystemSeconds": 33.080225,
+    "nativeCliExitCounts": {
+      "0": 33,
+      "1": 4
+    },
+    "nodeOldSpaceMiB": 4096,
+    "osRSSCap": null,
+    "providerCapacityClaim": false,
+    "modelCalls": 0,
+    "paidTokens": 0,
+    "paidCost": 0,
+    "eventGrowthBytes": 3436314,
+    "eventGrowthEvents": 1000,
+    "preEffectRetainedMaterialBytes": 550525214,
+    "materialVolumeMeaning": "Retained mechanically authenticated caller/control/owner preflight bodies and receipts; repeated report context is not model traffic or event growth. No optimization campaign selected."
+  },
+  "retainedMaterialBytes": 2385034761,
+  "largestReportRecords": [
+    {
+      "path": "pure-preflight.json",
+      "bytes": 467524573
+    },
+    {
+      "path": "fan-out-hello-conformance-owner-precondition.json",
+      "bytes": 79488050
+    },
+    {
+      "path": "hello-compose-conformance-owner-precondition.json",
+      "bytes": 79476141
+    },
+    {
+      "path": "hello-gate-conformance-owner-precondition.json",
+      "bytes": 79462224
+    },
+    {
+      "path": "bounded-recursion-conformance-owner-precondition.json",
+      "bytes": 79460708
+    },
+    {
+      "path": "hello-workflow-conformance-owner-precondition.json",
+      "bytes": 79447155
+    },
+    {
+      "path": "ordered-vector-start-owner-precondition.json",
+      "bytes": 48800226
+    },
+    {
+      "path": "partial-vector-start-owner-precondition.json",
+      "bytes": 48800223
+    },
+    {
+      "path": "nested-compose-start-owner-precondition.json",
+      "bytes": 48789136
+    },
+    {
+      "path": "recursive-child-block-start-owner-precondition.json",
+      "bytes": 48772771
+    }
+  ],
+  "inspectionCorrections": [
+    {
+      "scope": "Reviewer read-only draft comparison",
+      "incorrectAssumption": "graph_call_closed.payload.closureRef supplies child closure identity",
+      "actualContract": "abg/child_lifecycle.ts: terminal_reached.payload.closureRef, then frame_closed terminalReachedEventRef, graph_call_closed frameClosedEventRef; childTerminalEventRef names the actual child graph_call_closed event for successful child",
+      "effects": "Failed internal comparison only; inspected bytes and native execution unchanged. Correct source-derived comparison now passed."
+    },
+    {
+      "scope": "Reviewer read-only draft comparison",
+      "incorrectAssumption": "A partial vector root blocked outcome requires every stopped child to have childDisposition blocked",
+      "actualContract": "implementation/fan_out.ts deliberately throws for input.block. Child route/foldback is failed with implementation-exception; parent workflow/J and partial fan-out stop are blocked under abg/fan_out.ts. Scope-specific dispositions conserved.",
+      "effects": "Failed internal comparison only; actual child/parent producer contracts reacquired and inspected, no native reproof."
+    },
+    {
+      "scope": "Reviewer read-only draft comparison",
+      "incorrectAssumption": "Public wire invocationAuthority is the Product InvocationAuthority carrier with authorityRef",
+      "actualContract": "public/installed_public_definition_call.ts:201 constructs definitionKey/slots/authorityDigest; product/invocation.ts:130 defines the semantic Run authorityRef/authorityDigest. Existing Product preparation authority is compared to actual invocation_admitted truth.",
+      "effects": "Failed internal comparison only; all37 actual wire/source and all9 semantic owner authority joins now compared correctly."
+    },
+    {
+      "scope": "Orientation message before execution",
+      "incorrectAssumption": "three child foldbacks imply declared recursion bound3",
+      "actualContract": "gtl/recursion.ts RECURSION_HELLO_IDS.bound is4; parent attempts1\u20134 produce at most three child foldbacks. Corrected to Root before native execution; finite selected case population unchanged.",
+      "effects": "No operation or oracle mutation; corrected source-relative statement retained."
+    }
+  ],
+  "qualificationClaim": false
+}

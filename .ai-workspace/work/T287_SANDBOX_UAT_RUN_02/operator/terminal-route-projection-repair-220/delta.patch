@@ -1,0 +1,773 @@
+--- before/code/src/abg/replay.ts
++++ after/code/src/abg/replay.ts
+@@ -791,11 +791,16 @@
+   const profileEnd = runtimeEventProfileSourceFromValidatedPrefix(prefix).at(-1);
+   if (facts.last !== undefined && facts.last.runtimeEnd === events.at(-1) && facts.last.authority === authority && facts.last.authorityEnd === authorityEnd && facts.last.profileEnd === profileEnd) return routeOnly === undefined ? facts.last.state : facts.last.state.routes.find(route => route.admissionEventRef === routeOnly);
+   const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
++  const runStoppedRows = indexedRuntimeEvents(prefix, "kind:run_stopped").filter(
++    event => stringField(event, "disposition") !== null);
++  const runStoppedRouteRefs = new Set(runStoppedRows.map(event => stringField(event, "routeRef")));
+ 
+-  const cCallIds = [...new Set(indexedRuntimeEvents(prefix, "type:c_call").map(event => event.aggregateId))];
+-  const cCalls = cCallIds.map((cCallRef): ReplayCCallState => {
++  const cCallIds = new Set<string>();
++  for (const event of indexedRuntimeEvents(prefix, "type:c_call")) cCallIds.add(event.aggregateId);
++  const cCalls: ReplayCCallState[] = [];
++  for (const cCallRef of cCallIds) {
+     const rows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef);
+-    return facts.fact("c_call:" + cCallRef, String(rows.at(-1)?.admissionOrdinal), () => {
++    const projected = facts.fact("c_call:" + cCallRef, String(rows.at(-1)?.admissionOrdinal), (): ReplayCCallState => {
+     const phase = projectCCallPhase(prefix, cCallRef);
+     const evidenceRows = rows.filter((event) => event.kind === "c_call_evidenced");
+     const openedEvent = rows.find((event) => event.kind === "c_call_opened");
+@@ -860,17 +865,23 @@
+       status,
+     };
+     });
+-  });
++    if (routeOnly === undefined) cCalls.push(projected);
++  }
+ 
+-  const routes = indexedRuntimeEvents(prefix, "kind:traversal_route_admitted")
+-    .map(event => facts.fact("route:" + event.eventId,
++  const routes: ReplayRouteState[] = [];
++  let selectedRoute: ReplayRouteState | undefined;
++  for (const event of indexedRuntimeEvents(prefix, "kind:traversal_route_admitted")) {
++    const projected = facts.fact("route:" + event.eventId,
+       String(indexedRuntimeEvents(prefix, "payload:routeRef:" + stringField(event, "routeRef")).filter(candidate => candidate.kind === "construction_intent_selected").at(-1)?.admissionOrdinal ?? 0) + ":" +
+       (isRecord(event.payload) && event.payload.boundInput !== undefined ? retainedWorksiteInputRelationVersion(authorityPrefix, event) + registeredSelectionInputRelationVersion(authorityPrefix, event) : ""),
+       () => projectReplayRouteAtPrefix(prefix, event, authorityPrefix),
+-      isRecord(event.payload) && event.payload.boundInput !== undefined ? authority : undefined));
++      isRecord(event.payload) && event.payload.boundInput !== undefined ? authority : undefined);
++    if (routeOnly === undefined || runStoppedRouteRefs.has(projected.routeRef)) routes.push(projected);
++    if (selectedRoute === undefined && projected.admissionEventRef === routeOnly) selectedRoute = projected;
++  }
+ 
+-  const fanOutCompletions = indexedRuntimeEvents(prefix, "kind:fan_out_completion_admitted")
+-    .map((event): FanOutCompletionAdmission => {
++  const fanOutCompletions: FanOutCompletionAdmission[] = [];
++  for (const event of indexedRuntimeEvents(prefix, "kind:fan_out_completion_admitted")) {
+       const projected = projectExactFanOutCompletion(prefix, {
+         mode: "event_canonical",
+         admissionEventRef: event.eventId,
+@@ -883,10 +894,11 @@
+           `invalid fan-out completion truth at ${event.eventId}`,
+         );
+       }
+-      return projected;
+-    });
+-  const constructionDeltas = indexedRuntimeEvents(prefix, "kind:construction_delta_observed")
+-    .map((event): ReplayConstructionDeltaState => facts.fact("delta:" + event.eventId, event.eventId, () => {
++      if (routeOnly === undefined) fanOutCompletions.push(projected);
++  }
++  const constructionDeltas: ReplayConstructionDeltaState[] = [];
++  for (const event of indexedRuntimeEvents(prefix, "kind:construction_delta_observed")) {
++    const projected = facts.fact("delta:" + event.eventId, event.eventId, (): ReplayConstructionDeltaState => {
+       const required = [
+         "deltaRef",
+         "deltaDigest",
+@@ -1015,13 +1027,16 @@
+         runtimeEvidenceEventRefs,
+         admissionEventRef: event.eventId,
+       };
+-    }));
++    });
++    if (routeOnly === undefined) constructionDeltas.push(projected);
++  }
+ 
+-  const actorInvocationIds = [...new Set(indexedRuntimeEvents(prefix, "type:actor_invocation").map(event => event.aggregateId))];
+-  const actorProcesses = actorInvocationIds.map(
+-    (actorInvocationRef): ReplayActorProcessState => {
++  const actorInvocationIds = new Set<string>();
++  for (const event of indexedRuntimeEvents(prefix, "type:actor_invocation")) actorInvocationIds.add(event.aggregateId);
++  const actorProcesses: ReplayActorProcessState[] = [];
++  for (const actorInvocationRef of actorInvocationIds) {
+       const actorRows = indexedRuntimeEvents(prefix, "related:" + actorInvocationRef);
+-      return facts.fact("actor:" + actorInvocationRef, String(actorRows.at(-1)?.admissionOrdinal), () => {
++      const projected = facts.fact("actor:" + actorInvocationRef, String(actorRows.at(-1)?.admissionOrdinal), (): ReplayActorProcessState => {
+       const opened = actorRows.find((event) => event.kind === "actor_invocation_started");
+       const processStarted = actorRows.find((event) => event.kind === "actor_process_started");
+       const processExited = actorRows.find((event) => event.kind === "actor_process_exited");
+@@ -1080,12 +1095,13 @@
+             : "active",
+       };
+       });
+-    },
+-  );
++      if (routeOnly === undefined) actorProcesses.push(projected);
++  }
+ 
+-  const worksiteObservationCandidates = [...indexedRuntimeEvents(prefix, "kind:basis_admitted"), ...indexedRuntimeEvents(prefix, "kind:c_call_result_admitted")]
+-    .sort((a, b) => a.admissionOrdinal - b.admissionOrdinal).flatMap(
+-    (event): readonly ReplayCurrentWorksiteObservation[] => facts.fact("worksite:" + event.eventId, event.eventId, () => {
++  const worksiteObservationCandidates: ReplayCurrentWorksiteObservation[] = [];
++  for (const event of [...indexedRuntimeEvents(prefix, "kind:basis_admitted"), ...indexedRuntimeEvents(prefix, "kind:c_call_result_admitted")]
++    .sort((a, b) => a.admissionOrdinal - b.admissionOrdinal)) {
++    const projected = facts.fact("worksite:" + event.eventId, event.eventId, (): readonly ReplayCurrentWorksiteObservation[] => {
+       const payload = event.payload;
+       if (!isRecord(payload)) return [];
+       if (event.kind === "basis_admitted") {
+@@ -1098,9 +1114,15 @@
+           : [];
+       }
+       if (event.kind !== "c_call_result_admitted") return [];
++      // Successful C0 observations consume only the preceding evidence of
++      // this CCall. Failure authentication also needs its earlier basis and
++      // workspace authority, so retains the complete prior-history input.
++      const priorRows = routeOnly === undefined || payload.resultClass === "failure"
++        ? events
++        : indexedRuntimeEvents(prefix, "aggregate:c_call:" + event.aggregateId);
+       const transition = projectWorksiteTransitionForResult(
+         event,
+-        events.filter(candidate => candidate.admissionOrdinal < event.admissionOrdinal),
++        priorRows.filter(candidate => candidate.admissionOrdinal < event.admissionOrdinal),
+       );
+       return transition === null || transition.successorObservation === null
+         ? []
+@@ -1108,9 +1130,10 @@
+             observation: transition.successorObservation,
+             sourceEventRef: event.eventId,
+           }]
+-    }),
+-  );
+-  const currentWorksiteObservations = [...new Map(
++    });
++    if (routeOnly === undefined) worksiteObservationCandidates.push(...projected);
++  }
++  const currentWorksiteObservations = routeOnly === undefined ? [...new Map(
+     worksiteObservationCandidates
+       .filter(({ observation }) =>
+         holdsAt(
+@@ -1122,12 +1145,14 @@
+         )
+       )
+       .map((row) => [row.observation.observationRef, row] as const),
+-  ).values()];
++  ).values()] : [];
+ 
+   const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
+-  const continuations = [...projectFhContinuations(prefix, eventCalculus, authorityPrefix),
+-    ...projectConstructionIntentContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? ""),
+-    ...projectSelectedActionContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? "")];
++  const fhContinuations = projectFhContinuations(prefix, eventCalculus, authorityPrefix);
++  const intentContinuations = projectConstructionIntentContinuations(authorityPrefix, runOpen?.runId ?? "");
++  const selectedContinuations = projectSelectedActionContinuations(authorityPrefix, runOpen?.runId ?? "");
++  const continuations = routeOnly === undefined
++    ? [...fhContinuations, ...intentContinuations, ...selectedContinuations] : [];
+   const graphCallOpen = indexedRuntimeEvents(prefix, "kind:graph_call_opened").find(
+     (event) =>
+       event.kind === "graph_call_opened" &&
+@@ -1163,11 +1188,6 @@
+           event.graphCallId === graphCallOpen.graphCallId,
+       );
+   const runClosed = indexedRuntimeEvents(prefix, "kind:run_closed")[0];
+-  const runStoppedRows = indexedRuntimeEvents(prefix, "kind:run_stopped").filter(
+-    (event) =>
+-      event.kind === "run_stopped" &&
+-      stringField(event, "disposition") !== null,
+-  );
+   const invocationRefused = indexedRuntimeEvents(prefix, "kind:invocation_refused")[0];
+   const runtimeFailure = indexedRuntimeEvents(prefix, "kind:runtime_failure_observed")[0];
+   if (runStoppedRows.length > 1) {
+@@ -1238,7 +1258,7 @@
+     );
+   }
+   const eventStoreDigest = runtimeEventPrefixDigest(prefix);
+-  if (routeOnly !== undefined) return routes.find(route => route.admissionEventRef === routeOnly);
++  if (routeOnly !== undefined) return selectedRoute;
+   const nativeLiveness = projectNativeLivenessRead(prefix, runOpen?.runId ?? null, graphCallOpen?.graphCallId);
+   const body = {
+     ...(nativeLiveness === null ? {} : { nativeLiveness }),
+
+--- before/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ after/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -112,6 +112,15 @@
+ route, child and parent owners still produce all new runtime facts. Warm calls
+ must not rederive the history or rehash established declarations.
+ 
++An internal single-route replay read retains the complete existing replay
++validation responsibility, including malformed unrelated history and Run
++consistency. It consumes the existing dependency-qualified row facts without
++collecting the CCall, actor, fan-out, delta and observation populations that it
++does not return. Only the selected route and routes needed by Run consistency
++are retained by that read. Cold or changed facts still undergo their ordinary
++owner checks; a copied prefix or an internal boundary grants no validation
++shortcut. Complete ReplayState values and digests retain their existing law.
++
+ Carry the selected source basis through the existing invocation/input admission;
+ no new event kind is proposed for ordinary evidence use. The actual extension
+ must preserve its published payload contract/validation and source projection
+
+--- before/test_env/tests/t287-route-reconstruction.test.mjs
++++ after/test_env/tests/t287-route-reconstruction.test.mjs
+@@ -3,6 +3,10 @@
+ import {readFile} from 'node:fs/promises';
+ import {join} from 'node:path';
+ import {pathToFileURL} from 'node:url';
++import fs from 'node:fs';
++import {dirname,resolve} from 'node:path';
++import os from 'node:os';
++import {SourceTextModule,SyntheticModule} from 'node:vm';
+ import * as store from '../../build/code/src/abg/event_store.js';
+ import * as prefix from '../../build/code/src/abg/event_prefix.js';
+ import * as replay from '../../build/code/src/abg/replay.js';
+@@ -11,6 +15,9 @@
+ import {RuntimeDerivationSource} from '../../build/code/src/abg/runtime_derivation.js';
+ import {deepFreeze} from '../../build/code/src/shared/immutable.js';
+ import {sha256Canonical} from '../../build/code/src/shared/digests.js';
++import {constructTraversalCursorCandidate} from '../../build/code/src/abg/traversal_cursor.js';
++import {projectTraversalRouteBody} from '../../build/code/src/abg/traversal_transition.js';
++import {proposeJudgmentCandidate} from '../../build/code/src/hog/judgment.js';
+ const enabled={skip:!process.env.P0_RETAINED_NATIVE_SCRATCH,timeout:180000};
+ const work=()=>({...globalThis.p0Work});
+ const diff=(a,b)=>Object.fromEntries([...new Set([...Object.keys(a),...Object.keys(b)])].map(k=>[k,(b[k]??0)-(a[k]??0)]));
+@@ -23,6 +30,165 @@
+ const outcome=fn=>{try{return {value:fn()};}catch(e){return {error:e.name,message:e.message};}};
+ const cold=rows=>prefix.selectValidatedRuntimeEventPrefix(deepFreeze(structuredClone(rows)));
+ 
++// Controlled declaration/outcome premises, current canonical event envelopes,
++// genuine disposable append owner and the actual replay/route consumers. These
++// rows do not claim invocation, installed leaf or scope-closure admission proof.
++const terminalOptions={};
++function terminalOwner(t){
++ const scratch=fs.mkdtempSync(join(process.env.ABI5_ROUTE_PROJECTION_SCRATCH??os.tmpdir(),'terminal-route-'));
++ const acquired=store.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:join(scratch,'events.jsonl')});
++ assert.ok(acquired.store,JSON.stringify(acquired));
++ t.after(()=>{acquired.store.closeDurableLog();fs.rmSync(scratch,{recursive:true,force:true});});
++ const ref=(kind,value)=>`${kind}://component/${sha256Canonical(value).slice('sha256:'.length)}`;
++ const basisId=ref('execution-basis','terminal'),graphFunctionRef='graph-function://component/terminal',
++  materializationRef=ref('materialization','terminal'),runId=ref('run','terminal'),graphCallId=ref('graph-call','terminal'),frameId=ref('frame','terminal');
++ const common={eventTime:'2026-10-10T00:00:00.000Z',correlationId:'correlation://component/terminal',workflowVersion:'5.0.0',
++  scopeClass:'run',basisId,runId,graphCallId,frameId,graphFunctionRef,materializationRef};
++ const append=(kind,aggregateType,aggregateId,parentAggregateId,payload,causationEventRefs=[])=>store.admitRuntimeEvent(acquired.store,
++  {...common,kind,aggregateType,aggregateId,parentAggregateId,payload,causationEventRefs});
++ const runOpen=append('run_segment_opened','run',runId,null,{executionBasisRef:basisId,executionBasisDigest:sha256Canonical('basis'),
++  graphDigest:sha256Canonical('graph'),graphFunctionRef,graphRef:materializationRef,invocationAdmissionRef:'admission://component',
++  invocationRef:'invocation://component',programRef:'program://component',runId,runDigest:sha256Canonical('run'),workspaceBindingId:'workspace-binding://component'});
++ const graphOpen=append('graph_call_opened','graph_call',graphCallId,runId,{graphCallId,graphCallDigest:sha256Canonical('graph-call')},[runOpen.eventId]);
++ const frameOpen=append('frame_opened','frame',frameId,graphCallId,{frameId,frameDigest:sha256Canonical('frame'),
++  frameLineageId:'frame-lineage://component',attempt:1,parentFrameId:null},[graphOpen.eventId]);
++ const cursor=constructTraversalCursorCandidate({programRef:'program://component',executionBasisRef:basisId,traversalScopeRef:'scope://component',
++  runId,graphCallId,frameId,graphRef:materializationRef,inputRef:'input://component',inputDigest:sha256Canonical({kind:'component_input'}),
++  currentNodeRef:'node://component',position:'at_term',termPath:['node','node://component','c'],taskOrdinal:null,attempt:1,retryPath:[]});
++ const cursorEvent=append('traversal_cursor_entered','frame',frameId,graphCallId,{cursorRef:cursor.cursorRef,cursorDigest:cursor.cursorDigest},[frameOpen.eventId]);
++ const identity={basisId,graphCallId,frameId,vectorIndex:0,stageRole:'result',taskOrdinal:null,attempt:1,programLocusRef:'node://component',retryPath:[]};
++ const cCallDigest=sha256Canonical(identity),cCallRef=`c-call:${cCallDigest}`;
++ const opened=append('c_call_opened','c_call',cCallRef,frameId,{...identity,cCallRef,cCallDigest,callClass:'leaf',graphFunctionRef,
++  edgeRef:'start://component',batchRef:null,cursorRef:cursor.cursorRef,cursorDigest:cursor.cursorDigest},[cursorEvent.eventId]);
++ const fibre=append('c_call_fibre_selected','c_call',cCallRef,frameId,{cCallRef,callClass:'leaf',armId:'arm://component',regime:'F_D'},[opened.eventId]);
++ const value=deepFreeze({kind:'component_result',schemaVersion:'5.0.0',answer:42}),valueDigest=sha256Canonical(value);
++ const evidenceBody={cCallRef,evidenceClass:'deterministic',contractRef:'contract://component/evidence',implementationRef:'implementation://component',
++  inputDigest:cursor.inputDigest,outputDigest:valueDigest};
++ const evidenceDigest=sha256Canonical(evidenceBody),evidenceRef=ref('evidence',evidenceBody);
++ const evidence=append('c_call_evidenced','c_call',cCallRef,frameId,{...evidenceBody,evidenceRef,evidenceDigest},[fibre.eventId]);
++ const resultBody={cCallRef,contractRef:'contract://component/result',evidenceRefs:[evidenceRef],resultClass:'success',value,valueDigest,valueKind:value.kind};
++ const resultDigest=sha256Canonical(resultBody),resultRef=ref('result',resultBody);
++ const resultEvent=append('c_call_result_admitted','c_call',cCallRef,frameId,{...resultBody,resultDigest,resultRef},[evidence.eventId]);
++ const current=prefix.selectValidatedRuntimeEventPrefix(acquired.store.readAll()),run=prefix.selectRuntimeEventPrefixFromAuthority(current,{runId});
++ const beforeJudgment=replay.replayValidatedRuntimeEventPrefix(run,current);
++ const candidate=proposeJudgmentCandidate({cCall:{cCallRef},result:{...resultBody,resultRef,resultDigest},replayState:beforeJudgment,
++  contractRef:'contract://component/judgment',decision:{decisionClass:'evaluate',input:{expected:42},relation:{
++   predicateRef:'predicate://component/answer',advanceReasonRef:'reason://component/answer',rejectionReasonRef:'reason://component/reject',
++   evaluate:(input,result)=>input.expected===result.answer}}});
++ assert.equal(candidate.judgment,'advance');
++ const {kind:_kind,schemaVersion:_version,candidateDigest:_digest,candidateRef:_ref,...judgmentBody}=candidate;
++ const judgmentDigest=sha256Canonical(judgmentBody),judgmentRef=ref('judgment',judgmentBody);
++ const judgment=append('c_call_judged','c_call',cCallRef,frameId,{...judgmentBody,judgmentRef,judgmentDigest,retryAttemptRef:null},[resultEvent.eventId]);
++ const routeBody=projectTraversalRouteBody({routeKind:'terminal',declarationRef:'transition://component/terminal',declarationDigest:sha256Canonical('terminal declaration'),
++  sourceCursorRef:cursor.cursorRef,sourceCursorDigest:cursor.cursorDigest,targetCursorRef:null,targetCursorDigest:null,
++  cCallRef,judgmentRef,consumedAvailabilityRefs:[],contractRef:'contract://component/transition',replayStateDigest:beforeJudgment.replayDigest});
++ assert.ok(routeBody);const routeDigest=sha256Canonical(routeBody),routeRef=`traversal-route://abiogenesis/${routeDigest.slice('sha256:'.length)}`;
++ const route=append('traversal_route_admitted','frame',frameId,graphCallId,{...routeBody,routeRef,routeDigest},[judgment.eventId]);
++ const terminal=append('terminal_reached','frame',frameId,graphCallId,{closureRef:'closure://component',closureDigest:sha256Canonical('closure'),
++  routeRef,terminalKind:'completed'},[route.eventId]);
++ const frameClosed=append('frame_closed','frame',frameId,graphCallId,{frameId,terminalReachedEventRef:terminal.eventId},[terminal.eventId]);
++ const graphClosed=append('graph_call_closed','graph_call',graphCallId,runId,{graphCallId,frameClosedEventRef:frameClosed.eventId},[frameClosed.eventId]);
++ append('run_closed','run',runId,null,{runId,graphCallClosedEventRef:graphClosed.eventId},[graphClosed.eventId]);
++ const rows=acquired.store.readAll(),close=acquired.store.projectReopenAuthorityAndClose();
++ assert.equal(close.prefix.storeIdentity.eventContractDigest,store.ROOT_EVENT_CONTRACT_DIGEST);
++ const authority=prefix.selectValidatedRuntimeEventPrefix(rows);
++ return {...acquired,prefix:close.prefix,rows,route,authority,run:prefix.selectRuntimeEventPrefixFromAuthority(authority,{runId})};
++}
++async function observedReplay(file){
++ const built=resolve(import.meta.dirname,'../../build/code/src/abg/replay.js');
++ const counts={wholeHistoryFilterRows:0,indexedPopulationMapRows:0};
++ const traced=(rows,key)=>new Proxy(rows,{get(target,name,receiver){
++  if(name==='filter'&&key==='history')return (...args)=>{counts.wholeHistoryFilterRows+=target.length;return target.filter(...args);};
++  if(name==='map'&&['type:c_call','type:actor_invocation','kind:traversal_route_admitted','kind:fan_out_completion_admitted','kind:construction_delta_observed'].includes(key))
++   return (...args)=>{counts.indexedPopulationMapRows+=target.length;return target.map(...args);};
++  return Reflect.get(target,name,receiver);
++ }});
++ const module=new SourceTextModule(fs.readFileSync(file??built,'utf8'),{identifier:built});
++ await module.link(async spec=>{
++  const values={...await import(spec.startsWith('.')?pathToFileURL(resolve(dirname(built),spec)).href:spec)};
++  if(spec==='./event_prefix.js'){
++   values.runtimeEventsFromValidatedPrefix=p=>traced(prefix.runtimeEventsFromValidatedPrefix(p),'history');
++   values.indexedRuntimeEvents=(p,key)=>traced(prefix.indexedRuntimeEvents(p,key),key);
++  }
++  return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});
++ });await module.evaluate();return {api:module.namespace,counts};
++}
++function appendControl(rows,template,patch){
++ const {eventId,admissionOrdinal,payloadDigest,eventContractDigest,...candidate}=template;
++ const row=store.projectRuntimeEventFromValidatedHistory(rows,{...candidate,...patch});rows.push(row);return row;
++}
++
++test('terminal route-only projection preserves complete replay and avoids nonreturned populations',terminalOptions,async t=>{
++ const f=terminalOwner(t),before=await observedReplay(process.env.ABI5_ROUTE_REPLAY_PREIMAGE),after=await observedReplay();
++ const through=prefix.validatedRuntimeEventPrefixThroughEvent(f.run,f.route.eventId);
++ const authorityThrough=prefix.validatedRuntimeEventPrefixThroughEvent(f.authority,f.route.eventId);
++ const oldRoute=before.api.projectValidatedReplayRouteAtPrefix(through,f.route.eventId,authorityThrough);
++ const newRoute=after.api.projectValidatedReplayRouteAtPrefix(through,f.route.eventId,authorityThrough);
++ assert.deepEqual(newRoute,oldRoute);
++ const measured={before:{...before.counts},after:{...after.counts}};
++ const oldFull=before.api.replayValidatedRuntimeEventPrefix(f.run,f.authority);
++ const newFull=after.api.replayValidatedRuntimeEventPrefix(f.run,f.authority);
++ assert.deepEqual(newFull,oldFull);assert.equal(newFull.replayDigest,oldFull.replayDigest);
++ assert.deepEqual(newRoute,newFull.routes.find(r=>r.admissionEventRef===f.route.eventId));
++ assert.equal(newFull.cCalls.at(-1).judgment,'advance');
++ const {projectHistoricalTraversalRouteAtPrefix}=await import('../../build/code/src/abg/traversal_route.js');
++ const authenticated=projectHistoricalTraversalRouteAtPrefix(f.run,f.route.eventId,f.authority);
++ assert.ok(authenticated,'the actual terminal-route authentication call-through succeeds');
++ for(const raw of [{...through},structuredClone(through)])
++  assert.throws(()=>after.api.projectValidatedReplayRouteAtPrefix(raw,f.route.eventId,authorityThrough),/nominal/);
++ const freshAuthority=cold(f.rows),freshRun=prefix.selectRuntimeEventPrefixFromAuthority(freshAuthority,{runId:f.route.runId});
++ assert.deepEqual(after.api.replayValidatedRuntimeEventPrefix(freshRun,freshAuthority),newFull);
++ if(process.env.ABI5_ROUTE_REPLAY_PREIMAGE){
++  assert.ok(measured.before.wholeHistoryFilterRows>0);
++  assert.equal(measured.after.wholeHistoryFilterRows,0,'successful observations need only their CCall evidence');
++  assert.ok(measured.before.indexedPopulationMapRows>measured.after.indexedPopulationMapRows);
++  assert.equal(measured.after.indexedPopulationMapRows,0);
++ }
++ t.diagnostic(JSON.stringify({eventCount:f.rows.length,routeEvent:f.route.eventId,replayDigest:newFull.replayDigest,measured,
++  limit:'Current event-store/envelope/prefix and route consumers; controlled declaration/outcome premises. No installed invocation/leaf/closure or capacity qualification.'}));
++});
++
++test('terminal route-only retains cold and hot malformed-history refusals',terminalOptions,async t=>{
++ const f=terminalOwner(t),before=await observedReplay(process.env.ABI5_ROUTE_REPLAY_PREIMAGE),after=await observedReplay();
++ const opened=f.rows.find(e=>e.kind==='c_call_opened'&&e.runId===f.route.runId);
++ const fibre=f.rows.find(e=>e.kind==='c_call_fibre_selected'&&e.aggregateId===opened.aggregateId);
++ const runClosed=f.rows.find(e=>e.kind==='run_closed'&&e.runId===f.route.runId);
++ const controls=[
++  ['unrelated malformed CCall',rows=>{
++   const cCallRef='c-call:sha256:'+sha256Canonical('unrelated terminal test').slice('sha256:'.length);
++   const open=appendControl(rows,opened,{aggregateId:cCallRef,payload:{...opened.payload,cCallRef,attempt:0}});
++   appendControl(rows,fibre,{aggregateId:cCallRef,causationEventRefs:[open.eventId],payload:{...fibre.payload,cCallRef}});
++  }],
++  ['foreign retained provenance',rows=>{
++   const at=rows.findIndex(e=>e.eventId===f.route.eventId),original=rows[at];
++   rows[at]=deepFreeze({...original,payload:{...original.payload,boundInput:{contractRef:'contract://foreign',value:{kind:'retained_graph_input'}}}});
++  }],
++  ['unrelated malformed fan-out',rows=>appendControl(rows,f.route,{kind:'fan_out_completion_admitted',payload:{
++   completionRef:'fan-out-completion://foreign',completionDigest:sha256Canonical('foreign'),completionKind:'complete_vector',
++   outputVector:[],outputVectorRef:'output-vector://foreign',outputVectorDigest:sha256Canonical([]),taskRows:[]}})],
++  ['contradictory Run stop',rows=>appendControl(rows,runClosed,{kind:'run_stopped',payload:{
++   disposition:'blocked',routeRef:f.route.payload.routeRef,reasonRef:'reason://contradictory-stop'}})],
++ ];
++ const reports=[];
++ for(const [name,change]of controls){
++  const rows=[...f.rows];change(rows);
++  const oldAuthority=cold(rows),oldRun=prefix.selectRuntimeEventPrefixFromAuthority(oldAuthority,{runId:f.route.runId});
++  const source=new RuntimeDerivationSource(),initial=select(source,f.rows,f.route.runId);
++  after.api.projectValidatedReplayRouteAtPrefix(initial.run,f.route.eventId,initial.authority);
++  const warm=select(source,deepFreeze(rows),f.route.runId);
++  const coldTarget=outcome(()=>after.api.projectValidatedReplayRouteAtPrefix(oldRun,f.route.eventId,oldAuthority));
++  const warmTarget=outcome(()=>after.api.projectValidatedReplayRouteAtPrefix(warm.run,f.route.eventId,warm.authority));
++  const oldTarget=outcome(()=>before.api.projectValidatedReplayRouteAtPrefix(oldRun,f.route.eventId,oldAuthority));
++  const complete=outcome(()=>after.api.replayValidatedRuntimeEventPrefix(oldRun,oldAuthority));
++  assert.ok(coldTarget.error,name+' must refuse rather than just find the selected route');
++  assert.deepEqual(coldTarget,oldTarget,name+' existing refusal');
++  assert.deepEqual(warmTarget,coldTarget,name+' dependency invalidation');
++  assert.deepEqual(complete,coldTarget,name+' full replay validation');
++  reports.push({name,...coldTarget});
++ }
++ t.diagnostic(JSON.stringify({controls:reports,limit:'Controlled malformed histories use canonical envelopes/prefix owners; no rejected row is an admitted current UAT fact.'}));
++});
++
+ test('retained native outputs and exact pre-basis historical owner facts are conserved',enabled,async()=>{
+  const {rows,runId}=await retained(),source=new RuntimeDerivationSource();
+  const oldRoot=process.env.P0_PREDECESSOR_INSTALLED_ROOT;
+
+--- before/build/code/src/abg/replay.js
++++ after/build/code/src/abg/replay.js
+@@ -455,10 +455,15 @@
+     if (facts.last !== undefined && facts.last.runtimeEnd === events.at(-1) && facts.last.authority === authority && facts.last.authorityEnd === authorityEnd && facts.last.profileEnd === profileEnd)
+         return routeOnly === undefined ? facts.last.state : facts.last.state.routes.find(route => route.admissionEventRef === routeOnly);
+     const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
+-    const cCallIds = [...new Set(indexedRuntimeEvents(prefix, "type:c_call").map(event => event.aggregateId))];
+-    const cCalls = cCallIds.map((cCallRef) => {
++    const runStoppedRows = indexedRuntimeEvents(prefix, "kind:run_stopped").filter(event => stringField(event, "disposition") !== null);
++    const runStoppedRouteRefs = new Set(runStoppedRows.map(event => stringField(event, "routeRef")));
++    const cCallIds = new Set();
++    for (const event of indexedRuntimeEvents(prefix, "type:c_call"))
++        cCallIds.add(event.aggregateId);
++    const cCalls = [];
++    for (const cCallRef of cCallIds) {
+         const rows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef);
+-        return facts.fact("c_call:" + cCallRef, String(rows.at(-1)?.admissionOrdinal), () => {
++        const projected = facts.fact("c_call:" + cCallRef, String(rows.at(-1)?.admissionOrdinal), () => {
+             const phase = projectCCallPhase(prefix, cCallRef);
+             const evidenceRows = rows.filter((event) => event.kind === "c_call_evidenced");
+             const openedEvent = rows.find((event) => event.kind === "c_call_opened");
+@@ -521,12 +526,21 @@
+                 status,
+             };
+         });
+-    });
+-    const routes = indexedRuntimeEvents(prefix, "kind:traversal_route_admitted")
+-        .map(event => facts.fact("route:" + event.eventId, String(indexedRuntimeEvents(prefix, "payload:routeRef:" + stringField(event, "routeRef")).filter(candidate => candidate.kind === "construction_intent_selected").at(-1)?.admissionOrdinal ?? 0) + ":" +
+-        (isRecord(event.payload) && event.payload.boundInput !== undefined ? retainedWorksiteInputRelationVersion(authorityPrefix, event) + registeredSelectionInputRelationVersion(authorityPrefix, event) : ""), () => projectReplayRouteAtPrefix(prefix, event, authorityPrefix), isRecord(event.payload) && event.payload.boundInput !== undefined ? authority : undefined));
+-    const fanOutCompletions = indexedRuntimeEvents(prefix, "kind:fan_out_completion_admitted")
+-        .map((event) => {
++        if (routeOnly === undefined)
++            cCalls.push(projected);
++    }
++    const routes = [];
++    let selectedRoute;
++    for (const event of indexedRuntimeEvents(prefix, "kind:traversal_route_admitted")) {
++        const projected = facts.fact("route:" + event.eventId, String(indexedRuntimeEvents(prefix, "payload:routeRef:" + stringField(event, "routeRef")).filter(candidate => candidate.kind === "construction_intent_selected").at(-1)?.admissionOrdinal ?? 0) + ":" +
++            (isRecord(event.payload) && event.payload.boundInput !== undefined ? retainedWorksiteInputRelationVersion(authorityPrefix, event) + registeredSelectionInputRelationVersion(authorityPrefix, event) : ""), () => projectReplayRouteAtPrefix(prefix, event, authorityPrefix), isRecord(event.payload) && event.payload.boundInput !== undefined ? authority : undefined);
++        if (routeOnly === undefined || runStoppedRouteRefs.has(projected.routeRef))
++            routes.push(projected);
++        if (selectedRoute === undefined && projected.admissionEventRef === routeOnly)
++            selectedRoute = projected;
++    }
++    const fanOutCompletions = [];
++    for (const event of indexedRuntimeEvents(prefix, "kind:fan_out_completion_admitted")) {
+         const projected = projectExactFanOutCompletion(prefix, {
+             mode: "event_canonical",
+             admissionEventRef: event.eventId,
+@@ -535,114 +549,122 @@
+             projected.kind !== "fan_out_completion_admission") {
+             throw new TypeError(`invalid fan-out completion truth at ${event.eventId}`);
+         }
+-        return projected;
+-    });
+-    const constructionDeltas = indexedRuntimeEvents(prefix, "kind:construction_delta_observed")
+-        .map((event) => facts.fact("delta:" + event.eventId, event.eventId, () => {
+-        const required = [
+-            "deltaRef",
+-            "deltaDigest",
+-            "actionEvaluationAdmissionRef",
+-            "actionEvaluationAdmissionDigest",
+-            "constructionCompositionRef",
+-            "constructionCompositionDigest",
+-            "constructionIntentRef",
+-            "constructionIntentDigest",
+-            "targetOutcomeRef",
+-            "edgeFulfillmentLedgerRef",
+-            "edgeFulfillmentLedgerDigest",
+-            "edgeClosureDecisionRef",
+-            "edgeClosureDecisionDigest",
+-        ];
+-        const values = Object.fromEntries(required.map((key) => [key, stringField(event, key)]));
+-        const semanticEvidenceAssetRefs = stringArrayField(event, "semanticEvidenceAssetRefs");
+-        const runtimeEvidenceEventRefs = stringArrayField(event, "runtimeEvidenceEventRefs");
+-        const actionEvaluationAdmission = isRecord(event.payload)
+-            ? event.payload.actionEvaluationAdmission
+-            : undefined;
+-        const actionEvaluation = isRecord(event.payload)
+-            ? event.payload.actionEvaluation
+-            : undefined;
+-        const edgeClosureDecision = isRecord(event.payload)
+-            ? event.payload.edgeClosureDecision
+-            : undefined;
+-        if (Object.values(values).some((value) => value === null) ||
+-            semanticEvidenceAssetRefs === null ||
+-            runtimeEvidenceEventRefs === null ||
+-            !isRecord(actionEvaluationAdmission) ||
+-            !isRecord(actionEvaluation) ||
+-            !isRecord(edgeClosureDecision)) {
+-            throw new TypeError(`incomplete construction delta payload at ${event.eventId}`);
+-        }
+-        const { kind, schemaVersion, actionEvaluationAdmissionRef, actionEvaluationAdmissionDigest, ...actionEvaluationAdmissionBody } = actionEvaluationAdmission;
+-        if (kind !== "admitted_action_evaluation" ||
+-            schemaVersion !== "5.0.0" ||
+-            actionEvaluationAdmissionRef !==
+-                values.actionEvaluationAdmissionRef ||
+-            actionEvaluationAdmissionDigest !==
+-                values.actionEvaluationAdmissionDigest ||
+-            sha256Canonical(actionEvaluationAdmissionBody) !==
+-                values.actionEvaluationAdmissionDigest ||
+-            actionEvaluationAdmissionBody.constructionCompositionRef !==
+-                values.constructionCompositionRef ||
+-            actionEvaluationAdmissionBody.constructionCompositionDigest !==
+-                values.constructionCompositionDigest ||
+-            actionEvaluationAdmissionBody.constructionIntentRef !==
+-                values.constructionIntentRef ||
+-            actionEvaluationAdmissionBody.constructionIntentDigest !==
+-                values.constructionIntentDigest ||
+-            actionEvaluationAdmissionBody.edgeFulfillmentLedgerRef !==
+-                values.edgeFulfillmentLedgerRef ||
+-            actionEvaluationAdmissionBody.edgeFulfillmentLedgerDigest !==
+-                values.edgeFulfillmentLedgerDigest ||
+-            actionEvaluationAdmissionBody.edgeClosureDecisionRef !==
+-                values.edgeClosureDecisionRef ||
+-            actionEvaluationAdmissionBody.edgeClosureDecisionDigest !==
+-                values.edgeClosureDecisionDigest ||
+-            actionEvaluationAdmissionBody.workspaceBindingId !==
+-                stringField(event, "workspaceBindingId") ||
+-            actionEvaluationAdmissionBody.workspaceBindingDigest !==
+-                stringField(event, "workspaceBindingDigest") ||
+-            JSON.stringify(actionEvaluationAdmissionBody.semanticEvidenceAssetRefs) !==
+-                JSON.stringify(semanticEvidenceAssetRefs) ||
+-            JSON.stringify(actionEvaluationAdmissionBody.runtimeEvidenceEventRefs) !==
+-                JSON.stringify(runtimeEvidenceEventRefs) ||
+-            actionEvaluation.actionEvaluationRef !==
+-                actionEvaluationAdmissionBody.actionEvaluationRef ||
+-            actionEvaluation.actionEvaluationDigest !==
+-                actionEvaluationAdmissionBody.actionEvaluationDigest ||
+-            edgeClosureDecision.decisionRef !==
+-                values.edgeClosureDecisionRef ||
+-            edgeClosureDecision.decisionDigest !==
+-                values.edgeClosureDecisionDigest) {
+-            throw new TypeError(`invalid action-evaluation admission at ${event.eventId}`);
+-        }
+-        return {
+-            deltaRef: values.deltaRef,
+-            deltaDigest: values.deltaDigest,
+-            actionEvaluationAdmissionRef: values.actionEvaluationAdmissionRef,
+-            actionEvaluationAdmissionDigest: values.actionEvaluationAdmissionDigest,
+-            actionEvaluationAdmission,
+-            actionEvaluation,
+-            constructionCompositionRef: values.constructionCompositionRef,
+-            constructionCompositionDigest: values.constructionCompositionDigest,
+-            constructionIntentRef: values.constructionIntentRef,
+-            constructionIntentDigest: values.constructionIntentDigest,
+-            targetOutcomeRef: values.targetOutcomeRef,
+-            edgeFulfillmentLedgerRef: values.edgeFulfillmentLedgerRef,
+-            edgeFulfillmentLedgerDigest: values.edgeFulfillmentLedgerDigest,
+-            edgeClosureDecisionRef: values.edgeClosureDecisionRef,
+-            edgeClosureDecisionDigest: values.edgeClosureDecisionDigest,
+-            edgeClosureDecision,
+-            semanticEvidenceAssetRefs,
+-            runtimeEvidenceEventRefs,
+-            admissionEventRef: event.eventId,
+-        };
+-    }));
+-    const actorInvocationIds = [...new Set(indexedRuntimeEvents(prefix, "type:actor_invocation").map(event => event.aggregateId))];
+-    const actorProcesses = actorInvocationIds.map((actorInvocationRef) => {
++        if (routeOnly === undefined)
++            fanOutCompletions.push(projected);
++    }
++    const constructionDeltas = [];
++    for (const event of indexedRuntimeEvents(prefix, "kind:construction_delta_observed")) {
++        const projected = facts.fact("delta:" + event.eventId, event.eventId, () => {
++            const required = [
++                "deltaRef",
++                "deltaDigest",
++                "actionEvaluationAdmissionRef",
++                "actionEvaluationAdmissionDigest",
++                "constructionCompositionRef",
++                "constructionCompositionDigest",
++                "constructionIntentRef",
++                "constructionIntentDigest",
++                "targetOutcomeRef",
++                "edgeFulfillmentLedgerRef",
++                "edgeFulfillmentLedgerDigest",
++                "edgeClosureDecisionRef",
++                "edgeClosureDecisionDigest",
++            ];
++            const values = Object.fromEntries(required.map((key) => [key, stringField(event, key)]));
++            const semanticEvidenceAssetRefs = stringArrayField(event, "semanticEvidenceAssetRefs");
++            const runtimeEvidenceEventRefs = stringArrayField(event, "runtimeEvidenceEventRefs");
++            const actionEvaluationAdmission = isRecord(event.payload)
++                ? event.payload.actionEvaluationAdmission
++                : undefined;
++            const actionEvaluation = isRecord(event.payload)
++                ? event.payload.actionEvaluation
++                : undefined;
++            const edgeClosureDecision = isRecord(event.payload)
++                ? event.payload.edgeClosureDecision
++                : undefined;
++            if (Object.values(values).some((value) => value === null) ||
++                semanticEvidenceAssetRefs === null ||
++                runtimeEvidenceEventRefs === null ||
++                !isRecord(actionEvaluationAdmission) ||
++                !isRecord(actionEvaluation) ||
++                !isRecord(edgeClosureDecision)) {
++                throw new TypeError(`incomplete construction delta payload at ${event.eventId}`);
++            }
++            const { kind, schemaVersion, actionEvaluationAdmissionRef, actionEvaluationAdmissionDigest, ...actionEvaluationAdmissionBody } = actionEvaluationAdmission;
++            if (kind !== "admitted_action_evaluation" ||
++                schemaVersion !== "5.0.0" ||
++                actionEvaluationAdmissionRef !==
++                    values.actionEvaluationAdmissionRef ||
++                actionEvaluationAdmissionDigest !==
++                    values.actionEvaluationAdmissionDigest ||
++                sha256Canonical(actionEvaluationAdmissionBody) !==
++                    values.actionEvaluationAdmissionDigest ||
++                actionEvaluationAdmissionBody.constructionCompositionRef !==
++                    values.constructionCompositionRef ||
++                actionEvaluationAdmissionBody.constructionCompositionDigest !==
++                    values.constructionCompositionDigest ||
++                actionEvaluationAdmissionBody.constructionIntentRef !==
++                    values.constructionIntentRef ||
++                actionEvaluationAdmissionBody.constructionIntentDigest !==
++                    values.constructionIntentDigest ||
++                actionEvaluationAdmissionBody.edgeFulfillmentLedgerRef !==
++                    values.edgeFulfillmentLedgerRef ||
++                actionEvaluationAdmissionBody.edgeFulfillmentLedgerDigest !==
++                    values.edgeFulfillmentLedgerDigest ||
++                actionEvaluationAdmissionBody.edgeClosureDecisionRef !==
++                    values.edgeClosureDecisionRef ||
++                actionEvaluationAdmissionBody.edgeClosureDecisionDigest !==
++                    values.edgeClosureDecisionDigest ||
++                actionEvaluationAdmissionBody.workspaceBindingId !==
++                    stringField(event, "workspaceBindingId") ||
++                actionEvaluationAdmissionBody.workspaceBindingDigest !==
++                    stringField(event, "workspaceBindingDigest") ||
++                JSON.stringify(actionEvaluationAdmissionBody.semanticEvidenceAssetRefs) !==
++                    JSON.stringify(semanticEvidenceAssetRefs) ||
++                JSON.stringify(actionEvaluationAdmissionBody.runtimeEvidenceEventRefs) !==
++                    JSON.stringify(runtimeEvidenceEventRefs) ||
++                actionEvaluation.actionEvaluationRef !==
++                    actionEvaluationAdmissionBody.actionEvaluationRef ||
++                actionEvaluation.actionEvaluationDigest !==
++                    actionEvaluationAdmissionBody.actionEvaluationDigest ||
++                edgeClosureDecision.decisionRef !==
++                    values.edgeClosureDecisionRef ||
++                edgeClosureDecision.decisionDigest !==
++                    values.edgeClosureDecisionDigest) {
++                throw new TypeError(`invalid action-evaluation admission at ${event.eventId}`);
++            }
++            return {
++                deltaRef: values.deltaRef,
++                deltaDigest: values.deltaDigest,
++                actionEvaluationAdmissionRef: values.actionEvaluationAdmissionRef,
++                actionEvaluationAdmissionDigest: values.actionEvaluationAdmissionDigest,
++                actionEvaluationAdmission,
++                actionEvaluation,
++                constructionCompositionRef: values.constructionCompositionRef,
++                constructionCompositionDigest: values.constructionCompositionDigest,
++                constructionIntentRef: values.constructionIntentRef,
++                constructionIntentDigest: values.constructionIntentDigest,
++                targetOutcomeRef: values.targetOutcomeRef,
++                edgeFulfillmentLedgerRef: values.edgeFulfillmentLedgerRef,
++                edgeFulfillmentLedgerDigest: values.edgeFulfillmentLedgerDigest,
++                edgeClosureDecisionRef: values.edgeClosureDecisionRef,
++                edgeClosureDecisionDigest: values.edgeClosureDecisionDigest,
++                edgeClosureDecision,
++                semanticEvidenceAssetRefs,
++                runtimeEvidenceEventRefs,
++                admissionEventRef: event.eventId,
++            };
++        });
++        if (routeOnly === undefined)
++            constructionDeltas.push(projected);
++    }
++    const actorInvocationIds = new Set();
++    for (const event of indexedRuntimeEvents(prefix, "type:actor_invocation"))
++        actorInvocationIds.add(event.aggregateId);
++    const actorProcesses = [];
++    for (const actorInvocationRef of actorInvocationIds) {
+         const actorRows = indexedRuntimeEvents(prefix, "related:" + actorInvocationRef);
+-        return facts.fact("actor:" + actorInvocationRef, String(actorRows.at(-1)?.admissionOrdinal), () => {
++        const projected = facts.fact("actor:" + actorInvocationRef, String(actorRows.at(-1)?.admissionOrdinal), () => {
+             const opened = actorRows.find((event) => event.kind === "actor_invocation_started");
+             const processStarted = actorRows.find((event) => event.kind === "actor_process_started");
+             const processExited = actorRows.find((event) => event.kind === "actor_process_exited");
+@@ -691,41 +713,56 @@
+                         : "active",
+             };
+         });
+-    });
+-    const worksiteObservationCandidates = [...indexedRuntimeEvents(prefix, "kind:basis_admitted"), ...indexedRuntimeEvents(prefix, "kind:c_call_result_admitted")]
+-        .sort((a, b) => a.admissionOrdinal - b.admissionOrdinal).flatMap((event) => facts.fact("worksite:" + event.eventId, event.eventId, () => {
+-        const payload = event.payload;
+-        if (!isRecord(payload))
+-            return [];
+-        if (event.kind === "basis_admitted") {
+-            const request = payload.rawInputValue;
+-            return isWorksiteFileReplaceRequest(request)
+-                ? [{
+-                        observation: request.predecessorObservation,
++        if (routeOnly === undefined)
++            actorProcesses.push(projected);
++    }
++    const worksiteObservationCandidates = [];
++    for (const event of [...indexedRuntimeEvents(prefix, "kind:basis_admitted"), ...indexedRuntimeEvents(prefix, "kind:c_call_result_admitted")]
++        .sort((a, b) => a.admissionOrdinal - b.admissionOrdinal)) {
++        const projected = facts.fact("worksite:" + event.eventId, event.eventId, () => {
++            const payload = event.payload;
++            if (!isRecord(payload))
++                return [];
++            if (event.kind === "basis_admitted") {
++                const request = payload.rawInputValue;
++                return isWorksiteFileReplaceRequest(request)
++                    ? [{
++                            observation: request.predecessorObservation,
++                            sourceEventRef: event.eventId,
++                        }]
++                    : [];
++            }
++            if (event.kind !== "c_call_result_admitted")
++                return [];
++            // Successful C0 observations consume only the preceding evidence of
++            // this CCall. Failure authentication also needs its earlier basis and
++            // workspace authority, so retains the complete prior-history input.
++            const priorRows = routeOnly === undefined || payload.resultClass === "failure"
++                ? events
++                : indexedRuntimeEvents(prefix, "aggregate:c_call:" + event.aggregateId);
++            const transition = projectWorksiteTransitionForResult(event, priorRows.filter(candidate => candidate.admissionOrdinal < event.admissionOrdinal));
++            return transition === null || transition.successorObservation === null
++                ? []
++                : [{
++                        observation: transition.successorObservation,
+                         sourceEventRef: event.eventId,
+-                    }]
+-                : [];
+-        }
+-        if (event.kind !== "c_call_result_admitted")
+-            return [];
+-        const transition = projectWorksiteTransitionForResult(event, events.filter(candidate => candidate.admissionOrdinal < event.admissionOrdinal));
+-        return transition === null || transition.successorObservation === null
+-            ? []
+-            : [{
+-                    observation: transition.successorObservation,
+-                    sourceEventRef: event.eventId,
+-                }];
+-    }));
+-    const currentWorksiteObservations = [...new Map(worksiteObservationCandidates
++                    }];
++        });
++        if (routeOnly === undefined)
++            worksiteObservationCandidates.push(...projected);
++    }
++    const currentWorksiteObservations = routeOnly === undefined ? [...new Map(worksiteObservationCandidates
+             .filter(({ observation }) => holdsAt(eventCalculus, constructRuntimeFluent({
+             name: "worksite_observation_current",
+             identity: observation.observationRef,
+         })))
+-            .map((row) => [row.observation.observationRef, row])).values()];
++            .map((row) => [row.observation.observationRef, row])).values()] : [];
+     const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
+-    const continuations = [...projectFhContinuations(prefix, eventCalculus, authorityPrefix),
+-        ...projectConstructionIntentContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? ""),
+-        ...projectSelectedActionContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? "")];
++    const fhContinuations = projectFhContinuations(prefix, eventCalculus, authorityPrefix);
++    const intentContinuations = projectConstructionIntentContinuations(authorityPrefix, runOpen?.runId ?? "");
++    const selectedContinuations = projectSelectedActionContinuations(authorityPrefix, runOpen?.runId ?? "");
++    const continuations = routeOnly === undefined
++        ? [...fhContinuations, ...intentContinuations, ...selectedContinuations] : [];
+     const graphCallOpen = indexedRuntimeEvents(prefix, "kind:graph_call_opened").find((event) => event.kind === "graph_call_opened" &&
+         stringField(event, "parentFrameId") === null);
+     const frameOpen = graphCallOpen === undefined
+@@ -746,8 +783,6 @@
+         : indexedRuntimeEvents(prefix, "kind:graph_call_closed").find((event) => event.kind === "graph_call_closed" &&
+             event.graphCallId === graphCallOpen.graphCallId);
+     const runClosed = indexedRuntimeEvents(prefix, "kind:run_closed")[0];
+-    const runStoppedRows = indexedRuntimeEvents(prefix, "kind:run_stopped").filter((event) => event.kind === "run_stopped" &&
+-        stringField(event, "disposition") !== null);
+     const invocationRefused = indexedRuntimeEvents(prefix, "kind:invocation_refused")[0];
+     const runtimeFailure = indexedRuntimeEvents(prefix, "kind:runtime_failure_observed")[0];
+     if (runStoppedRows.length > 1) {
+@@ -796,7 +831,7 @@
+     }
+     const eventStoreDigest = runtimeEventPrefixDigest(prefix);
+     if (routeOnly !== undefined)
+-        return routes.find(route => route.admissionEventRef === routeOnly);
++        return selectedRoute;
+     const nativeLiveness = projectNativeLivenessRead(prefix, runOpen?.runId ?? null, graphCallOpen?.graphCallId);
+     const body = {
+         ...(nativeLiveness === null ? {} : { nativeLiveness }),

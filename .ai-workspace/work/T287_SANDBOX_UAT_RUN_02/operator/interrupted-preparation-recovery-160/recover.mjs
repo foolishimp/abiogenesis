@@ -1,0 +1,48 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,lstat,stat} from 'node:fs/promises';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {join} from 'node:path';
+import {createHash} from 'node:crypto';
+import {installedModules} from '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs';
+const root=fileURLToPath(new URL('.',import.meta.url)),json=async path=>JSON.parse(await readFile(path));
+const record=(name,value)=>writeFile(join(root,name),JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+const pin=async path=>{const s=await lstat(path);assert(s.isFile()&&!s.isSymbolicLink());const b=await readFile(path);return {path,sha256:createHash('sha256').update(b).digest('hex'),byteCount:b.length};};
+const t0=performance.now();let stage='preflight';
+const mark=async(name,data={})=>{stage=name;const value={stage:name,at:new Date().toISOString(),wallMs:performance.now()-t0,pid:process.pid,memory:process.memoryUsage(),maxRSSKiB:process.resourceUsage().maxRSS,...data};await record(name+'.json',value);process.stdout.write(JSON.stringify(value)+'\n');};
+async function physical(rows,workspaceRoot){
+ for(const row of rows){const path=join(workspaceRoot,row.relativePath);assert(path.startsWith(workspaceRoot+'/'));
+  if(row.state==='absent')await assert.rejects(lstat(path),e=>e.code==='ENOENT');
+  else{const observed=await pin(path);assert.equal(observed.sha256,row.sha256);assert.equal(observed.byteCount,row.byteCount);}}
+}
+try{
+ const inputs=await json(join(root,'inputs.json'));
+ for(const row of [inputs.sourceFreeze,inputs.residue,inputs.physicalConservation,inputs.interruption,inputs.handoff,inputs.host,inputs.acquisition])assert.deepEqual(await pin(row.path),row);
+ const frozen=await json(inputs.sourceFreeze.path);for(const row of frozen.pins)assert.deepEqual(await pin(row.path),row);
+ const residue=await json(inputs.residue.path),previous=await json(inputs.physicalConservation.path),physicalBefore=await json(join(inputs.sourcePreparation,'physical-preflight.json'));
+ const lock=await lstat(residue.path),bytes=await readFile(residue.path);assert(lock.isFile()&&!lock.isSymbolicLink());assert.equal(lock.dev,16777231);assert.equal(lock.ino,469189808);assert.equal(bytes.length,124);assert.equal(bytes.toString('base64'),residue.base64);assert.equal('sha256:'+createHash('sha256').update(bytes).digest('hex'),'sha256:034d452d502235ebb2ad8dba4cdca001410299b61713738e0c59427ce7354fbf');
+ const processFacts=[];for(const pid of [71569,71563]){let absent=false;try{process.kill(pid,0);}catch(e){assert.equal(e.code,'ESRCH');absent=true;}assert(absent,'Previously owned process still exists; requires exact ownership triage');processFacts.push({pid,probe:'ESRCH'});}
+ await physical(previous.literalMaterialRows,physicalBefore.workspaceRoot);
+ const handoff=await json(inputs.handoff.path),before=await stat(fileURLToPath(handoff.prefix.eventLogRef),{bigint:true});
+ assert.deepEqual({device:Number(before.dev),inode:Number(before.ino),byteCount:Number(before.size),mtimeNs:String(before.mtimeNs)},inputs.expectedPhysical);
+ await record('quiescence.json',{at:new Date().toISOString(),processFacts,exclusiveMaintenance:true,log:previous.physicalStat,materialFiles:48,absence:1,literalRowsUnchanged:true,selectedLock:residue});
+ const host=await json(inputs.host.path),reader=await json(inputs.acquisition.path),runtime=await installedModules(host.installedRoot);
+ for(const name of ['abgEventRecoveryScope','recoverInterruptedAbgEventResource'])assert.equal(typeof runtime.abg[name],'function');
+ assert.equal(reader.verification.verifiedArtifact.productContentDigest,host.productContentDigest);assert.equal(reader.verification.verifiedArtifact.artifactDigest,'sha256:'+host.artifactSha256);
+ const request={kind:'abg_interrupted_event_resource_recovery',schemaVersion:'5.0.0',lastCloseHandoff:handoff,expectedCurrent:inputs.expectedCurrent,abandonedLock:{path:residue.path,device:lock.dev,inode:lock.ino,bytesBase64:bytes.toString('base64'),digest:'sha256:'+residue.sha256},interruption:{ownerPid:71569,evidence:{ref:pathToFileURL(inputs.interruption.path).href,digest:'sha256:'+inputs.interruption.sha256},quiescenceEvidence:{ref:pathToFileURL(join(root,'quiescence.json')).href,digest:'sha256:'+(await pin(join(root,'quiescence.json'))).sha256},exclusiveMaintenance:true},ownerArtifact:{request:reader.request,verified:reader.verification.verifiedArtifact}};
+ const hash=runtime.product.sha256Canonical,requestDigest=hash(request),scope=runtime.abg.abgEventRecoveryScope(request),actorRef='actor://abiogenesis/T287/executive-root';
+ const authorityValue={actorRef,authorityMode:'trusted_developer'},approvalValue={decision:'allow',actorRef,definitionRef:runtime.abg.ABG_EVENT_RESOURCE_RECOVERY.definitionRef,definitionDigest:runtime.abg.ABG_EVENT_RESOURCE_RECOVERY_DIGEST,requestDigest,scopeDigest:scope.digest};
+ assert.equal(approvalValue.definitionRef,'native-maintenance://abiogenesis/event-resource/recover@5');
+ const approval={kind:'resolved_admission_authority',schemaVersion:'5.0.0',actorRef,authorityMode:'trusted_developer',authority:{ref:'authority://abiogenesis/T287/executive-root/maintenance160',digest:hash(authorityValue),value:authorityValue},approval:{ref:'approval://abiogenesis/T287/interrupted-preparation-recovery-160',digest:hash(approvalValue),value:approvalValue}};
+ await record('request.json',request);await record('scope.json',scope);await record('approval.json',approval);
+ await mark('sdk-recovery-start',{requestDigest,scopeDigest:scope.digest,installedRoot:host.installedRoot,ownerArtifactDigest:request.ownerArtifact.verified.artifactDigest,noDuplicateManualVerification:true});
+ // Unmodified maintenance owner verifies executing26 before its physical
+ // history validation/adoption, then performs ordinary close/release.
+ const receipt=await runtime.abg.recoverInterruptedAbgEventResource(request,approval);await record('recovery-receipt.json',receipt);
+ await mark('sdk-recovery-return',{kind:receipt.kind,outcomeKind:receipt.outcome?.kind??null});
+ if(receipt.kind!=='abg_event_resource_recovery_receipt'||receipt.outcome.kind!=='recovered')throw Object.assign(new Error('Actual maintenance owner refused recovery'),{actualReceipt:receipt});
+ assert.equal(receipt.outcome.validatedEventCount,206277);assert.deepEqual(receipt.outcome.closeHandoff,handoff);
+ const after=await stat(fileURLToPath(handoff.prefix.eventLogRef),{bigint:true});assert.equal(after.dev,before.dev);assert.equal(after.ino,before.ino);assert.equal(after.size,before.size);assert.equal(after.mtimeNs,before.mtimeNs);
+ await assert.rejects(lstat(residue.path),e=>e.code==='ENOENT');await physical(previous.literalMaterialRows,physicalBefore.workspaceRoot);
+ await record('conservation.json',{sameFullCloseHandoff:true,validatedEventCount:receipt.outcome.validatedEventCount,log:{path:fileURLToPath(handoff.prefix.eventLogRef),device:Number(after.dev),inode:Number(after.ino),byteCount:Number(after.size),mtimeNs:String(after.mtimeNs),prefixDigest:receipt.outcome.closeHandoff.prefix.prefixDigest},physicalMaterialRows:previous.literalMaterialRows,materialFiles:48,absence:1,literalRowsUnchanged:true,selectedLockAbsent:true,digestEstablishedBy:'Exact maintenance SDK physical validation; no additional log hash/parse',noAppendPublicRunModelAppSourceGit:true});
+ await mark('complete',{validatedEventCount:receipt.outcome.validatedEventCount,prefix:receipt.outcome.closeHandoff.prefix,selectedLockAbsent:true,receiptDigest:receipt.receiptDigest});
+}catch(error){await record('first-cause.json',{stage,name:error.name,message:error.message,stack:error.stack,actualReceipt:error.actualReceipt??null,at:new Date().toISOString(),wallMs:performance.now()-t0,memory:process.memoryUsage(),stop:'First failure; no retry/recovery/directunlink or preparation effects'});process.stderr.write(String(error.stack??error)+'\n');process.exitCode=1;}

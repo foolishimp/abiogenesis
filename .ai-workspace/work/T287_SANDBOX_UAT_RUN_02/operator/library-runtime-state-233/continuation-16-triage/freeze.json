@@ -1,0 +1,29 @@
+{
+  "kind": "continuation16_read_only_integration_how_rca_freeze",
+  "status": "CLOSED_STOP",
+  "disposition": "SUFFICIENT_FINITE_RESPONDER_BLOCKER; UNIQUE_EXCHANGE_CONJUNCT_UNPROVED",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/freeze.json",
+    "sha256": "134eeb4c526552027daddd356f338eba4748e885bcbe54b83504e02adc07d8a2",
+    "byteCount": 66915
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-16-triage/return.md",
+      "sha256": "294c66b50db7500f80f411cd21f44ff16ede3a9931e1aa8fcbeb47170f2728e8",
+      "byteCount": 5440
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-16-triage/pins.json",
+      "sha256": "451e7d63472cfbb8553872c4df8b8f4a5b28bb677ba1704c7ca20af44d1aac23",
+      "byteCount": 7355
+    }
+  ],
+  "permittedNextEffects": "None; Executive selection required",
+  "excluded": [
+    "whole history/log read/hash/acquisition",
+    "runtime/owner/native/model/worksite effects",
+    "Source/HOW/test/helper/package/Git effects",
+    "capacity/UAT/release qualification"
+  ]
+}

@@ -1,0 +1,34 @@
+✔ complete canonical declarations permit only publication identity consequences (19.09375ms)
+✖ covered use binds exact original state, complete canonical Catalog and cold admitted coordinates (617.092459ms)
+✔ built-in ingress preserves the whole captured34 state and independent assessment subject (75.664416ms)
+(node:87184) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ reference preparation resolves exact dependencies in leaf and builtin fallbacks before warm reuse (60.140292ms)
+✔ cold admitted preparation consumes Result/J without declaration resolution or history reread (50.473125ms)
+✔ inline request and task identities remain unchanged through cold admitted consumption (20.217208ms)
+✔ library prepare-testing reuses the invoking private operation and its actual F_D origin (74.396333ms)
+ℹ Actual library preparation/matcher and cold F_D Result/J/evidence relations; physical constructors are real. Source/environment/cover/CCall lookups are controlled lower premises, not new native or installed admission.
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1001.969167
+
+✖ failing tests:
+
+test at test_env/tests/t287-governance-covered-source-use.test.mjs:117:1
+✖ covered use binds exact original state, complete canonical Catalog and cold admitted coordinates (617.092459ms)
+  TypeError [Error]: runtime event payload matches no admitted event-contract variant
+      at assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/build/code/src/abg/event_store.js:1675:15)
+      at projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/build/code/src/abg/event_store.js:1375:5)
+      at Module.projectRuntimeEventFromValidatedHistory (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/build/code/src/abg/event_store.js:1367:12)
+      at Object.append (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:51:24)
+      at invokeRow (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:63:21)
+      at coveredFixture (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:86:31)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:118:17)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)

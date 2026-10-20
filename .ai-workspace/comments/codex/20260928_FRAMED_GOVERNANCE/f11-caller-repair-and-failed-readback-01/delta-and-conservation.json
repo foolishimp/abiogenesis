@@ -1,0 +1,77 @@
+{
+  "reentry": "realization_refactor",
+  "ordinaryCaller": "Only ordinary root read assertion omits qualificationResources; single freshRead extraction permits explicit diagnostic refusal/result observations without outcome coercion; positive freshReads still require results.",
+  "flowDriver": "Three positive boundaries use actual completed Run plus published typed terminal Result gate before cold proof reads or F11/AF22 advancement.",
+  "keptCompleteRunF11AF22Resources": true,
+  "keptR10ProofRulesAndOutcomeSum": true,
+  "unchangedDonors": [
+    {
+      "member": "public-support.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/public-support.mjs",
+        "bytes": 10660,
+        "sha256": "23eb2e8573059a840fd1a554cc53db5dc01fe96a933a329efba302e0a8eed9cd"
+      }
+    },
+    {
+      "member": "public-outcomes.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/public-outcomes.mjs",
+        "bytes": 2366,
+        "sha256": "1936e1b8f6ef199f99df8ac6284fd7e06a7b166a1280fc09939ebc661155bf59"
+      }
+    },
+    {
+      "member": "proof-oracles.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/proof-oracles.mjs",
+        "bytes": 9029,
+        "sha256": "0c7c2c87774a62a0a6baef6b6efcfacd30ec989dc10827c8b6394e6c36bc4f6f"
+      }
+    },
+    {
+      "member": "prepare-resources.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/prepare-resources.mjs",
+        "bytes": 7684,
+        "sha256": "748f3137fe53c19fb489ea3c18adc491abbc775fc835b2de4f613f61f751a6d2"
+      }
+    },
+    {
+      "member": "conformance-resources.mjs",
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/conformance-resources.mjs",
+        "bytes": 673,
+        "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251"
+      }
+    }
+  ],
+  "newProductAPI": false,
+  "privateImports": false,
+  "newController": false,
+  "runtime06AndQ06": "immutable; no writes",
+  "changedSources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/ordinary-caller.mjs",
+      "bytes": 18118,
+      "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/flow-driver.mjs",
+      "bytes": 6502,
+      "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51"
+    }
+  ],
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/preimages/ordinary-caller.mjs",
+      "bytes": 17926,
+      "sha256": "dac635825ab7941766c2086433170bc5935d94bc3566bdad01755961ed82f9b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/preimages/flow-driver.mjs",
+      "bytes": 6002,
+      "sha256": "7b1e47b4703583cce853e3f50e136b6b7ec7c5490f77030871048c3ae0ecd8dc"
+    }
+  ]
+}

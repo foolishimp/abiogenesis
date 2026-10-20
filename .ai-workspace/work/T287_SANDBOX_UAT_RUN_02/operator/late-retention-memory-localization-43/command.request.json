@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--expose-gc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/diagnostic.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "started": "2026-10-07T14:06:23.081289+00:00",
+  "diagnosticOnly": true,
+  "timeoutMs": 180000,
+  "defaultHeap": true,
+  "noRuntimeControlChange": true
+}

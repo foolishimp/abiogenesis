@@ -1,0 +1,9 @@
+{
+  "origin": "External caller lost producer snapshot root and resolved all3 physical output reads from protected A.canonicalRoot. Both paths exist in HOW but own different effects.",
+  "ProductDesign": "Accepted observed-source HOW protects original inputs/Product and runs helper commands in task/attempt sandbox. Existing Product helper plan/artifact/observation law is adequate.",
+  "IntegrationIdentity": "Successor validates task equality, retained plan under existing owner, artifact path/ref/digest/length, helper predicate and full snapshot/value-vector joins, then requires snapshotRoot===plan.sandboxRoot before binding any output file. Every affected read uses that root with canonical contained paths.",
+  "LifecycleEffect": "Actual output attempt is derived from each successful observation, never the old failed attempt or guessed directory. Original716 and installed Product checks retain their own roots. No runtime/native effect in this repair.",
+  "Proof": "First API failure prevented old success consumer execution. Independent forward review exposed a latent physical-output dependency omitted in Worker preflight. Ten local checks now exercise unequal/crossed roots and failed producer; they do not substitute for native success.",
+  "reentry": "realization_refactor, external consumer only. Qualification material constructor is unchanged because it is pure over native observations and has no physical read dependency.",
+  "preservedProbe": "probe01-triage.json retains initial local fixture timeout/grace error, its exact code and failed output. Existing source law fixes the local fixture correction, not Product behavior."
+}

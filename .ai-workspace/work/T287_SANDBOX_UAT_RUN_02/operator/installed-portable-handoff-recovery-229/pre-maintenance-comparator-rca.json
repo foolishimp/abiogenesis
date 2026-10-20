@@ -1,0 +1,20 @@
+{
+  "failure": {
+    "file": "recover-stop-source.mjs",
+    "line": 58,
+    "name": "AssertionError",
+    "ownerEntry": false,
+    "actual31VerificationPassed": true
+  },
+  "cause": "deepStrictEqual compared executable Valibot schema function objects from separately instantiated installed29 and31 modules; those references are naturally distinct. This is a caller proof premise, not a canonical owner refusal.",
+  "boundedAction": "Compare the unchanged canonical Public Witness definition ref/digest and typed-content ref/digest; keep each installed module's actual schema owner, event-profile equality, nominal verifier separation and all maintenance/acquisition guards. Preserve original failed caller/receipts. No retry has occurred.",
+  "pureExistingOwnerCoordinates": {
+    "definitionRef": "public-function://abiogenesis/witness/admit/run-stopped@5",
+    "definitionDigest": "sha256:2db17e2075decf2cd35511f7c71b828a28a1040c4d886c1141f654db74efacf8",
+    "contentRef": "contract://abiogenesis/witness/run-stopped@5",
+    "contentDigest": "sha256:875d96f956aace57f44b50855da1cf95a7a5d5c0afa6d73884049e03df783795",
+    "eventProfileDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "actual29And31Equal": true
+  },
+  "conservation": "pre-maintenance-failure-conservation.json"
+}

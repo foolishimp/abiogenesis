@@ -1,0 +1,9 @@
+{
+  "exitCode": 1,
+  "toolSession": 79404,
+  "separatelyMeasuredWallMs": null,
+  "cause": "phase diff classifier omitted capabilityDefinitionRef; complete graph owner correspondence already passed",
+  "failedPath": "/rows/0/capabilityDefinitionRef",
+  "precedingDeclarationAndPublicBinderAssertionsCompleted": true,
+  "sourceBuildGeneratedChanged": false
+}

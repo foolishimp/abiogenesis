@@ -1,0 +1,234 @@
+{
+  "kind": "runtime_owned_handoff_source_successor_readiness",
+  "status": "CLOSED_SOURCE_ONLY",
+  "sourceCut": 35,
+  "authority": {
+    "family": "ABI5.0 fixed fifteen families",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "stdo": "2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  },
+  "origin": {
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-235/review.md",
+      "sha256": "58a870c8979f35cb8da3afe962099b3b0536f0922d03a81398520698ddbbf5fe",
+      "bytes": 8647
+    },
+    "cause": "Ordinary owned HoG next-input/structural/recursive consumers called Public complete-prefix readers. Private retry comparison also reused full-output digest equality.",
+    "selectedAction": "Existing owned authority/Run selectors and same canonical outcome/cursor/interaction/planner cores. Private comparison authenticates genuine prefix/replay cut receipts and every exact finite plan field."
+  },
+  "scope": {
+    "deltaFrom34Files": 16,
+    "deltaProduction": 14,
+    "deltaHow": 1,
+    "deltaTest": 1,
+    "cumulative233Files": 66,
+    "sourcePopulation": {
+      "same232": 195,
+      "owned233": 61,
+      "accepted235": 7,
+      "newPrivateOwner": 1
+    },
+    "fullSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/dependency-cut-35-inputs.json",
+      "sha256": "8a8265aad43b0046e96dfe95e573b2875c2ee8cad5ef1e66183edf7dd8844a21",
+      "bytes": 80618
+    },
+    "fullEmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/dependency-cut-35-emission.json",
+      "sha256": "61e54d3db74dd28966e38e637c08c20486342ba30c24d78e4a3072e0b746884a",
+      "bytes": 161514
+    },
+    "postimages": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/postimages.json",
+      "sha256": "6c03e716cf304926bc999065ba6ad1a581b3f44a271c4c93c524ddc51675479f",
+      "bytes": 74156
+    },
+    "incrementFrom34": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/increment-from-34.diff",
+      "sha256": "5191e243a049726ba4a169b0ad363189002071ceb93b562551f511e61f803951",
+      "bytes": 46897
+    },
+    "dependencyConjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/dependency-conjunction.json",
+      "sha256": "d950c12c4df3a5d60d0536f4d2224a0985f80194e8b2edbb3a5e18542222cd34",
+      "bytes": 15491
+    },
+    "emissionChangesFrom34": [
+      "abg/c_call.js",
+      "abg/c_call_outcome.js",
+      "abg/event_prefix.d.ts",
+      "abg/event_prefix.js",
+      "abg/replay.js",
+      "abg/retry.js",
+      "hog/ccall_lifecycle.js",
+      "hog/graph_execute.js",
+      "hog/interaction_resume.js",
+      "hog/recursion_lifecycle.js",
+      "hog/retry_lifecycle.js",
+      "hog/structural_transition.js",
+      "hog/workflow_lifecycle.js"
+    ]
+  },
+  "proof": {
+    "strict264": {
+      "command": [
+        "node",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--project",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/tsconfig-03.json"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 6533.425499976147,
+      "sourceFiles": 264,
+      "input": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/inputs-03.json",
+      "limits": [
+        "isolated Source emission only; no normal build/publication/runtime readiness"
+      ]
+    },
+    "strippedDeclarations264": {
+      "kind": "stripped_declaration_component_check",
+      "declarations": 264,
+      "skipLibCheck": false,
+      "elapsedMs": 3295.088583,
+      "diagnostics": [],
+      "limits": [
+        "Type linkage only; no normal publication or runtime readiness"
+      ]
+    },
+    "affectedFive": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/commands/focused-03.result.json",
+        "sha256": "4e51464e359a69321141e27832ac5c8edddd47de580fae6b3a03a4a8bff9b36c",
+        "bytes": 818
+      },
+      "passed": 5,
+      "failed": 1,
+      "reuse": "Five successful existing components on exact final production Source. Failed foreign-cut fixture setup is preserved, not counted as proof."
+    },
+    "affectedComparison": {
+      "kind": "affected_finite_plan_comparison_check",
+      "command": [
+        "node",
+        "--expose-gc",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-name-pattern=finite pure candidate",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/test-successor-04/test_env/tests/t287-route-reconstruction.test.mjs"
+      ],
+      "source": "inputs-03.json",
+      "exitCode": 0,
+      "elapsedMs": 554.6622920082882,
+      "causeAction": "focused-03 foreign-cut setup reopened an already-owned sink; corrected only with an independent canonical terminalOwner resource",
+      "limits": [
+        "Only the affected prospective/cut comparison test; other five focused-03 components and strict/declarations reused. No genuine installed retry/HoG/Source41 proof."
+      ]
+    },
+    "finiteComparison": {
+      "acceptedEvents": 14,
+      "prospectiveEvents": 3,
+      "acceptedDigest": "sha256:bc5c0143dc8dd7153ab79f57b90f814f484459226151454eab8129614b4e83c3",
+      "pure": true,
+      "comparisonWork": {
+        "bodyRows": 0,
+        "scopeRows": 0,
+        "membershipComparisons": 0,
+        "selectorRows": 0
+      },
+      "limit": "Finite carrier/cut authentication only; basis candidates do not claim completed retry admission or genuine HoG execution."
+    },
+    "finiteRoute": {
+      "rows": [
+        14,
+        78
+      ],
+      "physicalBytes": [
+        25578,
+        4302816
+      ],
+      "warmBodyRows": [
+        1,
+        1
+      ],
+      "warmBytes": [
+        2389,
+        2389
+      ],
+      "membershipComparisons": [
+        4,
+        5
+      ],
+      "warmScopeRows": [
+        0,
+        0
+      ],
+      "warmSelectorRows": [
+        0,
+        0
+      ],
+      "scopedExtentAllWorkZero": true,
+      "afterExplicitOutputWarmCostPreserved": true
+    },
+    "fullReplay": {
+      "logicalBytes": 4622,
+      "digest": "sha256:808ec2fe21730774c15d498eb26f49d3082da52c0eba7036644a6b8f3d1a0b48",
+      "fullValueAndStreamCanonicalEqual": true,
+      "nativeAndContinuationFields": "Repriced to actual237 owner specimen; not instantiated by finite terminal fixture."
+    },
+    "lifetime": {
+      "droppedTargetCollected": true,
+      "ownerStillOpen": true,
+      "operationalHeap": 69581888,
+      "snapshotHeap": 104999232,
+      "afterDropHeap": 42798288,
+      "discardedCollectionStreamBytes": 29800295,
+      "firstColdRouteBodyRows": 104,
+      "firstColdRouteBytes": 4362729,
+      "limit": "Finite observation; no dominant-retainer/campaign capacity claim."
+    }
+  },
+  "failureRca": [
+    {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/commands/strict-01.result.json",
+        "sha256": "7ab2363eac518b933360f88fa0b9dda23821ee4176672d17c5ca70eecad0ae08",
+        "bytes": 259
+      },
+      "cause": "Mechanical private cursor/completed retry type relation still required Public carriers.",
+      "action": "Stripped private overload/parameter routing at same canonical owner; unchanged Public signatures.",
+      "documentaryCount": "Actual stdout has9 TS diagnostic lines; original result/chat count11 remains immutable."
+    },
+    {
+      "cause": "Private comparison streamed the entire prefix+ReplayState twice, preserving hash meaning but acquiring accumulated bodies.",
+      "action": "Exact genuine owner-cut/replay receipt plus canonical equality of every finite plan field; Public complete hash preserved."
+    },
+    {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/commands/focused-03.result.json",
+        "sha256": "4e51464e359a69321141e27832ac5c8edddd47de580fae6b3a03a4a8bff9b36c",
+        "bytes": 818
+      },
+      "cause": "Foreign-cut fixture reopened an already-owned disposable resource; canonical exclusive-lock sink_unavailable refusal occurred before target comparison.",
+      "action": "Only test premise changed to a second independent canonical terminalOwner resource with genuine distinct ownership and cleanup. Selected affected retry passed focused04; no Production/HOW repair from this fixture failure."
+    }
+  ],
+  "inheritedAcceptedEvidence": {
+    "cut34Freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/freeze.json",
+      "sha256": "4ae653dac80bff28be020f57b9cc77d7e3fe6d60338766fb4848fb69189bf4eb",
+      "bytes": 11110
+    },
+    "source235": "Seven exact independently accepted production postimages unchanged.",
+    "priorCoreProofs": "Cold/raw-v1/v2/rollback/byte-corruption/complete-output/198/220/225 proofs retain their original exact applicability limits."
+  },
+  "limits": [
+    "Source-only readiness: no ordinary shared build/generator/package/install, original log/worksite/lock, app/model/native/provider/Git effects.",
+    "Actual graph next-input, recursion/failure-foldback and completed retry admission were not executed in a genuine HoG/installed specimen. Historical142/145 installed25 identity was not reconstructed or replaced; actual237 is the next selected proof.",
+    "Finite candidates use genuine durable/preview owners with controlled lower declaration/outcome/closure premises; they prove carrier/cut comparison, not Source41 or completed retry admission.",
+    "Explicit complete Public outputs and full digest meaning remain. Required replayDigest creation may transiently acquire its complete logical extent; zero body-acquisition is proved for private plan comparison, not all retry planning.",
+    "Existing198 complete post-close snapshots,220 narrow route and225 portable close remain distinct. Exact inherited lifetime/codec/cold checks apply only where their owner Sources and premises remain unchanged.",
+    "Whole campaign retained heap, Source/currentness/native/HoG/body-readback, capacity/UAT/qualification/release remain open."
+  ]
+}

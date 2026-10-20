@@ -1,0 +1,38 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAtUTC": "2026-10-04T15:37:32.165203+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/controls/worker-grant.md",
+    "bytes": 6689,
+    "sha256": "91cdb287353d69f18e554299a4b1443c38c3c87b97c5584c8a3f9a3b01d01528"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/controls/source-subject.json",
+    "sha256": "f6f695db8a77284e4ad4c8c3ac91d20d82053ca97fdbd1c0bb27c6d3dfc734bc",
+    "rows": 16
+  },
+  "SourceWrites": 0,
+  "reentry": "realization_refactor of private physical staging",
+  "ProductFrame": "Fixed fifteen-family ABG5 / GOAL035 / T287 F02/F03/F05/F13; original GTL/sole validator/HoG/ABG unchanged",
+  "HOW": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+  "basis": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "HOME": "/Users/jim",
+  "defaultHeap": true,
+  "budgetsSeconds": {
+    "preflight": 120,
+    "manifest": 120,
+    "pack": 120,
+    "extract": 120,
+    "focused": 240,
+    "terminationGrace": 5
+  },
+  "work": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "evidence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "excluded": "immutable controls; Source/comments/all old work/evidence/runtime/Git/network"
+}

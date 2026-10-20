@@ -1,0 +1,71 @@
+{
+  "role": "Operator38",
+  "executionRelease": "Root conjoined CLOSED Source37+Proof37 preparation, Source36+Proof36 publication and Source35+Proof35 memory realization; ONE genuine original DataMapper installed UAT",
+  "method": "STDO2.5.1-rc.2",
+  "frames": [
+    "f-worksite-causality",
+    "f-end-to-end-interface-integration"
+  ],
+  "preparation": {
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/return.md",
+      "sha256": "e1843f93b18da47323fa5ba1d94b8dfdcba7c329dd6d25d0b44d3d14776b3490",
+      "byteCount": 2304
+    },
+    "readiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/readiness.json",
+      "sha256": "51607b2681cbb58e1e4c5fcd2b9a58f831e74d9bb71d0c71645e3ea862d8823e",
+      "byteCount": 4594
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/freeze.json",
+      "sha256": "82f214c46b4d367b825c88263f2d3239726f73a5ce7ab9ba1b7be520200feacb",
+      "byteCount": 7753
+    },
+    "config": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/config.json",
+      "sha256": "1143a9097726a99a01d653e1d360df66fb31f7444058eef40ba529b70d6fe72b",
+      "byteCount": 2961
+    },
+    "setup": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/setup.json",
+      "sha256": "59ae4c672b096c1939ddfbd7b9be81ad945ce8bfeaf712a9df0bfafc3f33d07a",
+      "byteCount": 3403
+    }
+  },
+  "allSelectedPinsFresh": true,
+  "existingMaterialAcquisitionFresh": true,
+  "suppliedOriginals": 4,
+  "suppliedAuthors": 41,
+  "oldNativeCredit": false,
+  "noOperatorAppChanges": true,
+  "executionAuthority": {
+    "overallT0": "2026-10-06T20:52:43.725Z",
+    "firstFiveHourQualityCheckpointUTC": "2026-10-07T01:52:43.725Z",
+    "rootContinuedAtUTC": "2026-10-07T01:51:28Z",
+    "operatorAcknowledgedAtUTC": "2026-10-07T01:52:06.903Z",
+    "currentExternalQualityCheckpointUTC": "2026-10-07T06:52:43.725Z",
+    "currentExternalQualityCheckpointSydney": "2026-10-07T17:52:43.725+11:00",
+    "clockReset": false,
+    "newNativeStartObservation": "NEW commands/lifecycle-start.request.json.started immediately before CLI spawn, reported without resetting originalT0",
+    "rootExternalExecutiveDecidesContinueOrStop": true
+  },
+  "recorder": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912,
+    "basis": "setup/recording drainage only; never native execution authority extension"
+  },
+  "stop": {
+    "owner": "existing native C2/helper/provider process supervision",
+    "order": [
+      "While CLI lives resolve exact admitted C2 occurrence/task/attempt to launch.json/helper argv; match live helper and detached command PID/PGID via ancestry.",
+      "At Root stop/checkpoint disposition stop only exact owned helper/command first: TERM, bounded confirmation/grace, KILL only if still exact-owned; preserve real missing artifact/exit.",
+      "Resolve exact current admitted provider PID/PGID, verify identity immediately, then stop only that owned group while CLI remains alive.",
+      "Allow real exit/failure admission/drain; retain fresh-read presence/absence and raw truncation/exit truth."
+    ],
+    "noGuessedPidsOrPrivateEvents": true
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38",
+  "recorderPid": 56743
+}

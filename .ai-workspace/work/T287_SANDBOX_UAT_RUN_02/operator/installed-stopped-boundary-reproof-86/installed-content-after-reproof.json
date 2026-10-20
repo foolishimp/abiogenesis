@@ -1,0 +1,14 @@
+[
+  {
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/cb547b9289b53bfee01460404da22d47d1fa906765c4dba83d08d128454a566e/6c506a27fc50b3b23a9d3ff7076adb1699e4eb51061c91939da869b03ec25616",
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "productContentDigest": "sha256:cb547b9289b53bfee01460404da22d47d1fa906765c4dba83d08d128454a566e",
+    "contentMatches": true
+  },
+  {
+    "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/c42d54726d38d4b2e2696a18d70f0ab0545ce2c3cac866c05515d1a05d50a81d/6c506a27fc50b3b23a9d3ff7076adb1699e4eb51061c91939da869b03ec25616",
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+    "productContentDigest": "sha256:c42d54726d38d4b2e2696a18d70f0ab0545ce2c3cac866c05515d1a05d50a81d",
+    "contentMatches": true
+  }
+]

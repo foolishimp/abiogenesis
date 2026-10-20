@@ -1,0 +1,27 @@
+{
+  "finalCanonicalPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "sha256": "dcb18429cc46007a1812ff80807e1fa7482daff05a14d7dce17d1566fc8685c4",
+      "byteCount": 24324,
+      "relativePath": "code/src/product/semantics.ts",
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/final-postimages/code/src/product/semantics.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "3a9384145f9c3700eae5a3d5572d952f9b4565847f988badc5eedc0548f0c30d",
+      "byteCount": 35115,
+      "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/final-postimages/test_env/tests/t287-governance-covered-source-use.test.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "60f5d2bb91378f66285c2ca3ac78f71a98b9032031a9c646cfd5fb86aec9c3e7",
+      "byteCount": 35936,
+      "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/final-postimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+    }
+  ],
+  "failedFocusedTestCarrier": "postimages/test_env/tests/t287-governance-covered-source-use.test.mjs",
+  "earlierPostimageInventory": "postimage-inventory.json describes the prior focused-01 carrier, not current canonical parity"
+}

@@ -1,0 +1,121 @@
+{
+  "role": "Operator13",
+  "activatedAt": "2026-10-06T15:04:03.058Z",
+  "rootRelease": "Explicit Operator13 release after CLOSED Source GO224da038018eec43c04ff72d290e58bce10a563ae5a7c3ae6f76a741f6ee1ed6/pinsc8459f7ab8737046bee44cb644e6419be7b58390f1d2a02691808a03c3cdfcce and identity GO01955685a600e70f977bde8fb4a1fa032b795c0eebfe96773d4c7d96a46d2e83/pinsdc54092cfabcceef595b80bbd4c02c0374b02b6123f22f8930a5386f8b0f68ef",
+  "basis": "STDO2.5.1RC2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "#f-worksite-causality"
+  ],
+  "owningRoutes": [
+    "executive-retest-05",
+    "executive-retest-06",
+    "triage-c2-07",
+    "selection-handoff-repair-12/source-return.md",
+    "selection-handoff-repair-13/source-return.md",
+    "selection-handoff-source-review-13",
+    "candidate-review-13",
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md"
+  ],
+  "path": "clean installed candidate -> current selected contribution/native outcome -> bounded report/fold -> parent reassessment/distinct action -> canonical C2/native independent full-original UAT -> parent/Run closure -> two fresh reads/original oracle/seal",
+  "permittedEffects": "Only NEW config13, retest13 records and harness-owned isolated run/install/worksite/helper/actor/commands/evidence; no Operator app solution, Source/oracle/old-cut effects",
+  "case": "data-mapper-full",
+  "command": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "run",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-13.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recorder": {
+    "timeoutMs": 4200000,
+    "maxOutputBytes": 1048576
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-13.json",
+    "sha256": "099050b5a7d3db3fba140fd1aca97c2daca39e82ac248dc3bcb78a1aedcfba7d",
+    "byteCount": 2328,
+    "changedFields": [
+      "package.archivePath",
+      "package.sha256"
+    ],
+    "allOtherFieldsDeepEqual": true,
+    "supportedConfigurationAccepted": true
+  },
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "byteCount": 2328
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "dd5e5b164af8198997b45d5575fc7febd43b4b9fcabc46073bdf8ffc7ce5904f",
+      "byteCount": 10621478
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/freeze.json",
+      "sha256": "c76117006a2e288b166770b3258c52023f6eeaa4e2c12fc2fc27dd5099313f95",
+      "byteCount": 9560
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/source-freeze.json",
+      "sha256": "c134b88715b8c9dec0c2134c48831ed664665f33a9be515c661279fe85edb24a",
+      "byteCount": 11471
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+      "byteCount": 31672
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "6aea6974a3fdcb93423e06b3836f085c090288bea2067eb40270e6e43c8163e3",
+      "byteCount": 45417
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "fd171b5ab38d617bcaf354641ccfa73061ad5f805ad05b752172d0384ef95e63",
+      "byteCount": 94105
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "byteCount": 34763
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "byteCount": 23452
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "byteCount": 22857
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "byteCount": 26202
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "a7c639158059ed39bdabde8825e1b03fcec7a470ebab26cec8246245ee8ca67b",
+      "byteCount": 23083
+    }
+  ],
+  "exitProof": "Truthful native terminal/fresh result+replay agreement, independent original oracle/full8reports/depth/floor/compiled mutant red/restored proof, protected originals and both install content barriers. Partial iteration distinguished from application completion.",
+  "stop": "One case only; first nonpass/identity/infrastructure/integration/timeout/truncation STOP and freeze to Root; no retry or repair"
+}

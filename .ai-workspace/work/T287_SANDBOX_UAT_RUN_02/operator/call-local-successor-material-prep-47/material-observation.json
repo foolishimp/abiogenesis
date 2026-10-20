@@ -1,0 +1,238 @@
+{
+  "role": "Worker47 external physical supplied-material observation",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657",
+  "retainedAuthorFiles": [
+    {
+      "path": "archive/test-run-archive.md",
+      "byteCount": 43651
+    },
+    {
+      "path": "build_tenants/scala_spark/build.sbt",
+      "byteCount": 3888
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "byteCount": 2083
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+      "byteCount": 7883
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+      "byteCount": 2679
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+      "byteCount": 8298
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "byteCount": 3257
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+      "byteCount": 9265
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+      "byteCount": 2473
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+      "byteCount": 2068
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+      "byteCount": 8409
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+      "byteCount": 9131
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+      "byteCount": 14528
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "byteCount": 9581
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+      "byteCount": 2538
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+      "byteCount": 11564
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "byteCount": 5293
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+      "byteCount": 2495
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+      "byteCount": 8755
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+      "byteCount": 3500
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+      "byteCount": 7982
+    },
+    {
+      "path": "build_tenants/scala_spark/project/build.properties",
+      "byteCount": 19
+    },
+    {
+      "path": "build_tenants/scala_spark/project/plugins.sbt",
+      "byteCount": 56
+    },
+    {
+      "path": "depth-proof-map.json",
+      "byteCount": 20796
+    },
+    {
+      "path": "design/component-code-surface.md",
+      "byteCount": 25088
+    },
+    {
+      "path": "design/feature-decomposition.md",
+      "byteCount": 16215
+    },
+    {
+      "path": "design/implementation-design.md",
+      "byteCount": 56240
+    },
+    {
+      "path": "design/module-design.md",
+      "byteCount": 41481
+    },
+    {
+      "path": "design/test-design.md",
+      "byteCount": 69010
+    },
+    {
+      "path": "mutation-outcomes.json",
+      "byteCount": 8732
+    },
+    {
+      "path": "proof/component-realization-qualification.md",
+      "byteCount": 17575
+    },
+    {
+      "path": "proof/component-test-execution-qualification.md",
+      "byteCount": 22294
+    },
+    {
+      "path": "proof/repaired-component-test-execution-qualification.md",
+      "byteCount": 26165
+    },
+    {
+      "path": "release/release-depth-parity.md",
+      "byteCount": 20235
+    },
+    {
+      "path": "release/release-preparation.md",
+      "byteCount": 8026
+    },
+    {
+      "path": "repair/component-repair-application.md",
+      "byteCount": 23630
+    },
+    {
+      "path": "repair/component-repair-schedule.md",
+      "byteCount": 29529
+    },
+    {
+      "path": "specification/goals.md",
+      "byteCount": 4907
+    },
+    {
+      "path": "specification/intent.md",
+      "byteCount": 23615
+    },
+    {
+      "path": "specification/product.md",
+      "byteCount": 12262
+    },
+    {
+      "path": "specification/requirements.md",
+      "byteCount": 30618
+    },
+    {
+      "path": "specification/scenario.md",
+      "byteCount": 39351
+    },
+    {
+      "path": "specification/testcase-authority.md",
+      "byteCount": 10468
+    },
+    {
+      "path": "specification/uat-testcases.md",
+      "byteCount": 18808
+    }
+  ],
+  "provenance": {
+    "operator38Observation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/observations.json",
+      "sha256": "5c3ca0d3be4b0ef9ccc317459e129e5a3964779f7de20475efffacc2920d3680",
+      "byteCount": 70908
+    },
+    "operator38Freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/execution-freeze.json",
+      "sha256": "4be21730b60a651def6b0e5a0f6ed9d2070cf485304d2fb8c212872467df3015",
+      "byteCount": 46311
+    },
+    "operator38Stop": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/stop-observation.json",
+      "sha256": "08e33d089c466e24ad9fed3e3172efc788ac3aeb9017ebf454dd84c3de190206",
+      "byteCount": 1313
+    },
+    "native52Cut": {
+      "ordinal": 196530,
+      "offset": 1106637911,
+      "byteCount": 4753175,
+      "sha256": "6cbdbf994ed77726c369312f9e4455faab27a78f885e6b14bb15cb98dae4a311",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5"
+    },
+    "nativeResultRef": "result://abiogenesis/b934110f4cf57d331e494ae81336859ccbab7ef19ef9f101fc68eb4c7b37ded5",
+    "nativeValueDigest": "sha256:8f99f668d3d7a9afcb23d936fd758901aba74711bbd638fcf82a8c3a017e4f26",
+    "nativeAfterRef": "worksite-context-observation://abiogenesis/67df9b2b7958a12450c8714771d9dde865e391543f09d5b28f0aff4fe03d3281",
+    "nativeAfterDigest": "sha256:67df9b2b7958a12450c8714771d9dde865e391543f09d5b28f0aff4fe03d3281",
+    "nativeSnapshotSelector": "payload.value.after.entries",
+    "originalGrantRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    }
+  },
+  "counts": {
+    "originals": 4,
+    "authors": 44,
+    "currentSelectedFiles": 48,
+    "snapshotRows": 49,
+    "missingRows": 1
+  },
+  "topologyInvariantCurrentBytes": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+    "sha256": "70b27fec109de19d86293ae889a3d4714b71b5d85fa9f836f2db5f8e0f6edb48",
+    "byteCount": 2473,
+    "relativePath": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+    "nativeAfterDigest": "sha256:70b27fec109de19d86293ae889a3d4714b71b5d85fa9f836f2db5f8e0f6edb48",
+    "nativeAfterByteCount": 2473
+  },
+  "setupManifestExcluded": true,
+  "suppliedMaterialOnly": true,
+  "oldObservationsImported": false,
+  "oldSynthesisImported": false,
+  "oldProducerCreditImported": false,
+  "oldNineDetectionEightRestorationCreditImported": false
+}

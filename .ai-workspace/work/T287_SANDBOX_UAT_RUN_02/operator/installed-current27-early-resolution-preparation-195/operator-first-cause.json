@@ -1,0 +1,57 @@
+{
+  "classification": "External Operator fatal-process observation, not a fabricated owner exception/event",
+  "at": "2026-10-09T09:44:46.075453Z",
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/commands/current-source-preparation.result.json",
+    "sha256": "4e761ad5a6c8e843f555fbbb3a3fed76499d808737c9964bbd38886013ec603a",
+    "byteCount": 29639
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/commands/current-source-preparation.stderr",
+    "sha256": "1ae29e99cbbe09c1bdcab59ea5bf951265607e23761ec5a263a85a6764f39b0f",
+    "byteCount": 7860
+  },
+  "diagnostic": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "signal": "SIGABRT",
+  "exitCode": null,
+  "wallMs": 373063.870542,
+  "timedOut": false,
+  "truncated": false,
+  "nativeFrames": [
+    "FactoryBase::NewRawStringWithMap<SeqOneByteString>",
+    "FactoryBase::NewStringFromOneByte",
+    "JsonStringifier::Stringify",
+    "JsonStringify",
+    "Builtin_JsonStringify"
+  ],
+  "lastGCReportedMB": {
+    "before": 4088.7,
+    "after": 4088.5
+  },
+  "lastEnteredCheckpoint": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/stages/038-covered-use-callback-start.json",
+      "sha256": "d1aa35df466802f745705136d8123ea0cf4d96f508687bd6bceaae58219aa007",
+      "byteCount": 553
+    },
+    "stage": "covered-use-callback-start",
+    "elapsedMs": 356901.211541,
+    "heapUsed": 3720346544,
+    "rss": 4442275840
+  },
+  "callback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/callback-boundary.json",
+    "sha256": "e86cbfe452f1aa9bb4a9c86e76c91ab2ae14085a2f39e6ac22c954ec1cbbe48e",
+    "byteCount": 4216
+  },
+  "directUseDigest": "sha256:f17b484fa3c4a24e6f24d3670e725705f69b3da7c67f54861cd1d8e5846386ba",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+  "consumedBases": 104,
+  "genuineResourceCloseBeforeFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "preciseJSAllocationAndDominantRetainer": "UNPROVED",
+  "action": "STOP; Root196/197 multi-frame callback RCA and Product-bounded action before any repeat. No recovery needed/selected because genuine close and lock absent."
+}

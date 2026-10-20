@@ -1,0 +1,45 @@
+{
+  "role": "Operator192 canonical maintenance recovery only",
+  "at": "2026-10-09T09:12:16.304421Z",
+  "RootConjunction": {
+    "189": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/freeze.json",
+      "sha256": "7e4fd01ebc7c87ff00236fff8efbfb565aefa8a92a256100c17c9eae445bc592",
+      "byteCount": 9625
+    },
+    "190191": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-memory-root-cause-190/freeze.json",
+        "sha256": "4e24bf0c5d4ea2e850645ebbc32f4c3a1bbf76f8eeb323e5dea50c095cc9a711",
+        "byteCount": 10495
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-memory-independent-triage-191/freeze.json",
+        "sha256": "9ea64260a2b67fe6a4e25308d6e188461734d9d2407f4248b04b651bc1a75625",
+        "byteCount": 1096
+      }
+    ],
+    "method160": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/freeze.json",
+      "sha256": "e5fa44a8522669696251aa35d400de73bfc62cec4a5ebf5d91cbc9c418886fe4",
+      "byteCount": 10223
+    }
+  },
+  "ProductFrame": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2;Product817–867/CONT014–016;identity/lifecycle/effects/Proof",
+  "purpose": "Recover exact dead48400-owned resource through actual installed27 recoverInterruptedAbgEventResource and ordinary close. No semantic retry, Source/app repair or capacity closure.",
+  "authority": "Root authorizes exactly native-maintenance://abiogenesis/event-resource/recover@5, exact selected lock adoption and normal close/release, no append.",
+  "callerAdaptation": "Only current189 captured shape and literal27 host/handoff/residue/PID/count/ref controls; canonical SDK/schema/authority contract unchanged.",
+  "methodPreimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/launch.mjs",
+      "sha256": "871cccfae39e0f1e3cf7a1c54adce9d1766fa607df74659bee2cd79068201af8",
+      "byteCount": 905
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/recover.mjs",
+      "sha256": "b1c0d895829586c5ff05c8283f2cbfe395c21eacc12bfabf96b91e138499321a",
+      "byteCount": 7936
+    }
+  ],
+  "stop": "First unexpected failure stops; no retry/directunlink/preparation/native/model/UAT/app/Git effects."
+}

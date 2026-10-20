@@ -1,0 +1,35 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_BRIDGE_01",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "--project",
+    "tsconfig.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/stage/build_tenants/abiogenesis/typescript",
+  "capSeconds": 180,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/tmp",
+    "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/tmp/node-compile-cache",
+    "ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "ABI5_PUBLIC_GROUPS_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "ABI5_PUBLIC_GROUPS_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/baseline.json"
+  },
+  "pid": 50832,
+  "pgid": 50832,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "groupAbsent": true,
+  "elapsedMs": 6251.4476670003205,
+  "maxRSSPlatformBytes": 1154613248,
+  "userCPUSeconds": 10.215158,
+  "systemCPUSeconds": 0.247437,
+  "stdoutBytes": 0,
+  "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrBytes": 0,
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

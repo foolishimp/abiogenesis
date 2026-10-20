@@ -1,0 +1,22 @@
+{
+  "copies": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/postimages/c_call_outcome.ts",
+      "bytes": 68281,
+      "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+      "mode": 292,
+      "originalCanonicalMode": 420,
+      "originalAuthor": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/postimages/t287-result-evidence-lineage-projection.test.mjs",
+      "bytes": 22555,
+      "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+      "mode": 292,
+      "originalCanonicalMode": 420,
+      "originalAuthor": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01"
+    }
+  ],
+  "firstFailurePreserved": "first-readiness-failure.json",
+  "noModificationOrRetry": true
+}

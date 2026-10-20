@@ -1,0 +1,1370 @@
+{
+  "programRef": "program://abiogenesis/qualification/assess@5",
+  "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+  "programLocusRef": "node://abiogenesis/qualification/assess@5",
+  "program": {
+    "callableMembership": [
+      "graph-function://abiogenesis/qualification/assess@5"
+    ],
+    "closureContractRef": "closure://abiogenesis/qualification/assess-run@5",
+    "kind": "gtl_program",
+    "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+    "policies": {
+      "abg.compute_regime": "F_P",
+      "abg.root_mode": "direct"
+    },
+    "programRef": "program://abiogenesis/qualification/assess@5",
+    "starts": [
+      {
+        "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+        "startRef": "start://abiogenesis/qualification/assess@5"
+      }
+    ],
+    "version": "5.0.0"
+  },
+  "publication": {
+    "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+    "closureContracts": [
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/assess-child@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/assessment@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/judgment@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/assess-run@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/assessment@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/judgment@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/exact-candidate-child@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/verdict@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/verdict@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/exact-candidate-run@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/verdict@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/verdict@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/malformed-gtl-assess-child@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/malformed-gtl-assess@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/malformed-gtl-assessment@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/malformed-gtl-assess-run@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/malformed-gtl-assess@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/malformed-gtl-assessment@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/native-runtime-assess-child@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/native-runtime-assess@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/native-runtime-assessment@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/native-runtime-assess-run@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/native-runtime-assess@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/native-runtime-assessment@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/ruling-child@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/ruling@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/ruling-response@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/ruling-finalize-child@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/ruling@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/ruling-response@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/ruling-finalize-run@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/ruling@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/ruling-response@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/ruling-run@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/ruling@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/ruling-response@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "closure://abiogenesis/qualification/self-conformance-child@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/self-conformance/transfer@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/self-conformance/output@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/qualification/self-conformance/closure@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/qualification/self-conformance/transfer@5",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "refusalValueKind": "self_conformance_refusal",
+        "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "replayProjectionRef": "projection://abiogenesis/qualification/self-conformance@5",
+        "resultContractRef": "contract://abiogenesis/qualification/self-conformance/output@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      }
+    ],
+    "contracts": [
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/qualification/assessment-input@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "qualification_assessment_input"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/qualification/assessment-raw@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "qualification_raw_judgment"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/qualification/judgment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "qualification_judgment"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/qualification/malformed-gtl-assessment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "malformed_gtl_assessment"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/qualification/malformed-gtl-input@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "malformed_gtl_assessment_input"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/qualification/native-runtime-assessment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "native_runtime_assessment"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/qualification/native-runtime-input@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "native_runtime_assessment_input"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/qualification/ruling-continuation@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "qualification_ruling_continuation"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/qualification/ruling-request@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "qualification_ruling_request"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/qualification/ruling-response@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "qualification_owner_ruling"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "self_conformance_closure"
+      },
+      {
+        "contractKind": "evidence",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "self_conformance_evidence"
+      },
+      {
+        "contractKind": "failure",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "self_conformance_failure"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/input@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "self_conformance_input"
+      },
+      {
+        "contractKind": "judgment",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "self_conformance_judgment"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/output@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "self_conformance_result"
+      },
+      {
+        "contractKind": "refusal",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "self_conformance_refusal"
+      },
+      {
+        "contractKind": "transition",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/transition@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "self_conformance_transition"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/qualification/verdict-input@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "qualification_verdict_input"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/qualification/verdict@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "exact_candidate_qualification"
+      }
+    ],
+    "contributionManifestRef": "contribution-manifest://abiogenesis/conformance/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+    "contributions": [
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/qualification/assess@5",
+        "handle": "graph-function://abiogenesis/qualification/assess@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/qualification/assess@5"
+        ],
+        "provenanceRefs": [
+          "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+          "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/qualification/assess@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/qualification/exact-candidate@5",
+        "handle": "graph-function://abiogenesis/qualification/exact-candidate@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/qualification/exact-candidate@5"
+        ],
+        "provenanceRefs": [
+          "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+          "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/qualification/exact-candidate@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/qualification/malformed-gtl-assess@5",
+        "handle": "graph-function://abiogenesis/qualification/malformed-gtl-assess@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/qualification/malformed-gtl-assess@5"
+        ],
+        "provenanceRefs": [
+          "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+          "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/qualification/malformed-gtl-assess@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/qualification/native-runtime-assess@5",
+        "handle": "graph-function://abiogenesis/qualification/native-runtime-assess@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/qualification/native-runtime-assess@5"
+        ],
+        "provenanceRefs": [
+          "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+          "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/qualification/native-runtime-assess@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/qualification/ruling-finalize@5",
+        "handle": "graph-function://abiogenesis/qualification/ruling-finalize@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/qualification/ruling-finalize@5",
+          "program://abiogenesis/qualification/ruling@5"
+        ],
+        "provenanceRefs": [
+          "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+          "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/qualification/ruling-finalize@5",
+          "program://abiogenesis/qualification/ruling@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/qualification/ruling@5",
+        "handle": "graph-function://abiogenesis/qualification/ruling@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/qualification/ruling@5"
+        ],
+        "provenanceRefs": [
+          "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+          "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/qualification/ruling@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/qualification/self-conformance@5",
+        "handle": "graph-function://abiogenesis/qualification/self-conformance@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/qualification/self-conformance@5"
+        ],
+        "provenanceRefs": [
+          "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+          "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/qualification/self-conformance@5"
+        ]
+      }
+    ],
+    "descriptorRef": "descriptor://abiogenesis/typescript-tenant/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+    "evaluators": [],
+    "graphFunctions": [
+      {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/assess-child@5",
+          "abg.closure_contract": "closure://abiogenesis/qualification/assess-run@5",
+          "abg.compute_regime": "F_P",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/qualification/self-conformance/failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/assessment@5",
+          "abg.qualification_role_policy": "sha256:6ac218f804d96cf21181fbaeba56bc4b19e3c281074332353c63861abaef737e",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/qualification/assessment-raw@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/qualification/judgment@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/assessment-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/assessment-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/assess@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/judgment@5"
+        ],
+        "tags": [
+          "assess",
+          "qualification"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/assess@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/assess@5",
+              "term": {
+                "armId": "arm://abiogenesis/qualification/assess@5",
+                "compositionRef": null,
+                "fibre": "F_P",
+                "inputCarrierRef": "contract://abiogenesis/qualification/assessment-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/qualification/assessment@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/qualification/judgment@5",
+                "programLocusRef": "node://abiogenesis/qualification/assess@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/qualification/assess-fp@5",
+                  "inputContractRef": "contract://abiogenesis/qualification/assessment-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/qualification/judgment@5",
+                  "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "assess",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/assess@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/assess@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/exact-candidate-child@5",
+          "abg.closure_contract": "closure://abiogenesis/qualification/exact-candidate-run@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/qualification/self-conformance/failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/verdict@5",
+          "abg.qualification_role_policy": "sha256:6ac218f804d96cf21181fbaeba56bc4b19e3c281074332353c63861abaef737e",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [],
+          "provides": [
+            "contract://abiogenesis/qualification/verdict@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/verdict-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/verdict-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/exact-candidate@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/verdict@5"
+        ],
+        "tags": [
+          "exact-candidate",
+          "qualification"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/exact-candidate@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/exact-candidate@5",
+              "term": {
+                "armId": "arm://abiogenesis/qualification/exact-candidate@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/qualification/verdict-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/qualification/verdict@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/qualification/verdict@5",
+                "programLocusRef": "node://abiogenesis/qualification/exact-candidate@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/qualification/exact-candidate-fd@5",
+                  "inputContractRef": "contract://abiogenesis/qualification/verdict-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/qualification/verdict@5",
+                  "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "AF-22",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/exact-candidate@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/exact-candidate@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/malformed-gtl-assess-child@5",
+          "abg.closure_contract": "closure://abiogenesis/qualification/malformed-gtl-assess-run@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/qualification/self-conformance/failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/malformed-gtl-assess@5",
+          "abg.qualification_role_policy": "sha256:6ac218f804d96cf21181fbaeba56bc4b19e3c281074332353c63861abaef737e",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [],
+          "provides": [
+            "contract://abiogenesis/qualification/malformed-gtl-assessment@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/malformed-gtl-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/malformed-gtl-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/malformed-gtl-assess@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/malformed-gtl-assessment@5"
+        ],
+        "tags": [
+          "malformed-gtl-assess",
+          "qualification"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/malformed-gtl-assess@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/malformed-gtl-assess@5",
+              "term": {
+                "armId": "arm://abiogenesis/qualification/malformed-gtl-assess@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/qualification/malformed-gtl-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/qualification/malformed-gtl-assess@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/qualification/malformed-gtl-assessment@5",
+                "programLocusRef": "node://abiogenesis/qualification/malformed-gtl-assess@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/qualification/malformed-gtl-assess-fd@5",
+                  "inputContractRef": "contract://abiogenesis/qualification/malformed-gtl-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/qualification/malformed-gtl-assessment@5",
+                  "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "malformed-gtl-assess",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/malformed-gtl-assess@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/malformed-gtl-assess@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/native-runtime-assess-child@5",
+          "abg.closure_contract": "closure://abiogenesis/qualification/native-runtime-assess-run@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/qualification/self-conformance/failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/native-runtime-assess@5",
+          "abg.qualification_role_policy": "sha256:6ac218f804d96cf21181fbaeba56bc4b19e3c281074332353c63861abaef737e",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [],
+          "provides": [
+            "contract://abiogenesis/qualification/native-runtime-assessment@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/native-runtime-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/native-runtime-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/native-runtime-assess@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/native-runtime-assessment@5"
+        ],
+        "tags": [
+          "native-runtime-assess",
+          "qualification"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/native-runtime-assess@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/native-runtime-assess@5",
+              "term": {
+                "armId": "arm://abiogenesis/qualification/native-runtime-assess@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/qualification/native-runtime-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/qualification/native-runtime-assess@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/qualification/native-runtime-assessment@5",
+                "programLocusRef": "node://abiogenesis/qualification/native-runtime-assess@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/qualification/native-runtime-assess-fd@5",
+                  "inputContractRef": "contract://abiogenesis/qualification/native-runtime-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/qualification/native-runtime-assessment@5",
+                  "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "native-runtime-assess",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/native-runtime-assess@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/native-runtime-assess@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/ruling-finalize-child@5",
+          "abg.closure_contract": "closure://abiogenesis/qualification/ruling-finalize-run@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/qualification/self-conformance/failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/ruling@5",
+          "abg.qualification_role_policy": "sha256:6ac218f804d96cf21181fbaeba56bc4b19e3c281074332353c63861abaef737e",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [],
+          "provides": [
+            "contract://abiogenesis/qualification/ruling-response@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/ruling-response@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/ruling-response@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/ruling-finalize@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/ruling-response@5"
+        ],
+        "tags": [
+          "qualification",
+          "ruling-finalize"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/ruling-finalize@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/ruling-finalize@5",
+              "term": {
+                "armId": "arm://abiogenesis/qualification/ruling-finalize@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/qualification/ruling-response@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/qualification/ruling@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/qualification/ruling-response@5",
+                "programLocusRef": "node://abiogenesis/qualification/ruling-finalize@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/qualification/ruling-fd@5",
+                  "inputContractRef": "contract://abiogenesis/qualification/ruling-response@5",
+                  "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/qualification/ruling-response@5",
+                  "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "ruling-finalize",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/ruling-finalize@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/ruling-finalize@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/ruling-child@5",
+          "abg.closure_contract": "closure://abiogenesis/qualification/ruling-run@5",
+          "abg.compute_regime": "mixed",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/ruling@5",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/qualification/owner-ruling@5"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/qualification/ruling-continuation@5",
+            "contract://abiogenesis/qualification/ruling-response@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/qualification/ruling-response@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/ruling-request@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/ruling-request@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/ruling@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/ruling-response@5"
+        ],
+        "tags": [
+          "human-owner",
+          "qualification"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/ruling@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/ruling@5",
+              "term": {
+                "inputCarrierRef": "contract://abiogenesis/qualification/ruling-request@5",
+                "kind": "c_compose",
+                "outputCarrierRef": "contract://abiogenesis/qualification/ruling-response@5",
+                "terms": [
+                  {
+                    "armId": "arm://abiogenesis/qualification/ruling@5",
+                    "compositionRef": null,
+                    "fibre": "F_H",
+                    "inputCarrierRef": "contract://abiogenesis/qualification/ruling-request@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/qualification/ruling@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/qualification/ruling-response@5",
+                    "programLocusRef": "node://abiogenesis/qualification/ruling@5",
+                    "requirement": {
+                      "actorCapabilityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+                      "continuationContractRef": "contract://abiogenesis/qualification/ruling-continuation@5",
+                      "interactionKind": "qualification_owner_ruling",
+                      "kind": "interaction_leaf_requirement",
+                      "requestContractRef": "contract://abiogenesis/qualification/ruling-request@5",
+                      "responseContractRef": "contract://abiogenesis/qualification/ruling-response@5"
+                    },
+                    "resultBearing": false,
+                    "stageRole": "qualification_ruling",
+                    "vectorIndex": 0
+                  },
+                  {
+                    "graphFunctionRef": "graph-function://abiogenesis/qualification/ruling-finalize@5",
+                    "inputCarrierRef": "contract://abiogenesis/qualification/ruling-response@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/qualification/ruling-response@5"
+                  }
+                ]
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/ruling@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/ruling@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/self-conformance-child@5",
+          "abg.closure_contract": "contract://abiogenesis/qualification/self-conformance/closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/self-conformance/transfer@5",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [],
+          "provides": [
+            "contract://abiogenesis/qualification/self-conformance/output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/self-conformance/input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/self-conformance/input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/self-conformance@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/self-conformance/output@5"
+        ],
+        "tags": [
+          "non-closing",
+          "self-conformance"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/self-conformance@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/self-conformance@5",
+              "term": {
+                "armId": "arm://abiogenesis/qualification/self-conformance@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/qualification/self-conformance/input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/qualification/self-conformance/transfer@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/qualification/self-conformance/output@5",
+                "programLocusRef": "node://abiogenesis/qualification/self-conformance@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/qualification/self-conformance-fd@5",
+                  "inputContractRef": "contract://abiogenesis/qualification/self-conformance/input@5",
+                  "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/qualification/self-conformance/output@5",
+                  "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "self-conformance",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/self-conformance@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/self-conformance@5"
+          ]
+        },
+        "version": "5.0.0"
+      }
+    ],
+    "implementationBindings": [
+      {
+        "bindingRef": "implementation-binding://abiogenesis/qualification/assess-fp@5",
+        "computeRegime": "F_P",
+        "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "implementationRef": "implementation://abiogenesis/qualification/assess-fp@5",
+        "inputContractRef": "contract://abiogenesis/qualification/assessment-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/qualification.js",
+        "namedSymbol": "realizeQualificationAssessment",
+        "outputContractRef": "contract://abiogenesis/qualification/judgment@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/qualification/exact-candidate-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "implementationRef": "implementation://abiogenesis/qualification/exact-candidate-fd@5",
+        "inputContractRef": "contract://abiogenesis/qualification/verdict-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/qualification.js",
+        "namedSymbol": "realizeExactCandidateQualification",
+        "outputContractRef": "contract://abiogenesis/qualification/verdict@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/qualification/malformed-gtl-assess-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "implementationRef": "implementation://abiogenesis/qualification/malformed-gtl-assess-fd@5",
+        "inputContractRef": "contract://abiogenesis/qualification/malformed-gtl-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/qualification.js",
+        "namedSymbol": "realizeMalformedGtlAssessment",
+        "outputContractRef": "contract://abiogenesis/qualification/malformed-gtl-assessment@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/qualification/native-runtime-assess-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "implementationRef": "implementation://abiogenesis/qualification/native-runtime-assess-fd@5",
+        "inputContractRef": "contract://abiogenesis/qualification/native-runtime-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/qualification.js",
+        "namedSymbol": "realizeNativeRuntimeAssessment",
+        "outputContractRef": "contract://abiogenesis/qualification/native-runtime-assessment@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/qualification/ruling-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "implementationRef": "implementation://abiogenesis/qualification/ruling-fd@5",
+        "inputContractRef": "contract://abiogenesis/qualification/ruling-response@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/qualification.js",
+        "namedSymbol": "realizeQualificationRuling",
+        "outputContractRef": "contract://abiogenesis/qualification/ruling-response@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/qualification/self-conformance-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "implementationRef": "implementation://abiogenesis/qualification/self-conformance-fd@5",
+        "inputContractRef": "contract://abiogenesis/qualification/self-conformance/input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/self_conformance.js",
+        "namedSymbol": "realizeSelfConformance",
+        "outputContractRef": "contract://abiogenesis/qualification/self-conformance/output@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+      }
+    ],
+    "kind": "module_publication",
+    "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+    "moduleVersion": "5.0.0",
+    "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+    "productManifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+    "productSemanticsBinding": {
+      "bindingRef": "product-semantics://abiogenesis/qualification/self-conformance@5",
+      "kind": "product_semantics_binding",
+      "modulePath": "build/code/src/validator/self_conformance_semantics.js",
+      "namedSymbol": "ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    },
+    "programs": [
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/qualification/assess@5"
+        ],
+        "closureContractRef": "closure://abiogenesis/qualification/assess-run@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "policies": {
+          "abg.compute_regime": "F_P",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/qualification/assess@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+            "startRef": "start://abiogenesis/qualification/assess@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/qualification/exact-candidate@5"
+        ],
+        "closureContractRef": "closure://abiogenesis/qualification/exact-candidate-run@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "policies": {
+          "abg.compute_regime": "F_D",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/qualification/exact-candidate@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/qualification/exact-candidate@5",
+            "startRef": "start://abiogenesis/qualification/exact-candidate@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/qualification/malformed-gtl-assess@5"
+        ],
+        "closureContractRef": "closure://abiogenesis/qualification/malformed-gtl-assess-run@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "policies": {
+          "abg.compute_regime": "F_D",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/qualification/malformed-gtl-assess@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/qualification/malformed-gtl-assess@5",
+            "startRef": "start://abiogenesis/qualification/malformed-gtl-assess@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/qualification/native-runtime-assess@5"
+        ],
+        "closureContractRef": "closure://abiogenesis/qualification/native-runtime-assess-run@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "policies": {
+          "abg.compute_regime": "F_D",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/qualification/native-runtime-assess@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/qualification/native-runtime-assess@5",
+            "startRef": "start://abiogenesis/qualification/native-runtime-assess@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/qualification/ruling-finalize@5"
+        ],
+        "closureContractRef": "closure://abiogenesis/qualification/ruling-finalize-run@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "policies": {
+          "abg.compute_regime": "F_D",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/qualification/ruling-finalize@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/qualification/ruling-finalize@5",
+            "startRef": "start://abiogenesis/qualification/ruling-finalize@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/qualification/ruling-finalize@5",
+          "graph-function://abiogenesis/qualification/ruling@5"
+        ],
+        "closureContractRef": "closure://abiogenesis/qualification/ruling-run@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "policies": {
+          "abg.compute_regime": "mixed",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/qualification/ruling@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/qualification/ruling@5",
+            "startRef": "start://abiogenesis/qualification/ruling@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/qualification/self-conformance@5"
+        ],
+        "closureContractRef": "contract://abiogenesis/qualification/self-conformance/closure@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "policies": {
+          "abg.compute_regime": "F_D",
+          "abg.default_start_ref": "start://abiogenesis/qualification/self-conformance@5",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/qualification/self-conformance@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/qualification/self-conformance@5",
+            "startRef": "start://abiogenesis/qualification/self-conformance@5"
+          }
+        ],
+        "version": "5.0.0"
+      }
+    ],
+    "rules": []
+  },
+  "rootActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "ownerAuthorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+  "exactProgramDigest": "sha256:3f9084d8afd766feddab62677c25ba55be25ce1ee888f62ef145af70103ff730",
+  "viewDigest": "sha256:051d6da8ddcf2774553c17344358deac021b0ede4c6f8674d1c66cb7edabf273",
+  "catalogBasisDigest": "sha256:1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907"
+}

@@ -1,0 +1,6 @@
+{
+  "exitCode": 1,
+  "diagnosticCount": 11,
+  "classification": "mechanical private-prefix and owned-plan consumer signatures; no runtime attempt",
+  "action": "preserve public signatures; strip private overloads/types at actual cursor and route consumers"
+}

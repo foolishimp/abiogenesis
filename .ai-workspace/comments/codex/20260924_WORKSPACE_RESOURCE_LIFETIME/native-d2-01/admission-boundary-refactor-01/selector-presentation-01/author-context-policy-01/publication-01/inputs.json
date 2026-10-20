@@ -1,0 +1,33 @@
+{
+  "scope": "Uninstalled public declaration construction; preserves historical lifecycle and all fields except D2 stage-role contextPolicy. Package successor identity is a later separate factory input.",
+  "originalPublication": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev14/prospective-publication.json",
+    "sha256": "c494ec982b9b44bf866313478b50ec3007b0ab39208752d3dc8662cba703ac18"
+  },
+  "canonicalFactory": {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+    "sha256": "1ec7d08e68e45b9c55a86b4a9366c48d8afbbc3e6ce248b6ad227ac38c8daa0d"
+  },
+  "historicalLifecycle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-01/original-lifecycle.json",
+    "sha256": "89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267"
+  },
+  "coreSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-28/selected-core.json",
+    "sha256": "3d744fab43ae11dd84a19b7ff469c14e4cfe3cb18ea20c2677985165c05340cb"
+  },
+  "publicEntries": {
+    "gtl": {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite28-install-l3d6qzfi/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/index.js",
+      "sha256": "058c931db7e9c18a88a64f79c92ca2200acc77059383ba37d799e4f570f73a0e"
+    },
+    "product": {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite28-install-l3d6qzfi/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "sha256": "9fae2c7adbe2b321ed71c97d00c2cf9b3f04125d7edbb04383b3e4f4ebae2014"
+    },
+    "validator": {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite28-install-l3d6qzfi/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/index.js",
+      "sha256": "ec554004410b9d01dd7ddd569c6b4d7ece256dd855233b4a0d63e4b2335665e0"
+    }
+  }
+}

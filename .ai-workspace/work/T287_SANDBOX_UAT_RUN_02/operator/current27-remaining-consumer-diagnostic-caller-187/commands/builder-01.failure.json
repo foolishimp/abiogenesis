@@ -1,0 +1,9 @@
+{
+  "command": "python3 - via stdin",
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "offendingStatement": "a=s.index(' const completed=selected.completedSetup'),b=s.index(' const host=await read(selected.host.path)')",
+  "stderr": "File \"<stdin>\", line 33\nSyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?",
+  "effectsBeforeRejection": false,
+  "fullOriginalToolRequest": "Retained in the preceding tools.exec_command transcript; this record quotes the exact parser-breaking command fragment, not a reconstructed full stdin byte preimage.",
+  "RootSelectedAction": "Correct paired index assignments to valid tuple assignment at identical substring boundaries, syntax-check before use; own187 directory reuse exist_ok=True only for recording; unchanged caller design/guards/effect grant"
+}

@@ -1,0 +1,178 @@
+{
+  "role": "Worker183 bounded caller readiness; not independent acceptance",
+  "status": "READY_FOR_INDEPENDENT184",
+  "ProductFrame": {
+    "fixedFamilies": 15,
+    "version": "ABI5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "externalApplication": "Original Data Mapper full UAT",
+    "stdo": "2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "selectedFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  },
+  "classification": "Caller realization and documentary intended input; no runtime authority or admission",
+  "selectedRepair": "Use accepted174 shared grant/current-operation resource and exact helpers; restore existing canonical fresh setup calls for changed27 identity; preserve old26 effects as historical and unchanged136 raw34/source identity",
+  "caller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/prepare.mjs",
+    "sha256": "b9233b2a94ff0be71b11dcab0abbd72ad05c569e54ac99b48661c7b3f10721ee",
+    "byteCount": 40353
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/inputs.json",
+    "sha256": "451712aa054df59f379c419ba62cdd6148a1c99ada1d1e3f869a684b9689fedb",
+    "byteCount": 16705
+  },
+  "helperConservation": [
+    {
+      "name": "verify-artifacts.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "byteExact": true
+    },
+    {
+      "name": "packed-resources.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "byteExact": true
+    },
+    {
+      "name": "binding-inputs.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "byteExact": true
+    },
+    {
+      "name": "operation-resource.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "byteExact": true
+    }
+  ],
+  "checks": {
+    "syntax": {
+      "pass": true,
+      "files": 5,
+      "wallMsSum": 100.68737593246624
+    },
+    "singleSelectedPreflight": {
+      "exitCode": 0,
+      "outerWallMs": 4133.794582972769,
+      "ownerFixtureWallMs": 4080.801084,
+      "stdoutByteCount": 463,
+      "stderrByteCount": 0,
+      "timedOut": false,
+      "truncated": false,
+      "prospectiveLock": {
+        "ref": "product-lock://abiogenesis/331f63297398472199b32eec9ea77fb87399c975d06217c566e68439007230f7",
+        "digest": "sha256:331f63297398472199b32eec9ea77fb87399c975d06217c566e68439007230f7"
+      },
+      "mixedLockRefusal": {
+        "kind": "environment_refusal",
+        "code": "lock_mismatch"
+      },
+      "sixRootRequestDigest": "sha256:4912942da86dc864298f7ad710bb4b99aeee511f9cd1a7f18df7aba4169145f8",
+      "premise": "Captured verified values and recorded full176 binding/authority; controlled verification invocation coordinates and materialized install-candidate fields with no admissionEventRef. Canonical schemas/constructors only; JSON does not restore a nominal verifier receipt."
+    }
+  },
+  "selectedInputPinCount": 44,
+  "latest176": {
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/final-close-handoff.json",
+      "sha256": "99d5f7e4bc2ecf0abe8aca89e2a9c5a3acf128704ad75460de76ab61d572c2ee",
+      "byteCount": 1472
+    },
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "prefixLength": 1686258635,
+      "prefixDigest": "sha256:8acaa9862be4a108bac3946fe09f4403a08bff344f21ac34ad813add5679c858",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 468327400,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:ff5594c3372286b496c953a58086b20f1c30a38e593c8848eb8ac5cbdbe641ca"
+    },
+    "oldCompletedEffects": "164 native26/171 consumer+binding/176 catalog+view+104witnesses remain historical; none relabeled27 or inferred transitively"
+  },
+  "sourcePreservation": {
+    "sourceRunRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+    "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+    "rawObservations": 34,
+    "currentUseCredit": false,
+    "originalAProgramAndPhysicalWorkspace": "Unchanged selectors; actual source/binding projection and physical equality are future185 owner prerequisites"
+  },
+  "diagnosticAddition": "Existing projectExactInvocationAdmissionAtPrefix once for actual source invocation scalar coordinates; selected canonical Program/GF/catalog/View/contract/binding digests; record actual projector null before assert. No inner-cause reconstruction. Complete private Product preparation independently rechecks applicable source as required.",
+  "intendedFutureRoute": [
+    "Live nominal native27+consumer verification and packed correspondence before history",
+    "Latest176 ordinary reopen; genuine source34/C2/historical declaration owner projections",
+    "Actual Public verification/resolve and new27 native+unchanged consumer installation under new lock",
+    "Full original/current binding distinction; authentic new binding/catalog/view",
+    "Exact newly affected direct D2 covers to27; no transitive104 shortcut",
+    "Single direct covered-source discriminator, null retained before assert, then mandatory private Product preparation",
+    "One enclosing normal close; new native invocation only after separate Root grant"
+  ],
+  "failuresRetained": [
+    {
+      "receipt": "commands/inspection-01.result.json",
+      "cause": "Unsupported diagnostic verifiedArtifact.descriptorDigest accessor",
+      "selectedAction": "Use existing verification.coordinates.descriptor.digest; omit unsupported accessor without rerunning passed inspection",
+      "callerOrOwnerEffects": false
+    },
+    {
+      "receipt": "commands/lookup-01.result.json",
+      "cause": "Optional source-location lookup guessed absent filenames",
+      "selectedAction": "Recording-only; omit unnecessary lookup, canonical installed packet exports already own the contracts",
+      "sourceChanges": false
+    },
+    {
+      "receipt": "commands/preflight-01.result.json",
+      "cause": "Fixture conservation accessor callerRepairBase.path absent; actual carrier callerRepairBase.prepare.path",
+      "selectedAction": "Root-selected one accessor test correction; failed script retained in preimages/preflight-01.mjs; same affected fixture passed02",
+      "callerInputsHelpersChanges": false
+    }
+  ],
+  "limits": [
+    "No actual campaign event read/hash/acquisition/replay or archive verification",
+    "No Public verification/resolve/install/bind/catalog/witness/source-use/admission or app/model effects",
+    "No current nominal receipt, installed currentness, whole covered-source projector, native/C2/UAT or capacity credit",
+    "Existing unsupported inner projector refusals remain unknown; source child testing and root entry executive are distinct",
+    "No canonical Source/HOW/Product/generated/archive/old install/Git edits",
+    "Independent184 acceptance and separate actual185 preparation are required before relying on the intended caller"
+  ],
+  "stop": "CLOSED/FROZEN; no further edits or effects under183"
+}

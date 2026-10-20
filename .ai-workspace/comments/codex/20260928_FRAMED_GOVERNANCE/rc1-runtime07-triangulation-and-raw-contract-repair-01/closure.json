@@ -1,0 +1,32 @@
+{
+  "operation": "T287_RUNTIME07_TRIANGULATION_AND_SOURCE_GRANT_01",
+  "status": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-triangulation-and-raw-contract-repair-01/request.txt",
+    "bytes": 4632,
+    "sha256": "3aedaf46a09bdc3ffade21a6c2baa5b35889d7638576120a1c86aa604cb8654d",
+    "mode": 420
+  },
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 525354,
+      "sha256": "3a9577b19d3c044aab0d5f33bd2d216770ef6858a902e441eff82804080fbd6d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 481378,
+      "sha256": "36c946fb3272a9d82a2eebce95286f40263d8aec2adf4ee2f19c7d81cca2e960",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 12724,
+      "sha256": "955f79e47a94e17886c40d9646d6561d212cb10b5ed59499a875bcbac03b8038",
+      "mode": 420
+    }
+  ],
+  "returnRole": "Executive",
+  "rootSourceRuntimeNetworkGitEffects": 0
+}

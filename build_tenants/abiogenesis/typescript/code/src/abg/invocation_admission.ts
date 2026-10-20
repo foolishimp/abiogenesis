@@ -1,3 +1,7 @@
+import { selectRuntimeEventPrefixFromStore, selectRuntimeEventPrefixFromAuthority, runtimeEventAtPrefix, indexedRuntimeEventEnvelopes } from "./event_prefix.js";
+import { projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, projectRuntimeActorProcessFactsAtPrefix, projectValidatedReplayRouteAtPrefix } from "./replay.js";
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { admittedNativeTask } from "./native_worksite_execution.js";
 import { projectSameRunNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
 import { isRecord } from "../shared/admission_predicates.js";
@@ -93,7 +97,7 @@ import {
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -104,6 +108,9 @@ import {
 } from "./invocation_execution_truth.js";
 import { replayValidatedRuntimeEventPrefix } from "./replay.js";
 import { runEnvironmentEvidenceMatchesInvocation, type RunEnvironmentEvidence } from "./stdo_environment.js";
+import type { GovernanceCoveredSourceUse } from "../product/semantics.js";
+import type { AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
+import { projectGovernanceCoveredSourceUse, hasAdmittedGovernanceCoveredSourceUse } from "./invocation_execution_truth.js";
 
 export interface InvocationAdmissionInput {
   readonly runEnvironment?: RunEnvironmentEvidence;
@@ -125,6 +132,11 @@ export interface InvocationAdmissionInput {
   readonly authority: InvocationAuthority;
   readonly reentryBasis?: InvocationReentryBasis;
   readonly sourceResultBasis?: ProductInvocationSourceResultBasis;
+  /** @internal */
+  readonly currentSourceUse?: GovernanceCoveredSourceUse;
+  /** @internal Private preparation preimages. They are verified here, never serialized
+   * into the admission or accepted as a caller flag. */
+  readonly sourceUseDeclarations?: Readonly<{ current: AbgHistoricalDeclarationProof; historical: readonly AbgHistoricalDeclarationProof[] }>;
 }
 
 export interface ExactInvocationAdmissionInput
@@ -408,26 +420,25 @@ export function isInvocationSourceResultBasis(
 }
 
 function deriveSourceResultBasisAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   input: InvocationSourceResultDerivationInput,
   requireClosedRun: boolean,
 ): ProductInvocationSourceResultBasis | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const runPrefix = selectValidatedRuntimeEventPrefix(events, {
-    runId: input.runId,
-  });
-  const runEvents = runtimeEventsFromValidatedPrefix(runPrefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const runPrefix = selectRuntimeEventPrefixFromAuthority(prefix,{runId:input.runId});
+  const runEvents = runtimeEventBodiesAtPrefix(runPrefix);
   const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
     prefix,
     input.invocationAdmissionRef,
   );
-  const sourceReplay = replayValidatedRuntimeEventPrefix(runPrefix, prefix);
-  const sourceCall = sourceReplay.cCalls.find(
-    (row) => row.resultRef === input.resultRef,
-  );
+  const sourceReplay = projectRuntimeReplayGuard(runPrefix,prefix);
+  const sourceResultRow = indexedRuntimeEvents(runPrefix,"payload:resultRef:"+input.resultRef)
+    .find(row => row.kind === "c_call_result_admitted" && isRecord(row.payload) && row.payload.resultRef === input.resultRef);
+  const sourceCall = sourceResultRow === undefined ? undefined : {...projectReplayCCallGuardAtPrefix(runPrefix,sourceResultRow.aggregateId),
+    resultValue:isRecord(sourceResultRow.payload) ? sourceResultRow.payload.value ?? null : null};
   const resultEvent = sourceCall === undefined
     ? undefined
-    : runEvents.find(
+    : indexedRuntimeEvents(runPrefix, "related:" + sourceCall.cCallRef).find(
         (event) =>
           event.kind === "c_call_result_admitted" &&
           event.aggregateId === sourceCall.cCallRef &&
@@ -436,7 +447,7 @@ function deriveSourceResultBasisAtPrefix(
       );
   const judgmentEvent = sourceCall === undefined
     ? undefined
-    : runEvents.find(
+    : indexedRuntimeEvents(runPrefix, "related:" + sourceCall.cCallRef).find(
         (event) =>
           event.kind === "c_call_judged" &&
           event.aggregateId === sourceCall.cCallRef &&
@@ -475,23 +486,33 @@ function deriveSourceResultBasisAtPrefix(
   // from a choice/state-shaped payload alone.
   const retainedState = sourceCall?.resultContractRef === governanceContract("state") &&
     sourceCall.resultClass === "success" ? retainedGovernanceWorkInput(sourceCall.resultValue) : null;
-  const selectedOwner = retainedState === null ? null : runEvents.find(e =>
+  const selectedOwner = retainedState === null ? null : indexedRuntimeEvents(runPrefix, "related:" + sourceCall?.cCallRef).find(e =>
     e.kind === "c_call_fibre_selected" && e.aggregateId === sourceCall?.cCallRef && isRecord(e.payload) &&
     e.payload.regime === "F_D" && [governanceRef("implementation", "fold"), governanceRef("implementation", "evaluate-parent")]
       .includes(e.payload.implementationRef as string));
   const applicableRetainedWork = retainedState === null || selectedOwner === undefined || selectedOwner === null ? false : (() => {
-  const sourceImplementations = new Map(events.flatMap(e => e.kind === "c_call_fibre_selected" && isRecord(e.payload)
+  const sourceImplementations = new Map(indexedRuntimeEvents(prefix,"kind:c_call_fibre_selected").flatMap(e => isRecord(e.payload)
     ? [[e.aggregateId, e.payload.implementationRef] as const] : []));
   // All later admitted work in this task/workspace relation matters, including
   // another bounded Run. History is evidence; selecting it never restores W.
-  const relatedInvocations = new Set(events.flatMap(e => e.kind === "basis_admitted" && isRecord(e.payload) &&
-    e.payload.basisClass === "root" && e.payload.workspaceBindingId === sourceInvocation?.workspaceBindingId &&
-    e.payload.workspaceBindingDigest === sourceInvocation?.workspaceBindingDigest && isGovernanceWorkState(e.payload.rawInputValue) &&
-    e.payload.rawInputValue.original.taskRef === retainedState?.original.taskRef ? [e.payload.invocationAdmissionRef] : []));
-  const relatedBases = new Set(events.flatMap(e => e.kind === "basis_admitted" && isRecord(e.payload) &&
-    relatedInvocations.has(e.payload.invocationAdmissionRef) ? [e.payload.basisRef] : []));
-  return sourceReplay.actorProcesses.every(actor => actor.status !== "active" && actor.terminationConfirmed) &&
-    !events.some(e => {
+  const relatedInvocations = new Set<string>(sourceInvocation === null ? [] : [sourceInvocation.invocationAdmissionRef]);
+  // Follow only actual admitted source-use ancestry, including covered binding
+  // successors. A coincident task name/root/value does not establish lineage.
+  for (const e of indexedRuntimeEvents(prefix,"kind:invocation_admitted")) {
+    if (e.kind !== "invocation_admitted" || !isRecord(e.payload) || typeof e.payload.invocationAdmissionRef !== "string") continue;
+    const successor = projectExactInvocationAdmissionAtPrefix(prefix, e.payload.invocationAdmissionRef);
+    const from = successor?.sourceResultBasis;
+    if (successor === null || successor === undefined || from === null || from === undefined ||
+        !relatedInvocations.has(from.sourceInvocationAdmissionRef)) continue;
+    if (successor.workspaceBindingId === sourceInvocation?.workspaceBindingId && successor.workspaceBindingDigest === sourceInvocation?.workspaceBindingDigest ||
+        hasAdmittedGovernanceCoveredSourceUse(prefix, successor)) relatedInvocations.add(successor.invocationAdmissionRef);
+  }
+  const relatedBases = new Set(indexedRuntimeEvents(prefix,"kind:basis_admitted").flatMap(e => isRecord(e.payload) &&
+    typeof e.payload.invocationAdmissionRef === "string" && relatedInvocations.has(e.payload.invocationAdmissionRef) ? [e.payload.basisRef] : []));
+  return projectRuntimeActorProcessFactsAtPrefix(runPrefix).every(actor => actor.status !== "active" && actor.terminationConfirmed) &&
+    !indexedRuntimeEventEnvelopes(prefix,"kind:c_call_result_admitted").some(envelope => {
+      if (resultEvent === undefined || envelope.admissionOrdinal <= resultEvent.admissionOrdinal || !relatedBases.has(envelope.basisId)) return false;
+      const e=runtimeEventAtPrefix(prefix,envelope.eventId)!;
       if (resultEvent === undefined || e.admissionOrdinal <= resultEvent.admissionOrdinal ||
         !relatedBases.has(e.basisId) || e.kind !== "c_call_result_admitted" || !isRecord(e.payload) || e.payload.resultClass !== "success") return false;
       const value = e.payload.value;
@@ -575,6 +596,13 @@ function deriveSourceResultBasisAtPrefix(
 
 export function deriveInvocationSourceResultBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix, input: InvocationSourceResultDerivationInput,
+): ProductInvocationSourceResultBasis | null;
+/** @internal */
+export function deriveInvocationSourceResultBasisAtPrefix(
+  prefix: RuntimeEventPrefix, input: InvocationSourceResultDerivationInput,
+): ProductInvocationSourceResultBasis | null;
+export function deriveInvocationSourceResultBasisAtPrefix(
+  prefix: RuntimeEventPrefix, input: InvocationSourceResultDerivationInput,
 ): ProductInvocationSourceResultBasis | null {
   return deriveSourceResultBasisAtPrefix(prefix, input, true);
 }
@@ -583,6 +611,17 @@ export function deriveInvocationSourceResultBasisAtPrefix(
  * explicit reacquisition of a historical closed child. Public closed-Run law is unchanged. */
 export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
+  currentOwnerPrefix?: DurablePrefixCoordinate,
+): ProductInvocationSourceResultBasis | null;
+/** @internal */
+export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
+  input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
+  currentOwnerPrefix?: DurablePrefixCoordinate,
+): ProductInvocationSourceResultBasis | null;
+export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
   input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
   currentOwnerPrefix?: DurablePrefixCoordinate,
 ): ProductInvocationSourceResultBasis | null {
@@ -746,13 +785,22 @@ export function hasAdmittedInvocation(
   admission: InvocationAdmission,
 ): boolean {
   return hasAdmittedInvocationAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     admission,
   );
 }
 
 export function hasAdmittedInvocationAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  admission: InvocationAdmission,
+): boolean;
+/** @internal */
+export function hasAdmittedInvocationAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admission: InvocationAdmission,
+): boolean;
+export function hasAdmittedInvocationAtPrefix(
+  prefix: RuntimeEventPrefix,
   admission: InvocationAdmission,
 ): boolean {
   return hasExactInvocationAdmissionAtPrefix(prefix, admission);
@@ -762,12 +810,32 @@ export function hasInvocationRunBindingAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   admission: InvocationAdmission,
   runId: string,
+): boolean;
+/** @internal */
+export function hasInvocationRunBindingAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admission: InvocationAdmission,
+  runId: string,
+): boolean;
+export function hasInvocationRunBindingAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admission: InvocationAdmission,
+  runId: string,
 ): boolean {
   return hasExactInvocationRunBindingAtPrefix(prefix, admission, runId);
 }
 
 export function rehydrateInvocationAdmissionAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  invocationAdmissionRef: string,
+): InvocationAdmission | null;
+/** @internal */
+export function rehydrateInvocationAdmissionAtPrefix(
+  prefix: RuntimeEventPrefix,
+  invocationAdmissionRef: string,
+): InvocationAdmission | null;
+export function rehydrateInvocationAdmissionAtPrefix(
+  prefix: RuntimeEventPrefix,
   invocationAdmissionRef: string,
 ): InvocationAdmission | null {
   return projectExactInvocationAdmissionAtPrefix(
@@ -1275,7 +1343,7 @@ function admitInvocationWithRequest(
     }
   } else {
     const reentry = input.reentryBasis;
-    const predecessorEvents = runtimeEventsFromValidatedPrefix(
+    const predecessorEvents = runtimeEventBodiesAtPrefix(
       predecessorPrefix,
     );
     const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
@@ -1284,21 +1352,15 @@ function admitInvocationWithRequest(
     );
     const sourceReplay = (() => {
       try {
-        return replayValidatedRuntimeEventPrefix(
-          selectValidatedRuntimeEventPrefix(predecessorEvents, {
-            runId: reentry.sourceRunId,
-          }),
-          predecessorPrefix,
-        );
+        return projectRuntimeReplayGuard(selectRuntimeEventPrefixFromAuthority(predecessorPrefix, {runId:reentry.sourceRunId}), predecessorPrefix);
       } catch {
         return null;
       }
     })();
-    const sourceRoute = sourceReplay?.routes.find(
-      (route) => route.admissionEventRef === reentry.sourceRouteEventRef,
-    );
+    const sourceRoute = sourceReplay === null ? undefined : projectValidatedReplayRouteAtPrefix(
+      selectRuntimeEventPrefixFromAuthority(predecessorPrefix,{runId:reentry.sourceRunId}), reentry.sourceRouteEventRef, predecessorPrefix);
     const sourceProjection = sourceRoute?.nextActionProjection ?? null;
-    const sourceAlreadyConsumed = predecessorEvents.some(
+    const sourceAlreadyConsumed = indexedRuntimeEvents(predecessorPrefix, "kind:" + "invocation_admitted").some(
       (event) =>
         event.kind === "invocation_admitted" &&
         isRecord(event.payload) &&
@@ -1416,14 +1478,22 @@ function admitInvocationWithRequest(
     if (suppliedBasis.sourceResultContractRef === governanceContract("state")) {
       const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(predecessorPrefix, suppliedBasis.sourceInvocationAdmissionRef);
       const retained = retainedGovernanceWorkInput(suppliedBasis.sourceResultValue);
+      const exactCurrent = sourceInvocation !== null && sourceInvocation.catalogViewId === catalogViewRef(input.catalogView) &&
+        sourceInvocation.catalogViewDigest === input.catalogView.viewDigest && sourceInvocation.workspaceBindingId === environment.workspaceBinding.bindingId &&
+        sourceInvocation.workspaceBindingDigest === environment.workspaceBinding.bindingDigest;
+      const currentUse = exactCurrent || input.sourceUseDeclarations === undefined ? null : projectGovernanceCoveredSourceUse(predecessorPrefix, {
+        predecessorPrefix: input.artifactTruth.prefix, source: suppliedBasis, workspaceBinding: input.workspaceBinding,
+        program: input.program, graphFunction: input.graphFunction, currentDeclaration: input.sourceUseDeclarations.current,
+        historicalDeclarations: input.sourceUseDeclarations.historical });
       if (retained === null || sourceInvocation === null ||
         input.graphFunction.declarations["abg.supported_fulfillment_profile"] !== GOVERNANCE_FULFILLMENT_PROFILE ||
         input.rawInput.contractRef !== governanceContract("state") ||
         canonicalJson(input.rawInput.value as JsonValue) !== canonicalJson(retained as unknown as JsonValue) ||
         sourceInvocation.programRef !== input.program.programRef || sourceInvocation.programDigest !== sha256Canonical(input.program as unknown as JsonValue) ||
-        sourceInvocation.catalogViewId !== catalogViewRef(input.catalogView) || sourceInvocation.catalogViewDigest !== input.catalogView.viewDigest ||
-        sourceInvocation.workspaceBindingId !== environment.workspaceBinding.bindingId ||
-        sourceInvocation.workspaceBindingDigest !== environment.workspaceBinding.bindingDigest) {
+        (!exactCurrent && (currentUse === null || input.currentSourceUse === undefined ||
+          canonicalJson(currentUse as unknown as JsonValue) !== canonicalJson(input.currentSourceUse as unknown as JsonValue) ||
+          currentUse.currentCatalogBasisDigest !== input.catalogView.catalogBasisDigest || currentUse.currentCatalogViewDigest !== input.catalogView.viewDigest)) ||
+        (exactCurrent && input.currentSourceUse !== undefined)) {
         return refusal("authority_mismatch", "retained library work requires its exact current input, declared entry, Program and workspace authority");
       }
     }

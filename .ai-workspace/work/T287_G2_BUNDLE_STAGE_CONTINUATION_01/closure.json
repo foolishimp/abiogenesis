@@ -1,0 +1,46 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED",
+  "disposition": "STOPPED_FAILED_PACKAGED_PROOF",
+  "closedAtUTC": "2026-10-04T15:52:40.467848+00:00",
+  "SourceWrites": 0,
+  "PayloadRetries": 0,
+  "RuntimeEffects": 0,
+  "processGroupsAbsent": true,
+  "compileReuse": "PROVEN; no new compile",
+  "passedPhases": [
+    "physical acquisition",
+    "NodeNext/13-runtime-package preflight",
+    "complete manifest",
+    "offline pack",
+    "exact source-blind extraction"
+  ],
+  "focused": {
+    "passed": 6,
+    "failed": 4,
+    "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/proofs/focused.json"
+  },
+  "failureReport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/failure-boundaries.json",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10660890,
+    "sha256": "c530a78b54a6946f39ab6968f49850217bf49671c2c506765237ea4f492b4008",
+    "shasum": "919b120919ca18b0012d931213e7561d5e200b90",
+    "integrity": "sha512-GibtVQjGdUvaU1jCDpvmSKOw0TPHWZhPQbT/aYmQmB0zQHg7+mciZGg4VFbUOX705UJ+IrPIrHxGUEixS6qUDA=="
+  },
+  "acceptanceLimit": "Archive produced; full core packaged readiness not established. Author constructability evidence, not independent acceptance.",
+  "smallestReentry": "Root multi-frame conjoin exact tuple projection/profile and independent native closure owner/caller localization before any further effect",
+  "residuals": [
+    "strict published tuple profile",
+    "native catalog/declaration closure correspondence",
+    "complete optional declaration/negative/restoration proof",
+    "four drift maps",
+    "version adjunct and other mandatory content",
+    "current installed G1/G3 chain",
+    "genuine complete F11/seven defects",
+    "exact qualification and RC1"
+  ],
+  "stopWritesAfterFreeze": true
+}

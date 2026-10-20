@@ -1,0 +1,12 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/metadata-parity.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116",
+  "started": "2026-10-08T11:59:39.709Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000
+}

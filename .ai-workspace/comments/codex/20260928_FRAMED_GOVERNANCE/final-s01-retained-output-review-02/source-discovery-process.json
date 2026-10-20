@@ -1,0 +1,14 @@
+{
+  "process": "source-discovery",
+  "command": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/source-discovery.py"
+  ],
+  "elapsedMs": 89.71266727894545,
+  "exitCode": 0,
+  "timedOut": false,
+  "ownedGroupSignals": [],
+  "stdout": "source-discovery.stdout",
+  "stderr": "source-discovery.stderr",
+  "nativeCalls": 0
+}

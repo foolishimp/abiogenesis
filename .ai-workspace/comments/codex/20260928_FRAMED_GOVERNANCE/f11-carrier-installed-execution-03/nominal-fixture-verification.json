@@ -1,0 +1,1129 @@
+{
+  "kind": "product_verification_success",
+  "schemaVersion": "5.0.0",
+  "disposition": "verified",
+  "verifiedArtifact": {
+    "kind": "verified_product_artifact",
+    "schemaVersion": "5.0.0",
+    "disposition": "verified",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+    "artifactDigest": "sha256:943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+    "artifactByteLength": 10840688,
+    "productId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+    "packageName": "@abiogenesis-fixtures/f11-carrier-child",
+    "packageVersion": "5.0.0",
+    "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+    "manifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f",
+    "descriptorRef": "descriptor://abiogenesis-fixture/f11-carrier/fixture@5",
+    "publisherNamespace": "abiogenesis-fixture",
+    "contributionManifestRef": "contribution-manifest://abiogenesis-fixture/f11-carrier/fixture@5",
+    "contributionManifestDigest": "sha256:2d7f834e3665e00ae58b197bb99077bd3b2152461f8b3bcbf0727e3b819c5e5a",
+    "contributionManifest": {
+      "capabilityDefinitionGraph": {
+        "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0"
+      },
+      "contributionManifestRef": "contribution-manifest://abiogenesis-fixture/f11-carrier/fixture@5",
+      "descriptorRef": "descriptor://abiogenesis-fixture/f11-carrier/fixture@5",
+      "kind": "product_contribution_manifest",
+      "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+      "productId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+      "productVersion": "5.0.0",
+      "publicContractCatalogDigest": "sha256:27a6a6a9ecdd9ab41eee39fddca52e1c64ee6239ad4964e2d0b606633e9d08a9",
+      "publicContractCatalogId": "catalog://abiogenesis-fixture/f11-carrier/public-contracts@5",
+      "publicationBindings": [
+        {
+          "moduleRef": "module://abiogenesis-fixture/f11-carrier/fixture@5",
+          "publicationDigest": "sha256:5df530c02622f82d2a3d56e6c701c9d7ccbdee2a4000bbc90ba71a000a6bfa6a"
+        }
+      ],
+      "rows": [
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+          "handle": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+          "kind": "graph_function",
+          "moduleRef": "module://abiogenesis-fixture/f11-carrier/fixture@5",
+          "owningProductId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+          "programMembershipRefs": [
+            "program://abiogenesis-fixture/f11-carrier/parent@5"
+          ],
+          "provenanceRef": "provenance://abiogenesis-fixture/f11-carrier/fixture@5",
+          "readinessPrerequisiteRefs": [
+            "program://abiogenesis-fixture/f11-carrier/parent@5"
+          ]
+        }
+      ],
+      "schemaVersion": "5.0.0"
+    },
+    "compatibilityRefs": [
+      "compatibility://abiogenesis/major/5"
+    ],
+    "declaredDependencies": [
+      {
+        "compatibilityRef": "compatibility://abiogenesis/major/5",
+        "kind": "requires",
+        "packageVersion": "5.0.0-rc.1",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "requiredCapabilityRefs": [
+          "abg.capability.catalog.invoke-graph-function@5",
+          "abg.capability.gtl.declare@5"
+        ],
+        "requiredContractRefs": [
+          "abg.contract.gtl.root-declaration",
+          "abg.schema.public-operation-invocation",
+          "abg.schema.exact-candidate-qualification"
+        ]
+      }
+    ],
+    "provenanceRef": "provenance://abiogenesis-fixture/f11-carrier/fixture@5",
+    "declaredCapabilityRefs": [],
+    "catalogId": "catalog://abiogenesis-fixture/f11-carrier/public-contracts@5",
+    "catalogDigest": "sha256:27a6a6a9ecdd9ab41eee39fddca52e1c64ee6239ad4964e2d0b606633e9d08a9",
+    "capabilityDefinitionGraph": {
+      "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0",
+      "kind": "abg_capability_definition_graph",
+      "rows": [],
+      "schemaVersion": "5.0.0"
+    },
+    "capabilityDefinitionGraphAsset": {
+      "contentDigest": "sha256:f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "mediaType": "application/json",
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "schemaVersion": "5.0.0"
+    },
+    "publicContracts": [],
+    "publicContractRefs": [],
+    "publicCapabilityRefs": [],
+    "definitionContractCoordinates": null,
+    "checkedPayloadFiles": 5262,
+    "nativeDeclarationEvidence": {
+      "productId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+      "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+      "packageName": "@abiogenesis-fixtures/f11-carrier-child",
+      "packageType": "module",
+      "packageMetadata": [
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/package.json",
+          "declarationDigest": "sha256:89cb280743d8e75899ce6848e2d6502b47b0409e403a7fbc956a2d0aec9cb182",
+          "sourceText": "{\n    \"name\": \"@types/node\",\n    \"version\": \"24.3.0\",\n    \"description\": \"TypeScript definitions for node\",\n    \"homepage\": \"https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node\",\n    \"license\": \"MIT\",\n    \"contributors\": [\n        {\n            \"name\": \"Microsoft TypeScript\",\n            \"githubUsername\": \"Microsoft\",\n            \"url\": \"https://github.com/Microsoft\"\n        },\n        {\n            \"name\": \"Alberto Schiabel\",\n            \"githubUsername\": \"jkomyno\",\n            \"url\": \"https://github.com/jkomyno\"\n        },\n        {\n            \"name\": \"Andrew Makarov\",\n            \"githubUsername\": \"r3nya\",\n            \"url\": \"https://github.com/r3nya\"\n        },\n        {\n            \"name\": \"Benjamin Toueg\",\n            \"githubUsername\": \"btoueg\",\n            \"url\": \"https://github.com/btoueg\"\n        },\n        {\n            \"name\": \"David Junger\",\n            \"githubUsername\": \"touffy\",\n            \"url\": \"https://github.com/touffy\"\n        },\n        {\n            \"name\": \"Mohsen Azimi\",\n            \"githubUsername\": \"mohsen1\",\n            \"url\": \"https://github.com/mohsen1\"\n        },\n        {\n            \"name\": \"Nikita Galkin\",\n            \"githubUsername\": \"galkin\",\n            \"url\": \"https://github.com/galkin\"\n        },\n        {\n            \"name\": \"Sebastian Silbermann\",\n            \"githubUsername\": \"eps1lon\",\n            \"url\": \"https://github.com/eps1lon\"\n        },\n        {\n            \"name\": \"Wilco Bakker\",\n            \"githubUsername\": \"WilcoBakker\",\n            \"url\": \"https://github.com/WilcoBakker\"\n        },\n        {\n            \"name\": \"Marcin Kopacz\",\n            \"githubUsername\": \"chyzwar\",\n            \"url\": \"https://github.com/chyzwar\"\n        },\n        {\n            \"name\": \"Trivikram Kamat\",\n            \"githubUsername\": \"trivikr\",\n            \"url\": \"https://github.com/trivikr\"\n        },\n        {\n            \"name\": \"Junxiao Shi\",\n            \"githubUsername\": \"yoursunny\",\n            \"url\": \"https://github.com/yoursunny\"\n        },\n        {\n            \"name\": \"Ilia Baryshnikov\",\n            \"githubUsername\": \"qwelias\",\n            \"url\": \"https://github.com/qwelias\"\n        },\n        {\n            \"name\": \"ExE Boss\",\n            \"githubUsername\": \"ExE-Boss\",\n            \"url\": \"https://github.com/ExE-Boss\"\n        },\n        {\n            \"name\": \"Piotr Błażejewicz\",\n            \"githubUsername\": \"peterblazejewicz\",\n            \"url\": \"https://github.com/peterblazejewicz\"\n        },\n        {\n            \"name\": \"Anna Henningsen\",\n            \"githubUsername\": \"addaleax\",\n            \"url\": \"https://github.com/addaleax\"\n        },\n        {\n            \"name\": \"Victor Perin\",\n            \"githubUsername\": \"victorperin\",\n            \"url\": \"https://github.com/victorperin\"\n        },\n        {\n            \"name\": \"NodeJS Contributors\",\n            \"githubUsername\": \"NodeJS\",\n            \"url\": \"https://github.com/NodeJS\"\n        },\n        {\n            \"name\": \"Linus Unnebäck\",\n            \"githubUsername\": \"LinusU\",\n            \"url\": \"https://github.com/LinusU\"\n        },\n        {\n            \"name\": \"wafuwafu13\",\n            \"githubUsername\": \"wafuwafu13\",\n            \"url\": \"https://github.com/wafuwafu13\"\n        },\n        {\n            \"name\": \"Matteo Collina\",\n            \"githubUsername\": \"mcollina\",\n            \"url\": \"https://github.com/mcollina\"\n        },\n        {\n            \"name\": \"Dmitry Semigradsky\",\n            \"githubUsername\": \"Semigradsky\",\n            \"url\": \"https://github.com/Semigradsky\"\n        },\n        {\n            \"name\": \"René\",\n            \"githubUsername\": \"Renegade334\",\n            \"url\": \"https://github.com/Renegade334\"\n        },\n        {\n            \"name\": \"Yagiz Nizipli\",\n            \"githubUsername\": \"anonrig\",\n            \"url\": \"https://github.com/anonrig\"\n        }\n    ],\n    \"main\": \"\",\n    \"types\": \"index.d.ts\",\n    \"typesVersions\": {\n        \"<=5.6\": {\n            \"*\": [\n                \"ts5.6/*\"\n            ]\n        },\n        \"<=5.7\": {\n            \"*\": [\n                \"ts5.7/*\"\n            ]\n        }\n    },\n    \"repository\": {\n        \"type\": \"git\",\n        \"url\": \"https://github.com/DefinitelyTyped/DefinitelyTyped.git\",\n        \"directory\": \"types/node\"\n    },\n    \"scripts\": {},\n    \"dependencies\": {\n        \"undici-types\": \"~7.10.0\"\n    },\n    \"peerDependencies\": {},\n    \"typesPublisherContentHash\": \"1db0510763ba3afd8e54c0591e60a100a7b90926f5d7da28ae32d8f845d725da\",\n    \"typeScriptVersion\": \"5.2\"\n}"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/package.json",
+          "declarationDigest": "sha256:3235a70e0936b193bd993a1f48221f2ada41bc5ae48eb84735f5aa83c30236e5",
+          "sourceText": "{\n  \"name\": \"undici-types\",\n  \"version\": \"7.10.0\",\n  \"description\": \"A stand-alone types package for Undici\",\n  \"homepage\": \"https://undici.nodejs.org\",\n  \"bugs\": {\n    \"url\": \"https://github.com/nodejs/undici/issues\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/nodejs/undici.git\"\n  },\n  \"license\": \"MIT\",\n  \"types\": \"index.d.ts\",\n  \"files\": [\n    \"*.d.ts\"\n  ],\n  \"contributors\": [\n    {\n      \"name\": \"Daniele Belardi\",\n      \"url\": \"https://github.com/dnlup\",\n      \"author\": true\n    },\n    {\n      \"name\": \"Ethan Arrowood\",\n      \"url\": \"https://github.com/ethan-arrowood\",\n      \"author\": true\n    },\n    {\n      \"name\": \"Matteo Collina\",\n      \"url\": \"https://github.com/mcollina\",\n      \"author\": true\n    },\n    {\n      \"name\": \"Matthew Aitken\",\n      \"url\": \"https://github.com/KhafraDev\",\n      \"author\": true\n    },\n    {\n      \"name\": \"Robert Nagy\",\n      \"url\": \"https://github.com/ronag\",\n      \"author\": true\n    },\n    {\n      \"name\": \"Szymon Marczak\",\n      \"url\": \"https://github.com/szmarczak\",\n      \"author\": true\n    },\n    {\n      \"name\": \"Tomas Della Vedova\",\n      \"url\": \"https://github.com/delvedor\",\n      \"author\": true\n    }\n  ]\n}"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/@standard-schema/spec/package.json",
+          "declarationDigest": "sha256:58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb",
+          "sourceText": "{\n  \"name\": \"@standard-schema/spec\",\n  \"description\": \"A family of specs for interoperable TypeScript\",\n  \"version\": \"1.1.0\",\n  \"license\": \"MIT\",\n  \"author\": \"Colin McDonnell\",\n  \"homepage\": \"https://standardschema.dev\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/standard-schema/standard-schema\"\n  },\n  \"keywords\": [\n    \"typescript\",\n    \"schema\",\n    \"validation\",\n    \"standard\",\n    \"interface\"\n  ],\n  \"type\": \"module\",\n  \"main\": \"./dist/index.js\",\n  \"types\": \"./dist/index.d.ts\",\n  \"exports\": {\n    \".\": {\n      \"standard-schema-spec\": \"./src/index.ts\",\n      \"import\": {\n        \"types\": \"./dist/index.d.ts\",\n        \"default\": \"./dist/index.js\"\n      },\n      \"require\": {\n        \"types\": \"./dist/index.d.cts\",\n        \"default\": \"./dist/index.cjs\"\n      }\n    }\n  },\n  \"sideEffects\": false,\n  \"files\": [\n    \"dist\"\n  ],\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"devDependencies\": {\n    \"tsup\": \"^8.3.0\",\n    \"typescript\": \"^5.6.2\"\n  },\n  \"scripts\": {\n    \"lint\": \"pnpm biome lint ./src\",\n    \"format\": \"pnpm biome format --write ./src\",\n    \"check\": \"pnpm biome check ./src\",\n    \"build\": \"tsup\"\n  }\n}"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/@valibot/to-json-schema/package.json",
+          "declarationDigest": "sha256:5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+          "sourceText": "{\n  \"name\": \"@valibot/to-json-schema\",\n  \"description\": \"The official JSON schema converter for Valibot\",\n  \"version\": \"1.7.1\",\n  \"license\": \"MIT\",\n  \"author\": \"Fabian Hiller\",\n  \"homepage\": \"https://valibot.dev\",\n  \"contributors\": [\n    {\n      \"name\": \"Guillaume Cornut\"\n    }\n  ],\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/open-circle/valibot\"\n  },\n  \"keywords\": [\n    \"valibot\",\n    \"schema\",\n    \"converter\",\n    \"json-schema\"\n  ],\n  \"type\": \"module\",\n  \"main\": \"./dist/index.mjs\",\n  \"types\": \"./dist/index.d.mts\",\n  \"exports\": {\n    \".\": {\n      \"import\": {\n        \"types\": \"./dist/index.d.mts\",\n        \"default\": \"./dist/index.mjs\"\n      },\n      \"require\": {\n        \"types\": \"./dist/index.d.cts\",\n        \"default\": \"./dist/index.cjs\"\n      }\n    }\n  },\n  \"sideEffects\": false,\n  \"files\": [\n    \"dist\"\n  ],\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"scripts\": {\n    \"test\": \"vitest --typecheck\",\n    \"coverage\": \"vitest run --coverage --isolate\",\n    \"lint\": \"eslint \\\"src/**/*.ts*\\\" && tsc --noEmit && deno check ./src/index.ts\",\n    \"lint.fix\": \"eslint \\\"src/**/*.ts*\\\" --fix\",\n    \"format\": \"prettier --write ./src\",\n    \"format.check\": \"prettier --check ./src\",\n    \"build\": \"tsdown\"\n  },\n  \"devDependencies\": {\n    \"@eslint/js\": \"^9.39.1\",\n    \"@types/node\": \"^24.10.1\",\n    \"@vitest/coverage-v8\": \"^4.1.8\",\n    \"eslint\": \"^9.39.1\",\n    \"eslint-import-resolver-typescript\": \"^4.4.4\",\n    \"eslint-plugin-import\": \"^2.32.0\",\n    \"eslint-plugin-jsdoc\": \"^61.4.0\",\n    \"eslint-plugin-security\": \"^3.0.1\",\n    \"globals\": \"^16.5.0\",\n    \"tsdown\": \"^0.16.6\",\n    \"typescript\": \"^5.9.3\",\n    \"typescript-eslint\": \"^8.47.0\",\n    \"valibot\": \"^1.4.0\",\n    \"vite\": \"^7.2.4\",\n    \"vite-tsconfig-paths\": \"^5.1.4\",\n    \"vitest\": \"4.1.8\"\n  },\n  \"peerDependencies\": {\n    \"valibot\": \"^1.4.0\"\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/ajv-formats/package.json",
+          "declarationDigest": "sha256:402fb4bcfa457f0226813f3976ac42839dd619907c075c108efba8600d7edb69",
+          "sourceText": "{\n  \"name\": \"ajv-formats\",\n  \"version\": \"3.0.1\",\n  \"description\": \"Format validation for Ajv v7+\",\n  \"main\": \"dist/index.js\",\n  \"types\": \"dist/index.d.ts\",\n  \"files\": [\n    \"src/\",\n    \"dist/\"\n  ],\n  \"scripts\": {\n    \"build\": \"tsc\",\n    \"prettier:write\": \"prettier --write \\\"./**/*.{md,json,yaml,js,ts}\\\"\",\n    \"prettier:check\": \"prettier --list-different \\\"./**/*.{md,json,yaml,js,ts}\\\"\",\n    \"eslint\": \"eslint --ext .ts ./src/**/*\",\n    \"test-spec\": \"jest\",\n    \"test-cov\": \"jest --coverage\",\n    \"test\": \"npm run prettier:check && npm run build && npm run eslint && npm run test-cov\",\n    \"ci-test\": \"npm run test\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/ajv-validator/ajv-formats.git\"\n  },\n  \"keywords\": [\n    \"Ajv\",\n    \"JSON-Schema\",\n    \"format\",\n    \"validation\"\n  ],\n  \"author\": \"Evgeny Poberezkin\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/ajv-validator/ajv-formats/issues\"\n  },\n  \"homepage\": \"https://github.com/ajv-validator/ajv-formats#readme\",\n  \"dependencies\": {\n    \"ajv\": \"^8.0.0\"\n  },\n  \"peerDependencies\": {\n    \"ajv\": \"^8.0.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"ajv\": {\n      \"optional\": true\n    }\n  },\n  \"devDependencies\": {\n    \"@ajv-validator/config\": \"^0.3.0\",\n    \"@types/jest\": \"^26.0.5\",\n    \"@types/node\": \"^14.10.1\",\n    \"@typescript-eslint/eslint-plugin\": \"^3.7.0\",\n    \"@typescript-eslint/parser\": \"^3.7.0\",\n    \"ajv\": \"^8.0.0\",\n    \"eslint\": \"^7.5.0\",\n    \"eslint-config-prettier\": \"^6.11.0\",\n    \"husky\": \"^4.2.5\",\n    \"jest\": \"^26.1.0\",\n    \"json-schema-test\": \"^2.0.0\",\n    \"lint-staged\": \"^10.2.11\",\n    \"prettier\": \"^2.3.2\",\n    \"ts-jest\": \"^26.1.3\",\n    \"typescript\": \"^4.0.0\"\n  },\n  \"prettier\": \"@ajv-validator/config/prettierrc.json\",\n  \"husky\": {\n    \"hooks\": {\n      \"pre-commit\": \"lint-staged && npm test\"\n    }\n  },\n  \"lint-staged\": {\n    \"*.{md,json,yaml,js,ts}\": \"prettier --write\"\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/ajv/package.json",
+          "declarationDigest": "sha256:1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",
+          "sourceText": "{\n  \"name\": \"ajv\",\n  \"version\": \"8.20.0\",\n  \"description\": \"Another JSON Schema Validator\",\n  \"main\": \"dist/ajv.js\",\n  \"types\": \"dist/ajv.d.ts\",\n  \"files\": [\n    \"lib/\",\n    \"dist/\",\n    \".runkit_example.js\"\n  ],\n  \"sideEffects\": false,\n  \"scripts\": {\n    \"eslint\": \"eslint \\\"lib/**/*.ts\\\" \\\"spec/**/*.*s\\\" --ignore-pattern spec/JSON-Schema-Test-Suite\",\n    \"prettier:write\": \"prettier --write \\\"./**/*.{json,yaml,js,ts}\\\"\",\n    \"prettier:check\": \"prettier --list-different \\\"./**/*.{json,yaml,js,ts}\\\"\",\n    \"test-spec\": \"cross-env TS_NODE_PROJECT=spec/tsconfig.json mocha -r ts-node/register \\\"spec/**/*.spec.{ts,js}\\\" -R dot\",\n    \"test-codegen\": \"nyc cross-env TS_NODE_PROJECT=spec/tsconfig.json mocha -r ts-node/register 'spec/codegen.spec.ts' -R spec\",\n    \"test-debug\": \"npm run test-spec -- --inspect-brk\",\n    \"test-cov\": \"nyc npm run test-spec\",\n    \"rollup\": \"rm -rf bundle && rollup -c\",\n    \"bundle\": \"rm -rf bundle && node ./scripts/bundle.js ajv ajv7 ajv7 && node ./scripts/bundle.js 2019 ajv2019 ajv2019 && node ./scripts/bundle.js 2020 ajv2020 ajv2020 && node ./scripts/bundle.js jtd ajvJTD ajvJTD\",\n    \"build\": \"rm -rf dist && tsc && cp -r lib/refs dist && rm dist/refs/json-schema-2019-09/index.ts && rm dist/refs/json-schema-2020-12/index.ts && rm dist/refs/jtd-schema.ts\",\n    \"json-tests\": \"rm -rf spec/_json/*.js && node scripts/jsontests\",\n    \"test-karma\": \"karma start\",\n    \"test-browser\": \"rm -rf .browser && npm run bundle && scripts/prepare-tests && karma start\",\n    \"test-all\": \"npm run test-cov\",\n    \"test\": \"npm run json-tests && npm run prettier:check && npm run eslint && npm link && npm link --legacy-peer-deps ajv && npm run test-cov\",\n    \"test-ci\": \"AJV_FULL_TEST=true npm test\",\n    \"prepublish\": \"npm run build\",\n    \"benchmark\": \"npm i && npm run build && npm link && cd ./benchmark && npm link --legacy-peer-deps ajv && npm i && node ./jtd\",\n    \"docs:dev\": \"./scripts/prepare-site && vuepress dev docs\",\n    \"docs:build\": \"./scripts/prepare-site && vuepress build docs\"\n  },\n  \"nyc\": {\n    \"exclude\": [\n      \"**/spec/**\",\n      \"node_modules\"\n    ],\n    \"reporter\": [\n      \"lcov\",\n      \"text-summary\"\n    ]\n  },\n  \"repository\": \"ajv-validator/ajv\",\n  \"keywords\": [\n    \"JSON\",\n    \"schema\",\n    \"validator\",\n    \"validation\",\n    \"jsonschema\",\n    \"json-schema\",\n    \"json-schema-validator\",\n    \"json-schema-validation\"\n  ],\n  \"author\": \"Evgeny Poberezkin\",\n  \"license\": \"MIT\",\n  \"bugs\": \"https://github.com/ajv-validator/ajv/issues\",\n  \"homepage\": \"https://ajv.js.org\",\n  \"runkitExampleFilename\": \".runkit_example.js\",\n  \"dependencies\": {\n    \"fast-deep-equal\": \"^3.1.3\",\n    \"fast-uri\": \"^3.0.1\",\n    \"json-schema-traverse\": \"^1.0.0\",\n    \"require-from-string\": \"^2.0.2\"\n  },\n  \"devDependencies\": {\n    \"@ajv-validator/config\": \"^0.5.0\",\n    \"@rollup/plugin-commonjs\": \"^25.0.7\",\n    \"@rollup/plugin-json\": \"^6.1.0\",\n    \"@rollup/plugin-node-resolve\": \"^15.2.3\",\n    \"@rollup/plugin-typescript\": \"^11.1.6\",\n    \"@types/chai\": \"^4.3.11\",\n    \"@types/mocha\": \"^10.0.6\",\n    \"@types/node\": \"^20.11.30\",\n    \"@types/require-from-string\": \"^1.2.3\",\n    \"@typescript-eslint/eslint-plugin\": \"^7.3.1\",\n    \"@typescript-eslint/parser\": \"^7.3.1\",\n    \"ajv-formats\": \"^3.0.1\",\n    \"browserify\": \"^17.0.0\",\n    \"chai\": \"^4.4.1\",\n    \"cross-env\": \"^7.0.3\",\n    \"dayjs\": \"^1.11.10\",\n    \"dayjs-plugin-utc\": \"^0.1.2\",\n    \"eslint\": \"^8.57.0\",\n    \"eslint-config-prettier\": \"^9.1.0\",\n    \"glob\": \"^10.3.10\",\n    \"husky\": \"^9.0.11\",\n    \"jimp\": \"^0.22.10\",\n    \"js-beautify\": \"^1.15.1\",\n    \"json-schema-test\": \"^2.0.0\",\n    \"karma\": \"^6.4.2\",\n    \"karma-chrome-launcher\": \"^3.2.0\",\n    \"karma-mocha\": \"^2.0.1\",\n    \"lint-staged\": \"^15.2.2\",\n    \"mocha\": \"^10.3.0\",\n    \"module-from-string\": \"^3.3.0\",\n    \"node-fetch\": \"^3.3.2\",\n    \"nyc\": \"^15.1.0\",\n    \"prettier\": \"3.0.3\",\n    \"re2\": \"^1.20.9\",\n    \"rollup\": \"^2.79.1\",\n    \"rollup-plugin-terser\": \"^7.0.2\",\n    \"ts-node\": \"^10.9.2\",\n    \"tsify\": \"^5.0.4\",\n    \"typescript\": \"5.3.3\",\n    \"uri-js\": \"^4.4.1\"\n  },\n  \"collective\": {\n    \"type\": \"opencollective\",\n    \"url\": \"https://opencollective.com/ajv\"\n  },\n  \"funding\": {\n    \"type\": \"github\",\n    \"url\": \"https://github.com/sponsors/epoberezkin\"\n  },\n  \"prettier\": \"@ajv-validator/config/prettierrc.json\",\n  \"husky\": {\n    \"hooks\": {\n      \"pre-commit\": \"lint-staged && npm test\"\n    }\n  },\n  \"lint-staged\": {\n    \"*.{json,yaml,js,ts}\": \"prettier --write\"\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/.index/package.json",
+          "declarationDigest": "sha256:df9a638d6698d9edbf15c55280f11baf86a3b668693f246bb0f5587e2db3a78e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/.index.js\",\n  \"module\": \"../dist/esm/.index.js\",\n  \"types\": \"../dist/dts/.index.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Arbitrary/package.json",
+          "declarationDigest": "sha256:32de935e63f44da3a5d92d301329fce1fe2cf2882bdb51a2ab6f9af37056820e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Arbitrary.js\",\n  \"module\": \"../dist/esm/Arbitrary.js\",\n  \"types\": \"../dist/dts/Arbitrary.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Array/package.json",
+          "declarationDigest": "sha256:fdf4bff6dfa9344c772777455f63e994705b69315c2b0202a191b0a193002b8f",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Array.js\",\n  \"module\": \"../dist/esm/Array.js\",\n  \"types\": \"../dist/dts/Array.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/BigDecimal/package.json",
+          "declarationDigest": "sha256:f84e5a63479a71da255013ae527503aebcd50798c5e4c177f2ed0ed526088c53",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/BigDecimal.js\",\n  \"module\": \"../dist/esm/BigDecimal.js\",\n  \"types\": \"../dist/dts/BigDecimal.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/BigInt/package.json",
+          "declarationDigest": "sha256:481022a1819c4a180facc2268310e1a9f015311a0bd348f8c75ab55c503a0914",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/BigInt.js\",\n  \"module\": \"../dist/esm/BigInt.js\",\n  \"types\": \"../dist/dts/BigInt.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Boolean/package.json",
+          "declarationDigest": "sha256:7d4c7cadde6a4283f5d001a02d16c4ba68376fc330a578e0f07a082d3cb5491a",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Boolean.js\",\n  \"module\": \"../dist/esm/Boolean.js\",\n  \"types\": \"../dist/dts/Boolean.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Brand/package.json",
+          "declarationDigest": "sha256:546e2be942e113db5842c401c7ebe94ff63be55267bff4b464a07324d54bc3c8",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Brand.js\",\n  \"module\": \"../dist/esm/Brand.js\",\n  \"types\": \"../dist/dts/Brand.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Cache/package.json",
+          "declarationDigest": "sha256:cb7757da8ae0d5405a2faa0cdd597edb8b4bd8aa76568e9ea28dbabc5fe7b356",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Cache.js\",\n  \"module\": \"../dist/esm/Cache.js\",\n  \"types\": \"../dist/dts/Cache.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Cause/package.json",
+          "declarationDigest": "sha256:2396b0d3de366d7945b56f88b15510891f3c39a3e9e785313967da8594787b9a",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Cause.js\",\n  \"module\": \"../dist/esm/Cause.js\",\n  \"types\": \"../dist/dts/Cause.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Channel/package.json",
+          "declarationDigest": "sha256:52c67163e0cc13215b8f089f4571120139124dd9a809a71ee6cb8d6b1559b697",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Channel.js\",\n  \"module\": \"../dist/esm/Channel.js\",\n  \"types\": \"../dist/dts/Channel.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ChildExecutorDecision/package.json",
+          "declarationDigest": "sha256:c1dc37624a456f51d1cc53aac41ae11672ac8b47a71f9ea97ce1c50194383b06",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ChildExecutorDecision.js\",\n  \"module\": \"../dist/esm/ChildExecutorDecision.js\",\n  \"types\": \"../dist/dts/ChildExecutorDecision.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Chunk/package.json",
+          "declarationDigest": "sha256:3f89ab2e6305993f330e097489992ad72d608a3a47f24a28f436c0ff010125b8",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Chunk.js\",\n  \"module\": \"../dist/esm/Chunk.js\",\n  \"types\": \"../dist/dts/Chunk.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Clock/package.json",
+          "declarationDigest": "sha256:b16c6eeb2bbea99b5de3640a8043d1c77d7d303337e3893415b4be14df3148d5",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Clock.js\",\n  \"module\": \"../dist/esm/Clock.js\",\n  \"types\": \"../dist/dts/Clock.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Config/package.json",
+          "declarationDigest": "sha256:a1fe70f453684c75c3818e0256cc1a50ebff5cf6bd77360ff7afa1b42cfe912d",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Config.js\",\n  \"module\": \"../dist/esm/Config.js\",\n  \"types\": \"../dist/dts/Config.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ConfigError/package.json",
+          "declarationDigest": "sha256:d2a62bb12d701b8dabc43f95f639914e590b23b81304b6c39cc3b77e6cc521c6",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ConfigError.js\",\n  \"module\": \"../dist/esm/ConfigError.js\",\n  \"types\": \"../dist/dts/ConfigError.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ConfigProvider/package.json",
+          "declarationDigest": "sha256:a542db3135a7a75442c0070fb52db2cc0174ee0c4dc7479a4c9cd62f45a5be56",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ConfigProvider.js\",\n  \"module\": \"../dist/esm/ConfigProvider.js\",\n  \"types\": \"../dist/dts/ConfigProvider.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ConfigProviderPathPatch/package.json",
+          "declarationDigest": "sha256:c8fc01c4270ccabcc63ed8a86ded6108ae7f3f508b9da1212bad1fb8058d575e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ConfigProviderPathPatch.js\",\n  \"module\": \"../dist/esm/ConfigProviderPathPatch.js\",\n  \"types\": \"../dist/dts/ConfigProviderPathPatch.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Console/package.json",
+          "declarationDigest": "sha256:21aad2e5753520428e46bc6ce1eb8945074cc113ff72a4baab224dc488be9fa9",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Console.js\",\n  \"module\": \"../dist/esm/Console.js\",\n  \"types\": \"../dist/dts/Console.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Context/package.json",
+          "declarationDigest": "sha256:43d9ff5d3ea86777b8b50ced9e7004a8220bdc179002792e285c612686cab8bc",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Context.js\",\n  \"module\": \"../dist/esm/Context.js\",\n  \"types\": \"../dist/dts/Context.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Cron/package.json",
+          "declarationDigest": "sha256:99bb4f89dc98d1dc4dd683440f78c1c70d3e927f3f2674b24c022e232c3c36aa",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Cron.js\",\n  \"module\": \"../dist/esm/Cron.js\",\n  \"types\": \"../dist/dts/Cron.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Data/package.json",
+          "declarationDigest": "sha256:01e9eddb50a10d43cf3d7f1e225893b93378ca3eb01dbf2d4da58c1e29926330",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Data.js\",\n  \"module\": \"../dist/esm/Data.js\",\n  \"types\": \"../dist/dts/Data.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/DateTime/package.json",
+          "declarationDigest": "sha256:fb1e90bce4805a7f8700be9ece9d02e84a330e7cff308d55e007a6cd4a3dd2bf",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/DateTime.js\",\n  \"module\": \"../dist/esm/DateTime.js\",\n  \"types\": \"../dist/dts/DateTime.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/DefaultServices/package.json",
+          "declarationDigest": "sha256:1b1ecb5be43215acc9b54cbc759a9d784a5f501f5677f33e71eb33c8868dd113",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/DefaultServices.js\",\n  \"module\": \"../dist/esm/DefaultServices.js\",\n  \"types\": \"../dist/dts/DefaultServices.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Deferred/package.json",
+          "declarationDigest": "sha256:c70f1ee7eb7fe77d28320694e3e8eae101c23a88829540811c63971b251a4e2c",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Deferred.js\",\n  \"module\": \"../dist/esm/Deferred.js\",\n  \"types\": \"../dist/dts/Deferred.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Differ/package.json",
+          "declarationDigest": "sha256:909701b61b15b3070348c05964ddfe06bbb748696643ce5e56ed85cf4fb52453",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Differ.js\",\n  \"module\": \"../dist/esm/Differ.js\",\n  \"types\": \"../dist/dts/Differ.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Duration/package.json",
+          "declarationDigest": "sha256:368f90d09eda6c96d42c48daaaa305422013eccda1c74624be4cb6fa31ea5bc7",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Duration.js\",\n  \"module\": \"../dist/esm/Duration.js\",\n  \"types\": \"../dist/dts/Duration.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Effect/package.json",
+          "declarationDigest": "sha256:043fbf1834308398816f9bff6a5b649af7b0672a1a85207a679e8f8a39252681",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Effect.js\",\n  \"module\": \"../dist/esm/Effect.js\",\n  \"types\": \"../dist/dts/Effect.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Effectable/package.json",
+          "declarationDigest": "sha256:49f433f318abd4707fd1d2e9662eda992d5c55e7f74595b36036358ec51770d6",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Effectable.js\",\n  \"module\": \"../dist/esm/Effectable.js\",\n  \"types\": \"../dist/dts/Effectable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Either/package.json",
+          "declarationDigest": "sha256:fbebf5c8eff9bd938c54716c12bb699282be4f723fb92eb1eee40b2b7b00113d",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Either.js\",\n  \"module\": \"../dist/esm/Either.js\",\n  \"types\": \"../dist/dts/Either.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Encoding/package.json",
+          "declarationDigest": "sha256:7cd5897c1d677451752b7ef3ef93047c2ba9b062a1e16b6c681cff1747a1ec64",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Encoding.js\",\n  \"module\": \"../dist/esm/Encoding.js\",\n  \"types\": \"../dist/dts/Encoding.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Equal/package.json",
+          "declarationDigest": "sha256:a6630e6324ed7a15b63f0c872286c3af3e2ce83e5fa29c1c31a4d482be42cc0e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Equal.js\",\n  \"module\": \"../dist/esm/Equal.js\",\n  \"types\": \"../dist/dts/Equal.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Equivalence/package.json",
+          "declarationDigest": "sha256:adb16651e3deacc948aab7ef7d4375ae325226ac688e9090b43798f8df4616e4",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Equivalence.js\",\n  \"module\": \"../dist/esm/Equivalence.js\",\n  \"types\": \"../dist/dts/Equivalence.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ExecutionPlan/package.json",
+          "declarationDigest": "sha256:3b8b8eed00199e7ac20828285d2c1b1d5856c5cebc0109ab67188cb3cc0033fc",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ExecutionPlan.js\",\n  \"module\": \"../dist/esm/ExecutionPlan.js\",\n  \"types\": \"../dist/dts/ExecutionPlan.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ExecutionStrategy/package.json",
+          "declarationDigest": "sha256:930001af418e3e6e10b718a55f8de6d96ff8056add32e8310a9195f81e7b734d",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ExecutionStrategy.js\",\n  \"module\": \"../dist/esm/ExecutionStrategy.js\",\n  \"types\": \"../dist/dts/ExecutionStrategy.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Exit/package.json",
+          "declarationDigest": "sha256:bb02e87ef53d50ba172832863f0104e1900b09944dd1b3457f6894a4b3b55979",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Exit.js\",\n  \"module\": \"../dist/esm/Exit.js\",\n  \"types\": \"../dist/dts/Exit.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FastCheck/package.json",
+          "declarationDigest": "sha256:e3383b26014a5eb94c20c13fdeca8994916d1c445fb19b706eafc721a1e57541",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FastCheck.js\",\n  \"module\": \"../dist/esm/FastCheck.js\",\n  \"types\": \"../dist/dts/FastCheck.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Fiber/package.json",
+          "declarationDigest": "sha256:8e43b59962891a0f5c702d2443513509f4ecef919889192e3ce3326fcbd17eb2",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Fiber.js\",\n  \"module\": \"../dist/esm/Fiber.js\",\n  \"types\": \"../dist/dts/Fiber.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FiberHandle/package.json",
+          "declarationDigest": "sha256:ff4b1449531b2f06c848d2f57ec25592a855c712ac7cedd193a418ab1fa099dd",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FiberHandle.js\",\n  \"module\": \"../dist/esm/FiberHandle.js\",\n  \"types\": \"../dist/dts/FiberHandle.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FiberId/package.json",
+          "declarationDigest": "sha256:585fd13a2a9ced394bcfcce9898aaa5db63f48415e316cd8777ba4a2a0cca9b6",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FiberId.js\",\n  \"module\": \"../dist/esm/FiberId.js\",\n  \"types\": \"../dist/dts/FiberId.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FiberMap/package.json",
+          "declarationDigest": "sha256:8e57373b7c20bfd5be4204569ccc8a55a436ff60e17631d9545f8c5af397d2ff",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FiberMap.js\",\n  \"module\": \"../dist/esm/FiberMap.js\",\n  \"types\": \"../dist/dts/FiberMap.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FiberRef/package.json",
+          "declarationDigest": "sha256:22aa1246b78cab010bb49319b98726a8e979262cbde4f4de79a84b1b1856638a",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FiberRef.js\",\n  \"module\": \"../dist/esm/FiberRef.js\",\n  \"types\": \"../dist/dts/FiberRef.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FiberRefs/package.json",
+          "declarationDigest": "sha256:2bd7d0317ee79bd0f9689056a51fdd97fafbb28589bc180c47548f816038c6d4",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FiberRefs.js\",\n  \"module\": \"../dist/esm/FiberRefs.js\",\n  \"types\": \"../dist/dts/FiberRefs.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FiberRefsPatch/package.json",
+          "declarationDigest": "sha256:8b5a61d185a6fe31ee08e259f1954fb114135257aaddad4faef1b19dbc110663",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FiberRefsPatch.js\",\n  \"module\": \"../dist/esm/FiberRefsPatch.js\",\n  \"types\": \"../dist/dts/FiberRefsPatch.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FiberSet/package.json",
+          "declarationDigest": "sha256:d52f03bedc37d05f70d61e0e32513382af87d2e2c712c0dd85307f6597cde816",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FiberSet.js\",\n  \"module\": \"../dist/esm/FiberSet.js\",\n  \"types\": \"../dist/dts/FiberSet.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/FiberStatus/package.json",
+          "declarationDigest": "sha256:f260f7144c1782588bcec3ad149b3479edb0c671c3b8252d367e22a27a3f9d82",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/FiberStatus.js\",\n  \"module\": \"../dist/esm/FiberStatus.js\",\n  \"types\": \"../dist/dts/FiberStatus.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Function/package.json",
+          "declarationDigest": "sha256:86d5ae023d3cdf24ffd089a322ebe1f6d598271433bdebdf65cfc6614f5a0467",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Function.js\",\n  \"module\": \"../dist/esm/Function.js\",\n  \"types\": \"../dist/dts/Function.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/GlobalValue/package.json",
+          "declarationDigest": "sha256:385ac5aed621ee38d42993dba0ab4f84a90f7faef43b54543b27a6ab5ffe3c26",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/GlobalValue.js\",\n  \"module\": \"../dist/esm/GlobalValue.js\",\n  \"types\": \"../dist/dts/GlobalValue.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Graph/package.json",
+          "declarationDigest": "sha256:93dc27ecdae7fefbe0a8671e3500a5cb2f9bed1e7bc2fbc58db2fc3f148b4eb3",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Graph.js\",\n  \"module\": \"../dist/esm/Graph.js\",\n  \"types\": \"../dist/dts/Graph.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/GroupBy/package.json",
+          "declarationDigest": "sha256:0d08f6ca23d528a060890cf4fabce42768b695bf00a1ca8e098711c4cdce78a4",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/GroupBy.js\",\n  \"module\": \"../dist/esm/GroupBy.js\",\n  \"types\": \"../dist/dts/GroupBy.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/HKT/package.json",
+          "declarationDigest": "sha256:9e1634e4c26f143e231551e0169c89872fe02148e6eb3d9ec3e9f1c94587dcef",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/HKT.js\",\n  \"module\": \"../dist/esm/HKT.js\",\n  \"types\": \"../dist/dts/HKT.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Hash/package.json",
+          "declarationDigest": "sha256:22aedd2dc020eb2510a9e990b58de2be8ec36353f9243adc4ae26e3e7a44b528",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Hash.js\",\n  \"module\": \"../dist/esm/Hash.js\",\n  \"types\": \"../dist/dts/Hash.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/HashMap/package.json",
+          "declarationDigest": "sha256:c433fe07cc64254e9d267eb7d594f27bb481cf7188820f245d79e66cd3170d90",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/HashMap.js\",\n  \"module\": \"../dist/esm/HashMap.js\",\n  \"types\": \"../dist/dts/HashMap.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/HashRing/package.json",
+          "declarationDigest": "sha256:c300c416b29b4ad315fd07c6ecf1da36e4495e436acf2adf23010cd6a4d3e35a",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/HashRing.js\",\n  \"module\": \"../dist/esm/HashRing.js\",\n  \"types\": \"../dist/dts/HashRing.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/HashSet/package.json",
+          "declarationDigest": "sha256:863781cc3d1d9621df28e2a308c01c668602365b63432e7b46a753d3dbcda286",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/HashSet.js\",\n  \"module\": \"../dist/esm/HashSet.js\",\n  \"types\": \"../dist/dts/HashSet.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Inspectable/package.json",
+          "declarationDigest": "sha256:f4c2ae7308d28bf1320bef12a0a5f07fccd86d940c6594e8e37ab730f08aa2aa",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Inspectable.js\",\n  \"module\": \"../dist/esm/Inspectable.js\",\n  \"types\": \"../dist/dts/Inspectable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Iterable/package.json",
+          "declarationDigest": "sha256:7451848e865a95192e8519841e63189996a7d86382e8a0af8215c8e361455425",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Iterable.js\",\n  \"module\": \"../dist/esm/Iterable.js\",\n  \"types\": \"../dist/dts/Iterable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/JSONSchema/package.json",
+          "declarationDigest": "sha256:a0f1f7e2c5391d810f82641ef95d0158f479f66766253fc5de2fb25585053558",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/JSONSchema.js\",\n  \"module\": \"../dist/esm/JSONSchema.js\",\n  \"types\": \"../dist/dts/JSONSchema.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/KeyedPool/package.json",
+          "declarationDigest": "sha256:cc88d2722eb12d16006d7a1ce89ca20be88fd48e1f375019e97ec3ad0afb5f0c",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/KeyedPool.js\",\n  \"module\": \"../dist/esm/KeyedPool.js\",\n  \"types\": \"../dist/dts/KeyedPool.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Layer/package.json",
+          "declarationDigest": "sha256:9241936b7f291f26d868693dc0852508206e1b0b5c2d8ca90f44b5b3138134b4",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Layer.js\",\n  \"module\": \"../dist/esm/Layer.js\",\n  \"types\": \"../dist/dts/Layer.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/LayerMap/package.json",
+          "declarationDigest": "sha256:f75032a0c462b248246d6c2b6ffc33f6eba0024550819d1068a38e9aca5db11c",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/LayerMap.js\",\n  \"module\": \"../dist/esm/LayerMap.js\",\n  \"types\": \"../dist/dts/LayerMap.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/List/package.json",
+          "declarationDigest": "sha256:59666fcbdf93e62b2f38ece075c6c71f217101a2010495293109a07e65ebf225",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/List.js\",\n  \"module\": \"../dist/esm/List.js\",\n  \"types\": \"../dist/dts/List.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/LogLevel/package.json",
+          "declarationDigest": "sha256:c35a45f580f32a1ca39ecf2bde1bf507e1def06ea8fefcb40c0c1fb1794ba3cf",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/LogLevel.js\",\n  \"module\": \"../dist/esm/LogLevel.js\",\n  \"types\": \"../dist/dts/LogLevel.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/LogSpan/package.json",
+          "declarationDigest": "sha256:f940a649a226aabb4fb16dbee534589b4a1aed884c8fb857cf427d289a806447",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/LogSpan.js\",\n  \"module\": \"../dist/esm/LogSpan.js\",\n  \"types\": \"../dist/dts/LogSpan.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Logger/package.json",
+          "declarationDigest": "sha256:7fa4bde445679c8ed16976217f9a9e8249de6982185b23e079286bbd6abf4493",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Logger.js\",\n  \"module\": \"../dist/esm/Logger.js\",\n  \"types\": \"../dist/dts/Logger.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Mailbox/package.json",
+          "declarationDigest": "sha256:5a38af77ccd2dcf5d786f5d35b02af4a3e8ef2f52ca166fc7a595c30ee5ed3e5",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Mailbox.js\",\n  \"module\": \"../dist/esm/Mailbox.js\",\n  \"types\": \"../dist/dts/Mailbox.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ManagedRuntime/package.json",
+          "declarationDigest": "sha256:bed3587eaf675437e6014fbdb1e457a7e3e5325b3e7b108fa37a1475615deea1",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ManagedRuntime.js\",\n  \"module\": \"../dist/esm/ManagedRuntime.js\",\n  \"types\": \"../dist/dts/ManagedRuntime.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Match/package.json",
+          "declarationDigest": "sha256:f88b0aba11d3ad9e2748c1b44ab98edbb15248c68facea47c8c9743859b914ac",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Match.js\",\n  \"module\": \"../dist/esm/Match.js\",\n  \"types\": \"../dist/dts/Match.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MergeDecision/package.json",
+          "declarationDigest": "sha256:332d381a59eb22f61482426d39e28c337b7f5528997ca59dc1bd371e463ee220",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MergeDecision.js\",\n  \"module\": \"../dist/esm/MergeDecision.js\",\n  \"types\": \"../dist/dts/MergeDecision.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MergeState/package.json",
+          "declarationDigest": "sha256:45fa63b79ebaeb79ed92471f04802dff50f9842fae78351b1e882b1f619528ef",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MergeState.js\",\n  \"module\": \"../dist/esm/MergeState.js\",\n  \"types\": \"../dist/dts/MergeState.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MergeStrategy/package.json",
+          "declarationDigest": "sha256:99b6e55974fc34b8e3e15067d5b7f5a7f551b63f94874fae9a0445eb09640dd5",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MergeStrategy.js\",\n  \"module\": \"../dist/esm/MergeStrategy.js\",\n  \"types\": \"../dist/dts/MergeStrategy.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Metric/package.json",
+          "declarationDigest": "sha256:b10d5c084fe80659705ab01edff318b3c3fdea7685b00e1863eaa5878f9bada8",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Metric.js\",\n  \"module\": \"../dist/esm/Metric.js\",\n  \"types\": \"../dist/dts/Metric.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricBoundaries/package.json",
+          "declarationDigest": "sha256:647505cce7f0bd0892d7f77002442b00704ed8b019eee9314813b782059df5e0",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricBoundaries.js\",\n  \"module\": \"../dist/esm/MetricBoundaries.js\",\n  \"types\": \"../dist/dts/MetricBoundaries.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricHook/package.json",
+          "declarationDigest": "sha256:bbb1e8712188e46043f50e39ee4edcda8bb0813e95d85da65163ab72414232b0",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricHook.js\",\n  \"module\": \"../dist/esm/MetricHook.js\",\n  \"types\": \"../dist/dts/MetricHook.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricKey/package.json",
+          "declarationDigest": "sha256:70134df07fefa4e386ba3e57a982095fafd7977530386ba9f102cd30f8b59c00",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricKey.js\",\n  \"module\": \"../dist/esm/MetricKey.js\",\n  \"types\": \"../dist/dts/MetricKey.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricKeyType/package.json",
+          "declarationDigest": "sha256:c4f4800fe9288fce4bdc16dc61095ac5ddb558440b3bc384a20360837e4776ae",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricKeyType.js\",\n  \"module\": \"../dist/esm/MetricKeyType.js\",\n  \"types\": \"../dist/dts/MetricKeyType.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricLabel/package.json",
+          "declarationDigest": "sha256:8ad04e504a887cb41f2a4f820ff57684f2d0153d48b6ce4c94ae5ad0a88a49a3",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricLabel.js\",\n  \"module\": \"../dist/esm/MetricLabel.js\",\n  \"types\": \"../dist/dts/MetricLabel.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricPair/package.json",
+          "declarationDigest": "sha256:a8c9ecda86d2c290bb532673865d108df3008bf4ae41fc19491282a0e042518f",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricPair.js\",\n  \"module\": \"../dist/esm/MetricPair.js\",\n  \"types\": \"../dist/dts/MetricPair.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricPolling/package.json",
+          "declarationDigest": "sha256:f95fa32aa32dc034bb9da013c3784a78c663cb8866900e0b4482c7310923749c",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricPolling.js\",\n  \"module\": \"../dist/esm/MetricPolling.js\",\n  \"types\": \"../dist/dts/MetricPolling.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricRegistry/package.json",
+          "declarationDigest": "sha256:1911a0038474b0fd47579f31c77cc8f6dce60abb574da07bc6ce6470900e9ddb",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricRegistry.js\",\n  \"module\": \"../dist/esm/MetricRegistry.js\",\n  \"types\": \"../dist/dts/MetricRegistry.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MetricState/package.json",
+          "declarationDigest": "sha256:f12ab7318107ae459d5c2808e9e8b96065cf9ace1768ffe17df406c01399a30f",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MetricState.js\",\n  \"module\": \"../dist/esm/MetricState.js\",\n  \"types\": \"../dist/dts/MetricState.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Micro/package.json",
+          "declarationDigest": "sha256:4df4c8ecb645b305cad1f829f1d6d8a574cc31ca3dcb4563fbec6bc8cd6b7ef4",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Micro.js\",\n  \"module\": \"../dist/esm/Micro.js\",\n  \"types\": \"../dist/dts/Micro.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ModuleVersion/package.json",
+          "declarationDigest": "sha256:65e1a0ba99200fdf1b12ed9fe284e042778d2a88428b4ac0e82e3d63277a5805",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ModuleVersion.js\",\n  \"module\": \"../dist/esm/ModuleVersion.js\",\n  \"types\": \"../dist/dts/ModuleVersion.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MutableHashMap/package.json",
+          "declarationDigest": "sha256:1d07b16c7cc30f7a0832a6f8bc450f00365d74feb1748c1dcf0429439adb185e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MutableHashMap.js\",\n  \"module\": \"../dist/esm/MutableHashMap.js\",\n  \"types\": \"../dist/dts/MutableHashMap.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MutableHashSet/package.json",
+          "declarationDigest": "sha256:2309b92ccfe29f9e8c53d52f60df390e25481033397c0f43840c88d3f619745b",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MutableHashSet.js\",\n  \"module\": \"../dist/esm/MutableHashSet.js\",\n  \"types\": \"../dist/dts/MutableHashSet.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MutableList/package.json",
+          "declarationDigest": "sha256:07463f9fef0754e90d77c40b8652928063dea0fa749d3a98ec42c8c1c5b171ad",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MutableList.js\",\n  \"module\": \"../dist/esm/MutableList.js\",\n  \"types\": \"../dist/dts/MutableList.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MutableQueue/package.json",
+          "declarationDigest": "sha256:a7c29dee1f146ba92e0cf9ebecb3723fc55d8efd8fea9572cc33f2c3bba636e3",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MutableQueue.js\",\n  \"module\": \"../dist/esm/MutableQueue.js\",\n  \"types\": \"../dist/dts/MutableQueue.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/MutableRef/package.json",
+          "declarationDigest": "sha256:abd5f8d6f4166608efdf040ba4fad6c1c60af35a25e0853353cd08dd8b57adf2",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/MutableRef.js\",\n  \"module\": \"../dist/esm/MutableRef.js\",\n  \"types\": \"../dist/dts/MutableRef.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/NonEmptyIterable/package.json",
+          "declarationDigest": "sha256:99201da8d688043e47ef825dfca82876fb656b34823a4e7e7cb89e073cae3bb7",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/NonEmptyIterable.js\",\n  \"module\": \"../dist/esm/NonEmptyIterable.js\",\n  \"types\": \"../dist/dts/NonEmptyIterable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Number/package.json",
+          "declarationDigest": "sha256:ce533017c230cbbe99cc80cbd72b114ba202523af0ae58da2885d4d329f52121",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Number.js\",\n  \"module\": \"../dist/esm/Number.js\",\n  \"types\": \"../dist/dts/Number.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Option/package.json",
+          "declarationDigest": "sha256:61a9fab008f939fef690496b0c47d836e30edbe780ef98ade512b74ba0a9d983",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Option.js\",\n  \"module\": \"../dist/esm/Option.js\",\n  \"types\": \"../dist/dts/Option.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Order/package.json",
+          "declarationDigest": "sha256:ae7fbdb0b15964e9511448369c793ae02671f4f1016465ba91704bcb6c1da940",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Order.js\",\n  \"module\": \"../dist/esm/Order.js\",\n  \"types\": \"../dist/dts/Order.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Ordering/package.json",
+          "declarationDigest": "sha256:f45f7b4f70cb840bf59f0528ed44306990c0256ee0a88dcfcc263bf8c61954b4",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Ordering.js\",\n  \"module\": \"../dist/esm/Ordering.js\",\n  \"types\": \"../dist/dts/Ordering.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ParseResult/package.json",
+          "declarationDigest": "sha256:29e07c8de997e1be947fd6a23f43478b0d773068d55ddc626bcc0c192b147ef8",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ParseResult.js\",\n  \"module\": \"../dist/esm/ParseResult.js\",\n  \"types\": \"../dist/dts/ParseResult.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/PartitionedSemaphore/package.json",
+          "declarationDigest": "sha256:8676529ca77ede2d0336abdcd6a71578975550444b1fe4addfc007c7a98f53fc",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/PartitionedSemaphore.js\",\n  \"module\": \"../dist/esm/PartitionedSemaphore.js\",\n  \"types\": \"../dist/dts/PartitionedSemaphore.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Pipeable/package.json",
+          "declarationDigest": "sha256:874598b39fecfc97dee6094096d25ae98b40afefd1725a9ad4218cc75f177b7e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Pipeable.js\",\n  \"module\": \"../dist/esm/Pipeable.js\",\n  \"types\": \"../dist/dts/Pipeable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Pool/package.json",
+          "declarationDigest": "sha256:8df0016cbd1728789f1f5f84de858eaea61c1e6696580440ef8977d611e49022",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Pool.js\",\n  \"module\": \"../dist/esm/Pool.js\",\n  \"types\": \"../dist/dts/Pool.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Predicate/package.json",
+          "declarationDigest": "sha256:31e96808b9882782d292748b289e677fa08e86e1b34bb7f340a03cc03718803a",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Predicate.js\",\n  \"module\": \"../dist/esm/Predicate.js\",\n  \"types\": \"../dist/dts/Predicate.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Pretty/package.json",
+          "declarationDigest": "sha256:ba26088830fa8b89cbe07bddeaa3e6aafbc54de28c982ef1c7e95952becab555",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Pretty.js\",\n  \"module\": \"../dist/esm/Pretty.js\",\n  \"types\": \"../dist/dts/Pretty.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/PrimaryKey/package.json",
+          "declarationDigest": "sha256:0c35d289c964dc7a80197f5a624054581b1ddc41d08f05e4bc81c72808151fdf",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/PrimaryKey.js\",\n  \"module\": \"../dist/esm/PrimaryKey.js\",\n  \"types\": \"../dist/dts/PrimaryKey.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/PubSub/package.json",
+          "declarationDigest": "sha256:6089c760980d05c2d475fedffc427274dac95b369654d740e57d4b37df89df3a",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/PubSub.js\",\n  \"module\": \"../dist/esm/PubSub.js\",\n  \"types\": \"../dist/dts/PubSub.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Queue/package.json",
+          "declarationDigest": "sha256:b7a4a096762abe53b07211d3d76326ed29b80da69f49c7da2245cd091a599b11",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Queue.js\",\n  \"module\": \"../dist/esm/Queue.js\",\n  \"types\": \"../dist/dts/Queue.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Random/package.json",
+          "declarationDigest": "sha256:5912da455537db02135cf7dc275e113d712924dbb2e6ed975e03da9f94851a1d",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Random.js\",\n  \"module\": \"../dist/esm/Random.js\",\n  \"types\": \"../dist/dts/Random.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RateLimiter/package.json",
+          "declarationDigest": "sha256:df4f32993e2277ee9f9be31e2c9f18dc8ed708d9463218ea81a7dc17d8883bcc",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RateLimiter.js\",\n  \"module\": \"../dist/esm/RateLimiter.js\",\n  \"types\": \"../dist/dts/RateLimiter.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RcMap/package.json",
+          "declarationDigest": "sha256:2eb71ae676b5ca2e8e2e45de262969efb3c54e493373c736051531b69a839ebb",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RcMap.js\",\n  \"module\": \"../dist/esm/RcMap.js\",\n  \"types\": \"../dist/dts/RcMap.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RcRef/package.json",
+          "declarationDigest": "sha256:9fe77df33b436040a0a74a64b721a3bbbe5ab5515fba48f7bb529511a31cb91e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RcRef.js\",\n  \"module\": \"../dist/esm/RcRef.js\",\n  \"types\": \"../dist/dts/RcRef.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Readable/package.json",
+          "declarationDigest": "sha256:8eabf3a17eaeb9dfd7b686c90d96c846c6fa97a7282002ddbc4c687db826e5c9",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Readable.js\",\n  \"module\": \"../dist/esm/Readable.js\",\n  \"types\": \"../dist/dts/Readable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Record/package.json",
+          "declarationDigest": "sha256:7250fab7b69db5c07e14085f46537331e703f279ef85ea8fce06b9f370cb1ad9",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Record.js\",\n  \"module\": \"../dist/esm/Record.js\",\n  \"types\": \"../dist/dts/Record.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RedBlackTree/package.json",
+          "declarationDigest": "sha256:5cdce8d1ef5a9019e80fb4b6e7b7d7cd2fc1bb9db06c4c39d43187cb9660b9e8",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RedBlackTree.js\",\n  \"module\": \"../dist/esm/RedBlackTree.js\",\n  \"types\": \"../dist/dts/RedBlackTree.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Redacted/package.json",
+          "declarationDigest": "sha256:6f44531cd7e913bb7c31916a50258ee0cfaca2d926cc507b0005b3c4c3881766",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Redacted.js\",\n  \"module\": \"../dist/esm/Redacted.js\",\n  \"types\": \"../dist/dts/Redacted.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Ref/package.json",
+          "declarationDigest": "sha256:baae7b2049a8730f535601dfa02d28a499f9f20904c94e97448236f81a331acb",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Ref.js\",\n  \"module\": \"../dist/esm/Ref.js\",\n  \"types\": \"../dist/dts/Ref.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RegExp/package.json",
+          "declarationDigest": "sha256:71f43e6d6005ea13dab012d06d63f4edec916d56eecc9e0f5e948a08ed360bb8",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RegExp.js\",\n  \"module\": \"../dist/esm/RegExp.js\",\n  \"types\": \"../dist/dts/RegExp.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Reloadable/package.json",
+          "declarationDigest": "sha256:7b2de1fdc31d3b7fdc859b70a735bd668f5484751a69b3c2550d8f90f415efbb",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Reloadable.js\",\n  \"module\": \"../dist/esm/Reloadable.js\",\n  \"types\": \"../dist/dts/Reloadable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Request/package.json",
+          "declarationDigest": "sha256:0f45f61abbb8c8cd1e1d6bb2c54cbd45c892b9d280cdfafcf9e7a3ef2b0b4da2",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Request.js\",\n  \"module\": \"../dist/esm/Request.js\",\n  \"types\": \"../dist/dts/Request.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RequestBlock/package.json",
+          "declarationDigest": "sha256:18b87c1a2f46b3a129700484445ca970b915ec49b3c6c0376eb7fd328a44e076",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RequestBlock.js\",\n  \"module\": \"../dist/esm/RequestBlock.js\",\n  \"types\": \"../dist/dts/RequestBlock.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RequestResolver/package.json",
+          "declarationDigest": "sha256:2e96c2aeb46ca8b7405ddb43024e12a311b13923f0b4137507008b8f3a643d6d",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RequestResolver.js\",\n  \"module\": \"../dist/esm/RequestResolver.js\",\n  \"types\": \"../dist/dts/RequestResolver.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Resource/package.json",
+          "declarationDigest": "sha256:45995db940867704475691fe55e2ccd319c36ff06662aba0ed0bff7c89ef6554",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Resource.js\",\n  \"module\": \"../dist/esm/Resource.js\",\n  \"types\": \"../dist/dts/Resource.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Runtime/package.json",
+          "declarationDigest": "sha256:8d95220d920748c7ea209e84b50bf235de972aed143783001a9c5ac1cf34f880",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Runtime.js\",\n  \"module\": \"../dist/esm/Runtime.js\",\n  \"types\": \"../dist/dts/Runtime.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RuntimeFlags/package.json",
+          "declarationDigest": "sha256:d05a4ff097e0b3ebb004c57b3de318a1190a5ac383e806ed0b12b5c799eb4554",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RuntimeFlags.js\",\n  \"module\": \"../dist/esm/RuntimeFlags.js\",\n  \"types\": \"../dist/dts/RuntimeFlags.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/RuntimeFlagsPatch/package.json",
+          "declarationDigest": "sha256:ce9ad8422b33767ec93e640ba700706edfb1e32eff00065f6c4595c1c27b2eca",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/RuntimeFlagsPatch.js\",\n  \"module\": \"../dist/esm/RuntimeFlagsPatch.js\",\n  \"types\": \"../dist/dts/RuntimeFlagsPatch.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/STM/package.json",
+          "declarationDigest": "sha256:bda68b7ffb9c7a38ad748381a61271997c598056dc9e7deed268f53c8856df61",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/STM.js\",\n  \"module\": \"../dist/esm/STM.js\",\n  \"types\": \"../dist/dts/STM.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Schedule/package.json",
+          "declarationDigest": "sha256:490491980554c6682b8188d258313d972c72a539afc18e86cde74551619b61a5",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Schedule.js\",\n  \"module\": \"../dist/esm/Schedule.js\",\n  \"types\": \"../dist/dts/Schedule.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ScheduleDecision/package.json",
+          "declarationDigest": "sha256:6045288cd10005a06d81edb1f48f7fe08865bf53a12767a0200d6caab77bd791",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ScheduleDecision.js\",\n  \"module\": \"../dist/esm/ScheduleDecision.js\",\n  \"types\": \"../dist/dts/ScheduleDecision.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ScheduleInterval/package.json",
+          "declarationDigest": "sha256:825e0efdf6786888fd8e9040fb40bbc2f61e242cd697208f0ea5975705e6fea9",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ScheduleInterval.js\",\n  \"module\": \"../dist/esm/ScheduleInterval.js\",\n  \"types\": \"../dist/dts/ScheduleInterval.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ScheduleIntervals/package.json",
+          "declarationDigest": "sha256:8d38b3edd3630b5ea40e976463df283ead490f2f1e5630de5cb4b988fbce50e6",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ScheduleIntervals.js\",\n  \"module\": \"../dist/esm/ScheduleIntervals.js\",\n  \"types\": \"../dist/dts/ScheduleIntervals.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Scheduler/package.json",
+          "declarationDigest": "sha256:9bc945dbe6e857e42b342448dc510ca23c2e81b8a8f6b55b2b6f265b85274d10",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Scheduler.js\",\n  \"module\": \"../dist/esm/Scheduler.js\",\n  \"types\": \"../dist/dts/Scheduler.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Schema/package.json",
+          "declarationDigest": "sha256:0f34627509dd7adcb0689fbaf61ddb9c1f96acf2ff4e1341e545ada635fd852f",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Schema.js\",\n  \"module\": \"../dist/esm/Schema.js\",\n  \"types\": \"../dist/dts/Schema.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/SchemaAST/package.json",
+          "declarationDigest": "sha256:3401500d6c554b482fb4ce357de63e3b7bc628eaad047f7433fc2bfc732c2df2",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/SchemaAST.js\",\n  \"module\": \"../dist/esm/SchemaAST.js\",\n  \"types\": \"../dist/dts/SchemaAST.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Scope/package.json",
+          "declarationDigest": "sha256:a9ed98006548ff8817c06145960a14d0f443d1f65796838b2b3402284aca0076",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Scope.js\",\n  \"module\": \"../dist/esm/Scope.js\",\n  \"types\": \"../dist/dts/Scope.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ScopedCache/package.json",
+          "declarationDigest": "sha256:cdc36b50e0fc731be39e7552b46d22396c537cdff09862775455f5b937a10567",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ScopedCache.js\",\n  \"module\": \"../dist/esm/ScopedCache.js\",\n  \"types\": \"../dist/dts/ScopedCache.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/ScopedRef/package.json",
+          "declarationDigest": "sha256:39be180180715c1943f32f2f0b1ebf0268aa3d3a6483bd6a1ca990b7035a4941",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/ScopedRef.js\",\n  \"module\": \"../dist/esm/ScopedRef.js\",\n  \"types\": \"../dist/dts/ScopedRef.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Secret/package.json",
+          "declarationDigest": "sha256:05372d28b66a4398561a7110e41700ce43e6ced1c03f94fea56e5ff0c053b92f",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Secret.js\",\n  \"module\": \"../dist/esm/Secret.js\",\n  \"types\": \"../dist/dts/Secret.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/SingleProducerAsyncInput/package.json",
+          "declarationDigest": "sha256:5148b157701b87b6014c794ec68a7a8c635d59ed0b27660f86fbf6e8c34bb70b",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/SingleProducerAsyncInput.js\",\n  \"module\": \"../dist/esm/SingleProducerAsyncInput.js\",\n  \"types\": \"../dist/dts/SingleProducerAsyncInput.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Sink/package.json",
+          "declarationDigest": "sha256:5c077d03ff47ee4f704e44e2c5f6764514174593def82e3a97029433c731e169",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Sink.js\",\n  \"module\": \"../dist/esm/Sink.js\",\n  \"types\": \"../dist/dts/Sink.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/SortedMap/package.json",
+          "declarationDigest": "sha256:f9fd3d0e13dafc478b3659d1677907f4224af8bf883141774639570869c9a71a",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/SortedMap.js\",\n  \"module\": \"../dist/esm/SortedMap.js\",\n  \"types\": \"../dist/dts/SortedMap.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/SortedSet/package.json",
+          "declarationDigest": "sha256:a1e11279512cf39a12d807d61bb063df58cea13061ec197743f44b82f64a8d10",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/SortedSet.js\",\n  \"module\": \"../dist/esm/SortedSet.js\",\n  \"types\": \"../dist/dts/SortedSet.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Stream/package.json",
+          "declarationDigest": "sha256:0dfaf6429f36e588063d4dc2e5d67ae3494e52f6b60c5301b01563d033e3a33f",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Stream.js\",\n  \"module\": \"../dist/esm/Stream.js\",\n  \"types\": \"../dist/dts/Stream.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/StreamEmit/package.json",
+          "declarationDigest": "sha256:b108025b9251790459a5e7f5bb772772763d4de9697fecc41887f27573b36f1b",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/StreamEmit.js\",\n  \"module\": \"../dist/esm/StreamEmit.js\",\n  \"types\": \"../dist/dts/StreamEmit.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/StreamHaltStrategy/package.json",
+          "declarationDigest": "sha256:8c047f1edc7c7b12c92a06b7b434ece912c9c499503a3a7234ac0a8ab41155b6",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/StreamHaltStrategy.js\",\n  \"module\": \"../dist/esm/StreamHaltStrategy.js\",\n  \"types\": \"../dist/dts/StreamHaltStrategy.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Streamable/package.json",
+          "declarationDigest": "sha256:2640b290c1154ebe58a23885d586ed6afcbc78993a187c6120733c31e1962661",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Streamable.js\",\n  \"module\": \"../dist/esm/Streamable.js\",\n  \"types\": \"../dist/dts/Streamable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/String/package.json",
+          "declarationDigest": "sha256:20376b5e44d4584e7eee6d433acfdbe944c3087ec3ac98510ba1705aefc5ed85",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/String.js\",\n  \"module\": \"../dist/esm/String.js\",\n  \"types\": \"../dist/dts/String.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Struct/package.json",
+          "declarationDigest": "sha256:920abdeb60af643f66f9930581c0271d3376a4014874f8463de644a055f2bd7b",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Struct.js\",\n  \"module\": \"../dist/esm/Struct.js\",\n  \"types\": \"../dist/dts/Struct.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Subscribable/package.json",
+          "declarationDigest": "sha256:b0a2973e39aa68496a2f5f8fb6d8f767c774d64b9e3606d14484ab5e42806b4b",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Subscribable.js\",\n  \"module\": \"../dist/esm/Subscribable.js\",\n  \"types\": \"../dist/dts/Subscribable.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/SubscriptionRef/package.json",
+          "declarationDigest": "sha256:4a965b3bca48a1a44c0a4226820d365c3d0d78287c081e24e361c2d83045dfa6",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/SubscriptionRef.js\",\n  \"module\": \"../dist/esm/SubscriptionRef.js\",\n  \"types\": \"../dist/dts/SubscriptionRef.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Supervisor/package.json",
+          "declarationDigest": "sha256:30a0b681979442e2d9a2373bd4bdd91cc25dde04d34370e156c77c1e94ab9980",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Supervisor.js\",\n  \"module\": \"../dist/esm/Supervisor.js\",\n  \"types\": \"../dist/dts/Supervisor.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Symbol/package.json",
+          "declarationDigest": "sha256:cb70ed4bac3dd438ca90bfcdd676584fd2cead4fc95fe5b1ce08ff4dbcd3c112",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Symbol.js\",\n  \"module\": \"../dist/esm/Symbol.js\",\n  \"types\": \"../dist/dts/Symbol.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/SynchronizedRef/package.json",
+          "declarationDigest": "sha256:83206349fb011cbbd80b410804ae897f3da90333e01dd73d119a41517270c297",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/SynchronizedRef.js\",\n  \"module\": \"../dist/esm/SynchronizedRef.js\",\n  \"types\": \"../dist/dts/SynchronizedRef.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TArray/package.json",
+          "declarationDigest": "sha256:62342520c501ca52f15ce09a866dc3e8a8705b183d1e633341c75fda9e784947",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TArray.js\",\n  \"module\": \"../dist/esm/TArray.js\",\n  \"types\": \"../dist/dts/TArray.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TDeferred/package.json",
+          "declarationDigest": "sha256:15440ac777a80023343813ca171b6948c68df11f2523971379cffc921937df02",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TDeferred.js\",\n  \"module\": \"../dist/esm/TDeferred.js\",\n  \"types\": \"../dist/dts/TDeferred.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TMap/package.json",
+          "declarationDigest": "sha256:a506e23ea4d2963b1da1fbecbb78f9f810c7d6ae2ccafe4e57955ac4bc1b2ec8",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TMap.js\",\n  \"module\": \"../dist/esm/TMap.js\",\n  \"types\": \"../dist/dts/TMap.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TPriorityQueue/package.json",
+          "declarationDigest": "sha256:f6d3193d1e91151101df337237b6847572f495699bcdef92a0fc56dd349601c9",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TPriorityQueue.js\",\n  \"module\": \"../dist/esm/TPriorityQueue.js\",\n  \"types\": \"../dist/dts/TPriorityQueue.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TPubSub/package.json",
+          "declarationDigest": "sha256:36c904ad7717d7ebc69d11a5002a4ab4044ddc6a0614e3cd8aaf6108d97c3fb4",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TPubSub.js\",\n  \"module\": \"../dist/esm/TPubSub.js\",\n  \"types\": \"../dist/dts/TPubSub.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TQueue/package.json",
+          "declarationDigest": "sha256:78a95d85d118ef56a5e567692d9f323f29dad7b447b1a5bbe76ed497fcd4eeea",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TQueue.js\",\n  \"module\": \"../dist/esm/TQueue.js\",\n  \"types\": \"../dist/dts/TQueue.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TRandom/package.json",
+          "declarationDigest": "sha256:faea9214faeab8c9a80afa5079ff8e52c85b8d3b7a5107e10a30d050464b6bb2",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TRandom.js\",\n  \"module\": \"../dist/esm/TRandom.js\",\n  \"types\": \"../dist/dts/TRandom.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TReentrantLock/package.json",
+          "declarationDigest": "sha256:462801d31a68c692b1079bbd689e82c23c3d66543ba60cb46ea07403a9ddb04e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TReentrantLock.js\",\n  \"module\": \"../dist/esm/TReentrantLock.js\",\n  \"types\": \"../dist/dts/TReentrantLock.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TRef/package.json",
+          "declarationDigest": "sha256:95cb1a017af2042096fbf7b14dd923759cba98815f7d5e8e389510c7c4ad3b9c",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TRef.js\",\n  \"module\": \"../dist/esm/TRef.js\",\n  \"types\": \"../dist/dts/TRef.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TSemaphore/package.json",
+          "declarationDigest": "sha256:893a5b8bf22c8543c50729a954d2d9f8f56d50e7bf2aaeed51a362585b370e35",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TSemaphore.js\",\n  \"module\": \"../dist/esm/TSemaphore.js\",\n  \"types\": \"../dist/dts/TSemaphore.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TSet/package.json",
+          "declarationDigest": "sha256:782b1bc025255480f99328b194d15676234a017bb6f13a5abdd1f69a981df690",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TSet.js\",\n  \"module\": \"../dist/esm/TSet.js\",\n  \"types\": \"../dist/dts/TSet.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TSubscriptionRef/package.json",
+          "declarationDigest": "sha256:c54fbe0533d9e949f0e6d8a009310da752145ad998945d01da7b16bb93349967",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TSubscriptionRef.js\",\n  \"module\": \"../dist/esm/TSubscriptionRef.js\",\n  \"types\": \"../dist/dts/TSubscriptionRef.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Take/package.json",
+          "declarationDigest": "sha256:61bc5b02f96a11877e0c7da481ea9463444c79b8dd26c3a12d9b9c4f9154f44b",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Take.js\",\n  \"module\": \"../dist/esm/Take.js\",\n  \"types\": \"../dist/dts/Take.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestAnnotation/package.json",
+          "declarationDigest": "sha256:edd303c53f7b998e57d26f02a3564f0a937816065d5b268b9d44dd720750286e",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestAnnotation.js\",\n  \"module\": \"../dist/esm/TestAnnotation.js\",\n  \"types\": \"../dist/dts/TestAnnotation.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestAnnotationMap/package.json",
+          "declarationDigest": "sha256:3338d94657624afc4c9eed4d937c95dbd51d808d6cf56ee4e829121df0e7ef54",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestAnnotationMap.js\",\n  \"module\": \"../dist/esm/TestAnnotationMap.js\",\n  \"types\": \"../dist/dts/TestAnnotationMap.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestAnnotations/package.json",
+          "declarationDigest": "sha256:ce8886d5cfd1acf1baf25131be15912292dce0bed95da818057d113fecb25d34",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestAnnotations.js\",\n  \"module\": \"../dist/esm/TestAnnotations.js\",\n  \"types\": \"../dist/dts/TestAnnotations.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestClock/package.json",
+          "declarationDigest": "sha256:cce3f2a65c7b7cb82290f86b30c270bdbeb4c9a8e7198acfe7b545255238475b",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestClock.js\",\n  \"module\": \"../dist/esm/TestClock.js\",\n  \"types\": \"../dist/dts/TestClock.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestConfig/package.json",
+          "declarationDigest": "sha256:de393f1de3474de6ea789336abf322955081d19951a7006bfa0e63ed5e1a2ee0",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestConfig.js\",\n  \"module\": \"../dist/esm/TestConfig.js\",\n  \"types\": \"../dist/dts/TestConfig.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestContext/package.json",
+          "declarationDigest": "sha256:d83f2f43b18654f52cde85ef493cb34386976b39db773337ebda40340b280edb",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestContext.js\",\n  \"module\": \"../dist/esm/TestContext.js\",\n  \"types\": \"../dist/dts/TestContext.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestLive/package.json",
+          "declarationDigest": "sha256:c0b68ffa0f4942b412c9ff079fc7a50a65db5106909b809152e7f377d453f7fb",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestLive.js\",\n  \"module\": \"../dist/esm/TestLive.js\",\n  \"types\": \"../dist/dts/TestLive.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestServices/package.json",
+          "declarationDigest": "sha256:a7e00c024fd964b739156653a35b8c4a365c516f339adb681204748dd59136ff",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestServices.js\",\n  \"module\": \"../dist/esm/TestServices.js\",\n  \"types\": \"../dist/dts/TestServices.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/TestSized/package.json",
+          "declarationDigest": "sha256:bc85f7ea1c3de6bb1c4048ede9afd05397ce953e577817568908b776bc914878",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/TestSized.js\",\n  \"module\": \"../dist/esm/TestSized.js\",\n  \"types\": \"../dist/dts/TestSized.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Tracer/package.json",
+          "declarationDigest": "sha256:6f136082b1c837815dcdf69602729a0bbbe16a7ce71c0f7abb1a495e2a9ef1a9",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Tracer.js\",\n  \"module\": \"../dist/esm/Tracer.js\",\n  \"types\": \"../dist/dts/Tracer.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Trie/package.json",
+          "declarationDigest": "sha256:96308b6690e729ff935088e5d0c5d4ab0b683966b0d235bf954c845cd19470f6",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Trie.js\",\n  \"module\": \"../dist/esm/Trie.js\",\n  \"types\": \"../dist/dts/Trie.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Tuple/package.json",
+          "declarationDigest": "sha256:b90b6bed61e85250e56625da657bc273d3d93f59444231a71f1b827dec50ff36",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Tuple.js\",\n  \"module\": \"../dist/esm/Tuple.js\",\n  \"types\": \"../dist/dts/Tuple.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Types/package.json",
+          "declarationDigest": "sha256:7bac1e993d9573595ab5e1d8e04fca06b3429b1cc31d0570246f9c9f83926c7a",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Types.js\",\n  \"module\": \"../dist/esm/Types.js\",\n  \"types\": \"../dist/dts/Types.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Unify/package.json",
+          "declarationDigest": "sha256:67f993db5e2c9637d40b7ad95fc5bec277a441c9c76fb8bd01c156c6993ebc29",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Unify.js\",\n  \"module\": \"../dist/esm/Unify.js\",\n  \"types\": \"../dist/dts/Unify.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/UpstreamPullRequest/package.json",
+          "declarationDigest": "sha256:b94900ee8c091f00f0f92d01b82a266ecc963109eaf2ecdf2256e079bb8f9edc",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/UpstreamPullRequest.js\",\n  \"module\": \"../dist/esm/UpstreamPullRequest.js\",\n  \"types\": \"../dist/dts/UpstreamPullRequest.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/UpstreamPullStrategy/package.json",
+          "declarationDigest": "sha256:59e24633791a3013f68a94d78da268f2872e6639f04080dd0b7cded9698e387d",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/UpstreamPullStrategy.js\",\n  \"module\": \"../dist/esm/UpstreamPullStrategy.js\",\n  \"types\": \"../dist/dts/UpstreamPullStrategy.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/Utils/package.json",
+          "declarationDigest": "sha256:345602142ea20531689c2d953486a153c31a2693e68e047a308397f9f91e509c",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/Utils.js\",\n  \"module\": \"../dist/esm/Utils.js\",\n  \"types\": \"../dist/dts/Utils.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/dist/esm/package.json",
+          "declarationDigest": "sha256:49edc9f84863400668087eda784914f1f5ec6c715fce41f2dda2859c37572060",
+          "sourceText": "{\n  \"type\": \"module\",\n  \"sideEffects\": []\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/index/package.json",
+          "declarationDigest": "sha256:aa5e67546c8da5257f23291c9d1282f7627bca362af85f75323ce0a87ee01b4f",
+          "sourceText": "{\n  \"sideEffects\": [],\n  \"main\": \"../dist/cjs/index.js\",\n  \"module\": \"../dist/esm/index.js\",\n  \"types\": \"../dist/dts/index.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/package.json",
+          "declarationDigest": "sha256:d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2",
+          "sourceText": "{\n  \"name\": \"effect\",\n  \"version\": \"3.22.1\",\n  \"description\": \"The missing standard library for TypeScript, for writing production-grade software.\",\n  \"license\": \"MIT\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/Effect-TS/effect.git\",\n    \"directory\": \"packages/effect\"\n  },\n  \"sideEffects\": [],\n  \"homepage\": \"https://effect.website\",\n  \"dependencies\": {\n    \"@standard-schema/spec\": \"^1.0.0\",\n    \"fast-check\": \"^3.23.1\"\n  },\n  \"publishConfig\": {\n    \"provenance\": true\n  },\n  \"main\": \"./dist/cjs/index.js\",\n  \"module\": \"./dist/esm/index.js\",\n  \"types\": \"./dist/dts/index.d.ts\",\n  \"exports\": {\n    \"./package.json\": \"./package.json\",\n    \".\": {\n      \"types\": \"./dist/dts/index.d.ts\",\n      \"import\": \"./dist/esm/index.js\",\n      \"default\": \"./dist/cjs/index.js\"\n    },\n    \"./.index\": {\n      \"types\": \"./dist/dts/.index.d.ts\",\n      \"import\": \"./dist/esm/.index.js\",\n      \"default\": \"./dist/cjs/.index.js\"\n    },\n    \"./Arbitrary\": {\n      \"types\": \"./dist/dts/Arbitrary.d.ts\",\n      \"import\": \"./dist/esm/Arbitrary.js\",\n      \"default\": \"./dist/cjs/Arbitrary.js\"\n    },\n    \"./Array\": {\n      \"types\": \"./dist/dts/Array.d.ts\",\n      \"import\": \"./dist/esm/Array.js\",\n      \"default\": \"./dist/cjs/Array.js\"\n    },\n    \"./BigDecimal\": {\n      \"types\": \"./dist/dts/BigDecimal.d.ts\",\n      \"import\": \"./dist/esm/BigDecimal.js\",\n      \"default\": \"./dist/cjs/BigDecimal.js\"\n    },\n    \"./BigInt\": {\n      \"types\": \"./dist/dts/BigInt.d.ts\",\n      \"import\": \"./dist/esm/BigInt.js\",\n      \"default\": \"./dist/cjs/BigInt.js\"\n    },\n    \"./Boolean\": {\n      \"types\": \"./dist/dts/Boolean.d.ts\",\n      \"import\": \"./dist/esm/Boolean.js\",\n      \"default\": \"./dist/cjs/Boolean.js\"\n    },\n    \"./Brand\": {\n      \"types\": \"./dist/dts/Brand.d.ts\",\n      \"import\": \"./dist/esm/Brand.js\",\n      \"default\": \"./dist/cjs/Brand.js\"\n    },\n    \"./Cache\": {\n      \"types\": \"./dist/dts/Cache.d.ts\",\n      \"import\": \"./dist/esm/Cache.js\",\n      \"default\": \"./dist/cjs/Cache.js\"\n    },\n    \"./Cause\": {\n      \"types\": \"./dist/dts/Cause.d.ts\",\n      \"import\": \"./dist/esm/Cause.js\",\n      \"default\": \"./dist/cjs/Cause.js\"\n    },\n    \"./Channel\": {\n      \"types\": \"./dist/dts/Channel.d.ts\",\n      \"import\": \"./dist/esm/Channel.js\",\n      \"default\": \"./dist/cjs/Channel.js\"\n    },\n    \"./ChildExecutorDecision\": {\n      \"types\": \"./dist/dts/ChildExecutorDecision.d.ts\",\n      \"import\": \"./dist/esm/ChildExecutorDecision.js\",\n      \"default\": \"./dist/cjs/ChildExecutorDecision.js\"\n    },\n    \"./Chunk\": {\n      \"types\": \"./dist/dts/Chunk.d.ts\",\n      \"import\": \"./dist/esm/Chunk.js\",\n      \"default\": \"./dist/cjs/Chunk.js\"\n    },\n    \"./Clock\": {\n      \"types\": \"./dist/dts/Clock.d.ts\",\n      \"import\": \"./dist/esm/Clock.js\",\n      \"default\": \"./dist/cjs/Clock.js\"\n    },\n    \"./Config\": {\n      \"types\": \"./dist/dts/Config.d.ts\",\n      \"import\": \"./dist/esm/Config.js\",\n      \"default\": \"./dist/cjs/Config.js\"\n    },\n    \"./ConfigError\": {\n      \"types\": \"./dist/dts/ConfigError.d.ts\",\n      \"import\": \"./dist/esm/ConfigError.js\",\n      \"default\": \"./dist/cjs/ConfigError.js\"\n    },\n    \"./ConfigProvider\": {\n      \"types\": \"./dist/dts/ConfigProvider.d.ts\",\n      \"import\": \"./dist/esm/ConfigProvider.js\",\n      \"default\": \"./dist/cjs/ConfigProvider.js\"\n    },\n    \"./ConfigProviderPathPatch\": {\n      \"types\": \"./dist/dts/ConfigProviderPathPatch.d.ts\",\n      \"import\": \"./dist/esm/ConfigProviderPathPatch.js\",\n      \"default\": \"./dist/cjs/ConfigProviderPathPatch.js\"\n    },\n    \"./Console\": {\n      \"types\": \"./dist/dts/Console.d.ts\",\n      \"import\": \"./dist/esm/Console.js\",\n      \"default\": \"./dist/cjs/Console.js\"\n    },\n    \"./Context\": {\n      \"types\": \"./dist/dts/Context.d.ts\",\n      \"import\": \"./dist/esm/Context.js\",\n      \"default\": \"./dist/cjs/Context.js\"\n    },\n    \"./Cron\": {\n      \"types\": \"./dist/dts/Cron.d.ts\",\n      \"import\": \"./dist/esm/Cron.js\",\n      \"default\": \"./dist/cjs/Cron.js\"\n    },\n    \"./Data\": {\n      \"types\": \"./dist/dts/Data.d.ts\",\n      \"import\": \"./dist/esm/Data.js\",\n      \"default\": \"./dist/cjs/Data.js\"\n    },\n    \"./DateTime\": {\n      \"types\": \"./dist/dts/DateTime.d.ts\",\n      \"import\": \"./dist/esm/DateTime.js\",\n      \"default\": \"./dist/cjs/DateTime.js\"\n    },\n    \"./DefaultServices\": {\n      \"types\": \"./dist/dts/DefaultServices.d.ts\",\n      \"import\": \"./dist/esm/DefaultServices.js\",\n      \"default\": \"./dist/cjs/DefaultServices.js\"\n    },\n    \"./Deferred\": {\n      \"types\": \"./dist/dts/Deferred.d.ts\",\n      \"import\": \"./dist/esm/Deferred.js\",\n      \"default\": \"./dist/cjs/Deferred.js\"\n    },\n    \"./Differ\": {\n      \"types\": \"./dist/dts/Differ.d.ts\",\n      \"import\": \"./dist/esm/Differ.js\",\n      \"default\": \"./dist/cjs/Differ.js\"\n    },\n    \"./Duration\": {\n      \"types\": \"./dist/dts/Duration.d.ts\",\n      \"import\": \"./dist/esm/Duration.js\",\n      \"default\": \"./dist/cjs/Duration.js\"\n    },\n    \"./Effect\": {\n      \"types\": \"./dist/dts/Effect.d.ts\",\n      \"import\": \"./dist/esm/Effect.js\",\n      \"default\": \"./dist/cjs/Effect.js\"\n    },\n    \"./Effectable\": {\n      \"types\": \"./dist/dts/Effectable.d.ts\",\n      \"import\": \"./dist/esm/Effectable.js\",\n      \"default\": \"./dist/cjs/Effectable.js\"\n    },\n    \"./Either\": {\n      \"types\": \"./dist/dts/Either.d.ts\",\n      \"import\": \"./dist/esm/Either.js\",\n      \"default\": \"./dist/cjs/Either.js\"\n    },\n    \"./Encoding\": {\n      \"types\": \"./dist/dts/Encoding.d.ts\",\n      \"import\": \"./dist/esm/Encoding.js\",\n      \"default\": \"./dist/cjs/Encoding.js\"\n    },\n    \"./Equal\": {\n      \"types\": \"./dist/dts/Equal.d.ts\",\n      \"import\": \"./dist/esm/Equal.js\",\n      \"default\": \"./dist/cjs/Equal.js\"\n    },\n    \"./Equivalence\": {\n      \"types\": \"./dist/dts/Equivalence.d.ts\",\n      \"import\": \"./dist/esm/Equivalence.js\",\n      \"default\": \"./dist/cjs/Equivalence.js\"\n    },\n    \"./ExecutionPlan\": {\n      \"types\": \"./dist/dts/ExecutionPlan.d.ts\",\n      \"import\": \"./dist/esm/ExecutionPlan.js\",\n      \"default\": \"./dist/cjs/ExecutionPlan.js\"\n    },\n    \"./ExecutionStrategy\": {\n      \"types\": \"./dist/dts/ExecutionStrategy.d.ts\",\n      \"import\": \"./dist/esm/ExecutionStrategy.js\",\n      \"default\": \"./dist/cjs/ExecutionStrategy.js\"\n    },\n    \"./Exit\": {\n      \"types\": \"./dist/dts/Exit.d.ts\",\n      \"import\": \"./dist/esm/Exit.js\",\n      \"default\": \"./dist/cjs/Exit.js\"\n    },\n    \"./FastCheck\": {\n      \"types\": \"./dist/dts/FastCheck.d.ts\",\n      \"import\": \"./dist/esm/FastCheck.js\",\n      \"default\": \"./dist/cjs/FastCheck.js\"\n    },\n    \"./Fiber\": {\n      \"types\": \"./dist/dts/Fiber.d.ts\",\n      \"import\": \"./dist/esm/Fiber.js\",\n      \"default\": \"./dist/cjs/Fiber.js\"\n    },\n    \"./FiberHandle\": {\n      \"types\": \"./dist/dts/FiberHandle.d.ts\",\n      \"import\": \"./dist/esm/FiberHandle.js\",\n      \"default\": \"./dist/cjs/FiberHandle.js\"\n    },\n    \"./FiberId\": {\n      \"types\": \"./dist/dts/FiberId.d.ts\",\n      \"import\": \"./dist/esm/FiberId.js\",\n      \"default\": \"./dist/cjs/FiberId.js\"\n    },\n    \"./FiberMap\": {\n      \"types\": \"./dist/dts/FiberMap.d.ts\",\n      \"import\": \"./dist/esm/FiberMap.js\",\n      \"default\": \"./dist/cjs/FiberMap.js\"\n    },\n    \"./FiberRef\": {\n      \"types\": \"./dist/dts/FiberRef.d.ts\",\n      \"import\": \"./dist/esm/FiberRef.js\",\n      \"default\": \"./dist/cjs/FiberRef.js\"\n    },\n    \"./FiberRefs\": {\n      \"types\": \"./dist/dts/FiberRefs.d.ts\",\n      \"import\": \"./dist/esm/FiberRefs.js\",\n      \"default\": \"./dist/cjs/FiberRefs.js\"\n    },\n    \"./FiberRefsPatch\": {\n      \"types\": \"./dist/dts/FiberRefsPatch.d.ts\",\n      \"import\": \"./dist/esm/FiberRefsPatch.js\",\n      \"default\": \"./dist/cjs/FiberRefsPatch.js\"\n    },\n    \"./FiberSet\": {\n      \"types\": \"./dist/dts/FiberSet.d.ts\",\n      \"import\": \"./dist/esm/FiberSet.js\",\n      \"default\": \"./dist/cjs/FiberSet.js\"\n    },\n    \"./FiberStatus\": {\n      \"types\": \"./dist/dts/FiberStatus.d.ts\",\n      \"import\": \"./dist/esm/FiberStatus.js\",\n      \"default\": \"./dist/cjs/FiberStatus.js\"\n    },\n    \"./Function\": {\n      \"types\": \"./dist/dts/Function.d.ts\",\n      \"import\": \"./dist/esm/Function.js\",\n      \"default\": \"./dist/cjs/Function.js\"\n    },\n    \"./GlobalValue\": {\n      \"types\": \"./dist/dts/GlobalValue.d.ts\",\n      \"import\": \"./dist/esm/GlobalValue.js\",\n      \"default\": \"./dist/cjs/GlobalValue.js\"\n    },\n    \"./Graph\": {\n      \"types\": \"./dist/dts/Graph.d.ts\",\n      \"import\": \"./dist/esm/Graph.js\",\n      \"default\": \"./dist/cjs/Graph.js\"\n    },\n    \"./GroupBy\": {\n      \"types\": \"./dist/dts/GroupBy.d.ts\",\n      \"import\": \"./dist/esm/GroupBy.js\",\n      \"default\": \"./dist/cjs/GroupBy.js\"\n    },\n    \"./HKT\": {\n      \"types\": \"./dist/dts/HKT.d.ts\",\n      \"import\": \"./dist/esm/HKT.js\",\n      \"default\": \"./dist/cjs/HKT.js\"\n    },\n    \"./Hash\": {\n      \"types\": \"./dist/dts/Hash.d.ts\",\n      \"import\": \"./dist/esm/Hash.js\",\n      \"default\": \"./dist/cjs/Hash.js\"\n    },\n    \"./HashMap\": {\n      \"types\": \"./dist/dts/HashMap.d.ts\",\n      \"import\": \"./dist/esm/HashMap.js\",\n      \"default\": \"./dist/cjs/HashMap.js\"\n    },\n    \"./HashRing\": {\n      \"types\": \"./dist/dts/HashRing.d.ts\",\n      \"import\": \"./dist/esm/HashRing.js\",\n      \"default\": \"./dist/cjs/HashRing.js\"\n    },\n    \"./HashSet\": {\n      \"types\": \"./dist/dts/HashSet.d.ts\",\n      \"import\": \"./dist/esm/HashSet.js\",\n      \"default\": \"./dist/cjs/HashSet.js\"\n    },\n    \"./Inspectable\": {\n      \"types\": \"./dist/dts/Inspectable.d.ts\",\n      \"import\": \"./dist/esm/Inspectable.js\",\n      \"default\": \"./dist/cjs/Inspectable.js\"\n    },\n    \"./Iterable\": {\n      \"types\": \"./dist/dts/Iterable.d.ts\",\n      \"import\": \"./dist/esm/Iterable.js\",\n      \"default\": \"./dist/cjs/Iterable.js\"\n    },\n    \"./JSONSchema\": {\n      \"types\": \"./dist/dts/JSONSchema.d.ts\",\n      \"import\": \"./dist/esm/JSONSchema.js\",\n      \"default\": \"./dist/cjs/JSONSchema.js\"\n    },\n    \"./KeyedPool\": {\n      \"types\": \"./dist/dts/KeyedPool.d.ts\",\n      \"import\": \"./dist/esm/KeyedPool.js\",\n      \"default\": \"./dist/cjs/KeyedPool.js\"\n    },\n    \"./Layer\": {\n      \"types\": \"./dist/dts/Layer.d.ts\",\n      \"import\": \"./dist/esm/Layer.js\",\n      \"default\": \"./dist/cjs/Layer.js\"\n    },\n    \"./LayerMap\": {\n      \"types\": \"./dist/dts/LayerMap.d.ts\",\n      \"import\": \"./dist/esm/LayerMap.js\",\n      \"default\": \"./dist/cjs/LayerMap.js\"\n    },\n    \"./List\": {\n      \"types\": \"./dist/dts/List.d.ts\",\n      \"import\": \"./dist/esm/List.js\",\n      \"default\": \"./dist/cjs/List.js\"\n    },\n    \"./LogLevel\": {\n      \"types\": \"./dist/dts/LogLevel.d.ts\",\n      \"import\": \"./dist/esm/LogLevel.js\",\n      \"default\": \"./dist/cjs/LogLevel.js\"\n    },\n    \"./LogSpan\": {\n      \"types\": \"./dist/dts/LogSpan.d.ts\",\n      \"import\": \"./dist/esm/LogSpan.js\",\n      \"default\": \"./dist/cjs/LogSpan.js\"\n    },\n    \"./Logger\": {\n      \"types\": \"./dist/dts/Logger.d.ts\",\n      \"import\": \"./dist/esm/Logger.js\",\n      \"default\": \"./dist/cjs/Logger.js\"\n    },\n    \"./Mailbox\": {\n      \"types\": \"./dist/dts/Mailbox.d.ts\",\n      \"import\": \"./dist/esm/Mailbox.js\",\n      \"default\": \"./dist/cjs/Mailbox.js\"\n    },\n    \"./ManagedRuntime\": {\n      \"types\": \"./dist/dts/ManagedRuntime.d.ts\",\n      \"import\": \"./dist/esm/ManagedRuntime.js\",\n      \"default\": \"./dist/cjs/ManagedRuntime.js\"\n    },\n    \"./Match\": {\n      \"types\": \"./dist/dts/Match.d.ts\",\n      \"import\": \"./dist/esm/Match.js\",\n      \"default\": \"./dist/cjs/Match.js\"\n    },\n    \"./MergeDecision\": {\n      \"types\": \"./dist/dts/MergeDecision.d.ts\",\n      \"import\": \"./dist/esm/MergeDecision.js\",\n      \"default\": \"./dist/cjs/MergeDecision.js\"\n    },\n    \"./MergeState\": {\n      \"types\": \"./dist/dts/MergeState.d.ts\",\n      \"import\": \"./dist/esm/MergeState.js\",\n      \"default\": \"./dist/cjs/MergeState.js\"\n    },\n    \"./MergeStrategy\": {\n      \"types\": \"./dist/dts/MergeStrategy.d.ts\",\n      \"import\": \"./dist/esm/MergeStrategy.js\",\n      \"default\": \"./dist/cjs/MergeStrategy.js\"\n    },\n    \"./Metric\": {\n      \"types\": \"./dist/dts/Metric.d.ts\",\n      \"import\": \"./dist/esm/Metric.js\",\n      \"default\": \"./dist/cjs/Metric.js\"\n    },\n    \"./MetricBoundaries\": {\n      \"types\": \"./dist/dts/MetricBoundaries.d.ts\",\n      \"import\": \"./dist/esm/MetricBoundaries.js\",\n      \"default\": \"./dist/cjs/MetricBoundaries.js\"\n    },\n    \"./MetricHook\": {\n      \"types\": \"./dist/dts/MetricHook.d.ts\",\n      \"import\": \"./dist/esm/MetricHook.js\",\n      \"default\": \"./dist/cjs/MetricHook.js\"\n    },\n    \"./MetricKey\": {\n      \"types\": \"./dist/dts/MetricKey.d.ts\",\n      \"import\": \"./dist/esm/MetricKey.js\",\n      \"default\": \"./dist/cjs/MetricKey.js\"\n    },\n    \"./MetricKeyType\": {\n      \"types\": \"./dist/dts/MetricKeyType.d.ts\",\n      \"import\": \"./dist/esm/MetricKeyType.js\",\n      \"default\": \"./dist/cjs/MetricKeyType.js\"\n    },\n    \"./MetricLabel\": {\n      \"types\": \"./dist/dts/MetricLabel.d.ts\",\n      \"import\": \"./dist/esm/MetricLabel.js\",\n      \"default\": \"./dist/cjs/MetricLabel.js\"\n    },\n    \"./MetricPair\": {\n      \"types\": \"./dist/dts/MetricPair.d.ts\",\n      \"import\": \"./dist/esm/MetricPair.js\",\n      \"default\": \"./dist/cjs/MetricPair.js\"\n    },\n    \"./MetricPolling\": {\n      \"types\": \"./dist/dts/MetricPolling.d.ts\",\n      \"import\": \"./dist/esm/MetricPolling.js\",\n      \"default\": \"./dist/cjs/MetricPolling.js\"\n    },\n    \"./MetricRegistry\": {\n      \"types\": \"./dist/dts/MetricRegistry.d.ts\",\n      \"import\": \"./dist/esm/MetricRegistry.js\",\n      \"default\": \"./dist/cjs/MetricRegistry.js\"\n    },\n    \"./MetricState\": {\n      \"types\": \"./dist/dts/MetricState.d.ts\",\n      \"import\": \"./dist/esm/MetricState.js\",\n      \"default\": \"./dist/cjs/MetricState.js\"\n    },\n    \"./Micro\": {\n      \"types\": \"./dist/dts/Micro.d.ts\",\n      \"import\": \"./dist/esm/Micro.js\",\n      \"default\": \"./dist/cjs/Micro.js\"\n    },\n    \"./ModuleVersion\": {\n      \"types\": \"./dist/dts/ModuleVersion.d.ts\",\n      \"import\": \"./dist/esm/ModuleVersion.js\",\n      \"default\": \"./dist/cjs/ModuleVersion.js\"\n    },\n    \"./MutableHashMap\": {\n      \"types\": \"./dist/dts/MutableHashMap.d.ts\",\n      \"import\": \"./dist/esm/MutableHashMap.js\",\n      \"default\": \"./dist/cjs/MutableHashMap.js\"\n    },\n    \"./MutableHashSet\": {\n      \"types\": \"./dist/dts/MutableHashSet.d.ts\",\n      \"import\": \"./dist/esm/MutableHashSet.js\",\n      \"default\": \"./dist/cjs/MutableHashSet.js\"\n    },\n    \"./MutableList\": {\n      \"types\": \"./dist/dts/MutableList.d.ts\",\n      \"import\": \"./dist/esm/MutableList.js\",\n      \"default\": \"./dist/cjs/MutableList.js\"\n    },\n    \"./MutableQueue\": {\n      \"types\": \"./dist/dts/MutableQueue.d.ts\",\n      \"import\": \"./dist/esm/MutableQueue.js\",\n      \"default\": \"./dist/cjs/MutableQueue.js\"\n    },\n    \"./MutableRef\": {\n      \"types\": \"./dist/dts/MutableRef.d.ts\",\n      \"import\": \"./dist/esm/MutableRef.js\",\n      \"default\": \"./dist/cjs/MutableRef.js\"\n    },\n    \"./NonEmptyIterable\": {\n      \"types\": \"./dist/dts/NonEmptyIterable.d.ts\",\n      \"import\": \"./dist/esm/NonEmptyIterable.js\",\n      \"default\": \"./dist/cjs/NonEmptyIterable.js\"\n    },\n    \"./Number\": {\n      \"types\": \"./dist/dts/Number.d.ts\",\n      \"import\": \"./dist/esm/Number.js\",\n      \"default\": \"./dist/cjs/Number.js\"\n    },\n    \"./Option\": {\n      \"types\": \"./dist/dts/Option.d.ts\",\n      \"import\": \"./dist/esm/Option.js\",\n      \"default\": \"./dist/cjs/Option.js\"\n    },\n    \"./Order\": {\n      \"types\": \"./dist/dts/Order.d.ts\",\n      \"import\": \"./dist/esm/Order.js\",\n      \"default\": \"./dist/cjs/Order.js\"\n    },\n    \"./Ordering\": {\n      \"types\": \"./dist/dts/Ordering.d.ts\",\n      \"import\": \"./dist/esm/Ordering.js\",\n      \"default\": \"./dist/cjs/Ordering.js\"\n    },\n    \"./ParseResult\": {\n      \"types\": \"./dist/dts/ParseResult.d.ts\",\n      \"import\": \"./dist/esm/ParseResult.js\",\n      \"default\": \"./dist/cjs/ParseResult.js\"\n    },\n    \"./PartitionedSemaphore\": {\n      \"types\": \"./dist/dts/PartitionedSemaphore.d.ts\",\n      \"import\": \"./dist/esm/PartitionedSemaphore.js\",\n      \"default\": \"./dist/cjs/PartitionedSemaphore.js\"\n    },\n    \"./Pipeable\": {\n      \"types\": \"./dist/dts/Pipeable.d.ts\",\n      \"import\": \"./dist/esm/Pipeable.js\",\n      \"default\": \"./dist/cjs/Pipeable.js\"\n    },\n    \"./Pool\": {\n      \"types\": \"./dist/dts/Pool.d.ts\",\n      \"import\": \"./dist/esm/Pool.js\",\n      \"default\": \"./dist/cjs/Pool.js\"\n    },\n    \"./Predicate\": {\n      \"types\": \"./dist/dts/Predicate.d.ts\",\n      \"import\": \"./dist/esm/Predicate.js\",\n      \"default\": \"./dist/cjs/Predicate.js\"\n    },\n    \"./Pretty\": {\n      \"types\": \"./dist/dts/Pretty.d.ts\",\n      \"import\": \"./dist/esm/Pretty.js\",\n      \"default\": \"./dist/cjs/Pretty.js\"\n    },\n    \"./PrimaryKey\": {\n      \"types\": \"./dist/dts/PrimaryKey.d.ts\",\n      \"import\": \"./dist/esm/PrimaryKey.js\",\n      \"default\": \"./dist/cjs/PrimaryKey.js\"\n    },\n    \"./PubSub\": {\n      \"types\": \"./dist/dts/PubSub.d.ts\",\n      \"import\": \"./dist/esm/PubSub.js\",\n      \"default\": \"./dist/cjs/PubSub.js\"\n    },\n    \"./Queue\": {\n      \"types\": \"./dist/dts/Queue.d.ts\",\n      \"import\": \"./dist/esm/Queue.js\",\n      \"default\": \"./dist/cjs/Queue.js\"\n    },\n    \"./Random\": {\n      \"types\": \"./dist/dts/Random.d.ts\",\n      \"import\": \"./dist/esm/Random.js\",\n      \"default\": \"./dist/cjs/Random.js\"\n    },\n    \"./RateLimiter\": {\n      \"types\": \"./dist/dts/RateLimiter.d.ts\",\n      \"import\": \"./dist/esm/RateLimiter.js\",\n      \"default\": \"./dist/cjs/RateLimiter.js\"\n    },\n    \"./RcMap\": {\n      \"types\": \"./dist/dts/RcMap.d.ts\",\n      \"import\": \"./dist/esm/RcMap.js\",\n      \"default\": \"./dist/cjs/RcMap.js\"\n    },\n    \"./RcRef\": {\n      \"types\": \"./dist/dts/RcRef.d.ts\",\n      \"import\": \"./dist/esm/RcRef.js\",\n      \"default\": \"./dist/cjs/RcRef.js\"\n    },\n    \"./Readable\": {\n      \"types\": \"./dist/dts/Readable.d.ts\",\n      \"import\": \"./dist/esm/Readable.js\",\n      \"default\": \"./dist/cjs/Readable.js\"\n    },\n    \"./Record\": {\n      \"types\": \"./dist/dts/Record.d.ts\",\n      \"import\": \"./dist/esm/Record.js\",\n      \"default\": \"./dist/cjs/Record.js\"\n    },\n    \"./RedBlackTree\": {\n      \"types\": \"./dist/dts/RedBlackTree.d.ts\",\n      \"import\": \"./dist/esm/RedBlackTree.js\",\n      \"default\": \"./dist/cjs/RedBlackTree.js\"\n    },\n    \"./Redacted\": {\n      \"types\": \"./dist/dts/Redacted.d.ts\",\n      \"import\": \"./dist/esm/Redacted.js\",\n      \"default\": \"./dist/cjs/Redacted.js\"\n    },\n    \"./Ref\": {\n      \"types\": \"./dist/dts/Ref.d.ts\",\n      \"import\": \"./dist/esm/Ref.js\",\n      \"default\": \"./dist/cjs/Ref.js\"\n    },\n    \"./RegExp\": {\n      \"types\": \"./dist/dts/RegExp.d.ts\",\n      \"import\": \"./dist/esm/RegExp.js\",\n      \"default\": \"./dist/cjs/RegExp.js\"\n    },\n    \"./Reloadable\": {\n      \"types\": \"./dist/dts/Reloadable.d.ts\",\n      \"import\": \"./dist/esm/Reloadable.js\",\n      \"default\": \"./dist/cjs/Reloadable.js\"\n    },\n    \"./Request\": {\n      \"types\": \"./dist/dts/Request.d.ts\",\n      \"import\": \"./dist/esm/Request.js\",\n      \"default\": \"./dist/cjs/Request.js\"\n    },\n    \"./RequestBlock\": {\n      \"types\": \"./dist/dts/RequestBlock.d.ts\",\n      \"import\": \"./dist/esm/RequestBlock.js\",\n      \"default\": \"./dist/cjs/RequestBlock.js\"\n    },\n    \"./RequestResolver\": {\n      \"types\": \"./dist/dts/RequestResolver.d.ts\",\n      \"import\": \"./dist/esm/RequestResolver.js\",\n      \"default\": \"./dist/cjs/RequestResolver.js\"\n    },\n    \"./Resource\": {\n      \"types\": \"./dist/dts/Resource.d.ts\",\n      \"import\": \"./dist/esm/Resource.js\",\n      \"default\": \"./dist/cjs/Resource.js\"\n    },\n    \"./Runtime\": {\n      \"types\": \"./dist/dts/Runtime.d.ts\",\n      \"import\": \"./dist/esm/Runtime.js\",\n      \"default\": \"./dist/cjs/Runtime.js\"\n    },\n    \"./RuntimeFlags\": {\n      \"types\": \"./dist/dts/RuntimeFlags.d.ts\",\n      \"import\": \"./dist/esm/RuntimeFlags.js\",\n      \"default\": \"./dist/cjs/RuntimeFlags.js\"\n    },\n    \"./RuntimeFlagsPatch\": {\n      \"types\": \"./dist/dts/RuntimeFlagsPatch.d.ts\",\n      \"import\": \"./dist/esm/RuntimeFlagsPatch.js\",\n      \"default\": \"./dist/cjs/RuntimeFlagsPatch.js\"\n    },\n    \"./STM\": {\n      \"types\": \"./dist/dts/STM.d.ts\",\n      \"import\": \"./dist/esm/STM.js\",\n      \"default\": \"./dist/cjs/STM.js\"\n    },\n    \"./Schedule\": {\n      \"types\": \"./dist/dts/Schedule.d.ts\",\n      \"import\": \"./dist/esm/Schedule.js\",\n      \"default\": \"./dist/cjs/Schedule.js\"\n    },\n    \"./ScheduleDecision\": {\n      \"types\": \"./dist/dts/ScheduleDecision.d.ts\",\n      \"import\": \"./dist/esm/ScheduleDecision.js\",\n      \"default\": \"./dist/cjs/ScheduleDecision.js\"\n    },\n    \"./ScheduleInterval\": {\n      \"types\": \"./dist/dts/ScheduleInterval.d.ts\",\n      \"import\": \"./dist/esm/ScheduleInterval.js\",\n      \"default\": \"./dist/cjs/ScheduleInterval.js\"\n    },\n    \"./ScheduleIntervals\": {\n      \"types\": \"./dist/dts/ScheduleIntervals.d.ts\",\n      \"import\": \"./dist/esm/ScheduleIntervals.js\",\n      \"default\": \"./dist/cjs/ScheduleIntervals.js\"\n    },\n    \"./Scheduler\": {\n      \"types\": \"./dist/dts/Scheduler.d.ts\",\n      \"import\": \"./dist/esm/Scheduler.js\",\n      \"default\": \"./dist/cjs/Scheduler.js\"\n    },\n    \"./Schema\": {\n      \"types\": \"./dist/dts/Schema.d.ts\",\n      \"import\": \"./dist/esm/Schema.js\",\n      \"default\": \"./dist/cjs/Schema.js\"\n    },\n    \"./SchemaAST\": {\n      \"types\": \"./dist/dts/SchemaAST.d.ts\",\n      \"import\": \"./dist/esm/SchemaAST.js\",\n      \"default\": \"./dist/cjs/SchemaAST.js\"\n    },\n    \"./Scope\": {\n      \"types\": \"./dist/dts/Scope.d.ts\",\n      \"import\": \"./dist/esm/Scope.js\",\n      \"default\": \"./dist/cjs/Scope.js\"\n    },\n    \"./ScopedCache\": {\n      \"types\": \"./dist/dts/ScopedCache.d.ts\",\n      \"import\": \"./dist/esm/ScopedCache.js\",\n      \"default\": \"./dist/cjs/ScopedCache.js\"\n    },\n    \"./ScopedRef\": {\n      \"types\": \"./dist/dts/ScopedRef.d.ts\",\n      \"import\": \"./dist/esm/ScopedRef.js\",\n      \"default\": \"./dist/cjs/ScopedRef.js\"\n    },\n    \"./Secret\": {\n      \"types\": \"./dist/dts/Secret.d.ts\",\n      \"import\": \"./dist/esm/Secret.js\",\n      \"default\": \"./dist/cjs/Secret.js\"\n    },\n    \"./SingleProducerAsyncInput\": {\n      \"types\": \"./dist/dts/SingleProducerAsyncInput.d.ts\",\n      \"import\": \"./dist/esm/SingleProducerAsyncInput.js\",\n      \"default\": \"./dist/cjs/SingleProducerAsyncInput.js\"\n    },\n    \"./Sink\": {\n      \"types\": \"./dist/dts/Sink.d.ts\",\n      \"import\": \"./dist/esm/Sink.js\",\n      \"default\": \"./dist/cjs/Sink.js\"\n    },\n    \"./SortedMap\": {\n      \"types\": \"./dist/dts/SortedMap.d.ts\",\n      \"import\": \"./dist/esm/SortedMap.js\",\n      \"default\": \"./dist/cjs/SortedMap.js\"\n    },\n    \"./SortedSet\": {\n      \"types\": \"./dist/dts/SortedSet.d.ts\",\n      \"import\": \"./dist/esm/SortedSet.js\",\n      \"default\": \"./dist/cjs/SortedSet.js\"\n    },\n    \"./Stream\": {\n      \"types\": \"./dist/dts/Stream.d.ts\",\n      \"import\": \"./dist/esm/Stream.js\",\n      \"default\": \"./dist/cjs/Stream.js\"\n    },\n    \"./StreamEmit\": {\n      \"types\": \"./dist/dts/StreamEmit.d.ts\",\n      \"import\": \"./dist/esm/StreamEmit.js\",\n      \"default\": \"./dist/cjs/StreamEmit.js\"\n    },\n    \"./StreamHaltStrategy\": {\n      \"types\": \"./dist/dts/StreamHaltStrategy.d.ts\",\n      \"import\": \"./dist/esm/StreamHaltStrategy.js\",\n      \"default\": \"./dist/cjs/StreamHaltStrategy.js\"\n    },\n    \"./Streamable\": {\n      \"types\": \"./dist/dts/Streamable.d.ts\",\n      \"import\": \"./dist/esm/Streamable.js\",\n      \"default\": \"./dist/cjs/Streamable.js\"\n    },\n    \"./String\": {\n      \"types\": \"./dist/dts/String.d.ts\",\n      \"import\": \"./dist/esm/String.js\",\n      \"default\": \"./dist/cjs/String.js\"\n    },\n    \"./Struct\": {\n      \"types\": \"./dist/dts/Struct.d.ts\",\n      \"import\": \"./dist/esm/Struct.js\",\n      \"default\": \"./dist/cjs/Struct.js\"\n    },\n    \"./Subscribable\": {\n      \"types\": \"./dist/dts/Subscribable.d.ts\",\n      \"import\": \"./dist/esm/Subscribable.js\",\n      \"default\": \"./dist/cjs/Subscribable.js\"\n    },\n    \"./SubscriptionRef\": {\n      \"types\": \"./dist/dts/SubscriptionRef.d.ts\",\n      \"import\": \"./dist/esm/SubscriptionRef.js\",\n      \"default\": \"./dist/cjs/SubscriptionRef.js\"\n    },\n    \"./Supervisor\": {\n      \"types\": \"./dist/dts/Supervisor.d.ts\",\n      \"import\": \"./dist/esm/Supervisor.js\",\n      \"default\": \"./dist/cjs/Supervisor.js\"\n    },\n    \"./Symbol\": {\n      \"types\": \"./dist/dts/Symbol.d.ts\",\n      \"import\": \"./dist/esm/Symbol.js\",\n      \"default\": \"./dist/cjs/Symbol.js\"\n    },\n    \"./SynchronizedRef\": {\n      \"types\": \"./dist/dts/SynchronizedRef.d.ts\",\n      \"import\": \"./dist/esm/SynchronizedRef.js\",\n      \"default\": \"./dist/cjs/SynchronizedRef.js\"\n    },\n    \"./TArray\": {\n      \"types\": \"./dist/dts/TArray.d.ts\",\n      \"import\": \"./dist/esm/TArray.js\",\n      \"default\": \"./dist/cjs/TArray.js\"\n    },\n    \"./TDeferred\": {\n      \"types\": \"./dist/dts/TDeferred.d.ts\",\n      \"import\": \"./dist/esm/TDeferred.js\",\n      \"default\": \"./dist/cjs/TDeferred.js\"\n    },\n    \"./TMap\": {\n      \"types\": \"./dist/dts/TMap.d.ts\",\n      \"import\": \"./dist/esm/TMap.js\",\n      \"default\": \"./dist/cjs/TMap.js\"\n    },\n    \"./TPriorityQueue\": {\n      \"types\": \"./dist/dts/TPriorityQueue.d.ts\",\n      \"import\": \"./dist/esm/TPriorityQueue.js\",\n      \"default\": \"./dist/cjs/TPriorityQueue.js\"\n    },\n    \"./TPubSub\": {\n      \"types\": \"./dist/dts/TPubSub.d.ts\",\n      \"import\": \"./dist/esm/TPubSub.js\",\n      \"default\": \"./dist/cjs/TPubSub.js\"\n    },\n    \"./TQueue\": {\n      \"types\": \"./dist/dts/TQueue.d.ts\",\n      \"import\": \"./dist/esm/TQueue.js\",\n      \"default\": \"./dist/cjs/TQueue.js\"\n    },\n    \"./TRandom\": {\n      \"types\": \"./dist/dts/TRandom.d.ts\",\n      \"import\": \"./dist/esm/TRandom.js\",\n      \"default\": \"./dist/cjs/TRandom.js\"\n    },\n    \"./TReentrantLock\": {\n      \"types\": \"./dist/dts/TReentrantLock.d.ts\",\n      \"import\": \"./dist/esm/TReentrantLock.js\",\n      \"default\": \"./dist/cjs/TReentrantLock.js\"\n    },\n    \"./TRef\": {\n      \"types\": \"./dist/dts/TRef.d.ts\",\n      \"import\": \"./dist/esm/TRef.js\",\n      \"default\": \"./dist/cjs/TRef.js\"\n    },\n    \"./TSemaphore\": {\n      \"types\": \"./dist/dts/TSemaphore.d.ts\",\n      \"import\": \"./dist/esm/TSemaphore.js\",\n      \"default\": \"./dist/cjs/TSemaphore.js\"\n    },\n    \"./TSet\": {\n      \"types\": \"./dist/dts/TSet.d.ts\",\n      \"import\": \"./dist/esm/TSet.js\",\n      \"default\": \"./dist/cjs/TSet.js\"\n    },\n    \"./TSubscriptionRef\": {\n      \"types\": \"./dist/dts/TSubscriptionRef.d.ts\",\n      \"import\": \"./dist/esm/TSubscriptionRef.js\",\n      \"default\": \"./dist/cjs/TSubscriptionRef.js\"\n    },\n    \"./Take\": {\n      \"types\": \"./dist/dts/Take.d.ts\",\n      \"import\": \"./dist/esm/Take.js\",\n      \"default\": \"./dist/cjs/Take.js\"\n    },\n    \"./TestAnnotation\": {\n      \"types\": \"./dist/dts/TestAnnotation.d.ts\",\n      \"import\": \"./dist/esm/TestAnnotation.js\",\n      \"default\": \"./dist/cjs/TestAnnotation.js\"\n    },\n    \"./TestAnnotationMap\": {\n      \"types\": \"./dist/dts/TestAnnotationMap.d.ts\",\n      \"import\": \"./dist/esm/TestAnnotationMap.js\",\n      \"default\": \"./dist/cjs/TestAnnotationMap.js\"\n    },\n    \"./TestAnnotations\": {\n      \"types\": \"./dist/dts/TestAnnotations.d.ts\",\n      \"import\": \"./dist/esm/TestAnnotations.js\",\n      \"default\": \"./dist/cjs/TestAnnotations.js\"\n    },\n    \"./TestClock\": {\n      \"types\": \"./dist/dts/TestClock.d.ts\",\n      \"import\": \"./dist/esm/TestClock.js\",\n      \"default\": \"./dist/cjs/TestClock.js\"\n    },\n    \"./TestConfig\": {\n      \"types\": \"./dist/dts/TestConfig.d.ts\",\n      \"import\": \"./dist/esm/TestConfig.js\",\n      \"default\": \"./dist/cjs/TestConfig.js\"\n    },\n    \"./TestContext\": {\n      \"types\": \"./dist/dts/TestContext.d.ts\",\n      \"import\": \"./dist/esm/TestContext.js\",\n      \"default\": \"./dist/cjs/TestContext.js\"\n    },\n    \"./TestLive\": {\n      \"types\": \"./dist/dts/TestLive.d.ts\",\n      \"import\": \"./dist/esm/TestLive.js\",\n      \"default\": \"./dist/cjs/TestLive.js\"\n    },\n    \"./TestServices\": {\n      \"types\": \"./dist/dts/TestServices.d.ts\",\n      \"import\": \"./dist/esm/TestServices.js\",\n      \"default\": \"./dist/cjs/TestServices.js\"\n    },\n    \"./TestSized\": {\n      \"types\": \"./dist/dts/TestSized.d.ts\",\n      \"import\": \"./dist/esm/TestSized.js\",\n      \"default\": \"./dist/cjs/TestSized.js\"\n    },\n    \"./Tracer\": {\n      \"types\": \"./dist/dts/Tracer.d.ts\",\n      \"import\": \"./dist/esm/Tracer.js\",\n      \"default\": \"./dist/cjs/Tracer.js\"\n    },\n    \"./Trie\": {\n      \"types\": \"./dist/dts/Trie.d.ts\",\n      \"import\": \"./dist/esm/Trie.js\",\n      \"default\": \"./dist/cjs/Trie.js\"\n    },\n    \"./Tuple\": {\n      \"types\": \"./dist/dts/Tuple.d.ts\",\n      \"import\": \"./dist/esm/Tuple.js\",\n      \"default\": \"./dist/cjs/Tuple.js\"\n    },\n    \"./Types\": {\n      \"types\": \"./dist/dts/Types.d.ts\",\n      \"import\": \"./dist/esm/Types.js\",\n      \"default\": \"./dist/cjs/Types.js\"\n    },\n    \"./Unify\": {\n      \"types\": \"./dist/dts/Unify.d.ts\",\n      \"import\": \"./dist/esm/Unify.js\",\n      \"default\": \"./dist/cjs/Unify.js\"\n    },\n    \"./UpstreamPullRequest\": {\n      \"types\": \"./dist/dts/UpstreamPullRequest.d.ts\",\n      \"import\": \"./dist/esm/UpstreamPullRequest.js\",\n      \"default\": \"./dist/cjs/UpstreamPullRequest.js\"\n    },\n    \"./UpstreamPullStrategy\": {\n      \"types\": \"./dist/dts/UpstreamPullStrategy.d.ts\",\n      \"import\": \"./dist/esm/UpstreamPullStrategy.js\",\n      \"default\": \"./dist/cjs/UpstreamPullStrategy.js\"\n    },\n    \"./Utils\": {\n      \"types\": \"./dist/dts/Utils.d.ts\",\n      \"import\": \"./dist/esm/Utils.js\",\n      \"default\": \"./dist/cjs/Utils.js\"\n    },\n    \"./index\": {\n      \"types\": \"./dist/dts/index.d.ts\",\n      \"import\": \"./dist/esm/index.js\",\n      \"default\": \"./dist/cjs/index.js\"\n    }\n  },\n  \"typesVersions\": {\n    \"*\": {\n      \".index\": [\n        \"./dist/dts/.index.d.ts\"\n      ],\n      \"Arbitrary\": [\n        \"./dist/dts/Arbitrary.d.ts\"\n      ],\n      \"Array\": [\n        \"./dist/dts/Array.d.ts\"\n      ],\n      \"BigDecimal\": [\n        \"./dist/dts/BigDecimal.d.ts\"\n      ],\n      \"BigInt\": [\n        \"./dist/dts/BigInt.d.ts\"\n      ],\n      \"Boolean\": [\n        \"./dist/dts/Boolean.d.ts\"\n      ],\n      \"Brand\": [\n        \"./dist/dts/Brand.d.ts\"\n      ],\n      \"Cache\": [\n        \"./dist/dts/Cache.d.ts\"\n      ],\n      \"Cause\": [\n        \"./dist/dts/Cause.d.ts\"\n      ],\n      \"Channel\": [\n        \"./dist/dts/Channel.d.ts\"\n      ],\n      \"ChildExecutorDecision\": [\n        \"./dist/dts/ChildExecutorDecision.d.ts\"\n      ],\n      \"Chunk\": [\n        \"./dist/dts/Chunk.d.ts\"\n      ],\n      \"Clock\": [\n        \"./dist/dts/Clock.d.ts\"\n      ],\n      \"Config\": [\n        \"./dist/dts/Config.d.ts\"\n      ],\n      \"ConfigError\": [\n        \"./dist/dts/ConfigError.d.ts\"\n      ],\n      \"ConfigProvider\": [\n        \"./dist/dts/ConfigProvider.d.ts\"\n      ],\n      \"ConfigProviderPathPatch\": [\n        \"./dist/dts/ConfigProviderPathPatch.d.ts\"\n      ],\n      \"Console\": [\n        \"./dist/dts/Console.d.ts\"\n      ],\n      \"Context\": [\n        \"./dist/dts/Context.d.ts\"\n      ],\n      \"Cron\": [\n        \"./dist/dts/Cron.d.ts\"\n      ],\n      \"Data\": [\n        \"./dist/dts/Data.d.ts\"\n      ],\n      \"DateTime\": [\n        \"./dist/dts/DateTime.d.ts\"\n      ],\n      \"DefaultServices\": [\n        \"./dist/dts/DefaultServices.d.ts\"\n      ],\n      \"Deferred\": [\n        \"./dist/dts/Deferred.d.ts\"\n      ],\n      \"Differ\": [\n        \"./dist/dts/Differ.d.ts\"\n      ],\n      \"Duration\": [\n        \"./dist/dts/Duration.d.ts\"\n      ],\n      \"Effect\": [\n        \"./dist/dts/Effect.d.ts\"\n      ],\n      \"Effectable\": [\n        \"./dist/dts/Effectable.d.ts\"\n      ],\n      \"Either\": [\n        \"./dist/dts/Either.d.ts\"\n      ],\n      \"Encoding\": [\n        \"./dist/dts/Encoding.d.ts\"\n      ],\n      \"Equal\": [\n        \"./dist/dts/Equal.d.ts\"\n      ],\n      \"Equivalence\": [\n        \"./dist/dts/Equivalence.d.ts\"\n      ],\n      \"ExecutionPlan\": [\n        \"./dist/dts/ExecutionPlan.d.ts\"\n      ],\n      \"ExecutionStrategy\": [\n        \"./dist/dts/ExecutionStrategy.d.ts\"\n      ],\n      \"Exit\": [\n        \"./dist/dts/Exit.d.ts\"\n      ],\n      \"FastCheck\": [\n        \"./dist/dts/FastCheck.d.ts\"\n      ],\n      \"Fiber\": [\n        \"./dist/dts/Fiber.d.ts\"\n      ],\n      \"FiberHandle\": [\n        \"./dist/dts/FiberHandle.d.ts\"\n      ],\n      \"FiberId\": [\n        \"./dist/dts/FiberId.d.ts\"\n      ],\n      \"FiberMap\": [\n        \"./dist/dts/FiberMap.d.ts\"\n      ],\n      \"FiberRef\": [\n        \"./dist/dts/FiberRef.d.ts\"\n      ],\n      \"FiberRefs\": [\n        \"./dist/dts/FiberRefs.d.ts\"\n      ],\n      \"FiberRefsPatch\": [\n        \"./dist/dts/FiberRefsPatch.d.ts\"\n      ],\n      \"FiberSet\": [\n        \"./dist/dts/FiberSet.d.ts\"\n      ],\n      \"FiberStatus\": [\n        \"./dist/dts/FiberStatus.d.ts\"\n      ],\n      \"Function\": [\n        \"./dist/dts/Function.d.ts\"\n      ],\n      \"GlobalValue\": [\n        \"./dist/dts/GlobalValue.d.ts\"\n      ],\n      \"Graph\": [\n        \"./dist/dts/Graph.d.ts\"\n      ],\n      \"GroupBy\": [\n        \"./dist/dts/GroupBy.d.ts\"\n      ],\n      \"HKT\": [\n        \"./dist/dts/HKT.d.ts\"\n      ],\n      \"Hash\": [\n        \"./dist/dts/Hash.d.ts\"\n      ],\n      \"HashMap\": [\n        \"./dist/dts/HashMap.d.ts\"\n      ],\n      \"HashRing\": [\n        \"./dist/dts/HashRing.d.ts\"\n      ],\n      \"HashSet\": [\n        \"./dist/dts/HashSet.d.ts\"\n      ],\n      \"Inspectable\": [\n        \"./dist/dts/Inspectable.d.ts\"\n      ],\n      \"Iterable\": [\n        \"./dist/dts/Iterable.d.ts\"\n      ],\n      \"JSONSchema\": [\n        \"./dist/dts/JSONSchema.d.ts\"\n      ],\n      \"KeyedPool\": [\n        \"./dist/dts/KeyedPool.d.ts\"\n      ],\n      \"Layer\": [\n        \"./dist/dts/Layer.d.ts\"\n      ],\n      \"LayerMap\": [\n        \"./dist/dts/LayerMap.d.ts\"\n      ],\n      \"List\": [\n        \"./dist/dts/List.d.ts\"\n      ],\n      \"LogLevel\": [\n        \"./dist/dts/LogLevel.d.ts\"\n      ],\n      \"LogSpan\": [\n        \"./dist/dts/LogSpan.d.ts\"\n      ],\n      \"Logger\": [\n        \"./dist/dts/Logger.d.ts\"\n      ],\n      \"Mailbox\": [\n        \"./dist/dts/Mailbox.d.ts\"\n      ],\n      \"ManagedRuntime\": [\n        \"./dist/dts/ManagedRuntime.d.ts\"\n      ],\n      \"Match\": [\n        \"./dist/dts/Match.d.ts\"\n      ],\n      \"MergeDecision\": [\n        \"./dist/dts/MergeDecision.d.ts\"\n      ],\n      \"MergeState\": [\n        \"./dist/dts/MergeState.d.ts\"\n      ],\n      \"MergeStrategy\": [\n        \"./dist/dts/MergeStrategy.d.ts\"\n      ],\n      \"Metric\": [\n        \"./dist/dts/Metric.d.ts\"\n      ],\n      \"MetricBoundaries\": [\n        \"./dist/dts/MetricBoundaries.d.ts\"\n      ],\n      \"MetricHook\": [\n        \"./dist/dts/MetricHook.d.ts\"\n      ],\n      \"MetricKey\": [\n        \"./dist/dts/MetricKey.d.ts\"\n      ],\n      \"MetricKeyType\": [\n        \"./dist/dts/MetricKeyType.d.ts\"\n      ],\n      \"MetricLabel\": [\n        \"./dist/dts/MetricLabel.d.ts\"\n      ],\n      \"MetricPair\": [\n        \"./dist/dts/MetricPair.d.ts\"\n      ],\n      \"MetricPolling\": [\n        \"./dist/dts/MetricPolling.d.ts\"\n      ],\n      \"MetricRegistry\": [\n        \"./dist/dts/MetricRegistry.d.ts\"\n      ],\n      \"MetricState\": [\n        \"./dist/dts/MetricState.d.ts\"\n      ],\n      \"Micro\": [\n        \"./dist/dts/Micro.d.ts\"\n      ],\n      \"ModuleVersion\": [\n        \"./dist/dts/ModuleVersion.d.ts\"\n      ],\n      \"MutableHashMap\": [\n        \"./dist/dts/MutableHashMap.d.ts\"\n      ],\n      \"MutableHashSet\": [\n        \"./dist/dts/MutableHashSet.d.ts\"\n      ],\n      \"MutableList\": [\n        \"./dist/dts/MutableList.d.ts\"\n      ],\n      \"MutableQueue\": [\n        \"./dist/dts/MutableQueue.d.ts\"\n      ],\n      \"MutableRef\": [\n        \"./dist/dts/MutableRef.d.ts\"\n      ],\n      \"NonEmptyIterable\": [\n        \"./dist/dts/NonEmptyIterable.d.ts\"\n      ],\n      \"Number\": [\n        \"./dist/dts/Number.d.ts\"\n      ],\n      \"Option\": [\n        \"./dist/dts/Option.d.ts\"\n      ],\n      \"Order\": [\n        \"./dist/dts/Order.d.ts\"\n      ],\n      \"Ordering\": [\n        \"./dist/dts/Ordering.d.ts\"\n      ],\n      \"ParseResult\": [\n        \"./dist/dts/ParseResult.d.ts\"\n      ],\n      \"PartitionedSemaphore\": [\n        \"./dist/dts/PartitionedSemaphore.d.ts\"\n      ],\n      \"Pipeable\": [\n        \"./dist/dts/Pipeable.d.ts\"\n      ],\n      \"Pool\": [\n        \"./dist/dts/Pool.d.ts\"\n      ],\n      \"Predicate\": [\n        \"./dist/dts/Predicate.d.ts\"\n      ],\n      \"Pretty\": [\n        \"./dist/dts/Pretty.d.ts\"\n      ],\n      \"PrimaryKey\": [\n        \"./dist/dts/PrimaryKey.d.ts\"\n      ],\n      \"PubSub\": [\n        \"./dist/dts/PubSub.d.ts\"\n      ],\n      \"Queue\": [\n        \"./dist/dts/Queue.d.ts\"\n      ],\n      \"Random\": [\n        \"./dist/dts/Random.d.ts\"\n      ],\n      \"RateLimiter\": [\n        \"./dist/dts/RateLimiter.d.ts\"\n      ],\n      \"RcMap\": [\n        \"./dist/dts/RcMap.d.ts\"\n      ],\n      \"RcRef\": [\n        \"./dist/dts/RcRef.d.ts\"\n      ],\n      \"Readable\": [\n        \"./dist/dts/Readable.d.ts\"\n      ],\n      \"Record\": [\n        \"./dist/dts/Record.d.ts\"\n      ],\n      \"RedBlackTree\": [\n        \"./dist/dts/RedBlackTree.d.ts\"\n      ],\n      \"Redacted\": [\n        \"./dist/dts/Redacted.d.ts\"\n      ],\n      \"Ref\": [\n        \"./dist/dts/Ref.d.ts\"\n      ],\n      \"RegExp\": [\n        \"./dist/dts/RegExp.d.ts\"\n      ],\n      \"Reloadable\": [\n        \"./dist/dts/Reloadable.d.ts\"\n      ],\n      \"Request\": [\n        \"./dist/dts/Request.d.ts\"\n      ],\n      \"RequestBlock\": [\n        \"./dist/dts/RequestBlock.d.ts\"\n      ],\n      \"RequestResolver\": [\n        \"./dist/dts/RequestResolver.d.ts\"\n      ],\n      \"Resource\": [\n        \"./dist/dts/Resource.d.ts\"\n      ],\n      \"Runtime\": [\n        \"./dist/dts/Runtime.d.ts\"\n      ],\n      \"RuntimeFlags\": [\n        \"./dist/dts/RuntimeFlags.d.ts\"\n      ],\n      \"RuntimeFlagsPatch\": [\n        \"./dist/dts/RuntimeFlagsPatch.d.ts\"\n      ],\n      \"STM\": [\n        \"./dist/dts/STM.d.ts\"\n      ],\n      \"Schedule\": [\n        \"./dist/dts/Schedule.d.ts\"\n      ],\n      \"ScheduleDecision\": [\n        \"./dist/dts/ScheduleDecision.d.ts\"\n      ],\n      \"ScheduleInterval\": [\n        \"./dist/dts/ScheduleInterval.d.ts\"\n      ],\n      \"ScheduleIntervals\": [\n        \"./dist/dts/ScheduleIntervals.d.ts\"\n      ],\n      \"Scheduler\": [\n        \"./dist/dts/Scheduler.d.ts\"\n      ],\n      \"Schema\": [\n        \"./dist/dts/Schema.d.ts\"\n      ],\n      \"SchemaAST\": [\n        \"./dist/dts/SchemaAST.d.ts\"\n      ],\n      \"Scope\": [\n        \"./dist/dts/Scope.d.ts\"\n      ],\n      \"ScopedCache\": [\n        \"./dist/dts/ScopedCache.d.ts\"\n      ],\n      \"ScopedRef\": [\n        \"./dist/dts/ScopedRef.d.ts\"\n      ],\n      \"Secret\": [\n        \"./dist/dts/Secret.d.ts\"\n      ],\n      \"SingleProducerAsyncInput\": [\n        \"./dist/dts/SingleProducerAsyncInput.d.ts\"\n      ],\n      \"Sink\": [\n        \"./dist/dts/Sink.d.ts\"\n      ],\n      \"SortedMap\": [\n        \"./dist/dts/SortedMap.d.ts\"\n      ],\n      \"SortedSet\": [\n        \"./dist/dts/SortedSet.d.ts\"\n      ],\n      \"Stream\": [\n        \"./dist/dts/Stream.d.ts\"\n      ],\n      \"StreamEmit\": [\n        \"./dist/dts/StreamEmit.d.ts\"\n      ],\n      \"StreamHaltStrategy\": [\n        \"./dist/dts/StreamHaltStrategy.d.ts\"\n      ],\n      \"Streamable\": [\n        \"./dist/dts/Streamable.d.ts\"\n      ],\n      \"String\": [\n        \"./dist/dts/String.d.ts\"\n      ],\n      \"Struct\": [\n        \"./dist/dts/Struct.d.ts\"\n      ],\n      \"Subscribable\": [\n        \"./dist/dts/Subscribable.d.ts\"\n      ],\n      \"SubscriptionRef\": [\n        \"./dist/dts/SubscriptionRef.d.ts\"\n      ],\n      \"Supervisor\": [\n        \"./dist/dts/Supervisor.d.ts\"\n      ],\n      \"Symbol\": [\n        \"./dist/dts/Symbol.d.ts\"\n      ],\n      \"SynchronizedRef\": [\n        \"./dist/dts/SynchronizedRef.d.ts\"\n      ],\n      \"TArray\": [\n        \"./dist/dts/TArray.d.ts\"\n      ],\n      \"TDeferred\": [\n        \"./dist/dts/TDeferred.d.ts\"\n      ],\n      \"TMap\": [\n        \"./dist/dts/TMap.d.ts\"\n      ],\n      \"TPriorityQueue\": [\n        \"./dist/dts/TPriorityQueue.d.ts\"\n      ],\n      \"TPubSub\": [\n        \"./dist/dts/TPubSub.d.ts\"\n      ],\n      \"TQueue\": [\n        \"./dist/dts/TQueue.d.ts\"\n      ],\n      \"TRandom\": [\n        \"./dist/dts/TRandom.d.ts\"\n      ],\n      \"TReentrantLock\": [\n        \"./dist/dts/TReentrantLock.d.ts\"\n      ],\n      \"TRef\": [\n        \"./dist/dts/TRef.d.ts\"\n      ],\n      \"TSemaphore\": [\n        \"./dist/dts/TSemaphore.d.ts\"\n      ],\n      \"TSet\": [\n        \"./dist/dts/TSet.d.ts\"\n      ],\n      \"TSubscriptionRef\": [\n        \"./dist/dts/TSubscriptionRef.d.ts\"\n      ],\n      \"Take\": [\n        \"./dist/dts/Take.d.ts\"\n      ],\n      \"TestAnnotation\": [\n        \"./dist/dts/TestAnnotation.d.ts\"\n      ],\n      \"TestAnnotationMap\": [\n        \"./dist/dts/TestAnnotationMap.d.ts\"\n      ],\n      \"TestAnnotations\": [\n        \"./dist/dts/TestAnnotations.d.ts\"\n      ],\n      \"TestClock\": [\n        \"./dist/dts/TestClock.d.ts\"\n      ],\n      \"TestConfig\": [\n        \"./dist/dts/TestConfig.d.ts\"\n      ],\n      \"TestContext\": [\n        \"./dist/dts/TestContext.d.ts\"\n      ],\n      \"TestLive\": [\n        \"./dist/dts/TestLive.d.ts\"\n      ],\n      \"TestServices\": [\n        \"./dist/dts/TestServices.d.ts\"\n      ],\n      \"TestSized\": [\n        \"./dist/dts/TestSized.d.ts\"\n      ],\n      \"Tracer\": [\n        \"./dist/dts/Tracer.d.ts\"\n      ],\n      \"Trie\": [\n        \"./dist/dts/Trie.d.ts\"\n      ],\n      \"Tuple\": [\n        \"./dist/dts/Tuple.d.ts\"\n      ],\n      \"Types\": [\n        \"./dist/dts/Types.d.ts\"\n      ],\n      \"Unify\": [\n        \"./dist/dts/Unify.d.ts\"\n      ],\n      \"UpstreamPullRequest\": [\n        \"./dist/dts/UpstreamPullRequest.d.ts\"\n      ],\n      \"UpstreamPullStrategy\": [\n        \"./dist/dts/UpstreamPullStrategy.d.ts\"\n      ],\n      \"Utils\": [\n        \"./dist/dts/Utils.d.ts\"\n      ],\n      \"index\": [\n        \"./dist/dts/index.d.ts\"\n      ]\n    }\n  }\n}"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/fast-check/lib/esm/package.json",
+          "declarationDigest": "sha256:3ca9d4afd21425087cf31893b8f9f63c81b0b8408db5e343ca76e5f8aa26ab9a",
+          "sourceText": "{\n  \"type\": \"module\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/fast-check/package.json",
+          "declarationDigest": "sha256:b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4",
+          "sourceText": "{\n  \"name\": \"fast-check\",\n  \"version\": \"3.23.2\",\n  \"description\": \"Property based testing framework for JavaScript (like QuickCheck)\",\n  \"type\": \"commonjs\",\n  \"main\": \"lib/fast-check.js\",\n  \"exports\": {\n    \"./package.json\": \"./package.json\",\n    \".\": {\n      \"require\": {\n        \"types\": \"./lib/types/fast-check.d.ts\",\n        \"default\": \"./lib/fast-check.js\"\n      },\n      \"import\": {\n        \"types\": \"./lib/esm/types/fast-check.d.ts\",\n        \"default\": \"./lib/esm/fast-check.js\"\n      }\n    }\n  },\n  \"module\": \"lib/esm/fast-check.js\",\n  \"types\": \"lib/types/fast-check.d.ts\",\n  \"files\": [\n    \"lib\",\n    \"runkit.cjs\"\n  ],\n  \"sideEffects\": false,\n  \"runkitExampleFilename\": \"runkit.cjs\",\n  \"scripts\": {\n    \"build\": \"yarn build:publish-cjs && yarn build:publish-esm && yarn build:publish-types && node postbuild/main.mjs\",\n    \"build-ci\": \"cross-env EXPECT_GITHUB_SHA=true yarn build\",\n    \"build:publish-types\": \"tsc -p tsconfig.publish.types.json && tsc -p tsconfig.publish.types.json --outDir lib/esm/types\",\n    \"build:publish-cjs\": \"tsc -p tsconfig.publish.json\",\n    \"build:publish-esm\": \"tsc -p tsconfig.publish.json --module es2015 --moduleResolution node --outDir lib/esm && cp package.esm-template.json lib/esm/package.json\",\n    \"typecheck\": \"tsc --noEmit\",\n    \"test\": \"vitest --config vitest.unit.config.mjs\",\n    \"e2e\": \"vitest --config vitest.e2e.config.mjs\",\n    \"update:documentation\": \"cross-env UPDATE_CODE_SNIPPETS=true vitest --config vitest.documentation.config.mjs\",\n    \"test-bundle\": \"node test-bundle/run.cjs && node test-bundle/run.mjs && node test-bundle/run-advanced.cjs\",\n    \"test-legacy-bundle\": \"nvs add 8 && $(nvs which 8) test-bundle/run.cjs && $(nvs which 8) test-bundle/run-advanced.cjs\",\n    \"docs\": \"api-extractor run --local && rm docs/fast-check.api.json && typedoc --out docs src/fast-check-default.ts && node postbuild/main.mjs\",\n    \"docs-ci\": \"cross-env EXPECT_GITHUB_SHA=true yarn docs\",\n    \"docs:serve\": \"yarn dlx serve docs/\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/dubzzz/fast-check.git\",\n    \"directory\": \"packages/fast-check\"\n  },\n  \"author\": \"Nicolas DUBIEN <github@dubien.org>\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/dubzzz/fast-check/issues\"\n  },\n  \"homepage\": \"https://fast-check.dev/\",\n  \"engines\": {\n    \"node\": \">=8.0.0\"\n  },\n  \"dependencies\": {\n    \"pure-rand\": \"^6.1.0\"\n  },\n  \"devDependencies\": {\n    \"@fast-check/expect-type\": \"0.2.0\",\n    \"@fast-check/poisoning\": \"0.2.2\",\n    \"@microsoft/api-extractor\": \"^7.48.0\",\n    \"@types/node\": \"^20.14.15\",\n    \"@vitest/coverage-v8\": \"^2.1.8\",\n    \"cross-env\": \"^7.0.3\",\n    \"glob\": \"^11.0.0\",\n    \"not-node-buffer\": \"npm:buffer@^6.0.3\",\n    \"regexp-tree\": \"^0.1.27\",\n    \"replace-in-file\": \"^8.2.0\",\n    \"typedoc\": \"^0.27.4\",\n    \"typescript\": \"~5.7.2\",\n    \"vitest\": \"^2.1.8\"\n  },\n  \"keywords\": [\n    \"property-based testing\",\n    \"end-to-end testing\",\n    \"unit testing\",\n    \"testing\",\n    \"quickcheck\",\n    \"jscheck\",\n    \"jsverify\",\n    \"faker\",\n    \"fuzzer\",\n    \"fuzz\",\n    \"jest\"\n  ],\n  \"tsd\": {\n    \"directory\": \"test/type\"\n  },\n  \"funding\": [\n    {\n      \"type\": \"individual\",\n      \"url\": \"https://github.com/sponsors/dubzzz\"\n    },\n    {\n      \"type\": \"opencollective\",\n      \"url\": \"https://opencollective.com/fast-check\"\n    }\n  ]\n}"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/fast-deep-equal/package.json",
+          "declarationDigest": "sha256:a5c63940db0260739be9e2ac67f3aac268df4db5770420ee4e34e493152f97d2",
+          "sourceText": "{\n  \"name\": \"fast-deep-equal\",\n  \"version\": \"3.1.3\",\n  \"description\": \"Fast deep equal\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"eslint\": \"eslint *.js benchmark/*.js spec/*.js\",\n    \"build\": \"node build\",\n    \"benchmark\": \"npm i && npm run build && cd ./benchmark && npm i && node ./\",\n    \"test-spec\": \"mocha spec/*.spec.js -R spec\",\n    \"test-cov\": \"nyc npm run test-spec\",\n    \"test-ts\": \"tsc --target ES5 --noImplicitAny index.d.ts\",\n    \"test\": \"npm run build && npm run eslint && npm run test-ts && npm run test-cov\",\n    \"prepublish\": \"npm run build\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/epoberezkin/fast-deep-equal.git\"\n  },\n  \"keywords\": [\n    \"fast\",\n    \"equal\",\n    \"deep-equal\"\n  ],\n  \"author\": \"Evgeny Poberezkin\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/epoberezkin/fast-deep-equal/issues\"\n  },\n  \"homepage\": \"https://github.com/epoberezkin/fast-deep-equal#readme\",\n  \"devDependencies\": {\n    \"coveralls\": \"^3.1.0\",\n    \"dot\": \"^1.1.2\",\n    \"eslint\": \"^7.2.0\",\n    \"mocha\": \"^7.2.0\",\n    \"nyc\": \"^15.1.0\",\n    \"pre-commit\": \"^1.2.2\",\n    \"react\": \"^16.12.0\",\n    \"react-test-renderer\": \"^16.12.0\",\n    \"sinon\": \"^9.0.2\",\n    \"typescript\": \"^3.9.5\"\n  },\n  \"nyc\": {\n    \"exclude\": [\n      \"**/spec/**\",\n      \"node_modules\"\n    ],\n    \"reporter\": [\n      \"lcov\",\n      \"text-summary\"\n    ]\n  },\n  \"files\": [\n    \"index.js\",\n    \"index.d.ts\",\n    \"react.js\",\n    \"react.d.ts\",\n    \"es6/\"\n  ],\n  \"types\": \"index.d.ts\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/fast-uri/benchmark/package.json",
+          "declarationDigest": "sha256:463a034d344b042e495841b770ca69a812693087ee2053d7c18cc8497e020b58",
+          "sourceText": "{\n  \"name\": \"benchmark\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"private\": true,\n  \"scripts\": {\n    \"bench\": \"node benchmark.mjs\"\n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"dependencies\": {\n    \"tinybench\": \"^5.0.0\",\n    \"uri-js\": \"^4.4.1\"\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/fast-uri/package.json",
+          "declarationDigest": "sha256:e634f3848a2c6c7e1cdc28b119b16e072e10dada8a3ca3f175a2372d0dd83360",
+          "sourceText": "{\n  \"name\": \"fast-uri\",\n  \"description\": \"Dependency-free RFC 3986 URI toolbox\",\n  \"version\": \"3.1.7\",\n  \"main\": \"index.js\",\n  \"type\": \"commonjs\",\n  \"types\": \"types/index.d.ts\",\n  \"license\": \"BSD-3-Clause\",\n  \"author\": \"Vincent Le Goff <vince.legoff@gmail.com> (https://github.com/zekth)\",\n  \"contributors\": [\n    {\n      \"name\": \"Matteo Collina\",\n      \"email\": \"hello@matteocollina.com\"\n    },\n    {\n      \"name\": \"Gürgün Dayıoğlu\",\n      \"email\": \"hey@gurgun.day\",\n      \"url\": \"https://heyhey.to/G\"\n    },\n    {\n      \"name\": \"Aras Abbasi\",\n      \"email\": \"aras.abbasi@gmail.com\"\n    },\n    {\n      \"name\": \"Frazer Smith\",\n      \"email\": \"frazer.dev@icloud.com\",\n      \"url\": \"https://github.com/fdawgs\"\n    }\n  ],\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/fastify/fast-uri.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/fastify/fast-uri/issues\"\n  },\n  \"homepage\": \"https://github.com/fastify/fast-uri\",\n  \"funding\": [\n    {\n      \"type\": \"github\",\n      \"url\": \"https://github.com/sponsors/fastify\"\n    },\n    {\n      \"type\": \"opencollective\",\n      \"url\": \"https://opencollective.com/fastify\"\n    }\n  ],\n  \"scripts\": {\n    \"lint\": \"eslint\",\n    \"lint:fix\": \"eslint --fix\",\n    \"test\": \"npm run test:unit && npm run test:typescript\",\n    \"test:browser:chromium\": \"playwright-test ./test/* --runner tape --browser=chromium\",\n    \"test:browser:firefox\": \"playwright-test ./test/* --runner tape --browser=firefox\",\n    \"test:browser:webkit\": \"playwright-test ./test/* --runner tape --browser=webkit\",\n    \"test:browser\": \"npm run test:browser:chromium && npm run test:browser:firefox && npm run test:browser:webkit\",\n    \"test:unit\": \"tape test/**/*.js\",\n    \"test:unit:dev\": \"npm run test:unit -- --coverage-report=html\",\n    \"test:typescript\": \"tsd\"\n  },\n  \"devDependencies\": {\n    \"ajv\": \"^8.16.0\",\n    \"eslint\": \"^9.17.0\",\n    \"neostandard\": \"^0.13.0\",\n    \"playwright-test\": \"^14.1.12\",\n    \"tape\": \"^5.8.1\",\n    \"tsd\": \"^0.33.0\"\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/json-schema-traverse/package.json",
+          "declarationDigest": "sha256:156fb24af02845c190701360d06dfda35ef04282e34a734289ea9535ad9819ae",
+          "sourceText": "{\n  \"name\": \"json-schema-traverse\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Traverse JSON Schema passing each schema object to callback\",\n  \"main\": \"index.js\",\n  \"types\": \"index.d.ts\",\n  \"scripts\": {\n    \"eslint\": \"eslint index.js spec\",\n    \"test-spec\": \"mocha spec -R spec\",\n    \"test\": \"npm run eslint && nyc npm run test-spec\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/epoberezkin/json-schema-traverse.git\"\n  },\n  \"keywords\": [\n    \"JSON-Schema\",\n    \"traverse\",\n    \"iterate\"\n  ],\n  \"author\": \"Evgeny Poberezkin\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/epoberezkin/json-schema-traverse/issues\"\n  },\n  \"homepage\": \"https://github.com/epoberezkin/json-schema-traverse#readme\",\n  \"devDependencies\": {\n    \"eslint\": \"^7.3.1\",\n    \"mocha\": \"^8.0.1\",\n    \"nyc\": \"^15.0.0\",\n    \"pre-commit\": \"^1.2.2\"\n  },\n  \"nyc\": {\n    \"exclude\": [\n      \"**/spec/**\",\n      \"node_modules\"\n    ],\n    \"reporter\": [\n      \"lcov\",\n      \"text-summary\"\n    ]\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/jsonc-parser/package.json",
+          "declarationDigest": "sha256:a7a9192caaac00d9330592f4fd572908bee037518128a0fc3db96d2cd652e2b5",
+          "sourceText": "{\n  \"name\": \"jsonc-parser\",\n  \"version\": \"3.3.1\",\n  \"description\": \"Scanner and parser for JSON with comments.\",\n  \"main\": \"./lib/umd/main.js\",\n  \"typings\": \"./lib/umd/main.d.ts\",\n  \"module\": \"./lib/esm/main.js\",\n  \"author\": \"Microsoft Corporation\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/microsoft/node-jsonc-parser\"\n  },\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/microsoft/node-jsonc-parser/issues\"\n  },\n  \"devDependencies\": {\n    \"@types/mocha\": \"^10.0.7\",\n    \"@types/node\": \"^18.x\",\n    \"@typescript-eslint/eslint-plugin\": \"^7.13.1\",\n    \"@typescript-eslint/parser\": \"^7.13.1\",\n    \"eslint\": \"^8.57.0\",\n    \"mocha\": \"^10.4.0\",\n    \"rimraf\": \"^5.0.7\",\n    \"typescript\": \"^5.4.2\"\n  },\n  \"scripts\": {\n    \"prepack\": \"npm run clean && npm run compile-esm && npm run test && npm run remove-sourcemap-refs\",\n    \"compile\": \"tsc -p ./src && npm run lint\",\n    \"compile-esm\": \"tsc -p ./src/tsconfig.esm.json\",\n    \"remove-sourcemap-refs\": \"node ./build/remove-sourcemap-refs.js\",\n    \"clean\": \"rimraf lib\",\n    \"watch\": \"tsc -w -p ./src\",\n    \"test\": \"npm run compile && mocha ./lib/umd/test\",\n    \"lint\": \"eslint src/**/*.ts\"\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/pure-rand/lib/esm/package.json",
+          "declarationDigest": "sha256:3ca9d4afd21425087cf31893b8f9f63c81b0b8408db5e343ca76e5f8aa26ab9a",
+          "sourceText": "{\n  \"type\": \"module\"\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/pure-rand/package.json",
+          "declarationDigest": "sha256:e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143",
+          "sourceText": "{\n  \"name\": \"pure-rand\",\n  \"version\": \"6.1.0\",\n  \"description\": \" Pure random number generator written in TypeScript\",\n  \"type\": \"commonjs\",\n  \"main\": \"lib/pure-rand.js\",\n  \"exports\": {\n    \"./package.json\": \"./package.json\",\n    \".\": {\n      \"require\": {\n        \"types\": \"./lib/types/pure-rand.d.ts\",\n        \"default\": \"./lib/pure-rand.js\"\n      },\n      \"import\": {\n        \"types\": \"./lib/esm/types/pure-rand.d.ts\",\n        \"default\": \"./lib/esm/pure-rand.js\"\n      }\n    }\n  },\n  \"module\": \"lib/esm/pure-rand.js\",\n  \"types\": \"lib/types/pure-rand.d.ts\",\n  \"files\": [\n    \"lib\"\n  ],\n  \"sideEffects\": false,\n  \"packageManager\": \"yarn@4.1.1\",\n  \"scripts\": {\n    \"format:check\": \"prettier --list-different .\",\n    \"format\": \"prettier --write .\",\n    \"build\": \"tsc && tsc -p ./tsconfig.declaration.json\",\n    \"build:esm\": \"tsc --module es2015 --outDir lib/esm --moduleResolution node && tsc -p ./tsconfig.declaration.json --outDir lib/esm/types && cp package.esm-template.json lib/esm/package.json\",\n    \"build:prod\": \"yarn build && yarn build:esm && node postbuild/main.cjs\",\n    \"build:prod-ci\": \"cross-env EXPECT_GITHUB_SHA=true yarn build:prod\",\n    \"test\": \"jest --config jest.config.js --coverage\",\n    \"build:bench:old\": \"tsc --outDir lib-reference/\",\n    \"build:bench:new\": \"tsc --outDir lib-test/\",\n    \"bench\": \"node perf/benchmark.cjs\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/dubzzz/pure-rand.git\"\n  },\n  \"author\": \"Nicolas DUBIEN <github@dubien.org>\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/dubzzz/pure-rand/issues\"\n  },\n  \"homepage\": \"https://github.com/dubzzz/pure-rand#readme\",\n  \"devDependencies\": {\n    \"@types/jest\": \"^29.5.12\",\n    \"@types/node\": \"^20.11.30\",\n    \"cross-env\": \"^7.0.3\",\n    \"fast-check\": \"^3.16.0\",\n    \"jest\": \"^29.7.0\",\n    \"prettier\": \"3.2.5\",\n    \"replace-in-file\": \"^7.1.0\",\n    \"source-map-support\": \"^0.5.21\",\n    \"tinybench\": \"^2.6.0\",\n    \"ts-jest\": \"^29.1.2\",\n    \"ts-node\": \"^10.9.2\",\n    \"typescript\": \"^5.4.2\"\n  },\n  \"keywords\": [\n    \"seed\",\n    \"random\",\n    \"prng\",\n    \"generator\",\n    \"pure\",\n    \"rand\",\n    \"mersenne\",\n    \"random number generator\",\n    \"fastest\",\n    \"fast\"\n  ],\n  \"funding\": [\n    {\n      \"type\": \"individual\",\n      \"url\": \"https://github.com/sponsors/dubzzz\"\n    },\n    {\n      \"type\": \"opencollective\",\n      \"url\": \"https://opencollective.com/fast-check\"\n    }\n  ]\n}"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/require-from-string/package.json",
+          "declarationDigest": "sha256:c0002f7d4c7d7e2a885cf0f97226344902417c3a0980f2beca41962d2bc1f6d8",
+          "sourceText": "{\n  \"name\": \"require-from-string\",\n  \"version\": \"2.0.2\",\n  \"description\": \"Require module from string\",\n  \"license\": \"MIT\",\n  \"repository\": \"floatdrop/require-from-string\",\n  \"author\": {\n    \"name\": \"Vsevolod Strukchinsky\",\n    \"email\": \"floatdrop@gmail.com\",\n    \"url\": \"github.com/floatdrop\"\n  },\n  \"engines\": {\n    \"node\": \">=0.10.0\"\n  },\n  \"scripts\": {\n    \"test\": \"mocha\"\n  },\n  \"files\": [\n    \"index.js\"\n  ],\n  \"keywords\": [\n    \"\"\n  ],\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"mocha\": \"*\"\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/valibot/package.json",
+          "declarationDigest": "sha256:f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb",
+          "sourceText": "{\n  \"name\": \"valibot\",\n  \"description\": \"The modular and type safe schema library for validating structural data\",\n  \"version\": \"1.4.2\",\n  \"license\": \"MIT\",\n  \"author\": \"Fabian Hiller\",\n  \"homepage\": \"https://valibot.dev\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/open-circle/valibot\"\n  },\n  \"keywords\": [\n    \"modular\",\n    \"typescript\",\n    \"schema\",\n    \"validation\",\n    \"parsing\",\n    \"bundle-size\",\n    \"type-safe\",\n    \"runtime\"\n  ],\n  \"type\": \"module\",\n  \"main\": \"./dist/index.mjs\",\n  \"types\": \"./dist/index.d.mts\",\n  \"exports\": {\n    \".\": {\n      \"import\": {\n        \"types\": \"./dist/index.d.mts\",\n        \"default\": \"./dist/index.mjs\"\n      },\n      \"require\": {\n        \"types\": \"./dist/index.d.cts\",\n        \"default\": \"./dist/index.cjs\"\n      }\n    }\n  },\n  \"sideEffects\": false,\n  \"files\": [\n    \"dist\"\n  ],\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"scripts\": {\n    \"play\": \"tsm ./playground.ts\",\n    \"test\": \"vitest --typecheck\",\n    \"coverage\": \"vitest run --coverage --isolate\",\n    \"lint\": \"eslint \\\"src/**/*.ts*\\\" && tsc --noEmit && deno check ./src/index.ts\",\n    \"lint.fix\": \"eslint \\\"src/**/*.ts*\\\" --fix\",\n    \"format\": \"prettier --write ./src\",\n    \"format.check\": \"prettier --check ./src\",\n    \"build\": \"tsdown\"\n  },\n  \"devDependencies\": {\n    \"@eslint/js\": \"^9.39.1\",\n    \"@vitest/coverage-v8\": \"^4.1.8\",\n    \"eslint\": \"^9.39.1\",\n    \"eslint-plugin-import\": \"^2.32.0\",\n    \"eslint-plugin-jsdoc\": \"^61.4.0\",\n    \"eslint-plugin-redos-detector\": \"^3.1.1\",\n    \"eslint-plugin-regexp\": \"^2.10.0\",\n    \"eslint-plugin-security\": \"^3.0.1\",\n    \"jsdom\": \"^27.2.0\",\n    \"tsdown\": \"^0.16.6\",\n    \"tsm\": \"^2.3.0\",\n    \"typescript\": \"^5.9.3\",\n    \"typescript-eslint\": \"^8.47.0\",\n    \"vite\": \"^7.2.4\",\n    \"vitest\": \"4.1.8\"\n  },\n  \"peerDependencies\": {\n    \"typescript\": \">=5\"\n  },\n  \"peerDependenciesMeta\": {\n    \"typescript\": {\n      \"optional\": true\n    }\n  }\n}\n"
+        },
+        {
+          "declarationPath": "node_modules/@abiogenesis/typescript-tenant/package.json",
+          "declarationDigest": "sha256:b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396",
+          "sourceText": "{\n  \"name\": \"@abiogenesis/typescript-tenant\",\n  \"version\": \"5.0.0-rc.1\",\n  \"description\": \"ABIogenesis 5 direct-GTL TypeScript product\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"packageManager\": \"npm@11.5.1\",\n  \"engines\": {\n    \"node\": \">=20\"\n  },\n  \"bin\": {\n    \"abg.cli\": \"./build/code/src/public/cli.js\",\n    \"abg.codex\": \"./build/code/src/public/codex_cli.js\"\n  },\n  \"exports\": {\n    \".\": {\n      \"types\": \"./build/code/src/index.d.ts\",\n      \"import\": \"./build/code/src/index.js\"\n    },\n    \"./product\": {\n      \"types\": \"./build/code/src/product/index.d.ts\",\n      \"import\": \"./build/code/src/product/index.js\"\n    },\n    \"./abg\": {\n      \"types\": \"./build/code/src/abg/index.d.ts\",\n      \"import\": \"./build/code/src/abg/index.js\"\n    },\n    \"./gtl\": {\n      \"types\": \"./build/code/src/gtl/index.d.ts\",\n      \"import\": \"./build/code/src/gtl/index.js\"\n    },\n    \"./hog\": {\n      \"types\": \"./build/code/src/hog/index.d.ts\",\n      \"import\": \"./build/code/src/hog/index.js\"\n    },\n    \"./public\": {\n      \"types\": \"./build/code/src/public/index.d.ts\",\n      \"import\": \"./build/code/src/public/index.js\"\n    },\n    \"./validator\": {\n      \"types\": \"./build/code/src/validator/index.d.ts\",\n      \"import\": \"./build/code/src/validator/index.js\"\n    }\n  },\n  \"files\": [\n    \"build/**\",\n    \"contracts/**\",\n    \"product-toolchain-manifest.json\"\n  ],\n  \"dependencies\": {\n    \"@valibot/to-json-schema\": \"1.7.1\",\n    \"effect\": \"3.22.1\",\n    \"jsonc-parser\": \"3.3.1\",\n    \"valibot\": \"1.4.2\",\n    \"ajv\": \"8.20.0\",\n    \"ajv-formats\": \"3.0.1\"\n  },\n  \"bundleDependencies\": [\n    \"@valibot/to-json-schema\",\n    \"effect\",\n    \"jsonc-parser\",\n    \"valibot\",\n    \"ajv\",\n    \"ajv-formats\"\n  ],\n  \"scripts\": {\n    \"lint\": \"node scripts/lint-verification.mjs\",\n    \"clean\": \"node scripts/clean.mjs\",\n    \"build\": \"npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs\",\n    \"prepack\": \"npm run build\",\n    \"test:r1\": \"npm run build && node --test test_env/tests/r1-packed-artifact.test.mjs\",\n    \"test:r2\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs\",\n    \"test:r3\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs\",\n    \"test:r4\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs\",\n    \"test:r5\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs\",\n    \"test:r6\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs\",\n    \"test:r7\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs\",\n    \"test:r8\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs\",\n    \"test:r9\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs\",\n    \"test:r10\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/r10-installed-cli-outcome.test.mjs\",\n    \"test:m4\": \"npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/r10-installed-cli-outcome.test.mjs test_env/tests/rival-authority-mutations.test.mjs test_env/tests/runtime-scope-regressions.test.mjs test_env/tests/root-governor.test.mjs\",\n    \"test:m5:gtl\": \"npm run build && node --test test_env/tests/m5-c-algebra-validation.test.mjs\",\n    \"test:m5:hog\": \"npm run build && node --test --test-concurrency=1 test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/abi5-root-installed-function-chain.test.mjs\",\n    \"test:m5:compose\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-compose.test.mjs\",\n    \"test:m5:graph-edge\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-graph-edge.test.mjs\",\n    \"test:m5:substitute\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-substitute.test.mjs\",\n    \"test:m5:fp\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-fp.test.mjs\",\n    \"test:m5:live-fp\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-live-fp.test.mjs\",\n    \"test:m5:workflow\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-workflow.test.mjs\",\n    \"test:m5:retry\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-retry.test.mjs\",\n    \"test:m5:gate\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-gate.test.mjs\",\n    \"test:m5:recursion\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-recursion.test.mjs\",\n    \"test:m5:fan-out\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-fan-out.test.mjs\",\n    \"test:m5:reopen\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-event-store-reopen.test.mjs\",\n    \"test:m5:event-calculus\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-event-calculus-runtime.test.mjs\",\n    \"test:m5:fibre\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-fibre-substitution.test.mjs\",\n    \"test:m5:external\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-external-product.test.mjs\",\n    \"test:m5:s03-unit\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-s03-authority.test.mjs\",\n    \"test:m5:consensus-unit\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-consensus-module.test.mjs\",\n    \"test:m5:consensus\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-consensus.test.mjs\",\n    \"test:m5:s06-prime\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-s06-prime.test.mjs\",\n    \"test:m5:portability\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-portability.test.mjs\",\n    \"test:m5:conservation\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/m5-traversal-conservation.test.mjs\",\n    \"test:m5\": \"npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/abi5-root-installed-function-chain.test.mjs test_env/tests/m5-installed-compose.test.mjs test_env/tests/m5-installed-graph-edge.test.mjs test_env/tests/m5-installed-substitute.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-installed-fp.test.mjs test_env/tests/m5-installed-workflow.test.mjs test_env/tests/m5-installed-retry.test.mjs test_env/tests/m5-installed-gate.test.mjs test_env/tests/m5-installed-recursion.test.mjs test_env/tests/m5-installed-fan-out.test.mjs test_env/tests/m5-event-store-reopen.test.mjs test_env/tests/m5-event-calculus-runtime.test.mjs test_env/tests/m5-retry-lifecycle-authority.test.mjs test_env/tests/m5-fibre-substitution.test.mjs test_env/tests/m5-installed-fp-fd-compose.test.mjs test_env/tests/m5-s03-authority.test.mjs test_env/tests/m5-installed-external-product.test.mjs test_env/tests/m5-consensus-module.test.mjs test_env/tests/m5-installed-consensus.test.mjs test_env/tests/m5-s06-prime.test.mjs test_env/tests/m5-installed-portability.test.mjs test_env/tests/m5-terminal-quiescence-owner.test.mjs test_env/tests/m5-fresh-process-reconstruction.test.mjs\"\n  },\n  \"devDependencies\": {\n    \"@types/node\": \"24.3.0\",\n    \"typescript\": \"5.9.2\"\n  }\n}\n"
+        },
+        {
+          "declarationPath": "package.json",
+          "declarationDigest": "sha256:c9dfa3b8c7828b63fc4df2c28241c68448d1155fcce4b1de7e33215829a0aa4d",
+          "sourceText": "{\n  \"name\": \"@abiogenesis-fixtures/f11-carrier-child\",\n  \"version\": \"5.0.0\",\n  \"type\": \"module\",\n  \"exports\": {\n    \".\": \"./build/index.js\",\n    \"./publication\": \"./build/publication.json\"\n  },\n  \"files\": [\n    \"build\",\n    \"contracts\",\n    \"product-toolchain-manifest.json\"\n  ],\n  \"dependencies\": {\n    \"@abiogenesis/typescript-tenant\": \"5.0.0-rc.1\"\n  },\n  \"bundledDependencies\": [\n    \"@abiogenesis/typescript-tenant\"\n  ]\n}\n"
+        }
+      ],
+      "sources": [],
+      "closures": [],
+      "contracts": []
+    },
+    "verificationRef": "product-verification://abiogenesis/f0ae7eb9b5d8cd7d6bcb204706524b230e7dacc6cfcfa7cb689ccc5b5cae9472",
+    "verificationDigest": "sha256:f0ae7eb9b5d8cd7d6bcb204706524b230e7dacc6cfcfa7cb689ccc5b5cae9472"
+  },
+  "coordinates": {
+    "verifiedArtifact": {
+      "ref": "product-verification://abiogenesis/f0ae7eb9b5d8cd7d6bcb204706524b230e7dacc6cfcfa7cb689ccc5b5cae9472",
+      "digest": "sha256:f0ae7eb9b5d8cd7d6bcb204706524b230e7dacc6cfcfa7cb689ccc5b5cae9472"
+    },
+    "descriptor": {
+      "ref": "descriptor://abiogenesis-fixture/f11-carrier/fixture@5",
+      "digest": "sha256:79b40483f81625ac6139dee7e0404164b63a731346887e04efee2f3e82955a68"
+    },
+    "localNativeEvidence": {
+      "ref": "local-native-evidence://abiogenesis/product-verification/f66c496a853cf1fb2599d5a8ecdec9bf38eabeb2db9a142ad712b37b5f5279b0",
+      "digest": "sha256:f66c496a853cf1fb2599d5a8ecdec9bf38eabeb2db9a142ad712b37b5f5279b0"
+    },
+    "provenance": {
+      "ref": "provenance://abiogenesis/product-verification/f33614aacf20cfef8184dca6a057722d1248ba88968b3063c9257641612c3a6c",
+      "digest": "sha256:f33614aacf20cfef8184dca6a057722d1248ba88968b3063c9257641612c3a6c"
+    }
+  },
+  "pendingExternalSelectors": [],
+  "definitionContractCoordinates": null
+}

@@ -1,0 +1,8 @@
+{
+  "command": [
+    "node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "scope": "Unchanged ordinary generator only; compiler already passed. No candidate pack/install/native run."
+}

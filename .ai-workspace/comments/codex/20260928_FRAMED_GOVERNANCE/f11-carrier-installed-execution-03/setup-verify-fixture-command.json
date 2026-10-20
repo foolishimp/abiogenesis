@@ -1,0 +1,44 @@
+{
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/setup-verify-fixture.jsonl"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant",
+  "environment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/task-tmp",
+    "ABG_TS_CLAUDE_COMMAND": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/controlled-helper.mjs",
+    "ABG_TS_FP_TIMEOUT_MS": "590000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "595000",
+    "ABG_TS_FP_TERMINATION_GRACE_MS": "1000",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/task-config/npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/task-config/globalnpmrc",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/task-cache",
+    "NPM_CONFIG_PREFIX": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/task-config/prefix",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_IGNORE_SCRIPTS": "true",
+    "NPM_CONFIG_AUDIT": "false",
+    "NPM_CONFIG_FUND": "false",
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0uFfGhB:/Users/jim/.codex/tmp/arg0/codex-arg002sqZ8:/Users/jim/.codex/packages/app-server-daemon/releases/0.159.3-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg077jzYN:/Users/jim/.codex/packages/app-server-daemon/releases/0.159.2-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0NSOCmL:/Users/jim/.codex/packages/app-server-daemon/releases/0.159.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0RRVWB5:/Users/jim/.codex/packages/app-server-daemon/releases/0.158.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0mq2f4Z:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+  },
+  "budgetMs": 180000,
+  "driverRemainingMs": 1166490.1225,
+  "expectedOutcomeKind": "result",
+  "expectedExitCode": 0,
+  "selectedDefinition": {
+    "definitionKey": {
+      "operationId": "abg.operation.product.verify",
+      "memberKey": "verify"
+    },
+    "definitionRef": "public-function://abiogenesis/product/verify/verify@5",
+    "definitionDigest": "sha256:399332b7805ce7f2ebe3b8c9c4c2f3e41a5f53c7fa0f16e2ee64db69e7f44578",
+    "adapterExitMap": {
+      "acceptedTerminal": 0,
+      "refused": 1,
+      "invalidInvocation": 2,
+      "acceptedNonTerminal": null,
+      "adapterFailure": 70
+    }
+  }
+}

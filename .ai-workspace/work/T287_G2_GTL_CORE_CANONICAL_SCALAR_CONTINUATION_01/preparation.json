@@ -1,0 +1,15 @@
+{
+  "operation": "T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+  "donorRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01",
+  "priorFreezeSHA256": "288b62709514be9d112bd1b73496aa874b3376e1406bb17f2e61478ab455515d",
+  "unchangedOtherSourcePaths": 14,
+  "onlySourceOverlay": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+  "SourcePostimageSHA256": "3205a8184b2290de347002122116e8903258bcbc645c3743b4330d773dc27b67",
+  "acceptedScalarOwners": [
+    "shared/public_function_contracts.nonblankSchema",
+    "shared/public_function_contracts.digestSchema"
+  ],
+  "reporterSourceSHA256": "0315807160de062b8dd9433f7db79bf05a0178d26eee587dbf7711c3800eb3d2",
+  "elapsedMs": 2089.1562500037253,
+  "effectsOnlyNewWorkAndEvidence": true
+}

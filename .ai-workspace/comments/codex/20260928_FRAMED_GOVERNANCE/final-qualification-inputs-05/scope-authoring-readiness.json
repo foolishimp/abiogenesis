@@ -1,0 +1,31 @@
+{
+  "kind": "external_HOW_authorer_mechanical_readiness",
+  "subject": "exact historical1950-member fixture only; no current scope/J/material fabricated",
+  "currentSource": "f11/scope-authoring.mjs",
+  "ruleGroups": 187,
+  "globalGroups": 42,
+  "domains": 187,
+  "referenceSets": 517,
+  "allOriginalOrderedRelationsConserved": true,
+  "identitiesValid": true,
+  "negatives": [
+    {
+      "label": "external HOW authorer missing complete per-rule domain",
+      "outcome": "refused",
+      "error": {
+        "name": "AssertionError",
+        "message": "no sparse override or fallback\n\n186 !== 187\n"
+      }
+    },
+    {
+      "label": "external HOW authorer unbound member ordinal",
+      "outcome": "refused",
+      "error": {
+        "name": "AssertionError",
+        "message": "member ref must bind the exact inventory"
+      }
+    }
+  ],
+  "currentC04ApplicabilityUnknown": true,
+  "actualOwnerCorrespondencePending": true
+}

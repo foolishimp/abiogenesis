@@ -1,3 +1,4 @@
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRegisteredGraphChoice } from "../gtl/registered_selection.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
@@ -13,16 +14,27 @@ const scope = (a: RuntimeEvent, b: RuntimeEvent) =>
   a.runId === b.runId && a.basisId === b.basisId && a.graphCallId === b.graphCallId && a.frameId === b.frameId;
 
 /** Extend the existing replay fact's dependency version; owns no cache. */
-export function registeredSelectionInputRelationVersion(prefix: ValidatedRuntimeEventPrefix, route: RuntimeEvent): string {
+export function registeredSelectionInputRelationVersion(prefix: ValidatedRuntimeEventPrefix, route: RuntimeEvent): string;
+/** @internal */
+export function registeredSelectionInputRelationVersion(prefix: RuntimeEventPrefix, route: RuntimeEvent): string;
+export function registeredSelectionInputRelationVersion(prefix: RuntimeEventPrefix, route: RuntimeEvent): string {
   if (!record(route.payload) || typeof route.payload.registeredSelectionApplicationRef !== "string") return "";
   return ["basis:" + route.basisId, "related:" + route.payload.cCallRef, "cursor-origin:" + route.payload.sourceCursorRef, "id:" + route.eventId]
     .map(key => key + ":" + indexedRuntimeEvents(prefix, key).map(e => e.eventId).join(",")).join("|");
+}
+/** @internal The existing relation's fixed dependency keys, without retaining its bound input. */
+export function registeredSelectionInputDependencyKeys(route: RuntimeEvent): readonly string[] {
+  return !record(route.payload) || typeof route.payload.registeredSelectionApplicationRef !== "string" ? [] :
+    ["basis:" + route.basisId, "related:" + route.payload.cCallRef, "cursor-origin:" + route.payload.sourceCursorRef, "id:" + route.eventId];
 }
 
 /** Project an already admitted binding, never choose a target during replay.
  * The route's application identity is issued only after declaration/target/input
  * admission. Source lineage authenticates the raw input retained by that route. */
-export function projectRegisteredSelectionInputAtPrefix(prefix: ValidatedRuntimeEventPrefix, route: RuntimeEvent) {
+export function projectRegisteredSelectionInputAtPrefix(prefix: ValidatedRuntimeEventPrefix, route: RuntimeEvent): import("../validator/raw_admission.js").RawAdmittedValue<unknown> | null;
+/** @internal */
+export function projectRegisteredSelectionInputAtPrefix(prefix: RuntimeEventPrefix, route: RuntimeEvent): import("../validator/raw_admission.js").RawAdmittedValue<unknown> | null;
+export function projectRegisteredSelectionInputAtPrefix(prefix: RuntimeEventPrefix, route: RuntimeEvent): import("../validator/raw_admission.js").RawAdmittedValue<unknown> | null {
   if (route.kind !== "traversal_route_admitted" || !record(route.payload) ||
     typeof route.payload.registeredSelectionApplicationRef !== "string" ||
     route.payload.registeredSelectionApplicationRef.length === 0 || route.payload.routeKind !== "advance" ||

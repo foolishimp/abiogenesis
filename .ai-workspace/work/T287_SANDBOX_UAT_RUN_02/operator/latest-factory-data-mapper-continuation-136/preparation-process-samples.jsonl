@@ -1,0 +1,2 @@
+{"at": "2026-10-08T23:12:47.672413+00:00", "classification": "One read-only source preparation process sample; not native/model proof or retained-heap attribution", "processes": [{"pid": 96648, "ppid": 5905, "pgid": 96648, "rssKiB": 51056, "elapsed": "00:43", "command": "/opt/homebrew/bin/node"}, {"pid": 96650, "ppid": 96648, "pgid": 96650, "rssKiB": 3961328, "elapsed": "00:43", "command": "/opt/homebrew/bin/node"}]}
+{"at": "2026-10-08T23:14:23.434962+00:00", "classification": "Read-only canonical source preparation memory sample; no native/provider/model", "processes": []}

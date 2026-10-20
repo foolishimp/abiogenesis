@@ -1,0 +1,20 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+    "insertions": 53,
+    "deletions": 44,
+    "sha256": "cd5b939c22d664b1028190cfec954a8d5927b2356fc012cf5d6fe8ba41ecc686"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+    "insertions": 2,
+    "deletions": 1,
+    "sha256": "c188ccf49dd15c0417ee9b7aa3883f45b6390590efe0412daae89615c606d4d6"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "insertions": 14,
+    "deletions": 0,
+    "sha256": "b7bae0ca0810fab82cbc2dcd1741f765a452f8914fe539306ddeeba2afbc1b90"
+  }
+]

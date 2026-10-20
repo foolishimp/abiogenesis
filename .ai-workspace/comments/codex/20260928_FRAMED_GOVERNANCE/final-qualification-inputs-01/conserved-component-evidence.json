@@ -1,0 +1,203 @@
+{
+  "selection": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+    "bytes": 23029,
+    "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+  },
+  "claims": [
+    {
+      "claim": "shared continuation workspace causes and authenticated cold pending Run payload; exact open current occurrence, ambiguity/crossed basis refusal and retained view authority",
+      "titles": [
+        "shared continuation constructor admits workspace causes and authenticates pending Run payload after cold reopen",
+        "equal historical projection values do not mask the exact open current basis",
+        "occurrence selection refuses genuine ambiguity and crossed basis",
+        "retained catalog and view authority reject a coherent same-binding alternative"
+      ],
+      "evidence": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+          "bytes": 8369,
+          "sha256": "89d1a4683f31ccdbe3e077f3557edc742490847fba75c954073115a9439b1dda"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+          "bytes": 19588,
+          "sha256": "0273a0192c51f369eed0f124f41fd796d99c8154d8dbd412a3a16651342788cb"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/checks.json",
+          "bytes": 5775,
+          "sha256": "32ec5e581d634ac0d0e363a64006acf822835e096d8c248fb999b45c4e5a7cc6"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/focused-built.log",
+          "bytes": 518,
+          "sha256": "847afe8432b1878ba684bc139a2360aa953122edafa12134b8d8f61c2720889d"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/authority-source.log",
+          "bytes": 389,
+          "sha256": "45bc137556bd872aff5c49fe020fd67ee88fbccefb4141333ea46428e2ff8ebf"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/causation/boundary-result.json",
+          "bytes": 20791,
+          "sha256": "5f5fe4ab7ece6013a0ec119551382019001acf1c65eda2453951c37920c25a98"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-final-review-03.md",
+          "bytes": 11135,
+          "sha256": "a5ce330892bf9341553bd7d2c064ddc98caa9ef4a1a380252c4d498c46a56d1d"
+        }
+      ],
+      "currentSourceJoins": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "acceptedSha256": "f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+          "candidateSha256": "f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+          "equal": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+          "acceptedSha256": "f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+          "candidateSha256": "f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+          "equal": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+          "acceptedSha256": "ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+          "candidateSha256": "ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+          "equal": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+          "acceptedSha256": "d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f",
+          "candidateSha256": "d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f",
+          "equal": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.d.ts",
+          "acceptedSha256": "852608263015800f45625d9b9ebd439c5108044e173f8eefb710c34c8b7b8b05",
+          "candidateSha256": "852608263015800f45625d9b9ebd439c5108044e173f8eefb710c34c8b7b8b05",
+          "equal": true
+        }
+      ],
+      "fixture": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/fixtures/continuation-causation.json",
+        "bytes": 477899,
+        "sha256": "2073873155c8ae6667ddba17af1e36fa76c3d540c74910b7893795184c4e8bf2"
+      },
+      "limit": "controlled source/emitted owner premise; no current native Result or complete selected-action proof inferred; historical partial host remains partial"
+    },
+    {
+      "claim": "authenticated no-action input content, strict Public result, sole-input renderer, positive absence and meaningful crossed/missing refusals",
+      "evidence": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+          "bytes": 12680,
+          "sha256": "d3f4b8e86eb9f5a1aae5235cb63c3420c15a9802e1a384a990e2264888c4d604"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+          "bytes": 63091,
+          "sha256": "3afdda2bde3a3d2454d8b6aa1e3920d3c161c96d8efba7e3d47ebc342aca5e55"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-result.json",
+          "bytes": 762,
+          "sha256": "a8501e7ffb25e6a3bcf79b07f9514f51dd7c974f2fe4be9f254748ad3ac5f267"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/counterexamples.json",
+          "bytes": 8287,
+          "sha256": "d9e2cbf206dfcccd6eb12498a19d2e020d89f20e463e073ebc51577db722de63"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/equal-content-conservation.json",
+          "bytes": 113593,
+          "sha256": "e988c0c5897987181e45b2be3549dce98dcd985582befcdc77af0bb478e8d471"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/future-reader-compatibility.json",
+          "bytes": 6682,
+          "sha256": "2f363ef3822d81b6460cb2eea126755c8a4906b72acad374937ae3d389a5f30b"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-review-01.md",
+          "bytes": 10460,
+          "sha256": "937eeb1dae7634f2e1f7cf3cefd5857b59733d3e9ced7990e7ea1ff5bfadbd07"
+        }
+      ],
+      "currentSourceJoins": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+          "acceptedSha256": "a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+          "candidateSha256": "a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+          "equal": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+          "acceptedSha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+          "candidateSha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+          "equal": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+          "acceptedSha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+          "candidateSha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+          "equal": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+          "acceptedSha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+          "candidateSha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+          "equal": true
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+          "acceptedSha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+          "candidateSha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+          "equal": true
+        }
+      ],
+      "limit": "unchanged source/component proof; its data copy is not a new admitted workload"
+    },
+    {
+      "claim": "final installed reader negative human-readable handoff and positive gap absence on retained historical workload",
+      "evidence": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/return.md",
+          "bytes": 9992,
+          "sha256": "62c7932c2721320f51fa92445bc494a002117b9a65f269e87640bce3a995320e"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/freeze.json",
+          "bytes": 12529,
+          "sha256": "871146dc18c6a054ba6e1f860bdd83243f39dbd4388fa15f80952c3d640ac6b3"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/negative/owner-output.json",
+          "bytes": 112737,
+          "sha256": "18c06bd67e63ab1409b02d2842edc08abbaf8a9b746e1094d36491ff68a5320e"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/positive/owner-output.json",
+          "bytes": 143665,
+          "sha256": "3cb84b4c33c18650e0bd0e382fd4f300e2cc2bed6b5c53a2579d16015aec1b9f"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/reader-workload-binding.json",
+          "bytes": 242543,
+          "sha256": "a6a657a970d87c8327af96460ab69c3ff7692c01d974e7d4619ceaf18f6ca249"
+        }
+      ],
+      "acceptance": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+        "bytes": 23029,
+        "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+      },
+      "limit": "current reader operation only; historical correction Runs do not become final-candidate executions"
+    }
+  ],
+  "C2selection": "No whole native/private file added to five protected test commands. Listed accepted component outcomes enter later assessment evidence at their actual producing identities."
+}

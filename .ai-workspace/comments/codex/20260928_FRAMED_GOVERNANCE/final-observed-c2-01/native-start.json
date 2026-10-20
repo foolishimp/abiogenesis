@@ -1,0 +1,10 @@
+{
+  "pid": 14674,
+  "startedAt": "2026-09-30T09:06:20.252Z",
+  "budgetMs": 3066000,
+  "operationPlan": [
+    "observed-c2",
+    "observed-c2-run_result",
+    "observed-c2-run_replay"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "operation": "T287_Q09_REVIEW_AND_RUNTIME08_CONDITIONAL_GRANTS_01",
+  "role": "Writer",
+  "actor": "/root",
+  "status": "ACTIVE",
+  "at": "2026-10-02T09:47:12.205204+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01"
+  ],
+  "grant": "Prepare conditional independent Q09 and whole installed runtime grants only; exact CLOSED current dependencies and Root acceptance pins required before activation."
+}

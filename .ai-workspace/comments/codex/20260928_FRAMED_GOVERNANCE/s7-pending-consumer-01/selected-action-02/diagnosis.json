@@ -1,0 +1,82 @@
+{
+  "classification": "fixture acquisition correspondence failure; no runtime defect or Product gap established",
+  "firstFailedRelation": {
+    "owner": "abg/traversal_route.ts::constructionIntentForAdvance",
+    "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+    "lines": [
+      1566,
+      1567,
+      1568
+    ],
+    "expected": {
+      "catalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "catalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7"
+    },
+    "actual": {
+      "catalogRef": "action-catalog://product/aed9783fe60ac3d7463c01dbd904945bdab6cefd7946e3b995f659a926675a2a",
+      "catalogDigest": "sha256:aed9783fe60ac3d7463c01dbd904945bdab6cefd7946e3b995f659a926675a2a"
+    },
+    "actualInputRows": [
+      "action://selected-action/initial@5",
+      "action://selected-action/consumer@5"
+    ],
+    "admittedRows": [
+      "action://selected-action/consumer@5",
+      "action://selected-action/initial@5"
+    ],
+    "rowBodiesEqualAfterDeclaredCanonicalOrder": true,
+    "observedDiagnostic": "diagnostic://abiogenesis/hog/candidate_mismatch@5",
+    "gapResultEvent": "event://abiogenesis/93dbc68dee5687b8923cf0e63828c836eb45180bc33928095fedb5d764121c2c",
+    "nextResultEvent": "event://abiogenesis/f2054a103c11fe72ab8f3a773d14634558fcc83488b5e3d781b139724248088a",
+    "failureEvent": "event://abiogenesis/4d6ad1e0a958fb652bf3184fe0e976ae7f962e520a89a4777e13765c4504edf6"
+  },
+  "commonAcquisitionBoundary": {
+    "fixtureHost": "test_env/support/t287-selected-action-host.mjs:16",
+    "fault": "inputFactory destructures workspaceBinding and ignores its already supplied admitted program; imported authored actionCatalog becomes invocation input",
+    "existingOwner": "test_env/support/root-installed-environment.mjs:634-648,690-699 resolves installed Program before inputFactory and supplies it",
+    "packagedLeafFault": "test_env/fixtures/t287-selected-action-product/index.mjs:20-21 nextBasis closes over authored actionCatalog for admittedActionCatalog rather than consuming the admitted catalog in observationSnapshot",
+    "authoritativeSource": "inputFactory.program === ProductExecutionResolutionPort.resolve(...).program; its actionCatalog equals the canonicalized installed publication Program and the ExecutionBasis catalog coordinate",
+    "publicationBoundary": "prepareRegisteredSelectionProduct writes authored build/publication.json; loadInstalledPublication materializes it through installed gtl.modulePublication; gtl/canonicalization.ts:109-128 sorts catalog rows and recomputes identity",
+    "relatedInputs": [
+      {
+        "input": "observationSnapshot.actionCatalog",
+        "status": "actual mismatch at initial input"
+      },
+      {
+        "input": "next_action_basis.admittedActionCatalog",
+        "status": "actual mismatch in evalGap Result; same closed-over authored object"
+      },
+      {
+        "input": "refreshGap next_action_basis.admittedActionCatalog",
+        "status": "shares nextBasis but unreached"
+      },
+      {
+        "input": "next selected action, eligibleActionRefs and priority orderedActionRefs",
+        "status": "uses same authored rows; references match current declaration, but row-position selection must not be treated as canonical identity"
+      },
+      {
+        "input": "Program and callableMembership / Program digest",
+        "status": "same normalization boundary; current setup owner correctly uses executionResolution.program; prior recurrence failed here"
+      },
+      {
+        "input": "root InvocationPolicy and work/operation grants",
+        "status": "current setup derives from admitted Program; do not rederive from authored Program; selected-action operation grant code unexecuted"
+      },
+      {
+        "input": "GraphFunction environment inventories, effects/tags and declaration/publication digests",
+        "status": "same declaration canonicalization boundary; no mismatch established on this attempt"
+      }
+    ]
+  },
+  "priorOccurrence": "causation-recurrence-04 return/review and 20260929 handoff: authored Program versus admitted callableMembership order; this time ActionCatalog row order under same GTL publication canonicalizer",
+  "changedPremiseRequired": "fixture acquisition and leaf basis must consume exact admitted Program/catalog; verify common identity relation before another installed attempt, without changing runtime guard or weakening oracle",
+  "expectedNextDiscriminator": "Under successor authorization, same unchanged core package may be reused; repair fixture catalog acquisition/consumption, repackage fixture, precheck admitted identity, then attempt original complete second-action interruption and Public continuation; covered authority remains unconstructed",
+  "attempts": 1,
+  "retryPerformed": false,
+  "eventCount": 64,
+  "constructionIntentCount": 0,
+  "workflowCallCount": 0,
+  "selectedActionPublicInvocations": 0,
+  "hostQuiescent": true,
+  "eventResource": "genuine close handoff in unexpected-handoff.json"
+}

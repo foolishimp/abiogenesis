@@ -1,0 +1,7 @@
+{
+  "kind": "comparison_selector_failure",
+  "stage": "before declaration byte comparison",
+  "error": "relative Path(\".\").parent selected the current directory, so successor36 baseline population was absent",
+  "selectedAction": "Use exact prior emission manifest selectors, not an inferred relative sibling.",
+  "candidateTypeVerdict": "none"
+}

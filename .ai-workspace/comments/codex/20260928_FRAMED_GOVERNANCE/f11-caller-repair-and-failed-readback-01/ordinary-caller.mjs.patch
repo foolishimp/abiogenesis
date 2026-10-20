@@ -1,0 +1,37 @@
+--- preimages/ordinary-caller.mjs
++++ f11/ordinary-caller.mjs
+@@ -95,15 +95,21 @@
+   const prepared=await prepareStart(programRef,graphFunctionHandle,input,label,qualificationResources);
+   return invoke(label,prepared.call,stage);
+  }
+- async function freshReads(label,started){
+-  const run=started.receipt.ownerOutput?.value?.run;assert.ok(run&&state.closeHandoff);const closed=state.closeHandoff;refresh();const reads={};
+-  for(const memberKey of ['run_result','run_replay']){
++ async function freshRead(label,started,memberKey,expectedOutcomeKind='result'){
++  assert.ok(['run_result','run_replay'].includes(memberKey));
++  const run=started.receipt.ownerOutput?.value?.run;assert.ok(run&&state.closeHandoff);const closed=state.closeHandoff;refresh();
+    const packet=abg.ABG_PROJECT_READ_CONTRACTS[memberKey],originalSlots=started.call.invocation.invocationAuthority.slots;
+    const grants=packet.metadata.capabilityRefs.map(cap=>product.constructCapabilityGrant(state.environment.workspaceAuthorityBasis,actorRef,packet.definitionKey.operationId,cap,{admittedInstalls:state.environment.productInstalls,workspaceBinding:state.environment.workspaceBinding,fixedPacket:packet}));
+    const slots=Object.fromEntries(Object.keys(originalSlots).map(k=>[k,null]));Object.assign(slots,{workspace_binding:originalSlots.workspace_binding,product_set:originalSlots.product_set,dependency_lock:originalSlots.dependency_lock,capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}});
+    const request={caseKey:memberKey,source:{sourceKind:'run',sourceRef:run.ref,sourceDigest:run.digest},projectionBasis:{projectionBasisRef:closed.prefix.eventLogRef,projectionBasisDigest:closed.prefix.coordinateDigest},selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:1000}:{kind:'none'}};
+-   const call=installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots,resources:{kind:'abg_project_read_resource_assertion',schemaVersion,qualificationResources:started.call.resources.qualificationResources,eventResource:{kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:state.closeHandoff,handoffDigest:hash(state.closeHandoff)}},requestRef:op.requestBaseRef+'/'+label+'/'+memberKey,correlationRef:op.correlationRef+'/fresh-read',eventTime:new Date().toISOString(),provenanceRefs:op.provenanceRefs});
+-   const projected=await invoke(label+'-'+memberKey,call,'read');requirePublicResult(projected);reads[memberKey]=projected.receipt;assert.deepEqual(state.closeHandoff.prefix,closed.prefix);
++   const call=installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots,resources:{kind:'abg_project_read_resource_assertion',schemaVersion,eventResource:{kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:state.closeHandoff,handoffDigest:hash(state.closeHandoff)}},requestRef:op.requestBaseRef+'/'+label+'/'+memberKey,correlationRef:op.correlationRef+'/fresh-read',eventTime:new Date().toISOString(),provenanceRefs:op.provenanceRefs});
++   const projected=await invoke(label+'-'+memberKey,call,'read',expectedOutcomeKind);assert.deepEqual(state.closeHandoff.prefix,closed.prefix);
++   return projected;
++ }
++ async function freshReads(label,started){
++  const reads={};
++  for(const memberKey of ['run_result','run_replay']){
++   const projected=await freshRead(label,started,memberKey);requirePublicResult(projected);reads[memberKey]=projected.receipt;
+   }
+   return reads;
+  }
+@@ -117,6 +123,6 @@
+   const call=await authorized(product.RUN_OPERATION_CONTRACTS.continue[memberKey],request,resources,authoritySlots);
+   return invoke(label,call,'assessment');
+  }
+- return {...r,installedPublic,hash,coord,actor,op,state,core,verified,verification,ownerRequest,prospect,contractCatalog,packageIdentity,authorized,invoke,conformance,prepareStart,start,continueRun,freshReads,reopen,refresh,boundSlots,physical,physicalLog};
++ return {...r,installedPublic,hash,coord,actor,op,state,core,verified,verification,ownerRequest,prospect,contractCatalog,packageIdentity,authorized,invoke,conformance,prepareStart,start,continueRun,freshRead,freshReads,reopen,refresh,boundSlots,physical,physicalLog};
+ }
+ export function verificationRequest(item){return {artifactPath:item.artifactPath,artifactRef:item.artifactRef,...Object.fromEntries(['ArtifactDigest','ProductContentDigest','ManifestDigest','ProductId','PackageName','PackageVersion'].map(k=>['expected'+k,item.basis[k[0].toLowerCase()+k.slice(1)]]))};}

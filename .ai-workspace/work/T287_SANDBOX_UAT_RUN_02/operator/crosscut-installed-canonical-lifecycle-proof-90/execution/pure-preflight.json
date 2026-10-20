@@ -1,0 +1,39 @@
+{
+  "kind": "canonical_abi_program_provider_worksite_preflight",
+  "entries": [
+    {
+      "programRef": "program://abiogenesis/worksite/file-replace@5",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/file-replace@5",
+      "startRef": "start://abiogenesis/worksite/file-replace@5",
+      "semanticsOwner": {
+        "declarationKind": "semantics",
+        "declarationRef": "product-semantics://abiogenesis/conformance@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c/2bbeeeb3420b7ddb419900c1b771d9e75452ffe7c189487648cb9c47875e932b",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:60aea215611611ec29d6644cb4aa0a64d89d6748757092c4ae5b2db066af6d4a"
+      },
+      "programDigest": "sha256:2128a37cf5191351c34f2407099ed6bbcfcd3c335a04b34fdd8ada6b684756d3",
+      "productRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-5FHVjK/consumer/node_modules/@abiogenesis/typescript-tenant"
+    },
+    {
+      "programRef": "program://abiogenesis/worksite/native-work@5",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "startRef": "start://abiogenesis/worksite/native-work@5",
+      "semanticsOwner": {
+        "declarationKind": "semantics",
+        "declarationRef": "product-semantics://abiogenesis/worksite/native-work@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c/2bbeeeb3420b7ddb419900c1b771d9e75452ffe7c189487648cb9c47875e932b",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:295b1c5c3283fb463d8e0d32aadcf28113be42ddf111ce08f28ec2d3cfff6044"
+      },
+      "programDigest": "sha256:1eead3f18b9e7980ef881089fdde698f54f9de893b5583b59a6e7e5c0da1879f",
+      "productRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-5FHVjK/consumer/node_modules/@abiogenesis/typescript-tenant"
+    }
+  ],
+  "noEnvironmentFactory": true,
+  "noAssessment": true,
+  "sourceNone": true,
+  "observationsImported": false
+}

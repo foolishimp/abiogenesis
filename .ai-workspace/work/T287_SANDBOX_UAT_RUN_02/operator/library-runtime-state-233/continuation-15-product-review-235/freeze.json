@@ -1,0 +1,39 @@
+{
+  "kind": "independent_continuation15_product_evaluation_freeze",
+  "status": "CLOSED",
+  "disposition": "BOUNDED_PRODUCT_FINDINGS_RUNTIME_RETRY_HELD",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/freeze.json",
+    "sha256": "ef50b3f7ff7e7804fe7b4f61d16499967280a1e27a2dede6d58e41feca5866c3",
+    "bytes": 61587
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-product-review-235/return.md",
+      "sha256": "565d99d83ed20dd7edd73d7fa8265cdfd192f06570013cda8e9ca0678f83be13",
+      "bytes": 6073
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-product-review-235/pins.json",
+      "sha256": "4f6da64f3e82ecee14e7448153d272715efa10f5545278cc0d5fd90c1c72f59e",
+      "bytes": 6282
+    }
+  ],
+  "selectedPinCount": 20,
+  "scope": "Historical completed producer versus independently authenticated current native Testing occurrence/input/binding under existing Product reuse law",
+  "authority": {
+    "productSha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+    "frameSha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+    "stdoManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "dependencies": [
+    "Accepted Source43 material/source-use handoff remains separate from current occurrence authentication",
+    "Executive conjoins233's separate integration identity calculation; it was not duplicated here"
+  ],
+  "limits": [
+    "Actual15 inner definition_input_binding conjunct not established by this Product evaluation",
+    "No implementation repair selected; current admitted/published GraphFunction, input, binding, source, cover, currentness and grant guards remain required",
+    "No tests/imports/resource/log/native/worksite/Source/Git effects; no C2/restart/original capacity/UAT qualification"
+  ],
+  "stop": true
+}

@@ -1,0 +1,44 @@
+{
+  "kind": "continuation15_readiness",
+  "disposition": "CLOSED/HOLD",
+  "acceptedSource": "43",
+  "syntax": "PASS",
+  "lexicalUnresolvedNames": 0,
+  "sourceFiles": 264,
+  "emittedFiles": 528,
+  "allExactSource43": true,
+  "canonicalBuildMs": 31969.511292000003,
+  "publicationMs": 9875.696416,
+  "archiveMembers": 5267,
+  "installedMembers": 5267,
+  "externalStrictTypeScript": "PASS;5.9.2;skipLibCheck:false;zero diagnostics",
+  "actualProductContentDigest": "sha256:0f9cd1998227c3d2ce02282d7f98640b37a2623e0febb96cf35f9d0e8b0fb1f0",
+  "archiveArtifactDigest": "sha256:61fb9b4e330d04c96443d8eaa5bd04233c553c638218006c36a7ccd43670e215",
+  "completedPublicSetupCalls": 12,
+  "targetCovers": 4,
+  "currentSourceUse": "PASS",
+  "currentUseDigest": "sha256:016daca28fcd16606d92c6bb3aab27a205daf7ce14feaa4c956c09048ebacab7",
+  "privateProductPreparation": "PASS; prepared_product_run_invocation; real callback",
+  "actualNativeDisposition": "runtime_failed; CLI0 is not acceptance",
+  "diagnosticStage": "native_occurrence_basis",
+  "C2RedRepairGreen": "not proved; stopped at first native failure",
+  "restartAndFullReplayComparison": "not entered",
+  "normalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/lifecycle-start.close.json",
+    "sha256": "4ec94d0a1e14010d4834a9bdb0d831f711a41850b92b6632b08ac673e340931c",
+    "byteCount": 1368,
+    "mode": 420
+  },
+  "samples": {
+    "sampledMaxHeapUsed": 2459965296,
+    "sampledMaxRss": 2947989504,
+    "meaning": "Helper stage samples only; not peaks or actual native heap attribution"
+  },
+  "preOwnerCheckerCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/preflight-01-error.json",
+    "sha256": "ea26ab2ee2ee90b54c0ce8c9c6f9d9b83f6d63a86bdee09016c12ae52609e566",
+    "byteCount": 716,
+    "mode": 420
+  },
+  "limits": "Controlled fixture only; no genuine Claude/DataMapper/capacity/UAT/release credit. Prior14 unique-first-null uncertainty remains historical."
+}

@@ -1,0 +1,5 @@
+{
+  "message": "{\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"basis_mismatch\",\"evidenceRefs\":[],\"issuePaths\":[\"/invocationAuthority\"]}}\n+ actual - expected\n\n+ undefined\n- 'completed'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: {\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"basis_mismatch\",\"evidenceRefs\":[],\"issuePaths\":[\"/invocationAuthority\"]}}\n+ actual - expected\n\n+ undefined\n- 'completed'\n\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:173:12)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+  "totalMs": 31667.634375
+}

@@ -1,0 +1,28 @@
+{
+  "status": "PASS_MAINTENANCE_ONLY_STOPPED",
+  "started": "2026-10-09T09:12:43.199Z",
+  "wallMs": 53956.992625,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "actualOwnerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/recovery-receipt.json",
+    "sha256": "ed0f0700367d5b0fd5716ffa87cb79944859047339fa3ccc03a44fd2eefd08df",
+    "byteCount": 5202
+  },
+  "validatedEventCount": 206699,
+  "sameEntire185CloseHandoff": true,
+  "actualFinalCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "logIdentityExtentMtimeExact": true,
+  "physicalObservationsUnchanged": 49,
+  "selectedLockAbsent": true,
+  "ownedProcessesAndGroupsAbsent": true,
+  "scope": "Canonical maintenance open/adopt/validate/ordinary-close/release only. No semantic retry/preparation/native/model/app work or capacity/UAT closure.",
+  "futureEffects": "None authorized; STOP for Root review/action."
+}

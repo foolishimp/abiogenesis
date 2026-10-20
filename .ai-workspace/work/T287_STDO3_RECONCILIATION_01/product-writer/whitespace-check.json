@@ -1,0 +1,57 @@
+[
+  {
+    "path": "specification/PRODUCT.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/README.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/gtl/README.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "specification/requirements/abg/README.md",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+    "exit_code": 1,
+    "output": ""
+  }
+]

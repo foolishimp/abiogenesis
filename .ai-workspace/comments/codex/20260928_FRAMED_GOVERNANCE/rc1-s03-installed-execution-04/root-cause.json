@@ -1,0 +1,116 @@
+{
+  "kind": "multi_frame_first_new_relation_triage",
+  "activation": "T287_RC1_S03_INSTALLED_PAIR_04",
+  "actualNativeOwnerOutcome": "nonterminal",
+  "actualNativeDisposition": "gap_stop",
+  "nativeExitCode": 3,
+  "nativeOwnerFailure": null,
+  "failingConsumer": "ordinary-caller.mjs invoke expected-exit assertion, called by negative start with default expected result",
+  "firstViolatedRelation": "Public nonterminal gap_stop -> declared acceptedNonTerminal exit 3 -> external caller expectation/exit assertion",
+  "callerExpectedOutcome": "result",
+  "callerExpectedExit": 0,
+  "actualReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/s03-no-action-start-stdout.json",
+    "bytes": 42121,
+    "sha256": "81988979558054c08034abfe12ab7eb3badb67a6b667665111d4bf65c492997d"
+  },
+  "actualCall": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/s03-no-action-start.jsonl",
+    "bytes": 19003617,
+    "sha256": "e9aa0b73876da55c7bbac16ae1a97dcfdb47c986277141dc877f1de95dc341b5"
+  },
+  "outcomeOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+    "bytes": 32247,
+    "sha256": "3d3d038cb6da9dd5bf75b591678e695c2361659a2dd6035830dd5b453938317e",
+    "lines": [
+      719,
+      755
+    ]
+  },
+  "exitMapOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+    "bytes": 26073,
+    "sha256": "386dcd58bfd7b0db94aab9c6f1ef3526a17e760b708e442e13c8522ec0f280f7",
+    "lines": [
+      40,
+      62
+    ]
+  },
+  "startDeclaration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+    "bytes": 9097,
+    "sha256": "50d61dc0dbccd2959ea0f4e333ae188b52a18aad3399e2bda2f94e6f411c126a",
+    "lines": [
+      111,
+      118
+    ]
+  },
+  "externalCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/ordinary-caller.mjs",
+    "bytes": 12779,
+    "sha256": "da14fb331f1850979f039f363ba2159d158b7c1362f7a00099779f9599ed434f",
+    "lines": [
+      45,
+      51,
+      71
+    ]
+  },
+  "callerStartSite": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/driver.mjs",
+    "bytes": 17336,
+    "sha256": "92c15474136c08187fa86eff119260e2e981c4505c9b46f7ba50a8c22162a98a",
+    "lines": [
+      128,
+      129
+    ]
+  },
+  "frames": [
+    {
+      "frame": "Product/Owner",
+      "finding": "A truthful stop remains nonterminal. Existing Product maps gap_stopped to nonterminal/gap_stop and exposes the genuine Run/close handoff."
+    },
+    {
+      "frame": "Design/Public transport",
+      "finding": "The start declaration uses the three-way runtime exit map: terminal result 0, refusal 1, accepted nonterminal 3."
+    },
+    {
+      "frame": "Integration",
+      "finding": "The external helper maps only result/refusal and the negative start uses its default result expectation, so it misclassifies a valid nonterminal as a process failure."
+    },
+    {
+      "frame": "Identity/Install",
+      "finding": "Same exact C03 and original fixture, binding, catalog/View, Program and actor. Pure owners reacquired nominal objects; old producer body/digest joins passed."
+    },
+    {
+      "frame": "Lifecycle",
+      "finding": "Both actual starts already ran. Positive closed with all four cold reads/oracles; negative stopped truthfully and closed the event resource. The four negative cold reads were never dispatched."
+    },
+    {
+      "frame": "Effects",
+      "finding": "Two ordinary owner starts appended to the same allowed physical store; old initial prefix and every other frozen member are conserved. No correction/restart/retry followed the stop."
+    },
+    {
+      "frame": "Proof",
+      "finding": "Conformance repair proved input admission, but external output consumption did not cover the third declared outcome. Positive proof remains bounded and retained; full pair conjunction is incomplete."
+    },
+    {
+      "frame": "Reuse/Cost",
+      "finding": "Reuse worked: no setup calls or packaging repeated. The remaining proof can consume the already existing negative Run/handoff with four cold reads; no third start is needed."
+    }
+  ],
+  "supportedCause": "The Worker retained a result-only default for the negative start and a result/refusal-only adapter selection in the external caller, despite the declared nonterminal outcome.",
+  "escape": "Preparation bound the corrected input assertion and expected semantic gap_stop but did not join that semantic outcome to the actual owner discriminator and adapter exit map.",
+  "scope": "External caller/proof consumption; no Product/core/runtime implementation defect established.",
+  "organizationalSiloingEstablished": false,
+  "siloedCallerContractApplicationSupported": true,
+  "recurringPattern": "External proof helpers reconstruct owner contracts from partial assumptions. The missing relations are different: prior exact input shape, now the complete semantic output/transport outcome sum.",
+  "completeApplicabilityCone": "External generic invoke expectation/mapping and every runtime invocation caller that can legally return nonterminal, including start/continue and applicable interaction surfaces. Definitions and runtime owners already declare those outputs.",
+  "smallestReentry": "realization_refactor",
+  "repairOwner": "Separate Root-selected external caller/proof Worker",
+  "minimumRepair": "Select acceptedTerminal/acceptedNonTerminal/refused from the actual definition adapter map for the explicit expected semantic outcome; keep native failure checks and actual receipt discriminator checks. Negative start evidence remains immutable.",
+  "minimumRemainingExecution": "Only four separate fresh run_result/run_replay/run_status/run_gaps calls on the existing negative Run and latest genuine close handoff. Result expected refusal not_ready/exit1. Original causal and cold oracles then join both existing Runs and same input/basis/Program.",
+  "priorSuccessesToConserve": "Nine setup calls, corrected conformance, both actual starts, complete positive original causal/cold proof, initial physical prefix and immutable failure records.",
+  "repairsRetriesAfterFailure": 0,
+  "qualificationClaim": false
+}

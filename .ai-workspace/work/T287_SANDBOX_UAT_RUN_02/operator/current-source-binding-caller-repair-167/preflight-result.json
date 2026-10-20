@@ -1,0 +1,122 @@
+{
+  "kind": "bounded_caller_preflight",
+  "status": "PASS",
+  "wallMs": 4105.573458,
+  "host": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "canonicalOwners": [
+    "ProductEnvironmentPort.bindWorkspace",
+    "PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind.requestSchema",
+    "isResolvedProductLock",
+    "isProductInstallCandidate",
+    "constructProductSet",
+    "productInstallCoordinate",
+    "sha256Canonical"
+  ],
+  "oldBindingCoordinate": {
+    "digest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "ref": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+  },
+  "currentLock": {
+    "ref": "product-lock://abiogenesis/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+    "digest": "sha256:37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85"
+  },
+  "retainedNativeInstallInvocationRef": "invocation://abiogenesis/f33c5db0a6fa6bfb7220fecf4e90c248b6e007c95f96c4907e33ebaab68851f9",
+  "retainedNativeInstallCoordinate": {
+    "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+    "digest": "sha256:8e76802f97b9354ed26d994b3659991320fa541057a7558a188b6f9caef2c8e2"
+  },
+  "firstCauseUndefinedFields": [
+    "product",
+    "event_log",
+    "runtime_state",
+    "projection",
+    "archive"
+  ],
+  "mixedLockRefusal": {
+    "kind": "environment_refusal",
+    "code": "lock_mismatch"
+  },
+  "sixRootRequest": {
+    "workspaceAuthority": {
+      "ref": "workspace-authority://abiogenesis/9342b380081ab1f0eb372eee18eca114fb3f6dd6f8931d227dbf3149b4350c46",
+      "digest": "sha256:9342b380081ab1f0eb372eee18eca114fb3f6dd6f8931d227dbf3149b4350c46"
+    },
+    "installedSet": [
+      {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+        "digest": "sha256:8e76802f97b9354ed26d994b3659991320fa541057a7558a188b6f9caef2c8e2"
+      },
+      {
+        "ref": "product-install://@abi5-tests/sandbox-uat/5.0.0/98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+        "digest": "sha256:b9340ec12775465fa233382457d57ad2dc07bc9260fb29008ced85c9bd9cd272"
+      }
+    ],
+    "resolvedLock": {
+      "ref": "product-lock://abiogenesis/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+      "digest": "sha256:37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85"
+    },
+    "declaredRoots": [
+      {
+        "rootKind": "toolchain",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/installed-current26"
+      },
+      {
+        "rootKind": "product",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prospective-consumer/node_modules/@abi5-tests/sandbox-uat"
+      },
+      {
+        "rootKind": "event_log",
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events"
+      },
+      {
+        "rootKind": "runtime_state",
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/runtime"
+      },
+      {
+        "rootKind": "projection",
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/projections"
+      },
+      {
+        "rootKind": "archive",
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives"
+      }
+    ]
+  },
+  "sixRootRequestDigest": "sha256:d222cbebab097a1fd84f27067fb73e740bccee5579e10f2929b6fe97b35437fa",
+  "oldFullCandidateDigest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+  "currentPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1685518956,
+    "prefixDigest": "sha256:601e0ec7019cf3edbbc748f6f70b237dc988bc8b14297458d33a4e5dc0194bc6",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:8115cae7de81799414e6d405a0647c5b1477f83ad2337bb0493d99772e7ea48a"
+  },
+  "historicalPrefix": {
+    "coordinateDigest": "sha256:bd7e517ec7bc2d0a72e385a887f6400fa469ca299c7d5bb40cc78cb7256d976a",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:c24b51548ce6a12cc4bc540e34c61c8f6c45d5adcb05e774fc993b092a3b7160",
+    "prefixLength": 1682431300,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 468327400
+    }
+  },
+  "claims": [
+    "Original complete binding candidate reconstructs to archived coordinate from recorded setup lower premises",
+    "Canonical full lock metadata matches retained resolution coordinates",
+    "Controlled native candidate digest equals retained actual native installation coordinate",
+    "Actual old-consumer/current-lock combination refuses",
+    "Six-root request validates and hashes; original undefined-path form rejects",
+    "Intended caller keeps Public coordinates distinct from owner records and omits completed Public calls"
+  ],
+  "limits": "Pure constructor/schema preflight over recorded and controlled materialized-candidate metadata. No candidate contains an admissionEventRef; no admitted consumer, nominal verified receipt, current prefix projection, install, bind, D2/current-use, native or capacity proof is created. Runtime must reverify before acquisition and derive real owner records at the held current prefix."
+}

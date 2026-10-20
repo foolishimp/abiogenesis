@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.conformance.evaluate",
+    "memberKey": "gtl_program"
+  },
+  "elapsedMs": 2095.357541999998,
+  "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+}

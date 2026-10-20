@@ -1,0 +1,29 @@
+{
+  "donor": {
+    "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/config.json",
+    "bytes": 20048,
+    "sha256": "68f66f1cc2e9fac75061d7200e9e262a52d34aa86a0f76d8bcb28dd002fcca13"
+  },
+  "preloaderDonor": {
+    "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/test-environment.mjs",
+    "bytes": 533,
+    "sha256": "93913ad5f1574d7d38c7b2435e2e7d9b5c3e492518adb616ece83485c7d65208"
+  },
+  "removed": [
+    "all 13 HOME assignments",
+    "preloader HOME assignment",
+    "unused .home creation"
+  ],
+  "added": [
+    "explicit environment array selects no ambient HOME; inherited HOME is not rewritten",
+    "task-owned npm prefix, Git global/system config and GIT_OPTIONAL_LOCKS=0",
+    "preloader absolute npm cache/prefix/config paths"
+  ],
+  "preserved": [
+    "13 commands and 14 predicate meanings",
+    "five test argument selections and time bounds",
+    "verification subtree only writes",
+    "TMPDIR, npm offline/cache/config, LANG/LC_ALL, F16 report territory"
+  ],
+  "execution": "none"
+}

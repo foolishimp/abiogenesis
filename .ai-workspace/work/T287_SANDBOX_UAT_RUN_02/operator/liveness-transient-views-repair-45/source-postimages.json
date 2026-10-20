@@ -1,0 +1,17 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "sha256": "12610972e3f317ec3a6fc19198d15bffda34deeaa119da425f7ded8572664f1f",
+    "byteCount": 75658
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+    "sha256": "1cab74f54d05f7267e1c846a679904efe0b18b130dc37b09bd22aa69c756a2f2",
+    "byteCount": 27706
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+    "sha256": "bce77f2f19a8d046450ec337d7549ef84a00b14d4a093271db781f01fcf4e614",
+    "byteCount": 32320
+  }
+]

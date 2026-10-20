@@ -1,0 +1,12 @@
+{
+  "status": "Preserved documentary failure; no205 files had been created",
+  "exitCode": 1,
+  "firstCause": "Pin accessor used nonexistent ABI build/product/builtin_semantics.js instead of actual published build/code/src/product/builtin_semantics.js.",
+  "error": "FileNotFoundError: [Errno 2] No such file or directory: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/installed-consumer-current28/node_modules/@abiogenesis/typescript-tenant/build/product/builtin_semantics.js",
+  "action": "Executive selected actual previously read published paths for both roots, requiring exact owned hashes. Same causal claims; no source/runtime/log retry.",
+  "earlierOptionalMisses": [
+    "zsh rejected nonexistent test_env/fixtures/sandbox-uat/module/*.mjs before optional lookup.",
+    "Optional design/ABI5_PRODUCT_ENVIRONMENT_DESIGN.md did not exist.",
+    "Optional tenant/product and tenant/PRODUCT.md requirement paths did not exist; rg exit2. All omitted without retry or authority credit."
+  ]
+}

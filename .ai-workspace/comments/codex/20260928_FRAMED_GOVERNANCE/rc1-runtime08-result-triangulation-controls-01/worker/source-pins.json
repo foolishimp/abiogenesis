@@ -1,0 +1,180 @@
+{
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 67237,
+      "sha256": "e5c6fda5b10689d0df9f4c8c4c20a6ca6c557a9d861563fd5528adf88050047d",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275717,
+      "sha256": "72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "bytes": 8607,
+      "sha256": "6534d19d6ea0c5a60fc1b12a548c69847aec85f62c2494b98780396711eb2891",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76530,
+      "sha256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 63360,
+      "sha256": "b8bb644121845e25567280642b6474d5a32d452119af5ad1812b02360c1249b6",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 40955,
+      "sha256": "e2b77f22ec4516f36a28940ef0544223b59d8c6dcf681c383482595a6ebd3e29",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "bytes": 12182,
+      "sha256": "935aff49fca7f37738d512489a873bb04d9bc6ccad58e12d5198718e8fedde9a",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "bytes": 19573,
+      "sha256": "5da1cf726fe749056d81ac69ef60188e38977bd1df3b9b59df68fab9228f3140",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "bytes": 66415,
+      "sha256": "af524bc1eaf89323d13934927353185b610ef4048a3c009bac69998cbdd38b15",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call_outcome.js",
+      "bytes": 55138,
+      "sha256": "89cad42042a4517cf4f5cf216b47972d444e41be5280d43dfb53ac55d9b33906",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js",
+      "bytes": 238896,
+      "sha256": "d81b1f502abe85fb70b73d826d4183fe24f84445d05b865368d83a45af3d4170",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/qualification.js",
+      "bytes": 7461,
+      "sha256": "1b082310a15cfd6144a8d7b7311567ca9d7190ced3baa2740ed334baccddc535",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js",
+      "bytes": 70127,
+      "sha256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+      "bytes": 61459,
+      "sha256": "41a3ab04f071c10c39e4d713f4ca2f4e2dfc744bb81e44ae19e23e0840199033",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_contracts.js",
+      "bytes": 36688,
+      "sha256": "c56c2cc8e22c2edc238e22935fcf73490270e4cd0f5df1630badf26fca7751a9",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/self_conformance_semantics.js",
+      "bytes": 12097,
+      "sha256": "8b886a795d42ed050a59da59352daf725d7276d04df0f638dec521bd3886707e",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/semantics.js",
+      "bytes": 10236,
+      "sha256": "d3d39b2e2a08392de15e66cc300850707bb0afd2e7ead5e0260b4ff542184450",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/builtin_semantics.js",
+      "bytes": 67054,
+      "sha256": "6698c496d6759848d24a5ef73be7b5ff36b6600ee4fd16c2a654a937828f2616",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 36658,
+      "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "bytes": 45510,
+      "sha256": "7f2ef6b22c5e6d7176e08dd2283ba3c09869a7738490090c444022a13ddfa41a",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+      "bytes": 20126,
+      "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/available-native-verification-inputs.json",
+      "bytes": 34178,
+      "sha256": "3b6c3ffeaaac2daa96f68500d8cf305a095dd84f605553fb0354e588d346474c",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/first-violated-relations.json",
+      "bytes": 26675,
+      "sha256": "ebacbf370000a46820a794c4a0fe54773675afbfd11cfe248769363fa4b9010c",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/first-failure.json",
+      "bytes": 3818,
+      "sha256": "33d0f02e00d7e6dc41ff42d0046c7b3e7c8b43b90f897b71842e3f955c5b590d",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/input-acceptance.json",
+      "bytes": 12693,
+      "sha256": "5ed6404c7bb1292573b627501ce952e690f63008108b10cb1b861e41f09f7fe8",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/worker-request.txt",
+      "bytes": 3532,
+      "sha256": "b74aa0807e5f94ba7769291d1b57c4bc0330d04f3d1472767a92cc6d1528f3a9",
+      "mode": "0644"
+    }
+  ],
+  "recordCount": 29,
+  "scope": "selected frozen C07 source/emits, authority and retained Runtime08 data only"
+}

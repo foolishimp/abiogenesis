@@ -1,0 +1,9 @@
+{
+  "scope": "External closure evidence checker only",
+  "failure": "Checker initially guessed actor_invocation_requested event name and stopped before writing closure/evidence/freeze",
+  "actualProducerField": "actor_invocation_started",
+  "repair": "Read only the actual CLOSED 52-event suffix names, then corrected the external checker to the real admitted producer event",
+  "nativeEffectsRepeated": false,
+  "sourceOrRuntimeRepair": false,
+  "claim": "No native or semantic failure is inferred from this local checker error"
+}

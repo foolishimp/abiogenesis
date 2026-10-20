@@ -1,0 +1,10 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_C09_INSTALLED_PATH_GRANTS_WRITER_01",
+  "startedAt": "2026-10-02T15:11:25.658179+00:00",
+  "exactWriteTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01",
+  "grant": "Create only these conditional construction-review, Setup09, Q10 input and Runtime09 grants and basis/verification/closure/freeze; no Source, candidate, Run, Git, or resource effects. Dependency release is separately explicit.",
+  "returnsTo": "Executive"
+}

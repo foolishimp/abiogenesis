@@ -1,0 +1,1 @@
+{"status":"stopped","phase":"native-independent-Claude-dispatch","message":"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'runtime_failed'\n- 'completed'\n","elapsedMs":30250.047959,"currentRssBytes":2135851008,"currentHeapUsedBytes":534799256,"cumulativePeakRssBytes":2525364224}

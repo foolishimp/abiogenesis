@@ -1,0 +1,22 @@
+```json
+{
+  "edge": "hello-input-to-output",
+  "actor": "claude-fable-5-fp-worker",
+  "message": "hello world",
+  "fulfillment_assessments": [
+    {
+      "id": "assessment://catalog-40d124357e31b5da/vector-0/transform/instruction-response",
+      "evaluator": "claude-fable-5-fp-worker",
+      "fulfillment_status": "fulfilled",
+      "fulfillment_detail": "Transformed hello-input greeting 'world' into hello-output message per edge hello-input-to-output, honoring the target output contract and carrying no answer marker.",
+      "blocking_reasons": [],
+      "evidence_refs": [
+        "input://t223/sdk",
+        "fixture.schema.hello-input",
+        "node://fixture/hello-world/hellooutput",
+        "dependency-instruction-truth://catalog-40d124357e31b5da/vector-0/transform"
+      ]
+    }
+  ]
+}
+```

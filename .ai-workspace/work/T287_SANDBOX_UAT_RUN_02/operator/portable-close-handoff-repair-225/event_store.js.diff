@@ -1,0 +1,26 @@
+--- before/event_store.js
++++ after/event_store.js
+@@ -1481,8 +1481,9 @@
+         return closeHeldEventStoreAtDurablePrefix(this, history.prefix);
+     }
+ }
+-/** Bind the owner's committed history to its unchanged reopen carrier, then
+- * release ownership. A later reopen independently validates persisted bytes. */
++/** Return the owner's unchanged close coordinate as portable data, then release
++ * ownership. Separately retained nominal snapshots remain immutable evidence;
++ * a later reopen independently validates persisted bytes. */
+ export function closeHeldEventStoreAtDurablePrefix(store, expectedPrefix) {
+     assertHeldEventStoreAtDurablePrefix(store, expectedPrefix);
+     const state = eventState.get(store);
+@@ -1510,7 +1511,10 @@
+         ...authorityBody,
+         authorityDigest: sha256Canonical(authorityBody),
+     });
+-    const handoff = Object.freeze({ prefix, reopenAuthority });
++    const handoff = Object.freeze({
++        prefix: admitIJsonValue(prefix),
++        reopenAuthority,
++    });
+     if (!validateEventStoreCloseHandoff(handoff)) {
+         throw new TypeError("ABG durable close handoff failed validation");
+     }

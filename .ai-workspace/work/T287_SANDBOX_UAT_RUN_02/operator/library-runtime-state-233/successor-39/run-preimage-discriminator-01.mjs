@@ -1,0 +1,15 @@
+import {spawnSync} from 'node:child_process';
+import {writeFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('.',import.meta.url));
+const old='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/build-01/code/src';
+const args=['--experimental-vm-modules','--test','--test-name-pattern=^library prepare-testing',root+'input-01/test_env/tests/t287-native-work-reacquisition.test.mjs'];
+const env={...process.env,ABG_GOVERNANCE_COVERED_BUILD_ROOT:old,ABG_WORKSITE_BUILD_ROOT:root+'build-01/code/src'};
+delete env.ABG_NATIVE_REACQUISITION_RETAINED_ROOT;
+const start=performance.now();
+const r=spawnSync(process.execPath,args,{cwd:root,env,encoding:'utf8',maxBuffer:16*1024*1024});
+writeFileSync(root+'commands/preimage-discriminator-01.stdout',r.stdout??'');writeFileSync(root+'commands/preimage-discriminator-01.stderr',r.stderr??'');
+const observedCanonicalRefusal=r.status===1 && (r.stdout??'').includes('canonical declared prepare-testing binding must be accepted by its occurrence owner');
+const result={kind:'expected_canonical_binding_preimage_counterexample',sourceCut:38,fixtureSourceCut:39,command:[process.execPath,...args],ownerBuildRoot:old,exitCode:r.status,signal:r.signal,expectedExitCode:1,observedCanonicalRefusal,elapsedMs:performance.now()-start,limits:['Expected old38 rejection of canonical GTL-declared occurrence under exactly the same controlled lower fixture premises; not a new installed/native execution.']};
+writeFileSync(root+'commands/preimage-discriminator-01.result.json',JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result));if(r.stdout)console.log(r.stdout);if(r.stderr)console.error(r.stderr);process.exitCode=observedCanonicalRefusal?0:1;

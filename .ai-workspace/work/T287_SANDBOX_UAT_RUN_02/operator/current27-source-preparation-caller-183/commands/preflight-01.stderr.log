@@ -1,0 +1,11 @@
+node:path:1442
+    validateString(path, 'path');
+    ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at dirname (node:path:1442:5)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/preflight.mjs:57:243 {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+
+Node.js v24.7.0

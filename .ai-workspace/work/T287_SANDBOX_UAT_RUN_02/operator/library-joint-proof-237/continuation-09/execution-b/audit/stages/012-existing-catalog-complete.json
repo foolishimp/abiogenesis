@@ -1,0 +1,12 @@
+{
+  "stage": "existing-catalog-complete",
+  "elapsedMs": 33597.80216699996,
+  "at": "2026-10-10T13:31:41.995Z",
+  "rss": 3138453504,
+  "heapTotal": 818659328,
+  "heapUsed": 323767744,
+  "external": 2490176,
+  "arrayBuffers": 77869,
+  "catalogDigest": "sha256:989785b88c3060bdc023ed65081ec031eabb0527808260e5c20b8f276b218c36",
+  "viewDigest": "sha256:09241ddbe8bddcef3e0684700524f9b260ab6224952c2e8345dc98848f443d4f"
+}

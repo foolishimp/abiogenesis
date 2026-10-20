@@ -1,0 +1,160 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "kind": "PHYSICAL_CLOSURE_READY_NEW_COMPILE_REQUIRED",
+  "runtimeBundleRoots": [
+    "@valibot/to-json-schema",
+    "effect",
+    "jsonc-parser",
+    "valibot",
+    "ajv",
+    "ajv-formats"
+  ],
+  "dependencyRows": [
+    {
+      "locator": "node_modules/@standard-schema/spec",
+      "name": "@standard-schema/spec",
+      "version": "1.1.0",
+      "entry": "dist/index.cjs",
+      "entrySHA256": "68eba92bc1637688388d7adc1fe5aa748b27c7101ad40123e64135bb5e9ed8e7",
+      "packageSHA256": "58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/@standard-schema/spec"
+    },
+    {
+      "locator": "node_modules/@valibot/to-json-schema",
+      "name": "@valibot/to-json-schema",
+      "version": "1.7.1",
+      "entry": "dist/index.cjs",
+      "entrySHA256": "f5da904cdc297263fba3081d3d9ed8fb056e18319a12744c38540e07b5db78c6",
+      "packageSHA256": "5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema"
+    },
+    {
+      "locator": "node_modules/ajv",
+      "name": "ajv",
+      "version": "8.20.0",
+      "entry": "dist/ajv.js",
+      "entrySHA256": "edaed56fc546f5551b0d6dc2ff2a9cc25c2d6c83318a086eaa8c3ad0b2479297",
+      "packageSHA256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/ajv"
+    },
+    {
+      "locator": "node_modules/ajv-formats",
+      "name": "ajv-formats",
+      "version": "3.0.1",
+      "entry": "dist/index.js",
+      "entrySHA256": "3f3014150293846086d11058bb8bf43e669e354a98b37adcf10281454d5e753b",
+      "packageSHA256": "402fb4bcfa457f0226813f3976ac42839dd619907c075c108efba8600d7edb69",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/ajv-formats"
+    },
+    {
+      "locator": "node_modules/effect",
+      "name": "effect",
+      "version": "3.22.1",
+      "entry": "dist/cjs/index.js",
+      "entrySHA256": "f06588ff37a9e5cadf0adbbeb8b40af39b66c2b245243915b5d5cf424e1a16e0",
+      "packageSHA256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/effect"
+    },
+    {
+      "locator": "node_modules/fast-check",
+      "name": "fast-check",
+      "version": "3.23.2",
+      "entry": "lib/fast-check.js",
+      "entrySHA256": "9e65028c1b441f9c4e40bb10e81e6a57c5e4b4f5f56585aa3ba84981115cba74",
+      "packageSHA256": "b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/fast-check"
+    },
+    {
+      "locator": "node_modules/fast-deep-equal",
+      "name": "fast-deep-equal",
+      "version": "3.1.3",
+      "entry": "index.js",
+      "entrySHA256": "eb469e206280321a3878f2335ec98aa2104a155079d8ed83a23029098dccd215",
+      "packageSHA256": "a5c63940db0260739be9e2ac67f3aac268df4db5770420ee4e34e493152f97d2",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/fast-deep-equal"
+    },
+    {
+      "locator": "node_modules/fast-uri",
+      "name": "fast-uri",
+      "version": "3.1.7",
+      "entry": "index.js",
+      "entrySHA256": "e82d3e55d954483e4927f9740bc3113a24d19ef5a73c7962d8a93c499fc982ff",
+      "packageSHA256": "e634f3848a2c6c7e1cdc28b119b16e072e10dada8a3ca3f175a2372d0dd83360",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/fast-uri"
+    },
+    {
+      "locator": "node_modules/json-schema-traverse",
+      "name": "json-schema-traverse",
+      "version": "1.0.0",
+      "entry": "index.js",
+      "entrySHA256": "024191b747afac01b28ff11d744e9f82720bbad5f716163ba5c962eb62aa2350",
+      "packageSHA256": "156fb24af02845c190701360d06dfda35ef04282e34a734289ea9535ad9819ae",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/json-schema-traverse"
+    },
+    {
+      "locator": "node_modules/jsonc-parser",
+      "name": "jsonc-parser",
+      "version": "3.3.1",
+      "entry": "lib/umd/main.js",
+      "entrySHA256": "6dc132e2e792a9616688ff93d10dd671c1fbcfa3301d76bff3e81193d049337d",
+      "packageSHA256": "a7a9192caaac00d9330592f4fd572908bee037518128a0fc3db96d2cd652e2b5",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/jsonc-parser"
+    },
+    {
+      "locator": "node_modules/pure-rand",
+      "name": "pure-rand",
+      "version": "6.1.0",
+      "entry": "lib/pure-rand.js",
+      "entrySHA256": "5ec53b1fe435ae1c9551f8f55cdacd5ecc72a7530a85b7016baf8133f1549889",
+      "packageSHA256": "e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/pure-rand"
+    },
+    {
+      "locator": "node_modules/require-from-string",
+      "name": "require-from-string",
+      "version": "2.0.2",
+      "entry": "index.js",
+      "entrySHA256": "cb059342a762b955997bf780f3693add176922727f2fa9f11fcaf1b3fc323239",
+      "packageSHA256": "c0002f7d4c7d7e2a885cf0f97226344902417c3a0980f2beca41962d2bc1f6d8",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/require-from-string"
+    },
+    {
+      "locator": "node_modules/valibot",
+      "name": "valibot",
+      "version": "1.4.2",
+      "entry": "dist/index.cjs",
+      "entrySHA256": "f24300781b1d77bf4a888f568d23eb9f2dc1e6bcedcc2ce6520ca9b3a547017a",
+      "packageSHA256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb",
+      "physicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/valibot"
+    }
+  ],
+  "compilerPlan": {
+    "version": "5.9.2",
+    "compilerSHA256": "e5f1f6b3e82228a89873cc7b941b2465185e839c0692860f83e3e63e53f94c2b",
+    "changedSource": true,
+    "compileRequired": true,
+    "newCompile": true
+  },
+  "consumer": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "tests": [
+      {
+        "name": "t287-gtl-serialization-publication.test.mjs",
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+        "sha256": "d90d8a343aa08ee973aa6cd2cf0f6b9e333e9022904c53ffe28f1d42e832f8bb",
+        "destination": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      },
+      {
+        "name": "t287-gtl-language-corpus.test.mjs",
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs",
+        "sha256": "132d1e815b9bb4e4e963bc047235379c996241f5022c4dc47a9ca96b1a20c1b9",
+        "destination": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs"
+      }
+    ],
+    "baseline": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/baseline.json",
+    "packReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/pack.stdout"
+  },
+  "defaultHeap": true,
+  "HOME": "/Users/jim",
+  "SourceWrites": 0
+}

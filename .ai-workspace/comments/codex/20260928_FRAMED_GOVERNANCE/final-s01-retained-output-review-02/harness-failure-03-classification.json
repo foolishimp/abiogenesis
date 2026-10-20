@@ -1,0 +1,13 @@
+{
+  "kind": "Reviewer digest-role conflation",
+  "probe": "setup-binding-checks.mjs",
+  "evidence": ["setup-binding-checks-failure.json", "setup-binding-checks.stderr", "setup-binding-checks-process.json", "product-set-coordinate-source.json"],
+  "actualInstallReceiptDigest": "sha256:af3bce94667637bb901110cc3d93288960c2dd0d9eb8a198bdbe29efbb541ee7",
+  "actualRunAuthorityProductContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+  "sameInstallRef": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+  "ownerRule": "product/run_invocation_operation.ts:368-370 explicitly requires row.ref === install.installId and row.digest === install.productContentDigest",
+  "cause": "Reviewer incorrectly demanded whole-coordinate equality between distinct install identity and Run authority Product-content coordinates",
+  "correction": "Keep both originals unchanged; join the exact same install ref and the Product-content digest required by the existing owner",
+  "candidateCounterexample": false,
+  "originalProbePreserved": true
+}

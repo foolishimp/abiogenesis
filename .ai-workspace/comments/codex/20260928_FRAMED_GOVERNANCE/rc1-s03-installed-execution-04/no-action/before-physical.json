@@ -1,0 +1,24 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+  "bytes": 3878838,
+  "sha256": "dc5fbb98505b28192a31b52696201d0c11edefc5d1657b0d445dca5b63f36d80",
+  "device": 16777230,
+  "inode": 464429281,
+  "mtimeMs": 1790892629860.8813,
+  "stableDuringRead": true,
+  "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/tmp/abiogenesis-event-store-locks-v5/16777230-464429281.lock",
+  "lockPresent": false,
+  "prefix": {
+    "coordinateDigest": "sha256:a4a2f68e4c85711976302900ef447de0058b30cdc4d25caec6cea7a04c3ba085",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:dc5fbb98505b28192a31b52696201d0c11edefc5d1657b0d445dca5b63f36d80",
+    "prefixLength": 3878838,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464429281
+    }
+  }
+}

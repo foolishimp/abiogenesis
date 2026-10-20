@@ -1,0 +1,57 @@
+[
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/freeze.json",
+    "bytes": 28502,
+    "sha256": "63837aaa9c8df15366256a8d3f91af3688ce8c716698379c84bf27ea0f6e5a04"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/return.md",
+    "bytes": 15303,
+    "sha256": "1fca3574b7f26b5c9af2b1fcf1721bdc2b7e1585ea6a0c91c1f3aa54351c5184"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/archive-installed.json",
+    "bytes": 1143622,
+    "sha256": "e26f3453d17d4cf071ff740d32401287b073295a24785766b66aa7726e1183c9"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/latest-handoff.json",
+    "bytes": 1398,
+    "sha256": "eeff0c3f5224ef55e5ee0d71504827560ef0aebe7fbb9873cddafc9248b7349a"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/same-basis/environment.json",
+    "bytes": 42376894,
+    "sha256": "e19757e004d2de4805c3efe4d3c64eebbce8577fbe01dd216f2f5eccaac86e86"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/same-basis/opened.json",
+    "bytes": 6369,
+    "sha256": "c60ddfdd50028c92043002ce24f4d629b39ff0104633aebc942fe8393f81abbd"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/same-basis/prepared-relation.json",
+    "bytes": 122663,
+    "sha256": "975f95ef18ae68fd94c1dbd6aad15014fd9d23704ab1074814b981f58b4d158d"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/same-basis/continue-call.json",
+    "bytes": 22567282,
+    "sha256": "ff85d0675f71849ac5aba8b4a0eb0c21ed6caf1a08c79593fbdac0070c20afd5"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/same-basis/continue-receipt.json",
+    "bytes": 83245,
+    "sha256": "fe3283e9fb432ed0a4d7c284d28a630edc9a34fdef78c5ffabc6a2f2215d9c65"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+    "bytes": 19588,
+    "sha256": "0273a0192c51f369eed0f124f41fd796d99c8154d8dbd412a3a16651342788cb"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-design-disposition-03.md",
+    "bytes": 4232,
+    "sha256": "b2c90b8026f47f856481004fea5fc2b5c940c9a06da75b690d03c0f581184523"
+  }
+]

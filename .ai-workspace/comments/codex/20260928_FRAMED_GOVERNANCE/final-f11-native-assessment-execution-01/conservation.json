@@ -1,0 +1,50 @@
+{
+  "status": "VERIFIED",
+  "callerAndBinding": [
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/freeze.json",
+        "bytes": 14545,
+        "sha256": "f1937dec28204ef6790f9650edb27c031ee62f1abb7960b80119517339d570a6"
+      },
+      "verifiedRecords": 67,
+      "bytesConserved": true
+    },
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+        "bytes": 13795,
+        "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+      },
+      "verifiedRecords": 66,
+      "bytesConserved": true
+    }
+  ],
+  "currentResource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "bytes": 73530699,
+    "sha256": "146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c"
+  },
+  "finalPrefix": {
+    "coordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+    "prefixLength": 73530699,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464012478
+    }
+  },
+  "storeDevice": 16777230,
+  "storeInode": 464012478,
+  "finalEventCount": 136,
+  "prior84ByteConserved": true,
+  "freshReadsAppendedEvents": false,
+  "originalLockAbsent": true,
+  "allOwnedProcessesReaped": true,
+  "workerSourceInstallWorksiteAuthEdits": false,
+  "claim": "Complete caller/binding records verified after execution; original native prefix conserved and only the one observed native assessment event history appended. No broad source freshness or user-state audit invented."
+}

@@ -1,0 +1,68 @@
+{
+  "status": "READY_ONE_SUPERVISED_PAYLOAD",
+  "operation": "T287_F11_C09_CARRIER_EXECUTION_09",
+  "strictCallerAndFlowDriverExact": true,
+  "moduleClosureReady": true,
+  "syntaxChecks": [
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/run-flow.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/controlled-helper.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/conformance-resources.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/flow-driver.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/ordinary-caller.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/prepare-resources.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/proof-oracles.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/public-outcomes.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/public-support.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/source-delta-contract.mjs",
+      "exitCode": 0,
+      "ProductImports": 0
+    }
+  ],
+  "allDeclaredOutputsAbsent": 135,
+  "successAndFirstFailureFinalizerPrepared": true,
+  "finalizerSHA256": "41a13b6e231cd3798ffd1e203232471ff94266d03d6d59a8c8c6876fcffcc2aa",
+  "currentActorBindingCatalogViewHandoffJoined": true,
+  "currentRootMessageReleaseVerified": true,
+  "RootAcceptedPreparationProofReused": true,
+  "ProductImports": 0,
+  "RuntimeEffects": 0,
+  "defaultHeap": true,
+  "HOME": "/Users/jim"
+}

@@ -1,0 +1,7 @@
+{
+  "status": "preparation_failed_before_compile",
+  "cause": "unrelated downstream fixture ambient node_modules/.bin/acorn is a symlink; dependency copies must come from C03, not ambient fixture installs",
+  "effect": "partial source copy retained under readiness/partial-preparation-01; no source test or Product owner failure",
+  "scriptSha256": "42f083bfab0455f0341ab01907a7f32a5146ca282cb9691cc915cfdce9be7b0a",
+  "repair": "exclude downstream/falsifier fixture generated node_modules/build/proof/test_runs from source snapshot"
+}

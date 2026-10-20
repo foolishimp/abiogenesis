@@ -1,0 +1,30 @@
+{
+  "activation": "T287_F11_CARRIER_RESOURCE_DESIGN_01",
+  "actor": "/root/f11_carrier_design_worker",
+  "role": "Writer/Worker",
+  "changeClass": "design_reframe",
+  "activatedAt": "2026-10-01T18:44:05.955543+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-repair-controls-01/design-request.txt",
+    "sha256": "9fb3306c37bfe4e2750adbda0143abc8c52a53eba1bc8b28494c5900e1e0d9d1"
+  },
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-resource-design-01/"
+  ],
+  "effects": "new proposed design and report/sketch/pins/freeze only",
+  "excluded": [
+    "code",
+    "tests",
+    "build",
+    "package",
+    "install",
+    "provider",
+    "runtime events",
+    "Git",
+    "other design",
+    "Product/requirements",
+    "siblings"
+  ],
+  "stop": "CLOSED frozen proposal; return to Executive; no Reviewer activation"
+}

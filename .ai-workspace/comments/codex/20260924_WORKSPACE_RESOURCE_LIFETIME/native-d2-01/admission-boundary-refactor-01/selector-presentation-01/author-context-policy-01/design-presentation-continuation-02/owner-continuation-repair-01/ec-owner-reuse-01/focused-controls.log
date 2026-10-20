@@ -1,0 +1,14 @@
+(node:11093) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ COST33 preserves cold, suffix, reverse historical and scoped EC/liveness values (14666.951667ms)
+✔ COST33 closures consume established scopes without reconstructing unrelated probes or owned fluents (1772.095292ms)
+✔ COST33 preserves malformed observation/context refusal and duplicate declaration invalidation (14083.077625ms)
+✔ COST33 Event Calculus owner facts are discarded with an isolated transaction rollback (31.868708ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 31329.79875

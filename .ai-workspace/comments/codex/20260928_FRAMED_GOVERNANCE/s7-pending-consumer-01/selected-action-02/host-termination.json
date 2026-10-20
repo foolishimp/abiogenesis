@@ -1,0 +1,8 @@
+{
+  "code": 1,
+  "signal": null,
+  "pid": 42538,
+  "stdout": "",
+  "stderr": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nError: Selected second action boundary was not reached\n    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs:31:225\n\nNode.js v24.7.0\n",
+  "wallMs": 22432.926124999998
+}

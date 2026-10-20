@@ -1,0 +1,17 @@
+{
+  "definitionFile": {
+    "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "bytes": 4277,
+    "sha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051"
+  },
+  "selectedBasis": {
+    "source": {
+      "repository": "https://github.com/foolishimp/specification_methodology.git"
+    },
+    "selector": "stdo://channels/2.5.1",
+    "basis": {
+      "uri": "stdo://releases/v2.5.1-rc.1/",
+      "manifest_sha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64"
+    }
+  }
+}

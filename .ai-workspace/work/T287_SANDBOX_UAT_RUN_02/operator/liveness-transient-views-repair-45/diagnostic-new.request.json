@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--expose-gc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-transient-views-repair-45/diagnostic.mjs",
+    "new"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-07T15:49:59.303686+00:00",
+  "diagnosticWallBoundMs": 180000
+}

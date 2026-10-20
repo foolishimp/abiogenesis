@@ -1,0 +1,12 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_Q06_INPUT_ASSURANCE_ASSIGNMENT_01",
+  "role": "Writer",
+  "returnRole": "Executive",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q06-input-review-controls-01/request.txt",
+    "bytes": 6209,
+    "sha256": "5b428baffec1626bffc8321a7caf37a83b577023a527583242b6e9466ab7ae0d"
+  },
+  "effects": "Assignment/commentary only; no candidate/input/Runtime/network/Git effects"
+}

@@ -1,0 +1,32 @@
+{
+  "status": "SELECTED_TEST_FIXTURE_REALIZATION_REPAIR",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22555,
+    "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+    "mode": 420
+  },
+  "productionSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 68281,
+    "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+    "mode": 420
+  },
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/first-readiness-failure.json",
+    "bytes": 4806,
+    "sha256": "379c514dfc768cbd7f7b9d855fd151994ec307264d0f29e5bb45a092cfdffa1a",
+    "mode": 420
+  },
+  "frames": {
+    "ProductDesign": "The component supplies lower admitted GraphFunction premises. Existing real owner expects its effects array; no Product/Design change needed.",
+    "Integration": "Handcrafted graphFunction at test:172 has name/template/declarations but omits effects. Actual F_D worksiteEvidenceCandidate reads effects.includes before the targeted deterministic conservation callback.",
+    "IdentityEffects": "Earlier F_P component cases use valid embedded/reference producers and lineage; no owner/provider/store/runtime facts produced. Omission is in supplied fixture envelope, not authenticated Runtime08 graph.",
+    "ProofReuseCost": "Compile6256.711ms passed; test758.972ms exited1. Earlier assertions reached final F_D case, but overall test did not pass. Preserve this failed test and exact copies; reuse already compiled source, one test-only rerun.",
+    "ResponsibleOwner": "Source regression author /root/native_applicability_design; exact new test file only."
+  },
+  "lawfulReentry": "realization_refactor",
+  "repair": "Add effects: [] to the single supplied graphFunction fixture; source/guards/schema/admission unchanged.",
+  "uncertainty": "No final deterministic conservation observation or overall regression pass exists yet; actual installed successor remains unproved."
+}

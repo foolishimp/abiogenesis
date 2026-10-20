@@ -1,0 +1,17 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_BRIDGE_01",
+  "actor": "/root/public_preparation_worker",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/plan.md",
+    "sha256": "42c23821fae6135bf65142cc9e1eb02575d036bd5860592cf510cfb70e24baa7"
+  },
+  "productFrame": "Fixed fifteen-family ABI 5.0, GOAL-035/T-287 F05/F11/F15; deterministic construction/pure projection through existing immutable qualification owners. GTL/HoG traversal and sole ABG admission remain unchanged. The facade is a derived publication boundary; no Task, Run, assessment admission or verdict is authored.",
+  "sourceWrites": [
+    "build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs"
+  ],
+  "HOME": "/Users/jim",
+  "startedAtUTC": "2026-10-05T09:13:28.508716+00:00"
+}

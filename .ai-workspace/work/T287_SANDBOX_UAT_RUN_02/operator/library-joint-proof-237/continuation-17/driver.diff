@@ -1,0 +1,58 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/run-16.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/run-17.mjs
+@@ -5,7 +5,7 @@
+ import {readFile,writeFile,mkdir,stat,readdir} from 'node:fs/promises';
+ import {dirname,join,resolve} from 'node:path';
+ import {fileURLToPath,pathToFileURL} from 'node:url';
+-import {fixtureSelection,responderEnvironment,expectedProgramDigest,COMMAND,CANDIDATE} from '../continuation-09/workload.mjs';
++import {fixtureSelection,responderEnvironment,expectedProgramDigest,COMMAND,CANDIDATE} from '../fixture-successor-17/workload.mjs';
+ 
+ const root=dirname(fileURLToPath(import.meta.url));
+ assert(process.argv[2],'Root-selected accepted successor/helper inputs are required');
+@@ -24,7 +24,7 @@
+ const runtime=await installedModules(host.installedRoot),p=runtime.product,a=runtime.abg,hash=p.sha256Canonical;
+ const executionRoot=selected.fixtureRoot,outputRoot=join(root,'execution');await mkdir(outputRoot);
+ const environment={...Object.fromEntries(['HOME','PATH','TMPDIR','LANG','LC_ALL'].filter(key=>process.env[key]!==undefined).map(key=>[key,process.env[key]])),npm_config_cache:join(selected.publicationRoot,'npm-cache'),npm_config_offline:'true'};
+-const configuration={runId:'library-joint-proof-237-16',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
++const configuration={runId:'library-joint-proof-237-17',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
+   nodePath:process.execPath,setupEnvironment:environment,toolchains:{npm:{executable:selected.npm},node:{executable:process.execPath}},
+   recursionBound:1000,processTimeoutMs:300000,maxProcessOutputBytes:16777216};
+ const recordAt=directory=>async(name,value,raw=false)=>{const path=join(directory,name);assert(path.startsWith(directory+'/'));await mkdir(dirname(path),{recursive:true});await writeFile(path,raw?value:JSON.stringify(value,null,2)+'\n',{flag:'wx'});};
+@@ -157,14 +157,23 @@
+   const manifest=JSON.parse(await readFile(host.manifestPath,'utf8'));
+   const native=await verifyArtifact(runtime,{artifactPath:host.archivePath,manifest,expectedArtifactDigest:host.artifactDigest},record,'native');
+   assert.strictEqual(p.selectOwnedProductVerification(native.request,native.verified),native.verified);
+-  stage='new-consumer-definition';
+-  const fixture=await consumerOwner.prepareConsumer({root:join(outputRoot,'setup'),product:p,gtl:runtime.gtl,verified:native.verified,
+-    archivePath:native.request.artifactPath,npm:configuration.toolchains.npm.executable,recursionBound:configuration.recursionBound,command});
+-  const consumer=await verifyArtifact(runtime,{artifactPath:fixture.artifactPath,manifest:fixture.manifest,expectedArtifactDigest:fixture.basis.artifactDigest},record,'consumer');
++  stage='selected-existing-consumer-definition';
++  const existingConsumer=JSON.parse(await readFile(selected.currentConsumer.acquisition.path,'utf8'));
++  const consumerManifest=JSON.parse(await readFile(selected.currentConsumer.manifest.path,'utf8'));
++  const consumer=await verifyArtifact(runtime,{artifactPath:existingConsumer.request.artifactPath,manifest:consumerManifest,
++    expectedArtifactDigest:existingConsumer.request.expectedArtifactDigest},record,'consumer');
+   assert.strictEqual(p.selectOwnedProductVerification(consumer.request,consumer.verified),consumer.verified);
++  assert.deepEqual(consumer.verification,existingConsumer.verification,'Selected16 archive must reverify exactly');
++  const basis={productId:consumer.verified.productId,packageName:consumer.verified.packageName,packageVersion:consumer.verified.packageVersion,
++    artifactDigest:consumer.verified.artifactDigest,manifestDigest:consumer.verified.manifestDigest,productContentDigest:consumer.verified.productContentDigest};
++  const data=JSON.parse(await readFile(selected.currentConsumer.publication.path,'utf8'));
++  const fixture={artifactPath:consumer.request.artifactPath,basis,manifest:consumerManifest,publication:runtime.gtl.modulePublication({...data,
++    artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.manifestDigest,
++    contributions:data.contributions.map(row=>({...row,provenanceRefs:[basis.artifactDigest,basis.manifestDigest]}))})};
++  assert.equal(p.modulePublicationSemanticDigest(fixture.publication),consumer.verified.contributionManifest.publicationBindings[0].publicationDigest);
+   assert.equal(hash(fixture.publication.programs[0]),expectedProgramDigest,'The complete original Program must remain exact');
+   for(const relative of ['build/semantics.mjs','contracts/assessment.schema.json','contracts/public-contract-catalog.schema.json'])
+-    assert.deepEqual(await readFile(join(outputRoot,'setup/consumer-source',relative)),await readFile(join(selected.previousExecution,'setup/consumer-source',relative)),relative);
++    assert.deepEqual(await readFile(join(selected.currentConsumer.sourceRoot,relative)),await readFile(join(selected.previousExecution,'setup/consumer-source',relative)),relative);
+   const resolvedLock=requireKind(p.ProductEnvironmentPort.resolve({kind:'product_resolution_packet',schemaVersion:'5.0.0',
+     memberKey:'resolve',verifiedArtifacts:[native.verified,consumer.verified]}),'resolved_product_lock','early-fixed-resolution');
+   const selectedFixture=await fixtureSelection();
+@@ -267,7 +276,7 @@
+     sourceResultRef:restarted.summary.sourceResultRef,sourceBasisRef:restarted.summary.sourceBasisRef,currentUseDigest:restarted.summary.currentUseDigest,
+     setupEffects:restarted.calls.length,replay:restartComparison.replay,committedBytes:restartCycle.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
+   for(const source of selectedFixture.sources)assert.equal(sha(await readFile(join(configuration.worksiteRoot,source.path))),source.digest.slice(7),source.path);
+-  await record('composition-result.json',{scope:'Installed43 Testing and same-pair restart from37 parent; original DataMapper/capacity/semantic UAT remain separate',
++  await record('composition-result.json',{scope:'Installed44 Testing and same-pair restart from37 parent with responder17; original DataMapper/capacity/semantic UAT remain separate',
+     programDigest:expectedProgramDigest,phases:phaseResults,finalClose:caller.state.closeHandoff,heapSample:process.memoryUsage()});
+ } catch(error) {
+   await record('first-cause.json',{stage,name:error.name,message:error.message,stack:error.stack,observation:error instanceof BoundaryFailure?error.observation:null,

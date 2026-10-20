@@ -1,0 +1,80 @@
+{
+  "status": "CLOSED caller construction and shape checks passed; native owner admission unexecuted",
+  "producer": "construct.mjs",
+  "predecessor": {
+    "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/live-start.jsonl",
+    "requestDigest": "sha256:75a05a63e2fe3fe1042d456bfcb512445ec399f33677081032d207f22c6718d1",
+    "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/live-receipt.json",
+    "receiptDigest": "sha256:8935f59531a7847803aa78a78b2190e18fdb5756f48f52e19d2694a37923242b"
+  },
+  "changes": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3/dd5e6f32b683b54550d5d57a5b4636c392312d8668e66fe7f5ff7e7ca5cb9f34",
+      "oldDigest": "sha256:34ceb434a63e09339e70f7d50a149487041b4bb2101a955f3e1361e30f39431b",
+      "newDigest": "sha256:81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.12/2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b/dd5e6f32b683b54550d5d57a5b4636c392312d8668e66fe7f5ff7e7ca5cb9f34",
+      "oldDigest": "sha256:ba8f03f4958445f0e85673bb9d78cf975bda8446055bced37d7abbda18789ea5",
+      "newDigest": "sha256:2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b"
+    }
+  ],
+  "oldInvocation": {
+    "ref": "invocation://abiogenesis/37e983bc03b6173f5a017a7257a4455d55bf30b88c9e53f992a9aa45bb2f47da",
+    "digest": "sha256:37e983bc03b6173f5a017a7257a4455d55bf30b88c9e53f992a9aa45bb2f47da"
+  },
+  "newInvocation": {
+    "ref": "invocation://abiogenesis/09ddd54c5512fd4f0e9c43be239adcb3f41a80d78291b11ebd26c524dd0e5098",
+    "digest": "sha256:09ddd54c5512fd4f0e9c43be239adcb3f41a80d78291b11ebd26c524dd0e5098"
+  },
+  "ownerConstructors": [
+    "constructRootInvocationPolicy",
+    "constructCapabilityGrant",
+    "constructInvocationAuthority",
+    "constructRunEnvironmentResources",
+    "definitionCall"
+  ],
+  "grantCount": 1,
+  "program": {
+    "ref": "program://odd-glc/native-semantic-revision/intake@5",
+    "digest": "sha256:f2e1a844963bdc34e59194d01b8448a6eb35ba68cb4b1065dff549d7f13f2545"
+  },
+  "sourceRun": {
+    "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad",
+    "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:0db32d448006dbd43d3a303eea9648002798fa1bca8e5e1c4bec5a733433a7d1",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:0bf8b684c95e256f9daa40c25abaa0a9d945a974b12d6a93d572b8a9bcc7e2e9",
+    "prefixLength": 104482827,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "currentPrefix": {
+    "coordinateDigest": "sha256:9b81f93d8d5ad8bc0e362508a50a02bb970d9d1f110d039fc6c6acf77857723d",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:d6063c6f7e730731890c4fe4936ab8ac58c37014bc089fb01085f4dcd6e462e5",
+    "prefixLength": 111462891,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "unchanged": {
+    "request": true,
+    "resources": true,
+    "policyAndGrant": true,
+    "environmentPermission": true,
+    "transport": true
+  },
+  "limits": "No private predicate or runtime owner called. Independent review established the complete authority predicate; actual installed start is the next discriminator."
+}

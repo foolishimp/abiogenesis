@@ -1,0 +1,37 @@
+{
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_03",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "pure input Worker",
+  "roleTransition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-03/activation.json",
+    "bytes": 1447,
+    "sha256": "c83f46ec013455b0d43e7a0375e3bf0ee2ae53b33f8c2705a196104b48a9e7b1"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-03/request.txt",
+    "bytes": 5341,
+    "sha256": "e57083e66ae0b2de8ba736d0535a4a6ef45c9a34a55a16f2051a2305447b8189"
+  },
+  "sourceAuthorship": "accepted C03 final-source-members1106 rows; original constitutional/carrier/HOW authors retained",
+  "copyBuildAuthorship": "/root/rc1_successor_builder selected, copied, compiled, generated, packed and installed C03; that does not confer source authorship",
+  "inputAuthorship": "current Worker authored only new Q03 recipe/input/inventory/correspondence/binding/handoff data",
+  "originalProofAuthorship": "Q02 oracles, accepted source/law component fixtures and accepted C2 snapshot consumer retain their original exact subjects/owners",
+  "metadataErratum": {
+    "immutableOriginal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-attribution.json",
+      "bytes": 1154,
+      "sha256": "4bb4da025fd16d4e4523b44ba993121fd876f627a7b55eed978cabee1cc4a5fa"
+    },
+    "acceptedAdditiveRecord": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/acceptance.json",
+      "bytes": 1218,
+      "sha256": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f"
+    },
+    "correction": "the C03 six-label Root Writer attribution refers to SELECTION_03; actual declared Root source authority activation is CONTROLS_03. Source actors unchanged; candidate bytes immutable.",
+    "handling": "additive disclosure only; no frozen candidate/predecessor repair"
+  },
+  "futureObservedExecutionAuthorship": null,
+  "futureIndependentAssessmentAuthorship": null,
+  "futureHumanOwnerRuling": null,
+  "noQualificationAuthorshipAssigned": true
+}

@@ -1,0 +1,63 @@
+{
+  "status": "TEN_COMMAND_CONSTRUCTION_PASSED_PENDING_FINAL_FREEZE",
+  "phases": [
+    {
+      "phase": "dependencies",
+      "script": "execute.py",
+      "arguments": [
+        "dependencies"
+      ],
+      "pid": 23223,
+      "exitCode": 0,
+      "stdout": "{\"pid\": 23224, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 1503.2631251960993}\n",
+      "stderr": "",
+      "childReaped": true
+    },
+    {
+      "phase": "build",
+      "script": "run-build.py",
+      "arguments": [],
+      "pid": 23257,
+      "exitCode": 0,
+      "stdout": "clean {\"pid\": 23259, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 32.469790894538164}\ncompile {\"pid\": 23262, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 6939.955625217408}\nauthority-stage {\"pid\": 23293, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 121.94725032895803}\nmanifest {\"pid\": 23295, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 16129.62054181844}\ngenerated-correspondence {\"generatedMembers\": 928, \"generatedChangedFromBaseline\": 4, \"derivedAuthorityInputPreimages\": 96, \"derivedAuthorityInputsChanged\": 12, \"sourceInputsPreserved\": 1113, \"actualAuthorityJoins\": 95, \"rules\": 2137, \"lawBasis\": {\"ref\": \"qualification-law://abiogenesis/edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f\", \"digest\": \"sha256:edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f\"}, \"method\": {\"releaseRef\": \"stdo://releases/v2.5.1-rc.2/\", \"methodVersion\": \"2.5.1-rc.2\", \"installedManifestDigest\": \"sha256:3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782\", \"memberSetDigest\": \"sha256:2f54671dfde54a6ad87347ac7190028af5e21021988247edf8068ab6248ef7e8\"}, \"coverageClaims\": 16, \"coverageBehaviors\": 66, \"completeRuleSpanJoins\": true, \"elapsedMs\": 667.7607921883464}\n",
+      "stderr": "",
+      "childReaped": true
+    },
+    {
+      "phase": "package",
+      "script": "run-package.py",
+      "arguments": [],
+      "pid": 23463,
+      "exitCode": 0,
+      "stdout": "pack {\"pid\": 23465, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 3597.4445836618543}\ninstall {\"pid\": 23513, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 2616.9839170761406}\npackage-correspondence {\"artifactPath\": \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz\", \"artifactDigest\": \"sha256:f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb\", \"archiveBytes\": 10431333, \"packageRoot\": \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant\", \"bootstrapRoot\": \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install\", \"archiveMembers\": 5260}\n",
+      "stderr": "",
+      "childReaped": true
+    },
+    {
+      "phase": "verify",
+      "script": "execute.py",
+      "arguments": [
+        "verify"
+      ],
+      "pid": 23551,
+      "exitCode": 0,
+      "stdout": "{\"pid\": 23555, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 12560.987249948084}\n",
+      "stderr": "",
+      "childReaped": true
+    },
+    {
+      "phase": "installed-readiness",
+      "script": "run-installed-readiness.py",
+      "arguments": [],
+      "pid": 23616,
+      "exitCode": 0,
+      "stdout": "installed-publications {\"pid\": 23618, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 397.3248330876231}\nwrapper-preparation {\"requiredContracts\": 3, \"requiredCapabilities\": 2, \"historicalRequiredPackagedBodies\": 309, \"currentRequiredPackagedBodies\": 309, \"wrapperNativeRows\": 0}\nwrapper-compatibility {\"pid\": 23695, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 433.6292091757059}\n",
+      "stderr": "",
+      "childReaped": true
+    }
+  ],
+  "elapsedMs": 60298.153958283365,
+  "sourceTests": 0,
+  "runtimeProviderNetworkGit": 0,
+  "oneBuildPackInstall": true
+}

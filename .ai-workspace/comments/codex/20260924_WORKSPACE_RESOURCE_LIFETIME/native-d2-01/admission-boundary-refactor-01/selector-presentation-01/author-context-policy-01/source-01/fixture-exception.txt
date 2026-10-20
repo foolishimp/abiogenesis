@@ -1,0 +1,33 @@
+(node:20193) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native D2 stage role policies reach assembly and preserve required-content refusals (22.062708ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 277.315625
+
+✖ failing tests:
+
+test at test/full-sandbox.test.mjs:556:1
+✖ native D2 stage role policies reach assembly and preserve required-content refusals (22.062708ms)
+  AssertionError [ERR_ASSERTION]: stage://odd-glc/generic-lifecycle/intent@5/author{"kind":"native_instruction_assembly_refusal","cause":"unavailable_required_content","policy":null,"role":null,"unresolvedRefs":[]}
+  + actual - expected
+  
+  + 'native_instruction_assembly_refusal'
+  - 'native_instruction_assembly'
+                                ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs:606:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'native_instruction_assembly_refusal',
+    expected: 'native_instruction_assembly',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

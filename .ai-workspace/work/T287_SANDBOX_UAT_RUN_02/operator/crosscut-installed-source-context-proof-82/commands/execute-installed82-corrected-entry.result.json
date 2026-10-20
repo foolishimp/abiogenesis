@@ -1,0 +1,24 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--input-type=module",
+    "--eval",
+    "import {pathToFileURL} from 'node:url'; const {execute}=await import(pathToFileURL(process.argv[2])); console.log(JSON.stringify(await execute(process.argv[1])));",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82",
+  "started": "2026-10-08T07:43:55.070Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 30937.593208000002,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "",
+  "stderr": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:500\n  assert.equal(programValidation.kind, \"program_validation\", JSON.stringify(programValidation));\n                                 ^\n\nTypeError: Cannot read properties of undefined (reading 'kind')\n    at setupInstalledRootCatalog (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:500:34)\n    at async execute (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver.mjs:60:13)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/[eval1]:1:130\n\nNode.js v24.7.0\n"
+}

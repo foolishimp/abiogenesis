@@ -1,0 +1,48 @@
+{
+  "acquisitionKind": "eventless",
+  "kind": "installed_definition_call_transport_result",
+  "receipt": {
+    "definitionKey": {
+      "memberKey": "clean",
+      "operationId": "abg.operation.workspace.create"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "invocationRef": "invocation://abiogenesis/bd75f36f30e2539ac1f7a1b64c826dd62c640dd1139a5c08b9538c3897387417",
+    "kind": "definition_host_receipt",
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "authorityMode": "clean",
+        "createPolicy": "clean",
+        "creationManifest": {
+          "digest": "sha256:29db2774c3bebf227afe3fd3f4ae236d71f1a292c396fc9858eabe2733ed60cc",
+          "ref": "workspace-creation://abiogenesis/29db2774c3bebf227afe3fd3f4ae236d71f1a292c396fc9858eabe2733ed60cc"
+        },
+        "provenance": [
+          {
+            "digest": "sha256:29db2774c3bebf227afe3fd3f4ae236d71f1a292c396fc9858eabe2733ed60cc",
+            "ref": "workspace-creation://abiogenesis/29db2774c3bebf227afe3fd3f4ae236d71f1a292c396fc9858eabe2733ed60cc"
+          }
+        ],
+        "scaffoldState": "none",
+        "workspace": {
+          "digest": "sha256:2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37",
+          "ref": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37"
+        }
+      }
+    },
+    "resources": {
+      "kind": "workspace_resource_receipt",
+      "manifest": {
+        "locator": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/.abiogenesis/workspace-manifest.json",
+        "valueDigest": "sha256:37310b445e1d8e02b2c833cfd19416632dfeb714017fc8152dd6939bfcb88bca"
+      },
+      "schemaVersion": "5.0.0",
+      "targetRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite",
+      "targetRootDigest": "sha256:16c11958d15d821b3595d5e959db0b2e6b4de8ebc76a7d25b6e9e83f5f293405"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

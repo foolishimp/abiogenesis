@@ -1,0 +1,9 @@
+{
+  "owner": "product.installedProductContentMatches",
+  "verifiedArtifactDigest": "sha256:18e1eac0d22a12f1d041947bb0e60a3f568ab10be7ce1ad604b3e6b5af610475",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "contentDigest": "sha256:68edb1926565879f44c9f43462ef8847d8e4844d1e1988bbc2b843eac6772f7e",
+  "manifestDigest": "sha256:7e7d7cd99198259967c2fb4caeb00cf1e9444e0b2acd195589d83e1a979ae0c5",
+  "matches": true,
+  "scope": "Verified artifact expectation projected onto actual physical installed root; no ProductInstall/admission claim"
+}

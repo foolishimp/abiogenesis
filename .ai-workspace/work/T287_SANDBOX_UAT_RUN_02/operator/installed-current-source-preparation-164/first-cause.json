@@ -1,0 +1,16 @@
+{
+  "stage": "workspace-bind26-grant-start",
+  "rss": 4307435520,
+  "heapTotal": 3941154816,
+  "heapUsed": 3722162752,
+  "external": 2440377,
+  "arrayBuffers": 28070,
+  "at": "2026-10-09T04:32:13.353Z",
+  "elapsedMs": 214154.013167,
+  "name": "TypeError",
+  "message": "Cannot convert undefined or null to object",
+  "stack": "TypeError: Cannot convert undefined or null to object\n    at Object.entries (<anonymous>)\n    at writeCanonicalJson (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js:35:28)\n    at writeCanonicalJson (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js:43:9)\n    at writeCanonicalJson (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js:30:17)\n    at writeCanonicalJson (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js:43:9)\n    at sha256Canonical (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/digests.js:12:5)\n    at invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/prepare.mjs:73:208)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/prepare.mjs:103:20",
+  "actualOutcome": null,
+  "disposition": "HOLD; first actual failure preserved; no retry or model dispatch",
+  "action": "Root multi-frame owner triage and selected Product-bounded action required before any retry"
+}

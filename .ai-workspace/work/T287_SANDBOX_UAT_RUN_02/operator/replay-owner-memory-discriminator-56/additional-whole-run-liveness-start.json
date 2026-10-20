@@ -1,0 +1,14 @@
+{
+  "stage": "additional-whole-run-liveness-start",
+  "at": "2026-10-08T04:46:57.383Z",
+  "elapsedMs": 107864.714333,
+  "memory": {
+    "rss": 4364845056,
+    "heapTotal": 4099768320,
+    "heapUsed": 3965440728,
+    "external": 2437410,
+    "arrayBuffers": 26839
+  },
+  "maxRSSKiB": 5474176,
+  "pid": 5261
+}

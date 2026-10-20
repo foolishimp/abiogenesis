@@ -1,0 +1,558 @@
+{
+  "disposition": "unmet",
+  "criteria": [
+    {
+      "id": "original-source:source/data-mapper-full/source.original.txt",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "source/data-mapper-full/source.original.txt",
+        "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324"
+      ],
+      "reason": "The immutable acquired source/oracle must retain its exact bytes."
+    },
+    {
+      "id": "original-source:source/data-mapper-full/supporting-constants.original.txt",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "source/data-mapper-full/supporting-constants.original.txt",
+        "sha256:5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70"
+      ],
+      "reason": "The immutable acquired source/oracle must retain its exact bytes."
+    },
+    {
+      "id": "original-source:source/data-mapper-full/obligations.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "source/data-mapper-full/obligations.json",
+        "sha256:7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32"
+      ],
+      "reason": "The immutable acquired source/oracle must retain its exact bytes."
+    },
+    {
+      "id": "original-source:source/data-mapper-full/oracle.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "source/data-mapper-full/oracle.json",
+        "sha256:99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9"
+      ],
+      "reason": "The immutable acquired source/oracle must retain its exact bytes."
+    },
+    {
+      "id": "execution:command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "worksite-command-observation://abiogenesis/5885617713f24b0aa0aa45b1ffee61ea7a27bbbc9eaf430bd69b833394dc2c7f",
+        "sha256:5885617713f24b0aa0aa45b1ffee61ea7a27bbbc9eaf430bd69b833394dc2c7f"
+      ],
+      "reason": "Actual exact original executable/argv/cwd/limits/reports and full owner-bound environment must terminate and exit zero."
+    },
+    {
+      "id": "artifact:specification/intent.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "specification/intent.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:specification/product.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "specification/product.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:specification/goals.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "specification/goals.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:specification/requirements.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "specification/requirements.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:specification/uat-testcases.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "specification/uat-testcases.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:specification/testcase-authority.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "specification/testcase-authority.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:design/feature-decomposition.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "design/feature-decomposition.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:design/module-design.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "design/module-design.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:specification/scenario.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "specification/scenario.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:design/implementation-design.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "design/implementation-design.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:design/component-code-surface.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "design/component-code-surface.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:proof/component-realization-qualification.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "proof/component-realization-qualification.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/build.sbt",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/build.sbt"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/project/plugins.sbt",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/project/plugins.sbt"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/project/build.properties",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/project/build.properties"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:design/test-design.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "design/test-design.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:test-execution-result.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "test-execution-result.json"
+      ],
+      "reason": "Original execution-report meaning is represented by admitted native observations; no success file is prewritten."
+    },
+    {
+      "id": "artifact:proof/component-test-execution-qualification.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "proof/component-test-execution-qualification.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:repair/component-repair-schedule.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "repair/component-repair-schedule.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:repair/component-repair-application.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "repair/component-repair-application.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:proof/repaired-component-test-execution-qualification.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "proof/repaired-component-test-execution-qualification.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:depth-proof-map.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "depth-proof-map.json"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:mutation-outcomes.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "mutation-outcomes.json"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:archive/test-run-archive.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "archive/test-run-archive.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:release/release-depth-parity.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "release/release-depth-parity.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "artifact:release/release-preparation.md",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "release/release-preparation.md"
+      ],
+      "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+    },
+    {
+      "id": "xml:build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml"
+      ],
+      "reason": "Original named executed ScalaTest report is absent."
+    },
+    {
+      "id": "xml:build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml"
+      ],
+      "reason": "Original named executed ScalaTest report is absent."
+    },
+    {
+      "id": "xml:build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml"
+      ],
+      "reason": "Original named executed ScalaTest report is absent."
+    },
+    {
+      "id": "xml:build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml"
+      ],
+      "reason": "Original named executed ScalaTest report is absent."
+    },
+    {
+      "id": "xml:build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml"
+      ],
+      "reason": "Original named executed ScalaTest report is absent."
+    },
+    {
+      "id": "xml:build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml"
+      ],
+      "reason": "Original named executed ScalaTest report is absent."
+    },
+    {
+      "id": "xml:build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml"
+      ],
+      "reason": "Original named executed ScalaTest report is absent."
+    },
+    {
+      "id": "xml:build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml"
+      ],
+      "reason": "Original named executed ScalaTest report is absent."
+    },
+    {
+      "id": "original-eight-xml-reports",
+      "disposition": "unmet",
+      "evidenceRefs": [],
+      "reason": "Exactly the original eight module XML reports are required."
+    },
+    {
+      "id": "original-scala-test-floor",
+      "disposition": "unmet",
+      "evidenceRefs": [],
+      "reason": "Original ScalaTest floor is >=20 actual passes and zero XML failures/errors."
+    },
+    {
+      "id": "no-substitute:package.json",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "package.json"
+      ],
+      "reason": "The original Scala/SBT Spark subject forbids a JavaScript/Node replacement."
+    },
+    {
+      "id": "no-substitute:src/logical-data-model.mjs",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "src/logical-data-model.mjs"
+      ],
+      "reason": "The original Scala/SBT Spark subject forbids a JavaScript/Node replacement."
+    },
+    {
+      "id": "no-substitute:test/component/logical-data-model.test.mjs",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "test/component/logical-data-model.test.mjs"
+      ],
+      "reason": "The original Scala/SBT Spark subject forbids a JavaScript/Node replacement."
+    },
+    {
+      "id": "no-substitute:test/uat/logical-data-model.uat.test.mjs",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "test/uat/logical-data-model.uat.test.mjs"
+      ],
+      "reason": "The original Scala/SBT Spark subject forbids a JavaScript/Node replacement."
+    },
+    {
+      "id": "original-toolchain",
+      "disposition": "satisfied",
+      "evidenceRefs": [
+        "build_tenants/scala_spark/build.sbt",
+        "build_tenants/scala_spark/project/build.properties"
+      ],
+      "reason": "Original Scala2.13, actual Spark SQL and offline-provisioned SBT1.11.7 binding remain required."
+    },
+    {
+      "id": "all-eight-concerns-five-earned-depth-classes",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "depth-proof-map.json"
+      ],
+      "reason": "Every original requirement needs all five depth classes bound to exact actually executed XML test names. Class semantic adequacy remains native UAT work."
+    },
+    {
+      "id": "compiled-kills-and-declared-restoration",
+      "disposition": "unmet",
+      "evidenceRefs": [
+        "mutation-outcomes.json"
+      ],
+      "reason": "Every negative/invariant row requires a distinct compiled semantic production mutant with observed nonzero full-suite failures and equal baseline/restore hashes. Declaration alone earns no kill."
+    }
+  ],
+  "unresolvedCriteria": [
+    "xml:build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+    "xml:build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+    "xml:build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+    "xml:build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+    "xml:build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+    "xml:build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+    "xml:build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+    "xml:build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+    "original-eight-xml-reports",
+    "original-scala-test-floor",
+    "all-eight-concerns-five-earned-depth-classes",
+    "compiled-kills-and-declared-restoration"
+  ],
+  "reason": "data-mapper-full: independent mechanical original-contract checks unmet. Native independent semantic UAT, exact installed runtime admission and fresh result/replay closure remain separate necessary evidence."
+}

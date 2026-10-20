@@ -1,0 +1,118 @@
+{
+  "status": "GUARDED_PREPARATION_CONTROLS",
+  "records": [
+    {
+      "donor": {
+        "path": "donor-controls/prepare.py",
+        "bytes": 8600,
+        "sha256": "62a881d4351b09e79d35276ab5dc571e3d6ca4524db9fe578c14ac46b5310e02",
+        "mode": 420,
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/prepare.py",
+        "kind": "file"
+      },
+      "meaning": "Closed C02 control origin; never execute in donor territory",
+      "originalAuthorRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/control-attribution.json",
+      "newControlAuthor": "/root/rc1_successor_preflight"
+    },
+    {
+      "donor": {
+        "path": "donor-controls/execute-once.py",
+        "bytes": 4081,
+        "sha256": "270a5b2b4e10e210047ffcf931e7804e74c85aac4db6977aef671d16ceb58669",
+        "mode": 420,
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/execute-once.py",
+        "kind": "file"
+      },
+      "meaning": "Closed C02 control origin; never execute in donor territory",
+      "originalAuthorRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/control-attribution.json",
+      "newControlAuthor": "/root/rc1_successor_preflight",
+      "guardedSuccessor": {
+        "path": "execute-once.py",
+        "bytes": 4325,
+        "sha256": "9df5cf1778253396db1378fdf016c9286d15df866c2e1d37157edf670881719a",
+        "state": "prepared_only; final inputs/identity/build branch/budgets await exact construction extension"
+      }
+    },
+    {
+      "donor": {
+        "path": "donor-controls/correspondence.py",
+        "bytes": 2634,
+        "sha256": "19099eb8c3b470a40ea3177a9911eaba7214aa7da8326a40a3ca835da8e2b447",
+        "mode": 420,
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/correspondence.py",
+        "kind": "file"
+      },
+      "meaning": "Closed C02 control origin; never execute in donor territory",
+      "originalAuthorRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/control-attribution.json",
+      "newControlAuthor": "/root/rc1_successor_preflight",
+      "guardedSuccessor": {
+        "path": "correspondence.py",
+        "bytes": 2878,
+        "sha256": "f5b2745df4a2ea7e3bab7cacbf791a7209d338efb390bbcfd09b3f886ebcd5c6",
+        "state": "prepared_only; final inputs/identity/build branch/budgets await exact construction extension"
+      }
+    },
+    {
+      "donor": {
+        "path": "donor-controls/verify-installed.mjs",
+        "bytes": 4982,
+        "sha256": "c5980018fbc3f43652cfae2d23ce0665ea470833026134a6a2d2ea8904fecf1c",
+        "mode": 420,
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/verify-installed.mjs",
+        "kind": "file"
+      },
+      "meaning": "Closed C02 control origin; never execute in donor territory",
+      "originalAuthorRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/control-attribution.json",
+      "newControlAuthor": "/root/rc1_successor_preflight",
+      "guardedSuccessor": {
+        "path": "verify-installed.mjs",
+        "bytes": 5262,
+        "sha256": "05e978031443b6882a585bb57f71b7c527b0667f0ab885d9e1db958cd34fbc59",
+        "state": "prepared_only; final inputs/identity/build branch/budgets await exact construction extension"
+      }
+    },
+    {
+      "donor": {
+        "path": "donor-controls/validate-installed-publications.mjs",
+        "bytes": 3801,
+        "sha256": "4f9f51f222e5e9da24b55f748bcf5a8dfd1c6732450fd75357c4a961874cd15b",
+        "mode": 420,
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/validate-installed-publications.mjs",
+        "kind": "file"
+      },
+      "meaning": "Closed C02 control origin; never execute in donor territory",
+      "originalAuthorRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/control-attribution.json",
+      "newControlAuthor": "/root/rc1_successor_preflight",
+      "guardedSuccessor": {
+        "path": "validate-installed-publications.mjs",
+        "bytes": 4081,
+        "sha256": "3f5f24c3ccd67f59e0f0ea03e829ddfa8b8031e7d4840c8012d745ba6e685593",
+        "state": "prepared_only; final inputs/identity/build branch/budgets await exact construction extension"
+      }
+    },
+    {
+      "donor": {
+        "path": "donor-controls/budgets.json",
+        "bytes": 449,
+        "sha256": "7ddc19b3a097c0087c1e08665ea1d3bdcbf59f447fcf8a4873d2af6d0d0eb865",
+        "mode": 420,
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/budgets.json",
+        "kind": "file"
+      },
+      "meaning": "Closed C02 control origin; never execute in donor territory",
+      "originalAuthorRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/control-attribution.json",
+      "newControlAuthor": "/root/rc1_successor_preflight"
+    }
+  ],
+  "guardMeaning": "A local absence stop for this preparation, not runtime authority or an independent approval mechanism",
+  "hardcodedDonorRelationsPending": [
+    "C02 prepare.py C01/repair selection replaced by this incomplete baseline preparation",
+    "execute-once.py build branch must bind explicit compile -> RC2 authority staging -> final manifest sequence",
+    "operation budgets and final source/member hashes/counts await exact construction grant",
+    "verify-installed Product/version and unchanged run_gaps definition checks must be conjoined with new verified metadata"
+  ],
+  "scriptsExecuted": [
+    "prepare.py preparation copies only"
+  ],
+  "futureConstructionScriptsExecuted": []
+}

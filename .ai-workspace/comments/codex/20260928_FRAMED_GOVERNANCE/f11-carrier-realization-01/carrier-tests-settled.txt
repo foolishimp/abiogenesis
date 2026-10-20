@@ -1,0 +1,18 @@
+✔ closed resource forms retain nonempty group arrays and actual old embedded identities (1264.905ms)
+ℹ {"members":1950,"rules":2137,"domains":187,"domainGroups":777,"distinctPartitions":54,"referenceSets":517}
+✔ full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired (1674.955917ms)
+✔ missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used (2685.603125ms)
+✔ Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies (628.436042ms)
+✔ selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates (1561.770125ms)
+ℹ {"semanticInputBytes":42779,"oldInputBytes":67784040,"assertionBytes":27312606,"normalizedScopeBytes":2051550,"inventoryBytes":870019,"promptBytes":1021244,"judgmentBytes":45279,"baselineMs":1067.8108339999999,"preparedMs":27.56354199999987,"normalizationAcquisitionMs":734.0750840000001,"measurement":"pure fixture process only; no installed admission, memory or speed claim","semanticQualification":"open"}
+✔ fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints (686.52925ms)
+✔ full F11 input and scope output keep compact identities and whole-scope blocked findings (490.913209ms)
+ℹ {"selfConformanceInputBytes":302500,"selfConformanceResultBytes":1312354,"scopeOutputBytes":489,"applications":777,"disposition":"failed","claim":"pure complete C plus truthful unresolved J; no native/F11 qualification"}
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9320.063375

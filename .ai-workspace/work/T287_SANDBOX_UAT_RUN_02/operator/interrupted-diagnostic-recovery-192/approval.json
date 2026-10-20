@@ -1,0 +1,26 @@
+{
+  "kind": "resolved_admission_authority",
+  "schemaVersion": "5.0.0",
+  "actorRef": "actor://abiogenesis/T287/executive-root",
+  "authorityMode": "trusted_developer",
+  "authority": {
+    "ref": "authority://abiogenesis/T287/executive-root/maintenance192",
+    "digest": "sha256:a0e0996baf8812a09b557b042cf9d0245c2824493006cf075744d848ff6e5a64",
+    "value": {
+      "actorRef": "actor://abiogenesis/T287/executive-root",
+      "authorityMode": "trusted_developer"
+    }
+  },
+  "approval": {
+    "ref": "approval://abiogenesis/T287/interrupted-diagnostic-recovery-192",
+    "digest": "sha256:e04d5a0a2896d1271ae9be9e858cc70d15c1669d312397fee26f8e60f3b6b874",
+    "value": {
+      "decision": "allow",
+      "actorRef": "actor://abiogenesis/T287/executive-root",
+      "definitionRef": "native-maintenance://abiogenesis/event-resource/recover@5",
+      "definitionDigest": "sha256:8153d2459648c19ac3bb7841b7191f010a7d20106940cddce8f0f9a3a71922a1",
+      "requestDigest": "sha256:a7b4a47c31f29d6333124f3a617b9786e8cc72ca95866586ea9d075adf1baa47",
+      "scopeDigest": "sha256:ba6cd285049080c1c1c36446631f21f851982a65fd277d20de83103adcff339c"
+    }
+  }
+}

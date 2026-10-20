@@ -1,0 +1,180 @@
+{
+  "checked_at": "2026-10-20T15:47:50.740450+00:00",
+  "basis": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "source_files": {
+    "stdo_abiogenesis.json": {
+      "type": "file",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8"
+    },
+    "AGENTS.md": {
+      "type": "file",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971"
+    },
+    "CLAUDE.md": {
+      "type": "file",
+      "sha256": "0653bb4d081d388f98693ba8b1da3b62cc2b2faf58fde792b20dd456cd1989c8"
+    },
+    "specification/PRODUCT.md": {
+      "type": "file",
+      "sha256": "878a890b3094722daebc828ef1678ce1139aeac83e0ca5e561b9765ac1105e52"
+    },
+    "specification/GOALS.md": {
+      "type": "file",
+      "sha256": "d71d93f90a28c5d5c37d66ca0b1de307e56cdbc82c01d4811c9a6e7750123530"
+    },
+    "specification/requirements/README.md": {
+      "type": "file",
+      "sha256": "a6387187b0bb0d206e490c86fe63779ab1bc90aa1980e4e38ad63f79f65d2249"
+    },
+    "build_tenants/abiogenesis/typescript/design/README.md": {
+      "type": "file",
+      "sha256": "18901dd7b5f36a2b18fa43d8d0ed806ab15b881c8428653c9eb3d4953a3c9cd2"
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "type": "file",
+      "sha256": "9dea70d4a671265a292f1dd697e9df99adffef6ea35ebc8c95473e68da03f410"
+    },
+    ".genesis/development-products/axiom-indexer": {
+      "type": "absent"
+    },
+    ".genesis/development-products/stdo-representation": {
+      "type": "absent"
+    },
+    ".agents/skills/axiomatize-corpus": {
+      "type": "absent"
+    },
+    ".agents/skills/stdo-representation": {
+      "type": "absent"
+    },
+    ".claude/skills/axiomatize-corpus": {
+      "type": "absent"
+    },
+    ".claude/skills/stdo-representation": {
+      "type": "absent"
+    }
+  },
+  "definition_entrypoints": 7,
+  "native_routes": [
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md#applicability",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ACTIVATION.md",
+      "sha256": "7ad7b69b5ad8ec20678b3ef866a26fb328f2fa6f60c4d1d06ca0b926845b89bf",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md#end-to-end-frame",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md#integration-frame",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md#user-acceptance-frame",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "anchor_verified": false
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#3-engagement-applicability",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#9-derived-worker-frame",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#extension-versus-replacement",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/IDENTITY.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/IDENTITY.md",
+      "sha256": "2e7026aeec957ebb9b1aa0b01ae76b81b4236f02db93b040f158eadf31f5e08b",
+      "anchor_verified": false
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ODD.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ODD.md",
+      "sha256": "1f6afec9017d115ce1ad4cef1397a5504b6e7710ebd7dc74d66a6cdedcf6344f",
+      "anchor_verified": false
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md",
+      "sha256": "8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21",
+      "anchor_verified": false
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md",
+      "sha256": "8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21",
+      "anchor_verified": true
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/RELEASE.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/RELEASE.md",
+      "sha256": "53f465d4d25b097c7da0df0e1f18805d273b032f6fe849b59a457b29b1349992",
+      "anchor_verified": false
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/SPEC_METHOD.md",
+      "sha256": "c7b83b2b7e8c9a301d2e535fc3752c08f718d9fc679e32f8a91c15c285976e8e",
+      "anchor_verified": false
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "sha256": "aafb1bf63e7928c9a21c4fe4982e4a4cdefa32b931a256e56543eb7cf629d7cd",
+      "anchor_verified": false
+    }
+  ],
+  "bootstrap_frame": {
+    "path": "standards/frames/bootstrap.md",
+    "bytes": 83085,
+    "sha256": "aafb1bf63e7928c9a21c4fe4982e4a4cdefa32b931a256e56543eb7cf629d7cd",
+    "source_owners": {
+      "standards/SPEC_METHOD.md": "c7b83b2b7e8c9a301d2e535fc3752c08f718d9fc679e32f8a91c15c285976e8e",
+      "standards/FOUNDATIONS.md": "3e85b8d01360dfae6758566fd3aca309c977e7d9e15cdd2f9e8f2904f18f2545",
+      "standards/PRODUCT_DEFINITION.md": "95afb85e4cf8f248a6f430be34ef288add61445dc43d9c8121239409b9fac231",
+      "standards/REFERENCE_FRAME.md": "8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21",
+      "standards/ACTIVATION.md": "7ad7b69b5ad8ec20678b3ef866a26fb328f2fa6f60c4d1d06ca0b926845b89bf"
+    },
+    "source_records": 16,
+    "claim": "Frame bytes and complete source-owner bytes match the released frame inventory; owner anchors exist. No independent semantic qualification."
+  },
+  "bootstrap_targets_unchanged": true,
+  "composition": [],
+  "removed_predecessor_links": 6,
+  "retained_predecessor_targets_exist": true,
+  "preexisting_modified_tracked_files_preserved": 146,
+  "unrelated_changes": [],
+  "runtime_or_qualification_rebuild": false,
+  "git_commit_or_push": false
+}

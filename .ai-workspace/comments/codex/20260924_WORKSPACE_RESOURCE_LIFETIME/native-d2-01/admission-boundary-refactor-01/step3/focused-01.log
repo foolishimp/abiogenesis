@@ -1,0 +1,9 @@
+✔ T289 owner serialization and cold historical/reference reconstruction preserve exact install truth (12650.544541ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12920.860417

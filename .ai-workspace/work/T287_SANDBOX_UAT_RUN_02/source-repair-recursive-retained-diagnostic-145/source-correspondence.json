@@ -1,0 +1,35 @@
+{
+  "baselineSourceLedger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/source-preimages.json",
+    "sha256": "df34aecf794c5d9d38c1ed75d79c33d40a4b7a117f2f30fd77225f66d29db1fe",
+    "byteCount": 78250
+  },
+  "count": 263,
+  "unchanged262": true,
+  "changed": [
+    {
+      "relativePath": "code/src/hog/recursion_lifecycle.ts",
+      "before": "7fb2656e927ade4159c4dc18eed6d6e4139e48d4791f85177912b7879fb697c2",
+      "after": "6155d94bd085d8415761b00520d72251438829eae5dea3e252d2929d3b15f6b7",
+      "byteCount": 36278
+    }
+  ],
+  "runtimeFailureOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+    "sha256": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994",
+    "byteCount": 13253
+  },
+  "exactHoGDelta": "Only direct existing-owner imports, retained subject/null discriminator and subject expression; entire142 authentication/held/success/blocked/failed-Run/fallback remains byte-identical",
+  "testControlOnlyAcquisitionImport": true,
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/test_env/tests/t287-recursive-failure-reuse-control.test.mjs",
+    "sha256": "52af183ff85c7ee2647c312f4eb27be1f1b37b804e1ffb96555c67d0d82a9fa2",
+    "byteCount": 35261
+  },
+  "compiledHoG": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/build/code/src/hog/recursion_lifecycle.js",
+    "sha256": "546fcd3e1259491cce7b01e4b0ecf495a9cee5bd91ad8f68ea2a65a9044345a4",
+    "byteCount": 30945
+  },
+  "source143Consumed": false
+}

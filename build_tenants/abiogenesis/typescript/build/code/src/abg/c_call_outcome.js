@@ -1,3 +1,4 @@
+import { indexedRuntimeEvents } from "./event_prefix.js";
 import { GOVERNANCE_IMPLEMENTATION_REFS, governanceRef } from "../product/default_library.js";
 import { governanceResultMatches } from "./default_library.js";
 import { registeredSelectionNativeRole, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
@@ -22,13 +23,13 @@ import { deepFreeze } from "../shared/immutable.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, nativeWorkspaceWorkResultMatches } from "../product/native_workspace_work.js";
 import { isWorksiteEffectAuthorization, isWorksiteFileReplaceReceipt, isWorksiteFileReplaceRequest, isWorksiteObservation, isWorksitePostPublicationFailure, worksitePostPublicationFailureMatches, constructWorksiteEffectAuthorization, worksiteFailureAuthorization, WORKSITE_FILE_REPLACE_EFFECT_URI, } from "../product/worksite_effect.js";
 import { admitEvidence, admitEvidenceFromActorTransport, projectActorTransportForResult, admitJudgment, admitResult, completeRejectedCCall, deriveProbabilisticTransportEvidence, deriveSubTraversalEvidence, isAdmittedCCallResult, projectAdmittedCCallStateAtPrefix, projectCCallCarrierPhaseAtPrefix, } from "./c_call.js";
-import { admitNonEmptyRuntimeEventTransactionAtDurablePrefix, admitRuntimeEventTransactionAtDurablePrefix, assertHeldEventStoreAtDurablePrefix, isRuntimeEventTransactionActive, readActiveRuntimeTransactionAtDurablePrefix, } from "./event_store.js";
-import { runtimeEventPrefixDigest, runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromAuthority, } from "./event_prefix.js";
+import { admitNonEmptyRuntimeEventTransactionAtDurablePrefix, admitRuntimeEventTransactionAtDurablePrefix, assertHeldEventStoreAtDurablePrefix, isRuntimeEventTransactionActive, readActiveRuntimeTransactionAtDurablePrefix, selectActiveRuntimeTransactionHistoryAtDurablePrefix, } from "./event_store.js";
+import { runtimeEventPrefixDigest, runtimeEventBodiesAtPrefix, selectValidatedRuntimeEventPrefix, selectOwnedRuntimeEventPrefix, runtimeEventPrefixExtent, selectRuntimeEventPrefixFromStore, selectRuntimeEventPrefixFromAuthority, } from "./event_prefix.js";
 import { admitProbabilisticResultFromActorTransport, } from "./probabilistic_result.js";
-import { projectActiveRuntimeTransaction, projectRuntimeTruthAtDurablePrefix, replayValidatedRuntimeEventPrefix, } from "./replay.js";
-import { admitPlannedCompletedRetryProgressInActiveTransaction, } from "./retry.js";
+import { projectActiveRuntimeTransaction, projectRuntimeTruthAtDurablePrefix, replayValidatedRuntimeEventPrefix, projectOwnedActiveRuntimeTransaction, projectOwnedRuntimeTruthAtDurablePrefix, projectRuntimeReplayGuard, materializeRuntimeReplayGuard, } from "./replay.js";
+import { admitOwnedPlannedCompletedRetryProgressInActiveTransaction, } from "./retry.js";
 import { discardNativeFrameClock } from "./runtime_liveness.js";
-import { admitScopeClosure, } from "./closure.js";
+import { admitOwnedScopeClosure, } from "./closure.js";
 import { admitTraversalTransitionInActiveTransaction, } from "./traversal_route.js";
 function isJsonRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -243,13 +244,13 @@ function projectCCallOutcomeReceiptFromTruth(truth, basis) {
             });
     }
     const phase = projectCCallCarrierPhaseAtPrefix(projection.runtimePrefix, basis.cCall);
-    const events = runtimeEventsFromValidatedPrefix(projection.runtimePrefix);
+    const events = runtimeEventBodiesAtPrefix(projection.runtimePrefix);
     const { completion } = basis;
-    const result = events.find((event) => event.eventId === completion.resultEventRef);
-    const judgment = events.find((event) => event.eventId === completion.judgmentEventRef);
+    const result = indexedRuntimeEvents(projection.runtimePrefix, "id:" + completion.resultEventRef).find((event) => event.eventId === completion.resultEventRef);
+    const judgment = indexedRuntimeEvents(projection.runtimePrefix, "id:" + completion.judgmentEventRef).find((event) => event.eventId === completion.judgmentEventRef);
     const evidence = completion.evidenceEventRef === null
         ? null
-        : events.find((event) => event.eventId === completion.evidenceEventRef) ??
+        : indexedRuntimeEvents(projection.runtimePrefix, "id:" + completion.evidenceEventRef).find((event) => event.eventId === completion.evidenceEventRef) ??
             null;
     const admittedResult = result?.kind === "c_call_result_admitted" &&
         isJsonRecord(result.payload)
@@ -298,12 +299,13 @@ function projectCCallOutcomeReceiptFromTruth(truth, basis) {
  * The owner authenticates the exact durable prefix and any prior derivation;
  * absent or untrusted derivations take the same complete reconstruction path.
  */
-export function projectCCallOutcomeReceiptAtPrefix(successorPrefix, basis, priorDerivation) {
+/** @internal */
+export function projectOwnedCCallOutcomeReceiptAtPrefix(successorPrefix, basis, priorDerivation) {
     let truth;
     try {
-        truth = projectRuntimeTruthAtDurablePrefix(successorPrefix, basis.disposition === "judged"
+        truth = projectOwnedRuntimeTruthAtDurablePrefix(successorPrefix, basis.disposition === "judged"
             ? basis.admitted.cCall.runId
-            : basis.cCall.runId, priorDerivation);
+            : basis.cCall.runId);
     }
     catch {
         return null;
@@ -360,7 +362,7 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
                 ? input.failureDiagnosticRef
                 : null
         : null;
-    let authorityPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+    let authorityPrefix = selectRuntimeEventPrefixFromStore(input.store);
     const exchange = leafInput?.ownerReceipt.receipt?.computeRegime === "F_P"
         ? leafInput.ownerReceipt.receipt.actorProcessExchange
         : null;
@@ -372,7 +374,7 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
     const postPublication = input.cCall.graphFunctionRef === WORKSITE_C0_IDS.graphFunctionRef &&
         resultDisposition === "failure" && resultCandidate.phase === "post_publication";
     if (postPublication) {
-        const authenticated = projectWorksiteFailureBasis(input.store.readAll(), input.cCall.cCallRef, resultCandidate);
+        const authenticated = projectWorksiteFailureBasisAtPrefix(authorityPrefix, input.cCall.cCallRef, resultCandidate);
         if (input.outcomeClass !== "leaf" || input.regime !== "F_D" || authenticated === null ||
             input.graphFunction.name !== WORKSITE_C0_IDS.graphFunctionRef ||
             input.cCall.failureContractRef !== WORKSITE_C0_IDS.failureContractRef ||
@@ -442,7 +444,7 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
             return stageBlockedOutcome(input, authorityPrefix, admitted);
         }
         evidence.push(admitted);
-        authorityPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+        authorityPrefix = selectRuntimeEventPrefixFromStore(input.store);
     }
     const retrySource = evidence.length === 1 &&
         evidence[0].evidenceClass === "probabilistic_transport" &&
@@ -617,12 +619,13 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
  * Admits owner evidence and one result at the caller-selected predecessor.
  * HoG must separately propose the judgment from the returned exact receipt.
  */
-export function admitCCallResult(input) {
+/** @internal */
+export function admitOwnedCCallResult(input) {
     if (isRuntimeEventTransactionActive(input.store)) {
         throw new TypeError("CCall result admission owns its ABG transaction");
     }
     const committed = admitRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
-        const predecessorPrefix = selectValidatedRuntimeEventPrefix(readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
+        const predecessorPrefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
         // Retain the one actual owner projection for this transaction. Invalid raw
         // framing still refuses before requesting actor-history authentication.
         let transport;
@@ -667,12 +670,12 @@ export function admitCCallResult(input) {
                 failureCandidate: probabilisticInput.ownerReceipt.candidate.resultCandidate,
                 failureValueKind: input.failureValueKind,
             });
-            const truth = projectRuntimeTruthAtDurablePrefix(input.predecessorPrefix, input.cCall.runId);
+            const truth = projectOwnedRuntimeTruthAtDurablePrefix(input.predecessorPrefix, input.cCall.runId);
             return completeOutcomeReceiptBody(staged, truth);
         }
         const staged = stageCCallResult(input, probabilistic, payloadRejection, actorTransport);
-        const truth = projectActiveRuntimeTransaction(input.store, input.predecessorPrefix, staged.cCall.runId);
-        if (input.store.readAll().length === predecessorPrefix.events.length) {
+        const truth = projectOwnedActiveRuntimeTransaction(input.store, input.predecessorPrefix, staged.cCall.runId);
+        if (runtimeEventPrefixExtent(selectRuntimeEventPrefixFromStore(input.store)).count === runtimeEventPrefixExtent(predecessorPrefix).count) {
             throw new TypeError("non-empty durable ABG transaction admitted no durable events");
         }
         return completeOutcomeReceiptBody(staged, truth);
@@ -686,17 +689,17 @@ export function admitCCallResult(input) {
  * Admits only the judgment candidate already derived by HoG from the exact
  * admitted result receipt and declared relation.
  */
-export function admitCCallJudgment(input) {
+/** @internal */
+export function admitOwnedCCallJudgment(input) {
     if (isRuntimeEventTransactionActive(input.store)) {
         throw new TypeError("CCall judgment admission owns its ABG transaction");
     }
     const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.outcome.successorPrefix, () => {
-        const events = readActiveRuntimeTransactionAtDurablePrefix(input.store, input.outcome.successorPrefix, { durableOnly: true });
-        const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
+        const authorityPrefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, input.outcome.successorPrefix, { durableOnly: true }));
         const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
             runId: input.outcome.cCall.runId,
         });
-        const replayState = replayValidatedRuntimeEventPrefix(runPrefix, authorityPrefix, input.outcome.replayState);
+        const replayState = projectRuntimeReplayGuard(runPrefix, authorityPrefix);
         if (runtimeEventPrefixDigest(runPrefix) !==
             runtimeEventPrefixDigest(input.outcome.runtimePrefix) ||
             replayState.replayDigest !== input.outcome.replayState.replayDigest) {
@@ -705,7 +708,7 @@ export function admitCCallJudgment(input) {
         const judgment = admitJudgment(input.store, authorityPrefix, input.graph, input.graphFunction, input.cursor, input.outcome.cCall, input.outcome.result, input.candidate, replayState, stageBasis(input.basis, "judgment"));
         let staged;
         if (judgment.kind === "c_call_admission_rejection") {
-            const rejectionPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+            const rejectionPrefix = selectRuntimeEventPrefixFromStore(input.store);
             staged = stageBlockedOutcome({
                 store: input.store,
                 graph: input.graph,
@@ -723,7 +726,7 @@ export function admitCCallJudgment(input) {
                 judgment,
             });
         }
-        const truth = projectActiveRuntimeTransaction(input.store, input.outcome.successorPrefix, input.outcome.cCall.runId);
+        const truth = projectOwnedActiveRuntimeTransaction(input.store, input.outcome.successorPrefix, input.outcome.cCall.runId);
         const receipt = projectCCallOutcomeReceiptFromTruth(truth, staged.disposition === "blocked"
             ? staged
             : {
@@ -748,16 +751,17 @@ export function admitCCallJudgment(input) {
  * Admits one already-produced owner admission rejection at an exact durable
  * predecessor and returns only its rehydrated durable outcome.
  */
-export function admitCCallRejection(input) {
+/** @internal */
+export function admitOwnedCCallRejection(input) {
     if (isRuntimeEventTransactionActive(input.store)) {
         throw new TypeError("CCall rejection admission owns its ABG transaction");
     }
     const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
         // Completion owns its Run projection; retain the complete authority cut
         // here, including the original global ordinals of unrelated Runs.
-        const authorityPrefix = selectValidatedRuntimeEventPrefix(readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
+        const authorityPrefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
         const completion = completeRejectedCCall(input.store, authorityPrefix, input.graph, input.graphFunction, input.cursor, input.cCall, input.rejection, stageBasis(input.basis, "rejected-call"));
-        const receipt = projectCCallOutcomeReceiptFromTruth(projectActiveRuntimeTransaction(input.store, input.predecessorPrefix, input.cCall.runId), {
+        const receipt = projectCCallOutcomeReceiptFromTruth(projectOwnedActiveRuntimeTransaction(input.store, input.predecessorPrefix, input.cCall.runId), {
             disposition: "blocked",
             cCall: input.cCall,
             completion,
@@ -777,7 +781,8 @@ export function admitCCallRejection(input) {
  * Admits only the runtime transition selected after HoG/GTL derives a target.
  * ABG validates and admits that target; it never derives traversal topology.
  */
-export function admitCCallCompletion(input) {
+/** @internal */
+export function admitOwnedCCallCompletion(input) {
     if (input.deferToApplication === true &&
         input.outcome.disposition === "judged" &&
         input.outcome.admitted.result.resultClass === "success" &&
@@ -789,7 +794,7 @@ export function admitCCallCompletion(input) {
             throw new TypeError("application return consumes neither a topology target nor a route candidate");
         }
         assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
-        const exactOutcome = projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, { disposition: "judged", admitted: input.outcome.admitted });
+        const exactOutcome = projectOwnedCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, { disposition: "judged", admitted: input.outcome.admitted });
         if (exactOutcome?.disposition !== "judged") {
             throw new TypeError("application return requires the exact durable judged outcome");
         }
@@ -807,13 +812,13 @@ export function admitCCallCompletion(input) {
     }
     try {
         const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
-            const predecessorEvents = readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true });
+            const predecessorHistory = selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true });
             const exactOutcome = input.outcome.disposition === "judged"
-                ? projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
+                ? projectOwnedCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
                     disposition: "judged",
                     admitted: input.outcome.admitted,
                 }, input.outcome.replayState)
-                : projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
+                : projectOwnedCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
                     disposition: "blocked",
                     cCall: input.outcome.cCall,
                     completion: input.outcome.completion,
@@ -822,14 +827,14 @@ export function admitCCallCompletion(input) {
             if (exactOutcome?.disposition !== input.outcome.disposition) {
                 throw new TypeError("CCall completion outcome differs from its predecessor");
             }
-            let stagedPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
+            let stagedPrefix = selectOwnedRuntimeEventPrefix(predecessorHistory);
             if (input.completedRetryProgress !== undefined) {
                 const retryProgress = input.completedRetryProgress;
-                const completedProgresses = admitPlannedCompletedRetryProgressInActiveTransaction(input.store, input.predecessorPrefix, input.graph, input.graphFunction, input.source, input.target, retryProgress.completion, retryProgress.basis, retryProgress.plan);
+                const completedProgresses = admitOwnedPlannedCompletedRetryProgressInActiveTransaction(input.store, input.predecessorPrefix, input.graph, input.graphFunction, input.source, input.target, retryProgress.completion, retryProgress.basis, retryProgress.plan);
                 if (!Array.isArray(completedProgresses)) {
                     throw new CCallCompletionAbort(completedProgresses);
                 }
-                stagedPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+                stagedPrefix = selectRuntimeEventPrefixFromStore(input.store);
                 if (runtimeEventPrefixDigest(stagedPrefix) !==
                     runtimeEventPrefixDigest(retryProgress.plan.projectedPrefix)) {
                     throw new TypeError("staged retry progress differs from its exact projected prefix");
@@ -870,7 +875,7 @@ export function admitCCallCompletion(input) {
                     ? input.candidate.evidence.resume
                     : null;
                 const closureBasis = stageBasis(input.basis, "closure");
-                const admittedClosure = admitScopeClosure(input.store, input.predecessorPrefix, interactionResume !== null
+                const admittedClosure = admitOwnedScopeClosure(input.store, input.predecessorPrefix, interactionResume !== null
                     ? {
                         kind: "interaction",
                         scope: input.openedTraversalScope,
@@ -891,7 +896,7 @@ export function admitCCallCompletion(input) {
                 }
                 closure = admittedClosure;
             }
-            const truth = projectActiveRuntimeTransaction(input.store, input.predecessorPrefix, input.source.runId, staged.replayState);
+            const truth = projectOwnedActiveRuntimeTransaction(input.store, input.predecessorPrefix, input.source.runId);
             const transition = deepFreeze({
                 kind: "route_transition_admission",
                 route: staged.route,
@@ -960,4 +965,41 @@ export function admitCCallCompletion(input) {
             return error.result;
         throw error;
     }
+}
+/** Complete Public output is explicitly materialized; the ordinary owner never
+ * retains this returned history in its private computation territory. */
+/** @internal Explicit legacy-output boundary for the same named owner receipts. */
+export function completePublicOutcome(value) {
+    if (value === null || typeof value !== "object")
+        return value;
+    const copy = { ...value };
+    if ("replayState" in copy)
+        copy.replayState = materializeRuntimeReplayGuard(copy.replayState);
+    if ("runtimePrefix" in copy)
+        copy.runtimePrefix = selectValidatedRuntimeEventPrefix(runtimeEventBodiesAtPrefix(copy.runtimePrefix).materialize());
+    for (const key of ["outcome", "transition", "closure", "completion", "restored", "parentOutcome", "evaluation", "frame"])
+        if (typeof copy[key] === "object" && copy[key] !== null)
+            copy[key] = completePublicOutcome(copy[key]);
+    return deepFreeze(copy);
+}
+export function admitCCallResult(input) {
+    return completePublicOutcome(admitOwnedCCallResult(input));
+}
+export function admitCCallJudgment(input) {
+    return completePublicOutcome(admitOwnedCCallJudgment(input));
+}
+export function admitCCallRejection(input) {
+    return completePublicOutcome(admitOwnedCCallRejection(input));
+}
+export function admitCCallCompletion(input) {
+    return completePublicOutcome(admitOwnedCCallCompletion(input));
+}
+export function projectCCallOutcomeReceiptAtPrefix(successorPrefix, basis, priorDerivation) {
+    const receipt = projectOwnedCCallOutcomeReceiptAtPrefix(successorPrefix, basis, priorDerivation);
+    return receipt === null ? null : completePublicOutcome(receipt);
+}
+/** @internal Select every original failure-basis population, preserving the exact unique join. */
+export function projectWorksiteFailureBasisAtPrefix(prefix, cCallRef, value) {
+    const kinds = ["basis_admitted", "c_call_opened", "c_call_fibre_selected", "public_operation_artifact_admitted", "implementation_admitted"];
+    return projectWorksiteFailureBasis(kinds.flatMap(kind => indexedRuntimeEvents(prefix, "kind:" + kind)), cCallRef, value);
 }

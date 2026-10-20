@@ -1,0 +1,11 @@
+{
+  "status": "STOP-first-error",
+  "elapsedMs": 4182.152875,
+  "stages": [],
+  "exceptions": [],
+  "error": {
+    "name": "AssertionError",
+    "message": "The expression evaluated to a falsy value:\n\n  assert.ok(resolution)\n",
+    "stack": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(resolution)\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:88:108"
+  }
+}

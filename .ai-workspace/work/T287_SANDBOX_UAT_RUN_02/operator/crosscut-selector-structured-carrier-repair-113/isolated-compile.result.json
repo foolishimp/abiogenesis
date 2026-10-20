@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "-p",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/isolated/tsconfig.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-08T11:33:22.366078+00:00",
+  "exitCode": 0,
+  "durationMs": 6051.187625038438,
+  "timedOut": false,
+  "stdoutByteCount": 0,
+  "stderrByteCount": 0
+}

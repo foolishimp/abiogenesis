@@ -1,0 +1,25 @@
+{
+  "productionSourceCount": 263,
+  "allProductionSourceBytesEqualPre153": true,
+  "sourceDeltaFrom25": {
+    "acceptedChanged": 12,
+    "unchanged": 251,
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/source-delta.json",
+      "sha256": "b17d9c022e223bbde63e7802540fd2d58db40934093338abc746fd5540817e23",
+      "byteCount": 8841
+    }
+  },
+  "generatedCount": 934,
+  "exactPackageDeltaCount": 19,
+  "unchangedFrom25": 915,
+  "partial148DeltaCount": 4,
+  "all263JavaScriptAndOther261DeclarationsEqualPartial148": true,
+  "selected19SourceHowTestPostsAndProtectedPinsConserved": true,
+  "candidate25ArchiveIdentityFreezeAnd148FailureConserved": true,
+  "record": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/generated-delta.json",
+    "sha256": "3fbaeed2e4206b20437651a614aabff309cc90962cd29bd96adec9dbc0b8874e",
+    "byteCount": 325842
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_PREPARATION_03",
+  "role": "Worker",
+  "actor": "/root/rc1_successor_preflight",
+  "roleTransition": "CLOSED independent law Reviewer -> separately activated confined preparation Worker",
+  "sessionId": "not separately available",
+  "requestPath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-preparation-controls-03/request.txt",
+  "requestSHA256": "38a8f92936023118d6ec1e39cdfc9791aa87530068965973a6afcb6ab0065b11",
+  "changeClass": "realization_refactor",
+  "selectedFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "frameComposition": ["Identity", "Install", "Reuse", "Proof"],
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "definitionSHA256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+  "installedManifestSHA256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "territory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03",
+  "permittedEffects": "Preparation copies of verified C02 source/tool/archive inputs, confined cache content, donor-control rebinding and preparation reports only",
+  "excludedEffects": "Compilation, authority staging, generated outputs, dependency installation, packing, installation, runtime, provider/model, network, Git and selection or freezing of moving carrier sources",
+  "sourceSelectionState": "Incomplete; unchanged C02 baseline only, accepted law postimages held separately, current authority and later carrier postimages pending exact Executive binding",
+  "buildOrInstalledOrQualified": false,
+  "resultConsumer": "Executive /root"
+}

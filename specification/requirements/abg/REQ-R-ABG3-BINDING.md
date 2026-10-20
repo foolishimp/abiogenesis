@@ -61,12 +61,17 @@ identity pair; otherwise admission shall return typed `basis_fork_detected`
 before execution.
 
 **REQ-R-ABG3-BINDING-019**: For a Program that declares an STDO environment,
-ABG shall validate and admit its exact released source, representation, index
-and corpus-access implementation bindings, together with the permitted
-corpus-access capability and required context/access evidence, before
-dependent work. Physical locators are resource assertions, not authority or
-proof of exact release identity. Missing, ambiguous, mismatched, inaccessible
-or unpermitted required inputs shall produce a typed refusal or block before
-dependent dispatch. Neither caller-supplied retrieval results nor successful
-tool exit alone shall establish this binding. Mechanical access checks do not
-apply STDO meaning, select work or accept semantic results.
+ABG shall validate and admit its exact released native-source binding, required
+material and permitted acquisition, together with every supplementary
+representation, index or corpus-access implementation explicitly selected by
+that environment and its source relationship. All required context/access
+evidence and declared access permissions shall be established before dependent
+work. Native-source access shall not acquire an unselected companion
+requirement; it shall not bypass required declared content, permission,
+identity, completeness or access checks. Physical locators are resource
+assertions, not authority or proof of exact release identity. Missing,
+ambiguous, mismatched, inaccessible or unpermitted required inputs shall
+produce a typed refusal or block before dependent dispatch. Neither
+caller-supplied retrieval results nor successful tool exit alone shall
+establish this binding. Mechanical access checks do not apply STDO meaning,
+select work or accept semantic results.

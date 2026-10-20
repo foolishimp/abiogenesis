@@ -1,0 +1,16 @@
+{
+  "rootSelectedAction": "Supply the actual held current durable owner prefix to the canonical two-argument normal-close and cleanup-close signatures.",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/recover-stop-source.comparator-only.mjs",
+    "sha256": "18fc0213f7363bff12d0f91da09e8630877c66b8cda1794f5e53132a867b5d47",
+    "byteCount": 25506
+  },
+  "postimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/recover-stop-source.mjs",
+    "sha256": "c2f5cb41ce534c44df4b00b56433af1baae17b38c81d59fd5b0456acd97e761c",
+    "byteCount": 25620
+  },
+  "changedSites": 2,
+  "ownerCallsAlreadyEntered": false,
+  "unchanged": "All recovery, portable value transfer, actual29 resource acquisition, Witness source/authority, source41 guards, inputs and inherited-env envelope."
+}

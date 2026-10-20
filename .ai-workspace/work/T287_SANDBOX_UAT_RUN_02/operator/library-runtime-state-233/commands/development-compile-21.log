@@ -1,0 +1,13 @@
+source/code/src/hog/graph_execute.ts(44,63): error TS1005: ',' expected.
+source/code/src/hog/graph_execute.ts(44,63): error TS2305: Module '"./interaction_resume.js"' has no exported member 'as'.
+source/code/src/hog/graph_execute.ts(44,66): error TS1005: ',' expected.
+source/code/src/hog/graph_execute.ts(44,66): error TS2305: Module '"./interaction_resume.js"' has no exported member 'resumeInteractionOwner'.
+source/code/src/hog/graph_execute.ts(431,45): error TS2345: Argument of type '{ readonly kind: "c_call_retry"; readonly context: ExecutableCCallContext; readonly outcome: { readonly disposition: "retry"; readonly cCall: CCall; readonly source: CCallRuntimeFailureSource; ... 6 more ...; readonly successorPrefix: DurablePrefixCoordinate; }; readonly outputValueKind: string; readonly outputContr...' is not assignable to parameter of type 'CCallRetryRequest'.
+  The types of 'outcome.replayState' are incompatible between these types.
+    Type 'RuntimeReplayGuard' is missing the following properties from type 'ReplayState': kind, schemaVersion, cCalls, routes, and 5 more.
+source/code/src/hog/interaction_resume.ts(236,7): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/hog/recursion_lifecycle.ts(1022,5): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/hog/workflow_lifecycle.ts(1073,7): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]

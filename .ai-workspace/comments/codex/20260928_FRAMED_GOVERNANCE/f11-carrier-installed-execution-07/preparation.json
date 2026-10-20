@@ -1,0 +1,76 @@
+{
+  "status": "READY_HELD_FOR_EXACT_ROOT_INPUT_ACCEPTANCE",
+  "operation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "preparedAt": "2026-10-02T07:42:44.100873+00:00",
+  "elapsedMs": 990.4618747532368,
+  "exactCopiedQ08Scripts": 12,
+  "selectedInputCopies": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11-bound-packet.json",
+        "bytes": 29337915,
+        "sha256": "ee08c36919f0a5e4a806e188b45cb2dbe99836e1b10682e0808bbb4fb92b5e7b",
+        "mode": 420
+      },
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/f11-bound-packet.json",
+        "bytes": 29337915,
+        "sha256": "ee08c36919f0a5e4a806e188b45cb2dbe99836e1b10682e0808bbb4fb92b5e7b",
+        "mode": 420
+      },
+      "bodyExact": true,
+      "role": "selected immutable input replica; original source/authorship coordinates unchanged"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11-bound-resource-manifest.json",
+        "bytes": 506298791,
+        "sha256": "529f8d01dac9a1219314127543d9df1bccdabeff983ea5db4ae761fafc6e4f42",
+        "mode": 420
+      },
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/f11-bound-resource-manifest.json",
+        "bytes": 506298791,
+        "sha256": "529f8d01dac9a1219314127543d9df1bccdabeff983ea5db4ae761fafc6e4f42",
+        "mode": 420
+      },
+      "bodyExact": true,
+      "role": "selected immutable input replica; original source/authorship coordinates unchanged"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+        "bytes": 865006,
+        "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+        "mode": 292
+      },
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/freeze.json",
+        "bytes": 865006,
+        "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+        "mode": 420
+      },
+      "bodyExact": true,
+      "role": "selected immutable input replica; original source/authorship coordinates unchanged"
+    }
+  ],
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/run-flow.mjs",
+    "bytes": 10721,
+    "sha256": "1329784b4e57e2a8982f52cedea983de872dcabf97819615af0116a5891757b5",
+    "mode": 420
+  },
+  "layout": "f11 exact strict caller paired with byte-exact root freeze.json Q08 control replica; final Runtime freeze is distinct final-runtime-freeze.json",
+  "gate": "runtime-release.json only after Root exact final input-acceptance byte/hash message; verifies pinned bytes before every owner import",
+  "currentInstalledRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+  "ownerImportsOrPreparation": 0,
+  "resourceReopens": 0,
+  "helperLaunches": 0,
+  "RuntimeCalls": 0,
+  "realProviderCalls": 0,
+  "actualSetupCalls": "none; exact admitted closed state only",
+  "inputResourceBytes": 506298791,
+  "positiveRoute": "exact unchanged strict Q08 flow; actual wrapper parent/child then F11/sole non-green AF22; three closed Runs and six fresh CLI reads",
+  "laterNegatives": "nearest supported under original grant only after completed positive; unsupported afterResult-beforeJ remains unknown",
+  "heldRemaining": "exact Root release and actual installed carrier execution"
+}

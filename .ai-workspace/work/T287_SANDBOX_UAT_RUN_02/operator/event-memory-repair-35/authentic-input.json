@@ -1,0 +1,17 @@
+{
+  "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T00-36-16-801Z-aba03409-467d-452b-a547-b87a81db6f45/resources/events/runtime.events.jsonl",
+  "sourceOffset": 814623321,
+  "sourceByteCount": 1399675,
+  "sourceSha256": "147279af57487fc95e903a55e7e56b2756a36c4b36666b61be7793a433100b75",
+  "sourceEventRef": "event://abiogenesis/6222c4efa10cecb102cfa15283025699b9cb21d0236173d756c449c9d9e60161",
+  "sourcePayloadDigest": "sha256:d24dda3a38722556d54702c5b287c85f74519a99b23d6731715bc7b14ec24cf5",
+  "sourceResultRef": "result://abiogenesis/5f12f9d94ca51a6d4c58df729763e12ad715e3c1a8c75940b4732a183bdc663d",
+  "sourceResultDigest": "sha256:5f12f9d94ca51a6d4c58df729763e12ad715e3c1a8c75940b4732a183bdc663d",
+  "sourceValueDigest": "sha256:689d44368f7bac09207970e91940ea2347a77a360cd7d1b8cfff50200ec8ea38",
+  "fieldSelector": "payload.value",
+  "valuePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/authentic-parent-value.json",
+  "sha256": "96ead09ed1c24b72bf31d67eaf1251a8274cc29ff52bf975328f0236ff3d8512",
+  "byteCount": 1397629,
+  "diagnosticOnly": true,
+  "noNativeCredit": true
+}

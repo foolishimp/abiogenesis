@@ -1,0 +1,146 @@
+{
+  "status": "immutable_unreleased_candidate_pending_independent_publication_review",
+  "candidate": 28,
+  "closed": "2026-10-09T10:53:25.764564+00:00",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "b60a23703273315ce244328096b1dab2e17376bdd9225cb181afb481cc78b9bd",
+    "byteCount": 10639806
+  },
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "sourceCommit": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "sourceCommitMeaning": "Historical checkpoint only; exact current accepted dirty Source is captured by200 full263 inventory and frozen198/199.",
+  "acceptedSource": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/freeze.json",
+      "sha256": "7315fe136f0a56ab5ddae5ae955ba0c625bcb0603c8640e449cf20c6584df5c8",
+      "byteCount": 17921
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-review-199/freeze.json",
+      "sha256": "c4160904dc861ceb2d1ce75cc600b544897a7f50486f3749d0485d69617eed8f",
+      "byteCount": 8917
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/readiness.json",
+      "sha256": "b2b2fb8f6c0bfd8597badb8379a7720ae5288a6d67b9caacc47729d7ee22b84d",
+      "byteCount": 3239
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/return.md",
+      "sha256": "4efc1e7e69eac56c1d5bad4149e9b8b26b0f06b16f458a9417ff1f117bc26128",
+      "byteCount": 4689
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-review-199/return.md",
+      "sha256": "9894bf335ef64976e27e6f88a7c83389a0922d1277b26c2edcf50ba6fe09e684",
+      "byteCount": 4654
+    }
+  ],
+  "sourceConjunction": "Root accepted CLOSED198 plus independent199 bounded Source GO. Only invocation_execution_truth.ts changes production263 relative accepted27; HOW/test posts conserved. No installed callback/capacity/UAT inference.",
+  "predecessor27": {
+    "candidate27Identity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-27/identity.json",
+      "sha256": "188de5013f8bdb2cd97705ad30a881eda766c20a6f67560271de9d22b2a9caa2",
+      "byteCount": 7795
+    },
+    "candidate27Freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-27/freeze.json",
+      "sha256": "7c7de7c89c29addf8b265066e0f56d6f66fe37e1d4fc38952a49593e12a675fe",
+      "byteCount": 31244
+    },
+    "candidate27Archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-27/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "29b8f199792c320d29e42aa4639dcc35d394a8c87d3da820f766ca33c24922e3",
+      "byteCount": 10639705
+    }
+  },
+  "productContentDigest": "sha256:3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54",
+  "manifestDigest": "sha256:f7e817a90b6899689b63248b2972ed501bb0157ca027b1240bea8e2fc8591b33",
+  "rawManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/scratch/successor/package/product-toolchain-manifest.json",
+    "sha256": "e2c49a45397b84aa3a478f49793fd099007b9b5deeb996a77aa2752d36b4c088",
+    "byteCount": 3171685
+  },
+  "catalogDigest": "sha256:23050185123590c94b3aba56cf4383d3ecda9fdc9b11cb0320fca310a0a2f3be",
+  "capabilityDefinitionGraph": {
+    "assetLocator": {
+      "contentDigest": "sha256:d130c2bad4f9efd1439764266d4be960756bd11c4aedd7ac51d3dadcd400df0f",
+      "mediaType": "application/json",
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "schemaVersion": "5.0.0"
+    },
+    "graphDigest": "sha256:f625b4aeac009904b52db981c23872de6bd905ea5d65a891a16549fcc9580dc7",
+    "graphId": "capability-definition-graph://abiogenesis/abg-5",
+    "graphVersion": "5.0.0"
+  },
+  "contributionManifestDigest": "sha256:3dda733cf28398c1bb8a4d7524298a0f11156423482aa737d78de5bbad945b9d",
+  "members": {
+    "count": 5265,
+    "samePathsTypesModes": true,
+    "changed": 3,
+    "unchanged": 5262,
+    "memberDelta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/member-delta.json",
+      "sha256": "30197a7ca0bbc87d2d97ec4465ab28b54df1b9b3e2fa8d7d6fe7c09b410a421b",
+      "byteCount": 23512
+    },
+    "tarInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/tar-inventory.json",
+      "sha256": "023091904e138bfba742f14743c823cb9a9ca5ffa55fa9f11a37d8007b087266",
+      "byteCount": 1250157
+    }
+  },
+  "canonicalConsequences": {
+    "publicRows": 75,
+    "publicCatalogExact27": true,
+    "catalogDifferenceCount": 0,
+    "capabilityDifferenceCount": 310,
+    "capabilityDifferenceKeyCounts": {
+      "graphDigest": 1,
+      "capabilityDefinitionDigest": 34,
+      "capabilityDefinitionRef": 34,
+      "productContentDigest": 241
+    },
+    "contributionDifferenceCount": 61,
+    "allValuesRecomputedThroughOwners": true,
+    "nativeDeclarationClosures": 15,
+    "nativeLocatorRows": 50,
+    "typedContractDigests": 23,
+    "publishedAssets": 53,
+    "publications": 10,
+    "contributions": 47
+  },
+  "installedHostSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/exacthost-identity.json",
+    "sha256": "778cd599ac289210d51ccd0ff08dbc54c5abada3c350b749fc736e751d33bcf1",
+    "byteCount": 3251
+  },
+  "installedContentMatch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/installed-content-match.json",
+    "sha256": "c65840e2748b38ca7e06b287ec7d01efeb317bcfd346d5bc245c35209ec5872f",
+    "byteCount": 705
+  },
+  "sourceAndGeneratedConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/conservation.json",
+    "sha256": "e44bce007b7e5a4d1d8c73d6115f47ca25079fb52dd8bcbd1819dda2553d6f21",
+    "byteCount": 6328
+  },
+  "timings": {
+    "build": 30104.699875,
+    "clean-host": 24694.967708,
+    "essential-parity": 2133.0321249999997,
+    "extract": 491.739708,
+    "extracted-joins": 268.58283300000005,
+    "member-comparison": 504.225458,
+    "metadata-parity": 22794.183291,
+    "candidate/pack": 3526.668125,
+    "host/install-host28": 2435.4959999999996
+  },
+  "actualInstalledVerifyWallMs": 20631.674709,
+  "effects": "Only200/new28/clean offline host and one normal canonical generated build; no authored or historical runtime effects.",
+  "runtimeReentry": "HOLD pending separate installed composition/caller preparation and Root execution selection",
+  "limits": "Bounded immutable publication and source-blind physical installed-owner correspondence only. Source198 controlled and finite owner proof remains bounded. Actual installed covered-source callback/private preparation/current-source admission/D2 applicability/native/C2/UAT/composed capacity/P0/release remain OPEN. No event-resource read/hash/acquisition/recovery, Public runtime setup, Run/model/provider/app/Source/HOW/test/Git effects."
+}

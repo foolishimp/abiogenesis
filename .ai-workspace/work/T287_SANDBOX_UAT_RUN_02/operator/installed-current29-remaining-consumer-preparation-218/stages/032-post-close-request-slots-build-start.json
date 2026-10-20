@@ -1,0 +1,10 @@
+{
+  "stage": "post-close-request-slots-build-start",
+  "rss": 4337516544,
+  "heapTotal": 3883008000,
+  "heapUsed": 3679856480,
+  "external": 2458530,
+  "arrayBuffers": 46223,
+  "at": "2026-10-09T14:38:55.927Z",
+  "elapsedMs": 316814.107167
+}

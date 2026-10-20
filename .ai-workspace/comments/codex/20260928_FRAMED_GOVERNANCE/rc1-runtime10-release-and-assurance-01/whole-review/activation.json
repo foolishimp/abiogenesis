@@ -1,0 +1,14 @@
+{
+  "operation": "T287_C09_INSTALLED_CARRIER_ASSURANCE_02",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T10:19:05.370527+00:00",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-release-and-assurance-01/whole-review-request.txt",
+  "grantBytes": 2915,
+  "grantSHA256": "f4f643e9588a85c73b6e8946844e4dc2fab41b4541343e2a9dced3c434fff063",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/final-runtime-freeze.json",
+  "subjectBytes": 20699,
+  "subjectSHA256": "47a9953d8f3e66cf7dffd4bd1b740915df6da9b19e8eb4e97d95fa748a427329",
+  "effects": "pure reads/hash/source comparison and NEW report only; no imports/probes/owner/Run/repair"
+}

@@ -1,0 +1,19 @@
+{
+  "frozen_utc": "2026-10-20T16:49:36.783137+00:00",
+  "role": "bounded Writer correction; independent reassessment pending",
+  "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+  "preimage_sha256": "4ac054f0718abe5fe1d1346a9ae9f3cfe9d726c35ff39922e198e4db6c7aca84",
+  "sha256": "e3eb2019da47b3b57c35f705db1a8d63db00a4c1697019c6ae4b9dcd3231eeab",
+  "bytes": 56050,
+  "corrected_findings": [
+    "R1: CatalogView/Program zero-to-many both ways; exact ExecutionBasis selection preserved.",
+    "R2: submitted invalid basis with valid evaluation support is falsified; evaluation own support failure is invalid_basis; performed undecidable is indeterminate; not performed has no result."
+  ],
+  "checks": {
+    "root_document_verifier": "970/970 pass; 101 links; 677 unrelated source files preserved",
+    "scoped_git_diff_check": "pass",
+    "original_review_and_freeze": "unchanged",
+    "original_document_checks": "preserved byte-exact in document-checks.initial.json"
+  },
+  "effects": "Only binding document and correction records; no code/tests/runtime."
+}

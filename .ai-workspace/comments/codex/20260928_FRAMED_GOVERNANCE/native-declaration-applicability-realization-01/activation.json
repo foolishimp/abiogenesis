@@ -1,0 +1,37 @@
+{
+  "status": "ACTIVE_SOURCE_WORKER",
+  "activation": "T287_NATIVE_DECLARATION_APPLICABILITY_SOURCE_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "activatedAt": "2026-10-01T23:47:36.990011+00:00",
+  "mutationDeclaration": "Separately activated Source Worker before first report/source mutation; earlier HOW Writer CLOSED.",
+  "productFrame": "Fixed15 ABIogenesis5.0, GOAL035/T287, operative STDO2.5.1RC2; F01/F05/F13/F11. Immutable Product/guard definitions and pure readiness remain distinct from ABG runtime/J/closure.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "owner": "NativeDefinition/NCC-F02",
+  "changeClass": "design_reframe",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-source-controls-01/request.txt",
+    "bytes": 5855,
+    "sha256": "d1c8e317f38051e0b1c5ab1cb7c0e333d341c26a5c145c7e912746bcf6677be1"
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01"
+  ],
+  "howAdoptedSha256": "819bb622475071d5ae7a48e2c62ceb198b563968263f9a1ec28e9553fb3e6db6",
+  "sectionsRequired": 7,
+  "effectScope": "ratified current HOW, one production owner, one existing test file, isolated compile/focused mechanical proof/report only",
+  "prohibited": [
+    "additional source or owner/API/WHAT/signature/carrier changes",
+    "ambient build/manifest/dependency/fixture changes",
+    "candidate/archive/install/Git/runtime/event/provider/network/auth/sibling effects",
+    "delegation or Reviewer activation"
+  ],
+  "consumer": "Root Executive /root",
+  "node": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  }
+}

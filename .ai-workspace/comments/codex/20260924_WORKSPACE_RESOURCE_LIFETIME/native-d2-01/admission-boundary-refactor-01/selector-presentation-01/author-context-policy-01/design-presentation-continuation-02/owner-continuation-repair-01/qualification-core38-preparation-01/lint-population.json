@@ -1,0 +1,94 @@
+{
+  "lint": {
+    "files": [
+      {
+        "path": "contracts/qualification/authority-inputs.json",
+        "kind": "json"
+      },
+      {
+        "path": "contracts/qualification/sources/stdo_abiogenesis.json",
+        "kind": "json"
+      },
+      {
+        "path": "contracts/schemas/product-toolchain-manifest.schema.json",
+        "kind": "json"
+      },
+      {
+        "path": "contracts/schemas/public-contract-catalog.schema.json",
+        "kind": "json"
+      },
+      {
+        "path": "package-lock.json",
+        "kind": "json"
+      },
+      {
+        "path": "package.json",
+        "kind": "json"
+      },
+      {
+        "path": "scripts/clean.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/generate-product-manifest.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/generate-qualification-rule-catalog.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/lint-verification.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/node-test-evidence-reporter.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/isolated-compiled-copy.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/malformed-gtl-native-fixture.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/r10-private-owner-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/steel-consumer-resolution.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-generic-job-worksite.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-observed-worksite-command.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qual056-material.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-contraction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-release-acceptance.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "tsconfig.json",
+        "kind": "json"
+      }
+    ]
+  }
+}

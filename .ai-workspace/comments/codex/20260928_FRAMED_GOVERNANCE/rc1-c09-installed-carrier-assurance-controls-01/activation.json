@@ -1,0 +1,31 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "priorRole": "Executive",
+  "role": "Writer",
+  "operation": "T287_C09_PLAN_AND_INSTALLED_ASSURANCE_GRANT_WRITER_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "exactGrant": "Correct commentary current plan to accepted typed C09/Setup09 and active Q10; prepare conditional independent installed-carrier assurance. No candidate/Source/generated/resources/runtime/qualification/Git/provider effects.",
+  "preimages": {
+    "plan": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 6569,
+      "sha256": "e8824ea00687fc3fc2c981eb74ec6a18a102b4a99fc7b76b069f45a8fb2486b6",
+      "mode": 420
+    },
+    "execution": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 540272,
+      "sha256": "40ca59e7fe48682e596d3cdf80c3307eb9fc9d85ee3b4046d81b41681c7fb3e4",
+      "mode": 420
+    }
+  },
+  "dependencyObservation": "Q10 Worker confirmed plan absent from all donor qualification/material/protected/recipe inputs; no broad commentary census.",
+  "activatedAt": "2026-10-02T16:50:31.162444+00:00",
+  "recordedBeforeOtherEffects": true
+}

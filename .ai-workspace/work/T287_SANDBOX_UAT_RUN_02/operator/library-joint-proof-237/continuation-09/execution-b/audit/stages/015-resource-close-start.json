@@ -1,0 +1,10 @@
+{
+  "stage": "resource-close-start",
+  "elapsedMs": 35825.43845799996,
+  "at": "2026-10-10T13:31:44.223Z",
+  "rss": 3330703360,
+  "heapTotal": 1011286016,
+  "heapUsed": 676718896,
+  "external": 2580117,
+  "arrayBuffers": 118829
+}

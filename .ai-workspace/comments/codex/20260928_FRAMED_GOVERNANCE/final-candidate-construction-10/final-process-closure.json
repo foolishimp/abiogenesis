@@ -1,0 +1,57 @@
+{
+  "status": "CLOSED",
+  "knownOperationGroups": [
+    {
+      "pid": 23224,
+      "ownedProcessGroup": 23224,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23259,
+      "ownedProcessGroup": 23259,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23262,
+      "ownedProcessGroup": 23262,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23293,
+      "ownedProcessGroup": 23293,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23295,
+      "ownedProcessGroup": 23295,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23465,
+      "ownedProcessGroup": 23465,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23513,
+      "ownedProcessGroup": 23513,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23555,
+      "ownedProcessGroup": 23555,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23618,
+      "ownedProcessGroup": 23618,
+      "afterOwnedWait": "absent"
+    },
+    {
+      "pid": 23695,
+      "ownedProcessGroup": 23695,
+      "afterOwnedWait": "absent"
+    }
+  ],
+  "actualMainOwnedExitObserved": true,
+  "unknownChildren": "individual npm descendants not PID-enumerated; declared owner/tool awaits child completion and all known groups are absent"
+}

@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "role": "Runtime Worker",
+  "closedAt": "2026-10-02T08:10:34.127150+00:00",
+  "workResult": "STOPPED_FIRST_NATIVE_RAW_RESULT_CONTRACT_FAILURE",
+  "actualPublicCalls": 1,
+  "controlledHelperLaunches": 1,
+  "providers": 0,
+  "coldReadsF11AF22": 0,
+  "reportFinalizationOperation": "T287_RUNTIME07_REPORT_FINALIZATION_01",
+  "additionalRuntimeAuthority": false
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "repo": "abiogenesis",
+    "head": "ff29a8bab8f8cb3ec6f864536075ccfe3422652e",
+    "actualOriginMain": "ff29a8bab8f8cb3ec6f864536075ccfe3422652e",
+    "pushSeconds": 25.555086332838982,
+    "trackedClean": true,
+    "bankMembers": 162,
+    "bankBytes": 45649017
+  },
+  {
+    "repo": "odd_glc",
+    "head": "679ff0c205755b0311296369c6c6c87249308182",
+    "actualOriginMain": "679ff0c205755b0311296369c6c6c87249308182",
+    "pushSeconds": 3.230490959249437,
+    "trackedClean": true,
+    "bankMembers": 63,
+    "bankBytes": 2054986
+  }
+]

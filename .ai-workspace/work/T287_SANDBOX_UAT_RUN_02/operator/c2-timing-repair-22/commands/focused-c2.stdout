@@ -1,0 +1,22 @@
+✖ extended original C2 plan preserves all 26 sources through native and observed owners (63.455209ms)
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (15.541792ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (4.187542ms)
+✔ C2 finite host timer schema and constructor share bounds without changing grace (31.678125ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 613.054292
+
+✖ failing tests:
+
+test at test_env/tests/t287-observed-worksite-command.test.mjs:42:1
+✖ extended original C2 plan preserves all 26 sources through native and observed owners (63.455209ms)
+  TypeError [Error]: native workspace task requires one bound worksite, context and declared scope
+      at Module.constructNativeWorkspaceWorkTask (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work.js:40:15)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs:76:24)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

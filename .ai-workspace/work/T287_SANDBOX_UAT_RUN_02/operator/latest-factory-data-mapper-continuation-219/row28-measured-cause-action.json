@@ -1,0 +1,139 @@
+{
+  "ordinal": 222216,
+  "resultRef": "result://abiogenesis/45fb5d751ddd7db03c85f129a64612a79e42b7255763a2a91b8bc7da430c2155",
+  "event": {
+    "offset": 1798482569,
+    "byteCount": 5369458,
+    "sha256": "ecc11cf341c1c99cca2bf649c2cae39558f5fbe78206853ed9ea1e73ff69d528"
+  },
+  "command": {
+    "exitStatus": 1,
+    "timedOut": false,
+    "processSignal": null,
+    "terminationConfirmed": true,
+    "reportCount": 8
+  },
+  "counts": {
+    "tests": 44,
+    "failed": 5,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 39
+  },
+  "failures": [
+    {
+      "name": "UAT-ASSR-NEG: a degraded error rate of 0.5 breaches AtMost 0.25 and the breach names error-rate",
+      "diagnostic": "sbt.ForkMain$ForkError: org.scalatest.exceptions.TestFailedException: report.passed was true\n\tat org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:472)\n\tat org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:471)\n\tat org.scalatest.Assertions$.newAssertionFailedException(Assertions.scala:1231)\n\tat org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:1295)\n\tat com.cdme.assurance.AssuranceServiceSpec.$anonfun$new$2(AssuranceServiceSpec.scala:124)\n\tat org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)\n\tat org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)\n\tat org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)\n\tat org.scalatest.Transformer.apply(Transformer.scala:22)\n\tat org.scalatest.Transformer.apply(Transformer.scala:20)\n\tat org.scalatest.funsuite.AnyFunSuiteLike$$anon$1.apply(AnyFunSuiteLike.scala:226)\n\tat org.scalatest."
+    },
+    {
+      "name": "UAT-ASSR-BND: inclusive thresholds pass at the limit and breach just beyond it",
+      "diagnostic": "sbt.ForkMain$ForkError: org.scalatest.exceptions.TestFailedException: report.passed was false\n\tat org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:472)\n\tat org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:471)\n\tat org.scalatest.Assertions$.newAssertionFailedException(Assertions.scala:1231)\n\tat org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:1295)\n\tat com.cdme.assurance.AssuranceServiceSpec.$anonfun$new$3(AssuranceServiceSpec.scala:144)\n\tat org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)\n\tat org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)\n\tat org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)\n\tat org.scalatest.Transformer.apply(Transformer.scala:22)\n\tat org.scalatest.Transformer.apply(Transformer.scala:20)\n\tat org.scalatest.funsuite.AnyFunSuiteLike$$anon$1.apply(AnyFunSuiteLike.scala:226)\n\tat org.scalatest"
+    },
+    {
+      "name": "UAT-ASSR-INV: moving further past a threshold never passes and a report passes only when every check passes",
+      "diagnostic": "sbt.ForkMain$ForkError: org.scalatest.exceptions.TestFailedException: mixed.passed was true\n\tat org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:472)\n\tat org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:471)\n\tat org.scalatest.Assertions$.newAssertionFailedException(Assertions.scala:1231)\n\tat org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:1295)\n\tat com.cdme.assurance.AssuranceServiceSpec.$anonfun$new$5(AssuranceServiceSpec.scala:158)\n\tat scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)\n\tat org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)\n\tat org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)\n\tat org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)\n\tat org.scalatest.Transformer.apply(Transformer.scala:22)\n\tat org.scalatest.Transformer.apply(Transformer.scala:20)\n\tat org.scalatest.funsuite."
+    },
+    {
+      "name": "UAT-ENG-NEG: a type-mismatched topology halts at compile and degraded rows halt at assure",
+      "diagnostic": "sbt.ForkMain$ForkError: org.scalatest.exceptions.TestFailedException: Vector(\"compile\", \"execute\", \"lineage\", \"account\", \"assure\", \"fidelity\") did not equal Vector(\"compile\", \"execute\", \"lineage\", \"account\", \"assure\")\n\tat org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:472)\n\tat org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:471)\n\tat org.scalatest.Assertions$.newAssertionFailedException(Assertions.scala:1231)\n\tat org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:1295)\n\tat com.cdme.engine.CdmeEngineIntegrationSpec.$anonfun$new$4(CdmeEngineIntegrationSpec.scala:130)\n\tat org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)\n\tat org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)\n\tat org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)\n\tat org.scalatest.Transformer.apply(Transformer.scala:22)\n\tat org.scalatest.Transforme"
+    },
+    {
+      "name": "U8 runner negative: run on the degraded request returns a Left naming assure",
+      "diagnostic": "sbt.ForkMain$ForkError: org.scalatest.exceptions.TestFailedException: Left(\"fidelity: score 0.5 below 0.75\") did not equal Left(\"assure: breached error-rate\")\n\tat org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:472)\n\tat org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:471)\n\tat org.scalatest.Assertions$.newAssertionFailedException(Assertions.scala:1231)\n\tat org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:1295)\n\tat com.cdme.engine.CdmeEngineIntegrationSpec.$anonfun$new$37(CdmeEngineIntegrationSpec.scala:243)\n\tat org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)\n\tat org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)\n\tat org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)\n\tat org.scalatest.Transformer.apply(Transformer.scala:22)\n\tat org.scalatest.Transformer.apply(Transformer.scala:20)\n\tat org.scalatest.funsuite.A"
+    }
+  ],
+  "reports": [
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-core",
+      "relativePath": "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+      "digest": "sha256:ceb0b2ae6be02720e2c20ae2815803b28166be39b8d173bddeff30b7308db0aa",
+      "byteLength": 6409
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-compiler",
+      "relativePath": "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+      "digest": "sha256:dce4809a0355f1ab4648b4444edf6a441e9e8eaeeb56af08254aa594805f0d5a",
+      "byteLength": 6192
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-executor",
+      "relativePath": "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+      "digest": "sha256:19d1bd1ec7e6dad42509fbb4b862ee0f0e7985190ee20cfaec9e07fb4efde593",
+      "byteLength": 6179
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-adjoint",
+      "relativePath": "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+      "digest": "sha256:3e453c171a64a531341e02b813bf1a03747d75696d5f51fb4cb6455fa4fdc068",
+      "byteLength": 6237
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-accounting",
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+      "digest": "sha256:2dd56efd0cc81396a0bb992067c91abaddd26918879dae1432bc1b0f03ae8f23",
+      "byteLength": 6194
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-assurance",
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+      "digest": "sha256:3de0573d459f10b623d1c7b0b11b27e28e6716d1b757ae9554e8ecc88cf843fb",
+      "byteLength": 17573
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-fidelity",
+      "relativePath": "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+      "digest": "sha256:4200e41964a29d3697fb3829b4438c786a6260307c6400618b023367162834c7",
+      "byteLength": 6176
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-engine",
+      "relativePath": "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+      "digest": "sha256:c2d6c73de78da7cb3bf97bcbd1d79c8afad942ca6c99c800ffcaee121bb2d1b3",
+      "byteLength": 15141
+    }
+  ],
+  "selectedInputSnapshot": [
+    {
+      "byteLength": 2083,
+      "digest": "sha256:56c2c1a1df362be1ecc81366321bed60d51f215b3d86e5740e620a70007a470b",
+      "kind": "worksite_snapshot_member",
+      "ordinal": 9,
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "schemaVersion": "5.0.0",
+      "sourceMemberRef": "native-work-execution-source://abiogenesis/7c542f40f2ebd509bd1b21284afe865693350c6f81010fee7c3ea87d0d6e99ac",
+      "sourceObservationDigest": "sha256:9ca8d6253129ca18bceb182a1f6e81d47f94fcea7027c01586d4d2a818cb6dc8",
+      "sourceObservationRef": "worksite-observation://abiogenesis/9ca8d6253129ca18bceb182a1f6e81d47f94fcea7027c01586d4d2a818cb6dc8"
+    },
+    {
+      "byteLength": 3257,
+      "digest": "sha256:cc4a5d51587eecf14482921112871d0b8aadaa3969a28054a9b45c87a259ab66",
+      "kind": "worksite_snapshot_member",
+      "ordinal": 10,
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "schemaVersion": "5.0.0",
+      "sourceMemberRef": "native-work-execution-source://abiogenesis/c994af338889225bbe437d09d65d33793c9f838f8d50708955b25266772264d3",
+      "sourceObservationDigest": "sha256:42e70029000f0bef360200c604c3acf3f5babeed683d3d45dd527f8cc8fb0b19",
+      "sourceObservationRef": "worksite-observation://abiogenesis/42e70029000f0bef360200c604c3acf3f5babeed683d3d45dd527f8cc8fb0b19"
+    }
+  ],
+  "streamSummary": {
+    "stdout": {
+      "byteLength": 39245,
+      "digest": "sha256:6f1929c285d907c17594201fe88d47fc23eaf81b74b7b3aa2d19a7cf4004ef25",
+      "tail": "[info]   at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n[info]   at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n[info]   at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n[info]   at java.base/java.lang.Thread.run(Thread.java:829)\n[info] Run completed in 20 seconds, 13 milliseconds.\n[info] Total number of tests run: 6\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 6, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 22 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 29 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 34 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 40 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 46 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 2, failed 3, canceled 0, ignored 0, pending 0\n[info] *** 3 TESTS FAILED ***\n[error] Failed tests:\n[error] \tcom.cdme.assurance.AssuranceServiceSpec\n[info] Run completed in 20 seconds, 52 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 19 seconds, 713 milliseconds.\n[info] Total number of tests run: 8\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 6, failed 2, canceled 0, ignored 0, pending 0\n[info] *** 2 TESTS FAILED ***\n[error] Failed tests:\n[error] \tcom.cdme.engine.CdmeEngineIntegrationSpec\n[error] (cdme-assurance / Test / test) sbt.TestsFailedException: Tests unsuccessful\n[error] (cdme-engine / Test / test) sbt.TestsFailedException: Tests unsuccessful\n[error] Total time: 25 s, completed 10 Oct. 2026, 2:03:48 am\n"
+    },
+    "stderr": {
+      "byteLength": 26647,
+      "digest": "sha256:ac58dfc599dcc52293e73b3b63fe50c762f901ba7cdfafdb1fdc6d899ea16244",
+      "tail": "ith modify permissions: EMPTY\n26/10/10 02:03:44 INFO Utils: Successfully started service 'sparkDriver' on port 63901.\n26/10/10 02:03:44 INFO SparkEnv: Registering MapOutputTracker\n26/10/10 02:03:44 INFO SparkEnv: Registering BlockManagerMaster\n26/10/10 02:03:44 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information\n26/10/10 02:03:44 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up\n26/10/10 02:03:44 INFO SparkEnv: Registering BlockManagerMasterHeartbeat\n26/10/10 02:03:44 INFO DiskBlockManager: Created local directory at /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/044c33c6f330e2611994c9844577bd312dd5f3799c6dd9f9702defc550c084f6/18487a31a4eb31247e4048c3cd8ca56c2e45d67f68ecfa735716283e72cfe0b3/sandbox/build_tenants/scala_spark/cdme-engine/target/spark-local/blockmgr-67ab6785-1fd1-4e66-b111-e146ee5fe396\n26/10/10 02:03:44 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB\n26/10/10 02:03:44 INFO SparkEnv: Registering OutputCommitCoordinator\n26/10/10 02:03:44 INFO Executor: Starting executor ID driver on host localhost\n26/10/10 02:03:44 INFO Executor: OS info Mac OS X, 26.7.1, aarch64\n26/10/10 02:03:44 INFO Executor: Java version 11.0.28\n26/10/10 02:03:44 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''\n26/10/10 02:03:44 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@7d0caf0c for default.\n26/10/10 02:03:44 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 63902.\n26/10/10 02:03:44 INFO NettyBlockTransferService: Server created on 127.0.0.1:63902\n26/10/10 02:03:44 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy\n26/10/10 02:03:44 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 63902, None)\n26/10/10 02:03:44 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:63902 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 63902, None)\n26/10/10 02:03:44 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 63902, None)\n26/10/10 02:03:44 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 63902, None)\n"
+    }
+  },
+  "cause": "Intentional Assurance report conjunction changed forall to exists at L49; actual own/collateral failures correspond.",
+  "productBoundedAction": "Native exact restoration of AssuranceService.scala to7cacd34af5f3713fc4b385f5017f31c131f9278605584abf45f72307c8af4d45/3257B; preserve tests and original criteria. Native RCA and next selected job pending, no operator app repair.",
+  "greenCorroboration": "Final later restored full green remains pending.",
+  "operatorDecoderCorrection": {
+    "firstFailure": "AssertionError when a pure report diagnostic treated captured stdout base64 payload as UTF8 bytes. No runtime or app effect.",
+    "actualOwnerEncoding": "base64",
+    "selectedAction": "Decode explicitly as declared, then verify exact byteLength/digest; physical reports were already verified."
+  }
+}

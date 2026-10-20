@@ -1,0 +1,12 @@
+{
+  "executable": "/usr/bin/python3",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/member-comparison.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107",
+  "started": "2026-10-08T10:44:57.125Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000
+}

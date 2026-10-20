@@ -1,0 +1,35 @@
+import { type DurablePrefixCoordinate, type EventStoreCloseHandoff, type EventStoreReopenAuthority } from "../abg/event_store.js";
+import type { ClosureContract, GtlGraph, GtlProgram, ModulePublication } from "../gtl/contracts.js";
+import type { HeldParentTraversalSuspension } from "../hog/graph_execute.js";
+import type { ReadyGraphFunctionCatalog, GraphFunctionCatalogView, ProductInstall, WorkspaceBinding } from "../product/index.js";
+import { type JsonValue } from "../shared/canonical_json.js";
+import { type Sha256Digest } from "../shared/digests.js";
+export interface PublicContinuationAuthority {
+    readonly kind: "public_continuation_authority";
+    readonly schemaVersion: "5.0.0";
+    readonly continuationRef: string;
+    readonly prefix: DurablePrefixCoordinate;
+    readonly reopenAuthority: EventStoreReopenAuthority;
+    readonly runtimeInvocationRef: string;
+    readonly outputContractRef: string;
+    readonly invocationAdmissionRef: string;
+    readonly runId: string;
+    readonly install: ProductInstall;
+    readonly workspaceBinding: WorkspaceBinding;
+    readonly catalog: ReadyGraphFunctionCatalog;
+    readonly catalogView: GraphFunctionCatalogView;
+    readonly publications: readonly Readonly<ModulePublication>[];
+    readonly program: Readonly<GtlProgram>;
+    readonly graph: Readonly<GtlGraph>;
+    readonly heldGraph: Readonly<GtlGraph>;
+    readonly heldClosureContract: Readonly<ClosureContract>;
+    readonly parentSuspensions: readonly HeldParentTraversalSuspension[];
+    readonly invocationInput: Readonly<Record<string, JsonValue>>;
+    readonly closureContract: Readonly<ClosureContract>;
+    readonly authorityDigest: Sha256Digest;
+}
+type PublicContinuationAuthorityInput = Omit<PublicContinuationAuthority, "authorityDigest" | "kind" | "schemaVersion">;
+export declare function constructPublicContinuationAuthority(input: PublicContinuationAuthorityInput): PublicContinuationAuthority;
+export declare function updatePublicContinuationAuthority(authority: PublicContinuationAuthority, handoff: EventStoreCloseHandoff): PublicContinuationAuthority;
+export declare function parsePublicContinuationAuthority(value: unknown, expectedContinuationRef: string): PublicContinuationAuthority | null;
+export {};

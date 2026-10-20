@@ -1,0 +1,13 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/receipts/00-original-public-run-status.json",
+  "sha256": "sha256:29bd430c3f9619dde004ace6edf48ce754d8dadd5668bb92f71c79c53a7857b6",
+  "source": {
+    "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e",
+    "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad"
+  },
+  "root": {
+    "ref": "execution-basis://abiogenesis/57483d222cc969fb8d2d78797f06011dd4f3b3cc954eedf7cc5552c8dc377722",
+    "digest": "sha256:57483d222cc969fb8d2d78797f06011dd4f3b3cc954eedf7cc5552c8dc377722"
+  },
+  "readRepeated": false
+}

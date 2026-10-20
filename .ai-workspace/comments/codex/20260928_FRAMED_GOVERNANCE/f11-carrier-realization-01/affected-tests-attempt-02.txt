@@ -1,0 +1,91 @@
+(node:99691) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused (55.448125ms)
+✔ green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task (42.416209ms)
+✔ whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green (97.076584ms)
+✔ AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked (433.616917ms)
+ℹ {"warm":{"catalog":1,"execution":8,"state":1,"assessment":0,"verdict":1,"terminal":0,"replay":0,"sourceRead":17,"environment":2},"cold":{"catalog":2,"execution":21,"state":3,"assessment":0,"verdict":2,"terminal":0,"replay":0,"sourceRead":31,"environment":5},"premises":"Existing nativeJoinFixture supplies lower admission/environment facts; invoking boundary, separate installed URLs, raw Result clone and proof construction are real. Genuine cold ownership is covered by held-prefix tests and the installed composition."}
+(node:99692) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ same candidate in distinct original install/workspace/resource authenticates and conserves original producer material (298.603458ms)
+ℹ {"sourceAcquisitions":2,"workspaceProjections":1,"materialBytes":234331,"scope":"explicit lower admission premises; actual owner relation"}
+✔ candidate law source and genuine runtime coordinates cannot be crossed or replaced by a read wrapper (405.118958ms)
+✔ original source currentness is rechecked at dispatch while historical authenticated prefix remains replayable (45.98475ms)
+✔ duplicate aliases and competing successful producers remain refused in their original context (44.760792ms)
+(node:99707) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ small whole subject grouped and singleton semantics agree under explicit independent/native premises (31.136ms)
+✔ required group/member/root/domain omissions, duplicate and crossed basis never receive a complete assessment (33.495834ms)
+✔ unknown and falsified grouping/applicability are conserved; incomplete context and foreign J cannot discharge scope (79.901542ms)
+✔ grouped representation grows by explicit members/rules, not Cartesian semantic rows or findings (338.941625ms)
+ℹ {"representation":[{"members":3,"rules":3,"applications":1,"findings":10,"serializedBytes":10055,"avoidedCartesianRows":9},{"members":100,"rules":100,"applications":1,"findings":10,"serializedBytes":36508,"avoidedCartesianRows":10000}],"claim":"component representation only; independent/native facts supplied"}
+✔ actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records (7.880041ms)
+ℹ {"scopedPromptBytes":56721,"singletonWholeMaterialPromptBytes":52406,"providedBodies":3,"assessedMembers":3,"attributionSpans":2,"retainedRecordBodies":7,"rawSchemaBytes":1972,"claim":"actual constructor/renderer sizes on finite synthetic scope; no token quota or semantic sufficiency inference"}
+✔ scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence (7.652959ms)
+✔ fresh process conserves grouped result identities and refuses changed grouped bytes (51.881167ms)
+✔ explicit justified inapplicability conserves singleton meaning and cannot erase a falsified obligation (19.467458ms)
+✖ catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations (5.871667ms)
+✔ catalog and rule prompts expose changed governed claims, evidence duties and source-span mappings; stale catalog refuses (9.556417ms)
+✖ inventory renderer exposes per-member role and classification-evidence swaps despite identical bytes and group-role union (6.350334ms)
+✔ per-rule complete member domains preserve flat semantics and do not split unrelated rule work (87.521042ms)
+ℹ {"perRuleDomains":[{"splits":2,"criteria":3,"promptBytes":57116,"memberBodies":3,"assessedMembers":4},{"splits":3,"criteria":4,"promptBytes":57116,"memberBodies":3,"assessedMembers":4}],"globalSplitRows":[4,6],"claim":"actual owner/renderer; J/native premises supplied"}
+✔ domain omission overlap foreign members and incomplete rule domains refuse; scoped J uncertainty survives (45.21425ms)
+✔ six-member discriminator keeps four rule domains when unrelated classification refinement would grow six global pairs to eight (62.896166ms)
+ℹ {"actualOwnerDiscriminator":[{"globalClassifications":3,"globalPairs":6,"actualRuleCriteria":4,"coveredMemberRelations":12,"selectedPromptBytes":57583},{"globalClassifications":4,"globalPairs":8,"actualRuleCriteria":4,"coveredMemberRelations":12,"selectedPromptBytes":57583}],"claim":"C conservation and representation; supplied J/native premises"}
+ℹ tests 22
+ℹ suites 0
+ℹ pass 20
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2830.053333
+
+✖ failing tests:
+
+test at test_env/tests/t287-qualification-scopes.test.mjs:160:1
+✖ catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations (5.871667ms)
+  AssertionError [ERR_ASSERTION]: foreign rule group
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-scopes.test.mjs:176:122)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: invalid qualification assessment shape/identity
+        at establishQualificationAssessment (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification.js:532:15)
+        at Module.qualificationWorkerRequest (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification.js:555:58)
+        at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-scopes.test.mjs:176:135
+        at getActual (node:assert:609:5)
+        at strict.throws (node:assert:757:24)
+        at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-scopes.test.mjs:176:122)
+        at async Test.run (node:internal/test_runner/test:1113:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:788:7),
+    expected: /invalid qualification assessment input/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-qualification-scopes.test.mjs:191:1
+✖ inventory renderer exposes per-member role and classification-evidence swaps despite identical bytes and group-role union (6.350334ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /invalid qualification assessment input/. Input:
+  
+  'TypeError: invalid qualification assessment shape/identity'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-scopes.test.mjs:201:149)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: invalid qualification assessment shape/identity
+        at establishQualificationAssessment (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification.js:532:15)
+        at Module.qualificationWorkerRequest (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification.js:555:58)
+        at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-scopes.test.mjs:201:162
+        at getActual (node:assert:609:5)
+        at strict.throws (node:assert:757:24)
+        at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-scopes.test.mjs:201:149)
+        at async Test.run (node:internal/test_runner/test:1113:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:788:7),
+    expected: /invalid qualification assessment input/,
+    operator: 'throws',
+    diff: 'simple'
+  }

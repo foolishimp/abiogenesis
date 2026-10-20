@@ -1,0 +1,63 @@
+{
+  "status": "CLOSED_STOP_PUBLICATION_BLOCKED",
+  "role": "Publication Writer148",
+  "closed": "2026-10-09T02:31:20.602701+00:00",
+  "basis": {
+    "features": "Fixed15 ABI5.0",
+    "wave": "GOAL035/T287",
+    "basis": "STDO2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "classification": "Deterministic immutable Product package and clean physical installed-payload verification",
+    "ownerSplit": "Product owns artifact/catalog/declaration meaning; canonical generator owns emitted metadata; thin npm/host transports do not admit ABG runtime truth",
+    "prohibitions": "No source/spec/requirements/package/lock/version/Git/app/event/provider/Run mutation or identity waiver"
+  },
+  "rootSourceConjunction": "Source138 accepted; cumulative142+145 accepted through independent146; Source143 bounded Source/unit accepted through closed independent147. Installed source-use, F_P-to-HoG, currentness, native/C2/UAT are still open.",
+  "source263BeforeAfterEqual": true,
+  "sourceDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/source-delta.json",
+    "sha256": "27d9a7cc624b5aaa52e282acfe3534c3ebc63252f1dbf1df00ccd4a109f5ee9e",
+    "byteCount": 8781
+  },
+  "build": {
+    "exitCode": 1,
+    "wallMs": 14907.42625,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "spawnFailure": null,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/commands/build.result.json",
+      "sha256": "d2b99564c38dbb679a91026405622865a0ed31880c3c6fcf157a087db16c93bb",
+      "byteCount": 2226
+    }
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/first-cause.json",
+    "sha256": "b63ec483ecbf2f117a38a857200599606324cc78722b12d4db416df67e6b37e3",
+    "byteCount": 3167
+  },
+  "generated": {
+    "selectedBefore": 934,
+    "selectedAfter": 934,
+    "changed": 21,
+    "unchanged": 913,
+    "missing": 0,
+    "delta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/generated-failed-build-delta.json",
+      "sha256": "8a6169b54c676ec3d150a7cef9c4664b4ab9ff740bb3dc4496222ebab9907350",
+      "byteCount": 323725
+    },
+    "partialNotAccepted": true
+  },
+  "actualBuilds": 1,
+  "packs": 0,
+  "installs": 0,
+  "candidate26Absent": true,
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/conservation.json",
+    "sha256": "149a11d8cfcaf29a4bc96b44185c953569c101f06997999fe28b295b7b9ed24b",
+    "byteCount": 2195
+  },
+  "sourceQualificationLimits": "138/143/145 remain accepted bounded Source/unit/owner outcomes. Actual installed current-use/FP-to-HoG/currentness/native/C2/UAT/P0/release remain open.",
+  "nextAction": "HOLD for Root causal triage and a separate selected repair/retry; no author self-review or follow-on effects"
+}

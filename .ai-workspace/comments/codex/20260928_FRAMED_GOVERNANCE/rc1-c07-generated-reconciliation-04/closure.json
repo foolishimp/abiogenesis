@@ -1,0 +1,35 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C07_GENERATED_RECONCILIATION_04",
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "workResult": "COMPLETED_EXACT_THREE_GENERATED_RECONCILIATION",
+  "onlyCanonicalWrites": 3,
+  "fullBefore": 926,
+  "fullAfter": 926,
+  "physicalUnionBeforeAfter": 927,
+  "unchangedGenerated": 923,
+  "protectedMirrorBodyModePreserved": true,
+  "correspondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-04/correspondence.json",
+    "bytes": 8405,
+    "sha256": "72be9d6468fecd00c37de9bac944258149777af8894fec95a48d48e5c14d106f",
+    "mode": 420
+  },
+  "independentAssurance": false,
+  "Q09Activated": false,
+  "cost": {
+    "fullBeforeHashedBytes": 36791492,
+    "fullAfterHashedBytes": 36791584,
+    "mirrorBodyComparisons": 4,
+    "mirrorBytesPerComparison": 133684,
+    "preimagesBytes": 2783925,
+    "copiedPostimageBytes": 2784017,
+    "copyMs": 3.127208910882473,
+    "wallMsToClosure": 259.67120798304677,
+    "algorithm": "Reuse accepted generated-role census926; join complete physicalunion927 with one exactly pinned protected mirror; retain3 then copy selected donors only.",
+    "importsOwnerReadinessCompileRuntimeProviderNetworkGitCalls": 0
+  },
+  "closedAt": "2026-10-02T10:24:51.698525+00:00",
+  "noFurtherWrites": true
+}

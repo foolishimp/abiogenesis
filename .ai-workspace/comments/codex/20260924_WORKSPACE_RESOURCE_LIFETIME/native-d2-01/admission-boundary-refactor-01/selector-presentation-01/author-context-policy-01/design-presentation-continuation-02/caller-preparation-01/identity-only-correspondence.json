@@ -1,0 +1,19 @@
+{
+  "predecessorCallerSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-01/caller-preparation-01/preparation/caller-subject.json",
+  "predecessorSha256": "6a7c1f6931729f77d592bc36fa0a2fdafc1fc4c17b5f04b6bb4de51ba43b19ba",
+  "subjectSha256": "c8d8f51398e220faa29fd69ecba102082ce03ac47fba57c41eb2238cff7e4553",
+  "changes": [
+    "compiled29/core29 \u2192 compiled30/core30 artifact/target identities",
+    "new isolated caller/evidence directory"
+  ],
+  "unchanged": [
+    "sourceRun and exact sourcePrefix",
+    "entry close",
+    "native-intake ordinary input bytes",
+    "original source/job/oracle/physical workspace ancestry",
+    "dev15 consumer selection and existing verification reuse predicate",
+    "eight setup calls plus resolution, public source-root read, genuine witness, actual intake and only returned declared suffix",
+    "all model/client/effort/cost/duration/heap controls and live gate"
+  ],
+  "runtimeEffects": 0
+}

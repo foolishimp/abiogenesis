@@ -1,0 +1,44 @@
+{
+  "operation": "T287_C10_EFFECT_CENSUS_SUPPLEMENT_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Worker",
+  "allSevenSectionsRead": true,
+  "operativeAuthority": "Root Executive NEW_TASK message, installed a_c rendering retained by Root as f11_c10_effect_census_grant_01",
+  "previousRole": "construction Worker CLOSED",
+  "firstEffect": "this NEW territory and activation.json",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c10-effect-census-supplement-01",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-freeze.json",
+    "bytes": 386759,
+    "sha256": "24cd23e713c0adac12f0fe62b2fda751ee6648936bd180439e63e65e609a8be3",
+    "mode": 420
+  },
+  "readonlyTerritories": [
+    "C10",
+    "previous cuts",
+    "Source",
+    "ambient generated",
+    "stores",
+    "HOME"
+  ],
+  "forbiddenEffects": [
+    "imports",
+    "Node",
+    "npm",
+    "build",
+    "test",
+    "pack",
+    "install",
+    "Runtime",
+    "network",
+    "Git",
+    "cache deletion"
+  ],
+  "permittedEffects": "Python read/hash/census/report only with PYTHONDONTWRITEBYTECODE=1; new external supplement only",
+  "newTerritoryInitiallyAbsent": true,
+  "activatedAt": "2026-10-04T04:48:59.893981+00:00",
+  "unknowns": [
+    "inherited NODE_COMPILE_CACHE",
+    "possible timing influence; no cache-independent reproduction claim"
+  ]
+}

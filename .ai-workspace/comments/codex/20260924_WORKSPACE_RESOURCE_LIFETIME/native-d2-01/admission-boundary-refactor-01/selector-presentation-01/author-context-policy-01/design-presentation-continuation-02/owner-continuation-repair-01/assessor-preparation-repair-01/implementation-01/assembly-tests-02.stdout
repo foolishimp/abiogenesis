@@ -1,0 +1,12 @@
+(node:14585) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ assessment-first actual successor preserves typed retained terms and full pending candidate under the unchanged bound (404.968ms)
+ℹ {"scope":"actual composed assessment-first successor; disclosed component authentication/role/currentness premises","retainedInputDigest":"sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566","successorDigest":"sha256:6b4917a497fbb0de0b1b75817feb4ab99adb109186b72fb2f0f49ac7fdc616c4","promptBytes":994022,"maxPromptBytes":1048576,"headroomBytes":54554,"historicalAssets":5,"retainedTerms":29,"retainedTermsBytes":57151,"pendingAssetRef":"semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df","sections":{"role":115778,"source":6709,"obligations":156072,"predecessors":1584,"worksite":225506,"evidence":349,"task":486305,"response":1612}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 453.337542

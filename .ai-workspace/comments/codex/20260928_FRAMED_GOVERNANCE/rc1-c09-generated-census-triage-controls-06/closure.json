@@ -1,0 +1,26 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "operation": "T287_C09_MECHANICAL_ACCEPTANCE_GENERATED_CENSUS_WRITER_01",
+  "restoredRole": "Executive",
+  "mechanicalAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-mechanical-conjunction-acceptance-01/acceptance.json",
+    "bytes": 3439,
+    "sha256": "4ad623a7a0926134664e00c5be839cec24145c3355af36d05bedf1ab22148f17",
+    "mode": 420
+  },
+  "workerGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/worker-request.txt",
+    "bytes": 4215,
+    "sha256": "2e1f43d289f7740527e6f5367567d2dddb7f87e4232ca2492dd62d97bb67ddbe",
+    "mode": 420
+  },
+  "conditionalReviewGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/review-request.txt",
+    "bytes": 2677,
+    "sha256": "5634aa2a9477f92a1c3e0f2fbe5fa8599b72f07e127fb719f73baaccc3c58624",
+    "mode": 420
+  },
+  "SourceGeneratedRuntimeGitEffects": 0,
+  "closedAt": "2026-10-03T11:33:53.221641+00:00"
+}

@@ -1,0 +1,39 @@
+{
+  "source140Ledger": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/source-preimages.json",
+  "sourceBaselineCount": 263,
+  "sourceBaselineAllMatch": true,
+  "selected": [
+    {
+      "relativePath": "design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "19971520ad82c0b284056f6f9693481d74534ad1170507dd1cbe53070d82284a",
+      "byteCount": 32671,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/preimages/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "mode": "selected_write"
+    },
+    {
+      "relativePath": "code/src/hog/recursion_lifecycle.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "7fb2656e927ade4159c4dc18eed6d6e4139e48d4791f85177912b7879fb697c2",
+      "byteCount": 31714,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/preimages/code/src/hog/recursion_lifecycle.ts",
+      "mode": "selected_write"
+    },
+    {
+      "relativePath": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "3fe0005bd4a8403bb91bde4e09122cd8f1372d7f85be29d1b48bb863d1aeef7d",
+      "byteCount": 15890,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/preimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "mode": "selected_write"
+    },
+    {
+      "relativePath": "code/src/abg/runtime_failure.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+      "sha256": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994",
+      "byteCount": 13253,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/preimages/code/src/abg/runtime_failure.ts",
+      "mode": "read_only_owner"
+    }
+  ]
+}

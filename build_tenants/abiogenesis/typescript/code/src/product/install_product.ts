@@ -1,6 +1,7 @@
 import { execFile } from "node:child_process";
 import { access, lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
-import { join, relative, resolve, sep } from "node:path";
+import { isAbsolute, join, relative, resolve, sep } from "node:path";
+import { createRequire } from "node:module";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
@@ -16,6 +17,7 @@ import type {
 } from "./contracts.js";
 import {
   type ProductInstall,
+  type ResolvedProductLockRow,
   verifiedArtifactMatchesResolvedLock,
   verifiedArtifactMatchesEstablishedLock,
 } from "./environment.js";
@@ -199,6 +201,97 @@ export async function installedProductContentMatches(
   }
 }
 
+async function managedDependencyRoot(
+  importerRoot: string,
+  packageName: string,
+  targetRoot: string,
+): Promise<string | null> {
+  const packagePaths = createRequire(join(importerRoot, "package.json"))
+    .resolve.paths(packageName);
+  for (const path of packagePaths ?? []) {
+    const candidate = join(path, ...packageName.split("/"));
+    if (!await exists(candidate)) continue;
+    // Match the first actual Node package location, never substitute an ambient
+    // or later search-path copy for a missing/crossed selected managed Product.
+    const relation = relative(resolve(targetRoot), candidate);
+    const stat = await lstat(candidate);
+    return !isAbsolute(relation) && relation !== ".." && !relation.startsWith(`..${sep}`) &&
+        !stat.isSymbolicLink() && stat.isDirectory()
+      ? candidate
+      : null;
+  }
+  return null;
+}
+
+async function installedDependencyMatchesLockRow(
+  installedRoot: string,
+  row: ResolvedProductLockRow,
+): Promise<boolean> {
+  const packageJson = JSON.parse(
+    await readFile(join(installedRoot, "package.json"), "utf8"),
+  ) as unknown;
+  const manifest = parseProductManifest(JSON.parse(
+    await readFile(join(installedRoot, "product-toolchain-manifest.json"), "utf8"),
+  ));
+  return typeof packageJson === "object" && packageJson !== null &&
+    "name" in packageJson && packageJson.name === row.packageName &&
+    "version" in packageJson && packageJson.version === row.packageVersion &&
+    manifest !== null && manifest.productId === row.productId &&
+    manifest.packageName === row.packageName &&
+    manifest.packageVersion === row.packageVersion &&
+    manifest.productContentDigest === row.productContentDigest &&
+    sha256Canonical(manifest as unknown as JsonValue) === row.manifestDigest &&
+    await installedPayloadMatchesGraphCarrier(
+      installedRoot,
+      manifest,
+      row.productContentDigest,
+      row.capabilityDefinitionGraph,
+      row.capabilityDefinitionGraphAsset,
+    );
+}
+
+async function managedDependenciesMatchResolvedLock(
+  request: InstallProductRequest,
+  installedRoot: string,
+): Promise<boolean> {
+  const pending = [{
+    installedRoot,
+    dependencies: request.verifiedArtifact.declaredDependencies,
+  }];
+  // Call-local readback reuse only; no receipt or authority is created here.
+  const checked = new Set<string>();
+  try {
+    for (const importer of pending) {
+      for (const dependency of importer.dependencies) {
+        const rows = request.resolvedLock.rows.filter(
+          (row) => row.productId === dependency.productId,
+        );
+        const row = rows.length === 1 ? rows[0] : undefined;
+        if (row === undefined) return false;
+        const dependencyRoot = await managedDependencyRoot(
+          importer.installedRoot,
+          row.packageName,
+          request.targetRoot,
+        );
+        if (dependencyRoot === null) return false;
+        const key = `${dependencyRoot}\0${row.productId}\0${row.manifestDigest}`;
+        if (checked.has(key)) continue;
+        if (!await installedDependencyMatchesLockRow(dependencyRoot, row)) {
+          return false;
+        }
+        checked.add(key);
+        pending.push({
+          installedRoot: dependencyRoot,
+          dependencies: row.declaredDependencies,
+        });
+      }
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function installProduct(
   request: InstallProductRequest,
 ): Promise<ProductInstallResult> {
@@ -329,6 +422,12 @@ async function installProductWithMembership(
     if (await exists(join(installedRoot, path))) {
       return refusal("unexpected_source_surface", `installed package contains source-only path: ${path}`);
     }
+  }
+  if (!await managedDependenciesMatchResolvedLock(request, installedRoot)) {
+    return refusal(
+      "dependency_lock_mismatch",
+      "materialized managed Product dependencies differ from the selected resolved lock",
+    );
   }
   const contentSuffix = request.verifiedArtifact.productContentDigest.slice("sha256:".length);
   const lockSuffix = request.resolvedLock.lockDigest.slice("sha256:".length);

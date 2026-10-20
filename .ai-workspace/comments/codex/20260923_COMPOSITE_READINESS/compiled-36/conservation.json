@@ -1,0 +1,109 @@
+{
+  "frozenMembersConserved": 14,
+  "sourceFreezeMembers": 836,
+  "archiveMembers": 5233,
+  "unchangedArchiveMembers": 5228,
+  "archiveDelta": [
+    {
+      "path": "build/code/src/abg/execution_basis.js",
+      "before": {
+        "path": "build/code/src/abg/execution_basis.js",
+        "bytes": 107814,
+        "sha256": "268204a36c71c4a573bc3738b53f8d606f02245647d392e95c93ab418aca7c6d"
+      },
+      "after": {
+        "path": "build/code/src/abg/execution_basis.js",
+        "bytes": 107821,
+        "sha256": "6afee3c1868f2d9c225234a26823b35b7327b89aee3313a358b9084263d8a9bd"
+      }
+    },
+    {
+      "path": "build/code/src/abg/worksite_revision.d.ts",
+      "before": {
+        "path": "build/code/src/abg/worksite_revision.d.ts",
+        "bytes": 5067,
+        "sha256": "21e8b263df041fcf76abf72b960e3bf9d11333a092bb18b50d3dbb862da43697"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_revision.d.ts",
+        "bytes": 5185,
+        "sha256": "00b7388875a2280a441eb1cfcdf9f49bfe1ef71b94f6dcc30a352a6388567562"
+      }
+    },
+    {
+      "path": "build/code/src/abg/worksite_revision.js",
+      "before": {
+        "path": "build/code/src/abg/worksite_revision.js",
+        "bytes": 64076,
+        "sha256": "67afbb9700c68ed4f15cb2fd42524c60e640c34a4b2d4e3785f0d2577bb3a169"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_revision.js",
+        "bytes": 64515,
+        "sha256": "f84c19cd557ed7e0afdedfc8e9ffc75f707ceec644c2188ce3f5bc588f1f0390"
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "cee67cf9e6b0bd2be7f2d8487a4d22a4ff463b8c2db7f4dc7cf7892bc622f5a7"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "f1e3b13c8d06f51b1ac55426698f8da4846c2216cf70dbf9d65cb79ed3702618"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "f57429001c53ba509b5f46b14fe446635eaab3b56539b3538a302355ee606c9d"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "3954d1ca8836723d27f81b5c2978e5102f59524077194f13e4b7deebfd7fef42"
+      }
+    }
+  ],
+  "generatedMetadataDelta": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "cee67cf9e6b0bd2be7f2d8487a4d22a4ff463b8c2db7f4dc7cf7892bc622f5a7"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "f1e3b13c8d06f51b1ac55426698f8da4846c2216cf70dbf9d65cb79ed3702618"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "f57429001c53ba509b5f46b14fe446635eaab3b56539b3538a302355ee606c9d"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "3954d1ca8836723d27f81b5c2978e5102f59524077194f13e4b7deebfd7fef42"
+      }
+    }
+  ],
+  "retainedConsumer": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev15/installed-consumer.json",
+    "artifactDigest": "sha256:0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+    "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e",
+    "manifestDigest": "sha256:0327ef3c929aecdd282342f93304ed45e1ae2fdeb71a528b4d113984cfdaf6ee"
+  },
+  "compileAndTests": "Closed 5.51 s compile and 10 affected passing checks reused; no repeat",
+  "goalsTracking": "GOALS remains outside the selected source/build/governing/archive inventories."
+}

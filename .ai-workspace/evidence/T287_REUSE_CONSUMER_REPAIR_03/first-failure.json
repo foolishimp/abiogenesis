@@ -1,0 +1,45 @@
+{
+  "status": "STOPPED_NO_RETRY",
+  "diagnostic": {
+    "type": "test:fail",
+    "data": {
+      "name": "actual native C10 consumer and current-bound canonical successor preparation",
+      "nesting": 0,
+      "testNumber": 1,
+      "details": {
+        "duration_ms": 16896.566375,
+        "type": "test",
+        "error": {
+          "name": "Error",
+          "message": "The input did not match the regular expression /preimage_missing_or_crossed/. Input:\n\n'TypeError: qualification_declaration_selection_unbound'\n",
+          "stack": "Error [ERR_TEST_FAILURE]: The input did not match the regular expression /preimage_missing_or_crossed/. Input:\n\n'TypeError: qualification_declaration_selection_unbound'\n",
+          "cause": {
+            "name": "AssertionError",
+            "message": "The input did not match the regular expression /preimage_missing_or_crossed/. Input:\n\n'TypeError: qualification_declaration_selection_unbound'\n",
+            "stack": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /preimage_missing_or_crossed/. Input:\n\n'TypeError: qualification_declaration_selection_unbound'\n\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs:131:12)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+            "code": "ERR_ASSERTION",
+            "actual": {
+              "name": "TypeError",
+              "message": "qualification_declaration_selection_unbound",
+              "stack": "TypeError: qualification_declaration_selection_unbound\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_resources.js:157:23\n    at Array.map (<anonymous>)\n    at QualificationResources.declarations (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_resources.js:155:27)\n    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs:131:44\n    at getActual (node:assert:609:5)\n    at strict.throws (node:assert:757:24)\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs:131:12)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)"
+            },
+            "expected": {}
+          },
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure"
+        }
+      },
+      "line": 22,
+      "column": 26,
+      "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+    }
+  },
+  "ownerGuard": "QualificationResources.declarations checks exact manifest.declarationSelections membership before proof preimage matching",
+  "actualGuard": "qualification_declaration_selection_unbound",
+  "testWrongOracle": "preimage_missing_or_crossed",
+  "callerLine": 131,
+  "libraryLine": 157,
+  "originatingRelation": "external negative fixture/oracle targets the later proof lookup with an unbound selector",
+  "noFrameworkDefectEstablished": true,
+  "noPatchRetry": true
+}

@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "sixWrappers": [
+    "graph-function://abiogenesis/default-library/construction@5",
+    "graph-function://abiogenesis/default-library/design@5",
+    "graph-function://abiogenesis/default-library/induction@5",
+    "graph-function://abiogenesis/default-library/specification@5",
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/uat@5"
+  ],
+  "exactOnlyChange": "Repeated state contract removed once in all six wrappers; every other full11 publication field matches original exact inputs.",
+  "deliberateDuplicate": {
+    "kind": "static_validation_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "invalid",
+    "stage": "publication",
+    "subjectDigest": "sha256:f648962176e58c730371ac6251cf7be5208cab4fe40b81e50a13481335522fd0",
+    "diagnostics": [
+      {
+        "code": "duplicate_identity",
+        "path": "$.graphFunctions[graph-function://abiogenesis/default-library/testing@5].environment.carries",
+        "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/default-library/state@5"
+      }
+    ]
+  },
+  "badNonSelectedPublication": {
+    "selected": "module://abiogenesis/conformance/hello-world@5",
+    "invalid": "module://abiogenesis/default-library/default@5",
+    "error": {
+      "name": "AssertionError",
+      "message": "module://abiogenesis/default-library/default@5: {\"kind\":\"static_validation_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"invalid\",\"stage\":\"publication\",\"subjectDigest\":\"sha256:f648962176e58c730371ac6251cf7be5208cab4fe40b81e50a13481335522fd0\",\"diagnostics\":[{\"code\":\"duplicate_identity\",\"path\":\"$.graphFunctions[graph-function://abiogenesis/default-library/testing@5].environment.carries\",\"message\":\"duplicate GraphFunction carried environment ref contract://abiogenesis/default-library/state@5\"}]}\n+ actual - expected\n\n+ 'static_validation_refusal'\n- 'publication_validation'\n"
+    }
+  },
+  "wholeHelperAccepts": 11,
+  "elapsedMs": 61.005167,
+  "nativeCalls": 0,
+  "packageInstallEffects": 0
+}

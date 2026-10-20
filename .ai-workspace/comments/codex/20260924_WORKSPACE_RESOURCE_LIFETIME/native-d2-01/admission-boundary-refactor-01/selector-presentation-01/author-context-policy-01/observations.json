@@ -1,0 +1,203 @@
+{
+  "status": "CLOSED_CROSS_PRODUCT_DECLARATION_BOUNDARY_NO_SOURCE_MUTATION",
+  "scope": "Retained declaration/first-cause comparison and exact source trace; no runtime prefix reconstruction, preparation execution or owner authentication simulated.",
+  "programRef": "program://odd-glc/native-semantic-revision/from-requirements@5",
+  "environmentRef": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-from-requirements",
+  "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5",
+  "roles": [
+    {
+      "role": "author",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/stage-2@5",
+      "programLocusRef": "locus://odd-glc/generic-lifecycle/requirements/author@5",
+      "contextPolicy": {
+        "policyRef": "policy://odd-glc/fresh-native-lifecycle/author/selection@5",
+        "selectors": [
+          "current_worksite"
+        ]
+      },
+      "requiredSelectors": [
+        "full_source",
+        "declared_predecessor_semantics",
+        "active_binding_semantics"
+      ],
+      "missingSelectors": [
+        "full_source",
+        "declared_predecessor_semantics",
+        "active_binding_semantics"
+      ],
+      "declaredWorksiteContent": "not_required",
+      "currentWorksiteWouldAlsoRefuse": true,
+      "standards": [
+        {
+          "requiredRef": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+          "matchingBindings": [
+            {
+              "binding": {
+                "contextRef": "context://odd-glc/fresh-native-config/current-meaning@5",
+                "endByte": 13840,
+                "memberDigest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+                "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+                "spanDigest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+                "startByte": 0
+              },
+              "member": {
+                "byteCount": 13840,
+                "digest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+                "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+                "path": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md"
+              },
+              "sourceLocator": "basis://odd-glc/fresh-native-config/9780971880110d0a1c107899aff2c3668150fcd87b4a13c47df7bc6e321d6adc"
+            }
+          ]
+        },
+        {
+          "requiredRef": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+          "matchingBindings": [
+            {
+              "binding": {
+                "contextRef": "context://odd-glc/fresh-native-config/current-meaning@5",
+                "endByte": 14008,
+                "memberDigest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+                "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+                "spanDigest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+                "startByte": 0
+              },
+              "member": {
+                "byteCount": 14008,
+                "digest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+                "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+                "path": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md"
+              },
+              "sourceLocator": "basis://odd-glc/fresh-native-config/9780971880110d0a1c107899aff2c3668150fcd87b4a13c47df7bc6e321d6adc"
+            }
+          ]
+        }
+      ],
+      "missingStandardRefs": []
+    },
+    {
+      "role": "assessor",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/stage-2@5",
+      "programLocusRef": "locus://odd-glc/generic-lifecycle/requirements/assessor@5",
+      "contextPolicy": {
+        "policyRef": "policy://odd-glc/fresh-native-lifecycle/assessor/selection@5",
+        "selectors": [
+          "current_worksite"
+        ]
+      },
+      "requiredSelectors": [
+        "full_source",
+        "declared_predecessor_semantics",
+        "active_binding_semantics",
+        "current_candidate"
+      ],
+      "missingSelectors": [
+        "full_source",
+        "declared_predecessor_semantics",
+        "active_binding_semantics",
+        "current_candidate"
+      ],
+      "declaredWorksiteContent": "not_required",
+      "currentWorksiteWouldAlsoRefuse": true,
+      "standards": [
+        {
+          "requiredRef": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+          "matchingBindings": [
+            {
+              "binding": {
+                "contextRef": "context://odd-glc/fresh-native-config/current-meaning@5",
+                "endByte": 13840,
+                "memberDigest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+                "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+                "spanDigest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+                "startByte": 0
+              },
+              "member": {
+                "byteCount": 13840,
+                "digest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+                "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+                "path": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md"
+              },
+              "sourceLocator": "basis://odd-glc/fresh-native-config/9780971880110d0a1c107899aff2c3668150fcd87b4a13c47df7bc6e321d6adc"
+            }
+          ]
+        },
+        {
+          "requiredRef": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+          "matchingBindings": [
+            {
+              "binding": {
+                "contextRef": "context://odd-glc/fresh-native-config/current-meaning@5",
+                "endByte": 14008,
+                "memberDigest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+                "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+                "spanDigest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+                "startByte": 0
+              },
+              "member": {
+                "byteCount": 14008,
+                "digest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+                "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+                "path": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md"
+              },
+              "sourceLocator": "basis://odd-glc/fresh-native-config/9780971880110d0a1c107899aff2c3668150fcd87b4a13c47df7bc6e321d6adc"
+            }
+          ]
+        }
+      ],
+      "missingStandardRefs": []
+    }
+  ],
+  "refs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/return.md",
+      "sha256": "ddba2b262c31e1326144a3df9b7708619f63d1f63fe1961ed2ebef80e7e5d684",
+      "bytes": 4713
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/suffix-01/first-cause-public-evidence-02.json",
+      "sha256": "de814de3a7c207336236eaa6bb37419b55f026ffb70626c05a7bea2fa7fe4b1f",
+      "bytes": 11498
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/suffix-01/readback-basis.json",
+      "sha256": "5cfcd15a55e4d062b621f85027b7457e187bbd8eb56252dd5351158a9306ece9",
+      "bytes": 125166372
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/intake-01/intake-terminal-request.json",
+      "sha256": "6c64eea74fe80407fd5c0a0736ab8bd2d69b4c5ade946409a6843e97a218d42a",
+      "bytes": 296090
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-01/prepare.mjs",
+      "sha256": "96ad67bcc18e5124fb3b4273e5bdaf17c68d425fc9038d4e856794b3ae614bd3",
+      "bytes": 14796
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "8d814ce4a654448bbe281b6364d2b69e5128e5bc88bd6fede27e55b89ba07039",
+      "bytes": 80663
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+      "sha256": "892698e9bee12a30aad87d12447dd0be99a471354f6c0bcd29fea5b0819cce6a",
+      "bytes": 26577
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "sha256": "e973b1ed01980b773637b13ce15ed0a059f7de41123d906971a4dd557de4303f",
+      "bytes": 34538
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "sha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599",
+      "bytes": 34704
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev14/construct-consumer.mjs",
+      "sha256": "d4aac09b4ffd1936b88d02e8b35b9d823179110062a655464609770e6709f74e",
+      "bytes": 6549
+    }
+  ]
+}

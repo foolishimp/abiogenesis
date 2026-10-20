@@ -1,0 +1,50 @@
+{
+  "selectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216/freeze.json",
+      "sha256": "a5fa40a96cffb3e08615e32e7731fbb606e2477760d9864a2638b36a8bab638a",
+      "byteCount": 11009
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/freeze.json",
+      "sha256": "3a229f3516dad39049735e4c028de8f03b0b917b608c2de4e21d12180c8ce715",
+      "byteCount": 7316
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/prepare.mjs",
+      "sha256": "abb66c0f1da4d3c835c06edadec99f3512a9f0a6505dd8c5027f97dd2f59fce5",
+      "byteCount": 39024
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/inputs.json",
+      "sha256": "01ec9aac99ee8b5804c032192bd699f359cfccdda943d1ef46278be3d17f72e4",
+      "byteCount": 15266
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/final-close-handoff.json",
+      "sha256": "a174afdd863e8fad4d5dd17105e69c7d40127cb06cbc79d7a37a72451c52afb5",
+      "byteCount": 1472
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "sha256": "7a50e8282b36d0601660845993dec674c50a1eaa04591c5664a8bf80001d90b9",
+      "byteCount": 46611
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "sha256": "708023a2fe0835efa47521599ad852468092e3295bbc74ab4ae157063324c6fe",
+      "byteCount": 84806
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "sha256": "13b6361c4d0c2b8b76bbf69054851bddb20b49206754284fcf65dfe9c2d19396",
+      "byteCount": 33095
+    }
+  ],
+  "matchedSubjectPins": {
+    "216": 37,
+    "216a": 19
+  },
+  "helpersByteEqual174": true,
+  "216aOnlyTwoDiagnosticWriteDeletions": true
+}

@@ -1,0 +1,144 @@
+{
+  "status": "CLOSED_INPUT_BYTES_AND_MAPPINGS_VERIFIED_NOT_SEMANTIC_ASSURANCE",
+  "exactCutsAndRequest": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-inputs-01/freeze.json",
+      "bytes": 4906,
+      "sha256": "54aa8df9e8b68c0ec35e00d4bc76535deb52698ec925b28e7444e28a23e0c845"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-inputs-01/return.md",
+      "bytes": 8181,
+      "sha256": "6a9d4a88665966376b9075baab2b984c32414f0c3932880c2772ee883bf0e9c4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/freeze.json",
+      "bytes": 4534351,
+      "sha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/freeze.json",
+      "bytes": 8013,
+      "sha256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-review-controls-01/request.txt",
+      "bytes": 6121,
+      "sha256": "cfd5bcc6275def7c61f6586c2990dea2de98495143ce9e26b1b5b21273aeb437"
+    }
+  ],
+  "attributionLocalRecords": 23,
+  "attributionInputJoinRecords": 2005,
+  "inventoryMembers": 1950,
+  "classCounts": {
+    "changed_selected_source_without_complete_routed_chain": 18,
+    "inherited_selected_source": 1077,
+    "retained_actual_source_transition": 8,
+    "deterministic_generated_output": 828,
+    "new_or_modified_external_control": 11,
+    "inherited_unchanged_external_control_copy": 4,
+    "supplied_archive_dependency_or_toolchain_manifest": 4
+  },
+  "classByteCounts": {
+    "changed_selected_source_without_complete_routed_chain": 1649714,
+    "inherited_selected_source": 53471562,
+    "retained_actual_source_transition": 316810,
+    "deterministic_generated_output": 34371958,
+    "new_or_modified_external_control": 1435896,
+    "inherited_unchanged_external_control_copy": 16211,
+    "supplied_archive_dependency_or_toolchain_manifest": 1921374
+  },
+  "currentMemberUtf8RoundTrips": 1950,
+  "inheritedSourceGitBlobIdsRecomputed": 1077,
+  "originalMaterialRecordsAndPhysicalCorrespondence": 26,
+  "originalMaterialBytes": 805908,
+  "originalAttributionSpans": 6,
+  "generatedChanged": 30,
+  "generatedUnchanged": 798,
+  "probeSourceInputRecordsRechecked": 13,
+  "sourceRecords": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/GOALS.md",
+      "bytes": 66149,
+      "sha256": "9e8fbf4e6df444bba9153dd3a7e4100fe3afe0ca9e163cbf7fc27c0084619ded"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_D4_SELF_CONFORMANCE_DESIGN.md",
+      "bytes": 17840,
+      "sha256": "b6d1edc9ea9c2847241c0855a8de92340b79aedf3459b18639a3fb748ccd3d4c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "bytes": 45510,
+      "sha256": "7f2ef6b22c5e6d7176e08dd2283ba3c09869a7738490090c444022a13ddfa41a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 34377,
+      "sha256": "cf50d1120b7a73aa8f09554a06793c419576bdf6d030c27d8af03c7168dd7e9b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 59810,
+      "sha256": "f8e92aa311cc56ce7ead7b6b51905791ace6502d4a7b5972a7671503ebe505d8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 74715,
+      "sha256": "a5802f5cd7dcc267356f4d0769de320ac58e17b5a7b94d0d8ee88e70e56e5fcb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+      "bytes": 58968,
+      "sha256": "ebd5a1eab534adaf55a4e5c987156dec2ddc00dcc5a5aa608e6a566251d0b7ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/digests.js",
+      "bytes": 838,
+      "sha256": "bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a"
+    }
+  ],
+  "actualJudgments": 0,
+  "nativeEffects": 0,
+  "limits": [
+    "Identity, authority, relevant semantic authorship, scope adequacy and actual assessor independence remain unevaluated native or source-grounded inputs.",
+    "UTF8 round trips establish only current byte representability, not meaningful construction or attribution.",
+    "No own prior scope material or grouping adequacy was assessed; no moving publication repair/native output was read.",
+    "Full C/Q record sets were previously verified; this review rechecks their frozen identities, all routed A inputs and the explicitly used source/owner joins."
+  ]
+}

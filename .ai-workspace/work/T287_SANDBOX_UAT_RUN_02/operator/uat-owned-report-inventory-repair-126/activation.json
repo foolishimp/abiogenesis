@@ -1,0 +1,31 @@
+{
+  "role": "HarnessWorker126",
+  "authority": "Root conjoins frozen125 HOLD; narrow successor of immutable122",
+  "basis": "fixed15 ABI5 GOAL035 T287 STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b",
+      "byteCount": 25236
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "5c027de1834f5dd5b36b7b93c7c2771f47d233b85af5fccb47d2f75109cb4101",
+      "byteCount": 67591
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/README.md",
+      "sha256": "e6d7555654f8a31334b686a0098a828454ee540b5e0a31ad5f72881a355520e7",
+      "byteCount": 2983
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "22d433085d9d4cf81221e45d566442c391cc35cb3fa7238a36a6d416c63a71d9",
+      "byteCount": 34763
+    }
+  ],
+  "HOW": "README same-selected-observation complete report inventory before code",
+  "cause": "122 verifies eight published report rows but omitted original test_report_set_exact complete matching inventory predicate",
+  "constraints": "only four selected caller files; seven derived module pins only; no original request/rubric/source, Product, app, runtime, provider, package, Git or old evidence effects"
+}

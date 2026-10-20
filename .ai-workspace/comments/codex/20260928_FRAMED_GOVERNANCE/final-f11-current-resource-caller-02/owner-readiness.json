@@ -1,0 +1,47 @@
+{
+  "status": "PASSED",
+  "actualOwners": [
+    "constructStart ordinary installed owner chain",
+    "ProductRunInvocationPort.prepare"
+  ],
+  "actualOwnerKind": "prepared_product_run_invocation",
+  "strictInputKeys": [
+    "kind",
+    "plan",
+    "schemaVersion",
+    "task"
+  ],
+  "unchangedPolicyGrantsAuthority": true,
+  "inputDigest": "sha256:a1bdf000af5f0857a1facc3f4d434a8452b0e094b0266ab81fb656eb94c19a7b",
+  "taskDigest": "sha256:acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85",
+  "planDigest": "sha256:c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98",
+  "rawContract": "contract://abiogenesis/qualification/assessment-raw@5",
+  "reusedRender": {
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/worker-request.json",
+      "bytes": 1062803,
+      "sha256": "0d21b292dc1944eac9c8fbf01475a68e72ca27e17c083af2929c4402818e7401"
+    },
+    "prompt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/prompt.txt",
+      "bytes": 1021244,
+      "sha256": "35d718313300c7feb1ebc64d699c373c58dd9de868bc68c9c14a83e7d7ee4264"
+    },
+    "promptUtf8Bytes": 1021244,
+    "renderRepeated": false
+  },
+  "reusedProgramConformance": "Prior exact installed Program conformance and unchanged publication; later declared five-call plan rechecks it ordinarily",
+  "cli": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "elapsedMs": 18984.470083,
+  "nativeCalls": 0,
+  "modelCalls": 0,
+  "residuals": [
+    "usable actual native provider access",
+    "live same-process nominal verification",
+    "actual raw assessment/J",
+    "semantic sufficiency/applicability",
+    "historical author/grant and assessor independence",
+    "full F11/AF22/RC1"
+  ],
+  "claim": "Current136 successor owner preparation ready; mechanical correspondence does not establish semantic context sufficiency or actual transport acceptance."
+}

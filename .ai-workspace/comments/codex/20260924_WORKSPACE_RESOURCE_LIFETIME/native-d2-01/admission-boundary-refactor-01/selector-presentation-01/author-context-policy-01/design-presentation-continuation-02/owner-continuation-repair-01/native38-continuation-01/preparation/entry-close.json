@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:ed4d053bba4df989638323f4b4710f5860252f252cb7276ea3e694ffb45abbde",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:c3855298d37c16e6248d9baadd8af7d5ea92de3e70b7978ff85a988bce7927ca",
+    "prefixLength": 363731863,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:21c35fb5c4ac5f3325dc965c9c6833e5c53bd6d46949e11047a43d9185198af2",
+    "device": 16777230,
+    "durableByteLength": 363731863,
+    "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+    "eventLogDigest": "sha256:c3855298d37c16e6248d9baadd8af7d5ea92de3e70b7978ff85a988bce7927ca",
+    "eventLogPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "inode": 459405010,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

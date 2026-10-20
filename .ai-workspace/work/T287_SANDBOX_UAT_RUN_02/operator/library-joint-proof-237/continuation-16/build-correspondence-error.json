@@ -1,0 +1,4 @@
+{
+  "exception": "AssertionError",
+  "message": "[{'relativePath': 'build/code/src/abg/native_work_reacquisition.js', 'before': 'b14f21b1b758d5591c7d6ac8174f9a2b8c76023b85d7f54e6a3fc70ad016cd69', 'after': '134e23bc6ba742a64c1fa9cab9dd9570c19a1d97b06a2607de7b961a756dc66a', 'byteCount': 32677}]"
+}

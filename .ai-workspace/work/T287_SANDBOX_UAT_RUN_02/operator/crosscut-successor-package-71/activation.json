@@ -1,0 +1,23 @@
+{
+  "role": "Writer71 immutable unpublished candidate20 construction",
+  "rootClosedSourceUnionGO": true,
+  "rootClosedGeneration77GO": false,
+  "generation77PendingAtActivation": true,
+  "method": "STDO2.5.1RC2/fixed15 ABI5 GOAL035/T287",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "classification": "deterministic immutable package construction",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/freeze.json",
+    "sha256": "80cc0615036f15be45c04591335a0ec65f7946075feea7e0a87aeac15b6adca4",
+    "byteCount": 18394
+  },
+  "effectTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71"
+  ],
+  "inputs": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/inputs.json",
+  "allInputCount": 1223,
+  "path": "accepted75 build -> one npm pack --ignore-scripts -> exact composed64/68/75 member delta -> source-blind packaged verifyProduct -> immutable freeze",
+  "retainedP0": "Installed memory P0 and fullUAT OPEN; crosscut source readiness and prior memory repairs have bounded claims",
+  "nativeCredit": false
+}

@@ -1,0 +1,44 @@
+{
+  "kind": "source42_emission_conservation",
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/dependency-cut-41-emission.json",
+    "sha256": "519975be35dcef198114a901955166e508a78e1d4bab236c0cba02989c4744cc",
+    "bytes": 190945
+  },
+  "current": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/dependency-cut-42-emission.json",
+    "sha256": "85a4c08af7920ec314f8499694af1788abc7ea02bab0a6f26cdcd7932f9d698a",
+    "bytes": 190943
+  },
+  "outputFiles": 528,
+  "unchanged": 527,
+  "changed": [
+    {
+      "relativePath": "gtl/worksite_command_execution.js",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/build-01/code/src/gtl/worksite_command_execution.js",
+        "relativePath": "gtl/worksite_command_execution.js",
+        "sha256": "6afd1478dcfb3582943a8b347ce2cd134f975997e223061db1135ce0ba5cf682",
+        "bytes": 25001
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/build-01/code/src/gtl/worksite_command_execution.js",
+        "sha256": "baabc471651f583599a0f6616967c43ef262dbdb3fc389f445a10f723d60d1ac",
+        "bytes": 25001,
+        "relativePath": "gtl/worksite_command_execution.js"
+      }
+    }
+  ],
+  "declarations": {
+    "count": 264,
+    "byteExact41": true,
+    "strippedCleanProofReused": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/commands/declarations-01.result.json",
+      "sha256": "aec6a826d4e5e5640a5549c2af1550effd217b5cf783eb89ee33e38086f5f793",
+      "bytes": 236
+    }
+  },
+  "limits": [
+    "Isolated emission only; no canonical generation/archive/installed correspondence"
+  ]
+}

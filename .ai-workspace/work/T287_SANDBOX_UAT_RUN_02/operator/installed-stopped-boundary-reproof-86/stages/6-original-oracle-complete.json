@@ -1,0 +1,15 @@
+{
+  "stage": "original-oracle-complete",
+  "at": "2026-10-08T08:20:56.863Z",
+  "elapsedMs": 342871.895042,
+  "memory": {
+    "rss": 2374025216,
+    "heapTotal": 2162819072,
+    "heapUsed": 2025027760,
+    "external": 3984390,
+    "arrayBuffers": 1573819,
+    "maxRSSKiB": 3834224
+  },
+  "disposition": "unmet",
+  "criteria": 67
+}

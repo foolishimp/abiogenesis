@@ -1,0 +1,12 @@
+{
+  "name": "03-binding",
+  "command": [
+    "node",
+    "bind-and-render.mjs"
+  ],
+  "pid": 9267,
+  "elapsedMs": 4605.5410001426935,
+  "exitCode": 0,
+  "timedOut": false,
+  "scope": "Pure external construction/validation/rendering; no native/provider dispatch"
+}

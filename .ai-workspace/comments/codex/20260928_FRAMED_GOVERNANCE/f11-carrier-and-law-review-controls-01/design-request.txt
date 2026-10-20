@@ -1,0 +1,20 @@
+Activation and outcome
+T287_F11_DESIGN_INDEPENDENT_REVIEW_01; actor /root/f11_binding_plan; Reviewer read-only source. Determine whether the smallest complete HOW is compatible with Product and sufficient to implement the actual full F11 carrier causal cone. This is design assurance, not implementation or qualification.
+
+Product and exact basis
+Independently reacquire README, specification/GOALS.md, INTENT.md, PRODUCT.md and relevant SELF-CONFORMANCE/QUAL requirements before findings. Reconstruct Product Frame: fixed 15 ABG5 families; active GOAL-035/T287 F11/F15/F16, complete exact-subject qualification. GTL declares, HoG traverses, existing leaves effect, ABG alone admits, replay projects. Governing development law stdo://releases/v2.5.1-rc.2/, Definition SHA eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c, manifest 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782. C02/Q02 and accepted Hello/S02 evidence retain their exact original subjects and RC1 law. No private writer/controller/store/cache, weakened scope, invented authority or component-pass qualification.
+
+Selected reference frames
+repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration composed with Product/Owner, Design, Identity/Install and Proof. Bind exact workspace variables, earliest violated relation, supported joint cause, escape cause, cone, owner/reentry and reproof. Frame names alone are not triage.
+
+Exact subject and source routes
+Frozen T287_F11_CARRIER_RESOURCE_DESIGN.md SHA744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b; design freeze365bb3c465906335989b34e7d6be1c25301557fe13a07b2e062c9deb4ec10c12; sourcepins ae572dbbb1f06ec4be256849ac75e734e3ce1555d250da87ac12213960c4e733. Law dependency separately frozen a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872.
+
+Permitted effects and territory
+Read exact design, its source routes, root-cause handoff, existing qualification/resource/native proof and actual cold consumers in ABI repo and selected immutable STDO install. Source/design/candidate/proof cuts read-only. Only optional new f11-carrier-resource-design-review-01/ report territory may be written after an explicit separate Writer/report activation; no copying large bodies or whole environments into report.
+
+Evidence, counterexamples and stops
+Triangulate scope conservation/ordinals/per-rule domains/material/provenance; Run resource authority and accessible archive; actual raw task/plan identity; current establishment vs admitted cold consumption; complete declaration reconstruction; actual actor/artifact/request/result-lineage joins; compact successful J and F11 output/AF22; child/continuation/fresh-read consumers. Test proposal against exact current owner operations, not presumed equivalence to R10. Validate implementation territory and the first full-path discriminator, nearest negatives and cost accounting. Local names/algorithms remain Worker decisions. Distinguish proved design incompatibility/blocker from deferred assurance; return first missing relation and lawful bounded repair if any. Stop on actual subject drift; preserve conflicts and uncertainty. Restricted native DNS is independent and cannot justify an invented pass or networking bypass.
+
+Return and independence
+Return CLOSED to Executive with Product Frame, exact subject/source verification, findings/verdict, design or source readiness, exclusions and affected proof. Do not repair or activate another actor. Freeze any new report cut and stop writes. Existing owner grant to fix and close5.0 remains active; this review adds no Product goal or exhaustive campaign.

@@ -1,0 +1,46 @@
+{
+  "compile": {
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "exitCode": 0,
+    "output": "compile.stdout",
+    "elapsed": "not separately captured"
+  },
+  "focused": {
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "command": "ABI5_NATIVE_D2_DESIGN_DIRECTORY=/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01 node --experimental-vm-modules --test --test-name-pattern='native D2|native revision decision view preserves|native revision decision view leaves|retained revision Design' test_env/tests/t288-instruction-assembly-owner.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+    "exitCode": 0,
+    "output": "check-04.stdout",
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "nodeTestDurationMs": 1226.699667
+  },
+  "presentation": {
+    "retainedInputDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185",
+    "completePromptBytes": 937078,
+    "sourceTracedPreviousPresentationBytes": 1457907,
+    "boundBytes": 1048576,
+    "savedBytes": 520829,
+    "boundMarginBytes": 111498,
+    "roleSourceSpans": 13,
+    "scope": "Actual retained values and exact published role byte spans; current runtime-prefix, role-evidence and physical authentication are substituted component premises. Previous complete presentation is a source-traced reconstitution of the two old display slots, not a retained runtime draft."
+  },
+  "firstChecksPreserved": {
+    "check-01.stdout": "Unrelated descriptor-loader fixture still doubles loadVerifiedInstalledModule, while current owning loader calls prepareInstalledProductModules. Left untouched. New negative fixture supplied a changed job without all original-envelope semantic identities and was correctly refused.",
+    "check-02.stdout": "Attempted Product job reconstruction still was not a valid same-envelope premise; removed that synthetic opaque variation, retained existing exact opaque-JSON tests and actual task-data identity assertion.",
+    "check-03.stdout": "Six affected checks passed; final check adds explicit previous-presentation byte measurement only."
+  },
+  "retainedDuties": [
+    "Exact admitted CCall result/evidence/J and existing undispatched authentication",
+    "Source Run/prefix/root ancestry, original job/lifecycle, unique cause/parent and exact input equality",
+    "Current physical context, original/current binding cover and invalidation",
+    "Independent selector, exact failed-stage choice, authenticated request, graph-declared whole suffix",
+    "Required semantic/source/role content, original 1 MiB bound, UTF8/base64 identity, opaque application JSON and historical counterevidence"
+  ],
+  "unexecuted": [
+    "New installed admission of latest source Run",
+    "New package or Public root/witness/intake/suffix",
+    "Native author, assessor, construction, C2 and terminal evaluation"
+  ]
+}

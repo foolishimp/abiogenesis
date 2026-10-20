@@ -1,0 +1,12 @@
+✔ shared continuation constructor admits workspace causes and authenticates pending Run payload after cold reopen (90.7565ms)
+✔ equal historical projection values do not mask the exact open current basis (0.471833ms)
+✔ occurrence selection refuses genuine ambiguity and crossed basis (0.061959ms)
+✔ retained catalog and view authority reject a coherent same-binding alternative (2508.118875ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3049.210875

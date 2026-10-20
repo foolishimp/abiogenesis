@@ -1,0 +1,2 @@
+Return the declared developer greeting output unchanged.
+{"kind":"developer_greeting_output","message":"Welcome Grace.","schemaVersion":"5.0.0"}

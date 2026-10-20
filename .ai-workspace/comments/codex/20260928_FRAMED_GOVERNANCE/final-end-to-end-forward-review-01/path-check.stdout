@@ -1,0 +1,15 @@
+{
+  "status": "supported incompatible caller coordinate",
+  "firstAffected": {
+    "ordinal": 12,
+    "commandId": "command://abiogenesis/rc1-qual056/compare",
+    "relativePath": "verification/reports/generated-comparison.json",
+    "ownerOutputPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/sandbox/verification/reports/generated-comparison.json",
+    "callerReadPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite/verification/reports/generated-comparison.json",
+    "callerSource": "output-checks.mjs:23"
+  },
+  "pathDifferenceChecks": 927,
+  "generatedFiles": 925,
+  "protectedOriginalFiles": 716,
+  "nativeCalls": 0
+}

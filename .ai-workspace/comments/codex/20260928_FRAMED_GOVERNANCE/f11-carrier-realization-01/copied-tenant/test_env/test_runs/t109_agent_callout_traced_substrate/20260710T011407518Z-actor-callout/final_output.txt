@@ -1,0 +1,1 @@
+{"artifact_kind":"supervised_process_actor_fixture","artifact_ref":"fixture://t097/universal-callout","agent":"fixture","result":"observed"}

@@ -1,0 +1,1520 @@
+{
+  "all_by_suffix": [
+    {
+      "suffix": ".json",
+      "files": 29681,
+      "bytes": 27048200018
+    },
+    {
+      "suffix": ".jsonl",
+      "files": 797,
+      "bytes": 9747385864
+    },
+    {
+      "suffix": ".part0000",
+      "files": 432,
+      "bytes": 3598359508
+    },
+    {
+      "suffix": "[no extension]",
+      "files": 7090,
+      "bytes": 972844715
+    },
+    {
+      "suffix": ".part0001",
+      "files": 32,
+      "bytes": 930583794
+    },
+    {
+      "suffix": ".part0002",
+      "files": 10,
+      "bytes": 498006425
+    },
+    {
+      "suffix": ".ts",
+      "files": 17512,
+      "bytes": 474622122
+    },
+    {
+      "suffix": ".part0003",
+      "files": 9,
+      "bytes": 399259586
+    },
+    {
+      "suffix": ".tgz",
+      "files": 145,
+      "bytes": 347520348
+    },
+    {
+      "suffix": ".part0004",
+      "files": 7,
+      "bytes": 345051776
+    },
+    {
+      "suffix": ".part0005",
+      "files": 6,
+      "bytes": 290210278
+    },
+    {
+      "suffix": ".part0006",
+      "files": 5,
+      "bytes": 256901120
+    },
+    {
+      "suffix": ".md",
+      "files": 12964,
+      "bytes": 235101440
+    },
+    {
+      "suffix": ".part0007",
+      "files": 5,
+      "bytes": 217492860
+    },
+    {
+      "suffix": ".part0008",
+      "files": 4,
+      "bytes": 186285604
+    }
+  ],
+  "untracked_by_suffix": [
+    {
+      "suffix": ".json",
+      "files": 25540,
+      "bytes": 26413849735
+    },
+    {
+      "suffix": ".jsonl",
+      "files": 728,
+      "bytes": 8924782605
+    },
+    {
+      "suffix": "[no extension]",
+      "files": 1578,
+      "bytes": 967544229
+    },
+    {
+      "suffix": ".ts",
+      "files": 17090,
+      "bytes": 460713751
+    },
+    {
+      "suffix": ".md",
+      "files": 9313,
+      "bytes": 165443949
+    },
+    {
+      "suffix": ".tar.gz",
+      "files": 1,
+      "bytes": 151470062
+    },
+    {
+      "suffix": ".mjs",
+      "files": 6585,
+      "bytes": 128779686
+    },
+    {
+      "suffix": ".txt",
+      "files": 4288,
+      "bytes": 98575089
+    },
+    {
+      "suffix": ".js",
+      "files": 3704,
+      "bytes": 89285701
+    },
+    {
+      "suffix": ".stdout",
+      "files": 1314,
+      "bytes": 89069174
+    },
+    {
+      "suffix": ".gz",
+      "files": 15,
+      "bytes": 57645336
+    },
+    {
+      "suffix": ".bin",
+      "files": 22,
+      "bytes": 28873570
+    },
+    {
+      "suffix": ".log",
+      "files": 846,
+      "bytes": 21595499
+    },
+    {
+      "suffix": ".snapshot",
+      "files": 4,
+      "bytes": 18775935
+    },
+    {
+      "suffix": ".patch",
+      "files": 90,
+      "bytes": 11895002
+    }
+  ],
+  "archive_count": 272,
+  "archive_bytes": 579762685,
+  "archives": [
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-42/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10182465,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-43/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10185885,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10186487,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-45/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10193316,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10193426,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/cursor-supplement/members.jsonl.gz",
+      "bytes": 14529,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/cursor-supplement/path-reconciliation.jsonl.gz",
+      "bytes": 2399,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/members.jsonl.gz",
+      "bytes": 5387208,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/path-reconciliation.jsonl.gz",
+      "bytes": 4441351,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/scratch-supplement/members.jsonl.gz",
+      "bytes": 1927,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/scratch-supplement/path-reconciliation.jsonl.gz",
+      "bytes": 525,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/incremental-inventory.jsonl.gz",
+      "bytes": 7633825,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-01/members.jsonl.gz",
+      "bytes": 79481,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 12270,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-late/members.jsonl.gz",
+      "bytes": 1021,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-late/path-reconciliation.jsonl.gz",
+      "bytes": 333,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-02/incremental-inventory.jsonl.gz",
+      "bytes": 26363,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-02/transport-01/members.jsonl.gz",
+      "bytes": 37090,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-02/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 5090,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-03/incremental-inventory.jsonl.gz",
+      "bytes": 61414,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-03/transport-01/members.jsonl.gz",
+      "bytes": 50432,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-03/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 7424,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/incremental-inventory.jsonl.gz",
+      "bytes": 29735,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/members.jsonl.gz",
+      "bytes": 24909,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 3792,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-05/incremental-inventory.jsonl.gz",
+      "bytes": 11448,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-05/transport-01/members.jsonl.gz",
+      "bytes": 9624,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-05/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1680,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-06/incremental-inventory.jsonl.gz",
+      "bytes": 19952,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-06/transport-01/members.jsonl.gz",
+      "bytes": 16480,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-06/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 2397,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-07/incremental-inventory-02.jsonl.gz",
+      "bytes": 16330,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-07/incremental-inventory.jsonl.gz",
+      "bytes": 30109,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-07/transport-01/members.jsonl.gz",
+      "bytes": 25130,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-07/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 4069,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-07/transport-02/members.jsonl.gz",
+      "bytes": 13377,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-07/transport-02/path-reconciliation.jsonl.gz",
+      "bytes": 1923,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-08/incremental-inventory.jsonl.gz",
+      "bytes": 8846,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-08/transport-01/members.jsonl.gz",
+      "bytes": 7150,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-08/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1104,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/incremental-inventory.jsonl.gz",
+      "bytes": 8259,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/transport-01/members.jsonl.gz",
+      "bytes": 6970,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1418,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/transport-02/members.jsonl.gz",
+      "bytes": 450,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/transport-02/path-reconciliation.jsonl.gz",
+      "bytes": 239,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/incremental-inventory.jsonl.gz",
+      "bytes": 22988,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/transport-01/members.jsonl.gz",
+      "bytes": 19452,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 2853,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/incremental-inventory.jsonl.gz",
+      "bytes": 28018,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/tail-incremental-inventory.jsonl.gz",
+      "bytes": 2682,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/transport-01/members.jsonl.gz",
+      "bytes": 23611,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 3606,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/transport-02/members.jsonl.gz",
+      "bytes": 2246,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/transport-02/path-reconciliation.jsonl.gz",
+      "bytes": 536,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/incremental-inventory.jsonl.gz",
+      "bytes": 2528,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/transport-01/members.jsonl.gz",
+      "bytes": 2157,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 540,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-13/incremental-inventory.jsonl.gz",
+      "bytes": 8047,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-13/transport-01/members.jsonl.gz",
+      "bytes": 6773,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-13/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1400,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14/incremental-inventory.jsonl.gz",
+      "bytes": 2853,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14/transport-01/members.jsonl.gz",
+      "bytes": 2436,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 611,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/members.jsonl.gz",
+      "bytes": 2942,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 731,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-17/transport-01/members.jsonl.gz",
+      "bytes": 7456,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-17/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1417,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-18/transport-01/members.jsonl.gz",
+      "bytes": 8011,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-18/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1562,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-19/transport-01/members.jsonl.gz",
+      "bytes": 11521,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-19/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1895,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-20/transport-01/members.jsonl.gz",
+      "bytes": 2955,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-20/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 589,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/members.jsonl.gz",
+      "bytes": 8752,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1734,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-22/transport-01/members.jsonl.gz",
+      "bytes": 15444,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-22/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 2239,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-23/transport-01/members.jsonl.gz",
+      "bytes": 12192,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-23/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1911,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/members.jsonl.gz",
+      "bytes": 10110,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 1687,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-25/accepted-repair/members.jsonl.gz",
+      "bytes": 3486,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-25/accepted-repair/path-reconciliation.jsonl.gz",
+      "bytes": 849,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-25/closed-repair01/members.jsonl.gz",
+      "bytes": 4022,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-25/closed-repair01/path-reconciliation.jsonl.gz",
+      "bytes": 959,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-25/members.jsonl.gz",
+      "bytes": 8579,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-25/path-reconciliation.jsonl.gz",
+      "bytes": 1482,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-26/accepted-repair/members.jsonl.gz",
+      "bytes": 5631,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-26/accepted-repair/path-reconciliation.jsonl.gz",
+      "bytes": 1202,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-26/closed-attempt/members.jsonl.gz",
+      "bytes": 6126,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-26/closed-attempt/path-reconciliation.jsonl.gz",
+      "bytes": 1253,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-27/accepted-source/members.jsonl.gz",
+      "bytes": 4721,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-27/accepted-source/path-reconciliation.jsonl.gz",
+      "bytes": 958,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-27/closed-native/members.jsonl.gz",
+      "bytes": 7098,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-27/closed-native/path-reconciliation.jsonl.gz",
+      "bytes": 1347,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-27/design-diagnosis/members.jsonl.gz",
+      "bytes": 408,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-27/design-diagnosis/path-reconciliation.jsonl.gz",
+      "bytes": 289,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-27/package/members.jsonl.gz",
+      "bytes": 2037,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-27/package/path-reconciliation.jsonl.gz",
+      "bytes": 507,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-28/accepted-preparation/members.jsonl.gz",
+      "bytes": 3341,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-28/accepted-preparation/path-reconciliation.jsonl.gz",
+      "bytes": 828,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-28/accepted-source/members.jsonl.gz",
+      "bytes": 2388,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-28/accepted-source/path-reconciliation.jsonl.gz",
+      "bytes": 656,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-29/closed-boundary/members.jsonl.gz",
+      "bytes": 11627,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-29/closed-boundary/path-reconciliation.jsonl.gz",
+      "bytes": 2169,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/members.jsonl.gz",
+      "bytes": 15823,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/path-reconciliation.jsonl.gz",
+      "bytes": 2840,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-31/members.jsonl.gz",
+      "bytes": 11706,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-31/path-reconciliation.jsonl.gz",
+      "bytes": 2412,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-32/members.jsonl.gz",
+      "bytes": 13883,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-32/path-reconciliation.jsonl.gz",
+      "bytes": 2638,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-33/members.jsonl.gz",
+      "bytes": 14096,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-33/path-reconciliation.jsonl.gz",
+      "bytes": 2742,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/checkpoint-01/closed-repair-evidence.tar.gz",
+      "bytes": 151470062,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-evidence.tar.gz",
+      "bytes": 437834,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/catalog-input.json.gz",
+      "bytes": 3965456,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/checkpoint-01-large-evidence.tgz",
+      "bytes": 10450838,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10196689,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10196806,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-04/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10196826,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-05/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10196958,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10197121,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-01/consumer.tgz",
+      "bytes": 11257,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-01/core.tgz",
+      "bytes": 10259794,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-02/consumer.tgz",
+      "bytes": 11083,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-02/core.tgz",
+      "bytes": 10299909,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-03/consumer.tgz",
+      "bytes": 11082,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-03/core.tgz",
+      "bytes": 10299971,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-04/consumer.tgz",
+      "bytes": 11083,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-04/core.tgz",
+      "bytes": 10300001,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/attempt-01/consumer.tgz",
+      "bytes": 11298,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/attempt-01/core.tgz",
+      "bytes": 10312739,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/attempt-02/consumer.tgz",
+      "bytes": 11302,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/attempt-02/core.tgz",
+      "bytes": 10312726,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-01/companion-01/consumer.tgz",
+      "bytes": 11199,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-01/companion-01/core.tgz",
+      "bytes": 10313317,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/companion-01/consumer.tgz",
+      "bytes": 11196,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/companion-01/core.tgz",
+      "bytes": 10314509,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/faulty-01/consumer.tgz",
+      "bytes": 11304,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/faulty-01/core.tgz",
+      "bytes": 10314509,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-implementation/artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+      "bytes": 6054,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-implementation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10203777,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-recursive/attempt-01/consumer.tgz",
+      "bytes": 18373,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-recursive/attempt-01/core.tgz",
+      "bytes": 10209050,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-repeat-repair/artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+      "bytes": 6054,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-repeat-repair/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10203840,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/consumer.tgz",
+      "bytes": 11780,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/core.tgz",
+      "bytes": 10337023,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/core.tgz",
+      "bytes": 10337143,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/consumer.tgz",
+      "bytes": 11776,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/consumer.tgz",
+      "bytes": 11781,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/core.tgz",
+      "bytes": 10324932,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/core.tgz",
+      "bytes": 10337313,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/consumer.tgz",
+      "bytes": 11777,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/core.tgz",
+      "bytes": 10338146,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/consumer.tgz",
+      "bytes": 11952,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/consumer.tgz",
+      "bytes": 11206,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/core.tgz",
+      "bytes": 10340796,
+      "tracked": true
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/deletion-preflight-membership.jsonl.gz",
+      "bytes": 13869310,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_02/execution/deletion-preflight-membership.jsonl.gz",
+      "bytes": 3424346,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preflight-membership.jsonl.gz",
+      "bytes": 6365790,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_04/before-membership.jsonl.gz",
+      "bytes": 707198,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_05/before-membership.jsonl.gz",
+      "bytes": 958362,
+      "tracked": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_01/retirement/undo.tar.gz",
+      "bytes": 350988,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.8.0-rc.2/abiogenesis-typescript-tenant-3.8.0-rc.2.tgz",
+      "bytes": 320369,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.8.0-rc.3/abiogenesis-typescript-tenant-3.8.0-rc.3.tgz",
+      "bytes": 327159,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.8.0-rc.4/abiogenesis-typescript-tenant-3.8.0-rc.4.tgz",
+      "bytes": 329657,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.8.0-rc.5/abiogenesis-typescript-tenant-3.8.0-rc.5.tgz",
+      "bytes": 336571,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.1/abiogenesis-typescript-tenant-3.9.0-rc.1.tgz",
+      "bytes": 357982,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.10/abiogenesis-typescript-tenant-3.9.0-rc.10.tgz",
+      "bytes": 366698,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.11/abiogenesis-typescript-tenant-3.9.0-rc.11.tgz",
+      "bytes": 373872,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.12/abiogenesis-typescript-tenant-3.9.0-rc.12.tgz",
+      "bytes": 375455,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.13/abiogenesis-typescript-tenant-3.9.0-rc.13.tgz",
+      "bytes": 377365,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.2/abiogenesis-typescript-tenant-3.9.0-rc.2.tgz",
+      "bytes": 357981,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.3/abiogenesis-typescript-tenant-3.9.0-rc.3.tgz",
+      "bytes": 358002,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.4/abiogenesis-typescript-tenant-3.9.0-rc.4.tgz",
+      "bytes": 358145,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.5/abiogenesis-typescript-tenant-3.9.0-rc.5.tgz",
+      "bytes": 364954,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.6/abiogenesis-typescript-tenant-3.9.0-rc.6.tgz",
+      "bytes": 361467,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.7/abiogenesis-typescript-tenant-3.9.0-rc.7.tgz",
+      "bytes": 363457,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.8/abiogenesis-typescript-tenant-3.9.0-rc.8.tgz",
+      "bytes": 363646,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/3.9.0-rc.9/abiogenesis-typescript-tenant-3.9.0-rc.9.tgz",
+      "bytes": 363721,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.1/abiogenesis-typescript-tenant-4.0.0-rc.1.tgz",
+      "bytes": 391305,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.10/abiogenesis-typescript-tenant-4.0.0-rc.10.tgz",
+      "bytes": 418812,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.11/abiogenesis-typescript-tenant-4.0.0-rc.11.tgz",
+      "bytes": 418901,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.12/abiogenesis-typescript-tenant-4.0.0-rc.12.tgz",
+      "bytes": 418905,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.13/abiogenesis-typescript-tenant-4.0.0-rc.13.tgz",
+      "bytes": 418943,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.14/abiogenesis-typescript-tenant-4.0.0-rc.14.tgz",
+      "bytes": 418995,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.15/abiogenesis-typescript-tenant-4.0.0-rc.15.tgz",
+      "bytes": 419757,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.16/abiogenesis-typescript-tenant-4.0.0-rc.16.tgz",
+      "bytes": 423602,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.17/abiogenesis-typescript-tenant-4.0.0-rc.17.tgz",
+      "bytes": 423825,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.18/abiogenesis-typescript-tenant-4.0.0-rc.18.tgz",
+      "bytes": 429565,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.19/abiogenesis-typescript-tenant-4.0.0-rc.19.tgz",
+      "bytes": 432048,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.2/abiogenesis-typescript-tenant-4.0.0-rc.2.tgz",
+      "bytes": 405437,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.20/abiogenesis-typescript-tenant-4.0.0-rc.20.tgz",
+      "bytes": 436898,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.21/abiogenesis-typescript-tenant-4.0.0-rc.21.tgz",
+      "bytes": 437114,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.22/abiogenesis-typescript-tenant-4.0.0-rc.22.tgz",
+      "bytes": 439087,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.23/abiogenesis-typescript-tenant-4.0.0-rc.23.tgz",
+      "bytes": 439087,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.24/abiogenesis-typescript-tenant-4.0.0-rc.24.tgz",
+      "bytes": 440312,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.25/abiogenesis-typescript-tenant-4.0.0-rc.25.tgz",
+      "bytes": 441674,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.26/abiogenesis-typescript-tenant-4.0.0-rc.26.tgz",
+      "bytes": 442844,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.27/abiogenesis-typescript-tenant-4.0.0-rc.27.tgz",
+      "bytes": 443938,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.28/abiogenesis-typescript-tenant-4.0.0-rc.28.tgz",
+      "bytes": 444120,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.29/abiogenesis-typescript-tenant-4.0.0-rc.29.tgz",
+      "bytes": 444204,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.3/abiogenesis-typescript-tenant-4.0.0-rc.3.tgz",
+      "bytes": 405646,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.4/abiogenesis-typescript-tenant-4.0.0-rc.4.tgz",
+      "bytes": 412166,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.5/abiogenesis-typescript-tenant-4.0.0-rc.5.tgz",
+      "bytes": 414413,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.6/abiogenesis-typescript-tenant-4.0.0-rc.6.tgz",
+      "bytes": 414723,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.7/abiogenesis-typescript-tenant-4.0.0-rc.7.tgz",
+      "bytes": 415171,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.8/abiogenesis-typescript-tenant-4.0.0-rc.8.tgz",
+      "bytes": 418557,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.9/abiogenesis-typescript-tenant-4.0.0-rc.9.tgz",
+      "bytes": 418732,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.1/abiogenesis-typescript-tenant-4.1.0-rc.1.tgz",
+      "bytes": 447072,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.10/abiogenesis-typescript-tenant-4.1.0-rc.10.tgz",
+      "bytes": 460323,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.11/abiogenesis-typescript-tenant-4.1.0-rc.11.tgz",
+      "bytes": 460601,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.12/abiogenesis-typescript-tenant-4.1.0-rc.12.tgz",
+      "bytes": 505031,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.13/abiogenesis-typescript-tenant-4.1.0-rc.13.tgz",
+      "bytes": 512328,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.14/abiogenesis-typescript-tenant-4.1.0-rc.14.tgz",
+      "bytes": 513716,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.15/abiogenesis-typescript-tenant-4.1.0-rc.15.tgz",
+      "bytes": 515381,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.16/abiogenesis-typescript-tenant-4.1.0-rc.16.tgz",
+      "bytes": 515465,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.17/abiogenesis-typescript-tenant-4.1.0-rc.17.tgz",
+      "bytes": 515947,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.2/abiogenesis-typescript-tenant-4.1.0-rc.2.tgz",
+      "bytes": 450188,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.3/abiogenesis-typescript-tenant-4.1.0-rc.3.tgz",
+      "bytes": 451200,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.4/abiogenesis-typescript-tenant-4.1.0-rc.4.tgz",
+      "bytes": 452220,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.5/abiogenesis-typescript-tenant-4.1.0-rc.5.tgz",
+      "bytes": 452202,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.6/abiogenesis-typescript-tenant-4.1.0-rc.6.tgz",
+      "bytes": 453304,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.7/abiogenesis-typescript-tenant-4.1.0-rc.7.tgz",
+      "bytes": 455962,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.8/abiogenesis-typescript-tenant-4.1.0-rc.8.tgz",
+      "bytes": 456777,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.9/abiogenesis-typescript-tenant-4.1.0-rc.9.tgz",
+      "bytes": 459846,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.1/abiogenesis-typescript-tenant-4.2.0-rc.1.tgz",
+      "bytes": 530048,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.10/abiogenesis-typescript-tenant-4.2.0-rc.10.tgz",
+      "bytes": 593730,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.2/abiogenesis-typescript-tenant-4.2.0-rc.2.tgz",
+      "bytes": 543835,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.3/abiogenesis-typescript-tenant-4.2.0-rc.3.tgz",
+      "bytes": 548018,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.4/abiogenesis-typescript-tenant-4.2.0-rc.4.tgz",
+      "bytes": 558404,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.5/abiogenesis-typescript-tenant-4.2.0-rc.5.tgz",
+      "bytes": 568238,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.6/abiogenesis-typescript-tenant-4.2.0-rc.6.tgz",
+      "bytes": 568238,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.7/abiogenesis-typescript-tenant-4.2.0-rc.7.tgz",
+      "bytes": 583563,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.8/abiogenesis-typescript-tenant-4.2.0-rc.8.tgz",
+      "bytes": 593155,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.9/abiogenesis-typescript-tenant-4.2.0-rc.9.tgz",
+      "bytes": 593506,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.3.0-rc.1/abiogenesis-typescript-tenant-4.3.0-rc.1.tgz",
+      "bytes": 596547,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.4.0-rc.1/abiogenesis-typescript-tenant-4.4.0-rc.1.tgz",
+      "bytes": 610098,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.1/abiogenesis-typescript-tenant-4.5.0-rc.1.tgz",
+      "bytes": 627343,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.10/abiogenesis-typescript-tenant-4.5.0-rc.10.tgz",
+      "bytes": 634844,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.11/abiogenesis-typescript-tenant-4.5.0-rc.11.tgz",
+      "bytes": 644658,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.12/abiogenesis-typescript-tenant-4.5.0-rc.12.tgz",
+      "bytes": 644819,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.13/abiogenesis-typescript-tenant-4.5.0-rc.13.tgz",
+      "bytes": 645833,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.14/abiogenesis-typescript-tenant-4.5.0-rc.14.tgz",
+      "bytes": 646262,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.15/abiogenesis-typescript-tenant-4.5.0-rc.15.tgz",
+      "bytes": 650174,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.16/abiogenesis-typescript-tenant-4.5.0-rc.16.tgz",
+      "bytes": 650659,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.17/abiogenesis-typescript-tenant-4.5.0-rc.17.tgz",
+      "bytes": 650905,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.2/abiogenesis-typescript-tenant-4.5.0-rc.2.tgz",
+      "bytes": 627790,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.3/abiogenesis-typescript-tenant-4.5.0-rc.3.tgz",
+      "bytes": 628317,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.4/abiogenesis-typescript-tenant-4.5.0-rc.4.tgz",
+      "bytes": 629121,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.5/abiogenesis-typescript-tenant-4.5.0-rc.5.tgz",
+      "bytes": 629494,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.6/abiogenesis-typescript-tenant-4.5.0-rc.6.tgz",
+      "bytes": 632739,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.7/abiogenesis-typescript-tenant-4.5.0-rc.7.tgz",
+      "bytes": 632942,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.8/abiogenesis-typescript-tenant-4.5.0-rc.8.tgz",
+      "bytes": 634168,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0-rc.9/abiogenesis-typescript-tenant-4.5.0-rc.9.tgz",
+      "bytes": 634536,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.0/abiogenesis-typescript-tenant-4.5.0.tgz",
+      "bytes": 650897,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.5.1/abiogenesis-typescript-tenant-4.5.1.tgz",
+      "bytes": 654076,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.6.0-rc.1/abiogenesis-typescript-tenant-4.6.0-rc.1.tgz",
+      "bytes": 1113316,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.6.0-rc.2/abiogenesis-typescript-tenant-4.6.0-rc.2.tgz",
+      "bytes": 1118431,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/4.6.0-rc.3/abiogenesis-typescript-tenant-4.6.0-rc.3.tgz",
+      "bytes": 1196854,
+      "tracked": true
+    },
+    {
+      "path": "release_snapshots/abiogenesis-typescript-tenant/latest/abiogenesis-typescript-tenant-4.5.1.tgz",
+      "bytes": 654076,
+      "tracked": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "status": "STOPPED_AT_FIRST_READINESS_FAILURE",
+  "operation": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01",
+  "observedAt": "2026-10-02T12:46:44.830867+00:00",
+  "compile": {
+    "mode": "compile",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "pid": 37514,
+    "processGroup": 37514,
+    "startedAt": "2026-10-02T12:44:44.658260+00:00",
+    "closedAt": "2026-10-02T12:44:50.914925+00:00",
+    "elapsedMs": 6256.7114578559995,
+    "exitCode": 0,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": null,
+    "rssBytes": 1103904768,
+    "userSeconds": 10.309745,
+    "systemSeconds": 0.247023,
+    "knownCLIProcessGroups": [],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "regression": {
+    "mode": "regression",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+    ],
+    "pid": 37786,
+    "processGroup": 37786,
+    "startedAt": "2026-10-02T12:45:10.603785+00:00",
+    "closedAt": "2026-10-02T12:45:11.362725+00:00",
+    "elapsedMs": 758.9724999852479,
+    "exitCode": 1,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": null,
+    "rssBytes": 348733440,
+    "userSeconds": 0.831127,
+    "systemSeconds": 0.110164,
+    "knownCLIProcessGroups": [],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "actualDiagnostic": "TypeError: Cannot read properties of undefined (reading 'includes')",
+  "ownerBoundary": "worksiteEvidenceCandidate: input.graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI), before final F_D conservation callback",
+  "testCoordinate": "t287-result-evidence-lineage-projection.test.mjs:280",
+  "selectedSourceCoordinate": "c_call_outcome.ts:219",
+  "violatedRelation": "The supplied GraphFunction fixture omitted the required effects population; the real owner reads that field on the F_D path. Its no-worksite-effects declaration must be explicit. No production guard weakening selected.",
+  "ProductIdentityEvidenceIntegration": "The actual F_P callback used valid embedded/reference qualification inputs, real preparation/producer/lineage guard, frozen emitted C07 preimage and declared lower ABG/native-request premises. Reaching the final deterministic call establishes only that earlier assertions completed; no final test pass/report was produced. The failure is the final supplied graph envelope, before its callback.",
+  "logs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/regression-supervised-stdout.log",
+      "bytes": 2779,
+      "sha256": "ea3cb83516b9c9212d89d639ed395af24686cda5a1809e9a87d881b4bd98330c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/regression-supervised-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceAndTest": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 68281,
+      "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+      "mode": 420
+    },
+    "newTest": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "bytes": 22555,
+      "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+      "mode": 420
+    },
+    "copyCorrespondence": "byte/mode exact canonical postimages over the accepted frozen C07 copy",
+    "originalAuthor": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01; copied build execution is not source authorship"
+  },
+  "noRepairOrRetry": true,
+  "RuntimeResourceHelperProviderGitEffects": 0,
+  "remaining": "complete targeted regression and frozen source closure; Root disposition required for any changed arrangement/retry"
+}

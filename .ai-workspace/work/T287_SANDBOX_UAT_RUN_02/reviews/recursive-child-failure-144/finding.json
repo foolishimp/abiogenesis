@@ -1,0 +1,10 @@
+{
+  "id": "R144-JSON-DIAGNOSTIC-SUBJECT-01",
+  "severity": "P1",
+  "verdict": "CHANGES_REQUIRED",
+  "cause": "Source142 recursion_lifecycle.ts784\u2013811 passes original child diagnostic with unconditional stage child-failure coordinate subject. runtime_failure.ts109\u2013114/230\u2013233 requires retained JSON decoded subject digest equal supplied subject digest before admission. Fixed key/stage shapes differ.",
+  "impact": "Graceful attribution/closure of a valid active child-local failure carrying retained native Error diagnostics can fail before enclosing failure admission. Supplied plain-URI and ordinary success lanes are unaffected. No current DataMapper activation/dominance claim.",
+  "whyMissed": "Fixture failure.mjs hardcodes diagnostic://registered-selection/original-child-failure@5, bypassing retained-JSON guard; already-global failed passthrough also bypasses new142 arm.",
+  "smallestRepair": "New Root-selected HOW/HoG/test successor only: reuse existing readRuntimeFailureDiagnosticSubject; if canonical retained JSON, pass its exact decoded subject to admitRuntimeFailure while preserving original diagnostic and exact failed-child-route causation. Keep existing coordinate subject for opaque URI. Parent/current input and child origin remain conserved in authenticated parent/child ExecutionBasis/C_Call/Result/Judgment/route chain. Do not enrich/relabel diagnostic, invent wrapper authority or weaken ABG admission/schema/failure constructor.",
+  "reproof": "One genuine F_P child-local undispatched native Error \u2192 existing evidence/failure Result/Judgment/failed route while Run active \u2192 corrected enclosing failure and cold owner read. Preserve refs/value/diagnostic/subject/cause/current input/prior contribution and no successful fold/retry; reuse unchanged sunny proof."
+}

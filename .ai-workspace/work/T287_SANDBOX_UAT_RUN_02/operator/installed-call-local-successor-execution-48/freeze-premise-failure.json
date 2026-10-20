@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-07T20:36:59.039Z",
+  "stage": "external freeze provider receipt collection",
+  "error": "TypeError: Cannot read properties of undefined (reading 'transport')",
+  "cause": "Some journal binding rows intentionally retain sparse metadata without paths; actual owned transport files are present.",
+  "correction": "Enumerate exact owned59 transport files; attach a binding ordinal only where recorded; no fabricated association or native change."
+}

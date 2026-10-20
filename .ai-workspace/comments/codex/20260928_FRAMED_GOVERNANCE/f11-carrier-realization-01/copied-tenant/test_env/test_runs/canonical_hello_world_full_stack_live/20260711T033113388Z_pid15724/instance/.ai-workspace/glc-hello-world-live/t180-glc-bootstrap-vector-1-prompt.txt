@@ -1,0 +1,181 @@
+## section://odd_glc/glc-bootstrap/vector-1/task
+carriers: ["node:GeneratedHelloWorldProgram:node-type://odd_glc/GlcHelloWorldProgramArtifact:sha256:bdfb0d4c89dbf9dd8e7bbd88b438afacd8dbe2b3c894763d0c8208cd8f078123","node:GlcHelloWorldExecutionEvidence:node-type://odd_glc/GlcExecutionEvidence:sha256:60e65b65f1beb71db0e5b308d80631844d253666db191ea80ae89e0248a18dd5"]
+dependencies: ["glc_hello_world_program_to_execution_evidence"]
+digest: sha256:odd-glc-glc-bootstrap-vector-1
+Return only one JSON object. Do not include markdown or commentary.
+You are the live F_P worker for an odd_glc generic lifecycle Hello World bootstrap.
+ABG owns registry startup, graph-function selection, traversal, instruction rendering, event truth, response admission, and closure.
+odd_glc supplies product GTL declarations, node types, graph overlay refs, and policy refs as data.
+Current stage: execution_evidence
+
+Use the ABG-rendered runtime bound refs section below. Do not claim to emit ABG events, select graph functions, admit responses, or close traversal.
+
+Required JSON:
+{
+  "stage": "program" | "execution_evidence",
+  "source": string,
+  "expectedStdout": "Hello, world!\n",
+  "nodeTypesUsed": string[],
+  "causalInputPayloadRefsSeen": string[],
+  "causalInputContentDigestSeen": string | null,
+  "causalInputContentSummary": string | null,
+  "reason": string
+}
+
+For stage program, provide a minimal JavaScript ESM program in source.
+For stage program, nodeTypesUsed must include exactly node-type://odd_glc/GlcBootstrapContext and node-type://odd_glc/GlcHelloWorldProgramArtifact.
+For stage program, causalInputPayloadRefsSeen must be an empty list.
+For stage program, causalInputContentDigestSeen must be null.
+For stage program, causalInputContentSummary must be null.
+For stage execution_evidence, inspect only the ABG runtime bound_refs prior_artifact row.
+For stage execution_evidence, causalInputPayloadRefsSeen must echo exactly the prior_artifact ref values from bound_refs.
+For stage execution_evidence, causalInputContentDigestSeen must echo exactly the first prior_artifact contentDigest value.
+For stage execution_evidence, causalInputContentSummary must summarize the first prior_artifact contentExcerpt value and mention Hello, world.
+For stage execution_evidence, nodeTypesUsed must include exactly node-type://odd_glc/GlcHelloWorldProgramArtifact and node-type://odd_glc/GlcExecutionEvidence.
+
+## abg.declared_latitude
+
+Declared latitude grants PERMISSION within the named scope; it does not prescribe outcomes and does not weaken admitted prior truth.
+scope: scope://odd_glc/glc-bootstrap/program-shape | owner: F_P | latitude: worker may choose program structure and identifier naming provided stdout is exactly Hello, world!
+
+## abg.instruction_authority_precedence
+
+ABG-rendered dependency truth, proof-depth truth, runtime bound refs, and admitted prior artifacts are authoritative for this dispatch.
+Product section text, stage policy data, templates, and worker instructions may narrow or strengthen admitted prior obligations, but they shall not weaken, replace, or contradict them.
+If a product instruction conflicts with an admitted prior artifact, dependency/proof truth, or runtime binding, the admitted truth wins and the conflict is a dispatch/evaluation defect.
+The F_P worker must not use a weaker product instruction to satisfy an obligation carried by admitted prior truth.
+The F_P evaluator must reject a candidate that follows a weaker product instruction when admitted prior truth requires the stronger obligation.
+
+## abg.dependency_instruction_truth
+
+truthRef: dependency-instruction-truth://odd_glc/glc-bootstrap/vector-1
+truthDigest: sha256:bb07698aec73bee1892cd2f889c279d453cace6eeb2497c250abca19c382f80a
+workKind: target_work
+dependencyGraphRef: none
+dependencyGraphDigest: none
+targetRefs: ["node:GlcHelloWorldExecutionEvidence:node-type://odd_glc/GlcExecutionEvidence:sha256:60e65b65f1beb71db0e5b308d80631844d253666db191ea80ae89e0248a18dd5"]
+prerequisiteNodeRefs: []
+prerequisiteEdgeRefs: []
+dependencyClosed: true
+typedPrerequisiteGapRefs: []
+noDependencyPolicyRef: policy://odd_glc/glc-bootstrap/no-dependency-graph-required
+sourceProjectionRefs: ["projection://odd_glc/glc-bootstrap/no-dependency-policy"]
+
+## abg.proof_depth_instruction_truth
+
+truthRef: proof-depth-instruction-truth://odd_glc/glc-bootstrap/vector-1
+truthDigest: sha256:c8c972ac041142a5f4059f5246a8e9f1debc133197f566822e7474661834d2a7
+depthPolicyRef: proof-depth-policy://odd_glc/glc-bootstrap
+depthPolicyDigest: sha256:odd-glc-glc-bootstrap-proof-depth-policy
+targetRefs: ["node:GlcHelloWorldExecutionEvidence:node-type://odd_glc/GlcExecutionEvidence:sha256:60e65b65f1beb71db0e5b308d80631844d253666db191ea80ae89e0248a18dd5"]
+requiredDepthClassRefs: ["depth-class://negative","depth-class://positive"]
+declaredDepthClassRefs: ["depth-class://negative","depth-class://positive"]
+declaredDepthObligationRefs: ["proof-obligation://odd_glc/glc-bootstrap/negative","proof-obligation://odd_glc/glc-bootstrap/positive"]
+notApplicableDepthClassRefs: []
+typedDepthGapRefs: []
+proofStrengthAdmissionRefs: ["proof-strength-admission://odd_glc/glc-bootstrap"]
+fdStrengthCriterionRefs: ["fd-strength-criterion://odd_glc/glc-bootstrap"]
+adversarialVerificationRefs: []
+adversarialCounterexampleRefs: []
+sourceProjectionRefs: ["proof-coverage-projection://odd_glc/glc-bootstrap"]
+depthComplete: true
+proofStrengthAdmitted: true
+
+## abg.runtime.bound_refs
+
+- slot: graph_call
+  ref: graph-call:execution_basis:{"moduleName":"odd_gl...sha256:1bd4497f71130c7e1d4cf4c9850c0a4828171b9549cabbcd0bb26c2bcc57acae
+  digest: sha256:4d46fd5daf1e44fcef0fd23b2bcbe58af7bc2dae7125da5b4d557c6505fde786
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:d6116eb9eeefd7946580824277b5d3a8d8680b942bfe300c542280c4cdb6bf56"]
+- slot: frame
+  ref: frame:execution_basis:{"moduleName":"odd_glc_glc...sha256:479d27756abb23e77836c904a7cb70b1c7669d5dcda2d282885f87da8316c306
+  digest: sha256:18f40e516643ddac9308f451e1eff2285181a368bc358821b54c6b1fb05c63f9
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:d6116eb9eeefd7946580824277b5d3a8d8680b942bfe300c542280c4cdb6bf56"]
+- slot: vector
+  ref: glc_hello_world_program_to_execution_evidence
+  digest: sha256:686dc5eae4cf01f85c3259af138ea6742ab340b1c316d285acef7cdd790a12fd
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["dispatch://odd_glc/glc-bootstrap-live"]
+- slot: event_log
+  ref: runtime_projection:execution_basis:{"moduleName"...sha256:d6116eb9eeefd7946580824277b5d3a8d8680b942bfe300c542280c4cdb6bf56
+  digest: sha256:5dfece4561a0038ee01a4965dc9e118cbc238f86b3be2145e2cea1441e8834f8
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:d6116eb9eeefd7946580824277b5d3a8d8680b942bfe300c542280c4cdb6bf56"]
+- slot: worker_invocation
+  ref: actor-invocation:{"basisId":"execution_basis:{\"...sha256:f628578c335496b2f1cafe5a74d7c0ab8d60bf0e6b2c7b346e556d9576a41cbb
+  digest: sha256:0fa089832da6e16df0f01207e1d852973f418c3bb2c4f8e35432ab52d57740f7
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["dispatch://odd_glc/glc-bootstrap-live"]
+- slot: selected_graph_function
+  ref: graph_function:{"name":"odd_glc.glc_bootstrap.pr...sha256:63d2c476be6c189d3a5e10e1cb1f3bd87c03f35b5434e9663eeeb4fb0628d07c
+  digest: sha256:929f9aef2022d80cdeaffa962422e9f10b071b4fb49bf5985580e7b7e7da4637
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["graph-function-selection:runner:sha256:0c4b9c712a37ea791d7fe9cee8341e7d2fb8847bfbb12b93003f29f1b13f5470","registry-lookup-result:sha256:aef9a9b9c06e2b2ea1cd958e2d3acbe4fa4872a5ae38dd87d6e0625b4c946cea"]
+- slot: source_node
+  ref: node:GeneratedHelloWorldProgram:node-type://odd_glc/GlcHelloWorldProgramArtifact:sha256:bdfb0d4c89dbf9dd8e7bbd88b438afacd8dbe2b3c894763d0c8208cd8f078123
+  digest: sha256:b671d46d46b60a6b44421a7cf3e5a5cbe9fd25ed0f977d248dba4c06bb0f3b9a
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:d6116eb9eeefd7946580824277b5d3a8d8680b942bfe300c542280c4cdb6bf56"]
+- slot: target_node
+  ref: node:GlcHelloWorldExecutionEvidence:node-type://odd_glc/GlcExecutionEvidence:sha256:60e65b65f1beb71db0e5b308d80631844d253666db191ea80ae89e0248a18dd5
+  digest: sha256:49fc26c2e8e15fbe07ed63f28c6eb90f106cfca621eddcefaea7b937453af136
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:d6116eb9eeefd7946580824277b5d3a8d8680b942bfe300c542280c4cdb6bf56"]
+- slot: prior_artifact
+  ref: payload:target_carrier:sha256:d05ab15f59e0bbcabbef3cc306a3898c82223f492134802832645af522c9befd
+  digest: sha256:fd67ed81432fa1a90c893a61f597fa0a96d20c0765031c34e00cf039d6d30e7d
+  payloadDigest: digest:target_carrier:sha256:d05ab15f59e0bbcabbef3cc306a3898c82223f492134802832645af522c9befd
+  contentRef: result://odd_glc/glc-bootstrap/0
+  contentDigest: sha256:febfe49757290806260b260263f5c4d45dcf5a9dad4ad11745a5f4a15c4d8e55
+  contentExcerpt: "{\"actor\":\"claude\",\"artifactKind\":\"odd_glc_glc_hello_world_bootstrap_live_artifact\",\"assessment\":{\"causalInputContentDigestSeen\":null,\"causalInputContentSummary\":null,\"causalInputPayloadRefsSeen\":[],\"expectedStdout\":\"Hello, world!\\n\",\"nodeTypesUsed\":[\"node-type://odd_glc/GlcBootstrapContext\",\"node-type://odd_glc/GlcHelloWorldProgramArtifact\"],\"reason\":\"Minimal JavaScript ESM program that writes the required stdout exactly.\",\"source\":\"console.log(\\\"Hello, world!\\\");\\n\",\"stage\":\"program\"},\"assignment_source\":\"policy://odd_glc/glc-bootstrap-live\",\"causalCarry\":{\"causalInputBindingRefs\":[],\"causalInputContentDigests\":[],\"causalInputContentExcerpts\":[],\"causalInputContentRefs\":[],\"causalInputPayloadDigests\":[],\"causalInputPayloadRefs\":[],\"causalMissingInputRefs\":[],\"causalRequiredInputRefs\":[],\"instructionCausalContextRef\":\"instruction_causal_context:execution_basis:{\\\"moduleName\\\":\\\"odd_glc_glc_hello_world_bootstrap\\\",\\\"startIntent\\\":{\\\"scope\\\":{\\\"kind\\\":\\\"workspace\\\",\\\"workspaceRoot\\\":\\\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/instance\\\",\\\"moduleName\\\":\\\"odd_glc_glc_hello_world_bootstrap\\\"},\\\"target\\\":{\\\"kind\\\":\\\"graph_function\\\",\\\"handle\\\":\\\"odd_glc.glc_bootstrap.produce_hello_world_program;odd_glc.glc_bootstrap.prove_hello_world_execution\\\"},\\\"until\\\":\\\"converged\\\"},\\\"runtimeIdentity\\\":{\\\"workerId\\\":\\\"worker://odd_glc/glc-bootstrap-live\\\",\\\"backendId\\\":\\\"backend://node\\\",\\\"buildId\\\":\\\"build://odd_glc/glc-bootstrap-live\\\",\\\"resolvedRuntimeRef\\\":\\\"runtime://odd_glc/glc-bootstrap-live\\\"},\\\"resolvedPolicy\\\":{\\\"resolvedPolicyBundleRef\\\":\\\"policy://odd_glc/glc-bootstrap-live\\\",\\\"defaultRegime\\\":\\\"F_P\\\",\\\"dispatchRef\\\":\\\"dispatch://odd_glc/glc-bootstrap-live\\\",\\\"approvalSubjectRef\\\":null},\\\"runId\\\":\\\"run://odd_glc/glc-bootstrap-live\\\",\\\"workKey\\\":\\\"wk://odd_glc/glc-bootstrap-live\\\",\\\"frameId\\\":null,\\\"frameLineageId\\\":null}:graph-call:execution_basis:{\\\"moduleName\\\":\\\"odd_glc_glc_hello_world_bootstrap\\\",\\\"startIntent\\\":{\\\"scope\\\":{\\\"kind\\\":\\\"workspace\\\",\\\"workspaceRoot\\\":\\\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/instance\\\",\\\"moduleName\\\":\\\"odd_glc_glc_hello_world_bootstrap\\\"},\\\"target\\\":{\\\"kind\\\":\\\"graph_function\\\",\\\"handle\\\":\\\"odd_glc.glc_bootstrap.produce_hello_world_program;odd_glc.glc_bootstrap.prove_hello_world_execution\\\"},\\\"until\\\":\\\"converged\\\"},\\\"runtimeIdentity\\\":{\\\"workerId\\\":\\\"worker://odd_glc/glc-bootstrap-live\\\",\\\"backendId\\\":\\\"backend://node\\\",\\\"buildId\\\":\\\"build://odd_glc/glc-bootstrap-live\\\",\\\"resolvedRuntimeRef\\\":\\\"runtime://odd_glc/glc-bootstrap-live\\\"},\\\"resolvedPolicy\\\":{\\\"resolvedPolicyBundleRef\\\":\\\"policy://odd_glc/glc-bootstrap-live\\\",\\\"defaultRegime\\\":\\\"F_P\\\",\\\"dispatchRef\\\":\\\"dispatch://odd_glc/glc-bootstrap-live\\\",\\\"approvalSubjectRef\\\":null},\\\"runId\\\":\\\"run://odd_glc/glc-bootstrap-live\\\",\\\"workKey\\\":\\\"wk://odd_glc/glc-bootstrap-live\\\",\\\"frameId\\\":null,\\\"frameLineageId\\\":null}:frame:execution_basis:{\\\"moduleName\\\":\\\"odd_glc_glc_hello_world_bootstrap\\\",\\\"startIntent\\\":{\\\"scope\\\":{\\\"kind\\\":\\\"workspace\\\",\\\"workspaceRoot\\\":\\\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/instance\\\",\\\"moduleName\\\":\\\"odd_glc_glc_hello_world_bootstrap\\\"},\\\"target\\\":{\\\"kind\\\":\\\"graph_function\\\",\\\"handle\\\":\\\"odd_glc.glc_bootstrap.produce_hello_world_program;odd_glc.glc_bootstrap.prove_hello_world_execution\\\"},\\\"until\\\":\\\"converged\\\"},\\\"runtimeIdentity\\\":{\\\"workerId\\\":\\\"worker://odd_glc/glc-bootstrap-live\\\",\\\"backendId\\\":\\\"backend://node\\\",\\\"buildId\\\":\\\"build://odd_glc/glc-bootstrap-live\\\",\\\"resolvedRuntimeRef\\\":\\\"runtime://odd_glc/glc-bootstrap-live\\\"},\\\"resolvedPolicy\\\":{\\\"resolvedPolicyBundleRef\\\":\\\"policy://odd_glc/glc-bootstrap-live\\\",\\\"defaultRegime\\\":\\\"F_P\\\",\\\"dispatchRef\\\":\\\"dispatch://odd_glc/glc-bootstrap-live\\\",\\\"approvalSubjectRef\\\":null},\\\"runId\\\":\\\"run://odd_glc/glc-bootstrap-live\\\",\\\"workKey\\\":\\\"wk://odd_glc/glc-bootstrap-live\\\",\\\"frameId\\\":null,\\\"frameLineageId\\\":null}:root:0:status=empty:bindings=:required=:missing=\",\"instructionCausalStatus\":\"empty\"},\"edge\":\"glc_bootstrap_to_hello_world_program\",\"execution\":{\"command\":[\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/instance/generated/hello-world.mjs\"],\"status\":0,\"stderr\":\"\",\"stdout\":\"Hello, world!\\n\"},\"fulfillment_assessments\":[{\"blocking_reasons\":[],\"evaluator\":\"glc_bootstrap_to_hello_world_program_accepted\",\"evidence_refs\":[\"live://odd_glc/glc-bootstrap\",\"file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/instance/generated/hello-world.mjs\",\"node-type://odd_glc/GlcHelloWorldProgramArtifact\",\"node-type://odd_glc/GlcExecutionEvidence\"],\"fulfillment_detail\":\"Live F_P worker produced a minimal executable Hello World program and the local Node execution proof emitted the expected stdout.\",\"fulfillment_status\":\"fulfilled\",\"id\":\"glc_bootstrap_to_hello_world_program_accepted\"}],\"programPath\":\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/instance/generated/hello-world.mjs\",\"resolved_runtime_ref\":\"runtime://odd_glc/glc-bootstrap-live\",\"role_id\":\"role://odd_glc/live-fp\",\"selected_backend\":\"backend://claude\",\"selected_worker_id\":\"worker://odd_glc/glc-bootstrap-live\",\"transport\":{\"apiRetryCount\":0,\"command\":\"codex\",\"outputPath\":\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/instance/.ai-workspace/glc-hello-world-live/t180-glc-bootstrap-vector-0-output.txt\",\"status\":0,\"structuredEventCount\":0,\"traceResultPath\":\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/instance/.ai-workspace/glc-hello-world-live/t180-glc-bootstrap-vector-0.trace/result.json\"},\"vectorIndex\":0}"
+  sourceEventRefs: ["admitted_output_authority_projection:execution_b...sha256:d00c27d209ffc76d3ca3bdd27832e4ae33bc1f3891ae2e2213b02a9f1e22d250","validation:target_carrier:payload:target_carrier:sha256:d05ab15f59e0bbcabbef3cc306a3898c82223f492134802832645af522c9befd"]
+- slot: evidence
+  ref: validation:target_carrier:payload:target_carrier:sha256:d05ab15f59e0bbcabbef3cc306a3898c82223f492134802832645af522c9befd
+  digest: sha256:736d16b0764c22c7a93bb3a6d8db2f4b80904c58cdfe56d5dd84ea11cbf125ed
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["admitted_output_authority_projection:execution_b...sha256:d00c27d209ffc76d3ca3bdd27832e4ae33bc1f3891ae2e2213b02a9f1e22d250"]
+- slot: policy
+  ref: admitted_output_authority_projection:execution_b...sha256:d00c27d209ffc76d3ca3bdd27832e4ae33bc1f3891ae2e2213b02a9f1e22d250
+  digest: sha256:43455647821bff6201cd9a73e79bb7011817c98331d81aa0745911f8d02f0a39
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:d6116eb9eeefd7946580824277b5d3a8d8680b942bfe300c542280c4cdb6bf56"]
+- slot: policy
+  ref: admitted_output_authority_projection:execution_b...sha256:0e5fef7969e8304c43cecea45c224229988bb0211fd1a71be86cf043dc1c0129
+  digest: sha256:2f516160d55a8b477dc149a8812b68dfadac08c72cfcbeea266cc53504c51f42
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:d6116eb9eeefd7946580824277b5d3a8d8680b942bfe300c542280c4cdb6bf56"]

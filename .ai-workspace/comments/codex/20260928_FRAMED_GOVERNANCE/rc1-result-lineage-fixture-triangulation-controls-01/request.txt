@@ -1,0 +1,20 @@
+Conditional Worker and Frame
+Activate /root/native_applicability_design Worker T287_RESULT_LINEAGE_TEST_FIXTURE_REPAIR_01 only after original Source Worker CLOSED freeze and Root supplies exact pins. STDO2.5.1RC2/fixed15/GOAL035/T287/F04/F11/F15; Integration plus Product/Design/ABG/Identity/Effect/Proof/Reuse/Cost. Root multi-frame fixture triage is /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/triangulation.json. The original production source patch is retained.
+
+Exact Subject
+Canonical /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs22555B/1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e/0644. Source /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts68281B/dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75/0644 is read-only. Original first-readiness-failure.json at /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01 binds compilepass6256.711ms and actual testexit1: graphFunction.effects undefined before deterministic conservation case. Preserve original snapshots/failure/compiled readiness stage.
+
+Smallest Repair
+Only add effects: [] to the supplied graphFunction fixture at test:172. Current true stageCCallResult expects declared effects; the test supplied an incomplete lower GraphFunction envelope. No source/default/effect owner/guard/schema change. Empty effects truthfully represents this component no-worksite-effect premise. No other fixture or callback rewrite, no broad negative campaign.
+
+Exact Permitted Effects
+WRITE ONLY canonical exact new test file and NEW /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01 activation/preimage/postimage/diff/pure copied stage/test receipts/report/closure/freeze. Preserve all original source/test author provenance and record this one-field successor chain. May make one owned copy of original successful frozen readiness-stage and overlay corrected test; no mutation/link into old stage. No canonical source/generated/candidate/law/install/resources/oldreports/Git/provider/auth/network effects. No new compile/build/Run/helper/qualification.
+
+One Meaningful Rerun
+Reuse the already successful compiled production source/defaultheap/frozen C07 Node. Run exact same regression once against corrected fixture; retain valid embedded/reference real producer/lineage/callback tests, exact C07 preimage refusal, nearest metadata negatives, deterministic honest optional absence and existing consumer subset. Compare compiled source exactbody to original. Lower ABG/native/request premises stay explicit, no installed/semantic credit from local pass. First further failure freezes/returnsRoot without self repair/retry.
+
+Supervision and Evidence
+Before import, own supervisor/PID/PGID, <=180s test budget/defaultheap/ordinaryHOME/wait4/RSS/knownclosure/absence. Existing source compile receipt reused, not rerun. Freeze exact test pre/post plus complete declared copied population/source-authorship/receipts and cost. Preserve previous failed test and all old physical bodies/modes. No repeated historical probes or report-induced payload rerun.
+
+CLOSED Return
+Return CLOSED exact corrected-test/source pins, actual overall test result/report and premise limits, one-field delta, reused compile identity and complete declared census/freeze/cost/process closure; stop all edits. Root activates independent source+test assurance on final conjunction; source and source-author chains stay exact. C08 construction/install/current inputs/whole thread require later Root selection. Runtime08 remains stopped with zero completed/cold/F11/AF22; genuine/provider/release boundaries open.

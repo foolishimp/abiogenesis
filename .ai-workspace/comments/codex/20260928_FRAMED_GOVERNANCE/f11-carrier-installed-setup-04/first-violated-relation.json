@@ -1,0 +1,57 @@
+{
+  "status": "FIRST_FAILURE_STOPPED",
+  "actualOwnerOutput": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "content_mismatch",
+      "evidenceRefs": [],
+      "issuePaths": [
+        "/verifiedArtifact"
+      ]
+    }
+  },
+  "actualExitCode": 1,
+  "transportFault": null,
+  "expectedTypedOutcome": "result / declared acceptedTerminal 0",
+  "earliestBrokenRelation": {
+    "operation": "ordinary Product.install fixture",
+    "producer": "unchanged regular USTAR wrapper nominal artifact + true mixed lock",
+    "physicalEffect": "ordinary npm --ignore-scripts --offline install generated declared lower guard bin symlinks",
+    "consumer": "install_product.ts listInstalledPayloadFiles lstat rejects any symlink; installedPayloadMatchesGraphCarrier catches and returns false",
+    "refusalProjection": "installed_manifest_mismatch -> content_mismatch, /verifiedArtifact",
+    "firstRejectedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/installed/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child/node_modules/.bin/abg.cli",
+    "links": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/installed/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child/node_modules/.bin/abg.cli",
+        "relativePath": "node_modules/.bin/abg.cli",
+        "target": "../@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "installedGuardBinManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/installed/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child/node_modules/@abiogenesis/typescript-tenant/package.json"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/installed/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child/node_modules/.bin/abg.codex",
+        "relativePath": "node_modules/.bin/abg.codex",
+        "target": "../@abiogenesis/typescript-tenant/build/code/src/public/codex_cli.js",
+        "installedGuardBinManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/installed/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child/node_modules/@abiogenesis/typescript-tenant/package.json"
+      }
+    ],
+    "manifestIdentityPreserved": true,
+    "all5263RegularPayloadPathsPreserved": true,
+    "regularArchiveSymlinkCount": 0
+  },
+  "frames": {
+    "Product": "actual C04 core and original fixture identities preserved",
+    "Identity": "both true nominal and Public lock identities proved; wrapper manifest exact",
+    "NativeDefinition": "37 core native rows conserved, empty wrapper native contribution admitted without dropping Product",
+    "Install": "artifact-to-physical npm bin-link creation is first new violated relation",
+    "Integration": "core installed/admitted; fixture physical tree exists but has no admitted install candidate; no bind/catalog/conformance",
+    "Effects": "fresh resource only; refusal did not authorize cleanup/retry",
+    "Proof": "actual typed refusal and process exit retained, independent compatibility remained conditional",
+    "Cost": "134.987 seconds actual setup, no timeout; default heap; no Provider"
+  },
+  "diagnosticHistory": {
+    "first-broken-install-relation.json": "initial path-set hypothesis disproved by equal regular populations; earlier lstat symbolic-link refusal is the actual origin"
+  },
+  "RootSelectionRequired": "Root triangulates lawful smallest re-entry; Worker neither repairs nor activates review",
+  "noNewCallsAfterFailure": 0,
+  "providerCalls": 0
+}

@@ -1,0 +1,24 @@
+{
+  "exactBodyEqual": true,
+  "scope": "Affected installer JS only; no global isolated-versus-normal declaration byte assumption.",
+  "acceptedIsolatedOutput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/isolated/build/code/src/product/install_product.js",
+    "sha256": "661945e8ae911f04b990772fe2138a81f132cdfc1bfd8146f1652dd96fa129ca",
+    "byteCount": 18123
+  },
+  "normalOwnerOutput": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+    "sha256": "661945e8ae911f04b990772fe2138a81f132cdfc1bfd8146f1652dd96fa129ca",
+    "byteCount": 18123
+  },
+  "source207Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/freeze.json",
+    "sha256": "631f6554014e5310b6ba2b715656ebfe97957b50dfd77734c4a161a0ee16412f",
+    "byteCount": 18402
+  },
+  "normalBuild": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/commands/build.result.json",
+    "sha256": "397b255854ef1084eb2e702ff5dbed2831319ce448c1a9e5431d56d2e35bde64",
+    "byteCount": 1831
+  }
+}

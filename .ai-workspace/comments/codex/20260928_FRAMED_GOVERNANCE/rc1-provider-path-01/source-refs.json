@@ -1,0 +1,50 @@
+{
+  "kind": "reacquired_source_coordinates",
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "bytes": 133684,
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 14887,
+      "sha256": "d38f46fae38fa8239532b853eb962bb6a1defb99d59ae2edc7931561faa9e0fb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 59021,
+      "sha256": "904103fed326cfbbf6fdbb2e9cbf5bcc7e171a4558cad5b5403e66609619fbc3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/effect-plan.json",
+      "bytes": 13928,
+      "sha256": "43a2d0e2b00a49b889361f25574b5710ea3f68a57d1571cecd7e62390eb07220"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-disposition-01/disposition.md",
+      "bytes": 3461,
+      "sha256": "869019dfa5ceab6405006d68c8c13ba03bfff185ec736ea32755bf7e7385ec9b"
+    }
+  ]
+}

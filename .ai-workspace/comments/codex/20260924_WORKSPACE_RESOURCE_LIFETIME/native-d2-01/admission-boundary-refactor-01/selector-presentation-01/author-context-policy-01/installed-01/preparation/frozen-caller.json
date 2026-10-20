@@ -1,0 +1,34 @@
+{
+  "status": "Prepared only; no setup or actor effects",
+  "checks": [
+    "node --check prepare.mjs passed",
+    "retained original core28 verify receipt is successful; current nominal coordinate equality remains required by caller"
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/prepare.mjs",
+      "bytes": 20163,
+      "sha256": "600802da24f98ebaae9d7328d91b91b1cf128a0d2f3641e04841849fe6a0d6d0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/selection.json",
+      "bytes": 5299,
+      "sha256": "b8acbbba175c995506f4ac52fca0f7c268be278592e4a3f9295182ad247991bc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/entry-close.json",
+      "bytes": 1438,
+      "sha256": "7458e4d8f1f6fd8db495a92ffe027469a70809db7e3caa27008bb56ccb78899f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/caller-subject.json",
+      "bytes": 2775,
+      "sha256": "8767131e965351140e488a5886425ba4d432941a0f70e5bd243a56cb6a39b7d6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/operation-selection.json",
+      "bytes": 2752,
+      "sha256": "591a4f416f32e715ff1414dd799b9847e099448177045d3736ac12332c92f91f"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "results": [
+    {
+      "name": "syntax-driver.mjs",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/driver.mjs"
+      ],
+      "pid": 27640,
+      "code": 0,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 43.73737517744303
+    },
+    {
+      "name": "syntax-ordinary-caller.mjs",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/ordinary-caller.mjs"
+      ],
+      "pid": 27641,
+      "code": 0,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 44.23250025138259
+    },
+    {
+      "name": "syntax-public-support.mjs",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/public-support.mjs"
+      ],
+      "pid": 27642,
+      "code": 0,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 22.389749996364117
+    },
+    {
+      "name": "syntax-owner-checks.mjs",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/owner-checks.mjs"
+      ],
+      "pid": 27643,
+      "code": 0,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 23.503916803747416
+    },
+    {
+      "name": "syntax-current-inputs.mjs",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/current-inputs.mjs"
+      ],
+      "pid": 27644,
+      "code": 0,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 23.54833297431469
+    },
+    {
+      "name": "syntax-offline-check.mjs",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/offline-check.mjs"
+      ],
+      "pid": 27645,
+      "code": 0,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 43.623541947454214
+    },
+    {
+      "name": "offline-check",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/offline-check.mjs"
+      ],
+      "pid": 27646,
+      "code": 1,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 313.034042250365
+    }
+  ],
+  "elapsedMs": 517.3978330567479,
+  "aggregateBudgetMs": 180000,
+  "futureDriverExecutedOrImported": false,
+  "pythonCheck": "ast.parse only; no execution of launcher/observer"
+}

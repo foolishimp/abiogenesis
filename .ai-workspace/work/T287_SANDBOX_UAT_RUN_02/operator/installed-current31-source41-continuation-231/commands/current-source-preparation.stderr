@@ -1,0 +1,11 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
++   digest: 'sha256:b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09',
++   ref: 'product-lock://abiogenesis/b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09'
+-   lockDigest: 'sha256:b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09',
+-   lockId: 'product-lock://abiogenesis/b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09'
+  }
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/prepare.mjs:48:64

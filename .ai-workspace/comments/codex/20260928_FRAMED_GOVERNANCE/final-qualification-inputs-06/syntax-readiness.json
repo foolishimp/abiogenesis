@@ -1,0 +1,96 @@
+{
+  "scope": "changed external caller construction syntax only",
+  "Node": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+  "defaultHeap": true,
+  "RuntimeEffects": 0,
+  "rows": [
+    {
+      "file": "f11/current-resources.mjs",
+      "pid": 79004,
+      "processGroup": 79004,
+      "exitCode": 0,
+      "groupAfterWait": "absent",
+      "elapsedMs": 24.41291604191065,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "importsExecuted": false
+    },
+    {
+      "file": "f11/packet-readiness.mjs",
+      "pid": 79005,
+      "processGroup": 79005,
+      "exitCode": 0,
+      "groupAfterWait": "absent",
+      "elapsedMs": 20.675708074122667,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "importsExecuted": false
+    },
+    {
+      "file": "f11/ordinary-caller.mjs",
+      "pid": 79006,
+      "processGroup": 79006,
+      "exitCode": 0,
+      "groupAfterWait": "absent",
+      "elapsedMs": 21.076458040624857,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "importsExecuted": false
+    },
+    {
+      "file": "f11/public-support.mjs",
+      "pid": 79007,
+      "processGroup": 79007,
+      "exitCode": 0,
+      "groupAfterWait": "absent",
+      "elapsedMs": 21.121416240930557,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "importsExecuted": false
+    },
+    {
+      "file": "f11/setup-driver.mjs",
+      "pid": 79008,
+      "processGroup": 79008,
+      "exitCode": 0,
+      "groupAfterWait": "absent",
+      "elapsedMs": 20.602292381227016,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "importsExecuted": false
+    },
+    {
+      "file": "f11/flow-driver.mjs",
+      "pid": 79009,
+      "processGroup": 79009,
+      "exitCode": 0,
+      "groupAfterWait": "absent",
+      "elapsedMs": 20.603541750460863,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "importsExecuted": false
+    },
+    {
+      "file": "f11/public-outcomes.mjs",
+      "pid": 79010,
+      "processGroup": 79010,
+      "exitCode": 0,
+      "groupAfterWait": "absent",
+      "elapsedMs": 19.84370918944478,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "importsExecuted": false
+    },
+    {
+      "file": "readiness-driver.mjs",
+      "pid": 79011,
+      "processGroup": 79011,
+      "exitCode": 0,
+      "groupAfterWait": "absent",
+      "elapsedMs": 22.39275025203824,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "importsExecuted": false
+    }
+  ]
+}

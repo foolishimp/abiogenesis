@@ -1,0 +1,35 @@
+✔ recursive fixture declares a valid bounded Program with one native selector (8.494625ms)
+✔ receiver counterevidence and unresolved task survive child returns until parent evaluation (1.191666ms)
+(node:69308) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (30714.893709ms)
+﹣ one installed Public start revises native choice from child evidence and reevaluates its parent (0.316625ms) # SKIP
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 31038.831875
+
+✖ failing tests:
+
+test at test_env/tests/t287-recursive-failure-reuse-control.test.mjs:97:1
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (30714.893709ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'traversal_scope_open_admission'
+  - 'open_call_admission'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/tests/t287-recursive-failure-reuse-control.test.mjs:138:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'traversal_scope_open_admission',
+    expected: 'open_call_admission',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,2 @@
+AssertionError [ERR_ASSERTION]: Actual current26→historical24 covered source use refused
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/prepare.mjs:175:9

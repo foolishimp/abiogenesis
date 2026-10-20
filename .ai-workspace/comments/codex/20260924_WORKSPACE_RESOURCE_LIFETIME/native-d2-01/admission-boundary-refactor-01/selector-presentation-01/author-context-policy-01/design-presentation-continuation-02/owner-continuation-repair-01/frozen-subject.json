@@ -1,0 +1,69 @@
+{
+  "scope": "existing artifact-proof handoff and authenticated operational empty-obligation continuation; source/component only",
+  "governance": "ABI STDO 2.5.1-rc.1 / GOAL035 / T287 / LIFE-01; GLC RC4/dev15 unchanged",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/code/src/abg/environment_admission.ts",
+      "preimageSha256": "3d4ec834d362107a5cbf16ac597e28fdfd733a1ff2ad275c1cd295046ca8c065",
+      "sha256": "5c64b06afd7ea50ca37a1555dddb078df043efd0718db49c437fb84885086f8a",
+      "byteCount": 44775
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/code/src/abg/semantic_revision.ts",
+      "preimageSha256": "e8233fa269e0e8ea459b92b40aaa9e78cabafd1971e612adaddd54dc8931aecb",
+      "sha256": "ac240bfe34dc6a344f79415fa8da65f23d1c6596d27263d3995fb1a39fae6d02",
+      "byteCount": 84342
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/code/src/product/semantic_revision.ts",
+      "preimageSha256": "e973b1ed01980b773637b13ce15ed0a059f7de41123d906971a4dd557de4303f",
+      "sha256": "b1028e1dc2aaf06c8b2f46e96de7eddde7a97c9ef2799559b454d06ce537a9a7",
+      "byteCount": 35383
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/test_env/tests/t289-install-event-bodies.test.mjs",
+      "preimageSha256": "9a951b33dd5ea30d5f91efeaa01bbeb46a32f756287c6b6df2823a698039ac80",
+      "sha256": "f9a0e032f9c46990cd575940bebf0692663eb74ce5653636723aa903009063e8",
+      "byteCount": 29063
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "preimageSha256": "3edc3dc5266553c783ad8b85fad0999e1db03bf87ffcd35f2f443a3d75392991",
+      "sha256": "ea6dfc6a617a2f9764e4c29bcee6ad887d3afabcfd642068e048d6ee6a793c2e",
+      "byteCount": 55995
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/environment_admission.js",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/build/code/src/abg/environment_admission.js",
+      "preimageSha256": "fdef3dd176edfd1e98c1459b806dea3527bbcb960717e0eb4e2828317a4f0d19",
+      "sha256": "99eced7ac66159ab8062be1482b5169ce3cf9f303f480b995d55dc7ddad2c992",
+      "byteCount": 35638
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/build/code/src/abg/semantic_revision.js",
+      "preimageSha256": "b39dae1ed17d42b9f0373ae54bf58c9d6542c70f05f1ff1c52aa79872be25725",
+      "sha256": "cb1833b2199b2fb9159a933d0a1eb26cec7b8d25c8a6f2d2705a64f1512d933f",
+      "byteCount": 86023
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/build/code/src/product/semantic_revision.js",
+      "preimageSha256": "ca6679f3b5d339cffad5decce958946c4308737559377e14014afa3d8788dfb9",
+      "sha256": "7d35da7fd7f9779c2837b252dcb1ebe29c30638b25efb9c937e221de2d45bacd",
+      "byteCount": 30515
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.d.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/preimages/build/code/src/product/semantic_revision.d.ts",
+      "preimageSha256": "5d992663ebed8e2ce9d5998285101a856ff2e8219742b980c633a25deba0ca95",
+      "sha256": "cf0a5810cc52bca737e62b297df488d1646697c6cd4a4f99a5761308300c0a6a",
+      "byteCount": 10108
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "firstFailure": {
+    "phase": "c2-output-consumption",
+    "expression": "assert.equal(value.disposition,'completed')",
+    "location": "output-checks.mjs:19",
+    "actual": "runtime_failed",
+    "message": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'runtime_failed'\n- 'completed'\n"
+  },
+  "reachedAndPassed": [
+    "same-process nominal Product verification and selection",
+    "actual original resource/prefix/actor/A-W/current owner projection",
+    "all716 complete body/absence/containment check before writes",
+    "unchanged exact13/14/5/30/925 configuration",
+    "actual invocation-authority-bound current renderer context observed before staging",
+    "exclusive716 staging complete",
+    "actual complete current Product preparation with selected F_P input/context/authority",
+    "native C2 receipt result exit0"
+  ],
+  "notReached": [
+    "Typed terminal producer/task/source-set success checks because terminalResult is null",
+    "Successful helper artifact and protected before/after observation material",
+    "13 command ordered exits/streams/reports",
+    "14 predicate value comparisons",
+    "5 strict reports and30titles",
+    "Syntax lint report population",
+    "925 generated output comparisons",
+    "Two fresh run_result/run_replay processes and zero-append/output joins",
+    "Normal success runtime-slot/material output"
+  ],
+  "closureObservations": [
+    "Physical716 staged bytes unchanged and verification subtree absent",
+    "Actual native toolCallCount0 plus no helper artifact prove no declared command execution",
+    "51 event append, genuine latest handoff, source-linked transport failure and failure Result/J/route preserved",
+    "Original N03/N04 prefixes and all immutable records conserved"
+  ],
+  "limit": "Prepared consumer contracts remain unexecuted on a successful C2 output. First assertion correctly exposes runtime failure; no proof-consumer carrier typo established."
+}

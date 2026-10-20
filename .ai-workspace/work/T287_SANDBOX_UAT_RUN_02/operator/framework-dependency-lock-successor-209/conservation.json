@@ -1,0 +1,27 @@
+{
+  "sourceCount": 263,
+  "allSourceBytesUnchangedSinceAccepted207Preflight": true,
+  "normalGeneratedCount": 934,
+  "allNormalGeneratedPostBuildBytesConserved": true,
+  "sourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/source-preimages.json",
+    "sha256": "f1ea59b7934d471ac5af03663a35a1a186a524b5eb6a4d85752e87ff65e98798",
+    "byteCount": 78250
+  },
+  "generatedDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/generated-delta.json",
+    "sha256": "782944fe626f278d556d76d878186e2cd06f7c8a51f840478839fc5a77ef9456",
+    "byteCount": 311024
+  },
+  "protectedAuthorFilesUntouched": true,
+  "historicalResource": {
+    "unchangedByThisPhase": true,
+    "basisOnly": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/closure-conservation.json",
+      "sha256": "4d4c534a5df53db807d710058d18c029b0c488008b884826d0b80c1c939e44b2",
+      "byteCount": 2476
+    },
+    "noEventLogReadHashStatAcquisition": true
+  },
+  "effectScope": "Only normal generated209/candidate29/isolated host and immutable consumer; no authored Source/HOW/test or historical app/runtime/Git effects"
+}

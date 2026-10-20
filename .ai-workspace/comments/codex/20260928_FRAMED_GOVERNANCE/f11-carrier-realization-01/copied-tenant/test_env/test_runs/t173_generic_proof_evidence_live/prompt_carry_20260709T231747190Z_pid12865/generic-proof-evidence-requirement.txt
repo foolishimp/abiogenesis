@@ -1,0 +1,9 @@
+Construct a subject artifact and an independent verifier artifact.
+The subject artifact shall be a minimal JavaScript program.
+When executed with Node.js, the subject program shall write exactly one line to stdout.
+The stdout line shall contain exactly: Hello, world!
+The stdout line shall end with one newline.
+The subject program shall not write to stderr.
+The verifier artifact shall be executable JavaScript source.
+The verifier shall receive the subject program path as process.argv[2].
+The verifier shall execute the subject with Node.js and fail nonzero unless stdout, stderr, and exit status satisfy the requirement.

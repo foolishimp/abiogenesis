@@ -1,0 +1,12 @@
+{
+  "startedAtMs": 1790204612852.8718,
+  "at": "2026-09-23T23:03:32.852894+00:00",
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/fresh-read-03.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-read-input.json"
+  ],
+  "limitMs": 1800000,
+  "processGroupId": 78909,
+  "claim": "OS deadline/resource observation only; no runtime authority"
+}

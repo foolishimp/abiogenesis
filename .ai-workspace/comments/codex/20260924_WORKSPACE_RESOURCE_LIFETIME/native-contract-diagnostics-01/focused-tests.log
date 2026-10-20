@@ -1,0 +1,17 @@
+✔ native workspace candidate derives through the Product algebra; provenance never becomes cold admission (46.706833ms)
+✔ independent rejection is retained and cannot advance; changed candidate or protected source refuses (21.429167ms)
+(node:71385) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain (60.256083ms)
+ℹ Product/ABG/implementation component path only; supplied authentication facts, no actor, journal or installed execution.
+✔ four assessed stages conserve requirement bindings and restrict construction/C2 to current Design (80.865667ms)
+✔ native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations (14.133458ms)
+✔ native C2 retains assessed non-target dependencies without granting realization credit (96.790125ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 635.793417

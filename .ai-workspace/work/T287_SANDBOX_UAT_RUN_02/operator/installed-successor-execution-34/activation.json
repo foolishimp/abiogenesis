@@ -1,0 +1,75 @@
+{
+  "role": "Operator34",
+  "executionRelease": "Root conjoined CLOSED Source33/Proof33 preparation and Source32/Proof32 publication GO; one genuine original Data Mapper installed native UAT.",
+  "method": "STDO2.5.1-rc.2",
+  "frames": [
+    "f-end-to-end-interface-integration",
+    "f-worksite-causality"
+  ],
+  "preparationPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/return.md",
+      "sha256": "538987a931d64d7035b88e1dcf455d02fc503cbdebafade31b7a4daa6947a8a6",
+      "byteCount": 1718
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/readiness.json",
+      "sha256": "d401422975c18e3bbe9126d623e2ce6589cdfe48268d465a376706fe3bb80f96",
+      "byteCount": 3779
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/freeze.json",
+      "sha256": "91a2c79229387e999d6689d876ce5905552432459acae801361a4232be890cae",
+      "byteCount": 7300
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/setup.json",
+      "sha256": "f527d108f2be62fbd22c2e964d6e08e7f738c5d432261732aa56a1b760b883c1",
+      "byteCount": 3068
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/config.json",
+      "sha256": "97ba2c81dc29f04f2825b5a8272a73ed57980b8daf2ce49e8ec62f443b42790e",
+      "byteCount": 2969
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/material-observation.json",
+      "sha256": "0be2f10108ad502cf13fdc41cfcddc7fee859a75bb4dcac0cfc86719ce4d9f80",
+      "byteCount": 8705
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/material-freeze.json",
+      "sha256": "967394e0d4144086ab7edb2a4a9f5bae91ee4283f3eadad2b3964e71b31b2497",
+      "byteCount": 19466
+    }
+  ],
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "1fe497924a215c4215865c36e50230ebf96e81aefc1ba81705ee59150065267d",
+    "byteCount": 10623282
+  },
+  "overallT0": "2026-10-06T20:52:43.725Z",
+  "overallDeadline": "2026-10-07T01:52:43.725Z",
+  "newNativeT0DoesNotResetClock": true,
+  "recorder": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912,
+    "basis": "Existing recorder setup/drainage allowance; no execution extension."
+  },
+  "stop": {
+    "owner": "Existing native C2 helper/provider/process-group supervision; Root decision or original overall deadline.",
+    "order": [
+      "While CLI remains alive resolve exact admitted C2 occurrence/task/attempt to physical launch.json/helper argv; match live helper and command PID/PGID by ancestry.",
+      "Stop only exact owned C2 helper/command first: SIGTERM, bounded confirmation/grace and SIGKILL only if still exact-owned; preserve real missing artifacts/exit.",
+      "Resolve exact current admitted provider launch PID/PGID, verify live identity immediately and stop only that owned group while CLI lives.",
+      "Allow real exit/failure admission and driver drainage; preserve raw streams/truncation and fresh-read presence/absence."
+    ],
+    "noGuessedPidsOrPrivateEvents": true
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-34",
+  "suppliedOriginals": 4,
+  "suppliedAuthors": 40,
+  "oldNativeCredit": false,
+  "noOperatorAppChanges": true
+}

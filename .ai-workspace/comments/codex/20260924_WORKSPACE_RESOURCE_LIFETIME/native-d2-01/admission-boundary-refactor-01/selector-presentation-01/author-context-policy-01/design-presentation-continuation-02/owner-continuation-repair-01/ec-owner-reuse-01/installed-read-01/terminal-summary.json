@@ -1,0 +1,25 @@
+{
+  "run": {
+    "digest": "sha256:fcca87f120053ef28bd83f7f1b8420bf9c6195beb112d1f3b55f19023424e810",
+    "ref": "run://abiogenesis/a6d993ab5e81dbc9ae08d5069f68ae1503224100fe537634a8658513aba55dbd"
+  },
+  "close": {
+    "coordinateDigest": "sha256:158f2797ef17d8d84e1311b989db109966ecb367de10caeb786523e69e0997dd",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9f311db837d306c352dd8467e8aa06b8d8d2e671586a5b8e3f4347132169c1d5",
+    "prefixLength": 316064006,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "status": "failed",
+  "terminalResult": null,
+  "semanticDigest": "sha256:15c36ab1326ab82a5fb2b3f6bc4b8344faaa93197294b51d3e755160752f5a09",
+  "wholeProjectionEqual": true,
+  "wholeSemanticPublicOutputEqual": true,
+  "readOnly": true
+}

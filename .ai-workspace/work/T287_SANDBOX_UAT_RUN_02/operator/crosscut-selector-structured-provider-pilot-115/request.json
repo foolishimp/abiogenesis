@@ -1,0 +1,147 @@
+{
+  "role": "Operator115",
+  "authority": "Root RELEASE115 conjoins113/114",
+  "selectedAt": "2026-10-08T11:48:27.262Z",
+  "frames": [
+    "f-end-to-end-interface-integration",
+    "f-worksite-causality"
+  ],
+  "method": "ABI5 fixed15 GOAL035/T287 STDO2.5.1RC2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "version": "2.1.291 (Claude Code)",
+  "captured": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c/resources/events/runtime.events.jsonl",
+      "offset": 14769904,
+      "byteCount": 1304257,
+      "sha256": "d873ba45b175c8fdd0cb6e987b3d45002ce31cbb68969060755564329f09eb31"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c/resources/events/runtime.events.jsonl",
+      "offset": 16115637,
+      "byteCount": 453816,
+      "sha256": "c2042770a0cb58d7fc738712fe60d0adeda15a066b0c34f9a4e8610cf08d15bf"
+    }
+  ],
+  "prompt": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c/resources/archives/fp-e3bf65627d8b0ffb-prompt.txt",
+    "sha256": "f3cd26bc295f365acd1a598825a2ce663694a849213b0d50bde8838df2be8e18",
+    "byteCount": 211239
+  },
+  "canonicalSchemaDigest": "sha256:3778dc9e274cbba99c1e483709b281a3621bff5fbd0b465f3ea7cd150347a0e7",
+  "carrierSchemaDigest": "sha256:dede88875cd1087d70dff29fe7cff5b7ed41d4a3307f29b4c092b8a4ca4ee2a8",
+  "carrierProjectionSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/freeze.json",
+    "sha256": "587b8470f6fec434085d58cd9e1600c2dca00aeb363698e608c2ece34fb6dbec",
+    "byteCount": 8079
+  },
+  "canonicalBinderInputs": {
+    "taskDigest": "sha256:9b8c7d1c888b74fd0c2b0eb7d5a351153057f6210ac9bf08a6ea83e6f762748e",
+    "targets": [
+      {
+        "definitionDigest": "sha256:bd4e694bf773ef15993694751daea0655fae4c6991b0f00e6bd71e72f106358f",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/induction@5",
+        "purpose": "induction"
+      },
+      {
+        "definitionDigest": "sha256:e4d1a9473a55fd394e74e01dbe7a6107f513d943340b0f7c2ef791cba891dba2",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+        "purpose": "specification"
+      },
+      {
+        "definitionDigest": "sha256:1b451aef8e6b6d2a44334613dae6ec856228c67f119cd321494e0e11f3ec6918",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+        "purpose": "design"
+      },
+      {
+        "definitionDigest": "sha256:c155862b67f048dd9368b255cbeb081fe3d254b8d049cb4f4905b2127d7eb4f2",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+        "purpose": "construction"
+      },
+      {
+        "definitionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "purpose": "testing"
+      },
+      {
+        "definitionDigest": "sha256:2cac0c6b68532d197c60c087cc6a029b200689bc9bd2ba231ab64bb3c2d3394b",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+        "purpose": "uat"
+      }
+    ],
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e",
+      "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+      "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+      "frameEvidenceDigest": "sha256:c5dccf3233a70a38a5e4d43fb6cbbca255496902dc7019610e3733a2fb99e89f",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:9b8c7d1c888b74fd0c2b0eb7d5a351153057f6210ac9bf08a6ea83e6f762748e",
+      "inputRef": "result://abiogenesis/b10eba8e47479eaa7ea61325ac5cc5b6d1b6897ffbdca3d4a7d35999ff328d55",
+      "previousResultRef": "result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9",
+      "taskRef": "task://abiogenesis-sandbox-uat/data-mapper-full/original"
+    }
+  },
+  "plan": {
+    "kind": "prepared_worker_transport",
+    "schemaVersion": "5.0.0",
+    "planDigest": "sha256:b71846c67deaf22f65a7f4385163bdbfecebc2c31013e3b77fd29b46079ed386",
+    "contractDigest": "sha256:830d1c231cb9b01d349e10c43ff9a644ca434faabf682640783118b088d010d7",
+    "agentKey": "claude",
+    "parser": "claude_stream_json",
+    "promptTransport": "stdin",
+    "lane": "closed_prompt_proof",
+    "command": "/Users/jim/.local/bin/claude",
+    "args": [
+      "-p",
+      "--disable-slash-commands",
+      "--no-session-persistence",
+      "--output-format",
+      "stream-json",
+      "--include-partial-messages",
+      "--verbose",
+      "--permission-mode",
+      "bypassPermissions",
+      "--safe-mode",
+      "--tools",
+      "",
+      "--json-schema",
+      "{\"type\":\"object\",\"properties\":{\"interpretation\":{\"type\":\"string\",\"minLength\":1},\"contributions\":{\"type\":\"array\",\"maxItems\":6,\"description\":\"At most one contribution row per graphFunctionRef in this current mapping.\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"graphFunctionRef\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"contribution\":{\"type\":\"string\",\"minLength\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://abiogenesis-sandbox-uat/data-mapper-full/complete-original-outcome\"]}},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://abiogenesis-sandbox-uat/data-mapper-full/original\",\"worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e\",\"result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f\",\"result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9\"]}},\"dependsOn\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"description\":\"Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.\"}},\"required\":[\"graphFunctionRef\",\"contribution\",\"reason\",\"supportRefs\",\"evidenceRefs\",\"dependsOn\"]}},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://abiogenesis-sandbox-uat/data-mapper-full/complete-original-outcome\"]},\"minItems\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://abiogenesis-sandbox-uat/data-mapper-full/original\",\"worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e\",\"result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f\",\"result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9\"]}}},\"required\":[\"supportRefs\",\"reason\",\"evidenceRefs\"]}},\"nextGraphFunctionRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",null],\"description\":\"Must name a contribution row in THIS response, explicitly chosen to execute next. Testing is available immediately only when every original selected path is an observed file; future Testing contributions remain allowed. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.\"},\"nextReason\":{\"type\":\"string\",\"minLength\":1},\"nextEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://abiogenesis-sandbox-uat/data-mapper-full/original\",\"worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e\",\"result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f\",\"result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9\"]}},\"subjectEvidenceRef\":{\"type\":[\"string\",\"null\"],\"enum\":[null,\"result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f\"],\"description\":\"For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.\"},\"revisionReason\":{\"type\":\"string\",\"minLength\":1},\"revisionEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://abiogenesis-sandbox-uat/data-mapper-full/original\",\"worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e\",\"result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f\",\"result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9\"]}}},\"required\":[\"interpretation\",\"contributions\",\"gaps\",\"nextGraphFunctionRef\",\"nextReason\",\"nextEvidenceRefs\",\"subjectEvidenceRef\",\"revisionReason\",\"revisionEvidenceRefs\"],\"additionalProperties\":false}",
+      "--model",
+      "claude-opus-5-5"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115",
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/archives",
+    "label": "selector3-structured",
+    "timeoutMs": 18030000,
+    "absoluteTimeoutMs": 18040000,
+    "terminationGraceMs": 5000,
+    "promptDigest": "sha256:b2ad2bc755e9164cbfda1ecee7928e2e39a34dd5a117b456cc5d1af1c13ad75c",
+    "responseJsonSchemaDigest": "sha256:dede88875cd1087d70dff29fe7cff5b7ed41d4a3307f29b4c092b8a4ca4ee2a8",
+    "environmentPolicyDigest": "sha256:28d63718c9607b33c1099e84e0bc3dd234d6a9543f54585e46f4366663278cc6",
+    "environmentDigest": "sha256:c656a8c42ef66f73c5b4f4560c6818ba94cc8b71fa0ba730a7602f62f30801fd",
+    "paths": {
+      "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/archives/selector3-structured-prompt.txt",
+      "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/archives/selector3-structured-output.txt",
+      "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/archives/selector3-structured-stdout.log",
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/archives/selector3-structured-stderr.log",
+      "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/archives/selector3-structured-transport.json"
+    }
+  },
+  "environmentKeys": [
+    "ABG_TS_CLAUDE_APPEND_ARGS",
+    "ABG_TS_CLAUDE_COMMAND",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+    "ABG_TS_FP_TERMINATION_GRACE_MS",
+    "ABG_TS_FP_TIMEOUT_MS",
+    "ABG_TS_WORKER_SANDBOX",
+    "CLAUDE_CODE_OAUTH_TOKEN",
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "scope": "One real host/carrier/unchanged Product binder pilot only; no native Run, admission, application effect or UAT credit"
+}

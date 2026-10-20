@@ -1,0 +1,10 @@
+{
+  "operation": "T287_RUNTIME08_WHOLE_ASSURANCE_GRANT_01",
+  "role": "Writer",
+  "status": "CLOSED",
+  "closedAt": "2026-10-02T10:46:43.720676+00:00",
+  "returnsTo": "Executive",
+  "otherEffects": 0,
+  "conditionalReviewerNotActivated": true,
+  "failedControlPreimagePreserved": true
+}

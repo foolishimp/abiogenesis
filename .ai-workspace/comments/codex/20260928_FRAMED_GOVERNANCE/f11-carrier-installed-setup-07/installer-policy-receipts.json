@@ -1,0 +1,36 @@
+{
+  "hostileEnvironment": {
+    "npm_config_bin_links": "true"
+  },
+  "actualOwnedArguments": "--bin-links=false in accepted C07 emitted installer owner",
+  "npm": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/task-cache/_logs/2026-10-02T10_23_20_660Z-debug-0.log",
+      "sha256": "340148bfcaa06654e52eb6d01b63cd78db266c64c0b9f9dd0462fc480bf8ef6f",
+      "actualLines": [
+        "0 verbose cli /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/npm",
+        "1 info using npm@11.5.1",
+        "2 info using node@v24.7.0",
+        "8 verbose argv \"install\" \"--bin-links\" \"false\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--offline\" \"--package-lock\" \"true\" \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz\"",
+        "20 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core",
+        "24 verbose exit 0",
+        "25 info ok"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/task-cache/_logs/2026-10-02T10_23_36_984Z-debug-0.log",
+      "sha256": "768b03875bad76ecdcba987be33ea00fe624eadaf50fd6d79798b6e9005be0c1",
+      "actualLines": [
+        "0 verbose cli /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/npm",
+        "1 info using npm@11.5.1",
+        "2 info using node@v24.7.0",
+        "8 verbose argv \"install\" \"--bin-links\" \"false\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--offline\" \"--package-lock\" \"true\" \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz\"",
+        "19 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/fixture",
+        "23 verbose exit 0",
+        "24 info ok"
+      ]
+    }
+  ],
+  "completePopulationComparison": "installed-physical-population.json",
+  "postInstallLinkDeletionFilteringOrRepacking": false
+}

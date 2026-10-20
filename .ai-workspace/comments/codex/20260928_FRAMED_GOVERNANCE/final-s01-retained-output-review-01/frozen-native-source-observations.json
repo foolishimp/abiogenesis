@@ -1,0 +1,3788 @@
+{
+  "N04FreezeIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/freeze.json",
+    "bytes": 24651,
+    "sha256": "b1f955be3959c8c17eba8254df5154342cd91a9d90f265ebf17d6deb1cbf0c5e"
+  },
+  "N04RecordsVerified": [
+    {
+      "path": "admitted-event-observation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 25936,
+      "sha256": "dc0e841118e5b1a42342ac4c337c7681378ddc1cee0edee278e22abed73e216f"
+    },
+    {
+      "path": "assertion-frontier.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2459,
+      "sha256": "44ad1620dd8cb78beb571b54365f3f33332f00bb9baa0de20fc9b9086cfbc326"
+    },
+    {
+      "path": "bootstrap-core.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13240749,
+      "sha256": "73abadb8e051a7eab074d8f6da5256d41d1e5923525a881f286fe8b4c035baca"
+    },
+    {
+      "path": "budgets.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 701,
+      "sha256": "200dbe1cf07f45573286762d9bd74e931ecfb1441a4ede6a212eb00966f5784f"
+    },
+    {
+      "path": "causal-triage.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4651,
+      "sha256": "3e1ae1972bf6475254d9459d7ff6d12f7f56c963b0b34781bbd5d04f38beed47"
+    },
+    {
+      "path": "close.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15179,
+      "sha256": "d33a8130a9d5628f4e19a8d75e70b55aa124507dc013e1ce78665eaff447d2b7"
+    },
+    {
+      "path": "closed-state.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1675,
+      "sha256": "4f18bd44e3e5e9198a689da444864163e8c7739b2376d53eeaf6c8d3c8374400"
+    },
+    {
+      "path": "closure-attribution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1791,
+      "sha256": "6e8a981abd7d75ba6a043b4732e537f82fabd986f4e0e04dbc371bf7eeb4634f"
+    },
+    {
+      "path": "config/global.gitconfig",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/global.npmrc",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/system.gitconfig",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/user.npmrc",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "conformance-command-execution-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 78925221,
+      "sha256": "7d781879e3b1c0f6f52c693505aa459c099650f9aa05dec286a8a0fc9b7fd9f6"
+    },
+    {
+      "path": "conformance-command-execution-semantic-result.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2526,
+      "sha256": "1f8c606606d952265d6add8429cf06cba24f0042886a16d06a26f4df6fae1d75"
+    },
+    {
+      "path": "conformance-hello-world-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 79451795,
+      "sha256": "53d16cb1f838d651891109aab56dcc2f01fd8fc7a925006fab32ca397fe57970"
+    },
+    {
+      "path": "conformance-hello-world-semantic-result.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2523,
+      "sha256": "1386a5d1d7d5049634a240e6816e63490adeaafcb641c42dc3e6e4fb20ca3441"
+    },
+    {
+      "path": "conservation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1610,
+      "sha256": "76434c008ef2568a7cf0d4ef54c335a0e5296a9c497ce96127136d311863343f"
+    },
+    {
+      "path": "construction-attribution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2660,
+      "sha256": "842f95d4ec727714de81685982fbe5e568f76bf0eb61f4e7dfd3940d475b13c4"
+    },
+    {
+      "path": "continue-authorization-0.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387560,
+      "sha256": "b47576b37f8a0bf9bd1a94628c0a860dd0db1a2a3a6bf91852dfd5c27f5b5762"
+    },
+    {
+      "path": "continue-authorization-1.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387563,
+      "sha256": "77ca9b84f5ae22dbe9ee99b8b3c47ec63fa50fcae3512fff1e29372e72aecd51"
+    },
+    {
+      "path": "continue-conformance-command-execution-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1941,
+      "sha256": "9ee452eed177fc930bff5ef331ab19af982bd0c72f96ed1b392e3c08a1de2c1a"
+    },
+    {
+      "path": "continue-conformance-command-execution-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2223,
+      "sha256": "21810584eb4f0f24ffde0ef4d636f5ca74b6eba261eaf5fa85020b784b89f831"
+    },
+    {
+      "path": "continue-conformance-command-execution-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 692,
+      "sha256": "ecddb9bf8965d67dd13eb09d3417adba74601608bdbd77b70d7a2389c88024b9"
+    },
+    {
+      "path": "continue-conformance-command-execution-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1256,
+      "sha256": "0bc2a7ec36bd896a392f33d015b3055d33c3bc1e50d2ea5f0ce62bd122ef0b8e"
+    },
+    {
+      "path": "continue-conformance-command-execution-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 632,
+      "sha256": "42f708bf6c3bead366f461ca6a4de1584bff7f779bbcdab0eeff9be5e4588bab"
+    },
+    {
+      "path": "continue-conformance-command-execution-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "continue-conformance-command-execution-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1972,
+      "sha256": "464e7ded75d2db27175987235cee9145d19a3649d07f12c7b41a23b0a9bdce81"
+    },
+    {
+      "path": "continue-conformance-command-execution-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 294,
+      "sha256": "23db85678de01251d6c5a55092c6e7bf88deed6fd47df56e8e49fa58b654bef3"
+    },
+    {
+      "path": "continue-conformance-command-execution.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30361315,
+      "sha256": "8ffeff79fa8d1affaf16b334ce0b6c7aa71527cbea2c9c41328a0eadf0fdf37f"
+    },
+    {
+      "path": "continue-conformance-hello-world-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1939,
+      "sha256": "f06b77d62310d6b83df4948cac5c46eee2ed45ba5097498140a753b7fd4c7c8e"
+    },
+    {
+      "path": "continue-conformance-hello-world-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1817,
+      "sha256": "6701b427bca84d1dd0b9205f5e831476d3e08aa3738502a61aed87372e5406e8"
+    },
+    {
+      "path": "continue-conformance-hello-world-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 699,
+      "sha256": "6b73db54b57ffed7c4f6345fb326e3a6bdbd61ba1ab7b933b47fc4a768d4a5e2"
+    },
+    {
+      "path": "continue-conformance-hello-world-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1250,
+      "sha256": "4ddffb12745332a4d087e202f31eea1cefcde8ce6c1267ddc85c03d601003da6"
+    },
+    {
+      "path": "continue-conformance-hello-world-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 620,
+      "sha256": "e6bc6cfb21d64f79244baf3a6fcbaa641362166bea45ae3fc1712d95ebcb40ce"
+    },
+    {
+      "path": "continue-conformance-hello-world-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "continue-conformance-hello-world-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1969,
+      "sha256": "f5b7a3502d6583b14e9bee1f2d6e1741579d1a1ecc7c4293acff53a5b1f25d95"
+    },
+    {
+      "path": "continue-conformance-hello-world-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 294,
+      "sha256": "02aa092955f788c900e8cdae6b5d2190c0772582efa1a5a21bf1ad19cc37942a"
+    },
+    {
+      "path": "continue-conformance-hello-world.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30448518,
+      "sha256": "72f09e5a1a09a9993455e3f6fff922ea70ac7b37e709a79ebf7497b5780417d8"
+    },
+    {
+      "path": "continue-failure-final-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1240,
+      "sha256": "7e24a238d3d5b0e3cd36a2c36cb9ac7b9f86dc07f390498298ee49afe01aafcc"
+    },
+    {
+      "path": "continue-hello-root-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1922,
+      "sha256": "c702fb519701030e90bb091b555266cd791855704b52763418e59a92b23c4469"
+    },
+    {
+      "path": "continue-hello-root-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2594,
+      "sha256": "a080c96aaa74c52f8dc7eeef442ca26332069b7952252424f2f4cd6487501025"
+    },
+    {
+      "path": "continue-hello-root-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 682,
+      "sha256": "16572fc808d90245fbafb145a8e71ddeda2207e019eed9ce6fb7fab2e305b024"
+    },
+    {
+      "path": "continue-hello-root-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1237,
+      "sha256": "3ce282445148c51aaec044e121ffe32f5eae21ea2db8e61370adca499823c2f7"
+    },
+    {
+      "path": "continue-hello-root-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 594,
+      "sha256": "ff11362c194e7d1669e0dc848790a0e5975464dcdd7c0d60bab1b6964d5a42b0"
+    },
+    {
+      "path": "continue-hello-root-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1933,
+      "sha256": "a2324d66b1261f96df61ebf59feadc5f5487c4c9508e46a4afdb509c841361b2"
+    },
+    {
+      "path": "continue-hello-root-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3370,
+      "sha256": "85e3875481f9d876ba6c579ae36fa855d01ca959893d98746d0cdf34065d3571"
+    },
+    {
+      "path": "continue-hello-root-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 692,
+      "sha256": "b7fdbaee419ce76950e76b1d0c5c5b8a971f4a0a72b698cf6807dfaa34bd547d"
+    },
+    {
+      "path": "continue-hello-root-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1248,
+      "sha256": "32c62b86d315ac15bef0c66fe8143445d2a3329d32e822d9eecdd83282024d78"
+    },
+    {
+      "path": "continue-hello-root-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 616,
+      "sha256": "7a5d138877e5cbb054b29a45be9a8bfe2f64fcb58c130a0d6bd68530f8bdcdea"
+    },
+    {
+      "path": "continue-hello-root-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "continue-hello-root-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5879,
+      "sha256": "d01d863dc8f957e4a37bd12260c125fb0778cc007d290576f345eefb559af8de"
+    },
+    {
+      "path": "continue-hello-root-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "73c0bd75d2d87368c31cc42c30a96ff29068b6600a621ba0ddfd112629601080"
+    },
+    {
+      "path": "continue-hello-root-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9534,
+      "sha256": "c4d2b1511eeca9cd1c81045a982a486f5689c7168c09a3f3412618a69bfceff0"
+    },
+    {
+      "path": "continue-hello-root-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1937,
+      "sha256": "4b769512b1e4ee1d436a515b62fced26385fcf07a2a86cd9252aa06162fbc52a"
+    },
+    {
+      "path": "continue-hello-root-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2982,
+      "sha256": "46aa7ac865c6b6dee72db6675e5fca384b19d709bcc788f0d7f7dff52798c857"
+    },
+    {
+      "path": "continue-hello-root-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 692,
+      "sha256": "fd3d34804161931e381cca6d6e303486e54e4e916a9a39a8ae7996c1f9a026aa"
+    },
+    {
+      "path": "continue-hello-root-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1248,
+      "sha256": "1808d15ed84a03a148cb1b27ada9c1bc4be5af97fb55548911de9903235c3459"
+    },
+    {
+      "path": "continue-hello-root-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 616,
+      "sha256": "fa22ff70730631a901dc2f3e5792cc20b65c9536915322cf187b8d2c7d5929b9"
+    },
+    {
+      "path": "continue-hello-root-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "continue-hello-root-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6224,
+      "sha256": "eb5400936e51e9b29dabec625a7d50447b142e329e4ba401cc3a822ff45c0015"
+    },
+    {
+      "path": "continue-hello-root-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "ccfb53ebcca639e8c7bd61324af42ada2437a3bcfe5d381d6d4f42ab0748cfc3"
+    },
+    {
+      "path": "continue-hello-root-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9497,
+      "sha256": "8bd463d6d947600f4660d2e6908ff5a424aef644fc7ef277c74d11b6042dc85d"
+    },
+    {
+      "path": "continue-hello-root-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "continue-hello-root-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12121,
+      "sha256": "c51ec0731788c55d78728e383c31425550adf289b319a4a85371256d13dbbbe3"
+    },
+    {
+      "path": "continue-hello-root-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 288,
+      "sha256": "fb7b7355b314fbc3cf1e476d657eae96d30a3572cda0ff37bec6f57fa9f333cb"
+    },
+    {
+      "path": "continue-hello-root.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18177645,
+      "sha256": "48b793ee9d6db307a6b8cca591c80680e4dd9f8fe530ba967db52571ac606443"
+    },
+    {
+      "path": "continue-initial-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1234,
+      "sha256": "9e507a1c3e60780e401a5064e2b24337c6785d43e9bc6abf99c36eed365deba4"
+    },
+    {
+      "path": "cost-and-quiescence.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6709,
+      "sha256": "a1d9d2ee8983a277d0de223cc4550e6293f3a501a9ef4f3b18b2bab80dc61960"
+    },
+    {
+      "path": "donor-control-deltas.patch",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 17081,
+      "sha256": "ec6b2e540807d2588cc34a10fb60b18bec4e4faf3e557a38a022f64d0e86b9f1"
+    },
+    {
+      "path": "donor-preimages.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2045,
+      "sha256": "30ba4af10eb48efde472fe519309aac9a74bcbc5724e7ff5032e10fae70a1f96"
+    },
+    {
+      "path": "driver-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 273,
+      "sha256": "30de566ee021e98b8e64ca999afd8e13828901c8391d435df951ac51d1f6cef9"
+    },
+    {
+      "path": "driver-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 221,
+      "sha256": "9e41ddc6249ac7977e4045e5658658f3a537974a1e3ba6e78bd06c1b28809309"
+    },
+    {
+      "path": "driver-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 846,
+      "sha256": "7a99c299c8096fa797acc06c01de65e4f0522a9c36e0d8166ed8c51d6263470c"
+    },
+    {
+      "path": "driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10955,
+      "sha256": "c1b2aab1b26778086c9a8cfd20cf016f2dc247d716c57ae1b3c94c9299978409"
+    },
+    {
+      "path": "driver.stderr",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 215,
+      "sha256": "a0400827cc840c6ab6e6c2a34021fbb9c54ffe8911792e0272f380c03b786485"
+    },
+    {
+      "path": "driver.stdout",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2574,
+      "sha256": "cc589808a313766e7f4c3070a3b6164e26e16b247cbaf6aadc890a978b5ff781"
+    },
+    {
+      "path": "failure-native-prefix.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2582298,
+      "sha256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc"
+    },
+    {
+      "path": "failure.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5070,
+      "sha256": "59412c513a16f98c262000a6a51769afc3fe9cd4719424b6a28e625026972485"
+    },
+    {
+      "path": "final-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1328,
+      "sha256": "dd3ed5aea2647785b60d62648bee956a57d1f22b4ff648abfad08925aeb1acfa"
+    },
+    {
+      "path": "hello-root-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48766359,
+      "sha256": "892fd2447d246969a0c93f00ed5879575f6736fe595afa10eaea5936268874f4"
+    },
+    {
+      "path": "hello-root-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694959,
+      "sha256": "2127314ddde08bfb276d079bea9d535cb187ecb95588e019d2fcd07891d80792"
+    },
+    {
+      "path": "hello-root-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694898,
+      "sha256": "ad62c75feddcc9a286e3234db775aea04da1762af0fa09573e6011341e8fe915"
+    },
+    {
+      "path": "initial-identity-joins.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1360,
+      "sha256": "477e7e6fb3503ae66e44cd9dde3812fc08a976705b94b98491f6efd9b3828464"
+    },
+    {
+      "path": "launch-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1718,
+      "sha256": "2685c391d1f81ed021589c12b7e2ea72b9518fdb36fe5390d1e41abfaf37502f"
+    },
+    {
+      "path": "launch-once.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2240,
+      "sha256": "fa0bca55a83653cfa6e5016647984dabb0fcb7b8f191aceecf3d07e83fc9d1c5"
+    },
+    {
+      "path": "native-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 254,
+      "sha256": "4bcdd76e00253864c910ce78dcd8166b8655651055bfd2117346177dcb5a9a24"
+    },
+    {
+      "path": "observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "observe-retained.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1863,
+      "sha256": "d343e0150cf2b812d5079abae5dac1aec4717c88616e1e9a1379cd7674e7e316"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14861,
+      "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351"
+    },
+    {
+      "path": "owner-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9469,
+      "sha256": "a0f54b19fc3fdb562b5f4e22f8dd93b94cd79efa1c9939ab271365a6e086a868"
+    },
+    {
+      "path": "owner-source-relations.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 49546,
+      "sha256": "854afbac18e195127aa540b226611a01ef682bb774c4ca25ddbc329d2ede65ac"
+    },
+    {
+      "path": "pre-effect-conservation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1176,
+      "sha256": "3b586b2065b48819bf8453a6d0c389fbf670b4ad9678879261dba30ccbb8d380"
+    },
+    {
+      "path": "pre-effect-input-freeze.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5538,
+      "sha256": "1da22eeb62549752cc35197d6a65daf7160f5a6dcdff48af66ab738425880d5a"
+    },
+    {
+      "path": "preimages/launch-once.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2237,
+      "sha256": "f6e69068f1518565089804f8b169b25a65cf572d6db1608007edf2587d756c8c"
+    },
+    {
+      "path": "preimages/observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "preimages/ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14670,
+      "sha256": "fa004e9f812e6214b53294dc38530b857d7527bc3a1a2d64e469d260ac1b4023"
+    },
+    {
+      "path": "preimages/public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": "prepare.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8074,
+      "sha256": "2f79ea9003074225126becb850d6256cdf880a158d4e1df9bda6c289fd236a88"
+    },
+    {
+      "path": "prospective-cases.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1044,
+      "sha256": "2d80decbac0065250e8d75413d2e9999a55712641ebcd927ce55daada1cd0408"
+    },
+    {
+      "path": "public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": "pure-preflight.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 296463,
+      "sha256": "f6baee73cc3a018ef1d00162ea0a873b9d4fd67153243e3e467939fa4619312e"
+    },
+    {
+      "path": "resource-plan.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1250,
+      "sha256": "d21017169c869fc1127b6c5c96f619e6844bfcb7886adc68310384b93542a84f"
+    },
+    {
+      "path": "retained-environment.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 39264325,
+      "sha256": "6bfd866bd6575620d76c15f3a5eb268131ffec72ca17d66c55ef023595681518"
+    },
+    {
+      "path": "retained-public-observations.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 28161,
+      "sha256": "42beecfdb85f67322c520c39d31d041b8049a45a5269d71cd6b9e4e7887e29af"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11528,
+      "sha256": "c2c7165e4002f5f6acd4e822b3bbdb05d8b26ae7a9bdf57fd24170eec570106b"
+    },
+    {
+      "path": "runtime-environment.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1193,
+      "sha256": "b3255cb48914dfd5d8a6dcea6102c81f6d0fcbd98474156c3fc615921d919702"
+    },
+    {
+      "path": "runtime-slots.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3566147,
+      "sha256": "103d930c8f33f793a23db63e0c3cd70a8d736d5ddd0f56b85d46b62efe6c2f7c"
+    },
+    {
+      "path": "selected-core.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1261,
+      "sha256": "fc659ef56d13a53b7e127e4fdac184f72dca97af4700f76b0567b7d5b765a1f1"
+    },
+    {
+      "path": "terminal-source-relations.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14998,
+      "sha256": "a5065daec08a9a440b24566d3dc6fc613990944eec1b0f77822edf382086b035"
+    },
+    {
+      "path": "worker-activation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2129,
+      "sha256": "21fc844a0e7db621978427e6cc3cdce027ae4e498002d05e00fc874ea7ccf7f2"
+    }
+  ],
+  "N03FreezeIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/freeze.json",
+    "bytes": 1734377,
+    "sha256": "1d80caa472ee5f53ea431bb8d53262d48974a516510ae132355c8eaa4303e135"
+  },
+  "C02FreezeIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+    "bytes": 4543994,
+    "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+  },
+  "method": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1/manifest.json",
+      "bytes": 12434,
+      "sha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "bytes": 133684,
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "spans": [
+        {
+          "line": 658,
+          "text": "---\n\n## Derived Reviewer Frame\n\n| Frame element | Derived application |\n|---|---|\n| evaluation family | Is this the exact claimed subject and basis? Does it satisfy the applicable STDO and project relations without competing authority, proof masking, or an unevaluated composition boundary? For each finding, what evidence-bound severity and technical implications follow? |\n| subject and basis | exact candidate, claim, governing STDO and project authority, scope, exclusions, evidence population, Product-selected severity scale, review carrier, and declared independence conditions |\n| material manifold | claimed relations; causal producers and consumers; authority seams; competing paths; failure, recovery, installed, and reconstruction surfaces where claimed; test and fixture semantics; historical counterexamples; finding cause, blast radius, workaround, repair complexity, regression risk, and uncertainty where supportable |\n| coordinates | exact candidate, source basis, authority revision, configuration, dependency, evidence population, severity scale, installed subject, review time, and Reviewer identity |\n| governing invariants | `RF-001..017`; `STDO-UP-020`; `STDO-UP-007`; `STDO-UP-022`; applicable Product, design, identity, and release law |\n| authority | bounded evaluation only; no construction, transformation, admission, publication, mutation, decision, disposition, or next-activation authority follows from review access |\n| evidence | independently acquired live authority, candidate implementation, tests, artifacts, history, operational evidence, mutations, replay/reconstruction, and reproduced observations material to the claim and technical triage |\n| capability envelope | declared method, domain, implementation, assurance, technical-triage, tool, access, context, counterexample-search, and independence competence |\n| exclusions | candidate editing, repair implementation, priority assignment, release or MVP boundary disposition, next-action selection, Worker-summary substitution, assurance-owned semantic reconstruction, unbound evidence flattening, and silent scope expansion |\n| result | one Reference Frame Method result plus findings, counterexamples, evidence-bound technical triage, and residuals sufficient for Executive to assign priority and apply the existing `STDO-UP-020` disposition where the basis is decidable |\n| invalidation | material candidate, authority, basis, evidence population, severity scale, dependency, configuration, scope, or independence change |\n\n`STDO-UP-007` determines when independent review is required and what makes it\ntraceable. `STDO-UP-022` determines exact assurance-boundary and qualification\nfreeze requirements. This profile adds neither a universal review round nor a\nnew independence test.\n\n`STDO-UP-020` remains the owner of assessment and semantic disposition. This\nprofile uses an activated Reviewer result as independent live-surface evaluation\ninput and, in the coordinated branch, Executive as the authorized assessor or\nproxy that applies the one existing disposition. It creates no second verdict or\ndisposition family.\n\nReviewer may assess likely repair complexity and regression risk without\nbecoming the repair owner. When cause, blast radius, workaround, or repair risk\ncannot be supported inside the activation, the result records that uncertainty\ninstead of manufacturing a complete triage.\n\nTests are inside the Reviewer manifold when their code, fixtures, mutations,\nenvironment, or interpretation can change the proof claim. A passing result is\nnot relied upon as a substitute for reviewing those semantics.\n"
+        }
+      ]
+    }
+  ],
+  "selected-core.json": {
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant",
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+      "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+      "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "resource-plan.json": {
+    "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite",
+    "installRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/installed",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5",
+    "lockFileRule": "<actual-device>-<actual-inode>.lock; same original N03 namespace all calls",
+    "history": "Original genuine N03 resource; seven successes retained; original TMPDIR/lock preserved",
+    "HOME": "unchanged",
+    "permittedWrites": "New N04 territory; only five declared owner effects may append original N03 event resource and acquire/release original lock",
+    "nativeCalls": 5,
+    "actualActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+    "device": 16777230,
+    "inode": 464012478,
+    "initialPrefixSHA256": "cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8"
+  },
+  "initial-identity-joins.json": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-controls-04/request.txt",
+      "bytes": 8540,
+      "sha256": "2755f3746b50abe623dafe64c5273b854316a552a4a75e44c9dd6c5f557add7c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+      "bytes": 4543994,
+      "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/freeze.json",
+      "bytes": 1734377,
+      "sha256": "1d80caa472ee5f53ea431bb8d53262d48974a516510ae132355c8eaa4303e135"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/return.md",
+      "bytes": 11043,
+      "sha256": "cf8aab97b1ce9226ca9e6f7970e210f6089be867ca670ec23fe88f959df6c282"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/final-handoff.json",
+      "bytes": 1328,
+      "sha256": "564fe85074d7146bd1f7a9ea834825b74beb005c0c51c3e9892c7c526e5d155c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-03/s03_phase_b-session-metadata.json",
+      "bytes": 976,
+      "sha256": "a3fe90748fdcb5c9629c68e55ef8367b268cc1ef7685d4413f785b0edc8c54de"
+    }
+  ],
+  "continue-initial-physical.json": {
+    "label": "initial",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "bytes": 2475382,
+    "sha256": "cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+    "device": 16777230,
+    "inode": 464012478,
+    "stable": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock",
+    "lockPresent": false,
+    "prefix": {
+      "coordinateDigest": "sha256:7cb5efb8e5a16babfeb0c51dbb943913be21281e0e64f3bc8f6e94dcc6dd4757",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+      "prefixLength": 2475382,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464012478
+      }
+    }
+  },
+  "final-handoff.json": {
+    "prefix": {
+      "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+      "prefixLength": 2582298,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464012478
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:f8dcd1e8be5deb306da9c6ec26edbaa7b8411a1d3cf3355936b9d621653125b1",
+      "device": 16777230,
+      "durableByteLength": 2582298,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "inode": 464012478,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "failure.json": {
+    "phase": "cold-reads",
+    "message": "TypeError: Cannot read properties of undefined (reading 'runRef')",
+    "stack": "TypeError: Cannot read properties of undefined (reading 'runRef')\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver.mjs:22:640",
+    "finalPhysical": {
+      "label": "failure-final",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "bytes": 2582298,
+      "sha256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+      "device": 16777230,
+      "inode": 464012478,
+      "stable": true,
+      "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock",
+      "lockPresent": false,
+      "prefix": {
+        "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+        "prefixLength": 2582298,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464012478
+        }
+      }
+    },
+    "closeHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+        "prefixLength": 2582298,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464012478
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:f8dcd1e8be5deb306da9c6ec26edbaa7b8411a1d3cf3355936b9d621653125b1",
+        "device": 16777230,
+        "durableByteLength": 2582298,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+        "inode": 464012478,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    "calls": [
+      {
+        "label": "conformance-hello-world",
+        "definitionKey": {
+          "operationId": "abg.operation.conformance.evaluate",
+          "memberKey": "gtl_program"
+        },
+        "invocationRef": "invocation://abiogenesis/d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a",
+        "outcomeKind": "result",
+        "elapsedMs": 10742.860749999998,
+        "processFailure": null
+      },
+      {
+        "label": "conformance-command-execution",
+        "definitionKey": {
+          "operationId": "abg.operation.conformance.evaluate",
+          "memberKey": "gtl_program"
+        },
+        "invocationRef": "invocation://abiogenesis/3a004e162fceb7fcd8cb41f7031c3fda026f13e3df319ff632bc84104753eebd",
+        "outcomeKind": "result",
+        "elapsedMs": 10747.671374999998,
+        "processFailure": null
+      },
+      {
+        "label": "hello-root",
+        "definitionKey": {
+          "operationId": "abg.operation.run.invoke",
+          "memberKey": "start"
+        },
+        "invocationRef": "invocation://abiogenesis/5d83f7c45665c7c5fb4958f7767fb9016776c4350660109828d4d4a9b5e08bfb",
+        "outcomeKind": "result",
+        "elapsedMs": 3065.1989170000015,
+        "processFailure": null
+      },
+      {
+        "label": "hello-root-run_result",
+        "definitionKey": {
+          "operationId": "abg.operation.project.read",
+          "memberKey": "run_result"
+        },
+        "invocationRef": "invocation://abiogenesis/4c05b5a610ecfdfd29613f074f95ead657a9ed6c8c79317ddde1dbdbe7a82454",
+        "outcomeKind": "result",
+        "elapsedMs": 604.5962910000017,
+        "processFailure": null
+      },
+      {
+        "label": "hello-root-run_replay",
+        "definitionKey": {
+          "operationId": "abg.operation.project.read",
+          "memberKey": "run_replay"
+        },
+        "invocationRef": "invocation://abiogenesis/4c92dd5c1e76e0b269b128d9f5ded8ba5a82138735f787d22f9fa84062aa2d3b",
+        "outcomeKind": "result",
+        "elapsedMs": 609.1657500000001,
+        "processFailure": null
+      }
+    ],
+    "elapsedMs": 41064.789166999995,
+    "driverPid": 94535
+  },
+  "driver-process.json": {
+    "pid": 94535,
+    "exitCode": 1,
+    "signal": null,
+    "exitObserved": true,
+    "timedOut": false,
+    "elapsedMs": 41140.36558382213,
+    "ownedGroupsSignalled": [],
+    "stdout": "driver.stdout",
+    "stderr": "driver.stderr"
+  },
+  "cost-and-quiescence.json": {
+    "driver": {
+      "pid": 94535,
+      "exitCode": 1,
+      "signal": null,
+      "exitObserved": true,
+      "timedOut": false,
+      "elapsedMs": 41140.36558382213,
+      "ownedGroupsSignalled": [],
+      "stdout": "driver.stdout",
+      "stderr": "driver.stderr"
+    },
+    "preflightElapsedMs": 14019.869333,
+    "budget": {
+      "stages": {
+        "conformance": 600000,
+        "hello": 300000,
+        "read": 600000
+      },
+      "operationPlan": [
+        "conformance-hello-world",
+        "conformance-command-execution",
+        "hello-root",
+        "hello-root-run_result",
+        "hello-root-run_replay"
+      ],
+      "nativeCapSumMs": 2700000,
+      "terminationGraceMs": 1000,
+      "allCommandGraceMs": 5000,
+      "driverBudgetMs": 2705000,
+      "purePreflightAllowanceMs": 120000,
+      "totalCeilingMs": 2825000,
+      "retry": "none",
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-controls-04/request.txt",
+        "bytes": 8540,
+        "sha256": "2755f3746b50abe623dafe64c5273b854316a552a4a75e44c9dd6c5f557add7c"
+      }
+    },
+    "nativeProcesses": [
+      {
+        "label": "conformance-hello-world",
+        "native": {
+          "pid": 94684,
+          "command": [
+            "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+            "--jsonl",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world.jsonl"
+          ],
+          "elapsedMs": 10701.499,
+          "exitCode": 0,
+          "signal": null,
+          "peakRSSBytes": 1931182080,
+          "userSeconds": 14.195095,
+          "systemSeconds": 0.45136099999999996,
+          "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+        },
+        "wrapper": {
+          "pid": 94683,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "elapsedMs": 10742.860749999998
+      },
+      {
+        "label": "conformance-command-execution",
+        "native": {
+          "pid": 94847,
+          "command": [
+            "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+            "--jsonl",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution.jsonl"
+          ],
+          "elapsedMs": 10724.489,
+          "exitCode": 0,
+          "signal": null,
+          "peakRSSBytes": 1932574720,
+          "userSeconds": 14.265844,
+          "systemSeconds": 0.4668,
+          "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+        },
+        "wrapper": {
+          "pid": 94846,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "elapsedMs": 10747.671374999998
+      },
+      {
+        "label": "hello-root",
+        "native": {
+          "pid": 94962,
+          "command": [
+            "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+            "--jsonl",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root.jsonl"
+          ],
+          "elapsedMs": 3042.874,
+          "exitCode": 0,
+          "signal": null,
+          "peakRSSBytes": 733659136,
+          "userSeconds": 2.438924,
+          "systemSeconds": 0.9861489999999999,
+          "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+        },
+        "wrapper": {
+          "pid": 94961,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "elapsedMs": 3065.1989170000015
+      },
+      {
+        "label": "hello-root-run_result",
+        "native": {
+          "pid": 95005,
+          "command": [
+            "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+            "--jsonl",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result.jsonl"
+          ],
+          "elapsedMs": 581.931,
+          "exitCode": 0,
+          "signal": null,
+          "peakRSSBytes": 315801600,
+          "userSeconds": 0.6199939999999999,
+          "systemSeconds": 0.072444,
+          "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+        },
+        "wrapper": {
+          "pid": 95003,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "elapsedMs": 604.5962910000017
+      },
+      {
+        "label": "hello-root-run_replay",
+        "native": {
+          "pid": 95030,
+          "command": [
+            "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+            "--jsonl",
+            "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay.jsonl"
+          ],
+          "elapsedMs": 586.757,
+          "exitCode": 0,
+          "signal": null,
+          "peakRSSBytes": 331235328,
+          "userSeconds": 0.6238549999999999,
+          "systemSeconds": 0.074982,
+          "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+        },
+        "wrapper": {
+          "pid": 95029,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "elapsedMs": 609.1657500000001
+      }
+    ],
+    "nativeElapsedSumMs": 25769.493083,
+    "successCount": 5,
+    "originalSevenSuccessesReexecuted": 0,
+    "HelloRuns": 1,
+    "providerCalls": 0,
+    "C2Calls": 0,
+    "qualificationCalls": 0,
+    "quiescence": "All5 actual native CLI PIDs reaped with exit0 by wait4, all5 wrappers closed, supervisor waited for driver exit1 on post-consumer TypeError. No timeouts/signals. Exact resource stable, original lock absent; no hostwide process-absence claim."
+  },
+  "continue-hello-root-stdout.json": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "start",
+        "operationId": "abg.operation.run.invoke"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/5d83f7c45665c7c5fb4958f7767fb9016776c4350660109828d4d4a9b5e08bfb",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "disposition": "completed",
+          "evidence": [
+            {
+              "digest": "sha256:7b8ef5e70f506f339405d5493a6e8c8a1b2d21a673fd21865fd651ccde63302f",
+              "ref": "event://abiogenesis/71ed61c5ccfc9a4e8cd879de5719e6671a477f32251f17313c0954d2df3b5292"
+            },
+            {
+              "digest": "sha256:cae2e38acba1858f5158306d5d47874410378090d5489440776ebddcac59b235",
+              "ref": "event://abiogenesis/5d04f003e9fc22dae77e5eb78471e0dacadbd3ab9c533ca5a26245c00e646ddf"
+            },
+            {
+              "digest": "sha256:450a4662c2b8dd7529f2de1dec2cc978b53d019c85032fa9b330ce086c842320",
+              "ref": "event://abiogenesis/8dc3be73893ae23966f7bd83225675b1e332063ca2c77e6c07f65b8a8a2fbc69"
+            },
+            {
+              "digest": "sha256:5e072d42d285e51261f75c4d9d89f50249cafa18141d092c58c91636e683d6c3",
+              "ref": "event://abiogenesis/dd7931876e20e22a603dd7d015135f090237c35bd11c26ee0fe2678f1a14d34c"
+            },
+            {
+              "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+              "ref": "event://abiogenesis/a17ac860257d1cd84126ac07fa544de3b02c314085e356319dc852f098481a93"
+            },
+            {
+              "digest": "sha256:32dbc77c4204fa5bf9b8d2c2fd0ce1a94ee766f9411f5c842b52ccbd4c7abb92",
+              "ref": "event://abiogenesis/f913415b96404400cb384f4069dd9e871fdff4cfc8aa722aa8059d0a9c585d97"
+            },
+            {
+              "digest": "sha256:4f2afdcffb18de67faaed0e264fe2fcf24b241453f2f61d3bb12f9961b9d9206",
+              "ref": "event://abiogenesis/599b23e905ff29226743d8ac8e4281dbdc884c49f0d377095643ce43976acac3"
+            },
+            {
+              "digest": "sha256:74a9d2f0b1eae8eef5cdf420feafb6f312496f0d66a151f338dd58cd9110e933",
+              "ref": "event://abiogenesis/00045d322420f5bc81a6540eb0e9b5b09e2f9f2f33a515cd5e1c2004d4d9f72d"
+            },
+            {
+              "digest": "sha256:b5426a5347b932254abfd6e54adbcf859266e4a0070ac3da8759e6c6ab47def3",
+              "ref": "event://abiogenesis/84677623edd0180e2f2272cdae3cb66dfde222e9a373de4781308bc715a68558"
+            },
+            {
+              "digest": "sha256:32fb19fbfa11b08a8d6cf0c409ec112fedede58f44b91e0b6390a063bed0d5f6",
+              "ref": "event://abiogenesis/23504df8cc16376027e5ad1915d0800dab6057b8708e1a4291064b54089e4f49"
+            },
+            {
+              "digest": "sha256:3a73a9a8886573886b896844505a6e2cba71e2f36bf526558550e2d8283e0124",
+              "ref": "event://abiogenesis/2a3cadcf66c794c33325a0fd77fe0c54df5e734dd1c097a133f87657ca9e9009"
+            },
+            {
+              "digest": "sha256:1a78abd5ebd973eefa7841c33b9340ea53d141673e16febbb91b738b583ae5ca",
+              "ref": "event://abiogenesis/9cba3ae60b4e6f576f6b1884795d86f0ef3a98532f848f6483f11efa6f9a8a21"
+            },
+            {
+              "digest": "sha256:8c18b21e414c114e8763610e5219f46eed578164ca527e0c7313e38b12bf36b3",
+              "ref": "event://abiogenesis/ccf2e2e0dd8628870211d9d295577f22c7c5125a6cad08bcbc27a95a0264256f"
+            },
+            {
+              "digest": "sha256:1a1497c884ad5c104f1e6bc6eb46490674fa10daf9de0a2eb1f5a4fcf2d8536f",
+              "ref": "event://abiogenesis/d97847623a4ee13bd0fd3b3756806db26bdaab888800701f945835db9febde2f"
+            },
+            {
+              "digest": "sha256:60b7bae59e33eb35c4bd8bf576ed6d10e4882fb00ae8924238c2b6b38cb80410",
+              "ref": "event://abiogenesis/7d49cc0b8cecc729113f879ac06c1ad3fd2aff45079f282f329277a42c602fa2"
+            },
+            {
+              "digest": "sha256:27ea5b1841b423f966d99a4f4824e29828514ae42ba15316d5f4a1ddde1c14f1",
+              "ref": "event://abiogenesis/96d5fda76e18c6cebbaf8918ee3f4c7040a56d78cad47354e9ee7fea1e6507fc"
+            },
+            {
+              "digest": "sha256:f774b9f599babe5fe2ed22d84c723b786a8f0cce11d590177447ac7bf6d8c36e",
+              "ref": "event://abiogenesis/321627081868d6b767db474aaca66091a46517c153b70cb57185d8512f28c414"
+            },
+            {
+              "digest": "sha256:92e4916bc7e3d4bd4fd1fa258cc0cbae54cc112fc0121963666970836239c53b",
+              "ref": "event://abiogenesis/8ded7aeaacbb2abfff6a728b7b5e5bb4dfc0f685263cc46687b7ba5de7fdb87b"
+            },
+            {
+              "digest": "sha256:a5b9ce673090438e85c788accfdbbf23e932da493d0199498d1573546eb372a0",
+              "ref": "event://abiogenesis/429d557c51be9461d2c63217981e83e9bac85ac55cabd0678621c04052fbf9b0"
+            },
+            {
+              "digest": "sha256:8d56bd10ae5abb4e1ee450dd7af9025c2cb143128ef80562b8507d2ec11440c5",
+              "ref": "event://abiogenesis/78b344d6bb753ff5f5d6919f0cbf3c7f421a266441619e4d60759303adb2fe43"
+            },
+            {
+              "digest": "sha256:a5129f8207230f44cb66d3cf37c6ec77decd71cc03ee7978d253c290422111e6",
+              "ref": "event://abiogenesis/a79b98122202c03608bda147156fa22f713a3ad8bfc46f31c26b7f164639b8e0"
+            },
+            {
+              "digest": "sha256:0d2ac6a92e0086dbb57bd52254090750fd7f96933d6262bea698d48fc817ce10",
+              "ref": "event://abiogenesis/2a5dc1ca9a604d80bd6211be9e1483ccb1d622464472691eb14732c33bfb9486"
+            },
+            {
+              "digest": "sha256:eb724598fa28a8af95a9b6c112aaf2a618319513632f9c374d16a7d8979e6b76",
+              "ref": "event://abiogenesis/559fed319fd39fd3ffeec5b858ecfad834b2dd7fee2f1a380a4074e5340537a0"
+            },
+            {
+              "digest": "sha256:296058f2f5f315d74eac95defaa1e6768e8298b686fd64f3aba9c590b7afc9df",
+              "ref": "event://abiogenesis/7be1c9a17a66d420b708db2834c22a7af90688487cda18f3f4ecdf6a3aa728d7"
+            },
+            {
+              "digest": "sha256:e037a7647f476cb9936ffda840e9893e1ac68a41479144609f4c1258bf71ab52",
+              "ref": "event://abiogenesis/44645527ddafe570aef312a91dab4da18abeeae3f506e1f171523e43b2deed5c"
+            },
+            {
+              "digest": "sha256:7b92c443c413e699db39bb5cdc116aa3e9019c3d8951710ec4bec6c73e5e2c59",
+              "ref": "event://abiogenesis/a5c88b0c9f507fd139050f997bd0e62a5572e1e35826a2a289c3424eae32eb2f"
+            },
+            {
+              "digest": "sha256:38dcf189e471efcb0bf436a02d5da238dd8d1409bd89ee2f2adb434f4602e5f7",
+              "ref": "event://abiogenesis/42ea500a65db4d7563d3ace2a0cfd504c8952283662d79223e6e3efd1cb0ffd7"
+            },
+            {
+              "digest": "sha256:ab8940887aee73e7ae015d96ffaec6bb30a7e3c92a90437bd8f38f8d3f744ee8",
+              "ref": "event://abiogenesis/77bb05780c4404d66fc12baca5c429fa7deb87d004abcbf20bd8079767498f7f"
+            },
+            {
+              "digest": "sha256:06d0a5fe8eb4629a43d58d14736de45af14227fe11e8d7329a94658fa31f8b11",
+              "ref": "event://abiogenesis/34a7e0c2644eafa85dfe0f6d61c13602987845b1426f67a5ab809c52c8120b5b"
+            },
+            {
+              "digest": "sha256:a6fcc9e797e2a1efb6a3559637817e72079dc2d4084c5d7b70944e49661cf39c",
+              "ref": "event://abiogenesis/0c51e1709d3d1a8b485f6623d9d03bbc33664e33be097933ff6b9f00003e1a70"
+            },
+            {
+              "digest": "sha256:7cb8a6ef489f85e991a9ce0b9ed9a3b49c3dfb36c0b7278d8a9a13a2f5825b76",
+              "ref": "event://abiogenesis/0f1fbb2ff1f70039edd47b9af1220fa37fe123fa33484680ba4cd9aa47509420"
+            }
+          ],
+          "gap": null,
+          "graphCall": {
+            "digest": "sha256:32dbc77c4204fa5bf9b8d2c2fd0ce1a94ee766f9411f5c842b52ccbd4c7abb92",
+            "ref": "graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42"
+          },
+          "interaction": null,
+          "invocationKind": "start",
+          "replay": {
+            "digest": "sha256:7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314",
+            "ref": "replay://abiogenesis/7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314"
+          },
+          "result": {
+            "digest": "sha256:761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918",
+            "ref": "result://abiogenesis/761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918"
+          },
+          "run": {
+            "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+            "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+          },
+          "stop": null,
+          "terminalResult": {
+            "contract": {
+              "digest": "sha256:2e9414ffcb7c17b056ef717d46d7cf89251e3c35b2be29f7f8741286f7b428b1",
+              "ref": "contract://abiogenesis/conformance/hello-output@5"
+            },
+            "kind": "abg_typed_terminal_result",
+            "producer": {
+              "cCallRef": "c-call:sha256:91dde93a9ad87fa876bd8c2d9ff36b8ce0880e61f6b3aba84d2a8784ca416246",
+              "executionBasis": {
+                "digest": "sha256:48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6",
+                "ref": "execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6"
+              },
+              "graphCallRef": "graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42",
+              "graphFunction": {
+                "digest": "sha256:7e1067ff155bd20ec86b7fdb4b31ddb0740e74c493116169faf25ea494c07c5d",
+                "ref": "graph-function://abiogenesis/conformance/hello-world@5"
+              },
+              "invocationAdmissionRef": "invocation-admission://abiogenesis/99b898480cfec45c9e27baf18c62e309835d83b3532f79361bf6e3660e4fa96a",
+              "judgmentAdmissionEventRef": "event://abiogenesis/a79b98122202c03608bda147156fa22f713a3ad8bfc46f31c26b7f164639b8e0",
+              "judgmentRef": "judgment://abiogenesis/6de23b2fc632207eb9e50504f18762a9b06b618f92852d004e8da0d67d9329a9",
+              "program": {
+                "digest": "sha256:e1ac4c0cedc4eb6350369893db2c7768e05ce014697145d402cb86d47ce0afa9",
+                "ref": "program://abiogenesis/conformance/hello-world@5"
+              },
+              "resultAdmissionEventRef": "event://abiogenesis/321627081868d6b767db474aaca66091a46517c153b70cb57185d8512f28c414",
+              "runRef": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61",
+              "terminalRoute": {
+                "digest": "sha256:bb943288f3cc12c2eec263e3e412127eabcb408f90c33ca5518e5ab15aa654ad",
+                "ref": "traversal-route://abiogenesis/bb943288f3cc12c2eec263e3e412127eabcb408f90c33ca5518e5ab15aa654ad"
+              }
+            },
+            "projectionBasis": {
+              "digest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+              "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl"
+            },
+            "result": {
+              "digest": "sha256:761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918",
+              "ref": "result://abiogenesis/761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918"
+            },
+            "schemaVersion": "5.0.0",
+            "value": {
+              "kind": "hello_world_output",
+              "message": "Hello prospective 5.0.0-rc.1 qualification",
+              "schemaVersion": "5.0.0"
+            },
+            "valueDigest": "sha256:360521a0d0e324268e843f09d86c9fa3dedd314915e74283df96fb6b87d96967",
+            "valueKind": "hello_world_output"
+          }
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+              "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+              "prefixLength": 2582298,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+                "inode": 464012478
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:f8dcd1e8be5deb306da9c6ec26edbaa7b8411a1d3cf3355936b9d621653125b1",
+              "device": 16777230,
+              "durableByteLength": 2582298,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "eventLogDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+              "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+              "inode": 464012478,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:7cb5efb8e5a16babfeb0c51dbb943913be21281e0e64f3bc8f6e94dcc6dd4757",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+            "prefixLength": 2475382,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777230,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "inode": 464012478
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:eb2c9b515e2fa8b66cae9e7fa55f7064933dea4cb6c545ce6791eb644e7f654d",
+          "schemaVersion": "5.0.0"
+        },
+        "invocationAdmission": {
+          "digest": "sha256:99b898480cfec45c9e27baf18c62e309835d83b3532f79361bf6e3660e4fa96a",
+          "ref": "invocation-admission://abiogenesis/99b898480cfec45c9e27baf18c62e309835d83b3532f79361bf6e3660e4fa96a"
+        },
+        "kind": "run_invocation_resource_receipt",
+        "productExecutionResolution": {
+          "digest": "sha256:ba37a9e5ddcae3aea300106e0468ab6375fd7ee897fd1307c48e574fa90fe98d",
+          "ref": "product-execution-resolution://abiogenesis/ba37a9e5ddcae3aea300106e0468ab6375fd7ee897fd1307c48e574fa90fe98d"
+        },
+        "replay": {
+          "digest": "sha256:7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314",
+          "ref": "replay://abiogenesis/7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314"
+        },
+        "run": {
+          "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+          "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+        },
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "continue-hello-root-run_result-stdout.json": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/4c05b5a610ecfdfd29613f074f95ead657a9ed6c8c79317ddde1dbdbe7a82454",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "caseKey": "run_result",
+          "projection": {
+            "kind": "run_result_projection",
+            "replay": {
+              "digest": "sha256:7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314",
+              "ref": "replay://abiogenesis/7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314"
+            },
+            "result": {
+              "digest": "sha256:761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918",
+              "ref": "result://abiogenesis/761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918"
+            },
+            "subject": {
+              "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+              "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+            },
+            "terminalResult": {
+              "contract": {
+                "digest": "sha256:2e9414ffcb7c17b056ef717d46d7cf89251e3c35b2be29f7f8741286f7b428b1",
+                "ref": "contract://abiogenesis/conformance/hello-output@5"
+              },
+              "kind": "abg_typed_terminal_result",
+              "producer": {
+                "cCallRef": "c-call:sha256:91dde93a9ad87fa876bd8c2d9ff36b8ce0880e61f6b3aba84d2a8784ca416246",
+                "executionBasis": {
+                  "digest": "sha256:48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6",
+                  "ref": "execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6"
+                },
+                "graphCallRef": "graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42",
+                "graphFunction": {
+                  "digest": "sha256:7e1067ff155bd20ec86b7fdb4b31ddb0740e74c493116169faf25ea494c07c5d",
+                  "ref": "graph-function://abiogenesis/conformance/hello-world@5"
+                },
+                "invocationAdmissionRef": "invocation-admission://abiogenesis/99b898480cfec45c9e27baf18c62e309835d83b3532f79361bf6e3660e4fa96a",
+                "judgmentAdmissionEventRef": "event://abiogenesis/a79b98122202c03608bda147156fa22f713a3ad8bfc46f31c26b7f164639b8e0",
+                "judgmentRef": "judgment://abiogenesis/6de23b2fc632207eb9e50504f18762a9b06b618f92852d004e8da0d67d9329a9",
+                "program": {
+                  "digest": "sha256:e1ac4c0cedc4eb6350369893db2c7768e05ce014697145d402cb86d47ce0afa9",
+                  "ref": "program://abiogenesis/conformance/hello-world@5"
+                },
+                "resultAdmissionEventRef": "event://abiogenesis/321627081868d6b767db474aaca66091a46517c153b70cb57185d8512f28c414",
+                "runRef": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61",
+                "terminalRoute": {
+                  "digest": "sha256:bb943288f3cc12c2eec263e3e412127eabcb408f90c33ca5518e5ab15aa654ad",
+                  "ref": "traversal-route://abiogenesis/bb943288f3cc12c2eec263e3e412127eabcb408f90c33ca5518e5ab15aa654ad"
+                }
+              },
+              "projectionBasis": {
+                "digest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+                "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl"
+              },
+              "result": {
+                "digest": "sha256:761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918",
+                "ref": "result://abiogenesis/761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918"
+              },
+              "schemaVersion": "5.0.0",
+              "value": {
+                "kind": "hello_world_output",
+                "message": "Hello prospective 5.0.0-rc.1 qualification",
+                "schemaVersion": "5.0.0"
+              },
+              "valueDigest": "sha256:360521a0d0e324268e843f09d86c9fa3dedd314915e74283df96fb6b87d96967",
+              "valueKind": "hello_world_output"
+            },
+            "terminalRoute": {
+              "digest": "sha256:bb943288f3cc12c2eec263e3e412127eabcb408f90c33ca5518e5ab15aa654ad",
+              "ref": "traversal-route://abiogenesis/bb943288f3cc12c2eec263e3e412127eabcb408f90c33ca5518e5ab15aa654ad"
+            }
+          },
+          "projectionBasis": {
+            "digest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+            "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl"
+          },
+          "source": {
+            "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+            "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+          }
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+              "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+              "prefixLength": 2582298,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+                "inode": 464012478
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:f8dcd1e8be5deb306da9c6ec26edbaa7b8411a1d3cf3355936b9d621653125b1",
+              "device": 16777230,
+              "durableByteLength": 2582298,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "eventLogDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+              "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+              "inode": 464012478,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+            "prefixLength": 2582298,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777230,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "inode": 464012478
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:f43251c6e4a132dc13f9f2dc917398b6ba7ecf1250f390eed2d8e25adc7167e1",
+          "schemaVersion": "5.0.0"
+        },
+        "kind": "abg_project_read_resource_receipt",
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "continue-hello-root-run_replay-stdout.json": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "run_replay",
+        "operationId": "abg.operation.project.read"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/4c92dd5c1e76e0b269b128d9f5ded8ba5a82138735f787d22f9fa84062aa2d3b",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "caseKey": "run_replay",
+          "projection": {
+            "fromOrdinal": 0,
+            "kind": "run_replay_projection",
+            "limit": 1000,
+            "replay": {
+              "digest": "sha256:7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314",
+              "ref": "replay://abiogenesis/7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314"
+            },
+            "status": "closed",
+            "subject": {
+              "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+              "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+            },
+            "terminalResult": {
+              "contract": {
+                "digest": "sha256:2e9414ffcb7c17b056ef717d46d7cf89251e3c35b2be29f7f8741286f7b428b1",
+                "ref": "contract://abiogenesis/conformance/hello-output@5"
+              },
+              "kind": "abg_typed_terminal_result",
+              "producer": {
+                "cCallRef": "c-call:sha256:91dde93a9ad87fa876bd8c2d9ff36b8ce0880e61f6b3aba84d2a8784ca416246",
+                "executionBasis": {
+                  "digest": "sha256:48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6",
+                  "ref": "execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6"
+                },
+                "graphCallRef": "graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42",
+                "graphFunction": {
+                  "digest": "sha256:7e1067ff155bd20ec86b7fdb4b31ddb0740e74c493116169faf25ea494c07c5d",
+                  "ref": "graph-function://abiogenesis/conformance/hello-world@5"
+                },
+                "invocationAdmissionRef": "invocation-admission://abiogenesis/99b898480cfec45c9e27baf18c62e309835d83b3532f79361bf6e3660e4fa96a",
+                "judgmentAdmissionEventRef": "event://abiogenesis/a79b98122202c03608bda147156fa22f713a3ad8bfc46f31c26b7f164639b8e0",
+                "judgmentRef": "judgment://abiogenesis/6de23b2fc632207eb9e50504f18762a9b06b618f92852d004e8da0d67d9329a9",
+                "program": {
+                  "digest": "sha256:e1ac4c0cedc4eb6350369893db2c7768e05ce014697145d402cb86d47ce0afa9",
+                  "ref": "program://abiogenesis/conformance/hello-world@5"
+                },
+                "resultAdmissionEventRef": "event://abiogenesis/321627081868d6b767db474aaca66091a46517c153b70cb57185d8512f28c414",
+                "runRef": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61",
+                "terminalRoute": {
+                  "digest": "sha256:bb943288f3cc12c2eec263e3e412127eabcb408f90c33ca5518e5ab15aa654ad",
+                  "ref": "traversal-route://abiogenesis/bb943288f3cc12c2eec263e3e412127eabcb408f90c33ca5518e5ab15aa654ad"
+                }
+              },
+              "projectionBasis": {
+                "digest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+                "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl"
+              },
+              "result": {
+                "digest": "sha256:761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918",
+                "ref": "result://abiogenesis/761926c4428c94222369035c0f5275d64dc9e75817507fb821b2acf0b59d9918"
+              },
+              "schemaVersion": "5.0.0",
+              "value": {
+                "kind": "hello_world_output",
+                "message": "Hello prospective 5.0.0-rc.1 qualification",
+                "schemaVersion": "5.0.0"
+              },
+              "valueDigest": "sha256:360521a0d0e324268e843f09d86c9fa3dedd314915e74283df96fb6b87d96967",
+              "valueKind": "hello_world_output"
+            }
+          },
+          "projectionBasis": {
+            "digest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+            "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl"
+          },
+          "source": {
+            "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+            "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+          }
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+              "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+              "prefixLength": 2582298,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+                "inode": 464012478
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:f8dcd1e8be5deb306da9c6ec26edbaa7b8411a1d3cf3355936b9d621653125b1",
+              "device": 16777230,
+              "durableByteLength": 2582298,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "eventLogDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+              "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+              "inode": 464012478,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+            "prefixLength": 2582298,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777230,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "inode": 464012478
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:f43251c6e4a132dc13f9f2dc917398b6ba7ecf1250f390eed2d8e25adc7167e1",
+          "schemaVersion": "5.0.0"
+        },
+        "kind": "abg_project_read_resource_receipt",
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "continue-conformance-hello-world-stdout.json": {
+    "acquisitionKind": "eventless",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "assessment": {
+            "digest": "sha256:8a1f4993aa32c9c7859319cd9aef32354d562f91dade3abb8825cec32b5b13b4",
+            "ref": "evidence://abiogenesis/conformance/8a1f4993aa32c9c7859319cd9aef32354d562f91dade3abb8825cec32b5b13b4"
+          },
+          "diagnostics": [],
+          "disposition": "passed",
+          "evidence": [
+            {
+              "digest": "sha256:8a1f4993aa32c9c7859319cd9aef32354d562f91dade3abb8825cec32b5b13b4",
+              "ref": "evidence://abiogenesis/conformance/8a1f4993aa32c9c7859319cd9aef32354d562f91dade3abb8825cec32b5b13b4"
+            }
+          ],
+          "inventory": {
+            "digest": "sha256:e0bc2929597de55a69321b677062d0280bb85a49abf77a737000b8bfb580f26e",
+            "ref": "gtl-inventory://abiogenesis/e0bc2929597de55a69321b677062d0280bb85a49abf77a737000b8bfb580f26e"
+          },
+          "program": {
+            "digest": "sha256:e1ac4c0cedc4eb6350369893db2c7768e05ce014697145d402cb86d47ce0afa9",
+            "ref": "program://abiogenesis/conformance/hello-world@5"
+          },
+          "repairAffordances": [],
+          "violatedAuthorities": []
+        }
+      },
+      "resources": {
+        "capabilityGrants": [
+          {
+            "digest": "sha256:3768b7558d6c1a4eb3bed73f8606b14fb2b9302561ae93f43dfe300dc132fccf",
+            "ref": "capability-grant://abiogenesis/3768b7558d6c1a4eb3bed73f8606b14fb2b9302561ae93f43dfe300dc132fccf"
+          }
+        ],
+        "invocation": {
+          "digest": "sha256:d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a",
+          "ref": "invocation://abiogenesis/d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a"
+        },
+        "kind": "conformance_evaluation_resource_receipt",
+        "request": {
+          "digest": "sha256:ee23c382d577772faac89506a12a769d3298ea2e072c76b60cb8b3faad0f3214",
+          "ref": "request://abiogenesis/t287/final-native-continuation-04/continue/0"
+        },
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "continue-conformance-command-execution-stdout.json": {
+    "acquisitionKind": "eventless",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/3a004e162fceb7fcd8cb41f7031c3fda026f13e3df319ff632bc84104753eebd",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "assessment": {
+            "digest": "sha256:19dd0bbe152dba4d54dcd69525a4f64459b619e6ffb953c2be33cd05cc13b17a",
+            "ref": "evidence://abiogenesis/conformance/19dd0bbe152dba4d54dcd69525a4f64459b619e6ffb953c2be33cd05cc13b17a"
+          },
+          "diagnostics": [],
+          "disposition": "passed",
+          "evidence": [
+            {
+              "digest": "sha256:19dd0bbe152dba4d54dcd69525a4f64459b619e6ffb953c2be33cd05cc13b17a",
+              "ref": "evidence://abiogenesis/conformance/19dd0bbe152dba4d54dcd69525a4f64459b619e6ffb953c2be33cd05cc13b17a"
+            }
+          ],
+          "inventory": {
+            "digest": "sha256:e0bc2929597de55a69321b677062d0280bb85a49abf77a737000b8bfb580f26e",
+            "ref": "gtl-inventory://abiogenesis/e0bc2929597de55a69321b677062d0280bb85a49abf77a737000b8bfb580f26e"
+          },
+          "program": {
+            "digest": "sha256:452726cf8b748db0edc9dbebbfaa4f1a7c619172dd5aa887fa1ad60619d805dd",
+            "ref": "program://abiogenesis/worksite/command-execution@5"
+          },
+          "repairAffordances": [],
+          "violatedAuthorities": []
+        }
+      },
+      "resources": {
+        "capabilityGrants": [
+          {
+            "digest": "sha256:3e8b4f99526cd686fa6d31c8dd5e3681983c3d7ed1e093f2eac011ba4fcb2dd7",
+            "ref": "capability-grant://abiogenesis/3e8b4f99526cd686fa6d31c8dd5e3681983c3d7ed1e093f2eac011ba4fcb2dd7"
+          }
+        ],
+        "invocation": {
+          "digest": "sha256:3a004e162fceb7fcd8cb41f7031c3fda026f13e3df319ff632bc84104753eebd",
+          "ref": "invocation://abiogenesis/3a004e162fceb7fcd8cb41f7031c3fda026f13e3df319ff632bc84104753eebd"
+        },
+        "kind": "conformance_evaluation_resource_receipt",
+        "request": {
+          "digest": "sha256:b6c6d0690cb3062f875638ffb47b5aa2e60f4f03b584b1162c4438b434e61d9b",
+          "ref": "request://abiogenesis/t287/final-native-continuation-04/continue/1"
+        },
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "historicalSnapshot": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/failure-native-prefix.jsonl",
+    "bytes": 2582298,
+    "sha256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+    "lines": 33,
+    "shapes": {
+      "public_operation_artifact_admitted": {
+        "count": 2,
+        "firstLine": 1,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 1, \"aggregateId\": \"product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695\", \"aggregateType\": \"workspace\", \"basisId\": \"product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695\", \"causationEventRefs\": [], \"correlationId\": \"correlation://abiogenesis/t287/final-native-setup-03\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/b2c2f71213fca90b2d01d9505503f9d2787ce436f59769092a39febc42348cfc\", \"eventTime\": \"2026-09-30T08:04:40.273Z\", \"kind\": \"public_operation_artifact_admitted\", \"parentAggregateId\": null, \"payload\": {\"artifact\": {\"installId\": \"product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e"
+      },
+      "public_operation_admitted": {
+        "count": 1,
+        "firstLine": 3,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 3, \"aggregateId\": \"workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8\", \"aggregateType\": \"workspace\", \"basisId\": \"invocation-authority://abiogenesis/22c55ecb39ad5fd43480bb678af2f715da7530311b4642d9704deea5238c0962\", \"causationEventRefs\": [], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/71ed61c5ccfc9a4e8cd879de5719e6671a477f32251f17313c0954d2df3b5292\", \"eventTime\": \"2026-09-30T08:35:56.869Z\", \"kind\": \"public_operation_admitted\", \"parentAggregateId\": \"invocation://abiogenesis/8dff7bdbe20f29bb3caede7db6a709038a2b6353d98ba21d630927ed123cf077\", \"payload\": {\"actorRef\": \"actor://abiogenesis/t287/final-native-setup-03/operator\", \"authorityDigest\": \"sha256:22c55ecb39ad5fd43480bb678af2f715da7530311b4642d9704deea5238c0962\", \"authorityRef\": \"invocation-authority://abiogenesis/22c55ecb39ad5fd43480bb678af2f715da7530311b4642d9704deea5238c0962\", \"capabilityGrantRefs\": [\"c"
+      },
+      "invocation_admitted": {
+        "count": 1,
+        "firstLine": 4,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 4, \"aggregateId\": \"workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8\", \"aggregateType\": \"workspace\", \"basisId\": \"invocation-admission://abiogenesis/99b898480cfec45c9e27baf18c62e309835d83b3532f79361bf6e3660e4fa96a\", \"causationEventRefs\": [\"event://abiogenesis/71ed61c5ccfc9a4e8cd879de5719e6671a477f32251f17313c0954d2df3b5292\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/5d04f003e9fc22dae77e5eb78471e0dacadbd3ab9c533ca5a26245c00e646ddf\", \"eventTime\": \"2026-09-30T08:35:56.869Z\", \"kind\": \"invocation_admitted\", \"parentAggregateId\": \"invocation://abiogenesis/8dff7bdbe20f29bb3caede7db6a709038a2b6353d98ba21d630927ed123cf077\", \"payload\": {\"actorRef\": \"actor://abiogenesis/t287/final-native-setup-03/operator\", \"authorityDigest\": \"sha256:22c55ecb39ad5fd43480bb678af2f715da7530311b4642d9704deea5238c0962\", \"authorityRef\": \"invocation-authority://abiogenesis/22c55ecb39ad5"
+      },
+      "implementation_admitted": {
+        "count": 1,
+        "firstLine": 5,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 5, \"aggregateId\": \"workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8\", \"aggregateType\": \"workspace\", \"basisId\": \"invocation-admission://abiogenesis/99b898480cfec45c9e27baf18c62e309835d83b3532f79361bf6e3660e4fa96a\", \"causationEventRefs\": [\"event://abiogenesis/5d04f003e9fc22dae77e5eb78471e0dacadbd3ab9c533ca5a26245c00e646ddf\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/execution-basis\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/8dc3be73893ae23966f7bd83225675b1e332063ca2c77e6c07f65b8a8a2fbc69\", \"eventTime\": \"2026-09-30T08:35:56.877Z\", \"kind\": \"implementation_admitted\", \"parentAggregateId\": \"invocation://abiogenesis/8dff7bdbe20f29bb3caede7db6a709038a2b6353d98ba21d630927ed123cf077\", \"payload\": {\"implementationSet\": {\"catalogViewDigest\": \"sha256:2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723\", \"catalogViewId\": \"graph-function-catalog-view://abiogenesis/2c7143f30d1ef68cdc6a4b56aa317178"
+      },
+      "basis_admitted": {
+        "count": 1,
+        "firstLine": 6,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 6, \"aggregateId\": \"workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8\", \"aggregateType\": \"workspace\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/8dc3be73893ae23966f7bd83225675b1e332063ca2c77e6c07f65b8a8a2fbc69\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/execution-basis\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/dd7931876e20e22a603dd7d015135f090237c35bd11c26ee0fe2678f1a14d34c\", \"eventTime\": \"2026-09-30T08:35:56.877Z\", \"kind\": \"basis_admitted\", \"parentAggregateId\": \"invocation://abiogenesis/8dff7bdbe20f29bb3caede7db6a709038a2b6353d98ba21d630927ed123cf077\", \"payload\": {\"actionCatalogDigest\": null, \"actionCatalogRef\": null, \"actionCatalogRows\": [], \"actorRef\": \"actor://abiogenesis/t287/final-native-setup-03/operator\", \"basisClass\": \"root\", \"basisDigest\": \"sha256:48ed812ac4804e48f48e4c05f6f6"
+      },
+      "run_segment_opened": {
+        "count": 1,
+        "firstLine": 7,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "graphFunctionRef",
+          "kind",
+          "materializationRef",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 7, \"aggregateId\": \"run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61\", \"aggregateType\": \"run\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/dd7931876e20e22a603dd7d015135f090237c35bd11c26ee0fe2678f1a14d34c\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/open\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/a17ac860257d1cd84126ac07fa544de3b02c314085e356319dc852f098481a93\", \"eventTime\": \"2026-09-30T08:35:56.893Z\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"run_segment_opened\", \"materializationRef\": \"graph-materialization://abiogenesis/a68482e9307b725e6d8087b83ebbe3cd131e07c7230674098710f61c1d8ad77f\", \"parentAggregateId\": \"workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8\", \"payload\": {\"executionBasisDigest\": \"sha256:48ed812a"
+      },
+      "graph_call_opened": {
+        "count": 1,
+        "firstLine": 8,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "materializationRef",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 8, \"aggregateId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"aggregateType\": \"graph_call\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/a17ac860257d1cd84126ac07fa544de3b02c314085e356319dc852f098481a93\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/open\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/f913415b96404400cb384f4069dd9e871fdff4cfc8aa722aa8059d0a9c585d97\", \"eventTime\": \"2026-09-30T08:35:56.893Z\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"graph_call_opened\", \"materializationRef\": \"graph-materialization://abiogenesis/a68482e9307b725e6d8087b83ebbe3cd131e07c7230674098710f61c1d8ad77f\", \"parentAggregateId\": \"run://abiogenesis/ad1178eacb25"
+      },
+      "frame_opened": {
+        "count": 1,
+        "firstLine": 9,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "frameLineageId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "materializationRef",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 9, \"aggregateId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"aggregateType\": \"frame\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/f913415b96404400cb384f4069dd9e871fdff4cfc8aa722aa8059d0a9c585d97\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/open\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/599b23e905ff29226743d8ac8e4281dbdc884c49f0d377095643ce43976acac3\", \"eventTime\": \"2026-09-30T08:35:56.893Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"frameLineageId\": \"frame-lineage://abiogenesis/3149fcce920a950506631ba7b00beaabc334532fbfae12cc1bc4e71bde2fd68b\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kin"
+      },
+      "runtime_activity_probe_observed": {
+        "count": 13,
+        "firstLine": 10,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 10, \"aggregateId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"aggregateType\": \"graph_call\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/599b23e905ff29226743d8ac8e4281dbdc884c49f0d377095643ce43976acac3\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/open\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/00045d322420f5bc81a6540eb0e9b5b09e2f9f2f33a515cd5e1c2004d4d9f72d\", \"eventTime\": \"2026-09-30T08:35:56.893Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"runtime_activity_probe_observed\", \"parentAggregateId\": \"run://abiogenesis/ad1178eacb257eb403f511d5"
+      },
+      "traversal_cursor_entered": {
+        "count": 1,
+        "firstLine": 11,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "frameLineageId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "materializationRef",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 11, \"aggregateId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"aggregateType\": \"frame\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/599b23e905ff29226743d8ac8e4281dbdc884c49f0d377095643ce43976acac3\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/cursor\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/84677623edd0180e2f2272cdae3cb66dfde222e9a373de4781308bc715a68558\", \"eventTime\": \"2026-09-30T08:35:57.372Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"frameLineageId\": \"frame-lineage://abiogenesis/3149fcce920a950506631ba7b00beaabc334532fbfae12cc1bc4e71bde2fd68b\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5"
+      },
+      "c_call_opened": {
+        "count": 1,
+        "firstLine": 12,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "frameLineageId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "materializationRef",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 12, \"aggregateId\": \"c-call:sha256:91dde93a9ad87fa876bd8c2d9ff36b8ce0880e61f6b3aba84d2a8784ca416246\", \"aggregateType\": \"c_call\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/84677623edd0180e2f2272cdae3cb66dfde222e9a373de4781308bc715a68558\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/open\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/23504df8cc16376027e5ad1915d0800dab6057b8708e1a4291064b54089e4f49\", \"eventTime\": \"2026-09-30T08:35:57.383Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"frameLineageId\": \"frame-lineage://abiogenesis/3149fcce920a950506631ba7b00beaabc334532fbfae12cc1bc4e71bde2fd68b\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5"
+      },
+      "c_call_fibre_selected": {
+        "count": 1,
+        "firstLine": 13,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "frameLineageId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "materializationRef",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 13, \"aggregateId\": \"c-call:sha256:91dde93a9ad87fa876bd8c2d9ff36b8ce0880e61f6b3aba84d2a8784ca416246\", \"aggregateType\": \"c_call\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/23504df8cc16376027e5ad1915d0800dab6057b8708e1a4291064b54089e4f49\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/open\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/2a3cadcf66c794c33325a0fd77fe0c54df5e734dd1c097a133f87657ca9e9009\", \"eventTime\": \"2026-09-30T08:35:57.383Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"frameLineageId\": \"frame-lineage://abiogenesis/3149fcce920a950506631ba7b00beaabc334532fbfae12cc1bc4e71bde2fd68b\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5"
+      },
+      "c_call_evidenced": {
+        "count": 1,
+        "firstLine": 17,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 17, \"aggregateId\": \"c-call:sha256:91dde93a9ad87fa876bd8c2d9ff36b8ce0880e61f6b3aba84d2a8784ca416246\", \"aggregateType\": \"c_call\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/2a3cadcf66c794c33325a0fd77fe0c54df5e734dd1c097a133f87657ca9e9009\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/outcome/evidence\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/7d49cc0b8cecc729113f879ac06c1ad3fd2aff45079f282f329277a42c602fa2\", \"eventTime\": \"2026-09-30T08:35:57.842Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"c_call_evidenced\", \"parentAggregateId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6b"
+      },
+      "c_call_result_admitted": {
+        "count": 1,
+        "firstLine": 19,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 19, \"aggregateId\": \"c-call:sha256:91dde93a9ad87fa876bd8c2d9ff36b8ce0880e61f6b3aba84d2a8784ca416246\", \"aggregateType\": \"c_call\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/7d49cc0b8cecc729113f879ac06c1ad3fd2aff45079f282f329277a42c602fa2\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/outcome/result\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/321627081868d6b767db474aaca66091a46517c153b70cb57185d8512f28c414\", \"eventTime\": \"2026-09-30T08:35:57.844Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"c_call_result_admitted\", \"parentAggregateId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0"
+      },
+      "c_call_judged": {
+        "count": 1,
+        "firstLine": 23,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 23, \"aggregateId\": \"c-call:sha256:91dde93a9ad87fa876bd8c2d9ff36b8ce0880e61f6b3aba84d2a8784ca416246\", \"aggregateType\": \"c_call\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/321627081868d6b767db474aaca66091a46517c153b70cb57185d8512f28c414\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/judgment/judgment\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/a79b98122202c03608bda147156fa22f713a3ad8bfc46f31c26b7f164639b8e0\", \"eventTime\": \"2026-09-30T08:35:57.853Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"c_call_judged\", \"parentAggregateId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc"
+      },
+      "traversal_route_admitted": {
+        "count": 1,
+        "firstLine": 27,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "materializationRef",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 27, \"aggregateId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"aggregateType\": \"frame\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/a79b98122202c03608bda147156fa22f713a3ad8bfc46f31c26b7f164639b8e0\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/completion/transition/route\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/44645527ddafe570aef312a91dab4da18abeeae3f506e1f171523e43b2deed5c\", \"eventTime\": \"2026-09-30T08:35:57.862Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"traversal_route_admitted\", \"materializationRef\": \"graph-materialization://"
+      },
+      "terminal_reached": {
+        "count": 1,
+        "firstLine": 29,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 29, \"aggregateId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"aggregateType\": \"frame\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/44645527ddafe570aef312a91dab4da18abeeae3f506e1f171523e43b2deed5c\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/completion/closure\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/42ea500a65db4d7563d3ace2a0cfd504c8952283662d79223e6e3efd1cb0ffd7\", \"eventTime\": \"2026-09-30T08:35:57.865Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"terminal_reached\", \"parentAggregateId\": \"graph-call://abiogenesis/8798110982524496e"
+      },
+      "frame_closed": {
+        "count": 1,
+        "firstLine": 30,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "frameId",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 30, \"aggregateId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"aggregateType\": \"frame\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/42ea500a65db4d7563d3ace2a0cfd504c8952283662d79223e6e3efd1cb0ffd7\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/completion/closure\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/77bb05780c4404d66fc12baca5c429fa7deb87d004abcbf20bd8079767498f7f\", \"eventTime\": \"2026-09-30T08:35:57.865Z\", \"frameId\": \"frame://abiogenesis/2f34f266c50928a22b2f2c0f0ff6bcc6fe02aebc67d1cd2ba65157a64c548a26\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"frame_closed\", \"parentAggregateId\": \"graph-call://abiogenesis/8798110982524496e1a50"
+      },
+      "graph_call_closed": {
+        "count": 1,
+        "firstLine": 32,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 32, \"aggregateId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"aggregateType\": \"graph_call\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/77bb05780c4404d66fc12baca5c429fa7deb87d004abcbf20bd8079767498f7f\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/completion/closure\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/0c51e1709d3d1a8b485f6623d9d03bbc33664e33be097933ff6b9f00003e1a70\", \"eventTime\": \"2026-09-30T08:35:57.865Z\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"graph_call_closed\", \"parentAggregateId\": \"run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61\", \"payload\": {\"closureContractRef\": \"contract:/"
+      },
+      "run_closed": {
+        "count": 1,
+        "firstLine": 33,
+        "keys": [
+          "admissionOrdinal",
+          "aggregateId",
+          "aggregateType",
+          "basisId",
+          "causationEventRefs",
+          "correlationId",
+          "eventContractDigest",
+          "eventId",
+          "eventTime",
+          "graphCallId",
+          "graphFunctionRef",
+          "kind",
+          "parentAggregateId",
+          "payload",
+          "payloadDigest",
+          "runId",
+          "scopeClass",
+          "workflowVersion"
+        ],
+        "sample": "{\"admissionOrdinal\": 33, \"aggregateId\": \"run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61\", \"aggregateType\": \"run\", \"basisId\": \"execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6\", \"causationEventRefs\": [\"event://abiogenesis/0c51e1709d3d1a8b485f6623d9d03bbc33664e33be097933ff6b9f00003e1a70\"], \"correlationId\": \"correlation://abiogenesis/t287/final-native-continuation-04/hog/leaf/0/completion/closure\", \"eventContractDigest\": \"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\", \"eventId\": \"event://abiogenesis/0f1fbb2ff1f70039edd47b9af1220fa37fe123fa33484680ba4cd9aa47509420\", \"eventTime\": \"2026-09-30T08:35:57.865Z\", \"graphCallId\": \"graph-call://abiogenesis/8798110982524496e1a50ff8d2b326da7451b61a19a83c81b74757316f257a42\", \"graphFunctionRef\": \"graph-function://abiogenesis/conformance/hello-world@5\", \"kind\": \"run_closed\", \"parentAggregateId\": null, \"payload\": {\"closureContractRef\": \"contract://abiogenesis/conformance/hello-closure@5\", \"graphCallClosedEventRef\": \"event://abiogenesis/0c51e1709d"
+      }
+    }
+  },
+  "abg/terminal_result_contracts.ts": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+    "bytes": 6055,
+    "sha256": "576df199d0c3275358253884266385f34689cce21cc2ed9604b3238ab6e83498",
+    "spans": [
+      {
+        "firstLine": 1,
+        "lastLine": 180,
+        "text": "import * as v from \"valibot\";\nimport type { ReadyGraphFunctionCatalog, GraphFunctionCatalogView } from \"../product/catalog.js\";\nimport type { ModulePublication } from \"../gtl/contracts.js\";\nimport type { JsonValue } from \"../shared/canonical_json.js\";\nimport { jsonValueSchema, nonblankSchema, refDigestSchema } from \"../shared/public_function_contracts.js\";\n\n/** This is an output carrier, not an admission or an independent result ledger. */\nexport const ABG_TYPED_TERMINAL_RESULT_SCHEMA = v.strictObject({\n  kind: v.literal(\"abg_typed_terminal_result\"),\n  schemaVersion: v.literal(\"5.0.0\"),\n  result: refDigestSchema,\n  contract: refDigestSchema,\n  valueKind: nonblankSchema,\n  valueDigest: refDigestSchema.entries.digest,\n  value: jsonValueSchema,\n  producer: v.strictObject({\n    runRef: nonblankSchema,\n    graphCallRef: nonblankSchema,\n    invocationAdmissionRef: nonblankSchema,\n    program: refDigestSchema,\n    graphFunction: refDigestSchema,\n    executionBasis: refDigestSchema,\n    cCallRef: nonblankSchema,\n    resultAdmissionEventRef: nonblankSchema,\n    judgmentRef: nonblankSchema,\n    judgmentAdmissionEventRef: nonblankSchema,\n    terminalRoute: refDigestSchema,\n  }),\n  projectionBasis: refDigestSchema,\n});\n\nexport type AbgTypedTerminalResult = v.InferOutput<typeof ABG_TYPED_TERMINAL_RESULT_SCHEMA>;\n\nexport function isAbgTypedTerminalResult(value: unknown): value is AbgTypedTerminalResult {\n  return v.safeParse(ABG_TYPED_TERMINAL_RESULT_SCHEMA, value).success;\n}\n\n/** Untrusted, immutable declaration evidence. Only the native projector can\n * join these bytes to the historical WorkspaceBinding, Catalog and Run. */\nexport interface AbgHistoricalDeclarationProof {\n  readonly kind: \"abg_historical_declaration_proof\";\n  readonly schemaVersion: \"5.0.0\";\n  readonly catalog: ReadyGraphFunctionCatalog;\n  readonly catalogView: GraphFunctionCatalogView;\n}\n\nexport const ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA = v.strictObject({\n  kind: v.literal(\"abg_historical_declaration_proof\"),\n  schemaVersion: v.literal(\"5.0.0\"),\n  catalog: jsonValueSchema,\n  catalogView: jsonValueSchema,\n}) as unknown as v.GenericSchema<AbgHistoricalDeclarationProof, AbgHistoricalDeclarationProof>;\n\nexport function isAbgHistoricalDeclarationProof(value: unknown): value is AbgHistoricalDeclarationProof {\n  return v.safeParse(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, value).success;\n}\n\n/** Selection of immutable declaration evidence, never proof of its admission. */\nexport const ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA = v.strictObject({\n  kind: v.literal(\"abg_historical_declaration_reference\"),\n  schemaVersion: v.literal(\"5.0.0\"),\n  catalogBasisDigest: refDigestSchema.entries.digest,\n  readinessBasisDigest: refDigestSchema.entries.digest,\n  viewDigest: refDigestSchema.entries.digest,\n});\nexport type AbgHistoricalDeclarationReference = v.InferOutput<typeof ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA>;\nexport function isAbgHistoricalDeclarationReference(value: unknown): value is AbgHistoricalDeclarationReference {\n  return v.safeParse(ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA, value).success;\n}\nexport function constructAbgHistoricalDeclarationReference(proof: AbgHistoricalDeclarationProof): AbgHistoricalDeclarationReference {\n  if (proof.kind !== \"abg_historical_declaration_proof\" || proof.schemaVersion !== \"5.0.0\" ||\n      proof.catalogView.catalogBasisDigest !== proof.catalog.basisDigest) throw new TypeError(\"historical declaration basis differs from its View\");\n  return Object.freeze(v.parse(ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA, {\n    kind: \"abg_historical_declaration_reference\", schemaVersion: \"5.0.0\",\n    catalogBasisDigest: proof.catalog.basisDigest, readinessBasisDigest: proof.catalog.readinessBasisDigest,\n    viewDigest: proof.catalogView.viewDigest,\n  }));\n}\n\n/** Stable selection only. The result body and the read prefix remain with ABG. */\nexport const ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA = v.omit(ABG_TYPED_TERMINAL_RESULT_SCHEMA, [\"value\", \"projectionBasis\"]);\nexport type AbgHistoricalTerminalSelection = v.InferOutput<typeof ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA>;\n\n/** One explicit cold declaration dependency, separate from semantic Run input. */\nconst historicalSourceResourceSchema = v.strictObject({\n  kind: v.literal(\"abg_historical_graph_call_source_resource\"),\n  schemaVersion: v.literal(\"5.0.0\"),\n  terminal: ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA,\n  input: v.strictObject({ graphFunctionRef: nonblankSchema, contractRef: nonblankSchema }),\n  declarationProof: ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA,\n  declarationDependencies: v.optional(v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA)),\n});\nexport type AbgHistoricalGraphCallSourceResource = v.InferOutput<typeof historicalSourceResourceSchema>;\n/** Each immutable basis/View is supplied once, including the primary source. */\nexport function hasUniqueHistoricalDeclarationDependencies(resource: AbgHistoricalGraphCallSourceResource): boolean {\n  try {\n    if (resource.declarationDependencies !== undefined && !Array.isArray(resource.declarationDependencies)) return false;\n    const keys = [resource.declarationProof, ...(resource.declarationDependencies ?? [])].map(proof => {\n      const ref = constructAbgHistoricalDeclarationReference(proof);\n      return [ref.catalogBasisDigest, ref.readinessBasisDigest, ref.viewDigest].join(\":\");\n    });\n    return new Set(keys).size === keys.length;\n  } catch { return false; }\n}\nexport const ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA = v.pipe(historicalSourceResourceSchema,\n  v.check(hasUniqueHistoricalDeclarationDependencies, \"historical declaration dependencies must select unique exact bases\"));\n\n/** Borrowed owner values, never serialized into successor input or evidence. */\nexport interface AbgHistoricalGraphCallSource {\n  readonly terminalResult: AbgTypedTerminalResult;\n  readonly input: Readonly<{\n    graphFunctionRef: string;\n    contractRef: string;\n    value: Readonly<Record<string, JsonValue>>;\n  }>;\n  readonly publication: Readonly<ModulePublication>;\n}"
+      }
+    ]
+  },
+  "abg/project_read_ports.ts": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "bytes": 84829,
+    "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+    "spans": [
+      {
+        "firstLine": 430,
+        "lastLine": 520,
+        "text": "  if (terminal === null) throw new TypeError(\"closed scope lacks one exact terminal producer\");\n  const route = projectHistoricalTraversalRouteAtPrefix(context.prefix, terminal.route.admissionEventRef, prepared.fullPrefix);\n  if (route === null || route.routeKind !== \"terminal\" || route.cCallRef === null || route.judgmentRef === null) {\n    throw new TypeError(\"terminal route has no authenticated native owner\");\n  }\n  const open = one(events.filter((event) => event.kind === \"c_call_opened\" && event.aggregateId === route.cCallRef), \"terminal CCall opening\");\n  const fibre = one(events.filter((event) => event.kind === \"c_call_fibre_selected\" && event.aggregateId === route.cCallRef), \"terminal CCall fibre\");\n  const resultEvent = one(events.filter((event) => event.kind === \"c_call_result_admitted\" && event.aggregateId === route.cCallRef), \"terminal result admission\");\n  const judgmentEvent = one(events.filter((event) => event.kind === \"c_call_judged\" && event.aggregateId === route.cCallRef), \"terminal judgment admission\");\n  const basis = open.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prepared.fullPrefix, open.basisId);\n  if (basis === null || open.graphCallId !== graphCallId || open.runId !== context.replay.runId) throw new TypeError(\"terminal producer crosses scope or basis\");\n  const scope = scopeForBasis(prepared.fullPrefix, basis);\n  if (scope.graphCallId !== graphCallId || scope.frameId !== open.frameId) throw new TypeError(\"terminal producer crosses native scope\");\n  const o = eventRecord(open), f = eventRecord(fibre);\n  if (o.graphFunctionRef !== basis.graphFunctionRef || f.implementationSetRef !== basis.implementationSetRef) {\n    throw new TypeError(\"terminal fibre differs from its admitted basis\");\n  }\n  const outcome = projectAdmittedCCallStateAtPrefix(context.prefix, {\n    ...o, ...f, kind: \"c_call\", schemaVersion: \"5.0.0\", runId: open.runId!,\n    childGraphFunctionRef: o.childGraphFunctionRef ?? null, failureContractRef: o.failureContractRef ?? \"\",\n    openedEventRef: open.eventId, fibreSelectedEventRef: fibre.eventId,\n  }, { ...eventRecord(resultEvent), kind: \"admitted_c_call_result\", schemaVersion: \"5.0.0\", disposition: \"admitted\", admissionEventRef: resultEvent.eventId },\n  { ...eventRecord(judgmentEvent), kind: \"admitted_c_call_judgment\", schemaVersion: \"5.0.0\", disposition: \"admitted\", admissionEventRef: judgmentEvent.eventId });\n  if (outcome === null || outcome.result.resultClass !== \"success\" || outcome.judgment.judgment !== \"advance\" ||\n      outcome.judgment.judgmentRef !== route.judgmentRef || outcome.result.contractRef !== basis.resultContractRef ||\n      route.declarationRef !== basis.graphRef || route.declarationDigest !== basis.graphDigest ||\n      route.sourceCursorRef !== o.cursorRef || route.sourceCursorDigest !== o.cursorDigest ||\n      route.contractRef !== basis.transitionContractRef) throw new TypeError(\"terminal result, judgment and route do not join\");\n  const reached = one(events.filter((event) => event.kind === \"terminal_reached\" && event.graphCallId === graphCallId), \"scope terminal fact\");\n  const routeEvent = one(events.filter((event) => event.eventId === route.admissionEventRef), \"terminal route event\");\n  const body = eventRecord(reached);\n  const { closureRef, closureDigest, ...closureBody } = body;\n  const frameClosed = one(events.filter((event) => event.kind === \"frame_closed\" && event.eventId === closeBody.frameClosedEventRef), \"terminal Frame close\");\n  if (sha256Canonical(closureBody) !== closureDigest || closureRef !== `closure://abiogenesis/${String(closureDigest).slice(7)}` ||\n      body.cCallRef !== route.cCallRef || body.resultRef !== outcome.result.resultRef || body.judgmentRef !== route.judgmentRef ||\n      body.routeRef !== route.routeRef || body.closureContractRef !== basis.closureContractRef ||\n      body.closureContractDigest !== basis.closureContractDigest || body.terminalKind !== \"completed\" ||\n      reached.basisId !== basis.basisRef || reached.frameId !== scope.frameId ||\n      routeEvent.basisId !== basis.basisRef || routeEvent.graphCallId !== graphCallId || routeEvent.frameId !== scope.frameId ||\n      !hasJudgedTerminalRouteCausation(context.prefix, routeEvent, judgmentEvent, prepared.fullPrefix) ||\n      !reached.causationEventRefs.includes(route.admissionEventRef) ||\n      frameClosed.basisId !== basis.basisRef || frameClosed.frameId !== scope.frameId || frameClosed.graphCallId !== graphCallId ||\n      eventRecord(frameClosed).closureContractRef !== basis.closureContractRef ||\n      eventRecord(frameClosed).terminalReachedEventRef !== reached.eventId || !frameClosed.causationEventRefs.includes(reached.eventId) ||\n      closed.basisId !== basis.basisRef || closeBody.closureContractRef !== basis.closureContractRef ||\n      !closed.causationEventRefs.includes(frameClosed.eventId)) throw new TypeError(\"terminal closure facts do not join the selected producer\");\n  if (requireRunClosed) {\n    const runClosed = one(events.filter((event) => event.kind === \"run_closed\"), \"Run close\");\n    if (runClosed.basisId !== basis.basisRef || eventRecord(runClosed).graphCallClosedEventRef !== closed.eventId ||\n        !runClosed.causationEventRefs.includes(closed.eventId)) throw new TypeError(\"Run close does not join its root terminal\");\n  }\n  const declaration = sourceInput === undefined\n    ? { contract: terminalContract(prepared, basis, scope) }\n    : terminalDeclaration(prepared, basis, scope, sourceInput);\n  const { contract } = declaration;\n  const value = deepFreeze({\n    kind: \"abg_typed_terminal_result\" as const, schemaVersion: \"5.0.0\" as const,\n    result: truthCoordinate(outcome.result.resultRef, outcome.result.resultDigest), contract,\n    valueKind: outcome.result.valueKind, valueDigest: outcome.result.valueDigest, value: outcome.result.value,\n    producer: { runRef: scope.runId, graphCallRef: scope.graphCallId, invocationAdmissionRef: basis.invocationAdmissionRef,\n      program: truthCoordinate(basis.programRef, basis.programDigest), graphFunction: truthCoordinate(basis.graphFunctionRef, basis.graphFunctionDigest),\n      executionBasis: truthCoordinate(basis.basisRef, basis.basisDigest), cCallRef: outcome.cCall.cCallRef,\n      resultAdmissionEventRef: resultEvent.eventId, judgmentRef: outcome.judgment.judgmentRef,\n      judgmentAdmissionEventRef: judgmentEvent.eventId, terminalRoute: truthCoordinate(route.routeRef, route.routeDigest) },\n    projectionBasis: truthCoordinate(prepared.packet.prefix.eventLogRef, prepared.packet.prefix.coordinateDigest),\n  });\n  if (!isAbgTypedTerminalResult(value)) throw new TypeError(\"native terminal carrier differs from its closed schema\");\n  return { terminalResult: value, ...(declaration.source === undefined ? {} : { source: declaration.source }) };\n}\n\nfunction typedTerminalResult(prepared: PreparedRead<AbgProjectReadMemberKey>, context: RunReadContext,\n  graphCallId: string, requireRunClosed: boolean): AbgTypedTerminalResult | null {\n  return terminalOutcome(prepared, context, graphCallId, requireRunClosed)?.terminalResult ?? null;\n}\n\nconst HISTORICAL_GRAPH_CALL_SOURCES = Symbol(\"r10_historical_graph_call_sources\");\n\n/** Owner-only Run resource path. The complete DefinitionCall has already passed\n * raw ingress. All authority still comes from the current history and R10 joins.\n * Copies/closed owners reconstruct; an immutable resource identity retains the\n * borrowed result only within the existing authenticated prefix lineage. */\nexport function projectHistoricalGraphCallSourceAtDurablePrefix(\n  suppliedPrefix: DurablePrefixCoordinate, resource: AbgHistoricalGraphCallSourceResource,\n): AbgHistoricalGraphCallSource | null {\n  try {\n    const prefix = captureDurablePrefixCoordinate(suppliedPrefix);\n    const events = readRuntimeEventsAtDurablePrefix(prefix);\n    const fullPrefix = selectValidatedRuntimeEventPrefix(events);\n    const retained = runtimePrefixComputation(fullPrefix, HISTORICAL_GRAPH_CALL_SOURCES,\n      () => new WeakMap<AbgHistoricalGraphCallSourceResource, { minimumOrdinal: number; value: AbgHistoricalGraphCallSource }>());\n    const previous = retained.get(resource);"
+      }
+    ]
+  },
+  "driver.mjs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver.mjs",
+    "bytes": 10955,
+    "sha256": "c1b2aab1b26778086c9a8cfd20cf016f2dc247d716c57ae1b3c94c9299978409",
+    "lines": [
+      {
+        "line": 1,
+        "text": "import assert from 'node:assert/strict';import fs from 'node:fs/promises';import {writeFileSync} from 'node:fs';import {join} from 'node:path';import {createRequire} from 'node:module';"
+      },
+      {
+        "line": 2,
+        "text": "import {here,read,write,caller,verificationRequest,schemaVersion} from './ordinary-caller.mjs';import {loadRuntime} from './public-support.mjs';import {checkConformance,checkStart} from './owner-checks.mjs';"
+      },
+      {
+        "line": 3,
+        "text": "const P=join(here,'../final-native-setup-03'),startedAt=performance.now(),budgets=await read(join(here,'budgets.json')),window={deadline:null};let c=null,phase='preflight',nativeStartedAt=null;"
+      },
+      {
+        "line": 6,
+        "text": "try{"
+      },
+      {
+        "line": 7,
+        "text": " const identity=await read(join(here,'selected-core.json')),prospect=await read(join(here,'prospective-cases.json')),r=await loadRuntime(identity.installedRoot),{product,abg,gtl}=r;"
+      },
+      {
+        "line": 8,
+        "text": " const request=verificationRequest(prospect.core),verification=await product.ProductVerificationPort.verify({kind:'product_verification_packet',schemaVersion,memberKey:'verify',targetKind:'packed_artifact',request});await write('bootstrap-core.json',verification);assert.equal(verification.kind,'product_verification_success');assert.strictEqual(product.selectOwnedProductVerification(request,verification.verifiedArtifact),verification.verifiedArtifact);"
+      },
+      {
+        "line": 9,
+        "text": " c=await caller('continue',verification,window);const {state,hash}=c,retained=await read(join(P,'retained-environment.json')),slots=await read(join(P,'runtime-slots.json')),initial=await read(join(P,'final-handoff.json')),originalBytes=await fs.readFile(join(P,'failure-native-prefix.jsonl'));state.closeHandoff=initial;state.binding=slots.workspaceBinding;state.resolvedLock=retained.projection.resolvedProductLock;state.catalog=retained.catalog;state.catalogView=retained.catalogView;c.refresh();assert.deepEqual(state.environment,retained.projection);assert.equal(c.op.actorRef,slots.workspaceAuthority.authorizedActorRef);"
+      },
+      {
+        "line": 10,
+        "text": " const physical=await c.physical('initial');assert.equal(physical.device,16777230);assert.equal(physical.inode,464012478);assert.equal(physical.bytes,2475382);assert.equal(physical.sha256,'cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8');assert.equal(initial.prefix.coordinateDigest,'sha256:7cb5efb8e5a16babfeb0c51dbb943913be21281e0e64f3bc8f6e94dcc6dd4757');assert.deepEqual(state.catalog.basisDigest,slots.catalog.digest);assert.deepEqual(state.catalogView.viewDigest,slots.catalogView.digest);"
+      },
+      {
+        "line": 11,
+        "text": " const publicationInputs=await read(join(P,'publication-inputs.json'));assert.deepEqual(state.binding,publicationInputs.workspaceBinding);assert.equal(publicationInputs.modulePublications.length,11);assert.deepEqual(publicationInputs.modulePublications.map(p=>[p.moduleRef,product.modulePublicationSemanticDigest(p)].join('\\0')).sort(),verification.verifiedArtifact.contributionManifest.publicationBindings.map(p=>[p.moduleRef,p.publicationDigest].join('\\0')).sort());"
+      },
+      {
+        "line": 12,
+        "text": " const preparations=[];for(const [programRef,label]of [[gtl.HELLO_WORLD_IDS.programRef,'conformance-hello-world'],['program://abiogenesis/worksite/command-execution@5','conformance-command-execution']]){const prepared=await c.prepareConformance(programRef,label,publicationInputs);preparations.push(prepared);}"
+      },
+      {
+        "line": 13,
+        "text": " const v=createRequire(join(identity.installedRoot,'package.json'))('valibot'),checks=[];for(const p of preparations){v.parse(product.ADMISSION_CAPABILITY_DATA_SCHEMA,p.call.resources.admissionAuthority.basis);v.parse(product.RESOLVED_ADMISSION_AUTHORITY_SCHEMA,p.call.resources.admissionAuthority.authority);const check=checkConformance(c,p);await write(p.label+'-owner-precondition.json',check);checks.push({label:p.label,resourceKeys:Object.keys(check.ownerConsumedResources).sort(),closure:{ref:check.ownerDeclarationClosure.closureRef,digest:check.ownerDeclarationClosure.closureDigest},callRef:p.call.invocation.invocationRef});}"
+      },
+      {
+        "line": 14,
+        "text": " const input=gtl.constructHelloWorldInput('prospective 5.0.0-rc.1 qualification'),preparedStart=await c.prepareStart(gtl.HELLO_WORLD_IDS.programRef,gtl.HELLO_WORLD_IDS.graphFunctionRef,input,'hello-root'),startCheck=await checkStart(c,preparedStart);await write('hello-root-owner-precondition.json',startCheck);"
+      },
+      {
+        "line": 15,
+        "text": " const readContracts=['run_result','run_replay'].map(memberKey=>{const packet=abg.ABG_PROJECT_READ_CONTRACTS[memberKey],m=verification.verifiedArtifact.definitionContractCoordinates.operations.find(x=>x.operationId===packet.definitionKey.operationId).members.find(x=>x.memberKey===memberKey);assert.ok(m.slots.request&&m.slots.result);return {memberKey,packet,coordinates:m,consumedResourceKeys:['eventResource','kind','schemaVersion'],futureDependencies:'Actual started.receipt.ownerOutput.value.run and current genuine closeHandoff; checked by checkReadCall immediately before each real native read. No fake Run/execution/handoff is constructed.'};});"
+      },
+      {
+        "line": 16,
+        "text": " assert.ok(performance.now()-startedAt<120000);clearTimeout(preflightTimer);preflightTimer=null;await write('pure-preflight.json',{status:'passed',elapsedMs:performance.now()-startedAt,nativeCalls:0,actualNominalVerification:true,retainedPrefix:initial.prefix,physical,bothConformanceChecks:checks,actualStartResourcePredicate:true,actualPureStartOwnerPreparation:true,readContracts,conservedCatalog:slots.catalog,conservedView:slots.catalogView,limits:'Current actual value/owner construction checks, not native semantics. No full unchanged publication static proof or seven successful Public calls rerun.'});console.log(JSON.stringify({phase:'complete_remaining_owner_preflight_passed',conformances:2,actualStartPrepared:true,readSourceDeferredUntilRealRun:true,nativeCalls:0}));"
+      },
+      {
+        "line": 17,
+        "text": " nativeStartedAt=performance.now();window.deadline=nativeStartedAt+budgets.driverBudgetMs;await write('native-start.json',{pid:process.pid,startedAt:new Date().toISOString(),budgetMs:budgets.driverBudgetMs,operationPlan:budgets.operationPlan});"
+      },
+      {
+        "line": 18,
+        "text": " for(const p of preparations){phase=p.label;assert.deepEqual(state.closeHandoff,initial);const result=await c.invoke(p.label,p.call,'conformance');assert.equal(result.receipt.ownerOutput.value.disposition,'passed',JSON.stringify(result.receipt));assert.deepEqual(state.closeHandoff,initial);await write(p.label+'-semantic-result.json',{status:'passed',receipt:result.receipt,preparedCallRef:p.call.invocation.invocationRef,closedPrefixConserved:true});}"
+      },
+      {
+        "line": 19,
+        "text": " console.log(JSON.stringify({phase:'both_native_conformances_passed',newCalls:state.calls.length,prefix:state.closeHandoff.prefix}));"
+      },
+      {
+        "line": 20,
+        "text": " phase='hello-root';c.refresh();assert.deepEqual(preparedStart.call.resources.eventResource,c.reopen());assert.equal(product.isRunInvocationResourceAssertion(preparedStart.call.resources),true);const started=await c.invoke('hello-root',preparedStart.call,'hello');console.log(JSON.stringify({phase:'hello_owner_returned',run:started.receipt.ownerOutput.value.run,disposition:started.receipt.ownerOutput.value.disposition}));"
+      },
+      {
+        "line": 21,
+        "text": " const value=started.receipt.ownerOutput.value;assert.equal(value.disposition,'completed');assert.equal(value.stop,null);assert.equal(value.terminalResult.kind,'abg_typed_terminal_result');assert.deepEqual(value.terminalResult.value,{kind:'hello_world_output',schemaVersion:'5.0.0',message:'Hello prospective 5.0.0-rc.1 qualification'});"
+      },
+      {
+        "line": 22,
+        "text": " phase='cold-reads';const reads=await c.freshReads('hello-root',started),rp=reads.run_result.ownerOutput.value.projection,replay=reads.run_replay.ownerOutput.value.projection;assert.deepEqual(value.terminalResult,rp.terminalResult);assert.deepEqual(rp.terminalResult,replay.terminalResult);assert.deepEqual(value.result,rp.result);assert.deepEqual(value.replay,rp.replay);assert.deepEqual(value.replay,replay.replay);assert.equal(replay.status,'closed');assert.deepEqual(reads.run_result.ownerOutput.value.source,value.run);assert.deepEqual(reads.run_replay.ownerOutput.value.source,value.run);assert.equal(value.terminalResult.provenance.runRef,value.run.ref);assert.equal(state.calls.length,5);assert.ok(performance.now()<window.deadline);"
+      },
+      {
+        "line": 23,
+        "text": " await write('hello-result.json',{status:'passed',input,startCall:started.call,rootReceipt:started.receipt,reads,comparison:{typedTerminalEqual:true,resultEqual:true,replayEqual:true,replayClosed:true,originalExpectedMessage:'Hello prospective 5.0.0-rc.1 qualification',actualRun:value.run},closeHandoff:state.closeHandoff,calls:state.calls});"
+      },
+      {
+        "line": 24,
+        "text": " phase='final-conservation';const finalPhysical=await c.physical('final'),finalBytes=await fs.readFile(initial.reopenAuthority.eventLogPath);assert.equal(finalPhysical.device,physical.device);assert.equal(finalPhysical.inode,physical.inode);assert.deepEqual(finalBytes.subarray(0,originalBytes.length),originalBytes);await fs.writeFile(join(here,'final-native-prefix.jsonl'),finalBytes,{flag:'wx'});await write('final-handoff.json',state.closeHandoff);c.refresh();"
+      },
+      {
+        "line": 25,
+        "text": " await write('environment.json',{projection:state.environment,catalog:state.catalog,catalogView:state.catalogView,verified:verification.verifiedArtifact,definitionContractCoordinates:verification.verifiedArtifact.definitionContractCoordinates,readerInstalledRoot:identity.installedRoot,closeHandoff:state.closeHandoff});await write('runtime-slots.json',{...slots,closeHandoff:state.closeHandoff,HelloRun:value.run,tenantManifest:null,executionSelectionRef:null,remaining:[],reuse:'Seven N03 successes plus five N04 calls on same original resource; later effect requires separate Root grant'});"
+      },
+      {
+        "line": 26,
+        "text": " await write('native-result.json',{status:'passed',candidate:identity.basis,initialPrefix:initial.prefix,initialPrefixConserved:true,finalPrefix:state.closeHandoff.prefix,finalPhysical,priorSuccessesReexecuted:0,newCalls:5,HelloRuns:1,providerCalls:0,C2Calls:0,qualificationCalls:0,elapsedMs:performance.now()-startedAt,nativeElapsedMs:performance.now()-nativeStartedAt,driverPid:process.pid,claim:'Original bounded S01 plus two supported fresh reads completed on C02 with genuine preserved setup; not broader qualification'});console.log(JSON.stringify({phase:'CLOSED_native_success',newCalls:5,elapsedMs:performance.now()-startedAt}));"
+      }
+    ]
+  },
+  "ordinary-caller.mjs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/ordinary-caller.mjs",
+    "bytes": 14861,
+    "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351",
+    "lines": [
+      {
+        "line": 2,
+        "text": "import {checkReadCall} from './owner-checks.mjs';"
+      },
+      {
+        "line": 3,
+        "text": "// Finite ordinary Public caller. No private imports, source dispatch or retries."
+      },
+      {
+        "line": 4,
+        "text": "import assert from 'node:assert/strict';"
+      },
+      {
+        "line": 5,
+        "text": "import {readFile,writeFile,mkdir,open} from 'node:fs/promises';"
+      },
+      {
+        "line": 6,
+        "text": "import {join,dirname} from 'node:path';"
+      },
+      {
+        "line": 17,
+        "text": " const ownerRequest=verificationRequest(core),contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,catalogId:verified.catalogId,catalogVersion:schemaVersion,catalogDigest:verified.catalogDigest};"
+      },
+      {
+        "line": 18,
+        "text": " const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-native-continuation-04',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';"
+      },
+      {
+        "line": 19,
+        "text": " const op={actorRef,attributionRef:'attribution://'+base,authorityRef:'authority://'+base,approvalRef:'approval://'+base,requestBaseRef:'request://'+base,correlationRef:'correlation://'+base,provenanceRefs:[pathToFileURL(join(here,'worker-activation.json')).href,pathToFileURL(join(here,'prospective-cases.json')).href]};"
+      },
+      {
+        "line": 20,
+        "text": " const state={closeHandoff:null,environment:null,catalog:null,catalogView:null,binding:null,resolvedLock:null,calls:[]};"
+      },
+      {
+        "line": 21,
+        "text": " const budgets=await read(join(here,'budgets.json')),taskEnvironment=await read(join(here,'runtime-environment.json'));"
+      },
+      {
+        "line": 22,
+        "text": " const physicalLog=[];"
+      },
+      {
+        "line": 23,
+        "text": " async function physical(label){const f=(await read(join(here,'resource-plan.json'))).eventLogPath;try{const fs=await import('node:fs/promises'),crypto=await import('node:crypto'),before=await fs.stat(f),b=await fs.readFile(f),after=await fs.stat(f);const lock=join(taskEnvironment.TMPDIR,'abiogenesis-event-store-locks-v5',String(after.dev)+'-'+String(after.ino)+'.lock');let lockPresent=false;try{await fs.stat(lock);lockPresent=true;}catch(e){if(e.code!=='ENOENT')throw e;}const row={label,path:f,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),device:after.dev,inode:after.ino,stable:before.dev===after.dev&&before.ino===after.ino&&before.size===after.size&&before.mtimeMs===after.mtimeMs,lockPath:lock,lockPresent,prefix:state.closeHandoff?.prefix??null};physicalLog.push(row);await write(mode+'-'+label+'-physical.json',row);assert.equal(row.stable,true);assert.equal(lockPresent,false);return row;}catch(e){if(e.code==='ENOENT')return null;throw e;}}"
+      },
+      {
+        "line": 24,
+        "text": " const actor={actor:coord(actorRef),attribution:coord(op.attributionRef)};"
+      },
+      {
+        "line": 25,
+        "text": " const boundSlots=()=>({workspace_binding:state.binding,product_set:state.environment.productInstalls.map(product.productInstallCoordinate),dependency_lock:{ref:state.resolvedLock.lockId,digest:state.resolvedLock.lockDigest},actor});"
+      },
+      {
+        "line": 26,
+        "text": " const reopen=()=>({kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:state.closeHandoff,handoffDigest:hash(state.closeHandoff)});"
+      },
+      {
+        "line": 27,
+        "text": " const refresh=()=>{state.environment=abg.projectExactPrefixWorkspaceEnvironment(state.closeHandoff.prefix,state.binding);assert.equal(state.environment.kind,'exact_prefix_workspace_environment');return state.environment;};"
+      },
+      {
+        "line": 28,
+        "text": " let authorizationSequence=0;"
+      },
+      {
+        "line": 29,
+        "text": " async function authorized(packet,request,resources,supplied={}){"
+      },
+      {
+        "line": 30,
+        "text": "  const constructionIndex=authorizationSequence++;"
+      },
+      {
+        "line": 31,
+        "text": "  const definition=installedPublic.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId===packet.definitionKey.operationId&&d.definitionKey.memberKey===packet.definitionKey.memberKey);assert.ok(definition);"
+      },
+      {
+        "line": 32,
+        "text": "  const slots={workspace_binding:null,product_set:null,dependency_lock:null,catalog_scope:null,execution_program:null,graph_function:null,input_contract:null,session_policy:null,capability_grants:{requiredCapabilityRefs:[...definition.capabilityRefs],grants:[]},actor:null,transport_steering:null,verification_references:null,execution_basis:null,...supplied};"
+      },
+      {
+        "line": 33,
+        "text": "  const basis={kind:'admission_capability_data',schemaVersion,definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},ownerArtifact:{request:ownerRequest,verified},request,resourceScope:{resourcesDigest:hash(resources),authoritySlots:product.admissionAuthoritySlots(slots)},boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:product.admissionEnvironmentSelection(state.closeHandoff.prefix,slots.workspace_binding)};"
+      },
+      {
+        "line": 36,
+        "text": "  const grants=await Promise.all(definition.capabilityRefs.map(cap=>product.constructCapabilityGrant(authority,actorRef,definition.definitionKey.operationId,cap,{kind:'admission_capability_grant_construction_basis',fixedPacket:packet,data:basis})));"
+      },
+      {
+        "line": 37,
+        "text": "  await write(mode+'-authorization-'+constructionIndex+'.json',{basis,authority,grants,scope:product.admissionAuthorityScope(basis),claim:'Actual current selection/scope/approval/grants before native invocation; selection is not an admitted environment'});"
+      },
+      {
+        "line": 38,
+        "text": "  return installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots:{...slots,capability_grants:{requiredCapabilityRefs:[...definition.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}},resources:{...resources,admissionAuthority:{basis,authority,grants}},requestRef:op.requestBaseRef+'/'+mode+'/'+constructionIndex,correlationRef:op.correlationRef,eventTime:new Date().toISOString(),provenanceRefs:op.provenanceRefs});"
+      },
+      {
+        "line": 39,
+        "text": " }"
+      },
+      {
+        "line": 40,
+        "text": " async function invoke(label,call,stage='setup'){"
+      },
+      {
+        "line": 41,
+        "text": "  assert.equal(label,budgets.operationPlan[state.calls.length],'exact five-call population/order');"
+      },
+      {
+        "line": 42,
+        "text": "  const stem=join(here,mode+'-'+label),resource=call.resources.eventResource,acquisition=resource===undefined?{kind:'eventless'}:resource.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resource.eventLogPath}:{kind:'reopen',closeHandoff:resource.closeHandoff};"
+      },
+      {
+        "line": 43,
+        "text": "  await writeFile(stem+'.jsonl',JSON.stringify({kind:'abg_cli_transport_request',schemaVersion,acquisition,invocation:call})+'\\n',{flag:'wx'});"
+      },
+      {
+        "line": 44,
+        "text": "  const out=await open(stem+'-stdout.json','wx'),err=await open(stem+'-stderr.log','wx');"
+      },
+      {
+        "line": 45,
+        "text": "  const started=performance.now();let processFailure=null,terminal;const remaining=driverDeadline.deadline-performance.now();assert.ok(remaining>0,'finite driver deadline');const capMs=Math.min(budgets.stages[stage],remaining-1000);assert.ok(capMs>0,'termination grace preserved');await write(mode+'-'+label+'-command.json',{command:[process.execPath,cli,'--jsonl',stem+'.jsonl'],cwd:packageIdentity.installedRoot,environment:taskEnvironment,budgetMs:capMs,driverRemainingMs:remaining});"
+      },
+      {
+        "line": 46,
+        "text": "  try{"
+      },
+      {
+        "line": 47,
+        "text": "   terminal=await new Promise(resolve=>{"
+      },
+      {
+        "line": 59,
+        "text": "  const stdout=await readFile(stem+'-stdout.json','utf8');"
+      },
+      {
+        "line": 60,
+        "text": "  let transport;try{transport=JSON.parse(stdout);}catch{throw Error(label+': no complete transport receipt; '+JSON.stringify(processFailure));}"
+      },
+      {
+        "line": 61,
+        "text": "  assert.equal(transport.kind,'installed_definition_call_transport_result');const receipt=transport.receipt;"
+      },
+      {
+        "line": 62,
+        "text": "  if(receipt.resources?.eventResource?.closeHandoff)state.closeHandoff=receipt.resources.eventResource.closeHandoff;"
+      },
+      {
+        "line": 63,
+        "text": "  const row={label,definitionKey:call.invocation.definitionKey,invocationRef:call.invocation.invocationRef,outcomeKind:receipt.ownerOutput?.outcomeKind,elapsedMs,processFailure};state.calls.push(row);await write(mode+'-'+label+'-handoff.json',{closeHandoff:state.closeHandoff,calls:state.calls});console.log(JSON.stringify(row));"
+      },
+      {
+        "line": 64,
+        "text": "  await physical(label);assert.equal(processFailure,null,JSON.stringify(processFailure));assert.equal(receipt.ownerOutput?.outcomeKind,'result',JSON.stringify(receipt));assert.equal(receipt.exitCode,0,JSON.stringify(receipt));return {call,receipt};"
+      },
+      {
+        "line": 65,
+        "text": " }"
+      },
+      {
+        "line": 66,
+        "text": " async function prepareConformance(programRef,label,publicationInputs){"
+      },
+      {
+        "line": 67,
+        "text": "  const publication=publicationInputs.modulePublications.find(p=>p.programs.some(p=>p.programRef===programRef)),program=publication.programs.find(p=>p.programRef===programRef),law=coord('law://abiogenesis/validator/gtl-program@5');"
+      },
+      {
+        "line": 68,
+        "text": "  const call=await authorized(r.validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,{program:coord(programRef,program),conformanceLaw:law,inventoryBasis:{kind:'declared_inventory',inventory:state.catalog.boundPublications.map(p=>coord(p.moduleRef,p)).sort((a,b)=>a.ref.localeCompare(b.ref))}},{kind:'conformance_evaluation_resource_assertion',schemaVersion,packet:{kind:'conformance_evaluate_packet',schemaVersion,memberKey:'gtl_program',publication,program},conformanceLaw:law,declaredInventory:state.catalog.boundPublications,declarationCatalog:{catalog:state.catalog,catalogView:state.catalogView}},boundSlots());"
+      },
+      {
+        "line": 69,
+        "text": "  return {label,program,call};"
+      },
+      {
+        "line": 70,
+        "text": " }"
+      },
+      {
+        "line": 71,
+        "text": " async function prepareStart(programRef,graphFunctionHandle,input,label){"
+      },
+      {
+        "line": 72,
+        "text": "  refresh();const selection={programRef,selection:{kind:'start',scope:'program',target:'graph_function',graphFunctionHandle,until:'converged',rootMode:'direct'},fhMode:'direct',sourceBasis:{kind:'none'},inputRef:'input://'+base+'/'+label,requestRef:op.requestBaseRef+'/'+label,correlationRef:op.correlationRef,provenanceRefs:op.provenanceRefs};"
+      },
+      {
+        "line": 73,
+        "text": "  const s=await constructStart({environment:{...state.environment,product,abg,catalog:state.catalog,catalogView:state.catalogView,admittedInstalls:state.environment.productInstalls,verified},publicApi:installedPublic,eventResource:reopen(),inputFactory:()=>input,selection});return s;"
+      },
+      {
+        "line": 74,
+        "text": " }"
+      },
+      {
+        "line": 75,
+        "text": " async function freshReads(label,started){"
+      },
+      {
+        "line": 76,
+        "text": "  const run=started.receipt.ownerOutput?.value?.run;assert.ok(run&&state.closeHandoff);const closed=state.closeHandoff;refresh();const reads={};"
+      },
+      {
+        "line": 77,
+        "text": "  for(const memberKey of ['run_result','run_replay']){"
+      },
+      {
+        "line": 78,
+        "text": "   const packet=abg.ABG_PROJECT_READ_CONTRACTS[memberKey],originalSlots=started.call.invocation.invocationAuthority.slots;"
+      },
+      {
+        "line": 79,
+        "text": "   const grants=packet.metadata.capabilityRefs.map(cap=>product.constructCapabilityGrant(state.environment.workspaceAuthorityBasis,actorRef,packet.definitionKey.operationId,cap,{admittedInstalls:state.environment.productInstalls,workspaceBinding:state.environment.workspaceBinding,fixedPacket:packet}));"
+      },
+      {
+        "line": 80,
+        "text": "   const slots=Object.fromEntries(Object.keys(originalSlots).map(k=>[k,null]));Object.assign(slots,{workspace_binding:originalSlots.workspace_binding,product_set:originalSlots.product_set,dependency_lock:originalSlots.dependency_lock,capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}});"
+      },
+      {
+        "line": 81,
+        "text": "   const request={caseKey:memberKey,source:{sourceKind:'run',sourceRef:run.ref,sourceDigest:run.digest},projectionBasis:{projectionBasisRef:closed.prefix.eventLogRef,projectionBasisDigest:closed.prefix.coordinateDigest},selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:1000}:{kind:'none'}};"
+      },
+      {
+        "line": 82,
+        "text": "   const call=installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots,resources:{kind:'abg_project_read_resource_assertion',schemaVersion,eventResource:{kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:state.closeHandoff,handoffDigest:hash(state.closeHandoff)}},requestRef:op.requestBaseRef+'/'+label+'/'+memberKey,correlationRef:op.correlationRef+'/fresh-read',eventTime:new Date().toISOString(),provenanceRefs:op.provenanceRefs});"
+      },
+      {
+        "line": 83,
+        "text": "   await checkReadCall({product,abg,call,state,verified,run,closed,grants,write,label:label+'-'+memberKey});"
+      },
+      {
+        "line": 84,
+        "text": "   reads[memberKey]=(await invoke(label+'-'+memberKey,call,'read')).receipt;assert.deepEqual(state.closeHandoff.prefix,closed.prefix);"
+      },
+      {
+        "line": 85,
+        "text": "  }"
+      },
+      {
+        "line": 86,
+        "text": "  return reads;"
+      },
+      {
+        "line": 88,
+        "text": " return {...r,installedPublic,hash,coord,actor,op,state,core,verified,verification,ownerRequest,prospect,contractCatalog,packageIdentity,authorized,invoke,prepareConformance,prepareStart,freshReads,reopen,refresh,boundSlots,physical,physicalLog};"
+      },
+      {
+        "line": 89,
+        "text": "}"
+      },
+      {
+        "line": 90,
+        "text": "export function verificationRequest(item){return {artifactPath:item.artifactPath,artifactRef:item.artifactRef,...Object.fromEntries(['ArtifactDigest','ProductContentDigest','ManifestDigest','ProductId','PackageName','PackageVersion'].map(k=>['expected'+k,item.basis[k[0].toLowerCase()+k.slice(1)]]))};}"
+      }
+    ]
+  },
+  "pureOwnerDiscovery": [
+    {
+      "path": "shared/public_function_projections.ts",
+      "line": 57,
+      "text": "export interface PublicProjectionAsset {"
+    },
+    {
+      "path": "shared/public_function_projections.ts",
+      "line": 73,
+      "text": "export interface PublicSdkMemberProjection {"
+    },
+    {
+      "path": "shared/public_function_projections.ts",
+      "line": 83,
+      "text": "export interface PublicCliGrammarProjection {"
+    },
+    {
+      "path": "shared/public_function_projections.ts",
+      "line": 99,
+      "text": "export interface PublicProjectionPayloads {"
+    },
+    {
+      "path": "shared/public_function_projections.ts",
+      "line": 610,
+      "text": "function projectionAsset("
+    },
+    {
+      "path": "shared/public_function_projections.ts",
+      "line": 681,
+      "text": "function constructPayloads(): PublicProjectionPayloads {"
+    },
+    {
+      "path": "shared/public_function_projections.ts",
+      "line": 797,
+      "text": "export const PUBLIC_PROJECTION_PAYLOADS = constructPayloads();"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 48,
+      "text": "export type ProductProjectReadCase ="
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 56,
+      "text": "export interface ProductProjectionBasis {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 76,
+      "text": "export interface CatalogListProjectReadPacket"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 90,
+      "text": "export interface CatalogDescribeProjectReadPacket"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 105,
+      "text": "export interface WorkspaceStatusProjectReadPacket"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 121,
+      "text": "export interface InstallEvidenceProjectReadPacket"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 130,
+      "text": "export interface ReleaseEvidenceProjectReadPacket"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 138,
+      "text": "export interface TicketConsensusProjectReadPacket"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 149,
+      "text": "export interface ProductProjectReadPacketByCase {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 158,
+      "text": "export type ProductProjectReadPacket<"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 162,
+      "text": "export type ProjectReadPacket<"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 166,
+      "text": "export type ProductProjectReadRefusalCode ="
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 181,
+      "text": "export interface ProductProjectReadRefusal {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 193,
+      "text": "export interface ProductProjectReadResult<"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 210,
+      "text": "export interface CatalogListProjectionRow {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 219,
+      "text": "export interface CatalogListProjection {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 228,
+      "text": "export interface CatalogDescriptionProjection {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 241,
+      "text": "export interface WorkspaceStatusProjection {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 261,
+      "text": "export interface InstallEvidenceProjection {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 319,
+      "text": "function validProjectionBasis(value: unknown): value is ProductProjectionBasis {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 378,
+      "text": "function projected<C extends ProductProjectReadCase, P extends JsonValue>("
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 463,
+      "text": "export function projectCatalogList("
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 523,
+      "text": "export function projectCatalogDescription("
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 622,
+      "text": "export function projectWorkspaceStatus("
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 708,
+      "text": "export function projectInstallEvidence("
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 779,
+      "text": "export function projectReleaseEvidence(packet:ReleaseEvidenceProjectReadPacket):ProductProjectReadRefusal|ProductProjectReadResult<\"release_evidence\",JsonValue> {"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 806,
+      "text": "export function projectConsensusTicket("
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 875,
+      "text": "export const CatalogProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 880,
+      "text": "export const WorkspaceProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 884,
+      "text": "export const InstallProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 888,
+      "text": "export const ReleaseProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 892,
+      "text": "export const ConsensusProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "product/project_read_ports.ts",
+      "line": 896,
+      "text": "export const PRODUCT_PROJECT_READ_CONTRACTS = Object.freeze({"
+    },
+    {
+      "path": "product/project_read_operation_contracts.ts",
+      "line": 289,
+      "text": "export const PRODUCT_PROJECT_READ_CONTRACTS = Object.freeze({"
+    },
+    {
+      "path": "product/project_read_operation_contracts.ts",
+      "line": 298,
+      "text": "export interface CatalogProjectionPort {"
+    },
+    {
+      "path": "product/project_read_operation_contracts.ts",
+      "line": 303,
+      "text": "export interface WorkspaceProjectionPort {"
+    },
+    {
+      "path": "product/project_read_operation_contracts.ts",
+      "line": 307,
+      "text": "export interface InstallProjectionPort {"
+    },
+    {
+      "path": "product/project_read_operation_contracts.ts",
+      "line": 311,
+      "text": "export interface ReleaseProjectionPort {"
+    },
+    {
+      "path": "product/project_read_operation_contracts.ts",
+      "line": 315,
+      "text": "export interface ConsensusProjectionPort {"
+    },
+    {
+      "path": "product/project_read_definition_bindings.ts",
+      "line": 89,
+      "text": "export interface ProductProjectReadResourceAssertion<"
+    },
+    {
+      "path": "product/project_read_definition_bindings.ts",
+      "line": 104,
+      "text": "function fault<TContract extends ProjectReadContract>("
+    },
+    {
+      "path": "product/project_read_definition_bindings.ts",
+      "line": 117,
+      "text": "function validResources<TPacket extends ProjectReadPacket>("
+    },
+    {
+      "path": "product/project_read_definition_bindings.ts",
+      "line": 131,
+      "text": "function baseRelationMatches<TContract extends ProjectReadContract>("
+    },
+    {
+      "path": "product/project_read_definition_bindings.ts",
+      "line": 145,
+      "text": "function nativeRefusal<TContract extends ProjectReadContract>("
+    },
+    {
+      "path": "product/project_read_definition_bindings.ts",
+      "line": 159,
+      "text": "function commonResult<TContract extends ProjectReadContract>("
+    },
+    {
+      "path": "product/project_read_definition_bindings.ts",
+      "line": 1019,
+      "text": "export const PRODUCT_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({"
+    },
+    {
+      "path": "abg/fh_continuation_projection.ts",
+      "line": 40,
+      "text": "export interface ReplayContinuationState {"
+    },
+    {
+      "path": "abg/fh_continuation_projection.ts",
+      "line": 87,
+      "text": "export type FhEffectfulPublicInvocationFactProjection ="
+    },
+    {
+      "path": "abg/fh_continuation_projection.ts",
+      "line": 536,
+      "text": "export function projectFhContinuations("
+    },
+    {
+      "path": "abg/fh_continuation_projection.ts",
+      "line": 792,
+      "text": "export function projectFhEffectfulPublicInvocationFacts("
+    },
+    {
+      "path": "abg/fan_out_projection.ts",
+      "line": 43,
+      "text": "export type ExactFanOutCompletionProjectionRequest ="
+    },
+    {
+      "path": "abg/fan_out_projection.ts",
+      "line": 63,
+      "text": "export interface FanOutCompletionCandidateProjection {"
+    },
+    {
+      "path": "abg/fan_out_projection.ts",
+      "line": 954,
+      "text": "function candidateProjection("
+    },
+    {
+      "path": "abg/fan_out_projection.ts",
+      "line": 1349,
+      "text": "export function projectExactFanOutCompletion("
+    },
+    {
+      "path": "abg/terminal_result_contracts.ts",
+      "line": 34,
+      "text": "export function isAbgTypedTerminalResult(value: unknown): value is AbgTypedTerminalResult {"
+    },
+    {
+      "path": "abg/terminal_result_contracts.ts",
+      "line": 81,
+      "text": "export const ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA = v.omit(ABG_TYPED_TERMINAL_RESULT_SCHEMA, [\"value\", \"projectionBasis\"]);"
+    },
+    {
+      "path": "abg/event_body_encoding.ts",
+      "line": 48,
+      "text": "export function decodeEventBody(record: unknown, inlineByEvent: InlineEventBodies): {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 76,
+      "text": "export interface ReplayCCallState {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 96,
+      "text": "export interface ActiveRuntimeTransactionProjection {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 103,
+      "text": "export function projectRuntimePrefixesAtDurablePrefix("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 115,
+      "text": "export function projectRuntimeTruthAtDurablePrefix("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 133,
+      "text": "export function projectActiveRuntimeTransaction("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 153,
+      "text": "export interface ReplayRouteState {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 183,
+      "text": "export interface ReplayConstructionDeltaState {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 205,
+      "text": "export interface ReplayActorProcessState {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 222,
+      "text": "export interface ReplayCurrentWorksiteObservation {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 227,
+      "text": "export interface RunQuiescenceProjection {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 293,
+      "text": "export function projectRunQuiescence("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 398,
+      "text": "export interface ReplayState {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 488,
+      "text": "export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayState {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 539,
+      "text": "export function projectReplayRouteAtPrefix("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 763,
+      "text": "export function replayValidatedRuntimeEventPrefix("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 773,
+      "text": "export function projectValidatedReplayRouteAtPrefix("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 780,
+      "text": "function deriveReplayPrefixFacts("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 1320,
+      "text": "export interface RunSemanticReplayPhysicalEventCoordinate {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 1327,
+      "text": "export interface RunSemanticReplayPhysicalCoordinates {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 1380,
+      "text": "export type RunSemanticReplayProjection = RunSemanticRelationView;"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 1712,
+      "text": "export function projectRunIdentityAtPrefix(prefix: ValidatedRuntimeEventPrefix, runId: string) {"
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 1749,
+      "text": "function projectOwnerFacts("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 1961,
+      "text": "export function projectRunSemanticReplayProjection("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 1970,
+      "text": "export function projectRunReplayContext("
+    },
+    {
+      "path": "abg/replay.ts",
+      "line": 1982,
+      "text": "function projectRunSemanticReplay("
+    },
+    {
+      "path": "abg/event_store.ts",
+      "line": 1987,
+      "text": "export function projectRuntimeEventsAtDurablePrefix(prefix: DurablePrefixCoordinate): readonly RuntimeEvent[] {"
+    },
+    {
+      "path": "abg/event_store.ts",
+      "line": 2151,
+      "text": "export function projectHeldRuntimeEventsAtDurablePrefix("
+    },
+    {
+      "path": "abg/event_store.ts",
+      "line": 2235,
+      "text": "export function projectRuntimeEventFromValidatedHistory("
+    },
+    {
+      "path": "abg/event_store.ts",
+      "line": 2242,
+      "text": "function projectRuntimeEventAtContract("
+    },
+    {
+      "path": "abg/event_store.ts",
+      "line": 3153,
+      "text": "function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha256Digest): {"
+    },
+    {
+      "path": "abg/event_store.ts",
+      "line": 3342,
+      "text": "export function projectRootEventProfileSchedule(events: readonly RuntimeEvent[], emptyProfileDigest: Sha256Digest = ROOT_EVENT_CONTRACT_DIGEST): RootEventProfileSchedule {"
+    },
+    {
+      "path": "abg/event_store.ts",
+      "line": 3353,
+      "text": "export function extendRootEventProfileProjection("
+    },
+    {
+      "path": "abg/definition_event_resource.ts",
+      "line": 186,
+      "text": "export function abgEventLocatorDigest(eventLogPath: string): Sha256Digest {"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 54,
+      "text": "export const ABG_PROJECT_READ_MEMBER_KEYS = Object.freeze(["
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 75,
+      "text": "export type AbgProjectReadMemberKey ="
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 82,
+      "text": "export interface AbgProjectReadPacket<"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 93,
+      "text": "export type ProjectReadRefusalCode ="
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 99,
+      "text": "export interface AbgProjectReadRefusal<"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 111,
+      "text": "export interface AbgProjectReadProjection<"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 125,
+      "text": "export type AbgProjectReadResult<"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 151,
+      "text": "export interface AbgRunTruthProjection {"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 178,
+      "text": "export type AbgRunTruthResult = AbgRunTruthProjection | AbgRunTruthRefusal;"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 414,
+      "text": "function terminalContract(prepared: PreparedRead<AbgProjectReadMemberKey>, basis: ExecutionBasis, scope: OpenedTraversalScope): AbgRunTruthCoordinate {"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 500,
+      "text": "function typedTerminalResult(prepared: PreparedRead<AbgProjectReadMemberKey>, context: RunReadContext,"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 511,
+      "text": "export function projectHistoricalGraphCallSourceAtDurablePrefix("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 545,
+      "text": "export function projectClosedGraphCallTerminalAtDurablePrefix("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 558,
+      "text": "function refusal<K extends AbgProjectReadMemberKey>("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 575,
+      "text": "function admitReadPacket<K extends AbgProjectReadMemberKey>("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 622,
+      "text": "function prepareRead<K extends AbgProjectReadMemberKey>("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 655,
+      "text": "function runIds(prepared: PreparedRead<AbgProjectReadMemberKey>): readonly string[] {"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 876,
+      "text": "export function projectRunTruthAtDurablePrefix("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 896,
+      "text": "export function projectGraphCallSourceAtDurablePrefix(prefix: DurablePrefixCoordinate, graphCallId: string):"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 969,
+      "text": "function graphCallStatus(context: GraphCallReadContext): ReplayState[\"runtimeStatus\"] {"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 975,
+      "text": "function projectRunStatus("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 992,
+      "text": "function projectGraphCallStatus("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1019,
+      "text": "function projectRunResult("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1038,
+      "text": "function projectGraphCallResult("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1059,
+      "text": "function evidenceProjection("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1083,
+      "text": "function projectRunEvidence("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1096,
+      "text": "function projectGraphCallEvidence("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1106,
+      "text": "function projectResultEvidence("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1121,
+      "text": "function projectWorkspaceReplay("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1143,
+      "text": "function projectRunReplay("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1154,
+      "text": "function projectGraphCallReplay("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1180,
+      "text": "function projectInteractionReplay("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1201,
+      "text": "function projectContinuationReplay("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1222,
+      "text": "function projectCCallReplay("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1246,
+      "text": "function gapCall(context: RunReadContext, route: NonNullable<ReturnType<typeof projectHistoricalTraversalRouteAtPrefix>>,"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1278,
+      "text": "function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: CanonicalRunReadContext): readonly JsonValue[] {"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1377,
+      "text": "function projectWorkspaceGaps("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1394,
+      "text": "function projectRunGaps("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1407,
+      "text": "export function projectGapReadAtValidatedPrefix<K extends \"run_gaps\" | \"workspace_gaps\">("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1423,
+      "text": "function projectRunLawfulActions("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1444,
+      "text": "function projectValue("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1489,
+      "text": "function project<K extends AbgProjectReadMemberKey>("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1500,
+      "text": "function projectPreparedRead<K extends AbgProjectReadMemberKey>("
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1553,
+      "text": "export const RunProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1569,
+      "text": "export const GraphCallProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1581,
+      "text": "export const ResultProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1586,
+      "text": "export const AssessmentProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1591,
+      "text": "export const WitnessProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1596,
+      "text": "export const WorkspaceProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1603,
+      "text": "export const InteractionProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1608,
+      "text": "export const ContinuationProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1613,
+      "text": "export const CCallProjectionPort = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1618,
+      "text": "export const ABG_PROJECT_READ_OWNER_PORTS = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_ports.ts",
+      "line": 1659,
+      "text": "export const ABG_PROJECT_READ_CONTRACTS = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 24,
+      "text": "export const ABG_PROJECT_READ_CASES = Object.freeze(["
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 66,
+      "text": "function subjectStatusProjectionSchema("
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 81,
+      "text": "function subjectResultProjectionSchema("
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 94,
+      "text": "function subjectEvidenceProjectionSchema(kind: string) {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 104,
+      "text": "function subjectReplayProjectionSchema(kind: string, terminalSummary = false) {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 117,
+      "text": "function subjectGapProjectionSchema("
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 131,
+      "text": "function admittedGapValueSchema(valueKind: \"next_action_basis\" | \"next_action_projection\") {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 183,
+      "text": "function readRefusal(replay: boolean) {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 416,
+      "text": "export const ABG_PROJECT_READ_CONTRACTS = Object.freeze({"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 437,
+      "text": "export interface RunProjectionPort {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 445,
+      "text": "export interface GraphCallProjectionPort {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 451,
+      "text": "export interface ResultProjectionPort {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 454,
+      "text": "export interface AssessmentProjectionPort {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 457,
+      "text": "export interface WitnessProjectionPort {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 460,
+      "text": "export interface WorkspaceProjectionPort {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 464,
+      "text": "export interface InteractionProjectionPort {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 467,
+      "text": "export interface ContinuationProjectionPort {"
+    },
+    {
+      "path": "abg/project_read_operation_contracts.ts",
+      "line": 470,
+      "text": "export interface CCallProjectionPort {"
+    },
+    {
+      "path": "abg/event_log.ts",
+      "line": 15,
+      "text": "export interface PersistedEventLog {"
+    },
+    {
+      "path": "abg/event_log.ts",
+      "line": 26,
+      "text": "export async function persistEventLog("
+    },
+    {
+      "path": "abg/event_calculus.ts",
+      "line": 123,
+      "text": "export interface RuntimeEventCalculusProjection {"
+    },
+    {
+      "path": "abg/event_calculus.ts",
+      "line": 499,
+      "text": "export function projectWorksiteTransitionForResult("
+    },
+    {
+      "path": "abg/event_calculus.ts",
+      "line": 578,
+      "text": "export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): readonly string[] {"
+    },
+    {
+      "path": "abg/event_calculus.ts",
+      "line": 1948,
+      "text": "export function deriveRuntimeEventCalculusProjection(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusProjection {"
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 59,
+      "text": "export interface AbgProjectReadResourceAssertion {"
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 66,
+      "text": "export interface AbgProjectReadResourceReceipt {"
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 201,
+      "text": "function replayCoordinate("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 290,
+      "text": "function statusProjection("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 332,
+      "text": "function resultProjection("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 366,
+      "text": "function evidenceProjection("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 403,
+      "text": "function replayProjection("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 426,
+      "text": "function gapProjection("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 457,
+      "text": "function lawfulActionProjection("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 476,
+      "text": "function projectValue("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 531,
+      "text": "export function projectAbgReadOutput("
+    },
+    {
+      "path": "abg/project_read_definition_bindings.ts",
+      "line": 905,
+      "text": "export const ABG_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({"
+    },
+    {
+      "path": "public/run_projection_authority.ts",
+      "line": 22,
+      "text": "export interface PublicRunProjectionAuthority {"
+    },
+    {
+      "path": "public/run_projection_authority.ts",
+      "line": 86,
+      "text": "function authorityBody(input: PublicRunProjectionAuthorityInput) {"
+    },
+    {
+      "path": "public/run_projection_authority.ts",
+      "line": 94,
+      "text": "export function constructPublicRunProjectionAuthority("
+    },
+    {
+      "path": "public/run_projection_authority.ts",
+      "line": 117,
+      "text": "export function updatePublicRunProjectionAuthority("
+    },
+    {
+      "path": "public/run_projection_authority.ts",
+      "line": 133,
+      "text": "export function parsePublicRunProjectionAuthority("
+    }
+  ]
+}

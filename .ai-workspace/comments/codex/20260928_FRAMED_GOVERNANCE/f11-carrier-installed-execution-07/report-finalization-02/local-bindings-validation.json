@@ -1,0 +1,52 @@
+{
+  "status": "PASSED_LOCAL_BINDINGS_ONLY",
+  "operation": "T287_RUNTIME07_SAVED_REPORT_FINALIZATION_02",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/finalize-saved-reports.py",
+    "bytes": 17209,
+    "sha256": "173e37e5c4cbd25ed60de91a5290bb6b97efb6be56605b369a8f3667a10c9982"
+  },
+  "undefinedGlobalNames": [],
+  "moduleDefinedNames": [
+    "OPERATION",
+    "Path",
+    "ROOT",
+    "WRITER",
+    "body_pin",
+    "datetime",
+    "exactly_one",
+    "hashlib",
+    "inventory",
+    "json",
+    "load",
+    "main",
+    "os",
+    "stat",
+    "time",
+    "timezone",
+    "write_json"
+  ],
+  "interpreterSuppliedNames": [
+    "__file__",
+    "__name__"
+  ],
+  "lexicalScopesChecked": [
+    "top",
+    "load",
+    "write_json",
+    "body_pin",
+    "lambda",
+    "exactly_one",
+    "listcomp",
+    "inventory",
+    "lambda",
+    "lambda",
+    "main",
+    "listcomp",
+    "lambda",
+    "dictcomp",
+    "genexpr"
+  ],
+  "partialTailExecOrEval": false,
+  "ProductOwnerImportsTestsRuntimeEffects": 0
+}

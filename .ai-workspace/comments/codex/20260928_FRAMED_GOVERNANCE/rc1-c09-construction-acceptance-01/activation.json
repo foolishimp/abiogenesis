@@ -1,0 +1,13 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_C09_CONSTRUCTION_ACCEPTANCE_WRITER_01",
+  "startedAt": "2026-10-02T16:14:37.624456+00:00",
+  "exactWriteTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "grant": "Record actual independently assured C09 construction component acceptance and release exact Setup09 grant; no Source/build/Run/resource/Git effects.",
+  "returnsTo": "Executive"
+}

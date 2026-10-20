@@ -1,0 +1,54 @@
+{
+  "scope": "Pure canonical GLC/GTL declaration construction; no runtime authority",
+  "inputs": {
+    "coreSelection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-39/selected-core.json",
+    "sourceSubject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/implementation-01/frozen-subject.json",
+      "sha256": "3fc4382d03c27211b660b3ad7933b7c1d5a1c38018f4525f95d96b086ab8f698"
+    },
+    "originalPublication": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev15/prospective-publication.json",
+    "factory": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs"
+  },
+  "originalPublicationDigest": "sha256:22a74f920ea2ea3ec1cd34c09aeaecfb927a21a6355ff0e3a8527dc4a0154a4f",
+  "publicationDigest": "sha256:5cc98ed49cfe3ad0376a3b5cfa73b2dac54ff26ff8eb7f90054a7c3f073837be",
+  "historicalLifecycleDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+  "addedPrograms": [
+    "program://odd-glc/native-semantic-revision/from-intent-assessment@5",
+    "program://odd-glc/native-semantic-revision/from-product-assessment@5",
+    "program://odd-glc/native-semantic-revision/from-requirements-assessment@5",
+    "program://odd-glc/native-semantic-revision/from-design-assessment@5"
+  ],
+  "addedGraphs": [
+    "graph-function://odd-glc/native-semantic-revision/stage-0-assessment@5",
+    "graph-function://odd-glc/native-semantic-revision/from-intent-assessment-projection@5",
+    "graph-function://odd-glc/native-semantic-revision/from-intent-assessment@5",
+    "graph-function://odd-glc/native-semantic-revision/stage-1-assessment@5",
+    "graph-function://odd-glc/native-semantic-revision/from-product-assessment-projection@5",
+    "graph-function://odd-glc/native-semantic-revision/from-product-assessment@5",
+    "graph-function://odd-glc/native-semantic-revision/stage-2-assessment@5",
+    "graph-function://odd-glc/native-semantic-revision/from-requirements-assessment-projection@5",
+    "graph-function://odd-glc/native-semantic-revision/from-requirements-assessment@5",
+    "graph-function://odd-glc/native-semantic-revision/stage-3-assessment@5",
+    "graph-function://odd-glc/native-semantic-revision/from-design-assessment-projection@5",
+    "graph-function://odd-glc/native-semantic-revision/from-design-assessment@5"
+  ],
+  "addedClosures": [
+    "contract://odd-glc/fresh-native-lifecycle/revision-stage-0-assessment/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-from-intent-assessment-projection/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-from-intent-assessment-root/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-stage-1-assessment/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-from-product-assessment-projection/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-from-product-assessment-root/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-stage-2-assessment/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-from-requirements-assessment-projection/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-from-requirements-assessment-root/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-stage-3-assessment/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-from-design-assessment-projection/closure@5",
+    "contract://odd-glc/fresh-native-lifecycle/revision-from-design-assessment-root/closure@5"
+  ],
+  "preserved": [
+    "all original graphs/Programs/environments/closures/contracts",
+    "historical lifecycle and original source spans/role policies"
+  ],
+  "updated": "contribution membership only to include the four new whole suffixes"
+}

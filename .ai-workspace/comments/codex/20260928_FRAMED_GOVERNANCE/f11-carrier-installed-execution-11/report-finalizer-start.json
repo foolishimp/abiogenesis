@@ -1,0 +1,13 @@
+{
+  "operation": "T287_F11_C09_CARRIER_EXECUTION_11",
+  "at": "2026-10-03T11:08:29.584047+00:00",
+  "pid": 67863,
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/close-runtime.py",
+    "bytes": 19772,
+    "sha256": "0874a2fccde01989bac887680f81e0d4c2e8c459174b715704d329fb9e220b51",
+    "mode": "0o644"
+  },
+  "RuntimeImportsCalls": 0,
+  "savedSchemaBranch": "success"
+}

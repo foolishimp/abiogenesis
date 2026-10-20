@@ -1,0 +1,11 @@
+{
+  "stage": "consumer-preverify-start",
+  "rss": 2023849984,
+  "heapTotal": 1729413120,
+  "heapUsed": 1596378128,
+  "external": 97611854,
+  "arrayBuffers": 95194993,
+  "at": "2026-10-09T13:42:06.732Z",
+  "elapsedMs": 20141.873042,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+}

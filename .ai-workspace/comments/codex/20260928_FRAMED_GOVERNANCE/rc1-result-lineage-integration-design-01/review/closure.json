@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED",
+  "role": "Reviewer",
+  "activation": "T287_RESULT_LINEAGE_TYPED_CONTRACT_ASSURANCE_01",
+  "recommendation": "GO_SOURCE_TYPED_COMPONENT_ONLY",
+  "sourceFreezeSHA256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+  "callbackFreezeSHA256": "5715b514ff7502e91c2f72410f03a62f284ca39ea19f32d72b8d3aebc38016b7",
+  "fixtureFreezeSHA256": "c2668c0fb0295173652ebeeceecee6157e3ed40237a870541449fec092a3a6bb",
+  "blockers": [],
+  "qualificationAccepted": false,
+  "noFurtherWrites": true,
+  "closedAt": "2026-10-02T14:58:19.589285+00:00"
+}

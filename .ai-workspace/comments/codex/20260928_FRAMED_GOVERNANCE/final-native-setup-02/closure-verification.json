@@ -1,0 +1,13 @@
+{
+  "closedAt": "2026-09-30T06:33:57.769497+00:00",
+  "firstFailureFrozen": true,
+  "originalResourceFinalSHA256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+  "originalLockAbsent": true,
+  "priorCutNewPaths": [],
+  "priorCutUnexpectedDurablePaths": [],
+  "implementationInputsConserved": true,
+  "noFurtherNativeCalls": true,
+  "noSourceRepair": true,
+  "noAutomaticDeduplication": true,
+  "reportOnlyAfterNativeStop": true
+}

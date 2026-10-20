@@ -1,0 +1,67 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/return.md",
+    "sha256": "6a3e6307febb8bba44fdc73afbe721252759bd37d109d7fefa1c7fe39e0967ec",
+    "bytes": 2687
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/frozen-subject.json",
+    "sha256": "84b12bc5ae997705e7784a7c6ebb4d11ec054b8bc3e88e7b32b2981c35372943",
+    "bytes": 1450
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks.json",
+    "sha256": "d89ca8f05fb4480a9f1e4757935ff68fbe6caf09bd183b11dfc1eaea1533830d",
+    "bytes": 1851
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/changes.patch",
+    "sha256": "2abca7672c12e30c24db5e8aa0b00856b88c8a2d4b2d1b54346bbb7e48a2eafa",
+    "bytes": 17660
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/preimages.json",
+    "sha256": "0a41d9ce4eaac1e0a3cb70e3e0b5106260700f2a1cd42f95dd8fe5e1e12fcd33",
+    "bytes": 684
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/preimage.stdout",
+    "sha256": "451db06cfc21f878c8bdb633d71967c883f58b93c972572190c5adc2baead7b5",
+    "bytes": 1361
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/preimage.stderr",
+    "sha256": "b9a1160292f97a312840dbb7b4c68774bad1918e7de4dfd3b51bddd6e5d394cc",
+    "bytes": 777
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/compile.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/compile.stderr",
+    "sha256": "ee086bf3474ff6d126475635d8a4064c685d0047937cb60a473040cc27048d94",
+    "bytes": 777
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks.stdout",
+    "sha256": "0ad203cd2b413c5621ecd5565b0428c3b77e5fd90eea517d8a0829c61877b44a",
+    "bytes": 1419
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks.stderr",
+    "sha256": "5d86bba5869fa8ca05a526ca33c7d6d43a60c8f4cf8c948ab7d4a654ec2d7567",
+    "bytes": 777
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks-02.stdout",
+    "sha256": "a97658cd2bc4ec146d20da94077b0d51fc863f383df1e598723a22fe2880a555",
+    "bytes": 945
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks-02.stderr",
+    "sha256": "6a6eb7a201633b52cba465efa9880e0bd7d6b1d096f2dffe700d20d8efbf75f3",
+    "bytes": 777
+  }
+]

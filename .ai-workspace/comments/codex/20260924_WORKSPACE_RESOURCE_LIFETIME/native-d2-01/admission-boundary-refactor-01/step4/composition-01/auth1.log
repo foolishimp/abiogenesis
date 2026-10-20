@@ -1,0 +1,12 @@
+✔ CCall failure projection conserves the authenticated malformed-result assessment (2.379208ms)
+✔ CCall failure projection refuses foreign producer, assessment and artifact correspondence (1.3215ms)
+✔ historical absent-assessment classification and ordinary failure classes retain their meaning (0.066875ms)
+✔ actor transport authentication is available before candidate association and refuses crossed facts (0.929458ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 243.580958

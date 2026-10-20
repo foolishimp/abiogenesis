@@ -1,0 +1,13 @@
+{
+  "extends": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/source/code/src",
+    "outDir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/compiler/build/code/src",
+    "typeRoots": [
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/@types"
+    ]
+  },
+  "include": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/source/code/src/**/*.ts"
+  ]
+}

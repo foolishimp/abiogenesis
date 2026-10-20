@@ -14,6 +14,10 @@ import { projectExactExecutionBasisAtPrefix } from "../../build/code/src/abg/inv
 import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../../build/code/src/shared/digests.js";
 import { isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
+import { constructWorksiteCommandExecutionModulePublication } from '../../build/code/src/gtl/worksite_command_execution.js';
+import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from '../../build/code/src/product/index.js';
+import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey } from '../../build/code/src/abg/event_body_encoding.js';
+import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from '../../build/code/src/abg/runtime_liveness_contracts.js';
 
 test("shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays", () => {
   const value = { "\ufffd": "last", "\ud834\udd1e": "first", "2": -0, "10": 1e21,
@@ -137,6 +141,93 @@ function seed(store) {
   result(store, "parent-foldback", output);
   storeOwner.admitRuntimeEvent(store, basis(output, "result-consumer"));
 }
+
+// Real declared Product material and EventStore admissions. Per-call assembly
+// fields are controlled storage premises; this is not native assembly authority
+// or installed F_P qualification (the genuine chain proves that separately).
+const nativePublication=constructWorksiteCommandExecutionModulePublication({productId:ABI5_PRODUCT_ID,packageName:ABI5_PACKAGE_NAME,
+  packageVersion:ABI5_PACKAGE_VERSION,artifactDigest:sha256Canonical('definition-component-artifact'),
+  productContentDigest:sha256Canonical('definition-component-content'),productManifestDigest:sha256Canonical('definition-component-manifest')});
+const nativeGraphFunction=nativePublication.graphFunctions.find(g=>g.name===WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef);
+const nativeDefinitions={publication:nativePublication,assessmentPublication:nativePublication,lifecyclePublication:nativePublication,
+  sourcePublication:nativePublication,declarationGraphFunctions:[nativeGraphFunction],graphFunction:nativeGraphFunction};
+function nativeBinding(label,definitions=nativeDefinitions){
+  const transportBindingRef='transport-binding://definition-component/'+label,cCallRef='c-call://definition-component/'+label;
+  const instructionAssembly={kind:'native_instruction_assembly',schemaVersion:'5.0.0',plan:{selected:label},
+    envelope:{cCallRef,inputDigest:sha256Canonical(label),predecessorPrefix:{coordinateDigest:sha256Canonical(label)},
+      nativeBasis:{...definitions,graph:{materializationRef:'graph://'+label},executionBasis:{rawInputValue:{literal:'\uFEFFΩ😀',label}},
+        cursor:{cursorRef:'cursor://'+label},cCall:{cCallRef}},sections:{task:{literal:'\uFEFFΩ😀',label}}},
+    request:{prompt:'Exact current task '+label+' \uFEFFΩ😀',responseJsonSchema:{type:'object'}},manifest:{promptDigest:sha256Canonical(label)}};
+  // Controlled assembly/storage premise, with the same canonical watchdog and
+  // clock/source declaration used by ActorProcess; this does not launch an actor.
+  const transportPlanDigest=sha256Canonical(instructionAssembly.plan),attemptDigest=sha256Canonical({cCallRef});
+  const livenessBinding={kind:'runtime_liveness_binding',schemaVersion:'5.0.0',
+    clockOriginRef:`runtime-clock://abiogenesis/${sha256Canonical({attemptDigest,transportPlanDigest}).slice(7)}`,
+    clockKind:'native_monotonic_elapsed',policy:constructRuntimeWatchdogPolicy({startupMs:1000,inactivityMs:1000,
+      hardCapMs:2000,terminationGraceMs:100}),sources:actorRuntimeProbeSources('claude_stream_json')};
+  return envelope('actor_transport_binding_admitted',{transportBindingRef,transportBindingDigest:sha256Canonical(instructionAssembly),
+    cCallRef,instructionAssembly,livenessBinding},{aggregateType:'transport_binding',aggregateId:transportBindingRef,parentAggregateId:cCallRef,
+    scopeClass:'run',runId:'run://definition-component',graphCallId:'graph-call://'+label,frameId:'frame://'+label});
+}
+
+test('typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact',async t=>{
+  const f=await resource(t);
+  storeOwner.admitRuntimeEvent(f.store,basis(nativeDefinitions,'definition-as-user-input'));
+  for(const label of ['one','two','three'])storeOwner.admitRuntimeEvent(f.store,nativeBinding(label));
+  storeOwner.admitRuntimeEvent(f.store,basis(input,'existing-v1-source'));
+  storeOwner.admitRuntimeEvent(f.store,basis(input,'existing-v1-reference'));
+  const events=f.store.readAll(),bytes=await readFile(f.eventLogPath),rows=decodeRows(bytes),inline=encode(events);
+  const bindings=events.filter(e=>e.kind==='actor_transport_binding_admitted');
+  assert.equal(rows.filter(r=>r.codecVersion===2).length,2);assert.equal(rows.filter(r=>r.codecVersion===1).length,1);
+  const source=bindings[0].payload.instructionAssembly.envelope.nativeBasis;
+  for(const event of bindings.slice(1)){
+    const current=event.payload.instructionAssembly.envelope.nativeBasis;
+    assert.equal(current.publication,source.publication);assert.equal(current.graphFunction,source.graphFunction);
+    assert.notDeepEqual(current.executionBasis,source.executionBasis,'current input is never replaced by definition sharing');
+    assert.notDeepEqual(current.cursor,source.cursor);assert.notDeepEqual(current.graph,source.graph);
+  }
+  assert.equal(Object.hasOwn(rows.find(r=>r.codecVersion===2).event.payload.instructionAssembly.envelope.nativeBasis,'publication'),false);
+  const cold=storeOwner.validateHistoricalEvents(bytes),raw=storeOwner.validateHistoricalEvents(inline);
+  assert.deepEqual(cold,events);assert.deepEqual(raw,events);assert.equal(sha256Canonical(cold),sha256Canonical(raw));
+  const typed=inlineEventBody(bindings[0]);assert.equal(typed.slot,'native_definition_material');
+  assert.deepEqual(inlineEventBodyValue(bindings[0],typed),nativeDefinitions);
+  assert.notEqual(inlineEventBodyKey(typed),inlineEventBodyKey({...typed,slot:'basis_input'}),'equal user JSON supplies no native definition source');
+  assert.throws(()=>inlineEventBodyValue(bindings[1],typed),/differs from its admitted source/);
+  const closed=f.store.projectReopenAuthorityAndClose();const historical=await openInlineCopy(t,f.dir,events,closed.reopenAuthority);
+  storeOwner.admitRuntimeEvent(historical.store,nativeBinding('after-raw-history'));
+  const appended=decodeRows(await readFile(historical.eventLogPath)).at(-1);assert.equal(appended.codecVersion,2);
+  assert.equal(appended.bodyReference.sourceEventRef,bindings[0].eventId,'existing raw native bundle is an authenticated source');
+  const full=historical.store.readAll();assert.deepEqual(storeOwner.validateHistoricalEvents(await readFile(historical.eventLogPath)),full);
+  console.log(JSON.stringify({kind:'native_definition_storage_component',logicalEventCount:events.length,definitionBytes:Buffer.byteLength(canonicalJson(nativeDefinitions)),
+    encodedBytes:bytes.length,rawBytes:inline.length,savedBytes:inline.length-bytes.length,rawV1V2AndExactLogicalDigests:true,nativeAdmission:false}));
+});
+
+test('native definition references refuse missing, forward, foreign-slot, changed and injected material',async t=>{
+  const f=await resource(t);
+  storeOwner.admitRuntimeEvent(f.store,basis(nativeDefinitions,'foreign-slot'));
+  storeOwner.admitRuntimeEvent(f.store,nativeBinding('source'));
+  storeOwner.admitRuntimeEvent(f.store,nativeBinding('reference'));
+  const rows=decodeRows(await readFile(f.eventLogPath)),target=rows.findIndex(r=>r.codecVersion===2);
+  assert(target>0);
+  const changes={
+    missing:r=>{r[target].bodyReference.sourceEventRef='event://missing';},
+    forward:r=>{r[target].bodyReference.sourceEventRef=r[target].event.eventId;},
+    foreignSlot:r=>{r[target].bodyReference={sourceEventRef:r[0].eventId,sourcePayloadDigest:r[0].payloadDigest,
+      sourceSlot:'basis_input',bodyDigest:sha256Canonical(nativeDefinitions)};},
+    changedDigest:r=>{r[target].bodyReference.bodyDigest=sha256Canonical('changed');},
+    changedSource:r=>{r[1].payload.instructionAssembly.envelope.nativeBasis.publication.moduleVersion='changed';},
+    injectedDefinition:r=>{r[target].event.payload.instructionAssembly.envelope.nativeBasis.publication=nativePublication;},
+    wrongVersion:r=>{r[target].codecVersion=1;},
+    unknownVersion:r=>{r[target].codecVersion=3;},
+  };
+  for(const [name,change]of Object.entries(changes)){const changed=structuredClone(rows);change(changed);
+    assert.throws(()=>storeOwner.validateHistoricalEvents(encode(changed)),undefined,name);}
+  const changed={...nativeDefinitions,publication:{...nativePublication,moduleVersion:'changed'}};
+  storeOwner.admitRuntimeEvent(f.store,nativeBinding('new-definitions',changed));
+  const last=decodeRows(await readFile(f.eventLogPath)).at(-1);assert.equal(last.kind,'actor_transport_binding_admitted');
+  const native=last.payload.instructionAssembly.envelope.nativeBasis;
+  assert.equal(native.publication.moduleVersion,'changed','changed definitions remain their own inline value');
+});
 function assertSharedColdBodies(events) {
   const [root, child, consumer] = events.filter(event => event.kind === "basis_admitted");
   const [childResult, parentResult] = events.filter(event => event.kind === "c_call_result_admitted");

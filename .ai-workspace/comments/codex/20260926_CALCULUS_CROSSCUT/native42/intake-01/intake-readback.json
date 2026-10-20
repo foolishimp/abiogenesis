@@ -1,0 +1,68 @@
+{
+  "kind": "native_semantic_revision_intake_readback",
+  "run": {
+    "digest": "sha256:4a067e3ce454e4f7c67412c5bcfa1ed57375a68411442bfadba88e50e328c2bb",
+    "ref": "run://abiogenesis/c30a15613d2858ba1a49e3d9cc9ad6b75b5e18b76f9b627e309c73b5677ef4f2"
+  },
+  "result": {
+    "digest": "sha256:e73bc9171e59bf7a54b920e90daf500fe71aebe1a89dab7f109c4c94efdbed52",
+    "ref": "result://abiogenesis/e73bc9171e59bf7a54b920e90daf500fe71aebe1a89dab7f109c4c94efdbed52"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:c24459000303119be4c93e9f88312f1f7fb996267ee826c046ee6d799b95a377",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:df7fb273243353e17e2dae3b65910c68784143ec888759c46b094c57d3880489",
+    "prefixLength": 442337570,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 30329.218125,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/intake-01/read-run_result.json",
+      "resultDigest": "sha256:b1ddf11045b7e47845e817ddc943be254a7effd45f10502f362cd77cea7a4b76"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 30466.455124999997,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/intake-01/read-run_replay.json",
+      "resultDigest": "sha256:3db895d344730b912a25d71c9331fdce41c22e9471bb9408b60ad5c498544df3"
+    }
+  ],
+  "installedAfter": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+      "productContentDigest": "sha256:ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+      "productContentDigest": "sha256:279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380"
+    }
+  ],
+  "inputDigest": "sha256:222de164582173a9362043777f94af8ddd14c76ea2ef770c2336a5dbf296d803",
+  "duplicateSdkProjection": false,
+  "status": "returned_unique_declared_suffix",
+  "selectionChoice": {
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/design@5"
+  },
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-design@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-design@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5"
+  },
+  "terminalResult": {
+    "digest": "sha256:e73bc9171e59bf7a54b920e90daf500fe71aebe1a89dab7f109c4c94efdbed52",
+    "ref": "result://abiogenesis/e73bc9171e59bf7a54b920e90daf500fe71aebe1a89dab7f109c4c94efdbed52"
+  },
+  "valueDigest": "sha256:5c5b754beaa4e2f1f982f4aa86050b1730c34b05b2d061d0900bce36f331faf5",
+  "boundary": "Only ordinary Public terminal Result/replay and installed pure declaration lookup; no private leaf extraction or inferred selection."
+}

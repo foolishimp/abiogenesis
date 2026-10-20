@@ -1,0 +1,6 @@
+{
+  "firstCause": "FileNotFoundError: component-cut-11/assets does not exist",
+  "boundary": "Owned fixture population before any test/owner entry",
+  "action": "Copy only the actual previous finite fixture directories and exact frozen cut; no owner or Source repair",
+  "retained": "Partial component-cut-15 code/build/test_env copies unchanged"
+}

@@ -1,0 +1,173 @@
+{
+  "core": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+      "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+      "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "cases": [
+    {
+      "case": "nested-compose",
+      "programRef": "program://abiogenesis/conformance/hello-compose@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-compose@5",
+      "variant": {
+        "subject": "  World  "
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/hello-compose@5"
+      ],
+      "expected": "completed",
+      "oracle": "Six CCall/Result/J spines; exact ordered batch/edge/retry routes and Hello World",
+      "simulatedFp": null
+    },
+    {
+      "case": "transparent-child",
+      "programRef": "program://abiogenesis/conformance/hello-workflow@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-workflow@5",
+      "variant": {
+        "subject": "World"
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/hello-workflow@5",
+        "graph-function://abiogenesis/conformance/hello-world@5"
+      ],
+      "expected": "completed",
+      "oracle": "Two GraphCalls/Frames; sub-traversal evidence and child foldback before parent closure; Hello World",
+      "simulatedFp": null
+    },
+    {
+      "case": "gate-advance",
+      "programRef": "program://abiogenesis/conformance/hello-gate@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-gate@5",
+      "variant": {
+        "subject": "World"
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/hello-gate@5",
+        "graph-function://abiogenesis/conformance/hello-gate-target@5"
+      ],
+      "expected": "completed",
+      "oracle": "Admitted advancing evaluator J causes exact target; Hello World",
+      "simulatedFp": null
+    },
+    {
+      "case": "gate-block",
+      "programRef": "program://abiogenesis/conformance/hello-gate@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-gate@5",
+      "variant": {
+        "subject": "Blocked"
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/hello-gate@5",
+        "graph-function://abiogenesis/conformance/hello-gate-target@5"
+      ],
+      "expected": "stopped",
+      "oracle": "One valid blocked evaluator; no target or terminal closure",
+      "simulatedFp": null
+    },
+    {
+      "case": "recursive-foldback",
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "variant": {
+        "remaining": 3,
+        "blockedChildRemaining": null
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/bounded-recursion@5",
+        "graph-function://abiogenesis/conformance/bounded-recursion-step@5"
+      ],
+      "expected": "completed",
+      "oracle": "Parent attempts1-4, three exact child foldbacks/routes; remaining0 terminaltrue trace[2,1,0]",
+      "simulatedFp": null
+    },
+    {
+      "case": "recursive-child-block",
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "variant": {
+        "remaining": 3,
+        "blockedChildRemaining": 2
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/bounded-recursion@5",
+        "graph-function://abiogenesis/conformance/bounded-recursion-step@5"
+      ],
+      "expected": "stopped",
+      "oracle": "Child blocked foldback causally consumed by parent blocked route; no successful closure",
+      "simulatedFp": null
+    },
+    {
+      "case": "recursive-bound",
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "variant": {
+        "remaining": 5,
+        "blockedChildRemaining": null
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/bounded-recursion@5",
+        "graph-function://abiogenesis/conformance/bounded-recursion-step@5"
+      ],
+      "expected": "stopped",
+      "oracle": "Declared bound4; three children and parent attempts1-4, no fourth child or terminal closure",
+      "simulatedFp": null
+    },
+    {
+      "case": "ordered-vector",
+      "programRef": "program://abiogenesis/conformance/fan-out-hello@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/fan-out-hello@5",
+      "variant": {
+        "subjects": [
+          "Alpha",
+          "Beta",
+          "Gamma"
+        ],
+        "blockedOrdinal": null
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/fan-out-hello@5",
+        "graph-function://abiogenesis/conformance/fan-out-hello-element@5",
+        "graph-function://abiogenesis/conformance/fan-out-hello-reducer@5"
+      ],
+      "expected": "completed",
+      "oracle": "Complete ordered vector admitted before one reducer; summary three exact ordered greetings",
+      "simulatedFp": null
+    },
+    {
+      "case": "partial-vector",
+      "programRef": "program://abiogenesis/conformance/fan-out-hello@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/fan-out-hello@5",
+      "variant": {
+        "subjects": [
+          "Alpha",
+          "Beta",
+          "Gamma"
+        ],
+        "blockedOrdinal": 1
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/fan-out-hello@5",
+        "graph-function://abiogenesis/conformance/fan-out-hello-element@5",
+        "graph-function://abiogenesis/conformance/fan-out-hello-reducer@5"
+      ],
+      "expected": "stopped",
+      "oracle": "Completed ordinal0/stopping1/unstarted2; truthful partial stop no output vector or reducer",
+      "simulatedFp": null
+    }
+  ],
+  "groups": [
+    "program://abiogenesis/conformance/hello-compose@5",
+    "program://abiogenesis/conformance/hello-workflow@5",
+    "program://abiogenesis/conformance/hello-gate@5",
+    "program://abiogenesis/conformance/bounded-recursion@5",
+    "program://abiogenesis/conformance/fan-out-hello@5"
+  ],
+  "claim": "Exact installed nine-case S02 deterministic union; no complete S02/F11/qualification claim."
+}

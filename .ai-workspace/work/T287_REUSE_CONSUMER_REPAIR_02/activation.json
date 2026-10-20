@@ -1,0 +1,47 @@
+{
+  "operation": "T287_REUSE_CONSUMER_REPAIR_02",
+  "role": "Worker",
+  "actor": "/root/native_applicability_design",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-04T19:27:16.169091+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+    "bytes": 43727,
+    "sha256": "5e99c408981c86be3421776ef2325b596a8cbbf2bcdebd128751c9683a737561",
+    "section": "Published consumer and selected resource closure continuation, 2026-10-05"
+  },
+  "sourceEntries": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10917,
+      "sha256": "0974a3d320452d98c58e01f11aa154935ffddbc5ed985c2708f0458a46059cc1",
+      "originalPreimageReference": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/retained-installed-consumer.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 4999,
+      "sha256": "79832a41d30f1a42d26f576e095c87ca9afe105bd8bdfe8afd16aa0e9642c182",
+      "originalPreimageReference": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/prepare-retained-setup-binding.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 13285,
+      "sha256": "e69f874005b1227512fc1bc27a20c4b31a17fe94900dcdcacaf87a2bb316fc1a",
+      "originalPreimageReference": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/t287-retained-installed-consumer.test.mjs"
+    }
+  ],
+  "writeRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_02"
+  ],
+  "defaultHeap": true,
+  "HOME": "/Users/jim",
+  "budgetsSeconds": {
+    "current": 180,
+    "historical": 60,
+    "overall": 600,
+    "terminationGrace": 5
+  },
+  "retries": 0,
+  "frameworkAndHistoricalEffects": false
+}

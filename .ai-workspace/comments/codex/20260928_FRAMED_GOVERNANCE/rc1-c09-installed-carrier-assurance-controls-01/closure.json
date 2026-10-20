@@ -1,0 +1,24 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C09_PLAN_AND_INSTALLED_ASSURANCE_GRANT_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T16:50:31.197616+00:00",
+  "executionBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 540272,
+    "sha256": "40ca59e7fe48682e596d3cdf80c3307eb9fc9d85ee3b4046d81b41681c7fb3e4",
+    "mode": 420
+  },
+  "executionAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 540894,
+    "sha256": "6990dbdb806106560a35a20477dd0da41e8db04419ccaefa43cd2d4a710e566f",
+    "mode": 420
+  },
+  "appendOnlyConserved": true,
+  "reviewActivated": false,
+  "effects": "new controls plus exact commentary plan update/Eappend only",
+  "writesStopped": true
+}

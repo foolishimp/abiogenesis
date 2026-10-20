@@ -1,0 +1,201 @@
+{
+  "frozenScope": {
+    "records": 4900,
+    "bytes": 634234882
+  },
+  "scope": {
+    "rules": 2137,
+    "sources": 95,
+    "members": 1950,
+    "ruleGroups": 187,
+    "surfaceGroups": 42,
+    "domainPartitions": 772,
+    "ownerDiagnostics": []
+  },
+  "metrics": [
+    {
+      "labels": [
+        "rule-154-0"
+      ],
+      "role": "rule",
+      "criteria": 1,
+      "assessedMembers": 669,
+      "providedBodies": 686,
+      "rawBytes": 65964603,
+      "exactSourceSegmentBytes": 69110115,
+      "contextJsonBytes": 219307,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 0
+    },
+    {
+      "labels": [
+        "rule-155-0"
+      ],
+      "role": "rule",
+      "criteria": 1,
+      "assessedMembers": 669,
+      "providedBodies": 686,
+      "rawBytes": 65964601,
+      "exactSourceSegmentBytes": 69110113,
+      "contextJsonBytes": 219307,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 0
+    },
+    {
+      "labels": [
+        "inventory-0"
+      ],
+      "role": "inventory",
+      "criteria": 2,
+      "assessedMembers": 15,
+      "providedBodies": 19,
+      "rawBytes": 2057275,
+      "exactSourceSegmentBytes": 2173844,
+      "contextJsonBytes": 6826,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 0
+    },
+    {
+      "labels": [
+        "catalog-0"
+      ],
+      "role": "catalog",
+      "criteria": 1,
+      "assessedMembers": 1,
+      "providedBodies": 5,
+      "rawBytes": 130771,
+      "exactSourceSegmentBytes": 135336,
+      "contextJsonBytes": 1729,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 1
+    },
+    {
+      "labels": [
+        "catalog-11"
+      ],
+      "role": "catalog",
+      "criteria": 1,
+      "assessedMembers": 14,
+      "providedBodies": 30,
+      "rawBytes": 600078,
+      "exactSourceSegmentBytes": 632476,
+      "contextJsonBytes": 9067,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 14
+    },
+    {
+      "labels": [
+        "inventory-1"
+      ],
+      "role": "inventory",
+      "criteria": 2,
+      "assessedMembers": 3,
+      "providedBodies": 8,
+      "rawBytes": 152077,
+      "exactSourceSegmentBytes": 157488,
+      "contextJsonBytes": 2214,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 0
+    },
+    {
+      "labels": [
+        "inventory-35"
+      ],
+      "role": "inventory",
+      "criteria": 2,
+      "assessedMembers": 7,
+      "providedBodies": 12,
+      "rawBytes": 33736709,
+      "exactSourceSegmentBytes": 35509623,
+      "contextJsonBytes": 3930,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 0
+    },
+    {
+      "labels": [
+        "rule-73-4"
+      ],
+      "role": "rule",
+      "criteria": 1,
+      "assessedMembers": 6,
+      "providedBodies": 10,
+      "rawBytes": 85208,
+      "exactSourceSegmentBytes": 88797,
+      "contextJsonBytes": 3223,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 0
+    },
+    {
+      "labels": [
+        "tenant"
+      ],
+      "role": "tenant",
+      "criteria": 0,
+      "assessedMembers": 310,
+      "providedBodies": 316,
+      "rawBytes": 12680912,
+      "exactSourceSegmentBytes": 13257407,
+      "contextJsonBytes": 95456,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 0
+    },
+    {
+      "labels": [
+        "coverage"
+      ],
+      "role": "coverage",
+      "criteria": 66,
+      "assessedMembers": 20,
+      "providedBodies": 27,
+      "rawBytes": 4715431,
+      "exactSourceSegmentBytes": 5036765,
+      "contextJsonBytes": 9477,
+      "measurement": "Exact owner line532 SOURCE DATA segment rendering only; lower bound, not a complete valid qualificationWorkerRequest or provider capacity claim.",
+      "unprovidedMembers": 0
+    }
+  ],
+  "union": {
+    "rawBytes": 66046556,
+    "sourceSegmentBytes": 69193858,
+    "bodies": 687,
+    "criteria": 2
+  },
+  "counterexample": {
+    "label": "rule-154-0",
+    "rule": {
+      "ruleRef": "rule://abiogenesis/self-conformance/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad@2",
+      "version": "2",
+      "sourceRef": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "sourceDigest": "sha256:d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
+      "startByte": 14079,
+      "endByte": 14647,
+      "spanDigest": "sha256:0c2a39aa7e6eb3fd25ef889b909f7eea0c22426b3025dedad5bb4d979a6f3260",
+      "governedClaim": "REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015B",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    "cohortCounts": {
+      "campaign_controls": 15,
+      "workspace_governance": 3,
+      "build_controls": 11,
+      "law_catalog_projection": 99,
+      "proof_retained_source": 303,
+      "proof_historical_records": 7,
+      "proof_selected_regressions": 13,
+      "supplier_toolchain": 213,
+      "release_claim": 1,
+      "frozen_supply_manifests": 4
+    }
+  },
+  "successor": {
+    "members": 1950,
+    "changed": 16,
+    "rebound": 19
+  }
+}

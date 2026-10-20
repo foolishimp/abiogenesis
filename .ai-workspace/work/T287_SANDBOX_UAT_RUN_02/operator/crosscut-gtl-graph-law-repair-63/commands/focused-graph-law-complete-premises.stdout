@@ -1,0 +1,15 @@
+✔ released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values (10.794666ms)
+✔ nearest static and materialization refusal: duplicate node identities with distinct C loci (3.537416ms)
+✔ nearest static and materialization refusal: terminal node with outgoing edge (3.038375ms)
+✔ nearest static and materialization refusal: two ordinary edges without registered selection (3.36975ms)
+✔ existing constructor and source-path guards retain their earlier refusal precedence (0.339541ms)
+✔ authored composition, substitution, recursion and fan-out retain full static and materialized owner results (305.964208ms)
+✔ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (6.942458ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 833.544958

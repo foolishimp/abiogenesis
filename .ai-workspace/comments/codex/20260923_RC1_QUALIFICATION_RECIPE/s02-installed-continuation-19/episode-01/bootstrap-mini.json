@@ -1,0 +1,248 @@
+{
+  "kind": "product_verification_success",
+  "schemaVersion": "5.0.0",
+  "disposition": "verified",
+  "verifiedArtifact": {
+    "kind": "verified_product_artifact",
+    "schemaVersion": "5.0.0",
+    "disposition": "verified",
+    "artifactRef": "abiogenesis-fixtures-developer-mini-product-5.0.0.tgz",
+    "artifactDigest": "sha256:7bb4815da4a187450ca612549c18f32f8f54c9559e7d69203a96659ae6db43cd",
+    "artifactByteLength": 25347,
+    "productId": "product://developer.example/greeting@5.0.0",
+    "packageName": "@abiogenesis-fixtures/developer-mini-product",
+    "packageVersion": "5.0.0",
+    "productContentDigest": "sha256:1d01299ef75f6b532a43d6591b50c1308ff4fc61652a5d52d2bc63c9fac6cfa4",
+    "manifestDigest": "sha256:00ed43f95d2e2d261b02469ee16045ea91b7a5e5095949a3e771f2556598126d",
+    "descriptorRef": "descriptor://developer.example/greeting@5",
+    "publisherNamespace": "developer.example",
+    "contributionManifestRef": "contribution-manifest://developer.example/greeting@5",
+    "contributionManifestDigest": "sha256:66344a59084f029e3bfc01528460592d1e75209385bd86817e42275c2521f555",
+    "contributionManifest": {
+      "capabilityDefinitionGraph": {
+        "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0"
+      },
+      "contributionManifestRef": "contribution-manifest://developer.example/greeting@5",
+      "descriptorRef": "descriptor://developer.example/greeting@5",
+      "kind": "product_contribution_manifest",
+      "productContentDigest": "sha256:1d01299ef75f6b532a43d6591b50c1308ff4fc61652a5d52d2bc63c9fac6cfa4",
+      "productId": "product://developer.example/greeting@5.0.0",
+      "productVersion": "5.0.0",
+      "publicContractCatalogDigest": "sha256:5e7ab25459e02deba297cde213b6f179ec0acf76cf37da2ca31fea4eab771f28",
+      "publicContractCatalogId": "catalog://developer.example/greeting/public-contracts@5.0.0",
+      "publicationBindings": [
+        {
+          "moduleRef": "module://developer.example/greeting@5",
+          "publicationDigest": "sha256:7a5a3c1d7e24b25c451ea5134f45cf17df3660a4d94fb9e3180f464f01ad7546"
+        }
+      ],
+      "rows": [
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://developer.example/greeting/render@5",
+          "handle": "graph-function://developer.example/greeting/render@5",
+          "kind": "graph_function",
+          "moduleRef": "module://developer.example/greeting@5",
+          "owningProductId": "product://developer.example/greeting@5.0.0",
+          "programMembershipRefs": [
+            "program://developer.example/greeting@5"
+          ],
+          "provenanceRef": "provenance://developer.example/greeting@5",
+          "readinessPrerequisiteRefs": [
+            "program://developer.example/greeting@5"
+          ]
+        },
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://developer.example/ticket/work@5",
+          "handle": "graph-function://developer.example/ticket/work@5",
+          "kind": "graph_function",
+          "moduleRef": "module://developer.example/greeting@5",
+          "owningProductId": "product://developer.example/greeting@5.0.0",
+          "programMembershipRefs": [
+            "program://developer.example/ticket/work@5"
+          ],
+          "provenanceRef": "provenance://developer.example/greeting@5",
+          "readinessPrerequisiteRefs": [
+            "program://developer.example/ticket/work@5"
+          ]
+        },
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://developer.example/greeting/span-reentry@5",
+          "handle": "graph-function://developer.example/greeting/span-reentry@5",
+          "kind": "graph_function",
+          "moduleRef": "module://developer.example/greeting@5",
+          "owningProductId": "product://developer.example/greeting@5.0.0",
+          "programMembershipRefs": [
+            "program://developer.example/greeting/span-reentry@5"
+          ],
+          "provenanceRef": "provenance://developer.example/greeting@5",
+          "readinessPrerequisiteRefs": [
+            "program://developer.example/greeting/span-reentry@5"
+          ]
+        },
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://developer.example/greeting/identity-then-render@5",
+          "handle": "graph-function://developer.example/greeting/identity-then-render@5",
+          "kind": "graph_function",
+          "moduleRef": "module://developer.example/greeting@5",
+          "owningProductId": "product://developer.example/greeting@5.0.0",
+          "programMembershipRefs": [
+            "program://developer.example/greeting/identity-then-render@5"
+          ],
+          "provenanceRef": "provenance://developer.example/greeting@5",
+          "readinessPrerequisiteRefs": [
+            "program://developer.example/greeting/identity-then-render@5"
+          ]
+        },
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://developer.example/greeting/mixed-fibres@5",
+          "handle": "graph-function://developer.example/greeting/mixed-fibres@5",
+          "kind": "graph_function",
+          "moduleRef": "module://developer.example/greeting@5",
+          "owningProductId": "product://developer.example/greeting@5.0.0",
+          "programMembershipRefs": [
+            "program://developer.example/greeting/mixed-fibres@5"
+          ],
+          "provenanceRef": "provenance://developer.example/greeting@5",
+          "readinessPrerequisiteRefs": [
+            "program://developer.example/greeting/mixed-fibres@5"
+          ]
+        },
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://developer.example/greeting/one-surface@5",
+          "handle": "graph-function://developer.example/greeting/one-surface@5",
+          "kind": "graph_function",
+          "moduleRef": "module://developer.example/greeting@5",
+          "owningProductId": "product://developer.example/greeting@5.0.0",
+          "programMembershipRefs": [
+            "program://developer.example/greeting/one-surface@5"
+          ],
+          "provenanceRef": "provenance://developer.example/greeting@5",
+          "readinessPrerequisiteRefs": [
+            "program://developer.example/greeting/one-surface@5"
+          ]
+        }
+      ],
+      "schemaVersion": "5.0.0"
+    },
+    "compatibilityRefs": [
+      "compatibility://abiogenesis/major/5"
+    ],
+    "declaredDependencies": [
+      {
+        "compatibilityRef": "compatibility://abiogenesis/major/5",
+        "kind": "requires",
+        "packageVersion": "5.0.0-rc.1",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "requiredCapabilityRefs": [
+          "abg.capability.catalog.invoke-graph-function@5",
+          "abg.capability.gtl.declare@5"
+        ],
+        "requiredContractRefs": [
+          "abg.contract.gtl.root-declaration",
+          "abg.schema.public-operation-invocation"
+        ]
+      }
+    ],
+    "provenanceRef": "provenance://developer.example/greeting@5",
+    "declaredCapabilityRefs": [],
+    "catalogId": "catalog://developer.example/greeting/public-contracts@5.0.0",
+    "catalogDigest": "sha256:5e7ab25459e02deba297cde213b6f179ec0acf76cf37da2ca31fea4eab771f28",
+    "capabilityDefinitionGraph": {
+      "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0",
+      "kind": "abg_capability_definition_graph",
+      "rows": [],
+      "schemaVersion": "5.0.0"
+    },
+    "capabilityDefinitionGraphAsset": {
+      "contentDigest": "sha256:f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "mediaType": "application/json",
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "schemaVersion": "5.0.0"
+    },
+    "publicContracts": [
+      {
+        "contractId": "developer.example.contract.greeting",
+        "contractVersion": "5.0.0",
+        "contractDigest": "sha256:3d5f2ae1763570a5402ce08afa72f29ca5c6be6b89901f8f47b52c92837ef7e3",
+        "contractKind": "schema_asset",
+        "owningProduct": "product://developer.example/greeting@5.0.0",
+        "requirementAuthorityRefs": [
+          "requirement://developer.example/greeting/render@5"
+        ],
+        "capabilityIdentities": [],
+        "assetLocator": {
+          "path": "contracts/greeting.schema.json",
+          "mediaType": "application/schema+json",
+          "schemaVersion": "5.0.0",
+          "contentDigest": "sha256:3d5f2ae1763570a5402ce08afa72f29ca5c6be6b89901f8f47b52c92837ef7e3"
+        }
+      }
+    ],
+    "publicContractRefs": [
+      "developer.example.contract.greeting"
+    ],
+    "publicCapabilityRefs": [],
+    "definitionContractCoordinates": null,
+    "checkedPayloadFiles": 5,
+    "nativeDeclarationEvidence": {
+      "productId": "product://developer.example/greeting@5.0.0",
+      "productContentDigest": "sha256:1d01299ef75f6b532a43d6591b50c1308ff4fc61652a5d52d2bc63c9fac6cfa4",
+      "packageName": "@abiogenesis-fixtures/developer-mini-product",
+      "packageType": "module",
+      "packageMetadata": [
+        {
+          "declarationPath": "package.json",
+          "declarationDigest": "sha256:a18c589b450d0a79cb75f3b6a3e94397d68a6e1dbbaeab42404c854d6808f995",
+          "sourceText": "{\n  \"name\": \"@abiogenesis-fixtures/developer-mini-product\",\n  \"version\": \"5.0.0\",\n  \"description\": \"Independent developer-authored GTL product fixture\",\n  \"type\": \"module\",\n  \"exports\": {\n    \".\": {\n      \"types\": \"./build/index.d.ts\",\n      \"import\": \"./build/index.js\"\n    }\n  },\n  \"files\": [\n    \"build/**\",\n    \"contracts/**\",\n    \"product-toolchain-manifest.json\"\n  ]\n}\n"
+        }
+      ],
+      "sources": [],
+      "closures": [],
+      "contracts": []
+    },
+    "verificationRef": "product-verification://abiogenesis/f1389a882a8afcf979f5dc24d6e3adacd20cb7061820c166c1efadd37ee975fb",
+    "verificationDigest": "sha256:f1389a882a8afcf979f5dc24d6e3adacd20cb7061820c166c1efadd37ee975fb"
+  },
+  "coordinates": {
+    "verifiedArtifact": {
+      "ref": "product-verification://abiogenesis/f1389a882a8afcf979f5dc24d6e3adacd20cb7061820c166c1efadd37ee975fb",
+      "digest": "sha256:f1389a882a8afcf979f5dc24d6e3adacd20cb7061820c166c1efadd37ee975fb"
+    },
+    "descriptor": {
+      "ref": "descriptor://developer.example/greeting@5",
+      "digest": "sha256:ebda760dcb95659456e38bdf082a14739d5b36d541b414cb51ae103d93ee71a2"
+    },
+    "localNativeEvidence": {
+      "ref": "local-native-evidence://abiogenesis/product-verification/8f2ed6890d0f0081eff792519111233f7ae57d5668858f12d2d91fbe3e9c4118",
+      "digest": "sha256:8f2ed6890d0f0081eff792519111233f7ae57d5668858f12d2d91fbe3e9c4118"
+    },
+    "provenance": {
+      "ref": "provenance://abiogenesis/product-verification/b2919217915235d8d3cedabfccfc1c39eeb32dedec06d5d2b419ec27001d2796",
+      "digest": "sha256:b2919217915235d8d3cedabfccfc1c39eeb32dedec06d5d2b419ec27001d2796"
+    }
+  },
+  "pendingExternalSelectors": [],
+  "definitionContractCoordinates": null
+}

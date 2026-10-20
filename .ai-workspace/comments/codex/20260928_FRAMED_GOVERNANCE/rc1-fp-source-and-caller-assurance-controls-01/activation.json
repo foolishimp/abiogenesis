@@ -1,0 +1,12 @@
+{
+  "operation": "T287_F11_REPAIR_ASSURANCE_GRANTS_01",
+  "actor": "/root",
+  "role": "Writer",
+  "previousRole": "Executive",
+  "grant": "Record dependency-ready independent source and nonauthor caller assurance grants for CLOSED repairs under owner fix and close5 instruction",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01"
+  ],
+  "activatedAt": "2026-10-02T05:04:23.713727+00:00",
+  "prohibitedEffects": "No Source/candidate/Runtime/Git/network, no prior cut mutation"
+}

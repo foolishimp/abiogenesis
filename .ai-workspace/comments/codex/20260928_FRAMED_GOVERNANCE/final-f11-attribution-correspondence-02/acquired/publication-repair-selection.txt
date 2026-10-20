@@ -1,0 +1,9 @@
+Select realization_refactor Worker T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01
+over exactly default_library.ts, t287-default-library.test.mjs and the pure
+publication precondition in root-installed-environment.mjs. This is the complete
+observed cone: six producer wrappers, actual publication regression and the
+helper population escape. Existing Program selection, owners and effects remain
+authoritative. Isolated source/component checks must demonstrate original red,
+corrected six-wrapper/full11 static validation and rejection of a non-selected
+bad publication. No native/whole mixed-file tests, package or source expansion.
+A distinct counterexample returns to Root before widening.

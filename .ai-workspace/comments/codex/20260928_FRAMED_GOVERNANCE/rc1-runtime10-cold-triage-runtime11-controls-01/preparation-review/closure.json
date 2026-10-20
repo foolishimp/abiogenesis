@@ -1,0 +1,25 @@
+{
+  "operation": "T287_F11_C09_NATIVE_CHILD_SELECTION_REVIEW_11",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "disposition": "GO_PREPARED_NATIVE_CHILD_CONTINUATION_ONLY",
+  "closedAt": "2026-10-03T11:02:16.148009+00:00",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01/preparation-review",
+  "ProductImports": 0,
+  "ownerCalls": 0,
+  "resourceReopens": 0,
+  "RuntimeEffects": 0,
+  "providerCalls": 0,
+  "workloadCommands": 0,
+  "repair": false,
+  "processesStarted": 0,
+  "writesAfterFreeze": "STOPPED",
+  "unknowns": [
+    "full child cold pass",
+    "F11/AF22 continuation and four fresh reads",
+    "parent-alias release applicability",
+    "genuine semantic/context sufficiency and qualification"
+  ],
+  "RootAloneAcceptsAndReleases": true
+}

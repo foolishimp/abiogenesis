@@ -1,0 +1,36 @@
+{
+  "status": "PREPARED_EXACT_ROOT_RELEASE",
+  "exactInputDelta": [
+    "original.testing.allowedWriteTerritories: [] -> [{pathKind:subtree,relativePath:evidence}]",
+    "original.testing.commands[0].args[1]: real evidence/literal.txt write; literal stdout/exit7 conserved"
+  ],
+  "fourOriginalSeedFilesUnchanged": true,
+  "methodAndProtocolUnchanged": true,
+  "stockHeap": true,
+  "modelCredit": false,
+  "publication": "Root CLOSED72 accepted candidate20 and CLOSED83 actual host",
+  "hostIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+    "byteCount": 3158
+  },
+  "original82FrozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/authority-root-freeze.json",
+    "sha256": "a8389637522059ce6efdd46e0671928459e01f9071e7ed53d2869b8dee5e4a33",
+    "byteCount": 19790
+  },
+  "cause87bFrozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/freeze-corrected.json",
+    "sha256": "f206243bd31e5fe4f315773ca4b996d9c28894ba44b6b050b24dc6736d44c2f6",
+    "byteCount": 17259
+  },
+  "expectedActualRoute": [
+    "Testing(null)",
+    "Construction(native)",
+    "Testing(native)",
+    "UAT(C2)",
+    "eventless fresh result/replay"
+  ],
+  "invalidTestingC2": "schema/binder candidate refusal only; no dispatch",
+  "limits": "Bounded local protocol source/context witness; semantic adequacy must remain unmet; no provider model or DataMapper effect"
+}

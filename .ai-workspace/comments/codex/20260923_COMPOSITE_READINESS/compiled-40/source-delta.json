@@ -1,0 +1,87 @@
+[
+  {
+    "path": "code/src/abg/event_prefix.ts",
+    "before": "fe1bda23ff6ad6cce3c1b58b0239b971a46690d3b55e9984c3bf885e91dd3c26",
+    "after": "2e89f692ad9fcce0e066a2c370396384e86a4b2bd5941a6b4f24538722267941"
+  },
+  {
+    "path": "code/src/abg/execution_basis.ts",
+    "before": "91aec3f47a4da8ed33f2d59e665eed76fe459500dea4c4c363525b1ae5652af4",
+    "after": "cf535b9b4c93f2ad88d5569274ad36818e3b2479cf4e74398bae88171b17aea7"
+  },
+  {
+    "path": "code/src/abg/instruction_assembly.ts",
+    "before": "222481d25ef39c4fb193f04455c39f9881b4054f1c59d9f0744a2b4315edd33b",
+    "after": "a491c4912b30651b563de1788fb57d7e6d99dbf838fb1eaac768f0335d15cff0"
+  },
+  {
+    "path": "code/src/abg/retry.ts",
+    "before": "14244fa45ceba22afdeb9d98ce7e7e98ff4ab65db68bba46c3f11ae1fc76df5f",
+    "after": "30399c3efa5d2fd560d7d8dbc079ae02f31313298225bbd3106b7e9cb3b3f7a9"
+  },
+  {
+    "path": "code/src/abg/semantic_revision.ts",
+    "before": "09a3a36d7bdbb963b5c31109be8b2d985d010364ebdea0dc4fe4e5d92baa9c6d",
+    "after": "ab02abd03c96a6e2ae7d6d90c469d4ce6840c0dc8b1bb4634e6a3367e00ab2aa"
+  },
+  {
+    "path": "code/src/abg/traversal_cursor.ts",
+    "before": "8f9ce5df0e6414f8505f1146e717a96cbf0c434cdbe840e7efc0885464b130ad",
+    "after": "70fec39361cfa915a5ba6eb8cd3bc205512946186161a536f88661ded206551e"
+  },
+  {
+    "path": "code/src/abg/traversal_route.ts",
+    "before": "ba6e85a27365b4b7d83e58ddb6cd24ffb1210e233a981adadf1a64d9736fba75",
+    "after": "c906f435f98019ec827dec78207b43deb8c41df238ad18c2a075f30e359757bb"
+  },
+  {
+    "path": "code/src/gtl/source_path.ts",
+    "before": "aaa8e6ab64676d63cac12e123e1064d86676f83c1e32f87115bcb7cd46a6fab8",
+    "after": "7e2b843a85d663e359eef2034881e2bcbad6a773d4c601211b740227877b610e"
+  },
+  {
+    "path": "code/src/hog/ccall_lifecycle.ts",
+    "before": "b5952eb5ba9c82c1c0310a79218c430e17bcf7e3cbf96dc973d8631c31963c85",
+    "after": "133eadbcc097c0799836f9489705e73b1b0f53a1f8873e1f6377b3c1bf15bc83"
+  },
+  {
+    "path": "code/src/hog/graph_execute.ts",
+    "before": "538a582066a94d0e23f2907cf4b16b15fdface2743828babeb0bebe5be4910f1",
+    "after": "b15acbbc0280833b7e7e5f0e367fbc7ebffee4e3ecf503d11253d8bd0f01bb55"
+  },
+  {
+    "path": "code/src/hog/interaction_resume.ts",
+    "before": "bd600fd40c610d821cc3bc9fb3f8f3928241e6d08f543e33448bfba583acb08a",
+    "after": "1134b13185cefd7e31642dddee8d3e8b28e3bacd746094d4bcb22d1e49ec439d"
+  },
+  {
+    "path": "code/src/hog/recursion_lifecycle.ts",
+    "before": "66cbf7eb3cf705dd3acf6ce265ca9839bfc93c659492e69cd8290cac05b35f33",
+    "after": "7fb2656e927ade4159c4dc18eed6d6e4139e48d4791f85177912b7879fb697c2"
+  },
+  {
+    "path": "code/src/hog/route_proposal.ts",
+    "before": "c652ce8959fd8ae711972079088842d0ac81dfde6bd171f48edf2184aad627ca",
+    "after": "c9f11e7a8f393bfad8de4542c6bc357f30559c0dedc5a9c0961b52cd26cff932"
+  },
+  {
+    "path": "code/src/hog/structural_transition.ts",
+    "before": "48a17b0f3143d78b90897d618cd446688a017abc65923ac1b782343cb4eff745",
+    "after": "0abc442957d7ec506b97390b403a38111b62f654bea9424cf98d6f7b849acf37"
+  },
+  {
+    "path": "code/src/hog/traversal.ts",
+    "before": "0d21b03b17a944b239386d55e5a5bd897e6a105f65ab22951cd9f38ced613c88",
+    "after": "c51153bfbf2db31e8a8f784e7eae6ae17c0d55bc805dff1580d9c48aff4c3162"
+  },
+  {
+    "path": "code/src/hog/workflow_lifecycle.ts",
+    "before": "42b633afb0e0be524a36ca4aa853b1f041c4de77d4a6ececf91223915c5f935b",
+    "after": "dc5d35bfb88d3d8c1b5fe224d63324477c5478dd0413ec706bc790002657d256"
+  },
+  {
+    "path": "code/src/product/semantic_job.ts",
+    "before": "f955ce6c36403709ea73dd447e3937a30bdf8ee1d78608b6effe833ee85482d3",
+    "after": "b0513a0f392643c1c476f7f190649d72e0df100fd17385a07213a85f203a5dfe"
+  }
+]

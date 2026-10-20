@@ -1,0 +1,39 @@
+{
+  "kind": "explicit_root_selected_tool_operation_basis",
+  "operation": "T287_G1_G3_C10_CONSTRUCTION_01",
+  "actor": "/root/rc1_c03_install_review",
+  "phase": "accepted_G1_G3_bounded_development_successor",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10",
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/controls/source-cut.json",
+    "bytes": 27451027,
+    "sha256": "dfcbe13c1b667a9b16fb89caaf4afa59a1e911fa44b11e6508e847a2bd1c5aa8",
+    "mode": 420
+  },
+  "acceptedBuilder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+    "bytes": 388347,
+    "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+    "mode": 420
+  },
+  "sourcePopulationRelation": {
+    "priorCandidate": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source",
+    "authorizedAdditions": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs",
+        "bytes": 15438,
+        "sha256": "4e6ce1f8049017be0d480d71052bf4066e5c8c0fda669f3cd2611df250c179f8",
+        "mode": 420
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md",
+        "bytes": 26624,
+        "sha256": "7e8b887eaf0c73187cdfdb72ec157500ef5ca383087a69c5242cf4590efe3cd4",
+        "mode": 420
+      }
+    ],
+    "actualExistingMembers": 1111,
+    "actualChangedExistingMembers": 4,
+    "descriptivePreimageStringsAreExecutableAuthority": false
+  }
+}

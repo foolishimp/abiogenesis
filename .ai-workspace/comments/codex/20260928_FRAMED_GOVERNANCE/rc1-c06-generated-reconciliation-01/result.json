@@ -1,0 +1,61 @@
+{
+  "ProductFrame": "Fixed15 F01/F05 source-generated agreement under STDO2.5.1RC2; generated build output distinct from Runtime truth; no WHAT/HOW or original Source authorship change.",
+  "status": "CLOSED",
+  "workResult": "STOPPED_FIRST_DISCREPANCY",
+  "operation": "T287_C06_GENERATED_RECONCILIATION_01",
+  "actor": "/root/q03_input_review Worker",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/generated-request.txt",
+    "bytes": 1968,
+    "sha256": "04f1a3dbf52ad110e6207ba4acb02c0f72f75a5962a664a978f32a1e95d15ea6",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464698522,
+    "mtimeNs": 1790921897265854156
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "bytes": 140347,
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464697483,
+    "mtimeNs": 1790920403960122467
+  },
+  "independentReviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-independent-review-controls-01/review/freeze.json",
+    "bytes": 1240,
+    "sha256": "5b8d179bba26d56a8e20a60fa9fc1833b0fbd41ec369f13347305826f9e7deb2",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464698209,
+    "mtimeNs": 1790921444520672893
+  },
+  "ambientPostimages": [],
+  "completeGeneratedJoins": null,
+  "archiveStageCandidateInstallCorrespondence": null,
+  "declaredCLIModeAdaptations": null,
+  "sourceAuthorship": "original Source authors and accepted history preserved; this Worker only records generated-copy derivation",
+  "effects": {
+    "ambientGeneratedWrites": 0,
+    "sourceBuildTestOwnerImportCandidateRuntimeGitNetworkProvider": 0,
+    "Q07": 0
+  },
+  "cost": {
+    "elapsedMs": 219.58749974146485,
+    "bodyBytesHashed": 130100174,
+    "peakRSSBytes": 59211776,
+    "HOME": "/Users/jim",
+    "heapTools": "default; unchanged"
+  },
+  "stop": {
+    "frontier": "complete 5258 archive body/mode correspondence before ambient copying",
+    "type": "AssertionError",
+    "message": "",
+    "completedAmbientWrites": [],
+    "retryOrAutorepair": false
+  },
+  "independentAssurance": false,
+  "remaining": "No Q07 activation, admitted Setup06 or successful carrier/F11/QUAL056/AF22/release claim follows. Root alone accepts and selects later effects.",
+  "closedAt": "2026-10-02T06:28:04.818803+00:00"
+}

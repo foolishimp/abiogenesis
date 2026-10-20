@@ -1,0 +1,30 @@
+{
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "relativePath": "code/src/product/semantics.ts",
+      "sha256": "dcb18429cc46007a1812ff80807e1fa7482daff05a14d7dce17d1566fc8685c4",
+      "byteCount": 24324,
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/postimages/code/src/product/semantics.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "5d85a47689b52bd9319236da882f02cf41070a39b6a3a0e8f1a35af4780587bf",
+      "byteCount": 34726,
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/postimages/test_env/tests/t287-governance-covered-source-use.test.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "60f5d2bb91378f66285c2ca3ac78f71a98b9032031a9c646cfd5fb86aec9c3e7",
+      "byteCount": 35936,
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/postimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+    }
+  ],
+  "changedSources": [
+    "code/src/product/semantics.ts"
+  ],
+  "unchangedSources": 262,
+  "HOWFirst": true
+}

@@ -1,0 +1,190 @@
+{
+  "installedOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+  "prefix": {
+    "coordinateDigest": "sha256:2244a05e24868bfe68ab639d0f151c5c89e352b4d0b73bcd22e4881cdd1e0110",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:79d92efdfb63f810b849659eb7a38e79b3ca0505234f82b37d2e346cb608c5b9",
+    "prefixLength": 21139392,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 469917053
+    }
+  },
+  "call": "constructWorksiteCommandConfiguration",
+  "effect": "pure; no native reacquisition/worksite observation/command execution",
+  "input": {
+    "workspaceAuthorityBasis": {
+      "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+      "authorityBasisId": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+      "authorityManifestDigest": "sha256:990ed6a2f1597122aab174fc1141c17ccb221ba31e0baf37103ed6773b69ea23",
+      "authorityManifestRef": "authority://abi5-tests/sandbox-uat/library-joint-proof-237/workspace",
+      "authorityMode": "trusted_developer",
+      "authorizedActorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+      "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite",
+      "kind": "workspace_authority_basis",
+      "schemaVersion": "5.0.0",
+      "workspaceId": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37"
+    },
+    "workspaceBinding": {
+      "kind": "workspace_binding",
+      "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+      "authorityBasisId": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+      "authorizedActorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+      "bindingDigest": "sha256:9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+      "bindingId": "workspace-binding://abiogenesis/9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+      "lockDigest": "sha256:1aca7ccdd500d93ec3c2f8d350bd31da98606571b047a4e9c833f2bbe86d55d8",
+      "lockId": "product-lock://abiogenesis/1aca7ccdd500d93ec3c2f8d350bd31da98606571b047a4e9c833f2bbe86d55d8",
+      "productSetDigest": "sha256:c3fa8747a0b91a25da9388ad1e8f8a1d58cfe1f8a37cca9c44835edd7ffdbbfd",
+      "productSetId": "product-set://abiogenesis/c3fa8747a0b91a25da9388ad1e8f8a1d58cfe1f8a37cca9c44835edd7ffdbbfd",
+      "roots": {
+        "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives",
+        "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events",
+        "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-consumer/node_modules/@abi5-tests/sandbox-uat",
+        "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/projections",
+        "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/runtime",
+        "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-native"
+      },
+      "schemaVersion": "5.0.0",
+      "workspaceId": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37",
+      "admissionEventRef": "event://abiogenesis/57b3f60e8e22eaa67de33c1f3c297089efc1036ae34668716217f283f91fbbf1"
+    },
+    "commands": [
+      {
+        "args": [
+          "fixture/checker.mjs"
+        ],
+        "commandId": "command://abi5-tests/library-joint-proof-237/check",
+        "environment": {},
+        "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "expectedReports": [],
+        "relativeCwd": ".",
+        "terminationGraceMs": 1000,
+        "timeoutMs": 10000
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "declaration": {
+          "equals": 0,
+          "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+        },
+        "predicateId": "predicate://abi5-tests/library-joint-proof-237/exit",
+        "predicateKind": "process_exit"
+      },
+      {
+        "declaration": {
+          "equals": "FIXTURE_VALUE_FIXED\n",
+          "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+        },
+        "predicateId": "predicate://abi5-tests/library-joint-proof-237/stdout",
+        "predicateKind": "stdout_exact"
+      }
+    ],
+    "allowedWriteTerritories": [],
+    "protectedSubjects": [
+      {
+        "kind": "worksite_subject",
+        "schemaVersion": "5.0.0",
+        "subjectRef": "worksite-subject://abiogenesis/e6a7bd7a91e13a5df20ce1b4b2d6f43bed685b11961f1a31492e3ca4c8e8fb6f",
+        "subjectDigest": "sha256:e6a7bd7a91e13a5df20ce1b4b2d6f43bed685b11961f1a31492e3ca4c8e8fb6f",
+        "workspaceBindingIdentity": "workspace-binding://abiogenesis/9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+        "workspaceBindingDigest": "sha256:9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+        "subjectUri": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/source.md",
+        "relativePath": "fixture/source.md"
+      },
+      {
+        "kind": "worksite_subject",
+        "schemaVersion": "5.0.0",
+        "subjectRef": "worksite-subject://abiogenesis/a335f7318e823d01d53d8bb92da7687edbee146d3015abb5a78556c5c350c5b1",
+        "subjectDigest": "sha256:a335f7318e823d01d53d8bb92da7687edbee146d3015abb5a78556c5c350c5b1",
+        "workspaceBindingIdentity": "workspace-binding://abiogenesis/9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+        "workspaceBindingDigest": "sha256:9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+        "subjectUri": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/checker.mjs",
+        "relativePath": "fixture/checker.mjs"
+      },
+      {
+        "kind": "worksite_subject",
+        "schemaVersion": "5.0.0",
+        "subjectRef": "worksite-subject://abiogenesis/37bda2e05a9fe5d53bac237dc3f3302d83fd5908163667b2965377e5951c9659",
+        "subjectDigest": "sha256:37bda2e05a9fe5d53bac237dc3f3302d83fd5908163667b2965377e5951c9659",
+        "workspaceBindingIdentity": "workspace-binding://abiogenesis/9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+        "workspaceBindingDigest": "sha256:9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+        "subjectUri": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/rubric.md",
+        "relativePath": "fixture/rubric.md"
+      },
+      {
+        "kind": "worksite_subject",
+        "schemaVersion": "5.0.0",
+        "subjectRef": "worksite-subject://abiogenesis/3aa5f851e190bd661c8970cf6743d1ad744480b9751160a25e4da6646e0b4154",
+        "subjectDigest": "sha256:3aa5f851e190bd661c8970cf6743d1ad744480b9751160a25e4da6646e0b4154",
+        "workspaceBindingIdentity": "workspace-binding://abiogenesis/9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+        "workspaceBindingDigest": "sha256:9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+        "subjectUri": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/value.txt",
+        "relativePath": "fixture/value.txt"
+      }
+    ]
+  },
+  "inputDigest": "sha256:0ab827841d46d7cf6d3d56bbef11a9452986d02d913994b4f98d3957b561fdfc",
+  "origin": {
+    "inputEventRef": "event://abiogenesis/3a5562ee7abd500e8cee37429f8004fa09f03c90a222e43aabe46e95e27f7893",
+    "inputField": "payload.rawInputValue.original.testing",
+    "inputDigest": "sha256:bebf1dbd71b57a38d5dd159bda73562ac04a0c4024c4e1732ddef0a085a0409d",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/17bf50e6ef3f7fb59938946adffe07beeee2390b3a4c75c3a6549dae81e60745",
+    "environmentBindingRef": "workspace-binding://abiogenesis/9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+    "environmentBindingDigest": "sha256:9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867"
+  },
+  "subjectChecks": [
+    {
+      "relativePath": "fixture/source.md",
+      "kind": "worksite_subject",
+      "valid": true,
+      "subjectRef": "worksite-subject://abiogenesis/e6a7bd7a91e13a5df20ce1b4b2d6f43bed685b11961f1a31492e3ca4c8e8fb6f",
+      "subjectDigest": "sha256:e6a7bd7a91e13a5df20ce1b4b2d6f43bed685b11961f1a31492e3ca4c8e8fb6f"
+    },
+    {
+      "relativePath": "fixture/checker.mjs",
+      "kind": "worksite_subject",
+      "valid": true,
+      "subjectRef": "worksite-subject://abiogenesis/a335f7318e823d01d53d8bb92da7687edbee146d3015abb5a78556c5c350c5b1",
+      "subjectDigest": "sha256:a335f7318e823d01d53d8bb92da7687edbee146d3015abb5a78556c5c350c5b1"
+    },
+    {
+      "relativePath": "fixture/rubric.md",
+      "kind": "worksite_subject",
+      "valid": true,
+      "subjectRef": "worksite-subject://abiogenesis/37bda2e05a9fe5d53bac237dc3f3302d83fd5908163667b2965377e5951c9659",
+      "subjectDigest": "sha256:37bda2e05a9fe5d53bac237dc3f3302d83fd5908163667b2965377e5951c9659"
+    },
+    {
+      "relativePath": "fixture/value.txt",
+      "kind": "worksite_subject",
+      "valid": true,
+      "subjectRef": "worksite-subject://abiogenesis/3aa5f851e190bd661c8970cf6743d1ad744480b9751160a25e4da6646e0b4154",
+      "subjectDigest": "sha256:3aa5f851e190bd661c8970cf6743d1ad744480b9751160a25e4da6646e0b4154"
+    }
+  ],
+  "result": {
+    "kind": "threw",
+    "errorClass": "TypeError",
+    "message": "worksite command configuration requires exact A/W, subjects and explicit arrays",
+    "stack": [
+      "TypeError: worksite command configuration requires exact A/W, subjects and explicit arrays",
+      "    at Module.constructWorksiteCommandConfiguration (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:857:15)",
+      "    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/select-stopped-facts.mjs:65:34"
+    ]
+  },
+  "supportedConjunct": {
+    "source": "product/worksite_command_execution.ts1396",
+    "required": "Array.isArray(input.allowedWriteTerritories) && input.allowedWriteTerritories.length > 0",
+    "actualArray": true,
+    "actualLength": 0
+  },
+  "limits": [
+    "Exact preserved command-configuration subcall only; fresh Testing context and complete native request tuple are not separately retained.",
+    "This sufficient downstream configuration blocker does not establish which earlier nativeReacquisitionBody conjunct was first false.",
+    "No full native constructor/callback/effect was retried."
+  ]
+}

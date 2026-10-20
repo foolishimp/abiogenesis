@@ -1,0 +1,12 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host-preparation/host-preparation.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116",
+  "started": "2026-10-08T12:02:01.507Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000
+}

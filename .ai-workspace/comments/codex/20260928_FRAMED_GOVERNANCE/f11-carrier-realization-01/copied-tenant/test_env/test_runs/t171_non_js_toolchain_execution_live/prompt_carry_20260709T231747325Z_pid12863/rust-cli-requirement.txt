@@ -1,0 +1,6 @@
+Construct a Rust CLI source artifact.
+The source artifact shall compile with the declared rustc toolchain.
+When the compiled CLI is executed, it shall write exactly one line to stdout.
+The stdout line shall contain exactly: Hello, world!
+The stdout line shall end with one newline.
+The compiled CLI shall not write to stderr.

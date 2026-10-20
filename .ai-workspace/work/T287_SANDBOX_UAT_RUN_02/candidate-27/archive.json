@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-27/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "29b8f199792c320d29e42aa4639dcc35d394a8c87d3da820f766ca33c24922e3",
+    "byteCount": 10639705
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3171.167375,
+    "timedOut": false,
+    "truncated": false
+  },
+  "acceptedSourceFreezes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/freeze.json",
+      "sha256": "2213567e961f401dbf48e7ae36e471f7e0cc1b38255737510c9d80d92fe98570",
+      "byteCount": 16404
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-review-180/freeze.json",
+      "sha256": "2ead0a27c48b3aca4454f72ddef9502ca7c37e253fdb662b69d736879d37f285",
+      "byteCount": 1031
+    }
+  ],
+  "source179Disposition": "Root conjoined frozen Source179 and independent180 after actual176 current-source-use provenance-order refusal",
+  "sourceCommit": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "ordinaryBuildAlreadyRecorded": true,
+  "nativeEffects": false
+}

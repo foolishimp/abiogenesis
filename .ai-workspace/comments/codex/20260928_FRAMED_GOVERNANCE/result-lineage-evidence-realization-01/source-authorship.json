@@ -1,0 +1,25 @@
+{
+  "originalAuthor": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01",
+  "role": "Worker",
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/c_call_outcome.ts.preimage",
+    "bytes": 67237,
+    "sha256": "e5c6fda5b10689d0df9f4c8c4c20a6ca6c557a9d861563fd5528adf88050047d",
+    "mode": 420
+  },
+  "sourcePostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 68281,
+    "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+    "mode": 420
+  },
+  "newTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22555,
+    "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+    "mode": 420
+  },
+  "newTestPreimage": "ABSENT",
+  "buildCopy": "Mechanical arrangement of accepted frozen C07 plus these exact postimages; not new authorship of C07 inputs.",
+  "productionChange": "Preserve required inputDigest and nine optional admitted actor/request/prompt/transport fields only; omit absent optional own keys and preserve explicit nulls. Existing seven fields/derived coordinates and transportDigest semantics remain."
+}

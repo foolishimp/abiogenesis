@@ -1,0 +1,17 @@
+{
+  "executable": "/opt/homebrew/bin/npm",
+  "args": [
+    "pack",
+    "--ignore-scripts",
+    "--json",
+    "--pack-destination",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/packs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T10:43:51.375Z",
+  "environmentKeys": [
+    "PATH",
+    "npm_config_cache"
+  ],
+  "timeoutMs": 300000
+}

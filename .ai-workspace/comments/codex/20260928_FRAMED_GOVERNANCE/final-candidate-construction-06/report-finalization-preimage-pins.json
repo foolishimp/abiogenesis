@@ -1,0 +1,57 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-cache-population.json",
+    "bytes": 7723,
+    "sha256": "d2f27e5fbc39a972b3dd5c974043905117e4b1a616507d3654de487843af5be8"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-report-refusal-01.json",
+    "bytes": 30836,
+    "sha256": "39e4ee3f6e42c0e44acf15ef6def6e65bfd69c2f1b718d2c38f668088cccc5db"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-source-population.json",
+    "bytes": 285808,
+    "sha256": "2e36d051a88fe3dc8556e6fe6fea2f18b386586e5a8d23bee1168592fd184a37"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/finalize.py",
+    "bytes": 16253,
+    "sha256": "844c71576fb05800e6fddc8e21260e4c903e5b2744bb1cdff44142cc1f3b7f56"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-law-population.json",
+    "bytes": 11693,
+    "sha256": "443adbae39bd52dcf764dc4737ad2d921eae13b37aa45717c0e147ec417b1989"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-install-population.json",
+    "bytes": 1433308,
+    "sha256": "ae8f3a771ff0e03a3a55e6b2e9b408c0d752c6e2e264fa4e6b3d556a8908716f"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-stage-dependency-population.json",
+    "bytes": 1207488,
+    "sha256": "8108c4fe36b15f4b4aa662197da7b4851011ab2c88f6738bf7ae9f6877bee427"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-stage-population.json",
+    "bytes": 1706665,
+    "sha256": "aa63936fe388546786a2e0bc978196dbc755c0be0d10c6ac489868bbdb7fecda"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-toolchain-population.json",
+    "bytes": 544129,
+    "sha256": "127fad754899ca96e23a37de7c8ee7937b1e476257b3d2789e6d51a059936893"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-generated-delta.json",
+    "bytes": 952,
+    "sha256": "135d70b8d93f0240908a55ef73edf6f4c25233deb8f59fef29e49181436966b2"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/report-finalization-preimages/final-preservation-verification.json",
+    "bytes": 12604,
+    "sha256": "b42c5e90d5c54712b849c9d538223529b371f19e33e2bd16f53f584a009907d2"
+  }
+]

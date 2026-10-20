@@ -1,0 +1,28 @@
+{
+  "mode": "conservation-assembly",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^semantic stage, revision and selection implementations preserve the complete owner request$",
+    "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "pid": 49578,
+  "processGroup": 49578,
+  "startedAt": "2026-10-02T04:45:34.708670+00:00",
+  "closedAt": "2026-10-02T04:45:35.102440+00:00",
+  "elapsedMs": 393.78970908001065,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 212074496,
+  "userSeconds": 0.39694999999999997,
+  "systemSeconds": 0.057645999999999996,
+  "knownCLIProcessGroups": [],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

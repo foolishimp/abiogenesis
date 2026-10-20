@@ -1,0 +1,12 @@
+{"kind":"immediate_install_projection_work","consumerWork":{"successorConstructions":0,"rawProjectionValidation":0},"rawCopyValidated":true}
+{"kind":"immediate_install_projection_work","consumerWork":{"successorConstructions":0,"rawProjectionValidation":0},"rawCopyValidated":true}
+✔ T289 owner serialization and cold historical/reference reconstruction preserve exact install truth (16452.813625ms)
+✔ T289 live state recovers after rollback without changing earlier artifact prefixes (2349.897084ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19065.294292

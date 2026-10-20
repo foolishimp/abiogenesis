@@ -1,0 +1,17 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_F11_C05_WHOLE_PATH_ASSIGNMENT_06",
+  "activatedAt": "2026-10-02T03:46:27.346665+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-06",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "exactGrant": "Compose one bounded external caller preparation and conditional actual Runtime assignment from closed C05/Q06/Setup05. Independent Q06 assurance must be Root accepted before any owner preparation or Runtime execution. No source/candidate/input/resource/Runtime/network/Git effects by this Writer.",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 509917,
+    "sha256": "17f32caae427752b09258c7169f03e5fe8185458cd0d7815dda5c43e11d5e3b0"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "reentry": "realization_refactor",
+  "activatedAtUTC": "2026-10-04T15:12:43.915139+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/controls/code-grant.md",
+    "bytes": 7973,
+    "sha256": "b1d130e401a7fcade09c664e1f1a43aa226d2734bd5af3ecaf165ef98ba76ade"
+  },
+  "sourceEntry": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/controls/source-subject.json",
+    "bytes": 6968,
+    "sha256": "e3ea3a79390311bedac96c530aa4e8d174969d37bb8e02251a81cc0b061bcca8",
+    "rows": 16
+  },
+  "basis": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "ProductFrame": "Fixed fifteen-family ABG5 / GOAL035 / T287; original GTL carriers, sole validator, direct HoG and ABG authorities unchanged",
+  "HOW": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+    "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901"
+  },
+  "sourceWritePaths": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts"
+  ],
+  "privateWork": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "privateEvidence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "excluded": "immutable controls, comments, old work/evidence/candidates/resources, ambient generated, Git/network",
+  "HOME": "/Users/jim",
+  "defaultHeap": true,
+  "budgetsSeconds": {
+    "compile": 180,
+    "manifest": 120,
+    "pack": 120,
+    "focused": 240,
+    "terminationGrace": 5
+  },
+  "entryVerificationElapsedMs": 0.7641669362783432
+}

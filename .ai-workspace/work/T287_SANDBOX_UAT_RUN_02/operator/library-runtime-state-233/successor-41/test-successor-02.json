@@ -1,0 +1,15 @@
+{
+  "kind": "c2_helper_test_setup_successor",
+  "file": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/input-02/test_env/tests/t287-observed-worksite-command.test.mjs",
+    "sha256": "a675415b7083799ba546f36bc2f3320261dedc40f5f37530dad8a826d5801c18",
+    "bytes": 28999
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/input-01/test_env/tests/t287-observed-worksite-command.test.mjs",
+    "sha256": "94f3959ddc91941ccb55ebedad9264ca2246a3996824a005fbc103c10f88852f"
+  },
+  "cause": "New test omitted the existing concrete archiveRoot directory premise, failing before helper/command execution.",
+  "selectedAction": "Executive selected one archiveRoot mkdir in the new test setup; no Production/HOW/emission change.",
+  "retainedFailure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/commands/observed-helper-01.result.json"
+}

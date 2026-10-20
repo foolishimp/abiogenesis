@@ -1,0 +1,8 @@
+{
+  "outcomeKind": "refusal",
+  "value": {
+    "code": "not_found",
+    "evidenceRefs": [],
+    "issuePaths": []
+  }
+}

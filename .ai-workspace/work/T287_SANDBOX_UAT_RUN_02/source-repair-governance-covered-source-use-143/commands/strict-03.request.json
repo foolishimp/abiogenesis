@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "-p",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/tsconfig.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated",
+  "started": "2026-10-09T01:17:59.629971+00:00",
+  "scope": "isolated strict compilation only"
+}

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/publication.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "actualExitCode": 1,
+  "actualError": "Error: Cannot find module /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/publication.mjs",
+  "code": "MODULE_NOT_FOUND",
+  "origin": "Orchestration entered dependent helper after failed comparator before helper creation.",
+  "packageOwnerEntered": false,
+  "npmPackEntered": false,
+  "installEntered": false,
+  "selectedAction": "Stop and inspect each command before dependent operations; no normal build rerun."
+}

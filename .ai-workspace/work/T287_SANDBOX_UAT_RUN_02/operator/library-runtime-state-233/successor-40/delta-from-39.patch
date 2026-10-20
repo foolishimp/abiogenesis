@@ -1,0 +1,615 @@
+--- a/code/src/implementation/default_library.ts
++++ b/code/src/implementation/default_library.ts
+@@ -1,4 +1,4 @@
+-import { isDeepStrictEqual as same } from "node:util";
++import { isDeepStrictEqual as same, types } from "node:util";
+ import { defaultLibraryImplementationBindings } from "../gtl/default_library.js";
+ import { governanceRef as ref, GOVERNANCE_OPERATIONS } from "../product/default_library.js";
+ import { bindFramedSynthesisResult, isFramedSynthesisTask, type FramedSynthesisTarget, type FramedSynthesisBasis } from "../product/default_library.js";
+@@ -11,6 +11,9 @@
+ import { sha256Canonical } from "../shared/digests.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import { deepFreeze } from "../shared/immutable.js";
++import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
++import { sanitizeUndispatchedOwnerError } from "../abg/event_contract_profiles.js";
++import type { GovernanceTestingRefusal } from "../abg/native_work_reacquisition.js";
+ const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+ const descriptors = defaultLibraryImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION })
+   .map(({ kind: _kind, bindingRef: _bindingRef, ...body }) => deepFreeze({ kind: "packaged_leaf_implementation_descriptor", schemaVersion: "5.0.0", ...body, descriptorDigest: hash(body) }) as PackagedLeafImplementationDescriptor);
+@@ -21,8 +24,8 @@
+ export const GOVERNANCE_TESTING_TASK_DESCRIPTOR = descriptors[4]!;
+ export const GOVERNANCE_FOLD_DESCRIPTOR = descriptors[5]!;
+ export const GOVERNANCE_CHOICE_DESCRIPTOR = descriptors[6]!;
+-function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: unknown, output: unknown): LeafRealizationCandidate {
+-  const diagnosticRef = ref("diagnostic", "missing-owned-" + operation), success = output !== null;
++function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: unknown, output: unknown, refusalDiagnosticRef?: string): LeafRealizationCandidate {
++  const diagnosticRef = refusalDiagnosticRef ?? ref("diagnostic", "missing-owned-" + operation), success = output !== null;
+   const resultCandidate = (output ?? { kind: "governance_failure", schemaVersion: "5.0.0", diagnosticRef }) as Readonly<Record<string, JsonValue>>;
+   const evidenceCandidates = operation === "select" ? [] : [{ kind: "deterministic_evidence_candidate" as const, schemaVersion: "5.0.0" as const,
+     implementationRef: ref("implementation", operation), inputDigest: hash(input), outputDigest: hash(resultCandidate) }];
+@@ -37,9 +40,25 @@
+ }
+ export async function prepareObservedTestingTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+   _resolution?: unknown, _inputDigest?: unknown, proof?: NativeLeafProofOperations) {
+-  return realized("prepare-testing", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceTestingTask(
+-    occurrence.nativeInstructionAssemblyBasis, input, proof?.governanceTestingReacquisition === undefined ? undefined :
+-      context => proof.governanceTestingReacquisition!(input, occurrence, context)));
++  let diagnosticRef: string | undefined;
++  const refusal: GovernanceTestingRefusal = (stage, relation, selectors = {}, error) => {
++    if (diagnosticRef !== undefined) return;
++    const caught = relation === "caught" && !types.isProxy(error) ? error : null;
++    diagnosticRef = constructRuntimeFailureDiagnosticRef({
++      diagnosticClassRef: ref("diagnostic", "missing-owned-prepare-testing"), computeRegime: "F_D",
++      implementationRef: ref("implementation", "prepare-testing"), inputDigest: hash(input),
++      occurrence: { cCallRef: occurrence.cCallRef, runId: occurrence.runId ?? null, graphCallId: occurrence.graphCallId ?? null,
++        frameId: occurrence.frameId ?? null, programLocusRef: occurrence.programLocusRef ?? null,
++        taskOrdinal: occurrence.taskOrdinal ?? null, attempt: occurrence.attempt ?? null },
++      stage, relation, selectors, cause: relation === "caught" ? sanitizeUndispatchedOwnerError(caught) : null,
++    });
++  };
++  const basis = occurrence.nativeInstructionAssemblyBasis;
++  if (basis === undefined) refusal("testing_basis", "assembly_basis_absent");
++  const output = basis === undefined ? null : await projectGovernanceTestingTask(basis, input,
++    proof?.governanceTestingReacquisition === undefined ? undefined :
++      (context, report) => proof.governanceTestingReacquisition!(input, occurrence, context, report), refusal);
++  return realized("prepare-testing", input, output, output === null ? diagnosticRef : undefined);
+ }
+ export function foldGovernanceWork(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
+   return realized("fold", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectGovernanceFold(occurrence.nativeInstructionAssemblyBasis, input));
+--- a/code/src/implementation/contracts.ts
++++ b/code/src/implementation/contracts.ts
+@@ -136,7 +136,8 @@
+   /** Exact prepare-testing input/occurrence; the invoking owner retains the
+    * historical resource. No serialized assertion grants this operation. */
+   readonly governanceTestingReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence,
+-    context: import("../product/worksite_effect.js").WorksiteContextObservation) =>
++    context: import("../product/worksite_effect.js").WorksiteContextObservation,
++    refusal?: (stage: string, relation: string, selectors?: Readonly<Record<string, string | number | boolean | null>>, error?: unknown) => void) =>
+     import("../product/worksite_command_execution.js").NativeWorksiteCommandExecutionTask | null;
+ }
+ 
+--- a/code/src/implementation/leaf_invocation_port.ts
++++ b/code/src/implementation/leaf_invocation_port.ts
+@@ -441,9 +441,10 @@
+     ...(implementationRef === governanceRef("implementation", "prepare-testing") && occurrence.nativeInstructionAssemblyBasis !== undefined &&
+       occurrence.nativeInstructionAssemblyBasis.cCall.cCallRef === occurrence.cCallRef
+       ? { governanceTestingReacquisition: (input: unknown, supplied: LeafExecutionOccurrence,
+-          context: import("../product/worksite_effect.js").WorksiteContextObservation) => {
++          context: import("../product/worksite_effect.js").WorksiteContextObservation,
++          refusal?: Parameters<NonNullable<NativeLeafProofOperations["governanceTestingReacquisition"]>>[3]) => {
+           exact(input, supplied);
+-          return prepareGovernanceNativeWorkReacquisition(occurrence.nativeInstructionAssemblyBasis!, input, context, historicalSource);
++          return prepareGovernanceNativeWorkReacquisition(occurrence.nativeInstructionAssemblyBasis!, input, context, historicalSource, refusal);
+         } } : {}),
+     ...(implementationRef === qualificationIds.assessImplementation && preparation !== undefined ? { qualificationPreparation: (input: unknown, supplied: LeafExecutionOccurrence) => { exact(input, supplied); return preparation; } } : {}),
+     ...(implementationRef === SELF_CONFORMANCE_IDS.implementationRef && basis?.cCallRef === occurrence.cCallRef
+--- a/code/src/abg/default_library.ts
++++ b/code/src/abg/default_library.ts
+@@ -20,7 +20,7 @@
+ import { observeWorksiteContext, observeWorksiteSubject } from "../product/worksite_operations.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import type { RuntimeEvent } from "./event_store.js";
+-import { governanceNativeWorkReacquisitionResultMatches } from "./native_work_reacquisition.js";
++import { governanceNativeWorkReacquisitionResultMatches, type GovernanceTestingRefusal } from "./native_work_reacquisition.js";
+ import type { NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+ import { governanceFulfillmentSelection, initialGovernanceFulfillment, governanceFulfillmentSourceMatches, deriveGovernanceObligations,
+   bindGovernanceFulfillmentAssessment, projectGovernanceFulfillment, invalidateGovernanceFulfillment, governanceFulfillmentActive,
+@@ -28,11 +28,16 @@
+ import { framedSynthesisEvidenceRefs, governanceSubjectEvidenceRefs, projectGovernanceObservationFacts } from "../product/default_library.js";
+ const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
+ const asJson = (x: unknown) => x as Readonly<Record<string, JsonValue>>;
+-function owner(basis: NativeInstructionAssemblyBasis, input: unknown) {
++function testingRefused(refusal: GovernanceTestingRefusal | undefined, stage: string, relation: string,
++  selectors: Readonly<Record<string, string | number | boolean | null>> = {}): null {
++  refusal?.(stage, relation, selectors); return null;
++}
++function owner(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: GovernanceTestingRefusal) {
+   const owned = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+-  if (owned === null || !same(owned.inputValue, input) || !GOVERNANCE_IMPLEMENTATION_REFS.includes(owned.call.implementationRef ?? "") || owned.environment.kind !== "exact_prefix_workspace_environment") return null;
++  if (owned === null) return testingRefused(refusal, "testing_owner", "assembly_authentication");
++  if (!same(owned.inputValue, input) || !GOVERNANCE_IMPLEMENTATION_REFS.includes(owned.call.implementationRef ?? "") || owned.environment.kind !== "exact_prefix_workspace_environment") return testingRefused(refusal, "testing_owner", "input_implementation_environment", { basisRef: owned.execution.basisRef });
+   const invocation = projectExactInvocationAdmissionAtPrefix(owned.prefix, owned.execution.invocationAdmissionRef);
+-  if (invocation === null || invocation.capabilityGrants.length !== 1) return null;
++  if (invocation === null || invocation.capabilityGrants.length !== 1) return testingRefused(refusal, "testing_owner", "invocation_grant", { invocationAdmissionRef: owned.execution.invocationAdmissionRef });
+   const roots = indexedRuntimeEvents(owned.prefix, "invocation:" + invocation.invocationRef).filter(e =>
+     e.kind === "basis_admitted" && record(e.payload) && e.payload.basisClass === "root" &&
+     e.payload.invocationAdmissionRef === invocation.invocationAdmissionRef && e.payload.implementationSetRef === owned.execution.rootImplementationSetRef);
+@@ -42,11 +47,11 @@
+   const retained = invocation.sourceResultBasis?.sourceResultContractRef === contract("state") &&
+     invocation.sourceResultBasis.sourceResultValueDigest === invocation.rawInputDigest;
+   if (!isGovernanceWorkState(initial) || initial.terminal || (!retained &&
+-    (initial.observations.length !== 0 || initial.synthesis !== null))) return null;
++    (initial.observations.length !== 0 || initial.synthesis !== null))) return testingRefused(refusal, "testing_owner", "retained_root_state", { invocationAdmissionRef: invocation.invocationAdmissionRef, rootPopulation: roots.length, retainedInput: retained });
+   if (governanceFulfillmentSelection(owned.program, initial.original) === "invalid" || initial.original.fulfillment !== undefined &&
+-    !retained && !same(initial.fulfillment, initialGovernanceFulfillment(initial.original.fulfillment))) return null;
++    !retained && !same(initial.fulfillment, initialGovernanceFulfillment(initial.original.fulfillment))) return testingRefused(refusal, "testing_owner", "fulfillment_selection");
+   const state = isRetainedGraphInput(input) ? input.entry : isFramedSynthesisTask(input) || isFramedSynthesisResult(input) ? input.state : input;
+-  if (isGovernanceWorkState(state) && !same(state.original, initial.original)) return null;
++  if (isGovernanceWorkState(state) && !same(state.original, initial.original)) return testingRefused(refusal, "testing_owner", "original_task");
+   return { ...owned, environment: owned.environment, invocation, grant: invocation.capabilityGrants[0]! };
+ }
+ type Owner = NonNullable<ReturnType<typeof owner>>;
+@@ -59,9 +64,10 @@
+     context.maxFiles === state.original.maxContextFiles && context.maxBytes === state.original.maxContextBytes &&
+     state.original.sources.every(s => context.entries.some(e => e.relativePath === s.path && e.state === "file" && e.digest === s.digest));
+ }
+-async function currentContext(o: Owner, state: GovernanceWorkState) {
++async function currentContext(o: Owner, state: GovernanceWorkState, refusal?: GovernanceTestingRefusal) {
+   const context = await observeWorksiteContext({ ...operating(o), protectedInstallRoots: o.environment.productInstalls.map(i => i.installedRoot), readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
+-  return isWorksiteContextObservation(context) && contextMatches(o, state, context) ? context : null;
++  if (!isWorksiteContextObservation(context)) return testingRefused(refusal, "testing_context", "context_observation");
++  return contextMatches(o, state, context) ? context : testingRefused(refusal, "testing_context", "authority_binding_sources", { contextRef: context.observationRef, workspaceBindingRef: o.execution.workspaceBindingId });
+ }
+ function result(o: Owner, resultRef: string, resultDigest?: string): RuntimeEvent | null {
+   const rows = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + resultRef).filter(e => e.kind === "c_call_result_admitted" &&
+@@ -122,23 +128,24 @@
+     !governanceFulfillmentSourceMatches(input.original.fulfillment, context)) return null;
+   return selectionTask(input, context);
+ }
+-function subjectEvidence(o: Owner, state: GovernanceWorkState, purpose: GovernancePurpose) {
++function subjectEvidence(o: Owner, state: GovernanceWorkState, purpose: GovernancePurpose, refusal?: GovernanceTestingRefusal) {
+   const ref = state.synthesis?.judgment.subjectEvidenceRef;
+-  if (ref === null || ref === undefined || !governanceSubjectEvidenceRefs(state, purpose).includes(ref)) return null;
++  if (ref === null || ref === undefined || !governanceSubjectEvidenceRefs(state, purpose).includes(ref)) return testingRefused(refusal, "testing_subject", "selected_evidence_ref", { resultRef: ref ?? null });
+   const selected = state.observations.filter(r => r.resultRef === ref);
+-  if (selected.length !== 1) return null;
++  if (selected.length !== 1) return testingRefused(refusal, "testing_subject", "observation_population", { resultRef: ref });
+   const event = result(o, ref, selected[0]!.resultDigest);
+-  if (event === null || !record(event.payload) || event.aggregateId !== selected[0]!.cCallRef || typeof event.basisId !== "string") return null;
++  if (event === null || !record(event.payload) || event.aggregateId !== selected[0]!.cCallRef || typeof event.basisId !== "string") return testingRefused(refusal, "testing_subject", "admitted_result_identity", { resultRef: ref, resultDigest: selected[0]!.resultDigest });
+   const sourceBasis = projectExactExecutionBasisAtPrefix(o.prefix, event.basisId);
+   const retainedUse = hasAdmittedGovernanceUse(o, event);
+-  if (sourceBasis === null || !retainedUse && (sourceBasis.invocationAdmissionRef !== o.execution.invocationAdmissionRef ||
+-    sourceBasis.rootImplementationSetRef !== o.execution.rootImplementationSetRef) ||
+-    (sourceBasis.workspaceBindingId !== o.execution.workspaceBindingId || sourceBasis.workspaceBindingDigest !== o.execution.workspaceBindingDigest) &&
+-      (!retainedUse || !hasAdmittedGovernanceCoveredSourceUse(o.prefix, o.invocation, sourceBasis))) return null;
++  if (sourceBasis === null) return testingRefused(refusal, "testing_subject", "source_basis", { basisRef: event.basisId });
++  if (!retainedUse && (sourceBasis.invocationAdmissionRef !== o.execution.invocationAdmissionRef ||
++    sourceBasis.rootImplementationSetRef !== o.execution.rootImplementationSetRef)) return testingRefused(refusal, "testing_subject", "source_use", { sourceBasisRef: sourceBasis.basisRef });
++  if ((sourceBasis.workspaceBindingId !== o.execution.workspaceBindingId || sourceBasis.workspaceBindingDigest !== o.execution.workspaceBindingDigest) &&
++      (!retainedUse || !hasAdmittedGovernanceCoveredSourceUse(o.prefix, o.invocation, sourceBasis))) return testingRefused(refusal, "testing_subject", "covered_current_use", { sourceBasisRef: sourceBasis.basisRef, workspaceBindingRef: o.execution.workspaceBindingId });
+   const value = event.payload.value;
+   if (!(isNativeWorkspaceWorkObservation(value) && value.task.assessment === undefined) &&
+-    !isObservedWorksiteCommandExecutionObservation(value) && !isNativeWorksiteCommandExecutionObservation(value)) return null;
+-  if (value.provenance.actorInvocationRef !== selected[0]!.actorInvocationRef) return null;
++    !isObservedWorksiteCommandExecutionObservation(value) && !isNativeWorksiteCommandExecutionObservation(value)) return testingRefused(refusal, "testing_subject", "work_observation", { resultRef: ref });
++  if (value.provenance.actorInvocationRef !== selected[0]!.actorInvocationRef) return testingRefused(refusal, "testing_subject", "producer_actor", { resultRef: ref });
+   return { event, value };
+ }
+ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePurpose, context: WorksiteContextObservation) {
+@@ -207,13 +214,27 @@
+   { commands: task.commands, predicates: task.outcomePredicates, allowedWriteTerritories: task.allowedWriteTerritories });
+ }
+ export async function projectGovernanceTestingTask(basis: NativeInstructionAssemblyBasis, input: unknown,
+-  reacquire?: (context: WorksiteContextObservation) => NativeWorksiteCommandExecutionTask | null) {
+-  const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input) || basis.graphFunction.declarations["abg.default_library_purpose"] !== "testing") return null;
+-  const context = await currentContext(o, input); if (context === null) return null;
+-  const current = operating(o), selectedSource = input.synthesis?.judgment.subjectEvidenceRef, p = subjectEvidence(o, input, "testing");
++  reacquire?: (context: WorksiteContextObservation) => NativeWorksiteCommandExecutionTask | null): Promise<NativeWorksiteCommandExecutionTask | import("../product/worksite_command_execution.js").ObservedWorksiteCommandExecutionTask | null>;
++/** @internal Call-local refusal through the unchanged nullable task projection. */
++export async function projectGovernanceTestingTask(basis: NativeInstructionAssemblyBasis, input: unknown,
++  reacquire: ((context: WorksiteContextObservation, refusal?: GovernanceTestingRefusal) => NativeWorksiteCommandExecutionTask | null) | undefined,
++  refusal: GovernanceTestingRefusal): Promise<NativeWorksiteCommandExecutionTask | import("../product/worksite_command_execution.js").ObservedWorksiteCommandExecutionTask | null>;
++export async function projectGovernanceTestingTask(basis: NativeInstructionAssemblyBasis, input: unknown,
++  reacquire?: (context: WorksiteContextObservation, refusal?: GovernanceTestingRefusal) => NativeWorksiteCommandExecutionTask | null,
++  refusal?: GovernanceTestingRefusal) {
++  const o = owner(basis, input, refusal);
++  if (o === null) return null;
++  if (!isGovernanceWorkState(input) || basis.graphFunction.declarations["abg.default_library_purpose"] !== "testing") return testingRefused(refusal, "testing_input", "state_purpose");
++  const context = await currentContext(o, input, refusal); if (context === null) return null;
++  const current = operating(o), selectedSource = input.synthesis?.judgment.subjectEvidenceRef,
++    p = subjectEvidence(o, input, "testing", selectedSource === null || selectedSource === undefined ? undefined : refusal);
+   if (selectedSource !== null && selectedSource !== undefined) {
+-    if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.task.assessment !== undefined) return null;
+-    if (!same(p.value.after, context)) return reacquire?.(context) ?? null;
++    if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.task.assessment !== undefined) return testingRefused(refusal, "testing_subject", "native_work_required", { resultRef: selectedSource });
++    if (!same(p.value.after, context)) {
++      if (reacquire === undefined) return testingRefused(refusal, "testing_reacquisition", "callback_absent", { resultRef: selectedSource, contextRef: context.observationRef });
++      const task = refusal === undefined ? reacquire(context) : reacquire(context, refusal);
++      return task ?? testingRefused(refusal, "testing_reacquisition", "callback_entered_refused", { resultRef: selectedSource, contextRef: context.observationRef });
++    }
+     return constructNativeWorksiteCommandExecutionTask({ ...current, sourceNativeWork: p.value,
+     selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
+     ...governanceTestingConfiguration(input) });
+@@ -221,9 +242,9 @@
+   const observedFiles: ObservedWorksiteCommandExecutionTaskInput["observedFiles"][number][] = [];
+   for (const relativePath of input.original.testing.selectedPaths) {
+     const subject = constructWorksiteSubject({ ...current, relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, relativePath)).href });
+-    if (subject.kind !== "worksite_subject") return null;
++    if (subject.kind !== "worksite_subject") return testingRefused(refusal, "testing_observed_subject", "subject_construction");
+     const observation = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, subject);
+-    if (observation.kind !== "worksite_observation" || observation.state !== "file") return null;
++    if (observation.kind !== "worksite_observation" || observation.state !== "file") return testingRefused(refusal, "testing_observed_subject", "file_observation");
+     observedFiles.push({ subject, observation });
+   }
+   return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles, ...governanceTestingConfiguration(input) });
+--- a/code/src/abg/native_work_reacquisition.ts
++++ b/code/src/abg/native_work_reacquisition.ts
+@@ -38,6 +38,13 @@
+ const hash = (a: unknown) => sha256Canonical(a as JsonValue);
+ const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
+ const one = <T>(rows: { filter(predicate: (row: T) => boolean): T[] }, predicate: (row: T) => boolean): T | null => { const selected = rows.filter(predicate); return selected.length === 1 ? selected[0]! : null; };
++/** @internal Call-local refusal reporting; never an operation or serialized authority. */
++export type GovernanceTestingRefusal = (stage: string, relation: string,
++  selectors?: Readonly<Record<string, string | number | boolean | null>>, error?: unknown) => void;
++function refused(refusal: GovernanceTestingRefusal | undefined, stage: string, relation: string,
++  selectors: Readonly<Record<string, string | number | boolean | null>> = {}, error?: unknown): null {
++  refusal?.(stage, relation, selectors, error); return null;
++}
+ export interface NativeWorkReacquisitionBasis { readonly predecessorPrefix: DurablePrefixCoordinate; readonly cCallRef: string }
+ /** Resolve untrusted preimages before consulting retained establishment facts.
+  * A prior successful preparation cannot supply a missing or different resource. */
+@@ -52,23 +59,37 @@
+  * The historical terminal and latest source checks retain their own owners. */
+ function deriveNativeWorkReacquisitionTask(current: DurablePrefixCoordinate,
+   prefix: RuntimeEventPrefix, request: NativeWorksiteCommandReacquisitionRequest,
+-  nativeBasis: NativeWorkReacquisitionBasis, declarationProof: AbgHistoricalDeclarationProof) {
+-  if (!authenticateRuntimePrefixAncestry(request.source.prefix, current)) return null;
++  nativeBasis: NativeWorkReacquisitionBasis, declarationProof: AbgHistoricalDeclarationProof, refusal?: GovernanceTestingRefusal) {
++  let stage = "native_source_ancestry";
++  try {
++  if (!authenticateRuntimePrefixAncestry(request.source.prefix, current)) return refused(refusal, stage, "prefix_ancestry");
++  stage = "native_closed_source";
+   const historical = reidentifyHistoricalDurablePrefixCoordinate(current, request.source.prefix);
+   const terminal = projectClosedGraphCallTerminalAtDurablePrefix(historical, request.source.graphCallRef, declarationProof);
+-  if (terminal === null || terminal.producer.graphFunction.ref !== native.graphFunctionRef || !same(terminal.value, request.sourceNativeWork) ||
+-    terminal.producer.cCallRef !== request.sourceNativeWork.provenance.cCallRef) return null;
++  if (terminal === null) return refused(refusal, stage, "terminal_projection", { graphCallRef: request.source.graphCallRef });
++  if (terminal.producer.graphFunction.ref !== native.graphFunctionRef || !same(terminal.value, request.sourceNativeWork) ||
++    terminal.producer.cCallRef !== request.sourceNativeWork.provenance.cCallRef) return refused(refusal, stage, "producer_value", { cCallRef: terminal.producer.cCallRef });
++  stage = "native_current_environment";
+   const sourceBasis = projectExactExecutionBasisAtPrefix(prefix, terminal.producer.executionBasis.ref);
+   const environment = projectExactPrefixWorkspaceEnvironment(current, { ref: request.workspaceBinding.bindingId, digest: request.workspaceBinding.bindingDigest });
+   if (sourceBasis === null || environment.kind !== "exact_prefix_workspace_environment" ||
+-    !same(environment.workspaceAuthorityBasis, request.workspaceAuthorityBasis) || !same(environment.workspaceBinding, request.workspaceBinding)) return null;
++    !same(environment.workspaceAuthorityBasis, request.workspaceAuthorityBasis) || !same(environment.workspaceBinding, request.workspaceBinding)) return refused(refusal, stage, "source_basis_binding", { sourceBasisRef: terminal.producer.executionBasis.ref });
++  stage = "native_binding_cover";
+   const covers = projectWorksiteRevisionBindingCover(prefix, request.sourceNativeWork.task.workspaceBinding, request.workspaceBinding, [sourceBasis]);
+-  if (covers === null) return null;
++  if (covers === null) return refused(refusal, stage, "binding_cover", { workspaceBindingRef: request.workspaceBinding.bindingId });
++  stage = "native_task_construction";
+   const task = constructNativeWorksiteCommandExecutionTask({ ...request,
+     sourceReacquisition: { request, nativeBasis, bindingCoverEventRefs: covers } });
++  stage = "native_current_source";
+   const source = projectNativeWorkCommandSourceAtPrefix(prefix, task);
+-  return source !== null && source.sourceResult.eventId === terminal.producer.resultAdmissionEventRef &&
+-    source.sourceJudgment.eventId === terminal.producer.judgmentAdmissionEventRef ? { task, source } : null;
++  if (source === null) return refused(refusal, stage, "command_source");
++  if (source.sourceResult.eventId !== terminal.producer.resultAdmissionEventRef ||
++    source.sourceJudgment.eventId !== terminal.producer.judgmentAdmissionEventRef) return refused(refusal, stage, "result_judgment_identity", { resultAdmissionEventRef: source.sourceResult.eventId, judgmentAdmissionEventRef: source.sourceJudgment.eventId });
++  return { task, source };
++  } catch (error) {
++    if (refusal === undefined) throw error;
++    return refused(refusal, stage, "caught", {}, error);
++  }
+ }
+ /** The source selector is evidence. R10 owns terminal scope; the binding-cover
+  * owner and current native source projection own its present applicability. */
+@@ -105,9 +126,11 @@
+   } catch { return null; }
+ }
+ /** Current ordinary CCall owner. A supplied prefix or output never grants this occurrence. */
+-function projectNativeWorkReacquisitionOccurrence(basis: NativeWorkReacquisitionBasis, input: unknown, prefix: RuntimeEventPrefix) {
+-  try {
+-    if (!isNativeWorksiteCommandReacquisitionRequest(input)) return null;
++function projectNativeWorkReacquisitionOccurrence(basis: NativeWorkReacquisitionBasis, input: unknown, prefix: RuntimeEventPrefix, refusal?: GovernanceTestingRefusal) {
++  let stage = "native_occurrence_input";
++  try {
++    if (!isNativeWorksiteCommandReacquisitionRequest(input)) return refused(refusal, stage, "request_shape");
++    stage = "native_occurrence_basis";
+     const events = runtimeEventBodiesAtPrefix(prefix);
+     const opened = one(indexedRuntimeEvents(prefix, "related:" + basis.cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === basis.cCallRef);
+     const execution = opened?.basisId == null ? null : projectExactExecutionBasisAtPrefix(prefix, opened.basisId);
+@@ -117,8 +140,9 @@
+     const implementationBindingRef = library ? governanceRef("binding", "prepare-testing") : ids.implementationBindingRef;
+     const predicateRef = library ? governanceRef("predicate", "prepare-testing") : ids.predicateRef;
+     if (execution === null || execution.graphFunctionRef !== gf.name || execution.graphFunctionDigest !== hash(gf) ||
+-      (library ? !governanceReacquisitionRequestMatches(prefix, execution, input) : !same(execution.rawInputValue, input)) ||
+-      execution.workspaceBindingId !== input.workspaceBinding.bindingId || execution.workspaceBindingDigest !== input.workspaceBinding.bindingDigest) return null;
++      (library ? !governanceReacquisitionRequestMatches(prefix, execution, input, refusal) : !same(execution.rawInputValue, input)) ||
++      execution.workspaceBindingId !== input.workspaceBinding.bindingId || execution.workspaceBindingDigest !== input.workspaceBinding.bindingDigest) return refused(refusal, stage, "definition_input_binding", { cCallRef: basis.cCallRef });
++    stage = "native_occurrence_materialization";
+     const graph = materializeGraph(gf, { invocationAdmissionRef: execution.invocationAdmissionRef, admittedInputRef: execution.rawInputAdmissionRef,
+       admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue as Readonly<Record<string, JsonValue>> });
+     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCallRef);
+@@ -131,61 +155,83 @@
+       set.rows.filter(r => r.graphFunctionRef === call.graphFunctionRef && r.programLocusRef === call.programLocusRef &&
+         r.implementationRef === implementationRef && r.implementationBindingRef === implementationBindingRef &&
+         r.inputContractRef === call.inputContractRef && r.outputContractRef === call.outputContractRef).length !== 1 ||
+-      invocation === null || invocation.capabilityGrants.length !== 1 || !same(invocation.capabilityGrants[0], input.capabilityGrant)) return null;
++      invocation === null || invocation.capabilityGrants.length !== 1 || !same(invocation.capabilityGrants[0], input.capabilityGrant)) return refused(refusal, stage, "call_set_grant", { cCallRef: basis.cCallRef, basisRef: execution.basisRef, implementationSetRef: execution.rootImplementationSetRef });
+     return { call, execution, prefix };
+-  } catch { return null; }
++  } catch (error) { return refused(refusal, stage, "caught", { cCallRef: basis.cCallRef }, error); }
+ }
+ 
+ /** Exact library input -> existing reacquisition request relation. This proves
+  * no producer by itself: occurrence, native Result/J/closure and binding cover
+  * remain mandatory in preparation and later admitted C2 consumption. */
+ function governanceReacquisitionRequestMatches(prefix: RuntimeEventPrefix, execution: ExecutionBasis,
+-  request: NativeWorksiteCommandReacquisitionRequest): boolean {
++  request: NativeWorksiteCommandReacquisitionRequest, refusal?: GovernanceTestingRefusal): boolean {
+   const state = execution.rawInputValue;
+   if (!isGovernanceWorkState(state) || state.terminal || state.synthesis?.judgment.nextGraphFunctionRef !== governanceRef("graph-function", "testing") ||
+       !same(state.original.readRoots, request.currentContext.readRoots) || state.original.maxContextFiles !== request.currentContext.maxFiles ||
+-      state.original.maxContextBytes !== request.currentContext.maxBytes) return false;
++      state.original.maxContextBytes !== request.currentContext.maxBytes) {
++    refused(refusal, "native_occurrence_state", "selection_context", { basisRef: execution.basisRef }); return false;
++  }
+   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
+   const source = projectNativeWorkspaceWorkSourceAtPrefix(prefix, request.sourceNativeWork);
+   const payload = source?.sourceResult.payload;
+-  if (invocation === null || source === null || !hasAdmittedGovernanceSourceUse(invocation, source.sourceResult) ||
+-      !hasAdmittedGovernanceCoveredSourceUse(prefix, invocation, source.sourceBasis) || !record(payload) ||
++  if (invocation === null || source === null) { refused(refusal, "native_occurrence_source", "invocation_source", { basisRef: execution.basisRef }); return false; }
++  if (!hasAdmittedGovernanceSourceUse(invocation, source.sourceResult)) { refused(refusal, "native_occurrence_source", "source_use", { sourceResultEventRef: source.sourceResult.eventId }); return false; }
++  if (!hasAdmittedGovernanceCoveredSourceUse(prefix, invocation, source.sourceBasis)) { refused(refusal, "native_occurrence_source", "covered_current_use", { sourceBasisRef: source.sourceBasis.basisRef }); return false; }
++  if (!record(payload) ||
+       payload.resultRef !== state.synthesis.judgment.subjectEvidenceRef ||
+       state.observations.filter(o => o.resultRef === payload.resultRef && o.resultDigest === payload.resultDigest &&
+         o.cCallRef === source.sourceResult.aggregateId && o.actorInvocationRef === request.sourceNativeWork.provenance.actorInvocationRef).length !== 1 ||
+       request.source.graphCallRef !== source.sourceResult.graphCallId || request.source.declarationReference === undefined ||
+-      !same(request.source.declarationReference, governanceHistoricalDeclarationReferenceAtPrefix(prefix, invocation, source.sourceBasis))) return false;
++      !same(request.source.declarationReference, governanceHistoricalDeclarationReferenceAtPrefix(prefix, invocation, source.sourceBasis))) {
++    refused(refusal, "native_occurrence_source", "selected_producer_declaration", { sourceResultEventRef: source.sourceResult.eventId }); return false;
++  }
+   const subjects = request.selectedSources.map(s => constructWorksiteSubject({ ...request, ...s }));
+-  if (subjects.some(s => s.kind !== "worksite_subject")) return false;
+-  return same(state.original.testing.selectedPaths, request.selectedSources.map(s => s.relativePath)) &&
++  if (subjects.some(s => s.kind !== "worksite_subject")) { refused(refusal, "native_occurrence_subjects", "subject_construction"); return false; }
++  const matches = same(state.original.testing.selectedPaths, request.selectedSources.map(s => s.relativePath)) &&
+     request.selectedSources.every(s => s.subjectUri === pathToFileURL(resolve(request.workspaceAuthorityBasis.canonicalRoot, s.relativePath)).href) &&
+     worksiteCommandConfigurationMatches({ ...governanceTestingConfiguration(state), workspaceAuthorityBasis: request.workspaceAuthorityBasis,
+       workspaceBinding: request.workspaceBinding, protectedSubjects: subjects.filter(s => s.kind === "worksite_subject") },
+       constructWorksiteCommandConfiguration({ ...request, protectedSubjects: subjects.filter(s => s.kind === "worksite_subject"),
+         outcomePredicates: request.outcomePredicates ?? [] }));
++  if (!matches) refused(refusal, "native_occurrence_subjects", "paths_command_configuration");
++  return matches;
+ }
+ 
+ /** Private invoking-owner operation for the existing prepare-testing F_D leaf.
+  * The explicit resource is resolved before any retained establishment facts. */
+ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructionAssemblyBasis, input: unknown,
+-  context: WorksiteContextObservation, historicalSource?: AbgHistoricalGraphCallSourceResource): NativeWorksiteCommandExecutionTask | null {
++  context: WorksiteContextObservation, historicalSource?: AbgHistoricalGraphCallSourceResource): NativeWorksiteCommandExecutionTask | null;
++/** @internal Call-local first refusal through the same preparation owner. */
++export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructionAssemblyBasis, input: unknown,
++  context: WorksiteContextObservation, historicalSource: AbgHistoricalGraphCallSourceResource | undefined,
++  refusal: GovernanceTestingRefusal | undefined): NativeWorksiteCommandExecutionTask | null;
++export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructionAssemblyBasis, input: unknown,
++  context: WorksiteContextObservation, historicalSource?: AbgHistoricalGraphCallSourceResource,
++  refusal?: GovernanceTestingRefusal): NativeWorksiteCommandExecutionTask | null {
++  let stage = "native_preparation_owner";
+   try {
+     const owned = authenticateNativeInstructionAssemblyBasis(basis);
+     if (owned === null || !same(owned.inputValue, input) || !isGovernanceWorkState(input) ||
+-        owned.call.implementationRef !== governanceRef("implementation", "prepare-testing") || historicalSource === undefined ||
+-        !hasUniqueHistoricalDeclarationDependencies(historicalSource)) return null;
++        owned.call.implementationRef !== governanceRef("implementation", "prepare-testing")) return refused(refusal, stage, "assembly_input_implementation");
++    stage = "native_historical_declaration";
++    if (historicalSource === undefined) return refused(refusal, stage, "resource_absent");
++    if (!hasUniqueHistoricalDeclarationDependencies(historicalSource)) return refused(refusal, stage, "dependency_population");
++    stage = "native_selected_result";
+     const selected = input.synthesis?.judgment.subjectEvidenceRef;
+     const rows = indexedRuntimeEvents(owned.prefix, "payload:resultRef:" + selected).filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
+       e.payload.resultRef === selected && e.payload.resultClass === "success");
+-    if (rows.length !== 1 || !record(rows[0]!.payload)) return null;
++    if (rows.length !== 1 || !record(rows[0]!.payload)) return refused(refusal, stage, "successful_result_population", { resultRef: selected ?? null });
+     const value = rows[0]!.payload.value;
+-    if (!isNativeWorkspaceWorkObservation(value) || value.task.assessment !== undefined) return null;
++    if (!isNativeWorkspaceWorkObservation(value) || value.task.assessment !== undefined) return refused(refusal, stage, "native_work_value", { resultRef: selected ?? null });
++    stage = "native_preparation_source";
+     const source = projectNativeWorkspaceWorkSourceAtPrefix(owned.prefix, value);
+     const invocation = projectExactInvocationAdmissionAtPrefix(owned.prefix, owned.execution.invocationAdmissionRef);
+-    if (source === null || invocation === null || invocation.capabilityGrants.length !== 1 || owned.environment.kind !== "exact_prefix_workspace_environment") return null;
++    if (source === null || invocation === null || invocation.capabilityGrants.length !== 1 || owned.environment.kind !== "exact_prefix_workspace_environment") return refused(refusal, stage, "source_invocation_environment", { resultRef: selected ?? null });
+     const environment = owned.environment;
++    stage = "native_historical_declaration";
+     const reference = governanceHistoricalDeclarationReferenceAtPrefix(owned.prefix, invocation, source.sourceBasis);
+-    if (reference === null) return null;
++    if (reference === null) return refused(refusal, stage, "reference_projection", { sourceBasisRef: source.sourceBasis.basisRef });
++    stage = "native_request_construction";
+     const request = constructNativeWorksiteCommandReacquisitionRequest({
+       workspaceAuthorityBasis: environment.workspaceAuthorityBasis, workspaceBinding: environment.workspaceBinding,
+       capabilityGrant: invocation.capabilityGrants[0]!, sourceNativeWork: value as NativeWorksiteCommandExecutionTask["sourceNativeWork"], currentContext: context,
+@@ -194,10 +240,12 @@
+         subjectUri: pathToFileURL(resolve(environment.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
+       ...governanceTestingConfiguration(input) });
+     const nativeBasis = { predecessorPrefix: basis.predecessorPrefix, cCallRef: owned.call.cCallRef };
++    stage = "native_historical_declaration";
+     const declaration = declarationProofFor(request, historicalSource);
+-    if (declaration === null) return null;
+-    return deriveAuthenticatedNativeWorkReacquisition(nativeBasis, request, owned.prefix, declaration)?.task ?? null;
+-  } catch { return null; }
++    if (declaration === null) return refused(refusal, stage, "exact_reference_resolution", { sourceBasisRef: source.sourceBasis.basisRef });
++    stage = "native_task_derivation";
++    return deriveAuthenticatedNativeWorkReacquisition(nativeBasis, request, owned.prefix, declaration, refusal)?.task ?? null;
++  } catch (error) { return refused(refusal, stage, "caught", {}, error); }
+ }
+ 
+ /** Admission matching borrows already authenticated declarations through the
+@@ -219,12 +267,14 @@
+   } catch { return false; }
+ }
+ function deriveAuthenticatedNativeWorkReacquisition(basis: NativeWorkReacquisitionBasis, input: NativeWorksiteCommandReacquisitionRequest,
+-  prefix: RuntimeEventPrefix, declarationProof: AbgHistoricalDeclarationProof) {
+-  const occurrence = projectNativeWorkReacquisitionOccurrence(basis, input, prefix);
+-  if (occurrence === null || projectCCallCarrierPhaseAtPrefix(prefix, occurrence.call)?.phase !== "selected_no_evidence") return null;
+-  const derived = deriveNativeWorkReacquisitionTask(basis.predecessorPrefix, prefix, input, basis, declarationProof);
+-  return derived !== null && derived.source.sourceResult.runId !== occurrence.call.runId
+-    ? { ...occurrence, task: derived.task } : null;
++  prefix: RuntimeEventPrefix, declarationProof: AbgHistoricalDeclarationProof, refusal?: GovernanceTestingRefusal) {
++  const occurrence = projectNativeWorkReacquisitionOccurrence(basis, input, prefix, refusal);
++  if (occurrence === null) return null;
++  if (projectCCallCarrierPhaseAtPrefix(prefix, occurrence.call)?.phase !== "selected_no_evidence") return refused(refusal, "native_occurrence_phase", "selected_no_evidence", { cCallRef: occurrence.call.cCallRef });
++  const derived = deriveNativeWorkReacquisitionTask(basis.predecessorPrefix, prefix, input, basis, declarationProof, refusal);
++  if (derived === null) return null;
++  if (derived.source.sourceResult.runId === occurrence.call.runId) return refused(refusal, "native_source_run", "historical_run", { sourceResultEventRef: derived.source.sourceResult.eventId });
++  return { ...occurrence, task: derived.task };
+ }
+ /** Read-only existing physical observation owner; all read-scope files, not just C2 sources. */
+ export async function nativeWorkReacquisitionContextCurrent(request: NativeWorksiteCommandReacquisitionRequest): Promise<boolean> {
+--- a/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ b/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -344,6 +344,23 @@
+ or reacquisition refuses. The explicit null-source observed-files arm is
+ unchanged. Missing/foreign preparation, changed context, uncovered authority,
+ later writes/failure residue and crossed Result/digest/call identities refuse.
++
++The nullable Testing preparation retains its first refusing owner relation in
++the existing `missing-owned-prepare-testing` diagnostic class. A call-local,
++nonserialized callback follows the same owner/context/subject and native
++historical-declaration/closed-source/current-use/occurrence/task checks. It
++distinguishes an absent assembly basis or proof operation, an entered operation
++that refused, and an error caught by an already nullable native owner. It grants
++no operation and changes no guard or successful task. The existing diagnostic
++owner retains only stage/relation, implementation/input digest, occurrence and
++relevant scalar source/context/declaration selectors, plus safely classified
++caught class/code; bodies, Errors, stacks and arbitrary getters are excluded.
++The first specific refusal wins over an enclosing null. The normal
++`governance_failure` value and its deterministic output digest use that exact
++diagnostic ref. Opaque historical diagnostics remain readable. This evidence
++does not identify an earlier unobserved inner guard, establish no physical
++effects, or authorize a retry.
++
+ UAT retains separate current candidate/rubric/schema acquisition, unchanged full
+ criteria and independent assessor identity. Historical measurement is neither
+ authorship nor current success. Historical observations/UNMET judgments and
+--- a/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md
++++ b/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md
+@@ -142,6 +142,13 @@
+ Legacy opaque diagnostics remain readable. Neither a null F_D receipt nor this
+ diagnostic asserts undispatched work or absence of physical effects; it supplies
+ the next failure discriminator, not permission to retry or a functional repair.
++
++A normal nullable library Testing refusal uses that same retained-subject owner
++without becoming an F_D exception. Its first owner relation and bounded scalar
++selectors flow through the existing private proof operation; native errors
++already caught as null retain their stage and safe class/code. Success, guard
++order and receipt/effect uncertainty stay unchanged. The failed candidate and
++deterministic evidence agree on the replaced diagnostic's bytes.
+ 
+ ## Event Effects, Inertia And Validity
+ 
+--- a/test_env/tests/t287-runtime-failure-diagnostic.test.mjs
++++ b/test_env/tests/t287-runtime-failure-diagnostic.test.mjs
+@@ -322,6 +322,31 @@
+   t.diagnostic('Controlled basis/frame/replay premises; actual F_D boundary, durable failure admission and cold/Public diagnostic projection. No installed Testing/effect/currentness credit.');
+ });
+ 
++test('normal nullable Testing diagnostic agrees with its evidence and survives admitted cold/Public failure readback', async t => {
++  const library=await sourceOwner('implementation/default_library'),failureOwner=await sourceOwner('abg/runtime_failure');
++  const value={taskRef:'task://missing-testing-basis'},occurrence={cCallRef:'c-call://missing-testing-basis',runId:'run://diagnostic',graphCallId:'graph-call://diagnostic',frameId:'frame://diagnostic',programLocusRef:'locus://prepare-testing',taskOrdinal:null,attempt:1};
++  const candidate=await library.prepareObservedTestingTask(value,occurrence),subject=failureOwner.readRuntimeFailureDiagnosticSubject(candidate.diagnosticRef);
++  assert.equal(candidate.disposition,'failure');assert.equal(candidate.resultCandidate.kind,'governance_failure');
++  assert.equal(candidate.resultCandidate.diagnosticRef,candidate.diagnosticRef);
++  assert.equal(candidate.evidenceCandidates[0].outputDigest,hash(candidate.resultCandidate));
++  assert.equal(candidate.evidenceCandidates[0].inputDigest,hash(value));
++  assert.equal(subject.stage,'testing_basis');assert.equal(subject.relation,'assembly_basis_absent');
++  assert.equal(subject.inputDigest,hash(value));assert.equal(subject.occurrence.cCallRef,occurrence.cCallRef);
++  const f=await fixture(t),admittedInput={...f.input(),subject,diagnosticRef:candidate.diagnosticRef},count=f.store.readAll().length;
++  assert.throws(()=>f.owner.admitRuntimeFailure({...admittedInput,subject:{...subject,relation:'assembly_authentication'}}),/retained subject digest/);
++  assert.equal(f.store.readAll().length,count);
++  const admitted=f.owner.admitRuntimeFailure(admittedInput),handoff=f.store.projectReopenAuthorityAndClose();
++  const cold=prefixes.selectValidatedRuntimeEventPrefix(events.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(handoff.prefix))),{runId:f.scope.runId});
++  const evidence=failureOwner.projectRuntimeFailureEvidenceAtPrefix(cold);
++  assert.equal(evidence[0].availability,'retained');assert.deepEqual(evidence[0].subject,subject);assert.equal(evidence[0].subjectDigest,hash(subject));
++  assert.equal(evidence[0].failureRef,admitted.admission.failureRef);
++  const adapter=await sourceOwner('abg/project_read_definition_bindings',{},['evidenceProjection']);
++  const projected=adapter.evidenceProjection('run_evidence',{source:{sourceRef:f.scope.runId,sourceDigest:hash('run')}},{replayRef:'replay://diagnostic',replayDigest:hash('replay'),evidenceRefs:[],eventAtoms:[],runtimeFailures:evidence});
++  const decoded=JSON.parse(decodeURIComponent(projected.evidence[0].ref.split(',').slice(1).join(',')));
++  assert.deepEqual(decoded.subject,subject);assert.equal(projected.evidence[0].digest,hash(decoded));
++  t.diagnostic('Actual normal governance-failure diagnostic, evidence digest, durable failure admission and cold/Public readback; controlled basis/frame/replay lower premises. No installed Testing/functional-first-cause or no-effects claim.');
++});
++
+ test('successful deterministic returns and legacy opaque failure totalization remain unchanged', async () => {
+   const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']), failureOwner = await sourceOwner('abg/runtime_failure');
+   const input = deterministicBoundaryInput(), resultCandidate = { kind: 'diagnostic_success', schemaVersion: '5.0.0', answer: 42 };
+--- a/test_env/tests/t287-native-work-reacquisition.test.mjs
++++ b/test_env/tests/t287-native-work-reacquisition.test.mjs
+@@ -18,6 +18,7 @@
+ import { constructAbgHistoricalDeclarationReference } from '../../build/code/src/abg/terminal_result_contracts.js';
+ import { runtimeEventPhysicalPrefix, ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store.js';
+ import { deepFreeze } from '../../build/code/src/shared/immutable.js';
++import { readRuntimeFailureDiagnosticSubject } from '../../build/code/src/abg/runtime_failure.js';
+ import { loadWorksiteOwner, worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
+ const hash=p.sha256Canonical, ids=p.NATIVE_WORK_REACQUISITION_IDS;
+ const actualRoot=process.env.ABG_NATIVE_REACQUISITION_RETAINED_ROOT;
+@@ -100,7 +101,7 @@
+   const graph=gtl.materializeGraph(gf,{invocationAdmissionRef:basis.invocationAdmissionRef,admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:raw});
+   Object.assign(basis,{graphRef:graph.materializationRef,graphDigest:graph.materializationDigest});
+   const source={sourceBasis:{...env.executionBasis,basisRef:'basis://source'},sourceResult:library?sourceResult:{eventId:'source-result',runId:'run://source',graphCallId:old.graphCallId},sourceJudgment:{eventId:'source-judgment'},sourceClosedEvent:old};
+-  const state={source:true,cover:true,current:true,eligible:true,impl:implementationRef,binding:implementationBindingRef,declarationReads:0,reads:0};
++  const state={source:true,cover:true,current:true,eligible:true,impl:implementationRef,binding:implementationBindingRef,declarationReads:0,reads:0,terminalError:null};
+   const assemblyBasis={predecessorPrefix:nativeBasis.predecessorPrefix,cCall:call};
+   const owned={prefix:heldPrefix,inputValue:raw,call,execution:basis,graphFunction:gf,program:gtl.constructDefaultGovernanceLibraryModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:hash('artifact'),productContentDigest:hash('content'),productManifestDigest:hash('manifest')}).programs[0],
+     environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]}};
+@@ -112,7 +113,7 @@
+       readOwnedRuntimeEventPrefixAtDurablePrefix:(_p,options)=>{state.reads++;if(options?.requireCurrent&&!state.current)throw Error('stale occurrence');return heldPrefix;},
+       indexedRuntimeEvents:(prefix,key)=>key.startsWith('invocation:')?[rootEvent]:prefixOwner.indexedRuntimeEvents(prefix,key)},
+     './event_store.js':{readRuntimeEventsAtDurablePrefix:(_p,options)=>{state.reads++;if(options?.requireCurrent&&!state.current)throw Error('stale occurrence');return before;},authenticateRuntimePrefixAncestry:()=>true,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
+-    './project_read_ports.js':{projectClosedGraphCallTerminalAtDurablePrefix:(_p,_g,proof)=>{state.declarationReads++;return JSON.stringify(proof)===JSON.stringify(declaration)?{value:observation,
++    './project_read_ports.js':{projectClosedGraphCallTerminalAtDurablePrefix:(_p,_g,proof)=>{state.declarationReads++;if(state.terminalError!==null)throw state.terminalError;return JSON.stringify(proof)===JSON.stringify(declaration)?{value:observation,
+       producer:{graphFunction:{ref:p.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef},executionBasis:{ref:source.sourceBasis.basisRef},cCallRef:observation.provenance.cCallRef,resultAdmissionEventRef:source.sourceResult.eventId,judgmentAdmissionEventRef:source.sourceJudgment.eventId}}:null;}},
+     './invocation_execution_truth.js':{projectExactExecutionBasisAtPrefix:(_p,ref)=>ref===basis.basisRef?basis:ref===source.sourceBasis.basisRef?source.sourceBasis:null,
+       projectExactInvocationAdmissionAtPrefix:()=>invocation,
+@@ -245,6 +246,59 @@
+   assert.equal(await f.governance.projectGovernanceTestingTask(carrier,f.raw,context=>actualProof.governanceTestingReacquisition(f.raw,actualOccurrence,context)),null,'physical currentness is reacquired before the operation');
+   t.diagnostic('Canonical GTL leaf/descriptor binding with actual library preparation/matcher and cold F_D Result/J/evidence relations; physical constructors are real. Source/environment/cover/CCall and implementation-set lookups are controlled lower premises, not new native or installed admission.');
+ });
++test('library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards',async t=>{
++  const f=await declarationFixture(t,false,true),carrier={...f.assemblyBasis,graphFunction:gtl.defaultGovernanceGraphFunctions().find(g=>g.name===p.governanceRef('graph-function','testing'))};
++  const occurrence={cCallRef:f.call.cCallRef,nativeInstructionAssemblyBasis:carrier};
++  const proof=resource=>f.leaf.nativeLeafProofOperations(f.call.implementationRef,f.raw,occurrence,resource);
++  const prepare=(operations=proof(f.resource),selectedOccurrence=occurrence)=>f.libraryImplementation.prepareObservedTestingTask(f.raw,selectedOccurrence,undefined,undefined,operations);
++  const diagnostic=(candidate,stage,relation)=>{
++    assert.equal(candidate.disposition,'failure');assert.equal(candidate.resultCandidate.kind,'governance_failure');
++    assert.equal(candidate.diagnosticRef,candidate.resultCandidate.diagnosticRef);
++    assert.equal(candidate.evidenceCandidates[0].outputDigest,hash(candidate.resultCandidate));
++    assert.equal(candidate.evidenceCandidates[0].inputDigest,hash(f.raw));
++    const subject=readRuntimeFailureDiagnosticSubject(candidate.diagnosticRef);
++    assert.equal(subject.diagnosticClassRef,p.governanceRef('diagnostic','missing-owned-prepare-testing'));
++    assert.equal(subject.stage,stage);assert.equal(subject.relation,relation);
++    assert.equal(subject.implementationRef,f.call.implementationRef);assert.equal(subject.inputDigest,hash(f.raw));
++    assert.equal(subject.occurrence.cCallRef,f.call.cCallRef);assert.ok(Buffer.byteLength(JSON.stringify(subject))<4096);
++    return subject;
++  };
++  const before=JSON.stringify(f.raw),nativeBefore=JSON.stringify(f.request.sourceNativeWork),success=await prepare();
++  assert.equal(success.disposition,'success');assert.deepEqual(success.resultCandidate,f.task);
++  assert.equal(success.evidenceCandidates[0].outputDigest,hash(f.task));
++  const basisAbsent=await prepare(undefined,{cCallRef:f.call.cCallRef});
++  diagnostic(basisAbsent,'testing_basis','assembly_basis_absent');
++  const callbackAbsent=await prepare({});diagnostic(callbackAbsent,'testing_reacquisition','callback_absent');
++  let entered=0;const enteredRefusal=await prepare({governanceTestingReacquisition:()=>{entered++;return null;}});
++  diagnostic(enteredRefusal,'testing_reacquisition','callback_entered_refused');assert.equal(entered,1);
++  const resourceAbsent=await prepare(proof(undefined));diagnostic(resourceAbsent,'native_historical_declaration','resource_absent');
++  const resourceDuplicate=await prepare(proof({...f.resource,declarationDependencies:[f.declaration,f.declaration]}));
++  diagnostic(resourceDuplicate,'native_historical_declaration','dependency_population');
++  f.state.current=false;diagnostic(await prepare(),'testing_owner','assembly_authentication');f.state.current=true;
++  f.state.source=false;diagnostic(await prepare(),'native_preparation_source','source_invocation_environment');f.state.source=true;
++  f.state.eligible=false;diagnostic(await prepare(),'testing_subject','admitted_result_identity');f.state.eligible=true;
++  f.state.cover=false;diagnostic(await prepare(),'testing_subject','covered_current_use');
++  let first;const report=(stage,relation,selectors)=>{first??={stage,relation,selectors};};
++  assert.equal(f.owner.prepareGovernanceNativeWorkReacquisition(carrier,f.raw,f.context,f.resource,report),null);
++  assert.equal(first.stage,'native_occurrence_source');assert.equal(first.relation,'covered_current_use');f.state.cover=true;
++  f.state.binding='binding://foreign';diagnostic(await prepare(),'native_occurrence_materialization','call_set_grant');f.state.binding=f.call.implementationBindingRef;
++  const error=new TypeError('private body must not become diagnostic content');error.code='ENOENT';error.secret=f.raw;
++  f.state.terminalError=error;
++  const caught=diagnostic(await prepare(),'native_closed_source','caught');
++  assert.deepEqual(caught.cause,{errorClass:'TypeError',errorCode:'ENOENT'});
++  assert.ok(!JSON.stringify(caught).includes(error.message));assert.ok(!JSON.stringify(caught).includes('secret'));
++  let proxyReads=0;f.state.terminalError=new Proxy({}, {get:()=>{proxyReads++;throw Error('get');},getPrototypeOf:()=>{proxyReads++;throw Error('prototype');},getOwnPropertyDescriptor:()=>{proxyReads++;throw Error('descriptor');}});
++  assert.deepEqual(diagnostic(await prepare(),'native_closed_source','caught').cause,{errorClass:null,errorCode:null});assert.equal(proxyReads,0);
++  f.state.terminalError=null;
++  const legacy=await f.libraryImplementation.prepareGovernanceNativeTask(f.raw,{cCallRef:f.call.cCallRef});
++  assert.equal(legacy.diagnosticRef,p.governanceRef('diagnostic','missing-owned-prepare-native'));
++  assert.equal(readRuntimeFailureDiagnosticSubject(legacy.diagnosticRef),null);
++  assert.deepEqual((await prepare()).resultCandidate,f.task);
++  assert.equal(JSON.stringify(f.raw),before);assert.equal(JSON.stringify(f.request.sourceNativeWork),nativeBefore);
++  fs.writeFileSync(path.join(f.request.workspaceAuthorityBasis.canonicalRoot,'source.txt'),'changed current bytes');
++  diagnostic(await prepare(),'testing_context','authority_binding_sources');
++  t.diagnostic('Actual library/task/native occurrence/declaration/closed-source code and physical context checks. Synthetic invocation-root plus source/environment/cover/CCall/set/terminal premises are controlled; the entered-refused callback case tests only its handoff contract. No installed Testing/C2, actual first-null or no-effects claim.');
++});
+ let loaded;
+ function actual(){
+   if(loaded)return loaded;

@@ -1,0 +1,81 @@
+{
+  "captured": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/captured-task.json",
+    "sha256": "9ca5cf6dad735e4b278d3b35c50942633e3e5145cb0e8ea139b8231fafb7dd6e",
+    "byteCount": 1943381
+  },
+  "controlled": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/controlled16-task.json",
+    "sha256": "fd47673da391c6e851dabededcf8f48ba7a16ce0832413501b16e02986a0b0b1",
+    "byteCount": 3249661
+  },
+  "oldProjector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/preimages/default_library.ts",
+    "sha256": "14f349f7163d6e5d1b904c5266cbf2eb713963e40c234d78d38cfd7e0de830db",
+    "byteCount": 27833
+  },
+  "eventStore": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e/resources/events/runtime.events.jsonl",
+    "sha256": "829df6998068a8a31d5df08dcb9feaf3e85f8e71e9e4afe6866aaed8c39a2470",
+    "byteCount": 736381060
+  },
+  "owners": [
+    {
+      "ordinal": 39886,
+      "offset": 154084066,
+      "byteLength": 4122494,
+      "sha256": "e0f819fa653177ec0dba8b57adf9271aaee41f998a4efba14fb477af0242f191",
+      "resultRef": "result://abiogenesis/f5c713aaabd3895d9794059d5fcebba406165b95b63e8ab52ace8ee451890c08",
+      "resultDigest": "sha256:f5c713aaabd3895d9794059d5fcebba406165b95b63e8ab52ace8ee451890c08"
+    },
+    {
+      "ordinal": 69758,
+      "offset": 296566130,
+      "byteLength": 1791907,
+      "sha256": "9a1eec38dd3016c6dc40c7062b811fb8547f6459c0871f4e688c80adef455cce",
+      "resultRef": "result://abiogenesis/b53da6990fcf4db1e3156009b03e931ae78fdec8077caccd94a347612df5a68c",
+      "resultDigest": "sha256:b53da6990fcf4db1e3156009b03e931ae78fdec8077caccd94a347612df5a68c"
+    },
+    {
+      "ordinal": 91226,
+      "offset": 408046747,
+      "byteLength": 4969520,
+      "sha256": "86337e1210f2957609963f0b8d06823ac39ba8261671354e69d57273db311edd",
+      "resultRef": "result://abiogenesis/e55c55e4866537df1e5955e404ccf81fffe1006832636cee6d2a85f6fe1b4522",
+      "resultDigest": "sha256:e55c55e4866537df1e5955e404ccf81fffe1006832636cee6d2a85f6fe1b4522"
+    },
+    {
+      "ordinal": 97369,
+      "offset": 466048946,
+      "byteLength": 5146300,
+      "sha256": "c62c1184788b2a023a680fef3f37185b733f17b5040740c6fe35e68db406ac85",
+      "resultRef": "result://abiogenesis/ea687a5b5bca03fc3a1006fce9574f17be8c6130fbbbfd508174da0c6bd4326a",
+      "resultDigest": "sha256:ea687a5b5bca03fc3a1006fce9574f17be8c6130fbbbfd508174da0c6bd4326a"
+    },
+    {
+      "ordinal": 109447,
+      "offset": 547520904,
+      "byteLength": 5302886,
+      "sha256": "2f86b89e18ef88f4b4688eac84760fec7faac1685b9df51fe8d941b12010f648",
+      "resultRef": "result://abiogenesis/feb4d6ad3cabd54e2e23f8d6aee489f1879f21efc74a730ff6828a42071b62bd",
+      "resultDigest": "sha256:feb4d6ad3cabd54e2e23f8d6aee489f1879f21efc74a730ff6828a42071b62bd"
+    },
+    {
+      "ordinal": 120960,
+      "offset": 631478257,
+      "byteLength": 5409223,
+      "sha256": "020e1ee5f6bd9901932875e3f7f57a505b2cc874ac66abb3503232e61380b1ec",
+      "resultRef": "result://abiogenesis/61f9aa4bf232f4a07f62638557d2f679088d3379a8a76efc201eef3d6adc0e75",
+      "resultDigest": "sha256:61f9aa4bf232f4a07f62638557d2f679088d3379a8a76efc201eef3d6adc0e75"
+    },
+    {
+      "ordinal": 133236,
+      "offset": 721112044,
+      "byteLength": 5533079,
+      "sha256": "93d8297de54e4c28e7c9c5c4e5212a6d0972d368864d65fa61ccea62c9abb0ab",
+      "resultRef": "result://abiogenesis/225c5bdab811dd8f932a9756675f11cb716e87344349009883cd9a43e6b81c60",
+      "resultDigest": "sha256:225c5bdab811dd8f932a9756675f11cb716e87344349009883cd9a43e6b81c60"
+    }
+  ],
+  "claim": "Captured mechanical counterexample and synthetic scale; controlled authentication, no native dispatch"
+}

@@ -1,0 +1,62 @@
+{
+  "preparedAt": "2026-10-06T15:59:21.788Z",
+  "role": "Writer/Operator14 PREPARATION ONLY",
+  "nativeExecutionReleased": false,
+  "parent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-13.json",
+    "sha256": "099050b5a7d3db3fba140fd1aca97c2daca39e82ac248dc3bcb78a1aedcfba7d",
+    "byteCount": 2328
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-14.json",
+    "sha256": "faed4f323de6a9979102d89d193744e07333dbdf6f9b339ad4dd0c4ea754d4c9",
+    "byteCount": 2329,
+    "changedFields": [
+      "provider.maxTurns"
+    ],
+    "allOtherFieldsDeepEqual": true,
+    "supportedConfigurationAccepted": true
+  },
+  "example": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+    "preimageSha256": "0a6ce2e4ede12ac90ea3230036cf5b4e1306fc80050589fd655be665d4c0d61d",
+    "preimageByteCount": 1849,
+    "postimageSha256": "4e706d1b127667780543a7a33e4ae0516f2a3abcfc3cc304f29aacbc9c6b20f6",
+    "postimageByteCount": 1850,
+    "changedFields": [
+      "provider.maxTurns"
+    ],
+    "allOtherFieldsDeepEqual": true,
+    "allOtherBytesExact": true
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "dd5e5b164af8198997b45d5575fc7febd43b4b9fcabc46073bdf8ffc7ce5904f",
+    "byteCount": 10621478
+  },
+  "limits": {
+    "model": "claude-opus-5-5",
+    "maxTurns": 100,
+    "maxBudgetUsd": 5,
+    "inactivityTimeoutMs": 900000,
+    "absoluteTimeoutMs": 1200000,
+    "processTimeoutMs": 3600000,
+    "recursionBound": 12,
+    "recorderTimeoutMs": 4200000,
+    "recorderMaxOutputBytes": 1048576
+  },
+  "command": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "run",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-14.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "ownerInstruction": "Continuation should depend on churn versus incremental progress; Root resolving governing Evaluation/5.1 boundary. No new runtime rule selected by this preparation.",
+  "stop": "Native execution HELD until separate Root release; any selected pin/config concern returns to Root."
+}

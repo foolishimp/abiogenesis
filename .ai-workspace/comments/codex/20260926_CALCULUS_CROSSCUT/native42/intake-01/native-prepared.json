@@ -1,0 +1,102 @@
+{
+  "kind": "odd_glc_full_sandbox_prepared",
+  "schemaVersion": "3",
+  "key": "bootstrap-native-d2-intake",
+  "scenarioId": "SCN-GLC-HELLO-WORLD-JS-SDLC-BOOTSTRAP",
+  "status": "prepared_not_live_qualified",
+  "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/intake-01",
+  "setupRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation",
+  "workspaceRoot": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap",
+  "freshNative": true,
+  "maximumActorOccurrences": 1,
+  "abiRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation/products/core42/node_modules/@abiogenesis/typescript-tenant",
+  "consumerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation/products/dev16/node_modules/@odd-glc/route-one-typescript",
+  "cliPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation/products/core42/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "launchPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/intake-01/intake-start.jsonl",
+  "launchDigest": "sha256:41226c24d8d0b71283c32c8c6575d33eff8751d027ff97f44cfad0cd7839c001",
+  "ordinal": 3001,
+  "inputDigest": "sha256:222de164582173a9362043777f94af8ddd14c76ea2ef770c2336a5dbf296d803",
+  "setupPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "prefixLength": 435560254,
+    "prefixDigest": "sha256:c7fbd724b7431b576d1cf7ca203a9fb8a275a1ee1eea9def662c18d42ca6f641",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 459405010,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+    },
+    "coordinateDigest": "sha256:d3362624e6ffe6755bd10f480270815d6188ea31aa28184ddb46a990c0b8ad30"
+  },
+  "abiArtifact": {
+    "artifactDigest": "sha256:53526cfcfa4c5cff3fb5837924e3aa2c7d1ef85cdf9402905072b18affc5706c",
+    "productContentDigest": "sha256:ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8",
+    "manifestDigest": "sha256:d6b84331ed4d8d1d00aecdf255033df8804eb4e09469cb33abc469593f825fdd",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "oddGlcArtifact": {
+    "packageName": "@odd-glc/route-one-typescript",
+    "packageVersion": "0.2.0-dev.16",
+    "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+    "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+    "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+    "graphFunctionRef": "graph-function://odd-glc/generic-lifecycle-witness@5",
+    "graphRef": "graph://odd-glc/generic-lifecycle-witness@5",
+    "startRef": "start://odd-glc/generic-lifecycle-witness@5",
+    "closureContractRef": "contract://odd-glc/generic-lifecycle-witness/closure@5",
+    "descriptorRef": "descriptor://odd_glc/route-one-typescript@0.2.0-dev.16",
+    "contributionManifestRef": "contribution-manifest://odd_glc/route-one-typescript@0.2.0-dev.16",
+    "catalogRef": "catalog://odd_glc/public-contracts@0.2.0-dev.16",
+    "provenanceRef": "provenance://odd_glc/route-one-typescript@0.2.0-dev.16",
+    "sourceDeclarationRef": "declaration://odd-glc/generic-lifecycle/source@5",
+    "sourceGraphFunctionRef": "graph-function://odd-glc/generic-lifecycle/source@5",
+    "sourceModuleRef": "module://odd-glc/generic-lifecycle-source-setup@5",
+    "sourceProgramRef": "program://odd-glc/generic-lifecycle-source-setup@5",
+    "sourceClosureContractRef": "contract://odd-glc/generic-lifecycle/source/closure@5",
+    "lifecycleDeclarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+    "artifactDigest": "sha256:3ca34c270eff38076c6b005559b67ced6dcc88bf87d99d9bc7d5887b118c7d8e",
+    "productContentDigest": "sha256:279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380",
+    "manifestDigest": "sha256:35372ceb02644d77c936cb4ba1f89c9a328e23d6ea9bec1d8fc520dfef2d1226"
+  },
+  "transport": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "12"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:51050fef1e4a879e1ca851cdfefa9b50fed352647037f08fef95405c3edc6803"
+  },
+  "readbackMs": 600000,
+  "lifecycle": {
+    "declarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+    "declarationDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+    "stageRefs": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "programRef": "program://odd-glc/native-semantic-revision/intake@5",
+    "programDigest": "sha256:f2e1a844963bdc34e59194d01b8448a6eb35ba68cb4b1065dff549d7f13f2545",
+    "actorLeafCount": 1
+  },
+  "boundary": "One native intake after genuine original-public-root binding reprice; original source Run/prefix unchanged. Only actual returned selectionChoice may choose one published whole correction suffix."
+}

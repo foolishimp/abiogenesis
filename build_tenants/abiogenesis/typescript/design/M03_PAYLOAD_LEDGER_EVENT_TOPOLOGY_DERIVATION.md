@@ -47,6 +47,28 @@ Payload bodies may be large and external. The event stream preserves their
 envelope, digest, contract identity, provenance, runtime binding, authority
 binding, and admission result.
 
+### Native definition material in durable event rows
+
+The existing EventStore body codec may share one exact immutable definition
+bundle from a native instruction assembly in an
+`actor_transport_binding_admitted` event. The known slot is
+`payload.instructionAssembly.envelope.nativeBasis`: its present `publication`,
+`assessmentPublication`, `lifecyclePublication`, `sourcePublication`,
+`declarationGraphFunctions`, and `graphFunction` fields. Per-call graph, execution
+basis, cursor, input, plan, prompt and prefix coordinates remain outside that
+bundle. The codec does not search arbitrary JSON paths.
+
+Physical codec version 2 may omit those fields and reference an earlier exact,
+physically inline native-definition bundle in the same authenticated stream.
+The existing coordinate table separates this typed slot from input/Result
+values; there is no additional ledger or cache authority. The extraction owner
+serves encoding and durable selected-body acquisition. Decode restores every
+present definition field before ordinary Event and native-assembly validation,
+preserving complete logical values, envelope/payload/prompt/schema/plan digests,
+source identity and inspectable material. Missing, forward, foreign-slot or
+changed-source references refuse. Raw rows and existing codec version 1 retain
+their exact meaning, including input/Result cross-slot sharing.
+
 ## Target Source Fact Families
 
 T-095 introduces these source fact families inside existing M03 runtime

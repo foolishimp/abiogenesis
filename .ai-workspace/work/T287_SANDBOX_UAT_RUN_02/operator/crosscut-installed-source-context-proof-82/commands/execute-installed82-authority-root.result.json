@@ -1,0 +1,24 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--input-type=module",
+    "--eval",
+    "import {pathToFileURL} from 'node:url'; const {execute}=await import(pathToFileURL(process.argv[2])); console.log(JSON.stringify(await execute(process.argv[1])));",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver-authority-root.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82",
+  "started": "2026-10-08T08:02:18.059Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 37912.000541,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "",
+  "stderr": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   'testing',\n-   'construction',\n-   'testing',\n-   'uat'\n- ]\n\n    at execute (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver-authority-root.mjs:103:10)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/[eval1]:1:130 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [],\n  expected: [ 'testing', 'construction', 'testing', 'uat' ],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.7.0\n"
+}

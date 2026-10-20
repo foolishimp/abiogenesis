@@ -1,0 +1,79 @@
+{
+  "operation": "T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+  "firstActualPayloadFailure": "manifest",
+  "ownerPredicate": "RegExp flags are not supported by JSON Schema.",
+  "fullActualStderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/manifest.stderr",
+    "bytes": 2660,
+    "sha256": "0fa1145c6de0d9bd67ba644fd897bc8223bd38ed96e843e7afb2c1ccdcb621cc"
+  },
+  "exactExcerpt": [
+    "Error: RegExp flags are not supported by JSON Schema.",
+    "    at handleError (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:46:18)",
+    "    at convertAction (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:302:44)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:373:24)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:394:23)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:460:17)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)",
+    "    at toJsonSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:580:21)"
+  ],
+  "originatingRelation": {
+    "route": "MODULE_PUBLICATION_SCHEMA -> optional STDO_RUN_ENVIRONMENT_SCHEMA -> existing converter",
+    "owner": "gtl/stdo_run_environment.ts",
+    "regexLines": [
+      18,
+      24
+    ],
+    "unsupportedInputs": [
+      "/^sha256:[a-f0-9]{64}$/u",
+      "/^[a-f0-9]{40}$/u"
+    ],
+    "canonicalCoreScalarCorrection": "nonblankSchema and digestSchema now reused unchanged; no flagged scalar regex remains in structural owner"
+  },
+  "boundedRemainingProjectionUnknown": {
+    "ownerLine": 20,
+    "relativePath": "unnamed v.check predicate rejecting absolute/dot/empty segments",
+    "foundationRoute": "shared/public_function_contracts.ts projectStrictJsonSchema: overrideAction supports finite, unique_items and rfc3339_instant",
+    "actualExecution": "not reached/proven; static dependency observation only"
+  },
+  "frames": {
+    "Product": "actual complete ModulePublication/native/admission/schema correspondence unchanged",
+    "Design": "canonical owner reuse required; optional environment content cannot be omitted",
+    "Integration": "reused legacy subowner carries unprojectable primitive/check actions",
+    "Identity": "actual immutable tools and foundation unchanged; Source14 preimages conserved",
+    "Effects": "one Source scalar-owner edit plus two supervised owned-stage attempts; no pack/test/Runtime",
+    "Proof": "actual scalar import/Source compile passes; recursive schema publication stops; native/roundtrip/corpus/packed proof unknown",
+    "Cost": "two child groups reaped/absent, finite defaults"
+  },
+  "causalCone": "optional STDO environment structural owner, its named scalar/path semantics, current complete ModulePublication/schema family -> manifest/API/native closure/corpus/extracted consumer",
+  "missedPreparationCheck": "original core preparation checked the new recursive/schema shape but did not inspect all reused optional subowner schema actions for converter compatibility",
+  "responsibleOwner": "existing gtl/stdo_run_environment and existing schema projection/foundation integration",
+  "smallestProposedReentry": "Root selects the existing subowner/projection relation under unchanged adopted core, including flagged digest/tag and relativePath/check semantics together; current Worker has no Source extension",
+  "autonomousRepair": false,
+  "retry": false,
+  "omittedOptionalContent": false,
+  "newMechanism": false,
+  "readPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "byteCount": 24891,
+      "sha256": "c4d683191cdf1fd8e035488c44fe1ad6fa4f38cd878e6d77dfbe5b89f6e16932",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "byteCount": 26073,
+      "sha256": "386dcd58bfd7b0db94aab9c6f1ef3526a17e760b708e442e13c8522ec0f280f7",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "byteCount": 49057,
+      "sha256": "5ab823b9e010d1b57624020b1ea3d1e515bea7c845d123a7e49b26e40e7298aa",
+      "mode": "0o644"
+    }
+  ]
+}

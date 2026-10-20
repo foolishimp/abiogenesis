@@ -1,0 +1,52 @@
+{
+  "scope": "Decoded exact ordinary Public run_evidence data payload; original response unchanged",
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/read-run_evidence.json",
+  "bodies": [
+    {
+      "coordinate": {
+        "digest": "sha256:a9a56d50e26885de62896d9a65aca6288e8aada9b2302393d0413e0877c29ed4",
+        "refKind": "data:application/json;charset=utf-8"
+      },
+      "decodedBytes": 4210,
+      "sha256": "a9a56d50e26885de62896d9a65aca6288e8aada9b2302393d0413e0877c29ed4",
+      "value": {
+        "admissionEventDigest": "sha256:b1e2c04a0a8ff21760c76161744c54105c4619378baa8e7dea5efc1a648bb1c6",
+        "admissionEventRef": "event://abiogenesis/2e5a49b2e553aea9478aa4722809fb6a42c8d3105fbd4078ecc5cd90da87b2ba",
+        "availability": "retained",
+        "basisId": "execution-basis://abiogenesis/5684e8ba213130c3dafafd76d372d39aaba499e59441a6ac15476e389b14ea68",
+        "cCallRef": "c-call:sha256:518383f0de67d59cec569755dbcc6eebf103bc6047775f3694f8174272f852cb",
+        "causationEventRefs": [
+          "event://abiogenesis/173ad1f8d3281f9eb9342ba1e0ca5d25bb4465404615cd1160426236020d6b1c"
+        ],
+        "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+        "errorClass": "TypeError",
+        "errorCode": null,
+        "evidenceDigest": "sha256:712fd0a6814adeae73253e3031645d9b61429082470e58e1c62bcf0ab459ddb5",
+        "evidenceRef": "evidence://abiogenesis/712fd0a6814adeae73253e3031645d9b61429082470e58e1c62bcf0ab459ddb5",
+        "failureClass": "implementation_exception",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "frameId": "frame://abiogenesis/2c359960fb50216215e84b14a5c424dd66bb8328ae2d553fb59200d846be198b",
+        "graphCallId": "graph-call://abiogenesis/66ddd845bb5d26d3aea3232a814df5cc49840ac6fc2a2e8ab018ffa63b257f2e",
+        "inputDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185",
+        "kind": "undispatched_owner_failure_evidence",
+        "outputDigest": "sha256:bafe2e50f3dab9b39e892fb5a80cc32dc286d23e4684243e880d2e3ed345129c",
+        "reason": "thrown",
+        "runId": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116",
+        "schemaVersion": "5.0.0",
+        "stage": "preparation",
+        "subject": {
+          "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+          "errorClass": "TypeError",
+          "errorCode": null,
+          "message": "{\"cause\":\"declared_bound_overflow\",\"kind\":\"native_instruction_assembly_refusal\",\"policy\":\"assembly://odd-glc/generic-lifecycle/design@5\",\"role\":\"author\",\"unresolvedRefs\":[\"maxPromptBytes\"]}",
+          "messageTruncated": false,
+          "reason": "thrown",
+          "stack": "TypeError: {\"cause\":\"declared_bound_overflow\",\"kind\":\"native_instruction_assembly_refusal\",\"policy\":\"assembly://odd-glc/generic-lifecycle/design@5\",\"role\":\"author\",\"unresolvedRefs\":[\"maxPromptBytes\"]}\n    at requireNativeInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/products/core28/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js:514:15)\n    at prepareInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/products/core28/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js:404:19)\n    at actor (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/products/core28/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js:42:133)\n    at realizeSemanticRevisionAuthor (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/products/core28/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js:67:92)\n    at invokeLeafOwnerBoundary (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/products/core28/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:461:32)",
+          "stackTruncated": false,
+          "stage": "preparation"
+        },
+        "subjectDigest": "sha256:1ec4f491ab2f5fa768877d2f1e518e94e5d666e33a71ad6717aec7bf463ccfb6"
+      }
+    }
+  ]
+}

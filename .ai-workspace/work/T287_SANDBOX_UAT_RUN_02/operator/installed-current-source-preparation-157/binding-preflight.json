@@ -1,0 +1,276 @@
+{
+  "classification": "Syntax and exact installed canonical function availability only; no synthetic resource or constructor invocation",
+  "syntax": [
+    {
+      "name": "prepare.mjs",
+      "exitCode": 0
+    },
+    {
+      "name": "execute-preparation.mjs",
+      "exitCode": 0
+    },
+    {
+      "name": "preflight.mjs",
+      "exitCode": 0
+    }
+  ],
+  "availability": [
+    {
+      "binding": "a.acquireAbgEventResource",
+      "available": true
+    },
+    {
+      "binding": "a.closeAbgEventResource",
+      "available": true
+    },
+    {
+      "binding": "a.deriveInvocationSourceResultBasisAtPrefix",
+      "available": true
+    },
+    {
+      "binding": "a.hasAdmittedProductInstall",
+      "available": true
+    },
+    {
+      "binding": "a.projectAdmittedProductInstallByAdmissionEventRef",
+      "available": true
+    },
+    {
+      "binding": "a.projectAdmittedProductInstallByInvocationRef",
+      "available": true
+    },
+    {
+      "binding": "a.projectClosedGraphCallTerminalAtDurablePrefix",
+      "available": true
+    },
+    {
+      "binding": "a.projectOwnedPrefixArtifactTruth",
+      "available": true
+    },
+    {
+      "binding": "a.projectWorkspaceEnvironmentFromArtifactTruth",
+      "available": true
+    },
+    {
+      "binding": "a.readRuntimeEventsAtDurablePrefix",
+      "available": true
+    },
+    {
+      "binding": "a.rehydrateInvocationAdmissionAtPrefix",
+      "available": true
+    },
+    {
+      "binding": "a.selectAcquiredAbgEventResource",
+      "available": true
+    },
+    {
+      "binding": "a.selectHeldEventStoreDurablePrefix",
+      "available": true
+    },
+    {
+      "binding": "a.selectValidatedRuntimeEventPrefix",
+      "available": true
+    },
+    {
+      "binding": "api.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find",
+      "available": true
+    },
+    {
+      "binding": "api.constructInstalledPublicDefinitionCall",
+      "available": true
+    },
+    {
+      "binding": "api.runInstalledDefinitionCallTransport",
+      "available": true
+    },
+    {
+      "binding": "api.runInstalledDefinitionCallWithResource",
+      "available": true
+    },
+    {
+      "binding": "g.constructConsensusModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructDefaultGovernanceLibraryModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructNativeWorkspaceWorkModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructRequirementHandoffModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructSelfConformanceModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructSemanticRevisionModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructSemanticStageModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructWorksiteCommandExecutionModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructWorksiteCommandForwardModulePublication",
+      "available": true
+    },
+    {
+      "binding": "g.constructWorksiteConstructionModulePublication",
+      "available": true
+    },
+    {
+      "binding": "p.CatalogOperationPort.admit",
+      "available": true
+    },
+    {
+      "binding": "p.ProductEnvironmentPort.resolve",
+      "available": true
+    },
+    {
+      "binding": "p.ProductExecutionResolutionPort.resolve",
+      "available": true
+    },
+    {
+      "binding": "p.ProductRunInvocationPort.prepare",
+      "available": true
+    },
+    {
+      "binding": "p.admissionAuthorityScope",
+      "available": true
+    },
+    {
+      "binding": "p.admissionAuthoritySlots",
+      "available": true
+    },
+    {
+      "binding": "p.admissionEnvironmentSelection",
+      "available": true
+    },
+    {
+      "binding": "p.constructCapabilityGrant",
+      "available": true
+    },
+    {
+      "binding": "p.constructInvocationAuthority",
+      "available": true
+    },
+    {
+      "binding": "p.constructRootInvocationPolicy",
+      "available": true
+    },
+    {
+      "binding": "p.constructRunEnvironmentResources",
+      "available": true
+    },
+    {
+      "binding": "p.narrowGraphFunctionCatalog",
+      "available": true
+    },
+    {
+      "binding": "p.productInstallCoordinate",
+      "available": true
+    },
+    {
+      "binding": "p.retainedGovernanceWorkInput",
+      "available": true
+    },
+    {
+      "binding": "p.sha256Canonical",
+      "available": true
+    },
+    {
+      "binding": "readPorts.projectHistoricalGraphCallSourceAtDurablePrefix",
+      "available": true
+    },
+    {
+      "binding": "revision.projectAdmittedWorkspaceBindingAtCoordinate",
+      "available": true
+    },
+    {
+      "binding": "revision.projectWorksiteRevisionBindingCover",
+      "available": true
+    },
+    {
+      "binding": "truth.projectExactExecutionBasisAtPrefix",
+      "available": true
+    },
+    {
+      "binding": "truth.projectGovernanceCoveredSourceUse",
+      "available": true
+    },
+    {
+      "binding": "installedModules",
+      "available": true
+    },
+    {
+      "binding": "requireKind",
+      "available": true
+    },
+    {
+      "binding": "deepFreeze",
+      "available": true
+    }
+  ],
+  "functionCount": 51,
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-157/prepare.mjs",
+    "sha256": "5012e676dc816937130517a001ba4cd2d0fb9c2c6a8dd0ca796a19d078c6ac22",
+    "byteCount": 33186
+  },
+  "canonicalOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/index.js",
+      "sha256": "8cb3d4ef63c94261fe3a4849a31246d6af283eaca807ce12a72348344a9f8439",
+      "byteCount": 10741
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_ports.js",
+      "sha256": "7f76ba05fd279071f9be583064989340acaefdc7add9ec279f816cdf45864fcd",
+      "byteCount": 76942
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worksite_revision.js",
+      "sha256": "0e84e35236675b4c71efaa99507cdd7c0f16bf8560a1c38357434f80e7dc1629",
+      "byteCount": 65097
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_execution_truth.js",
+      "sha256": "3b98483ccfa0000d38963401738ea31dc551e57a3801638378361270a7558389",
+      "byteCount": 31535
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "sha256": "d9ee80f110f679fff03dc01b82824297cd85ecc65ef4b02a144b8018cbcd5fcf",
+      "byteCount": 13347
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+      "sha256": "319fe7afdccb418febaab3d6162726cd528f2e0203136e9ab92ab9ccd875762c",
+      "byteCount": 575
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/immutable.js",
+      "sha256": "b8cc59aa2f8a8ccf6cdfbc9e5ac85c344f0e97604c55fb3f75cb9446daf2d2e7",
+      "byteCount": 608
+    }
+  ],
+  "predecessorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-155/freeze.json",
+    "sha256": "8b52fcfc76ee3e671722458833ed950237ec585960bdfc80c9ba9886f1b25bf3",
+    "byteCount": 10117
+  },
+  "all155PinsMatch": true,
+  "noResourceAcquisition": true,
+  "noPublicEffects": true,
+  "noModel": true
+}

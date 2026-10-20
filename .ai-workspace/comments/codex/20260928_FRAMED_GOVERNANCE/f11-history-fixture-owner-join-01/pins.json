@@ -1,0 +1,67 @@
+{
+  "activation": "T287_F11_HISTORY_FIXTURE_OWNER_JOIN_01",
+  "ownerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+  "readOnlySources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/retained-source-context.json",
+      "bytes": 19272619,
+      "sha256": "831889537928213cf34909ae2e7d500d4fcbb521b790fa7b0d018e2b7f874058"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/runtime-stop/event-prefix.jsonl",
+      "bytes": 3856953,
+      "sha256": "e8147dd35d207590170bea4f4f2018935c6a5c7fc9893cc3f56585e332692667"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 9923,
+      "sha256": "b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 2377071,
+      "sha256": "6ce310675e5129cba002d7ab629e8b5622a3386e331c2f45a115f21510570956"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "bytes": 153728,
+      "sha256": "a24ed9add100155c4bdda60bb60dbb95bcaa99c6f6ea0396c7cfba629babc6b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+      "bytes": 21615,
+      "sha256": "3dee38122b2c97a5f34ec0ac28fea3f776e109c4f25dd573130243980ac7c234"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/artifact_truth.js",
+      "bytes": 25495,
+      "sha256": "749e537b38bc531a5399c9b4d249c200a716376c5e0a04410439b1f186cead3e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/environment_admission.js",
+      "bytes": 35418,
+      "sha256": "fd08169436de8ab2f2eb1b994232d68dd5b01d4dfe205aa31b54e5e6a7686d9e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_execution_truth.js",
+      "bytes": 15394,
+      "sha256": "fee31e1ec6b5e14beb97248e72f4525baaa086831559995bb250693ca790c9af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/execution_basis.js",
+      "bytes": 104577,
+      "sha256": "5e21490cbb61c3fa170cb8d23ae49a4b76f3966ec72fd53ec77df576fc214de8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js",
+      "bytes": 232161,
+      "sha256": "960d0e80f5c9c3251d4f30b31764ab536dabc6357d8fcc4fceaa15259174898e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/declaration_closure.js",
+      "bytes": 34935,
+      "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63"
+    }
+  ],
+  "executionPreimage": "7f4bc1a0beec7dc85669ac7af81abca4e4518a8367cb21629a7b3140b43e8a5c"
+}

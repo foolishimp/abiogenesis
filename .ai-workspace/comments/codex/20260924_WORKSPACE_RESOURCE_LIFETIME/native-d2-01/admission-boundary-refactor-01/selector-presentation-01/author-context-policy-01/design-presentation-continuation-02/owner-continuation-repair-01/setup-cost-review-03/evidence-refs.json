@@ -1,0 +1,521 @@
+{
+  "status": "CLOSED",
+  "task": "COST33 bounded closed core33 setup Event Calculus/probe cost diagnosis",
+  "scope": {
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01",
+    "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/setup-cost-review-03",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "lenses": [
+      "Owner",
+      "Conservation",
+      "Code Construction",
+      "Reuse",
+      "Whole-family"
+    ],
+    "product": "fixed fifteen-family ABG5 / GOAL035 / T287 / LIFE01; GLC T043",
+    "abiBasis": "STDO2.5.1RC1",
+    "glcBasis": "RC4",
+    "noRuntimeAcquisition": true,
+    "noTestsOrBenchmarks": true
+  },
+  "coreSelection": {
+    "selectedCorePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/selected-core.json",
+    "installedSourceRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src",
+    "archiveDigestFromSelection": "f9fc2c4aade3e87db326f6e20bd3af5c4da2170ba205a14e2eaca1b9555a2222",
+    "contentDigestFromSelection": "85a5074f4a675fcf86ba62e3e582c57a94993ebf89f4590f7313e3b7261bc771"
+  },
+  "closedEvidence": {
+    "files": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/setup.cpuprofile",
+        "bytes": 48493864,
+        "sha256": "3cd66a0603f94987288b04734a18fdc3a4ffdac27832037bef6fcf368fa4e93b"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/observed-setup.json",
+        "bytes": 5361,
+        "sha256": "e78ff0a12424a263bff399395a628a3ef69ce6f6252d85329813ce6c49bfebb2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/prepare.stderr",
+        "bytes": 1513,
+        "sha256": "cdb252b7e49d356426345e46968aec6fe7bbc0d68c57c0e2d03b74e496c74dce"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/setup-resource-entry.json",
+        "bytes": 892,
+        "sha256": "d4f84835fab51b9fc527cd84663f1b5229026c9624eeb3db3f4982da99d7a07e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/setup-resource-close.json",
+        "bytes": 2577,
+        "sha256": "006806c86b79785c533e1d9da66be7def8bf3a37add68b610948942c82287198"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/selected-core.json",
+        "bytes": 986,
+        "sha256": "816d216864abe416c775e1439fc1d05e5298625181f23f8afa78be06bd73242b"
+      }
+    ],
+    "selfSeconds": {
+      "canonicalJsonFunctionsSelf": 45.966674,
+      "cryptoHashUpdateSelf": 15.160743,
+      "deepFreezeSelf": 11.676516,
+      "validateRuntimeFluentSelf": 6.027196
+    }
+  },
+  "profileAnalysis": {
+    "sampledSeconds": 119.470625,
+    "durationSeconds": 119.470667,
+    "sampleCount": 83530,
+    "isRuntimeSystemProbeContract": {
+      "inclusiveSeconds": 37.3086,
+      "parentBranches": [
+        {
+          "parent": "<anonymous> | abg/event_calculus.js:814",
+          "inclusiveSeconds": 22.397509,
+          "selfSeconds": 0.426833
+        },
+        {
+          "parent": "<anonymous> | abg/event_calculus.js:298",
+          "inclusiveSeconds": 8.074824,
+          "selfSeconds": 0.143834
+        },
+        {
+          "parent": "<anonymous> | abg/runtime_liveness.js:732",
+          "inclusiveSeconds": 4.773062,
+          "selfSeconds": 0.087
+        },
+        {
+          "parent": "assertRuntimeEventContract | abg/event_store.js:1565",
+          "inclusiveSeconds": 0.680922,
+          "selfSeconds": 0.015084
+        },
+        {
+          "parent": "eventCalculusEffectRefs | abg/event_calculus.js:524",
+          "inclusiveSeconds": 0.654909,
+          "selfSeconds": 0.019624
+        },
+        {
+          "parent": "validateRuntimeLivenessEvent | abg/runtime_liveness.js:665",
+          "inclusiveSeconds": 0.524917,
+          "selfSeconds": 0.012374
+        },
+        {
+          "parent": "probeObservationMatches | abg/runtime_liveness.js:340",
+          "inclusiveSeconds": 0.202457,
+          "selfSeconds": 0.007542
+        }
+      ]
+    },
+    "runtimeLivenessDigest": {
+      "inclusiveSeconds": 39.413688,
+      "parentBranches": [
+        {
+          "parent": "isRuntimeSystemProbeContract | abg/runtime_liveness_contracts.js:83",
+          "inclusiveSeconds": 23.192878,
+          "selfSeconds": 0.024211
+        },
+        {
+          "parent": "constructRuntimeSystemProbeContract | abg/runtime_liveness_contracts.js:74",
+          "inclusiveSeconds": 10.945186,
+          "selfSeconds": 0.014999
+        },
+        {
+          "parent": "same | abg/runtime_liveness.js:15",
+          "inclusiveSeconds": 4.754463,
+          "selfSeconds": 0.004458
+        },
+        {
+          "parent": "deriveRuntimeLivenessSemantics | abg/runtime_liveness.js:725",
+          "inclusiveSeconds": 0.108459,
+          "selfSeconds": 0
+        },
+        {
+          "parent": "budget | abg/runtime_liveness.js:640",
+          "inclusiveSeconds": 0.095497,
+          "selfSeconds": 0
+        },
+        {
+          "parent": "validateRuntimeLivenessEvent | abg/runtime_liveness.js:665",
+          "inclusiveSeconds": 0.094542,
+          "selfSeconds": 0.001417
+        },
+        {
+          "parent": "isRuntimeWatchdogPolicy | abg/runtime_liveness_contracts.js:44",
+          "inclusiveSeconds": 0.082331,
+          "selfSeconds": 0
+        },
+        {
+          "parent": "deriveActorLivenessContext | abg/runtime_liveness.js:27",
+          "inclusiveSeconds": 0.063708,
+          "selfSeconds": 0
+        },
+        {
+          "parent": "constructRuntimeWatchdogPolicy | abg/runtime_liveness_contracts.js:36",
+          "inclusiveSeconds": 0.039041,
+          "selfSeconds": 0.0015
+        },
+        {
+          "parent": "probeObservationMatches | abg/runtime_liveness.js:340",
+          "inclusiveSeconds": 0.036125,
+          "selfSeconds": 0
+        },
+        {
+          "parent": "deriveRuntimeLivenessWithPrefixDigest | abg/runtime_liveness.js:947",
+          "inclusiveSeconds": 0.001458,
+          "selfSeconds": 0
+        }
+      ]
+    },
+    "deriveRuntimeLivenessSemantics": {
+      "inclusiveSeconds": 13.416893,
+      "parentBranches": [
+        {
+          "parent": "validateRuntimeLivenessEvent | abg/runtime_liveness.js:665",
+          "inclusiveSeconds": 13.416851,
+          "selfSeconds": 0.132748
+        },
+        {
+          "parent": "deriveRuntimeLivenessWithPrefixDigest | abg/runtime_liveness.js:947",
+          "inclusiveSeconds": 0.000042,
+          "selfSeconds": 0.000042
+        }
+      ]
+    },
+    "eventCalculusEffectRefs": {
+      "inclusiveSeconds": 32.723122,
+      "parentBranches": [
+        {
+          "parent": "advance | abg/event_calculus.js:1490",
+          "inclusiveSeconds": 32.723122,
+          "selfSeconds": 0.049249
+        }
+      ]
+    },
+    "eventCalculusAdvanceBranches": [
+      {
+        "stack": "eventCalculusDerivation | abg/event_calculus.js:1636 <- runtimeEventCalculusEffectsByKind | abg/event_calculus.js:1645 <- projectArtifactTruth | abg/artifact_truth.js:293 <- projectValidatedPrefixArtifactTruth | abg/artifact_truth.js:408 <- deriveExactPrefixArtifactTruth | abg/artifact_truth.js:490 <- projectExactPrefixArtifactTruth | abg/artifact_truth.js:482 <- projectArtifactTruthAtPrefix | abg/environment_admission.js:370 <- admitArtifactFromOwner | abg/environment_admission.js:385",
+        "inclusiveSeconds": 72.332344
+      }
+    ],
+    "method": "Self time sums sample timeDeltas at sampled node. Inclusive time sums descendant self samples; same-function ancestor roots excluded before grouping by immediate caller. Parent branches of one function are disjoint; differently named inclusive families overlap. Not invocation counts or isolated wall latency."
+  },
+  "sourceIdentities": [
+    {
+      "route": "abg/artifact_truth",
+      "files": {
+        "installed": {
+          "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/artifact_truth.js",
+          "bytes": 29087,
+          "sha256": "f77e95373de5828958fc7d5794b033197a6ccc5429385ec358070426e1775872"
+        },
+        "canonicalEmitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js",
+          "bytes": 29087,
+          "sha256": "f77e95373de5828958fc7d5794b033197a6ccc5429385ec358070426e1775872"
+        },
+        "canonicalSource": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+          "bytes": 33503,
+          "sha256": "96e179167006d9f0f4d648ab6c8abf5844076f361adef4fe4821290a2181136a"
+        }
+      },
+      "installedEqualsCanonicalEmitted": true
+    },
+    {
+      "route": "abg/event_calculus",
+      "files": {
+        "installed": {
+          "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_calculus.js",
+          "bytes": 76454,
+          "sha256": "9edc80e3277e89b26103da2a0d646dba050282698753e5ed4b2b18cf680f2c1a"
+        },
+        "canonicalEmitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+          "bytes": 76454,
+          "sha256": "9edc80e3277e89b26103da2a0d646dba050282698753e5ed4b2b18cf680f2c1a"
+        },
+        "canonicalSource": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+          "bytes": 72911,
+          "sha256": "100d037846789f56fbbc279ece7923a3f4d2b04effefdb5ae0f35e21357ae467"
+        }
+      },
+      "installedEqualsCanonicalEmitted": true
+    },
+    {
+      "route": "abg/runtime_liveness",
+      "files": {
+        "installed": {
+          "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_liveness.js",
+          "bytes": 73764,
+          "sha256": "0eb18b3605551e02098ca3ad60e65f8776d178a76723b3bed6e1a8606b96f008"
+        },
+        "canonicalEmitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+          "bytes": 73764,
+          "sha256": "0eb18b3605551e02098ca3ad60e65f8776d178a76723b3bed6e1a8606b96f008"
+        },
+        "canonicalSource": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+          "bytes": 75040,
+          "sha256": "a0ee579a28c6372ccb2bbb65d581b1953f4c27e829721a2189ea92102784f7f4"
+        }
+      },
+      "installedEqualsCanonicalEmitted": true
+    },
+    {
+      "route": "abg/runtime_liveness_contracts",
+      "files": {
+        "installed": {
+          "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_liveness_contracts.js",
+          "bytes": 15127,
+          "sha256": "deda733c710a88ab29d5ff6152d05275dd0a381a3b3e3216e3ca13131a52a627"
+        },
+        "canonicalEmitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness_contracts.js",
+          "bytes": 15127,
+          "sha256": "deda733c710a88ab29d5ff6152d05275dd0a381a3b3e3216e3ca13131a52a627"
+        },
+        "canonicalSource": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+          "bytes": 20971,
+          "sha256": "2707ef256cfd710fffa39a3f111d07194e0bb596c41da1040af3ccd6a64cae63"
+        }
+      },
+      "installedEqualsCanonicalEmitted": true
+    },
+    {
+      "route": "abg/event_prefix",
+      "files": {
+        "installed": {
+          "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+          "bytes": 23041,
+          "sha256": "0d17b41ea89f96dffa6c284099fae3a52117f243bfd71cc7d3c2fdd4484f5fcf"
+        },
+        "canonicalEmitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js",
+          "bytes": 23041,
+          "sha256": "0d17b41ea89f96dffa6c284099fae3a52117f243bfd71cc7d3c2fdd4484f5fcf"
+        },
+        "canonicalSource": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+          "bytes": 24234,
+          "sha256": "fe1bda23ff6ad6cce3c1b58b0239b971a46690d3b55e9984c3bf885e91dd3c26"
+        }
+      },
+      "installedEqualsCanonicalEmitted": true
+    },
+    {
+      "route": "abg/runtime_derivation",
+      "files": {
+        "installed": {
+          "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_derivation.js",
+          "bytes": 4733,
+          "sha256": "31b226355fac56f55af471ee48f8484f2f1d7686746378d2726d8e90c09c5f09"
+        },
+        "canonicalEmitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_derivation.js",
+          "bytes": 4733,
+          "sha256": "31b226355fac56f55af471ee48f8484f2f1d7686746378d2726d8e90c09c5f09"
+        },
+        "canonicalSource": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+          "bytes": 5442,
+          "sha256": "87df5f8b57c9165556619e1a923541fd8226e8472f8cea3b51c7bd6fdcc83891"
+        }
+      },
+      "installedEqualsCanonicalEmitted": true
+    },
+    {
+      "route": "abg/event_store",
+      "files": {
+        "installed": {
+          "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+          "bytes": 156185,
+          "sha256": "5dfab78f7d976a94df3e6f61f6447a4f7ecb09011d5a2a68eea4a82ae35c8131"
+        },
+        "canonicalEmitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+          "bytes": 156185,
+          "sha256": "5dfab78f7d976a94df3e6f61f6447a4f7ecb09011d5a2a68eea4a82ae35c8131"
+        },
+        "canonicalSource": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+          "bytes": 169755,
+          "sha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6"
+        }
+      },
+      "installedEqualsCanonicalEmitted": true
+    },
+    {
+      "route": "shared/immutable",
+      "files": {
+        "installed": {
+          "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite33-install-fl_ikh4e/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/immutable.js",
+          "bytes": 608,
+          "sha256": "b8cc59aa2f8a8ccf6cdfbc9e5ac85c344f0e97604c55fb3f75cb9446daf2d2e7"
+        },
+        "canonicalEmitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/immutable.js",
+          "bytes": 608,
+          "sha256": "b8cc59aa2f8a8ccf6cdfbc9e5ac85c344f0e97604c55fb3f75cb9446daf2d2e7"
+        },
+        "canonicalSource": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts",
+          "bytes": 614,
+          "sha256": "bd6c4c9cd235ac14d59b185ddd8bf4330a0af7646857537ddcf358c9d079104f"
+        }
+      },
+      "installedEqualsCanonicalEmitted": true
+    }
+  ],
+  "sourceRelations": [
+    {
+      "route": "abg/artifact_truth",
+      "tsLines": [
+        489,
+        507
+      ],
+      "installedJsLines": [
+        293,
+        306
+      ],
+      "relation": "Artifact-only effects/availability demand enters shared Event Calculus derivation"
+    },
+    {
+      "route": "abg/event_calculus",
+      "tsLines": [
+        397,
+        408,
+        960,
+        979
+      ],
+      "installedJsLines": [
+        295,
+        306,
+        805,
+        820
+      ],
+      "relation": "Full priorEvents closure scans guard every probe before scope predicate"
+    },
+    {
+      "route": "abg/runtime_liveness_contracts",
+      "tsLines": [
+        179,
+        197
+      ],
+      "installedJsLines": [
+        74,
+        93
+      ],
+      "relation": "Guard reconstructs declaration and performs three canonical hashes"
+    },
+    {
+      "route": "abg/runtime_liveness",
+      "tsLines": [
+        570,
+        576,
+        602,
+        666,
+        674,
+        733
+      ],
+      "installedJsLines": [
+        634,
+        638,
+        665,
+        717,
+        725,
+        775
+      ],
+      "relation": "Existing retained context and incremental observation fold still revalidate immutable context/probes"
+    },
+    {
+      "route": "abg/event_calculus",
+      "tsLines": [
+        1559,
+        1649,
+        1689,
+        1695,
+        1710,
+        1748,
+        1839,
+        1862,
+        1895,
+        1911
+      ],
+      "installedJsLines": [
+        1341,
+        1408,
+        1439,
+        1456,
+        1490,
+        1501,
+        1580,
+        1604,
+        1636,
+        1653
+      ],
+      "relation": "Raw canonical fluent validation reused repeatedly for same-owner construction/state keys and pattern matching; suffix-only fold already exists"
+    },
+    {
+      "route": "abg/event_store",
+      "tsLines": [
+        2732,
+        2743
+      ],
+      "installedJsLines": [
+        1744,
+        1755
+      ],
+      "relation": "Raw probe event structural/contract/scope admission remains necessary"
+    },
+    {
+      "route": "abg/event_prefix",
+      "tsLines": [
+        138,
+        141
+      ],
+      "installedJsLines": [
+        98,
+        106
+      ],
+      "relation": "Existing exact-prefix computation owner receipt"
+    },
+    {
+      "route": "abg/runtime_derivation",
+      "tsLines": [
+        5,
+        56
+      ],
+      "installedJsLines": [
+        4,
+        58
+      ],
+      "relation": "Owner-state lifetime bound to exact shared prefix; invalidation on abandoned source"
+    },
+    {
+      "route": "shared/immutable",
+      "tsLines": [
+        1,
+        9
+      ],
+      "installedJsLines": [
+        1,
+        9
+      ],
+      "relation": "Already-frozen values return immediately; no full frozen-body traversal claim"
+    }
+  ],
+  "limits": [
+    "No actual invocation counts derived from samples",
+    "No heap/RSS attribution",
+    "No later witness or intake attribution",
+    "No accepted functional source disposition reopened",
+    "No runtime journal opened",
+    "No new performance promise or implementation authority"
+  ]
+}
+

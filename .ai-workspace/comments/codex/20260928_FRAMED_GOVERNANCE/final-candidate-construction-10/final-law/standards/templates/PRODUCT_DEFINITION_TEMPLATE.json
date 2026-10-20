@@ -1,0 +1,128 @@
+{
+  "$schema": "stdo://releases/REPLACE_WITH_IMMUTABLE_CUT/standards/schemas/product-definition.schema.json",
+  "kind": "stdo.product-definition",
+  "product": {
+    "definition_id": "urn:stdo:product-definition:replace-me",
+    "name": "Replace Me",
+    "source_project": "./",
+    "bounded_context": {
+      "id": "urn:stdo:bounded-context:replace-me",
+      "definition": "./specification/PRODUCT.md#product-terms"
+    }
+  },
+  "constitution": {
+    "stdo": {
+      "source": {
+        "repository": "https://github.com/foolishimp/specification_methodology.git"
+      },
+      "selector": "stdo://channels/REPLACE_WITH_VERSION_LINE",
+      "basis": {
+        "uri": "stdo://releases/REPLACE_WITH_IMMUTABLE_CUT/",
+        "manifest_sha256": "REPLACE_WITH_64_LOWERCASE_HEX_SHA256"
+      }
+    },
+    "additional_authorities": [],
+    "entrypoints": [
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/authority_compressions/stdo_bootstrap.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/SPEC_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/REFERENCE_FRAME_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/STDO_REFERENCE_FRAME_BASELINE.md"
+      }
+    ],
+    "agent_bootstrap": {
+      "entrypoint": "#/constitution/entrypoints/0",
+      "targets": [
+        "./AGENTS.md",
+        "./CLAUDE.md"
+      ]
+    }
+  },
+  "local_constitution": {
+    "axioms": [],
+    "overrides": [],
+    "disambiguations": [
+      {
+        "uri": "./specification/PRODUCT.md#replace-with-term-disambiguation",
+        "term": "Replace Me",
+        "context": "urn:stdo:bounded-context:replace-me",
+        "disambiguates": [
+          "./specification/PRODUCT.md#replace-with-selected-concept",
+          "./specification/PRODUCT.md#replace-with-competing-concept"
+        ],
+        "resolves_to": "./specification/PRODUCT.md#replace-with-selected-concept",
+        "authority": [
+          "./specification/PRODUCT.md"
+        ],
+        "basis": [
+          "#/constitution/stdo/basis",
+          "./specification/PRODUCT.md"
+        ],
+        "applies_to": [
+          "urn:stdo:product-definition:replace-me"
+        ]
+      }
+    ]
+  },
+  "reference_frame_bases": [
+    {
+      "uri": "./specification/REFERENCE_FRAME_BASIS.md",
+      "authority": [
+        "./specification/PRODUCT.md#replace-with-reference-frame-authority"
+      ],
+      "applies_to": [
+        "urn:stdo:product-definition:replace-me"
+      ]
+    }
+  ],
+  "what": {
+    "intent": "./specification/INTENT.md",
+    "product": "./specification/PRODUCT.md",
+    "specification": [
+      "./specification/requirements/"
+    ]
+  },
+  "how": {
+    "common": [],
+    "build_tenants": [
+      {
+        "id": "urn:stdo:build-tenant:default",
+        "root": "./build_tenants/default/",
+        "design": [
+          "./build_tenants/default/design/"
+        ],
+        "implementation": [
+          "./build_tenants/default/"
+        ]
+      }
+    ]
+  },
+  "ticketing": {
+    "goals": "./specification/GOALS.md",
+    "tickets": {
+      "root": "./.ai-workspace/tickets/",
+      "lanes": {
+        "backlog": "./.ai-workspace/tickets/backlog/",
+        "active": "./.ai-workspace/tickets/active/",
+        "completed": "./.ai-workspace/tickets/completed/"
+      }
+    },
+    "comments": {
+      "root": "./.ai-workspace/comments/"
+    },
+    "sprints": {
+      "root": "./.ai-workspace/sprints/"
+    }
+  },
+  "composition": []
+}

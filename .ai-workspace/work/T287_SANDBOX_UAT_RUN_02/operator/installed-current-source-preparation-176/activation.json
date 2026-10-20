@@ -1,0 +1,146 @@
+{
+  "role": "Worker176 ONE actual installed current-source composition/preparation; no native Run/model/app execution",
+  "activated": "2026-10-09T06:01:49.418208+00:00",
+  "basis": "Fixed15 ABI5.0 GOAL035/T287 original DataMapper STDO2.5.1rc2",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "RootConjunction": "CLOSED175 GO +77 Root-matched174pins +172/173 closedRCA; caller resource borrowing repair accepted for ONE actual owner attempt",
+  "acceptedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/freeze.json",
+    "sha256": "24415218d3c1980a911878b32dda367d9c3bd23dd0504efc3a1176dd3db84171",
+    "byteCount": 24009
+  },
+  "copies": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/prepare.mjs",
+        "sha256": "6709e1dcf37d787e341bc504afd4a86e0999b3f17461f7997b88a132c11b5302",
+        "byteCount": 37816
+      },
+      "execution": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/prepare.mjs",
+        "sha256": "6709e1dcf37d787e341bc504afd4a86e0999b3f17461f7997b88a132c11b5302",
+        "byteCount": 37816
+      },
+      "byteIdentical": true
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/inputs.json",
+        "sha256": "e95e941130681ffc09db910b7e089f0052bc6c94f16147bc3cac066cb58571b8",
+        "byteCount": 13494
+      },
+      "execution": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/inputs.json",
+        "sha256": "e95e941130681ffc09db910b7e089f0052bc6c94f16147bc3cac066cb58571b8",
+        "byteCount": 13494
+      },
+      "byteIdentical": true
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "execution": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "byteIdentical": true
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "execution": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "byteIdentical": true
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "execution": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "byteIdentical": true
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "execution": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "byteIdentical": true
+    }
+  ],
+  "namespaceMapping": "Exact reviewed intended request/approval/correlation/continuation URI literals remain unchanged; no174 intended effect occurred. import.meta.url dirname maps actual receipts/provenance/prepared launcher to NEW176. No caller rewrite/producer retag.",
+  "selectedEntry": {
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/final-close-handoff.json",
+      "sha256": "1e5de97f11460a5cf41e97b4133fef7477bd1d576a5e685800423242de1f3f1c",
+      "byteCount": 1472
+    },
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "prefixLength": 1685528035,
+      "prefixDigest": "sha256:63dd7384fcb43dc433c005313f4681df323e817f2180a23900faa05f3f2aff71",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 468327400,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:6922fcad866079631b0233dfd2c0142c9d04e11afdee0e491e7832226137dc10"
+    },
+    "logStatOnly": {
+      "device": 16777231,
+      "inode": 468327400,
+      "byteCount": 1685528035,
+      "mtimeNs": 1791524037021587718
+    }
+  },
+  "livePremises": {
+    "physicalFiles": 48,
+    "absence": 1,
+    "unchanged49": true,
+    "reference": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/physical-preflight.json",
+      "sha256": "60e139d8dd3b4a1a578330450d6257553adeb88a7f6d4b3a2ea431bd4c19a5c0",
+      "byteCount": 14572
+    },
+    "lockAbsent": true,
+    "ownedProcessesAbsent": [
+      {
+        "pid": 32530,
+        "absent": true,
+        "evidence": "kill(pid,0) ESRCH"
+      },
+      {
+        "pid": 32536,
+        "absent": true,
+        "evidence": "kill(pid,0) ESRCH"
+      }
+    ]
+  },
+  "preserved": "Actual164 native26 f33c5db0\u2026/lock37c7\u2026, completed171 consumer c9e9bf7b\u2026 and binding e90058ec\u2026 reused through owner projections; historical136 binding/Program/source34/C2/A unchanged. No reinstall/rebind or Public verify/resolve rerun solely boundary.",
+  "effects": "176 outputs and reviewed ordinary bound catalog/view/D2/current-use/private Product preparation only against SAME resource; no run.invoke/start/execute/CLI/model/app/Source/Git effects",
+  "controls": "Exact prior launcher process.env; no envvalues; stock heap/NODE_OPTIONS absent; existing limits; no five-hour native clock started",
+  "stop": "First unexpected failure immediately HOLD/STOP, normalclose if supported and preserve admissions. Root RCA/action before any retry; no callerfix/selective logread/diagnostic expansion."
+}

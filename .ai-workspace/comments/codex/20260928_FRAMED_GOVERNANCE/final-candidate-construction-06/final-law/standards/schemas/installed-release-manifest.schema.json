@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:stdo:schema:installed-release-manifest:1",
+  "title": "STDO Installed Release Manifest",
+  "description": "Deterministic identity and exact installed-member inventory for one immutable STDO RC cut.",
+  "type": "object",
+  "required": [
+    "kind",
+    "schema_version",
+    "release",
+    "standards",
+    "auxiliary"
+  ],
+  "properties": {
+    "kind": {
+      "const": "stdo.installed-release-manifest"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "release": {
+      "type": "object",
+      "required": [
+        "cut",
+        "tag_object",
+        "commit",
+        "tree",
+        "standards_tree"
+      ],
+      "properties": {
+        "cut": {
+          "$ref": "#/$defs/immutableCut"
+        },
+        "tag_object": {
+          "$ref": "#/$defs/gitObjectId"
+        },
+        "commit": {
+          "$ref": "#/$defs/gitObjectId"
+        },
+        "tree": {
+          "$ref": "#/$defs/gitObjectId"
+        },
+        "standards_tree": {
+          "$ref": "#/$defs/gitObjectId"
+        },
+        "project_release_namespace": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$"
+        },
+        "qualified_ref": {
+          "type": "string",
+          "pattern": "^refs/tags/[a-z0-9][a-z0-9._-]*/v[^/]+-rc\\.[1-9][0-9]*$"
+        },
+        "project_subtree_root": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?:\\.|(?!/)(?!.*(?:^|/)(?:\\.|\\.\\.)(?:/|$))(?!.*//).+)$"
+        },
+        "project_subtree_tree": {
+          "$ref": "#/$defs/gitObjectId"
+        }
+      },
+      "dependentRequired": {
+        "project_release_namespace": [
+          "qualified_ref",
+          "project_subtree_root",
+          "project_subtree_tree"
+        ],
+        "qualified_ref": [
+          "project_release_namespace",
+          "project_subtree_root",
+          "project_subtree_tree"
+        ],
+        "project_subtree_root": [
+          "project_release_namespace",
+          "qualified_ref",
+          "project_subtree_tree"
+        ],
+        "project_subtree_tree": [
+          "project_release_namespace",
+          "qualified_ref",
+          "project_subtree_root"
+        ]
+      },
+      "additionalProperties": false
+    },
+    "standards": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/memberSet"
+        },
+        {
+          "type": "object",
+          "required": [
+            "member_set_sha256"
+          ],
+          "properties": {
+            "source_root": {
+              "const": "specification/standards"
+            },
+            "installed_root": {
+              "const": "standards"
+            },
+            "member_set_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        }
+      ]
+    },
+    "auxiliary": {
+      "type": "object",
+      "required": [
+        "plugin",
+        "license",
+        "release_note"
+      ],
+      "properties": {
+        "plugin": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/memberSet"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "source_root": {
+                  "const": "plugins/spec"
+                },
+                "installed_root": {
+                  "const": "plugins/spec"
+                }
+              }
+            }
+          ]
+        },
+        "license": {
+          "type": "object",
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "const": "LICENSE"
+            },
+            "sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          },
+          "additionalProperties": false
+        },
+        "release_note": {
+          "type": "object",
+          "required": [
+            "source_path",
+            "installed_path",
+            "sha256"
+          ],
+          "properties": {
+            "source_path": {
+              "type": "string",
+              "pattern": "^releases/v[^/]+\\.md$"
+            },
+            "installed_path": {
+              "const": "release/release-note.md"
+            },
+            "sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "immutableCut": {
+      "type": "string",
+      "pattern": "^v(?!.*-rc\\..*-rc\\.)[0-9A-Za-z][0-9A-Za-z._+-]*-rc\\.[1-9][0-9]*$"
+    },
+    "gitObjectId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}([0-9a-f]{24})?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "member": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "memberSet": {
+      "type": "object",
+      "required": [
+        "source_root",
+        "installed_root",
+        "member_count",
+        "members"
+      ],
+      "properties": {
+        "source_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "installed_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "member_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "member_set_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/member"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

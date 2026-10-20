@@ -1,0 +1,22 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern",
+    "post-effect channel conflict",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T06:06:18.627Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 120000
+}

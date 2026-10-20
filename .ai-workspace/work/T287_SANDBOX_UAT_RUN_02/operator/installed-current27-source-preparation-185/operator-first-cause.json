@@ -1,0 +1,48 @@
+{
+  "role": "Operator external failure observation; no caught implementation exception or fabricated RuntimeEvent",
+  "at": "2026-10-09T07:50:57.022320+00:00",
+  "actualCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/commands/current-source-preparation.request.json",
+    "sha256": "e2d631c74729167748f1f583cba64c528bd60ebc9e729cee4d77034d116869b0",
+    "byteCount": 1631
+  },
+  "actualResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/commands/current-source-preparation.result.json",
+    "sha256": "d87f025dbf922f3266640c8cd87ed4e970bbb4554a240777320c74cc92b3e864",
+    "byteCount": 145064
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/commands/current-source-preparation.stderr",
+    "sha256": "1caaf30fd4651c6a9814afa7b17575b165ea7262275bc212a01db013586d2270",
+    "byteCount": 7732
+  },
+  "firstDiagnostic": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "actualExit": {
+    "exitCode": null,
+    "signal": "SIGABRT",
+    "wallMs": 360597.027375,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "nativeStackOwner": "v8::internal::JsonStringifier::Stringify / Builtin_JsonStringify",
+  "lastRecordedStage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/stages/461-current-source-use-complete.json",
+    "sha256": "dde2dfc6634bea4c2350bf18ba9038d67e35f1349a949963af5f01326cb46749",
+    "byteCount": 338
+  },
+  "lastCompletedPhase": "current-source-use-complete",
+  "currentSourceUse": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/current-source-use-discriminator.json",
+    "sha256": "a3e86d0e3b9bfa3ac3c88cdbad645f6560cb710336fe1a8fb2c4617847d209d8",
+    "byteCount": 515
+  },
+  "genuineCloseBeforeAbort": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "boundary": "After current-source-use completion and genuine resource close; no Product preparation result or saved continuation request. Exact subsequent JavaScript allocation/call entry and dominant live retainer remain unproved.",
+  "limits": "GC stderr reports retained4078.7MB near limit; native serialization stack is not dominant-retainer or exact JS-line proof.",
+  "selectedAction": "STOP; Root-selected independent186 post-close call/private preparation/JSON-allocation RCA using existing Code and frozen facts before any Product-bounded repair/retry. No automatic heap/env/source/resource changes."
+}

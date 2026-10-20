@@ -1,0 +1,10 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-130/launch.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-130/",
+  "started": "2026-10-08T22:23:07.313Z",
+  "environmentKeys": [],
+  "timeoutMs": 19260000
+}

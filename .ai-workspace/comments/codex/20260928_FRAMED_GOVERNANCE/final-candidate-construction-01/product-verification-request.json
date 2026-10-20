@@ -1,0 +1,16 @@
+{
+  "kind": "product_verification_packet",
+  "schemaVersion": "5.0.0",
+  "memberKey": "verify",
+  "targetKind": "packed_artifact",
+  "request": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "expectedArtifactDigest": "sha256:2840b889d9207b48f7b1492934d3158a25352efa7b942f8ea58992ed15b57bcc",
+    "expectedProductContentDigest": "sha256:2c7bab8f7425a2a675fd7c8666349391fefae76150823f5cc3050eb57cd9176a",
+    "expectedManifestDigest": "sha256:11e22a986898a4d91a75162f12f45452d6a1dc631b08bdad975dea657c72db1f",
+    "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "expectedPackageName": "@abiogenesis/typescript-tenant",
+    "expectedPackageVersion": "5.0.0-rc.1"
+  }
+}

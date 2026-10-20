@@ -1,0 +1,809 @@
+{
+  "status": "CLOSED",
+  "supervisor": {
+    "mode": "setup",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/run-setup.mjs"
+    ],
+    "pid": 57103,
+    "processGroup": 57103,
+    "startedAt": "2026-10-04T05:22:08.059417+00:00",
+    "closedAt": "2026-10-04T05:26:23.463902+00:00",
+    "elapsedMs": 255412.88829082623,
+    "exitCode": 0,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": {
+      "status": "passed",
+      "completedAt": "2026-10-04T05:22:27.591Z",
+      "elapsedMs": 19399.114250000002,
+      "verified": [
+        {
+          "name": "core",
+          "artifactDigest": "sha256:f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb",
+          "productContentDigest": "sha256:87140057006782589b2eddc325d42e781b7a4beaddc8df1f902ae45baeac4c5e",
+          "manifestDigest": "sha256:8e3d1d8c0a4a872d0c1f55388fc6748f986ad0addde22c5c7cb2924b8ec37d26"
+        },
+        {
+          "name": "fixture",
+          "artifactDigest": "sha256:943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+          "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+          "manifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f"
+        }
+      ]
+    },
+    "rssBytes": 3002368000,
+    "userSeconds": 320.16457,
+    "systemSeconds": 18.399887,
+    "knownCLIProcessGroups": [
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-bind-process-start.json",
+        "processGroup": 58869,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-catalog-process-start.json",
+        "processGroup": 58930,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-catalog-view-process-start.json",
+        "processGroup": 59005,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-conformance-assess-process-start.json",
+        "processGroup": 59064,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-conformance-exact-candidate-process-start.json",
+        "processGroup": 59215,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-conformance-parent-process-start.json",
+        "processGroup": 59562,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-conformance-self-conformance-process-start.json",
+        "processGroup": 59365,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-install-core-process-start.json",
+        "processGroup": 58430,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-install-fixture-process-start.json",
+        "processGroup": 58777,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-resolve-mixed-process-start.json",
+        "processGroup": 58241,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-resolve-singleton-process-start.json",
+        "processGroup": 57978,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-verify-core-process-start.json",
+        "processGroup": 57523,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-verify-fixture-process-start.json",
+        "processGroup": 57823,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-workspace-process-start.json",
+        "processGroup": 57386,
+        "before": "absent",
+        "afterTERM": "absent"
+      }
+    ],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "actualOrdinaryPublicCalls": 14,
+  "calls": [
+    {
+      "label": "workspace",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "invocationRef": "invocation://abiogenesis/80c4e6b11e5726b054661989f9e7b76bf872bdf0272fe67e8924ba9815beab9a",
+      "outcomeKind": "result",
+      "elapsedMs": 12194.344165999999,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "clean",
+        "operationId": "abg.operation.workspace.create"
+      },
+      "nativeProcess": {
+        "pid": 57387,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-workspace.jsonl"
+        ],
+        "elapsedMs": 12162.795,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1710325760,
+        "userSeconds": 15.505319,
+        "systemSeconds": 0.6060639999999999,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 12194.344165999999,
+        "processFailure": null,
+        "terminal": {
+          "pid": 57386,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "verify-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/fcf47b4d3338184d5e5d5b7a5a740a210c3bc527b71d6e94f687bdce21196f57",
+      "outcomeKind": "result",
+      "elapsedMs": 24424.616083999997,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "verify",
+        "operationId": "abg.operation.product.verify"
+      },
+      "nativeProcess": {
+        "pid": 57524,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-verify-core.jsonl"
+        ],
+        "elapsedMs": 24392.059,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1855946752,
+        "userSeconds": 30.360746,
+        "systemSeconds": 0.9167019999999999,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 24424.616083999997,
+        "processFailure": null,
+        "terminal": {
+          "pid": 57523,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "verify-fixture",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/7499892a7d8cde910d9dfbe9a9a295b9e854cc3e877849d3de74c16b6a49ccf9",
+      "outcomeKind": "result",
+      "elapsedMs": 12958.534082999991,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "verify",
+        "operationId": "abg.operation.product.verify"
+      },
+      "nativeProcess": {
+        "pid": 57824,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-verify-fixture.jsonl"
+        ],
+        "elapsedMs": 12924.579,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1789411328,
+        "userSeconds": 16.464682,
+        "systemSeconds": 0.659755,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 12958.534082999991,
+        "processFailure": null,
+        "terminal": {
+          "pid": 57823,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "resolve-singleton",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/d250e04e3ede81efbd4d54786366610a17be3cc452520072faac09c4a7ad38a6",
+      "outcomeKind": "result",
+      "elapsedMs": 16574.484500000006,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "resolve",
+        "operationId": "abg.operation.product.resolve"
+      },
+      "nativeProcess": {
+        "pid": 57979,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-resolve-singleton.jsonl"
+        ],
+        "elapsedMs": 16540.646,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2066432000,
+        "userSeconds": 21.647478,
+        "systemSeconds": 0.792226,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 16574.484500000006,
+        "processFailure": null,
+        "terminal": {
+          "pid": 57978,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "resolve-mixed",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/2d4b428088cc5055ef85fc68a75668f00ad460bbd76a2b8501442fd370b8e9bb",
+      "outcomeKind": "result",
+      "elapsedMs": 16687.844041999997,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "resolve",
+        "operationId": "abg.operation.product.resolve"
+      },
+      "nativeProcess": {
+        "pid": 58242,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-resolve-mixed.jsonl"
+        ],
+        "elapsedMs": 16659.992,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2429550592,
+        "userSeconds": 23.018926,
+        "systemSeconds": 0.896566,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 16687.844041999997,
+        "processFailure": null,
+        "terminal": {
+          "pid": 58241,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "install-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/33291102f5d69b8fa738e252d39125f91074b1fb932f1bafcc846b733c82db5c",
+      "outcomeKind": "result",
+      "elapsedMs": 28177.85945799999,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "install",
+        "operationId": "abg.operation.product.install"
+      },
+      "nativeProcess": {
+        "pid": 58433,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-install-core.jsonl"
+        ],
+        "elapsedMs": 28143.291,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1936932864,
+        "userSeconds": 32.944547,
+        "systemSeconds": 3.967778,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 28177.85945799999,
+        "processFailure": null,
+        "terminal": {
+          "pid": 58430,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "install-fixture",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/1d03b1029d6bba207b9e6bc5a86b55abaeb8687930e09b3e2259a72beafad305",
+      "outcomeKind": "result",
+      "elapsedMs": 16221.062082999997,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "install",
+        "operationId": "abg.operation.product.install"
+      },
+      "nativeProcess": {
+        "pid": 58778,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-install-fixture.jsonl"
+        ],
+        "elapsedMs": 16186.599,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1691025408,
+        "userSeconds": 18.999798,
+        "systemSeconds": 3.8055879999999997,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 16221.062082999997,
+        "processFailure": null,
+        "terminal": {
+          "pid": 58777,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "bind",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "invocationRef": "invocation://abiogenesis/38d5ecad62fb4d615f92cd0e11a868eaf7f0fc98657f029ea6019a1e9683c61d",
+      "outcomeKind": "result",
+      "elapsedMs": 13175.771458000003,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "bind",
+        "operationId": "abg.operation.workspace.bind"
+      },
+      "nativeProcess": {
+        "pid": 58870,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-bind.jsonl"
+        ],
+        "elapsedMs": 13150.627,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1880686592,
+        "userSeconds": 16.883359,
+        "systemSeconds": 0.595113,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 13175.771458000003,
+        "processFailure": null,
+        "terminal": {
+          "pid": 58869,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "catalog",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "invocationRef": "invocation://abiogenesis/fc199f86c19311ccd49951f7e71e4f64f9b0a501977bebc020ff281accdd8b97",
+      "outcomeKind": "result",
+      "elapsedMs": 19239.519249999983,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "admit",
+        "operationId": "abg.operation.catalog.admit"
+      },
+      "nativeProcess": {
+        "pid": 58931,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-catalog.jsonl"
+        ],
+        "elapsedMs": 19214.986,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 3002368000,
+        "userSeconds": 22.584473,
+        "systemSeconds": 1.092456,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 19239.519249999983,
+        "processFailure": null,
+        "terminal": {
+          "pid": 58930,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "catalog-view",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "invocationRef": "invocation://abiogenesis/5a12cda53169fedc8ffafca5bc1b6a6ecb17c6e6683908e8abaa0072fb46d297",
+      "outcomeKind": "result",
+      "elapsedMs": 13382.870332999999,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "allowlist",
+        "operationId": "abg.operation.catalog.view"
+      },
+      "nativeProcess": {
+        "pid": 59006,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-catalog-view.jsonl"
+        ],
+        "elapsedMs": 13355.253,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2162327552,
+        "userSeconds": 17.205774,
+        "systemSeconds": 0.6301089999999999,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 13382.870332999999,
+        "processFailure": null,
+        "terminal": {
+          "pid": 59005,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "setup",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "conformance-assess",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/cc42756f90ba029f4dc7052be6794efc9a328afa21f2f9a9954504ab04a69b57",
+      "outcomeKind": "result",
+      "elapsedMs": 13617.73895900001,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "nativeProcess": {
+        "pid": 59065,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-conformance-assess.jsonl"
+        ],
+        "elapsedMs": 13593.349,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2077196288,
+        "userSeconds": 17.253321,
+        "systemSeconds": 0.642779,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 13617.73895900001,
+        "processFailure": null,
+        "terminal": {
+          "pid": 59064,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "conformance",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "conformance-exact-candidate",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/caa8cf260e809b5e762f0468864e4ed9bd11b458b192806055bbd99190d39e3a",
+      "outcomeKind": "result",
+      "elapsedMs": 13649.857749999996,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "nativeProcess": {
+        "pid": 59216,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-conformance-exact-candidate.jsonl"
+        ],
+        "elapsedMs": 13614.216,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2085470208,
+        "userSeconds": 17.142831,
+        "systemSeconds": 0.6714899999999999,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 13649.857749999996,
+        "processFailure": null,
+        "terminal": {
+          "pid": 59215,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "conformance",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "conformance-self-conformance",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/54d3746f8827905e497aeeba7b2fb0c6575eb9cc48c9c7977f0ba378b38796f0",
+      "outcomeKind": "result",
+      "elapsedMs": 14497.229083999991,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "nativeProcess": {
+        "pid": 59366,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-conformance-self-conformance.jsonl"
+        ],
+        "elapsedMs": 14472.487,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2075082752,
+        "userSeconds": 17.758884,
+        "systemSeconds": 0.784999,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 14497.229083999991,
+        "processFailure": null,
+        "terminal": {
+          "pid": 59365,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "conformance",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    },
+    {
+      "label": "conformance-parent",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/eb14821843c10e433daa91f26ee5dc52d75d134b20aaa5539cce076a3968600e",
+      "outcomeKind": "result",
+      "elapsedMs": 14082.328333000012,
+      "processFailure": null,
+      "typedExitCode": 0,
+      "declaredDefinition": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "nativeProcess": {
+        "pid": 59563,
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-conformance-parent.jsonl"
+        ],
+        "elapsedMs": 14056.151,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2063417344,
+        "userSeconds": 17.933544,
+        "systemSeconds": 0.695689,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "timing": {
+        "elapsedMs": 14082.328333000012,
+        "processFailure": null,
+        "terminal": {
+          "pid": 59562,
+          "code": 0,
+          "signal": null,
+          "timedOut": false,
+          "spawnError": null
+        },
+        "stage": "conformance",
+        "budgetMs": 180000,
+        "capture": "stdout/stderr descriptors opened before spawn"
+      }
+    }
+  ],
+  "sumMeasuredCLIElapsedMs": 228884.05958299997,
+  "nominalPreflight": {
+    "status": "passed",
+    "completedAt": "2026-10-04T05:22:27.591Z",
+    "elapsedMs": 19399.114250000002,
+    "verified": [
+      {
+        "name": "core",
+        "artifactDigest": "sha256:f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb",
+        "productContentDigest": "sha256:87140057006782589b2eddc325d42e781b7a4beaddc8df1f902ae45baeac4c5e",
+        "manifestDigest": "sha256:8e3d1d8c0a4a872d0c1f55388fc6748f986ad0addde22c5c7cb2924b8ec37d26"
+      },
+      {
+        "name": "fixture",
+        "artifactDigest": "sha256:943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+        "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+        "manifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f"
+      }
+    ]
+  },
+  "heap": "unchanged/default",
+  "HOME": "/Users/jim",
+  "managedOuterGroupBeforeImports": true,
+  "wait4": "main and all14 actual native CLI processes reaped; all14 recorded CLI groups and main absent at close",
+  "unknowns": {
+    "npmInternalChildPids": "not individually enumerated; finite owner CLI boundary returned exit0 and recorded groups absent",
+    "ambientProcessPopulation": "not enumerated; no ps privilege dependency",
+    "F11SemanticChildRunAF22QUAL056Release": "not executed under this grant"
+  },
+  "providerTaskRunHelperQualificationNetworkGitEffects": 0,
+  "additionalRuntimeCallsAfterSetup": 0
+}

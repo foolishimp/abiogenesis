@@ -1,0 +1,26 @@
+{
+  "classification": "derived identities; no generation performed",
+  "direct": [
+    "build/code/src/abg/project_read_ports.js and .d.ts",
+    "build/code/src/abg/project_read_definition_bindings.js and .d.ts",
+    "build/code/src/abg/project_read_operation_contracts.js and .d.ts",
+    "contracts/public-operations/project/read/operation-contract.json",
+    "contracts/schemas/operations/project/read/result.schema.json",
+    "contracts/public-functions/adapter-projection.json",
+    "contracts/schemas/public-operation.schema.json"
+  ],
+  "transitive": [
+    "public function run_gaps and workspace_gaps definitions, exact owner-source/family digests",
+    "flat project.read operation contract; public catalog row/proposal binding and catalog digest",
+    "capability definition graph and operation-definition slot coordinates",
+    "payload inventory and Product content identity",
+    "product-toolchain-manifest.json and subsequent packed archive/install identity"
+  ],
+  "owners": [
+    "code/src/shared/owner_contract_source_set.ts:141",
+    "code/src/shared/public_function_family.ts:467-490",
+    "code/src/shared/public_function_projections.ts:623-751",
+    "scripts/generate-product-manifest.mjs:270-274,920-1027,1127"
+  ],
+  "boundary": "Root final-source freeze and single candidate build derive all actual identities. No handwritten generated value, throwaway package or old install replacement."
+}

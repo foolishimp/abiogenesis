@@ -1,0 +1,20 @@
+{
+  "kind": "source_tool_output_field_projection",
+  "timestamp": "2026-09-29T17:05:56.472Z",
+  "call_id": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+  "selectedSourceFields": [
+    "payload.output[0]",
+    "payload.output[1]"
+  ],
+  "output": [
+    {
+      "type": "input_text",
+      "text": "Script completed\nWall time 3.1 seconds\nOutput:\n"
+    },
+    {
+      "type": "input_text",
+      "text": ""
+    }
+  ],
+  "limit": "Outer tool completed; first inner exec output is empty. The original wrapper printed .output only, so its numeric exit code is not retained in this record. Later exact closure and endpoint evidence supplies the resulting-byte join. Subsequent bundled read output is omitted."
+}

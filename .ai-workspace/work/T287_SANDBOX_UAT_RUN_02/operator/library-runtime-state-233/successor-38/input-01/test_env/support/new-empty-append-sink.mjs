@@ -1,0 +1,1 @@
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs

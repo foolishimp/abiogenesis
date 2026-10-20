@@ -1,0 +1,31 @@
+{
+  "status": "CLOSED_CONSTRUCTION_ONLY_SOURCE_ACCEPTED",
+  "identity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-19/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:14f82f87f5ca76f2f10dfdaadc3621e8ce014a4ec898098d32d03d5e0f3f4408",
+    "archiveBytes": 10148589,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0",
+    "archiveMembers": 5233
+  },
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-19/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-19/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:14f82f87f5ca76f2f10dfdaadc3621e8ce014a4ec898098d32d03d5e0f3f4408",
+      "productContentDigest": "sha256:c778e602faa7c1166f2f179a4a6fa4c589934a864ac75273243fbdc5900bcbc4",
+      "manifestDigest": "sha256:cbdd5ecaee9b75e3b627e88125f4052e21510f10bc85776576d2ff25b6dca31f",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubject": "7b776c8a9b73ce0e8341b48cc56d356bf76a85747763435ab832a7efe9424287",
+  "sourceReturn": "a1c330a701f8ae3411cc3ad108eec4a9eb2bc65530386c364f05e480831ff75d",
+  "buildInputsPreserved": 259,
+  "generatedChanged": 298,
+  "memberCorrespondence": 5233,
+  "testsReused": "Accepted diagnostic and command-budget focused source checks reused; max review accepted; no repeated tests",
+  "nativeExecution": false
+}

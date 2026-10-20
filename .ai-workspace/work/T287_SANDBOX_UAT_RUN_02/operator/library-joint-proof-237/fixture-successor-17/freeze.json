@@ -1,0 +1,33 @@
+{
+  "kind": "fixture17_freeze",
+  "status": "CLOSED_STOP",
+  "disposition": "BOUNDED_SYNTAX_READINESS_ONLY",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/return.md",
+      "sha256": "eaac417d06f6ca207ab5acc0109bcdfbad58017d209d738a4d185b26841c0ddb",
+      "byteCount": 2201,
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/readiness.json",
+      "sha256": "3c2f5d681f20aeaa8395e9758cf1d91ca927bb07c27e96327dbf93586f1a8f1c",
+      "byteCount": 2920,
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/postimages.json",
+      "sha256": "39d6b4506d7759463e82a545455c533d31a58d950ac839b2d9d3935048742402",
+      "byteCount": 1710,
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/pins.json",
+      "sha256": "4688686e535d99128377436bb53a27a3240e8c7cface68dd2a3f9a18643b8db5",
+      "byteCount": 5209,
+      "mode": 420
+    }
+  ],
+  "runtimeEffects": "Only two syntax-check processes; no responder/helper/native execution",
+  "nextOwner": "Executive independent review and explicit installed17 grant"
+}

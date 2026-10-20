@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED",
+  "role": "Reviewer",
+  "activation": "T287_RESULT_LINEAGE_SOURCE_ASSURANCE_01",
+  "recommendation": "GO_SOURCE_COMPONENT_ONLY",
+  "sourceFreezeSHA256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+  "fixtureFreezeSHA256": "cc036b4c49f75ecafdff98adff6900ad48445923f8f7118c53336ab6b9e82d33",
+  "blockers": [],
+  "qualificationAccepted": false,
+  "installedProof": "open",
+  "noFurtherWrites": true,
+  "closedAt": "2026-10-02T13:03:45.571470+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "observed_utc": "2026-10-20T18:58:29.095574+00:00",
+  "method": "Regular size/mtime, symlink target/mtime, path and kind comparison; original symlink byte-size sentinel is not compared to link length.",
+  "new_paths": [
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-candidate-freeze-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/activation.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/GOALS.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/T-287-deliver-abiogenesis-5-feature-waves.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/frontier.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/commentary-analysis-inventory.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/concurrency-observation.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/credential-binary-discriminator.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/credential-classification.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/credential-pattern-candidates.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/github-account-preflight.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/initial-inventory.jsonl",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/initial-preparation.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/lfs-local-install-preconditions.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/normal-git-storage-population.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/oversized-files.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/proposed-gitattributes.txt",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/recent-paths-initial.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/storage-tooling-preflight.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/correction-L2-001/correction.diff",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/correction-L2-001/readiness.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/correction-L2-001/return.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/checks-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/freeze-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/independent-delta-02.diff",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/result-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/review-02.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-02/L2-candidate-freeze-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-02/L2-execution-contract.md"
+  ],
+  "changed_initial_paths": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "kind": "file",
+      "bytes": 533127,
+      "mtime_ns": 1792522673896159954,
+      "mtime_utc": "2026-10-20T18:57:53.896160+00:00"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "kind": "file",
+      "bytes": 26888,
+      "mtime_ns": 1792522293932120374,
+      "mtime_utc": "2026-10-20T18:51:33.932120+00:00"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/frontier.md",
+      "kind": "file",
+      "bytes": 5111,
+      "mtime_ns": 1792522673898060665,
+      "mtime_utc": "2026-10-20T18:57:53.898061+00:00"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "kind": "file",
+      "bytes": 78297,
+      "mtime_ns": 1792522673892423156,
+      "mtime_utc": "2026-10-20T18:57:53.892423+00:00"
+    }
+  ],
+  "commentary_changed_paths": [],
+  "quiescence": "Not yet established; Executive grant required. No broad process inspection."
+}

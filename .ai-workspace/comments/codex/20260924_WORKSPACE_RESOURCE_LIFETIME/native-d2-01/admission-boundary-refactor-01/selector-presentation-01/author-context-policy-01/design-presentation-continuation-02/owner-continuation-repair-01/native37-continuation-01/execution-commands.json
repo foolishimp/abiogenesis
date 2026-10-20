@@ -1,0 +1,119 @@
+[
+  {
+    "phase": "setup",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "prepare.mjs"
+    ],
+    "environment": {},
+    "wrapperExitCode": 0
+  },
+  {
+    "phase": "witness",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/witness-01",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "execute.mjs"
+    ],
+    "environment": {},
+    "wrapperExitCode": 0
+  },
+  {
+    "phase": "intakeConstructor",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/intake-01",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "construct.mjs"
+    ],
+    "environment": {},
+    "wrapperExitCode": 0
+  },
+  {
+    "phase": "intake",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/intake-01",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "run.mjs",
+      "native-prepared.json"
+    ],
+    "environment": {
+      "ODD_GLC_ALLOW_FULL_SANDBOX_LIVE": "1"
+    },
+    "wrapperExitCode": 0
+  },
+  {
+    "phase": "intakeReadback",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/intake-01",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "read-intake.mjs",
+      "native-prepared.json"
+    ],
+    "environment": {},
+    "wrapperExitCode": 0
+  },
+  {
+    "phase": "suffixPreparation",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/suffix-01",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "prepare.mjs"
+    ],
+    "environment": {},
+    "wrapperExitCode": 0
+  },
+  {
+    "phase": "suffix",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/suffix-01",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "run.mjs",
+      "native-prepared.json"
+    ],
+    "environment": {
+      "ODD_GLC_ALLOW_FULL_SANDBOX_LIVE": "1"
+    },
+    "wrapperExitCode": 0
+  },
+  {
+    "phase": "suffixReadback",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/suffix-01",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "read-suffix.mjs",
+      "native-prepared.json"
+    ],
+    "environment": {},
+    "wrapperExitCode": 0
+  },
+  {
+    "phase": "suffixEvidence",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/suffix-01",
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "read-evidence.mjs",
+      "native-prepared.json"
+    ],
+    "environment": {},
+    "wrapperExitCode": 0
+  }
+]

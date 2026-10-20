@@ -1,0 +1,37 @@
+{
+  "parentPid": 74865,
+  "observedEpoch": 1790334741.138186,
+  "phase": "existing intake pre-actor processing",
+  "lineage": [
+    {
+      "pid": 74866,
+      "parent": 74865,
+      "depth": 0,
+      "command": "node"
+    },
+    {
+      "pid": 74901,
+      "parent": 74866,
+      "depth": 1,
+      "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    }
+  ],
+  "caveat": "One five-second OS sample; sampling overhead and wall/CPU attribution remain distinct.",
+  "command": [
+    "/usr/bin/sample",
+    "74901",
+    "5",
+    "-file",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/intake-01/cpu-sample-01.txt"
+  ],
+  "target": {
+    "pid": 74901,
+    "parent": 74866,
+    "depth": 1,
+    "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+  },
+  "exitCode": 0,
+  "elapsedSeconds": 5.294781791977584,
+  "stdout": "",
+  "stderr": "Sampling process 74901 for 5 seconds with 1 millisecond of run time between samples\nSampling completed, processing symbols...\nSample analysis of process 74901 written to file /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/intake-01/cpu-sample-01.txt\n"
+}

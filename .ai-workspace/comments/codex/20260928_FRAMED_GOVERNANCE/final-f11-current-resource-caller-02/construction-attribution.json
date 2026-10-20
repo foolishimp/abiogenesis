@@ -1,0 +1,34 @@
+{
+  "kind": "external_worker_construction",
+  "activation": "T287_F11_CURRENT_RESOURCE_CALLER_02",
+  "actor": "/root/f11_current_resource_caller",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-controls-02/request.txt",
+    "bytes": 5896,
+    "sha256": "788d3b7cdf50a62b7e94dd97de7329e1e358dcbf747e5f98f84ce872fac4f761"
+  },
+  "allocationAmendment": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#rc1-successor-caller-allocation-and-s02-independent-assurance",
+  "changeClass": "realization_refactor",
+  "newConstruction": "External successor caller/current-resource/readiness/effect-plan/closure only",
+  "reused": {
+    "caller": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/freeze.json",
+      "bytes": 14545,
+      "sha256": "f1937dec28204ef6790f9650edb27c031ee62f1abb7960b80119517339d570a6"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+      "bytes": 13795,
+      "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+    },
+    "execution": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/freeze.json",
+      "bytes": 20105,
+      "sha256": "31162ce8dadbcbb1572d1043c009fba71be4303875165ff562461b84b70c3feb"
+    }
+  },
+  "assessmentSemanticAuthorship": "Unchanged historical declarations and residuals. No historical author or independent acceptance is manufactured.",
+  "nativeCalls": 0,
+  "closed": true
+}

@@ -1,0 +1,32 @@
+✔ Design response expands exact selections without authoring or rewriting semantic payloads (37.170375ms)
+✔ Design response refuses malformed or unavailable selections and preserves canonical coverage checks (4.103667ms)
+(node:79897) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ actual derived revision successor shares complete typed assets under the unchanged Design bound (397.03125ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 442.228167
+
+✖ failing tests:
+
+test at test_env/tests/t288-instruction-assembly-owner.test.mjs:474:1
+✖ actual derived revision successor shares complete typed assets under the unchanged Design bound (397.03125ms)
+  AssertionError [ERR_ASSERTION]: [{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/0/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"process_exit"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/1/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"stdout_exact"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/2/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"test_pass_count"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/3/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"module_export_return_exact"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/4/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"http_response_exact"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/5/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"module_set_exact"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/6/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"file_count"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/7/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"test_report_set_exact"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/8/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"test_report_failure_count"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0/predicateKind","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf/9/properties/predicateKind/const","keyword":"const","params":{"allowedValue":"test_report_error_count"},"message":"must be equal to constant"},{"instancePath":"/design/outcomePredicates/0","schemaPath":"#/properties/design/anyOf/0/properties/outcomePredicates/items/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"},{"instancePath":"/design","schemaPath":"#/properties/design/anyOf/1/type","keyword":"type","params":{"type":"null"},"message":"must be null"},{"instancePath":"/design","schemaPath":"#/properties/design/anyOf","keyword":"anyOf","params":{},"message":"must match a schema in anyOf"}]
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs:556:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

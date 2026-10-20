@@ -1,0 +1,23 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    'advance',
+-   'terminal'
+  ]
+
+    at executeInstalledGraphProof (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/driver.mjs:143:10)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/driver.mjs:183:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [ 'advance' ],
+  expected: [ 'advance', 'terminal' ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

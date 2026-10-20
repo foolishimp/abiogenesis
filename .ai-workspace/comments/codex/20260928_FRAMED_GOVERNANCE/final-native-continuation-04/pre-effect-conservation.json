@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "cuts": [
+    {
+      "cut": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+      "records": 5996,
+      "status": "passed"
+    },
+    {
+      "cut": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02",
+      "records": 16774,
+      "status": "passed"
+    }
+  ],
+  "syntax": [
+    {
+      "path": "driver.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "owner-checks.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "public-support.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "launch-once.py",
+      "pythonAst": "passed; no pycache"
+    },
+    {
+      "path": "observe-process.py",
+      "pythonAst": "passed; no pycache"
+    },
+    {
+      "path": "prepare.py",
+      "pythonAst": "passed; no pycache"
+    }
+  ],
+  "originalPrefixSHA256": "cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+  "nativeCalls": 0
+}

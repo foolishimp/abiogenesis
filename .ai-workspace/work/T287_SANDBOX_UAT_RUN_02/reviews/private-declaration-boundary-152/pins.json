@@ -1,0 +1,191 @@
+{
+  "status": "CLOSED",
+  "verdict": "GO \u2014 Source/typed-declaration boundary only",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/freeze.json",
+    "sha256": "1f5638478bf6fcfa594958be6e4ba07fbb1cb35f0eb461037d66bd39cbfa0a89",
+    "bytes": 18878
+  },
+  "completeSubjectVerification": {
+    "pins": 54,
+    "mismatches": 0
+  },
+  "selectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/return.md",
+      "sha256": "faff76e31eb954d813539de9cd1965d94ae569b9f0e4db4f0d766c00d5e4c775",
+      "bytes": 2377
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/readiness.json",
+      "sha256": "6b6a03ded5c32877f6f0ff8891a00bc0ac9f7d90013dfcbaf32d7235ed2a2f51",
+      "bytes": 8067
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/freeze.json",
+      "sha256": "1f5638478bf6fcfa594958be6e4ba07fbb1cb35f0eb461037d66bd39cbfa0a89",
+      "bytes": 18878
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/source-diff.patch",
+      "sha256": "94b0868dfb4c68827d66136f85339b431751c984ac1d7cc3c6453144a7904c79",
+      "bytes": 2389
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/source-delta.json",
+      "sha256": "db21a2cb97b9c45f1d7bdf4fb731c06e63d50fa1baea847217c7e6c10163fddf",
+      "bytes": 3415
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/source-preimages.json",
+      "sha256": "008207c31298bb476b6073171d81e07d73898be5ef68c08c482cbd8020a6bdd2",
+      "bytes": 66555
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/source-postimages.json",
+      "sha256": "97768ec58e15d0671880feb618f9dff4dd38a9b61ef4751c764bb03e8ef569a2",
+      "bytes": 66555
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/isolated-emission-parity.json",
+      "sha256": "f3939395230c2010d131181b01d35f21f4c2a41cb70b7664af09c0684f4fdb5a",
+      "bytes": 155899
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/conservation.json",
+      "sha256": "9589cc1c8eef90434fd65848f452f4082b1d70fbf283116f4874a5b053e95d91",
+      "bytes": 1409
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/rca-action.json",
+      "sha256": "e73b898cefaeab2965abb463aa20c34b00320f56ba30e57a7938903a48b06825",
+      "bytes": 1994
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/isolated-config-cause-action.json",
+      "sha256": "7ee6de14a6995b83008939ee19a3f377626daa75b0d163ccbf05056be883987a",
+      "bytes": 987
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/tsconfig.isolated.json",
+      "sha256": "2adaf003b9446a05c35aa94a6bc1af391085ca92aa9369d32a3e3009f8ecf7c3",
+      "bytes": 830
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/tsconfig.isolated-initial.json",
+      "sha256": "c0651bbce061607fed85fb67e151984419dd6ede5a726c40f222724773633542",
+      "bytes": 285
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/run-isolated-compile.mjs",
+      "sha256": "8a0ffb12d38749ffac98abafb36b7b8765c5b0cceb44b2ef3211865d23a9d10f",
+      "bytes": 1684
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/prove-native-declaration-closure.mjs",
+      "sha256": "5069b2ae553eec37ed726df5360e07893c9d6faeb3b9fa555bc8297e41a7ddc1",
+      "bytes": 6079
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/commands/isolated-compile-01.result.json",
+      "sha256": "9b55f34fb879a08c27baec179ff407c16744c4ef7bc37e29252bb8f0a022dd7e",
+      "bytes": 880
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/commands/isolated-compile.result.json",
+      "sha256": "377264d0c30a9e212abe95bddeeff28ad3b6b348e64e2424be729775a257ee46",
+      "bytes": 876
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/commands/native-declaration-closure.result.json",
+      "sha256": "df73718b28d70c68a17e43d1786eb53c9f77e97a077a2a6cc71800b30b70d967",
+      "bytes": 6240
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/closure-result.json",
+      "sha256": "d68e8b120fc6120fcce602c79b20eec215d176de1faa19038503392fa740e30a",
+      "bytes": 1116346
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/closure-input-pins.json",
+      "sha256": "2cd0a93e18656eef0d8c587927863bc21519520c770ec0de9ef87fae4140b366",
+      "bytes": 1737973
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/emitted/code/src/abg/invocation_admission.d.ts",
+      "sha256": "7d6c7186b32108ca5a3e0c1643b736548b5d9c7ae1f5a32cfe6800eee0051fa5",
+      "bytes": 10368
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/emitted/code/src/product/run_invocation_operation.d.ts",
+      "sha256": "368110eb5b3b6d9cb14d904d86517b17de22789223936264b6d92a2e31b95dd7",
+      "bytes": 6016
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/postimages/code/src/abg/invocation_admission.ts",
+      "sha256": "554b55b0c4b3c7ef3566303a4bfd9b4bdbe55afaf825317ee8e89581c8bf446c",
+      "bytes": 74168
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/postimages/code/src/product/run_invocation_operation.ts",
+      "sha256": "13b6361c4d0c2b8b76bbf69054851bddb20b49206754284fcf65dfe9c2d19396",
+      "bytes": 33095
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/postimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "22bee59712ce1457d07437b2956ce7cf7bff129d1730ad60a96b739787c9c0a9",
+      "bytes": 35596
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/preimages/code/src/abg/invocation_admission.ts",
+      "sha256": "e3069cc9c2d8d1153673a9f33c2795c282f713d9b307e0e90f32596a49106ac3",
+      "bytes": 74139
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/preimages/code/src/product/run_invocation_operation.ts",
+      "sha256": "e7c7803fc5e6d741a0a89b76b9ed7c66102c8602333fcb6bf217a59e3724cfa3",
+      "bytes": 33076
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/preimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "318d61a2177220a4838fa7210b386dd9692bb8897eaa701504b651d1325699fa",
+      "bytes": 34998
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "bytes": 93690
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "bytes": 4277
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+      "bytes": 604
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+      "bytes": 48959
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "sha256": "22bc8a46aa596e8d5fa4b0336c9a0edc8f0878b1f96af00f2e8a03ad348772ae",
+      "bytes": 119230
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_exports.js",
+      "sha256": "38c1bee63429bd808f62a8564c13b83ce32a84a3c1f2e2b8502bee5c80b670b2",
+      "bytes": 108445
+    }
+  ],
+  "method": "Independent frozen source/emitted diff, existing receipts and unchanged canonical owner inspection; no execution",
+  "limits": [
+    "no normal generation/publication/install credit",
+    "no new covered-source/native/C2/UAT/release credit",
+    "no HoG145 or unaffected143 runtime re-review"
+  ]
+}

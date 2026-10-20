@@ -1,0 +1,68 @@
+{
+  "status": "GO_SYNTAX_AND_OWNED_MODULE_CLOSURE",
+  "modules": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/run-continuation.mjs",
+      "sha256": "a2fa6781821ecf0103b06765aef932ebfd985d1ba39352fae56ea3708c35d9f0",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/diagnostic-trap-probe.mjs",
+      "sha256": "f1b30393bb100094e7b8abdbddc640a3d6c65f862be10628b0ccb09e3f997eac",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/f11/conformance-resources.mjs",
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/f11/flow-driver.mjs",
+      "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/f11/ordinary-caller.mjs",
+      "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/f11/prepare-resources.mjs",
+      "sha256": "2353b0f19f3bf70908c919840b5f2aa4c93c69275c332a0030d64a74465e554c",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/f11/proof-oracles.mjs",
+      "sha256": "8adcf317453de147f2ff0156f4cce1e86f857f73fe825914774e4a7db1486d04",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/f11/public-outcomes.mjs",
+      "sha256": "1936e1b8f6ef199f99df8ac6284fd7e06a7b166a1280fc09939ebc661155bf59",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/f11/public-support.mjs",
+      "sha256": "23eb2e8573059a840fd1a554cc53db5dc01fe96a933a329efba302e0a8eed9cd",
+      "exitCode": 0,
+      "ProductImports": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/f11/source-delta-contract.mjs",
+      "sha256": "339e10ab778ef1d8be9666b195450f88f2a0698accb3b4733643cb4b6f50602b",
+      "exitCode": 0,
+      "ProductImports": 0
+    }
+  ],
+  "PythonSyntax": "all owned top-level .py compiled in memory; no cache or execution",
+  "ProductImports": 0,
+  "RuntimeEffects": 0
+}

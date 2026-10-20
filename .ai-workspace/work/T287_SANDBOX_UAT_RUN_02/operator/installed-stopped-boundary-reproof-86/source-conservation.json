@@ -1,0 +1,22 @@
+[
+  {
+    "path": "source/data-mapper-full/source.original.txt",
+    "expected": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+    "observed": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324"
+  },
+  {
+    "path": "source/data-mapper-full/supporting-constants.original.txt",
+    "expected": "sha256:5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+    "observed": "sha256:5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70"
+  },
+  {
+    "path": "source/data-mapper-full/obligations.json",
+    "expected": "sha256:7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+    "observed": "sha256:7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32"
+  },
+  {
+    "path": "source/data-mapper-full/oracle.json",
+    "expected": "sha256:99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+    "observed": "sha256:99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9"
+  }
+]

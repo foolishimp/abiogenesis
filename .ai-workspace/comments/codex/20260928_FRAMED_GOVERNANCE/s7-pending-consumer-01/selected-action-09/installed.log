@@ -1,0 +1,34 @@
+✖ complete selected-action acquisition, occurrence and cold-proof composition (31387.144834ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 31442.274667
+
+✖ failing tests:
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:127:1
+✖ complete selected-action acquisition, occurrence and cold-proof composition (31387.144834ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   digest: 'sha256:8975fd12856c5d62866795a4e33cb972244db0d07b8822eaa0f4dbb2bdb47afa',
+  -   digest: 'sha256:f649cf546c4553fd94c85719d2997cb8196d09d75a405de739df1d20a7e77104',
+      ref: 'run://abiogenesis/f649cf546c4553fd94c85719d2997cb8196d09d75a405de739df1d20a7e77104'
+    }
+  
+      at continueSelected (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:122:185)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:144:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { digest: 'sha256:8975fd12856c5d62866795a4e33cb972244db0d07b8822eaa0f4dbb2bdb47afa', ref: 'run://abiogenesis/f649cf546c4553fd94c85719d2997cb8196d09d75a405de739df1d20a7e77104' },
+    expected: { ref: 'run://abiogenesis/f649cf546c4553fd94c85719d2997cb8196d09d75a405de739df1d20a7e77104', digest: 'sha256:f649cf546c4553fd94c85719d2997cb8196d09d75a405de739df1d20a7e77104' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

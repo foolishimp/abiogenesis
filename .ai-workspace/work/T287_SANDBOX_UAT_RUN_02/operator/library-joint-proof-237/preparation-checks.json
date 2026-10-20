@@ -1,0 +1,31 @@
+{
+  "scope": "Preparation only; no imports or owner execution",
+  "checks": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/publish.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis",
+      "chunk_id": "153591",
+      "wall_time_seconds": 0.000005375,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/run.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis",
+      "chunk_id": "246541",
+      "wall_time_seconds": 0.000009125,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

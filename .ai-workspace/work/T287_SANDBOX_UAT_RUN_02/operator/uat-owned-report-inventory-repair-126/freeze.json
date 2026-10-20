@@ -1,0 +1,173 @@
+{
+  "status": "FROZEN",
+  "role": "HarnessWorker126",
+  "createdAt": "2026-10-08T17:26:26.431661+00:00",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/activation.json",
+      "sha256": "53c9beb2315714b0a88a3bf979505ab0d7de42075eb9b1f7310546875d1f7322",
+      "byteCount": 1798
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/acquisition-pin-succession.json",
+      "sha256": "4e38800ac3199a8779d1ec5449d8711f217eba03bcb5e6ed1fa4c3f6520ab424",
+      "byteCount": 403
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/readiness.json",
+      "sha256": "dbe028db422302855822dc93fa541f5a3871a93223f8f6cc831ac6a46b959889",
+      "byteCount": 8740
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/return.md",
+      "sha256": "d8feb312463d596520ad3b8c9a4d61355160701b94356e0defc6f39532960473",
+      "byteCount": 2435
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/preimages/independent-oracle.mjs",
+      "sha256": "4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b",
+      "byteCount": 25236
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/preimages/harness.test.mjs",
+      "sha256": "5c027de1834f5dd5b36b7b93c7c2771f47d233b85af5fccb47d2f75109cb4101",
+      "byteCount": 67591
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/preimages/README.md",
+      "sha256": "e6d7555654f8a31334b686a0098a828454ee540b5e0a31ad5f72881a355520e7",
+      "byteCount": 2983
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/preimages/scenarios.json",
+      "sha256": "22d433085d9d4cf81221e45d566442c391cc35cb3fa7238a36a6d416c63a71d9",
+      "byteCount": 34763
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
+      "byteCount": 26966
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "347131c9a3e48a9a3b2146ed9fdb6c0ab5ca8f1a3fb4ac7190748c1a53f41d55",
+      "byteCount": 71775
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/README.md",
+      "sha256": "14549d436da8b580b49c6c19982349ff79c080cb341b26da46ab3783247f38b4",
+      "byteCount": 3532
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "2c506450f29c26f95c9e3f218a7f58003e7d740ad8bc3065a874d20b1b05e3e8",
+      "byteCount": 34763
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+      "byteCount": 36805
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "byteCount": 7569
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+      "sha256": "0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa",
+      "byteCount": 109703
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/oracle.json",
+      "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+      "byteCount": 16774
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-review-125/return.md",
+      "sha256": "b0f0a23e4048f48a7355e4bd11505f951e1264030fcb6bf7b69094ec925c116a",
+      "byteCount": 4848
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-review-125/pins.json",
+      "sha256": "4556192f59c05b387b4b24c523c32108eca08acd786ff499a7b174d02b3e33d9",
+      "byteCount": 27934
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/focused-harness.request.json",
+      "sha256": "530abb037895e7d649cb50b236f130869db01a55d34af0e1b0f906b960d67d16",
+      "byteCount": 1795
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/focused-harness.result.json",
+      "sha256": "7f8adf0fd2abc9180f78fa07b582dd24da2546f508dacbe08c40597032a4a4d3",
+      "byteCount": 3329
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/focused-harness.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/focused-harness.stdout",
+      "sha256": "86becbab22216e4411680b3e8060043e6695f22b1a25a5562802959c344a58de",
+      "byteCount": 1361
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-harness.request.json",
+      "sha256": "12258900f424f2688c0930e154a87e548c2424b518d5801495714dad4f23c556",
+      "byteCount": 1667
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-harness.result.json",
+      "sha256": "dfad9b2c81d0bfb28704317a85627f4db2e5128d471c19821cefa38705b80238",
+      "byteCount": 1828
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-harness.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-harness.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-oracle.request.json",
+      "sha256": "7a35b73736259855a96f550b0a4ce3975bec9721788fe58cf1bc3775c01332de",
+      "byteCount": 1690
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-oracle.result.json",
+      "sha256": "d7c34e111329f8756818f56df973a49a968fa9c911460846f98dff5c77e3bcf3",
+      "byteCount": 1842
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-oracle.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-oracle.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    }
+  ],
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/return.md",
+    "sha256": "d8feb312463d596520ad3b8c9a4d61355160701b94356e0defc6f39532960473",
+    "byteCount": 2435
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/readiness.json",
+    "sha256": "dbe028db422302855822dc93fa541f5a3871a93223f8f6cc831ac6a46b959889",
+    "byteCount": 8740
+  },
+  "limits": "No native/runtime/UAT credit; original immutable source/producers and all prior cuts conserved; independent review reserved Root."
+}

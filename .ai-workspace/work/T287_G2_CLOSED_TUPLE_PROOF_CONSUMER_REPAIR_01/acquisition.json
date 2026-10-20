@@ -1,0 +1,17 @@
+{
+  "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+  "elapsedMs": 1536.474042,
+  "userCPUSeconds": 0.302558,
+  "systemCPUSeconds": 1.225544,
+  "maxRSSPlatformBytes": 39731200,
+  "dependencyFiles": 4576,
+  "dependencyLogicalBytes": 58291040,
+  "SourceChanges": 2,
+  "unchangedSource": 14,
+  "HOME": "/Users/jim",
+  "defaultHeap": true,
+  "beforePayloadCallerCorrection": {
+    "optionalNativeLocator": "actual emitted serialized-only rows omit optional nativeTypedLocator; proof selects only present native locators before execution",
+    "noPayloadFailureOrRetry": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": ""
+}

@@ -1,0 +1,15 @@
+{
+  "operation": "T287_EXEC06_INDEPENDENT_CALLER_REVIEW_01",
+  "role": "Reviewer",
+  "actor": "/root",
+  "previousRole": "Executive",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/root-caller-request.txt",
+    "bytes": 3771,
+    "sha256": "48369b899145d9c07c344c0a5a85e670d6c2b25256057ec721c1dca2a65d4665"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/root-caller-review",
+  "permittedEffects": "Independent read-only review; activation/report/closure only; no Source/Runtime imports or effects",
+  "independence": "Root did not author inherited Q06 caller/flow; authored Executive grant and provisional triage only",
+  "activatedAt": "2026-10-02T04:22:48.095129+00:00"
+}

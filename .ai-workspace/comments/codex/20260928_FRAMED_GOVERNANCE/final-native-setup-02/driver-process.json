@@ -1,0 +1,11 @@
+{
+  "pid": 12708,
+  "exitCode": 1,
+  "signal": null,
+  "exitObserved": true,
+  "timedOut": false,
+  "elapsedMs": 21442.23845889792,
+  "ownedGroupsSignalled": [],
+  "stdout": "driver.stdout",
+  "stderr": "driver.stderr"
+}

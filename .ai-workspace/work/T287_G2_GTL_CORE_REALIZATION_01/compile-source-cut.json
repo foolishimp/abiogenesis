@@ -1,0 +1,80 @@
+{
+  "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+  "rows": [
+    {
+      "path": "code/src/abg/m03.ts",
+      "bytes": 527,
+      "sha256": "2e30ad02228e7e99182e3a684810afe0296abd2439b44adbb44b1561a1c6a32a"
+    },
+    {
+      "path": "code/src/gtl/c_algebra.ts",
+      "bytes": 21915,
+      "sha256": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583"
+    },
+    {
+      "path": "code/src/gtl/contracts.ts",
+      "bytes": 8897,
+      "sha256": "3e02aa184302fd3a38ba54bf3a63a9bbc30c8a0662aae5bda6fa09a0f61fdf2d"
+    },
+    {
+      "path": "code/src/gtl/m01.ts",
+      "bytes": 722,
+      "sha256": "71b67f5d89d683a7fdab6547490b43943a1f65d9fa1b0852e3b1fe67b4d5e078"
+    },
+    {
+      "path": "code/src/gtl/m02.ts",
+      "bytes": 374,
+      "sha256": "641ef1e97f3fc133341def23fe61c10039a3e7ae8e4fff3482f9495ffc094615"
+    },
+    {
+      "path": "code/src/gtl/serialization.ts",
+      "bytes": 2293,
+      "sha256": "186534d60858309700827650b035880d2c10a4868e0beb0eb096d02511468845"
+    },
+    {
+      "path": "code/src/gtl/serialization_contracts.ts",
+      "bytes": 17218,
+      "sha256": "49470fe9ac24a90b16bc148aba47ca6d583a1fd1521cd7b8d62fca5b21f82ccf"
+    },
+    {
+      "path": "code/src/validator/conformance_operation.ts",
+      "bytes": 13344,
+      "sha256": "7c8110d96839b98fa1ff9a8ee4bcd6f3a355f65d50cec3464ff15ea1fd664152"
+    },
+    {
+      "path": "code/src/validator/conformance_operation_contracts.ts",
+      "bytes": 2999,
+      "sha256": "f310b4d29d5e6778b9c370c96b98458a75c6f229173ab5fb831727495943f527"
+    },
+    {
+      "path": "code/src/validator/raw_admission.ts",
+      "bytes": 9341,
+      "sha256": "2b53abc5ca6684c78f3106cbcda924944a84519e7244b4683459b89177b6c2a3"
+    },
+    {
+      "path": "code/src/validator/validation.ts",
+      "bytes": 81770,
+      "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512"
+    },
+    {
+      "path": "contracts/conformance/gtl-language-conformance-corpus.json",
+      "bytes": 138448,
+      "sha256": "4ef174f684023199da232f2bd3c3e5f46298c33ed81012a3a9096632f6c480bf"
+    },
+    {
+      "path": "scripts/generate-product-manifest.mjs",
+      "bytes": 49057,
+      "sha256": "5ab823b9e010d1b57624020b1ea3d1e515bea7c845d123a7e49b26e40e7298aa"
+    },
+    {
+      "path": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "bytes": 5357,
+      "sha256": "132d1e815b9bb4e4e963bc047235379c996241f5022c4dc47a9ca96b1a20c1b9"
+    },
+    {
+      "path": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "bytes": 17537,
+      "sha256": "bc9ab45ea3d76bed154458dccba2c8ee398275c70c9bad5dc729fc811ed4a08c"
+    }
+  ]
+}

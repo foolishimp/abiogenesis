@@ -1,0 +1,30 @@
+{
+  "classification": "Supported eventless boundary reproof only; no new native result or completion",
+  "run": {
+    "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+    "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+  },
+  "nativeDisposition": "blocked",
+  "terminalResult": null,
+  "uatPass": false,
+  "eventCount": 165617,
+  "freshReads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "refusal",
+      "status": null,
+      "code": "not_found"
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "status": "blocked",
+      "code": null
+    }
+  ],
+  "oracleDisposition": "unmet",
+  "originalControlPinsConserved": 28,
+  "worksiteFilePinsConserved": 48,
+  "installationsUnchanged": 2,
+  "wallMs": 344555.092584
+}

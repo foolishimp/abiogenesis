@@ -1,0 +1,1 @@
+{"scope":"One authenticated installed-owner closed-prefix read completed; subsequent local diagnostic slice was not frozen and pure prefix selection refused. No owner acquisition will be repeated.","error":"runtime event-prefix selection requires one explicit immutable snapshot","nativeRuntimeFailure":false}

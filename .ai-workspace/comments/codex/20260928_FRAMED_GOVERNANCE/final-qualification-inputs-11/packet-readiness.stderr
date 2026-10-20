@@ -1,0 +1,4 @@
+AssertionError [ERR_ASSERTION]: actual carrier/authority deltas are explicit
+    at deriveResourcePacket (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/f11/prepare-resources.mjs:22:9)
+    at construct (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/f11/current-resources.mjs:173:15)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/f11/packet-readiness.mjs:29:15

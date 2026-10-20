@@ -1,0 +1,28 @@
+{
+  "scope": "pure assembly component equivalence; upstream authentication remains declared fixture premise",
+  "source": {
+    "beforeBytes": 88807,
+    "afterBytes": 86069,
+    "beforeLines": 844,
+    "afterLines": 832,
+    "addedLines": 65,
+    "removedLines": 77
+  },
+  "checks": [
+    {
+      "subject": "before",
+      "exitCode": 0,
+      "elapsedSeconds": 1.933687792159617
+    },
+    {
+      "subject": "after",
+      "exitCode": 0,
+      "elapsedSeconds": 1.9334972500801086
+    }
+  ],
+  "componentComparisons": 14,
+  "worksiteComparisons": 7,
+  "contextByteChange": 0,
+  "retainedAssessorPromptBytes": 712820,
+  "roles": "native work, worksite command executor, semantic stage author/assessor, semantic job author/assessor, revision selector"
+}

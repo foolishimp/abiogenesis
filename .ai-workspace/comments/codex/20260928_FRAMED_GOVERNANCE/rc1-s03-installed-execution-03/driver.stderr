@@ -1,0 +1,16 @@
+AssertionError [ERR_ASSERTION]: {"pid":70634,"code":70,"signal":null,"timedOut":false,"spawnError":null}
++ actual - expected
+
++ {
++   code: 70,
++   pid: 70634,
++   signal: null,
++   spawnError: null,
++   timedOut: false
++ }
+- null
+
+    at invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/ordinary-caller.mjs:69:10)
+    at async Object.conformance (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/ordinary-caller.mjs:73:13)
+    at async setup (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/driver.mjs:121:2)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/driver.mjs:126:38

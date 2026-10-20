@@ -1,0 +1,10 @@
+{
+  "command": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-08T05:53:25.542989+00:00",
+  "authority": "Root Worker64 one existing normal canonical build of stable61/62/63 union; no tests/repairs/pack archive/native"
+}

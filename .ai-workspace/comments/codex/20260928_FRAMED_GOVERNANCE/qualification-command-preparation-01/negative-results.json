@@ -1,0 +1,77 @@
+{
+  "kind": "mechanical_nearest_negatives",
+  "count": 8,
+  "allRefused": true,
+  "rows": [
+    {
+      "label": "original relative PATH through complete published owner",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "worksite command PATH requires only non-empty absolute entries"
+      }
+    },
+    {
+      "label": "original worksite absolute root exposure through complete published owner",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "worksite command and predicate identities must be unique"
+      }
+    },
+    {
+      "label": "protected absolute root exposure through complete published owner",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "worksite command and predicate identities must be unique"
+      }
+    },
+    {
+      "label": "changed environment against exact external binding",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "changed prepared configuration/environment/tool binding"
+      }
+    },
+    {
+      "label": "changed serialized task environment with stale identity",
+      "outcome": "refused",
+      "owner": "./product.isObservedWorksiteCommandExecutionTask",
+      "returned": false,
+      "error": null
+    },
+    {
+      "label": "changed valid declared environment against exact proposed recipe",
+      "outcome": "refused",
+      "owner": "validator/qualification.ts:134-141 producer-defined canonical digest relation",
+      "changedTaskDigest": "sha256:b067ff9278a59e8a57fea264311d07f71acc6e9262f2c1f83aa5ce0456f2abfc",
+      "changedCommandDigest": "sha256:2d88e234e6a8678fa068d6d72585d7870738835825893d092bdd7f0e4842e1b8",
+      "returned": false,
+      "error": null
+    },
+    {
+      "label": "stale Q04 recipe configuration against complete repaired task",
+      "outcome": "refused",
+      "owner": "validator/qualification.ts:134-141 producer-defined canonical digest relation",
+      "returned": false,
+      "error": null
+    },
+    {
+      "label": "changed Node body with same length/mode and pinned digest",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "pinned Node body/bytes/mode/canonical-origin mismatch"
+      }
+    }
+  ],
+  "changedNode": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/negative-inputs/changed-node-body",
+    "bytes": 86104016,
+    "sha256": "609824d030f2d3c47776cc5caa834d990178365fea0f545e7289fd32b5ce3073",
+    "mode": 365
+  },
+  "qualificationExecuted": false
+}

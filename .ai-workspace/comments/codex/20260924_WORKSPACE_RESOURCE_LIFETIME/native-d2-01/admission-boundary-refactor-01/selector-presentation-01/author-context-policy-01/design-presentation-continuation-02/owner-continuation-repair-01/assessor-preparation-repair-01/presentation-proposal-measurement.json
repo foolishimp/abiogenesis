@@ -1,0 +1,54 @@
+{
+  "scope": "Prospective presentation-only transform on component-reproduced sections, not changed installed owner or historical prompt",
+  "beforeBytes": 1051303,
+  "afterBytes": 994474,
+  "maxPromptBytes": 1048576,
+  "headroomBytes": 54102,
+  "savedBytes": 56829,
+  "duplicate": {
+    "firstRoute": "#/obligations/retainedTerms",
+    "repeatedRoute": "#/task/revisionContext/retainedTerms",
+    "fullArrayBytes": 57151,
+    "elementCount": 29,
+    "digest": "sha256:1938569b5e39cc9ac1c5dde6daf54e1f4f1c78b08260b61a03e826162a190348",
+    "proposedReference": {
+      "presentationRef": "#/obligations/retainedTerms",
+      "materialDigest": "sha256:1938569b5e39cc9ac1c5dde6daf54e1f4f1c78b08260b61a03e826162a190348"
+    },
+    "referenceBytes": 140
+  },
+  "instructionAddition": {
+    "text": " task.revisionContext.retainedTerms.presentationRef selects the identical complete obligations.retainedTerms array in listed order; its materialDigest preserves exact typed identity.",
+    "utf8Bytes": 182
+  },
+  "roundTripSectionsEqual": true,
+  "unchangedSections": [
+    {
+      "name": "source",
+      "equal": true
+    },
+    {
+      "name": "obligations",
+      "equal": true
+    },
+    {
+      "name": "predecessors",
+      "equal": true
+    },
+    {
+      "name": "worksite",
+      "equal": true
+    },
+    {
+      "name": "evidence",
+      "equal": true
+    },
+    {
+      "name": "response",
+      "equal": true
+    }
+  ],
+  "historicalAndCurrentAssetMaterialUnchanged": true,
+  "proposedPromptDigest": "sha256:ff43aaaf826b3b7b7f2549310e1849f2d856d4e51fe6e49f7eb63144212d6d6f",
+  "limit": "No omission or generic key/shape traversal; unique oversized content still reaches the unchanged guard. Implementation must verify actual successor input too, including retained current candidate in its new history and current authority metadata."
+}

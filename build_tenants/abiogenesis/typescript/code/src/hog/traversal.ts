@@ -1,3 +1,4 @@
+import type { RuntimeEventPrefix } from "../abg/event_prefix.js";
 import { isExecutionBasis, type ExecutionBasis } from "../abg/execution_basis.js";
 import {
   constructCCallLocusCandidate,
@@ -136,6 +137,15 @@ function createCursor(
 export function rehydrateHeldInteractionCursor(
   prefix: ValidatedRuntimeEventPrefix,
   candidate: TraversalCursorCandidate,
+): TraversalCursor | null;
+/** @internal */
+export function rehydrateHeldInteractionCursor(
+  prefix: RuntimeEventPrefix,
+  candidate: TraversalCursorCandidate,
+): TraversalCursor | null;
+export function rehydrateHeldInteractionCursor(
+  prefix: RuntimeEventPrefix,
+  candidate: TraversalCursorCandidate,
 ): TraversalCursor | null {
   const cursor = constructTraversalCursorCandidate({
     programRef: candidate.programRef,
@@ -240,6 +250,15 @@ export function deriveStructuralTargetCursor(
   sourceCursor: TraversalCursor,
   term: Readonly<CProgramNode>,
   prefix?: ValidatedRuntimeEventPrefix,
+): TraversalCursor | TraversalRefusal | null;
+/** @internal Same structural cursor checks against the owned authority. */
+export function deriveStructuralTargetCursor(
+  graph: Readonly<GtlGraph>, sourceCursor: TraversalCursor,
+  term: Readonly<CProgramNode>, prefix?: RuntimeEventPrefix,
+): TraversalCursor | TraversalRefusal | null;
+export function deriveStructuralTargetCursor(
+  graph: Readonly<GtlGraph>, sourceCursor: TraversalCursor,
+  term: Readonly<CProgramNode>, prefix?: RuntimeEventPrefix,
 ): TraversalCursor | TraversalRefusal | null {
   const source = cursorCoordinate(sourceCursor);
   const declaredTerm = resolveTraversalTerm(graph, sourceCursor);
@@ -300,6 +319,15 @@ export function deriveCompletedTraversalCursor(
   sourceCursor: TraversalCursor,
   completedInput: TraversalInputBasis,
   prefix?: ValidatedRuntimeEventPrefix,
+): TraversalCursor | TraversalRefusal | null;
+/** @internal Same completed-input cursor checks against the owned authority. */
+export function deriveCompletedTraversalCursor(
+  graph: Readonly<GtlGraph>, sourceCursor: TraversalCursor,
+  completedInput: TraversalInputBasis, prefix?: RuntimeEventPrefix,
+): TraversalCursor | TraversalRefusal | null;
+export function deriveCompletedTraversalCursor(
+  graph: Readonly<GtlGraph>, sourceCursor: TraversalCursor,
+  completedInput: TraversalInputBasis, prefix?: RuntimeEventPrefix,
 ): TraversalCursor | TraversalRefusal | null {
   const term = resolveTraversalTerm(graph, sourceCursor);
   if (term.kind === "traversal_refusal") return term;
@@ -530,6 +558,19 @@ export function applyRecursionRoute(
   sourceCursor: TraversalCursor,
   targetCursor: TraversalCursor,
   route: AdmittedRoute,
+): TraversalCursor | TraversalRefusal;
+/** @internal Same exact admitted-route guard from the owner's selected history. */
+export function applyRecursionRoute(
+  prefix: RuntimeEventPrefix,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  route: AdmittedRoute,
+): TraversalCursor | TraversalRefusal;
+export function applyRecursionRoute(
+  prefix: RuntimeEventPrefix,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  route: AdmittedRoute,
 ): TraversalCursor | TraversalRefusal {
   if (
     !isTraversalCursorCandidate(sourceCursor) ||
@@ -731,7 +772,24 @@ export function applyAdmittedRoute(
   targetCursor: TraversalCursor,
   expectedKind: "advance" | "re_enter" | "retry",
   route: AdmittedRoute,
-  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+  authorityPrefix?: ValidatedRuntimeEventPrefix,
+): TraversalCursor | TraversalRefusal;
+/** @internal Same exact route correspondence on private owner-issued prefixes. */
+export function applyAdmittedRoute(
+  prefix: RuntimeEventPrefix,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  expectedKind: "advance" | "re_enter" | "retry",
+  route: AdmittedRoute,
+  authorityPrefix?: RuntimeEventPrefix,
+): TraversalCursor | TraversalRefusal;
+export function applyAdmittedRoute(
+  prefix: RuntimeEventPrefix,
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  expectedKind: "advance" | "re_enter" | "retry",
+  route: AdmittedRoute,
+  authorityPrefix: RuntimeEventPrefix = prefix,
 ): TraversalCursor | TraversalRefusal {
   if (
     !isAdmittedRoute(prefix, route, authorityPrefix) ||

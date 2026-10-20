@@ -1,0 +1,22 @@
+(node:63211) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (580.625875ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+✖ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (106.540958ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 972.348917
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:248:1
+✖ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (106.540958ms)
+  TypeError [Error]: Cannot assign to read only property 'sourceRun' of object '#<Object>'
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:300:55)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

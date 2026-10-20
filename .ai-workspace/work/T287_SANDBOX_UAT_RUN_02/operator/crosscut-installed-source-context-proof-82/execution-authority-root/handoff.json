@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:40bf70bb032d48ae63db904de519ec85175040518e226c98eb6b70d55b8668c5",
+    "eventLogRef": "file:///private/tmp/abi5-root-env-6iTfW1/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:8843f5b2974616668b5ece1fe08d6fe30d18fae801c3df6711848e251dfbdda2",
+    "prefixLength": 4046316,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467881160
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:3906685bc824c9c86e6ae59fdeaf2c5543409e6fb3aa4ce4c3ba288482328a6a",
+    "device": 16777231,
+    "durableByteLength": 4046316,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventLogDigest": "sha256:8843f5b2974616668b5ece1fe08d6fe30d18fae801c3df6711848e251dfbdda2",
+    "eventLogPath": "/private/tmp/abi5-root-env-6iTfW1/runtime/events.jsonl",
+    "inode": 467881160,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

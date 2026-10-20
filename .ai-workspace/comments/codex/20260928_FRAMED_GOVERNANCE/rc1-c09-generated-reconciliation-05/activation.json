@@ -1,0 +1,35 @@
+{
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "operation": "T287_C09_GENERATED_RECONCILIATION_05",
+  "changeClass": "realization_refactor",
+  "state": "ACTIVE",
+  "activatedAt": "2026-10-03T11:17:09.829065+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-controls-05/worker-request.txt",
+    "bytes": 3252,
+    "sha256": "bc9fa44cc7bf0d0f6fad3c6aaf7aa7c02422ef3f256c7770f1e222abc7987a20"
+  },
+  "subjectPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-controls-05/subject-pins.json",
+    "bytes": 9182,
+    "sha256": "db610673b9a60a0c1def14e9ea63aa10a60e9c9c9401026f8c384fd09110ee6b"
+  },
+  "allSevenSectionsRead": true,
+  "ProductFrame": "Canonical generated correspondence to accepted immutable C09 only; no Product/WHAT change, semantic qualification or installed proof claim.",
+  "writeTerritory": {
+    "report": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05",
+    "canonicalDestinations": [
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.d.ts",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/result_evidence_lineage_contracts.d.ts",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/result_evidence_lineage_contracts.js",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/contracts.d.ts",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantics.d.ts",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    ]
+  },
+  "precondition": "All complete physical/body/mode checks and all seven preimage saves must pass before first canonical write."
+}

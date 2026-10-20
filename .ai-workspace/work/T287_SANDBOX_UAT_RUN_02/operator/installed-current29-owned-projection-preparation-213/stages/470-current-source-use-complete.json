@@ -1,0 +1,12 @@
+{
+  "stage": "current-source-use-complete",
+  "rss": 4635885568,
+  "heapTotal": 4174118912,
+  "heapUsed": 4015448272,
+  "external": 2453664,
+  "arrayBuffers": 41357,
+  "at": "2026-10-09T13:48:44.520Z",
+  "elapsedMs": 417930.40475,
+  "useDigest": "sha256:8d8cf33ee09531e7a8eff303b869c4c1508a1dd94d7ac83e3f642965adccf83f",
+  "owners": 4
+}

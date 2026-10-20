@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED_CONSTRUCTION_ONLY_RUNTIME_NOT_SELECTED",
+  "identity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:758321d64dcbac39855f1bb95bafce90fb49148c202c7f60adb62d3af9cbf009",
+    "archiveBytes": 10171461,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite34-install-i7xybae1/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite34-install-i7xybae1",
+    "archiveMembers": 5233
+  },
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite34-install-i7xybae1/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:758321d64dcbac39855f1bb95bafce90fb49148c202c7f60adb62d3af9cbf009",
+      "productContentDigest": "sha256:2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f",
+      "manifestDigest": "sha256:36bf7a6ad3beec53bf904fc5a654566d1598b15eb06bc86f6550475144d3ad22",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/subject-delta.json",
+    "sha256": "08e6695dc3994b3625089c423e208b03508e5a462607f1901790b0147e308bc7"
+  },
+  "sourceReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/return.md",
+    "sha256": "7d741af5b618c40838f88f732b68481e345e4572b396f531ee47c276725fd8aa"
+  },
+  "buildInputsPreserved": 259,
+  "generatedChanged": 2,
+  "memberCorrespondence": 5233,
+  "testsReused": "EC compile and focused source checks reused; three matched inherited failures retained as disclosed; conserved DR01 and lock/graph evidence reused; no rerun",
+  "nativeExecution": false
+}

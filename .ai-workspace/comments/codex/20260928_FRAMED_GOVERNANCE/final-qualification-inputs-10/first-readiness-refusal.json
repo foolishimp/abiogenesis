@@ -1,0 +1,77 @@
+{
+  "status": "CLOSED_FIRST_PAYLOAD_REFUSAL",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_10",
+  "predicate": "sum(4 * ceil(inventory.member.byteCount / 3)) < 500000000",
+  "source": "f11/current-resources.mjs:132",
+  "inheritedExternalBudget": 500000000,
+  "actualRawBodyBytes": 407849289,
+  "actualEncodedBodyBytes": 543805156,
+  "overBudgetBytes": 43805156,
+  "inventoryMembers": 4643,
+  "donorComparison": {
+    "inventoryMembers": 4632,
+    "rawBodyBytes": 364446132,
+    "encodedBodyBytes": 485934288,
+    "encodedDeltaBytes": 57870868
+  },
+  "largestMembers": [
+    {
+      "ref": "toolchain-input://abiogenesis/c03/bin/node",
+      "path": ".qualification-material/toolchain/bin/node",
+      "bodyBytes": 86104016,
+      "encodedBytes": 114805356
+    },
+    {
+      "ref": "fixture-input://abiogenesis/q07/carrier/assessment-input.json",
+      "path": ".qualification-material/fixture-inputs/carrier/assessment-input.json",
+      "bodyBytes": 82175295,
+      "encodedBytes": 109567060
+    },
+    {
+      "ref": "recipe-input://abiogenesis/q07/f11/source-authorship-records.json",
+      "path": ".qualification-material/recipe/f11/source-authorship-records.json",
+      "bodyBytes": 40847895,
+      "encodedBytes": 54463860
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source-members.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source-members.json",
+      "bodyBytes": 25894743,
+      "encodedBytes": 34526324
+    },
+    {
+      "ref": "recipe-input://abiogenesis/q07/f11/actual-setup-coordinates.json",
+      "path": ".qualification-material/recipe/f11/actual-setup-coordinates.json",
+      "bodyBytes": 21604917,
+      "encodedBytes": 28806556
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.json",
+      "path": "build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.json",
+      "bodyBytes": 18642450,
+      "encodedBytes": 24856600
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.transcript.json",
+      "path": "build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.transcript.json",
+      "bodyBytes": 9801195,
+      "encodedBytes": 13068260
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/build/toolchain/typescript.cjs",
+      "path": "build_tenants/abiogenesis/typescript/build/toolchain/typescript.cjs",
+      "bodyBytes": 9111680,
+      "encodedBytes": 12148908
+    }
+  ],
+  "fullSourceMemberBodyMaterialization": "NOT_STARTED",
+  "currentScopeCorrespondence": "PASSED published predicate before external byte gate, from preserved executed caller order",
+  "referenceOwnerPreparation": "NOT_REACHED",
+  "renderer": "NOT_REACHED",
+  "nativeEffects": 0,
+  "repairOrRetry": false,
+  "causeClassification": "external preparation resource-byte budget; no Product defect inferred",
+  "retainedCompleteTask": "readiness-result.json/complete-observed-task.json",
+  "sourceAuthSufficiency": "unknown",
+  "returnsTo": "Root Executive"
+}

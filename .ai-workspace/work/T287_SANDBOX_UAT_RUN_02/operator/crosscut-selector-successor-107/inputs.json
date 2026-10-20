@@ -1,0 +1,43 @@
+{
+  "fixedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-repair-105/return.md",
+      "sha256": "2c1d6b810c7723203c29aadd641c48691e83d891b1362cf00c8f638073db6edc",
+      "byteCount": 3024
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-repair-105/readiness.json",
+      "sha256": "0c60836be3bab010714b478c56a45a7519c70e318db4a098d64575f76a796aaa",
+      "byteCount": 12512
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-repair-105/freeze.json",
+      "sha256": "d5e9fa7e855b4b7366c8a1cc5e01fc2c2b99ca7ad30bf9c2e7146793d8a8779b",
+      "byteCount": 10159
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-review-106/return.md",
+      "sha256": "5453f70f22b4dc6baadf024c08f3e801bd73a9bfc823b31d269d596376d90cde",
+      "byteCount": 4327
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-review-106/pins.json",
+      "sha256": "ff6b7c832d9bb6abc061b1aa1ebc1633992c32df3a24a4acc000d71a53cbd764",
+      "byteCount": 12181
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "a6e9ed7a905ed36d5575ce3a394f8d2a30a418718f6eb5f7cff86461480fb673",
+      "byteCount": 10629890
+    }
+  ],
+  "sourceInventoryPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/pre-build.json",
+  "generatedInventoryPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/generated-delta.json",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-repair-105/freeze.json",
+    "sha256": "d5e9fa7e855b4b7366c8a1cc5e01fc2c2b99ca7ad30bf9c2e7146793d8a8779b",
+    "byteCount": 10159
+  },
+  "sourceConjunction": "Root closed Source105/independent106",
+  "scope": "One build/pack/clean host; provider resume held"
+}

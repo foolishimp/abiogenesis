@@ -1,0 +1,749 @@
+{
+  "kind": "initial_read_only_checkpoint_preparation",
+  "observed_utc": "2026-10-20T18:50:17.349260+00:00",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "branch": "main",
+  "head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "upstream": "origin/main",
+  "origin": "https://github.com/foolishimp/abiogenesis.git",
+  "direct_remote_main": "727f1dbcab3c198f7704735fdf91b994b7aac243\trefs/heads/main",
+  "tracking_ahead_behind": "0\t0",
+  "visible_paths": 91643,
+  "tracked_paths": 17824,
+  "untracked_paths": 73819,
+  "regular_file_bytes": 48112320881,
+  "kinds": {
+    "missing": 4,
+    "file": 90719,
+    "symlink": 920
+  },
+  "groups": [
+    {
+      "path": ".ai-workspace/comments/codex",
+      "files": 45290,
+      "bytes": 41517604059
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02",
+      "files": 28696,
+      "bytes": 4602133901
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01",
+      "files": 2683,
+      "bytes": 135369129
+    },
+    {
+      "path": "build_tenants/abiogenesis",
+      "files": 1314,
+      "bytes": 68418896
+    },
+    {
+      "path": ".ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "files": 1288,
+      "bytes": 85583695
+    },
+    {
+      "path": ".ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "files": 1280,
+      "bytes": 85592601
+    },
+    {
+      "path": ".ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+      "files": 1274,
+      "bytes": 86956579
+    },
+    {
+      "path": ".ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+      "files": 1245,
+      "bytes": 62869166
+    },
+    {
+      "path": ".ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01",
+      "files": 1189,
+      "bytes": 148219901
+    },
+    {
+      "path": ".ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+      "files": 1161,
+      "bytes": 148001222
+    },
+    {
+      "path": ".ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01",
+      "files": 1160,
+      "bytes": 83124837
+    },
+    {
+      "path": ".ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03",
+      "files": 513,
+      "bytes": 40116856
+    },
+    {
+      "path": ".ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02",
+      "files": 512,
+      "bytes": 31382622
+    },
+    {
+      "path": ".ai-workspace/work/T287_CONTEXT_PROJECTION_REPAIR_01",
+      "files": 510,
+      "bytes": 28976223
+    },
+    {
+      "path": ".ai-workspace/work/T287_REFERENCE_ATTRIBUTION_REPAIR_01",
+      "files": 493,
+      "bytes": 17702355
+    }
+  ],
+  "files_at_least_50MiB": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/pure-preflight.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 467524573,
+      "mtime_ns": 1790870187698820446,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 289109084,
+      "mtime_ns": 1790415053318863030,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 289109084,
+      "mtime_ns": 1790415894221737292,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/assessment-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 288132609,
+      "mtime_ns": 1790858183536224602,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 277419250,
+      "mtime_ns": 1790413916861382565,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 265702878,
+      "mtime_ns": 1790408984217404698,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 265702878,
+      "mtime_ns": 1790409511811415951,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native41/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 254013248,
+      "mtime_ns": 1790406912069541910,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 242323417,
+      "mtime_ns": 1790403716841798476,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 242323417,
+      "mtime_ns": 1790405614778624919,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native39-continuation-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 230628241,
+      "mtime_ns": 1790385270643782065,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 218312319,
+      "mtime_ns": 1790371873624873636,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 218312319,
+      "mtime_ns": 1790372178348335593,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 206669853,
+      "mtime_ns": 1790368975198814817,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 206669853,
+      "mtime_ns": 1790369273052757564,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/offline-start-call.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 201183170,
+      "mtime_ns": 1790857676161470663,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 195027387,
+      "mtime_ns": 1790367297502303122,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 183384799,
+      "mtime_ns": 1790363252589420068,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 183384799,
+      "mtime_ns": 1790364032474249588,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 171742658,
+      "mtime_ns": 1790354820064969951,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 171742658,
+      "mtime_ns": 1790355486941269248,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/unlink-ledger.jsonl",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 164455280,
+      "mtime_ns": 1791099310735714981,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 160099361,
+      "mtime_ns": 1790349621743476476,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 160099361,
+      "mtime_ns": 1790350197167021158,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule.jsonl",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 153737978,
+      "mtime_ns": 1790858184117002151,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/checkpoint-01/closed-repair-evidence.tar.gz",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 151470062,
+      "mtime_ns": 1790407005464141440,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 148456456,
+      "mtime_ns": 1790346284394176329,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/candidate-files.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 147352629,
+      "mtime_ns": 1791098361966214701,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 136813315,
+      "mtime_ns": 1790339932425234781,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 136813315,
+      "mtime_ns": 1790340334386332983,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 125166372,
+      "mtime_ns": 1790336863221857753,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 125166372,
+      "mtime_ns": 1790337288221918998,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 113524040,
+      "mtime_ns": 1790305374503494341,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/suffix-01/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 113524040,
+      "mtime_ns": 1790335102067389149,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/excluded-unproved-files.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 110311987,
+      "mtime_ns": 1791097833706912113,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 101881544,
+      "mtime_ns": 1790300823281643377,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/events.jsonl",
+      "tracked": true,
+      "kind": "file",
+      "bytes": 99536719,
+      "mtime_ns": 1790642228507887328,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/events.jsonl",
+      "tracked": true,
+      "kind": "file",
+      "bytes": 99106301,
+      "mtime_ns": 1790638283896031762,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 90235579,
+      "mtime_ns": 1790297079970722872,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/negative-inputs/changed-node-body",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 86104016,
+      "mtime_ns": 1790904817845169895,
+      "mode": "0o555"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/negative-inputs/changed-node-body",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 86104016,
+      "mtime_ns": 1790900123018144073,
+      "mode": "0o555"
+    },
+    {
+      "path": ".ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 86104016,
+      "mtime_ns": 1757955660505293705,
+      "mode": "0o555"
+    },
+    {
+      "path": ".ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin/node",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 86104016,
+      "mtime_ns": 1757955660505293705,
+      "mode": "0o555"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/consumed-preimages/host/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 86104016,
+      "mtime_ns": 1791438715686371103,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/assessment-input.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 82175295,
+      "mtime_ns": 1790856822032590558,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/preimages/render-03/assessment-input.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 82175295,
+      "mtime_ns": 1790856383623385762,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.fixtures/carrier/assessment-input.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 82175295,
+      "mtime_ns": 1790894988628066527,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/events.jsonl",
+      "tracked": true,
+      "kind": "file",
+      "bytes": 81386224,
+      "mtime_ns": 1790631767190491760,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-state.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 81363942,
+      "mtime_ns": 1791091583153572203,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/setup-state.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 81363931,
+      "mtime_ns": 1790958446032919394,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/setup-state.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 81213002,
+      "mtime_ns": 1790936717641598530,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/setup-state.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 81212409,
+      "mtime_ns": 1790922408967887735,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-state.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 81212382,
+      "mtime_ns": 1790909042853708591,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/preimages/render-03/task.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 80757937,
+      "mtime_ns": 1790856383385593456,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/task.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 80757937,
+      "mtime_ns": 1790856821805587669,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/events.jsonl",
+      "tracked": true,
+      "kind": "file",
+      "bytes": 79653929,
+      "mtime_ns": 1790635011122797308,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/fan-out-hello-conformance-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 79488050,
+      "mtime_ns": 1790870449545918005,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/hello-compose-conformance-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 79476141,
+      "mtime_ns": 1790870272921228077,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/hello-gate-conformance-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 79462224,
+      "mtime_ns": 1790870340964246656,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/bounded-recursion-conformance-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 79460708,
+      "mtime_ns": 1790870383304000264,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/conformance-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 79457963,
+      "mtime_ns": 1790865951076326627,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/conformance-hello-world-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 79451795,
+      "mtime_ns": 1790757329656790385,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/hello-workflow-conformance-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 79447155,
+      "mtime_ns": 1790870308044397343,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/conformance-command-execution-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 78925221,
+      "mtime_ns": 1790757330033111638,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 78560131,
+      "mtime_ns": 1790268335282934068,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/setup-state.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 74109563,
+      "mtime_ns": 1790865950252916394,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-native-prefix.jsonl",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 73530699,
+      "mtime_ns": 1790858431289064950,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/calls/continuation-start.request.jsonl",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 68003846,
+      "mtime_ns": 1791556740996643673,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/readback-basis.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 66951759,
+      "mtime_ns": 1790261829337884971,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-11/fresh-current/host-payload.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 66310112,
+      "mtime_ns": 1790707574716278296,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-11/prior-current/host-payload.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 66310112,
+      "mtime_ns": 1790707548778522576,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-11/covered-source/host-payload.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 66308850,
+      "mtime_ns": 1790707520210414000,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-10/covered-source/host-payload.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 66308755,
+      "mtime_ns": 1790706396549842802,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/setup-closed-environment.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 57715713,
+      "mtime_ns": 1790958446240783051,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-closed-environment.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 57715713,
+      "mtime_ns": 1791091583384495127,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/setup-closed-environment.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 57605226,
+      "mtime_ns": 1790936717847224215,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-closed-environment.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 57604644,
+      "mtime_ns": 1790909043058380926,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/setup-closed-environment.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 57604644,
+      "mtime_ns": 1790922409170090769,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/c2-owner-precondition.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 54022507,
+      "mtime_ns": 1790759180248444082,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/actual-continuation-state.json",
+      "tracked": false,
+      "kind": "file",
+      "bytes": 52600025,
+      "mtime_ns": 1791025663653477454,
+      "mode": "0o644"
+    }
+  ],
+  "potential_secret_filenames": [],
+  "directory_entries": [],
+  "commentary_paths": 45423,
+  "commentary_bytes": 41520038168,
+  "analysis_named_paths": 2034,
+  "analysis_named_bytes": 708478821,
+  "recent_paths": 1356,
+  "scope": "All visible tracked/untracked repository artifacts across sessions, including code, generated build, commentary, analysis and proofs; existing ignores respected. No external session logs or hidden reasoning copied.",
+  "quiescence": "Not established; L2 writers/reviewers active under Executive.",
+  "git_mutations_performed": []
+}

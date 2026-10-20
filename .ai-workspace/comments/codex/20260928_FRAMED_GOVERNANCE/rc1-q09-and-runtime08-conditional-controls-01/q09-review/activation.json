@@ -1,0 +1,13 @@
+{
+  "role": "Reviewer",
+  "activation": "T287_Q09_CURRENT_INPUT_ASSURANCE_01",
+  "status": "ACTIVE_REPORT_ONLY",
+  "operationGrant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/q09-review-request.txt",
+  "grantBytes": 3774,
+  "grantSHA256": "7bb23ce9de314366b77b94c2c6caaa13bef22ec2fc35316f830e50e20fdcf6af",
+  "subjectFreeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/freeze.json",
+  "subjectFreezeSHA256": "3ca693f27e86a063ce0f3d21da02852949e69b34a70da1bf11fd6f19e150b2a3",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/q09-review",
+  "ProductFrame": "fixed fifteen propositions; GOAL035/T287; installed STDO 2.5.1-RC2; F11/F15; preparation separated from semantic qualification",
+  "effects": "pure read/hash/compare and new report-only writes; no tests, imports, owners, Runtime, source, provider, network or Git"
+}

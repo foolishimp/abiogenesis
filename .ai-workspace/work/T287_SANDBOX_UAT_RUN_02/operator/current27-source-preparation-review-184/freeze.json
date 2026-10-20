@@ -1,0 +1,24 @@
+{
+  "kind": "independent_review_closed",
+  "reviewer": "184",
+  "verdict": "bounded_GO",
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/freeze.json",
+    "sha256": "79a311f1c7c70bb9cf0930c3a2498591a0bf0355848ccd79aec04f9a4bff4a8a",
+    "byteCount": 25914
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-review-184/return.md",
+      "sha256": "f4e38d1aa201c5f7e31b2752c818a13d1c5e2eaa1226b508344d920e7f8b870d",
+      "byteCount": 3406
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-review-184/pins.json",
+      "sha256": "c6fffc51c9e664423ba26de817205aafa151db8f0624756ef9e0399aec886d40",
+      "byteCount": 6967
+    }
+  ],
+  "actualCompositionAndQualificationUnproved": true,
+  "stopped": true
+}

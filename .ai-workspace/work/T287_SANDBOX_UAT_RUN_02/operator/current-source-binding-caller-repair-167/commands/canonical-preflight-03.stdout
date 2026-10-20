@@ -1,0 +1,1 @@
+{"status":"PASS","wallMs":4105.573458,"undefinedFields":["product","event_log","runtime_state","projection","archive"],"mixedLockRefusal":{"kind":"environment_refusal","code":"lock_mismatch"},"requestDigest":"sha256:d222cbebab097a1fd84f27067fb73e740bccee5579e10f2929b6fe97b35437fa","controlledOnly":true,"noResourceOrTransport":true}

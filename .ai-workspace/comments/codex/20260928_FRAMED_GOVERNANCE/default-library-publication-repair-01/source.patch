@@ -1,0 +1,105 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts
+@@ -40,7 +40,7 @@
+     call(name + "/work", testing ? c2.graphFunctionRef : purpose === "uat" ? native.assessmentGraphFunctionRef : native.graphFunctionRef,
+       testing ? c2.taskContractRef : native.taskContractRef, output), leaf("fold", name + "/fold")];
+   return { kind: "graph_function", name, version: "5.0.0", inputs: [state], outputs: [state],
+-    environment: { requires: [state], provides: [state], carries: [state, ...nodes.map(n => n.term.outputCarrierRef)] },
++    environment: { requires: [state], provides: [state], carries: [...new Set([state, ...nodes.map(n => n.term.outputCarrierRef)])] },
+     effects: testing ? [] : [native.effectUri], tags: ["default-library", purpose],
+     declarations: { ...declarations, "abg.judgment_predicate": testing ? c2.judgmentPredicateRef : native.judgmentPredicateRef, "abg.default_library_purpose": purpose, "abg.functional_purpose": GOVERNANCE_POLICIES[purpose],
+       "abg.conditions_for_use": testing ? "Selected existing files and an executable command/predicate plan are available; no author prerequisite. Missing plan remains a gap."
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+@@ -15,7 +15,7 @@
+ import * as validator from '../../build/code/src/validator/index.js';
+ import {observedGovernanceTaskMatches} from '../../build/code/src/abg/default_library.js';
+ import {projectObservedWorksiteCommandChildAtPrefix} from '../../build/code/src/abg/worksite_input_provenance.js';
+-import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
++import {setupInstalledRootCatalog,requirePublicationValidations} from '../support/root-installed-environment.mjs';
+ import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+ import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
+ const packageRoot=new URL('../..',import.meta.url).pathname;
+@@ -24,6 +24,7 @@
+ const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
+ const constructors=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'];
+ function validation(publication,program,publications){
++  requirePublicationValidations(validator,publications);
+   const raw=(v,k)=>{const r=validator.rawAdmitValue(v,k,'contract:fixture');assert.equal(r.kind,'raw_admitted_value',JSON.stringify(r));return r;};
+   const p=raw(publication,'module_publication'),unique=(key,values)=>[...new Map(values.map(v=>[v[key],v])).values()];
+   return validator.validateProgram({declarationBasisDigest:p.subjectDigest,programPublication:p,program:raw(program,'gtl_program'),
+@@ -33,6 +34,27 @@
+     implementationBindings:unique('bindingRef',publications.flatMap(p=>p.implementationBindings)).map(v=>raw(v,'implementation_binding')),
+     closureContracts:unique('closureContractRef',publications.flatMap(p=>p.closureContracts)).map(v=>raw(v,'closure_contract'))});
+ }
++test('default library preserves cumulative wrapper bindings and rejects duplicate carried refs',()=>{
++  const state=product.governanceContract('state'),graphs=gtl.defaultGovernanceGraphFunctions();
++  for(const purpose of product.GOVERNANCE_PURPOSES){
++    const graph=graphs.find(g=>g.name===product.governanceRef('graph-function',purpose));
++    const child=purpose==='testing'?product.WORKSITE_COMMAND_EXECUTION_IDS:product.NATIVE_WORKSPACE_WORK_IDS;
++    assert.deepEqual(graph.environment,{requires:[state],provides:[state],carries:[state,child.taskContractRef,child.observationContractRef]});
++  }
++  const publication=gtl.constructDefaultGovernanceLibraryModulePublication(basis);
++  assert.equal(requirePublicationValidations(validator,[publication]).length,1);
++  const duplicate=structuredClone(publication),wrapper=duplicate.graphFunctions.find(g=>g.name===product.governanceRef('graph-function','testing'));
++  wrapper.environment.carries.push(state);
++  assert.throws(()=>requirePublicationValidations(validator,[duplicate]),/duplicate_identity.*environment\.carries/s);
++});
++test('installed root publication precondition rejects a bad non-selected publication',()=>{
++  const selected=gtl.constructHelloWorldModulePublication(basis),library=gtl.constructDefaultGovernanceLibraryModulePublication(basis);
++  assert.equal(requirePublicationValidations(validator,[selected,library]).length,2);
++  const invalid=structuredClone(library),wrapper=invalid.graphFunctions.find(g=>g.name===product.governanceRef('graph-function','construction'));
++  wrapper.environment.carries.push(wrapper.environment.carries[0]);
++  assert.equal(requirePublicationValidations(validator,[selected])[0].publicationValidation.kind,'publication_validation');
++  assert.throws(()=>requirePublicationValidations(validator,[selected,invalid]),/default-library\/default@5: .*duplicate_identity/s);
++});
+ test('default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation',()=>{
+   const pubs=constructors.map(n=>gtl[n](basis)),library=pubs[0];
+   assert.deepEqual(library.runEnvironments[0].roles.find(r=>r.role==='selector').contextPolicy.selectors,['full_source','active_binding_semantics']);
+--- a/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
+@@ -114,6 +114,22 @@
+   const admitted = validator.rawAdmitValue(value, subjectKind, contractRef);
+   assert.equal(admitted.kind, "raw_admitted_value", JSON.stringify(admitted));
+   return admitted;
++}
++
++export function requirePublicationValidations(validator, publications) {
++  return publications.map((publication) => {
++    const publicationAdmission = requireRawAdmission(
++      validator, publication, "module_publication",
++      "contract://abiogenesis/gtl/module-publication@5",
++    );
++    const contributions = publication.contributions.map((value) =>
++      requireRawAdmission(validator, value, "catalog_contribution",
++        "contract://abiogenesis/gtl/catalog-contribution@5"));
++    const publicationValidation = validator.validatePublication(publicationAdmission, contributions);
++    assert.equal(publicationValidation.kind, "publication_validation",
++      `${publication.moduleRef}: ${JSON.stringify(publicationValidation)}`);
++    return { publicationAdmission, publicationValidation };
++  });
+ }
+ 
+ export function rawProgramInput(validator, publicationAdmission, program) {
+@@ -447,19 +463,12 @@
+       packageName: candidateBasis.packageName, packageVersion: candidateBasis.packageVersion });
+   });
+   const publications = [rootPublication, ...corePublications, ...additionalPublications];
++  const publicationChecks = requirePublicationValidations(validator, publications);
+   const selectedPublications = options.programRef === undefined ? [rootPublication]
+     : publications.filter(p => p.programs.some(program => program.programRef === options.programRef));
+   assert.equal(selectedPublications.length, 1, "one exact selected Program publication");
+   const publication = selectedPublications[0];
+-  const publicationAdmission = requireRawAdmission(
+-    validator,
+-    publication,
+-    "module_publication",
+-    "contract://abiogenesis/gtl/module-publication@5",
+-  );
+-  const contributionAdmissions = publication.contributions.map((value) =>
+-    requireRawAdmission(validator, value, "catalog_contribution", "contract://abiogenesis/gtl/catalog-contribution@5"));
+-  const publicationValidation = validator.validatePublication(publicationAdmission, contributionAdmissions);
++  const { publicationAdmission, publicationValidation } = publicationChecks[publications.indexOf(publication)];
+   const rootProgramRef = publication.programs.some(
+       (program) => program.programRef === options.programRef,
+     )

@@ -1,0 +1,34 @@
+{
+  "node": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+  "stage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+  "commands": {
+    "compile": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "manifest": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "scripts/generate-product-manifest.mjs"
+    ],
+    "pack": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/bin/npm-cli.js",
+      "pack",
+      "--ignore-scripts",
+      "--offline",
+      "--json",
+      "--pack-destination",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/packs"
+    ],
+    "focused": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/test-reporter.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs"
+    ]
+  }
+}

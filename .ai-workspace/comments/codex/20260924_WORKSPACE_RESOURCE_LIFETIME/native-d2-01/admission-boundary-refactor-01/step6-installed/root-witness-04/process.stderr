@@ -1,0 +1,35 @@
+{"phase":"original_public_root_and_genuine_reprice","pid":38082,"entryBytes":119770004}
+{"phase":"original_public_root_read_completed"}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: ordinary Public root ExecutionBasis is required
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/execute.mjs:65:9 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.7.0
+       56.40 real        60.75 user         0.88 sys
+          1993424896  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              722333  page reclaims
+                  86  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5277  messages sent
+                3993  messages received
+                   0  signals received
+                  12  voluntary context switches
+               36831  involuntary context switches
+       1313689048443  instructions retired
+        253998532982  cycles elapsed
+          1979694472  peak memory footprint

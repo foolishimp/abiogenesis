@@ -1,0 +1,560 @@
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/c_call.ts(1400,7): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/c_call.ts(1853,43): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/c_call.ts(6779,72): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/child_lifecycle.ts(159,9): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/child_lifecycle.ts(182,9): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/continuation.ts(1310,55): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/continuation.ts(1316,5): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix | undefined'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/continuation.ts(1321,5): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ExplicitInvocationTruthPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is not assignable to type 'ExplicitInvocationTruthPrefix'.
+    Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'DurablePrefixCoordinate': schemaVersion, eventLogRef, prefixLength, prefixDigest, and 2 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/continuation.ts(1391,57): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/continuation.ts(1981,57): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/continuation.ts(2124,5): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/continuation.ts(2257,57): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/effectful_invocation_truth.ts(113,7): error TS2740: Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/effectful_invocation_truth.ts(124,7): error TS2740: Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/event_calculus.ts(1842,21): error TS2339: Property 'selection' does not exist on type 'RuntimeEventPrefix'.
+  Property 'selection' does not exist on type 'ValidatedRuntimeEventPrefix'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/execution_basis.ts(745,47): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/execution_basis.ts(748,41): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/execution_basis.ts(751,59): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/execution_basis.ts(795,5): error TS2322: Type 'RuntimeEventPrefix' is not assignable to type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/fan_out_projection.ts(790,20): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/fan_out_projection.ts(1086,39): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/fan_out_projection.ts(1409,29): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/fan_out_projection.ts(1450,39): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/fan_out_projection.ts(1487,30): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/fan_out_projection.ts(1498,32): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/invocation_admission.ts(425,55): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/invocation_admission.ts(624,41): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/invocation_admission.ts(626,53): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/invocation_admission.ts(1352,45): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/invocation_execution_truth.ts(54,94): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(events: readonly RuntimeEvent[]): Readonly<{ byteLength: number; digest: `sha256:${string}`; }>', gave the following error.
+    Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+      Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+  Overload 2 of 2, '(events: RuntimeHistorySelection): Readonly<{ byteLength: number; digest: `sha256:${string}`; }>', gave the following error.
+    Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'RuntimeHistorySelection'.
+      Type 'RuntimeEventBodyView' is missing the following properties from type 'RuntimeHistorySelection': #history, #generation, #through, #indices, and 18 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(68,57): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(112,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(112,37): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(112,67): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(113,31): error TS2339: Property 'basisId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(113,106): error TS2339: Property 'basisId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(149,59): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(264,60): error TS7053: Element implicitly has an 'any' type because expression of type 'number' can't be used to index type 'RuntimeEventBodyView'.
+  No index signature with a parameter of type 'number' was found on type 'RuntimeEventBodyView'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(285,94): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(292,22): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(292,35): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(292,74): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(293,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(293,37): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(293,67): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(294,26): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(294,39): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(294,69): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(294,111): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(298,45): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(298,52): error TS2339: Property 'runId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(298,77): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(298,84): error TS2339: Property 'runId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(299,5): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(299,12): error TS2339: Property 'graphCallId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(299,48): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(299,55): error TS2339: Property 'basisId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(299,93): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(299,100): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(300,5): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(300,12): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(300,55): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(300,62): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(300,92): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(300,99): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(301,5): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(301,12): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(301,77): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(301,84): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(301,109): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(301,116): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(302,5): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(302,14): error TS2339: Property 'runId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(302,38): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(302,47): error TS2339: Property 'graphCallId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(302,83): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(302,92): error TS2339: Property 'basisId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(303,13): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(303,22): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(303,34): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(303,43): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(303,97): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(303,106): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(304,5): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(304,14): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(304,48): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(304,57): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(304,79): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(304,86): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(305,5): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(305,14): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(305,39): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(305,46): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(305,71): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(305,80): error TS2339: Property 'causationEventRefs' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(305,108): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(305,115): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(306,28): error TS18048: 'parentCall' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(306,39): error TS2339: Property 'runId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(306,64): error TS18048: 'parentCall' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(306,75): error TS2339: Property 'admissionOrdinal' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(306,95): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(306,104): error TS2339: Property 'admissionOrdinal' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(307,13): error TS18048: 'parentCall' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(307,24): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(307,36): error TS18048: 'parentCall' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(307,47): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(308,5): error TS18048: 'parentCall' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(308,16): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(310,24): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(310,31): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(311,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(311,37): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(311,70): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(312,5): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(312,37): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(312,63): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(312,108): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(313,27): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(314,36): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(314,45): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(314,57): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(314,66): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(315,5): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(315,14): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(315,66): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(315,75): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(316,5): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(316,14): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(316,62): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(316,71): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(316,96): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(316,103): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(318,12): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(318,19): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(318,128): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(318,135): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(319,12): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(319,21): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(319,132): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/native_work_reacquisition.ts(319,141): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/open_call.ts(564,7): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/project_read_ports.ts(1413,98): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(events: readonly RuntimeEvent[]): Readonly<{ byteLength: number; digest: `sha256:${string}`; }>', gave the following error.
+    Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+      Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+  Overload 2 of 2, '(events: RuntimeHistorySelection): Readonly<{ byteLength: number; digest: `sha256:${string}`; }>', gave the following error.
+    Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'RuntimeHistorySelection'.
+      Type 'RuntimeEventBodyView' is missing the following properties from type 'RuntimeHistorySelection': #history, #generation, #through, #indices, and 18 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/project_read_ports.ts(1417,32): error TS2345: Argument of type '{ packet: AbgProjectReadPacket<K>; events: RuntimeEventBodyView; fullPrefix: ValidatedRuntimeEventPrefix; }' is not assignable to parameter of type 'PreparedRead<K>'.
+  Types of property 'events' are incompatible.
+    Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/project_read_ports.ts(1417,61): error TS2345: Argument of type '{ packet: AbgProjectReadPacket<K>; events: RuntimeEventBodyView; fullPrefix: ValidatedRuntimeEventPrefix; }' is not assignable to parameter of type 'PreparedRead<"assessment_evidence" | "run_status" | "graph_call_status" | "run_result" | "graph_call_result" | "run_evidence" | "graph_call_evidence" | "result_evidence" | "workspace_replay" | ... 8 more ... | "workspace_gaps">'.
+  Types of property 'events' are incompatible.
+    Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(539,34): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(540,31): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(697,66): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(823,82): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(828,67): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(1188,50): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(1189,70): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(1190,68): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(1369,35): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(1370,50): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(1370,104): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(1883,55): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(2043,52): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(2064,74): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/replay.ts(2137,7): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(1309,50): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(1903,5): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(1974,5): error TS2322: Type 'RuntimeEventPrefix' is not assignable to type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(2309,31): error TS2339: Property 'findIndex' does not exist on type 'RuntimeEventBodyView'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(2309,42): error TS7006: Parameter 'event' implicitly has an 'any' type.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(2316,11): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(2749,58): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(3223,9): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(3577,11): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(4451,7): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/retry.ts(4454,5): error TS2740: Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_liveness.ts(414,26): error TS2345: Argument of type 'readonly RuntimeEvent[] | RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_liveness.ts(459,74): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(prefix: ValidatedRuntimeEventPrefix, event: RuntimeEvent): ValidatedRuntimeEventPrefix', gave the following error.
+    Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+      Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+  Overload 2 of 2, '(prefix: OwnedRuntimeEventPrefix, event: RuntimeEvent): OwnedRuntimeEventPrefix', gave the following error.
+    Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'OwnedRuntimeEventPrefix'.
+      Property 'selection' is missing in type 'ValidatedRuntimeEventPrefix' but required in type 'OwnedRuntimeEventPrefix'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_liveness.ts(463,37): error TS7053: Element implicitly has an 'any' type because expression of type 'number' can't be used to index type 'RuntimeEventBodyView'.
+  No index signature with a parameter of type 'number' was found on type 'RuntimeEventBodyView'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_liveness.ts(464,89): error TS7053: Element implicitly has an 'any' type because expression of type 'number' can't be used to index type 'RuntimeEventBodyView'.
+  No index signature with a parameter of type 'number' was found on type 'RuntimeEventBodyView'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_liveness.ts(503,5): error TS2740: Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_liveness.ts(611,120): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_liveness.ts(612,26): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_liveness.ts(1017,25): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/semantic_job.ts(51,11): error TS7022: 'next' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_cursor.ts(325,62): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_cursor.ts(520,71): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(2,15): error TS2300: Duplicate identifier 'RuntimeEventPrefix'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(3,15): error TS2300: Duplicate identifier 'RuntimeEventPrefix'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(2863,5): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(3007,50): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(3847,58): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(5219,69): error TS7053: Element implicitly has an 'any' type because expression of type 'number' can't be used to index type 'RuntimeEventBodyView'.
+  No index signature with a parameter of type 'number' was found on type 'RuntimeEventBodyView'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(5274,7): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(5295,5): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/traversal_route.ts(5324,3): error TS2322: Type 'Readonly<{ kind: "staged_route_transition_admission"; route: AdmittedRoute; retryAttempt: RetryAttemptAdmission | null; replayState: ReplayState; runtimePrefix: RuntimeEventPrefix; }>' is not assignable to type 'StagedRouteTransitionResult'.
+  Type 'Readonly<{ kind: "staged_route_transition_admission"; route: AdmittedRoute; retryAttempt: RetryAttemptAdmission | null; replayState: ReplayState; runtimePrefix: RuntimeEventPrefix; }>' is not assignable to type 'StagedRouteTransitionAdmission'.
+    Types of property 'runtimePrefix' are incompatible.
+      Type 'RuntimeEventPrefix' is not assignable to type 'ValidatedRuntimeEventPrefix'.
+        Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(76,20): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(80,21): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(82,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(93,25): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(94,22): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(100,38): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(105,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(128,20): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(132,41): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(133,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(138,26): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(268,26): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(273,27): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(276,35): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(281,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(293,125): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(298,22): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(301,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(306,38): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(383,26): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(387,30): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(391,33): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(394,40): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(398,31): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(400,32): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(404,21): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(438,33): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(499,54): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(508,20): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(512,21): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(516,22): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(518,35): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(519,21): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(523,26): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_input_provenance.ts(531,27): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(68,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(68,37): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(68,67): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(69,23): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(69,36): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(69,74): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(70,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(70,37): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(70,76): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(71,26): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(71,39): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(71,69): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(72,94): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(72,101): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(73,15): error TS18048: 'fibre' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(73,21): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(73,41): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(73,48): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(73,68): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(73,77): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(73,89): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(73,96): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(74,7): error TS18048: 'fibre' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(74,13): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(74,52): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(74,59): error TS2339: Property 'basisId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(75,53): error TS2345: Argument of type '{} | undefined' is not assignable to parameter of type 'RuntimeEvent'.
+  Type 'undefined' is not assignable to type 'RuntimeEvent'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(76,7): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(76,14): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(76,64): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(76,73): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(77,7): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(77,14): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(77,60): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(77,67): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(78,8): error TS18048: 'fibre' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(78,14): error TS2339: Property 'causationEventRefs' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(78,42): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(78,49): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(79,27): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(79,34): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(79,58): error TS18048: 'fibre' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(79,64): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(80,62): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(80,69): error TS2339: Property 'basisId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(86,7): error TS18048: 'fibre' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(86,13): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(86,96): error TS18048: 'fibre' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(86,102): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(87,7): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(87,14): error TS2339: Property 'graphFunctionRef' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(87,61): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(87,68): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(88,7): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(88,14): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(88,39): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(88,46): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(89,7): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(89,16): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(90,23): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(90,30): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(90,42): error TS18048: 'fibre' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(90,48): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(90,104): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(90,111): error TS2339: Property 'runId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(96,29): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(96,38): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(100,23): error TS18048: 'opened' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(100,30): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(100,62): error TS18048: 'fibre' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(100,68): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(102,93): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(102,100): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(102,128): error TS18048: 'result' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(102,135): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(103,95): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(103,104): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(103,132): error TS18048: 'judgment' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(103,141): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(178,29): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(178,41): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(178,117): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(179,16): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(179,30): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(179,89): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(180,88): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(180,98): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(181,90): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(181,100): error TS2339: Property 'admissionOrdinal' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(182,79): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(182,89): error TS2339: Property 'parentAggregateId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(183,33): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(183,43): error TS2339: Property 'correlationId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(183,80): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(183,90): error TS2339: Property 'eventTime' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(184,9): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(184,19): error TS2339: Property 'aggregateId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(184,54): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(184,64): error TS2339: Property 'basisId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(185,9): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(185,19): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(185,68): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(185,78): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(186,9): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(186,19): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(186,70): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(186,80): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(187,9): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(187,19): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(187,67): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(187,77): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(188,9): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(188,19): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(188,65): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(188,75): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(189,9): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(189,19): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(189,54): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(189,64): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(193,48): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(193,58): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(194,19): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(194,29): error TS2339: Property 'eventTime' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(194,54): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(194,64): error TS2339: Property 'correlationId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(194,98): error TS18048: 'operation' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(194,108): error TS2339: Property 'causationEventRefs' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(207,91): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(250,90): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(286,58): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(345,78): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(370,24): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(370,34): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(370,63): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(371,33): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(371,42): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(371,63): error TS2345: Argument of type '{} | undefined' is not assignable to parameter of type 'RuntimeEvent'.
+  Type 'undefined' is not assignable to type 'RuntimeEvent'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(371,81): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(371,90): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(372,7): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(372,16): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(372,57): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(372,66): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(373,7): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(373,16): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(373,95): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(373,104): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(374,7): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(374,16): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(374,98): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(374,107): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(375,43): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(375,52): error TS2339: Property 'eventId' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(375,62): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(375,71): error TS2339: Property 'admissionOrdinal' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(376,56): error TS18048: 'evidence' is possibly 'undefined'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(376,65): error TS2339: Property 'payload' does not exist on type '{}'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(464,69): error TS2349: This expression is not callable.
+  Each member of the union type '(<U, This = undefined>(callback: (this: This, value: RuntimeEvent, index: number, array: RuntimeEvent[]) => U | readonly U[], thisArg?: This | undefined) => U[]) | (<T>(project: (event: RuntimeEvent, index: number) => T | readonly T[]) => T[])' has signatures, but none of those signatures are compatible with each other.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(464,77): error TS7006: Parameter 'event' implicitly has an 'any' type.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(466,31): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(480,40): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(568,29): error TS2349: This expression is not callable.
+  Each member of the union type '(<U, This = undefined>(callback: (this: This, value: RuntimeEvent, index: number, array: RuntimeEvent[]) => U | readonly U[], thisArg?: This | undefined) => U[]) | (<T>(project: (event: RuntimeEvent, index: number) => T | readonly T[]) => T[])' has signatures, but none of those signatures are compatible with each other.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(568,37): error TS7006: Parameter 'event' implicitly has an 'any' type.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(600,46): error TS2740: Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(641,23): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(641,36): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(641,75): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(642,62): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(649,56): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(656,22): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 8 more.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(656,32): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(656,67): error TS18046: 'e' is of type 'unknown'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(657,55): error TS2345: Argument of type '{} | undefined' is not assignable to parameter of type 'RuntimeEvent'.
+  Type 'undefined' is not assignable to type 'RuntimeEvent'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(786,97): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/worksite_revision.ts(789,91): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]

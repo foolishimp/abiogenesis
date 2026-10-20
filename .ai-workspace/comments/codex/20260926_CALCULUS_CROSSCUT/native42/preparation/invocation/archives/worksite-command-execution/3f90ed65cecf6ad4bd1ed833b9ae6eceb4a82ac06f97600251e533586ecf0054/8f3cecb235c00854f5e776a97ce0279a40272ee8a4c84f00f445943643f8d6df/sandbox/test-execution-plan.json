@@ -1,0 +1,8 @@
+{
+  "command": "node",
+  "args": ["--test", "test/component/hello.test.mjs", "test/uat/hello.uat.test.mjs"],
+  "expectedTestPassCount": 2,
+  "expectedStdoutMatch": "fail 0",
+  "assertedReturnValue": "Hello, world!",
+  "derivedFrom": ["test/component/hello.test.mjs", "test/uat/hello.uat.test.mjs"]
+}

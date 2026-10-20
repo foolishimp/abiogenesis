@@ -1,0 +1,128 @@
+{
+  "all263SourceBytesUnchangedAcrossBuild": true,
+  "accepted138FourPostimagesPreserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "8130de13afa2340b7b0b17c1e7b2a2176861aef300627d235be100b0a270acc8",
+      "byteCount": 53773
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "34038f0ea6c2741503194d48c6488a41402810105a1326ca8ad2f430f264003b",
+      "byteCount": 33826
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "3b6a8975da2c315258659aa9f113d156a8711a9e4b7a5ea83e617ccaf86f0270",
+      "byteCount": 32405
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "d4fee2081aba5eaaae2f77921aa4c94bcc65ec55c70be036d121bf4c546fdf1d",
+      "byteCount": 153219
+    }
+  ],
+  "protectedPinsPreserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "byteCount": 11790
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "byteCount": 93690
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "sha256": "3676304839a52127559e1897450e0d149a289b4c59f2311e4251c46a813f5173",
+      "byteCount": 73179
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "byteCount": 16326
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "byteCount": 25514
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "5667d5a2a814d95f55f85be4026f13c6d169c7e50fc5adf2227142d5e9d655b9",
+      "byteCount": 21730
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "sha256": "6b73778a52dfd32bf357f7c902798dee3c40ce4bff37c78607492cbf7d7decf5",
+      "byteCount": 21207
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "300935afcffaa2f81aea5a9be4ae7895f1b02f906c80f54d255c4f3a18db860d",
+      "byteCount": 118127
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+      "byteCount": 604
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "byteCount": 9744
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package-lock.json",
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+      "byteCount": 8001
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/package.json",
+      "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3",
+      "byteCount": 3620
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/execution-return.md",
+      "sha256": "532bef63c95701f823dc2863d5de108626829cf9107cfc63f86c95438c7c77c1",
+      "byteCount": 2348
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/execution-readiness.json",
+      "sha256": "9768191c22d3c0bff91c9de491d10fd41e468224cfa8bcd248f54408dff71106",
+      "byteCount": 13404
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/execution-freeze.json",
+      "sha256": "78202a97889cca3e882665cfe821732ebbcaf1855e584c6eb654ca5572386207",
+      "byteCount": 15879
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/execution-first-cause-material.json",
+      "sha256": "62cbc00faa091d74b5a3563094e870b95d944bd01689393af8abd33bcd0482e5",
+      "byteCount": 24446
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/controlled16-task.json",
+      "sha256": "fd47673da391c6e851dabededcf8f48ba7a16ce0832413501b16e02986a0b0b1",
+      "byteCount": 3249661
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-prompt.txt",
+      "sha256": "da443ccd9c2a4941cc33e0200423e41801b7fad58419d0983d6e68b655f46b9c",
+      "byteCount": 2033265
+    }
+  ],
+  "packageAndLockPreserved": true,
+  "sourceLedger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/source-preimages.json",
+    "sha256": "df34aecf794c5d9d38c1ed75d79c33d40a4b7a117f2f30fd77225f66d29db1fe",
+    "byteCount": 78250
+  }
+}

@@ -1,0 +1,1 @@
+{"status":"GO_PURE_DIAGNOSTIC_TRAP_PROBE","preparedOwnerPassed":true,"wrongKindRefused":true,"fullOwnerToJSONCalls":0,"pureStubPrepareCalls":2,"ProductImports":0,"RunOrResourceEffects":0,"suppliedPremises":"pure stub returns owner/input/resources; this proves only diagnostic execution and unchanged kind refusal"}

@@ -1,0 +1,6 @@
+source/code/src/abg/continuation.ts(1,45): error TS2300: Duplicate identifier 'selectRuntimeEventPrefixFromAuthority'.
+source/code/src/abg/continuation.ts(148,3): error TS2300: Duplicate identifier 'selectRuntimeEventPrefixFromAuthority'.
+source/code/src/abg/continuation.ts(2384,38): error TS2379: Argument of type '{ selectRouteCandidate: ((guard: RuntimeReplayGuard) => TraversalTransitionCandidate) | undefined; predecessorPrefix: DurablePrefixCoordinate; ... 16 more ...; continuationBasis: RuntimeAdmissionBasis; }' is not assignable to parameter of type 'Readonly<OwnedAdmitFhInteractionHoldInput>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'selectRouteCandidate' are incompatible.
+    Type '((guard: RuntimeReplayGuard) => TraversalTransitionCandidate) | undefined' is not assignable to type '(replay: RuntimeReplayGuard) => TraversalTransitionCandidate'.
+      Type 'undefined' is not assignable to type '(replay: RuntimeReplayGuard) => TraversalTransitionCandidate'.

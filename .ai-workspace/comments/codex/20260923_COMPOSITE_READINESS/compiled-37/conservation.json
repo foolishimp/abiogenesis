@@ -1,0 +1,109 @@
+{
+  "selectedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/frozen-subject.json",
+    "sha256": "5341cc18c34c83e8d057aa641def5c23574235176eeb215c106e492c59a6656e"
+  },
+  "frozenMembersConserved": 18,
+  "archiveMembers": 5233,
+  "changedArchiveMembers": [
+    {
+      "path": "build/code/src/abg/worksite_input_provenance.d.ts",
+      "before": {
+        "path": "build/code/src/abg/worksite_input_provenance.d.ts",
+        "bytes": 2757,
+        "sha256": "a72c029f34f91150f18979e36057d8619b1375ede7eed8cc42f0b9c2f30ca4aa"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_input_provenance.d.ts",
+        "bytes": 3227,
+        "sha256": "14f1978919c2581b78103bbfddca5fb4a089e3058e27951012db67fc20051bd6"
+      }
+    },
+    {
+      "path": "build/code/src/abg/worksite_input_provenance.js",
+      "before": {
+        "path": "build/code/src/abg/worksite_input_provenance.js",
+        "bytes": 34518,
+        "sha256": "706a2455c410fc8f677ad0654a75ada2100a772fa85c4cd7369d6d173ed6114a"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_input_provenance.js",
+        "bytes": 37016,
+        "sha256": "1c0538f1a990a9e4e7feaa8cccb4dddbf1603a75cf6c8cb106ca1b3b1213c354"
+      }
+    },
+    {
+      "path": "build/code/src/abg/worksite_revision.js",
+      "before": {
+        "path": "build/code/src/abg/worksite_revision.js",
+        "bytes": 64515,
+        "sha256": "f84c19cd557ed7e0afdedfc8e9ffc75f707ceec644c2188ce3f5bc588f1f0390"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_revision.js",
+        "bytes": 64482,
+        "sha256": "b73fb5b20cccac2a17e3bf58586c7c4ba025ea72d364d96d85af7b3b87b925be"
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "f1e3b13c8d06f51b1ac55426698f8da4846c2216cf70dbf9d65cb79ed3702618"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0952fb9f3b5078f2f86fc0a6e23caaca1ce8d12bb5f6015c16c42b03ae984aca"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "3954d1ca8836723d27f81b5c2978e5102f59524077194f13e4b7deebfd7fef42"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "57f1c0bb24d3fbf656e7270912414edde2c0de68e54d4b5bcb03f69bf2a17351"
+      }
+    }
+  ],
+  "conservedArchiveMembers": 5228,
+  "extraInstalledMembers": 0,
+  "generatedDelta": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "f1e3b13c8d06f51b1ac55426698f8da4846c2216cf70dbf9d65cb79ed3702618"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0952fb9f3b5078f2f86fc0a6e23caaca1ce8d12bb5f6015c16c42b03ae984aca"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "3954d1ca8836723d27f81b5c2978e5102f59524077194f13e4b7deebfd7fef42"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "57f1c0bb24d3fbf656e7270912414edde2c0de68e54d4b5bcb03f69bf2a17351"
+      }
+    }
+  ],
+  "predecessorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-36/return.md",
+    "sha256": "9b5bfa99841a32df55af9029b10201d55caa9f2ae2ec1848685e046112a035b2"
+  }
+}

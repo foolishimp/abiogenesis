@@ -1,0 +1,32 @@
+{
+  "mode": "flow",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+    "run-flow.mjs"
+  ],
+  "pid": 63122,
+  "processGroup": 63122,
+  "startedAt": "2026-10-02T07:49:59.649520+00:00",
+  "closedAt": "2026-10-02T07:50:30.150848+00:00",
+  "elapsedMs": 30501.296541187912,
+  "exitCode": 1,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 7498661888,
+  "userSeconds": 30.698686,
+  "systemSeconds": 4.935674,
+  "knownCLIProcessGroups": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/flow-parent-process-start.json",
+      "processGroup": 63404,
+      "before": "absent",
+      "afterTERM": "absent"
+    }
+  ],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

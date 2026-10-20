@@ -1,0 +1,46 @@
+{
+  "status": "unbound_candidate_preparation_not_native_qualification",
+  "candidate": "core18; ABI source 701026970da59538e6dcc203ada4538b80e3d6de; unchanged dev8 witness dependency",
+  "ready": [
+    "Exact existing core18 archive and installed schema/catalog/law coordinates, with accepted member inventory references",
+    "Exact 1728-member tenant inventory and its Q07 delta: 4 added, 53 changed, none removed",
+    "366 protected source inputs, 16 unchanged dependency archives and 902 expected generated outputs",
+    "Existing 13 commands, 14 predicates, 22 lint files, 5 test commands and 30 selected titles; unchanged finite command policies",
+    "Existing observed-source root-C2 task constructor, report parser and qualification execution-selection contract",
+    "Existing original-producer source acquisition and same-prefix material reuse; native F11 and sole AF22 owners"
+  ],
+  "unbound": [
+    {"id": "final_candidate_inventory", "value": null, "reason": "Root retains final source/artifact/control/release-claim selection. This 1828-member preparation inventory is explicitly incomplete until whole-subject ticket/execution-contract, construction-attribution and applicable-surface completeness are resolved; no completeness judgment is authored here."},
+    {"id": "qualification_installed_product_and_workspace", "value": null, "reason": "A physical installed package is selected; no actual admitted qualification installedProduct, WorkspaceBinding, ProductSet, lock, catalog, Program/locus, execution basis, capabilities or consumer prefix is supplied. Hello workspace identities are not substituted."},
+    {"id": "tenant_conformance_manifest", "value": null, "reason": "Exact tenant claims, capability/Public correspondence and admitted claim evidence remain native binding and independent adequacy obligations."},
+    {"id": "observed_root_c2_producer", "value": null, "reason": "No staged worksite, observed task/input, selected actor/executor policy, CCall, advancing J, Result, declaration proof or authenticated command evidence exists for this recipe. verification.executionSelectionRef remains absent."},
+    {"id": "assessment_scope_and_independence", "value": null, "reason": "Final exact scope domains, actual author attribution, declared assessment/peer slots and admitted independent J/O remain absent. Reuse successor05 owner machinery and classification proposals only after exact binding; pending measurement markers are not native tasks."},
+    {"id": "behavioral_execution_selections", "value": null, "reason": "The unchanged source-linked coverage catalog has 16 claims and 66 behaviors. Actual producing input, declaration, C/J, occurrence, source/currentness and independent applicability/positive-nearest-negative sufficiency are not bound. These behaviors are not an executable gate roster."},
+    {"id": "self_conformance_real_tree_and_seeds", "value": null, "reason": "No complete real-tree F11 result or seven exact mutant-subject negative outcomes exist for this prepared basis. Existing selected component tests do not satisfy SELF008-010."},
+    {"id": "whole_f11_and_sole_af22", "value": null, "reason": "No admitted complete F11 assessment or sole native C.of(AF-22) verdict exists. F11 remains qualificationVerdict:false; AF25 is output-only and cannot qualify its own input."}
+  ],
+  "helloOutcomesAtRootMessage": {
+    "source": "Root update during this preparation; no active journal or outcome record read by this Worker",
+    "js-tenant-test": {"status": "continuing_reported_by_Root", "qualificationEvidenceBinding": null},
+    "js-sdlc-bootstrap": {"status": "continuing_reported_by_Root", "qualificationEvidenceBinding": null},
+    "rust-cli": {"status": "runtime_failed_reported_by_Root", "boundary": "after Requirements author and before assessor", "preciseCause": null, "qualificationEvidenceBinding": null, "disposition": "Root retrieving exact cause through Public run_evidence; no new implementation gap or repair inferred"},
+    "rust-service": {"status": "continuing_reported_by_Root", "qualificationEvidenceBinding": null},
+    "parallel-js": {"status": "continuing_reported_by_Root", "qualificationEvidenceBinding": null},
+    "limits": "All five remain unbound for qualification. No final native outcome, complete selected S06 acceptance or source sufficiency is inferred from their launch or intermediate progress."
+  },
+  "retainedLifecycleObligations": [
+    "Complete prospectively selected S06 original-source/S1-S5 outcome and obligation conservation, admitted semantic and executable evidence, and targeted revision under QUAL062",
+    "Exact installed ABI5-ROOT-001 R1-R10 and twice-reconstructed terminal Hello result/closed state under QUAL058",
+    "One Surface primary operator loop, bounded correction/progression and truthful blocked alternative under QUAL059",
+    "Remaining selected S01/S02/S03 and retained compute/structural/consequence/disposition/Public/fibre-substitution/C-algebra/refusal behaviors under QUAL064",
+    "Data Mapper retains its separately owned upper-bound evaluation disposition and actual residuals; no forced rerun or successful S06 credit",
+    "Core17/dev8 Opus04 stays historical accepted execution; later core18 Result reread does not change its producer artifact or turn it into core18 execution"
+  ],
+  "requiredNegativeOutcomes": {
+    "SELF009": ["missing authority", "broken traceability", "unowned Public contract", "design/code drift", "malformed proof claim", "ticket/closure mismatch", "release-identity mismatch"],
+    "preservedOwnerBoundaries": ["changed or foreign subject/law/source/toolchain/install/workspace/resource/prefix/declaration/CCall/basis/GraphFunction", "read-wrapper substitution and duplicate or competing eligible producers", "stale current source and unresolvable original resource", "missing or unassessed coverage, absent independent J and incomplete inventory", "QUAL056 malformed/truncated report, actual failed/cancelled/crashed tests, skipped/todo/empty incomplete selection, predicate contradiction, bypassed gate", "duplicate AF22 producer, non-green F11 and release/publication without required exact evidence"],
+    "selection": "Existing requirements/design outcomes conserved; no new scenarios, per-behavior results, 51-entry executable roster, or negative execution authorized. Each actual claim needs its valid positive and source-grounded nearest-negative scope."
+  },
+  "missingImplementationRelation": null,
+  "meaning": "Existing contracts express the prepared route. Remaining gaps are actual binding/evidence/final selection and independent assessment, not an established need for new owner implementation."
+}

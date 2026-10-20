@@ -1,0 +1,13 @@
+{
+  "status": "ACCEPTED_BOUNDED_EXISTING_OWNER_HOW",
+  "owner": "NativeDefinition/NCC-F02",
+  "changeClass": "design_reframe",
+  "proposedHowSha256": "819bb622475071d5ae7a48e2c62ceb198b563968263f9a1ec28e9553fb3e6db6",
+  "freezeSha256": "3c6fe0f069ade5386eb95d583bceaddadd7b8a27a7255fdc925c1d60a4b425d3",
+  "normativeRelation": "Section3 complete applicability/integrity/advertisement-evidence/native conservation and total disposition; current ratified design owns physical adoption",
+  "independentReviewer": "/root/rc1_c03_install_review",
+  "sourceAccepted": false,
+  "runtimeAccepted": false,
+  "qualified": false,
+  "published": false
+}

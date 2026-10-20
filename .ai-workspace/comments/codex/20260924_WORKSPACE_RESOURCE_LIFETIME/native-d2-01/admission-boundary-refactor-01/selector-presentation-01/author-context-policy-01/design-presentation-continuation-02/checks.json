@@ -1,0 +1,52 @@
+{
+  "compile": {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "stdout": "compile.stdout"
+  },
+  "affected": {
+    "command": "ABI5_NATIVE_D2_DESIGN_DIRECTORY=/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01 node --experimental-vm-modules --test --test-name-pattern='actual derived revision successor|native revision decision view preserves|native revision decision view leaves' test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "exitCode": 0,
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 497.448834,
+    "stdout": "check-01.stdout"
+  },
+  "actualSuccessor": {
+    "parentInputDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185",
+    "componentSuccessorDigest": "sha256:41ce3d8a3ae590078ba813071868a56cfc23611043c8109129b88769f9e2aacf",
+    "promptBytes": 986679,
+    "boundBytes": 1048576,
+    "headroomBytes": 61897,
+    "priorReviewedComponentBytes": 1162088,
+    "removedDisplayBytes": 175409,
+    "historyAssets": 4,
+    "sharedPredecessors": 3,
+    "publishedRoleSourceSpans": 13
+  },
+  "premises": "Existing actual retained parent, full current active obligations, source context, published role and exact source spans; future acquisition/selection/witness coordinates and upstream authenticated/current physical basis are explicitly supplied component premises, never new admitted authority. Uses normal unchanged Product successor derivation and complete renderer; no bound instrumentation or bypass.",
+  "preservedChecks": [
+    "Complete accepted/rejected versions and assessments, original job and original parent revision identity",
+    "Every local predecessor reference resolves to an exact complete full asset/digest",
+    "Unshared accepted asset stays complete when historical version differs",
+    "Required context/policy refusal and genuinely oversized unique role content refusal",
+    "Existing opaque C2/application JSON, byte identity and non-UTF8 unavailability"
+  ],
+  "reused": "01 operational intake/selection/request/suffix and source/root/binding checks; not rerun",
+  "deltas": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "numstat": "15\t1\t/Users/jim/src/apps/abiogenesis/{.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/instruction_assembly.ts.before => build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts}"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "numstat": "39\t11\t/Users/jim/src/apps/abiogenesis/{.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/t288-instruction-assembly-owner.test.mjs.before => build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs}"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "numstat": "16\t1\t/Users/jim/src/apps/abiogenesis/{.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/instruction_assembly.js.before => build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js}"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "status": "READY_FOR_ONE_COMPILE_AND_TARGETED_REGRESSION",
+  "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage",
+  "stage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/readiness-stage",
+  "sourceReplacements": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs"
+  ],
+  "preparationElapsedMs": 1759.7865844145417,
+  "frozenNode": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "mode": 365
+  },
+  "currentPublicationOwnerPremise": "Existing actual C06/Setup06 coordinates are supplied lower Source/component premises for the postimage publication; no changed current installation is claimed",
+  "actualEventStoresOpened": 0
+}

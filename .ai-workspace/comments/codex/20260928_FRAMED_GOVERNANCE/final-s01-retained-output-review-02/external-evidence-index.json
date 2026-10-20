@@ -1,0 +1,580 @@
+{
+  "scope": "Only acquired immutable files, static source and authority records. Historical physical-resource observations are intentionally not file targets.",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js",
+      "bytes": 238896,
+      "sha256": "d81b1f502abe85fb70b73d826d4183fe24f84445d05b865368d83a45af3d4170"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+      "bytes": 24539,
+      "sha256": "78f36725d36ef4cd795f1836a8ac7d82d2a77ba17566d4372ce14831db986157"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "bytes": 161512,
+      "sha256": "c6c8f186ee012e744f8ef5ace72ce322d4b6b0ef9e118354bf2340500abf30f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/index.js",
+      "bytes": 10630,
+      "sha256": "a9a689551f6984814f071ace20cbb509fb8146343badeb32f044e088403f1b38"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_execution_truth.js",
+      "bytes": 16582,
+      "sha256": "1e07c77b4bdecea1fa546aea90b91a8650d6c1719aa51793543c5aeecdea9301"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/replay.js",
+      "bytes": 78197,
+      "sha256": "aa85a6d65edcbe19bbcf561f1dea8a4d4fbb1693c28049cc41a4cbdea53c9b36"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/terminal_result_contracts.js",
+      "bytes": 4476,
+      "sha256": "d33403921f9bb933c0241a0de00e1892272657aa12deec86f8228cbe549eba76"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/traversal_route.js",
+      "bytes": 184403,
+      "sha256": "98fc4f08faedebe83b8dc58b492d4b88a7c3ab6c9ad9288b5499a80adce27ea4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/index.js",
+      "bytes": 8371,
+      "sha256": "ca671104e8f82a7c86fe0b5a7b63501e65f03a1e12e158625f140013e41823c6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "bytes": 13347,
+      "sha256": "d9ee80f110f679fff03dc01b82824297cd85ecc65ef4b02a144b8018cbcd5fcf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "bytes": 3463,
+      "sha256": "94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "ccae3c530199a813bc943f8d07a0cf90ee89e3201839082c2df6744ae57e9518"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/selected-core.json",
+      "bytes": 1067,
+      "sha256": "ea5bb6e5f6ac979c0bdd4891d567afc4eb79ad937532d5c48d8b987fa1cc3629"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "bytes": 47589,
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 73115,
+      "sha256": "9256376a949855528be4b53c4835230ab3b6ddda87c844b0377fa10600130e9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 81875,
+      "sha256": "83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "bytes": 16133,
+      "sha256": "a5e908e5da7a9d1059ae8dbc4446a5a407c10d43c8218c9f1c99fd1a9d77087b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/assertion-frontier.json",
+      "bytes": 2459,
+      "sha256": "44ad1620dd8cb78beb571b54365f3f33332f00bb9baa0de20fc9b9086cfbc326"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-command.json",
+      "bytes": 1941,
+      "sha256": "9ee452eed177fc930bff5ef331ab19af982bd0c72f96ed1b392e3c08a1de2c1a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-handoff.json",
+      "bytes": 2223,
+      "sha256": "21810584eb4f0f24ffde0ef4d636f5ca74b6eba261eaf5fa85020b784b89f831"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-native-process.json",
+      "bytes": 692,
+      "sha256": "ecddb9bf8965d67dd13eb09d3417adba74601608bdbd77b70d7a2389c88024b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-physical.json",
+      "bytes": 1256,
+      "sha256": "0bc2a7ec36bd896a392f33d015b3055d33c3bc1e50d2ea5f0ce62bd122ef0b8e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-process-start.json",
+      "bytes": 632,
+      "sha256": "42f708bf6c3bead366f461ca6a4de1584bff7f779bbcdab0eeff9be5e4588bab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-stdout.json",
+      "bytes": 1972,
+      "sha256": "464e7ded75d2db27175987235cee9145d19a3649d07f12c7b41a23b0a9bdce81"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-timing.json",
+      "bytes": 294,
+      "sha256": "23db85678de01251d6c5a55092c6e7bf88deed6fd47df56e8e49fa58b654bef3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution.jsonl",
+      "bytes": 30361315,
+      "sha256": "8ffeff79fa8d1affaf16b334ce0b6c7aa71527cbea2c9c41328a0eadf0fdf37f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-command.json",
+      "bytes": 1939,
+      "sha256": "f06b77d62310d6b83df4948cac5c46eee2ed45ba5097498140a753b7fd4c7c8e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-handoff.json",
+      "bytes": 1817,
+      "sha256": "6701b427bca84d1dd0b9205f5e831476d3e08aa3738502a61aed87372e5406e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-native-process.json",
+      "bytes": 699,
+      "sha256": "6b73db54b57ffed7c4f6345fb326e3a6bdbd61ba1ab7b933b47fc4a768d4a5e2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-physical.json",
+      "bytes": 1250,
+      "sha256": "4ddffb12745332a4d087e202f31eea1cefcde8ce6c1267ddc85c03d601003da6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-process-start.json",
+      "bytes": 620,
+      "sha256": "e6bc6cfb21d64f79244baf3a6fcbaa641362166bea45ae3fc1712d95ebcb40ce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-stdout.json",
+      "bytes": 1969,
+      "sha256": "f5b7a3502d6583b14e9bee1f2d6e1741579d1a1ecc7c4293acff53a5b1f25d95"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-timing.json",
+      "bytes": 294,
+      "sha256": "02aa092955f788c900e8cdae6b5d2190c0772582efa1a5a21bf1ad19cc37942a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world.jsonl",
+      "bytes": 30448518,
+      "sha256": "72f09e5a1a09a9993455e3f6fff922ea70ac7b37e709a79ebf7497b5780417d8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-failure-final-physical.json",
+      "bytes": 1240,
+      "sha256": "7e24a238d3d5b0e3cd36a2c36cb9ac7b9f86dc07f390498298ee49afe01aafcc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-command.json",
+      "bytes": 1922,
+      "sha256": "c702fb519701030e90bb091b555266cd791855704b52763418e59a92b23c4469"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-native-process.json",
+      "bytes": 682,
+      "sha256": "16572fc808d90245fbafb145a8e71ddeda2207e019eed9ce6fb7fab2e305b024"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-physical.json",
+      "bytes": 1237,
+      "sha256": "3ce282445148c51aaec044e121ffe32f5eae21ea2db8e61370adca499823c2f7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-process-start.json",
+      "bytes": 594,
+      "sha256": "ff11362c194e7d1669e0dc848790a0e5975464dcdd7c0d60bab1b6964d5a42b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-command.json",
+      "bytes": 1933,
+      "sha256": "a2324d66b1261f96df61ebf59feadc5f5487c4c9508e46a4afdb509c841361b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-native-process.json",
+      "bytes": 692,
+      "sha256": "b7fdbaee419ce76950e76b1d0c5c5b8a971f4a0a72b698cf6807dfaa34bd547d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-physical.json",
+      "bytes": 1248,
+      "sha256": "32c62b86d315ac15bef0c66fe8143445d2a3329d32e822d9eecdd83282024d78"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-process-start.json",
+      "bytes": 616,
+      "sha256": "7a5d138877e5cbb054b29a45be9a8bfe2f64fcb58c130a0d6bd68530f8bdcdea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-stdout.json",
+      "bytes": 5879,
+      "sha256": "d01d863dc8f957e4a37bd12260c125fb0778cc007d290576f345eefb559af8de"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-timing.json",
+      "bytes": 286,
+      "sha256": "73c0bd75d2d87368c31cc42c30a96ff29068b6600a621ba0ddfd112629601080"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay.jsonl",
+      "bytes": 9534,
+      "sha256": "c4d2b1511eeca9cd1c81045a982a486f5689c7168c09a3f3412618a69bfceff0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-command.json",
+      "bytes": 1937,
+      "sha256": "4b769512b1e4ee1d436a515b62fced26385fcf07a2a86cd9252aa06162fbc52a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-native-process.json",
+      "bytes": 692,
+      "sha256": "fd3d34804161931e381cca6d6e303486e54e4e916a9a39a8ae7996c1f9a026aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-physical.json",
+      "bytes": 1248,
+      "sha256": "1808d15ed84a03a148cb1b27ada9c1bc4be5af97fb55548911de9903235c3459"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-process-start.json",
+      "bytes": 616,
+      "sha256": "fa22ff70730631a901dc2f3e5792cc20b65c9536915322cf187b8d2c7d5929b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-stdout.json",
+      "bytes": 6224,
+      "sha256": "eb5400936e51e9b29dabec625a7d50447b142e329e4ba401cc3a822ff45c0015"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-timing.json",
+      "bytes": 286,
+      "sha256": "ccfb53ebcca639e8c7bd61324af42ada2437a3bcfe5d381d6d4f42ab0748cfc3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result.jsonl",
+      "bytes": 9497,
+      "sha256": "8bd463d6d947600f4660d2e6908ff5a424aef644fc7ef277c74d11b6042dc85d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-stdout.json",
+      "bytes": 12121,
+      "sha256": "c51ec0731788c55d78728e383c31425550adf289b319a4a85371256d13dbbbe3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-timing.json",
+      "bytes": 288,
+      "sha256": "fb7b7355b314fbc3cf1e476d657eae96d30a3572cda0ff37bec6f57fa9f333cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root.jsonl",
+      "bytes": 18177645,
+      "sha256": "48b793ee9d6db307a6b8cca591c80680e4dd9f8fe530ba967db52571ac606443"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-initial-physical.json",
+      "bytes": 1234,
+      "sha256": "9e507a1c3e60780e401a5064e2b24337c6785d43e9bc6abf99c36eed365deba4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/cost-and-quiescence.json",
+      "bytes": 6709,
+      "sha256": "a1d9d2ee8983a277d0de223cc4550e6293f3a501a9ef4f3b18b2bab80dc61960"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver-process.json",
+      "bytes": 221,
+      "sha256": "9e41ddc6249ac7977e4045e5658658f3a537974a1e3ba6e78bd06c1b28809309"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver.mjs",
+      "bytes": 10955,
+      "sha256": "c1b2aab1b26778086c9a8cfd20cf016f2dc247d716c57ae1b3c94c9299978409"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/failure-native-prefix.jsonl",
+      "bytes": 2582298,
+      "sha256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/failure.json",
+      "bytes": 5070,
+      "sha256": "59412c513a16f98c262000a6a51769afc3fe9cd4719424b6a28e625026972485"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/final-handoff.json",
+      "bytes": 1328,
+      "sha256": "dd3ed5aea2647785b60d62648bee956a57d1f22b4ff648abfad08925aeb1acfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/ordinary-caller.mjs",
+      "bytes": 14861,
+      "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/selected-core.json",
+      "bytes": 1261,
+      "sha256": "fc659ef56d13a53b7e127e4fdac184f72dca97af4700f76b0567b7d5b765a1f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/failure-native-prefix.jsonl",
+      "bytes": 2475382,
+      "sha256": "cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/final-handoff.json",
+      "bytes": 1328,
+      "sha256": "564fe85074d7146bd1f7a9ea834825b74beb005c0c51c3e9892c7c526e5d155c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/selected-core.json",
+      "bytes": 1261,
+      "sha256": "fc659ef56d13a53b7e127e4fdac184f72dca97af4700f76b0567b7d5b765a1f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-bind-command.json",
+      "bytes": 1864,
+      "sha256": "3923cdc0ef464f2fc8be57ac742e692ecad577cef7fa9e33c90de42e97efe835"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-bind-native-process.json",
+      "bytes": 659,
+      "sha256": "43a57947f973de6a4abaf5364652474080a97d66b835dc874ffc10d712e03143"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-bind-process-start.json",
+      "bytes": 569,
+      "sha256": "a5e578699b05c2e0e44905ee2b7600448a38f23b0bcdd7fcaf9b8a7d703cb39b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-bind-stdout.json",
+      "bytes": 5408,
+      "sha256": "ad33b416b17def189cd5a64e31fdaa27a865c3341e17f13be091859290c786ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-bind-timing.json",
+      "bytes": 288,
+      "sha256": "c718557ad4b9a76aed2fffd94a4275abfee0dcf87fe5ca471f6498da6e4d6562"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-bind.jsonl",
+      "bytes": 16617328,
+      "sha256": "4a962e3c4b65f901ff122b0ba216a7c7d43131c06405a8a30600c46bc59efb67"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-command.json",
+      "bytes": 1867,
+      "sha256": "99284e7b13a66885603a136589c16e51b2250023d48da0ca8c38331ad2194447"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-native-process.json",
+      "bytes": 672,
+      "sha256": "f23e139d75ef1c3bcf6da40447efc6c8b48379120b447b7ce99eff5bdb1171af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-process-start.json",
+      "bytes": 575,
+      "sha256": "6c7c7aed3278daa013962af29480cbc00421d4cddc06a66412e841af95d8f421"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-stdout.json",
+      "bytes": 185613,
+      "sha256": "f1382ee00085f8b97d2dd0a08ac3cb9accc5183ad236f5aeed255577724a1fc7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-timing.json",
+      "bytes": 288,
+      "sha256": "78ae5ef9696d530e5cb4f7cf0651a50c2bc61fce6d944dbfd9e642c0310b25d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-view-command.json",
+      "bytes": 1875,
+      "sha256": "983ebbce0e20e9ac68da68351578636279d16d99984bf5693955b7985ad0b47d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-view-native-process.json",
+      "bytes": 667,
+      "sha256": "1f70fbbab939a4900d870b8238e8f2353b99d641d0da20835e1e0b89e6e77b93"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-view-process-start.json",
+      "bytes": 585,
+      "sha256": "ba27c3a1a4f83c886817d4fd25803f2a9cb7568026cdc3abced5b6fd1c8bb27a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-view-stdout.json",
+      "bytes": 1332,
+      "sha256": "ea449eadbed713cc363ef1db626971781c6969ef7843c3b4f5a5384b3b547e9c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-view-timing.json",
+      "bytes": 288,
+      "sha256": "ae1cdaf4299cbe35a7a4af6e413a10385bf5d44203746b474f4253e70c18cd14"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-view.jsonl",
+      "bytes": 29823451,
+      "sha256": "5d093549d34442f028fcfe2a082978b0ea006174a236cb5fe8803ddfe3351fdd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog.jsonl",
+      "bytes": 28758602,
+      "sha256": "af5dff729f1e7e8a0c6863365c430a9c8a9c93bc35b8ca44b5351d3b2f1176a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-install-core-command.json",
+      "bytes": 1872,
+      "sha256": "0e1e01c62fb35ec444dda97987703d68eb7c0d68ff26fa81cb5c4a7c539a2afa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-install-core-native-process.json",
+      "bytes": 667,
+      "sha256": "eb5e31d085925b56f941351383399ad46fb4abe74d099df0a6876b6feb9fecf7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-install-core-process-start.json",
+      "bytes": 585,
+      "sha256": "e64754c2d53f46d27c926818475c6303ccc0b4c9c4f0248d859da76f65053635"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-install-core-stdout.json",
+      "bytes": 5582,
+      "sha256": "3ba7d98d3a3467494656628167096352879485735cae2c63de1d656769d1a842"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-install-core-timing.json",
+      "bytes": 288,
+      "sha256": "1ec1a034c485390b44b6b7c71c4a83db9038a6d6bbe557f4116fe29731cc7160"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-install-core.jsonl",
+      "bytes": 25803432,
+      "sha256": "1131fdf069379ec29543f5fa9bd989615771f23342e0a0f02a48c0cd1b8b3ba2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-resolve-command.json",
+      "bytes": 1867,
+      "sha256": "d3e1aaeff473c0035a4e9ef7b2d7b822ed913be47403031acb04e1e5e30a8ca4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-resolve-native-process.json",
+      "bytes": 662,
+      "sha256": "f47dd46ec872dcbb61c7143587ee0784568e57f9fe4d74a36b447531c5702ecb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-resolve-process-start.json",
+      "bytes": 575,
+      "sha256": "a8a1f16fb4cc661b6b8b51cee299d4c83c25451204199e044b189c864e6f244c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-resolve-stdout.json",
+      "bytes": 2356,
+      "sha256": "90b8ffa128b312f2b48af6ef3866d616f56e77dbed8553fc723d81e6ce058820"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-resolve-timing.json",
+      "bytes": 288,
+      "sha256": "2dac01d5bfe93aa92d21f9bd9af540f8e8b444cf9250e218a1d80230477ccea3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-resolve.jsonl",
+      "bytes": 23478146,
+      "sha256": "bcbdeea2e1c631b3d4c88eaeb26417e1a392ab990ed9c09fa777b1454c898629"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-verify-core-command.json",
+      "bytes": 1874,
+      "sha256": "20f1ed94c5aacb1464fa4fbc041f29529faabc5b1e5518e05d4c1e268bb32d90"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-verify-core-native-process.json",
+      "bytes": 666,
+      "sha256": "1a9b5b6f2bb75c0ee52ff80d8da2be6dbcc78c90f51fb42cb11760abee493319"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-verify-core-process-start.json",
+      "bytes": 583,
+      "sha256": "7b2301f97b724bd24a01a00ca913f47ed71819cf264b86cbdc332336ac937f5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-verify-core-stdout.json",
+      "bytes": 146566,
+      "sha256": "994b6f0b26f68bc6ea7c9d2c2a3c01d8c59b04d79fd5a59f789884e03e968640"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-verify-core-timing.json",
+      "bytes": 288,
+      "sha256": "a38fbd6353d8638d9d2d5bbc8e1d97b840a23770e39418801cd5a5948a02de9e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-verify-core.jsonl",
+      "bytes": 11674314,
+      "sha256": "36e09bf6c8eabe4fd27c6e37ac5ba43ff1d2ca95422771cf9c2763610577e51f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-workspace-command.json",
+      "bytes": 1869,
+      "sha256": "462d7235647d643135a3d510e793403eb5d6c2c78945c17e59d761cd87960c55"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-workspace-native-process.json",
+      "bytes": 663,
+      "sha256": "7c898278c10465662c8623e8e09229dc098106647dbe6990446e6aa4a775617e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-workspace-process-start.json",
+      "bytes": 579,
+      "sha256": "4b7acf6aa41f8ff28320e477277418bb2910c38936c86f2737e238210c402a98"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-workspace-stdout.json",
+      "bytes": 1717,
+      "sha256": "d015b12a63dc3b1275f3069eee4e8de51c764f18fbcb8bf8b93a5b39481c4253"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-workspace-timing.json",
+      "bytes": 287,
+      "sha256": "7089970b7c3e2f97a0a419bac3ce18d336033a0f6661f33cbc8fe3f4518ece8f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-workspace.jsonl",
+      "bytes": 11671748,
+      "sha256": "4174380c92dc31a1360afa7576432d8c4bebbac9de9bcbb11c32b2242a62abce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 387254,
+      "sha256": "d7d8941e831c8d0bee507643ef8904b3b3a3be560181f48f5361b9837edd7082"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 16531,
+      "sha256": "aa6f0c878253541b50469ca5f04540f3007755272382d284e3a3234efffb99e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051"
+    }
+  ]
+}

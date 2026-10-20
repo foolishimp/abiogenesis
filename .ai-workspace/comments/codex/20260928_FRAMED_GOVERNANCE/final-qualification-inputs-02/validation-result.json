@@ -1,0 +1,43 @@
+{
+  "status": "PASSED_INPUT_ONLY",
+  "sourceCopyChecks": 1931,
+  "protectedFiles": 716,
+  "expectedComparePaths": 925,
+  "syntaxFiles": 331,
+  "recipeSchema": true,
+  "inventorySchema": true,
+  "structuralNullableBasisSchema": true,
+  "isQualificationBasisReady": false,
+  "acyclic": true,
+  "actualInstalledPublicationClosure": 11,
+  "ruleCount": 2137,
+  "lawSourceCount": 95,
+  "ownerFiles": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_contracts.js",
+      "bytes": 31164,
+      "sha256": "e65d0cb476fd22ba4c0bf66cad9f3de52717e28c324a88d323461aade1b31daa"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+      "bytes": 58968,
+      "sha256": "ebd5a1eab534adaf55a4e5c987156dec2ddc00dcc5a5aa608e6a566251d0b7ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+      "bytes": 109541,
+      "sha256": "cf38a00bb92cf5debbd4627d7f91b7f30497c3c91134f6d2ed40b31e52a7200a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/environment.js",
+      "bytes": 35210,
+      "sha256": "0b7d64479fd2fcfabb7a90b5f6acaefb51dfe5c8b61a7289d5d1561e7e5dcf64"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/worksite_command_execution.js",
+      "bytes": 25001,
+      "sha256": "eb8fa1a9f92dc3ef3ccbc94bc2b9f8f6cb0e67ff36013b8eef7ad8d47fccc7da"
+    }
+  ],
+  "runtime": "none; no recipe,test suite,native setup,provider or qualification execution"
+}

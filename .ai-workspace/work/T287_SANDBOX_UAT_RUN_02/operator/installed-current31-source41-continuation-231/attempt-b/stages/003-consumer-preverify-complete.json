@@ -1,0 +1,17 @@
+{
+  "stage": "consumer-preverify-complete",
+  "rss": 2087305216,
+  "heapTotal": 1723121664,
+  "heapUsed": 1606081312,
+  "external": 97846570,
+  "arrayBuffers": 95429709,
+  "at": "2026-10-09T19:03:48.577Z",
+  "elapsedMs": 20324.885291000002,
+  "wallMs": 10.247333999999682,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+  "artifactDigest": "sha256:10ef79343dcb2cc9ba114a29d0f15ab91d9b4d51c85549ac6cc3e2e5f627ab53",
+  "verificationRef": "product-verification://abiogenesis/73c05c5ff8b1df22531f2d769a452731f4d4302ffbb97bc1c6b38d1ae9878440",
+  "verificationDigest": "sha256:73c05c5ff8b1df22531f2d769a452731f4d4302ffbb97bc1c6b38d1ae9878440",
+  "checkedPayloadFiles": 5,
+  "nominalReceipt": true
+}

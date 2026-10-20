@@ -1,0 +1,27 @@
+{
+  "mode": "regression",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/stage",
+  "pid": 83589,
+  "processGroup": 83589,
+  "groupEstablishedBeforeImports": true,
+  "startedAt": "2026-10-04T03:32:23.565631+00:00",
+  "monotonicStart": 3972010.031052791,
+  "preflightDeadlineMonotonic": 3972190.031052791,
+  "totalDeadlineMonotonic": 3972190.031052791,
+  "preflightSeconds": 180,
+  "totalSeconds": 180,
+  "heap": "unchanged",
+  "HOME": "/Users/jim",
+  "taskEnvironment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/task-tmp/",
+    "ABI5_PARENT_ALIAS_BINDINGS": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/test-bindings.json",
+    "ABI5_PARENT_ALIAS_REPORT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/test-result.json"
+  },
+  "phaseCompletionReceipt": null
+}

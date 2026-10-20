@@ -1,0 +1,23 @@
+{
+  "compile": {
+    "exitCode": 0,
+    "wallMs": 6065.396459
+  },
+  "initialFocused": {
+    "result": "commands/focused.result.json",
+    "passes": 3,
+    "fails": 1,
+    "wallMs": 749.8846249999997
+  },
+  "correctedFocused": {
+    "exitCode": 0,
+    "wallMs": 577.050916,
+    "selection": "command cleanup budget",
+    "passes": 1,
+    "fails": 0
+  },
+  "boundedCredit": "Three unchanged first-run checks + one corrected selected regression. Not a single four-green transcript.",
+  "isolatedCompileOnly": true,
+  "normalGeneratedUntouched": true,
+  "nativeExecutionOrQualification": false
+}

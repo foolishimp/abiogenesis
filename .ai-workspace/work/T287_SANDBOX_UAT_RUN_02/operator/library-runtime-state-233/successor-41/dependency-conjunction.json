@@ -1,0 +1,69 @@
+{
+  "kind": "c2_source41_dependency_conjunction",
+  "sourceCut": 41,
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/freeze.json",
+      "sha256": "c42874963ea63d1c132c11d4ab260f90ae74f49bc4d66e7cf7d7296a77c966c4",
+      "bytes": 17400
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/return.md",
+      "sha256": "eadc93fda38e31a889b5ba9620b8d317dadf1c26714c9e290b532b3495de0a72",
+      "bytes": 2166
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/dependency-cut-40-inputs.json",
+      "sha256": "7bec1d1f98dd7515ddf6325041eea468ebf3c739f58a6bd66aea8c8e6a32503a",
+      "bytes": 95262
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/dependency-cut-40-emission.json",
+      "sha256": "bd930ac8bb585b7b0a0bdfcd3fd3068ff4015c7f69d7ea3b79d1a31cf522dba0",
+      "bytes": 190945
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/freeze.json",
+      "sha256": "28301fad250edd7c6aa66cfa32fe9083da9504563ded2e2af61b099ea85d927b",
+      "bytes": 68183
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/return.md",
+      "sha256": "a1d030babf7a734078a957c367ecb3e5f86c2bc86b4d3dd9d37ae36637d1985e",
+      "bytes": 4184
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/selected-constructor-discriminator.json",
+      "sha256": "65bba91757361a23ddc3efd2cf97103525e06ff7b765afa4ec4833f79083ca6d",
+      "bytes": 12169
+    }
+  ],
+  "conservation": {
+    "source40Population": 264,
+    "unchangedSource": 263,
+    "changedSource": [
+      "product/worksite_command_execution.ts"
+    ],
+    "emissions": 528,
+    "unchangedEmission": 527,
+    "changedEmission": [
+      "product/worksite_command_execution.js"
+    ],
+    "declarationsByteExact40": 264,
+    "canonicalGeneratedTree": "untouched",
+    "forwardCommandOwners": "byte-exact preimage"
+  },
+  "authority": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "families": 15,
+    "version": "5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "method": "STDO2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "limits": [
+    "Source40 accepted runtime/native/diagnostic/library owners reused unchanged; no new installed or actual continuation credit.",
+    "Continuation12 proves a sufficient downstream configuration blocker, not its unique first throw or unretained fresh-context conjunct."
+  ]
+}

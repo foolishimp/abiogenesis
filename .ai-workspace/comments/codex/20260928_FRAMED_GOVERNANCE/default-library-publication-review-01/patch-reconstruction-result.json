@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/usr/bin/patch",
+    "--batch",
+    "-p1",
+    "-i",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-review-01/patch-reconstruction",
+  "exitCode": 0,
+  "stdout": "patching file 'build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts'\npatching file 'build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs'\npatching file 'build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs'\n",
+  "stderr": "",
+  "elapsedSeconds": 0.00550212524831295,
+  "postimages": [
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "bytes": 18915,
+      "sha256": "f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d"
+    },
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 77554,
+      "sha256": "d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128"
+    },
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 39208,
+      "sha256": "4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4"
+    }
+  ],
+  "subjectEdits": false
+}

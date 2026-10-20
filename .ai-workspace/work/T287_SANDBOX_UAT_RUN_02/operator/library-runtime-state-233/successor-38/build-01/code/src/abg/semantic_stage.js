@@ -1,0 +1,401 @@
+import { runtimeEventBodiesAtPrefix, indexedRuntimeEvents } from "./event_prefix.js";
+import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+import { authenticateOwnedSemanticJobBasis } from "./semantic_job.js";
+import { worksiteRevisionPhysicalMatches } from "./worksite_revision.js";
+import { modulePublicationSemanticDigest } from "../product/publication.js";
+import { isWorksitePreparationInput, prepareWorksiteCommandTask } from "../product/worksite_preparation.js";
+import { materializeGraph } from "../gtl/materialize.js";
+import { SEMANTIC_IMPLEMENTATION_REFS, SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { validSemanticProgramOwners } from "../gtl/semantic_stage.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { rehydrateExecutionBasisAtPrefix, authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { readRuntimeEventsAtDurablePrefix } from "./event_store.js";
+import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { hasAdmittedTraversalCursorAtPrefix } from "./traversal_cursor.js";
+import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix } from "./c_call.js";
+import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope, deriveSemanticWorksitePreparation } from "../product/semantic_stage.js";
+import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
+import { constructWorksiteObservation } from "../product/worksite_effect.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS, isWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
+import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
+import { readFileSync, lstatSync, realpathSync } from "node:fs";
+import { resolve, relative, isAbsolute } from "node:path";
+import { sha256Bytes } from "../shared/digests.js";
+const hash = (x) => sha256Canonical(x);
+function record(value) {
+    return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+function owningGraph(prefix, publication, basisRef, graphFunctions = publication.graphFunctions) {
+    const execution = rehydrateExecutionBasisAtPrefix(prefix, basisRef);
+    if (execution === null)
+        return null;
+    const functions = graphFunctions.filter(g => g.name === execution.graphFunctionRef && hash(g) === execution.graphFunctionDigest);
+    if (functions.length !== 1)
+        return null;
+    const graph = materializeGraph(functions[0], { invocationAdmissionRef: execution.invocationAdmissionRef,
+        admittedInputRef: execution.rawInputAdmissionRef, admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
+    if (graph.materializationRef !== execution.graphRef || graph.materializationDigest !== execution.graphDigest)
+        return null;
+    return { execution, graph, graphFunction: functions[0] };
+}
+export function projectSemanticPredecessorAtPrefix(prefix, events, publication, cCallRef, graphFunctions = publication.graphFunctions) {
+    try {
+        const selected = indexedRuntimeEvents(prefix, "related:" + cCallRef);
+        const opened = selected.find(e => e.kind === "c_call_opened" && e.aggregateId === cCallRef);
+        if (opened?.basisId === undefined)
+            return null;
+        const owner = owningGraph(prefix, publication, opened.basisId, graphFunctions);
+        if (owner === null)
+            return null;
+        const call = projectOpenedCCallCarrierAtPrefix(prefix, owner.graph, cCallRef);
+        const result = selected.filter(e => e.kind === "c_call_result_admitted" && e.aggregateId === cCallRef);
+        const judgment = selected.filter(e => e.kind === "c_call_judged" && e.aggregateId === cCallRef);
+        if (call === null || result.length !== 1 || judgment.length !== 1 || !record(result[0].payload) || !record(judgment[0].payload))
+            return null;
+        return projectAdmittedCCallStateAtPrefix(prefix, call, { kind: "admitted_c_call_result", schemaVersion: "5.0.0", disposition: "admitted", ...result[0].payload,
+            admissionEventRef: result[0].eventId }, { kind: "admitted_c_call_judgment", schemaVersion: "5.0.0", disposition: "admitted", ...judgment[0].payload,
+            admissionEventRef: judgment[0].eventId });
+    }
+    catch {
+        return null;
+    }
+}
+/** @internal */
+export function authenticateOwnedSemanticStageBasis(basis) {
+    try {
+        const ownedNative = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+        const native = ownedNative === null ? null : { ...ownedNative, events: runtimeEventBodiesAtPrefix(ownedNative.prefix) };
+        if (native === null)
+            return null;
+        const { events, prefix, call } = native;
+        const lifecyclePublication = basis.lifecyclePublication ?? basis.publication;
+        const program = basis.publication.programs.find(p => p.programRef === basis.executionBasis.programRef);
+        const sourcePublication = basis.sourcePublication ?? lifecyclePublication;
+        if (program === undefined || !validSemanticProgramOwners(basis.publication, program, lifecyclePublication, sourcePublication))
+            return null;
+        const owner = native;
+        if (!SEMANTIC_IMPLEMENTATION_REFS.includes(call.implementationRef ?? ""))
+            return null;
+        const lifecycle = lifecyclePublication.semanticLifecycle;
+        const stages = lifecycle.stages.filter(s => (s.graphFunctionRef === call.graphFunctionRef || basis.graphFunction.declarations["abg.semantic_revision_stage"] === s.declarationRef) &&
+            (s.authorLocusRef === call.programLocusRef || s.assessorLocusRef === call.programLocusRef));
+        const role = (call.implementationRef === SEMANTIC_STAGE_IDS.authorImplementationRef || call.implementationRef === SEMANTIC_REVISION_IDS.authorImplementationRef) ? "author"
+            : (call.implementationRef === SEMANTIC_STAGE_IDS.assessorImplementationRef || call.implementationRef === SEMANTIC_REVISION_IDS.assessorImplementationRef) ? "assessor" : null;
+        if (role !== null && (call.regime !== "F_P" || stages.length !== 1 ||
+            (role === "author" ? stages[0].authorLocusRef : stages[0].assessorLocusRef) !== call.programLocusRef))
+            return null;
+        const source = sourcePublication.requirementHandoffs.find(d => d.declarationRef === lifecycle.sourceDeclarationRef);
+        const environment = owner.environment;
+        if (environment.kind !== "exact_prefix_workspace_environment" ||
+            ![sourcePublication, lifecyclePublication].every(publication => environment.productInstalls.filter(install => install.productId === publication.owningProductId && install.artifactDigest === publication.artifactDigest &&
+                install.productContentDigest === publication.productContentDigest && install.manifestDigest === publication.productManifestDigest &&
+                install.contributionManifest.publicationBindings.filter(p => p.moduleRef === publication.moduleRef &&
+                    p.publicationDigest === modulePublicationSemanticDigest(publication)).length === 1).length === 1))
+            return null;
+        return { events, prefix, execution: owner.execution, graph: owner.graph, call, resolution: native.resolution,
+            environment, lifecycle, source, sourcePublication, role, inputRef: basis.cursor.inputRef, inputDigest: basis.cursor.inputDigest,
+            stage: stages[0] };
+    }
+    catch {
+        return null;
+    }
+}
+export function constructSemanticStageNativeBasis(basis) {
+    const captured = constructNativeInstructionAssemblyBasis(basis);
+    if (captured === null)
+        return null;
+    return (captured.lifecyclePublication ?? captured.publication).semanticJobLifecycle !== undefined
+        ? authenticateOwnedSemanticJobBasis(captured) === null ? null : captured
+        : authenticateOwnedSemanticStageBasis(captured) === null ? null : captured;
+}
+/** Private pure projection; only this owner's fresh authentication supplies it. */
+function semanticInputValueFromOwner(owner) {
+    if (owner.inputRef === owner.execution.rawInputAdmissionRef)
+        return owner.execution.rawInputValue;
+    const event = owner.events.find(e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === owner.inputRef);
+    return record(event?.payload) ? event.payload.value : undefined;
+}
+export function semanticInputValueAtBasis(basis) {
+    if ((basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined)
+        return authenticateOwnedSemanticJobBasis(basis)?.inputValue;
+    const owner = authenticateOwnedSemanticStageBasis(basis);
+    return owner === null ? undefined : semanticInputValueFromOwner(owner);
+}
+export function semanticEnvelopeMatchesAdmittedPredecessor(prefix, events, publication, graphFunctions, input) {
+    const exactSources = events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
+        hash(e.payload.value) === hash(input)).filter(event => {
+        const source = projectSemanticPredecessorAtPrefix(prefix, events, publication, event.aggregateId, graphFunctions);
+        return source !== null && source.result.resultClass === "success" && source.judgment.judgment === "advance" &&
+            [SEMANTIC_STAGE_IDS.authorImplementationRef, SEMANTIC_STAGE_IDS.assessorImplementationRef,
+                SEMANTIC_STAGE_IDS.evidenceInputImplementationRef].some(ref => ref === source.cCall.implementationRef) &&
+            hash(source.result.value) === hash(input);
+    });
+    return exactSources.length === 1;
+}
+/** The current input must be the actual root admission or preceding native result. */
+export function semanticInputMatchesBasis(basis, input) {
+    try {
+        const owner = authenticateOwnedSemanticStageBasis(basis);
+        if (owner === null || !isSemanticStageEnvelope(input) || hash(input.lifecycle) !== hash(owner.lifecycle) ||
+            hash(input.sourceHandoff.declaration) !== hash(owner.source))
+            return false;
+        const expectedValue = semanticInputValueFromOwner(owner);
+        if (hash(expectedValue) !== hash(input) || hash(input) !== owner.inputDigest)
+            return false;
+        const handoff = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, owner.sourcePublication, input.sourceHandoff.basis.cCallRef);
+        if (handoff === null || handoff.result.resultClass !== "success" || handoff.judgment.judgment !== "advance" ||
+            hash(handoff.result.value) !== hash(input.sourceHandoff) ||
+            input.sourceHandoff.basis.publicationDigest !== hash(owner.sourcePublication) ||
+            input.sourceHandoff.basis.graphFunctionRef !== owner.source.graphFunctionRef)
+            return false;
+        if (input.assets.length > 0 && !semanticEnvelopeMatchesAdmittedPredecessor(owner.prefix, owner.events, basis.publication, basis.declarationGraphFunctions, input))
+            return false;
+        if (input.evidence !== null) {
+            const evidenceSources = owner.events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
+                isSemanticStageEnvelope(e.payload.value) && hash(e.payload.value.evidence) === hash(input.evidence)).filter(event => {
+                const source = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, event.aggregateId, basis.declarationGraphFunctions);
+                if (source === null || source.cCall.implementationRef !== SEMANTIC_STAGE_IDS.evidenceInputImplementationRef ||
+                    source.result.resultClass !== "success" || source.judgment.judgment !== "advance" || !isSemanticStageEnvelope(source.result.value))
+                    return false;
+                const value = source.result.value;
+                return hash(value.sourceHandoff) === hash(input.sourceHandoff) && hash(value.lifecycle) === hash(input.lifecycle) &&
+                    hash(value.worksite) === hash(input.worksite) && hash(value.taskData) === hash(input.taskData) && hash(value.evaluationData) === hash(input.evaluationData);
+            });
+            if (evidenceSources.length !== 1)
+                return false;
+        }
+        for (const asset of input.assets) {
+            const author = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, asset.source.cCallRef, basis.declarationGraphFunctions);
+            if (author === null || author.result.resultClass !== "success" || author.judgment.judgment !== "advance" ||
+                !isSemanticStageEnvelope(author.result.value))
+                return false;
+            const admittedAsset = author.result.value.assets.find(a => a.assetRef === asset.assetRef);
+            if (admittedAsset === undefined || hash({ ...asset, assessment: null }) !== hash(admittedAsset))
+                return false;
+            if (asset.assessment !== null) {
+                const assessment = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, asset.assessment.source.cCallRef, basis.declarationGraphFunctions);
+                if (assessment === null || assessment.result.resultClass !== "success" || assessment.judgment.judgment !== "advance" ||
+                    !isSemanticStageEnvelope(assessment.result.value) ||
+                    hash(assessment.result.value.assets.find(a => a.assetRef === asset.assetRef)) !== hash(asset))
+                    return false;
+            }
+        }
+        return true;
+    }
+    catch {
+        return false;
+    }
+}
+/** The current content boundary reuses the admitted input and exact environment.
+ * Physical checks run only before dispatch; recorded assembly rederivation is pure. */
+export function semanticWorksiteContextMatchesBasis(basis, worksite, readPhysical = false) {
+    try {
+        const owner = authenticateOwnedSemanticStageBasis(basis);
+        if (owner === null)
+            return false;
+        const value = semanticInputValueFromOwner(owner);
+        const input = record(value) && record(value.current) ? value.current : value;
+        if (!record(input) || hash(input.worksite) !== hash(worksite))
+            return false;
+        const environment = owner.environment;
+        const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
+        return environment.kind === "exact_prefix_workspace_environment" &&
+            hash(environment.workspaceAuthorityBasis) === hash(worksite.workspaceAuthorityBasis) &&
+            hash(environment.workspaceBinding) === hash(worksite.workspaceBinding) && invocation?.capabilityGrants.length === 1 &&
+            hash(invocation.capabilityGrants[0]) === hash(worksite.capabilityGrant) &&
+            (!readPhysical || worksiteRevisionPhysicalMatches(worksite));
+    }
+    catch {
+        return false;
+    }
+}
+export function semanticResultMatchesBasis(basis, input, output) {
+    try {
+        const owner = authenticateOwnedSemanticStageBasis(basis);
+        if (owner === null || owner.role === null || owner.stage === undefined || !semanticInputMatchesBasis(basis, input) || !isSemanticStageEnvelope(output))
+            return false;
+        const last = output.assets.at(-1);
+        if (last === undefined)
+            return false;
+        const source = owner.role === "author" ? last.source : last.assessment?.source;
+        const raw = owner.role === "author" ? last.candidate : last.assessment?.candidate;
+        if (source === undefined || source.cCallRef !== owner.call.cCallRef || source.inputDigest !== owner.inputDigest)
+            return false;
+        const expected = owner.role === "author" ? deriveSemanticAsset(input, owner.stage.declarationRef, raw, source)
+            : deriveSemanticAssessment(input, owner.stage.declarationRef, raw, source);
+        return expected !== null && hash(expected) === hash(output);
+    }
+    catch {
+        return false;
+    }
+}
+/** Changes only the published wire contract. Every carried byte remains the
+ * exact authenticated current input; semantic and application claims do not change. */
+export function projectSemanticEnvelopeOutput(basis, input) {
+    const owner = authenticateOwnedSemanticStageBasis(basis);
+    return owner !== null && owner.call.implementationRef === SEMANTIC_STAGE_IDS.terminalImplementationRef &&
+        owner.call.regime === "F_D" && owner.call.inputContractRef === SEMANTIC_STAGE_IDS.envelopeContractRef &&
+        owner.call.outputContractRef === SEMANTIC_STAGE_IDS.outputContractRef && semanticInputMatchesBasis(basis, input)
+        ? deepFreeze(input) : null;
+}
+export function projectSemanticWorksitePreparation(basis, input) {
+    try {
+        const owner = authenticateOwnedSemanticStageBasis(basis);
+        if (owner === null || owner.call.implementationRef !== SEMANTIC_STAGE_IDS.bridgeImplementationRef ||
+            !semanticInputMatchesBasis(basis, input) || input.worksite === null)
+            return null;
+        const worksite = input.worksite;
+        const environment = owner.environment;
+        const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
+        if (environment.kind !== "exact_prefix_workspace_environment" || hash(environment.workspaceAuthorityBasis) !== hash(worksite.workspaceAuthorityBasis) ||
+            environment.workspaceBinding.workspaceId !== worksite.workspaceBinding.workspaceId || invocation?.capabilityGrants.length !== 1)
+            return null;
+        const current = { workspaceAuthorityBasis: environment.workspaceAuthorityBasis, workspaceBinding: environment.workspaceBinding,
+            capabilityGrant: invocation.capabilityGrants[0] };
+        const prepared = deriveSemanticWorksitePreparation(input, current);
+        if (prepared === null)
+            return null;
+        const root = worksite.workspaceAuthorityBasis.canonicalRoot;
+        if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink())
+            return null;
+        for (const row of worksite.targets) {
+            const target = resolve(root, row.target.subject.relativePath);
+            const rel = relative(root, target);
+            if (rel.length === 0 || rel.startsWith("..") || isAbsolute(rel))
+                return null;
+            const expected = row.target.predecessorObservation;
+            let cursor = root;
+            for (const segment of row.target.subject.relativePath.split("/").slice(0, -1)) {
+                cursor = resolve(cursor, segment);
+                if (realpathSync(cursor) !== cursor || !lstatSync(cursor).isDirectory() || lstatSync(cursor).isSymbolicLink())
+                    return null;
+            }
+            let actual;
+            try {
+                const stat = lstatSync(target);
+                if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1 || realpathSync(target) !== target)
+                    return null;
+                const bytes = readFileSync(target);
+                actual = constructWorksiteObservation({ subject: row.target.subject, state: "file", fileIdentity: `${stat.dev}:${stat.ino}`,
+                    fileDigest: sha256Bytes(bytes), byteLength: bytes.length });
+                if (bytes.toString("base64") !== row.base64)
+                    return null;
+            }
+            catch (error) {
+                if (error.code !== "ENOENT")
+                    throw error;
+                actual = constructWorksiteObservation({ subject: row.target.subject, state: "absent" });
+            }
+            if (hash(actual) !== hash(expected))
+                return null;
+        }
+        return prepared;
+    }
+    catch {
+        return null;
+    }
+}
+function sameInvocation(a, b) {
+    return a.invocationAdmissionRef === b.invocationAdmissionRef && a.invocationRef === b.invocationRef &&
+        a.invocationDigest === b.invocationDigest && a.programRef === b.programRef && a.programDigest === b.programDigest &&
+        a.rootImplementationSetRef === b.rootImplementationSetRef && a.rootImplementationSetDigest === b.rootImplementationSetDigest &&
+        a.workspaceBindingId === b.workspaceBindingId && a.workspaceBindingDigest === b.workspaceBindingDigest;
+}
+/** Finds only the named leaf's admitted, judged result in this invocation. */
+export function selectedSemanticPredecessor(basis, implementationRef, value) {
+    const owner = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined
+        ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
+    if (owner === null)
+        return null;
+    const matches = owner.events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && hash(e.payload.value) === hash(value))
+        .map(event => {
+        const previous = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, event.aggregateId, basis.declarationGraphFunctions);
+        if (previous === null || previous.cCall.implementationRef !== implementationRef || previous.result.resultClass !== "success" ||
+            previous.judgment.judgment !== "advance")
+            return null;
+        const execution = rehydrateExecutionBasisAtPrefix(owner.prefix, previous.cCall.basisId);
+        return execution !== null && sameInvocation(execution, owner.execution) ? { previous, execution, event } : null;
+    }).filter((x) => x !== null);
+    return matches.length === 1 ? matches[0] : null;
+}
+/** C2's stored protected snapshot is the evidence content locus. It is derived
+ * from the admitted helper plan, never a caller-selected path. */
+export function projectSemanticEvidenceInput(basis, input) {
+    try {
+        const owner = authenticateOwnedSemanticStageBasis(basis);
+        if (owner === null || owner.call.implementationRef !== SEMANTIC_STAGE_IDS.evidenceInputImplementationRef ||
+            !isWorksiteCommandExecutionObservation(input) || hash(input) !== owner.inputDigest ||
+            hash(semanticInputValueAtBasis(basis)) !== hash(input))
+            return null;
+        const execution = selectedSemanticPredecessor(basis, WORKSITE_COMMAND_EXECUTION_IDS.implementationRef, input);
+        const construction = selectedSemanticPredecessor(basis, WORKSITE_CONSTRUCTION_IDS.reducerImplementationRef, input.task.sourceConstructionResult);
+        if (execution === null || construction === null || !isWorksiteConstructionResult(construction.previous.result.value))
+            return null;
+        const candidates = owner.events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && record(e.payload.value) &&
+            e.payload.value.kind === "worksite_command_preparation_input").map(event => {
+            const value = event.payload.value;
+            const source = selectedSemanticPredecessor(basis, SEMANTIC_STAGE_IDS.bridgeImplementationRef, value);
+            if (source === null || source.event.eventId !== event.eventId ||
+                source.event.admissionOrdinal >= construction.event.admissionOrdinal)
+                return null;
+            const original = source.execution.rawInputValue;
+            if (!isSemanticStageEnvelope(original) || original.worksite === null)
+                return null;
+            if (!isWorksitePreparationInput(value) || value.kind !== "worksite_command_preparation_input")
+                return null;
+            // Current coordinates belong to the admitted bridge output. Reconstruct
+            // the structural join from those saved bytes, not the now-mutated app.
+            const expected = deriveSemanticWorksitePreparation(original, value.constructionTask);
+            if (expected === null || hash(expected) !== hash(value) ||
+                value.constructionTask.workspaceBinding.bindingId !== owner.execution.workspaceBindingId ||
+                value.constructionTask.workspaceBinding.bindingDigest !== owner.execution.workspaceBindingDigest)
+                return null;
+            return { original, expected };
+        }).filter((x) => x !== null);
+        if (candidates.length !== 1)
+            return null;
+        const { original, expected } = candidates[0];
+        const prepared = prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
+            entry: expected, source: input.task.sourceConstructionResult });
+        if (hash(prepared) !== hash(input.task))
+            return null;
+        const root = input.provenance.helperPlan.sandboxRoot;
+        if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink())
+            return null;
+        const artifacts = input.snapshotMembers.map(member => {
+            const path = resolve(root, member.relativePath);
+            const rel = relative(root, path);
+            if (rel.length === 0 || rel.startsWith("..") || isAbsolute(rel) || realpathSync(path) !== path)
+                throw new TypeError("snapshot path crossed native locus");
+            const stat = lstatSync(path);
+            const bytes = readFileSync(path);
+            if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1 || bytes.length !== member.byteLength || sha256Bytes(bytes) !== member.digest)
+                throw new TypeError("snapshot content differs from admitted C2");
+            const currentTarget = expected.constructionTask.targets.find(t => t.targetRef === member.sourceMemberRef);
+            const target = original.worksite.targets.find(t => t.target.subject.relativePath === currentTarget?.subject.relativePath);
+            if (target === undefined || currentTarget === undefined)
+                throw new TypeError("snapshot has no selected Design target");
+            const selection = original.assets.at(-1).candidate.worksiteDesign.targets.find(t => t.targetRef === target.target.targetRef);
+            if (selection === undefined || (selection.obligationRefs.length === 0 && bytes.toString("base64") !== target.base64)) {
+                throw new TypeError("admitted snapshot dependency bytes changed");
+            }
+            return { subjectRef: currentTarget.subject.subjectRef, observationRef: member.sourceObservationRef,
+                base64: bytes.toString("base64"), role: target.role === "verifier" ? "verifier_artifact" : "realization" };
+        });
+        return deepFreeze({ ...original, evidence: { kind: "semantic_worksite_evidence", constructionResultRef: construction.previous.result.resultRef,
+                constructionResultDigest: construction.previous.result.resultDigest, executionResultRef: execution.previous.result.resultRef,
+                executionResultDigest: execution.previous.result.resultDigest, constructionResult: input.task.sourceConstructionResult,
+                executionObservation: input, artifacts } });
+    }
+    catch {
+        return null;
+    }
+}
+export function authenticateSemanticStageBasis(basis) {
+    const owner = authenticateOwnedSemanticStageBasis(basis);
+    if (owner === null || owner.prefix.kind === "runtime_validation_event_prefix")
+        return null;
+    const events = runtimeEventBodiesAtPrefix(owner.prefix).materialize();
+    return { ...owner, events, prefix: selectValidatedRuntimeEventPrefix(events) };
+}

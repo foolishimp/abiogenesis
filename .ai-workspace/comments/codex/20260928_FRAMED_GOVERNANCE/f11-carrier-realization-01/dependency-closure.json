@@ -1,0 +1,16 @@
+{
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+  "freezeSHA256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+  "exactFreezeVerifiedSHA256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+  "sourcePrefix": "install/node_modules/@abiogenesis/typescript-tenant/node_modules/",
+  "destination": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/node_modules",
+  "files": 4330,
+  "bytes": 32149723,
+  "recordSetDigest": "sha256:58c5ccd37c6b163cc062bf87cafdf8959ff7530970d7554a3af357fbb37ec3c7",
+  "recordSetDigestRecipe": "SHA256 of UTF-8 JSON with sorted object keys and compact separators, retaining original exact C02 freeze member order",
+  "packageDependenciesChanged": false,
+  "ambientResolutionRequired": false,
+  "verifiedFiles": 4330,
+  "verifiedBytes": 32149723,
+  "failures": []
+}

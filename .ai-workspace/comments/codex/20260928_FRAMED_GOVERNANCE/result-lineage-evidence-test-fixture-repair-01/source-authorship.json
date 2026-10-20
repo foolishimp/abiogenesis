@@ -1,0 +1,49 @@
+{
+  "productionSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 68281,
+    "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+    "mode": 420
+  },
+  "productionAuthor": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01",
+  "originalNewTestAuthor": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01",
+  "originalSourceAndTestFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+    "bytes": 1920828,
+    "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+    "mode": 420
+  },
+  "preservedFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/first-readiness-failure.json",
+    "bytes": 4806,
+    "sha256": "379c514dfc768cbd7f7b9d855fd151994ec307264d0f29e5bb45a092cfdffa1a",
+    "mode": 420
+  },
+  "originalTestPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22555,
+    "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+    "mode": 420
+  },
+  "correctedTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22568,
+    "sha256": "d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4",
+    "mode": 420
+  },
+  "fixtureIncrementAuthor": "T287_RESULT_LINEAGE_TEST_FIXTURE_REPAIR_01",
+  "fixtureIncrement": "Only effects: [] added to the supplied graphFunction.",
+  "copiedCompiledSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+    "bytes": 56202,
+    "sha256": "e6cbf21433251b46dafcb149298a4539217eefd497dccaddc32442598e3c570c",
+    "mode": 420
+  },
+  "compileReceiptReused": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/compile-supervisor-close.json",
+    "bytes": 888,
+    "sha256": "ed3601a46d0c39198470bb5cca11075e7c0f3183d1a6e83f09fd709472ac7e88",
+    "mode": 420
+  },
+  "sourceCopyAndTestExecution": "Arrangement/readiness do not transfer original source or test authorship."
+}

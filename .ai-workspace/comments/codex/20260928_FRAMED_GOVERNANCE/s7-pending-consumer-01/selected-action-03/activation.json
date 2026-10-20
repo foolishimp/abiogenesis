@@ -1,0 +1,7 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_03",
+  "disposition": "local_repair",
+  "classification": "fixture_acquisition_correspondence",
+  "role": "Worker",
+  "sourceFreeze": "cf7476e86b0368d66d2cba8fe3fd782c89ab61e7800d1a4c5b11b2cb24feb1e2"
+}

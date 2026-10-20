@@ -1,0 +1,43 @@
+{
+  "kind": "same_fixture_starting_conservation",
+  "normalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/calls/lifecycle-start.close.json",
+    "sha256": "503d362605f61b9b8aaacb9be35fcb83d6d84df7796a58a900be97ca61ffde40",
+    "byteCount": 1368,
+    "mode": 420
+  },
+  "physicalLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "device": "16777231",
+    "inode": "469917053",
+    "byteCount": "21139392",
+    "mtimeNs": "1791649924449366840"
+  },
+  "checkedLockPaths": [
+    "/private/tmp/abiogenesis-event-store-locks-v5/16777231-469917053.lock",
+    "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-469917053.lock"
+  ],
+  "relatedNativeProcesses": [],
+  "fixtureInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/source.md",
+      "sha256": "9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+      "byteCount": 1107,
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/rubric.md",
+      "sha256": "d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+      "byteCount": 634,
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/checker.mjs",
+      "sha256": "5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+      "byteCount": 335,
+      "mode": 420
+    }
+  ],
+  "candidateValue": "broken\n",
+  "originalDataMapper": "Excluded; no original resource/worksite/lease access"
+}

@@ -1,0 +1,27 @@
+{
+  "nodeOldSpaceMiB": 4096,
+  "purePreparationBudgetMs": 180000,
+  "driverBudgetMs": 2400000,
+  "terminationGraceMs": 1000,
+  "operationPlan": [
+    "workspace",
+    "verify-core",
+    "resolve",
+    "install-core",
+    "bind",
+    "catalog",
+    "catalog-view",
+    "conformance-hello-substitute",
+    "substitution-root",
+    "substitution-root-run_result",
+    "substitution-root-run_replay"
+  ],
+  "stages": {
+    "setup": 180000,
+    "conformance": 360000,
+    "start": 360000,
+    "read": 180000
+  },
+  "osRSSCap": null,
+  "providerCapacityClaim": false
+}

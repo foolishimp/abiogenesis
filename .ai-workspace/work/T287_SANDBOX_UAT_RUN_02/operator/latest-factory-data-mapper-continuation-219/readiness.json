@@ -1,0 +1,26 @@
+{
+  "disposition": "FAILED_NATIVE_MEMORY/HOLD",
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/first-cause.json",
+    "sha256": "fbdf010d9c9972dd0f4681a7c9549f062065927adcb166bca7480b017edc7069",
+    "byteCount": 2546
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/stopped-conservation.json",
+    "sha256": "467909ae3286a43edb2170aa069cc5d5577c25299ead9a4b8cabafd94ebf34cc",
+    "byteCount": 19107
+  },
+  "preparation218": "positive prepared_product_run_invocation / genuine post-close callback / native resource assertion, no setup replay",
+  "native219b": "actual current29 admission and source34 reuse;7 new admitted contributions, last parent41/nonterminal",
+  "originalDemand": "whole Program804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2 / full original67criteria and16 defect/restoration obligations conserved",
+  "mechanics": "stock Node/inherited process.env/inner13 names/original Rootcontrol3a58164b / limits unchanged",
+  "retainedProgress": "16 measured distinct compiled red episodes and16 restores; authenticated final44/0/0/0; final8 native projection/document files admitted",
+  "limits": [
+    "No current normalclose or terminal result",
+    "No fresh Public result/replay or final original independent oracle",
+    "Full UAT/build/offline/adequacy/qualification remain open",
+    "Allocator/retainer/source line and safe retry action require Root multi-frame RCA"
+  ],
+  "failedPreownerFramingAttemptPreserved": true,
+  "noOperatorAppSourceGitHeapCapOrRecoveryEffects": true
+}

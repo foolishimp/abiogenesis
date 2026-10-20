@@ -1,0 +1,37 @@
+--- run.mjs
++++ run-02.mjs
+@@ -75,7 +75,7 @@
+   };
+   let parent=await selectParent(caller,execution,1);assert.deepEqual(parent.original,original.original);
+   assert.equal(await readFile(join(configuration.worksiteRoot,CANDIDATE),'utf8'),'broken\n');
+-  phaseResults.push({phase:'construction',run:execution.receipt.resources.run,parentResultRef:parent.resultRef,inputDigest:parent.inputDigest,observations:1});
++  phaseResults.push({phase:'construction',run:execution.receipt.resources.run,parentResultRef:parent.resultRef,inputDigest:parent.inputDigest,observations:1,committedBytes:caller.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
+   const artifacts=[{label:'native',acquisition:JSON.parse(await readFile(join(executionRoot,'native-acquisition.json'),'utf8'))},
+     {label:'consumer',acquisition:JSON.parse(await readFile(join(executionRoot,'consumer-acquisition.json'),'utf8'))}];
+   for(const phase of ['audit','restart']) {
+@@ -94,6 +94,8 @@
+       provenanceRefs:[pathToFileURL(join(executionRoot,'run.json')).href]};
+     const next=await continuation.prepareInstalledContinuation(instance);
+     assert.equal(next.calls.length,0,'Same-pair restart must not replay completed Public setup or witness effects');
++    assert.equal(next.summary.sourceResultRef,parent.resultRef);assert.equal(next.summary.sourceInputDigest,parent.inputDigest);
++    assert.equal(next.summary.observations,parent.observations.length);assert.equal(next.summary.terminal,false);
+     const cycle=publicCaller({root:directory,runtime,native,command:phaseCommand,record:phaseRecord,config:instance.configuration,actorRef:caller.actorRef});
+     cycle.installedRoot=next.summary.installedRoot;cycle.state.closeHandoff=next.close.closeHandoff;
+     cycle.state.binding=caller.state.binding;cycle.state.resolvedLock=caller.state.resolvedLock;
+@@ -103,14 +105,14 @@
+     const after=await selectParent(cycle,execution,4);assert.deepEqual(after.original,original.original);
+     assert.deepEqual(after.observations.slice(0,parent.observations.length),parent.observations,'Earlier work and failed measurements must survive exactly');
+     const measured=after.observations.filter(row=>row.purpose==='testing');assert.equal(measured.length,2);
+-    const [red,green]=measured.map(row=>row.observed.commandResults[0]);
++    const [red,green]=measured.map(row=>row.value.commandResults[0]);
+     assert.equal(red.commandId,COMMAND);assert.equal(green.commandId,COMMAND);assert.equal(red.exitStatus,1);assert.equal(green.exitStatus,0);
+     const text=stream=>stream.encoding==='utf8'?stream.text:stream.excerpts.map(row=>row.text).join('');
+     assert(text(red.stdout).startsWith('FIXTURE_VALUE_BAD expected=fixed actual='));assert.equal(text(green.stdout),'FIXTURE_VALUE_FIXED\n');
+     assert.notEqual(measured[0].resultRef,measured[1].resultRef,'Remeasurement must have a distinct actual producer');
+     assert.equal(await readFile(join(configuration.worksiteRoot,CANDIDATE),'utf8'),'fixed\n');
+     phaseResults.push({phase,run:execution.receipt.resources.run,parentResultRef:after.resultRef,inputDigest:after.inputDigest,observations:4,
+-      redResultRef:measured[0].resultRef,greenResultRef:measured[1].resultRef,sourceBasisRef:next.summary.sourceBasisRef,currentUseDigest:next.summary.currentUseDigest,setupEffects:next.calls.length});
++      redResultRef:measured[0].resultRef,greenResultRef:measured[1].resultRef,sourceBasisRef:next.summary.sourceBasisRef,currentUseDigest:next.summary.currentUseDigest,setupEffects:next.calls.length,committedBytes:cycle.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
+     caller=cycle;parent=after;
+   }
+   stage='original-file-conservation';

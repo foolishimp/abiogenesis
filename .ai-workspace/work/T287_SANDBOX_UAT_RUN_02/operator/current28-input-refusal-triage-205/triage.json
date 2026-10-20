@@ -1,0 +1,211 @@
+{
+  "status": "CLOSED RCA; STOP; no repair or runtime acceptance",
+  "frame": {
+    "families": "fixed fifteen ABI5 5.0",
+    "goal": "GOAL035/T287 original external Data Mapper",
+    "method": "STDO2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "basis": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "authority": "Product817\u2013867/CONT014\u2013016; CATALOG011/012 and INSTALL044/051/055 conjoined by Root/206; no Product extension."
+  },
+  "exact204": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/freeze.json",
+    "sha256": "e23aaa03f0ec050e850770d60d7172c467c9e6b1f7a8b6e006aa6b87f5863ae9",
+    "byteCount": 12470
+  },
+  "actualOutcome": {
+    "code": "invalid_input",
+    "issuePaths": [
+      "/input"
+    ],
+    "wallMs": 404616.993708,
+    "exitCode": 1,
+    "signal": null,
+    "realPostCloseCallback": "sha256:ea5e33a25e4a0f56625c01d7b3db628a9c74a833e55e52010fae442052b8437c",
+    "callbackReturnMs": 404492.158375,
+    "normalCloseSha256": "ac019aa4430e554d406d6e20a409167bc35361341b50513432ad1eed5d26e02b",
+    "noNativeModelAppEffects": true
+  },
+  "deterministicSufficientBlocker": {
+    "immutableConsumerInput": "Actual consumer package.json explicitly depends on file candidate-24 archive. No npm cache cause is established.",
+    "consumerModule": "Actual build/semantics.mjs imports the package-name Product base, spreads it including validateInvocationBasis, and only overrides sandbox assessment contract validation.",
+    "actualAdjacentBase": "Old24 builtin_semantics.js same-binding-only validator; full path/hash in evidencePins.",
+    "admittedNativeBase": "Native28 builtin_semantics.js includes currentSourceUse arm; full path/hash in evidencePins.",
+    "falseOldConjunct": "Source136 historical binding8f000b8a\u2026 differs from current28 binding6879bb90\u2026; adjacent old validator must reject the changed-binding basis despite real covered use.",
+    "proofLimit": "Actual selected provider object/locator was not recorded, and the combined admittedInput-null/validateInvocationBasis branch was not instrumented. This is sufficient causal blockage, not uniquely observed first inner branch or proof every other guard passes."
+  },
+  "canonicalCallThrough": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "lines": "535\u2013559",
+      "relation": "admit input, execute covered-use callback, then combined admission/validator guard returns invalid_input."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "lines": "960\u2013995",
+      "relation": "declaration semantics owner/admitted install select binding."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "lines": "385\u2013528",
+      "relation": "loads exact selected installed provider, executes its input and invocation validators."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/installed_module.ts",
+      "lines": "31\u201385",
+      "relation": "validates own install and path, then ordinary in-place import resolves adjacent dependency."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "lines": "49\u201365;294\u2013324;408\u2013409",
+      "relation": "npm receives artifactPath without managed lock dependency material; own payload checks and recorded logical lock do not prove actual dependency correspondence."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "lines": "294\u2013365",
+      "relation": "logical dependency compatibility uses product/version/contracts/capabilities; this does not prove actual imported content."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "lines": "54\u201368;93\u2013102",
+      "relation": "generic delegate plus explicit file archive dependency, logical declared dependency does not bind concrete artifact content."
+    }
+  ],
+  "productBoundedProposedAction": {
+    "factory": "Owning install/dependency HOW and install_product.ts: verify actual managed dependency material against complete authenticated resolved-lock/verified-product coordinates before install admission. Reject stale or foreign same-version dependency. Use existing artifact/content/declaration owners; no provider remapping, validator bypass or new authority. installed_module.ts remains the consumption discriminator; no code edit there assumed.",
+    "harness": "Distinct immutable current consumer successor from existing consumer generator and authentic current artifact input; keep original Program, criteria and generic semantics. Preserve old consumer and installations byte-exact.",
+    "minimumReproof": "Normal packed-consumer install and ordinary module import must select exact current dependency; old24 same-version dependency must fail the new materialization correspondence check. Then original34 source/current-use through actual strict installed preparation with copy/foreign/currentness negatives.",
+    "preservation": "Keep genuine204 installs/binding/catalog/view/104 witnesses and normalclose historical evidence. A changed consumer/lock/binding needs existing target-specific applicability; do not retag old owners or repeat successful effects solely to reconstruct a boundary.",
+    "notSelectedBy205": "No implementation or retry. Root conjoins authority206 and selects the exact owning HOW/Source/test and consumer successor scope separately."
+  },
+  "whyPriorProofMissed": "Native28 publication and covered-source tests exercised native owner behavior. Caller proofs established recorded coordinates/callback, while own consumer payload validation passed. None proved ordinary package-name delegate content against selected managed lock.",
+  "limits": "No log/history/body acquisition/read/hash/replay, verifier/compiler/test/owner/model execution, source/app/installed/Git effects. Closed204 operator physical49 conservation is retained evidence, not a new205 physical scan. Full input preparation/native/UAT/capacity/P0/release remain open.",
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/freeze.json",
+      "sha256": "e23aaa03f0ec050e850770d60d7172c467c9e6b1f7a8b6e006aa6b87f5863ae9",
+      "byteCount": 12470
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/return.md",
+      "sha256": "f3d34d325261d4be064e913fb4a711f8f29e7b77e1838c6f4afd7633452a3aab",
+      "byteCount": 2182
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/readiness.json",
+      "sha256": "cea5c30f6196b21ac74efcd51afec3777f9cd3e7afc79b91cc6d4158647563be",
+      "byteCount": 4733
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/product-preparation-result.json",
+      "sha256": "7b8f5854f586a084e75d0cf223c4914f39758734a5aff90581793bd4afb0f24e",
+      "byteCount": 262
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/first-cause.json",
+      "sha256": "5762c6eb6929c843fa9fbf0f12ee296068cfb538a6f250496b10706fc2017855",
+      "byteCount": 1319
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/callback-result-join.json",
+      "sha256": "05af36e44587a22221569b2b84a6c550dc3a4371d3c7fe8203803fa54077c11d",
+      "byteCount": 9974
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/final-close-handoff.json",
+      "sha256": "ac019aa4430e554d406d6e20a409167bc35361341b50513432ad1eed5d26e02b",
+      "byteCount": 1472
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/current-setup-scalars.json",
+      "sha256": "88087f942fbd51fc68befb14053e060ffdea256a97317a603b652f94532f81e9",
+      "byteCount": 2066
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/current-source-use-discriminator.json",
+      "sha256": "fd0f5cc6fd3bd4d8d0d3a265446d41b9e28b032dafcacf16bd8042b56d38175e",
+      "byteCount": 515
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/stages/481-covered-use-callback-complete.json",
+      "sha256": "473a190cdb15b5c9a93e21d7481ad3b9eab55190d87ec1124603a711ea03ac2a",
+      "byteCount": 518
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/installed-consumer-current28/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/builtin_semantics.js",
+      "sha256": "31e4e37e4a4e3591db72d1dc2eab0c50e96bd9fd9de9413686bf3ccc1a7047b8",
+      "byteCount": 65234
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/installed-current28/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/builtin_semantics.js",
+      "sha256": "6acd8a586b47e47077e65577ba0a4bd1f3e27d6e051847de808114e52c5c57c2",
+      "byteCount": 65684
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/installed-consumer-current28/node_modules/@abi5-tests/sandbox-uat/package.json",
+      "sha256": "8cf9a8c32de727b8963ed170ab3941265d44237591be32740ef9d495869f2875",
+      "byteCount": 540
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/installed-consumer-current28/node_modules/@abi5-tests/sandbox-uat/build/semantics.mjs",
+      "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3",
+      "byteCount": 757
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/installed-consumer-current28/node_modules/@abi5-tests/sandbox-uat/build/publication.json",
+      "sha256": "589f6b44872b5aefb0155837308e0c941150dae816547bc8d50998de33ce6307",
+      "byteCount": 27497
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/calls/product-install-consumer28.outcome.json",
+      "sha256": "5c2fac3c59022ffb14c070be7ba00d8bdeb13fc3efa4d36c50220799836ffecb",
+      "byteCount": 6369
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "sha256": "13b6361c4d0c2b8b76bbf69054851bddb20b49206754284fcf65dfe9c2d19396",
+      "byteCount": 33095
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "sha256": "dcb18429cc46007a1812ff80807e1fa7482daff05a14d7dce17d1566fc8685c4",
+      "byteCount": 24324
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "sha256": "73d296ac7dbcab675c5a1f9a1399459356d81f9cd34772a0d037a6daf0a1e920",
+      "byteCount": 46996
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/installed_module.ts",
+      "sha256": "03292ca447000174d07f0a64092f00a465e4e8c32df02d19242f557ed994745a",
+      "byteCount": 2511
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "sha256": "2a59298ed1f74398d3b469030439a31bf9e5a5ef1cc999a6c8489f962d96bd01",
+      "byteCount": 15108
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "sha256": "96f6547138e43578fba31ace0b02a4e5060b1ffbfef3682802565ec8de4ed9d7",
+      "byteCount": 42399
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "byteCount": 11420
+    }
+  ],
+  "capturedHistoricalSourceEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/source-current.json",
+    "sha256": "f1aab11e334ccc21c5c60832e864cd581be6254949bbb851fa986538a1dee042",
+    "byteCount": 2414005,
+    "acquisition": "Already acquired bounded source-current capture during205; not reacquired for freezing.",
+    "sourceContract": "contract://abiogenesis/default-library/state@5",
+    "rawObservationCount": 34,
+    "terminal": false,
+    "sourceBinding": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "historicalResult": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455"
+  }
+}

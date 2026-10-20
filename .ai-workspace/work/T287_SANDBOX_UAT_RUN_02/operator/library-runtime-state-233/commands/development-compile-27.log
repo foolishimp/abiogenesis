@@ -1,0 +1,68 @@
+source/code/src/abg/execution_basis.ts(1,131): error TS2300: Duplicate identifier 'runtimeEventAtPrefix'.
+source/code/src/abg/execution_basis.ts(131,3): error TS2300: Duplicate identifier 'runtimeEventAtPrefix'.
+source/code/src/abg/worksite_command_forward.ts(54,60): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 7 more.
+source/code/src/abg/worksite_command_forward.ts(54,70): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(54,96): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(55,21): error TS2339: Property 'basisId' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(55,93): error TS2339: Property 'basisId' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(57,20): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 7 more.
+source/code/src/abg/worksite_command_forward.ts(57,30): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(57,65): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(57,97): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 7 more.
+source/code/src/abg/worksite_command_forward.ts(57,107): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(57,133): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(58,96): error TS18048: 'result' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(58,103): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(58,121): error TS18048: 'judged' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(58,128): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(60,84): error TS18048: 'result' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(60,91): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(60,117): error TS18048: 'result' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(60,124): error TS2339: Property 'eventId' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(61,86): error TS18048: 'judged' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(61,93): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(61,119): error TS18048: 'judged' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(61,126): error TS2339: Property 'eventId' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(97,83): error TS18048: 'failed.resultEvent' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(97,102): error TS2339: Property 'causationEventRefs' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(99,36): error TS18048: 'failed.judgmentEvent' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(99,57): error TS2339: Property 'admissionOrdinal' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(113,7): error TS18048: 'preparation.resultEvent' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(113,31): error TS2339: Property 'eventId' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(262,26): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 7 more.
+source/code/src/abg/worksite_command_forward.ts(262,36): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(262,62): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(262,94): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(263,35): error TS18048: 'parentCall' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(263,46): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(263,56): error TS18048: 'parentCall' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(263,67): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(263,99): error TS18048: 'parentCall' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(263,110): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(264,25): error TS18048: 'parentCall' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(264,36): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(265,21): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly unknown[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly unknown[]': concat, join, indexOf, lastIndexOf, and 7 more.
+source/code/src/abg/worksite_command_forward.ts(265,31): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(265,68): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(265,98): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(266,7): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(266,60): error TS18046: 'e' is of type 'unknown'.
+source/code/src/abg/worksite_command_forward.ts(267,30): error TS18048: 'route' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(267,36): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(267,53): error TS18048: 'route' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(267,59): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(267,88): error TS18048: 'route' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(267,94): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(268,66): error TS18048: 'route' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(268,72): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(271,39): error TS18048: 'route' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(271,45): error TS2339: Property 'payload' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(271,67): error TS18048: 'route' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(271,73): error TS2339: Property 'causationEventRefs' does not exist on type '{}'.
+source/code/src/abg/worksite_command_forward.ts(271,101): error TS18048: 'producer.judgmentEvent' is possibly 'undefined'.
+source/code/src/abg/worksite_command_forward.ts(271,124): error TS2339: Property 'eventId' does not exist on type '{}'.

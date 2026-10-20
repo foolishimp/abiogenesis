@@ -1,0 +1,37 @@
+[
+  {
+    "path": "code/src/abg/c_call.ts",
+    "sha256": "81df9b254be28818201cbb6c56924ee06b1003fba4813a3852f27a8ef6838008",
+    "bytes": 267601
+  },
+  {
+    "path": "code/src/abg/c_call_outcome.ts",
+    "sha256": "2c39789ac41c12d71c4da68c85b2f0a8d809ba6473b725bd5d1c1395535962fb",
+    "bytes": 63782
+  },
+  {
+    "path": "code/src/abg/probabilistic_result.ts",
+    "sha256": "9b1c8746133406d0288d068763a9966a7d7cf19d9887988a3ce23bf6461bba36",
+    "bytes": 21851
+  },
+  {
+    "path": "code/src/implementation/leaf_invocation_port.ts",
+    "sha256": "362d42d96ffcf90e825f0a70efa0e07e3bd1685d69ec77128b155a930e8d8581",
+    "bytes": 73932
+  },
+  {
+    "path": "code/src/implementation/contracts.ts",
+    "sha256": "323aa38b6b3782e7b93517964c82ab52352270c119ac5b6937ecdc6fe21d7d63",
+    "bytes": 17721
+  },
+  {
+    "path": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "sha256": "4625b7437f366bd05f1cb5212328a6294950b22b18bea0bd5b9c68bcd2603b3e",
+    "bytes": 30366
+  },
+  {
+    "path": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "sha256": "6d0a1a0bc5af05898765677cffbcf9bf440eb0df74a3885130067a44eff8a8a7",
+    "bytes": 37799
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_C09_CARRIER_EXECUTION_09",
+  "role": "Runtime Worker",
+  "workResult": "stopped_first_actual_failure",
+  "firstFailureFrontier": "actual wrapper parent -> core assessment -> child foldback -> F11 -> sole AF22; six cold reads",
+  "actualPublicCalls": 3,
+  "completedRuns": 1,
+  "freshCLIReads": 2,
+  "controlledHelperExchanges": 1,
+  "realProviderCalls": 0,
+  "handoffDigest": "sha256:dcaa734c6266f8e04a3778efaa33d6ae8775bf0a1315f402e1eed066521c90ba",
+  "event": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+    "bytes": 2844807,
+    "sha256": "374f6dddb7191acb4da6e9e5d093d4e247fcddb2139ece8dcd4c90159b9596a5",
+    "device": 16777230,
+    "inode": 464941019,
+    "mode": "0o644"
+  },
+  "originalPrefixUnchanged": true,
+  "measuredRelationsRefused": [],
+  "sourceRepairRetry": false,
+  "RootAloneAccepts": true,
+  "writesAfterFreeze": "STOPPED"
+}

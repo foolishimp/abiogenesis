@@ -1,0 +1,28 @@
+(node:90865) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ actual CCall callback conserves admitted lineage for both qualification task forms without weakening any guard (491.255041ms)
+ℹ {"route":"actual admitCCallResult -> stageCCallResult success callback -> actual qualification Product lineage guard; actual pure receipt rehydration","forms":[{"form":"embedded","inputDigest":"sha256:af282a3894d1b20f7afdb146fecd3a11a0effe04ded3b1704458e70ccf92a895","requestDigest":"sha256:185ee1cd7533dc69c8f23ba5dbaedb07042a67d2c038878326620d7b60aa8971","judgmentDigest":"sha256:e2ded7e2722798c72634d938be9c855528a13e5604de14766dd8c243c14010f9","callback":"accepted","exactPreimage":"refused","negatives":["inputDigest","requestDigest","promptDigest","outputDigest","actorInvocationRef","actorRef","workerBindingRef","transportBindingRef","transportBindingDigest","transportDisposition","transportFailureClass","missing inputDigest","crossed prepared request"]},{"form":"reference","inputDigest":"sha256:95f81b6a915d2725f14eb9cc91253f9df1db44f082b354efde5495d71a0bc28c","requestDigest":"sha256:5c57ad04a7dadb3bf1fe59d6a550e6b7edff98f57da646e8c45e8638c4737396","judgmentDigest":"sha256:53a6ab3c6304f1eb74a077f2ff2d95a8405ec1b663b04982bb0ebc61a802af31","callback":"accepted","exactPreimage":"refused","negatives":["inputDigest","requestDigest","promptDigest","outputDigest","actorInvocationRef","actorRef","workerBindingRef","transportBindingRef","transportBindingDigest","transportDisposition","transportFailureClass","missing inputDigest","crossed prepared request"]}],"deterministicAbsenceAndTransportNull":"conserved","suppliedPremises":["lower ABG transaction/evidence/result/prefix facts","native raw result preimage admission","current prepared-request/native-proof operation","synthetic native construction attribution"],"alteredRows":"component guard counterexamples; no native admission of corrupted rows is claimed","RuntimeAdmissions":0,"resourcesOpened":0,"helperActorProviderCalls":0,"semanticF11":"open","elapsedMs":490.760417}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 787.501333
+
+✖ failing tests:
+
+test at test_env/tests/t287-result-evidence-lineage-projection.test.mjs:215:1
+✖ actual CCall callback conserves admitted lineage for both qualification task forms without weakening any guard (491.255041ms)
+  Error: EEXIST: file already exists, open '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/regression-outcome.json'
+      at Object.openSync (node:fs:560:18)
+      at Object.writeFileSync (node:fs:2429:35)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs:294:50)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    errno: -17,
+    code: 'EEXIST',
+    syscall: 'open',
+    path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/regression-outcome.json'
+  }

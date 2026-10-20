@@ -1,0 +1,27 @@
+[
+  {
+    "path": "code/src/abg/replay.ts",
+    "sha256": "1f80f69acf96284f503fe7feb47d93362450f3367c97689f0b5f8e370d26888d",
+    "byteCount": 92034
+  },
+  {
+    "path": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "sha256": "52de5e4ed66ca62ea7247add4fcd232dda649d30aca3330412233419d1c15fa4",
+    "byteCount": 37264
+  },
+  {
+    "path": "test_env/tests/t287-route-reconstruction.test.mjs",
+    "sha256": "6f197771aff6be121c5c5f5dcf8034005e12e58711b1c5e27195341f20f16dd0",
+    "byteCount": 25283
+  },
+  {
+    "path": "build/code/src/abg/replay.js",
+    "sha256": "6fe16034261213fbbc245bc960836e34a5f4c8be6e219a431a8f542e9e2f890e",
+    "byteCount": 80185
+  },
+  {
+    "path": "test_env/tests/t287-held-prefix.test.mjs",
+    "sha256": "671a9bfc87b1b1b2e833a32a626afedd4a5566157918a04049b773f012294422",
+    "byteCount": 22777
+  }
+]

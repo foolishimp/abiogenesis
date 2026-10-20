@@ -1,0 +1,20 @@
+(node:14029) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (648.754542ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+✔ native revision complete publication admits unique carriers and retains the exact factory graph (10.605416ms)
+✔ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (120.442375ms)
+✔ native D2 operational author preparation cause retains accepted stages and selects only the actual failed stage (217.304458ms)
+ℹ Actual failed source Run 74ac812a / close 216334690: failure shape and three accepted-stage frontier conserved; prefix/leaf admission and physical roots remain supplied component premises.
+✔ native D2 assessor preparation preserves the exact authored asset through admitted request and assessment-first whole suffix (1233.904125ms)
+ℹ {"scope":"real intake/request/derivation/declared lookup; upstream leaf/prefix/binding/currentness supplied","retainedInput":"sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566","successorDigest":"sha256:6b4917a497fbb0de0b1b75817feb4ab99adb109186b72fb2f0f49ac7fdc616c4","asset":"semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df","assets":4,"obligations":15,"program":"program://odd-glc/native-semantic-revision/from-design-assessment@5"}
+✔ native D2 retained empty-obligation selector composes with all fifteen unchanged obligations (280.902375ms)
+ℹ {"kind":"retained_operational_continuation","parentDigest":"sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185","selectionDigest":"sha256:8e0da8b5110359b7770712eb4ae610e512bec1516774d1f2b6d3a0c061897de0","obligations":15,"preservedAssets":3,"historicalAssets":4,"selectedProgram":"program://odd-glc/native-semantic-revision/from-design@5","premises":"upstream admission and current physical environment supplied; no runtime admission or native execution"}
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2752.810333

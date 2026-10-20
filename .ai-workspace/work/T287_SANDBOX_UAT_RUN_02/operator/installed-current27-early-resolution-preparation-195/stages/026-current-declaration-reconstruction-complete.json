@@ -1,0 +1,12 @@
+{
+  "stage": "current-declaration-reconstruction-complete",
+  "rss": 4314808320,
+  "heapTotal": 3769958400,
+  "heapUsed": 3653034656,
+  "external": 39754648,
+  "arrayBuffers": 37342341,
+  "at": "2026-10-09T09:35:53.437Z",
+  "elapsedMs": 212803.966625,
+  "catalogBasisDigest": "sha256:4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9",
+  "catalogViewDigest": "sha256:5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367"
+}

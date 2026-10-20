@@ -204,6 +204,32 @@ compiled prompt plan selection use the same admitted registry/startup truth as
 graph-function selection. There is no product-local prompt-loader, file scan,
 local registry, or parallel selection path.
 
+### Current native binding and material lifetime
+
+The existing native-basis owner may consume the Event Store's distinct private
+owned-prefix selection instead of retaining a complete decoded Event array.
+It authenticates the same execution, graph, CCall, cursor, input, implementation,
+environment and predecessor coordinate through their defining owners. Native
+assembly, declared-role projection, actor admission and liveness consume that
+actual relation and explicitly selected bodies. It is a disposable realization
+of the current cut, never a partial Public prefix or a new source of authority.
+Copied/plain historical bases keep their ordinary durable authentication path.
+
+One prepared attempt passes its actual bound material to dispatch and response
+admission; neither consumer reconstructs a second assembly merely to cross the
+internal boundary. The complete logical assembly remains inspectable, with
+unchanged prompt bytes, canonical/carrier schemas, plan/envelope/manifest
+digests, task scope, source qualification and native binder. Any shared physical
+body representation is owned by the existing Event Store codec and must recover
+those same plain logical values, including old admitted records. Its typed
+native-definition slot shares only the present fixed publication and
+GraphFunction/declaration fields of `envelope.nativeBasis`; per-call graph,
+basis, cursor, input and plan remain complete and distinct. Physical version 2
+restores the exact bundle before logical admission/readback, while raw and
+version 1 histories remain readable. A location or
+digest alone cannot replace required content. No Proxy/getter body, alternate
+renderer, live-cache authority or new quota is introduced.
+
 ## Candidate Design Surfaces
 
 | Candidate | Prime status | Rationale |

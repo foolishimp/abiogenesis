@@ -1,0 +1,3 @@
+Error: ENOENT: no such file or directory, mkdir '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/unit-protected-roots/toolchain'
+    at async Object.mkdir (node:internal/fs/promises:861:10)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/readiness-driver.mjs:153:44

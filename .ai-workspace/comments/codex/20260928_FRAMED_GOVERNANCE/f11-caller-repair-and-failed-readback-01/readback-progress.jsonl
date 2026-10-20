@@ -1,0 +1,5 @@
+{"frontier":"one current C05 same-process nominal check; no Runtime admission","elapsedMs":4.721791999999999,"memory":{"rss":53690368,"heapTotal":7438336,"heapUsed":5314824,"external":4900361,"arrayBuffers":2828852}}
+{"frontier":"pure stop routing against authentic retained parent receipt","elapsedMs":11591.787584,"memory":{"rss":1648050176,"heapTotal":659996672,"heapUsed":317289360,"external":83763176,"arrayBuffers":81345230}}
+{"frontier":"fresh installed root run_result diagnostic; expected typed not_found refusal","elapsedMs":11594.014667000001,"memory":{"rss":1648066560,"heapTotal":659996672,"heapUsed":317513584,"external":86565716,"arrayBuffers":84147770}}
+{"frontier":"fresh installed root run_replay diagnostic; expected failed replay","elapsedMs":12505.817584,"memory":{"rss":1455538176,"heapTotal":277397504,"heapUsed":82966552,"external":7950570,"arrayBuffers":5536057}}
+{"frontier":"bind cold projection to complete retained causal failure/foldback/stopped prefix","elapsedMs":13417.974,"memory":{"rss":1482293248,"heapTotal":304119808,"heapUsed":185412416,"external":7965951,"arrayBuffers":5551438}}

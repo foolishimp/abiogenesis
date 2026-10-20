@@ -1,0 +1,14 @@
+{
+  "generationPerformed": false,
+  "packMs": 3346.623834,
+  "installMs": 2361.456666,
+  "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/publication/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactDigest": "sha256:61fb9b4e330d04c96443d8eaa5bd04233c553c638218006c36a7ccd43670e215",
+  "byteCount": 10676320,
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "productContentDigest": "sha256:0f9cd1998227c3d2ce02282d7f98640b37a2623e0febb96cf35f9d0e8b0fb1f0",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/publication/host/node_modules/@abiogenesis/typescript-tenant",
+  "claim": "Direct exact canonical package/archive/installed correspondence; native composition follows separately in this grant"
+}

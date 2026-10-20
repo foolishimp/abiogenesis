@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "file": "prepare.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "verify-artifacts.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "binding-inputs.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "packed-resources.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "launch.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "copiedBytes": true,
+  "noResourceAcquisition": true,
+  "launchPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/launch.mjs",
+    "sha256": "dee0dea2c2c876eb0ef987c1a4ba550cfc32b17375ccb9752baaa52da7c26e31",
+    "byteCount": 960
+  }
+}

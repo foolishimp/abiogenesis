@@ -1,0 +1,4 @@
+{"stage":"history_reopened","elapsedMs":24433.456709,"memory":{"rss":3916627968,"heapTotal":2536996864,"heapUsed":2403370136,"external":993533747,"arrayBuffers":991143861}}
+{"stage":"prepared_run_truth_complete","elapsedMs":44890.61175,"memory":{"rss":3171696640,"heapTotal":2431926272,"heapUsed":2308598016,"external":2416981,"arrayBuffers":27055}}
+{"stage":"held_semantic_identity_complete","elapsedMs":46679.506917,"memory":{"rss":4560355328,"heapTotal":3821961216,"heapUsed":3677313264,"external":2416981,"arrayBuffers":27055}}
+{"kind":"pc02_read_only_runtime_repair_diagnostic","historyEventCount":128721,"runEventCount":134,"runLogicalBytes":235804871,"statisticsMs":1502.8824590000004,"cpuUsage":{"user":53643382,"system":7091794},"output":"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/owner-read-result.json"}

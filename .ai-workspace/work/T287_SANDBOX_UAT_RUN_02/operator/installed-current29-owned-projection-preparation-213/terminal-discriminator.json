@@ -1,0 +1,1218 @@
+{
+  "operation": "projectClosedGraphCallTerminalAtDurablePrefix",
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1693913361,
+    "prefixDigest": "sha256:9410d093d7e19763d4bd700dae658247c15c66682962c0f25d347dd189695a60",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:0185d3c8487ae274b737f4c818b36aa5c5a5ab40c026482781f112071c435484"
+  },
+  "graphCallId": "graph-call://abiogenesis/69f0302fa67bde2f554b5698899dd481fbaf01b7223289d7130e1e81ac87a0eb",
+  "selectedObservation": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/5675018d74ea9b54cb01b5d123a399f89718dd116e67cf89148263d249f8f5b6",
+    "cCallRef": "c-call:sha256:5bd4b3484a8c8bb7fe4312ee4abc616cba256aa489eeb848575a2faf24a69128",
+    "purpose": "testing",
+    "resultDigest": "sha256:072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16",
+    "resultRef": "result://abiogenesis/072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16",
+    "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+    "synthesisResultRef": "result://abiogenesis/cbbcb678bd99c34bb58580fb9c9685f2f5e8a891b3621205bb0502e3ceb5490d",
+    "value": {
+      "commandResults": [
+        {
+          "args": [
+            "test"
+          ],
+          "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+          "environment": [
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "HOME",
+              "schemaVersion": "5.0.0",
+              "value": "/Users/jim"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "JAVA_HOME",
+              "schemaVersion": "5.0.0",
+              "value": "/opt/homebrew/opt/openjdk@11"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "LANG",
+              "schemaVersion": "5.0.0",
+              "value": "C.UTF-8"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "LC_ALL",
+              "schemaVersion": "5.0.0",
+              "value": "C.UTF-8"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "PATH",
+              "schemaVersion": "5.0.0",
+              "value": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0lCkcOe:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "TMPDIR",
+              "schemaVersion": "5.0.0",
+              "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+            }
+          ],
+          "executable": "/opt/homebrew/bin/sbt",
+          "exitStatus": 1,
+          "kind": "worksite_command_result",
+          "observationDigest": "sha256:5ea8cd934027fd4d855f8de119595b2665d6e39b1b8e86af77bfdac69e46767e",
+          "observationRef": "worksite-command-observation://abiogenesis/5ea8cd934027fd4d855f8de119595b2665d6e39b1b8e86af77bfdac69e46767e",
+          "ordinal": 0,
+          "processSignal": null,
+          "relativeCwd": "build_tenants/scala_spark",
+          "reportCount": 8,
+          "reports": [
+            {
+              "byteLength": 6408,
+              "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+              "commandOrdinal": 0,
+              "digest": "sha256:63c761aafa3bc3195bbb3e9ef8d79f71c64a0369c06cfc6f2daffdaf29873b56",
+              "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-core",
+              "kind": "worksite_report_observation",
+              "observationDigest": "sha256:c5ae438cad1fdedb281c07b9fd1a686485e5e642de216b28cd4d23e6b31116b9",
+              "observationRef": "worksite-report-observation://abiogenesis/c5ae438cad1fdedb281c07b9fd1a686485e5e642de216b28cd4d23e6b31116b9",
+              "ordinal": 0,
+              "relativePath": "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+              "schemaVersion": "5.0.0",
+              "state": "file"
+            },
+            {
+              "byteLength": 6190,
+              "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+              "commandOrdinal": 0,
+              "digest": "sha256:473f24092af05c89d5749b053c4af69de82086bf183b2bb663e48b163eaf4b23",
+              "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-compiler",
+              "kind": "worksite_report_observation",
+              "observationDigest": "sha256:08e7fbb87031164f76228e316aff5f3a4b10dc23d106b4f76f07702ccdf558b7",
+              "observationRef": "worksite-report-observation://abiogenesis/08e7fbb87031164f76228e316aff5f3a4b10dc23d106b4f76f07702ccdf558b7",
+              "ordinal": 1,
+              "relativePath": "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+              "schemaVersion": "5.0.0",
+              "state": "file"
+            },
+            {
+              "byteLength": 6180,
+              "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+              "commandOrdinal": 0,
+              "digest": "sha256:a856d95347281b5801fd8f38340608f63e9732bbc939a78659992ad27a3a2831",
+              "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-executor",
+              "kind": "worksite_report_observation",
+              "observationDigest": "sha256:1c12742b5826836ac87b24537470819c381b75c6ca6f06d74c349b6da3ef77a0",
+              "observationRef": "worksite-report-observation://abiogenesis/1c12742b5826836ac87b24537470819c381b75c6ca6f06d74c349b6da3ef77a0",
+              "ordinal": 2,
+              "relativePath": "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+              "schemaVersion": "5.0.0",
+              "state": "file"
+            },
+            {
+              "byteLength": 6236,
+              "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+              "commandOrdinal": 0,
+              "digest": "sha256:a22422d31a91b3cbe70e7455a0481e7130d9156dd8221954f0d901a1256daa62",
+              "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-adjoint",
+              "kind": "worksite_report_observation",
+              "observationDigest": "sha256:d9e344887abaade196573c9ba2b1d4a8b2e9c76e546ff8bd70c8d4d0df8cc6c2",
+              "observationRef": "worksite-report-observation://abiogenesis/d9e344887abaade196573c9ba2b1d4a8b2e9c76e546ff8bd70c8d4d0df8cc6c2",
+              "ordinal": 3,
+              "relativePath": "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+              "schemaVersion": "5.0.0",
+              "state": "file"
+            },
+            {
+              "byteLength": 10437,
+              "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+              "commandOrdinal": 0,
+              "digest": "sha256:60e39860d1ca86bf675965db435c049c3d36ff980f9cb5e98ea1056bccc6d680",
+              "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-accounting",
+              "kind": "worksite_report_observation",
+              "observationDigest": "sha256:786632030b218da18846c2d045faf6f4bebf1dc204069f6a30efa7281a0e8037",
+              "observationRef": "worksite-report-observation://abiogenesis/786632030b218da18846c2d045faf6f4bebf1dc204069f6a30efa7281a0e8037",
+              "ordinal": 4,
+              "relativePath": "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+              "schemaVersion": "5.0.0",
+              "state": "file"
+            },
+            {
+              "byteLength": 6171,
+              "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+              "commandOrdinal": 0,
+              "digest": "sha256:b2f4ddf922ea3c0d28052ac48578bbc4dae4732980a0d46f282155fd7ae5f67f",
+              "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-assurance",
+              "kind": "worksite_report_observation",
+              "observationDigest": "sha256:3306a8c9d0211521a6a78b126bab93aecd1c737310beb70165505b4dd4c04993",
+              "observationRef": "worksite-report-observation://abiogenesis/3306a8c9d0211521a6a78b126bab93aecd1c737310beb70165505b4dd4c04993",
+              "ordinal": 5,
+              "relativePath": "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "state": "file"
+            },
+            {
+              "byteLength": 6177,
+              "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+              "commandOrdinal": 0,
+              "digest": "sha256:557e02dde6bbe0519df001fe615865a4964a6560220084d41da1841134bdfc80",
+              "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-fidelity",
+              "kind": "worksite_report_observation",
+              "observationDigest": "sha256:5eeb504072d484413b0b4bae0cd00ec8946ea57903e37edd0df9d16d96ba001e",
+              "observationRef": "worksite-report-observation://abiogenesis/5eeb504072d484413b0b4bae0cd00ec8946ea57903e37edd0df9d16d96ba001e",
+              "ordinal": 6,
+              "relativePath": "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "state": "file"
+            },
+            {
+              "byteLength": 6908,
+              "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+              "commandOrdinal": 0,
+              "digest": "sha256:eec77ce3350447478539789d9e7f251999de22bc63d4ea08b68b53c6759886f2",
+              "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-engine",
+              "kind": "worksite_report_observation",
+              "observationDigest": "sha256:7717032e674f365fb17035151a3714498eb4bec11b0ffad5502626aeda8cfcf1",
+              "observationRef": "worksite-report-observation://abiogenesis/7717032e674f365fb17035151a3714498eb4bec11b0ffad5502626aeda8cfcf1",
+              "ordinal": 7,
+              "relativePath": "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+              "schemaVersion": "5.0.0",
+              "state": "file"
+            }
+          ],
+          "schemaVersion": "5.0.0",
+          "signalSequence": [],
+          "stderr": {
+            "byteLength": 26643,
+            "digest": "sha256:562b783fde1395a9c39cdc967324c792ba5b9d57fd5314295141dceae27b6784",
+            "encoding": "utf8",
+            "text": "Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties\n26/10/09 10:49:36 INFO SparkContext: Running Spark version 3.5.1\n26/10/09 10:49:36 INFO SparkContext: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:36 INFO SparkContext: Java version 11.0.28\n26/10/09 10:49:36 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\n26/10/09 10:49:36 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in mesos/standalone/kubernetes and LOCAL_DIRS in YARN).\n26/10/09 10:49:36 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:36 INFO ResourceUtils: No custom resources configured for spark.driver.\n26/10/09 10:49:36 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:36 INFO SparkContext: Submitted application: FidelityServiceSpec\n26/10/09 10:49:36 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)\n26/10/09 10:49:36 INFO ResourceProfile: Limiting resource is cpu\n26/10/09 10:49:36 INFO ResourceProfileManager: Added ResourceProfile id: 0\n26/10/09 10:49:36 INFO SecurityManager: Changing view acls to: jim\n26/10/09 10:49:36 INFO SecurityManager: Changing modify acls to: jim\n26/10/09 10:49:36 INFO SecurityManager: Changing view acls groups to: \n26/10/09 10:49:36 INFO SecurityManager: Changing modify acls groups to: \n26/10/09 10:49:36 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: jim; groups with view permissions: EMPTY; users with modify permissions: jim; groups with modify permissions: EMPTY\n26/10/09 10:49:36 INFO Utils: Successfully started service 'sparkDriver' on port 55115.\n26/10/09 10:49:36 INFO SparkEnv: Registering MapOutputTracker\n26/10/09 10:49:36 INFO SparkEnv: Registering BlockManagerMaster\n26/10/09 10:49:36 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information\n26/10/09 10:49:36 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up\n26/10/09 10:49:36 INFO SparkEnv: Registering BlockManagerMasterHeartbeat\n26/10/09 10:49:36 INFO DiskBlockManager: Created local directory at /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-fidelity/target/spark-local/blockmgr-750e9c36-e7c6-4939-89d3-84c3c3af0c91\n26/10/09 10:49:36 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB\n26/10/09 10:49:36 INFO SparkEnv: Registering OutputCommitCoordinator\n26/10/09 10:49:36 INFO Executor: Starting executor ID driver on host localhost\n26/10/09 10:49:36 INFO Executor: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:36 INFO Executor: Java version 11.0.28\n26/10/09 10:49:36 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''\n26/10/09 10:49:36 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@6cc8ca34 for default.\n26/10/09 10:49:36 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 55116.\n26/10/09 10:49:36 INFO NettyBlockTransferService: Server created on 127.0.0.1:55116\n26/10/09 10:49:36 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy\n26/10/09 10:49:36 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 55116, None)\n26/10/09 10:49:36 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:55116 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 55116, None)\n26/10/09 10:49:36 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 55116, None)\n26/10/09 10:49:36 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 55116, None)\nUsing Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties\n26/10/09 10:49:40 INFO SparkContext: Running Spark version 3.5.1\n26/10/09 10:49:40 INFO SparkContext: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:40 INFO SparkContext: Java version 11.0.28\n26/10/09 10:49:40 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\n26/10/09 10:49:40 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in mesos/standalone/kubernetes and LOCAL_DIRS in YARN).\n26/10/09 10:49:40 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:40 INFO ResourceUtils: No custom resources configured for spark.driver.\n26/10/09 10:49:40 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:40 INFO SparkContext: Submitted application: AssuranceServiceSpec\n26/10/09 10:49:40 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)\n26/10/09 10:49:40 INFO ResourceProfile: Limiting resource is cpu\n26/10/09 10:49:40 INFO ResourceProfileManager: Added ResourceProfile id: 0\n26/10/09 10:49:40 INFO SecurityManager: Changing view acls to: jim\n26/10/09 10:49:40 INFO SecurityManager: Changing modify acls to: jim\n26/10/09 10:49:40 INFO SecurityManager: Changing view acls groups to: \n26/10/09 10:49:40 INFO SecurityManager: Changing modify acls groups to: \n26/10/09 10:49:40 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: jim; groups with view permissions: EMPTY; users with modify permissions: jim; groups with modify permissions: EMPTY\n26/10/09 10:49:40 INFO Utils: Successfully started service 'sparkDriver' on port 55122.\n26/10/09 10:49:40 INFO SparkEnv: Registering MapOutputTracker\n26/10/09 10:49:40 INFO SparkEnv: Registering BlockManagerMaster\n26/10/09 10:49:40 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information\n26/10/09 10:49:40 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up\n26/10/09 10:49:40 INFO SparkEnv: Registering BlockManagerMasterHeartbeat\n26/10/09 10:49:40 INFO DiskBlockManager: Created local directory at /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-assurance/target/spark-local/blockmgr-46895e50-e8ed-433f-80b9-87d58c03d1e0\n26/10/09 10:49:40 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB\n26/10/09 10:49:40 INFO SparkEnv: Registering OutputCommitCoordinator\n26/10/09 10:49:40 INFO Executor: Starting executor ID driver on host localhost\n26/10/09 10:49:40 INFO Executor: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:40 INFO Executor: Java version 11.0.28\n26/10/09 10:49:40 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''\n26/10/09 10:49:40 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@3e9d4434 for default.\n26/10/09 10:49:40 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 55123.\n26/10/09 10:49:40 INFO NettyBlockTransferService: Server created on 127.0.0.1:55123\n26/10/09 10:49:40 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy\n26/10/09 10:49:40 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 55123, None)\n26/10/09 10:49:40 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:55123 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 55123, None)\n26/10/09 10:49:40 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 55123, None)\n26/10/09 10:49:40 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 55123, None)\nUsing Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties\n26/10/09 10:49:44 INFO SparkContext: Running Spark version 3.5.1\n26/10/09 10:49:44 INFO SparkContext: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:44 INFO SparkContext: Java version 11.0.28\n26/10/09 10:49:44 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\n26/10/09 10:49:44 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in mesos/standalone/kubernetes and LOCAL_DIRS in YARN).\n26/10/09 10:49:44 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:44 INFO ResourceUtils: No custom resources configured for spark.driver.\n26/10/09 10:49:44 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:44 INFO SparkContext: Submitted application: DataFrameExecutorSpec\n26/10/09 10:49:44 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)\n26/10/09 10:49:44 INFO ResourceProfile: Limiting resource is cpu\n26/10/09 10:49:44 INFO ResourceProfileManager: Added ResourceProfile id: 0\n26/10/09 10:49:44 INFO SecurityManager: Changing view acls to: jim\n26/10/09 10:49:44 INFO SecurityManager: Changing modify acls to: jim\n26/10/09 10:49:44 INFO SecurityManager: Changing view acls groups to: \n26/10/09 10:49:44 INFO SecurityManager: Changing modify acls groups to: \n26/10/09 10:49:44 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: jim; groups with view permissions: EMPTY; users with modify permissions: jim; groups with modify permissions: EMPTY\n26/10/09 10:49:44 INFO Utils: Successfully started service 'sparkDriver' on port 55136.\n26/10/09 10:49:44 INFO SparkEnv: Registering MapOutputTracker\n26/10/09 10:49:44 INFO SparkEnv: Registering BlockManagerMaster\n26/10/09 10:49:44 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information\n26/10/09 10:49:44 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up\n26/10/09 10:49:44 INFO SparkEnv: Registering BlockManagerMasterHeartbeat\n26/10/09 10:49:44 INFO DiskBlockManager: Created local directory at /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-executor/target/spark-local/blockmgr-0e0e6468-573f-4d3f-9524-2e98223a27d4\n26/10/09 10:49:44 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB\n26/10/09 10:49:44 INFO SparkEnv: Registering OutputCommitCoordinator\n26/10/09 10:49:44 INFO Executor: Starting executor ID driver on host localhost\n26/10/09 10:49:44 INFO Executor: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:44 INFO Executor: Java version 11.0.28\n26/10/09 10:49:44 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''\n26/10/09 10:49:44 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@7b674a for default.\n26/10/09 10:49:44 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 55137.\n26/10/09 10:49:44 INFO NettyBlockTransferService: Server created on 127.0.0.1:55137\n26/10/09 10:49:44 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy\n26/10/09 10:49:44 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 55137, None)\n26/10/09 10:49:44 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:55137 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 55137, None)\n26/10/09 10:49:44 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 55137, None)\n26/10/09 10:49:44 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 55137, None)\nUsing Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties\n26/10/09 10:49:47 INFO SparkContext: Running Spark version 3.5.1\n26/10/09 10:49:47 INFO SparkContext: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:47 INFO SparkContext: Java version 11.0.28\n26/10/09 10:49:47 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\n26/10/09 10:49:47 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in mesos/standalone/kubernetes and LOCAL_DIRS in YARN).\n26/10/09 10:49:47 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:47 INFO ResourceUtils: No custom resources configured for spark.driver.\n26/10/09 10:49:47 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:47 INFO SparkContext: Submitted application: AccountingVerifierSpec\n26/10/09 10:49:47 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)\n26/10/09 10:49:47 INFO ResourceProfile: Limiting resource is cpu\n26/10/09 10:49:47 INFO ResourceProfileManager: Added ResourceProfile id: 0\n26/10/09 10:49:47 INFO SecurityManager: Changing view acls to: jim\n26/10/09 10:49:47 INFO SecurityManager: Changing modify acls to: jim\n26/10/09 10:49:47 INFO SecurityManager: Changing view acls groups to: \n26/10/09 10:49:47 INFO SecurityManager: Changing modify acls groups to: \n26/10/09 10:49:47 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: jim; groups with view permissions: EMPTY; users with modify permissions: jim; groups with modify permissions: EMPTY\n26/10/09 10:49:47 INFO Utils: Successfully started service 'sparkDriver' on port 55145.\n26/10/09 10:49:47 INFO SparkEnv: Registering MapOutputTracker\n26/10/09 10:49:47 INFO SparkEnv: Registering BlockManagerMaster\n26/10/09 10:49:47 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information\n26/10/09 10:49:47 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up\n26/10/09 10:49:47 INFO SparkEnv: Registering BlockManagerMasterHeartbeat\n26/10/09 10:49:47 INFO DiskBlockManager: Created local directory at /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-accounting/target/spark-local/blockmgr-63214cc2-24c5-4487-81cd-1c0136400440\n26/10/09 10:49:47 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB\n26/10/09 10:49:47 INFO SparkEnv: Registering OutputCommitCoordinator\n26/10/09 10:49:47 INFO Executor: Starting executor ID driver on host localhost\n26/10/09 10:49:47 INFO Executor: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:47 INFO Executor: Java version 11.0.28\n26/10/09 10:49:47 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''\n26/10/09 10:49:47 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@7b961c8d for default.\n26/10/09 10:49:47 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 55146.\n26/10/09 10:49:47 INFO NettyBlockTransferService: Server created on 127.0.0.1:55146\n26/10/09 10:49:47 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy\n26/10/09 10:49:47 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 55146, None)\n26/10/09 10:49:47 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:55146 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 55146, None)\n26/10/09 10:49:47 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 55146, None)\n26/10/09 10:49:47 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 55146, None)\nUsing Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties\n26/10/09 10:49:49 INFO SparkContext: Running Spark version 3.5.1\n26/10/09 10:49:49 INFO SparkContext: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:49 INFO SparkContext: Java version 11.0.28\n26/10/09 10:49:49 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\n26/10/09 10:49:49 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in mesos/standalone/kubernetes and LOCAL_DIRS in YARN).\n26/10/09 10:49:49 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:49 INFO ResourceUtils: No custom resources configured for spark.driver.\n26/10/09 10:49:49 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:49 INFO SparkContext: Submitted application: CoreContractsSpec\n26/10/09 10:49:49 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)\n26/10/09 10:49:49 INFO ResourceProfile: Limiting resource is cpu\n26/10/09 10:49:49 INFO ResourceProfileManager: Added ResourceProfile id: 0\n26/10/09 10:49:49 INFO SecurityManager: Changing view acls to: jim\n26/10/09 10:49:49 INFO SecurityManager: Changing modify acls to: jim\n26/10/09 10:49:49 INFO SecurityManager: Changing view acls groups to: \n26/10/09 10:49:49 INFO SecurityManager: Changing modify acls groups to: \n26/10/09 10:49:49 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: jim; groups with view permissions: EMPTY; users with modify permissions: jim; groups with modify permissions: EMPTY\n26/10/09 10:49:49 INFO Utils: Successfully started service 'sparkDriver' on port 55151.\n26/10/09 10:49:49 INFO SparkEnv: Registering MapOutputTracker\n26/10/09 10:49:49 INFO SparkEnv: Registering BlockManagerMaster\n26/10/09 10:49:49 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information\n26/10/09 10:49:49 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up\n26/10/09 10:49:49 INFO SparkEnv: Registering BlockManagerMasterHeartbeat\n26/10/09 10:49:49 INFO DiskBlockManager: Created local directory at /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-core/target/spark-local/blockmgr-10f27a09-0ba7-4e5b-983e-a02396e4e9b1\n26/10/09 10:49:49 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB\n26/10/09 10:49:49 INFO SparkEnv: Registering OutputCommitCoordinator\n26/10/09 10:49:49 INFO Executor: Starting executor ID driver on host localhost\n26/10/09 10:49:49 INFO Executor: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:49 INFO Executor: Java version 11.0.28\n26/10/09 10:49:49 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''\n26/10/09 10:49:49 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@8091c70 for default.\n26/10/09 10:49:49 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 55152.\n26/10/09 10:49:49 INFO NettyBlockTransferService: Server created on 127.0.0.1:55152\n26/10/09 10:49:49 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy\n26/10/09 10:49:49 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 55152, None)\n26/10/09 10:49:49 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:55152 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 55152, None)\n26/10/09 10:49:49 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 55152, None)\n26/10/09 10:49:49 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 55152, None)\nUsing Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties\n26/10/09 10:49:52 INFO SparkContext: Running Spark version 3.5.1\n26/10/09 10:49:52 INFO SparkContext: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:52 INFO SparkContext: Java version 11.0.28\n26/10/09 10:49:52 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\n26/10/09 10:49:52 WARN SparkConf: Note that spark.local.dir will be overridden by the value set by the cluster manager (via SPARK_LOCAL_DIRS in mesos/standalone/kubernetes and LOCAL_DIRS in YARN).\n26/10/09 10:49:52 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:52 INFO ResourceUtils: No custom resources configured for spark.driver.\n26/10/09 10:49:52 INFO ResourceUtils: ==============================================================\n26/10/09 10:49:52 INFO SparkContext: Submitted application: CdmeEngineIntegrationSpec\n26/10/09 10:49:52 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)\n26/10/09 10:49:52 INFO ResourceProfile: Limiting resource is cpu\n26/10/09 10:49:52 INFO ResourceProfileManager: Added ResourceProfile id: 0\n26/10/09 10:49:52 INFO SecurityManager: Changing view acls to: jim\n26/10/09 10:49:52 INFO SecurityManager: Changing modify acls to: jim\n26/10/09 10:49:52 INFO SecurityManager: Changing view acls groups to: \n26/10/09 10:49:52 INFO SecurityManager: Changing modify acls groups to: \n26/10/09 10:49:52 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: jim; groups with view permissions: EMPTY; users with modify permissions: jim; groups with modify permissions: EMPTY\n26/10/09 10:49:52 INFO Utils: Successfully started service 'sparkDriver' on port 55157.\n26/10/09 10:49:52 INFO SparkEnv: Registering MapOutputTracker\n26/10/09 10:49:52 INFO SparkEnv: Registering BlockManagerMaster\n26/10/09 10:49:52 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information\n26/10/09 10:49:52 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up\n26/10/09 10:49:52 INFO SparkEnv: Registering BlockManagerMasterHeartbeat\n26/10/09 10:49:52 INFO DiskBlockManager: Created local directory at /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-engine/target/spark-local/blockmgr-89a8691d-f9ed-4be8-af63-8b96fb06bfa9\n26/10/09 10:49:52 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB\n26/10/09 10:49:52 INFO SparkEnv: Registering OutputCommitCoordinator\n26/10/09 10:49:52 INFO Executor: Starting executor ID driver on host localhost\n26/10/09 10:49:52 INFO Executor: OS info Mac OS X, 26.7.1, aarch64\n26/10/09 10:49:52 INFO Executor: Java version 11.0.28\n26/10/09 10:49:52 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''\n26/10/09 10:49:52 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@7210527 for default.\n26/10/09 10:49:52 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 55158.\n26/10/09 10:49:52 INFO NettyBlockTransferService: Server created on 127.0.0.1:55158\n26/10/09 10:49:52 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy\n26/10/09 10:49:52 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 55158, None)\n26/10/09 10:49:52 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:55158 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 55158, None)\n26/10/09 10:49:52 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 55158, None)\n26/10/09 10:49:52 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 55158, None)\n"
+          },
+          "stdout": {
+            "byteLength": 22767,
+            "digest": "sha256:a296ca6b67e05a43d89091630e99aa8ebd6d4909cd61ff964c54fe27ba987973",
+            "encoding": "utf8",
+            "text": "[info] welcome to sbt 1.11.7 (Homebrew Java 11.0.28)\n[info] loading settings for project scala_spark-build from plugins.sbt...\n[info] loading project definition from /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/project\n[info] loading settings for project root from build.sbt...\n[info] set current project to cdme (in build file:/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/)\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-core/target/scala-2.13/classes ...\n[info] done compiling\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-assurance/target/scala-2.13/classes ...\n[info] compiling 2 Scala sources to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-compiler/target/scala-2.13/classes ...\n[info] compiling 2 Scala sources to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-executor/target/scala-2.13/classes ...\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-accounting/target/scala-2.13/classes ...\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-adjoint/target/scala-2.13/classes ...\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-core/target/scala-2.13/test-classes ...\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-fidelity/target/scala-2.13/classes ...\n[info] done compiling\n[info] done compiling\n[info] done compiling\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-adjoint/target/scala-2.13/test-classes ...\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-fidelity/target/scala-2.13/test-classes ...\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-accounting/target/scala-2.13/test-classes ...\n[info] done compiling\n[info] done compiling\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-assurance/target/scala-2.13/test-classes ...\n[info] done compiling\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-executor/target/scala-2.13/test-classes ...\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-compiler/target/scala-2.13/test-classes ...\n[info] compiling 2 Scala sources to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-engine/target/scala-2.13/classes ...\n[info] done compiling\n[info] done compiling\n[info] done compiling\n[info] done compiling\n[info] done compiling\n[info] done compiling\n[info] done compiling\n[warn] /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala:71:28: The outer reference in this type test cannot be checked at run time.\n[warn]   private final case class StageRun[A](output: Option[A], verdict: Either[String, String])\n[warn]                            ^\n[warn] /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala:73:28: The outer reference in this type test cannot be checked at run time.\n[warn]   private final case class Advance[A](state: EngineRunResult, output: A)\n[warn]                            ^\n[warn] two warnings found\n[info] done compiling\n[info] compiling 1 Scala source to /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox/build_tenants/scala_spark/cdme-engine/target/scala-2.13/test-classes ...\n[info] FidelityServiceSpec:\n[info] done compiling\n[info] - UAT-FID-POS: canonical output without O-3 scores 0.8 against source truth and meets 0.75 (2 seconds, 159 milliseconds)\n[info] - UAT-FID-NEG: a target with altered values scores below the matching target and below 0.75 (318 milliseconds)\n[info] - UAT-FID-BND: identical data scores 1.0, every value altered scores 0.0 and empty inputs follow the declared rule (368 milliseconds)\n[info] - UAT-FID-INV: scores stay within 0 and 1, never rise with divergence and fall with extra target rows (573 milliseconds)\n[info] - UAT-FID-INT: a target derived from the source by a Spark projection reconciles without self-join ambiguity (89 milliseconds)\n[info] AssuranceServiceSpec:\n[info] - UAT-ASSR-POS: the canonical partition passes error-rate, country-null-rate and min-output-rows (2 seconds, 5 milliseconds)\n[info] - UAT-ASSR-NEG: a degraded error rate of 0.5 breaches AtMost 0.25 and the breach names error-rate (275 milliseconds)\n[info] - UAT-ASSR-BND: inclusive thresholds pass at the limit and breach just beyond it (118 milliseconds)\n[info] - UAT-ASSR-INV: moving further past a threshold never passes and a report passes only when every check passes (202 milliseconds)\n[info] - UAT-ASSR-INT: metrics are measured from real Spark frames and an undeclared null-rate field is refused (243 milliseconds)\n[info] AdjointRegistrySpec:\n[info] - UAT-ADJ-POS: registered orders-curation lineage inverts each target field to its source, edge and transform (23 milliseconds)\n[info] - UAT-ADJ-NEG: unregistered topology and field lookups on a populated registry are refused as Unregistered (1 millisecond)\n[info] - UAT-ADJ-BND: an empty registry refuses every lookup, one mapping round-trips and identical re-registration is idempotent (1 millisecond)\n[info] - UAT-ADJ-INV: every entry inverts and forwards to itself and a conflicting registration never overwrites lineage (1 millisecond)\n[info] - UAT-ADJ-INT: lineage registered from a core-built CompiledTopology inverts every compiled target to its declared source (0 milliseconds)\n[info] TopologyCompilerSpec:\n[info] - UAT-TOPO-POS: orders-curation compiles to four typed edges in declared order (21 milliseconds)\n[info] - UAT-TOPO-NEG: a Direct edge from Str amount to Float64 amount_value is refused with TypeMismatch (0 milliseconds)\n[info] - UAT-TOPO-BND: a one-edge topology compiles while undeclared fields and an empty topology are refused (1 millisecond)\n[info] - UAT-TOPO-INV: compiled edges are type-compatible, compilation is deterministic and each target is mapped exactly once (2 milliseconds)\n[info] - UAT-TOPO-INT (core seam): compiled target fields reproduce the core target contract Spark schema in contract order (4 milliseconds)\n[info] DataFrameExecutorSpec:\n[info] - UAT-EXEC-POS: canonical rows transform on Spark into the four expected orders_curated rows (1 second, 709 milliseconds)\n[info] - UAT-EXEC-NEG: unparseable and null-required bad rows reach the error sink with their edge and cause (86 milliseconds)\n[info] - UAT-EXEC-BND: empty input gives empty partitions and all-bad input sends every row to the error sink (535 milliseconds)\n[info] - UAT-EXEC-INV: input rows equal output rows plus error-sink rows with no row in both partitions (441 milliseconds)\n[info] - UAT-EXEC-INT: execution consumes core DTOs on a LocalSpark session and refuses a foreign input contract (9 milliseconds)\n[info] AccountingVerifierSpec:\n[info] - UAT-ACCT-POS: a ledger with input 5, output 4 and error sink 1 verifies Balanced (9 milliseconds)\n[info] - UAT-ACCT-NEG: ledgers off by plus one and minus one are detected as Unbalanced (0 milliseconds)\n[info] - UAT-ACCT-BND: empty and all-zero ledgers are Balanced with zero totals and a one-unit imbalance is detected (0 milliseconds)\n[info] - UAT-ACCT-INV: the verdict is Balanced exactly when summed input equals summed output plus error sink in any entry order *** FAILED *** (10 milliseconds)\n[info]   PartitionTotals(2, 2, 1) did not equal PartitionTotals(5, 4, 1) Vector(InputRows, OutputRows, ErrorSinkRows, InputRows, OutputRows) (AccountingVerifierSpec.scala:138)\n[info]   Analysis:\n[info]   PartitionTotals(input: 2 -> 5, output: 2 -> 4)\n[info]   org.scalatest.exceptions.TestFailedException:\n[info]   at org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:472)\n[info]   at org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:471)\n[info]   at org.scalatest.Assertions$.newAssertionFailedException(Assertions.scala:1231)\n[info]   at org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:1295)\n[info]   at com.cdme.accounting.AccountingVerifierSpec.$anonfun$new$5(AccountingVerifierSpec.scala:138)\n[info]   at scala.collection.immutable.Vector.foreach(Vector.scala:2124)\n[info]   at com.cdme.accounting.AccountingVerifierSpec.$anonfun$new$4(AccountingVerifierSpec.scala:136)\n[info]   at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)\n[info]   at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)\n[info]   at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)\n[info]   at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)\n[info]   at org.scalatest.Transformer.apply(Transformer.scala:22)\n[info]   at org.scalatest.Transformer.apply(Transformer.scala:20)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike$$anon$1.apply(AnyFunSuiteLike.scala:226)\n[info]   at org.scalatest.TestSuite.withFixture(TestSuite.scala:196)\n[info]   at org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)\n[info]   at org.scalatest.funsuite.AnyFunSuite.withFixture(AnyFunSuite.scala:1564)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.invokeWithFixture$1(AnyFunSuiteLike.scala:224)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.$anonfun$runTest$1(AnyFunSuiteLike.scala:236)\n[info]   at org.scalatest.SuperEngine.runTestImpl(Engine.scala:306)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.runTest(AnyFunSuiteLike.scala:236)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.runTest$(AnyFunSuiteLike.scala:218)\n[info]   at org.scalatest.funsuite.AnyFunSuite.runTest(AnyFunSuite.scala:1564)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.$anonfun$runTests$1(AnyFunSuiteLike.scala:269)\n[info]   at org.scalatest.SuperEngine.$anonfun$runTestsInBranch$1(Engine.scala:413)\n[info]   at scala.collection.immutable.List.foreach(List.scala:333)\n[info]   at org.scalatest.SuperEngine.traverseSubNodes$1(Engine.scala:401)\n[info]   at org.scalatest.SuperEngine.runTestsInBranch(Engine.scala:396)\n[info]   at org.scalatest.SuperEngine.runTestsImpl(Engine.scala:475)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.runTests(AnyFunSuiteLike.scala:269)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.runTests$(AnyFunSuiteLike.scala:268)\n[info]   at org.scalatest.funsuite.AnyFunSuite.runTests(AnyFunSuite.scala:1564)\n[info]   at org.scalatest.Suite.run(Suite.scala:1114)\n[info]   at org.scalatest.Suite.run$(Suite.scala:1096)\n[info]   at org.scalatest.funsuite.AnyFunSuite.org$scalatest$funsuite$AnyFunSuiteLike$$super$run(AnyFunSuite.scala:1564)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.$anonfun$run$1(AnyFunSuiteLike.scala:273)\n[info]   at org.scalatest.SuperEngine.runImpl(Engine.scala:535)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.run(AnyFunSuiteLike.scala:273)\n[info]   at org.scalatest.funsuite.AnyFunSuiteLike.run$(AnyFunSuiteLike.scala:272)\n[info]   at com.cdme.accounting.AccountingVerifierSpec.org$scalatest$BeforeAndAfterAll$$super$run(AccountingVerifierSpec.scala:26)\n[info]   at org.scalatest.BeforeAndAfterAll.liftedTree1$1(BeforeAndAfterAll.scala:213)\n[info]   at org.scalatest.BeforeAndAfterAll.run(BeforeAndAfterAll.scala:210)\n[info]   at org.scalatest.BeforeAndAfterAll.run$(BeforeAndAfterAll.scala:208)\n[info]   at com.cdme.accounting.AccountingVerifierSpec.run(AccountingVerifierSpec.scala:26)\n[info]   at org.scalatest.tools.Framework.org$scalatest$tools$Framework$$runSuite(Framework.scala:321)\n[info]   at org.scalatest.tools.Framework$ScalaTestTask.execute(Framework.scala:517)\n[info]   at sbt.ForkMain$Run.lambda$runTest$1(ForkMain.java:414)\n[info]   at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n[info]   at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n[info]   at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n[info]   at java.base/java.lang.Thread.run(Thread.java:829)\n[info] - UAT-ACCT-INT: ledgerOf counts real Spark frames independently and detects a union-duplicated output (2 seconds, 45 milliseconds)\n[info] CoreContractsSpec:\n[info] - UAT-CORE-POS: reference contracts and the six shared DTOs construct with their supplied typed values (1 second, 130 milliseconds)\n[info] - UAT-CORE-NEG: invalid field names and schema contracts are refused with a typed ContractViolation (1 millisecond)\n[info] - UAT-CORE-NEG: DataFrameRef.bind refuses missing, extra, reordered and mistyped columns (33 milliseconds)\n[info] - UAT-CORE-BND: field name lengths 1 and 64, a one-field contract and row count 0 are accepted and the next step out is refused (1 millisecond)\n[info] - UAT-CORE-INV: every accepted contract value satisfies its rule and duplicate field names never yield a contract (3 milliseconds)\n[info] - UAT-CORE-INT: ReferenceScenario.sourceFrame binds canonical rows on a LocalSpark session to the orders_raw schema (981 milliseconds)\n[info] CdmeEngineIntegrationSpec:\n[info] - UAT-ENG-POS: the canonical run succeeds through compile, execute, lineage, account, assure and fidelity (2 seconds, 616 milliseconds)\n[info] - UAT-ENG-NEG: a type-mismatched topology halts at compile and degraded rows halt at assure (194 milliseconds)\n[info] - UAT-ENG-BND: a first-stage failure leaves no later stage and a last-stage failure keeps five successes (301 milliseconds)\n[info] - UAT-ENG-INV: stage results follow the declared order, stop at the first failure and succeed only when all six succeed (1 millisecond)\n[info] - UAT-ENG-INT: the run composes the real concern modules on Spark and accounts and assures its own execution output (421 milliseconds)\n[info] - UAT-TOPO-INT (engine path): compiled edges drive Spark execution of the target columns and values (13 milliseconds)\n[info] - U8 runner carrier: runScenario returns data_mapper_full_sbt ok for the canonical run (247 milliseconds)\n[info] - U8 runner negative: run on the degraded request returns a Left naming assure (113 milliseconds)\n[info] Run completed in 20 seconds, 72 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 82 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 87 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 94 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 98 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 105 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 4, failed 1, canceled 0, ignored 0, pending 0\n[info] *** 1 TEST FAILED ***\n[error] Failed tests:\n[error] \tcom.cdme.accounting.AccountingVerifierSpec\n[info] Run completed in 20 seconds, 111 milliseconds.\n[info] Total number of tests run: 6\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 6, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 19 seconds, 701 milliseconds.\n[info] Total number of tests run: 8\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 8, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[error] (cdme-accounting / Test / test) sbt.TestsFailedException: Tests unsuccessful\n[error] Total time: 25 s, completed 9 Oct. 2026, 10:49:55 am\n"
+          },
+          "terminationConfirmed": true,
+          "terminationGraceMs": 10000,
+          "timedOut": false,
+          "timeoutMs": 18000000
+        }
+      ],
+      "predicateObservations": [
+        {
+          "evidence": [
+            {
+              "digest": "sha256:5ea8cd934027fd4d855f8de119595b2665d6e39b1b8e86af77bfdac69e46767e",
+              "kind": "worksite_command_observation_coordinate",
+              "ref": "worksite-command-observation://abiogenesis/5ea8cd934027fd4d855f8de119595b2665d6e39b1b8e86af77bfdac69e46767e",
+              "schemaVersion": "5.0.0"
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-command-observation://abiogenesis/5ea8cd934027fd4d855f8de119595b2665d6e39b1b8e86af77bfdac69e46767e"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": 1,
+          "ordinal": 0,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-exit",
+          "predicateKind": "process_exit",
+          "schemaVersion": "5.0.0"
+        },
+        {
+          "evidence": [
+            {
+              "digest": "sha256:a5f091b3b490407d3e0abe4fe469af096a5d8485d7f26665c9ffb76918c9ec20",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/a5f091b3b490407d3e0abe4fe469af096a5d8485d7f26665c9ffb76918c9ec20",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:b73351dc3bfcd24591b4cfd9447f6824d7868319e554f3643827e498a371f399",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/b73351dc3bfcd24591b4cfd9447f6824d7868319e554f3643827e498a371f399",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:cb21be93ebca4551cef9cbed0db624646d27a63461c7094341df78fbc7224db1",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/cb21be93ebca4551cef9cbed0db624646d27a63461c7094341df78fbc7224db1",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:eed4c40a92f6a3886f1368e4da777d96f61d37784a359450bbc8f33d890779bf",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/eed4c40a92f6a3886f1368e4da777d96f61d37784a359450bbc8f33d890779bf",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:e6e71cde8d48509e337be399669aa96a9828321b1c49450bc9b54143e6d901ca",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/e6e71cde8d48509e337be399669aa96a9828321b1c49450bc9b54143e6d901ca",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:425e5965e8928d512f24bb0fbb8ad18b0b97441a44569558d451949cb4589323",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/425e5965e8928d512f24bb0fbb8ad18b0b97441a44569558d451949cb4589323",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:c842ff8e7da657cb93a8781a6766c20df8e9a36aba859a3890e1bfa22daadfee",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/c842ff8e7da657cb93a8781a6766c20df8e9a36aba859a3890e1bfa22daadfee",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:4c1159ff532a40d987942154fa04501063cdbdd2f69f07098c813d86c29233a8",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/4c1159ff532a40d987942154fa04501063cdbdd2f69f07098c813d86c29233a8",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:1fe312894a8b614172e9886045ea107a3531286466a1871efdd720ee458c2297",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/1fe312894a8b614172e9886045ea107a3531286466a1871efdd720ee458c2297",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:9c88b34556efdc3860117e55ad68bac658e6176f38981ae1c6ab4ba7d168add7",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/9c88b34556efdc3860117e55ad68bac658e6176f38981ae1c6ab4ba7d168add7",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:9e39f3d772525346258c1ea6f24f1b41a7940e622c55dca960e2ec1ea3be8330",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/9e39f3d772525346258c1ea6f24f1b41a7940e622c55dca960e2ec1ea3be8330",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:203df63066c3cce44179d32a7d5dc0de605795f94d6d64a9c55ed922148b5f6f",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/203df63066c3cce44179d32a7d5dc0de605795f94d6d64a9c55ed922148b5f6f",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:e47451756c5ee8ad87eb3dba92d5dc7294f4b37f133a7e1c944cdd0013717aa9",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/e47451756c5ee8ad87eb3dba92d5dc7294f4b37f133a7e1c944cdd0013717aa9",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:4c88adca3e758f8de12f098bd10b4e63d53d6fa5a7018c7baeba26d23ae2f97b",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/4c88adca3e758f8de12f098bd10b4e63d53d6fa5a7018c7baeba26d23ae2f97b",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:08c31cd6d665b629367b0fa05df92d67ec936586f668cb75482c3fa20d02bbc5",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/08c31cd6d665b629367b0fa05df92d67ec936586f668cb75482c3fa20d02bbc5",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:64a01c272dd2c7a38d8ea984ede1f7d5d6e94be63e71b37434434d939e333370",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/64a01c272dd2c7a38d8ea984ede1f7d5d6e94be63e71b37434434d939e333370",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:561bf1ab7b591027b155266116c9b64519a4c1ebc9abfc42ee18253d31e53216",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/561bf1ab7b591027b155266116c9b64519a4c1ebc9abfc42ee18253d31e53216",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:36b70f7c8497f16020b94d7cdec20fb588c3a01025e89f2c06de7884d2ce6382",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/36b70f7c8497f16020b94d7cdec20fb588c3a01025e89f2c06de7884d2ce6382",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:e9f47fdf29fddbddbfd7e57895ab332b063e13057a88084cffc08e4ec2c0b713",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/e9f47fdf29fddbddbfd7e57895ab332b063e13057a88084cffc08e4ec2c0b713",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:618baabe479cb6a009d697c19ec225d6f3ef7787cc87ffb906cf9296ec23c4fb",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/618baabe479cb6a009d697c19ec225d6f3ef7787cc87ffb906cf9296ec23c4fb",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:ce89fc41e0e30812672871288215c2c357a200ed995830b649b63de8e90ac107",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/ce89fc41e0e30812672871288215c2c357a200ed995830b649b63de8e90ac107",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:e677935458e87832572914b23f80b84a8ba18b580d1f8193651932197daa60a7",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/e677935458e87832572914b23f80b84a8ba18b580d1f8193651932197daa60a7",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:c3e84fd0eca0ca35ae43ef5932e9e4fb0fa722587e5ef5935efc8a115b097da4",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/c3e84fd0eca0ca35ae43ef5932e9e4fb0fa722587e5ef5935efc8a115b097da4",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:15844861940afcd516d60f329c5537ef16783b684c016003ba71a91f1e0d9970",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/15844861940afcd516d60f329c5537ef16783b684c016003ba71a91f1e0d9970",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:118e031de0eff262e7f342f4afce102586b3d30a95c9388ed93354808ab7c1f1",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/118e031de0eff262e7f342f4afce102586b3d30a95c9388ed93354808ab7c1f1",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:871c690efdf819ad002c2f36743d26a68b3d10abc9f2c368bdb09493a15555bb",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/871c690efdf819ad002c2f36743d26a68b3d10abc9f2c368bdb09493a15555bb",
+              "schemaVersion": "5.0.0"
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-observation://abiogenesis/a5f091b3b490407d3e0abe4fe469af096a5d8485d7f26665c9ffb76918c9ec20",
+            "worksite-observation://abiogenesis/b73351dc3bfcd24591b4cfd9447f6824d7868319e554f3643827e498a371f399",
+            "worksite-observation://abiogenesis/cb21be93ebca4551cef9cbed0db624646d27a63461c7094341df78fbc7224db1",
+            "worksite-observation://abiogenesis/eed4c40a92f6a3886f1368e4da777d96f61d37784a359450bbc8f33d890779bf",
+            "worksite-observation://abiogenesis/e6e71cde8d48509e337be399669aa96a9828321b1c49450bc9b54143e6d901ca",
+            "worksite-observation://abiogenesis/425e5965e8928d512f24bb0fbb8ad18b0b97441a44569558d451949cb4589323",
+            "worksite-observation://abiogenesis/c842ff8e7da657cb93a8781a6766c20df8e9a36aba859a3890e1bfa22daadfee",
+            "worksite-observation://abiogenesis/4c1159ff532a40d987942154fa04501063cdbdd2f69f07098c813d86c29233a8",
+            "worksite-observation://abiogenesis/1fe312894a8b614172e9886045ea107a3531286466a1871efdd720ee458c2297",
+            "worksite-observation://abiogenesis/9c88b34556efdc3860117e55ad68bac658e6176f38981ae1c6ab4ba7d168add7",
+            "worksite-observation://abiogenesis/9e39f3d772525346258c1ea6f24f1b41a7940e622c55dca960e2ec1ea3be8330",
+            "worksite-observation://abiogenesis/203df63066c3cce44179d32a7d5dc0de605795f94d6d64a9c55ed922148b5f6f",
+            "worksite-observation://abiogenesis/e47451756c5ee8ad87eb3dba92d5dc7294f4b37f133a7e1c944cdd0013717aa9",
+            "worksite-observation://abiogenesis/4c88adca3e758f8de12f098bd10b4e63d53d6fa5a7018c7baeba26d23ae2f97b",
+            "worksite-observation://abiogenesis/08c31cd6d665b629367b0fa05df92d67ec936586f668cb75482c3fa20d02bbc5",
+            "worksite-observation://abiogenesis/64a01c272dd2c7a38d8ea984ede1f7d5d6e94be63e71b37434434d939e333370",
+            "worksite-observation://abiogenesis/561bf1ab7b591027b155266116c9b64519a4c1ebc9abfc42ee18253d31e53216",
+            "worksite-observation://abiogenesis/36b70f7c8497f16020b94d7cdec20fb588c3a01025e89f2c06de7884d2ce6382",
+            "worksite-observation://abiogenesis/e9f47fdf29fddbddbfd7e57895ab332b063e13057a88084cffc08e4ec2c0b713",
+            "worksite-observation://abiogenesis/618baabe479cb6a009d697c19ec225d6f3ef7787cc87ffb906cf9296ec23c4fb",
+            "worksite-observation://abiogenesis/ce89fc41e0e30812672871288215c2c357a200ed995830b649b63de8e90ac107",
+            "worksite-observation://abiogenesis/e677935458e87832572914b23f80b84a8ba18b580d1f8193651932197daa60a7",
+            "worksite-observation://abiogenesis/c3e84fd0eca0ca35ae43ef5932e9e4fb0fa722587e5ef5935efc8a115b097da4",
+            "worksite-observation://abiogenesis/15844861940afcd516d60f329c5537ef16783b684c016003ba71a91f1e0d9970",
+            "worksite-observation://abiogenesis/118e031de0eff262e7f342f4afce102586b3d30a95c9388ed93354808ab7c1f1",
+            "worksite-observation://abiogenesis/871c690efdf819ad002c2f36743d26a68b3d10abc9f2c368bdb09493a15555bb"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": [
+            "cdme-core",
+            "cdme-compiler",
+            "cdme-executor",
+            "cdme-adjoint",
+            "cdme-accounting",
+            "cdme-assurance",
+            "cdme-fidelity",
+            "cdme-engine"
+          ],
+          "ordinal": 1,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/module-set",
+          "predicateKind": "module_set_exact",
+          "schemaVersion": "5.0.0"
+        },
+        {
+          "evidence": [
+            {
+              "digest": "sha256:a5f091b3b490407d3e0abe4fe469af096a5d8485d7f26665c9ffb76918c9ec20",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/a5f091b3b490407d3e0abe4fe469af096a5d8485d7f26665c9ffb76918c9ec20",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:b73351dc3bfcd24591b4cfd9447f6824d7868319e554f3643827e498a371f399",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/b73351dc3bfcd24591b4cfd9447f6824d7868319e554f3643827e498a371f399",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:cb21be93ebca4551cef9cbed0db624646d27a63461c7094341df78fbc7224db1",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/cb21be93ebca4551cef9cbed0db624646d27a63461c7094341df78fbc7224db1",
+              "schemaVersion": "5.0.0"
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-observation://abiogenesis/a5f091b3b490407d3e0abe4fe469af096a5d8485d7f26665c9ffb76918c9ec20",
+            "worksite-observation://abiogenesis/b73351dc3bfcd24591b4cfd9447f6824d7868319e554f3643827e498a371f399",
+            "worksite-observation://abiogenesis/cb21be93ebca4551cef9cbed0db624646d27a63461c7094341df78fbc7224db1"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": 3,
+          "ordinal": 2,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/config-count",
+          "predicateKind": "file_count",
+          "schemaVersion": "5.0.0"
+        },
+        {
+          "evidence": [
+            {
+              "digest": "sha256:eed4c40a92f6a3886f1368e4da777d96f61d37784a359450bbc8f33d890779bf",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/eed4c40a92f6a3886f1368e4da777d96f61d37784a359450bbc8f33d890779bf",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:e6e71cde8d48509e337be399669aa96a9828321b1c49450bc9b54143e6d901ca",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/e6e71cde8d48509e337be399669aa96a9828321b1c49450bc9b54143e6d901ca",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:425e5965e8928d512f24bb0fbb8ad18b0b97441a44569558d451949cb4589323",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/425e5965e8928d512f24bb0fbb8ad18b0b97441a44569558d451949cb4589323",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:c842ff8e7da657cb93a8781a6766c20df8e9a36aba859a3890e1bfa22daadfee",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/c842ff8e7da657cb93a8781a6766c20df8e9a36aba859a3890e1bfa22daadfee",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:4c1159ff532a40d987942154fa04501063cdbdd2f69f07098c813d86c29233a8",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/4c1159ff532a40d987942154fa04501063cdbdd2f69f07098c813d86c29233a8",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:1fe312894a8b614172e9886045ea107a3531286466a1871efdd720ee458c2297",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/1fe312894a8b614172e9886045ea107a3531286466a1871efdd720ee458c2297",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:9c88b34556efdc3860117e55ad68bac658e6176f38981ae1c6ab4ba7d168add7",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/9c88b34556efdc3860117e55ad68bac658e6176f38981ae1c6ab4ba7d168add7",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:9e39f3d772525346258c1ea6f24f1b41a7940e622c55dca960e2ec1ea3be8330",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/9e39f3d772525346258c1ea6f24f1b41a7940e622c55dca960e2ec1ea3be8330",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:203df63066c3cce44179d32a7d5dc0de605795f94d6d64a9c55ed922148b5f6f",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/203df63066c3cce44179d32a7d5dc0de605795f94d6d64a9c55ed922148b5f6f",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:e47451756c5ee8ad87eb3dba92d5dc7294f4b37f133a7e1c944cdd0013717aa9",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/e47451756c5ee8ad87eb3dba92d5dc7294f4b37f133a7e1c944cdd0013717aa9",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:4c88adca3e758f8de12f098bd10b4e63d53d6fa5a7018c7baeba26d23ae2f97b",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/4c88adca3e758f8de12f098bd10b4e63d53d6fa5a7018c7baeba26d23ae2f97b",
+              "schemaVersion": "5.0.0"
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-observation://abiogenesis/eed4c40a92f6a3886f1368e4da777d96f61d37784a359450bbc8f33d890779bf",
+            "worksite-observation://abiogenesis/e6e71cde8d48509e337be399669aa96a9828321b1c49450bc9b54143e6d901ca",
+            "worksite-observation://abiogenesis/425e5965e8928d512f24bb0fbb8ad18b0b97441a44569558d451949cb4589323",
+            "worksite-observation://abiogenesis/c842ff8e7da657cb93a8781a6766c20df8e9a36aba859a3890e1bfa22daadfee",
+            "worksite-observation://abiogenesis/4c1159ff532a40d987942154fa04501063cdbdd2f69f07098c813d86c29233a8",
+            "worksite-observation://abiogenesis/1fe312894a8b614172e9886045ea107a3531286466a1871efdd720ee458c2297",
+            "worksite-observation://abiogenesis/9c88b34556efdc3860117e55ad68bac658e6176f38981ae1c6ab4ba7d168add7",
+            "worksite-observation://abiogenesis/9e39f3d772525346258c1ea6f24f1b41a7940e622c55dca960e2ec1ea3be8330",
+            "worksite-observation://abiogenesis/203df63066c3cce44179d32a7d5dc0de605795f94d6d64a9c55ed922148b5f6f",
+            "worksite-observation://abiogenesis/e47451756c5ee8ad87eb3dba92d5dc7294f4b37f133a7e1c944cdd0013717aa9",
+            "worksite-observation://abiogenesis/4c88adca3e758f8de12f098bd10b4e63d53d6fa5a7018c7baeba26d23ae2f97b"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": 11,
+          "ordinal": 3,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/main-count",
+          "predicateKind": "file_count",
+          "schemaVersion": "5.0.0"
+        },
+        {
+          "evidence": [
+            {
+              "digest": "sha256:08c31cd6d665b629367b0fa05df92d67ec936586f668cb75482c3fa20d02bbc5",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/08c31cd6d665b629367b0fa05df92d67ec936586f668cb75482c3fa20d02bbc5",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:64a01c272dd2c7a38d8ea984ede1f7d5d6e94be63e71b37434434d939e333370",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/64a01c272dd2c7a38d8ea984ede1f7d5d6e94be63e71b37434434d939e333370",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:561bf1ab7b591027b155266116c9b64519a4c1ebc9abfc42ee18253d31e53216",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/561bf1ab7b591027b155266116c9b64519a4c1ebc9abfc42ee18253d31e53216",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:36b70f7c8497f16020b94d7cdec20fb588c3a01025e89f2c06de7884d2ce6382",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/36b70f7c8497f16020b94d7cdec20fb588c3a01025e89f2c06de7884d2ce6382",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:e9f47fdf29fddbddbfd7e57895ab332b063e13057a88084cffc08e4ec2c0b713",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/e9f47fdf29fddbddbfd7e57895ab332b063e13057a88084cffc08e4ec2c0b713",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:618baabe479cb6a009d697c19ec225d6f3ef7787cc87ffb906cf9296ec23c4fb",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/618baabe479cb6a009d697c19ec225d6f3ef7787cc87ffb906cf9296ec23c4fb",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:ce89fc41e0e30812672871288215c2c357a200ed995830b649b63de8e90ac107",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/ce89fc41e0e30812672871288215c2c357a200ed995830b649b63de8e90ac107",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "digest": "sha256:e677935458e87832572914b23f80b84a8ba18b580d1f8193651932197daa60a7",
+              "kind": "worksite_observation_coordinate",
+              "ref": "worksite-observation://abiogenesis/e677935458e87832572914b23f80b84a8ba18b580d1f8193651932197daa60a7",
+              "schemaVersion": "5.0.0"
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-observation://abiogenesis/08c31cd6d665b629367b0fa05df92d67ec936586f668cb75482c3fa20d02bbc5",
+            "worksite-observation://abiogenesis/64a01c272dd2c7a38d8ea984ede1f7d5d6e94be63e71b37434434d939e333370",
+            "worksite-observation://abiogenesis/561bf1ab7b591027b155266116c9b64519a4c1ebc9abfc42ee18253d31e53216",
+            "worksite-observation://abiogenesis/36b70f7c8497f16020b94d7cdec20fb588c3a01025e89f2c06de7884d2ce6382",
+            "worksite-observation://abiogenesis/e9f47fdf29fddbddbfd7e57895ab332b063e13057a88084cffc08e4ec2c0b713",
+            "worksite-observation://abiogenesis/618baabe479cb6a009d697c19ec225d6f3ef7787cc87ffb906cf9296ec23c4fb",
+            "worksite-observation://abiogenesis/ce89fc41e0e30812672871288215c2c357a200ed995830b649b63de8e90ac107",
+            "worksite-observation://abiogenesis/e677935458e87832572914b23f80b84a8ba18b580d1f8193651932197daa60a7"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": 8,
+          "ordinal": 4,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-source-count",
+          "predicateKind": "file_count",
+          "schemaVersion": "5.0.0"
+        },
+        {
+          "evidence": [
+            {
+              "byteLength": 10437,
+              "digest": "sha256:60e39860d1ca86bf675965db435c049c3d36ff980f9cb5e98ea1056bccc6d680",
+              "errors": 0,
+              "failures": 1,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+              "observedPassCount": 0,
+              "relativePath": "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6236,
+              "digest": "sha256:a22422d31a91b3cbe70e7455a0481e7130d9156dd8221954f0d901a1256daa62",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+              "observedPassCount": 5,
+              "relativePath": "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6171,
+              "digest": "sha256:b2f4ddf922ea3c0d28052ac48578bbc4dae4732980a0d46f282155fd7ae5f67f",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+              "observedPassCount": 5,
+              "relativePath": "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6190,
+              "digest": "sha256:473f24092af05c89d5749b053c4af69de82086bf183b2bb663e48b163eaf4b23",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+              "observedPassCount": 5,
+              "relativePath": "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6408,
+              "digest": "sha256:63c761aafa3bc3195bbb3e9ef8d79f71c64a0369c06cfc6f2daffdaf29873b56",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+              "observedPassCount": 6,
+              "relativePath": "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 6
+            },
+            {
+              "byteLength": 6908,
+              "digest": "sha256:eec77ce3350447478539789d9e7f251999de22bc63d4ea08b68b53c6759886f2",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+              "observedPassCount": 8,
+              "relativePath": "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 8
+            },
+            {
+              "byteLength": 6180,
+              "digest": "sha256:a856d95347281b5801fd8f38340608f63e9732bbc939a78659992ad27a3a2831",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+              "observedPassCount": 5,
+              "relativePath": "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6177,
+              "digest": "sha256:557e02dde6bbe0519df001fe615865a4964a6560220084d41da1841134bdfc80",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24",
+              "observedPassCount": 5,
+              "relativePath": "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-report-set-member-observation://abiogenesis/6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+            "worksite-report-set-member-observation://abiogenesis/a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+            "worksite-report-set-member-observation://abiogenesis/ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+            "worksite-report-set-member-observation://abiogenesis/04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+            "worksite-report-set-member-observation://abiogenesis/3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+            "worksite-report-set-member-observation://abiogenesis/130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+            "worksite-report-set-member-observation://abiogenesis/2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+            "worksite-report-set-member-observation://abiogenesis/82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": [
+            "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+            "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+            "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+            "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+            "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+            "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+            "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+            "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml"
+          ],
+          "ordinal": 5,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-reports",
+          "predicateKind": "test_report_set_exact",
+          "schemaVersion": "5.0.0"
+        },
+        {
+          "evidence": [
+            {
+              "digest": "sha256:5ea8cd934027fd4d855f8de119595b2665d6e39b1b8e86af77bfdac69e46767e",
+              "kind": "worksite_command_observation_coordinate",
+              "ref": "worksite-command-observation://abiogenesis/5ea8cd934027fd4d855f8de119595b2665d6e39b1b8e86af77bfdac69e46767e",
+              "schemaVersion": "5.0.0"
+            },
+            {
+              "byteLength": 10437,
+              "digest": "sha256:60e39860d1ca86bf675965db435c049c3d36ff980f9cb5e98ea1056bccc6d680",
+              "errors": 0,
+              "failures": 1,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+              "observedPassCount": 0,
+              "relativePath": "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6236,
+              "digest": "sha256:a22422d31a91b3cbe70e7455a0481e7130d9156dd8221954f0d901a1256daa62",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+              "observedPassCount": 5,
+              "relativePath": "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6171,
+              "digest": "sha256:b2f4ddf922ea3c0d28052ac48578bbc4dae4732980a0d46f282155fd7ae5f67f",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+              "observedPassCount": 5,
+              "relativePath": "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6190,
+              "digest": "sha256:473f24092af05c89d5749b053c4af69de82086bf183b2bb663e48b163eaf4b23",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+              "observedPassCount": 5,
+              "relativePath": "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6408,
+              "digest": "sha256:63c761aafa3bc3195bbb3e9ef8d79f71c64a0369c06cfc6f2daffdaf29873b56",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+              "observedPassCount": 6,
+              "relativePath": "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 6
+            },
+            {
+              "byteLength": 6908,
+              "digest": "sha256:eec77ce3350447478539789d9e7f251999de22bc63d4ea08b68b53c6759886f2",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+              "observedPassCount": 8,
+              "relativePath": "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 8
+            },
+            {
+              "byteLength": 6180,
+              "digest": "sha256:a856d95347281b5801fd8f38340608f63e9732bbc939a78659992ad27a3a2831",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+              "observedPassCount": 5,
+              "relativePath": "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6177,
+              "digest": "sha256:557e02dde6bbe0519df001fe615865a4964a6560220084d41da1841134bdfc80",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24",
+              "observedPassCount": 5,
+              "relativePath": "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-command-observation://abiogenesis/5ea8cd934027fd4d855f8de119595b2665d6e39b1b8e86af77bfdac69e46767e",
+            "worksite-report-set-member-observation://abiogenesis/6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+            "worksite-report-set-member-observation://abiogenesis/a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+            "worksite-report-set-member-observation://abiogenesis/ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+            "worksite-report-set-member-observation://abiogenesis/04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+            "worksite-report-set-member-observation://abiogenesis/3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+            "worksite-report-set-member-observation://abiogenesis/130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+            "worksite-report-set-member-observation://abiogenesis/2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+            "worksite-report-set-member-observation://abiogenesis/82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": 39,
+          "ordinal": 6,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-count",
+          "predicateKind": "test_pass_count",
+          "schemaVersion": "5.0.0"
+        },
+        {
+          "evidence": [
+            {
+              "byteLength": 10437,
+              "digest": "sha256:60e39860d1ca86bf675965db435c049c3d36ff980f9cb5e98ea1056bccc6d680",
+              "errors": 0,
+              "failures": 1,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+              "observedPassCount": 0,
+              "relativePath": "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6236,
+              "digest": "sha256:a22422d31a91b3cbe70e7455a0481e7130d9156dd8221954f0d901a1256daa62",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+              "observedPassCount": 5,
+              "relativePath": "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6171,
+              "digest": "sha256:b2f4ddf922ea3c0d28052ac48578bbc4dae4732980a0d46f282155fd7ae5f67f",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+              "observedPassCount": 5,
+              "relativePath": "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6190,
+              "digest": "sha256:473f24092af05c89d5749b053c4af69de82086bf183b2bb663e48b163eaf4b23",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+              "observedPassCount": 5,
+              "relativePath": "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6408,
+              "digest": "sha256:63c761aafa3bc3195bbb3e9ef8d79f71c64a0369c06cfc6f2daffdaf29873b56",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+              "observedPassCount": 6,
+              "relativePath": "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 6
+            },
+            {
+              "byteLength": 6908,
+              "digest": "sha256:eec77ce3350447478539789d9e7f251999de22bc63d4ea08b68b53c6759886f2",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+              "observedPassCount": 8,
+              "relativePath": "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 8
+            },
+            {
+              "byteLength": 6180,
+              "digest": "sha256:a856d95347281b5801fd8f38340608f63e9732bbc939a78659992ad27a3a2831",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+              "observedPassCount": 5,
+              "relativePath": "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6177,
+              "digest": "sha256:557e02dde6bbe0519df001fe615865a4964a6560220084d41da1841134bdfc80",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24",
+              "observedPassCount": 5,
+              "relativePath": "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-report-set-member-observation://abiogenesis/6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+            "worksite-report-set-member-observation://abiogenesis/a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+            "worksite-report-set-member-observation://abiogenesis/ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+            "worksite-report-set-member-observation://abiogenesis/04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+            "worksite-report-set-member-observation://abiogenesis/3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+            "worksite-report-set-member-observation://abiogenesis/130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+            "worksite-report-set-member-observation://abiogenesis/2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+            "worksite-report-set-member-observation://abiogenesis/82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": 1,
+          "ordinal": 7,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/report-failures",
+          "predicateKind": "test_report_failure_count",
+          "schemaVersion": "5.0.0"
+        },
+        {
+          "evidence": [
+            {
+              "byteLength": 10437,
+              "digest": "sha256:60e39860d1ca86bf675965db435c049c3d36ff980f9cb5e98ea1056bccc6d680",
+              "errors": 0,
+              "failures": 1,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+              "observedPassCount": 0,
+              "relativePath": "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6236,
+              "digest": "sha256:a22422d31a91b3cbe70e7455a0481e7130d9156dd8221954f0d901a1256daa62",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+              "observedPassCount": 5,
+              "relativePath": "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6171,
+              "digest": "sha256:b2f4ddf922ea3c0d28052ac48578bbc4dae4732980a0d46f282155fd7ae5f67f",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+              "observedPassCount": 5,
+              "relativePath": "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6190,
+              "digest": "sha256:473f24092af05c89d5749b053c4af69de82086bf183b2bb663e48b163eaf4b23",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+              "observedPassCount": 5,
+              "relativePath": "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6408,
+              "digest": "sha256:63c761aafa3bc3195bbb3e9ef8d79f71c64a0369c06cfc6f2daffdaf29873b56",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+              "observedPassCount": 6,
+              "relativePath": "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 6
+            },
+            {
+              "byteLength": 6908,
+              "digest": "sha256:eec77ce3350447478539789d9e7f251999de22bc63d4ea08b68b53c6759886f2",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+              "observedPassCount": 8,
+              "relativePath": "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 8
+            },
+            {
+              "byteLength": 6180,
+              "digest": "sha256:a856d95347281b5801fd8f38340608f63e9732bbc939a78659992ad27a3a2831",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+              "observedPassCount": 5,
+              "relativePath": "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            },
+            {
+              "byteLength": 6177,
+              "digest": "sha256:557e02dde6bbe0519df001fe615865a4964a6560220084d41da1841134bdfc80",
+              "errors": 0,
+              "failures": 0,
+              "kind": "worksite_report_set_member_observation",
+              "observationDigest": "sha256:82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24",
+              "observationRef": "worksite-report-set-member-observation://abiogenesis/82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24",
+              "observedPassCount": 5,
+              "relativePath": "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+              "schemaVersion": "5.0.0",
+              "skipped": 0,
+              "tests": 5
+            }
+          ],
+          "evidenceRefs": [
+            "worksite-report-set-member-observation://abiogenesis/6d8457127b70685878ca3497b2fe312cb3905db8b1088492a29656131e3ba989",
+            "worksite-report-set-member-observation://abiogenesis/a942e9f0c069911af9b464dde062b72f68414cfaf4f45873d258a347de33204d",
+            "worksite-report-set-member-observation://abiogenesis/ca5678f2690f6a7e51c585f4bb785634e23b88a795c1983bf506711d91ae69f5",
+            "worksite-report-set-member-observation://abiogenesis/04d9b7b83f7e1f1f4265100dd16483a738b6ae31fc599c35a71e511797a7cbca",
+            "worksite-report-set-member-observation://abiogenesis/3903465cffbb152f5d309f262ad65a50828692038049e3d94045601a4aca7433",
+            "worksite-report-set-member-observation://abiogenesis/130f97ba25649ff55d11f8a0dee5b80b9e8825689158ba2265db4a9cd006e337",
+            "worksite-report-set-member-observation://abiogenesis/2859b82fbde5f01a946ca958b1a2c83e28a1d564564aadfd7b5de5f4b12f3caa",
+            "worksite-report-set-member-observation://abiogenesis/82cdabe6def57d6dfc096fffc15015fa1c3f318393cbac40af727b3997195c24"
+          ],
+          "kind": "worksite_predicate_observation",
+          "observedValue": 0,
+          "ordinal": 8,
+          "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/report-errors",
+          "predicateKind": "test_report_error_count",
+          "schemaVersion": "5.0.0"
+        }
+      ]
+    }
+  },
+  "admissionEventRef": "event://abiogenesis/8a977e1228bdcbbbe170336e5ca3decc57dcbcde899b6b79c0d9e7dc950b454c",
+  "admissionOrdinal": 200961,
+  "declarationProofDigest": "sha256:18251ff49c523f61a35d089ca5ed4fa18e1dd6daf6b1428b3a40413929dcfa5b",
+  "returned": {
+    "result": {
+      "ref": "result://abiogenesis/072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16",
+      "digest": "sha256:072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16"
+    },
+    "contract": {
+      "ref": "contract://abiogenesis/worksite/command-execution-observation@5",
+      "digest": "sha256:8196321c4d36a23a6c93d871886149633537ee2a9eaa9594470c1297039ce559"
+    },
+    "valueKind": "worksite_command_execution_observation",
+    "valueDigest": "sha256:a3c9e9cca182a047459d1b0c8e452f379085703a5075f5a813a94b582d524600",
+    "producer": {
+      "runRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+      "graphCallRef": "graph-call://abiogenesis/69f0302fa67bde2f554b5698899dd481fbaf01b7223289d7130e1e81ac87a0eb",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/3f025b4846c9222aaa6ea8b72c2dc1b3dc5fbd9ed17b4126eb19f9d684253a9a",
+      "program": {
+        "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+        "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+      },
+      "graphFunction": {
+        "ref": "graph-function://abiogenesis/worksite/command-execution@5",
+        "digest": "sha256:5b33817eb4d092aea5179405fc21049dd3540a3845ecdb74f1c4f4c1de10c112"
+      },
+      "executionBasis": {
+        "ref": "execution-basis://abiogenesis/c01b12d0c6932e3aab526ee986a8da648c0d4e4551f7aa6c3333d25d9ed7b99f",
+        "digest": "sha256:c01b12d0c6932e3aab526ee986a8da648c0d4e4551f7aa6c3333d25d9ed7b99f"
+      },
+      "cCallRef": "c-call:sha256:5bd4b3484a8c8bb7fe4312ee4abc616cba256aa489eeb848575a2faf24a69128",
+      "resultAdmissionEventRef": "event://abiogenesis/8a977e1228bdcbbbe170336e5ca3decc57dcbcde899b6b79c0d9e7dc950b454c",
+      "judgmentRef": "judgment://abiogenesis/544d2d401fd096bedc985b3993c3719c9f126fdb582ec4015b4a77aec661c6d6",
+      "judgmentAdmissionEventRef": "event://abiogenesis/37f1efb76da7851a4fea5e0ba896997b9ca3eacf988ce63207ba15fc30e0df05",
+      "terminalRoute": {
+        "ref": "traversal-route://abiogenesis/54b06c642a451c5d89a22ca58abdb642375e02fd63dd426b30ffbe1f0e1eae11",
+        "digest": "sha256:54b06c642a451c5d89a22ca58abdb642375e02fd63dd426b30ffbe1f0e1eae11"
+      }
+    },
+    "projectionBasis": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "digest": "sha256:0185d3c8487ae274b737f4c818b36aa5c5a5ab40c026482781f112071c435484"
+    }
+  },
+  "meaning": "Auxiliary authentic closed-child declaration-resource lineage; parent200991 remains nonterminal with34 observations."
+}

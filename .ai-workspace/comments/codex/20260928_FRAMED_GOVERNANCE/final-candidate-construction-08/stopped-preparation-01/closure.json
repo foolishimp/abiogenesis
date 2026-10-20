@@ -1,0 +1,24 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "closedAt": "2026-10-02T13:20:01.088733+00:00",
+  "workResult": "STOPPED_PREPARATION_CONTROL_LITERAL_REFUSAL",
+  "failure": "stopped-preparation-01/receipt.json",
+  "sourceCut": {
+    "path": "controls/source-cut.json",
+    "kind": "file",
+    "bytes": 13018234,
+    "sha256": "f131c687fbae3be7cf0cbb4ee340def5d4a328de0716e883d4be08d471b5c18c",
+    "mode": 420
+  },
+  "payloadCommands": 0,
+  "sourceCopy": 0,
+  "lawCopy": 0,
+  "toolCopy": 0,
+  "candidateArchive": null,
+  "sourceCandidateRuntimeProviderGitEffects": 0,
+  "RootDispositionNeeded": "exact current operation literal in new adapted controls; no Production/source mismatch or build retry",
+  "furtherWrites": "STOPPED"
+}

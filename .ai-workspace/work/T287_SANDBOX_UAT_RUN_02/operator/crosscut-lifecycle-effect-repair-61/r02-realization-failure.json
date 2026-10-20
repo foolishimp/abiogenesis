@@ -1,0 +1,36 @@
+{
+  "classification": "new worker realization failure; existing immutable prefix guard preserved",
+  "cause": "OrderedRuntimeEventCalculus.advanceOne passes mutable this.priorEvents to nativeTaskForTransportException, whose selectValidatedRuntimeEventPrefix throws on a non-frozen snapshot; caught refusal prevents currentness retirement",
+  "sourceCoordinates": [
+    645,
+    1824,
+    1851
+  ],
+  "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-currentness-fixture-corrected.result.json",
+  "observed": {
+    "directFrozenOwnerRetirement": "target only",
+    "coldProjectionTargetCurrent": true,
+    "tests": 34,
+    "pass": 33,
+    "fail": 1
+  },
+  "selectedSmallestCorrection": "immutable shallow snapshot of exact prior event objects at existing prefix owner handoff",
+  "productionAfterJointBuildModified": false,
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "25190216b6137d8dab57afc90251758ff424a68cefc11f9f198300c570aa3d2d",
+      "byteCount": 82763
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "sha256": "dcee2c46299277bb4c06c7bd04522bd48ef0877920c14f73fa06497154f14ebc",
+      "byteCount": 85995
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "442d4fe6156d0ba6b546733973a6b8c025d1d70cb4f3c29f9f3d7ccfaa1caacc",
+      "byteCount": 84670
+    }
+  ]
+}

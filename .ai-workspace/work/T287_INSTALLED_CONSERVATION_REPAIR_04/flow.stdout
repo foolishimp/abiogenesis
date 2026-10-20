@@ -1,0 +1,29 @@
+{"phase":"fixture-ready","subjectBasis":{"ref":"qualification-basis://abiogenesis/4e696997578b2a557ec5b6a15ac9c38aeb441edaf99622b7bd1f9ce5ea109b55","digest":"sha256:4e696997578b2a557ec5b6a15ac9c38aeb441edaf99622b7bd1f9ce5ea109b55"},"resource":{"ref":"qualification-resource://abiogenesis/166fec76d70389b6515b90e6126bb3cbaf9f59b0ea0d5fe8c337c01a7a815913","digest":"sha256:166fec76d70389b6515b90e6126bb3cbaf9f59b0ea0d5fe8c337c01a7a815913"},"inventoryMembers":2,"inventoryCoverage":"incomplete","selectedRoots":["fixture://abiogenesis/t287/installed-conservation/A","fixture://abiogenesis/t287/installed-conservation/B"],"declaredSlots":1,"coverageClaims":16,"fullPublishedCoverage":true,"materialBytes":1208958,"assertionBytes":23740967,"promptBytes":56169,"assessmentInputBytes":11713,"realProviderCalls":0,"semanticIndependentAssessment":false}
+{"label":"assessment","definitionKey":{"operationId":"abg.operation.run.invoke","memberKey":"start"},"invocation":{"ref":"invocation://abiogenesis/736507ba4dfeacff20d9134d006984275b5fe821a9210daa691ad1c5f8844674","digest":"sha256:736507ba4dfeacff20d9134d006984275b5fe821a9210daa691ad1c5f8844674"},"selectedBytes":12868,"serializedCallBytes":null,"fullCallDiagnosticSerialization":false,"diagnosticSerializationMs":0.024375000000873115,"newEventBytes":193329,"transportAndHandoffRetentionMs":4069.486084,"currentRssBytes":2472591360,"currentHeapUsedBytes":641122648,"peakRssBytes":3055124480,"rssMeasurement":"process cumulative high water at phase end","outcomeKind":"result","exitCode":0,"outcomeCode":null,"valueDigest":"sha256:c1c8d23e115817d68144432f8605d72acdf52a672beac0d046b8d527e84574c2","prefixDigest":"sha256:3087db35036682cb62111ef7afd0259462c344dd889fc3fdaaa9b294b33c4f82","realProviderCalls":0}
+{"label":"f11","definitionKey":{"operationId":"abg.operation.run.invoke","memberKey":"start"},"invocation":{"ref":"invocation://abiogenesis/cd7f38e00cc7e11dcb74cda1c7dc779adf7233bb70c39fadd016ea79747f214e","digest":"sha256:cd7f38e00cc7e11dcb74cda1c7dc779adf7233bb70c39fadd016ea79747f214e"},"selectedBytes":56285,"serializedCallBytes":null,"fullCallDiagnosticSerialization":false,"diagnosticSerializationMs":0.07400000000052387,"newEventBytes":1858265,"transportAndHandoffRetentionMs":10749.670624999999,"currentRssBytes":2277130240,"currentHeapUsedBytes":337622288,"peakRssBytes":3055124480,"rssMeasurement":"process cumulative high water at phase end","outcomeKind":"result","exitCode":0,"outcomeCode":null,"valueDigest":"sha256:06b7ea8e09454dcaecdb3c67375eebb1dae971e4e482dd7d8e335266a60d2bc3","prefixDigest":"sha256:5a1633cf359ca0e4a4b0d5ea5b80f82920e10234dd20199b8c07dbe0bfec5ae1","realProviderCalls":0}
+✖ native controlled A failure survives uncovered B through F11 and sole AF22 (45403.41625ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45799.901292
+
+✖ failing tests:
+
+test at test_env/tests/t287-installed-qualification-conservation.test.mjs:344:1
+✖ native controlled A failure survives uncovered B through F11 and sole AF22 (45403.41625ms)
+  AssertionError [ERR_ASSERTION]: A known failure is preserved by F11
+      at main (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_04/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs:286:3)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_04/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs:347:93)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

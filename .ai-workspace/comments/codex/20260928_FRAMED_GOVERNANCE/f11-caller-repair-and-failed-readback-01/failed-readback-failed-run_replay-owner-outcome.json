@@ -1,0 +1,29 @@
+{
+  "outcomeKind": "result",
+  "value": {
+    "caseKey": "run_replay",
+    "projection": {
+      "fromOrdinal": 0,
+      "kind": "run_replay_projection",
+      "limit": 1000,
+      "replay": {
+        "digest": "sha256:dbb5b41b55de8e2efc7ba59b754f0ba020c6c3d9b8f1f6883c5302dab466f292",
+        "ref": "replay://abiogenesis/dbb5b41b55de8e2efc7ba59b754f0ba020c6c3d9b8f1f6883c5302dab466f292"
+      },
+      "status": "failed",
+      "subject": {
+        "digest": "sha256:b9855e8ce73c18fc5f2d94bea62b101dcc076f850e1f9d7e7fbbf98e664a5924",
+        "ref": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271"
+      },
+      "terminalResult": null
+    },
+    "projectionBasis": {
+      "digest": "sha256:87985127944511c56508a1b63efd1103b8d8868b84f1693b50a6dbbc9e949ae4",
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl"
+    },
+    "source": {
+      "digest": "sha256:b9855e8ce73c18fc5f2d94bea62b101dcc076f850e1f9d7e7fbbf98e664a5924",
+      "ref": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271"
+    }
+  }
+}

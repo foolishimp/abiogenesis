@@ -1,0 +1,14 @@
+{
+  "operation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "inputAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/input-acceptance.json",
+    "bytes": 12693,
+    "sha256": "5ed6404c7bb1292573b627501ce952e690f63008108b10cb1b861e41f09f7fe8",
+    "mode": 420
+  },
+  "RootSeparateMessageRelease": true,
+  "RootMessage": "Root Executive separately activates T287_F11_C07_CARRIER_EXECUTION_08 under exact runtime08-request 4927B/164e80ba; supplies exact input-acceptance 12693B/5ed6404c7bb1292573b627501ce952e690f63008108b10cb1b861e41f09f7fe8 before owner imports/effects; Q09 and independent GO accepted. Root Writer CLOSED/returns Executive.",
+  "RootWriterClosed": true,
+  "recordedAt": "2026-10-02T11:17:10.363322+00:00",
+  "noAssumedOrFabricatedAcceptance": true
+}

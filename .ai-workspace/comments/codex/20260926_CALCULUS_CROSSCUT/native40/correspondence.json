@@ -1,0 +1,104 @@
+{
+  "status": "PREPARED_NOT_EXECUTED",
+  "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native39-continuation-01",
+  "scriptTransform": [
+    "self output directory native39 to native40",
+    "current core labels core39 to core40"
+  ],
+  "scriptCount": 9,
+  "changedSelectionFields": [
+    "authority",
+    "coreSelection",
+    "entryClosePath",
+    "entryCloseSha256",
+    "nativeIntakeInput"
+  ],
+  "unchangedSourceRun": {
+    "digest": "sha256:43439dab56302bf8bc5bfa09184435276810d73475df61c3dfe16d6c91f0d127",
+    "ref": "run://abiogenesis/31c1969a2776ffb9e3120571e64fe06faac0ac290e0d9b78b1ecb4138db1f3b4"
+  },
+  "unchangedSourcePrefix": {
+    "coordinateDigest": "sha256:d9d7086ab47280c8b44b232bfeb6838349aabf30382e1823ae08d8e6381e85ea",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:22081c65ad328fac4dfc28e05e3050226d7f82085efdb03683bfbc555c180827",
+    "prefixLength": 399209962,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "physicalEntry": {
+    "coordinateDigest": "sha256:8edd4f46bdbdbe01ad7948161515167cfc46a79fcf12c5b42054b494020e1877",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:62d80e938a123809055cebcfbf2528061d78dab6c44c35de1cc95472ea386680",
+    "prefixLength": 402875828,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "physicalIdentityAndSizeMatch": true,
+  "consumerReused": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev16/installed-consumer.json",
+  "coreSelection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/selected-core.json",
+  "sourceInputBytesUnchanged": true,
+  "controlsUnchanged": true,
+  "syntax": [
+    {
+      "path": "intake-01/construct.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "intake-01/read-intake.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "intake-01/run.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "preparation/prepare.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "suffix-01/prepare.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "suffix-01/read-evidence.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "suffix-01/read-suffix.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "suffix-01/run.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    },
+    {
+      "path": "witness-01/execute.mjs",
+      "exitCode": 0,
+      "stderr": ""
+    }
+  ],
+  "syntaxElapsedSeconds": 0.20218149991706014,
+  "callerSubjectSha256": "c3a491b68acf24256cf5132fec9e1efc3464d2e5d945f1f6edcd49bf537b1073",
+  "entryReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native39-continuation-01/intake-01/live-receipt.json",
+    "sha256": "0d9f920bf76070129436c82f850cbed4b4b49649d5ec6c130bb82838a73207f6"
+  }
+}

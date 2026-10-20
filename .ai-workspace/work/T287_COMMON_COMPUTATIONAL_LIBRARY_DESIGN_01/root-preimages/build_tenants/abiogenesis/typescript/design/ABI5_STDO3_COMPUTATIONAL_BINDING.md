@@ -1,0 +1,441 @@
+# ABIogenesis 5.0 STDO 3 Computational Binding
+
+**Status:** candidate design reconciliation for independent assessment; no whole-Product conformance, installed qualification or release claim.
+
+**Authority:** the Product owner's 2026-10-21 request for thorough STDO 3 application, under GOAL-035/T-287. The [activation and exact initial basis](../../../../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/activation.md), [computational assessment](../../../../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/calculus-assessment.md) and its separate Writer activation bind this document's construction. Final acceptance requires the Executive's disposition of independent assessment on the exact combined document delta.
+
+**Method:** the immutable `stdo://releases/v3.0.0-rc.1/` selected by [stdo_abiogenesis.json](../../../../stdo_abiogenesis.json), manifest SHA-256 `069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232`. No companion model or moving method source is selected.
+
+## 1. Purpose and bounded claim
+
+This is the TypeScript tenant's explicit binding from the [ABIogenesis 5.0 Product](../../../../specification/PRODUCT.md), its requirements and retained obligations to the existing computational calculus, and from that calculus to its execution environment. It applies [SPEC_METHOD §11](stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding) and the already adopted [DESIGN_MODULE](stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md) profile. It adds no language, interpreter, compiler, runtime, schema, controller or universal accounting mechanism.
+
+The binding names all fifteen selected Product families for coverage. Its active design reconciliation is the causally connected preparation, definition reuse, authenticated history, current-state projection, native-material, retained-work and continuation boundary. Other accepted boundaries retain their owning design and evidence. Their presence in the routing table is not a new acceptance of every implementation or proof.
+
+The selected finite decisions are:
+
+1. Preserve the Product's GTL graph/C algebra, direct HoG traversal, ABG admission/Event Calculus and exact owner seams. Effect 3.22.1 supplies internal execution composition; it does not become a Product program language.
+2. Treat Catalog/view as pure, reproducible readiness/narrowing over exact immutable inputs. They have no ABG event lifecycle. The affected [M03 ontology and views](M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md) are reconciled to that current Product law.
+3. Keep current derived execution facts and authenticated history metadata separate from full decoded historical bodies. Request complete historical/public output explicitly; do not silently narrow its contract.
+4. Reuse immutable established facts and completed producer work only under exact dependency/applicability law. Reuse does not transfer semantic ownership, grant new effects, substitute required assessment or prove current worksite state.
+5. Preserve physical success, ABG admission, semantic evaluation and enclosing completion as separate relations, including their partial failures.
+6. Evaluate the existing cleanup as one real installed producer-to-consumer path. Component proofs remain reusable within their scope; they do not close that joined path.
+7. Keep evidence and unresolved material choices explicit. A disputed semantic relation is resolved at its existing owner before dependent retained implementation; code may not choose its own authority.
+
+The [Product release allocation](../../../../specification/PRODUCT.md#50-and-51-release-boundaries) remains fixed. Standalone Consensus, dedicated observer/tuner, native human response/resume and runtime graph generation do not become new 5.0 obligations. Full Data Mapper delivery and all seven sandbox workloads are not additional release gates. Correctness defects in applicable generic runtime relations remain Product defects regardless of which workload exposed them.
+
+## 2. The two bindings and three accounts
+
+The requirements calculus is the Product's permitted outcomes, prohibitions, authority and conservation/qualification obligations, decomposed by [requirements](../../../../specification/requirements/README.md). The computational calculus is the following existing closed GTL/operator/owner relation and its declared effects and resource behavior. The execution binding is the selected TypeScript/Node implementation with its exact installed dependencies, native effect owners, probabilistic workers and explicitly required human decisions.
+
+| Account | This binding's concrete subject | What its evidence cannot substitute for |
+|---|---|---|
+| Algorithmic | Resolve exact declarations; prepare current input/context; traverse a declared C term; execute its owner seam; admit result/evidence; fold/advance or stop; project and recover. | A correct sequence does not prove that supplied data has the right identity, authority or meaning. |
+| Informational | Product `T/P/B/S/W/L`, declaration and invocation identity, current versus entry input, candidate versus admitted result, exact source/current-use relation, effect evidence, judgment and closure. | Matching structure or hashes cannot by itself establish semantic sufficiency or current physical truth. |
+| Computational | Node/TypeScript functions and data structures, Effect fold, native resources/agents, durable encoded rows, indexes, selected body acquisition, prompts and measured work. | An efficient implementation or a physically completed effect does not prove admission, application success or release acceptance. |
+
+These accounts instantiate [FOUNDATIONS, Accounts of a construction](stdo://releases/v3.0.0-rc.1/standards/FOUNDATIONS.md#accounts-of-a-construction). Each mapping states the preserved relation: canonical serialization and codec reconstruction preserve exact logical values; current-state folding preserves the selected admitted state; context presentation preserves selected material and qualifications while its semantic sufficiency remains separately judged. No approximate transformation is selected here. An approximate successor must first declare its adequacy relation and end-to-end bound at the affected owner.
+
+### Execution environment
+
+The source tenant is [the TypeScript package](../package.json), currently requiring Node `>=20`, TypeScript `5.9.2`, exact Effect `3.22.1`, and its exact lockfile. Qualification records the actual Node/platform/dependency/package identities; the engine range is not evidence for every compatible platform. TypeScript supplies local type checks, raw admission handles erased values, and Validator supplies the non-lowering whole-Program judgment.
+
+The [realization constitution](ABI5_REALIZATION_CONSTITUTION.md#561-closed-operator-algebra) owns selected technology and owner lifting. Pure owner functions remain pure functions; Promise/physical owners are totalized at their own boundary; the package's Effect host membrane executes the composed installed callable. Resource Scope owns physical cleanup, not semantic closure. The supported physical model is the declared trusted developer installation and existing resource contracts, including exclusive held Event Store ownership and cold reconstruction. Unsupported outside edits during ownership cannot be treated as supported concurrent writes.
+
+Native agents receive the selected current input, exact frame/context, contracts and capability envelope through the declared implementation/transport seam. Their internal solution strategy has no ABG authority. Model/tool availability, response-contract adherence, process termination and physical observation are operational assumptions to challenge on the selected installed path. Missing support yields its declared stop rather than a hidden fallback.
+
+Required independent assessment and actual human Product acceptance remain distinct operations. A human who executes a tool is not thereby an `F_H` adjudicator; an LLM author is not independent merely because it has another actor label. The Product's 5.1 native response/resume allocation does not remove the human release decision required for 5.0.
+
+## 3. Ontology and carrier projection
+
+This slice derives from Product [identities](../../../../specification/PRODUCT.md#product-identities), [execution/context calculus](../../../../specification/PRODUCT.md#execution-and-context-calculus), the corrected [M03 ontology](M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md#4-candidate-ontology), [M05 expansion](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md#3-ontology-delta), [Event Calculus derivation](ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md), and [continuation design](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md). The earlier Public control-plane ontology is explicitly invalidated for 5.0 and supplies no current 27/7/19 acceptance.
+
+| Subject/carrier family | Owner and admitted domain | Read, transition and retirement |
+|---|---|---|
+| Immutable Product, ModulePublication, Program, GraphFunction, Graph and contracts | Product/GTL/publisher declarations and Validator judgments. One exact admitted Program owns topology and callable membership; a materialized Graph remains within its Program/invocation. | Pure reads; changed declared meaning yields a new exact basis. Runtime projections cannot mutate declarations. |
+| Verified artifact, install, ProductSet, lock and WorkspaceBinding | Existing Product/install/binding owners. Stable workspace authority and exact installed identity are distinct from physical worksite content. | Physical acquisition verifies required facts; changed binding constituents require re-entry. An ordinary content edit creates an observation, not a new binding. |
+| ReadyGraphFunctionCatalog, view, declaration closure and ProgramValidation | Exact binding, lock, verified installs and supplied publications. Readiness and narrowing do not widen declared authority. | Pure construct/read/reconstruct/discard; no runtime create/update/retire events. Changed dependency invalidates only the affected construction/evidence. |
+| Invocation/ExecutionBasis, grants and occurrence coordinates | ABG/owning admission joins exact Program, current request and applicable authority. Actor identity and available capability are insufficient. | Admitted immutable facts; new authority or new invocation follows its own owner. Original entry input remains distinct from progressed current input. |
+| RuntimeEvent and authenticated predecessor/prefix | ABG-admitted, ordered causal history and exact applicable event-contract profile. | Expected-prefix append; no in-place semantic rewrite. A historical cut remains historical; a current effect uses the current applicable predecessor. |
+| Current cursor/input, active calls, HoldsAt facts, unresolved returns and dependencies | Derived `S` from the exact admitted history and declarations. | Incremental suffix fold, pure read, cold reconstruction, discard. No independent persistent authority or private lifecycle. |
+| Candidate, owner receipt, admitted Result and Judgment | Candidate, observation, runtime admission and evaluation are distinct owner stages. | Preserve exact producer, call, actor, basis and assessment status; a new consumer does not relabel old work as its own. |
+| Mutable worksite, observation and physical receipt | Declared effect owner plus ABG-admitted evidence. Physical state changes independently of immutable binding. | Observe under current grant; perform only declared effects; unknown post-effect state invalidates dependent currentness without inventing rollback or successor observation. |
+| History/body locations, codec coordinates, scope indexes and prospective validation view | Subordinate mechanics of the existing Event Store/prefix owners; no independent truth identity or public operation. | Reconstruct from authenticated bytes; scoped selection and transient body reads; rollback/close/poison invalidation as specified by the owner. A copied coordinate cannot confer the owner's acquisition. |
+| DefinitionCall/Return, owner semantic union, DefinitionExecutionFault and PublicOutcome | Existing concrete owner and installed binding. Semantic output, resource receipt and host failure remain distinct. | One bound invocation; no caller-selected callback/handler, fourth binding combinator or Public orchestration. |
+
+Subordinate payloads inherit their owner's lifecycle; no extra peer entity is implied by this table. The authoritative IACS remains the existing [M03 family set](M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md#7-irreducible-architectural-carrier-set), its [M05 delta](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md#5-irreducible-architectural-carrier-set-delta), and exact owner-specific later amendments. The history representation refines the Event Store/prefix/replay realization. It does not promote `RuntimeHistory`, body metadata or codec records into a second store or ABG aggregate.
+
+## 4. Closed operation and composition signature
+
+### Existing operator classes
+
+The following instantiates [constitution §5.6.1](ABI5_REALIZATION_CONSTITUTION.md#561-closed-operator-algebra). Each actual operation binds its exact owner type, basis and refusal family; the class name is not a new callable or semantic atom.
+
+| Class | Typed relation | Admitted-domain decision |
+|---|---|---|
+| `select` | finite sequence × predicate → absent / exact / ambiguous | Preserve multiplicity until zero/one/many is known; never first-match, set-collapse or fallback authority. |
+| `validate` | raw/declaration subject × exact contract → admitted validation / refusal | Refuse before prohibited construction/effect; no silent repair. Local, raw and whole-Program checks retain distinct domains. |
+| `derive` | exact immutable inputs → immutable value / refusal | Pure Catalog/view/closure/planning relation; no mutable-tail lookup or runtime event. |
+| `transition` | owner state × command × authority → candidate / refusal | Candidate is not a performed effect or durable fact. |
+| `admit` | exact applicable predecessor × candidate × evidence → successor/admitted value / refusal | Existing owner decides its complete enclosing relation. ABG runtime facts use expected-prefix atomic admission; other owners do not inherit that authority. |
+| `traverse` | admitted GTL × cursor/current input × basis → proposal / completion / refusal | HoG consumes the original Program/materialized Graph. ABG joins the outcome to the lawful continuation. |
+| `project` | immutable truth/authenticated prefix × supported selector → typed view / refusal | No projection writes truth, chooses a live tail implicitly or supplies its own admission witness. |
+| `materialize` | admitted physical operation × target/grant → receipt/manifest / refusal or substrate fault | Physical effect and semantic admission remain separate. Collision, failure and residue follow the existing owner contract. |
+
+The generic binding algebra stays exactly `bindStaticOwner`, `bindExactPrefixRead` and `bindExactPrefixTransition`, fixed at module construction by direct owner imports and exact schemas. Their declared roles are structural admission, one owner invocation and exact receipt validation. They do not select semantic policy, sequence a new workflow, decide currentness, acquire a rival catalog or translate owner refusal into a host failure.
+
+### Seven C constructors
+
+The constructor domain is the exact Product/requirement signature in [C-ALGEBRA](../../../../specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md), represented by [c_algebra.ts](../code/src/gtl/c_algebra.ts) and traversed by HoG:
+
+| Constructor | Composition law and closed material cases |
+|---|---|
+| `C.of` | One exact declared locus/fibre/contract/owner. Distinguish valid result, expected refusal, malformed output, substrate failure and uncertain performed effect. |
+| `C.id` | Preserve the actual value and its applicable basis; introduce no result, evidence, authority or physical effect. |
+| `C.compose` | The previous admitted output through its declared transfer satisfies the next input. Preserve identity, type/cardinality, order, authority, evidence and refusal. The Product-declared associativity does not erase intermediate effect/admission boundaries. |
+| `C.edge` | Transform, evaluate and consequence remain explicit. Negative/unresolved evaluation follows its declared consequence; it cannot become a default success. |
+| `workflow.C` | Exact published GraphFunction membership and invocation contract; child entry, result, foldback and parent re-evaluation remain visible. Child completion alone cannot close its parent. |
+| `C.batch` | Preserve declared children, identities and collection cardinality; each consumes its own authority. Complete-vector and partial-stop/unstarted cases remain distinct; no partial vector masquerades as full output. |
+| `C.retry` | Repeat only the declared bounded interior under admitted retry policy, attempt lineage and consumed allowance. A missing result does not establish an undispatched effect; retry does not mean graph recursion or new work authority. |
+
+The graph domain remains `edge`, `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, `promote`, `identity` and `same_object`, under [COMPOSE](../../../../specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md), [RECURSE](../../../../specification/requirements/gtl/REQ-L-GTL3-RECURSE.md), [SUBSTITUTE](../../../../specification/requirements/gtl/REQ-L-GTL3-SUBSTITUTE.md) and [M05 graph projection](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md#61-graph-algebra-projection). Program typing/validation owns which combinations are admitted. Recursion conserves termination/bounds, child/parent relation and foldback; substitution preserves declared compatibility; fan-out/fan-in conserve each child and its exact join; gates/promotion cannot widen authority; identity/same-object preserve the declared identity relation. This binding introduces no extra constructor to repair a missing case.
+
+The continuation range is the Product's next unit, same-unit retry, declared recursive call, parent foldback, re-entry/reprice, typed human hold, yield/block or terminal projection. Every selected route is an admitted instance of that range. Native response-driven F_H resumption remains outside 5.0 qualification; applicable declared holds and truthful blocked handoffs remain required.
+
+### Composition and refinement
+
+Keep pure owner atoms as `A → B | OwnerExpectedRefusal`. Physical/Promise atoms are lifted through the selected Effect boundary into typed success, expected owner value or exact substrate fault. Static bind conserves the input/output and required capability relation; it does not choose topology or semantic meaning. Effect's capability composition does not mint an authority grant.
+
+For the selected invocation, use [§5.6.1A's operative graph correspondence](ABI5_REALIZATION_CONSTITUTION.md#561a-operative-computational-realization): every reachable semantic/control/effect vertex and edge maps to an accepted C relation, owner port, Effect edge, ABG admission or Event Calculus/replay projection, and every required accepted relation has its operative path. Multiple batch/retry/recursive occurrences are lawful. An unmapped hidden coordinator remains invalid even when renamed, moved or wrapped in Effect.
+
+The correspondence, actor regime and Product use of Kleisli/monadic terms are not a new claim that the entire tenant is a proved category-theoretic functor. A further categorical claim requires [FOUNDATIONS' formal demonstration](stdo://releases/v3.0.0-rc.1/standards/FOUNDATIONS.md#4-algebra), including arrow equality and preservation. No such new claim or mandatory a_c artifact is selected here.
+
+## 5. Operation results and method predicates
+
+The runtime's domain values stay in their owning contracts. A method evaluation records its predicate, exact subject/basis and one core result; the binding does not rewrite runtime unions to the method core. The following are closed interpretation cases for this selected boundary:
+
+| Operation/evaluation predicate | Outcome and cause | Core result and conservation |
+|---|---|---|
+| Exact subject is admissible under contract/basis | All required relations established | `satisfied`; this establishes that admissibility only. |
+| Exact submitted subject is admissible under contract/basis | The evaluation has its own valid contract and authoritative expected basis, and establishes a violated type, cardinality, membership, authority or other applicable constraint; this includes a wrong, missing, stale or crossed basis inside the submitted request when that law decides the violation | `falsified`; retain the typed refusal and known counterexample. Invalid submitted content does not invalidate an otherwise valid negative admission evaluation. |
+| Exact subject is admissible under contract/basis | Evaluation is attempted, but its own required subject/support or governing basis is unavailable, stale, crossed or incoherent, so it cannot support that evaluation | `invalid_basis`; identify the evaluator's unusable support. This is distinct from evaluating a submitted request's invalid basis against known valid law; no effect may rely on the unusable support. |
+| Applicable property is established by selected evaluation | Evaluation is actually performed on an admissible basis, but its admissible evidence is insufficient to decide the property, including observed uncertainty about effect completion | `indeterminate`; retain what is known, pending evidence and any actual residue. |
+| A required property was to be assessed | The required assessment is not performed because its actor/tool is unavailable, with no sufficient applicable assessment already available | No result for that assessment; retain an explicit coverage gap. A separately performed availability or operation-failure evaluation may have its own predicate/result, but it does not supply the missing assessment. |
+| Selected evaluation is within the activated frame | Requested judgment requires a different undeclared capability/domain | `out_of_frame`; route to the owning evaluator without granting it authority by referral. |
+| Declared measurement was executed, attributed and admitted | Authentic measurement/result meets that operation contract, including a negative test result | `satisfied` for measurement. The separate predicate “application meets tested criterion” is `falsified` when the criterion is disproved. |
+| Declared physical install completed | Exact physical receipt establishes completed effect | `satisfied` for that physical act only. A subsequent ABG refusal leaves “installation admitted” non-satisfied under its actual cause. |
+| Current task is complete | All selected completion evidence, judgments and return/closure obligations are established | `satisfied`; otherwise evaluate the exact missing/negative/basis cause. Parsing, transport success, child success and process exit do not decide this predicate. |
+| Declared 5.0 obligation applies | Current Product explicitly allocates that obligation to 5.1 | The applicability predicate is `falsified`; a design `not_applicable` verdict satisfies only the declared “met or excluded” disjunction, never implementation conformance. |
+
+A constructor such as `blocked`, `refusal`, `failure`, `result` or exit code is insufficient to choose a core result without its cause and predicate. A concrete owner result with multiple possible causes must retain the distinguishing cause before the corresponding evaluation is relied on. An unperformed assessment has no result; it is not a sixth value. In particular, raw F_P output, an F_D process label and a human actor name are not evaluations.
+
+For example, an admission evaluator with the exact expected lock can falsify
+the admissibility of a request naming a different lock. If the evaluator cannot
+acquire its own authoritative expected lock, its attempted evaluation instead
+has `invalid_basis`. An evaluator that actually examines admissible effect
+evidence but cannot determine completion returns `indeterminate`. If the
+required evaluator never runs because its declared tool is unavailable, that
+assessment has no result; a stopped invocation record does not fill its gap.
+These cases preserve both the actual operation/effect facts and the separate
+semantic predicate being evaluated.
+
+[AXIOMATIC_CALCULUS §5](stdo://releases/v3.0.0-rc.1/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds) owns its own traversal and functor-kind vocabulary. Its F_D evaluation/proof classification does not automatically identify all deterministic ABG construction/effect leaves. An optional a_c representation must bind operation kind, domain, authority and result meaning explicitly; equal spelling is no import.
+
+The source/runtime-wide enumeration of every owner refusal constructor and its consuming method predicate is not certified complete by this table. That is an affected-path proof obligation where a concrete operation will be relied on. It cannot be replaced by a blanket “all errors are falsified” mapping.
+
+## 6. State, effects and partial completion
+
+The governing state equations remain [Product Live State, Recovery And Valid Reuse](../../../../specification/PRODUCT.md#live-state-recovery-and-valid-reuse):
+
+```text
+L_next = L ++ newlyCommittedEvents
+S_next = foldStep(S, newlyCommittedEvents)
+recover(P, L, referencedEvidence) = committedRuntimeState(S)
+reusable(a) = admitted(a) ∧ dependenciesRemainValid(a) ∧ applicableToCurrentUse(a)
+```
+
+They bind the same declarations and committed cut. Historical equality does not make an old observation current. Progressed input and its causal producer remain separate from original `B.entryInput`. Ordinary internal handoffs consume established current state; cold acquisition, explicit history and actual invalidation retain their necessary reconstruction.
+
+The complete selected execution-phase partition is the existing [Event Calculus phase projection](ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md#complete-phase-projection), specialized here to its effect/admission duty:
+
+| Frontier | Remaining owner work and lawful stop |
+|---|---|
+| Declared consumer, no task admitted | Prepare exact current input and support; missing material is a gap/refusal. Do not restart the producer merely to recreate this boundary. |
+| Preparation failed before task admission | Preserve its actual failed result if admitted and exact source/cursor. Reprepare only under selected changed support or applicable correction/allowance; no blanket retry. |
+| Task admitted, dispatch proven absent | Existing authorized dispatch may proceed after current mutable dependencies are checked. An absence inferred solely from no Result is insufficient. |
+| Effect active, interrupted or completion uncertain | Wait, observe or block through existing owners. Preserve uncertainty and withdraw dependent currentness over the writable scope; no duplicate effect or invented rollback. |
+| Physical effect/raw result exists, admission pending | Admit or refuse that exact material under its owner. Physical success cannot force admission, and admission refusal cannot erase the physical effect. |
+| Result admitted, judgment/transfer pending | Reuse exact Result/call/actor. Perform required judgment or route; a failed Result does not supply a success handoff. |
+| Child completed, foldback not admitted | Perform only the eligible declared return against the actual child result/closure and parent binding; do not rerun the child to rebuild process-local state. |
+| Foldback admitted, parent evaluation pending | Consume exact progressed parent input; perform its remaining evaluation/route before closure. |
+| Local remainder discharged | Close only that remainder under its complete predicate. Other task/Run obligations can remain. |
+| Missing/conflicting causal, effect or phase facts | Retain known facts; return unknown/invalid or obtain the required evidence. File presence, elapsed time and diagnostics do not invent a missing phase. |
+
+Fresh work reusing a historical result and exact pending-execution resumption are distinct [continuation domains](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#governing-distinction). A replacement Run keeps its own identities and explicit causal linkage, preserves consumed bounds and underlying work authority, and never rewrites a terminal predecessor as active.
+
+For the physical store, the complete selected commit sequence is owner candidate validation, staged encoding/index/profile/hash state, native append/write and fsync, then publication of the admitted successor. Failed write/fsync restores the prior owned extent; failed restoration poisons ownership. Tentative body-source eligibility never survives rollback. Close/poison ends the applicable live correspondence; a real close/reopen receipt enables cold reconstruction. Separate admitted owner returns remain separate durable boundaries; no generic transaction swallows their partial-failure surfaces. [Constitution, held resource law](ABI5_REALIZATION_CONSTITUTION.md#held-abg-event-resource-staging-and-physical-publication).
+
+For physical installation followed by event admission, the install owner and ABG remain separate. An already completed physical target is preserved as actual residue when admission refuses. The latest [237/continuation17](../../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/return-02.md) reached exactly that stop. The next activation must select lawful reuse of the actual completed installation or a genuinely changed-pair entry. This document grants no automatic retry, overwrite or weaker identity guard.
+
+## 7. Computational realization and whole-path work
+
+This is the [UP-019](stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md#computational-realisation-projection-up-019) projection of the preceding meanings:
+
+| Material duty | Semantic disposition | Realization decision, role and source |
+|---|---|---|
+| Immutable declaration resolution and validation | Existing accepted Product/GTL/Validator relation | Consume and optimize existing owners; retain deeply immutable exact Catalog/View closure results and call-local installed module acquisition. [declaration_closure.ts](../code/src/product/declaration_closure.ts), [execution_resolution.ts](../code/src/product/execution_resolution.ts). Changed physical acquisition is not replaced by an old process cache. |
+| History selection and scope/cause lookup | Existing Event Store/prefix relation | Optimize using authenticated envelope/scalar metadata, causal indexes and physical body locations in the same owner. [runtime_history.ts](../code/src/abg/runtime_history.ts), [event_prefix.ts](../code/src/abg/event_prefix.ts). This role selects; it grants no admission or new lifecycle. |
+| Current-state Event Calculus/replay | Existing event interpretation | Incremental fold over newly committed suffix; retain current facts/dependencies, acquire historical bodies when selected. [Event Calculus design](ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md#operational-fold-and-historical-output). Complete requested ReplayState/events remain complete outputs. |
+| Durable body encoding | Existing exact logical event meaning | Adapt physical representation only. [T289 v1 body slots](T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md#native-basis-input-and-ccall-result-physical-bodies-t-287--rc1) cover input/result; [payload topology v2 extension](M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md#native-definition-material-in-durable-event-rows) adds the exact native-definition field bundle. Old “two slots” describes v1, not the later entire codec. |
+| Context/source/current-use selection | Existing frame/context and source authority | Consume current input, exact selected bodies and owner-proven source correspondence. Share exact accessible definition material while preserving role, qualifiers, residuals and effect permissions. [Default governance](T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md#covered-current-use-correspondence-and-native-testing-reacquisition), [pending consumer](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md). |
+| Common proof preparation | Existing install/bind/catalog/current-call owner relations | Adapt the canonical caller, not semantic owner law. Preparation is not dispatch; no helper invents ABG events or completion. The [shared helper](../test_env/uat/continuation.mjs) remains test support. |
+| Traversal and installed bindings | Existing GTL/HoG/ABG and Product owners | Consume the selected Effect foundation and three static binding combinators; no additional semantic dispatcher, runner, catalog or registry. |
+
+Similar maps, folds or append-only sequences are only commonization candidates. A differing key, authority, ordering, mutation, concurrency, lifetime, failure or retention law is evaluated before sharing. Where laws agree, use the existing common mechanism or record the operational reason for a separate realization; never relabel the shared semantic relation as local new truth. No new general library is selected by this reconciliation.
+
+### Exact representation and reuse cases
+
+The affected finite domain includes:
+
+- immutable native versus copied/foreign mutable declaration inputs;
+- owned live prefix, complete explicit validated array and prospective validation view;
+- unchanged warm use, changed consumed authority/definition/observation, cold reopen and poisoned/rolled-back ownership;
+- current narrow projection versus requested complete historical/public output;
+- inline legacy rows, v1 input/result body references and v2 native-definition references;
+- genuine source/current-use evidence versus copied receipt or manufactured basis;
+- retained completed producer work, exact pending consumer and fresh new work.
+
+The owner is selected by the existing public/typed contract, not a new mode field. Prospective validation may inspect a checked candidate prefix but cannot acquire admitted-history or Source authority. Copying a live coordinate uses the owning cold/validation path where supported; it does not reconstruct a nominal owner witness from shape.
+
+Codec reconstruction satisfies exact logical event/value/digest equality over its admitted domain. Earlier inline source eligibility is same-stream and owner-established; missing, forward, foreign-slot, changed, chained or mixed unsupported references refuse. Native-definition sharing is separate from input/result cross-slot sharing. Encoded physical byte coordinates are obtained from actual rows, never by serializing expanded events. Rollback removes tentative eligibility.
+
+### Workload, lifetime and measurement boundary
+
+The joined path is:
+
+`Public entry → exact installed resolution → current source/input/context preparation → HoG/owner work → native effect → measurement/result/judgment admission → selected correction/foldback → close/reopen → fresh Public read`.
+
+Measure supported workload in declaration/closure size, event/envelope count, encoded/logical byte size, selected causal-scope extent, current obligations, prompt/body size, batch width/recursion depth and explicit requested output size. A source specimen or one heap observation establishes only its measured dimensions.
+
+| Measure | Unit and boundary | Required distinction |
+|---|---|---|
+| Initialization and recovery | elapsed milliseconds and bytes read from exact cold acquisition to readiness/reconstructed state | Cold necessary validation versus ordinary unchanged handoff. |
+| Selection and validation | rows/keys examined, body reads and bytes acquired per owner call and complete selected path | Constant accessor calls are not proof of constant underlying scan cost. |
+| State/body lifetime | live/current metadata, selected body bytes and retained heap/RSS observations from preparation through handoff/close/reopen | Requested complete output may live with its caller; incidental retained historical bodies must not become mandatory live state. Sampling is not an allocation/peak proof. |
+| Rendering and transport | exact input/output/context bytes, available declared token measure and transport records at the actual worker boundary | Context completeness and accessibility versus presentation size; no inferred model capacity. |
+| Persistence | actual encoded bytes, append/fsync operations and committed suffix per transaction | Logical identities versus physical byte correspondence; no repeated full readback merely to count work. |
+| External work and assurance | elapsed time and recorded model/tool/human effort within each selected operation | Separate framework processing, native computation, communication, review and waiting. |
+
+No universal capacity threshold or complexity bound is introduced. Before capacity qualification the selected activation declares the supported workload, available actor/resource envelope and any acceptance limits from Product/owner authority. If those are absent, a capacity claim stays open. The known design law remains usable: ordinary handoff work does not grow with unrelated history without a named dependency, and every complete-history operation names its extent.
+
+## 8. Whole-family Prime and three-view reconciliation
+
+For this boundary the complete candidate family includes declaration/basis identity, readiness, invocation and effect authority, current-input transfer, runtime admission, history representation, current-state/recovery, source reuse, continuation, foldback and closure. The contraction decisions are:
+
+| Candidate responsibilities | Decision and preserved distinction |
+|---|---|
+| Verify/resolve/install/bind/catalog preparation | Share lawful pure mechanics where equivalent; keep verification, physical effect, binding authority and pure readiness separate. No common “prepare” authority absorbs them. |
+| Several exact-prefix reads | Existing parameterized projection/selection families, with exact scopes and output contracts; no second event store or universal untyped query. |
+| Live/cold/prospective prefix representations | One admitted-history meaning with different proof/operational roles; prospective candidates are expressly not admitted history. Their private correspondence is subordinate. |
+| Native input/result/definition bodies | One storage codec owner with closed typed slots and supported compatibility, preserving each event's distinct identity/causality; no separate body authority. |
+| New work, exact continuation and retry | Preserve distinct admitted domains and failure/effect predicates. Shared mechanics cannot turn them into one “resume” mode. |
+| Producer/consumer, child/parent and measurement/judgment | Preserve separate semantic roles, independence and return obligations; do not reduce them to one success bit. |
+| Semantic candidate, physical receipt, event admission and replay | Preserve all owner boundaries. Generic Effect/binding/history mechanics transport or implement them but do not own them. |
+
+These decisions preserve all retained meaning and authority; no semantic loss is accepted. They constrain the affected family and realization projections. They do not declare a fresh exhaustive Product-wide Prime census. Full realization-to-atom mapping and inspection of every reachable affected edge remain proof obligations before that implementation boundary closes.
+
+The larger domain/sequence/state projections remain the corrected [M03 three views](M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md#9-three-view-behavioral-design), [M05 views](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md#7-three-view-projection) and later owner amendments. Current Product release allocation and operative constitution govern any historical slice/deferred table. The following compact views bind the current cleanup seam; labels describe existing roles or derived phases, not new runtime types.
+
+### Domain view
+
+A CatalogView may contain zero or many Programs, and one Program may appear in
+zero or many views. The separate ExecutionBasis relations select one exact
+Program and one exact view for an admitted execution; they do not narrow the
+shared CatalogView domain or make an empty view executable.
+
+```mermaid
+classDiagram
+    class DeclaredProgram {
+      <<authoritative>>
+      +GTL meaning and contracts
+    }
+    class CatalogView {
+      <<downstream>>
+      +exact pure readiness and narrowing
+    }
+    class ExecutionBasis {
+      <<authoritative>>
+      +admitted original entry and authority
+    }
+    class EventStore {
+      <<authoritative>>
+      -admission and durable history
+    }
+    class HistorySelection {
+      <<subordinate>>
+      -authenticated cut and body locations
+    }
+    class CurrentState {
+      <<downstream>>
+      -cursor input facts and pending returns
+    }
+    class Candidate {
+      <<subordinate>>
+      -raw result and proposed evidence
+    }
+    class EffectReceipt {
+      <<effect-edge>>
+      +performed or uncertain physical effect
+    }
+    class PhysicalWorksite {
+      <<effect-edge>>
+      +mutable content
+    }
+    class PublicProjection {
+      <<downstream>>
+      +declared complete or selected read
+    }
+    DeclaredProgram "0..*" --> "0..*" CatalogView : projected through exact publications
+    ExecutionBasis "1" --> "1" DeclaredProgram : binds
+    ExecutionBasis "1" --> "1" CatalogView : selected basis
+    EventStore "1" *-- "0..*" HistorySelection : issues owned cuts
+    EventStore "1" --> "0..*" CurrentState : event fold
+    CurrentState "1" --> "1" ExecutionBasis : interprets
+    Candidate "0..*" --> "1" ExecutionBasis : exact occurrence
+    EffectReceipt "0..*" --> "1" PhysicalWorksite : observed effect
+    Candidate "1" --> "0..*" EffectReceipt : cites actual evidence
+    Candidate --> EventStore : admitted or refused by owner
+    CurrentState --> PublicProjection : projects
+    HistorySelection --> PublicProjection : explicit historical read
+```
+
+### Sequence view
+
+The Public participant is the existing thin shell; Binding is one statically closed owner composition. This view does not put constituent ordering in Public. The selected-effect participant realizes only its declared seam.
+
+```mermaid
+sequenceDiagram
+    actor Caller
+    participant Public as Thin Public shell
+    participant Binding as Exact installed owner composition
+    participant Product as Product and Validator owners
+    participant HoG as Direct GTL Effect fold
+    participant EffectOwner as Selected effect owner
+    participant ABG as ABG admission and Event Store
+    participant Projection as Event Calculus and replay
+    Caller->>Public: exact request and resource assertion
+    Public->>Binding: one selected installed call
+    Binding->>Product: exact declarations, readiness and current authority
+    Product-->>Binding: established inputs or typed refusal
+    Binding->>ABG: admit current invocation/basis
+    ABG-->>Binding: authentic predecessor and admitted basis
+    Binding->>HoG: admitted GTL and causal current input
+    HoG->>Projection: selected current facts and source obligations
+    Projection-->>HoG: derived facts or explicit gap
+    HoG->>EffectOwner: declared work with current context and grant
+    EffectOwner-->>HoG: candidate and actual effect facts
+    HoG->>ABG: exact result/evidence and selected transition
+    alt durable admission succeeds
+      ABG->>ABG: validate, encode, write and fsync, publish successor
+      ABG-->>Projection: committed suffix
+      Projection-->>HoG: next input and remaining obligations
+    else refusal or uncertain physical completion
+      ABG-->>HoG: typed stop with conserved facts and residue
+    end
+    HoG-->>Binding: admitted outcome or lawful stop
+    Binding-->>Public: owner result and real resource receipt
+    Public-->>Caller: structural projection
+    Caller->>Public: fresh read after actual close/reopen
+    Public->>Binding: one exact read call
+    Binding->>ABG: validate actual cold prefix
+    ABG->>Projection: authenticated history
+    Projection-->>Binding: reconstructed declared read
+    Binding-->>Public: owner read result and receipt
+    Public-->>Caller: fresh projection
+```
+
+### State view
+
+These phases project existing occurrence/result/continuation/closure truth. They do not add a serialized state machine or imply automatic retry on any arrow.
+
+```mermaid
+stateDiagram-v2
+    [*] --> PendingConsumer
+    PendingConsumer --> Prepared: owner establishes current input and support
+    PendingConsumer --> Stopped: missing or invalid support
+    Prepared --> EffectPending: admitted task and lawful dispatch
+    Prepared --> Stopped: dispatch refused
+    EffectPending --> AdmissionPending: actual raw result or effect receipt
+    EffectPending --> EffectUnknown: interruption or uncertain completion
+    EffectUnknown --> Stopped: retain uncertainty and pending obligations
+    AdmissionPending --> ResultAdmitted: ABG admits exact result
+    AdmissionPending --> Stopped: refuse while preserving physical residue
+    ResultAdmitted --> JudgmentPending: required evaluation remains
+    JudgmentPending --> ReturnPending: admitted result and declared route
+    JudgmentPending --> Stopped: negative or unresolved declared stop
+    ReturnPending --> ParentEvaluationPending: actual child foldback admitted
+    ParentEvaluationPending --> PendingConsumer: declared next or correction
+    ParentEvaluationPending --> Closed: complete owning closure predicate
+    ParentEvaluationPending --> Stopped: unresolved parent obligations
+    Stopped --> [*]
+    Closed --> [*]
+```
+
+An active stopped occurrence does not silently return to `Prepared`; any new work or exact continuation uses its separately admitted relation. Complete failure closure and application satisfaction remain different predicates.
+
+### Cross-view assessment targets
+
+| Relation | View correspondence and owning enforcement | Current claim |
+|---|---|---|
+| One Program/owner path | DeclaredProgram/ExecutionBasis; single installed call; HoG phases. Product/GTL/Validator, exact binding and §5.6.1A enforce. | Design decision conserved; full source reachability proof remains bounded to its actual assessed subject. |
+| Catalog is pure | CatalogView downstream, Product readiness in sequence, absent from runtime states. Product F01/F09 and catalog owners enforce. | Concrete stale M03 projection repaired; independent design assessment required. |
+| Candidate/effect/admission separation | Candidate/EffectReceipt/EventStore; explicit admission alternative; AdmissionPending/EffectUnknown. Existing effect/admission owners enforce. | All declared partial cases routed; actual joined path remains unqualified. |
+| Current state/history/body lifetime | HistorySelection subordinate and CurrentState downstream; selected reads and cold reconstruction. Store/prefix/EC owners enforce. | Source/component evidence exists; integrated lifetime/growth claim remains open. |
+| No premature completion | Result, judgment, return and parent states remain separate. GTL consequence, ABG closure and library semantic owners enforce. | Design predicates fixed; native correction/restart exit evidence still required. |
+| Reuse preserves ownership | Exact basis/source in domain and preparation; no automatic restart arrow. Existing source/current-use/continuation owners enforce. | Unchanged installed preparation and affected continuation must be proved on the chosen pair. |
+
+These are declared claims with explicit evidence standing, not a fabricated all-pass axiom matrix. The final review returns core values for each applicable changed relation and their conjunction. Missing evidence or unresolved applicability is not `not_applicable`.
+
+## 9. Finite Product coverage and release joins
+
+The Product remains the owner of exact meaning and completion. This routing covers every selected family, using its existing computational owners:
+
+| Family | Requirements/design and computational owner route | Required evidence boundary |
+|---|---|---|
+| A5-F01 install/workspace/catalog | [INSTALL](../../../../specification/requirements/product/REQ-P-INSTALL.md), [CATALOG](../../../../specification/requirements/product/REQ-P-CATALOG.md); Product verify/resolve/install/bind and pure readiness, ABG actual install/binding admission | S01 plus changed preparation/identity/partial-effect proof on exact installed candidate. |
+| A5-F02 language/validation | [GTL requirements](../../../../specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md), C/type/contracts and Validator; serialization is not lowering | S02 retained language cases and malformed/refusal cases. |
+| A5-F03 graph/C/traversal | [PROGRAM-TRAVERSAL](../../../../specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md), C algebra and M05; one HoG fold/ABG joins | S02/S03, seven constructors, graph and conservation matrix with current release applicability. |
+| A5-F04 probabilistic integrity | [INSTRUCTION-ASSEMBLY](../../../../specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md), [TRANSPORT](../../../../specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md); candidate/evidence/result owners | Actual F_P context/output/effect path and malformed, unattributed, contradictory or incomplete output refusal. |
+| A5-F05 one public authority | [PUBLIC-CONTRACTS](../../../../specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md), static definition binding | All retained public projections agree with one typed source; changed generated/publication subject rechecked. |
+| A5-F06 thin SDK/CLI | Same public contracts and constitution §5.6.2C | One installed invocation per request; automatic continuation and truthful stop; no public controller. |
+| A5-F07 One Surface | [FN-COMPOSITION](../../../../specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md), [M05 §12](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md#12-s03-one-surface-governed-evidence-fold) | S03 retains four separate semantic authorities, fresh observations, intent/invocation and closure. |
+| A5-F09 catalog semantics | CATALOG and Product current tool/runtime split | Pure read/narrow/apply, exact call/start and empty/ambiguous cases; no runtime catalog truth. |
+| A5-F10 event truth | [EVENTS](../../../../specification/requirements/abg/REQ-R-ABG3-EVENTS.md), [PROJECTION](../../../../specification/requirements/abg/REQ-R-ABG3-PROJECTION.md), [CONTINUATION](../../../../specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md) | Live/cold same-cut truth, effect uncertainty, partial admission, continuation and correction; changed codec/history proofs. |
+| A5-F11 self-conformance | [SELF-CONFORMANCE](../../../../specification/requirements/product/REQ-P-SELF-CONFORMANCE.md), [F11 target](T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md) | Genuine independently warranted owning assessments over exact specification/design/realization/proof subject; no self-minted green. |
+| A5-F13 native independence | PUBLIC-CONTRACTS, native SDK/CLI and installed owner exports | S06 source-independent native use; marketplace host parity is not added to 5.0. |
+| A5-F14 mechanics proof | [SCENARIOS](../../../../specification/requirements/product/REQ-P-SCENARIOS.md) and corrected M03 root | External minimal deterministic test plus live F_P path through actual installed package; no built-in Hello Product. |
+| A5-F15 exact qualification | [QUAL](../../../../specification/requirements/product/REQ-P-QUAL.md), F11 and sole AF22 | All required owning results on one exact pre-RC subject/law basis, then distinct exact installed-RC qualification. |
+| A5-F16 immutable release | QUAL and Product [release scenario](../../../../specification/PRODUCT.md#abg5-s07-exact-qualification-and-release) | Qualified unchanged bytes through AF25, immutable RC, fresh install and actual human acceptance of that same RC; no renamed final cut. |
+| A5-F17 downstream lifecycle | SCENARIOS, default governance and pending-consumer designs | S06 original selected source/oracle → actual behavior → independent measurement → targeted correction → fresh evidence, preserving residuals. Full Data Mapper remains separate. |
+
+The proof domain is finite constructor/variant/guard coverage plus declared recursive composition and exact selected scenarios. It is not enumeration of every graph walk or an assertion about every possible LLM outcome. Mandatory S01/S02/S03/S06 and the all-family qualification join remain on one exact installed pre-RC candidate; S07 keeps its separate release subjects.
+
+## 10. Remaining decisions, proof and completion boundary
+
+The latest source work supplies substantial bounded progress: definition reuse and installed composition have finite returns; runtime history/current-state source cut34 has source/component evidence; native-body codec components conserve complete logical values. Their original subjects and method bases remain unchanged. This document does not requalify them as STDO 3 results.
+
+The current blocking relation in [237/continuation17 return-02](../../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/return-02.md) is install identity/admission before native Testing/C2, with physical installation residue preserved. Source44 and the frozen original producer/consumer evidence remain exact inputs within their stated derivations; new source or a new invocation label is not permission to repeat completed preparation.
+
+Before dependent runtime work, the selected activation resolves these material unknowns at their existing owners:
+
+| Open item | Required decision or evidence | Dependent claim withheld |
+|---|---|---|
+| Exact next installed preparation | Identify the already completed/admitted physical pair and its authentic reusable current-use relation, or a genuinely changed pair under existing identity law; bind residue disposition. | Permission for another preparation/effect attempt and native joined proof. |
+| Complete current Source/currentness/native path | Actual owner-produced Source and scope, correct advancing input, complete native context, authentic measurement/result/judgment, failure-to-repair route and close/reopen. | Whole cleanup lifecycle success. |
+| Supported capacity claim | Bind workload/resource envelope and limits, then observe complete-path work/lifetimes under material growth. | Broad capacity/performance acceptance; a component heap observation is insufficient. |
+| Full affected Prime/path correspondence | Map changed realization units/edges to retained atoms and roles; inspect all affected alternate paths, partial-failure boundaries and invalidators. | Complete affected implementation-conformance/Prime closure. |
+| Qualification joins | All fifteen families, applicable conservation/negative proofs, actual owning F11 assessments and sole AF22 on one exact current method/subject. | Pre-RC eligibility and RC publication. |
+
+The reconciliation can close as an independently assessed design and work-selection result while these execution/qualification claims remain open. It cannot claim that the entire existing implementation is decision-complete merely because this document exists. An unresolved semantic choice that would admit materially different identity, authority, lifecycle, effect or closure behavior blocks its dependent retained implementation; an already fixed lawful design with unproved realization selects focused realization/proof work instead.
+
+The immediate execution order follows the reconciled T-287: settle the exact preparation/reuse frontier, prove one installed consequential correction/restart path with whole-path resource observations, close remaining current-candidate obligations, then obtain genuine exact qualification and immutable RC acceptance. Existing lawful results are reused; a changed relation triggers only its affected reproof. Further non-authoritative helper compression does not become an extra 5.0 release gate once Product correctness and authority conditions hold.

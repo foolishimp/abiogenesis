@@ -1,0 +1,13 @@
+{
+  "driverBudgetMs": 1200000,
+  "stages": {
+    "setup": 180000,
+    "conformance": 180000,
+    "start": 600000,
+    "read": 180000
+  },
+  "terminationGraceMs": 1000,
+  "heapChanges": false,
+  "timerChanges": false,
+  "claim": "actual finite total caller deadline, not a Runtime policy override"
+}

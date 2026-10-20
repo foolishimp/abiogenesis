@@ -1,0 +1,7 @@
+{
+  "endpoint": "https://api.anthropic.com",
+  "observed": "curl exit6 Could not resolve host before TLS/auth",
+  "context": "current workspace-write restricted networking approval never",
+  "modelCalls": 0,
+  "noBypass": true
+}

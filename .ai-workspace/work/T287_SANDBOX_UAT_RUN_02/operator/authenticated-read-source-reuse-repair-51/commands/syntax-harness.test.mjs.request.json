@@ -1,0 +1,13 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--check",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T03:56:18.363Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 180000
+}

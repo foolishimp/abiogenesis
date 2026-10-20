@@ -1,0 +1,21 @@
+{
+  "kind": "native_semantic_revision_intake",
+  "schemaVersion": "5.0.0",
+  "sourceRun": {
+    "digest": "sha256:c280b9cb5ecad0cfe6f7eb88d97aeabd17dcf3a30b4a1c86aadc93f2910999a2",
+    "ref": "run://abiogenesis/1d11eb78db2cb203eddb1229b2fb695ea37ebe499b4abdcdff71a6d2a8fcc51c"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:8ce6993a3da239407c9fb970c6ba06d03a5bb148985dde38d03ef3fd1da25ea3",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:ed0310df78eeda21c8f17af59455eb0c8bf3948fe3eceec2efb8c7317a904ad8",
+    "prefixLength": 429545568,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  }
+}

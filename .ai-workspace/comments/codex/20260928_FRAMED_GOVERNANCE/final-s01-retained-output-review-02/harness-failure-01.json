@@ -1,0 +1,12 @@
+{
+  "kind": "Reviewer source-discovery error",
+  "toolChunk": "ba386b",
+  "exitCode": 1,
+  "observedToolElapsedMs": 4.740333,
+  "error": "FileNotFoundError reading frozen code/src/abg/exports.ts",
+  "cause": "The Reviewer guessed a source export filename instead of completing the existing loadRuntime export route",
+  "candidateCounterexample": false,
+  "earlierExecutedReads": ["loadRuntime lines", "driver lines 16-22", "event_store/event_prefix/replay exported signatures"],
+  "skipped": ["decoder spans", "replay spans", "prefix spans", "normal elapsed ledger write"],
+  "correction": "Read actual public-support loadRuntime and package.json exports; retain this failure"
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "--project",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/tsconfig-02.json"
+  ],
+  "exitCode": 0,
+  "elapsedMs": 6563.507083046716,
+  "sourceFiles": 264,
+  "input": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/inputs-02.json",
+  "limits": [
+    "isolated source emission only; no normal build/publication/runtime readiness"
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "observedAt": "2026-10-06T02:55:49.109230+00:00",
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "modelDispatches": 0,
+  "credentialValuesReadOrArchived": false,
+  "observations": [
+    {
+      "label": "ordinary-inherited",
+      "command": "/Users/jim/.local/bin/claude",
+      "argv": [
+        "auth",
+        "status",
+        "--json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator",
+      "HOME": "/Users/jim",
+      "environmentNames": [
+        "BUN_INSTALL",
+        "CLAUDE_CODE_OAUTH_TOKEN",
+        "CODEX_CI",
+        "CODEX_HOME",
+        "CODEX_MANAGED_BY_NPM",
+        "CODEX_MANAGED_PACKAGE_ROOT",
+        "CODEX_PERMISSION_PROFILE",
+        "CODEX_SANDBOX",
+        "CODEX_SANDBOX_NETWORK_DISABLED",
+        "CODEX_SESSION_ID",
+        "CODEX_THREAD_ID",
+        "CODEX_VERSION",
+        "COLORFGBG",
+        "COLORTERM",
+        "COMMAND_MODE",
+        "CONDA_CHANGEPS1",
+        "GH_PAGER",
+        "GIT_PAGER",
+        "HOME",
+        "ITERM_PROFILE",
+        "ITERM_SESSION_ID",
+        "LANG",
+        "LC_ALL",
+        "LC_CTYPE",
+        "LC_TERMINAL",
+        "LC_TERMINAL_VERSION",
+        "LOGNAME",
+        "LaunchInstanceID",
+        "NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S",
+        "NO_COLOR",
+        "NVM_DIR",
+        "OLDPWD",
+        "OSLogRateLimit",
+        "PAGER",
+        "PATH",
+        "PROMPT_EOL_MARK",
+        "PWD",
+        "PYENV_DIR",
+        "PYENV_HOOK_PATH",
+        "PYENV_ROOT",
+        "PYENV_SHELL",
+        "PYENV_VERSION",
+        "SDKMAN_BROKER_API",
+        "SDKMAN_CANDIDATES_API",
+        "SDKMAN_CANDIDATES_DIR",
+        "SDKMAN_DIR",
+        "SDKMAN_PLATFORM",
+        "SECURITYSESSIONID",
+        "SHELL",
+        "SHLVL",
+        "SSH_AUTH_SOCK",
+        "TERM",
+        "TERMINFO_DIRS",
+        "TERM_FEATURES",
+        "TERM_PROGRAM",
+        "TERM_PROGRAM_VERSION",
+        "TERM_SESSION_ID",
+        "TMPDIR",
+        "USER",
+        "VIRTUAL_ENV_DISABLE_PROMPT",
+        "XPC_FLAGS",
+        "XPC_SERVICE_NAME",
+        "__CFBundleIdentifier",
+        "__CF_USER_TEXT_ENCODING"
+      ],
+      "authRelatedVariableNames": [
+        "CLAUDE_CODE_OAUTH_TOKEN"
+      ],
+      "exitCode": 0,
+      "status": {
+        "loggedIn": true,
+        "authMethod": "oauth_token"
+      },
+      "stderrNonempty": false
+    },
+    {
+      "label": "run-config-filtered",
+      "command": "/Users/jim/.local/bin/claude",
+      "argv": [
+        "auth",
+        "status",
+        "--json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator",
+      "HOME": "/Users/jim",
+      "environmentNames": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "authRelatedVariableNames": [],
+      "exitCode": 1,
+      "status": {
+        "loggedIn": false,
+        "authMethod": "none"
+      },
+      "stderrNonempty": false
+    },
+    {
+      "label": "filtered-plus-existing-oauth-variable",
+      "command": "/Users/jim/.local/bin/claude",
+      "argv": [
+        "auth",
+        "status",
+        "--json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator",
+      "HOME": "/Users/jim",
+      "environmentNames": [
+        "CLAUDE_CODE_OAUTH_TOKEN",
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "authRelatedVariableNames": [
+        "CLAUDE_CODE_OAUTH_TOKEN"
+      ],
+      "exitCode": 0,
+      "status": {
+        "loggedIn": true,
+        "authMethod": "oauth_token"
+      },
+      "stderrNonempty": false
+    }
+  ]
+}

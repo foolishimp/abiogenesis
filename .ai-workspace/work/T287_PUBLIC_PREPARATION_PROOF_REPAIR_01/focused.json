@@ -1,0 +1,37 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_PROOF_REPAIR_01",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/test-reporter.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-preparation.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-groups.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer",
+  "capSeconds": 240,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/tmp",
+    "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/tmp/node-compile-cache",
+    "ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "ABI5_PUBLIC_GROUPS_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "ABI5_PUBLIC_GROUPS_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/baseline.json"
+  },
+  "pid": 58408,
+  "pgid": 58408,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "groupAbsent": true,
+  "elapsedMs": 24253.234749998228,
+  "maxRSSPlatformBytes": 1615675392,
+  "userCPUSeconds": 31.004274,
+  "systemCPUSeconds": 0.9484199999999999,
+  "stdoutBytes": 16412,
+  "stdoutSHA256": "b0caee8f8600382214b28ab520ffdeb56dfc476ba7eb86efe3399475ec7f2d57",
+  "stderrBytes": 0,
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

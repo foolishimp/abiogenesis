@@ -1,0 +1,74 @@
+{
+  "status": "original_setup_bind_complete_catalog_refused",
+  "candidate": {
+    "artifactDigest": "sha256:2840b889d9207b48f7b1492934d3158a25352efa7b942f8ea58992ed15b57bcc",
+    "productContentDigest": "sha256:2c7bab8f7425a2a675fd7c8666349391fefae76150823f5cc3050eb57cd9176a",
+    "manifestDigest": "sha256:11e22a986898a4d91a75162f12f45452d6a1dc631b08bdad975dea657c72db1f",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "installedProduct": {
+    "digest": "sha256:e762bb675eab72ff9ff57b5bd8490a197c2d0b495ccd43a88b5ffc708b704952",
+    "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/2c7bab8f7425a2a675fd7c8666349391fefae76150823f5cc3050eb57cd9176a/3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023"
+  },
+  "workspaceBinding": {
+    "digest": "sha256:6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0",
+    "ref": "workspace-binding://abiogenesis/6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0"
+  },
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/worksite",
+  "workspaceAuthority": {
+    "authorityBasisDigest": "sha256:d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4",
+    "authorityBasisId": "workspace-authority://abiogenesis/d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4",
+    "authorityManifestDigest": "sha256:308081bd04773eae888ce348ae1e41c86cb66d783c4199692736be39b3ac782d",
+    "authorityManifestRef": "authority://abiogenesis/t287/final-native-setup-01/workspace-manifest",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://abiogenesis/t287/final-native-setup-01/operator",
+    "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/worksite",
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/f18cba8af4c4013663267d0e0c88100afac56b9a5e435dad1d9ac09cb28e8951"
+  },
+  "installedRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant"
+  ],
+  "resolvedLock": {
+    "digest": "sha256:3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023",
+    "ref": "product-lock://abiogenesis/3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023"
+  },
+  "tenantManifest": null,
+  "executionSelectionRef": "absent; no C2 Run or Hello Run",
+  "catalog": null,
+  "catalogView": null,
+  "conformance": null,
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:8b5e835908d985bd675e8e841b912bce468dc7a5547a5fbf475dbac9857a95fe",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+      "prefixLength": 2475382,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 463939156
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:fc644395f9e3f564078bd67bb70625f10d5320944c16ef66c921bcdba5a944d9",
+      "device": 16777230,
+      "durableByteLength": 2475382,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+      "inode": 463939156,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "nextSetupJoin": "Current admissionEnvironmentSelection(prefix, WB ref/digest) -> scope/approval/grants -> native exact-current acquired environment. No correction constructed here.",
+  "laterC2RootJoin": "Root separately selected use of Q selectedFiles(): validate all immutable bytes and absent declared target paths before exclusive writes under this existing A/W root, preserve .abiogenesis metadata; then constructObservedProducerTask. Q stageSelectedInputs must not run unchanged on the existing root. No staging done.",
+  "lastNativeReceipt": "continue-catalog-stdout.json",
+  "nextC2Join": "Not ready: catalog/view/conformance/Hello pending. Later separate grant must use Q.selectedFiles to verify all bytes and absent declared targets before exclusive writes under existing canonical A/W root, preserving .abiogenesis metadata; no C2 staging occurred."
+}

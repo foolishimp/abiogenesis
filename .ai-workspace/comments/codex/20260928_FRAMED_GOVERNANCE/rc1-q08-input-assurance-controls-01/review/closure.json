@@ -1,0 +1,20 @@
+{
+  "operation": "T287_Q08_CURRENT_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent focused nonauthor input Reviewer",
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_CURRENT_INPUT_ASSURANCE",
+  "report": "review.md",
+  "pins": "pins.json",
+  "subjectFreezeSHA256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+  "inputSourceCandidateLawStoresRuntimeOwnerImportsTestsBuildProviderGitNetworkEffects": 0,
+  "reportTerritoryWritesOnly": true,
+  "runtimeQualificationGreenAF22ReleaseCredit": false,
+  "actualObservedQualificationCommandsExecuted": 0,
+  "actualWholeCarrierExecuted": false,
+  "genuineSetup06PremiseConserved": true,
+  "allUnknownsPreserved": true,
+  "rootAloneAcceptsAndActivates": true,
+  "closedAt": "2026-10-02T07:42:18.328711+00:00",
+  "allWritesAfterFreeze": "STOPPED"
+}

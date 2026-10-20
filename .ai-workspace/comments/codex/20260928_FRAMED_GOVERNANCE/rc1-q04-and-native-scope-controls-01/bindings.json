@@ -1,0 +1,19 @@
+{
+  "Writer": "T287_RC1_Q04_AND_NATIVE_SCOPE_CONTROLS_01",
+  "executionPreimage": "eac0bffb38abc99625cbe0c854a9e25c4a6144aceeb120661c285ede71e1b28a",
+  "requests": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-and-native-scope-controls-01/q04-worker-request.txt",
+      "bytes": 4493,
+      "sha256": "bc5f065d7e82e04296ba258dad8c7a51f45d8951843ce196661980da06549dcd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-and-native-scope-controls-01/native-scope-review-request.txt",
+      "bytes": 3420,
+      "sha256": "58d30faff137ebb6055999060adc32d5ca3e83247aed1ad3bf1d09a6fdf66ad1"
+    }
+  ],
+  "ambientGeneratedAccepted": true,
+  "Q03Disposition": "NO_GO_preparation_only",
+  "NativeFixtureScope": "unresolved_no_repair_selected"
+}

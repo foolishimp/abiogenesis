@@ -1,0 +1,26 @@
+{
+  "stages": {
+    "conformance": 600000,
+    "hello": 300000,
+    "read": 600000
+  },
+  "operationPlan": [
+    "conformance-hello-world",
+    "conformance-command-execution",
+    "hello-root",
+    "hello-root-run_result",
+    "hello-root-run_replay"
+  ],
+  "nativeCapSumMs": 2700000,
+  "terminationGraceMs": 1000,
+  "allCommandGraceMs": 5000,
+  "driverBudgetMs": 2705000,
+  "purePreflightAllowanceMs": 120000,
+  "totalCeilingMs": 2825000,
+  "retry": "none",
+  "source": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-controls-04/request.txt",
+    "bytes": 8540,
+    "sha256": "2755f3746b50abe623dafe64c5273b854316a552a4a75e44c9dd6c5f557add7c"
+  }
+}

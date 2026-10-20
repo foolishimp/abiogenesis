@@ -1,0 +1,450 @@
+{
+  "status": "passed",
+  "verifiedOriginalRecords": 6024,
+  "originalFreezeSHA256": "563a3db9354aac6616a42ce8350defb1fa9a27da1acd6c8bcae4adc149e74012",
+  "physicalStore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+    "device": 16777230,
+    "inode": 464244056,
+    "bytes": 2701191,
+    "events": 67,
+    "sha256": "c4c1c28232cd3a89d7233a03485c113e2f2df0c76d7a9432ca9d610c56c2aa90",
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/tmp/abiogenesis-event-store-locks-v5/16777230-464244056.lock",
+    "lockPresent": false
+  },
+  "oldFrozenProofStillExact": true,
+  "nativeAppendException": "Only actual original physical log may append after this preflight; its first67events remain exact; every other old frozen record stays read only.",
+  "priorOwnedProcessClosure": {
+    "status": "passed",
+    "liveOwnedProcesses": [],
+    "observedPids": [
+      8010,
+      8124,
+      8125,
+      8235,
+      8236,
+      8487,
+      8488,
+      8633,
+      8648,
+      8914,
+      8915,
+      8981,
+      8982,
+      9102,
+      9103,
+      9237,
+      9238,
+      9386,
+      9387,
+      9451,
+      9452,
+      9453,
+      9454
+    ],
+    "driver": {
+      "pid": 8010,
+      "processGroup": 8010,
+      "command": [
+        "node",
+        "--max-old-space-size=4096",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/driver.mjs"
+      ],
+      "elapsedMs": 137905.182,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "peakRSSBytes": 2587033600,
+      "userSeconds": 174.039674,
+      "systemSeconds": 10.1671,
+      "observation": "wait4 actual driver; macOS ru_maxrss bytes; native children independently observed"
+    },
+    "nativeCliProcesses": [
+      {
+        "record": "s02-bind-native-process.json",
+        "pid": 8915,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-bind.jsonl"
+        ],
+        "elapsedMs": 10583.147,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1700610048,
+        "userSeconds": 14.050732,
+        "systemSeconds": 0.419851,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-catalog-native-process.json",
+        "pid": 8982,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-catalog.jsonl"
+        ],
+        "elapsedMs": 15898.318,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2562899968,
+        "userSeconds": 19.266649,
+        "systemSeconds": 0.750586,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-catalog-view-native-process.json",
+        "pid": 9103,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-catalog-view.jsonl"
+        ],
+        "elapsedMs": 10854.715,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2068512768,
+        "userSeconds": 14.382806,
+        "systemSeconds": 0.452071,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-conformance-hello-substitute-native-process.json",
+        "pid": 9238,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-conformance-hello-substitute.jsonl"
+        ],
+        "elapsedMs": 10935.751,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1704345600,
+        "userSeconds": 14.299981,
+        "systemSeconds": 0.462692,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-install-core-native-process.json",
+        "pid": 8648,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-install-core.jsonl"
+        ],
+        "elapsedMs": 22440.271,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1781661696,
+        "userSeconds": 27.140731,
+        "systemSeconds": 3.382604,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-resolve-native-process.json",
+        "pid": 8488,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-resolve.jsonl"
+        ],
+        "elapsedMs": 13144.34,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 2587033600,
+        "userSeconds": 18.554227,
+        "systemSeconds": 0.559869,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-substitution-root-native-process.json",
+        "pid": 9387,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-substitution-root.jsonl"
+        ],
+        "elapsedMs": 4172.379,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 794066944,
+        "userSeconds": 3.038083,
+        "systemSeconds": 1.5543879999999999,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-substitution-root-run_replay-native-process.json",
+        "pid": 9454,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-substitution-root-run_replay.jsonl"
+        ],
+        "elapsedMs": 612.302,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 334200832,
+        "userSeconds": 0.65483,
+        "systemSeconds": 0.073562,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-substitution-root-run_result-native-process.json",
+        "pid": 9452,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-substitution-root-run_result.jsonl"
+        ],
+        "elapsedMs": 613.285,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 334495744,
+        "userSeconds": 0.656898,
+        "systemSeconds": 0.073022,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-verify-core-native-process.json",
+        "pid": 8236,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-verify-core.jsonl"
+        ],
+        "elapsedMs": 18683.074,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1648164864,
+        "userSeconds": 23.761306,
+        "systemSeconds": 0.541783,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      {
+        "record": "s02-workspace-native-process.json",
+        "pid": 8125,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-workspace.jsonl"
+        ],
+        "elapsedMs": 9460.508,
+        "exitCode": 0,
+        "signal": null,
+        "peakRSSBytes": 1534033920,
+        "userSeconds": 12.697156,
+        "systemSeconds": 0.36501,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      }
+    ],
+    "processStarts": [
+      {
+        "record": "driver-process-start.json",
+        "pid": 8010,
+        "processGroup": 8010,
+        "command": [
+          "node",
+          "--max-old-space-size=4096",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/driver.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01",
+        "budgetMs": 2400000,
+        "startedAt": 1790865833.860501,
+        "environment": {
+          "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/tmp",
+          "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/cache/npm",
+          "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/cache/npm-prefix",
+          "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/config/user.npmrc",
+          "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/config/global.npmrc",
+          "GIT_CONFIG_GLOBAL": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/config/global.gitconfig",
+          "GIT_CONFIG_SYSTEM": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/config/system.gitconfig",
+          "GIT_CONFIG_NOSYSTEM": "1",
+          "GIT_OPTIONAL_LOCKS": "0",
+          "NODE_OPTIONS": "--max-old-space-size=4096"
+        }
+      },
+      {
+        "record": "s02-bind-process-start.json",
+        "pid": 8914,
+        "processGroup": 8914,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-bind.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:45:10.832Z",
+        "mode": "s02",
+        "label": "bind",
+        "capMs": 180000
+      },
+      {
+        "record": "s02-catalog-process-start.json",
+        "pid": 8981,
+        "processGroup": 8981,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-catalog.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:45:22.188Z",
+        "mode": "s02",
+        "label": "catalog",
+        "capMs": 180000
+      },
+      {
+        "record": "s02-catalog-view-process-start.json",
+        "pid": 9102,
+        "processGroup": 9102,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-catalog-view.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:45:38.894Z",
+        "mode": "s02",
+        "label": "catalog-view",
+        "capMs": 180000
+      },
+      {
+        "record": "s02-conformance-hello-substitute-process-start.json",
+        "pid": 9237,
+        "processGroup": 9237,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-conformance-hello-substitute.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:45:51.181Z",
+        "mode": "s02",
+        "label": "conformance-hello-substitute",
+        "capMs": 360000
+      },
+      {
+        "record": "s02-install-core-process-start.json",
+        "pid": 8633,
+        "processGroup": 8633,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-install-core.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:44:48.027Z",
+        "mode": "s02",
+        "label": "install-core",
+        "capMs": 180000
+      },
+      {
+        "record": "s02-resolve-process-start.json",
+        "pid": 8487,
+        "processGroup": 8487,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-resolve.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:44:34.634Z",
+        "mode": "s02",
+        "label": "resolve",
+        "capMs": 180000
+      },
+      {
+        "record": "s02-substitution-root-process-start.json",
+        "pid": 9386,
+        "processGroup": 9386,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-substitution-root.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:46:05.080Z",
+        "mode": "s02",
+        "label": "substitution-root",
+        "capMs": 360000
+      },
+      {
+        "record": "s02-substitution-root-run_replay-process-start.json",
+        "pid": 9453,
+        "processGroup": 9453,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-substitution-root-run_replay.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:46:10.682Z",
+        "mode": "s02",
+        "label": "substitution-root-run_replay",
+        "capMs": 180000
+      },
+      {
+        "record": "s02-substitution-root-run_result-process-start.json",
+        "pid": 9451,
+        "processGroup": 9451,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-substitution-root-run_result.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:46:09.771Z",
+        "mode": "s02",
+        "label": "substitution-root-run_result",
+        "capMs": 180000
+      },
+      {
+        "record": "s02-verify-core-process-start.json",
+        "pid": 8235,
+        "processGroup": 8235,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-verify-core.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:44:13.247Z",
+        "mode": "s02",
+        "label": "verify-core",
+        "capMs": 180000
+      },
+      {
+        "record": "s02-workspace-process-start.json",
+        "pid": 8124,
+        "processGroup": 8124,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-workspace.jsonl"
+        ],
+        "startedAt": "2026-10-01T14:44:03.656Z",
+        "mode": "s02",
+        "label": "workspace",
+        "capMs": 180000
+      }
+    ],
+    "allNativeExitsZero": true,
+    "timedOut": false,
+    "finalRuntimeLockAbsent": true,
+    "maxCliPeakRSSBytes": 2587033600,
+    "maxCliPeakRSSRecord": "s02-resolve-native-process.json"
+  },
+  "competingOperation": "Root selected this sole actor for the store; original exact prefix, absent lock and normal wait4 CLOSED donor process are conserved."
+}

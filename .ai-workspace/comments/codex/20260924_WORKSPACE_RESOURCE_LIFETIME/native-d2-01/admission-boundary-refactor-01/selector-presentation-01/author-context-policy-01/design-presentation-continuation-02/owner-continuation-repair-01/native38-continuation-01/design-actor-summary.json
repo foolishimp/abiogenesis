@@ -1,0 +1,117 @@
+{
+  "transportPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/invocation/archives/fp-d63439a0a2870c79-transport.json",
+  "transportSha256": "2c03b15ac57b57edcfae684803d5502f87fd3bb68179448025ac2bf40f91d250",
+  "disposition": "success",
+  "status": 0,
+  "timedOut": false,
+  "failureClass": null,
+  "nativeResultAssessment": {
+    "disposition": "admitted",
+    "inputDigest": "sha256:65c2fdd777a0a33038a84a9425bb4fd1beebb3d6f9a0c49503c6e9428c31ad28",
+    "kind": "native_worker_result_assessment",
+    "rawOutputDigest": "sha256:1bb3e110f7763e025892d7e9566bbebd96b53ec49c16508c88c2085f9cc2c746",
+    "resultContractRef": "contract://abiogenesis/semantic-stage/worker-result@5",
+    "schemaVersion": "5.0.0",
+    "verification": {
+      "contractCapabilityBasis": {
+        "implementationSetDigest": "sha256:7c01c6b62a424f73c982c536727ed7fc30cd33ae06a68e84b46d894590c1616a",
+        "implementationSetRef": "implementation-set://abiogenesis/7c01c6b62a424f73c982c536727ed7fc30cd33ae06a68e84b46d894590c1616a",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/a8010f52911002242d60131bcd23ecff707558147fbc2c7e6e94794f2be13e1d/4fc807ae7a0a391a2e1208c234ce7c7f3eb73b5fd6417de6f581052d197a29bd",
+        "publicationDigest": "sha256:27ddef30066439c52838b51a4dfcdbce8b97ad0a807642ef678b6f1641118927"
+      },
+      "implementationRef": "implementation://abiogenesis/semantic-revision/author@5",
+      "implementationResolutionDigest": "sha256:0543cd832c0c46ebac97be6bd0df1f90ff30b4cc2ec4a8076075c086da763165",
+      "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+      "inputDigest": "sha256:65c2fdd777a0a33038a84a9425bb4fd1beebb3d6f9a0c49503c6e9428c31ad28",
+      "instructionContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+      "kind": "verified_probabilistic_result_contract_preimage",
+      "rawResultContractRef": "contract://abiogenesis/semantic-stage/worker-result@5",
+      "rawResultDigest": "sha256:f707bfce6d440d15ff2641d42b917f6271a027cad4fa6ef52d48faa153326006",
+      "schemaVersion": "5.0.0",
+      "targetOutputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+      "verificationDigest": "sha256:256aa44a7cb023787d96289f612e16e313d7a23d2a229a2305f5ec3be174358e",
+      "verificationRef": "probabilistic-result-contract-preimage://abiogenesis/256aa44a7cb023787d96289f612e16e313d7a23d2a229a2305f5ec3be174358e"
+    }
+  },
+  "artifacts": {
+    "prompt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/invocation/archives/fp-d63439a0a2870c79-prompt.txt",
+      "byteLength": 986751,
+      "digest": "sha256:e95d4335dc213baa8f78aaf5406165a2bb3a246f90828fa3e87159087f7c1342"
+    },
+    "output": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/invocation/archives/fp-d63439a0a2870c79-output.txt",
+      "byteLength": 47753,
+      "digest": "sha256:1bb3e110f7763e025892d7e9566bbebd96b53ec49c16508c88c2085f9cc2c746"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/invocation/archives/fp-d63439a0a2870c79-stdout.log",
+      "byteLength": 1534763,
+      "digest": "sha256:df0194a44ab49b401379f990207b45e997b6107439bbadd29988bbbe2cd4c035"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/invocation/archives/fp-d63439a0a2870c79-stderr.log",
+      "byteLength": 0,
+      "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "messageStartCount": 1,
+  "structuredOutputs": [
+    {
+      "toolUseId": "toolu_01A5ApuTjVYSVHyf9yCrgoM6",
+      "inputKind": "semantic_job_design_response"
+    }
+  ],
+  "toolResultCount": 1,
+  "providerResults": [
+    {
+      "type": "result",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 685498,
+      "duration_api_ms": 677263,
+      "num_turns": 2,
+      "total_cost_usd": 5.1266622,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 440246,
+        "cache_read_input_tokens": 7831,
+        "output_tokens": 80156,
+        "output_tokens_details": {
+          "thinking_tokens": 61315
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 440246,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 80156,
+          "cacheReadInputTokens": 7831,
+          "cacheCreationInputTokens": 440246,
+          "webSearchRequests": 0,
+          "costUSD": 5.1266622,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 61315,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "stop_reason": "tool_use"
+    }
+  ],
+  "decodedKind": "semantic_job_design_response",
+  "limit": "Retained protocol/usage only; no thinking text inspected or reproduced; raw result admission is distinct from semantic Result/J and independent assessment."
+}

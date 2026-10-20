@@ -1,0 +1,135 @@
+diff --git a/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md b/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md
+index 866f2d3..309dba9 100644
+--- a/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md
++++ b/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md
+@@ -440,3 +440,19 @@ Assets live at supplied workspace paths. Authors receive full governing source a
+ The full-sandbox entry preserves its complete original Hello source and independent oracle as ordinary data. Historical cumulative-response declarations and reduced C1/C2 evidence remain historical distinct routes. This selection authorizes source realization and focused owner checks only; package identity and finite live policy require the subsequent Root selection.
+ 
+ The opt-in full-sandbox configuration selects `freshNative: true`, one explicit successor consumer identity, `selectedJobKeys` and the existing exact role environment/resources. The generic declaration reuses three native actor families for twelve sequential occurrences: five author/independent-assessor pairs, one constructor and one C2 executor. The Evidence author binds actual source/effect evidence; the separate final assessor alone receives the independent oracle. This is one declared Program with no recursive stage call or host progression loop. Original input/oracle bytes are conserved, and package/default selectors remain unchanged until separately selected.
++
++The ordinary fresh-native caller retains its frozen transport configuration's
++inactivity and absolute limits as `taskData.nativeLifecycle.commandExecutionLimits`.
++Its existing environment mapping supplies those same values to the enclosing
++ABI process. ABI preparation checks the current selection; native task and fold
++correspondence uses the retained job values even under a later host environment.
++Legacy jobs without this optional selection remain explicit unknown-capacity
++inputs; historical selections are not inferred or backfilled.
++
++ABI's existing C2 owner supplies the shared aggregate budget calculation and
++strict compatibility check. Both Design roles receive that projection. GLC's
++generic Design instructions and rubric require warranted command/probe bounds,
++complete obligation conservation, and honest unknown readiness when capacity
++is insufficient. Neither role may lower bounds without support, omit required
++work or increase executor controls to obtain a pass. This bounded design
++reframe adds no GLC arithmetic, executor, retry or new Public operation.
+diff --git a/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs b/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs
+index 703f4d8..d11da99 100644
+--- a/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs
++++ b/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs
+@@ -27,6 +27,7 @@ export function constructNativeLifecycleDeclaration({ gtl, product, ids }) {
+       "Preserve unresolved and unimplemented obligations. Every selected behavior needs meaningful realization, verifier-artifact, verifier-execution and independent semantic-assessment pressure." ] },
+     { name: "design", kind: "DestinationTopologyAsset", predecessors: ["intent", "product", "requirements"], capabilities: ["worksite_design"], content: [
+       "Design from the admitted actual context, active assessed bindings and complete prior assets. Choose necessary relative artifact paths, roles, dependencies, commands and outcome predicates within the explicit owner bounds.",
++      "Use the supplied execution-capacity projection for the complete command and probe plan. Choose warranted bounds and grouping that preserve every source obligation; do not lower a timeout merely to pass a guard. If required capacity is insufficient or unknown, retain that pressure and set dependencyDisposition to unknown instead of claiming executable readiness.",
+       "Preserve existing valid work; create no assumed layout or fabricated observations. Distinguish missing dependencies from future execution proof. Bind every target to active obligation and binding-version coordinates.",
+       "Include governing, design, verifier and execution-plan artifacts when the source requires them. Tests must exercise the actual constructed application. Native execution supplies results; no prewritten success report is evidence." ] },
+     { name: "evidence", kind: "EvidenceBindingAsset", predecessors: ["intent", "product", "requirements", "design"], capabilities: ["application_assessment"], content: [
+@@ -51,7 +52,7 @@ export function constructNativeLifecycleDeclaration({ gtl, product, ids }) {
+         outputContractRefs: [native.workerContractRef], constructorRef: native.constructorRef, rendererRef: native.rendererRef,
+         proofObligationRefs: [], authoritySlots: [{ authorityKindRef: "authority://odd-glc/owner-scope-ruling", disposition: "normal", fallbackPreconditionRefs: [] }] },
+       purpose: `Derive and independently assess ${row.kind} from full source and admitted predecessor meaning.`, requiredContent: row.content,
+-      rubric: [...commonRubric, ...(row.name === "design" ? [["executable-proof", "Check necessary artifact and actual-command coverage against source and active bindings, with complete known context and explicit authority. No caller-authored target plan is supplied."]] : []),
++      rubric: [...commonRubric, ...(row.name === "design" ? [["executable-proof", "Check necessary artifact and actual-command coverage against source and active bindings, with complete known context and explicit authority. Check the supplied execution-capacity compatibility and whether every command bound is warranted by the work. Insufficient or unknown capacity is unresolved readiness, never permission to weaken obligations or raise controls. No caller-authored target plan is supplied."]] : []),
+         ...(row.name === "evidence" ? [["independent-oracle", "Compare all evaluation cases against actual same-job admitted observations and artifact bodies; disclose absent probes and wrong identities rather than accepting counts."]] : [])]
+         .map(([name, instruction]) => ({ criterionRef: `criterion://odd-glc/generic-lifecycle/${row.name}/${name}@5`, instruction })),
+       bodyCapabilities: row.capabilities,
+diff --git a/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs b/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs
+index 6d5d8b7..156a139 100644
+--- a/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs
++++ b/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs
+@@ -73,12 +73,13 @@ export function constructFullHelloInputs({ product, originalSourceBytes, oracle,
+     evaluationData: structuredClone(oracle) };
+ }
+ 
+-export function constructOrdinaryJobInput({ product, gtl, input, executable, executableCapabilities, lifecycle }) {
++export function constructOrdinaryJobInput({ product, gtl, input, executable, executableCapabilities, lifecycle, commandExecutionLimits }) {
+   return product.constructSemanticJobInput({ kind: "semantic_job_input", schemaVersion: "5.0.0",
+     lifecycleRef: FULL_SANDBOX_IDS.lifecycleDeclarationRef, sourceRoleRef: gtl.SEMANTIC_STAGE_IDS.jobSourceContextRoleRef,
+     members: structuredClone(input.members), taskData: { ...structuredClone(input.taskData), ...(lifecycle === undefined ? {} : { nativeLifecycle: {
+       assets: lifecycle.stages.map((stage, i) => ({ stageRef: stage.declarationRef, path: `semantic-assets/stage-${i}.json` })),
+-      rubricPath: "semantic-assets/lifecycle-rubric.json" } }) }, evaluationData: structuredClone(input.evaluationData),
++      rubricPath: "semantic-assets/lifecycle-rubric.json",
++      ...(commandExecutionLimits === undefined ? {} : { commandExecutionLimits: structuredClone(commandExecutionLimits) }) } }) }, evaluationData: structuredClone(input.evaluationData),
+     worksiteScope: { readRoots: ["."], writeRoots: ["."], parentWriteRoots: ["."], evidenceWriteRoots: ["execution-evidence"],
+       executableCapabilities: structuredClone(executableCapabilities ?? [{ executable, relativeCwdRoots: ["."], environment: {}, maxTimeoutMs: 120000, maxTerminationGraceMs: 1000 }]) } });
+ }
+diff --git a/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs b/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs
+index cec26f2..1e16be6 100644
+--- a/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs
++++ b/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs
+@@ -466,7 +466,9 @@ export async function prepareFullSandbox({ runRoot, candidatePath, configuration
+   // not run intake, a semantic stage, C0, C1 or C2.
+   for (const ordinary of inputs) {
+     const jobRoot = join(scratch, "jobs", ordinary.key), workspaceRoot = join(scratch, "subject-" + ordinary.key);
+-    const input = constructOrdinaryJobInput({ product, gtl, input: ordinary, executable, executableCapabilities: configuration.executableCapabilities, ...(freshNative ? { lifecycle } : {}) });
++    const input = constructOrdinaryJobInput({ product, gtl, input: ordinary, executable, executableCapabilities: configuration.executableCapabilities,
++      ...(freshNative ? { lifecycle, commandExecutionLimits: { inactivityTimeoutMs: transport.configuration.inactivityMs,
++        absoluteTimeoutMs: transport.configuration.absoluteMs } } : {}) });
+     await save(jobRoot, "ordinary-input.json", input);
+     const created = await invoke(await authorized(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean,
+       { targetRoot: workspaceRoot, createPolicy: "clean", scaffoldPolicy: "none" },
+@@ -573,12 +575,14 @@ export async function continueFullSandboxPreparation({ runRoot, candidatePath, c
+   const jobRoot = join(scratch, "jobs", key), workspaceRoot = environment.workspaceAuthorityBasis.canonicalRoot, roots = environment.workspaceBinding.roots;
+   const ordinary = (await ordinarySandboxInputs(product, [key])).find(input => input.key === key); assert.ok(ordinary);
+   const input = await read(join(jobRoot, "ordinary-input.json"));
+-  assert.deepEqual(input, constructOrdinaryJobInput({ product, gtl, input: ordinary, executable: await realpath(process.execPath), executableCapabilities: configuration.executableCapabilities, lifecycle }));
++  const transport = await assertFullSandboxTransportUnchanged(await read(join(scratch, "transport-basis.json")), { product, abg });
++  assert.deepEqual(input, constructOrdinaryJobInput({ product, gtl, input: ordinary, executable: await realpath(process.execPath), executableCapabilities: configuration.executableCapabilities, lifecycle,
++    ...(input.taskData.nativeLifecycle.commandExecutionLimits === undefined ? {} : { commandExecutionLimits: {
++      inactivityTimeoutMs: transport.configuration.inactivityMs, absoluteTimeoutMs: transport.configuration.absoluteMs } }) }));
+   for (const member of input.members) assert.deepEqual(await readFile(join(workspaceRoot, member.path)), Buffer.from(member.base64, "base64"));
+   assert.equal(await readFile(join(workspaceRoot, input.taskData.nativeLifecycle.rubricPath), "utf8"), product.canonicalJson(lifecycle) + "\n");
+   const runEnvironment = gtl.constructRunEnvironmentDeclaration(configuration.runEnvironment);
+   assert.deepEqual(publication.runEnvironments, [runEnvironment]);
+-  const transport = await assertFullSandboxTransportUnchanged(await read(join(scratch, "transport-basis.json")), { product, abg });
+   const cliPath = join(abiRoot, "build/code/src/public/cli.js");
+   const callerState = { ordinal: 10, closeHandoff, calls, cliPath, product, installedPublic, retainedFailures: 1 };
+   const setup = fullSandboxSetupCalls({ scratch, abiArtifact, abiRequest, hash, coord, calls, state: callerState });
+diff --git a/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs b/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs
+index 85cdb12..12171d4 100644
+--- a/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs
++++ b/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs
+@@ -5,7 +5,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
+ import test from "node:test";
+ import { constructFullSandboxPackage, constructOrdinaryJobInput, constructFullHelloInputs, selectOriginalHelloDeclaration, FULL_SANDBOX_IDS, FULL_HELLO_CASES,
+   FULL_HELLO_TARGETS, FULL_HELLO_STAGE_MEANINGS, nativeFullSandboxPublications } from "./full-sandbox-declarations.mjs";
+-import { readFullSandboxCandidate, installedFullSandboxApis, ordinarySandboxInputs, evaluateOrdinaryJobObservation } from "./full-sandbox-support.mjs";
++import { readFullSandboxCandidate, installedFullSandboxApis, ordinarySandboxInputs, evaluateOrdinaryJobObservation,
++  fullSandboxTransportEnvironment } from "./full-sandbox-support.mjs";
+ import { D1_WITNESS_IDS, D1_FROZEN_INPUT_SHA256 } from "./d1-lifecycle-declarations.mjs";
+ 
+ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+@@ -83,6 +84,23 @@ test("native source input retains the complete unchanged original selected bytes
+ 
+ const remainingHelloKeys = ["js-tenant-test", "js-sdlc-bootstrap", "rust-cli", "rust-service", "parallel-js"];
+ const callerApis = { skip: product ? false : "select the existing source build for caller value checks" };
++test("native command budget selection matches the frozen transport environment without changing controls", callerApis, async () => {
++  const { constructNativeLifecycleDeclaration } = await import("../src/native-lifecycle-declarations.mjs");
++  const lifecycle = constructNativeLifecycleDeclaration({ gtl, product, ids: FULL_SANDBOX_IDS });
++  const transport = { configuration: { inactivityMs: 300000, absoluteMs: 900000, terminationGraceMs: 5000,
++    model: "component-model", extraArgs: [], effort: "component-effort" }, resolvedCommand: "/component-only/unlaunched" };
++  const before = structuredClone(transport), environment = fullSandboxTransportEnvironment(transport, { ABG_TS_FP_TIMEOUT_MS: "1" });
++  const commandExecutionLimits = { inactivityTimeoutMs: transport.configuration.inactivityMs, absoluteTimeoutMs: transport.configuration.absoluteMs };
++  const input = inputs[1], job = constructOrdinaryJobInput({ product, gtl, input, executable: process.execPath, lifecycle, commandExecutionLimits });
++  assert.equal(job.taskData.nativeLifecycle.commandExecutionLimits.inactivityTimeoutMs, Number(environment.ABG_TS_FP_TIMEOUT_MS));
++  assert.equal(job.taskData.nativeLifecycle.commandExecutionLimits.absoluteTimeoutMs, Number(environment.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS));
++  assert.deepEqual(transport, before);assert.deepEqual(job.members,input.members);assert.deepEqual(job.evaluationData,input.evaluationData);
++  const legacy = constructOrdinaryJobInput({ product, gtl, input, executable: process.execPath, lifecycle });
++  assert.equal("commandExecutionLimits" in legacy.taskData.nativeLifecycle, false, "no selection is invented for legacy inputs");
++  const design = lifecycle.stages.find(stage => stage.bodyCapabilities.includes("worksite_design"));
++  assert.ok(design.requiredContent.some(text => text.includes("execution-capacity") && text.includes("unknown")));
++  assert.ok(design.rubric.some(row => row.instruction.includes("execution-capacity") && row.instruction.includes("warranted")));
++});
+ test("remaining full Hello selections preserve original sources, oracles and capability data", callerApis, async () => {
+   const bytes = await readFile(join(root, "test/glc-software-build-overlay-live.test.mjs"));
+   const selected = await ordinarySandboxInputs(product, remainingHelloKeys);

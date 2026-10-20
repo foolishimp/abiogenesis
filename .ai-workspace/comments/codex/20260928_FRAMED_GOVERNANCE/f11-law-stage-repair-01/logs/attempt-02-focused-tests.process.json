@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant/test_env/tests/t287-qualification-law.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant",
+  "taskTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/tmp",
+  "pid": 66416,
+  "elapsedMs": 155.58895794674754,
+  "exitCode": 1,
+  "timedOut": false,
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "scope": "Only focused copied-tenant qualification law tests; no build or live generator writes"
+}

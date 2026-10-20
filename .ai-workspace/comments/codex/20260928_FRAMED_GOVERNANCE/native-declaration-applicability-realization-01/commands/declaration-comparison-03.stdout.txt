@@ -1,0 +1,1 @@
+{"passed":true,"declarations":261,"nativeRows":37,"sourceContracts":97,"generatedAssetReferences":30}

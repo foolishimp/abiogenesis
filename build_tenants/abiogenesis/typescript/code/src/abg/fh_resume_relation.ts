@@ -1,3 +1,5 @@
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isOptionalJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -9,7 +11,7 @@ import {
   type ExecutionBasis,
 } from "./execution_basis.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -61,8 +63,25 @@ export function deriveFhResumeSuccessorInputAtPrefix(
   executionBasis: ExecutionBasis,
   closureContract: Readonly<ClosureContract>,
   successorCarrier: FhResumeSuccessorCarrier,
+): FhResumeSuccessorInput;
+/** @internal */
+export function deriveFhResumeSuccessorInputAtPrefix(
+  prefix: RuntimeEventPrefix,
+  continuation: FhResumeContinuationBasis,
+  operation: FhResumeOperationBasis,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorCarrier: FhResumeSuccessorCarrier,
+): FhResumeSuccessorInput;
+export function deriveFhResumeSuccessorInputAtPrefix(
+  prefix: RuntimeEventPrefix,
+  continuation: FhResumeContinuationBasis,
+  operation: FhResumeOperationBasis,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorCarrier: FhResumeSuccessorCarrier,
 ): FhResumeSuccessorInput {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const continuationRef = continuation.continuationRef;
   if (
     continuation.status !== "responded" ||
@@ -114,7 +133,7 @@ export function deriveFhResumeSuccessorInputAtPrefix(
       "construction F_H continuation requires an action_evaluation_basis successor carrier",
     );
   }
-  const opened = events.find(
+  const opened = indexedRuntimeEvents(prefix, "id:" + continuation.openedEventRef).find(
     (event) => event.eventId === continuation.openedEventRef,
   );
   const heldCursor =
@@ -153,7 +172,7 @@ export function deriveFhResumeSuccessorInputAtPrefix(
       "construction successor input requires its exact admitted intent",
     );
   }
-  const intentEvent = events.find(
+  const intentEvent = indexedRuntimeEvents(prefix, "id:" + intent.admissionEventRef).find(
     (event) => event.eventId === intent.admissionEventRef,
   );
   const nextActionBasis =
@@ -226,7 +245,7 @@ export function deriveFhResumeSuccessorInputAtPrefix(
     ],
   };
   const runtimeEvidenceRows = body.runtimeEvidenceEventRefs.map((eventRef) =>
-    events.find((event) => event.eventId === eventRef)
+    indexedRuntimeEvents(prefix, "id:" + eventRef).find((event) => event.eventId === eventRef)
   );
   if (
     continuation.respondedPublicOperationEventRef === null ||

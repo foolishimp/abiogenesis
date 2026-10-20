@@ -1,0 +1,34 @@
+{
+  "operation": "T287_COMMENTARY_CLEANUP_DOWNSTREAM_ALIAS_PLAN_03",
+  "role": "Worker",
+  "actor": "/root/rc1_c03_install_review",
+  "activatedUTC": "2026-10-04T07:18:38.251659+00:00",
+  "grant": "Root Executive explicit alias-origin continuation after immutable first pass",
+  "reentry": "realization_refactor",
+  "firstPassFreezeSHA256": "2c4bd73004688d10d93aae17d3ef7646c5da2919555b3de9227af3fb248d2d7f",
+  "writeOnly": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/alias-continuation-activation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/build_alias_plan.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final"
+  ],
+  "copyRelativePrefixA": "odd_sdlc_t132_frozen/odd_sdlc_typescript/node_modules/@abiogenesis/typescript-tenant/",
+  "physicalOwner": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "repeatLeadingPrefixB": "test_env/downstream/odd_sdlc_t132_frozen/odd_sdlc_typescript/node_modules/@abiogenesis/typescript-tenant/",
+  "existingAlias": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/downstream/odd_sdlc_t132_frozen/odd_sdlc_typescript/node_modules/@abiogenesis/typescript-tenant",
+    "target": "../../../../../..",
+    "mode": 493,
+    "device": 16777230,
+    "inode": 248101633
+  },
+  "physicalOwnerIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "mode": 493,
+    "device": 16777230,
+    "inode": 186971072
+  },
+  "scope": "reuse stopped copied hashes; validate copied identities; hash each distinct mapped physical original once; no other symlink discovery/following",
+  "preserve": "all first-pass protections, excluded unknown original routes, tracked/log/archive/nonregular/.git bodies and immutable first pass",
+  "deletionAuthorized": false,
+  "exit": "combined exact frozen plan then CLOSED; Root independent review and separate deletion grant required"
+}

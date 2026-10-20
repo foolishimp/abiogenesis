@@ -1,0 +1,10 @@
+{
+  "timeUTC": "2026-10-02T16:54:20.968232+00:00",
+  "scope": "Unauthenticated HEAD reachability only; no credentials/provider dispatch/paidcall/configchange",
+  "networkDisabledFlag": "1",
+  "exitCode": 6,
+  "curlMetrics": "000||0.000035",
+  "stderr": "curl: (6) Could not resolve host: api.anthropic.com",
+  "elapsedSeconds": 0.011,
+  "claimBoundary": "Does not establish account/login state or underlying OS DNS cause."
+}

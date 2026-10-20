@@ -1,0 +1,145 @@
+{
+  "status": "CLOSED_source_component_cut_for_independent_review",
+  "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+  "at": "2026-09-30T06:58:27.596529+00:00",
+  "sources": [
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "preimage": {
+        "path": "preimages/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "bytes": 18901,
+        "sha256": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35"
+      },
+      "postimage": {
+        "path": "postimages/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "bytes": 18915,
+        "sha256": "f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d"
+      },
+      "actualAuthor": {
+        "agent": "/root/s03_phase_b",
+        "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+        "sessionId": "not separately available",
+        "origin": "external Worker source edit",
+        "nativeABGAuthorship": false
+      },
+      "sourceDonorIsNotAuthor": true
+    },
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "preimage": {
+        "path": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 75599,
+        "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17"
+      },
+      "postimage": {
+        "path": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 77554,
+        "sha256": "d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128"
+      },
+      "actualAuthor": {
+        "agent": "/root/s03_phase_b",
+        "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+        "sessionId": "not separately available",
+        "origin": "external Worker source edit",
+        "nativeABGAuthorship": false
+      },
+      "sourceDonorIsNotAuthor": true
+    },
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "preimage": {
+        "path": "preimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 38681,
+        "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+      },
+      "postimage": {
+        "path": "postimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 39208,
+        "sha256": "4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4"
+      },
+      "actualAuthor": {
+        "agent": "/root/s03_phase_b",
+        "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+        "sessionId": "not separately available",
+        "origin": "external Worker source edit",
+        "nativeABGAuthorship": false
+      },
+      "sourceDonorIsNotAuthor": true
+    }
+  ],
+  "originalRedDiagnostics": 6,
+  "correctedWrapperCount": 6,
+  "fullPublicationCount": 11,
+  "staticOutcomes": [
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abg/consensus@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/construction@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/requirement-handoff@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-stage@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "kind": "publication_validation"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "kind": "publication_validation"
+    }
+  ],
+  "namedPureTests": {
+    "name": "pure-named-tests-corrected",
+    "exitCode": 0,
+    "elapsedMs": 384.7725000232458,
+    "selectedNames": [
+      "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+      "installed root publication precondition rejects a bad non-selected publication",
+      "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation"
+    ],
+    "fullMixedFileRun": false
+  },
+  "compiler": {
+    "name": "compile",
+    "exitCode": 0,
+    "elapsedMs": 5231.652584392577
+  },
+  "generatedImpact": "One isolated default_library.js changed among260 emitted JS; no canonical generated edit",
+  "effects": {
+    "nativeCalls": 0,
+    "newRun": 0,
+    "runtimeResourceOperations": 0,
+    "providerCalls": 0,
+    "buildPackageInstall": 0,
+    "GitMutations": 0
+  },
+  "stop": "Worker CLOSED; no Reviewer activated; Root owns independent review and disposition."
+}

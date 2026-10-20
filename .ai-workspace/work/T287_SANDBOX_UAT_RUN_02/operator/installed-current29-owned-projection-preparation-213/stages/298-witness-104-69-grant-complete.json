@@ -1,0 +1,12 @@
+{
+  "stage": "witness-104-69-grant-complete",
+  "rss": 4305354752,
+  "heapTotal": 3847438336,
+  "heapUsed": 3789671000,
+  "external": 2447762,
+  "arrayBuffers": 35455,
+  "at": "2026-10-09T13:47:02.169Z",
+  "elapsedMs": 315579.11533400003,
+  "ownerArtifactReceiptRetained": true,
+  "capabilities": 1
+}

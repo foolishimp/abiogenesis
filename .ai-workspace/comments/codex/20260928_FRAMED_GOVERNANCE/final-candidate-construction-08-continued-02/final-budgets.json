@@ -1,0 +1,20 @@
+{
+  "operationCapsMs": {
+    "dependencies": 240000,
+    "clean": 60000,
+    "compile": 600000,
+    "authority-stage": 300000,
+    "manifest": 600000,
+    "pack": 240000,
+    "install": 240000,
+    "verify": 300000,
+    "installed-publications": 240000,
+    "wrapper-compatibility": 120000
+  },
+  "maximumMs": 3060000,
+  "terminationGraceMs": 1000,
+  "defaultHeapUnchanged": true,
+  "donorObservedTenCommandMs": 40237,
+  "donorPreparationMs": 5171,
+  "reason": "same accepted finite C07 builder and sixteen archives plus accepted admitted-result metadata projection and final one-field fixture test/tracking; stage-specific conservative ceilings, not an arbitrary global180-second limit; no semantic/runtime workloads"
+}

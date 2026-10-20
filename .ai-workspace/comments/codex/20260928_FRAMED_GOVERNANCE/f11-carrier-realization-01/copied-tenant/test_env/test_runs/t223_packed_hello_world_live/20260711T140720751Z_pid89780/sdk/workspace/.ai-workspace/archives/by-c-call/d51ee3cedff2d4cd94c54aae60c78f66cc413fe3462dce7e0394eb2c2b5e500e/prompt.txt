@@ -1,0 +1,144 @@
+## section://catalog-4e695149968ca410/vector-0/evaluate
+carriers: ["node://fixture/hello-world/helloinput","node://fixture/hello-world/hellooutput"]
+dependencies: ["hello-input-to-output"]
+digest: sha256:e3e52cb873d48e114da31bb72d62fa73d8781e57719bb87e30a23f09d7372b31
+Run evaluate for hello-input-to-output without carrying an answer marker.
+Standard live review response protocol:
+Return exactly one JSON object and no prose, using only accepted, closeDisposition, assessmentIds, and reasons.
+accepted is boolean; closeDisposition is close or retry; assessmentIds and reasons are arrays of strings.
+assessmentIds must equal the expected ids derived from this vector: [].
+Use accepted true with closeDisposition close only when every expected assessment is satisfied; otherwise use accepted false with closeDisposition retry and state the reasons.
+
+## abg.instruction_authority_precedence
+
+ABG-rendered dependency truth, proof-depth truth, runtime bound refs, and admitted prior artifacts are authoritative for this dispatch.
+Product section text, stage policy data, templates, and worker instructions may narrow or strengthen admitted prior obligations, but they shall not weaken, replace, or contradict them.
+If a product instruction conflicts with an admitted prior artifact, dependency/proof truth, or runtime binding, the admitted truth wins and the conflict is a dispatch/evaluation defect.
+The F_P worker must not use a weaker product instruction to satisfy an obligation carried by admitted prior truth.
+The F_P evaluator must reject a candidate that follows a weaker product instruction when admitted prior truth requires the stronger obligation.
+
+## abg.dependency_instruction_truth
+
+truthRef: dependency-instruction-truth://catalog-4e695149968ca410/vector-0/evaluate
+truthDigest: sha256:2167769102627070a0132c9da9ad50ec92cd78e4e323c6d580bb7d63f59669b0
+workKind: target_work
+dependencyGraphRef: none
+dependencyGraphDigest: none
+targetRefs: ["node://fixture/hello-world/hellooutput"]
+prerequisiteNodeRefs: []
+prerequisiteEdgeRefs: []
+dependencyClosed: true
+typedPrerequisiteGapRefs: []
+noDependencyPolicyRef: policy://catalog-4e695149968ca410/no-dependency-required
+sourceProjectionRefs: ["projection://catalog-4e695149968ca410/no-dependency-required"]
+
+## abg.proof_depth_instruction_truth
+
+truthRef: proof-depth-instruction-truth://catalog-4e695149968ca410/vector-0/evaluate
+truthDigest: sha256:4335ba4f37bd7416c9c95a152db3e87a024c9319dc56bd0598ccbb0a304e2f89
+depthPolicyRef: proof-depth-policy://catalog-4e695149968ca410
+depthPolicyDigest: sha256:ebd7a6ca35e1bda4ce89cd06e8bb2f00ae20ec765456010174e6606d172f7b4c
+targetRefs: ["node://fixture/hello-world/hellooutput"]
+requiredDepthClassRefs: ["depth-class://negative","depth-class://positive"]
+declaredDepthClassRefs: ["depth-class://negative","depth-class://positive"]
+declaredDepthObligationRefs: ["proof-obligation://catalog-4e695149968ca410/negative","proof-obligation://catalog-4e695149968ca410/positive"]
+notApplicableDepthClassRefs: []
+typedDepthGapRefs: []
+proofStrengthAdmissionRefs: ["proof-strength-admission://catalog-4e695149968ca410"]
+fdStrengthCriterionRefs: ["fd-strength-criterion://catalog-4e695149968ca410"]
+adversarialVerificationRefs: []
+adversarialCounterexampleRefs: []
+sourceProjectionRefs: ["proof-coverage-projection://catalog-4e695149968ca410/vector-0/evaluate"]
+depthComplete: true
+proofStrengthAdmitted: true
+
+## abg.runtime.bound_refs
+
+- slot: graph_call
+  ref: graph-call:execution_basis:{"moduleName":"fixtur...sha256:15051725f44110b68e04dacac0b392e11c49d7b4958f9c9f7932ec5e4fd25eb3
+  digest: sha256:f147c25ec376d6e276c51aef571b3e710b6e0ef3f87be3f463bf880178bbd473
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8"]
+- slot: frame
+  ref: frame:execution_basis:{"moduleName":"fixture-hel...sha256:9a11e70c0a52b1cf2175a88be38e5dcce45de875bfdaeb33199b232099439e3f
+  digest: sha256:0882f71cec0068598759beab000371f8c1f6e09bc67d878e357089ab586dbf39
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8"]
+- slot: vector
+  ref: hello-input-to-output
+  digest: sha256:0a2ef0020b049196018d727812a0166f29be87cfd5faa4dd5d4ea52ba5c1fb19
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["dispatch://abiogenesis/installed-public-sdk"]
+- slot: event_log
+  ref: runtime_projection:execution_basis:{"moduleName"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8
+  digest: sha256:6fe92fbaee246c92151e9f19c2ad1650b3f342bbd46337d394027b0bb21e69fc
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8"]
+- slot: worker_invocation
+  ref: actor-invocation:{"basisId":"execution_basis:{\"...sha256:4b7fb3352d8a12fcfd3a54764a8eb50c4e196ba11f96f88e6220d2be87009c61
+  digest: sha256:b653881fe85800d6a6d72f19ef8d7ae4262da84c66a10139bfbe524be2953252
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["dispatch://abiogenesis/installed-public-sdk"]
+- slot: selected_graph_function
+  ref: graph-function://fixture/hello-world
+  digest: sha256:8f8028404d93f353fef975eb5a7feaa8dc5a2221e6d54f384c42a56427a6a8eb
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["graph-function-selection:catalog-invoke:correlation://t223/sdk/14","registry-lookup-result:sha256:7b214854f33f9f3b150855731013b4d934adc450901a1a5b130e13798c22a0fa"]
+- slot: source_node
+  ref: node://fixture/hello-world/helloinput
+  digest: sha256:ab106797532d10b8867d04dd497487068f4532a3517a32f4957b88b4bc616157
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8"]
+- slot: target_node
+  ref: node://fixture/hello-world/hellooutput
+  digest: sha256:fadb4cc6fcc46737825b3e4cecadd4e4a1fc7d4a7ef843c9810004de623d4840
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8"]
+- slot: input_asset
+  ref: input://t223/sdk
+  digest: sha256:28c7d68f3987675a524b56b166fbb37104a46949db217dbe44c6f69af3bf7159
+  payloadDigest: sha256:98651aabb41c3a990414f195c5ce9cff6570390c8a385a5b672299b37c2d1626
+  contentRef: fixture.schema.hello-input
+  contentDigest: sha256:96c37137ed881c04b12b322a57ccbebae31fc5197698c910c8492939b3afb003
+  contentExcerpt: "{\"greeting\":\"world\"}"
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8"]
+- slot: payload
+  ref: candidate-payload:execution_basis:{"moduleName":...sha256:5aacf1b0a231a0511f79d5f2d743f59b45d9669d244ef973ddddb038e9bf2a48
+  digest: sha256:638e2cf71f01e7737b6d8a410cc70433f9f7eea3a04ec6a36cce337cc0dcc067
+  payloadDigest: sha256:92c79c5b30e1dbc64c0ab567a63a4482b01208dc8bb5ac37d1b10f1ed63cc5a9
+  contentRef: result:fp_dispatch:{"basisId":"execution_basis:{...sha256:2dca8a54958a690ed326058744fa1eeca314457bfa3f008cf7f501cf50218b68
+  contentDigest: sha256:bcb4cf52b294b110bd83523e0580bebdba1312e386dc0461a1dbf9632ce5a0d4
+  contentExcerpt: "{\"actor\":\"claude-fable-5\",\"edge\":\"hello-input-to-output\",\"fulfillment_assessments\":[{\"blocking_reasons\":[],\"evaluator\":\"claude-fable-5\",\"evidence_refs\":[\"input://t223/sdk\",\"node://fixture/hello-world/helloinput\",\"node://fixture/hello-world/hellooutput\",\"dependency-instruction-truth://catalog-4e695149968ca410/vector-0/transform\"],\"fulfillment_detail\":\"Executed hello-input-to-output on the bound input asset ({\\\"greeting\\\":\\\"world\\\"}) and produced the target output contract field message as a top-level field, per the standard live dispatch response protocol.\",\"fulfillment_status\":\"fulfilled\",\"id\":\"instruction-response://catalog-4e695149968ca410/vector-0/transform\"}],\"message\":\"hello world\"}"
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8"]
+- slot: policy
+  ref: admitted_output_authority_projection:execution_b...sha256:761c192595738bba2e6f5933a6a88e8d18b2b9803e55491f7c1154ada0da3ea5
+  digest: sha256:c95a8314526fbc2ebb95a21a8ce7229764eb41b5dd91085a262268aed5459235
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:b6fe92919f69d510fc31f0bb38f6f9cebccb58f756b1da1b6205937710e042d8"]

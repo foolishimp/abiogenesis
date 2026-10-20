@@ -1,0 +1,49 @@
+{
+  "syntax": {
+    "exitCode": 0,
+    "stderr": ""
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/run-09.mjs",
+    "sha256": "a21953b8aa763ef25f2cca660884891c9f41ce15d5174ee7eee320ab4a1c932e",
+    "byteCount": 35840
+  },
+  "helperPinsMatched": 5,
+  "fixturePinsMatched": 6,
+  "quiescentNodeProcesses": [],
+  "currentResource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 469917053,
+    "byteCount": 3452868,
+    "mtimeNs": "1791634877406119618"
+  },
+  "originalInputsUnchanged": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/source.md",
+      "byteCount": 1107,
+      "sha256": "9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+      "device": 16777231,
+      "inode": 469947491,
+      "mtimeNs": "1791634868954164127"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/checker.mjs",
+      "byteCount": 335,
+      "sha256": "5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+      "device": 16777231,
+      "inode": 469947492,
+      "mtimeNs": "1791634868954320669"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/rubric.md",
+      "byteCount": 634,
+      "sha256": "d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+      "device": 16777231,
+      "inode": 469947493,
+      "mtimeNs": "1791634868954463378"
+    }
+  ],
+  "candidateAbsent": true,
+  "outerBudgetMs": 18000000
+}

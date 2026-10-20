@@ -1,0 +1,11 @@
+{
+  "stage": "preparation-result-recording-complete",
+  "rss": 4621680640,
+  "heapTotal": 4149018624,
+  "heapUsed": 3994200760,
+  "external": 2449562,
+  "arrayBuffers": 37255,
+  "at": "2026-10-09T11:32:29.353Z",
+  "elapsedMs": 404495.217542,
+  "kind": "product_run_invocation_preparation_refusal"
+}

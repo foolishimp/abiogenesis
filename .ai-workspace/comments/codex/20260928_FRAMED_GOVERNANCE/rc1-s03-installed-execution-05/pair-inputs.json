@@ -1,0 +1,100 @@
+{
+  "kind": "prospective_s03a_pair_inputs",
+  "state": "preparation_ready; C03 binding pending",
+  "entry": {
+    "operationId": "abg.operation.run.invoke",
+    "memberKey": "start",
+    "programRef": "program://s03-automatic/root@5",
+    "declaredStartRef": "start://s03-automatic/root@5",
+    "rootMode": "supervised",
+    "scope": "program",
+    "until": "converged",
+    "fhMode": "direct",
+    "sourceBasis": {
+      "kind": "none"
+    }
+  },
+  "inputConstructor": {
+    "archiveModule": "build/index.js",
+    "namedSymbol": "fixtureInput",
+    "arguments": [
+      "actual admitted C03 WorkspaceBinding",
+      "actual current ProductExecutionResolutionPort Program",
+      "case correctionAvailable"
+    ]
+  },
+  "cases": [
+    {
+      "caseKey": "positive",
+      "correctionAvailable": true,
+      "expectedTerminal": "closed/converged",
+      "expectedTarget": 10,
+      "expectedUnaffected": {
+        "itemRef": "item://s03-automatic/unaffected@5",
+        "value": 7,
+        "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+      }
+    },
+    {
+      "caseKey": "no-action",
+      "correctionAvailable": false,
+      "expectedTerminal": "gap_stopped",
+      "expectedTarget": 3,
+      "expectedResultRefusal": "not_ready",
+      "expectedUnaffected": {
+        "itemRef": "item://s03-automatic/unaffected@5",
+        "value": 7,
+        "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+      },
+      "expectedHandoff": "Target remains 3; required value is 10. The declared correction capability is unavailable."
+    }
+  ],
+  "pairRelation": "Same actual workspace/program/catalog/view/root policy; semantic inputs differ only by correctionAvailable. Public request/correlation/input refs and event times are separately new per call.",
+  "runInvocationResources": {
+    "kind": "run_invocation_resource_assertion",
+    "schemaVersion": "5.0.0",
+    "eventResource": "Actual new owner acquisition or genuine current close handoff; pending",
+    "catalog": "Actual ready admitted C03-plus-donor catalog; pending",
+    "catalogView": "Current owner-derived view allowing fixture root/child and retaining required declarations; pending",
+    "applications": [],
+    "source": {
+      "kind": "none"
+    },
+    "runEnvironmentResources": "Omitted: original donor declares no RunEnvironment. Cannot fabricate a nonempty resource grant."
+  },
+  "coldReads": {
+    "memberKeys": [
+      "run_result",
+      "run_replay",
+      "run_status",
+      "run_gaps"
+    ],
+    "source": "Actual newly returned Run ref/digest",
+    "projectionBasis": "Actual current closeHandoff.prefix.eventLogRef/coordinateDigest",
+    "selectors": {
+      "run_replay": {
+        "kind": "ordinal_page",
+        "fromOrdinal": 0,
+        "limit": 2048
+      },
+      "run_result": {
+        "kind": "none"
+      },
+      "run_status": {
+        "kind": "none"
+      },
+      "run_gaps": {
+        "kind": "none"
+      }
+    }
+  },
+  "pending": [
+    "Exact accepted frozen C03 archive/Product/manifest/catalog/source/law tuple and physical install",
+    "Actual same-process ProductVerificationPort.verify and nominal verifiedArtifact/definitionContractCoordinates",
+    "Verified unchanged fixture and core dependency satisfaction; new ProductSet/lock/admitted installs",
+    "New admitted WorkspaceBinding/work authority and supported catalog/view",
+    "Fresh event resource, current authenticated artifact truth, CLI/TMPDIR/lock territory and ordinary handoff chain under separate grant",
+    "Full calls and ProductRunInvocationPort.prepare from actual installed C03 closures; stop on first refusal",
+    "Root separate execution grant for two starts and eight reads; independent evidence review afterward"
+  ]
+}

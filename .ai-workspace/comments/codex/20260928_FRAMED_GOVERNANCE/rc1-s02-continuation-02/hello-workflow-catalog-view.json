@@ -1,0 +1,377 @@
+{
+  "kind": "graph_function_catalog_view",
+  "catalogBasisDigest": "sha256:b40a7249bf6e37dc73cecd24451852cbf4efc111c8a06c2a2058d1fd449240b5",
+  "allowlist": [
+    "graph-function://abiogenesis/conformance/hello-workflow@5",
+    "graph-function://abiogenesis/conformance/hello-world@5"
+  ],
+  "entries": [
+    {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/hello-workflow@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/hello-workflow@5",
+      "definitionDigest": "sha256:9a9a45c214540579f2d4c4ead38021c51bb412086c352aa4e1eee65dcd047587",
+      "definition": {
+        "declarations": {
+          "abg.closure_contract": "contract://abiogenesis/conformance/hello-workflow-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/hello-sub-traversal-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/conformance/hello-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/conformance/hello-world-result@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/hello-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/hello-input@5",
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/hello-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/hello-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/hello-workflow@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/hello-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "conformance",
+          "hello-world",
+          "workflow"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/hello-workflow@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/hello-workflow@5",
+              "term": {
+                "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5",
+                "inputCarrierRef": "contract://abiogenesis/conformance/hello-input@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5"
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/hello-workflow@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/hello-workflow@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/hello-workflow@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:9bd0bd06218a7860e20d6626f94d887e6b186d9a2f1882dba692cafc0f8d9944"
+    },
+    {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/hello-world@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/hello-world@5",
+      "definitionDigest": "sha256:7e1067ff155bd20ec86b7fdb4b31ddb0740e74c493116169faf25ea494c07c5d",
+      "definition": {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/conformance/hello-child-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/conformance/hello-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/hello-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/conformance/hello-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/conformance/hello-world-result@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/hello-transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/conformance/emit-hello-output@5"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/hello-input@5",
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/hello-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/hello-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/hello-world@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/hello-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "all-fd",
+          "conformance",
+          "hello-world"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/hello-world@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/hello-world/fd-leaf@5",
+              "term": {
+                "armId": "arm://abiogenesis/conformance/hello-world/fd@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/conformance/hello-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-world-result@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                "programLocusRef": "node://abiogenesis/conformance/hello-world/fd-leaf@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-world-fd@5",
+                  "inputContractRef": "contract://abiogenesis/conformance/hello-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/conformance/hello-output@5",
+                  "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "result",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/hello-world/fd-leaf@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/hello-world/fd-leaf@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/hello-workflow@5",
+        "program://abiogenesis/conformance/hello-world@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:eba4b0c8ac29b1a37bdf4adda780c2b7d44cf26fcbc665ee17729eda11140bbe"
+    }
+  ],
+  "byHandle": {
+    "graph-function://abiogenesis/conformance/hello-workflow@5": {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/hello-workflow@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/hello-workflow@5",
+      "definitionDigest": "sha256:9a9a45c214540579f2d4c4ead38021c51bb412086c352aa4e1eee65dcd047587",
+      "definition": {
+        "declarations": {
+          "abg.closure_contract": "contract://abiogenesis/conformance/hello-workflow-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/hello-sub-traversal-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/conformance/hello-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/conformance/hello-world-result@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/hello-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/hello-input@5",
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/hello-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/hello-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/hello-workflow@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/hello-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "conformance",
+          "hello-world",
+          "workflow"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/hello-workflow@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/hello-workflow@5",
+              "term": {
+                "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5",
+                "inputCarrierRef": "contract://abiogenesis/conformance/hello-input@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5"
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/hello-workflow@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/hello-workflow@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/hello-workflow@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:9bd0bd06218a7860e20d6626f94d887e6b186d9a2f1882dba692cafc0f8d9944"
+    },
+    "graph-function://abiogenesis/conformance/hello-world@5": {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/hello-world@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/hello-world@5",
+      "definitionDigest": "sha256:7e1067ff155bd20ec86b7fdb4b31ddb0740e74c493116169faf25ea494c07c5d",
+      "definition": {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/conformance/hello-child-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/conformance/hello-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/hello-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/conformance/hello-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/conformance/hello-world-result@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/hello-transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/conformance/emit-hello-output@5"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/hello-input@5",
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/hello-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/hello-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/hello-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/hello-world@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/hello-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "all-fd",
+          "conformance",
+          "hello-world"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/hello-world@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/hello-world/fd-leaf@5",
+              "term": {
+                "armId": "arm://abiogenesis/conformance/hello-world/fd@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/conformance/hello-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/conformance/hello-world-result@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/conformance/hello-output@5",
+                "programLocusRef": "node://abiogenesis/conformance/hello-world/fd-leaf@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/conformance/hello-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/conformance/hello-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/conformance/hello-world-fd@5",
+                  "inputContractRef": "contract://abiogenesis/conformance/hello-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/conformance/hello-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/conformance/hello-output@5",
+                  "refusalContractRef": "contract://abiogenesis/conformance/hello-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "result",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/hello-world/fd-leaf@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/hello-world/fd-leaf@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/hello-workflow@5",
+        "program://abiogenesis/conformance/hello-world@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:eba4b0c8ac29b1a37bdf4adda780c2b7d44cf26fcbc665ee17729eda11140bbe"
+    }
+  },
+  "declarationEntries": [],
+  "declarationsByHandle": {},
+  "viewDigest": "sha256:c70ac04bf0ccbde35d00cb88ea03f40d79198fc4733511e8034cf3d435403845"
+}

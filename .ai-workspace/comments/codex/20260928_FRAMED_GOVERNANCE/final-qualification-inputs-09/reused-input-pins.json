@@ -1,0 +1,74 @@
+{
+  "donor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+    "bytes": 865006,
+    "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+    "mode": 292
+  },
+  "strictCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/f11/ordinary-caller.mjs",
+    "bytes": 18118,
+    "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+    "mode": 420
+  },
+  "flowDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/f11/flow-driver.mjs",
+    "bytes": 6502,
+    "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+    "mode": 420
+  },
+  "reusedAlgorithmOrigins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/prepare-data.py",
+      "bytes": 14063,
+      "sha256": "9a6a0958e8173d0f5033eb3f90344bd204d252461b21ad1d6b955a6842f76217",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/bind-data.py",
+      "bytes": 15927,
+      "sha256": "8983cbe2e9a1eafe8e5df324fdd95a4467f953e117d0aa30464275a94f24d343",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/prepare-bijection.py",
+      "bytes": 3248,
+      "sha256": "6994c6f92b9807d1d0cefd0503cba67b35a784109f5c2ba2983982219151bc46",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/readiness-driver.mjs",
+      "bytes": 18910,
+      "sha256": "78fa2d44fae41f5998ec960bc2d2653d3b6fb23ed755e96d54fe1726517795b5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/run-readiness.py",
+      "bytes": 2443,
+      "sha256": "eafab93e21109114b214eef9e573d9dfb59958b99a07559d18e67cd008ce9896",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/run-packet-readiness.py",
+      "bytes": 2459,
+      "sha256": "50dd56767928baccd7e7367dbc12834f3322ac6a43c0f9a7c8f521d36d61b51a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11/packet-readiness.mjs",
+      "bytes": 10175,
+      "sha256": "85e9d8076e40ac6a4b6e55244966c465945cdf143d55239513de49cb5a669fb7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11/current-resources.mjs",
+      "bytes": 22080,
+      "sha256": "f824d55b32967aa8981503d010d7dd799b903b97f153036b0c2e1d25dd3bc3c6",
+      "mode": 420
+    }
+  ],
+  "physicalRoot": "09",
+  "semanticMemberNamespace": "q07 retained; member IDs taken from actual provided descriptors",
+  "constructionPreimageNamespace": "c06 conserved identical96 bodies; current C07 physical origins and candidate binding explicit",
+  "newHistoricalFixture": "one exact C06 self_conformance.js preimage, current C07 output remains distinct"
+}

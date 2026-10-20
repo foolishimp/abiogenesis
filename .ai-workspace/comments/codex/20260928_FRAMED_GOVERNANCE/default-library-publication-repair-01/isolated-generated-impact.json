@@ -1,0 +1,3664 @@
+{
+  "claim": "Component compilation output comparison; canonical generated output untouched",
+  "outputCount": 260,
+  "changed": [
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/default_library.js",
+      "componentPath": "component/build/code/src/gtl/default_library.js",
+      "postimage": {
+        "path": "build/code/src/gtl/default_library.js",
+        "bytes": 18605,
+        "sha256": "727a6ab601b6b76ca479a111b675e4fd67060cfa14a5fc8c3a9816a933ed768b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/default_library.js",
+        "bytes": 18591,
+        "sha256": "53addbe21cffc0eb92b2ad65a66cfede6dbf2ee16ab7276fa95e24005b3b635f"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js",
+      "componentPath": "component/build/code/src/abg/actor_process.js",
+      "postimage": {
+        "path": "build/code/src/abg/actor_process.js",
+        "bytes": 54801,
+        "sha256": "9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/actor_process.js",
+        "bytes": 54801,
+        "sha256": "9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js",
+      "componentPath": "component/build/code/src/abg/artifact_truth.js",
+      "postimage": {
+        "path": "build/code/src/abg/artifact_truth.js",
+        "bytes": 29087,
+        "sha256": "f77e95373de5828958fc7d5794b033197a6ccc5429385ec358070426e1775872"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/artifact_truth.js",
+        "bytes": 29087,
+        "sha256": "f77e95373de5828958fc7d5794b033197a6ccc5429385ec358070426e1775872"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+      "componentPath": "component/build/code/src/abg/c_call.js",
+      "postimage": {
+        "path": "build/code/src/abg/c_call.js",
+        "bytes": 238896,
+        "sha256": "d81b1f502abe85fb70b73d826d4183fe24f84445d05b865368d83a45af3d4170"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/c_call.js",
+        "bytes": 238896,
+        "sha256": "d81b1f502abe85fb70b73d826d4183fe24f84445d05b865368d83a45af3d4170"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "componentPath": "component/build/code/src/abg/c_call_outcome.js",
+      "postimage": {
+        "path": "build/code/src/abg/c_call_outcome.js",
+        "bytes": 55138,
+        "sha256": "89cad42042a4517cf4f5cf216b47972d444e41be5280d43dfb53ac55d9b33906"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/c_call_outcome.js",
+        "bytes": 55138,
+        "sha256": "89cad42042a4517cf4f5cf216b47972d444e41be5280d43dfb53ac55d9b33906"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/child_lifecycle.js",
+      "componentPath": "component/build/code/src/abg/child_lifecycle.js",
+      "postimage": {
+        "path": "build/code/src/abg/child_lifecycle.js",
+        "bytes": 8515,
+        "sha256": "c3f05384fa3eab2981a87418ffa674ad83df055d317d211ecbed578659343bfe"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/child_lifecycle.js",
+        "bytes": 8515,
+        "sha256": "c3f05384fa3eab2981a87418ffa674ad83df055d317d211ecbed578659343bfe"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/closure.js",
+      "componentPath": "component/build/code/src/abg/closure.js",
+      "postimage": {
+        "path": "build/code/src/abg/closure.js",
+        "bytes": 21596,
+        "sha256": "8a79040e353bd8ab79b04dd53a64916064ea8a48d3e7beba42502f8f873a2cdf"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/closure.js",
+        "bytes": 21596,
+        "sha256": "8a79040e353bd8ab79b04dd53a64916064ea8a48d3e7beba42502f8f873a2cdf"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+      "componentPath": "component/build/code/src/abg/construction_continuation.js",
+      "postimage": {
+        "path": "build/code/src/abg/construction_continuation.js",
+        "bytes": 51696,
+        "sha256": "d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/construction_continuation.js",
+        "bytes": 51696,
+        "sha256": "d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/continuation.js",
+      "componentPath": "component/build/code/src/abg/continuation.js",
+      "postimage": {
+        "path": "build/code/src/abg/continuation.js",
+        "bytes": 70688,
+        "sha256": "e8ad90917b9479048a592fd1a6214a81ab5eeb874cddeca941f7ec18d35e65e7"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/continuation.js",
+        "bytes": 70688,
+        "sha256": "e8ad90917b9479048a592fd1a6214a81ab5eeb874cddeca941f7ec18d35e65e7"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js",
+      "componentPath": "component/build/code/src/abg/default_library.js",
+      "postimage": {
+        "path": "build/code/src/abg/default_library.js",
+        "bytes": 29309,
+        "sha256": "3e671ccdc049892498e554f1a6fd346199d1b876342192e02a1c965e513bf7ee"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/default_library.js",
+        "bytes": 29309,
+        "sha256": "3e671ccdc049892498e554f1a6fd346199d1b876342192e02a1c965e513bf7ee"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/deferred_application.js",
+      "componentPath": "component/build/code/src/abg/deferred_application.js",
+      "postimage": {
+        "path": "build/code/src/abg/deferred_application.js",
+        "bytes": 3246,
+        "sha256": "710119815c43c27ba2cf6e77df8a041cc0e026a656b694b04da3b283c039e5fd"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/deferred_application.js",
+        "bytes": 3246,
+        "sha256": "710119815c43c27ba2cf6e77df8a041cc0e026a656b694b04da3b283c039e5fd"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/definition_event_resource.js",
+      "componentPath": "component/build/code/src/abg/definition_event_resource.js",
+      "postimage": {
+        "path": "build/code/src/abg/definition_event_resource.js",
+        "bytes": 19088,
+        "sha256": "5df2c4e61a7875fb1adc1e2325bb2072409c9a2cd28b0c4ad50aefbeae98cc2f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/definition_event_resource.js",
+        "bytes": 19088,
+        "sha256": "5df2c4e61a7875fb1adc1e2325bb2072409c9a2cd28b0c4ad50aefbeae98cc2f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/effectful_invocation_truth.js",
+      "componentPath": "component/build/code/src/abg/effectful_invocation_truth.js",
+      "postimage": {
+        "path": "build/code/src/abg/effectful_invocation_truth.js",
+        "bytes": 7201,
+        "sha256": "1f44deadbda92521708a668ab6333df7cdfdfb2514d47f92a60ac5366602f47a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/effectful_invocation_truth.js",
+        "bytes": 7201,
+        "sha256": "1f44deadbda92521708a668ab6333df7cdfdfb2514d47f92a60ac5366602f47a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/environment_admission.js",
+      "componentPath": "component/build/code/src/abg/environment_admission.js",
+      "postimage": {
+        "path": "build/code/src/abg/environment_admission.js",
+        "bytes": 36935,
+        "sha256": "41cb1e897aa61e46e9625a8a22ce7c53c3de976720d36f7f9ef1ba71517a8141"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/environment_admission.js",
+        "bytes": 36935,
+        "sha256": "41cb1e897aa61e46e9625a8a22ce7c53c3de976720d36f7f9ef1ba71517a8141"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_body_encoding.js",
+      "componentPath": "component/build/code/src/abg/event_body_encoding.js",
+      "postimage": {
+        "path": "build/code/src/abg/event_body_encoding.js",
+        "bytes": 3504,
+        "sha256": "b5912ad65906090b718f01937814240d5d254941295c073d5c1252fb4bdd9935"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/event_body_encoding.js",
+        "bytes": 3504,
+        "sha256": "b5912ad65906090b718f01937814240d5d254941295c073d5c1252fb4bdd9935"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "componentPath": "component/build/code/src/abg/event_calculus.js",
+      "postimage": {
+        "path": "build/code/src/abg/event_calculus.js",
+        "bytes": 79716,
+        "sha256": "a8388cc69af5dbf5c96daee267ac54f9480f8e1a7eca6a6ac4103dd92ba0baab"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/event_calculus.js",
+        "bytes": 79716,
+        "sha256": "a8388cc69af5dbf5c96daee267ac54f9480f8e1a7eca6a6ac4103dd92ba0baab"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_contract_profiles.js",
+      "componentPath": "component/build/code/src/abg/event_contract_profiles.js",
+      "postimage": {
+        "path": "build/code/src/abg/event_contract_profiles.js",
+        "bytes": 8443,
+        "sha256": "d0a47b6028e5403d57e93863896165485c8ea42825445f0cba6ffe57810e3e10"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/event_contract_profiles.js",
+        "bytes": 8443,
+        "sha256": "d0a47b6028e5403d57e93863896165485c8ea42825445f0cba6ffe57810e3e10"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_log.js",
+      "componentPath": "component/build/code/src/abg/event_log.js",
+      "postimage": {
+        "path": "build/code/src/abg/event_log.js",
+        "bytes": 1344,
+        "sha256": "0acd4cf3ffda7054904eba47cc2f05079313d0a9ad29e264310a010c3c6966ae"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/event_log.js",
+        "bytes": 1344,
+        "sha256": "0acd4cf3ffda7054904eba47cc2f05079313d0a9ad29e264310a010c3c6966ae"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js",
+      "componentPath": "component/build/code/src/abg/event_prefix.js",
+      "postimage": {
+        "path": "build/code/src/abg/event_prefix.js",
+        "bytes": 24539,
+        "sha256": "78f36725d36ef4cd795f1836a8ac7d82d2a77ba17566d4372ce14831db986157"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/event_prefix.js",
+        "bytes": 24539,
+        "sha256": "78f36725d36ef4cd795f1836a8ac7d82d2a77ba17566d4372ce14831db986157"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "componentPath": "component/build/code/src/abg/event_store.js",
+      "postimage": {
+        "path": "build/code/src/abg/event_store.js",
+        "bytes": 161512,
+        "sha256": "c6c8f186ee012e744f8ef5ace72ce322d4b6b0ef9e118354bf2340500abf30f1"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/event_store.js",
+        "bytes": 161512,
+        "sha256": "c6c8f186ee012e744f8ef5ace72ce322d4b6b0ef9e118354bf2340500abf30f1"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.js",
+      "componentPath": "component/build/code/src/abg/execution_basis.js",
+      "postimage": {
+        "path": "build/code/src/abg/execution_basis.js",
+        "bytes": 110984,
+        "sha256": "12feff5f2ada5f3d723746919d972d9b38c194d81a4a718c440beef10bdffa19"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/execution_basis.js",
+        "bytes": 110984,
+        "sha256": "12feff5f2ada5f3d723746919d972d9b38c194d81a4a718c440beef10bdffa19"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/fan_out.js",
+      "componentPath": "component/build/code/src/abg/fan_out.js",
+      "postimage": {
+        "path": "build/code/src/abg/fan_out.js",
+        "bytes": 7629,
+        "sha256": "d13ec7f6fe78d472f45bbee1b5a1cedf1e3964eaf3e78b1f0ffeacfda8cfef2d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/fan_out.js",
+        "bytes": 7629,
+        "sha256": "d13ec7f6fe78d472f45bbee1b5a1cedf1e3964eaf3e78b1f0ffeacfda8cfef2d"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/fan_out_projection.js",
+      "componentPath": "component/build/code/src/abg/fan_out_projection.js",
+      "postimage": {
+        "path": "build/code/src/abg/fan_out_projection.js",
+        "bytes": 50504,
+        "sha256": "73749e4b682770d01e8053474bae19dfb4fab698299afb42c2be0172fcf8bb71"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/fan_out_projection.js",
+        "bytes": 50504,
+        "sha256": "73749e4b682770d01e8053474bae19dfb4fab698299afb42c2be0172fcf8bb71"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/fh_continuation_projection.js",
+      "componentPath": "component/build/code/src/abg/fh_continuation_projection.js",
+      "postimage": {
+        "path": "build/code/src/abg/fh_continuation_projection.js",
+        "bytes": 45318,
+        "sha256": "2be9c0e0d20a9c13553a5725c7911cb35fabd5cc4f64806e7ce41d88310430b0"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/fh_continuation_projection.js",
+        "bytes": 45318,
+        "sha256": "2be9c0e0d20a9c13553a5725c7911cb35fabd5cc4f64806e7ce41d88310430b0"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/fh_resume_relation.js",
+      "componentPath": "component/build/code/src/abg/fh_resume_relation.js",
+      "postimage": {
+        "path": "build/code/src/abg/fh_resume_relation.js",
+        "bytes": 8221,
+        "sha256": "d277f20f52f6cb21f5bca3d7f53a1772d26c094b3a32527463c8f3e5639f3b71"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/fh_resume_relation.js",
+        "bytes": 8221,
+        "sha256": "d277f20f52f6cb21f5bca3d7f53a1772d26c094b3a32527463c8f3e5639f3b71"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/graph_application.js",
+      "componentPath": "component/build/code/src/abg/graph_application.js",
+      "postimage": {
+        "path": "build/code/src/abg/graph_application.js",
+        "bytes": 32356,
+        "sha256": "6369f3da726c0ddd54491c89ec388475ddf7788f7b86883e538f165885f161f6"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/graph_application.js",
+        "bytes": 32356,
+        "sha256": "6369f3da726c0ddd54491c89ec388475ddf7788f7b86883e538f165885f161f6"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/index.js",
+      "componentPath": "component/build/code/src/abg/index.js",
+      "postimage": {
+        "path": "build/code/src/abg/index.js",
+        "bytes": 10630,
+        "sha256": "a9a689551f6984814f071ace20cbb509fb8146343badeb32f044e088403f1b38"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/index.js",
+        "bytes": 10630,
+        "sha256": "a9a689551f6984814f071ace20cbb509fb8146343badeb32f044e088403f1b38"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "componentPath": "component/build/code/src/abg/instruction_assembly.js",
+      "postimage": {
+        "path": "build/code/src/abg/instruction_assembly.js",
+        "bytes": 113377,
+        "sha256": "d77959a49b67c99a2b33120f62ed8f9d7c08d60ba0267d8a54ba33a458067b76"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/instruction_assembly.js",
+        "bytes": 113377,
+        "sha256": "d77959a49b67c99a2b33120f62ed8f9d7c08d60ba0267d8a54ba33a458067b76"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/invocation_admission.js",
+      "componentPath": "component/build/code/src/abg/invocation_admission.js",
+      "postimage": {
+        "path": "build/code/src/abg/invocation_admission.js",
+        "bytes": 63260,
+        "sha256": "de520033358dca9ce858684c1ef61115f7a6f3dd30af1eed976ba7970ddefdbb"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/invocation_admission.js",
+        "bytes": 63260,
+        "sha256": "de520033358dca9ce858684c1ef61115f7a6f3dd30af1eed976ba7970ddefdbb"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/invocation_execution_truth.js",
+      "componentPath": "component/build/code/src/abg/invocation_execution_truth.js",
+      "postimage": {
+        "path": "build/code/src/abg/invocation_execution_truth.js",
+        "bytes": 16582,
+        "sha256": "1e07c77b4bdecea1fa546aea90b91a8650d6c1719aa51793543c5aeecdea9301"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/invocation_execution_truth.js",
+        "bytes": 16582,
+        "sha256": "1e07c77b4bdecea1fa546aea90b91a8650d6c1719aa51793543c5aeecdea9301"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/native_event_time.js",
+      "componentPath": "component/build/code/src/abg/native_event_time.js",
+      "postimage": {
+        "path": "build/code/src/abg/native_event_time.js",
+        "bytes": 480,
+        "sha256": "e37b4a34c88f7d6e5ce7208f7543905ee88bb96904d33febc166736718908bcf"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/native_event_time.js",
+        "bytes": 480,
+        "sha256": "e37b4a34c88f7d6e5ce7208f7543905ee88bb96904d33febc166736718908bcf"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/native_work_reacquisition.js",
+      "componentPath": "component/build/code/src/abg/native_work_reacquisition.js",
+      "postimage": {
+        "path": "build/code/src/abg/native_work_reacquisition.js",
+        "bytes": 19299,
+        "sha256": "bba147b00c97ba8934c9992c82b5acd15f9b523b474055868fe6e0a2c6248012"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/native_work_reacquisition.js",
+        "bytes": 19299,
+        "sha256": "bba147b00c97ba8934c9992c82b5acd15f9b523b474055868fe6e0a2c6248012"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/native_worksite_execution.js",
+      "componentPath": "component/build/code/src/abg/native_worksite_execution.js",
+      "postimage": {
+        "path": "build/code/src/abg/native_worksite_execution.js",
+        "bytes": 12290,
+        "sha256": "40c30b3503dbbad34d4c23596af2a4c0b754036605fda3d65fd48f311322aa29"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/native_worksite_execution.js",
+        "bytes": 12290,
+        "sha256": "40c30b3503dbbad34d4c23596af2a4c0b754036605fda3d65fd48f311322aa29"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/open_call.js",
+      "componentPath": "component/build/code/src/abg/open_call.js",
+      "postimage": {
+        "path": "build/code/src/abg/open_call.js",
+        "bytes": 26264,
+        "sha256": "a3f0f711709d4018289dc69384ce7e3c0da9912bdb87bcbfde679c79367e79bb"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/open_call.js",
+        "bytes": 26264,
+        "sha256": "a3f0f711709d4018289dc69384ce7e3c0da9912bdb87bcbfde679c79367e79bb"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/probabilistic_result.js",
+      "componentPath": "component/build/code/src/abg/probabilistic_result.js",
+      "postimage": {
+        "path": "build/code/src/abg/probabilistic_result.js",
+        "bytes": 18439,
+        "sha256": "2dec338a7c885b4b13669f1fe687aedd68133daf8d971f20b069acc62e03afe1"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/probabilistic_result.js",
+        "bytes": 18439,
+        "sha256": "2dec338a7c885b4b13669f1fe687aedd68133daf8d971f20b069acc62e03afe1"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_definition_bindings.js",
+      "componentPath": "component/build/code/src/abg/project_read_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/abg/project_read_definition_bindings.js",
+        "bytes": 27705,
+        "sha256": "8d445d598e6c1a9265502040b703907bf491c6197c2d06cc1ad0bd5921f14e2d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/project_read_definition_bindings.js",
+        "bytes": 27705,
+        "sha256": "8d445d598e6c1a9265502040b703907bf491c6197c2d06cc1ad0bd5921f14e2d"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_operation_contracts.js",
+      "componentPath": "component/build/code/src/abg/project_read_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/abg/project_read_operation_contracts.js",
+        "bytes": 13367,
+        "sha256": "74e291ed53f1a494fb3754a65c95af0909ff5b6f0c54c6a5b4c3df19d08b5746"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/project_read_operation_contracts.js",
+        "bytes": 13367,
+        "sha256": "74e291ed53f1a494fb3754a65c95af0909ff5b6f0c54c6a5b4c3df19d08b5746"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_ports.js",
+      "componentPath": "component/build/code/src/abg/project_read_ports.js",
+      "postimage": {
+        "path": "build/code/src/abg/project_read_ports.js",
+        "bytes": 76942,
+        "sha256": "7f76ba05fd279071f9be583064989340acaefdc7add9ec279f816cdf45864fcd"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/project_read_ports.js",
+        "bytes": 76942,
+        "sha256": "7f76ba05fd279071f9be583064989340acaefdc7add9ec279f816cdf45864fcd"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/qualification_proof.js",
+      "componentPath": "component/build/code/src/abg/qualification_proof.js",
+      "postimage": {
+        "path": "build/code/src/abg/qualification_proof.js",
+        "bytes": 71211,
+        "sha256": "83e793bb52288df3289ca2c7566a5e74229f444bc83f12f8a8e9f765a9348573"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/qualification_proof.js",
+        "bytes": 71211,
+        "sha256": "83e793bb52288df3289ca2c7566a5e74229f444bc83f12f8a8e9f765a9348573"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/registered_selection_provenance.js",
+      "componentPath": "component/build/code/src/abg/registered_selection_provenance.js",
+      "postimage": {
+        "path": "build/code/src/abg/registered_selection_provenance.js",
+        "bytes": 4558,
+        "sha256": "b4dacaa1ea4c69f8d0aa1f66aecf4b4abf6118879607fffa43a4036f85ac5765"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/registered_selection_provenance.js",
+        "bytes": 4558,
+        "sha256": "b4dacaa1ea4c69f8d0aa1f66aecf4b4abf6118879607fffa43a4036f85ac5765"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+      "componentPath": "component/build/code/src/abg/replay.js",
+      "postimage": {
+        "path": "build/code/src/abg/replay.js",
+        "bytes": 78197,
+        "sha256": "aa85a6d65edcbe19bbcf561f1dea8a4d4fbb1693c28049cc41a4cbdea53c9b36"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/replay.js",
+        "bytes": 78197,
+        "sha256": "aa85a6d65edcbe19bbcf561f1dea8a4d4fbb1693c28049cc41a4cbdea53c9b36"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/requirement_handoff.js",
+      "componentPath": "component/build/code/src/abg/requirement_handoff.js",
+      "postimage": {
+        "path": "build/code/src/abg/requirement_handoff.js",
+        "bytes": 6000,
+        "sha256": "b72bee8f9bb448aeb424b46a524d4ded945d3e436315d86f7e0c1d0a7d74e58c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/requirement_handoff.js",
+        "bytes": 6000,
+        "sha256": "b72bee8f9bb448aeb424b46a524d4ded945d3e436315d86f7e0c1d0a7d74e58c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/retry.js",
+      "componentPath": "component/build/code/src/abg/retry.js",
+      "postimage": {
+        "path": "build/code/src/abg/retry.js",
+        "bytes": 208587,
+        "sha256": "7fadb4b6c06201d50cb77fb4a32c2c19bb2961c2751719157a5d5f629ad808c9"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/retry.js",
+        "bytes": 208587,
+        "sha256": "7fadb4b6c06201d50cb77fb4a32c2c19bb2961c2751719157a5d5f629ad808c9"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/retry_lifecycle.js",
+      "componentPath": "component/build/code/src/abg/retry_lifecycle.js",
+      "postimage": {
+        "path": "build/code/src/abg/retry_lifecycle.js",
+        "bytes": 11527,
+        "sha256": "483c8750a72f0b6a8fcc5bac479eaf7b9663d8fe6e336f3424b44be907292f42"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/retry_lifecycle.js",
+        "bytes": 11527,
+        "sha256": "483c8750a72f0b6a8fcc5bac479eaf7b9663d8fe6e336f3424b44be907292f42"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_derivation.js",
+      "componentPath": "component/build/code/src/abg/runtime_derivation.js",
+      "postimage": {
+        "path": "build/code/src/abg/runtime_derivation.js",
+        "bytes": 4733,
+        "sha256": "31b226355fac56f55af471ee48f8484f2f1d7686746378d2726d8e90c09c5f09"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/runtime_derivation.js",
+        "bytes": 4733,
+        "sha256": "31b226355fac56f55af471ee48f8484f2f1d7686746378d2726d8e90c09c5f09"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_failure.js",
+      "componentPath": "component/build/code/src/abg/runtime_failure.js",
+      "postimage": {
+        "path": "build/code/src/abg/runtime_failure.js",
+        "bytes": 11584,
+        "sha256": "2f2337a4258a5896b0b9642721e4b015fce5b8d8505ba63d3aaa2b4d50a99ae4"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/runtime_failure.js",
+        "bytes": 11584,
+        "sha256": "2f2337a4258a5896b0b9642721e4b015fce5b8d8505ba63d3aaa2b4d50a99ae4"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "componentPath": "component/build/code/src/abg/runtime_liveness.js",
+      "postimage": {
+        "path": "build/code/src/abg/runtime_liveness.js",
+        "bytes": 74635,
+        "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/runtime_liveness.js",
+        "bytes": 74635,
+        "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness_contracts.js",
+      "componentPath": "component/build/code/src/abg/runtime_liveness_contracts.js",
+      "postimage": {
+        "path": "build/code/src/abg/runtime_liveness_contracts.js",
+        "bytes": 15127,
+        "sha256": "deda733c710a88ab29d5ff6152d05275dd0a381a3b3e3216e3ca13131a52a627"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/runtime_liveness_contracts.js",
+        "bytes": 15127,
+        "sha256": "deda733c710a88ab29d5ff6152d05275dd0a381a3b3e3216e3ca13131a52a627"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+      "componentPath": "component/build/code/src/abg/semantic_job.js",
+      "postimage": {
+        "path": "build/code/src/abg/semantic_job.js",
+        "bytes": 49133,
+        "sha256": "89a7a2f7bdc264ff04f87bfe1119c0a0faf5e9080764e3c68c2402e6106e810f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/semantic_job.js",
+        "bytes": 49133,
+        "sha256": "89a7a2f7bdc264ff04f87bfe1119c0a0faf5e9080764e3c68c2402e6106e810f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "componentPath": "component/build/code/src/abg/semantic_revision.js",
+      "postimage": {
+        "path": "build/code/src/abg/semantic_revision.js",
+        "bytes": 94712,
+        "sha256": "494e5e4e0109505e1d3ebc1b1e27ef06fa6b26e35127398468bb6219838ecfa5"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/semantic_revision.js",
+        "bytes": 94712,
+        "sha256": "494e5e4e0109505e1d3ebc1b1e27ef06fa6b26e35127398468bb6219838ecfa5"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_stage.js",
+      "componentPath": "component/build/code/src/abg/semantic_stage.js",
+      "postimage": {
+        "path": "build/code/src/abg/semantic_stage.js",
+        "bytes": 26905,
+        "sha256": "0ce79b6e65de14feade6f11234483197a776ac9ff3691977649501276baedb26"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/semantic_stage.js",
+        "bytes": 26905,
+        "sha256": "0ce79b6e65de14feade6f11234483197a776ac9ff3691977649501276baedb26"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/stdo_environment.js",
+      "componentPath": "component/build/code/src/abg/stdo_environment.js",
+      "postimage": {
+        "path": "build/code/src/abg/stdo_environment.js",
+        "bytes": 27111,
+        "sha256": "5ea13ac499be989682e7688fd80a24cee22083ddc25e3ca4cc0c5ae07d17d5aa"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/stdo_environment.js",
+        "bytes": 27111,
+        "sha256": "5ea13ac499be989682e7688fd80a24cee22083ddc25e3ca4cc0c5ae07d17d5aa"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/terminal_result_contracts.js",
+      "componentPath": "component/build/code/src/abg/terminal_result_contracts.js",
+      "postimage": {
+        "path": "build/code/src/abg/terminal_result_contracts.js",
+        "bytes": 4476,
+        "sha256": "d33403921f9bb933c0241a0de00e1892272657aa12deec86f8228cbe549eba76"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/terminal_result_contracts.js",
+        "bytes": 4476,
+        "sha256": "d33403921f9bb933c0241a0de00e1892272657aa12deec86f8228cbe549eba76"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/transport_contracts.js",
+      "componentPath": "component/build/code/src/abg/transport_contracts.js",
+      "postimage": {
+        "path": "build/code/src/abg/transport_contracts.js",
+        "bytes": 11527,
+        "sha256": "8982b031d637c4ed12b0abfff6a60a38cb9c0b0f939144ba03a03438e43affd7"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/transport_contracts.js",
+        "bytes": 11527,
+        "sha256": "8982b031d637c4ed12b0abfff6a60a38cb9c0b0f939144ba03a03438e43affd7"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/traversal_cursor.js",
+      "componentPath": "component/build/code/src/abg/traversal_cursor.js",
+      "postimage": {
+        "path": "build/code/src/abg/traversal_cursor.js",
+        "bytes": 40716,
+        "sha256": "fef548e922ecb0c63d90827ac93dc0d7d835aa8a3cdce3402b6ad3bda2ce03db"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/traversal_cursor.js",
+        "bytes": 40716,
+        "sha256": "fef548e922ecb0c63d90827ac93dc0d7d835aa8a3cdce3402b6ad3bda2ce03db"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/traversal_route.js",
+      "componentPath": "component/build/code/src/abg/traversal_route.js",
+      "postimage": {
+        "path": "build/code/src/abg/traversal_route.js",
+        "bytes": 184403,
+        "sha256": "98fc4f08faedebe83b8dc58b492d4b88a7c3ab6c9ad9288b5499a80adce27ea4"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/traversal_route.js",
+        "bytes": 184403,
+        "sha256": "98fc4f08faedebe83b8dc58b492d4b88a7c3ab6c9ad9288b5499a80adce27ea4"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/traversal_transition.js",
+      "componentPath": "component/build/code/src/abg/traversal_transition.js",
+      "postimage": {
+        "path": "build/code/src/abg/traversal_transition.js",
+        "bytes": 9504,
+        "sha256": "de31da9f77610b5e9c3f53508b3bbac327bedc06d425d4692735869d76c54012"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/traversal_transition.js",
+        "bytes": 9504,
+        "sha256": "de31da9f77610b5e9c3f53508b3bbac327bedc06d425d4692735869d76c54012"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/witness_admission_operation.js",
+      "componentPath": "component/build/code/src/abg/witness_admission_operation.js",
+      "postimage": {
+        "path": "build/code/src/abg/witness_admission_operation.js",
+        "bytes": 34630,
+        "sha256": "d23bee1ecf2a3d54470d7bfab5bc249d3e34882c401545fd34e3e045ad105c97"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/witness_admission_operation.js",
+        "bytes": 34630,
+        "sha256": "d23bee1ecf2a3d54470d7bfab5bc249d3e34882c401545fd34e3e045ad105c97"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/witness_definition_bindings.js",
+      "componentPath": "component/build/code/src/abg/witness_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/abg/witness_definition_bindings.js",
+        "bytes": 17812,
+        "sha256": "8dca269fcdea69a7b27b5924389c03ce7436a2954c5f113e6286148c11ab89b2"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/witness_definition_bindings.js",
+        "bytes": 17812,
+        "sha256": "8dca269fcdea69a7b27b5924389c03ce7436a2954c5f113e6286148c11ab89b2"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/witness_operation_contracts.js",
+      "componentPath": "component/build/code/src/abg/witness_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/abg/witness_operation_contracts.js",
+        "bytes": 4536,
+        "sha256": "19d0ec157f7c1929e9bbdd8de76dd5f4298f15e86eccff4db053454d9cd3a852"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/witness_operation_contracts.js",
+        "bytes": 4536,
+        "sha256": "19d0ec157f7c1929e9bbdd8de76dd5f4298f15e86eccff4db053454d9cd3a852"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+      "componentPath": "component/build/code/src/abg/worker_transport.js",
+      "postimage": {
+        "path": "build/code/src/abg/worker_transport.js",
+        "bytes": 34445,
+        "sha256": "77fb28160626506574ebd745164acee99da749512f2627b8fc39440939103169"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/worker_transport.js",
+        "bytes": 34445,
+        "sha256": "77fb28160626506574ebd745164acee99da749512f2627b8fc39440939103169"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_command_forward.js",
+      "componentPath": "component/build/code/src/abg/worksite_command_forward.js",
+      "postimage": {
+        "path": "build/code/src/abg/worksite_command_forward.js",
+        "bytes": 26331,
+        "sha256": "76a2cda3e9616b915a0b9d54789375efc1ceb3851bd5a8df9f7b4854fe69b29c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/worksite_command_forward.js",
+        "bytes": 26331,
+        "sha256": "76a2cda3e9616b915a0b9d54789375efc1ceb3851bd5a8df9f7b4854fe69b29c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_construction_recovery.js",
+      "componentPath": "component/build/code/src/abg/worksite_construction_recovery.js",
+      "postimage": {
+        "path": "build/code/src/abg/worksite_construction_recovery.js",
+        "bytes": 35841,
+        "sha256": "dee3e70607da02f65d3acd0888d0758fbc377cce620d9a1f0364c6f9da12d07f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/worksite_construction_recovery.js",
+        "bytes": 35841,
+        "sha256": "dee3e70607da02f65d3acd0888d0758fbc377cce620d9a1f0364c6f9da12d07f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_input_provenance.js",
+      "componentPath": "component/build/code/src/abg/worksite_input_provenance.js",
+      "postimage": {
+        "path": "build/code/src/abg/worksite_input_provenance.js",
+        "bytes": 42182,
+        "sha256": "c9427d49668c893040ef917229941fae786d0e12e6ea27392c7486af2d3b0ded"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/worksite_input_provenance.js",
+        "bytes": 42182,
+        "sha256": "c9427d49668c893040ef917229941fae786d0e12e6ea27392c7486af2d3b0ded"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js",
+      "componentPath": "component/build/code/src/abg/worksite_revision.js",
+      "postimage": {
+        "path": "build/code/src/abg/worksite_revision.js",
+        "bytes": 65097,
+        "sha256": "0e84e35236675b4c71efaa99507cdd7c0f16bf8560a1c38357434f80e7dc1629"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/abg/worksite_revision.js",
+        "bytes": 65097,
+        "sha256": "0e84e35236675b4c71efaa99507cdd7c0f16bf8560a1c38357434f80e7dc1629"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/c_algebra.js",
+      "componentPath": "component/build/code/src/gtl/c_algebra.js",
+      "postimage": {
+        "path": "build/code/src/gtl/c_algebra.js",
+        "bytes": 10149,
+        "sha256": "a17d87087904f198f0bd780c5d33bc599de4811768d72514ed04ca45181a4ad3"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/c_algebra.js",
+        "bytes": 10149,
+        "sha256": "a17d87087904f198f0bd780c5d33bc599de4811768d72514ed04ca45181a4ad3"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/canonicalization.js",
+      "componentPath": "component/build/code/src/gtl/canonicalization.js",
+      "postimage": {
+        "path": "build/code/src/gtl/canonicalization.js",
+        "bytes": 5220,
+        "sha256": "f7c2371bb3a15e28be732f9c2525a97bc36a6e002b16dea4da2c29ed9d2da1b8"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/canonicalization.js",
+        "bytes": 5220,
+        "sha256": "f7c2371bb3a15e28be732f9c2525a97bc36a6e002b16dea4da2c29ed9d2da1b8"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/consensus.js",
+      "componentPath": "component/build/code/src/gtl/consensus.js",
+      "postimage": {
+        "path": "build/code/src/gtl/consensus.js",
+        "bytes": 163833,
+        "sha256": "a07a0445424c3b69f0297ee3aaa09944ef3b1b5aee9206643dfcc65bba38fa35"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/consensus.js",
+        "bytes": 163833,
+        "sha256": "a07a0445424c3b69f0297ee3aaa09944ef3b1b5aee9206643dfcc65bba38fa35"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/consensus_schema.js",
+      "componentPath": "component/build/code/src/gtl/consensus_schema.js",
+      "postimage": {
+        "path": "build/code/src/gtl/consensus_schema.js",
+        "bytes": 60476,
+        "sha256": "873bdffaa3cbcf2d8d000fca24bd34444d65299012444031c56ef9d785c8802b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/consensus_schema.js",
+        "bytes": 60476,
+        "sha256": "873bdffaa3cbcf2d8d000fca24bd34444d65299012444031c56ef9d785c8802b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/contracts.js",
+      "componentPath": "component/build/code/src/gtl/contracts.js",
+      "postimage": {
+        "path": "build/code/src/gtl/contracts.js",
+        "bytes": 11,
+        "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/contracts.js",
+        "bytes": 11,
+        "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/declaration_references.js",
+      "componentPath": "component/build/code/src/gtl/declaration_references.js",
+      "postimage": {
+        "path": "build/code/src/gtl/declaration_references.js",
+        "bytes": 4342,
+        "sha256": "b699d575020ebadfd94cf6c6bb80dcd42038c9052779f7f160c30ac5c5d89fd3"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/declaration_references.js",
+        "bytes": 4342,
+        "sha256": "b699d575020ebadfd94cf6c6bb80dcd42038c9052779f7f160c30ac5c5d89fd3"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/declarations.js",
+      "componentPath": "component/build/code/src/gtl/declarations.js",
+      "postimage": {
+        "path": "build/code/src/gtl/declarations.js",
+        "bytes": 6432,
+        "sha256": "9b8e684da3d2781eb7609f632135b9c9a3fe3783b5f72483a29dce564d3ea465"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/declarations.js",
+        "bytes": 6432,
+        "sha256": "9b8e684da3d2781eb7609f632135b9c9a3fe3783b5f72483a29dce564d3ea465"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/default_library.js",
+      "componentPath": "component/build/code/src/gtl/default_library.js",
+      "postimage": {
+        "path": "build/code/src/gtl/default_library.js",
+        "bytes": 18605,
+        "sha256": "727a6ab601b6b76ca479a111b675e4fd67060cfa14a5fc8c3a9816a933ed768b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/default_library.js",
+        "bytes": 18591,
+        "sha256": "53addbe21cffc0eb92b2ad65a66cfede6dbf2ee16ab7276fa95e24005b3b635f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/fan_out.js",
+      "componentPath": "component/build/code/src/gtl/fan_out.js",
+      "postimage": {
+        "path": "build/code/src/gtl/fan_out.js",
+        "bytes": 21663,
+        "sha256": "8f9792fce4d319410c8296faefec136e5f43be50f241de2c0ec317a0d77f2efc"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/fan_out.js",
+        "bytes": 21663,
+        "sha256": "8f9792fce4d319410c8296faefec136e5f43be50f241de2c0ec317a0d77f2efc"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/graph_applications.js",
+      "componentPath": "component/build/code/src/gtl/graph_applications.js",
+      "postimage": {
+        "path": "build/code/src/gtl/graph_applications.js",
+        "bytes": 8091,
+        "sha256": "d9da4ab80fa5529bf9bdd39824cf5e4861d7d1d9a3a5804c9d99bb95b4ba5c00"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/graph_applications.js",
+        "bytes": 8091,
+        "sha256": "d9da4ab80fa5529bf9bdd39824cf5e4861d7d1d9a3a5804c9d99bb95b4ba5c00"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/graph_construction.js",
+      "componentPath": "component/build/code/src/gtl/graph_construction.js",
+      "postimage": {
+        "path": "build/code/src/gtl/graph_construction.js",
+        "bytes": 19866,
+        "sha256": "4c2391846dc7529be7a076b2d609d73cfe25a8a1d6816a18ce89a15a61c4ed4f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/graph_construction.js",
+        "bytes": 19866,
+        "sha256": "4c2391846dc7529be7a076b2d609d73cfe25a8a1d6816a18ce89a15a61c4ed4f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/hello_world.js",
+      "componentPath": "component/build/code/src/gtl/hello_world.js",
+      "postimage": {
+        "path": "build/code/src/gtl/hello_world.js",
+        "bytes": 103976,
+        "sha256": "de10c28ab362a5746cae27155b681657ce6e6090f227b7d8e38c6b68ac7afaac"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/hello_world.js",
+        "bytes": 103976,
+        "sha256": "de10c28ab362a5746cae27155b681657ce6e6090f227b7d8e38c6b68ac7afaac"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/index.js",
+      "componentPath": "component/build/code/src/gtl/index.js",
+      "postimage": {
+        "path": "build/code/src/gtl/index.js",
+        "bytes": 8371,
+        "sha256": "ca671104e8f82a7c86fe0b5a7b63501e65f03a1e12e158625f140013e41823c6"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/index.js",
+        "bytes": 8371,
+        "sha256": "ca671104e8f82a7c86fe0b5a7b63501e65f03a1e12e158625f140013e41823c6"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/materialize.js",
+      "componentPath": "component/build/code/src/gtl/materialize.js",
+      "postimage": {
+        "path": "build/code/src/gtl/materialize.js",
+        "bytes": 8545,
+        "sha256": "82e4abcb65d7cb92d28683173916348331da995f5cda11d8a4af22f7528550ea"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/materialize.js",
+        "bytes": 8545,
+        "sha256": "82e4abcb65d7cb92d28683173916348331da995f5cda11d8a4af22f7528550ea"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/native_workspace_work.js",
+      "componentPath": "component/build/code/src/gtl/native_workspace_work.js",
+      "postimage": {
+        "path": "build/code/src/gtl/native_workspace_work.js",
+        "bytes": 8920,
+        "sha256": "9016d9b38a9c7deab1ee33276340674ee7207e6089bb89e96732154a79b0ba15"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/native_workspace_work.js",
+        "bytes": 8920,
+        "sha256": "9016d9b38a9c7deab1ee33276340674ee7207e6089bb89e96732154a79b0ba15"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/public_start.js",
+      "componentPath": "component/build/code/src/gtl/public_start.js",
+      "postimage": {
+        "path": "build/code/src/gtl/public_start.js",
+        "bytes": 3006,
+        "sha256": "640071fde6cee3e4302af81cfb3eff70f2cc7c29afd416a44d19ba93b246d571"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/public_start.js",
+        "bytes": 3006,
+        "sha256": "640071fde6cee3e4302af81cfb3eff70f2cc7c29afd416a44d19ba93b246d571"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/recursion.js",
+      "componentPath": "component/build/code/src/gtl/recursion.js",
+      "postimage": {
+        "path": "build/code/src/gtl/recursion.js",
+        "bytes": 18922,
+        "sha256": "455d79747978d6173f1b0416352bece26586217c4095446abbc94ad157c5e174"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/recursion.js",
+        "bytes": 18922,
+        "sha256": "455d79747978d6173f1b0416352bece26586217c4095446abbc94ad157c5e174"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/registered_selection.js",
+      "componentPath": "component/build/code/src/gtl/registered_selection.js",
+      "postimage": {
+        "path": "build/code/src/gtl/registered_selection.js",
+        "bytes": 4694,
+        "sha256": "6302b4ddcc30fe82f3302c8affbb27d1df0635ac74e87b80261e980271561b09"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/registered_selection.js",
+        "bytes": 4694,
+        "sha256": "6302b4ddcc30fe82f3302c8affbb27d1df0635ac74e87b80261e980271561b09"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/requirement_handoff.js",
+      "componentPath": "component/build/code/src/gtl/requirement_handoff.js",
+      "postimage": {
+        "path": "build/code/src/gtl/requirement_handoff.js",
+        "bytes": 13966,
+        "sha256": "3bc366d8150819d8699971dc9c00c0d487b769db2f2422fec151e8af791ec9bf"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/requirement_handoff.js",
+        "bytes": 13966,
+        "sha256": "3bc366d8150819d8699971dc9c00c0d487b769db2f2422fec151e8af791ec9bf"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/self_conformance.js",
+      "componentPath": "component/build/code/src/gtl/self_conformance.js",
+      "postimage": {
+        "path": "build/code/src/gtl/self_conformance.js",
+        "bytes": 18937,
+        "sha256": "4de8b39dbdbe7f1d1691ea326f6047fe95b19040655d284ca6b78f46036b6037"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/self_conformance.js",
+        "bytes": 18937,
+        "sha256": "4de8b39dbdbe7f1d1691ea326f6047fe95b19040655d284ca6b78f46036b6037"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_job.js",
+      "componentPath": "component/build/code/src/gtl/semantic_job.js",
+      "postimage": {
+        "path": "build/code/src/gtl/semantic_job.js",
+        "bytes": 5040,
+        "sha256": "b1e7356b461b4e6da5e94f43378bc531f30bf7b872b6a18543f30adc3c0f8e93"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/semantic_job.js",
+        "bytes": 5040,
+        "sha256": "b1e7356b461b4e6da5e94f43378bc531f30bf7b872b6a18543f30adc3c0f8e93"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_identity.js",
+      "componentPath": "component/build/code/src/gtl/semantic_revision_identity.js",
+      "postimage": {
+        "path": "build/code/src/gtl/semantic_revision_identity.js",
+        "bytes": 4287,
+        "sha256": "f7d7b0c3e6498c7083de85b09e38dc4cfea3dbc61bd317f490884619a26e646c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/semantic_revision_identity.js",
+        "bytes": 4287,
+        "sha256": "f7d7b0c3e6498c7083de85b09e38dc4cfea3dbc61bd317f490884619a26e646c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_publication.js",
+      "componentPath": "component/build/code/src/gtl/semantic_revision_publication.js",
+      "postimage": {
+        "path": "build/code/src/gtl/semantic_revision_publication.js",
+        "bytes": 13848,
+        "sha256": "aaeaea5a8db9db4d0c157b2d827b00d075dc0942658ed80cd66896931dba5b5a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/semantic_revision_publication.js",
+        "bytes": 13848,
+        "sha256": "aaeaea5a8db9db4d0c157b2d827b00d075dc0942658ed80cd66896931dba5b5a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_stage.js",
+      "componentPath": "component/build/code/src/gtl/semantic_stage.js",
+      "postimage": {
+        "path": "build/code/src/gtl/semantic_stage.js",
+        "bytes": 9320,
+        "sha256": "0267009adc162c6a658eb7854124a29bf2b2bbf237791d793226e04e3a4f31ad"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/semantic_stage.js",
+        "bytes": 9320,
+        "sha256": "0267009adc162c6a658eb7854124a29bf2b2bbf237791d793226e04e3a4f31ad"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_stage_identity.js",
+      "componentPath": "component/build/code/src/gtl/semantic_stage_identity.js",
+      "postimage": {
+        "path": "build/code/src/gtl/semantic_stage_identity.js",
+        "bytes": 6441,
+        "sha256": "4c34354cf127979c21158dc2943cb012bc27aa3e6cbabead340b1577d6d14403"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/semantic_stage_identity.js",
+        "bytes": 6441,
+        "sha256": "4c34354cf127979c21158dc2943cb012bc27aa3e6cbabead340b1577d6d14403"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_stage_publication.js",
+      "componentPath": "component/build/code/src/gtl/semantic_stage_publication.js",
+      "postimage": {
+        "path": "build/code/src/gtl/semantic_stage_publication.js",
+        "bytes": 20087,
+        "sha256": "dd2b6360e365f443a48fd86d4a8ce229957261df0a2934176d3de73e6340c050"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/semantic_stage_publication.js",
+        "bytes": 20087,
+        "sha256": "dd2b6360e365f443a48fd86d4a8ce229957261df0a2934176d3de73e6340c050"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/source_path.js",
+      "componentPath": "component/build/code/src/gtl/source_path.js",
+      "postimage": {
+        "path": "build/code/src/gtl/source_path.js",
+        "bytes": 29578,
+        "sha256": "40ad14ca9619ca94541f0d1cf33a4a546cb1f45ef1381d09ce626289c7fdd89c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/source_path.js",
+        "bytes": 29578,
+        "sha256": "40ad14ca9619ca94541f0d1cf33a4a546cb1f45ef1381d09ce626289c7fdd89c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/stdo_run_environment.js",
+      "componentPath": "component/build/code/src/gtl/stdo_run_environment.js",
+      "postimage": {
+        "path": "build/code/src/gtl/stdo_run_environment.js",
+        "bytes": 24093,
+        "sha256": "992113f88c3fbce3af51dadf368312f9955051111f2e1989fbeadedc4276628c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/stdo_run_environment.js",
+        "bytes": 24093,
+        "sha256": "992113f88c3fbce3af51dadf368312f9955051111f2e1989fbeadedc4276628c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_branch_construction.js",
+      "componentPath": "component/build/code/src/gtl/worksite_branch_construction.js",
+      "postimage": {
+        "path": "build/code/src/gtl/worksite_branch_construction.js",
+        "bytes": 20134,
+        "sha256": "cee4442c94e3d577261a9d86c9884c6833099221cffc48944f10a6b65903301d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/worksite_branch_construction.js",
+        "bytes": 20134,
+        "sha256": "cee4442c94e3d577261a9d86c9884c6833099221cffc48944f10a6b65903301d"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_c0.js",
+      "componentPath": "component/build/code/src/gtl/worksite_c0.js",
+      "postimage": {
+        "path": "build/code/src/gtl/worksite_c0.js",
+        "bytes": 22319,
+        "sha256": "8390bc0af4634a20057d466d7ff3dfbeb61f3a3c6a904c4b5cc894c11471b6d0"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/worksite_c0.js",
+        "bytes": 22319,
+        "sha256": "8390bc0af4634a20057d466d7ff3dfbeb61f3a3c6a904c4b5cc894c11471b6d0"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_command_execution.js",
+      "componentPath": "component/build/code/src/gtl/worksite_command_execution.js",
+      "postimage": {
+        "path": "build/code/src/gtl/worksite_command_execution.js",
+        "bytes": 25001,
+        "sha256": "eb8fa1a9f92dc3ef3ccbc94bc2b9f8f6cb0e67ff36013b8eef7ad8d47fccc7da"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/worksite_command_execution.js",
+        "bytes": 25001,
+        "sha256": "eb8fa1a9f92dc3ef3ccbc94bc2b9f8f6cb0e67ff36013b8eef7ad8d47fccc7da"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_command_forward.js",
+      "componentPath": "component/build/code/src/gtl/worksite_command_forward.js",
+      "postimage": {
+        "path": "build/code/src/gtl/worksite_command_forward.js",
+        "bytes": 9244,
+        "sha256": "a794eada9e47799a27fbb4bbc82dccb1aa908be94706e3b339ccc88a4998c405"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/worksite_command_forward.js",
+        "bytes": 9244,
+        "sha256": "a794eada9e47799a27fbb4bbc82dccb1aa908be94706e3b339ccc88a4998c405"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_construction.js",
+      "componentPath": "component/build/code/src/gtl/worksite_construction.js",
+      "postimage": {
+        "path": "build/code/src/gtl/worksite_construction.js",
+        "bytes": 24307,
+        "sha256": "ade90f67e0a1145dff88f45e3eebc0ed394d1621e738c3756b9bb75ba4d80b5f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/worksite_construction.js",
+        "bytes": 24307,
+        "sha256": "ade90f67e0a1145dff88f45e3eebc0ed394d1621e738c3756b9bb75ba4d80b5f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_construction_recovery.js",
+      "componentPath": "component/build/code/src/gtl/worksite_construction_recovery.js",
+      "postimage": {
+        "path": "build/code/src/gtl/worksite_construction_recovery.js",
+        "bytes": 10532,
+        "sha256": "58f30a872c57b2b7acf6484e3f5ce170ce5b20aea5848a992d384c1c62bad522"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/gtl/worksite_construction_recovery.js",
+        "bytes": 10532,
+        "sha256": "58f30a872c57b2b7acf6484e3f5ce170ce5b20aea5848a992d384c1c62bad522"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/ccall_lifecycle.js",
+      "componentPath": "component/build/code/src/hog/ccall_lifecycle.js",
+      "postimage": {
+        "path": "build/code/src/hog/ccall_lifecycle.js",
+        "bytes": 33629,
+        "sha256": "61b5bc0a4066dfbb2d2ce420ae7c069bef12be5dcb1aaf4eff0778b82c4310a9"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/ccall_lifecycle.js",
+        "bytes": 33629,
+        "sha256": "61b5bc0a4066dfbb2d2ce420ae7c069bef12be5dcb1aaf4eff0778b82c4310a9"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/child_traversal.js",
+      "componentPath": "component/build/code/src/hog/child_traversal.js",
+      "postimage": {
+        "path": "build/code/src/hog/child_traversal.js",
+        "bytes": 6586,
+        "sha256": "77c6ff5bcfcd70f50bad6cdbbff32f267e3b70314efb18dd2933ad35f1fbaa4e"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/child_traversal.js",
+        "bytes": 6586,
+        "sha256": "77c6ff5bcfcd70f50bad6cdbbff32f267e3b70314efb18dd2933ad35f1fbaa4e"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/entry.js",
+      "componentPath": "component/build/code/src/hog/entry.js",
+      "postimage": {
+        "path": "build/code/src/hog/entry.js",
+        "bytes": 21584,
+        "sha256": "189d0b35cfbcab4a8a12c6571a2be0f99fbe973ace17b87dc49a75bd75db88a0"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/entry.js",
+        "bytes": 21584,
+        "sha256": "189d0b35cfbcab4a8a12c6571a2be0f99fbe973ace17b87dc49a75bd75db88a0"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/evaluation_frame.js",
+      "componentPath": "component/build/code/src/hog/evaluation_frame.js",
+      "postimage": {
+        "path": "build/code/src/hog/evaluation_frame.js",
+        "bytes": 2575,
+        "sha256": "f38bcc5e9d8c2027c51153c664c1b740d5bcdfda12c4926bb7d51f3404733c97"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/evaluation_frame.js",
+        "bytes": 2575,
+        "sha256": "f38bcc5e9d8c2027c51153c664c1b740d5bcdfda12c4926bb7d51f3404733c97"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/graph_execute.js",
+      "componentPath": "component/build/code/src/hog/graph_execute.js",
+      "postimage": {
+        "path": "build/code/src/hog/graph_execute.js",
+        "bytes": 43099,
+        "sha256": "1c1860ea7c6420234d5a23834114a37215137aabae37707606a835eb036abd3e"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/graph_execute.js",
+        "bytes": 43099,
+        "sha256": "1c1860ea7c6420234d5a23834114a37215137aabae37707606a835eb036abd3e"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/index.js",
+      "componentPath": "component/build/code/src/hog/index.js",
+      "postimage": {
+        "path": "build/code/src/hog/index.js",
+        "bytes": 944,
+        "sha256": "05f0ad212cfd121f51f6a99af65867c2c61b79cb1e15b1817bddf6ae1de265da"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/index.js",
+        "bytes": 944,
+        "sha256": "05f0ad212cfd121f51f6a99af65867c2c61b79cb1e15b1817bddf6ae1de265da"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/interaction_lifecycle.js",
+      "componentPath": "component/build/code/src/hog/interaction_lifecycle.js",
+      "postimage": {
+        "path": "build/code/src/hog/interaction_lifecycle.js",
+        "bytes": 6071,
+        "sha256": "649705c34eb902cc969140289bab3f20de942c0e04f4aa075622b0d2a5437744"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/interaction_lifecycle.js",
+        "bytes": 6071,
+        "sha256": "649705c34eb902cc969140289bab3f20de942c0e04f4aa075622b0d2a5437744"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/interaction_resume.js",
+      "componentPath": "component/build/code/src/hog/interaction_resume.js",
+      "postimage": {
+        "path": "build/code/src/hog/interaction_resume.js",
+        "bytes": 6852,
+        "sha256": "93fcb757ce5be9dd163c985e8f2c79ffe27be1cd92805b669e2b72ec11ec110a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/interaction_resume.js",
+        "bytes": 6852,
+        "sha256": "93fcb757ce5be9dd163c985e8f2c79ffe27be1cd92805b669e2b72ec11ec110a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/judgment.js",
+      "componentPath": "component/build/code/src/hog/judgment.js",
+      "postimage": {
+        "path": "build/code/src/hog/judgment.js",
+        "bytes": 1649,
+        "sha256": "b07993cf58816205f35d18cd90f97761ca6dcda8a72001ca0f688e6adc848d14"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/judgment.js",
+        "bytes": 1649,
+        "sha256": "b07993cf58816205f35d18cd90f97761ca6dcda8a72001ca0f688e6adc848d14"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/operator_support.js",
+      "componentPath": "component/build/code/src/hog/operator_support.js",
+      "postimage": {
+        "path": "build/code/src/hog/operator_support.js",
+        "bytes": 3678,
+        "sha256": "ac4bc08ebe63d283c3e055b49ed0260b1bdf778892770015677bbb61439adc34"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/operator_support.js",
+        "bytes": 3678,
+        "sha256": "ac4bc08ebe63d283c3e055b49ed0260b1bdf778892770015677bbb61439adc34"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/parent_rehydration.js",
+      "componentPath": "component/build/code/src/hog/parent_rehydration.js",
+      "postimage": {
+        "path": "build/code/src/hog/parent_rehydration.js",
+        "bytes": 13314,
+        "sha256": "4df3f0068a1b71abc235a4b2115c8776b14260a1709c503ec4b014c8fce3c32b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/parent_rehydration.js",
+        "bytes": 13314,
+        "sha256": "4df3f0068a1b71abc235a4b2115c8776b14260a1709c503ec4b014c8fce3c32b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/recursion_lifecycle.js",
+      "componentPath": "component/build/code/src/hog/recursion_lifecycle.js",
+      "postimage": {
+        "path": "build/code/src/hog/recursion_lifecycle.js",
+        "bytes": 26104,
+        "sha256": "84951b4e0d08a74227d4488948b8d93d10f02a46493f752292a0aa5524c0f646"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/recursion_lifecycle.js",
+        "bytes": 26104,
+        "sha256": "84951b4e0d08a74227d4488948b8d93d10f02a46493f752292a0aa5524c0f646"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/retry_lifecycle.js",
+      "componentPath": "component/build/code/src/hog/retry_lifecycle.js",
+      "postimage": {
+        "path": "build/code/src/hog/retry_lifecycle.js",
+        "bytes": 19500,
+        "sha256": "4573c988e2f8bb31f24c56dcf228abac133d8f9167afc31a1c56f4c5d1c6fb67"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/retry_lifecycle.js",
+        "bytes": 19500,
+        "sha256": "4573c988e2f8bb31f24c56dcf228abac133d8f9167afc31a1c56f4c5d1c6fb67"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/route_proposal.js",
+      "componentPath": "component/build/code/src/hog/route_proposal.js",
+      "postimage": {
+        "path": "build/code/src/hog/route_proposal.js",
+        "bytes": 31954,
+        "sha256": "452345bbf9f3220b6382e3bb29bd0d466f4d4a6989cfadb194008e0080367039"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/route_proposal.js",
+        "bytes": 31954,
+        "sha256": "452345bbf9f3220b6382e3bb29bd0d466f4d4a6989cfadb194008e0080367039"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/structural_transition.js",
+      "componentPath": "component/build/code/src/hog/structural_transition.js",
+      "postimage": {
+        "path": "build/code/src/hog/structural_transition.js",
+        "bytes": 7410,
+        "sha256": "22705db043f4fd342282906817517d8cab3dcd62b0a20388c2b77e98d70ae951"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/structural_transition.js",
+        "bytes": 7410,
+        "sha256": "22705db043f4fd342282906817517d8cab3dcd62b0a20388c2b77e98d70ae951"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/traversal.js",
+      "componentPath": "component/build/code/src/hog/traversal.js",
+      "postimage": {
+        "path": "build/code/src/hog/traversal.js",
+        "bytes": 23122,
+        "sha256": "69fc31b460c3fb1650e002e7a4a5f87debe62e383e780f0976bcf404e485f70a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/traversal.js",
+        "bytes": 23122,
+        "sha256": "69fc31b460c3fb1650e002e7a4a5f87debe62e383e780f0976bcf404e485f70a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/traversal_completion.js",
+      "componentPath": "component/build/code/src/hog/traversal_completion.js",
+      "postimage": {
+        "path": "build/code/src/hog/traversal_completion.js",
+        "bytes": 2642,
+        "sha256": "534e9c4960e8f47e8c6f3373cdf1059207f3ad41223c4dd1482e5bd21b8efbc4"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/traversal_completion.js",
+        "bytes": 2642,
+        "sha256": "534e9c4960e8f47e8c6f3373cdf1059207f3ad41223c4dd1482e5bd21b8efbc4"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/traversal_contract.js",
+      "componentPath": "component/build/code/src/hog/traversal_contract.js",
+      "postimage": {
+        "path": "build/code/src/hog/traversal_contract.js",
+        "bytes": 11,
+        "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/traversal_contract.js",
+        "bytes": 11,
+        "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/traversal_failure.js",
+      "componentPath": "component/build/code/src/hog/traversal_failure.js",
+      "postimage": {
+        "path": "build/code/src/hog/traversal_failure.js",
+        "bytes": 2032,
+        "sha256": "9e627f6e1e1c85f751d1666c61b52d044c8333ce502179062023a1848e2ec103"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/traversal_failure.js",
+        "bytes": 2032,
+        "sha256": "9e627f6e1e1c85f751d1666c61b52d044c8333ce502179062023a1848e2ec103"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/hog/workflow_lifecycle.js",
+      "componentPath": "component/build/code/src/hog/workflow_lifecycle.js",
+      "postimage": {
+        "path": "build/code/src/hog/workflow_lifecycle.js",
+        "bytes": 34244,
+        "sha256": "33bd86070375c3cb73228829f345d7e5e238af5fc761df395d193e9953e2ba91"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/hog/workflow_lifecycle.js",
+        "bytes": 34244,
+        "sha256": "33bd86070375c3cb73228829f345d7e5e238af5fc761df395d193e9953e2ba91"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/consensus.js",
+      "componentPath": "component/build/code/src/implementation/consensus.js",
+      "postimage": {
+        "path": "build/code/src/implementation/consensus.js",
+        "bytes": 23934,
+        "sha256": "6acf72e6d51a44a08962181f192254863d55324d9b960d5541a7298db2d6f9a9"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/consensus.js",
+        "bytes": 23934,
+        "sha256": "6acf72e6d51a44a08962181f192254863d55324d9b960d5541a7298db2d6f9a9"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/contracts.js",
+      "componentPath": "component/build/code/src/implementation/contracts.js",
+      "postimage": {
+        "path": "build/code/src/implementation/contracts.js",
+        "bytes": 11,
+        "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/contracts.js",
+        "bytes": 11,
+        "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/default_library.js",
+      "componentPath": "component/build/code/src/implementation/default_library.js",
+      "postimage": {
+        "path": "build/code/src/implementation/default_library.js",
+        "bytes": 5085,
+        "sha256": "c993b1aa648a1b261726f1a7ed9a52a5d6174a0357e5904892f1deb27eec0dd2"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/default_library.js",
+        "bytes": 5085,
+        "sha256": "c993b1aa648a1b261726f1a7ed9a52a5d6174a0357e5904892f1deb27eec0dd2"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/fan_out.js",
+      "componentPath": "component/build/code/src/implementation/fan_out.js",
+      "postimage": {
+        "path": "build/code/src/implementation/fan_out.js",
+        "bytes": 3016,
+        "sha256": "4c5b6d5cd698342ab8a190ce2ca4fa5cd34b72ef04a74ebe27409832f2b3562a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/fan_out.js",
+        "bytes": 3016,
+        "sha256": "4c5b6d5cd698342ab8a190ce2ca4fa5cd34b72ef04a74ebe27409832f2b3562a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/fp_hello.js",
+      "componentPath": "component/build/code/src/implementation/fp_hello.js",
+      "postimage": {
+        "path": "build/code/src/implementation/fp_hello.js",
+        "bytes": 8847,
+        "sha256": "475a42fe6affe9d5b12021a0bd5927c64a82653b34196935db094ecd2dd1b155"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/fp_hello.js",
+        "bytes": 8847,
+        "sha256": "475a42fe6affe9d5b12021a0bd5927c64a82653b34196935db094ecd2dd1b155"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/hello_compose.js",
+      "componentPath": "component/build/code/src/implementation/hello_compose.js",
+      "postimage": {
+        "path": "build/code/src/implementation/hello_compose.js",
+        "bytes": 4490,
+        "sha256": "ecdebcb9ace35f5fa9cb5a3106325b6067276d92bf01b27fef2d88edacc8fd3e"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/hello_compose.js",
+        "bytes": 4490,
+        "sha256": "ecdebcb9ace35f5fa9cb5a3106325b6067276d92bf01b27fef2d88edacc8fd3e"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/hello_gate.js",
+      "componentPath": "component/build/code/src/implementation/hello_gate.js",
+      "postimage": {
+        "path": "build/code/src/implementation/hello_gate.js",
+        "bytes": 3058,
+        "sha256": "9322493308bbd606a761b63409abded06af74a8cb966745abd9cbc224f662080"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/hello_gate.js",
+        "bytes": 3058,
+        "sha256": "9322493308bbd606a761b63409abded06af74a8cb966745abd9cbc224f662080"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/hello_world.js",
+      "componentPath": "component/build/code/src/implementation/hello_world.js",
+      "postimage": {
+        "path": "build/code/src/implementation/hello_world.js",
+        "bytes": 1707,
+        "sha256": "cd3c0ead6ba22caafc9f370b7ddddd2ac81056488f2b6b820c76f8f96e0c5928"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/hello_world.js",
+        "bytes": 1707,
+        "sha256": "cd3c0ead6ba22caafc9f370b7ddddd2ac81056488f2b6b820c76f8f96e0c5928"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/index.js",
+      "componentPath": "component/build/code/src/implementation/index.js",
+      "postimage": {
+        "path": "build/code/src/implementation/index.js",
+        "bytes": 6408,
+        "sha256": "85a79af68e5198f1c5416958e81e2bca139ef59c81dc34f25b2da3ae4fd2caf4"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/index.js",
+        "bytes": 6408,
+        "sha256": "85a79af68e5198f1c5416958e81e2bca139ef59c81dc34f25b2da3ae4fd2caf4"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_execution_authority.js",
+      "componentPath": "component/build/code/src/implementation/leaf_execution_authority.js",
+      "postimage": {
+        "path": "build/code/src/implementation/leaf_execution_authority.js",
+        "bytes": 11519,
+        "sha256": "074dbeae4d459ee34d5f899b5809092118fc1ce311d990282064550190aaf06d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/leaf_execution_authority.js",
+        "bytes": 11519,
+        "sha256": "074dbeae4d459ee34d5f899b5809092118fc1ce311d990282064550190aaf06d"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+      "componentPath": "component/build/code/src/implementation/leaf_invocation_port.js",
+      "postimage": {
+        "path": "build/code/src/implementation/leaf_invocation_port.js",
+        "bytes": 67048,
+        "sha256": "bfebce226300957c9724dce5a87a00251a740baaf881168cf2cc62e7622ea191"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/leaf_invocation_port.js",
+        "bytes": 67048,
+        "sha256": "bfebce226300957c9724dce5a87a00251a740baaf881168cf2cc62e7622ea191"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/native_work_reacquisition.js",
+      "componentPath": "component/build/code/src/implementation/native_work_reacquisition.js",
+      "postimage": {
+        "path": "build/code/src/implementation/native_work_reacquisition.js",
+        "bytes": 2261,
+        "sha256": "2b4aee883555e165548499e648081aeaadd7e68b90c5b3a879cffe44d97495c5"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/native_work_reacquisition.js",
+        "bytes": 2261,
+        "sha256": "2b4aee883555e165548499e648081aeaadd7e68b90c5b3a879cffe44d97495c5"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/native_workspace_work.js",
+      "componentPath": "component/build/code/src/implementation/native_workspace_work.js",
+      "postimage": {
+        "path": "build/code/src/implementation/native_workspace_work.js",
+        "bytes": 6175,
+        "sha256": "9d4cec38f6354addb473df8e21dd58051661b6e2e7620870e17fbf0168a6e432"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/native_workspace_work.js",
+        "bytes": 6175,
+        "sha256": "9d4cec38f6354addb473df8e21dd58051661b6e2e7620870e17fbf0168a6e432"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/qualification.js",
+      "componentPath": "component/build/code/src/implementation/qualification.js",
+      "postimage": {
+        "path": "build/code/src/implementation/qualification.js",
+        "bytes": 7248,
+        "sha256": "5dbd072673e4179ba18593b1394d61a3ab0f7226ea6d5dcc5fd4c0ebcd20a5ad"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/qualification.js",
+        "bytes": 7248,
+        "sha256": "5dbd072673e4179ba18593b1394d61a3ab0f7226ea6d5dcc5fd4c0ebcd20a5ad"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/recursion.js",
+      "componentPath": "component/build/code/src/implementation/recursion.js",
+      "postimage": {
+        "path": "build/code/src/implementation/recursion.js",
+        "bytes": 2989,
+        "sha256": "6025b69d80176b86b6c10520f707e60885bbb112fa15397d41abbb977a2a1b93"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/recursion.js",
+        "bytes": 2989,
+        "sha256": "6025b69d80176b86b6c10520f707e60885bbb112fa15397d41abbb977a2a1b93"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/release_publication.js",
+      "componentPath": "component/build/code/src/implementation/release_publication.js",
+      "postimage": {
+        "path": "build/code/src/implementation/release_publication.js",
+        "bytes": 33832,
+        "sha256": "731cf53b84b19749ea051ca8065492cc729085705a84036ef3043671ad439f1e"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/release_publication.js",
+        "bytes": 33832,
+        "sha256": "731cf53b84b19749ea051ca8065492cc729085705a84036ef3043671ad439f1e"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/requirement_handoff.js",
+      "componentPath": "component/build/code/src/implementation/requirement_handoff.js",
+      "postimage": {
+        "path": "build/code/src/implementation/requirement_handoff.js",
+        "bytes": 3576,
+        "sha256": "719d20b75e91c3cf98bfe9b5639b39ee84264073a29165ad1968df7cf1606d80"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/requirement_handoff.js",
+        "bytes": 3576,
+        "sha256": "719d20b75e91c3cf98bfe9b5639b39ee84264073a29165ad1968df7cf1606d80"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/self_conformance.js",
+      "componentPath": "component/build/code/src/implementation/self_conformance.js",
+      "postimage": {
+        "path": "build/code/src/implementation/self_conformance.js",
+        "bytes": 2552,
+        "sha256": "d3c3c38e834f11d8b5e25947d025d4b1fc1fb06944cc4b29c9ad5233c9ef775b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/self_conformance.js",
+        "bytes": 2552,
+        "sha256": "d3c3c38e834f11d8b5e25947d025d4b1fc1fb06944cc4b29c9ad5233c9ef775b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+      "componentPath": "component/build/code/src/implementation/semantic_revision.js",
+      "postimage": {
+        "path": "build/code/src/implementation/semantic_revision.js",
+        "bytes": 12261,
+        "sha256": "93d7933e7f0f133a1bce7e6ead260e5b9170bd325ce4a111148ddc0f11052c50"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/semantic_revision.js",
+        "bytes": 12261,
+        "sha256": "93d7933e7f0f133a1bce7e6ead260e5b9170bd325ce4a111148ddc0f11052c50"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_stage.js",
+      "componentPath": "component/build/code/src/implementation/semantic_stage.js",
+      "postimage": {
+        "path": "build/code/src/implementation/semantic_stage.js",
+        "bytes": 14703,
+        "sha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/semantic_stage.js",
+        "bytes": 14703,
+        "sha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_branch_construction.js",
+      "componentPath": "component/build/code/src/implementation/worksite_branch_construction.js",
+      "postimage": {
+        "path": "build/code/src/implementation/worksite_branch_construction.js",
+        "bytes": 3367,
+        "sha256": "ebe19783b2912d0d95f72b862a1d1b3bc26539efc110f6abe2cbca4eb3c7fc6b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/worksite_branch_construction.js",
+        "bytes": 3367,
+        "sha256": "ebe19783b2912d0d95f72b862a1d1b3bc26539efc110f6abe2cbca4eb3c7fc6b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_execution.js",
+      "componentPath": "component/build/code/src/implementation/worksite_command_execution.js",
+      "postimage": {
+        "path": "build/code/src/implementation/worksite_command_execution.js",
+        "bytes": 35890,
+        "sha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/worksite_command_execution.js",
+        "bytes": 35890,
+        "sha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_forward.js",
+      "componentPath": "component/build/code/src/implementation/worksite_command_forward.js",
+      "postimage": {
+        "path": "build/code/src/implementation/worksite_command_forward.js",
+        "bytes": 4063,
+        "sha256": "83169bc1ece4e0517b47b9ee5b635c1880193be8a0ac107dbb43f0b969c4b75f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/worksite_command_forward.js",
+        "bytes": 4063,
+        "sha256": "83169bc1ece4e0517b47b9ee5b635c1880193be8a0ac107dbb43f0b969c4b75f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js",
+      "componentPath": "component/build/code/src/implementation/worksite_command_helper.js",
+      "postimage": {
+        "path": "build/code/src/implementation/worksite_command_helper.js",
+        "bytes": 55701,
+        "sha256": "c5c8ca3e4a71499afaaadd2125ebbdb6894df7581c4b2b2fd8dcf6e260d54569"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/worksite_command_helper.js",
+        "bytes": 55701,
+        "sha256": "c5c8ca3e4a71499afaaadd2125ebbdb6894df7581c4b2b2fd8dcf6e260d54569"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_construction.js",
+      "componentPath": "component/build/code/src/implementation/worksite_construction.js",
+      "postimage": {
+        "path": "build/code/src/implementation/worksite_construction.js",
+        "bytes": 10204,
+        "sha256": "f35f9bac5d7520af267aaca6eda50cc1407b97852476e3510ba2949c7b9b2e48"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/worksite_construction.js",
+        "bytes": 10204,
+        "sha256": "f35f9bac5d7520af267aaca6eda50cc1407b97852476e3510ba2949c7b9b2e48"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_file_replace.js",
+      "componentPath": "component/build/code/src/implementation/worksite_file_replace.js",
+      "postimage": {
+        "path": "build/code/src/implementation/worksite_file_replace.js",
+        "bytes": 37791,
+        "sha256": "05ca484edff4dd0c8cd3507108f91f84519994ae2c3c0b3ab1e084e2765e76a0"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/implementation/worksite_file_replace.js",
+        "bytes": 37791,
+        "sha256": "05ca484edff4dd0c8cd3507108f91f84519994ae2c3c0b3ab1e084e2765e76a0"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/index.js",
+      "componentPath": "component/build/code/src/index.js",
+      "postimage": {
+        "path": "build/code/src/index.js",
+        "bytes": 205,
+        "sha256": "582c51727659d3cbb9245e351e3ddaf75da1a81921be129064fb96d522c80358"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/index.js",
+        "bytes": 205,
+        "sha256": "582c51727659d3cbb9245e351e3ddaf75da1a81921be129064fb96d522c80358"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/owner_bindings/run_invocation.js",
+      "componentPath": "component/build/code/src/owner_bindings/run_invocation.js",
+      "postimage": {
+        "path": "build/code/src/owner_bindings/run_invocation.js",
+        "bytes": 77093,
+        "sha256": "ae5b54f63ea2ca165e7f91e5ccba84eebf6996f886801387342da3c7a5c58429"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/owner_bindings/run_invocation.js",
+        "bytes": 77093,
+        "sha256": "ae5b54f63ea2ca165e7f91e5ccba84eebf6996f886801387342da3c7a5c58429"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/admission_authority.js",
+      "componentPath": "component/build/code/src/product/admission_authority.js",
+      "postimage": {
+        "path": "build/code/src/product/admission_authority.js",
+        "bytes": 16696,
+        "sha256": "ad6f6c768369fdeaf6f2aa4e16f0c27e6eaf0f0ea170c9889a06a948eedd0580"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/admission_authority.js",
+        "bytes": 16696,
+        "sha256": "ad6f6c768369fdeaf6f2aa4e16f0c27e6eaf0f0ea170c9889a06a948eedd0580"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/builtin_semantics.js",
+      "componentPath": "component/build/code/src/product/builtin_semantics.js",
+      "postimage": {
+        "path": "build/code/src/product/builtin_semantics.js",
+        "bytes": 67054,
+        "sha256": "6698c496d6759848d24a5ef73be7b5ff36b6600ee4fd16c2a654a937828f2616"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/builtin_semantics.js",
+        "bytes": 67054,
+        "sha256": "6698c496d6759848d24a5ef73be7b5ff36b6600ee4fd16c2a654a937828f2616"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/catalog.js",
+      "componentPath": "component/build/code/src/product/catalog.js",
+      "postimage": {
+        "path": "build/code/src/product/catalog.js",
+        "bytes": 26720,
+        "sha256": "be43625ca325855297a70e22707f951e4773b0594fbb4b4e0d021527758605a1"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/catalog.js",
+        "bytes": 26720,
+        "sha256": "be43625ca325855297a70e22707f951e4773b0594fbb4b4e0d021527758605a1"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/catalog_definition_bindings.js",
+      "componentPath": "component/build/code/src/product/catalog_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/product/catalog_definition_bindings.js",
+        "bytes": 29653,
+        "sha256": "99b99af789482214ee46c078d6849f33fc62ca9f7a49b7fed81a358bb9699428"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/catalog_definition_bindings.js",
+        "bytes": 29653,
+        "sha256": "99b99af789482214ee46c078d6849f33fc62ca9f7a49b7fed81a358bb9699428"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/catalog_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/catalog_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/catalog_operation_contracts.js",
+        "bytes": 10455,
+        "sha256": "9d8bf20967f96ce427ea1eb87b1636899089d97821c018aeaceac6a48ae2a522"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/catalog_operation_contracts.js",
+        "bytes": 10455,
+        "sha256": "9d8bf20967f96ce427ea1eb87b1636899089d97821c018aeaceac6a48ae2a522"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/catalog_operations.js",
+      "componentPath": "component/build/code/src/product/catalog_operations.js",
+      "postimage": {
+        "path": "build/code/src/product/catalog_operations.js",
+        "bytes": 8842,
+        "sha256": "93ad4404f1ef8d6dd63dfba103d9449acde1dfb81128fcd42b9afcef1dbcc576"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/catalog_operations.js",
+        "bytes": 8842,
+        "sha256": "93ad4404f1ef8d6dd63dfba103d9449acde1dfb81128fcd42b9afcef1dbcc576"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/contracts.js",
+      "componentPath": "component/build/code/src/product/contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/contracts.js",
+        "bytes": 880,
+        "sha256": "2f69eb137c235c571eac972886cb1c4375b9e9149c5d92b26a54b7011e40936a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/contracts.js",
+        "bytes": 880,
+        "sha256": "2f69eb137c235c571eac972886cb1c4375b9e9149c5d92b26a54b7011e40936a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/declaration_application.js",
+      "componentPath": "component/build/code/src/product/declaration_application.js",
+      "postimage": {
+        "path": "build/code/src/product/declaration_application.js",
+        "bytes": 13857,
+        "sha256": "c13625709bc67a0dcd6f8a1a9e8e3820590de6c8e62969179762a2a185aa243b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/declaration_application.js",
+        "bytes": 13857,
+        "sha256": "c13625709bc67a0dcd6f8a1a9e8e3820590de6c8e62969179762a2a185aa243b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/declaration_closure.js",
+      "componentPath": "component/build/code/src/product/declaration_closure.js",
+      "postimage": {
+        "path": "build/code/src/product/declaration_closure.js",
+        "bytes": 34935,
+        "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/declaration_closure.js",
+        "bytes": 34935,
+        "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/declaration_exports.js",
+      "componentPath": "component/build/code/src/product/declaration_exports.js",
+      "postimage": {
+        "path": "build/code/src/product/declaration_exports.js",
+        "bytes": 102102,
+        "sha256": "e904eacfb1a433a8989127623baebe8e7ab13c1b661d86212d3ed421d7253074"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/declaration_exports.js",
+        "bytes": 102102,
+        "sha256": "e904eacfb1a433a8989127623baebe8e7ab13c1b661d86212d3ed421d7253074"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/default_library.js",
+      "componentPath": "component/build/code/src/product/default_library.js",
+      "postimage": {
+        "path": "build/code/src/product/default_library.js",
+        "bytes": 24243,
+        "sha256": "374355f6548cb39c887cc980ea4ede04cddbee3bca0f1e1df5a5067d7415dd07"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/default_library.js",
+        "bytes": 24243,
+        "sha256": "374355f6548cb39c887cc980ea4ede04cddbee3bca0f1e1df5a5067d7415dd07"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/default_library_fulfillment.js",
+      "componentPath": "component/build/code/src/product/default_library_fulfillment.js",
+      "postimage": {
+        "path": "build/code/src/product/default_library_fulfillment.js",
+        "bytes": 21407,
+        "sha256": "9dc5d6126e4eb7588077faeefd1a1c220df34e2f46f5b4ae80906f012691c9a2"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/default_library_fulfillment.js",
+        "bytes": 21407,
+        "sha256": "9dc5d6126e4eb7588077faeefd1a1c220df34e2f46f5b4ae80906f012691c9a2"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/default_library_identity.js",
+      "componentPath": "component/build/code/src/product/default_library_identity.js",
+      "postimage": {
+        "path": "build/code/src/product/default_library_identity.js",
+        "bytes": 257,
+        "sha256": "a080b5966665657ca2594e459ac4c84b815c20f09a2e8fe2ea58f45a6a39e80e"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/default_library_identity.js",
+        "bytes": 257,
+        "sha256": "a080b5966665657ca2594e459ac4c84b815c20f09a2e8fe2ea58f45a6a39e80e"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/environment.js",
+      "componentPath": "component/build/code/src/product/environment.js",
+      "postimage": {
+        "path": "build/code/src/product/environment.js",
+        "bytes": 35210,
+        "sha256": "0b7d64479fd2fcfabb7a90b5f6acaefb51dfe5c8b61a7289d5d1561e7e5dcf64"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/environment.js",
+        "bytes": 35210,
+        "sha256": "0b7d64479fd2fcfabb7a90b5f6acaefb51dfe5c8b61a7289d5d1561e7e5dcf64"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/environment_definition_bindings.js",
+      "componentPath": "component/build/code/src/product/environment_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/product/environment_definition_bindings.js",
+        "bytes": 24634,
+        "sha256": "16e54874bfcb1e78b0e81ba71376dd9e0456203e3c00a7cc2a4c77265279ced8"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/environment_definition_bindings.js",
+        "bytes": 24634,
+        "sha256": "16e54874bfcb1e78b0e81ba71376dd9e0456203e3c00a7cc2a4c77265279ced8"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/environment_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/environment_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/environment_operation_contracts.js",
+        "bytes": 15205,
+        "sha256": "1e7e9982131efde399ca0f216ba4c2cde093c747ef39389a3adb38ab89da562b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/environment_operation_contracts.js",
+        "bytes": 15205,
+        "sha256": "1e7e9982131efde399ca0f216ba4c2cde093c747ef39389a3adb38ab89da562b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/environment_operations.js",
+      "componentPath": "component/build/code/src/product/environment_operations.js",
+      "postimage": {
+        "path": "build/code/src/product/environment_operations.js",
+        "bytes": 1047,
+        "sha256": "91fd09c6cbd1df2b28e9554bc62aace1229d5c98361e8489345c11cacaeb184f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/environment_operations.js",
+        "bytes": 1047,
+        "sha256": "91fd09c6cbd1df2b28e9554bc62aace1229d5c98361e8489345c11cacaeb184f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/exact_match.js",
+      "componentPath": "component/build/code/src/product/exact_match.js",
+      "postimage": {
+        "path": "build/code/src/product/exact_match.js",
+        "bytes": 389,
+        "sha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/exact_match.js",
+        "bytes": 389,
+        "sha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js",
+      "componentPath": "component/build/code/src/product/execution_resolution.js",
+      "postimage": {
+        "path": "build/code/src/product/execution_resolution.js",
+        "bytes": 38571,
+        "sha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/execution_resolution.js",
+        "bytes": 38571,
+        "sha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/implementation_resolution.js",
+      "componentPath": "component/build/code/src/product/implementation_resolution.js",
+      "postimage": {
+        "path": "build/code/src/product/implementation_resolution.js",
+        "bytes": 20102,
+        "sha256": "7b250bdbfdd9ba865b266e2b5fd7bc25e14339b4c06a522c810d8431ad04040a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/implementation_resolution.js",
+        "bytes": 20102,
+        "sha256": "7b250bdbfdd9ba865b266e2b5fd7bc25e14339b4c06a522c810d8431ad04040a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/index.js",
+      "componentPath": "component/build/code/src/product/index.js",
+      "postimage": {
+        "path": "build/code/src/product/index.js",
+        "bytes": 13347,
+        "sha256": "d9ee80f110f679fff03dc01b82824297cd85ecc65ef4b02a144b8018cbcd5fcf"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/index.js",
+        "bytes": 13347,
+        "sha256": "d9ee80f110f679fff03dc01b82824297cd85ecc65ef4b02a144b8018cbcd5fcf"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/install_definition_bindings.js",
+      "componentPath": "component/build/code/src/product/install_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/product/install_definition_bindings.js",
+        "bytes": 12192,
+        "sha256": "435dcaae56ce0fb089fe765a18180de345354622a27b5e7b0029c58a5d7b6ec2"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/install_definition_bindings.js",
+        "bytes": 12192,
+        "sha256": "435dcaae56ce0fb089fe765a18180de345354622a27b5e7b0029c58a5d7b6ec2"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/install_operation.js",
+      "componentPath": "component/build/code/src/product/install_operation.js",
+      "postimage": {
+        "path": "build/code/src/product/install_operation.js",
+        "bytes": 562,
+        "sha256": "4d3b2a6092ae26e32c2da231d7b094721668757586a7768fafb2a152e6dcd43d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/install_operation.js",
+        "bytes": 562,
+        "sha256": "4d3b2a6092ae26e32c2da231d7b094721668757586a7768fafb2a152e6dcd43d"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/install_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/install_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/install_operation_contracts.js",
+        "bytes": 2386,
+        "sha256": "61cb9c4761e5cc109f689783d4a12cef68a0543613ac1a1218ef6aee91c31fba"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/install_operation_contracts.js",
+        "bytes": 2386,
+        "sha256": "61cb9c4761e5cc109f689783d4a12cef68a0543613ac1a1218ef6aee91c31fba"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+      "componentPath": "component/build/code/src/product/install_product.js",
+      "postimage": {
+        "path": "build/code/src/product/install_product.js",
+        "bytes": 14359,
+        "sha256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/install_product.js",
+        "bytes": 14359,
+        "sha256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/installed_module.js",
+      "componentPath": "component/build/code/src/product/installed_module.js",
+      "postimage": {
+        "path": "build/code/src/product/installed_module.js",
+        "bytes": 1535,
+        "sha256": "132dcd5d21e09a6456b3e7c441265a51e52d3d04d5fc3a2b8d07cc45aa6e8e30"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/installed_module.js",
+        "bytes": 1535,
+        "sha256": "132dcd5d21e09a6456b3e7c441265a51e52d3d04d5fc3a2b8d07cc45aa6e8e30"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/interaction_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/interaction_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/interaction_operation_contracts.js",
+        "bytes": 7642,
+        "sha256": "553255617a69689a8f5e4ea8e08a0c12612429d3d7564847dabc3a612e41d55b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/interaction_operation_contracts.js",
+        "bytes": 7642,
+        "sha256": "553255617a69689a8f5e4ea8e08a0c12612429d3d7564847dabc3a612e41d55b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/invocation.js",
+      "componentPath": "component/build/code/src/product/invocation.js",
+      "postimage": {
+        "path": "build/code/src/product/invocation.js",
+        "bytes": 42710,
+        "sha256": "87d9d39bbf41e2569c2a0af9e1291ff13c5cdc13e5b3a94fe77f32259ddad4b6"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/invocation.js",
+        "bytes": 42710,
+        "sha256": "87d9d39bbf41e2569c2a0af9e1291ff13c5cdc13e5b3a94fe77f32259ddad4b6"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/materialization_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/materialization_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/materialization_operation_contracts.js",
+        "bytes": 3804,
+        "sha256": "38b614ca5027b836b6fc3ef5394e2bec612dea0244de915e09fcef789af305ec"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/materialization_operation_contracts.js",
+        "bytes": 3804,
+        "sha256": "38b614ca5027b836b6fc3ef5394e2bec612dea0244de915e09fcef789af305ec"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/materialization_operations.js",
+      "componentPath": "component/build/code/src/product/materialization_operations.js",
+      "postimage": {
+        "path": "build/code/src/product/materialization_operations.js",
+        "bytes": 14594,
+        "sha256": "ab605586a3b211dc67eda52d3bd44247663556be03b71c7e20092f81c6c500cc"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/materialization_operations.js",
+        "bytes": 14594,
+        "sha256": "ab605586a3b211dc67eda52d3bd44247663556be03b71c7e20092f81c6c500cc"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_assessment.js",
+      "componentPath": "component/build/code/src/product/native_workspace_assessment.js",
+      "postimage": {
+        "path": "build/code/src/product/native_workspace_assessment.js",
+        "bytes": 6913,
+        "sha256": "116947e2f46f28f60600c6026f84f6fd3864ebd1a871bdaba700ee33ce5cb4cd"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/native_workspace_assessment.js",
+        "bytes": 6913,
+        "sha256": "116947e2f46f28f60600c6026f84f6fd3864ebd1a871bdaba700ee33ce5cb4cd"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work.js",
+      "componentPath": "component/build/code/src/product/native_workspace_work.js",
+      "postimage": {
+        "path": "build/code/src/product/native_workspace_work.js",
+        "bytes": 17715,
+        "sha256": "34629cd2b095c629e10d61b4fd660c7d3fb90ac89ffcd7ccc01e01da7834a529"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/native_workspace_work.js",
+        "bytes": 17715,
+        "sha256": "34629cd2b095c629e10d61b4fd660c7d3fb90ac89ffcd7ccc01e01da7834a529"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work_identity.js",
+      "componentPath": "component/build/code/src/product/native_workspace_work_identity.js",
+      "postimage": {
+        "path": "build/code/src/product/native_workspace_work_identity.js",
+        "bytes": 2193,
+        "sha256": "2907abfc78af790759ce01f886e5f87f60fb6d96aef338f8df2d60992783960b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/native_workspace_work_identity.js",
+        "bytes": 2193,
+        "sha256": "2907abfc78af790759ce01f886e5f87f60fb6d96aef338f8df2d60992783960b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/project_read_definition_bindings.js",
+      "componentPath": "component/build/code/src/product/project_read_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/product/project_read_definition_bindings.js",
+        "bytes": 37152,
+        "sha256": "f3650a342c31e3e1cb944faa58cbc1cf70bcf02c69cd776fe5a46268c60e1412"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/project_read_definition_bindings.js",
+        "bytes": 37152,
+        "sha256": "f3650a342c31e3e1cb944faa58cbc1cf70bcf02c69cd776fe5a46268c60e1412"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/project_read_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/project_read_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/project_read_operation_contracts.js",
+        "bytes": 8911,
+        "sha256": "09a8319522dac0c7fd67a903caea5e8f6556f5b994065416946aac9d2acd57a0"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/project_read_operation_contracts.js",
+        "bytes": 8911,
+        "sha256": "09a8319522dac0c7fd67a903caea5e8f6556f5b994065416946aac9d2acd57a0"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/project_read_ports.js",
+      "componentPath": "component/build/code/src/product/project_read_ports.js",
+      "postimage": {
+        "path": "build/code/src/product/project_read_ports.js",
+        "bytes": 20919,
+        "sha256": "aac78833cbd5f552d9861798b7d55e7a4071289ac44c798c93e84ec1cf8b6899"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/project_read_ports.js",
+        "bytes": 20919,
+        "sha256": "aac78833cbd5f552d9861798b7d55e7a4071289ac44c798c93e84ec1cf8b6899"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/public_contract_publication.js",
+      "componentPath": "component/build/code/src/product/public_contract_publication.js",
+      "postimage": {
+        "path": "build/code/src/product/public_contract_publication.js",
+        "bytes": 21241,
+        "sha256": "69b1ecb8afa451b8e3d47a52aedba7c3771e8b68c1c4b6d8d139885f9979396a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/public_contract_publication.js",
+        "bytes": 21241,
+        "sha256": "69b1ecb8afa451b8e3d47a52aedba7c3771e8b68c1c4b6d8d139885f9979396a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/publication.js",
+      "componentPath": "component/build/code/src/product/publication.js",
+      "postimage": {
+        "path": "build/code/src/product/publication.js",
+        "bytes": 623,
+        "sha256": "da130714d3489bfcbb6c08605c3bcd249bc415ef897372c783ccd39344c14efa"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/publication.js",
+        "bytes": 623,
+        "sha256": "da130714d3489bfcbb6c08605c3bcd249bc415ef897372c783ccd39344c14efa"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/registered_selection_native.js",
+      "componentPath": "component/build/code/src/product/registered_selection_native.js",
+      "postimage": {
+        "path": "build/code/src/product/registered_selection_native.js",
+        "bytes": 4410,
+        "sha256": "509874b8a51aba70fe24468f16189a212d1e30a6c45c6e367fe8d42ad2af8db1"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/registered_selection_native.js",
+        "bytes": 4410,
+        "sha256": "509874b8a51aba70fe24468f16189a212d1e30a6c45c6e367fe8d42ad2af8db1"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/release_acceptance.js",
+      "componentPath": "component/build/code/src/product/release_acceptance.js",
+      "postimage": {
+        "path": "build/code/src/product/release_acceptance.js",
+        "bytes": 4634,
+        "sha256": "d52ec8f9d08240f1be5fe5192e65f3f2243fc0fda234bbcd1f57b93294dc9f30"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/release_acceptance.js",
+        "bytes": 4634,
+        "sha256": "d52ec8f9d08240f1be5fe5192e65f3f2243fc0fda234bbcd1f57b93294dc9f30"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/release_snapshot_definition_bindings.js",
+      "componentPath": "component/build/code/src/product/release_snapshot_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/product/release_snapshot_definition_bindings.js",
+        "bytes": 20730,
+        "sha256": "3e4c10d81ffdfe2b42657f69ebed181488e9d604ce5367a505d8934532312eda"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/release_snapshot_definition_bindings.js",
+        "bytes": 20730,
+        "sha256": "3e4c10d81ffdfe2b42657f69ebed181488e9d604ce5367a505d8934532312eda"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/release_snapshot_operations.js",
+      "componentPath": "component/build/code/src/product/release_snapshot_operations.js",
+      "postimage": {
+        "path": "build/code/src/product/release_snapshot_operations.js",
+        "bytes": 10075,
+        "sha256": "11b9fd527d7386303da459cafbe95534d03695d3407dd20426f9f193a68befbe"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/release_snapshot_operations.js",
+        "bytes": 10075,
+        "sha256": "11b9fd527d7386303da459cafbe95534d03695d3407dd20426f9f193a68befbe"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/requirement_handoff.js",
+      "componentPath": "component/build/code/src/product/requirement_handoff.js",
+      "postimage": {
+        "path": "build/code/src/product/requirement_handoff.js",
+        "bytes": 6367,
+        "sha256": "aaa4a8325b3cbca4f4c8f0613d5614f04cf0ec2dee0e3d842e5da903e36ed526"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/requirement_handoff.js",
+        "bytes": 6367,
+        "sha256": "aaa4a8325b3cbca4f4c8f0613d5614f04cf0ec2dee0e3d842e5da903e36ed526"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/result_assessment_operation.js",
+      "componentPath": "component/build/code/src/product/result_assessment_operation.js",
+      "postimage": {
+        "path": "build/code/src/product/result_assessment_operation.js",
+        "bytes": 20139,
+        "sha256": "c18df3792b8960e010b312b1ad92d165ee358b3563e39d010f971bfa958ae74c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/result_assessment_operation.js",
+        "bytes": 20139,
+        "sha256": "c18df3792b8960e010b312b1ad92d165ee358b3563e39d010f971bfa958ae74c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/run_invocation_operation.js",
+      "componentPath": "component/build/code/src/product/run_invocation_operation.js",
+      "postimage": {
+        "path": "build/code/src/product/run_invocation_operation.js",
+        "bytes": 22722,
+        "sha256": "5d2d6c6237b6530823d0f5bb1c40dca3e458489036a32770e77befdb578b0d0c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/run_invocation_operation.js",
+        "bytes": 22722,
+        "sha256": "5d2d6c6237b6530823d0f5bb1c40dca3e458489036a32770e77befdb578b0d0c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/run_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/run_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/run_operation_contracts.js",
+        "bytes": 9056,
+        "sha256": "39f30b93b5e39cc0d736be039190f63dba0675884d5a956d1d53b2d165d1c30b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/run_operation_contracts.js",
+        "bytes": 9056,
+        "sha256": "39f30b93b5e39cc0d736be039190f63dba0675884d5a956d1d53b2d165d1c30b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+      "componentPath": "component/build/code/src/product/semantic_job.js",
+      "postimage": {
+        "path": "build/code/src/product/semantic_job.js",
+        "bytes": 86813,
+        "sha256": "30ceeb38693b45e8a267beb83817b11184d6578acf69fc62f499a31bd28aea5e"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/semantic_job.js",
+        "bytes": 86813,
+        "sha256": "30ceeb38693b45e8a267beb83817b11184d6578acf69fc62f499a31bd28aea5e"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+      "componentPath": "component/build/code/src/product/semantic_revision.js",
+      "postimage": {
+        "path": "build/code/src/product/semantic_revision.js",
+        "bytes": 32207,
+        "sha256": "a49075264bb7e02fdf3508cf97a76fe21202992beeca66c99a952073223920ae"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/semantic_revision.js",
+        "bytes": 32207,
+        "sha256": "a49075264bb7e02fdf3508cf97a76fe21202992beeca66c99a952073223920ae"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_stage.js",
+      "componentPath": "component/build/code/src/product/semantic_stage.js",
+      "postimage": {
+        "path": "build/code/src/product/semantic_stage.js",
+        "bytes": 29063,
+        "sha256": "91e6d878d85f574f713f6235b4d1450094ec2fda17b5c72a3a3a0749183d4760"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/semantic_stage.js",
+        "bytes": 29063,
+        "sha256": "91e6d878d85f574f713f6235b4d1450094ec2fda17b5c72a3a3a0749183d4760"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/semantics.js",
+      "componentPath": "component/build/code/src/product/semantics.js",
+      "postimage": {
+        "path": "build/code/src/product/semantics.js",
+        "bytes": 10236,
+        "sha256": "d3d39b2e2a08392de15e66cc300850707bb0afd2e7ead5e0260b4ff542184450"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/semantics.js",
+        "bytes": 10236,
+        "sha256": "d3d39b2e2a08392de15e66cc300850707bb0afd2e7ead5e0260b4ff542184450"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/stdo_environment.js",
+      "componentPath": "component/build/code/src/product/stdo_environment.js",
+      "postimage": {
+        "path": "build/code/src/product/stdo_environment.js",
+        "bytes": 26588,
+        "sha256": "408161cb1e9bbbf492977aec7a3a70b2ab55527faf8113100e33e066fc9a9d92"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/stdo_environment.js",
+        "bytes": 26588,
+        "sha256": "408161cb1e9bbbf492977aec7a3a70b2ab55527faf8113100e33e066fc9a9d92"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/verification_definition_bindings.js",
+      "componentPath": "component/build/code/src/product/verification_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/product/verification_definition_bindings.js",
+        "bytes": 15139,
+        "sha256": "cb7423a83cc2d672ece3a1fbcfe627b0c8223882438bd2ecdcb362a8893aa46f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/verification_definition_bindings.js",
+        "bytes": 15139,
+        "sha256": "cb7423a83cc2d672ece3a1fbcfe627b0c8223882438bd2ecdcb362a8893aa46f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/verification_operation.js",
+      "componentPath": "component/build/code/src/product/verification_operation.js",
+      "postimage": {
+        "path": "build/code/src/product/verification_operation.js",
+        "bytes": 1836,
+        "sha256": "c927b5cfe8f4d8c5bb540bea008966d81e657cbd29c56f8c568c1edf372bf925"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/verification_operation.js",
+        "bytes": 1836,
+        "sha256": "c927b5cfe8f4d8c5bb540bea008966d81e657cbd29c56f8c568c1edf372bf925"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/verification_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/verification_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/verification_operation_contracts.js",
+        "bytes": 4170,
+        "sha256": "89e5959569eccc54bbf8d1aea5773a2ba4f9eb1ea3750cad199a2686d2d91f12"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/verification_operation_contracts.js",
+        "bytes": 4170,
+        "sha256": "89e5959569eccc54bbf8d1aea5773a2ba4f9eb1ea3750cad199a2686d2d91f12"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/verify_product.js",
+      "componentPath": "component/build/code/src/product/verify_product.js",
+      "postimage": {
+        "path": "build/code/src/product/verify_product.js",
+        "bytes": 91615,
+        "sha256": "f1998352ac6e08919246a9b3c8b6af59a018e4936e43576b283c4525f6e6de18"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/verify_product.js",
+        "bytes": 91615,
+        "sha256": "f1998352ac6e08919246a9b3c8b6af59a018e4936e43576b283c4525f6e6de18"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_branch_construction.js",
+      "componentPath": "component/build/code/src/product/worksite_branch_construction.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_branch_construction.js",
+        "bytes": 22773,
+        "sha256": "4fc1ad1ecfcf5c93873503946cf2b4063b24b31ea51956975368d1c33802ce6d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_branch_construction.js",
+        "bytes": 22773,
+        "sha256": "4fc1ad1ecfcf5c93873503946cf2b4063b24b31ea51956975368d1c33802ce6d"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+      "componentPath": "component/build/code/src/product/worksite_command_execution.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_command_execution.js",
+        "bytes": 109541,
+        "sha256": "cf38a00bb92cf5debbd4627d7f91b7f30497c3c91134f6d2ed40b31e52a7200a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_command_execution.js",
+        "bytes": 109541,
+        "sha256": "cf38a00bb92cf5debbd4627d7f91b7f30497c3c91134f6d2ed40b31e52a7200a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution_identity.js",
+      "componentPath": "component/build/code/src/product/worksite_command_execution_identity.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_command_execution_identity.js",
+        "bytes": 2231,
+        "sha256": "60cb495102f9ab6fabc866f62b8e18f327ecdb01bcaadbba2644a3fd1849ee6f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_command_execution_identity.js",
+        "bytes": 2231,
+        "sha256": "60cb495102f9ab6fabc866f62b8e18f327ecdb01bcaadbba2644a3fd1849ee6f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_forward.js",
+      "componentPath": "component/build/code/src/product/worksite_command_forward.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_command_forward.js",
+        "bytes": 9998,
+        "sha256": "c55f93ddb34317ebf18f8ab37c84c2c317ea971296f06e2cb07e4d214a8ef135"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_command_forward.js",
+        "bytes": 9998,
+        "sha256": "c55f93ddb34317ebf18f8ab37c84c2c317ea971296f06e2cb07e4d214a8ef135"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_forward_identity.js",
+      "componentPath": "component/build/code/src/product/worksite_command_forward_identity.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_command_forward_identity.js",
+        "bytes": 1641,
+        "sha256": "6724c73b26e51eab6db69c4ff0746e1c48640e3cba3a2e1724580e8b95239d3f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_command_forward_identity.js",
+        "bytes": 1641,
+        "sha256": "6724c73b26e51eab6db69c4ff0746e1c48640e3cba3a2e1724580e8b95239d3f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_construction.js",
+      "componentPath": "component/build/code/src/product/worksite_construction.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_construction.js",
+        "bytes": 32988,
+        "sha256": "43837c67535522a373efc3f43497b0a342563054763bb2be47001fa4f9c08cbd"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_construction.js",
+        "bytes": 32988,
+        "sha256": "43837c67535522a373efc3f43497b0a342563054763bb2be47001fa4f9c08cbd"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_construction_identity.js",
+      "componentPath": "component/build/code/src/product/worksite_construction_identity.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_construction_identity.js",
+        "bytes": 5131,
+        "sha256": "2c19a972af8050a68dd7919b9e4a44e648a2ec7815d60816685847c70035e3fb"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_construction_identity.js",
+        "bytes": 5131,
+        "sha256": "2c19a972af8050a68dd7919b9e4a44e648a2ec7815d60816685847c70035e3fb"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_construction_recovery.js",
+      "componentPath": "component/build/code/src/product/worksite_construction_recovery.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_construction_recovery.js",
+        "bytes": 9356,
+        "sha256": "e810583a6ca5c0cf102cc0e20f778a5a2e1e5eb5d0481380710077b82ad616ff"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_construction_recovery.js",
+        "bytes": 9356,
+        "sha256": "e810583a6ca5c0cf102cc0e20f778a5a2e1e5eb5d0481380710077b82ad616ff"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_effect.js",
+      "componentPath": "component/build/code/src/product/worksite_effect.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_effect.js",
+        "bytes": 74595,
+        "sha256": "6cb15d839a56a7ae9b8c3094cc3d060eaa22ebafa451e300551c477f887cb7fd"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_effect.js",
+        "bytes": 74595,
+        "sha256": "6cb15d839a56a7ae9b8c3094cc3d060eaa22ebafa451e300551c477f887cb7fd"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_operations.js",
+      "componentPath": "component/build/code/src/product/worksite_operations.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_operations.js",
+        "bytes": 45959,
+        "sha256": "e996d17bb368a7202c1353c4d45f79556362d8d52429fc9c308a49de17109aef"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_operations.js",
+        "bytes": 45959,
+        "sha256": "e996d17bb368a7202c1353c4d45f79556362d8d52429fc9c308a49de17109aef"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_preparation.js",
+      "componentPath": "component/build/code/src/product/worksite_preparation.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_preparation.js",
+        "bytes": 16623,
+        "sha256": "b93721712ae8306f34a9daf3b4274cdb02cc352f81d6959635037925dd41de8d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_preparation.js",
+        "bytes": 16623,
+        "sha256": "b93721712ae8306f34a9daf3b4274cdb02cc352f81d6959635037925dd41de8d"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_preparation_contracts.js",
+      "componentPath": "component/build/code/src/product/worksite_preparation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_preparation_contracts.js",
+        "bytes": 9807,
+        "sha256": "c30bc66969888e9a3eeaef5d6570f46206068feda370bf075b9d80bc27a9cc0f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_preparation_contracts.js",
+        "bytes": 9807,
+        "sha256": "c30bc66969888e9a3eeaef5d6570f46206068feda370bf075b9d80bc27a9cc0f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_revision.js",
+      "componentPath": "component/build/code/src/product/worksite_revision.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_revision.js",
+        "bytes": 7961,
+        "sha256": "69f5339f7f83a1ba5831300d132786eb484666452ae4dcb90eefd71316a9a9e5"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_revision.js",
+        "bytes": 7961,
+        "sha256": "69f5339f7f83a1ba5831300d132786eb484666452ae4dcb90eefd71316a9a9e5"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/worksite_revision_identity.js",
+      "componentPath": "component/build/code/src/product/worksite_revision_identity.js",
+      "postimage": {
+        "path": "build/code/src/product/worksite_revision_identity.js",
+        "bytes": 1462,
+        "sha256": "218bcf0cbddd5d65fecaf43cda79f928bc57d4694ff81fb780d806d77cf9d088"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/worksite_revision_identity.js",
+        "bytes": 1462,
+        "sha256": "218bcf0cbddd5d65fecaf43cda79f928bc57d4694ff81fb780d806d77cf9d088"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/workspace_definition_bindings.js",
+      "componentPath": "component/build/code/src/product/workspace_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/product/workspace_definition_bindings.js",
+        "bytes": 10015,
+        "sha256": "fa3ebbda79f7fbfc84795c55e542ab09bc93c9b12b1429e40f21a553f4cabdb3"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/workspace_definition_bindings.js",
+        "bytes": 10015,
+        "sha256": "fa3ebbda79f7fbfc84795c55e542ab09bc93c9b12b1429e40f21a553f4cabdb3"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/workspace_operation_contracts.js",
+      "componentPath": "component/build/code/src/product/workspace_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/product/workspace_operation_contracts.js",
+        "bytes": 4810,
+        "sha256": "6d2f61fb3bf6f591639cd4f4a92474273233171962bbdc3862ca63ec8ce1f348"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/workspace_operation_contracts.js",
+        "bytes": 4810,
+        "sha256": "6d2f61fb3bf6f591639cd4f4a92474273233171962bbdc3862ca63ec8ce1f348"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/product/workspace_operations.js",
+      "componentPath": "component/build/code/src/product/workspace_operations.js",
+      "postimage": {
+        "path": "build/code/src/product/workspace_operations.js",
+        "bytes": 17244,
+        "sha256": "866966d811ac6ffcca72198b4f04d7ea7b7a2b0845d9d788ae69c63fe1736766"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/product/workspace_operations.js",
+        "bytes": 17244,
+        "sha256": "866966d811ac6ffcca72198b4f04d7ea7b7a2b0845d9d788ae69c63fe1736766"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/public/cli.js",
+      "componentPath": "component/build/code/src/public/cli.js",
+      "postimage": {
+        "path": "build/code/src/public/cli.js",
+        "bytes": 3463,
+        "sha256": "94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/public/cli.js",
+        "bytes": 3463,
+        "sha256": "94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/public/codex_cli.js",
+      "componentPath": "component/build/code/src/public/codex_cli.js",
+      "postimage": {
+        "path": "build/code/src/public/codex_cli.js",
+        "bytes": 2003,
+        "sha256": "4fa6e68b171e9858ee0665a535238554ee3fe849b5e48869089f48051126b039"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/public/codex_cli.js",
+        "bytes": 2003,
+        "sha256": "4fa6e68b171e9858ee0665a535238554ee3fe849b5e48869089f48051126b039"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/public/continuation_authority.js",
+      "componentPath": "component/build/code/src/public/continuation_authority.js",
+      "postimage": {
+        "path": "build/code/src/public/continuation_authority.js",
+        "bytes": 4516,
+        "sha256": "29a65cff7e7c27baa37dfd2747b1af92d817284d0a70f9984ca228511109b6e3"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/public/continuation_authority.js",
+        "bytes": 4516,
+        "sha256": "29a65cff7e7c27baa37dfd2747b1af92d817284d0a70f9984ca228511109b6e3"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/public/gap_authority.js",
+      "componentPath": "component/build/code/src/public/gap_authority.js",
+      "postimage": {
+        "path": "build/code/src/public/gap_authority.js",
+        "bytes": 5366,
+        "sha256": "ef17c513f7c7f196a1a4b351a003526359b61c42a8a18dc65f356e3b7a675ac7"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/public/gap_authority.js",
+        "bytes": 5366,
+        "sha256": "ef17c513f7c7f196a1a4b351a003526359b61c42a8a18dc65f356e3b7a675ac7"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/public/index.js",
+      "componentPath": "component/build/code/src/public/index.js",
+      "postimage": {
+        "path": "build/code/src/public/index.js",
+        "bytes": 575,
+        "sha256": "319fe7afdccb418febaab3d6162726cd528f2e0203136e9ab92ab9ccd875762c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/public/index.js",
+        "bytes": 575,
+        "sha256": "319fe7afdccb418febaab3d6162726cd528f2e0203136e9ab92ab9ccd875762c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/public/installed_definition_call_transport.js",
+      "componentPath": "component/build/code/src/public/installed_definition_call_transport.js",
+      "postimage": {
+        "path": "build/code/src/public/installed_definition_call_transport.js",
+        "bytes": 13328,
+        "sha256": "53e5a134be93be8b662595b07a228aeac1ff5e53fb25a231498d76686a336ba5"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/public/installed_definition_call_transport.js",
+        "bytes": 13328,
+        "sha256": "53e5a134be93be8b662595b07a228aeac1ff5e53fb25a231498d76686a336ba5"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/public/installed_public_definition_call.js",
+      "componentPath": "component/build/code/src/public/installed_public_definition_call.js",
+      "postimage": {
+        "path": "build/code/src/public/installed_public_definition_call.js",
+        "bytes": 6158,
+        "sha256": "6e0b2c693388e1a032c77488628856334e6e013a2ecd91bcba5cbce7efa382b0"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/public/installed_public_definition_call.js",
+        "bytes": 6158,
+        "sha256": "6e0b2c693388e1a032c77488628856334e6e013a2ecd91bcba5cbce7efa382b0"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/public/run_projection_authority.js",
+      "componentPath": "component/build/code/src/public/run_projection_authority.js",
+      "postimage": {
+        "path": "build/code/src/public/run_projection_authority.js",
+        "bytes": 4728,
+        "sha256": "11a42c21346b8c74edae3077256d606d4023d107dbf92c88605f6f6a3c13e264"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/public/run_projection_authority.js",
+        "bytes": 4728,
+        "sha256": "11a42c21346b8c74edae3077256d606d4023d107dbf92c88605f6f6a3c13e264"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/admission_predicates.js",
+      "componentPath": "component/build/code/src/shared/admission_predicates.js",
+      "postimage": {
+        "path": "build/code/src/shared/admission_predicates.js",
+        "bytes": 2710,
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/admission_predicates.js",
+        "bytes": 2710,
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js",
+      "componentPath": "component/build/code/src/shared/canonical_json.js",
+      "postimage": {
+        "path": "build/code/src/shared/canonical_json.js",
+        "bytes": 1551,
+        "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/canonical_json.js",
+        "bytes": 1551,
+        "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/capability_contracts.js",
+      "componentPath": "component/build/code/src/shared/capability_contracts.js",
+      "postimage": {
+        "path": "build/code/src/shared/capability_contracts.js",
+        "bytes": 24059,
+        "sha256": "ce2aa8d8a6472a30ca68d463c83893f656a31d28a4cee7be3897631bddf8d0f5"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/capability_contracts.js",
+        "bytes": 24059,
+        "sha256": "ce2aa8d8a6472a30ca68d463c83893f656a31d28a4cee7be3897631bddf8d0f5"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/definition_binding_mechanics.js",
+      "componentPath": "component/build/code/src/shared/definition_binding_mechanics.js",
+      "postimage": {
+        "path": "build/code/src/shared/definition_binding_mechanics.js",
+        "bytes": 12178,
+        "sha256": "41ec0bb5fa71decb16ec9cded0a88cb64f409d47231964fc91507ad4d6318349"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/definition_binding_mechanics.js",
+        "bytes": 12178,
+        "sha256": "41ec0bb5fa71decb16ec9cded0a88cb64f409d47231964fc91507ad4d6318349"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/digests.js",
+      "componentPath": "component/build/code/src/shared/digests.js",
+      "postimage": {
+        "path": "build/code/src/shared/digests.js",
+        "bytes": 838,
+        "sha256": "bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/digests.js",
+        "bytes": 838,
+        "sha256": "bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/effect_definition.js",
+      "componentPath": "component/build/code/src/shared/effect_definition.js",
+      "postimage": {
+        "path": "build/code/src/shared/effect_definition.js",
+        "bytes": 1873,
+        "sha256": "863f4f23036a0804f19e9eeed5ec67e9b8d0e966e5e1be3da5947ab8a0dced13"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/effect_definition.js",
+        "bytes": 1873,
+        "sha256": "863f4f23036a0804f19e9eeed5ec67e9b8d0e966e5e1be3da5947ab8a0dced13"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/i_json.js",
+      "componentPath": "component/build/code/src/shared/i_json.js",
+      "postimage": {
+        "path": "build/code/src/shared/i_json.js",
+        "bytes": 7264,
+        "sha256": "1ecf2af1287d9ece09091baa8ad78d642d0e7b6115093801d98a19add236708a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/i_json.js",
+        "bytes": 7264,
+        "sha256": "1ecf2af1287d9ece09091baa8ad78d642d0e7b6115093801d98a19add236708a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/immutable.js",
+      "componentPath": "component/build/code/src/shared/immutable.js",
+      "postimage": {
+        "path": "build/code/src/shared/immutable.js",
+        "bytes": 608,
+        "sha256": "b8cc59aa2f8a8ccf6cdfbc9e5ac85c344f0e97604c55fb3f75cb9446daf2d2e7"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/immutable.js",
+        "bytes": 608,
+        "sha256": "b8cc59aa2f8a8ccf6cdfbc9e5ac85c344f0e97604c55fb3f75cb9446daf2d2e7"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/index.js",
+      "componentPath": "component/build/code/src/shared/index.js",
+      "postimage": {
+        "path": "build/code/src/shared/index.js",
+        "bytes": 299,
+        "sha256": "d951e494ff7197f20dab2463ff1b729c813316cc9c969b70d8d9b70dbc9e65b3"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/index.js",
+        "bytes": 299,
+        "sha256": "d951e494ff7197f20dab2463ff1b729c813316cc9c969b70d8d9b70dbc9e65b3"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/operation_definition_coordinate.js",
+      "componentPath": "component/build/code/src/shared/operation_definition_coordinate.js",
+      "postimage": {
+        "path": "build/code/src/shared/operation_definition_coordinate.js",
+        "bytes": 3297,
+        "sha256": "39a47da6b9360e70cebdc8219c3b099c6286c68dbec0c7d3d59490179968f96f"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/operation_definition_coordinate.js",
+        "bytes": 3297,
+        "sha256": "39a47da6b9360e70cebdc8219c3b099c6286c68dbec0c7d3d59490179968f96f"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/owner_contract_source_set.js",
+      "componentPath": "component/build/code/src/shared/owner_contract_source_set.js",
+      "postimage": {
+        "path": "build/code/src/shared/owner_contract_source_set.js",
+        "bytes": 16454,
+        "sha256": "dd74f6993580361c1beaa340f8165cb7fb99e8d6caad4e98048aea26371d9163"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/owner_contract_source_set.js",
+        "bytes": 16454,
+        "sha256": "dd74f6993580361c1beaa340f8165cb7fb99e8d6caad4e98048aea26371d9163"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/public_function_contracts.js",
+      "componentPath": "component/build/code/src/shared/public_function_contracts.js",
+      "postimage": {
+        "path": "build/code/src/shared/public_function_contracts.js",
+        "bytes": 17373,
+        "sha256": "470e373128486e86ecac2cdd1ba089fbe169a571c1238e1d34c97e21c2ddac6b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/public_function_contracts.js",
+        "bytes": 17373,
+        "sha256": "470e373128486e86ecac2cdd1ba089fbe169a571c1238e1d34c97e21c2ddac6b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/public_function_family.js",
+      "componentPath": "component/build/code/src/shared/public_function_family.js",
+      "postimage": {
+        "path": "build/code/src/shared/public_function_family.js",
+        "bytes": 11567,
+        "sha256": "91ca24a546815a2d84747eee40569621aa0724ddacb02d61dee6dd8af68a95d8"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/public_function_family.js",
+        "bytes": 11567,
+        "sha256": "91ca24a546815a2d84747eee40569621aa0724ddacb02d61dee6dd8af68a95d8"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/public_function_projections.js",
+      "componentPath": "component/build/code/src/shared/public_function_projections.js",
+      "postimage": {
+        "path": "build/code/src/shared/public_function_projections.js",
+        "bytes": 24914,
+        "sha256": "630cb1fd802f0ae3cb2960b2e7b536efada90232b05a9f7992afe77134f54572"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/public_function_projections.js",
+        "bytes": 24914,
+        "sha256": "630cb1fd802f0ae3cb2960b2e7b536efada90232b05a9f7992afe77134f54572"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/public_invocation.js",
+      "componentPath": "component/build/code/src/shared/public_invocation.js",
+      "postimage": {
+        "path": "build/code/src/shared/public_invocation.js",
+        "bytes": 11,
+        "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/public_invocation.js",
+        "bytes": 11,
+        "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/references.js",
+      "componentPath": "component/build/code/src/shared/references.js",
+      "postimage": {
+        "path": "build/code/src/shared/references.js",
+        "bytes": 276,
+        "sha256": "0aec7e79338a8950a8b100a4554990c72d1ee84b8679ed872aefcb82f8f4a779"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/references.js",
+        "bytes": 276,
+        "sha256": "0aec7e79338a8950a8b100a4554990c72d1ee84b8679ed872aefcb82f8f4a779"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/rooted_topology_partition.js",
+      "componentPath": "component/build/code/src/shared/rooted_topology_partition.js",
+      "postimage": {
+        "path": "build/code/src/shared/rooted_topology_partition.js",
+        "bytes": 5750,
+        "sha256": "43b5f1203f66ca4a167bbad611e93f6dfea9e2f79764ac7008f2308ed1a365dc"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/rooted_topology_partition.js",
+        "bytes": 5750,
+        "sha256": "43b5f1203f66ca4a167bbad611e93f6dfea9e2f79764ac7008f2308ed1a365dc"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/shared/static_definition_bindings.js",
+      "componentPath": "component/build/code/src/shared/static_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/shared/static_definition_bindings.js",
+        "bytes": 7455,
+        "sha256": "90ca00b547b8e25dd92f723abfcfb2edc1d720e1040547c3426deaa212aae5bc"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/shared/static_definition_bindings.js",
+        "bytes": 7455,
+        "sha256": "90ca00b547b8e25dd92f723abfcfb2edc1d720e1040547c3426deaa212aae5bc"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/c_algebra.js",
+      "componentPath": "component/build/code/src/validator/c_algebra.js",
+      "postimage": {
+        "path": "build/code/src/validator/c_algebra.js",
+        "bytes": 14483,
+        "sha256": "6da488f40a70f2adada7f22422c6e9b2046656ee6d75716712ec69b41ab73e10"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/c_algebra.js",
+        "bytes": 14483,
+        "sha256": "6da488f40a70f2adada7f22422c6e9b2046656ee6d75716712ec69b41ab73e10"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_definition_bindings.js",
+      "componentPath": "component/build/code/src/validator/conformance_definition_bindings.js",
+      "postimage": {
+        "path": "build/code/src/validator/conformance_definition_bindings.js",
+        "bytes": 17522,
+        "sha256": "69aa310344ffb9b16ceb33a6ca244ae4a648835c81cd5da863b3f3ed49f2d9b2"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/conformance_definition_bindings.js",
+        "bytes": 17522,
+        "sha256": "69aa310344ffb9b16ceb33a6ca244ae4a648835c81cd5da863b3f3ed49f2d9b2"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_operation.js",
+      "componentPath": "component/build/code/src/validator/conformance_operation.js",
+      "postimage": {
+        "path": "build/code/src/validator/conformance_operation.js",
+        "bytes": 8172,
+        "sha256": "d275816fe46e0f590b9be51b1ec96b2bae49b44e602b72b33c8faa04b54018c9"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/conformance_operation.js",
+        "bytes": 8172,
+        "sha256": "d275816fe46e0f590b9be51b1ec96b2bae49b44e602b72b33c8faa04b54018c9"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_operation_contracts.js",
+      "componentPath": "component/build/code/src/validator/conformance_operation_contracts.js",
+      "postimage": {
+        "path": "build/code/src/validator/conformance_operation_contracts.js",
+        "bytes": 2822,
+        "sha256": "55e6766851cc7b4edf57d7586df9b96c17035b447b4ae0b5beafeb97bedc6542"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/conformance_operation_contracts.js",
+        "bytes": 2822,
+        "sha256": "55e6766851cc7b4edf57d7586df9b96c17035b447b4ae0b5beafeb97bedc6542"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/graph.js",
+      "componentPath": "component/build/code/src/validator/graph.js",
+      "postimage": {
+        "path": "build/code/src/validator/graph.js",
+        "bytes": 3553,
+        "sha256": "bfa9e03fbc21bc7697a5658d9b489944478015c547b9b0ce337edfc51667e36a"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/graph.js",
+        "bytes": 3553,
+        "sha256": "bfa9e03fbc21bc7697a5658d9b489944478015c547b9b0ce337edfc51667e36a"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/implementation_resolution.js",
+      "componentPath": "component/build/code/src/validator/implementation_resolution.js",
+      "postimage": {
+        "path": "build/code/src/validator/implementation_resolution.js",
+        "bytes": 20054,
+        "sha256": "b93773a826c3b95bb64cbc65bbbde3949ec54cd680382af42bf607525b674cfd"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/implementation_resolution.js",
+        "bytes": 20054,
+        "sha256": "b93773a826c3b95bb64cbc65bbbde3949ec54cd680382af42bf607525b674cfd"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/index.js",
+      "componentPath": "component/build/code/src/validator/index.js",
+      "postimage": {
+        "path": "build/code/src/validator/index.js",
+        "bytes": 1397,
+        "sha256": "ec554004410b9d01dd7ddd569c6b4d7ece256dd855233b4a0d63e4b2335665e0"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/index.js",
+        "bytes": 1397,
+        "sha256": "ec554004410b9d01dd7ddd569c6b4d7ece256dd855233b4a0d63e4b2335665e0"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/qualification.js",
+      "componentPath": "component/build/code/src/validator/qualification.js",
+      "postimage": {
+        "path": "build/code/src/validator/qualification.js",
+        "bytes": 58968,
+        "sha256": "ebd5a1eab534adaf55a4e5c987156dec2ddc00dcc5a5aa608e6a566251d0b7ec"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/qualification.js",
+        "bytes": 58968,
+        "sha256": "ebd5a1eab534adaf55a4e5c987156dec2ddc00dcc5a5aa608e6a566251d0b7ec"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/qualification_contracts.js",
+      "componentPath": "component/build/code/src/validator/qualification_contracts.js",
+      "postimage": {
+        "path": "build/code/src/validator/qualification_contracts.js",
+        "bytes": 31164,
+        "sha256": "e65d0cb476fd22ba4c0bf66cad9f3de52717e28c324a88d323461aade1b31daa"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/qualification_contracts.js",
+        "bytes": 31164,
+        "sha256": "e65d0cb476fd22ba4c0bf66cad9f3de52717e28c324a88d323461aade1b31daa"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/raw_admission.js",
+      "componentPath": "component/build/code/src/validator/raw_admission.js",
+      "postimage": {
+        "path": "build/code/src/validator/raw_admission.js",
+        "bytes": 4097,
+        "sha256": "20df548a6cabca13ac95fc06d3a9d42b610eb5d837e1cce4881d1db94ea8e936"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/raw_admission.js",
+        "bytes": 4097,
+        "sha256": "20df548a6cabca13ac95fc06d3a9d42b610eb5d837e1cce4881d1db94ea8e936"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/self_conformance.js",
+      "componentPath": "component/build/code/src/validator/self_conformance.js",
+      "postimage": {
+        "path": "build/code/src/validator/self_conformance.js",
+        "bytes": 28613,
+        "sha256": "f4fafd0ab7b58f5b9fe0010d6684e0321fb5c19f1225470639e47359890507c1"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/self_conformance.js",
+        "bytes": 28613,
+        "sha256": "f4fafd0ab7b58f5b9fe0010d6684e0321fb5c19f1225470639e47359890507c1"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/self_conformance_basis.js",
+      "componentPath": "component/build/code/src/validator/self_conformance_basis.js",
+      "postimage": {
+        "path": "build/code/src/validator/self_conformance_basis.js",
+        "bytes": 6924,
+        "sha256": "7f3d5adad0da9757b57f4cd07c062314231c2e568ee41b7b4e4cf836c1ec6af1"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/self_conformance_basis.js",
+        "bytes": 6924,
+        "sha256": "7f3d5adad0da9757b57f4cd07c062314231c2e568ee41b7b4e4cf836c1ec6af1"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/self_conformance_contracts.js",
+      "componentPath": "component/build/code/src/validator/self_conformance_contracts.js",
+      "postimage": {
+        "path": "build/code/src/validator/self_conformance_contracts.js",
+        "bytes": 5209,
+        "sha256": "76164e1080ac1ec870218b7c4cfd25241ee87b7cc149f9dfc301ceac3bb6e7c4"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/self_conformance_contracts.js",
+        "bytes": 5209,
+        "sha256": "76164e1080ac1ec870218b7c4cfd25241ee87b7cc149f9dfc301ceac3bb6e7c4"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/self_conformance_publication.js",
+      "componentPath": "component/build/code/src/validator/self_conformance_publication.js",
+      "postimage": {
+        "path": "build/code/src/validator/self_conformance_publication.js",
+        "bytes": 2308,
+        "sha256": "104d0657760a43ba6c6e03d4dd6ff3b8d57ba2b25f237f466121a8555073d35b"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/self_conformance_publication.js",
+        "bytes": 2308,
+        "sha256": "104d0657760a43ba6c6e03d4dd6ff3b8d57ba2b25f237f466121a8555073d35b"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/self_conformance_semantics.js",
+      "componentPath": "component/build/code/src/validator/self_conformance_semantics.js",
+      "postimage": {
+        "path": "build/code/src/validator/self_conformance_semantics.js",
+        "bytes": 11672,
+        "sha256": "c1452d23d0f054c1844f296752339be25649f7c6a1376fdfc2ea29ffc23bc593"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/self_conformance_semantics.js",
+        "bytes": 11672,
+        "sha256": "c1452d23d0f054c1844f296752339be25649f7c6a1376fdfc2ea29ffc23bc593"
+      }
+    },
+    {
+      "logicalGeneratedPath": "build_tenants/abiogenesis/typescript/build/code/src/validator/validation.js",
+      "componentPath": "component/build/code/src/validator/validation.js",
+      "postimage": {
+        "path": "build/code/src/validator/validation.js",
+        "bytes": 80988,
+        "sha256": "7db37dee9e7402c8562c53b549858b4795b3dcc1c84087721fd224daecdc4f5d"
+      },
+      "frozenOriginal": {
+        "path": "build/code/src/validator/validation.js",
+        "bytes": 80988,
+        "sha256": "7db37dee9e7402c8562c53b549858b4795b3dcc1c84087721fd224daecdc4f5d"
+      }
+    }
+  ],
+  "declarationEmit": false,
+  "sourceTypecheck": "full selected tsconfig, no errors"
+}

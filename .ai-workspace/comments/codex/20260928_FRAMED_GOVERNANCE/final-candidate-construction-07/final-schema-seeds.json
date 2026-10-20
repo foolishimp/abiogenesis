@@ -1,0 +1,20 @@
+[
+  {
+    "path": "final-stage/build_tenants/abiogenesis/typescript/contracts/schemas/product-toolchain-manifest.schema.json",
+    "kind": "file",
+    "bytes": 7622,
+    "sha256": "c61e0db09ea7d5b0bf182dd802cdac4ea27abe4899cfc8897c563b2dddc356ca",
+    "mode": 420,
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/contracts/schemas/product-toolchain-manifest.schema.json",
+    "role": "derived C06 current schema dependency seed required by accepted builder; not authored source"
+  },
+  {
+    "path": "final-stage/build_tenants/abiogenesis/typescript/contracts/schemas/public-contract-catalog.schema.json",
+    "kind": "file",
+    "bytes": 19274,
+    "sha256": "b8bc5a722f6a216e03cfe0a91bc606a7986c1bee6c2dbbd437f16d7a75af18de",
+    "mode": 420,
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/contracts/schemas/public-contract-catalog.schema.json",
+    "role": "derived C06 current schema dependency seed required by accepted builder; not authored source"
+  }
+]

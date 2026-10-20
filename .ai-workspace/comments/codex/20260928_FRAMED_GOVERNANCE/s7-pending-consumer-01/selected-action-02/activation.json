@@ -1,0 +1,10 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_02",
+  "role": "Worker",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "reentry": "realization_refactor",
+  "subject_checkpoint": "ceb1497fbe4bf163a5aca54d32e64124fdca5a02",
+  "source_basis_manifest": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+  "accepted_causation_freeze": "f35c42b1f54aa89cb3142ac4657e96da261fee72f9e9a20b794697f053007bb3"
+}

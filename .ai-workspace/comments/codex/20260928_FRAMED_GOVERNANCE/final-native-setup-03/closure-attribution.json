@@ -1,0 +1,40 @@
+{
+  "actualActor": "/root/s03_phase_b",
+  "activation": "T287_FINAL_NATIVE_SETUP_03",
+  "profile": "Astra/xhigh as assigned",
+  "sessionIdentifier": null,
+  "scope": "After first native failure: read-only diagnosis/projection/conservation and report/freeze; no native invocation retry",
+  "newClosureControls": [
+    {
+      "path": "observe-closed-state.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8775,
+      "sha256": "cc42b69658c95c963a5d2e55f74dd58d98d5c7f35d8bc75682e990ceba069f18"
+    },
+    {
+      "path": "close.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13546,
+      "sha256": "d1a666f911f513e1a615c9e10a801a2b810ee71f0f2406c6d3411b61a454f270"
+    },
+    {
+      "path": "close02.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13826,
+      "sha256": "762f1ac4e614884e7bc48827e3d779f5e7293453a90aa44cf50190a2ab0c55c4"
+    },
+    {
+      "path": "close02-observer-delta.patch",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2347,
+      "sha256": "db15a052606fd3ff030a6103637ea5faca9a51bb5c9972d6624c10fe690e2cd2"
+    }
+  ],
+  "nativeInputControls": "pre-effect-input-freeze.json unchanged",
+  "grantSHA256": "1106acffbe2a6da2149c12b007f06bb2185c75d8b7fa813695f9c246fe4a798a",
+  "actualAuthorLimit": "Does not assert Product-owner qualification authority, independent review, inherited semantic authorship or ABG-native attribution"
+}

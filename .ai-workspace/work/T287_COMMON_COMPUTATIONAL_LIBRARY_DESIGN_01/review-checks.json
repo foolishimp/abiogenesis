@@ -1,0 +1,226 @@
+{
+  "reviewer": "/root/reconciliation_review",
+  "created_utc": "2026-10-20T17:34:54.086854+00:00",
+  "subject": "T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01_DOCUMENTS",
+  "freeze_sha256": "7a39d3ac51da19a79275cb6ab99f2024481ef57132bf19bcdfc2112bd0c1ab2c",
+  "claim": "Identity and preservation checks only; not semantic acceptance or execution proof.",
+  "checks": [
+    {
+      "name": "candidate freeze identity",
+      "passed": true,
+      "expected": "7a39d3ac51da19a79275cb6ab99f2024481ef57132bf19bcdfc2112bd0c1ab2c",
+      "actual": "7a39d3ac51da19a79275cb6ab99f2024481ef57132bf19bcdfc2112bd0c1ab2c"
+    },
+    {
+      "name": "basis identity",
+      "passed": true,
+      "actual": "7c4196afaf481be05056a5c3b5120b98b9e4d012ccf2b673f765076b3ec23376"
+    },
+    {
+      "name": "candidate cardinality",
+      "passed": true,
+      "count": 5
+    },
+    {
+      "name": "candidate file identity",
+      "passed": true,
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "actual_sha256": "cff436cd67161703d3b3faa9d2a2d8d7360f48a5284836b406f215de8774e6be"
+    },
+    {
+      "name": "candidate file identity",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "actual_sha256": "924789be491175cf570bf5407c14dbd9ccfd4f682b495e48a50ec6788f9b3527"
+    },
+    {
+      "name": "candidate file identity",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "actual_sha256": "9a84ef16c1524abf56e4ab3dafa8f894d697fb34cb4ed37eb5ca5acbf1a9af31"
+    },
+    {
+      "name": "candidate file identity",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/README.md",
+      "actual_sha256": "68f4f0ef12ab4a25f42c66e2be11dfa7083292a926a2ee0d4644876fe62213b7"
+    },
+    {
+      "name": "candidate file identity",
+      "passed": true,
+      "path": "specification/GOALS.md",
+      "actual_sha256": "626c12c2fc28090f64463d4829c2aafe54377986c55d80a10a3f575999f08890"
+    },
+    {
+      "name": "all inventoried non-candidate files preserved",
+      "passed": true,
+      "count": 692,
+      "failures": []
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "AGENTS.md",
+      "actual_sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "stdo_abiogenesis.json",
+      "actual_sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/INTENT.md",
+      "actual_sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/PRODUCT.md",
+      "actual_sha256": "27e79e8336b7988121814a49a1d77976cba4b139a04e4b3bd39e250821992fd3"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/requirements/README.md",
+      "actual_sha256": "741cbaf8d7ea1b82006718d8fa84ccd62c01c59bff93885e75a26d16f8944169"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/requirements/product/REQ-P-CATALOG.md",
+      "actual_sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+      "actual_sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "actual_sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e"
+    },
+    {
+      "name": "routing preimage identity",
+      "passed": true,
+      "path": "specification/GOALS.md"
+    },
+    {
+      "name": "routing preimage identity",
+      "passed": true,
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    },
+    {
+      "name": "routing preimage identity",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/README.md"
+    },
+    {
+      "name": "routing preimage identity",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md"
+    },
+    {
+      "name": "historical ticket tail preserved",
+      "passed": true,
+      "marker": "## Historical Routing Snapshot"
+    },
+    {
+      "name": "frozen input identity",
+      "passed": true,
+      "path": "document-checks.json",
+      "actual_sha256": "5cff3313ba33d6840a53aadcdd0c9e7ee2071e22165a53c34b6827a4a2df7cc1"
+    },
+    {
+      "name": "frozen input identity",
+      "passed": true,
+      "path": "product-assessment.md",
+      "actual_sha256": "372d1ad54e0a960668f85df115fe6676cc9a7880f7e281ac7554567ce3c8cc96"
+    },
+    {
+      "name": "frozen input identity",
+      "passed": true,
+      "path": "realization-assessment.md",
+      "actual_sha256": "501d395356e72cbcfdb45269ecfdab4c81ed9d16a8d0a315173b6d29d6a73e1a"
+    },
+    {
+      "name": "frozen input identity",
+      "passed": true,
+      "path": "calculus-writer/freeze.json",
+      "actual_sha256": "c993f0095b309370912506e47a05aba5fb7ba8d8a6345a13ac9c97340082b064"
+    },
+    {
+      "name": "installed method manifest identity",
+      "passed": true,
+      "actual_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+    },
+    {
+      "name": "exact method selection",
+      "passed": true
+    },
+    {
+      "name": "no companion selected",
+      "passed": true
+    },
+    {
+      "name": "previous review record preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_STDO3_RECONCILIATION_01/candidate-freeze.json",
+      "actual_sha256": "51cc0151cdfc922867766448687c5ebf3f2cb0ca2108dcdee8052af5e860b9ef"
+    },
+    {
+      "name": "previous review record preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_STDO3_RECONCILIATION_01/candidate-freeze-02.json",
+      "actual_sha256": "d48dd904ce8a095f541d866894457dfdec8e54115c1fd2852c915cefc3762499"
+    },
+    {
+      "name": "previous review record preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_STDO3_RECONCILIATION_01/review.md",
+      "actual_sha256": "715414533ce6a387ebb0899e5bc17b7989f3af810adb42be67d917273b08c299"
+    },
+    {
+      "name": "previous review record preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_STDO3_RECONCILIATION_01/review-checks.json",
+      "actual_sha256": "ea9c77cc500abb427be1491bb131d1e406448b3c9472437ef32022cc95f21f49"
+    },
+    {
+      "name": "fixed Product feature rows",
+      "passed": true,
+      "features": [
+        "A5-F01",
+        "A5-F02",
+        "A5-F03",
+        "A5-F04",
+        "A5-F05",
+        "A5-F06",
+        "A5-F07",
+        "A5-F09",
+        "A5-F10",
+        "A5-F11",
+        "A5-F13",
+        "A5-F14",
+        "A5-F15",
+        "A5-F16",
+        "A5-F17"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 34,
+    "passed": 34,
+    "failed": 0,
+    "preserved_non_candidate_files": 692
+  },
+  "checker_notes": [
+    "The first check attempt used non-existent flat requirement paths and wrote no output; exact product/ and abg/ paths were then used.",
+    "The Product-row pattern was corrected to match source Markdown backticks before this review record was finalized. Neither checker correction changed any subject file."
+  ]
+}

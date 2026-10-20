@@ -1,0 +1,33 @@
+[
+  {
+    "endpoint": "user",
+    "exit_code": 0,
+    "login": "foolishimp",
+    "type": "User",
+    "plan_name": null
+  },
+  {
+    "endpoint": "repos/foolishimp/abiogenesis",
+    "exit_code": 0,
+    "full_name": "foolishimp/abiogenesis",
+    "private": false,
+    "default_branch": "main",
+    "size": 8384534,
+    "archived": false,
+    "disabled": false,
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "push": true,
+      "triage": true,
+      "pull": true
+    }
+  },
+  {
+    "endpoint": "users/foolishimp/settings/billing/usage?year=2026&month=10",
+    "exit_code": 1,
+    "message": "Not Found",
+    "status": "404",
+    "stderr_category": "authentication_or_permission_or_endpoint_failure"
+  }
+]

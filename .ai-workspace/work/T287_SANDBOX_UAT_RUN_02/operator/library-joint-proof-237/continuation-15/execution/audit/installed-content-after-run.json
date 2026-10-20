@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/0f9cd1998227c3d2ce02282d7f98640b37a2623e0febb96cf35f9d0e8b0fb1f0/4a1acae35b6d9f9a8a264ae49ef65c431c4206dc89a216b53732e8c5b0a133a8",
+      "admissionEventRef": "event://abiogenesis/c911a7bd37914990c0ddbc7efde9fa10e6478227579d8ecb80823c8ff50cee22",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:61fb9b4e330d04c96443d8eaa5bd04233c553c638218006c36a7ccd43670e215",
+      "productContentDigest": "sha256:0f9cd1998227c3d2ce02282d7f98640b37a2623e0febb96cf35f9d0e8b0fb1f0",
+      "manifestDigest": "sha256:9486d64de81c3c5b1b364a71c983c4dcc06a2c3bfa2ee78485a1e6444bd9cc79",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/bc21a6b32df24e56a97c237a40cf9b10a008f574f85ca680125239b6a979e4a6/4a1acae35b6d9f9a8a264ae49ef65c431c4206dc89a216b53732e8c5b0a133a8",
+      "admissionEventRef": "event://abiogenesis/3b81c911690957d7c6cf482cc22181dce271397f33f4affa323671ae7303f698",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/installed-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:5a3f2beea6e8e53c0699b4d026a79827d716d2a719553f79e00991940790f3f4",
+      "productContentDigest": "sha256:bc21a6b32df24e56a97c237a40cf9b10a008f574f85ca680125239b6a979e4a6",
+      "manifestDigest": "sha256:c40432d7f1a758361c99fb48c1e851ca235a999fe952136e266e2399dcb2492d",
+      "contentMatches": true
+    }
+  ]
+}

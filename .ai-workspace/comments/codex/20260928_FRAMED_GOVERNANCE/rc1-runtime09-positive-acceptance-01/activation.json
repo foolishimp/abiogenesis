@@ -1,0 +1,16 @@
+{
+  "status": "ACTIVE",
+  "operation": "T287_RUNTIME09_POSITIVE_ACCEPTANCE_WRITER_01",
+  "role": "Writer",
+  "actor": "/root",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "grant": "Accept exact independently reviewed Runtime09 positive companion only and align selected work tracking. No Runtime10 release yet.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-positive-acceptance-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "SourceCodeCandidateRuntimeGitEffects": 0,
+  "activatedAt": "2026-10-03T09:34:09.789157+00:00"
+}

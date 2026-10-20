@@ -1,0 +1,245 @@
+--- readonly-helper-01
++++ global-plan-02
+@@ -1,4 +1,4 @@
+-"""Planning only. Reads G and originals; writes only the granted work/evidence roots."""
++"""Planning only. Reads comments outside governance and originals; writes only the granted work/evidence roots."""
+ from pathlib import Path
+ import collections
+ import datetime
+@@ -12,17 +12,20 @@
+ 
+ START = time.monotonic()
+ R = Path('/Users/jim/src/apps/abiogenesis')
+-G = R / '.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE'
+-W = R / '.ai-workspace/work/T287_COMMENTARY_CLEANUP_01'
+-E = R / '.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01'
++G = R / '.ai-workspace/comments'
++EXCLUDED_PATH = 'codex/20260928_FRAMED_GOVERNANCE'
++W = R / '.ai-workspace/work/T287_COMMENTARY_CLEANUP_02'
++E = R / '.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_02'
+ ORIGINAL = R / 'build_tenants/abiogenesis/typescript/test_env/test_runs'
+ assert json.loads((W / 'activation.json').read_bytes())['activation'] == 'ACTIVE_PLANNING_ONLY'
+ NAMES = json.loads((W / 'named-roots.json').read_bytes())
+ COPY = NAMES['copiedRoot']
+ ROOTS = [COPY] + NAMES['cacheRoots']
+-EXCLUDED = {'final-candidate-construction-09', 'final-candidate-construction-10',
+-            'g2-existing-owner-groups-01', 'g2-gtl-current-how-01'}
+-TOOL_ARCHIVES = 'final-candidate-construction-03/npm-cache'
++EXCLUDED = {EXCLUDED_PATH}
++OPERATION = NAMES['operation']
++SOURCE_EXTENSIONS = {'.ts','.tsx','.js','.jsx','.mjs','.cjs','.map','.c','.h','.rs','.py','.sh','.yaml','.yml','.toml','.lock'}
++NATIVE_RESOURCE_PARTS = {'node_modules','.git','event-store','event_store','eventstore','events','stores','native-resources','native_resources','resources','worksite','worksites','installed','install','installation','instance','host','product-store','artifact-store'}
++PROOF_NAMES = {'freeze.json','manifest.json','readiness.json','assertion.json','handoff.json','resource-assertion.json','current-resources.json','proof.json'}
+ TEXT_VISUAL = {'.md', '.markdown', '.mdx', '.txt', '.rst', '.adoc', '.org', '.puml',
+                '.mmd', '.html', '.htm', '.pdf', '.docx', '.png', '.jpg', '.jpeg', '.svg', '.webp'}
+ ARCHIVES = {'.tgz', '.tar', '.gz', '.zip'}
+@@ -54,7 +57,7 @@
+         assert (opened.st_dev, opened.st_ino) == (before.st_dev, before.st_ino)
+         for b in iter(lambda: f.read(1024 * 1024), b''):
+             if not first:
+-                first = b[:16]
++                first = b[:512]
+             h.update(b)
+             if h512 is not None:
+                 h512.update(b)
+@@ -88,7 +91,7 @@
+     p = guard(G / a, G)
+     assert p.is_dir(), a
+     assert 'node_modules' not in p.relative_to(G).parts, a
+-    assert p.relative_to(G).parts[0] not in EXCLUDED, a
++    assert not (a == EXCLUDED_PATH or a.startswith(EXCLUDED_PATH + '/')), a
+     for b in ROOTS[:i]:
+         assert not (a == b or a.startswith(b + '/') or b.startswith(a + '/')), (a, b)
+ guard(ORIGINAL)
+@@ -114,44 +117,33 @@
+ tracked_g = {p[len(prefix):] for p in tracked if p.startswith(prefix)}
+ pin(index_path)
+ 
+-# Bind the exact owning/readiness records, without changing their historical census.
++# Bind authority, immutable planning controls, preserved Code cut, and exact original-copy origin.
+ for rel in ['README.md', 'AGENTS.md', 'specification/GOALS.md', 'specification/INTENT.md',
+             'specification/PRODUCT.md', 'stdo_abiogenesis.json',
+             'build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md']:
+     pin(R / rel)
+-fzp = G / 'f11-carrier-realization-01/freeze.json'
+-gp = G / 'f11-carrier-realization-01/copied-generated-pins.json'
+-pin(fzp)
+-pin(gp)
+-pin(G / 'f11-carrier-realization-01/readiness.json')
+-fz = json.loads(fzp.read_bytes())
+-generated = json.loads(gp.read_bytes())
+-assert fz['status'] == 'CLOSED' and len(fz['records']) == 117
+-assert len(generated['records']) == 714
+-for rows in (fz['records'], generated['records']):
+-    assert not any('copied-tenant/test_env/test_runs' in r['path'] for r in rows)
++for p in (W/'activation.json',W/'grant.txt',W/'named-roots.json',W/'build_plan.py',W/'donor.build_plan.py',
++          W/'discovery.json',W/'origin-observations.json',W/'closure-text-observations.json',
++          R/'.ai-workspace/evidence/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/freeze.json'):
++    pin(p)
++copy_origin = G/'codex/20260909_D1_LIFECYCLE/native-implementation/proof-summary.json'
++if copy_origin.is_file() and not copy_origin.is_symlink():
++    pin(copy_origin)
++for origin in NAMES['cacheOrigins'].values():
++    for path in origin['lifecycleRecords']:
++        pin(Path(path))
+ 
+ root_rows = []
+ for rel in ROOTS:
+     p = G / rel
+     st = p.stat()
+-    lifecycle = []
+-    for parent in (p, *p.parents):
+-        if parent == G:
+-            break
+-        for name in ('freeze.json', 'final-freeze.json', 'final-runtime-freeze.json',
+-                     'preparation-freeze.json', 'return.md', 'readiness.json'):
+-            q = parent / name
+-            if q.is_file() and not q.is_symlink():
+-                lifecycle.append(pin(q))
+-        if lifecycle:
+-            break
+-    root_rows.append({'path': rel, 'role': 'redundant_copied_test_work' if rel == COPY else
+-                      ('protected_frozen_tool_archives' if rel == TOOL_ARCHIVES else
+-                       ('V8_compile_cache' if p.name == 'node-compile-cache' else 'npm_cache')),
+-                      'mode': stat.S_IMODE(st.st_mode), 'device': st.st_dev, 'inode': st.st_ino,
+-                      'lifecyclePins': lifecycle, 'candidateFiles': 0, 'candidateBytes': 0,
+-                      'excludedFiles': 0, 'excludedBytes': 0})
++    origin = NAMES['cacheOrigins'].get(rel, {})
++    lifecycle = [str(pin(Path(q))) for q in origin.get('lifecycleRecords', [])]
++    root_rows.append({'path': rel, 'role': 'redundant_copied_test_work' if rel == COPY else origin['kind'],
++                     'mode': stat.S_IMODE(st.st_mode), 'device': st.st_dev, 'inode': st.st_ino,
++                     'lifecyclePins': lifecycle, 'closedOriginProven': None if rel == COPY else origin['closedOriginProven'],
++                     'closureEvidence': origin.get('closureEvidence', []),
++                     'candidateFiles': 0, 'candidateBytes': 0,'excludedFiles': 0,'excludedBytes': 0})
+ 
+ candidates = []
+ protected = []
+@@ -176,13 +168,16 @@
+     files.sort()
+     for name in list(dirs):
+         p = Path(base) / name
++        rel = str(p.relative_to(G))
+         st = p.lstat()
++        if rel == EXCLUDED_PATH or name in ('node_modules','.git'):
++            totals['prunedWholeRoots'] += 1
++            dirs.remove(name)
++            continue
+         if stat.S_ISLNK(st.st_mode):
+             totals['links'] += 1
+-            ri = root_index(str(p.relative_to(G)))
+-            if ri is not None:
+-                nonregular.append({'path': str(p.relative_to(G)), 'kind': 'symlink',
+-                                   'target': os.readlink(p), 'device': st.st_dev, 'inode': st.st_ino})
++            nonregular.append({'path': str(p.relative_to(G)), 'kind': 'symlink',
++                               'target': os.readlink(p), 'device': st.st_dev, 'inode': st.st_ino})
+             dirs.remove(name)
+         else:
+             totals['directories'] += 1
+@@ -198,9 +193,8 @@
+         ri = root_index(rel)
+         if not stat.S_ISREG(st.st_mode):
+             totals['links' if stat.S_ISLNK(st.st_mode) else 'otherNonregular'] += 1
+-            if ri is not None:
+-                nonregular.append({'path': rel, 'kind': 'symlink' if stat.S_ISLNK(st.st_mode) else 'other',
+-                                   'device': st.st_dev, 'inode': st.st_ino})
++            nonregular.append({'path': rel, 'kind': 'symlink' if stat.S_ISLNK(st.st_mode) else 'other',
++                               'device': st.st_dev, 'inode': st.st_ino})
+             continue
+         totals['regularFiles'] += 1
+         totals['regularBytes'] += st.st_size
+@@ -211,20 +205,30 @@
+             reasons.append('Git_tracked')
+         if '.git' in p.relative_to(G).parts:
+             reasons.append('Git_metadata')
++        if p.suffix.lower() in LOGS or '_logs' in p.parts or any(x in p.name.lower() for x in ('.stdout','.stderr','.transcript')):
++            reasons.append('human_or_readiness_log')
+         if ri is not None:
+             if 'node_modules' in p.relative_to(G).parts:
+                 reasons.append('node_modules_CODE')
+             if p.suffix.lower() in ARCHIVES:
+                 reasons.append('archive')
+-            if ROOTS[ri] == TOOL_ARCHIVES:
+-                reasons.append('actual_frozen_tool_archive')
+             if st.st_nlink != 1:
+                 reasons.append('hardlink')
+-            if ROOTS[ri] != COPY and (p.suffix.lower() in LOGS or '_logs' in p.parts):
+-                reasons.append('human_or_readiness_log')
++            if ROOTS[ri] == COPY:
++                cp = p.relative_to(G / COPY)
++                if p.suffix.lower() in SOURCE_EXTENSIONS:
++                    reasons.append('copied_SOURCE_or_CODE')
++                if set(cp.parts[:-1]) & NATIVE_RESOURCE_PARTS or p.suffix.lower() in {'.jsonl','.ndjson','.sqlite','.db','.raw'}:
++                    reasons.append('native_store_install_worksite_or_transport')
++                if p.name.lower() in PROOF_NAMES or any(x in p.name.lower() for x in ('proof','assertion','handoff','evidence','receipt')):
++                    reasons.append('retained_named_proof')
++            elif not NAMES['cacheOrigins'][ROOTS[ri]]['closedOriginProven']:
++                reasons.append('cache_origin_not_proven_closed')
+         if ri is None and not reasons:
+             continue
+-        row, header, h512 = info(p, rel, with_sha512=(ri is not None and '_cacache/content-v2/sha512/' in rel))
++        row, header, h512 = info(p, rel, with_sha512=(ri is not None and '/_cacache/content-v2/sha512/' in rel))
++        if ri is not None and (header[:2] == bytes.fromhex('1f8b') or header[:4] in (b'PK\x03\x04', b'PK\x05\x06') or header[257:262] == b'ustar'):
++            reasons.append('actual_archive_body_including_extensionless')
+         if reasons:
+             row['reasons'] = sorted(set(reasons))
+             protected.append(row)
+@@ -260,7 +264,7 @@
+                 else:
+                     why = 'not_established_V8_cache_body'
+             else:
+-                normalized = parts[1:] if parts[0] == 'npm' else parts
++                normalized = ('_cacache',) + parts if (G / ROOTS[ri]).name == '_cacache' else (parts[1:] if parts[0] == 'npm' else parts)
+                 if len(normalized) == 6 and normalized[:3] == ('_cacache', 'content-v2', 'sha512') \
+                         and re.fullmatch(r'[0-9a-f]{2}', normalized[3]) \
+                         and re.fullmatch(r'[0-9a-f]{2}', normalized[4]) \
+@@ -308,6 +312,9 @@
+ for old in list(refs.values()):
+     current, _, _ = info(Path(old['path']))
+     assert current == old, 'context pin changed: ' + old['path']
++for old in copy_originals:
++    current, _, _ = info(ORIGINAL / old['path'], old['path'])
++    assert current == old, 'original copy witness moved: ' + old['path']
+ assert len({r['path'] for r in candidates}) == len(candidates)
+ assert not ({r['path'] for r in candidates} & {r['path'] for r in protected})
+ candidate_kinds = collections.Counter(r['kind'] for r in candidates)
+@@ -319,7 +326,7 @@
+ write('candidate-directories.json', directories)
+ write('nonregulars.json', nonregular)
+ write('context-pins.json', list(refs.values()))
+-write('named-root-plan.json', {'operation': 'T287_COMMENTARY_CLEANUP_PLAN_01',
++write('named-root-plan.json', {'operation': OPERATION,
+       'status': 'CLOSED_PLANNING_ONLY_NO_DELETION', 'G': str(G), 'originalCopyRoot': str(ORIGINAL),
+       'roots': root_rows, 'protectedWholeRoots': sorted(EXCLUDED),
+       'protection': {'textVisualExtensions': sorted(TEXT_VISUAL), 'archiveExtensions': sorted(ARCHIVES),
+@@ -328,22 +335,27 @@
+                      'GitTrackedGPaths': len(tracked_g), 'doNotFollowSymlinks': True,
+                      'nonregularsUntouched': True, 'hardlinksExcluded': True,
+                      'copiedMachineOutputsRequireOriginalBodyEquality': True,
+-                     'entireC03FrozenToolCacheProtected': TOOL_ARCHIVES},
++                     'extensionlessArchiveHeadersProtected': True,
++                     'logsProtectedIncludingRawCopy': True, 'allNodeModulesPruned': True,
++                     'unprovedCacheOriginProtected': True, 'protectedPrunedRoots': NAMES['pruned']},
+       'deletionNotAuthorized': True,
++      'noncandidatePolicy': 'ALL unlisted files and pruned roots are protected; this exact positive file list is the only proposed effect',
+       'futureGuard': 'Root separate grant after nonauthor review; exact per-file tuple reacquisition, symlink-free containment and unchanged original/protection/context pins; no broad rmtree; optional empty-directory removal only bottom-up within exact approved roots',
+       'historicalProof': 'Original freezes and receipts remain unchanged; later cleanup ledger must record authorized cache/copy removals rather than represent their original physical census as still complete',
+       'limits': ['logical file bytes are not allocated/reclaimed disk bytes',
+                  'no cache-independent reproduction or future readiness claim',
+                  'no native state or Product authority change',
+-                 'active donor roots excluded; Setup09/10 only explicitly named caches eligible']})
+-summary = {'operation': 'T287_COMMENTARY_CLEANUP_PLAN_01', 'status': 'CLOSED_PLANNING_ONLY_NO_DELETION',
++                 'entire governance subtree excluded; unproved closed-cache origins protected; raw copies require exact surviving original witnesses']})
++summary = {'operation': OPERATION, 'status': 'CLOSED_PLANNING_ONLY_NO_DELETION',
+            'finishedUTC': datetime.datetime.now(datetime.timezone.utc).isoformat(),
++           'closedCacheOrigins': sum(x['closedOriginProven'] for x in NAMES['cacheOrigins'].values()),
++           'unprovedCacheOriginsProtected': sum(not x['closedOriginProven'] for x in NAMES['cacheOrigins'].values()),
+            'namedRoots': len(ROOTS), 'candidateFiles': len(candidates), 'candidateBytes': candidate_bytes,
+            'candidateKinds': dict(candidate_kinds), 'protectedFiles': len(protected),
+            'protectedBytes': sum(r['bytes'] for r in protected), 'protectedReasonCounts': dict(protected_reasons),
+            'excludedCandidateFiles': len(excluded_files), 'excludedCandidateBytes': sum(r['bytes'] for r in excluded_files),
+            'originalCopyWitnesses': len(copy_originals), 'contextPins': len(refs),
+-           'GSnapshot': dict(totals), 'cost': dict(cost), 'elapsedSeconds': time.monotonic() - START,
++           'outsideGovernanceSnapshot': dict(totals), 'cost': dict(cost), 'elapsedSeconds': time.monotonic() - START,
+            'effects': {'commentsWrites': 0, 'deletions': 0, 'moves': 0, 'symlinksCreated': 0,
+                       'GitCommands': 0, 'ProductImports': 0, 'RuntimeCalls': 0,
+                       'buildsTests': 0, 'networkProviderCalls': 0, 'writesOnly': [str(W), str(E)]}}

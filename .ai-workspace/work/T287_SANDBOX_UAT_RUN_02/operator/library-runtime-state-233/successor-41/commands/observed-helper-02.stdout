@@ -1,0 +1,28 @@
+✖ observed C2 zero write declaration executes readonly helper and refuses real mirror mutation (531.212ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 847.121375
+
+✖ failing tests:
+
+test at input-02/test_env/tests/t287-observed-worksite-command.test.mjs:151:1
+✖ observed C2 zero write declaration executes readonly helper and refuses real mirror mutation (531.212ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/input-02/test_env/tests/t287-observed-worksite-command.test.mjs:184:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

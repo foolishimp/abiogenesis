@@ -1,0 +1,59 @@
+{
+  "scope": "Accepted frozen C06 source plus actual already closed failure prefix; not whole Runtime07 return assurance",
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "bytes": 140347,
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "mode": 420
+  },
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/repository",
+  "fixtureArchive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+  "failureReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/first-failure.json",
+    "bytes": 3846,
+    "sha256": "fc8baf4a246e53c7d53d779aae3ad3fe5959bef8a0b413a3901a04d88e302915",
+    "mode": 420
+  },
+  "eventPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/closed-runtime-prefix.jsonl",
+    "bytes": 2750762,
+    "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+    "mode": 420
+  },
+  "actualClosedHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:41c143e37effce5af95270d3e9f56dd42dd7d8845ae9a98a3a895b3fe450a6f0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "prefixLength": 2750762,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464698960
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:a035fec857eced20ca99156c24c70419177d40a2d6c89d19a80da5a8e9f22669",
+      "device": 16777230,
+      "durableByteLength": 2750762,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "inode": 464698960,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "sourceEventPhysical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+    "bytes": 2750762,
+    "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464698960
+  },
+  "nativeSymptom": "actual helper exit0; native raw-result assessment rejected/verification null; transport contract_failure; leaf assessment_transport_mismatch; parent runtime_failed; strict route halted",
+  "wholeRuntimeArchiveStatus": "Writer still closing; no overall Runtime evidence completeness or acceptance asserted"
+}

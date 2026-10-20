@@ -1,0 +1,11 @@
+✔ drop complete output then selected route does not retain decoded historical bodies (1492.860875ms)
+ℹ {"kind":"finite_drop_retainer_diagnostic","targetId":"7059","collectedAfterDebuggerHandleReleased":true,"heap":123171480}
+ℹ {"operationalHeap":66123760,"snapshotHeap":68177216,"afterDropHeap":128977112,"selectedWork":{"bodyRows":104,"scopeRows":0,"membershipComparisons":1257,"selectorRows":46},"selectedBytes":4362729,"selectedValueStillRetained":false,"limit":"Dropped complete output is collectible while the same ordinary owner stays open. Controlled finite history; heap records are evidence, not a quota or campaign-capacity proof."}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1795.603292

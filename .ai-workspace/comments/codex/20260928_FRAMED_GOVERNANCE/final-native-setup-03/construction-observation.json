@@ -1,0 +1,14 @@
+{
+  "effectStage": "before native/preflight launch",
+  "observerFailure": "KeyError: mode in read-only C02 freeze checker, before any record output or resource creation",
+  "actualSchema": "C02 file records have mode/bytes/sha256;19 symlink records have kind/target and intentionally no mode",
+  "cause": "Caller bookkeeping incorrectly applied file-mode assertion to link record",
+  "classification": "Bounded evidence observer assumption; no candidate/Product/owner contract failure",
+  "correction": "Check kind first; compare actual symlink target for links and declared mode/bytes/hash for files. No weakened declared check, source/candidate repair or native retry.",
+  "proof": "Successful exact frozen-record comparison in pre-effect-conservation.json",
+  "frames": {
+    "Identity": "Accepted C02 exact freeze unchanged",
+    "Proof": "Compare attributes actually issued for each kind",
+    "Effect": "No owner call, native resource or immutable-source mutation"
+  }
+}

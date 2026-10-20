@@ -1,0 +1,34 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_PROOF_REPAIR_01",
+  "archiveFiles": 5283,
+  "archiveMembershipPreserved": true,
+  "extractionExactToArchive": true,
+  "changedPackageFiles": [
+    "package/build/code/src/qualification/m05.d.ts",
+    "package/build/code/src/qualification/m05.js",
+    "package/contracts/capabilities/capability-definition-graph.json",
+    "package/product-toolchain-manifest.json"
+  ],
+  "preservedSerializedAssets": 53,
+  "preservedContractIds": 75,
+  "changedContractRows": [
+    "abg.contract.qualification.m05"
+  ],
+  "actualCapabilityOwnerProof": {
+    "actualOwnerGraphReproduced": true,
+    "predecessorReproducedBySameOwner": true,
+    "semanticMembershipPreserved": true,
+    "capabilities": 16,
+    "ownerCoordinates": 241,
+    "changedIdentityAndCatalogLeaves": 551,
+    "capabilityGraphDigest": "sha256:c1246f8ccfc0385b0dd4be30da2e549ea6c6fbced33abd55680d0c822bc8648a",
+    "graphAssetDigest": "sha256:425334a5a51653027e8f4d9ce0b971b982366ede04f5aa19eaa17f8058ff3288",
+    "catalogDigest": "sha256:9985ac7e225638afcc6cb4ed8c77ee9bdb770b2b74cca6a55d6d0229e232a757",
+    "productContentDigest": "sha256:71d31e7a1ac4d38a92337b8c3159e8318fde658ae4504749447b47ca215a89cf",
+    "runtimeCalls": 0,
+    "qualificationClaims": 0
+  },
+  "elapsedMs": 620.9852909996698,
+  "rebuilds": 0,
+  "fullStageCopies": 0
+}

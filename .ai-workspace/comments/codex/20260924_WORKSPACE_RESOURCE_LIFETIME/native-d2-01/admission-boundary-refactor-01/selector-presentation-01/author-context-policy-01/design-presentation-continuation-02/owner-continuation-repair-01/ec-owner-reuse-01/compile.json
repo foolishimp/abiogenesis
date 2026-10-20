@@ -1,0 +1,6 @@
+{
+  "command": "./node_modules/.bin/tsc -p tsconfig.json",
+  "exitCode": 0,
+  "durationSeconds": 5.64441180229187,
+  "scope": "one compile; no clean, pack or product manifest generation"
+}

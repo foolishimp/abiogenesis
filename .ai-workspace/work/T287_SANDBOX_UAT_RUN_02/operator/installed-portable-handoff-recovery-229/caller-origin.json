@@ -1,0 +1,25 @@
+{
+  "sourceCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recover-stop-source.mjs",
+    "sha256": "73df318ebe7ccda0d86edbfdb638faed9528092e484b3f2eb28fa6b93df232bf",
+    "byteCount": 23017
+  },
+  "copiedHelpers": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/verify-artifacts.mjs",
+      "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+      "byteCount": 2071
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/operation-resource.mjs",
+      "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+      "byteCount": 695
+    }
+  ],
+  "adaptations": [
+    "Actual31 maintenance owner/nominal verification and current223 residue/handoff;29 stop/private nominal authority stays separate",
+    "Reuse223 physical digest under fresh stat; no extra stream hash",
+    "229 provenance/request labels; genuine219 lineage/source41/Program unchanged"
+  ],
+  "noActualEffectYet": true
+}

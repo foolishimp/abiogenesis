@@ -1,0 +1,20 @@
+{
+  "role": "Reviewer",
+  "activation": "T287_FINAL_QUALIFICATION_INPUT_REVIEW_02",
+  "actor": "/root/f11_attribution_inputs",
+  "priorRole": "T287_F11_SESSION_CORRESPONDENCE_03 Worker CLOSED",
+  "independence": "This actor authored neither Q02 nor Q01 nor the original Q01 input review. Prior attribution/session work is excluded from this review.",
+  "at": "2026-09-30T08:26:42.964751+00:00",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-review-controls-02/request.txt",
+    "bytes": 5879,
+    "sha256": "233503632736e2782253f370a0f575b925b096e4bf273b3756010670fde72862"
+  },
+  "separateWriterActivation": {
+    "role": "Writer",
+    "activation": "T287_FINAL_QUALIFICATION_INPUT_REVIEW_02_REPORT",
+    "territory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-review-02",
+    "effects": "Reviewer observations, scripts, reports, check logs and freeze only; no subject repair"
+  },
+  "noNativeOrSourceEffects": true
+}

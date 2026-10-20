@@ -6,7 +6,7 @@ import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction.js";
 import { WORKSITE_BRANCH_CONSTRUCTION_IDS } from "../product/worksite_branch_construction.js";
 import { lstatSync, linkSync, mkdirSync, readFileSync, readdirSync, readlinkSync, realpathSync, unlinkSync, writeFileSync, } from "node:fs";
 import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
-import { authenticateNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
 import { requireWorksiteNativeInstructionAssembly, worksiteCommandExecutionAttemptRef } from "../abg/instruction_assembly.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, } from "../product/contracts.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS, constructWorksiteExecutionObservation, constructWorksiteCommandExecutionWorkerResult, helperArtifactPreservesProtectedObservations, isWorksiteCommandExecutionHelperPlan, isWorksiteExecutionHelperArtifact, renderWorksiteCommandExecutionPrompt, worksiteCommandExecutionHelperPlan, worksiteCommandExecutionWorkerResultSchema, projectWorksiteCommandExecutionBudget, } from "../product/worksite_command_execution.js";
@@ -37,7 +37,7 @@ export const WORKSITE_COMMAND_EXECUTION_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
 function exactAuthorityFreeOccurrence(occurrence, verifyNativeOccurrence) {
     const { nativeInstructionAssemblyBasis, ...coordinates } = occurrence;
     if (nativeInstructionAssemblyBasis !== undefined) {
-        const owner = verifyNativeOccurrence === undefined ? authenticateNativeInstructionAssemblyBasis(nativeInstructionAssemblyBasis) : null;
+        const owner = verifyNativeOccurrence === undefined ? authenticateOwnedNativeInstructionAssemblyBasis(nativeInstructionAssemblyBasis) : null;
         if (verifyNativeOccurrence !== undefined ? !verifyNativeOccurrence(occurrence) : owner === null ||
             owner.call.cCallRef !== occurrence.cCallRef || owner.call.runId !== occurrence.runId ||
             owner.call.graphCallId !== occurrence.graphCallId || owner.call.frameId !== occurrence.frameId ||

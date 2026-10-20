@@ -1,0 +1,27 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+  "status": "ACTIVE",
+  "role": "Worker",
+  "actor": "/root/native_applicability_design",
+  "startedAt": "2026-10-02T05:27:21.848501+00:00",
+  "ProductFrame": "fixed15/GOAL035/T287/STDO2.5.1RC2; construction readiness only, no qualification or release",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/request.txt",
+    "bytes": 5426,
+    "sha256": "3cba0f3a2535a78793ddea81d9b19a4203169b7e3cf209a284da4bba248fc1eb"
+  },
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/source-cut.json",
+    "bytes": 6113457,
+    "sha256": "defead6bba302bb64e76b44c93a16090f70040e253fc22148a78be4ec2e6dfab"
+  },
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/acceptance.json",
+    "bytes": 2857,
+    "sha256": "d1144f857c0229d59a6d362f11a08ee782776caeb793f16d6f9fa501ed636cf3"
+  },
+  "exactSevenSectionLiteralJoin": true,
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+  "allPreviousRoles": "CLOSED",
+  "prohibitions": "No source tests/repair/API/HOW/WHAT/Run/helper/provider/ambient/oldstore/Git/network effects; first discrepancy stops for Root"
+}

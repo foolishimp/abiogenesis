@@ -1,0 +1,15 @@
+# L2 Proof/Install design Worker activation
+
+Root Executive assigns a bounded source-grounded proof design for the owner-authorized L2–L5 common computational library delivery. Product remains ABIogenesis 5.0's fifteen selected families; the library is the current prerequisite deliverable, and whole-Product qualification/release remain separate.
+
+Frame: existing Project Proof, Install and end-to-end interface integration under `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`, exact `stdo://releases/v3.0.0-rc.1/`, manifest `069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232`. Accepted delivery-plan freeze is `T287_COMMON_LIBRARY_DELIVERY_PLAN_01/candidate-freeze.json`, SHA256 `d2cb0f2e7c3967a64d5719e29c9b1ce21f3a47fd61988e9645e4000607c90a0e`; accepted library design SHA256 `cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b`.
+
+A: exact current source/plan plus bounded historical proof; source observations are recorded in `source-hashes.json`. Z: one finite, independently falsifiable L4 evidence design that maps all selected K01–K12 routes and applicable V1–V7, identifies the earliest actual installed producer-to-consumer discriminator and refusal/partial-effect/reopen relations, and specifies safe isolated commands and credible cost observations.
+
+Shared activation SHA256 `0bd9a3562cc20a21a362659f514f44f2bbf11f72b981c42871355cfa93699fed`, basis SHA256 `39481bf3d0c77efc9da91139f933c2d59884e8eb6b42bded78eda603df8b6dbb`, frontier SHA256 `f367349551037bb8a69310fd2e6eb3e24e9d2b5d83da8df4d2a04fc35153aba8` are the exact common subject. Subsequent Executive directions select standalone STDO3 K11 constructor/native-source alignment and require a finite uncertainty/currentness falsifier for the selected writable native consumer. This report selects a minimal installed native registered-selection witness; execution remains unperformed.
+
+Permitted effects: read exact sources and prior evidence; write only this activation, `source-hashes.json` and `L2-report.md` under this proof directory. No source, test, generated build, package, install, runtime, provider, historical resource, cleanup or Git effect. Continuation17 and its predecessor state are read-only evidence.
+
+Additional explicit Executive staging grant: preserve a non-executed exact baseline source snapshot under `proof/baseline/` before L3 production mutation. The completed copy has 1,311 files / 60,480,437 bytes; all source and destination hashes match the shared basis. `baseline/source-manifest.json` SHA256 is `4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9`. It contains no node_modules or generated build and has not been built, packaged or executed.
+
+Stops: incomplete selected capability/consumer decisions or missing owner domain remain explicit for Executive conjunction; no expected value is inferred from candidate output. No runtime result, baseline measurement, implementation benefit or independent acceptance is claimed. The Worker freezes the report, returns to Executive and does not activate a Reviewer.

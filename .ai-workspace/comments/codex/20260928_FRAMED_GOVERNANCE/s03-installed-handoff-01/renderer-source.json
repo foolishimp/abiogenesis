@@ -1,0 +1,9 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+  "sha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+  "spanStartByte": 20804,
+  "spanEndByte": 21534,
+  "spanSha256": "f4cf4882137b2cd96e00296d3a6e5de21b30e09a8d44afc2d1f58328ebab103a",
+  "adaptation": "Exact exported render function plus assert import and one supported-output JSON argv file; no oracle/events/fixture imports",
+  "rendererSha256": "47b132d02aa7292e553f2840507acfdee2c140345968b625e48b3d4f3e9896a0"
+}

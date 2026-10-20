@@ -1,0 +1,17 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator",
+  "HOME": "/Users/jim",
+  "environmentNames": [
+    "CLAUDE_CODE_OAUTH_TOKEN",
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "loggedIn": true,
+  "authMethod": "oauth_token"
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "npm",
+    "pack",
+    "--ignore-scripts",
+    "--json",
+    "--pack-destination",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/artifacts"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "elapsedSeconds": 3.342135583050549,
+  "exitCode": 0,
+  "stdoutSha256": "80ed9b37b88b1fad5c17eacaf44b6bb88af28384918d4552c344cb3318dc8486",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

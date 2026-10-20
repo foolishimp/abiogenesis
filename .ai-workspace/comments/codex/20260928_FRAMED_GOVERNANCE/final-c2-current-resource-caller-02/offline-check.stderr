@@ -1,0 +1,8 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/offline-check.mjs:16
+assert.equal(abg.validateEventStoreCloseHandoff(initial),true);
+                 ^
+
+TypeError: abg.validateEventStoreCloseHandoff is not a function
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/offline-check.mjs:16:18
+
+Node.js v24.7.0

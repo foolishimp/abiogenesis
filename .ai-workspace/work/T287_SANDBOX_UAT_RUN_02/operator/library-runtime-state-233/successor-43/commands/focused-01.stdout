@@ -1,0 +1,12 @@
+✔ complete canonical declarations permit only publication identity consequences (19.303125ms)
+✔ only the substituted provenance inventory is ordered and every reference remains material (22.390666ms)
+✔ actual installed C2 material correspondence preserves consumed content and strict refusals (1922.501208ms)
+ℹ {"historicalMemberBytes":109703,"currentMemberBytes":109611,"consumedBytes":2308,"spanDigest":"sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345","meaningDigest":"sha256:9451e73019da7416a5b7988abc0fb2520e9f9fca724f60cb3ef15fde6c556cdb","lowerPremises":"ABG causal install/lock availability controlled; actual09/14 manifest publication/inventory/member/span reads genuine","exclusions":"No actual covered Source admission, current-use first-null attribution, installed continuation/native or behavior-equivalence credit"}
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2294.663917

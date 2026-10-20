@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs"
+  ],
+  "startedAt": "2026-10-08T07:10:51.442313+00:00",
+  "authority": "Root bounded Worker84, syntax-only once; no tests/install/runtime"
+}

@@ -1,0 +1,50 @@
+{
+  "program": {
+    "callableMembership": [
+      "graph-function://abi5-tests/structural/graph-edge@5"
+    ],
+    "closureContractRef": "contract://abi5-tests/structural/graph-edge/closure@5",
+    "kind": "gtl_program",
+    "moduleRef": "module://abi5-tests/structural/mechanics@5",
+    "policies": {
+      "abg.compute_regime": "mixed",
+      "abg.default_start_ref": "start://abi5-tests/structural/graph-edge@5",
+      "abg.root_mode": "direct"
+    },
+    "programRef": "program://abi5-tests/structural/graph-edge@5",
+    "starts": [
+      {
+        "graphFunctionRef": "graph-function://abi5-tests/structural/graph-edge@5",
+        "startRef": "start://abi5-tests/structural/graph-edge@5"
+      }
+    ],
+    "version": "5.0.0"
+  },
+  "rootOnlyCallableMembership": true,
+  "allPublishedStaticSourceDeclarations": [
+    "graph-function://abi5-tests/structural/atomic@5",
+    "graph-function://abi5-tests/structural/compose@5",
+    "graph-function://abi5-tests/structural/fan-out/element@5",
+    "graph-function://abi5-tests/structural/fan-out/reducer@5",
+    "graph-function://abi5-tests/structural/fan-out@5",
+    "graph-function://abi5-tests/structural/gate/target@5",
+    "graph-function://abi5-tests/structural/gate@5",
+    "graph-function://abi5-tests/structural/graph-edge/normalize@5",
+    "graph-function://abi5-tests/structural/graph-edge/render@5",
+    "graph-function://abi5-tests/structural/graph-edge@5",
+    "graph-function://abi5-tests/structural/recursion/step@5",
+    "graph-function://abi5-tests/structural/recursion@5",
+    "graph-function://abi5-tests/structural/retry@5",
+    "graph-function://abi5-tests/structural/substitute/pass@5",
+    "graph-function://abi5-tests/structural/substitute@5",
+    "graph-function://abi5-tests/structural/worker-compose@5",
+    "graph-function://abi5-tests/structural/worker-deterministic@5",
+    "graph-function://abi5-tests/structural/worker-pass@5",
+    "graph-function://abi5-tests/structural/worker@5",
+    "graph-function://abi5-tests/structural/workflow@5"
+  ],
+  "installationsBefore": [
+    true,
+    true
+  ]
+}

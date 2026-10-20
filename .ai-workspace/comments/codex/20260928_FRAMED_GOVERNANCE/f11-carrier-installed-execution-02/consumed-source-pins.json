@@ -1,0 +1,55 @@
+{
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminator-repair-controls-02/f11-request.txt",
+      "bytes": 8155,
+      "sha256": "c8c082e85fe958a4034edd3e17be6caa076abc3fb1bea1bc5c51e7833e1d686c",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/conformance-resources.mjs",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/freeze.json",
+      "bytes": 990,
+      "sha256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/freeze.json",
+      "bytes": 1530362,
+      "sha256": "70fbfe4ae6065eeedb59eebae09c69419d76fb1237bac21fb4d239342c3ffe6d",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+      "bytes": 44443,
+      "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/acceptance.json",
+      "bytes": 1218,
+      "sha256": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10426739,
+      "sha256": "f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-02/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+      "bytes": 10934373,
+      "sha256": "7188ee7c86398f25db5cf71cee1657eb374df519a818b82dd13a55836310d520",
+      "verified": true
+    }
+  ],
+  "frozenFixtureSourceMembersReverified": 5264,
+  "semanticProductManifestUnchanged": true,
+  "sharedConstructorCopyVerified": true
+}

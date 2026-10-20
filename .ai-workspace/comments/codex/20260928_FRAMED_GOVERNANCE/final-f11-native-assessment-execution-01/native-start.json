@@ -1,0 +1,11 @@
+{
+  "startedAt": "2026-10-01T12:36:23.536Z",
+  "assessmentDispatches": 1,
+  "operationPlan": [
+    "assessment-view",
+    "conformance-assess",
+    "assess-rule",
+    "assess-rule-run_result",
+    "assess-rule-run_replay"
+  ]
+}

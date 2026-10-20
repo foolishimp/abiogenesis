@@ -1,0 +1,153 @@
+TAP version 13
+# Subtest: shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays
+ok 1 - shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays
+  ---
+  duration_ms: 0.355958
+  type: 'test'
+  ...
+# Subtest: shared canonical traversal preserves captured entries, array length and refusal precedence
+ok 2 - shared canonical traversal preserves captured entries, array length and refusal precedence
+  ---
+  duration_ms: 4.277458
+  type: 'test'
+  ...
+# Subtest: incremental canonical hashes preserve independently declared golden bytes and refusal behavior
+ok 3 - incremental canonical hashes preserve independently declared golden bytes and refusal behavior
+  ---
+  duration_ms: 4.563458
+  type: 'test'
+  ...
+# Subtest: typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact
+not ok 4 - typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact
+  ---
+  duration_ms: 149.232083
+  type: 'test'
+  location: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15-test-successor-06/test_env/tests/t287-event-body-encoding.test.mjs:173:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'reopenAuthority')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15-test-successor-06/test_env/tests/t287-event-body-encoding.test.mjs:196:102)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: native definition references refuse missing, forward, foreign-slot, changed and injected material
+ok 5 - native definition references refuse missing, forward, foreign-slot, changed and injected material
+  ---
+  duration_ms: 150.21025
+  type: 'test'
+  ...
+# Subtest: native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append
+ok 6 - native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append
+  ---
+  duration_ms: 376.264
+  type: 'test'
+  ...
+# {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+# Subtest: physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences
+ok 7 - physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences
+  ---
+  duration_ms: 57.244792
+  type: 'test'
+  ...
+# Subtest: nearest malformed body references refuse before logical history is exposed
+ok 8 - nearest malformed body references refuse before logical history is exposed
+  ---
+  duration_ms: 65.742792
+  type: 'test'
+  ...
+# Subtest: reused cold bodies still require each new envelope identity, stamp, cause and logical digest
+ok 9 - reused cold bodies still require each new envelope identity, stamp, cause and logical digest
+  ---
+  duration_ms: 49.358959
+  type: 'test'
+  ...
+# Subtest: independently supplied mutable raw input remains detached at event admission
+ok 10 - independently supplied mutable raw input remains detached at event admission
+  ---
+  duration_ms: 10.998625
+  type: 'test'
+  ...
+# Subtest: live body reuse preserves caller isolation, owned prefix and transaction rollback
+ok 11 - live body reuse preserves caller isolation, owned prefix and transaction rollback
+  ---
+  duration_ms: 55.999959
+  type: 'test'
+  ...
+# Subtest: literal marker-shaped Product data and small duplicate values remain unambiguous
+ok 12 - literal marker-shaped Product data and small duplicate values remain unambiguous
+  ---
+  duration_ms: 28.551958
+  type: 'test'
+  ...
+# Subtest: failed durable batch discards new inline sources; committed same-batch references survive reopen
+ok 13 - failed durable batch discards new inline sources; committed same-batch references survive reopen
+  ---
+  duration_ms: 24.329875
+  type: 'test'
+  ...
+# Subtest: large duplicate Result bodies and complete replay hashing fit a constrained heap
+ok 14 - large duplicate Result bodies and complete replay hashing fit a constrained heap
+  ---
+  duration_ms: 10525.640917
+  type: 'test'
+  ...
+# {"seed":"portable-synthetic","copies":96,"valueBytes":1381713,"logicalBodyBytes":134026161,"physicalBytes":1730016,"valueDigest":"sha256:4cb713c40d5acf555d8e0c4891f8dd2a31b3cbd9b3b2b121a0bde141c164e4fb","replayDigest":"sha256:a737ffffd7f70d3bcf1145f978391a43f3c7dbbeaf031280a9f9181fe4eaa5fa","completeStateDigest":"sha256:99b855bded2bb1132e8586494b6bad600099881c24b397580d1924d79f5b1112","heapUsed":79120288,"rss":283607040,"maxRSSKiB":335664,"heapLimitMiB":128,"allDistinctAdmissions":true,"callerIsolation":true,"coldReplayEqual":true,"noNativeCredit":true}
+# Subtest: native C2 selects changed and unchanged files without acquiring C1 identity
+ok 15 - native C2 selects changed and unchanged files without acquiring C1 identity
+  ---
+  duration_ms: 23.712916
+  type: 'test'
+  ...
+# Subtest: native C2 refuses missing, duplicate, crossed and counterfeit source selections
+ok 16 - native C2 refuses missing, duplicate, crossed and counterfeit source selections
+  ---
+  duration_ms: 9.852292
+  type: 'test'
+  ...
+# Subtest: changed physical source refuses before archive publication or native dispatch
+ok 17 - changed physical source refuses before archive publication or native dispatch
+  ---
+  duration_ms: 7.914042
+  type: 'test'
+  ...
+# Subtest: native source selection preserves complete values and exact membership across long producer history and cold coordinates
+not ok 18 - native source selection preserves complete values and exact membership across long producer history and cold coordinates
+  ---
+  duration_ms: 6.556125
+  type: 'test'
+  location: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15-test-successor-06/test_env/tests/t287-native-worksite-execution.test.mjs:143:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'flatMap')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    resolveDeclarationClosure (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/product/declaration_closure.js:221:44)
+    resolveExecutionDeclarationClosure (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/product/declaration_closure.js:625:12)
+    componentNativeAssessment (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15-test-successor-06/test_env/tests/t287-native-worksite-execution.test.mjs:72:17)
+    TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15-test-successor-06/test_env/tests/t287-native-worksite-execution.test.mjs:145:38)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: retained actual native producer joins C2 source admission; absent and foreign origins refuse
+ok 19 - retained actual native producer joins C2 source admission; absent and foreign origins refuse # SKIP
+  ---
+  duration_ms: 0.351708
+  type: 'test'
+  ...
+# Subtest: native source currentness includes admitted failed-write residue after the child basis cut
+ok 20 - native source currentness includes admitted failed-write residue after the child basis cut # SKIP
+  ---
+  duration_ms: 0.047084
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 16
+# fail 2
+# cancelled 0
+# skipped 2
+# todo 0
+# duration_ms 12107.902

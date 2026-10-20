@@ -1,0 +1,424 @@
+{
+  "status": "FROZEN_SOURCE_READY",
+  "created": "2026-10-09T01:53:34.072696+00:00",
+  "editingStopped": true,
+  "effectsStopped": true,
+  "scope": "three145 source/HOW/test postimages and bounded isolated owner proof only; installed145/model/UAT closure excluded",
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "fb4ba337d8f70db2f1f7df26f4a23bdf581646126186decd1bae80583e2f00fd",
+      "byteCount": 10630872
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/exacthost-identity.json",
+      "sha256": "f751e676836e8eef74d72e2cc36f2fe6ddd05e492944aabc7a6a30ebeebf1112",
+      "byteCount": 3265
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js",
+      "sha256": "8776b3b5a2c5122fd969b9db84614e5462fc08b1626bbeb9f01b09b314597892",
+      "byteCount": 238898
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call_outcome.js",
+      "sha256": "ef4509a3aa9a09108618d3689db11a8e7e6b41e9cb138ef9d1e92321763e86c2",
+      "byteCount": 57237
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_contract_profiles.js",
+      "sha256": "d0a47b6028e5403d57e93863896165485c8ea42825445f0cba6ffe57810e3e10",
+      "byteCount": 8443
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "sha256": "f24fd97ca5353636cb1c3f3fdeeb692cd008dcd627270d760905b1007aa1b34f",
+      "byteCount": 163300
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_ports.js",
+      "sha256": "7f76ba05fd279071f9be583064989340acaefdc7add9ec279f816cdf45864fcd",
+      "byteCount": 76942
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_failure.js",
+      "sha256": "2f2337a4258a5896b0b9642721e4b015fce5b8d8505ba63d3aaa2b4d50a99ae4",
+      "byteCount": 11584
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/traversal_route.js",
+      "sha256": "98fc4f08faedebe83b8dc58b492d4b88a7c3ab6c9ad9288b5499a80adce27ea4",
+      "byteCount": 184403
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/ccall_lifecycle.js",
+      "sha256": "61b5bc0a4066dfbb2d2ce420ae7c069bef12be5dcb1aaf4eff0778b82c4310a9",
+      "byteCount": 33629
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/graph_execute.js",
+      "sha256": "1c1860ea7c6420234d5a23834114a37215137aabae37707606a835eb036abd3e",
+      "byteCount": 43099
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/route_proposal.js",
+      "sha256": "452345bbf9f3220b6382e3bb29bd0d466f4d4a6989cfadb194008e0080367039",
+      "byteCount": 31954
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js",
+      "sha256": "0fb87e5388a7bf1273eb390ebf2f6c86d5ca884d9f7e8e4fe9819e4c7cb0bfdb",
+      "byteCount": 70116
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/source-preimages.json",
+      "sha256": "df34aecf794c5d9d38c1ed75d79c33d40a4b7a117f2f30fd77225f66d29db1fe",
+      "byteCount": 78250
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/freeze.json",
+      "sha256": "460d70b13380e29108985cc21ef95b3094e1fb3a36036af6758b1ee6c4d21c29",
+      "byteCount": 35718
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/readiness.json",
+      "sha256": "fbb9f8f1d7f9125a131e4b6b75ed0555cf646bb63e1067f07ac899e1ad345695",
+      "byteCount": 43974
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/return.md",
+      "sha256": "0708ccc5b809553ef791e6073e89b9611adba52e513b63fb10330baa60df6865",
+      "byteCount": 2999
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/activation.json",
+      "sha256": "11e12d62958ff44248b66bf91898808026e4bb88e6dc18a9d6f7c5f0ac50581f",
+      "byteCount": 967
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/authentic-proof-slices.json",
+      "sha256": "ee8d97c9bf972ba477174b1d5dd837e119e0c3e108dc44ef1f7ea462ea4cc09b",
+      "byteCount": 27471
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/build/code/src/hog/recursion_lifecycle.d.ts",
+      "sha256": "6c6c25350a7be82004014510e978d219d01fd59256f9b55435762cbc48852790",
+      "byteCount": 4397
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/build/code/src/hog/recursion_lifecycle.js",
+      "sha256": "546fcd3e1259491cce7b01e4b0ecf495a9cee5bd91ad8f68ea2a65a9044345a4",
+      "byteCount": 30945
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "6155d94bd085d8415761b00520d72251438829eae5dea3e252d2929d3b15f6b7",
+      "byteCount": 36278
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/test_env/tests/t287-recursive-failure-reuse-control.test.mjs",
+      "sha256": "52af183ff85c7ee2647c312f4eb27be1f1b37b804e1ffb96555c67d0d82a9fa2",
+      "byteCount": 35261
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "0967cd09ec698275a9713673cc91dff0e3d902147f45f1a3d0fb8f60c98a80ad",
+      "byteCount": 35217
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+      "byteCount": 604
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/cold-evidence-assertion-reentry.json",
+      "sha256": "de7ddc0e7299f0e2a84e2c711319646770d1a24be2a4abd5db6a926e38e63412",
+      "byteCount": 2348
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-cold-evidence-145.request.json",
+      "sha256": "5f52abbb4a797c0f0075d0902d0a4e9cc2d53b8946a7d6df9224807a90cbbb96",
+      "byteCount": 1741
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-cold-evidence-145.result.json",
+      "sha256": "da60dac55b2f2947e31351dc5d0b9d91dec76ba902b6594d4466a7cc2e100f39",
+      "byteCount": 165
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-cold-evidence-145.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-cold-evidence-145.stdout",
+      "sha256": "799e13b254ba25d526cbaec4b4e7dd38aa91bef35b32202ea2840297982ed545",
+      "byteCount": 5807
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-retained-145.request.json",
+      "sha256": "6cff8b5119eead1138e562f47b5fae514450994b35b5d181bbf65a6d793e8c35",
+      "byteCount": 1741
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-retained-145.result.json",
+      "sha256": "428df579805e001573cf69f19360d1d5aac72d8b997e7b57dbc41305e115e5ca",
+      "byteCount": 169
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-retained-145.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-retained-145.stdout",
+      "sha256": "1735039e59245e6f67b5e0ef92243055a50d7eaceb0df6e57517d50745729737",
+      "byteCount": 3653
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-145.request.json",
+      "sha256": "9051c23524ed28351f8145727f43cf7d4c5704e39a4b2155ffb0a615d7a7d7af",
+      "byteCount": 1876
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-145.result.json",
+      "sha256": "549461af2fae061b367bd0e16102160ba852dd8fc809f0c35d29575d58ebb512",
+      "byteCount": 160
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-145.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-145.stdout",
+      "sha256": "a323302e0528d262ad8eb75c7fe582f9414bb9a06f5e98ac3bd0552b6514caae",
+      "byteCount": 687
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-owner-import-145.request.json",
+      "sha256": "2d379062731e9b18963c8014368f419ddc91aa479fcf061181be394fd3a0d851",
+      "byteCount": 1876
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-owner-import-145.result.json",
+      "sha256": "d8ad2888d524a09dfd5b77224e8a2ccd24dd7da9da06b020c489dcb82f7fb04d",
+      "byteCount": 163
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-owner-import-145.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-owner-import-145.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/compile-import-reentry.json",
+      "sha256": "f0ecde7d821e9f51290ccbfb05bac6f0b70845603d254b40ffd3fff1967b89a7",
+      "byteCount": 1066
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/diff.patch",
+      "sha256": "e65e8c7f13ec60623004d84b93a3b9439317668027c2f5eb5ba321d4c6bef796",
+      "byteCount": 17329
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/finalizer-pin-reentry.json",
+      "sha256": "3fa410fced1c74d6867ab7c78fa503d8732f44463c644dcfcfb0b65c8a456225",
+      "byteCount": 598
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/postimages.json",
+      "sha256": "1098fc7730e4a3851fe8750bbd844774d1aacdc88c93e4af5d63d170099f8e5d",
+      "byteCount": 1893
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/postimages/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "6155d94bd085d8415761b00520d72251438829eae5dea3e252d2929d3b15f6b7",
+      "byteCount": 36278
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/postimages/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "504a7647805304ff160c43717ec66c5fd00a73aa53360904e56ce4a44e9d9b51",
+      "byteCount": 34618
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/postimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "0967cd09ec698275a9713673cc91dff0e3d902147f45f1a3d0fb8f60c98a80ad",
+      "byteCount": 35217
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preflight.json",
+      "sha256": "4c440780a1f12756158d591dd061a8c5ad6d59a5804a53d0bd8f8d8be18727e9",
+      "byteCount": 827
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages.json",
+      "sha256": "2636b81a904749a16660539e05b5f8778defc747e89523877d60972510eee1a2",
+      "byteCount": 1801
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "ee8baae788e9b7bc5064600d1bedd7446cca8ec9b15d088397d10f6c8cd32361",
+      "byteCount": 35898
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "481a6f654bbccfcc0d456fd4d47cf5082d77541581240f5855ef883e82996abd",
+      "byteCount": 34249
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "ffb492428b6fd19b364cecb17bc7d353eaaecb06d2ccc8acf5c2d1160f0a0301",
+      "byteCount": 29100
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/proof-cases.json",
+      "sha256": "5667b2adb7fc8231cde85cf5f3f3d9698a3ad50be97e765ea14362f56d2f0db9",
+      "byteCount": 7086
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/readiness.json",
+      "sha256": "c207d5f9304376e902baf1b4f4095da2cc82bc5dbd90329ef07c349160ee29c9",
+      "byteCount": 18066
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/return.md",
+      "sha256": "feb7519d1b7f4b2869fb08232aecf1a8ee245c05acf80859cebb960961cb9c67",
+      "byteCount": 2367
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/reuse-fixture.mjs",
+      "sha256": "2e4c59c49a3254be0c3936df4fa7906343840df5adb525d5280db7514962d8f1",
+      "byteCount": 1865
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/run-targeted-cold-evidence.mjs",
+      "sha256": "d206b08261cd987282d9d3dc8d63d25b637392ff2aaaed787474b4c35c329741",
+      "byteCount": 1516
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/run-targeted-owner-import.mjs",
+      "sha256": "8234ce9a5682ce92fdbb53ae87671836d8320d5a16a4c149c744cfd446171eb9",
+      "byteCount": 1701
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/run-targeted.mjs",
+      "sha256": "b5d2a0c60318e091b148ef0a89d9e9c3a5e5b31f720c9cc52e0076e21881537e",
+      "byteCount": 1679
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/source-correspondence.json",
+      "sha256": "7cb529dcebf82a1da0016124a0b40d8c1a53381d349086eb66d2840bdf8a92b8",
+      "byteCount": 1818
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/test-fixture-identity.json",
+      "sha256": "fa3ed5e870f8a03ef62aee69aa5b9bc2eefdc864bdbad6a79d6c9471d036763a",
+      "byteCount": 2512
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+      "sha256": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994",
+      "byteCount": 13253
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "6155d94bd085d8415761b00520d72251438829eae5dea3e252d2929d3b15f6b7",
+      "byteCount": 36278
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "504a7647805304ff160c43717ec66c5fd00a73aa53360904e56ce4a44e9d9b51",
+      "byteCount": 34618
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+      "sha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0",
+      "byteCount": 45
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "0967cd09ec698275a9713673cc91dff0e3d902147f45f1a3d0fb8f60c98a80ad",
+      "byteCount": 35217
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-An0EG1/runtime/events.jsonl",
+      "sha256": "e6a97cd73d52f5e2ada46614d8428140c8a0486c302bd736d611affee97474ac",
+      "byteCount": 3587055
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-IzutC4/runtime/events.jsonl",
+      "sha256": "7a1a11b908c86eab5566a5c3b79de8b7f3d94da203b44d7c2932625509bf2ff3",
+      "byteCount": 3579190
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-MTbDrL/runtime/events.jsonl",
+      "sha256": "0f2d01459d19e02d6e1e3c10a0bf17c8e26580c541f867752c440ffb385cc168",
+      "byteCount": 3578629
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+      "sha256": "ee0c2c5598650d14274418d4deb84dc8a3fd173606ed57dbcda4231c8a84ba76",
+      "byteCount": 11145
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/build/failure.mjs",
+      "sha256": "1d28e64f8b95b4368d4b722a108c0b009fcb8d712e5e7710a79429c875f9ee3f",
+      "byteCount": 1917
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/build/index.mjs",
+      "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "byteCount": 10076
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/build/native.mjs",
+      "sha256": "963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6",
+      "byteCount": 6294
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/build/publication.json",
+      "sha256": "659ab03c0df057c5e4030f6132bb1a86943417d668abd7a66aefebecd3455442",
+      "byteCount": 15726
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/build/recursive.mjs",
+      "sha256": "3ba21b94902f1d39f42784c30d959b083ac8bd7a9b902915389071495bb90557",
+      "byteCount": 13148
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "byteCount": 247
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "byteCount": 75
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/package.json",
+      "sha256": "aff6f945bb6b252e15ea0b09da26bac979a861e557eced92a87dd7f757142ddf",
+      "byteCount": 464
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source/product-toolchain-manifest.json",
+      "sha256": "8975ac0e1c6cb326f8ac18adef96d59723cd2f63b0d46993c13b6192b9fa7433",
+      "byteCount": 4765
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Z9Oshd/runtime/events.jsonl",
+      "sha256": "1c1215ca8b5e214a9617fb48b7605f89512b43611d98ef4c52a82060d442c09d",
+      "byteCount": 3674330
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-c5f47c/runtime/events.jsonl",
+      "sha256": "bcfdd7b4d5614ba9bc2edfb997f96d5f4330e90d9eb6927c427b2311c3e34a39",
+      "byteCount": 3579328
+    }
+  ]
+}

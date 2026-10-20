@@ -1,0 +1,24 @@
+{
+  "extended61": {
+    "worker": 61,
+    "changed": true,
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "relativePath": "code/src/abg/runtime_liveness.ts",
+      "sha256": "12610972e3f317ec3a6fc19198d15bffda34deeaa119da425f7ded8572664f1f",
+      "byteCount": 75658,
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/code/src/abg/runtime_liveness.ts"
+    },
+    "consumed": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "relativePath": "code/src/abg/runtime_liveness.ts",
+      "sha256": "8df783c88a3561657ff716c2a335a98602e63e45b56a0c5e1911dd02eabc287c",
+      "byteCount": 75837,
+      "mode": "0o644"
+    },
+    "ledgerSource": "preimages-extended.json"
+  },
+  "priorReceiptPremise": "initial private emitted-difference mapping used61 initial preimages; build source snapshot already contained exact stable runtime_liveness",
+  "transitiveDeclarations": "three unchanged TS sources have only diagnostic-code union member ordering changes, induced by63; value set unchanged",
+  "semanticSourceRepair": false
+}

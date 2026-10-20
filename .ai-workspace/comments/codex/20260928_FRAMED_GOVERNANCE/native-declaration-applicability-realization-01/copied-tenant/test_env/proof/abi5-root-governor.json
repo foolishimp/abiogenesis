@@ -1,0 +1,24 @@
+{
+  "kind": "abi5_root_governor_result",
+  "schemaVersion": "5.0.0",
+  "bindingId": "ABI5-ROOT-001",
+  "governorId": "abg5.root.s01.hello_world@5",
+  "disposition": "root_satisfied",
+  "obligationResults": {
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true,
+    "R6": true,
+    "R7": true,
+    "R8": true,
+    "R9": true,
+    "R10": true
+  },
+  "firstFrontier": null,
+  "ownerSemanticViewRef": "run-semantic-relation://abiogenesis/194f4207a5f3927a5440d8fa2a0a068f822574d361d73246a15550c2584189fa",
+  "ownerSemanticViewDigest": "sha256:194f4207a5f3927a5440d8fa2a0a068f822574d361d73246a15550c2584189fa",
+  "ownerReplayRef": "replay://abiogenesis/5f1f58bbde55d7f5fb4e4d1f1f267d35d38efeaf880338c6072c5d7c1aec8b4d",
+  "failures": []
+}

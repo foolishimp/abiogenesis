@@ -1,0 +1,52 @@
+✖ native D2 declares public intake and every selected whole suffix with exact GTL and role owners (217.598083ms)
+(node:45220) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native D2 public intake keeps an old job, rejects absent/ambiguous causes, and composes Requirements correction through native C2 and fresh Evidence (82.530333ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 518.890292
+
+✖ failing tests:
+
+test at ../../../../odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs:420:1
+✖ native D2 declares public intake and every selected whole suffix with exact GTL and role owners (217.598083ms)
+  AssertionError [ERR_ASSERTION]: [{"code":"invalid_result_cardinality","path":"$.graphFunctions[graph-function://odd-glc/native-semantic-revision/select@5].template.nodes[graph-function://odd-glc/native-semantic-revision/select@5/node].term","message":"terminal compute-locus C term requires exactly one result-bearing path"}]
+  + actual - expected
+  
+  + 'static_validation_refusal'
+  - 'program_validation'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs:438:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'static_validation_refusal',
+    expected: 'program_validation',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:101:1
+✖ native D2 public intake keeps an old job, rejects absent/ambiguous causes, and composes Requirements correction through native C2 and fresh Evidence (82.530333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'native_revision_cause_absent'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:108:115)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'native_revision_cause_absent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

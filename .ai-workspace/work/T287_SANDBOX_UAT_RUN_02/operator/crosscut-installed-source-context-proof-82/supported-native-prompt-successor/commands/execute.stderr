@@ -1,0 +1,9 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/driver.mjs:105
+  for(const row of commands){const stream=row.value.commandResults[0].stdout;assert.equal(stream.text,literal);assert.equal(stream.digest,product.sha256Bytes(Buffer.from(literal)));assert.equal(stream.byteLength,Buffer.byteLength(literal));assert.equal(row.value.commandResults[0].exitStatus,7);assert.equal((await readFile(join(row.value.provenance.helperPlan.sandboxRoot,'evidence/literal.txt'))).equals(Buffer.from(literal)),true,'declared C2 evidence territory has a real exact-byte file effect');}
+                                                                                                                                                                                                                                                                                                                                                              ^
+
+TypeError: Cannot read properties of undefined (reading 'helperPlan')
+    at execute (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/driver.mjs:105:351)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/[eval1]:1:239
+
+Node.js v24.7.0

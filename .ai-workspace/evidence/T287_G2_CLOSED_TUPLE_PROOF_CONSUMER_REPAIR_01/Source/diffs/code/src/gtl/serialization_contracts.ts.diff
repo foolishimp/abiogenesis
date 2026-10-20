@@ -1,0 +1,23 @@
+--- code/src/gtl/serialization_contracts.ts (preimage)
++++ code/src/gtl/serialization_contracts.ts (postimage)
+@@ -162,9 +162,9 @@
+ };
+ export const CLOSURE_CONTRACT_SCHEMA = v.variant("closureScope", [
+   v.strictObject({ ...closureBasis, closureScope: v.literal("run"),
+-    eventKindRefs: v.tuple([v.literal("terminal_reached"), v.literal("frame_closed"), v.literal("graph_call_closed"), v.literal("run_closed")]) }),
++    eventKindRefs: v.strictTuple([v.literal("terminal_reached"), v.literal("frame_closed"), v.literal("graph_call_closed"), v.literal("run_closed")]) }),
+   v.strictObject({ ...closureBasis, closureScope: v.literal("graph_call"),
+-    eventKindRefs: v.tuple([v.literal("terminal_reached"), v.literal("frame_closed"), v.literal("graph_call_closed")]) }),
++    eventKindRefs: v.strictTuple([v.literal("terminal_reached"), v.literal("frame_closed"), v.literal("graph_call_closed")]) }),
+ ]);
+ export const PROGRAM_START_SCHEMA = v.strictObject({ startRef: ref, graphFunctionRef: ref });
+ export const PROGRAM_PUBLIC_ASSET_TARGET_SCHEMA = v.strictObject({
+@@ -188,7 +188,7 @@
+ });
+ export const CONSTRUCTION_COMPOSITION_SCHEMA = v.strictObject({
+   kind: v.literal("construction_composition"), schemaVersion: version, compositionRef: ref, compositionDigest: digest,
+-  graphFunctionRef: ref, authorities: v.tuple(Array.from({ length: 4 }, () => CONSTRUCTION_AUTHORITY_BINDING_SCHEMA) as [
++  graphFunctionRef: ref, authorities: v.strictTuple(Array.from({ length: 4 }, () => CONSTRUCTION_AUTHORITY_BINDING_SCHEMA) as [
+     typeof CONSTRUCTION_AUTHORITY_BINDING_SCHEMA, typeof CONSTRUCTION_AUTHORITY_BINDING_SCHEMA,
+     typeof CONSTRUCTION_AUTHORITY_BINDING_SCHEMA, typeof CONSTRUCTION_AUTHORITY_BINDING_SCHEMA,
+   ]), interactionProgramLocusRef: ref, closurePolicy: CONSTRUCTION_POLICY_SCHEMA,

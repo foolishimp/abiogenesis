@@ -1,0 +1,1230 @@
+{
+  "kind": "loaded_product_execution_resolution",
+  "resolution": {
+    "kind": "product_execution_resolution",
+    "schemaVersion": "5.0.0",
+    "disposition": "resolved",
+    "resolutionRef": "product-execution-resolution://abiogenesis/3f8f9c8dc8b865650928c4eb8245b2c4ec1d33bd95a4cb1104db0f4dfe6cd533",
+    "resolutionDigest": "sha256:3f8f9c8dc8b865650928c4eb8245b2c4ec1d33bd95a4cb1104db0f4dfe6cd533",
+    "catalogBasisDigest": "sha256:eed07ff087ea8ddba3f143c9b43ba6a7dfb002bca389058fa3c2c9780dc274bd",
+    "catalogViewDigest": "sha256:74234cb870bf48cde53719f22c5d8d69618059ec0a747e2b93c7ca1044f0cd01",
+    "programRef": "program://odd-glc/native-semantic-revision/intake@5",
+    "programDigest": "sha256:f2e1a844963bdc34e59194d01b8448a6eb35ba68cb4b1065dff549d7f13f2545",
+    "programOwner": {
+      "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+      "packageName": "@odd-glc/route-one-typescript",
+      "packageVersion": "0.2.0-dev.16",
+      "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+      "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+    },
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/intake@5",
+    "graphFunctionDigest": "sha256:faf8e5e88fb1557655f134ed3730688d054c01d4606b81e0404662d7f6f51bb8",
+    "graphFunctionOwner": {
+      "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+      "packageName": "@odd-glc/route-one-typescript",
+      "packageVersion": "0.2.0-dev.16",
+      "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+      "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+    },
+    "programGraphFunctionMembership": {
+      "ref": "program-graph-function-membership://abiogenesis/23e7b5db062636f0c5437b943790298aad8b3ca0697dc12aa51851141fdcc738",
+      "digest": "sha256:23e7b5db062636f0c5437b943790298aad8b3ca0697dc12aa51851141fdcc738"
+    },
+    "inputContract": {
+      "contractKind": "input",
+      "contractRef": "contract://abiogenesis/semantic-revision/native-intake@5",
+      "contractVersion": "5.0.0",
+      "valueKind": "native_semantic_revision_intake"
+    },
+    "inputContractDigest": "sha256:bf6ddc3916e949d931dcc822ad23436a52abb806bbec101f30093a6410406b66",
+    "inputContractOwner": {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/semantic-revision/native-intake@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+    },
+    "outputContract": {
+      "contractKind": "input",
+      "contractRef": "contract://abiogenesis/semantic-revision/request@5",
+      "contractVersion": "5.0.0",
+      "valueKind": "semantic_revision_request"
+    },
+    "outputContractDigest": "sha256:94d0909b6cc393bfb70e366c344657b729752776bf7072ffaa151a39183d2a68",
+    "outputContractOwner": {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/semantic-revision/request@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+    },
+    "declarationClosureRef": "execution-declaration-closure://abiogenesis/af3485895bfbe7eb86cd9ff59969fc1d3c05cf876de7a64002cf607e9a5035e2",
+    "declarationClosureDigest": "sha256:af3485895bfbe7eb86cd9ff59969fc1d3c05cf876de7a64002cf607e9a5035e2",
+    "declarationOwners": [
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-child-closure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-closure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://abiogenesis/worksite/construction/reducer-child-closure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/child-closure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/closure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://abiogenesis/worksite/revision-command-execution-child-closure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/assessment-0/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/assessment-1/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/assessment-2/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/assessment-3/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/assessment-4/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/envelope-output/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/intake/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-acquire/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-construction-repair-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-design-assessment-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-design-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-evidence-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-intent-assessment-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-intent-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-product-assessment-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-product-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-requirements-assessment-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-from-requirements-projection/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-intake-root/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-seal/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-select/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-0-assessment/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-0/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-1-assessment/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-1/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-2-assessment/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-2/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-3-assessment/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-3/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-stage-4/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/revision-terminal/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/stage-0/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/stage-1/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/stage-2/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/stage-3/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "closure_contract",
+        "declarationRef": "contract://odd-glc/fresh-native-lifecycle/stage-4/closure@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-revision/native-intake@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-revision/output@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-revision/request@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-revision/selection-input@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-revision/selection-worker-result@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-revision/selection@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/envelope@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/evidence@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/job-input@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/judgment@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/native-assessment@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/output@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/transition@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/semantic-stage/worker-result@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-evidence@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-failure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-judgment@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-refusal@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-task@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-transition@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/construction-evidence@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/construction-failure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/construction-judgment@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/construction-result@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/construction-transition@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/evidence@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/failure@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/judgment@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/observation@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/refusal@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/task@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/transition@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/native-work/worker-report@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/revision-command-execution-observation@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/revision-command-execution-task@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/worksite/revision-command-execution-worker-result@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://abiogenesis/worksite/construction/reduce@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://abiogenesis/worksite/revision-command-execution@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/design@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/design@5/native-assessment",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/envelope-output@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/evidence@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/evidence@5/native-assessment",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/intake@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/intent@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/intent@5/native-assessment",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/product@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/product@5/native-assessment",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/requirements@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/generic-lifecycle/requirements@5/native-assessment",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/acquire@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/construction-repair-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-design-assessment-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-design-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-evidence-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-intent-assessment-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-intent-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-product-assessment-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-product-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-requirements-assessment-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/from-requirements-projection@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/intake@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/select@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-0-assessment@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-0@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-1-assessment@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-1@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-2-assessment@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-2@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-3-assessment@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-3@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "graph_function",
+        "declarationRef": "graph-function://odd-glc/native-semantic-revision/terminal@5",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+        "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:a3f7e6ccb15c703b2abea87ba52a823d65645e74611b287efb99459a220e507a"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-revision/assessor@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-revision/author@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-revision/native-intake@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-revision/native-request@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-revision/output@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-revision/projection@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-revision/selection@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:080f9b3c8290d3282ea9e9c5d088510d9edcfec7d2e2f79ff9718712485a7cc2"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-stage/envelope-output@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-stage/job-intake@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-stage/native-assessor-fold@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-stage/native-assessor-task@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-stage/native-author-fold@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/semantic-stage/native-author-task@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/worksite/command-execution-fp@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/worksite/construction-reducer-fd@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:a5e25ec8bb7f89db9b685cf65e73ff0d9de7ada82a224fde1430a010794697c2"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/worksite/native-work-fp@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:e52231404a4eb72e6d5aa857cf0514ff52e7207d15999fdbd389dd02f19c2796"
+      },
+      {
+        "declarationKind": "implementation_binding",
+        "declarationRef": "implementation-binding://abiogenesis/worksite/revision-command-execution-fp@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:4ee724ed525f6408be76be14542061cbad5ed5237f08387587bc0f993216f5d3"
+      },
+      {
+        "declarationKind": "semantics",
+        "declarationRef": "product-semantics://abiogenesis/semantic-stage@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8/997558e291d14c9bcf6864748bfec88d9006850ab55c9536d7fbbb0ef8890d08",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:9962775db699348e1236a1969ab4d6c96e457fd2d9a4321b828e19cdedc773e7"
+      }
+    ],
+    "programValidationRef": "program-validation://abiogenesis/f02fd2b7ad975ddde19c92b0b953d80f68d3e9a40c98e167962bca6b1f722d82",
+    "programValidationDigest": "sha256:f02fd2b7ad975ddde19c92b0b953d80f68d3e9a40c98e167962bca6b1f722d82",
+    "implementationSetCandidateRef": "implementation-resolution-set-candidate://abiogenesis/8f8c3077c390be443e6bbcb1dc02102f14394060c08c23af651ca0a68710968f",
+    "implementationSetCandidateDigest": "sha256:8f8c3077c390be443e6bbcb1dc02102f14394060c08c23af651ca0a68710968f",
+    "implementationSetValidationRef": "implementation-resolution-set-validation://abiogenesis/0d244e723ee38c1e41270fc7c6cfc98523b0f844c4a8dd1b42b516a5db82bd82",
+    "implementationSetValidationDigest": "sha256:0d244e723ee38c1e41270fc7c6cfc98523b0f844c4a8dd1b42b516a5db82bd82",
+    "closureContractRef": "contract://odd-glc/fresh-native-lifecycle/revision-intake-root/closure@5",
+    "closureContractDigest": "sha256:336242ddb557aa6b59163155838813af4a9bc696a5f8c670668ae60932456f55"
+  }
+}

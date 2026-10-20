@@ -1,0 +1,86 @@
+[
+  {
+    "label": "no-action-run_result",
+    "definitionKey": {
+      "operationId": "abg.operation.project.read",
+      "memberKey": "run_result"
+    },
+    "invocationRef": "invocation://abiogenesis/e9923bdeda29a9df0dda868d7ae475a9367b08a0f025f0a336d7e10a7ff916d6",
+    "requestPacket": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_result.jsonl",
+      "bytes": 9600,
+      "sha256": "bc3f720684cf926062ba19c3da754ab2412f0b22b670e3fb8f7eb5099c6d5434"
+    },
+    "ownerReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_result-stdout.json",
+      "bytes": 2606,
+      "sha256": "e8ba2597f08e0cd5d83dd5148537819553b96283ae4e36f5d3f43f9bfbc5c570"
+    },
+    "ownerOutputKind": "refusal",
+    "ownerExitCode": 1,
+    "returnedSameGenuineHandoff": true
+  },
+  {
+    "label": "no-action-run_replay",
+    "definitionKey": {
+      "operationId": "abg.operation.project.read",
+      "memberKey": "run_replay"
+    },
+    "invocationRef": "invocation://abiogenesis/95f781fce4eff6e154e46e69b40ab41ce493f02b7d10adee5f040e891984d73b",
+    "requestPacket": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_replay.jsonl",
+      "bytes": 9637,
+      "sha256": "0162685e333e3cd488d42fd2231b6699a822eb48cc00bebaad3e9de7250c9be5"
+    },
+    "ownerReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_replay-stdout.json",
+      "bytes": 3529,
+      "sha256": "9f71e1dc33c115d95f3cc8080be118c78b838c24be219dee759fab40708bbab1"
+    },
+    "ownerOutputKind": "result",
+    "ownerExitCode": 0,
+    "returnedSameGenuineHandoff": true
+  },
+  {
+    "label": "no-action-run_status",
+    "definitionKey": {
+      "operationId": "abg.operation.project.read",
+      "memberKey": "run_status"
+    },
+    "invocationRef": "invocation://abiogenesis/2625fdfc7e738b5adb0aa9a4dadd7d3c006dc8a5f305ba7be3047f4211f25806",
+    "requestPacket": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_status.jsonl",
+      "bytes": 9600,
+      "sha256": "7f0b6ee790ef7e0bfe7c3266e0328177171cb9507558f227eb1269b1b79e6353"
+    },
+    "ownerReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_status-stdout.json",
+      "bytes": 70725,
+      "sha256": "6a86e3a1a16a0689b3e926b8dbfd75df57a036afdb429648047b51dca651cb5b"
+    },
+    "ownerOutputKind": "result",
+    "ownerExitCode": 0,
+    "returnedSameGenuineHandoff": true
+  },
+  {
+    "label": "no-action-run_gaps",
+    "definitionKey": {
+      "operationId": "abg.operation.project.read",
+      "memberKey": "run_gaps"
+    },
+    "invocationRef": "invocation://abiogenesis/52e2af54fa060bf14eefe9751f4045ab736ba3af7e3bb4654b0814ebe44110ba",
+    "requestPacket": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_gaps.jsonl",
+      "bytes": 9580,
+      "sha256": "d75155d2d785df08a765747097de2cb695ad9a1625101804a5b1286375542fe7"
+    },
+    "ownerReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_gaps-stdout.json",
+      "bytes": 81636,
+      "sha256": "1561c995ecd42bcbc06a237b059c6353ec00a92a38185e661ea776e47f70ba99"
+    },
+    "ownerOutputKind": "result",
+    "ownerExitCode": 0,
+    "returnedSameGenuineHandoff": true
+  }
+]

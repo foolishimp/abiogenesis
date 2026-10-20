@@ -1,0 +1,8 @@
+file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:96
+    throw new Error("C2 declared context member differs from its packaged Product source: " + member.path);
+          ^
+
+Error: C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js
+    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:96:11
+
+Node.js v24.7.0

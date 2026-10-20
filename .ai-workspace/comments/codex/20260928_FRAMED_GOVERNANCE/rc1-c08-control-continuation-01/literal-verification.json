@@ -1,0 +1,24 @@
+{
+  "tool": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "sectionsEach": 7,
+  "literalMatched": true,
+  "requests": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/request.txt",
+      "bytes": 3930,
+      "sha256": "8d97656765be0ef2e6effdda2d168bd0078f2f54b46bc9fe3de932baa50c5311",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/review-request.txt",
+      "bytes": 4213,
+      "sha256": "52e019df71edff4d926060ac8a9aca438f48405c43800eddc289a0d68b645baa",
+      "mode": 420
+    }
+  ]
+}

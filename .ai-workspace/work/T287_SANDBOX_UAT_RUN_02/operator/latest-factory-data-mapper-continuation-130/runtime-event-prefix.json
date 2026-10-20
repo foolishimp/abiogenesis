@@ -1,0 +1,13 @@
+{
+  "coordinateDigest": "sha256:834bbe5f643c1e0db7453e8d013b9a9e613a4fba6165c55fb2c4640dfb01a07a",
+  "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+  "kind": "durable_prefix_coordinate",
+  "prefixDigest": "sha256:89c73404ba4550a5b1fa7ece8149b7e0de2f8a2d34ac02506e22239e06bc92f4",
+  "prefixLength": 1398511166,
+  "schemaVersion": "5.0.0",
+  "storeIdentity": {
+    "device": 16777231,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "inode": 468327400
+  }
+}

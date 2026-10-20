@@ -1,0 +1,31 @@
+{
+  "pid": 35510,
+  "processGroup": 35510,
+  "mode": "readiness",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/source-freeze/toolchain/bin/node",
+    "readiness-check.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01",
+  "startedAt": "2026-10-02T01:42:30.242326+00:00",
+  "monotonicStart": 3793560.395725291,
+  "deadlineMonotonic": 3794160.395725291,
+  "capSeconds": 600,
+  "phaseCapSeconds": 180,
+  "groupEstablishedBeforeImports": true,
+  "heap": "unchanged",
+  "HOMEUnchanged": true,
+  "environment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-tmp",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-cache",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-config/npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-config/globalnpmrc",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-config/prefix",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_bin_links": "true",
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/source-freeze/toolchain/bin:/Users/jim/.pyenv/versions/3.11.5/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+  }
+}

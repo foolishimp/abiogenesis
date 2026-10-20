@@ -1,0 +1,231 @@
+{
+  "scope": "Full prospective publication under explicit distinct component package coordinates; actual installed package verification remains pending.",
+  "result": {
+    "kind": "publication_validation",
+    "schemaVersion": "5.0.0",
+    "disposition": "valid",
+    "validationRef": "publication-validation://abiogenesis/fd5838125500f9544987b177f056d70a58fc5dc85115120e4ecdad35c9c7847a",
+    "publicationDigest": "sha256:5424fb95cab8e628d181162e71098813c09dd59db57a707d0044039bbcb9cfbd",
+    "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+    "rawAdmissionRef": "raw-admission://abiogenesis/5de2d7f2af97ab32d0c6df2b56d82f6af792e395dd9d56d9947f3a595a22c06b",
+    "contributionDispositions": [
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle-witness@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:0448a03cdd6aeb0273a05dc01b6d45287b99730ba9fd8610e26c9026b028fbf3"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/design@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:0455a896b88b3ce54090ab427e7a3bd516a8e2c5e42bebac64add1e229835060"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/design@5/native-assessment",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:896c4b11ad5ec175ff366827b97be026a4f6a38e9a59a644f7c8cb39a0e4b60f"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/envelope-output@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:6865f79bde89b52c0bb91a9de04e7ca7a33eef873bf52becc7fee963d639b54e"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/evidence@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:de40a33aa7bd9e5da3aef72889fd5f29eff2d7666289580943f296ab64abcd05"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/evidence@5/native-assessment",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:22f94ae14dc9f687ffa304a6725c04c00f059935c2ee55c8dc4118b26ac3f9ff"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/intake@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:a1d71af3de75e5caa0bee518ae2ef3be4ec420ba4d21ac568ec5b0718af03c56"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/intent@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:f9419bd55d59c2106f4e1994996ee4fb55aabc75c02742f81f57ac6f39d70ddc"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/intent@5/native-assessment",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:15ec790369d45d7b922950df97714ae31405b5f3b29943d8ac3bb82fa6e25689"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/native-construction@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:df2681501633396acdf745a2cedc7ad4138a5fc98ea261af553327e3ad6d08fd"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/product@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:72536a20df8d249b930947191366ca1618ad7e1abe87baba8acd00602ce1e1c1"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/product@5/native-assessment",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:a6e394139acef0e4d9f22eb7a2339f819e8caa078975119d60284271df58157d"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/requirements@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:aa6b74f7be187d9e02ef98f6778e598e422d63b3402bead5cb4e2c37731881d0"
+      },
+      {
+        "handle": "graph-function://odd-glc/generic-lifecycle/requirements@5/native-assessment",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:4e54d243907fb55a560ae7440f62c6f1f0a7cf037adbac81fc73f6af0d64b80f"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/acquire@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:0233c001680503198ef6f289cb92120ac6d7c1013d5bc5a2474f70c247ce3fb7"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/construction-repair-projection@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:96c84ea835b75ea652536c0b12d55cef2e5b0f0cabb80033cb3304e0ad04cebb"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/construction-repair@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:aa5b5bd0b4983dc331505373524edffd0d31bae1114439e76107ca5ade21a47b"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/construction@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:22373c71f1cc3f2739bb7b7c5d09c86c448096573e9404dcd4fd025b26cd72d8"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-design-projection@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:78cbe4e43fa9e94da57a056f1e269997cee040307c476f73271ef39ed8705987"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-design@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:7249d67488ecd0ba7c495198742a8b14908f456d3038a9f09179a9498af98ce9"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-evidence-projection@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:386ec175cc4e82e29c6a0821b847ff362a8d551edd51dc2b53ceb9535c75e671"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-evidence@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:0dad6d0aeba20e109fb5c994373a0ec3b608ef754d8d45ef20cdeb80c24861d7"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-intent-projection@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:5561204961516d38e2b37b3ac3d0f44b48a48b12f5149d2d1999670288c401ef"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-intent@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:65deb101ddc4ba148f5f94c039bdf88caf594afebc180b7d5fa62725b338ebd1"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-product-projection@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:cb066cd90567705214047f2a9df65fd543a9d8afdd117a3e93546e887495c6bb"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-product@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:9be99473d60ea0ceba2792f0eb2714a6625e867435d7000c83c23237fb53a8fe"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-requirements-projection@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:687220268dfaed55ff2b8a12d92979ab2ccf4dc1b7c2ff8d4e810ab1ed87c23e"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/from-requirements@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:d4157b85f7a8a555f3b4b308fdb5adc9535d6c303fad9699ce7496a4ec7421c2"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/intake@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:fc8551cd9ea9e025c79ca25f9a7561c45a4e9f1b67d1676e353b571a29578c4d"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/select@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:fd72b5fbebf64d15b8e9b842be7b2f142edabb6934b573372ad42e3c480d8012"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/stage-0@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:da178412c9d83310d1e6da6f5b593be911b407dcac867e1bbba6dff228dde67e"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/stage-1@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:df1b28a153475a26829a4049505700ef484491a079bc310bc5c9cdee869c2f4a"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/stage-2@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:4d899e73404f44822a48b1da5534818a73e1825f349902295325f72747245626"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/stage-3@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:2a4202d52707b533bbdcbb11269c537e06b1a693585735b0ee782caf579eeb0f"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:84571b74fc0950f101c9bffa7104bb0ac496e7f9a5de23088d69b1f43271abea"
+      },
+      {
+        "handle": "graph-function://odd-glc/native-semantic-revision/terminal@5",
+        "kind": "graph_function",
+        "disposition": "valid",
+        "contributionDigest": "sha256:870a13a72aea04a1c6df63308651c016e511833e1ab48cfc7a35e7af2d2bc884"
+      }
+    ],
+    "diagnostics": []
+  }
+}

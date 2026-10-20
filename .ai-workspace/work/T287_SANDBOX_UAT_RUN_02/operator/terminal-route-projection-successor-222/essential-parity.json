@@ -1,0 +1,32 @@
+{
+  "kind": "bounded_deterministic_generation_parity",
+  "productContentDigest": "sha256:6d8fef8ae62925a46b80fb0fe357d3452ecf3de323882a1415e705ccf1433fcf",
+  "payloadMembers": 5263,
+  "publicCatalogRows": 75,
+  "capabilityCount": 16,
+  "catalogDigest": "sha256:23050185123590c94b3aba56cf4383d3ecda9fdc9b11cb0320fca310a0a2f3be",
+  "contributionManifestDigest": "sha256:04e42ce9f62be13ab0395b5fd25108c9a8ea7a7d43536cd2db984571f96879f0",
+  "capabilityGraphCoordinate": {
+    "assetLocator": {
+      "contentDigest": "sha256:ee95fcdd479665d55c4a3ef0a92a67c9749ada90e901eaa8187b85e2706bc5d9",
+      "mediaType": "application/json",
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "schemaVersion": "5.0.0"
+    },
+    "graphDigest": "sha256:06bc79dc8ec5fffa039613b0a7bb8f55a35942dfa89f4cbcb3e46aff48d953ce",
+    "graphId": "capability-definition-graph://abiogenesis/abg-5",
+    "graphVersion": "5.0.0"
+  },
+  "assetLocationsVerified": 53,
+  "declarationInventoryDigestLocationsVerified": 14352,
+  "currentNativeRuntimeAssetMatchesOwnedEventCalculus": true,
+  "noBuildTestRuntimeAdmissionOrQualificationClaim": true,
+  "canonicalManifestDigest": "sha256:81d80edb8bfc7ba34bff188d4b71a21f6b6ed1df6f6095e89cc65abf62dd5e5d",
+  "rawManifestDigest": "sha256:0ff04b481dab6ed876919bcef2e191f3f8774aee97560d79495fd68804fe7db6",
+  "catalogDifferenceCount": 0,
+  "publicNonDigestMetadataUnchanged": true,
+  "publications": 10,
+  "contributions": 47,
+  "contributionDifferenceCount": 61,
+  "completeContributionValueReconstructed": true
+}

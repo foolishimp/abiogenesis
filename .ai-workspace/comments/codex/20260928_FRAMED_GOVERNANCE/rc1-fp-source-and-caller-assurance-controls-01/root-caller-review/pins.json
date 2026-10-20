@@ -1,0 +1,76 @@
+{
+  "subject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/final-caller-freeze.json",
+      "bytes": 18604,
+      "sha256": "828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/delta-and-conservation.json",
+      "bytes": 3663,
+      "sha256": "2ef4b3dee66b439ae697258493c1462a0d479489fb2e12faf4434637d8dc2816"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/actual-failed-run-stop-regression.json",
+      "bytes": 1029,
+      "sha256": "e0f3041fdcb6ad24c89e0e1d94351079e0b5c477940dba2b3547889c5ffb3869"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/failed-readback-failed-run_result.jsonl",
+      "bytes": 9834,
+      "sha256": "dc9b50ddc67b03df180c7bd0a5c57f21e38bd14024a4bfb8cd30a6463d07a78a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/failed-readback-failed-run_replay.jsonl",
+      "bytes": 9871,
+      "sha256": "fc6449857990d2bf2aff572fb386b7f77d3c43b5ad5c4c7a7dae38be068e1d4d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/failed-readback-failed-run_result-host-receipt.json",
+      "bytes": 3069,
+      "sha256": "9b5f8cedaa32ee47e06f95cefc1e51cac454ab3c2dc724a33e5edea808e2837d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/failed-readback-failed-run_replay-host-receipt.json",
+      "bytes": 4192,
+      "sha256": "0d33a18cbb40c7790b6c777f9d999477f5b623eea24ea232f2c810cda0fe535c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/retained-causal-failure-correspondence.json",
+      "bytes": 53796,
+      "sha256": "0674c0de62256d5ee85dc96065012fc59ddaed65654b5e489fbf42e94d35d842"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/physical-before.json",
+      "bytes": 601,
+      "sha256": "90692090459e02ee04a96d849fa088cc6aa098d93de4ceab5431f1b72484587b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/physical-final.json",
+      "bytes": 601,
+      "sha256": "90692090459e02ee04a96d849fa088cc6aa098d93de4ceab5431f1b72484587b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/cold-supervisor-close.json",
+      "bytes": 1448,
+      "sha256": "e30c24ac5b4d953ad613cb52d5437d3d38aaaff658b51638ebdd16d090341c2d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/ordinary-caller.mjs",
+      "bytes": 18118,
+      "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/flow-driver.mjs",
+      "bytes": 6502,
+      "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51"
+    }
+  ],
+  "actualEvents": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+    "bytes": 2668364,
+    "sha256": "2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8"
+  },
+  "logicalRosterCount": 40,
+  "independence": "Nonauthor; grants/triage involvement disclosed"
+}

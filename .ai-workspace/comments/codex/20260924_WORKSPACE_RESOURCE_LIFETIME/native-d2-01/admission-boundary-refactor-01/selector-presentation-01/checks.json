@@ -1,0 +1,47 @@
+{
+  "scope": "source/component; no upstream runtime authentication or installed proof",
+  "compiler": {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json --pretty false",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "diagnostics": []
+  },
+  "focused": {
+    "command": "ABI5_NATIVE_D2_SELECTOR_PROMPT=/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/invocation/archives/fp-f304d26f4bb76f62-prompt.txt node --experimental-vm-modules --test --test-name-pattern='native revision decision view|semantic stage, revision and selection' test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "exitCode": 0,
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 336.128041,
+    "names": [
+      "native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data",
+      "native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations",
+      "semantic stage, revision and selection implementations preserve the complete owner request"
+    ]
+  },
+  "diffCheck": {
+    "command": "git diff --check",
+    "exitCode": 0
+  },
+  "retainedFixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/invocation/archives/fp-f304d26f4bb76f62-prompt.txt",
+    "sha256": "ef70f87489f8bb9bc3fa875baafa8c651fe43f39d4132a8435472feab532e3e2",
+    "bytes": 1052422
+  },
+  "presentationObservation": {
+    "decisionSectionsBytes": 422333,
+    "distinctAssets": 3,
+    "fullAssessments": 3,
+    "acceptedAssets": 2,
+    "distinctAdditionalByteBodies": 5,
+    "ordinarySourceBytes": 6120,
+    "parentScope": "retained parent coordinates; full parent assembly wiring uses explicitly substituted cause as upstream parent fixture"
+  },
+  "substitutedPremises": [
+    "existing authenticated-subject projector",
+    "assembly basis ownership",
+    "existing role selection; actual retained policy value reused"
+  ],
+  "runtimeEffects": []
+}

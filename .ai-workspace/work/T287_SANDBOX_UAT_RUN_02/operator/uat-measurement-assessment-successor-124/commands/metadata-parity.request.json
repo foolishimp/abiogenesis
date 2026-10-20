@@ -1,0 +1,12 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/metadata-parity.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T17:06:26.792Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000
+}

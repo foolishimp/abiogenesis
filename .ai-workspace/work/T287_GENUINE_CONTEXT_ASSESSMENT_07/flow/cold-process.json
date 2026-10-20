@@ -1,0 +1,39 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_07",
+  "phase": "phase2_cold",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/consumer/genuine-pilot.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/consumer",
+  "capSeconds": 180,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/tmp",
+    "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/flow/tmp/node-compile-cache",
+    "ABI5_GENUINE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/fresh",
+    "ABI5_GENUINE_INPUT_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/flow",
+    "ABI5_GENUINE_MODE": "cold"
+  },
+  "pid": 53724,
+  "pgid": 53724,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "groupAbsent": true,
+  "elapsedMs": 26586.59612500196,
+  "maxRSSPlatformBytes": 2286960640,
+  "userCPUSeconds": 30.838818,
+  "systemCPUSeconds": 0.615929,
+  "controlledTransport": false,
+  "realNativeCliAttempts": 0,
+  "realProviderCalls": 0,
+  "nativeActorDispatches": 0,
+  "frozenPhase1InputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "stdoutBytes": 3708,
+  "stdoutSHA256": "624cb88c2ddcdb7d910478963188ac6bd0902629db15052f3e480ae240323e90",
+  "stderrBytes": 0,
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,53 @@
+{
+  "stage": "packed-resource-correspondence-complete",
+  "rss": 2024996864,
+  "heapTotal": 1728577536,
+  "heapUsed": 1593385848,
+  "external": 97848589,
+  "arrayBuffers": 95431728,
+  "at": "2026-10-09T11:26:04.956Z",
+  "elapsedMs": 20084.189125,
+  "beforeAcquisition": true,
+  "resources": [
+    {
+      "kind": "product_verification_artifact_resource",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "artifact": {
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "digest": "sha256:b60a23703273315ce244328096b1dab2e17376bdd9225cb181afb481cc78b9bd"
+      },
+      "productContent": {
+        "ref": "product-content://abi5-tests/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54",
+        "digest": "sha256:3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+      },
+      "descriptor": {
+        "ref": "descriptor://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54",
+        "digest": "sha256:58d757a1d17e46d1a327f1d9dd010688d1852ea72b943f086261495d0e2c1528"
+      },
+      "contributionManifest": {
+        "ref": "contribution-manifest://abiogenesis/conformance/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54",
+        "digest": "sha256:3dda733cf28398c1bb8a4d7524298a0f11156423482aa737d78de5bbad945b9d"
+      }
+    },
+    {
+      "kind": "product_verification_artifact_resource",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+      "artifact": {
+        "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "digest": "sha256:23e50f93533be202b3faaf499631471a5876a278de3dfeaa761439ab496ce6d6"
+      },
+      "productContent": {
+        "ref": "product-content://abi5-tests/98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c",
+        "digest": "sha256:98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c"
+      },
+      "descriptor": {
+        "ref": "descriptor://abi5-tests/sandbox-uat/consumer@5",
+        "digest": "sha256:703490cd7a8639f9fcfa52302ba4e1ae5def9e36d29525132038f6a2ea6047d1"
+      },
+      "contributionManifest": {
+        "ref": "contribution-manifest://abi5-tests/sandbox-uat/consumer@5",
+        "digest": "sha256:e0b38e89be4512ec819c1f30d85fd07541e18c592058a5db8fa1235653afeec6"
+      }
+    }
+  ]
+}

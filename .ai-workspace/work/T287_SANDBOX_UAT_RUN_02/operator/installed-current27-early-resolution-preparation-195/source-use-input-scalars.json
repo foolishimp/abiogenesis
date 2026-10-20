@@ -1,0 +1,80 @@
+{
+  "owner": "projectExactInvocationAdmissionAtPrefix",
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1690085978,
+    "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a"
+  },
+  "sourceInvocation": {
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/3f025b4846c9222aaa6ea8b72c2dc1b3dc5fbd9ed17b4126eb19f9d684253a9a",
+    "invocationAdmissionDigest": "sha256:3f025b4846c9222aaa6ea8b72c2dc1b3dc5fbd9ed17b4126eb19f9d684253a9a",
+    "invocationRef": "invocation://abiogenesis/f77716c5d09812e3f1eb09682881b0b5304cd2babc64058152a6ec60aed0833d",
+    "invocationDigest": "sha256:f77716c5d09812e3f1eb09682881b0b5304cd2babc64058152a6ec60aed0833d",
+    "workspaceId": "workspace://abiogenesis/64061dcb03cca2104110cc02e9d886b06e36b5cd0aed0ab5df781117806c14b5",
+    "workspaceBindingId": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "workspaceBindingDigest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "actorRef": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+    "catalogBasisRef": "graph-function-catalog://abiogenesis/c66804e6f0d0ff619e0347defb06cbb5eceb8432fca052c74fd0f0627d62bbc4",
+    "catalogBasisDigest": "sha256:c66804e6f0d0ff619e0347defb06cbb5eceb8432fca052c74fd0f0627d62bbc4",
+    "catalogViewId": "graph-function-catalog-view://abiogenesis/6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e",
+    "catalogViewDigest": "sha256:6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e",
+    "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+    "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+    "graphFunctionDigest": "sha256:1ba4ec486b01f15ce9004b9d519730f8b630157a991cc477ea44d692f2d795ee",
+    "inputContractRef": "contract://abiogenesis/default-library/state@5",
+    "inputContractDigest": "sha256:31fcca7cf6e6932a7a340d47d2ec70f7525fa612b3320a65c2f06234486bcdb6",
+    "inputContractOwner": {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/default-library/state@5",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d/0100f6d2c14fe19f4c0de78aef2a9e431ce2c0e8b59570ff151837d3c7c6db7c",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "publicationDigest": "sha256:2a6ba4c3eb161e48941dd03cde23af68e150fae891f55fd0dd03f9a2036a1b9b"
+    },
+    "outputContractRef": "contract://abiogenesis/default-library/state@5",
+    "outputContractDigest": "sha256:31fcca7cf6e6932a7a340d47d2ec70f7525fa612b3320a65c2f06234486bcdb6",
+    "outputContractOwner": {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/default-library/state@5",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d/0100f6d2c14fe19f4c0de78aef2a9e431ce2c0e8b59570ff151837d3c7c6db7c",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "publicationDigest": "sha256:2a6ba4c3eb161e48941dd03cde23af68e150fae891f55fd0dd03f9a2036a1b9b"
+    }
+  },
+  "source": {
+    "basisRef": "invocation-source-result://abiogenesis/8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+    "basisDigest": "sha256:8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/3f025b4846c9222aaa6ea8b72c2dc1b3dc5fbd9ed17b4126eb19f9d684253a9a",
+    "resultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+    "resultDigest": "sha256:64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+    "valueDigest": "sha256:38a236b7e8d1e4e219f4d9c4b3c45d0728b1596294832ebcb44c0d24ecdfe4b7",
+    "producerGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+    "resultAdmissionEventRef": "event://abiogenesis/634265e5ab574a9126e0d3640299edf645d497ad5e93291cf31d75956d30bfff",
+    "resultJudgmentEventRef": "event://abiogenesis/293ae8b82687df2c8aab4390badf1ac47552a08e338462a09be6757229b65dde"
+  },
+  "selected": {
+    "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+    "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+    "graphFunctionDigest": "sha256:1ba4ec486b01f15ce9004b9d519730f8b630157a991cc477ea44d692f2d795ee",
+    "workspaceBinding": {
+      "ref": "workspace-binding://abiogenesis/2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8",
+      "digest": "sha256:2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8"
+    },
+    "historicalCatalogBasisDigest": "sha256:c66804e6f0d0ff619e0347defb06cbb5eceb8432fca052c74fd0f0627d62bbc4",
+    "historicalViewDigest": "sha256:6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e",
+    "currentCatalogBasisDigest": "sha256:4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9",
+    "currentViewDigest": "sha256:5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367"
+  },
+  "meaning": "Actual owner-derived scalar inputs only; producer child and root entry remain distinct; no reconstructed inner refusal."
+}

@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/run-10.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0,
+  "elapsedMs": 22.96212501823902,
+  "stdout": "",
+  "stderr": ""
+}

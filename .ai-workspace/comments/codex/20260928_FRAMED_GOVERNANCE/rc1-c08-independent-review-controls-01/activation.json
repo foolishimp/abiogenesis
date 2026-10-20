@@ -1,0 +1,17 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C08_CONSTRUCTION_ASSURANCE_GRANT_WRITER_01",
+  "startedAt": "2026-10-02T13:10:01.645389+00:00",
+  "exactWriteTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/activation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/sections.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/request.txt",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/literal-verification.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/closure.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/freeze.json"
+  ],
+  "grant": "Prepare conditional independent physical construction/identity/reuse assurance; no other effects.",
+  "returnsTo": "Executive"
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PASSED_STRUCTURAL_INPUT_CONSTRUCTION",
+  "qualificationInventoryMembers": 1950,
+  "sourceMembers": 1931,
+  "sourceInputs": 691,
+  "protectedInputFiles": 716,
+  "dependencies": 16,
+  "recipeSchema": true,
+  "inventorySchema": true,
+  "configurationOwner": true,
+  "sourceInventoryBindings": true,
+  "acyclic": "Recipe includes only upstream source refs and exact auxiliary bodies; own recipe is an inventory member and protected selectedFile but not a self auxiliary. Inventory never appears in recipe or its upstream controls.",
+  "nativeSlots": "unbound",
+  "runtime": "No native, test/recipe execution, physical worksite, installed owner admission or qualification verdict."
+}

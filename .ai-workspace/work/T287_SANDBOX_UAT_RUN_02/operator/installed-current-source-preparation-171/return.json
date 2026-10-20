@@ -1,0 +1,105 @@
+{
+  "role": "Worker171 CLOSED/HOLD",
+  "outcome": "One actual preparation stopped at catalog-grant owner freshness guard; genuine install/binding admissions retained",
+  "cause": {
+    "stage": "catalog-admit26-grant-start",
+    "name": "TypeError",
+    "message": "ABG held store differs from the selected durable prefix",
+    "stack": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/first-cause.json",
+      "sha256": "e63fe87787ac75de694a73a9c780cff17b653c01b5c6908797c7fa4e06874951",
+      "byteCount": 2630
+    },
+    "status": "precise held-versus-selected prefix mismatch relation requires Root RCA; no retry/patch"
+  },
+  "command": {
+    "started": "2026-10-09T05:30:35.098Z",
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 202406.234459,
+    "timedOut": false,
+    "truncated": false
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/readiness.json",
+    "sha256": "038637cac263104eb6ad60635422126f916325902a9cb5bcc42b9bc109a20bc2",
+    "byteCount": 7695
+  },
+  "originalSourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+  "sourceObservations": 34,
+  "sourceNonterminal": true,
+  "retainedNativeInstall": {
+    "invocationRef": "invocation://abiogenesis/f33c5db0a6fa6bfb7220fecf4e90c248b6e007c95f96c4907e33ebaab68851f9",
+    "install": {
+      "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+      "digest": "sha256:8e76802f97b9354ed26d994b3659991320fa541057a7558a188b6f9caef2c8e2"
+    },
+    "resolvedLock": {
+      "ref": "product-lock://abiogenesis/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+      "digest": "sha256:37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85"
+    }
+  },
+  "newAdmissions": [
+    {
+      "operation": "product-install-consumer26",
+      "invocationRef": "invocation://abiogenesis/c9e9bf7b0dc13d67f20c80e44cc5e64eb72cc338bc6c8ce7c555d54e13d9d7f4",
+      "ownerCoordinate": {
+        "ref": "product-install://@abi5-tests/sandbox-uat/5.0.0/98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+        "digest": "sha256:6944b364ebb6748e47644036c34028aa1dba2d159aea5c952b246972dc5c8da9"
+      },
+      "actualUnmodifiedReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/calls/product-install-consumer26.outcome.json",
+        "sha256": "f18f4c5e49757e54748fc78d3c29b777852a2c21f8e78d50df74bf8aca5baf8f",
+        "byteCount": 6333
+      },
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/calls/product-install-consumer26.request-projection.json",
+        "sha256": "8ad480125e2d66098eb57bdc0277aa64b9a313e2aa7842d7f045860cc3234218",
+        "byteCount": 15137
+      }
+    },
+    {
+      "operation": "workspace-bind26",
+      "invocationRef": "invocation://abiogenesis/e90058eca6c2b7fd7c5c492b2ed7d7d7c72f21facbcab7f21aca8bbe0f69446d",
+      "ownerCoordinate": {
+        "ref": "workspace-binding://abiogenesis/79628303eb01c99cd04ebcf8ce40ecd225e1660abf6035538288eaa4033e7e1f",
+        "digest": "sha256:79628303eb01c99cd04ebcf8ce40ecd225e1660abf6035538288eaa4033e7e1f"
+      },
+      "actualUnmodifiedReceipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/calls/workspace-bind26.outcome.json",
+        "sha256": "1697020f6fc5d7681da94b895059fbd7649649891c6fe6759edfacf48673221f",
+        "byteCount": 7251
+      },
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/calls/workspace-bind26.request-projection.json",
+        "sha256": "a71b159745e9f4396c1ef674f226b1ac28deface40b366be47d84c8154ab745d",
+        "byteCount": 16902
+      }
+    }
+  ],
+  "actualCurrentClosePrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1685528035,
+    "prefixDigest": "sha256:63dd7384fcb43dc433c005313f4681df323e817f2180a23900faa05f3f2aff71",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:6922fcad866079631b0233dfd2c0142c9d04e11afdee0e491e7832226137dc10"
+  },
+  "closeHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/final-close-handoff.json",
+    "sha256": "1e5de97f11460a5cf41e97b4133fef7477bd1d576a5e685800423242de1f3f1c",
+    "byteCount": 1472
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/closure-conservation.json",
+    "sha256": "fe8b0633ac32bb500832d3c7cc068d49d5b006be9a78af2606835db6a2b21f49",
+    "byteCount": 20987
+  },
+  "stopped": true,
+  "limits": "Completed installed owner acquisition, native-install reuse, matching-lock consumer install and binding are bounded actual evidence. No catalog/D2/current-source-use/prepared continuation/admission/model/app/UAT/capacity closure. No full log hash/scan/replay, old identity alias, app reset/copy or producer retag."
+}

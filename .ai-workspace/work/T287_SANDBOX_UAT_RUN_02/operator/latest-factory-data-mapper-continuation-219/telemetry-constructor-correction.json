@@ -1,0 +1,5 @@
+{
+  "cause": "Telemetry setup looked for eventCount on durable_prefix_coordinate; the canonical handoff has no such field.",
+  "action": "Initial lastOrdinal is null and thereafter derived only from actual admitted suffix rows.",
+  "noEventReadOrEffectsBeforeCorrection": true
+}

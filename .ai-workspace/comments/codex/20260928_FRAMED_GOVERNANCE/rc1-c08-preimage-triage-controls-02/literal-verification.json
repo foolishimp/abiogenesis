@@ -1,0 +1,23 @@
+{
+  "a_c": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "worker": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/request.txt",
+    "bytes": 4040,
+    "sha256": "fa1fcda5cb6c7d906d153a12cac643185b276499e53e0a5e92014ae826b7d570",
+    "mode": 420
+  },
+  "reviewer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/review-request.txt",
+    "bytes": 4213,
+    "sha256": "8a0370bc3423e955d37f2cf7356c16e7dc7d4f5fee53f6bda58ea865332d8925",
+    "mode": 420
+  },
+  "sevenSectionsEach": true,
+  "literalJoin": true,
+  "noAppendedNewline": true
+}

@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/provider-request.txt",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/freeze.json",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/freeze.json",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/.claude/settings.json",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/.claude/settings.local.json",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.claude/settings.local.json",
+      "matches": true
+    }
+  ],
+  "currentNativeStore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "bytes": 73530699,
+    "events": 136,
+    "device": 16777230,
+    "inode": 464012478,
+    "sha256": "146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+    "expectedExactCurrentPrefix": true
+  },
+  "allPassed": true
+}

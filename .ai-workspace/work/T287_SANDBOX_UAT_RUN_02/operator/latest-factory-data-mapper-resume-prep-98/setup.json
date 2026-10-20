@@ -1,0 +1,82 @@
+{
+  "role": "Writer98 latest-factory material preparation",
+  "executionAuthorized": false,
+  "publicationAcceptance": "ACCEPTED Root CLOSED publication96 + Source92; actual81 closure triage holds execution",
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912,
+    "basis": "setup/recording drainage only; never native execution authority extension"
+  },
+  "executionAuthority": {
+    "history": {
+      "old48NativeT0": "2026-10-07T16:38:18.053Z",
+      "old48ExternalQualityCheckpoint": "2026-10-07T21:38:18.053Z",
+      "old48DriverDeadline": "2026-10-07T21:39:18.053Z",
+      "oldRunDisposition": "blocked",
+      "oldOriginalAssessment": "unmet",
+      "clocksNotRelabeled": true
+    },
+    "nextInvocation": {
+      "nativeT0Owner": "NEW commands/lifecycle-start.request.json.started at actual CLI spawn",
+      "externalQualityWindowMs": 18000000,
+      "qualityCheckpoint": "actual NEW CLI T0+5h; Root external Executive evaluates continue/stop; no automatic continuation",
+      "nativeTimeOrRecordingLimitsUnchanged": true
+    },
+    "oldRunRestored": false,
+    "rootExternalExecutiveDecidesContinueOrStop": true
+  },
+  "stop": {
+    "owner": "existing native C2/helper/provider process supervision",
+    "order": [
+      "While CLI lives resolve exact admitted C2 occurrence/task/attempt to launch.json/helper argv; match live helper and detached command PID/PGID via ancestry.",
+      "At Root stop/checkpoint disposition stop only exact owned helper/command first: TERM, bounded confirmation/grace, KILL only if still exact-owned; preserve real missing artifact/exit.",
+      "Resolve exact current admitted provider PID/PGID, verify identity immediately, then stop only that owned group while CLI remains alive.",
+      "Allow real exit/failure admission/drain; retain fresh-read presence/absence and raw truncation/exit truth."
+    ],
+    "noGuessedPidsOrPrivateEvents": true
+  },
+  "resume": {
+    "fromArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+    "originalFiles": 4,
+    "retainedAuthorFiles": 44,
+    "materialRows": 52,
+    "historicalReports": 8,
+    "source": "none",
+    "observations": [],
+    "synthesis": null,
+    "terminal": false,
+    "oldProducerParentCredit": false,
+    "oldElevenMutationCredit": false,
+    "operatorAppEditsOrRestoration": false,
+    "oldSetupManifestCopied": false
+  },
+  "limits": {
+    "effectiveCommandTimeoutMs": 18000000,
+    "terminationGraceMs": 10000,
+    "canonicalRequiredBudgetMs": 18025000,
+    "inactivityMs": 18030000,
+    "absoluteMs": 18040000,
+    "driverMs": 18060000,
+    "recorderMs": 19260000,
+    "nativeMaxOutputBytes": 268435456,
+    "recorderMaxOutputBytes": 536870912,
+    "recursionBound": 1000,
+    "optionalTurnAndUsdCapsOmitted": true
+  },
+  "originalFullCriteriaAndOracleUnchanged": true
+}

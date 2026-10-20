@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87/diagnose.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87",
+  "started": "2026-10-08T08:26:34.656Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 180000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 1751.0108329999998,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\n  \"status\": \"STOP-first-error\",\n  \"elapsedMs\": 1710.085959,\n  \"stages\": [],\n  \"exceptions\": [],\n  \"error\": {\n    \"name\": \"AssertionError\",\n    \"message\": \"{\\\"kind\\\":\\\"product_execution_resolution_refusal\\\",\\\"schemaVersion\\\":\\\"5.0.0\\\",\\\"disposition\\\":\\\"refused\\\",\\\"code\\\":\\\"absent\\\",\\\"stage\\\":\\\"catalog\\\",\\\"message\\\":\\\"admitted GraphFunction coordinate does not reproduce one exact Program-aware CatalogView definition\\\"}\\n+ actual - expected\\n\\n+ 'product_execution_resolution_refusal'\\n- 'loaded_product_execution_resolution'\\n\",\n    \"stack\": \"AssertionError [ERR_ASSERTION]: {\\\"kind\\\":\\\"product_execution_resolution_refusal\\\",\\\"schemaVersion\\\":\\\"5.0.0\\\",\\\"disposition\\\":\\\"refused\\\",\\\"code\\\":\\\"absent\\\",\\\"stage\\\":\\\"catalog\\\",\\\"message\\\":\\\"admitted GraphFunction coordinate does not reproduce one exact Program-aware CatalogView definition\\\"}\\n+ actual - expected\\n\\n+ 'product_execution_resolution_refusal'\\n- 'loaded_product_execution_resolution'\\n\\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87/diagnose.mjs:50:10\"\n  }\n}\n",
+  "stderr": ""
+}

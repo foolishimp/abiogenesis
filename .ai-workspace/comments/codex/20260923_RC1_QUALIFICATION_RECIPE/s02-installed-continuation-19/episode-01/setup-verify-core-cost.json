@@ -1,0 +1,30 @@
+{
+  "elapsedMs": 94.22645799999918,
+  "memory": {
+    "rss": 1645084672,
+    "heapTotal": 1242546176,
+    "heapUsed": 1096146440,
+    "external": 77748430,
+    "arrayBuffers": 75330484
+  },
+  "resourceUsage": {
+    "userCPUTime": 12642633,
+    "systemCPUTime": 302685,
+    "maxRSS": 1625040,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 175751,
+    "majorPageFault": 84,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 0,
+    "ipcReceived": 4028,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 28,
+    "involuntaryContextSwitches": 21254
+  },
+  "stage": "setup",
+  "limitMs": 600000
+}

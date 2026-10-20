@@ -1,3 +1,6 @@
+import type { RuntimeEventScan } from "./runtime_history.js";
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isOptionalJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
@@ -7,12 +10,12 @@ import { isExactOperationInvocationCoordinate } from "../shared/operation_defini
 import { projectPendingInteractionCarrier } from "./c_call.js";
 import {
   constructRuntimeFluent,
-  deriveRuntimeEventCalculusProjection,
+  deriveRuntimeHeldFluentProjection,
   holdsAt,
-  type RuntimeEventCalculusProjection,
+  type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
 } from "./event_calculus.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
@@ -106,7 +109,7 @@ function digestField(event: RuntimeEvent, key: string): Sha256Digest | null {
 }
 
 function exactPublicOperation(
-  events: readonly RuntimeEvent[],
+  events: RuntimeEventScan,
   continuationRef: string,
   operationEventRef: JsonValue | undefined,
   operationId:
@@ -141,7 +144,7 @@ function exactPublicOperation(
 }
 
 function exactOpenedBasis(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   opened: RuntimeEvent,
   continuationRef: string,
 ): Readonly<{
@@ -168,8 +171,8 @@ function exactOpenedBasis(
     openedPayload.pendingJudgment as Readonly<Record<string, JsonValue>>,
   );
   if (pending === null) return null;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const holdRoutes = events.filter((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const holdRoutes = indexedRuntimeEvents(prefix, "payload:routeRef:" + openedPayload.holdRouteRef).filter((event) =>
     event.kind === "traversal_route_admitted" &&
     isRecord(event.payload) &&
     event.payload.routeRef === openedPayload.holdRouteRef
@@ -361,13 +364,22 @@ function exactClosureContract(
 export function validateExactFhResumeOwnerRelationAtPrefix(
   authorityPrefix: ValidatedRuntimeEventPrefix,
   resumeEvent: RuntimeEvent,
+): boolean;
+/** @internal */
+export function validateExactFhResumeOwnerRelationAtPrefix(
+  authorityPrefix: RuntimeEventPrefix,
+  resumeEvent: RuntimeEvent,
+): boolean;
+export function validateExactFhResumeOwnerRelationAtPrefix(
+  authorityPrefix: RuntimeEventPrefix,
+  resumeEvent: RuntimeEvent,
 ): boolean {
   try {
     const ownerAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
       authorityPrefix,
       resumeEvent.eventId,
     );
-    const authorityEvents = runtimeEventsFromValidatedPrefix(
+    const authorityEvents = runtimeEventBodiesAtPrefix(
       ownerAuthorityPrefix,
     );
     if (
@@ -382,8 +394,8 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
       authorityEvents,
       { runId: resumeEvent.runId },
     );
-    const runEvents = runtimeEventsFromValidatedPrefix(ownerRunPrefix);
-    const exactResume = runEvents.find((event) =>
+    const runEvents = runtimeEventBodiesAtPrefix(ownerRunPrefix);
+    const exactResume = indexedRuntimeEvents(ownerRunPrefix, "id:" + resumeEvent.eventId).find((event) =>
       event.eventId === resumeEvent.eventId
     );
     if (
@@ -399,11 +411,11 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
       resumeEvent,
       "publicOperationEventRef",
     );
-    const opened = runEvents.find((event) => event.eventId === openedEventRef);
-    const responded = runEvents.find((event) =>
+    const opened = indexedRuntimeEvents(ownerRunPrefix, "id:" + openedEventRef).find((event) => event.eventId === openedEventRef);
+    const responded = indexedRuntimeEvents(ownerRunPrefix, "id:" + respondedEventRef).find((event) =>
       event.eventId === respondedEventRef
     );
-    const publicOperation = authorityEvents.find(
+    const publicOperation = indexedRuntimeEvents(ownerAuthorityPrefix, "id:" + publicOperationEventRef).find(
       (event) => event.eventId === publicOperationEventRef,
     );
     if (
@@ -436,12 +448,12 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
       responded.eventId,
     );
     const respondedRunPrefix = selectValidatedRuntimeEventPrefix(
-      runtimeEventsFromValidatedPrefix(respondedAuthorityPrefix),
+      runtimeEventBodiesAtPrefix(respondedAuthorityPrefix),
       { runId: resumeEvent.runId },
     );
     const respondedContinuation = projectFhContinuations(
       respondedRunPrefix,
-      deriveRuntimeEventCalculusProjection(respondedRunPrefix),
+      deriveRuntimeHeldFluentProjection(respondedRunPrefix),
       respondedAuthorityPrefix,
     ).find((candidate) => candidate.continuationRef === continuationRef);
     if (
@@ -536,10 +548,21 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
 export function projectFhContinuations(
   prefix: ValidatedRuntimeEventPrefix,
   eventCalculus: RuntimeEventCalculusProjection,
-  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+  authorityPrefix?: ValidatedRuntimeEventPrefix ,
+): readonly ReplayContinuationState[];
+/** @internal */
+export function projectFhContinuations(
+  prefix: RuntimeEventPrefix,
+  eventCalculus: RuntimeHeldFluentProjection,
+  authorityPrefix?: RuntimeEventPrefix ,
+): readonly ReplayContinuationState[];
+export function projectFhContinuations(
+  prefix: RuntimeEventPrefix,
+  eventCalculus: RuntimeHeldFluentProjection,
+  authorityPrefix: RuntimeEventPrefix = prefix,
 ): readonly ReplayContinuationState[] {
-  const allEvents = runtimeEventsFromValidatedPrefix(prefix);
-  const events = allEvents.filter((event) =>
+  const allEvents = runtimeEventBodiesAtPrefix(prefix);
+  const events = indexedRuntimeEvents(prefix, "type:" + "continuation").filter((event) =>
     event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))))
   );
   const refs = [...new Set(events.map((event) => event.aggregateId))];
@@ -791,9 +814,16 @@ export function projectFhContinuations(
 
 export function projectFhEffectfulPublicInvocationFacts(
   prefix: ValidatedRuntimeEventPrefix,
+): FhEffectfulPublicInvocationFactProjection;
+/** @internal */
+export function projectFhEffectfulPublicInvocationFacts(
+  prefix: RuntimeEventPrefix,
+): FhEffectfulPublicInvocationFactProjection;
+export function projectFhEffectfulPublicInvocationFacts(
+  prefix: RuntimeEventPrefix,
 ): FhEffectfulPublicInvocationFactProjection {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const publicEvents = events.filter((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const publicEvents = indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted").filter((event) =>
     event.kind === "public_operation_admitted" &&
     isRecord(event.payload) && !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))) &&
     (
@@ -809,12 +839,12 @@ export function projectFhEffectfulPublicInvocationFacts(
     .map((event) => event.eventId)
     .sort();
   let continuationHistories: readonly Readonly<{
-    authorityPrefix: ValidatedRuntimeEventPrefix;
-    events: readonly RuntimeEvent[];
+    authorityPrefix: RuntimeEventPrefix;
+    events: RuntimeEventScan;
     continuation: ReplayContinuationState;
   }>[];
   try {
-    const continuationEvents = events.filter((event) =>
+    const continuationEvents = indexedRuntimeEvents(prefix, "type:" + "continuation").filter((event) =>
       event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))))
     );
     const continuationRefs = [
@@ -843,7 +873,7 @@ export function projectFhEffectfulPublicInvocationFacts(
         prefix,
         boundary.eventId,
       );
-      const ownerEvents = runtimeEventsFromValidatedPrefix(
+      const ownerEvents = runtimeEventBodiesAtPrefix(
         ownerAuthorityPrefix,
       );
       const ownerRunPrefix = selectValidatedRuntimeEventPrefix(
@@ -852,7 +882,7 @@ export function projectFhEffectfulPublicInvocationFacts(
       );
       const continuation = projectFhContinuations(
         ownerRunPrefix,
-        deriveRuntimeEventCalculusProjection(ownerRunPrefix),
+        deriveRuntimeHeldFluentProjection(ownerRunPrefix),
         ownerAuthorityPrefix,
       ).find((candidate) =>
         candidate.continuationRef === continuationRef

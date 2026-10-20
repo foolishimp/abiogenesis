@@ -1,0 +1,12 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/close-evidence.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor",
+  "started": "2026-10-08T09:14:52.330Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 180000
+}

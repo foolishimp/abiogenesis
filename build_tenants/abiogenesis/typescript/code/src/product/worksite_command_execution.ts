@@ -1393,7 +1393,7 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
   if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
     !Array.isArray(input.commands) || input.commands.length === 0 ||
     !Array.isArray(input.outcomePredicates) || !Array.isArray(input.protectedSubjects) ||
-    !Array.isArray(input.allowedWriteTerritories) || input.allowedWriteTerritories.length === 0 ||
+    !Array.isArray(input.allowedWriteTerritories) ||
     input.protectedSubjects.some((subject) => !isWorksiteSubject(subject))) {
     throw new TypeError("worksite command configuration requires exact A/W, subjects and explicit arrays");
   }
@@ -1525,7 +1525,7 @@ export function constructWorksiteCommandExecutionTask(
     ) || !Array.isArray(input.commands) || input.commands.length === 0 ||
     !Array.isArray(input.outcomePredicates ?? []) ||
     !Array.isArray(input.protectedObservations) ||
-    !Array.isArray(input.allowedWriteTerritories) || input.allowedWriteTerritories.length === 0) {
+    !Array.isArray(input.allowedWriteTerritories)) {
     throw new TypeError("worksite command execution task requires exact W, grant, source C1 result, commands, and predicates");
   }
   const source = input.sourceConstructionResult;

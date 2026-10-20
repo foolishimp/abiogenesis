@@ -1,0 +1,9 @@
+{
+  "owner": "product.installedProductContentMatches",
+  "verifiedArtifactDigest": "sha256:5e76e48eaa2e72029f50a174485c62015d510c094fa93babc708235830c527fd",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "contentDigest": "sha256:6d8fef8ae62925a46b80fb0fe357d3452ecf3de323882a1415e705ccf1433fcf",
+  "manifestDigest": "sha256:81d80edb8bfc7ba34bff188d4b71a21f6b6ed1df6f6095e89cc65abf62dd5e5d",
+  "matches": true,
+  "scope": "Verified artifact expectation projected onto actual physical installed root; no ProductInstall/admission claim"
+}

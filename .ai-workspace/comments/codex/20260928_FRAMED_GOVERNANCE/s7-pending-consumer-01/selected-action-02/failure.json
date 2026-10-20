@@ -1,0 +1,5 @@
+{
+  "message": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nError: Selected second action boundary was not reached\n    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs:31:225\n\nNode.js v24.7.0\n\n\nnull !== 'SIGKILL'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nError: Selected second action boundary was not reached\n    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs:31:225\n\nNode.js v24.7.0\n\n\nnull !== 'SIGKILL'\n\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:23:110)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+  "totalMs": 22433.817583
+}

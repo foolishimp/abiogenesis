@@ -1,0 +1,40 @@
+✖ S03 Phase A pure declaration and finite domain construction (406.63525ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 447.612416
+
+✖ failing tests:
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs:7:1
+✖ S03 Phase A pure declaration and finite domain construction (406.63525ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Actual admitted child result/. Input:
+  
+  'TypeError: Observation requires original unmet domain'
+  
+      at evaluateCandidate (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:31:114)
+      at purePreflight (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:35:251)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs:9:15)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: Observation requires original unmet domain
+        at expectedChild (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs:43:72)
+        at Module.evaluate (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs:52:138)
+        at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:31:127
+        at getActual (node:assert:609:5)
+        at strict.throws (node:assert:757:24)
+        at evaluateCandidate (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:31:114)
+        at purePreflight (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:35:251)
+        at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs:9:15)
+        at async Test.run (node:internal/test_runner/test:1113:7)
+        at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3),
+    expected: /Actual admitted child result/,
+    operator: 'throws',
+    diff: 'simple'
+  }

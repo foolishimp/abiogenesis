@@ -1,0 +1,236 @@
+{
+  "kind": "final_pre_stage_delta_after_executive_quiescence",
+  "observed_utc": "2026-10-20T19:05:38.076318+00:00",
+  "accepted_L2_freeze_sha256": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
+  "acceptance_freeze_sha256": "6196a6b7c05442ceb8f79d4733b9796c639d34c7500106153fbe0a22edd28f8f",
+  "checkpoint_handoff_sha256": "0e6deb951f7c7ceeb7aa9c816e392576bdfa482544c0f0cab5e0223583992f97",
+  "executive_all_other_writers_quiescent": true,
+  "new_paths_since_initial": [
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-candidate-freeze-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/acceptance.diff",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/activation.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/freeze.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/GOALS.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/T-287-deliver-abiogenesis-5-feature-waves.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/frontier.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/readiness.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/return.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/archive-credential-scan.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/commentary-analysis-inventory.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/commit-preconditions.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/concurrency-observation.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/credential-binary-discriminator.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/credential-classification.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/credential-pattern-candidates.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/final-validation.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-3.8.0.arm64_tahoe.bottle.tar.gz",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-binary-install.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-bottle-verification.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-homebrew-install.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-homebrew-install.stderr",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-homebrew-install.stdout",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-local-setup.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/github-account-preflight.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/homebrew-formula-info.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/initial-inventory.jsonl",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/initial-preparation.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/lfs-local-install-preconditions.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/normal-git-storage-population.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/official-homebrew-git-lfs-metadata.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/oversized-files.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/preparation-freeze.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/preparation.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/prestage-remote-and-size.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/proposed-gitattributes.txt",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/recent-paths-initial.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/storage-tooling-preflight.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/correction-L2-001/correction.diff",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/correction-L2-001/readiness.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/correction-L2-001/return.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/checks-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/freeze-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/independent-delta-02.diff",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/result-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/review-02.md",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-02/L2-candidate-freeze-02.json",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-02/L2-execution-contract.md",
+    ".gitattributes"
+  ],
+  "changed_initial_paths": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "kind": "file",
+      "bytes": 533127,
+      "mtime_utc": "2026-10-20T18:57:53.896160+00:00"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "kind": "file",
+      "bytes": 26888,
+      "mtime_utc": "2026-10-20T18:51:33.932120+00:00"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/frontier.md",
+      "kind": "file",
+      "bytes": 5111,
+      "mtime_utc": "2026-10-20T18:57:53.898061+00:00"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "kind": "file",
+      "bytes": 78297,
+      "mtime_utc": "2026-10-20T18:57:53.892423+00:00"
+    }
+  ],
+  "changed_commentary_paths": [],
+  "delta_credential_candidate_paths": [],
+  "oversized_file_hash_reverification": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/preparation/readback-basis.json",
+      "sha256": "cc386d778eae538c4821d2f0d0c180b51b3decca06316b379ac72c36d21c3183"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/readback-basis.json",
+      "sha256": "6ccaff0082b6303c3645c2d0811362ec1d4d639a13f506c39fa0cc007b4cf50f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/readback-basis.json",
+      "sha256": "79caa14d141154f446ebc9bd0df9500c024a7451871f5e8b287634e0c8e755f8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/readback-basis.json",
+      "sha256": "01eec7082b607c2a63545b27f8488b689562a33db465741aca37ed511ac1fca1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/readback-basis.json",
+      "sha256": "01eec7082b607c2a63545b27f8488b689562a33db465741aca37ed511ac1fca1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/preparation/readback-basis.json",
+      "sha256": "01ecbe3749ef75d609df141c172ffb89460b2d036fb677aa0db9a97005db8c46"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/readback-basis.json",
+      "sha256": "e765195863ee013bcffd0b02169cd813508c7c1f0dead5c4e519df50531fd6af"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/suffix-01/readback-basis.json",
+      "sha256": "429561cb5c8cfb83b1fdfb4425385c094f0ed3dbb1a88835dfd467449b34ba36"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/readback-basis.json",
+      "sha256": "0bd0a4c348c1697abae681f7151a3cc8554e1203416842b87d89db939634d12d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/readback-basis.json",
+      "sha256": "ab98c3c3d3a05e0fc684492b96202e02ead3fbb71c5986850c33cc287062af57"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native39-continuation-01/preparation/readback-basis.json",
+      "sha256": "8b654b3263f168228c729ab6b0edb3f7c3b8daa254c4da9ef84336530b4c5b88"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/readback-basis.json",
+      "sha256": "f410199ff6a533b772014e70a6b84ed81b8045d6ea921da56d8b5b85c600beee"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/suffix-01/readback-basis.json",
+      "sha256": "368d23ae3ac311183b403e437c9e2e590f4cfba7b6c75f7f6fdcb935ecc98e65"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/readback-basis.json",
+      "sha256": "43f4fe6ed9e56e905756980294eb310a2dd53a5b0f84e308089a2b115a0af610"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/readback-basis.json",
+      "sha256": "663fec5f86606df0ea500e72f249553b8839f3f6f18ee5a9dd26c64298433321"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/preparation/readback-basis.json",
+      "sha256": "04727515d0d4ee9656f2e5b0a793b883c7bc81a9bfde2e149e5f0e1e81ea05ca"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/suffix-01/readback-basis.json",
+      "sha256": "54684c133b3e81ef82c7798bc93d82fe24912d5371ebd76a3d1f88d7c14dfb73"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/preparation/readback-basis.json",
+      "sha256": "f831bab233ff3c525ceb5607875589080102b17f0ef6df071c005fddfe19edd6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/suffix-01/readback-basis.json",
+      "sha256": "5cfcd15a55e4d062b621f85027b7457e187bbd8eb56252dd5351158a9306ece9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/checkpoint-01/closed-repair-evidence.tar.gz",
+      "sha256": "945990b588ec443bb7bae53f163a8ebdc1007ed49406fdd91017ae7a36d9d5cd"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/readback-basis.json",
+      "sha256": "f9f7ad09288c637f5270d136224a98beb293f04e2d35bcf4077f595d9e8ca604"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/readback-basis.json",
+      "sha256": "e77d9b588d62c92e3779a561f9c76f696723123a6b5a06d81432b2c8d7b6e649"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native41/preparation/readback-basis.json",
+      "sha256": "f148f4016ae3206d4d49363e302a4a43ad9b247dfbe099a255794d016c4fd00c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation/readback-basis.json",
+      "sha256": "22caa43468947c3a7f1a1813c29d4eaf2a9f9ca36e3190da9f07e1ff65685dbf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/suffix-01/readback-basis.json",
+      "sha256": "0fe59851818eea35aefc882db87294ce98ba66defa4614c0eff7d83bbd6d4e20"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/preparation/readback-basis.json",
+      "sha256": "95a34f25aad88b87dfdb45f92f61f922ab774db4038439054d1cb56e0b96bb6d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/preparation/readback-basis.json",
+      "sha256": "6ba8944cc51ea6114c95f2391ae0fac82397e28eaa3024cac891cfa96796ad7c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/readback-basis.json",
+      "sha256": "c6e82e342756c391321a696ebf84707bb36df17c7d98b368a1bfb52cb1e867e7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/offline-start-call.json",
+      "sha256": "7a6bf3fcaa4bf457588c2fe674fc61783d74b169a38b39d729c928af63e37149"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/assessment-owner-precondition.json",
+      "sha256": "7b6596844e0fdce5b7c2003f0551305d565b87a1571665cf5be70da40625bbe7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule.jsonl",
+      "sha256": "159bec822d445384f3e72a13025a39254bd83f0dfa726b88a1db4a433f9de388"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/pure-preflight.json",
+      "sha256": "69a5cc6ec76f522f5ada9ede1942e146b9162f07ee19055deb1752729340fce0"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/candidate-files.json",
+      "sha256": "05052fc15161aac77dde27c577dcb27d18d5f2fb91657fcade0a37570c52cbc0"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/excluded-unproved-files.json",
+      "sha256": "c8f0ae77a548977d4e9f5483165416d66caad6bce008e9fe8debd2f1c16e2435"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/unlink-ledger.jsonl",
+      "sha256": "d3ba12bee903172a9c4845b033e6386100ee4cdb9e007eff7e8ce9d1ae0b111c"
+    }
+  ],
+  "source_scope": "All visible tracked/untracked files across sessions including code, build, proof, commentary and analysis; existing ignores retained.",
+  "remaining_operations": "git add -A; staged path conservation and pointer checks; outgoing compressed-object/pack size; checkpoint commit; normal push; remote LFS presence and direct Git parity; cleanliness.",
+  "records_policy": "No repository record writes after this final freeze; execution outcomes returned via tool/message output."
+}

@@ -1,0 +1,87 @@
+{
+  "expectedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/expected.json",
+  "histories": [
+    {
+      "name": "historical",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-0.jsonl",
+      "valid": true
+    },
+    {
+      "name": "new owner-produced",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-1.jsonl",
+      "valid": true
+    },
+    {
+      "name": "mixed historical/new projection probe",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-2.jsonl",
+      "valid": true
+    },
+    {
+      "name": "reference chain",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-3.jsonl",
+      "valid": false
+    },
+    {
+      "name": "missing reference",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-4.jsonl",
+      "valid": false
+    },
+    {
+      "name": "malformed reference",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-5.jsonl",
+      "valid": false
+    },
+    {
+      "name": "wrong source event",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-6.jsonl",
+      "valid": false
+    },
+    {
+      "name": "forward source event",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-7.jsonl",
+      "valid": false
+    },
+    {
+      "name": "wrong source digest",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-8.jsonl",
+      "valid": false
+    },
+    {
+      "name": "wrong lock identity",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-9.jsonl",
+      "valid": false
+    },
+    {
+      "name": "wrong lock digest",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-10.jsonl",
+      "valid": false
+    },
+    {
+      "name": "mixed inline/reference",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-11.jsonl",
+      "valid": false
+    },
+    {
+      "name": "wrong product row",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-12.jsonl",
+      "valid": false
+    },
+    {
+      "name": "wrong candidate identity",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-13.jsonl",
+      "valid": false
+    },
+    {
+      "name": "wrong candidate content",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-14.jsonl",
+      "valid": false
+    },
+    {
+      "name": "extra compact field",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/cold-15.jsonl",
+      "valid": false
+    }
+  ],
+  "liveProjectionPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/live-projection.json",
+  "livePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02/owner-produced.jsonl"
+}

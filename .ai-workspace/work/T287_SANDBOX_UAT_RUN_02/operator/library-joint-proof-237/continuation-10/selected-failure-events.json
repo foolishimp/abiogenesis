@@ -1,0 +1,2228 @@
+{
+  "installedOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+  "prefix": {
+    "coordinateDigest": "sha256:d359c4498ccf69d7d226af6be1a1cf3ec8ae8809eb7979761b9a48dab7527223",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:214f9a61815407f2f1d1182afa3121076e0d83eaccfa82cc41bd7d231a74db74",
+    "prefixLength": 13131877,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 469917053
+    }
+  },
+  "run": {
+    "digest": "sha256:b1fbf4d047532dd1e806fbd2354b8cc0cd980195a58635891619e084558ee449",
+    "ref": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80"
+  },
+  "selection": "Exact failed Run kind/causal facts via existing canonical envelope/body owner; no complete Replay/history materialization",
+  "events": [
+    {
+      "admissionOrdinal": 503,
+      "aggregateId": "c-call:sha256:b50b7855b72598f7b30a9336ee077819d77e63c4b1177dd890edafe7472d7b98",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/8587b6103ada47c82e7610302c0be04a2b6b5b1e75fbb04136c1c0f2ef9db290",
+      "causationEventRefs": [
+        "event://abiogenesis/6cd64a38be2e5cfaf7d2ab00b1a3be086ab4372c17eacdbceadfaaae9e6542db"
+      ],
+      "correlationId": "request://abi5-tests/library-joint-proof-237/library-joint-proof-237-10/audit/hog/leaf/0/outcome/result",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/7020b5f36e64689eaba76ab543c01b4b5c7b2e5772192151fdf7ea45782b1382",
+      "eventTime": "2026-10-10T14:31:12.169Z",
+      "frameId": "frame://abiogenesis/485927570991f1b8cf5f9c781e94c7d018fd06544a1cd35fa404becf21d48629",
+      "graphCallId": "graph-call://abiogenesis/d5d34ac26d2d25b021a2b08c4a21b9f8be797c74e2ba8e15939f666733413221",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/485927570991f1b8cf5f9c781e94c7d018fd06544a1cd35fa404becf21d48629",
+      "payload": {
+        "cCallRef": "c-call:sha256:b50b7855b72598f7b30a9336ee077819d77e63c4b1177dd890edafe7472d7b98",
+        "contractRef": "contract://abiogenesis/default-library/state@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/e1483dda4dcfcf1997fe5b6ada5af81741cf2b6c25d90776b4c55171691b3fcf"
+        ],
+        "resultClass": "success",
+        "resultDigest": "sha256:9b33dd64b2ab9654ff265abc009b740b7d57b611b6b76814f84cb62d1c25272c",
+        "resultRef": "result://abiogenesis/9b33dd64b2ab9654ff265abc009b740b7d57b611b6b76814f84cb62d1c25272c",
+        "valueDigest": "sha256:8ea15aebe7d1157d29f141b84bcaefeefd77705e2a61240443a10c3e42a72ee2",
+        "valueKind": "governance_work_state",
+        "value": {
+          "kind": "governance_work_state",
+          "observations": [
+            {
+              "actorInvocationRef": "actor-invocation://abiogenesis/d852b4943c6897b374da6b366034c32baf9b3b761fdc835c7f7e9303d9f2b40b",
+              "cCallRef": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+              "purpose": "construction",
+              "resultDigest": "sha256:4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+              "resultRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+              "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+              "synthesisResultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+              "value": {
+                "changedPaths": [
+                  "fixture/value.txt"
+                ],
+                "report": {
+                  "gaps": [
+                    "The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved."
+                  ],
+                  "summary": "fixture candidate staged"
+                }
+              }
+            }
+          ],
+          "original": {
+            "assessment": {
+              "candidatePath": "fixture/value.txt",
+              "resultContract": {
+                "contractKind": "output",
+                "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+                "contractVersion": "5.0.0",
+                "valueKind": "sandbox_uat_assessment"
+              },
+              "rubricPath": "fixture/rubric.md",
+              "satisfiedValue": "satisfied",
+              "schemaAsset": {
+                "bytesBase64": "eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCIkaWQiOiJjb250cmFjdDovL2FiaTUtdGVzdHMvc2FuZGJveC11YXQvYXNzZXNzbWVudEA1IiwidHlwZSI6Im9iamVjdCIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicmVxdWlyZWQiOlsia2luZCIsImRpc3Bvc2l0aW9uIiwicmVhc29uIiwidW5yZXNvbHZlZENyaXRlcmlhIl0sInByb3BlcnRpZXMiOnsia2luZCI6eyJjb25zdCI6InNhbmRib3hfdWF0X2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInVucmVzb2x2ZWRDcml0ZXJpYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIn19fX0K",
+                "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+                "productId": "product://abi5-tests/sandbox-uat@5.0.0"
+              },
+              "sources": [
+                "fixture/source.md",
+                "fixture/checker.mjs",
+                "fixture/rubric.md"
+              ],
+              "verdictField": "disposition"
+            },
+            "authorityRefs": [
+              "authority://abi5-tests/library-joint-proof-237/scratch-workload"
+            ],
+            "maxContextBytes": 262144,
+            "maxContextFiles": 32,
+            "maxPromptBytes": 1048576,
+            "readRoots": [
+              "fixture/source.md",
+              "fixture/checker.mjs",
+              "fixture/rubric.md",
+              "fixture/value.txt"
+            ],
+            "requiredSupportRefs": [
+              "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+            ],
+            "sources": [
+              {
+                "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+                "path": "fixture/source.md"
+              },
+              {
+                "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+                "path": "fixture/checker.mjs"
+              },
+              {
+                "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+                "path": "fixture/rubric.md"
+              }
+            ],
+            "task": "# Mechanical lifecycle specimen\n\nThis is a scratch component workload. It does not implement Data Mapper or\nestablish application acceptance.\n\nThe only writable candidate is fixture/value.txt. First, the native\nConstruction actor deliberately writes the exact bytes \"broken\\n\". The\nindependent, unchanged fixture/checker.mjs must execute through the existing\nnative C2 owner and report FIXTURE_VALUE_BAD with exit status 1.\n\nAfter that actual diagnostic has been observed, the selected native repair\nchanges only fixture/value.txt to the exact bytes \"fixed\\n\". C2 then executes\nthe same command and reports FIXTURE_VALUE_FIXED with exit status 0. Preserve\nboth measurements, the original task, the failed producer and its literal\ndiagnostic citation. Never edit this source, the checker or the rubric.\n\nThe deterministic responder supplies fixture decisions, not semantic\nassessment. The support obligation remains unresolved, terminal stays false,\nand the selector explicitly gaps. A later supported invocation must reuse the\nrecorded work and actual files without rerunning their authors or measurements.\n",
+            "taskRef": "task://abi5-tests/library-joint-proof-237/original",
+            "testing": {
+              "allowedWriteTerritories": [],
+              "commands": [
+                {
+                  "args": [
+                    "fixture/checker.mjs"
+                  ],
+                  "commandId": "command://abi5-tests/library-joint-proof-237/check",
+                  "environment": {},
+                  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                  "expectedReports": [],
+                  "relativeCwd": ".",
+                  "terminationGraceMs": 1000,
+                  "timeoutMs": 10000
+                }
+              ],
+              "outcomePredicates": [
+                {
+                  "declaration": {
+                    "equals": 0,
+                    "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                  },
+                  "predicateId": "predicate://abi5-tests/library-joint-proof-237/exit",
+                  "predicateKind": "process_exit"
+                },
+                {
+                  "declaration": {
+                    "equals": "FIXTURE_VALUE_FIXED\n",
+                    "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                  },
+                  "predicateId": "predicate://abi5-tests/library-joint-proof-237/stdout",
+                  "predicateKind": "stdout_exact"
+                }
+              ],
+              "selectedPaths": [
+                "fixture/source.md",
+                "fixture/checker.mjs",
+                "fixture/rubric.md",
+                "fixture/value.txt"
+              ]
+            },
+            "workOrders": {
+              "construction": {
+                "checks": [],
+                "instructions": [
+                  "Read source, checker and rubric. Only the native Construction actor may write fixture/value.txt. First stage the deliberate defect; repair only after the actual C2 diagnostic. Do not execute the checker yourself or alter any immutable fixture file."
+                ],
+                "outcome": "Perform only the selected mechanical fixture contribution; keep the parent obligation unresolved.",
+                "readFirst": [
+                  "fixture/source.md",
+                  "fixture/checker.mjs",
+                  "fixture/rubric.md"
+                ],
+                "writeRoots": [
+                  "fixture/value.txt"
+                ]
+              }
+            }
+          },
+          "schemaVersion": "5.0.0",
+          "synthesis": {
+            "basis": {
+              "contextRef": "worksite-context-observation://abiogenesis/e42de1011daae37ad5f9be1ddc5e06a3db2b9833d840ca4b48a9880da2defcd0",
+              "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+              "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+              "frameEvidenceDigest": "sha256:103455797cae1a999c4d3e3b049ffb36939bc324b9954acea4494f08bfc4b5bc",
+              "frameRefs": [
+                "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+              ],
+              "inputDigest": "sha256:a04cadbcdceadca3e9f062ecbe741b03a5debec1449cf6251d175a8d3a5aa13e",
+              "inputRef": "result://abiogenesis/6ec9b472d4b652f309c03719d3d7ac34549bfc1525d4ee51cd705097d8655714",
+              "previousResultRef": null,
+              "taskRef": "task://abi5-tests/library-joint-proof-237/original"
+            },
+            "judgment": {
+              "contributions": [
+                {
+                  "contribution": "MECHANICAL_STAGE_BROKEN_VALUE: write only fixture/value.txt with the exact bytes broken followed by one newline.",
+                  "dependsOn": [],
+                  "evidenceRefs": [],
+                  "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                  "reason": "Stage the explicitly declared controlled defect.",
+                  "supportRefs": [
+                    "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                  ]
+                }
+              ],
+              "gaps": [
+                {
+                  "evidenceRefs": [],
+                  "reason": "Independent semantic assessment and qualification are outside this component specimen.",
+                  "supportRefs": [
+                    "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                  ]
+                }
+              ],
+              "interpretation": "Controlled mechanical fixture; runtime facts remain installed-owner results, and the original support obligation remains unresolved.",
+              "nextEvidenceRefs": [],
+              "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+              "nextReason": "Stage the explicitly declared controlled defect.",
+              "revisionEvidenceRefs": [],
+              "revisionReason": "Initial controlled contribution.",
+              "subjectEvidenceRef": null
+            },
+            "resultDigest": "sha256:2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+            "resultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+          },
+          "terminal": false,
+          "unresolvedSupportRefs": [
+            "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+          ]
+        }
+      },
+      "payloadDigest": "sha256:91bf5f40f2307444f03066e6c78d70d209d61066da431773860a245b6f2992df",
+      "runId": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 523,
+      "aggregateId": "c-call:sha256:fb61030d4af48b898258d6058420a77debd999c04da31e22ebdbf5fada2ac7bc",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/8e9b941a5eff422bf4401aa7b092ba9d42e3962d023a452a52d5a4f5311d9227",
+      "causationEventRefs": [
+        "event://abiogenesis/baed8534d76fdab70e734e602aa1b007a85252ab815a08c64aa553847bce9c30"
+      ],
+      "correlationId": "request://abi5-tests/library-joint-proof-237/library-joint-proof-237-10/audit/hog/recursion/0/child/leaf/0/outcome/result",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/e6797e33cc1fa79f2f3de7f8a801b810b48ca91f018ba06cd2b0331d8f1c1ece",
+      "eventTime": "2026-10-10T14:31:16.861Z",
+      "frameId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "graphCallId": "graph-call://abiogenesis/99acbc0b2a2c9b9bb0d312d2893da13fcec05853c25b7c3761e1091eb4e908cb",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "payload": {
+        "cCallRef": "c-call:sha256:fb61030d4af48b898258d6058420a77debd999c04da31e22ebdbf5fada2ac7bc",
+        "contractRef": "contract://abiogenesis/default-library/selection-task@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/beda55d82715481a329469022d8236ac1a7b2677e31f4ac20d43f96fa8857ae5"
+        ],
+        "resultClass": "success",
+        "resultDigest": "sha256:d9ebe97822f7025d069fc6d890b51d1f0841c98e245e03b5197351df83aed28b",
+        "resultRef": "result://abiogenesis/d9ebe97822f7025d069fc6d890b51d1f0841c98e245e03b5197351df83aed28b",
+        "value": {
+          "context": {
+            "entries": [
+              {
+                "byteLength": 335,
+                "bytes": "aW1wb3J0IHsgcmVhZEZpbGUgfSBmcm9tICdub2RlOmZzL3Byb21pc2VzJzsKCmNvbnN0IHZhbHVlID0gYXdhaXQgcmVhZEZpbGUobmV3IFVSTCgnLi92YWx1ZS50eHQnLCBpbXBvcnQubWV0YS51cmwpLCAndXRmOCcpOwppZiAodmFsdWUgPT09ICdmaXhlZFxuJykgewogIHByb2Nlc3Muc3Rkb3V0LndyaXRlKCdGSVhUVVJFX1ZBTFVFX0ZJWEVEXG4nKTsKfSBlbHNlIHsKICBwcm9jZXNzLnN0ZG91dC53cml0ZSgnRklYVFVSRV9WQUxVRV9CQUQgZXhwZWN0ZWQ9Zml4ZWQgYWN0dWFsPScgKyBKU09OLnN0cmluZ2lmeSh2YWx1ZSkgKyAnXG4nKTsKICBwcm9jZXNzLmV4aXRDb2RlID0gMTsKfQo=",
+                "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+                "encoding": "base64",
+                "fileIdentity": "16777231:469947492",
+                "relativePath": "fixture/checker.mjs",
+                "state": "file"
+              },
+              {
+                "byteLength": 634,
+                "bytes": "IyBNZWNoYW5pY2FsIHByb29mIGxpbWl0cwoKVGhlIGNvbXBvbmVudCBwcm9vZiByZXF1aXJlcyBhbiBhY3R1YWwgbmF0aXZlIENvbnN0cnVjdGlvbiBvYnNlcnZhdGlvbiwgYW4KYWN0dWFsIEMyIGV4aXQtMSBkaWFnbm9zdGljLCBhIG5hdGl2ZSByZXBhaXIgY29uZmluZWQgdG8gZml4dHVyZS92YWx1ZS50eHQsIGFuCmFjdHVhbCByZW1lYXN1cmVtZW50IHdpdGggZXhpdCAwLCBhbmQgY29uc2VydmF0aW9uIGFjcm9zcyBjbG9zZS9yZXN0YXJ0IGFuZApmcmVzaCBvd25lciByZWFkcy4gVGhlIGZhaWxlZCBhbmQgcGFzc2luZyBjb21tYW5kIGlkcyBhbmQgY2hlY2tlciBieXRlcyBtdXN0CnJlbWFpbiBpZGVudGljYWwuIEVhY2ggbWVhc3VyZW1lbnQga2VlcHMgaXRzIG93biBwcm9kdWNlciBhbmQgY3VycmVudCBpbnB1dHMuCgpUaGVzZSBvYnNlcnZhdGlvbnMgZG8gbm90IGVzdGFibGlzaCBpbmRlcGVuZGVudCBVQVQsIENsYXVkZSBiZWhhdmlvciwKRGF0YSBNYXBwZXIgY29ycmVjdG5lc3MsIGxhcmdlLWhpc3RvcnkgY2FwYWNpdHksIG9yIHJlbGVhc2UgcXVhbGlmaWNhdGlvbi4KQW4gZXhwbGljaXQgc2VsZWN0b3IgZ2FwIGxlYXZlcyB0aGUgb3JpZ2luYWwgc3VwcG9ydCBvYmxpZ2F0aW9uIHVucmVzb2x2ZWQuCg==",
+                "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+                "encoding": "base64",
+                "fileIdentity": "16777231:469947493",
+                "relativePath": "fixture/rubric.md",
+                "state": "file"
+              },
+              {
+                "byteLength": 1107,
+                "bytes": "IyBNZWNoYW5pY2FsIGxpZmVjeWNsZSBzcGVjaW1lbgoKVGhpcyBpcyBhIHNjcmF0Y2ggY29tcG9uZW50IHdvcmtsb2FkLiBJdCBkb2VzIG5vdCBpbXBsZW1lbnQgRGF0YSBNYXBwZXIgb3IKZXN0YWJsaXNoIGFwcGxpY2F0aW9uIGFjY2VwdGFuY2UuCgpUaGUgb25seSB3cml0YWJsZSBjYW5kaWRhdGUgaXMgZml4dHVyZS92YWx1ZS50eHQuIEZpcnN0LCB0aGUgbmF0aXZlCkNvbnN0cnVjdGlvbiBhY3RvciBkZWxpYmVyYXRlbHkgd3JpdGVzIHRoZSBleGFjdCBieXRlcyAiYnJva2VuXG4iLiBUaGUKaW5kZXBlbmRlbnQsIHVuY2hhbmdlZCBmaXh0dXJlL2NoZWNrZXIubWpzIG11c3QgZXhlY3V0ZSB0aHJvdWdoIHRoZSBleGlzdGluZwpuYXRpdmUgQzIgb3duZXIgYW5kIHJlcG9ydCBGSVhUVVJFX1ZBTFVFX0JBRCB3aXRoIGV4aXQgc3RhdHVzIDEuCgpBZnRlciB0aGF0IGFjdHVhbCBkaWFnbm9zdGljIGhhcyBiZWVuIG9ic2VydmVkLCB0aGUgc2VsZWN0ZWQgbmF0aXZlIHJlcGFpcgpjaGFuZ2VzIG9ubHkgZml4dHVyZS92YWx1ZS50eHQgdG8gdGhlIGV4YWN0IGJ5dGVzICJmaXhlZFxuIi4gQzIgdGhlbiBleGVjdXRlcwp0aGUgc2FtZSBjb21tYW5kIGFuZCByZXBvcnRzIEZJWFRVUkVfVkFMVUVfRklYRUQgd2l0aCBleGl0IHN0YXR1cyAwLiBQcmVzZXJ2ZQpib3RoIG1lYXN1cmVtZW50cywgdGhlIG9yaWdpbmFsIHRhc2ssIHRoZSBmYWlsZWQgcHJvZHVjZXIgYW5kIGl0cyBsaXRlcmFsCmRpYWdub3N0aWMgY2l0YXRpb24uIE5ldmVyIGVkaXQgdGhpcyBzb3VyY2UsIHRoZSBjaGVja2VyIG9yIHRoZSBydWJyaWMuCgpUaGUgZGV0ZXJtaW5pc3RpYyByZXNwb25kZXIgc3VwcGxpZXMgZml4dHVyZSBkZWNpc2lvbnMsIG5vdCBzZW1hbnRpYwphc3Nlc3NtZW50LiBUaGUgc3VwcG9ydCBvYmxpZ2F0aW9uIHJlbWFpbnMgdW5yZXNvbHZlZCwgdGVybWluYWwgc3RheXMgZmFsc2UsCmFuZCB0aGUgc2VsZWN0b3IgZXhwbGljaXRseSBnYXBzLiBBIGxhdGVyIHN1cHBvcnRlZCBpbnZvY2F0aW9uIG11c3QgcmV1c2UgdGhlCnJlY29yZGVkIHdvcmsgYW5kIGFjdHVhbCBmaWxlcyB3aXRob3V0IHJlcnVubmluZyB0aGVpciBhdXRob3JzIG9yIG1lYXN1cmVtZW50cy4K",
+                "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+                "encoding": "base64",
+                "fileIdentity": "16777231:469947491",
+                "relativePath": "fixture/source.md",
+                "state": "file"
+              },
+              {
+                "byteLength": 7,
+                "bytes": "YnJva2VuCg==",
+                "digest": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048",
+                "encoding": "base64",
+                "fileIdentity": "16777231:470001681",
+                "relativePath": "fixture/value.txt",
+                "state": "file"
+              }
+            ],
+            "kind": "worksite_context_observation",
+            "maxBytes": 262144,
+            "maxFiles": 32,
+            "observationDigest": "sha256:d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+            "observationRef": "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+            "readRoots": [
+              "fixture/source.md",
+              "fixture/checker.mjs",
+              "fixture/rubric.md",
+              "fixture/value.txt"
+            ],
+            "schemaVersion": "5.0.0",
+            "workspaceAuthorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "workspaceAuthorityBasisRef": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "workspaceBindingDigest": "sha256:c5b28b167af440cdc86e32704336ad6352ba3df11f424e4abee629752e83206c",
+            "workspaceBindingIdentity": "workspace-binding://abiogenesis/c5b28b167af440cdc86e32704336ad6352ba3df11f424e4abee629752e83206c"
+          },
+          "kind": "framed_synthesis_task",
+          "schemaVersion": "5.0.0",
+          "state": {
+            "kind": "governance_work_state",
+            "observations": [
+              {
+                "actorInvocationRef": "actor-invocation://abiogenesis/d852b4943c6897b374da6b366034c32baf9b3b761fdc835c7f7e9303d9f2b40b",
+                "cCallRef": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+                "purpose": "construction",
+                "resultDigest": "sha256:4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                "resultRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                "synthesisResultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+                "value": {
+                  "changedPaths": [
+                    "fixture/value.txt"
+                  ],
+                  "report": {
+                    "gaps": [
+                      "The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved."
+                    ],
+                    "summary": "fixture candidate staged"
+                  }
+                }
+              }
+            ],
+            "original": {
+              "assessment": {
+                "candidatePath": "fixture/value.txt",
+                "resultContract": {
+                  "contractKind": "output",
+                  "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+                  "contractVersion": "5.0.0",
+                  "valueKind": "sandbox_uat_assessment"
+                },
+                "rubricPath": "fixture/rubric.md",
+                "satisfiedValue": "satisfied",
+                "schemaAsset": {
+                  "bytesBase64": "eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCIkaWQiOiJjb250cmFjdDovL2FiaTUtdGVzdHMvc2FuZGJveC11YXQvYXNzZXNzbWVudEA1IiwidHlwZSI6Im9iamVjdCIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicmVxdWlyZWQiOlsia2luZCIsImRpc3Bvc2l0aW9uIiwicmVhc29uIiwidW5yZXNvbHZlZENyaXRlcmlhIl0sInByb3BlcnRpZXMiOnsia2luZCI6eyJjb25zdCI6InNhbmRib3hfdWF0X2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInVucmVzb2x2ZWRDcml0ZXJpYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIn19fX0K",
+                  "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+                  "productId": "product://abi5-tests/sandbox-uat@5.0.0"
+                },
+                "sources": [
+                  "fixture/source.md",
+                  "fixture/checker.mjs",
+                  "fixture/rubric.md"
+                ],
+                "verdictField": "disposition"
+              },
+              "authorityRefs": [
+                "authority://abi5-tests/library-joint-proof-237/scratch-workload"
+              ],
+              "maxContextBytes": 262144,
+              "maxContextFiles": 32,
+              "maxPromptBytes": 1048576,
+              "readRoots": [
+                "fixture/source.md",
+                "fixture/checker.mjs",
+                "fixture/rubric.md",
+                "fixture/value.txt"
+              ],
+              "requiredSupportRefs": [
+                "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+              ],
+              "sources": [
+                {
+                  "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+                  "path": "fixture/source.md"
+                },
+                {
+                  "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+                  "path": "fixture/checker.mjs"
+                },
+                {
+                  "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+                  "path": "fixture/rubric.md"
+                }
+              ],
+              "task": "# Mechanical lifecycle specimen\n\nThis is a scratch component workload. It does not implement Data Mapper or\nestablish application acceptance.\n\nThe only writable candidate is fixture/value.txt. First, the native\nConstruction actor deliberately writes the exact bytes \"broken\\n\". The\nindependent, unchanged fixture/checker.mjs must execute through the existing\nnative C2 owner and report FIXTURE_VALUE_BAD with exit status 1.\n\nAfter that actual diagnostic has been observed, the selected native repair\nchanges only fixture/value.txt to the exact bytes \"fixed\\n\". C2 then executes\nthe same command and reports FIXTURE_VALUE_FIXED with exit status 0. Preserve\nboth measurements, the original task, the failed producer and its literal\ndiagnostic citation. Never edit this source, the checker or the rubric.\n\nThe deterministic responder supplies fixture decisions, not semantic\nassessment. The support obligation remains unresolved, terminal stays false,\nand the selector explicitly gaps. A later supported invocation must reuse the\nrecorded work and actual files without rerunning their authors or measurements.\n",
+              "taskRef": "task://abi5-tests/library-joint-proof-237/original",
+              "testing": {
+                "allowedWriteTerritories": [],
+                "commands": [
+                  {
+                    "args": [
+                      "fixture/checker.mjs"
+                    ],
+                    "commandId": "command://abi5-tests/library-joint-proof-237/check",
+                    "environment": {},
+                    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                    "expectedReports": [],
+                    "relativeCwd": ".",
+                    "terminationGraceMs": 1000,
+                    "timeoutMs": 10000
+                  }
+                ],
+                "outcomePredicates": [
+                  {
+                    "declaration": {
+                      "equals": 0,
+                      "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                    },
+                    "predicateId": "predicate://abi5-tests/library-joint-proof-237/exit",
+                    "predicateKind": "process_exit"
+                  },
+                  {
+                    "declaration": {
+                      "equals": "FIXTURE_VALUE_FIXED\n",
+                      "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                    },
+                    "predicateId": "predicate://abi5-tests/library-joint-proof-237/stdout",
+                    "predicateKind": "stdout_exact"
+                  }
+                ],
+                "selectedPaths": [
+                  "fixture/source.md",
+                  "fixture/checker.mjs",
+                  "fixture/rubric.md",
+                  "fixture/value.txt"
+                ]
+              },
+              "workOrders": {
+                "construction": {
+                  "checks": [],
+                  "instructions": [
+                    "Read source, checker and rubric. Only the native Construction actor may write fixture/value.txt. First stage the deliberate defect; repair only after the actual C2 diagnostic. Do not execute the checker yourself or alter any immutable fixture file."
+                  ],
+                  "outcome": "Perform only the selected mechanical fixture contribution; keep the parent obligation unresolved.",
+                  "readFirst": [
+                    "fixture/source.md",
+                    "fixture/checker.mjs",
+                    "fixture/rubric.md"
+                  ],
+                  "writeRoots": [
+                    "fixture/value.txt"
+                  ]
+                }
+              }
+            },
+            "schemaVersion": "5.0.0",
+            "synthesis": {
+              "basis": {
+                "contextRef": "worksite-context-observation://abiogenesis/e42de1011daae37ad5f9be1ddc5e06a3db2b9833d840ca4b48a9880da2defcd0",
+                "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+                "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+                "frameEvidenceDigest": "sha256:103455797cae1a999c4d3e3b049ffb36939bc324b9954acea4494f08bfc4b5bc",
+                "frameRefs": [
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+                ],
+                "inputDigest": "sha256:a04cadbcdceadca3e9f062ecbe741b03a5debec1449cf6251d175a8d3a5aa13e",
+                "inputRef": "result://abiogenesis/6ec9b472d4b652f309c03719d3d7ac34549bfc1525d4ee51cd705097d8655714",
+                "previousResultRef": null,
+                "taskRef": "task://abi5-tests/library-joint-proof-237/original"
+              },
+              "judgment": {
+                "contributions": [
+                  {
+                    "contribution": "MECHANICAL_STAGE_BROKEN_VALUE: write only fixture/value.txt with the exact bytes broken followed by one newline.",
+                    "dependsOn": [],
+                    "evidenceRefs": [],
+                    "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                    "reason": "Stage the explicitly declared controlled defect.",
+                    "supportRefs": [
+                      "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                    ]
+                  }
+                ],
+                "gaps": [
+                  {
+                    "evidenceRefs": [],
+                    "reason": "Independent semantic assessment and qualification are outside this component specimen.",
+                    "supportRefs": [
+                      "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                    ]
+                  }
+                ],
+                "interpretation": "Controlled mechanical fixture; runtime facts remain installed-owner results, and the original support obligation remains unresolved.",
+                "nextEvidenceRefs": [],
+                "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                "nextReason": "Stage the explicitly declared controlled defect.",
+                "revisionEvidenceRefs": [],
+                "revisionReason": "Initial controlled contribution.",
+                "subjectEvidenceRef": null
+              },
+              "resultDigest": "sha256:2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+              "resultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+            },
+            "terminal": false,
+            "unresolvedSupportRefs": [
+              "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+            ]
+          }
+        },
+        "valueDigest": "sha256:19e5b657b421a10000eb6f292266ede3564e031d2f3d53ba0c1d337e44a55766",
+        "valueKind": "framed_synthesis_task"
+      },
+      "payloadDigest": "sha256:4cf445ee01de763c19ff2ea4b40a0559cbb55ef4e97be79d1e2a9070ed267ac4",
+      "runId": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 536,
+      "aggregateId": "transport-binding://abiogenesis/9a929e83bf44523509d6a1768324cc9c26e4c8583a0c694b80ffeb145c4d77c7",
+      "aggregateType": "transport_binding",
+      "basisId": "execution-basis://abiogenesis/8e9b941a5eff422bf4401aa7b092ba9d42e3962d023a452a52d5a4f5311d9227",
+      "causationEventRefs": [
+        "event://abiogenesis/07d60a216f18430bd0761cd1c0230370124b638a829191f02400772deda4f344"
+      ],
+      "correlationId": "request://abi5-tests/library-joint-proof-237/library-joint-proof-237-10/audit/hog/recursion/0/child/leaf/1/actor-process",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/37f2fe8554f574306901f4242b2975d8e286ed9d17bafd628147c7a135d7c921",
+      "eventTime": "2026-10-10T14:31:20.274Z",
+      "frameId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "graphCallId": "graph-call://abiogenesis/99acbc0b2a2c9b9bb0d312d2893da13fcec05853c25b7c3761e1091eb4e908cb",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "kind": "actor_transport_binding_admitted",
+      "materializationRef": "graph-materialization://abiogenesis/fe1fef1798c7dd752b55208849b351aa3cda4247449a2b726d77f36de184e177",
+      "parentAggregateId": "c-call:sha256:c338d59d8bf028c0e52464e22bf103b1b981de106f6b52cdd73a3500e84730e9",
+      "payload": {
+        "absoluteTimeoutMs": 3600000,
+        "actorRef": "actor://abiogenesis/default-library/executive@5",
+        "agentKey": "claude",
+        "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives",
+        "args": [
+          "-p",
+          "--disable-slash-commands",
+          "--no-session-persistence",
+          "--output-format",
+          "stream-json",
+          "--include-partial-messages",
+          "--verbose",
+          "--permission-mode",
+          "bypassPermissions",
+          "--safe-mode",
+          "--tools",
+          "",
+          "--json-schema",
+          "{\"type\":\"object\",\"properties\":{\"interpretation\":{\"type\":\"string\",\"minLength\":1},\"contributions\":{\"type\":\"array\",\"maxItems\":6,\"description\":\"At most one contribution row per graphFunctionRef in this current mapping.\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"graphFunctionRef\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"contribution\":{\"type\":\"string\",\"minLength\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"]}},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://abi5-tests/library-joint-proof-237/original\",\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\",\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"]}},\"dependsOn\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"description\":\"Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.\"}},\"required\":[\"graphFunctionRef\",\"contribution\",\"reason\",\"supportRefs\",\"evidenceRefs\",\"dependsOn\"]}},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"]},\"minItems\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://abi5-tests/library-joint-proof-237/original\",\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\",\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"]}}},\"required\":[\"supportRefs\",\"reason\",\"evidenceRefs\"]}},\"nextGraphFunctionRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",null],\"description\":\"Must name a contribution row in THIS response, explicitly chosen to execute next. Testing is available immediately only when every original selected path is an observed file; future Testing contributions remain allowed. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.\"},\"nextReason\":{\"type\":\"string\",\"minLength\":1},\"nextEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://abi5-tests/library-joint-proof-237/original\",\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\",\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"]}},\"subjectEvidenceRef\":{\"type\":[\"string\",\"null\"],\"enum\":[null,\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\"],\"description\":\"For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.\"},\"revisionReason\":{\"type\":\"string\",\"minLength\":1},\"revisionEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://abi5-tests/library-joint-proof-237/original\",\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\",\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"]}}},\"required\":[\"interpretation\",\"contributions\",\"gaps\",\"nextGraphFunctionRef\",\"nextReason\",\"nextEvidenceRefs\",\"subjectEvidenceRef\",\"revisionReason\",\"revisionEvidenceRefs\"],\"additionalProperties\":false}"
+        ],
+        "cCallRef": "c-call:sha256:c338d59d8bf028c0e52464e22bf103b1b981de106f6b52cdd73a3500e84730e9",
+        "command": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/responder.mjs",
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution",
+        "dispatchOrdinal": 1,
+        "environmentDigest": "sha256:9e13d5f8e0d39d01c498131bb7c078d3784cc56567e8152ee8fb92ef7319864a",
+        "environmentPolicyDigest": "sha256:28d63718c9607b33c1099e84e0bc3dd234d6a9543f54585e46f4366663278cc6",
+        "implementationBindingRef": "binding://abiogenesis/default-library/select@5",
+        "implementationRef": "implementation://abiogenesis/default-library/select@5",
+        "inputDigest": "sha256:19e5b657b421a10000eb6f292266ede3564e031d2f3d53ba0c1d337e44a55766",
+        "instructionAssembly": {
+          "envelope": {
+            "boundBasis": {
+              "contextRef": "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+              "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+              "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+              "frameEvidenceDigest": "sha256:b78e63cb890881707021a770cd78bec59ecdcac4b6b7c7ef13bf92a4ea6223d3",
+              "frameRefs": [
+                "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+              ],
+              "inputDigest": "sha256:19e5b657b421a10000eb6f292266ede3564e031d2f3d53ba0c1d337e44a55766",
+              "inputRef": "result://abiogenesis/d9ebe97822f7025d069fc6d890b51d1f0841c98e245e03b5197351df83aed28b",
+              "previousResultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+              "taskRef": "task://abi5-tests/library-joint-proof-237/original"
+            },
+            "cCallDigest": "sha256:c338d59d8bf028c0e52464e22bf103b1b981de106f6b52cdd73a3500e84730e9",
+            "cCallRef": "c-call:sha256:c338d59d8bf028c0e52464e22bf103b1b981de106f6b52cdd73a3500e84730e9",
+            "executionBasisDigest": "sha256:8e9b941a5eff422bf4401aa7b092ba9d42e3962d023a452a52d5a4f5311d9227",
+            "executionBasisRef": "execution-basis://abiogenesis/8e9b941a5eff422bf4401aa7b092ba9d42e3962d023a452a52d5a4f5311d9227",
+            "inputDigest": "sha256:19e5b657b421a10000eb6f292266ede3564e031d2f3d53ba0c1d337e44a55766",
+            "inputRef": "result://abiogenesis/d9ebe97822f7025d069fc6d890b51d1f0841c98e245e03b5197351df83aed28b",
+            "planRef": "prompt-plan://abiogenesis/framed-synthesis/366552a80052b90d99a12968798bd18ba51c67a218f914546c198f70e4da6901",
+            "predecessorPrefix": {
+              "coordinateDigest": "sha256:97787af02b5c0dc0a188e29655d61ac323cd8c9dff1c91e3b89f6c1afbc5d5aa",
+              "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:c93d400d0096e17ab6f702c794e3e737a5d6a4cf0269ed70facda5fae53368ff",
+              "prefixLength": 12714635,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777231,
+                "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+                "inode": 469917053
+              }
+            },
+            "sections": {
+              "choices": [
+                {
+                  "conditionsForUse": "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.",
+                  "contracts": [
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    },
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    }
+                  ],
+                  "effects": [
+                    "effect://abiogenesis/worksite/native-work/v1"
+                  ],
+                  "graphFunctionRef": "graph-function://abiogenesis/default-library/induction@5",
+                  "purpose": "Establish the task model from complete source: outcome, users, constraints, modality, conflicts, assumptions and unknowns. Preserve unresolved questions; distinguish source statements from interpretation."
+                },
+                {
+                  "conditionsForUse": "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.",
+                  "contracts": [
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    },
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    }
+                  ],
+                  "effects": [
+                    "effect://abiogenesis/worksite/native-work/v1"
+                  ],
+                  "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+                  "purpose": "State source-grounded behavior, boundaries and testable acceptance criteria. Preserve valid supplied requirements, conflicts and unknowns. Do not require a fresh induction artifact."
+                },
+                {
+                  "conditionsForUse": "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.",
+                  "contracts": [
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    },
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    }
+                  ],
+                  "effects": [
+                    "effect://abiogenesis/worksite/native-work/v1"
+                  ],
+                  "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+                  "purpose": "Describe a realizable bounded change against the actual worksite and existing capabilities. Preserve selected criteria and supply a meaningful executable proof plan; expose missing dependencies or capacity."
+                },
+                {
+                  "conditionsForUse": "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.",
+                  "contracts": [
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    },
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    }
+                  ],
+                  "effects": [
+                    "effect://abiogenesis/worksite/native-work/v1"
+                  ],
+                  "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                  "purpose": "Implement only the selected bounded change. Preserve original sources, valid supplied assets and declared effect scope. A report or self-run check is not independent acceptance."
+                },
+                {
+                  "conditionsForUse": "Every original selected path is an observed file and the unchanged full declared command/predicate plan is available; no author prerequisite. Missing selected files or plan remain gaps. A partial-probe contribution cannot replace the fixed declaration.",
+                  "contracts": [
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    },
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    }
+                  ],
+                  "effects": [],
+                  "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+                  "purpose": "Execute the selected reproducible command plan against the actual files and retain command, stream and predicate observations, including nonzero exits. Reuse files without inventing an author. A missing verifier or command plan is a gap, not permission to fabricate evidence."
+                },
+                {
+                  "conditionsForUse": "An explicitly selected current native-work or C2 measurement Result, consumer source/rubric and installed assessment contract are available. Measurement provenance is not authorship. Read-only independent assessment.",
+                  "contracts": [
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    },
+                    {
+                      "contractKind": "input",
+                      "contractRef": "contract://abiogenesis/default-library/state@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "governance_work_state"
+                    }
+                  ],
+                  "effects": [
+                    "effect://abiogenesis/worksite/native-work/v1"
+                  ],
+                  "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+                  "purpose": "Independently assess the full original outcome using the exact candidate, consumer rubric and current admitted execution observations. Preserve unmet and indeterminate criteria. Do not edit files or certify success merely from a report, file presence or stage count."
+                }
+              ],
+              "evidence": {
+                "declaredAccess": []
+              },
+              "response": {
+                "additionalProperties": false,
+                "anyOf": [
+                  {
+                    "properties": {
+                      "nextGraphFunctionRef": {
+                        "const": "graph-function://abiogenesis/default-library/induction@5"
+                      },
+                      "subjectEvidenceRef": {
+                        "enum": [
+                          null
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "nextGraphFunctionRef": {
+                        "const": "graph-function://abiogenesis/default-library/specification@5"
+                      },
+                      "subjectEvidenceRef": {
+                        "enum": [
+                          null
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "nextGraphFunctionRef": {
+                        "const": "graph-function://abiogenesis/default-library/design@5"
+                      },
+                      "subjectEvidenceRef": {
+                        "enum": [
+                          null
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "nextGraphFunctionRef": {
+                        "const": "graph-function://abiogenesis/default-library/construction@5"
+                      },
+                      "subjectEvidenceRef": {
+                        "enum": [
+                          null
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "nextGraphFunctionRef": {
+                        "const": "graph-function://abiogenesis/default-library/testing@5"
+                      },
+                      "subjectEvidenceRef": {
+                        "enum": [
+                          "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                          null
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "nextGraphFunctionRef": {
+                        "const": "graph-function://abiogenesis/default-library/uat@5"
+                      },
+                      "subjectEvidenceRef": {
+                        "enum": [
+                          "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "nextGraphFunctionRef": {
+                        "const": null
+                      },
+                      "subjectEvidenceRef": {
+                        "const": null
+                      }
+                    }
+                  }
+                ],
+                "properties": {
+                  "contributions": {
+                    "description": "At most one contribution row per graphFunctionRef in this current mapping.",
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "contribution": {
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "dependsOn": {
+                          "description": "Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.",
+                          "items": {
+                            "enum": [
+                              "graph-function://abiogenesis/default-library/induction@5",
+                              "graph-function://abiogenesis/default-library/specification@5",
+                              "graph-function://abiogenesis/default-library/design@5",
+                              "graph-function://abiogenesis/default-library/construction@5",
+                              "graph-function://abiogenesis/default-library/testing@5",
+                              "graph-function://abiogenesis/default-library/uat@5"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "evidenceRefs": {
+                          "items": {
+                            "enum": [
+                              "task://abi5-tests/library-joint-proof-237/original",
+                              "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                              "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                              "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "graphFunctionRef": {
+                          "enum": [
+                            "graph-function://abiogenesis/default-library/induction@5",
+                            "graph-function://abiogenesis/default-library/specification@5",
+                            "graph-function://abiogenesis/default-library/design@5",
+                            "graph-function://abiogenesis/default-library/construction@5",
+                            "graph-function://abiogenesis/default-library/testing@5",
+                            "graph-function://abiogenesis/default-library/uat@5"
+                          ],
+                          "type": "string"
+                        },
+                        "reason": {
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "supportRefs": {
+                          "items": {
+                            "enum": [
+                              "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        }
+                      },
+                      "required": [
+                        "graphFunctionRef",
+                        "contribution",
+                        "reason",
+                        "supportRefs",
+                        "evidenceRefs",
+                        "dependsOn"
+                      ],
+                      "type": "object"
+                    },
+                    "maxItems": 6,
+                    "type": "array"
+                  },
+                  "gaps": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "evidenceRefs": {
+                          "items": {
+                            "enum": [
+                              "task://abi5-tests/library-joint-proof-237/original",
+                              "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                              "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                              "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "reason": {
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "supportRefs": {
+                          "items": {
+                            "enum": [
+                              "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                            ],
+                            "type": "string"
+                          },
+                          "minItems": 1,
+                          "type": "array",
+                          "uniqueItems": true
+                        }
+                      },
+                      "required": [
+                        "supportRefs",
+                        "reason",
+                        "evidenceRefs"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "interpretation": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "nextEvidenceRefs": {
+                    "items": {
+                      "enum": [
+                        "task://abi5-tests/library-joint-proof-237/original",
+                        "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                        "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                        "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                      ],
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "nextGraphFunctionRef": {
+                    "description": "Must name a contribution row in THIS response, explicitly chosen to execute next. Testing is available immediately only when every original selected path is an observed file; future Testing contributions remain allowed. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.",
+                    "enum": [
+                      "graph-function://abiogenesis/default-library/induction@5",
+                      "graph-function://abiogenesis/default-library/specification@5",
+                      "graph-function://abiogenesis/default-library/design@5",
+                      "graph-function://abiogenesis/default-library/construction@5",
+                      "graph-function://abiogenesis/default-library/testing@5",
+                      "graph-function://abiogenesis/default-library/uat@5",
+                      null
+                    ],
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "nextReason": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "revisionEvidenceRefs": {
+                    "items": {
+                      "enum": [
+                        "task://abi5-tests/library-joint-proof-237/original",
+                        "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                        "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                        "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                      ],
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "revisionReason": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "subjectEvidenceRef": {
+                    "description": "For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.",
+                    "enum": [
+                      null,
+                      "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                    ],
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "interpretation",
+                  "contributions",
+                  "gaps",
+                  "nextGraphFunctionRef",
+                  "nextReason",
+                  "nextEvidenceRefs",
+                  "subjectEvidenceRef",
+                  "revisionReason",
+                  "revisionEvidenceRefs"
+                ],
+                "type": "object"
+              },
+              "role": {
+                "frameRefs": [
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+                ],
+                "instruction": "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON.",
+                "policy": {
+                  "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+                  "policyRef": "policy://abiogenesis/default-library/selector@5",
+                  "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+                },
+                "role": "selector",
+                "sourceContent": [
+                  {
+                    "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+                    "endByte": 35546,
+                    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                    "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+                    "sourceLocator": "stdo://releases/v2.5.1-rc.1/",
+                    "spanDigest": "sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485",
+                    "startByte": 30700,
+                    "text": "## Derived Executive Frame\n\n| Frame element | Derived application |\n|---|---|\n| evaluation family | Is the bounded outcome and execution basis authorized? Which frames and actors are capable? Is a returned result exact and current? What priority, current-boundary effect, `STDO-UP-020` disposition, and next action follow from the current Product mandate? |\n| subject and basis | complete selected STDO cut; exact Goals/Product/requirements/design/work authority; current MVP or release mandate; current workspace and checkpoint; open findings and technical triage; Product-selected triage policy; proxy grant where used |\n| material manifold | outcome, mandate, affected causal cone, evaluation inventory, frame configuration, actor envelopes, evidence obligations, returned results and technical triage, priority, boundary effect, re-entry owners, and already-authorized continuation boundary |\n| coordinates | exact method, project, outcome, mandate, authority, checkpoint, candidate, evidence, finding, triage-policy, and actor identities |\n| governing invariants | `RF-001..017`; `STDO-UP-017..020`; applicable identity, ticket, assurance, and release law |\n| authority | existing Product/work frame-set and decision authority or its admitted bounded proxy; no operation authority or other authority arises from the Executive label |\n| evidence | live authority surfaces, frame results, Reviewer technical triage, exact candidate identity, transition evidence, coverage residuals, and specialist-frame results |\n| capability envelope | enough method, Product, release or MVP, authority, workspace, triage, and actor-selection competence to configure, prioritize, and dispose the bounded evaluation; implementation expertise may be delegated to specialist frames |\n| exclusions | candidate/Product/worktree byte mutation and implementation effects while occupying Executive, implementation ownership, silently rewriting Reviewer evidence or severity, independent-review claims without a qualifying activation, semantic reconstruction owned elsewhere, and disposition outside the admitted grant |\n| result | one Reference Frame Method result, assigned priority and current-boundary effect, plus an existing `STDO-UP-020` disposition where the basis is decidable |\n| invalidation | material method, authority, outcome, mandate, triage policy, checkpoint, candidate, evidence, finding, capability, or topology change |\n\nThe Executive frame does not introduce `authorize` or `no_action` as peer\nSTDO dispositions. Activation is the `REFERENCE_FRAME_METHOD.md` function;\nbounded candidate disposition remains exactly `accept`, `local_repair`,\n`re_enter`, or `reject` under `STDO-UP-020`.\n\nPriority and current-boundary effect are decision projections, not additional\nReference Frame Method results or `STDO-UP-020` dispositions. If Executive\ncannot rely on the supplied severity or technical assessment, it reactivates a\ncapable evaluation or retains the uncertainty; it does not silently rewrite the\nReviewer result.\n\n### Steel-Thread Delivery\n\nExecutive sequences delivery around a steel thread: the smallest real,\nrunnable path from a supported Product entry to a material outcome through\nthe selected composition. Establish that path early and expand it in bounded\nincrements. Where it already exists, extend or revalidate the affected\nthread. Select increments by consequential uncertainty, dependency and\ninterface reach, and failure impact.\n\nEarly end-to-end and integration evidence prunes incompatible construction\nchoices before they spread. Use it to settle the exercised interfaces,\npreserve working composition, and concentrate construction on unresolved\nobligations. Each passing thread establishes only the relations and\nconditions actually exercised; untested branches, interaction combinations,\nrefusal and recovery paths retain their material proof obligations. Revisit\nsettled construction decisions when material counterevidence invalidates\ntheir basis.\n\nDuring construction, use focused deterministic regression and targeted\njudgment probes to resolve material uncertainty. Use unit evidence for\nmodule-owned laws under the testing frames. Schedule substantial,\nresource-intensive user-acceptance cycles near release or when a bounded\ncapability is considered complete enough to qualify. An early focused user\nprobe remains appropriate when it decides a material outcome uncertainty.\n\nThe [Product testing frames](#derived-product-testing-frame-set) retain their\ndistinct claims and govern the necessary scenarios, independent assessments,\nand repetitions. Reuse qualified results while their exact subject and basis\nremain valid; rerun affected assurance when a material change invalidates it.\nExecutive selects this sequence under the existing mandate and activates\nconstruction through the existing operation grants.\n\n---\n\n"
+                  }
+                ]
+              },
+              "task": {
+                "assessment": {
+                  "candidatePath": "fixture/value.txt",
+                  "resultContract": {
+                    "contractKind": "output",
+                    "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+                    "contractVersion": "5.0.0",
+                    "valueKind": "sandbox_uat_assessment"
+                  },
+                  "rubricPath": "fixture/rubric.md",
+                  "satisfiedValue": "satisfied",
+                  "sources": [
+                    "fixture/source.md",
+                    "fixture/checker.mjs",
+                    "fixture/rubric.md"
+                  ],
+                  "verdictField": "disposition"
+                },
+                "authorityRefs": [
+                  "authority://abi5-tests/library-joint-proof-237/scratch-workload"
+                ],
+                "fulfillment": null,
+                "observations": [
+                  {
+                    "actorInvocationRef": "actor-invocation://abiogenesis/d852b4943c6897b374da6b366034c32baf9b3b761fdc835c7f7e9303d9f2b40b",
+                    "cCallRef": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+                    "observed": {
+                      "changedPaths": [
+                        "fixture/value.txt"
+                      ],
+                      "report": {
+                        "gaps": [
+                          "The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved."
+                        ],
+                        "summary": "fixture candidate staged"
+                      }
+                    },
+                    "purpose": "construction",
+                    "resultDigest": "sha256:4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                    "resultRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                    "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                    "synthesisResultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                  }
+                ],
+                "originalTask": "# Mechanical lifecycle specimen\n\nThis is a scratch component workload. It does not implement Data Mapper or\nestablish application acceptance.\n\nThe only writable candidate is fixture/value.txt. First, the native\nConstruction actor deliberately writes the exact bytes \"broken\\n\". The\nindependent, unchanged fixture/checker.mjs must execute through the existing\nnative C2 owner and report FIXTURE_VALUE_BAD with exit status 1.\n\nAfter that actual diagnostic has been observed, the selected native repair\nchanges only fixture/value.txt to the exact bytes \"fixed\\n\". C2 then executes\nthe same command and reports FIXTURE_VALUE_FIXED with exit status 0. Preserve\nboth measurements, the original task, the failed producer and its literal\ndiagnostic citation. Never edit this source, the checker or the rubric.\n\nThe deterministic responder supplies fixture decisions, not semantic\nassessment. The support obligation remains unresolved, terminal stays false,\nand the selector explicitly gaps. A later supported invocation must reuse the\nrecorded work and actual files without rerunning their authors or measurements.\n",
+                "planningEvidenceMeaning": "Full raw streams and detailed predicate proof are explicitly omitted from this selector view and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.",
+                "priorJudgment": {
+                  "judgment": {
+                    "contributions": [
+                      {
+                        "contribution": "MECHANICAL_STAGE_BROKEN_VALUE: write only fixture/value.txt with the exact bytes broken followed by one newline.",
+                        "dependsOn": [],
+                        "evidenceRefs": [],
+                        "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                        "reason": "Stage the explicitly declared controlled defect.",
+                        "supportRefs": [
+                          "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                        ]
+                      }
+                    ],
+                    "gaps": [
+                      {
+                        "evidenceRefs": [],
+                        "reason": "Independent semantic assessment and qualification are outside this component specimen.",
+                        "supportRefs": [
+                          "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                        ]
+                      }
+                    ],
+                    "interpretation": "Controlled mechanical fixture; runtime facts remain installed-owner results, and the original support obligation remains unresolved.",
+                    "nextEvidenceRefs": [],
+                    "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                    "nextReason": "Stage the explicitly declared controlled defect.",
+                    "revisionEvidenceRefs": [],
+                    "revisionReason": "Initial controlled contribution.",
+                    "subjectEvidenceRef": null
+                  },
+                  "resultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                },
+                "protectedSources": [
+                  "fixture/source.md",
+                  "fixture/checker.mjs",
+                  "fixture/rubric.md"
+                ],
+                "requiredSupportRefs": [
+                  "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                ],
+                "subjectEvidenceDomains": {
+                  "testing": [
+                    "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                    null
+                  ],
+                  "uat": [
+                    "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                  ]
+                },
+                "taskRef": "task://abi5-tests/library-joint-proof-237/original",
+                "testing": {
+                  "allowedWriteTerritories": [],
+                  "commands": [
+                    {
+                      "args": [
+                        "fixture/checker.mjs"
+                      ],
+                      "commandId": "command://abi5-tests/library-joint-proof-237/check",
+                      "environment": {},
+                      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                      "expectedReports": [],
+                      "relativeCwd": ".",
+                      "terminationGraceMs": 1000,
+                      "timeoutMs": 10000
+                    }
+                  ],
+                  "outcomePredicates": [
+                    {
+                      "declaration": {
+                        "equals": 0,
+                        "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                      },
+                      "predicateId": "predicate://abi5-tests/library-joint-proof-237/exit",
+                      "predicateKind": "process_exit"
+                    },
+                    {
+                      "declaration": {
+                        "equals": "FIXTURE_VALUE_FIXED\n",
+                        "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                      },
+                      "predicateId": "predicate://abi5-tests/library-joint-proof-237/stdout",
+                      "predicateKind": "stdout_exact"
+                    }
+                  ],
+                  "selectedPaths": [
+                    "fixture/source.md",
+                    "fixture/checker.mjs",
+                    "fixture/rubric.md",
+                    "fixture/value.txt"
+                  ]
+                },
+                "testingPrerequisites": {
+                  "meaning": "Immediate Testing requires every original selected path to be an observed file. Missing paths are prerequisites; a future Testing contribution remains allowed, but partial-probe prose cannot change the full declared selected-file, command or predicate plan. Presence does not prove adequacy or completion.",
+                  "missingSelectedPaths": []
+                },
+                "unresolvedSupportRefs": [
+                  "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                ],
+                "workOrders": {
+                  "construction": {
+                    "checks": [],
+                    "instructions": [
+                      "Read source, checker and rubric. Only the native Construction actor may write fixture/value.txt. First stage the deliberate defect; repair only after the actual C2 diagnostic. Do not execute the checker yourself or alter any immutable fixture file."
+                    ],
+                    "originalTaskApplies": true,
+                    "outcome": "Perform only the selected mechanical fixture contribution; keep the parent obligation unresolved.",
+                    "readFirst": [
+                      "fixture/source.md",
+                      "fixture/checker.mjs",
+                      "fixture/rubric.md"
+                    ],
+                    "writeRoots": [
+                      "fixture/value.txt"
+                    ]
+                  }
+                },
+                "worksite": {
+                  "files": [
+                    {
+                      "byteLength": 335,
+                      "content": "import { readFile } from 'node:fs/promises';\n\nconst value = await readFile(new URL('./value.txt', import.meta.url), 'utf8');\nif (value === 'fixed\\n') {\n  process.stdout.write('FIXTURE_VALUE_FIXED\\n');\n} else {\n  process.stdout.write('FIXTURE_VALUE_BAD expected=fixed actual=' + JSON.stringify(value) + '\\n');\n  process.exitCode = 1;\n}\n",
+                      "contentRole": "declared_source",
+                      "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+                      "encoding": "utf8",
+                      "path": "fixture/checker.mjs",
+                      "state": "file"
+                    },
+                    {
+                      "byteLength": 634,
+                      "content": "# Mechanical proof limits\n\nThe component proof requires an actual native Construction observation, an\nactual C2 exit-1 diagnostic, a native repair confined to fixture/value.txt, an\nactual remeasurement with exit 0, and conservation across close/restart and\nfresh owner reads. The failed and passing command ids and checker bytes must\nremain identical. Each measurement keeps its own producer and current inputs.\n\nThese observations do not establish independent UAT, Claude behavior,\nData Mapper correctness, large-history capacity, or release qualification.\nAn explicit selector gap leaves the original support obligation unresolved.\n",
+                      "contentRole": "declared_source",
+                      "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+                      "encoding": "utf8",
+                      "path": "fixture/rubric.md",
+                      "state": "file"
+                    },
+                    {
+                      "byteLength": 1107,
+                      "contentIn": "originalTask",
+                      "contentRole": "declared_source",
+                      "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+                      "endCharacter": 1107,
+                      "path": "fixture/source.md",
+                      "startCharacter": 0,
+                      "state": "file"
+                    },
+                    {
+                      "byteLength": 7,
+                      "contentRole": "observed_output",
+                      "digest": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048",
+                      "path": "fixture/value.txt",
+                      "state": "file"
+                    }
+                  ],
+                  "interpretation": "Observed output inventory establishes presence and byte identity only. Admitted producer reports remain attributed observations, not independent adequacy judgments. Full output bodies belong to the separately declared native work and assessment contexts.",
+                  "observationRef": "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3"
+                }
+              }
+            },
+            "targetBindings": [
+              {
+                "definitionDigest": "sha256:bd4e694bf773ef15993694751daea0655fae4c6991b0f00e6bd71e72f106358f",
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/induction@5",
+                "purpose": "induction"
+              },
+              {
+                "definitionDigest": "sha256:e4d1a9473a55fd394e74e01dbe7a6107f513d943340b0f7c2ef791cba891dba2",
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+                "purpose": "specification"
+              },
+              {
+                "definitionDigest": "sha256:1b451aef8e6b6d2a44334613dae6ec856228c67f119cd321494e0e11f3ec6918",
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+                "purpose": "design"
+              },
+              {
+                "definitionDigest": "sha256:c155862b67f048dd9368b255cbeb081fe3d254b8d049cb4f4905b2127d7eb4f2",
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                "purpose": "construction"
+              },
+              {
+                "definitionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+                "purpose": "testing"
+              },
+              {
+                "definitionDigest": "sha256:2cac0c6b68532d197c60c087cc6a029b200689bc9bd2ba231ab64bb3c2d3394b",
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+                "purpose": "uat"
+              }
+            ]
+          },
+          "envelopeDigest": "sha256:f42ed38e58906977427e36e5369a27b330ef836eecf3ed87910f6eb59a3f50b9",
+          "kind": "native_instruction_assembly",
+          "manifest": {
+            "canonicalResponseSchemaDigest": "sha256:e2e9947e9db54ab1f0fc957e8aae34a57b8c79d5ded6b29f76611ec78b541a43",
+            "carrierResponseSchemaDigest": "sha256:e846f929d8d2eedf4106b0e325f6549ae59e08474ebcc12fbb07e26357525e02",
+            "envelopeDigest": "sha256:f42ed38e58906977427e36e5369a27b330ef836eecf3ed87910f6eb59a3f50b9",
+            "planDigest": "sha256:366552a80052b90d99a12968798bd18ba51c67a218f914546c198f70e4da6901",
+            "planRef": "prompt-plan://abiogenesis/framed-synthesis/366552a80052b90d99a12968798bd18ba51c67a218f914546c198f70e4da6901",
+            "promptByteCount": 28919,
+            "promptBytesDigest": "sha256:a8cbcaa380d976f16157a12701476cbf4ec8bf8f302e04af67ea78d0ed4782f3",
+            "promptDigest": "sha256:ec994e1c79d1fd6457bc947206cadbff7ebab96ff53f86e29c37e110d91254e0",
+            "rendererRef": "renderer://abiogenesis/default-library/synthesis@5",
+            "responseContractRef": "contract://abiogenesis/default-library/native-response@5",
+            "responseSchemaDigest": "sha256:e846f929d8d2eedf4106b0e325f6549ae59e08474ebcc12fbb07e26357525e02",
+            "runEnvironment": {
+              "contextPolicyDigest": "sha256:02571f9d176d10e70574035e327d78058103adc63da14762e67ea0d43b000f72",
+              "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+              "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+              "evidenceDigest": "sha256:b78e63cb890881707021a770cd78bec59ecdcac4b6b7c7ef13bf92a4ea6223d3",
+              "frameRefs": [
+                "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+              ],
+              "invocationAdmissionRef": "invocation-admission://abiogenesis/f05904aca8c4967096810e37352cc7ba8e1958fa821562ba56e1e807f335b8d6",
+              "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+              "policyRef": "policy://abiogenesis/default-library/selector@5"
+            }
+          },
+          "manifestDigest": "sha256:02cd2b8bd0479b97a34e9538a2bb5df286621c9acff750cd798b86b46aa8faf4",
+          "plan": {
+            "canonicalResponseSchemaDigest": "sha256:e2e9947e9db54ab1f0fc957e8aae34a57b8c79d5ded6b29f76611ec78b541a43",
+            "carrierResponseSchemaDigest": "sha256:e846f929d8d2eedf4106b0e325f6549ae59e08474ebcc12fbb07e26357525e02",
+            "instructionContractRef": "contract://abiogenesis/default-library/selection-task@5",
+            "projectionLocus": "node://abiogenesis/default-library/project-choice@5",
+            "rendererRef": "renderer://abiogenesis/default-library/synthesis@5",
+            "resultContractRef": "contract://abiogenesis/default-library/native-response@5",
+            "runEnvironment": {
+              "contextPolicyDigest": "sha256:02571f9d176d10e70574035e327d78058103adc63da14762e67ea0d43b000f72",
+              "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+              "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+              "evidenceDigest": "sha256:b78e63cb890881707021a770cd78bec59ecdcac4b6b7c7ef13bf92a4ea6223d3",
+              "frameRefs": [
+                "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+              ],
+              "invocationAdmissionRef": "invocation-admission://abiogenesis/f05904aca8c4967096810e37352cc7ba8e1958fa821562ba56e1e807f335b8d6",
+              "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+              "policyRef": "policy://abiogenesis/default-library/selector@5"
+            },
+            "sectionOrder": [
+              "role",
+              "choices",
+              "task",
+              "evidence",
+              "response"
+            ],
+            "variant": "framed-synthesis"
+          },
+          "planDigest": "sha256:366552a80052b90d99a12968798bd18ba51c67a218f914546c198f70e4da6901",
+          "planRef": "prompt-plan://abiogenesis/framed-synthesis/366552a80052b90d99a12968798bd18ba51c67a218f914546c198f70e4da6901",
+          "request": {
+            "actorRef": "actor://abiogenesis/default-library/executive@5",
+            "implementationRef": "implementation://abiogenesis/default-library/select@5",
+            "inputDigest": "sha256:19e5b657b421a10000eb6f292266ede3564e031d2f3d53ba0c1d337e44a55766",
+            "instructionContractRef": "contract://abiogenesis/default-library/selection-task@5",
+            "materializationPlanRef": "prompt-plan://abiogenesis/framed-synthesis/366552a80052b90d99a12968798bd18ba51c67a218f914546c198f70e4da6901",
+            "prompt": "## role\n{\"frameRefs\":[\"stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame\"],\"instruction\":\"Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON.\",\"policy\":{\"digest\":\"sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180\",\"policyRef\":\"policy://abiogenesis/default-library/selector@5\",\"text\":\"Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\\n\"},\"role\":\"selector\",\"sourceContent\":[{\"contextRef\":\"context://abiogenesis/default-library/stdo-frames@5\",\"endByte\":35546,\"memberDigest\":\"sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d\",\"memberRef\":\"member://abiogenesis/default-library/stdo-frames@5\",\"path\":\"standards/STDO_REFERENCE_FRAME_BASELINE.md\",\"sourceLocator\":\"stdo://releases/v2.5.1-rc.1/\",\"spanDigest\":\"sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485\",\"startByte\":30700,\"text\":\"## Derived Executive Frame\\n\\n| Frame element | Derived application |\\n|---|---|\\n| evaluation family | Is the bounded outcome and execution basis authorized? Which frames and actors are capable? Is a returned result exact and current? What priority, current-boundary effect, `STDO-UP-020` disposition, and next action follow from the current Product mandate? |\\n| subject and basis | complete selected STDO cut; exact Goals/Product/requirements/design/work authority; current MVP or release mandate; current workspace and checkpoint; open findings and technical triage; Product-selected triage policy; proxy grant where used |\\n| material manifold | outcome, mandate, affected causal cone, evaluation inventory, frame configuration, actor envelopes, evidence obligations, returned results and technical triage, priority, boundary effect, re-entry owners, and already-authorized continuation boundary |\\n| coordinates | exact method, project, outcome, mandate, authority, checkpoint, candidate, evidence, finding, triage-policy, and actor identities |\\n| governing invariants | `RF-001..017`; `STDO-UP-017..020`; applicable identity, ticket, assurance, and release law |\\n| authority | existing Product/work frame-set and decision authority or its admitted bounded proxy; no operation authority or other authority arises from the Executive label |\\n| evidence | live authority surfaces, frame results, Reviewer technical triage, exact candidate identity, transition evidence, coverage residuals, and specialist-frame results |\\n| capability envelope | enough method, Product, release or MVP, authority, workspace, triage, and actor-selection competence to configure, prioritize, and dispose the bounded evaluation; implementation expertise may be delegated to specialist frames |\\n| exclusions | candidate/Product/worktree byte mutation and implementation effects while occupying Executive, implementation ownership, silently rewriting Reviewer evidence or severity, independent-review claims without a qualifying activation, semantic reconstruction owned elsewhere, and disposition outside the admitted grant |\\n| result | one Reference Frame Method result, assigned priority and current-boundary effect, plus an existing `STDO-UP-020` disposition where the basis is decidable |\\n| invalidation | material method, authority, outcome, mandate, triage policy, checkpoint, candidate, evidence, finding, capability, or topology change |\\n\\nThe Executive frame does not introduce `authorize` or `no_action` as peer\\nSTDO dispositions. Activation is the `REFERENCE_FRAME_METHOD.md` function;\\nbounded candidate disposition remains exactly `accept`, `local_repair`,\\n`re_enter`, or `reject` under `STDO-UP-020`.\\n\\nPriority and current-boundary effect are decision projections, not additional\\nReference Frame Method results or `STDO-UP-020` dispositions. If Executive\\ncannot rely on the supplied severity or technical assessment, it reactivates a\\ncapable evaluation or retains the uncertainty; it does not silently rewrite the\\nReviewer result.\\n\\n### Steel-Thread Delivery\\n\\nExecutive sequences delivery around a steel thread: the smallest real,\\nrunnable path from a supported Product entry to a material outcome through\\nthe selected composition. Establish that path early and expand it in bounded\\nincrements. Where it already exists, extend or revalidate the affected\\nthread. Select increments by consequential uncertainty, dependency and\\ninterface reach, and failure impact.\\n\\nEarly end-to-end and integration evidence prunes incompatible construction\\nchoices before they spread. Use it to settle the exercised interfaces,\\npreserve working composition, and concentrate construction on unresolved\\nobligations. Each passing thread establishes only the relations and\\nconditions actually exercised; untested branches, interaction combinations,\\nrefusal and recovery paths retain their material proof obligations. Revisit\\nsettled construction decisions when material counterevidence invalidates\\ntheir basis.\\n\\nDuring construction, use focused deterministic regression and targeted\\njudgment probes to resolve material uncertainty. Use unit evidence for\\nmodule-owned laws under the testing frames. Schedule substantial,\\nresource-intensive user-acceptance cycles near release or when a bounded\\ncapability is considered complete enough to qualify. An early focused user\\nprobe remains appropriate when it decides a material outcome uncertainty.\\n\\nThe [Product testing frames](#derived-product-testing-frame-set) retain their\\ndistinct claims and govern the necessary scenarios, independent assessments,\\nand repetitions. Reuse qualified results while their exact subject and basis\\nremain valid; rerun affected assurance when a material change invalidates it.\\nExecutive selects this sequence under the existing mandate and activates\\nconstruction through the existing operation grants.\\n\\n---\\n\\n\"}]}\n\n## choices\n[{\"conditionsForUse\":\"A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/induction@5\",\"purpose\":\"Establish the task model from complete source: outcome, users, constraints, modality, conflicts, assumptions and unknowns. Preserve unresolved questions; distinguish source statements from interpretation.\"},{\"conditionsForUse\":\"A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/specification@5\",\"purpose\":\"State source-grounded behavior, boundaries and testable acceptance criteria. Preserve valid supplied requirements, conflicts and unknowns. Do not require a fresh induction artifact.\"},{\"conditionsForUse\":\"A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/design@5\",\"purpose\":\"Describe a realizable bounded change against the actual worksite and existing capabilities. Preserve selected criteria and supply a meaningful executable proof plan; expose missing dependencies or capacity.\"},{\"conditionsForUse\":\"A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/construction@5\",\"purpose\":\"Implement only the selected bounded change. Preserve original sources, valid supplied assets and declared effect scope. A report or self-run check is not independent acceptance.\"},{\"conditionsForUse\":\"Every original selected path is an observed file and the unchanged full declared command/predicate plan is available; no author prerequisite. Missing selected files or plan remain gaps. A partial-probe contribution cannot replace the fixed declaration.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/testing@5\",\"purpose\":\"Execute the selected reproducible command plan against the actual files and retain command, stream and predicate observations, including nonzero exits. Reuse files without inventing an author. A missing verifier or command plan is a gap, not permission to fabricate evidence.\"},{\"conditionsForUse\":\"An explicitly selected current native-work or C2 measurement Result, consumer source/rubric and installed assessment contract are available. Measurement provenance is not authorship. Read-only independent assessment.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/uat@5\",\"purpose\":\"Independently assess the full original outcome using the exact candidate, consumer rubric and current admitted execution observations. Preserve unmet and indeterminate criteria. Do not edit files or certify success merely from a report, file presence or stage count.\"}]\n\n## task\n{\"assessment\":{\"candidatePath\":\"fixture/value.txt\",\"resultContract\":{\"contractKind\":\"output\",\"contractRef\":\"contract://abi5-tests/sandbox-uat/assessment@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"sandbox_uat_assessment\"},\"rubricPath\":\"fixture/rubric.md\",\"satisfiedValue\":\"satisfied\",\"sources\":[\"fixture/source.md\",\"fixture/checker.mjs\",\"fixture/rubric.md\"],\"verdictField\":\"disposition\"},\"authorityRefs\":[\"authority://abi5-tests/library-joint-proof-237/scratch-workload\"],\"fulfillment\":null,\"observations\":[{\"actorInvocationRef\":\"actor-invocation://abiogenesis/d852b4943c6897b374da6b366034c32baf9b3b761fdc835c7f7e9303d9f2b40b\",\"cCallRef\":\"c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f\",\"observed\":{\"changedPaths\":[\"fixture/value.txt\"],\"report\":{\"gaps\":[\"The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved.\"],\"summary\":\"fixture candidate staged\"}},\"purpose\":\"construction\",\"resultDigest\":\"sha256:4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"resultRef\":\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"selectedGraphFunctionRef\":\"graph-function://abiogenesis/default-library/construction@5\",\"synthesisResultRef\":\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"}],\"originalTask\":\"# Mechanical lifecycle specimen\\n\\nThis is a scratch component workload. It does not implement Data Mapper or\\nestablish application acceptance.\\n\\nThe only writable candidate is fixture/value.txt. First, the native\\nConstruction actor deliberately writes the exact bytes \\\"broken\\\\n\\\". The\\nindependent, unchanged fixture/checker.mjs must execute through the existing\\nnative C2 owner and report FIXTURE_VALUE_BAD with exit status 1.\\n\\nAfter that actual diagnostic has been observed, the selected native repair\\nchanges only fixture/value.txt to the exact bytes \\\"fixed\\\\n\\\". C2 then executes\\nthe same command and reports FIXTURE_VALUE_FIXED with exit status 0. Preserve\\nboth measurements, the original task, the failed producer and its literal\\ndiagnostic citation. Never edit this source, the checker or the rubric.\\n\\nThe deterministic responder supplies fixture decisions, not semantic\\nassessment. The support obligation remains unresolved, terminal stays false,\\nand the selector explicitly gaps. A later supported invocation must reuse the\\nrecorded work and actual files without rerunning their authors or measurements.\\n\",\"planningEvidenceMeaning\":\"Full raw streams and detailed predicate proof are explicitly omitted from this selector view and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.\",\"priorJudgment\":{\"judgment\":{\"contributions\":[{\"contribution\":\"MECHANICAL_STAGE_BROKEN_VALUE: write only fixture/value.txt with the exact bytes broken followed by one newline.\",\"dependsOn\":[],\"evidenceRefs\":[],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/construction@5\",\"reason\":\"Stage the explicitly declared controlled defect.\",\"supportRefs\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"]}],\"gaps\":[{\"evidenceRefs\":[],\"reason\":\"Independent semantic assessment and qualification are outside this component specimen.\",\"supportRefs\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"]}],\"interpretation\":\"Controlled mechanical fixture; runtime facts remain installed-owner results, and the original support obligation remains unresolved.\",\"nextEvidenceRefs\":[],\"nextGraphFunctionRef\":\"graph-function://abiogenesis/default-library/construction@5\",\"nextReason\":\"Stage the explicitly declared controlled defect.\",\"revisionEvidenceRefs\":[],\"revisionReason\":\"Initial controlled contribution.\",\"subjectEvidenceRef\":null},\"resultRef\":\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"},\"protectedSources\":[\"fixture/source.md\",\"fixture/checker.mjs\",\"fixture/rubric.md\"],\"requiredSupportRefs\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"],\"subjectEvidenceDomains\":{\"testing\":[\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",null],\"uat\":[\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\"]},\"taskRef\":\"task://abi5-tests/library-joint-proof-237/original\",\"testing\":{\"allowedWriteTerritories\":[],\"commands\":[{\"args\":[\"fixture/checker.mjs\"],\"commandId\":\"command://abi5-tests/library-joint-proof-237/check\",\"environment\":{},\"executable\":\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"expectedReports\":[],\"relativeCwd\":\".\",\"terminationGraceMs\":1000,\"timeoutMs\":10000}],\"outcomePredicates\":[{\"declaration\":{\"equals\":0,\"validationCommandId\":\"command://abi5-tests/library-joint-proof-237/check\"},\"predicateId\":\"predicate://abi5-tests/library-joint-proof-237/exit\",\"predicateKind\":\"process_exit\"},{\"declaration\":{\"equals\":\"FIXTURE_VALUE_FIXED\\n\",\"validationCommandId\":\"command://abi5-tests/library-joint-proof-237/check\"},\"predicateId\":\"predicate://abi5-tests/library-joint-proof-237/stdout\",\"predicateKind\":\"stdout_exact\"}],\"selectedPaths\":[\"fixture/source.md\",\"fixture/checker.mjs\",\"fixture/rubric.md\",\"fixture/value.txt\"]},\"testingPrerequisites\":{\"meaning\":\"Immediate Testing requires every original selected path to be an observed file. Missing paths are prerequisites; a future Testing contribution remains allowed, but partial-probe prose cannot change the full declared selected-file, command or predicate plan. Presence does not prove adequacy or completion.\",\"missingSelectedPaths\":[]},\"unresolvedSupportRefs\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"],\"workOrders\":{\"construction\":{\"checks\":[],\"instructions\":[\"Read source, checker and rubric. Only the native Construction actor may write fixture/value.txt. First stage the deliberate defect; repair only after the actual C2 diagnostic. Do not execute the checker yourself or alter any immutable fixture file.\"],\"originalTaskApplies\":true,\"outcome\":\"Perform only the selected mechanical fixture contribution; keep the parent obligation unresolved.\",\"readFirst\":[\"fixture/source.md\",\"fixture/checker.mjs\",\"fixture/rubric.md\"],\"writeRoots\":[\"fixture/value.txt\"]}},\"worksite\":{\"files\":[{\"byteLength\":335,\"content\":\"import { readFile } from 'node:fs/promises';\\n\\nconst value = await readFile(new URL('./value.txt', import.meta.url), 'utf8');\\nif (value === 'fixed\\\\n') {\\n  process.stdout.write('FIXTURE_VALUE_FIXED\\\\n');\\n} else {\\n  process.stdout.write('FIXTURE_VALUE_BAD expected=fixed actual=' + JSON.stringify(value) + '\\\\n');\\n  process.exitCode = 1;\\n}\\n\",\"contentRole\":\"declared_source\",\"digest\":\"sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22\",\"encoding\":\"utf8\",\"path\":\"fixture/checker.mjs\",\"state\":\"file\"},{\"byteLength\":634,\"content\":\"# Mechanical proof limits\\n\\nThe component proof requires an actual native Construction observation, an\\nactual C2 exit-1 diagnostic, a native repair confined to fixture/value.txt, an\\nactual remeasurement with exit 0, and conservation across close/restart and\\nfresh owner reads. The failed and passing command ids and checker bytes must\\nremain identical. Each measurement keeps its own producer and current inputs.\\n\\nThese observations do not establish independent UAT, Claude behavior,\\nData Mapper correctness, large-history capacity, or release qualification.\\nAn explicit selector gap leaves the original support obligation unresolved.\\n\",\"contentRole\":\"declared_source\",\"digest\":\"sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42\",\"encoding\":\"utf8\",\"path\":\"fixture/rubric.md\",\"state\":\"file\"},{\"byteLength\":1107,\"contentIn\":\"originalTask\",\"contentRole\":\"declared_source\",\"digest\":\"sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328\",\"endCharacter\":1107,\"path\":\"fixture/source.md\",\"startCharacter\":0,\"state\":\"file\"},{\"byteLength\":7,\"contentRole\":\"observed_output\",\"digest\":\"sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048\",\"path\":\"fixture/value.txt\",\"state\":\"file\"}],\"interpretation\":\"Observed output inventory establishes presence and byte identity only. Admitted producer reports remain attributed observations, not independent adequacy judgments. Full output bodies belong to the separately declared native work and assessment contexts.\",\"observationRef\":\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\"}}\n\n## evidence\n{\"declaredAccess\":[]}\n\n## response\n{\"additionalProperties\":false,\"anyOf\":[{\"properties\":{\"nextGraphFunctionRef\":{\"const\":\"graph-function://abiogenesis/default-library/induction@5\"},\"subjectEvidenceRef\":{\"enum\":[null]}}},{\"properties\":{\"nextGraphFunctionRef\":{\"const\":\"graph-function://abiogenesis/default-library/specification@5\"},\"subjectEvidenceRef\":{\"enum\":[null]}}},{\"properties\":{\"nextGraphFunctionRef\":{\"const\":\"graph-function://abiogenesis/default-library/design@5\"},\"subjectEvidenceRef\":{\"enum\":[null]}}},{\"properties\":{\"nextGraphFunctionRef\":{\"const\":\"graph-function://abiogenesis/default-library/construction@5\"},\"subjectEvidenceRef\":{\"enum\":[null]}}},{\"properties\":{\"nextGraphFunctionRef\":{\"const\":\"graph-function://abiogenesis/default-library/testing@5\"},\"subjectEvidenceRef\":{\"enum\":[\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",null]}}},{\"properties\":{\"nextGraphFunctionRef\":{\"const\":\"graph-function://abiogenesis/default-library/uat@5\"},\"subjectEvidenceRef\":{\"enum\":[\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\"]}}},{\"properties\":{\"nextGraphFunctionRef\":{\"const\":null},\"subjectEvidenceRef\":{\"const\":null}}}],\"properties\":{\"contributions\":{\"description\":\"At most one contribution row per graphFunctionRef in this current mapping.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"contribution\":{\"minLength\":1,\"type\":\"string\"},\"dependsOn\":{\"description\":\"Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.\",\"items\":{\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"evidenceRefs\":{\"items\":{\"enum\":[\"task://abi5-tests/library-joint-proof-237/original\",\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\",\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"graphFunctionRef\":{\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"],\"type\":\"string\"},\"reason\":{\"minLength\":1,\"type\":\"string\"},\"supportRefs\":{\"items\":{\"enum\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true}},\"required\":[\"graphFunctionRef\",\"contribution\",\"reason\",\"supportRefs\",\"evidenceRefs\",\"dependsOn\"],\"type\":\"object\"},\"maxItems\":6,\"type\":\"array\"},\"gaps\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"evidenceRefs\":{\"items\":{\"enum\":[\"task://abi5-tests/library-joint-proof-237/original\",\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\",\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"reason\":{\"minLength\":1,\"type\":\"string\"},\"supportRefs\":{\"items\":{\"enum\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"],\"type\":\"string\"},\"minItems\":1,\"type\":\"array\",\"uniqueItems\":true}},\"required\":[\"supportRefs\",\"reason\",\"evidenceRefs\"],\"type\":\"object\"},\"type\":\"array\"},\"interpretation\":{\"minLength\":1,\"type\":\"string\"},\"nextEvidenceRefs\":{\"items\":{\"enum\":[\"task://abi5-tests/library-joint-proof-237/original\",\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\",\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"nextGraphFunctionRef\":{\"description\":\"Must name a contribution row in THIS response, explicitly chosen to execute next. Testing is available immediately only when every original selected path is an observed file; future Testing contributions remain allowed. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.\",\"enum\":[\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",null],\"type\":[\"string\",\"null\"]},\"nextReason\":{\"minLength\":1,\"type\":\"string\"},\"revisionEvidenceRefs\":{\"items\":{\"enum\":[\"task://abi5-tests/library-joint-proof-237/original\",\"worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3\",\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\",\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"revisionReason\":{\"minLength\":1,\"type\":\"string\"},\"subjectEvidenceRef\":{\"description\":\"For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.\",\"enum\":[null,\"result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80\"],\"type\":[\"string\",\"null\"]}},\"required\":[\"interpretation\",\"contributions\",\"gaps\",\"nextGraphFunctionRef\",\"nextReason\",\"nextEvidenceRefs\",\"subjectEvidenceRef\",\"revisionReason\",\"revisionEvidenceRefs\"],\"type\":\"object\"}",
+            "rendererRef": "renderer://abiogenesis/default-library/synthesis@5",
+            "responseJsonSchema": {
+              "additionalProperties": false,
+              "properties": {
+                "contributions": {
+                  "description": "At most one contribution row per graphFunctionRef in this current mapping.",
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "contribution": {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "dependsOn": {
+                        "description": "Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.",
+                        "items": {
+                          "enum": [
+                            "graph-function://abiogenesis/default-library/induction@5",
+                            "graph-function://abiogenesis/default-library/specification@5",
+                            "graph-function://abiogenesis/default-library/design@5",
+                            "graph-function://abiogenesis/default-library/construction@5",
+                            "graph-function://abiogenesis/default-library/testing@5",
+                            "graph-function://abiogenesis/default-library/uat@5"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": true
+                      },
+                      "evidenceRefs": {
+                        "items": {
+                          "enum": [
+                            "task://abi5-tests/library-joint-proof-237/original",
+                            "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                            "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                            "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": true
+                      },
+                      "graphFunctionRef": {
+                        "enum": [
+                          "graph-function://abiogenesis/default-library/induction@5",
+                          "graph-function://abiogenesis/default-library/specification@5",
+                          "graph-function://abiogenesis/default-library/design@5",
+                          "graph-function://abiogenesis/default-library/construction@5",
+                          "graph-function://abiogenesis/default-library/testing@5",
+                          "graph-function://abiogenesis/default-library/uat@5"
+                        ],
+                        "type": "string"
+                      },
+                      "reason": {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "supportRefs": {
+                        "items": {
+                          "enum": [
+                            "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": true
+                      }
+                    },
+                    "required": [
+                      "graphFunctionRef",
+                      "contribution",
+                      "reason",
+                      "supportRefs",
+                      "evidenceRefs",
+                      "dependsOn"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 6,
+                  "type": "array"
+                },
+                "gaps": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "evidenceRefs": {
+                        "items": {
+                          "enum": [
+                            "task://abi5-tests/library-joint-proof-237/original",
+                            "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                            "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                            "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array",
+                        "uniqueItems": true
+                      },
+                      "reason": {
+                        "minLength": 1,
+                        "type": "string"
+                      },
+                      "supportRefs": {
+                        "items": {
+                          "enum": [
+                            "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                          ],
+                          "type": "string"
+                        },
+                        "minItems": 1,
+                        "type": "array",
+                        "uniqueItems": true
+                      }
+                    },
+                    "required": [
+                      "supportRefs",
+                      "reason",
+                      "evidenceRefs"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "interpretation": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "nextEvidenceRefs": {
+                  "items": {
+                    "enum": [
+                      "task://abi5-tests/library-joint-proof-237/original",
+                      "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                      "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                      "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "nextGraphFunctionRef": {
+                  "description": "Must name a contribution row in THIS response, explicitly chosen to execute next. Testing is available immediately only when every original selected path is an observed file; future Testing contributions remain allowed. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.",
+                  "enum": [
+                    "graph-function://abiogenesis/default-library/induction@5",
+                    "graph-function://abiogenesis/default-library/specification@5",
+                    "graph-function://abiogenesis/default-library/design@5",
+                    "graph-function://abiogenesis/default-library/construction@5",
+                    "graph-function://abiogenesis/default-library/testing@5",
+                    "graph-function://abiogenesis/default-library/uat@5",
+                    null
+                  ],
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "nextReason": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "revisionEvidenceRefs": {
+                  "items": {
+                    "enum": [
+                      "task://abi5-tests/library-joint-proof-237/original",
+                      "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                      "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                      "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "revisionReason": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "subjectEvidenceRef": {
+                  "description": "For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.",
+                  "enum": [
+                    null,
+                    "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                  ],
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "interpretation",
+                "contributions",
+                "gaps",
+                "nextGraphFunctionRef",
+                "nextReason",
+                "nextEvidenceRefs",
+                "subjectEvidenceRef",
+                "revisionReason",
+                "revisionEvidenceRefs"
+              ],
+              "type": "object"
+            },
+            "resultContractRef": "contract://abiogenesis/default-library/native-response@5",
+            "transportLane": "closed_prompt_proof",
+            "workerBindingRef": "worker://abiogenesis/default-library/selector@5"
+          },
+          "schemaVersion": "5.0.0"
+        },
+        "lane": "closed_prompt_proof",
+        "livenessBinding": {
+          "clockKind": "native_monotonic_elapsed",
+          "clockOriginRef": "runtime-clock://abiogenesis/a35d48bf23a6052be74ae76573647befa7be9d338530281fc45563628af23db1",
+          "kind": "runtime_liveness_binding",
+          "policy": {
+            "hardCapMs": 3600000,
+            "inactivityMs": 60000,
+            "kind": "runtime_watchdog_policy",
+            "policyDigest": "sha256:b73722489c99bbb3a2a0a93cd7229d645becea630a93e0f1e1035721b64a862f",
+            "policyRef": "runtime-watchdog-policy://abiogenesis/b73722489c99bbb3a2a0a93cd7229d645becea630a93e0f1e1035721b64a862f",
+            "schemaVersion": "5.0.0",
+            "startupMs": 60000,
+            "terminationGraceMs": 1000
+          },
+          "schemaVersion": "5.0.0",
+          "sources": [
+            "stdout",
+            "stderr",
+            "structured_output",
+            "tool_progress",
+            "api_progress",
+            "process_lifecycle",
+            "archive",
+            "result_artifact"
+          ]
+        },
+        "parser": "claude_stream_json",
+        "paths": {
+          "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/fp-1856c0b16ef02b70-output.txt",
+          "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/fp-1856c0b16ef02b70-prompt.txt",
+          "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/fp-1856c0b16ef02b70-stderr.log",
+          "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/fp-1856c0b16ef02b70-stdout.log",
+          "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/fp-1856c0b16ef02b70-transport.json"
+        },
+        "promptDigest": "sha256:ec994e1c79d1fd6457bc947206cadbff7ebab96ff53f86e29c37e110d91254e0",
+        "promptTransport": "stdin",
+        "responseJsonSchemaDigest": "sha256:e846f929d8d2eedf4106b0e325f6549ae59e08474ebcc12fbb07e26357525e02",
+        "terminationGraceMs": 1000,
+        "timeoutMs": 60000,
+        "transportBindingDigest": "sha256:9a929e83bf44523509d6a1768324cc9c26e4c8583a0c694b80ffeb145c4d77c7",
+        "transportBindingRef": "transport-binding://abiogenesis/9a929e83bf44523509d6a1768324cc9c26e4c8583a0c694b80ffeb145c4d77c7",
+        "transportContractDigest": "sha256:546847f91335e4cd826820cf80762aa0487e3fa2199c570541477ea351b34734",
+        "transportPlanDigest": "sha256:c7217cb6c82acaa1904db2b675c341f53245094561c01cd93d8b8fd3f99ad25a",
+        "workerBindingRef": "worker://abiogenesis/default-library/selector@5"
+      },
+      "payloadDigest": "sha256:f7b5cbcf3e54fe716b68d12a515e72d81d4d2e6d6d89127990c1df6fcacac90c",
+      "runId": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 558,
+      "aggregateId": "c-call:sha256:c338d59d8bf028c0e52464e22bf103b1b981de106f6b52cdd73a3500e84730e9",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/8e9b941a5eff422bf4401aa7b092ba9d42e3962d023a452a52d5a4f5311d9227",
+      "causationEventRefs": [
+        "event://abiogenesis/bb6d7e78b08bb8c6026767c6d6b24c5f169851f86a62f7d6c5c1548c8144de28"
+      ],
+      "correlationId": "request://abi5-tests/library-joint-proof-237/library-joint-proof-237-10/audit/hog/recursion/0/child/leaf/1/outcome/result",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/95f73a231b2db8f1b89e53bf5f165143ded5d6eac3aea283f9a144b665e53832",
+      "eventTime": "2026-10-10T14:31:24.347Z",
+      "frameId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "graphCallId": "graph-call://abiogenesis/99acbc0b2a2c9b9bb0d312d2893da13fcec05853c25b7c3761e1091eb4e908cb",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "payload": {
+        "cCallRef": "c-call:sha256:c338d59d8bf028c0e52464e22bf103b1b981de106f6b52cdd73a3500e84730e9",
+        "contractRef": "contract://abiogenesis/default-library/synthesis@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/f52a5fa5e66e5ab66fcb7326e591320e7fe1eefee2d7586b7b10540ed6365968"
+        ],
+        "resultClass": "success",
+        "resultDigest": "sha256:498761433e9eb18003b0516e87e0a67eca0f1deac1933aa0e503edd7871cb772",
+        "resultRef": "result://abiogenesis/498761433e9eb18003b0516e87e0a67eca0f1deac1933aa0e503edd7871cb772",
+        "value": {
+          "basis": {
+            "contextRef": "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+            "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+            "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+            "frameEvidenceDigest": "sha256:b78e63cb890881707021a770cd78bec59ecdcac4b6b7c7ef13bf92a4ea6223d3",
+            "frameRefs": [
+              "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+            ],
+            "inputDigest": "sha256:19e5b657b421a10000eb6f292266ede3564e031d2f3d53ba0c1d337e44a55766",
+            "inputRef": "result://abiogenesis/d9ebe97822f7025d069fc6d890b51d1f0841c98e245e03b5197351df83aed28b",
+            "previousResultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+            "taskRef": "task://abi5-tests/library-joint-proof-237/original"
+          },
+          "judgment": {
+            "contributions": [
+              {
+                "contribution": "Execute the unchanged declared checker through C2; retain its actual nonzero result and literal diagnostic.",
+                "dependsOn": [],
+                "evidenceRefs": [
+                  "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                ],
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+                "reason": "The candidate exists; measure the actual Construction output.",
+                "supportRefs": [
+                  "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "evidenceRefs": [
+                  "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                ],
+                "reason": "Independent semantic assessment and qualification are outside this component specimen.",
+                "supportRefs": [
+                  "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                ]
+              }
+            ],
+            "interpretation": "Controlled mechanical fixture; runtime facts remain installed-owner results, and the original support obligation remains unresolved.",
+            "nextEvidenceRefs": [
+              "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+            ],
+            "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+            "nextReason": "The candidate exists; measure the actual Construction output.",
+            "revisionEvidenceRefs": [
+              "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+            ],
+            "revisionReason": "Use the actual latest admitted observation while retaining prior work and failures.",
+            "subjectEvidenceRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+          },
+          "kind": "framed_synthesis_result",
+          "schemaVersion": "5.0.0",
+          "state": {
+            "kind": "governance_work_state",
+            "observations": [
+              {
+                "actorInvocationRef": "actor-invocation://abiogenesis/d852b4943c6897b374da6b366034c32baf9b3b761fdc835c7f7e9303d9f2b40b",
+                "cCallRef": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+                "purpose": "construction",
+                "resultDigest": "sha256:4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                "resultRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                "synthesisResultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+                "value": {
+                  "changedPaths": [
+                    "fixture/value.txt"
+                  ],
+                  "report": {
+                    "gaps": [
+                      "The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved."
+                    ],
+                    "summary": "fixture candidate staged"
+                  }
+                }
+              }
+            ],
+            "original": {
+              "assessment": {
+                "candidatePath": "fixture/value.txt",
+                "resultContract": {
+                  "contractKind": "output",
+                  "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+                  "contractVersion": "5.0.0",
+                  "valueKind": "sandbox_uat_assessment"
+                },
+                "rubricPath": "fixture/rubric.md",
+                "satisfiedValue": "satisfied",
+                "schemaAsset": {
+                  "bytesBase64": "eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCIkaWQiOiJjb250cmFjdDovL2FiaTUtdGVzdHMvc2FuZGJveC11YXQvYXNzZXNzbWVudEA1IiwidHlwZSI6Im9iamVjdCIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicmVxdWlyZWQiOlsia2luZCIsImRpc3Bvc2l0aW9uIiwicmVhc29uIiwidW5yZXNvbHZlZENyaXRlcmlhIl0sInByb3BlcnRpZXMiOnsia2luZCI6eyJjb25zdCI6InNhbmRib3hfdWF0X2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInVucmVzb2x2ZWRDcml0ZXJpYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIn19fX0K",
+                  "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+                  "productId": "product://abi5-tests/sandbox-uat@5.0.0"
+                },
+                "sources": [
+                  "fixture/source.md",
+                  "fixture/checker.mjs",
+                  "fixture/rubric.md"
+                ],
+                "verdictField": "disposition"
+              },
+              "authorityRefs": [
+                "authority://abi5-tests/library-joint-proof-237/scratch-workload"
+              ],
+              "maxContextBytes": 262144,
+              "maxContextFiles": 32,
+              "maxPromptBytes": 1048576,
+              "readRoots": [
+                "fixture/source.md",
+                "fixture/checker.mjs",
+                "fixture/rubric.md",
+                "fixture/value.txt"
+              ],
+              "requiredSupportRefs": [
+                "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+              ],
+              "sources": [
+                {
+                  "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+                  "path": "fixture/source.md"
+                },
+                {
+                  "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+                  "path": "fixture/checker.mjs"
+                },
+                {
+                  "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+                  "path": "fixture/rubric.md"
+                }
+              ],
+              "task": "# Mechanical lifecycle specimen\n\nThis is a scratch component workload. It does not implement Data Mapper or\nestablish application acceptance.\n\nThe only writable candidate is fixture/value.txt. First, the native\nConstruction actor deliberately writes the exact bytes \"broken\\n\". The\nindependent, unchanged fixture/checker.mjs must execute through the existing\nnative C2 owner and report FIXTURE_VALUE_BAD with exit status 1.\n\nAfter that actual diagnostic has been observed, the selected native repair\nchanges only fixture/value.txt to the exact bytes \"fixed\\n\". C2 then executes\nthe same command and reports FIXTURE_VALUE_FIXED with exit status 0. Preserve\nboth measurements, the original task, the failed producer and its literal\ndiagnostic citation. Never edit this source, the checker or the rubric.\n\nThe deterministic responder supplies fixture decisions, not semantic\nassessment. The support obligation remains unresolved, terminal stays false,\nand the selector explicitly gaps. A later supported invocation must reuse the\nrecorded work and actual files without rerunning their authors or measurements.\n",
+              "taskRef": "task://abi5-tests/library-joint-proof-237/original",
+              "testing": {
+                "allowedWriteTerritories": [],
+                "commands": [
+                  {
+                    "args": [
+                      "fixture/checker.mjs"
+                    ],
+                    "commandId": "command://abi5-tests/library-joint-proof-237/check",
+                    "environment": {},
+                    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                    "expectedReports": [],
+                    "relativeCwd": ".",
+                    "terminationGraceMs": 1000,
+                    "timeoutMs": 10000
+                  }
+                ],
+                "outcomePredicates": [
+                  {
+                    "declaration": {
+                      "equals": 0,
+                      "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                    },
+                    "predicateId": "predicate://abi5-tests/library-joint-proof-237/exit",
+                    "predicateKind": "process_exit"
+                  },
+                  {
+                    "declaration": {
+                      "equals": "FIXTURE_VALUE_FIXED\n",
+                      "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                    },
+                    "predicateId": "predicate://abi5-tests/library-joint-proof-237/stdout",
+                    "predicateKind": "stdout_exact"
+                  }
+                ],
+                "selectedPaths": [
+                  "fixture/source.md",
+                  "fixture/checker.mjs",
+                  "fixture/rubric.md",
+                  "fixture/value.txt"
+                ]
+              },
+              "workOrders": {
+                "construction": {
+                  "checks": [],
+                  "instructions": [
+                    "Read source, checker and rubric. Only the native Construction actor may write fixture/value.txt. First stage the deliberate defect; repair only after the actual C2 diagnostic. Do not execute the checker yourself or alter any immutable fixture file."
+                  ],
+                  "outcome": "Perform only the selected mechanical fixture contribution; keep the parent obligation unresolved.",
+                  "readFirst": [
+                    "fixture/source.md",
+                    "fixture/checker.mjs",
+                    "fixture/rubric.md"
+                  ],
+                  "writeRoots": [
+                    "fixture/value.txt"
+                  ]
+                }
+              }
+            },
+            "schemaVersion": "5.0.0",
+            "synthesis": {
+              "basis": {
+                "contextRef": "worksite-context-observation://abiogenesis/e42de1011daae37ad5f9be1ddc5e06a3db2b9833d840ca4b48a9880da2defcd0",
+                "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+                "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+                "frameEvidenceDigest": "sha256:103455797cae1a999c4d3e3b049ffb36939bc324b9954acea4494f08bfc4b5bc",
+                "frameRefs": [
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+                ],
+                "inputDigest": "sha256:a04cadbcdceadca3e9f062ecbe741b03a5debec1449cf6251d175a8d3a5aa13e",
+                "inputRef": "result://abiogenesis/6ec9b472d4b652f309c03719d3d7ac34549bfc1525d4ee51cd705097d8655714",
+                "previousResultRef": null,
+                "taskRef": "task://abi5-tests/library-joint-proof-237/original"
+              },
+              "judgment": {
+                "contributions": [
+                  {
+                    "contribution": "MECHANICAL_STAGE_BROKEN_VALUE: write only fixture/value.txt with the exact bytes broken followed by one newline.",
+                    "dependsOn": [],
+                    "evidenceRefs": [],
+                    "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                    "reason": "Stage the explicitly declared controlled defect.",
+                    "supportRefs": [
+                      "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                    ]
+                  }
+                ],
+                "gaps": [
+                  {
+                    "evidenceRefs": [],
+                    "reason": "Independent semantic assessment and qualification are outside this component specimen.",
+                    "supportRefs": [
+                      "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                    ]
+                  }
+                ],
+                "interpretation": "Controlled mechanical fixture; runtime facts remain installed-owner results, and the original support obligation remains unresolved.",
+                "nextEvidenceRefs": [],
+                "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                "nextReason": "Stage the explicitly declared controlled defect.",
+                "revisionEvidenceRefs": [],
+                "revisionReason": "Initial controlled contribution.",
+                "subjectEvidenceRef": null
+              },
+              "resultDigest": "sha256:2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+              "resultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9"
+            },
+            "terminal": false,
+            "unresolvedSupportRefs": [
+              "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+            ]
+          }
+        },
+        "valueDigest": "sha256:a800072da57fa5658f7c1323d9a080836c94c60a3f995572c352b99fa34ad041",
+        "valueKind": "framed_synthesis_result"
+      },
+      "payloadDigest": "sha256:c78c7e605f54163daf51537f0b9c4a55d36438679d964f19ecd668a71c9de997",
+      "runId": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 571,
+      "aggregateId": "c-call:sha256:dba6083e455a0359900c2abdfd541143264481500c5d4ac6c77cc721b37e3d83",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/8e9b941a5eff422bf4401aa7b092ba9d42e3962d023a452a52d5a4f5311d9227",
+      "causationEventRefs": [
+        "event://abiogenesis/ffc3703f5d7195df1512befab4a30d6e4e05a307952c36aa3050a37a4ab57d5a"
+      ],
+      "correlationId": "request://abi5-tests/library-joint-proof-237/library-joint-proof-237-10/audit/hog/recursion/0/child/leaf/2/outcome/result",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/98de67e5ffa645edf2586951ccfb78001352fbed3de8da9640ef1bd09cca56cf",
+      "eventTime": "2026-10-10T14:31:28.508Z",
+      "frameId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "graphCallId": "graph-call://abiogenesis/99acbc0b2a2c9b9bb0d312d2893da13fcec05853c25b7c3761e1091eb4e908cb",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "payload": {
+        "cCallRef": "c-call:sha256:dba6083e455a0359900c2abdfd541143264481500c5d4ac6c77cc721b37e3d83",
+        "contractRef": "contract://abiogenesis/default-library/choice@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/211f0a27623271268ee59dc040b18c723fb503a2fd480bc08383e57b39af4702"
+        ],
+        "resultClass": "success",
+        "resultDigest": "sha256:fff5d49c88a8ca8993b90b18987fea137321b074371311b02bb8cd65493ab35e",
+        "resultRef": "result://abiogenesis/fff5d49c88a8ca8993b90b18987fea137321b074371311b02bb8cd65493ab35e",
+        "value": {
+          "definitionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+          "disposition": "selected",
+          "evidenceRefs": [
+            "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "input": {
+            "contractRef": "contract://abiogenesis/default-library/state@5",
+            "value": {
+              "kind": "governance_work_state",
+              "observations": [
+                {
+                  "actorInvocationRef": "actor-invocation://abiogenesis/d852b4943c6897b374da6b366034c32baf9b3b761fdc835c7f7e9303d9f2b40b",
+                  "cCallRef": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+                  "purpose": "construction",
+                  "resultDigest": "sha256:4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                  "resultRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+                  "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                  "synthesisResultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+                  "value": {
+                    "changedPaths": [
+                      "fixture/value.txt"
+                    ],
+                    "report": {
+                      "gaps": [
+                        "The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved."
+                      ],
+                      "summary": "fixture candidate staged"
+                    }
+                  }
+                }
+              ],
+              "original": {
+                "assessment": {
+                  "candidatePath": "fixture/value.txt",
+                  "resultContract": {
+                    "contractKind": "output",
+                    "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+                    "contractVersion": "5.0.0",
+                    "valueKind": "sandbox_uat_assessment"
+                  },
+                  "rubricPath": "fixture/rubric.md",
+                  "satisfiedValue": "satisfied",
+                  "schemaAsset": {
+                    "bytesBase64": "eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCIkaWQiOiJjb250cmFjdDovL2FiaTUtdGVzdHMvc2FuZGJveC11YXQvYXNzZXNzbWVudEA1IiwidHlwZSI6Im9iamVjdCIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicmVxdWlyZWQiOlsia2luZCIsImRpc3Bvc2l0aW9uIiwicmVhc29uIiwidW5yZXNvbHZlZENyaXRlcmlhIl0sInByb3BlcnRpZXMiOnsia2luZCI6eyJjb25zdCI6InNhbmRib3hfdWF0X2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInVucmVzb2x2ZWRDcml0ZXJpYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIn19fX0K",
+                    "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+                    "productId": "product://abi5-tests/sandbox-uat@5.0.0"
+                  },
+                  "sources": [
+                    "fixture/source.md",
+                    "fixture/checker.mjs",
+                    "fixture/rubric.md"
+                  ],
+                  "verdictField": "disposition"
+                },
+                "authorityRefs": [
+                  "authority://abi5-tests/library-joint-proof-237/scratch-workload"
+                ],
+                "maxContextBytes": 262144,
+                "maxContextFiles": 32,
+                "maxPromptBytes": 1048576,
+                "readRoots": [
+                  "fixture/source.md",
+                  "fixture/checker.mjs",
+                  "fixture/rubric.md",
+                  "fixture/value.txt"
+                ],
+                "requiredSupportRefs": [
+                  "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                ],
+                "sources": [
+                  {
+                    "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+                    "path": "fixture/source.md"
+                  },
+                  {
+                    "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+                    "path": "fixture/checker.mjs"
+                  },
+                  {
+                    "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+                    "path": "fixture/rubric.md"
+                  }
+                ],
+                "task": "# Mechanical lifecycle specimen\n\nThis is a scratch component workload. It does not implement Data Mapper or\nestablish application acceptance.\n\nThe only writable candidate is fixture/value.txt. First, the native\nConstruction actor deliberately writes the exact bytes \"broken\\n\". The\nindependent, unchanged fixture/checker.mjs must execute through the existing\nnative C2 owner and report FIXTURE_VALUE_BAD with exit status 1.\n\nAfter that actual diagnostic has been observed, the selected native repair\nchanges only fixture/value.txt to the exact bytes \"fixed\\n\". C2 then executes\nthe same command and reports FIXTURE_VALUE_FIXED with exit status 0. Preserve\nboth measurements, the original task, the failed producer and its literal\ndiagnostic citation. Never edit this source, the checker or the rubric.\n\nThe deterministic responder supplies fixture decisions, not semantic\nassessment. The support obligation remains unresolved, terminal stays false,\nand the selector explicitly gaps. A later supported invocation must reuse the\nrecorded work and actual files without rerunning their authors or measurements.\n",
+                "taskRef": "task://abi5-tests/library-joint-proof-237/original",
+                "testing": {
+                  "allowedWriteTerritories": [],
+                  "commands": [
+                    {
+                      "args": [
+                        "fixture/checker.mjs"
+                      ],
+                      "commandId": "command://abi5-tests/library-joint-proof-237/check",
+                      "environment": {},
+                      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                      "expectedReports": [],
+                      "relativeCwd": ".",
+                      "terminationGraceMs": 1000,
+                      "timeoutMs": 10000
+                    }
+                  ],
+                  "outcomePredicates": [
+                    {
+                      "declaration": {
+                        "equals": 0,
+                        "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                      },
+                      "predicateId": "predicate://abi5-tests/library-joint-proof-237/exit",
+                      "predicateKind": "process_exit"
+                    },
+                    {
+                      "declaration": {
+                        "equals": "FIXTURE_VALUE_FIXED\n",
+                        "validationCommandId": "command://abi5-tests/library-joint-proof-237/check"
+                      },
+                      "predicateId": "predicate://abi5-tests/library-joint-proof-237/stdout",
+                      "predicateKind": "stdout_exact"
+                    }
+                  ],
+                  "selectedPaths": [
+                    "fixture/source.md",
+                    "fixture/checker.mjs",
+                    "fixture/rubric.md",
+                    "fixture/value.txt"
+                  ]
+                },
+                "workOrders": {
+                  "construction": {
+                    "checks": [],
+                    "instructions": [
+                      "Read source, checker and rubric. Only the native Construction actor may write fixture/value.txt. First stage the deliberate defect; repair only after the actual C2 diagnostic. Do not execute the checker yourself or alter any immutable fixture file."
+                    ],
+                    "outcome": "Perform only the selected mechanical fixture contribution; keep the parent obligation unresolved.",
+                    "readFirst": [
+                      "fixture/source.md",
+                      "fixture/checker.mjs",
+                      "fixture/rubric.md"
+                    ],
+                    "writeRoots": [
+                      "fixture/value.txt"
+                    ]
+                  }
+                }
+              },
+              "schemaVersion": "5.0.0",
+              "synthesis": {
+                "basis": {
+                  "contextRef": "worksite-context-observation://abiogenesis/d1604b16583560b354b344292808f606a27079f6971d07e6ee1c556a6d053ba3",
+                  "environmentDigest": "sha256:36b572f26a8245ee32f502b2e2d5098bb570084eed7251cf6637eb1c27974a96",
+                  "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+                  "frameEvidenceDigest": "sha256:b78e63cb890881707021a770cd78bec59ecdcac4b6b7c7ef13bf92a4ea6223d3",
+                  "frameRefs": [
+                    "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+                  ],
+                  "inputDigest": "sha256:19e5b657b421a10000eb6f292266ede3564e031d2f3d53ba0c1d337e44a55766",
+                  "inputRef": "result://abiogenesis/d9ebe97822f7025d069fc6d890b51d1f0841c98e245e03b5197351df83aed28b",
+                  "previousResultRef": "result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9",
+                  "taskRef": "task://abi5-tests/library-joint-proof-237/original"
+                },
+                "judgment": {
+                  "contributions": [
+                    {
+                      "contribution": "Execute the unchanged declared checker through C2; retain its actual nonzero result and literal diagnostic.",
+                      "dependsOn": [],
+                      "evidenceRefs": [
+                        "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                      ],
+                      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+                      "reason": "The candidate exists; measure the actual Construction output.",
+                      "supportRefs": [
+                        "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                      ]
+                    }
+                  ],
+                  "gaps": [
+                    {
+                      "evidenceRefs": [
+                        "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                      ],
+                      "reason": "Independent semantic assessment and qualification are outside this component specimen.",
+                      "supportRefs": [
+                        "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+                      ]
+                    }
+                  ],
+                  "interpretation": "Controlled mechanical fixture; runtime facts remain installed-owner results, and the original support obligation remains unresolved.",
+                  "nextEvidenceRefs": [
+                    "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                  ],
+                  "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+                  "nextReason": "The candidate exists; measure the actual Construction output.",
+                  "revisionEvidenceRefs": [
+                    "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                  ],
+                  "revisionReason": "Use the actual latest admitted observation while retaining prior work and failures.",
+                  "subjectEvidenceRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80"
+                },
+                "resultDigest": "sha256:498761433e9eb18003b0516e87e0a67eca0f1deac1933aa0e503edd7871cb772",
+                "resultRef": "result://abiogenesis/498761433e9eb18003b0516e87e0a67eca0f1deac1933aa0e503edd7871cb772"
+              },
+              "terminal": false,
+              "unresolvedSupportRefs": [
+                "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+              ]
+            }
+          },
+          "kind": "registered_graph_choice",
+          "reason": "The candidate exists; measure the actual Construction output.",
+          "schemaVersion": "5.0.0"
+        },
+        "valueDigest": "sha256:0664efe9f57c1ead17dae03687dad78661aa8a813c1b97cfa9c5e15d1e6b653b",
+        "valueKind": "registered_graph_choice"
+      },
+      "payloadDigest": "sha256:d8af7d8ef01b6fcd9a0b5aa37246534236bdbbb2d2bdf8983b99a199548db90b",
+      "runId": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 598,
+      "aggregateId": "c-call:sha256:632ad4d38d1c37bbfc9a01e09251681a35ee98be29b90c26b48ef98ae047ea07",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/92137781d54828fd9c978526763b9214bf44dd9199fec07d8f8e73621d93f806",
+      "causationEventRefs": [
+        "event://abiogenesis/dfe02964bbdda410e474d4dfcba3c3d0a3c018069e7f4c1748aa70bee06f0a4d"
+      ],
+      "correlationId": "request://abi5-tests/library-joint-proof-237/library-joint-proof-237-10/audit/hog/recursion/0/child/workflow/3/child/leaf/0/outcome/result",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/8facf53894f5171d1a05bc2efd91b0a68cbf998f563b13aadd3cd704f4baed69",
+      "eventTime": "2026-10-10T14:31:41.158Z",
+      "frameId": "frame://abiogenesis/c7d72ef84a6213f1b554c1848ddd7a626c26f07c33124fdca142635d5aa442e0",
+      "graphCallId": "graph-call://abiogenesis/64c43d60afddf5b2fad12655e93a4bc9560060eea4e8406036ff4cf2d179f96f",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/c7d72ef84a6213f1b554c1848ddd7a626c26f07c33124fdca142635d5aa442e0",
+      "payload": {
+        "cCallRef": "c-call:sha256:632ad4d38d1c37bbfc9a01e09251681a35ee98be29b90c26b48ef98ae047ea07",
+        "contractRef": "contract://abiogenesis/default-library/failure@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/6f3f25d2821f7ade37b56e114e9c69a45de9790f276ba28072cc4bb0f32b3213"
+        ],
+        "resultClass": "failure",
+        "resultDigest": "sha256:c38d70348408a34785af085ef381534e81d714202b44550710ce66c8caffa753",
+        "resultRef": "result://abiogenesis/c38d70348408a34785af085ef381534e81d714202b44550710ce66c8caffa753",
+        "value": {
+          "diagnosticRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-testing@5",
+          "kind": "governance_failure",
+          "schemaVersion": "5.0.0"
+        },
+        "valueDigest": "sha256:53f0d42c5c232eef7e446926b916ab31643adf5ae9a06319e5ebe8e36232297c",
+        "valueKind": "governance_failure"
+      },
+      "payloadDigest": "sha256:d1e6577541765533d37950e2585b1d935384b0015da8279cdbdd72d03ad2b887",
+      "runId": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 611,
+      "aggregateId": "c-call:sha256:8dcceed071eaa356bc9e7cf24498816052966646b2ef3c61f627d7f77e601122",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/8e9b941a5eff422bf4401aa7b092ba9d42e3962d023a452a52d5a4f5311d9227",
+      "causationEventRefs": [
+        "event://abiogenesis/433e319ff850b10621e3a747dd9b02967dae5ed4da52e512753f0528d5993f44"
+      ],
+      "correlationId": "request://abi5-tests/library-joint-proof-237/library-joint-proof-237-10/audit/hog/recursion/0/child/workflow/3/result/result",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/8418ada7bdf12eb9c62f4535c4adadb02cccb55ed10170ed473c349825c2efa0",
+      "eventTime": "2026-10-10T14:31:44.135Z",
+      "frameId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "graphCallId": "graph-call://abiogenesis/99acbc0b2a2c9b9bb0d312d2893da13fcec05853c25b7c3761e1091eb4e908cb",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/48387678e82d046ea45d3dee1dfde3cc9d4a1a7f071ab9460a79d9cb3d368871",
+      "payload": {
+        "cCallRef": "c-call:sha256:8dcceed071eaa356bc9e7cf24498816052966646b2ef3c61f627d7f77e601122",
+        "contractRef": "contract://abiogenesis/default-library/failure@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/3fbffc0207c6ff5e2e18af04cb4cf1eb4008d963a825efc1ab777e96255bee17"
+        ],
+        "resultClass": "failure",
+        "resultDigest": "sha256:5ce1b4f68638bbbee0822a2191779a6e387942a28fda67cda5c23bd58a055a62",
+        "resultRef": "result://abiogenesis/5ce1b4f68638bbbee0822a2191779a6e387942a28fda67cda5c23bd58a055a62",
+        "value": {
+          "diagnosticRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-testing@5",
+          "failureClass": "child_traversal_failed",
+          "kind": "governance_failure",
+          "schemaVersion": "5.0.0"
+        },
+        "valueDigest": "sha256:f1ae34d99c3a1a3287c7c2c4de30e4e491e9079a7aeea5599c4bd3c9663e8e43",
+        "valueKind": "governance_failure"
+      },
+      "payloadDigest": "sha256:9c09bd9a207972d7eb78d88d707e272ec2a8c9884febbcd3bba28935e6cbe8ca",
+      "runId": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    }
+  ]
+}

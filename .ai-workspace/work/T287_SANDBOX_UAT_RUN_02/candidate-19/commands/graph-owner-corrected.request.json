@@ -1,0 +1,12 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/graph-owner.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19",
+  "started": "2026-10-08T05:15:55.052Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 30000
+}

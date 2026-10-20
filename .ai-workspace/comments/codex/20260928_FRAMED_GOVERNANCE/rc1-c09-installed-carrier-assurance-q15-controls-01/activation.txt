@@ -1,0 +1,7 @@
+Status ACTIVE
+Actor /root; prior role Executive; role Writer
+Operation T287_C09_CARRIER_ASSURANCE_Q15_GRANT_WRITER_01
+Time 2026-10-03T08:19:02.965152+00:00
+Basis STDO2.5.1RC2
+Exact grant: prepare unactivated successor independent installed-carrier assurance grant binding actual Q15 input dependency and existing Runtime09 whole proof; preserve original request; use exact installed a_c join. No effect until future Root activation after Runtime09 CLOSED.
+Write territory /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-q15-controls-01; append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md. All Source/code/candidate/Setup/inputs/stores/law/library/auth/network/Git/runtime readonly. Recorded before all other effects.

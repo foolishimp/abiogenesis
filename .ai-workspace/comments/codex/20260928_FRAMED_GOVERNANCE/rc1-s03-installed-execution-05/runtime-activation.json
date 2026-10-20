@@ -1,0 +1,20 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_RC1_S03_INSTALLED_COLD_READS_05",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05",
+  "role": "Runtime/read Worker",
+  "actor": "/root/rc1_successor_builder",
+  "realProviderCalls": 0,
+  "startedAt": "2026-10-01T22:34:50.025714+00:00",
+  "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-cold-read-controls-05/request.txt",
+  "requestSHA256": "0582902ec690d3a5cb9ff873a69e33f84f0bc9d229d5446204e556780d709492",
+  "C03FreezeSHA256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+  "previousExecutionFreezeSHA256": "0a6d8fc532c846bc694c68da16d097ab16182247f4993e041a2dff93ce2f2b97",
+  "existingStoreMode": "strictly read-only; no owner append exception",
+  "nativeCallGrant": [
+    "run_result",
+    "run_replay",
+    "run_status",
+    "run_gaps"
+  ]
+}

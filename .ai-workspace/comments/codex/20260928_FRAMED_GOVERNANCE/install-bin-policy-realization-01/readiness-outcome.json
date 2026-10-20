@@ -1,0 +1,18 @@
+{
+  "status": "PASSED",
+  "phase": "source_built_published_port_and_nearest_negatives",
+  "startedAt": "2026-10-02T01:42:30.266Z",
+  "closedAt": "2026-10-02T01:42:50.336Z",
+  "elapsedMs": 20070.704625,
+  "hostileNpmConfigBinLinks": "true",
+  "positiveInstall": "product_install_candidate",
+  "symlinkNegative": false,
+  "changedBodyNegative": false,
+  "restoredContentMatches": true,
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/test-installs/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child",
+  "lockId": "product-lock://abiogenesis/6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544",
+  "installId": "product-install://@abiogenesis-fixtures/f11-carrier-child/5.0.0/3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c/6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544",
+  "ABGAdmission": false,
+  "providerCalls": 0,
+  "qualificationCredit": false
+}

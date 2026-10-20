@@ -1,0 +1,67 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_C09_INSTALLED_SETUP_09",
+  "actor": "/root/native_applicability_design",
+  "workResult": "actual_complete_ordinary_installed_setup_passed",
+  "rootAcceptedConstruction": "sha256:9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+  "candidateFreeze": "sha256:c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+  "locks": {
+    "singleton": {
+      "kind": "resolved_product_lock",
+      "lockId": "product-lock://abiogenesis/e0db1ece06160461822120be24393e945921d9dc4f31c33b309a1e151759d7af",
+      "lockDigest": "sha256:e0db1ece06160461822120be24393e945921d9dc4f31c33b309a1e151759d7af",
+      "nativeContractClosureDigest": "sha256:ef5fe49d17fd27c04cd754e7d361e34b22441b6a0b65d3bc9ba5e750e94d3e4d",
+      "products": [
+        "product://abiogenesis/typescript-tenant@5.0.0-rc.1"
+      ]
+    },
+    "mixed": {
+      "kind": "resolved_product_lock",
+      "lockId": "product-lock://abiogenesis/81bbcca31790d06a4d5e953e89053aa4f4279a2ee9c443c7f40ed118f9100d09",
+      "lockDigest": "sha256:81bbcca31790d06a4d5e953e89053aa4f4279a2ee9c443c7f40ed118f9100d09",
+      "nativeContractClosureDigest": "sha256:ef5fe49d17fd27c04cd754e7d361e34b22441b6a0b65d3bc9ba5e750e94d3e4d",
+      "products": [
+        "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "product://abiogenesis-fixture/f11-carrier/fixture@5"
+      ]
+    }
+  },
+  "actualNativeEvidence": {
+    "core": {
+      "publicContracts": 61,
+      "nativeContracts": 37,
+      "sources": 307,
+      "closures": 7,
+      "packageMetadata": 197,
+      "pendingExternalSelectors": []
+    },
+    "fixture": {
+      "publicContracts": 0,
+      "nativeContracts": 0,
+      "sources": 0,
+      "closures": 0,
+      "packageMetadata": 198,
+      "pendingExternalSelectors": []
+    }
+  },
+  "admittedInstalls": 2,
+  "completePublications": 12,
+  "selectedProgramConformance": "4 passed result/declaredexit0; genuine conformance only",
+  "firstDiscrepancy": null,
+  "sourceOwnedBinLinksFlag": "actual npm --bin-links false despite hostile true; no links/filter/deletion",
+  "strictReader": "unchanged; exact admitted complete payloads",
+  "closeHandoffDigest": "sha256:4f148fc167eb6cb73848a9c6e738ae5781996eaf426ba8f89884228eccf28f46",
+  "resourceHandoff": "closed-event-resource-handoff.json",
+  "authorityHandoff": "installed-authority-handoff.json",
+  "eventPhysical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+    "bytes": 2498379,
+    "sha256": "7b579e0dfb1bf3f99c16687c641b09480433ec7eea127d1238e4e0e1796e5048",
+    "device": 16777230,
+    "inode": 464941019,
+    "mode": "0o644"
+  },
+  "writesAfterFreeze": "STOPPED",
+  "Q10F11TaskRunHelperProviderQualification": "STOPPED pending separate independent GO and Root grant",
+  "independentReviewActivatedByWorker": false
+}

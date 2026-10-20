@@ -1,0 +1,24 @@
+{
+  "operation": "T287_RC1_C06_CONSTRUCTION_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent nonauthor construction Reviewer",
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_CONSTRUCTION_ASSURANCE",
+  "report": "review.md",
+  "pins": "pins.json",
+  "subjectFreezeSHA256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+  "sourceCandidateBuildTestPackInstallNativeImportOwnerRuntimeHelperProviderNetworkGitEffects": 0,
+  "reportTerritoryWritesOnly": true,
+  "reusedActualCommandReceipts": 10,
+  "newCommandsExecuted": 0,
+  "runtimeQualificationScenarioGreenAF22ReleaseCredit": false,
+  "rootAloneAcceptsAndActivates": true,
+  "residuals": [
+    "Authentic current successor installation/Public environment and locks",
+    "Successor input/current owner-produced Task and prepare request bindings",
+    "Actual installed F11 carrier, child/J/foldback/parent and cold readbacks",
+    "Material/source-auth and genuine QUAL056/scenario/AF22/release assessment"
+  ],
+  "closedAt": "2026-10-02T06:10:44.505306+00:00",
+  "allWritesAfterFreeze": "STOPPED"
+}

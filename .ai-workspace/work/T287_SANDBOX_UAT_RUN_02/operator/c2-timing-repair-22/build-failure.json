@@ -1,0 +1,23 @@
+{
+  "status": "STOP-missing-pin-owner-territory",
+  "cause": "generator-declared C2 context member differs from emitted Product bytes",
+  "buildReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/c2-timing-repair-22/commands/build.result.json",
+  "minimalRequiredEffect": {
+    "path": "code/src/gtl/worksite_command_execution.ts",
+    "preimageSha256": "bc3b4983edb755ae5bd3ab059e8a0198a1ce0c81411ef81d8449a79306f8047b",
+    "preimageByteCount": 24180,
+    "neededFields": [
+      "commandSourceMember.digest",
+      "commandSource.byteCount",
+      "commandEnvironment.roles[0].sourceBindings[0].startByte",
+      "commandEnvironment.roles[0].sourceBindings[0].endByte"
+    ],
+    "newMemberDigest": "sha256:13f2811ce19bc6d9923e36dae3850adaced0132ebb822566a24a82d322ba95ae",
+    "newMemberByteCount": 109681,
+    "newStartByte": 99736,
+    "newEndByte": 102044,
+    "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+    "policyUnchanged": true
+  },
+  "noRetryNoTests": true
+}

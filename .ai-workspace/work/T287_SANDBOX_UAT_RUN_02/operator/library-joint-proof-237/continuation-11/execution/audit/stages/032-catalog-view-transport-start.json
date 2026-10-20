@@ -1,0 +1,11 @@
+{
+  "stage": "catalog-view-transport-start",
+  "elapsedMs": 61815.740083000004,
+  "at": "2026-10-10T15:29:23.803Z",
+  "rss": 2628403200,
+  "heapTotal": 364740608,
+  "heapUsed": 230317896,
+  "external": 2675460,
+  "arrayBuffers": 263153,
+  "beforeAcquisition": false
+}

@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-10-20T18:37:16.878113+00:00",
+  "role": "bounded L2 computational/domain Writer",
+  "disposition": "candidate_ready",
+  "basis_sha256": "39481bf3d0c77efc9da91139f933c2d59884e8eb6b42bded78eda603df8b6dbb",
+  "subject": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/activation.md",
+      "sha256": "27f6ba6934a38a9a6aae16add40df171a3d942408ef08413119f7dbc21dfc3a1",
+      "bytes": 2143
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "sha256": "784b0bc807710f5e14930730bb13475096da0595c0fae9b9d06d71d5119e00d6",
+      "bytes": 36871
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/source-routes.json",
+      "sha256": "c0c9db4dda7f216469aa38aced6e97fe2bb1db52f83367818df0b4f1ec0f3afa",
+      "bytes": 6448
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/readiness.json",
+      "sha256": "82bc754108986bec2dbf5fb1ee612b204666a6a3e388fb4a5070810a93bf7af0",
+      "bytes": 471474
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/report.diff",
+      "sha256": "9517893e8d5917c3046d4d79240c7e7ddb8cb9d8bd56a6c074eac9c5e29fe661",
+      "bytes": 39415
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/return.md",
+      "sha256": "a863f9fa095da49783c4b09298e22085ef44698e798da0a18b5cc30d67d0a0f7",
+      "bytes": 1744
+    }
+  ],
+  "execution": "No tests, builds, runtime/native actors, install, package or Git effects. All 1311 inventoried files and 264 production TypeScript files preserved.",
+  "next_owner": "Executive conjunction; independent L2 review requires separate activation."
+}

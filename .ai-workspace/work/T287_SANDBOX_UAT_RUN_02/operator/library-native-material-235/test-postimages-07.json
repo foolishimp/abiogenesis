@@ -1,0 +1,16 @@
+{
+  "cause": "06 used void close return and an incomplete invented ready Catalog.",
+  "action": "Use detached projectReopenAuthorityAndClose result and complete finite236 owner-produced Catalog, canonically rederived without invented setup fields.",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/test-postimages-07/test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "151a764429dc5f57abaf894d74e8abe0ac206af8807922ab549be6df83a2d6fc",
+      "byteCount": 39309
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/test-postimages-07/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "sha256": "adca04dca3b38f9070df0641969f293da39c5f3b3e75ca5659e73990f9a4aaa0",
+      "byteCount": 28823
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "Reviewer conformance receipt-shape error",
+  "probe": "physical-process-checks.mjs",
+  "evidence": ["physical-process-checks-failure.json", "physical-process-checks.stderr", "physical-process-checks-process.json"],
+  "failure": "Cannot read properties of undefined (reading entryPrefix)",
+  "cause": "Reviewer incorrectly applied the run/read eventResource receipt shape to eventless conformance receipts",
+  "actualContract": "conformance_evaluation_resource_receipt contains invocation/request/capability coordinates; raw acquisitionKind is eventless",
+  "sourceCorrespondence": "ordinary-caller.mjs:62 retains the existing handoff when the actual receipt has no eventResource.closeHandoff",
+  "correction": "physical-process-checks-02.mjs checks the actual eventless resource coordinates and retained handoff, then proves no append from the separately frozen physical receipts",
+  "candidateCounterexample": false,
+  "originalProbePreserved": true
+}

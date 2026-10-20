@@ -1,0 +1,45 @@
+{
+  "activation": "T287_C2_OUTPUT_CONSUMER_REPAIR_01",
+  "actor": "/root/s03_phase_b",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "scope": "Current external caller root-binding implementation and focused local proof; no original Product authorship/native attribution/independent judgment",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-controls-01/request.txt",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 5096,
+    "sha256": "ccfb76be5b8a17d209de775348279a7392b6912a9f301e67dd187c72199c0a45"
+  },
+  "changedCarrier": {
+    "logicalOriginalPath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/output-checks.mjs",
+    "preimage": {
+      "path": "preimages/output-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9424,
+      "sha256": "2da7268570fb9a11ac023b653e82adccb889c696ea8fe2bbda14701a1546f923"
+    },
+    "successor": {
+      "path": "output-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11908,
+      "sha256": "d59cebeeed35234f4d69f978030a5a1094919291513c523a0d34b07fcb6f8b2a"
+    },
+    "patch": {
+      "path": "output-checks.patch",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14523,
+      "sha256": "1cd58c0a1823b0a8b640e25b0b8bf953529a00efc4abac00f2d0091703f4b9a9"
+    }
+  },
+  "preservedDriver": {
+    "path": "preimages/driver.mjs",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 15079,
+    "sha256": "cd719b09003d8a1268bc6e9b9783dfb729644ce37280a1a55fa3a25204ea7f7e"
+  },
+  "fixtureLimits": "One synthetic input and command; cold supplied authority/actor/result metadata. Real installed constructors/validators and local physical bytes test caller relation only. No helper or command invocation, ABG admission, successful native producer, executionSelectionRef or qualification material."
+}

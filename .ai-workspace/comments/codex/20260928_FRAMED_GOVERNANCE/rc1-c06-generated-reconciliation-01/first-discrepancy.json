@@ -1,0 +1,7 @@
+{
+  "frontier": "complete 5258 archive body/mode correspondence before ambient copying",
+  "type": "AssertionError",
+  "message": "",
+  "completedAmbientWrites": [],
+  "retryOrAutorepair": false
+}

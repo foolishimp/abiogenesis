@@ -1,0 +1,94 @@
+{
+  "scope": "Pure comparison of retained exact inline admitted Result bodies; no runtime acquisition or new admission",
+  "inputResult": "result://abiogenesis/1dd2829992a3cabb51ace643e626c3f73b545556f1889cc65505089004be775d",
+  "inputValueDigest": "sha256:65c2fdd777a0a33038a84a9425bb4fd1beebb3d6f9a0c49503c6e9428c31ad28",
+  "inputDigestMatches": true,
+  "authorResult": "result://abiogenesis/a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+  "authorValueDigest": "sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566",
+  "authorDigestMatches": true,
+  "preservedPriorAssets": true,
+  "priorAssets": [
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/intent@5",
+      "assetRef": "semantic-job-asset://abiogenesis/9f9c337f3df0d254747a496e15ef01663c42cd6274368164f8cee900338c4c0a",
+      "assetDigest": "sha256:9f9c337f3df0d254747a496e15ef01663c42cd6274368164f8cee900338c4c0a",
+      "assessmentDisposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/product@5",
+      "assetRef": "semantic-job-asset://abiogenesis/0f5e3bf0a1e555a1b418b15cc3236ff76dffedbf8c5378b6cf01c39caaa16560",
+      "assetDigest": "sha256:0f5e3bf0a1e555a1b418b15cc3236ff76dffedbf8c5378b6cf01c39caaa16560",
+      "assessmentDisposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5",
+      "assetRef": "semantic-job-asset://abiogenesis/7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+      "assetDigest": "sha256:7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+      "assessmentDisposition": "satisfied"
+    }
+  ],
+  "relations": {
+    "job": {
+      "unchanged": true,
+      "beforeDigest": "sha256:5b642eaceb26413bef4f6abe7121a17f7d6d1da5488a26ab9856a8e1f8ac40c6",
+      "afterDigest": "sha256:5b642eaceb26413bef4f6abe7121a17f7d6d1da5488a26ab9856a8e1f8ac40c6"
+    },
+    "basis": {
+      "unchanged": true,
+      "beforeDigest": "sha256:2afd59cf90b47146f01dd3142d6b40e2ce93fea8b31a138e855b1f740f5fca2c",
+      "afterDigest": "sha256:2afd59cf90b47146f01dd3142d6b40e2ce93fea8b31a138e855b1f740f5fca2c"
+    },
+    "declaration": {
+      "unchanged": true,
+      "beforeDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+      "afterDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267"
+    },
+    "worksite": {
+      "unchanged": true,
+      "beforeDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "afterDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    "sourceContext": {
+      "unchanged": true,
+      "beforeDigest": "sha256:6bb5f89a37bae14b7a64b32eafed417cbedda7a8c8904f8388bc543324d00c62",
+      "afterDigest": "sha256:6bb5f89a37bae14b7a64b32eafed417cbedda7a8c8904f8388bc543324d00c62"
+    },
+    "context": {
+      "unchanged": true,
+      "beforeDigest": "sha256:cd1eb5edfdd7c4718bac9c31b45618dfcc0d0d27ecdf28c93c94af88ae74f4ca",
+      "afterDigest": "sha256:cd1eb5edfdd7c4718bac9c31b45618dfcc0d0d27ecdf28c93c94af88ae74f4ca"
+    }
+  },
+  "design": {
+    "stageRef": "stage://odd-glc/generic-lifecycle/design@5",
+    "assetRef": "semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df",
+    "assetDigest": "sha256:75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df",
+    "assessment": null,
+    "candidateKind": "semantic_job_asset_candidate",
+    "candidateCanonicalBytes": 74650,
+    "source": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/4f365a064f221dbf39324764937e5fbeebb01e743b06418d8cb772f850c82b39",
+      "cCallRef": "c-call:sha256:e1fd5ac4dc927db7f7a94bd0991a6742531b4ac36bb2af7913b608ae7bc11abc",
+      "inputDigest": "sha256:65c2fdd777a0a33038a84a9425bb4fd1beebb3d6f9a0c49503c6e9428c31ad28",
+      "promptDigest": "sha256:2da62ebc511eee925ea1251e77f2c0cbc0ec8304754d7648f95ebfc0dd6897cd",
+      "transportDigest": "sha256:2c03b15ac57b57edcfae684803d5502f87fd3bb68179448025ac2bf40f91d250"
+    }
+  },
+  "authorJudgment": {
+    "cCallRef": "c-call:sha256:e1fd5ac4dc927db7f7a94bd0991a6742531b4ac36bb2af7913b608ae7bc11abc",
+    "contractRef": "contract://abiogenesis/semantic-stage/judgment@5",
+    "judgment": "advance",
+    "judgmentDigest": "sha256:443fb85005ae8fb582bd4316946955596ec5360de40bb0f919f5003d4f0897ba",
+    "judgmentRef": "judgment://abiogenesis/443fb85005ae8fb582bd4316946955596ec5360de40bb0f919f5003d4f0897ba",
+    "predicateRef": "predicate://abiogenesis/semantic-revision/authored@5",
+    "reasonRef": "reason://abiogenesis/semantic-revision/relation-satisfied@5",
+    "replayStateDigest": "sha256:3e234b72ba1330f3d1402b92e0b1787805ff222feefff8505f9a30038aa114fa",
+    "resultDigest": "sha256:a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+    "resultRef": "result://abiogenesis/a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+    "retryAttemptRef": null
+  },
+  "assessorDeclaredMaxPromptBytes": 1048576,
+  "assessorFailedDraftBytes": null,
+  "assessorMemberContributionBytes": null,
+  "limit": "Author Result/J proves typed authored envelope and advance, not independent assessment. Failed assessor draft was not retained; no reconstruction was run."
+}

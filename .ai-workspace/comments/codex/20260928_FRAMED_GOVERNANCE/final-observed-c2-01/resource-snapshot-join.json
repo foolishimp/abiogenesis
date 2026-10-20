@@ -1,0 +1,135 @@
+{
+  "status": "exact",
+  "records": [
+    {
+      "original": {
+        "path": "resources/archives/fp-3a365d4cbe71faf9-output.txt",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "snapshot": {
+        "path": "resource-snapshot/resources/archives/fp-3a365d4cbe71faf9-output.txt",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "original": {
+        "path": "resources/archives/fp-3a365d4cbe71faf9-prompt.txt",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 11809,
+        "sha256": "4b1374060b57c0993464b105d9314a24c9b2c2fac69d33fe292caf46ccb6ad21"
+      },
+      "snapshot": {
+        "path": "resource-snapshot/resources/archives/fp-3a365d4cbe71faf9-prompt.txt",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 11809,
+        "sha256": "4b1374060b57c0993464b105d9314a24c9b2c2fac69d33fe292caf46ccb6ad21"
+      }
+    },
+    {
+      "original": {
+        "path": "resources/archives/fp-3a365d4cbe71faf9-stderr.log",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "snapshot": {
+        "path": "resource-snapshot/resources/archives/fp-3a365d4cbe71faf9-stderr.log",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "original": {
+        "path": "resources/archives/fp-3a365d4cbe71faf9-stdout.log",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 6107,
+        "sha256": "f28bf015d8bcfbc3da817def2d34631d902ce6c0ecc3f8aa652c12ef7507d5bc"
+      },
+      "snapshot": {
+        "path": "resource-snapshot/resources/archives/fp-3a365d4cbe71faf9-stdout.log",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 6107,
+        "sha256": "f28bf015d8bcfbc3da817def2d34631d902ce6c0ecc3f8aa652c12ef7507d5bc"
+      }
+    },
+    {
+      "original": {
+        "path": "resources/archives/fp-3a365d4cbe71faf9-transport.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 10051,
+        "sha256": "74800ea40adb88534da8929046c6a3b604ff8b8fffbc6b44ae28e33653b4482b"
+      },
+      "snapshot": {
+        "path": "resource-snapshot/resources/archives/fp-3a365d4cbe71faf9-transport.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 10051,
+        "sha256": "74800ea40adb88534da8929046c6a3b604ff8b8fffbc6b44ae28e33653b4482b"
+      }
+    },
+    {
+      "original": {
+        "path": "resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/launch.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 3075,
+        "sha256": "5d5985067ff314e200644b40cecfbbf9244357e05c797cb5b46906d1de486349"
+      },
+      "snapshot": {
+        "path": "resource-snapshot/resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/launch.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 3075,
+        "sha256": "5d5985067ff314e200644b40cecfbbf9244357e05c797cb5b46906d1de486349"
+      }
+    },
+    {
+      "original": {
+        "path": "resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/task.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 1294267,
+        "sha256": "d46076358ecd61a7a2a92129fa8411947edc5102a765288b5c499dcfb4660a68"
+      },
+      "snapshot": {
+        "path": "resource-snapshot/resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/task.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 1294267,
+        "sha256": "d46076358ecd61a7a2a92129fa8411947edc5102a765288b5c499dcfb4660a68"
+      }
+    },
+    {
+      "original": {
+        "path": "tmp/xcrun_db",
+        "kind": "file",
+        "mode": 384,
+        "bytes": 1080,
+        "sha256": "9e146d5fe75d31944ec3f5012ddb51d28ad8abc3fe4ab6e277df231e7cde3818"
+      },
+      "snapshot": {
+        "path": "resource-snapshot/tmp/xcrun_db",
+        "kind": "file",
+        "mode": 384,
+        "bytes": 1080,
+        "sha256": "9e146d5fe75d31944ec3f5012ddb51d28ad8abc3fe4ab6e277df231e7cde3818"
+      }
+    }
+  ],
+  "protected716": "Frozen source bodies retained at exact original C02/Q02 origins in all716-pre-effect-checks; staged copies were all rehashed unchanged at closure",
+  "liveEventLog": "failure-native-prefix.jsonl is exact full84-event immutable snapshot; final-handoff is actual owner output"
+}

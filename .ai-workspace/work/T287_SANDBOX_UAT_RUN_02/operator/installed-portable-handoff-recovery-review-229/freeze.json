@@ -1,0 +1,12 @@
+{
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229",
+  "subjectFreezeSha256": "ac25d68d9ecea42121f2dd2567fdf01bbab4827448798f8823f8ad0d49c13434",
+  "disposition": "bounded GO",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-review-229/return.md",
+      "sha256": "b52340ea3565d501179dadfc1cacf252357cfa208e8089d0eb963435413116a9",
+      "byteCount": 2912
+    }
+  ]
+}

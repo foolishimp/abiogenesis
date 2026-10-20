@@ -1,0 +1,21 @@
+{
+  "status": "REUSED_EXACT_FROZEN_BUILD",
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/freeze.json",
+      "sha256": "feaddf748d4c1a07ffd15d9eb20985096f099daa80b9a3a946d57c422c8139e7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/freeze.json",
+      "sha256": "a3a1efcb31fe8173395c37f42253662a045e8bbf5a4e38ea75d7286d2b6ced3b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/ranks7-8-review.md",
+      "sha256": "c649f45bf785b892d50e78c953e742560d014b061c402dad06c3fc9912b093a3"
+    }
+  ],
+  "frozenMembersVerified": 35,
+  "newCompile": false,
+  "newManifestGeneration": false,
+  "newTests": false
+}

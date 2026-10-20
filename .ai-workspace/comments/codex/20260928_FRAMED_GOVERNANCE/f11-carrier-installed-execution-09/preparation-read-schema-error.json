@@ -1,0 +1,7 @@
+{
+  "status": "PRESERVED_NO_EFFECT_READ_ATTEMPT",
+  "error": "SyntaxError in read-only Python schema-print comprehension; __name__ for omitted space",
+  "ProductImports": 0,
+  "RuntimeEffects": 0,
+  "disposition": "pure inspection corrected before payload"
+}

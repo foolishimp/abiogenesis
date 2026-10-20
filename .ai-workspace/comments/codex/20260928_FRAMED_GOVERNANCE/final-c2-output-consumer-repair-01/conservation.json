@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "cuts": [
+    {
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 4543994,
+        "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+      },
+      "recordsVerified": 16774
+    },
+    {
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 15744,
+        "sha256": "a4c2b5afd94fd7402b6bbfc732e691eb345dbcf4334a0300de490f607b9aad79"
+      },
+      "recordsVerified": 82
+    },
+    {
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 18324,
+        "sha256": "9949f56817f7f1f4bfca2a564e6de81146b9afedfde5698f573519500227efb8"
+      },
+      "recordsVerified": 86
+    },
+    {
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-end-to-end-forward-review-01/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 4807,
+        "sha256": "4397713136caac64f7d7d434429efe20d95f7fd22d388d1613e2ef2de9bf488e"
+      },
+      "recordsVerified": 16
+    }
+  ],
+  "preimagesExact": true,
+  "originalDriverProtectedInputReads": "unchanged; no original driver executed or rewritten",
+  "liveN03ResourceWorksite": "not opened or observed in this activation",
+  "candidateSourceRecipeOriginals": "all selected frozen records unchanged"
+}

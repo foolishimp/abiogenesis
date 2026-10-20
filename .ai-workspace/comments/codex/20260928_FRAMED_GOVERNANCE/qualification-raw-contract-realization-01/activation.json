@@ -1,0 +1,49 @@
+{
+  "status": "ACTIVE",
+  "role": "Worker",
+  "operation": "T287_QUALIFICATION_RAW_CONTRACT_PUBLICATION_REALIZATION_01",
+  "actor": "/root/q03_input_review",
+  "allSevenSectionsRead": true,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-triangulation-and-raw-contract-repair-01/request.txt",
+    "bytes": 4632,
+    "sha256": "3aedaf46a09bdc3ffade21a6c2baa5b35889d7638576120a1c86aa604cb8654d",
+    "mode": 420
+  },
+  "RootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-triangulation-and-raw-contract-repair-01/acceptance.json",
+    "bytes": 2243,
+    "sha256": "bd1df75befa5942a63eec5da1c2d58c405882555eecb377358460d86bc4ddfd3",
+    "mode": 420
+  },
+  "RootTriangulation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-triangulation-and-raw-contract-repair-01/triangulation.json",
+    "bytes": 3064,
+    "sha256": "1053c0fbd3701978e5ca42bea4ed6e60150499ecfd197ec54ad0b62c4c21330a",
+    "mode": 420
+  },
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "ProductFrame": {
+    "fixedFeatures": "15; F04/F10/F11/F13/F15",
+    "WHAT": "Native declared raw-contract admission and exact input/result lineage precede qualification J and same-subject proof",
+    "HOW": "Existing GTL producer publishes abg.raw_result_contract for F_P only; reuse unchanged owner and verifier",
+    "reentry": "realization_refactor",
+    "genericResolverChange": false,
+    "runtimeFactsFromSourceTests": false
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01"
+  ],
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "bytes": 18649,
+    "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+    "mode": 420
+  },
+  "testPreimage": "ABSENT",
+  "startedAt": "2026-10-02T08:48:59.824629+00:00",
+  "independentAssurance": false
+}

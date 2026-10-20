@@ -1,0 +1,9 @@
+{
+  "owner": "product.installedProductContentMatches",
+  "verifiedArtifactDigest": "sha256:95d1e5a7e98ab47ed762c2d1c5cb3224632910b0baf7363d9ad03e62d62ebf1e",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "contentDigest": "sha256:c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463",
+  "manifestDigest": "sha256:9e7bf0ea5a77ca4367794d07744ee46c92a884023b5b94081b9928987acaf2fc",
+  "matches": true,
+  "scope": "Verified artifact expectation projected onto actual physical installed root; no ProductInstall/admission claim"
+}

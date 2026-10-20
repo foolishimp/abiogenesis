@@ -1,0 +1,31 @@
+{
+  "status": "CLOSED_CONSTRUCTION_ONLY_RUNTIME_NOT_SELECTED",
+  "identity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-30/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:7241917e6d3bb7484594d9e15db6cdd8b3dd8480ab00a20aa72c13b865a14925",
+    "archiveBytes": 10168140,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite30-install-gb08bzfk/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite30-install-gb08bzfk",
+    "archiveMembers": 5233
+  },
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite30-install-gb08bzfk/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-30/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-30/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:7241917e6d3bb7484594d9e15db6cdd8b3dd8480ab00a20aa72c13b865a14925",
+      "productContentDigest": "sha256:fa9c636398482a85aae258214bf31c2f0310f9e758bf7bb98237871406f35efb",
+      "manifestDigest": "sha256:aaf0aa6b67858e83ee58a14fa8216c01fc0b4b0d2f55941d0cc2a2f225bff29b",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/frozen-subject.json",
+  "sourceReturn": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/return.md",
+  "buildInputsPreserved": 259,
+  "generatedChanged": 2,
+  "memberCorrespondence": 5233,
+  "testsReused": "Frozen R-DPC01 actual-successor rendering; three affected checks retained, prior operational checks reused, no rerun",
+  "nativeExecution": false
+}

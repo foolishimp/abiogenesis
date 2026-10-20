@@ -1,0 +1,92 @@
+[
+  {
+    "path": "bin/npm",
+    "target": "../npm/bin/npm-cli.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/npm",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/arborist",
+    "target": "../@npmcli/arborist/bin/index.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/arborist",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/cssesc",
+    "target": "../cssesc/bin/cssesc",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/cssesc",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/glob",
+    "target": "../glob/dist/esm/bin.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/glob",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/installed-package-contents",
+    "target": "../@npmcli/installed-package-contents/bin/index.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/installed-package-contents",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/mkdirp",
+    "target": "../mkdirp/bin/cmd.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/mkdirp",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/node-gyp",
+    "target": "../node-gyp/bin/node-gyp.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/node-gyp",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/node-which",
+    "target": "../which/bin/which.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/node-which",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/nopt",
+    "target": "../nopt/bin/nopt.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/nopt",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/pacote",
+    "target": "../pacote/bin/index.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/pacote",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/qrcode-terminal",
+    "target": "../qrcode-terminal/bin/qrcode-terminal.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/qrcode-terminal",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/.bin/semver",
+    "target": "../semver/bin/semver.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/.bin/semver",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/cacache/node_modules/.bin/mkdirp",
+    "target": "../mkdirp/dist/cjs/src/bin.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/cacache/node_modules/.bin/mkdirp",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/cross-spawn/node_modules/.bin/node-which",
+    "target": "../which/bin/node-which",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/cross-spawn/node_modules/.bin/node-which",
+    "role": "recorded_tool_link_not_an_observed_file"
+  },
+  {
+    "path": "npm/node_modules/node-gyp/node_modules/.bin/mkdirp",
+    "target": "../mkdirp/dist/cjs/src/bin.js",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/node_modules/node-gyp/node_modules/.bin/mkdirp",
+    "role": "recorded_tool_link_not_an_observed_file"
+  }
+]

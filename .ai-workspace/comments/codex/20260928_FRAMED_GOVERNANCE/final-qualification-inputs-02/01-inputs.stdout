@@ -1,0 +1,1 @@
+{"status": "constructed_inputs", "source": 1103, "generated": 828, "protectedSource": 691, "dependencies": 16, "recipeFiles": 9, "syntax": 331, "expectedCompare": 925, "npmFiles": 2312, "copiedUnchanged": ["recipe.mjs", "recipe-stage.mjs", "compare-generated.mjs", "test-environment.mjs", "test-selection.json", "config.json", "release-claims.json", "budgets.json"]}

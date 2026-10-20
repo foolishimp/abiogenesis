@@ -1,0 +1,15 @@
+{
+  "operation": "T287_F11_REPAIR_ACCEPTANCE_AND_C06_CONSTRUCTION_GRANT_01",
+  "actor": "/root",
+  "role": "Writer",
+  "previousRole": "Executive",
+  "grant": "Record Executive conjunction of CLOSED independent source/caller repairs, tracking snapshot and dependency-ready C06 construction grant under owner fix and close5",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "activatedAt": "2026-10-02T05:23:16.201263+00:00",
+  "prohibitedEffects": "No implementation/candidate/Runtime/Git/network; Source-cut selection records only"
+}

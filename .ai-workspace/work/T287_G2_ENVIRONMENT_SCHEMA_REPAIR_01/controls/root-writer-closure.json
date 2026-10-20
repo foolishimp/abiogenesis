@@ -1,0 +1,28 @@
+{
+  "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01_GRANT_WRITER_01",
+  "status": "CLOSED_DOCUMENTARY_ONLY",
+  "SourceUnchanged": true,
+  "sourceSubjectPaths": 16,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/controls/code-grant.md",
+    "bytes": 7973,
+    "sha256": "b1d130e401a7fcade09c664e1f1a43aa226d2734bd5af3ecaf165ef98ba76ade"
+  },
+  "documents": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": "9e6e81c0cf3ea3b2ea1127c34ba646ae97edb30f5a3a1703f56a056fdcbba10a",
+      "after": "027bf8e98ebe3f1ff5df556ab15b61413690243462825b5fa04686e9a779e088"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": "78cdd89392f5b4b6304d2b328b1c12e447c7673ed3c3583a2ce786a4ad00c607",
+      "after": "7173151ac52b95a26e4d541bf3cb8303857c0abafd108bda03176bb1b2b2dd78"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "before": "feeba6a16707597b7ecb0bb737caee91b10d59dac4ecae33e9b305ca1705acc6",
+      "after": "3e4ea166d52b2930b844a716c7bc6429869a95357b1587af740f3e63f681a54d"
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "status": "CLOSED",
+  "sourceRun": {
+    "digest": "sha256:63a3f3048de463796332f89c159b15262a321719239895574d3046605d22feee",
+    "ref": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:6a3e7700cfe9e1badc79166753a3a1646f2ce3d143c8eea58a8a6bcef64e189b",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:fa48db8aba07673ebdb3cde85006e5c98a6574c134819bf8f83864b19dd3229c",
+    "prefixLength": 216334690,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "intakeRun": {
+    "digest": "sha256:09ea24f131b8ba194a2a040261e74565095a89ce24f8eb9e0ffb2db74c164903",
+    "ref": "run://abiogenesis/788e1541444cb5e1503c6a7590388e5db8c9ba00e233dac02a6e5ef9189fe94b"
+  },
+  "admittedSelection": {
+    "choice": {
+      "mode": "stage_revision",
+      "selectedStageRef": "stage://odd-glc/generic-lifecycle/design@5"
+    },
+    "selected": {
+      "programRef": "program://odd-glc/native-semantic-revision/from-design@5",
+      "startRef": "program://odd-glc/native-semantic-revision/from-design@5/start",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5"
+    },
+    "requestValueDigest": "sha256:089595741188b713a3f7b8d25e92b5eb44e34852554846a0fc0a5920d7e4f808"
+  },
+  "failedSuffixRun": {
+    "digest": "sha256:fcca87f120053ef28bd83f7f1b8420bf9c6195beb112d1f3b55f19023424e810",
+    "ref": "run://abiogenesis/a6d993ab5e81dbc9ae08d5069f68ae1503224100fe537634a8658513aba55dbd"
+  },
+  "close": {
+    "coordinateDigest": "sha256:158f2797ef17d8d84e1311b989db109966ecb367de10caeb786523e69e0997dd",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9f311db837d306c352dd8467e8aa06b8d8d2e671586a5b8e3f4347132169c1d5",
+    "prefixLength": 316064006,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "firstExplicitCause": {
+    "owner": "Claude Code provider transport terminal",
+    "code": "error_max_budget_usd",
+    "message": "Reached maximum budget ($5)",
+    "configuredUsd": 5,
+    "reportedListUsd": 5.20156,
+    "timeout": false,
+    "providerDurationMs": 695327,
+    "rawTerminalPath": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/invocation/archives/fp-a5fcc9c2ceff99b7-stdout.log",
+      "bytes": 1384269,
+      "sha256": "82ebbc340d74dea209a5b9c69e913328f10428fe4bf56a4c0bdd5c508d1aedea"
+    },
+    "supervisionPath": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/invocation/archives/fp-a5fcc9c2ceff99b7-transport.json",
+      "bytes": 1510825,
+      "sha256": "2a8f6bf7a830e879d4f2cad2036b2d08bb829aa9d3c3a9d527ce619f5ebd4d7b"
+    }
+  },
+  "nativeBoundary": {
+    "disposition": "runtime_failed",
+    "workerAssessment": "absent",
+    "decodedOutputBytes": 0,
+    "runResult": null,
+    "publicResultObservation": "result_absent_not_found"
+  },
+  "compactResponseObservation": {
+    "schema": {
+      "const": "semantic_job_design_response"
+    },
+    "schemaSha256": "9f2598cd2ec1113ffdd983ebc8ac6c3ac7ee3cbf40fec0c65432c8bc03da0d8b",
+    "structuredOutputs": [
+      {
+        "name": "StructuredOutput",
+        "kind": "semantic_job_design_response",
+        "jsonBytes": 43483,
+        "jsonSha256": "f32ed855b2a94ed4c514dd5c439f67601e1a079913cd69c94d06625509eeee16",
+        "keys": [
+          "kind",
+          "schemaVersion",
+          "asset",
+          "bindings",
+          "design"
+        ]
+      }
+    ],
+    "streamedToolInputs": [
+      {
+        "name": "StructuredOutput",
+        "messageIndex": 1,
+        "contentIndex": 1,
+        "bytes": 43492,
+        "sha256": "4261375dc83f7ac533116964791772b6a5e1c91b784fa00a05a836322db071a0",
+        "completeJson": true,
+        "kind": "semantic_job_design_response",
+        "keys": [
+          "kind",
+          "schemaVersion",
+          "asset",
+          "bindings",
+          "design"
+        ]
+      }
+    ],
+    "providerToolAcknowledgments": [
+      "Structured output provided successfully"
+    ],
+    "admission": "Not admitted. Provider acknowledgment and complete JSON do not establish terminal success, ABG worker admission, expanded Design validity or semantic assessment; no salvage attempted."
+  },
+  "unknowns": [
+    "Why Design consumed 64243 thinking tokens is not established by the budget stop.",
+    "No independent validity/semantic evaluation of raw unadmitted StructuredOutput is claimed.",
+    "Internal setup/install and native residual timing attribution remains unknown."
+  ],
+  "preservedProgress": "Original admitted Requirements, job/root/source/oracle/worksite ancestry and all failed histories retained; no earlier author/assessor repeat; suffix stopped before Design assessment or construction."
+}

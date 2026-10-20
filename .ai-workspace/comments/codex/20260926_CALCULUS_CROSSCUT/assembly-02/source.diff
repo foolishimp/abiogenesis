@@ -1,0 +1,216 @@
+--- accepted-core40
++++ rank8
+@@ -48,6 +48,36 @@
+   readonly role: string | null;
+   readonly unresolvedRefs: readonly string[];
+ }
++
++type AssemblyIdentity = Pick<NativeInstructionAssembly, "planRef" | "planDigest" | "plan" | "envelope" | "envelopeDigest">;
++type AssemblyOwner = Pick<NonNullable<ReturnType<typeof authenticateNativeInstructionAssemblyBasis>>,
++  "call" | "execution" | "inputRef" | "inputDigest">;
++
++/** Pure bookkeeping after each branch establishes its own selection and content. */
++function assemblyIdentity(domain: string, plan: Readonly<Record<string, JsonValue>>, owner: AssemblyOwner,
++  predecessorPrefix: NativeInstructionAssemblyBasis["predecessorPrefix"], content: Readonly<Record<string, JsonValue>>): AssemblyIdentity {
++  const planDigest = sha256Canonical(plan), planRef = `prompt-plan://abiogenesis/${domain}/${planDigest.slice(7)}`;
++  const envelope = { planRef, cCallRef: owner.call.cCallRef, cCallDigest: owner.call.cCallDigest,
++    executionBasisRef: owner.execution.basisRef, executionBasisDigest: owner.execution.basisDigest,
++    inputRef: owner.inputRef, inputDigest: owner.inputDigest, predecessorPrefix, ...content } as unknown as Readonly<Record<string, JsonValue>>;
++  return { planRef, planDigest, plan, envelope, envelopeDigest: sha256Canonical(envelope) };
++}
++
++function renderInstructionSections(order: readonly string[], sections: Readonly<Record<string, JsonValue>>): string {
++  return order.map(name => `## ${name}\n${canonicalJson(sections[name]!)}`).join("\n\n");
++}
++
++function finishInstructionAssembly(identity: AssemblyIdentity, fields: Readonly<Record<string, JsonValue>>,
++  request: Omit<ProbabilisticWorkerRequest, "materializationPlanRef">,
++  promptBytes = Buffer.from(request.prompt, "utf8")): Readonly<NativeInstructionAssembly> {
++  const { planRef, planDigest, envelopeDigest } = identity;
++  const manifest = { planRef, planDigest, envelopeDigest, rendererRef: request.rendererRef, ...fields,
++    responseContractRef: request.resultContractRef, responseSchemaDigest: sha256Canonical(request.responseJsonSchema),
++    promptDigest: sha256Canonical(request.prompt), promptBytesDigest: sha256Bytes(promptBytes), promptByteCount: promptBytes.length };
++  return deepFreeze({ kind: "native_instruction_assembly", schemaVersion: "5.0.0", ...identity,
++    manifest, manifestDigest: sha256Canonical(manifest), request: { ...request, materializationPlanRef: planRef } });
++}
++
+ function assemblyRefusal(cause: NativeInstructionAssemblyRefusal["cause"], policy: string | null,
+   role: string | null, unresolvedRefs: readonly string[]): Readonly<NativeInstructionAssemblyRefusal> {
+   return deepFreeze({ kind: "native_instruction_assembly_refusal", cause, policy, role, unresolvedRefs });
+@@ -107,24 +137,15 @@
+         programLocusRef: owner.call.programLocusRef, contextRef: supplied.context.observationRef,
+         contextDigest: supplied.context.observationDigest, worksiteRoot: supplied.workspaceAuthorityBasis.canonicalRoot,
+         readRoots: supplied.context.readRoots, writeRoots: supplied.writeRoots, role };
+-      const planDigest = sha256Canonical(plan as unknown as JsonValue), planRef = `prompt-plan://abiogenesis/native-work/${planDigest.slice(7)}`;
+-      const envelope = { planRef, cCallRef: owner.call.cCallRef, cCallDigest: owner.call.cCallDigest,
+-        executionBasisRef: owner.execution.basisRef, executionBasisDigest: owner.execution.basisDigest,
+-        inputRef: owner.inputRef, inputDigest: owner.inputDigest, predecessorPrefix: basis.predecessorPrefix,
+-        nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] }, task: supplied } as unknown as Readonly<Record<string, JsonValue>>;
+-      const envelopeDigest = sha256Canonical(envelope);
++      const identity = assemblyIdentity("native-work", plan as unknown as Readonly<Record<string, JsonValue>>, owner,
++        basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] }, task: supplied } as unknown as Readonly<Record<string, JsonValue>>);
+       const prompt = (role === null ? "" : `Declared role context:\n${canonicalJson(role as unknown as JsonValue)}\n\n`) + renderNativeWorkspaceWorkOrder(supplied);
+-      const manifest = { planRef, planDigest, envelopeDigest, contextRef: supplied.context.observationRef,
+-        contextDigest: supplied.context.observationDigest, rendererRef: nativeIds.rendererRef,
+-        responseContractRef: resultContractRef, responseSchemaDigest: sha256Canonical(schema),
+-        promptDigest: sha256Canonical(prompt), promptBytesDigest: sha256Bytes(Buffer.from(prompt)), promptByteCount: Buffer.byteLength(prompt) };
+-      return deepFreeze({ kind: "native_instruction_assembly", schemaVersion: "5.0.0", planRef, planDigest,
+-        plan: plan as unknown as Readonly<Record<string, JsonValue>>, envelope, envelopeDigest, manifest,
+-        manifestDigest: sha256Canonical(manifest), request: { actorRef: nativeIds.workerActorRef, workerBindingRef: nativeIds.workerBindingRef,
+-          implementationRef: nativeIds.implementationRef, inputDigest: owner.inputDigest, materializationPlanRef: planRef,
++      return finishInstructionAssembly(identity, { contextRef: supplied.context.observationRef,
++        contextDigest: supplied.context.observationDigest }, { actorRef: nativeIds.workerActorRef, workerBindingRef: nativeIds.workerBindingRef,
++          implementationRef: nativeIds.implementationRef, inputDigest: owner.inputDigest,
+           rendererRef: nativeIds.rendererRef, instructionContractRef: nativeIds.taskContractRef,
+           resultContractRef, transportLane: "worker_executes", prompt,
+-          responseJsonSchema: schema } });
++          responseJsonSchema: schema });
+     }
+     const leaves = basis.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term))
+       .filter(leaf => leaf.programLocusRef === owner.call.programLocusRef);
+@@ -172,27 +193,16 @@
+       instructionContractRef: base.instructionContractRef, resultContractRef: base.resultContractRef,
+       basePlanRef: base.materializationPlanRef, baseRequestDigest: sha256Canonical(base as unknown as JsonValue),
+       sectionOrder: ["role", "evidence", "task", "response"], selectedContext: requiredSelectors };
+-    const planDigest = sha256Canonical(plan as unknown as JsonValue);
+-    const planRef = `prompt-plan://abiogenesis/worksite-native/${planDigest.slice(7)}`;
+     // Retain only the selected graph, not an ambient all-catalog snapshot. The
+     // shared owner reauthenticates this read model against the saved prefix.
+     const nativeBasis = { ...basis, declarationGraphFunctions: [basis.graphFunction] };
+-    const envelope = { planRef, cCallRef: owner.call.cCallRef, cCallDigest: owner.call.cCallDigest,
+-      executionBasisRef: owner.execution.basisRef, executionBasisDigest: owner.execution.basisDigest,
+-      inputRef: owner.inputRef, inputDigest: owner.inputDigest, predecessorPrefix: basis.predecessorPrefix,
+-      nativeBasis, sections } as unknown as Readonly<Record<string, JsonValue>>;
+-    const envelopeDigest = sha256Canonical(envelope);
+-    const prompt = plan.sectionOrder.map(name => `## ${name}\n${canonicalJson(sections[name as keyof typeof sections] as unknown as JsonValue)}`).join("\n\n");
+-    const promptBytes = Buffer.from(prompt, "utf8");
+-    const manifest = { planRef, planDigest, envelopeDigest, runEnvironment, rendererRef: base.rendererRef,
+-      responseContractRef: base.resultContractRef, responseSchemaDigest: sha256Canonical(base.responseJsonSchema),
++    const identity = assemblyIdentity("worksite-native", plan as unknown as Readonly<Record<string, JsonValue>>, owner,
++      basis.predecessorPrefix, { nativeBasis, sections } as unknown as Readonly<Record<string, JsonValue>>);
++    const prompt = renderInstructionSections(plan.sectionOrder, sections as unknown as Readonly<Record<string, JsonValue>>);
++    const manifest = { runEnvironment,
+       basePromptDigest: sha256Canonical(base.prompt), sections: plan.sectionOrder.map(name => ({ name,
+-        disposition: "included_full", digest: sha256Canonical(sections[name as keyof typeof sections] as unknown as JsonValue) })),
+-      promptDigest: sha256Canonical(prompt), promptBytesDigest: sha256Bytes(promptBytes), promptByteCount: promptBytes.length };
+-    return deepFreeze({ kind: "native_instruction_assembly", schemaVersion: "5.0.0", planRef, planDigest,
+-      plan: plan as unknown as Readonly<Record<string, JsonValue>>, envelope, envelopeDigest,
+-      manifest: manifest as unknown as Readonly<Record<string, JsonValue>>, manifestDigest: sha256Canonical(manifest),
+-      request: { ...base, materializationPlanRef: planRef, prompt } });
++        disposition: "included_full", digest: sha256Canonical(sections[name as keyof typeof sections] as unknown as JsonValue) })) };
++    return finishInstructionAssembly(identity, manifest as unknown as Readonly<Record<string, JsonValue>>, { ...base, prompt });
+   } catch { return null; }
+ }
+ 
+@@ -372,34 +382,24 @@
+       worksiteContent: content,
+       sectionOrder: stage.assembly.sectionOrder, evaluationDataIncluded: applicationAssessment,
+     } as const;
+-    const planDigest = sha256Canonical(plan);
+-    const planRef = `prompt-plan://abiogenesis/semantic-stage/${planDigest.slice(7)}`;
+-    const envelope = { planRef, cCallRef: owner.call.cCallRef, cCallDigest: owner.call.cCallDigest,
+-      executionBasisRef: owner.execution.basisRef, executionBasisDigest: owner.execution.basisDigest,
+-      inputRef: owner.inputRef, inputDigest: owner.inputDigest,
+-      predecessorPrefix: basis.predecessorPrefix, sections } as unknown as Readonly<Record<string, JsonValue>>;
+-    const envelopeDigest = sha256Canonical(envelope);
+-    const rendered = stage.assembly.sectionOrder.map(name => `## ${name}\n${canonicalJson(sections[name]!)}`).join("\n\n");
++    const identity = assemblyIdentity("semantic-stage", plan, owner, basis.predecessorPrefix, { sections });
++    const rendered = renderInstructionSections(stage.assembly.sectionOrder, sections);
+     const promptBytes = Buffer.from(rendered, "utf8");
+     if (promptBytes.length > stage.assembly.maxPromptBytes)
+       return assemblyRefusal("declared_bound_overflow", policy, role, [stage.assembly.ruleRef]);
+-    const promptDigest = sha256Canonical(rendered);
+-    const manifest = { planRef, planDigest, envelopeDigest, rendererRef: stage.assetSurface.rendererRef,
++    const manifest = {
+       ...(stdoIdentity === null ? {} : { runEnvironment: stdoIdentity }),
+-      responseContractRef: stage.assetSurface.outputContractRefs[0]!, responseSchemaDigest: sha256Canonical(schema),
+       worksiteContent: { policy, role, content, inputInventoryDigest: inventoryDigest,
+         included: content === "not_required" ? [] : identities,
+         omitted: content === "not_required" ? identities : [], omissionReason: content === "not_required" ? "declared_not_required" : null },
+       sections: stage.assembly.sectionOrder.map(name => ({ name, disposition: name === "worksite" && content === "not_required" ? "included_identity_bodies_omitted" : "included_full",
+-        digest: sha256Canonical(sections[name]!) })), promptDigest, promptBytesDigest: sha256Bytes(promptBytes),
+-      promptByteCount: promptBytes.length };
+-    return deepFreeze({ kind: "native_instruction_assembly", schemaVersion: "5.0.0", planRef, planDigest, plan, envelope,
+-      envelopeDigest, manifest, manifestDigest: sha256Canonical(manifest),
+-      request: { actorRef: SEMANTIC_STAGE_IDS.workerActorRef, workerBindingRef: SEMANTIC_STAGE_IDS.workerBindingRef,
+-        implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest, materializationPlanRef: planRef,
++        digest: sha256Canonical(sections[name]!) })) };
++    return finishInstructionAssembly(identity, manifest,
++      { actorRef: SEMANTIC_STAGE_IDS.workerActorRef, workerBindingRef: SEMANTIC_STAGE_IDS.workerBindingRef,
++        implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest,
+         rendererRef: stage.assetSurface.rendererRef, instructionContractRef: owner.call.inputContractRef,
+         resultContractRef: stage.assetSurface.outputContractRefs[0]!, transportLane: "closed_prompt_proof",
+-        prompt: rendered, responseJsonSchema: schema } });
++        prompt: rendered, responseJsonSchema: schema }, promptBytes);
+   } catch { return assemblyRefusal("unavailable_required_content", policy, role, []); }
+ }
+ 
+@@ -546,13 +546,10 @@
+     proportionalityPolicy: stage.assembly.proportionalityPolicy, worksiteContent: content, sectionOrder: stage.assembly.sectionOrder,
+     evaluationDataIncluded: applicationAssessment, runEnvironment: stdoIdentity, actorContractDigest: contract.contractDigest,
+     selection: { selectors: requiredSelectors, omitted: context.omitted } };
+-  const planDigest = sha256Canonical(plan as unknown as JsonValue), planRef = `prompt-plan://abiogenesis/semantic-job/${planDigest.slice(7)}`;
+-  const envelope = { planRef, cCallRef: owner.call.cCallRef, cCallDigest: owner.call.cCallDigest,
+-    executionBasisRef: owner.execution.basisRef, executionBasisDigest: owner.execution.basisDigest, inputRef: owner.inputRef,
+-    inputDigest: owner.inputDigest, predecessorPrefix: basis.predecessorPrefix, sections } as unknown as Readonly<Record<string, JsonValue>>;
+-  const envelopeDigest = sha256Canonical(envelope), prompt = stage.assembly.sectionOrder.map(name => `## ${name}\n${canonicalJson(sections[name]!)}`).join("\n\n"), bytes = Buffer.from(prompt, "utf8");
++  const identity = assemblyIdentity("semantic-job", plan as unknown as Readonly<Record<string, JsonValue>>, owner, basis.predecessorPrefix, { sections });
++  const prompt = renderInstructionSections(stage.assembly.sectionOrder, sections), bytes = Buffer.from(prompt, "utf8");
+   if (bytes.length > stage.assembly.maxPromptBytes) return assemblyRefusal("declared_bound_overflow", stage.assembly.ruleRef, owner.role, ["maxPromptBytes"]);
+-  const manifest = { planRef, planDigest, envelopeDigest, rendererRef: stage.assetSurface.rendererRef, runEnvironment: stdoIdentity,
++  const manifest = { runEnvironment: stdoIdentity,
+     actorContractDigest: contract.contractDigest, selectedContextDigest: sha256Canonical(context as unknown as JsonValue),
+     selectedAssets: [...context.predecessors.map(row => ({ assetRef: row.assetRef, assetDigest: row.assetDigest,
+       selector: "declared_predecessor_semantics", disposition: "included_semantics" })), ...(context.currentCandidate === null ? [] : [{
+@@ -562,15 +559,12 @@
+       ...(revision === null ? {} : { revisionAssetMaterial: "complete_typed_assets_shared_with_history_by_exact_value", revisionRetainedTerms: "complete_ordered_terms_shared_with_obligations_by_exact_value",
+         revisionGroundedTerms: "ordered_exact_terms_shared_with_retained_terms", observedCandidateMaterial: "strict_json_value_shared_with_history_original_byte_identity_retained" }),
+       environmentAccessBodies: stdo === null ? [] : stdo.accessContent.map(row => ({ accessRef: row.accessRef, disposition: row.disposition })) },
+-    responseContractRef: stage.assetSurface.outputContractRefs[0]!, responseSchemaDigest: sha256Canonical(schema),
+     contextDigest: input.context?.observationDigest ?? null, worksiteContent: content,
+-    sections: stage.assembly.sectionOrder.map(name => ({ name, disposition: name === "worksite" && content === "not_required" ? "included_identity_bodies_omitted" : "included_full", digest: sha256Canonical(sections[name]!) })),
+-    promptDigest: sha256Canonical(prompt), promptBytesDigest: sha256Bytes(bytes), promptByteCount: bytes.length };
+-  return deepFreeze({ kind: "native_instruction_assembly", schemaVersion: "5.0.0", planRef, planDigest, plan: plan as unknown as Readonly<Record<string, JsonValue>>,
+-    envelope, envelopeDigest, manifest: manifest as unknown as Readonly<Record<string, JsonValue>>, manifestDigest: sha256Canonical(manifest as unknown as JsonValue),
+-    request: { actorRef: SEMANTIC_STAGE_IDS.workerActorRef, workerBindingRef: SEMANTIC_STAGE_IDS.workerBindingRef,
+-      implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest, materializationPlanRef: planRef, rendererRef: stage.assetSurface.rendererRef,
+-      instructionContractRef: owner.call.inputContractRef, resultContractRef: stage.assetSurface.outputContractRefs[0]!, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: schema } });
++    sections: stage.assembly.sectionOrder.map(name => ({ name, disposition: name === "worksite" && content === "not_required" ? "included_identity_bodies_omitted" : "included_full", digest: sha256Canonical(sections[name]!) })) };
++  return finishInstructionAssembly(identity, manifest as unknown as Readonly<Record<string, JsonValue>>,
++    { actorRef: SEMANTIC_STAGE_IDS.workerActorRef, workerBindingRef: SEMANTIC_STAGE_IDS.workerBindingRef,
++      implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest, rendererRef: stage.assetSurface.rendererRef,
++      instructionContractRef: owner.call.inputContractRef, resultContractRef: stage.assetSurface.outputContractRefs[0]!, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: schema }, bytes);
+ }
+ 
+ /** Pure rederivation for comparison/admission; no current filesystem dependency. */
+@@ -765,23 +759,17 @@
+     lifecycleDigest: sha256Canonical(owner.lifecycle as unknown as JsonValue), sourceDeclarationDigest: sha256Canonical((isSemanticJobEnvelope(envelope) ? envelope.sourceContext : envelope.sourceHandoff.declaration) as unknown as JsonValue), sectionOrder,
+     evaluationDataIncluded: false,
+     ...(decisionView ? { presentation: "native_revision_decision_view", repeatedMaterial: "local_presentation_refs", admittedCarriers: "unchanged" } : {}) };
+-  const planDigest = sha256Canonical(plan), planRef = `prompt-plan://abiogenesis/semantic-revision/${planDigest.slice(7)}`;
+-  const envelopeValue = { planRef, cCallRef: owner.call.cCallRef, cCallDigest: owner.call.cCallDigest,
+-    executionBasisRef: owner.execution.basisRef, executionBasisDigest: owner.execution.basisDigest, inputRef: owner.inputRef,
+-    inputDigest: owner.inputDigest, predecessorPrefix: basis.predecessorPrefix, sections } as unknown as Readonly<Record<string, JsonValue>>;
+-  const envelopeDigest = sha256Canonical(envelopeValue);
+-  const rendered = sectionOrder.map(name => `## ${name}\n${canonicalJson(sections[name]!)}`).join("\n\n"), bytes = Buffer.from(rendered, "utf8");
+-  const manifest = { planRef, planDigest, envelopeDigest, rendererRef, responseContractRef: SEMANTIC_REVISION_IDS.selectionRawContractRef,
++  const identity = assemblyIdentity("semantic-revision", plan, owner, basis.predecessorPrefix, { sections });
++  const rendered = renderInstructionSections(sectionOrder, sections);
++  const manifest = {
+     worksiteContent: { policy: "current_inventory", role: "selection", inputInventoryDigest: currentWorksiteDigest,
+       included: native === undefined ? worksiteIdentities(currentWorksite) : native.context.entries.filter(e => e.state === "file").map(e => ({ relativePath: e.relativePath, digest: e.digest, byteLength: e.byteLength })),
+       ...(native === undefined ? {} : { nativeContext: { ref: native.context.observationRef, digest: native.context.observationDigest } }), omitted: [], omissionReason: null },
+-    responseSchemaDigest: sha256Canonical(schema), sections: sectionOrder.map(name => ({ name, disposition: decisionView ? "included_decision_view" : "included_full", digest: sha256Canonical(sections[name]!) })),
+-    promptDigest: sha256Canonical(rendered), promptBytesDigest: sha256Bytes(bytes), promptByteCount: bytes.length };
+-  return deepFreeze({ kind: "native_instruction_assembly", schemaVersion: "5.0.0", planRef, planDigest, plan, envelope: envelopeValue,
+-    envelopeDigest, manifest, manifestDigest: sha256Canonical(manifest), request: { actorRef: SEMANTIC_STAGE_IDS.workerActorRef,
++    sections: sectionOrder.map(name => ({ name, disposition: decisionView ? "included_decision_view" : "included_full", digest: sha256Canonical(sections[name]!) })) };
++  return finishInstructionAssembly(identity, manifest, { actorRef: SEMANTIC_STAGE_IDS.workerActorRef,
+       workerBindingRef: SEMANTIC_STAGE_IDS.workerBindingRef, implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest,
+-      materializationPlanRef: planRef, rendererRef, instructionContractRef: owner.call.inputContractRef,
+-      resultContractRef: SEMANTIC_REVISION_IDS.selectionRawContractRef, transportLane: "closed_prompt_proof", prompt: rendered, responseJsonSchema: schema } });
++      rendererRef, instructionContractRef: owner.call.inputContractRef,
++      resultContractRef: SEMANTIC_REVISION_IDS.selectionRawContractRef, transportLane: "closed_prompt_proof", prompt: rendered, responseJsonSchema: schema });
+ }
+ 
+ export function nativeInstructionRequestMatches(basis: SemanticStageNativeBasis, input: unknown, request: ProbabilisticWorkerRequest): boolean {

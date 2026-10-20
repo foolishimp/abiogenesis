@@ -1,0 +1,10 @@
+{
+  "repository": "abiogenesis",
+  "branch": "main",
+  "head": "8b167264524bfae2c17a7d2a49491597f3c62ee0",
+  "remoteHead": "8b167264524bfae2c17a7d2a49491597f3c62ee0",
+  "equal": true,
+  "verifiedAt": "2026-09-25T21:41:02.495385+00:00",
+  "checkpoint": "successor-32",
+  "claim": "Reviewed repair and closed evidence checkpoint; active native38 excluded; no qualification or release claim."
+}

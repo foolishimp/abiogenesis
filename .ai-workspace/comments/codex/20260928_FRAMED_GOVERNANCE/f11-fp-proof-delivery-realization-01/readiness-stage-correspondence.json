@@ -1,0 +1,55 @@
+{
+  "baselinePopulation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage-population.json",
+    "bytes": 1706393,
+    "sha256": "0bda1275840dc9f7552a47bd40063e76d1a750d241c6f1ac112f179b536960ed",
+    "mode": 420
+  },
+  "baselineRows": 6512,
+  "copiedRows": 6513,
+  "copiedDirectories": 640,
+  "added": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-fp-proof-delivery.test.mjs"
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+        "kind": "file",
+        "bytes": 69953,
+        "sha256": "7d583452a6692ad06d66e4a997f1148f0999380a050d091ad2394c45c72b6d7b",
+        "mode": 420
+      },
+      "postimage": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+        "kind": "file",
+        "bytes": 70127,
+        "sha256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+        "mode": 420
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "kind": "file",
+        "bytes": 76350,
+        "sha256": "4a51cfe4adc7d5a200affb5b2ac8a704c01ead72a83e4fd1b632a4133f3ef997",
+        "mode": 420
+      },
+      "postimage": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "kind": "file",
+        "bytes": 76530,
+        "sha256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+        "mode": 420
+      }
+    }
+  ],
+  "unmodifiedRows": 6510,
+  "symlinkModeRelation": "mode follows target, as in accepted C05 population; literal targets compare exactly and lstat modes are separately retained in freeze",
+  "claim": "complete physical copied C05 source/support/contracts/compiled/dependency population; only selected two source effects and one JS emission differ",
+  "identityLimit": "source-built readiness only; retained C05 product manifest is not regenerated and does not admit this new body as a Product/Install"
+}

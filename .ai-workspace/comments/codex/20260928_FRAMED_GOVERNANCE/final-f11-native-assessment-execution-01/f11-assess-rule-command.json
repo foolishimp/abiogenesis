@@ -1,0 +1,28 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule.jsonl"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant",
+  "environment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/cache/npm",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/cache/npm-prefix",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/config/user.npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/config/global.npmrc",
+    "GIT_CONFIG_GLOBAL": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/config/global.gitconfig",
+    "GIT_CONFIG_SYSTEM": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/config/system.gitconfig",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "NODE_OPTIONS": "--max-old-space-size=4096",
+    "ABG_TS_CLAUDE_COMMAND": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "ABG_TS_CLAUDE_APPEND_ARGS": "[\"--model\",\"claude-opus-5-5\",\"--effort\",\"xhigh\"]",
+    "ABG_TS_FP_TIMEOUT_MS": "900000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "1200000",
+    "ABG_TS_FP_TERMINATION_GRACE_MS": "1000"
+  },
+  "budgetMs": 1440000,
+  "driverRemainingMs": 2356117.405167
+}

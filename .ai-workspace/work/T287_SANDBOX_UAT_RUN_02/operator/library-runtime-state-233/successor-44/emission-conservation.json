@@ -1,0 +1,30 @@
+{
+  "kind": "source44_emission_conservation",
+  "sources": 264,
+  "emissions": 528,
+  "declarationsByteExact43": 264,
+  "unchangedEmissions": 527,
+  "differences": [
+    {
+      "relativePath": "abg/native_work_reacquisition.js",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/build-01/code/src/abg/native_work_reacquisition.js",
+        "sha256": "b14f21b1b758d5591c7d6ac8174f9a2b8c76023b85d7f54e6a3fc70ad016cd69",
+        "bytes": 32550,
+        "relativePath": "abg/native_work_reacquisition.js"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/build-01/code/src/abg/native_work_reacquisition.js",
+        "relativePath": "abg/native_work_reacquisition.js",
+        "sha256": "134e23bc6ba742a64c1fa9cab9dd9570c19a1d97b06a2607de7b961a756dc66a",
+        "bytes": 32677
+      }
+    }
+  ],
+  "strippedDeclarationConsumerProofReused": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/declarations-01.result.json",
+    "sha256": "bb57d3a2407f186a54279e2d62b63c67668e977139fa3dbc457bb2440f5ee72c",
+    "bytes": 784,
+    "reason": "All264 declaration bodies and existing dependency population are unchanged; no new published signature or private type."
+  }
+}

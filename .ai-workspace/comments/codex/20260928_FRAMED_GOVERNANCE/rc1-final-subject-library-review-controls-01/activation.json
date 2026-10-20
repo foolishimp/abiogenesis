@@ -1,0 +1,15 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RC1_OFFLINE_SUBJECT_LIBRARY_REVIEW_GRANTS_WRITER_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "grant": "Prepare two provider-independent read-only review grants for the timeline first gate; update tracking only.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "activatedAt": "2026-10-03T14:11:57.881619+00:00"
+}

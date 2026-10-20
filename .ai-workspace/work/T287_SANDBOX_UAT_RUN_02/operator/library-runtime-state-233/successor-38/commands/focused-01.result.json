@@ -1,0 +1,17 @@
+{
+  "kind": "runtime_selected_component_check",
+  "sourceCut": 38,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/input-01/test_env/tests/t287-runtime-failure-diagnostic.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 1580.140459,
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/inputs-01.json",
+  "limits": [
+    "Deterministic boundary diagnostic alternatives and existing failure projection/cold/tamper/legacy controls. Finite caller callbacks and controlled basis/frame/replay premises; no installed authority/Testing/C2/native or effect/currentness credit."
+  ]
+}

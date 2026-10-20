@@ -1,0 +1,10 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_12",
+  "workResult": "NO_GO_EXTERNAL_COPY_ROLE_EQUALITY_PREFLIGHT",
+  "closedAt": "2026-10-03T02:14:30.657184+00:00",
+  "noRepairOrRetry": true,
+  "allWritesStopAfterFreeze": true,
+  "consumer": "Root Executive"
+}

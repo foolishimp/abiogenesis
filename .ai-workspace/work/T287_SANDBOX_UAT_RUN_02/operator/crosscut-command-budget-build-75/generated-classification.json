@@ -1,0 +1,126 @@
+{
+  "changed": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_command_execution.js",
+        "relativePath": "build/code/src/gtl/worksite_command_execution.js",
+        "sha256": "b16c6ed6cc63184329a3ab11db611a621a3b7d67a247a4cedbc7061ed317e06a",
+        "byteCount": 25001,
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_command_execution.js",
+        "relativePath": "build/code/src/gtl/worksite_command_execution.js",
+        "sha256": "6afd1478dcfb3582943a8b347ce2cd134f975997e223061db1135ce0ba5cf682",
+        "byteCount": 25001,
+        "mode": "0o644"
+      },
+      "cause": "Emission of exactly four refreshed existing member/span coordinate literals; no GTL meaning change."
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+        "relativePath": "build/code/src/product/semantic_job.d.ts",
+        "sha256": "6d9ecf2ca7fa8503e0946ccc00ce92ae8bdb451335ef755db0ef9d97cc5cdbd5",
+        "byteCount": 37774,
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+        "relativePath": "build/code/src/product/semantic_job.d.ts",
+        "sha256": "4442a26eedf5d27f44e4b30462697226bdfe82057572d862461fa592e082a3b5",
+        "byteCount": 37818,
+        "mode": "0o644"
+      },
+      "cause": "Two transitive declaration occurrences of the accepted73 existing grace term."
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.d.ts",
+        "relativePath": "build/code/src/product/worksite_command_execution.d.ts",
+        "sha256": "185f84b1f9a0379805fdf8a8bfd9a5f3f5f61950804f8fe12040f93eb0025850",
+        "byteCount": 29391,
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.d.ts",
+        "relativePath": "build/code/src/product/worksite_command_execution.d.ts",
+        "sha256": "bc58f2ca91174ceec4cd08ce623307d34dce836d7768bc4ac819893ea4b21e57",
+        "byteCount": 29413,
+        "mode": "0o644"
+      },
+      "cause": "One direct declaration occurrence of the accepted73 existing grace term."
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+        "relativePath": "build/code/src/product/worksite_command_execution.js",
+        "sha256": "13f2811ce19bc6d9923e36dae3850adaced0132ebb822566a24a82d322ba95ae",
+        "byteCount": 109681,
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+        "relativePath": "build/code/src/product/worksite_command_execution.js",
+        "sha256": "0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa",
+        "byteCount": 109703,
+        "mode": "0o644"
+      },
+      "cause": "Exact byte equality to frozen73 isolated compiled Product C2 owner."
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "relativePath": "contracts/capabilities/capability-definition-graph.json",
+        "sha256": "a5da98051decec388c5612fe84c1965c2714e60d2db98613fc8422191be9f370",
+        "byteCount": 197474,
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "relativePath": "contracts/capabilities/capability-definition-graph.json",
+        "sha256": "4538a260d2cdbac66a9ad32867da2f4be6ab9710a7cea89afacedb8281fdf09f",
+        "byteCount": 197474,
+        "mode": "0o644"
+      },
+      "cause": "Full canonical capability graph reconstructed;551 exact derived digest/reference consequences."
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+        "relativePath": "contracts/worksite/command-execution-context.inventory.json",
+        "sha256": "6b5f2e606ee842b7aabc991f5c53adbec3de3f272bacc8602827fe3db14cc7dd",
+        "byteCount": 255,
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+        "relativePath": "contracts/worksite/command-execution-context.inventory.json",
+        "sha256": "b768f223bee6d203c7d5762f87b1bfca6a4f1facda12c9592b5bdb445d1f36c4",
+        "byteCount": 255,
+        "mode": "0o644"
+      },
+      "cause": "Exact existing GTL context inventory owner content from the refreshed member digest."
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "relativePath": "product-toolchain-manifest.json",
+        "sha256": "e99333b2450235da181fb26e15f559bfb5f7c240751b99eb0a5e56b51e7e9917",
+        "byteCount": 3171685,
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "relativePath": "product-toolchain-manifest.json",
+        "sha256": "6cd9f792c5b79f30e06f37b291e4d5d534780355f1d3d7f03daa7525b6dbe25f",
+        "byteCount": 3171685,
+        "mode": "0o644"
+      },
+      "cause": "Normal content/catalog/declaration/publication/contribution projection; full owner joins passed."
+    }
+  ],
+  "unchangedCount": 927,
+  "pathsModesPreserved": true,
+  "semanticSourceAcceptanceSeparate": true
+}

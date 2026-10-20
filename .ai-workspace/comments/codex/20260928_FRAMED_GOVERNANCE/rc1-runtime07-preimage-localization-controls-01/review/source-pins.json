@@ -1,0 +1,455 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_RUNTIME07_PREIMAGE_LOCALIZATION_01",
+  "observedAt": "2026-10-02T08:31:13.388618+00:00",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/request.txt",
+      "kind": "file",
+      "bytes": 4581,
+      "sha256": "47e06ff29e400cf783fe9cd06b7663909dd80553e9bd564b57fcee15104b50ee",
+      "mode": 420,
+      "role": "fixed activation/subject/copy or accepted C06 boundary"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/subject.json",
+      "kind": "file",
+      "bytes": 3559,
+      "sha256": "4ee81d5df1109f98a6357b02d29def67c0eca9b2e7fd0b678ced429fde6f2ef2",
+      "mode": 420,
+      "role": "fixed activation/subject/copy or accepted C06 boundary"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/first-failure.json",
+      "kind": "file",
+      "bytes": 3846,
+      "sha256": "fc8baf4a246e53c7d53d779aae3ad3fe5959bef8a0b413a3901a04d88e302915",
+      "mode": 420,
+      "role": "fixed activation/subject/copy or accepted C06 boundary"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/closed-runtime-prefix.jsonl",
+      "kind": "file",
+      "bytes": 2750762,
+      "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "mode": 420,
+      "role": "fixed activation/subject/copy or accepted C06 boundary"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+      "kind": "file",
+      "bytes": 140347,
+      "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+      "mode": 420,
+      "role": "fixed activation/subject/copy or accepted C06 boundary"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source-freeze-manifest.json",
+      "kind": "file",
+      "bytes": 582556,
+      "sha256": "6c0d027ebf232aaed1082ac85f2c4e3c5dc62d4114e6e4f42b2308492497900e",
+      "mode": 420,
+      "role": "accepted construction provenance or actual publication/installation donor"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source-members.json",
+      "kind": "file",
+      "bytes": 6023700,
+      "sha256": "08ce69247a7606557e013653af31470b1a9ae84a4080634521b11250bad14b72",
+      "mode": 420,
+      "role": "accepted construction provenance or actual publication/installation donor"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install-population.json",
+      "kind": "file",
+      "bytes": 1433308,
+      "sha256": "ae8f3a771ff0e03a3a55e6b2e9b408c0d752c6e2e264fa4e6b3d556a8908716f",
+      "mode": 420,
+      "role": "accepted construction provenance or actual publication/installation donor"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-publication-bindings.json",
+      "kind": "file",
+      "bytes": 671563,
+      "sha256": "34142efde57a0a995747d47a76255613bbbfa90cbb3c973033397af2faf87a4b",
+      "mode": 420,
+      "role": "accepted construction provenance or actual publication/installation donor"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-installed-publication-results.json",
+      "kind": "file",
+      "bytes": 31177,
+      "sha256": "ade558adc27991e036866400b45828d03f8e1b9869420b54d86381cdbf843796",
+      "mode": 420,
+      "role": "accepted construction provenance or actual publication/installation donor"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+      "kind": "file",
+      "bytes": 40314,
+      "sha256": "572c226b91a8d7c1bc4911f26427306ec0aa00a081b08fb92a0e737ddc195354",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/declaration_closure.js",
+      "kind": "file",
+      "bytes": 34935,
+      "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "kind": "file",
+      "bytes": 76530,
+      "sha256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js",
+      "kind": "file",
+      "bytes": 70127,
+      "sha256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "kind": "file",
+      "bytes": 59021,
+      "sha256": "904103fed326cfbbf6fdbb2e9cbf5bcc7e171a4558cad5b5403e66609619fbc3",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js",
+      "kind": "file",
+      "bytes": 54801,
+      "sha256": "9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "kind": "file",
+      "bytes": 12182,
+      "sha256": "935aff49fca7f37738d512489a873bb04d9bc6ccad58e12d5198718e8fedde9a",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/self_conformance_semantics.js",
+      "kind": "file",
+      "bytes": 12097,
+      "sha256": "8b886a795d42ed050a59da59352daf725d7276d04df0f638dec521bd3886707e",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "kind": "file",
+      "bytes": 40955,
+      "sha256": "e2b77f22ec4516f36a28940ef0544223b59d8c6dcf681c383482595a6ebd3e29",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_contracts.js",
+      "kind": "file",
+      "bytes": 36688,
+      "sha256": "c56c2cc8e22c2edc238e22935fcf73490270e4cd0f5df1630badf26fca7751a9",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "kind": "file",
+      "bytes": 63360,
+      "sha256": "b8bb644121845e25567280642b6474d5a32d452119af5ad1812b02360c1249b6",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+      "kind": "file",
+      "bytes": 61459,
+      "sha256": "41a3ab04f071c10c39e4d713f4ca2f4e2dfc744bb81e44ae19e23e0840199033",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "kind": "file",
+      "bytes": 8607,
+      "sha256": "6534d19d6ea0c5a60fc1b12a548c69847aec85f62c2494b98780396711eb2891",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/qualification.js",
+      "kind": "file",
+      "bytes": 7461,
+      "sha256": "1b082310a15cfd6144a8d7b7311567ca9d7190ced3baa2740ed334baccddc535",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "kind": "file",
+      "bytes": 46996,
+      "sha256": "73d296ac7dbcab675c5a1f9a1399459356d81f9cd34772a0d037a6daf0a1e920",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/execution_resolution.js",
+      "kind": "file",
+      "bytes": 38571,
+      "sha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "kind": "file",
+      "bytes": 19573,
+      "sha256": "5da1cf726fe749056d81ac69ef60188e38977bd1df3b9b59df68fab9228f3140",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/semantics.js",
+      "kind": "file",
+      "bytes": 10236,
+      "sha256": "d3d39b2e2a08392de15e66cc300850707bb0afd2e7ead5e0260b4ff542184450",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "kind": "file",
+      "bytes": 35923,
+      "sha256": "3cb0d09a18e00af62bbb1d8ff4518fa7de04befdb3ba979fe06b1d2bb1ad01e4",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/ccall_lifecycle.js",
+      "kind": "file",
+      "bytes": 33629,
+      "sha256": "61b5bc0a4066dfbb2d2ce420ae7c069bef12be5dcb1aaf4eff0778b82c4310a9",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "kind": "file",
+      "bytes": 47589,
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/graph_execute.js",
+      "kind": "file",
+      "bytes": 43099,
+      "sha256": "1c1860ea7c6420234d5a23834114a37215137aabae37707606a835eb036abd3e",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "kind": "file",
+      "bytes": 18649,
+      "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/self_conformance.js",
+      "kind": "file",
+      "bytes": 18937,
+      "sha256": "4de8b39dbdbe7f1d1691ea326f6047fe95b19040655d284ca6b78f46036b6037",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "kind": "file",
+      "bytes": 83250,
+      "sha256": "4a78213ed2d4f22e3b864ebe58025746b389476d6517d1440dedbde33d6034e1",
+      "mode": 420,
+      "role": "current canonical owner source",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/owner_bindings/run_invocation.js",
+      "kind": "file",
+      "bytes": 78618,
+      "sha256": "87c478e198a6f24027d435c5371dc8e7ccca65d4eac13d2f26a2b83b54108e1e",
+      "mode": 420,
+      "role": "actual accepted installed emitted owner",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/specification/PRODUCT.md",
+      "kind": "file",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "mode": 420,
+      "role": "unchanged Product/requirement/design or prior bounded proof escape",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "kind": "file",
+      "bytes": 6880,
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "mode": 420,
+      "role": "unchanged Product/requirement/design or prior bounded proof escape",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "kind": "file",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+      "mode": 420,
+      "role": "unchanged Product/requirement/design or prior bounded proof escape",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+      "kind": "file",
+      "bytes": 11009,
+      "sha256": "7188a3e5238c532153398f1bc8448373b78986cf7477d6f0e4a5b1facf3073eb",
+      "mode": 420,
+      "role": "unchanged Product/requirement/design or prior bounded proof escape",
+      "frozenManifestCorrespondence": "matched"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+      "kind": "file",
+      "bytes": 865006,
+      "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+      "mode": 292,
+      "role": "accepted Q08 exact caller/preparation donor; no repeated input campaign"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11-bound-packet.json",
+      "kind": "file",
+      "bytes": 29337915,
+      "sha256": "ee08c36919f0a5e4a806e188b45cb2dbe99836e1b10682e0808bbb4fb92b5e7b",
+      "mode": 420,
+      "role": "accepted Q08 exact caller/preparation donor; no repeated input campaign"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11-bound-worker-request.json",
+      "kind": "file",
+      "bytes": 372940,
+      "sha256": "8f3df10e93efb9764f18f72e0cdebed8d1e7bc88a002364275f6a17b18224c2f",
+      "mode": 420,
+      "role": "accepted Q08 exact caller/preparation donor; no repeated input campaign"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/actual-owner-preparation-readiness.json",
+      "kind": "file",
+      "bytes": 1231,
+      "sha256": "d590c13e3786e52ded0c2c7ead1b333b9e6b16aa07e6b1759073ef3cb0395d1f",
+      "mode": 420,
+      "role": "accepted Q08 exact caller/preparation donor; no repeated input campaign"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+      "kind": "file",
+      "bytes": 10840688,
+      "sha256": "943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+      "mode": 420,
+      "role": "unchanged original published wrapper"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+      "kind": "file",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 292,
+      "role": "installed literal a_c assignment carrier"
+    }
+  ],
+  "recordCount": 46,
+  "recordBytes": 54290472,
+  "selectedCanonicalSourceCount": 13,
+  "selectedActualEmittedOwnerCount": 13,
+  "sourceManifest": "final-source-freeze-manifest.json",
+  "sourceRootHintErratum": "subject.sourceRoot is only a mistaken convenience hint; members already carry final-source paths relative to C06; no Runtime cause",
+  "sourceOrCandidateMutated": false,
+  "Q08NativePreparationReuse": {
+    "inputDigest": "sha256:910738abe7190207d20bc5c0abec05de4d35f65bb82a90638264f73741f63ce0",
+    "requestDigest": "sha256:c5d12e83e7c1fd10e0bb18b3035cd3e48bf39ed4aa7fb586cdcccf38c1bf0062",
+    "promptRawBytes": 349314,
+    "promptRawSHA256": "f2f603d781a18a9fd018c53cfda4170f9ab350747a2f42e75736c9d90dad2099",
+    "promptCanonicalDigest": "sha256:2dd4f8550375c6978595f438c5aae76fac3c0fdfe624ac9d39a6f3a83c1a3cfb",
+    "rawDigest": "sha256:bdf89722291e6b97769931cba2c2cfac0e002e682054714b4e1ac9f2e02be042",
+    "rawBytes": 15860,
+    "rawEqualsAcceptedQ08": true,
+    "rawCriteria": 1,
+    "rawAttributions": 10,
+    "semanticAdequacy": "unknown"
+  },
+  "selectedClosureDataInspection": {
+    "rootGraphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+    "childGraphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+    "childGraphFunctionDigest": "sha256:e5148fd17ef65e688f6c1308032f00568a3be663dbd31e50a57744fbc7b6b8a8",
+    "rawContractRef": "contract://abiogenesis/qualification/assessment-raw@5",
+    "rawContractValueKind": "qualification_raw_judgment",
+    "rawReferencePathsInChild": [
+      "environment.carries.0"
+    ],
+    "collectorProjectedContractRefs": [
+      "contract://abiogenesis/qualification/assessment-input@5",
+      "contract://abiogenesis/qualification/judgment@5",
+      "contract://abiogenesis/qualification/self-conformance/evidence@5",
+      "contract://abiogenesis/qualification/self-conformance/failure@5",
+      "contract://abiogenesis/qualification/self-conformance/judgment@5",
+      "contract://abiogenesis/qualification/self-conformance/refusal@5",
+      "contract://abiogenesis/qualification/self-conformance/transition@5"
+    ],
+    "rawIncludedByCurrentCollector": false,
+    "wrapperPublishedContractCount": 0,
+    "wrapperPublicationMember": {
+      "bytes": 7004,
+      "sha256": "0b56841c814fe17f6f0a6bd244343e8e781721da4fc877fe1407c8591ebb5d94"
+    },
+    "wrapperSemanticsMember": {
+      "bytes": 1413,
+      "sha256": "c114c148f5f8eb13df2973ef9cf626ee8fca6e5caf41bf846a33577524a3c606"
+    },
+    "method": "pure data comparison to selected frozen source relation, not owner execution"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "status": "CLOSED",
+  "kind": "prepared_product_run_invocation",
+  "actualSetupAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+    "bytes": 9596,
+    "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74",
+    "mode": 420
+  },
+  "actualBinding": {
+    "ref": "workspace-binding://abiogenesis/e77af2a8ec9be7f3956fdcab7ea159bed881119efbdb75bcbd3996bae36806b5",
+    "digest": "sha256:e77af2a8ec9be7f3956fdcab7ea159bed881119efbdb75bcbd3996bae36806b5"
+  },
+  "sameProcessNominalChecks": 1,
+  "coreProgram": "program://abiogenesis/qualification/assess@5",
+  "parentProgram": "program://abiogenesis-fixture/f11-carrier/parent@5",
+  "referenceOwnerPrepared": true,
+  "completeEstablishedAssessmentView": true,
+  "requestDigest": "sha256:035fe24ed43d193b42434e5e8433209dc3c4daf88391fd5220042bc4817ec73e",
+  "promptUtf8Bytes": 653999,
+  "promptSHA256": "sha256:dce932bc225cce2e4ff348c93d801eff027bd062625ab881be60fcc0d1f36f1f",
+  "scope": "pure preparation over already admitted Setup09 coordinates",
+  "newTaskOrRunAdmission": false,
+  "RunInvocation": false,
+  "providerCalls": 0
+}

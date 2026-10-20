@@ -1,0 +1,14 @@
+{
+  "status": "READY",
+  "donor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04",
+  "adaptations": [
+    "fresh C05 exact identity",
+    "fresh actor/op/authority/cache/root/event coordinates",
+    "hostile owned-task npm_config_bin_links=true"
+  ],
+  "completeOldCallerShapeRetained": true,
+  "newTaskRunHelpers": 0,
+  "sourceOrWrapperChanges": 0,
+  "sourceOwnedBinFlag": "C05 install_product.js explicit --bin-links=false",
+  "heap": "unchanged"
+}

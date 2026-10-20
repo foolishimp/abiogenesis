@@ -1,0 +1,61 @@
+{
+  "records": [
+    {
+      "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "supplementalAttributionSources": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/record.json",
+          "startByte": 0,
+          "endByte": 3347,
+          "spanDigest": "sha256:f1b66efa76bda2099be60785ec0ba2baebebdf76d30f4aa32a4c998112e438ba"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/s03-account.md",
+          "startByte": 0,
+          "endByte": 1536,
+          "spanDigest": "sha256:e5dcca3d6df1c59d2c540ac4b4a310d722e63d0736d7158ac6f9497e174c006d"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json",
+          "startByte": 0,
+          "endByte": 2403,
+          "spanDigest": "sha256:03373c18ea01825317ab3f02a07698b5eb5c17eb030ba53a7c1fff26a46c76fd"
+        }
+      ]
+    },
+    {
+      "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "supplementalAttributionSources": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/record.json",
+          "startByte": 0,
+          "endByte": 3347,
+          "spanDigest": "sha256:f1b66efa76bda2099be60785ec0ba2baebebdf76d30f4aa32a4c998112e438ba"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/selected-action-account.md",
+          "startByte": 0,
+          "endByte": 1601,
+          "spanDigest": "sha256:ac3cb7c5da7d23d67f563ec795cca0bd6ade478a30844ed090fd898487d16bcf"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json",
+          "startByte": 0,
+          "endByte": 2403,
+          "spanDigest": "sha256:03373c18ea01825317ab3f02a07698b5eb5c17eb030ba53a7c1fff26a46c76fd"
+        }
+      ]
+    }
+  ],
+  "actualSourcePaths": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/record.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/s03-account.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/selected-action-account.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json"
+  ],
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json",
+    "bytes": 2403,
+    "sha256": "03373c18ea01825317ab3f02a07698b5eb5c17eb030ba53a7c1fff26a46c76fd"
+  }
+}

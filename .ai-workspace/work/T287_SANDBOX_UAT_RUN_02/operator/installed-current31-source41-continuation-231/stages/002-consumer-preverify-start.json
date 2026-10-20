@@ -1,0 +1,11 @@
+{
+  "stage": "consumer-preverify-start",
+  "rss": 1981497344,
+  "heapTotal": 1647263744,
+  "heapUsed": 1531356520,
+  "external": 97614488,
+  "arrayBuffers": 95197627,
+  "at": "2026-10-09T19:02:05.732Z",
+  "elapsedMs": 21385.042084,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+}

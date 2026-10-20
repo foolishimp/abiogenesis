@@ -1,0 +1,104 @@
+{
+  "status": "CLOSED_PREPARED_NOT_LAUNCHED",
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-requirements@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-requirements@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-requirements@5"
+  },
+  "selectionChoice": {
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/requirements@5"
+  },
+  "inputDigest": "sha256:f3e43b6f531e4c6bc886b5eebff29e6feced9770e6eb3438227eae38f0cb0a4a",
+  "sourceIntakeRun": {
+    "digest": "sha256:dea7276802cf397491674f8f6976bdd2dc36cbc7a83c91ecd53c31705f4ff52c",
+    "ref": "run://abiogenesis/60e3adcffd3f7567366326b67b70067a569d184eab2c7e812d4473adc6fe9783"
+  },
+  "originalSourceRun": {
+    "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad",
+    "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e"
+  },
+  "originalSourcePrefix": {
+    "coordinateDigest": "sha256:0db32d448006dbd43d3a303eea9648002798fa1bca8e5e1c4bec5a733433a7d1",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:0bf8b684c95e256f9daa40c25abaa0a9d945a974b12d6a93d572b8a9bcc7e2e9",
+    "prefixLength": 104482827,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "calls": [
+    {
+      "label": "selected-suffix-view",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "invocationRef": "invocation://abiogenesis/7c2a630bb4b36ed88d6e5a540c8209344ae9a2dadc84aa7df78898f0d433a817"
+    },
+    {
+      "label": "selected-suffix-conformance",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/7e92e071e39310ba314ed426b1eae6c34b41c3586c8ad3eac676358b5d13fe08"
+    }
+  ],
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "prefixLength": 140376671,
+      "prefixDigest": "sha256:47a7b0324ee6d81657fe886f69d6129ce9eccf943f4c2f9184fa51fd1e8bfa57",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 459405010,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+      },
+      "coordinateDigest": "sha256:2ee4b82a8ac0bbbf0ba2f0e9f9fd23a809401834bd56e719d8d2aacde5ec6df0"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "device": 16777230,
+      "inode": 459405010,
+      "eventLogDigest": "sha256:47a7b0324ee6d81657fe886f69d6129ce9eccf943f4c2f9184fa51fd1e8bfa57",
+      "durableByteLength": 140376671,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "authorityDigest": "sha256:5dbb5196f06c1f0b41df17c9ddb3cdaf0d70a92bed4a96259a05ac284b8a47fe"
+    }
+  },
+  "transport": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "5"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:64d2a2e971603ad180dab7a009392bb71004f4cec7ce85e525bdda386e2bab44"
+  },
+  "readbackMs": 600000,
+  "maximumActorOccurrences": 12,
+  "perOccurrenceUsd": 5,
+  "limitsUnchanged": true
+}

@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-09T09:16:25.492421Z",
+  "ownedProcesses": [
+    {
+      "pid": 68163,
+      "status": "ESRCH"
+    },
+    {
+      "pid": 68165,
+      "status": "ESRCH"
+    }
+  ],
+  "ownedGroups": [
+    {
+      "pgid": 68163,
+      "status": "ESRCH"
+    },
+    {
+      "pgid": 68165,
+      "status": "ESRCH"
+    }
+  ],
+  "operatorSignals": [],
+  "selectedLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+  "selectedLockAbsent": true,
+  "actualFinalCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "source189OwnerLock": "Only the selected dead48400 lock was recovered/released by the actual canonical SDK; no manual unlink or other recovery.",
+  "logStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1690085978,
+    "mtimeNs": "1791531873723955484"
+  },
+  "entryAfterPhysicalIdentityExact": true,
+  "noExtraEventLogReadHashReparse": true
+}

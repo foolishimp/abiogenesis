@@ -1,3 +1,6 @@
+import { indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, projectOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
+import type { RuntimeEventScan } from "./runtime_history.js";
 import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "../shared/admission_predicates.js";
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
@@ -20,12 +23,12 @@ import {
   constructRuntimeFluent,
   deriveRuntimeEventCalculusProjection,
   holdsAt,
-  type RuntimeEventCalculusProjection,
+  type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
 } from "./event_calculus.js";
 import {
   runtimePrefixComputation,
   isImmutableRuntimeValue,
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix, runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
   validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
@@ -44,7 +47,8 @@ import {
   projectRunQuiescence,
   projectRunIdentityAtPrefix,
   projectRunSemanticReplayProjection,
-  projectRunReplayContext,
+  projectOwnedRunReplayContext,
+  projectReplayCCallGuardAtPrefix, projectValidatedReplayRouteAtPrefix,
   type ReplayCCallState,
   type ReplayRouteState,
   type ReplayState,
@@ -128,13 +132,13 @@ export type AbgProjectReadResult<
 
 interface PreparedRead<K extends AbgProjectReadMemberKey> {
   readonly packet: AbgProjectReadPacket<K>;
-  readonly events: readonly RuntimeEvent[];
-  readonly fullPrefix: ValidatedRuntimeEventPrefix;
+  readonly events: RuntimeEventScan;
+  readonly fullPrefix: RuntimeEventPrefix;
 }
 
 interface RunReadContext {
-  readonly prefix: ValidatedRuntimeEventPrefix;
-  readonly calculus: RuntimeEventCalculusProjection;
+  readonly prefix: RuntimeEventPrefix;
+  readonly calculus: RuntimeHeldFluentProjection;
   readonly replay: ReplayState;
   readonly semanticReplay: RunSemanticReplayProjection;
 }
@@ -228,13 +232,13 @@ function eventRecord(event: RuntimeEvent): Readonly<Record<string, JsonValue>> {
 
 /** Reconstruct the existing scope carrier, then ask its native owner to verify
  * it. No current active-parent assumption is made at read time. */
-function scopeForBasis(prefix: ValidatedRuntimeEventPrefix, basis: ExecutionBasis): OpenedTraversalScope {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const graph = one(events.filter((event) => event.kind === "graph_call_opened" &&
+function scopeForBasis(prefix: RuntimeEventPrefix, basis: ExecutionBasis): OpenedTraversalScope {
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const graph = one(indexedRuntimeEvents(prefix,"kind:graph_call_opened").filter((event) =>
     event.basisId === basis.basisRef), "basis GraphCall");
-  const frame = one(events.filter((event) => event.kind === "frame_opened" &&
+  const frame = one(indexedRuntimeEvents(prefix,"kind:frame_opened").filter((event) =>
     event.basisId === basis.basisRef && event.graphCallId === graph.graphCallId), "basis Frame");
-  const run = one(events.filter((event) => event.kind === "run_segment_opened" &&
+  const run = one(indexedRuntimeEvents(prefix,"kind:run_segment_opened").filter((event) =>
     event.runId === graph.runId), "Run opening");
   const g = eventRecord(graph), f = eventRecord(frame), r = eventRecord(run);
   if (g.graphFunctionRef !== basis.graphFunctionRef || g.graphFunctionDigest !== basis.graphFunctionDigest ||
@@ -270,7 +274,7 @@ function terminalDeclaration(
   sourceInput?: AbgHistoricalGraphCallSourceResource["input"],
 ): Readonly<{ contract: AbgRunTruthCoordinate; source?: Omit<AbgHistoricalGraphCallSource, "terminalResult"> }> {
   const prefix = prepared.fullPrefix;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, basis.invocationAdmissionRef);
   if (invocation === null) throw new TypeError("terminal result lacks its exact invocation");
   const inherited = ["invocationAdmissionRef", "invocationRef", "workspaceBindingId", "workspaceBindingDigest",
@@ -291,13 +295,13 @@ function terminalDeclaration(
     const parent = projectExactExecutionBasisAtPrefix(prefix, root.parentExecutionBasisRef);
     if (parent === null) throw new TypeError("terminal child parent basis is absent");
     const parentScope = scopeForBasis(prefix, parent);
-    const admission = one(events.filter((event) => event.eventId === root.admissionEventRef), "child basis admission");
-    const previous = events.find((event) => event.admissionOrdinal === admission.admissionOrdinal - 1);
+    const admission = one(indexedRuntimeEvents(prefix,"id:"+root.admissionEventRef), "child basis admission");
+    const historical = validatedRuntimeEventPrefixBeforeEvent(prefix, admission.eventId);
+    const previous = runtimeEventPrefixLastEnvelope(historical);
     if (previous === undefined || root.parentCCallRef === null ||
         root.parentTraversalScopeRef !== parentScope.scopeRef || parentScope.runId !== scope.runId) {
       throw new TypeError("terminal child scope crosses the admitted parent");
     }
-    const historical = validatedRuntimeEventPrefixThroughEvent(prefix, previous.eventId);
     const parentTruth = projectCurrentChildParentCCallAtPrefix(historical, {
       parentCCallRef: root.parentCCallRef, parentExecutionBasisRef: parent.basisRef,
       runId: parentScope.runId, graphCallId: parentScope.graphCallId, frameId: parentScope.frameId,
@@ -325,13 +329,13 @@ function terminalDeclaration(
   const environment = projectExactPrefixWorkspaceEnvironment(prepared.packet.prefix,
     truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest));
   if (environment.kind !== "exact_prefix_workspace_environment") throw new TypeError("historical environment is absent");
-  const invocationEvent = one(events.filter((event) => event.eventId === invocation.admissionEventRef), "invocation event");
+  const invocationEvent = one(indexedRuntimeEvents(prefix,"id:"+invocation.admissionEventRef), "invocation event");
   const installs = environment.productInstalls.map((install) =>
     projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, install.admissionEventRef));
   const environmentEventRefs = [...environment.productInstalls.map((row) => row.admissionEventRef),
     environment.workspaceBinding.admissionEventRef];
   if (installs.some((install) => install === null) || environmentEventRefs.some((ref) =>
-    events.filter((event) => event.eventId === ref && event.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) {
+    indexedRuntimeEvents(prefix,"id:"+ref).filter((event) => event.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) {
     throw new TypeError("declaration proof environment is not historical to the original invocation");
   }
   const { catalog, catalogView } = reconstructHistoricalDeclarationCatalog(proof, {
@@ -421,23 +425,31 @@ function terminalOutcome(
   prepared: PreparedRead<AbgProjectReadMemberKey>, context: RunReadContext,
   graphCallId: string, requireRunClosed: boolean, sourceInput?: AbgHistoricalGraphCallSourceResource["input"],
 ): Readonly<{ terminalResult: AbgTypedTerminalResult; source?: Omit<AbgHistoricalGraphCallSource, "terminalResult"> }> | null {
-  const events = runtimeEventsFromValidatedPrefix(context.prefix);
-  const closes = events.filter((event) => event.kind === "graph_call_closed" && event.aggregateId === graphCallId);
-  if (closes.length === 0 || (requireRunClosed && context.replay.runtimeStatus !== "closed")) return null;
+  const rows=graphCallRows(context,graphCallId);
+  return terminalOutcomeFromSelectedFacts(prepared,{prefix:context.prefix,runId:context.replay.runId,runClosed:context.replay.runtimeStatus === "closed"},graphCallId,requireRunClosed,terminalResult(rows.routes,rows.cCalls),sourceInput);
+}
+
+function terminalOutcomeFromSelectedFacts(
+  prepared: PreparedRead<AbgProjectReadMemberKey>,
+  context: Readonly<{ prefix: RuntimeEventPrefix; runId: string | null; runClosed: boolean }>,
+  graphCallId: string, requireRunClosed: boolean, terminal: Readonly<{ route: ReplayRouteState }> | null,
+  sourceInput?: AbgHistoricalGraphCallSourceResource["input"],
+): Readonly<{ terminalResult: AbgTypedTerminalResult; source?: Omit<AbgHistoricalGraphCallSource, "terminalResult"> }> | null {
+  const events = runtimeEventBodiesAtPrefix(context.prefix);
+  const closes = indexedRuntimeEvents(context.prefix,"kind:graph_call_closed").filter((event) => event.aggregateId === graphCallId);
+  if (closes.length === 0 || (requireRunClosed && !context.runClosed)) return null;
   const closed = one(closes, "GraphCall close"), closeBody = eventRecord(closed);
-  const rows = graphCallRows(context, graphCallId);
-  const terminal = terminalResult(rows.routes, rows.cCalls);
   if (terminal === null) throw new TypeError("closed scope lacks one exact terminal producer");
   const route = projectHistoricalTraversalRouteAtPrefix(context.prefix, terminal.route.admissionEventRef, prepared.fullPrefix);
   if (route === null || route.routeKind !== "terminal" || route.cCallRef === null || route.judgmentRef === null) {
     throw new TypeError("terminal route has no authenticated native owner");
   }
-  const open = one(events.filter((event) => event.kind === "c_call_opened" && event.aggregateId === route.cCallRef), "terminal CCall opening");
-  const fibre = one(events.filter((event) => event.kind === "c_call_fibre_selected" && event.aggregateId === route.cCallRef), "terminal CCall fibre");
-  const resultEvent = one(events.filter((event) => event.kind === "c_call_result_admitted" && event.aggregateId === route.cCallRef), "terminal result admission");
-  const judgmentEvent = one(events.filter((event) => event.kind === "c_call_judged" && event.aggregateId === route.cCallRef), "terminal judgment admission");
+  const open = one(indexedRuntimeEvents(context.prefix,"kind:c_call_opened").filter((event) => event.aggregateId === route.cCallRef), "terminal CCall opening");
+  const fibre = one(indexedRuntimeEvents(context.prefix,"kind:c_call_fibre_selected").filter((event) => event.aggregateId === route.cCallRef), "terminal CCall fibre");
+  const resultEvent = one(indexedRuntimeEvents(context.prefix,"kind:c_call_result_admitted").filter((event) => event.aggregateId === route.cCallRef), "terminal result admission");
+  const judgmentEvent = one(indexedRuntimeEvents(context.prefix,"kind:c_call_judged").filter((event) => event.aggregateId === route.cCallRef), "terminal judgment admission");
   const basis = open.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prepared.fullPrefix, open.basisId);
-  if (basis === null || open.graphCallId !== graphCallId || open.runId !== context.replay.runId) throw new TypeError("terminal producer crosses scope or basis");
+  if (basis === null || open.graphCallId !== graphCallId || open.runId !== context.runId) throw new TypeError("terminal producer crosses scope or basis");
   const scope = scopeForBasis(prepared.fullPrefix, basis);
   if (scope.graphCallId !== graphCallId || scope.frameId !== open.frameId) throw new TypeError("terminal producer crosses native scope");
   const o = eventRecord(open), f = eventRecord(fibre);
@@ -455,11 +467,11 @@ function terminalOutcome(
       route.declarationRef !== basis.graphRef || route.declarationDigest !== basis.graphDigest ||
       route.sourceCursorRef !== o.cursorRef || route.sourceCursorDigest !== o.cursorDigest ||
       route.contractRef !== basis.transitionContractRef) throw new TypeError("terminal result, judgment and route do not join");
-  const reached = one(events.filter((event) => event.kind === "terminal_reached" && event.graphCallId === graphCallId), "scope terminal fact");
-  const routeEvent = one(events.filter((event) => event.eventId === route.admissionEventRef), "terminal route event");
+  const reached = one(indexedRuntimeEvents(context.prefix,"kind:terminal_reached").filter((event) => event.graphCallId === graphCallId), "scope terminal fact");
+  const routeEvent = one(indexedRuntimeEvents(context.prefix,"id:"+route.admissionEventRef), "terminal route event");
   const body = eventRecord(reached);
   const { closureRef, closureDigest, ...closureBody } = body;
-  const frameClosed = one(events.filter((event) => event.kind === "frame_closed" && event.eventId === closeBody.frameClosedEventRef), "terminal Frame close");
+  const frameClosed = one(indexedRuntimeEvents(context.prefix,"kind:frame_closed").filter((event) => event.eventId === closeBody.frameClosedEventRef), "terminal Frame close");
   if (sha256Canonical(closureBody) !== closureDigest || closureRef !== `closure://abiogenesis/${String(closureDigest).slice(7)}` ||
       body.cCallRef !== route.cCallRef || body.resultRef !== outcome.result.resultRef || body.judgmentRef !== route.judgmentRef ||
       body.routeRef !== route.routeRef || body.closureContractRef !== basis.closureContractRef ||
@@ -474,7 +486,7 @@ function terminalOutcome(
       closed.basisId !== basis.basisRef || closeBody.closureContractRef !== basis.closureContractRef ||
       !closed.causationEventRefs.includes(frameClosed.eventId)) throw new TypeError("terminal closure facts do not join the selected producer");
   if (requireRunClosed) {
-    const runClosed = one(events.filter((event) => event.kind === "run_closed"), "Run close");
+    const runClosed = one(indexedRuntimeEvents(context.prefix,"kind:run_closed"), "Run close");
     if (runClosed.basisId !== basis.basisRef || eventRecord(runClosed).graphCallClosedEventRef !== closed.eventId ||
         !runClosed.causationEventRefs.includes(closed.eventId)) throw new TypeError("Run close does not join its root terminal");
   }
@@ -513,13 +525,11 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
 ): AbgHistoricalGraphCallSource | null {
   try {
     const prefix = captureDurablePrefixCoordinate(suppliedPrefix);
-    const events = readRuntimeEventsAtDurablePrefix(prefix);
-    const fullPrefix = selectValidatedRuntimeEventPrefix(events);
+    const fullPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(prefix);
+    const events = runtimeEventBodiesAtPrefix(fullPrefix);
     const retained = runtimePrefixComputation(fullPrefix, HISTORICAL_GRAPH_CALL_SOURCES,
-      () => new WeakMap<AbgHistoricalGraphCallSourceResource, { minimumOrdinal: number; value: AbgHistoricalGraphCallSource }>());
-    const previous = retained.get(resource);
-    const lastOrdinal = events.at(-1)?.admissionOrdinal ?? 0;
-    if (previous !== undefined && previous.minimumOrdinal <= lastOrdinal) return previous.value;
+      () => new WeakMap<AbgHistoricalGraphCallSourceResource, { minimumOrdinal: number }>());
+    const lastOrdinal = runtimeEventPrefixExtent(fullPrefix).lastOrdinal;
     if (!isImmutableRuntimeValue(resource) || resource.kind !== "abg_historical_graph_call_source_resource" ||
         resource.schemaVersion !== "5.0.0" || !hasExactDataFields(resource, ["kind", "schemaVersion", "terminal", "input", "declarationProof",
           ...(resource.declarationDependencies === undefined ? [] : ["declarationDependencies"])]) ||
@@ -528,15 +538,24 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
       memberKey: "graph_call_result", prefix, targetRef: resource.terminal.producer.graphCallRef, declarationProof: resource.declarationProof });
     const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix });
     const runId = runIdForGraphCall(prepared, packet.targetRef);
-    const context = runId === null ? null : runContext(prepared, runId);
-    const result = context === null ? null : terminalOutcome(prepared, context, packet.targetRef, false, resource.input);
+    const runPrefix = runId === null ? null : selectRuntimeEventPrefixFromAuthority(fullPrefix,{runId});
+    const terminalRoutes = runPrefix === null ? [] : indexedRuntimeEventEnvelopes(runPrefix,"kind:traversal_route_admitted")
+      .filter(row => row.graphCallId === packet.targetRef)
+      .map(row => projectValidatedReplayRouteAtPrefix(runPrefix,row.eventId,fullPrefix))
+      .filter((row): row is ReplayRouteState => row?.routeKind === "terminal");
+    const selectedTerminal = terminalRoutes.length !== 1 || terminalRoutes[0]!.cCallRef === null || runPrefix === null ? null
+      : {route:terminalRoutes[0]!,result:projectReplayCCallGuardAtPrefix(runPrefix,terminalRoutes[0]!.cCallRef)};
+    const exactTerminal = selectedTerminal?.result.resultRef !== null && selectedTerminal?.result.resultDigest !== null ? selectedTerminal : null;
+    const result = runPrefix === null || runId === null ? null : terminalOutcomeFromSelectedFacts(prepared,
+      {prefix:runPrefix,runId,runClosed:indexedRuntimeEventEnvelopes(runPrefix,"kind:run_closed").length === 1},
+      packet.targetRef,false,exactTerminal,resource.input);
     if (result?.source === undefined) return null;
     const { value: _value, projectionBasis: _basis, ...terminal } = result.terminalResult;
     if (!isDeepStrictEqual(terminal, resource.terminal)) return null;
     const value = Object.freeze({ terminalResult: result.terminalResult, ...result.source });
     // The complete prefix is sufficient and prevents a historical cut from
     // borrowing a result authenticated only in a later owner state.
-    retained.set(resource, { minimumOrdinal: lastOrdinal, value });
+    retained.set(resource, { minimumOrdinal: lastOrdinal });
     return value;
   } catch { return null; }
 }
@@ -655,7 +674,7 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
 function runIds(prepared: PreparedRead<AbgProjectReadMemberKey>): readonly string[] {
   return Object.freeze([
     ...new Set(
-      runtimeEventsFromValidatedPrefix(prepared.fullPrefix).flatMap((event) =>
+      runtimeEventBodiesAtPrefix(prepared.fullPrefix).flatMap((event) =>
         event.runId === undefined ? [] : [event.runId]
       ),
     ),
@@ -666,7 +685,7 @@ function runContext(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   runId: string,
 ): RunReadContext | null {
-  return projectRunReplayContext(prepared.fullPrefix, runId, prepared.packet.prefix);
+  return projectOwnedRunReplayContext(prepared.fullPrefix, runId, prepared.packet.prefix);
 }
 
 function runIdForGraphCall(
@@ -674,7 +693,7 @@ function runIdForGraphCall(
   graphCallId: string,
 ): string | null {
   const candidates = new Set(
-    runtimeEventsFromValidatedPrefix(prepared.fullPrefix).flatMap((event) =>
+    indexedRuntimeEventEnvelopes(prepared.fullPrefix,"graph-call:"+graphCallId).flatMap((event) =>
       event.graphCallId === graphCallId && event.runId !== undefined
         ? [event.runId]
         : []
@@ -1122,7 +1141,7 @@ function projectWorkspaceReplay(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const workspaceEvents = runtimeEventsFromValidatedPrefix(prepared.fullPrefix).filter(
+  const workspaceEvents = runtimeEventBodiesAtPrefix(prepared.fullPrefix).filter(
     (event) => event.scopeClass === "workspace" && event.aggregateId === targetRef,
   );
   if (workspaceEvents.length === 0) return ABSENT;
@@ -1244,8 +1263,8 @@ function projectCCallReplay(
 
 /** Reuse C-call admission truth; no Public consumer reconstructs this spine. */
 function gapCall(context: RunReadContext, route: NonNullable<ReturnType<typeof projectHistoricalTraversalRouteAtPrefix>>,
-  cCallRef: string, authorityPrefix: ValidatedRuntimeEventPrefix) {
-  const events = runtimeEventsFromValidatedPrefix(context.prefix);
+  cCallRef: string, authorityPrefix: RuntimeEventPrefix) {
+  const events = runtimeEventBodiesAtPrefix(context.prefix);
   const rows = events.filter(event => event.aggregateType === "c_call" && event.aggregateId === cCallRef);
   if (rows.some(event => event.runId !== route.runId || event.graphCallId !== route.graphCallId ||
       event.frameId !== route.frameId || event.basisId !== route.executionBasisRef)) throw new TypeError("gap C-call crosses its route scope");
@@ -1277,7 +1296,7 @@ function gapCall(context: RunReadContext, route: NonNullable<ReturnType<typeof p
 
 function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: CanonicalRunReadContext): readonly JsonValue[] {
   if (context.truth.runtimeStatus !== "gap_stopped") return [];
-  const events = runtimeEventsFromValidatedPrefix(context.prefix);
+  const events = runtimeEventBodiesAtPrefix(context.prefix);
   const stop = one(events.filter(event => event.kind === "run_stopped" &&
     event.eventId === context.replay.runStoppedEventRef), "gap Run stop");
   const stopped = eventRecord(stop);
@@ -1378,7 +1397,7 @@ function projectWorkspaceGaps(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const workspaceEvents = runtimeEventsFromValidatedPrefix(prepared.fullPrefix).filter(
+  const workspaceEvents = runtimeEventBodiesAtPrefix(prepared.fullPrefix).filter(
     (event) => event.scopeClass === "workspace" && event.aggregateId === targetRef,
   );
   if (workspaceEvents.length === 0) return ABSENT;
@@ -1527,7 +1546,7 @@ function projectPreparedRead<K extends AbgProjectReadMemberKey>(
     expectedMemberKey.endsWith("_gaps") || expectedMemberKey === "run_lawful_actions";
   const nativeLiveness = livenessMember ? projectNativeLivenessRead(prepared.fullPrefix,
     expectedMemberKey.startsWith("run_") ? prepared.packet.targetRef :
-      expectedMemberKey.startsWith("graph_call_") ? runtimeEventsFromValidatedPrefix(prepared.fullPrefix)
+      expectedMemberKey.startsWith("graph_call_") ? runtimeEventBodiesAtPrefix(prepared.fullPrefix)
         .find(event => event.kind === "graph_call_opened" && event.aggregateId === prepared.packet.targetRef)?.runId ?? null : null,
     expectedMemberKey.startsWith("graph_call_") ? prepared.packet.targetRef : undefined) : null;
   const value = admitIJsonValue(nativeLiveness === null ? projected :

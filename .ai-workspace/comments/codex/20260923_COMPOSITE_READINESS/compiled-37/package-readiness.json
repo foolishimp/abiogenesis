@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED_CONSTRUCTION_ONLY_RUNTIME_NOT_SELECTED",
+  "identity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:c676fad10c62aeea0331f1b926b882fd9d940b0d9b65ed18a35913f7334a6bbc",
+    "archiveBytes": 10172244,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite37-install-79g01s0w/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite37-install-79g01s0w",
+    "archiveMembers": 5233
+  },
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite37-install-79g01s0w/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:c676fad10c62aeea0331f1b926b882fd9d940b0d9b65ed18a35913f7334a6bbc",
+      "productContentDigest": "sha256:47eaa506935d1e125234196c983babd04328bcaf66c96a50c75b3d5c76f99f0e",
+      "manifestDigest": "sha256:e7ea2d44e1214675e92b19e30adf0343ed448206c7d309279a71f80cc072cfd5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/frozen-subject.json",
+    "sha256": "5341cc18c34c83e8d057aa641def5c23574235176eeb215c106e492c59a6656e"
+  },
+  "sourceReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/return.md",
+    "sha256": "0328f698bf645801cb0c4f05713baa8259fe0924d8066a031200db58489b15c7"
+  },
+  "buildInputsPreserved": 259,
+  "generatedChanged": 2,
+  "memberCorrespondence": 5233,
+  "testsReused": "Exact foldback acquisition compile 5.51 s and affected 10 passing checks reused; masking repair and all preceding owner/renderer/DR01/EC/lock-graph members conserved; no rerun",
+  "nativeExecution": false
+}

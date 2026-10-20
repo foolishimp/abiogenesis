@@ -1,0 +1,10 @@
+{
+  "classification": "local_receipt_script_import_premise",
+  "exitCode": 1,
+  "code": "ERR_MODULE_NOT_FOUND",
+  "expectedRoot": "/Users/jim/src/apps/abiogenesis",
+  "incorrectRoot": "/Users/jim/src/apps",
+  "cause": "checks.mjs used six parent segments instead of five",
+  "testsStarted": false,
+  "nativeOrCampaignEffects": false
+}

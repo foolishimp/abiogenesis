@@ -1,0 +1,18 @@
+{
+  "role": "Reviewer",
+  "activation": "T287_RUNTIME08_STOP_AND_RESULT_JOIN_ASSURANCE_01",
+  "status": "ACTIVE_REPORT_ONLY",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/review-request.txt",
+    "bytes": 2782,
+    "sha256": "7245a5478d81a5d1fe67b8d16793a3090b432f4b72fd5fb7ebaaaf4054cc956e"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+    "bytes": 20126,
+    "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/review",
+  "ProductFrame": "fixed fifteen propositions;GOAL035/T287;STDO2.5.1RC2;F04/F11/F15;source/install/raw-admission/native-result/J/whole-carrier distinctions",
+  "permittedEffects": "saved reads/hash/source comparison; report writes only; no imports/tests/owners/Runtime/source repair/provider/Git"
+}

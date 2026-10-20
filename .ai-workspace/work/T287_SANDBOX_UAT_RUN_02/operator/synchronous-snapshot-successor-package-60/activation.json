@@ -1,0 +1,23 @@
+{
+  "role": "Worker60 immutable unpublished candidate18 construction",
+  "rootClosedSource58GO": true,
+  "rootClosedProof58GO": false,
+  "proof58FinalPendingAtActivation": true,
+  "method": "STDO2.5.1RC2/fixed15 ABI5 GOAL035/T287",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "classification": "deterministic immutable package construction",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/freeze.json",
+    "sha256": "3ae48d4156a924f92af1a91e3434d621729e55215d04b2e011eca18bba6c39e4",
+    "byteCount": 33722
+  },
+  "effectTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60"
+  ],
+  "inputs": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/inputs.json",
+  "allInputCount": 951,
+  "path": "accepted58 build -> one npm pack --ignore-scripts -> exact3 member delta -> source-blind packaged verifyProduct -> immutable freeze",
+  "retainedP0": "Installed memory P0 and fullUAT OPEN; accepted58 authenticated read source reuse is bounded mechanical readiness only",
+  "nativeCredit": false
+}

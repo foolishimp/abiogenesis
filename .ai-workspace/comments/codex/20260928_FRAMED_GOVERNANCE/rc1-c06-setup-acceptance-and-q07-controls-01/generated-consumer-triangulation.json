@@ -1,0 +1,17 @@
+{
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-01/freeze.json",
+    "bytes": 3790,
+    "sha256": "5ebbc2f177b45f69f90a5db23fe8cfe64b90289f024cecdc2c745d7828daa76f",
+    "mode": 420
+  },
+  "status": "CLOSED_CONSUMER_DISCREPANCY_LOCALIZED",
+  "Product": "No source/Product/candidate/Runtime byte or semantics defect; complete generated and installed correspondences are intact",
+  "Integration": "Consumer compared raw archive0644 against physical755 for two actually declared CLI roles; declared locator ./ was not normalized to physical relative census path",
+  "IdentityEffects": "Actual package.bin abg.cli=./build/code/src/public/cli.js and abg.codex=./build/code/src/public/codex_cli.js; npm owner adapts exactly these to0755. Allbytes exact;0ambientwrites. No fixture archive or mode patch",
+  "Proof": "The donor Setup05 and current Setup06 record already preserve exact two adaptations. Worker harness failed to consume that contract; its frozen unconditional prose overstates failure and remains retained as historical invalid claim. Root read-only guessed CLI paths/unnormalized bin check also refused before effects and was corrected against actual bin and mode record",
+  "ReuseCost": "No install/build/native/tests rerun. Every current Setup06 body + all5258/5264rawarchive joins independently read verified. Only checker/copy cone changes; prior report frozen unchanged",
+  "smallestReentry": "realization_refactor external generated proof consumer",
+  "owner": "/root/q03_input_review under separate Worker activation",
+  "requiredReproof": "Actual package.bin normalized ./ locators + exact2declared644\u2192755 adaptations, allother modes exact; three copiedbody joins/full926census; no new broad campaign"
+}

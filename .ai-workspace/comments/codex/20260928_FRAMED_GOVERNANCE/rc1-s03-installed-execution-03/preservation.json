@@ -1,0 +1,40 @@
+{
+  "C03Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+    "bytes": 44443,
+    "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a"
+  },
+  "C03FreezeRecordsVerified": 92,
+  "C03SourceMembersVerified": 1159,
+  "C03Archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10426739,
+    "sha256": "f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6"
+  },
+  "bootstrapPayloadMembersVerified": 5258,
+  "newRuntimePayloadMembersVerified": 5258,
+  "S03PreparationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/freeze.json",
+    "bytes": 4370,
+    "sha256": "86992e2d7be5ca6c59d9c049b29fb8f65d11fc68ad7c652ecf82993b5cc087ec"
+  },
+  "S03PreparationRecordsVerified": 13,
+  "externalPinsVerifiedBeforeEffects": 44,
+  "externalPinsUnchangedAtClose": 44,
+  "externalChangesAtClose": [],
+  "fixtureArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+    "bytes": 9566,
+    "sha256": "c199ca3a2004d26ae26f1ef00b6f6b197a3bd01dc26a6d0d623333edfcc66088"
+  },
+  "originalCopiesUnchanged": [
+    "caller-draft.mjs",
+    "original-consumers.mjs",
+    "sole-output-renderer.mjs",
+    "original-oracle.json",
+    "pair-inputs.json",
+    "readback-contract.json"
+  ],
+  "candidateSourceFixtureRepairEffects": 0,
+  "comparisonScope": "Frozen C03 source, construction reports/archive, bootstrap payload, new ordinary runtime payload, closed S03 preparation and original donor bytes."
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "executive_operator_stop_execution_selection",
+  "status": "EXECUTIVE_SELECTED_FOR_EXECUTION",
+  "executive": "/root",
+  "worker": "/root/consumer_prior_contraction",
+  "role": "Worker/Writer",
+  "model": "astra/max",
+  "goal": "GOAL-035",
+  "ticket": "T-287",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "sourceSubject": "9531fbf072db7880d503099ec60200c2f94c49fbe966de7599bd13d22b93ad97",
+  "outcome": "One compiled11 package/offline install, then one new isolated ordinary Public mixed F_D/F_P/F_H held Run, exact actor-attributed Public witness.admit run-stopped, genuine close and fresh Public status/result/replay.",
+  "rootGrant": "Existing operator-stop source accepted for bounded readiness. Execute the one model-free native path using the existing published mixed mini declaration and controlled actor. Preserve all original/S02 resources, no paid actor/provider calls, no source edits or package rerun, no publication/default/tag/Git, no self-qualification.",
+  "inheritedCallerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/caller-freeze.json",
+    "sha256": "38837b4bfbe12a28505bc18cbbaef474423a4890b79080e3bc8d057dc576efd0"
+  },
+  "newRunRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01",
+  "originalResourcesReadOrChanged": false,
+  "providerCalls": 0
+}

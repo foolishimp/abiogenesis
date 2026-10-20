@@ -1,0 +1,36 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/compare-wrapper.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+    "npm_config_offline": "true",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "HOMEUnchanged": true,
+  "capMs": 120000,
+  "priorExecutionMs": 42291.94500017911,
+  "maximumMs": 3060000,
+  "scriptsDisabled": false,
+  "defaultHeapUnchanged": true,
+  "pid": 82151,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "ownedExitObserved": true,
+  "elapsedMs": 373.5900418832898,
+  "stdoutSHA256": "e28502dc0b2847d78797d28958a97d95848488e7e5e949e660d99f27873db291",
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childUserCPUSeconds": 0.36569799999999997,
+  "childSystemCPUSeconds": 0.061367,
+  "childMaxResidentSetSizePlatformBytes": 242630656
+}

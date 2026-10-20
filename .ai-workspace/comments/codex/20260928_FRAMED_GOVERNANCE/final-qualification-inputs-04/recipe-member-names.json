@@ -1,0 +1,15 @@
+[
+  "input-manifest.json",
+  "expected-output-inventory.json",
+  "recipe-stage.mjs",
+  "compare-generated.mjs",
+  "config.json",
+  "toolchain.json",
+  "npm-toolchain-inventory.json",
+  "toolchain-links.json",
+  "test-environment.mjs",
+  "staging-fixtures.json",
+  "component-stage.mjs",
+  "component-stage-plan.json",
+  "verification-recipe.json"
+]

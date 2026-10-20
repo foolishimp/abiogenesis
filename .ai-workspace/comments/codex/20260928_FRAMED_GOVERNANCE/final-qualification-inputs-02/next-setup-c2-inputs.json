@@ -1,0 +1,229 @@
+{
+  "status": "CLOSED_UNBOUND_INPUTS_ONLY",
+  "selectedCore": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+      "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+      "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "verificationRequest": {
+    "kind": "product_verification_packet",
+    "schemaVersion": "5.0.0",
+    "memberKey": "verify",
+    "targetKind": "packed_artifact",
+    "request": {
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "expectedArtifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+      "expectedProductContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+      "expectedManifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+      "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "expectedPackageName": "@abiogenesis/typescript-tenant",
+      "expectedPackageVersion": "5.0.0-rc.1"
+    }
+  },
+  "historicalOrdinaryRoute": {
+    "setup": {
+      "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup.mjs",
+      "bytes": 10407,
+      "sha256": "f0c661542082bd077dc2e2bbea8e197409891b4c837470e6e756fab4e51204a2"
+    },
+    "caller": {
+      "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/ordinary-caller.mjs",
+      "bytes": 12585,
+      "sha256": "cac62d090b6cdb6f67f315072ca1d14dbeae775e4def233d2b1415a47fad3944"
+    },
+    "publicSupport": {
+      "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/public-support.mjs",
+      "bytes": 8856,
+      "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+    },
+    "rebind": [
+      "new grant actor/attribution/approval/request/correlation/provenance refs from actual activation",
+      "new exclusively owned roots, event resource and original owner lock namespace",
+      "selected-core and prospective-case metadata to selectedCore above; actual nominal ProductVerificationPort.verify then supported verify/install/bind/catalog owners",
+      "all current publication constructors and exact installed catalog/definitionContractCoordinates; no readiness JSON as admitted install",
+      "new budgets and current selected provider/executable policy; historical provider path/model/budget are donors only"
+    ],
+    "fullPublicationClosure": {
+      "expected": 11,
+      "historicalDonorConstructors": 10,
+      "missing": {
+        "moduleRef": "module://abiogenesis/default-library/default@5",
+        "publicationDigest": "sha256:10f051df60335dfdcf6a6b49ad9d0af68ce64ebcee7e546e3efc5622520412e9"
+      },
+      "status": "failed finite input check; next owner must bind actual complete current constructor inputs before native setup",
+      "missingConstructor": "constructDefaultGovernanceLibraryModulePublication",
+      "requiredOwnerJoin": "Ordinary Public setup producer must include this existing installed constructor with10 peers, compare complete11 semantic bindings to actual current contributionManifest.publicationBindings, preserve required declaration/context inventory closure, then supply these exact publications to current ordinary catalog admission with genuine verified Products, admitted installs, resolved lock and WorkspaceBinding. Only existing Program/GraphFunction selection narrows execution; publication inventory is not narrowed by dropping the default module."
+    }
+  },
+  "routeLimit": "Historical route files are donors only; Root binds genuine new actor/environment/capability/resource and ordinary supported operations. No moving native03 inputs consumed.",
+  "completePublicationInput": {
+    "currentPureConstructorClosure": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/current-publication-closure.json",
+      "bytes": 4466,
+      "sha256": "bd0d062117d2f0fb77081671afb4567b805757748964f99d6ea81ebbe96ef6af"
+    },
+    "acceptedC02Bindings": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/publication-bindings.json",
+      "bytes": 671603,
+      "sha256": "3d83f27d485f6aed6137702f1c7f61815662b2c236c6994838054ae59c4eb901"
+    },
+    "acceptedC02InstalledReview": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02/return.md",
+      "bytes": 13814,
+      "sha256": "ca8088c55e696391f16d109aa5c8b9bf918d6f2154363432f783b3441e877b57"
+    },
+    "constructors": [
+      {
+        "constructor": "constructDefaultGovernanceLibraryModulePublication",
+        "moduleRef": "module://abiogenesis/default-library/default@5",
+        "publicationDigest": "sha256:32f5b756c6932fa42442bf9813f80ee2fddf83f06d271b13243d52044ee6f213"
+      },
+      {
+        "constructor": "constructHelloWorldModulePublication",
+        "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+        "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899"
+      },
+      {
+        "constructor": "constructConsensusModulePublication",
+        "moduleRef": "module://abg/consensus@5",
+        "publicationDigest": "sha256:a6276757f2196c8d40406e583474c48cc2bf16192e95b88594aa4910658546ec"
+      },
+      {
+        "constructor": "constructWorksiteConstructionModulePublication",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "publicationDigest": "sha256:3a8a6200d77c42b2e765f71d48e609216ba2eaaea05ad5acfa8008668e9eb8cf"
+      },
+      {
+        "constructor": "constructWorksiteCommandExecutionModulePublication",
+        "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+        "publicationDigest": "sha256:cf21247700a466ea805fc624929077e1edd68dbabeba154799299c325c5cecd3"
+      },
+      {
+        "constructor": "constructWorksiteCommandForwardModulePublication",
+        "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+        "publicationDigest": "sha256:3306fdfa02466fcf425d3e1ff96ff3e381e03a45beda9542dc830456da353379"
+      },
+      {
+        "constructor": "constructRequirementHandoffModulePublication",
+        "moduleRef": "module://abiogenesis/requirement-handoff@5",
+        "publicationDigest": "sha256:3a808e529575bbb12a0ffc3f1d82eb9b18c450d39352ede94d6a6fdab3bf8acc"
+      },
+      {
+        "constructor": "constructSemanticStageModulePublication",
+        "moduleRef": "module://abiogenesis/semantic-stage@5",
+        "publicationDigest": "sha256:fbbf4b3728e7d19ed82c59db00b21ea3cd7ab7942c29a31ee85dee99fff9ddc5"
+      },
+      {
+        "constructor": "constructSemanticRevisionModulePublication",
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "publicationDigest": "sha256:aad3ae7d110b9e809c964146ed2dfec3772a88ff1be3357121b4038647f6269f"
+      },
+      {
+        "constructor": "constructSelfConformanceModulePublication",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "publicationDigest": "sha256:7eed4385964678e90cad098dc7e44076c34d9b5e3f25660663a4f527dec42c88"
+      },
+      {
+        "constructor": "constructNativeWorkspaceWorkModulePublication",
+        "moduleRef": "module://abiogenesis/worksite/native-work@5",
+        "publicationDigest": "sha256:f0d5b09760b653e2eb4235e104ab189667d406c75b321622a9b9d0ae2b357fd1"
+      }
+    ],
+    "manifestEquality": true,
+    "count": 11,
+    "limit": "Static immutable declaration input; not all-Program or Public admission."
+  },
+  "producer": {
+    "recipeModule": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/recipe.mjs",
+    "inputStageFunction": "Later caller uses selectedFiles() under staging-contract.json; do not call stageSelectedInputs(existingCleanRoot)",
+    "inputSelectionFunction": "selectedFiles()",
+    "taskConstructor": "constructObservedProducerTask({product,workspaceAuthorityBasis,workspaceBinding,capabilityGrant})",
+    "programRef": "program://abiogenesis/worksite/command-execution@5",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "inputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+    "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+    "selection": {
+      "kind": "start",
+      "scope": "program",
+      "target": "graph_function",
+      "graphFunctionHandle": "graph-function://abiogenesis/worksite/command-execution@5",
+      "until": "converged",
+      "rootMode": "direct"
+    },
+    "sourceBasis": {
+      "kind": "none"
+    },
+    "fhMode": "direct",
+    "callerSequence": [
+      "Obtain the genuine existing clean workspace A/W and preserve its owner metadata.",
+      "Call selectedFiles(); read and verify ALL 716 immutable input bodies against byte counts/digests before any write.",
+      "Resolve every declared target under that same canonical root and confirm ALL 716 destinations are absent before any write; do not overwrite .abiogenesis or other owner metadata.",
+      "Only after all byte and target prechecks pass, create required declared parent directories and write each selected body exclusively (wx).",
+      "Observe every staged protected file through the actual worksite owner under the same A/W; require exact selected bytes.",
+      "Only under a separately supplied genuine current capability grant, call constructObservedProducerTask against that same canonical root and bind the ordinary installed Public producer."
+    ],
+    "protectedFiles": 716,
+    "sourceFiles": 691,
+    "dependencies": 16,
+    "recipeFiles": 9,
+    "commands": 13,
+    "predicates": 14,
+    "componentTests": 5,
+    "explicitTitles": 30
+  },
+  "stagingContract": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/staging-contract.json",
+    "bytes": 45539,
+    "sha256": "e069987e586a86a3b98137c2656ebd7ed104a6f16e96cd37c436b069a1074e25"
+  },
+  "remainingProducerSlots": [
+    {
+      "slot": "installedProduct",
+      "owner": "ordinary verify\u2192resolve\u2192install and admitted projection",
+      "value": null
+    },
+    {
+      "slot": "workspaceBinding",
+      "owner": "workspace create + current authority manifest \u2192 product.environment.bind admitted projection",
+      "value": null
+    },
+    {
+      "slot": "tenantManifest",
+      "owner": "actual tenant conformance manifest grounded in current capability-definition graph/public catalog and claim/evidence coordinates; not synthesized from package readiness",
+      "value": null
+    },
+    {
+      "slot": "qualification.verification.executionSelectionRef",
+      "owner": "actual observed-root C2 Result selected by native proof material owner",
+      "state": "absent"
+    },
+    {
+      "slot": "actual actor/executor/attribution/independence and assessment Context",
+      "owner": "real grant and admitted F_P producer/assessor roles",
+      "state": "unbound"
+    }
+  ],
+  "nativeBindings": {
+    "installedProduct": null,
+    "workspaceBinding": null,
+    "tenantManifest": null
+  },
+  "executionSelectionRefState": "absent",
+  "prohibitedSubstitutes": [
+    "No physical-ready JSON as nominal permission or admitted ProductInstall",
+    "No direct/private ABG admission helper as ordinary Public setup",
+    "No old ten-publication setup array",
+    "No synthetic A/W or actor/grant in actual slots",
+    "No old native history transplanted to C02"
+  ],
+  "currentEffects": "No staging, observations, task/grant construction, Public/native calls or recipe/test execution."
+}

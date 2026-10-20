@@ -1,0 +1,11 @@
+Checkpoint ABG 5.0 runtime, external UAT harness and cleanup
+
+Preserve current shared-library, qualification, continuation and publication work.
+Remove built-in Hello functionality and obsolete tests; add seven ABG-owned
+external sandbox UAT workloads with clean Public deployment and independent
+acceptance machinery. Record bounded setup acceptance and historical cache cleanup.
+
+Readiness: 70 owner checks plus 5 final harness checks passed; 5 existing skips.
+Live application UAT remains 0/7; this is a source checkpoint, not a release.
+Bulk generated installations, source snapshots, package archives and runtime
+observations remain local, with compact control/identity records checkpointed.

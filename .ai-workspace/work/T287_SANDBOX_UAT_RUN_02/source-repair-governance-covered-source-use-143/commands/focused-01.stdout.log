@@ -1,0 +1,1007 @@
+✔ complete canonical declarations permit only publication identity consequences (19.560458ms)
+✖ covered use binds exact original state, complete canonical Catalog and cold admitted coordinates (606.804625ms)
+✔ built-in ingress preserves the whole captured34 state and independent assessment subject (75.9495ms)
+(node:86421) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ reference preparation resolves exact dependencies in leaf and builtin fallbacks before warm reuse (227.43275ms)
+✖ cold admitted preparation consumes Result/J without declaration resolution or history reread (15.744209ms)
+✖ inline request and task identities remain unchanged through cold admitted consumption (15.325291ms)
+✖ library prepare-testing reuses the invoking private operation and its actual F_D origin (18.196917ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 2
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1003.045917
+
+✖ failing tests:
+
+test at test_env/tests/t287-governance-covered-source-use.test.mjs:117:1
+✖ covered use binds exact original state, complete canonical Catalog and cold admitted coordinates (606.804625ms)
+  TypeError [Error]: runtime event candidate has an invalid envelope
+      at projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/build/code/src/abg/event_store.js:1373:15)
+      at Module.projectRuntimeEventFromValidatedHistory (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/build/code/src/abg/event_store.js:1367:12)
+      at Object.append (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:51:24)
+      at invokeRow (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:63:21)
+      at coveredFixture (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:86:31)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:118:17)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+
+test at test_env/tests/t287-native-work-reacquisition.test.mjs:145:1
+✖ reference preparation resolves exact dependencies in leaf and builtin fallbacks before warm reuse (227.43275ms)
+  TypeError [Error]: native reacquisition requires its current admitted owner, preserved child and complete current context
+      at Module.prepareNativeWorksiteCommandReacquisition (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/build/code/src/implementation/native_work_reacquisition.js:17:15)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs:148:42)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+
+test at test_env/tests/t287-native-work-reacquisition.test.mjs:173:1
+✖ cold admitted preparation consumes Result/J without declaration resolution or history reread (15.744209ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   sourceBasis: {
+  -     actorRef: 'actor://generic-worksite/test',
+  -     admissionEventRef: 'event://generic-worksite/basis',
+  -     basisDigest: 'sha256:98a85d76afb4ad0816dafe9f8544e0f2b3a06fdb9c10fc7d346ea06e98a88342',
+  -     basisRef: 'basis://source',
+  -     disposition: 'admitted',
+  -     graphFunctionDigest: 'sha256:1af5868978345949ad93ded83514fa51fd2262bffbfa4e29bf09b2c1026cd516',
+  -     graphFunctionRef: 'graph-function://abiogenesis/worksite/file-parents@5',
+  -     implementationSetDigest: 'sha256:e0c74efbf7658168615ccef9c268ecee6f36930a95adf4419354e73604b77b75',
+  -     implementationSetRef: 'implementation-set://abiogenesis/e0c74efbf7658168615ccef9c268ecee6f36930a95adf4419354e73604b77b75',
+  -     kind: 'execution_basis',
+  -     programDigest: 'sha256:0b47b41cab27e82ecfa0b02356b06e8f039dbe4c2e5eb3e8c77d11e8bb4080f9',
+  -     programRef: 'program://generic-worksite/test',
+  -     schemaVersion: '5.0.0',
+  -     workspaceBindingDigest: 'sha256:2c9cadfc250b68a4243db57cf8492d39d243eb5948046090b34f52077e532269',
+  -     workspaceBindingId: 'workspace-binding://abiogenesis/2c9cadfc250b68a4243db57cf8492d39d243eb5948046090b34f52077e532269'
+  -   },
+  -   sourceClosedEvent: {
+  -     admissionOrdinal: 1,
+  -     aggregateId: 'graph-call://source',
+  -     aggregateType: 'graph_call',
+  -     basisId: 'basis://prepare',
+  -     causationEventRefs: [],
+  -     correlationId: 'component',
+  -     eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64',
+  -     eventId: 'event://declaration/1',
+  -     eventTime: '2026-09-28T00:00:00.000Z',
+  -     frameId: 'frame://prepare',
+  -     graphCallId: 'graph-call://source',
+  -     kind: 'graph_call_closed',
+  -     parentAggregateId: 'frame://prepare',
+  -     payload: {},
+  -     payloadDigest: 'sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a',
+  -     runId: 'run://source',
+  -     scopeClass: 'run',
+  -     workflowVersion: '5.0.0'
+  -   },
+  -   sourceJudgment: {
+  -     eventId: 'source-judgment'
+  -   },
+  -   sourceResult: {
+  -     eventId: 'source-result',
+  -     graphCallId: 'graph-call://source',
+  -     runId: 'run://source'
+  -   }
+  - }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs:175:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { sourceBasis: { kind: 'execution_basis', schemaVersion: '5.0.0', disposition: 'admitted', basisRef: 'basis://source', basisDigest: 'sha256:98a85d76afb4ad0816dafe9f8544e0f2b3a06fdb9c10fc7d346ea06e98a88342', workspaceBindingId: 'workspace-binding://abiogenesis/2c9cadfc250b68a4243db57cf8492d39d243eb5948046090b34f52077e532269', workspaceBindingDigest: 'sha256:2c9cadfc250b68a4243db57cf8492d39d243eb5948046090b34f52077e532269', actorRef: 'actor://generic-worksite/test', programRef: 'program://generic-worksite/test', programDigest: 'sha256:0b47b41cab27e82ecfa0b02356b06e8f039dbe4c2e5eb3e8c77d11e8bb4080f9', graphFunctionRef: 'graph-function://abiogenesis/worksite/file-parents@5', graphFunctionDigest: 'sha256:1af5868978345949ad93ded83514fa51fd2262bffbfa4e29bf09b2c1026cd516', implementationSetRef: 'implementation-set://abiogenesis/e0c74efbf7658168615ccef9c268ecee6f36930a95adf4419354e73604b77b75', implementationSetDigest: 'sha256:e0c74efbf7658168615ccef9c268ecee6f36930a95adf4419354e73604b77b75', admissionEventRef: 'event://generic-worksite/basis' }, sourceResult: { eventId: 'source-result', runId: 'run://source', graphCallId: 'graph-call://source' }, sourceJudgment: { eventId: 'source-judgment' }, sourceClosedEvent: { eventId: 'event://declaration/1', admissionOrdinal: 1, payloadDigest: 'sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64', aggregateType: 'graph_call', aggregateId: 'graph-call://source', parentAggregateId: 'frame://prepare', correlationId: 'component', eventTime: '2026-09-28T00:00:00.000Z', workflowVersion: '5.0.0', scopeClass: 'run', basisId: 'basis://prepare', runId: 'run://source', graphCallId: 'graph-call://source', frameId: 'frame://prepare', causationEventRefs: [], kind: 'graph_call_closed', payload: {} } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-native-work-reacquisition.test.mjs:189:1
+✖ inline request and task identities remain unchanged through cold admitted consumption (15.325291ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   sourceBasis: {
+  -     actorRef: 'actor://generic-worksite/test',
+  -     admissionEventRef: 'event://generic-worksite/basis',
+  -     basisDigest: 'sha256:2e71d08bc20ad8fc0c68e7e62e91380442dfcb8c626f34011e1ecef9e610192e',
+  -     basisRef: 'basis://source',
+  -     disposition: 'admitted',
+  -     graphFunctionDigest: 'sha256:1af5868978345949ad93ded83514fa51fd2262bffbfa4e29bf09b2c1026cd516',
+  -     graphFunctionRef: 'graph-function://abiogenesis/worksite/file-parents@5',
+  -     implementationSetDigest: 'sha256:e0c74efbf7658168615ccef9c268ecee6f36930a95adf4419354e73604b77b75',
+  -     implementationSetRef: 'implementation-set://abiogenesis/e0c74efbf7658168615ccef9c268ecee6f36930a95adf4419354e73604b77b75',
+  -     kind: 'execution_basis',
+  -     programDigest: 'sha256:0b47b41cab27e82ecfa0b02356b06e8f039dbe4c2e5eb3e8c77d11e8bb4080f9',
+  -     programRef: 'program://generic-worksite/test',
+  -     schemaVersion: '5.0.0',
+  -     workspaceBindingDigest: 'sha256:8454059675c7d43d43ab3d9e9693725cad377da975c9a7f97d1d10d1d9d93e8d',
+  -     workspaceBindingId: 'workspace-binding://abiogenesis/8454059675c7d43d43ab3d9e9693725cad377da975c9a7f97d1d10d1d9d93e8d'
+  -   },
+  -   sourceClosedEvent: {
+  -     admissionOrdinal: 1,
+  -     aggregateId: 'graph-call://source',
+  -     aggregateType: 'graph_call',
+  -     basisId: 'basis://prepare',
+  -     causationEventRefs: [],
+  -     correlationId: 'component',
+  -     eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64',
+  -     eventId: 'event://declaration/1',
+  -     eventTime: '2026-09-28T00:00:00.000Z',
+  -     frameId: 'frame://prepare',
+  -     graphCallId: 'graph-call://source',
+  -     kind: 'graph_call_closed',
+  -     parentAggregateId: 'frame://prepare',
+  -     payload: {},
+  -     payloadDigest: 'sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a',
+  -     runId: 'run://source',
+  -     scopeClass: 'run',
+  -     workflowVersion: '5.0.0'
+  -   },
+  -   sourceJudgment: {
+  -     eventId: 'source-judgment'
+  -   },
+  -   sourceResult: {
+  -     eventId: 'source-result',
+  -     graphCallId: 'graph-call://source',
+  -     runId: 'run://source'
+  -   }
+  - }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs:193:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { sourceBasis: { kind: 'execution_basis', schemaVersion: '5.0.0', disposition: 'admitted', basisRef: 'basis://source', basisDigest: 'sha256:2e71d08bc20ad8fc0c68e7e62e91380442dfcb8c626f34011e1ecef9e610192e', workspaceBindingId: 'workspace-binding://abiogenesis/8454059675c7d43d43ab3d9e9693725cad377da975c9a7f97d1d10d1d9d93e8d', workspaceBindingDigest: 'sha256:8454059675c7d43d43ab3d9e9693725cad377da975c9a7f97d1d10d1d9d93e8d', actorRef: 'actor://generic-worksite/test', programRef: 'program://generic-worksite/test', programDigest: 'sha256:0b47b41cab27e82ecfa0b02356b06e8f039dbe4c2e5eb3e8c77d11e8bb4080f9', graphFunctionRef: 'graph-function://abiogenesis/worksite/file-parents@5', graphFunctionDigest: 'sha256:1af5868978345949ad93ded83514fa51fd2262bffbfa4e29bf09b2c1026cd516', implementationSetRef: 'implementation-set://abiogenesis/e0c74efbf7658168615ccef9c268ecee6f36930a95adf4419354e73604b77b75', implementationSetDigest: 'sha256:e0c74efbf7658168615ccef9c268ecee6f36930a95adf4419354e73604b77b75', admissionEventRef: 'event://generic-worksite/basis' }, sourceResult: { eventId: 'source-result', runId: 'run://source', graphCallId: 'graph-call://source' }, sourceJudgment: { eventId: 'source-judgment' }, sourceClosedEvent: { eventId: 'event://declaration/1', admissionOrdinal: 1, payloadDigest: 'sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64', aggregateType: 'graph_call', aggregateId: 'graph-call://source', parentAggregateId: 'frame://prepare', correlationId: 'component', eventTime: '2026-09-28T00:00:00.000Z', workflowVersion: '5.0.0', scopeClass: 'run', basisId: 'basis://prepare', runId: 'run://source', graphCallId: 'graph-call://source', frameId: 'frame://prepare', causationEventRefs: [], kind: 'graph_call_closed', payload: {} } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-native-work-reacquisition.test.mjs:198:1
+✖ library prepare-testing reuses the invoking private operation and its actual F_D origin (18.196917ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   allowedWriteTerritories: [
+  -     {
+  -       kind: 'worksite_command_write_territory',
+  -       ordinal: 0,
+  -       pathKind: 'subtree',
+  -       purpose: 'execution_evidence',
+  -       relativePath: 'evidence',
+  -       schemaVersion: '5.0.0',
+  -       territoryDigest: 'sha256:90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14',
+  -       territoryRef: 'worksite-command-write-territory://abiogenesis/90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14'
+  -     }
+  -   ],
+  -   capabilityGrant: {
+  -     actorRef: 'actor://generic-worksite/test',
+  -     approvalDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -     approvalRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -     authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -     authorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -     capabilityDefinition: {
+  -       capabilityDefinitionDigest: 'sha256:7d8457310f3ab1ecb9c5bdecb85debb6e04311e6235c5e4d4c31a4846516a250',
+  -       capabilityDefinitionRef: 'capability-definition://generic-worksite/test',
+  -       capabilityId: 'capability://abiogenesis/run.invoke',
+  -       graphDigest: 'sha256:9631003a12c7b8ae95592a2d54724df8065b8d1a0feaf45575ca29ef1d67a85d',
+  -       graphId: 'capability-graph://generic-worksite/test',
+  -       graphVersion: '5.0.0'
+  -     },
+  -     capabilityRef: 'capability://abiogenesis/run.invoke',
+  -     definitionDigest: 'sha256:d31cf66f72d02c19fcd422cba97a918050245fb1136792b4f937519599c3e776',
+  -     definitionKey: {
+  -       memberKey: 'invoke',
+  -       operationId: 'abg.operation.run.invoke'
+  -     },
+  -     definitionRef: 'definition://generic-worksite/invoke',
+  -     grantDigest: 'sha256:df692501b40de2f8edfd40f60980497eef9ae2bd7ef3ab38a2277cc80ff6f8d0',
+  -     grantRef: 'capability-grant://abiogenesis/df692501b40de2f8edfd40f60980497eef9ae2bd7ef3ab38a2277cc80ff6f8d0',
+  -     kind: 'capability_grant',
+  -     operationContract: {
+  -       contractCatalog: {
+  -         catalogDigest: 'sha256:30a233707001b5016a6a6ae3711e00988c83632536e551e9fbbde945867ff09c',
+  -         catalogId: 'catalog://generic-worksite/test',
+  -         catalogVersion: '5.0.0',
+  -         productContentDigest: 'sha256:eda38f75521ee0704f5ef981b21be1bda10492edacefe2ceeaa7ce9b8b054a77',
+  -         productId: 'product://generic-worksite/test'
+  -       },
+  -       flatRow: {
+  -         contractDigest: 'sha256:5fc482fa3edad068350ab2f413425fa8dfb422772abdd2bb537b828a3b9e6309',
+  -         contractId: 'contract://generic-worksite/request',
+  -         contractVersion: '5.0.0'
+  -       },
+  -       nestedSelector: {
+  -         definitionKey: null,
+  -         definitionRef: null,
+  -         selectorKind: 'flat_contract',
+  -         slot: null
+  -       }
+  -     },
+  -     operationId: 'abg.operation.run.invoke',
+  -     policyDigest: 'sha256:d0f3d3a8c42f1ce2523bd88c2b63873f6851c482ec81d4db7171a47a63fbcb8e',
+  -     policyRef: 'policy://generic-worksite/test',
+  -     schemaVersion: '5.0.0',
+  -     scopeDigest: 'sha256:f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468',
+  -     scopeRef: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468'
+  -   },
+  -   commands: [
+  -     {
+  -       args: [
+  -         '--version'
+  -       ],
+  -       commandId: 'command://component',
+  -       environment: [
+  -         {
+  -           kind: 'worksite_command_environment_entry',
+  -           name: 'HOME',
+  -           schemaVersion: '5.0.0',
+  -           value: '/Users/jim'
+  -         },
+  -         {
+  -           kind: 'worksite_command_environment_entry',
+  -           name: 'LANG',
+  -           schemaVersion: '5.0.0',
+  -           value: 'C.UTF-8'
+  -         },
+  -         {
+  -           kind: 'worksite_command_environment_entry',
+  -           name: 'LC_ALL',
+  -           schemaVersion: '5.0.0',
+  -           value: 'C.UTF-8'
+  -         },
+  -         {
+  -           kind: 'worksite_command_environment_entry',
+  -           name: 'PATH',
+  -           schemaVersion: '5.0.0',
+  -           value: '/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0lCkcOe:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter'
+  -         },
+  -         {
+  -           kind: 'worksite_command_environment_entry',
+  -           name: 'TMPDIR',
+  -           schemaVersion: '5.0.0',
+  -           value: '/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/'
+  -         }
+  -       ],
+  -       executable: 'node',
+  -       expectedReports: [],
+  -       kind: 'worksite_declared_command',
+  -       ordinal: 0,
+  -       relativeCwd: '.',
+  -       schemaVersion: '5.0.0',
+  -       terminationGraceMs: 100,
+  -       timeoutMs: 1000
+  -     }
+  -   ],
+  -   instructionContractRef: 'contract://abiogenesis/worksite/command-execution-task@5',
+  -   kind: 'worksite_command_execution_task',
+  -   materializationPlanRef: 'prompt-plan://abiogenesis/worksite/command-execution@5',
+  -   outcomePredicates: [],
+  -   protectedObservations: [
+  -     {
+  -       kind: 'worksite_protected_observation',
+  -       observation: {
+  -         byteLength: 15,
+  -         fileDigest: 'sha256:30f97f1943ba598214fde52613aba8dadc0cbee543b96b997ccab889284c2721',
+  -         fileIdentity: '16777231:468920382',
+  -         kind: 'worksite_observation',
+  -         observationDigest: 'sha256:d2654f9b2fa56cc8a9287c03dceaf4e7b507f1ad7036596219b6f8104a2cf631',
+  -         observationRef: 'worksite-observation://abiogenesis/d2654f9b2fa56cc8a9287c03dceaf4e7b507f1ad7036596219b6f8104a2cf631',
+  -         schemaVersion: '5.0.0',
+  -         state: 'file',
+  -         subjectDigest: 'sha256:e51a94339265a6aea093693e9611d62c1839b771bc00c0c0c31656b53568b6a1',
+  -         subjectRef: 'worksite-subject://abiogenesis/e51a94339265a6aea093693e9611d62c1839b771bc00c0c0c31656b53568b6a1',
+  -         workspaceBindingIdentity: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468'
+  -       },
+  -       ordinal: 0,
+  -       schemaVersion: '5.0.0',
+  -       sourceMemberRef: 'native-work-execution-source://abiogenesis/9d116ff79e4b08d4e6c70780f6fa543d2334d16534010a4d370b234ef4397cf1',
+  -       subject: {
+  -         kind: 'worksite_subject',
+  -         relativePath: 'source.txt',
+  -         schemaVersion: '5.0.0',
+  -         subjectDigest: 'sha256:e51a94339265a6aea093693e9611d62c1839b771bc00c0c0c31656b53568b6a1',
+  -         subjectRef: 'worksite-subject://abiogenesis/e51a94339265a6aea093693e9611d62c1839b771bc00c0c0c31656b53568b6a1',
+  -         subjectUri: 'file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/worksite/source.txt',
+  -         workspaceBindingDigest: 'sha256:f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468',
+  -         workspaceBindingIdentity: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468'
+  -       }
+  -     }
+  -   ],
+  -   rendererRef: 'renderer://abiogenesis/worksite/command-execution@5',
+  -   resultContractRef: 'contract://abiogenesis/worksite/command-execution-worker-result@5',
+  -   schemaVersion: '5.0.0',
+  -   sourceNativeWork: {
+  -     after: {
+  -       entries: [
+  -         {
+  -           byteLength: 15,
+  -           bytes: 'cmV0YWluZWQgc291cmNl',
+  -           digest: 'sha256:30f97f1943ba598214fde52613aba8dadc0cbee543b96b997ccab889284c2721',
+  -           encoding: 'base64',
+  -           fileIdentity: '16777231:468920382',
+  -           relativePath: 'source.txt',
+  -           state: 'file'
+  -         }
+  -       ],
+  -       kind: 'worksite_context_observation',
+  -       maxBytes: 100,
+  -       maxFiles: 1,
+  -       observationDigest: 'sha256:529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -       observationRef: 'worksite-context-observation://abiogenesis/529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -       readRoots: [
+  -         'source.txt'
+  -       ],
+  -       schemaVersion: '5.0.0',
+  -       workspaceAuthorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -       workspaceAuthorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -       workspaceBindingDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -       workspaceBindingIdentity: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2'
+  -     },
+  -     before: {
+  -       entries: [
+  -         {
+  -           byteLength: 15,
+  -           bytes: 'cmV0YWluZWQgc291cmNl',
+  -           digest: 'sha256:30f97f1943ba598214fde52613aba8dadc0cbee543b96b997ccab889284c2721',
+  -           encoding: 'base64',
+  -           fileIdentity: '16777231:468920382',
+  -           relativePath: 'source.txt',
+  -           state: 'file'
+  -         }
+  -       ],
+  -       kind: 'worksite_context_observation',
+  -       maxBytes: 100,
+  -       maxFiles: 1,
+  -       observationDigest: 'sha256:529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -       observationRef: 'worksite-context-observation://abiogenesis/529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -       readRoots: [
+  -         'source.txt'
+  -       ],
+  -       schemaVersion: '5.0.0',
+  -       workspaceAuthorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -       workspaceAuthorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -       workspaceBindingDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -       workspaceBindingIdentity: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2'
+  -     },
+  -     changedPaths: [],
+  -     kind: 'native_workspace_work_observation',
+  -     observationDigest: 'sha256:5f15c5bd8df9876baa4e77a38b99347c19e498f74cf7757de697161816a382d1',
+  -     observationRef: 'native-work-observation://abiogenesis/5f15c5bd8df9876baa4e77a38b99347c19e498f74cf7757de697161816a382d1',
+  -     provenance: {
+  -       actorInvocationRef: 'actor://source',
+  -       cCallRef: 'c-call://source',
+  -       executionAuthorityDigest: 'sha256:cbe98d7bcc755d8821fe142f31b60dc27864fd36c752851a88021b3941a6bda7',
+  -       executionAuthorityRef: 'authority://source',
+  -       promptDigest: 'sha256:d5c35dc42880af8ea51f2aed62e8aa32127127a3354052e17726ff172b2e38a5',
+  -       transportBindingDigest: 'sha256:b44b75350f7378905381fb7760c56076471463c57df3db3618811e1fe4149a91',
+  -       transportBindingRef: 'transport://source',
+  -       transportDigest: 'sha256:07474afa53a08ba5eb86a9f068ff446a4f394b3c0c6b29d924e3833c3542801e'
+  -     },
+  -     report: {
+  -       gaps: [],
+  -       summary: 'retained'
+  -     },
+  -     schemaVersion: '5.0.0',
+  -     task: {
+  -       capabilityGrant: {
+  -         actorRef: 'actor://generic-worksite/test',
+  -         approvalDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         approvalRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         capabilityDefinition: {
+  -           capabilityDefinitionDigest: 'sha256:7d8457310f3ab1ecb9c5bdecb85debb6e04311e6235c5e4d4c31a4846516a250',
+  -           capabilityDefinitionRef: 'capability-definition://generic-worksite/test',
+  -           capabilityId: 'capability://abiogenesis/run.invoke',
+  -           graphDigest: 'sha256:9631003a12c7b8ae95592a2d54724df8065b8d1a0feaf45575ca29ef1d67a85d',
+  -           graphId: 'capability-graph://generic-worksite/test',
+  -           graphVersion: '5.0.0'
+  -         },
+  -         capabilityRef: 'capability://abiogenesis/run.invoke',
+  -         definitionDigest: 'sha256:d31cf66f72d02c19fcd422cba97a918050245fb1136792b4f937519599c3e776',
+  -         definitionKey: {
+  -           memberKey: 'invoke',
+  -           operationId: 'abg.operation.run.invoke'
+  -         },
+  -         definitionRef: 'definition://generic-worksite/invoke',
+  -         grantDigest: 'sha256:a46aee7eaa3fd88696f33de221bf510482678b507b0cfffc9bbb2fa3c3c551a1',
+  -         grantRef: 'capability-grant://abiogenesis/a46aee7eaa3fd88696f33de221bf510482678b507b0cfffc9bbb2fa3c3c551a1',
+  -         kind: 'capability_grant',
+  -         operationContract: {
+  -           contractCatalog: {
+  -             catalogDigest: 'sha256:30a233707001b5016a6a6ae3711e00988c83632536e551e9fbbde945867ff09c',
+  -             catalogId: 'catalog://generic-worksite/test',
+  -             catalogVersion: '5.0.0',
+  -             productContentDigest: 'sha256:eda38f75521ee0704f5ef981b21be1bda10492edacefe2ceeaa7ce9b8b054a77',
+  -             productId: 'product://generic-worksite/test'
+  -           },
+  -           flatRow: {
+  -             contractDigest: 'sha256:5fc482fa3edad068350ab2f413425fa8dfb422772abdd2bb537b828a3b9e6309',
+  -             contractId: 'contract://generic-worksite/request',
+  -             contractVersion: '5.0.0'
+  -           },
+  -           nestedSelector: {
+  -             definitionKey: null,
+  -             definitionRef: null,
+  -             selectorKind: 'flat_contract',
+  -             slot: null
+  -           }
+  -         },
+  -         operationId: 'abg.operation.run.invoke',
+  -         policyDigest: 'sha256:d0f3d3a8c42f1ce2523bd88c2b63873f6851c482ec81d4db7171a47a63fbcb8e',
+  -         policyRef: 'policy://generic-worksite/test',
+  -         schemaVersion: '5.0.0',
+  -         scopeDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -         scopeRef: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2'
+  -       },
+  -       checks: [],
+  -       context: {
+  -         entries: [
+  -           {
+  -             byteLength: 15,
+  -             bytes: 'cmV0YWluZWQgc291cmNl',
+  -             digest: 'sha256:30f97f1943ba598214fde52613aba8dadc0cbee543b96b997ccab889284c2721',
+  -             encoding: 'base64',
+  -             fileIdentity: '16777231:468920382',
+  -             relativePath: 'source.txt',
+  -             state: 'file'
+  -           }
+  -         ],
+  -         kind: 'worksite_context_observation',
+  -         maxBytes: 100,
+  -         maxFiles: 1,
+  -         observationDigest: 'sha256:529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -         observationRef: 'worksite-context-observation://abiogenesis/529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -         readRoots: [
+  -           'source.txt'
+  -         ],
+  -         schemaVersion: '5.0.0',
+  -         workspaceAuthorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         workspaceAuthorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         workspaceBindingDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -         workspaceBindingIdentity: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2'
+  -       },
+  -       instructions: [
+  -         'Read source.'
+  -       ],
+  -       kind: 'native_workspace_work_task',
+  -       outcome: 'retain source',
+  -       readFirst: [
+  -         'source.txt'
+  -       ],
+  -       schemaVersion: '5.0.0',
+  -       workspaceAuthorityBasis: {
+  -         authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityManifestDigest: 'sha256:818967e65ccd04da261c96ead8a2e62d4b6a3dd14199a29b385447e417cdac8a',
+  -         authorityManifestRef: 'manifest://generic-worksite/authority',
+  -         authorityMode: 'trusted_developer',
+  -         authorizedActorRef: 'actor://generic-worksite/test',
+  -         canonicalRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/worksite',
+  -         kind: 'workspace_authority_basis',
+  -         schemaVersion: '5.0.0',
+  -         workspaceId: 'workspace://generic-worksite/test'
+  -       },
+  -       workspaceBinding: {
+  -         admissionEventRef: 'event://generic-worksite/binding',
+  -         authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorizedActorRef: 'actor://generic-worksite/test',
+  -         bindingDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -         bindingId: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -         kind: 'workspace_binding',
+  -         lockDigest: 'sha256:a4db0612a2e732fd4c76cd77128aa10d1eea041512dfaa988701b9f7178acd5d',
+  -         lockId: 'lock://generic-worksite/test',
+  -         productSetDigest: 'sha256:d02a328972b569be2ce780a22dcfbc325d7005d15229633886e4c87d3f3567e6',
+  -         productSetId: 'product-set://generic-worksite/test',
+  -         roots: {
+  -           archiveRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/archive',
+  -           eventLogRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/eventLog',
+  -           productRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/product',
+  -           projectionRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/projection',
+  -           runtimeStateRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/runtimeState',
+  -           toolchainRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/toolchain'
+  -         },
+  -         schemaVersion: '5.0.0',
+  -         workspaceId: 'workspace://generic-worksite/test'
+  -       },
+  -       writeRoots: [
+  -         'source.txt'
+  -       ]
+  -     }
+  -   },
+  -   sourceReacquisition: {
+  -     bindingCoverEventRefs: [],
+  -     nativeBasis: {
+  -       cCallRef: 'c-call:sha256:612cbc637d535b052b2e5ceca9167fd022be22d698f51d7e33c4f814b20b1b83',
+  -       predecessorPrefix: {
+  -         coordinateDigest: 'sha256:94d7b1b1e07d3f99e2ad9c36ca111b07a1b25e7d1e023fb131dad9dbe2e92187',
+  -         eventLogRef: 'file:///unopened/declaration-component.events.jsonl',
+  -         kind: 'durable_prefix_coordinate',
+  -         prefixDigest: 'sha256:68a8337048659089b8fc7089c00b01f76cc015cff7dbbe742b63717dd9632811',
+  -         prefixLength: 12626,
+  -         schemaVersion: '5.0.0',
+  -         storeIdentity: {
+  -           device: 0,
+  -           eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64',
+  -           inode: 0
+  -         }
+  -       }
+  -     },
+  -     request: {
+  -       allowedWriteTerritories: [
+  -         {
+  -           kind: 'worksite_command_write_territory',
+  -           ordinal: 0,
+  -           pathKind: 'subtree',
+  -           purpose: 'execution_evidence',
+  -           relativePath: 'evidence',
+  -           schemaVersion: '5.0.0',
+  -           territoryDigest: 'sha256:90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14',
+  -           territoryRef: 'worksite-command-write-territory://abiogenesis/90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14'
+  -         }
+  -       ],
+  -       capabilityGrant: {
+  -         actorRef: 'actor://generic-worksite/test',
+  -         approvalDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         approvalRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         capabilityDefinition: {
+  -           capabilityDefinitionDigest: 'sha256:7d8457310f3ab1ecb9c5bdecb85debb6e04311e6235c5e4d4c31a4846516a250',
+  -           capabilityDefinitionRef: 'capability-definition://generic-worksite/test',
+  -           capabilityId: 'capability://abiogenesis/run.invoke',
+  -           graphDigest: 'sha256:9631003a12c7b8ae95592a2d54724df8065b8d1a0feaf45575ca29ef1d67a85d',
+  -           graphId: 'capability-graph://generic-worksite/test',
+  -           graphVersion: '5.0.0'
+  -         },
+  -         capabilityRef: 'capability://abiogenesis/run.invoke',
+  -         definitionDigest: 'sha256:d31cf66f72d02c19fcd422cba97a918050245fb1136792b4f937519599c3e776',
+  -         definitionKey: {
+  -           memberKey: 'invoke',
+  -           operationId: 'abg.operation.run.invoke'
+  -         },
+  -         definitionRef: 'definition://generic-worksite/invoke',
+  -         grantDigest: 'sha256:df692501b40de2f8edfd40f60980497eef9ae2bd7ef3ab38a2277cc80ff6f8d0',
+  -         grantRef: 'capability-grant://abiogenesis/df692501b40de2f8edfd40f60980497eef9ae2bd7ef3ab38a2277cc80ff6f8d0',
+  -         kind: 'capability_grant',
+  -         operationContract: {
+  -           contractCatalog: {
+  -             catalogDigest: 'sha256:30a233707001b5016a6a6ae3711e00988c83632536e551e9fbbde945867ff09c',
+  -             catalogId: 'catalog://generic-worksite/test',
+  -             catalogVersion: '5.0.0',
+  -             productContentDigest: 'sha256:eda38f75521ee0704f5ef981b21be1bda10492edacefe2ceeaa7ce9b8b054a77',
+  -             productId: 'product://generic-worksite/test'
+  -           },
+  -           flatRow: {
+  -             contractDigest: 'sha256:5fc482fa3edad068350ab2f413425fa8dfb422772abdd2bb537b828a3b9e6309',
+  -             contractId: 'contract://generic-worksite/request',
+  -             contractVersion: '5.0.0'
+  -           },
+  -           nestedSelector: {
+  -             definitionKey: null,
+  -             definitionRef: null,
+  -             selectorKind: 'flat_contract',
+  -             slot: null
+  -           }
+  -         },
+  -         operationId: 'abg.operation.run.invoke',
+  -         policyDigest: 'sha256:d0f3d3a8c42f1ce2523bd88c2b63873f6851c482ec81d4db7171a47a63fbcb8e',
+  -         policyRef: 'policy://generic-worksite/test',
+  -         schemaVersion: '5.0.0',
+  -         scopeDigest: 'sha256:f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468',
+  -         scopeRef: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468'
+  -       },
+  -       commands: [
+  -         {
+  -           args: [
+  -             '--version'
+  -           ],
+  -           commandId: 'command://component',
+  -           environment: [
+  -             {
+  -               kind: 'worksite_command_environment_entry',
+  -               name: 'HOME',
+  -               schemaVersion: '5.0.0',
+  -               value: '/Users/jim'
+  -             },
+  -             {
+  -               kind: 'worksite_command_environment_entry',
+  -               name: 'LANG',
+  -               schemaVersion: '5.0.0',
+  -               value: 'C.UTF-8'
+  -             },
+  -             {
+  -               kind: 'worksite_command_environment_entry',
+  -               name: 'LC_ALL',
+  -               schemaVersion: '5.0.0',
+  -               value: 'C.UTF-8'
+  -             },
+  -             {
+  -               kind: 'worksite_command_environment_entry',
+  -               name: 'PATH',
+  -               schemaVersion: '5.0.0',
+  -               value: '/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0lCkcOe:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter'
+  -             },
+  -             {
+  -               kind: 'worksite_command_environment_entry',
+  -               name: 'TMPDIR',
+  -               schemaVersion: '5.0.0',
+  -               value: '/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/'
+  -             }
+  -           ],
+  -           executable: 'node',
+  -           expectedReports: [],
+  -           kind: 'worksite_declared_command',
+  -           ordinal: 0,
+  -           relativeCwd: '.',
+  -           schemaVersion: '5.0.0',
+  -           terminationGraceMs: 100,
+  -           timeoutMs: 1000
+  -         }
+  -       ],
+  -       currentContext: {
+  -         entries: [
+  -           {
+  -             byteLength: 15,
+  -             bytes: 'cmV0YWluZWQgc291cmNl',
+  -             digest: 'sha256:30f97f1943ba598214fde52613aba8dadc0cbee543b96b997ccab889284c2721',
+  -             encoding: 'base64',
+  -             fileIdentity: '16777231:468920382',
+  -             relativePath: 'source.txt',
+  -             state: 'file'
+  -           }
+  -         ],
+  -         kind: 'worksite_context_observation',
+  -         maxBytes: 100,
+  -         maxFiles: 1,
+  -         observationDigest: 'sha256:e7d86d9cf2b99134d8bca94c805ea569dc8be581dd40ed1ad6989e4a2a7d6552',
+  -         observationRef: 'worksite-context-observation://abiogenesis/e7d86d9cf2b99134d8bca94c805ea569dc8be581dd40ed1ad6989e4a2a7d6552',
+  -         readRoots: [
+  -           'source.txt'
+  -         ],
+  -         schemaVersion: '5.0.0',
+  -         workspaceAuthorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         workspaceAuthorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         workspaceBindingDigest: 'sha256:f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468',
+  -         workspaceBindingIdentity: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468'
+  -       },
+  -       kind: 'native_worksite_command_reacquisition_request',
+  -       outcomePredicates: [],
+  -       requestDigest: 'sha256:88eb116ad2a907b39383b13afa706eae7f4f8f8ff7a6e9eae72c489f888ff685',
+  -       requestRef: 'native-work-command-reacquisition://abiogenesis/88eb116ad2a907b39383b13afa706eae7f4f8f8ff7a6e9eae72c489f888ff685',
+  -       schemaVersion: '5.0.0',
+  -       selectedSources: [
+  -         {
+  -           relativePath: 'source.txt',
+  -           subjectUri: 'file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/worksite/source.txt'
+  -         }
+  -       ],
+  -       source: {
+  -         declarationReference: {
+  -           catalogBasisDigest: 'sha256:e8f9049d3a81ab574ef3565bf9f547332780f01199fb6f4cda356ebfec30b06a',
+  -           kind: 'abg_historical_declaration_reference',
+  -           readinessBasisDigest: 'sha256:2189dfff4337eebe3069c38406eb241a4139cb61a894a71aa64cb8bc2b51f1dc',
+  -           schemaVersion: '5.0.0',
+  -           viewDigest: 'sha256:6133657225c3ce9d2a532b3a7dda301b6d0c66ceaa35d85b15e605209bad3098'
+  -         },
+  -         graphCallRef: 'graph-call://source',
+  -         prefix: {
+  -           coordinateDigest: 'sha256:94d7b1b1e07d3f99e2ad9c36ca111b07a1b25e7d1e023fb131dad9dbe2e92187',
+  -           eventLogRef: 'file:///unopened/declaration-component.events.jsonl',
+  -           kind: 'durable_prefix_coordinate',
+  -           prefixDigest: 'sha256:68a8337048659089b8fc7089c00b01f76cc015cff7dbbe742b63717dd9632811',
+  -           prefixLength: 12626,
+  -           schemaVersion: '5.0.0',
+  -           storeIdentity: {
+  -             device: 0,
+  -             eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64',
+  -             inode: 0
+  -           }
+  -         }
+  -       },
+  -       sourceNativeWork: {
+  -         after: {
+  -           entries: [
+  -             {
+  -               byteLength: 15,
+  -               bytes: 'cmV0YWluZWQgc291cmNl',
+  -               digest: 'sha256:30f97f1943ba598214fde52613aba8dadc0cbee543b96b997ccab889284c2721',
+  -               encoding: 'base64',
+  -               fileIdentity: '16777231:468920382',
+  -               relativePath: 'source.txt',
+  -               state: 'file'
+  -             }
+  -           ],
+  -           kind: 'worksite_context_observation',
+  -           maxBytes: 100,
+  -           maxFiles: 1,
+  -           observationDigest: 'sha256:529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -           observationRef: 'worksite-context-observation://abiogenesis/529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -           readRoots: [
+  -             'source.txt'
+  -           ],
+  -           schemaVersion: '5.0.0',
+  -           workspaceAuthorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -           workspaceAuthorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -           workspaceBindingDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -           workspaceBindingIdentity: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2'
+  -         },
+  -         before: {
+  -           entries: [
+  -             {
+  -               byteLength: 15,
+  -               bytes: 'cmV0YWluZWQgc291cmNl',
+  -               digest: 'sha256:30f97f1943ba598214fde52613aba8dadc0cbee543b96b997ccab889284c2721',
+  -               encoding: 'base64',
+  -               fileIdentity: '16777231:468920382',
+  -               relativePath: 'source.txt',
+  -               state: 'file'
+  -             }
+  -           ],
+  -           kind: 'worksite_context_observation',
+  -           maxBytes: 100,
+  -           maxFiles: 1,
+  -           observationDigest: 'sha256:529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -           observationRef: 'worksite-context-observation://abiogenesis/529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -           readRoots: [
+  -             'source.txt'
+  -           ],
+  -           schemaVersion: '5.0.0',
+  -           workspaceAuthorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -           workspaceAuthorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -           workspaceBindingDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -           workspaceBindingIdentity: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2'
+  -         },
+  -         changedPaths: [],
+  -         kind: 'native_workspace_work_observation',
+  -         observationDigest: 'sha256:5f15c5bd8df9876baa4e77a38b99347c19e498f74cf7757de697161816a382d1',
+  -         observationRef: 'native-work-observation://abiogenesis/5f15c5bd8df9876baa4e77a38b99347c19e498f74cf7757de697161816a382d1',
+  -         provenance: {
+  -           actorInvocationRef: 'actor://source',
+  -           cCallRef: 'c-call://source',
+  -           executionAuthorityDigest: 'sha256:cbe98d7bcc755d8821fe142f31b60dc27864fd36c752851a88021b3941a6bda7',
+  -           executionAuthorityRef: 'authority://source',
+  -           promptDigest: 'sha256:d5c35dc42880af8ea51f2aed62e8aa32127127a3354052e17726ff172b2e38a5',
+  -           transportBindingDigest: 'sha256:b44b75350f7378905381fb7760c56076471463c57df3db3618811e1fe4149a91',
+  -           transportBindingRef: 'transport://source',
+  -           transportDigest: 'sha256:07474afa53a08ba5eb86a9f068ff446a4f394b3c0c6b29d924e3833c3542801e'
+  -         },
+  -         report: {
+  -           gaps: [],
+  -           summary: 'retained'
+  -         },
+  -         schemaVersion: '5.0.0',
+  -         task: {
+  -           capabilityGrant: {
+  -             actorRef: 'actor://generic-worksite/test',
+  -             approvalDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             approvalRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             authorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             capabilityDefinition: {
+  -               capabilityDefinitionDigest: 'sha256:7d8457310f3ab1ecb9c5bdecb85debb6e04311e6235c5e4d4c31a4846516a250',
+  -               capabilityDefinitionRef: 'capability-definition://generic-worksite/test',
+  -               capabilityId: 'capability://abiogenesis/run.invoke',
+  -               graphDigest: 'sha256:9631003a12c7b8ae95592a2d54724df8065b8d1a0feaf45575ca29ef1d67a85d',
+  -               graphId: 'capability-graph://generic-worksite/test',
+  -               graphVersion: '5.0.0'
+  -             },
+  -             capabilityRef: 'capability://abiogenesis/run.invoke',
+  -             definitionDigest: 'sha256:d31cf66f72d02c19fcd422cba97a918050245fb1136792b4f937519599c3e776',
+  -             definitionKey: {
+  -               memberKey: 'invoke',
+  -               operationId: 'abg.operation.run.invoke'
+  -             },
+  -             definitionRef: 'definition://generic-worksite/invoke',
+  -             grantDigest: 'sha256:a46aee7eaa3fd88696f33de221bf510482678b507b0cfffc9bbb2fa3c3c551a1',
+  -             grantRef: 'capability-grant://abiogenesis/a46aee7eaa3fd88696f33de221bf510482678b507b0cfffc9bbb2fa3c3c551a1',
+  -             kind: 'capability_grant',
+  -             operationContract: {
+  -               contractCatalog: {
+  -                 catalogDigest: 'sha256:30a233707001b5016a6a6ae3711e00988c83632536e551e9fbbde945867ff09c',
+  -                 catalogId: 'catalog://generic-worksite/test',
+  -                 catalogVersion: '5.0.0',
+  -                 productContentDigest: 'sha256:eda38f75521ee0704f5ef981b21be1bda10492edacefe2ceeaa7ce9b8b054a77',
+  -                 productId: 'product://generic-worksite/test'
+  -               },
+  -               flatRow: {
+  -                 contractDigest: 'sha256:5fc482fa3edad068350ab2f413425fa8dfb422772abdd2bb537b828a3b9e6309',
+  -                 contractId: 'contract://generic-worksite/request',
+  -                 contractVersion: '5.0.0'
+  -               },
+  -               nestedSelector: {
+  -                 definitionKey: null,
+  -                 definitionRef: null,
+  -                 selectorKind: 'flat_contract',
+  -                 slot: null
+  -               }
+  -             },
+  -             operationId: 'abg.operation.run.invoke',
+  -             policyDigest: 'sha256:d0f3d3a8c42f1ce2523bd88c2b63873f6851c482ec81d4db7171a47a63fbcb8e',
+  -             policyRef: 'policy://generic-worksite/test',
+  -             schemaVersion: '5.0.0',
+  -             scopeDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -             scopeRef: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2'
+  -           },
+  -           checks: [],
+  -           context: {
+  -             entries: [
+  -               {
+  -                 byteLength: 15,
+  -                 bytes: 'cmV0YWluZWQgc291cmNl',
+  -                 digest: 'sha256:30f97f1943ba598214fde52613aba8dadc0cbee543b96b997ccab889284c2721',
+  -                 encoding: 'base64',
+  -                 fileIdentity: '16777231:468920382',
+  -                 relativePath: 'source.txt',
+  -                 state: 'file'
+  -               }
+  -             ],
+  -             kind: 'worksite_context_observation',
+  -             maxBytes: 100,
+  -             maxFiles: 1,
+  -             observationDigest: 'sha256:529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -             observationRef: 'worksite-context-observation://abiogenesis/529d953fcf9172b7d6b7f9017a6c7ec4edfb5b05babd1885c8df96bfb33bccb0',
+  -             readRoots: [
+  -               'source.txt'
+  -             ],
+  -             schemaVersion: '5.0.0',
+  -             workspaceAuthorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             workspaceAuthorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             workspaceBindingDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -             workspaceBindingIdentity: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2'
+  -           },
+  -           instructions: [
+  -             'Read source.'
+  -           ],
+  -           kind: 'native_workspace_work_task',
+  -           outcome: 'retain source',
+  -           readFirst: [
+  -             'source.txt'
+  -           ],
+  -           schemaVersion: '5.0.0',
+  -           workspaceAuthorityBasis: {
+  -             authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             authorityManifestDigest: 'sha256:818967e65ccd04da261c96ead8a2e62d4b6a3dd14199a29b385447e417cdac8a',
+  -             authorityManifestRef: 'manifest://generic-worksite/authority',
+  -             authorityMode: 'trusted_developer',
+  -             authorizedActorRef: 'actor://generic-worksite/test',
+  -             canonicalRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/worksite',
+  -             kind: 'workspace_authority_basis',
+  -             schemaVersion: '5.0.0',
+  -             workspaceId: 'workspace://generic-worksite/test'
+  -           },
+  -           workspaceBinding: {
+  -             admissionEventRef: 'event://generic-worksite/binding',
+  -             authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -             authorizedActorRef: 'actor://generic-worksite/test',
+  -             bindingDigest: 'sha256:de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -             bindingId: 'workspace-binding://abiogenesis/de59121816db0db6a806c4d2603afea4020c6abbe0dcbdc9af22273e0cf7a4c2',
+  -             kind: 'workspace_binding',
+  -             lockDigest: 'sha256:a4db0612a2e732fd4c76cd77128aa10d1eea041512dfaa988701b9f7178acd5d',
+  -             lockId: 'lock://generic-worksite/test',
+  -             productSetDigest: 'sha256:d02a328972b569be2ce780a22dcfbc325d7005d15229633886e4c87d3f3567e6',
+  -             productSetId: 'product-set://generic-worksite/test',
+  -             roots: {
+  -               archiveRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/archive',
+  -               eventLogRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/eventLog',
+  -               productRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/product',
+  -               projectionRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/projection',
+  -               runtimeStateRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/runtimeState',
+  -               toolchainRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/toolchain'
+  -             },
+  -             schemaVersion: '5.0.0',
+  -             workspaceId: 'workspace://generic-worksite/test'
+  -           },
+  -           writeRoots: [
+  -             'source.txt'
+  -           ]
+  -         }
+  -       },
+  -       workspaceAuthorityBasis: {
+  -         authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityManifestDigest: 'sha256:818967e65ccd04da261c96ead8a2e62d4b6a3dd14199a29b385447e417cdac8a',
+  -         authorityManifestRef: 'manifest://generic-worksite/authority',
+  -         authorityMode: 'trusted_developer',
+  -         authorizedActorRef: 'actor://generic-worksite/test',
+  -         canonicalRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/worksite',
+  -         kind: 'workspace_authority_basis',
+  -         schemaVersion: '5.0.0',
+  -         workspaceId: 'workspace://generic-worksite/test'
+  -       },
+  -       workspaceBinding: {
+  -         admissionEventRef: 'event://covered-binding',
+  -         authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -         authorizedActorRef: 'actor://generic-worksite/test',
+  -         bindingDigest: 'sha256:f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468',
+  -         bindingId: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468',
+  -         kind: 'workspace_binding',
+  -         lockDigest: 'sha256:a4db0612a2e732fd4c76cd77128aa10d1eea041512dfaa988701b9f7178acd5d',
+  -         lockId: 'lock://generic-worksite/test',
+  -         productSetDigest: 'sha256:d02a328972b569be2ce780a22dcfbc325d7005d15229633886e4c87d3f3567e6',
+  -         productSetId: 'product-set://generic-worksite/test',
+  -         roots: {
+  -           archiveRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/archive',
+  -           eventLogRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/eventLog',
+  -           productRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/product',
+  -           projectionRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/projection/covered',
+  -           runtimeStateRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/runtimeState',
+  -           toolchainRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/toolchain'
+  -         },
+  -         schemaVersion: '5.0.0',
+  -         workspaceId: 'workspace://generic-worksite/test'
+  -       }
+  -     }
+  -   },
+  -   taskDigest: 'sha256:8db21ece76d24ae01219fecad92e01ffd45908b0300ef04aade3343a211509e7',
+  -   taskRef: 'worksite-command-execution-task://abiogenesis/8db21ece76d24ae01219fecad92e01ffd45908b0300ef04aade3343a211509e7',
+  -   transportLane: 'worker_executes',
+  -   workerActorRef: 'actor://abiogenesis/worksite/command-execution-worker@5',
+  -   workerBindingRef: 'worker-binding://abiogenesis/worksite/command-execution-worker@5',
+  -   workspaceAuthorityBasis: {
+  -     authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -     authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -     authorityManifestDigest: 'sha256:818967e65ccd04da261c96ead8a2e62d4b6a3dd14199a29b385447e417cdac8a',
+  -     authorityManifestRef: 'manifest://generic-worksite/authority',
+  -     authorityMode: 'trusted_developer',
+  -     authorizedActorRef: 'actor://generic-worksite/test',
+  -     canonicalRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/worksite',
+  -     kind: 'workspace_authority_basis',
+  -     schemaVersion: '5.0.0',
+  -     workspaceId: 'workspace://generic-worksite/test'
+  -   },
+  -   workspaceBinding: {
+  -     admissionEventRef: 'event://covered-binding',
+  -     authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -     authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52',
+  -     authorizedActorRef: 'actor://generic-worksite/test',
+  -     bindingDigest: 'sha256:f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468',
+  -     bindingId: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468',
+  -     kind: 'workspace_binding',
+  -     lockDigest: 'sha256:a4db0612a2e732fd4c76cd77128aa10d1eea041512dfaa988701b9f7178acd5d',
+  -     lockId: 'lock://generic-worksite/test',
+  -     productSetDigest: 'sha256:d02a328972b569be2ce780a22dcfbc325d7005d15229633886e4c87d3f3567e6',
+  -     productSetId: 'product-set://generic-worksite/test',
+  -     roots: {
+  -       archiveRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/archive',
+  -       eventLogRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/eventLog',
+  -       productRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/product',
+  -       projectionRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/projection/covered',
+  -       runtimeStateRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/runtimeState',
+  -       toolchainRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/toolchain'
+  -     },
+  -     schemaVersion: '5.0.0',
+  -     workspaceId: 'workspace://generic-worksite/test'
+  -   }
+  - }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs:202:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { kind: 'worksite_command_execution_task', schemaVersion: '5.0.0', taskRef: 'worksite-command-execution-task://abiogenesis/8db21ece76d24ae01219fecad92e01ffd45908b0300ef04aade3343a211509e7', taskDigest: 'sha256:8db21ece76d24ae01219fecad92e01ffd45908b0300ef04aade3343a211509e7', workspaceAuthorityBasis: { kind: 'workspace_authority_basis', schemaVersion: '5.0.0', workspaceId: 'workspace://generic-worksite/test', canonicalRoot: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-v6Gyv1/worksite', authorityMode: 'trusted_developer', authorizedActorRef: 'actor://generic-worksite/test', authorityManifestRef: 'manifest://generic-worksite/authority', authorityManifestDigest: 'sha256:818967e65ccd04da261c96ead8a2e62d4b6a3dd14199a29b385447e417cdac8a', authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52', authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52' }, workspaceBinding: { kind: 'workspace_binding', schemaVersion: '5.0.0', workspaceId: 'workspace://generic-worksite/test', authorityBasisId: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52', authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52', authorizedActorRef: 'actor://generic-worksite/test', productSetId: 'product-set://generic-worksite/test', productSetDigest: 'sha256:d02a328972b569be2ce780a22dcfbc325d7005d15229633886e4c87d3f3567e6', lockId: 'lock://generic-worksite/test', lockDigest: 'sha256:a4db0612a2e732fd4c76cd77128aa10d1eea041512dfaa988701b9f7178acd5d', roots: [Object], bindingDigest: 'sha256:f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468', bindingId: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468', admissionEventRef: 'event://covered-binding' }, capabilityGrant: { kind: 'capability_grant', schemaVersion: '5.0.0', definitionKey: [Object], definitionRef: 'definition://generic-worksite/invoke', definitionDigest: 'sha256:d31cf66f72d02c19fcd422cba97a918050245fb1136792b4f937519599c3e776', capabilityDefinition: [Object], operationContract: [Object], operationId: 'abg.operation.run.invoke', capabilityRef: 'capability://abiogenesis/run.invoke', actorRef: 'actor://generic-worksite/test', approvalRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52', approvalDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52', policyRef: 'policy://generic-worksite/test', policyDigest: 'sha256:d0f3d3a8c42f1ce2523bd88c2b63873f6851c482ec81d4db7171a47a63fbcb8e', scopeRef: 'workspace-binding://abiogenesis/f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468', scopeDigest: 'sha256:f71f9d3dea92f7ade341c35609332423818ea28f68ec99bc0f5fa54d33c8b468', authorityBasisRef: 'workspace-authority://abiogenesis/a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52', authorityBasisDigest: 'sha256:a7204d4963721b9792bb51976f7bfe8e108e55987af440c5fedc775f47660f52', grantDigest: 'sha256:df692501b40de2f8edfd40f60980497eef9ae2bd7ef3ab38a2277cc80ff6f8d0', grantRef: 'capability-grant://abiogenesis/df692501b40de2f8edfd40f60980497eef9ae2bd7ef3ab38a2277cc80ff6f8d0' }, sourceNativeWork: { kind: 'native_workspace_work_observation', schemaVersion: '5.0.0', task: [Object], before: [Object], after: [Object], changedPaths: [], report: [Object], provenance: [Object], observationDigest: 'sha256:5f15c5bd8df9876baa4e77a38b99347c19e498f74cf7757de697161816a382d1', observationRef: 'native-work-observation://abiogenesis/5f15c5bd8df9876baa4e77a38b99347c19e498f74cf7757de697161816a382d1' }, sourceReacquisition: { request: [Object], nativeBasis: [Object], bindingCoverEventRefs: [] }, materializationPlanRef: 'prompt-plan://abiogenesis/worksite/command-execution@5', rendererRef: 'renderer://abiogenesis/worksite/command-execution@5', instructionContractRef: 'contract://abiogenesis/worksite/command-execution-task@5', resultContractRef: 'contract://abiogenesis/worksite/command-execution-worker-result@5', workerActorRef: 'actor://abiogenesis/worksite/command-execution-worker@5', workerBindingRef: 'worker-binding://abiogenesis/worksite/command-execution-worker@5', transportLane: 'worker_executes', commands: [ [Object] ], outcomePredicates: [], protectedObservations: [ [Object] ], allowedWriteTerritories: [ [Object] ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

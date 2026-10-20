@@ -1,0 +1,18 @@
+[
+  {
+    "path": "specification/GOALS.md",
+    "sha256": "d71d93f90a28c5d5c37d66ca0b1de307e56cdbc82c01d4811c9a6e7750123530"
+  },
+  {
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "052f1b0f4bbb20af8e447748bbe6a4a5dbe4899acb3b092fba99c2f03b99de22"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/README.md",
+    "sha256": "18901dd7b5f36a2b18fa43d8d0ed806ab15b881c8428653c9eb3d4953a3c9cd2"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "sha256": "9dea70d4a671265a292f1dd697e9df99adffef6ea35ebc8c95473e68da03f410"
+  }
+]

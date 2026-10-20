@@ -1,0 +1,371 @@
+{
+  "kind": "single_late_boundary_diagnostic_stopped",
+  "started": "2026-10-07T13:46:52.641Z",
+  "completed": "2026-10-07T13:47:16.948Z",
+  "wallMs": 24305.868792,
+  "failedStage": "prefix_authentication_start",
+  "failure": {
+    "name": "AssertionError",
+    "message": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 1\n",
+    "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 1\n\n    at exerciseOnce (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/diagnostic.mjs:121:10)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/diagnostic.mjs:167:11"
+  },
+  "baseline": {
+    "label": "owners_loaded",
+    "elapsedMs": 6.645332999999994,
+    "rss": 175112192,
+    "heapTotal": 104841216,
+    "heapUsed": 34224048,
+    "external": 2441168,
+    "arrayBuffers": 27015,
+    "heapSizeLimit": 4496293888
+  },
+  "prefixCoordinate": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/resources/events/runtime.events.jsonl",
+    "prefixLength": 1167689615,
+    "prefixDigest": "sha256:e211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467205895
+    },
+    "coordinateDigest": "sha256:502b7663f83457530e3577fd4584517fa3880f6eb8c226ec6721e9df3917dc91"
+  },
+  "samples": [
+    {
+      "label": "owners_loaded",
+      "elapsedMs": 6.645332999999994,
+      "rss": 175112192,
+      "heapTotal": 104841216,
+      "heapUsed": 34224048,
+      "external": 2441168,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "before_one_cold_acquisition",
+      "elapsedMs": 261.37925,
+      "rss": 323059712,
+      "heapTotal": 217333760,
+      "heapUsed": 79678944,
+      "external": 2441208,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "cold_acquisition_returned",
+      "elapsedMs": 22640.613624999998,
+      "rss": 3155902464,
+      "heapTotal": 1772617728,
+      "heapUsed": 1642637544,
+      "external": 1170126269,
+      "arrayBuffers": 1167716630,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "cold_events_retained",
+      "elapsedMs": 22751.306,
+      "rss": 3029417984,
+      "heapTotal": 1630208000,
+      "heapUsed": 1478799056,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    }
+  ],
+  "sampler": {
+    "samplingInterval": 1048576,
+    "includeObjectsCollectedByMajorGC": true,
+    "includeObjectsCollectedByMinorGC": true,
+    "cumulativeAllocationsNotLiveRetainers": true,
+    "available": true,
+    "sampleCount": 24615,
+    "topAttributions": [
+      {
+        "selfSize": 2142929472,
+        "nodeId": 569,
+        "functionName": "join",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 1655040416,
+        "nodeId": 469,
+        "functionName": "update",
+        "url": "node:internal/crypto/hash",
+        "zeroBasedLineNumber": 133
+      },
+      {
+        "selfSize": 1648996920,
+        "nodeId": 419,
+        "functionName": "decodeHistoricalEvents",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "zeroBasedLineNumber": 2076
+      },
+      {
+        "selfSize": 1635944112,
+        "nodeId": 421,
+        "functionName": "slice",
+        "url": "node:buffer",
+        "zeroBasedLineNumber": 645
+      },
+      {
+        "selfSize": 596665144,
+        "nodeId": 446,
+        "functionName": "projectRuntimeEventAtContract",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "zeroBasedLineNumber": 1348
+      },
+      {
+        "selfSize": 590434960,
+        "nodeId": 802,
+        "functionName": "",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+        "zeroBasedLineNumber": 81
+      },
+      {
+        "selfSize": 475024288,
+        "nodeId": 535,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 464306256,
+        "nodeId": 545,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 438968632,
+        "nodeId": 940,
+        "functionName": "advance",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+        "zeroBasedLineNumber": 352
+      },
+      {
+        "selfSize": 437266528,
+        "nodeId": 849,
+        "functionName": "getOwnPropertyDescriptor",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 403722424,
+        "nodeId": 471,
+        "functionName": "assertRuntimeEventContract",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "zeroBasedLineNumber": 1608
+      },
+      {
+        "selfSize": 399613384,
+        "nodeId": 581,
+        "functionName": "sort",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 394744672,
+        "nodeId": 844,
+        "functionName": "",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+        "zeroBasedLineNumber": 81
+      },
+      {
+        "selfSize": 370168688,
+        "nodeId": 538,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 363872496,
+        "nodeId": 560,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 357222944,
+        "nodeId": 577,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 356524224,
+        "nodeId": 850,
+        "functionName": "getOwnPropertyDescriptor",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 355474656,
+        "nodeId": 550,
+        "functionName": "entries",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 354512736,
+        "nodeId": 552,
+        "functionName": "sort",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 347091152,
+        "nodeId": 690,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 330176992,
+        "nodeId": 634,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 319827360,
+        "nodeId": 564,
+        "functionName": "entries",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 308532264,
+        "nodeId": 626,
+        "functionName": "",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 5
+      },
+      {
+        "selfSize": 306711448,
+        "nodeId": 598,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 295101280,
+        "nodeId": 629,
+        "functionName": "",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 5
+      },
+      {
+        "selfSize": 294656016,
+        "nodeId": 582,
+        "functionName": "entries",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 278477776,
+        "nodeId": 578,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 276899032,
+        "nodeId": 539,
+        "functionName": "sort",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 276753032,
+        "nodeId": 562,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 272635328,
+        "nodeId": 682,
+        "functionName": "entries",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 262494688,
+        "nodeId": 612,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 256564328,
+        "nodeId": 611,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 252777760,
+        "nodeId": 701,
+        "functionName": "sort",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 247468720,
+        "nodeId": 620,
+        "functionName": "entries",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 243489672,
+        "nodeId": 599,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 231745720,
+        "nodeId": 695,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 223351712,
+        "nodeId": 697,
+        "functionName": "entries",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 222145072,
+        "nodeId": 561,
+        "functionName": "writeCanonicalJson",
+        "url": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+        "zeroBasedLineNumber": 9
+      },
+      {
+        "selfSize": 208722920,
+        "nodeId": 645,
+        "functionName": "add",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      },
+      {
+        "selfSize": 206622384,
+        "nodeId": 625,
+        "functionName": "sort",
+        "url": "",
+        "zeroBasedLineNumber": -1
+      }
+    ],
+    "aggregateSelfSize": 28914822264,
+    "smallRawProfileWritten": true
+  },
+  "noRetryOrAlternateGuard": true,
+  "noReplayRecoveryRuntimeOrApplicationEffects": true
+}

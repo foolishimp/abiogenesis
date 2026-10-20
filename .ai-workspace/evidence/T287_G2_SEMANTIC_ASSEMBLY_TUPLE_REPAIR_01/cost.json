@@ -1,0 +1,243 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "acquisition": {
+    "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+    "elapsedMs": 1531.495667,
+    "userCPUSeconds": 0.28959399999999996,
+    "systemCPUSeconds": 1.224754,
+    "maxRSSPlatformBytes": 39731200,
+    "dependencyFiles": 4576,
+    "dependencyLogicalBytes": 58291040,
+    "SourceChanges": 2,
+    "unchangedSource": 15,
+    "HOME": "/Users/jim",
+    "defaultHeap": true
+  },
+  "phases": {
+    "preflight": {
+      "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/preflight.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/tmp"
+      },
+      "pid": 66915,
+      "pgid": 66915,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 135.08033400000002,
+      "userCPUSeconds": 0.032521,
+      "systemCPUSeconds": 0.03325,
+      "maxRSSPlatformBytes": 67469312,
+      "stdoutSHA256": "aabd79ce65402283840bb31bc1439c03c5d889084de38fb16e6c9e1d07225b5f",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile": {
+      "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--project",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/tmp"
+      },
+      "pid": 67044,
+      "pgid": 67044,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 6164.855542,
+      "userCPUSeconds": 10.248066,
+      "systemCPUSeconds": 0.222384,
+      "maxRSSPlatformBytes": 1164738560,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "manifest": {
+      "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/tmp"
+      },
+      "pid": 67723,
+      "pgid": 67723,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 25074.582083,
+      "userCPUSeconds": 28.730362,
+      "systemCPUSeconds": 1.401274,
+      "maxRSSPlatformBytes": 1840824320,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pack": {
+      "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/bin/npm-cli.js",
+        "pack",
+        "--ignore-scripts",
+        "--offline",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/packs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/tmp"
+      },
+      "pid": 69730,
+      "pgid": 69730,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 3880.786209,
+      "userCPUSeconds": 3.7216679999999998,
+      "systemCPUSeconds": 0.393642,
+      "maxRSSPlatformBytes": 315785216,
+      "stdoutSHA256": "2cfea1f9ee52fee3acd137484667928bd13f93da93ab5948a9c499437ffcc816",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "extract": {
+      "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "command": [
+        "/usr/bin/python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/extract.py"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/tmp"
+      },
+      "pid": 69981,
+      "pgid": 69981,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 2033.0162080000002,
+      "userCPUSeconds": 0.479548,
+      "systemCPUSeconds": 0.515037,
+      "maxRSSPlatformBytes": 66240512,
+      "stdoutSHA256": "a31f3262c8122687d94a636ef2a05170e9af6f30d34b3f32f2718040a8adfb9a",
+      "stderrSHA256": "e5be33f9c5dd2d95e479ec5b7e022f0cfea4665b141709fcb7396e1c309acfdf"
+    },
+    "schema_preflight": {
+      "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/schema-preflight.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/tmp"
+      },
+      "pid": 70239,
+      "pgid": 70239,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 356.47691599999996,
+      "userCPUSeconds": 0.42600899999999997,
+      "systemCPUSeconds": 0.035116999999999995,
+      "maxRSSPlatformBytes": 237633536,
+      "stdoutSHA256": "4c5a50e2f018fc54d1392f8e1d40cfe4f7a4838356b1fcd94c1a61bbe2ef5adb",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "focused": {
+      "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "capSeconds": 240,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/tmp"
+      },
+      "pid": 70421,
+      "pgid": 70421,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 25264.721292000002,
+      "userCPUSeconds": 31.973081,
+      "systemCPUSeconds": 0.6830299999999999,
+      "maxRSSPlatformBytes": 2485829632,
+      "stdoutSHA256": "720c8dbc07d9968a7e2f09c061a8ab7c3b432300096ee6956b7e5a0d47c74497",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "payloadElapsedMs": 62909.518584000005,
+  "userCPUSeconds": 75.900849,
+  "systemCPUSeconds": 4.508488,
+  "maxRSSPlatformBytes": 2485829632,
+  "compileCount": 1,
+  "manifestCount": 1,
+  "offlinePackCount": 1,
+  "schemaPreflightCount": 1,
+  "focusedInvocationCount": 1,
+  "retries": 0
+}

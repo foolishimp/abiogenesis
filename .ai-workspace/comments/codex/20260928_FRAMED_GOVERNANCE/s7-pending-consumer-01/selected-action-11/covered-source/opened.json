@@ -1,0 +1,26 @@
+{
+  "kind": "actual_public_start_scope_projection",
+  "scope": {
+    "kind": "opened_traversal_scope",
+    "schemaVersion": "5.0.0",
+    "executionBasisRef": "execution-basis://abiogenesis/8a7e411b9f2ea6585df90ca61538184b0a62cedc6203df784f10af53c5d6f90c",
+    "executionBasisDigest": "sha256:8a7e411b9f2ea6585df90ca61538184b0a62cedc6203df784f10af53c5d6f90c",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/1e03e955b846b55bc1c799abd23a5c1b5a3c6057e74f503efa15cf7a53866f42",
+    "invocationRef": "invocation://abiogenesis/a7beeb5aac32cef953b6446140a1e4651e003e3d7bbdbb113de1f3d32cc059de",
+    "programRef": "program://selected-action/root@5",
+    "graphFunctionRef": "graph-function://selected-action/root@5",
+    "graphRef": "graph-materialization://abiogenesis/10f6d08229ea0ae726f8bad4f9dfa7c1cf58f1e3987659728113c514aa299189",
+    "runId": "run://abiogenesis/52c93b37b11231f28d3cf2029d1e54b22fdc6467220fe82095f23f6df24c9128",
+    "runDigest": "sha256:52c93b37b11231f28d3cf2029d1e54b22fdc6467220fe82095f23f6df24c9128",
+    "runOpenEventRef": "event://abiogenesis/4b55b8736fabe9c6bb8478a04a21f2e4dac9842b7e9c4ccaffc7a1fddc64c66b",
+    "graphCallId": "graph-call://abiogenesis/630f002b8a83e198373c740ca8061315f4aa216cda082365a9387fc7223a2982",
+    "graphCallDigest": "sha256:630f002b8a83e198373c740ca8061315f4aa216cda082365a9387fc7223a2982",
+    "graphCallOpenEventRef": "event://abiogenesis/677961f25f56cbccba1eeb9ab8f6f49613b42f7b54133cfa40fe9e120d185f6a",
+    "frameId": "frame://abiogenesis/eb275d0d05c0c8bd3b50b1370d51838060a0de69b9788efdfac300d28a9f22c4",
+    "frameDigest": "sha256:eb275d0d05c0c8bd3b50b1370d51838060a0de69b9788efdfac300d28a9f22c4",
+    "frameLineageId": "frame-lineage://abiogenesis/e9a31045e5d8bb7c2fac45eda8c13e7e3cd35f00bdb87b4028b50d36930f4e7e",
+    "frameOpenEventRef": "event://abiogenesis/772412c6a4d05bbfe3db09559721a8a2096b9074de81ca32af6fce33ebdd6401",
+    "scopeDigest": "sha256:c673e868e5b04761e4038e46ef85f728027714dbd4774645d143ff97a5658aae",
+    "scopeRef": "traversal-scope://abiogenesis/c673e868e5b04761e4038e46ef85f728027714dbd4774645d143ff97a5658aae"
+  }
+}

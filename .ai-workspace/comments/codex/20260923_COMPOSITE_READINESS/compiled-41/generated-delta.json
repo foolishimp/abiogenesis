@@ -1,0 +1,54 @@
+[
+  {
+    "path": "build/code/src/abg/event_store.js",
+    "before": {
+      "path": "build/code/src/abg/event_store.js",
+      "bytes": 156185,
+      "sha256": "5dfab78f7d976a94df3e6f61f6447a4f7ecb09011d5a2a68eea4a82ae35c8131"
+    },
+    "after": {
+      "path": "build/code/src/abg/event_store.js",
+      "bytes": 156600,
+      "sha256": "d854a25ba97a3914d9e28ea8cc7cc5e1115f0d587e358c9d7bd40828e9d565f1"
+    }
+  },
+  {
+    "path": "build/code/src/abg/instruction_assembly.js",
+    "before": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 86688,
+      "sha256": "bdd73d3561181a55b5436222abd2eee1223651ebc93eb02a7173570ad907cbf5"
+    },
+    "after": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 83202,
+      "sha256": "792513784efd1cb1bb2c7e4b63e7649f293d3eba07b1e315b446d1abb54d7576"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "ac29ced518c45223174415bf4daca254a95d90532fc8250c4bff1651b02bed47"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "4181f59e0665a1b449f32932cc4cd4cedd16e77e1d46c46486785ffde443d97d"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "3b292f9ef1272b6705a1ad9e634f1ffc9145396354d1c297d9259dcb4185fdf4"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "a696fc228e5bb1b2fd5d740e9f26c2dacd523eb1df620686edd168b8803f682a"
+    }
+  }
+]

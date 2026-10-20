@@ -1,0 +1,19 @@
+(node:8798) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ F04 same native contract proof is reused while raw and changed bases still check (273.526125ms)
+ℹ Actual compiled leaf/F04 owners; prefix/install/semantic-loader facts and authenticated actor proof are supplied component premises. No runtime or native claim.
+✔ CCall failure projection conserves the authenticated malformed-result assessment (2.67825ms)
+✔ CCall failure projection refuses foreign producer, assessment and artifact correspondence (1.510291ms)
+✔ historical absent-assessment classification and ordinary failure classes retain their meaning (0.070333ms)
+✔ actor transport authentication is available before candidate association and refuses crossed facts (1.026292ms)
+✔ assessment schema must match its unique declared installed owner and immutable schema asset (26.386542ms)
+✔ exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes (46.994208ms)
+ℹ {"ownerPreparationCount":1,"coldAndChangedCompiles":4,"coverage":"Exact installed-byte resolver -> response-schema projection -> result parser -> native completion -> observation/result predicates. Fixture supplies lower authority/assembly/exchange; no provider or native admission claim."}
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 336.834083

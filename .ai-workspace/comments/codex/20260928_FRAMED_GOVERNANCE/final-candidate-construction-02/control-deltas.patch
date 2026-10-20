@@ -1,0 +1,221 @@
+--- a/prepare.py
++++ b/prepare.py
+@@ -1,8 +1,9 @@
+ from pathlib import Path
+-import json,hashlib,subprocess,shutil,os,base64,datetime,stat
+-B=Path('/Users/jim/src/apps/abiogenesis');TR=Path('build_tenants/abiogenesis/typescript');T=B/TR;G=B/'.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE';D=G/'final-candidate-construction-01';F=D/'source-freeze';S=D/'staged-repo';env={**os.environ,'GIT_OPTIONAL_LOCKS':'0'}
++import json,hashlib,subprocess,shutil,os,base64,stat,time
++D=Path(__file__).resolve().parent;G=D.parent;C=G/'final-candidate-construction-01';R=G/'default-library-publication-repair-01';B=G.parents[3];TR=Path('build_tenants/abiogenesis/typescript');F=D/'source-freeze';S=D/'staged-repo';start=time.monotonic()
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+-def save(n,v):(D/n).write_text(json.dumps(v,indent=2)+'\n')
++def save(n,v):
++ with (D/n).open('x') as f:json.dump(v,f,indent=2);f.write('\n')
+ def copy(p,q):
+  assert p.is_file() and not p.is_symlink(),str(p);q.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,q);assert sha(p)==sha(q)
+ def inv(root):
+@@ -11,85 +12,56 @@
+   if p.is_symlink():rows.append({'path':str(p.relative_to(root)),'kind':'symlink','target':str(p.readlink())})
+   elif p.is_file():rows.append({'path':str(p.relative_to(root)),'kind':'file','bytes':p.stat().st_size,'sha256':sha(p),'mode':stat.S_IMODE(p.stat().st_mode)})
+  return rows
+-save('activation.json',{'worker':'T287_FINAL_CANDIDATE_CONSTRUCTION_01','role':'Worker','changeClass':'realization_refactor','territory':str(D),'requestSha256':'0bc97876f7e06e3655d92baa413924a46fb6ba17a28d6e4a4eeb4a4cd98f20ef','prospectiveVersion':'5.0.0-rc.1','nativeEffects':'not authorized','startedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()})
+-for n in ['source-freeze','staged-repo','artifacts','install','npm-cache','tmp']: (D/n).mkdir()
+-request=G/'final-candidate-construction-controls-01/request.txt';assert request.stat().st_size==9866 and sha(request)=='0bc97876f7e06e3655d92baa413924a46fb6ba17a28d6e4a4eeb4a4cd98f20ef'
+-head=subprocess.check_output(['git','rev-parse','HEAD','HEAD^{tree}'],cwd=B,env=env).decode().splitlines();assert head==['55a8a452141caf180ea6cee6365d2a1bfb9da34e','4c62849aea7a973c28015ab4d503ccbec3fa728a']
+-trackedRaw=subprocess.check_output(['git','ls-files','-s','-z','--',str(TR)],cwd=B,env=env).decode();tracked={}
+-for entry in trackedRaw.split('\0'):
+- if entry:
+-  meta,p=entry.split('\t');mode,oid,stage=meta.split();assert stage=='0';tracked[p]={'mode':mode,'blob':oid}
+-selected=set()
+-for p in (T/'code/src').rglob('*'):
+- if p.is_file():selected.add(str(p.relative_to(B)))
+-selected.update(str(p.relative_to(B)) for p in (T/'scripts').glob('*.mjs'))
+-selected.update(str(TR/n) for n in ['package.json','package-lock.json','tsconfig.json','.gitignore'])
+-for p in tracked:
+- rel=Path(p).relative_to(TR)
+- if rel.parts[0] in ['design','test_env'] and not any(x in rel.parts for x in ['test_runs','evidence']):selected.add(p)
+-explicit=['test_env/fixtures/continuation-causation.json','test_env/fixtures/t287-s03-automatic-product/index.mjs','test_env/fixtures/t287-selected-action-product/index.mjs','test_env/support/t287-s03-automatic.mjs','test_env/support/t287-selected-action-host.mjs','test_env/tests/t287-continuation-causation.test.mjs','test_env/tests/t287-s03-automatic.test.mjs','test_env/tests/t287-selected-action-authority.test.mjs','test_env/tests/t287-selected-action.test.mjs']
+-selected.update(str(TR/p) for p in explicit)
+-a=json.loads((T/'contracts/qualification/authority-inputs.json').read_text());R=Path(json.loads((B/'.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/stdo-status.json').read_text())['path']);assert sha(R/'manifest.json')=='5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64'
+-authorities=[]
+-for row in a['sources']:
+- repo=row['ref'].startswith('repo://abiogenesis/');rel=row['ref'].removeprefix('repo://abiogenesis/') if repo else row['ref'].removeprefix(a['method']['releaseRef']);original=(B if repo else R)/rel;packaged=T/row['path']
+- assert original.read_bytes()==packaged.read_bytes() and 'sha256:'+sha(original)==row['digest'] and original.stat().st_size==row['byteCount'],row['ref']
+- selected.add(str(packaged.relative_to(B)))
+- if repo:selected.add(rel)
+- else:copy(original,F/'stdo'/rel)
+- authorities.append({**row,'originalPath':str(original),'originalSha256':sha(original),'frozenOriginal':('repo/' if repo else 'stdo/')+rel})
+-assert len(authorities)==95
+-selected.add(str(TR/'contracts/qualification/authority-inputs.json'));selected.add(str(TR/'contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md'))
+-selected.update(['README.md','AGENTS.md','CLAUDE.md','specification/GOALS.md','.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md'])
+-copy(R/'manifest.json',F/'stdo/manifest.json')
+-sourceRows=[];deletions=[]
+-for rel in sorted(selected):
+- p=B/rel
+- if not p.exists():deletions.append({'path':rel,'tracked':tracked.get(rel)});continue
+- copy(p,F/'repo'/rel);copy(F/'repo'/rel,S/rel)
+- row={'path':rel,'bytes':p.stat().st_size,'sha256':sha(p),'git':tracked.get(rel),'selectedUntracked':rel not in tracked and rel.startswith(str(TR))}
+- if rel in tracked:
+-  raw=p.read_bytes();blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest();row['currentGitBlob']=blob;row['overlayChanged']=blob!=tracked[rel]['blob']
+- sourceRows.append(row)
+-save('source-members.json',sourceRows);save('source-deletions.json',deletions);save('authority-joins.json',authorities)
+-repair=json.loads((G/'s03-public-handoff-repair-01/freeze.json').read_text())
+-for row in repair['sources']:assert sha(Path(row['path']))==row['sha256'];assert sha(F/'repo'/Path(row['path']).relative_to(B))==row['sha256']
+-# Preserve current generated bytes in a separate preimage tree; stage contract
+-# inputs/preimages, but never stage old build outputs as authored source.
+-generated=[]
+-for p in sorted([*list((T/'build').rglob('*')),*list((T/'contracts').rglob('*')),T/'product-toolchain-manifest.json']):
+- if not p.is_file():continue
+- rel=p.relative_to(T)
+- if str(p.relative_to(B)) in selected:continue
+- copy(p,F/'generated-preimages'/rel);generated.append({'path':str(rel),'bytes':p.stat().st_size,'sha256':sha(p)})
+- if rel.parts[0]=='contracts':copy(F/'generated-preimages'/rel,S/TR/rel)
++assert sha(C/'freeze.json')=='f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f'
++assert sha(C/'source-freeze-manifest.json')=='3bbc0f064e8f00c2860081d1fa475abbe3604a25b627178d6792875ef5f23a1e'
++assert sha(R/'freeze.json')=='19f97fe0758b204829d4f4695c83f49cc641d1c4affdd7defd46022c36eaa01d'
++assert sha(R/'source.patch')=='ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708'
++review=G/'default-library-publication-review-01';assert sha(review/'return.md')=='33decf307f10b2c7501f5628faa1923cb47cd4afe9222225009fc07f3d0e93c5';assert sha(review/'freeze.json')=='a1670b454cb139baa508fdb97ad09553b65c9ebd40efba1d1d8ce196eeeac250'
++base=json.loads((C/'source-members.json').read_text());assert len(base)==1103;delta=json.loads((R/'source-attribution.json').read_text())['sources'];assert len(delta)==3;by={r['logicalPath']:r for r in delta}
++# Verify accepted patch against exact original logical paths; this is evidence only.
++for r in delta:copy(C/'source-freeze/repo'/r['logicalPath'],D/'patch-reconstruction'/r['logicalPath']);assert sha(B/r['logicalPath'])==r['postimage']['sha256'];assert sha(R/r['postimage']['path'])==r['postimage']['sha256']
++p=subprocess.run(['patch','-p1','--batch','-i',str(R/'source.patch')],cwd=D/'patch-reconstruction',capture_output=True,text=True);assert p.returncode==0,p.stderr
++for r in delta:assert sha(D/'patch-reconstruction'/r['logicalPath'])==r['postimage']['sha256']
++save('patch-reconstruction.json',{'patchSHA256':sha(R/'source.patch'),'exitCode':p.returncode,'stdout':p.stdout,'allThreePostimagesEqual':True})
++rows=[]
++for row in base:
++ rel=row['path'];original=C/'source-freeze/repo'/rel;assert original.stat().st_size==row['bytes'] and sha(original)==row['sha256']
++ selected=R/by[rel]['postimage']['path'] if rel in by else original;copy(selected,F/'repo'/rel);copy(selected,S/rel)
++ updated={**row,'bytes':selected.stat().st_size,'sha256':sha(selected)}
++ if rel in by:
++  body=selected.read_bytes();updated['currentGitBlob']=hashlib.sha1(b'blob '+str(len(body)).encode()+b'\0'+body).hexdigest();updated['overlayChanged']=True
++ rows.append(updated)
++assert set(r['path'] for r in rows)==set(r['path'] for r in base)
++ticket='.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md';assert sha(F/'repo'/ticket)=='de8b1cca640cbe220c5d53108cc21602f8579ca0361eb3cb39df8876bbea1b5f'
++save('source-members.json',rows);save('source-deletions.json',json.loads((C/'source-deletions.json').read_text()));save('source-delta.json',[{'logicalPath':r['logicalPath'],'preimageSHA256':r['preimage']['sha256'],'postimageSHA256':r['postimage']['sha256'],'sourceAuthor':r['actualAuthor'],'copyBuildAuthor':'/root/s03_phase_b; copy/build does not replace actual source authorship'} for r in delta])
++shutil.copytree(C/'source-freeze/stdo',F/'stdo');authorities=[]
++for row in json.loads((C/'authority-joins.json').read_text()):
++ original=F/row['frozenOriginal'];packaged=F/'repo'/TR/row['path'];assert original.read_bytes()==packaged.read_bytes();assert 'sha256:'+sha(original)==row['digest'] and original.stat().st_size==row['byteCount'];assert sha(Path(row['originalPath']))==row['originalSha256']
++ authorities.append({**row,'currentOriginalVerified':True,'selectedOriginal':'source-freeze/'+row['frozenOriginal']})
++assert len(authorities)==95;save('authority-joins.json',authorities)
++generated=json.loads((C/'generated-after.json').read_text());assert len(generated)==828
++for row in generated:
++ rel=Path(row['path']);original=C/'staged-repo'/TR/rel;assert sha(original)==row['sha256'];copy(original,F/'generated-preimages'/rel)
++ if rel.parts[0]=='contracts':copy(original,S/TR/rel)
+ save('generated-before.json',generated)
+-claims=B/'.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/release-claims.json';coverage=json.loads((T/'contracts/qualification/coverage.json').read_text());assert len(coverage['claims'])==16 and sum(len(x['behaviors']) for x in coverage['claims'])==66
+-assert 'sixteen source-linked declaration groups and sixty-six behaviors' in claims.read_text();copy(claims,F/'release-claims.json');save('claim-check.json',{'claimsSha256':sha(claims),'coverageSha256':sha(T/'contracts/qualification/coverage.json'),'declarationGroups':16,'behaviors':66,'selectedCapabilitiesUnchanged':True,'status':'prospective claims; native coverage not asserted'})
+-for rel in ['final-candidate-construction-controls-01/request.txt','final-candidate-construction-controls-01/request-sections.json','final-candidate-preparation-01.md','s03-public-handoff-repair-01/return.md','s03-public-handoff-repair-01/freeze.json','s03-public-handoff-repair-review-01.md']:copy(G/rel,F/'controls'/rel)
+-# Freeze and copy the exact Node/npm executable package; native dynamic
+-# dependencies remain observed host dependencies, explicitly inventoried.
+-node=Path(shutil.which('node')).resolve();npm=Path(shutil.which('npm')).resolve().parent.parent
+-copy(node,F/'toolchain/bin/node');shutil.copytree(npm,F/'toolchain/npm',symlinks=True)
+-(F/'toolchain/bin/npm').symlink_to('../npm/bin/npm-cli.js')
+-executables=[]
+-for name in ['node','npm','python3','tar','sh']:
+- p=Path(shutil.which(name)).resolve();executables.append({'name':name,'path':str(p),'bytes':p.stat().st_size,'sha256':sha(p)})
+-otool=subprocess.check_output(['otool','-L',str(node)]).decode();(D/'node-dynamic-libraries.txt').write_text(otool)
+-libs=[]
+-for line in otool.splitlines()[1:]:
+- path=line.strip().split(' (',1)[0];p=Path(path)
+- libs.append({'path':path,'realpath':str(p.resolve()),'sha256':sha(p) if p.is_file() else None,'systemSharedCache':not p.is_file()})
+-save('toolchain-host.json',{'executables':executables,'nodeDynamicLibraries':libs,'nodeVersion':subprocess.check_output([str(node),'--version']).decode().strip(),'npmVersion':json.loads((npm/'package.json').read_text())['version'],'platform':subprocess.check_output(['uname','-a']).decode().strip()})
+-lock=json.loads((F/'repo'/TR/'package-lock.json').read_text());archives=[]
+-for locator,item in lock['packages'].items():
+- if not locator:continue
+- algorithm,encoded=item['integrity'].split('-',1);hexDigest=base64.b64decode(encoded).hex();rel=Path('content-v2')/algorithm/hexDigest[:2]/hexDigest[2:4]/hexDigest[4:];original=Path('/Users/jim/.npm/_cacache')/rel
+- raw=original.read_bytes();assert base64.b64encode(hashlib.new(algorithm,raw).digest()).decode()==encoded
+- target=F/'dependency-archives'/(locator.removeprefix('node_modules/').replace('/','__')+'.tgz');copy(original,target);copy(target,D/'npm-cache/_cacache'/rel)
+- archives.append({'locator':locator,'version':item['version'],'resolved':item['resolved'],'integrity':item['integrity'],'originalCachePath':str(original),'frozenPath':str(target.relative_to(F)),'bytes':len(raw),'sha256':sha(target)})
+-save('dependency-archives.json',archives)
+-# Seal by inventory. No source-freeze writes after this file is emitted.
+-freezeRows=inv(F);save('source-freeze-manifest.json',{'status':'FROZEN','head':head[0],'committedTree':head[1],'dirtyOverlayIsCommit':False,'authoredMemberCount':len(sourceRows),'generatedPreimageCount':len(generated),'authorityJoins':len(authorities),'dependencyArchives':len(archives),'deletions':deletions,'members':freezeRows})
+-save('source-overlay.json',{'head':head[0],'tree':head[1],'selectedModified':[x for x in sourceRows if x.get('overlayChanged')],'selectedUntracked':[x for x in sourceRows if x.get('selectedUntracked')],'deletions':deletions,'gitStatus':subprocess.check_output(['git','status','--porcelain=v1','--untracked-files=all','--',str(TR)],cwd=B,env=env).decode()})
+-print(json.dumps({'status':'frozen','authored':len(sourceRows),'generatedPreimages':len(generated),'authorityJoins':len(authorities),'dependencies':len(archives),'freezeMembers':len(freezeRows),'sourceFreezeSha256':sha(D/'source-freeze-manifest.json')}),flush=True)
++copy(C/'source-freeze/release-claims.json',F/'release-claims.json');claims=json.loads((C/'claim-check.json').read_text());assert sha(F/'release-claims.json')==claims['claimsSha256'];coverage=json.loads((S/TR/'contracts/qualification/coverage.json').read_text());assert len(coverage['claims'])==16 and sum(len(x['behaviors']) for x in coverage['claims'])==66;assert sha(S/TR/'contracts/qualification/coverage.json')==claims['coverageSha256'];save('claim-check.json',claims)
++for root,names in [(G/'final-candidate-construction-controls-02',['request.txt','request-sections.json']),(C,['freeze.json','source-freeze-manifest.json','source-overlay.json']),(R,['return.md','freeze.json','source-attribution.json','source.patch']),(review,['return.md','freeze.json'])]:
++ for name in names:copy(root/name,F/'controls'/root.name/name)
++for row in delta:copy(R/row['preimage']['path'],F/'source-preimages'/row['logicalPath'])
++shutil.copytree(C/'source-freeze/toolchain',F/'toolchain',symlinks=True)
++for row in json.loads((C/'source-freeze-manifest.json').read_text())['members']:
++ if row['path'].startswith('toolchain/'):
++  p=F/row['path'];assert (p.is_symlink() and str(p.readlink())==row['target']) if row['kind']=='symlink' else sha(p)==row['sha256']
++host=json.loads((C/'toolchain-host.json').read_text())
++for r in host['executables']:assert sha(Path(r['path']))==r['sha256']
++for r in host['nodeDynamicLibraries']:
++ if r['sha256'] is not None:assert sha(Path(r['path']))==r['sha256']
++assert subprocess.check_output([str(F/'toolchain/bin/node'),'--version']).decode().strip()=='v24.7.0';assert json.loads((F/'toolchain/npm/package.json').read_text())['version']=='11.5.1';save('toolchain-host.json',{**host,'copiedFrozenNodeAndNpm':True,'hostLibrariesReverified':True,'systemSharedCacheLimit':'Unfiled platform libraries remain host dependency observations; no portability claim'})
++copy(C/'node-dynamic-libraries.txt',D/'node-dynamic-libraries.txt')
++archives=[];locked=json.loads((F/'repo'/TR/'package-lock.json').read_text())['packages']
++for row in json.loads((C/'dependency-archives.json').read_text()):
++ original=C/'source-freeze'/row['frozenPath'];raw=original.read_bytes();assert sha(original)==row['sha256'];item=locked[row['locator']];assert item['integrity']==row['integrity'];algorithm,encoded=item['integrity'].split('-',1);assert base64.b64encode(hashlib.new(algorithm,raw).digest()).decode()==encoded;hexDigest=base64.b64decode(encoded).hex();rel=Path('content-v2')/algorithm/hexDigest[:2]/hexDigest[2:4]/hexDigest[4:];copy(original,F/row['frozenPath']);copy(original,D/'npm-cache/_cacache'/rel);archives.append(row)
++assert len(archives)==16;assert next(r for r in archives if r['locator']=='node_modules/typescript')['version']=='5.9.2';save('dependency-archives.json',archives)
++baseFreeze=json.loads((C/'source-freeze-manifest.json').read_text());save('source-overlay.json',{'head':baseFreeze['head'],'committedTree':baseFreeze['committedTree'],'dirtyOverlayIsCommit':False,'baseOverlay':'source-freeze/controls/final-candidate-construction-01/source-overlay.json','successorSourceDelta':'source-delta.json','movingTreeResnapshot':False,'frozenTicketSHA256':sha(F/'repo'/ticket)})
++freeze=inv(F);save('source-freeze-manifest.json',{'status':'FROZEN','head':baseFreeze['head'],'committedTree':baseFreeze['committedTree'],'dirtyOverlayIsCommit':False,'authoredMemberCount':len(rows),'generatedPreimageCount':len(generated),'authorityJoins':95,'dependencyArchives':16,'sourceDeltaCount':3,'members':freeze})
++elapsed=(time.monotonic()-start)*1000;assert elapsed<120000;save('preparation-result.json',{'status':'passed','elapsedMs':elapsed,'budgetMs':120000,'sourceFreezeSHA256':sha(D/'source-freeze-manifest.json')});print(json.dumps({'status':'frozen','authored':len(rows),'delta':3,'authorityJoins':95,'generatedBaseline':len(generated),'freezeMembers':len(freeze),'elapsedMs':elapsed,'sourceFreezeSHA256':sha(D/'source-freeze-manifest.json')}),flush=True)
+--- a/execute-once.py
++++ b/execute-once.py
+@@ -1,7 +1,9 @@
+ from pathlib import Path
+-import json,os,subprocess,hashlib,time,sys
++import json,os,subprocess,hashlib,time,sys,signal
+ D=Path(__file__).resolve().parent;T=D/'staged-repo/build_tenants/abiogenesis/typescript';F=D/'source-freeze'
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
++def save(n,v):
++ with (D/n).open('x') as f:json.dump(v,f,indent=2);f.write('\n')
+ def verify_frozen():
+  for r in json.loads((D/'source-freeze-manifest.json').read_text())['members']:
+   p=F/r['path']
+@@ -10,23 +12,32 @@
+ def check_inputs():
+  for r in json.loads((D/'source-members.json').read_text()):
+   p=D/'staged-repo'/r['path'];assert p.is_file() and sha(p)==r['sha256'],str(p)
+-verify_frozen();check_inputs()
+-label=sys.argv[1];npm=str(F/'toolchain/bin/npm')
++verify_frozen();check_inputs();label=sys.argv[1];npm=str(F/'toolchain/bin/npm');node=str(F/'toolchain/bin/node');budget=json.loads((D/'budgets.json').read_text());cap=budget['operationCapsMs'][label];prior=json.loads((D/'preparation-result.json').read_text())['elapsedMs']
++for name in budget['operationCapsMs']:
++ p=D/(name+'.json')
++ if p.exists():prior+=json.loads(p.read_text())['elapsedMs']
++assert prior+cap+1000<=budget['maximumMs'],'finite total construction allowance'
+ if label=='dependencies':command=[npm,'ci','--offline','--ignore-scripts','--no-audit','--no-fund'];cwd=T
+ elif label=='build':command=[npm,'run','build'];cwd=T
+ elif label=='pack':command=[npm,'pack','--ignore-scripts','--json','--pack-destination',str(D/'artifacts')];cwd=T
+ elif label=='install':
+- packed=json.loads((D/'pack.stdout').read_text());assert len(packed)==1;archive=D/'artifacts'/packed[0]['filename'];assert archive.is_file()
+- command=[npm,'install','--offline','--ignore-scripts','--no-audit','--no-fund','--package-lock=false',str(archive)];cwd=D/'install'
++ packed=json.loads((D/'pack.stdout').read_text());assert len(packed)==1;archive=D/'artifacts'/packed[0]['filename'];assert archive.is_file();command=[npm,'install','--offline','--ignore-scripts','--no-audit','--no-fund','--package-lock=false',str(archive)];cwd=D/'install'
++elif label=='verify':command=[node,str(D/'verify-installed.mjs')];cwd=D
++elif label=='installed-publications':command=[node,str(D/'validate-installed-publications.mjs')];cwd=D
+ else:raise ValueError(label)
+ assert not (D/(label+'.json')).exists() and not (D/(label+'.started.json')).exists(),'one attempt per operation'
+-env={**os.environ,'PATH':str(F/'toolchain/bin')+':/usr/bin:/bin:/usr/sbin:/sbin','TMPDIR':str(D/'tmp'),'npm_config_cache':str(D/'npm-cache'),'npm_config_userconfig':str(D/'npmrc'),'npm_config_globalconfig':str(D/'globalnpmrc'),'npm_config_prefix':str(D/'npm-prefix'),'npm_config_offline':'true','npm_config_audit':'false','npm_config_fund':'false','npm_config_update_notifier':'false','GIT_OPTIONAL_LOCKS':'0'}
+-env.pop('NODE_OPTIONS',None)
+-for p in [D/'npmrc',D/'globalnpmrc']:
+- if not p.exists():p.write_text('')
+-record={'command':command,'cwd':str(cwd),'effectTerritory':str(D),'environment':{k:env[k] for k in ['PATH','TMPDIR','npm_config_cache','npm_config_userconfig','npm_config_globalconfig','npm_config_prefix','npm_config_offline']}}
+-(D/(label+'.started.json')).write_text(json.dumps(record,indent=2)+'\n');start=time.monotonic()
+-with (D/(label+'.stdout')).open('w') as out,(D/(label+'.stderr')).open('w') as err:p=subprocess.run(command,cwd=cwd,env=env,stdout=out,stderr=err)
+-record.update(exitCode=p.returncode,elapsedSeconds=time.monotonic()-start,stdoutSha256=sha(D/(label+'.stdout')),stderrSha256=sha(D/(label+'.stderr')));(D/(label+'.json')).write_text(json.dumps(record,indent=2)+'\n');print(json.dumps(record),flush=True)
+-if p.returncode:raise SystemExit(p.returncode)
++env={**os.environ,'PATH':str(F/'toolchain/bin')+':/usr/bin:/bin:/usr/sbin:/sbin','TMPDIR':str(D/'tmp'),'npm_config_cache':str(D/'npm-cache'),'npm_config_userconfig':str(D/'npmrc'),'npm_config_globalconfig':str(D/'globalnpmrc'),'npm_config_prefix':str(D/'npm-prefix'),'npm_config_offline':'true','npm_config_audit':'false','npm_config_fund':'false','npm_config_update_notifier':'false','GIT_OPTIONAL_LOCKS':'0'};env.pop('NODE_OPTIONS',None)
++for path in [D/'npmrc',D/'globalnpmrc']:
++ if not path.exists():path.write_text('')
++record={'command':command,'cwd':str(cwd),'effectTerritory':str(D),'environment':{k:env[k] for k in ['PATH','TMPDIR','npm_config_cache','npm_config_userconfig','npm_config_globalconfig','npm_config_prefix','npm_config_offline','GIT_OPTIONAL_LOCKS']},'HOMEUnchanged':env.get('HOME')==os.environ.get('HOME'),'capMs':cap,'terminationGraceMs':1000,'priorExecutionMs':prior,'maximumMs':786000}
++save(label+'.started.json',record);start=time.monotonic();timedout=False
++with (D/(label+'.stdout')).open('x') as out,(D/(label+'.stderr')).open('x') as err:
++ p=subprocess.Popen(command,cwd=cwd,env=env,stdout=out,stderr=err,start_new_session=True);save(label+'.process-start.json',{'pid':p.pid,'ownedProcessGroup':p.pid,'streamsOpenedBeforeSpawn':True})
++ try:code=p.wait(timeout=cap/1000)
++ except subprocess.TimeoutExpired:
++  timedout=True;os.killpg(p.pid,signal.SIGTERM)
++  try:code=p.wait(timeout=1)
++  except subprocess.TimeoutExpired:os.killpg(p.pid,signal.SIGKILL);code=p.wait()
++record.update(pid=p.pid,exitCode=code if code>=0 else None,signal=signal.Signals(-code).name if code<0 else None,ownedExitObserved=True,timedOut=timedout,elapsedMs=(time.monotonic()-start)*1000,stdoutSha256=sha(D/(label+'.stdout')),stderrSha256=sha(D/(label+'.stderr')));save(label+'.json',record);print(json.dumps({k:record[k] for k in ['pid','exitCode','signal','timedOut','elapsedMs']}),flush=True)
++if code or timedout:raise SystemExit(1)
+ verify_frozen();check_inputs()
+--- a/verify-installed.mjs
++++ b/verify-installed.mjs
+@@ -25,5 +25,5 @@
+ save('selected-core.json',selected);
+ save('product-verification-summary.json',{kind:verification.kind,coordinates:verification.coordinates,verificationRef:v.verificationRef,verificationDigest:v.verificationDigest,basis:selected.basis,contributionManifestDigest:v.contributionManifestDigest,catalogDigest:v.catalogDigest,publicationBindings:v.contributionManifest.publicationBindings,ownerSelection:'same nominal verified artifact in process',limit:'Physical archive verification by installed owner; retained JSON is not nominal authority or admitted ProductInstall.'});
+ save('reader-binding.json',{packageRoot:identity.packageRoot,publicApi:{path:join(identity.packageRoot,pkg.exports['./public'].import)},productGrantConstructor:{path:join(identity.packageRoot,pkg.exports['./product'].import),export:'constructCapabilityGrant'},fixedPacket:{path:join(identity.packageRoot,'build/code/src/abg/project_read_operation_contracts.js'),export:'ABG_PROJECT_READ_CONTRACTS',memberKey:'run_gaps'},definition:{ref:definition.definitionRef,digest:definition.definitionDigest},contractCatalogOverride:member.slots.request.contractCatalog,definitionContractCoordinatesOverride:v.definitionContractCoordinates,manifest:{path:join(identity.packageRoot,'product-toolchain-manifest.json'),digest:v.manifestDigest},nextCaller:'constructInstalledRunReadCall with final-reader Product/Public/fixed packet/verified metadata and historical admitted workload authority separately supplied',nativeCalls:0});
+-save('package-readiness.json',{status:'CLOSED_CONSTRUCTION_READY',identity,selected,sourceFreezeSha256:product.sha256Bytes(fs.readFileSync(join(D,'source-freeze-manifest.json'))),authoredInputsPreserved:read(join(D,'source-members.json')).length,authorityJoins:read(join(D,'authority-joins.json')).length,generatedChanged:read(join(D,'generated-delta.json')).length,memberCorrespondence:identity.archiveMembers,installedVerification:true,admittedInstall:false,nativePublicCall:false,qualification:false});
++save('package-readiness.json',{status:'PHYSICAL_VERIFICATION_COMPLETE_PENDING_INSTALLED_FULL11',identity,selected,sourceFreezeSha256:product.sha256Bytes(fs.readFileSync(join(D,'source-freeze-manifest.json'))),authoredInputsPreserved:read(join(D,'source-members.json')).length,authorityJoins:read(join(D,'authority-joins.json')).length,generatedChanged:read(join(D,'generated-delta.json')).length,memberCorrespondence:identity.archiveMembers,installedVerification:true,admittedInstall:false,nativePublicCall:false,qualification:false});
+ console.log(JSON.stringify(selected));

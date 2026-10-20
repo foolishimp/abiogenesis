@@ -1,0 +1,21 @@
+{
+  "kind": "pure_definition_calculation_receipt",
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculate-definition-identity.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage",
+  "exitCode": 1,
+  "elapsedMs": 341.394958,
+  "runtimeOwnerOrResourceCalled": false,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculation.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculation.stderr",
+    "sha256": "355ff1b60651463f9034041a9dcf78d019ddd476eabb98c0e1d744e392119d5d",
+    "bytes": 556
+  }
+}

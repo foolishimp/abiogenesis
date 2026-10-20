@@ -1,0 +1,21 @@
+{
+  "firstCause": "focused-01 omitted the existing ABG_GOVERNANCE_COVERED_FIXTURE selector; three controlled fixture tests stopped at captured():155 before their owner relation. New portable-prefix/198 boundary and recovery cases passed.",
+  "failedReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-01.result.json",
+  "action": "Root selected restoration of exact198 frozen component fixture/environment selectors for the same two suites only. Current Source, HOW, tests, compiled output and generator are unchanged between attempts.",
+  "selectedInputs": [
+    {
+      "environmentVariable": "ABG_GOVERNANCE_COVERED_FIXTURE",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/controlled-owner-fixtures.json",
+      "sha256": "ce6acd2de8df3f5cbc08ef008cf57197a547eec37b656beba6b1d5f7a57908b1",
+      "byteCount": 39657765
+    },
+    {
+      "environmentVariable": "ABG_GOVERNANCE_COVERED_DECLARATION_PAIR",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/inputs/actual176-selected-publications.json",
+      "sha256": "fe1cd0342cdfc1682997a9b38709d6a18d3c1d1b67d5861818f2f1eb031b33f4",
+      "byteCount": 407665
+    }
+  ],
+  "profileApplicability": "Source143 controlled owner data and179 selected declaration pair are existing component inputs, not a runtime log. Current263 Source changes only close transport detachment; existing profile and declaration guards remain. Optional actual campaign/native qualification is not earned.",
+  "limits": "No actual 2.14GB history read/hash/acquisition; no new fixture, weakened guard or current-run credit."
+}

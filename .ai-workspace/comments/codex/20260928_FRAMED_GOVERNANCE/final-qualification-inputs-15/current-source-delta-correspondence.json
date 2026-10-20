@@ -1,0 +1,48 @@
+{
+  "status": "PREPAYLOAD_VERIFIED",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_13",
+  "selectedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/controls/source-cut.json",
+    "bytes": 26506590,
+    "sha256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+    "mode": 420
+  },
+  "predecessorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-freeze.json",
+    "bytes": 384148,
+    "sha256": "5e9fd780078b081d83ae598a9e05ac84c58648b90e84324209305cbf8058f14b",
+    "mode": 420
+  },
+  "predecessorMembers": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source-members.json",
+    "bytes": 12737368,
+    "sha256": "51d2e77f89e186abaf72d32e38856dfe61f99150ffc077e62facb115c4badf8c",
+    "mode": 420
+  },
+  "currentMembers": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source-members.json",
+    "bytes": 25894743,
+    "sha256": "84bf29b7fdeec32449eca3b82b06522ab23f5f4ad2929b193a2722d0ae2132f8",
+    "mode": 420
+  },
+  "derivedDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/current-source-delta.json",
+    "bytes": 60497,
+    "sha256": "7dc90f69cc03b39fae2a0860803f301aab67931a8e4de28d24580e7d2ce0faaa",
+    "mode": 420
+  },
+  "currentPopulation": 1111,
+  "predecessorPopulation": 1109,
+  "derivedByManifestBodyComparison": 9,
+  "selectedReplacements": 7,
+  "selectedAdditions": 2,
+  "allNineUniqueFullTuplesJoined": true,
+  "allSelectedNineSourceTuplesAndCopyRolesJoined": true,
+  "all1111DeclaredSourceLabelsPreserved": true,
+  "inheritedCallbackExcluded": true,
+  "sourceAuthRecordsUnchanged": 174,
+  "chainsUnchanged": 23,
+  "spansUnchanged": 90,
+  "sourceBodyRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source",
+  "originalSourceIsAttributionOnly": true
+}

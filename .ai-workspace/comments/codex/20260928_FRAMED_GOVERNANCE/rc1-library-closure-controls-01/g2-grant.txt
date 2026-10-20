@@ -1,0 +1,20 @@
+Product frame and advisory Worker activation
+GOAL-035/T-287; fixed fifteen-family ABG5. STDO stdo://releases/v2.5.1-rc.2/ manifest 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782, installed verify valid/no failures. Source main@55a8a452141caf180ea6cee6365d2a1bfb9da34e plus preserved dirty worktree. Owning WHAT specification/PRODUCT.md F11/F15, REQ-P-SELF-CONFORMANCE005/007A/009 and affected PUBLIC005/006A. Canonical target accepted at 26624B/7e8b887eaf0c73187cdfdb72ec157500ef5ca383087a69c5242cf4590efe3cd4; gap 11111B/b226a3a4ec93953a632d6de7ac25a1fd4541a1ed379aa83554f3ce35d0251e6d. Thirty-one prior input pins unchanged at intake. No new Product/runtime authority. Executive activates zero-write advisory Worker T287_G2_PUBLICATION_OWNER_MAPPING_01; previous Reviewer CLOSED. Prepare the smallest implementation grant for mandatory addressable Public content, not another whole-system design review.
+
+Selected frame and path
+repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration composed with Product/Design, identity, effects and Proof. Exact existing native qualification HOW §§120-126/136 and reusable library target §§5-8 own the typed joins. Classify the touched relation as pure transformation/observation, not a new runtime entity. One canonical definition per logical contract; GTL declares, HoG traverses, ABG admits, replay projects. G2: canonical owner definitions -> typed group facades -> declarations/package exports -> generated assets/manifest/catalog -> source-blind installed consumer. Owning Public Boundary/Reuse/Foundation frames materially distinct from G1/G3.
+
+Exact subject and source routes
+Current package.json 9923B/b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396. Read PUBLIC005 eight group locators and PUBLIC006A required corpus, relevant canonical module indexes/types/schemas, actual generator/publication owners, existing packaging tests and accepted target §§2/5. Prior 31 pins unchanged; G1/G3 code/tests may advance only their declared nonoverlapping cones. Pin your own material input subset in the return.
+
+Permitted effects and boundary
+ZERO WRITES and no imports/build/tests/Runtime/native/provider/package/Git/release/actor effects. Read exact material sources and return in chat. Existing installed Development Products remain immutable. Do not introduce dependencies, generic framework, duplicate definitions or broad replacement survey.
+
+Required decision
+Map all eight mandatory addresses and all required asset families to actual canonical owner symbols/definitions and publication operations. Distinguish missing export wiring versus missing content/meaning. Identify shared source/destination owner joins and complete mandatory inventory, not only catalog self-agreement. Give exact minimal writable files/new facade paths and mechanically meaningful installed exit proof; any genuinely missing design/meaning must be explicit for lawful owning re-entry.
+
+Evidence and stops
+No claims from matching names/shapes alone. Verify imports and serializable/native content mapping; assess actual publication output logic. Bound the review to mandatory missing joins, preserve IDs/owners/retained evidence and authority split. Stop for unowned semantic decision or needed effect; report uncertainty, supported cause, why previous checks missed it, and affected scope.
+
+Closed return
+Return CLOSED mapping/triangulation report with exact input hashes, smallest proposed operation grant and acceptance checks; separate sufficient HOW/wiring from unknown content and implementation/install proof. Executive alone selects changes and independent assurance. No gap closure or Source acceptance follows.

@@ -1,0 +1,262 @@
+{
+  "status": "READY_no_native_effect",
+  "cases": [
+    {
+      "case": "nested-compose",
+      "programRef": "program://abiogenesis/conformance/hello-compose@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "  World  "
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "completed",
+      "oracle": "Six CCall/Result/J spines; exact ordered batch/edge/retry routes and Hello World",
+      "viewDigest": "sha256:ccf9dd670867f15208a463a142fae1b72272fcdd8b9feeda2095bc3541faad05"
+    },
+    {
+      "case": "transparent-child",
+      "programRef": "program://abiogenesis/conformance/hello-workflow@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "World"
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "completed",
+      "oracle": "Two GraphCalls/Frames; sub-traversal evidence and child foldback before parent closure; Hello World",
+      "viewDigest": "sha256:c70ac04bf0ccbde35d00cb88ea03f40d79198fc4733511e8034cf3d435403845"
+    },
+    {
+      "case": "gate-advance",
+      "programRef": "program://abiogenesis/conformance/hello-gate@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "World"
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "completed",
+      "oracle": "Admitted advancing evaluator J causes exact target; Hello World",
+      "viewDigest": "sha256:19593ca8a0e2c09a8d8ce81f29bffed192eac3ebef07e48321b0f1c6c2ccde21"
+    },
+    {
+      "case": "gate-block",
+      "programRef": "program://abiogenesis/conformance/hello-gate@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "Blocked"
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "stopped",
+      "oracle": "One valid blocked evaluator; no target or terminal closure",
+      "viewDigest": "sha256:19593ca8a0e2c09a8d8ce81f29bffed192eac3ebef07e48321b0f1c6c2ccde21"
+    },
+    {
+      "case": "recursive-foldback",
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "input": {
+        "kind": "bounded_recursion_state",
+        "schemaVersion": "5.0.0",
+        "blockedChildRemaining": null,
+        "remaining": 3,
+        "terminal": false,
+        "trace": []
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "completed",
+      "oracle": "Parent attempts1-4, three exact child foldbacks/routes; remaining0 terminaltrue trace[2,1,0]",
+      "viewDigest": "sha256:4732c1291a3c53494434531d4ed3a70538f72488e055ec384d415f0083f2fd38"
+    },
+    {
+      "case": "recursive-child-block",
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "input": {
+        "kind": "bounded_recursion_state",
+        "schemaVersion": "5.0.0",
+        "blockedChildRemaining": 2,
+        "remaining": 3,
+        "terminal": false,
+        "trace": []
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "stopped",
+      "oracle": "Child blocked foldback causally consumed by parent blocked route; no successful closure",
+      "viewDigest": "sha256:4732c1291a3c53494434531d4ed3a70538f72488e055ec384d415f0083f2fd38"
+    },
+    {
+      "case": "recursive-bound",
+      "programRef": "program://abiogenesis/conformance/bounded-recursion@5",
+      "input": {
+        "kind": "bounded_recursion_state",
+        "schemaVersion": "5.0.0",
+        "blockedChildRemaining": null,
+        "remaining": 5,
+        "terminal": false,
+        "trace": []
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "stopped",
+      "oracle": "Declared bound4; three children and parent attempts1-4, no fourth child or terminal closure",
+      "viewDigest": "sha256:4732c1291a3c53494434531d4ed3a70538f72488e055ec384d415f0083f2fd38"
+    },
+    {
+      "case": "ordered-vector",
+      "programRef": "program://abiogenesis/conformance/fan-out-hello@5",
+      "input": {
+        "kind": "fan_out_hello_vector_input",
+        "schemaVersion": "5.0.0",
+        "members": [
+          {
+            "ordinal": 0,
+            "memberRef": "fan-out-member://abiogenesis/conformance/0/Alpha",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Alpha"
+            }
+          },
+          {
+            "ordinal": 1,
+            "memberRef": "fan-out-member://abiogenesis/conformance/1/Beta",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Beta"
+            }
+          },
+          {
+            "ordinal": 2,
+            "memberRef": "fan-out-member://abiogenesis/conformance/2/Gamma",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Gamma"
+            }
+          }
+        ]
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "completed",
+      "oracle": "Complete ordered vector admitted before one reducer; summary three exact ordered greetings",
+      "viewDigest": "sha256:5c76e80bca020b2fd98bc55c0e32f0119ecb31ab7fc3e415f8c6912574b3e9c0"
+    },
+    {
+      "case": "partial-vector",
+      "programRef": "program://abiogenesis/conformance/fan-out-hello@5",
+      "input": {
+        "kind": "fan_out_hello_vector_input",
+        "schemaVersion": "5.0.0",
+        "members": [
+          {
+            "ordinal": 0,
+            "memberRef": "fan-out-member://abiogenesis/conformance/0/Alpha",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Alpha"
+            }
+          },
+          {
+            "ordinal": 1,
+            "memberRef": "fan-out-member://abiogenesis/conformance/1/Beta",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": true,
+              "subject": "Beta"
+            }
+          },
+          {
+            "ordinal": 2,
+            "memberRef": "fan-out-member://abiogenesis/conformance/2/Gamma",
+            "value": {
+              "kind": "fan_out_hello_member_input",
+              "schemaVersion": "5.0.0",
+              "block": false,
+              "subject": "Gamma"
+            }
+          }
+        ]
+      },
+      "allSelectedLeavesFD": true,
+      "expected": "stopped",
+      "oracle": "Completed ordinal0/stopping1/unstarted2; truthful partial stop no output vector or reducer",
+      "viewDigest": "sha256:5c76e80bca020b2fd98bc55c0e32f0119ecb31ab7fc3e415f8c6912574b3e9c0"
+    }
+  ],
+  "operationPlan": [
+    "view-hello-compose",
+    "conformance-hello-compose",
+    "nested-compose",
+    "nested-compose-run_result",
+    "nested-compose-run_replay",
+    "view-hello-workflow",
+    "conformance-hello-workflow",
+    "transparent-child",
+    "transparent-child-run_result",
+    "transparent-child-run_replay",
+    "view-hello-gate",
+    "conformance-hello-gate",
+    "gate-advance",
+    "gate-advance-run_result",
+    "gate-advance-run_replay",
+    "gate-block",
+    "gate-block-run_result",
+    "gate-block-run_replay",
+    "view-bounded-recursion",
+    "conformance-bounded-recursion",
+    "recursive-foldback",
+    "recursive-foldback-run_result",
+    "recursive-foldback-run_replay",
+    "recursive-child-block",
+    "recursive-child-block-run_result",
+    "recursive-child-block-run_replay",
+    "recursive-bound",
+    "recursive-bound-run_result",
+    "recursive-bound-run_replay",
+    "view-fan-out-hello",
+    "conformance-fan-out-hello",
+    "ordered-vector",
+    "ordered-vector-run_result",
+    "ordered-vector-run_replay",
+    "partial-vector",
+    "partial-vector-run_result",
+    "partial-vector-run_replay"
+  ],
+  "allSelectedOwnerPreparationPassed": true,
+  "nativeCalls": 0,
+  "sourceIndependentOraclesFixed": true,
+  "initialHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:2e4467295fbad4905aca853dea9d954fb997b001d55f4c34eb38e68090bace58",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:c4c1c28232cd3a89d7233a03485c113e2f2df0c76d7a9432ca9d610c56c2aa90",
+      "prefixLength": 2701191,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464244056
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:62c16f09140fdb9f9802476d397119bbc015b443cb691d4e1eb96fefade822d8",
+      "device": 16777230,
+      "durableByteLength": 2701191,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:c4c1c28232cd3a89d7233a03485c113e2f2df0c76d7a9432ca9d610c56c2aa90",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+      "inode": 464244056,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "startedAt": "2026-10-01T15:56:27.705Z"
+}

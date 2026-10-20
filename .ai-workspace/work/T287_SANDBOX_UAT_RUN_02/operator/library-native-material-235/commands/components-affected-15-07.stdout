@@ -1,0 +1,39 @@
+TAP version 13
+# {"kind":"native_definition_storage_component","logicalEventCount":6,"definitionBytes":145292,"encodedBytes":340434,"rawBytes":667388,"savedBytes":326954,"rawV1V2AndExactLogicalDigests":true,"nativeAdmission":false}
+# Subtest: typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact
+ok 1 - typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact
+  ---
+  duration_ms: 234.641958
+  type: 'test'
+  ...
+# (node:20399) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: native source selection preserves complete values and exact membership across long producer history and cold coordinates
+not ok 2 - native source selection preserves complete values and exact membership across long producer history and cold coordinates
+  ---
+  duration_ms: 3247.874541
+  type: 'test'
+  location: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15-test-successor-07/test_env/tests/t287-native-worksite-execution.test.mjs:138:1'
+  failureType: 'testCodeFailure'
+  error: 'runtime event aggregate identity differs from its scope identity'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:1788:15)
+    projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:1501:5)
+    admitRuntimeEventInternal (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:2982:36)
+    admitRuntimeEvent (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:2955:12)
+    admit (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15-test-successor-07/test_env/tests/t287-native-worksite-execution.test.mjs:168:26)
+    TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15-test-successor-07/test_env/tests/t287-native-worksite-execution.test.mjs:190:3)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4031.305459

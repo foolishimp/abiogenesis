@@ -1,0 +1,53 @@
+[
+  {
+    "kind": "capability_grant",
+    "schemaVersion": "5.0.0",
+    "grantRef": "capability-grant://abiogenesis/485822c57f725a1d79657a8c6ae19b051011367daf9187c797ce59397069092e",
+    "grantDigest": "sha256:485822c57f725a1d79657a8c6ae19b051011367daf9187c797ce59397069092e",
+    "definitionKey": {
+      "operationId": "abg.operation.witness.admit",
+      "memberKey": "reprice"
+    },
+    "definitionRef": "public-function://abiogenesis/witness/admit/reprice@5",
+    "definitionDigest": "sha256:a55305a6eeba6cd01c2d932ff75d0806c6883a36e43fab61bf6ac8b787787634",
+    "capabilityDefinition": {
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0",
+      "graphDigest": "sha256:9f3099fd4172f1eec245709f75812c62cb956a4cf26d2e32ee164cf5342e189b",
+      "capabilityId": "abg.capability.operator.public-contract@5",
+      "capabilityDefinitionRef": "capability-definition://abiogenesis/2fb25bd6e2f3ae957467e16487adb76e9a43104984801a53662dd03032b22a57",
+      "capabilityDefinitionDigest": "sha256:2fb25bd6e2f3ae957467e16487adb76e9a43104984801a53662dd03032b22a57"
+    },
+    "operationContract": {
+      "contractCatalog": {
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "productContentDigest": "sha256:401f1b71663a5b74fd1cb0256e6380b38432bb2f61c3ad8693fdeb6a881d10db",
+        "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+        "catalogVersion": "5.0.0",
+        "catalogDigest": "sha256:e6a98ddb20efb3ff47cbefc40397bfdd9d023aa62cf10fa0db7a10b3967754d4"
+      },
+      "flatRow": {
+        "contractId": "abg.operation.witness.admit",
+        "contractVersion": "5.0.0",
+        "contractDigest": "sha256:044ef92519e1b305efdc73bcf43cead6c2b08078fe14794ca645d22fc7679cd8"
+      },
+      "nestedSelector": {
+        "selectorKind": "flat_contract",
+        "definitionKey": null,
+        "slot": null,
+        "definitionRef": null
+      }
+    },
+    "operationId": "abg.operation.witness.admit",
+    "capabilityRef": "abg.capability.operator.public-contract@5",
+    "actorRef": "actor://abiogenesis/t286/trusted-developer",
+    "approvalRef": "approval://selected-action/exact-cover",
+    "approvalDigest": "sha256:27ae4d6a076d8183b61441cba7eb4daf5230a305460407b0da037614b7f38bbe",
+    "policyRef": "approval://selected-action/exact-cover",
+    "policyDigest": "sha256:27ae4d6a076d8183b61441cba7eb4daf5230a305460407b0da037614b7f38bbe",
+    "scopeRef": "admission-scope://abiogenesis/sha256:5ae041d29fef3bfe4556682551db3deca08ba45bb77e13f86996fabbe1514c66",
+    "scopeDigest": "sha256:5ae041d29fef3bfe4556682551db3deca08ba45bb77e13f86996fabbe1514c66",
+    "authorityBasisRef": "authority://selected-action/covered-fixture",
+    "authorityBasisDigest": "sha256:7cdd1170d5c4ea3c4e0835c5fef80e13bd6a5d674605e14ecdc91011edc1a25f"
+  }
+]

@@ -1,0 +1,62 @@
+{
+  "scope": "Read-only retained-input and installed-contract constructability; no witness constructed, no new acquisition",
+  "witnessRequired": {
+    "member": "abg.operation.witness.admit/reprice",
+    "subjectKind": "authority_basis",
+    "subjectEqualsContextBasis": true,
+    "contextKind": "basis",
+    "mustNameExactAdmittedExecutionBasis": true
+  },
+  "currentCoverEligibleBases": [
+    "execution-basis://abiogenesis/d4dd6cd7b408fbf21c77010a3dce721fab61b42e115a2525a8f55bb513354383",
+    "execution-basis://abiogenesis/4d9114cb5713a6938f640c97d0380c775045e863d5ac5c1db0145907706e1da2"
+  ],
+  "originalRoot": "execution-basis://abiogenesis/57483d222cc969fb8d2d78797f06011dd4f3b3cc954eedf7cc5552c8dc377722",
+  "originalRootInEligibleList": false,
+  "publicRunStatusOwnerExposesOriginalRoot": true,
+  "retainedCallerInputs": [
+    {
+      "role": "producerReceipt",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/live-receipt.json",
+      "sha256": "06e63cc4ec5ff7e385fcc0df8812301239e5dc7238a38c0f62ca197a446f1dba",
+      "byteLength": 4941736,
+      "executionBasisCoordinates": []
+    },
+    {
+      "role": "producerPrepared",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/prepared.json",
+      "sha256": "8a8dc8d3bdc2be4e88e013e9eda8d3d0a897e50149e7b10e854225e005e09159",
+      "byteLength": 8231,
+      "executionBasisCoordinates": []
+    },
+    {
+      "role": "producerReadbackBasis",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/readback-basis.json",
+      "sha256": "ba224cca630033ee3a10f3939fbc87d064417df9911fb9c06f63d0a24e693341",
+      "byteLength": 31160310,
+      "executionBasisCoordinates": []
+    },
+    {
+      "role": "ordinaryInput",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/ordinary-input.json",
+      "sha256": "cf67b040b7e8b56e1b33cde65ba3f7435ac8f459ebb960d8d4fb820e9b87bc08",
+      "byteLength": 12834,
+      "executionBasisCoordinates": []
+    },
+    {
+      "role": "nativeIntakeInput",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-01/native-intake-input.json",
+      "sha256": "f30db46be39e92a68650bf12628da6d8b9ef8a8061d16e59f16c3cb268326736",
+      "byteLength": 1018,
+      "executionBasisCoordinates": []
+    },
+    {
+      "role": "currentPrepared",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/prepared.json",
+      "sha256": "20c07991c7be69f296637a0e9184c2932ac9b4626a91b3c9e5127eea0824adc3",
+      "byteLength": 12071,
+      "executionBasisCoordinates": []
+    }
+  ],
+  "conclusion": "Neither accepted child basis is supplied by the frozen ordinary caller route. Public run_status root identity is insufficient for the current cover candidate list. Graph terminal carriers can expose producer bases in general; no such Product child terminal packet/GraphCall coordinate is present here. Private retained diagnosis must not be substituted for ordinary caller authority."
+}

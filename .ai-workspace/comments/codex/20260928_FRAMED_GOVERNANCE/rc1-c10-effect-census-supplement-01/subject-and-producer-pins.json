@@ -1,0 +1,79 @@
+{
+  "subjectPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-freeze.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 386759,
+      "sha256": "24cd23e713c0adac12f0fe62b2fda751ee6648936bd180439e63e65e609a8be3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 10431333,
+      "sha256": "f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 2575197,
+      "sha256": "0a8becfd3ae69225933c7a5fc2cd8920f8ed6ebaf82cc460abd1b03fb4e70f10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-source-freeze-manifest.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 586362,
+      "sha256": "75200ef06e648629d68e2ddb75946a04930a2132e4ce58ff9d6081841a87a351"
+    }
+  ],
+  "canonicalBasis": {
+    "artifactDigest": "sha256:f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb",
+    "productContentDigest": "sha256:87140057006782589b2eddc325d42e781b7a4beaddc8df1f902ae45baeac4c5e",
+    "manifestDigest": "sha256:8e3d1d8c0a4a872d0c1f55388fc6748f986ad0addde22c5c7cb2924b8ec37d26",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "producerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-controls/finalize.py",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 21853,
+      "sha256": "b659aeb386da4cab0ffd049646cd40086a08d09c847f55a1013df3a0bb73975c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-controls/execute.py",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 7670,
+      "sha256": "70889da598ff7807bd06631dc4d6abb451e2104b4ec5c9769c611a3e4dce7312"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/npm/lib/cli.js",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 407,
+      "sha256": "67666f06479f9b0bbc01412c198caadd4287d34d5ed74a02871ea78f186451e7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-process-closure.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 1243,
+      "sha256": "f4146399bea0ed7767da6ab677faf9e31909f424441048278164b959da448e36"
+    }
+  ],
+  "originalRecordCensusLimitation": "finalize.py excludes final-tmp and final-npm-prefix from direct records; original named complete populations did not replace those exclusions. Direct/recursive tuple agreement did not establish full membership. Sixteen dependency archives are already pinned via dependency-pins.json nested preparedArchive tuples. Original freeze itself is externally pinned.",
+  "scratchCause": "npm/lib/cli.js invokes existing node:module enableCompileCache(); execute.py supplies task-local TMPDIR under C10. The actual scratch cache is physically confined there.",
+  "unknowns": [
+    "execute.py does not record/remove inherited NODE_COMPILE_CACHE; its value at construction time is unknown",
+    "possible compile-cache timing influence is unknown; no cache-independent reproduction claim",
+    "individual npm descendants were not enumerated; owned wait/group closure evidence is retained"
+  ],
+  "newRuntimeAuthority": false,
+  "cacheDeleted": false
+}

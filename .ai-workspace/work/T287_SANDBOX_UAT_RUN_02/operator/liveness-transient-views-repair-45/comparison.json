@@ -1,0 +1,78 @@
+{
+  "old": {
+    "wallMs": 33565.270959,
+    "coldWallMs": 22273.956583000003,
+    "queryWallMs": 8629.295457999997,
+    "eventCount": 200571,
+    "acceptedFactDigest": "sha256:353df752e9843de27c31474b4ce1a1f3a95d410afa5a137b7661234572f139ec",
+    "projectionFactDigest": "sha256:5269b41a3126550f81efbcefd6f9a1ca18c4dde6a430c7b39585a02f4b18be53",
+    "retainedHistoricalVectorCount": 66,
+    "retainedHistoricalVectorSlots": 5930364,
+    "retainedStructuralVectorCount": 17,
+    "retainedStructuralVectorSlots": 21647,
+    "currentVectorCount": 953,
+    "currentVectorSlots": 505807,
+    "completedFactCounts": {
+      "contexts": 16,
+      "budgets": 32,
+      "folds": 16,
+      "historicalFolds": 0
+    },
+    "coldPostGCHeapBytes": 1433320848,
+    "initialLivenessPostGCHeapBytes": 1556349128,
+    "sourceHeldPostGCHeapBytes": 1633839344,
+    "sourceReleasedPostGCHeapBytes": 42116992,
+    "peakRSSKiB": 3244896,
+    "heapLimitBytes": 4496293888,
+    "weakFacts": {
+      "eventsReachable": false,
+      "authorityEventsReachable": false,
+      "lastEventReachable": false
+    }
+  },
+  "new": {
+    "wallMs": 34025.069040999995,
+    "coldWallMs": 22437.639750000002,
+    "queryWallMs": 8828.044374999998,
+    "eventCount": 200571,
+    "acceptedFactDigest": "sha256:353df752e9843de27c31474b4ce1a1f3a95d410afa5a137b7661234572f139ec",
+    "projectionFactDigest": "sha256:5269b41a3126550f81efbcefd6f9a1ca18c4dde6a430c7b39585a02f4b18be53",
+    "retainedHistoricalVectorCount": 0,
+    "retainedHistoricalVectorSlots": 0,
+    "retainedStructuralVectorCount": 0,
+    "retainedStructuralVectorSlots": 0,
+    "currentVectorCount": 953,
+    "currentVectorSlots": 505807,
+    "completedFactCounts": {
+      "contexts": 16,
+      "budgets": 32,
+      "folds": 16,
+      "historicalFolds": 0
+    },
+    "coldPostGCHeapBytes": 1432429976,
+    "initialLivenessPostGCHeapBytes": 1555454704,
+    "sourceHeldPostGCHeapBytes": 1585268424,
+    "sourceReleasedPostGCHeapBytes": 41177008,
+    "peakRSSKiB": 3257616,
+    "heapLimitBytes": 4496293888,
+    "weakFacts": {
+      "eventsReachable": false,
+      "authorityEventsReachable": false,
+      "lastEventReachable": false
+    }
+  },
+  "acceptedAndProjectionFactsExact": true,
+  "currentIndexesAndCompletedFactsExact": true,
+  "sourceHeldPostGCHeapReductionBytes": 48570920,
+  "noPeakRSSReductionClaim": true,
+  "sourceLogStatConserved": {
+    "device": 16777231,
+    "inode": 467205895,
+    "byteCount": 1167689615,
+    "mtimeNs": "1791359951311203492"
+  },
+  "authenticPrefixDigest": "sha256:e211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825",
+  "oneOwnerColdAcquisitionPerProcess": true,
+  "defaultHeapOnly": true,
+  "noReplayRecoveryOrRuntimeEffects": true
+}

@@ -1,0 +1,16 @@
+{
+  "observed": "2026-10-08T08:12:11.162Z",
+  "scope": "only actual selector PID29296 from admitted process-start55",
+  "admittedExit": {
+    "ordinal": 68,
+    "status": 0,
+    "signal": null
+  },
+  "processQuery": {
+    "command": "ps -p 29296 -o pid=,ppid=,pgid=,stat=,etime=,args=",
+    "exitCode": 1,
+    "stdout": ""
+  },
+  "noSignalSent": true,
+  "limits": "PID absence only; no global containment claim; no C2 helper was admitted"
+}

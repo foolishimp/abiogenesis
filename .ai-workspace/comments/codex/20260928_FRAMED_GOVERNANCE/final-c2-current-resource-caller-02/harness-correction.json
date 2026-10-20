@@ -1,0 +1,9 @@
+{
+  "class": "local offline harness export assumption",
+  "original": "Called abg.validateEventStoreCloseHandoff, an internal function not exported from the supported abg entry",
+  "frontier": "Stopped before actual projection, input checks or scratch writes; no runtime/native effects",
+  "correction": "Check exact retained handoff bytes/hash then call supported current-prefix projection; future Public acquisition still validates complete close handoff through existing owner",
+  "scope": "No Product change, private import, runtime preparation or driver execution",
+  "probe": "offline-check-probe-01.mjs",
+  "failure": "offline-check.stderr"
+}

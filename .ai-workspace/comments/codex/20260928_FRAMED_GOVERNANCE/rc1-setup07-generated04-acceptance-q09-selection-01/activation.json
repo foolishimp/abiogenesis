@@ -1,0 +1,34 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_SETUP07_GENERATED04_ACCEPTANCE_AND_Q09_SELECTION_01",
+  "status": "ACTIVE",
+  "at": "2026-10-02T10:33:13.776839+00:00",
+  "grant": "Record accepted CLOSED actual Setup07 and generated correspondence, exact current genuine authority/event pins and Q09 selection; annotate preserved report operation-label typo. No Root runtime/source effects.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup07-generated04-acceptance-q09-selection-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 528603,
+      "sha256": "d92ad968dc6ffdbdd4ba490955809e629c873d7f34b830caba16fae45bf876b9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 484134,
+      "sha256": "b1776c6d85853c52001f6781f730896fb7dde77a69f8051fbfb5ed97ce7344a9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 5397,
+      "sha256": "693ee40c5a53934a59df22dff16e59788aba4afba371a63282e53a4fa25f429d",
+      "mode": 420
+    }
+  ]
+}

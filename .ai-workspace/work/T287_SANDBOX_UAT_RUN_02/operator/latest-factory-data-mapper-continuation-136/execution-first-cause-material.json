@@ -1,0 +1,490 @@
+{
+  "observedAt": "2026-10-08T23:57:47.866884+00:00",
+  "phase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136",
+  "eventStore": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+  "eventSelectors": {
+    "206160": {
+      "offset": 1657532283,
+      "byteCount": 2081796,
+      "sha256": "124875963c1d2caaff97aa0a60c55a609d13519c6c05241aa31aab33e4fc768f",
+      "resultRef": "result://abiogenesis/d4d9e9219aea328b340c06cfc52c36c2f53650525990783aeecd905e02f5e4e8"
+    },
+    "206200": {
+      "offset": 1665915361,
+      "byteCount": 3041056,
+      "sha256": "e2e330745122d5186ccd5311f6cda076a5b060a534de34ce3243cd7414a8fe30",
+      "resultRef": "result://abiogenesis/948f8e5f91e0bc872c857e17ae78d7c391dbb6f87e393be5ed1eb1ce438dcfe3"
+    },
+    "206223": {
+      "offset": 1669036148,
+      "byteCount": 8251531,
+      "sha256": "8a9a276bc8b00baaa38aaa48528b34849a7afc1c487ce97a7bdc64265977da06",
+      "resultRef": null
+    },
+    "206245": {
+      "offset": 1677361704,
+      "byteCount": 4959443,
+      "sha256": "4cafe993e2c9ac5957fdeea378d54b20e5ad013981f23cf000be8a2e63bdcaaa",
+      "resultRef": "result://abiogenesis/fa03a6ff45c9d7347df3a448bd22f7ecc832005bc72809cf939a8402e68d6829"
+    },
+    "200991": {
+      "offset": 1634300414,
+      "byteCount": 2053887,
+      "sha256": "316e7a11b4bb2033c3836c9e6b260df5d1c8f65e5fbd599d2ad9b4dcca80e16c",
+      "resultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455"
+    },
+    "196060": {
+      "offset": 1567369590,
+      "byteCount": 4851723,
+      "sha256": "096be0fd1ae10905601ca1b2dcdb3e5b5ab20d5945910933ce1d04409c16f872",
+      "resultRef": "result://abiogenesis/e39717d2cb868d91b5416d51dfca4a89cf27a679a846151007c642948064def5"
+    }
+  },
+  "lastSuccessfulParent": {
+    "resultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+    "observationCount": 34,
+    "terminal": false,
+    "synthesis206160StateDeepEqual": true
+  },
+  "failedTask": {
+    "resultRef": "result://abiogenesis/948f8e5f91e0bc872c857e17ae78d7c391dbb6f87e393be5ed1eb1ce438dcfe3",
+    "outcomeEqualsSelectedContribution": true,
+    "outcome": "Runs next. This is one bounded increment. Do not run sbt or compile anything.\n\n**(1) Read-only check of the 07202733 archive**\n- Each of the 8 reports must match its recorded digest and byte length. Accounting must be 60e39860…/10437.\n- Read the exact `<testcase name>` of every `<failure>` and `<error>`, and reconcile 44 = passed + failures + errors + skipped. The expected result is 43 passed, 1 `<failure>` (UAT-ACCT-INV), 0 errors and 0 skipped.\n- Confirm that, of the 22 tracked files, only AccountingVerifier.scala differs from the b5b5cad3 snapshot, and that it is 29bc765f…/2042.\n- Confirm that DataFrameExecutor.scala is 2f046f26…/5293, which means the row-13 restore was observed.\n- Explain the new observation refs c842ff8e and 9c88b345 by fileDigest and byteLength (a new inode is the expected cause), not by ref equality.\n- If anything differs from what is recorded, stop and report the discrepancy.\n\n**(2) Project row 13 into mutation-outcomes.json** (currently d292cbf9, 12 rows). Use exactly the seven original fields:\n- requirementId: REQ-CDME-EXECUTOR\n- mutantIdentity: DataFrameExecutor.scala:53, the output-partition filter that also admits NULL_REQUIRED rows (fc325c93…/5346)\n- mutantCompiled: true\n- failedTestIdentityRefs: the 5 failure names from the d43b9187 XML, in XML order, which e39717d2 has already read and digest-verified\n- suiteExit: 1\n- baselineDigest and restoreDigest: both sha256:2f046f26…\n\nAlso:\n- Add a basis cycle: red run d43b9187, command observation fdcb7e4e…, XML counts 44/39/5/0/0, restore observed in 07202733 (command observation 5ea8cd93…). In depthRowIdentitiesNotRed, list nothing unless a cited identity for row 13 stayed green.\n- Update priorProjectionDigest and remove 13 from the absent-row list.\n- Verify by reverse comparison that every other row is unchanged.\n\n**(3) Restore row 23**\n- Put AccountingVerifier.scala lines 32-34 back to the summing accumulators. The file must hash to 56c2c1a1…/2083 and be cmp-identical to the b5b5cad3 copy.\n- Do not project row 23 yet. A later Testing snapshot has to observe the restore first.\n- If the XML shows something other than a compiled red run naming a row-23 identity (for example a survivor, or a different failure set), record the observed outcome truthfully, still restore the file, and stop. Do not apply the next mutant in that case.\n\n**(4) Only if row 23 is a confirmed kill: apply the dedicated row-28 mutant** (REQ-CDME-ASSURANCE × depth-class://invariant, identity \"UAT-ASSR-INV: moving further past a threshold never passes and a report passes only when every check passes\").\n- Use the locus test-design §7 plans: the AssuranceReport.passed every-check conjunction. First find which selected main source file defines it.\n- The locus and mechanism must differ from row 26's AtMost.admits inversion at AssuranceService.scala:22.\n- Before editing, confirm that the target file's baseline digest equals its b5b5cad3 copy. AssuranceService.scala is 7cacd34a…/3257; if the conjunction is in cdme-core package.scala, that file is ae7cdbbe…/9131.\n- Record the mutant digest and length, the exact restore obligation, the compile-safety reasoning, and the predicted red and collateral tests. Mark all predictions as unobserved.\n\n**Constraints**\n- Touch no test, comment, build file, XML or test-execution-result.json.\n- Make no kill claim beyond what the admitted XML shows.\n- Disclose any out-of-scope reads, partial reads of mandatory inputs, and possible incidental writes.\n- Avoid git commands, because they may refresh the outer repository's index.",
+    "nextReason": "Testing Result 07202733 is the admitted run of the row-23 mutant. It exited 1, the accounting report changed, report-failures is 1, and stdout names only UAT-ACCT-INV. The same snapshot cites a new observation for DataFrameExecutor.scala, so the row-13 restore has now been observed.\n\nTesting cannot add proof until the worksite changes again. The next lawful proof step belongs to construction:\n- confirm the archived XML and snapshot bytes;\n- project row 13;\n- restore AccountingVerifier.scala to 56c2c1a1;\n- apply the dedicated row-28 ASSURANCE × invariant mutant, only if row 23 is confirmed as a kill.\n\nConstruction's subject must be null, as the response schema requires.",
+    "promptDigest": "sha256:45f75e7709266fd9de662576509083e4a31b92d560e3e719ba53934734f98925",
+    "responseJsonSchemaDigest": "sha256:25ef720183537dcc20b750ef7e888f6dcf3337b1c1fc6a50987404746b161aaa",
+    "actualSchemaArgUTF8Bytes": 169
+  },
+  "actorArtifacts": [
+    {
+      "role": "output",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-output.txt",
+      "byteCount": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "role": "prompt",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-prompt.txt",
+      "byteCount": 2033265,
+      "sha256": "da443ccd9c2a4941cc33e0200423e41801b7fad58419d0983d6e68b655f46b9c"
+    },
+    {
+      "role": "stderr",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-stderr.log",
+      "byteCount": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "role": "stdout",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-stdout.log",
+      "byteCount": 4523,
+      "sha256": "ca49df0caa6987654483460743f96715066debc7fdea186936347a25ec434ece"
+    },
+    {
+      "role": "transport",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-transport.json",
+      "byteCount": 8920,
+      "sha256": "be69cd70088668c45d102d7a1b5e3202d6478a80d9633f007b440704635dca9c"
+    }
+  ],
+  "material": {
+    "workspaceRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/worksite",
+    "nativeFailureBeforeAfterEqualLastNativeAfter": true,
+    "nativeChangedPaths": [],
+    "physicalRows": [
+      {
+        "relativePath": "archive/test-run-archive.md",
+        "state": "file",
+        "byteCount": 7490,
+        "sha256": "977f6cbe980b7f793918daf5dd4abddebf5a8d379cd2e1c6d6784752447ed1c2",
+        "device": 16777231,
+        "inode": 468649254
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/build.sbt",
+        "state": "file",
+        "byteCount": 3888,
+        "sha256": "33b03ed3eca834a001dac69ad9d630d2de1f2a329af6d256e90e519281f35bdd",
+        "device": 16777231,
+        "inode": 468361210
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "state": "file",
+        "byteCount": 2042,
+        "sha256": "29bc765f08e95ed4e7084f8a4c7bcd9a69e8b854e81fab30be8cebaa2aa7bcb2",
+        "device": 16777231,
+        "inode": 468699937
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "state": "file",
+        "byteCount": 7883,
+        "sha256": "335a671babc5f35e0317f1930b3e156c48ae19a821ff8a6fff5964d9866ffcf5",
+        "device": 16777231,
+        "inode": 468361224
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "state": "file",
+        "byteCount": 2679,
+        "sha256": "64c56f8068c92e3814c42a8830250d8211872d0f6b3b5fee8343cc007d3d63b5",
+        "device": 16777231,
+        "inode": 468516480
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "state": "file",
+        "byteCount": 8298,
+        "sha256": "f5befbb66afb82942d8fafacb0c87e9eaa6b24b4c58dc48ecd043ba1da749d4c",
+        "device": 16777231,
+        "inode": 468361238
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "state": "file",
+        "byteCount": 3257,
+        "sha256": "7cacd34af5f3713fc4b385f5017f31c131f9278605584abf45f72307c8af4d45",
+        "device": 16777231,
+        "inode": 468496768
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "state": "file",
+        "byteCount": 9265,
+        "sha256": "0b7158920e4722f6311abf65d348b656fd991b2a9e60024899f20ec24ac6bd98",
+        "device": 16777231,
+        "inode": 468361252
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "state": "file",
+        "byteCount": 2541,
+        "sha256": "5c5b5ac5578a5e3d168c7b65b755e462cda8752f21fbd58086d49211c50ee0ba",
+        "device": 16777231,
+        "inode": 468609854
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "state": "file",
+        "byteCount": 2068,
+        "sha256": "1aad7e1835c3ed6a122ae27f4530775964c50cec4e622f490b98e9cac5056ea1",
+        "device": 16777231,
+        "inode": 468361261
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "state": "file",
+        "byteCount": 8409,
+        "sha256": "9fd32e33f06fcde521e9f1c11acefa2d5b6150a1515a67674176d8ebd533b5f1",
+        "device": 16777231,
+        "inode": 468361267
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "state": "file",
+        "byteCount": 9131,
+        "sha256": "ae7cdbbe8ba65a4812f8870877ef28c31d01000577f24255dd3fc299c88f0712",
+        "device": 16777231,
+        "inode": 468594376
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "state": "file",
+        "byteCount": 14528,
+        "sha256": "3576287f477dd5e7199b9b20f13e3b887d0993f62dcf99aae6bb963dc5d991c6",
+        "device": 16777231,
+        "inode": 468361281
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "state": "file",
+        "byteCount": 9581,
+        "sha256": "280197b60fa5ba8873aa4becdf599a326f579c90994557d9722baa5ac2e88adc",
+        "device": 16777231,
+        "inode": 468555396
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+        "state": "file",
+        "byteCount": 2538,
+        "sha256": "7fbdb982f699226ad94e9f384eec66c2c2e26478b6840453852c95341d6639d2",
+        "device": 16777231,
+        "inode": 468361290
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+        "state": "file",
+        "byteCount": 11564,
+        "sha256": "65aa50f7085030a3fd78db688f1be3e873c0ca6e8002d180567d72eae162cd33",
+        "device": 16777231,
+        "inode": 468361296
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "state": "file",
+        "byteCount": 5293,
+        "sha256": "2f046f268ceea5e4a118ca79ff9d20d07d647dbf4dd2af9e513fcecad7df48e1",
+        "device": 16777231,
+        "inode": 468699876
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "state": "file",
+        "byteCount": 2495,
+        "sha256": "c8893d4301b285ff206d7196cde3bbed841897155125cab82f0915d59bb230e9",
+        "device": 16777231,
+        "inode": 468361305
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "state": "file",
+        "byteCount": 8755,
+        "sha256": "caaed0211140e65031c223a6bda4a2e7f8031d11a0f9a67a45ceeb53242dd6b9",
+        "device": 16777231,
+        "inode": 468361311
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "state": "file",
+        "byteCount": 3500,
+        "sha256": "2e6e2c6a94573443ee4f3d280eb3ef5adb73d89dda8cd02ff4250f6a25226192",
+        "device": 16777231,
+        "inode": 468574699
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "state": "file",
+        "byteCount": 7982,
+        "sha256": "ebebc4df3ad50a44a0909bdc3323cd23ce6d1916c6fdbe0999581a079b322b3c",
+        "device": 16777231,
+        "inode": 468361325
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/project/build.properties",
+        "state": "file",
+        "byteCount": 19,
+        "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+        "device": 16777231,
+        "inode": 468361327
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/project/plugins.sbt",
+        "state": "file",
+        "byteCount": 56,
+        "sha256": "ddedf9c8bfa3e51dc2cc5e95ea7395b42dfe10430ae30891d1a92ac04493244c",
+        "device": 16777231,
+        "inode": 468361328
+      },
+      {
+        "relativePath": "depth-proof-map.json",
+        "state": "file",
+        "byteCount": 20510,
+        "sha256": "4285b857860f6e3c64d7f97e29fa9becccbdc145786086da273c0a49e0b6222e",
+        "device": 16777231,
+        "inode": 468361329
+      },
+      {
+        "relativePath": "design/component-code-surface.md",
+        "state": "file",
+        "byteCount": 25088,
+        "sha256": "0ff9863dcadd6579849779821705d7c625a366d9b375bcd5814200077e8f58a7",
+        "device": 16777231,
+        "inode": 468361331
+      },
+      {
+        "relativePath": "design/feature-decomposition.md",
+        "state": "file",
+        "byteCount": 16215,
+        "sha256": "cf28c59c49816d0a6494ddd50e8c10587dc6555f532b4fbd12c2f3671e17282e",
+        "device": 16777231,
+        "inode": 468361332
+      },
+      {
+        "relativePath": "design/implementation-design.md",
+        "state": "file",
+        "byteCount": 56240,
+        "sha256": "794e3e0d05589b6d15fb780dbb082f6a4a99a888d70e2f4c7b0b574efed2f5e6",
+        "device": 16777231,
+        "inode": 468361333
+      },
+      {
+        "relativePath": "design/module-design.md",
+        "state": "file",
+        "byteCount": 41481,
+        "sha256": "8090a190405539a1cd030840eef6c9d524b1a4f1bdf5a5de77a87611d38eb899",
+        "device": 16777231,
+        "inode": 468361334
+      },
+      {
+        "relativePath": "design/test-design.md",
+        "state": "file",
+        "byteCount": 69010,
+        "sha256": "158fa5e75c65cfbe010b1e889185ddb8698065f017be80ef7052cc65b56c38fe",
+        "device": 16777231,
+        "inode": 468361335
+      },
+      {
+        "relativePath": "mutation-outcomes.json",
+        "state": "file",
+        "byteCount": 27183,
+        "sha256": "d292cbf9555fdeb288deaf0473e5b16bfccb793460af79807e786942f2de2a11",
+        "device": 16777231,
+        "inode": 468574821
+      },
+      {
+        "relativePath": "proof/component-realization-qualification.md",
+        "state": "file",
+        "byteCount": 17575,
+        "sha256": "ccdd08d68742b8de2a2c6edd4ac87a2968b286a3b44870f0d3ccce4ef1e047ed",
+        "device": 16777231,
+        "inode": 468361338
+      },
+      {
+        "relativePath": "proof/component-test-execution-qualification.md",
+        "state": "file",
+        "byteCount": 7761,
+        "sha256": "94d971266a4a154ca867b7cd75e22d255bcf8368495c406e5247796f61af5745",
+        "device": 16777231,
+        "inode": 468648998
+      },
+      {
+        "relativePath": "proof/repaired-component-test-execution-qualification.md",
+        "state": "file",
+        "byteCount": 5152,
+        "sha256": "8ac49091a8d28ae55c590afa9cb8826afc419003084aea367543086c38ab8fd2",
+        "device": 16777231,
+        "inode": 468649217
+      },
+      {
+        "relativePath": "release/release-depth-parity.md",
+        "state": "file",
+        "byteCount": 6600,
+        "sha256": "bb7d571fb14bc870eed96d81041358cb2ca1d3b600583d2c3f6adec331b0942e",
+        "device": 16777231,
+        "inode": 468649339
+      },
+      {
+        "relativePath": "release/release-preparation.md",
+        "state": "file",
+        "byteCount": 5646,
+        "sha256": "933b9cedee5cb7ea7c59f5d4bfd4d201cb224b4dc7d4c5de45a0b26d61198130",
+        "device": 16777231,
+        "inode": 468654669
+      },
+      {
+        "relativePath": "repair/component-repair-application.md",
+        "state": "file",
+        "byteCount": 5592,
+        "sha256": "b4c1fed3dc54aeaa2b33c411ed1e56401f9956f8928e3437bbf799629868e08a",
+        "device": 16777231,
+        "inode": 468649174
+      },
+      {
+        "relativePath": "repair/component-repair-schedule.md",
+        "state": "file",
+        "byteCount": 16690,
+        "sha256": "5f7cd238a785c932cd07a03878001769f3281615aab7f8dd0eb6f2e5e5c1ae2e",
+        "device": 16777231,
+        "inode": 468634671
+      },
+      {
+        "relativePath": "source/data-mapper-full/obligations.json",
+        "state": "file",
+        "byteCount": 50978,
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "device": 16777231,
+        "inode": 468361204
+      },
+      {
+        "relativePath": "source/data-mapper-full/oracle.json",
+        "state": "file",
+        "byteCount": 16774,
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "device": 16777231,
+        "inode": 468361205
+      },
+      {
+        "relativePath": "source/data-mapper-full/source.original.txt",
+        "state": "file",
+        "byteCount": 41158,
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "device": 16777231,
+        "inode": 468361202
+      },
+      {
+        "relativePath": "source/data-mapper-full/supporting-constants.original.txt",
+        "state": "file",
+        "byteCount": 3713,
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "device": 16777231,
+        "inode": 468361203
+      },
+      {
+        "relativePath": "specification/goals.md",
+        "state": "file",
+        "byteCount": 4907,
+        "sha256": "5f7620a73a65e6d7622159df7317ccf3b51421695a1816b390975fa31df1f917",
+        "device": 16777231,
+        "inode": 468361348
+      },
+      {
+        "relativePath": "specification/intent.md",
+        "state": "file",
+        "byteCount": 23615,
+        "sha256": "7ff3a9a8b6b2e2bab86ad68ded0e4374d5ab630f79414d48741a25c2a75564b0",
+        "device": 16777231,
+        "inode": 468361349
+      },
+      {
+        "relativePath": "specification/product.md",
+        "state": "file",
+        "byteCount": 12262,
+        "sha256": "83c75a9fae1b5e155c66e69a0e0edf8223033bebada569f9bb00dd065e269429",
+        "device": 16777231,
+        "inode": 468361350
+      },
+      {
+        "relativePath": "specification/requirements.md",
+        "state": "file",
+        "byteCount": 30618,
+        "sha256": "a2a3c6f2467b4233481e67c23e162c3d20dfc0cf8dfd9f1cf1d2c562af759122",
+        "device": 16777231,
+        "inode": 468361351
+      },
+      {
+        "relativePath": "specification/scenario.md",
+        "state": "file",
+        "byteCount": 39351,
+        "sha256": "cfe919b34398210e330e0725dfaf7d33ede070c1f4c81e8b6ea3b210a7bf0780",
+        "device": 16777231,
+        "inode": 468361352
+      },
+      {
+        "relativePath": "specification/testcase-authority.md",
+        "state": "file",
+        "byteCount": 10468,
+        "sha256": "56a08542d4b9e3db0861684df26be16f63ee7d6f15f72b189bd6a492a56cb194",
+        "device": 16777231,
+        "inode": 468361353
+      },
+      {
+        "relativePath": "specification/uat-testcases.md",
+        "state": "file",
+        "byteCount": 18808,
+        "sha256": "89f447fb00a64231ca35df0ea57c8e1df3c997f1832a30d9efd1a384f16a58fa",
+        "device": 16777231,
+        "inode": 468361354
+      },
+      {
+        "relativePath": "test-execution-result.json",
+        "state": "absent"
+      }
+    ],
+    "fileCount": 48,
+    "absentCount": 1
+  },
+  "cause": "Actual provider API400 prompt_too_long before model/tool work; exact raw diagnostic retained in stdout. Native transport failure and downstream HoG application-foldback-mismatch remain separate. No retry or source/app/control fix selected by Operator.",
+  "remainingTruth": "14 actual detections,13 C2-corroborated restores; Accounting INV mutant active, no new Assurance/Engine INV detection and no final restored green/full original UAT/fresh Public result+replay. Same original source/program/view/worksite preserved.",
+  "proofLimits": "No full-log hash/replay or new Public read; final existing owner closeHandoff binds the durable prefix. This records exact selected material/artifacts, not effect containment or whole installed P0 closure."
+}

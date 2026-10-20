@@ -1,0 +1,56 @@
+[
+  {
+    "name": "core",
+    "kind": "product_verification_success",
+    "coordinates": {
+      "verifiedArtifact": {
+        "ref": "product-verification://abiogenesis/a82a70cab5b92785959e72b7cbb77be680d0f003ae02839a47cc0e1078c460f8",
+        "digest": "sha256:a82a70cab5b92785959e72b7cbb77be680d0f003ae02839a47cc0e1078c460f8"
+      },
+      "descriptor": {
+        "ref": "descriptor://abiogenesis/typescript-tenant/216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+        "digest": "sha256:9efbcb718119e0b6a43581385d24ac10560e6d70c6d298860a1408565dd1191e"
+      },
+      "localNativeEvidence": {
+        "ref": "local-native-evidence://abiogenesis/product-verification/bb8d16f6580aab2f78c7ec06cc9776a33a73877473d11f6709171d2d5cf7eca4",
+        "digest": "sha256:bb8d16f6580aab2f78c7ec06cc9776a33a73877473d11f6709171d2d5cf7eca4"
+      },
+      "provenance": {
+        "ref": "provenance://abiogenesis/product-verification/e987dc42104ab90e36c8d35f50b5be315d82f367daccb86dfb9f91bf79c595f0",
+        "digest": "sha256:e987dc42104ab90e36c8d35f50b5be315d82f367daccb86dfb9f91bf79c595f0"
+      }
+    },
+    "artifactDigest": "sha256:f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+    "productContentDigest": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "manifestDigest": "sha256:cb7b8045e769fa6c019e599e5aef932827d915ce9de11a91cfcb5946a9eb153d",
+    "ownerSelection": "Same actual nominal object in this process; no saved body is treated as nominal authority.",
+    "role": "pure preparatory owner verification; no Public CLI setup rerun"
+  },
+  {
+    "name": "fixture",
+    "kind": "product_verification_success",
+    "coordinates": {
+      "verifiedArtifact": {
+        "ref": "product-verification://abiogenesis/5022be8b0c9c21b256a31fc95b156d2012bab40ba7ad3b053bdb4af847d428bb",
+        "digest": "sha256:5022be8b0c9c21b256a31fc95b156d2012bab40ba7ad3b053bdb4af847d428bb"
+      },
+      "descriptor": {
+        "ref": "descriptor://s03-automatic/product@5",
+        "digest": "sha256:9b38f501b455994f45e1d4eecb6e471ef8d55664cb5a06de1249ef8a271fc1d3"
+      },
+      "localNativeEvidence": {
+        "ref": "local-native-evidence://abiogenesis/product-verification/e20767946e2a08cf71460536ddd2878157240bce4b87f7ab9a6a4995151813e8",
+        "digest": "sha256:e20767946e2a08cf71460536ddd2878157240bce4b87f7ab9a6a4995151813e8"
+      },
+      "provenance": {
+        "ref": "provenance://abiogenesis/product-verification/3288e159232ab6fe397945e96cfd3a2528f8241fe96754783111a41cae1ab8d4",
+        "digest": "sha256:3288e159232ab6fe397945e96cfd3a2528f8241fe96754783111a41cae1ab8d4"
+      }
+    },
+    "artifactDigest": "sha256:c199ca3a2004d26ae26f1ef00b6f6b197a3bd01dc26a6d0d623333edfcc66088",
+    "productContentDigest": "sha256:6e3797c11565a485c294da58eca600ce7571c45bfbe2bbb1b7f222c907b914ec",
+    "manifestDigest": "sha256:dc8ea7ebec320fef5da56ade9fa97c3552563822d65fc77d227a8b7992cb37e0",
+    "ownerSelection": "Same actual nominal object in this process; no saved body is treated as nominal authority.",
+    "role": "pure preparatory owner verification; no Public CLI setup rerun"
+  }
+]

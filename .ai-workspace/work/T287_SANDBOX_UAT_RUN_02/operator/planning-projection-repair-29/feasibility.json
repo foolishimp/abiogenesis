@@ -1,0 +1,30 @@
+{
+  "status": "STOP",
+  "reason": "Distinct controlled16 projection alone exceeds original complete-prompt bound",
+  "scope": "Private exact-object/prior-string-prefix candidate; not native/UAT evidence",
+  "sourceHelperHash": "fcaf6ce8381d261e132dff0f2cb24595fdf8db94261def098b39ff9dd53ebaa0",
+  "results": [
+    {
+      "name": "captured",
+      "observations": 18,
+      "oldProjectionBytes": 1059435,
+      "newProjectionBytes": 895519,
+      "sharingUses": 317,
+      "bound": 1048576,
+      "independentReconstruction": true,
+      "original18Conserved": true,
+      "completeAssemblyImpossible": false
+    },
+    {
+      "name": "controlled16",
+      "observations": 51,
+      "oldProjectionBytes": 2339326,
+      "newProjectionBytes": 1908872,
+      "sharingUses": 911,
+      "bound": 1048576,
+      "independentReconstruction": true,
+      "original18Conserved": true,
+      "completeAssemblyImpossible": true
+    }
+  ]
+}

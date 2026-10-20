@@ -1,0 +1,23 @@
+{
+  "case": "basic-cli",
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 516978.262542,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdoutBytes": 503,
+  "stderrBytes": 0,
+  "nativeSummary": {
+    "scenario": "basic-cli",
+    "runId": "2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488",
+    "mode": "run",
+    "status": "failed",
+    "uatPass": false,
+    "runtimeDisposition": "result",
+    "terminalAvailable": false,
+    "independentOracle": "indeterminate",
+    "reason": "Original application obligations or terminal evidence remain incomplete"
+  }
+}

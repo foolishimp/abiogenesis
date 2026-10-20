@@ -1,0 +1,6 @@
+{"phase":"original_public_root_and_genuine_reprice","pid":32561,"entryBytes":536480831}
+{"phase":"original_public_root_read_completed","executionBasis":{"ref":"execution-basis://abiogenesis/393d4a32f850f21f37e9cdb6ba6b5c38412f686270ae34236a99a6cdaf171406","digest":"sha256:393d4a32f850f21f37e9cdb6ba6b5c38412f686270ae34236a99a6cdaf171406"}}
+{"phase":"full_sandbox_public_setup","ordinal":2,"label":"original-root-binding-reprice"}
+real 82.27
+user 87.91
+sys 3.54

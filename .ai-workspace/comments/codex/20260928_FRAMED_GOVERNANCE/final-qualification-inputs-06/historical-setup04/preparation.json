@@ -1,0 +1,11 @@
+{
+  "status": "READY",
+  "setupOnly": true,
+  "originalAssertions": "unchanged ordinary owner outcomes; added exact singleton/mixed locks and full producer empty-selector relation",
+  "donorCallerTrim": "loaders / authorization / setup / conformance only; removed all prepareStart/start/freshReads and constructStart",
+  "totalBudgetMs": 600000,
+  "nominalBudgetMs": 180000,
+  "perPublicOperationBudgetMs": 180000,
+  "F11TaskRun": "STOPPED",
+  "noSourceOrRepack": true
+}

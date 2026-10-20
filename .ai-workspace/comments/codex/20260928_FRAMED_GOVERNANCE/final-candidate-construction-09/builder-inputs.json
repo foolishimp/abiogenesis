@@ -1,0 +1,51 @@
+{
+  "operationBasisSHA256": "adc8cb93426b08877e44ea6484acf5e532ba73f182b54365d1ab308b20a2206b",
+  "sourceCutSHA256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+  "sourceAcceptanceSHA256": "b2da513f06c07e2c8606c61488bf27e6a63689ab47a17419382c76cbdd96b275",
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+    "bytes": 1436,
+    "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+    "mode": 420
+  },
+  "priorCandidateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02",
+  "sourceCount": 1111,
+  "changedCount": 7,
+  "addedCount": 2,
+  "unchangedCount": 1102,
+  "priorMemberCount": 1109,
+  "baselineSourceFreezeSHA256": "5e9fd780078b081d83ae598a9e05ac84c58648b90e84324209305cbf8058f14b",
+  "requestSHA256": "b9829067cf0a9ad2dc8a030abee74dfb99cf215c599ad36a565f3eaf17e12b59",
+  "baselineArtifactDigest": "sha256:9e43cf3cb8dda866f5000bdfdc81edee62f37967b35e6e0dd215122a83e068f9",
+  "sourceEmittedPaths": [
+    "build/code/src/abg/c_call.js",
+    "build/code/src/abg/c_call_outcome.js",
+    "build/code/src/implementation/contracts.js",
+    "build/code/src/implementation/leaf_invocation_port.js",
+    "build/code/src/product/semantics.js",
+    "build/code/src/abg/result_evidence_lineage_contracts.js",
+    "build/code/src/abg/c_call.d.ts",
+    "build/code/src/abg/c_call_outcome.d.ts",
+    "build/code/src/implementation/contracts.d.ts",
+    "build/code/src/implementation/leaf_invocation_port.d.ts",
+    "build/code/src/product/semantics.d.ts",
+    "build/code/src/abg/result_evidence_lineage_contracts.d.ts"
+  ],
+  "newSourceEmittedPaths": [
+    "build/code/src/abg/result_evidence_lineage_contracts.js",
+    "build/code/src/abg/result_evidence_lineage_contracts.d.ts"
+  ],
+  "permittedDerivedIdentityChanges": [
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "generatedCount": "measure actual current stage; no926 assumption",
+  "sourceOriginalAuthorsAndPreimages": "preserve every selected original and C08/C07 nested row",
+  "typescriptEmitOptions": {
+    "rootDir": "code/src",
+    "outDir": "build/code/src",
+    "declaration": true,
+    "stripInternal": true,
+    "noEmitOnError": true
+  }
+}

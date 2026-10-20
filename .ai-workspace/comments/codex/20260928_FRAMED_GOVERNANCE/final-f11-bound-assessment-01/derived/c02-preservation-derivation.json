@@ -1,0 +1,15 @@
+{
+  "kind": "source_preserving_import_representation",
+  "originalActivation": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/activation.json",
+  "originalGrant": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/controls/final-candidate-construction-controls-02/request.txt",
+  "originalOperation": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/operation-attribution.json",
+  "actualCopyImplementation": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/prepare.py",
+  "originalClosure": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-members.json",
+  "originalReturn": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/return.md",
+  "preimageView": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/c02-preservation-preimage-view.json",
+  "identityDeltaView": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/c02-preservation-identity-view.patch",
+  "closureView": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/c02-preservation-closure-view.json",
+  "limits": "New truthful representation of original copying. The identity hunks were not performed as historical source edits. The importer is not substituted for unknown inherited semantic authors.",
+  "writer": "/root/f11_binding_plan",
+  "writerGrant": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-controls-01/request.txt"
+}

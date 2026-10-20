@@ -1,0 +1,12 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/prepare.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216b/prepare.mjs
+@@ -185,7 +185,8 @@
+  await pulse('preparation-result-recording-complete',{kind:prepared.kind});
+  requireKind(prepared,'prepared_product_run_invocation','actual-private-Product-preparation');
+  await pulse('future-request-recording-start');
+- await record('calls/continuation-start.request.jsonl',{kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition:{kind:'reopen',closeHandoff:closed.closeHandoff},invocation:call});
++ await mkdir(join(root,'calls'),{recursive:true});
++ await writeFile(join(root,'calls/continuation-start.request.jsonl'),p.canonicalJson({kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition:{kind:'reopen',closeHandoff:closed.closeHandoff},invocation:call})+'\n',{flag:'wx'});
+  await pulse('future-request-recording-complete',{invocationRef:call.invocation.invocationRef});
+  await record('prepared-setup.json',{classification:'Actual installed current29 remaining-consumer preparation; no run.invoke/start dispatch/admission',sourceResultRef:source.sourceResultRef,sourceBasisRef:source.basisRef,sourceInputDigest:hash(input),observations:34,terminal:false,workspaceAuthority:setup.workspaceAuthority,workspaceBinding:binding,program,view:viewRef,installedRoot:currentInstall.install.installedRoot,currentUseDigest:use.useDigest,consumedBases:bases.size,finalPrefix,limits:{nativeMs:old.configuration.processTimeoutMs,nativeBytes:old.configuration.maxProcessOutputBytes,outerMs:19260000,outerBytes:536870912},operatorControlReference:selected.rootControl,qualityWindow:'Actual future nativeCLI command.request.started+18000000ms; no216 clock/native authority',launch:{executable:old.configuration.nodePath,args:[join(currentInstall.install.installedRoot,'build/code/src/public/cli.js'),'--jsonl',join(root,'calls/continuation-start.request.jsonl')],cwd:root},noCopyResetOrRetag:true});
+  await pulse('preparation-complete',{currentUseDigest:use.useDigest,observations:34,sourceResultRef:source.sourceResultRef});

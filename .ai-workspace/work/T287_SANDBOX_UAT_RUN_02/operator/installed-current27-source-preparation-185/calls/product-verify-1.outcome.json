@@ -1,0 +1,50 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "eventless",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.product.verify",
+      "memberKey": "verify"
+    },
+    "invocationRef": "invocation://abiogenesis/84012a069f2848d72ea5db7f0a90f7dd29ca5abcb24bbf4ad77a1cf7c13d4307",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "targetKind": "packed_artifact",
+        "disposition": "locally_verified",
+        "verifiedArtifact": {
+          "ref": "product-verification://abiogenesis/36f7cc600488ef32317a65f70394981a89b271134de056d554d1d98f912b77aa",
+          "digest": "sha256:36f7cc600488ef32317a65f70394981a89b271134de056d554d1d98f912b77aa"
+        },
+        "localNativeEvidence": {
+          "ref": "local-native-evidence://abiogenesis/product-verification/acf22e4fc202c278b4c6095b20a5ee95b56811bf2b26e957518050a3098b94df",
+          "digest": "sha256:acf22e4fc202c278b4c6095b20a5ee95b56811bf2b26e957518050a3098b94df"
+        },
+        "pendingExternalSelectors": [],
+        "definitionContractCoordinates": null,
+        "residuals": [],
+        "provenance": [
+          {
+            "ref": "provenance://abiogenesis/product-verification/9d5edfdd142107778aca041fd2c36c7fb9038d5eb8738751aaa9d6f5acbd5079",
+            "digest": "sha256:9d5edfdd142107778aca041fd2c36c7fb9038d5eb8738751aaa9d6f5acbd5079"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "product_verification_resource_disposition",
+      "schemaVersion": "5.0.0",
+      "targetKind": "packed_artifact",
+      "disposition": "read_only_unchanged",
+      "packedArtifact": {
+        "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "digest": "sha256:23e50f93533be202b3faaf499631471a5876a278de3dfeaa761439ab496ce6d6"
+      }
+    },
+    "failure": null
+  }
+}

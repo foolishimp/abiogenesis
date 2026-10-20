@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {dirname,join} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+const phase=dirname(fileURLToPath(import.meta.url)),inputs=JSON.parse(await readFile(join(phase,'inputs.json'),'utf8'));
+const current=JSON.parse(await readFile(join(phase,'host-preparation/exacthost-identity.json'),'utf8'));
+const oldRoot=inputs.installed29Root,newRoot=current.installedRoot;
+const load=(root,path)=>import(pathToFileURL(join(root,'build/code/src',path)).href);
+const oldStore=await load(oldRoot,'abg/event_store.js'),newStore=await load(newRoot,'abg/event_store.js');
+const oldProfile=await load(oldRoot,'abg/event_contract_profiles.js'),newProfile=await load(newRoot,'abg/event_contract_profiles.js');
+const oldWitness=await load(oldRoot,'abg/witness_operation_contracts.js'),newWitness=await load(newRoot,'abg/witness_operation_contracts.js');
+const oldContent=await load(oldRoot,'abg/witness_admission_operation.js'),newContent=await load(newRoot,'abg/witness_admission_operation.js');
+const oldPublic=await load(oldRoot,'shared/public_function_family.js'),newPublic=await load(newRoot,'shared/public_function_family.js');
+const p=await load(newRoot,'product/index.js');
+const hash=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
+assert.deepEqual(newStore.ROOT_EVENT_CONTRACT_DESCRIPTOR,oldStore.ROOT_EVENT_CONTRACT_DESCRIPTOR);
+assert.equal(newStore.ROOT_EVENT_CONTRACT_DIGEST,oldStore.ROOT_EVENT_CONTRACT_DIGEST);
+const profileNames=['LEGACY_ROOT_EVENT_CONTRACT_DIGEST','ROOT_CURRENT_EVENT_PROFILE_REF','ROOT_EVENT_PROFILE_DECLARATION_REF','ROOT_EVENT_PROFILE_UPGRADE_REASON'];
+for(const key of profileNames)assert.deepEqual(newProfile[key],oldProfile[key]);
+const packetData=packet=>({definitionKey:packet.definitionKey,owner:packet.owner,contractIds:packet.contractIds,metadata:packet.metadata});
+const beforePacket=packetData(oldWitness.WITNESS_OPERATION_CONTRACTS.admit['run-stopped']),afterPacket=packetData(newWitness.WITNESS_OPERATION_CONTRACTS.admit['run-stopped']);assert.deepEqual(afterPacket,beforePacket);
+assert.deepEqual(newContent.WITNESS_CONTENT_CONTRACTS['run-stopped'],oldContent.WITNESS_CONTENT_CONTRACTS['run-stopped']);
+const selectedProjection=module=>module.PUBLIC_OPERATION_CONTRACT_PROJECTIONS.find(x=>x.operationId==='abg.operation.witness.admit').definitions.find(x=>x.definitionKey.memberKey==='run-stopped');
+const oldProjection=selectedProjection(oldPublic),newProjection=selectedProjection(newPublic);assert.ok(oldProjection);assert.deepEqual(newProjection,oldProjection);
+const validatorNames=['validateDurablePrefixCoordinate','validateEventStoreReopenAuthority','validateEventStoreCloseHandoff'];
+const validators=[];for(const key of validatorNames){assert.equal(newStore[key].toString(),oldStore[key].toString());validators.push({name:key,sourceDigest:hash(Buffer.from(newStore[key].toString())),unchanged:true});}
+const equalFiles=['build/code/src/abg/event_contract_profiles.js','build/code/src/abg/definition_event_resource.js','build/code/src/abg/witness_operation_contracts.js','build/code/src/abg/witness_admission_operation.js','build/code/src/abg/witness_definition_bindings.js','build/code/src/shared/public_function_contracts.js','build/code/src/shared/public_function_family.js','contracts/schemas/native-runtime-observation.json'];
+const bytePins=[];for(const path of equalFiles){const before=await readFile(join(oldRoot,path)),after=await readFile(join(newRoot,path));assert.equal(after.equals(before),true,path);bytePins.push({path,byteCount:after.length,digest:hash(after),byteEqual:true});}
+const handoffPath=join(dirname(phase),'installed-current29-interrupted-run-recovery-223/attempt-b/recovered-close-handoff.json'),handoffBytes=await readFile(handoffPath),recorded=JSON.parse(handoffBytes),handoff=recorded.closeHandoff??recorded;
+assert.equal(oldStore.validateEventStoreCloseHandoff(handoff),true);assert.equal(newStore.validateEventStoreCloseHandoff(handoff),true);
+const result={kind:'pure_installed29_31_value_contract_correspondence',installed29Root:oldRoot,installed31Root:newRoot,rootEventContractDigest:newStore.ROOT_EVENT_CONTRACT_DIGEST,rootDescriptorMeaningDigest:p.sha256Canonical(newStore.ROOT_EVENT_CONTRACT_DESCRIPTOR),profileNames,runStoppedPacketMeaningDigest:p.sha256Canonical(afterPacket),runStoppedPublicProjectionDigest:p.sha256Canonical(newProjection),runStoppedContentContract:newContent.WITNESS_CONTENT_CONTRACTS['run-stopped'],validators,bytePins,recorded223Handoff:{path:handoffPath,sha256:hash(handoffBytes).slice(7),byteCount:handoffBytes.length,acceptedByBothPureValidators:true},scope:'Pure exported contract/schema/validator correspondence only. No history owner invocation, physical reopen/acquisition, current authority or31-to29 nominal object transfer; later maintenance returns portable data which29 must independently authenticate.'};
+await writeFile(join(phase,'value-contract-correspondence.json'),JSON.stringify(result,null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({stage:'value-contract-correspondence',rootEventContractDigest:result.rootEventContractDigest,witnessContent:result.runStoppedContentContract.ref,unchangedValidators:validators.length,unchangedFiles:bytePins.length,recordedHandoffValidBoth:true}));

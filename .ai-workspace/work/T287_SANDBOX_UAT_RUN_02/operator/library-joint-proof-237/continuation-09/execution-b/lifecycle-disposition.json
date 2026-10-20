@@ -1,0 +1,9 @@
+{
+  "outcomeKind": "result",
+  "disposition": "blocked",
+  "run": {
+    "digest": "sha256:2e6b7874c26131480884de2ffafe1a11362f05730efa23e4d81661bff9b0b28f",
+    "ref": "run://abiogenesis/ddfa825f54cb3ed540dc6da12d37b86cb11aff0d3fc03beaf6e45843d72c319f"
+  },
+  "receiptExitCode": 0
+}

@@ -1,0 +1,47 @@
+{
+  "status": "CLOSED_SUCCESS_EXACT_SEMANTIC_REPLAY",
+  "readCount": 1,
+  "verificationElapsedMs": 8655.578625,
+  "callerPreparationElapsedMs": 9243.021,
+  "publicReplayElapsedMs": 20281.23725,
+  "processElapsedSeconds": 29.59,
+  "supervisedProcessElapsedSeconds": 29.644152666907758,
+  "userSeconds": 34.26,
+  "systemSeconds": 0.98,
+  "peakRssBytes": 2410889216,
+  "callerStartedUtc": "2026-09-25T17:32:21.302000+00:00",
+  "approximatePublicReplayStartUtc": "2026-09-25T17:32:30.545021+00:00",
+  "baselinePublicReplayElapsedMs": 104482.58850000001,
+  "observedReadDifferenceMs": 84201.35125,
+  "timingLimit": "Separate observed calls, not a controlled benchmark or isolated EC timing. Baseline constructor/CLI window differs from same-lifetime timed Public transport; actual total process is separately retained.",
+  "sourceReview": "de6e0ae974d55a11b7edeacc7d7732a0c396c09777b70c6d2a965d52c6ccacac",
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite34-install-i7xybae1/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:758321d64dcbac39855f1bb95bafce90fb49148c202c7f60adb62d3af9cbf009",
+      "productContentDigest": "sha256:2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f",
+      "manifestDigest": "sha256:36bf7a6ad3beec53bf904fc5a654566d1598b15eb06bc86f6550475144d3ad22",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "genuineClose": {
+    "coordinateDigest": "sha256:158f2797ef17d8d84e1311b989db109966ecb367de10caeb786523e69e0997dd",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9f311db837d306c352dd8467e8aa06b8d8d2e671586a5b8e3f4347132169c1d5",
+    "prefixLength": 316064006,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "semanticReplayDigest": "sha256:15c36ab1326ab82a5fb2b3f6bc4b8344faaa93197294b51d3e755160752f5a09",
+  "passedComparisons": 9,
+  "scope": "one existing terminal Run cold Public replay, no live append/native or overall LIFE01 performance claim"
+}

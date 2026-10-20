@@ -1,0 +1,49 @@
+{
+  "kind": "intended_caller_small_correspondence",
+  "phase": 216,
+  "result": "PASS",
+  "syntax": {
+    "exitCode": 0,
+    "wallMs": 20.760708022862673
+  },
+  "unchangedHelpers": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216/verify-artifacts.mjs",
+      "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+      "byteCount": 2071
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216/packed-resources.mjs",
+      "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+      "byteCount": 2167
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216/binding-inputs.mjs",
+      "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+      "byteCount": 1942
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216/operation-resource.mjs",
+      "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+      "byteCount": 695
+    }
+  ],
+  "latestEntry": {
+    "prefixLength": 1697740744,
+    "prefixDigest": "sha256:f019edaefa36b95fc7bb18ecb68a1df6a86294fcf0bdeb0cdcfbd0f21ece8d1e",
+    "coordinateDigest": "sha256:f60e6f4a2bcd57ed2257d76b5dd1465a3bef2f9be595a3d8201128eda997db01",
+    "mtimeNsDecimal": "1791553718701904497"
+  },
+  "recordedPhysicalRows": 49,
+  "originalSourceAndProgramSelectorsUnchanged": true,
+  "newSetupDispatches": 0,
+  "prospectiveCanonicalAcquisitions": 1,
+  "realCoveredSourceCallbackUnchanged": true,
+  "finalActorBody": "{actorRef}",
+  "nativeCallHeader": {
+    "kind": "run_invocation_resource_assertion",
+    "schemaVersion": "5.0.0"
+  },
+  "nativeSchemaCheck": "Existing p.isRunInvocationResourceAssertion(call.resources) is required during future actual preparation; it was not executed here.",
+  "limits": "Selected small-file/literal correspondence and parse-only syntax. No current physical verification, imports, nominal owner validation, acquisition, preparation, native or model execution."
+}

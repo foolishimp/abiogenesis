@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.product.resolve",
+    "memberKey": "resolve"
+  },
+  "elapsedMs": 5299.792583,
+  "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+}

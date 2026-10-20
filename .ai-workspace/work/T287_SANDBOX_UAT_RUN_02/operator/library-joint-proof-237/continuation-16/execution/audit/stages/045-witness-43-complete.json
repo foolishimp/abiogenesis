@@ -1,0 +1,12 @@
+{
+  "stage": "witness-43-complete",
+  "elapsedMs": 114385.008791,
+  "at": "2026-10-10T21:24:51.541Z",
+  "rss": 2696429568,
+  "heapTotal": 466026496,
+  "heapUsed": 331664872,
+  "external": 8788120,
+  "arrayBuffers": 6375813,
+  "beforeAcquisition": false,
+  "prefixLength": 31431260
+}

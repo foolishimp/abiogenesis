@@ -1,0 +1,12 @@
+(node:63148) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (742.7825ms)
+ℹ Actual local process/group completion, supported structured_output/file conflict and partial file effects; lower installation/admission recording and liveness admission are controlled doubles. Exact liveness context and cold basis/invocation/implementation/currentness owners exercised; no probe, assessment, full native/Public admission or UAT credit.
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1004.937625

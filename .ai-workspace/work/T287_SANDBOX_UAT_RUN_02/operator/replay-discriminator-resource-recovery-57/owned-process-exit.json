@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-08T04:53:42.543Z",
+  "pids": [
+    9681,
+    9684
+  ],
+  "exitStatus": 1,
+  "stdout": "  PID  PPID  PGID    RSS ELAPSED STAT ARGS\n",
+  "stderr": "",
+  "signalsIssued": 0,
+  "scope": "Only exact55 recorder/recoveryPIDs; no globalprocessabsence claim"
+}

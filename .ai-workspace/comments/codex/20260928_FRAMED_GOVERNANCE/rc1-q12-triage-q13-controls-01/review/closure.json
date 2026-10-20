@@ -1,0 +1,22 @@
+{
+  "operation": "T287_Q13_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INPUT_PREPARATION_ONLY",
+  "closedAt": "2026-10-03T04:33:10.391921+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/freeze.json",
+    "bytes": 18843,
+    "sha256": "2e41cc8d59d0741a663846058c5788c0d5c1e857992aa90b93ff48ffdf866684",
+    "mode": 292
+  },
+  "supportedCause": "external module writes failed under repository-relative versus Q13 cwd mismatch, then correct absolute absent entry launched",
+  "originatingConstraint": "existing owned output/entry/cwd and preflight launch relation",
+  "smallestReEntry": "Root triangulation then separate bounded realization_refactor",
+  "successfulProducerRoleProofPreserved": true,
+  "allReviewWritesStopped": true,
+  "runtimeOrSemanticQualificationAcceptance": false,
+  "effects": "new review reports only; no imports/tests/repair/Run/provider/network/Git",
+  "rootAloneSelectsNextEffect": true
+}

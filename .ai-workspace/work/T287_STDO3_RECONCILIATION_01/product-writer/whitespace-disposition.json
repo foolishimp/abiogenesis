@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "added_line_whitespace_problems": [],
+  "git_no_index_disposition": "All eleven --check invocations returned 1 with no output: --no-index reports file differences; no whitespace diagnostics were emitted. The initial clean flag expected zero and is not the whitespace verdict."
+}

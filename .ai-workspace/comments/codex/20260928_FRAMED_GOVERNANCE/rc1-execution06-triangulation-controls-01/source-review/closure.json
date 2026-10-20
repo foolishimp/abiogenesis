@@ -1,0 +1,20 @@
+{
+  "operation": "T287_EXEC06_FP_SOURCE_REVIEW_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_REPAIR",
+  "severity": "blocking selected lawful sunny-day F_P path",
+  "recommendation": "append existing NativeLeafProofOperations as fifth F_P preparation argument; preserve assembly/verifier arguments three/four",
+  "sourceReentry": "realization_refactor",
+  "report": "review.md",
+  "pins": "source-correspondence.json",
+  "sourceCandidateRuntimeWrites": 0,
+  "importsBuildTestsOwnerHelperModelProviderNetworkGit": 0,
+  "onlyWrites": "this source-review territory",
+  "qualificationAccepted": false,
+  "separateColdReadFault": "open; Root conjoins separate caller/Proof review",
+  "closedAt": "2026-10-02T04:27:59.894139+00:00",
+  "returnRelation": "Root alone accepts/selects Worker; Reviewer does not activate Worker",
+  "noFurtherWrites": true
+}

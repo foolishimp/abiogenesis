@@ -1,0 +1,133 @@
+{
+  "status": "CLOSED",
+  "disposition": "GO_SOURCE_COMPONENT_ONLY",
+  "operation": "T287_QUALIFICATION_RAW_CONTRACT_PUBLICATION_REALIZATION_01",
+  "author": "/root/q03_input_review under exact separate Worker grant",
+  "independentAssurance": false,
+  "ProductFrame": {
+    "fixedFeatures": "15; F04/F10/F11/F13/F15",
+    "WHAT": "Native declared raw-contract admission and exact input/result lineage precede qualification J and same-subject proof",
+    "HOW": "Existing GTL producer publishes abg.raw_result_contract for F_P only; reuse unchanged owner and verifier",
+    "reentry": "realization_refactor",
+    "genericResolverChange": false,
+    "runtimeFactsFromSourceTests": false
+  },
+  "sourcePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs"
+  ],
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/preimages/self_conformance.ts",
+    "bytes": 18649,
+    "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+    "mode": 420
+  },
+  "testPreimage": "ABSENT",
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18733,
+      "sha256": "8396aee64c5d800861c97b9a5ce0ccdde06d5ba507539da7216f62080238614f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+      "bytes": 14115,
+      "sha256": "f57e520c9a7ce2ca5ee61044bc70293b93618f4649a816b52d1fc4393d29334e",
+      "mode": 420
+    }
+  ],
+  "publicationDelta": "84-byte F_P abg.raw_result_contract = q.assessmentRaw declaration only; F_D/F_H and all other graph bodies unchanged. No generic collector/native verifier/schema/API change.",
+  "actualFrozenPreimages": "Q08 input and Runtime07 request/legal indeterminate raw; unchanged actual wrapper import. C06 lower coordinates preserved as component premises.",
+  "realOwnerDiscriminator": {
+    "routes": [
+      "singleton core qualification",
+      "unchanged wrapper imported core child"
+    ],
+    "preimage": "zero selected raw owners; real native verifier result_contract_refused",
+    "postimage": "exactly one selected raw owner; real native verifier verified_probabilistic_result_contract_preimage",
+    "cases": 18,
+    "nearestNegatives": [
+      "malformed raw/result_contract_refused",
+      "crossed input digest/input_contract_refused",
+      "crossed instruction or raw contract/contract_identity_mismatch",
+      "missing raw owner/absent",
+      "nonunique raw owner/ambiguous",
+      "incompatible owner/wrong_owner"
+    ],
+    "ambientIsolation": "Selected owner roster conserved; every coordinate binds the changed publication semantic digest."
+  },
+  "suppliedLowerPremises": [
+    "Catalog readiness/workspace/install/lock record fields reused as source-component premises, not newly admitted",
+    "product/implementation-set admission booleans supplied by existing F04 VM scaffold",
+    "loaded semantics projection and installed-content authentication supplied; actual qualification validators and worker-contract selection remain unchanged"
+  ],
+  "ownerLookupOrVerifierMocked": false,
+  "verificationPreimageSupplied": false,
+  "actualInstallOrAdmission": false,
+  "originalAuthorshipPreserved": true,
+  "copyOrBuildAuthorIsOriginalSourceAuthor": false,
+  "initialFailure": "Preserved exit1 local test full-coordinate expectation; no owning Product failure. Final regression passed with exact changed publication digest joins.",
+  "cost": {
+    "isolatedStagePreparationMs": 1759.7865844145417,
+    "managedJobs": [
+      {
+        "mode": "compile",
+        "elapsedMs": 6079.712458886206,
+        "exitCode": 0,
+        "rssBytes": 1087733760,
+        "processGroupAfterWait": "absent",
+        "wait4ReapedMain": true,
+        "timedOut": false
+      },
+      {
+        "mode": "regression",
+        "elapsedMs": 555.4676670581102,
+        "exitCode": 1,
+        "rssBytes": 394100736,
+        "processGroupAfterWait": "absent",
+        "wait4ReapedMain": true,
+        "timedOut": false
+      },
+      {
+        "mode": "regression-final",
+        "elapsedMs": 696.6593749821186,
+        "exitCode": 0,
+        "rssBytes": 398344192,
+        "processGroupAfterWait": "absent",
+        "wait4ReapedMain": true,
+        "timedOut": false
+      }
+    ],
+    "managedTotalMs": 7331.839500926435,
+    "compileMs": 6079.712458886206,
+    "finalRegressionMs": 696.6593749821186,
+    "peakSupervisedRssBytes": 1087733760,
+    "perCompileOrRegressionBudgetMs": 180000,
+    "totalManagedBudgetMs": 420000,
+    "heap": "default; no NODE_OPTIONS/NODE_PATH/V8_OPTIONS",
+    "HOME": "preserved",
+    "qualificationCommandsExecuted": 0,
+    "helperProviderCalls": 0,
+    "actualRuntimeCalls": 0,
+    "canonicalizationCost": "Exact retained packet/request/raw and Source-component catalogs only; no all-body qualification canonicalization."
+  },
+  "effects": {
+    "canonicalSourceFilesChanged": 1,
+    "newCanonicalTests": 1,
+    "isolatedCompile": 1,
+    "targetedRegressionAttempts": 2,
+    "ambientGeneratedBuilds": 0,
+    "RuntimeTaskRunJEffects": 0,
+    "helperProviderNetworkCalls": 0,
+    "GitEffects": 0,
+    "oldFrozenEvidenceChanged": false
+  },
+  "residuals": [
+    "Source/component premises are not installed or admitted successor facts.",
+    "Semantic adequacy, qualification completion, actual new native admission, child J/foldback/F11/AF22, and release remain unproved.",
+    "Original source chain retained; this increment is authored by this Worker and needs independent Root-selected review."
+  ],
+  "requiredNext": "Root independent source assurance, successor candidate construction/install, then earliest actual unchanged wrapper-parent/child/J/foldback and F11/AF22 carrier proof.",
+  "writesAfterClosure": "none; freeze finalization is last effect"
+}

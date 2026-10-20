@@ -1,0 +1,28 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME10_COLD_TRIAGE_RUNTIME11_GRANTS_WRITER_01",
+  "role": "Writer",
+  "restoredRole": "Executive",
+  "Runtime11Released": false,
+  "grants": {
+    "worker": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01/worker-request.txt",
+      "bytes": 3256,
+      "sha256": "51f962c8d29b3bcb8c59883b345000843ae4d92239ec913f120fc8b8ffce5f2d",
+      "mode": 420
+    },
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01/review-request.txt",
+      "bytes": 3062,
+      "sha256": "ce030dbd78d08149667dcf5b702c89dc863e73530ec43d366279703c90ce9fa5",
+      "mode": 420
+    },
+    "runtime": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01/runtime-request.txt",
+      "bytes": 3586,
+      "sha256": "2d67bf4c468ca9f518a281277e3f77d792fa72f8714c774b9079210aef42e635",
+      "mode": 420
+    }
+  },
+  "closedAt": "2026-10-03T10:44:12.050734+00:00"
+}

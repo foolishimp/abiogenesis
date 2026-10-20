@@ -1,0 +1,237 @@
+{
+  "kind": "unbound_first_real_F11_responsibility_input_source",
+  "status": "pending Root selection and genuine native setup; not a self_conformance_input",
+  "responsibility": "evaluate complete current subject source fidelity, every selected current-law applicability/domain and sufficiency of actual observed execution; preserve every missing or unreadable dependency as non-green",
+  "publicCarrier": {
+    "F11": "graph-function://abiogenesis/qualification/self-conformance@5",
+    "assessment": "graph-function://abiogenesis/qualification/assess@5",
+    "soleVerdict": "graph-function://abiogenesis/qualification/exact-candidate@5"
+  },
+  "inputSource": {
+    "candidateAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/acceptance.json",
+      "bytes": 1218,
+      "sha256": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f"
+    },
+    "candidateBindings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/qualification-binding-plan.json",
+      "bytes": 3202409,
+      "sha256": "410695fa90c34afc999a444d0c2c2d876a3c6375d76a8dc172dde7b52758cfc5"
+    },
+    "sourceInventory": {
+      "ref": "qualification-inventory://abiogenesis/1ff09198a2fddfbc5b42d33eef3f9022b291aa1d266f3f6a11bedea4afbf4b92",
+      "digest": "sha256:1ff09198a2fddfbc5b42d33eef3f9022b291aa1d266f3f6a11bedea4afbf4b92"
+    },
+    "completeInventoryBody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/qualification-inventory.json",
+      "bytes": 2423195,
+      "sha256": "386e211128bed8c8964af2d222c1354269661bae2135c0854f3c66048085e122"
+    },
+    "inventoryOrigins": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/inventory-origin-correspondence.json",
+      "bytes": 3610391,
+      "sha256": "641ce15365f9b9704efcc92b510087d464e56214a2ee6f0a774dec23fb925074"
+    },
+    "currentLaw": {
+      "ref": "qualification-law://abiogenesis/edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f",
+      "digest": "sha256:edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f"
+    },
+    "currentLawBody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-stage/build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "bytes": 28470,
+      "sha256": "05cd2d9660659c824ad8178962f62631860df80ffe81af01d1338f4420b6194d"
+    },
+    "currentCatalogBody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-stage/build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+      "bytes": 1796651,
+      "sha256": "bd58d739d6efddf466d2bee99c95bc0e49ca9ff3de820ec5aab217557f9afa16"
+    },
+    "currentCoverageBody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-stage/build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+      "bytes": 11476,
+      "sha256": "4482b3fc4c534976c3abc4fea77f170128ef5d0fe1ea8582e525238d44ed27d0"
+    },
+    "recipe": {
+      "ref": "recipe-input://abiogenesis/q04/verification-recipe.json",
+      "path": ".qualification-material/recipe/verification-recipe.json",
+      "digest": "sha256:cc912647fb1fe73d1cb50cd1a011e716d62511a79d67a746fc130383995429aa",
+      "byteCount": 741984,
+      "surfaceRoles": [
+        "execution_contract"
+      ],
+      "classificationEvidenceRefs": [
+        "selection://abiogenesis/rc1/final-qualification-inputs-04/source-and-material"
+      ]
+    },
+    "completeProtectedInputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/protected-inputs.json",
+      "bytes": 2279874,
+      "sha256": "7b0c67ac6c64786d0fbc67ae0d31b648c251b7cb3a1c6b8f9a5e122d9fc1e966"
+    },
+    "explicitTestOracles": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/test-selection.json",
+      "bytes": 18954,
+      "sha256": "ccf824ab4f1686e3e2202ac1ce4fa2099320cd02da5b06841b1a732d89742b76"
+    },
+    "expectedOutputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/expected-output-inventory.json",
+      "bytes": 170300,
+      "sha256": "6060d83659dd6a74c272bd8e57ef161af6ebc7c00969960beb56a0ad6617c25d"
+    },
+    "snapshotOutputPlan": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/output-consumer-binding-plan.json",
+      "bytes": 7707,
+      "sha256": "5735dc890f7a15ebd62754f8640d1cdaf231c1d25b08eb1e33aaefeb8a85ff58"
+    },
+    "tenantConformanceManifest": "pending separately authorized owner construction from actual current Product/capability/catalog/publication sources; no packaged file exists",
+    "sourceAndCopyAuthorship": "C03 source index and Q04 source inventory preserve sourceAuthor separately from copyBuildAuthor; Q04 owns new input preparation and isolated component readiness only",
+    "isolatedHistoricalComponent": {
+      "stagePlan": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/component-stage-plan.json",
+        "bytes": 362397,
+        "sha256": "b49e171ed6b362a6f7c02e0432a47149a353c2dc47f741521513488066801ad6"
+      },
+      "stagingScript": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/component-stage.mjs",
+        "bytes": 1812,
+        "sha256": "6dc892f16235e470d91bfc0a986bf1118c0b7d72cf09f4ba8f1954cfc08db8e1"
+      },
+      "componentOutputs": 835,
+      "originRoles": {
+        "current_C03_compiled_implementation": 735,
+        "historical_RC1_contract_not_current_qualification_law": 4,
+        "historical_RC1_source_projection": 95,
+        "unchanged_existing_source_case": 1
+      },
+      "currentLawRemainsRC2": true,
+      "componentReadiness": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness-result.json",
+        "bytes": 4274,
+        "sha256": "3ffb332e58b23b0b277804e819ab30bea11a0f9c6820bb9668c98601e56ab86c"
+      },
+      "nativeQualificationCredit": false
+    }
+  },
+  "observedMaterial": {
+    "status": "not provided; no executionSelection/Result/CCall/current prefix or authenticated QUAL056 material exists in this preparation",
+    "coordinate": null,
+    "actualResult": null,
+    "admissionEventRef": null,
+    "producer": null,
+    "originalInputSource": null,
+    "sourceCurrentness": null,
+    "requiredActualWitnesses": [
+      "complete18 command/19 predicate populations",
+      "strict332-file lint",
+      "all8 test groups with46 exact selected leaves and no skip/todo/zero-test green",
+      "complete927 generated-output equality",
+      "complete3277 original-input conservation",
+      "actual task/attempt/artifact/snapshot identity",
+      "fresh Result/replay",
+      "complete835 isolated historical-component outputs; both test import and owned catalog resolve within that tree"
+    ]
+  },
+  "semanticAssessment": {
+    "status": "unknown/unexecuted",
+    "scopeCoordinate": null,
+    "ruleDomains": null,
+    "resourceAssertionCoordinate": null,
+    "assessmentTask": null,
+    "actorAttribution": null,
+    "judgment": null,
+    "nativeAdmission": null,
+    "necessaryIndependentJudgments": [
+      "source fidelity including source-vs-donor-vs-generated role separation",
+      "current governing law and whole-inventory rule applicability",
+      "sufficiency of shared actual execution for all16 coverage claims and66 behaviors",
+      "each missing capability/scenario/negative is typed failed or blocked"
+    ],
+    "transport": "no all-member-body model campaign is prepared or invoked; closed resource assertions must be constructed/borrowed only from exact genuinely invoking proof under separately selected authority"
+  },
+  "seededNegativesRequired": [
+    "missing authority",
+    "broken traceability",
+    "unowned public contract",
+    "design/code drift",
+    "malformed proof claim",
+    "ticket/closure mismatch",
+    "release-identity mismatch"
+  ],
+  "unknownNativeSlots": [
+    "admitted actual workspace/install identities",
+    "original observed producer and CCall/Result",
+    "currentness and execution/source prefixes",
+    "complete scope/domain/resource coordinates",
+    "independent actual actor/source attribution and J",
+    "F11 typed result",
+    "sole AF22 installed_rc verdict"
+  ],
+  "rawMaterialSizes": {
+    "source-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/source-inventory.json",
+      "bytes": 1131186,
+      "sha256": "7d1fa733a598acec860d1ca1b816abc4d512978cb03cea61ebcc56cd320a500e"
+    },
+    "qualification-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/qualification-inventory.json",
+      "bytes": 2423195,
+      "sha256": "386e211128bed8c8964af2d222c1354269661bae2135c0854f3c66048085e122"
+    },
+    "input-manifest.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/input-manifest.json",
+      "bytes": 2274968,
+      "sha256": "1e5a50fe4cec268ab3a77e0ab04b1d4d4e95cd3b370612b7017b7f433ae1306a"
+    },
+    "protected-inputs.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/protected-inputs.json",
+      "bytes": 2279874,
+      "sha256": "7b0c67ac6c64786d0fbc67ae0d31b648c251b7cb3a1c6b8f9a5e122d9fc1e966"
+    },
+    "verification-recipe.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/verification-recipe.json",
+      "bytes": 741984,
+      "sha256": "cc912647fb1fe73d1cb50cd1a011e716d62511a79d67a746fc130383995429aa"
+    },
+    "expected-output-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/expected-output-inventory.json",
+      "bytes": 170300,
+      "sha256": "6060d83659dd6a74c272bd8e57ef161af6ebc7c00969960beb56a0ad6617c25d"
+    },
+    "test-selection.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/test-selection.json",
+      "bytes": 18954,
+      "sha256": "ccf824ab4f1686e3e2202ac1ce4fa2099320cd02da5b06841b1a732d89742b76"
+    },
+    "npm-toolchain-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/npm-toolchain-inventory.json",
+      "bytes": 1502703,
+      "sha256": "695abf66c2ec585765f6a59a9784136656548339cfe07d5dc9b93d8ca1c7e8c3"
+    },
+    "donor-authority-preimages.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/donor-authority-preimages.json",
+      "bytes": 110869,
+      "sha256": "d08b3c58a4b82dc53ff1886be8c66b46eda06fa4f3c4f0e5447729c596b006ba"
+    },
+    "component-stage-plan.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/component-stage-plan.json",
+      "bytes": 362397,
+      "sha256": "b49e171ed6b362a6f7c02e0432a47149a353c2dc47f741521513488066801ad6"
+    },
+    "component-stage.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/component-stage.mjs",
+      "bytes": 1812,
+      "sha256": "6dc892f16235e470d91bfc0a986bf1118c0b7d72cf09f4ba8f1954cfc08db8e1"
+    },
+    "readiness-copy.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness-copy.json",
+      "bytes": 2794548,
+      "sha256": "f848357667199fa333b14df4b984423bacd3bcb87c7736044efc330526ba2183"
+    },
+    "readiness-result.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness-result.json",
+      "bytes": 4274,
+      "sha256": "3ffb332e58b23b0b277804e819ab30bea11a0f9c6820bb9668c98601e56ab86c"
+    }
+  },
+  "compactRouting": "This responsibility source names immutable complete populations, recipe and missing material rather than embedding all251384737 protected-body bytes. No representation-only size reduction is asserted as native speed/memory or semantic proof."
+}

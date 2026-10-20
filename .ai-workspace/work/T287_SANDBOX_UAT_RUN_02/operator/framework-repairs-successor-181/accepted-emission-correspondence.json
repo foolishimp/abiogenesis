@@ -1,0 +1,21 @@
+{
+  "normalGeneratedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/generated-delta.json",
+    "sha256": "8b003f92ebadd4f3240d29495dec4a62a66d321ed81c428720ad4c3bc37372a8",
+    "byteCount": 310746
+  },
+  "authorizedSemanticsJS": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantics.js",
+    "sha256": "068961d76f578d1734b3e067a1fe63196d1dd76c9838d9874842be2473b2dabd",
+    "byteCount": 13067
+  },
+  "accepted179SemanticsJS": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/isolated/build/code/src/product/semantics.js",
+    "sha256": "068961d76f578d1734b3e067a1fe63196d1dd76c9838d9874842be2473b2dabd",
+    "byteCount": 13067
+  },
+  "exactBodyEqual": true,
+  "all263NormalDeclarationsUnchangedFrom26": true,
+  "unchangedNormalGeneratedMembers": 931,
+  "rawIsolatedGlobalDeclarationEqualityNotRequired": true
+}

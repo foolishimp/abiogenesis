@@ -1,0 +1,22 @@
+{
+  "firstCause": "scratch config location changed automatic @types lookup; installed node types omitted",
+  "observedOriginalDefaultTypes": [
+    "node"
+  ],
+  "observedInitialScratchDefaultTypes": [],
+  "selectedAction": "bind exact original effective compiler type roots in scratch configuration only",
+  "effectiveTypeRoots": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/@types",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/node_modules/@types",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/node_modules/@types",
+    "/Users/jim/src/apps/abiogenesis/node_modules/@types",
+    "/Users/jim/src/apps/node_modules/@types",
+    "/Users/jim/src/node_modules/@types",
+    "/Users/jim/node_modules/@types",
+    "/Users/node_modules/@types",
+    "/node_modules/@types"
+  ],
+  "sourceOrRuntimeRepair": false,
+  "preservedFailedReceipt": "commands/isolated-compile-01.result.json",
+  "strictAndStripOptionsUnchanged": true
+}

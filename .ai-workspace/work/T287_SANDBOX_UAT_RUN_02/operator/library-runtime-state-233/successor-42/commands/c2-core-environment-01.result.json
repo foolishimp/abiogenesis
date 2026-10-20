@@ -1,0 +1,19 @@
+{
+  "kind": "source42_c2_context_readiness",
+  "sourceCut": 42,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/input-01/test_env/tests/t287-c2-core-environment.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 339.01141700000005,
+  "input": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/dependency-cut-42-inputs.json",
+  "emission": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/dependency-cut-42-emission.json",
+  "limits": [
+    "Isolated pure declaration/member/span correspondence plus existing disposable context observation/assembly test",
+    "Lower component artifact/native assembly and A/W/grant facts explicitly controlled; no actual Product installation/ABG admission/Worker/native/original resource effects"
+  ]
+}

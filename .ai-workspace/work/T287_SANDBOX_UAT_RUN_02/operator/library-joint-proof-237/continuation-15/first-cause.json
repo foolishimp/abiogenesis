@@ -1,0 +1,89 @@
+{
+  "kind": "continuation15_first_cause",
+  "stage": "actual native lifecycle runtime_failed",
+  "actualDriverFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/first-cause.json",
+    "sha256": "ff5c8ab5c6eabdbb131e02189ef644b57b5bd337aa6ccdbd8a6679884eb163cb",
+    "byteCount": 9455,
+    "mode": 420
+  },
+  "nativeOwnerOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/lifecycle-start.outcome.json",
+    "sha256": "a7c3ff989e564742c04f2d861d7d69322cc43baab1fbc56877cffa057c767081",
+    "byteCount": 36146,
+    "mode": 420
+  },
+  "nativeDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/lifecycle-disposition.json",
+    "sha256": "318cb1ef690c9f8ed03555db00da666bd7fa968be3d32b4529b5c24e108cc50e",
+    "byteCount": 290,
+    "mode": 420
+  },
+  "actualPublicEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/runtime-failure-evidence.json",
+    "sha256": "34a4c8d8d3dce4867cbfab88d6020e2ab96308c1eb5efe6b65c52e01b65b55db",
+    "byteCount": 7642,
+    "mode": 420
+  },
+  "failureSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/native-failure-summary.json",
+    "sha256": "d0243f20b4aba81c3865df72dee79df3675d1d7f43278c47d9b9ea53c7433347",
+    "byteCount": 4148,
+    "mode": 420
+  },
+  "diagnosticStage": "native_occurrence_basis",
+  "diagnosticRelation": "definition_input_binding",
+  "diagnosticClassRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-testing@5",
+  "occurrence": {
+    "attempt": 1,
+    "cCallRef": "c-call:sha256:2e2c30f1d864ede10abb0bc9e8ab8aa457afa464bfa8f414f6eccad32053e0e7",
+    "frameId": "frame://abiogenesis/9b076bb0694ed4cf3b3870943d3a919a5416a509df123a78c6030cea2ef51b46",
+    "graphCallId": "graph-call://abiogenesis/ba25ad56d25714f99aeae605b3d87eff55bb6a309cc399da915bc43edfaf0406",
+    "programLocusRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+    "runId": "run://abiogenesis/2dbe5cc3c8777dc3b835278c207e299c31a99869d0f2b46d00afac93f7843933",
+    "taskOrdinal": null
+  },
+  "inputDigest": "sha256:dd555d5ada8ebcf502b3ff1b8bc97565b86a4812fc5b08fcd118fd4417522e6e",
+  "runtimeFailureRef": "runtime-failure://abiogenesis/f2a745e6946cdbd40ae9484971a8bd72a639f5c1dc1df1be44d671a5df188862",
+  "causeEventRefs": [
+    "event://abiogenesis/9d02e1e48ffdc00c94029dd53524f69395308aa5cc17a6685acc1a1494834355"
+  ],
+  "normalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/lifecycle-start.close.json",
+    "sha256": "4ec94d0a1e14010d4834a9bdb0d831f711a41850b92b6632b08ac673e340931c",
+    "byteCount": 1368,
+    "mode": 420
+  },
+  "completed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/completed-effects-index.json",
+    "sha256": "5e87991966d45ba9673945530213429ca852b4d683f2c65c2c6f0d114145219c",
+    "byteCount": 19974,
+    "mode": 420
+  },
+  "currentSourceUse": {
+    "digest": "sha256:016daca28fcd16606d92c6bb3aab27a205daf7ce14feaa4c956c09048ebacab7",
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/current-source-use.json",
+      "sha256": "638ddbce69e1495d6e23745ed2f4ffc8b1ed79ce3d828e6a83a57cbea838836e",
+      "byteCount": 4650,
+      "mode": 420
+    }
+  },
+  "privateProductPreparation": "prepared_product_run_invocation; real callback passed",
+  "command": {
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 273833.772666,
+    "timedOut": false,
+    "truncated": false
+  },
+  "nativeCommand": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 109209.17170800001,
+    "timedOut": false,
+    "truncated": false
+  },
+  "uncertainty": "Retained native_occurrence_basis diagnostic is actual. Exact missing-basis/root-authentication inner conjunct is not evaluated; no unique first-inner-refusal or remedy claim. Route stage is downstream.",
+  "disposition": "CLOSED/HOLD; no retry/repair; Root triangulation before more effects"
+}

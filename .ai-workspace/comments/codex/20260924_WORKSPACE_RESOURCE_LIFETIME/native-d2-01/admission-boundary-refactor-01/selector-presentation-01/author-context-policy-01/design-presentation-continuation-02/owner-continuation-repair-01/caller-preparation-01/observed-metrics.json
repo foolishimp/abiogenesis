@@ -1,0 +1,676 @@
+{
+  "status": "CLOSED_FAILED_SUFFIX_AFTER_SUCCESSFUL_INTAKE",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/frozen-subject.json",
+    "sha256": "ecf77aed12be1a10d75210a346e3bf6f5ce0fe4d099b4db45b21e248dea1cb3b"
+  },
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-31/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-31/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:fb13cf52d5733dc85ed5ca3c651182c0bb49073a3a9705d012b9a11903b29579",
+      "productContentDigest": "sha256:5c34c976ba905ec4c4024c308e9fc18a4ba15be2a536ac006255414107840e91",
+      "manifestDigest": "sha256:d51660e7c686127b2c1637843dbf5d04de9e45b47682867612a811006f629f53",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "consumer": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/odd-glc-dev15-install-IxVEDr/node_modules/@odd-glc/route-one-typescript",
+    "artifactPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev15/artifacts/odd-glc-route-one-typescript-0.2.0-dev.15.tgz",
+    "basis": {
+      "packageName": "@odd-glc/route-one-typescript",
+      "packageVersion": "0.2.0-dev.15",
+      "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.15",
+      "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "graphFunctionRef": "graph-function://odd-glc/generic-lifecycle-witness@5",
+      "graphRef": "graph://odd-glc/generic-lifecycle-witness@5",
+      "startRef": "start://odd-glc/generic-lifecycle-witness@5",
+      "closureContractRef": "contract://odd-glc/generic-lifecycle-witness/closure@5",
+      "descriptorRef": "descriptor://odd_glc/route-one-typescript@0.2.0-dev.15",
+      "contributionManifestRef": "contribution-manifest://odd_glc/route-one-typescript@0.2.0-dev.15",
+      "catalogRef": "catalog://odd_glc/public-contracts@0.2.0-dev.15",
+      "provenanceRef": "provenance://odd_glc/route-one-typescript@0.2.0-dev.15",
+      "sourceDeclarationRef": "declaration://odd-glc/generic-lifecycle/source@5",
+      "sourceGraphFunctionRef": "graph-function://odd-glc/generic-lifecycle/source@5",
+      "sourceModuleRef": "module://odd-glc/generic-lifecycle-source-setup@5",
+      "sourceProgramRef": "program://odd-glc/generic-lifecycle-source-setup@5",
+      "sourceClosureContractRef": "contract://odd-glc/generic-lifecycle/source/closure@5",
+      "lifecycleDeclarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+      "artifactDigest": "sha256:0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+      "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e",
+      "manifestDigest": "sha256:0327ef3c929aecdd282342f93304ed45e1ae2fdeb71a528b4d113984cfdaf6ee"
+    },
+    "core": {
+      "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite28-install-l3d6qzfi/node_modules/@abiogenesis/typescript-tenant",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-28/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-28/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "basis": {
+        "artifactDigest": "sha256:a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052",
+        "productContentDigest": "sha256:23773410b335c9d6db7d8a9cb71c79e4aacc3fd1efc4382c4681f42f6817c668",
+        "manifestDigest": "sha256:23ff85b3d3986684e43d75a64dcc3eb779d9de3f48cf94e175f8b6942c7e7903",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1"
+      }
+    }
+  },
+  "sourceRun": {
+    "digest": "sha256:63a3f3048de463796332f89c159b15262a321719239895574d3046605d22feee",
+    "ref": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:6a3e7700cfe9e1badc79166753a3a1646f2ce3d143c8eea58a8a6bcef64e189b",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:fa48db8aba07673ebdb3cde85006e5c98a6574c134819bf8f83864b19dd3229c",
+    "prefixLength": 216334690,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "originalJobAncestry": {
+    "run": {
+      "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad",
+      "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e"
+    },
+    "prefix": {
+      "coordinateDigest": "sha256:0db32d448006dbd43d3a303eea9648002798fa1bca8e5e1c4bec5a733433a7d1",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:0bf8b684c95e256f9daa40c25abaa0a9d945a974b12d6a93d572b8a9bcc7e2e9",
+      "prefixLength": 104482827,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    },
+    "ordinaryInput": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/ordinary-input.json",
+    "status": "original job/oracle ancestry only; not selected source Run"
+  },
+  "phases": {
+    "setup": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/prepare.stderr",
+      "elapsedSeconds": 101.76,
+      "userSeconds": 108.14,
+      "sysSeconds": 5.72,
+      "maximumRssBytes": 4619304960
+    },
+    "witness": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/witness-01/execute.stderr",
+      "elapsedSeconds": 74.92,
+      "userSeconds": 79.11,
+      "sysSeconds": 1.05,
+      "maximumRssBytes": 2467069952
+    },
+    "intakeConstruction": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/intake-01/construct.stderr",
+      "elapsedSeconds": 0.73,
+      "userSeconds": 0.76,
+      "sysSeconds": 0.12,
+      "maximumRssBytes": 1010450432
+    },
+    "intakeNative": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/intake-01/run.stderr",
+      "elapsedSeconds": 140.95,
+      "userSeconds": 104.28,
+      "sysSeconds": 6.68,
+      "maximumRssBytes": 2701099008
+    },
+    "intakeReadback": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/intake-01/readback.stderr",
+      "elapsedSeconds": 143.81,
+      "userSeconds": 145.1,
+      "sysSeconds": 2.03,
+      "maximumRssBytes": 1727692800
+    },
+    "suffixPreparation": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/prepare.stderr",
+      "elapsedSeconds": 88.17,
+      "userSeconds": 91.68,
+      "sysSeconds": 1.87,
+      "maximumRssBytes": 3813916672
+    },
+    "suffixNative": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/run.stderr",
+      "elapsedSeconds": 1019.46,
+      "userSeconds": 272.74,
+      "sysSeconds": 13.19,
+      "maximumRssBytes": 3354443776
+    },
+    "suffixReadback": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/readback.stderr",
+      "elapsedSeconds": 202.79,
+      "userSeconds": 204.67,
+      "sysSeconds": 2.5,
+      "maximumRssBytes": 1753235456
+    },
+    "suffixEvidenceRead": {
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/evidence-read.stderr",
+      "elapsedSeconds": 104.45,
+      "userSeconds": 104.78,
+      "sysSeconds": 1.86,
+      "maximumRssBytes": 2110996480
+    }
+  },
+  "setupOperationTimings": {
+    "install-dev15": {
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "elapsedMs": 1313.717249999987,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "view": {
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "elapsedMs": 898.6511670000036,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "nominal-verification-1": {
+      "elapsedMs": 13.51154200000019,
+      "kind": "product_verification_success"
+    },
+    "nominal-verification-0": {
+      "elapsedMs": 8814.100625000001,
+      "kind": "product_verification_success"
+    },
+    "install-core31": {
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "elapsedMs": 63404.31837499999,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "verify-core31": {
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "elapsedMs": 189.37387499999932,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "bootstrap-native-d2-intake-bind-existing-workspace": {
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "elapsedMs": 1405.4766249999957,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "resolve-core31-dev15": {
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "elapsedMs": 2648.633417000001,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "catalog": {
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "elapsedMs": 5038.17687499999,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "execution-resolution": {
+      "elapsedMs": 4481.850833999997,
+      "kind": "loaded_product_execution_resolution"
+    },
+    "intake-conformance": {
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "elapsedMs": 2325.797000000006,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    }
+  },
+  "witnessRepriceWindow": {
+    "elapsedMs": 59431.33020899999
+  },
+  "actors": [
+    {
+      "role": "selector",
+      "artifactPrefix": "fp-8db23b81be4714f0",
+      "actualModel": "claude-opus-5-5",
+      "configuredEffort": "xhigh",
+      "arguments": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--safe-mode",
+        "--tools",
+        "",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"kind\",\"schemaVersion\",\"parent\",\"causes\",\"mode\",\"selectedStageRef\",\"selectedObligationRefs\",\"selectedTargetRefs\",\"reasonRef\",\"nativePhase\"],\"properties\":{\"kind\":{\"const\":\"semantic_revision_selection\"},\"schemaVersion\":{\"const\":\"5.0.0\"},\"parent\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"cCallRef\",\"resultRef\",\"resultDigest\",\"resultAdmissionEventRef\",\"judgmentEventRef\"],\"properties\":{\"cCallRef\":{\"type\":\"string\"},\"resultRef\":{\"type\":\"string\"},\"resultDigest\":{\"type\":\"string\",\"pattern\":\"^sha256:[a-f0-9]{64}$\"},\"resultAdmissionEventRef\":{\"type\":\"string\"},\"judgmentEventRef\":{\"type\":\"string\"}}},\"causes\":{\"type\":\"array\",\"minItems\":1,\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"cCallRef\",\"resultRef\",\"resultDigest\",\"resultAdmissionEventRef\",\"judgmentEventRef\"],\"properties\":{\"cCallRef\":{\"type\":\"string\"},\"resultRef\":{\"type\":\"string\"},\"resultDigest\":{\"type\":\"string\",\"pattern\":\"^sha256:[a-f0-9]{64}$\"},\"resultAdmissionEventRef\":{\"type\":\"string\"},\"judgmentEventRef\":{\"type\":\"string\"}}}},\"mode\":{\"enum\":[\"stage_revision\"]},\"selectedStageRef\":{\"type\":[\"string\",\"null\"]},\"selectedObligationRefs\":{\"type\":\"array\",\"minItems\":0,\"items\":{\"type\":\"string\"}},\"selectedTargetRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"reasonRef\":{\"type\":\"string\"},\"nativePhase\":{\"const\":\"preconstruction\"}}}",
+        "--model",
+        "claude-opus-5-5",
+        "--max-budget-usd",
+        "5"
+      ],
+      "agentKey": "claude",
+      "files": {
+        "prompt": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-8db23b81be4714f0-prompt.txt",
+          "bytes": 849671,
+          "sha256": "d41a49af5cc74a014e228fadfa5d2a7c4ee7e5f67fbf0098770a4fb08d35b1f0"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-8db23b81be4714f0-stdout.log",
+          "bytes": 94853,
+          "sha256": "74ddf8ecd43b958727400d2a888b2849b4e641b304eab4cdb6ff2f229a6341e8"
+        },
+        "stderr": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-8db23b81be4714f0-stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "decoded": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-8db23b81be4714f0-output.txt",
+          "bytes": 1346,
+          "sha256": "f1c1b03cc838ccd99fdd7e0c223557ff4f2c067f8cb5767a58733004eb5ad28f"
+        },
+        "supervision": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-8db23b81be4714f0-transport.json",
+          "bytes": 111809,
+          "sha256": "16f005347c91171624b62daf77260e182fbbe899d143d0b10891e2f328e426b8"
+        }
+      },
+      "supervision": {
+        "disposition": "success",
+        "status": 0,
+        "failureClass": null,
+        "timeoutClass": null,
+        "timedOut": false,
+        "timeoutMs": 300000,
+        "absoluteTimeoutMs": 900000,
+        "apiRetryCount": 0,
+        "terminationConfirmed": true,
+        "progressEventCount": 255,
+        "structuredEventCount": 259,
+        "toolCallCount": 0,
+        "nativeResultAssessment": {
+          "disposition": "admitted",
+          "inputDigest": "sha256:d95a8c26e403aa53ca63266a716c2679f420a7bbeb90f91ba6f710da6b38cc23",
+          "kind": "native_worker_result_assessment",
+          "rawOutputDigest": "sha256:f1c1b03cc838ccd99fdd7e0c223557ff4f2c067f8cb5767a58733004eb5ad28f",
+          "resultContractRef": "contract://abiogenesis/semantic-revision/selection-worker-result@5",
+          "schemaVersion": "5.0.0",
+          "verification": {
+            "contractCapabilityBasis": {
+              "implementationSetDigest": "sha256:e967b03b4b362f77583089d4421dcebeaa77523d5d9747c644e33cdf22423509",
+              "implementationSetRef": "implementation-set://abiogenesis/e967b03b4b362f77583089d4421dcebeaa77523d5d9747c644e33cdf22423509",
+              "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5c34c976ba905ec4c4024c308e9fc18a4ba15be2a536ac006255414107840e91/b9a567ce4d78782fb5010bad257abeaf8289a124b66bf071947cbd6d2981e981",
+              "publicationDigest": "sha256:62e6fc36abaa0b7735c4261e62ee5cdf2d56899ba21bf9deb177ae5c63d1486c"
+            },
+            "implementationRef": "implementation://abiogenesis/semantic-revision/selection@5",
+            "implementationResolutionDigest": "sha256:acff27eb80d287b083bbcb5aea4a3a1ac2c3aaa24cc84b530d3bb33ecf16d42f",
+            "inputContractRef": "contract://abiogenesis/semantic-revision/selection-input@5",
+            "inputDigest": "sha256:d95a8c26e403aa53ca63266a716c2679f420a7bbeb90f91ba6f710da6b38cc23",
+            "instructionContractRef": "contract://abiogenesis/semantic-revision/selection-input@5",
+            "kind": "verified_probabilistic_result_contract_preimage",
+            "rawResultContractRef": "contract://abiogenesis/semantic-revision/selection-worker-result@5",
+            "rawResultDigest": "sha256:8e0da8b5110359b7770712eb4ae610e512bec1516774d1f2b6d3a0c061897de0",
+            "schemaVersion": "5.0.0",
+            "targetOutputContractRef": "contract://abiogenesis/semantic-revision/selection@5",
+            "verificationDigest": "sha256:cbb30b004dfac74cb0f78a7ebbfb35c5a8c8335c31349a8413026e2a3c10e5c1",
+            "verificationRef": "probabilistic-result-contract-preimage://abiogenesis/cbb30b004dfac74cb0f78a7ebbfb35c5a8c8335c31349a8413026e2a3c10e5c1"
+          }
+        }
+      },
+      "providerTerminal": {
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 46419,
+        "duration_api_ms": 37416,
+        "total_cost_usd": 3.1085744,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 380485,
+          "cache_read_input_tokens": 2532,
+          "output_tokens": 3209,
+          "output_tokens_details": {
+            "thinking_tokens": 2244
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 380485,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 3209,
+            "cacheReadInputTokens": 2532,
+            "cacheCreationInputTokens": 380485,
+            "webSearchRequests": 0,
+            "costUSD": 3.1085744,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 2244,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        }
+      },
+      "observedArtifactBoundaryTimes": {
+        "nativeLaunchRecorded": "2026-09-25T15:22:38.475Z",
+        "promptMaterialized": "2026-09-25T15:24:00.975969+00:00",
+        "transportRecorded": "2026-09-25T15:24:48.086848+00:00",
+        "receiptWritten": "2026-09-25T15:24:58.175697+00:00"
+      },
+      "observedArtifactBoundaryIntervals": {
+        "launchToPromptSeconds": 82.50096917152405,
+        "promptToTransportSeconds": 47.11087894439697,
+        "transportToReceiptSeconds": 10.088849067687988,
+        "scope": "Existing launch timestamp and filesystem birth times of actual artifacts; brackets are not isolated provider or owner timings."
+      },
+      "actorContract": null
+    },
+    {
+      "role": "Design author",
+      "artifactPrefix": "fp-bcaafa22b0c6c1b4",
+      "actualModel": "claude-opus-5-5",
+      "configuredEffort": "xhigh",
+      "arguments": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--safe-mode",
+        "--tools",
+        "",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"kind\":{\"const\":\"semantic_job_asset_candidate\"},\"schemaVersion\":{\"const\":\"5.0.0\"},\"asset\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"kind\":{\"const\":\"semantic_stage_asset_candidate\"},\"schemaVersion\":{\"const\":\"5.0.0\"},\"statements\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"statementRef\":{\"type\":\"string\",\"minLength\":1},\"text\":{\"type\":\"string\",\"minLength\":1},\"modality\":{\"enum\":[\"normative\",\"supporting\",\"speculative\",\"conflicting\"]},\"sourceQuotes\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"memberRef\":{\"type\":\"string\",\"minLength\":1},\"quote\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"memberRef\",\"quote\"]}},\"requirementRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"obligationRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"predecessorStatementRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"description\":\"Select only statementRef values from authenticated active incoming predecessor assets. Never reference statements introduced in this response or historical-only revision context. If no eligible refs are supplied, every predecessorStatementRefs array must be empty.\"}},\"required\":[\"statementRef\",\"text\",\"modality\",\"sourceQuotes\",\"requirementRefs\",\"obligationRefs\",\"predecessorStatementRefs\"]},\"minItems\":1},\"requirementCandidates\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"candidateRef\":{\"type\":\"string\",\"minLength\":1},\"meaning\":{\"type\":\"string\",\"minLength\":1},\"parentRequirementRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"sourceQuotes\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"memberRef\":{\"type\":\"string\",\"minLength\":1},\"quote\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"memberRef\",\"quote\"]},\"minItems\":1}},\"required\":[\"candidateRef\",\"meaning\",\"parentRequirementRefs\",\"sourceQuotes\"]},\"maxItems\":0},\"worksiteDesign\":{\"type\":\"null\"},\"pressure\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"pressureRef\":{\"type\":\"string\",\"minLength\":1},\"text\":{\"type\":\"string\",\"minLength\":1},\"requirementRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"disposition\":{\"enum\":[\"pending\",\"conflicting\",\"unassessed\"]}},\"required\":[\"pressureRef\",\"text\",\"requirementRefs\",\"disposition\"]}}},\"required\":[\"kind\",\"schemaVersion\",\"statements\",\"requirementCandidates\",\"worksiteDesign\",\"pressure\"]},\"bindings\":{\"type\":\"array\",\"maxItems\":0,\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"requirement\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"kind\":{\"enum\":[\"existing\",\"candidate\"]},\"ref\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"kind\",\"ref\"]},\"previousVersionRef\":{\"type\":[\"string\",\"null\"]},\"templateRef\":{\"type\":\"string\",\"minLength\":1},\"scope\":{\"type\":\"string\",\"minLength\":1},\"realizationMeaning\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"proofMeaning\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"unprovedScope\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"closureRule\":{\"type\":\"string\",\"minLength\":1},\"requiredContent\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}}},\"required\":[\"requirement\",\"previousVersionRef\",\"templateRef\",\"scope\",\"realizationMeaning\",\"proofMeaning\",\"unprovedScope\",\"closureRule\",\"requiredContent\"]}},\"design\":{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"targets\":{\"type\":\"array\",\"minItems\":1,\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"relativePath\":{\"type\":\"string\",\"minLength\":1},\"role\":{\"enum\":[\"implementation\",\"verifier\",\"configuration\"]},\"obligationRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"bindingVersionRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"changeInstruction\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"relativePath\",\"role\",\"obligationRefs\",\"bindingVersionRefs\",\"changeInstruction\"]}},\"dependencyPaths\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"dependencyDisposition\":{\"enum\":[\"sufficient\",\"unknown\"]},\"commands\":{\"type\":\"array\",\"minItems\":1,\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"commandId\":{\"type\":\"string\",\"minLength\":1},\"executable\":{\"type\":\"string\",\"minLength\":1},\"args\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"relativeCwd\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Canonical safe relative path; no absolute, parent, backslash or protected install paths.\"},\"environment\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"},\"description\":\"Declared POSIX environment names and string values; C2 normalizes the existing runtime environment.\"},\"timeoutMs\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":3600000},\"terminationGraceMs\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":30000,\"description\":\"Strictly less than timeoutMs.\"},\"expectedReports\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"reportIdentity\":{\"type\":\"string\",\"minLength\":1},\"relativePath\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Canonical safe relative path; no absolute, parent, backslash or protected install paths.\"}},\"required\":[\"reportIdentity\",\"relativePath\"]}}},\"required\":[\"commandId\",\"executable\",\"args\",\"relativeCwd\",\"environment\",\"timeoutMs\",\"terminationGraceMs\",\"expectedReports\"]}},\"outcomePredicates\":{\"type\":\"array\",\"description\":\"Existing C2 predicates only. Referenced commands must exist; module paths must be protected targets. Report counts require exactly one report-set predicate whose paths are declared command reports. Selectors require at least one filter. Port/report writes require explicit evidence territory.\",\"items\":{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"process_exit\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"equals\":{\"type\":\"integer\",\"minimum\":-9007199254740991,\"maximum\":9007199254740991},\"validationCommandId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"equals\",\"validationCommandId\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"stdout_exact\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"equals\":{\"type\":\"string\"},\"validationCommandId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"equals\",\"validationCommandId\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"test_pass_count\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"greaterThanOrEqual\":{\"type\":\"integer\",\"minimum\":0,\"maximum\":9007199254740991},\"validationCommandId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"greaterThanOrEqual\",\"validationCommandId\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"module_export_return_exact\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"equals\":{},\"export\":{\"type\":\"string\",\"minLength\":1},\"path\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Canonical safe relative path; no absolute, parent, backslash or protected install paths.\"}},\"required\":[\"equals\",\"export\",\"path\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"http_response_exact\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"body\":{\"type\":\"string\"},\"status\":{\"type\":\"integer\",\"minimum\":-9007199254740991,\"maximum\":9007199254740991},\"validationCommandId\":{\"type\":\"string\",\"minLength\":1},\"launch\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"executable\":{\"type\":\"string\",\"minLength\":1},\"args\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"Exactly one argument is {ABI_HTTP_PORT_FILE}; C2 supplies the port-file path.\"},\"environment\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"},\"description\":\"Declared POSIX environment names and string values; C2 normalizes the existing runtime environment.\"},\"relativeCwd\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Canonical safe relative path; no absolute, parent, backslash or protected install paths.\"},\"portFile\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"relativePath\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Canonical safe relative path; no absolute, parent, backslash or protected install paths.\"}},\"required\":[\"relativePath\"]},\"timeoutMs\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":9007199254740991},\"terminationGraceMs\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":9007199254740991,\"description\":\"Strictly less than launch.timeoutMs.\"}},\"required\":[\"executable\",\"args\",\"environment\",\"relativeCwd\",\"portFile\",\"timeoutMs\",\"terminationGraceMs\"]},\"request\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"hostname\":{\"enum\":[\"127.0.0.1\",\"::1\"]},\"method\":{\"type\":\"string\",\"minLength\":1},\"path\":{\"type\":\"string\",\"minLength\":1},\"timeoutMs\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":9007199254740991}},\"required\":[\"hostname\",\"method\",\"path\",\"timeoutMs\"]}},\"required\":[\"body\",\"status\",\"validationCommandId\",\"launch\",\"request\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"module_set_exact\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"equals\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"selector\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source\":{\"const\":\"protected_paths\"},\"prefix\":{\"type\":\"string\"},\"suffix\":{\"type\":\"string\"},\"segmentIndex\":{\"type\":\"integer\",\"minimum\":0,\"maximum\":9007199254740991}},\"required\":[\"source\",\"prefix\",\"suffix\",\"segmentIndex\"]}},\"required\":[\"equals\",\"selector\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"file_count\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"equals\":{\"type\":\"integer\",\"minimum\":0,\"maximum\":9007199254740991},\"selector\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source\":{\"const\":\"protected_paths\"},\"includeSubstrings\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"includeSuffixes\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}}},\"required\":[\"source\",\"includeSubstrings\",\"includeSuffixes\"]}},\"required\":[\"equals\",\"selector\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"test_report_set_exact\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"base\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Canonical safe relative path; no absolute, parent, backslash or protected install paths.\"},\"equals\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1,\"description\":\"Canonical safe relative path; no absolute, parent, backslash or protected install paths.\"}},\"selector\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"includeSubstrings\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"includeSuffixes\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}}},\"required\":[\"includeSubstrings\",\"includeSuffixes\"]}},\"required\":[\"base\",\"equals\",\"selector\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"test_report_failure_count\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"equals\":{\"type\":\"integer\",\"minimum\":0,\"maximum\":9007199254740991}},\"required\":[\"equals\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]},{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"predicateId\":{\"type\":\"string\",\"minLength\":1},\"predicateKind\":{\"const\":\"test_report_error_count\"},\"declaration\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"equals\":{\"type\":\"integer\",\"minimum\":0,\"maximum\":9007199254740991}},\"required\":[\"equals\"]}},\"required\":[\"predicateId\",\"predicateKind\",\"declaration\"]}]}}},\"required\":[\"targets\",\"dependencyPaths\",\"dependencyDisposition\",\"commands\",\"outcomePredicates\"]},{\"type\":\"null\"}]}},\"required\":[\"kind\",\"schemaVersion\",\"asset\",\"bindings\",\"design\"]}",
+        "--model",
+        "claude-opus-5-5",
+        "--max-budget-usd",
+        "5"
+      ],
+      "agentKey": "claude",
+      "files": {
+        "prompt": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-prompt.txt",
+          "bytes": 985119,
+          "sha256": "6b3e7830ec5a8b06d126d36daf73ee22869cda649ce76871c210a127c0a6332d"
+        },
+        "stdout": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-stdout.log",
+          "bytes": 2368858,
+          "sha256": "26029d487072205114d4779bbe40b77d8e0112e75020bef2002d3bbc6f6d2a94"
+        },
+        "stderr": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "decoded": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-output.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "supervision": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-transport.json",
+          "bytes": 2634501,
+          "sha256": "ebdeba48b0644e6950666aeb0e5f234a172dc650713176c7aed2f0b113cffd29"
+        }
+      },
+      "supervision": {
+        "disposition": "failure",
+        "status": 143,
+        "failureClass": "transport_failure",
+        "timeoutClass": "absolute",
+        "timedOut": true,
+        "timeoutMs": 300000,
+        "absoluteTimeoutMs": 900000,
+        "apiRetryCount": 0,
+        "terminationConfirmed": true,
+        "progressEventCount": 7474,
+        "structuredEventCount": 7476,
+        "toolCallCount": 0,
+        "nativeResultAssessment": {
+          "disposition": "absent",
+          "inputDigest": "sha256:ab218853be2f7ea6445a4c3f2afcd04d891d069a66dd4752bc05f8701922d173",
+          "kind": "native_worker_result_assessment",
+          "rawOutputDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "resultContractRef": "contract://abiogenesis/semantic-stage/worker-result@5",
+          "schemaVersion": "5.0.0",
+          "verification": null
+        }
+      },
+      "providerTerminal": null,
+      "observedArtifactBoundaryTimes": {
+        "nativeLaunchRecorded": "2026-09-25T15:30:17.494Z",
+        "promptMaterialized": "2026-09-25T15:31:46.955162+00:00",
+        "transportRecorded": "2026-09-25T15:46:49.156135+00:00",
+        "receiptWritten": "2026-09-25T15:47:15.715690+00:00"
+      },
+      "observedArtifactBoundaryIntervals": {
+        "launchToPromptSeconds": 89.46116209030151,
+        "promptToTransportSeconds": 902.200973033905,
+        "transportToReceiptSeconds": 26.55955481529236,
+        "scope": "Existing launch timestamp and filesystem birth times of actual artifacts; brackets are not isolated provider or owner timings."
+      },
+      "actorContract": {
+        "location": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-prompt.txt:2 $.actorContract",
+        "kind": "semantic_job_actor_contract",
+        "role": "author",
+        "stageRef": "stage://odd-glc/generic-lifecycle/design@5",
+        "contractDigest": "sha256:e9e21f1cc5358997c09be2c083268a1c48734acb3a38727140418928e1dc6275",
+        "obligationCount": 15
+      }
+    }
+  ],
+  "actorCount": 2,
+  "cost": {
+    "reportedKnownListUsd": 3.1085744,
+    "suffixReportedCostUsd": null,
+    "combinedActualCostUsd": null,
+    "scope": "Provider list-cost report for intake only; Design timeout has no terminal cost/usage result. Configured max-budget is not billing."
+  },
+  "publicReads": {
+    "intake-01": {
+      "prefix": {
+        "coordinateDigest": "sha256:e916ce9d53fa51bd9a9c4dba9a191307f3dea55fa5a3aa41966771f776959563",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:08348a20f651bbef1ddf4af2998b43646b98a1bb6693eb7e0a8e92a21c769132",
+        "prefixLength": 231520823,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+          "inode": 459405010
+        }
+      },
+      "publicReads": [
+        {
+          "memberKey": "run_result",
+          "disposition": "preserved_and_checked",
+          "elapsedMs": 71020.74062499999,
+          "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/intake-01/read-run_result.json",
+          "resultDigest": "sha256:2453d6ad95f758ed66994d5bbf83f0e97c8ffad7baedbd198217e3037e04c6dd"
+        },
+        {
+          "memberKey": "run_replay",
+          "disposition": "preserved_and_checked",
+          "elapsedMs": 71767.021791,
+          "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/intake-01/read-run_replay.json",
+          "resultDigest": "sha256:d2306f4d444e1c258035c743fb5bb84e5ba4ca78d12b62efcbb9d41f25faac19"
+        }
+      ]
+    },
+    "suffix-01": {
+      "prefix": {
+        "coordinateDigest": "sha256:6d14d89e9978b2e433039e5dd3ea988e5b435ad296228ed372e84592006a7746",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:ff957c147a41acb8b9eb9debd45dad175136023894250b3d31591f898952d5a9",
+        "prefixLength": 283768726,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+          "inode": 459405010
+        }
+      },
+      "publicReads": [
+        {
+          "memberKey": "run_result",
+          "disposition": "preserved_and_checked",
+          "elapsedMs": 100292.86175,
+          "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/read-run_result.json",
+          "resultDigest": "sha256:9a18e55a3c4ff55b0d4b3cb9a98cfbe1765b275303c36807f825c28a579992c3",
+          "observation": "result_absent_not_found"
+        },
+        {
+          "memberKey": "run_replay",
+          "disposition": "preserved_and_checked",
+          "elapsedMs": 101127.75650000002,
+          "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/read-run_replay.json",
+          "resultDigest": "sha256:d75f2deb75806c6223fff3ff8aaaa88a6417bab2f8728d515e3fcba123fab78b"
+        }
+      ]
+    }
+  },
+  "firstCauseRead": {
+    "memberKey": "run_evidence",
+    "disposition": "preserved_and_checked",
+    "elapsedMs": 103374.62475,
+    "run": {
+      "digest": "sha256:c38bff0755f50389fefeb16d8de751ea46a82b8514d349c928b77583aa839633",
+      "ref": "run://abiogenesis/cc2a6443d9a3c1a0af8f76572750205037e36648093696bae47801121ca0d519"
+    },
+    "prefix": {
+      "coordinateDigest": "sha256:6d14d89e9978b2e433039e5dd3ea988e5b435ad296228ed372e84592006a7746",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:ff957c147a41acb8b9eb9debd45dad175136023894250b3d31591f898952d5a9",
+      "prefixLength": 283768726,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    },
+    "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/read-run_evidence.json",
+    "resultDigest": "sha256:db16968f7c8d4dee7c534c2dc04d1492afc2912206be3526372e5448ae3d8a7f"
+  },
+  "prefixes": {
+    "entry": {
+      "coordinateDigest": "sha256:4de6fefda791d6d218e15c339167da67e290351ab3447b7036ee22da30421483",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:7d4d66630935556505c7439b678b862ad6e17c785929b77e8f0470fd78fa4918",
+      "prefixLength": 223704751,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    },
+    "afterSetup": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "prefixLength": 226039230,
+      "prefixDigest": "sha256:59c9aa54f24e42b5fbc5a1390d1515f3682c0f4a25915724979354d1a97c42c3",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 459405010,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+      },
+      "coordinateDigest": "sha256:07acb3bb8cd2b7390e1bae137b9a85bb2f558c136e88be3b892cc9f9dcdc55c4"
+    },
+    "afterWitness": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "prefixLength": 226046070,
+      "prefixDigest": "sha256:5fe438ae2e50dd5e788884b95338723f87e249a124a283214df3d010e33b9229",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 459405010,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+      },
+      "coordinateDigest": "sha256:4f847fab546f203454b57b1bd465aef88def843a6adf7ef785bd0c75c8cef807"
+    },
+    "afterIntake": {
+      "coordinateDigest": "sha256:e916ce9d53fa51bd9a9c4dba9a191307f3dea55fa5a3aa41966771f776959563",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:08348a20f651bbef1ddf4af2998b43646b98a1bb6693eb7e0a8e92a21c769132",
+      "prefixLength": 231520823,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    },
+    "terminal": {
+      "coordinateDigest": "sha256:6d14d89e9978b2e433039e5dd3ea988e5b435ad296228ed372e84592006a7746",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:ff957c147a41acb8b9eb9debd45dad175136023894250b3d31591f898952d5a9",
+      "prefixLength": 283768726,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    }
+  },
+  "growthBytes": {
+    "setup": 2334479,
+    "witness": 6840,
+    "intake": 5474753,
+    "suffix": 52247903,
+    "total": 60063975
+  },
+  "overallObservedInterval": {
+    "start": "2026-09-25T15:18:40.090Z",
+    "end": "2026-09-25T15:52:54.257190+00:00",
+    "elapsedSeconds": 2054.16719,
+    "summedTimedCommandsSeconds": 1877.04,
+    "scope": "Includes caller preparation, handoffs and process supervision gaps; unsummed time is not attributed to ABG processing."
+  },
+  "internalInstallAttribution": "Unknown; existing enclosing windows only, no instrumentation changed."
+}

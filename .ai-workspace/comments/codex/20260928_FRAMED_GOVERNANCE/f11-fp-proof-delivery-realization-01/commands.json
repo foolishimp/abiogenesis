@@ -1,0 +1,39 @@
+{
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "commands": {
+    "compile": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "regression": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs"
+    ],
+    "conservation-fp": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^C2A owner boundary preserves structural F_P proposals and totalizes exceptions$",
+      "test_env/tests/t287-c2a-fp-source-contract.test.mjs"
+    ],
+    "conservation-diagnostic": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^first preparation exception remains retrievable through the unchanged typed refusal and cold JSON$",
+      "test_env/tests/t287-undispatched-diagnostic.test.mjs"
+    ],
+    "conservation-assembly": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^semantic stage, revision and selection implementations preserve the complete owner request$",
+      "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+    ]
+  }
+}

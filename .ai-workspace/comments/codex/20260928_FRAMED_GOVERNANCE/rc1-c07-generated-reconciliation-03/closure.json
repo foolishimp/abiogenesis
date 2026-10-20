@@ -1,0 +1,11 @@
+{
+  "status": "CLOSED",
+  "workResult": "STOPPED_FIRST_UNEXPECTED_DIFFERENCE",
+  "operation": "T287_C07_GENERATED_RECONCILIATION_03",
+  "failure": "{\"predicate\": \"complete canonical generated roster equals frozen C06/C07\", \"missing\": [], \"extra\": [\"contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md\"]}",
+  "copied": [],
+  "canonicalWriteCount": 0,
+  "elapsedMs": 44.16637495160103,
+  "noRepairOrRetry": true,
+  "noFurtherWrites": true
+}

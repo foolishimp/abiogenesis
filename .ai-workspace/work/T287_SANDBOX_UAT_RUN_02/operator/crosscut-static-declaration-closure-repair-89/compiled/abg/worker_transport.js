@@ -1,0 +1,871 @@
+import { spawn } from "node:child_process";
+import { appendFileSync } from "node:fs";
+import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import { canonicalJson } from "../shared/canonical_json.js";
+import { sha256Bytes, sha256Canonical, } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { admitIJsonText } from "../shared/i_json.js";
+import { classifyWorkerTransportFailure, composeWorkerTransportArgs, sanitizeWorkerTransportEnvironment, } from "./transport_contracts.js";
+function toolUseIdentityInput(toolName, input) {
+    if (toolName !== "Bash")
+        return input;
+    if (typeof input !== "object" || input === null || Array.isArray(input)) {
+        throw new TypeError("Bash tool input must be one object");
+    }
+    const record = input;
+    if (!Object.hasOwn(record, "command") || typeof record.command !== "string") {
+        throw new TypeError("Bash tool input must carry one exact command string");
+    }
+    if (Object.hasOwn(record, "description") && typeof record.description !== "string") {
+        throw new TypeError("Bash tool input description must be a string when present");
+    }
+    return Object.fromEntries(Object.entries(record).filter(([key]) => key !== "description"));
+}
+function collectToolUses(value, structuredOutputExpected, rows) {
+    if (Array.isArray(value)) {
+        for (const entry of value)
+            collectToolUses(entry, structuredOutputExpected, rows);
+        return;
+    }
+    if (typeof value !== "object" || value === null)
+        return;
+    const record = value;
+    const protocolStructuredOutput = structuredOutputExpected &&
+        record.type === "tool_use" && record.name === "StructuredOutput";
+    if (record.type === "tool_use" && !protocolStructuredOutput &&
+        typeof record.id === "string" && record.id.length > 0 &&
+        typeof record.name === "string" && record.name.length > 0 &&
+        Object.hasOwn(record, "input")) {
+        try {
+            const inputBytes = Buffer.from(canonicalJson(toolUseIdentityInput(record.name, record.input)), "utf8");
+            rows.push(deepFreeze({
+                kind: "worker_tool_invocation_evidence",
+                schemaVersion: "5.0.0",
+                ordinal: rows.length,
+                toolUseRef: record.id,
+                toolName: record.name,
+                inputDigest: sha256Bytes(inputBytes),
+                inputByteLength: inputBytes.byteLength,
+            }));
+        }
+        catch {
+            // Malformed tool input remains reflected in the count/classification but
+            // cannot become exact invocation evidence.
+        }
+    }
+    for (const entry of Object.values(record)) {
+        collectToolUses(entry, structuredOutputExpected, rows);
+    }
+}
+function artifact(path, bytes) {
+    return deepFreeze({
+        path,
+        byteLength: bytes.byteLength,
+        digest: sha256Bytes(bytes),
+    });
+}
+function assertLabel(label) {
+    if (!/^[a-zA-Z0-9._-]+$/u.test(label)) {
+        throw new TypeError("worker transport label must be one path-safe identity segment");
+    }
+}
+function resolveAbsoluteTimeoutMs(timeoutMs, absoluteTimeoutMs) {
+    const resolved = absoluteTimeoutMs ?? timeoutMs * 4;
+    if (!Number.isSafeInteger(resolved) || resolved <= timeoutMs) {
+        throw new TypeError("worker transport absolute timeout must be one safe integer greater than its inactivity timeout");
+    }
+    return resolved;
+}
+function countToolUses(value, structuredOutputExpected) {
+    if (Array.isArray(value)) {
+        return value.reduce((count, entry) => count + countToolUses(entry, structuredOutputExpected), 0);
+    }
+    if (typeof value !== "object" || value === null)
+        return 0;
+    const record = value;
+    // Claude emits this synthetic event to satisfy --json-schema; it has no capability effect.
+    const protocolStructuredOutput = structuredOutputExpected &&
+        record.type === "tool_use" &&
+        record.name === "StructuredOutput";
+    const current = record.type === "tool_use" && !protocolStructuredOutput ? 1 : 0;
+    return Object.values(record).reduce((count, entry) => count + countToolUses(entry, structuredOutputExpected), current);
+}
+/** One incremental decoder for complete protocol rows. Partial message events
+ * expose received bytes, not unobservable model progress or tool execution. */
+export function createWorkerTransportOutputObserver(structuredOutputExpected) {
+    let pending = "";
+    let structuredEventCount = 0;
+    let finalOutput = "";
+    let progressEventCount = 0;
+    let rawToolCallCount = 0;
+    const rawToolInvocations = [];
+    let apiRetryCount = 0;
+    const observeLine = (line) => {
+        if (line.trim().length === 0)
+            return;
+        let value;
+        try {
+            value = JSON.parse(line);
+        }
+        catch {
+            return;
+        }
+        structuredEventCount += 1;
+        if (typeof value !== "object" || value === null || Array.isArray(value))
+            return;
+        const record = value;
+        const retry = record.type === "api_retry" ||
+            record.type === "system" && record.subtype === "api_retry";
+        if (retry) {
+            apiRetryCount += 1;
+            return;
+        }
+        const streamEvent = record.type === "stream_event" && typeof record.event === "object" && record.event !== null
+            ? record.event : null;
+        const reportedThinking = record.type === "system" && record.subtype === "thinking_tokens" &&
+            typeof record.estimated_tokens_delta === "number" && record.estimated_tokens_delta > 0;
+        if (record.type === "assistant" || record.type === "user" || record.type === "tool_progress" || reportedThinking ||
+            streamEvent !== null && ["message_start", "content_block_start", "content_block_delta",
+                "content_block_stop", "message_delta", "message_stop"].includes(String(streamEvent.type)))
+            progressEventCount += 1;
+        // Partial tool blocks contain an unfinished input and repeat the complete
+        // assistant tool_use. Only the complete message supplies effect evidence.
+        if (record.type !== "stream_event") {
+            rawToolCallCount += countToolUses(record, structuredOutputExpected);
+            collectToolUses(record, structuredOutputExpected, rawToolInvocations);
+        }
+        if (record.type === "result") {
+            if (structuredOutputExpected) {
+                // Only the successful final host carrier supplies the requested result.
+                // Admit its raw JSON before serializing the selected value, so duplicate
+                // keys or invalid I-JSON cannot disappear through JSON.parse/stringify.
+                finalOutput = "";
+                if (record.subtype !== "success" || record.is_error !== false)
+                    return;
+                try {
+                    const admitted = admitIJsonText(line, "worker structured result");
+                    if (admitted !== null && typeof admitted === "object" && !Array.isArray(admitted) &&
+                        Object.hasOwn(admitted, "structured_output")) {
+                        finalOutput = canonicalJson(admitted.structured_output);
+                    }
+                }
+                catch { /* retain the raw stream; never repair or fall back */ }
+            }
+            else if (typeof record.result === "string") {
+                finalOutput = record.result;
+            }
+        }
+    };
+    const snapshot = () => {
+        const toolInvocations = [];
+        let conflictingToolUseRef = false;
+        for (const row of rawToolInvocations) {
+            const prior = toolInvocations.find((candidate) => candidate.toolUseRef === row.toolUseRef);
+            if (prior === undefined) {
+                toolInvocations.push(deepFreeze({ ...row, ordinal: toolInvocations.length }));
+            }
+            else if (prior.toolName !== row.toolName || prior.inputDigest !== row.inputDigest ||
+                prior.inputByteLength !== row.inputByteLength) {
+                conflictingToolUseRef = true;
+            }
+        }
+        const unevidencedToolUse = rawToolCallCount > rawToolInvocations.length;
+        return {
+            structuredEventCount,
+            progressEventCount,
+            toolCallCount: conflictingToolUseRef || unevidencedToolUse
+                ? toolInvocations.length + 1
+                : toolInvocations.length,
+            toolInvocations: deepFreeze(toolInvocations),
+            apiRetryCount,
+            finalOutput,
+        };
+    };
+    return {
+        observe(chunk) {
+            pending += chunk;
+            let newline;
+            while ((newline = pending.indexOf("\n")) !== -1) {
+                observeLine(pending.slice(0, newline));
+                pending = pending.slice(newline + 1);
+            }
+            return snapshot();
+        },
+        finish() {
+            observeLine(pending);
+            pending = "";
+            return snapshot();
+        },
+    };
+}
+function observeStructuredOutput(stdout, structuredOutputExpected) {
+    const observer = createWorkerTransportOutputObserver(structuredOutputExpected);
+    observer.observe(stdout);
+    return observer.finish();
+}
+function runProcess(input) {
+    return new Promise((resolveProcess, rejectProcess) => {
+        let stdout = "";
+        let stderr = "";
+        let timedOut = false;
+        let timeoutClass = null;
+        let launchError = null;
+        let resultBearingStdout = null;
+        let settled = false;
+        let forceTimer = null;
+        let confirmationTimer = null;
+        let groupCheckTimer = null;
+        let drainTimer = null;
+        let inactivityTimer = null;
+        let absoluteTimer = null;
+        let observedExit = null;
+        let observerActive = true;
+        let pendingObserverError = null;
+        let closeObserved = false;
+        let cleanupStarted = false;
+        const snapshotResultBearingStdout = () => {
+            if (resultBearingStdout === null)
+                resultBearingStdout = stdout;
+        };
+        const clearLeaseTimers = () => {
+            if (inactivityTimer !== null)
+                clearTimeout(inactivityTimer);
+            if (absoluteTimer !== null)
+                clearTimeout(absoluteTimer);
+            inactivityTimer = null;
+            absoluteTimer = null;
+        };
+        const child = spawn(input.command, input.args, {
+            cwd: input.cwd,
+            env: input.env,
+            detached: process.platform !== "win32",
+            stdio: ["pipe", "pipe", "pipe"],
+        });
+        const signalProcessTree = (signal) => {
+            try {
+                if (process.platform !== "win32" && child.pid !== undefined) {
+                    process.kill(-child.pid, signal);
+                }
+                else {
+                    child.kill(signal);
+                }
+            }
+            catch {
+                // Signal failure is not termination evidence. The group probe below
+                // must still confirm absence or retain an unconfirmed residue.
+            }
+        };
+        const ownedGroupGone = () => {
+            if (process.platform === "win32")
+                return observedExit !== null;
+            if (child.pid === undefined)
+                return launchError !== null;
+            try {
+                process.kill(-child.pid, 0);
+                return false;
+            }
+            catch (error) {
+                return error.code === "ESRCH";
+            }
+        };
+        const settle = (status, signal, exitObserved, terminationConfirmed) => {
+            if (settled)
+                return;
+            settled = true;
+            observerActive = false;
+            clearLeaseTimers();
+            if (forceTimer !== null)
+                clearTimeout(forceTimer);
+            if (confirmationTimer !== null)
+                clearTimeout(confirmationTimer);
+            if (groupCheckTimer !== null)
+                clearTimeout(groupCheckTimer);
+            if (drainTimer !== null)
+                clearTimeout(drainTimer);
+            resolveProcess({
+                status,
+                signal,
+                timedOut,
+                timeoutClass,
+                exitObserved,
+                terminationConfirmed,
+                launchError,
+                resultBearingStdout: resultBearingStdout ?? stdout,
+                stdout,
+                stderr,
+            });
+        };
+        const settleObserverFailure = () => {
+            if (settled)
+                return;
+            settled = true;
+            observerActive = false;
+            clearLeaseTimers();
+            if (forceTimer !== null)
+                clearTimeout(forceTimer);
+            if (confirmationTimer !== null)
+                clearTimeout(confirmationTimer);
+            if (groupCheckTimer !== null)
+                clearTimeout(groupCheckTimer);
+            if (drainTimer !== null)
+                clearTimeout(drainTimer);
+            child.stdout.destroy();
+            child.stderr.destroy();
+            child.stdin.destroy();
+            rejectProcess(pendingObserverError ?? new TypeError("worker process observer failed without one captured error"));
+        };
+        const finishTermination = (confirmed) => {
+            if (settled || drainTimer !== null)
+                return;
+            if (!confirmed) {
+                try {
+                    input.observer?.onTerminationUnconfirmed?.();
+                }
+                catch (error) {
+                    pendingObserverError ??= error instanceof Error ? error : new TypeError(String(error));
+                }
+            }
+            clearLeaseTimers();
+            if (forceTimer !== null)
+                clearTimeout(forceTimer);
+            if (confirmationTimer !== null)
+                clearTimeout(confirmationTimer);
+            if (groupCheckTimer !== null)
+                clearTimeout(groupCheckTimer);
+            const finish = () => {
+                child.stdout.destroy();
+                child.stderr.destroy();
+                child.stdin.destroy();
+                if (pendingObserverError !== null)
+                    settleObserverFailure();
+                else
+                    settle(observedExit?.status ?? null, observedExit?.signal ?? null, observedExit !== null, confirmed && observedExit !== null);
+            };
+            if (closeObserved)
+                finish();
+            else
+                drainTimer = setTimeout(finish, Math.min(input.terminationGraceMs, 250));
+        };
+        const checkOwnedGroup = () => {
+            if (groupCheckTimer !== null)
+                clearTimeout(groupCheckTimer);
+            groupCheckTimer = null;
+            if (settled || drainTimer !== null)
+                return;
+            if (ownedGroupGone() && (observedExit !== null || launchError !== null)) {
+                finishTermination(true);
+                return;
+            }
+            groupCheckTimer = setTimeout(checkOwnedGroup, Math.min(input.terminationGraceMs, 10));
+        };
+        const beginOwnedCleanup = () => {
+            if (settled || cleanupStarted)
+                return;
+            if (ownedGroupGone() && observedExit !== null) {
+                finishTermination(true);
+                return;
+            }
+            cleanupStarted = true;
+            clearLeaseTimers();
+            if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGTERM")))
+                return;
+            signalProcessTree("SIGTERM");
+            forceTimer = setTimeout(() => {
+                if (settled || drainTimer !== null)
+                    return;
+                if (ownedGroupGone() && observedExit !== null) {
+                    finishTermination(true);
+                    return;
+                }
+                if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGKILL")))
+                    return;
+                signalProcessTree("SIGKILL");
+                confirmationTimer = setTimeout(() => finishTermination(ownedGroupGone()), input.terminationGraceMs);
+            }, input.terminationGraceMs);
+            checkOwnedGroup();
+        };
+        const beginObserverFailure = (error) => {
+            if (settled || pendingObserverError !== null)
+                return;
+            pendingObserverError = error instanceof Error
+                ? error
+                : new TypeError(String(error));
+            observerActive = false;
+            clearLeaseTimers();
+            if (forceTimer !== null)
+                clearTimeout(forceTimer);
+            if (confirmationTimer !== null)
+                clearTimeout(confirmationTimer);
+            if (groupCheckTimer !== null)
+                clearTimeout(groupCheckTimer);
+            if (drainTimer !== null)
+                clearTimeout(drainTimer);
+            drainTimer = null;
+            child.stdin.destroy();
+            cleanupStarted = true;
+            signalProcessTree("SIGKILL");
+            confirmationTimer = setTimeout(() => finishTermination(ownedGroupGone()), input.terminationGraceMs);
+            checkOwnedGroup();
+        };
+        const notifyObserver = (action) => {
+            if (!observerActive || action === undefined)
+                return !settled;
+            try {
+                action();
+                return true;
+            }
+            catch (error) {
+                beginObserverFailure(error);
+                return false;
+            }
+        };
+        const notifyProgressObserver = (action) => {
+            if (!observerActive || action === undefined)
+                return false;
+            try {
+                return action() === true;
+            }
+            catch (error) {
+                beginObserverFailure(error);
+                return false;
+            }
+        };
+        const beginTimeout = (observedTimeoutClass) => {
+            if (settled || timedOut)
+                return;
+            if (input.observer?.onNativeSupervisionWakeup !== undefined) {
+                let decision = null;
+                if (!notifyObserver(() => { decision = input.observer.onNativeSupervisionWakeup(); }))
+                    return;
+                const selected = decision;
+                if (selected === null || !Number.isFinite(selected.nextWakeDelayMs) || selected.nextWakeDelayMs <= 0) {
+                    beginObserverFailure(new TypeError("native supervision returned no finite declared wakeup"));
+                    return;
+                }
+                if (selected.projection.disposition.disposition !== "controlled_terminate") {
+                    if (selected.admittedThresholdEventRef !== null || selected.timeoutClass !== null) {
+                        beginObserverFailure(new TypeError("non-consequential native wakeup claimed a threshold"));
+                        return;
+                    }
+                    if (inactivityTimer !== null)
+                        clearTimeout(inactivityTimer);
+                    inactivityTimer = setTimeout(() => beginTimeout("inactivity"), selected.nextWakeDelayMs);
+                    return;
+                }
+                if (selected.admittedThresholdEventRef === null || selected.timeoutClass === null) {
+                    beginObserverFailure(new TypeError("native containment lacks its admitted threshold"));
+                    return;
+                }
+                observedTimeoutClass = selected.timeoutClass;
+            }
+            timedOut = true;
+            timeoutClass = observedTimeoutClass;
+            clearLeaseTimers();
+            snapshotResultBearingStdout();
+            if (input.observer?.onNativeSupervisionWakeup === undefined && !notifyObserver(() => input.observer?.onTimeoutObserved?.(observedTimeoutClass)))
+                return;
+            beginOwnedCleanup();
+        };
+        const renewInactivityLease = () => {
+            if (settled || timedOut)
+                return;
+            if (inactivityTimer !== null)
+                clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => beginTimeout("inactivity"), input.timeoutMs);
+        };
+        renewInactivityLease();
+        absoluteTimer = setTimeout(() => beginTimeout("absolute"), input.absoluteTimeoutMs);
+        child.once("spawn", () => {
+            if (settled)
+                return;
+            if (child.pid !== undefined) {
+                notifyObserver(() => input.observer?.onProcessStarted?.(child.pid));
+            }
+        });
+        child.stdout.setEncoding("utf8");
+        child.stderr.setEncoding("utf8");
+        child.stdout.on("data", (chunk) => {
+            if (settled)
+                return;
+            try {
+                appendFileSync(input.stdoutPath, chunk, "utf8");
+            }
+            catch (error) {
+                beginObserverFailure(error);
+                return;
+            }
+            stdout += chunk;
+            if (notifyProgressObserver(input.observer?.onStdoutObserved === undefined
+                ? undefined
+                : () => input.observer.onStdoutObserved(chunk))) {
+                renewInactivityLease();
+            }
+        });
+        child.stderr.on("data", (chunk) => {
+            if (settled)
+                return;
+            try {
+                appendFileSync(input.stderrPath, chunk, "utf8");
+            }
+            catch (error) {
+                beginObserverFailure(error);
+                return;
+            }
+            stderr += chunk;
+            if (notifyProgressObserver(input.observer?.onStderrObserved === undefined
+                ? undefined
+                : () => input.observer.onStderrObserved(chunk))) {
+                renewInactivityLease();
+            }
+        });
+        child.once("error", (error) => {
+            if (settled)
+                return;
+            snapshotResultBearingStdout();
+            launchError = error.message;
+            notifyObserver(() => input.observer?.onSpawnFailed?.(error.message));
+        });
+        child.once("exit", (status, signal) => {
+            if (settled)
+                return;
+            clearLeaseTimers();
+            snapshotResultBearingStdout();
+            observedExit = { status, signal };
+            child.stdout.destroy();
+            child.stderr.destroy();
+            child.stdin.destroy();
+            if (pendingObserverError !== null) {
+                try {
+                    input.observer?.onProcessExited?.(status, signal);
+                }
+                catch {
+                    // Preserve the first observer failure and the last admitted prefix.
+                }
+                checkOwnedGroup();
+                return;
+            }
+            if (!notifyObserver(() => input.observer?.onProcessExited?.(status, signal)))
+                return;
+            if (cleanupStarted)
+                checkOwnedGroup();
+            else
+                beginOwnedCleanup();
+        });
+        child.once("close", (status, signal) => {
+            if (settled)
+                return;
+            closeObserved = true;
+            snapshotResultBearingStdout();
+            if (pendingObserverError !== null) {
+                if (observedExit === null && launchError !== null) {
+                    try {
+                        input.observer?.onSpawnFailed?.(launchError);
+                    }
+                    catch {
+                        // Preserve the first observer failure and the last admitted prefix.
+                    }
+                }
+                checkOwnedGroup();
+                return;
+            }
+            if (observedExit !== null) {
+                if (cleanupStarted)
+                    checkOwnedGroup();
+                else
+                    beginOwnedCleanup();
+                return;
+            }
+            settle(status, signal, false, false);
+        });
+        if (input.stdin === null) {
+            child.stdin.end();
+        }
+        else {
+            child.stdin.end(input.stdin);
+        }
+    });
+}
+/** Pure existing protocol parser, shared by the native artifact observer. */
+export function observeWorkerTransportOutput(parser, stdout, structuredRequested) {
+    return parser === "claude_stream_json" ? observeStructuredOutput(stdout, structuredRequested) : {
+        structuredEventCount: 0, progressEventCount: stdout.length > 0 ? 1 : 0,
+        toolCallCount: 0, toolInvocations: [], apiRetryCount: 0, finalOutput: stdout,
+    };
+}
+async function executeWorkerTransport(input) {
+    assertLabel(input.label);
+    if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
+        throw new TypeError("worker transport timeout must be one positive safe integer");
+    }
+    const terminationGraceMs = input.terminationGraceMs ?? 1_000;
+    if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
+        throw new TypeError("worker transport termination grace must be one positive safe integer");
+    }
+    const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(input.timeoutMs, input.absoluteTimeoutMs);
+    await mkdir(input.archiveRoot, { recursive: true });
+    const archiveRoot = resolve(input.archiveRoot);
+    const paths = {
+        prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
+        output: resolve(archiveRoot, `${input.label}-output.txt`),
+        stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
+        stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
+        transport: resolve(archiveRoot, `${input.label}-transport.json`),
+    };
+    const environment = input.environment ?? process.env;
+    const args = composeWorkerTransportArgs({
+        contract: input.contract,
+        prompt: input.prompt,
+        outputPath: paths.output,
+        lane: input.lane,
+        environment,
+        ...(input.responseJsonSchema === undefined
+            ? {}
+            : { responseJsonSchema: input.responseJsonSchema }),
+        ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
+        ...(input.explicitAppendArgs === undefined
+            ? {}
+            : { explicitAppendArgs: input.explicitAppendArgs }),
+    });
+    // Establish the archive before a paid process can emit bytes. Refuse reuse
+    // of an existing attempt archive instead of truncating retained evidence.
+    const promptBytes = Buffer.from(input.prompt, "utf8");
+    await writeFile(paths.prompt, promptBytes, { flag: "wx" });
+    await writeFile(paths.stdout, "", { flag: "wx" });
+    await writeFile(paths.stderr, "", { flag: "wx" });
+    const processObservation = await runProcess({
+        command: input.contract.command,
+        args,
+        cwd: input.cwd,
+        env: sanitizeWorkerTransportEnvironment(input.contract, environment) ?? {},
+        stdin: input.contract.promptTransport === "stdin" ? input.prompt : null,
+        timeoutMs: input.timeoutMs,
+        absoluteTimeoutMs,
+        terminationGraceMs,
+        stdoutPath: paths.stdout,
+        stderrPath: paths.stderr,
+        ...(input.observer === undefined ? {} : { observer: input.observer }),
+    });
+    const structuredOutputExpected = input.contract.agentKey === "claude" && args.includes("--json-schema");
+    const observation = input.contract.parser === "claude_stream_json"
+        ? observeStructuredOutput(processObservation.resultBearingStdout, structuredOutputExpected)
+        : {
+            structuredEventCount: 0,
+            progressEventCount: processObservation.resultBearingStdout.length > 0 ? 1 : 0,
+            toolCallCount: 0,
+            toolInvocations: [],
+            apiRetryCount: 0,
+            finalOutput: processObservation.resultBearingStdout,
+        };
+    let finalOutput = observation.finalOutput;
+    let nativeResultAssessment;
+    if (input.observer?.assessNativeResultArtifact !== undefined) {
+        let fileOutput = null;
+        try {
+            fileOutput = (await readFile(paths.output)).toString("utf8");
+        }
+        catch (error) {
+            if (error.code !== "ENOENT")
+                throw error;
+        }
+        if (fileOutput !== null && fileOutput.trim().length > 0) {
+            if (finalOutput.trim().length === 0) {
+                if (!structuredOutputExpected && input.responsePresentation !== "result_text")
+                    finalOutput = fileOutput;
+            }
+            else {
+                let sameOutput = fileOutput === finalOutput;
+                try {
+                    sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput));
+                }
+                catch { /* no parser repair */ }
+                if (!sameOutput)
+                    throw new TypeError("distinct worker output channels disagree; no first/last result selection");
+            }
+        }
+        nativeResultAssessment = input.observer.assessNativeResultArtifact(finalOutput);
+    }
+    const failureClass = classifyWorkerTransportFailure({
+        parser: input.contract.parser,
+        lane: input.lane,
+        processStatus: processObservation.status,
+        timedOut: processObservation.timedOut,
+        terminationConfirmed: processObservation.terminationConfirmed,
+        processSpawnFailed: processObservation.launchError !== null,
+        structuredEventCount: observation.structuredEventCount,
+        toolCallCount: observation.toolCallCount,
+        apiRetryCount: observation.apiRetryCount,
+        finalOutput,
+        ...(nativeResultAssessment === undefined ? {} : { nativeResultDisposition: nativeResultAssessment.disposition }),
+    });
+    const outputBytes = Buffer.from(finalOutput, "utf8");
+    const stdoutBytes = Buffer.from(processObservation.stdout, "utf8");
+    const stderrBytes = Buffer.from(processObservation.stderr, "utf8");
+    await writeFile(paths.output, outputBytes);
+    if (sha256Bytes(await readFile(paths.stdout)) !== sha256Bytes(stdoutBytes) ||
+        sha256Bytes(await readFile(paths.stderr)) !== sha256Bytes(stderrBytes)) {
+        throw new TypeError("worker stream archive differs from observed bytes");
+    }
+    const body = {
+        ...(nativeResultAssessment === undefined ? {} : { nativeResultAssessment }),
+        kind: "worker_transport_result_candidate",
+        schemaVersion: "5.0.0",
+        disposition: failureClass === null ? "success" : "failure",
+        agentKey: input.contract.agentKey,
+        lane: input.lane,
+        command: input.contract.command,
+        args,
+        status: processObservation.status,
+        signal: processObservation.signal,
+        timeoutMs: input.timeoutMs,
+        absoluteTimeoutMs,
+        timedOut: processObservation.timedOut,
+        timeoutClass: processObservation.timeoutClass,
+        exitObserved: processObservation.exitObserved,
+        terminationConfirmed: processObservation.terminationConfirmed,
+        failureClass,
+        structuredEventCount: observation.structuredEventCount,
+        progressEventCount: observation.progressEventCount,
+        toolCallCount: observation.toolCallCount,
+        toolInvocations: observation.toolInvocations,
+        apiRetryCount: observation.apiRetryCount,
+        stdout: processObservation.stdout,
+        stderr: processObservation.stderr,
+        finalOutput,
+        artifacts: {
+            prompt: artifact(paths.prompt, promptBytes),
+            output: artifact(paths.output, outputBytes),
+            stdout: artifact(paths.stdout, stdoutBytes),
+            stderr: artifact(paths.stderr, stderrBytes),
+        },
+    };
+    const transportBytes = Buffer.from(`${canonicalJson(body)}\n`, "utf8");
+    await writeFile(paths.transport, transportBytes);
+    const result = deepFreeze({
+        ...body,
+        artifacts: {
+            ...body.artifacts,
+            transport: artifact(paths.transport, transportBytes),
+        },
+    });
+    const persistedTransport = await readFile(paths.transport);
+    if (sha256Bytes(persistedTransport) !== result.artifacts.transport.digest) {
+        throw new TypeError("worker transport artifact changed after persistence");
+    }
+    return result;
+}
+const preparedTransportState = new WeakMap();
+function exactEnvironment(environment) {
+    return Object.freeze(Object.fromEntries(Object.entries(environment)
+        .filter((entry) => entry[1] !== undefined)
+        .sort(([left], [right]) => left.localeCompare(right))));
+}
+export async function prepareWorkerTransport(input) {
+    assertLabel(input.label);
+    if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
+        throw new TypeError("worker transport timeout must be one positive safe integer");
+    }
+    const terminationGraceMs = input.terminationGraceMs ?? 1_000;
+    if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
+        throw new TypeError("worker transport termination grace must be one positive safe integer");
+    }
+    const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(input.timeoutMs, input.absoluteTimeoutMs);
+    const archiveRoot = resolve(input.archiveRoot);
+    const cwd = await realpath(input.cwd);
+    const sourceEnvironment = exactEnvironment(input.environment ?? process.env);
+    const contract = input.contract;
+    const paths = deepFreeze({
+        prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
+        output: resolve(archiveRoot, `${input.label}-output.txt`),
+        stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
+        stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
+        transport: resolve(archiveRoot, `${input.label}-transport.json`),
+    });
+    const args = composeWorkerTransportArgs({
+        contract,
+        prompt: input.prompt,
+        outputPath: paths.output,
+        lane: input.lane,
+        environment: sourceEnvironment,
+        ...(input.responseJsonSchema === undefined
+            ? {}
+            : { responseJsonSchema: input.responseJsonSchema }),
+        ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
+        ...(input.explicitAppendArgs === undefined
+            ? {}
+            : { explicitAppendArgs: input.explicitAppendArgs }),
+    });
+    const sanitizedEnvironment = exactEnvironment(sanitizeWorkerTransportEnvironment(contract, sourceEnvironment) ?? {});
+    const body = {
+        contractDigest: sha256Canonical(contract),
+        agentKey: contract.agentKey,
+        parser: contract.parser,
+        promptTransport: contract.promptTransport,
+        lane: input.lane,
+        command: contract.command,
+        args,
+        cwd,
+        archiveRoot,
+        label: input.label,
+        timeoutMs: input.timeoutMs,
+        absoluteTimeoutMs,
+        terminationGraceMs,
+        promptDigest: sha256Canonical(input.prompt),
+        responseJsonSchemaDigest: input.responseJsonSchema === undefined
+            ? null
+            : sha256Canonical(input.responseJsonSchema),
+        environmentPolicyDigest: sha256Canonical({
+            agentKey: contract.agentKey,
+            sanitizedEnvironmentPrefixes: contract.sanitizedEnvironmentPrefixes,
+        }),
+        environmentDigest: sha256Canonical(sanitizedEnvironment),
+        paths,
+    };
+    const plan = deepFreeze({
+        kind: "prepared_worker_transport",
+        schemaVersion: "5.0.0",
+        planDigest: sha256Canonical(body),
+        ...body,
+    });
+    const request = {
+        contract,
+        prompt: input.prompt,
+        lane: input.lane,
+        cwd,
+        archiveRoot,
+        label: input.label,
+        timeoutMs: input.timeoutMs,
+        absoluteTimeoutMs,
+        terminationGraceMs,
+        ...(input.responseJsonSchema === undefined
+            ? {}
+            : { responseJsonSchema: input.responseJsonSchema }),
+        ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
+        environment: sourceEnvironment,
+        ...(input.explicitAppendArgs === undefined
+            ? {}
+            : { explicitAppendArgs: input.explicitAppendArgs }),
+    };
+    preparedTransportState.set(plan, request);
+    return plan;
+}
+export async function runPreparedWorkerTransport(plan, observer) {
+    const request = preparedTransportState.get(plan);
+    if (request === undefined) {
+        throw new TypeError("worker transport plan was not prepared by this ABG module");
+    }
+    const result = await executeWorkerTransport({
+        ...request,
+        ...(observer === undefined ? {} : { observer }),
+    });
+    if (result.command !== plan.command ||
+        canonicalJson(result.args) !==
+            canonicalJson(plan.args)) {
+        throw new TypeError("executed worker transport differs from the prepared binding");
+    }
+    return result;
+}
+export async function runWorkerTransport(input) {
+    const plan = await prepareWorkerTransport(input);
+    return runPreparedWorkerTransport(plan, input.observer);
+}

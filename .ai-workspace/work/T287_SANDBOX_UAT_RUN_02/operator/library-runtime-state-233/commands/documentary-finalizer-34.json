@@ -1,0 +1,6 @@
+{
+  "kind": "documentary_finalizer_failure",
+  "firstCause": "NameError: local cut path alias was not defined after return/readiness were written; freeze was not created.",
+  "selectedAction": "Bind cut to the existing dependency-cut-34 and finish pins only.",
+  "effects": "No Source/HOW/test/emission/runtime mutation or proof retry; passing receipts conserved."
+}

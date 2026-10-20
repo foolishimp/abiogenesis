@@ -1,0 +1,10 @@
+{
+  "status": "CLOSED ordinary non-force push and actual remote verification",
+  "repository": "abiogenesis",
+  "branch": "main",
+  "head": "ff29a8bab8f8cb3ec6f864536075ccfe3422652e",
+  "actualOriginMain": "ff29a8bab8f8cb3ec6f864536075ccfe3422652e",
+  "trackedStatus": "",
+  "excludedUntracked": "see exclusions.json; originals preserved; no cleanup",
+  "pushElapsedSeconds": 25.555086332838982
+}

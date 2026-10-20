@@ -1,0 +1,170 @@
+{
+  "activatedUTC": "2026-10-04T07:24:19.419762+00:00",
+  "actor": "/root/rc1_c03_install_review",
+  "candidateBytes": 9634686370,
+  "candidateFiles": 197399,
+  "copyRootAncestry": [
+    {
+      "device": 16777230,
+      "inode": 2,
+      "mode": 493,
+      "path": "/"
+    },
+    {
+      "device": 16777230,
+      "inode": 16925,
+      "mode": 493,
+      "path": "/Users"
+    },
+    {
+      "device": 16777230,
+      "inode": 541512,
+      "mode": 493,
+      "path": "/Users/jim"
+    },
+    {
+      "device": 16777230,
+      "inode": 1938416,
+      "mode": 493,
+      "path": "/Users/jim/src"
+    },
+    {
+      "device": 16777230,
+      "inode": 9238782,
+      "mode": 493,
+      "path": "/Users/jim/src/apps"
+    },
+    {
+      "device": 16777230,
+      "inode": 146813692,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis"
+    },
+    {
+      "device": 16777230,
+      "inode": 146813705,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace"
+    },
+    {
+      "device": 16777230,
+      "inode": 146813713,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments"
+    },
+    {
+      "device": 16777230,
+      "inode": 164978051,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex"
+    },
+    {
+      "device": 16777230,
+      "inode": 448085934,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE"
+    },
+    {
+      "device": 16777230,
+      "inode": 448088246,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-implementation"
+    },
+    {
+      "device": 16777230,
+      "inode": 448088757,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-implementation/build-input"
+    },
+    {
+      "device": 16777230,
+      "inode": 448096114,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-implementation/build-input/test_env"
+    },
+    {
+      "device": 16777230,
+      "inode": 448222567,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-implementation/build-input/test_env/downstream"
+    }
+  ],
+  "distinctOriginalWitnesses": 104688,
+  "executionAuthorized": false,
+  "grant": "Root explicit preparation-only continuation after CLOSED alias-final freeze",
+  "limits": [
+    "No deletion/helper execution until explicit Root release with independent GO.",
+    "Only this copied downstream root; keep all directories and nonregulars.",
+    "All original plan/copy/original bodies remain readonly during preparation."
+  ],
+  "operation": "T287_COMMENTARY_CLEANUP_DELETE_03_PREPARE",
+  "physicalOriginalRootAncestry": [
+    {
+      "device": 16777230,
+      "inode": 2,
+      "mode": 493,
+      "path": "/"
+    },
+    {
+      "device": 16777230,
+      "inode": 16925,
+      "mode": 493,
+      "path": "/Users"
+    },
+    {
+      "device": 16777230,
+      "inode": 541512,
+      "mode": 493,
+      "path": "/Users/jim"
+    },
+    {
+      "device": 16777230,
+      "inode": 1938416,
+      "mode": 493,
+      "path": "/Users/jim/src"
+    },
+    {
+      "device": 16777230,
+      "inode": 9238782,
+      "mode": 493,
+      "path": "/Users/jim/src/apps"
+    },
+    {
+      "device": 16777230,
+      "inode": 146813692,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis"
+    },
+    {
+      "device": 16777230,
+      "inode": 175479551,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants"
+    },
+    {
+      "device": 16777230,
+      "inode": 175479553,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis"
+    },
+    {
+      "device": 16777230,
+      "inode": 186971072,
+      "mode": 493,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    }
+  ],
+  "planFreeze": {
+    "bytes": 9512,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/freeze.json",
+    "sha256": "cee816b8f45826fc73d39f17522407db06008b6645cc307dc8702e448f642edc"
+  },
+  "protectedFiles": 16338,
+  "reentry": "realization_refactor",
+  "role": "Worker",
+  "unprovedFiles": 8492,
+  "writeOnly": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/delete_exact_alias_plan.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution"
+  ]
+}

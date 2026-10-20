@@ -1,0 +1,64 @@
+{
+  "route": "actual admitCCallResult -> stageCCallResult success callback -> actual qualification Product lineage guard; actual pure receipt rehydration",
+  "forms": [
+    {
+      "form": "embedded",
+      "inputDigest": "sha256:af282a3894d1b20f7afdb146fecd3a11a0effe04ded3b1704458e70ccf92a895",
+      "requestDigest": "sha256:185ee1cd7533dc69c8f23ba5dbaedb07042a67d2c038878326620d7b60aa8971",
+      "judgmentDigest": "sha256:e2ded7e2722798c72634d938be9c855528a13e5604de14766dd8c243c14010f9",
+      "callback": "accepted",
+      "exactPreimage": "refused",
+      "negatives": [
+        "inputDigest",
+        "requestDigest",
+        "promptDigest",
+        "outputDigest",
+        "actorInvocationRef",
+        "actorRef",
+        "workerBindingRef",
+        "transportBindingRef",
+        "transportBindingDigest",
+        "transportDisposition",
+        "transportFailureClass",
+        "missing inputDigest",
+        "crossed prepared request"
+      ]
+    },
+    {
+      "form": "reference",
+      "inputDigest": "sha256:95f81b6a915d2725f14eb9cc91253f9df1db44f082b354efde5495d71a0bc28c",
+      "requestDigest": "sha256:5c57ad04a7dadb3bf1fe59d6a550e6b7edff98f57da646e8c45e8638c4737396",
+      "judgmentDigest": "sha256:53a6ab3c6304f1eb74a077f2ff2d95a8405ec1b663b04982bb0ebc61a802af31",
+      "callback": "accepted",
+      "exactPreimage": "refused",
+      "negatives": [
+        "inputDigest",
+        "requestDigest",
+        "promptDigest",
+        "outputDigest",
+        "actorInvocationRef",
+        "actorRef",
+        "workerBindingRef",
+        "transportBindingRef",
+        "transportBindingDigest",
+        "transportDisposition",
+        "transportFailureClass",
+        "missing inputDigest",
+        "crossed prepared request"
+      ]
+    }
+  ],
+  "deterministicAbsenceAndTransportNull": "conserved",
+  "suppliedPremises": [
+    "lower ABG transaction/evidence/result/prefix facts",
+    "native raw result preimage admission",
+    "current prepared-request/native-proof operation",
+    "synthetic native construction attribution"
+  ],
+  "alteredRows": "component guard counterexamples; no native admission of corrupted rows is claimed",
+  "RuntimeAdmissions": 0,
+  "resourcesOpened": 0,
+  "helperActorProviderCalls": 0,
+  "semanticF11": "open",
+  "elapsedMs": 429.42466600000006
+}

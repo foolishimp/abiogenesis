@@ -1,0 +1,48 @@
+{
+  "packet": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-packet.json",
+    "bytes": 29331587,
+    "sha256": "b4803006d68b12a6dc139dc85d07af0a574f954afbc041f338ae1ddab9da466d"
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-resource-manifest.json",
+    "bytes": 489526432,
+    "sha256": "5dbd80bc15d1a47a0d8ee8bef678454b8bf46a3816d254638438a4409bb37290"
+  },
+  "task": {
+    "ref": "qualification-task://abiogenesis/255ade83b527b7fe46a3b742b20c7e78160ffe1062769a7794cd265ee732eac0",
+    "digest": "sha256:255ade83b527b7fe46a3b742b20c7e78160ffe1062769a7794cd265ee732eac0"
+  },
+  "plan": {
+    "ref": "qualification-plan://abiogenesis/05074efbdc446c298f07f3d91143998870abbd920343f0b9d17908fe4f3e3dd8",
+    "digest": "sha256:05074efbdc446c298f07f3d91143998870abbd920343f0b9d17908fe4f3e3dd8"
+  },
+  "resource": {
+    "ref": "qualification-resource://abiogenesis/169e85bb7fde966b544e75e2b289e5047b383f9bf4bd260ec0571ce84d4fb10f",
+    "digest": "sha256:169e85bb7fde966b544e75e2b289e5047b383f9bf4bd260ec0571ce84d4fb10f"
+  },
+  "subjectBasis": {
+    "ref": "qualification-basis://abiogenesis/5dd10fb59c80febc26218fba7e787ba5d88b3ef21690605f24f90e04c4ce9a45",
+    "digest": "sha256:5dd10fb59c80febc26218fba7e787ba5d88b3ef21690605f24f90e04c4ce9a45"
+  },
+  "lawBasis": {
+    "ref": "qualification-law://abiogenesis/edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f",
+    "digest": "sha256:edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f"
+  },
+  "workspaceBinding": {
+    "digest": "sha256:65dc434be1a1fe0d953ed24d31a79d03bd93272ecd4c877e78e9c11b45525996",
+    "ref": "workspace-binding://abiogenesis/65dc434be1a1fe0d953ed24d31a79d03bd93272ecd4c877e78e9c11b45525996"
+  },
+  "catalogBasisDigest": "sha256:cf3c8809e2a2b4f465b3cb9aec9b3a898277e07482a7654ff137239a7a1c5235",
+  "viewDigest": "sha256:fd5ac3fd5e1d0925a5d2f7bd3be97d59cfb1b6f8f0854ad225781ea506e60441",
+  "currentRootActor": "actor://abiogenesis/t287/f11-c05-installed-setup-05/operator",
+  "rawCriteria": [
+    {
+      "criterionRef": "criterion://abiogenesis/q06/current-definition-catalog-fidelity",
+      "disposition": "indeterminate",
+      "applicability": "unknown",
+      "grouping": "unknown"
+    }
+  ],
+  "independentAssessment": false
+}

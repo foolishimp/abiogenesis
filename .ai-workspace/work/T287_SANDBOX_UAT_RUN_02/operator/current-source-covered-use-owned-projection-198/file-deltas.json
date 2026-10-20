@@ -1,0 +1,78 @@
+[
+  {
+    "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "changed": true,
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/preimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "60f5d2bb91378f66285c2ca3ac78f71a98b9032031a9c646cfd5fb86aec9c3e7",
+      "byteCount": 35936
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/postimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "a14e1621c138680168ab397f176548039e413eda46f043f0799d39d119348086",
+      "byteCount": 36651
+    },
+    "live": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "a14e1621c138680168ab397f176548039e413eda46f043f0799d39d119348086",
+      "byteCount": 36651
+    }
+  },
+  {
+    "relativePath": "code/src/abg/invocation_execution_truth.ts",
+    "changed": true,
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/preimages/code/src/abg/invocation_execution_truth.ts",
+      "sha256": "f2d6e47cdc23e3df095024982d0f13b99b4a014e2c03c581ee51c4c9cfec31dd",
+      "byteCount": 33130
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/postimages/code/src/abg/invocation_execution_truth.ts",
+      "sha256": "4bb5199b3793528e1eaef9d8c5ce24ca16772c1deac4e547e0f452088bedff53",
+      "byteCount": 33375
+    },
+    "live": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "sha256": "4bb5199b3793528e1eaef9d8c5ce24ca16772c1deac4e547e0f452088bedff53",
+      "byteCount": 33375
+    }
+  },
+  {
+    "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "changed": true,
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/preimages/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "3a9384145f9c3700eae5a3d5572d952f9b4565847f988badc5eedc0548f0c30d",
+      "byteCount": 35115
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/postimages/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "532b36e5217ad91a0ac3a22abdd72367f1389f6c7490997f125d4abe3be72bf7",
+      "byteCount": 40340
+    },
+    "live": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "532b36e5217ad91a0ac3a22abdd72367f1389f6c7490997f125d4abe3be72bf7",
+      "byteCount": 40340
+    }
+  },
+  {
+    "relativePath": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+    "changed": false,
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/preimages/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+      "byteCount": 39274
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/postimages/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+      "byteCount": 39274
+    },
+    "live": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+      "byteCount": 39274
+    }
+  }
+]

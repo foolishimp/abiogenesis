@@ -1,0 +1,85 @@
+--- a/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md
+@@ -339,6 +339,54 @@
+ admission event or success flag is introduced. Falsified/indeterminate J remains
+ a valid admitted assessment whose semantic disposition is non-green downstream.
+ 
++### 5.1 Shared Evidence Contract Across Result Lineage
++
++REQ-P-QUAL-064A and REQ-P-SELF-CONFORMANCE-007A require one conserved
++producer-to-consumer relation. The result-lineage handoff carries a shared
++TypeScript evidence projection contract, consumed by the actual ABG result
++callback, LeafInvocationPort bridge and both Product semantics hook bases.
++Generic JSON records do not express this interface contract.
++
++The admitted evidence and delivered projection discriminate evidenceClass.
++The probabilistic_transport branch requires actorInvocationRef, actorRef,
++workerBindingRef, transportBindingRef, transportBindingDigest, requestDigest,
++promptDigest, transportDisposition and transportFailureClass. The common
++projection requires cCallRef, cCallAttempt, evidenceRef, evidenceDigest,
++evidenceClass, inputDigest and outputDigest and preserves the existing
++transportDigest behavior. A successful or failed transport retains its actual
++disposition and its nullable failure class. Other evidence classes preserve
++optional absence and existing null behavior; they do not acquire actor data.
++
++The ABG evidence producer checks its actual admitted body against the
++appropriate discriminated type at minting. The result callback checks its
++actual projection against the same delivered contract. A cast, an all-optional
++projection type or candidate-derived metadata cannot establish conservation.
++Each delivered lineage field equals the corresponding admitted field; the
++attempt coordinate comes from the exact C call. No field is reconstructed
++from the judgment candidate. Existing native-work and Consensus consumers
++retain their delivered subset and existing guards.
++
++The integration frame binds these workspace variables: the raw transport
++contract and actual admitted row; the admitted type and checked producer;
++the projection code and shared destination type; the actual leaf bridge;
++the Product lineage predicates and prepared request; the admitted Result/J;
++child terminal disposition, ordinary parent foldback and fresh result/replay.
++Required fields, authority, absence/null and equality are checked at these
++specific joins. A component result does not close this conjunction.
++
++Proof exercises the actual success callback for embedded and reference tasks,
++retains refusal for corrupted lineage, and checks that omitting each required
++probabilistic field fails against the real shared compiler contract. Dynamic
++admission and lineage checks continue to establish authentic ownership and
++equality. The earliest installed composition discriminator is actual raw
++response admission through Result/J, ordinary child/parent completion,
++self-conformance consumption, the truthful non-green AF22 outcome for incomplete
++coverage and six fresh CLI reads. A controlled response supplies only a carrier
++premise; genuine independent assessment, complete qualification and release
++remain separate obligations. This design introduces no new runtime entity,
++event, controller, serialized carrier, Product outcome or weaker validator.
++Its TypeScript declarations become more specific.
++
+ ## 6. Admitted Consumption And Cold Proof
+ 
+ `qualification_proof.ts` must distinguish initial candidate establishment from
+--- a/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ b/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -4624,3 +4624,25 @@
+ ## 2026-10-02 — Result lineage Source/component ACCEPTED; C08 selected
+ 
+ Root accepts Source freeze5fc09c57, corrected-fixture freezecc036b4c and independent GO_SOURCE_COMPONENT_ONLY3d90e4db. Actual admitted input and actor/request/prompt/transport metadata now reaches strict Product lineage. Source68281B/dc84456d; final test22568B/d98aa4de. One compile and corrected actual-callback regression pass1/1 with both taskforms, exact C07 preimage refusal,13 corruptions/form and deterministic absence/null conservation; supplied lower ABG/native/request premises remain explicit. TestA missing-effects failure is preserved; one test-only correction, no recompile or Runtime. Existing WHAT/HOW/API/guards and accepted prior subjects conserved. Root selects C08 from1108 frozenC07 members with only Source/currenttracking replacements plus newtest (1109inputs/1106unchanged); original authors and chains retained. Controls: /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08; conditional construction grant rc1-c08-construction-grant-preparation-01/request.txt032cf607. Actual C08 construction/independent acceptance/Setup08/Q10/whole installed result-foldback/F11/non-greenAF22/six coldreads remain next. Runtime08 stays stopped/failed; genuine F11/QUAL056/scenarios/greenAF22/release/provider reachability remain open.
++
++
++## 2026-10-02 — End-to-end lineage Design frame correction
++
++Runtime08 exposed an end-to-end Design frame failure: actual admitted evidence
++was not conserved through the shared hook/projection contract. Raw contracts
++required the fields, the admitted interface made nine optional, and the hook
++accepted generic JSON. Product lineage law exists and its refusal was correct.
++Root owns the missing integration binding and the incomplete conjunction.
++
++The restored ten-field Source component remains accepted with its exact
++regression/independent scope. A separate design_reframe adds owning HOW5.1:
++shared discriminated carrier, honest checked minting/projection, exact field
++conservation, and compiler plus actual callback/installed proof. The five-file
++source cone and original authorship are retained. Source Worker activation uses
++rc1-result-lineage-integration-design-01/request.txt; prior prepared local-only
++grant is unactivated. No new Product requirement or weakened guard is selected.
++
++C08 continued-02 constructs the frozen immediate Source repair. Control-only
++failures are preserved. The qualifying successor must include the shared
++contract and Design/tracking postimages before whole installed credit. Retain
++accepted Hello and failed Runtime08; F11/QUAL056/scenarios/AF22/release remain open.

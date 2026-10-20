@@ -1,0 +1,15 @@
+{
+  "command": [
+    "git",
+    "diff",
+    "--check",
+    "--",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": ""
+}

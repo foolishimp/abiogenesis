@@ -1,0 +1,18 @@
+{
+  "kind": "derived_new_file_closure_view",
+  "actor": "/root/f11_attribution_inputs",
+  "originalFreeze": {
+    "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/freeze.json",
+    "digest": "sha256:54411d51f4e8391963f067f28323ace96381be4a6c081206d4482d2761596700",
+    "byteCount": 6274
+  },
+  "members": [
+    {
+      "ref": "material://abiogenesis/final-f11-material-selection-02/selection-rationale",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/selection-rationale.json",
+      "digest": "sha256:d9a15ca4cc92fa342a6ec3796441ba25d1c9678cfd09ca43aec5cd83b236989e",
+      "byteCount": 45378
+    }
+  ],
+  "meaning": "Actual new Material02 selection rationale; this view does not replace the original operation record."
+}

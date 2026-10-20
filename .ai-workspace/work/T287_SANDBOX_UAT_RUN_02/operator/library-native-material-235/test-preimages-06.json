@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/test-postimages-06/preimages/test_env/tests/t287-event-body-encoding.test.mjs",
+    "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "sha256": "27ba114391e22a0af70c7b99c6b4379c39b16d31cd7729b96a75bad00dcd888f",
+    "byteCount": 38481
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/test-postimages-06/preimages/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "sha256": "83f7863c48788f125cce23ca433a459544b6dacee76a6f99d2040a614efff4b9",
+    "byteCount": 24037
+  }
+]

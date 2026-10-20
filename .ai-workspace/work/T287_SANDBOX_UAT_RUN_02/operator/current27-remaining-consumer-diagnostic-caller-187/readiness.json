@@ -1,0 +1,162 @@
+{
+  "role": "Worker187 diagnostic caller preparation",
+  "status": "READY_FOR_INDEPENDENT188",
+  "ProductFrame": {
+    "fixedFamilies": 15,
+    "version": "ABI5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "externalApp": "Original Data Mapper full UAT",
+    "STDO": "2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  },
+  "classification": "Intended diagnostic caller/control only; no factory fix or ABG authority",
+  "caller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/prepare.mjs",
+    "sha256": "5c29dd6d5649f58df046c3b6021e2d8ed49c17e262c50c8d6c66c93f93ad9b3b",
+    "byteCount": 33200
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/inputs.json",
+    "sha256": "c7ef165854abade9240a7fd6f3875ed939994f4d0975af54cf82bb2720f44c1e",
+    "byteCount": 22637
+  },
+  "selectedAction": "Reuse exact completed185 inputs through canonical prospective owner projections; locate remaining post-close allocation with compact memory brackets, preserving real private Product preparation and callback",
+  "checks": {
+    "status": "PASS",
+    "exitCode": 0,
+    "wallMs": 25.86829202482477,
+    "syntaxExitCode": 0,
+    "helpers": [
+      {
+        "name": "verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071,
+        "unchanged": true
+      },
+      {
+        "name": "packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167,
+        "unchanged": true
+      },
+      {
+        "name": "binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942,
+        "unchanged": true
+      },
+      {
+        "name": "operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695,
+        "unchanged": true
+      }
+    ],
+    "currentPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "prefixLength": 1690085978,
+      "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 468327400,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a"
+    },
+    "completed185": {
+      "nativeInstallInvocationRef": "invocation://abiogenesis/b0f8790cdaf872a531a7906544c3a51f0034ebaf2d4b4edaa507bdecc90bdbae",
+      "consumerInstallInvocationRef": "invocation://abiogenesis/49e632526cdf7fe16a098ee83166aaa54e89590fd8ad4cbe8b94ae645f3e6ff0",
+      "binding": {
+        "ref": "workspace-binding://abiogenesis/2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8",
+        "digest": "sha256:2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8"
+      },
+      "catalog": {
+        "ref": "graph-function-catalog://abiogenesis/4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9",
+        "digest": "sha256:4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9"
+      },
+      "view": {
+        "ref": "graph-function-catalog-view://abiogenesis/5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367",
+        "digest": "sha256:5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367"
+      },
+      "witnesses": 104,
+      "currentUseDigest": "sha256:f17b484fa3c4a24e6f24d3670e725705f69b3da7c67f54861cd1d8e5846386ba"
+    },
+    "exactIntegerStatPremise": "Original185 mtimeNs retained as decimal string; no correction01 numeric value or shadowed path used",
+    "largeDeclarationRead187": false,
+    "archiveOrCampaignReadHash187": false,
+    "actualResourceOrOwnerExecution187": false,
+    "limits": "Small recorded-coordinate/selector and intended-code checks only. No nominal receipt restore, actual projection, current-use/callback/private preparation/capacity/native/UAT claim."
+  },
+  "requiredFutureExtent": {
+    "eventResource": "Exactly one ordinary canonical acquire at genuine185 close; complete admitted history needed by source/terminal/environment/current-use and callback, not a finite receipt substitute",
+    "declarationInput": {
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/current-setup.json",
+        "sha256": "16a9b7bd76b2438932396899872ffabffcc9447e29b67139190b3da31047605f",
+        "byteCount": 37307310
+      },
+      "read": "One complete pinned current-setup declaration input read before history; retain only catalog/View preimages needed by canonical reconstruction against actual owner-derived environment. No current-setup read/parse performed187."
+    },
+    "consumedBasisCover": "Derive complete consumed source-result/observation/synthesis ancestry at held prefix; authenticate all104 expected exact basis owners and direct covers, no witness admissions or transitive cover inference",
+    "callback": "Retain nominal finalValidatedPrefix and invoke actual projectGovernanceCoveredSourceUse callback during mandatory private Product preparation; saved use is comparison evidence only"
+  },
+  "preservedSource": {
+    "sourceRunRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+    "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+    "observations": 34,
+    "originalAActorProgramC2": "Unchanged selectors; authentic live projections remain future execution prerequisites",
+    "currentSourceUseExpected": {
+      "useDigest": "sha256:f17b484fa3c4a24e6f24d3670e725705f69b3da7c67f54861cd1d8e5846386ba",
+      "sourceBasisRef": "invocation-source-result://abiogenesis/8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+      "sourceBasisDigest": "sha256:8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+      "currentWorkspaceBindingId": "workspace-binding://abiogenesis/2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8",
+      "currentWorkspaceBindingDigest": "sha256:2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8",
+      "currentCatalogBasisDigest": "sha256:4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9",
+      "currentCatalogViewDigest": "sha256:5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367",
+      "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+      "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "graphFunctionDigest": "sha256:1ba4ec486b01f15ce9004b9d519730f8b630157a991cc477ea44d692f2d795ee"
+    }
+  },
+  "completedProducerReuse": "Live native27+consumer verification before history; actual185 verification receipts compared, not recreated; canonical current-prefix install/binding projection and complete catalog/View reconstruction; actual104 consumed ancestry/direct covers checked, never readmitted/transitively assumed. No Public setup dispatches.",
+  "diagnostics": {
+    "stages": [
+      "resource-close",
+      "post-close-request-slots-build",
+      "public-call-construction",
+      "private-preparation",
+      "actual-covered-use-callback",
+      "preparation-result-recording",
+      "future-request-recording"
+    ],
+    "memory": "process.memoryUsage plus wall timestamps; samples, never peak/retainer attribution",
+    "callback": "Synchronous observed wrapper returns the actual owner projector result, including null; no saved-use success. Required nominal validated prefix remains available after genuine close.",
+    "lexicalChange": "Remove originalEvents/byResult duplicate lookup roots and unused beforeBindings setup map; use same held owner events for result selection and actual basis ancestry. Saved setup retains only needed declaration catalog/View; supplied alias dropped after canonical reconstruction. No forced GC/global/private-cache/heap/environment change."
+  },
+  "localDiagnostics": [
+    {
+      "origin": "Optional missing shell glob/source filename during owner lookup",
+      "action": "Root-selected recording-only omission; canonical reconstructHistoricalDeclarationCatalog resolved without retrying the glob",
+      "runtimeEvidence": false
+    },
+    {
+      "origin": "Python caller-builder grammar rejected paired index assignment before any statement",
+      "action": "Root-selected valid tuple assignments at identical boundaries; corrected builder syntax checked before use; own187 directory reuse permitted; failed parser statement/error and full original tool-transcript boundary disclosed",
+      "runtimeEffects": false
+    }
+  ],
+  "documentary185Precision": "Original185 integer mtimeNs retained as decimal string and genuine handoff selects the path; correction01 unused. Root accepted correction02 separately; it does not alter runtime close selection.",
+  "limits": [
+    "No actual campaign/log read/hash/reparse/acquisition/replay, archive verification or37MB current-setup parse187",
+    "No Public verify/resolve/install/bind/catalog/view/witness/native/model/app/Git/Source/HOW effects187",
+    "Small recorded-coordinate consistency and syntax do not authenticate nominal receipts or actual source/currentness/private preparation",
+    "Exact185 throwing JS entry/dominant retainer remains unknown; this is a diagnostic caller, not capacity or P0 repair",
+    "Actual remaining-consumer stockheap composition, native/C2/UAT/qualification remain open; independent188 and separate Root diagnostic execution grant required"
+  ],
+  "stop": "CLOSED/FROZEN/STOP"
+}

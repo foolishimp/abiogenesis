@@ -1,0 +1,20 @@
+{
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+    "bytes": 388347,
+    "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+    "mode": 420
+  },
+  "actualSetupAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+    "bytes": 9596,
+    "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74",
+    "mode": 420
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-source-acceptance-c09-release-01/acceptance.json",
+    "bytes": 3845,
+    "sha256": "b2da513f06c07e2c8606c61488bf27e6a63689ab47a17419382c76cbdd96b275",
+    "mode": 420
+  }
+}

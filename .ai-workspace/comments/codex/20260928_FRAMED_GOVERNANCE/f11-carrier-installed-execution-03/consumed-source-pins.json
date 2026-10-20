@@ -1,0 +1,63 @@
+{
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-post-c03-controls-01/f11-request.txt",
+      "bytes": 5541,
+      "sha256": "ef251156f9a67d180e35d184c2e2e5396a88053ac68a66439eb24aab6fb7526f",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/freeze.json",
+      "bytes": 1530362,
+      "sha256": "70fbfe4ae6065eeedb59eebae09c69419d76fb1237bac21fb4d239342c3ffe6d",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-02/freeze.json",
+      "bytes": 6163,
+      "sha256": "313a40304eae0f1579fb69ae00c9c9a0d9106f05cc065e1a0e92b9cb1101c1af",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+      "bytes": 44443,
+      "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/acceptance.json",
+      "bytes": 1218,
+      "sha256": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/conformance-resources.mjs",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-03/freeze.json",
+      "bytes": 17557,
+      "sha256": "5c7d8a66e37f1de412ba3ff1b3f6e84c6c22476ea1d77f11157cc95ba967ac14",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10426739,
+      "sha256": "f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+      "bytes": 10840688,
+      "sha256": "943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+      "verified": true
+    }
+  ],
+  "all5264OriginalFixtureSourceMembersReverified": true,
+  "C03NativeSemanticsUnchanged": true,
+  "fixtureProductManifestUnchanged": true,
+  "noQ03TaskBinding": true,
+  "RootQ03GOAtAttempt": "not received; no Task was constructed"
+}

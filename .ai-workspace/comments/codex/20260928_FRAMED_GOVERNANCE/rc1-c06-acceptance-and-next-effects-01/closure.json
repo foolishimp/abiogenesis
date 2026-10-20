@@ -1,0 +1,51 @@
+{
+  "operation": "T287_C06_ACCEPTANCE_AND_INSTALLED_EFFECTS_GRANTS_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T06:18:17.270076+00:00",
+  "outputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/acceptance.json",
+      "bytes": 2938,
+      "sha256": "a4ff680eca8db749c159c322d2d1061a53b4393940b62afad5645b79ab765618",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/generated-selection.json",
+      "bytes": 2705,
+      "sha256": "4c245e32a963ac65caf8ee063d952d35ec6c41df333579b2de77f75017e80f4a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/setup-request.txt",
+      "bytes": 3109,
+      "sha256": "89fa61a6a68937bedaf3a56d0104c4e8230d5445ba40f9348b40840d325ccd59",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/generated-request.txt",
+      "bytes": 1968,
+      "sha256": "04f1a3dbf52ad110e6207ba4acb02c0f72f75a5962a664a978f32a1e95d15ea6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 516902,
+      "sha256": "d19f747bbfc24043e9d3aca86d2454bbe017a449898e4320df55b592267bb9e4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 476380,
+      "sha256": "d4a0c4eb693e5e6af8fb1b204518854d915e82522a24128d5bbf25ceac665b5b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 9343,
+      "sha256": "cdaf871ee1ee888e5f8aa08423ffcdb2d50c0b490cd1db1292d4b2fcc005d8f0",
+      "mode": 420
+    }
+  ],
+  "candidateImplementationRuntimeGitNetworkEffects": 0
+}

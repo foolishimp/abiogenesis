@@ -1,0 +1,45 @@
+{
+  "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAtUTC": "2026-10-04T16:02:05.061721+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/controls/worker-grant.md",
+    "bytes": 7280,
+    "sha256": "2618ef696cb96ecc9f32ca81d5c11ee4b88591fd330e701a2b4b87e1eec145ab"
+  },
+  "ProductFrame": "Fixed ABG5 fifteen families / GOAL035 / T287 F02/F03/F05/F13",
+  "reentry": "realization_refactor of canonical closed tuples and complete native proof input",
+  "HOW": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+  "HOWSHA256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+  "basis": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "HOME": "/Users/jim",
+  "defaultHeap": true,
+  "budgetsSeconds": {
+    "preflight": 120,
+    "compile": 180,
+    "manifest": 120,
+    "pack": 120,
+    "extract": 120,
+    "focused": 240,
+    "terminationGrace": 5
+  },
+  "SourceTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs"
+  ],
+  "writeRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01"
+  ],
+  "immutableRootControlsExcluded": true,
+  "priorFailedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/freeze.json",
+    "bytes": 7654164,
+    "sha256": "077583b94db03bf417409df113e30289c582c063ff931e21103ada8fea89b8ff"
+  }
+}

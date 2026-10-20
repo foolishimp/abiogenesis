@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--check"
+  ],
+  "files": [
+    "prepare.mjs",
+    "verify-artifacts.mjs",
+    "packed-resources.mjs",
+    "binding-inputs.mjs",
+    "operation-resource.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183",
+  "started": "2026-10-09T07:22:11.275884+00:00",
+  "meaning": "Syntax only; no caller execution or event acquisition"
+}

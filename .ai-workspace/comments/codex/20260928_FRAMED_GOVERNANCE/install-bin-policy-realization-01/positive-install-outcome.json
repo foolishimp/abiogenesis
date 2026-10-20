@@ -1,0 +1,107 @@
+{
+  "outcome": {
+    "kind": "product_install_candidate",
+    "schemaVersion": "5.0.0",
+    "disposition": "materialized",
+    "installId": "product-install://@abiogenesis-fixtures/f11-carrier-child/5.0.0/3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c/6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544",
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/test-installs/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child",
+    "productId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+    "packageName": "@abiogenesis-fixtures/f11-carrier-child",
+    "packageVersion": "5.0.0",
+    "artifactDigest": "sha256:943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+    "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+    "manifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f",
+    "descriptorRef": "descriptor://abiogenesis-fixture/f11-carrier/fixture@5",
+    "publisherNamespace": "abiogenesis-fixture",
+    "contributionManifestRef": "contribution-manifest://abiogenesis-fixture/f11-carrier/fixture@5",
+    "contributionManifestDigest": "sha256:2d7f834e3665e00ae58b197bb99077bd3b2152461f8b3bcbf0727e3b819c5e5a",
+    "contributionManifest": {
+      "capabilityDefinitionGraph": {
+        "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0"
+      },
+      "contributionManifestRef": "contribution-manifest://abiogenesis-fixture/f11-carrier/fixture@5",
+      "descriptorRef": "descriptor://abiogenesis-fixture/f11-carrier/fixture@5",
+      "kind": "product_contribution_manifest",
+      "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+      "productId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+      "productVersion": "5.0.0",
+      "publicContractCatalogDigest": "sha256:27a6a6a9ecdd9ab41eee39fddca52e1c64ee6239ad4964e2d0b606633e9d08a9",
+      "publicContractCatalogId": "catalog://abiogenesis-fixture/f11-carrier/public-contracts@5",
+      "publicationBindings": [
+        {
+          "moduleRef": "module://abiogenesis-fixture/f11-carrier/fixture@5",
+          "publicationDigest": "sha256:5df530c02622f82d2a3d56e6c701c9d7ccbdee2a4000bbc90ba71a000a6bfa6a"
+        }
+      ],
+      "rows": [
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+          "handle": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+          "kind": "graph_function",
+          "moduleRef": "module://abiogenesis-fixture/f11-carrier/fixture@5",
+          "owningProductId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+          "programMembershipRefs": [
+            "program://abiogenesis-fixture/f11-carrier/parent@5"
+          ],
+          "provenanceRef": "provenance://abiogenesis-fixture/f11-carrier/fixture@5",
+          "readinessPrerequisiteRefs": [
+            "program://abiogenesis-fixture/f11-carrier/parent@5"
+          ]
+        }
+      ],
+      "schemaVersion": "5.0.0"
+    },
+    "compatibilityRefs": [
+      "compatibility://abiogenesis/major/5"
+    ],
+    "declaredDependencies": [
+      {
+        "compatibilityRef": "compatibility://abiogenesis/major/5",
+        "kind": "requires",
+        "packageVersion": "5.0.0-rc.1",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "requiredCapabilityRefs": [
+          "abg.capability.catalog.invoke-graph-function@5",
+          "abg.capability.gtl.declare@5"
+        ],
+        "requiredContractRefs": [
+          "abg.contract.gtl.root-declaration",
+          "abg.schema.public-operation-invocation",
+          "abg.schema.exact-candidate-qualification"
+        ]
+      }
+    ],
+    "provenanceRef": "provenance://abiogenesis-fixture/f11-carrier/fixture@5",
+    "declaredCapabilityRefs": [],
+    "catalogId": "catalog://abiogenesis-fixture/f11-carrier/public-contracts@5",
+    "catalogDigest": "sha256:27a6a6a9ecdd9ab41eee39fddca52e1c64ee6239ad4964e2d0b606633e9d08a9",
+    "capabilityDefinitionGraph": {
+      "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0",
+      "kind": "abg_capability_definition_graph",
+      "rows": [],
+      "schemaVersion": "5.0.0"
+    },
+    "capabilityDefinitionGraphAsset": {
+      "contentDigest": "sha256:f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "mediaType": "application/json",
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "schemaVersion": "5.0.0"
+    },
+    "publicContracts": [],
+    "publicContractRefs": [],
+    "publicCapabilityRefs": [],
+    "resolvedLockId": "product-lock://abiogenesis/6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544",
+    "resolvedLockDigest": "sha256:6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544"
+  },
+  "elapsedMs": 2925.4552079999976,
+  "hostileAmbientBinLinks": "true",
+  "sourcePolicy": "owned --bin-links=false",
+  "ABGAdmission": false
+}

@@ -1,0 +1,122 @@
+{
+  "ordinal": 239418,
+  "resultRef": "result://abiogenesis/9a4d32b80f813b07c9f70c22411a99cbde87139e732316d0f306cff21144848a",
+  "event": {
+    "offset": 1920762592,
+    "byteCount": 5401037,
+    "sha256": "b7d26054c4ac3e9fbbe0e48ebe72ab79347ee361da6ebbfcfa2ae109308463de"
+  },
+  "command": {
+    "exitStatus": 1,
+    "timedOut": false,
+    "processSignal": null,
+    "terminationConfirmed": true,
+    "reportCount": 8
+  },
+  "counts": {
+    "tests": 44,
+    "failed": 2,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 42
+  },
+  "failures": [
+    {
+      "name": "UAT-ENG-BND: a first-stage failure leaves no later stage and a last-stage failure keeps five successes",
+      "diagnostic": "sbt.ForkMain$ForkError: org.scalatest.exceptions.TestFailedException: CdmeEngineIntegrationSpec.this.strictFidelityRun.succeeded was true\n\tat org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:472)\n\tat org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:471)\n\tat org.scalatest.Assertions$.newAssertionFailedException(Assertions.scala:1231)\n\tat org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:1295)\n\tat com.cdme.engine.CdmeEngineIntegrationSpec.$anonfun$new$7(CdmeEngineIntegrationSpec.scala:146)\n\tat org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)\n\tat org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)\n\tat org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)\n\tat org.scalatest.Transformer.apply(Transformer.scala:22)\n\tat org.scalatest.Transformer.apply(Transformer.scala:20)\n\tat org.scalatest.funsuite.AnyFunSuiteLike$$anon$1.apply(AnyFunSuiteLike.scala:226)\n\tat org.scalatest.TestSuite.withFixture(TestSuite.scala:196)\n\tat org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)\n\tat org.scalatest.funsuite.AnyFunSuite.with"
+    },
+    {
+      "name": "UAT-ENG-INV: stage results follow the declared order, stop at the first failure and succeed only when all six succeed",
+      "diagnostic": "sbt.ForkMain$ForkError: org.scalatest.exceptions.TestFailedException: fidelityFailed.succeeded was true\n\tat org.scalatest.Assertions.newAssertionFailedException(Assertions.scala:472)\n\tat org.scalatest.Assertions.newAssertionFailedException$(Assertions.scala:471)\n\tat org.scalatest.Assertions$.newAssertionFailedException(Assertions.scala:1231)\n\tat org.scalatest.Assertions$AssertionsHelper.macroAssert(Assertions.scala:1295)\n\tat com.cdme.engine.CdmeEngineIntegrationSpec.$anonfun$new$10(CdmeEngineIntegrationSpec.scala:158)\n\tat org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)\n\tat org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)\n\tat org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)\n\tat org.scalatest.Transformer.apply(Transformer.scala:22)\n\tat org.scalatest.Transformer.apply(Transformer.scala:20)\n\tat org.scalatest.funsuite.AnyFunSuiteLike$$anon$1.apply(AnyFunSuiteLike.scala:226)\n\tat org.scalatest.TestSuite.withFixture(TestSuite.scala:196)\n\tat org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)\n\tat org.scalatest.funsuite.AnyFunSuite.withFixture(AnyFunSuite.scala:1564)\n\t"
+    }
+  ],
+  "reports": [
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-core",
+      "relativePath": "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+      "digest": "sha256:854dd7f2088dc1ca47a2dc771ee578d80a86634ccce6c32cbd81881ce35450bd",
+      "byteLength": 6409
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-compiler",
+      "relativePath": "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+      "digest": "sha256:57960c48414c81711f376f76e00d7dd9e2df6e6ec5e49be040cb5f06d8f6f17c",
+      "byteLength": 6192
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-executor",
+      "relativePath": "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+      "digest": "sha256:49261fbd73a090f4fb0806fa340071c28b619e10241811ba77c8caa66eb54f94",
+      "byteLength": 6179
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-adjoint",
+      "relativePath": "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+      "digest": "sha256:1e9c6005f952b18137854dc3e76018fc75487314a705214487fcd29105047f4e",
+      "byteLength": 6236
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-accounting",
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+      "digest": "sha256:700d565ebb1b8889a771a362a57044cfb51b1289509e466d2fecfe8745cc531d",
+      "byteLength": 6194
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-assurance",
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+      "digest": "sha256:8b495fb4b3a094ee6e88325b7205b352ba7f361493ff7ceccb274968827330f4",
+      "byteLength": 6171
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-fidelity",
+      "relativePath": "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+      "digest": "sha256:84b654af78cc3a59c4cf676a6319a01f2afa9b2bc08bb26e9842e2c403c35a23",
+      "byteLength": 6175
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-engine",
+      "relativePath": "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+      "digest": "sha256:5ec6c5d08e3ecdbbe4b391562751776a15a3c5ac99eb8d3269246878e36d83fa",
+      "byteLength": 14611
+    }
+  ],
+  "selectedInputSnapshot": [
+    {
+      "byteLength": 3257,
+      "digest": "sha256:7cacd34af5f3713fc4b385f5017f31c131f9278605584abf45f72307c8af4d45",
+      "kind": "worksite_snapshot_member",
+      "ordinal": 10,
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "schemaVersion": "5.0.0",
+      "sourceMemberRef": "native-work-execution-source://abiogenesis/9d86568dff9a6902407b14feaf57e04d508e47b428be8ae40c0ff6e5dab23421",
+      "sourceObservationDigest": "sha256:8726d4c2bfc5028f6468a84817911d3a19808c7ca63407d30fa654bdeba54f37",
+      "sourceObservationRef": "worksite-observation://abiogenesis/8726d4c2bfc5028f6468a84817911d3a19808c7ca63407d30fa654bdeba54f37"
+    },
+    {
+      "byteLength": 9581,
+      "digest": "sha256:3ebf7bd9eb1c3b553dafb6f9722de2c7d4904260acb19c630db90f68f8e4c192",
+      "kind": "worksite_snapshot_member",
+      "ordinal": 12,
+      "relativePath": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "schemaVersion": "5.0.0",
+      "sourceMemberRef": "native-work-execution-source://abiogenesis/d06c6deb775a12167db4721c281154f939645d8415adaf54ac843e3a850c69fa",
+      "sourceObservationDigest": "sha256:5245d21354fe1884c2e64e5eabb9d19badf2cb9711911772c4c75a6b3b575a09",
+      "sourceObservationRef": "worksite-observation://abiogenesis/5245d21354fe1884c2e64e5eabb9d19badf2cb9711911772c4c75a6b3b575a09"
+    }
+  ],
+  "streamSummary": {
+    "stdout": {
+      "byteLength": 26488,
+      "digest": "sha256:fb5268cadc5f68dc5ad14e7b0843a9ded0ed5dc613c4682d0107f107c08fd111",
+      "tail": "led 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 123 milliseconds.\n[info] Total number of tests run: 6\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 6, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 125 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 133 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 20 seconds, 138 milliseconds.\n[info] Total number of tests run: 5\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 5, failed 0, canceled 0, ignored 0, pending 0\n[info] All tests passed.\n[info] Run completed in 19 seconds, 797 milliseconds.\n[info] Total number of tests run: 8\n[info] Suites: completed 1, aborted 0\n[info] Tests: succeeded 6, failed 2, canceled 0, ignored 0, pending 0\n[info] *** 2 TESTS FAILED ***\n[error] Failed tests:\n[error] \tcom.cdme.engine.CdmeEngineIntegrationSpec\n[error] (cdme-engine / Test / test) sbt.TestsFailedException: Tests unsuccessful\n[error] Total time: 25 s, completed 10 Oct. 2026, 2:18:29 am\n"
+    },
+    "stderr": {
+      "byteLength": 26645,
+      "digest": "sha256:f6889cbc371336f16edaa94c04c64326fe29c5159262d86ed60fef25c9828e42",
+      "tail": "ore: MemoryStore started with capacity 434.4 MiB\n26/10/10 02:18:25 INFO SparkEnv: Registering OutputCommitCoordinator\n26/10/10 02:18:25 INFO Executor: Starting executor ID driver on host localhost\n26/10/10 02:18:25 INFO Executor: OS info Mac OS X, 26.7.1, aarch64\n26/10/10 02:18:25 INFO Executor: Java version 11.0.28\n26/10/10 02:18:25 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''\n26/10/10 02:18:25 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@3b27d055 for default.\n26/10/10 02:18:25 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 50456.\n26/10/10 02:18:25 INFO NettyBlockTransferService: Server created on 127.0.0.1:50456\n26/10/10 02:18:25 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy\n26/10/10 02:18:25 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 50456, None)\n26/10/10 02:18:25 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:50456 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 50456, None)\n26/10/10 02:18:25 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 50456, None)\n26/10/10 02:18:25 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 50456, None)\n"
+    }
+  },
+  "cause": "Intentional EngineRunResult.succeeded all-six-stage conjunction changed forall to exists at L56; actual own and boundary failures correspond.",
+  "productBoundedAction": "Native exact restoration of CdmeEngineImpl.scala to280197b60fa5ba8873aa4becdf599a326f579c90994557d9722baa5ac2e88adc/9581B, then genuine full-suite retest. Preserve tests/criteria; native RCA/selection pending, no operator app repair.",
+  "finalRestoredGreenPending": true
+}

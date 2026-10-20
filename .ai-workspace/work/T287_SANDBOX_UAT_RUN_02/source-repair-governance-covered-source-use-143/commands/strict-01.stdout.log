@@ -1,0 +1,17 @@
+code/src/abg/invocation_admission.ts(508,28): error TS2345: Argument of type 'JsonValue | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+code/src/abg/invocation_execution_truth.ts(27,10): error TS2305: Module '"./artifact_truth.js"' has no exported member 'projectAdmittedProductInstallByAdmissionEventRef'.
+code/src/abg/native_work_reacquisition.ts(150,54): error TS18047: 'source.sourceResult.payload' is possibly 'null'.
+code/src/abg/native_work_reacquisition.ts(150,82): error TS2339: Property 'resultRef' does not exist on type 'string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'resultRef' does not exist on type 'string'.
+code/src/abg/native_work_reacquisition.ts(150,114): error TS18047: 'source.sourceResult.payload' is possibly 'null'.
+code/src/abg/native_work_reacquisition.ts(150,142): error TS2339: Property 'resultDigest' does not exist on type 'string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'resultDigest' does not exist on type 'string'.
+code/src/abg/native_work_reacquisition.ts(160,9): error TS2322: Type 'readonly WorksiteDeclaredCommandInput[]' is not assignable to type 'readonly WorksiteDeclaredCommand[]'.
+  Type 'WorksiteDeclaredCommandInput' is missing the following properties from type 'WorksiteDeclaredCommand': kind, schemaVersion, ordinal
+code/src/abg/native_work_reacquisition.ts(160,37): error TS2322: Type 'readonly WorksiteOutcomePredicateInput[] | undefined' is not assignable to type 'readonly WorksiteOutcomePredicate[]'.
+  Type 'undefined' is not assignable to type 'readonly WorksiteOutcomePredicate[]'.
+code/src/abg/native_work_reacquisition.ts(160,76): error TS2322: Type 'readonly WorksiteCommandWriteTerritoryInput[]' is not assignable to type 'readonly WorksiteCommandWriteTerritory[]'.
+  Type 'WorksiteCommandWriteTerritoryInput' is missing the following properties from type 'WorksiteCommandWriteTerritory': kind, schemaVersion, ordinal, territoryRef, and 2 more.
+code/src/abg/native_work_reacquisition.ts(188,61): error TS2339: Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.

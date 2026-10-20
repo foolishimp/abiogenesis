@@ -1,0 +1,13 @@
+{
+  "operation": "T287_F11_FP_REPAIRED_SOURCE_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent nonauthor Source Reviewer",
+  "previousRole": "T287_EXEC06_FP_SOURCE_REVIEW_01 CLOSED",
+  "grant": "../source-request.txt",
+  "grantBytes": 4085,
+  "grantSHA256": "10ccc6c88f4defc6192f3b027b1302c800f57a5183d28d5fab139c189d17b04f",
+  "sourceFreezeSHA256": "f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1",
+  "writeTerritory": "rc1-fp-source-and-caller-assurance-controls-01/source-review only",
+  "sourceTestsBuildPackInstallRuntimeOwnerHelperProviderGitNetworkEffects": 0,
+  "returnRelation": "CLOSED bounded recommendation to Root; no Worker activation or qualification acceptance"
+}

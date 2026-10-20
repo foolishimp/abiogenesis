@@ -29,9 +29,11 @@ import {
   isProductContributionManifest,
   nativeDeclarationEvidenceForVerifiedArtifact,
   parseProductPublicContract,
+  retainedProductVerification,
 } from "./verify_product.js";
 import {
   linkNativeContractSet,
+  installedToolchainProductContentDigest,
   type NativeLinkProduct,
   type NativeContractLinkResult,
 } from "./declaration_exports.js";
@@ -403,6 +405,11 @@ export interface ResolvedProductEnvironment {
   readonly linked: Extract<NativeContractLinkResult, { readonly kind: "linked" }>;
 }
 
+const resolvedProductEnvironments = new WeakMap<object, Readonly<{
+  artifacts: readonly VerifiedProductArtifact[];
+  result: ResolvedProductEnvironment;
+}>>();
+
 /** Internal owner result: preserve the link already established for this lock.
  * It is not a new serialized lock or runtime admission. */
 export function resolveProductArtifacts(
@@ -413,6 +420,18 @@ export function resolveProductArtifacts(
       "empty_product_set",
       "a resolved lock requires at least one verified Product artifact",
     );
+  }
+  // Only this verifier's immutable results can reuse a link. Raw or copied
+  // carriers still enter the complete structural and compiler checks below.
+  const owned = artifacts.every((artifact) =>
+    retainedProductVerification(artifact) === artifact);
+  const retained = owned ? resolvedProductEnvironments.get(artifacts[0]!) : undefined;
+  if (retained !== undefined &&
+      retained.artifacts.length === artifacts.length &&
+      retained.artifacts.every((artifact, index) => artifact === artifacts[index]) &&
+      installedToolchainProductContentDigest() ===
+        artifacts.find((artifact) => artifact.productId === ABI5_PRODUCT_ID)?.productContentDigest) {
+    return retained.result;
   }
   if (
     artifacts.some(
@@ -499,7 +518,11 @@ export function resolveProductArtifacts(
     rows,
     dependencyEdges,
   });
-  return Object.freeze({ kind: "resolved_product_environment", lock, linked });
+  const result = deepFreeze({ kind: "resolved_product_environment" as const, lock, linked });
+  if (owned) resolvedProductEnvironments.set(artifacts[0]!, {
+    artifacts: Object.freeze([...artifacts]), result,
+  });
+  return result;
 }
 
 export function constructResolvedProductLock(

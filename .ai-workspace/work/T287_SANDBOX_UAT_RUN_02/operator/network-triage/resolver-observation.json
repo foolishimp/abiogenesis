@@ -1,0 +1,24 @@
+{
+  "observedAt": "2026-10-06T03:01:29.238Z",
+  "node": "v24.7.0",
+  "operation": "ordinary node:dns/promises.lookup; no proxy/custom resolver/API/model request",
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "observations": [
+    {
+      "hostname": "api.anthropic.com",
+      "disposition": "refused",
+      "code": "ENOTFOUND",
+      "syscall": "getaddrinfo",
+      "errorHostname": "api.anthropic.com",
+      "wallMs": 3.805125000000004
+    },
+    {
+      "hostname": "github.com",
+      "disposition": "refused",
+      "code": "ENOTFOUND",
+      "syscall": "getaddrinfo",
+      "errorHostname": "github.com",
+      "wallMs": 1.8673329999999986
+    }
+  ]
+}

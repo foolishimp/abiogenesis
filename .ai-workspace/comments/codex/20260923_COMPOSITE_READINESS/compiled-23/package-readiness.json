@@ -1,0 +1,31 @@
+{
+  "status": "CLOSED_CONSTRUCTION_ONLY_SOURCE_ACCEPTED",
+  "identity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:3c1a7cdb050f748ab5e8ef76da68b514d6a72572cb45b78c182f38bedc1226d2",
+    "archiveBytes": 10159070,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite23-install-lablm21j/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite23-install-lablm21j",
+    "archiveMembers": 5233
+  },
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite23-install-lablm21j/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:3c1a7cdb050f748ab5e8ef76da68b514d6a72572cb45b78c182f38bedc1226d2",
+      "productContentDigest": "sha256:c3a180d43e3916a4498df39d66f8e4ed1a174a46fa0264d8a4615fb14c2588fa",
+      "manifestDigest": "sha256:6e3770acefc878b8246994fc69535e31b9a1d409fc82da8bef6852c15744ee61",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubject": "d321ffba668c3733c3f003a2d26dfb6a5847790588a7c19fbad4011f5c02f003",
+  "sourceReturn": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/return.md",
+  "buildInputsPreserved": 259,
+  "generatedChanged": 2,
+  "memberCorrespondence": 5233,
+  "testsReused": "Root-selected accepted SB01 ancestry bridge; existing compile and four focused checks retained",
+  "nativeExecution": false
+}

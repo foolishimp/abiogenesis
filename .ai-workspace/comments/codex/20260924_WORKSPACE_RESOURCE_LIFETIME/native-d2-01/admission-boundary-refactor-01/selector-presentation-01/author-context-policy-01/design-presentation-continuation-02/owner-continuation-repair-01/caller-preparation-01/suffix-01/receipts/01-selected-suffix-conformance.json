@@ -1,0 +1,61 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.conformance.evaluate",
+      "memberKey": "gtl_program"
+    },
+    "invocationRef": "invocation://abiogenesis/188b2af5558900b4151f7dd630404ac0ac503a4bdbb6a1c1446277defa4a434f",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "program": {
+          "ref": "program://odd-glc/native-semantic-revision/from-design@5",
+          "digest": "sha256:32b358748277ea327c80243ce6bce2730a0155ef81af01d5bfcb477f21a41c5c"
+        },
+        "inventory": {
+          "ref": "gtl-inventory://abiogenesis/3d227f48a3f269a04d86cd4dfc2538a449e70b126d7f3d2caf62f3c1274a2d81",
+          "digest": "sha256:3d227f48a3f269a04d86cd4dfc2538a449e70b126d7f3d2caf62f3c1274a2d81"
+        },
+        "assessment": {
+          "ref": "evidence://abiogenesis/conformance/4a3075457a01309a71cd0c9bd55fc7ff7486a4424a01163095452f6fd7d9b9e3",
+          "digest": "sha256:4a3075457a01309a71cd0c9bd55fc7ff7486a4424a01163095452f6fd7d9b9e3"
+        },
+        "disposition": "passed",
+        "diagnostics": [],
+        "violatedAuthorities": [],
+        "evidence": [
+          {
+            "ref": "evidence://abiogenesis/conformance/4a3075457a01309a71cd0c9bd55fc7ff7486a4424a01163095452f6fd7d9b9e3",
+            "digest": "sha256:4a3075457a01309a71cd0c9bd55fc7ff7486a4424a01163095452f6fd7d9b9e3"
+          }
+        ],
+        "repairAffordances": []
+      }
+    },
+    "resources": {
+      "kind": "conformance_evaluation_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "invocation": {
+        "ref": "invocation://abiogenesis/188b2af5558900b4151f7dd630404ac0ac503a4bdbb6a1c1446277defa4a434f",
+        "digest": "sha256:188b2af5558900b4151f7dd630404ac0ac503a4bdbb6a1c1446277defa4a434f"
+      },
+      "request": {
+        "ref": "public-request://abiogenesis/odd-glc/generic-workflow/3102-gtl_program",
+        "digest": "sha256:5a79d9f3f1a64e0206452f2460456df1f7ffb7ce401c81b334b7648dd7ceba19"
+      },
+      "capabilityGrants": [
+        {
+          "ref": "capability-grant://abiogenesis/264a626003df69c221f94252c0bc20d1c8884f0f18ee818b022dacd399725c78",
+          "digest": "sha256:264a626003df69c221f94252c0bc20d1c8884f0f18ee818b022dacd399725c78"
+        }
+      ]
+    },
+    "failure": null
+  }
+}

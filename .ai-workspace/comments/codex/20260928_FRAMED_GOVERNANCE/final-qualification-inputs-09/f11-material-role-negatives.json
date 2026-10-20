@@ -1,0 +1,22 @@
+{
+  "status": "CLOSED",
+  "allRefused": true,
+  "count": 2,
+  "rows": [
+    {
+      "label": "one physical alias omitted",
+      "outcome": "refused",
+      "owner": "Q06 ordinary assertion constructor",
+      "predicate": "material_member_alias_bijection_incomplete",
+      "bodyMaterializationRepeated": false
+    },
+    {
+      "label": "physical path crossed into packaged role authority material",
+      "outcome": "refused",
+      "owner": "./validator.isQualificationAssessmentInput",
+      "identitiesReconstructed": true,
+      "bodyMaterializationRepeated": false
+    }
+  ],
+  "evidenceStatus": "Q06 exact two unchanged alias negatives retained; not rerun"
+}

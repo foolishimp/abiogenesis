@@ -1,0 +1,25 @@
+{
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_04",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Worker",
+  "previousRole": "CLOSED independent Reviewer T287_C03_AMBIENT_GENERATED_REVIEW_01",
+  "declaredAt": "2026-10-01T22:46:59.765408+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-and-native-scope-controls-01/q04-worker-request.txt",
+    "bytes": 4493,
+    "sha256": "bc5f065d7e82e04296ba258dad8c7a51f45d8951843ce196661980da06549dcd"
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04",
+  "operation": "new Q04 recipe/input bindings and ONE isolated existing six-case readiness command",
+  "readBeforeEffects": {
+    "allSevenGrantSections": true,
+    "receivedQ03NO_GO": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-and-native-scope-controls-01/received-q03-review.md",
+      "bytes": 668,
+      "sha256": "aa8129dd0d38c157d8dec2f4827c7f78149b9061fe23bc65bd4cd1003e3cd43b"
+    }
+  },
+  "runtimeQualificationAuthority": false,
+  "nativeOwnerOrProviderAuthority": false,
+  "stop": "first new meaningful failure returns to Root before patch/retry; close all processes and writes at one freeze"
+}

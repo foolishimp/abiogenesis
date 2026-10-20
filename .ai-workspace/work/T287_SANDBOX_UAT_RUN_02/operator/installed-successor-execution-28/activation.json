@@ -1,0 +1,92 @@
+{
+  "role": "Operator28",
+  "releasedBy": "Executive CLOSED Source27+Proof27 GO",
+  "productFrame": "fixed15 ABI5 GOAL035 T287 full original external DataMapper",
+  "methodDefinitionSha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+  "stdoManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frames": [
+    "end-to-end-interface-integration",
+    "worksite-causality"
+  ],
+  "selectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/return.md",
+      "sha256": "6dc2722f8df2790366b22a94ed490e6f40bd05c226ae69008d29dbfa84947294",
+      "byteCount": 3261
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/readiness.json",
+      "sha256": "76c5d9b93ba62660eaa4145e2b958aa238da5edbbf121924db995a549b719f95",
+      "byteCount": 7100
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/freeze.json",
+      "sha256": "6933467c7e08549f43654e3607deb9c5ba0fc0dfb6ceacbfa247c7c3545733aa",
+      "byteCount": 28076
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/setup.json",
+      "sha256": "f493a8df57898b78bbb11a57b0b554c1f0dc97268b5a43a0ea4fc8fbc728bcc1",
+      "byteCount": 2531
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/config.json",
+      "sha256": "0267728b4e92e7b5b8d414bf2aa377624561d9b4e4ffc48e271d3ba1c0bd9592",
+      "byteCount": 2968
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/material-observation.json",
+      "sha256": "c39eb529b3341a23bb2ed51bfc6055a4aeca7e9e10c9b88c8a5dcbda20549f98",
+      "byteCount": 6390
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/material-freeze.json",
+      "sha256": "6c1f973da0925fd0687f71b6323a8f7627598cdf2076e989ffdee7c84a3d266f",
+      "byteCount": 13709
+    }
+  ],
+  "package": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-14/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "e5731dcebb3b01b0179816b3319c170a9f63ae4d79acab7e8e9e32d514b3c4e6",
+    "byteCount": 10622015
+  },
+  "materialRows": 34,
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 1048576,
+    "basis": "Prior Operator18 actual setup/recording allowance; drainage extends no execution authority"
+  },
+  "nativeStart": {
+    "authority": "NEW archive commands/lifecycle-start.request.json.started immediately before CLI spawn",
+    "deadline": "Actual T0 + 18000000ms; Root externally monitors progress and may stop earlier",
+    "driverTimeoutMs": 18060000
+  },
+  "stop": {
+    "order": [
+      "resolve exact admitted C2 occurrence/task/attempt to launch.json/helper argv and matching live command/helper PID/PGID ancestry",
+      "stop owned active C2 helper/command first while CLI lives, preserving missing result artifact if actual",
+      "stop exact admitted owned provider group while CLI lives",
+      "retain real exit/Result/failure admission then driver drainage"
+    ],
+    "authority": "Root common five-hour deadline or explicit earlier decision; no private ABG events/watchdog/semantic planner"
+  },
+  "grantedEffects": "existing harness new installed sandbox/native actors/helper/worksite/archive only; no source/config/oldcut/app manual effects",
+  "commonExecutionMs": 18000000,
+  "noOldTruthCredit": true,
+  "observedAt": "2026-10-06T20:47:46.047Z"
+}

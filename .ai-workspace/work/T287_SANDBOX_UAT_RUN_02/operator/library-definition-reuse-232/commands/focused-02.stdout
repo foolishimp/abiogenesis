@@ -1,0 +1,28 @@
+✔ released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values (10.292875ms)
+✔ actual materializer handoff reuses fixed shape while occurrence/fan-out and foreign checks remain live (43.807417ms)
+✔ frozen accessors cannot turn changed raw declarations into reusable immutable facts (1.331292ms)
+✔ nearest static and materialization refusal: duplicate node identities with distinct C loci (2.145542ms)
+✔ nearest static and materialization refusal: terminal node with outgoing edge (1.634958ms)
+✔ nearest static and materialization refusal: two ordinary edges without registered selection (1.822791ms)
+✔ existing constructor and source-path guards retain their earlier refusal precedence (0.324167ms)
+✔ authored composition, substitution, recursion and fan-out retain full static and materialized owner results (309.595833ms)
+✔ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (6.332292ms)
+✔ fixed declaration owner results reuse facts and preserve cold/basis-qualified validation (147.079166ms)
+✔ compose sources retain exact published owners without callable rows in both closure modes (403.638084ms)
+✔ substitute source provenance resolves without widening its Program (260.797417ms)
+✔ unpublished or ambiguous static sources still refuse at their exact declaration owner (16.670667ms)
+✔ static sources remain dependency-bound and require an exact installed owner (92.634041ms)
+✔ static sources conserve required contracts and implementation bindings (33.948334ms)
+✔ runtime use of a private static source refuses before or after static discovery (41.380625ms)
+✔ existing named workflow, gate, recursion and fan-out owner rows remain required (439.797125ms)
+✔ registered selection retains strict named-child ownership and whole validation (25.088334ms)
+✔ borrowed implementation declarations retain dependency, uniqueness and installed-owner guards (194.57075ms)
+﹣ frozen81 unchanged ready basis resolves where its predecessor refused (0.154833ms) # requires the exact frozen81 input; portable source checks above remain active
+ℹ tests 20
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 1968.985

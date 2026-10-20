@@ -1,0 +1,19 @@
+{
+  "activation": "T287_C08_CONSTRUCTION_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T13:56:25.716866+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/review-request.txt",
+    "bytes": 4213,
+    "sha256": "8a0370bc3423e955d37f2cf7356c16e7dc7d4f5fee53f6bda58ea865332d8925"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-freeze.json",
+    "bytes": 384148,
+    "sha256": "5e9fd780078b081d83ae598a9e05ac84c58648b90e84324209305cbf8058f14b"
+  },
+  "scope": "immutable C08 construction; accepted source component premises reused; advancing type repair and installed qualification excluded",
+  "effects": "reads/hash/source/archive comparison; writes only this new review territory"
+}

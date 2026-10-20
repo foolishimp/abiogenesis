@@ -1,0 +1,205 @@
+{
+  "status": "PREPARED_FROZEN_NOT_LAUNCHED",
+  "at": "2026-10-08T22:46:34.063313+00:00",
+  "classification": "External outer environment repair and one actual same24/sameW canonical source derivation; native dispatch held",
+  "ownError": "My130 outer recorder omitted environment:process.env and cleared inherited HOME/PATH/auth. Each134 outer recorder now inherits process.env; inner declared workerEnvironment(config) is unchanged.",
+  "inputs": {
+    "closed130": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-130/execution-freeze.json",
+      "sha256": "39cc6154ba49ddc8de0a3af39109a684a1db410ab5a5c4b0152df6f8d2d84064",
+      "byteCount": 54331
+    },
+    "closed129": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-execution-129/execution-freeze.json",
+      "sha256": "8f1913ab5afd2782c31913caa5e1986417f72790b010018faf501f677b09539c",
+      "byteCount": 35426
+    },
+    "selectedCurrentRows": 84
+  },
+  "safeAuth": {
+    "classification": "Read-only authentication status through exact workerEnvironment/config.provider.command; no model or Run",
+    "started": "2026-10-08T22:43:05.150Z",
+    "wallMs": 90.87954199999999,
+    "command": "/Users/jim/.local/bin/claude",
+    "args": [
+      "auth",
+      "status"
+    ],
+    "exitCode": 0,
+    "signal": null,
+    "spawnError": null,
+    "safeAuth": {
+      "loggedIn": true,
+      "authMethod": "oauth_token",
+      "apiProvider": "firstParty"
+    },
+    "variablePresence": {
+      "HOME": true,
+      "PATH": true,
+      "TMPDIR": true,
+      "LANG": true,
+      "LC_ALL": true,
+      "ANTHROPIC_API_KEY": false,
+      "CLAUDE_CONFIG_DIR": false,
+      "CLAUDE_CODE_OAUTH_TOKEN": true
+    },
+    "environmentNames": [
+      "ABG_TS_CLAUDE_APPEND_ARGS",
+      "ABG_TS_CLAUDE_COMMAND",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      "ABG_TS_FP_TERMINATION_GRACE_MS",
+      "ABG_TS_FP_TIMEOUT_MS",
+      "ABG_TS_WORKER_SANDBOX",
+      "CLAUDE_CODE_OAUTH_TOKEN",
+      "HOME",
+      "JAVA_HOME",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "TMPDIR"
+    ],
+    "stderrByteCount": 0,
+    "parsedStatus": true,
+    "credentialValues": "Never serialized, printed or hashed; raw status output discarded"
+  },
+  "syntax": {
+    "command": "/opt/homebrew/bin/node --check <each phase script>",
+    "scriptNames": [
+      "prepare.mjs",
+      "launch.mjs",
+      "execute-continuation.mjs",
+      "execute-source-preparation.mjs",
+      "auth-status.mjs",
+      "preflight.mjs"
+    ],
+    "passed": 6,
+    "failed": 0,
+    "wallMs": 115.55808299453929,
+    "noOwnerAcquisitionOrRuntime": true
+  },
+  "sourceBasis": {
+    "kind": "invocation_source_result_basis",
+    "schemaVersion": "5.0.0",
+    "basisRef": "invocation-source-result://abiogenesis/31216013b284d1b6370701cd8287b534323ae0018dba83814be2927231d20f8e",
+    "basisDigest": "sha256:31216013b284d1b6370701cd8287b534323ae0018dba83814be2927231d20f8e",
+    "publicAuthorityDigest": "sha256:23e0ae9adbe77080f520f39893268aab9dbd5f16540cb4c6bc2368f1744cfc7a",
+    "sourceInvocationAdmissionRef": "invocation-admission://abiogenesis/410bbe4c1c84a7748aa53c0a04d84764bdb99ed25bb93698cfa795239a087d6e",
+    "sourceInvocationRef": "invocation://abiogenesis/4c4e2c681b230b611ba7d00d636052feb3d8dd77072488ec42c7a7e723c558f7",
+    "sourceRunId": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+    "sourceGraphCallId": "graph-call://abiogenesis/8c28a09787e3f60a6539aeb8457442f00abd000efbae3a5cf821ab19340d0d22",
+    "sourceGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+    "sourceCCallRef": "c-call:sha256:ad42e21cb0e221d2b266f519eb1357bc2d3c29db79aa5eb57a1f851cee43374e",
+    "sourceResultAdmissionEventRef": "event://abiogenesis/1da2bf23336da2c6bb2523ac3c0cf88da4ae3ae7325d0c31b6ce16ebd65d0c23",
+    "sourceResultJudgmentEventRef": "event://abiogenesis/c971f6887a6d8901387d2fc1f2b351aff6292ae6ff5d976d1af5842d7c4b7eec",
+    "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+    "sourceResultDigest": "sha256:b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+    "sourceResultValueDigest": "sha256:d0c6b56492ae4b379e438471e9053dd3845ac8cd0b9c4d8ab6988a24554ec3a8",
+    "sourceResultContractRef": "contract://abiogenesis/default-library/state@5",
+    "sourceReplayRef": "replay://abiogenesis/d4fbc18aefd4fee5b2616a284d61d08ba212312324004a36f59e10cbef1f7efe",
+    "sourceReplayDigest": "sha256:d4fbc18aefd4fee5b2616a284d61d08ba212312324004a36f59e10cbef1f7efe",
+    "sourceWorkspaceId": "workspace://abiogenesis/64061dcb03cca2104110cc02e9d886b06e36b5cd0aed0ab5df781117806c14b5",
+    "workspaceBindingId": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "workspaceBindingDigest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+  },
+  "preparedSetup": {
+    "classification": "Owner-constructed same24/sameW source-result candidate; no dispatch or new admission",
+    "fromArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+    "sourceRunRef": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+    "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+    "sourceBasisRef": "invocation-source-result://abiogenesis/31216013b284d1b6370701cd8287b534323ae0018dba83814be2927231d20f8e",
+    "sourceBasisDigest": "sha256:31216013b284d1b6370701cd8287b534323ae0018dba83814be2927231d20f8e",
+    "sourceResultValueDigest": "sha256:d0c6b56492ae4b379e438471e9053dd3845ac8cd0b9c4d8ab6988a24554ec3a8",
+    "sourceObservations": 30,
+    "sourceTerminal": false,
+    "prefix": {
+      "coordinateDigest": "sha256:a4e5f15892ab74d9983becf76951b27051031cbe8737e881092b8b1c61e6a439",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:9b3020ee1d86896e429f36bcc4eaf1423b7b108a43fc70c1dde3d0947e924213",
+      "prefixLength": 1402366875,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 468327400
+      }
+    },
+    "workspaceBinding": {
+      "digest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+      "ref": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+    },
+    "program": {
+      "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+      "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+    },
+    "view": {
+      "ref": "graph-function-catalog-view://abiogenesis/6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e",
+      "digest": "sha256:6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e"
+    },
+    "publicInvocationRef": "invocation://abiogenesis/e4a74d7a27f58a86e17476169de47749a2e551a928e85fab776cf9fdeb264a10",
+    "publicInvocationDigest": "sha256:e4a74d7a27f58a86e17476169de47749a2e551a928e85fab776cf9fdeb264a10",
+    "launch": {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/calls/continuation-start.request.jsonl"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/"
+    },
+    "limits": {
+      "nativeMs": 18060000,
+      "nativeBytes": 268435456,
+      "outerMs": 19260000,
+      "outerBytes": 536870912
+    },
+    "qualityWindow": "Actual continuation CLI command request.started +18000000; no old clock relabeling",
+    "originalCriteriaConserved": true,
+    "physicalCopy": false
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/calls/continuation-start.request.jsonl",
+    "sha256": "fe9dc893fd9ad8142b0d5cda1a2ee4604bf761d4d73672b08b29a2d41fa2f909",
+    "byteCount": 27109064
+  },
+  "conservation": {
+    "sourceValueDeepEqualsOriginal129ActualParent": true,
+    "preparedInputDeepEqualsCompleteSourceValue": true,
+    "originalDemandDeepEqual": true,
+    "observations": 30,
+    "terminal": false,
+    "sameProgramViewAllowlistContract": true,
+    "sameCatalogApplications": true,
+    "sameEnvironmentDependenciesAndActor": true,
+    "same48PhysicalFilesIncludingProtectedOriginal4": true,
+    "sameObservedAbsence": true,
+    "unchangedStoreStatIdentity": true,
+    "noEventAppend": true,
+    "noPhysicalCopyOrReset": true,
+    "original130And129CutsUnchanged": true,
+    "unchangedInnerLauncherSHA": "014fe5a2a167a2d1fb4c2a448b48785d55138014bb7f926c8d54f38abd641436"
+  },
+  "command": {
+    "started": "2026-10-08T22:43:38.234Z",
+    "wallMs": 132747.077792,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "memory": "Sampled RSS in preparation-process-samples.jsonl only; no retained-heap/peak/P0 closure claim.",
+  "quiescence": {
+    "ps": "  PID  PPID  PGID STAT COMM\n",
+    "selectedLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "selectedLockAbsent": true,
+    "operatorSignals": []
+  },
+  "limits": [
+    "Exactly one canonical full cold source acquisition at current130 prefix; no extra full hash/copy/replay",
+    "Original129 authority/sourceRun/Result selected; no state/producers fabricated or retagged",
+    "Original30obs/12detections/12restores/44green and four missing distinct INV/fullUAT preserved",
+    "No native/model/newRun/app/config/source/Git effects; credential values never printed/serialized/hashed",
+    "Actual native admission/provider work and full UAT/P0 remain held for Root independent review/release"
+  ]
+}

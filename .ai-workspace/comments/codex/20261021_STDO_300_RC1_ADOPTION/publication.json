@@ -1,0 +1,53 @@
+{
+  "id": 418547214,
+  "tag_name": "specification_methodology/v3.0.0-rc.1",
+  "name": "STDO v3.0.0 RC1 \u2014 standalone test candidate",
+  "html_url": "https://github.com/foolishimp/specification_methodology/releases/tag/specification_methodology/v3.0.0-rc.1",
+  "draft": false,
+  "prerelease": true,
+  "published_at": "2026-10-20T15:17:27Z",
+  "target_commitish": "0a04feb788c080183b58cf4a162e88372be1d87e",
+  "body": "# STDO v3.0.0 RC1 \u2014 standalone test candidate\n\nSTDO **v3.0.0-rc.1** is available here as a public standalone prerelease/test\ncandidate. Install the exact method and supplied `spec` plugin payload from\nthis repository:\n\n```sh\nstdo install v3.0.0-rc.1 --repository https://github.com/foolishimp/specification_methodology.git --manifest-sha256 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232\n```\n\nV3 installs alongside V2.5.1. Existing projects keep their pinned Product\nDefinitions and governing versions; this command adds an installed cut and\ndoes not adopt V3 for a project or activate a global plugin. Project adoption\nand review of V3 entry routes are separate actions.\n\n## Exact native cut\n\n| Coordinate | Identity |\n|---|---|\n| Immutable tag | `specification_methodology/v3.0.0-rc.1` |\n| Commit C | `0a04feb788c080183b58cf4a162e88372be1d87e` |\n| Annotated tag object T | `dde3e5f70d36f95369f88cc3b4130c6909678326` |\n| Native manifest SHA256 | `069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232` |\n\nThe native distribution has **81 payload files plus `manifest.json`**:\n62 standards, 17 plugin files, the root licence and the release note. The\nprivate pipeline and shared native installation were checked on these exact\nobjects and bytes; separately activated nonauthor assessment passed the\nbounded mechanical pipeline and ten selected refusal outcomes. These receipts\nsupport those installation, identity, route and refusal claims only.\n\nThe embedded release note describes the original private/local test and its\nqualification snapshot. This later public publication adds availability of\nthat **unchanged exact cut**. It does not re-tag RC1, create a GA version,\nchange the recorded qualification scope or turn the frozen source into an\naccepted method. Source checkpoint `35fb4824a064a84df5af214a0d0e2da597c18ac6` remains `not_ready` and\nunaccepted; open source-review/owner decisions and whole-method/actual-use\nqualification are not closed by this publication. The governing builder was\nthe installed STDO v2.5.1-rc.2.\n\n## Selected release assets\n\n- `stdo-v3.0.0-rc.1-manifest.json` is the exact reviewed native installed\n  manifest, SHA256 `069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232`, with its `.sha256` sidecar. Native installation reads\n  the tagged Git distribution; this JSON is verification metadata.\n- `a_c-stdo-v3-common-35fb4824-packaging-r1.tar.gz` is a **separate supplemental\n  representation artifact**, 10,089,542 bytes, SHA256\n  `989c0efbbba90c1d444c6a1c24def4174ef8519bec5f63d9bef021f27dd75e2b`,\n  supplied with its unchanged `.sha256` sidecar.\n\nThe a_c artifact represents source checkpoint `35fb4824a064a84df5af214a0d0e2da597c18ac6`, package tree\n`7f2070b61c848b42b4dfb3af1e0ce53869de1aa1` and canonical model SHA256 `691c4ab0d0993312a31e7e2371070ea4758fdf74b32862ff4d5a32d05af79fbf`. It is independently owned\noutput; it is neither a runtime dependency nor a member of the native RC1\nmethod/plugin distribution. No legacy 2.* matched-cohort upgrade is included.\n\nSource checkpoint 35fb and native C are distinct identities. Three\nnonsemantic packaging edits distinguish the native payload: two plugin\nversion fields change `3.0.0-dev.1` to `3.0.0-rc.1`, and the release note records\nthe truthful test scope. All 58 selected semantic inputs, all frames and the\nremaining payload bytes are unchanged. The separate representation is not\nrebased to native C, and this relation supplies no new semantic equivalence,\nwhole-calculus, interpretation-acceptance or actual-use qualification claim.\n\nInside the a_c archive, `RELEASE.json` retains `publication: not_performed`,\n`product_version: null`, unaccepted-source and `semantic_acceptance:\nnot_issued` preparation fields. These are frozen **preparation-snapshot\nfacts**, not a live global publication registry. Current public availability\nis recorded by this GitHub release and its publication receipt; it does not\nretroactively rewrite that snapshot or issue semantic acceptance. The\nartifact's existing qualification limits and reserved owner decisions remain\nintact.\n\nAfter downloading the selected assets together, verify their sidecars:\n\n```sh\nshasum -a 256 -c stdo-v3.0.0-rc.1-manifest.json.sha256\nshasum -a 256 -c a_c-stdo-v3-common-35fb4824-packaging-r1.tar.gz.sha256\n```\n\nThe additional `a_c-stdo-v3-common-35fb4824.tar.gz` archive and its checksum are the historical original preparation baseline. The `packaging-r1` archive is the current reviewed packaging recipe. Source and evidence: https://github.com/foolishimp/specification_methodology/blob/main/a_c/applications/stdo-v3-common-35fb4824/PUBLICATION.md .\n",
+  "assets": [
+    {
+      "name": "a_c-stdo-v3-common-35fb4824-packaging-r1.tar.gz",
+      "size": 10089542,
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.0-rc.1/a_c-stdo-v3-common-35fb4824-packaging-r1.tar.gz",
+      "digest": "sha256:989c0efbbba90c1d444c6a1c24def4174ef8519bec5f63d9bef021f27dd75e2b"
+    },
+    {
+      "name": "a_c-stdo-v3-common-35fb4824-packaging-r1.tar.gz.sha256",
+      "size": 114,
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.0-rc.1/a_c-stdo-v3-common-35fb4824-packaging-r1.tar.gz.sha256",
+      "digest": "sha256:39c3d997f3a75f38b9599cf970ba962df76a3d42ee0beb8825e7e4527a9bcb76"
+    },
+    {
+      "name": "a_c-stdo-v3-common-35fb4824.tar.gz",
+      "size": 10087425,
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.0-rc.1/a_c-stdo-v3-common-35fb4824.tar.gz",
+      "digest": "sha256:2b33530c20a17dd27033e8b34b1af497de7a4e0f3b8165a22d0821298516e386"
+    },
+    {
+      "name": "a_c-stdo-v3-common-35fb4824.tar.gz.sha256",
+      "size": 101,
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.0-rc.1/a_c-stdo-v3-common-35fb4824.tar.gz.sha256",
+      "digest": "sha256:404a13688fb014fdd83483f2bd33c8b8d35cb3347ff98dd682f37887d6cf0bb5"
+    },
+    {
+      "name": "stdo-v3.0.0-rc.1-manifest.json",
+      "size": 13478,
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.0-rc.1/stdo-v3.0.0-rc.1-manifest.json",
+      "digest": "sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+    },
+    {
+      "name": "stdo-v3.0.0-rc.1-manifest.json.sha256",
+      "size": 97,
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.0-rc.1/stdo-v3.0.0-rc.1-manifest.json.sha256",
+      "digest": "sha256:22d6b0ecafb0ca1789df87b477d0c0c31d46d2114df83a18de273fcd0acaf849"
+    }
+  ],
+  "remote_refs": {
+    "refs/tags/specification_methodology/v3.0.0-rc.1": "dde3e5f70d36f95369f88cc3b4130c6909678326",
+    "refs/tags/specification_methodology/v3.0.0-rc.1^{}": "0a04feb788c080183b58cf4a162e88372be1d87e"
+  }
+}

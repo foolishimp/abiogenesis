@@ -1,0 +1,7 @@
+{
+  "kind": "isolated_strict_runtime_dependency_compile",
+  "cut": 34,
+  "exitCode": 0,
+  "elapsedMs": 6764.082667,
+  "scope": "264-source frozen overlay; no normal generation or installed readiness"
+}

@@ -1,0 +1,10 @@
+{
+  "path": "/private/tmp/abi5-root-env-hWOknd/runtime/events.jsonl",
+  "sha256": "8e743d9b860e17ccab2a17c26929aa6c2a029437f9884a9f23ad185a9feb0e48",
+  "byteCount": 3094916,
+  "device": 16777231,
+  "inode": 467697285,
+  "mtime": "2026-10-08T07:44:25.836Z",
+  "identityStableAcrossStreamingPin": true,
+  "limitation": "Physical failed-setup resource only; no normal close handoff, Run, supported terminal or nominal prefix is claimed. Owned lock/disposable resource close not observed; no recovery or cleanup issued."
+}

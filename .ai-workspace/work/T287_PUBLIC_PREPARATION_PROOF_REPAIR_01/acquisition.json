@@ -1,0 +1,17 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_PROOF_REPAIR_01",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661096,
+    "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+  },
+  "consumerPackageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "regularFiles": 5283,
+  "logicalBytes": 70754027,
+  "outsideDependencySymlinks": 0,
+  "fullStageCopies": 0,
+  "packageBuilds": 0,
+  "elapsedMs": 575.0937910015637,
+  "maxRSSPlatformBytes": 69025792,
+  "reusedCompilePackEvidence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_PUBLIC_PREPARATION_BRIDGE_01/freeze.json"
+}

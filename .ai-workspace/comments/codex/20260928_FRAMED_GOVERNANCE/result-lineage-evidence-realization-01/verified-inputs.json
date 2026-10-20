@@ -1,0 +1,48 @@
+{
+  "checks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt",
+      "bytes": 5080,
+      "sha256": "50ac2c08ec4f50f974706c207f6a19e87f5b002a71901dfd8389a6b03f1ac8b7",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/acceptance.json",
+      "bytes": 2681,
+      "sha256": "c0b0fa6836c41e3ba2917bce7815167a6290a9470b39e4f2f51354965e265b70",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/closure.json",
+      "bytes": 1349,
+      "sha256": "d90e4bb12e7df7a984b4c3e4ef938f7746a791cadd86740e2d0499161e090a12",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/worker/freeze.json",
+      "bytes": 1562,
+      "sha256": "3d79272e6ca3f9a666d8121d80f6bcd226de6b22bc189eb02adf60a972baa843",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/review/freeze.json",
+      "bytes": 1240,
+      "sha256": "26bb83c04a3318de72c94e30cf41cbe5535f15dd3bd09d41d7c12c4544d7a526",
+      "mode": "0644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/input-acceptance.json",
+      "bytes": 12693,
+      "sha256": "5ed6404c7bb1292573b627501ce952e690f63008108b10cb1b861e41f09f7fe8",
+      "mode": "0644"
+    }
+  ],
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 67237,
+    "sha256": "e5c6fda5b10689d0df9f4c8c4c20a6ca6c557a9d861563fd5528adf88050047d",
+    "mode": "0644"
+  },
+  "newTestAbsent": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+  "territoryAbsentBeforeActivation": true
+}

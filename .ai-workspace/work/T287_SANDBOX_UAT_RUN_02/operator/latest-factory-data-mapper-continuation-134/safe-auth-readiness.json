@@ -1,0 +1,46 @@
+{
+  "classification": "Read-only authentication status through exact workerEnvironment/config.provider.command; no model or Run",
+  "started": "2026-10-08T22:43:05.150Z",
+  "wallMs": 90.87954199999999,
+  "command": "/Users/jim/.local/bin/claude",
+  "args": [
+    "auth",
+    "status"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "spawnError": null,
+  "safeAuth": {
+    "loggedIn": true,
+    "authMethod": "oauth_token",
+    "apiProvider": "firstParty"
+  },
+  "variablePresence": {
+    "HOME": true,
+    "PATH": true,
+    "TMPDIR": true,
+    "LANG": true,
+    "LC_ALL": true,
+    "ANTHROPIC_API_KEY": false,
+    "CLAUDE_CONFIG_DIR": false,
+    "CLAUDE_CODE_OAUTH_TOKEN": true
+  },
+  "environmentNames": [
+    "ABG_TS_CLAUDE_APPEND_ARGS",
+    "ABG_TS_CLAUDE_COMMAND",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+    "ABG_TS_FP_TERMINATION_GRACE_MS",
+    "ABG_TS_FP_TIMEOUT_MS",
+    "ABG_TS_WORKER_SANDBOX",
+    "CLAUDE_CODE_OAUTH_TOKEN",
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "stderrByteCount": 0,
+  "parsedStatus": true,
+  "credentialValues": "Never serialized, printed or hashed; raw status output discarded"
+}

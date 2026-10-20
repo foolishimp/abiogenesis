@@ -1,0 +1,18 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_C08_CONSTRUCTION_CONDITIONAL_GRANT_WRITER_01",
+  "startedAt": "2026-10-02T12:45:46.181005+00:00",
+  "grant": "Prepare conditional successor physical construction only; source acceptance/cut still pending.",
+  "exactWriteTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/activation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/sections.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/request.txt",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/literal-verification.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/closure.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/freeze.json"
+  ],
+  "returnsTo": "Executive",
+  "sourceRuntimeGitEffects": 0
+}

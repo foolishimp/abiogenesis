@@ -1,0 +1,23 @@
+{
+  "kind": "pure_definition_calculation_receipt",
+  "attempt": "02",
+  "correction": "Record every equality before the unchanged conjunction; no owner/source/input change.",
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculate-definition-identity-02.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage",
+  "exitCode": 1,
+  "elapsedMs": 278.239125,
+  "runtimeOwnerOrResourceCalled": false,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculation-02.stdout",
+    "sha256": "32769d7fb43b2961e5708dd15a9e49e9b3869272bc54e0090b9ef3246ba05ec7",
+    "bytes": 1248
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculation-02.stderr",
+    "sha256": "154b9a46dad936d8c11cdc52fa50fd4a0407c0dcaf678525e9ab8b550eba569f",
+    "bytes": 562
+  }
+}

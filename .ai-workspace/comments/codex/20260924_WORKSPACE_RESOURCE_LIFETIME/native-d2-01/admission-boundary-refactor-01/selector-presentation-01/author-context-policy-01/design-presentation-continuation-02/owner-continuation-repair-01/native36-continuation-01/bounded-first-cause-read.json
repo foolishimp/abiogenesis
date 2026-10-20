@@ -1,0 +1,151 @@
+{
+  "kind": "bounded_retained_journal_forensic_observation",
+  "publicProjection": false,
+  "runtimeAuthority": false,
+  "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+  "range": {
+    "start": 328198170,
+    "end": 329857339,
+    "bytes": 1659169
+  },
+  "before": {
+    "device": 16777230,
+    "inode": 459405010,
+    "length": 329857339,
+    "mtimeNs": 1790367388203466421
+  },
+  "after": {
+    "device": 16777230,
+    "inode": 459405010,
+    "length": 329857339,
+    "mtimeNs": 1790367388203466421
+  },
+  "pathAfter": {
+    "device": 16777230,
+    "inode": 459405010,
+    "length": 329857339,
+    "mtimeNs": 1790367388203466421
+  },
+  "run": "run://abiogenesis/101fa95e926a92f7dc0fc05c9b890179bd88cfff17003254b5de02b5cf863153",
+  "sourceClose": {
+    "coordinateDigest": "sha256:70d2a920a11d747e484d79880f024f95a11291d9196e290b71735ab0de0395d0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:4f33e428c4da36dec71e914bd91c95b41b210d2e6ddb5a98d45c7196ad9f7edf",
+    "prefixLength": 329857339,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "sameRunKinds": {
+    "run_segment_opened": 1,
+    "graph_call_opened": 2,
+    "frame_opened": 2,
+    "runtime_activity_probe_observed": 32,
+    "traversal_cursor_entered": 2,
+    "c_call_opened": 3,
+    "c_call_fibre_selected": 3,
+    "c_call_evidenced": 3,
+    "c_call_result_admitted": 2,
+    "c_call_judged": 3,
+    "traversal_route_admitted": 3,
+    "terminal_reached": 1,
+    "frame_closed": 1,
+    "graph_call_closed": 1,
+    "child_foldback_admitted": 1,
+    "child_preparation_refused": 1,
+    "run_stopped": 1
+  },
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/first-cause-suffix/72880-c_call_evidenced.jsonl",
+      "sha256": "0701fa0aa0f28ab3e500666f2bcd13759665825eacfbb6329897a4425ee081a7",
+      "byteCount": 2013,
+      "byteStart": 329425041,
+      "byteEnd": 329427054,
+      "eventId": "event://abiogenesis/f0d6644b3947a4553ebe93539be50229184f1da7377ae8a7ffde1f242868e610",
+      "admissionOrdinal": 72880,
+      "kind": "c_call_evidenced",
+      "aggregateId": "c-call:sha256:24b22a16bd454c89bcf0776fdf5ca4555e5ca8bf991c963b2da4d794cb673b13",
+      "causationEventRefs": [
+        "event://abiogenesis/26f57fc39b4a5e1dd6ca7be510c9efb265fdcfc7e239f0f93d8b8bf006b968fd"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/first-cause-suffix/72897-c_call_evidenced.jsonl",
+      "sha256": "501e3adae3967d2f6e01ee42c793944a980abc47f50914013e2b0c26e1451e0d",
+      "byteCount": 3501,
+      "byteStart": 329770584,
+      "byteEnd": 329774085,
+      "eventId": "event://abiogenesis/054e86beeeb3a0a688f7969f25b3c6d4d81441d5b534f669befdf2e817984fb2",
+      "admissionOrdinal": 72897,
+      "kind": "c_call_evidenced",
+      "aggregateId": "c-call:sha256:816c6c4b6361efdb47e9916c223e704bdad6ebe695bb7ec3689afa8f5827ca68",
+      "causationEventRefs": [
+        "event://abiogenesis/d7759895e0243bc26cd2ed894760100a988c6151c4d5e7c5a49f2a3a66f65f1c",
+        "event://abiogenesis/265d794c1c9a1bf4ace788c886979de385f3516637e676984954440473bde488"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/first-cause-suffix/72914-child_preparation_refused.jsonl",
+      "sha256": "e275af903141119a2c8601ae83d50a21f55d5f04fd76405b4e3a892a2cbb34b7",
+      "byteCount": 2075,
+      "byteStart": 329829143,
+      "byteEnd": 329831218,
+      "eventId": "event://abiogenesis/9b8b429c9e7825d3693cd0b8abf89bb57e14685d953b687d7abe6bf9a00651e7",
+      "admissionOrdinal": 72914,
+      "kind": "child_preparation_refused",
+      "aggregateId": "c-call:sha256:7c414bc54385d4a92fab19d3f30d72b5505a8323ee427f69d454b03144336fe0",
+      "causationEventRefs": [
+        "event://abiogenesis/96c27c67bb79b84822e2269118230ccbbe3c9d20c1ebe7e409b72e97a7370405"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/first-cause-suffix/72915-c_call_evidenced.jsonl",
+      "sha256": "1d58c04e6b21b3f5a6e4d8f5f3eb3edfe72cb8d93d575b1d1babd1c48bbd364d",
+      "byteCount": 2035,
+      "byteStart": 329831218,
+      "byteEnd": 329833253,
+      "eventId": "event://abiogenesis/ffe41996f0154db5be481ba0c82506020b5b19b41656edef50834b9723188204",
+      "admissionOrdinal": 72915,
+      "kind": "c_call_evidenced",
+      "aggregateId": "c-call:sha256:7c414bc54385d4a92fab19d3f30d72b5505a8323ee427f69d454b03144336fe0",
+      "causationEventRefs": [
+        "event://abiogenesis/9b8b429c9e7825d3693cd0b8abf89bb57e14685d953b687d7abe6bf9a00651e7"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/first-cause-suffix/72917-c_call_result_admitted.jsonl",
+      "sha256": "7a19a898891e197355f803664627ebe84d29c54bb624d42906a34f3c5b67209b",
+      "byteCount": 2245,
+      "byteStart": 329837031,
+      "byteEnd": 329839276,
+      "eventId": "event://abiogenesis/b7c7a353552725558ea87d9a8f46de50d3e9629f817908980d428cfbabc2ae90",
+      "admissionOrdinal": 72917,
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:7c414bc54385d4a92fab19d3f30d72b5505a8323ee427f69d454b03144336fe0",
+      "causationEventRefs": [
+        "event://abiogenesis/ffe41996f0154db5be481ba0c82506020b5b19b41656edef50834b9723188204"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/first-cause-suffix/72919-c_call_judged.jsonl",
+      "sha256": "8920577536b4dd63c6062aa273606f8737c12669fd74f8bf795b2a9a75376f5a",
+      "byteCount": 2190,
+      "byteStart": 329843060,
+      "byteEnd": 329845250,
+      "eventId": "event://abiogenesis/fbfae96949d8d05fa215495f82531088e981b51e66c293d460f08f06ca2fd2a0",
+      "admissionOrdinal": 72919,
+      "kind": "c_call_judged",
+      "aggregateId": "c-call:sha256:7c414bc54385d4a92fab19d3f30d72b5505a8323ee427f69d454b03144336fe0",
+      "causationEventRefs": [
+        "event://abiogenesis/b7c7a353552725558ea87d9a8f46de50d3e9629f817908980d428cfbabc2ae90"
+      ]
+    }
+  ],
+  "readParseExtractElapsedSeconds": 0.0026161251589655876,
+  "method": "One positional read of selected new suffix only; no whole-history read/hash/replay, no resource acquisition."
+}

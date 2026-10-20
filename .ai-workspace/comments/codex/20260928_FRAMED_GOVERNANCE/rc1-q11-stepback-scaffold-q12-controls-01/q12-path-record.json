@@ -1,0 +1,50 @@
+{
+  "path": {
+    "id": "F11-C09-current-source-delta-to-prepared-owner-input",
+    "outcome": "Prepare one authentic current reference-owner input/request against preserved C09 and Setup09; no runtime or semantic qualification credit.",
+    "owning_design_ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md#41-external-source-delta-constraint",
+    "triage_ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/triage.json",
+    "selected_source_cut": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-cut.json",
+      "bytes": 26506590,
+      "sha256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+      "mode": 420
+    }
+  },
+  "typed_handoffs": [
+    {
+      "producer": "Pinned selected C09 source-cut replacements/additions and current member manifest",
+      "transform": "Flat current delta; retain exact immutable source-row/preimage/postimage/author joins",
+      "contract_ref": "HOW4.1: unique complete equality to the selected current delta; labels preserved as descriptive provenance",
+      "consumer": "current-resources -> prepare-resources sourceChanges assertion"
+    },
+    {
+      "producer": "Validated source delta, complete current inventory/scope and qualified model context",
+      "transform": "Derive/rebind task,plan,resource,assertion and current request",
+      "contract_ref": "Existing published embedded/reference assessment contracts and renderer",
+      "consumer": "Current installed preparation owner; no Task/Run admission"
+    }
+  ],
+  "computations": [
+    {
+      "owner_or_GraphFunction_ref": "External preparation helpers and published pure readiness owners",
+      "regime": "F_D",
+      "input_output_contract_ref": "Complete Task18commands/19predicates; actual assessment guard/reference preparation/render contracts. Commands not executed."
+    }
+  ],
+  "invariants": [
+    "C09/Setup09 and original Source/archives/stores unchanged; full current membership and original174records/23chains/90spans preserved.",
+    "Current expected9 = cut7replacements+2additions, not a universal count; inherited callback excluded. No label rewrite, guessed whitelist, nonempty weakening or authorship transfer.",
+    "Base64<500000000, defaultheap/HOME, full resource/assertion/canonical/request/prompt limits measured; forecast is not owner evidence."
+  ],
+  "effect_grant": {
+    "operation": "T287_FINAL_QUALIFICATION_INPUTS_12",
+    "read": "Frozen Q11/C09/Setup09 and owning constraints",
+    "write": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12",
+    "first_failure": "Freeze actual first frontier/cost; return Root for fresh triangulation, no patch/retry."
+  },
+  "end_to_end_proof": {
+    "preflight": "Exact selected current delta correspondence plus missing/extra/duplicate/wrong-cut/postimage-or-author counterexamples before body materialization/rendering.",
+    "exit": "One bounded supervised complete Task and full resource/current reference-owner preparation/request/render pass; actual measured volumes, original meaning, cost and close evidence. Independent assurance and Root input acceptance precede Runtime09."
+  }
+}

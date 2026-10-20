@@ -1,0 +1,23 @@
+{
+  "operation": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED",
+  "closedAt": "2026-10-02T12:49:08.191931+00:00",
+  "disposition": "SOURCE_REPAIR_COMPILED_READINESS_FIXTURE_STOPPED",
+  "firstFailurePreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/first-readiness-failure.json",
+    "bytes": 4806,
+    "sha256": "379c514dfc768cbd7f7b9d855fd151994ec307264d0f29e5bb45a092cfdffa1a",
+    "mode": 420
+  },
+  "autonomousRepairOrRetry": false,
+  "returnTo": "Root Executive",
+  "furtherEffects": "STOPPED",
+  "residuals": [
+    "Root selection for final deterministic fixture-envelope omission and targeted readiness continuation",
+    "Independent source assurance",
+    "C08 construction/install/input acceptance and genuine whole carrier",
+    "F11/QUAL056/full scenarios/green AF22/release remain open"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "mode": "regression",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs"
+  ],
+  "pid": 83589,
+  "processGroup": 83589,
+  "startedAt": "2026-10-04T03:32:23.565631+00:00",
+  "closedAt": "2026-10-04T03:32:31.628912+00:00",
+  "elapsedMs": 8063.296083826572,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 1064861696,
+  "userSeconds": 8.102471,
+  "systemSeconds": 0.640745,
+  "knownCLIProcessGroups": [],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

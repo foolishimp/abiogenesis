@@ -1,0 +1,17 @@
+(node:99726) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ first preparation exception remains retrievable through the unchanged typed refusal and cold JSON (1.120167ms)
+✔ current event profile keeps its descriptor and accepts retained or historical opaque diagnostics (45.361375ms)
+✔ other pre-dispatch catches keep exact stage and native stack; arbitrary getters stay unread (0.541458ms)
+✔ undispatched refusal retains entered, routed and resumed cursor ownership at raw and cold boundaries (58.331708ms)
+✔ source diagnostic/profile/store imports initialize together with their actual cyclic links (37.838583ms)
+✔ existing run_evidence exposes digest-bound undispatched diagnostics and refuses cold substitution (11.786458ms)
+✔ CCall refusal completion keeps full authority across sparse multi-Run scope and cold raw admission (58.982041ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 675.245792

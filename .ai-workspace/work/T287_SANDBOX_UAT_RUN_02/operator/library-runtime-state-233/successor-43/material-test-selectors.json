@@ -1,0 +1,66 @@
+{
+  "historical": {
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:243287b91d5943d55808cd56c106e7b2bf4cfac5c00df056d8e2103aecc55b3e",
+    "materialFiles": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+        "sha256": "59b47832d5d7dbfcf51458bb0012357170a1b1ab10b6381b37480e51b85febbb",
+        "bytes": 3189430
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/worksite_command_execution.js",
+        "sha256": "6afd1478dcfb3582943a8b347ce2cd134f975997e223061db1135ce0ba5cf682",
+        "bytes": 25001
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/contracts/worksite/command-execution-context.inventory.json",
+        "sha256": "b768f223bee6d203c7d5762f87b1bfca6a4f1facda12c9592b5bdb445d1f36c4",
+        "bytes": 255
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+        "sha256": "0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa",
+        "bytes": 109703
+      }
+    ]
+  },
+  "current": {
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:68103d428bc3278a360a46b0efe28f8050f920db000b748bdb3ccf3caae7425b",
+    "materialFiles": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+        "sha256": "5c4aba8e7bb432979b75cad7783029df4835acd06526be6a829681a7fdc8bae4",
+        "bytes": 3189430
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/worksite_command_execution.js",
+        "sha256": "baabc471651f583599a0f6616967c43ef262dbdb3fc389f445a10f723d60d1ac",
+        "bytes": 25001
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/contracts/worksite/command-execution-context.inventory.json",
+        "sha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7",
+        "bytes": 255
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+        "sha256": "5bdc29e4ccad5c2d33d4ce309e9eab2d70a70c7843bf289b75a087f027f82322",
+        "bytes": 109611
+      }
+    ]
+  },
+  "kind": "source43_actual_c2_material_test_selectors",
+  "scope": "Existing actual09/14 immutable installed material and published constructors. ProductInstall admission availability is a controlled lower premise in local tests; these selectors are not admission or currentness authority.",
+  "historicalSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/prepared-definition-call.json",
+    "sha256": "c0780f125b90f0f0236662419acddb9b45c8ba5ca0e7b1e6d8e6e0b5bc96eff0",
+    "bytes": 28981736
+  },
+  "currentInstallOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/calls/product-install-0.outcome.json",
+    "sha256": "c5f92cb682bef231a033a701f474fcac82650603bd78a78803d713023fccd272",
+    "bytes": 6238
+  }
+}

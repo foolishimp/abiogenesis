@@ -1,0 +1,67 @@
+{
+  "status": "partial_material_inputs_valid_full_provenance_not_ready",
+  "materialSchemaPasses": 26,
+  "sourceSchemaPasses": 1950,
+  "exactMaterialBytes": 805908,
+  "originalAttributionSpansVerified": 6,
+  "consumedInputRechecks": 2005,
+  "recordSet": {
+    "ref": "construction-record-set://abiogenesis/eb52efae108c9e671c87cc307725bf4ef84dd321f9613468f248e39df96878a8",
+    "digest": "sha256:eb52efae108c9e671c87cc307725bf4ef84dd321f9613468f248e39df96878a8"
+  },
+  "schemaResults": [
+    {
+      "activation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "schemaReady": false,
+      "issues": [
+        {
+          "path": "chains.0.actorIdentityRef",
+          "message": "Invalid type: Expected string but received null"
+        },
+        {
+          "path": "chains.0.authorityRef",
+          "message": "Invalid type: Expected string but received null"
+        }
+      ],
+      "interpretation": "Expected missing-input refusal. Unknown concrete identity and authority remain null; no unavailable marker or invented identity was supplied."
+    },
+    {
+      "activation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "schemaReady": false,
+      "issues": [
+        {
+          "path": "chains.0.actorIdentityRef",
+          "message": "Invalid type: Expected string but received null"
+        },
+        {
+          "path": "chains.0.authorityRef",
+          "message": "Invalid type: Expected string but received null"
+        }
+      ],
+      "interpretation": "Expected missing-input refusal. Unknown concrete identity and authority remain null; no unavailable marker or invented identity was supplied."
+    }
+  ],
+  "ownerFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_contracts.js",
+      "bytes": 31164,
+      "digest": "sha256:e65d0cb476fd22ba4c0bf66cad9f3de52717e28c324a88d323461aade1b31daa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/digests.js",
+      "bytes": 838,
+      "digest": "sha256:bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a"
+    }
+  ],
+  "currentOwnerProjectionClaim": "Not evaluated with a fabricated judgment. Original header/closure correspondence failures are source-bound separately.",
+  "effects": {
+    "candidateSource": 0,
+    "native": 0,
+    "provider": 0,
+    "qualification": 0,
+    "gitMutation": 0
+  },
+  "readyChains": 0,
+  "readyAssessmentTasks": 0,
+  "actualJudgments": 0
+}

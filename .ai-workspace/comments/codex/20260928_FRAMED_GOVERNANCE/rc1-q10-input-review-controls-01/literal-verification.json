@@ -1,0 +1,16 @@
+{
+  "sections": 7,
+  "literalJoinVerified": true,
+  "tool": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-input-review-controls-01/request.txt",
+    "bytes": 3697,
+    "sha256": "64ef840f7faba2e0c8d176520d4a9cd62c395a62ebb5c296a63b1a7c3eb553aa",
+    "mode": 420
+  }
+}

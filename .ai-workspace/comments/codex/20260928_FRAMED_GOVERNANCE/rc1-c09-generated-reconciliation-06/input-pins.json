@@ -1,0 +1,58 @@
+{
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/worker-request.txt",
+    "exists": true,
+    "bytes": 4215,
+    "sha256": "2e1f43d289f7740527e6f5367567d2dddb7f87e4232ca2492dd62d97bb67ddbe",
+    "mode": 420
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/triage.md",
+    "exists": true,
+    "bytes": 1537,
+    "sha256": "fe207943c1418e9c67dde38c53d1aff6a74b0c66a715b3667fe801e0b6bf5858",
+    "mode": 420
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/subject-pins.json",
+    "exists": true,
+    "bytes": 9182,
+    "sha256": "db610673b9a60a0c1def14e9ea63aa10a60e9c9c9401026f8c384fd09110ee6b",
+    "mode": 420
+  },
+  "C09ConstructionAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+    "exists": true,
+    "bytes": 7019,
+    "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+    "mode": 420
+  },
+  "generatedRoster": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-generated-after.json",
+    "exists": true,
+    "bytes": 233268,
+    "sha256": "cdd38904f1cff3a15d1460a65c470d370d74e947e80798fd60ccbc32cb08fde9",
+    "mode": 420
+  },
+  "actualC09Delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-generated-delta.json",
+    "exists": true,
+    "bytes": 2789,
+    "sha256": "05ef6b1c6e107f9298054ddfbf8a3bb7f418a196b10a4b5fc4a0a00711359b54",
+    "mode": 420
+  },
+  "priorPhysicalRoleCensus": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-04/full926-after.json",
+    "exists": true,
+    "bytes": 633472,
+    "sha256": "8f88e1d5aa8368a01887d06528f25004c7cb8fafb054a34507614b533a1acce8",
+    "mode": 420
+  },
+  "Runtime11Closed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/final-runtime-freeze.json",
+    "exists": true,
+    "bytes": 34795,
+    "sha256": "5cca2bde5aa7379dc29b7f4022170cfdf7c6aa7c63711a366f4012e9f289d846",
+    "mode": 420
+  }
+}

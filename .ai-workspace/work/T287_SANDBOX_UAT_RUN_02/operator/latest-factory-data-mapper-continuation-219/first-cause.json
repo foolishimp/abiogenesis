@@ -1,0 +1,62 @@
+{
+  "observedAt": "2026-10-09T15:55:23.115684+00:00",
+  "disposition": "STOP/HOLD for Root RCA and Product-bounded action; no retry or recovery",
+  "origin": "actual native CLI process73363",
+  "commandResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/commands/lifecycle-continuation-219b.result.json",
+    "sha256": "610c4359d79dcbf3a5c8603d9af84801a0d193f14a074d1fbdab8fce93c8ef4c",
+    "byteCount": 7443
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/commands/lifecycle-continuation-219b.stderr",
+    "sha256": "7213f1f12c3e7c2611f0b2374184ec22b973b3a1f8e4f36dd9955236dc9d5b30",
+    "byteCount": 6155
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/commands/lifecycle-continuation-219b.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteCount": 0
+  },
+  "signal": "SIGABRT",
+  "exitCode": null,
+  "wallMs": 3750781.686375,
+  "timedOut": false,
+  "truncated": false,
+  "diagnostic": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "nativeStart": "2026-10-09T14:48:21.044Z",
+  "qualityCheckpointUTC": "2026-10-09T19:48:21.044Z",
+  "highestSampledNativeRSSKiB": 4512400,
+  "sampleIsPeak": false,
+  "lastAdmittedParent": {
+    "ordinal": 271556,
+    "resultRef": "result://abiogenesis/a8746cb4c4fbbe7e6021dccd54f99bfad76bad50b4314ccbfb58f87da3db767c",
+    "offset": 2139646267,
+    "byteCount": 2416757,
+    "sha256": "a568af501cdf11d8bc2f530e6becd1d9ed47a0eec6ade58b2ee677a32b736814",
+    "observations": 41,
+    "terminal": false
+  },
+  "lastJudgment": {
+    "ordinal": 271559,
+    "judgment": "advance",
+    "eventRef": "event://abiogenesis/2e7871bbf6d8519f6a5b41bdd2eccd563a9f6ba5c37650d06759618024b1a9df"
+  },
+  "lastCompleteOrdinal": 271563,
+  "lastEnteredOwnerStageNotProven": true,
+  "dominantRetainerAndAllocationSiteUnproved": true,
+  "normalCloseProduced": false,
+  "freshPublicReadbacksProduced": false,
+  "fullOriginalOracleVerdictProduced": false,
+  "retainedMeasuredProgress": {
+    "distinctMutantDetections": 16,
+    "exactRestores": 16,
+    "laterRestoredSuite": {
+      "tests": 44,
+      "pass": 44,
+      "fail": 0,
+      "error": 0,
+      "skipped": 0
+    },
+    "fullUAT": "OPEN"
+  }
+}

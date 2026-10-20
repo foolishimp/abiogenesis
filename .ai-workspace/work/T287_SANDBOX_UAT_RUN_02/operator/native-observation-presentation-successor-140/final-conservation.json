@@ -1,0 +1,43 @@
+{
+  "closed": "2026-10-09T00:39:29.127289+00:00",
+  "sourceCount": 263,
+  "allSourceBytesUnchangedAcrossBuildPackAndInstall": true,
+  "accepted138FourPostimagesPreserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "8130de13afa2340b7b0b17c1e7b2a2176861aef300627d235be100b0a270acc8",
+      "byteCount": 53773
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "34038f0ea6c2741503194d48c6488a41402810105a1326ca8ad2f430f264003b",
+      "byteCount": 33826
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "3b6a8975da2c315258659aa9f113d156a8711a9e4b7a5ea83e617ccaf86f0270",
+      "byteCount": 32405
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "d4fee2081aba5eaaae2f77921aa4c94bcc65ec55c70be036d121bf4c546fdf1d",
+      "byteCount": 153219
+    }
+  ],
+  "allProtectedPinsPreserved": true,
+  "packageAndLockPreserved": true,
+  "candidate24ArchiveIdentityAndFreezePreserved": true,
+  "generatedCount": 934,
+  "allGeneratedPostimagesPreservedAcrossPackAndInstall": true,
+  "sourceLedger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/source-preimages.json",
+    "sha256": "df34aecf794c5d9d38c1ed75d79c33d40a4b7a117f2f30fd77225f66d29db1fe",
+    "byteCount": 78250
+  },
+  "generatedLedger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/generated-delta.json",
+    "sha256": "b3f7dd184b4487616e9f8a16c6be64300782353addd6510dd538702642a6f18a",
+    "byteCount": 312343
+  },
+  "oldRuntimeAndWorksiteEffects": "No acquisition, replay, hash, write, install or application effect in old129/136/24. Prior frozen136 stop proof remains read-only; this publication adds no current source-applicability credit."
+}

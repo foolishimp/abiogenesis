@@ -1,0 +1,67 @@
+{
+  "status": "CLOSED",
+  "knownC10Groups": [
+    {
+      "pid": 23224,
+      "ownedProcessGroup": 23224,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23259,
+      "ownedProcessGroup": 23259,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23262,
+      "ownedProcessGroup": 23262,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23293,
+      "ownedProcessGroup": 23293,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23295,
+      "ownedProcessGroup": 23295,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23465,
+      "ownedProcessGroup": 23465,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23513,
+      "ownedProcessGroup": 23513,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23555,
+      "ownedProcessGroup": 23555,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23618,
+      "ownedProcessGroup": 23618,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    },
+    {
+      "pid": 23695,
+      "ownedProcessGroup": 23695,
+      "afterOwnedWait": "absent",
+      "supplementReadState": "absent"
+    }
+  ],
+  "newPayloadProcessGroups": 0,
+  "importsNodeNpmBuildTestPackInstallRuntimeNetworkGit": 0
+}

@@ -1,0 +1,9 @@
+{
+  "operation": "read-only selected failure body lookup",
+  "beforeOwnerEntry": true,
+  "selectedPath": "execution-b/audit/final-close-handoff.json",
+  "actualLength": 8285789,
+  "expectedFailureCloseLength": 9132141,
+  "error": "AssertionError:8285789 !== 9132141",
+  "action": "Use existing audit/calls/lifecycle-start.close.json actual normal close, preserving helper final-close as preparation evidence; no native retry"
+}

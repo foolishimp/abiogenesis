@@ -1,0 +1,12 @@
+{
+  "command": [
+    "git",
+    "push",
+    "origin",
+    "main"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 50.41336354194209,
+  "stdout": "",
+  "stderr": "To https://github.com/foolishimp/abiogenesis.git\n   da5f78b6..79d9dfcf  main -> main\n"
+}

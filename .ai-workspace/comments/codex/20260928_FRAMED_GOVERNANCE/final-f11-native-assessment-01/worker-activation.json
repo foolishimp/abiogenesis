@@ -1,0 +1,16 @@
+{
+  "role": "Worker",
+  "activation": "T287_F11_NATIVE_CALLER_PREP_01",
+  "actor": "/root/f11_validation_path_plan",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-controls-01/request.txt",
+    "bytes": 6946,
+    "sha256": "65861539ac2c4a1e76b8f83a097cc893e2a67cb0d816cb364670b901a4edcc22"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01",
+  "governingMethod": "stdo://releases/v2.5.1-rc.2/",
+  "candidateLaw": "stdo://releases/v2.5.1-rc.1/",
+  "reentry": "realization_refactor",
+  "effects": "External offline caller construction only; no native/provider/network/moving-resource operations",
+  "resultAuthority": "Worker readiness only; Root owns follow-on native activation and acceptance"
+}

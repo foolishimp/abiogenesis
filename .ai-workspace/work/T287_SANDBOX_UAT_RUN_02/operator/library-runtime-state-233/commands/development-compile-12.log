@@ -1,0 +1,16 @@
+source/code/src/abg/fan_out_projection.ts(1451,76): error TS2552: Cannot find name 'request'. Did you mean 'Request'?
+source/code/src/abg/project_read_ports.ts(296,39): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/project_read_ports.ts(318,80): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/project_read_ports.ts(444,31): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/project_read_ports.ts(769,47): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/project_read_ports.ts(1294,31): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/project_read_ports.ts(1299,56): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/project_read_ports.ts(1351,63): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/replay.ts(2101,47): error TS2304: Cannot find name 'deriveRuntimeEventCalculusProjection'.

@@ -1,0 +1,74 @@
+[
+  {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+      "bytes": 40314,
+      "sha256": "572c226b91a8d7c1bc4911f26427306ec0aa00a081b08fb92a0e737ddc195354"
+    },
+    "emitted": {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/declaration_closure.js",
+      "bytes": 34935,
+      "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63"
+    },
+    "readOnlyPriorInstalled": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/declaration_closure.js",
+      "bytes": 34935,
+      "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63"
+    },
+    "emittedEqualsPriorInstalled": true
+  },
+  {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts",
+      "bytes": 11788,
+      "sha256": "0369dafbfd7f21f366394d560095429303892d85fb033df77f6b2a2e0834cfee"
+    },
+    "emitted": {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/catalog_operations.js",
+      "bytes": 8842,
+      "sha256": "93ad4404f1ef8d6dd63dfba103d9449acde1dfb81128fcd42b9afcef1dbcc576"
+    },
+    "readOnlyPriorInstalled": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/catalog_operations.js",
+      "bytes": 8842,
+      "sha256": "93ad4404f1ef8d6dd63dfba103d9449acde1dfb81128fcd42b9afcef1dbcc576"
+    },
+    "emittedEqualsPriorInstalled": true
+  },
+  {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "bytes": 46996,
+      "sha256": "73d296ac7dbcab675c5a1f9a1399459356d81f9cd34772a0d037a6daf0a1e920"
+    },
+    "emitted": {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js",
+      "bytes": 38571,
+      "sha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82"
+    },
+    "readOnlyPriorInstalled": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/execution_resolution.js",
+      "bytes": 38571,
+      "sha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82"
+    },
+    "emittedEqualsPriorInstalled": true
+  },
+  {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "bytes": 80415,
+      "sha256": "f74055b27496707775f6a0e7f15e2331ae385364ba43ce703fc15cd2ff8a65e0"
+    },
+    "emitted": {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/validator/validation.js",
+      "bytes": 80988,
+      "sha256": "7db37dee9e7402c8562c53b549858b4795b3dcc1c84087721fd224daecdc4f5d"
+    },
+    "readOnlyPriorInstalled": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/validation.js",
+      "bytes": 80988,
+      "sha256": "7db37dee9e7402c8562c53b549858b4795b3dcc1c84087721fd224daecdc4f5d"
+    },
+    "emittedEqualsPriorInstalled": true
+  }
+]

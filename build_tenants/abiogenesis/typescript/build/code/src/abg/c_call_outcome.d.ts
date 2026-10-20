@@ -173,30 +173,9 @@ export type CCallOutcomeProjectionBasis = Readonly<{
     completion: RejectedCCallCompletion;
     diagnosticRef: string;
 }>;
-/**
- * Rehydrates a judged or blocked outcome from its exact durable successor.
- * The owner authenticates the exact durable prefix and any prior derivation;
- * absent or untrusted derivations take the same complete reconstruction path.
- */
-export declare function projectCCallOutcomeReceiptAtPrefix(successorPrefix: DurablePrefixCoordinate, basis: CCallOutcomeProjectionBasis, priorDerivation?: ReplayState): JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt | null;
-/**
- * Admits owner evidence and one result at the caller-selected predecessor.
- * HoG must separately propose the judgment from the returned exact receipt.
- */
-export declare function admitCCallResult(input: AdmitCCallResultInput): ResultCCallOutcomeReceipt | RetryCCallOutcomeReceipt | BlockedCCallOutcomeReceipt;
-/**
- * Admits only the judgment candidate already derived by HoG from the exact
- * admitted result receipt and declared relation.
- */
+export declare function admitCCallResult(input: Readonly<AdmitCCallResultInput>): ResultCCallOutcomeReceipt | RetryCCallOutcomeReceipt | BlockedCCallOutcomeReceipt;
 export declare function admitCCallJudgment(input: Readonly<AdmitCCallJudgmentInput>): AdmitCCallJudgmentResult;
-/**
- * Admits one already-produced owner admission rejection at an exact durable
- * predecessor and returns only its rehydrated durable outcome.
- */
 export declare function admitCCallRejection(input: Readonly<AdmitCCallRejectionInput>): BlockedCCallOutcomeReceipt;
-/**
- * Admits only the runtime transition selected after HoG/GTL derives a target.
- * ABG validates and admits that target; it never derives traversal topology.
- */
-export declare function admitCCallCompletion(input: AdmitCCallCompletionInput): CCallCompletionResult;
+export declare function admitCCallCompletion(input: Readonly<AdmitCCallCompletionInput>): CCallCompletionResult;
+export declare function projectCCallOutcomeReceiptAtPrefix(successorPrefix: DurablePrefixCoordinate, basis: CCallOutcomeProjectionBasis, priorDerivation?: ReplayState): JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt | null;
 export {};

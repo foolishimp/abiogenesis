@@ -1,0 +1,15 @@
+{
+  "command": "/opt/homebrew/bin/node --check <each phase script>",
+  "scriptNames": [
+    "prepare.mjs",
+    "launch.mjs",
+    "execute-continuation.mjs",
+    "execute-source-preparation.mjs",
+    "auth-status.mjs",
+    "preflight.mjs"
+  ],
+  "passed": 6,
+  "failed": 0,
+  "wallMs": 115.55808299453929,
+  "noOwnerAcquisitionOrRuntime": true
+}

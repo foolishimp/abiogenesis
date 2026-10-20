@@ -1,0 +1,65 @@
+{
+  "kind": "fixture17_readiness",
+  "status": "BOUNDED_SYNTAX_READY_STOP",
+  "frame": "f-end-to-end-interface-integration; typed transport identity and affected Proof",
+  "basis": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2 unchanged",
+  "subject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/responder.mjs",
+      "sha256": "953b3ffe07d71b23dba5f69d8f1dbb316944ac656c9d040e4daf80ca1e22c67f",
+      "byteCount": 11540,
+      "mode": 493
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/workload.mjs",
+      "sha256": "4af014a78b695171918ba613e60d240244c60f4833067bcafd513e30cdee7e9b",
+      "byteCount": 492,
+      "mode": 420
+    }
+  ],
+  "syntax": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/syntax-checks.json",
+    "sha256": "8bc2a7293eff88c43f16a1a622488421db2b02a3349ec5dae4c14767f8171469",
+    "byteCount": 1131,
+    "mode": 420
+  },
+  "preservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/postimages.json",
+    "sha256": "39d6b4506d7759463e82a545455c533d31a58d950ac839b2d9d3935048742402",
+    "byteCount": 1710,
+    "mode": 420
+  },
+  "selectedCause": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16-transport-triage/freeze.json",
+      "sha256": "47b5ed71ae8109144fa5111be130f2bd25fa1d66fb405b1e17d36fef23aea19d",
+      "byteCount": 16215,
+      "mode": 420
+    },
+    "firstFalse": "observation.disposition===success",
+    "actualDisposition": "failure",
+    "origin": "frozen09 responder has no C2 acknowledgment schema arm; actual TypeError at102"
+  },
+  "nextAffectedProof": [
+    "actual native ownerPrompt/response schema and exact canonical semantic Bash input",
+    "one real helper spawn and complete supported tool-use observation",
+    "actual helper artifact/stdout acknowledgment accepted by existing C2 completion/observation owner",
+    "actual C2 nonzero measurement, authorized unchanged native repair, same-checker successful measurement and fresh readback"
+  ],
+  "performedEffects": [
+    "new fixture/documentary files",
+    "two node --check syntax processes only"
+  ],
+  "notPerformed": [
+    "responder/helper import or invocation",
+    "model/native CLI/C2/worksite command",
+    "resource/admission/log/lock/original DataMapper acquisition",
+    "canonical Source/HOW/helper/Product/package/Git effects"
+  ],
+  "unearned": [
+    "installed semantic/runtime success",
+    "C2 red-repair-green",
+    "fresh replay/restart",
+    "capacity/UAT/release"
+  ]
+}

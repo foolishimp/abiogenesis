@@ -1,0 +1,16 @@
+{
+  "preOwnerErrors": [
+    {
+      "operation": "closing physical correspondence",
+      "selected": "execution/audit/final-close-handoff.json",
+      "error": "AssertionError: helper preparation close31431260 was compared with actual post-native32758262",
+      "correction": "execution/audit/calls/lifecycle-start.close.json, equal first-cause.normalClose"
+    },
+    {
+      "operation": "read prior diagnostic script",
+      "selected": "continuation-15-diagnostic/diagnose.mjs",
+      "error": "ENOENT; actual retained script is diagnostic.mjs"
+    }
+  ],
+  "scope": "Documentary lookup only; no acquisition or owner/effect retry"
+}

@@ -1,0 +1,20 @@
+Activation and Product Frame
+Worker T287_NATIVE_DECLARATION_APPLICABILITY_HOW_01, design proposal only. Begin from current fixed15/GOAL035/T287/STDO2.5.1RC2, Product F01/F05/F13/F11 and source-independent composition. Pure fixture guard supplier is not runtime authority. Define bounded design_reframe of existing NativeDefinition/NCC-F02; no WHAT or Public-family changes.
+
+Selected frames and exact subject
+repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration, composed Product, NativeDefinition, Design, Identity, Lifecycle, Effects, Proof, Cost. C03 freeze a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a; CLOSED Runtime03 freeze4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef. Read Root received-native-scope-review.md and triage.md in this control directory. Exact failed first flat metadata path but all198 metadata and5258 full supplier bodies valid, zero native proposals/sources/closures/contracts.
+
+Authority and source routes
+Read README, GOALS/INTENT/PRODUCT F01/F05/F13/F11, REQ-P-INSTALL/CATALOG/PUBLIC-CONTRACTS/POLICY049-050 and local AGENTS. Ratified T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md, M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md, M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md and reference-frame basis. Existing declaration_exports.ts packageDeclarationBasis/linkNativeContractSet, verify_product.ts native/no-native branches, actual NativeLinkProduct/evidence and existing resolve owner. Existing native closure source tests and retained singleton discriminator. Resolve exact installed RC2 and pinned a_c; maps route only.
+
+Exact operation grant and territory
+Write only new /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-how-01/ proposal, exact source/authority preimages and pins, bounded proof/affectedness plan, actor activation/closure, freeze and return. No mutable ratified design, code/tests, source manifest, candidate/build/pack/install, actual resolver/owners/runtime/event/Git/network/provider/sibling effects. Pure filesystem/in-memory inspection only. Declare Worker activation before effect in own report; freeze one subject and stop.
+
+Required coherent HOW
+Specify the complete existing-owner relation for no-native verified evidence. Empty applicability must be defined from actual producer evidence and advertised rows; contradictory nonempty/malformed/source/closure/contracts cannot silently become empty. Preserve exact metadata integrity, contained unique paths, actual root package identity, digest checks and all native participant semantics. Do not add a resolver/cache/registry, discard metadata, relax guards, privately import dependencies or support arbitrary nested Node versions. Distinguish body validity from selection of declaration target. Explain how source host/direct binding for real native Products remains unchanged.
+
+Evidence and bounded reproof plan
+Return proposed exact HOW text, smallest production/test territory and owned seams; complete cone and old evidence affectedness. Specify meaningful tests: zero-native complete nested supplier composition, substituted metadata/contradictory evidence refusal, genuine external dependency and unsupported selected declaration refusal, native singleton conservation. Installed first discriminator must show actual Public verify/resolve non-null lock then F11 child path on a new candidate. No local tests or invented lock count as execution. Reuse accepted carrier source/Q04/S03 evidence within original scope; no Hello rerun or broad hardening.
+
+Stops and CLOSED return
+Any new WHAT/requirement/Public shape/general package resolver or additional production owner returns exact seam before effects. Return Product Frame, proposed HOW raw hash, source/authority pins, findings/uncertainty, bounded costs, exact source/test grant suggestion and freeze. No implementation authority yet; Root conjoins and separately activates independent assurance. CLOSED after one proposal.

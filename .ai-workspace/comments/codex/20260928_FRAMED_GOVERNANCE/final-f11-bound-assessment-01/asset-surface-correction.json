@@ -1,0 +1,14 @@
+{
+  "classification": "realization_refactor",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01",
+  "rootCause": "Worker external AssetSurface guessed a shape-valid raw-assessment@5 coordinate instead of using the actual published QUALIFICATION_IDS.assessmentRaw. Prior schema/correspondence checks did not resolve that semantic publication reference.",
+  "cone": "AssetSurface -> task -> plan -> assessment input -> complete installed-owner render",
+  "original": "preimages/render-03/",
+  "correction": "Use exact frozen installed QUALIFICATION_IDS output refs, exact retained catalog publication contracts, actual exported constructor and frozen TS source, published role-policy renderer, and immutable rule catalog governedClaim/sourceRef proof and standard endpoints.",
+  "verification": "05-binding passed all affected actual owner joins and complete render; 03-binding provisional outputs retained.",
+  "otherFailure": "04-binding failed before loading owner/input because its external command path was relative to the wrong harness cwd. 05-binding used the documented territory cwd and basename.",
+  "sourceMutation": false,
+  "runtimeMutation": false,
+  "nativeCalls": 0,
+  "providerCalls": 0
+}

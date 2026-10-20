@@ -9,19 +9,20 @@ import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, rend
 import { authenticateSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent } from "./semantic_job.js";
 import { isSemanticJobEnvelope, semanticJobWorkerResultSchema, semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, semanticJobSourceText, projectSemanticJobActorMaterial, projectSemanticJobPromptContext, projectSemanticJobBindings, semanticJobMissingBindingRequirementRefs } from "../product/semantic_job.js";
 import { isSemanticRevisionEnvelope, isSemanticJobRevisionEnvelope, isSemanticRevisionSelection, semanticRevisionSelectionSchema } from "../product/semantic_revision.js";
-import { semanticRevisionInputMatchesBasis, projectRevisionSelectionSubject, projectRevisionHistoricalContext, semanticJobRevisionInputMatchesBasis, projectJobRevisionSubject } from "./semantic_revision.js";
+import { semanticRevisionInputMatchesBasis, projectOwnedRevisionSelectionSubject, projectRevisionHistoricalContext, semanticJobRevisionInputMatchesBasis, projectOwnedJobRevisionSubject } from "./semantic_revision.js";
 import { canonicalJson } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
+import { indexedRuntimeEvents } from "./event_prefix.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope } from "../product/semantic_stage.js";
 import { isWorksiteCommandExecutionObservation, isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { authenticateSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis } from "./semantic_stage.js";
-import { projectRunEnvironmentRoleEvidence } from "./stdo_environment.js";
-import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { nativeContextLeafFamily, registeredSelectionNativeRole, framedSynthesisAtLocus, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
 import { registeredSelectionTargets } from "../gtl/registered_selection.js";
 import { isNativeRegisteredSelectionTask, nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice } from "../product/registered_selection_native.js";
@@ -66,7 +67,7 @@ export function worksiteCommandExecutionAttemptRef(occurrence) {
  * prompt overrides. This projection performs no helper or filesystem effect. */
 export function constructWorksiteNativeInstructionAssembly(basis, supplied) {
     try {
-        const owner = authenticateNativeInstructionAssemblyBasis(basis);
+        const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
         if (owner === null || owner.call.regime !== "F_P" ||
             sha256Canonical(supplied) !== owner.inputDigest ||
             sha256Canonical(owner.inputValue) !== sha256Canonical(supplied))
@@ -78,7 +79,7 @@ export function constructWorksiteNativeInstructionAssembly(basis, supplied) {
                 return null;
             const assessment = supplied.assessment;
             const selectedRole = assessment === undefined ? "constructor" : "assessor";
-            const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, selectedRole);
+            const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, selectedRole);
             if (stdo === false || (assessment !== undefined && stdo === null) ||
                 stdo !== null && !stdo.contextPolicy.selectors.includes("current_worksite"))
                 return null;
@@ -118,7 +119,7 @@ export function constructWorksiteNativeInstructionAssembly(basis, supplied) {
         const role = nativeContextLeafFamily(basis.graphFunction, leaves[0]);
         if (role !== "constructor" && role !== "command_executor")
             return null;
-        const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, role);
+        const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, role);
         if (stdo === null || stdo === false)
             return null;
         const requiredSelectors = role === "constructor" ? ["full_source", "declared_predecessor_semantics", "active_binding_semantics", "current_worksite"]
@@ -198,7 +199,7 @@ export function evaluateRegisteredSelectionInstructionAssembly(basis, supplied, 
             return refusal("unsupported_selection");
         if (selected === false)
             return refusal("unknown_dependency", [basis.executionBasis.programRef]);
-        const owner = authenticateNativeInstructionAssemblyBasis(basis);
+        const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
         if (owner === null || owner.call.regime !== "F_P" || sha256Canonical(supplied) !== owner.inputDigest)
             return refusal("stale_basis");
         if (!isNativeRegisteredSelectionTask(supplied))
@@ -206,7 +207,7 @@ export function evaluateRegisteredSelectionInstructionAssembly(basis, supplied, 
         const domain = registeredSelectionTargets(owner.graph.template, basis.cursor, owner.call.outputContractRef);
         if (domain === null || domain.targets.length === 0 || supplied.childInput.contractRef !== domain.application.outputContractRef)
             return refusal("unsupported_selection");
-        const role = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, "selector");
+        const role = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, "selector");
         if (role === null || role === false)
             return refusal("unknown_dependency", [owner.execution.programRef]);
         if (!["full_source", "active_binding_semantics"].every(s => role.contextPolicy.selectors.includes(s)) ||
@@ -281,10 +282,10 @@ function synthesisContext(basis, input, contractByRef) {
     const profile = framedSynthesisAtLocus(basis.graphFunction, basis.cCall.programLocusRef);
     if (!selected || !profile || !isFramedSynthesisTask(input))
         return null;
-    const owner = authenticateNativeInstructionAssemblyBasis(basis);
+    const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
     if (owner === null || !sameSynthesis(owner.inputValue, input))
         return null;
-    const role = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, "selector");
+    const role = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, "selector");
     if (!role || !["full_source", "active_binding_semantics"].every(s => role.contextPolicy.selectors.includes(s)) ||
         role.contextPolicy.selectors.some(s => !["full_source", "active_binding_semantics"].includes(s)))
         return null;
@@ -413,15 +414,15 @@ export function registeredSelectionInstructionResultMatches(candidate, input, ou
         if (selected === false || candidate.publication === undefined)
             return false;
         const basis = candidate;
-        const owner = authenticateNativeInstructionAssemblyBasis(basis);
+        const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
         if (owner === null || !isNativeRegisteredSelectionTask(input))
             return false;
-        const observations = owner.events.filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
+        const observations = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
         if (observations.length !== 1)
             return false;
         const observed = observations[0].payload;
-        const bindings = owner.events.filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observed.transportBindingRef);
-        const closes = owner.events.filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === observed.actorInvocationRef);
+        const bindings = indexedRuntimeEvents(owner.prefix, "related:" + observed.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observed.transportBindingRef);
+        const closes = indexedRuntimeEvents(owner.prefix, "related:" + observed.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === observed.actorInvocationRef);
         if (bindings.length !== 1 || closes.length !== 1 || observed.disposition !== "success" || observed.toolCallCount !== 0 ||
             typeof observed.finalOutput !== "string" || closes[0].payload.consumedArtifactEventRef !== observations[0].eventId)
             return false;
@@ -564,7 +565,7 @@ export function evaluateNativeInstructionAssembly(basis, supplied, readPhysical 
             : current?.stageRef !== stage.declarationRef || current.assessment !== null)
             return assemblyRefusal("unknown_dependency", policy, role, [stage.declarationRef]);
         const schema = semanticWorkerResultSchema(owner.role, stage.bodyCapabilities);
-        const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, owner.role);
+        const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, owner.role);
         if (stdo === false)
             return assemblyRefusal("unavailable_required_content", policy, role, [owner.execution.invocationAdmissionRef]);
         if (stdo !== null && (selectedNativeContextRole(basis, owner.call.programLocusRef) !== owner.role ||
@@ -680,7 +681,7 @@ function constructJobInstructionAssembly(basis, supplied, readPhysical) {
         (revision === null ? !semanticJobInputMatchesBasis(basis, supplied) : !semanticJobRevisionInputMatchesBasis(basis, revision)))
         return null;
     const input = revision?.current ?? supplied, stage = owner.stage, current = input.assets.at(-1);
-    const revisionSubject = revision === null ? null : projectJobRevisionSubject(basis, revision, readPhysical);
+    const revisionSubject = revision === null ? null : projectOwnedJobRevisionSubject(basis, revision, readPhysical);
     if (revision !== null && revisionSubject === null)
         return null;
     if (!isSemanticStageDeclaration(stage) || stage.assetSurface.authoritySlots.some(s => s.disposition !== "normal") ||
@@ -702,7 +703,7 @@ function constructJobInstructionAssembly(basis, supplied, readPhysical) {
     // actual C2 snapshots are the current evidence, never re-labelled context.
     if (revision === null && readPhysical && input.evidence === null && input.context !== null && content !== "not_required" && !semanticJobContextCurrent(basis, input))
         return assemblyRefusal("stale_basis", stage.assembly.ruleRef, owner.role, [input.context.observationRef]);
-    const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, owner.role);
+    const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, owner.role);
     if (stdo === false || stdo !== null && selectedNativeContextRole(basis, owner.call.programLocusRef) !== owner.role)
         return assemblyRefusal("unavailable_required_content", stage.assembly.ruleRef, owner.role, [owner.execution.invocationAdmissionRef]);
     const designResponse = semanticJobUsesDesignResponse(owner.role, stage.bodyCapabilities);
@@ -1033,7 +1034,7 @@ export function renderNativeRevisionSelectionDecisionView(sections, envelope) {
  * counterevidence; it cannot declare prior failure to be successful history. */
 function constructRevisionSelectionAssembly(basis, input, readPhysical) {
     const job = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined;
-    const subject = job ? projectJobRevisionSubject(basis, input, readPhysical) : projectRevisionSelectionSubject(basis, input, readPhysical);
+    const subject = job ? projectOwnedJobRevisionSubject(basis, input, readPhysical) : projectOwnedRevisionSelectionSubject(basis, input, readPhysical);
     if (subject === null)
         return null;
     const { owner, envelope } = subject;
@@ -1041,7 +1042,7 @@ function constructRevisionSelectionAssembly(basis, input, readPhysical) {
     const nativePhase = native === undefined ? undefined : native.construction === null ? "preconstruction" : "postconstruction";
     const operationalFailure = "operationalFailure" in subject ? subject.operationalFailure : null;
     const schema = semanticRevisionSelectionSchema(nativePhase);
-    const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, "assessor");
+    const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef, basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, "assessor");
     if (stdo === false || stdo !== null && selectedNativeContextRole(basis, owner.call.programLocusRef) !== "assessor")
         return null;
     const sectionOrder = ["role", "source", "obligations", "predecessors", "worksite", "evidence", "task", "response"];
@@ -1106,12 +1107,12 @@ export function semanticInstructionResultMatches(basis, input, output) {
         if (owner?.call.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef) {
             if (!isSemanticRevisionSelection(output))
                 return false;
-            const rows = owner.events.filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
+            const rows = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
             if (rows.length !== 1)
                 return false;
             const o = rows[0].payload;
-            const bindings = owner.events.filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === o.transportBindingRef);
-            const closes = owner.events.filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === o.actorInvocationRef);
+            const bindings = indexedRuntimeEvents(owner.prefix, "related:" + o.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === o.transportBindingRef);
+            const closes = indexedRuntimeEvents(owner.prefix, "related:" + o.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === o.actorInvocationRef);
             if (bindings.length !== 1 || closes.length !== 1 || o.disposition !== "success" || o.toolCallCount !== 0 || typeof o.finalOutput !== "string" ||
                 sha256Canonical(JSON.parse(o.finalOutput)) !== sha256Canonical(output))
                 return false;
@@ -1130,12 +1131,12 @@ export function semanticInstructionResultMatches(basis, input, output) {
         const candidate = owner.role === "author" ? asset?.candidate : asset?.assessment?.candidate;
         if (source === undefined)
             return false;
-        const rows = owner.events.filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
+        const rows = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
         if (rows.length !== 1)
             return false;
         const observation = rows[0].payload;
-        const bindings = owner.events.filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observation.transportBindingRef);
-        const closes = owner.events.filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === source.actorInvocationRef);
+        const bindings = indexedRuntimeEvents(owner.prefix, "related:" + observation.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observation.transportBindingRef);
+        const closes = indexedRuntimeEvents(owner.prefix, "related:" + source.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === source.actorInvocationRef);
         if (bindings.length !== 1 || closes.length !== 1 || observation.actorInvocationRef !== source.actorInvocationRef ||
             observation.promptDigest !== source.promptDigest || observation.transportDigest !== source.transportDigest ||
             observation.toolCallCount !== 0 || observation.disposition !== "success" || typeof observation.finalOutput !== "string")

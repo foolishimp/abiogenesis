@@ -13,10 +13,10 @@ import {declarations as registeredSelectionDeclarations, ref as selectionRef,
 const tenant = resolve(import.meta.dirname, '../..');
 const ownerRoot = process.env.ABI5_STATIC_CLOSURE_OWNER_ROOT ?? join(tenant, 'build/code/src');
 const load = file => import(pathToFileURL(join(ownerRoot, file + '.js')).href);
-const [owner, catalogOwner, gtl, digests, publicationOwner, catalogOperations, validator] =
+const [owner, catalogOwner, gtl, digests, publicationOwner, catalogOperations, validator, immutable] =
   await Promise.all(['product/declaration_closure', 'product/catalog', 'gtl/index',
     'shared/digests', 'product/publication', 'product/catalog_operations',
-    'validator/validation'].map(load));
+    'validator/validation', 'shared/immutable'].map(load));
 const baselinePath = process.env.ABI5_STATIC_CLOSURE_BASELINE_MODULE;
 const baseline = baselinePath ? await import(pathToFileURL(baselinePath).href) : null;
 const artifact = {productId: 'product://abi5-tests/static-source-owner@5',
@@ -57,6 +57,35 @@ function refused(result, code, name) {
 const resolved = (result, kind = 'resolved_program_declaration_closure') => {
   assert.equal(result.kind, kind, JSON.stringify(result)); return result;
 };
+
+test('fixed declaration owner results reuse facts and preserve cold/basis-qualified validation', () => {
+  const basis = immutable.deepFreeze(fixture());
+  const closure = resolved(programClosure(basis));
+  assert.strictEqual(programClosure(basis), closure, 'same immutable owner handoff retains its closure');
+  const program = closure.programPublication.programs.find(p => p.programRef === closure.programRef);
+  const input = catalogOperations.constructCatalogProgramValidationInput(basis.catalog, basis.view, closure, program);
+  assert.notEqual(input.kind, 'raw_admission_refusal');
+  assert.strictEqual(catalogOperations.constructCatalogProgramValidationInput(basis.catalog, basis.view, closure, program), input);
+  const validation = validator.validateProgram(input);
+  assert.equal(validation.kind, 'program_validation');
+  assert.strictEqual(validator.validateProgram(input), validation, 'same definitions/basis need no repeated static validation');
+  const changedBasis = {...input, declarationBasisDigest: digests.sha256Canonical({binding: 'new-current-basis'})};
+  const rebound = validator.validateProgram(changedBasis);
+  assert.equal(rebound.kind, 'program_validation');
+  assert.notEqual(rebound.sourceDigest, validation.sourceDigest);
+  assert.strictEqual(rebound.executableLeafRows, validation.executableLeafRows, 'only basis-qualified identity is rederived');
+  const copiedClosure = structuredClone(closure), copiedProgram = structuredClone(program);
+  const coldInput = catalogOperations.constructCatalogProgramValidationInput(basis.catalog, basis.view, copiedClosure, copiedProgram);
+  assert.notEqual(coldInput.kind, 'raw_admission_refusal');
+  assert.notStrictEqual(coldInput, input);
+  assert.deepEqual(validator.validateProgram(coldInput), validation, 'ordinary copied path preserves complete output/digest');
+  assert.deepEqual(validator.validateProgram({...coldInput, declarationBasisDigest: changedBasis.declarationBasisDigest}), rebound);
+  const foreignRaw = {...input, program: structuredClone(input.program)};
+  assert.equal(validator.validateProgram(foreignRaw).diagnostics[0].code, 'raw_subject_mismatch');
+  const changedOwner = {...copiedClosure, closureDigest: digests.sha256Canonical({changed: true})};
+  assert.equal(catalogOperations.constructCatalogProgramValidationInput(basis.catalog, basis.view, changedOwner, program).kind, 'raw_admission_refusal');
+  assert.equal(catalogOwner.narrowGraphFunctionCatalog(basis.catalog, ['not-a-member']).kind, 'catalog_construction_refusal');
+});
 
 test('compose sources retain exact published owners without callable rows in both closure modes', () => {
   const pub = publication(), before = JSON.stringify(pub), basis = fixture([pub]);

@@ -1,0 +1,52 @@
+{
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275535,
+      "sha256": "1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 69320,
+      "sha256": "97774ea7ad08052a4031f8388577fa558cbbd4a294178731711a70ba119fdb58",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 18999,
+      "sha256": "051e9238332705c0131ae6161c1dfca8a41ca01336b6aeacaf21a8cbfef0fd31",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76606,
+      "sha256": "539186740c0fc386b9f76e23fd96fc6c7ff128f89851f1a3f57b77704f296340",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "bytes": 19603,
+      "sha256": "b6919041f617814eae22d48b2b6e646fe1b2f9edc889708134f911472398f581",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+      "bytes": 1976,
+      "sha256": "9797da8e09246f70f111eb1a7866da8f73db1b1aaecc0eda6685fed4d0417114",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "bytes": 6838,
+      "sha256": "0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7",
+      "mode": 420
+    }
+  ],
+  "retainedRegression": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22568,
+    "sha256": "d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4"
+  },
+  "checksExecuted": false
+}

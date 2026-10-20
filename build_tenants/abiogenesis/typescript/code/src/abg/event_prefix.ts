@@ -1,15 +1,25 @@
 import { createHash } from "node:crypto";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import type { Sha256Digest } from "../shared/digests.js";
-import { ownedRuntimeDerivationSource, runtimeDerivationSource, type RuntimeDerivationSource, type RuntimeDerivationScope } from "./runtime_derivation.js";
+import { canonicalJson, writeCanonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { ownedRuntimeDerivationSource, runtimeDerivationSource, RuntimeDerivationSource, type RuntimeDerivationScope } from "./runtime_derivation.js";
 import {
   selectRuntimeEvents,
+  LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
   projectRootEventProfileSchedule,
   extendRootEventProfileProjection,
+  assertOwnedRuntimeHistorySelection,
+  validateOwnedRuntimeHistoryCandidate,
+  validateRuntimeHistoryCandidate,
+  selectEventStoreRuntimeHistory,
+  projectOwnedRuntimeHistoryAtDurablePrefix,
+  readOwnedRuntimeHistoryAtDurablePrefix,
+  type AbgEventStore,
+  type DurablePrefixCoordinate,
   type RootEventProfileSchedule,
   type RuntimeEvent,
   type RuntimeEventScope,
 } from "./event_store.js";
+import { RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistorySelectorKeys } from "./runtime_history.js";
 
 const VALIDATED_RUNTIME_EVENT_PREFIX = Symbol(
   "validated_runtime_event_prefix",
@@ -23,6 +33,179 @@ export interface ValidatedRuntimeEventPrefix {
   readonly events: readonly RuntimeEvent[];
   readonly [VALIDATED_RUNTIME_EVENT_PREFIX]: true;
   readonly [PROFILE_SOURCE]: readonly RuntimeEvent[];
+}
+
+/** @internal A different representation of the same authenticated owner cut.
+ * It is neither a public prefix nor an array with partial/lazy Event values. */
+export interface OwnedRuntimeEventPrefix {
+  readonly kind: "owned_runtime_event_prefix";
+  readonly selection: RuntimeHistorySelection;
+}
+/** @internal Existing computations may consume either authentic representation. */
+export type RuntimeEventPrefix = ValidatedRuntimeEventPrefix | OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix;
+/** @internal A pure candidate view has no admitted-history or durable receipt. */
+export interface ValidationRuntimeEventPrefix {
+  readonly kind: "runtime_validation_event_prefix";
+  readonly selection: RuntimeHistorySelection;
+}
+const VALIDATION_PREFIXES = new WeakMap<ValidationRuntimeEventPrefix, {
+  readonly source: RuntimeDerivationSource; readonly scopeKey: string; readonly selection: RuntimeHistorySelection;
+  readonly base: OwnedRuntimeEventPrefix; readonly candidate: RuntimeEvent;
+  readonly predecessor: OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix;
+  readonly scopedFrom?: ValidationRuntimeEventPrefix;
+}>();
+const OWNED_PREFIXES = new WeakMap<OwnedRuntimeEventPrefix, {
+  readonly source: RuntimeDerivationSource; readonly scopeKey: string; readonly selection: RuntimeHistorySelection;
+}>();
+
+/** @internal No caller-constructed Selection can pass the Event Store binding. */
+export function selectOwnedRuntimeEventPrefix(
+  owner: AbgEventStore | RuntimeHistorySelection, scope?: RuntimeEventScope,
+): OwnedRuntimeEventPrefix {
+  const selection = RuntimeHistorySelection.is(owner) ? owner.selectScope(scope) : selectEventStoreRuntimeHistory(owner, scope);
+  const source = assertOwnedRuntimeHistorySelection(selection);
+  const prefix: OwnedRuntimeEventPrefix = Object.freeze({ kind: "owned_runtime_event_prefix", selection });
+  OWNED_PREFIXES.set(prefix, { source, scopeKey: scopeKey(scope), selection }); return prefix;
+}
+
+/** @internal Pure-memory owners retain their existing explicit snapshot route. */
+export function selectRuntimeEventPrefixFromStore(store: AbgEventStore, scope?: RuntimeEventScope): RuntimeEventPrefix {
+  return store.configuredDurableLogPath() === null ? selectValidatedRuntimeEventPrefix(store.readAll(), scope) :
+    selectOwnedRuntimeEventPrefix(store, scope);
+}
+/** @internal Borrow established history; an unbound/copied coordinate is cold. */
+export function projectOwnedRuntimeEventPrefixAtDurablePrefix(prefix: DurablePrefixCoordinate): OwnedRuntimeEventPrefix {
+  return selectOwnedRuntimeEventPrefix(projectOwnedRuntimeHistoryAtDurablePrefix(prefix));
+}
+/** @internal Explicit freshness retains its physical-reader meaning. */
+export function readOwnedRuntimeEventPrefixAtDurablePrefix(prefix: DurablePrefixCoordinate,
+  options: Readonly<{ requireCurrent?: boolean }> = {}): OwnedRuntimeEventPrefix {
+  return selectOwnedRuntimeEventPrefix(readOwnedRuntimeHistoryAtDurablePrefix(prefix, options));
+}
+/** @internal The nominal prefix and its actual physical owner must both agree. */
+export function isOwnedRuntimeEventPrefix(prefix: unknown): prefix is OwnedRuntimeEventPrefix {
+  if (typeof prefix !== "object" || prefix === null || !OWNED_PREFIXES.has(prefix as OwnedRuntimeEventPrefix)) return false;
+  const value = prefix as OwnedRuntimeEventPrefix, proof = OWNED_PREFIXES.get(value)!;
+  return value.kind === "owned_runtime_event_prefix" && value.selection === proof.selection &&
+    assertOwnedRuntimeHistorySelection(value.selection) === proof.source;
+}
+
+/** @internal Separate pure validation receipt; never accepted by the physical history owner. */
+export function isValidationRuntimeEventPrefix(value: unknown): value is ValidationRuntimeEventPrefix {
+  if (typeof value !== "object" || value === null) return false;
+  const proof = VALIDATION_PREFIXES.get(value as ValidationRuntimeEventPrefix);
+  return proof !== undefined && (value as ValidationRuntimeEventPrefix).kind === "runtime_validation_event_prefix" &&
+    (value as ValidationRuntimeEventPrefix).selection === proof.selection && isOwnedRuntimeEventPrefix(proof.base);
+}
+/** @internal Borrow only the admitted predecessor of this owner's checked candidate. */
+export function runtimeEventValidationBase(prefix: RuntimeEventPrefix): RuntimeEventPrefix | undefined {
+  if (!isValidationRuntimeEventPrefix(prefix)) return undefined;
+  const proof = VALIDATION_PREFIXES.get(prefix)!;
+  return selectLocatedSubset(proof.predecessor, prefix.selection.validationPredecessor(), proof.scopeKey);
+}
+function isLocatedPrefix(prefix: RuntimeEventPrefix): prefix is OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix {
+  return isOwnedRuntimeEventPrefix(prefix) || isValidationRuntimeEventPrefix(prefix);
+}
+function locatedReceipt(prefix: OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix) {
+  return prefix.kind === "owned_runtime_event_prefix" ? OWNED_PREFIXES.get(prefix)! : VALIDATION_PREFIXES.get(prefix)!;
+}
+
+/** @internal Exact owner-issued cut relation, never an admission or raw-copy shortcut. */
+export function runtimeEventPrefixesHaveSameOwnedCut(left: RuntimeEventPrefix, right: RuntimeEventPrefix): boolean {
+  if (!isLocatedPrefix(left) || !isLocatedPrefix(right) || left.kind !== right.kind ||
+      left.selection.through !== right.selection.through || left.selection.length !== right.selection.length) return false;
+  if (isOwnedRuntimeEventPrefix(left) && isOwnedRuntimeEventPrefix(right)) {
+    return left.selection.sharesSource(right.selection) && left.selection.extends(right.selection) &&
+      right.selection.extends(left.selection);
+  }
+  if (!isValidationRuntimeEventPrefix(left) || !isValidationRuntimeEventPrefix(right)) return false;
+  const a = VALIDATION_PREFIXES.get(left)!, b = VALIDATION_PREFIXES.get(right)!;
+  if (a.scopeKey !== b.scopeKey) return false;
+  if (a.scopedFrom !== undefined || b.scopedFrom !== undefined) {
+    return a.scopedFrom !== undefined && b.scopedFrom !== undefined &&
+      runtimeEventPrefixesHaveSameOwnedCut(a.scopedFrom, b.scopedFrom);
+  }
+  return left.selection.length === left.selection.through && a.scopeKey === "all" &&
+    runtimeEventPrefixesHaveSameOwnedCut(a.predecessor, b.predecessor) &&
+    sha256Canonical(a.candidate as unknown as JsonValue) === sha256Canonical(b.candidate as unknown as JsonValue);
+}
+function selectValidationPrefix(base: OwnedRuntimeEventPrefix, candidate: RuntimeEvent,
+  selection: RuntimeHistorySelection, source = new RuntimeDerivationSource(), selectedScope = "all",
+  predecessor: OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix = base): ValidationRuntimeEventPrefix {
+  const prefix: ValidationRuntimeEventPrefix = Object.freeze({ kind: "runtime_validation_event_prefix", selection });
+  VALIDATION_PREFIXES.set(prefix, { base, candidate, selection, source, scopeKey: selectedScope, predecessor }); return prefix;
+}
+function selectLocatedSubset(prefix: OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix,
+  selection: RuntimeHistorySelection, selectedScope = locatedReceipt(prefix).scopeKey): OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix {
+  if (prefix.kind === "owned_runtime_event_prefix") {
+    const result = selectOwnedRuntimeEventPrefix(selection), proof = OWNED_PREFIXES.get(result)!;
+    OWNED_PREFIXES.set(result, { ...proof, scopeKey: selectedScope }); return result;
+  }
+  const proof = VALIDATION_PREFIXES.get(prefix)!;
+  return selectValidationPrefix(proof.base, proof.candidate, selection, proof.source, selectedScope, proof.predecessor);
+}
+/** @internal Constant-cost exact owner relation, with raw explicit-array behavior kept separately. */
+export function runtimeEventPrefixIsExactExtension(before: RuntimeEventPrefix, after: RuntimeEventPrefix, event: RuntimeEvent): boolean {
+  if (isLocatedPrefix(before) && isLocatedPrefix(after)) {
+    if (before.selection.length !== before.selection.through || after.selection.length !== after.selection.through ||
+        after.selection.length !== before.selection.length + 1) return false;
+    if (isValidationRuntimeEventPrefix(after)) {
+      const proof = VALIDATION_PREFIXES.get(after)!;
+      return proof.predecessor.selection.sharesSource(before.selection) && proof.predecessor.selection.through === before.selection.through &&
+        proof.candidate.eventId === event.eventId && proof.candidate.payloadDigest === event.payloadDigest &&
+        proof.candidate.admissionOrdinal === event.admissionOrdinal;
+    }
+    const row = after.selection.row(after.selection.length - 1)?.envelope;
+    return after.selection.extends(before.selection) && row?.eventId === event.eventId && row.payloadDigest === event.payloadDigest;
+  }
+  if (before.kind !== "validated_runtime_event_prefix" || after.kind !== "validated_runtime_event_prefix") return false;
+  const events = runtimeEventsFromValidatedPrefix(before), successor = runtimeEventsFromValidatedPrefix(after);
+  return successor.length === events.length + 1 && successor.at(-1) === event &&
+    events.every((row, index) => successor[index] === row) &&
+    after[PROFILE_SOURCE].length === successor.length && after[PROFILE_SOURCE].every((row, index) => successor[index] === row);
+}
+
+/** @internal Selected bodies are explicit plain-data reads, not getters. */
+export function runtimeEventAtPrefix(prefix: RuntimeEventPrefix, eventRef: string): RuntimeEvent | undefined {
+  return isLocatedPrefix(prefix) ? prefix.selection.eventById(eventRef) :
+    indexedRuntimeEvents(prefix, "id:" + eventRef)[0];
+}
+/** @internal One ordinal body read from the authenticated selected representation. */
+export function runtimeEventAtPrefixIndex(prefix: RuntimeEventPrefix, index: number): RuntimeEvent | undefined {
+  return isLocatedPrefix(prefix) ? prefix.selection.event(index) : runtimeEventsFromValidatedPrefix(prefix)[index];
+}
+/** @internal Explicit ordered body scan; narrow consumers use indexed selection. */
+export function runtimeEventBodiesAtPrefix(prefix: RuntimeEventPrefix): RuntimeEventBodyView {
+  const view = new RuntimeEventBodyView(isLocatedPrefix(prefix) ? prefix.selection : runtimeEventsFromValidatedPrefix(prefix));
+  BODY_VIEW_PREFIXES.set(view, prefix);
+  return view;
+}
+const BODY_VIEW_PREFIXES = new WeakMap<RuntimeEventBodyView, RuntimeEventPrefix>();
+/** @internal Envelope predicates do not acquire payload bodies. */
+export function runtimeEventEnvelopesAtPrefix(prefix: RuntimeEventPrefix, fromIndex = 0): Iterable<Omit<RuntimeEvent, "payload">> {
+  if (!isLocatedPrefix(prefix)) return runtimeEventsFromValidatedPrefix(prefix).slice(fromIndex);
+  return { *[Symbol.iterator]() { for (let i = fromIndex; i < prefix.selection.length; i++) yield prefix.selection.row(i)!.envelope; } };
+}
+/** @internal The end coordinate never acquires an unrelated final payload. */
+export function runtimeEventPrefixLastEnvelope(prefix: RuntimeEventPrefix): Omit<RuntimeEvent, "payload"> | undefined {
+  return isLocatedPrefix(prefix) ? prefix.selection.row(prefix.selection.length - 1)?.envelope : runtimeEventsFromValidatedPrefix(prefix).at(-1);
+}
+/** @internal Indexed envelope selection shares the exact ordered owner relation. */
+export function indexedRuntimeEventEnvelopes(prefix: RuntimeEventPrefix, key: string): readonly Omit<RuntimeEvent, "payload">[] {
+  return isLocatedPrefix(prefix) ? Array.from(prefix.selection.select(key).rows(), row => row.envelope) : indexedRuntimeEvents(prefix, key);
+}
+/** @internal Exact indexed extent; unscoped owned cuts neither copy buckets nor acquire bodies. */
+export function runtimeEventSelectorExtent(prefix: RuntimeEventPrefix, key: string): Readonly<{ count: number; lastOrdinal: number }> {
+  if (isLocatedPrefix(prefix)) return prefix.selection.selectorExtent(key);
+  const rows = indexedRuntimeEvents(prefix, key);
+  return { count: rows.length, lastOrdinal: rows.at(-1)?.admissionOrdinal ?? 0 };
+}
+/** @internal Exact count/last ordinal need no decoded body. */
+export function runtimeEventPrefixExtent(prefix: RuntimeEventPrefix): Readonly<{ count: number; lastOrdinal: number }> {
+  if (isLocatedPrefix(prefix)) return { count: prefix.selection.length,
+    lastOrdinal: prefix.selection.row(prefix.selection.length - 1)?.envelope.admissionOrdinal ?? 0 };
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  return { count: events.length, lastOrdinal: events.at(-1)?.admissionOrdinal ?? 0 };
 }
 
 /** A value-bound proof only, not a registry, event admission or runtime state. */
@@ -68,15 +251,59 @@ function constructImmutablePrefix(
 
 /** A tentative extension remains under the caller's owner derivation. It gives
  * no durable authority; transaction rollback discards its source. */
-export function extendRuntimeEventPrefixForValidation(prefix: ValidatedRuntimeEventPrefix, event: RuntimeEvent): ValidatedRuntimeEventPrefix {
+export function extendRuntimeEventPrefixForValidation(prefix: ValidatedRuntimeEventPrefix, event: RuntimeEvent): ValidatedRuntimeEventPrefix;
+/** @internal */
+export function extendRuntimeEventPrefixForValidation(prefix: OwnedRuntimeEventPrefix, event: RuntimeEvent): OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix;
+/** @internal */
+export function extendRuntimeEventPrefixForValidation(prefix: RuntimeEventPrefix, event: RuntimeEvent): RuntimeEventPrefix;
+export function extendRuntimeEventPrefixForValidation(prefix: RuntimeEventPrefix, event: RuntimeEvent): RuntimeEventPrefix {
   if (!isImmutableRuntimeValue(event)) throw new TypeError("candidate event must be immutable data");
+  if (isOwnedRuntimeEventPrefix(prefix)) {
+    const profileAfter = validateOwnedRuntimeHistoryCandidate(prefix.selection, event);
+    try { return selectOwnedRuntimeEventPrefix(prefix.selection.actualSuccessor(event)); }
+    catch { return selectValidationPrefix(prefix, event, prefix.selection.validationSuccessor(event, profileAfter)); }
+  }
+  if (isValidationRuntimeEventPrefix(prefix)) throw new TypeError("one prospective candidate cannot advance admitted history");
   const receipt = computationReceipt(prefix);
   return selectPrefixFromImmutableSnapshot(receipt.source.append(runtimeEventsFromValidatedPrefix(prefix), [event]), undefined, receipt.source);
 }
 
+/** @internal Existing pure multi-candidate planners borrow one genuine base
+ * plus a checked finite ordered suffix. This never returns admitted history. */
+export function extendRuntimeEventPlanPrefixForValidation(prefix: RuntimeEventPrefix, event: RuntimeEvent): RuntimeEventPrefix {
+  if (prefix.kind === "validated_runtime_event_prefix") return extendRuntimeEventPrefixForValidation(prefix, event);
+  if (!isLocatedPrefix(prefix) || !isImmutableRuntimeValue(event))
+    throw new TypeError("pure plan requires its genuine base and immutable candidate");
+  const profileAfter = isOwnedRuntimeEventPrefix(prefix)
+    ? validateOwnedRuntimeHistoryCandidate(prefix.selection, event)
+    : validateRuntimeHistoryCandidate(prefix.selection, event);
+  const base = isOwnedRuntimeEventPrefix(prefix) ? prefix : VALIDATION_PREFIXES.get(prefix)!.base;
+  return selectValidationPrefix(base, event, prefix.selection.validationSuccessor(event, profileAfter),
+    new RuntimeDerivationSource(), "all", prefix);
+}
+
+/** @internal Complete Public prefix JSON is an explicit canonical output, not
+ * a retained operational array. The existing canonical writer selects one body. */
+export function writeRuntimeEventPrefixValue(prefix: RuntimeEventPrefix, write: (part: string) => void): void {
+  write("{\"events\":["); let comma = false;
+  for (let index = 0; index < runtimeEventPrefixExtent(prefix).count; index++) {
+    if (comma) write(","); comma = true;
+    writeCanonicalJson(runtimeEventAtPrefixIndex(prefix, index)! as unknown as JsonValue, write);
+  }
+  write("],\"kind\":\"validated_runtime_event_prefix\"}");
+}
+
 /** Check a proposed suffix without advancing any accepted derivation. The
  * caller still owns event-envelope admission and the eventual checked append. */
-export function validateRuntimeEventPrefixExtension(prefix: ValidatedRuntimeEventPrefix, event: RuntimeEvent): void {
+export function validateRuntimeEventPrefixExtension(prefix: ValidatedRuntimeEventPrefix, event: RuntimeEvent): void;
+/** @internal */
+export function validateRuntimeEventPrefixExtension(prefix: RuntimeEventPrefix, event: RuntimeEvent): void;
+export function validateRuntimeEventPrefixExtension(prefix: RuntimeEventPrefix, event: RuntimeEvent): void {
+  if (isOwnedRuntimeEventPrefix(prefix)) {
+    if (!isImmutableRuntimeValue(event)) throw new TypeError("candidate event must be immutable data");
+    validateOwnedRuntimeHistoryCandidate(prefix.selection, event); return;
+  }
+  if (isValidationRuntimeEventPrefix(prefix)) throw new TypeError("candidate validation requires admitted predecessor history");
   const receipt = computationReceipt(prefix);
   const events = runtimeEventsFromValidatedPrefix(prefix);
   if (receipt.scopeKey !== "all") throw new TypeError("candidate validation requires an unscoped predecessor");
@@ -135,7 +362,14 @@ function computationReceipt(prefix: ValidatedRuntimeEventPrefix): PrefixImmutabi
   runtimeEventsFromValidatedPrefix(prefix);
   return Object.getOwnPropertyDescriptor(prefix, IMMUTABILITY_RECEIPT)!.value as PrefixImmutabilityReceipt;
 }
-export function runtimePrefixComputation<T>(prefix: ValidatedRuntimeEventPrefix, owner: symbol, construct: () => T): T {
+export function runtimePrefixComputation<T>(prefix: ValidatedRuntimeEventPrefix, owner: symbol, construct: () => T): T;
+/** @internal */
+export function runtimePrefixComputation<T>(prefix: RuntimeEventPrefix, owner: symbol, construct: () => T): T;
+export function runtimePrefixComputation<T>(prefix: RuntimeEventPrefix, owner: symbol, construct: () => T): T {
+  if (isLocatedPrefix(prefix)) {
+    const receipt = locatedReceipt(prefix);
+    return receipt.source.selectionScope(receipt.scopeKey, receipt.selection).owner(owner, construct);
+  }
   return computationReceipt(prefix).computation.owner(owner, construct);
 }
 
@@ -145,14 +379,26 @@ export function runtimeEventProfileSourceFromValidatedPrefix(prefix: ValidatedRu
   return prefix[PROFILE_SOURCE];
 }
 
-export function runtimeEventProfileScheduleFromValidatedPrefix(prefix: ValidatedRuntimeEventPrefix): RootEventProfileSchedule {
+export function runtimeEventProfileScheduleFromValidatedPrefix(prefix: ValidatedRuntimeEventPrefix): RootEventProfileSchedule;
+/** @internal */
+export function runtimeEventProfileScheduleFromValidatedPrefix(prefix: RuntimeEventPrefix): RootEventProfileSchedule;
+export function runtimeEventProfileScheduleFromValidatedPrefix(prefix: RuntimeEventPrefix): RootEventProfileSchedule {
+  if (isLocatedPrefix(prefix)) {
+    return prefix.selection.profileSchedule(projectRootEventProfileSchedule([]).currentEventContractDigest);
+  }
   runtimeEventsFromValidatedPrefix(prefix);
   const events = prefix[PROFILE_SOURCE];
   const index = authorityIndex(computationReceipt(prefix).source, events);
   index.structure(events);
   return index.profile(events);
 }
-export function unscopedRuntimeEventPrefix(prefix: ValidatedRuntimeEventPrefix): ValidatedRuntimeEventPrefix {
+export function unscopedRuntimeEventPrefix(prefix: ValidatedRuntimeEventPrefix): ValidatedRuntimeEventPrefix;
+/** @internal */
+export function unscopedRuntimeEventPrefix(prefix: OwnedRuntimeEventPrefix): OwnedRuntimeEventPrefix;
+/** @internal */
+export function unscopedRuntimeEventPrefix(prefix: RuntimeEventPrefix): RuntimeEventPrefix;
+export function unscopedRuntimeEventPrefix(prefix: RuntimeEventPrefix): RuntimeEventPrefix {
+  if (isLocatedPrefix(prefix)) return selectLocatedSubset(prefix, prefix.selection.unscoped(), "all");
   runtimeEventsFromValidatedPrefix(prefix);
   return selectPrefixFromImmutableSnapshot(prefix[PROFILE_SOURCE], undefined, computationReceipt(prefix).source);
 }
@@ -160,18 +406,30 @@ export function unscopedRuntimeEventPrefix(prefix: ValidatedRuntimeEventPrefix):
 export function validatedRuntimeEventPrefixThroughEvent(
   prefix: ValidatedRuntimeEventPrefix,
   eventId: string,
-): ValidatedRuntimeEventPrefix {
+): ValidatedRuntimeEventPrefix;
+/** @internal */
+export function validatedRuntimeEventPrefixThroughEvent(prefix: RuntimeEventPrefix, eventId: string): RuntimeEventPrefix;
+export function validatedRuntimeEventPrefixThroughEvent(prefix: RuntimeEventPrefix, eventId: string): RuntimeEventPrefix {
   return historicalRuntimeEventPrefix(prefix, eventId, true);
 }
 
 export function validatedRuntimeEventPrefixBeforeEvent(
   prefix: ValidatedRuntimeEventPrefix,
   eventId: string,
-): ValidatedRuntimeEventPrefix {
+): ValidatedRuntimeEventPrefix;
+/** @internal */
+export function validatedRuntimeEventPrefixBeforeEvent(prefix: RuntimeEventPrefix, eventId: string): RuntimeEventPrefix;
+export function validatedRuntimeEventPrefixBeforeEvent(prefix: RuntimeEventPrefix, eventId: string): RuntimeEventPrefix {
   return historicalRuntimeEventPrefix(prefix, eventId, false);
 }
 
-function historicalRuntimeEventPrefix(prefix: ValidatedRuntimeEventPrefix, eventId: string, inclusive: boolean): ValidatedRuntimeEventPrefix {
+function historicalRuntimeEventPrefix(prefix: RuntimeEventPrefix, eventId: string, inclusive: boolean): RuntimeEventPrefix {
+  if (isLocatedPrefix(prefix)) {
+    const boundary = prefix.selection.rowById(eventId);
+    if (boundary === undefined) throw new TypeError("historical event-prefix boundary requires one exact admitted event");
+    const selection = prefix.selection.cut(boundary.envelope.admissionOrdinal - (inclusive ? 0 : 1));
+    return selectLocatedSubset(prefix, selection);
+  }
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const boundary = indexedRuntimeEvents(prefix, "id:" + eventId)[0];
   if (boundary === undefined) {
@@ -192,7 +450,23 @@ const IMMUTABLE_PAYLOADS = Symbol("owner_immutable_event_payloads");
 export function selectValidatedRuntimeEventPrefix(
   admittedEvents: readonly RuntimeEvent[],
   scope?: RuntimeEventScope,
-): ValidatedRuntimeEventPrefix {
+): ValidatedRuntimeEventPrefix;
+/** @internal Private body scans retain their actual owner prefix, never create a partial public vector. */
+export function selectValidatedRuntimeEventPrefix(
+  admittedEvents: RuntimeEventBodyView,
+  scope?: RuntimeEventScope,
+): RuntimeEventPrefix;
+/** @internal */
+export function selectValidatedRuntimeEventPrefix(admittedEvents: readonly RuntimeEvent[] | RuntimeEventBodyView, scope?: RuntimeEventScope): RuntimeEventPrefix;
+export function selectValidatedRuntimeEventPrefix(
+  admittedEvents: readonly RuntimeEvent[] | RuntimeEventBodyView,
+  scope?: RuntimeEventScope,
+): RuntimeEventPrefix {
+  if (admittedEvents instanceof RuntimeEventBodyView) {
+    const prefix = BODY_VIEW_PREFIXES.get(admittedEvents);
+    if (prefix === undefined) throw new TypeError("runtime body scan has no authenticated prefix owner");
+    return scope === undefined ? prefix : selectRuntimeEventPrefixFromAuthority(prefix, scope);
+  }
   const source = ownedRuntimeDerivationSource(admittedEvents);
   if (source === undefined) {
     if (!isImmutableRuntimeValue(admittedEvents)) throw new TypeError(
@@ -217,7 +491,18 @@ export function selectValidatedRuntimeEventPrefix(
 export function selectRuntimeEventPrefixFromAuthority(
   authorityPrefix: ValidatedRuntimeEventPrefix,
   scope: RuntimeEventScope,
-): ValidatedRuntimeEventPrefix {
+): ValidatedRuntimeEventPrefix;
+/** @internal */
+export function selectRuntimeEventPrefixFromAuthority(authorityPrefix: OwnedRuntimeEventPrefix, scope: RuntimeEventScope): OwnedRuntimeEventPrefix;
+/** @internal */
+export function selectRuntimeEventPrefixFromAuthority(authorityPrefix: RuntimeEventPrefix, scope: RuntimeEventScope): RuntimeEventPrefix;
+export function selectRuntimeEventPrefixFromAuthority(authorityPrefix: RuntimeEventPrefix, scope: RuntimeEventScope): RuntimeEventPrefix {
+  if (isLocatedPrefix(authorityPrefix)) {
+    const selected = selectLocatedSubset(authorityPrefix, authorityPrefix.selection.selectScope(scope), scopeKey(scope));
+    if (isValidationRuntimeEventPrefix(authorityPrefix) && isValidationRuntimeEventPrefix(selected))
+      VALIDATION_PREFIXES.set(selected, { ...VALIDATION_PREFIXES.get(selected)!, scopedFrom: authorityPrefix });
+    return selected;
+  }
   const events = runtimeEventsFromValidatedPrefix(authorityPrefix);
   return selectPrefixFromImmutableSnapshot(events, scope, computationReceipt(authorityPrefix).source);
 }
@@ -423,40 +708,7 @@ class RuntimeEventIndex {
       const event = events[i]!;
       if (this.buckets.has("id:" + event.eventId) || event.causationEventRefs.some(ref =>
         !this.buckets.has("id:" + ref))) this.irregularAt = Math.min(this.irregularAt, event.admissionOrdinal);
-      const keys = ["id:" + event.eventId, "kind:" + event.kind, "type:" + event.aggregateType,
-        "aggregate:" + event.aggregateType + ":" + event.aggregateId,
-        "related:" + event.aggregateId];
-      if (typeof event.runId === "string") keys.push("run:" + event.runId);
-      const invocation = typeof event.payload === "object" && event.payload !== null && !Array.isArray(event.payload)
-        ? (event.payload as Readonly<Record<string, JsonValue>>).invocationRef : undefined;
-      if (typeof event.parentAggregateId === "string") keys.push("invocation:" + event.parentAggregateId);
-      if (typeof invocation === "string" && invocation !== event.parentAggregateId) keys.push("invocation:" + invocation);
-      if (typeof event.basisId === "string") keys.push("basis:" + event.basisId);
-      if (typeof event.graphCallId === "string") keys.push("graph-call:" + event.graphCallId);
-      if (typeof event.payload === "object" && event.payload !== null && !Array.isArray(event.payload)) {
-        const payload = event.payload as Readonly<Record<string, JsonValue>>;
-        for (const field of ["resultRef", "parentCCallRef", "cursorRef", "routeRef"] as const) {
-          const value = payload[field];
-          if (typeof value === "string") keys.push("payload:" + field + ":" + value);
-        }
-        const cursorRef = event.kind === "traversal_cursor_entered" ? payload.cursorRef
-          : event.kind === "traversal_route_admitted" ? payload.targetCursorRef
-          : event.kind === "fh_interaction_resume_admitted" ? payload.successorCursorRef : undefined;
-        if (typeof cursorRef === "string") keys.push("cursor-origin:" + cursorRef);
-        const bound = payload.boundInput;
-        const reentry = payload.graphSpanReentryProjection;
-        const inputRef = event.kind === "c_call_result_admitted" ? payload.resultRef
-          : event.kind === "fh_interaction_resume_admitted" ? payload.successorInputRef
-          : event.kind === "fan_out_completion_admitted" ? payload.outputVectorRef
-          : event.kind === "retry_attempt_opened" ? payload.inputRef
-          : event.kind === "traversal_route_admitted" && typeof bound === "object" && bound !== null && !Array.isArray(bound)
-            ? (bound as Readonly<Record<string, JsonValue>>).admissionRef
-          : event.kind === "traversal_route_admitted" && typeof reentry === "object" && reentry !== null && !Array.isArray(reentry)
-            ? (reentry as Readonly<Record<string, JsonValue>>).targetInputRef : undefined;
-        if (typeof inputRef === "string") keys.push("input-origin:" + inputRef);
-      }
-      if (event.parentAggregateId !== undefined && event.parentAggregateId !== event.aggregateId)
-        keys.push("related:" + event.parentAggregateId);
+      const keys = runtimeHistorySelectorKeys(event);
       for (const key of keys) {
         let rows = this.buckets.get(key);
         if (rows === undefined) this.buckets.set(key, rows = []);
@@ -478,7 +730,11 @@ class RuntimeEventIndex {
     return this.range(key, 0, ordinal);
   }
 }
-export function indexedRuntimeEvents(prefix: ValidatedRuntimeEventPrefix, key: string): readonly RuntimeEvent[] {
+export function indexedRuntimeEvents(prefix: ValidatedRuntimeEventPrefix, key: string): readonly RuntimeEvent[];
+/** @internal */
+export function indexedRuntimeEvents(prefix: RuntimeEventPrefix, key: string): readonly RuntimeEvent[];
+export function indexedRuntimeEvents(prefix: RuntimeEventPrefix, key: string): readonly RuntimeEvent[] {
+  if (isLocatedPrefix(prefix)) return prefix.selection.select(key).materialize();
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const index = runtimePrefixComputation(prefix, EVENT_INDEX, () => new RuntimeEventIndex());
   index.advance(events);
@@ -498,10 +754,28 @@ class CanonicalPrefixDerivation {
       this.digests.push(`sha256:${this.hash.copy().update("]").digest("hex")}`);
     }
   }
+  advanceSelection(selection: RuntimeHistorySelection): void {
+    for (let index = this.digests.length - 1; index < selection.length; index++) {
+      const event = selection.event(index)!;
+      // Acquire one selected body at a time; the memo retains hash facts only.
+      if (index !== 0) this.hash.update(",");
+      writeCanonicalJson(event as unknown as JsonValue, part => this.hash.update(part));
+      this.digests.push(`sha256:${this.hash.copy().update("]").digest("hex")}`);
+    }
+  }
 }
 /** Exactly SHA256(canonicalJson(events)); old bytes are never re-encoded.
  * The checkpoints are disposable derived facts, not persisted authority. */
-export function runtimeEventPrefixDigest(prefix: ValidatedRuntimeEventPrefix): Sha256Digest {
+export function runtimeEventPrefixDigest(prefix: ValidatedRuntimeEventPrefix): Sha256Digest;
+/** @internal */
+export function runtimeEventPrefixDigest(prefix: RuntimeEventPrefix): Sha256Digest;
+export function runtimeEventPrefixDigest(prefix: RuntimeEventPrefix): Sha256Digest {
+  if (isLocatedPrefix(prefix)) {
+    const full = prefix.selection.canonicalDigest();
+    if (full !== undefined) return full;
+    const derivation = runtimePrefixComputation(prefix, CANONICAL_PREFIX, () => new CanonicalPrefixDerivation());
+    derivation.advanceSelection(prefix.selection); return derivation.digests[prefix.selection.length]!;
+  }
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const derivation = runtimePrefixComputation(prefix, CANONICAL_PREFIX, () => new CanonicalPrefixDerivation());
   derivation.advance(events);

@@ -1,0 +1,15 @@
+{
+  "exactBodyEqual": true,
+  "accepted220": {
+    "path": "build/code/src/abg/replay.js",
+    "sha256": "6fe16034261213fbbc245bc960836e34a5f4c8be6e219a431a8f542e9e2f890e",
+    "byteCount": 80185
+  },
+  "actual": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+    "sha256": "6fe16034261213fbbc245bc960836e34a5f4c8be6e219a431a8f542e9e2f890e",
+    "byteCount": 80185,
+    "relativePath": "build/code/src/abg/replay.js"
+  },
+  "allDeclarationsUnchanged": true
+}

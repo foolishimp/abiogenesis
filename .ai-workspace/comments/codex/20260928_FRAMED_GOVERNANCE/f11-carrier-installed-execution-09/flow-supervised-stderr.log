@@ -1,0 +1,5 @@
+RangeError: Invalid string length
+    at JSON.stringify (<anonymous>)
+    at actualOwnerContext (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/proof-oracles.mjs:8:65)
+    at async runBoundExistingPrograms (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11/flow-driver.mjs:46:18)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/run-flow.mjs:100:15

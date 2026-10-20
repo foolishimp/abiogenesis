@@ -1,0 +1,9 @@
+{
+  "regression": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs"
+  ],
+  "compiler": "not launched"
+}

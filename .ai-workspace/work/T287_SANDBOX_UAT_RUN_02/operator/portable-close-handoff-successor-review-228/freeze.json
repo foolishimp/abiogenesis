@@ -1,0 +1,106 @@
+{
+  "state": "CLOSED_FROZEN_STOPPED",
+  "review": 228,
+  "disposition": "BOUNDED_PUBLICATION_VALUE_CORRESPONDENCE_GO",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-review-228/return.md",
+    "sha256": "42158a62b4768f0649957ec6405d7e63c4aa4d427278d36d9c22e07ccaabb280",
+    "byteCount": 3427
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/freeze.json",
+      "sha256": "1f34a54ca941687ccd5b1e98678a784493425560e53ddf25f507c956d4234ca9",
+      "byteCount": 2062
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/return.md",
+      "sha256": "b28ec2e341c9299ea813ed1eca8ce62d82e09a772ab2943e61bcfa808fdd3815",
+      "byteCount": 2809
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/readiness.json",
+      "sha256": "86c685eacdf4f4941dd0b668e62eb1ad4ea875d08b4a36d49abfee854d7bdc37",
+      "byteCount": 11971
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/pins.json",
+      "sha256": "a29b0ddd3b87f5c38d3da54b4dd121966ca5d5509d34733e7d1689be4c70a3cc",
+      "byteCount": 36203
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/accepted-emission-correspondence.json",
+      "sha256": "37c87084b5754ae811fbd7d6a80dc432d86c5ab53f28a6793072bb9cb9566d97",
+      "byteCount": 816
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/essential-parity.json",
+      "sha256": "3d115a2759abd8508ce3f14dbc44acf3af110a55c6e4f4691df88e99d90bfcbc",
+      "byteCount": 1551
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/metadata-parity.json",
+      "sha256": "0cee8854577aa095f5cb03cd76be084af986f8826b3f7fed2f157899a513be25",
+      "byteCount": 562
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/exacthost-identity.json",
+      "sha256": "608e1ed073ff3604e62131e50702bed69363afc234fd2af38c54c451635a4091",
+      "byteCount": 3232
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/installed-content-match.json",
+      "sha256": "57b3d152121dac18feeb8b4e107d72220b694c8a1c397074938b450fac8fa166",
+      "byteCount": 701
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/consumer-proof/physical-import-program-proof.json",
+      "sha256": "d62f1eb4480abd97f5494b89d07b97cc025b75814581e69f7227b27095f9defe",
+      "byteCount": 11343
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/consumer-proof/source-program-conservation.json",
+      "sha256": "8339c6f61e0164dcff852364e662d8cd4e754ab576ca1b8e8f72b64daae82cbd",
+      "byteCount": 2192
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/value-contract-correspondence.json",
+      "sha256": "16b6cae2ec4eee09d3a63104200b92fba20e64ec2b50822ba31331ab6fc7ce5c",
+      "byteCount": 4498
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/freeze.json",
+      "sha256": "78e08ef8d9fe28a9ada3bab87d5b848831cc68a0fdde37b7ffa3adb558758447",
+      "byteCount": 2363
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/identity.json",
+      "sha256": "f78e30080bdf23d43ed2ab4fe4f2e59ebcb8a2eeea72a145e7e0cf041f5adcae",
+      "byteCount": 18321
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/member-delta.json",
+      "sha256": "aad35d8f544b3f78ec82d43fe64e4fd8ab5b8ac7ef4539617c040ba5fbc55ff6",
+      "byteCount": 46632
+    }
+  ],
+  "reacquisition": {
+    "matchedLiteralPins": 127,
+    "listedLiteralPins": 130,
+    "matchedSources": 263,
+    "matchedNormalGenerated": 934,
+    "selectedNativeBodies": 4,
+    "installedNativeRoots": 2,
+    "matchedConsumerBodies": 7,
+    "oldNewContractFileJoins": 16,
+    "unchangedValidatorBodies": 3,
+    "mismatches": 0
+  },
+  "unread": [
+    "227/host-preparation/host31-acquisition.json",
+    "227/consumer-proof/resolved-lock.json",
+    "candidate-30 native archive"
+  ],
+  "effects": "Only these two documentary review files. No owner execution or actual history access.",
+  "limits": "No nominal29/31 authority transfer or current binding/source use/Source41/native/capacity/UAT/release credit."
+}

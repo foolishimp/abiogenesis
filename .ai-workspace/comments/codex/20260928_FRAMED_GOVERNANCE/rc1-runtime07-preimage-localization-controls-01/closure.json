@@ -1,0 +1,25 @@
+{
+  "operation": "T287_RUNTIME07_PREIMAGE_LOCALIZATION_GRANT_01",
+  "status": "CLOSED",
+  "closedAt": "2026-10-02T08:04:23.034536+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/request.txt",
+    "bytes": 4581,
+    "sha256": "47e06ff29e400cf783fe9cd06b7663909dd80553e9bd564b57fcee15104b50ee",
+    "mode": 420
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/subject.json",
+    "bytes": 3559,
+    "sha256": "4ee81d5df1109f98a6357b02d29def67c0eca9b2e7fd0b678ced429fde6f2ef2",
+    "mode": 420
+  },
+  "copiedReadOnlyPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/closed-runtime-prefix.jsonl",
+    "bytes": 2750762,
+    "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+    "mode": 420
+  },
+  "returnRole": "Executive",
+  "sourceCandidateRuntimeNetworkGitEffects": 0
+}

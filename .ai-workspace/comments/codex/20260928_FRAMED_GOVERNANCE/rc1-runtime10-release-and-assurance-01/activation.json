@@ -1,0 +1,16 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RUNTIME10_RELEASE_WRITER_01",
+  "method": "stdo://releases/v2.5.1-rc.2/",
+  "grant": "Record exact prepared-consumer acceptance and release one installed remaining-path payload; prepare subsequent independent whole-carrier assurance. Align bounded current tracking.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-release-and-assurance-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "RuntimeEffects": 0,
+  "activatedAt": "2026-10-03T10:11:50.229156+00:00"
+}

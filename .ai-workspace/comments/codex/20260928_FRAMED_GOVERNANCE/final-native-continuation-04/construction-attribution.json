@@ -1,0 +1,52 @@
+{
+  "actualActor": "/root/s03_phase_b",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "profile": "Astra/xhigh assigned; not independently stated by session metadata",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-controls-04/request.txt",
+    "bytes": 8540,
+    "sha256": "2755f3746b50abe623dafe64c5273b854316a552a4a75e44c9dd6c5f557add7c"
+  },
+  "inheritedDonors": "donor-preimages.json",
+  "changes": [
+    "Remove surplus artifactTruth from shared conformance resources",
+    "Separate actual authorization construction ordinal from successful native-call count, permitting both real conformance calls to be checked before either runs",
+    "Prepare actual start separately for full exported wrapper predicate and existing pure Product owner preparation",
+    "Check genuine source/prefix/slots/resource on each fresh read just before invocation",
+    "Preserve old actor/resource/TMPDIR; new controls/approval provenance in N04",
+    "Exactly5 ordered calls and finite budgets"
+  ],
+  "proofScope": "Actual owner construction/precondition checks plus subsequently observed native semantics; no guessed future Run or handoff",
+  "immutableInputs": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/freeze.json",
+      "bytes": 1734377,
+      "sha256": "1d80caa472ee5f53ea431bb8d53262d48974a516510ae132355c8eaa4303e135"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/runtime-slots.json",
+      "bytes": 3566049,
+      "sha256": "b3139f00a50bebea904b2d26fc75e8884d9eded5ffa4b5021ae1fdf275dd136e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/retained-environment.json",
+      "bytes": 39492352,
+      "sha256": "933b44d26a1cb865d6bd6755f333c40e7b18b66730c42c25bc161cc009ae4a15"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/final-handoff.json",
+      "bytes": 1328,
+      "sha256": "564fe85074d7146bd1f7a9ea834825b74beb005c0c51c3e9892c7c526e5d155c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+      "bytes": 4543994,
+      "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-03/s03_phase_b-session-metadata.json",
+      "bytes": 976,
+      "sha256": "a3fe90748fdcb5c9629c68e55ef8367b268cc1ef7685d4413f785b0edc8c54de"
+    }
+  ]
+}

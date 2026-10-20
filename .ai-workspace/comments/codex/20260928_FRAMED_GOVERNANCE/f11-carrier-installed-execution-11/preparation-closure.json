@@ -1,0 +1,17 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_C09_NATIVE_CHILD_SELECTION_PREPARATION_11",
+  "role": "Worker",
+  "workResult": "PREPARED_NATIVE_CHILD_CONTINUATION_ONLY",
+  "Runtime11Activated": false,
+  "ProductImports": 0,
+  "RuntimeEffects": 0,
+  "firstFailurePolicy": "no retry",
+  "writesAfterFreeze": "STOPPED",
+  "unknowns": [
+    "full child cold projection",
+    "F11/AF22 continuation and four new reads",
+    "parent-alias release applicability",
+    "genuine semantic qualification"
+  ]
+}

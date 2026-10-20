@@ -1,0 +1,20 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "sha256": "9ce7221a2425c26a5fe914633c91a5a547981690a0ef81a01ee04b832102d07e",
+    "bytes": 61322,
+    "retained": "preimage-0"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "sha256": "44a17142cc66db21a0c992ff8565e1bfc17479f6604aa81304a21fd273aa0d44",
+    "bytes": 70401,
+    "retained": "preimage-1"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "sha256": "9a65aac6020503301307ea7e23e1f2f065c2e6d7817d66ef973bd476f1270d51",
+    "bytes": 21185,
+    "retained": "preimage-2"
+  }
+]

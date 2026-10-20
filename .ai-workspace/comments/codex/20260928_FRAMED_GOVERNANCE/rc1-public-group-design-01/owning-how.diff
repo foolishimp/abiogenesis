@@ -1,0 +1,45 @@
+--- a/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md
++++ b/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md
+@@ append after Section 16.13 @@
++
++### 16.14 Required Public Contract Group Publication
++
++The eight group identities and package addresses in REQ-P-PUBLIC-CONTRACTS-005
++are immutable Product publication projections of existing GTL, Validator,
++HoG, ABG, Product, transport and Public contract owners. The root and existing
++generic addresses remain available. A group entrypoint re-exports canonical
++owner definitions; it does not redeclare schema, validation, Runtime or Public
++function meaning. Source-to-group publication is typed against those owners.
++
++Product's existing public-contract publication module owns one static mapping
++from required identity/address to its canonical owner symbols and required
++content. The manifest generator consumes the emitted exact export closure,
++checks every required symbol/content and canonical asset relation, then adds
++the digest-bound native group row to the existing flat catalog. Its digest
++hashes the complete canonical (export, declaration path, declaration digest)
++inventory. An anchor symbol or address alias alone does not close a group.
++
++Every required serialized contract/vocabulary/corpus retains its own exact
++catalog identity and canonical owner-derived asset/definition locator.
++Native declarations and canonical schemas must agree. Missing content or an
++unproved later-symbol equivalence stops publication completeness; named later
++contracts require the versioned catalog and explicit supersession demanded by
++REQ-P-PUBLIC-CONTRACTS-004/-007A. No broad group replaces a schema locator.
++
++Capabilities remain projections of the existing Product-owned capability
++register/graph. Group membership adds only proved projection coordinates;
++PublicFunctionDefinition remains the sole closed public function authority.
++Binding an implemented subset does not discharge the existing mandatory-gap
++projection or establish complete 5.0 publication.
++
++The eight-row existing-owner/content/address map in the accepted publication
++design is this appendix's finite realization input. Complete unresolved
++native/schema/requirements-algebra owner relations before retaining their
++implementation. Reuse the existing catalog/native/asset/binding lifecycle;
++do not create a new package, runtime, registry, checker or qualification gate.
++
++Proof covers all required addresses and complete content, typed and canonical
++serialization/asset/native/catalog/capability correspondence, missing/crossed
++relations, and affected pack/install/ordinary carrier/cold read conservation.
++Root joins independently accepted parent and publication source scopes into
++one exact successor. Existing C09/Hello/Rust evidence stays at its own scope.

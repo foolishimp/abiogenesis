@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-reporter=spec",
+    "--test-name-pattern=selector planning preserves|fold and assessment consume|D1 literal source quotes",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs"
+  ],
+  "exitCode": 0,
+  "wallMs": 869.4412920158356,
+  "stdoutBytes": 600,
+  "stderrBytes": 0,
+  "environmentOverrides": {
+    "ABI5_DEFAULT_LIBRARY_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/isolated",
+    "ABI5_D1_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/isolated",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/tmp"
+  },
+  "nativeCampaign": false,
+  "canonicalBuild": false
+}

@@ -1,0 +1,31 @@
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (25.175667ms)
+✖ observed C2 zero write declaration executes readonly helper and refuses real mirror mutation (58.025917ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (6.727084ms)
+✔ changed physical observed source refuses before archive creation or command dispatch (4.952541ms)
+✔ observed C2 result, native acknowledgment and closure bind the same task without turning red execution green (27.432166ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 406.343084
+
+✖ failing tests:
+
+test at input-01/test_env/tests/t287-observed-worksite-command.test.mjs:151:1
+✖ observed C2 zero write declaration executes readonly helper and refuses real mirror mutation (58.025917ms)
+  Error: ENOENT: no such file or directory, lstat '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/test-scratch/abi5-generic-worksite-fixture-WB2zj7/archive'
+      at lstatSync (node:fs:1701:25)
+      at assertCanonicalArchiveRoot (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/build-01/code/src/implementation/worksite_command_execution.js:189:18)
+      at assertArchiveExecutionBoundary (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/build-01/code/src/implementation/worksite_command_execution.js:307:5)
+      at realizeWorksiteCommandExecution (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/build-01/code/src/implementation/worksite_command_execution.js:476:5)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/input-01/test_env/tests/t287-observed-worksite-command.test.mjs:174:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'lstat',
+    path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/test-scratch/abi5-generic-worksite-fixture-WB2zj7/archive'
+  }

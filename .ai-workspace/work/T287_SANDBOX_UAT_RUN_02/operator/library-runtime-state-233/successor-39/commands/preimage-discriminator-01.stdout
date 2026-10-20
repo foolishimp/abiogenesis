@@ -1,0 +1,27 @@
+(node:65702) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ library prepare-testing reuses the invoking private operation and its actual F_D origin (44.555292ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 579.167833
+
+✖ failing tests:
+
+test at input-01/test_env/tests/t287-native-work-reacquisition.test.mjs:208:1
+✖ library prepare-testing reuses the invoking private operation and its actual F_D origin (44.555292ms)
+  AssertionError [ERR_ASSERTION]: canonical declared prepare-testing binding must be accepted by its occurrence owner
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-01/test_env/tests/t287-native-work-reacquisition.test.mjs:215:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }

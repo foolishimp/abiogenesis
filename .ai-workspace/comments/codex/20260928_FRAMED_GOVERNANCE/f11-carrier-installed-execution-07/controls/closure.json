@@ -1,0 +1,13 @@
+{
+  "operation": "T287_C06_Q08_CONDITIONAL_RUNTIME_GRANT_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T07:33:55.113952+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07/request.txt",
+    "bytes": 4735,
+    "sha256": "260faac2f50bbbcf401200681029e2a038afea44f14c81f4a7d399c237ae081a",
+    "mode": 420
+  },
+  "RuntimeSourceCandidateGitEffects": 0
+}

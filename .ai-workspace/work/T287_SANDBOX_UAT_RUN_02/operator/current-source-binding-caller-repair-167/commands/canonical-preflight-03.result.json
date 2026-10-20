@@ -1,0 +1,14 @@
+{
+  "label": "canonical-preflight-03",
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/preflight.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167",
+  "exitCode": 0,
+  "wallMs": 4157.401083037257,
+  "stdoutBytes": 334,
+  "stderrBytes": 0,
+  "timedOut": false,
+  "truncated": false
+}

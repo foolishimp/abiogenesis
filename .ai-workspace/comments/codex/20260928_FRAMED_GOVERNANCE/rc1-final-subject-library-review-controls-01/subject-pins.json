@@ -1,0 +1,38 @@
+{
+  "mechanicalAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-mechanical-conjunction-acceptance-01/acceptance.json",
+    "bytes": 3439,
+    "sha256": "4ad623a7a0926134664e00c5be839cec24145c3355af36d05bedf1ab22148f17",
+    "mode": 420
+  },
+  "generatedAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-acceptance-06/acceptance.json",
+    "bytes": 2651,
+    "sha256": "b1eb4373e8c563fe4c61bb2d50bd207aad71e2717cad83bbc3aa7c10db1a868b",
+    "mode": 420
+  },
+  "C09ConstructionAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+    "bytes": 7019,
+    "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+    "mode": 420
+  },
+  "C09SourceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source-freeze-manifest.json",
+    "bytes": 599463,
+    "sha256": "530fbfab19a7db238c1f24b5c80074f745f3c7a8fae31124955b3ac0c1528cbc",
+    "mode": 420
+  },
+  "frameworkOwnershipConstraint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/subject-pins.json",
+    "bytes": 1267,
+    "sha256": "eb6beb4610a4381545ed8f390ed942052c0b1aae2dbe87f38654ae691e29da7d",
+    "mode": 420
+  },
+  "methodInstall": {
+    "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "bytes": 4277,
+    "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+    "mode": 420
+  }
+}

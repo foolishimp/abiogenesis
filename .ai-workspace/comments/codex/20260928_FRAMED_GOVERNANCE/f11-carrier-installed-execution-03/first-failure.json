@@ -1,0 +1,52 @@
+{
+  "status": "FIRST_FAILURE_STOPPED",
+  "phase": "ordinary_wrapper_setup",
+  "startedAt": "2026-10-01T22:23:28.110Z",
+  "closedAt": "2026-10-01T22:24:24.830Z",
+  "error": {
+    "name": "AssertionError",
+    "message": "{\"kind\":\"environment_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"incompatible_dependency\",\"message\":\"invalid package-owned declaration metadata evidence\"}\n+ actual - expected\n\n+ 'environment_refusal'\n- 'resolved_product_lock'\n",
+    "stack": "AssertionError [ERR_ASSERTION]: {\"kind\":\"environment_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"incompatible_dependency\",\"message\":\"invalid package-owned declaration metadata evidence\"}\n+ actual - expected\n\n+ 'environment_refusal'\n- 'resolved_product_lock'\n\n    at setup (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/setup-driver.mjs:36:180)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/run-setup.mjs:7:7"
+  },
+  "latestHandoff": {
+    "closeHandoff": null,
+    "calls": [
+      {
+        "label": "workspace",
+        "definitionKey": {
+          "operationId": "abg.operation.workspace.create",
+          "memberKey": "clean"
+        },
+        "invocationRef": "invocation://abiogenesis/3d1a04adf743d0caa0411359ef97239cf9cc7008873178f5c9d6592a27537dbe",
+        "outcomeKind": "result",
+        "elapsedMs": 11160.377625000001,
+        "processFailure": null
+      },
+      {
+        "label": "verify-core",
+        "definitionKey": {
+          "operationId": "abg.operation.product.verify",
+          "memberKey": "verify"
+        },
+        "invocationRef": "invocation://abiogenesis/8c9fdf993a5edae302155fd5498b74b8cf18c5a540e960ecb3cb7abf31983000",
+        "outcomeKind": "result",
+        "elapsedMs": 22026.198958000004,
+        "processFailure": null
+      },
+      {
+        "label": "verify-fixture",
+        "definitionKey": {
+          "operationId": "abg.operation.product.verify",
+          "memberKey": "verify"
+        },
+        "invocationRef": "invocation://abiogenesis/c7ab632e8c2c69e6deaaeb29e959087163ae1e62ef3765167139f18ced724d9b",
+        "outcomeKind": "result",
+        "elapsedMs": 11591.437250000003,
+        "processFailure": null
+      }
+    ]
+  },
+  "physical": null,
+  "realProviderCalls": 0,
+  "newCallsAfterFailure": 0
+}

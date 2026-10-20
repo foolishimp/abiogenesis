@@ -1,0 +1,135 @@
+{
+  "kind": "qualification_command_preparation_readiness",
+  "status": "CLOSED",
+  "workResult": "GO_MECHANICAL_ONLY",
+  "activation": "T287_QUALIFICATION_COMMAND_PREPARATION_01",
+  "frontier": "original-input-conservation",
+  "completeTaskConstructed": true,
+  "taskRef": "worksite-command-execution-task://abiogenesis/e500e9dea25b73a757d7cb3c8cd621a6faec71e7e0a8bb630212c4e1d71b1ec1",
+  "taskDigest": "sha256:e500e9dea25b73a757d7cb3c8cd621a6faec71e7e0a8bb630212c4e1d71b1ec1",
+  "publishedTaskGuard": true,
+  "sourceSetRef": "observed-worksite-execution-source-set://abiogenesis/57be1868caa1b0dd0736058fe571d1dcb4487822d07abbdad63182ce6736cdfa",
+  "sourceSetDigest": "sha256:57be1868caa1b0dd0736058fe571d1dcb4487822d07abbdad63182ce6736cdfa",
+  "protectedInputs": 3277,
+  "protectedBytes": 251384737,
+  "commands": 18,
+  "predicates": 19,
+  "territories": 1,
+  "actualTaskDigests": {
+    "commandConfigurationDigest": "sha256:dcf83a4353ec72d654e3059866d79f68a0bcaba9ce01550fd2bd1f9b95c9b5ee",
+    "predicateConfigurationDigest": "sha256:77c818483c281fc249f19dae307b8f717377661b3105daba8a089d0d8269987d",
+    "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0"
+  },
+  "proposedRecipeDigestsMatch": true,
+  "staleQ04RecipeMatches": false,
+  "negatives": 8,
+  "allNearestNegativesRefused": true,
+  "earliestOwnerCall": {
+    "ordinal": 1,
+    "operation": "constructWorkspaceAuthorityBasis"
+  },
+  "firstCalls": [
+    {
+      "ordinal": 1,
+      "operation": "constructWorkspaceAuthorityBasis"
+    },
+    {
+      "ordinal": 2,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 3,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 4,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 5,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 6,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 7,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 8,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 9,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 10,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 11,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 12,
+      "operation": "constructWorksiteSubject"
+    }
+  ],
+  "observedPublicCallCounts": {
+    "constructWorkspaceAuthorityBasis": 1,
+    "constructWorksiteSubject": 3277,
+    "observeWorksiteSubject": 3277,
+    "constructObservedWorksiteCommandExecutionTask": 5,
+    "isObservedWorksiteCommandExecutionTask": 2
+  },
+  "effects": {
+    "qualificationCommandsExecuted": 0,
+    "historicalTestsExecuted": 0,
+    "nativeProviderCalls": 0,
+    "ProductEnvironmentOwnerCalls": 0,
+    "resolverInstallBindCatalogRunJAF22Calls": 0,
+    "ABGAdmissionCalls": 0,
+    "newlyAdmittedEvents": 0,
+    "networkCalls": 0,
+    "privateImports": 0,
+    "filesystemWrites": "new report territory only",
+    "actualFileObservations": 3277
+  },
+  "cost": {
+    "copyElapsedMs": 1469.929,
+    "completeConstructionElapsedMs": 3782.2468329999997,
+    "totalElapsedMs": 8963.091166,
+    "processResourceUsage": {
+      "userCPUTime": 9345199,
+      "systemCPUTime": 4516839,
+      "maxRSS": 617248,
+      "sharedMemorySize": 0,
+      "unsharedDataSize": 0,
+      "unsharedStackSize": 0,
+      "minorPageFault": 60945,
+      "majorPageFault": 84,
+      "swappedOut": 0,
+      "fsRead": 0,
+      "fsWrite": 0,
+      "ipcSent": 0,
+      "ipcReceived": 0,
+      "signalsCount": 0,
+      "voluntaryContextSwitches": 6795,
+      "involuntaryContextSwitches": 553406
+    },
+    "heap": "default; no NODE_OPTIONS or max-old-space-size override",
+    "qualificationRecipe": "eighteen declared commands unexecuted; Q04 earlier six-case readiness passed and is not repeated"
+  },
+  "currentRuntimeBindings": null,
+  "successorC04Binding": null,
+  "actualSnapshot": null,
+  "observedQUAL056": null,
+  "wholeF11": null,
+  "independentJ": null,
+  "soleAF22": null,
+  "releaseAcceptance": null,
+  "limit": "Caller constructability only. Mechanical unit A/W/grant and copied Q04 observations are not ABG-admitted Runtime coordinates or successor qualification material."
+}

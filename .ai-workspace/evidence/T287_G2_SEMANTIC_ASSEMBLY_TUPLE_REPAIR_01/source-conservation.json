@@ -1,0 +1,592 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "relativePath": "code/src/abg/m03.ts",
+      "bytes": 527,
+      "sha256": "2e30ad02228e7e99182e3a684810afe0296abd2439b44adbb44b1561a1c6a32a",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+        "relativePath": "code/src/abg/m03.ts",
+        "byteCount": 527,
+        "sha256": "2e30ad02228e7e99182e3a684810afe0296abd2439b44adbb44b1561a1c6a32a",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/abg/m03.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+        "bytes": 527,
+        "sha256": "2e30ad02228e7e99182e3a684810afe0296abd2439b44adbb44b1561a1c6a32a",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465136882
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+      "relativePath": "code/src/gtl/c_algebra.ts",
+      "bytes": 21915,
+      "sha256": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+        "relativePath": "code/src/gtl/c_algebra.ts",
+        "byteCount": 21915,
+        "sha256": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/gtl/c_algebra.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+        "bytes": 21915,
+        "sha256": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 417791411
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "relativePath": "code/src/gtl/contracts.ts",
+      "bytes": 8897,
+      "sha256": "3e02aa184302fd3a38ba54bf3a63a9bbc30c8a0662aae5bda6fa09a0f61fdf2d",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+        "relativePath": "code/src/gtl/contracts.ts",
+        "byteCount": 8897,
+        "sha256": "3e02aa184302fd3a38ba54bf3a63a9bbc30c8a0662aae5bda6fa09a0f61fdf2d",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/gtl/contracts.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+        "bytes": 8897,
+        "sha256": "3e02aa184302fd3a38ba54bf3a63a9bbc30c8a0662aae5bda6fa09a0f61fdf2d",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 417791415
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "relativePath": "code/src/gtl/m01.ts",
+      "bytes": 722,
+      "sha256": "71b67f5d89d683a7fdab6547490b43943a1f65d9fa1b0852e3b1fe67b4d5e078",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+        "relativePath": "code/src/gtl/m01.ts",
+        "byteCount": 722,
+        "sha256": "71b67f5d89d683a7fdab6547490b43943a1f65d9fa1b0852e3b1fe67b4d5e078",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/gtl/m01.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+        "bytes": 722,
+        "sha256": "71b67f5d89d683a7fdab6547490b43943a1f65d9fa1b0852e3b1fe67b4d5e078",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465136878
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "relativePath": "code/src/gtl/m02.ts",
+      "bytes": 374,
+      "sha256": "641ef1e97f3fc133341def23fe61c10039a3e7ae8e4fff3482f9495ffc094615",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+        "relativePath": "code/src/gtl/m02.ts",
+        "byteCount": 374,
+        "sha256": "641ef1e97f3fc133341def23fe61c10039a3e7ae8e4fff3482f9495ffc094615",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/gtl/m02.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+        "bytes": 374,
+        "sha256": "641ef1e97f3fc133341def23fe61c10039a3e7ae8e4fff3482f9495ffc094615",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465136879
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+      "relativePath": "code/src/gtl/serialization.ts",
+      "bytes": 2389,
+      "sha256": "96fd24a54ced49872c3f83e03e5258059cdc1c0cc7f79841ff205977a79fac97",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+        "relativePath": "code/src/gtl/serialization.ts",
+        "byteCount": 2389,
+        "sha256": "96fd24a54ced49872c3f83e03e5258059cdc1c0cc7f79841ff205977a79fac97",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/gtl/serialization.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+        "bytes": 2389,
+        "sha256": "96fd24a54ced49872c3f83e03e5258059cdc1c0cc7f79841ff205977a79fac97",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465194798
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+      "relativePath": "code/src/gtl/serialization_contracts.ts",
+      "bytes": 18295,
+      "sha256": "24e3cf03449ef547b6b92e28c630392e7fe19c07094551aea24d3eb6a971f1b2",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+        "relativePath": "code/src/gtl/serialization_contracts.ts",
+        "byteCount": 18295,
+        "sha256": "24e3cf03449ef547b6b92e28c630392e7fe19c07094551aea24d3eb6a971f1b2",
+        "mode": 420,
+        "authoredBy": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/gtl/serialization_contracts.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+        "bytes": 18295,
+        "sha256": "24e3cf03449ef547b6b92e28c630392e7fe19c07094551aea24d3eb6a971f1b2",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465193976
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+      "relativePath": "code/src/validator/conformance_operation.ts",
+      "bytes": 13392,
+      "sha256": "5ac0dfb4c2c0cc7821c7611070d39075d6eb376a544e7b526027a316fe14e2c3",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+        "relativePath": "code/src/validator/conformance_operation.ts",
+        "byteCount": 13392,
+        "sha256": "5ac0dfb4c2c0cc7821c7611070d39075d6eb376a544e7b526027a316fe14e2c3",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/validator/conformance_operation.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+        "bytes": 13392,
+        "sha256": "5ac0dfb4c2c0cc7821c7611070d39075d6eb376a544e7b526027a316fe14e2c3",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 454590288
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+      "relativePath": "code/src/validator/conformance_operation_contracts.ts",
+      "bytes": 2999,
+      "sha256": "f310b4d29d5e6778b9c370c96b98458a75c6f229173ab5fb831727495943f527",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+        "relativePath": "code/src/validator/conformance_operation_contracts.ts",
+        "byteCount": 2999,
+        "sha256": "f310b4d29d5e6778b9c370c96b98458a75c6f229173ab5fb831727495943f527",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/validator/conformance_operation_contracts.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+        "bytes": 2999,
+        "sha256": "f310b4d29d5e6778b9c370c96b98458a75c6f229173ab5fb831727495943f527",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 417791524
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+      "relativePath": "code/src/validator/raw_admission.ts",
+      "bytes": 9341,
+      "sha256": "2b53abc5ca6684c78f3106cbcda924944a84519e7244b4683459b89177b6c2a3",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+        "relativePath": "code/src/validator/raw_admission.ts",
+        "byteCount": 9341,
+        "sha256": "2b53abc5ca6684c78f3106cbcda924944a84519e7244b4683459b89177b6c2a3",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/validator/raw_admission.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+        "bytes": 9341,
+        "sha256": "2b53abc5ca6684c78f3106cbcda924944a84519e7244b4683459b89177b6c2a3",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 454590289
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "relativePath": "code/src/validator/validation.ts",
+      "bytes": 81770,
+      "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+        "relativePath": "code/src/validator/validation.ts",
+        "byteCount": 81770,
+        "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/validator/validation.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+        "bytes": 81770,
+        "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 456722781
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+      "relativePath": "contracts/conformance/gtl-language-conformance-corpus.json",
+      "bytes": 138448,
+      "sha256": "4ef174f684023199da232f2bd3c3e5f46298c33ed81012a3a9096632f6c480bf",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+        "relativePath": "contracts/conformance/gtl-language-conformance-corpus.json",
+        "byteCount": 138448,
+        "sha256": "4ef174f684023199da232f2bd3c3e5f46298c33ed81012a3a9096632f6c480bf",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/contracts/conformance/gtl-language-conformance-corpus.json",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+        "bytes": 138448,
+        "sha256": "4ef174f684023199da232f2bd3c3e5f46298c33ed81012a3a9096632f6c480bf",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465206929
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "relativePath": "scripts/generate-product-manifest.mjs",
+      "bytes": 49057,
+      "sha256": "5ab823b9e010d1b57624020b1ea3d1e515bea7c845d123a7e49b26e40e7298aa",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "relativePath": "scripts/generate-product-manifest.mjs",
+        "byteCount": 49057,
+        "sha256": "5ab823b9e010d1b57624020b1ea3d1e515bea7c845d123a7e49b26e40e7298aa",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/scripts/generate-product-manifest.mjs",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "bytes": 49057,
+        "sha256": "5ab823b9e010d1b57624020b1ea3d1e515bea7c845d123a7e49b26e40e7298aa",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 417887551
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "relativePath": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "bytes": 5357,
+      "sha256": "132d1e815b9bb4e4e963bc047235379c996241f5022c4dc47a9ca96b1a20c1b9",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs",
+        "relativePath": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+        "byteCount": 5357,
+        "sha256": "132d1e815b9bb4e4e963bc047235379c996241f5022c4dc47a9ca96b1a20c1b9",
+        "mode": 420,
+        "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs",
+        "bytes": 5357,
+        "sha256": "132d1e815b9bb4e4e963bc047235379c996241f5022c4dc47a9ca96b1a20c1b9",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465207346
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "relativePath": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "bytes": 37217,
+      "sha256": "d90d8a343aa08ee973aa6cd2cf0f6b9e333e9022904c53ffe28f1d42e832f8bb",
+      "mode": 420,
+      "changed": true,
+      "authoredBy": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+        "relativePath": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+        "byteCount": 33708,
+        "sha256": "8a811c559e4c951077d5b850a3e636b665ad2c4b04fe90e0c6b416d8757385f5",
+        "mode": 420,
+        "authoredBy": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+        "writableInAssemblyRepair": true
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+        "bytes": 37217,
+        "sha256": "d90d8a343aa08ee973aa6cd2cf0f6b9e333e9022904c53ffe28f1d42e832f8bb",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465207345
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "relativePath": "code/src/gtl/stdo_run_environment.ts",
+      "bytes": 25241,
+      "sha256": "0e1d112eea7d0184ea37b3edcc20b9d425d3eaf1d95e8edc34ae0a52fd0f2f3b",
+      "mode": 420,
+      "changed": false,
+      "authoredBy": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "relativePath": "code/src/gtl/stdo_run_environment.ts",
+        "byteCount": 25241,
+        "sha256": "0e1d112eea7d0184ea37b3edcc20b9d425d3eaf1d95e8edc34ae0a52fd0f2f3b",
+        "mode": 420,
+        "authoredBy": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+        "writableInAssemblyRepair": false
+      },
+      "priorAuthorshipProducer": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+        "bytes": 19623,
+        "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/gtl/stdo_run_environment.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "bytes": 25241,
+        "sha256": "0e1d112eea7d0184ea37b3edcc20b9d425d3eaf1d95e8edc34ae0a52fd0f2f3b",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 456722741
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts",
+      "relativePath": "code/src/gtl/semantic_stage.ts",
+      "bytes": 12826,
+      "sha256": "c9e782ead726f9c539b53f6df69e0a4702f928c736baa89ada5a8684232167f1",
+      "mode": 420,
+      "changed": true,
+      "authoredBy": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "entrySourceRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts",
+        "relativePath": "code/src/gtl/semantic_stage.ts",
+        "byteCount": 12820,
+        "sha256": "8c3578a6e03f71cf64012e92b535e54dc617caa5e89c76f1bffefe6fc98b18c3",
+        "mode": 420,
+        "authoredBy": "pre_existing_Source_no_actor_claim",
+        "authorshipStanding": "Exact entry pin; prior original author not reconstructed",
+        "writableInAssemblyRepair": true
+      },
+      "priorAuthorshipProducer": null,
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/postimages/code/src/gtl/semantic_stage.ts",
+      "finalActual": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts",
+        "bytes": 12826,
+        "sha256": "c9e782ead726f9c539b53f6df69e0a4702f928c736baa89ada5a8684232167f1",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 448640113
+      }
+    }
+  ],
+  "changedSource": 2,
+  "unchangedSource": 15,
+  "originalAuthorshipProducer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+    "bytes": 19623,
+    "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+  },
+  "priorAuthorshipUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+    "bytes": 19623,
+    "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 465274696
+  },
+  "newImportedOwnerPriorAuthorshipUnclaimed": true,
+  "priorFailedFreezeUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/freeze.json",
+    "bytes": 7810699,
+    "sha256": "10784258ecbb30175673eda17184c088589ba450b98b917adf7f4f7edeebbb10",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 465283554
+  },
+  "acceptedHOWUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+    "bytes": 18222,
+    "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 465154832
+  },
+  "sourceEffectScope": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts"
+  ],
+  "outsideScopeSourceEffects": 0,
+  "stagedSemanticOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts",
+    "bytes": 12826,
+    "sha256": "c9e782ead726f9c539b53f6df69e0a4702f928c736baa89ada5a8684232167f1",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 465290175
+  },
+  "sourceVersusEmission": "The source corpus remains the exact entry Source; manifest generation derives the staged/package corpus schema digest. These are distinct source and emitted artifact populations."
+}

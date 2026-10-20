@@ -1,0 +1,25 @@
+✖ F04 same native contract proof is reused while raw and changed bases still check (220.005375ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 257.461333
+
+✖ failing tests:
+
+test at test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs:939:1
+✖ F04 same native contract proof is reused while raw and changed bases still check (220.005375ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'trim')
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/declarations.js:17:38
+      at Array.some (<anonymous>)
+      at freezeStrings (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/declarations.js:17:16)
+      at catalogContribution (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/declarations.js:121:25)
+      at contribution (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/recursion.js:371:48)
+      at constructRecursionPublicationParts (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/recursion.js:396:13)
+      at Module.constructHelloWorldModulePublication (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/hello_world.js:378:23)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs:955:27)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

@@ -1,0 +1,8 @@
+{
+  "compileMs": 90000,
+  "regressionMs": 180000,
+  "conservation-fpMs": 90000,
+  "conservation-diagnosticMs": 90000,
+  "conservation-assemblyMs": 90000,
+  "basis": "compile prior6.1s/Q06 preparation9.3s plus finite diagnostic margin; no heap/HOME change; no actual helper/runtime"
+}

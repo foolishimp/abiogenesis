@@ -1,4 +1,5 @@
 import * as Abg from "../abg/index.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
 
 import type {
   ExecutionBasis,
@@ -25,9 +26,9 @@ import {
 import {
   proposeInteractionResumeRoute,
 } from "./route_proposal.js";
-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
+import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import {
-  projectExecutableTraversalCompletion,
+  projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion,
   type ExecutableTraversalCompletion,
   type HeldInteractionTraversal,
 } from "./traversal_completion.js";
@@ -52,6 +53,12 @@ export interface CompleteInteractionResumeInput {
   }>;
 }
 
+
+import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
+import * as OwnedOutcome from "../abg/c_call_outcome.js";
+import * as OwnedReplay from "../abg/replay.js";
+/** @internal */
+export type OwnedExecutableTraversalCompletion = OwnedOutcomeValue<ExecutableTraversalCompletion>;
 function admissionBasis(
   clock: CompleteInteractionResumeInput["clock"],
   stage: string,
@@ -63,9 +70,10 @@ function admissionBasis(
   };
 }
 
-export function completeInteractionResume(
+/** @internal Same current completion with a selected guard receipt. */
+export function completeOwnedInteractionResume(
   input: CompleteInteractionResumeInput,
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   const fail = (
     stage: string,
     diagnosticRef: string,
@@ -100,7 +108,7 @@ export function completeInteractionResume(
       inputRef: input.resume.successorInputRef,
       inputDigest: input.resume.successorInputDigest,
     },
-    Abg.projectRuntimePrefixesAtDurablePrefix(input.predecessorPrefix, input.successorCursor.runId).authorityPrefix,
+    projectOwnedRuntimeEventPrefixAtDurablePrefix(input.predecessorPrefix),
   );
   if (target?.kind === "traversal_refusal") {
     return fail(
@@ -109,7 +117,7 @@ export function completeInteractionResume(
       target as unknown as JsonValue,
     );
   }
-  const outcome = Abg.projectCCallOutcomeReceiptAtPrefix(
+  const outcome = OwnedOutcome.projectOwnedCCallOutcomeReceiptAtPrefix(
     input.predecessorPrefix,
     {
       disposition: "judged",
@@ -189,7 +197,7 @@ export function completeInteractionResume(
       },
       terminalizeRun: false,
     });
-  const admitted = Abg.admitCCallCompletion({
+  const admitted = OwnedOutcome.admitOwnedCCallCompletion({
       store: input.store,
       predecessorPrefix: input.predecessorPrefix,
       executionBasis: input.executionBasis,
@@ -221,7 +229,7 @@ export function completeInteractionResume(
     route.routeKind === "advance" && target !== null &&
     successorContract !== null
   ) {
-    const { runtimePrefix, authorityPrefix } = Abg.projectRuntimeTruthAtDurablePrefix(
+    const { runtimePrefix, authorityPrefix } = OwnedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
       admitted.transition.successorPrefix,
       cCall.runId,
     );
@@ -272,3 +280,7 @@ export function completeInteractionResume(
     },
   );
 }
+
+export function completeInteractionResume(
+  input: CompleteInteractionResumeInput
+): ExecutableTraversalCompletion { return completePublicOutcome<ExecutableTraversalCompletion>(completeOwnedInteractionResume(input)); }

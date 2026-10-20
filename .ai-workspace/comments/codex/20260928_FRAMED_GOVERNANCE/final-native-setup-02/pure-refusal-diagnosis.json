@@ -1,0 +1,50 @@
+{
+  "classification": "read-only installed pure validator diagnosis of exact failed-call bytes; no new Public call or resource acquisition",
+  "input": "pre-effect-catalog-call.json",
+  "rows": [
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 7,
+      "result": {
+        "kind": "static_validation_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "invalid",
+        "stage": "publication",
+        "subjectDigest": "sha256:f3581cd7ee70d43f360e70e27e10f73346a06e8275d1790f8bb76b00f1d67c17",
+        "diagnostics": [
+          {
+            "code": "duplicate_identity",
+            "path": "$.graphFunctions[graph-function://abiogenesis/default-library/construction@5].environment.carries",
+            "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/default-library/state@5"
+          },
+          {
+            "code": "duplicate_identity",
+            "path": "$.graphFunctions[graph-function://abiogenesis/default-library/design@5].environment.carries",
+            "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/default-library/state@5"
+          },
+          {
+            "code": "duplicate_identity",
+            "path": "$.graphFunctions[graph-function://abiogenesis/default-library/induction@5].environment.carries",
+            "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/default-library/state@5"
+          },
+          {
+            "code": "duplicate_identity",
+            "path": "$.graphFunctions[graph-function://abiogenesis/default-library/specification@5].environment.carries",
+            "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/default-library/state@5"
+          },
+          {
+            "code": "duplicate_identity",
+            "path": "$.graphFunctions[graph-function://abiogenesis/default-library/testing@5].environment.carries",
+            "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/default-library/state@5"
+          },
+          {
+            "code": "duplicate_identity",
+            "path": "$.graphFunctions[graph-function://abiogenesis/default-library/uat@5].environment.carries",
+            "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/default-library/state@5"
+          }
+        ]
+      }
+    }
+  ]
+}

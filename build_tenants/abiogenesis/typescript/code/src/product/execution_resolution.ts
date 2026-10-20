@@ -41,7 +41,7 @@ import {
   type GraphFunctionCatalogView,
   type ReadyGraphFunctionCatalog,
 } from "./catalog.js";
-import { constructCatalogProgramValidationInput } from
+import { constructProgramValidationInputFromResolvedClosure } from
   "./catalog_operations.js";
 import type { ProductInstallCandidate } from "./contracts.js";
 import {
@@ -430,8 +430,9 @@ async function resolveProductExecution(
   if (
     reconstructedCatalog === null ||
     reconstructedCatalog.kind !== "graph_function_catalog" ||
-    canonicalJson(reconstructedCatalog as unknown as JsonValue) !==
-      canonicalJson(input.catalog as unknown as JsonValue)
+    (reconstructedCatalog !== input.catalog &&
+      canonicalJson(reconstructedCatalog as unknown as JsonValue) !==
+        canonicalJson(input.catalog as unknown as JsonValue))
   ) {
     return refusal(
       "incompatible_or_unproven",
@@ -452,8 +453,9 @@ async function resolveProductExecution(
   if (
     reconstructedView === null ||
     reconstructedView.kind !== "graph_function_catalog_view" ||
-    canonicalJson(reconstructedView as unknown as JsonValue) !==
-      canonicalJson(input.catalogView as unknown as JsonValue)
+    (reconstructedView !== input.catalogView &&
+      canonicalJson(reconstructedView as unknown as JsonValue) !==
+        canonicalJson(input.catalogView as unknown as JsonValue))
   ) {
     return refusal(
       "incompatible_or_unproven",
@@ -715,9 +717,7 @@ async function resolveProductExecution(
     );
   }
 
-  const validationInput = constructCatalogProgramValidationInput(
-    reconstructedCatalog,
-    reconstructedView,
+  const validationInput = constructProgramValidationInputFromResolvedClosure(
     programDeclarationClosure,
     program,
   );

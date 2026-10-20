@@ -1,0 +1,12 @@
+{
+  "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/driver.mjs",
+  "originSHA256": "6856c2a4ef6df335f3893e5e8a6d9a480e6e8daad199f8ba15648976216e9402",
+  "newDriverSHA256": "92c15474136c08187fa86eff119260e2e981c4505c9b46f7ba50a8c22162a98a",
+  "adaptations": [
+    "Reuse genuine closed setup, current bound environment and actual owner nominal/catalog reconstruction instead of setup replay",
+    "Correct conformance through shared pure constructor in ordinary caller",
+    "Use declared public projectRunTruthAtDurablePrefix for read-only original causal oracle input; no private projector import",
+    "Unique activation-04 request identities and new report territory"
+  ],
+  "originalOraclesAndConsumersUnchanged": true
+}

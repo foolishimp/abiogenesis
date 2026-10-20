@@ -1,0 +1,12 @@
+{
+  "name": "04-binding",
+  "command": [
+    "node",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/bind-and-render.mjs"
+  ],
+  "pid": 13774,
+  "elapsedMs": 25.498708244413137,
+  "exitCode": 1,
+  "timedOut": false,
+  "scope": "Pure external construction/validation/rendering; no native/provider dispatch"
+}

@@ -1,0 +1,20 @@
+{
+  "matchingProcesses": [],
+  "newNativeLogLockArchivePaths": [],
+  "preflightSession": {
+    "id": 43605,
+    "exitCode": 1
+  },
+  "readOnlyCaptureExitCode": 0,
+  "nativeAcquisitionStarted": false,
+  "priorNativeResource": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+    "bytes": 3600313,
+    "sha256": "97c846593397d256efc5acc537daa10ad61267163d69043ef50f0001d307491c"
+  },
+  "physicalIdentity": {
+    "device": 16777230,
+    "inode": 463711677
+  },
+  "observedAt": "2026-09-29T17:54:06Z"
+}

@@ -1,0 +1,31 @@
+✔ native D2 declares public intake and every selected whole suffix with exact GTL and role owners (431.859667ms)
+(node:13335) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native D2 stage role policies reach assembly and preserve required-content refusals (17.437667ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 725.191834
+
+✖ failing tests:
+
+test at test/full-sandbox.test.mjs:558:1
+✖ native D2 stage role policies reach assembly and preserve required-content refusals (17.437667ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(row)
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs:593:75)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

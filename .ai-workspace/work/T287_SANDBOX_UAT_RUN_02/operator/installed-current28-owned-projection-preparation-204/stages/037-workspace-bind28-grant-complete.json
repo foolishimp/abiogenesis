@@ -1,0 +1,12 @@
+{
+  "stage": "workspace-bind28-grant-complete",
+  "rss": 4914872320,
+  "heapTotal": 3951673344,
+  "heapUsed": 3708434728,
+  "external": 2456968,
+  "arrayBuffers": 44061,
+  "at": "2026-10-09T11:29:18.237Z",
+  "elapsedMs": 213371.625459,
+  "ownerArtifactReceiptRetained": true,
+  "capabilities": 1
+}

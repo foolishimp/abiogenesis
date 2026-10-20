@@ -1,0 +1,12 @@
+{
+  "stage": "acquisition-start",
+  "rss": 2016919552,
+  "heapTotal": 1718665216,
+  "heapUsed": 1584259360,
+  "external": 98146265,
+  "arrayBuffers": 95729404,
+  "at": "2026-10-09T05:30:55.072Z",
+  "elapsedMs": 19943.245208,
+  "prefixLength": 1685518956,
+  "host": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant"
+}

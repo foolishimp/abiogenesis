@@ -1,0 +1,17 @@
+{
+  "role": "Worker47 supplied-material preparation only",
+  "method": "STDO2.5.1RC2/fixed15 ABI5 GOAL035/T287",
+  "frames": [
+    "f-end-to-end-interface-integration",
+    "f-worksite-causality"
+  ],
+  "publicationAcceptance": "ACCEPTED Root CLOSED Proof46+accepted Source45/Proof45; immutable UNRELEASED candidate17",
+  "executionAuthorized": false,
+  "ownerRoute": "existing prep37,runner.configuration/acquireResumeMaterial and constructWorkloadInput; Public source:none",
+  "effects": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47"
+  ],
+  "oldNativeP0": "OPEN; no installed long-run/whole-memory/UAT credit",
+  "sourceOrAppChanges": false,
+  "oldStoreCopyOrReplay": false
+}

@@ -1,0 +1,90 @@
+{
+  "tenantRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "files": [
+    {
+      "path": "code/src/product/environment.ts",
+      "sha256": "96f6547138e43578fba31ace0b02a4e5060b1ffbfef3682802565ec8de4ed9d7",
+      "byteCount": 42399
+    },
+    {
+      "path": "code/src/product/catalog.ts",
+      "sha256": "bd2a160d28f7a8b6c67dcbfb3fc559ea3d0d28059f2dc873c5df530b3639c75a",
+      "byteCount": 35463
+    },
+    {
+      "path": "code/src/product/declaration_closure.ts",
+      "sha256": "fb78da2d82c5355fcf246071eeb17104965825c7e610ec76ab25b6ba03055ea3",
+      "byteCount": 40951
+    },
+    {
+      "path": "code/src/product/catalog_operations.ts",
+      "sha256": "0369dafbfd7f21f366394d560095429303892d85fb033df77f6b2a2e0834cfee",
+      "byteCount": 11788
+    },
+    {
+      "path": "code/src/product/execution_resolution.ts",
+      "sha256": "73d296ac7dbcab675c5a1f9a1399459356d81f9cd34772a0d037a6daf0a1e920",
+      "byteCount": 46996
+    },
+    {
+      "path": "code/src/validator/validation.ts",
+      "sha256": "9d0ec07e74b4f31ea32ad5c969976bb80c381afc09fe082ce3994c03d0da50e1",
+      "byteCount": 81495
+    },
+    {
+      "path": "code/src/validator/graph.ts",
+      "sha256": "3141f796436fb09a7c8a916ac3abdf389a61e9f60892649681712c51f8b1f833",
+      "byteCount": 4826
+    },
+    {
+      "path": "code/src/gtl/materialize.ts",
+      "sha256": "72fb984af08a3869a5761b6f98838f572a4a966cf62d2e2c8f55cfed4f461792",
+      "byteCount": 9461
+    },
+    {
+      "path": "code/src/gtl/graph_construction.ts",
+      "sha256": "6ab321d5ae51ecdade6c4ee4172e592c94ceae5c0dbcf9b42dcab23754f141d2",
+      "byteCount": 23818
+    },
+    {
+      "path": "design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
+      "sha256": "aa3da14a44ac17083c78a9e4e32724f9cb086922f2d596d461400398ba5e1446",
+      "byteCount": 39011
+    },
+    {
+      "path": "design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+      "sha256": "1bc120af6a54be5a4d26afcc618c15f51ef3e4d0ad83540bb92b4f654ae35ff4",
+      "byteCount": 20357
+    },
+    {
+      "path": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "52de5e4ed66ca62ea7247add4fcd232dda649d30aca3330412233419d1c15fa4",
+      "byteCount": 37264
+    },
+    {
+      "path": "test_env/tests/t287-static-declaration-closure.test.mjs",
+      "sha256": "db678b7dde7029d41e7a82d0d67d8dddba749d25f0329b9524dc735018473a5b",
+      "byteCount": 16613
+    },
+    {
+      "path": "test_env/tests/t287-gtl-graph-law.test.mjs",
+      "sha256": "3af135aba0c78cd792a751839d59f102d60b33d5cbb5e9905fd45b7dfc665278",
+      "byteCount": 15452
+    },
+    {
+      "path": "test_env/tests/t287-installed-dependency-lock.test.mjs",
+      "sha256": "64f2082080705facb37f20a071524a7c4052f6c2ba4473ee35d6e6e08ea6e294",
+      "byteCount": 12649
+    },
+    {
+      "path": "code/src/product/declaration_exports.ts",
+      "sha256": "22bc8a46aa596e8d5fa4b0336c9a0edc8f0878b1f96af00f2e8a03ad348772ae",
+      "byteCount": 119230
+    },
+    {
+      "path": "code/src/shared/immutable.ts",
+      "sha256": "bd6c4c9cd235ac14d59b185ddd8bf4330a0af7646857537ddcf358c9d079104f",
+      "byteCount": 614
+    }
+  ]
+}

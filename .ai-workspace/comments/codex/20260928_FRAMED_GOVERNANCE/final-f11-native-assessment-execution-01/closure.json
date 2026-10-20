@@ -1,0 +1,38 @@
+{
+  "status": "CLOSED",
+  "disposition": "incomplete",
+  "activation": "T287_F11_NATIVE_ASSESSMENT_01",
+  "actualOutcome": "runtime_failed",
+  "firstBrokenRelation": "Claude transport could not reach provider: native result ENOTFOUND; no raw assessment-raw@5 value/J",
+  "nativeOrdinaryCalls": 5,
+  "nativeAssessmentOccurrences": 1,
+  "freshReads": 2,
+  "providerReportedTokens": 0,
+  "providerReportedCostUSD": 0,
+  "mechanismEvidence": "Actual selected task/plan -> ordinary installed admission -> one eligible actor request/full prompt -> native transport failure -> Runtime failure closure -> matching fresh result/replay; original prefix and dependencies conserved.",
+  "semanticAssessmentCompleted": false,
+  "qualificationJProduced": false,
+  "fullF11OrAF22Verdict": null,
+  "triangulation": {
+    "ProductDesign": "Selected rule-assessment Program/strict input law/source context passed local/current owner joins; no upstream defect established.",
+    "Integration": "One complete frozen task/plan/full render traversed ordinary view/conformance/start and actual CCall/actor path.",
+    "IdentityAuthority": "Original root owner/W/policy/grant admitted; actual assessor fields retained. Historical semantic author/independence attribution remains unassessed without J.",
+    "LifecycleEffects": "Native process exit and transport termination confirmed; failed Run closed lawfully, exact returned handoff reopened for two fresh reads; no retry dispatch or manual repair.",
+    "Proof": "No semantic raw value/qualification J/terminal Result; generic CCall failure judgment is not qualification J. Result notfound and failed replay agree; no synthetic proof.",
+    "Cost": "Complete 67.8MB input admitted; unchanged 1.02MB prompt archived. Native test took 291.6s, driver peakRSS 5.25GB, assessment CLI peakRSS 3.86GB, event growth67.95MB. Provider reports zero tokens/cost; context acceptance unknown."
+  },
+  "escapeCause": "Provider reachability is operational and was unknown before actual native dispatch; no shell-DNS inference was used as an extra gate. Failed result escaped no owner check: it is retained truthfully.",
+  "smallestNextOwner": "Root selects restoration/verification of native provider access, then a separately granted future assessment if desired. No Product/source/HOW repair established, no automatic retry.",
+  "unknowns": [
+    "underlying ENOTFOUND cause",
+    "provider context/model-capacity acceptance",
+    "semantic criterion/grouping/applicability findings",
+    "construction attribution/assessment-author independence adequacy",
+    "full F11/AF22 qualification"
+  ],
+  "remainingProcesses": [],
+  "sourceChanges": false,
+  "callerOrBindingChanges": false,
+  "governingControl": "STDO2.5.1RC2",
+  "candidateLaw": "Immutable C02/Q02 RC1"
+}

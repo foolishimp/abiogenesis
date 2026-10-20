@@ -1,0 +1,60 @@
+{
+  "captured_utc": "2026-10-20T16:32:40.009406+00:00",
+  "files": [
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "878a890b3094722daebc828ef1678ce1139aeac83e0ca5e561b9765ac1105e52",
+      "bytes": 93923
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "sha256": "a6387187b0bb0d206e490c86fe63779ab1bc90aa1980e4e38ad63f79f65d2249",
+      "bytes": 8059
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "sha256": "068a34859896cc5ec8bda0a34a9b8a4571f924cc243abf21a22a320410b35c1d",
+      "bytes": 4137
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "sha256": "810a1d30eaba36232919e2a88360d6bce87040b5da22e2cb1ec5a460fe0899cf",
+      "bytes": 5892
+    },
+    {
+      "path": "specification/requirements/gtl/README.md",
+      "sha256": "3738823cf9e27c5dd6bec9cb0f400f52f9339b38b5aa1324ee93b19e7fa7333b",
+      "bytes": 3023
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "sha256": "af6538e5bf717feeefc90a8becedac9f3556fc77ea4c149443fa2a9c4d5f3175",
+      "bytes": 7543
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "sha256": "b7e548eebae47b078b5d54a7838692f736a2956321673bc62b58bd9608d03bd8",
+      "bytes": 2917
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "sha256": "e09939e63164131f8dd8ea9a0a0030755897cce769d20cd719391b5d4140c32d",
+      "bytes": 12093
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "sha256": "3db608b13aa61e13d68ecef484561d90aa3e1dfee3cba4b36fce1d913cd87502",
+      "bytes": 8926
+    },
+    {
+      "path": "specification/requirements/abg/README.md",
+      "sha256": "421300265888d2332b80fefcd7931006fcb38d1be9cb4cae710348f3da98a44d",
+      "bytes": 3069
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "sha256": "7608bf8ec1be5b92427e0de3d0642f71e67c24e779f3a55a5ed6fe6122bdaa8d",
+      "bytes": 74200
+    }
+  ]
+}

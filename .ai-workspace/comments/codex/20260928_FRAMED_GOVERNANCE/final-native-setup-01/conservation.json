@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "protectedPreEffectInputs": 29,
+  "QFrozenRecords": 46,
+  "CFreeze": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/freeze.json",
+    "bytes": 4534351,
+    "sha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f"
+  },
+  "CArchive": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10375077,
+    "sha256": "2840b889d9207b48f7b1492934d3158a25352efa7b942f8ea58992ed15b57bcc"
+  },
+  "newOrdinaryInstallPayloadMembersEqualToArchive": 5256,
+  "snapshotAndCurrentResourceEqual": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+  "canonicalSourceWrites": 0,
+  "earlierResourceAccess": 0,
+  "implementationChangesAfterFailure": 0
+}

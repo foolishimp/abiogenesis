@@ -1,3 +1,4 @@
+import type { RuntimeEventScan } from "./runtime_history.js";
 import { isQualificationReferenceForm, resolveQualificationAssessment, resolveQualificationProof, resolveSelfConformanceInput, type QualificationResources } from "../validator/qualification_resources.js";
 import { canonicalJson } from "../shared/canonical_json.js";
 import { isDeepStrictEqual } from "node:util";
@@ -19,7 +20,7 @@ import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, pr
   type RehydratedAdmittedCCallState, type AdmittedCCallEvidence } from "./c_call.js";
 import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
 import { readRuntimeEventsAtDurablePrefix, assertDurableRuntimePrefixCurrent, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
-import { selectValidatedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix, runtimePrefixComputation } from "./event_prefix.js";
+import { selectValidatedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix, runtimePrefixComputation, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { projectFhContinuations } from "./fh_continuation_projection.js";
 import { deriveRuntimeEventCalculusProjection } from "./event_calculus.js";
 import { GraphCallProjectionPort, projectRunTruthAtDurablePrefix } from "./project_read_ports.js";
@@ -145,7 +146,7 @@ function graphOwner(coordinate: DurablePrefixCoordinate, ref: string, declaratio
 /** Reuses the historical Product verifier and native CCall owner. No supplied
  * declaration becomes authority by passing its own structural guard. */
 function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: string, declarations: readonly AbgHistoricalDeclarationProof[],
-  events: readonly RuntimeEvent[], prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>, opened: RuntimeEvent, source?: ExecutionSourceFacts) {
+  events: readonly RuntimeEvent[], prefix: ValidatedRuntimeEventPrefix, opened: RuntimeEvent, source?: ExecutionSourceFacts) {
   const execution = opened?.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prefix, opened.basisId);
   if (execution === null || opened === null) return null;
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
@@ -323,7 +324,7 @@ export function malformedGtlAssessmentHasNativeOwner(proof: QualificationProofRe
 }
 /** Exclude only calls unable to affect the selected uniqueness relation.
  * Every potentially eligible successful producer still enters nativeState. */
-function eligibleCalls(events: readonly RuntimeEvent[], selected: GraphOwner, implementation?: string) {
+function eligibleCalls(events: RuntimeEventScan, selected: GraphOwner, implementation?: string) {
   const results = new Set(events.filter(e => e.kind === "c_call_result_admitted").map(e => e.aggregateId));
   const implementations = implementation === undefined ? null : new Set(events.filter(e =>
     e.kind === "c_call_fibre_selected" && record(e.payload) && e.payload.implementationRef === implementation).map(e => e.aggregateId));

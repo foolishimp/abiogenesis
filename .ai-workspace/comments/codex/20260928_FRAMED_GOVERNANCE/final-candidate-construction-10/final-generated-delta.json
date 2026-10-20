@@ -1,0 +1,30 @@
+[
+  {
+    "path": "build/code/src/abg/qualification_proof.js",
+    "baselineActualStageSHA256": "29721c3f766dd3b20ea705d07298c13317c3489b4774ce51758d03940c0b368e",
+    "currentGeneratedSHA256": "4e25a437becd5c3908ec8e2418a067186e5c56b2e6a637697388d59d1afadf3a",
+    "currentBytes": 78198,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/self_conformance.js",
+    "baselineActualStageSHA256": "ac8ab2bf107f0cb1db564976264cf6c343f3c40507c0c8608bf253ecbbaef455",
+    "currentGeneratedSHA256": "bb4b73eb6aeccaf01da7b419af3a4985bdbd33c5ba80cde420cb001b73693412",
+    "currentBytes": 29492,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "baselineActualStageSHA256": "3b72a0f5a0a32a4b149da891e49535502c86a7c937b3bb11384d2abe25af0052",
+    "currentGeneratedSHA256": "1031a00e9892004e69a70f5174f14b252b60fca2ac696e45d90d3de67590b34e",
+    "currentBytes": 197474,
+    "role": "generated_output"
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "baselineActualStageSHA256": "30b865c39f30a6619f911729c7cb7df5d44de3d1f7607bf670b1443ac541aee6",
+    "currentGeneratedSHA256": "0a8becfd3ae69225933c7a5fc2cd8920f8ed6ebaf82cc460abd1b03fb4e70f10",
+    "currentBytes": 2575197,
+    "role": "generated_output"
+  }
+]

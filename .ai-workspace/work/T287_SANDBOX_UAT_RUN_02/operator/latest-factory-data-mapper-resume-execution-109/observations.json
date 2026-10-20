@@ -1,0 +1,177 @@
+{
+  "role": "Operator109 CLOSED/STOPPED",
+  "at": "2026-10-08T11:21:27.480044+00:00",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c",
+  "runRef": "run://abiogenesis/86143ef0981cc0bb0fa629547c37b0a4a8d425f62c9026dfc9905b71c973ca94",
+  "nativeT0": "2026-10-08T11:09:12.430Z",
+  "qualityCheckpoint": "2026-10-08T16:09:12.430Z",
+  "driverDeadline": "2026-10-08T16:10:12.430Z",
+  "native": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 297357.33904100006,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "outer": {
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 617685.983917,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "summary": {
+    "scenario": "data-mapper-full",
+    "runId": "2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c",
+    "mode": "resume",
+    "status": "failed",
+    "uatPass": false,
+    "runtimeDisposition": "result",
+    "terminalAvailable": false,
+    "independentOracle": "unmet",
+    "reason": "Original application obligations or terminal evidence remain incomplete"
+  },
+  "providers": [
+    {
+      "actorOrdinal": 1,
+      "duration_ms": 51758,
+      "num_turns": 1,
+      "total_cost_usd": 0.696247,
+      "subtype": "success",
+      "is_error": false,
+      "stop_reason": "end_turn"
+    },
+    {
+      "actorOrdinal": 2,
+      "duration_ms": 67885,
+      "num_turns": 3,
+      "total_cost_usd": 0.34118200000000004,
+      "subtype": "success",
+      "is_error": false,
+      "stop_reason": "tool_use"
+    },
+    {
+      "actorOrdinal": 3,
+      "duration_ms": 158298,
+      "num_turns": 1,
+      "total_cost_usd": 1.0343214,
+      "subtype": "success",
+      "is_error": false,
+      "stop_reason": "end_turn"
+    }
+  ],
+  "providerTotals": {
+    "wallMs": 277941,
+    "costUsd": 2.0717504
+  },
+  "origin": {
+    "actor": 3,
+    "bindingOrdinal": 1672,
+    "presentation": "result_text",
+    "hasJsonSchemaArg": false,
+    "promptBytes": 211239,
+    "rawFinalOutputDigest": "sha256:9e566e3b2c9bc547167382584d3ae1cc0cd9161f67c32697dc3649a416f48f7e",
+    "rawFinalOutputBytes": 11655,
+    "firstLine": "```json",
+    "lastLine": "```",
+    "unmodifiedRawJsonRefusal": {
+      "name": "JSONDecodeError",
+      "message": "Expecting value: line 1 column 1 (char 0)",
+      "position": 0
+    },
+    "nativeResultAssessment": {
+      "disposition": "rejected",
+      "inputDigest": "sha256:9b8c7d1c888b74fd0c2b0eb7d5a351153057f6210ac9bf08a6ea83e6f762748e",
+      "kind": "native_worker_result_assessment",
+      "rawOutputDigest": "sha256:9e566e3b2c9bc547167382584d3ae1cc0cd9161f67c32697dc3649a416f48f7e",
+      "resultContractRef": "contract://abiogenesis/default-library/native-response@5",
+      "schemaVersion": "5.0.0",
+      "verification": null
+    },
+    "admittedFailure": {
+      "ordinal": 3675,
+      "offset": 22829515,
+      "byteCount": 89109,
+      "sha256": "d3119f3faf02445c3362ff0d8084ad79fbc6604191857a621d8f83edf9a66c9f",
+      "failureClass": "contract_failure"
+    },
+    "downstreamRuntimeFailure": {
+      "ordinal": 3685,
+      "offset": 22949794,
+      "byteCount": 2436,
+      "sha256": "746e4622ce1c5466283e053d51fafdd49ecf5fb3c9ab8dc71f6f67bba4be2006",
+      "diagnostic": "application-foldback-mismatch"
+    }
+  },
+  "acceptedBoundedEvidence": "First selector result_text with canonical schema/native admitted JSON1254/choice1267/task1294; actual C2 green1568 with physical8 XML44/0/0 and conserved parent1598. Detailed coordinates in milestones.jsonl. No full-original qualification earned.",
+  "lastLawfulParent": {
+    "ordinal": 1598,
+    "offset": 14385118,
+    "byteCount": 183778,
+    "sha256": "ed1f062ce98032d2fa278514f32b89dd9b982426219b15a5fdd5105b5afc782e",
+    "originalConserved": true,
+    "observations": 1,
+    "terminal": false
+  },
+  "freshPublicReads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "refusal",
+      "refusalCode": "not_found",
+      "projectionKind": null,
+      "status": null,
+      "terminalResult": null
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "refusalCode": null,
+      "projectionKind": "run_replay_projection",
+      "status": "failed",
+      "terminalResult": null
+    }
+  ],
+  "independentOracle": {
+    "disposition": "unmet",
+    "criteria": 67,
+    "unresolved": 12
+  },
+  "installedBarrier": {
+    "beforeAfterEqual": true,
+    "bothContentMatch": true
+  },
+  "conservation": {
+    "protectedOriginals": 4,
+    "suppliedAuthors": 44,
+    "old48LedgerRows": 52,
+    "old48FullPinsFreshMatch": true,
+    "new48SelectedFilePinsMatch": true,
+    "frozen107LedgerRows": 52,
+    "frozen107FreshMatch": true
+  },
+  "store": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c/resources/events/runtime.events.jsonl",
+    "sha256": "0a47df5aedc9282530dc4b3bf638d60ab2c4507cedd01bfc3cec72b31e0242ec",
+    "byteCount": 22952230
+  },
+  "mutationCredit": {
+    "freshDetections": 0,
+    "freshRestorations": 0,
+    "requiredDistinctMutants": 16,
+    "old11Imported": false
+  },
+  "memorySamplesKiB": {
+    "nativeObserved": [
+      570032,
+      573360,
+      561856
+    ],
+    "harnessObservedPeak": 1996048,
+    "scope": "Passive samples only, not peak-RSS or capacity closure"
+  },
+  "operatorReadPremises": "Pure diagnostic accessors initially assumed source/argv keys or dict fresh-read shape; corrected to actual sourceObservedInput/args/list owner carriers. No runtime alteration or retry; earliest tool receipts retained in session.",
+  "effectsStop": "Native run and recorder closed normally; no retry, manual app edit, Source repair, normalizer, private event or signal. Closed owned PID receipt discloses finite scope."
+}

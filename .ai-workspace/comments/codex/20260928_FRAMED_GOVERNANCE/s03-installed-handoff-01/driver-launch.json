@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/driver.mjs"
+  ],
+  "pid": 64457,
+  "startedAt": "2026-09-30T05:05:50.470343+00:00",
+  "driverSha256": "652099869bf2514507a0a40423769a94e8fd1c116d2dde31b3852b70614c1d4d",
+  "rendererSha256": "47b132d02aa7292e553f2840507acfdee2c140345968b625e48b3d4f3e9896a0",
+  "nativeDriverBudgetMs": 120000,
+  "parentTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/tmp",
+  "cliTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable",
+  "source": "exact accepted final reader plus frozen caller helper and renderer"
+}

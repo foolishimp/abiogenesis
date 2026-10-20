@@ -1,0 +1,490 @@
+{
+  "prefix": {
+    "sampledMs": 36882.75,
+    "self": [
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 18762.223,
+        "percent": 50.87
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 3583.823,
+        "percent": 9.72
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 3378.713,
+        "percent": 9.16
+      },
+      {
+        "function": " shared/canonical_json.js:19",
+        "sampledMs": 3162.921,
+        "percent": 8.58
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 2171.327,
+        "percent": 5.89
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 1586.962,
+        "percent": 4.3
+      },
+      {
+        "function": "isImmutableRuntimeValue abg/event_prefix.js:72",
+        "sampledMs": 512.584,
+        "percent": 1.39
+      },
+      {
+        "function": " :0",
+        "sampledMs": 452.791,
+        "percent": 1.23
+      },
+      {
+        "function": "slice node:buffer:646",
+        "sampledMs": 420.582,
+        "percent": 1.14
+      },
+      {
+        "function": "advance abg/event_prefix.js:353",
+        "sampledMs": 273.291,
+        "percent": 0.74
+      },
+      {
+        "function": "deepFreeze shared/immutable.js:1",
+        "sampledMs": 241.789,
+        "percent": 0.66
+      },
+      {
+        "function": " shared/canonical_json.js:17",
+        "sampledMs": 233.955,
+        "percent": 0.63
+      },
+      {
+        "function": " abg/event_prefix.js:82",
+        "sampledMs": 230.957,
+        "percent": 0.63
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 210.248,
+        "percent": 0.57
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 173.794,
+        "percent": 0.47
+      },
+      {
+        "function": "read :0",
+        "sampledMs": 154.292,
+        "percent": 0.42
+      },
+      {
+        "function": "Hash :0",
+        "sampledMs": 101.249,
+        "percent": 0.27
+      },
+      {
+        "function": "hasOnlyRuntimeEventKeys abg/event_store.js:1994",
+        "sampledMs": 100.461,
+        "percent": 0.27
+      },
+      {
+        "function": "isRuntimeEventCandidateShape abg/event_store.js:2010",
+        "sampledMs": 95.666,
+        "percent": 0.26
+      },
+      {
+        "function": "assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 94.293,
+        "percent": 0.26
+      }
+    ],
+    "inclusive": [
+      {
+        "function": "(root) :0",
+        "sampledMs": 36882.75,
+        "percent": 100.0
+      },
+      {
+        "function": " apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-analysis-01/profile-read.mjs:0",
+        "sampledMs": 33282.454,
+        "percent": 90.24
+      },
+      {
+        "function": "projectRuntimePrefixesAtDurablePrefix abg/replay.js:21",
+        "sampledMs": 33246.954,
+        "percent": 90.14
+      },
+      {
+        "function": "readRuntimeEventsAtDurablePrefix abg/event_store.js:1113",
+        "sampledMs": 32115.161,
+        "percent": 87.07
+      },
+      {
+        "function": "projectRuntimeEventsAtDurablePrefix abg/event_store.js:1110",
+        "sampledMs": 32115.161,
+        "percent": 87.07
+      },
+      {
+        "function": "validateHistoricalEvents abg/event_store.js:2035",
+        "sampledMs": 31651.286,
+        "percent": 85.82
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 31638.704,
+        "percent": 85.78
+      },
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 22196.391,
+        "percent": 60.18
+      },
+      {
+        "function": " shared/canonical_json.js:19",
+        "sampledMs": 20735.767,
+        "percent": 56.22
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 14622.363,
+        "percent": 39.65
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 13693.459,
+        "percent": 37.13
+      },
+      {
+        "function": " shared/canonical_json.js:15",
+        "sampledMs": 11427.905,
+        "percent": 30.98
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 5755.15,
+        "percent": 15.6
+      },
+      {
+        "function": "sha256Bytes shared/digests.js:4",
+        "sampledMs": 4385.158,
+        "percent": 11.89
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 3378.713,
+        "percent": 9.16
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 2171.327,
+        "percent": 5.89
+      },
+      {
+        "function": "assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 2122.743,
+        "percent": 5.76
+      },
+      {
+        "function": "inlineEventBody abg/event_body_encoding.js:10",
+        "sampledMs": 1483.666,
+        "percent": 4.02
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 1358.005,
+        "percent": 3.68
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 1033.463,
+        "percent": 2.8
+      }
+    ],
+    "canonical_parent": [
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 11631.336,
+        "percent": 31.54
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 9610.431,
+        "percent": 26.06
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 757.419,
+        "percent": 2.05
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 108.668,
+        "percent": 0.29
+      },
+      {
+        "function": "hash abg/stdo_environment.js:30",
+        "sampledMs": 45.039,
+        "percent": 0.12
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 37.29,
+        "percent": 0.1
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 4.958,
+        "percent": 0.01
+      },
+      {
+        "function": "assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 1.25,
+        "percent": 0.0
+      }
+    ]
+  },
+  "semantic": {
+    "sampledMs": 21944.583,
+    "self": [
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 11481.297,
+        "percent": 52.32
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 3130.787,
+        "percent": 14.27
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 2051.747,
+        "percent": 9.35
+      },
+      {
+        "function": " shared/canonical_json.js:19",
+        "sampledMs": 1621.617,
+        "percent": 7.39
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 1414.095,
+        "percent": 6.44
+      },
+      {
+        "function": "isImmutableRuntimeValue abg/event_prefix.js:72",
+        "sampledMs": 612.788,
+        "percent": 2.79
+      },
+      {
+        "function": " abg/event_prefix.js:82",
+        "sampledMs": 277.502,
+        "percent": 1.26
+      },
+      {
+        "function": "projectRuntimeRetryBudgetFacts abg/retry.js:3064",
+        "sampledMs": 176.748,
+        "percent": 0.81
+      },
+      {
+        "function": " validator/raw_admission.js:70",
+        "sampledMs": 115.875,
+        "percent": 0.53
+      },
+      {
+        "function": " shared/canonical_json.js:17",
+        "sampledMs": 115.208,
+        "percent": 0.52
+      },
+      {
+        "function": "projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 93.251,
+        "percent": 0.42
+      },
+      {
+        "function": "prefix abg/runtime_derivation.js:39",
+        "sampledMs": 92.917,
+        "percent": 0.42
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 81.581,
+        "percent": 0.37
+      },
+      {
+        "function": "same abg/worksite_input_provenance.js:26",
+        "sampledMs": 80.125,
+        "percent": 0.37
+      },
+      {
+        "function": "advance abg/runtime_liveness.js:516",
+        "sampledMs": 63.544,
+        "percent": 0.29
+      },
+      {
+        "function": "range abg/event_prefix.js:409",
+        "sampledMs": 54.291,
+        "percent": 0.25
+      },
+      {
+        "function": "one abg/worksite_input_provenance.js:29",
+        "sampledMs": 48.376,
+        "percent": 0.22
+      },
+      {
+        "function": "isSha256Digest shared/digests.js:19",
+        "sampledMs": 45.289,
+        "percent": 0.21
+      },
+      {
+        "function": " shared/canonical_json.js:15",
+        "sampledMs": 41.167,
+        "percent": 0.19
+      },
+      {
+        "function": "exact abg/runtime_liveness_contracts.js:23",
+        "sampledMs": 40.666,
+        "percent": 0.19
+      }
+    ],
+    "inclusive": [
+      {
+        "function": "(root) :0",
+        "sampledMs": 21944.583,
+        "percent": 100.0
+      },
+      {
+        "function": " apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-analysis-01/profile-read.mjs:0",
+        "sampledMs": 19785.13,
+        "percent": 90.16
+      },
+      {
+        "function": "projectRunSemanticReplay abg/replay.js:1282",
+        "sampledMs": 19750.964,
+        "percent": 90.0
+      },
+      {
+        "function": "projectRunSemanticReplayProjection abg/replay.js:1270",
+        "sampledMs": 19750.964,
+        "percent": 90.0
+      },
+      {
+        "function": "replayValidatedRuntimeEventPrefix abg/replay.js:428",
+        "sampledMs": 17213.798,
+        "percent": 78.44
+      },
+      {
+        "function": "deriveReplayPrefixFacts abg/replay.js:436",
+        "sampledMs": 17212.548,
+        "percent": 78.44
+      },
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 13235.664,
+        "percent": 60.31
+      },
+      {
+        "function": " shared/canonical_json.js:19",
+        "sampledMs": 12651.71,
+        "percent": 57.65
+      },
+      {
+        "function": " shared/canonical_json.js:15",
+        "sampledMs": 8686.46,
+        "percent": 39.58
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 8029.291,
+        "percent": 36.59
+      },
+      {
+        "function": "advance abg/event_prefix.js:438",
+        "sampledMs": 7817.627,
+        "percent": 35.62
+      },
+      {
+        "function": "runtimeEventPrefixDigest abg/event_prefix.js:451",
+        "sampledMs": 7817.627,
+        "percent": 35.62
+      },
+      {
+        "function": "projectRuntimeLivenessForScope abg/runtime_liveness.js:994",
+        "sampledMs": 6514.877,
+        "percent": 29.69
+      },
+      {
+        "function": "projectNativeLivenessRead abg/runtime_liveness.js:1006",
+        "sampledMs": 6514.877,
+        "percent": 29.69
+      },
+      {
+        "function": " abg/runtime_liveness.js:1001",
+        "sampledMs": 6505.419,
+        "percent": 29.64
+      },
+      {
+        "function": "deriveRuntimeLivenessWithPrefixDigest abg/runtime_liveness.js:966",
+        "sampledMs": 6505.419,
+        "percent": 29.64
+      },
+      {
+        "function": "projectRuntimeLivenessAtPrefixWithDigest abg/runtime_liveness.js:985",
+        "sampledMs": 6505.419,
+        "percent": 29.64
+      },
+      {
+        "function": "prefixDigest abg/runtime_liveness.js:998",
+        "sampledMs": 6490.294,
+        "percent": 29.58
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 4544.882,
+        "percent": 20.71
+      },
+      {
+        "function": " abg/replay.js:515",
+        "sampledMs": 4532.715,
+        "percent": 20.66
+      }
+    ],
+    "canonical_parent": [
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 5673.077,
+        "percent": 25.85
+      },
+      {
+        "function": "advance abg/event_prefix.js:438",
+        "sampledMs": 5531.956,
+        "percent": 25.21
+      },
+      {
+        "function": "same abg/worksite_input_provenance.js:26",
+        "sampledMs": 1612.463,
+        "percent": 7.35
+      },
+      {
+        "function": " validator/raw_admission.js:70",
+        "sampledMs": 364.25,
+        "percent": 1.66
+      },
+      {
+        "function": " shared/canonical_json.js:19",
+        "sampledMs": 52.626,
+        "percent": 0.24
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 1.292,
+        "percent": 0.01
+      }
+    ]
+  }
+}

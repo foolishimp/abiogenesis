@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=terminal route-only",
+    "test_env/tests/t287-route-reconstruction.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "selectedEnvironment": {
+    "ABI5_ROUTE_REPLAY_PREIMAGE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/replay.js",
+    "ABI5_ROUTE_PROJECTION_SCRATCH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/fixture-scratch"
+  },
+  "historicalFixtureExcluded": "Unknown 4196 event profile; no migration or retag."
+}

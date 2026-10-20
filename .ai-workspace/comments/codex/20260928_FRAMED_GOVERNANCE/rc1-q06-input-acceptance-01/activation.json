@@ -1,0 +1,33 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_Q06_ACCEPTANCE_AND_F11_RELEASE_01",
+  "activatedAt": "2026-10-02T03:59:51.724101+00:00",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q06-input-acceptance-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-06/input-acceptance.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "exactGrant": "Record received independently CLOSED Q06 GO and Executive bounded acceptance; fulfill the exact conditional F11 Runtime dependency and update work tracking. No Q06/input/source/candidate/setup/resource/Runtime/provider/Git effects by Root Writer.",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 511315,
+      "sha256": "06f612f1b93ca22e1e81691a714ab904973b36f7515699bcdaaf966b622bb6f7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 471328,
+      "sha256": "055edf5b7b152c33716f8f304cf54f7a5bed7b09c8d6a1956f15d8520caf581c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 7018,
+      "sha256": "fb51289629b3f4b13ca76684f5fde2211381d75a3be1d1b1c055a88e6532395c"
+    }
+  ]
+}

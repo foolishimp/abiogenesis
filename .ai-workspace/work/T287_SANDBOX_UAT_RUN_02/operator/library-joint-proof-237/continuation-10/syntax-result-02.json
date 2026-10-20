@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/run-10.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedMs": 25.452415999999996
+}

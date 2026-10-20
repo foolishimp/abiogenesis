@@ -1,0 +1,204 @@
+{
+  "operation": "T287_FRAMEWORK_CONTRACT_OWNERSHIP_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "disposition": "GO_CONSTRAINT_NOTES_ONLY",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/review-request.txt",
+    "bytes": 2175,
+    "sha256": "0ab80cd06fff7faa1adcc949430f2b9dc9ea03f36ccb37d9361d71a237272006",
+    "mode": 420
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/subject-pins.json",
+    "bytes": 1267,
+    "sha256": "eb6beb4610a4381545ed8f390ed942052c0b1aae2dbe87f38654ae691e29da7d",
+    "mode": 420
+  },
+  "a_c": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "fourExactSourceComparisons": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/before/AGENTS.md",
+        "bytes": 11490,
+        "sha256": "634de59f5f68e9f053ec7df78f3911291202ab1b415560928dfda1744da2ddab",
+        "mode": 420
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+        "bytes": 11790,
+        "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+        "mode": 420
+      },
+      "addedBytes": 300,
+      "changedLineBlocks": [
+        [
+          "insert",
+          0,
+          4
+        ]
+      ],
+      "oneInsertionOnly": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/before/CLAUDE.md",
+        "bytes": 5021,
+        "sha256": "36266e47729420b945ebf2534c5b9189c32a8f9f59dcf43f14bd21c6eba4ae63",
+        "mode": 420
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+        "bytes": 5290,
+        "sha256": "13bf0624db72c64a11cb2cff16848599b32f174fb61b7d3b77c426e561c4f0fc",
+        "mode": 420
+      },
+      "addedBytes": 269,
+      "changedLineBlocks": [
+        [
+          "insert",
+          0,
+          4
+        ]
+      ],
+      "oneInsertionOnly": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/before/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 25078,
+        "sha256": "e4740db3f1b0b86bf9db3ebd6c28a95c5d63b6ff975c817595c762c5474a8543",
+        "mode": 420
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 25514,
+        "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+        "mode": 420
+      },
+      "addedBytes": 436,
+      "changedLineBlocks": [
+        [
+          "insert",
+          0,
+          6
+        ]
+      ],
+      "oneInsertionOnly": true
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/before/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+        "bytes": 41647,
+        "sha256": "e0767072cd86114b742fc84e946d0012ffc8be541807e8fadb258b9b9e1714cb",
+        "mode": 420
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+        "bytes": 41920,
+        "sha256": "8547907d297ee2736f47c13035372c2623abac0bac3f01e695af7817b930d06b",
+        "mode": 420
+      },
+      "addedBytes": 273,
+      "changedLineBlocks": [
+        [
+          "insert",
+          0,
+          4
+        ]
+      ],
+      "oneInsertionOnly": true
+    }
+  ],
+  "totalAddedBytes": 1278,
+  "fixedAuthority": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "mode": 420
+    }
+  ],
+  "RootRecordedEffects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/triage.md",
+      "bytes": 2238,
+      "sha256": "c72478970986db60d9548c1e5931e1eafc3f1d5f792132c169748c10469bf940",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/activation.txt",
+      "bytes": 1362,
+      "sha256": "0729f75b54f3edafb80e95a7e09302745b13f92c980a0ec6da9aaeb6a511b428",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/closure.txt",
+      "bytes": 383,
+      "sha256": "1450cfb93eff2518869458bf842e5763bbcb25b3cac76c834abfa1a3cdbb4720",
+      "mode": 420
+    }
+  ],
+  "acceptedLowerComponent": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+      "bytes": 1436,
+      "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/report.md",
+      "bytes": 3503,
+      "sha256": "758edbec3428f4f9ac6dae2017e5966ee5ae37761770b0aa28f8c97255ef7735",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+      "bytes": 7019,
+      "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+      "mode": 420
+    }
+  ],
+  "meaningChecks": {
+    "singleCanonicalDefinitionPerLogicalFrameworkContract": true,
+    "exactOwnerLibraryBasisAndExistingTypeSchemaReferenceConsumption": true,
+    "distinctSourceAndDestinationDeclaredTransformationsRemainLawful": true,
+    "domainPredicatesUseExistingProductExtensionHooks": true,
+    "canonicalSchemaDTOValueAssemblyRemainsLawful": true,
+    "noForcedMergingOfUnlikeContracts": true,
+    "noNewLibraryAPIExportSchemaValidatorControllerAdmissionOrReleaseGate": true,
+    "noDirectNamedBarrelExportAbsenceDefectInferred": true,
+    "currentNotesOutsideFrozenC09": true,
+    "reusedSourceProofIsComponentOnly": true
+  },
+  "unknowns": [
+    "installed Result/J/foldback/F11/threeRuns/sixreads",
+    "genuine semantic/context/source-authorship/independence qualification",
+    "complete qualification/AF22/scenario/release conjunction"
+  ],
+  "scope": "exact four before/postimage constraint notes only; Q14 and implementation remain separate subjects",
+  "reviewerImportsPayloadTestsBuildRepairRuntimeProviderNetworkGit": 0
+}

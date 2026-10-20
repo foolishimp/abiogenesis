@@ -1,0 +1,12 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/actual-ready-catalog-236.json",
+  "sha256": "cfa34e59a1d26685c8f7384f8f34eb797c2c6009576b81951d0b2fb0a6a13d5f",
+  "byteCount": 21527311,
+  "origin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/public-fixture/calls/program-conformance.request.jsonl",
+    "sha256": "786b24bc8c697b7b2b95033d51f4ea2a3822a56c0bf91de8de0c1f20c6e46f87",
+    "byteCount": 36233415,
+    "jsonPath": "/invocation/resources/declarationCatalog/catalog"
+  },
+  "claim": "Actual owner-produced finite236 Catalog reused as component test data; no new installation, runtime admission or native qualification."
+}

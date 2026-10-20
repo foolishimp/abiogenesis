@@ -1,0 +1,63 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "role": "Worker, external preparation only until exact Root release",
+  "actor": "/root/native_applicability_design",
+  "actorRef": "actor://abiogenesis/t287/f11-c06-installed-setup-06/operator",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07",
+  "activatedAt": "2026-10-02T07:38:13.674378+00:00",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07/request.txt",
+    "bytes": 4735,
+    "sha256": "260faac2f50bbbcf401200681029e2a038afea44f14c81f4a7d399c237ae081a",
+    "mode": 420
+  },
+  "sections": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07/sections.json",
+    "bytes": 5033,
+    "sha256": "89616a72b03a7e0bbf85bc12ffcf124a55ddda7fbed90336a6a9b08ff65f14c8",
+    "mode": 420
+  },
+  "installed_a_c": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "preparationFreezeSHA256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+  "inputFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+    "bytes": 865006,
+    "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+    "mode": 292
+  },
+  "Setup06Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/freeze.json",
+    "bytes": 3900408,
+    "sha256": "b44c8a054b19f7eeb84473ada9ba677d51001317d2dac5d213cb92e7469a0cd7",
+    "mode": 420
+  },
+  "Setup06Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/acceptance.json",
+    "bytes": 4695,
+    "sha256": "809698c1a88fa94c26d47d99744a0afe5148f0ec2efbe36fbeb8c1b366409358",
+    "mode": 420
+  },
+  "parentSelection": {
+    "programRef": "program://abiogenesis-fixture/f11-carrier/parent@5",
+    "graphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+    "childGraphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+    "inputContractRef": "contract://abiogenesis/qualification/assessment-input@5",
+    "historicalFixtureArchiveUnchanged": true,
+    "scope": "prospective ordinary caller selection only; actual catalog/View/closure binding remains a Runtime owner obligation"
+  },
+  "RootAcceptanceControlDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07",
+  "preciseDependency": "Root-created input-acceptance.json and separate Root exact final byte/hash message required before owner imports/preparation/reopen/helper/Runtime",
+  "RootRelease": false,
+  "realProviderCalls": 0,
+  "RuntimeCalls": 0,
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07",
+  "firstFailure": "STOP/freeze/Root triangulation; no repair/retry/fallback",
+  "HOME": "/Users/jim",
+  "heap": "default; unchanged"
+}

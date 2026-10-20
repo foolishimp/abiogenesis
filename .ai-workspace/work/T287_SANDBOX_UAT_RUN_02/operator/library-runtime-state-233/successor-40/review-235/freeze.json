@@ -1,0 +1,39 @@
+{
+  "kind": "source40_independent_review_freeze",
+  "disposition": "bounded_go_diagnostic_only",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/freeze.json",
+    "sha256": "c42874963ea63d1c132c11d4ab260f90ae74f49bc4d66e7cf7d7296a77c966c4",
+    "bytes": 17400
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/review-235/review.md",
+      "sha256": "1400f7f92b925ca13c6e8ff45e23622c6011bb412ac171b9e5de9713ac9a1100",
+      "bytes": 6142
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/review-235/pins.json",
+      "sha256": "d5ff668fef6427dbe9a23d17c93eb3f0ae770aa59e60ac532504476c9a28e8b3",
+      "bytes": 10294
+    }
+  ],
+  "verification": {
+    "literalPins": 849,
+    "uniqueFiles": 844,
+    "uniqueBytes": 20950718,
+    "mismatches": 0,
+    "sourceFiles": 264,
+    "unchangedSource": 259,
+    "emissions": 528,
+    "unchangedEmissions": 523,
+    "declarations": 264,
+    "unchangedDeclarations": 263
+  },
+  "limits": [
+    "Frozen Source/controlled component evidence only; no reviewer tests or owners executed.",
+    "Actual11 earliest refusal, installed native/C2/restart, original capacity, full UAT and release remain open.",
+    "No Source, runtime, original-resource, worksite, model, package or Git effects."
+  ],
+  "documentaryCorrection": "Absent stored phase key produced two wrong-path review files; preserved tool failure, removed only accidental files/directories, then wrote literal authorized review outputs. No owner entered."
+}

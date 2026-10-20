@@ -1,0 +1,19 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_03",
+  "role": "Runtime Worker",
+  "actor": "/root/f11_installed_caller_preparation",
+  "previousStatus": "CLOSED Runtime02",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03",
+  "activatedAt": "2026-10-01T22:21:19.065606+00:00",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-post-c03-controls-01/f11-request.txt",
+    "bytes": 5541,
+    "sha256": "ef251156f9a67d180e35d184c2e2e5396a88053ac68a66439eb24aab6fb7526f"
+  },
+  "realProviderCalls": 0,
+  "scope": "mechanical carrier only",
+  "Q03TaskBinding": "awaiting Root independent GO",
+  "firstFailure": "stop; no repair/retry",
+  "permittedTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03"
+}

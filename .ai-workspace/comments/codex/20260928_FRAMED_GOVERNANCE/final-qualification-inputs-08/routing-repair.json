@@ -1,0 +1,35 @@
+{
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_08",
+  "oldSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/recipe.mjs",
+    "bytes": 4501,
+    "sha256": "81375d0394abf23a28a3e72536bbad1ad62c5392cea9debf78a7a6ea7c3a596e",
+    "mode": 420
+  },
+  "newSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/recipe.mjs",
+    "bytes": 4742,
+    "sha256": "a329244895716152147396589b1026438bcb818efb5171db3f5f30705611f470",
+    "mode": 420
+  },
+  "RootTriangulation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q07-routing-triangulation-and-continuation-01/triangulation.json",
+    "bytes": 2111,
+    "sha256": "179ec0d241ce676fd0d376dd338631dc8df04f65188bec3a859d3ee35cac4a5c",
+    "mode": 420
+  },
+  "semanticNamespace": "q07 retained; selector obtains exact current descriptor memberRef",
+  "actualPhysicalOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08",
+  "oldQ07CutImmutable": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/freeze.json",
+    "bytes": 860629,
+    "sha256": "49228e206300c47340bf01e70cdcdd444621a4078e43937bcacfb8fa491331ce",
+    "mode": 292
+  },
+  "protectedInputs": 3284,
+  "inventoryMembers": 4633,
+  "authRecordsPreservedByteForByte": true,
+  "strictCallerExact": true,
+  "strictDriverExact": true,
+  "ownerCalls": 0
+}

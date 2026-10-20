@@ -1,3 +1,4 @@
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { projectRegisteredSelectionInputAtPrefix } from "./registered_selection_provenance.js";
 import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
 import type { GtlGraph } from "../gtl/contracts.js";
@@ -19,7 +20,7 @@ import {
 import {
   constructRunActiveFluent,
   constructRuntimeFluent,
-  deriveRuntimeEventCalculusProjection,
+  deriveRuntimeHeldFluentProjection,
   holdsAt,
 } from "./event_calculus.js";
 import {
@@ -30,7 +31,7 @@ import {
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   indexedRuntimeEvents,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -163,6 +164,21 @@ export function traversalCursorAdmissionEventsAtPrefix(
     cursorRef: string; runId: string; graphCallId: string; frameId: string;
     executionBasisRef: string;
   }>,
+): readonly RuntimeEvent[];
+/** @internal */
+export function traversalCursorAdmissionEventsAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cursor: Readonly<{
+    cursorRef: string; runId: string; graphCallId: string; frameId: string;
+    executionBasisRef: string;
+  }>,
+): readonly RuntimeEvent[];
+export function traversalCursorAdmissionEventsAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cursor: Readonly<{
+    cursorRef: string; runId: string; graphCallId: string; frameId: string;
+    executionBasisRef: string;
+  }>,
 ): readonly RuntimeEvent[] {
   return indexedRuntimeEvents(prefix, "cursor-origin:" + cursor.cursorRef).filter((candidate) =>
     candidate.runId === cursor.runId && candidate.graphCallId === cursor.graphCallId &&
@@ -205,6 +221,15 @@ export function traversalCursorAdmissionDigest(event: RuntimeEvent): JsonValue |
 export function traversalCursorAdmissionEventRefAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   cursor: TraversalCursorCandidate,
+): string | null;
+/** @internal */
+export function traversalCursorAdmissionEventRefAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cursor: TraversalCursorCandidate,
+): string | null;
+export function traversalCursorAdmissionEventRefAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cursor: TraversalCursorCandidate,
 ): string | null {
   if (!isTraversalCursorCandidate(cursor)) return null;
   const event = traversalCursorAdmissionEventsAtPrefix(prefix, cursor)
@@ -226,6 +251,15 @@ export function isTraversalCursorCandidate(
 export function hasAdmittedTraversalCursorAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   cursor: TraversalCursorCandidate,
+): boolean;
+/** @internal */
+export function hasAdmittedTraversalCursorAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cursor: TraversalCursorCandidate,
+): boolean;
+export function hasAdmittedTraversalCursorAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cursor: TraversalCursorCandidate,
 ): boolean {
   return traversalCursorAdmissionEventRefAtPrefix(prefix, cursor) !== null;
 }
@@ -242,7 +276,7 @@ export interface TraversalInputOrigin {
 
 /** Select the admitted origin by reference through the existing prefix index.
  * Retry references may repeat an earlier origin; equal values never select one. */
-function* selectedTraversalInputOrigins(prefix: ValidatedRuntimeEventPrefix, graph: Readonly<GtlGraph>,
+function* selectedTraversalInputOrigins(prefix: RuntimeEventPrefix, graph: Readonly<GtlGraph>,
   execution: ExecutionBasis, inputRef: string): Generator<TraversalInputOrigin> {
   if (execution.rawInputAdmissionRef === inputRef)
     yield { inputRef, inputDigest: execution.rawInputDigest, value: execution.rawInputValue, event: null };
@@ -274,6 +308,11 @@ function* selectedTraversalInputOrigins(prefix: ValidatedRuntimeEventPrefix, gra
 /** A current input is one admitted cursor's exact reference, value and origin.
  * Both execution and historical recovery consume this read-only relation. */
 export function projectTraversalInputAtPrefix(prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>, execution: ExecutionBasis, cursor: TraversalCursorCandidate): TraversalInputOrigin | null;
+/** @internal */
+export function projectTraversalInputAtPrefix(prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>, execution: ExecutionBasis, cursor: TraversalCursorCandidate): TraversalInputOrigin | null;
+export function projectTraversalInputAtPrefix(prefix: RuntimeEventPrefix,
   graph: Readonly<GtlGraph>, execution: ExecutionBasis, cursor: TraversalCursorCandidate): TraversalInputOrigin | null {
   if (cursor.executionBasisRef !== execution.basisRef || cursor.graphRef !== graph.materializationRef ||
     !hasAdmittedTraversalCursorAtPrefix(prefix, cursor)) return null;
@@ -317,7 +356,7 @@ function inputCoordinate(ref: JsonValue | undefined, digest: JsonValue | undefin
     ? { inputRef: ref, inputDigest: digest as Sha256Digest } : null;
 }
 
-function eventById(prefix: ValidatedRuntimeEventPrefix, ref: JsonValue | undefined): RuntimeEvent | null {
+function eventById(prefix: RuntimeEventPrefix, ref: JsonValue | undefined): RuntimeEvent | null {
   if (typeof ref !== "string") return null;
   const events = indexedRuntimeEvents(prefix, "id:" + ref);
   return events.length === 1 ? events[0]! : null;
@@ -349,7 +388,7 @@ function enclosingBatchEntry(graph: Readonly<GtlGraph>, source: TraversalCursorC
 
 /** Completed retry progress names its exact completion witness. Follow that
  * named dependency only; fan-out and F_H completion retain their own inputs. */
-function routeCompletedInput(prefix: ValidatedRuntimeEventPrefix, route: RuntimeEvent,
+function routeCompletedInput(prefix: RuntimeEventPrefix, route: RuntimeEvent,
   source: TraversalCursorCandidate): InputCoordinate | null {
   if (!isJsonRecord(route.payload)) return null;
   const p = route.payload;
@@ -379,7 +418,7 @@ function routeCompletedInput(prefix: ValidatedRuntimeEventPrefix, route: Runtime
 /** The basis binds this use to the original selected intent. Only the two
  * admitted source cursors (workflow parent and undispatched child) can enter a
  * replacement frame; no new position or input is chosen here. */
-function continuedCursorOrigin(prefix: ValidatedRuntimeEventPrefix, graph: Readonly<GtlGraph>,
+function continuedCursorOrigin(prefix: RuntimeEventPrefix, graph: Readonly<GtlGraph>,
   basisRef: string, origin: unknown): TraversalCursorCandidate | null {
   if (!isJsonRecord(origin) || Object.keys(origin).length !== 6 ||
     !["cursorRef", "cursorDigest", "executionBasisRef", "runId", "graphCallId", "frameId"]
@@ -403,7 +442,7 @@ function continuedCursorOrigin(prefix: ValidatedRuntimeEventPrefix, graph: Reado
 /** Reconstruct only the selected admitted cursor chain. Each actual transition
  * has one GTL target and one cursor hash; unrelated input origins are never
  * enumerated or proposed as cursor bodies. Raw admission remains independent. */
-function projectCursorAncestry(prefix: ValidatedRuntimeEventPrefix, graph: Readonly<GtlGraph>,
+function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGraph>,
   selected: CursorIdentity): readonly TraversalCursorCandidate[] | null {
   const origins: RuntimeEvent[] = [];
   let ref = selected.cursorRef, digest = selected.cursorDigest, before = Infinity;
@@ -511,13 +550,35 @@ function projectCursorAncestry(prefix: ValidatedRuntimeEventPrefix, graph: Reado
 
 /** Cold acquisition of one already-admitted cursor, never a proposed position. */
 export function projectAdmittedTraversalCursorAtPrefix(prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>, selected: CursorIdentity): TraversalCursorCandidate | null;
+/** @internal */
+export function projectAdmittedTraversalCursorAtPrefix(prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>, selected: CursorIdentity): TraversalCursorCandidate | null;
+export function projectAdmittedTraversalCursorAtPrefix(prefix: RuntimeEventPrefix,
   graph: Readonly<GtlGraph>, selected: CursorIdentity): TraversalCursorCandidate | null {
   return projectCursorAncestry(prefix, graph, selected)?.at(-1) ?? null;
 }
 
 /** Historical calls retain their opened cursor even after failure/closure. */
 export function projectOpenedCCallTraversalInputAtPrefix(prefix: ValidatedRuntimeEventPrefix,
-  graph: Readonly<GtlGraph>, cCallRef: string) {
+  graph: Readonly<GtlGraph>, cCallRef: string): {
+    cursor: TraversalCursorCandidate;
+    input: TraversalInputOrigin;
+    execution: ExecutionBasis;
+} | null;
+/** @internal */
+export function projectOpenedCCallTraversalInputAtPrefix(prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>, cCallRef: string): {
+    cursor: TraversalCursorCandidate;
+    input: TraversalInputOrigin;
+    execution: ExecutionBasis;
+} | null;
+export function projectOpenedCCallTraversalInputAtPrefix(prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>, cCallRef: string): {
+    cursor: TraversalCursorCandidate;
+    input: TraversalInputOrigin;
+    execution: ExecutionBasis;
+} | null {
   const openedRows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef).filter(e => e.kind === "c_call_opened");
   const opened = openedRows.length === 1 ? openedRows[0] : undefined;
   if (opened === undefined || !isJsonRecord(opened.payload) || (opened.payload.callClass !== "leaf" && opened.payload.callClass !== "workflow") ||
@@ -547,7 +608,12 @@ export function projectOpenedCCallTraversalInputAtPrefix(prefix: ValidatedRuntim
 /** Select the actual enclosing batch entry on this cursor's admitted ancestry.
  * No invocation-entry fallback, new state ledger or stored cursor copy. */
 export function deriveAdmittedCContinuationTarget(prefix: ValidatedRuntimeEventPrefix, graph: Readonly<GtlGraph>,
-  source: TraversalCursorCandidate, completed: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>) {
+  source: TraversalCursorCandidate, completed: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>): import("../gtl/source_path.js").CSourcePathRefusal | import("../gtl/source_path.js").CContinuationTarget;
+/** @internal */
+export function deriveAdmittedCContinuationTarget(prefix: RuntimeEventPrefix, graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate, completed: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>): import("../gtl/source_path.js").CSourcePathRefusal | import("../gtl/source_path.js").CContinuationTarget;
+export function deriveAdmittedCContinuationTarget(prefix: RuntimeEventPrefix, graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate, completed: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>): import("../gtl/source_path.js").CSourcePathRefusal | import("../gtl/source_path.js").CContinuationTarget {
   const coordinate = cursorCoordinate(source);
   const batch = continuationCBatchContext(graph.template, source.currentNodeRef, source.termPath);
   if (batch === null || "kind" in batch || graph.fanOutMaterializations.some(m => m.batchRef === batch.batchRef))
@@ -561,7 +627,12 @@ export function deriveAdmittedCContinuationTarget(prefix: ValidatedRuntimeEventP
 
 /** Identity completion has the same batch-entry transfer as a completed leaf. */
 export function deriveAdmittedCStructuralTarget(prefix: ValidatedRuntimeEventPrefix, graph: Readonly<GtlGraph>,
-  source: TraversalCursorCandidate, routeKind: "advance" | "retry") {
+  source: TraversalCursorCandidate, routeKind: "advance" | "retry"): import("../gtl/source_path.js").CSourcePathRefusal | import("../gtl/source_path.js").CTraversalTarget | null;
+/** @internal */
+export function deriveAdmittedCStructuralTarget(prefix: RuntimeEventPrefix, graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate, routeKind: "advance" | "retry"): import("../gtl/source_path.js").CSourcePathRefusal | import("../gtl/source_path.js").CTraversalTarget | null;
+export function deriveAdmittedCStructuralTarget(prefix: RuntimeEventPrefix, graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate, routeKind: "advance" | "retry"): import("../gtl/source_path.js").CSourcePathRefusal | import("../gtl/source_path.js").CTraversalTarget | null {
   const coordinate = { nodeRef: source.currentNodeRef, termPath: source.termPath, taskOrdinal: source.taskOrdinal,
     attempt: source.attempt, retryPath: source.retryPath, inputRef: source.inputRef, inputDigest: source.inputDigest };
   const term = resolveCProgramTermAtSourcePath(graph.template, source.currentNodeRef, source.termPath);
@@ -574,6 +645,25 @@ export function deriveAdmittedCStructuralTarget(prefix: ValidatedRuntimeEventPre
 
 export function isInteractionResumeCursorSuccessorAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  heldCursor: TraversalCursorCandidate,
+  successorInput: Readonly<{
+    inputRef: string;
+    inputDigest: Sha256Digest;
+  }>,
+  successorCursor: TraversalCursorCandidate,
+): boolean;
+/** @internal */
+export function isInteractionResumeCursorSuccessorAtPrefix(
+  prefix: RuntimeEventPrefix,
+  heldCursor: TraversalCursorCandidate,
+  successorInput: Readonly<{
+    inputRef: string;
+    inputDigest: Sha256Digest;
+  }>,
+  successorCursor: TraversalCursorCandidate,
+): boolean;
+export function isInteractionResumeCursorSuccessorAtPrefix(
+  prefix: RuntimeEventPrefix,
   heldCursor: TraversalCursorCandidate,
   successorInput: Readonly<{
     inputRef: string;
@@ -701,7 +791,7 @@ function admitTraversalFrameCursor(
   const runPrefix = selectValidatedRuntimeEventPrefix(durableEvents, {
     runId: scope.runId,
   });
-  const currentRunTruth = deriveRuntimeEventCalculusProjection(runPrefix);
+  const currentRunTruth = deriveRuntimeHeldFluentProjection(runPrefix);
   if (
     !holdsAt(currentRunTruth, constructRunActiveFluent(scope.runId)) ||
     !holdsAt(

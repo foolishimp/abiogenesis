@@ -1,0 +1,42 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-packet.json",
+    "bytes": 29331587,
+    "sha256": "b4803006d68b12a6dc139dc85d07af0a574f954afbc041f338ae1ddab9da466d"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-resource-manifest.json",
+    "bytes": 489526432,
+    "sha256": "5dbd80bc15d1a47a0d8ee8bef678454b8bf46a3816d254638438a4409bb37290"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+    "bytes": 866138,
+    "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/npm/package.json",
+    "bytes": 6603,
+    "sha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/node_modules/typescript/package.json",
+    "bytes": 3620,
+    "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage-population.json",
+    "bytes": 1706393,
+    "sha256": "0bda1275840dc9f7552a47bd40063e76d1a750d241c6f1ac112f179b536960ed"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/supervise.py",
+    "bytes": 4750,
+    "sha256": "f6dc0dfa5a6bcfd509fc88474390eb143c43d5c51aec448df5a9c8e5960653be"
+  }
+]

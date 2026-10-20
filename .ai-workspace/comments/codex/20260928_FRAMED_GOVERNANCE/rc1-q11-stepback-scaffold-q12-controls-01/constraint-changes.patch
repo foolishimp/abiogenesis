@@ -1,0 +1,103 @@
+--- before/AGENTS.md
++++ after/AGENTS.md
+@@ -73,4 +73,12 @@
+   joint or alternative causes, uncertainty, and why prior checks missed it.
+   For recurrence, inspect the missing retained relation or failed work decision.
++- Every activated path has a compact design record: path/outcome and owning
++  design/triage refs; typed transformation handoffs; declared computations;
++  preserved invariants; exact effect grant; preflight and end-to-end exit proof.
++  Reuse/combine existing records; do not expand this into exhaustive prose.
++- Every integration failure stops and returns that record to Executive
++  multi-frame triangulation. Missing Design is repaired at its owning HOW, then
++  carried consistently through the grant, realization and affected proof.
++  A tighter worker constraint or local pass does not replace that re-entry.
+ - Triangulation determines the responsible owner, complete affected causal
+   cone, smallest lawful re-entry and required reproof. The repair scope may
+--- before/CLAUDE.md
++++ after/CLAUDE.md
+@@ -37,4 +37,9 @@
+ 
+ ## Delivery Discipline
++
++Use the six-field path design record required by `AGENTS.md`: path, typed
++handoffs, computations, invariants, effects and end-to-end proof. Every
++integration failure returns to Executive triangulation. Missing Design flows
++through its owning HOW, grant, realization and affected proof before retry.
+ 
+ ### Map-First Reference Frames
+--- before/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md
++++ after/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md
+@@ -143,5 +143,5 @@
+ ### F-END-TO-END-INTERFACE-INTEGRATION
+ 
+-**Identity and authority.** Revision 1; stable source URI
++**Identity and authority.** Revision 2; stable source URI
+ `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`.
+ This development/review frame specializes the selected STDO evaluations below with
+@@ -200,4 +200,15 @@
+ [instruction-assembly law](../../../../specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md#acceptance-criteria)
+ continues to govern runtime rendering and admission.
++
++**Agent design constraint.** Each activated path carries one compact record:
++path/outcome and owning design/triage refs; typed information transformations
++between actual producers and consumers; declared computations; conserved
++invariants; exact effect grant; preflight and observable end-to-end proof.
++These are two views of the existing system, not adoption of a new category
++calculus or traversal mechanism. Compose existing statements rather than
++enumerating every graph walk. Every integration failure returns this record
++for Executive triangulation. Missing Design is repaired at its owning HOW
++before the grant, realization and affected proof proceed. Constraint tightening
++and component passes cannot substitute for that repair.
+ 
+ **Evidence and failure localization.** Acquire both real sides of the seam:
+--- before/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md
++++ after/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md
+@@ -305,4 +305,18 @@
+ accepted without the new owning basis.
+ 
++### 4.1 External Source Delta Constraint
++
++The selected source cut owns the current delta: its replacement and addition
++rows, checked against the pinned predecessor and current member manifests.
++External preparation projects that delta into `lawfulSuccessorChanges.sourceChanges`
++with unique complete path/body/bytes/mode/preimage/postimage/author correspondence
++and exact accessible original row references. `selectedRelation` describes
++provenance/history; it is not change-selection authority. The consumer verifies
++that correspondence before body materialization and rendering. Missing, extra,
++duplicate, wrong-cut or altered postimage/author rows refuse. Preserve source
++labels and original records; do not guess a whitelist or weaken nonempty.
++The preparation grant carries this relation into preflight and resource/request
++reproof. An integration failure returns to multi-frame Executive triage.
++
+ ## 5. Completion, Admission And Successful Judgment
+ 
+--- before/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ after/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -108,6 +108,6 @@
+ - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
+ - bounded_task_register: '#admission-boundary-execution-checklist'
+-- next_bounded_task: Repair_installer_owned_npm_bin_policy_independent_onefile_assurance_C05_rebind_then_actual_F11_child_parent_cold_path
+-- next_bounded_task_status: ACTIVE_exact_Runtime_setup_Worker_and_external_Q05_Worker_preserve_all_accepted_subjects
++- next_bounded_task: Q11_stepback_design_delta_constraint_Q12_preparation_independent_assurance_then_actual_Runtime09
++- next_bounded_task_status: ACTIVE_compact_path_scaffold_design_reframe_C09_Setup09_accepted_Runtime09_unactivated
+ - failure_disposition_rule: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#owner-ruling-triangulate-cause-before-selecting-repair-scope
+ - executive_escalation_case: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/executive-escalation-case.md
+@@ -338,4 +338,18 @@
+ 
+ 
++## Current integration design constraint
++
++Owner selects a compact six-field path scaffold, not exhaustive documentation:
++path, typed handoffs, computations, invariants, effects and end-to-end proof.
++Every integration failure still receives step-back multi-frame triangulation.
++Missing Design returns to its owning HOW and flows through grant, realization
++and affected proof. Q11 is CLOSED NO_GO; Root conjoins the independent review
++and repairs HOW4.1 external delta selection before bounded Q12 realization.
++C09/Setup09 and Hello retain their original acceptance; Runtime09 remains
++unactivated. Current grants and the trial record are in
++`comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/`.
++These current constraint amendments are not retroactively included in frozen
++C09; final qualification must bind its actual applicable Source/Design.
++
+ ## Recursive Executive and default graph library
+ 

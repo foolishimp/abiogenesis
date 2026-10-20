@@ -1,0 +1,22 @@
+{
+  "status": "CLOSED_WRITER_PROJECTION",
+  "installedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/return.md",
+    "sha256": "92776e7cc14f21ca02151fa958a0a42ad3c66b986d4d2d0ab46f312fe41a1d27"
+  },
+  "changes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimageSha256": "c14480acb820f74427a06e3e0534e5f97d960519221ec0dfe75cfa3193290aa5",
+      "postimageSha256": "832c5ab47d094a4a489f3018186379f14f4424737f31520087d3171b28d2e57b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "preimageSha256": "5bc7e51b414bcdbebf5e9e7724a2933d448a23156ae1512411621595bb9f6f67",
+      "postimageSha256": "5ecb9d746b13df4863ddf6365c12f91eb2b5132953299e9cc6a98163bf027ff3"
+    }
+  ],
+  "unchangedGoals": "Both GOALS current selections already point to ticket-owned frontier/checklist; no independently maintained detailed status added.",
+  "scope": "Only existing current clauses/checklist/LIFE-01 amended; no source/runtime/Git effect.",
+  "independentReview": "Root reports /root/native_d2_review astra/max closed model f816c981\u2026 and STEP2 5bef1009\u2026 in chat with no supported blocker; no separate review archive."
+}

@@ -1,0 +1,39 @@
+{
+  "operation": "T287_Q07_REFERENCE_ROUTING_REENTRY_GRANT_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T07:12:44.685655+00:00",
+  "outputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q07-routing-triangulation-and-continuation-01/triangulation.json",
+      "bytes": 2111,
+      "sha256": "179ec0d241ce676fd0d376dd338631dc8df04f65188bec3a859d3ee35cac4a5c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q07-routing-triangulation-and-continuation-01/generated-acceptance.json",
+      "bytes": 591,
+      "sha256": "79f885207f8df35e1f381df304b32f37c4e46a89cb79ea2e8c5d679685f203d4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q07-routing-triangulation-and-continuation-01/request.txt",
+      "bytes": 3292,
+      "sha256": "4c6703dcf01437859689d40f29a823dbeaad56306050de074c4c15fd066202d6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 518698,
+      "sha256": "4026b9806dbfe7d9367deaf92f0d1b33e2b88a80afc2361713a421d70b198cf4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 478176,
+      "sha256": "80fa8e81c0c4682af9c55be217fab56af0acaaf88c019a1db4077a4e1021671a",
+      "mode": 420
+    }
+  ],
+  "candidateSourceRuntimeGitNetworkEffects": 0
+}

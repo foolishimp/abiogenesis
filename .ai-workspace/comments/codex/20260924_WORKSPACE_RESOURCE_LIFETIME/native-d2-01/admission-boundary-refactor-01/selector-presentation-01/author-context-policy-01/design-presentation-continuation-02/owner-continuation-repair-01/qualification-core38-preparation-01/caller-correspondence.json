@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "packageMatchesSelectedCore": true,
+  "unchangedEntryAndSelection": true,
+  "unchangedControlFiles": [
+    "recipe.mjs",
+    "recipe-stage.mjs",
+    "compare-generated.mjs",
+    "test-environment.mjs",
+    "config.json",
+    "toolchain.json",
+    "npm-toolchain-inventory.json",
+    "test-selection.json",
+    "lint-population.json",
+    "release-claims.json",
+    "configuration-binding.json",
+    "public-support.mjs"
+  ],
+  "exactCallerFileReferences": true,
+  "dependentNativeFieldsUnbound": true,
+  "runtimeCalls": 0
+}

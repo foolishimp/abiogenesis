@@ -1,0 +1,14 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RC1_TIMELINE_FAILURE_CLOSURE_WRITER_01",
+  "role": "Writer",
+  "restoredRole": "Executive",
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "bytes": 12051,
+    "sha256": "456ef5e22b1ae24d84d08afbc2c173cc42d8c8c81bd9e21550dc9893ba24add9",
+    "mode": 420
+  },
+  "SourceGeneratedRuntimeProviderReleaseGitEffects": 0,
+  "closedAt": "2026-10-03T14:04:48.979125+00:00"
+}

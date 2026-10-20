@@ -1,7 +1,7 @@
 import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
+import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import type {
   FanOutMaterialization,
   GraphFunction,
@@ -13,6 +13,11 @@ import type { CProgramNode } from "./c_algebra.js";
 import { graphTemplateDiagnostics } from "./graph_construction.js";
 
 const materializedGraphs = new WeakSet<object>();
+const materializedShapes = new WeakMap<object, Readonly<{
+  graphFunction: Readonly<GraphFunction>;
+  immutableFunction: boolean;
+  shape: MaterializedGraphShape;
+}>>();
 
 export function isMaterializedGtlGraph(value: object): boolean {
   return materializedGraphs.has(value);
@@ -87,6 +92,27 @@ export function rehydrateMaterializedGtlGraph(
 export interface MaterializedGraphShape {
   readonly template: GraphTemplate;
   readonly fanOutMaterializations: readonly FanOutMaterialization[];
+}
+
+/** @internal The actual materializer's shape, qualified by current occurrence
+ * and input. Rehydrated or foreign Graphs keep full shape reconstruction. */
+export function retainedMaterializedGraphShape(
+  graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
+  basis: GraphMaterializationBasis,
+): MaterializedGraphShape | null {
+  const retained = materializedShapes.get(graph);
+  if (retained === undefined || retained.graphFunction !== graphFunction ||
+      graph.invocationAdmissionRef !== basis.invocationAdmissionRef ||
+      graph.admittedInputRef !== basis.admittedInputRef ||
+      graph.admittedInputDigest !== basis.admittedInputDigest ||
+      (!retained.immutableFunction && sha256Canonical(graphFunction as unknown as JsonValue) !== graph.graphFunctionDigest)) {
+    return null;
+  }
+  if (retained.shape.fanOutMaterializations.length > 0 &&
+      sha256Canonical(basis.admittedInput as unknown as JsonValue) !== basis.admittedInputDigest) {
+    throw new TypeError("graph materialization input value differs from the admitted input digest");
+  }
+  return retained.shape;
 }
 
 function fanOutMembers(
@@ -301,5 +327,7 @@ export function materializeGraph(
     ...body,
   }) as GtlGraph;
   materializedGraphs.add(graph);
+  if (isDeeplyFrozen(graph)) materializedShapes.set(graph,
+    { graphFunction, immutableFunction: isDeeplyFrozen(graphFunction), shape });
   return graph;
 }

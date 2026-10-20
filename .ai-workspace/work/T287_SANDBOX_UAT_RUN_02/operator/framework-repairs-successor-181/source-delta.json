@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/source-preimages.json",
+    "sha256": "bdb7db97b2b78f6cc30777b0ad561852bc88c093243276120ffd02486cf80b5f",
+    "byteCount": 78250
+  },
+  "count": 263,
+  "unchanged": 262,
+  "changed": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "sha256": "716e047b6635553b98ead38618281aac9613ceb60c870af31c138840a0bb98e4",
+        "byteCount": 24269,
+        "relativePath": "code/src/product/semantics.ts"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "sha256": "dcb18429cc46007a1812ff80807e1fa7482daff05a14d7dce17d1566fc8685c4",
+        "byteCount": 24324,
+        "relativePath": "code/src/product/semantics.ts"
+      }
+    }
+  ],
+  "accepted179PostimagesOnly": true
+}

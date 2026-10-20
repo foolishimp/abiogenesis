@@ -1,0 +1,16 @@
+{
+  "executable": "node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern",
+    "fold and assessment consume|C2 assessment binds a separate current DataMapper",
+    "test_env/tests/t287-default-library.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-08T16:48:27.982Z",
+  "endedAt": "2026-10-08T16:48:29.156Z",
+  "wallMs": 1172.99475,
+  "exitCode": 0,
+  "signal": null
+}

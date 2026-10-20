@@ -1,0 +1,128 @@
+{
+  "mode": "setup",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "run-setup.mjs"
+  ],
+  "pid": 70953,
+  "processGroup": 70953,
+  "startedAt": "2026-10-02T02:40:08.306882+00:00",
+  "closedAt": "2026-10-02T02:44:03.123898+00:00",
+  "elapsedMs": 234820.66112477332,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": {
+    "status": "passed",
+    "completedAt": "2026-10-02T02:40:26.144Z",
+    "elapsedMs": 17809.954333,
+    "verified": [
+      {
+        "name": "core",
+        "artifactDigest": "sha256:060f129747a51f29c07765fa802437f1b651d0109a79299d66de35f7a8cbe6f8",
+        "productContentDigest": "sha256:27fa7db21c6987976afdcaac1ac092ed5ff1b8af5e10fed51b72658390ca429a",
+        "manifestDigest": "sha256:d0da31f911c6ff7cdf5e22361d22c0ff75b878a040484f79328a8ceb1e96355e"
+      },
+      {
+        "name": "fixture",
+        "artifactDigest": "sha256:943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+        "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+        "manifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f"
+      }
+    ]
+  },
+  "rssBytes": 3154477056,
+  "userSeconds": 299.717089,
+  "systemSeconds": 14.006484,
+  "knownCLIProcessGroups": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-bind-process-start.json",
+      "processGroup": 72423,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-catalog-process-start.json",
+      "processGroup": 72477,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-catalog-view-process-start.json",
+      "processGroup": 72554,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-conformance-assess-process-start.json",
+      "processGroup": 72633,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-conformance-exact-candidate-process-start.json",
+      "processGroup": 72788,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-conformance-parent-process-start.json",
+      "processGroup": 73104,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-conformance-self-conformance-process-start.json",
+      "processGroup": 72938,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-install-core-process-start.json",
+      "processGroup": 72051,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-install-fixture-process-start.json",
+      "processGroup": 72328,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-resolve-mixed-process-start.json",
+      "processGroup": 71889,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-resolve-singleton-process-start.json",
+      "processGroup": 71730,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-verify-core-process-start.json",
+      "processGroup": 71322,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-verify-fixture-process-start.json",
+      "processGroup": 71578,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-workspace-process-start.json",
+      "processGroup": 71168,
+      "before": "absent",
+      "afterTERM": "absent"
+    }
+  ],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

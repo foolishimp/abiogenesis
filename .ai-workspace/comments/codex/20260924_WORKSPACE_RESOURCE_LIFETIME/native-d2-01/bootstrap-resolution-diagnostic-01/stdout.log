@@ -1,0 +1,1 @@
+{"kind":"product_execution_resolution_refusal","code":"absent","stage":"implementation","message":"no packaged LeafImplementation matches the validated executable requirement","timing":{"acquisitionMs":2712.172542,"environmentProjectionMs":19467.408041000002,"resolutionMs":8100.009374999998}}

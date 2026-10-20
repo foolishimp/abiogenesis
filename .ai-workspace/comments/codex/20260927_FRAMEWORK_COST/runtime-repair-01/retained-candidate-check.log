@@ -1,0 +1,12 @@
+(node:26404) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ route-origin workflow cursor stages, replays, commits and cold-projects exact retained input (164.558667ms)
+ℹ {"admittedEvents":17,"retainedBytes":213,"retainedDigest":"sha256:10a2fce54706b328fe844849f69ff732ee7d0de49f8ee7ffdcd69d163825d07e","baseline":"injected missing provenance","material":false,"sourceEnteredRows":0,"sourceOrigin":"event://abiogenesis/c5ce8f65a4480fb64fe6b513802a3133e64407474daaa484f59fd63f6e7734aa","retainedRoute":"event://abiogenesis/9b44cdc2f3245a273228c35e9d1dea5eed45370e939ac28c4d40747946477985","coldReplayDigest":"sha256:0b63f78c3f9bb0c6d28189838d256ebeeb1f48fb8c049f589ebda8235a2097dd","lowerPremises":"Supplied declaration, basis, completed CCall carrier and inert native frame-clock observer; real cursor/provenance, append transaction, staged route admission and replay."}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 403.392541

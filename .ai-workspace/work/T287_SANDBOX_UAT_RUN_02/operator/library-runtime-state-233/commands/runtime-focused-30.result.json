@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "node",
+    "--expose-gc",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=terminal route-only|selected replay guard|finite pure candidate|ordinary selected route|drop complete output",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-30/test_env/tests/t287-route-reconstruction.test.mjs"
+  ],
+  "startedUnixMs": 1791623885076.308,
+  "exitCode": 1,
+  "elapsedMs": 2406.707333,
+  "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/commands/runtime-focused-30.stdout",
+  "stderrPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/commands/runtime-focused-30.stderr",
+  "limits": [
+    "Disposable durable component owners; controlled lower declarations; no installed/native/campaign capacity proof"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "compile": {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json --pretty false",
+    "exitCode": 0,
+    "log": "compile-01.log",
+    "scope": "ordinary compiler only; no package or manifest build"
+  },
+  "focused01": {
+    "command": "node --test --test-name-pattern='^T289 owner serialization' test_env/tests/t289-install-event-bodies.test.mjs",
+    "exitCode": 0,
+    "selectedPassed": 1,
+    "skipped": 0,
+    "log": "focused-01.log",
+    "note": "initial successful probe, extended only for identified delta/profile and rollback cases"
+  },
+  "focused02": {
+    "command": "node --test --test-name-pattern='^T289 (owner serialization|live state)' test_env/tests/t289-install-event-bodies.test.mjs",
+    "exitCode": 0,
+    "selectedPassed": 2,
+    "skipped": 0,
+    "log": "focused-02.log",
+    "environment": {
+      "ABI5_INSTALL_BODY_HISTORY": "/Users/jim/Library/Application Support/ABIogenesis/candidates/T288-workflow-scope-rm55auw0/tmp/abi5-root-env-sia11F/runtime/events.jsonl",
+      "ABI5_INSTALL_BODY_HISTORY_SHA256": "c8f43ff2d79850800ef85b537c055bf3a7dc0bff38509b02c803b4669bea7073",
+      "ABI5_INSTALL_BODY_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02"
+    },
+    "result": "focused-02/result.json",
+    "rollbackResult": "focused-02/rollback-result.json"
+  },
+  "profile01": {
+    "command": "node --test --test-name-pattern='^profile suffix progress' test_env/tests/t288-prefix-structure.test.mjs",
+    "exitCode": 0,
+    "selectedPassed": 1,
+    "skipped": 0,
+    "log": "profile-01.log",
+    "environment": {
+      "ABI5_PREFIX_PREDECESSOR_ROOT": "/Users/jim/Library/Application Support/ABIogenesis/candidates/T289-event-bodies-refusal-0108nusv",
+      "ABI5_OWNER_HISTORY": "/Users/jim/Library/Application Support/ABIogenesis/candidates/T288-workflow-scope-rm55auw0/tmp/abi5-root-env-sia11F/runtime/events.jsonl"
+    },
+    "predecessorPrefixModuleSha256": "6fd4ee13d5270cf11e941fb117e1b34d74ffb4b1bc9fef580fad9bd875e1c31f"
+  },
+  "diffCheck": {
+    "exitCode": 0
+  },
+  "retainedHistory": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/candidates/T288-workflow-scope-rm55auw0/tmp/abi5-root-env-sia11F/runtime/events.jsonl",
+    "sha256": "c8f43ff2d79850800ef85b537c055bf3a7dc0bff38509b02c803b4669bea7073",
+    "bytes": 13144942
+  },
+  "limits": [
+    "Tests invoke actual compiled ABG owners and actual append/recovery on new isolated fixture files. Historical candidate/lock/authority inputs are substituted for the native-D2 setup inputs; no package materialization, native provider, installed setup or qualification is claimed.",
+    "Precise inspector call coverage observes the real owner implementations; no validation, Event Calculus or I/O test double supplies the incremental-work result.",
+    "The candidate row is derived once before append and once after append; profile checking still copies event references and final projection still materializes/hash-serializes rows. No complete-history event/artifact reconstruction occurs in the three measured warm admissions.",
+    "Rollback test explicitly throws after staging an ordinary Public event and deriving artifact truth, then proves durable conservation, prior-prefix reconstruction and successful later binding. It is not an injected physical I/O failure test.",
+    "F_P, query/read-resource lifetime, other runtime ingress and native-D2 source/worksite/provider paths remain outside this slice."
+  ]
+}

@@ -1,0 +1,741 @@
+{
+  "status": "new_original_external_session_and_source_effect_correspondence_acquired",
+  "operations": [
+    {
+      "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "applicabilityConserved": {
+        "kind": "eight_original_C01_Q01_members",
+        "subjectInventory": {
+          "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+          "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+        },
+        "successorInventory": null
+      },
+      "actualExternalAgentPath": "/root/s03_phase_b",
+      "actualSessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+      "parentSessionId": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+      "sessionMetadata": "s03_phase_b-session-metadata.json",
+      "actualModel": null,
+      "actualModelProfile": null,
+      "explicitModelProvider": "openai",
+      "sourceEffectLines": [
+        912,
+        925,
+        932,
+        941,
+        955,
+        992,
+        1112,
+        1199,
+        1237,
+        1345
+      ],
+      "activationCaptureLine": 815,
+      "closureLines": [
+        1396
+      ],
+      "sourceOperationMemberJoins": [
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "digest": "sha256:a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+            "byteCount": 15165
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 912,
+              "callId": "call_96pplFVgr4IEftYT1OBS0l7s",
+              "recordPath": "extracts/s03_phase_b-line912-call_96pplFVgr4IEftYT1OBS0l7s.json"
+            },
+            {
+              "line": 1199,
+              "callId": "call_N0fRGB220y8K4KTJxVe0ypxh",
+              "recordPath": "extracts/s03_phase_b-line1199-call_N0fRGB220y8K4KTJxVe0ypxh.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_operation_contracts.ts",
+            "preimageDigest": "sha256:a095a108400e5fb91ca1e49027526c9d8dcfc8dcb9b53a4d6c24c790cc730936",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+            "originalPatchDigest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+            "viewPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+            "viewPatchDigest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+            "postimageRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "postimageDigest": "sha256:a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+            "postimageBytes": 15165,
+            "reconstructedPath": "reconstructed/T287_S03_PUBLIC_HANDOFF_REPAIR_01/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+            "hunks": 2,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        },
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "digest": "sha256:c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+            "byteCount": 32200
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 932,
+              "callId": "call_g8ctmEOhyie0KuLbSSMwUID1",
+              "recordPath": "extracts/s03_phase_b-line932-call_g8ctmEOhyie0KuLbSSMwUID1.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_definition_bindings.ts",
+            "preimageDigest": "sha256:69624a50cff0f736434b7900bd8a356db0f6576bc373566bacc6fffc92a6a8ea",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+            "originalPatchDigest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+            "viewPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+            "viewPatchDigest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+            "postimageRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "postimageDigest": "sha256:c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+            "postimageBytes": 32200,
+            "reconstructedPath": "reconstructed/T287_S03_PUBLIC_HANDOFF_REPAIR_01/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+            "hunks": 7,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        },
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "digest": "sha256:e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+            "byteCount": 84829
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 925,
+              "callId": "call_kqNmXWFQKl448XS8UcoC8Agj",
+              "recordPath": "extracts/s03_phase_b-line925-call_kqNmXWFQKl448XS8UcoC8Agj.json"
+            },
+            {
+              "line": 955,
+              "callId": "call_CfvBjhZO7BBgmbs5PKpWf98t",
+              "recordPath": "extracts/s03_phase_b-line955-call_CfvBjhZO7BBgmbs5PKpWf98t.json"
+            },
+            {
+              "line": 992,
+              "callId": "call_toX9kikY9IyQuZ8kz5SzCSxF",
+              "recordPath": "extracts/s03_phase_b-line992-call_toX9kikY9IyQuZ8kz5SzCSxF.json"
+            },
+            {
+              "line": 1112,
+              "callId": "call_EaRLZZ4vRTWxByDXPbMjyGVL",
+              "recordPath": "extracts/s03_phase_b-line1112-call_EaRLZZ4vRTWxByDXPbMjyGVL.json"
+            },
+            {
+              "line": 1199,
+              "callId": "call_N0fRGB220y8K4KTJxVe0ypxh",
+              "recordPath": "extracts/s03_phase_b-line1199-call_N0fRGB220y8K4KTJxVe0ypxh.json"
+            },
+            {
+              "line": 1237,
+              "callId": "call_Ddtr0gvfI7nahcpqmsAfsRsF",
+              "recordPath": "extracts/s03_phase_b-line1237-call_Ddtr0gvfI7nahcpqmsAfsRsF.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_ports.ts",
+            "preimageDigest": "sha256:93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+            "originalPatchDigest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+            "viewPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+            "viewPatchDigest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+            "postimageRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "postimageDigest": "sha256:e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+            "postimageBytes": 84829,
+            "reconstructedPath": "reconstructed/T287_S03_PUBLIC_HANDOFF_REPAIR_01/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+            "hunks": 7,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        },
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "digest": "sha256:a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+            "byteCount": 32193
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 941,
+              "callId": "call_QkU3TyzYxJO72Ft1fdjrfvgL",
+              "recordPath": "extracts/s03_phase_b-line941-call_QkU3TyzYxJO72Ft1fdjrfvgL.json"
+            },
+            {
+              "line": 955,
+              "callId": "call_CfvBjhZO7BBgmbs5PKpWf98t",
+              "recordPath": "extracts/s03_phase_b-line955-call_CfvBjhZO7BBgmbs5PKpWf98t.json"
+            },
+            {
+              "line": 1199,
+              "callId": "call_N0fRGB220y8K4KTJxVe0ypxh",
+              "recordPath": "extracts/s03_phase_b-line1199-call_N0fRGB220y8K4KTJxVe0ypxh.json"
+            },
+            {
+              "line": 1345,
+              "callId": "call_IJEO2ArSQZu2brGTTlpU3uG9",
+              "recordPath": "extracts/s03_phase_b-line1345-call_IJEO2ArSQZu2brGTTlpU3uG9.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "patchPath": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/test_env/support/t287-s03-automatic.mjs",
+            "preimageDigest": "sha256:b54df94a0231b85fa87bb68eab39ec4744fef4f4a406f6ba1354990ec1b613e9",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+            "originalPatchDigest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+            "viewPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+            "viewPatchDigest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+            "postimageRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "postimageDigest": "sha256:a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+            "postimageBytes": 32193,
+            "reconstructedPath": "reconstructed/T287_S03_PUBLIC_HANDOFF_REPAIR_01/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+            "hunks": 2,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        }
+      ],
+      "originalRecordJoins": [
+        {
+          "relation": "request",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+          "digest": "sha256:78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f",
+          "bytes": 7917,
+          "digestObservedInSelectedToolInput": true,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "activation",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+          "digest": "sha256:159c710713c7b9fd97b39994264a0fafb08458814dc6eaef57774c6ab1a97636",
+          "bytes": 2115,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "preimage",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+          "digest": "sha256:159c710713c7b9fd97b39994264a0fafb08458814dc6eaef57774c6ab1a97636",
+          "bytes": 2115,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "delta",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+          "digest": "sha256:aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd",
+          "bytes": 30600,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "closure",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+          "digest": "sha256:3afdda2bde3a3d2454d8b6aa1e3920d3c161c96d8efba7e3d47ebc342aca5e55",
+          "bytes": 63091,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "return",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+          "digest": "sha256:d3f4b8e86eb9f5a1aae5235cb63c3420c15a9802e1a384a990e2264888c4d604",
+          "bytes": 12680,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        }
+      ],
+      "requestDigestFieldObservedInOriginalPreimageOrActivation": "78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f",
+      "changedEvidenceStatus": "Newly acquired original session metadata and actual source-operation records support the performing external actor/session correspondence. Earlier unknown/unavailable statements remain true descriptions of the evidence available at their cut.",
+      "proofSeparation": {
+        "assignment": "Original request and dispatch/capture context, with selected-action parent target metadata; opaque message content not consumed.",
+        "attemptedEffect": "Exact source-edit tool call attributed to the actual child session; captured command inspected only.",
+        "toolOutcome": "Exact paired outer tool completion, with numeric inner exit codes only where actually retained. An omitted numeric code is not invented.",
+        "finalBytes": "Original capture/closure records plus unchanged A02 eleven endpoint reconstruction proof. No source test or patch execution rerun.",
+        "inference": "Correspondence of an externally performed operation to its actual session is grounded by the conjunction above. It does not establish all inherited semantic authorship or a qualified/native attribution judgment."
+      },
+      "qualificationAuthorityRef": null,
+      "nativeABGAuthorIdentity": null,
+      "actualAssessorIdentity": null,
+      "nativeIndependenceEstablished": false
+    },
+    {
+      "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "applicabilityConserved": {
+        "kind": "eight_original_C01_Q01_members",
+        "subjectInventory": {
+          "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+          "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+        },
+        "successorInventory": null
+      },
+      "actualExternalAgentPath": "/root/selected_action",
+      "actualSessionId": "01a0edc1-320d-7403-98ce-670c97b96ecb",
+      "parentSessionId": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+      "sessionMetadata": "selected_action-session-metadata.json",
+      "actualModel": null,
+      "actualModelProfile": null,
+      "explicitModelProvider": "openai",
+      "sourceEffectLines": [
+        1354
+      ],
+      "activationCaptureLine": 1354,
+      "closureLines": [
+        1460,
+        1474,
+        1483
+      ],
+      "sourceOperationMemberJoins": [
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "digest": "sha256:f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+            "byteCount": 55572
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 1354,
+              "callId": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+              "recordPath": "extracts/selected_action-line1354-call_ahIzrSfqxJKrJ6PUavkIESxW.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "preimageDigest": "sha256:38e18af48a88f40b8b28cb52e767f6faee3d745fed69a4b887e815f1686d9fd6",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+            "originalPatchDigest": "sha256:02e124abb177e4ca530ee8f1f249affd2e41279fedecb90d9330e37f9d7df315",
+            "viewPatchRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/selected-action07-header-view.patch",
+            "viewPatchDigest": "sha256:bf8d522c75b6890ff85ec5eb30401dab96791db0f42b3ddd0a670f7a623cbaea",
+            "postimageRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "postimageDigest": "sha256:f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+            "postimageBytes": 55572,
+            "reconstructedPath": "reconstructed/T287_S7_SELECTED_ACTION_INSTALLED_07/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+            "hunks": 4,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        },
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "digest": "sha256:83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550",
+            "byteCount": 81875
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 1354,
+              "callId": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+              "recordPath": "extracts/selected_action-line1354-call_ahIzrSfqxJKrJ6PUavkIESxW.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "preimageDigest": "sha256:ee13568ec2193ea7cd7c89bd275eab63f2ee16e8dbca89b1291e462a30758546",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+            "originalPatchDigest": "sha256:02e124abb177e4ca530ee8f1f249affd2e41279fedecb90d9330e37f9d7df315",
+            "viewPatchRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/selected-action07-header-view.patch",
+            "viewPatchDigest": "sha256:bf8d522c75b6890ff85ec5eb30401dab96791db0f42b3ddd0a670f7a623cbaea",
+            "postimageRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "postimageDigest": "sha256:83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550",
+            "postimageBytes": 81875,
+            "reconstructedPath": "reconstructed/T287_S7_SELECTED_ACTION_INSTALLED_07/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+            "hunks": 1,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        },
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "digest": "sha256:f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+            "byteCount": 9773
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 1354,
+              "callId": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+              "recordPath": "extracts/selected_action-line1354-call_ahIzrSfqxJKrJ6PUavkIESxW.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "patchPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "preimageDigest": "sha256:f60b26158de3aba346872718b5b84ea912b40df1a58de6463f4143bc9d9d3fbd",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+            "originalPatchDigest": "sha256:02e124abb177e4ca530ee8f1f249affd2e41279fedecb90d9330e37f9d7df315",
+            "viewPatchRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/selected-action07-header-view.patch",
+            "viewPatchDigest": "sha256:bf8d522c75b6890ff85ec5eb30401dab96791db0f42b3ddd0a670f7a623cbaea",
+            "postimageRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "postimageDigest": "sha256:f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+            "postimageBytes": 9773,
+            "reconstructedPath": "reconstructed/T287_S7_SELECTED_ACTION_INSTALLED_07/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+            "hunks": 2,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        },
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "digest": "sha256:ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+            "byteCount": 5203
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 1354,
+              "callId": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+              "recordPath": "extracts/selected_action-line1354-call_ahIzrSfqxJKrJ6PUavkIESxW.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "patchPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "preimageDigest": "sha256:5890ec90343657fa99cf73352647492291900de6725e36d682443275962bc39b",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+            "originalPatchDigest": "sha256:02e124abb177e4ca530ee8f1f249affd2e41279fedecb90d9330e37f9d7df315",
+            "viewPatchRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/selected-action07-header-view.patch",
+            "viewPatchDigest": "sha256:bf8d522c75b6890ff85ec5eb30401dab96791db0f42b3ddd0a670f7a623cbaea",
+            "postimageRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "postimageDigest": "sha256:ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+            "postimageBytes": 5203,
+            "reconstructedPath": "reconstructed/T287_S7_SELECTED_ACTION_INSTALLED_07/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+            "hunks": 1,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        }
+      ],
+      "originalRecordJoins": [
+        {
+          "relation": "request",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "digest": "sha256:b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f",
+          "bytes": 8724,
+          "digestObservedInSelectedToolInput": true,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "activation",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "digest": "sha256:b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f",
+          "bytes": 8724,
+          "digestObservedInSelectedToolInput": true,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "preimage",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages.json",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages.json",
+          "digest": "sha256:2fadba7a6ece2efde85f81d9a86fd2a5ba8354774310d8593986da3aae2005da",
+          "bytes": 3377,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "delta",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+          "digest": "sha256:02e124abb177e4ca530ee8f1f249affd2e41279fedecb90d9330e37f9d7df315",
+          "bytes": 34089,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "closure",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+          "digest": "sha256:0273a0192c51f369eed0f124f41fd796d99c8154d8dbd412a3a16651342788cb",
+          "bytes": 19588,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "return",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+          "digest": "sha256:89d1a4683f31ccdbe3e077f3557edc742490847fba75c954073115a9439b1dda",
+          "bytes": 8369,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        }
+      ],
+      "requestDigestFieldObservedInOriginalPreimageOrActivation": "b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f",
+      "changedEvidenceStatus": "Newly acquired original session metadata and actual source-operation records support the performing external actor/session correspondence. Earlier unknown/unavailable statements remain true descriptions of the evidence available at their cut.",
+      "proofSeparation": {
+        "assignment": "Original request and dispatch/capture context, with selected-action parent target metadata; opaque message content not consumed.",
+        "attemptedEffect": "Exact source-edit tool call attributed to the actual child session; captured command inspected only.",
+        "toolOutcome": "Exact paired outer tool completion, with numeric inner exit codes only where actually retained. An omitted numeric code is not invented.",
+        "finalBytes": "Original capture/closure records plus unchanged A02 eleven endpoint reconstruction proof. No source test or patch execution rerun.",
+        "inference": "Correspondence of an externally performed operation to its actual session is grounded by the conjunction above. It does not establish all inherited semantic authorship or a qualified/native attribution judgment."
+      },
+      "qualificationAuthorityRef": null,
+      "nativeABGAuthorIdentity": null,
+      "actualAssessorIdentity": null,
+      "nativeIndependenceEstablished": false
+    },
+    {
+      "operation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "applicabilityConserved": {
+        "kind": "independent_closed_three_file_operation",
+        "sourceCut": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/freeze.json",
+          "digest": "sha256:19f97fe0758b204829d4f4695c83f49cc641d1c4affdd7defd46022c36eaa01d"
+        },
+        "subjectInventory": null,
+        "successorInventory": null,
+        "notC01Q01Postimages": true
+      },
+      "actualExternalAgentPath": "/root/s03_phase_b",
+      "actualSessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+      "parentSessionId": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+      "sessionMetadata": "s03_phase_b-session-metadata.json",
+      "actualModel": null,
+      "actualModelProfile": null,
+      "explicitModelProvider": "openai",
+      "sourceEffectLines": [
+        2672
+      ],
+      "activationCaptureLine": 2660,
+      "closureLines": [
+        2767,
+        2788,
+        2795
+      ],
+      "sourceOperationMemberJoins": [
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+            "digest": "sha256:f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d",
+            "byteCount": 18915
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 2672,
+              "callId": "call_xhY5RR6tpI2Lxb249P76JGXB",
+              "recordPath": "extracts/s03_phase_b-line2672-call_xhY5RR6tpI2Lxb249P76JGXB.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+            "patchPath": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/preimages/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+            "preimageDigest": "sha256:3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+            "originalPatchDigest": "sha256:ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708",
+            "viewPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+            "viewPatchDigest": "sha256:ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708",
+            "postimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+            "postimageDigest": "sha256:f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d",
+            "postimageBytes": 18915,
+            "reconstructedPath": "reconstructed/T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+            "hunks": 1,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        },
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+            "digest": "sha256:d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128",
+            "byteCount": 77554
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 2672,
+              "callId": "call_xhY5RR6tpI2Lxb249P76JGXB",
+              "recordPath": "extracts/s03_phase_b-line2672-call_xhY5RR6tpI2Lxb249P76JGXB.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+            "patchPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+            "preimageDigest": "sha256:21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+            "originalPatchDigest": "sha256:ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708",
+            "viewPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+            "viewPatchDigest": "sha256:ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708",
+            "postimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+            "postimageDigest": "sha256:d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128",
+            "postimageBytes": 77554,
+            "reconstructedPath": "reconstructed/T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+            "hunks": 3,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        },
+        {
+          "member": {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+            "digest": "sha256:4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4",
+            "byteCount": 39208
+          },
+          "sourceEffectRecords": [
+            {
+              "line": 2672,
+              "callId": "call_xhY5RR6tpI2Lxb249P76JGXB",
+              "recordPath": "extracts/s03_phase_b-line2672-call_xhY5RR6tpI2Lxb249P76JGXB.json"
+            }
+          ],
+          "retainedEndpointProof": {
+            "operation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+            "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+            "patchPath": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+            "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+            "preimageDigest": "sha256:112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4",
+            "originalPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+            "originalPatchDigest": "sha256:ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708",
+            "viewPatchRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+            "viewPatchDigest": "sha256:ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708",
+            "postimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+            "postimageDigest": "sha256:4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4",
+            "postimageBytes": 39208,
+            "reconstructedPath": "reconstructed/T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+            "hunks": 2,
+            "originalReconstructsPostimage": true,
+            "viewReconstructsSamePostimage": true
+          }
+        }
+      ],
+      "originalRecordJoins": [
+        {
+          "relation": "request",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+          "digest": "sha256:4c48aa2fd7d4112bcc2a6fd9025ae9b82c64395134b517d28033dd2c7faf2cdd",
+          "bytes": 7347,
+          "digestObservedInSelectedToolInput": true,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "activation",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/activation.json",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/activation.json",
+          "digest": "sha256:d348278214648378c6b9bbe70a85ca602985b0ddb9ebec321277e21a847a66d6",
+          "bytes": 1310,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "preimage",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/preimages.json",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/preimages.json",
+          "digest": "sha256:3dfc01e6ed6e0f399a2a1ecdec402bebc9d83e1e785d24cecc30c65429e3dd1f",
+          "bytes": 711,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "delta",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+          "digest": "sha256:ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708",
+          "bytes": 8434,
+          "digestObservedInSelectedToolInput": true,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "closure",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+          "digest": "sha256:00a9829bbb08dde776ab92d5e005dc089efc0a6100abecb8c4ae25d2c555c66b",
+          "bytes": 5335,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": false,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        },
+        {
+          "relation": "return",
+          "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/return.md",
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/return.md",
+          "digest": "sha256:c1a21723b9bb0d887e78c6dd251a7e1837c793c8ad3e1b18fc886bce49c5b739",
+          "bytes": 5089,
+          "digestObservedInSelectedToolInput": false,
+          "digestObservedInSelectedToolOutput": true,
+          "basis": "Exact immutable A02 original bytes verified; tool-call paths/manifests bind capture/closure. Direct hash observation is reported separately, never inferred from a label."
+        }
+      ],
+      "requestDigestFieldObservedInOriginalPreimageOrActivation": null,
+      "changedEvidenceStatus": "Newly acquired original session metadata and actual source-operation records support the performing external actor/session correspondence. Earlier unknown/unavailable statements remain true descriptions of the evidence available at their cut.",
+      "proofSeparation": {
+        "assignment": "Original request and dispatch/capture context, with selected-action parent target metadata; opaque message content not consumed.",
+        "attemptedEffect": "Exact source-edit tool call attributed to the actual child session; captured command inspected only.",
+        "toolOutcome": "Exact paired outer tool completion, with numeric inner exit codes only where actually retained. An omitted numeric code is not invented.",
+        "finalBytes": "Original capture/closure records plus unchanged A02 eleven endpoint reconstruction proof. No source test or patch execution rerun.",
+        "inference": "Correspondence of an externally performed operation to its actual session is grounded by the conjunction above. It does not establish all inherited semantic authorship or a qualified/native attribution judgment."
+      },
+      "qualificationAuthorityRef": null,
+      "nativeABGAuthorIdentity": null,
+      "actualAssessorIdentity": null,
+      "nativeIndependenceEstablished": false
+    }
+  ],
+  "sameActorConservation": "S03 and D share /root/s03_phase_b and the same session ID. Operation labels do not create independent actors.",
+  "oldCutPreserved": {
+    "freeze": "sha256:df4ff0bfe902a52b306565c5766d7042f73e0c94270dadb8369c4808b58daeac",
+    "return": "sha256:32003ec812e3dd1a827f9da8a981c114d4ad99d96f37c1c7990ecebb60f62cc4"
+  },
+  "successorBinding": null,
+  "fullQualificationTaskOrSchemaEvaluation": false
+}

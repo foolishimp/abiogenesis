@@ -62,10 +62,12 @@ or substitute for ABG admission.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-019**: At an STDO-governed dependent call,
 instruction assembly shall derive the selected role's frame, identified
-instruction policy and required corpus content from its admitted GTL
-environment and exact access evidence. The immutable envelope and replayable
-manifest shall preserve those identities, the supplied content and its
-included/omitted disposition. Required content shall not be replaced by an
+instruction policy, required native-source content and any explicitly selected
+supplementary corpus content from its admitted GTL environment and exact access
+evidence. An unselected representation, index or tool shall supply neither a
+requirement nor permission to omit required native material. The immutable
+envelope and replayable manifest shall preserve those identities, the supplied
+content and its included/omitted disposition. Required content shall not be replaced by an
 inaccessible locator or a claim that the worker used the corpus. Missing or
 invalid required access evidence shall block before dependent F_P dispatch.
 Valid access evidence may be reused only within its declared immutable basis

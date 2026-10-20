@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.catalog.view",
+    "memberKey": "allowlist"
+  },
+  "elapsedMs": 913.1169999999984,
+  "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+}

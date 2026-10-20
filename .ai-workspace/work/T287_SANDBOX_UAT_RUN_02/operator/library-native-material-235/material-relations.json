@@ -1,0 +1,119 @@
+{
+  "kind": "selected_native_material_relation",
+  "scope": "Pure installed31 declaration fixture; assembly lower authentication remains controlled, not a Source41/native-admission claim.",
+  "selectorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/exacthost-identity.json",
+  "publication": {
+    "digest": "sha256:ae08b69f461e348ec5801865f46cbe8d2db9a973f9080442224a34e34b2d9b54",
+    "byteCount": 34897
+  },
+  "publicationFields": {
+    "artifactDigest": {
+      "digest": "sha256:0cafe01695a3c5e8db5e638c97d504517241488ce1d23409fc062f1b35b0d3bb",
+      "byteCount": 73
+    },
+    "closureContracts": {
+      "digest": "sha256:14df8603c2e908068d0b1d49a407146870731fdc453b20ce8954355e6b7ef936",
+      "byteCount": 4890
+    },
+    "contracts": {
+      "digest": "sha256:76a10603722bbd85129e581e9f5ba536f8f915cca7857768af2172a40898092f",
+      "byteCount": 4589
+    },
+    "contributionManifestRef": {
+      "digest": "sha256:f1b32aad09121e03fb066a6648da6ef6a2f75c0a330b5b33f35645a491157ef3",
+      "byteCount": 114
+    },
+    "contributions": {
+      "digest": "sha256:e73c0901f9e87a07d392ae2cd712925986eb27d74e9615e9ecd205d730368c0f",
+      "byteCount": 2007
+    },
+    "descriptorRef": {
+      "digest": "sha256:017575d70fcaaff5bd3c8c6faae3855c20e78d29ee15416f6b254743262a3dd2",
+      "byteCount": 109
+    },
+    "evaluators": {
+      "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "byteCount": 2
+    },
+    "graphFunctions": {
+      "digest": "sha256:2dd874a3ecf5bac7d5c6505e5b0f16b78561e53873efb58916f0d0b9dc863d62",
+      "byteCount": 8529
+    },
+    "implementationBindings": {
+      "digest": "sha256:d82c0cae8caa410bb8d19c2c32fd3877cedb5dad0ff8c7866ea48ac8d0a0974d",
+      "byteCount": 7198
+    },
+    "kind": {
+      "digest": "sha256:8525b9def62b748c2fd26aec2edca14acbba08751e1ac507c40ce349d5536bbc",
+      "byteCount": 20
+    },
+    "moduleRef": {
+      "digest": "sha256:9bcda1ba7dc223d9c60dbc0142b6c8115e8ed5fd53e7fe61436a779e89d1657b",
+      "byteCount": 51
+    },
+    "moduleVersion": {
+      "digest": "sha256:95ccc76176af7a0746cd34976a22903bbd99a9cd5018191165fba387c60ac538",
+      "byteCount": 7
+    },
+    "owningProductId": {
+      "digest": "sha256:772254a52f09ebbf6af4e28227c1ab5427b425e4f2014940e81cdf54b06b5395",
+      "byteCount": 52
+    },
+    "productContentDigest": {
+      "digest": "sha256:14d7b4e948cb405df1ae0c1e5c903205c2ced429066a3ca14d70fe0880cbdf5b",
+      "byteCount": 73
+    },
+    "productManifestDigest": {
+      "digest": "sha256:b36752b64d4dfe77341d79a67eb683f06fbcadc4ebeadd9e70ea7a6fd13e36b6",
+      "byteCount": 73
+    },
+    "productSemanticsBinding": {
+      "digest": "sha256:9212eb8b8f951bc3b2a0b1830fc4de6dc5d4c321d55bf9d01a2ddf6071202621",
+      "byteCount": 314
+    },
+    "programs": {
+      "digest": "sha256:b3f7d628ea78dade9595d78f4f28694e8705c9178c5180d3228246aaa315211e",
+      "byteCount": 1764
+    },
+    "rules": {
+      "digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "byteCount": 2
+    },
+    "runEnvironments": {
+      "digest": "sha256:a29145ae9a5d9136fc7bb8f92d44c5bb087cdeffc517d9b1467a586d783dad3c",
+      "byteCount": 4686
+    }
+  },
+  "graphFunction": {
+    "digest": "sha256:5b33817eb4d092aea5179405fc21049dd3540a3845ecdb74f1c4f4c1de10c112",
+    "byteCount": 2785
+  },
+  "exactMemberIdentity": true,
+  "sourceRelations": [
+    {
+      "source": "NativeInstructionAssemblyBasis.publication",
+      "consumer": "envelope.nativeBasis.publication",
+      "owner": "root implementation-set publication digest + installed Product publication/declaration owners",
+      "status": "same complete logical publication retained; the native basis authenticator compares its exact canonical digest"
+    },
+    {
+      "source": "NativeInstructionAssemblyBasis.graphFunction",
+      "consumer": "envelope.nativeBasis.graphFunction and envelope.nativeBasis.declarationGraphFunctions[0]",
+      "owner": "publication.graphFunctions exact member",
+      "status": "repeated complete member value; selected installed declaration resolves it, but the existing public native basis still declares complete values"
+    },
+    {
+      "source": "executionBasis.rawInputValue",
+      "consumer": "envelope.nativeBasis.executionBasis.rawInputValue",
+      "owner": "exact basis_admitted rawInputValue via execution-basis rehydration",
+      "status": "ordinary owned rehydration shares authenticated plain source value; an additional nested codec representation is not implemented"
+    },
+    {
+      "source": "owner.inputValue",
+      "consumer": "envelope.task or envelope.sections.task",
+      "owner": "current admitted traversal input and task constructor",
+      "status": "actual material remains necessary for rendering, native guard and inspectable legacy assembly"
+    }
+  ],
+  "disposition": "No new assembly body slot or pointer carrier. Existing basis_input/c_call_result_value slots do not encode nested nativeBasis.publication; whole assemblies change call/plan/prefix and do not supply a proven shared source. This increment removes full-history acquisition/retention from native consumers and reuses actual required material in prepared assembly. Duplicate durable publication/input bytes on complete logical assembly remain explicit until a genuine finite native fixture measures their producer-to-codec-to-readback relation."
+}

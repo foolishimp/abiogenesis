@@ -1,0 +1,9 @@
+code/src/abg/c_call.ts(2041,27): error TS18049: 'source.artifactDigests' is possibly 'null' or 'undefined'.
+code/src/abg/c_call.ts(2041,50): error TS2339: Property 'output' does not exist on type 'string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'output' does not exist on type 'string'.
+code/src/abg/c_call.ts(2042,27): error TS18049: 'source.artifactDigests' is possibly 'null' or 'undefined'.
+code/src/abg/c_call.ts(2042,50): error TS2339: Property 'stdout' does not exist on type 'string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'stdout' does not exist on type 'string'.
+code/src/abg/c_call.ts(2043,27): error TS18049: 'source.artifactDigests' is possibly 'null' or 'undefined'.
+code/src/abg/c_call.ts(2043,50): error TS2339: Property 'stderr' does not exist on type 'string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'stderr' does not exist on type 'string'.

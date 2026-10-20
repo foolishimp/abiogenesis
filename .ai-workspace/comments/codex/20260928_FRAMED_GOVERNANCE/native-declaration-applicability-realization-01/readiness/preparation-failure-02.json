@@ -1,0 +1,6 @@
+{
+  "status": "preparation_failed_before_compile",
+  "cause": "frozen C03 node_modules/.bin/tsc is an ordinary contained dependency symlink; initial generic file copier rejected symlinks",
+  "repair": "retain contained relative C03 dependency links; complete source population now uses frozen C03 plus three authorized postimages per Root clarification",
+  "scriptSha256": "c525d02f6b68b9ec7f101644b5c7633e79cd058113099dcd5350e9cd0e385a11"
+}

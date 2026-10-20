@@ -1,0 +1,15 @@
+{
+  "status": "exact_preparation_copies_verified",
+  "checkedCopyRecords": 4548,
+  "unchangedSourceMembers": 1088,
+  "physicalSourceCopies": 2176,
+  "knownPendingAbsentFromSourceSelection": 15,
+  "acceptedLawHeldSeparately": 2,
+  "toolchainRecords": 2328,
+  "toolchainSymlinks": 15,
+  "lockedArchiveRecords": 16,
+  "futureExecutionGrantAbsent": true,
+  "completeCandidateFreezeAbsent": true,
+  "dependenciesOrInstallAbsent": true,
+  "verification": "Physical hashes, byte counts, modes, confined links, pending absences and preserved donor bodies; no build/test scripts executed"
+}

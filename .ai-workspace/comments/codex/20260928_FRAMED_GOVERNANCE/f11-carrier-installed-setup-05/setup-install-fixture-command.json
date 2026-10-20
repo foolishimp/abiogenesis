@@ -1,0 +1,41 @@
+{
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-install-fixture.jsonl"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-install/node_modules/@abiogenesis/typescript-tenant",
+  "environment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/task-tmp",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/task-config/npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/task-config/globalnpmrc",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/task-cache",
+    "NPM_CONFIG_PREFIX": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/task-config/prefix",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_IGNORE_SCRIPTS": "true",
+    "NPM_CONFIG_AUDIT": "false",
+    "NPM_CONFIG_FUND": "false",
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin:/Users/jim/.pyenv/versions/3.11.5/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "npm_config_bin_links": "true"
+  },
+  "budgetMs": 180000,
+  "driverRemainingMs": 497160.897583,
+  "expectedOutcomeKind": "result",
+  "expectedExitCode": 0,
+  "selectedDefinition": {
+    "definitionKey": {
+      "operationId": "abg.operation.product.install",
+      "memberKey": "install"
+    },
+    "definitionRef": "public-function://abiogenesis/product/install/install@5",
+    "definitionDigest": "sha256:d595b9b17bc4b71b9a430aeb67d879b45943c39c3506d0a6c47eea8a9971a135",
+    "adapterExitMap": {
+      "acceptedTerminal": 0,
+      "refused": 1,
+      "invalidInvocation": 2,
+      "acceptedNonTerminal": null,
+      "adapterFailure": 70
+    }
+  }
+}

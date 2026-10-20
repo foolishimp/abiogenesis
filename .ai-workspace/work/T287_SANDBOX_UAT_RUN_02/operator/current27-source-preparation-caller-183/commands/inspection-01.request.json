@@ -1,0 +1,13 @@
+{
+  "type": "read-only scalar metadata inspection",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/host-preparation/host27-acquisition.json",
+    "sha256": "4238831abc75b1c79b35e29a284540fcd18add80e9ace78322f0e19eb17473a4",
+    "byteCount": 16373466
+  },
+  "fieldsAttempted": [
+    "verification.coordinates",
+    "verifiedArtifact.descriptorDigest"
+  ],
+  "noOwnerCall": true
+}

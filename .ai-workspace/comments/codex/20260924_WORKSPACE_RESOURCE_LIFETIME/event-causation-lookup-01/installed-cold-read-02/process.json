@@ -1,0 +1,11 @@
+{
+  "supervisedPid": 3619,
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/read.mjs"
+  ],
+  "timeoutMs": 600000,
+  "startedUnixSeconds": 1790243560.795103
+}

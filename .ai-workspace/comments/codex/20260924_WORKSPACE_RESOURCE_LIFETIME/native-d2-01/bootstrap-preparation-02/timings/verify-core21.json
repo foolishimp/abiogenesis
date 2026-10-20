@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.product.verify",
+    "memberKey": "verify"
+  },
+  "elapsedMs": 17555.639457999998,
+  "timingScope": "existing helper call including request write, Public CLI and receipt retention; not isolated runtime attribution"
+}

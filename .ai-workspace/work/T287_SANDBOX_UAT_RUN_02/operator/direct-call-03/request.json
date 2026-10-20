@@ -1,0 +1,26 @@
+{
+  "activation": "T287_SANDBOX_UAT_RUN_02_DIRECT_CALL_03",
+  "authorizedBy": "Root Executive: one ordinary direct CLI diagnostic, no wrappers or permission bypass",
+  "purpose": "Compare normal direct tool execution to prior configured child-process invocation",
+  "recordedAt": "2026-10-06T05:42:07.921499+00:00",
+  "cmd": "/Users/jim/.local/bin/claude --print --model claude-opus-5-5 --max-turns 1 --max-budget-usd 0.25 --tools '' --no-session-persistence --output-format json 'Respond with exactly ABG_UAT_DIRECT_READY. Do not use tools.'",
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator",
+  "tty": true,
+  "initialYieldMs": 1000,
+  "observationBoundSeconds": 30,
+  "environment": "Ordinary inherited environment; no authentication values archived",
+  "oauthVariablePresent": true,
+  "activeEnvironmentProfile": {
+    "CODEX_PERMISSION_PROFILE": ":workspace",
+    "CODEX_SANDBOX": "seatbelt",
+    "CODEX_SANDBOX_NETWORK_DISABLED": "1"
+  },
+  "developerPolicy": {
+    "sandbox": "workspace-write",
+    "networkAccess": "restricted",
+    "approval": "never",
+    "sandbox_permissionsField": "forbidden"
+  },
+  "stop": "Ctrl-C if unresolved at about30s; require direct tool completion before return",
+  "liveUATDispatchesPermitted": false
+}

@@ -1,0 +1,19 @@
+{
+  "operation": "T287_F11_C09_CARRIER_EXECUTION_11",
+  "inputAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime11-release-and-assurance-01/acceptance.json",
+    "bytes": 4730,
+    "sha256": "41212f201bc6be97da8f692978ce05e53d3d508941b70f292290b994a9fb9d21",
+    "mode": 420
+  },
+  "RootSeparateMessageRelease": true,
+  "RootMessage": "Root Executive released and activated T287_F11_C09_CARRIER_EXECUTION_11 under exact 3586-byte runtime grant and 4730-byte acceptance; Writer CLOSED/Executive restored",
+  "originalPositiveCompanionAccepted": true,
+  "consumerPreparationAccepted": true,
+  "independentPreparationReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01/preparation-review/freeze.json",
+    "bytes": 1496,
+    "sha256": "33ee7194cf8a984d24374a7a7beb67c46ef3bfb01edef5b403086f6f2d1a0c97",
+    "mode": 292
+  }
+}

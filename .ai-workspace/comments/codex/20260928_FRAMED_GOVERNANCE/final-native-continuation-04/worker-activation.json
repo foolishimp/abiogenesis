@@ -1,0 +1,29 @@
+{
+  "role": "Worker",
+  "activation": "T287_FINAL_NATIVE_CONTINUATION_04",
+  "actualActor": "/root/s03_phase_b",
+  "profile": "Astra/xhigh as assigned by Root; metadata projection does not independently assert model profile",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "sessionCorrespondence": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-03/s03_phase_b-session-metadata.json",
+    "bytes": 976,
+    "sha256": "a3fe90748fdcb5c9629c68e55ef8367b268cc1ef7685d4413f785b0edc8c54de"
+  },
+  "sessionScope": "Current actor/source operation correspondence from bounded session03 projection; no whole transcript read",
+  "activatedAt": "2026-09-30T08:28:31.377829+00:00",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-controls-04/request.txt",
+    "bytes": 8540,
+    "sha256": "2755f3746b50abe623dafe64c5273b854316a552a4a75e44c9dd6c5f557add7c"
+  },
+  "a_cJoinSHA256": "2755f3746b50abe623dafe64c5273b854316a552a4a75e44c9dd6c5f557add7c",
+  "method": "installed STDO v2.5.1-rc.1",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame",
+  "localFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "changeClass": "caller-only realization_refactor",
+  "newTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04",
+  "ownerEffectException": "five declared installed owners over original N03 event resource/device16777230/inode464012478 and original N03 TMPDIR lock; all other prior bytes read-only",
+  "operation": "both conformances, original Hello, fresh result/replay; preserve seven successes; first material failure stops",
+  "actorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "limits": "No Product-owner qualification authority, independent review, inherited semantic authorship or ABG attribution is implied; no native/source/build/provider/C2/Git widening"
+}

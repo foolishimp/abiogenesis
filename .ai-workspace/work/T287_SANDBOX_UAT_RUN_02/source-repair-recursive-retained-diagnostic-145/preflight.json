@@ -1,0 +1,16 @@
+{
+  "baselineCount": 263,
+  "unchanged262": true,
+  "changed": [
+    {
+      "relativePath": "code/src/hog/recursion_lifecycle.ts",
+      "before": "7fb2656e927ade4159c4dc18eed6d6e4139e48d4791f85177912b7879fb697c2",
+      "after": "44bfba9e9082ab060520af9bb52427ef16b993ded19101e9fc49f503c49bb5fa"
+    }
+  ],
+  "source143Consumed": false,
+  "runtimeFailureOwnerUnchanged": true,
+  "soleFixtureReused": "sha256:ee0c2c5598650d14274418d4deb84dc8a3fd173606ed57dbcda4231c8a84ba76",
+  "fixtureDeclarationsAndSourceUnchanged": true,
+  "controlledLowerPremise": "Retained-diagnostic lanes reuse real F_D port invocation, then actual invokeLeafOwnerBoundary with an in-memory F_D realizer; no installed F_P byte provenance or F_P evidence envelope. All Result/Judgment/route/admission and cold readers are actual installed25 owners."
+}

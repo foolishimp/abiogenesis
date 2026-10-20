@@ -1,0 +1,27 @@
+{
+  "stage": "fresh-readbacks-complete",
+  "at": "2026-10-08T08:20:53.721Z",
+  "elapsedMs": 339730.019625,
+  "memory": {
+    "rss": 2164752384,
+    "heapTotal": 1957625856,
+    "heapUsed": 1928144136,
+    "external": 2599327,
+    "arrayBuffers": 188756,
+    "maxRSSKiB": 3834224
+  },
+  "reads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "refusal",
+      "code": "not_found",
+      "terminalResult": null
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "status": "blocked",
+      "terminalResult": null
+    }
+  ]
+}

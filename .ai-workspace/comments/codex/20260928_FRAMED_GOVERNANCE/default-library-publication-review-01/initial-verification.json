@@ -1,0 +1,23 @@
+{
+  "freezeSha256": "19f97fe0758b204829d4f4695c83f49cc641d1c4affdd7defd46022c36eaa01d",
+  "recordsVerified": 5470,
+  "mismatches": [],
+  "canonicalPostimagesVerified": [
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "bytes": 18915,
+      "sha256": "f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d"
+    },
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 77554,
+      "sha256": "d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128"
+    },
+    {
+      "logicalPath": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 39208,
+      "sha256": "4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4"
+    }
+  ],
+  "indexSha256": "2b0e5154a5b9145385b027bc82b54bb9da07ba740c86e01d5816dd261f38ae88"
+}

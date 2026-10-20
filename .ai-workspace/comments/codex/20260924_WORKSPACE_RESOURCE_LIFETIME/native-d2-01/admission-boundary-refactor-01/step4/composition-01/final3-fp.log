@@ -1,0 +1,12 @@
+(node:10241) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ F04 same native contract proof is reused while raw and changed bases still check (246.024458ms)
+ℹ Actual compiled leaf/F04 owners; prefix/install/semantic-loader facts and authenticated actor proof are supplied component premises. No runtime or native claim.
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 281.141333

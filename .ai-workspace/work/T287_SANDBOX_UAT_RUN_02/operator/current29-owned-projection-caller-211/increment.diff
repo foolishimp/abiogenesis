@@ -1,0 +1,437 @@
+--- 202/prepare.mjs
++++ 211/prepare.mjs
+@@ -18,26 +18,26 @@
+ function pulseNow(name,data={}){stage=name;const value={stage:name,...mem(),...data};mkdirSync(join(root,'stages'),{recursive:true});writeFileSync(join(root,'stages',String(sequence++).padStart(3,'0')+'-'+name+'.json'),JSON.stringify(value)+'\n',{flag:'wx'});process.stdout.write(JSON.stringify(value)+'\n');}
+ try {
+  const selected=await read(join(root,'inputs.json'));
+- const selectedRows=[selected.candidateIdentity,selected.candidateFreeze,selected.host,selected.acquisition,selected.handoff,selected.closed136,selected.rootControl,selected.historicalCaller,selected.consumerAcquisition,selected.historical136Handoff,selected.recoveryReceipt,selected.recoveryFreeze,selected.setupIdentity,selected.workspaceManifest,selected.historical185.consumedBases,...Object.values(selected.latestClosed195),...Object.values(selected.publicationAcceptance)];
++ const selectedRows=[selected.candidateIdentity,selected.candidateFreeze,selected.host,selected.acquisition,selected.handoff,selected.closed136,selected.rootControl,selected.historicalCaller,selected.consumerAcquisition,selected.consumerPublication,selected.historical136Handoff,selected.recoveryReceipt,selected.recoveryFreeze,selected.setupIdentity,selected.workspaceManifest,...Object.values(selected.latestClosed204),...Object.values(selected.publicationAcceptance)];
+  for(const row of selectedRows)assert.deepEqual(await pin(row.path),row);
+  const host=await read(selected.host.path),archive=selected.archive,old=await read(join(archive,'run.json')),setup=await read(join(archive,'setup-identity.json'));
+  const recovery=await read(selected.recoveryReceipt.path);assert.equal(recovery.kind,'abg_event_resource_recovery_receipt');assert.equal(recovery.outcome.kind,'recovered');assert.deepEqual(recovery.outcome.closeHandoff,await read(selected.historical136Handoff.path));
+- //195 is the latest genuine closed entry. Its27 setup/use remain historical;
+- //28 declarations and applicability will be actual owner-created below.
+- const physical=await read(join(selected.currentClosedPhase,'execution-first-cause-material.json')),quiet=await read(join(selected.currentClosedPhase,'execution-quiescence.json'));
++ //204 is the latest genuine closed entry;136 remains the historical producer.
++ //29 native/fresh consumer declarations and applicability are owner-created below.
++ const physical={material:await read(selected.latestClosed204.physical.path)},quiet=await read(selected.latestClosed204.quiescence.path);
+  assert.equal(physical.material.physicalRows.length,49);
+  for(const row of physical.material.physicalRows){const path=join(physical.material.workspaceRoot,row.relativePath);assert(path.startsWith(physical.material.workspaceRoot+'/'));
+   if(row.state==='absent')await assert.rejects(access(path),e=>e.code==='ENOENT');else{const s=await lstat(path);assert(s.isFile()&&!s.isSymbolicLink());const b=await pin(path);assert.equal(b.sha256,row.sha256);assert.equal(b.byteCount,row.byteCount);}}
+  await assert.rejects(access(quiet.selectedLockPath),e=>e.code==='ENOENT');
+- const processFacts=[];for(const pid of quiet.actualSelectedProcessIds){try{process.kill(pid,0);throw new Error('Previously owned PID exists; exact argv/ancestry recheck required before acquisition: '+pid);}catch(e){if(e.code!=='ESRCH')throw e;processFacts.push({pid,absent:true});}}
++ const processFacts=[];for(const {pid} of quiet.ownedProcesses){try{process.kill(pid,0);throw new Error('Previously owned PID exists; exact argv/ancestry recheck required before acquisition: '+pid);}catch(e){if(e.code!=='ESRCH')throw e;processFacts.push({pid,absent:true});}}
+  const handoff=await read(selected.handoff.path),s=await stat(fileURLToPath(handoff.prefix.eventLogRef));assert.deepEqual({device:s.dev,inode:s.ino,byteCount:s.size},{device:handoff.prefix.storeIdentity.device,inode:handoff.prefix.storeIdentity.inode,byteCount:handoff.prefix.prefixLength});
+- const exactStat=await stat(fileURLToPath(handoff.prefix.eventLogRef),{bigint:true});assert.equal(exactStat.mtimeNs.toString(),selected.preparedPhysicalStat.original185MtimeNsDecimal);
++ const exactStat=await stat(fileURLToPath(handoff.prefix.eventLogRef),{bigint:true});assert.equal(exactStat.mtimeNs.toString(),selected.preparedPhysicalStat.current204MtimeNsDecimal);
+  const originalCall=(await read(join(archive,'calls/lifecycle-start.request.jsonl'))).invocation;
+  const sourceCall=(await read(join(selected.currentClosedPhase,'calls/continuation-start.request.jsonl'))).invocation;
+  const sourceOutcome=await read(join(selected.currentClosedPhase,'calls/continuation-start.outcome.json'));
+  assert.equal(sourceOutcome.receipt.resources.run.ref,selected.sourceRunRef);assert.equal(sourceOutcome.receipt.ownerOutput.value.disposition,'runtime_failed');assert.deepEqual(sourceOutcome.receipt.resources.eventResource.closeHandoff,await read(selected.historical136Handoff.path));
+  runtime=await installedModules(host.installedRoot);const {product:p,abg:a,api,gtl:g,invocationTruth:truth}=runtime,hash=p.sha256Canonical;
+- const items=await verifyExpectedArtifacts({product:p,acquisitionRows:[{label:'native28',pin:selected.acquisition},{label:'consumer',pin:selected.consumerAcquisition}],pulse});
++ const items=await verifyExpectedArtifacts({product:p,acquisitionRows:[{label:'native29',pin:selected.acquisition},{label:'consumer',pin:selected.consumerAcquisition}],pulse});
+  const native=items[0];
+  assert.equal(native.verified.productContentDigest,host.productContentDigest);assert.equal(native.verified.artifactDigest,'sha256:'+host.artifactSha256);
+  const verificationRequests=items.map(item=>{const v=item.verified;return {targetKind:'packed_artifact',artifact:{ref:v.artifactRef,digest:v.artifactDigest},productContent:{ref:'product-content://abi5-tests/'+v.productContentDigest.slice(7),digest:v.productContentDigest},descriptor:item.verification.coordinates.descriptor,contributionManifest:{ref:v.contributionManifestRef,digest:v.contributionManifestDigest},declaredDependencies:v.declaredDependencies,compatibilityInputs:v.compatibilityRefs.map(compatibilityRef=>({compatibilityRef,subjectRef:'product-content://abi5-tests/'+v.productContentDigest.slice(7)}))};});
+@@ -46,7 +46,7 @@
+  pulseNow('early-fixed-product-resolve-start',{beforeAcquisition:true});
+  const fixedResolution=p.ProductEnvironmentPort.resolve({kind:'product_resolution_packet',schemaVersion:'5.0.0',memberKey:'resolve',verifiedArtifacts:items.map(x=>x.verified)});
+  pulseNow('early-fixed-product-resolve-returned',{beforeAcquisition:true,returned:fixedResolution===null?null:{kind:fixedResolution.kind}});
+- const lock=requireKind(fixedResolution,'resolved_product_lock','actual-current28-lock');
++ const lock=requireKind(fixedResolution,'resolved_product_lock','actual-current29-lock');
+  const lockRef={ref:lock.lockId,digest:lock.lockDigest};
+  await pulse('early-fixed-product-resolve-complete',{beforeAcquisition:true,lockRef,meaning:'Actual live28+consumer owner-produced complete lock; later Public resolve coordinate and full admitted installs/environment must agree'});
+  for(const fn of ['acquireAbgEventResource','selectAcquiredAbgEventResource','closeAbgEventResource','readRuntimeEventsAtDurablePrefix','rehydrateInvocationAdmissionAtPrefix','deriveInvocationSourceResultBasisAtPrefix'])assert.equal(typeof a[fn],'function',fn);
+@@ -54,7 +54,7 @@
+  await record('physical-preflight.json',{materialReference:physical.material.physicalRows,workspaceRoot:physical.material.workspaceRoot,sourceStat:{device:s.dev,inode:s.ino,byteCount:s.size},processFacts,mtimeNsDecimal:exactStat.mtimeNs.toString(),lockAbsent:true,stockHeap:true,noRuntimeDispatch:true});
+  await pulse('acquisition-start',{prefixLength:handoff.prefix.prefixLength,host:host.installedRoot});
+  const acquired=a.acquireAbgEventResource({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:hash(handoff)});
+- requireKind(acquired,'acquired_abg_event_resource','genuine195-resource-acquisition');resource=acquired.resource;
++ requireKind(acquired,'acquired_abg_event_resource','genuine204-resource-acquisition');resource=acquired.resource;
+  const refreshSelection=()=>a.selectAcquiredAbgEventResource(resource,a.selectHeldEventStoreDurablePrefix(resource.store));selection=refreshSelection();
+  const eventsAt=()=>a.readRuntimeEventsAtDurablePrefix(selection.prefix,{requireCurrent:true});
+  const prefixAt=()=>a.selectValidatedRuntimeEventPrefix(eventsAt());
+@@ -90,7 +90,7 @@
+   await pulse(label+'-grant-start');const definition=api.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId===packet.definitionKey.operationId&&d.definitionKey.memberKey===packet.definitionKey.memberKey);assert.ok(definition);
+   const slots={...empty(),...supplied},data={kind:'admission_capability_data',schemaVersion:'5.0.0',definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},ownerArtifact:{request:native.request,verified:native.verified},request,resourceScope:{resourcesDigest:hash(resources),authoritySlots:p.admissionAuthoritySlots(slots)},boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:p.admissionEnvironmentSelection(selection.prefix,slots.workspace_binding)};
+   const authorityValue={actorRef,authorityMode:'trusted_developer'},approvalValue={decision:'allow',actorRef,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,requestDigest:hash(request),scopeDigest:p.admissionAuthorityScope(data).digest};
+-  const authority={kind:'resolved_admission_authority',schemaVersion:'5.0.0',actorRef,authorityMode:'trusted_developer',authority:{...coord('authority://abi5-tests/sandbox-uat/'+old.runId,authorityValue),value:authorityValue},approval:{...coord('authority://abi5-tests/sandbox-uat/'+old.runId+'/202/'+serial,approvalValue),value:approvalValue}};
++  const authority={kind:'resolved_admission_authority',schemaVersion:'5.0.0',actorRef,authorityMode:'trusted_developer',authority:{...coord('authority://abi5-tests/sandbox-uat/'+old.runId,authorityValue),value:authorityValue},approval:{...coord('authority://abi5-tests/sandbox-uat/'+old.runId+'/211/'+serial,approvalValue),value:approvalValue}};
+   const operationResource=borrowCurrentOperationResource(a,resource,selection);
+   const admitted=await p.constructAdmissionCapabilityGrants(authority,actorRef,{kind:'admission_capability_grant_construction_basis',fixedPacket:packet,data},operationResource);
+   const {grants}=admitted;
+@@ -98,7 +98,7 @@
+   await pulse(label+'-grant-complete',{ownerArtifactReceiptRetained:true,capabilities:grants.length});
+   slots.capability_grants={requiredCapabilityRefs:[...definition.capabilityRefs],grants:grants.map(v=>({ref:v.grantRef,digest:v.grantDigest}))};
+   const operation=native.verified.definitionContractCoordinates.operations.find(v=>v.operationId===packet.definitionKey.operationId),member=operation.members.find(v=>v.memberKey===packet.definitionKey.memberKey);
+-  const call=api.constructInstalledPublicDefinitionCall({product:p,installedPublic:api,definitionContractCoordinates:native.verified.definitionContractCoordinates,contractCatalog:member.slots.request.contractCatalog,...packet.definitionKey,request,slots,resources:{...resources,admissionAuthority:{basis:admitted.data,authority,grants}},requestRef:'request://abi5-tests/sandbox-uat/'+old.runId+'/202/'+serial++,correlationRef:'correlation://abi5-tests/sandbox-uat/'+old.runId+'/202',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(root,'activation.json')).href]});
++  const call=api.constructInstalledPublicDefinitionCall({product:p,installedPublic:api,definitionContractCoordinates:native.verified.definitionContractCoordinates,contractCatalog:member.slots.request.contractCatalog,...packet.definitionKey,request,slots,resources:{...resources,admissionAuthority:{basis:admitted.data,authority,grants}},requestRef:'request://abi5-tests/sandbox-uat/'+old.runId+'/211/'+serial++,correlationRef:'correlation://abi5-tests/sandbox-uat/'+old.runId+'/211',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(root,'activation.json')).href]});
+   await record('calls/'+label+'.request-projection.json',{invocation:call.invocation,resourceKind:resources.kind,resourcesDigest:hash(call.resources),ownerArtifactReference:selected.acquisition,entryPrefix:selection.prefix,authority,grants,meaning:'Documentary projection of the actual SDK call; nominal acquired resource is supplied directly, never reconstructed from this file.'});
+   await pulse(label+'-transport-start');
+   const start=performance.now(),outcome=Object.hasOwn(resources,'eventResource')||admitted.data.boundEnvironment!==null?await api.runInstalledDefinitionCallWithResource(selection,call):await api.runInstalledDefinitionCallTransport({kind:'eventless'},call);
+@@ -116,30 +116,33 @@
+  }
+  const resolved=await invoke('product-resolve',p.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.resolve,{requirements:items.map(({verified:v})=>({productId:v.productId,packageVersion:v.packageVersion,requiredContractRefs:[],requiredCapabilityRefs:[]})),verifiedCandidates:verifiedRefs},{kind:'product_resolution_resource_assertion',schemaVersion:'5.0.0',verifiedPreimages:items.map((x,i)=>({verification:verifiedRefs[i],verifiedArtifact:x.verified,verificationOutput:outputs[i]})),nativeContractClosure:{selectorDispositions:[],occurrences:[],nativeBindings:[]}},{verification_references:verifiedRefs});
+  assert.deepEqual(resolved.receipt.ownerOutput.value.resolvedLock,lockRef);
+- const nativeTargetRoot=join(root,'installed-current28');
+- const installed=await invoke('product-install28',p.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,{verifiedArtifact:native.verification.coordinates.verifiedArtifact,descriptor:packed[0].descriptor,contributionManifest:packed[0].contributionManifest,resolvedLock:lockRef,targetRoot:nativeTargetRoot,installPolicy:'clean'},{kind:'product_install_resource_assertion',schemaVersion:'5.0.0',eventResource:selection,packedArtifact:packed[0],verifiedArtifact:native.verified,resolvedLock:lock},{dependency_lock:lockRef,verification_references:[verifiedRefs[0]],actor});
++ const nativeTargetRoot=join(root,'installed-current29');
++ const installed=await invoke('product-install29',p.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,{verifiedArtifact:native.verification.coordinates.verifiedArtifact,descriptor:packed[0].descriptor,contributionManifest:packed[0].contributionManifest,resolvedLock:lockRef,targetRoot:nativeTargetRoot,installPolicy:'clean'},{kind:'product_install_resource_assertion',schemaVersion:'5.0.0',eventResource:selection,packedArtifact:packed[0],verifiedArtifact:native.verified,resolvedLock:lock},{dependency_lock:lockRef,verification_references:[verifiedRefs[0]],actor});
+  const currentInstall=a.projectAdmittedProductInstallByInvocationRef(artifactTruth(),installed.call.invocation.invocationRef);assert.ok(currentInstall?.install,'Actual28 installation must project from its admission');assert.deepEqual(currentInstall.resolvedLock,lock);assert.equal(currentInstall.install.productContentDigest,host.productContentDigest);assert.deepEqual(p.productInstallCoordinate(currentInstall.install),installed.receipt.ownerOutput.value.installedProduct);
+- const consumer=items[1],consumerInstalled=await invoke('product-install-consumer28',p.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,{verifiedArtifact:consumer.verification.coordinates.verifiedArtifact,descriptor:packed[1].descriptor,contributionManifest:packed[1].contributionManifest,resolvedLock:lockRef,targetRoot:join(root,'installed-consumer-current28'),installPolicy:'clean'},{kind:'product_install_resource_assertion',schemaVersion:'5.0.0',eventResource:selection,packedArtifact:packed[1],verifiedArtifact:consumer.verified,resolvedLock:lock},{dependency_lock:lockRef,verification_references:[verifiedRefs[1]],actor});
+- const currentConsumer=a.projectAdmittedProductInstallByInvocationRef(artifactTruth(),consumerInstalled.call.invocation.invocationRef);assert.ok(currentConsumer?.install,'Unchanged consumer must have its own actual admission under the new28 lock');assert.deepEqual(currentConsumer.resolvedLock,lock);assert.deepEqual(p.productInstallCoordinate(currentConsumer.install),consumerInstalled.receipt.ownerOutput.value.installedProduct);assert.equal(currentConsumer.install.productContentDigest,setup.installations[1].productContentDigest);assert.equal(currentConsumer.install.artifactDigest,setup.installations[1].artifactDigest);
++ const consumer=items[1],consumerInstalled=await invoke('product-install-consumer29',p.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,{verifiedArtifact:consumer.verification.coordinates.verifiedArtifact,descriptor:packed[1].descriptor,contributionManifest:packed[1].contributionManifest,resolvedLock:lockRef,targetRoot:join(root,'installed-consumer-current29'),installPolicy:'clean'},{kind:'product_install_resource_assertion',schemaVersion:'5.0.0',eventResource:selection,packedArtifact:packed[1],verifiedArtifact:consumer.verified,resolvedLock:lock},{dependency_lock:lockRef,verification_references:[verifiedRefs[1]],actor});
++ const currentConsumer=a.projectAdmittedProductInstallByInvocationRef(artifactTruth(),consumerInstalled.call.invocation.invocationRef);assert.ok(currentConsumer?.install,'Fresh consumer must have its own actual admission under the new29 lock');assert.deepEqual(currentConsumer.resolvedLock,lock);assert.deepEqual(p.productInstallCoordinate(currentConsumer.install),consumerInstalled.receipt.ownerOutput.value.installedProduct);assert.equal(currentConsumer.install.productContentDigest,consumer.verified.productContentDigest);assert.equal(currentConsumer.install.artifactDigest,consumer.verified.artifactDigest);assert.equal(currentConsumer.install.manifestDigest,consumer.verified.manifestDigest);
+  const installations=[currentInstall.install,currentConsumer.install],workspaceManifest=await read(selected.workspaceManifest.path);
+  assert.equal(workspaceManifest.workspaceRef,oldBinding.workspaceId);assert.equal(workspaceManifest.canonicalRoot,oldAuthority.canonicalRoot);
+  const bindingInputs=prepareBindingInputs(p,{oldBinding,workspaceAuthority:oldAuthority,nativeInstall:currentInstall.install,consumerInstall:currentConsumer.install,nativeTargetRoot,resolvedLock:lock});
+- const boundResult=await invoke('workspace-bind28',p.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,bindingInputs.request,{kind:'product_workspace_binding_resource_assertion',schemaVersion:'5.0.0',eventResource:selection,workspaceAuthority:oldAuthority,workspaceManifest,admittedInstalls:installations,resolvedLock:lock,declaredRoots:bindingInputs.roots},{product_set:installations.map(p.productInstallCoordinate),dependency_lock:lockRef,actor});
++ const boundResult=await invoke('workspace-bind29',p.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,bindingInputs.request,{kind:'product_workspace_binding_resource_assertion',schemaVersion:'5.0.0',eventResource:selection,workspaceAuthority:oldAuthority,workspaceManifest,admittedInstalls:installations,resolvedLock:lock,declaredRoots:bindingInputs.roots},{product_set:installations.map(p.productInstallCoordinate),dependency_lock:lockRef,actor});
+  bindingCoordinate=boundResult.receipt.ownerOutput.value.binding;
+- const currentBinding=a.projectAdmittedWorkspaceBindingByInvocationRef(artifactTruth(),boundResult.call.invocation.invocationRef,lock);assert.ok(currentBinding?.binding,'Actual new28 binding must project from its admission');assert.deepEqual(bindingCoordinateOf(currentBinding.binding),bindingCoordinate);
++ const currentBinding=a.projectAdmittedWorkspaceBindingByInvocationRef(artifactTruth(),boundResult.call.invocation.invocationRef,lock);assert.ok(currentBinding?.binding,'Actual new29 binding must project from its admission');assert.deepEqual(bindingCoordinateOf(currentBinding.binding),bindingCoordinate);
+  refresh();assert.deepEqual(environment.resolvedProductLock,lock);assert.deepEqual(binding,currentBinding.binding);assert.deepEqual(environment.workspaceAuthorityBasis,oldAuthority);assert.equal(binding.workspaceId,oldBinding.workspaceId);assert.equal(binding.authorizedActorRef,oldBinding.authorizedActorRef);
+  for(const field of ['eventLogRoot','runtimeStateRoot','projectionRoot','archiveRoot'])assert.equal(binding.roots[field],oldBinding.roots[field]);
+  assert.deepEqual(binding.roots,bindingInputs.roots);assert.deepEqual(environment.productInstalls,installations);
+- await pulse('current28-binding-complete',{bindingCoordinate,historicalBinding:bindingCoordinateOf(oldBinding),workspaceId:binding.workspaceId});
++ await pulse('current29-binding-complete',{bindingCoordinate,historicalBinding:bindingCoordinateOf(oldBinding),workspaceId:binding.workspaceId});
+  const constructors=['constructConsensusModulePublication','constructDefaultGovernanceLibraryModulePublication','constructSelfConformanceModulePublication','constructRequirementHandoffModulePublication','constructSemanticRevisionModulePublication','constructSemanticStageModulePublication','constructWorksiteCommandExecutionModulePublication','constructWorksiteCommandForwardModulePublication','constructWorksiteConstructionModulePublication','constructNativeWorkspaceWorkModulePublication'];
+- const oldConsumerPublication=oldDeclaration.catalog.boundPublications.filter(x=>x.moduleRef==='module://abi5-tests/sandbox-uat/consumer@5');assert.equal(oldConsumerPublication.length,1);
+- const publications=constructors.map(name=>g[name]({...native.verified,productManifestDigest:native.verified.manifestDigest})).concat(oldConsumerPublication);
+- const published=await invoke('catalog-admit28',p.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,{workspaceBinding:bindingCoordinate,descriptors:packed.map(x=>x.descriptor),contributionManifests:packed.map(x=>x.contributionManifest),resolvedLock:lockRef},{kind:'catalog_admission_resource_assertion',schemaVersion:'5.0.0',eventResource:selection,workspaceBinding:environment.workspaceBinding,resolvedLock:lock,verifiedProducts:items.map(x=>x.verified),admittedInstalls:environment.productInstalls,publications},bound());
++ const consumerRecord=await read(selected.consumerPublication.path),consumerPublication=g.modulePublication(consumerRecord.publication);
++ for(const [field,verifiedField] of [['artifactDigest','artifactDigest'],['productContentDigest','productContentDigest'],['productManifestDigest','manifestDigest'],['owningProductId','productId']])assert.equal(consumerPublication[field],consumer.verified[verifiedField]);
++ const consumerBindings=consumer.verified.contributionManifest.publicationBindings.filter(row=>row.moduleRef===consumerPublication.moduleRef);assert.equal(consumerBindings.length,1);assert.equal(p.modulePublicationSemanticDigest(consumerPublication),consumerBindings[0].publicationDigest);
++ //Canonical catalog admission below independently checks exact lock identities and provenance.
++ const publications=constructors.map(name=>g[name]({...native.verified,productManifestDigest:native.verified.manifestDigest})).concat(consumerPublication);
++ const published=await invoke('catalog-admit29',p.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,{workspaceBinding:bindingCoordinate,descriptors:packed.map(x=>x.descriptor),contributionManifests:packed.map(x=>x.contributionManifest),resolvedLock:lockRef},{kind:'catalog_admission_resource_assertion',schemaVersion:'5.0.0',eventResource:selection,workspaceBinding:environment.workspaceBinding,resolvedLock:lock,verifiedProducts:items.map(x=>x.verified),admittedInstalls:environment.productInstalls,publications},bound());
+  refresh();const installedProducts=environment.productInstalls.map(i=>a.projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth,i.admissionEventRef).candidate);
+- catalog=requireKind(p.CatalogOperationPort.admit({kind:'catalog_admit_packet',schemaVersion:'5.0.0',memberKey:'admit',readinessBasis:{workspaceBinding:environment.workspaceBindingCandidate,resolvedLock:lock,verifiedProducts:items.map(x=>x.verified),installedProducts,publications}}),'graph_function_catalog','actual-current28-catalog');assert.equal(published.receipt.ownerOutput.value.catalog.digest,catalog.basisDigest);
+- await invoke('catalog-view28',p.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,{catalog:published.receipt.ownerOutput.value.catalog,allowlist:oldDeclaration.catalogView.allowlist},{kind:'catalog_view_resource_assertion',schemaVersion:'5.0.0',catalog},bound());
+- view=requireKind(p.narrowGraphFunctionCatalog(catalog,oldDeclaration.catalogView.allowlist),'graph_function_catalog_view','actual-current28-view');
+- const resolution=requireKind(await p.ProductExecutionResolutionPort.resolve({catalog,catalogView:view,admittedInstalls:environment.productInstalls,verifyInstallAdmission:i=>a.hasAdmittedProductInstall(environment.artifactTruth,i),programRef:setup.program.programRef,selection:{kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'}}),'loaded_product_execution_resolution','actual-current28-resolution');
++ catalog=requireKind(p.CatalogOperationPort.admit({kind:'catalog_admit_packet',schemaVersion:'5.0.0',memberKey:'admit',readinessBasis:{workspaceBinding:environment.workspaceBindingCandidate,resolvedLock:lock,verifiedProducts:items.map(x=>x.verified),installedProducts,publications}}),'graph_function_catalog','actual-current29-catalog');assert.equal(published.receipt.ownerOutput.value.catalog.digest,catalog.basisDigest);
++ await invoke('catalog-view29',p.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,{catalog:published.receipt.ownerOutput.value.catalog,allowlist:oldDeclaration.catalogView.allowlist},{kind:'catalog_view_resource_assertion',schemaVersion:'5.0.0',catalog},bound());
++ view=requireKind(p.narrowGraphFunctionCatalog(catalog,oldDeclaration.catalogView.allowlist),'graph_function_catalog_view','actual-current29-view');
++ const resolution=requireKind(await p.ProductExecutionResolutionPort.resolve({catalog,catalogView:view,admittedInstalls:environment.productInstalls,verifyInstallAdmission:i=>a.hasAdmittedProductInstall(environment.artifactTruth,i),programRef:setup.program.programRef,selection:{kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'}}),'loaded_product_execution_resolution','actual-current29-resolution');
+  assert.equal(hash(resolution.program),sourceCall.invocation.request.program.digest);assert.equal(hash(resolution.program),'sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2');
+  await record('current-setup-scalars.json',{installations:installations.map(p.productInstallCoordinate),resolvedLock:lockRef,workspaceBinding:bindingCoordinate,catalog:{ref:'graph-function-catalog://abiogenesis/'+catalog.basisDigest.slice(7),digest:catalog.basisDigest},view:{ref:'graph-function-catalog-view://abiogenesis/'+view.viewDigest.slice(7),digest:view.viewDigest},program:resolution.resolution.programRef,programDigest:resolution.resolution.programDigest,currentNativeOwnerRoot:currentInstall.install.installedRoot,meaning:'Documentary coordinates only; complete declarations remain actual owner-created and admitted, not reconstructed from this recording'});
+  const usedResults=[{resultRef:source.sourceResultRef,resultDigest:source.sourceResultDigest},...input.observations,...(input.synthesis===null?[]:[input.synthesis])],bases=new Map();
+@@ -147,12 +150,11 @@
+   while(basis!==null&&!bases.has(basis.basisRef)){bases.set(basis.basisRef,basis);basis=basis.parentExecutionBasisRef===null?null:truth.projectExactExecutionBasisAtPrefix(prefixAt(),basis.parentExecutionBasisRef);}}
+  await record('consumed-bases.json',[...bases.values()].map(b=>({basisRef:b.basisRef,basisDigest:b.basisDigest,admissionEventRef:b.admissionEventRef,workspaceBindingId:b.workspaceBindingId,workspaceBindingDigest:b.workspaceBindingDigest,invocationAdmissionRef:b.invocationAdmissionRef,graphFunctionRef:b.graphFunctionRef,parentExecutionBasisRef:b.parentExecutionBasisRef})));
+  const revision=await import(pathToFileURL(join(host.installedRoot,'build/code/src/abg/worksite_revision.js')).href);const beforeBindings=new Map();
+- const recordedBases=await read(selected.historical185.consumedBases.path);assert.equal(bases.size,104);assert.equal(recordedBases.length,bases.size);
+- for(const basis of bases.values()){const expected=recordedBases.filter(row=>row.basisRef===basis.basisRef);assert.equal(expected.length,1);for(const field of ['basisDigest','workspaceBindingId','workspaceBindingDigest'])assert.equal(expected[0][field],basis[field]);}
++ //Consumed bases and direct target covers derive from actual authenticated retained results; no saved count/digest substitutes.
+  for(const basis of bases.values()){
+   const before=revision.projectAdmittedWorkspaceBindingAtCoordinate(prefixAt(),basis.workspaceBindingId,basis.workspaceBindingDigest);assert.ok(before);beforeBindings.set(before.bindingId,before);
+   const subject={ref:basis.basisRef,digest:basis.basisDigest},content=a.WITNESS_CONTENT_CONTRACTS.reprice;
+-  if(!revision.projectWorksiteRevisionBindingCover(prefixAt(),before,binding,[basis]))await invoke('witness-'+String(bases.size)+'-'+String(serial),a.WITNESS_OPERATION_CONTRACTS.admit.reprice,{subjectKind:'authority_basis',subject,act:'reprice',content:{kind:'typed_payload',contentContract:{ref:content.ref,digest:content.digest},value:{declarationRef:before.bindingId,beforeDigest:before.bindingDigest,afterDigest:binding.bindingDigest,changeClass:'realization_refactor',owningTicketRef:'ticket://T-287',reason:'Root accepted current28 factory realization on unchanged A/root/Program; exact consumed historical basis cover, not semantic equivalence'}},context:{kind:'basis',basis:subject},evidence:[{ref:before.bindingId,digest:before.bindingDigest},{ref:binding.bindingId,digest:binding.bindingDigest}],provenance:[subject]},{kind:'witness_reprice_resource_assertion',schemaVersion:'5.0.0',eventResource:selection},bound());
++  if(!revision.projectWorksiteRevisionBindingCover(prefixAt(),before,binding,[basis]))await invoke('witness-'+String(bases.size)+'-'+String(serial),a.WITNESS_OPERATION_CONTRACTS.admit.reprice,{subjectKind:'authority_basis',subject,act:'reprice',content:{kind:'typed_payload',contentContract:{ref:content.ref,digest:content.digest},value:{declarationRef:before.bindingId,beforeDigest:before.bindingDigest,afterDigest:binding.bindingDigest,changeClass:'realization_refactor',owningTicketRef:'ticket://T-287',reason:'Root accepted current29 factory realization on unchanged A/root/Program; exact consumed historical basis cover, not semantic equivalence'}},context:{kind:'basis',basis:subject},evidence:[{ref:before.bindingId,digest:before.bindingDigest},{ref:binding.bindingId,digest:binding.bindingDigest}],provenance:[subject]},{kind:'witness_reprice_resource_assertion',schemaVersion:'5.0.0',eventResource:selection},bound());
+   assert.ok(revision.projectWorksiteRevisionBindingCover(prefixAt(),before,binding,[basis]),'Actual admitted D2 cover refused');
+  }
+  await pulse('covers-complete',{consumedBases:bases.size});
+@@ -166,7 +168,7 @@
+  await record('source-use-input-scalars.json',{owner:'projectExactInvocationAdmissionAtPrefix',prefix:selection.prefix,sourceInvocation:sourceInvocationScalars,source:{basisRef:source.basisRef,basisDigest:source.basisDigest,invocationAdmissionRef:source.sourceInvocationAdmissionRef,resultRef:source.sourceResultRef,resultDigest:source.sourceResultDigest,valueDigest:source.sourceResultValueDigest,producerGraphFunctionRef:source.sourceGraphFunctionRef,resultAdmissionEventRef:source.sourceResultAdmissionEventRef,resultJudgmentEventRef:source.sourceResultJudgmentEventRef},selected:{programRef:resolution.resolution.programRef,programDigest:resolution.resolution.programDigest,graphFunctionRef:resolution.resolution.graphFunctionRef,graphFunctionDigest:resolution.resolution.graphFunctionDigest,workspaceBinding:bindingCoordinate,historicalCatalogBasisDigest:oldDeclaration.catalog.basisDigest,historicalViewDigest:oldDeclaration.catalogView.viewDigest,currentCatalogBasisDigest:catalog.basisDigest,currentViewDigest:view.viewDigest},meaning:'Actual owner-derived scalar inputs only; producer child and root entry remain distinct; no reconstructed inner refusal.'});
+  const use=truth.projectGovernanceCoveredSourceUse(prefixAt(),comparisonInput);
+  await record('current-source-use-discriminator.json',{owner:'projectGovernanceCoveredSourceUse',inputRecord:'source-use-input-scalars.json',returned:use===null?null:{useDigest:use.useDigest,sourceBasisRef:use.sourceBasisRef,sourceBasisDigest:use.sourceBasisDigest},meaning:'Null preserved before assert; no fabricated inner cause.'});
+- assert.ok(use,'Actual current28→historical24 covered source use refused');await record('current-source-use.json',use);await pulse('current-source-use-complete',{useDigest:use.useDigest,owners:use.declarationOwners.length});
++ assert.ok(use,'Actual current29→historical24 covered source use refused');await record('current-source-use.json',use);await pulse('current-source-use-complete',{useDigest:use.useDigest,owners:use.declarationOwners.length});
+  await pulse('pre-close-authority-build-start');
+  const packet=p.RUN_OPERATION_CONTRACTS.invoke.start,regimes=new Set(resolution.programValidation.executableLeafRows.map(r=>r.fibre)),policy=p.constructRootInvocationPolicy(binding,resolution.program,[],['F_D','F_P','F_H'].filter(r=>regimes.has(r)),[]);
+  const grants=[p.constructCapabilityGrant(policy,actorRef,packet.definitionKey.operationId,p.DIRECT_INVOKE_CAPABILITY,{admittedInstalls:environment.productInstalls,workspaceBinding:binding,fixedPacket:packet})],authority=p.constructInvocationAuthority(actorRef,binding,view,setup.program.programRef,resolution.selectedCatalogEntry,policy,grants,{admittedInstalls:environment.productInstalls,workspaceBinding:binding,fixedPacket:packet});
+@@ -176,14 +178,14 @@
+  await pulse('resource-close-start');const closed=a.closeAbgEventResource(resource,finalPrefix);resource=null;await record('final-resource-receipt.json',closed);await record('final-close-handoff.json',closed.closeHandoff);await pulse('resource-close-complete',{prefixLength:closed.closeHandoff.prefix.prefixLength,coordinateDigest:closed.closeHandoff.prefix.coordinateDigest});
+  await pulse('post-close-request-slots-build-start');
+  const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:closed.closeHandoff,handoffDigest:hash(closed.closeHandoff)},steering=hash(eventResource),program={ref:resolution.resolution.programRef,digest:resolution.resolution.programDigest},viewRef={ref:'graph-function-catalog-view://abiogenesis/'+view.viewDigest.slice(7),digest:view.viewDigest};
+- const boundInput={contract:{ref:resolution.resolution.inputContract.contractRef,digest:resolution.resolution.inputContractDigest},valueRef:'value://abi5-tests/sandbox-uat/'+old.runId+'/continuation-202',valueDigest:hash(input),value:input};
++ const boundInput={contract:{ref:resolution.resolution.inputContract.contractRef,digest:resolution.resolution.inputContractDigest},valueRef:'value://abi5-tests/sandbox-uat/'+old.runId+'/continuation-211',valueDigest:hash(input),value:input};
+  const request={...sourceCall.invocation.request,catalogView:viewRef,input:boundInput,sourceBasis:{kind:'admitted_source_result',projectionAuthority:{ref:sourceCall.invocation.invocationRef,digest:source.publicAuthorityDigest},sourceResult:{ref:source.sourceResultRef,digest:source.sourceResultDigest}}};
+  const slots={...empty(),workspace_binding:bindingCoordinate,product_set:environment.productInstalls.map(p.productInstallCoordinate),dependency_lock:lockRef,catalog_scope:{catalog:{ref:'graph-function-catalog://abiogenesis/'+catalog.basisDigest.slice(7),digest:catalog.basisDigest},view:viewRef,allowlist:request.allowlist},execution_program:program,input_contract:boundInput,session_policy:{ref:policy.policyRef,digest:policy.policyDigest},capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))},actor:{actor:coord(actorRef),attribution:{ref:authority.authorityRef,digest:authority.authorityDigest}},transport_steering:{ref:'transport-steering://abiogenesis/'+steering.slice(7),digest:steering}};
+  const operation=native.verified.definitionContractCoordinates.operations.find(v=>v.operationId===packet.definitionKey.operationId),member=operation.members.find(v=>v.memberKey==='start');
+  const resources={catalog,catalogView:view,applications:sourceCall.resources.applications,source:{kind:'admitted_source_result',basis:source},historicalSource,runEnvironmentResources};
+  await pulse('post-close-request-slots-build-complete',{inputDigest:boundInput.valueDigest,programDigest:program.digest});
+  await pulse('public-call-construction-start');
+- const call=api.constructInstalledPublicDefinitionCall({product:p,installedPublic:api,definitionContractCoordinates:native.verified.definitionContractCoordinates,contractCatalog:member.slots.request.contractCatalog,...packet.definitionKey,request,slots,resources:{...resources,eventResource},requestRef:'request://abi5-tests/sandbox-uat/'+old.runId+'/continuation-202',correlationRef:'correlation://abi5-tests/sandbox-uat/'+old.runId+'/continuation-202',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(root,'activation.json')).href]});
++ const call=api.constructInstalledPublicDefinitionCall({product:p,installedPublic:api,definitionContractCoordinates:native.verified.definitionContractCoordinates,contractCatalog:member.slots.request.contractCatalog,...packet.definitionKey,request,slots,resources:{...resources,eventResource},requestRef:'request://abi5-tests/sandbox-uat/'+old.runId+'/continuation-211',correlationRef:'correlation://abi5-tests/sandbox-uat/'+old.runId+'/continuation-211',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(root,'activation.json')).href]});
+  await pulse('public-call-construction-complete',{invocationRef:call.invocation.invocationRef,invocationDigest:call.invocation.invocationDigest,requestDigest:call.invocation.requestDigest});
+  await pulse('private-preparation-start');
+  const prepared=await p.ProductRunInvocationPort.prepare({memberKey:'start',invocation:call.invocation,resources,admittedInstalls:environment.productInstalls,workspaceBinding:binding,verifyInstallAdmission:i=>a.hasAdmittedProductInstall(environment.artifactTruth,i),transportResourceAssertion:eventResource,deriveCurrentSourceUse:(basis,resolved)=>{
+@@ -200,7 +202,7 @@
+  await pulse('future-request-recording-start');
+  await record('calls/continuation-start.request.jsonl',{kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition:{kind:'reopen',closeHandoff:closed.closeHandoff},invocation:call});
+  await pulse('future-request-recording-complete',{invocationRef:call.invocation.invocationRef});
+- await record('prepared-setup.json',{classification:'Actual installed current28 remaining-consumer diagnostic; no run.invoke/start dispatch/admission',sourceResultRef:source.sourceResultRef,sourceBasisRef:source.basisRef,sourceInputDigest:hash(input),observations:34,terminal:false,workspaceAuthority:setup.workspaceAuthority,workspaceBinding:binding,program,view:viewRef,installedRoot:currentInstall.install.installedRoot,currentUseDigest:use.useDigest,consumedBases:bases.size,finalPrefix,limits:{nativeMs:old.configuration.processTimeoutMs,nativeBytes:old.configuration.maxProcessOutputBytes,outerMs:19260000,outerBytes:536870912},operatorControlReference:selected.rootControl,qualityWindow:'Actual future nativeCLI command.request.started+18000000ms; no202 clock/native authority',launch:{executable:old.configuration.nodePath,args:[join(currentInstall.install.installedRoot,'build/code/src/public/cli.js'),'--jsonl',join(root,'calls/continuation-start.request.jsonl')],cwd:root},noCopyResetOrRetag:true});
++ await record('prepared-setup.json',{classification:'Actual installed current29 remaining-consumer diagnostic; no run.invoke/start dispatch/admission',sourceResultRef:source.sourceResultRef,sourceBasisRef:source.basisRef,sourceInputDigest:hash(input),observations:34,terminal:false,workspaceAuthority:setup.workspaceAuthority,workspaceBinding:binding,program,view:viewRef,installedRoot:currentInstall.install.installedRoot,currentUseDigest:use.useDigest,consumedBases:bases.size,finalPrefix,limits:{nativeMs:old.configuration.processTimeoutMs,nativeBytes:old.configuration.maxProcessOutputBytes,outerMs:19260000,outerBytes:536870912},operatorControlReference:selected.rootControl,qualityWindow:'Actual future nativeCLI command.request.started+18000000ms; no211 clock/native authority',launch:{executable:old.configuration.nodePath,args:[join(currentInstall.install.installedRoot,'build/code/src/public/cli.js'),'--jsonl',join(root,'calls/continuation-start.request.jsonl')],cwd:root},noCopyResetOrRetag:true});
+  await pulse('preparation-complete',{currentUseDigest:use.useDigest,observations:34,sourceResultRef:source.sourceResultRef});
+ } catch(error) {
+  await record('first-cause.json',{stage,...mem(),name:error?.name,message:error?.message,stack:error?.stack,actualOutcome:error?.actualOutcome??null,disposition:'HOLD; first actual failure preserved; no retry or model dispatch',action:'Root multi-frame owner triage and selected Product-bounded action required before any retry'});
+
+--- 202/inputs.json
++++ 211/inputs.json
+@@ -20,9 +20,9 @@
+   },
+   "sourceCurrentnessNoClaim": true,
+   "consumerAcquisition": {
+-    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/consumer-acquisition.json",
+-    "sha256": "ef700058342f6f4f33e3e05e091d2b6500c9f4116236af4effb36291069dc30b",
+-    "byteCount": 10359
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer29-acquisition.json",
++    "sha256": "b9eca7ed2e39844e70955286e0b8f97d251051d74d14cf0704b517b37ce446b3",
++    "byteCount": 10221
+   },
+   "historical136Handoff": {
+     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/final-close-handoff.json",
+@@ -58,37 +58,124 @@
+   "preparedPhysicalStat": {
+     "device": 16777231,
+     "inode": 468327400,
+-    "byteCount": 1690085978,
+-    "original185MtimeNsDecimal": "1791531873723955484",
+-    "authority": "Genuine185 handoff + original185 exact integer. Documentary correction01 excluded; no numeric-rounding or old logStat.path authority."
+-  },
+-  "classification": "Intended candidate28 owned-projection caller only; no actual verification/history/effect performed202",
++    "byteCount": 1693913361,
++    "current204MtimeNsDecimal": "1791545538919368647",
++    "authority": "Exact204 genuine close and closure-conservation logStat. Decimal string is preserved; no history read/stat/acquisition in211."
++  },
++  "classification": "Intended29 native+fresh consumer caller only; no actual owner/history/effect executed211",
+   "candidateIdentity": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/identity.json",
+-    "sha256": "d42bf07f9e831e7633cc2c0fcf6ec16eb7745732ababbea680f6be117bf41bee",
+-    "byteCount": 7804
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-29/identity.json",
++    "sha256": "9a533fb48dea20a774d3881a2ec0addb3c71cf679276dfc4ccbbdedf8a46c9e3",
++    "byteCount": 12845
+   },
+   "candidateFreeze": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/freeze.json",
+-    "sha256": "876fff00374bcfe6eddcbe850aa61054c516ab2eee0842fd4ae93f466a0ad7b0",
+-    "byteCount": 26693
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-29/freeze.json",
++    "sha256": "f37a320e75c62adb14edf30e7a05f2a87e71ae7cd493c74b75aa44c46d77aae5",
++    "byteCount": 3860
+   },
+   "host": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/exacthost-identity.json",
+-    "sha256": "778cd599ac289210d51ccd0ff08dbc54c5abada3c350b749fc736e751d33bcf1",
+-    "byteCount": 3251
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/host-preparation/exacthost-identity.json",
++    "sha256": "f8d89c2f91b34db01ba4b2ef2e4152f9363d5761d439f25c0f1940fcea2746cb",
++    "byteCount": 3248
+   },
+   "acquisition": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/host28-acquisition.json",
+-    "sha256": "6f3b9763367a37db943234402e1e9fc920cb56c3dfd505a20d4cd5e2c1814018",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/host-preparation/host29-acquisition.json",
++    "sha256": "b9afd78eeaa7a02ac5d66b2640d4d6d28a3311bd799917d0f3aefa4eefa8aac3",
+     "byteCount": 16373466
+   },
+   "handoff": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/final-close-handoff.json",
+-    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/final-close-handoff.json",
++    "sha256": "ac019aa4430e554d406d6e20a409167bc35361341b50513432ad1eed5d26e02b",
+     "byteCount": 1472
+   },
+-  "latestClosed195": {
++  "publicationAcceptance": {
++    "publicationFreeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/freeze.json",
++      "sha256": "b3e1b56c52b16869793c9f529dc5fd5391a186aa0717b11ede5b838d28970220",
++      "byteCount": 1593
++    },
++    "publicationReadiness": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/readiness.json",
++      "sha256": "aa3d3312cb798e34e2e725c42c0392424255fd9c13fb4a88f105f9bc829587eb",
++      "byteCount": 12565
++    },
++    "independent210Freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-review-210/freeze.json",
++      "sha256": "2aa9f1fe5f029e6f4c6d1893d6ca1e11d424600a4c5e61cdc7c796689fb8c27c",
++      "byteCount": 1334
++    },
++    "independent210Return": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-review-210/return.md",
++      "sha256": "df92bb3c9e881bd1d0826b86bcb6ae1c68ef42f06e24f4e0052903fcf7b20d91",
++      "byteCount": 3364
++    },
++    "source207Freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/freeze.json",
++      "sha256": "631f6554014e5310b6ba2b715656ebfe97957b50dfd77734c4a161a0ee16412f",
++      "byteCount": 18402
++    },
++    "review208Freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-review-208/freeze.json",
++      "sha256": "034b8284b726e799ce18f6eb005c93e7e95d968d129968a0e5386fc2374cd43a",
++      "byteCount": 990
++    }
++  },
++  "callerBase": {
++    "prepare": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/prepare.mjs",
++      "sha256": "cfd41fa089311a5ccdf22dcf73db07fa45b1e4a90abbca74c129daea5a38d13c",
++      "byteCount": 43876
++    },
++    "inputs": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/inputs.json",
++      "sha256": "9cc82310303c7769ea5a47e82ee0a07209f1907ad4e95c48af15a09b22fbc6c1",
++      "byteCount": 10534
++    },
++    "freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/freeze.json",
++      "sha256": "34fb2b07051607e0ee315348a12095ac270315b619d22353b63e82e504401d5c",
++      "byteCount": 11105
++    },
++    "review203Freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-review-203/freeze.json",
++      "sha256": "488c3857708d0d70cf53577519391e3d51906c678f3e90aedd104bf6f3dc8942",
++      "byteCount": 1187
++    }
++  },
++  "historical185": {
++    "phase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185",
++    "freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/freeze.json",
++      "sha256": "bda39504c3d00660ca8e36cf40dc6c92ce70ef8980c008f1faf3058846fed2a2",
++      "byteCount": 18456
++    },
++    "currentUse": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/current-source-use.json",
++      "sha256": "8f7f28fb8bdba8ffd4a3e314706fe7b22a658274cf8a58639e2d7e05b072399d",
++      "byteCount": 4702
++    },
++    "consumedBases": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/consumed-bases.json",
++      "sha256": "2be7ae16352ab594a6ce33fe4b83404ee971b7d084b6cd332d467b5bd528bfc9",
++      "byteCount": 93977
++    },
++    "meaning": "Actual27 historical evidence only. No28 lock/install/binding/catalog/View/cover/use authority. No saved37MB current-setup declaration read."
++  },
++  "expectedCandidate": 29,
++  "expectedProgramDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
++  "expectedCurrentLock": "Actual live29+fresh consumer ProductEnvironmentPort.resolve before history; complete equality with later Public resolve/admitted installs/current environment. No historical lock supplies authority.",
++  "targetSpecificApplicability": "Derive actual consumed historical execution bases from retained Source136/raw34 and each direct cover to the actual29 binding; no fixed104 labels/digests or transitive28/27-cover shortcut.",
++  "historicalConsumerAcquisition": {
++    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/consumer-acquisition.json",
++    "sha256": "ef700058342f6f4f33e3e05e091d2b6500c9f4116236af4effb36291069dc30b",
++    "byteCount": 10359
++  },
++  "consumerPublication": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer.json",
++    "sha256": "fb80ce5ece52098d34a9846ed16eed4973c2b33eb6273f4de02fb392e246beac",
++    "byteCount": 44823
++  },
++  "historical195": {
+     "freeze": {
+       "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/freeze.json",
+       "sha256": "9c93f05f0ea7cf58849921d267f656acf2c4a1835286821a0b795faa99b36435",
+@@ -100,73 +187,37 @@
+       "byteCount": 3506
+     }
+   },
+-  "publicationAcceptance": {
+-    "publicationFreeze": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/freeze.json",
+-      "sha256": "2443d56deb0a5072167705f459d89145bc461d71d06109a85475001569aa2cf6",
+-      "byteCount": 27104
+-    },
+-    "independent201Freeze": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-review-201/freeze.json",
+-      "sha256": "d23f1e911b7f8b1eb3094112685f15ed72ae3c3dd64fc53a8ee4672df3f60c3d",
+-      "byteCount": 6060
+-    },
+-    "independent201Return": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-review-201/return.md",
+-      "sha256": "8019c6a00111e3a6c2e6da8cb407cae81106187948fe5ba77f106433ba7943f8",
+-      "byteCount": 5066
+-    }
+-  },
+-  "callerBase": {
+-    "prepare": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/prepare.mjs",
+-      "sha256": "19915a7357aa4352134c23b488f39acc8c1a58bfddb8fcb139dfbf0020c09952",
+-      "byteCount": 35196
+-    },
+-    "inputs": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/inputs.json",
+-      "sha256": "c70996a2a073bff6a272239082d25216a609077d8484939ac6e7f9672407a9df",
+-      "byteCount": 23624
+-    },
+-    "freeze": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/freeze.json",
+-      "sha256": "cb8e1b48b2a9a28caf04b025d2a9c5c5a4ca6cd0a0c8306348514a5c19d20ab8",
+-      "byteCount": 19627
+-    },
+-    "freshSetupPredecessor": {
+-      "prepare": {
+-        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/prepare.mjs",
+-        "sha256": "b9233b2a94ff0be71b11dcab0abbd72ad05c569e54ac99b48661c7b3f10721ee",
+-        "byteCount": 40353
+-      },
+-      "freeze": {
+-        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/freeze.json",
+-        "sha256": "79a311f1c7c70bb9cf0930c3a2498591a0bf0355848ccd79aec04f9a4bff4a8a",
+-        "byteCount": 25914
+-      }
+-    }
+-  },
+-  "historical185": {
+-    "phase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185",
+-    "freeze": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/freeze.json",
+-      "sha256": "bda39504c3d00660ca8e36cf40dc6c92ce70ef8980c008f1faf3058846fed2a2",
+-      "byteCount": 18456
+-    },
+-    "currentUse": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/current-source-use.json",
+-      "sha256": "8f7f28fb8bdba8ffd4a3e314706fe7b22a658274cf8a58639e2d7e05b072399d",
+-      "byteCount": 4702
+-    },
+-    "consumedBases": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/consumed-bases.json",
+-      "sha256": "2be7ae16352ab594a6ce33fe4b83404ee971b7d084b6cd332d467b5bd528bfc9",
+-      "byteCount": 93977
+-    },
+-    "meaning": "Actual27 historical evidence only. No28 lock/install/binding/catalog/View/cover/use authority. No saved37MB current-setup declaration read."
+-  },
+-  "expectedCandidate": 28,
+-  "expectedProgramDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+-  "expectedCurrentLock": "Full owner ProductEnvironmentPort.resolve of actual live28+unchanged consumer verification before history; compare complete lock with later admitted install/current environment. No saved27 lock supplies authority.",
+-  "targetSpecificApplicability": "Authentic104 consumed historical bases are retained; each direct cover to actual28 binding must reproject or be admitted at execution. No transitive27-cover shortcut."
++  "historical195Handoff": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/final-close-handoff.json",
++    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
++    "byteCount": 1472
++  },
++  "latestClosed204": {
++    "freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/freeze.json",
++      "sha256": "e23aaa03f0ec050e850770d60d7172c467c9e6b1f7a8b6e006aa6b87f5863ae9",
++      "byteCount": 12470
++    },
++    "return": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/return.md",
++      "sha256": "f3d34d325261d4be064e913fb4a711f8f29e7b77e1838c6f4afd7633452a3aab",
++      "byteCount": 2182
++    },
++    "physical": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/physical-conservation.json",
++      "sha256": "9b975aa10fc87331bf5d6093559756202dd3229978cfe5c52ba4e9eff4f4e40a",
++      "byteCount": 14204
++    },
++    "quiescence": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/execution-quiescence.json",
++      "sha256": "706d6b0c0d542b6ced735dfcac3a6994d7d1ff32411059045e1b1ae0dbab5dd0",
++      "byteCount": 696
++    },
++    "conservation": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/closure-conservation.json",
++      "sha256": "4d4c534a5df53db807d710058d18c029b0c488008b884826d0b80c1c939e44b2",
++      "byteCount": 2476
++    }
++  },
++  "currentClosedPhaseMeaning": "Retained136 producer/calls only; latest-entry/physical/quiescence controls are selected separately in latestClosed204."
+ }

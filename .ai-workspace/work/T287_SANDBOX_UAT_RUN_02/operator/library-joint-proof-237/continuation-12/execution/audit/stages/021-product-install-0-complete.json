@@ -1,0 +1,12 @@
+{
+  "stage": "product-install-0-complete",
+  "elapsedMs": 51243.43941600001,
+  "at": "2026-10-10T16:29:56.489Z",
+  "rss": 3035430912,
+  "heapTotal": 514260992,
+  "heapUsed": 403211840,
+  "external": 2513422,
+  "arrayBuffers": 101115,
+  "beforeAcquisition": false,
+  "prefixLength": 20236805
+}

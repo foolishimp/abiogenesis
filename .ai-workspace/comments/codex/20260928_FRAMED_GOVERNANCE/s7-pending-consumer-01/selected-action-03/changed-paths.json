@@ -1,0 +1,25 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_03",
+  "source": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "beforeSha256": "0f7d0ce0f4bd068648c680f5d8065096e8a6100af67ad3034b40fca8af4f65a1",
+      "afterSha256": "e9a5b69d192606e89da1d024aca02b12472202b38501200660ed78bb8093ee9a",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "beforeSha256": "bcb330810b9095a0d1b01e133126f3919342b7b2e1834a43f41242a62b99acf6",
+      "afterSha256": "112a427c52aa47b7c93777e1cd93e2ecb7129908f263c9958f3945d18e3262f8",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "beforeSha256": "ffd7832f8440f85c23bd88847ef65b0ee8886e2078e3fb880e3d53fdf6b20617",
+      "afterSha256": "ffd7832f8440f85c23bd88847ef65b0ee8886e2078e3fb880e3d53fdf6b20617",
+      "changed": false
+    }
+  ],
+  "runtimeHowGeneratedChanges": [],
+  "evidenceTerritory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-03"
+}

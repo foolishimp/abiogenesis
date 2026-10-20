@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_exports.js",
+    "relativePath": "build/code/src/product/declaration_exports.js",
+    "bytes": 102102,
+    "sha256": "e904eacfb1a433a8989127623baebe8e7ab13c1b661d86212d3ed421d7253074",
+    "mode": 420,
+    "donor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-stage/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_exports.js",
+    "donorSha256": "38c1bee63429bd808f62a8564c13b83ce32a84a3c1f2e2b8502bee5c80b670b2",
+    "donorBytes": 108445
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "relativePath": "contracts/capabilities/capability-definition-graph.json",
+    "bytes": 197474,
+    "sha256": "415e432bf18929b9e7ff34ed2edb89ba5bcfe578bc0a3b2ed953f3cd0326ab88",
+    "mode": 420,
+    "donor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-stage/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "donorSha256": "79ab564f42589c119cc7bc501c0776c0b325cd4a83b22e118957878d9039a2c6",
+    "donorBytes": 197474
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "relativePath": "product-toolchain-manifest.json",
+    "bytes": 2567514,
+    "sha256": "b4a859c9790c6b790c8126b8fc5965713530fc9210afa4ba1033a807c19a789c",
+    "mode": 420,
+    "donor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "donorSha256": "6862a7882cf7a457c1e79207aa78001e8d1742efbed38a34ddfaee297663e88d",
+    "donorBytes": 2567514
+  }
+]

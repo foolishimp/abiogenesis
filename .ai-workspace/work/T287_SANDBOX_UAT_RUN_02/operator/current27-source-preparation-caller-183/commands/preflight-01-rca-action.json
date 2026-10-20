@@ -1,0 +1,10 @@
+{
+  "origin": "Fixture documentary carrier accessor",
+  "failedField": "callerRepairBase.path",
+  "actualField": "callerRepairBase.prepare.path",
+  "beforeScriptSha256": "749ba53fe70f35371978487463b1735eb88567c57458e1f68cccb5589f493eb5",
+  "correctedScriptSha256": "33ddd4c085816b13f5bc2349e83f357720e0076b2c6b9ac15bdb3b3526015367",
+  "RootSelectedAction": "Test-only one accessor correction; same affected fixture preflight-02; caller/inputs/four helpers/contracts unchanged",
+  "earlierAssertions": "Completed before helper conservation line57; no whole PASS claimed",
+  "runtimeEffects": false
+}

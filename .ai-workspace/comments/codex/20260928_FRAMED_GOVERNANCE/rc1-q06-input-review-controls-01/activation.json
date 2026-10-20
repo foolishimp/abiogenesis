@@ -1,0 +1,18 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_Q06_INPUT_ASSURANCE_ASSIGNMENT_01",
+  "activatedAt": "2026-10-02T03:29:36.022258+00:00",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q06-input-review-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "exactGrant": "Record Root closed Q06 evidence reception and compose one installed a_c seven-section read-only independent Reviewer assignment. No source, candidate, input, setup, Runtime, provider or Git mutation.",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 508712,
+    "sha256": "40258112b14988f3d43115ded1593bd8a3f78b9e35bffd63faa6f4539eb56c07"
+  }
+}

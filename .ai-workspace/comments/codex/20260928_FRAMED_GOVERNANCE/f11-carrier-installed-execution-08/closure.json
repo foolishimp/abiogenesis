@@ -1,0 +1,34 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "role": "Runtime Worker",
+  "workResult": "stopped_first_actual_owner_failure",
+  "firstBoundary": "core qualification assessment result-contract-mismatch; ordinary blocked foldback and parent Run stop",
+  "parentRun": {
+    "digest": "sha256:028ab54177f49a2a805b0dce55a0c3e128c630f4d30e8aaed7134f37d5274c8b",
+    "ref": "run://abiogenesis/22936014db718be530cdf748bf16fd4a8c7071554ae2dbf0bc0d4c7f81c788cc"
+  },
+  "diagnostic": "diagnostic://abiogenesis/c-call/result-contract-mismatch@5",
+  "childResultEvent": "event://abiogenesis/9a6215041ca02f4cd7872e41141bcb6dfeaa761cb301f68e09386098d9e2dc8f",
+  "childJudgmentEvent": "event://abiogenesis/c60b0f68beb95f62641f88552aa9b1087cb69147f305ea852461f152689e91cd",
+  "parentStopEvent": "event://abiogenesis/36bb8d67bcafce27ea221ce0cdb3464f7454176772326aa1c5eddf493fdf405f",
+  "actualPublicCalls": 1,
+  "controlledHelperExchanges": 1,
+  "realProviderCalls": 0,
+  "completedRuns": 0,
+  "freshCLIReads": 0,
+  "downstreamF11AF22Negatives": "not attempted",
+  "resourceHandoffDigest": "sha256:036543921c7140467da8f951866934d9e6c2b928cd68a90e3744f87dd0bd41a2",
+  "eventPhysical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/events/runtime.events.jsonl",
+    "bytes": 2752372,
+    "sha256": "ace0d37b0426b629739e184e0cfb361e25274c67ea00c2c5d1869c6ed418ca84",
+    "device": 16777230,
+    "inode": 464793566,
+    "mode": "0o644"
+  },
+  "originalPrefixUnchanged": true,
+  "sourceRepairRetry": false,
+  "writesAfterFreeze": "STOPPED",
+  "RootAloneAcceptsOrSelectsRepair": true
+}

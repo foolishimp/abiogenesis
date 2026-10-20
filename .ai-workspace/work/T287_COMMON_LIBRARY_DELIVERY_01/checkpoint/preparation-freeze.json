@@ -1,0 +1,143 @@
+{
+  "kind": "checkpoint_transport_preparation_freeze",
+  "observed_utc": "2026-10-20T19:03:30.600645+00:00",
+  "files": [
+    {
+      "path": "archive-credential-scan.json",
+      "bytes": 4634,
+      "sha256": "bfbf4d5ab554edc91b368b39f4e0bd14c46bca1a1fee5c641d07be20ffaca74d"
+    },
+    {
+      "path": "commentary-analysis-inventory.json",
+      "bytes": 14587097,
+      "sha256": "fdc6235fb2dd6df47afcc9715005e962ff8aa84d8d3ce14e960ebbb5d0132b79"
+    },
+    {
+      "path": "commit-preconditions.json",
+      "bytes": 91,
+      "sha256": "ab8277407bf22059188f43775b1bc3d3e25732937924156c10fa92f61758faca"
+    },
+    {
+      "path": "concurrency-observation.json",
+      "bytes": 4144,
+      "sha256": "417d499c98757d2cc1e6f010fbd7d39e6257c1d849d8c5da2e201049bd2753a2"
+    },
+    {
+      "path": "credential-binary-discriminator.json",
+      "bytes": 6144,
+      "sha256": "974b5c2c949fcfff9da50fd31e3f1ec98133b2eb6435cbcdec1e69f3958ba06f"
+    },
+    {
+      "path": "credential-classification.json",
+      "bytes": 8440,
+      "sha256": "53ebc63938528b322bc443c0144bc803f55b8d511dcacd915c81cb57c4100433"
+    },
+    {
+      "path": "credential-pattern-candidates.json",
+      "bytes": 1486,
+      "sha256": "c283be8ab32e4145cc5624985bb95861e011e18a0a3b222e3625a45163d0a2cf"
+    },
+    {
+      "path": "git-lfs-3.8.0.arm64_tahoe.bottle.tar.gz",
+      "bytes": 5482220,
+      "sha256": "fcefb0b6742a77251b31a71780e91baba1cc02d23e2d36ef577fc91d4e74d751"
+    },
+    {
+      "path": "git-lfs-binary-install.json",
+      "bytes": 649,
+      "sha256": "21544d52ade570a0def1ebfd42aaa02dde4fdad70e2c474e0436b2295c525ff3"
+    },
+    {
+      "path": "git-lfs-bottle-verification.json",
+      "bytes": 563,
+      "sha256": "d61c21e528c8f1f867cbbefc1dba4609d34ee104a300d8ac78306f5caae31440"
+    },
+    {
+      "path": "git-lfs-homebrew-install.json",
+      "bytes": 532,
+      "sha256": "3ddcb4d78442559e72fadbc4cf619e6cb83fb8e5b0e3b699cd09a7026cb37e2c"
+    },
+    {
+      "path": "git-lfs-homebrew-install.stderr",
+      "bytes": 157,
+      "sha256": "67e7aae1709af146113ebc1fdface7e77b46975580a7b0ad3903cb9b19d239d6"
+    },
+    {
+      "path": "git-lfs-homebrew-install.stdout",
+      "bytes": 46,
+      "sha256": "5586d1689819dc7288144bda3e1dde58c5c4a70b78f6922fe491cdd5891091cd"
+    },
+    {
+      "path": "git-lfs-local-setup.json",
+      "bytes": 764,
+      "sha256": "0b9fb5f411a540658f8f361522169aa5baa510c29a4d3b7ca37a39f3acdcb6aa"
+    },
+    {
+      "path": "github-account-preflight.json",
+      "bytes": 727,
+      "sha256": "009e76a9d3123e84b941b840f9bc76a6a1081897a9bd847f7d6d7db7ef8ea4f5"
+    },
+    {
+      "path": "homebrew-formula-info.json",
+      "bytes": 2973,
+      "sha256": "d6fcf9c43dae364a6483092b5c0a4af49bd2bea30c8846589678f93692ec0729"
+    },
+    {
+      "path": "initial-inventory.jsonl",
+      "bytes": 22471324,
+      "sha256": "9f65da1cc728f06f4a2bd481cee6ff004df6f295d45e36516f249b5b63f27529"
+    },
+    {
+      "path": "initial-preparation.json",
+      "bytes": 28006,
+      "sha256": "cb2310e5b47645f019f2b9c97e0ac514cb533c3d7c0db3498d0f303dc49cb79d"
+    },
+    {
+      "path": "lfs-local-install-preconditions.json",
+      "bytes": 428,
+      "sha256": "46bca7407ae8d0ff42682e53b0219a8f7d49f1a9a855ed5de8ab6a9233dfd5fb"
+    },
+    {
+      "path": "normal-git-storage-population.json",
+      "bytes": 51650,
+      "sha256": "7bf8f9b54f4962c2505307412f19a46a02599af730d4d1ca070cd99f5fbb10a8"
+    },
+    {
+      "path": "official-homebrew-git-lfs-metadata.json",
+      "bytes": 849,
+      "sha256": "b698f99afebbf4be87e8ff4dc44aac6e58a34e6fa5ef385be0dd635b652d2706"
+    },
+    {
+      "path": "oversized-files.json",
+      "bytes": 17034,
+      "sha256": "742ea8a9ce550ced671ccb284b5266c8a6d39aa74d792038129d757eebd5e063"
+    },
+    {
+      "path": "preparation.md",
+      "bytes": 6343,
+      "sha256": "ec306480aa61d57f9d8324151ce5cb05f6216692cbdf23f7cadc07abef7c1c53"
+    },
+    {
+      "path": "prestage-remote-and-size.json",
+      "bytes": 383,
+      "sha256": "19712e8da8b1d40f825530c1e2d00436d7d15eba4da7efe3546270c3235e583a"
+    },
+    {
+      "path": "proposed-gitattributes.txt",
+      "bytes": 7684,
+      "sha256": "63b04f2ff425c75d9ab9857be9fa71c15afc5ed2fcbbd8f3f2fca004ab4ee346"
+    },
+    {
+      "path": "recent-paths-initial.json",
+      "bytes": 407657,
+      "sha256": "5691bea2d7c8a2f6b40a31d821b2a6637fbc916ed5985ae85c5a33da0a3dd76b"
+    },
+    {
+      "path": "storage-tooling-preflight.json",
+      "bytes": 1916,
+      "sha256": "004e5a52505f78402b45715a8f2627fab8faae34487fb0e433852b29b73f02ab"
+    }
+  ],
+  "root_gitattributes_sha256": "63b04f2ff425c75d9ab9857be9fa71c15afc5ed2fcbbd8f3f2fca004ab4ee346",
+  "staging_commit_upload_performed": false
+}

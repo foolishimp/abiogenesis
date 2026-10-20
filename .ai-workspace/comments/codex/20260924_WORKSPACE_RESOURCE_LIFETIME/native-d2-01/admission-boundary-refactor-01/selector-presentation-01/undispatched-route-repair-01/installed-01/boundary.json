@@ -1,0 +1,77 @@
+{
+  "status": "STOPPED_BEFORE_SETUP_UNSUPPORTED_CURRENT_BINDING_JOIN",
+  "scope": "read-only installed-source and retained-request inspection, not a runtime refusal",
+  "requestBinding": {
+    "ref": "workspace-binding://abiogenesis/904236e10460fc96c815b32a137113799107a8f342265b1aafcab9806587de18",
+    "digest": "sha256:904236e10460fc96c815b32a137113799107a8f342265b1aafcab9806587de18"
+  },
+  "requestAcquisition": {
+    "cCallRef": "c-call:sha256:0122e690367301fc59c42681d07a3fff16910dccef481567db30308f3ac0affd",
+    "judgmentEventRef": "event://abiogenesis/b1101334ec0cf56a0e69b51617eeef6048b258b795ec9b86bd7da4ad79e09749",
+    "resultAdmissionEventRef": "event://abiogenesis/041d852b36bd46ceb521bb16a5bca572ddf84af619d447a9bffca007b8224c58",
+    "resultDigest": "sha256:bc3c6b17f5fa4d71be5c3a3ccc92f614ec992120e226810e0229b29b45cb6c03",
+    "resultRef": "result://abiogenesis/bc3c6b17f5fa4d71be5c3a3ccc92f614ec992120e226810e0229b29b45cb6c03"
+  },
+  "selectionChoice": {
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/requirements@5"
+  },
+  "intakeResultValueDigest": "sha256:c11b4e2e548f8b8092a5000c1bcc18f9569a4d4db38d6f84d6dea2f0aa424334",
+  "selectedCore": {
+    "artifactDigest": "sha256:a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052",
+    "productContentDigest": "sha256:23773410b335c9d6db7d8a9cb71c79e4aacc3fd1efc4382c4681f42f6817c668",
+    "manifestDigest": "sha256:23ff85b3d3986684e43d75a64dcc3eb779d9de3f48cf94e175f8b6942c7e7903",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "genuineEntry": {
+    "coordinateDigest": "sha256:7047a3c650a00add3217b567e2b3feeba82d4bf05c9c149852fcfa90dbc7a8d0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:c490f8188bf32dc1e477eae6e216765924b01e344a4e141e3689d9fd3c17da45",
+    "prefixLength": 134193978,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "equalityOwner": "abg/semantic_revision.ts nativeJobRevisionSubject:202-207",
+  "projectionCaller": "abg/semantic_revision.ts projectSemanticJobRevision:380-382",
+  "effects": {
+    "setup": 0,
+    "witness": 0,
+    "runtimeReads": 0,
+    "nativeInvocations": 0,
+    "actors": 0
+  },
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/intake-01/intake-terminal-request.json",
+      "sha256": "724cbaf62a4577762090c2d89ad2c52527b4cc39629043571e2bf853ec6d2c27",
+      "bytes": 295945
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/intake-01/intake-readback.json",
+      "sha256": "6f26af3f331eabde69a76c2a074a8cc50a3f0284670e67d4ec6d5382d8ea26e3",
+      "bytes": 3871
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/suffix-01/live-receipt.json",
+      "sha256": "511e5c3d27cda36535281aa49625c796e0e46d03df231b7f8ce73037adeb1ab3",
+      "bytes": 20038
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-28/selected-core.json",
+      "sha256": "3d744fab43ae11dd84a19b7ff469c14e4cfe3cb18ea20c2677985165c05340cb",
+      "bytes": 986
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite28-install-l3d6qzfi/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/semantic_revision.js",
+      "sha256": "9f1470afa613ed2a06c55560975fd47ece68e15d07852208b597003383983d93",
+      "bytes": 81728
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "role": "Writer130 preparation only",
+  "selectedAt": "2026-10-08T21:44:26.693845+00:00",
+  "authority": "Root bounded continuation PREPARATION scope130; no dispatch or stop selected",
+  "basis": "fixed15 ABI5 GOAL035/T287 STDO2.5.1rc2",
+  "methodManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "subject": "same accepted24 + checker126 + original129 Program/catalog/view/workspace/requirements; latest actual successful judged parent selected after native close",
+  "live129": {
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+    "runRef": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+    "nativeT0": "2026-10-08T17:45:46.407Z",
+    "qualityCheckpoint": "2026-10-08T22:45:46.407Z",
+    "nonextendableDriverDeadline": "2026-10-08T22:46:46.407Z"
+  },
+  "effects": "new130 preparation files only; future normal same-event-resource reopen/native effects require a separate release",
+  "dynamicPrerequisites": [
+    "genuine normal129 CLI result/transport outcome/final-close-handoff",
+    "exact Root-selected latest successful judged parent ResultRef",
+    "owner-derived closed or inactive failed/stopped/blocked Run with all admitted actor processes terminated",
+    "same current Program/view/W and exact retained governance input"
+  ],
+  "timerExtensionSupported": false,
+  "oldRunActiveAndNoSourceApplicabilityClaimed": true,
+  "futureLimits": {
+    "nativeMs": 18060000,
+    "nativeBytes": 268435456,
+    "outerMs": 19260000,
+    "outerBytes": 536870912
+  },
+  "sameWorkspaceMaterialCopy": false,
+  "newSchemasOrController": false,
+  "exitProof": "syntax and installed constructor/export inspection only; no closed-prefix read, capability effect, native Run or provider"
+}

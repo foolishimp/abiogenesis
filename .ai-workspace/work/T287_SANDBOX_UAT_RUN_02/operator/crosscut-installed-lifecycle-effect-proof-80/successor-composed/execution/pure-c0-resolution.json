@@ -1,0 +1,8 @@
+{
+  "kind": "product_execution_resolution_refusal",
+  "schemaVersion": "5.0.0",
+  "disposition": "refused",
+  "code": "wrong_owner",
+  "stage": "declaration_closure",
+  "message": "Product semantics lacks one exact compatible required declaration owner"
+}

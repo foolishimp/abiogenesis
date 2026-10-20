@@ -1,0 +1,34 @@
+{
+  "stages": {
+    "c2": 1863000,
+    "read": 600000
+  },
+  "operationPlan": [
+    "observed-c2",
+    "observed-c2-run_result",
+    "observed-c2-run_replay"
+  ],
+  "commandCapsAndGraceMs": 958000,
+  "helperDispatchAckMs": 5000,
+  "helperBudgetMs": 963000,
+  "actorInactivityMs": 1083000,
+  "actorAbsoluteMs": 1263000,
+  "terminationGraceMs": 1000,
+  "driverBudgetMs": 3066000,
+  "purePreflightAllowanceMs": 120000,
+  "totalCeilingMs": 3186000,
+  "retry": "none",
+  "donorExecutionGrant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-controls-01/request.txt",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 10035,
+    "sha256": "ff833d1e03112ef08651919714a756bcd44443161fb9431e54c48c592ffcbdac"
+  },
+  "status": "PROPOSED future execution budgets; no native authorization in this cut",
+  "currentConstructionGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-controls-02/request.txt",
+    "bytes": 5855,
+    "sha256": "83002217d1414bf754c2fc069f157b61cedd7ce40baebbb5934a38ae385ce331"
+  }
+}

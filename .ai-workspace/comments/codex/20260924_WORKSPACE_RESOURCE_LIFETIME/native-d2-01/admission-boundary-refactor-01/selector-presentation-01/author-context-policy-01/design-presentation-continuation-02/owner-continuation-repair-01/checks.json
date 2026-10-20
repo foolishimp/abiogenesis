@@ -1,0 +1,65 @@
+{
+  "compile": {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json --pretty false",
+    "exitCode": 0,
+    "log": "compile-final.log",
+    "priorFailure": "compile.log: TS18047 callback narrowing; fixed with local const, first failure retained; no behavioral scope expansion",
+    "elapsed": "Whole-command wall/RSS was not captured by the original yielded PTY command; its 1.002-second initial wait is not compile duration. No rerun or timing instrumentation added."
+  },
+  "native": {
+    "command": "node --experimental-vm-modules --test --test-name-pattern='native D2' test_env/tests/t287-native-semantic-revision.test.mjs",
+    "environment": {
+      "ABI5_NATIVE_D2_DESIGN_DIRECTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01"
+    },
+    "exitCode": 0,
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 1602.118375,
+    "log": "native-check-01.log",
+    "durationScope": "Node test-runner total elapsed; normal command tool yielded before exit"
+  },
+  "artifact": {
+    "command": "node --test --test-name-pattern='^T289 (owner serialization|live state)' test_env/tests/t289-install-event-bodies.test.mjs",
+    "environment": {
+      "ABI5_INSTALL_BODY_HISTORY": "/Users/jim/Library/Application Support/ABIogenesis/candidates/T288-workflow-scope-rm55auw0/tmp/abi5-root-env-sia11F/runtime/events.jsonl",
+      "ABI5_INSTALL_BODY_HISTORY_SHA256": "c8f43ff2d79850800ef85b537c055bf3a7dc0bff38509b02c803b4669bea7073",
+      "ABI5_INSTALL_BODY_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/artifact-check-01"
+    },
+    "exitCode": 0,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 19065.294292,
+    "log": "artifact-check-01.log",
+    "results": [
+      "artifact-check-01/result.json",
+      "artifact-check-01/rollback-result.json"
+    ],
+    "internalConsumption": {
+      "instances": 2,
+      "successorConstructions": 0,
+      "rawProjectionValidation": 0
+    },
+    "rawCopiedConsumption": "one exact raw projection validation per copy; forged digest refuses",
+    "durationScope": "Node test-runner total elapsed; includes actual fresh-process cold/refusal/rollback checks, not isolated install performance"
+  },
+  "syntaxAndDiff": {
+    "commands": [
+      "node --check test_env/tests/t287-native-semantic-revision.test.mjs",
+      "node --check test_env/tests/t289-install-event-bodies.test.mjs",
+      "git diff --check"
+    ],
+    "exitCode": 0
+  },
+  "reusedRendererEvidence": {
+    "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/frozen-subject.json",
+    "sha256": "d44f63fdca28b9c298fbc9e1c310c11b2dce5fdca667df5406c5a9609f7eaa6b",
+    "allThreePostimagesUnchanged": true
+  },
+  "limitations": [
+    "Real isolated append/projection/cold/rollback owners, retained fixture authority and candidate/lock inputs; no physical package installation or native resource acquisition.",
+    "Retained selection and parent values are exact; the native composition test supplies upstream leaf/prefix/admission/install/current physical premises and hypothetical successful selection admission. It does not relabel the failed live selector or prove installed qualification.",
+    "No package/setup/provider or Git effects. Existing stale descriptor-loader fixture remains outside this focused pattern, unchanged."
+  ]
+}

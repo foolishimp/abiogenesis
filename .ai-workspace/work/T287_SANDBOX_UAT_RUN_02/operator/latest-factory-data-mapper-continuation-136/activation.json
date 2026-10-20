@@ -1,0 +1,23 @@
+{
+  "role": "Writer/Operator136 preparation only",
+  "at": "2026-10-08T23:09:25.799927+00:00",
+  "classification": "realization_refactor of caller-owned operational-control handoff; no Product/runtime authority change",
+  "basis": "ABI5 fixed fifteen families GOAL035/T287/STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+  ],
+  "rootConjunction": "CLOSED134 authority + code/Proof timing-handoff triage; no current window in model context, old synthesis deadline treated current",
+  "path": "Literal Root control → effective provider.appendArgs → unchanged workerEnvironment → ABG_TS_CLAUDE_APPEND_ARGS → installed transport plan/actor binding; same control → actual native started monitor projection",
+  "typedHandoff": "Original129 admitted source Result → installed deriveInvocationSourceResultBasisAtPrefix(current134 prefix) → retainedGovernanceWorkInput → unchanged Public start construction/reopen",
+  "invariants": [
+    "Same candidate24/Program/View/W/original/state/30 observations/producer references",
+    "All outer recorders retain environment:process.env; inner base/provider filtering unchanged apart from selected appendArgs",
+    "Exactly one append-system text; owned prompt and historical synthesis unchanged",
+    "Strict schema/native binder/closed_prompt tools-empty/protocol flags and all limits unchanged",
+    "No credentials printed, serialized or hashed by phase proof; no model/native Run/actor dispatch"
+  ],
+  "effects": "Only new phase136 files and one canonical read-only dynamic source preparation; safe auth status and static composition only",
+  "stop": "First current identity, quiescence, owner-source or argument-composition refusal; no fallback, normalization or retry",
+  "exitProof": "Frozen exact scripts/control/new canonical call/source/material/auth/args binding before independent review; actual native useful-work proof remains held"
+}

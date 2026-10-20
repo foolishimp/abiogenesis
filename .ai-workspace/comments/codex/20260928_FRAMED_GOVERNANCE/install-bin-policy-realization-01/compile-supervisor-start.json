@@ -1,0 +1,33 @@
+{
+  "pid": 34769,
+  "processGroup": 34769,
+  "mode": "compile",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/source-freeze/toolchain/bin/node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-02T01:41:19.632868+00:00",
+  "monotonicStart": 3793489.783825833,
+  "deadlineMonotonic": 3793669.783825833,
+  "capSeconds": 180,
+  "phaseCapSeconds": 180,
+  "groupEstablishedBeforeImports": true,
+  "heap": "unchanged",
+  "HOMEUnchanged": true,
+  "environment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-tmp",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-cache",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-config/npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-config/globalnpmrc",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-config/prefix",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_bin_links": "true",
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/source-freeze/toolchain/bin:/Users/jim/.pyenv/versions/3.11.5/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+  }
+}

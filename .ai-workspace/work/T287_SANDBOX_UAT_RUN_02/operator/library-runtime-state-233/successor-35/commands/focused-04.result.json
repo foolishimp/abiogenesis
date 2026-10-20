@@ -1,0 +1,18 @@
+{
+  "kind": "affected_finite_plan_comparison_check",
+  "command": [
+    "node",
+    "--expose-gc",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=finite pure candidate",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/test-successor-04/test_env/tests/t287-route-reconstruction.test.mjs"
+  ],
+  "source": "inputs-03.json",
+  "exitCode": 0,
+  "elapsedMs": 554.6622920082882,
+  "causeAction": "focused-03 foreign-cut setup reopened an already-owned sink; corrected only with an independent canonical terminalOwner resource",
+  "limits": [
+    "Only the affected prospective/cut comparison test; other five focused-03 components and strict/declarations reused. No genuine installed retry/HoG/Source41 proof."
+  ]
+}

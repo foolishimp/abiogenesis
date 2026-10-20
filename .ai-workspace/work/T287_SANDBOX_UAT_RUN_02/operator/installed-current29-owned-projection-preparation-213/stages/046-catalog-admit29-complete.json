@@ -1,0 +1,13 @@
+{
+  "stage": "catalog-admit29-complete",
+  "rss": 4262838272,
+  "heapTotal": 3853287424,
+  "heapUsed": 3723325408,
+  "external": 2638611,
+  "arrayBuffers": 226304,
+  "at": "2026-10-09T13:45:33.031Z",
+  "elapsedMs": 226441.16175,
+  "wallMs": 4596.30454099999,
+  "invocationRef": "invocation://abiogenesis/ce22f1f95d91839934fc49ef07aa370db87af2081f1abb6eaa8e1dc613d9c29c",
+  "prefixLength": 1697010144
+}

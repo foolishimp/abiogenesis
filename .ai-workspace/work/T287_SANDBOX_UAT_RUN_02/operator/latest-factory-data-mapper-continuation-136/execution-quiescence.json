@@ -1,0 +1,44 @@
+{
+  "observedAt": "2026-10-08T23:59:12.339829+00:00",
+  "actualSelectedProcessIds": [
+    3100,
+    3102,
+    3104,
+    16391,
+    19790,
+    21597,
+    22142,
+    22143,
+    22146,
+    23028,
+    24855
+  ],
+  "actualSelectedProcessGroupIds": [
+    3100,
+    3102,
+    3104,
+    16391,
+    19790,
+    21597,
+    22142,
+    22146,
+    23028,
+    24855
+  ],
+  "remainingMatches": [],
+  "operatorSignals": [],
+  "ownerFinalCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/final-close-handoff.json",
+    "sha256": "6ebff9c1ac99b787d83c49b18f254aadd124bb7d9011f2e40d6050a081a3e0a3"
+  },
+  "eventStoreStat": {
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1682431300,
+    "mtimeNs": 1791503650952848155
+  },
+  "matchesOwnerClosedIdentity": true,
+  "selectedLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+  "selectedLockAbsent": true,
+  "limits": "Absence is a bounded physical process observation; authentic transport exits and closeHandoff are retained separately. No log rehash/replay, fabricated exits or global signals."
+}

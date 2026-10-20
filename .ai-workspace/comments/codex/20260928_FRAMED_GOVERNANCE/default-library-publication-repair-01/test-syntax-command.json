@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/component/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/component",
+  "timeoutSeconds": 30,
+  "selectedNames": null,
+  "HOMEUnchanged": true,
+  "componentOnly": true
+}

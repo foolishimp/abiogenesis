@@ -1,0 +1,26 @@
+(node:37787) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ actual CCall callback conserves admitted lineage for both qualification task forms without weakening any guard (429.518875ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 723.5385
+
+✖ failing tests:
+
+test at test_env/tests/t287-result-evidence-lineage-projection.test.mjs:215:1
+✖ actual CCall callback conserves admitted lineage for both qualification task forms without weakening any guard (429.518875ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'includes')
+      at worksiteEvidenceCandidate (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js:119:37)
+      at stageCCallResult (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js:370:11)
+      at /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js:655:24
+      at admitRuntimeEventTransactionAtDurablePrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs:135:30)
+      at Module.admitCCallResult (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js:606:23)
+      at throughActualCallback (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs:188:25)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs:280:21)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

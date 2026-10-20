@@ -1,0 +1,33 @@
+{
+  "mode": "setup",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/run-setup.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10",
+  "pid": 57103,
+  "processGroup": 57103,
+  "groupEstablishedBeforeImports": true,
+  "startedAt": "2026-10-04T05:22:08.059417+00:00",
+  "monotonicStart": 3978594.645185625,
+  "preflightDeadlineMonotonic": 3978774.645185625,
+  "totalDeadlineMonotonic": 3979194.645185625,
+  "preflightSeconds": 180.0,
+  "totalSeconds": 600.0,
+  "heap": "unchanged",
+  "HOME": "/Users/jim",
+  "taskEnvironment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/task-tmp",
+    "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/task-config/npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/task-config/globalnpmrc",
+    "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/task-cache",
+    "NPM_CONFIG_PREFIX": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/task-config/prefix",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_IGNORE_SCRIPTS": "true",
+    "NPM_CONFIG_AUDIT": "false",
+    "NPM_CONFIG_FUND": "false",
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin:/Users/jim/.pyenv/versions/3.11.5/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "npm_config_bin_links": "true"
+  },
+  "phaseCompletionReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/nominal-preflight-completion.json"
+}

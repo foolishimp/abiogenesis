@@ -1,0 +1,5 @@
+Status CLOSED
+Operation T287_FRAMEWORK_CONTRACT_OWNERSHIP_WRITER_01
+Actor /root; role Writer; return role Executive
+Time 2026-10-03T07:37:48.719328+00:00
+Four brief Source constraint-note additions and named controls only; execution append-only. No candidate/code/requirements/Product/library/runtime effect. Seven installed-a_c literal sections verified. All Writer writes stopped.

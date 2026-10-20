@@ -1,0 +1,131 @@
+{
+  "kind": "step5_conformance_source_candidate",
+  "status": "CLOSED",
+  "worker": "astra/xhigh",
+  "sourceSubjectSha256": "f61059800dffe6fb7f8e00ecebb7eee49db777a6ec3ed94a76c2633823a783b2",
+  "sourceHashDefinition": "SHA256 of ordered repository/path/sha256 rows, sorted keys and compact JSON",
+  "sourceAndTest": [
+    {
+      "repository": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts",
+      "preimageSha256": "297df17b5de124b25cd211685e562e4c0873dfb5d644678d82f972e98ba95eb1",
+      "sha256": "0369dafbfd7f21f366394d560095429303892d85fb033df77f6b2a2e0834cfee",
+      "byteCount": 11788,
+      "added": 10,
+      "removed": 0
+    },
+    {
+      "repository": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+      "preimageSha256": "e3b032c545c165f19abd9561df405d0ae8791638601b3c57064536e7dc045c5b",
+      "sha256": "25519b9ae993a95497c46f64f9028fec8e5c7a62c3851f10bf3ed50d401ef5a0",
+      "byteCount": 11577,
+      "added": 24,
+      "removed": 5
+    },
+    {
+      "repository": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "preimageSha256": "1345ece641eec5c59eac9c45ecdd6adb8b86330cb1ce1a6bd913e76192908490",
+      "sha256": "86ea16b534cb9c52f3b42e898e736be84c71ce874d9056fa0fcbbf3871055c41",
+      "byteCount": 20912,
+      "added": 30,
+      "removed": 5
+    },
+    {
+      "repository": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/index.ts",
+      "preimageSha256": "221a1c22e933648043f691f58cd458c9001d7e1a526ad60e8a7c057a6d5017a8",
+      "sha256": "ab85459550776853bcc535dc898dd3e9bdc4191fbb0e10385fc2c884b0cbd7a7",
+      "byteCount": 2416,
+      "added": 1,
+      "removed": 0
+    },
+    {
+      "repository": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "preimageSha256": "624db7065b54bdc32ec544c6ad28c4b8ad8a327b8a6289d779b29981f5a13fd2",
+      "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+      "byteCount": 39274,
+      "added": 69,
+      "removed": 6
+    },
+    {
+      "repository": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "preimageSha256": "a315bcd12c25bf13d500311dc4e1050259e4743c71fdcc5ce64f594005d45ff8",
+      "sha256": "e8fb271a5dca0243559859ca8204873a96936aeaaff0bde7b08fe152f4edee9b",
+      "byteCount": 9251,
+      "added": 21,
+      "removed": 0
+    },
+    {
+      "repository": "odd_glc",
+      "path": "build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+      "preimageSha256": "9cddc489541852e2972c929b821783cd39d643915690b102fedfd8a809dfb807",
+      "sha256": "2cbbe5fa8fca49564b7e1aeddb18dfbb51aaa5de1f1ed50cf50387a0abaaa76b",
+      "byteCount": 47031,
+      "added": 29,
+      "removed": 0
+    }
+  ],
+  "ordinaryCompilerProjections": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/catalog_operations.js",
+      "sha256": "93ad4404f1ef8d6dd63dfba103d9449acde1dfb81128fcd42b9afcef1dbcc576",
+      "byteCount": 8842
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/catalog_operations.d.ts",
+      "sha256": "2f71d232fb97adfd6e0ca64f8b5312fb24e8a58cb7c26c7220f73a7342dfb8b7",
+      "byteCount": 3161
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_operation.js",
+      "sha256": "d275816fe46e0f590b9be51b1ec96b2bae49b44e602b72b33c8faa04b54018c9",
+      "byteCount": 8172
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_operation.d.ts",
+      "sha256": "8806e3f1476d459fb98110723128280af980f823a33f443973dcf2e70d463ec4",
+      "byteCount": 2908
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_definition_bindings.js",
+      "sha256": "69aa310344ffb9b16ceb33a6ca244ae4a648835c81cd5da863b3f3ed49f2d9b2",
+      "byteCount": 17522
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_definition_bindings.d.ts",
+      "sha256": "79a307d2b08ce29051c8f53557f11d9d52f0b94e20925e311bfaa25a91d906cf",
+      "byteCount": 5781
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/validator/index.js",
+      "sha256": "ec554004410b9d01dd7ddd569c6b4d7ece256dd855233b4a0d63e4b2335665e0",
+      "byteCount": 1397
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/validator/index.d.ts",
+      "sha256": "aabbc48afcbfdb46c5505bdfb9164571a472f13b48524dc0a14b9cd611a5fa2a",
+      "byteCount": 2333
+    }
+  ],
+  "netDelta": {
+    "added": 184,
+    "removed": 16
+  },
+  "checks": {
+    "path": "checks.json",
+    "sha256": "f20eebfcca06137a97b7b9ffc2feceed45fe7fa77a5e8d5570d7cb10e51b595d"
+  },
+  "predecessorPreservation": {
+    "path": "predecessor-preservation.json",
+    "sha256": "873db1160d1b32b5ac25455ddd3273418c6beaa979d01772dcb50cde750b3253"
+  },
+  "sourceDiff": {
+    "path": "source.diff",
+    "sha256": "3924d78b0a6c2a79640bb8cb8de789d8e05ed9c038b0ea06db652bf529677549"
+  },
+  "ABIChange": "Only conformance DefinitionReturn.resources changes from full assertion echo to receipt with existing invocation/request/capability-grant coordinates. Public request/result/refusal schemas and operation meaning unchanged."
+}

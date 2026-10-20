@@ -1,0 +1,47 @@
+[
+  {
+    "path": "code/src/abg/environment_admission.ts",
+    "added": 7,
+    "removed": 5
+  },
+  {
+    "path": "code/src/abg/semantic_revision.ts",
+    "added": 7,
+    "removed": 2
+  },
+  {
+    "path": "code/src/product/semantic_revision.ts",
+    "added": 12,
+    "removed": 2
+  },
+  {
+    "path": "test_env/tests/t289-install-event-bodies.test.mjs",
+    "added": 27,
+    "removed": 2
+  },
+  {
+    "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+    "added": 65,
+    "removed": 8
+  },
+  {
+    "path": "build/code/src/abg/environment_admission.js",
+    "added": 7,
+    "removed": 2
+  },
+  {
+    "path": "build/code/src/abg/semantic_revision.js",
+    "added": 6,
+    "removed": 2
+  },
+  {
+    "path": "build/code/src/product/semantic_revision.js",
+    "added": 12,
+    "removed": 2
+  },
+  {
+    "path": "build/code/src/product/semantic_revision.d.ts",
+    "added": 1,
+    "removed": 1
+  }
+]

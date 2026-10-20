@@ -1,0 +1,40 @@
+✔ released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values (13.681208ms)
+✔ nearest static and materialization refusal: duplicate node identities with distinct C loci (4.410333ms)
+✔ nearest static and materialization refusal: terminal node with outgoing edge (3.723209ms)
+✔ nearest static and materialization refusal: two ordinary edges without registered selection (3.688209ms)
+✔ existing constructor and source-path guards retain their earlier refusal precedence (0.337042ms)
+✔ authored composition, substitution, recursion and fan-out retain full static and materialized owner results (317.116041ms)
+✖ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (2.932875ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 962.720042
+
+✖ failing tests:
+
+test at test_env/tests/t287-gtl-graph-law.test.mjs:138:1
+✖ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (2.932875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'static_validation_refusal'
+  - 'publication_validation'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:141:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'static_validation_refusal',
+    expected: 'publication_validation',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

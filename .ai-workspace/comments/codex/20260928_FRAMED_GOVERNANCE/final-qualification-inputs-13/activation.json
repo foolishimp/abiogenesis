@@ -1,0 +1,32 @@
+{
+  "status": "ACTIVE",
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_13",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13",
+  "reentry": "realization_refactor under owning HOW4.1 role-aware UML",
+  "ProductFrame": "F-EndToEndInterfaceIntegration; fixed15/GOAL035/T287/F11/F15, STDO2.5.1RC2; unchanged WHAT/runtime",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q12-triage-q13-controls-01/worker-request.txt",
+    "bytes": 4380,
+    "sha256": "baee8aff2aa4a3f7e9f5290cb09242630d1fb0574f8b1578f619d954a9441530",
+    "mode": 420
+  },
+  "allSevenSectionsRead": true,
+  "donorQ12Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/freeze.json",
+    "bytes": 17038,
+    "sha256": "9f04f0a6d097a0cc511e745153334691595bbf6a112a6942e1709d574c394f1c",
+    "mode": 292
+  },
+  "donorQ11Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/freeze.json",
+    "bytes": 867975,
+    "sha256": "827d5cbb98b5d68acb9af7da791f2173cb4f086f2fbd9a50bb3d047c051c76e5",
+    "mode": 292
+  },
+  "firstFailure": "freeze/Root triangulation; no repair/retry",
+  "UMLIsAgentGuidanceOnly": true,
+  "newScaffoldProtocol": false,
+  "activatedAt": "2026-10-03T04:21:12.252346+00:00"
+}

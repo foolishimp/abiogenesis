@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-repair-105/captured-schema-correspondence.mjs"
+  ],
+  "exitCode": 0,
+  "wallMs": 295.9940829896368,
+  "stdoutBytes": 635,
+  "stderrBytes": 0,
+  "claim": "phase-only schema conservation; no provider/native events"
+}

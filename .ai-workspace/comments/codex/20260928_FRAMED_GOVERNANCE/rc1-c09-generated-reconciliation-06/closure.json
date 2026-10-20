@@ -1,0 +1,35 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_C09_GENERATED_RECONCILIATION_06",
+  "closedAt": "2026-10-03T11:35:33.497998+00:00",
+  "elapsedSeconds": 0.3418921660631895,
+  "workResult": {
+    "verdict": "GO_CANONICAL_C09_GENERATED_CORRESPONDENCE_ONLY",
+    "selectedCopies": 9,
+    "replacements": 7,
+    "additions": 2,
+    "retainedPreimages": 7,
+    "retainedPreimageBytes": 3127415,
+    "copiedBytes": 3138928,
+    "generatedMembers": 928,
+    "physicalBefore": 927,
+    "physicalAfter": 929,
+    "nonselectedConserved": 919,
+    "canonicalAfterBytes": 36936781,
+    "canonicalDirectories": 97,
+    "canonicalSymlinks": 0,
+    "protectedMirror": {
+      "relativePath": "contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "exists": true,
+      "bytes": 133684,
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "mode": 420
+    }
+  },
+  "noAutomaticRepairOrRetry": true,
+  "writes": "STOPPED_AFTER_FREEZE",
+  "qualificationCredit": false,
+  "RuntimeSemanticF11ReleaseCredit": false
+}

@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED",
+  "role": "Reviewer",
+  "activation": "T287_RUNTIME08_STOP_AND_RESULT_JOIN_ASSURANCE_01",
+  "recommendation": "NO_GO_WHOLE_CARRIER",
+  "boundedRawAdmissionAssurance": "PASS",
+  "boundedStoppedRunAssurance": "PASS",
+  "cause": "admitted transport evidence metadata omitted before strict Product lineage consumer",
+  "additionalGuardFailures": "not excluded",
+  "qualificationAccepted": false,
+  "noFurtherWrites": true,
+  "closedAt": "2026-10-02T12:06:45.054556+00:00"
+}

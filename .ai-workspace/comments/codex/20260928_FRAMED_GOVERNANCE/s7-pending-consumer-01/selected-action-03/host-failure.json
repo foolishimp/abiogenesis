@@ -1,0 +1,5 @@
+{
+  "message": "Selected second action boundary was not reached",
+  "stack": "Error: Selected second action boundary was not reached\n    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs:45:301",
+  "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-03/disposable/abi5-root-env-xqYzeR"
+}

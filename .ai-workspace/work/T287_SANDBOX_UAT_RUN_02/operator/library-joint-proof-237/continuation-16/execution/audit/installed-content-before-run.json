@@ -1,0 +1,27 @@
+{
+  "phase": "before-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3/d3781e8c67c48e6aa22ca151af4b170f135ce3c753f2cbc01b0b9747b4ce2b54",
+      "admissionEventRef": "event://abiogenesis/f0ce3f0e4b346f9db884e5d092287eef6c5d66f87fbfebf2e5e39933158a2fb9",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+      "productContentDigest": "sha256:6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3",
+      "manifestDigest": "sha256:594097f48942548d303dcb9663f0838bef1066395215f31c194d94eac5e0af14",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/bb4f07b8cf17330ba56f1a58584f8a50bd762162878c7d87c118d5f3deb994cc/d3781e8c67c48e6aa22ca151af4b170f135ce3c753f2cbc01b0b9747b4ce2b54",
+      "admissionEventRef": "event://abiogenesis/5560eed96b0c67c1a2cbc5994ad5710624ad4361c848ea7003d416485ea042f9",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/installed-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:ed8a2aa60fdcfc7dd5be939605488498c20de5226aa9b042077e4a442bf36e9d",
+      "productContentDigest": "sha256:bb4f07b8cf17330ba56f1a58584f8a50bd762162878c7d87c118d5f3deb994cc",
+      "manifestDigest": "sha256:561392c4b7c5678fcef15fc0e264bf39d6e30df3d6d69068987b767e9e0508c8",
+      "contentMatches": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "status": "exact",
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactDigest": "sha256:f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb",
+  "archiveBytes": 10431333,
+  "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant",
+  "bootstrapRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install",
+  "archiveMembers": 5260,
+  "stagedMatches": 5260,
+  "installedMatches": 5260,
+  "extraInstalledMembers": 0,
+  "missingInstalledMembers": 0,
+  "archiveNonregular": [],
+  "sourceInputsDigest": "9383eff11ce23f73183d4dbb7512d45905bf72ab9457048b7c0b987358598c81",
+  "generatedOutputsDigest": "f2f87a0d43d94f4038e30ee6d82221031a9cf6cac2f72fe83583edc9d7389fc4",
+  "archiveMembersSHA256": "95f397df0b142a1b9fe26d6b158b57a90c4944fb177efc785a8840a7a40f8e1d",
+  "symlinkHandling": "No archive/installed Product payload links; dependency/bin links confined",
+  "scripts": "disabled",
+  "network": "offline",
+  "elapsedMs": 1090.064000338316
+}

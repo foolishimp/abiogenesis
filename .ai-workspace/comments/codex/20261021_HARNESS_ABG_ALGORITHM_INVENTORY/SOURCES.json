@@ -1,0 +1,1357 @@
+{
+  "task": "HARNESS-ABG-ALGORITHM-REPORT-001",
+  "actor": "/root/harness_focused_review",
+  "role": "bounded derived-commentary Writer",
+  "status": "CLOSED",
+  "result": "satisfied for source-grounded usable inventories and candidate transfer analysis; no semantic acceptance or implementation",
+  "report_date_local": "2026-10-21",
+  "scope": "Language-independent algorithms/features for Harness2 and current ABG5.0 source; no score/completeness/novelty inference from grouped counts",
+  "counts": {
+    "harness_groups": 19,
+    "abg_frontier_records": 24,
+    "merged_duplicate_records": [
+      "AG06",
+      "AR02"
+    ],
+    "deduplicated_abg_comparison_groups": 23,
+    "loan_groups": 8,
+    "unique_material_source_method_files": 80
+  },
+  "source_basis": {
+    "harness_commit": "1cfe254e8d25b15f37048c3730134686abe60335",
+    "harness_source_clean": true,
+    "abg_worktree_base_head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+    "abg_subject": "dirty material worktree bytes individually pinned, not HEAD-only or a whole-worktree freeze",
+    "abg_tracked_changes_at_writer_intake": 167,
+    "current_product_sha256": "27e79e8336b7988121814a49a1d77976cba4b139a04e4b3bd39e250821992fd3",
+    "current_goals_sha256": "0c832adf283cf17f14444b8d9660df4b51f4493dad0c31ed43cc65a881bd58d8",
+    "computational_binding_sha256": "e3eb2019da47b3b57c35f705db1a8d63db00a4c1697019c6ae4b9dcd3231eeab",
+    "computational_binding_standing": "candidate design reconciliation for independent assessment"
+  },
+  "method": {
+    "cut": "v3.0.0-rc.1",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis",
+    "companion_composition": [],
+    "frame_uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "native_verifier": "passed in root Executive activation; not rerun by Writer",
+    "owner_spans": {
+      "FOUNDATIONS.md": [
+        "264-285"
+      ],
+      "SPEC_METHOD.md": [
+        "1755-1813",
+        "1880-1909"
+      ],
+      "DESIGN_MODULE.md": [
+        "1590-1682"
+      ]
+    }
+  },
+  "input_inventory_artifacts": [
+    {
+      "name": "harness.md",
+      "path": "/Users/jim/tmp/harness2-abg-algorithm-inventory-20261021/harness.md",
+      "sha256": "609e1b0809b92118982f6872e1f635002e7239876235a8600ba971acf1bb016e",
+      "bytes": 32427,
+      "kind": "closed derived inventory"
+    },
+    {
+      "name": "harness-sources.json",
+      "path": "/Users/jim/tmp/harness2-abg-algorithm-inventory-20261021/harness-sources.json",
+      "sha256": "d639175975cbc5ffaf79d78a769b619d45caad53953e6a7dba62ff4e6d6b440a",
+      "bytes": 14061,
+      "kind": "closed frontier source map"
+    },
+    {
+      "name": "abg-context.md",
+      "path": "/Users/jim/tmp/harness2-abg-algorithm-inventory-20261021/abg-context.md",
+      "sha256": "710b4aba7c39b0638389626f683b163e74eae636c07767e63a27cd2fef0966fc",
+      "bytes": 29853,
+      "kind": "closed derived inventory"
+    },
+    {
+      "name": "abg-context-sources.json",
+      "path": "/Users/jim/tmp/harness2-abg-algorithm-inventory-20261021/abg-context-sources.json",
+      "sha256": "ac0b40cd381ac63d0d7334506972133b916a6885c464046b8d2cff46bca6e357",
+      "bytes": 11714,
+      "kind": "closed frontier source map"
+    },
+    {
+      "name": "abg-runtime.md",
+      "path": "/Users/jim/tmp/harness2-abg-algorithm-inventory-20261021/abg-runtime.md",
+      "sha256": "7f368e7873b9ba56a8a0210b487c947416e6465b6cd8a0661d537fb825b54048",
+      "bytes": 30703,
+      "kind": "closed derived inventory"
+    },
+    {
+      "name": "abg-runtime-sources.json",
+      "path": "/Users/jim/tmp/harness2-abg-algorithm-inventory-20261021/abg-runtime-sources.json",
+      "sha256": "700071982b89239c32f80f17a63defc97331d971271426d37f4eb301e7e31179",
+      "bytes": 15992,
+      "kind": "closed frontier source map"
+    }
+  ],
+  "frontier_provenance": {
+    "harness": {
+      "task": "HARNESS-ALGORITHM-INVENTORY-001",
+      "actor": "/root/harness_focused_review",
+      "status": "CLOSED",
+      "original_before_observed_at_utc": "2026-10-20T16:48:57.109124+00:00",
+      "original_after_observed_at_utc": "2026-10-20T16:52:34.784848+00:00",
+      "original_source_file_count": 24,
+      "original_method_file_count": 3,
+      "source_drift": [],
+      "prior_evidence": {
+        "current": "Static source inspection and before/after SHA-256/commit/status observations",
+        "reused_prior": "Python 3.12 local installation; deterministic demo completed both modes on two tasks without failures; five upstream workflow tests passed. Prior execution artifacts were not rerun or independently reacquired in this activation.",
+        "limits": [
+          "No live-model/professional-benchmark or ABG comparative run",
+          "No proof of semantic improvement, causal lesson validity, efficiency, confinement or integration",
+          "Propose-Probe-Compose treated as expressible through ABG zoom; no conceptual novelty claimed from packaging",
+          "Python binding does not define semantic identity or authority",
+          "WorkBuddy artifact-currentness counterexample is static, not executed"
+        ]
+      }
+    },
+    "abg_context": {
+      "role": "derived algorithm inventory context frontier",
+      "subject": "dirty current worktree",
+      "head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+      "record_count": 11,
+      "evidence_status": "read-only static inventory; no new execution proof",
+      "source_drift": [],
+      "original_pin_semantics": "sha256_before/after and byte_length_before/after matched; preserved in normalized material pin rows with frontier attribution"
+    },
+    "abg_runtime": {
+      "status": "CLOSED_DERIVED_ANALYSIS_ONLY",
+      "root": "/Users/jim/src/apps/abiogenesis",
+      "head_before": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+      "head_after": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+      "observed_utc_before": "2026-10-20T16:49:34.334029+00:00",
+      "observed_utc_after": "2026-10-20T16:53:37.975088+00:00",
+      "algorithm_count": 13,
+      "source_drift": [],
+      "drift_disposition": "No material pinned source changed between this inventory activation's before/after observations. Root notified concurrent authority reconciliation before the pin set was captured; the current Product/Goals and candidate computational binding were reacquired and selected. The older closed-review Product pin878a890b is not used as current authority.",
+      "current_authority": {
+        "specification/PRODUCT.md": "27e79e8336b7988121814a49a1d77976cba4b139a04e4b3bd39e250821992fd3",
+        "specification/GOALS.md": "0c832adf283cf17f14444b8d9660df4b51f4493dad0c31ed43cc65a881bd58d8",
+        "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md": "e3eb2019da47b3b57c35f705db1a8d63db00a4c1697019c6ae4b9dcd3231eeab"
+      }
+    }
+  },
+  "unified_alias_mapping": {
+    "AG01": "A01",
+    "AG02": "A02",
+    "AG03": "A03",
+    "AG04": "A04",
+    "AG05": "A05",
+    "AG06": "A06",
+    "AG07": "A07",
+    "AG08": "A08",
+    "AG09": "A09",
+    "AG10": "A10",
+    "AG11": "A11",
+    "AR01": "A12",
+    "AR02": "A06",
+    "AR03": "A13",
+    "AR04": "A14",
+    "AR05": "A15",
+    "AR06": "A16",
+    "AR07": "A17",
+    "AR08": "A18",
+    "AR09": "A19",
+    "AR10": "A20",
+    "AR11": "A21",
+    "AR12": "A22",
+    "AR13": "A23"
+  },
+  "merge_disposition": {
+    "A06": "AG06 and AR02 are the same deterministic materialization/fan-out algorithm at different detail; detail union retained as one group",
+    "distinct_related_stages": {
+      "A11/A20": "Subject/assessment preparation versus generic admitted historical-work/current-applicability reuse",
+      "A05/A13": "Graph definition composition/refinement versus runtime child traversal/foldback"
+    }
+  },
+  "writer_observations": {
+    "before_at_utc": "2026-10-20T16:59:46.621627+00:00",
+    "after_markdown_write_at_utc": "2026-10-20T17:05:14.136191+00:00",
+    "repositories_before": [
+      {
+        "path": "/Users/jim/src/apps/harness2",
+        "head": "1cfe254e8d25b15f37048c3730134686abe60335",
+        "tracked_changes": 0,
+        "untracked": "not enumerated or modified"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis",
+        "head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+        "tracked_changes": 167,
+        "untracked": "not enumerated or modified"
+      }
+    ],
+    "repositories_after_markdown_write": [
+      {
+        "path": "/Users/jim/src/apps/harness2",
+        "head": "1cfe254e8d25b15f37048c3730134686abe60335",
+        "tracked_changes": 0,
+        "untracked": "not enumerated or modified"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis",
+        "head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+        "tracked_changes": 167,
+        "untracked": "not enumerated or modified"
+      }
+    ],
+    "original_input_hashes_verified": true,
+    "cross_frontier_pin_conflicts": [],
+    "material_drift": [],
+    "disposition": "All 80 normalized material source/method pins matched original frontier after pins and Writer before/after observations. No affected entries required revision."
+  },
+  "material_sources": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md",
+      "sha256": "50e70c797c93718e85192aaf2de39596f62f53030507ca8242c1af7e8f0ebcbe",
+      "bytes": 174432,
+      "frontiers": [
+        "harness",
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "50e70c797c93718e85192aaf2de39596f62f53030507ca8242c1af7e8f0ebcbe",
+      "writer_bytes_before": 174432,
+      "writer_sha256_after": "50e70c797c93718e85192aaf2de39596f62f53030507ca8242c1af7e8f0ebcbe",
+      "writer_bytes_after": 174432
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/FOUNDATIONS.md",
+      "sha256": "3e85b8d01360dfae6758566fd3aca309c977e7d9e15cdd2f9e8f2904f18f2545",
+      "bytes": 127058,
+      "frontiers": [
+        "harness",
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "3e85b8d01360dfae6758566fd3aca309c977e7d9e15cdd2f9e8f2904f18f2545",
+      "writer_bytes_before": 127058,
+      "writer_sha256_after": "3e85b8d01360dfae6758566fd3aca309c977e7d9e15cdd2f9e8f2904f18f2545",
+      "writer_bytes_after": 127058
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/SPEC_METHOD.md",
+      "sha256": "c7b83b2b7e8c9a301d2e535fc3752c08f718d9fc679e32f8a91c15c285976e8e",
+      "bytes": 147671,
+      "frontiers": [
+        "harness",
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "c7b83b2b7e8c9a301d2e535fc3752c08f718d9fc679e32f8a91c15c285976e8e",
+      "writer_bytes_before": 147671,
+      "writer_sha256_after": "c7b83b2b7e8c9a301d2e535fc3752c08f718d9fc679e32f8a91c15c285976e8e",
+      "writer_bytes_after": 147671
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "85c7407e2e057049c0e3ea4238520074e362fdc45b51d153b442732d5a382b76",
+      "bytes": 524806,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "85c7407e2e057049c0e3ea4238520074e362fdc45b51d153b442732d5a382b76",
+      "writer_bytes_before": 524806,
+      "writer_sha256_after": "85c7407e2e057049c0e3ea4238520074e362fdc45b51d153b442732d5a382b76",
+      "writer_bytes_after": 524806
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "bytes": 11923,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "writer_bytes_before": 11923,
+      "writer_sha256_after": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "writer_bytes_after": 11923
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sha256": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55",
+      "bytes": 292659,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55",
+      "writer_bytes_before": 292659,
+      "writer_sha256_after": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55",
+      "writer_bytes_after": 292659
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "sha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "bytes": 75589,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "writer_bytes_before": 75589,
+      "writer_sha256_after": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "writer_bytes_after": 75589
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "sha256": "d22944f1792508ad1f14a471281b369740ebea3709c75641ae1374f3d73422a2",
+      "bytes": 25819,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "d22944f1792508ad1f14a471281b369740ebea3709c75641ae1374f3d73422a2",
+      "writer_bytes_before": 25819,
+      "writer_sha256_after": "d22944f1792508ad1f14a471281b369740ebea3709c75641ae1374f3d73422a2",
+      "writer_bytes_after": 25819
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "sha256": "edb6c81bf72776a2785cfd175e40a6def01ab5adb20e93e6050c489a3244532e",
+      "bytes": 120746,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "edb6c81bf72776a2785cfd175e40a6def01ab5adb20e93e6050c489a3244532e",
+      "writer_bytes_before": 120746,
+      "writer_sha256_after": "edb6c81bf72776a2785cfd175e40a6def01ab5adb20e93e6050c489a3244532e",
+      "writer_bytes_after": 120746
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "sha256": "694dca9de93b1485efd0f86e7eb8f6c50328c9503b875cc12a77c592aa1f0ced",
+      "bytes": 89302,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "694dca9de93b1485efd0f86e7eb8f6c50328c9503b875cc12a77c592aa1f0ced",
+      "writer_bytes_before": 89302,
+      "writer_sha256_after": "694dca9de93b1485efd0f86e7eb8f6c50328c9503b875cc12a77c592aa1f0ced",
+      "writer_bytes_after": 89302
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "72c1b5d2b2bf6688bd1489f0510989267f832d729a0c924543ac7975684c3eb7",
+      "bytes": 36828,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "72c1b5d2b2bf6688bd1489f0510989267f832d729a0c924543ac7975684c3eb7",
+      "writer_bytes_before": 36828,
+      "writer_sha256_after": "72c1b5d2b2bf6688bd1489f0510989267f832d729a0c924543ac7975684c3eb7",
+      "writer_bytes_after": 36828
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "de3294f6d7efebde7224a865d50e0e4791d5f1df4c95551ff02eee5562393320",
+      "bytes": 94882,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "de3294f6d7efebde7224a865d50e0e4791d5f1df4c95551ff02eee5562393320",
+      "writer_bytes_before": 94882,
+      "writer_sha256_after": "de3294f6d7efebde7224a865d50e0e4791d5f1df4c95551ff02eee5562393320",
+      "writer_bytes_after": 94882
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae",
+      "bytes": 205774,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae",
+      "writer_bytes_before": 205774,
+      "writer_sha256_after": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae",
+      "writer_bytes_after": 205774
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+      "bytes": 118854,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+      "writer_bytes_before": 118854,
+      "writer_sha256_after": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+      "writer_bytes_after": 118854
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "39c71b19811e42a0cfc4215d96ef79eaa065316cc28b1826ec847c3537e208f3",
+      "bytes": 36095,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "39c71b19811e42a0cfc4215d96ef79eaa065316cc28b1826ec847c3537e208f3",
+      "writer_bytes_before": 36095,
+      "writer_sha256_after": "39c71b19811e42a0cfc4215d96ef79eaa065316cc28b1826ec847c3537e208f3",
+      "writer_bytes_after": 36095
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "sha256": "8cad8924a3820bc572f13f740f48049a7d5b62e8ec01b923c19ab16363832046",
+      "bytes": 19152,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "8cad8924a3820bc572f13f740f48049a7d5b62e8ec01b923c19ab16363832046",
+      "writer_bytes_before": 19152,
+      "writer_sha256_after": "8cad8924a3820bc572f13f740f48049a7d5b62e8ec01b923c19ab16363832046",
+      "writer_bytes_after": 19152
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "sha256": "b9862452b01665b004a210e0317f9ff5506f4f6e39245dbb178e605dc7e804b5",
+      "bytes": 82360,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "b9862452b01665b004a210e0317f9ff5506f4f6e39245dbb178e605dc7e804b5",
+      "writer_bytes_before": 82360,
+      "writer_sha256_after": "b9862452b01665b004a210e0317f9ff5506f4f6e39245dbb178e605dc7e804b5",
+      "writer_bytes_after": 82360
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "sha256": "1b44e6d82963bcc8f7fc43f5ac68edae4e1cdf0f76ff473d483fbef4b5cf3ef4",
+      "bytes": 112731,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "1b44e6d82963bcc8f7fc43f5ac68edae4e1cdf0f76ff473d483fbef4b5cf3ef4",
+      "writer_bytes_before": 112731,
+      "writer_sha256_after": "1b44e6d82963bcc8f7fc43f5ac68edae4e1cdf0f76ff473d483fbef4b5cf3ef4",
+      "writer_bytes_after": 112731
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "sha256": "76ce4bc7f8a2c0550020afd3d538b5e8ee3e5ac5e8ac5206ac9a5d28979d31ab",
+      "bytes": 260192,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "76ce4bc7f8a2c0550020afd3d538b5e8ee3e5ac5e8ac5206ac9a5d28979d31ab",
+      "writer_bytes_before": 260192,
+      "writer_sha256_after": "76ce4bc7f8a2c0550020afd3d538b5e8ee3e5ac5e8ac5206ac9a5d28979d31ab",
+      "writer_bytes_after": 260192
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+      "sha256": "517ea5ea869d876ec6c91b3f1d1e43c79d538dade9af7ce8ac2b4e4a574ccdd8",
+      "bytes": 27743,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "517ea5ea869d876ec6c91b3f1d1e43c79d538dade9af7ce8ac2b4e4a574ccdd8",
+      "writer_bytes_before": 27743,
+      "writer_sha256_after": "517ea5ea869d876ec6c91b3f1d1e43c79d538dade9af7ce8ac2b4e4a574ccdd8",
+      "writer_bytes_after": 27743
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+      "sha256": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583",
+      "bytes": 21915,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583",
+      "writer_bytes_before": 21915,
+      "writer_sha256_after": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583",
+      "writer_bytes_after": 21915
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "sha256": "9a9fa4da696482f70ec487227aa7a623f7c0b12f15b07f00600df322ec568e7b",
+      "bytes": 19036,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "9a9fa4da696482f70ec487227aa7a623f7c0b12f15b07f00600df322ec568e7b",
+      "writer_bytes_before": 19036,
+      "writer_sha256_after": "9a9fa4da696482f70ec487227aa7a623f7c0b12f15b07f00600df322ec568e7b",
+      "writer_bytes_after": 19036
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_applications.ts",
+      "sha256": "bb578aa145aee5f0a43823d0b6271392c5750bd3d53adde4aeb8bb6eb0dc874b",
+      "bytes": 10055,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "bb578aa145aee5f0a43823d0b6271392c5750bd3d53adde4aeb8bb6eb0dc874b",
+      "writer_bytes_before": 10055,
+      "writer_sha256_after": "bb578aa145aee5f0a43823d0b6271392c5750bd3d53adde4aeb8bb6eb0dc874b",
+      "writer_bytes_after": 10055
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_construction.ts",
+      "sha256": "c892d9b605a1707280e5cd379f3fd0b324f26fa4cd69be65b3152a7562392d3b",
+      "bytes": 24086,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "c892d9b605a1707280e5cd379f3fd0b324f26fa4cd69be65b3152a7562392d3b",
+      "writer_bytes_before": 24086,
+      "writer_sha256_after": "c892d9b605a1707280e5cd379f3fd0b324f26fa4cd69be65b3152a7562392d3b",
+      "writer_bytes_after": 24086
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+      "sha256": "f7c4d92d880677722baf44a3893e332624b3608fcd150031eb21b4a308dc290a",
+      "bytes": 10892,
+      "frontiers": [
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "f7c4d92d880677722baf44a3893e332624b3608fcd150031eb21b4a308dc290a",
+      "writer_bytes_before": 10892,
+      "writer_sha256_after": "f7c4d92d880677722baf44a3893e332624b3608fcd150031eb21b4a308dc290a",
+      "writer_bytes_after": 10892
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+      "sha256": "32f44f7aba5d77ab5255f29b2300cafcae202fed3eb27f5ad46ff6dbc2e6fdbd",
+      "bytes": 5701,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "32f44f7aba5d77ab5255f29b2300cafcae202fed3eb27f5ad46ff6dbc2e6fdbd",
+      "writer_bytes_before": 5701,
+      "writer_sha256_after": "32f44f7aba5d77ab5255f29b2300cafcae202fed3eb27f5ad46ff6dbc2e6fdbd",
+      "writer_bytes_after": 5701
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "sha256": "0e1d112eea7d0184ea37b3edcc20b9d425d3eaf1d95e8edc34ae0a52fd0f2f3b",
+      "bytes": 25241,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "0e1d112eea7d0184ea37b3edcc20b9d425d3eaf1d95e8edc34ae0a52fd0f2f3b",
+      "writer_bytes_before": 25241,
+      "writer_sha256_after": "0e1d112eea7d0184ea37b3edcc20b9d425d3eaf1d95e8edc34ae0a52fd0f2f3b",
+      "writer_bytes_after": 25241
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "sha256": "a897af022c737d5058f6446960719547edb73467917777178a6891f86717f85d",
+      "bytes": 37945,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "a897af022c737d5058f6446960719547edb73467917777178a6891f86717f85d",
+      "writer_bytes_before": 37945,
+      "writer_sha256_after": "a897af022c737d5058f6446960719547edb73467917777178a6891f86717f85d",
+      "writer_bytes_after": 37945
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/child_traversal.ts",
+      "sha256": "c0761b4cea4b72dbd669f01bab50a69a6267d16157a7d1fd9196da826dc5d496",
+      "bytes": 10540,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "c0761b4cea4b72dbd669f01bab50a69a6267d16157a7d1fd9196da826dc5d496",
+      "writer_bytes_before": 10540,
+      "writer_sha256_after": "c0761b4cea4b72dbd669f01bab50a69a6267d16157a7d1fd9196da826dc5d496",
+      "writer_bytes_after": 10540
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "sha256": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d",
+      "bytes": 23223,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d",
+      "writer_bytes_before": 23223,
+      "writer_sha256_after": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d",
+      "writer_bytes_after": 23223
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "sha256": "b3016337108b4ef7c9708568164988c44f5f8ab0c86b35973d45ddcbb56eafe3",
+      "bytes": 48973,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "b3016337108b4ef7c9708568164988c44f5f8ab0c86b35973d45ddcbb56eafe3",
+      "writer_bytes_before": 48973,
+      "writer_sha256_after": "b3016337108b4ef7c9708568164988c44f5f8ab0c86b35973d45ddcbb56eafe3",
+      "writer_bytes_after": 48973
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts",
+      "sha256": "e43b4d5641e01be98c306faa5e1ee424176d1daa0ba01734c33a4522589a635f",
+      "bytes": 3605,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "e43b4d5641e01be98c306faa5e1ee424176d1daa0ba01734c33a4522589a635f",
+      "writer_bytes_before": 3605,
+      "writer_sha256_after": "e43b4d5641e01be98c306faa5e1ee424176d1daa0ba01734c33a4522589a635f",
+      "writer_bytes_after": 3605
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "6eaa2339e86d0781765b430cbd85e758b0ce4a50882120d16e689dd14d859455",
+      "bytes": 40379,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "6eaa2339e86d0781765b430cbd85e758b0ce4a50882120d16e689dd14d859455",
+      "writer_bytes_before": 40379,
+      "writer_sha256_after": "6eaa2339e86d0781765b430cbd85e758b0ce4a50882120d16e689dd14d859455",
+      "writer_bytes_after": 40379
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/traversal.ts",
+      "sha256": "9ba116a475a2880f466468a56fc6edd75b1fe89c7aa8d6bdc73ed3e7ba246050",
+      "bytes": 29177,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "9ba116a475a2880f466468a56fc6edd75b1fe89c7aa8d6bdc73ed3e7ba246050",
+      "writer_bytes_before": 29177,
+      "writer_sha256_after": "9ba116a475a2880f466468a56fc6edd75b1fe89c7aa8d6bdc73ed3e7ba246050",
+      "writer_bytes_after": 29177
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+      "sha256": "2244d7fb0525dbcad90a59dade83cbacadba6632320af8312792cc1f5c2fa0e6",
+      "bytes": 7899,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "2244d7fb0525dbcad90a59dade83cbacadba6632320af8312792cc1f5c2fa0e6",
+      "writer_bytes_before": 7899,
+      "writer_sha256_after": "2244d7fb0525dbcad90a59dade83cbacadba6632320af8312792cc1f5c2fa0e6",
+      "writer_bytes_after": 7899
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "02edf2208dcf76677d9f49f67d28cc0f803abc69611fd68b3fbb373b26bf1ba3",
+      "bytes": 79294,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "02edf2208dcf76677d9f49f67d28cc0f803abc69611fd68b3fbb373b26bf1ba3",
+      "writer_bytes_before": 79294,
+      "writer_sha256_after": "02edf2208dcf76677d9f49f67d28cc0f803abc69611fd68b3fbb373b26bf1ba3",
+      "writer_bytes_after": 79294
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "sha256": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+      "bytes": 6843,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+      "writer_bytes_before": 6843,
+      "writer_sha256_after": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+      "writer_bytes_after": 6843
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "sha256": "c99f3cfc646680ba793c561a7833ab55832879b92f533981662a247af53de4e9",
+      "bytes": 36794,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "c99f3cfc646680ba793c561a7833ab55832879b92f533981662a247af53de4e9",
+      "writer_bytes_before": 36794,
+      "writer_sha256_after": "c99f3cfc646680ba793c561a7833ab55832879b92f533981662a247af53de4e9",
+      "writer_bytes_after": 36794
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "34038f0ea6c2741503194d48c6488a41402810105a1326ca8ad2f430f264003b",
+      "bytes": 33826,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "34038f0ea6c2741503194d48c6488a41402810105a1326ca8ad2f430f264003b",
+      "writer_bytes_before": 33826,
+      "writer_sha256_after": "34038f0ea6c2741503194d48c6488a41402810105a1326ca8ad2f430f264003b",
+      "writer_bytes_after": 33826
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "sha256": "eb27713ba7e25b865f7fb9c42bc088237c7c3dc79abfe3948f4d80c20428a761",
+      "bytes": 48762,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "eb27713ba7e25b865f7fb9c42bc088237c7c3dc79abfe3948f4d80c20428a761",
+      "writer_bytes_before": 48762,
+      "writer_sha256_after": "eb27713ba7e25b865f7fb9c42bc088237c7c3dc79abfe3948f4d80c20428a761",
+      "writer_bytes_after": 48762
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/graph.ts",
+      "sha256": "ffff045cd39e4aeeacab0a19f705d6e9bf1d36f30279f092d13482a7997a2a3f",
+      "bytes": 5609,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "ffff045cd39e4aeeacab0a19f705d6e9bf1d36f30279f092d13482a7997a2a3f",
+      "writer_bytes_before": 5609,
+      "writer_sha256_after": "ffff045cd39e4aeeacab0a19f705d6e9bf1d36f30279f092d13482a7997a2a3f",
+      "writer_bytes_after": 5609
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "sha256": "101c5649d7a7687549a690741607d1339cde6f8d1533a5e2b62bca76eeb8584d",
+      "bytes": 84412,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "101c5649d7a7687549a690741607d1339cde6f8d1533a5e2b62bca76eeb8584d",
+      "writer_bytes_before": 84412,
+      "writer_sha256_after": "101c5649d7a7687549a690741607d1339cde6f8d1533a5e2b62bca76eeb8584d",
+      "writer_bytes_after": 84412
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "sha256": "a972f62ece78b17275a475fd3b08b2d1161fd08f9210cec03c54f7e1d0bcf888",
+      "bytes": 15722,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "a972f62ece78b17275a475fd3b08b2d1161fd08f9210cec03c54f7e1d0bcf888",
+      "writer_bytes_before": 15722,
+      "writer_sha256_after": "a972f62ece78b17275a475fd3b08b2d1161fd08f9210cec03c54f7e1d0bcf888",
+      "writer_bytes_after": 15722
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853,
+      "frontiers": [
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "writer_bytes_before": 26853,
+      "writer_sha256_after": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "writer_bytes_after": 26853
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "sha256": "e3eb2019da47b3b57c35f705db1a8d63db00a4c1697019c6ae4b9dcd3231eeab",
+      "bytes": 56050,
+      "frontiers": [
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "e3eb2019da47b3b57c35f705db1a8d63db00a4c1697019c6ae4b9dcd3231eeab",
+      "writer_bytes_before": 56050,
+      "writer_sha256_after": "e3eb2019da47b3b57c35f705db1a8d63db00a4c1697019c6ae4b9dcd3231eeab",
+      "writer_bytes_after": 56050
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_3_GRAPH_FUNCTION_ZOOM_PLAN_DERIVATION.md",
+      "sha256": "279dc842e047ed01fb70a52da52b1cc3ea51e6a4a03d0f3cd470f6ad31399b4a",
+      "bytes": 6422,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "279dc842e047ed01fb70a52da52b1cc3ea51e6a4a03d0f3cd470f6ad31399b4a",
+      "writer_bytes_before": 6422,
+      "writer_sha256_after": "279dc842e047ed01fb70a52da52b1cc3ea51e6a4a03d0f3cd470f6ad31399b4a",
+      "writer_bytes_after": 6422
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "3a18f5c92a5aa1ba7c029106b6a493728a8583ba40e9f601ee028a4ec0ad898d",
+      "bytes": 62484,
+      "frontiers": [
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "3a18f5c92a5aa1ba7c029106b6a493728a8583ba40e9f601ee028a4ec0ad898d",
+      "writer_bytes_before": 62484,
+      "writer_sha256_after": "3a18f5c92a5aa1ba7c029106b6a493728a8583ba40e9f601ee028a4ec0ad898d",
+      "writer_bytes_after": 62484
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "bytes": 9744,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "writer_bytes_before": 9744,
+      "writer_sha256_after": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "writer_bytes_after": 9744
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "sha256": "0c832adf283cf17f14444b8d9660df4b51f4493dad0c31ed43cc65a881bd58d8",
+      "bytes": 74953,
+      "frontiers": [
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "0c832adf283cf17f14444b8d9660df4b51f4493dad0c31ed43cc65a881bd58d8",
+      "writer_bytes_before": 74953,
+      "writer_sha256_after": "0c832adf283cf17f14444b8d9660df4b51f4493dad0c31ed43cc65a881bd58d8",
+      "writer_bytes_after": 74953
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "bytes": 16326,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "writer_bytes_before": 16326,
+      "writer_sha256_after": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "writer_bytes_after": 16326
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "27e79e8336b7988121814a49a1d77976cba4b139a04e4b3bd39e250821992fd3",
+      "bytes": 96170,
+      "frontiers": [
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "27e79e8336b7988121814a49a1d77976cba4b139a04e4b3bd39e250821992fd3",
+      "writer_bytes_before": 96170,
+      "writer_sha256_after": "27e79e8336b7988121814a49a1d77976cba4b139a04e4b3bd39e250821992fd3",
+      "writer_bytes_after": 96170
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+      "bytes": 6297,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+      "writer_bytes_before": 6297,
+      "writer_sha256_after": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+      "writer_bytes_after": 6297
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "bytes": 16630,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "writer_bytes_before": 16630,
+      "writer_sha256_after": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "writer_bytes_after": 16630
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "sha256": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "bytes": 15697,
+      "frontiers": [
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "writer_bytes_before": 15697,
+      "writer_sha256_after": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "writer_bytes_after": 15697
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "bytes": 6880,
+      "frontiers": [
+        "abg-context"
+      ],
+      "writer_sha256_before": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "writer_bytes_before": 6880,
+      "writer_sha256_after": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "writer_bytes_after": 6880
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146,
+      "frontiers": [
+        "abg-context",
+        "abg-runtime"
+      ],
+      "writer_sha256_before": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "writer_bytes_before": 3146,
+      "writer_sha256_after": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "writer_bytes_after": 3146
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/README.md",
+      "sha256": "17639ac4194bb5c042cbf645430a772ae9be81baee95ab41eaea73cafa138f23",
+      "bytes": 9374,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "17639ac4194bb5c042cbf645430a772ae9be81baee95ab41eaea73cafa138f23",
+      "writer_bytes_before": 9374,
+      "writer_sha256_after": "17639ac4194bb5c042cbf645430a772ae9be81baee95ab41eaea73cafa138f23",
+      "writer_bytes_after": 9374
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/docs/EXPERIMENTS.md",
+      "sha256": "ce168deb03d4607c70e00e092701d2f6d5987db04e09779b0e3cad48b7fca558",
+      "bytes": 5414,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "ce168deb03d4607c70e00e092701d2f6d5987db04e09779b0e3cad48b7fca558",
+      "writer_bytes_before": 5414,
+      "writer_sha256_after": "ce168deb03d4607c70e00e092701d2f6d5987db04e09779b0e3cad48b7fca558",
+      "writer_bytes_after": 5414
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/benchmarks/jobbench.py",
+      "sha256": "446738c854a5fc1639c7a8a312aa90367d1f73bc7f1df1f00ccd2d243b2aeafb",
+      "bytes": 51747,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "446738c854a5fc1639c7a8a312aa90367d1f73bc7f1df1f00ccd2d243b2aeafb",
+      "writer_bytes_before": 51747,
+      "writer_sha256_after": "446738c854a5fc1639c7a8a312aa90367d1f73bc7f1df1f00ccd2d243b2aeafb",
+      "writer_bytes_after": 51747
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/benchmarks/lab.py",
+      "sha256": "95bfa213048e870f6c4e45f9040d881ef60f2282d25175b0f8fefe6ce9eb4e71",
+      "bytes": 44979,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "95bfa213048e870f6c4e45f9040d881ef60f2282d25175b0f8fefe6ce9eb4e71",
+      "writer_bytes_before": 44979,
+      "writer_sha256_after": "95bfa213048e870f6c4e45f9040d881ef60f2282d25175b0f8fefe6ce9eb4e71",
+      "writer_bytes_after": 44979
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/benchmarks/workbuddy.py",
+      "sha256": "1e08d17a9ad0b23a3b6dabc6da2d2e65a8110cba17d7882d5f113940f7dfeb91",
+      "bytes": 41925,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "1e08d17a9ad0b23a3b6dabc6da2d2e65a8110cba17d7882d5f113940f7dfeb91",
+      "writer_bytes_before": 41925,
+      "writer_sha256_after": "1e08d17a9ad0b23a3b6dabc6da2d2e65a8110cba17d7882d5f113940f7dfeb91",
+      "writer_bytes_after": 41925
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/cli/report.py",
+      "sha256": "2cb4460658d982d9ef9921b4393b1adbb95d1909b07a967759167b97f78cf5d4",
+      "bytes": 4428,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "2cb4460658d982d9ef9921b4393b1adbb95d1909b07a967759167b97f78cf5d4",
+      "writer_bytes_before": 4428,
+      "writer_sha256_after": "2cb4460658d982d9ef9921b4393b1adbb95d1909b07a967759167b97f78cf5d4",
+      "writer_bytes_after": 4428
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/cli/run_sweep.py",
+      "sha256": "83998848662cdf3e101250ae13afbfbf82d9b88db4d9181ab973ae9fe32f8b0a",
+      "bytes": 9359,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "83998848662cdf3e101250ae13afbfbf82d9b88db4d9181ab973ae9fe32f8b0a",
+      "writer_bytes_before": 9359,
+      "writer_sha256_after": "83998848662cdf3e101250ae13afbfbf82d9b88db4d9181ab973ae9fe32f8b0a",
+      "writer_bytes_after": 9359
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/context.py",
+      "sha256": "63dd482e5d9467d7e659d186a11289fc7861d08c8aed603244ff0cee92de91f3",
+      "bytes": 21597,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "63dd482e5d9467d7e659d186a11289fc7861d08c8aed603244ff0cee92de91f3",
+      "writer_bytes_before": 21597,
+      "writer_sha256_after": "63dd482e5d9467d7e659d186a11289fc7861d08c8aed603244ff0cee92de91f3",
+      "writer_bytes_after": 21597
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/judge.py",
+      "sha256": "0f8cd6f4ec659f5d5976bdad4ccdc432651f51486c3fbbee36be53a6d619fbba",
+      "bytes": 5005,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "0f8cd6f4ec659f5d5976bdad4ccdc432651f51486c3fbbee36be53a6d619fbba",
+      "writer_bytes_before": 5005,
+      "writer_sha256_after": "0f8cd6f4ec659f5d5976bdad4ccdc432651f51486c3fbbee36be53a6d619fbba",
+      "writer_bytes_after": 5005
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/ledger.py",
+      "sha256": "7059de5d90fc9fb8d4b3b799ff075f09d34f182ba0fdb56eb9d8b8383d0bbf55",
+      "bytes": 4536,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "7059de5d90fc9fb8d4b3b799ff075f09d34f182ba0fdb56eb9d8b8383d0bbf55",
+      "writer_bytes_before": 4536,
+      "writer_sha256_after": "7059de5d90fc9fb8d4b3b799ff075f09d34f182ba0fdb56eb9d8b8383d0bbf55",
+      "writer_bytes_after": 4536
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/library.py",
+      "sha256": "00219fda201a030f43b35b49c4e73ccf336aedc81164144c435b4b06a1256dd3",
+      "bytes": 8449,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "00219fda201a030f43b35b49c4e73ccf336aedc81164144c435b4b06a1256dd3",
+      "writer_bytes_before": 8449,
+      "writer_sha256_after": "00219fda201a030f43b35b49c4e73ccf336aedc81164144c435b4b06a1256dd3",
+      "writer_bytes_after": 8449
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/prompts.py",
+      "sha256": "d1f4f8db4ab4cb4addcbca175b548db2270375499fda727ac95d271c63cc2504",
+      "bytes": 66499,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "d1f4f8db4ab4cb4addcbca175b548db2270375499fda727ac95d271c63cc2504",
+      "writer_bytes_before": 66499,
+      "writer_sha256_after": "d1f4f8db4ab4cb4addcbca175b548db2270375499fda727ac95d271c63cc2504",
+      "writer_bytes_after": 66499
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/proposer.py",
+      "sha256": "475ef49d72228e249d7172d793f8362913774412402dfd259ae6e01c6586e175",
+      "bytes": 18560,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "475ef49d72228e249d7172d793f8362913774412402dfd259ae6e01c6586e175",
+      "writer_bytes_before": 18560,
+      "writer_sha256_after": "475ef49d72228e249d7172d793f8362913774412402dfd259ae6e01c6586e175",
+      "writer_bytes_after": 18560
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/recursion.py",
+      "sha256": "b299813b5334f2c0f89024a7f14162f0fdd5418ebd4413be93920b5334a204c1",
+      "bytes": 18895,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "b299813b5334f2c0f89024a7f14162f0fdd5418ebd4413be93920b5334a204c1",
+      "writer_bytes_before": 18895,
+      "writer_sha256_after": "b299813b5334f2c0f89024a7f14162f0fdd5418ebd4413be93920b5334a204c1",
+      "writer_bytes_after": 18895
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/runmark.py",
+      "sha256": "99a7c3f0b023623224c3376bc0390e985b8e6608f0928d34b821ffe6c36f9175",
+      "bytes": 3783,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "99a7c3f0b023623224c3376bc0390e985b8e6608f0928d34b821ffe6c36f9175",
+      "writer_bytes_before": 3783,
+      "writer_sha256_after": "99a7c3f0b023623224c3376bc0390e985b8e6608f0928d34b821ffe6c36f9175",
+      "writer_bytes_after": 3783
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/schedule.py",
+      "sha256": "6e46c5ab1e4ac111818ff3acd6b636e39d650898189ac0c21802a8233ad4cd38",
+      "bytes": 30524,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "6e46c5ab1e4ac111818ff3acd6b636e39d650898189ac0c21802a8233ad4cd38",
+      "writer_bytes_before": 30524,
+      "writer_sha256_after": "6e46c5ab1e4ac111818ff3acd6b636e39d650898189ac0c21802a8233ad4cd38",
+      "writer_bytes_after": 30524
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/selection.py",
+      "sha256": "2cb3353b2fd4ec72e6322f2c1f35db1ff2cdab88b0b50c8809d1841d235cb92f",
+      "bytes": 18262,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "2cb3353b2fd4ec72e6322f2c1f35db1ff2cdab88b0b50c8809d1841d235cb92f",
+      "writer_bytes_before": 18262,
+      "writer_sha256_after": "2cb3353b2fd4ec72e6322f2c1f35db1ff2cdab88b0b50c8809d1841d235cb92f",
+      "writer_bytes_after": 18262
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/spec.py",
+      "sha256": "f245ec9e314778e2a1a51594b906584255b9eed8340c073b864a8a6f2c8dc400",
+      "bytes": 9720,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "f245ec9e314778e2a1a51594b906584255b9eed8340c073b864a8a6f2c8dc400",
+      "writer_bytes_before": 9720,
+      "writer_sha256_after": "f245ec9e314778e2a1a51594b906584255b9eed8340c073b864a8a6f2c8dc400",
+      "writer_bytes_after": 9720
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/core/tree.py",
+      "sha256": "c2a15690b1b6b02156e922c5e0b1a215c5065d7bea5a3bae2e56b47309197552",
+      "bytes": 16265,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "c2a15690b1b6b02156e922c5e0b1a215c5065d7bea5a3bae2e56b47309197552",
+      "writer_bytes_before": 16265,
+      "writer_sha256_after": "c2a15690b1b6b02156e922c5e0b1a215c5065d7bea5a3bae2e56b47309197552",
+      "writer_bytes_after": 16265
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/substrate/base.py",
+      "sha256": "50a63f174e3772888af3882f3ffff3162cefba8d36e927b1a5de343c5806dd16",
+      "bytes": 2891,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "50a63f174e3772888af3882f3ffff3162cefba8d36e927b1a5de343c5806dd16",
+      "writer_bytes_before": 2891,
+      "writer_sha256_after": "50a63f174e3772888af3882f3ffff3162cefba8d36e927b1a5de343c5806dd16",
+      "writer_bytes_after": 2891
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/substrate/codex.py",
+      "sha256": "281a07271ebed72a617a671ced1b9137901aa8f5d1deffb56c706f44c295e416",
+      "bytes": 18082,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "281a07271ebed72a617a671ced1b9137901aa8f5d1deffb56c706f44c295e416",
+      "writer_bytes_before": 18082,
+      "writer_sha256_after": "281a07271ebed72a617a671ced1b9137901aa8f5d1deffb56c706f44c295e416",
+      "writer_bytes_after": 18082
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/harness2/substrate/opencode.py",
+      "sha256": "dabc79953d164a0d38802125756379ffa6acdc7b553d2f9036475f8220166ff0",
+      "bytes": 15411,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "dabc79953d164a0d38802125756379ffa6acdc7b553d2f9036475f8220166ff0",
+      "writer_bytes_before": 15411,
+      "writer_sha256_after": "dabc79953d164a0d38802125756379ffa6acdc7b553d2f9036475f8220166ff0",
+      "writer_bytes_after": 15411
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/pyproject.toml",
+      "sha256": "c78fd0d09d2f92bf796871c168b548dd4d33e21566dbb582e343266e24a0bada",
+      "bytes": 1195,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "c78fd0d09d2f92bf796871c168b548dd4d33e21566dbb582e343266e24a0bada",
+      "writer_bytes_before": 1195,
+      "writer_sha256_after": "c78fd0d09d2f92bf796871c168b548dd4d33e21566dbb582e343266e24a0bada",
+      "writer_bytes_after": 1195
+    },
+    {
+      "path": "/Users/jim/src/apps/harness2/tests/test_workflow.py",
+      "sha256": "fda03aa8d1d4bb1a43b16a96da4a272427969a1a540cc0954709aeed7a03a4aa",
+      "bytes": 10587,
+      "frontiers": [
+        "harness"
+      ],
+      "writer_sha256_before": "fda03aa8d1d4bb1a43b16a96da4a272427969a1a540cc0954709aeed7a03a4aa",
+      "writer_bytes_before": 10587,
+      "writer_sha256_after": "fda03aa8d1d4bb1a43b16a96da4a272427969a1a540cc0954709aeed7a03a4aa",
+      "writer_bytes_after": 10587
+    }
+  ],
+  "loan_groups": [
+    {
+      "id": "L01",
+      "name": "Bounded candidate search over existing zoom",
+      "harness_ids": [
+        "H04",
+        "H05",
+        "H06",
+        "H07"
+      ],
+      "abg_ids": [
+        "A05",
+        "A06",
+        "A09",
+        "A10",
+        "A12",
+        "A13"
+      ],
+      "standing": "candidate analysis, no implementation priority or work grant",
+      "semantic_disposition": "Existing accepted composition/zoom/call relations supply expressibility and execution ownership. The particular stock search policy is a candidate policy extension; it does not create another semantic runtime, work selector or concept of recursion.",
+      "realisation_disposition": "Adapt or implement the policy locally over existing graph/leaf seams. Consume existing traversal, materialization and child-return relations. A Python service, new tenant or second controller is not a prerequisite."
+    },
+    {
+      "id": "L02",
+      "name": "Role evidence packs and anonymous comparison",
+      "harness_ids": [
+        "H02",
+        "H08"
+      ],
+      "abg_ids": [
+        "A07",
+        "A08",
+        "A11",
+        "A22"
+      ],
+      "standing": "candidate analysis, no implementation priority or work grant",
+      "semantic_disposition": "Existing current-context, instruction-projection and independent-assessment relations remain the semantic owners. A particular comparative presentation policy is an extension candidate; exact sharing and approximate compression require different preservation/adequacy claims.",
+      "realisation_disposition": "Adapt the projection/index/diff/anonymous-display mechanisms below existing context/assessment owners; implement locally or consume an equivalent pure renderer where its contract matches."
+    },
+    {
+      "id": "L03",
+      "name": "Earlier-task experience as candidate context",
+      "harness_ids": [
+        "H11",
+        "H12",
+        "H13"
+      ],
+      "abg_ids": [
+        "A07",
+        "A09",
+        "A20"
+      ],
+      "standing": "candidate analysis, no implementation priority or work grant",
+      "semantic_disposition": "Existing reuse/current-applicability law stays authoritative. The concrete experience-selection/reflection policy is a candidate extension requiring F_P relevance/causality judgment and evidence; storing a lesson does not establish admitted applicability.",
+      "realisation_disposition": "Adapt the library/index/retrieval policy under existing context and reuse seams, using current artifact/source owners. Do not introduce a rival truth store or autonomous runtime publication mechanism."
+    },
+    {
+      "id": "L04",
+      "name": "Exact reuse fingerprints and invalidation checks",
+      "harness_ids": [
+        "H14",
+        "H16"
+      ],
+      "abg_ids": [
+        "A06",
+        "A08",
+        "A17",
+        "A19",
+        "A20",
+        "A21"
+      ],
+      "standing": "candidate analysis, no implementation priority or work grant",
+      "semantic_disposition": "Existing dependency/currentness and exact-reuse relations. Mutable completion markers have no event-admission, replay, continuation or worksite-truth authority.",
+      "realisation_disposition": "Adapt cache-key and artifact-check mechanics below the relevant owner. Optimise/local-implement pure construction reuse where exact contracts match; consume ABG recovery and continuation rather than substituting Harness markers."
+    },
+    {
+      "id": "L05",
+      "name": "Reproducible comparative protocol and complete accounting",
+      "harness_ids": [
+        "H01",
+        "H17",
+        "H19"
+      ],
+      "abg_ids": [
+        "A10",
+        "A18",
+        "A22",
+        "A23"
+      ],
+      "standing": "candidate analysis, no implementation priority or work grant",
+      "semantic_disposition": "Existing measurement/assessment relations plus a concrete comparative experiment protocol. Harness allocation constants are policy facts, not general ABG resource or retry law.",
+      "realisation_disposition": "Adapt/local-implement experiment manifests and accounting below existing measurement/proof owners; consume their result/assessment admission. Accounting is a prerequisite to interpreting a comparison, not a new controller."
+    },
+    {
+      "id": "L06",
+      "name": "Concrete candidate-edit diagnostics and bounded repair",
+      "harness_ids": [
+        "H03",
+        "H04"
+      ],
+      "abg_ids": [
+        "A01",
+        "A04",
+        "A14"
+      ],
+      "standing": "candidate analysis, no implementation priority or work grant",
+      "semantic_disposition": "Consume existing closed mechanical checks wherever their meaning matches. Harness tree/syntax checks are not GTL whole-Program validity, semantic applicability or effect authorization; new checks need their own owner/applicability.",
+      "realisation_disposition": "Share an equivalent closed checker or implement/adapt it locally for substrate/dependency reasons. Preserve the original semantic owner rather than owning a copied authoritative relation."
+    },
+    {
+      "id": "L07",
+      "name": "Selection presentation without forced-adoption semantics",
+      "harness_ids": [
+        "H09",
+        "H10"
+      ],
+      "abg_ids": [
+        "A09",
+        "A11",
+        "A14",
+        "A22",
+        "A23"
+      ],
+      "standing": "candidate analysis, no implementation priority or work grant",
+      "semantic_disposition": "Existing choice, candidate/result admission and assessment/closure relations. Harness finals-only and single-final direct delivery are not adopted as default ABG acceptance law. Any different choice policy is a deliberate adaptation, not equivalence to the Harness policy.",
+      "realisation_disposition": "Adapt the parser/presentation/diagnostic machinery conditionally. Consume ABG hold/gap/refusal, independent judgment, baseline comparison or other alternatives where the owning contract requires them."
+    },
+    {
+      "id": "L08",
+      "name": "Execution adapters and bounded scratch sessions",
+      "harness_ids": [
+        "H15",
+        "H18"
+      ],
+      "abg_ids": [
+        "A06",
+        "A10",
+        "A14",
+        "A18",
+        "A21"
+      ],
+      "standing": "candidate analysis, no implementation priority or work grant",
+      "semantic_disposition": "Existing invocation/effect/attempt relations. Replacing Python by TypeScript is an execution-binding choice, not a new calculus or proof that all environment behavior is preserved.",
+      "realisation_disposition": "Adapt or deliberately implement locally for isolation, substrate, dependency ownership and maintenance reasons. Consume existing owner/adapter interfaces; a new tenant is unnecessary merely to assess the mechanism."
+    }
+  ],
+  "effects": {
+    "created_commentary_only": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261021_HARNESS_ABG_ALGORITHM_INVENTORY/README.md",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261021_HARNESS_ABG_ALGORITHM_INVENTORY/harness-algorithms.md",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261021_HARNESS_ABG_ALGORITHM_INVENTORY/abg-algorithms.md",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261021_HARNESS_ABG_ALGORITHM_INVENTORY/transfer-analysis.md",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261021_HARNESS_ABG_ALGORITHM_INVENTORY/SOURCES.json"
+    ],
+    "optional_scratch_receipt": "/Users/jim/tmp/harness2-abg-algorithm-inventory-20261021/report-closure.json",
+    "source_product_design_ticket_runtime_config_install_mutations": false,
+    "git_mutations": false,
+    "tests_builds_models_benchmarks_network": false,
+    "unrelated_tracked_untracked_preserved": true
+  },
+  "residuals": [
+    "Inventories are scoped groupings, not an exhaustive algorithms census or apples-to-apples feature score",
+    "No new tests, installed conformance, runtime effects, benchmark or model trial",
+    "Harness prior deterministic evidence reused as reported; artifacts not independently reacquired in Writer activation",
+    "Current ABG source/candidate computational design is not installed release qualification or semantic acceptance",
+    "PPC expressibility through composition/zoom is distinct from a packaged policy, installed trial and outcome superiority",
+    "All proposed benefits, costs and operational equivalence of loans remain unmeasured",
+    "5.0 runtime GTL generation/recomposition/publication and dedicated 5.1 tuner remain excluded",
+    "Sources and worksite may change after the recorded observations; file pins govern this report"
+  ]
+}

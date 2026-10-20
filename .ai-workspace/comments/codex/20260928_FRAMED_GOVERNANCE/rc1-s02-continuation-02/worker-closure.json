@@ -1,0 +1,18 @@
+{
+  "status": "CLOSED",
+  "activationId": "T287_RC1_S02_CONTINUATION_02",
+  "actor": "/root/rc1_s02_continuation",
+  "closedAt": "2026-10-01T16:09:34.823163+00:00",
+  "result": "CLOSED_native_success",
+  "nativeCalls": 37,
+  "cases": 9,
+  "unexpectedFailure": null,
+  "retryCount": 0,
+  "providerCalls": 0,
+  "modelCalls": 0,
+  "ownProcessClosure": "process-closure.json",
+  "conservation": "conservation.json",
+  "handoff": "final-handoff.json",
+  "return": "return.md",
+  "stop": "One final frozen subject; no further edit/native operation or Reviewer activation."
+}

@@ -1,0 +1,166 @@
+{
+  "kind": "module_publication",
+  "moduleVersion": "5.0.0",
+  "moduleRef": "module://abiogenesis-fixture/f11-carrier/fixture@5",
+  "owningProductId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+  "descriptorRef": "descriptor://abiogenesis-fixture/f11-carrier/fixture@5",
+  "contributionManifestRef": "contribution-manifest://abiogenesis-fixture/f11-carrier/fixture@5",
+  "productSemanticsBinding": {
+    "kind": "product_semantics_binding",
+    "bindingRef": "product-semantics://abiogenesis-fixture/f11-carrier/fixture@5",
+    "packageName": "@abiogenesis-fixtures/f11-carrier-child",
+    "packageVersion": "5.0.0",
+    "modulePath": "build/index.js",
+    "namedSymbol": "SEMANTICS"
+  },
+  "contracts": [],
+  "evaluators": [],
+  "rules": [],
+  "implementationBindings": [],
+  "closureContracts": [
+    {
+      "kind": "closure_contract",
+      "closureContractRef": "closure://abiogenesis-fixture/f11-carrier/run@5",
+      "predicateRef": "predicate://abiogenesis-fixture/f11-carrier/typed-child-result@5",
+      "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+      "resultContractRef": "contract://abiogenesis/qualification/judgment@5",
+      "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+      "refusalValueKind": "self_conformance_refusal",
+      "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+      "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+      "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5",
+      "replayProjectionRef": "projection://abiogenesis-fixture/f11-carrier/replay@5",
+      "terminalKind": "completed",
+      "closureScope": "run",
+      "eventKindRefs": [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed",
+        "run_closed"
+      ]
+    },
+    {
+      "kind": "closure_contract",
+      "closureContractRef": "closure://abiogenesis-fixture/f11-carrier/graph-call@5",
+      "predicateRef": "predicate://abiogenesis-fixture/f11-carrier/typed-child-result@5",
+      "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+      "resultContractRef": "contract://abiogenesis/qualification/judgment@5",
+      "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5",
+      "refusalValueKind": "self_conformance_refusal",
+      "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+      "rejectionContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+      "transitionContractRef": "contract://abiogenesis/qualification/self-conformance/transition@5",
+      "replayProjectionRef": "projection://abiogenesis-fixture/f11-carrier/replay@5",
+      "terminalKind": "completed",
+      "closureScope": "graph_call",
+      "eventKindRefs": [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed"
+      ]
+    }
+  ],
+  "graphFunctions": [
+    {
+      "kind": "graph_function",
+      "name": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+      "version": "5.0.0",
+      "environment": {
+        "requires": [
+          "contract://abiogenesis/qualification/assessment-input@5"
+        ],
+        "provides": [
+          "contract://abiogenesis/qualification/judgment@5"
+        ],
+        "carries": []
+      },
+      "inputs": [
+        "contract://abiogenesis/qualification/assessment-input@5"
+      ],
+      "outputs": [
+        "contract://abiogenesis/qualification/judgment@5"
+      ],
+      "effects": [],
+      "tags": [
+        "mechanical-fixture",
+        "child-foldback"
+      ],
+      "declarations": {
+        "abg.compute_regime": "F_P",
+        "abg.closure_contract": "closure://abiogenesis-fixture/f11-carrier/run@5",
+        "abg.child_closure_contract": "closure://abiogenesis-fixture/f11-carrier/graph-call@5",
+        "abg.judgment_predicate": "predicate://abiogenesis-fixture/f11-carrier/typed-child-result@5",
+        "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+        "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+      },
+      "template": {
+        "kind": "inline_graph",
+        "graphRef": "graph://abiogenesis-fixture/f11-carrier/parent@5",
+        "startNodeRef": "node://abiogenesis-fixture/f11-carrier/call-existing-assessor@5",
+        "terminalNodeRefs": [
+          "node://abiogenesis-fixture/f11-carrier/call-existing-assessor@5"
+        ],
+        "edges": [],
+        "applications": [],
+        "nodes": [
+          {
+            "nodeRef": "node://abiogenesis-fixture/f11-carrier/call-existing-assessor@5",
+            "nodeKind": "c_locus",
+            "term": {
+              "kind": "c_workflow",
+              "inputCarrierRef": "contract://abiogenesis/qualification/assessment-input@5",
+              "outputCarrierRef": "contract://abiogenesis/qualification/judgment@5",
+              "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "programs": [
+    {
+      "kind": "gtl_program",
+      "programRef": "program://abiogenesis-fixture/f11-carrier/parent@5",
+      "version": "5.0.0",
+      "moduleRef": "module://abiogenesis-fixture/f11-carrier/fixture@5",
+      "starts": [
+        {
+          "startRef": "start://abiogenesis-fixture/f11-carrier/parent@5",
+          "graphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5"
+        }
+      ],
+      "callableMembership": [
+        "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+        "graph-function://abiogenesis/qualification/assess@5"
+      ],
+      "closureContractRef": "closure://abiogenesis-fixture/f11-carrier/run@5",
+      "policies": {
+        "abg.root_mode": "direct",
+        "abg.compute_regime": "F_P",
+        "abg.default_start_ref": "start://abiogenesis-fixture/f11-carrier/parent@5"
+      }
+    }
+  ],
+  "contributions": [
+    {
+      "handle": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+      "kind": "graph_function",
+      "declarationOrContractRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+      "owningProductId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+      "programMembershipRefs": [
+        "program://abiogenesis-fixture/f11-carrier/parent@5"
+      ],
+      "readinessPrerequisiteRefs": [
+        "program://abiogenesis-fixture/f11-carrier/parent@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "disposition": "ready",
+  "issues": [],
+  "observations": [
+    {
+      "name": "node",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79",
+      "started": "2026-10-06T00:44:43.121Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 16.706583,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "v24.7.0\n",
+      "stderr": ""
+    },
+    {
+      "name": "npm",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79",
+      "started": "2026-10-06T00:44:43.139Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 54.24675,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "11.5.1\n",
+      "stderr": ""
+    },
+    {
+      "name": "cargo",
+      "executable": "/Users/jim/.cargo/bin/cargo",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79",
+      "started": "2026-10-06T00:44:43.194Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 288.32162500000004,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "cargo 1.82.0 (8f40fc59f 2024-08-21)\n",
+      "stderr": ""
+    },
+    {
+      "name": "rustc",
+      "executable": "/Users/jim/.cargo/bin/rustc",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79",
+      "started": "2026-10-06T00:44:43.483Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 97.31733400000002,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "rustc 1.82.0 (f6e511eec 2024-10-15)\n",
+      "stderr": ""
+    },
+    {
+      "name": "sbt",
+      "executable": "/opt/homebrew/bin/sbt",
+      "args": [
+        "--script-version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79",
+      "started": "2026-10-06T00:44:43.581Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "PATH_PREFIX",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 319.90854199999995,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "1.11.7\n",
+      "stderr": ""
+    },
+    {
+      "name": "java",
+      "executable": "/opt/homebrew/opt/openjdk@11/bin/java",
+      "args": [
+        "-version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79",
+      "started": "2026-10-06T00:44:43.902Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 36.84758399999998,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "",
+      "stderr": "openjdk version \"11.0.28\" 2025-07-15\nOpenJDK Runtime Environment Homebrew (build 11.0.28+0)\nOpenJDK 64-Bit Server VM Homebrew (build 11.0.28+0, mixed mode)\n"
+    }
+  ],
+  "providerReachability": "Not dispatched or network-qualified",
+  "selectedCases": [
+    "basic-cli",
+    "js-tenant-test",
+    "js-sdlc-bootstrap",
+    "rust-cli",
+    "rust-service",
+    "parallel-js",
+    "data-mapper-full"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 306311.047875,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdoutBytes": 580,
+  "stderrBytes": 0,
+  "nativeResults": [
+    {
+      "scenario": "basic-cli",
+      "runId": "2026-10-06T06-00-01-883Z-f05438bd-753a-4591-9c96-02b817f3573c",
+      "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-00-01-883Z-f05438bd-753a-4591-9c96-02b817f3573c",
+      "mode": "run",
+      "status": "refused",
+      "uatPass": false,
+      "reason": "Error: readback-source: \"No admitted Run coordinate\"",
+      "boundary": "readback-source",
+      "observation": "No admitted Run coordinate",
+      "stop": "First failing composition returned for Product/Design/interface/identity/effects/proof triage; no retry"
+    }
+  ]
+}

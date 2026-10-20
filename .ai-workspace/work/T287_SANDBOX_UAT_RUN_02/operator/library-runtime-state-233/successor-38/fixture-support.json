@@ -1,0 +1,13 @@
+{
+  "kind": "unchanged_existing_fixture_support",
+  "file": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/input-01/test_env/support/new-empty-append-sink.mjs",
+    "sha256": "0d13d5d882d3d30ab8af2cc613b9d9540db4b4aa001349811726f0983d4f9a02",
+    "bytes": 4743
+  },
+  "basis": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+    "sha256": "0d13d5d882d3d30ab8af2cc613b9d9540db4b4aa001349811726f0983d4f9a02",
+    "bytes": 4743
+  }
+}

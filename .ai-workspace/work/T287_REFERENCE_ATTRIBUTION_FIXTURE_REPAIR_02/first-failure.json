@@ -1,0 +1,22 @@
+{
+  "status": "stopped",
+  "boundary": "reference negative oracle at shape-only isQualificationAssessmentInput",
+  "error": "canonical role cannot waive author independence",
+  "line": 200,
+  "actualShapeAdmission": true,
+  "expectedByOracle": false,
+  "focusedPassed": 3,
+  "focusedFailed": 1,
+  "referencePositivePassed": true,
+  "guardsReachedAndPassed": [
+    "missing resource",
+    "crossed resource",
+    "changed record bytes",
+    "record digest",
+    "attribution span",
+    "scope union",
+    "authority"
+  ],
+  "evidenceLimit": "establishQualificationAssessment/material correspondence was not called for the reference independence negative; native complete-slot/independence proof not reached",
+  "noCorrectionOrRetry": true
+}

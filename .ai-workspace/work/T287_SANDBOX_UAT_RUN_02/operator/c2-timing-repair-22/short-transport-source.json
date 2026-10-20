@@ -1,0 +1,7 @@
+{
+  "path": "test_env/tests/m5-worker-transport.test.mjs",
+  "sha256": "658a2f454de09301cd14576cdc0a3192716113a69bd994c5b0c552633d8b474e",
+  "byteCount": 42552,
+  "unchanged": true,
+  "claim": "Existing real M5 transport SIGKILL/exitObserved/terminationConfirmed/PID absence; not C2 helper execution"
+}

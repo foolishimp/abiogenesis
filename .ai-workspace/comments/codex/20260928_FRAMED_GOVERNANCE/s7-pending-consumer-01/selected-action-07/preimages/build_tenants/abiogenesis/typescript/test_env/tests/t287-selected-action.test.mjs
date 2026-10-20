@@ -1,0 +1,183 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import {spawn} from 'node:child_process';
+import {mkdir,readFile,writeFile,stat} from 'node:fs/promises';
+import {join,basename} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import {constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+import {publicOperationBasis} from '../support/root-installed-environment.mjs';
+import {ref,hash} from '../fixtures/t287-selected-action-product/index.mjs';
+const proof=process.env.ABI5_SELECTED_ACTION_EVIDENCE_ROOT;
+assert.ok(proof,'explicit disposable evidence root required');
+const save=async(name,value)=>writeFile(join(proof,name),JSON.stringify(value,null,2)+'\n');
+const read=async name=>JSON.parse(await readFile(join(proof,name),'utf8'));
+const freeze=v=>{if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;};
+const digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
+test('installed post-disposition selected action survives actual host interruption and continues once',{skip:process.env.ABI5_SELECTED_ACTION_CASE==='covered'},async()=>{
+ await mkdir(join(proof,'disposable'),{recursive:true});
+ const started=performance.now();
+ try {
+  const host=spawn(process.execPath,[new URL('../support/t287-selected-action-host.mjs',import.meta.url).pathname],{env:{...process.env,TMPDIR:join(proof,'disposable')}});
+  let stdout='',stderr='';host.stdout.on('data',b=>stdout+=b);host.stderr.on('data',b=>stderr+=b);
+  const termination=await new Promise((resolve,reject)=>{host.once('error',reject);host.once('exit',(code,signal)=>resolve({code,signal,pid:host.pid}));});
+  await save('host-termination.json',{...termination,stdout,stderr,wallMs:performance.now()-started});assert.equal(termination.signal,'SIGKILL',stderr);
+  const e=freeze(await read('environment.json')),origin=await read('initial-origin.json'),opened=await read('opened.json');
+  const load=p=>import(pathToFileURL(join(e.installedRoot,`build/code/src/${p}.js`)).href);
+  const product=await load('product/index'),abg=await load('abg/index'),owner=await load('abg/construction_continuation'),eventOwner=await load('abg/event_store'),publicApi=await load('public/index'),projectReadContracts=await load('abg/project_read_operation_contracts');
+  const bytes=await readFile(origin.initialOrigin.newResourceRequest.eventLogPath),initialEvents=bytes.toString().trim().split('\n').map(JSON.parse);
+  assert.deepEqual(bytes,await readFile(join(proof,'interrupted-prefix.jsonl')),'complete fsynced prefix preserved');
+  const lockPath=join(proof,'disposable/abiogenesis-event-store-locks-v5',`${origin.initialOrigin.device}-${origin.initialOrigin.inode}.lock`),lock=await stat(lockPath),lockBytes=await readFile(lockPath);
+  const recoverySelection={...origin,expectedCurrent:{byteLength:bytes.length,digest:digest(bytes)},abandonedLock:{path:lockPath,device:lock.dev,inode:lock.ino,bytesBase64:lockBytes.toString('base64'),digest:digest(lockBytes)}};
+  await save('recovery-selection.json',recoverySelection);
+  // The same task-specific TMPDIR selects the unchanged event owner's lock namespace.
+  process.env.TMPDIR=join(proof,'disposable');
+  const recovery=eventOwner.recoverInterruptedEventStore(recoverySelection);await save('recovery.json',recovery);assert.equal(recovery.kind,'recovered',JSON.stringify(recovery));
+  let handoff=recovery.closeHandoff;
+  const prefix=abg.selectValidatedRuntimeEventPrefix(freeze(eventOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix)));
+  const pending=owner.projectSelectedActionContinuations(prefix,opened.scope.runId);await save('pending.json',pending);
+  assert.deepEqual(pending.map(p=>p.status),['resolved','open']);
+  const occurrence=pending[1],request={run:{ref:opened.scope.runId,digest:opened.scope.runDigest},continuation:{ref:occurrence.continuationRef,digest:occurrence.continuationDigest},selectedAction:{ref:occurrence.selectedActionRef,digest:occurrence.selectedActionDigest},basisRelation:{kind:'same_basis'}};
+  const use=owner.selectPendingActionUse(prefix,request);assert.equal(use.kind,'selected_action_use',JSON.stringify(use));
+  const artifactTruth=abg.projectExactPrefixArtifactTruth(handoff.prefix),environmentAdmission=await load('abg/environment_admission');
+  const resolution=await (await load('product/execution_resolution')).ProductExecutionResolutionPort.resolve({catalog:e.catalog,catalogView:e.catalogView,admittedInstalls:e.admittedInstalls,verifyInstallAdmission:i=>environmentAdmission.hasAdmittedProductInstall(artifactTruth,i),programRef:use.currentBasis.programRef,selection:{kind:'admitted',graphFunctionRef:use.currentBasis.graphFunctionRef}});
+  assert.equal(resolution.kind,'loaded_product_execution_resolution',JSON.stringify(resolution));
+  const prepared=owner.prepareSelectedActionContinuation(prefix,use,resolution);assert.ok(prepared,'current installed Program, cursor and input preparation');
+  assert.equal(prepared.intent.selectedActionRef,ref('action','consumer'));assert.equal(prepared.intent.targetInput.payload,'selected second action');
+  assert.equal(initialEvents.filter(v=>v.kind==='construction_intent_selected').length,2);assert.equal(initialEvents.filter(v=>v.kind==='construction_delta_observed').length,1);assert.equal(initialEvents.filter(v=>v.kind==='traversal_route_admitted'&&v.payload.routeKind==='re_enter').length,1);
+  assert.equal(initialEvents.some(v=>v.kind==='c_call_opened'&&v.payload.cursorRef===occurrence.heldCursorRef),false);
+  await save('prepared-relation.json',{request,occurrence,currentBasis:use.currentBasis,invocation:use.invocation,cursor:prepared.cursor,input:prepared.input,intent:prepared.intent,program:resolution.program,policy:e.policy});
+  const packet=product.RUN_OPERATION_CONTRACTS.continue.selected_action,operationId=packet.definitionKey.operationId;
+  const grant=product.constructCapabilityGrant(e.policy,e.actorRef,operationId,packet.metadata.capabilityRefs[0],{admittedInstalls:e.admittedInstalls,workspaceBinding:e.workspaceBinding,fixedPacket:packet});
+  function makeCall(identity,patch={},slotPatch={}) {
+   const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)},r=resolution.resolution,steering=product.sha256Canonical(eventResource),inputDeclaration=resolution.declarationPublications.flatMap(p=>p.contracts).find(c=>c.contractRef===prepared.term.inputCarrierRef);
+   const slots={workspace_binding:{ref:e.workspaceBinding.bindingId,digest:e.workspaceBinding.bindingDigest},product_set:e.admittedInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})),dependency_lock:{ref:e.workspaceBinding.lockId,digest:e.workspaceBinding.lockDigest},catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${e.catalog.basisDigest.slice(7)}`,digest:e.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${e.catalogView.viewDigest.slice(7)}`,digest:e.catalogView.viewDigest},allowlist:e.catalogView.allowlist},execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},input_contract:{contract:{ref:inputDeclaration.contractRef,digest:product.sha256Canonical(inputDeclaration)},valueRef:prepared.input.inputRef,valueDigest:prepared.input.inputDigest,value:prepared.input.value},session_policy:{ref:e.policy.policyRef,digest:e.policy.policyDigest},capability_grants:{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},actor:{actor:{ref:e.actorRef,digest:product.sha256Canonical({actorRef:e.actorRef})},attribution:{ref:e.invocationAuthority.authorityRef,digest:e.invocationAuthority.authorityDigest}},transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering},verification_references:null,execution_basis:{ref:prepared.root.basisRef,digest:prepared.root.basisDigest},...slotPatch};
+   const contractCatalog=e.verified.definitionContractCoordinates.operations.find(o=>o.operationId===operationId).members.find(m=>m.memberKey==='selected_action').slots.request.contractCatalog;
+   return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:e.verified.definitionContractCoordinates,contractCatalog,operationId,memberKey:'selected_action',request:{...request,...patch},slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource,catalog:e.catalog,catalogView:e.catalogView,applications:[],source:{kind:'none'}},requestRef:`public-request://selected-action/${identity}`,correlationRef:`correlation://selected-action/${identity}`,eventTime:'2026-09-30T00:01:00.000Z',provenanceRefs:[ref('provenance','fixture')]});
+  }
+  const results=[];
+  for(const [name,patch,slotPatch]of [['crossed-selection',{selectedAction:{ref:pending[0].selectedActionRef,digest:pending[0].selectedActionDigest}}],['crossed-run',{run:{...request.run,digest:'sha256:'+'0'.repeat(64)}}],['crossed-basis',{}, {execution_basis:{ref:prepared.root.basisRef,digest:'sha256:'+'0'.repeat(64)}}],['continue',{}],['duplicate',{}]]){
+   const call=makeCall(name,patch,slotPatch);await save(`${name}-call.json`,call);
+   const outcome=await runInstalledCliRequest({scratch:e.scratch,installedRoot:e.installedRoot,identity:`selected-${name}`,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:{TMPDIR:join(proof,'disposable')}});await save(`${name}-receipt.json`,outcome);
+   const receipt=outcome.output.receipt;assert.ok(receipt,JSON.stringify(outcome));if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;await save('latest-handoff.json',handoff);assert.equal(receipt.failure,null,JSON.stringify(receipt));
+   results.push({name,wallMs:outcome.wallMs,ownerOutput:receipt.ownerOutput});
+   if(name==='continue'){assert.equal(receipt.ownerOutput.value.disposition,'completed',JSON.stringify(receipt.ownerOutput));
+    for(const memberKey of ['run_result','run_replay']){const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};const{call:readCall}=constructInstalledRunReadCall({environment:{...e,product},publicApi,projectReadContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:1024},source:receipt.resources.run,eventResource,identity:`selected-${memberKey}`});const outcome=await runInstalledCliRequest({scratch:e.scratch,installedRoot:e.installedRoot,identity:`selected-${memberKey}`,acquisition:{kind:'reopen',closeHandoff:handoff},call:readCall,expectedExitCode:null,environment:{TMPDIR:join(proof,'disposable')}});await save(`${memberKey}.json`,outcome);assert.equal(outcome.output.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(outcome));}
+   }else assert.equal(receipt.ownerOutput.outcomeKind,'refusal',JSON.stringify(receipt.ownerOutput));
+  }
+  const events=eventOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix),finalPrefix=abg.selectValidatedRuntimeEventPrefix(freeze(events)),continued=owner.projectSelectedActionContinuations(finalPrefix,opened.scope.runId);
+  assert.deepEqual(continued.map(p=>p.status),['resolved','resolved']);assert.equal(events.filter(v=>v.kind==='public_operation_admitted'&&v.payload.continuationKind==='selected_action').length,1);assert.equal(events.filter(v=>v.kind==='run_closed').length,1);assert.equal(events.filter(v=>v.kind==='construction_intent_selected').length,2);assert.equal(events.filter(v=>v.kind==='construction_delta_observed').length,2);
+  assert.equal(events.filter(v=>v.kind==='c_call_fibre_selected'&&v.payload.implementationRef===ref('implementation','producer')).length,2,'one child execution per distinct admitted action');
+  await save('same-basis-result.json',{status:'passed',results,continued,run:opened.scope.runId,finalPrefix:handoff.prefix,totalMs:performance.now()-started,proofClass:'installed model-free F_D only'});
+ }catch(error){await save('failure.json',{message:error.message,stack:error.stack,totalMs:performance.now()-started});throw error;}
+});
+
+
+test('installed covered-current selection consumes the old and current occurrences under the exact admitted cover',{skip:process.env.ABI5_SELECTED_ACTION_CASE!=='covered'},async()=>{
+ const retained=process.env.ABI5_SELECTED_ACTION_RETAINED ? JSON.parse(await readFile(process.env.ABI5_SELECTED_ACTION_RETAINED,'utf8')) : null;
+ const runtimeTmp=retained?.lockNamespaceRoot??join(proof,'disposable');if(!retained)await mkdir(runtimeTmp,{recursive:true});process.env.TMPDIR=runtimeTmp;const started=performance.now();
+ try {
+  async function runHost(dir,currentEnvironment=null){
+   await mkdir(dir,{recursive:true});const child=spawn(process.execPath,[new URL('../support/t287-selected-action-host.mjs',import.meta.url).pathname],{env:{...process.env,ABI5_SELECTED_ACTION_EVIDENCE_ROOT:dir,...(currentEnvironment?{ABI5_SELECTED_ACTION_CURRENT_ENV:currentEnvironment}:{})}});
+   let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);
+   const exit=await new Promise((resolve,reject)=>{child.once('error',reject);child.once('exit',(code,signal)=>resolve({code,signal,pid:child.pid}));});
+   await writeFile(join(dir,'host-termination.json'),JSON.stringify({...exit,stdout,stderr},null,2)+'\n');assert.equal(exit.signal,'SIGKILL',stderr);return exit;
+  }
+  const oldDir=retained?.oldProofDir??join(proof,'old'),currentDir=join(proof,'current');if(!retained)await runHost(oldDir);
+  const readAt=async(dir,name)=>JSON.parse(await readFile(join(dir,name),'utf8'));
+  const old=await readAt(oldDir,'environment.json'),oldOpened=await readAt(oldDir,'opened.json');
+  const load=p=>import(pathToFileURL(join(old.installedRoot,`build/code/src/${p}.js`)).href);
+  const product=await load('product/index'),abg=await load('abg/index'),eventOwner=await load('abg/event_store'),owner=await load('abg/construction_continuation'),publicApi=await load('public/index'),witness=await load('abg/witness_admission_operation'),witnessContracts=await load('abg/witness_operation_contracts'),projectReadContracts=await load('abg/project_read_operation_contracts');
+  async function recover(dir,lastCloseHandoff=null){
+   const origin=await readAt(dir,'initial-origin.json'),bytes=await readFile(origin.initialOrigin.newResourceRequest.eventLogPath);
+   assert.deepEqual(bytes,await readFile(join(dir,'interrupted-prefix.jsonl')));
+   const lockPath=join(runtimeTmp,'abiogenesis-event-store-locks-v5',`${origin.initialOrigin.device}-${origin.initialOrigin.inode}.lock`),lock=await stat(lockPath),lockBytes=await readFile(lockPath);
+   const selection={...(lastCloseHandoff?{lastCloseHandoff,ownerPid:origin.ownerPid}:origin),expectedCurrent:{byteLength:bytes.length,digest:digest(bytes)},abandonedLock:{path:lockPath,device:lock.dev,inode:lock.ino,bytesBase64:lockBytes.toString('base64'),digest:digest(lockBytes)}};
+   const result=eventOwner.recoverInterruptedEventStore(selection);await writeFile(join(dir,'recovery.json'),JSON.stringify({selection,result},null,2)+'\n');assert.equal(result.kind,'recovered',JSON.stringify(result));return result.closeHandoff;
+  }
+  let handoff=retained?retained.closeHandoff:await recover(oldDir);
+  if(retained){const bytes=await readFile(retained.nativeLog.path),identity=await stat(retained.nativeLog.path);assert.deepEqual(bytes,await readFile(retained.snapshotPath));assert.equal(digest(bytes),'sha256:'+retained.nativeLog.sha256);assert.equal(bytes.length,retained.nativeLog.bytes);assert.equal(identity.dev,retained.physicalIdentity.device);assert.equal(identity.ino,retained.physicalIdentity.inode);assert.equal(bytes.toString().trim().split('\n').length,217);}
+  const prefixAt=()=>abg.selectValidatedRuntimeEventPrefix(freeze(eventOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix)));
+  const oldOccurrences=owner.projectSelectedActionContinuations(prefixAt(),oldOpened.scope.runId);assert.deepEqual(oldOccurrences.map(p=>p.status),['resolved','open']);const source=oldOccurrences[1];await save('old-pending.json',source);
+  let currentBinding;
+  if(retained){const control=JSON.parse(await readFile(retained.bindingControlPath,'utf8'));assert.deepEqual(control.handoff,handoff);currentBinding=control.receipt.value;}else{
+  const acquired=eventOwner.reopenEventStore(handoff.reopenAuthority);assert.ok(acquired.store,JSON.stringify(acquired));
+  const currentProjectionRoot=join(old.scratch,'workspace/.ai-workspace/current-projections');await mkdir(currentProjectionRoot,{recursive:true});
+  const candidate=product.constructWorkspaceBinding(old.workspaceAuthority,old.productSet,old.lock,{...old.workspaceBinding.roots,projectionRoot:currentProjectionRoot});assert.equal(candidate.kind,'workspace_binding_candidate',JSON.stringify(candidate));assert.notEqual(candidate.bindingDigest,old.workspaceBinding.bindingDigest);
+  const bindingReceipt=abg.admitWorkspaceBinding(acquired.store,candidate,{...publicOperationBasis(product,'abg.operation.workspace.bind',candidate.bindingId,candidate.bindingDigest,'invocation://selected-action/current-workspace',old.admittedInstalls.map(i=>i.admissionEventRef)),predecessorPrefix:acquired.prefix},old.workspaceAuthority);assert.equal(bindingReceipt.kind,'artifact_owner_result',JSON.stringify(bindingReceipt));
+  currentBinding=bindingReceipt.value;handoff=acquired.store.projectReopenAuthorityAndClose();await save('current-binding.json',{candidate,receipt:bindingReceipt,handoff});
+  }
+  const admissionOwner=await load('product/admission_authority'),environmentOwner=await load('product/environment');
+  const currentEnvironment=admissionOwner.admitCapabilityEnvironment(product.admissionEnvironmentSelection(handoff.prefix,{ref:currentBinding.bindingId,digest:currentBinding.bindingDigest}));
+  assert.equal(currentEnvironment.kind,'exact_prefix_workspace_environment');assert.deepEqual(currentEnvironment.workspaceBinding,currentBinding);currentBinding=currentEnvironment.workspaceBinding;
+  // Real installed Public witness admission, with exact external fixture authority scoped to this request.
+  const packet=witnessContracts.WITNESS_OPERATION_CONTRACTS.admit.reprice,definition=publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId===packet.definitionKey.operationId&&d.definitionKey.memberKey==='reprice');
+  const historical={ref:source.executionBasisRef,digest:source.executionBasisDigest},before={ref:old.workspaceBinding.bindingId,digest:old.workspaceBinding.bindingDigest},after={ref:currentBinding.bindingId,digest:currentBinding.bindingDigest};
+  const contentContract=witness.WITNESS_CONTENT_CONTRACTS.reprice;
+  const request={subjectKind:'authority_basis',subject:historical,act:'reprice',content:{kind:'typed_payload',contentContract:{ref:contentContract.ref,digest:contentContract.digest},value:{declarationRef:before.ref,beforeDigest:before.digest,afterDigest:after.digest,changeClass:'realization_refactor',owningTicketRef:'ticket://T-287',reason:'Bounded installed selected-action fixture WorkspaceBinding cover'}},context:{kind:'basis',basis:historical},evidence:[before,after],provenance:[historical]};
+  const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)},resources={kind:'witness_reprice_resource_assertion',schemaVersion:'5.0.0',eventResource};
+  const actorRef=currentEnvironment.workspaceAuthorityBasis.authorizedActorRef,coord=(ref,value)=>({ref,digest:product.sha256Canonical(value??{ref})});
+  const slots=Object.fromEntries(['workspace_binding','product_set','dependency_lock','catalog_scope','execution_program','graph_function','input_contract','session_policy','capability_grants','actor','transport_steering','verification_references','execution_basis'].map(k=>[k,null]));
+  Object.assign(slots,{workspace_binding:after,product_set:currentEnvironment.productInstalls.map(environmentOwner.productInstallCoordinate),dependency_lock:{ref:currentEnvironment.resolvedProductLock.lockId,digest:currentEnvironment.resolvedProductLock.lockDigest},actor:{actor:coord(actorRef),attribution:coord('attribution://selected-action/covered-fixture')}});
+  const ownerRequest={artifactPath:old.artifactPaths[0],artifactRef:basename(old.artifactPaths[0]),expectedArtifactDigest:old.verified.artifactDigest,expectedProductContentDigest:old.verified.productContentDigest,expectedManifestDigest:old.verified.manifestDigest,expectedProductId:old.verified.productId,expectedPackageName:'@abiogenesis/typescript-tenant',expectedPackageVersion:'5.0.0-rc.1'};
+  const basis={kind:'admission_capability_data',schemaVersion:'5.0.0',definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},ownerArtifact:{request:ownerRequest,verified:old.verified},request,resourceScope:{resourcesDigest:product.sha256Canonical(resources),authoritySlots:product.admissionAuthoritySlots(slots)},boundEnvironment:product.admissionEnvironmentSelection(handoff.prefix,after)};
+  const authorityValue={actorRef,authorityMode:'trusted_developer'},approvalValue={decision:'allow',actorRef,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,requestDigest:product.sha256Canonical(request),scopeDigest:product.admissionAuthorityScope(basis).digest};
+  const authority={kind:'resolved_admission_authority',schemaVersion:'5.0.0',actorRef,authorityMode:'trusted_developer',authority:{...coord('authority://selected-action/covered-fixture',authorityValue),value:authorityValue},approval:{...coord('approval://selected-action/exact-cover',approvalValue),value:approvalValue}};
+  // Complete prospective admission basis before any effect. Run slots retain their distinct owner representation.
+  assert.deepEqual(slots.workspace_binding,{ref:currentEnvironment.workspaceBinding.bindingId,digest:currentEnvironment.workspaceBinding.bindingDigest});
+  assert.deepEqual(slots.product_set,currentEnvironment.productInstalls.map(environmentOwner.productInstallCoordinate));
+  assert.deepEqual(slots.dependency_lock,{ref:currentEnvironment.resolvedProductLock.lockId,digest:currentEnvironment.resolvedProductLock.lockDigest});
+  assert.equal(slots.actor.actor.ref,currentEnvironment.workspaceAuthorityBasis.authorizedActorRef);
+  assert.deepEqual(currentEnvironment.productInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})),old.admittedInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})));
+  assert.notDeepEqual(slots.product_set,currentEnvironment.productInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})));
+  assert.equal(authority.approval.value.scopeDigest,product.admissionAuthorityScope(basis).digest);assert.equal(authority.approval.value.requestDigest,product.sha256Canonical(request));
+  await save('witness-precheck.json',{status:'passed',scope:'complete prospective witness data/approval and operation-specific slots; no event admitted',currentEnvironment,slots,basis,authority,runSlotRepresentation:currentEnvironment.productInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})),runSlotOwner:'product/run_invocation_operation.ts:368-372',sourceOccurrence:source});
+  const grants=await Promise.all(definition.capabilityRefs.map(cap=>product.constructCapabilityGrant(authority,actorRef,packet.definitionKey.operationId,cap,{kind:'admission_capability_grant_construction_basis',fixedPacket:packet,data:basis})));
+  await save('witness-grants.json',grants);
+  slots.capability_grants={requiredCapabilityRefs:definition.capabilityRefs,grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))};
+  const catalogFor=(id,member)=>old.verified.definitionContractCoordinates.operations.find(o=>o.operationId===id).members.find(m=>m.memberKey===member).slots.request.contractCatalog;
+  const coverCall=publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:old.verified.definitionContractCoordinates,contractCatalog:catalogFor(packet.definitionKey.operationId,'reprice'),...packet.definitionKey,request,slots,resources:{...resources,admissionAuthority:{basis,authority,grants}},requestRef:'public-request://selected-action/cover',correlationRef:'correlation://selected-action/cover',eventTime:'2026-09-30T00:02:00.000Z',provenanceRefs:[ref('provenance','fixture')]});await save('cover-call.json',coverCall);
+  const coverOutcome=await runInstalledCliRequest({scratch:proof,installedRoot:old.installedRoot,identity:'selected-cover',acquisition:{kind:'reopen',closeHandoff:handoff},call:coverCall,expectedExitCode:null,environment:{TMPDIR:runtimeTmp}});await save('cover-receipt.json',coverOutcome);
+  assert.equal(coverOutcome.output.receipt.failure,null,JSON.stringify(coverOutcome));assert.equal(coverOutcome.output.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(coverOutcome));handoff=coverOutcome.output.receipt.resources.eventResource.closeHandoff;await save('latest-handoff.json',handoff);
+  const coverEvents=eventOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix),coverEvent=coverEvents.filter(e=>e.kind==='declaration_reprice_admitted').at(-1);assert.ok(coverEvent);const coveringReprice={ref:coverEvent.payload.witnessedActRef,digest:coverEvent.payload.witnessedActDigest};
+  const worksite=await load('abg/worksite_revision');assert.deepEqual(worksite.projectWitnessedWorkspaceBindingCover(prefixAt(),old.workspaceBinding,currentBinding,[old.executionBasis]),[coverEvent.eventId]);
+  const currentEnvironmentPath=join(proof,'current-environment.json');await writeFile(currentEnvironmentPath,JSON.stringify({...old,workspaceAuthority:currentEnvironment.workspaceAuthorityBasis,workspaceBinding:currentBinding,admittedInstalls:currentEnvironment.productInstalls,productSet:currentEnvironment.productSet,lock:currentEnvironment.resolvedProductLock,closeHandoff:handoff,coveredSelectionRefs:[source.continuationRef,coveringReprice.ref]},null,2)+'\n');
+  const beforeCurrent=handoff;await runHost(currentDir,currentEnvironmentPath);handoff=await recover(currentDir,beforeCurrent);
+  const current=await readAt(currentDir,'environment.json'),currentOpened=await readAt(currentDir,'opened.json'),currentOccurrence=owner.projectSelectedActionContinuations(prefixAt(),currentOpened.scope.runId).at(-1);assert.equal(currentOccurrence.status,'open');assert.equal(owner.projectSelectedActionContinuations(prefixAt(),oldOpened.scope.runId).at(-1).status,'open');
+  const selectedRequest={run:{ref:oldOpened.scope.runId,digest:oldOpened.scope.runDigest},continuation:{ref:source.continuationRef,digest:source.continuationDigest},selectedAction:{ref:currentOccurrence.selectedActionRef,digest:currentOccurrence.selectedActionDigest},basisRelation:{kind:'authority_changed',coveringReprice}};
+  const use=owner.selectPendingActionUse(prefixAt(),selectedRequest);assert.equal(use.kind,'selected_action_use',JSON.stringify(use));assert.notEqual(use.source.runId,use.current.runId);assert.notEqual(use.sourceBasis.workspaceBindingDigest,use.currentBasis.workspaceBindingDigest);
+  const resolution=await (await load('product/execution_resolution')).ProductExecutionResolutionPort.resolve({catalog:current.catalog,catalogView:current.catalogView,admittedInstalls:current.admittedInstalls,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(abg.projectExactPrefixArtifactTruth(handoff.prefix),i),programRef:use.currentBasis.programRef,selection:{kind:'admitted',graphFunctionRef:use.currentBasis.graphFunctionRef}});
+  assert.equal(resolution.kind,'loaded_product_execution_resolution',JSON.stringify(resolution));const prepared=owner.prepareSelectedActionContinuation(prefixAt(),use,resolution);assert.ok(prepared);assert.equal(prepared.intent.targetInput.currentAuthorityMarker,currentBinding.bindingId);assert.deepEqual(prepared.input.value.lawfulBasisRefs.filter(r=>r===source.continuationRef||r===coveringReprice.ref),[source.continuationRef,coveringReprice.ref]);
+  const initialEvents=eventOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);assert.ok(initialEvents.find(e=>e.eventId===currentOccurrence.openedEventRef).admissionOrdinal>coverEvent.admissionOrdinal);assert.equal(initialEvents.filter(e=>e.runId===currentOpened.scope.runId&&e.kind==='c_call_fibre_selected'&&e.payload.implementationRef===ref('implementation','producer')).length,0);
+  await save('prepared-relation.json',{request:selectedRequest,source,current:currentOccurrence,use,prepared:{root:prepared.root,cursor:prepared.cursor,input:prepared.input,intent:prepared.intent},coverEvent});
+  const selectedPacket=product.RUN_OPERATION_CONTRACTS.continue.selected_action,operationId=selectedPacket.definitionKey.operationId;
+  const grant=product.constructCapabilityGrant(current.policy,current.actorRef,operationId,selectedPacket.metadata.capabilityRefs[0],{admittedInstalls:current.admittedInstalls,workspaceBinding:currentBinding,fixedPacket:selectedPacket});
+  function makeCall(name,patch={},slotPatch={}){
+   const resource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)},r=resolution.resolution,decl=resolution.declarationPublications.flatMap(p=>p.contracts).find(c=>c.contractRef===prepared.term.inputCarrierRef),steering=product.sha256Canonical(resource);
+   const slots={workspace_binding:after,product_set:current.admittedInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})),dependency_lock:{ref:currentBinding.lockId,digest:currentBinding.lockDigest},catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${current.catalog.basisDigest.slice(7)}`,digest:current.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${current.catalogView.viewDigest.slice(7)}`,digest:current.catalogView.viewDigest},allowlist:current.catalogView.allowlist},execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},input_contract:{contract:{ref:decl.contractRef,digest:product.sha256Canonical(decl)},valueRef:prepared.input.inputRef,valueDigest:prepared.input.inputDigest,value:prepared.input.value},session_policy:{ref:current.policy.policyRef,digest:current.policy.policyDigest},capability_grants:{requiredCapabilityRefs:selectedPacket.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},actor:{actor:{ref:current.actorRef,digest:product.sha256Canonical({actorRef:current.actorRef})},attribution:{ref:current.invocationAuthority.authorityRef,digest:current.invocationAuthority.authorityDigest}},transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering},verification_references:null,execution_basis:{ref:prepared.root.basisRef,digest:prepared.root.basisDigest},...slotPatch};
+   return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:current.verified.definitionContractCoordinates,contractCatalog:catalogFor(operationId,'selected_action'),operationId,memberKey:'selected_action',request:{...selectedRequest,...patch},slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource:resource,catalog:current.catalog,catalogView:current.catalogView,applications:[],source:{kind:'none'}},requestRef:`public-request://selected-action/covered-${name}`,correlationRef:`correlation://selected-action/covered-${name}`,eventTime:'2026-09-30T00:04:00.000Z',provenanceRefs:[ref('provenance','fixture')]});
+  }
+  const results=[];
+  for(const[name,patch,slotPatch]of[
+   ['missing-cover',{basisRelation:{kind:'authority_changed',coveringReprice:{ref:'witnessed-act://missing',digest:coveringReprice.digest}}}],
+   ['stale-cover-digest',{basisRelation:{kind:'authority_changed',coveringReprice:{...coveringReprice,digest:'sha256:'+'0'.repeat(64)}}}],
+   ['mismatched-cover',{basisRelation:{kind:'authority_changed',coveringReprice:historical}}],
+   ['crossed-selection',{selectedAction:{ref:source.selectedActionRef,digest:source.selectedActionDigest}}],
+   ['crossed-run',{run:{...selectedRequest.run,digest:'sha256:'+'0'.repeat(64)}}],
+   ['crossed-basis',{}, {execution_basis:historical}],['continue',{}],['duplicate',{}],
+   ['duplicate-current',{run:{ref:currentOpened.scope.runId,digest:currentOpened.scope.runDigest},continuation:{ref:currentOccurrence.continuationRef,digest:currentOccurrence.continuationDigest},basisRelation:{kind:'same_basis'}}]]){
+   const call=makeCall(name,patch,slotPatch);await save(`${name}-call.json`,call);
+   const outcome=await runInstalledCliRequest({scratch:proof,installedRoot:current.installedRoot,identity:`covered-${name}`,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:{TMPDIR:runtimeTmp}});await save(`${name}-receipt.json`,outcome);
+   const receipt=outcome.output.receipt;assert.equal(receipt.failure,null,JSON.stringify(receipt));if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;await save('latest-handoff.json',handoff);results.push({name,wallMs:outcome.wallMs,outcome:receipt.ownerOutput.outcomeKind,value:receipt.ownerOutput.value});
+   if(name==='continue'){
+    assert.equal(receipt.ownerOutput.value.disposition,'completed',JSON.stringify(receipt.ownerOutput));assert.equal(receipt.resources.run.ref,currentOpened.scope.runId);
+    for(const memberKey of ['run_result','run_replay']){const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};const{call:readCall}=constructInstalledRunReadCall({environment:{...current,product},publicApi,projectReadContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:1024},source:receipt.resources.run,eventResource,identity:`covered-${memberKey}`});const result=await runInstalledCliRequest({scratch:proof,installedRoot:current.installedRoot,identity:`covered-${memberKey}`,acquisition:{kind:'reopen',closeHandoff:handoff},call:readCall,expectedExitCode:null,environment:{TMPDIR:runtimeTmp}});await save(`${memberKey}.json`,result);assert.equal(result.output.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(result));}
+   }else assert.equal(receipt.ownerOutput.outcomeKind,'refusal',JSON.stringify(receipt.ownerOutput));
+  }
+  const finalEvents=eventOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix),oldFinal=owner.projectSelectedActionContinuations(prefixAt(),oldOpened.scope.runId),currentFinal=owner.projectSelectedActionContinuations(prefixAt(),currentOpened.scope.runId);
+  assert.deepEqual(oldFinal.map(p=>p.status),['resolved','superseded']);assert.deepEqual(currentFinal.map(p=>p.status),['resolved']);
+  assert.equal(finalEvents.filter(e=>e.kind==='public_operation_admitted'&&e.payload.continuationKind==='selected_action').length,1);assert.equal(finalEvents.filter(e=>e.kind==='continuation_superseded').length,1);assert.equal(finalEvents.filter(e=>e.kind==='run_closed'&&e.runId===oldOpened.scope.runId).length,0);assert.equal(finalEvents.filter(e=>e.kind==='run_closed'&&e.runId===currentOpened.scope.runId).length,1);
+  for(const run of [oldOpened.scope.runId,currentOpened.scope.runId])assert.equal(finalEvents.filter(e=>e.runId===run&&e.kind==='c_call_fibre_selected'&&e.payload.implementationRef===ref('implementation','producer')).length,1);
+  await save('covered-result.json',{status:'passed',results,oldFinal,currentFinal,finalPrefix:handoff.prefix,totalMs:performance.now()-started,proofClass:'installed model-free F_D only; cover negatives bind missing/ref-mismatched and stale-digest coordinates'});
+ }catch(error){await save('failure.json',{message:error.message,stack:error.stack,totalMs:performance.now()-started});throw error;}
+});

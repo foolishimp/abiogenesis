@@ -1,0 +1,60 @@
+{
+  "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "timeUTC": "2026-10-04T05:52:03.889607+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/controls/code-grant.txt",
+    "bytes": 7781,
+    "sha256": "4d4845561516e9e4ee2d485baee00328a533e0575a1e1832e940fa7368c41d3b"
+  },
+  "SourcePreimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/controls/source-preimages.json",
+    "sha256": "02feda72fef4790123714c5254b36669407de091971271587738be7fcaacd4e9"
+  },
+  "RootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/controls/design-acceptance.json",
+    "sha256": "9ee4831108e8a355c4bfc96c4ef52c5335a78235f8bfd48076ba3b848b9026fa"
+  },
+  "adoptedHOW": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+    "bytes": 18222,
+    "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+    "mode": 420
+  },
+  "canonicalSourcePaths": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs"
+  ],
+  "workTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01",
+  "evidenceTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01",
+  "immutableControlsExcluded": true,
+  "commentsWritesForbidden": true,
+  "HOME": "/Users/jim",
+  "defaultHeap": true,
+  "budgetsSeconds": {
+    "compile": 180,
+    "manifest": 180,
+    "pack": 180,
+    "focused": 180,
+    "terminationGrace": 5,
+    "corpus": 60,
+    "compile02": 180,
+    "compile03": 180
+  },
+  "recordedBeforeSourceMutation": true
+}

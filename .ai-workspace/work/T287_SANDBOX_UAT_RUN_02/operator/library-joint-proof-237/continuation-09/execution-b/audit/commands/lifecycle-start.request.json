@@ -1,0 +1,23 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/audit/calls/lifecycle-start.request.jsonl"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/audit",
+  "started": "2026-10-10T13:31:46.445Z",
+  "environmentKeys": [
+    "ABG_TS_CLAUDE_COMMAND",
+    "ABI5_JOINT_PROOF_MODE",
+    "ABI5_JOINT_PROOF_ROOT",
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR",
+    "npm_config_cache",
+    "npm_config_offline"
+  ],
+  "timeoutMs": 300000
+}

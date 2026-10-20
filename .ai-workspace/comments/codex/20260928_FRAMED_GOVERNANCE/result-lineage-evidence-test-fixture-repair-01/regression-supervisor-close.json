@@ -1,0 +1,27 @@
+{
+  "mode": "regression",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+  ],
+  "pid": 43362,
+  "processGroup": 43362,
+  "startedAt": "2026-10-02T12:54:06.461714+00:00",
+  "closedAt": "2026-10-02T12:54:07.207593+00:00",
+  "elapsedMs": 745.8937088958919,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 348438528,
+  "userSeconds": 0.8115589999999999,
+  "systemSeconds": 0.102362,
+  "knownCLIProcessGroups": [],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

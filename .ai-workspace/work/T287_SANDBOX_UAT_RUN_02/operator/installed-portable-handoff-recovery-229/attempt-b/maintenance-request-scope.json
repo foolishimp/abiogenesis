@@ -1,0 +1,40 @@
+{
+  "requestDigest": "sha256:22b12814e6204d1919ee5ebbea4cb605bb757033e2b0e28f647bf76ef7b2da11",
+  "scope": {
+    "ref": "native-maintenance-scope://abiogenesis/sha256:a7a602919e0c42a61d4c0d921336051f326c4f980e63edbf9b68e12744a0adc3",
+    "digest": "sha256:a7a602919e0c42a61d4c0d921336051f326c4f980e63edbf9b68e12744a0adc3"
+  },
+  "expectedCurrent": {
+    "byteLength": 2142089296,
+    "digest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277"
+  },
+  "lastCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recovered-close-handoff.json",
+    "sha256": "10a1f7047255f068840dd33f8d01763941287ed913e4fad55705e82b3325ce05",
+    "byteCount": 1472
+  },
+  "abandonedLock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "device": 16777231,
+    "inode": 469573954,
+    "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY4MzI3NDAwLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NzU5MDMsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "digest": "sha256:247fab7ada83a758a8b7e043b16b7280651ebe0de1d89523f5137963ca6bf93a"
+  },
+  "interruption": {
+    "ownerPid": 75903,
+    "evidence": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/commands/recovery-stop-source.result.json",
+      "digest": "sha256:1e7d55f30d2049eda694ce15543d06ec242eb9d372ff517d9b58051f1d119ea5"
+    },
+    "quiescenceEvidence": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/quiescence.json",
+      "digest": "sha256:9fc7d4698bfebb92f15a8bde33e215d12763e7f120cf231a101129316cea0ba2"
+    },
+    "exclusiveMaintenance": true
+  },
+  "ownerArtifactReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/host31-acquisition.json",
+    "sha256": "798ef7dbbc84d4193d507f2b3bb186b815f1d2e3d6e26964d7aeba18adb4ab07",
+    "byteCount": 16373531
+  }
+}

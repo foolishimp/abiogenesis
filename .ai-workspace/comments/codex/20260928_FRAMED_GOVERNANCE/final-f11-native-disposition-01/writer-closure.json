@@ -1,0 +1,37 @@
+{
+  "activation": "T287_F11_NATIVE_DISPOSITION_01",
+  "role": "Writer",
+  "status": "CLOSED",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 402468,
+      "sha256": "13ab64eaeea5a7adea97243617ddeed311a376e4ff881751cf0f2ffd94fa5d27"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 465465,
+      "sha256": "0423359baf343759aecac880a095d02649223613ff43a89b773f4a4ca43f5528"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-disposition-01/disposition.md",
+      "bytes": 3461,
+      "sha256": "869019dfa5ceab6405006d68c8c13ba03bfff185ec736ea32755bf7e7385ec9b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-disposition-01/independent-review.md",
+      "bytes": 3431,
+      "sha256": "29a1a42399f38dbf8f05c11ed088ecb5cffe792de7f9766e0eba5866f900cdb1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-disposition-01/verification.json",
+      "bytes": 6951,
+      "sha256": "d55dcdfd5916d5970f0d82aa4d31ab2aa2b597d27ab9f5a8bd9db09f380f0034"
+    }
+  ],
+  "nativeEffects": 0,
+  "sourceEffects": 0,
+  "nextRootRole": "Executive"
+}

@@ -1,0 +1,14 @@
+{
+  "cause": "Tsc-only isolated proof tree omitted managed compiler assets required by canonical native declaration verification",
+  "origin": "verifyProduct\u2192resolveNativeDeclarationClosures\u2192declaration_exports.js loads adjacent build/toolchain/typescript.cjs",
+  "observed": "product_verification_refusal contract_asset_mismatch: Cannot find module isolated/build/toolchain/typescript.cjs",
+  "check": "focused-02 exit1/590.715125ms; before installation cases",
+  "sourceDisposition": "No dependency-guard result; Source/HOW/263 compile remains unchanged and passing",
+  "failedTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/focused-02-test.mjs",
+    "sha256": "64f2082080705facb37f20a071524a7c4052f6c2ba4473ee35d6e6e08ea6e294",
+    "byteCount": 12649
+  },
+  "proposedAction": "Stage exact managed compiler assets from accepted immutable28 owner beside isolated emitted owners, with physical byte pins; no fake compiler or lowered verification",
+  "status": "STOP; Executive selection required before any affected rerun"
+}

@@ -1,0 +1,40 @@
+{
+  "firstFailure": {
+    "expression": "value.terminalResult.provenance.runRef",
+    "location": "driver.mjs:22",
+    "exception": "TypeError: Cannot read properties of undefined (reading 'runRef')",
+    "phase": "cold-reads"
+  },
+  "reachedAndPassed": [
+    "Current same-process nominal Product verification and selection",
+    "Initial real prefix/device/inode/original lock correspondence",
+    "Both actual six-key conformance resources/full law-inventory-declaration closure and approved resource/authority relation",
+    "Actual native run-invocation resource predicate and pure inner owner preparation",
+    "Both native conformance results disposition passed",
+    "Native Hello disposition completed, stop null, terminal kind abg_typed_terminal_result",
+    "Original Hello output equals {kind:hello_world_output,schemaVersion:5.0.0,message:Hello prospective 5.0.0-rc.1 qualification}",
+    "Each fresh read actual three-key resource, current owner authority/reader metadata and genuine Run/latest handoff preconditions",
+    "Each fresh CLI returned result/exit0 and physical stable prefix with lock absence",
+    "Each read preserves closed prefix",
+    "Root terminalResult equals run_result terminalResult equals run_replay terminalResult",
+    "Root result equals run_result result",
+    "Root replay equals both fresh replay coordinates",
+    "Fresh replay status closed",
+    "Both fresh source coordinates equal actual root Run ref/digest"
+  ],
+  "notReached": [
+    "Provenance runRef equality assertion could not evaluate because provenance is absent",
+    "Driver state.calls.length===5 assertion after failing expression",
+    "Driver deadline assertion after failing expression",
+    "hello-result.json success summary",
+    "Normal final-conservation phase and final-native-prefix.jsonl output",
+    "Normal environment.json/runtime-slots.json/native-result.json and CLOSED_native_success marker"
+  ],
+  "closureObservationsAfterStop": [
+    "Actual5 completed native process receipts and unchanged cold-read bytes recorded separately",
+    "Permitted append preserves original2475382-byte prefix and physical device/inode",
+    "failure-native-prefix.jsonl and genuine final handoff retained",
+    "Current runtime-slots/retained-environment recorded by read-only owner projection; no consumer/native retry"
+  ],
+  "limit": "Input correspondence was proved at its actual scope; it was not complete end-to-end output/oracle proof."
+}

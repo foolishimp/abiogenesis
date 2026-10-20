@@ -1,0 +1,80 @@
+{
+  "kind": "worker_authority_routes",
+  "productFrame": "fixed15/GOAL035/T287/STDO2.5.1RC2; bounded external caller constructability, F11/F15/QUAL056/F16 remain independent",
+  "liveAuthorityPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 66413,
+      "sha256": "108207726681c787bae7a63271f1eff2834bbba83e65ca94396063c9ccab1363",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 36658,
+      "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "mode": 420
+    }
+  ],
+  "rawRC2": {
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "standardsMemberSetSHA256": "2f54671dfde54a6ad87347ac7190028af5e21021988247edf8068ab6248ef7e8",
+    "status": "exact installed bodies verified in CLOSED independent Q04 review; Root-selected composition unchanged"
+  },
+  "a_c": {
+    "compositionCommit": "4e83fdc4e31ad2161ab70a9759cecbbae5390b69",
+    "assembly": "literal seven-section grant; bytes and hash independently verified",
+    "toolVerification": "Root reports nine exact composition/install members matched local selected Git blobs; no map or tool invoked by this Worker",
+    "separateInstallStamp": null
+  },
+  "selectedReentry": "external preparation realization_refactor",
+  "candidateSourceBlindReadiness": "C03 immutable dependency, not current release qualification",
+  "actualRuntimeAuthority": null
+}

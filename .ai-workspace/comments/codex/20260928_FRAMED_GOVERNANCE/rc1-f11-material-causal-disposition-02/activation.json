@@ -1,0 +1,18 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_F11_MATERIAL_CAUSAL_DISPOSITION_02",
+  "activatedAt": "2026-10-02T03:23:43.546715+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-material-causal-disposition-02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "exactGrant": "Record the Executive disposition correcting one unsupported source-auth causal inference. Preserve original grant/triage and all Worker/source/Runtime bytes; no implementation, data-preparation, candidate, provider or Git effects.",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 507586,
+    "sha256": "24dcca777351e5bcfad9093fbf79a6c161e93188e5b208bfb16571667935dbf8"
+  },
+  "basis": "stdo://releases/v2.5.1-rc.2/"
+}

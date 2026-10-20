@@ -1,0 +1,28 @@
+code/src/abg/instruction_assembly.ts(471,89): error TS2345: Argument of type 'SemanticWorksiteBasis | null' is not assignable to parameter of type 'SemanticWorksiteBasis'.
+  Type 'null' is not assignable to type 'SemanticWorksiteBasis'.
+code/src/abg/instruction_assembly.ts(553,83): error TS2339: Property 'construction' does not exist on type '{ owner: { publication: Readonly<ModulePublication>; lifecycle: Readonly<SemanticJobLifecycleDeclaration>; ... 15 more ...; inputValue: JsonValue; }; ... 10 more ...; counterevidenceAssets: SemanticJobAsset[]; } | { ...; } | { ...; }'.
+  Property 'construction' does not exist on type '{ owner: { events: readonly RuntimeEvent[]; prefix: ValidatedRuntimeEventPrefix; execution: ExecutionBasis; graph: Readonly<GtlGraph>; ... 9 more ...; stage: SemanticStageDeclaration | undefined; }; ... 4 more ...; causes: RehydratedAdmittedCCallState[]; }'.
+code/src/abg/semantic_revision.ts(118,71): error TS2379: Argument of type '{ kind: "native_workspace_work_task"; schemaVersion: "5.0.0"; workspaceAuthorityBasis: WorkspaceAuthorityBasis; workspaceBinding: WorkspaceBinding; ... 11 more ...; acquisition?: SemanticRevisionCoordinate; }' is not assignable to parameter of type 'NativeSemanticRevisionWorksite' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'kind' are incompatible.
+    Type '"native_workspace_work_task"' is not assignable to type '"native_semantic_revision_worksite"'.
+code/src/abg/semantic_revision.ts(148,117): error TS2339: Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/semantic_revision.ts(149,58): error TS2339: Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/semantic_revision.ts(152,109): error TS2339: Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/semantic_revision.ts(153,43): error TS2339: Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/semantic_revision.ts(159,99): error TS2339: Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/semantic_revision.ts(160,47): error TS2339: Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/semantic_revision.ts(160,65): error TS2353: Object literal may only specify known properties, and 'capabilityGrant' does not exist in type 'WorksiteContextInput'.
+code/src/gtl/semantic_revision_publication.ts(53,17): error TS2339: Property 'nativeEntry' does not exist on type '{ readonly graphFunctionRef: string; readonly closureContractRef: string; readonly childClosureContractRef?: string; readonly role: "projection" | "terminal" | "nativeEvidence" | "bridge" | ... 4 more ... | "nativeExecution"; readonly stage?: SemanticStageDeclaration; readonly rootOutput?: boolean; }'.
+code/src/gtl/semantic_revision_publication.ts(53,96): error TS2339: Property 'nativeEntry' does not exist on type '{ readonly graphFunctionRef: string; readonly closureContractRef: string; readonly childClosureContractRef?: string; readonly role: "projection" | "terminal" | "nativeEvidence" | "bridge" | ... 4 more ... | "nativeExecution"; readonly stage?: SemanticStageDeclaration; readonly rootOutput?: boolean; }'.
+code/src/product/semantic_revision.ts(306,126): error TS2379: Argument of type '{ kind: "native_workspace_work_task"; schemaVersion: "5.0.0"; workspaceAuthorityBasis: WorkspaceAuthorityBasis; workspaceBinding: WorkspaceBinding; capabilityGrant: CapabilityGrant; ... 10 more ...; acquisition?: SemanticRevisionCoordinate; }' is not assignable to parameter of type 'NativeSemanticRevisionWorksite' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'kind' are incompatible.
+    Type '"native_workspace_work_task"' is not assignable to type '"native_semantic_revision_worksite"'.
+code/src/product/semantic_revision.ts(356,60): error TS2379: Argument of type '{ kind: "native_workspace_work_task"; schemaVersion: "5.0.0"; workspaceAuthorityBasis: WorkspaceAuthorityBasis; workspaceBinding: WorkspaceBinding; capabilityGrant: CapabilityGrant; ... 10 more ...; acquisition?: SemanticRevisionCoordinate; }' is not assignable to parameter of type 'NativeSemanticRevisionWorksite' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'kind' are incompatible.
+    Type '"native_workspace_work_task"' is not assignable to type '"native_semantic_revision_worksite"'.

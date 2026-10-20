@@ -1,0 +1,269 @@
+{
+  "status": "CLOSED_UNSUPPORTED_PUBLIC_RELATION_BEFORE_ACQUISITION",
+  "modelEffort": "astra/xhigh",
+  "reader": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-19/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-19/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:14f82f87f5ca76f2f10dfdaadc3621e8ce014a4ec898098d32d03d5e0f3f4408",
+      "productContentDigest": "sha256:c778e602faa7c1166f2f179a4a6fa4c589934a864ac75273243fbdc5900bcbc4",
+      "manifestDigest": "sha256:cbdd5ecaee9b75e3b627e88125f4052e21510f10bc85776576d2ff25b6dca31f",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "historicalProducer": {
+    "core18": {
+      "artifactDigest": "sha256:64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+      "productContentDigest": "sha256:ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e",
+      "manifestDigest": "sha256:bd392df59fabfe2b47f6fd24dcbbf43817044cbb3e939bc49ea7f5ab41a48010",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "installedRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "dev8": "sha256:aef3df7a43da5d8af620c624a4c88f5eb30b6de26437458a8fd81156b6d877c9",
+    "run": {
+      "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad",
+      "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e"
+    },
+    "genuineClose": {
+      "coordinateDigest": "sha256:0db32d448006dbd43d3a303eea9648002798fa1bca8e5e1c4bec5a733433a7d1",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:0bf8b684c95e256f9daa40c25abaa0a9d945a974b12d6a93d572b8a9bcc7e2e9",
+      "prefixLength": 104482827,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    },
+    "sourceRubricOracle": [
+      {
+        "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/original-js-sdlc-bootstrap-declaration.txt",
+        "sha256": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "currentSha256": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "unchanged": true
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/semantic-assets/lifecycle-rubric.json",
+        "sha256": "sha256:c77a38d684dde09c38197415796c9594c900278dcc047abf8744c07f382a0edf",
+        "currentSha256": "sha256:c77a38d684dde09c38197415796c9594c900278dcc047abf8744c07f382a0edf",
+        "unchanged": true
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-sdlc-bootstrap.oracle.json",
+        "sha256": "sha256:a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+        "unchanged": true
+      }
+    ]
+  },
+  "installedMembers": [
+    {
+      "member": "package.json",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "sha256": "b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396",
+      "bytes": 9923,
+      "equalsSelectedArchiveMember": true
+    },
+    {
+      "member": "product-toolchain-manifest.json",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "sha256": "31dc2cb589835eb4cf4b91acbc0b83a70e48d623cd3434a98551152714770df2",
+      "bytes": 2377790,
+      "equalsSelectedArchiveMember": true
+    },
+    {
+      "member": "build/code/src/abg/project_read_operation_contracts.js",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_operation_contracts.js",
+      "sha256": "77e3ae90d7905ab258be3218b0ab66cc3d2ef66dda5e3e376e936f2b22d41ed4",
+      "bytes": 11770,
+      "equalsSelectedArchiveMember": true
+    },
+    {
+      "member": "build/code/src/abg/project_read_definition_bindings.js",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_definition_bindings.js",
+      "sha256": "1cad02333882c8467f09fffbb4bc3102f5707aed73e4c386a9ffe8e8334fbc05",
+      "bytes": 26971,
+      "equalsSelectedArchiveMember": true
+    },
+    {
+      "member": "build/code/src/abg/project_read_ports.js",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_ports.js",
+      "sha256": "06f50d33423e77725324e8422ed2e39a76b00516dae44235ea3f80b84f3cf76a",
+      "bytes": 64176,
+      "equalsSelectedArchiveMember": true
+    },
+    {
+      "member": "build/code/src/abg/terminal_result_contracts.js",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite19-install-g7b5xmz0/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/terminal_result_contracts.js",
+      "sha256": "c1b44aba0cdcd1c55c87a1ee2b200cde67d2692fab9b17a82b42eedade2650b7",
+      "bytes": 2265,
+      "equalsSelectedArchiveMember": true
+    }
+  ],
+  "installedMemberCheckElapsedMs": 2.2170841693878174,
+  "existingRetainedReadRequest": {
+    "file": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/read-run_replay.jsonl",
+      "sha256": "0e9ca89ccabc84bb7b0929fad2d32b206d82012d00097703592689187e25c48a",
+      "bytes": 9817
+    },
+    "request": {
+      "caseKey": "run_replay",
+      "source": {
+        "sourceKind": "run",
+        "sourceRef": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e",
+        "sourceDigest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad"
+      },
+      "projectionBasis": {
+        "projectionBasisRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "projectionBasisDigest": "sha256:0db32d448006dbd43d3a303eea9648002798fa1bca8e5e1c4bec5a733433a7d1"
+      },
+      "selector": {
+        "kind": "ordinal_page",
+        "fromOrdinal": 0,
+        "limit": 100000
+      }
+    },
+    "historicalReaderCatalog": {
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "productContentDigest": "sha256:ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e",
+      "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+      "catalogVersion": "5.0.0",
+      "catalogDigest": "sha256:f243eb4cdcb6245f8a782d0d18c997b5ad9e717960dfc9593bac60ba8df81c5b"
+    },
+    "acquisition": "reopen"
+  },
+  "priorConstructedReader": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/read.mjs",
+    "sha256": "f315671c9b84bbd40b6a1f597b92c0f12206a9244d5d67022091eaa6c38ef039",
+    "bytes": 8622
+  },
+  "missing": {
+    "requested": "Original semantic-job/root input; advancing Product-parent semantic-envelope leaf and rejected Requirements assessment/fold leaf CCall/result/value/resultAdmissionEvent/judgmentEvent with exact original-root linkage.",
+    "ownerHas": "project_read_ports evidenceProjection returns cCalls and eventAtoms; projectCCallReplay returns cCall and eventAtoms.",
+    "publicDrops": "project_read_definition_bindings evidenceProjection keeps only evidence/eventAtoms ref-digest sets; replayProjection keeps identity/page bounds and optional terminal summary.",
+    "notSubstitutes": [
+      "run_status executionBasis coordinate lacks original semantic-job input and leaf pairs",
+      "run_result requires terminal result, absent for blocked bootstrap",
+      "graph_call_result returns one terminal graph result, not arbitrary intermediate fold, and no selector discovers or selects the needed leaf",
+      "runtimeFailures evidence is not the typed semantic-assessment refusal packet"
+    ]
+  },
+  "operations": {
+    "preparationsExecuted": 0,
+    "publicReadsExecuted": 0,
+    "eventResourceAcquisitions": 0,
+    "eventAppends": 0,
+    "actors": 0,
+    "sourceImports": 0,
+    "journalReadsOutsideOwner": 0,
+    "selectedReadElapsedMs": null,
+    "selectedReadPeakRssBytes": null,
+    "reason": "Stopped at unsupported selector during required contract inspection; no runtime process/read receipt exists."
+  },
+  "limits": {
+    "readCeilingMs": 600000,
+    "defaultHeap": true,
+    "noRetry": true
+  },
+  "inspectionCommands": [
+    "Read selected-core.json and retained cold-read02 caller",
+    "Inspect installed build/code/src/abg/project_read_operation_contracts.js, project_read_definition_bindings.js and project_read_ports.js with rg/sed",
+    "Inspect retained bootstrap read-run_replay.jsonl request and compare its source/close to closed-outcome.json",
+    "Hash six installed members against compiled19/archive-members.json"
+  ],
+  "excluded": "No checkout module was imported; no native or CLI execution, Public resource acquisition, private owner projection, journal parser, source mutation, install/build, Git or worksite effect.",
+  "requestedFields": [
+    "original semantic_job_input",
+    "semantic root execution basis",
+    "advancing Product SemanticJobEnvelope value",
+    "rejected Requirements assessment/fold value",
+    "parent and cause cCallRef",
+    "resultRef",
+    "resultDigest",
+    "resultAdmissionEventRef",
+    "judgmentEventRef",
+    "same original job/root and parent relation"
+  ],
+  "publicProjectionComparison": [
+    {
+      "cases": [
+        "run_status"
+      ],
+      "fields": [
+        "subject",
+        "status",
+        "replay",
+        "activeFluents ref-digests",
+        "executionBasis ref-digest"
+      ],
+      "missing": "input and intermediate semantic values/admission/J packets"
+    },
+    {
+      "cases": [
+        "run_evidence",
+        "graph_call_evidence",
+        "result_evidence",
+        "assessment_evidence"
+      ],
+      "fields": [
+        "subject",
+        "evidence ref-digests",
+        "eventAtoms ref-digests",
+        "replay"
+      ],
+      "missing": "event kinds/payloads, CCall result values and leaf association; run_evidence runtimeFailures is not this typed assessment"
+    },
+    {
+      "cases": [
+        "c_call_replay",
+        "workspace_replay",
+        "interaction_replay",
+        "continuation_replay"
+      ],
+      "fields": [
+        "subject",
+        "replay",
+        "fromOrdinal",
+        "limit"
+      ],
+      "missing": "native cCall/event objects and all requested semantic packet fields"
+    },
+    {
+      "cases": [
+        "run_replay",
+        "graph_call_replay"
+      ],
+      "fields": [
+        "subject",
+        "replay",
+        "fromOrdinal",
+        "limit",
+        "status",
+        "nullable typed terminalResult"
+      ],
+      "missing": "intermediate fold packets; failed workflow terminalResult is null"
+    },
+    {
+      "cases": [
+        "run_result",
+        "graph_call_result"
+      ],
+      "fields": [
+        "subject",
+        "result",
+        "typed terminalResult with producer/value",
+        "terminalRoute",
+        "replay"
+      ],
+      "missing": "arbitrary intermediate fold selector/discovery; only an already-known terminal Run/graph source may expose that graph terminal result"
+    }
+  ]
+}

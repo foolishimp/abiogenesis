@@ -1,0 +1,16 @@
+✔ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (348.644083ms)
+ℹ {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+✔ physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences (51.314708ms)
+✔ nearest malformed body references refuse before logical history is exposed (61.369ms)
+✔ reused cold bodies still require each new envelope identity, stamp, cause and logical digest (49.717458ms)
+✔ independently supplied mutable raw input remains detached at event admission (13.405375ms)
+✔ literal marker-shaped Product data and small duplicate values remain unambiguous (27.879042ms)
+✔ failed durable batch discards new inline sources; committed same-batch references survive reopen (23.760792ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 833.604458

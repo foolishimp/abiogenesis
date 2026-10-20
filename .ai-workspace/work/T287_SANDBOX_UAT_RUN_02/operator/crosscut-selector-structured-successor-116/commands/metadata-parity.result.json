@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/metadata-parity.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116",
+  "started": "2026-10-08T11:59:39.709Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 19929.373584,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"nativeClosures\":15,\"nativeLocatorRows\":50,\"nativeTypedContractDigestsRecomputed\":23,\"publicCatalogOwnerBindingComplete\":true,\"publicProposalRows\":21,\"capabilityDifferenceCount\":310,\"capabilityDifferenceKeyCounts\":{\"graphDigest\":1,\"capabilityDefinitionDigest\":34,\"capabilityDefinitionRef\":34,\"productContentDigest\":241},\"allDeclarationBytesUnchanged\":true,\"noSourceSemanticOrRuntimeClaim\":true}\n",
+  "stderr": ""
+}

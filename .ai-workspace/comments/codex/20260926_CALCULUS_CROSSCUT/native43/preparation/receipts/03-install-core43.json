@@ -1,0 +1,109 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.product.install",
+      "memberKey": "install"
+    },
+    "invocationRef": "invocation://abiogenesis/b9bd0fe2fbc50a69ff4e75590f1f2d52623c6d17130d66c45a7f99619efba207",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "disposition": "materialized",
+        "installedProduct": {
+          "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/44b6c37c987a010de34f6cb33029e8712d968e7464b16190baabb4fb6e56cf77/c4f11bcde823a6e4ccffd6df8e99aafaea7ed7498fe95d9a273c85b978a9c271",
+          "digest": "sha256:5b70cb9374b58ebddabe13a543a8057920db77c2a4f44893f479deee22739585"
+        },
+        "installManifest": {
+          "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/preparation/products/core43/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+          "digest": "sha256:65d610783b0669f378a5c6980b5664300f872448d9f94851d73043fe18f6daa1"
+        },
+        "installerManifest": {
+          "ref": "artifact-truth-projection://abiogenesis/cb1033921f590df5f26a0ae1ed43c84c4293e87da47a641071945f41c8040721",
+          "digest": "sha256:cb1033921f590df5f26a0ae1ed43c84c4293e87da47a641071945f41c8040721"
+        },
+        "resolvedLock": {
+          "ref": "product-lock://abiogenesis/c4f11bcde823a6e4ccffd6df8e99aafaea7ed7498fe95d9a273c85b978a9c271",
+          "digest": "sha256:c4f11bcde823a6e4ccffd6df8e99aafaea7ed7498fe95d9a273c85b978a9c271"
+        },
+        "provenance": [
+          {
+            "ref": "artifact-truth-projection://abiogenesis/cb1033921f590df5f26a0ae1ed43c84c4293e87da47a641071945f41c8040721",
+            "digest": "sha256:cb1033921f590df5f26a0ae1ed43c84c4293e87da47a641071945f41c8040721"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "product_install_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "eventResource": {
+        "kind": "abg_event_resource_completion",
+        "schemaVersion": "5.0.0",
+        "acquisitionKind": "reopen",
+        "entryPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+          "prefixLength": 531792783,
+          "prefixDigest": "sha256:22f54122cedef70d54f5f30a12970a0f0a4e22ede25927988b8fcc09631a690b",
+          "storeIdentity": {
+            "device": 16777230,
+            "inode": 459405010,
+            "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+          },
+          "coordinateDigest": "sha256:d3cc6a4f48c603a59303a5efb172fde4d72530f5b643eeedc8bb6c99d0053b68"
+        },
+        "successor": {
+          "kind": "acquired_abg_event_resource_selection",
+          "schemaVersion": "5.0.0",
+          "prefix": {
+            "kind": "durable_prefix_coordinate",
+            "schemaVersion": "5.0.0",
+            "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+            "prefixLength": 534128346,
+            "prefixDigest": "sha256:c564992b5c5ad2b2fbf7de0ff85ebfc21282c489aa982bc0c0d92fb12f3b3895",
+            "storeIdentity": {
+              "device": 16777230,
+              "inode": 459405010,
+              "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+            },
+            "coordinateDigest": "sha256:b5d29c94b4298a4a5c5ff476a96d5e72b8b4b092833a27dec3414057a4976db7"
+          }
+        },
+        "receiptDigest": "sha256:f114d78f5128dd2bab4d029f4aa824c2f6c9edce236d978db6236556da992198"
+      },
+      "packedArtifact": {
+        "ref": "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "digest": "sha256:576467fa3ce0c1ce9dc8be840a35b05cbe2d2b22a0664d6e9568c9d585653924"
+      },
+      "resolvedLock": {
+        "ref": "product-lock://abiogenesis/c4f11bcde823a6e4ccffd6df8e99aafaea7ed7498fe95d9a273c85b978a9c271",
+        "digest": "sha256:c4f11bcde823a6e4ccffd6df8e99aafaea7ed7498fe95d9a273c85b978a9c271"
+      },
+      "targetRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/preparation/products/core43",
+      "installCandidate": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/44b6c37c987a010de34f6cb33029e8712d968e7464b16190baabb4fb6e56cf77/c4f11bcde823a6e4ccffd6df8e99aafaea7ed7498fe95d9a273c85b978a9c271",
+        "digest": "sha256:5b70cb9374b58ebddabe13a543a8057920db77c2a4f44893f479deee22739585"
+      },
+      "installedProduct": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/44b6c37c987a010de34f6cb33029e8712d968e7464b16190baabb4fb6e56cf77/c4f11bcde823a6e4ccffd6df8e99aafaea7ed7498fe95d9a273c85b978a9c271",
+        "digest": "sha256:5b70cb9374b58ebddabe13a543a8057920db77c2a4f44893f479deee22739585"
+      },
+      "installManifest": {
+        "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/preparation/products/core43/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+        "digest": "sha256:65d610783b0669f378a5c6980b5664300f872448d9f94851d73043fe18f6daa1"
+      },
+      "installerManifest": {
+        "ref": "artifact-truth-projection://abiogenesis/cb1033921f590df5f26a0ae1ed43c84c4293e87da47a641071945f41c8040721",
+        "digest": "sha256:cb1033921f590df5f26a0ae1ed43c84c4293e87da47a641071945f41c8040721"
+      }
+    },
+    "failure": null
+  }
+}

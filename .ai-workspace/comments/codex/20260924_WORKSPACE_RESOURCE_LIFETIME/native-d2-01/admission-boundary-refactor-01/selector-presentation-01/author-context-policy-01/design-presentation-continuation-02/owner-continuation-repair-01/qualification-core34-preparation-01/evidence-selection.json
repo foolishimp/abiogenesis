@@ -1,0 +1,40 @@
+{
+  "status": "preserved_selection_actual_bindings_pending",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/installed-campaign-selection.json",
+    "sha256": "430599d9c6b1eb808db957cfb0ab45a90d1e786ca067d4218cfc7ff72a343361",
+    "bytes": 5179
+  },
+  "scenarios": [
+    "S01",
+    "S02",
+    "S03",
+    "S06",
+    "QUAL056"
+  ],
+  "sharedEvidenceMaySupportSeveralClaims": true,
+  "behaviorCatalog": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite34-install-i7xybae1/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/coverage.json",
+    "ref": "qualification-coverage://abiogenesis/482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513",
+    "digest": "sha256:482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513"
+  },
+  "independentApplicabilityAndSufficiency": null,
+  "f11Owner": "existing complete native F11",
+  "soleVerdictOwner": "declared C.of(AF-22)",
+  "activeD2": "independent; no journal or worksite accessed; no result inferred",
+  "reuseBoundaries": [
+    "Core34 source/package/installed replay evidence remains its accepted bounded scope.",
+    "Historical S02 continuation17 seven cases and continuation18 mixed hold/readback remain historical subjects; no rerun is selected merely to erase an old caller assertion.",
+    "Original Hello and accepted correction ancestry remain available at their real producing coordinates, subject to existing F11 currentness and same-subject rules.",
+    "Current source-linked catalog is unchanged; its 16 claims/66 behaviors are not a new execution roster.",
+    "Three inherited matched EC test failures and LIFE01 debt remain preserved by closed core34 source/package returns."
+  ],
+  "publicationSequence": [
+    "complete current-subject evidence and independent F11",
+    "sole native AF22 green without bypass",
+    "Root-selected AF25 published_rc, revalidating source commit and namespace at that time",
+    "distinct installed_rc qualification of unchanged archive through same family",
+    "actual human Product-owner ruling and later same-RC acceptance/addendum",
+    "fresh source-blind terminal published-Product proof"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "status": "EXECUTIVE_SELECTED_RECORDING_CORRECTION",
+  "failure": "Freeze writer asserted one total isolated-output byte delta; AssertionError before final conservation/readiness/return/freeze",
+  "origin": "Unearned equality premise between isolated TypeScript emission and existing normal declaration printing order",
+  "observed": {
+    "isolatedOutputs": 526,
+    "jsDeltas": 1,
+    "dtsDeltas": 5,
+    "exactDeltas": [
+      {
+        "relativePath": "abg/instruction_assembly.d.ts",
+        "isolated": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/abg/instruction_assembly.d.ts",
+          "sha256": "97f655f33fbdc0570ae4cb0325e35188cb815c8a4cbcbf5de5b01511d8febdd9",
+          "byteCount": 43002
+        },
+        "existingGenerated": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+          "sha256": "07d59aa31a2eac3ffb3bbad4a6f1b7d25a4a573444d4592f44f48ad39d68c4de",
+          "byteCount": 43002
+        },
+        "classification": "observed declaration ordering delta; canonical publication parity not earned here"
+      },
+      {
+        "relativePath": "abg/invocation_execution_truth.js",
+        "isolated": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/abg/invocation_execution_truth.js",
+          "sha256": "abfe74370cf31d47a559414af2417e9cea30628eb97732cc3ded210839d5d692",
+          "byteCount": 31800
+        },
+        "existingGenerated": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/invocation_execution_truth.js",
+          "sha256": "3b98483ccfa0000d38963401738ea31dc551e57a3801638378361270a7558389",
+          "byteCount": 31535
+        },
+        "classification": "selected executable refactor"
+      },
+      {
+        "relativePath": "implementation/release_publication.d.ts",
+        "isolated": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/implementation/release_publication.d.ts",
+          "sha256": "713bd7dc32f69edd8157fc03eb5a0c2d8bb9dced5e02eef946af844cca512d75",
+          "byteCount": 72711
+        },
+        "existingGenerated": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/release_publication.d.ts",
+          "sha256": "ee6622674db70586edda2c7c1bb1d2aee0f079a77b29a5dd362725eb752e28e0",
+          "byteCount": 72711
+        },
+        "classification": "observed declaration ordering delta; canonical publication parity not earned here"
+      },
+      {
+        "relativePath": "product/release_snapshot_definition_bindings.d.ts",
+        "isolated": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/product/release_snapshot_definition_bindings.d.ts",
+          "sha256": "4bee5f72322ed42207864e46c5ff04c6b11f6b34e5480db8a310058f64e26215",
+          "byteCount": 243402
+        },
+        "existingGenerated": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/release_snapshot_definition_bindings.d.ts",
+          "sha256": "73525fcd86b117763f61553ff8f1203682cd30dd2d62f1099b17752ca5048c5b",
+          "byteCount": 243402
+        },
+        "classification": "observed declaration ordering delta; canonical publication parity not earned here"
+      },
+      {
+        "relativePath": "validator/qualification_contracts.d.ts",
+        "isolated": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/validator/qualification_contracts.d.ts",
+          "sha256": "a430b9408aa940fbd92cf6721a9855dd9613cd1aa0f7369536d50a3092fcaf41",
+          "byteCount": 537684
+        },
+        "existingGenerated": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/qualification_contracts.d.ts",
+          "sha256": "7af44d9c294deecd70cff6d52431c89d2f12c0e332ea8e0370442f05a4db5be2",
+          "byteCount": 537684
+        },
+        "classification": "observed declaration ordering delta; canonical publication parity not earned here"
+      },
+      {
+        "relativePath": "validator/self_conformance_contracts.d.ts",
+        "isolated": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/validator/self_conformance_contracts.d.ts",
+          "sha256": "42c6be87c9bf79318146819f8b563d79baffb01d094e61edf666d1907b39fee8",
+          "byteCount": 386197
+        },
+        "existingGenerated": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/self_conformance_contracts.d.ts",
+          "sha256": "e4319bbcb621e1872386e22e80650db6ee0e9ead80340b9407588b5ff26fce16",
+          "byteCount": 386197
+        },
+        "classification": "observed declaration ordering delta; canonical publication parity not earned here"
+      }
+    ]
+  },
+  "action": "Preserve failed premise; record all actual deltas, require selected JS only, leave declaration/publication parity to ordinary publisher. Root selected; no Source/test/compile rerun.",
+  "earlierChecksRemainPassed": true,
+  "sourceOrNormalGeneratedEffects": false
+}

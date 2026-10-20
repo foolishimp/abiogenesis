@@ -1,0 +1,31 @@
+{
+  "activation": "T287_Q10_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T17:08:17.292532+00:00",
+  "grantAndDependencies": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-input-review-controls-01/request.txt",
+      "bytes": 3697,
+      "sha256": "64ef840f7faba2e0c8d176520d4a9cd62c395a62ebb5c296a63b1a7c3eb553aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/freeze.json",
+      "bytes": 867410,
+      "sha256": "9a380cedd7f1b306f5732ebfe200d71951fc1792f4f5e542431a2d32819f31d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+      "bytes": 7019,
+      "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+      "bytes": 9596,
+      "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74"
+    }
+  ],
+  "scope": "independent saved Q10 preparation/cost/representation refusal; no Runtime or semantic sufficiency assessment",
+  "effects": "pure reads/hash/source comparisons and only new review reports"
+}

@@ -1,0 +1,22 @@
+{
+  "kind": "isolated_strict_strip_declaration_compile",
+  "started": "2026-10-09T02:42:18.920Z",
+  "finished": "2026-10-09T02:42:23.462Z",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "executableSha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js",
+    "-p",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/tsconfig.isolated.json"
+  ],
+  "compilerSha256": "2cffde0b8c6760dfb0b5b0382bbb7e00ba6a8b2d981b9205b256a700a481d983",
+  "status": 1,
+  "signal": null,
+  "error": null,
+  "wallMs": 4540.588416,
+  "stdoutBytes": 73360,
+  "stderrBytes": 0,
+  "normalBuild": false,
+  "canonicalGeneratedWrites": false,
+  "nativeModelEffects": false
+}

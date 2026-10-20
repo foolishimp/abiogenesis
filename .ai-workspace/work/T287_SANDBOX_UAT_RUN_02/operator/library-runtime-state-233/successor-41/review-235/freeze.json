@@ -1,0 +1,39 @@
+{
+  "kind": "source41_independent_review_freeze",
+  "disposition": "bounded_go_c2_explicit_empty_write_territory",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/freeze.json",
+    "sha256": "3cb67735e50818f43316a49f5f4f07465a8158054f02d57744839a435ad08f5d",
+    "bytes": 28415
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/review-235/review.md",
+      "sha256": "e0423cfad4f99d80e325d992113cf2b02ace0e5ee6a7ab2e995851727351468e",
+      "bytes": 4940
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/review-235/pins.json",
+      "sha256": "9a39ce58a932c40e98c4802b77e277522c603941f82014a9ff107ee782b4d9ab",
+      "bytes": 10287
+    }
+  ],
+  "verification": {
+    "literalPins": 879,
+    "uniqueFiles": 874,
+    "uniqueBytes": 20983432,
+    "mismatches": 0,
+    "sourceFiles": 264,
+    "unchangedSource": 263,
+    "emissions": 528,
+    "unchangedEmissions": 527,
+    "declarations": 264,
+    "unchangedDeclarations": 264
+  },
+  "writerTerritory": "Only review.md, pins.json and freeze.json under the literal successor-41/review-235 directory.",
+  "limits": [
+    "Source repair and disclosed controlled/staged component proofs only; reviewer ran no tests or owners.",
+    "Actual12 fresh transient context/unique first throw and installed native Testing/C2/repair/restart remain open.",
+    "Original Data Mapper capacity/full UAT/release remain open; no Source or runtime effects."
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "durable_prefix_coordinate",
+  "schemaVersion": "5.0.0",
+  "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/unit-runs/oracle-event-prefix/2026-10-08T00-58-44-571Z-9816f851-831c-46b6-a072-5f89049700bd/events.jsonl",
+  "prefixLength": 1687,
+  "prefixDigest": "sha256:5ce15eb070692e38d7d8b6510641c6f83280c7b1487caca35a62dee1f57135b2",
+  "storeIdentity": {
+    "device": 16777231,
+    "inode": 467553474,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+  },
+  "coordinateDigest": "sha256:6d6f629118144d336969bbb0c4f6c552f63fffa33dca59d9e13562954a150dc6"
+}

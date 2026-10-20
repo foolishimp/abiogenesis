@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/84f8f93c496bd77871cf567247159382f8436ea8f22672fca0b4cad66f304236/72d2dc9ead5eef987d718a9e0ea3971f66e7b7ca82fe84a06c768184f549f965",
+      "admissionEventRef": "event://abiogenesis/e6f589dbfaa4063c78633cb9b679dfbbf8a85487cb19e21ca1c5ef29f9c4c19a",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:d073751972a6174a2f1ca84f29c54934084d154c05480e2470bbf4bedd6872d5",
+      "productContentDigest": "sha256:84f8f93c496bd77871cf567247159382f8436ea8f22672fca0b4cad66f304236",
+      "manifestDigest": "sha256:7ad21b20f560671c64f960f51907644f163a799a43dd3bae5d2b0d47021ddc70",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/df5034f69804d9deaa6852d806bc4d8fb2d13f4e1fa6eb3429325eb96136686f/72d2dc9ead5eef987d718a9e0ea3971f66e7b7ca82fe84a06c768184f549f965",
+      "admissionEventRef": "event://abiogenesis/ba9dd74dddad607f389c406be25db37b0932f46c649356817353c6a8aeb1ce6c",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:e1dc994f5d4deb4bef6dcae2452e980834dcde1ebd2c5211f689875124941da3",
+      "productContentDigest": "sha256:df5034f69804d9deaa6852d806bc4d8fb2d13f4e1fa6eb3429325eb96136686f",
+      "manifestDigest": "sha256:97ec219de8fbddd9fad776f66cdd50f39436dffc267f829f6237f9c63329d954",
+      "contentMatches": true
+    }
+  ]
+}

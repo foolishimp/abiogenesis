@@ -1,0 +1,39 @@
+{
+  "operation": "T287_RC1_COMMON_LIBRARY_OWNERSHIP_REVIEW_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Reviewer",
+  "status": "CLOSED",
+  "disposition": "CANONICAL_CONTRACT_OWNERSHIP_SUPPORTED_WITH_PUBLICATION_GAP_AND_TRACKED_APPLICABILITY_UNKNOWN",
+  "closedAt": "2026-10-03T14:40:17.382570+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/library-request.txt",
+    "bytes": 3390,
+    "sha256": "7e0a7790542f1eb40d24429aa13296b01172fcae08de61933c47b04aa5ed0011",
+    "mode": 420
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/common-library-review",
+  "findings": {
+    "R1": "confirmed live mandatory group publication mismatch; Root scope/re-entry selection required",
+    "R2": "tracked parent alias workflow reconstruction gap; RC1 applicability unresolved"
+  },
+  "newLogicalDuplicationDemonstrated": false,
+  "effects": {
+    "ProductImports": 0,
+    "ownerCalls": 0,
+    "Runs": 0,
+    "resourceReopens": 0,
+    "helpersBuildsTestsQualificationProviderNetworkAuthHelloGitRelease": 0,
+    "SourceAuthorityGeneratedCandidateInstallResourceProofMutations": 0,
+    "reportFilesOnly": true
+  },
+  "reviewScope": "selected21 source correspondence, selected contract transformations and current publication metadata; no full population repeat",
+  "ownControllerAssurance": "retained independent whole-review; own scripts only design input",
+  "requiredNextGrant": "Root triage R1 current roster/publisher/release scope and decide R2 applicability before selecting any repair",
+  "unknowns": [
+    "genuine qualification and material-context/independence sufficiency",
+    "green AF22/release",
+    "parent-alias RC applicability",
+    "current Source notes outside frozen C09 final-subject treatment"
+  ],
+  "stopWritesAfterFreeze": true
+}

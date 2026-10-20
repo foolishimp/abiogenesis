@@ -1,0 +1,62 @@
+{
+  "lawfulReentry": "design_reframe",
+  "productLaw": "REQ-P-QUAL-064A/B/C; REQ-P-SELF-CONFORMANCE-007A",
+  "ratifiedDesign": "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md section5",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "sourcePreimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275717,
+      "sha256": "72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 68281,
+      "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 18923,
+      "sha256": "74c055f0126a6dc3f2e403d8fb58f03073244e20a798c9b7be85f281f4da0ef1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76530,
+      "sha256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "bytes": 19573,
+      "sha256": "5da1cf726fe749056d81ac69ef60188e38977bd1df3b9b59df68fab9228f3140",
+      "mode": 420
+    }
+  ],
+  "sourceComponentAccepted": "cbf7b233 and independent3d90e4db; holds its unchanged original scope",
+  "typeContractJudgment": {
+    "reviewer": "/root/rc1_c03_install_review",
+    "status": "CLOSED READ_ONLY",
+    "raw": "ProbabilisticTransportEvidenceCandidate requires nine metadata fields plus inputDigest.",
+    "admitted": "Single interface makes nine optional irrespective of evidenceClass; probabilistic mint ends in assertion.",
+    "handoff": "Both Product hook bases and LeafInvocationPort use generic JsonValue records; strict/exactOptionalPropertyTypes/noUncheckedIndexedAccess cannot require absent destination keys.",
+    "consumer": "Strict lineage guard correctly refuses.",
+    "missing": "Enforceable shared interface realization; Product/Design lineage relation already exists.",
+    "siloingEvidence": "Component contracts do not retain a shared typed carrier through the producer/consumer join; prior successful checks did not discriminate the real join. This establishes compartmentalized validation, not author intent.",
+    "repairScope": "Shared discriminated carrier, honest admitted probabilistic typing/minting, actual typed projection and both hooks/bridge.",
+    "limits": "Typing guarantees field presence; authenticity and equality remain dynamic admission/lineage obligations."
+  },
+  "noRuntimeSchemaWHATChange": true,
+  "staticDeclarationsBecomeMoreSpecific": true,
+  "construction08": "Continues over its frozen prior Source selection; this Source successor does not rewrite it. Next exact qualifying successor must include this repair.",
+  "acceptedDesign": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    "bytes": 39730,
+    "sha256": "6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c",
+    "mode": 420
+  },
+  "designAuthor": "/root Writer T287_RESULT_LINEAGE_INTEGRATION_DESIGN_WRITER_01",
+  "earlierPreparedGrant": "Unactivated original e7b1a27f preserved; this revised grant owns activation."
+}

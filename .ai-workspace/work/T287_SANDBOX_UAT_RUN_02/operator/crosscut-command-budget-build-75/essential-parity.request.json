@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/essential-parity.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "operation": "pure canonical generated identity parity",
+  "noBuildTestRuntimeOrPackageEffects": true,
+  "startedAt": "2026-10-08T06:54:17.232807+00:00"
+}

@@ -1,0 +1,36 @@
+{
+  "path": {
+    "id": "",
+    "outcome": "",
+    "owning_design_ref": "",
+    "triage_ref": ""
+  },
+  "typed_handoffs": [
+    {
+      "producer": "",
+      "transform": "",
+      "contract_ref": "",
+      "consumer": ""
+    }
+  ],
+  "computations": [
+    {
+      "owner_or_GraphFunction_ref": "",
+      "regime": "F_D|F_P|F_H",
+      "input_output_contract_ref": ""
+    }
+  ],
+  "invariants": [
+    "Fields/meaning/identity/authority/roots and null or refusal behavior required across the joins."
+  ],
+  "effect_grant": {
+    "operation": "",
+    "read": "",
+    "write": "",
+    "first_failure": "STOP and return to Executive triangulation; no patch/retry."
+  },
+  "end_to_end_proof": {
+    "preflight": "Prove actual producer-consumer correspondence before expensive work.",
+    "exit": "Actual observable result and proof scope; local pass does not close the whole path."
+  }
+}

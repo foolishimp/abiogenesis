@@ -1,0 +1,57 @@
+{
+  "status": "PREPARED; native execution held",
+  "candidate": {
+    "identity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/identity.json",
+      "sha256": "cc33dc1f37ba071b043d7e295350dfc0cf9c7606810e6bee89d5f96a748c3c7b",
+      "byteCount": 4344
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4",
+      "byteCount": 10629708
+    },
+    "productContentDigest": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+    "canonicalManifestDigest": "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+    "catalogDigest": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7"
+  },
+  "hostInput": {
+    "owner": "separate Root83 provisioning release",
+    "shape": "Existing frozenArtifact {artifactPath,artifactSha256,installHost} JSON; exact candidate20 archive enforced by driver.",
+    "path": null
+  },
+  "executionEntry": {
+    "executable": "/opt/homebrew/bin/node",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82",
+    "module": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver.mjs",
+    "export": "execute",
+    "arguments": [
+      "Root83-selected absolute frozenArtifact JSON path"
+    ]
+  },
+  "boundedPath": [
+    "registered Public start",
+    "Testing(null) actual observed files",
+    "native construction actual partial work",
+    "Testing(native Result) actual C2 execution",
+    "UAT(C2 Result) actual independent read-only unmet assessment",
+    "null+gap folded parent",
+    "fresh supported result/replay reads"
+  ],
+  "refusal": "Testing(C2) exercises actual current schema/binder with unadmitted candidate only; no invalid Testing dispatch.",
+  "localProtocol": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/protocol.mjs",
+    "model": false,
+    "adequacy": false,
+    "description": "Deterministic declared local protocol response data; actual registered factory/native/C2 owners produce all cited events and Results."
+  },
+  "limits": {
+    "nativeFixtureCommandTimeoutMs": 20000,
+    "terminationGraceMs": 2000,
+    "consumerRecursionBound": 8,
+    "originalMaxPromptBytes": 131072
+  },
+  "sourceEnvironment": "Generic source-only RC2 declaration, not specialised full STDO corpus/Representation/Axiom activation.",
+  "stop": "First actual owner/integration/refusal error preserves receipts; no repair/retry, no guessed processes. Any exact owned helper/provider cleanup follows existing installed native owners under separate execution release.",
+  "modelOrDataMapperCredit": false
+}

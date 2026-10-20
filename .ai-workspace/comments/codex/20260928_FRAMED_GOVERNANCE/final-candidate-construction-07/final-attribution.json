@@ -1,0 +1,14 @@
+{
+  "sourceCutAuthor": "Root_Executive_selection_recorded_by_Writer",
+  "sourceCutSHA256": "f1d8bfccbbc54b818da20be2446ab2c369f1ffc3e3ad4fd883b1068887175489",
+  "originalSources": "all1108 exact originalSource/originalAuthorship/sourceAuthor and every existing C04/C06SourceProvenance relation retained; new test original ABSENT preimage retained",
+  "sourceChangesFromC06": 2,
+  "sourceAddedFromC06": 1,
+  "acceptedFPSourceAuthor": "/root/q03_input_review under T287_QUALIFICATION_RAW_CONTRACT_PUBLICATION_REALIZATION_01",
+  "acceptedSourceFreezeSHA256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+  "trackingSnapshotAuthor": "Root Writer tracking",
+  "builderReportActor": "/root/native_applicability_design under separately activated T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+  "C06SourceAttributionReference": "C06-source-attribution-reference.json",
+  "sourceRepair": false,
+  "qualificationActorIndependence": "future assessor binds actual original source authors; builder role does not confer independence"
+}

@@ -1,0 +1,16 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C09_GENERATED_RECONCILIATION_CONTROLS_WRITER_05",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "grant": "Record measured existing-HOW generated-copy triage and exact nine-file Worker grant with protected mirror; align bounded secondary tracking.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-controls-05",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "SourceRuntimeGeneratedGitEffects": 0,
+  "activatedAt": "2026-10-03T11:12:00.534863+00:00"
+}

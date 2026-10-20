@@ -1,0 +1,138 @@
+{
+  "kind": "bounded_installed_graph_proof_observations",
+  "status": "CLOSED_PARTIAL_STOP",
+  "firstAttempt": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/failure-01/freeze.json",
+      "sha256": "5d2f50ed71f540f10850243815d444c484d3e8a1f88b607c8ff19e33813d660a",
+      "bytes": 800
+    },
+    "cause": "absent workspaceAuthority.authorityRef refused by installed slot guard before first CLI"
+  },
+  "successorDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/driver-successor.mjs",
+    "sha256": "73c3dbaf6048281065bc177051200c6c1ba9c02866d9697466b4f4a0798bdbb6",
+    "bytes": 15751
+  },
+  "pureSlotPreflight": {
+    "exitCode": 0,
+    "wallTimeMs": 384.253667,
+    "timedOut": false,
+    "truncated": false,
+    "stdoutBytes": 365,
+    "stderrBytes": 0,
+    "stdoutSha256": "167392109d5262ff315bb8cc2966c3d3d4e887a272480dc6dce421d5c307de5c",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "installedCandidate": {
+    "artifactSha256": "88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4",
+    "productContentDigest": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+    "manifestDigest": "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35"
+  },
+  "earnedNegatives": [
+    {
+      "case": "duplicate-node",
+      "wallMs": 23739.230832999994,
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "invalid_program",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/program"
+          ]
+        }
+      },
+      "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/st4-81-duplicate-node-request.jsonl"
+    },
+    {
+      "case": "terminal-outgoing",
+      "wallMs": 21853.649332999994,
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "invalid_program",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/program"
+          ]
+        }
+      },
+      "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/st4-81-terminal-outgoing-request.jsonl"
+    },
+    {
+      "case": "ordinary-double-edge",
+      "wallMs": 21699.600957999995,
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "invalid_program",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/program"
+          ]
+        }
+      },
+      "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/st4-81-ordinary-double-edge-request.jsonl"
+    }
+  ],
+  "failure": {
+    "processResult": {
+      "kind": "installed_graph_proof_successor_process_result",
+      "startedAt": "2026-10-08T07:53:28.105600+00:00",
+      "completedAt": "2026-10-08T07:56:54.229865+00:00",
+      "pid": 23191,
+      "exitCode": 1,
+      "wallTimeMs": 206122.439792,
+      "timedOut": false,
+      "truncated": false,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/execution-successor.stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/execution-successor.stderr.log",
+        "bytes": 905,
+        "sha256": "14440ffb1b373b6392c1fc19398daf2365707d67fa843fb3dc4215197cf6b16b"
+      }
+    },
+    "stage": "declared_inventory positive",
+    "actualCLIExitCode": 70,
+    "capturedDiagnostic": "expected-exit assertion only; original CLI stdout was not retained by existing helper603",
+    "actualTransportRequest": {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/st4-81-declared-positive-request.jsonl",
+      "sha256": "dff32deb5a29c855fe50cf1b6ca942e08a2b220ad82f813e118fa5f441873d5f",
+      "bytes": 35510031
+    },
+    "unreached": [
+      "actual HoG deterministic C_Call execution",
+      "run_result fresh read",
+      "run_replay fresh read",
+      "post-execution installed content barrier"
+    ]
+  },
+  "closedPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/runtime/events.jsonl",
+    "prefixLength": 3103057,
+    "prefixDigest": "sha256:40e084c88409267a895b01c93553edbb8fead9c5c7e4a8ba4358b72fb934b700",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 467821102,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:0cb0ffcaecc35320e1105a3678af951f760f260f24559cf9cd95b26168591ad9"
+  },
+  "physicalRows": 3,
+  "cCalls": 0,
+  "scopeExclusions": [
+    "Source63 semantic self-review",
+    "generation75 semantic self-review",
+    "P0 closure",
+    "DataMapper/full UAT",
+    "release qualification"
+  ],
+  "noRetry": true
+}

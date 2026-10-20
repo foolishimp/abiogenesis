@@ -1,0 +1,452 @@
+{
+  "materialReference": [
+    {
+      "relativePath": "archive/test-run-archive.md",
+      "state": "file",
+      "byteCount": 18872,
+      "sha256": "08a1142d1ed9c2bf1f5d5f854c2bf2dabe3eea70cd5722124f5b58f360a52de0",
+      "device": 16777231,
+      "inode": 469525267
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/build.sbt",
+      "state": "file",
+      "byteCount": 3888,
+      "sha256": "33b03ed3eca834a001dac69ad9d630d2de1f2a329af6d256e90e519281f35bdd",
+      "device": 16777231,
+      "inode": 468361210
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "state": "file",
+      "byteCount": 2083,
+      "sha256": "56c2c1a1df362be1ecc81366321bed60d51f215b3d86e5740e620a70007a470b",
+      "device": 16777231,
+      "inode": 469464811
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+      "state": "file",
+      "byteCount": 7883,
+      "sha256": "335a671babc5f35e0317f1930b3e156c48ae19a821ff8a6fff5964d9866ffcf5",
+      "device": 16777231,
+      "inode": 468361224
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+      "state": "file",
+      "byteCount": 2679,
+      "sha256": "64c56f8068c92e3814c42a8830250d8211872d0f6b3b5fee8343cc007d3d63b5",
+      "device": 16777231,
+      "inode": 468516480
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+      "state": "file",
+      "byteCount": 8298,
+      "sha256": "f5befbb66afb82942d8fafacb0c87e9eaa6b24b4c58dc48ecd043ba1da749d4c",
+      "device": 16777231,
+      "inode": 468361238
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "state": "file",
+      "byteCount": 3257,
+      "sha256": "7cacd34af5f3713fc4b385f5017f31c131f9278605584abf45f72307c8af4d45",
+      "device": 16777231,
+      "inode": 469485054
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+      "state": "file",
+      "byteCount": 9265,
+      "sha256": "0b7158920e4722f6311abf65d348b656fd991b2a9e60024899f20ec24ac6bd98",
+      "device": 16777231,
+      "inode": 468361252
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+      "state": "file",
+      "byteCount": 2541,
+      "sha256": "5c5b5ac5578a5e3d168c7b65b755e462cda8752f21fbd58086d49211c50ee0ba",
+      "device": 16777231,
+      "inode": 468609854
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+      "state": "file",
+      "byteCount": 2068,
+      "sha256": "1aad7e1835c3ed6a122ae27f4530775964c50cec4e622f490b98e9cac5056ea1",
+      "device": 16777231,
+      "inode": 468361261
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+      "state": "file",
+      "byteCount": 8409,
+      "sha256": "9fd32e33f06fcde521e9f1c11acefa2d5b6150a1515a67674176d8ebd533b5f1",
+      "device": 16777231,
+      "inode": 468361267
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+      "state": "file",
+      "byteCount": 9131,
+      "sha256": "ae7cdbbe8ba65a4812f8870877ef28c31d01000577f24255dd3fc299c88f0712",
+      "device": 16777231,
+      "inode": 468594376
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+      "state": "file",
+      "byteCount": 14528,
+      "sha256": "3576287f477dd5e7199b9b20f13e3b887d0993f62dcf99aae6bb963dc5d991c6",
+      "device": 16777231,
+      "inode": 468361281
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "state": "file",
+      "byteCount": 9581,
+      "sha256": "280197b60fa5ba8873aa4becdf599a326f579c90994557d9722baa5ac2e88adc",
+      "device": 16777231,
+      "inode": 469485095
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+      "state": "file",
+      "byteCount": 2538,
+      "sha256": "7fbdb982f699226ad94e9f384eec66c2c2e26478b6840453852c95341d6639d2",
+      "device": 16777231,
+      "inode": 468361290
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+      "state": "file",
+      "byteCount": 11564,
+      "sha256": "65aa50f7085030a3fd78db688f1be3e873c0ca6e8002d180567d72eae162cd33",
+      "device": 16777231,
+      "inode": 468361296
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "state": "file",
+      "byteCount": 5293,
+      "sha256": "2f046f268ceea5e4a118ca79ff9d20d07d647dbf4dd2af9e513fcecad7df48e1",
+      "device": 16777231,
+      "inode": 468699876
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+      "state": "file",
+      "byteCount": 2495,
+      "sha256": "c8893d4301b285ff206d7196cde3bbed841897155125cab82f0915d59bb230e9",
+      "device": 16777231,
+      "inode": 468361305
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+      "state": "file",
+      "byteCount": 8755,
+      "sha256": "caaed0211140e65031c223a6bda4a2e7f8031d11a0f9a67a45ceeb53242dd6b9",
+      "device": 16777231,
+      "inode": 468361311
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+      "state": "file",
+      "byteCount": 3500,
+      "sha256": "2e6e2c6a94573443ee4f3d280eb3ef5adb73d89dda8cd02ff4250f6a25226192",
+      "device": 16777231,
+      "inode": 468574699
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+      "state": "file",
+      "byteCount": 7982,
+      "sha256": "ebebc4df3ad50a44a0909bdc3323cd23ce6d1916c6fdbe0999581a079b322b3c",
+      "device": 16777231,
+      "inode": 468361325
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/project/build.properties",
+      "state": "file",
+      "byteCount": 19,
+      "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+      "device": 16777231,
+      "inode": 468361327
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/project/plugins.sbt",
+      "state": "file",
+      "byteCount": 56,
+      "sha256": "ddedf9c8bfa3e51dc2cc5e95ea7395b42dfe10430ae30891d1a92ac04493244c",
+      "device": 16777231,
+      "inode": 468361328
+    },
+    {
+      "relativePath": "depth-proof-map.json",
+      "state": "file",
+      "byteCount": 21615,
+      "sha256": "9e083c155f0a3c7425ed83ea346c865c0de1e53890b092b3862202bc3c8fcc51",
+      "device": 16777231,
+      "inode": 468361329
+    },
+    {
+      "relativePath": "design/component-code-surface.md",
+      "state": "file",
+      "byteCount": 25088,
+      "sha256": "0ff9863dcadd6579849779821705d7c625a366d9b375bcd5814200077e8f58a7",
+      "device": 16777231,
+      "inode": 468361331
+    },
+    {
+      "relativePath": "design/feature-decomposition.md",
+      "state": "file",
+      "byteCount": 16215,
+      "sha256": "cf28c59c49816d0a6494ddd50e8c10587dc6555f532b4fbd12c2f3671e17282e",
+      "device": 16777231,
+      "inode": 468361332
+    },
+    {
+      "relativePath": "design/implementation-design.md",
+      "state": "file",
+      "byteCount": 56240,
+      "sha256": "794e3e0d05589b6d15fb780dbb082f6a4a99a888d70e2f4c7b0b574efed2f5e6",
+      "device": 16777231,
+      "inode": 468361333
+    },
+    {
+      "relativePath": "design/module-design.md",
+      "state": "file",
+      "byteCount": 41481,
+      "sha256": "8090a190405539a1cd030840eef6c9d524b1a4f1bdf5a5de77a87611d38eb899",
+      "device": 16777231,
+      "inode": 468361334
+    },
+    {
+      "relativePath": "design/test-design.md",
+      "state": "file",
+      "byteCount": 69010,
+      "sha256": "158fa5e75c65cfbe010b1e889185ddb8698065f017be80ef7052cc65b56c38fe",
+      "device": 16777231,
+      "inode": 468361335
+    },
+    {
+      "relativePath": "mutation-outcomes.json",
+      "state": "file",
+      "byteCount": 34167,
+      "sha256": "daa6db47bc1571b45effd9a13e52539048142996727324cf90c63dff89225ea3",
+      "device": 16777231,
+      "inode": 468574821
+    },
+    {
+      "relativePath": "proof/component-realization-qualification.md",
+      "state": "file",
+      "byteCount": 17575,
+      "sha256": "ccdd08d68742b8de2a2c6edd4ac87a2968b286a3b44870f0d3ccce4ef1e047ed",
+      "device": 16777231,
+      "inode": 468361338
+    },
+    {
+      "relativePath": "proof/component-test-execution-qualification.md",
+      "state": "file",
+      "byteCount": 9160,
+      "sha256": "158a62be8361e4d43d5617bddd658e7d94f00f532c37bbaddbbea124c273c8e5",
+      "device": 16777231,
+      "inode": 469524992
+    },
+    {
+      "relativePath": "proof/repaired-component-test-execution-qualification.md",
+      "state": "file",
+      "byteCount": 8486,
+      "sha256": "a033dfd01368dd87bc73ef255114402625acd37bdd998ed2b92c58adf15fa680",
+      "device": 16777231,
+      "inode": 469525143
+    },
+    {
+      "relativePath": "release/release-depth-parity.md",
+      "state": "file",
+      "byteCount": 8409,
+      "sha256": "744aa265014ce0ccda4cca09c69a2cdcf4cc9b131be0cfde94e26a0242df3e50",
+      "device": 16777231,
+      "inode": 469525336
+    },
+    {
+      "relativePath": "release/release-preparation.md",
+      "state": "file",
+      "byteCount": 6896,
+      "sha256": "0034ec8a256f759c668ff12651f1758545265e35e488860b902a30a9d844915f",
+      "device": 16777231,
+      "inode": 469525384
+    },
+    {
+      "relativePath": "repair/component-repair-application.md",
+      "state": "file",
+      "byteCount": 8520,
+      "sha256": "a34b5c31ec876ff484c3581364053bc1a1e85b80466a3db03f8bc36c174bee8c",
+      "device": 16777231,
+      "inode": 469525058
+    },
+    {
+      "relativePath": "repair/component-repair-schedule.md",
+      "state": "file",
+      "byteCount": 16690,
+      "sha256": "5f7cd238a785c932cd07a03878001769f3281615aab7f8dd0eb6f2e5e5c1ae2e",
+      "device": 16777231,
+      "inode": 468634671
+    },
+    {
+      "relativePath": "source/data-mapper-full/obligations.json",
+      "state": "file",
+      "byteCount": 50978,
+      "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+      "device": 16777231,
+      "inode": 468361204
+    },
+    {
+      "relativePath": "source/data-mapper-full/oracle.json",
+      "state": "file",
+      "byteCount": 16774,
+      "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+      "device": 16777231,
+      "inode": 468361205
+    },
+    {
+      "relativePath": "source/data-mapper-full/source.original.txt",
+      "state": "file",
+      "byteCount": 41158,
+      "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+      "device": 16777231,
+      "inode": 468361202
+    },
+    {
+      "relativePath": "source/data-mapper-full/supporting-constants.original.txt",
+      "state": "file",
+      "byteCount": 3713,
+      "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+      "device": 16777231,
+      "inode": 468361203
+    },
+    {
+      "relativePath": "specification/goals.md",
+      "state": "file",
+      "byteCount": 4907,
+      "sha256": "5f7620a73a65e6d7622159df7317ccf3b51421695a1816b390975fa31df1f917",
+      "device": 16777231,
+      "inode": 468361348
+    },
+    {
+      "relativePath": "specification/intent.md",
+      "state": "file",
+      "byteCount": 23615,
+      "sha256": "7ff3a9a8b6b2e2bab86ad68ded0e4374d5ab630f79414d48741a25c2a75564b0",
+      "device": 16777231,
+      "inode": 468361349
+    },
+    {
+      "relativePath": "specification/product.md",
+      "state": "file",
+      "byteCount": 12262,
+      "sha256": "83c75a9fae1b5e155c66e69a0e0edf8223033bebada569f9bb00dd065e269429",
+      "device": 16777231,
+      "inode": 468361350
+    },
+    {
+      "relativePath": "specification/requirements.md",
+      "state": "file",
+      "byteCount": 30618,
+      "sha256": "a2a3c6f2467b4233481e67c23e162c3d20dfc0cf8dfd9f1cf1d2c562af759122",
+      "device": 16777231,
+      "inode": 468361351
+    },
+    {
+      "relativePath": "specification/scenario.md",
+      "state": "file",
+      "byteCount": 39351,
+      "sha256": "cfe919b34398210e330e0725dfaf7d33ede070c1f4c81e8b6ea3b210a7bf0780",
+      "device": 16777231,
+      "inode": 468361352
+    },
+    {
+      "relativePath": "specification/testcase-authority.md",
+      "state": "file",
+      "byteCount": 10468,
+      "sha256": "56a08542d4b9e3db0861684df26be16f63ee7d6f15f72b189bd6a492a56cb194",
+      "device": 16777231,
+      "inode": 468361353
+    },
+    {
+      "relativePath": "specification/uat-testcases.md",
+      "state": "file",
+      "byteCount": 18808,
+      "sha256": "89f447fb00a64231ca35df0ea57c8e1df3c997f1832a30d9efd1a384f16a58fa",
+      "device": 16777231,
+      "inode": 468361354
+    },
+    {
+      "relativePath": "test-execution-result.json",
+      "state": "absent"
+    }
+  ],
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/worksite",
+  "sourceStat": {
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 2142096875
+  },
+  "processFacts": [
+    {
+      "pid": 5659,
+      "absent": true
+    },
+    {
+      "pid": 14025,
+      "absent": true
+    },
+    {
+      "pid": 14027,
+      "absent": true
+    },
+    {
+      "pid": 17204,
+      "absent": true
+    },
+    {
+      "pid": 17206,
+      "absent": true
+    },
+    {
+      "pid": 73360,
+      "absent": true
+    },
+    {
+      "pid": 73362,
+      "absent": true
+    },
+    {
+      "pid": 73363,
+      "absent": true
+    },
+    {
+      "pid": 74771,
+      "absent": true
+    },
+    {
+      "pid": 74774,
+      "absent": true
+    },
+    {
+      "pid": 75901,
+      "absent": true
+    },
+    {
+      "pid": 75903,
+      "absent": true
+    }
+  ],
+  "mtimeNsDecimal": "1791571498568642895",
+  "lockAbsent": true,
+  "stockHeap": true,
+  "noRuntimeDispatch": true
+}

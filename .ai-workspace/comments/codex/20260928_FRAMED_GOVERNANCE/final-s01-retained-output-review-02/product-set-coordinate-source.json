@@ -1,0 +1,87 @@
+[
+  {
+    "path": "product/run_invocation_operation.ts",
+    "lines": [
+      {
+        "line": 318,
+        "text": "): boolean {"
+      },
+      {
+        "line": 319,
+        "text": "  const slots = invocation.invocationAuthority.slots;"
+      },
+      {
+        "line": 320,
+        "text": "  const workspace = slots.workspace_binding;"
+      },
+      {
+        "line": 321,
+        "text": "  const lock = slots.dependency_lock;"
+      },
+      {
+        "line": 322,
+        "text": "  const productSet = slots.product_set;"
+      },
+      {
+        "line": 323,
+        "text": "  const catalogScope = slots.catalog_scope;"
+      },
+      {
+        "line": 324,
+        "text": "  const program = slots.execution_program;"
+      },
+      {
+        "line": 325,
+        "text": "  const graphFunction = slots.graph_function;"
+      },
+      {
+        "line": 326,
+        "text": "  const actor = slots.actor;"
+      },
+      {
+        "line": 327,
+        "text": "  const sessionPolicy = slots.session_policy;"
+      },
+      {
+        "line": 366,
+        "text": "    lock !== null && lock.ref === workspaceBinding.lockId &&"
+      },
+      {
+        "line": 367,
+        "text": "    lock.digest === workspaceBinding.lockDigest &&"
+      },
+      {
+        "line": 368,
+        "text": "    productSet !== null && productSet.length === admittedInstalls.length &&"
+      },
+      {
+        "line": 369,
+        "text": "    admittedInstalls.every((install) => productSet.some((row) =>"
+      },
+      {
+        "line": 370,
+        "text": "      row.ref === install.installId && row.digest === install.productContentDigest"
+      },
+      {
+        "line": 371,
+        "text": "    )) &&"
+      },
+      {
+        "line": 372,
+        "text": "    catalogScope !== null && \"view\" in catalogScope &&"
+      },
+      {
+        "line": 373,
+        "text": "    catalogScope.catalog.ref === catalogRef(resources.catalog.basisDigest) &&"
+      },
+      {
+        "line": 374,
+        "text": "    catalogScope.catalog.digest === resources.catalog.basisDigest &&"
+      },
+      {
+        "line": 375,
+        "text": "    catalogScope.view.ref === catalogViewRef(resources.catalogView.viewDigest) &&"
+      }
+    ]
+  }
+]

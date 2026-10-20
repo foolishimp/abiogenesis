@@ -1,0 +1,3549 @@
+{
+  "status": "CLOSED",
+  "work_result": "CLOSED_native_success",
+  "activation": "T287_RC1_S02_CONTINUATION_02",
+  "actualActor": "/root/rc1_s02_continuation",
+  "frozenAt": "2026-10-01T16:09:34.823163+00:00",
+  "governance": {
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "manifestDigest": "sha256:3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "definitionDigest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+  },
+  "return": {
+    "path": "return.md",
+    "sha256": "aa245fc52c4a319a5b262624c3fd823ceb81a99ae55325fe70222da90df32349"
+  },
+  "recordCount": 478,
+  "records": [
+    {
+      "path": "attribution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1608,
+      "sha256": "9fc39136da1e0f81e75f6eff192b64da6d7e575c78cd829e99edbf0935cd5754"
+    },
+    {
+      "path": "bounded-recursion-catalog-view.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 22794,
+      "sha256": "b326ed5d4499dce4ea42840af7b2c2046ca34730afaca051029a709eedd72cc0"
+    },
+    {
+      "path": "bounded-recursion-conformance-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 79460708,
+      "sha256": "5b4d704e4fc940ece15325d8e0e7f7fb75efc8297b97ac7c693a0152f8979b60"
+    },
+    {
+      "path": "budgets.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1455,
+      "sha256": "116774cc430905a55c58ab14f7f543a9076a663c43601fc8251ff11a0c49d398"
+    },
+    {
+      "path": "caller-pre-effect-freeze.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6033,
+      "sha256": "1fda2c00f138b1ea56459b56cea4cfc83db555bf23e9ec1105caa7f464a3b9f8"
+    },
+    {
+      "path": "config/global.gitconfig",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/global.npmrc",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/system.gitconfig",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/user.npmrc",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "conservation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9604,
+      "sha256": "aa6f64e6a15568ccefa7f2afebf61a1272f3381db5a5175c62b341588f2fda12"
+    },
+    {
+      "path": "cost.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 903,
+      "sha256": "8c4413cb8f024c46d8517fdedff31054428b14b3f104a0641e6cda14b61a1c3d"
+    },
+    {
+      "path": "dependency-preimages.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7130,
+      "sha256": "7230afe590edf7c08d26f318209932dd4aceac527b40286971e4bd3fe989b6a5"
+    },
+    {
+      "path": "driver-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1649,
+      "sha256": "475dd2b93c84910014f467f739a70941b62d7e0ba92f12504bc710d4fc71462f"
+    },
+    {
+      "path": "driver-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 513,
+      "sha256": "cf4629b23c4d00ebffccb012f0d0ab14642b7d13b2b70a03f4a18a8d8c4b5fb1"
+    },
+    {
+      "path": "driver-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 136,
+      "sha256": "75960ac65a282b61836c942258e5d8c871512744cffce9d56acceb4b73c945cb"
+    },
+    {
+      "path": "driver-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "driver-stdout.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 16638,
+      "sha256": "ef1f89d7e1a7fb1ac02752ec58e68db0a487d0eb76cd25872b69b53af5fa2d53"
+    },
+    {
+      "path": "driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7272,
+      "sha256": "ba795c63c62efad9df8e9a0a527a32ba5951552369e33aed4c6a4ade670ee723"
+    },
+    {
+      "path": "fan-out-hello-catalog-view.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 33958,
+      "sha256": "e0e4e24120ce6ba6fa107be7a770747f9ae90da3d21e7d768b1f397c04f7d57a"
+    },
+    {
+      "path": "fan-out-hello-conformance-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 79488050,
+      "sha256": "7e93b7d43e1d83f5541f9c658dc540645a2845fec1195463bed7442f0aaea1cc"
+    },
+    {
+      "path": "final-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "759e26d44b93623ac9b32d09942d5c7e730ca8d056196365ad0fc659f106dee1"
+    },
+    {
+      "path": "final-native-prefix.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6137505,
+      "sha256": "aa313be7193a9443b8e7d2523da2b27f762004e7a8a2e6b601fb42618d498672"
+    },
+    {
+      "path": "gate-advance-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "caa05750d5317b46ddd7e28619184e0c5e8c07d6771b70d96c1624f4c5212a56"
+    },
+    {
+      "path": "gate-advance-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "fba086789c05b2658d3e4a895aa9b5385f771a3a0d48cf582f7d17d006862d61"
+    },
+    {
+      "path": "gate-advance-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15660,
+      "sha256": "9711fd4ee7ebbb6dde5e36ec265c4ea22dbbf6581dcba40d91c239087a8ce2fd"
+    },
+    {
+      "path": "gate-advance-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11686,
+      "sha256": "ddb9d745e297c03b66a0e0f8fcfd3d53314cb497b71ce49d2f80cf793edd1b96"
+    },
+    {
+      "path": "gate-advance-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695013,
+      "sha256": "e5d498294b087b001a8525ddb8abb07277b76477a820f1f4148c92f2a1f82ffb"
+    },
+    {
+      "path": "gate-advance-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694952,
+      "sha256": "9214bf44b2a1b62f3bfeb71d66c0d90a4bfb2481d4ffd5250210bd341382a458"
+    },
+    {
+      "path": "gate-advance-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48772248,
+      "sha256": "cce59e34eebe97e741302db5beb9060e9c76e8ca75a2e92afe36f710a8e973b4"
+    },
+    {
+      "path": "gate-advance-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12121273,
+      "sha256": "a753c60e2431e1226495229488291a2d4caeedf819cb65ecb38e8355c1ae032e"
+    },
+    {
+      "path": "gate-block-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "126e03defa790b95a0df7fef2f85b916b920f54df4ac4c737e66bb97dcf14b23"
+    },
+    {
+      "path": "gate-block-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "caa05750d5317b46ddd7e28619184e0c5e8c07d6771b70d96c1624f4c5212a56"
+    },
+    {
+      "path": "gate-block-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7920,
+      "sha256": "66edc76edeabc148b119def665139212aed47f27674efa487d551e490804106b"
+    },
+    {
+      "path": "gate-block-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4947,
+      "sha256": "83691b8aa878e5a714d8a22e00955c9784cb97435f0789ded8af5eb372e9fbaf"
+    },
+    {
+      "path": "gate-block-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695011,
+      "sha256": "855db226a87dc1a680f68acaa73a7a553603d5cfa4f8e03e7c34d1d1a7e77663"
+    },
+    {
+      "path": "gate-block-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694950,
+      "sha256": "95a9d9b5a99d869e241f9090d0e9ca56d590eda56c25d30ca739951bb12adf83"
+    },
+    {
+      "path": "gate-block-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48772248,
+      "sha256": "720e8b7b86c58a4dbb631062071f33257c36f864b80c0073a252424ce235c139"
+    },
+    {
+      "path": "gate-block-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12121273,
+      "sha256": "a753c60e2431e1226495229488291a2d4caeedf819cb65ecb38e8355c1ae032e"
+    },
+    {
+      "path": "hello-compose-catalog-view.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30984,
+      "sha256": "a813dcf37c112fd041305e7209d4aee057478b25cb1e0a20ec699ba19662b4d6"
+    },
+    {
+      "path": "hello-compose-conformance-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 79476141,
+      "sha256": "20bc704c80d0a15479982abd1631b921bd4ad1a073e34d0039fef4d75d209543"
+    },
+    {
+      "path": "hello-gate-catalog-view.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 22666,
+      "sha256": "d4b32f0779f0b2987f70f5d08a14d7106a42870a220ca4824a72fa0042a0494d"
+    },
+    {
+      "path": "hello-gate-conformance-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 79462224,
+      "sha256": "14f32b707f054a42055163aac2b0304189f02b5c533bac8540efa8d4cbc5197a"
+    },
+    {
+      "path": "hello-workflow-catalog-view.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 16934,
+      "sha256": "37af18ff058900ca552e32dd5cf226e779fba7a3eceb93dc2f94f2596db3d614"
+    },
+    {
+      "path": "hello-workflow-conformance-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 79447155,
+      "sha256": "48c9dffe7492e872bea798fd67c9c88984ed32644b9df34bf3eb797b9642b29d"
+    },
+    {
+      "path": "initial-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "b779ce76a052a0e10f4be5a7a9851d739f6e2831f8ad5aa79076671bb56e7e50"
+    },
+    {
+      "path": "initial-native-prefix.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2701191,
+      "sha256": "c4c1c28232cd3a89d7233a03485c113e2f2df0c76d7a9432ca9d610c56c2aa90"
+    },
+    {
+      "path": "live-product-verification-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 31,
+      "sha256": "18c4acdd41e746f641e34fffa42d349acc6ed189cf277efbcc1ebb9579ac5c1e"
+    },
+    {
+      "path": "live-product-verification.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13240749,
+      "sha256": "73abadb8e051a7eab074d8f6da5256d41d1e5923525a881f286fe8b4c035baca"
+    },
+    {
+      "path": "native-launch-control.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 432,
+      "sha256": "27976491d5cbb8fab0c738de52c0f443908ed0d53577b366c62f4801a3e4adfb"
+    },
+    {
+      "path": "native-launch-ready.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9518,
+      "sha256": "0f664f734c4423a398277da5a1414b28d046883f2684a03a30d4c146ddd0513d"
+    },
+    {
+      "path": "native-result.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 22106,
+      "sha256": "06127828dd748a091c9453cc59630de037297e5d15ab2640a07a602ab9f11e9a"
+    },
+    {
+      "path": "nested-compose-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "1ff5af60d34525e7c827306f473eef0ca2750617c264051833448baf36551a43"
+    },
+    {
+      "path": "nested-compose-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "b779ce76a052a0e10f4be5a7a9851d739f6e2831f8ad5aa79076671bb56e7e50"
+    },
+    {
+      "path": "nested-compose-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15672,
+      "sha256": "b99f71fe7951703c7ba92cf65f42380611020ba2c135e796859d20c13299c340"
+    },
+    {
+      "path": "nested-compose-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 17329,
+      "sha256": "1b293b89cebd19a35031f0cd8210ddb1c4ce91db6eb1e0b3bca86e9e5ebe260b"
+    },
+    {
+      "path": "nested-compose-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695015,
+      "sha256": "bb2aef038a94b3866e3ac5a595cad1e92c75d1a098bd6d4aecbcb8ade1cbec30"
+    },
+    {
+      "path": "nested-compose-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694954,
+      "sha256": "c28e675316de2bc4a5254127798290910bc82969aa5122116f65e3a222a73d5b"
+    },
+    {
+      "path": "nested-compose-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48789136,
+      "sha256": "051fd21544335ceec7ca1bfb6bc7e408ccfa2d8ef736da7d67b5a4ace925686c"
+    },
+    {
+      "path": "nested-compose-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12166209,
+      "sha256": "5bc40aa3556d7ee6b3f31c3ee70082cc08b4794f8effebc41af14cbfa82b3cdb"
+    },
+    {
+      "path": "observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "ordered-vector-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "feb4abb26a52478adc3b58610e89212172aba83adf0b4a8ec02627e257265059"
+    },
+    {
+      "path": "ordered-vector-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "85912a1bba9cbfc28937c40f8e1da2e6916f89b0cd8f31ae3bf2a46433bf40b8"
+    },
+    {
+      "path": "ordered-vector-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15946,
+      "sha256": "da1475ca20fcf084d4f7b5f788e669ec8179453dacaed9f599b3a5a1b4dfb073"
+    },
+    {
+      "path": "ordered-vector-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 23239,
+      "sha256": "6739dcb4a53eaf707c4dc90dabf0e0732ac34552c4747153329e83f8115a496b"
+    },
+    {
+      "path": "ordered-vector-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695015,
+      "sha256": "bb531d3dfc5a66b97b996bf1b3469b998ab65741f3144eac82714712380c2ab8"
+    },
+    {
+      "path": "ordered-vector-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694954,
+      "sha256": "552a37492ce5bbc2fb8b3235319481ee62a5d1a76002fd1f9cddf354bfa3fad5"
+    },
+    {
+      "path": "ordered-vector-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48800226,
+      "sha256": "34dd87f75f5f9eae5f9f5566c89e5b8e9958f6aab541d6f8601811b59935f4fa"
+    },
+    {
+      "path": "ordered-vector-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12123765,
+      "sha256": "e7e49aef7a985076011f7498271e12a02e0d469b9b50d15893bff4500bb8e836"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15952,
+      "sha256": "c4fd6eb8cff883ca4eae0abf0b2cb02a74bd46133ec0aa9953c3e4042e996a38"
+    },
+    {
+      "path": "original-cut-conservation-preflight.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 21313,
+      "sha256": "2a74512db5948af8ebeb1d1392d0acce1009974e6b0a4939fda5b9c00cc87edf"
+    },
+    {
+      "path": "owner-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9522,
+      "sha256": "6c2782a257f84eb1dc6f899d233953cbc4d4e4cb4a36220c7f1d8a5ff0d934bb"
+    },
+    {
+      "path": "partial-vector-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "759e26d44b93623ac9b32d09942d5c7e730ca8d056196365ad0fc659f106dee1"
+    },
+    {
+      "path": "partial-vector-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "feb4abb26a52478adc3b58610e89212172aba83adf0b4a8ec02627e257265059"
+    },
+    {
+      "path": "partial-vector-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7920,
+      "sha256": "e7b0cee69c4963f1c7b7b5af283daa8474cf0aec6d1f79e3018493585136e33a"
+    },
+    {
+      "path": "partial-vector-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12102,
+      "sha256": "e4c25950cdef065e660d40718d4e5b71f777c210d26e92b33b94b1811540ecfb"
+    },
+    {
+      "path": "partial-vector-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695017,
+      "sha256": "b62ac9faa02ca60b130671cf6a272fcbff4912d095e033738c4bef4715f8f31f"
+    },
+    {
+      "path": "partial-vector-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694956,
+      "sha256": "e2bfc43ff1a05aef93933791af7939580d7910f008f24e9a3439d7a1d8f6277e"
+    },
+    {
+      "path": "partial-vector-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48800223,
+      "sha256": "e00451abbb127dbc86c4e78a923335a51bf6bc63117aacd523385b6039fdd59b"
+    },
+    {
+      "path": "partial-vector-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12123765,
+      "sha256": "e7e49aef7a985076011f7498271e12a02e0d469b9b50d15893bff4500bb8e836"
+    },
+    {
+      "path": "pre-effect-construction-record.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1831,
+      "sha256": "e6ebea810efd5245a6d49bbd2e257955e50dc33e1294cb0c9e376881a6fa7ae5"
+    },
+    {
+      "path": "preflight-budget-result.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 82,
+      "sha256": "9b85c3d18eff4adaf695ea2068b77e245e75cd3e7e725c477e9fffeaf86f5f6f"
+    },
+    {
+      "path": "preflight.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5564,
+      "sha256": "d7c96e5673f2c75e76c3b36805dc12972249ffba2db5179add6ff01c0c64d7eb"
+    },
+    {
+      "path": "process-closure.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 65688,
+      "sha256": "eca6bb8e47eb9835378270891432f3ee5cec1e6faade487049e8143a22876097"
+    },
+    {
+      "path": "prospective-cases.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7042,
+      "sha256": "0fcaeb83394dc15e20e9846a5b1b079055a4257d46415fd310901f57cdd825e2"
+    },
+    {
+      "path": "public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8948,
+      "sha256": "2027f3ca8b7246f94a16e780911d76275b9f08db61fede54f32ee3f6b0591254"
+    },
+    {
+      "path": "pure-preflight.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 467524573,
+      "sha256": "69a5cc6ec76f522f5ada9ede1942e146b9162f07ee19055deb1752729340fce0"
+    },
+    {
+      "path": "recursive-bound-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "85912a1bba9cbfc28937c40f8e1da2e6916f89b0cd8f31ae3bf2a46433bf40b8"
+    },
+    {
+      "path": "recursive-bound-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "a1e9ab9a7db4c436e09aa9e1fc2013178f2467552b74adc87e89e0174436dc21"
+    },
+    {
+      "path": "recursive-bound-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7920,
+      "sha256": "3e94951fa3c60e0939812c624c644f24888f0c60f35660d16372d7d8f6726b73"
+    },
+    {
+      "path": "recursive-bound-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 17176,
+      "sha256": "75da0f853f7f75cbc871205fbecb0cd2a79bfa8d31257acf564a6e20b9338318"
+    },
+    {
+      "path": "recursive-bound-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695016,
+      "sha256": "f4e8b0b92e4ad59fc8a79e9f34e1c7759e4f5856818420284ed436d287cc7135"
+    },
+    {
+      "path": "recursive-bound-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694955,
+      "sha256": "60154051359212071a3a0f61aca1466e36e64edc3159d488ce247c654e4d57fc"
+    },
+    {
+      "path": "recursive-bound-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48772762,
+      "sha256": "30e8673be583c2073fd8a1c5293d9efbcc409d2cbda5bf488d5e97498275fd62"
+    },
+    {
+      "path": "recursive-bound-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12116486,
+      "sha256": "4ec6fa671a1ae57b7ae31e360372e14671ecbfbb8077e42c3d82291e0303791e"
+    },
+    {
+      "path": "recursive-child-block-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "a1e9ab9a7db4c436e09aa9e1fc2013178f2467552b74adc87e89e0174436dc21"
+    },
+    {
+      "path": "recursive-child-block-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "f3a291711ae0f7a5731207f3554d92fb9a849e660da4dd1fb233807340f1c36a"
+    },
+    {
+      "path": "recursive-child-block-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7920,
+      "sha256": "55faed0e2a72c2a2d810676da02e567703ce0a44cb18d00581298e33b8e42ce2"
+    },
+    {
+      "path": "recursive-child-block-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11108,
+      "sha256": "a510acc9a2cc3aa8da5c0a7fcad843e02941907ebab0d68f73db58dd72d0c9b3"
+    },
+    {
+      "path": "recursive-child-block-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695022,
+      "sha256": "36169b78b2497e1032367723c0faf644b8beff7d8df20e03a99ea033e891d4ca"
+    },
+    {
+      "path": "recursive-child-block-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694961,
+      "sha256": "6040ba8354a592a935963bf666d584bef1768b654bd46c268d6e287859b30758"
+    },
+    {
+      "path": "recursive-child-block-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48772771,
+      "sha256": "566ce3c4fcef9ac9e98c42100dd80b752b92aab68877bf3a745dd165c8c9fca4"
+    },
+    {
+      "path": "recursive-child-block-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12116486,
+      "sha256": "4ec6fa671a1ae57b7ae31e360372e14671ecbfbb8077e42c3d82291e0303791e"
+    },
+    {
+      "path": "recursive-foldback-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "f3a291711ae0f7a5731207f3554d92fb9a849e660da4dd1fb233807340f1c36a"
+    },
+    {
+      "path": "recursive-foldback-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "126e03defa790b95a0df7fef2f85b916b920f54df4ac4c737e66bb97dcf14b23"
+    },
+    {
+      "path": "recursive-foldback-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 16062,
+      "sha256": "c61c21a06d6e31d7c0a9d36112cd21e7b38a6a04a4adf24e9e01b6bc8b0c0faa"
+    },
+    {
+      "path": "recursive-foldback-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 20079,
+      "sha256": "bd4f760957cc6a4b05e8987a149c2bfaf4f84afb41315995e8c304ce80081d2a"
+    },
+    {
+      "path": "recursive-foldback-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695019,
+      "sha256": "2171a6bc49b1c44a084725716c030984298eb99230f722c740a9548bcbcbddf5"
+    },
+    {
+      "path": "recursive-foldback-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694958,
+      "sha256": "460ccd3ab5b96eb8dfdbca4fffc5c0e504c178ef41de2b08cf5cc5e1a5116875"
+    },
+    {
+      "path": "recursive-foldback-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48772771,
+      "sha256": "697d72f419e6c8dff6c3504d6bd55c9c831fa8d8d2ad6e3678130659eab4c7af"
+    },
+    {
+      "path": "recursive-foldback-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12116486,
+      "sha256": "4ec6fa671a1ae57b7ae31e360372e14671ecbfbb8077e42c3d82291e0303791e"
+    },
+    {
+      "path": "resource-plan.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 589,
+      "sha256": "fd26b80762e9ead15efbe22283ab86c17a454808e1a99d7eeae9b6b41dca79c8"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10563,
+      "sha256": "aa245fc52c4a319a5b262624c3fd823ceb81a99ae55325fe70222da90df32349"
+    },
+    {
+      "path": "runtime-environment.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1190,
+      "sha256": "3ff13f93d2f0e70539c99c4536ab48add6608d2bc085373a73276f7c1e7b0aaf"
+    },
+    {
+      "path": "s02-authorization-0.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387529,
+      "sha256": "9526c2c3be050fa2bcb886f81aa8f1cb7814f042bef6c4a7faabcafdde5ed881"
+    },
+    {
+      "path": "s02-authorization-1.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387530,
+      "sha256": "c1543a54fc4dfa96a4d60f031eb72c1f4c3f19a371ce90681beff619c01d5d3a"
+    },
+    {
+      "path": "s02-authorization-10.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387529,
+      "sha256": "66e68639749886d839265de4873ffc43396c4513e4de7d3a9a72f9fae95d4b73"
+    },
+    {
+      "path": "s02-authorization-11.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13385376,
+      "sha256": "ace7bdc945b10da0ff440273e10d5639a75ed6ace3589c40903d25eb2804d8c3"
+    },
+    {
+      "path": "s02-authorization-12.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387536,
+      "sha256": "f889a2785f259a4f4d7f06bd249e3f6038c25c4da38e7812f6bae16ad7ef9e2f"
+    },
+    {
+      "path": "s02-authorization-13.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13385447,
+      "sha256": "f13541c4c94359029260ab47c442ebd07e380f4bdad732583d4d1ece2c0bc514"
+    },
+    {
+      "path": "s02-authorization-14.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387532,
+      "sha256": "d7d079a40ded0f5ff54e40eebde553852ab7c540178e380a308923b9c404631c"
+    },
+    {
+      "path": "s02-authorization-2.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387526,
+      "sha256": "b8395d11a42c151c73819a66bfb69836bde0dce9a9533999ad7d7d0601d94474"
+    },
+    {
+      "path": "s02-authorization-3.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387533,
+      "sha256": "146857758b756a1707a00591f6752cfabf84a043972d2951c42dececf60d564b"
+    },
+    {
+      "path": "s02-authorization-4.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387529,
+      "sha256": "9bd0eaba9550caa9b443df0e6aec207f3e2207eff41b28f4fa9917a8ea415f10"
+    },
+    {
+      "path": "s02-authorization-5.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13385292,
+      "sha256": "19c7bb042499c82ebfa52744f1671a52272622811e52bb506d67ccdf3bc7a140"
+    },
+    {
+      "path": "s02-authorization-6.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387529,
+      "sha256": "d189b34289bacdb21353b68d5f79d16938f97d56784b343ca8ebab6d018bc752"
+    },
+    {
+      "path": "s02-authorization-7.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13385359,
+      "sha256": "b22e646bb728c14a6ed90f21d65a1bee455432c39658ccecf32da657362b834a"
+    },
+    {
+      "path": "s02-authorization-8.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13387530,
+      "sha256": "96ae5bc3bdbcfb4faf0caa1e8e06c5d880105494b31b98e53ddb0c1549156a5a"
+    },
+    {
+      "path": "s02-authorization-9.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13385361,
+      "sha256": "582ea2be1523fcb5341611f26f8015d2c6055ddd835243ea83bc6fff6daaf22d"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1946,
+      "sha256": "7921ad79f17bdfe590b3202c9fa260cba958e346fa66609a2bf78c8106ba06e5"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9192,
+      "sha256": "ad8b5796d01253c0a468d65f97dfc93707956a9e5ff3471ec79eb71f0108900c"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 693,
+      "sha256": "e4410227e7a3ef71c51e6fb003d0accc82e1a3bfb4fd1f3ba650613727cf1a12"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1262,
+      "sha256": "53a08ac5ac7a296df99d3985bf8ecad74881c98f70323ee55d452c12517d1654"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 626,
+      "sha256": "5534ac84674c224a4c9c972a18ff510306f73614cff2624ee45b04af447155df"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1966,
+      "sha256": "eedb4633e49eee711ee7fbeb903c9e9ec8a720b504f51914716f8611103f3fc9"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 294,
+      "sha256": "2f723dbc87321f0a7e65a6db9a7323aed8dbb6ef7b1ddff01229382c50ddcb56"
+    },
+    {
+      "path": "s02-conformance-bounded-recursion.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30450833,
+      "sha256": "228f08cc04db770a7ff66fcde13d4a61ed6d1a78aa4350f5aaad7a9eec0de352"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1942,
+      "sha256": "d8e481d8c595350c5ccb53e0e2ed6e15e388e695ba6eb2d93c1c283a1e1abf6b"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13486,
+      "sha256": "6abd6ad96ff640f11adcafabab8959981aacbf284280fd545431533cdb415565"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 689,
+      "sha256": "012c4e3e0397549e46528175df5f4c8f3c029f9e04acdf188f20b6f0a436ea58"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1258,
+      "sha256": "6399e94b5863bdc6050e7c4e12b0e6e6ec1012f9cfbf67f2f0e52bcd785f0205"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 618,
+      "sha256": "a9d2d7b959b50e9ca15cb1241f449bd276b7595b49989942dde0666a608da85b"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1962,
+      "sha256": "d43547557a74694fce6e11e31806e30c2333928575b595f217f8865e20dfaf7d"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 294,
+      "sha256": "482f8db8962fda7719d0b1f1b3794fd32b1f8425e54f3d5e3faea98896b0294a"
+    },
+    {
+      "path": "s02-conformance-fan-out-hello.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30459177,
+      "sha256": "bd50db434497788febe55326c68ef92ae275276f53c90be4e3a3a7c23bcbb970"
+    },
+    {
+      "path": "s02-conformance-hello-compose-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1941,
+      "sha256": "95f6e444f1e817c250ba50111fdab1409a468cd35dc9589a341e7581c6970066"
+    },
+    {
+      "path": "s02-conformance-hello-compose-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2208,
+      "sha256": "9b03d829ae72117613726001b951138f0dfa762dbfec77199cfd14113a26bb5c"
+    },
+    {
+      "path": "s02-conformance-hello-compose-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 689,
+      "sha256": "d5af25f1e2329a978d70dd94de68d4337f16e5bcdef724f15672cd8e035b2497"
+    },
+    {
+      "path": "s02-conformance-hello-compose-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1258,
+      "sha256": "5855cfece5a89bf41fd95932e014fee3f5750b0906192b7bb54447003a9f4f41"
+    },
+    {
+      "path": "s02-conformance-hello-compose-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 618,
+      "sha256": "4fd98a1c35687e7ea2ebb0e0e00a15b5d1519e9ee68b0cbf17603cc592121ce9"
+    },
+    {
+      "path": "s02-conformance-hello-compose-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-conformance-hello-compose-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1961,
+      "sha256": "acc9e686b9c394155aa8aadb73308c6c880a9954acfe11ff24a054d07f122588"
+    },
+    {
+      "path": "s02-conformance-hello-compose-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 294,
+      "sha256": "2738439e7f51386df4503a56ebcd169e5c15c16f066e02c189113c2d1ca00dc5"
+    },
+    {
+      "path": "s02-conformance-hello-compose.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30454527,
+      "sha256": "f392b1de1e2f8fa514885a7da38bf56d47a6b2b1e8d7e267e28dac1debc04ea1"
+    },
+    {
+      "path": "s02-conformance-hello-gate-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1939,
+      "sha256": "825865e85b92223e041f7e4a5add3fa938615694a94d3d25f91be9287431feb2"
+    },
+    {
+      "path": "s02-conformance-hello-gate-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6098,
+      "sha256": "1b1af5a12707777baa4641a3d080fec258630d0fc76f04de0167cafbba9a7819"
+    },
+    {
+      "path": "s02-conformance-hello-gate-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 695,
+      "sha256": "c7da33dbe2bd015fe1e3b4a7b13c3e31b5a765233b977a0a0d31bf64b6fc9759"
+    },
+    {
+      "path": "s02-conformance-hello-gate-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1255,
+      "sha256": "ac90ee8515bbfd880eb4cd70521b9fa50d6508b23ef14da985b62c4fc7bcfcfd"
+    },
+    {
+      "path": "s02-conformance-hello-gate-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 612,
+      "sha256": "2635cf9b4e73d24e304f9951a3b39bb5d73796254a5fac01a1ed097fb4a40495"
+    },
+    {
+      "path": "s02-conformance-hello-gate-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-conformance-hello-gate-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1959,
+      "sha256": "ceb6b3f27cd55965b3d7a03815d318e11dae07bed8297a1d571ff53f5d55071d"
+    },
+    {
+      "path": "s02-conformance-hello-gate-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 294,
+      "sha256": "51ace17b45b45d43dac8d23d7e441d05a3dedcca8a433140e2f2dcd10ac531b9"
+    },
+    {
+      "path": "s02-conformance-hello-gate.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30450177,
+      "sha256": "c19149b5e302a2e179ceba10b69a594642e9d06028fc18f9e3ba92260aac1e85"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1943,
+      "sha256": "425dba6c69954e63ba5ef1ff8e302b44cfbfe2341f95bfc59d4e0a6b9ed685d2"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4149,
+      "sha256": "449f5d8b8ac43ae141c37eb981d7f5de339b876ba455696d32352f53e791d839"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 701,
+      "sha256": "457c3ab0969e6754e0572909ac009ae17096d915f5ee2447fe86978c1ef56313"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1259,
+      "sha256": "f205626070e8ccea989ae10f03c46ec548ed711925f95fc4c81a4c35e491e89e"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 620,
+      "sha256": "e29f51946b50b77656dd9e7f16807a1f4513fe3e5c2881f239e61febcb4cd07b"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1962,
+      "sha256": "87c4d35b0737ded4d36b7f12a1979879020fcffbb28b9dcca8ab90f4b8e62871"
+    },
+    {
+      "path": "s02-conformance-hello-workflow-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 294,
+      "sha256": "63ead2d9ac065ba6d065147beea3b1e430832a6883968936f4b6c8c8b92a9322"
+    },
+    {
+      "path": "s02-conformance-hello-workflow.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30446181,
+      "sha256": "4e059102c4632689aa8e8d54a98867cca665c22166e2794e0863c9a6abc2b9a1"
+    },
+    {
+      "path": "s02-final-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1238,
+      "sha256": "0e660b21b945923c33f8ad8b9eb01fed26ee1f3c89c2006909520ec67e6e66ff"
+    },
+    {
+      "path": "s02-gate-advance-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1929,
+      "sha256": "87cfc452bcb2d1a6befa19ceaae1648e905d31b9fc88ba2fd2a172e72aece5ab"
+    },
+    {
+      "path": "s02-gate-advance-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6470,
+      "sha256": "9f7f0e93c3cad86c52ec22ec9c67a6c582c26187c1e2af19dbcc3dbc66948bd8"
+    },
+    {
+      "path": "s02-gate-advance-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 673,
+      "sha256": "4f7f20c484d1789c934d299715d2125199a68500779c6e17e0706d45fcf2bfe2"
+    },
+    {
+      "path": "s02-gate-advance-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1245,
+      "sha256": "55741b18340ae65afce9fe5c177ff7e47bd82a4ff252443f8fed00267fdfe7e0"
+    },
+    {
+      "path": "s02-gate-advance-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 592,
+      "sha256": "ccb4752169353ca5f9fd36b16cf684cf46470fdffc84103c6e0038e1c0ba0772"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1940,
+      "sha256": "bcb41c2df4297707020da870e696a54f7f05f59dedf6801740a7b88e284d0413"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7250,
+      "sha256": "5d6adea07c1f4598f001e2efe947b2e64dc84c093e6cf70982783e79497c5a60"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 694,
+      "sha256": "cf16424892480785aa8c25f6387efe31c05f9f6b7436e5714ed4fc0f123e8e35"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1256,
+      "sha256": "60abac79125d88a0e8d9b1896474d2d9de23440bf2f2b8098c69d334245cd418"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 614,
+      "sha256": "34f5159d82ba2d462588d09439916e3536825311111869807359d33dc46681b6"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5856,
+      "sha256": "c023ff3523c811211938cf2ad0b0020e7a38bfde2477a917317a46019cbea0c2"
+    },
+    {
+      "path": "s02-gate-advance-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "a2c0313a203e9e4545fb44e591e3db72f4063501f6315bd133d8ab86cf7a10aa"
+    },
+    {
+      "path": "s02-gate-advance-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9526,
+      "sha256": "b2a45fb80edcef4108dcffbbd34298f3baa617325fa700ace826c597f1b804e7"
+    },
+    {
+      "path": "s02-gate-advance-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1940,
+      "sha256": "15c67fdde8e38c4314148ed0e78ec6a204ae4e00db989fb36e88c0ff854f9f80"
+    },
+    {
+      "path": "s02-gate-advance-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6860,
+      "sha256": "4ed99610b39c19b324138a1adc86b3796e077be20496d25ddc99080461ad1484"
+    },
+    {
+      "path": "s02-gate-advance-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 683,
+      "sha256": "1956b005184d54dc32817cd6f8f09ebdc6033b3834733afde2a1714821a168ce"
+    },
+    {
+      "path": "s02-gate-advance-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1256,
+      "sha256": "e5cbcb50ed5f97f0d9205aeaee4ff3d465716c04e0b7fa7d46a8d07c642e0f92"
+    },
+    {
+      "path": "s02-gate-advance-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 614,
+      "sha256": "2f905a391b1b66676726d9fc8cf81c841d4f27c1a9f8bda407a21675b6469b02"
+    },
+    {
+      "path": "s02-gate-advance-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-gate-advance-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6201,
+      "sha256": "20c34e99f5afb8b1ae8c803ae3cdb90fe81fd49bd2ebb3e3c1fcc24be60b049d"
+    },
+    {
+      "path": "s02-gate-advance-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "c3318982e0daba51dd3f4a86ab842786b535ac6d2c0f852f3b9c10a326dba31d"
+    },
+    {
+      "path": "s02-gate-advance-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9489,
+      "sha256": "b30d2e34493c102be3a0cf6030c7941ca4597a17e79bde232a21459869d51873"
+    },
+    {
+      "path": "s02-gate-advance-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-gate-advance-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 20284,
+      "sha256": "21a8053d26683e3a2b5d0c8b99233f6ea969135b77429a7253f7853348580f6d"
+    },
+    {
+      "path": "s02-gate-advance-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 287,
+      "sha256": "5c20b41b15660e3e3cb38abfe328f04f935db45e92973f28a248839f1125e0c5"
+    },
+    {
+      "path": "s02-gate-advance.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18179295,
+      "sha256": "e23510e9f10979cb63580966139e56eb997799219b17f1ac33f7ec27f0e5ceff"
+    },
+    {
+      "path": "s02-gate-block-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1927,
+      "sha256": "f8eebb9dd4bde87629b1138a272ec335ff5bb6630a7455e5b6aed3033763333f"
+    },
+    {
+      "path": "s02-gate-block-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7621,
+      "sha256": "7c6a862924a59c6fb9b160e0f6dc817c174d1b5d13758b3478bd964115352ce8"
+    },
+    {
+      "path": "s02-gate-block-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 671,
+      "sha256": "2c9802ab0c84b3671e724b2c8c4f281be72fa0343e273703deb7dcf496fa00c7"
+    },
+    {
+      "path": "s02-gate-block-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1243,
+      "sha256": "76f15e876462cb769161f76aa7996b3a227a78ac7cf263a70437df4c0cb46367"
+    },
+    {
+      "path": "s02-gate-block-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 588,
+      "sha256": "eb5f78eb03a04e03411309a8ef454194793a0512294d6c1f49b9b523d908a7db"
+    },
+    {
+      "path": "s02-gate-block-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1938,
+      "sha256": "2ca9ed8db1c72c6148b26d0981d24b05d66a312a44e5729e91cf4b3d53d3ce59"
+    },
+    {
+      "path": "s02-gate-block-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8397,
+      "sha256": "4a2e872fd62a48d1934eccb8550e6857258c582f6f8d644b290dcbfeb25710e0"
+    },
+    {
+      "path": "s02-gate-block-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 691,
+      "sha256": "103f8f4ca2111d38e095c08b813ed29d86e574f07d3a4ad8015e7bd84584edd5"
+    },
+    {
+      "path": "s02-gate-block-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1254,
+      "sha256": "d1fc4bcac04e6fe8f3ccdf0c0eec44a0f10b0f576613707230878333dbfc2d0b"
+    },
+    {
+      "path": "s02-gate-block-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 610,
+      "sha256": "3e38f78c4d480ad8dd03575241e20d35f2dd42795408e24bb87571e0e60dbcbd"
+    },
+    {
+      "path": "s02-gate-block-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-gate-block-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3497,
+      "sha256": "55e1b09811481b25f5d0736279f346d719f8591bfc06828c8e6f8140cd585e77"
+    },
+    {
+      "path": "s02-gate-block-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "20fe5d2dcc50904af5f69df7e61bcd4b427c91b23c059612e304f103c6529dc7"
+    },
+    {
+      "path": "s02-gate-block-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9524,
+      "sha256": "2bf78f062c26ed162e22c95d0308e61cac66b1412c4cc164d417adbea5a023d8"
+    },
+    {
+      "path": "s02-gate-block-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1938,
+      "sha256": "5375d4ecc54921f428ee5ac8c550d9ffc9612f077adde6af0dc124b24843b35d"
+    },
+    {
+      "path": "s02-gate-block-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8009,
+      "sha256": "97848706603ea638e7343f1b7e8f725770e326c1f8281f506bc9e1cca91eba9b"
+    },
+    {
+      "path": "s02-gate-block-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 690,
+      "sha256": "4657b54458913655b5c45d3ee544152cf49afbb6bbb5d6d6daa22c7c9561b06c"
+    },
+    {
+      "path": "s02-gate-block-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1254,
+      "sha256": "46544d7c1e51c65b75434b3b6335d3249cf9021f46aef7464eeb0ce038795cab"
+    },
+    {
+      "path": "s02-gate-block-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 610,
+      "sha256": "4ab15b0d7891b179efe2ad12c5694c214b85b5cb609c777f4404255a8474973b"
+    },
+    {
+      "path": "s02-gate-block-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-gate-block-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2585,
+      "sha256": "1a60d94ce8464ea7fccf9054e4f0182086f5ac8eae71a1c8270711884f43b176"
+    },
+    {
+      "path": "s02-gate-block-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 285,
+      "sha256": "d230ca6106bec15b95d372b84e6a6ec124633b01400d344195ad0ddbf0836d3b"
+    },
+    {
+      "path": "s02-gate-block-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9487,
+      "sha256": "dded34b2c4a097d686d146ec0a9547884d32171fa2fb4d8f1bef1be2b7f2bb30"
+    },
+    {
+      "path": "s02-gate-block-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-gate-block-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9377,
+      "sha256": "3b3c43a9397952a0e574c85510f08bfc733f7844d2e12293111ad69692289676"
+    },
+    {
+      "path": "s02-gate-block-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 288,
+      "sha256": "c11d544ef6a6a421d22c158b53cfea960d07ee6141cc449f4d00015962b29ae1"
+    },
+    {
+      "path": "s02-gate-block.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18179293,
+      "sha256": "92796f5c96bd00c99845f4ccd537024588a5dd709d152a011a5683e531be43cf"
+    },
+    {
+      "path": "s02-initial-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1240,
+      "sha256": "446599aacd9f5d2340565a4c79d2cb36151667e678336a2fb1e8b8d6064c0c42"
+    },
+    {
+      "path": "s02-nested-compose-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1931,
+      "sha256": "a7210ec9e4ea62c38d0cb23cfa2edff14c79bda97dd2525ebcf0b7345f7b71f9"
+    },
+    {
+      "path": "s02-nested-compose-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2582,
+      "sha256": "5b9c1a2d3d4161fc3b3218c774b0707a7904629928fc3572e89bb71397da2061"
+    },
+    {
+      "path": "s02-nested-compose-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 685,
+      "sha256": "bd29e41317a9ce3f961b8394b81c204b65009de66d9a029f753a7e055032ddcc"
+    },
+    {
+      "path": "s02-nested-compose-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1247,
+      "sha256": "b0f01d8479141c89d50b6a8d8cfb9d0bbf7116c8b6a7be8afe259c713e56f893"
+    },
+    {
+      "path": "s02-nested-compose-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 596,
+      "sha256": "bf94bca84ec2ec7feb9951c40358b3e274c07e2ed4b10eac49385eeb7a60a301"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1942,
+      "sha256": "ac73a39bfe84abbe814f2a56c584ddb86c59ca501ad5af1805a0e8ade68c869d"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3366,
+      "sha256": "936cd37904763088b329cccc200137a978bafe1cdff65999c7249bb17e9f29a2"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 685,
+      "sha256": "a0ba0eef4f377e4fc26f72120a1882ec9058e267f6f232da54169c7d16651aa6"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1258,
+      "sha256": "64ba4682dfe16957256dbf48242072d9923af34b1161f5b08f6ddaa4b114bfd3"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 618,
+      "sha256": "b68ee1291c0a04b53e5b298b887380d4b5481cc8d884e2754167afbf1e08e6fc"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5862,
+      "sha256": "4aaba15fe94994cbc052c629c5e6aa4890e1220203f13076aadd82abf3e18d5d"
+    },
+    {
+      "path": "s02-nested-compose-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "b8100ebd017d9ca52acc1148d4e670b6c17bdc16599eec1248e4efed1bfaecac"
+    },
+    {
+      "path": "s02-nested-compose-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9528,
+      "sha256": "e389ca2267b3021637a55a0ac9e1875980370be503be0e1193914604c586a3dd"
+    },
+    {
+      "path": "s02-nested-compose-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1942,
+      "sha256": "97a9a73657fcdc0da54cdc06e93ce4d0af9ca9108ba38094432aad7028f7a129"
+    },
+    {
+      "path": "s02-nested-compose-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2974,
+      "sha256": "25d7d0b8ec4163b7820da838d27f15338011501e8c883ea9cc7442f12b3fac41"
+    },
+    {
+      "path": "s02-nested-compose-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 684,
+      "sha256": "a571f209d2e23854060a0384532ab841767e9b283174dd2608f28d5b59da8a21"
+    },
+    {
+      "path": "s02-nested-compose-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1258,
+      "sha256": "40103a82c1a7a480fb6261f2c0b62749610addc62f7fd5572c9935cd4b8294f2"
+    },
+    {
+      "path": "s02-nested-compose-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 618,
+      "sha256": "01db4eb5a0273b730f9bee6836289020a880dc39de5e82afb53cdcf68ca3ce92"
+    },
+    {
+      "path": "s02-nested-compose-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-nested-compose-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6207,
+      "sha256": "b81494efe5ce6bfbb33d4098607acaa89084c4b41b04257c7b52974938f8156b"
+    },
+    {
+      "path": "s02-nested-compose-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "3492c3fed05a828fb68c929233205455b8aa4e04081f1a1d4bcb39b45e8149d9"
+    },
+    {
+      "path": "s02-nested-compose-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9491,
+      "sha256": "1eb0adef56f8bff79d9f795ab61aad247d4df8e885f5f6f95302628772e99307"
+    },
+    {
+      "path": "s02-nested-compose-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-nested-compose-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 29012,
+      "sha256": "ad76323f265e602f209b93fe31406283b1d3a3080bc7fec35701e50396bab0c0"
+    },
+    {
+      "path": "s02-nested-compose-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 287,
+      "sha256": "37f0a04b6c2c54fc0a50d8cc1aee6e378a123730f2eb496bf22f8e555d4f6bd5"
+    },
+    {
+      "path": "s02-nested-compose.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18183605,
+      "sha256": "d97aa1cda44ee3f684e96cce91230a327031765e370214bdfb8731356779b1f8"
+    },
+    {
+      "path": "s02-ordered-vector-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1935,
+      "sha256": "9ca14202185893a998f740b9565655c4515b218c8d55faab4c154206930ea4b8"
+    },
+    {
+      "path": "s02-ordered-vector-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13860,
+      "sha256": "0c5800a169645a0c4a014a93b18432d61bc886e4acc4ecea8132807b69a8a0a8"
+    },
+    {
+      "path": "s02-ordered-vector-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 675,
+      "sha256": "8b20327fc1bf5eff65cdcbb9447683c5c7c46ad1053b18446a48a3fa6541e66f"
+    },
+    {
+      "path": "s02-ordered-vector-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1247,
+      "sha256": "41ff482fb4967a8c63782697e22dfca9b0194baa28542fbbd8e6213ffd927941"
+    },
+    {
+      "path": "s02-ordered-vector-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 596,
+      "sha256": "0f4daa992d5fd49b5dd5d57118e48f979b00e3dbba71ffd1cfd10fa5f680da3c"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1939,
+      "sha256": "0b30dc742790293ea9b5de1ee479932c85801a6f4d0153667bc151c0cf5f858f"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14644,
+      "sha256": "932bc4f888b19d4a7693988b529c607d099552a94748fe6e8b4768d523e6c1c1"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 696,
+      "sha256": "0ae5772e3d8d337cfc7c45b049e4c89a58d14fc7a2b102f5d29a3e9146b28bee"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1258,
+      "sha256": "776687b597e23c30aaf499963d4c225077594074b116f4dc64de268ff1853439"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 618,
+      "sha256": "cbf24bfbb9890446f917204abc97d5fd9bcaa7215da2613ed542c943df29b90d"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5917,
+      "sha256": "e9f04033b41387bb359aceb7a35d3e20281bb82d3a9dbfe1b857d720f0fc86e2"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "f274af974504a5e34d2348e00a2da51f3aa831227e83249f56c6c5823c1e4d15"
+    },
+    {
+      "path": "s02-ordered-vector-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9528,
+      "sha256": "ef3d3d73abb03eb8fc57ef2e96dd39cafa410aa72a1cdd22fc745326ef5d45f4"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1942,
+      "sha256": "64cb05a01c576c639f64c931a8032c174ca1125550ad4cb28a3ba4043d2bbd51"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14252,
+      "sha256": "4b500325ac32249615c0f2b92ab63c8fb9b31a33d9acb7e3ed5049d9a57d2b21"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 696,
+      "sha256": "197be7b792f1e84399514d8ed9aa97ae9e9f04505e02134d2793f7de4752ab0b"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1258,
+      "sha256": "1f691112834c8546473eeab131e078fe1acb2958a02cc682904439596dddf8f0"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 618,
+      "sha256": "9ec08cb45c1fbd2c04f372a7a64438d8eb8abed59e8a189ecd8d80359ee973eb"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6262,
+      "sha256": "1a525122f05d67f39673ae3826841440116200ae88beaa1e5290dd2dec2d011c"
+    },
+    {
+      "path": "s02-ordered-vector-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "aeaed2bd6fc0ef77c70aee62c42719204d2dd9a084e9e51811d5168f1e3dbee1"
+    },
+    {
+      "path": "s02-ordered-vector-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9491,
+      "sha256": "566350e467d8795b6084eb74dca1316f9a75361c0401b986a26b3600300bbc59"
+    },
+    {
+      "path": "s02-ordered-vector-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-ordered-vector-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 41349,
+      "sha256": "fadc76f096ef6da195372806303e6f6dbb76917da15918cae20fd9396ec998da"
+    },
+    {
+      "path": "s02-ordered-vector-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 292,
+      "sha256": "3362dab248d28a051b9842991645e8dbe6fdb7f5349315a598d67340c16a993f"
+    },
+    {
+      "path": "s02-ordered-vector.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18189461,
+      "sha256": "c8a3507b16c1da851b1b6b8456b65f8c69aa36d30c04723a5b9eded62652005a"
+    },
+    {
+      "path": "s02-partial-vector-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1931,
+      "sha256": "89f756df3eba4614a1377c5d28683665907d8eede451fedb990cde0c7229051b"
+    },
+    {
+      "path": "s02-partial-vector-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15018,
+      "sha256": "3e1f84d995a9104fc01c9939bdb3c3396dc6aa2a22be4988c6841a02f21eff18"
+    },
+    {
+      "path": "s02-partial-vector-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 675,
+      "sha256": "83aa9b60f175d2284f74f35f1d8da9a663c422cb1131a2a7e11b82d611a11bc6"
+    },
+    {
+      "path": "s02-partial-vector-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1247,
+      "sha256": "29ee656491ec8e12995f6e695236dbef7c9206306b429ff19f0d0143aa485fd3"
+    },
+    {
+      "path": "s02-partial-vector-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 596,
+      "sha256": "8a96f9f5de80b02081f79315a85282ca9c4d93d7393b4d53150d8d4a0554caf2"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1942,
+      "sha256": "d1e208cc9bebe0a0f0de4700ff479b1b74ca8bf2fcd0ea29be5da1d84ed4b7e2"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15802,
+      "sha256": "be9bd72c336719fcaed43cd751f370b0b3d7d4d611c361cb73573ad9e4030f70"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 706,
+      "sha256": "bee290c68c7499b8745ddf4f275e81ccd7d5d1b4e3eb4184611df482caa6b932"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1258,
+      "sha256": "bed104d114164fbf4a6af9517a8fa1db0dd8520526c34c240f5757c8a15f05a9"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 618,
+      "sha256": "506ce27e07db375dd4b1e26cbd4b87862339774a604f751d93f6362aebde9fbb"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3497,
+      "sha256": "0ec0bddd4a215fdc66046e00ed6bc68e3ed08ebfdeaf53cc4fe419609b7faaac"
+    },
+    {
+      "path": "s02-partial-vector-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 285,
+      "sha256": "1c8348ecf6308aa09ea4269d00b31a044b831e4acb5cb86f83a37daf17fccffc"
+    },
+    {
+      "path": "s02-partial-vector-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9528,
+      "sha256": "04de53d34588fbe3158274e173de43187611532a335f9392d35e1fbd945f4cc8"
+    },
+    {
+      "path": "s02-partial-vector-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1942,
+      "sha256": "4b5a8169488f88f094a47543da90474d448f1172b56339a44fcb4cdc826db991"
+    },
+    {
+      "path": "s02-partial-vector-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15411,
+      "sha256": "3db84340925f7f2ef3fca3448e8d9c96e6f1b90de15a27f49640cf27a0d7435b"
+    },
+    {
+      "path": "s02-partial-vector-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 685,
+      "sha256": "40c74cfc96d484fe3af2df026263853986d939f5fc58f52b742f3281524a0683"
+    },
+    {
+      "path": "s02-partial-vector-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1258,
+      "sha256": "028d9247b1bc634350ea53a146f6880f4e608f8e10ac43c9a7f2388159646f06"
+    },
+    {
+      "path": "s02-partial-vector-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 618,
+      "sha256": "907afe8e2265d5e038a5598968cc5a5b0c0f4f4dc985d3a6b33c46a0559d7c38"
+    },
+    {
+      "path": "s02-partial-vector-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-partial-vector-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2585,
+      "sha256": "c53324b5d57c52781ec121159bbdc6916ae7114865cf272caaf63e65846f6df9"
+    },
+    {
+      "path": "s02-partial-vector-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "07f8452d3b5bc48fd80133e411ba682d804cb89334d3dc394c1f4a28feb8a67c"
+    },
+    {
+      "path": "s02-partial-vector-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9491,
+      "sha256": "91d9ccc371ec38973b3bae31a6fef06b6216c3da8db49c8a542d265421a7c8f6"
+    },
+    {
+      "path": "s02-partial-vector-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-partial-vector-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 21837,
+      "sha256": "bb3718b3c608093935ab39c073dece5ae7acf6915cc4cd817880815e3de1194e"
+    },
+    {
+      "path": "s02-partial-vector-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 292,
+      "sha256": "c646cc11c37bda8786f1e0edee903bdafa87870ad79b8fa9632b99eb05486faa"
+    },
+    {
+      "path": "s02-partial-vector.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18189459,
+      "sha256": "02b60a58bba27a740b7fddb60384fbf2148fc802f9a042aa43d02893ed140a1a"
+    },
+    {
+      "path": "s02-recursive-bound-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1936,
+      "sha256": "0df58d32c9fbd20f85396066c12784045b8752a7b1129f7560b54bb08fd572cc"
+    },
+    {
+      "path": "s02-recursive-bound-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11912,
+      "sha256": "ab2faab6bd213ef60bf42ddc6a4ec5791ff70044c446d0fe2b5a49e9e0c61f27"
+    },
+    {
+      "path": "s02-recursive-bound-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 676,
+      "sha256": "8da1fa335c5e39abfcb59e7d4b0aa980897f68c998ed48d7a00f3ce3d67406a5"
+    },
+    {
+      "path": "s02-recursive-bound-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1248,
+      "sha256": "87de5e8fefb00fb26e145b37d8cbf22fc69281d113a8a7e0d364a4b3ae29bda3"
+    },
+    {
+      "path": "s02-recursive-bound-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 598,
+      "sha256": "a35eb375370549836b575b5a2a64cfcff3ccfac9160265c9206e8101818be2c1"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1943,
+      "sha256": "a69531a8ec819ffe5a1b677f5bc9b1b7a04c353b5d125aeb9ab94cbb85c8f8ff"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12699,
+      "sha256": "1dd52df368d6dd1e2be89208c5833b08d35ddd89ea9f86aa84cbd2d528049536"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 685,
+      "sha256": "dd1ec1cccbf9bf17e0cf9ecbf569dd2a688d8e244daaa6837461f665ba94973d"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1259,
+      "sha256": "b9ad0f2692496977c4fc3a85f328fa9ff8d8f1cb36358a263ff9979ff9c20637"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 620,
+      "sha256": "b77b6d74dbc9c06ef74576d408461e210723d4b20025e9b42c3fe40b0f38bafa"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3497,
+      "sha256": "958ad69975cb3e8cf8d37217153895350f0764f2036b9e7c39191dffa7e6b854"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "85445e406fe5105c58cce21c5f03bda669031a3ca302e2e504205c7ed7a049ee"
+    },
+    {
+      "path": "s02-recursive-bound-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9529,
+      "sha256": "0f526c0cf501804aabb29e2f3d4c2d2f6691172d7e9615cc114b6bb6a0a111fd"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1943,
+      "sha256": "252f0abc7a24939fb3354cc002329edb6c49724b79915299bcf9992910e10de5"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12306,
+      "sha256": "fcc97321d8d6ce87b8f1019e084b087b9d27586c7f02daed5241079a0a528f01"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 697,
+      "sha256": "61c007819e58af5ba51af74e08d28d8abee2eacf8ec1a5697d18a1930c2b98b5"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1259,
+      "sha256": "b91173bc5809f4210f5b52db4af3d0caf9efa9355a3788fbed951605dfbc4ec5"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 620,
+      "sha256": "99818f272fecd8c047e8b6b3846555216830e3746bcf656e91c2c46d98e21176"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2585,
+      "sha256": "d49d132e7eb0642649fe06e9ee5f569183ecb4c5f4bdae12afcc7ac1522d30ca"
+    },
+    {
+      "path": "s02-recursive-bound-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "b4147d28d7d577c080818b9117b629e2c3a76a4353b7dac98fc539d8441c49fa"
+    },
+    {
+      "path": "s02-recursive-bound-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9492,
+      "sha256": "f1e5dc2d15177211edebf4122cb14dd173b84c70f39a074ed5246519f7a641a5"
+    },
+    {
+      "path": "s02-recursive-bound-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-bound-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 32517,
+      "sha256": "ec53f75cfb4c4e38ad6724d86b50e068631eed4a23dd9454241cbca37470d8d9"
+    },
+    {
+      "path": "s02-recursive-bound-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 291,
+      "sha256": "3f8e176019cf6c334c282819763dcbdef9d77bfcf58eaa659c6a6a91a4a6f7cd"
+    },
+    {
+      "path": "s02-recursive-bound.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18180100,
+      "sha256": "977e622a7bfe96c52a6f534f5e36572549b9af03c47d9dd4a643df0317082339"
+    },
+    {
+      "path": "s02-recursive-child-block-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1938,
+      "sha256": "66bf1d6d3d441180453ba0bbedc2a210fc7643162b71506b051c283fa5d8610c"
+    },
+    {
+      "path": "s02-recursive-child-block-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10740,
+      "sha256": "f584db4fb4f29fdf54ba1f89cbd1f22ad9b1107d49a81790e2a818648797e667"
+    },
+    {
+      "path": "s02-recursive-child-block-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 682,
+      "sha256": "427abc3bcecef3eb390fb7ab923866e3321fa66e97b40ac9c6750645ddb213e3"
+    },
+    {
+      "path": "s02-recursive-child-block-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1254,
+      "sha256": "0997557d8c4174f2d9a05bfeb8840add1805f893fea1b8ca55711dec1fbb3853"
+    },
+    {
+      "path": "s02-recursive-child-block-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 610,
+      "sha256": "4d5937a326bc798d6f6d86e0842fc3101ca963f1189b9b57fdd02ed463767f6c"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1949,
+      "sha256": "27279840c7da789fe7b061601a4d4c3adb4c97e1f979b330c6365a03b7c952ad"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11538,
+      "sha256": "41bf264e4b4db0f497532cd041410b8b5f56328ec3c144b6c642bbedbbbee818"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 692,
+      "sha256": "b0ebf627c913db67ebb1d697d22653d3ec9a97410c3f7ac4428c7c8b035e5a4d"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1265,
+      "sha256": "c002832af57a1a4879bbb08d4c398ccb135f80f918f0b4ad080d910063b520a4"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 632,
+      "sha256": "369f8736a7d74ad9b22a166ad6d74934a6a4c610a8cd4b115180b9e29140dfb8"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3497,
+      "sha256": "0524027d84260d9b60dfda3ea45320c053d9c83965a3e6b68d7e615aa2bb65ce"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "9ef853f7854ced4c5b6b8835ab324575ab04d4ecdca5f66840d032002495e060"
+    },
+    {
+      "path": "s02-recursive-child-block-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9535,
+      "sha256": "1fd2725cf9e10fc1c9a93106652d3e9c859598c2b1979a6180b9a22d6f3dd9d7"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1953,
+      "sha256": "60ff26347fcbb5d5f47977b046c432779512f40d1d6a92a2de2d49cc6de31143"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11139,
+      "sha256": "7f7f5797f532a54093450a2091d39650b91154f03d6952f979b8dbb2fdfe7e36"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 692,
+      "sha256": "846648293e22f32c1235761f397e7438de968f05a2c80be45353c1f19f35b4b9"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1265,
+      "sha256": "12fa59ac0b156238219ccade0e4ce031439763d7debb8a56e18c9f28cb036df5"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 632,
+      "sha256": "9547484d403728d90ad31f728701d1b3c4090dbc9e0bfacb40cbd10d11b53e62"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2585,
+      "sha256": "626a138f4a4636cc07cd74073d647a4cfab41ca704863b7b70349867809e09bd"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 285,
+      "sha256": "f24f799bf5a547738e8872191ea86234091622b9947c63b5d90269164dbefa36"
+    },
+    {
+      "path": "s02-recursive-child-block-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9498,
+      "sha256": "226e4cf61a1d280641494789b43c893eaec5c1dc8680c991a760e09af6918bfd"
+    },
+    {
+      "path": "s02-recursive-child-block-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-child-block-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 20947,
+      "sha256": "b94d70466567a425d2c5ea141ab0078c98a91e9f71399b39619f02e3d1cddcc0"
+    },
+    {
+      "path": "s02-recursive-child-block-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 292,
+      "sha256": "b5af67490288dd51827382477a713138512e2fd54d5c686234623b475e79e33c"
+    },
+    {
+      "path": "s02-recursive-child-block.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18180112,
+      "sha256": "af1396a6483edf29380a2d550a0eaa7627e9a03d2dc7dab1a0efbc7dcb94367a"
+    },
+    {
+      "path": "s02-recursive-foldback-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1935,
+      "sha256": "9e432d0a18182089e4b0d0304f98a6177859ddc4bc41a7112722b09e9239b436"
+    },
+    {
+      "path": "s02-recursive-foldback-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9570,
+      "sha256": "97bb11b70e8a82e427fd2c4876768d8e5ea86717f4adcf7c4e98a664b108b3a4"
+    },
+    {
+      "path": "s02-recursive-foldback-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 688,
+      "sha256": "7e4ff1b2a1df67eda9ce192b7f43f75b38a8b1e7b6388fc61b0cdf510e21232c"
+    },
+    {
+      "path": "s02-recursive-foldback-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1251,
+      "sha256": "5590108f23d883a83744c8d9152464e881b48e958ff5e267065d27d8ec124723"
+    },
+    {
+      "path": "s02-recursive-foldback-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 604,
+      "sha256": "36417fc1ef13e94ed832c26817740973c4ac7ba810fd285a64c90631446a29fe"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1946,
+      "sha256": "869408d6616c4e844a1756c2d8ac03d77ad416ca604d42ef71f1bc4383e49a4a"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10359,
+      "sha256": "80f1b8d127808a4620072dab13d0007bc28f98c5f7a2e3c3b1f006e53549b732"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 689,
+      "sha256": "75dd664112bd7357b440a6cc394ae316ee5a165f59aed8c2caada4d7accad632"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1262,
+      "sha256": "41b29720c6aeb4ae80bfbae5dd821e97510fb98d5a0e76376d702e772766fcb9"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 626,
+      "sha256": "3301ee0d9ac64eaf2a07e2ed973c343e646e67892d4986a5e56e92181c417912"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5943,
+      "sha256": "c4c5438f05f9aa2fa3d0e9830958312a057118ae7a8ddb4a7f6c85a1954c9b1e"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 285,
+      "sha256": "eaecbc96224b1b56954a62f2189e6c7a443c42adfa3cde229f2299cc2dded41f"
+    },
+    {
+      "path": "s02-recursive-foldback-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9532,
+      "sha256": "29cb8798acdf9ebd5ffffe656fea82f2e1a68c69b7eea363e985e6744a4f3c43"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1946,
+      "sha256": "7efa11203b698d2dd7304704aaf0be5afea6a11f1001bd06216e679f3381f044"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9964,
+      "sha256": "6ececa55f2b82d917cad84ba4b62d57b5e9b728f417e8762bf9c02e2f4e2c5d5"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 689,
+      "sha256": "679424e23af81956facf3f01ca5799bb534fc07ed8c830cf3393f95c42ab799b"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1262,
+      "sha256": "e33be93899f036b66d2385dde8c0044281af569f3064abf2fefcbc5069306962"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 626,
+      "sha256": "6c20a9d5ba3057a6d934ff62579a04e8a8aab4fb4248e11c885bccf6956595a2"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6288,
+      "sha256": "c0d2165256c4fddf561e94a7c36d7e3f1bf7d57bf43def56d2c4cdb93762b060"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 284,
+      "sha256": "972caad4cc9d5492ad95c5795fe46cb29154905908c28db75c017e5a454c0185"
+    },
+    {
+      "path": "s02-recursive-foldback-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9495,
+      "sha256": "c965be50e096ec7c1c616b62bd723f72be766371ffa3f8d71bcfca40af5e7d80"
+    },
+    {
+      "path": "s02-recursive-foldback-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-recursive-foldback-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 35679,
+      "sha256": "c78f6452c95f5cfd8e4185fcfaedc5bd4578275fdb5800ab7b9e9fe606e65bc4"
+    },
+    {
+      "path": "s02-recursive-foldback-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 292,
+      "sha256": "cf7e702bf72534dedfacecd26ffae7c2132c4a16330e0c52874daa1de5693616"
+    },
+    {
+      "path": "s02-recursive-foldback.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18180109,
+      "sha256": "ec5c51374329c17eedfa04d7d44e3b5a65ce0cafc18791e9fa57047ba919e1ca"
+    },
+    {
+      "path": "s02-transparent-child-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1934,
+      "sha256": "df2a7d028a057aa758155a9c2df064c117b9427914cc36de9f4f21047afeed97"
+    },
+    {
+      "path": "s02-transparent-child-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4527,
+      "sha256": "a5aad8c1611854495d30bcca51b769d285e0b273fab0a3ca1a1296794db2b28d"
+    },
+    {
+      "path": "s02-transparent-child-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 698,
+      "sha256": "95ff88fbdc61330ad4b43443317bdf9a489a98929169c2d053b452ca732e8f8d"
+    },
+    {
+      "path": "s02-transparent-child-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1250,
+      "sha256": "30df21ed8a81d42c90cc98e5a1dc1dc0428c36d1425a6fe51d26f0a57cd14168"
+    },
+    {
+      "path": "s02-transparent-child-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 602,
+      "sha256": "a9d6d833d7540270b9b2fff75e936335f8ad7f77411973d4f48d0b84902d2387"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1945,
+      "sha256": "b771adbdae99bc5bcf56a4f7d15ee7acf3b5406fdf35c8b18e2194068106b5db"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5317,
+      "sha256": "afb4381fb43e79e8ec16af183bb9a60fa30bb3f6d3d8b20a526d30345b5c1e0f"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 699,
+      "sha256": "2264845f467dc69172f73c67fdd25d042a7d4f1644b38f51080fa1062fb4feae"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1261,
+      "sha256": "054a8259b91d141a7b5b5d9b1b3ca79da18e7875a5d10e8103d40464a0c78e0d"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 624,
+      "sha256": "15350956ab4e18899db8869ec0d7f6cab74f69f5a3c734e510b11bf2e894a3e8"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5864,
+      "sha256": "ca53fcc0b9062492772a33c68a829013116e96bf2ecfae3efe495cd81078a245"
+    },
+    {
+      "path": "s02-transparent-child-run_replay-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "0decf01eac3595b7fc0f09bdbd168b804d339448cc3fcf6c2a72c5c6e96eb1dd"
+    },
+    {
+      "path": "s02-transparent-child-run_replay.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9531,
+      "sha256": "5c0bcb065f3fb3b10d9dae48b86863c5e182d9f9a9d2c095a4bcf967dcbedda4"
+    },
+    {
+      "path": "s02-transparent-child-run_result-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1944,
+      "sha256": "896790cd2b97c9f5848058161cf338aca7643a15402388ae98c3940130a792c6"
+    },
+    {
+      "path": "s02-transparent-child-run_result-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4922,
+      "sha256": "0361ea6ed9c441e07b9211160ea88ff8e6f781458767708d799f561beb255c1c"
+    },
+    {
+      "path": "s02-transparent-child-run_result-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 688,
+      "sha256": "a31eb66a919ab42edbc2ff1397302c4259945f88e92755ffb32a13d24c098c39"
+    },
+    {
+      "path": "s02-transparent-child-run_result-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1261,
+      "sha256": "abaaa968147351f733d7f9ba93cf154de5001e951d75f9674218b7adcc156312"
+    },
+    {
+      "path": "s02-transparent-child-run_result-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 624,
+      "sha256": "891c2d1ccf30a6b41cd3151d3d67a33ee526dc2afc3ff1fea4cb0a09e6d2f511"
+    },
+    {
+      "path": "s02-transparent-child-run_result-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-transparent-child-run_result-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6209,
+      "sha256": "c7ba152f340d66fceaca2996632b1faaedca19acf788f3bda7f443e753289393"
+    },
+    {
+      "path": "s02-transparent-child-run_result-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 286,
+      "sha256": "bdc76ac84089f581e94904ce2c73eb4da14c728ce7a95fe7684c6029367f481b"
+    },
+    {
+      "path": "s02-transparent-child-run_result.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9494,
+      "sha256": "7669964890c2d8bd1bf093ff6d5c5c916ef465d51625525fe11591069787c549"
+    },
+    {
+      "path": "s02-transparent-child-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-transparent-child-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 16910,
+      "sha256": "68bd4b1128739c4e3a3c13a10fa354b600b47d7f37c7a540851c6c0231406619"
+    },
+    {
+      "path": "s02-transparent-child-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 288,
+      "sha256": "6695f475d10cfc7a5ae9a60b3278ed64e73f0fbac9a3c95f368c7f41e643d858"
+    },
+    {
+      "path": "s02-transparent-child.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18175308,
+      "sha256": "ded3fea65db64b441ba81ebe19ec6f12eba5447507e173366a2f08de61443bcd"
+    },
+    {
+      "path": "s02-view-bounded-recursion-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1939,
+      "sha256": "dd64ae7cbd0802513b9f006560b0e0c96c4e5097d654e4bc09a76e27ded7ccc0"
+    },
+    {
+      "path": "s02-view-bounded-recursion-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8786,
+      "sha256": "ae613c141495dcddf4ae345d4976b8be15981b9754c51bbf972392540fa6db26"
+    },
+    {
+      "path": "s02-view-bounded-recursion-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 686,
+      "sha256": "36ece44d8f2901149f41db13141e6557bd2a3ce9b8b16a2cdc63a0a845b00bad"
+    },
+    {
+      "path": "s02-view-bounded-recursion-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1255,
+      "sha256": "e35ee7181da7ec5338477e81b7ba245c1bf622eb636ce4576ede7a33eaf70e72"
+    },
+    {
+      "path": "s02-view-bounded-recursion-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 612,
+      "sha256": "3119151aa66e0b09ba589a3f6af3572ffc793b0dfeab73e6f673adddd156d0ca"
+    },
+    {
+      "path": "s02-view-bounded-recursion-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-view-bounded-recursion-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1346,
+      "sha256": "6e1482f72bdfdd921556b9f5416b8789ac391c8e1eb4aff6e3a506bdffec9826"
+    },
+    {
+      "path": "s02-view-bounded-recursion-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 287,
+      "sha256": "f264bcbbb09433b81425cdfd8beac78feb4a4bac5a33e43739a2be9b848417d8"
+    },
+    {
+      "path": "s02-view-bounded-recursion.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 29823527,
+      "sha256": "2c14dbe284a2295f6edc255f2befa17a4776d47554525d3922819ffac493c6be"
+    },
+    {
+      "path": "s02-view-fan-out-hello-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1935,
+      "sha256": "5621e116fb793220f5df818903838dfae496a478a025a78220230567ee3ce9cc"
+    },
+    {
+      "path": "s02-view-fan-out-hello-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13084,
+      "sha256": "ebdbc9542c5901776ef8bd2d3e60876d9f64c7b3d777c63cb193b151d14816e8"
+    },
+    {
+      "path": "s02-view-fan-out-hello-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 682,
+      "sha256": "e408c754fbf75379a26b138fb4554a44861b7090ccd7cb5486798c9571b470f6"
+    },
+    {
+      "path": "s02-view-fan-out-hello-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1251,
+      "sha256": "9074fb6d0b1b836feece0847923467137efdf6b05935ba69b55011e67ebb47b6"
+    },
+    {
+      "path": "s02-view-fan-out-hello-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 604,
+      "sha256": "1a6a7b4301e944b8d992643028e3d8571cdedb2fde8e8a12aa46234bfe45cabd"
+    },
+    {
+      "path": "s02-view-fan-out-hello-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-view-fan-out-hello-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1408,
+      "sha256": "ef4b8ea65ea2075e9d3a4466cd1abba1d69c4ebc53cb81a3ea4a305d0af4b539"
+    },
+    {
+      "path": "s02-view-fan-out-hello-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 287,
+      "sha256": "e42c2da201ca1825072b2819b3ac8eefc64ee536c1ec5836013dd98462c6f87c"
+    },
+    {
+      "path": "s02-view-fan-out-hello.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 29823651,
+      "sha256": "ceb3fa639881eb656826d3ce0dba56607d232c2465e19bab13bdc857ca7e57a4"
+    },
+    {
+      "path": "s02-view-hello-compose-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1935,
+      "sha256": "2b5be44070006883903f9d43a4a75076175735ae59f4c797fa6bffc8bc02af19"
+    },
+    {
+      "path": "s02-view-hello-compose-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1806,
+      "sha256": "fa425eb318ac9a2749e670c3cb7ab8b0b5c4b68451066daf9867bb147050a9ba"
+    },
+    {
+      "path": "s02-view-hello-compose-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 680,
+      "sha256": "43c5afea5eefcc08a254675f69dbc749e81e95f8597bf3ce10dec93de9c25006"
+    },
+    {
+      "path": "s02-view-hello-compose-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1251,
+      "sha256": "aa2819ca2b7a7cd359b15be1be5a84ff4e6842ae65fd5c678f460c814400a9f9"
+    },
+    {
+      "path": "s02-view-hello-compose-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 604,
+      "sha256": "7eebfaab163edac8cd40c65bb4f62000c7d0a811a62d03eccd654c3d13e31c4a"
+    },
+    {
+      "path": "s02-view-hello-compose-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-view-hello-compose-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1274,
+      "sha256": "0367fc32dc0fc6074783fc33c6ffff7b27b8b071fc0f5f7636b25948ba4eb19e"
+    },
+    {
+      "path": "s02-view-hello-compose-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 287,
+      "sha256": "544167dbb4770ed6af7b1f64179c9f1a5f18ad82f381e0e8d71dae165e1b8123"
+    },
+    {
+      "path": "s02-view-hello-compose.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 29823379,
+      "sha256": "336969819edbd353b9c9799e3d991009b64572e5d2436d662acc798db3a6df05"
+    },
+    {
+      "path": "s02-view-hello-gate-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1936,
+      "sha256": "5aaefc4af56580010313e1fe592900de0ba451d1814a303e0fc450d4545d701c"
+    },
+    {
+      "path": "s02-view-hello-gate-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5699,
+      "sha256": "78c765dbdb6622f14e6f038e6d9848fd961a0d0d95909b9f1a5c75f18f64fca3"
+    },
+    {
+      "path": "s02-view-hello-gate-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 689,
+      "sha256": "d2b45f14cadee72f8af33f359a09b1adf86938af8bba328145f81844030ef6d6"
+    },
+    {
+      "path": "s02-view-hello-gate-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1248,
+      "sha256": "4aca02c2ba4f551f2368de53f119df6162ecdd866862a2fa3f883ed2716e389f"
+    },
+    {
+      "path": "s02-view-hello-gate-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 598,
+      "sha256": "ae212c2527aac2a26c84558ac529de00cbde722832a75ddedb39e0640ee1e3c4"
+    },
+    {
+      "path": "s02-view-hello-gate-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-view-hello-gate-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1334,
+      "sha256": "ff1fda3a542beed23d13ba1fa42c638925e241e48f8a3c939fda4d768e5a8d64"
+    },
+    {
+      "path": "s02-view-hello-gate-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 287,
+      "sha256": "e5bee6fcc627c9e9572976cf31fa1b01be3e3e711d795708902ba3647920e8d4"
+    },
+    {
+      "path": "s02-view-hello-gate.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 29823499,
+      "sha256": "9a9ac90249ead5fa81e264774e6c3c556332cd82134a930a7e02858b64471683"
+    },
+    {
+      "path": "s02-view-hello-workflow-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1940,
+      "sha256": "d0b8023900e163b547bdcf60e375c93a2ffb6db377d643fe07e5a7241729462f"
+    },
+    {
+      "path": "s02-view-hello-workflow-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3746,
+      "sha256": "bf6eb8cb6f4880f8c0b7264f335bdcb9670585675184d8d32e3d0cf4720a9ea5"
+    },
+    {
+      "path": "s02-view-hello-workflow-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 682,
+      "sha256": "191dc2f4682594c8b29397f9356e0bc3b66fae3e759dcf52a431fde9c162dc0f"
+    },
+    {
+      "path": "s02-view-hello-workflow-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1252,
+      "sha256": "911a36e83313eb8c3f43e5e10fe480bd1ed784356fa0fcd0f7ab46137f2810b7"
+    },
+    {
+      "path": "s02-view-hello-workflow-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 606,
+      "sha256": "0d10def1520b81e9b376e4e10c81535b1f514ee5ce18b8b7c2e86f4cc693dc48"
+    },
+    {
+      "path": "s02-view-hello-workflow-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "s02-view-hello-workflow-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "a0e5e7ea3731b27f1f03c7cd1fa0c0c414c8cbadacbbaf16bfc6f7a0a9f4cd09"
+    },
+    {
+      "path": "s02-view-hello-workflow-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 281,
+      "sha256": "1256e6d5ac6d0cb977f40a7e633b3644329a5ec78d236eb4ecf8eddb41e1d274"
+    },
+    {
+      "path": "s02-view-hello-workflow.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 29823495,
+      "sha256": "63206959f8c4022a842e8a8523531e1fa6f6cacc8519e4f56ddbdda91820895e"
+    },
+    {
+      "path": "scenario-oracles.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5777,
+      "sha256": "928d8751dbacaf626a0939751ac45a174a81628fc15ff036d16acc9eb2a377c2"
+    },
+    {
+      "path": "selected-core.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1279,
+      "sha256": "eb152956e8f3500c2da49dc550c5fddc3e979a385e2d446065f1cad37f5351a2"
+    },
+    {
+      "path": "supervise-driver.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1890,
+      "sha256": "c11af8294b1f485e5c5a5df492eeff85ecd25c8c13f6ddc7586253f6e336c188"
+    },
+    {
+      "path": "syntax-checks.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1077,
+      "sha256": "c192827cb6ded387d2de43b40d9f8925ac73d574d07c51d3141c831e3f097763"
+    },
+    {
+      "path": "transparent-child-after-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "fba086789c05b2658d3e4a895aa9b5385f771a3a0d48cf582f7d17d006862d61"
+    },
+    {
+      "path": "transparent-child-before-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1332,
+      "sha256": "1ff5af60d34525e7c827306f473eef0ca2750617c264051833448baf36551a43"
+    },
+    {
+      "path": "transparent-child-native-reads.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15676,
+      "sha256": "d75282b7480e41cd7efa3dc8fb366c1f1d974f23cf5c4c51090506761ccb6690"
+    },
+    {
+      "path": "transparent-child-proof.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9744,
+      "sha256": "af2981834b1a375fdbd2ff472da14c6a8fcd0673614db30f0bfc48d2722c561c"
+    },
+    {
+      "path": "transparent-child-run_replay-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15695018,
+      "sha256": "52c6854359572e979ad32953012cf1bd551215b312be79f3db9e68e2958c1210"
+    },
+    {
+      "path": "transparent-child-run_result-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15694957,
+      "sha256": "8e7f9a2332a618abdcc1e7c5a34e3013b27e77116b40f4e7226f34df280c4b91"
+    },
+    {
+      "path": "transparent-child-start-owner-precondition.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 48759975,
+      "sha256": "f869c041039f6366f0c5c29e02868902d37b7c5eaddcbd4a899404e57aa371f4"
+    },
+    {
+      "path": "transparent-child-start-resolution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 12098535,
+      "sha256": "f8eec1fcfd60be97aeeba41fc18032f7b84529d31f1b3b57c356f91608c5c771"
+    },
+    {
+      "path": "union-oracle.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8688,
+      "sha256": "d80e5bbf11ae925d3b63fe764a680fe2fa023166e618c7a2a47ffdb429a79c4c"
+    },
+    {
+      "path": "worker-activation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1601,
+      "sha256": "23d1c74f422e22534e81529943f959a770dc0c45e44af93e2d2fb1406e259d23"
+    },
+    {
+      "path": "worker-closure.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 569,
+      "sha256": "6a340d3783c8cd6434ebd833b05c6c3e90a2dbc2dc221ed20975b0a6b8468c2f"
+    }
+  ],
+  "candidateArchiveDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+  "nativeCalls": 37,
+  "viewCalls": 5,
+  "conformanceCalls": 5,
+  "startCalls": 9,
+  "freshReadCalls": 18,
+  "cases": [
+    {
+      "case": "nested-compose",
+      "run": {
+        "digest": "sha256:20765b69d498782038e6a15846e57b1b77acd12125a5bef366e2eee671a73917",
+        "ref": "run://abiogenesis/1d013ad529b6557a5af34fbbead63a5a23c4148f0c7439b716b4a01b313b6bb0"
+      },
+      "graphCall": {
+        "digest": "sha256:b1399ad5a6d66d5f47feee771c6336abb2077d1abdb901c232a4a1e6681f907f",
+        "ref": "graph-call://abiogenesis/9d877525042b0d599e8eae370de362d7e7202e31015ad03164e42fa2d407e0cd"
+      },
+      "disposition": "completed",
+      "events": 126
+    },
+    {
+      "case": "transparent-child",
+      "run": {
+        "digest": "sha256:c291c73c6b9adc94656adebe2a9e6b1a810fdca29fe31a11d9a7fcc5ee45ccf7",
+        "ref": "run://abiogenesis/93bf611ecabebd53a13ac17033ef68eeb6ee20289c3a6f7865087841052aaf6a"
+      },
+      "graphCall": {
+        "digest": "sha256:519cf40c31270714249630048e4074620ef4c58028dbc6b7fd945a1e5da610ff",
+        "ref": "graph-call://abiogenesis/ab79369fcd0629baba96683501fd6a158020532ce0258480dfecef93955bfc3a"
+      },
+      "disposition": "completed",
+      "events": 58
+    },
+    {
+      "case": "gate-advance",
+      "run": {
+        "digest": "sha256:5a1f632c6bab6084d6d82ed37bfc0afc49fd13e77e1bf2902cda1fff21bed164",
+        "ref": "run://abiogenesis/b9334fb54e21855ba5a2ae6d9dbc56a2e28ac9db456d5230a2f27b0a10456632"
+      },
+      "graphCall": {
+        "digest": "sha256:62c4400ac2b65451f76c56b9ed4458a0715cb2fe34f0cfbfff2a004db252e1c7",
+        "ref": "graph-call://abiogenesis/ba138ab18ff964928b92cabdaecdc16a3522e1efb9dad4af7974823585e67aff"
+      },
+      "disposition": "completed",
+      "events": 77
+    },
+    {
+      "case": "gate-block",
+      "run": {
+        "digest": "sha256:241bb5ab4414afe3183b7a1c9719ccea6e0c4f926ca6b98bf37e98c2902aba9e",
+        "ref": "run://abiogenesis/5e8b01274d46a540f312ad21dd2c1c0a705a333afe47f1ed83384e0c65706f53"
+      },
+      "graphCall": {
+        "digest": "sha256:2797258db94c489b57323d16096ca279e4796757d26cbc4d699c005b7b457b45",
+        "ref": "graph-call://abiogenesis/c9803885b0dc9e328945d3e45ed0a98192ad26c73e36a526d1e6b1468ecc931b"
+      },
+      "disposition": "blocked",
+      "events": 29
+    },
+    {
+      "case": "recursive-foldback",
+      "run": {
+        "digest": "sha256:745519c8f4a01b71a98de8970454376a3423a4472657b155809595178403ab03",
+        "ref": "run://abiogenesis/8c52a260c143482b9be76df621c5fcd0c9bab13f31a838d4341c9fb647b64551"
+      },
+      "graphCall": {
+        "digest": "sha256:6a757f1d1358bd939126e4e1e2cdea8295bacc1f821e904052e13ffbc2617948",
+        "ref": "graph-call://abiogenesis/3a4908fc30664ecdb809bc623ecccb9c877ae6598b517ce560b6a06d8e084564"
+      },
+      "disposition": "completed",
+      "events": 163
+    },
+    {
+      "case": "recursive-child-block",
+      "run": {
+        "digest": "sha256:2927503e35739b21ee1bc461fbdfd37df0097982f8e0ee95f2f5d574eddff1aa",
+        "ref": "run://abiogenesis/b345a9efe1de66ce6babfc0458896eb851cd971507f978d9b1cee429dc7b06a0"
+      },
+      "graphCall": {
+        "digest": "sha256:677ba4846ed1a15f2276f58ad1b02c389a6dd24f24283247009b5b5355783f71",
+        "ref": "graph-call://abiogenesis/420959c26d72d1c64783c96c4a8a2b78b0d6d7b52cba86bc2e638f08fbde85d8"
+      },
+      "disposition": "blocked",
+      "events": 94
+    },
+    {
+      "case": "recursive-bound",
+      "run": {
+        "digest": "sha256:cfca2a72ed624c9f6432565064594d4fc42cfb699cd1abec2fba12d5004fd93f",
+        "ref": "run://abiogenesis/9bcab30d4996878a7bc227e8a7a79cdae5c451fcc7e9b6c6b7f20425913df4eb"
+      },
+      "graphCall": {
+        "digest": "sha256:edb33ddcd7bde30722fb9e87b40c1404f33719bd8bfe0a3bb013b30f44508adc",
+        "ref": "graph-call://abiogenesis/06915ba592f4434e1698538e9bea6558687b260a5e255c4ac18d34d2211e772b"
+      },
+      "disposition": "blocked",
+      "events": 159
+    },
+    {
+      "case": "ordered-vector",
+      "run": {
+        "digest": "sha256:f1959685e0c45d24d70555df4e032817cbf087755f845734f4ef0b67c3ad0ea0",
+        "ref": "run://abiogenesis/3f8b220a41c200ea099f866fb71c91fcd41748102de2eb295ec1da223377c7b5"
+      },
+      "graphCall": {
+        "digest": "sha256:6db75ccadf530d6de55dc6e4c73cb4d825cdac362ef1ea1c7ce66fb9a39aac8a",
+        "ref": "graph-call://abiogenesis/94be194eef296234af5dbe5e1977c924a16cb49f930e04762ad354b02eb3a287"
+      },
+      "disposition": "completed",
+      "events": 195
+    },
+    {
+      "case": "partial-vector",
+      "run": {
+        "digest": "sha256:5e871a54372cfd6ae5d48fac42f98ebbcab67dcb290ad1f33030e199b2a7fd19",
+        "ref": "run://abiogenesis/592fc2d351b86afbef6e50ec44e0cadb4833e5da7a5423d9e91ade344b41cb96"
+      },
+      "graphCall": {
+        "digest": "sha256:f932a2b369729c882afcdc1c3acbc3809f68f7ea560b00d533b17eddefb62918",
+        "ref": "graph-call://abiogenesis/d21ae35f908f420c11840d5c4bb03bbb809a0f204102c7455e9a3ba503ad17dd"
+      },
+      "disposition": "blocked",
+      "events": 99
+    }
+  ],
+  "firstNativeOrProofFailure": null,
+  "retryCount": 0,
+  "providerCalls": 0,
+  "modelCalls": 0,
+  "nativeResourceCut": {
+    "prefix": {
+      "coordinateDigest": "sha256:14d27a03a037651dd2252dfd656c6b98673adb3bfe8a8c182981dfbe610c4c50",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:aa313be7193a9443b8e7d2523da2b27f762004e7a8a2e6b601fb42618d498672",
+      "prefixLength": 6137505,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464244056
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:415b2f9b153d962664051c817fe85d5350d3df5c7ce321cc97d5ca45431e2b32",
+      "device": 16777230,
+      "durableByteLength": 6137505,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:aa313be7193a9443b8e7d2523da2b27f762004e7a8a2e6b601fb42618d498672",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+      "inode": 464244056,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "originalResourceAppendException": {
+    "freezeSHA256": "563a3db9354aac6616a42ce8350defb1fa9a27da1acd6c8bcae4adc149e74012",
+    "allOldImmutableRecordsConserved": 6023,
+    "originalRecordCount": 6024,
+    "exactMutableException": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+      "originalBytes": 2701191,
+      "originalEvents": 67,
+      "originalSHA256": "c4c1c28232cd3a89d7233a03485c113e2f2df0c76d7a9432ca9d610c56c2aa90",
+      "oldStaticPrefixSHA256": "c4c1c28232cd3a89d7233a03485c113e2f2df0c76d7a9432ca9d610c56c2aa90",
+      "bytePrefixConserved": true,
+      "device": 16777230,
+      "inode": 464244056,
+      "runtimeAppendOnly": true
+    }
+  },
+  "externalReadOnlyPins": 27,
+  "allPreEffectRecordsConserved": 36,
+  "ownedProcessClosure": "process-closure.json",
+  "cost": {
+    "driverElapsedMs": 338105.609,
+    "driverPeakRSSBytes": 5381554176,
+    "maxNativeCliPeakRSSBytes": 2058878976,
+    "retainedFrozenRecordBytes": 2385034761,
+    "eventGrowthBytes": 3436314,
+    "eventGrowthEvents": 1000
+  },
+  "qualificationClaim": false,
+  "next": "Root-selected independent frozen-subject assurance and bounded coverage schedule conjunction; this Worker is CLOSED."
+}

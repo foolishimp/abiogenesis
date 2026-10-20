@@ -1,0 +1,40 @@
+{
+  "lastCloseHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+      "prefixLength": 3786241,
+      "prefixDigest": "sha256:1d21d5637b8dde280581697af9814af66e655cc6e316cbd71d193c657ff1af79",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 463748325,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:98dbbf84d7aba546090536a79c4738a8ef87d549788404e9ca80e9f9703f364a"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+      "device": 16777230,
+      "inode": 463748325,
+      "eventLogDigest": "sha256:1d21d5637b8dde280581697af9814af66e655cc6e316cbd71d193c657ff1af79",
+      "durableByteLength": 3786241,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "authorityDigest": "sha256:9a4452f294cf898c6180e0f663a47983811f4817f0752d910a7f7a7b3f0617e7"
+    }
+  },
+  "ownerPid": 64017,
+  "expectedCurrent": {
+    "byteLength": 4619847,
+    "digest": "sha256:35bca919369ce04fa6d8a7d62f9617af25e64e21f11491e111fead2fc5851d4c"
+  },
+  "abandonedLock": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abiogenesis-event-store-locks-v5/16777230-463748325.lock",
+    "device": 16777230,
+    "inode": 463750972,
+    "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMwLCJpbm9kZSI6NDYzNzQ4MzI1LCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NjQwMTcsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "digest": "sha256:df1379e2cad4492b24750ee31c31bb5bc73cd151e0b155ef03bb066c20371265"
+  }
+}

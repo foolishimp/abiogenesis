@@ -1,0 +1,80 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.witness.admit",
+      "memberKey": "reprice"
+    },
+    "invocationRef": "invocation://abiogenesis/4a1c307df6d61a8e889d62118bf184a51e222cb1990b9fe09f23356c2d12c1ba",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "act": "reprice",
+        "witnessedAct": {
+          "ref": "witnessed-act://abiogenesis/c318ad20e57a61e25f0ceddb516d5dfbe257f14615981e54a4f3a7b190105f7a",
+          "digest": "sha256:c318ad20e57a61e25f0ceddb516d5dfbe257f14615981e54a4f3a7b190105f7a"
+        },
+        "admittedEvent": {
+          "ref": "event://abiogenesis/ed7b0afc72a98db6d89357912ac97797db906c1d439a73fe5280fa65341f3644",
+          "digest": "sha256:ed7b0afc72a98db6d89357912ac97797db906c1d439a73fe5280fa65341f3644"
+        },
+        "evidence": [
+          {
+            "ref": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+            "digest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+          },
+          {
+            "ref": "workspace-binding://abiogenesis/79628303eb01c99cd04ebcf8ce40ecd225e1660abf6035538288eaa4033e7e1f",
+            "digest": "sha256:79628303eb01c99cd04ebcf8ce40ecd225e1660abf6035538288eaa4033e7e1f"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "witness_reprice_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "eventResource": {
+        "kind": "abg_event_resource_completion",
+        "schemaVersion": "5.0.0",
+        "acquisitionKind": "reopen",
+        "entryPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+          "prefixLength": 1685837135,
+          "prefixDigest": "sha256:e7a1a35f4b3ceb3d4e45ee1f4844c1ecfa334f5027b336bdf4854c75129bb8c3",
+          "storeIdentity": {
+            "device": 16777231,
+            "inode": 468327400,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+          },
+          "coordinateDigest": "sha256:fe3d08685d3bbd3ef2745050f49d83af7bdf279df2ed1f967a26382036bd0ad8"
+        },
+        "successor": {
+          "kind": "acquired_abg_event_resource_selection",
+          "schemaVersion": "5.0.0",
+          "prefix": {
+            "kind": "durable_prefix_coordinate",
+            "schemaVersion": "5.0.0",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+            "prefixLength": 1685844160,
+            "prefixDigest": "sha256:b4739dc5ddb6c639626546873d4e217476e44fe4c5811a0a7607f8601f1ddc38",
+            "storeIdentity": {
+              "device": 16777231,
+              "inode": 468327400,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+            },
+            "coordinateDigest": "sha256:8fa369f3e79413434e8877b1599173b37f9666b95fc4d7bcb8e3aa83450191cc"
+          }
+        },
+        "receiptDigest": "sha256:fd9835cfe992bba53fa0e5b526cb81ceff1c5a11e9f6f94172f07e2123c74e60"
+      }
+    },
+    "failure": null
+  }
+}

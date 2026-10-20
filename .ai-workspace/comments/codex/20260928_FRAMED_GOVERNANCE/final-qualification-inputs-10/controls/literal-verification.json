@@ -1,0 +1,54 @@
+{
+  "tool": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "checks": [
+    {
+      "name": "review",
+      "literalJoinVerified": true,
+      "sections": 7,
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/review-request.txt",
+        "bytes": 3485,
+        "sha256": "dfe6c98f1bc6105837b628569ffe305475cd844b176042a580f205c7172e50b9",
+        "mode": 420
+      }
+    },
+    {
+      "name": "setup",
+      "literalJoinVerified": true,
+      "sections": 7,
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/setup-request.txt",
+        "bytes": 3544,
+        "sha256": "ae31bfb3863c4cfad8126b3ff6561dab1020e252eacae7c3a0f062de29c2381a",
+        "mode": 420
+      }
+    },
+    {
+      "name": "inputs",
+      "literalJoinVerified": true,
+      "sections": 7,
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/inputs-request.txt",
+        "bytes": 4064,
+        "sha256": "379c849a296dcf001cbf1a5020be9dd213d50078184af7a0f8e7a741d26a7dac",
+        "mode": 420
+      }
+    },
+    {
+      "name": "runtime",
+      "literalJoinVerified": true,
+      "sections": 7,
+      "request": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/runtime-request.txt",
+        "bytes": 4434,
+        "sha256": "72360717434d84a329c6594cea0c298525f0dd6af9545043f9dbf38c6ed4312f",
+        "mode": 420
+      }
+    }
+  ]
+}

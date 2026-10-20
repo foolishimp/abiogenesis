@@ -1,0 +1,117 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+    "sha256": "db5de97b08af4dfdeff8c05901aaf845e1555be7efc518e1380008442bedcb36",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+    "sha256": "1825b0b1674c81d89dc591cfb7a643ddca0baca68733dc8b52a367c088877ea6",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "sha256": "6edc41e7c88242d95d62333df32cf083ee815d19aad3a7cc022fee6466c23cd6",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/implementation_resolution.ts",
+    "sha256": "d2c6d468d36327acf4889839d0b46a4292cdced28bf1f2946be71205a5fabbd1",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+    "sha256": "db7a4a220ffe79f9eabe21e96e9129e0f5e993959d0e27cb3b6cfbb396a681ea",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/installed_module.ts",
+    "sha256": "03292ca447000174d07f0a64092f00a465e4e8c32df02d19242f557ed994745a",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "sha256": "84b10ac9eb4f2ff2c3fde79f1a202764eab68cc2aeae694e707abb34b105e6f2",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+    "sha256": "2fcf1a47f5c0760f3fdd38c4caa34b4252b1ad989f1943c098152a60a0387cfc",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "sha256": "a5e908e5da7a9d1059ae8dbc4446a5a407c10d43c8218c9f1c99fd1a9d77087b",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "sha256": "eea1089a08001120f8d71d5ad0c487d1914473c2404893d0c9448f8833a929b6",
+    "preservedSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "sha256": "3d4ec834d362107a5cbf16ac597e28fdfd733a1ff2ad275c1cd295046ca8c065",
+    "preservedSubject": "1df2966c65cc3309b45ca443bd1f6eb0c2bcb542a48f009f9c4f5ee740519dae"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "sha256": "fe1bda23ff6ad6cce3c1b58b0239b971a46690d3b55e9984c3bf885e91dd3c26",
+    "preservedSubject": "1df2966c65cc3309b45ca443bd1f6eb0c2bcb542a48f009f9c4f5ee740519dae"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "sha256": "7ce5bc2f9f04c649fd7e83175dff5ca4e4977c3005b79c727138dfb19c1ee3c2",
+    "preservedSubject": "1df2966c65cc3309b45ca443bd1f6eb0c2bcb542a48f009f9c4f5ee740519dae"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+    "sha256": "9a951b33dd5ea30d5f91efeaa01bbeb46a32f756287c6b6df2823a698039ac80",
+    "preservedSubject": "1df2966c65cc3309b45ca443bd1f6eb0c2bcb542a48f009f9c4f5ee740519dae"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "sha256": "1c56e84f05905979f3f731cebadf12a4e2834d2aa5d03caf755d6c7d61179745",
+    "preservedSubject": "257f2a90b8ec598e600312a7b44fccf081c3dda8b280cc7fdfad4d674ff20c13"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "sha256": "efc4d9dd5818984c9f19ead8d41537521e139ab8f531041de827b109be13064a",
+    "preservedSubject": "257f2a90b8ec598e600312a7b44fccf081c3dda8b280cc7fdfad4d674ff20c13"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+    "sha256": "28f80500127345bab3f6a4dad35d4e68093f50ba93cac749811e58ba3d5e06e0",
+    "preservedSubject": "257f2a90b8ec598e600312a7b44fccf081c3dda8b280cc7fdfad4d674ff20c13"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "sha256": "c581646dfcee5d8441674a04eddc91e413a09739aca20e7e1e5834dc0e677fd8",
+    "preservedSubject": "257f2a90b8ec598e600312a7b44fccf081c3dda8b280cc7fdfad4d674ff20c13"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "sha256": "cd5fe443046b94751d13a2625fa8d8b50fc0deaa34ccd7a0355c896e5ab6e0dd",
+    "preservedSubject": "257f2a90b8ec598e600312a7b44fccf081c3dda8b280cc7fdfad4d674ff20c13"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "sha256": "d6fe18e05094a68e9a759091b386afda031316e2f8a911f29ae95faba0c78965",
+    "preservedSubject": "257f2a90b8ec598e600312a7b44fccf081c3dda8b280cc7fdfad4d674ff20c13"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "sha256": "90ea82096607879dfcf8a00369612fae1b58bab3b6630e97d7bc6555dfe5af62",
+    "preservedSubject": "257f2a90b8ec598e600312a7b44fccf081c3dda8b280cc7fdfad4d674ff20c13"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "sha256": "76ef692761ddc6451fe7e51a742d1b2c09bd627fbe83412569786cd44dda855a",
+    "preservedSubject": "Root S9 source freeze"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "sha256": "efb1feacc47ccfe83bd0d223b01559d2d64244ffb720f039f05e9330bbc10d0d",
+    "preservedSubject": "Root S9 source freeze"
+  }
+]

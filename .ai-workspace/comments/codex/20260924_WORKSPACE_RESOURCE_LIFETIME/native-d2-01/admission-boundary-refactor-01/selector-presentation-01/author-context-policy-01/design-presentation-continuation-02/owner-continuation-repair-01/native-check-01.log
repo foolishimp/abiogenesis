@@ -1,0 +1,17 @@
+(node:22498) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (641.358084ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+✔ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (136.565875ms)
+✔ native D2 operational author preparation cause retains accepted stages and selects only the actual failed stage (217.81775ms)
+ℹ Actual failed source Run 74ac812a / close 216334690: failure shape and three accepted-stage frontier conserved; prefix/leaf admission and physical roots remain supplied component premises.
+✔ native D2 retained empty-obligation selector composes with all fifteen unchanged obligations (310.473417ms)
+ℹ {"kind":"retained_operational_continuation","parentDigest":"sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185","selectionDigest":"sha256:8e0da8b5110359b7770712eb4ae610e512bec1516774d1f2b6d3a0c061897de0","obligations":15,"preservedAssets":3,"historicalAssets":4,"selectedProgram":"program://odd-glc/native-semantic-revision/from-design@5","premises":"upstream admission and current physical environment supplied; no runtime admission or native execution"}
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1602.118375

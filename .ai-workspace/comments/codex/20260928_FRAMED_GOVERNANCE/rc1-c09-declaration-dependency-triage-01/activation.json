@@ -1,0 +1,13 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_C09_PREPAYLOAD_DEPENDENCY_DISPOSITION_WRITER_01",
+  "startedAt": "2026-10-02T15:29:44.854617+00:00",
+  "exactWriteTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "grant": "Record triangulated actual dependency/proof-consumer disposition and bounded current C09 pre-payload control amendment; no Source, candidate payload, wrapper or Runtime effects.",
+  "returnsTo": "Executive"
+}

@@ -1,0 +1,35 @@
+{
+  "status": "activated_report_only",
+  "activation": "T287_QUALIFICATION_RAW_CONTRACT_SOURCE_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "activatedAt": "2026-10-02T09:29:21.423922+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/request.txt",
+    "kind": "file",
+    "bytes": 3861,
+    "sha256": "1b94f8a2e48685901634a6ffd0f8d456cee7aac9d568a137739dac44c6c31bbd",
+    "mode": 420,
+    "role": "exact independent seven-section Reviewer grant"
+  },
+  "dependencyTrigger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/freeze.json",
+    "kind": "file",
+    "bytes": 1928995,
+    "sha256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+    "mode": 420,
+    "role": "CLOSED author cut; dependency ready"
+  },
+  "priorSourceLocalization": "CLOSED; additive scope correction conserved",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/review",
+  "ProductFrame": "GTL explicit native raw-contract ownership; immutable subject; F_P output candidate until ABG admission; source/component proof distinct from installed qualification",
+  "referenceFrames": [
+    "end-to-end-interface-integration",
+    "NativeDefinition",
+    "ContractIdentity",
+    "Effects",
+    "Proof/Reuse/Cost"
+  ],
+  "independentOfWorker": true,
+  "operationGrant": "pure read/hash/compare; new report only; no source/test/owner/Runtime effects"
+}

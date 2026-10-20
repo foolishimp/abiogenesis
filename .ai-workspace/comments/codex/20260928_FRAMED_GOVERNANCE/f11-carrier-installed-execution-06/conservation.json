@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "sourcePreimagePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "bytes": 15108,
+      "sha256": "2a59298ed1f74398d3b469030439a31bf9e5a5ef1cc999a6c8489f962d96bd01",
+      "actualBytes": 15108,
+      "actualSha256": "2a59298ed1f74398d3b469030439a31bf9e5a5ef1cc999a6c8489f962d96bd01",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "bytes": 119230,
+      "sha256": "22bc8a46aa596e8d5fa4b0336c9a0edc8f0878b1f96af00f2e8a03ad348772ae",
+      "actualBytes": 119230,
+      "actualSha256": "22bc8a46aa596e8d5fa4b0336c9a0edc8f0878b1f96af00f2e8a03ad348772ae",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md",
+      "bytes": 10757,
+      "sha256": "33cf25fd75658ef95b7a4a670b60343e9b7af13f91d62e0b9a751cf271bff3e6",
+      "actualBytes": 10757,
+      "actualSha256": "33cf25fd75658ef95b7a4a670b60343e9b7af13f91d62e0b9a751cf271bff3e6",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+      "bytes": 66344,
+      "sha256": "aec911e94dfb4e237188d52606956ff41fd8e5d910abbf783d4f0eee485f91a7",
+      "actualBytes": 66344,
+      "actualSha256": "aec911e94dfb4e237188d52606956ff41fd8e5d910abbf783d4f0eee485f91a7",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 36658,
+      "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "actualBytes": 36658,
+      "actualSha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "actualBytes": 4277,
+      "actualSha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "actualBytes": 38113,
+      "actualSha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "unchanged": true
+    }
+  ],
+  "closedDonorMetadataPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+      "bytes": 866138,
+      "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+      "actualSha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+      "actualBytes": 866138,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/freeze.json",
+      "bytes": 3902338,
+      "sha256": "3aa1948357cbce79b8c029f0be610fda129e325d6b0a267501e9e690cdd92f82",
+      "actualSha256": "3aa1948357cbce79b8c029f0be610fda129e325d6b0a267501e9e690cdd92f82",
+      "actualBytes": 3902338,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-installed-setup-acceptance-01/acceptance.json",
+      "bytes": 5219,
+      "sha256": "8b730d544806534d799282ba45e474289f53a985cc19decf222989b848c8ff2d",
+      "actualSha256": "8b730d544806534d799282ba45e474289f53a985cc19decf222989b848c8ff2d",
+      "actualBytes": 5219,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 36658,
+      "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "actualSha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "actualBytes": 36658,
+      "unchanged": true
+    }
+  ],
+  "originalSetup05EventPrefix": "byte-exact saved prefix; exact same16777230/464611665 resource; only Root-granted ABG append occurred",
+  "allOtherOldStores": "no operation targeted them; remain read-only",
+  "selectedSetup05InstalledWorksiteCatalog": "no source/installation/worksite/catalog mutation operation; prior complete physical/read assurance reused",
+  "qualifiedInputAuthority": "exact Root input acceptance verified before all Product imports; Q06 donor bytes remain readonly",
+  "RuntimeRetrySourcePatchSetupHelloQualificationCommands": "none"
+}

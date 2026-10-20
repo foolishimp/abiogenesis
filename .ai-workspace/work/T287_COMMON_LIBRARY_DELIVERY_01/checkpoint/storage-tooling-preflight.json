@@ -1,0 +1,71 @@
+{
+  "git_lfs_candidates": [
+    {
+      "path": "/opt/homebrew/bin/git-lfs",
+      "exists": false,
+      "resolved": null
+    },
+    {
+      "path": "/usr/local/bin/git-lfs",
+      "exists": false,
+      "resolved": null
+    },
+    {
+      "path": "/opt/homebrew/opt/git-lfs/bin/git-lfs",
+      "exists": false,
+      "resolved": null
+    },
+    {
+      "path": "/Applications/GitHub Desktop.app/Contents/Resources/app/git/bin/git-lfs",
+      "exists": false,
+      "resolved": null
+    }
+  ],
+  "policy_files": [],
+  "git_lfs_config": null,
+  "tools": {
+    "brew": "/opt/homebrew/bin/brew",
+    "gh": "/opt/homebrew/bin/gh",
+    "git-lfs": null,
+    "zstd": "/opt/homebrew/bin/zstd",
+    "gzip": "/usr/bin/gzip"
+  },
+  "git_object_size": {
+    "argv": [
+      "git",
+      "count-objects",
+      "-vH"
+    ],
+    "exit_code": 0,
+    "stdout": "count: 3878\nsize: 28.60 MiB\nin-pack: 54630\npacks: 8\nsize-pack: 8.04 GiB\nprune-packable: 0\ngarbage: 0\nsize-garbage: 0 bytes\n",
+    "stderr": ""
+  },
+  "lfs_config": {
+    "argv": [
+      "git",
+      "config",
+      "--get-regexp",
+      "(^lfs\\.|^filter\\.lfs\\.)"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "git_diff_check": {
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 2,
+    "diagnostics": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.",
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.",
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.",
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.",
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.",
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace."
+    ],
+    "stderr": ""
+  }
+}

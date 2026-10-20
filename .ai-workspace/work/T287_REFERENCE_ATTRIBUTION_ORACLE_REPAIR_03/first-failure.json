@@ -1,0 +1,32 @@
+{
+  "status": "stopped",
+  "boundary": "exact private candidate package-member correspondence",
+  "reason": "two bundled transitive dependency CHANGELOG members absent from successor despite byte-identical presence in inherited and successor stage",
+  "unexplainedDeltas": [
+    {
+      "path": "node_modules/fast-check/CHANGELOG.md",
+      "before": {
+        "path": "node_modules/fast-check/CHANGELOG.md",
+        "bytes": 68677,
+        "sha256": "1928e49c090a706a61c20fc620e97f22e83e0d154e758f869ccd6cdbcd634f34",
+        "mode": 420
+      },
+      "after": null
+    },
+    {
+      "path": "node_modules/pure-rand/CHANGELOG.md",
+      "before": {
+        "path": "node_modules/pure-rand/CHANGELOG.md",
+        "bytes": 6039,
+        "sha256": "f6e1f6802a0205dcc17d5d117a9af83a63947ac722dd7de32e1d98b070c02c87",
+        "mode": 420
+      },
+      "after": null
+    }
+  ],
+  "sourceAndStageNotEditedForTheseMembers": true,
+  "packedPreparationAndPublicationPassedBeforeInspection": true,
+  "nativeSetupAndDispatchNotExecuted": true,
+  "evidenceLimit": "package omission causal mechanism not independently triaged; no semantic effect or production defect inferred",
+  "noRepairRepackRetry": true
+}

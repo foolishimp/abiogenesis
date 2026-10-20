@@ -1,0 +1,60 @@
+{
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "operation": "T287_C09_GENERATED_RECONCILIATION_06",
+  "changeClass": "realization_refactor",
+  "state": "ACTIVE",
+  "activatedAt": "2026-10-03T11:35:27.221086+00:00",
+  "allSevenSectionsRead": true,
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/worker-request.txt",
+    "bytes": 4215,
+    "sha256": "2e1f43d289f7740527e6f5367567d2dddb7f87e4232ca2492dd62d97bb67ddbe",
+    "mode": 420
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/triage.md",
+    "bytes": 1537,
+    "sha256": "fe207943c1418e9c67dde38c53d1aff6a74b0c66a715b3667fe801e0b6bf5858",
+    "mode": 420
+  },
+  "subjectPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/subject-pins.json",
+    "bytes": 9182,
+    "sha256": "db610673b9a60a0c1def14e9ea63aa10a60e9c9c9401026f8c384fd09110ee6b",
+    "mode": 420
+  },
+  "failurePins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/failure-pins.json",
+    "bytes": 1097,
+    "sha256": "f8ef6c3750a371135d3c7e9e4bf933a0ad0f6024f68be0de418e87ee075ea82f",
+    "mode": 420
+  },
+  "immutableDonorHelper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/reconcile.py",
+    "bytes": 13989,
+    "sha256": "d9278c28ace749524026c7512715ae993c54d6dc2fa3e71e5d97cacda5af88ad",
+    "mode": 420
+  },
+  "immutableClosed05": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/freeze.json",
+    "bytes": 3323,
+    "sha256": "f6dd4e29a49d453f427d0c744a8b67dfb3872ff457edc05c231562ff0734a3b5",
+    "mode": 292
+  },
+  "ProductFrame": "Exact generated correspondence only to accepted immutable C09. No WHAT change, qualification or installed proof claim.",
+  "writeTerritory": {
+    "report": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06",
+    "canonicalDestinations": [
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.d.ts",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/result_evidence_lineage_contracts.d.ts",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/result_evidence_lineage_contracts.js",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/contracts.d.ts",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantics.d.ts",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    ]
+  }
+}

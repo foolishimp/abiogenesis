@@ -1,0 +1,24 @@
+{
+  "operation": "T287_RC1_FINAL_SUBJECT_APPLICABILITY_REVIEW_01",
+  "role": "independent Reviewer",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "closedAt": "2026-10-03T14:37:43.327153+00:00",
+  "recommendation": "ONE_BOUNDED_SUCCESSOR_REQUIRED",
+  "parentAliasApplicability": "REQUIRED_EXISTING_NATIVE_QUALIFICATION_CONTRACT",
+  "separateDirectAliasGateEachScenario": "NOT_REQUIRED",
+  "trackingConstraintDifferencesAloneRequireCodeRecut": false,
+  "owningBoundary": "ABG native qualification producer reconstruction",
+  "reentry": "realization_refactor under existing accepted HOW",
+  "minimumProductionFile": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+  "effects": "reads/hash/comparison plus NEW review reports only",
+  "ProductImportsRunReopenHelperBuildTestsQualificationProviderNetworkAuthHelloGitRelease": 0,
+  "RootAloneAccepts": true,
+  "writesAfterFreeze": "STOPPED",
+  "unknowns": [
+    "complete scenario and exact candidate Hello/Rust sufficiency",
+    "genuine independent semantic coverage and QUAL056",
+    "measured successor source/output/resource/runtime cost",
+    "green AF22 and release authorization"
+  ]
+}

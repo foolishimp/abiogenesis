@@ -1,0 +1,12 @@
+{
+  "operation": "T287_RUNTIME07_REPORT_FINALIZATION_GRANT_01",
+  "status": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-report-finalization-controls-01/request.txt",
+    "bytes": 3202,
+    "sha256": "fc32e88899ab5c03fdc0924606b52735cd67c4e04778e3341b4f50ef9c34b98d",
+    "mode": 420
+  },
+  "sourceRuntimeGitNetworkEffects": 0,
+  "returnRole": "Executive"
+}

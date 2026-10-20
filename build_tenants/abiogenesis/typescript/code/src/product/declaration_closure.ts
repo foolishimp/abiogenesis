@@ -23,7 +23,7 @@ import type {
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
   "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
+import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import {
   admitGraphFunctionCatalog,
   narrowGraphFunctionCatalog,
@@ -259,6 +259,8 @@ export function validateResolvedExecutionDeclarationClosure(
   catalog: ReadyGraphFunctionCatalog,
   catalogView: GraphFunctionCatalogView,
 ): boolean {
+  const owned = resolvedClosureOwners.get(value);
+  if (owned?.catalog === catalog && owned.catalogView === catalogView) return true;
   if (!isResolvedExecutionDeclarationClosure(value)) return false;
   const reconstructed = resolveExecutionDeclarationClosure(
     catalog,
@@ -276,6 +278,8 @@ export function validateResolvedProgramDeclarationClosure(
   catalog: ReadyGraphFunctionCatalog,
   catalogView: GraphFunctionCatalogView,
 ): boolean {
+  const owned = resolvedClosureOwners.get(value);
+  if (owned?.catalog === catalog && owned.catalogView === catalogView) return true;
   if (!isResolvedProgramDeclarationClosure(value)) return false;
   const reconstructed = resolveProgramDeclarationClosure(
     catalog,
@@ -385,6 +389,21 @@ function orderedOwnerCoordinates(
   ));
 }
 
+const immutableClosureInputs = new WeakSet<object>();
+const resolvedClosureOwners = new WeakMap<object, Readonly<{
+  catalog: ReadyGraphFunctionCatalog;
+  catalogView: GraphFunctionCatalogView;
+}>>();
+const declarationClosures = new WeakMap<object,
+  WeakMap<object, Map<string, ResolvedDeclarationClosure>>>();
+
+function immutableClosureInput(value: object): boolean {
+  if (immutableClosureInputs.has(value)) return true;
+  if (!isDeeplyFrozen(value)) return false;
+  immutableClosureInputs.add(value);
+  return true;
+}
+
 function resolveDeclarationClosure(
   catalog: ReadyGraphFunctionCatalog,
   catalogView: GraphFunctionCatalogView,
@@ -392,6 +411,10 @@ function resolveDeclarationClosure(
   closureScope: "execution" | "program",
   requestedGraphFunctionRef: string | null,
 ): ResolvedDeclarationClosure | ExecutionDeclarationClosureRefusal {
+  const reusable = immutableClosureInput(catalog) && immutableClosureInput(catalogView);
+  const key = canonicalJson([programRef, closureScope, requestedGraphFunctionRef]);
+  const retained = reusable ? declarationClosures.get(catalog)?.get(catalogView)?.get(key) : undefined;
+  if (retained !== undefined) return retained;
   if (
     catalog.kind !== "graph_function_catalog" ||
     catalogView.kind !== "graph_function_catalog_view" ||
@@ -912,7 +935,7 @@ function resolveDeclarationClosure(
     semanticsOwner,
   });
   const closureDigest = sha256Canonical(body as unknown as JsonValue);
-  return deepFreeze({
+  const result = deepFreeze({
     kind: closureScope === "execution"
       ? "resolved_execution_declaration_closure" as const
       : "resolved_program_declaration_closure" as const,
@@ -924,6 +947,15 @@ function resolveDeclarationClosure(
     programPublication,
     publications,
   }) as ResolvedDeclarationClosure;
+  if (reusable) {
+    let views = declarationClosures.get(catalog);
+    if (views === undefined) { views = new WeakMap(); declarationClosures.set(catalog, views); }
+    let closures = views.get(catalogView);
+    if (closures === undefined) { closures = new Map(); views.set(catalogView, closures); }
+    closures.set(key, result);
+    resolvedClosureOwners.set(result, { catalog, catalogView });
+  }
+  return result;
 }
 
 export function resolveExecutionDeclarationClosure(

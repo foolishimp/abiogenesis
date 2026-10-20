@@ -1,0 +1,15 @@
+{
+  "stage": "fixed-resolution-complete",
+  "elapsedMs": 24894.602167000005,
+  "at": "2026-10-10T13:31:33.292Z",
+  "rss": 2933669888,
+  "heapTotal": 2326167552,
+  "heapUsed": 2222671984,
+  "external": 20549899,
+  "arrayBuffers": 18137592,
+  "beforeAcquisition": true,
+  "lock": {
+    "ref": "product-lock://abiogenesis/75d23cc3cf2494168ac5ad2a4a0c827201436cd63f14b317e4c0050bdc509312",
+    "digest": "sha256:75d23cc3cf2494168ac5ad2a4a0c827201436cd63f14b317e4c0050bdc509312"
+  }
+}

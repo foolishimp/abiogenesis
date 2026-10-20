@@ -1,0 +1,19 @@
+{
+  "sourceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/dependency-cut-41-inputs.json",
+    "sha256": "eae94c390e249a9e0fd8135550a44e9744539977d729e7f8daa9582a7e0fbb1f",
+    "byteCount": 95262,
+    "mode": 420
+  },
+  "emissionManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/dependency-cut-41-emission.json",
+    "sha256": "519975be35dcef198114a901955166e508a78e1d4bab236c0cba02989c4744cc",
+    "byteCount": 190945,
+    "mode": 420
+  },
+  "sourceCount": 264,
+  "emissionCount": 528,
+  "actualCompared": 792,
+  "mismatches": [],
+  "basis": "Read-only SHA256/length comparison after actual generator refusal; compiler outputs correspond to exact accepted41, but Product publication was not generated"
+}

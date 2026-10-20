@@ -1,0 +1,39 @@
+{
+  "created_utc": "2026-10-20T18:56:32.085676+00:00",
+  "role": "Executive disposition recording Writer",
+  "files": [
+    {
+      "path": "specification/GOALS.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/GOALS.md",
+      "sha256": "fd759854a8a4e868513653df7ab8228ecffb49d6beab0096448a0c64b6c059b9",
+      "bytes": 77637
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "f61e3b9e8db7b003165fdb337e6e2d665bb1e11a588f2a841c207501cca65861",
+      "bytes": 532032
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/frontier.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/frontier.md",
+      "sha256": "f367349551037bb8a69310fd2e6eb3e24e9d2b5d83da8df4d2a04fc35153aba8",
+      "bytes": 4373
+    }
+  ],
+  "unchanged_tails": [
+    {
+      "preimage": "GOALS.md",
+      "marker": "Owner selection, 2026-10-21: apply STDO 3.0 thoroughly to ABIogenesis 5.0.",
+      "sha256": "8708715943875bf98202629d4632a39a84fecdddef82692b9a1d030e29c04a56",
+      "bytes": 74114
+    },
+    {
+      "preimage": "T-287-deliver-abiogenesis-5-feature-waves.md",
+      "marker": "## Historical Routing Snapshot\n",
+      "sha256": "89f7484a2fb461754fb495651293f2cad21c3e7df66f697474fbc51776783686",
+      "bytes": 512825
+    }
+  ],
+  "support_reconstruction": "Earlier plan/design review freezes retain these original current-status source bytes through the preserved path mapping. No old freeze is rewritten."
+}

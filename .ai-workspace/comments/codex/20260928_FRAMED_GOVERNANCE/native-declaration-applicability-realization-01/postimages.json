@@ -1,0 +1,77 @@
+{
+  "kind": "exact_three_authorized_postimages",
+  "records": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md",
+        "kind": "file",
+        "bytes": 10757,
+        "sha256": "33cf25fd75658ef95b7a4a670b60343e9b7af13f91d62e0b9a751cf271bff3e6",
+        "mode": 420
+      },
+      "snapshot": {
+        "path": "postimages/build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md",
+        "kind": "file",
+        "bytes": 10757,
+        "sha256": "33cf25fd75658ef95b7a4a670b60343e9b7af13f91d62e0b9a751cf271bff3e6",
+        "mode": 420
+      },
+      "preimage": {
+        "path": "preimages/build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md",
+        "kind": "file",
+        "bytes": 8428,
+        "sha256": "8da4a88867663c6e678c9e33973eae5d9daa0b8bab1202678ecaa5dd5a546ae7",
+        "mode": 420
+      },
+      "diff": "diffs/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md.diff"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+        "kind": "file",
+        "bytes": 119230,
+        "sha256": "22bc8a46aa596e8d5fa4b0336c9a0edc8f0878b1f96af00f2e8a03ad348772ae",
+        "mode": 420
+      },
+      "snapshot": {
+        "path": "postimages/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+        "kind": "file",
+        "bytes": 119230,
+        "sha256": "22bc8a46aa596e8d5fa4b0336c9a0edc8f0878b1f96af00f2e8a03ad348772ae",
+        "mode": 420
+      },
+      "preimage": {
+        "path": "preimages/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+        "kind": "file",
+        "bytes": 112700,
+        "sha256": "f52f076cdb5594f900cec37ad68aeef87bbdccc710c0e2c9ec21fff66886dba9",
+        "mode": 420
+      },
+      "diff": "diffs/declaration_exports.ts.diff"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+        "kind": "file",
+        "bytes": 66344,
+        "sha256": "aec911e94dfb4e237188d52606956ff41fd8e5d910abbf783d4f0eee485f91a7",
+        "mode": 420
+      },
+      "snapshot": {
+        "path": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+        "kind": "file",
+        "bytes": 66344,
+        "sha256": "aec911e94dfb4e237188d52606956ff41fd8e5d910abbf783d4f0eee485f91a7",
+        "mode": 420
+      },
+      "preimage": {
+        "path": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+        "kind": "file",
+        "bytes": 52540,
+        "sha256": "66cad9c182fa5f89599641d50cadaaaa0f45e981f9f57369676d0346e8583f23",
+        "mode": 420
+      },
+      "diff": "diffs/m5-s06-prime.test.mjs.diff"
+    }
+  ]
+}

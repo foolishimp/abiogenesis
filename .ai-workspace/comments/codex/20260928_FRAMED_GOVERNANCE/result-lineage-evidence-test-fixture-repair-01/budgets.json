@@ -1,0 +1,5 @@
+{
+  "regressionMs": 180000,
+  "nominalPreflightMs": 180000,
+  "maximumSupervisedReadinessMs": 180000
+}

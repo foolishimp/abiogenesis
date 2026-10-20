@@ -1,0 +1,29 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_SETUP09_ACCEPTANCE_AND_Q10_RELEASE_WRITER_01_CONTINUED_01",
+  "role": "Writer",
+  "actor": "/root",
+  "closedAt": "2026-10-02T16:42:37.779099+00:00",
+  "returnRole": "Executive",
+  "executionBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 539172,
+    "sha256": "f7b72b8959598c4b7b6d83e1f6f91b37b3fc9269b9825dd9547c391692ed0e48",
+    "mode": 420
+  },
+  "executionAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 540272,
+    "sha256": "40ca59e7fe48682e596d3cdf80c3307eb9fc9d85ee3b4046d81b41681c7fb3e4",
+    "mode": 420
+  },
+  "appendOnlyPrefixConserved": true,
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+    "bytes": 9596,
+    "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74",
+    "mode": 420
+  },
+  "effects": "new bounded record and Eappend only",
+  "writesAfterFreeze": "STOPPED"
+}

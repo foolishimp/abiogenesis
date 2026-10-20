@@ -1,0 +1,29 @@
+{
+  "role": "Worker47 local preparation receipt",
+  "nativeOrOwnerFailure": false,
+  "command": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/prepare.corrected.mjs"
+  ],
+  "observedExitCode": 1,
+  "observedToolWallSeconds": 0.208968542,
+  "firstDiagnostic": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal at prepare.corrected.mjs:44:96",
+  "actualCarrierFields": [
+    "path",
+    "sha256",
+    "byteCount"
+  ],
+  "expectedCarrierAdditionalFields": [
+    "relativePath",
+    "nativeAfterDigest",
+    "nativeAfterByteCount"
+  ],
+  "actualPathShaSizeMatched": true,
+  "cause": "Local comparator compared distinct diagnostic carrier shapes before acquireResumeMaterial was invoked.",
+  "correction": "Compare the consumed path/SHA/size projection and independently match all enriched native-after provenance fields.",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/prepare.corrected.mjs",
+    "sha256": "fe30433b172c9173bfb1dca821447b0c56d9be8d1759ce522ab1b2dd59eda636",
+    "byteCount": 17584
+  }
+}

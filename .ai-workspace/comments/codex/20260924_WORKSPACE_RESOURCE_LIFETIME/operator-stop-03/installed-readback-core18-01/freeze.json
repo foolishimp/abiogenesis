@@ -1,0 +1,143 @@
+{
+  "kind": "finite_installed_operator_stop_readback_evidence",
+  "status": "CLOSED_worker_return_for_Root_disposition",
+  "subjectDigest": "sha256:141bcb4cc74a2854e79f1682d68f665dd2aab8f7b2bbec782d7eb9ce5682923d",
+  "subjectDigestFormula": "SHA256 of compact Python JSON of members, sort_keys=True, separators=(comma,colon)",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/activation.md",
+      "sha256": "b4b7f7173ef91a242e4d5848a726be4dc74173bd2774f4d179c2ef82589aa926",
+      "bytes": 2270
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/active-operation.json",
+      "sha256": "1afe52627cf0bbb191f03eef0a931f22061f78c033e0a708e506efb7303f9c1a",
+      "bytes": 40
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/caller.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/caller.stdout",
+      "sha256": "272f3ed5336b09ba774fe36bcc993d362f6a8e5e1505b819d26beccb47fbbe4e",
+      "bytes": 758
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/control.json",
+      "sha256": "7748ee5c219e4a6f0fcab71133105caa1e8a2f089534c3bfd2efc2fc2ad0fb3b",
+      "bytes": 14838
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/obligation-comparison.json",
+      "sha256": "ffab6caca6c322683adaf9c740ee4d6f32ff11a814734b9eef0e2b8a75476314",
+      "bytes": 2823
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/observed-metrics.json",
+      "sha256": "0586ae1223cb87e923803bbf58affcd6734062d9a7115fb5258d5c0a70005efd",
+      "bytes": 3293
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/process-result.json",
+      "sha256": "676ecc3d48fab206c81941e190f03b038b676b9a8fe5bdba00e310cb92ca000b",
+      "bytes": 131
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/process-usage.json",
+      "sha256": "e3b5ae150d4fa56db87074ed0637ac2f3bec8cf869fd0ffc9b5ad3faaab040bc",
+      "bytes": 435
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/process.json",
+      "sha256": "4a2b2bdea7f08e337db81166083cb7da02ecd565221a3f97815d5a12918dcd6b",
+      "bytes": 871
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/read.mjs",
+      "sha256": "7bcc526e8ad0a05529c89d32bc9a9362a809323fd7950b30aafdaf2809f6f7a2",
+      "bytes": 10508
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/readback.json",
+      "sha256": "d0a84dd715d1cab7a0b3f6b5df64c638640feb72b0679bf41ce494f4adb8d202",
+      "bytes": 38436
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/return.md",
+      "sha256": "9cf4806f90487641da76d5ac9c0a78985b3663b26d3093bf01d2ecea8c59aab2",
+      "bytes": 5836
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run.py",
+      "sha256": "c214ce3a4042496f5ce07f59ce541d951b6ef9ac5dcb5b914ad11d747195c8dc",
+      "bytes": 2015
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_replay-comparison.json",
+      "sha256": "1e54f808b4a90e25f9b9c4e14ab8a97f4c008d773ea100f064661c20c3279456",
+      "bytes": 262
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_replay-request.json",
+      "sha256": "f811b0d20b660508d020eef1d3db139839329cad2ae070215069859a5fd456d7",
+      "bytes": 12372
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_replay-result.json",
+      "sha256": "77b4a4c482d2663f0a7ddb1d410f403f701d880887cc06effb350b932bf4ed91",
+      "bytes": 4569
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_replay-timing.json",
+      "sha256": "90507a607c45870dc9a53361245ac9c9cbfa39a7c6e76c6f0fe6ff7274f52088",
+      "bytes": 738
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_result-comparison.json",
+      "sha256": "ee2a71b0f7291f2cec423e48531473b166bbf6b3ee547c59e254e5bb2ae02b31",
+      "bytes": 193
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_result-request.json",
+      "sha256": "1093f9b9ca9e150f675436c8723bbfe15c4f2afc6276de3b62074ee17b196836",
+      "bytes": 12311
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_result-result.json",
+      "sha256": "9e49e958e9d40f41aabf9a38a9366c044243c4fd317bbc699a6180a6860a0c6c",
+      "bytes": 3386
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_result-timing.json",
+      "sha256": "054c48a36be8f5c874f29dd1acd0bd399400f5adfad019747de9ae56536b4e12",
+      "bytes": 738
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_status-comparison.json",
+      "sha256": "6428594abec3273697014589e03a81da4c2fce95c3c92f188a5ce49b9a75692e",
+      "bytes": 349
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_status-request.json",
+      "sha256": "95b095f0df4cef4573bd185617b00ab96a97f4b1323a465ff06b936ab0f0d6a0",
+      "bytes": 12311
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_status-result.json",
+      "sha256": "a7b000aea98f916e08163039008924d49d11ec68f12e2e0a550b539dcfae229f",
+      "bytes": 37015
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/run_status-timing.json",
+      "sha256": "8a89fbaf730334c40b513e01e9510224be99efc9e4830385ac939e329c0085fd",
+      "bytes": 738
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/verification.json",
+      "sha256": "760011b7370d2edfea22ceeaf748ac4220b0c24b9b3b3247509266f3910e3f4f",
+      "bytes": 226
+    }
+  ]
+}

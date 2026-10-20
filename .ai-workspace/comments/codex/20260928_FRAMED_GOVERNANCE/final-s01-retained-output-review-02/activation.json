@@ -1,0 +1,40 @@
+{
+  "reviewer": "T287_S01_RETAINED_CAUSAL_SUPPLEMENT_02",
+  "actor": "/root/f11_attribution_inputs",
+  "previousReview": "CLOSED LIMITED and unchanged",
+  "independentOf": [
+    "N03",
+    "N04",
+    "C02"
+  ],
+  "reportWriter": {
+    "activation": "separate report-only Writer",
+    "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02",
+    "effects": [
+      "scripts",
+      "observations",
+      "return",
+      "freeze"
+    ]
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-controls-03/request.txt",
+    "bytes": 5218,
+    "sha256": "79e088c610c06de92f17b47ea88b9202d930e4c2950479e3efa4e9ab296a67f2"
+  },
+  "subject": [
+    "original N04 receipts and historical snapshot",
+    "static current C02 owner bytes",
+    "seven original N03 receipt/process records"
+  ],
+  "prohibitions": [
+    "native calls",
+    "moving N03 resource/worksite reads",
+    "source/caller repair",
+    "new live cold reads",
+    "Git/sibling effects"
+  ],
+  "checkBudgetMs": 600000,
+  "perProcessMs": 120000,
+  "ownedTerminationGraceMs": 1000
+}

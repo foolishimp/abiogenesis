@@ -1,0 +1,34 @@
+{
+  "PublicCLIInvocations": 0,
+  "nativeAssessorDispatches": 0,
+  "controlledHelperExchanges": 0,
+  "genuineProviderCalls": 0,
+  "eventFileExists": false,
+  "RunResults": 0,
+  "admittedJudgments": 0,
+  "freshReadCalls": 0,
+  "F11Calls": 0,
+  "AF22Calls": 0,
+  "fixturePacks": 1,
+  "fixtureNominalVerification": "refused payload_inventory_mismatch",
+  "coreNominalVerification": "succeeded in setup process",
+  "constructionMs": 5149.8809169999995,
+  "setupStartedAt": "2026-10-01T21:33:20.984Z",
+  "setupClosedAt": "2026-10-01T21:33:32.474Z",
+  "guardOnlyCopies": {
+    "files": 5258,
+    "bytes": 69078176
+  },
+  "archiveBytes": 10448294,
+  "archiveMembers": 5262,
+  "manifestExpectedMembers": 5264,
+  "missingGuardCopyMembers": [
+    "node_modules/@abiogenesis/typescript-tenant/node_modules/fast-check/CHANGELOG.md",
+    "node_modules/@abiogenesis/typescript-tenant/node_modules/pure-rand/CHANGELOG.md"
+  ],
+  "processes": "fixture pack completed; setup Node exited with refusal; no CLI/actor child was spawned",
+  "proofCopies": 0,
+  "runtimeSourceTransforms": 0,
+  "RSS": "not observed for pure fixture construction or nominal preflight; no native CLI processes",
+  "missingSemanticProof": "all scope assessment, native carrier admission and release proof remain unexecuted"
+}

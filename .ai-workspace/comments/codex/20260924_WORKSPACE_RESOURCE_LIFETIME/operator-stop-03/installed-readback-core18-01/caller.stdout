@@ -1,0 +1,7 @@
+{"boundary":"read_started","memberKey":"run_status","pid":37484}
+{"boundary":"read_returned","memberKey":"run_status","elapsedMs":1497.0726670000004,"exitCode":0,"outcome":"result"}
+{"boundary":"read_started","memberKey":"run_replay","pid":37484}
+{"boundary":"read_returned","memberKey":"run_replay","elapsedMs":1499.9481660000001,"exitCode":0,"outcome":"result"}
+{"boundary":"read_started","memberKey":"run_result","pid":37484}
+{"boundary":"read_returned","memberKey":"run_result","elapsedMs":1560.0765420000007,"exitCode":1,"outcome":"refusal"}
+{"boundary":"three_readbacks_closed","run":"run://abiogenesis/eb9ad488d2a119081cf7ab6d0a3065f9eeda634b17cba30bac8f4c288b0f1a47","close":"sha256:65773602f2f2be4b6664df1f566641ae448b01e60b618ee12b4169b940819c4b"}

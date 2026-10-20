@@ -1,0 +1,18 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_BRIDGE_01",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661096,
+    "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+  },
+  "installedPackageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "regularFiles": 5283,
+  "logicalBytes": 70754027,
+  "symlinks": 0,
+  "productContentDigest": "sha256:71d31e7a1ac4d38a92337b8c3159e8318fde658ae4504749447b47ca215a89cf",
+  "catalogDigest": "sha256:9985ac7e225638afcc6cb4ed8c77ee9bdb770b2b74cca6a55d6d0229e232a757",
+  "packageExports": 15,
+  "contractRows": 75,
+  "elapsedMs": 559.0445830021054,
+  "maxRSSPlatformBytes": 78856192
+}

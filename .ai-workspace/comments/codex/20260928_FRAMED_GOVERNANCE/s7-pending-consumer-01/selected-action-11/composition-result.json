@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "wallMs": 77340.97283299999,
+  "finalPrefix": {
+    "coordinateDigest": "sha256:7a7fa99210cb764a86f25b03b31c1535707f3ceb750e10ec736d62fffac66ad0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:ccf2ee73e9e19cd3000f5b515c2804f0ddce8613798d5089c8bf710da39f8244",
+    "prefixLength": 5569289,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 463748325
+    }
+  },
+  "sameBasisRun": "run://abiogenesis/f649cf546c4553fd94c85719d2997cb8196d09d75a405de739df1d20a7e77104",
+  "sourceRun": "run://abiogenesis/52c93b37b11231f28d3cf2029d1e54b22fdc6467220fe82095f23f6df24c9128",
+  "priorCurrentRun": "run://abiogenesis/013d753a72831b2d36762d8113c66af9996eb273cb6a1776c3cf6edf02460f41",
+  "currentRun": "run://abiogenesis/64f87ed47dca01bf4208cc2105ddd867284e9ba6d5ab34011cbb678d21d4170f",
+  "proofClass": "one exact installed model-free F_D population; supported Public current producer and covered selected-action"
+}

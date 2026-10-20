@@ -1,0 +1,17 @@
+{
+  "admittedEventRef": "event://abiogenesis/348cb8c9737f64c368f0388a3cc0d0bd6df73eaf86abe2fec41dd922c70a7079",
+  "resultRef": "result://abiogenesis/a4379deb6a6496a74141a0bbcef3dcd95706a3e1ce90d0f8782f09813100c71e",
+  "observation": {
+    "byteLength": 14,
+    "fileDigest": "sha256:1659a5c32f55ae44f6f2d6f7d38243f48a532f63c1583f62be5971358aaaa58f",
+    "fileIdentity": "16777231:467931415",
+    "kind": "worksite_observation",
+    "observationDigest": "sha256:18698c5c6f9fc9ba37460782ee639196b4815a39c033d41f3146ee7ebe08c6a6",
+    "observationRef": "worksite-observation://abiogenesis/18698c5c6f9fc9ba37460782ee639196b4815a39c033d41f3146ee7ebe08c6a6",
+    "schemaVersion": "5.0.0",
+    "state": "file",
+    "subjectDigest": "sha256:8a120c500e2dfdb2d9ebfea37ebef81111ae0cdef7cfb98ffe9945ed5e0df714",
+    "subjectRef": "worksite-subject://abiogenesis/8a120c500e2dfdb2d9ebfea37ebef81111ae0cdef7cfb98ffe9945ed5e0df714",
+    "workspaceBindingIdentity": "workspace-binding://abiogenesis/e1ac0019de8f9f6c3430776c9690c97158c5d3c446839cb5ebb44aa9b22fbf0f"
+  }
+}

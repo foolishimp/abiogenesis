@@ -1,0 +1,418 @@
+{
+  "reviewer": "/root/command_budget_review",
+  "reviewTimeUtc": "2026-09-24T11:41:49.879727+00:00",
+  "scope": "Frozen source/Design command-budget correction; no installed/native or ordinary LLM usability claim",
+  "subjectReferences": {
+    "return.md": "a1c330a701f8ae3411cc3ad108eec4a9eb2bc65530386c364f05e480831ff75d",
+    "subject.diff": "ae62a718b7d9c485a81bfa0753101ed74c25f2c9644b1667a8a355ccaa111d89",
+    "preimages.json": "6d2280a554b399c1ef64f1e9312ea3854d2246e4685f28e61455bdfb2f751126",
+    "postimages.json": "7b776c8a9b73ce0e8341b48cc56d356bf76a85747763435ab832a7efe9424287",
+    "compile-01.json": "b18dd8c0e4bf5d6b7e1f4e76eaabb263b2406de9128343bc7eeddffdcd210d70",
+    "abi-tests-02.log": "7b22e5fcf3cf643121dcbaf3b379867e7cbf291d43fea0fd9e5affc599071025",
+    "glc-tests-01.log": "a4ecc642f4e879bc114ae4c62f0bbadc08ef57f336807a0ed7a3135808e68bb8",
+    "accepted-diagnostics-preservation.json": "2f394bd85e3ebc80d99ccb4c95d4bbf6285f8c39f5d7a090666eec7c5bc27827"
+  },
+  "hashCheckCount": 49,
+  "hashChecks": [
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "expectedSha256": "5cf3ffcb26b293c64f6977428211164a13f2e5452930631edb981b737b3c773d",
+      "actualSha256": "5cf3ffcb26b293c64f6977428211164a13f2e5452930631edb981b737b3c773d",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "expectedSha256": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496",
+      "actualSha256": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "expectedSha256": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496",
+      "actualSha256": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "expectedSha256": "cdc325bd55811597ffa12db34fd92be9b52f6db5553df1dbfb105b260af7924f",
+      "actualSha256": "cdc325bd55811597ffa12db34fd92be9b52f6db5553df1dbfb105b260af7924f",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "expectedSha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f",
+      "actualSha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "expectedSha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f",
+      "actualSha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "expectedSha256": "a9c3f626aad25a23e009c13e28ab8eff52f844600bc1c801a550cff4d82b6421",
+      "actualSha256": "a9c3f626aad25a23e009c13e28ab8eff52f844600bc1c801a550cff4d82b6421",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "expectedSha256": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18",
+      "actualSha256": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "expectedSha256": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18",
+      "actualSha256": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "expectedSha256": "897f1e69a98fd35a19224e1ce8c31b3f47fd5210e612d478c96a6faf24a35323",
+      "actualSha256": "897f1e69a98fd35a19224e1ce8c31b3f47fd5210e612d478c96a6faf24a35323",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "expectedSha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829",
+      "actualSha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "expectedSha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829",
+      "actualSha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "expectedSha256": "fed90e4d8cf076c6b6db082d39de0a77bb9cc581fca81831287b1eafb49a957b",
+      "actualSha256": "fed90e4d8cf076c6b6db082d39de0a77bb9cc581fca81831287b1eafb49a957b",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "expectedSha256": "4451f6df48b844f231dc48bcd2f21a4e7e8589f4cee847f58d533e958375f486",
+      "actualSha256": "4451f6df48b844f231dc48bcd2f21a4e7e8589f4cee847f58d533e958375f486",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "expectedSha256": "4451f6df48b844f231dc48bcd2f21a4e7e8589f4cee847f58d533e958375f486",
+      "actualSha256": "4451f6df48b844f231dc48bcd2f21a4e7e8589f4cee847f58d533e958375f486",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "expectedSha256": "ca123011c6f308d4d2f57600c3d0140149c2f3805901c544df7cbb88297a0460",
+      "actualSha256": "ca123011c6f308d4d2f57600c3d0140149c2f3805901c544df7cbb88297a0460",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "expectedSha256": "dbb00fc5ce556fb75e67f93d7a2367a7e367825799865c581ce0a33cc0cf44d8",
+      "actualSha256": "dbb00fc5ce556fb75e67f93d7a2367a7e367825799865c581ce0a33cc0cf44d8",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "expectedSha256": "dbb00fc5ce556fb75e67f93d7a2367a7e367825799865c581ce0a33cc0cf44d8",
+      "actualSha256": "dbb00fc5ce556fb75e67f93d7a2367a7e367825799865c581ce0a33cc0cf44d8",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "expectedSha256": "8b73267f5ee441113e1973aaeac8bdea1c49cf38b46ff45900d7c303213a1969",
+      "actualSha256": "8b73267f5ee441113e1973aaeac8bdea1c49cf38b46ff45900d7c303213a1969",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "expectedSha256": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db",
+      "actualSha256": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "expectedSha256": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db",
+      "actualSha256": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs",
+      "expectedSha256": "f420e49f6d6b933b9768a7fbaecd00c966d98b1f8644aa2c0b9783ae55d92d64",
+      "actualSha256": "f420e49f6d6b933b9768a7fbaecd00c966d98b1f8644aa2c0b9783ae55d92d64",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs",
+      "expectedSha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+      "actualSha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs",
+      "expectedSha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+      "actualSha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+      "expectedSha256": "065dd639f2316f0d28f53a3d093ed7e7a66442b58863f9cd81222554b0afc171",
+      "actualSha256": "065dd639f2316f0d28f53a3d093ed7e7a66442b58863f9cd81222554b0afc171",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+      "expectedSha256": "db94a8160f180d638d581591bac24334a77afe960dcbc3555389baf7e6bcaa29",
+      "actualSha256": "db94a8160f180d638d581591bac24334a77afe960dcbc3555389baf7e6bcaa29",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+      "expectedSha256": "db94a8160f180d638d581591bac24334a77afe960dcbc3555389baf7e6bcaa29",
+      "actualSha256": "db94a8160f180d638d581591bac24334a77afe960dcbc3555389baf7e6bcaa29",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "expectedSha256": "ae17927299c1aadd43a59e9f44cb4317e483dae37dfbd4c961ee3e7db3063dd4",
+      "actualSha256": "ae17927299c1aadd43a59e9f44cb4317e483dae37dfbd4c961ee3e7db3063dd4",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "expectedSha256": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134",
+      "actualSha256": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "expectedSha256": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134",
+      "actualSha256": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "expectedSha256": "32fc80f9af9029fbcc8ab5ffcb84065373a8d76a3e41d4cd89b401bf168bf8e9",
+      "actualSha256": "32fc80f9af9029fbcc8ab5ffcb84065373a8d76a3e41d4cd89b401bf168bf8e9",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "expectedSha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+      "actualSha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "expectedSha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+      "actualSha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+      "matches": true
+    },
+    {
+      "kind": "preimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/preimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs",
+      "expectedSha256": "53cb1e33e9d33d671318198b27f7aba7d000774b1d3bd0b573bab7216d88050d",
+      "actualSha256": "53cb1e33e9d33d671318198b27f7aba7d000774b1d3bd0b573bab7216d88050d",
+      "matches": true
+    },
+    {
+      "kind": "postimage",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/postimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs",
+      "expectedSha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a",
+      "actualSha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a",
+      "matches": true
+    },
+    {
+      "kind": "current",
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs",
+      "expectedSha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a",
+      "actualSha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts",
+      "expectedSha256": "2ae9200579ddd47944b59bac20d19cb8d0acfbf49bac6907445634194a62cd9d",
+      "actualSha256": "2ae9200579ddd47944b59bac20d19cb8d0acfbf49bac6907445634194a62cd9d",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+      "expectedSha256": "e7141fe1fb853667a6d56f3847d113bb975e1326aadf5b3349527821a53086c3",
+      "actualSha256": "e7141fe1fb853667a6d56f3847d113bb975e1326aadf5b3349527821a53086c3",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_stage.js",
+      "expectedSha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913",
+      "actualSha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_execution.d.ts",
+      "expectedSha256": "0512f70d79d764ce79d4b807f7ba04d1100bd9f73fb20a6ad7980bde91afb257",
+      "actualSha256": "0512f70d79d764ce79d4b807f7ba04d1100bd9f73fb20a6ad7980bde91afb257",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_execution.js",
+      "expectedSha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313",
+      "actualSha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+      "expectedSha256": "663a7135420edeab24ab3440ac50d56b32f308a12d2e771c8ebbb0dabeb23665",
+      "actualSha256": "663a7135420edeab24ab3440ac50d56b32f308a12d2e771c8ebbb0dabeb23665",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+      "expectedSha256": "ace741fb60d2f448cad23c5d886203bf9564bf0388b94c7143dd9e3d77cb51d2",
+      "actualSha256": "ace741fb60d2f448cad23c5d886203bf9564bf0388b94c7143dd9e3d77cb51d2",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.d.ts",
+      "expectedSha256": "2409c635d6b9409a8ab46cce02ad0c76f5b5b2dea8faed81646ca4765a46e4bf",
+      "actualSha256": "2409c635d6b9409a8ab46cce02ad0c76f5b5b2dea8faed81646ca4765a46e4bf",
+      "matches": true
+    },
+    {
+      "kind": "generated",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+      "expectedSha256": "43451ebc4b5458acc2a8e711771a1e2b7baa3e29a4c9ab39bf1d56889cd2b6ef",
+      "actualSha256": "43451ebc4b5458acc2a8e711771a1e2b7baa3e29a4c9ab39bf1d56889cd2b6ef",
+      "matches": true
+    },
+    {
+      "kind": "tracking",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "expectedSha256": "9fab65bdb1c52e6c36076e65952eee8cfc97cd7d92214d1a5b1262ce93af74e8",
+      "actualSha256": "9fab65bdb1c52e6c36076e65952eee8cfc97cd7d92214d1a5b1262ce93af74e8",
+      "matches": true
+    },
+    {
+      "kind": "tracking",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "expectedSha256": "5dcf87418e5625720dd3a0cacbe05362923064b901219d84605f98136b012b35",
+      "actualSha256": "5dcf87418e5625720dd3a0cacbe05362923064b901219d84605f98136b012b35",
+      "matches": true
+    },
+    {
+      "kind": "tracking",
+      "path": "/Users/jim/src/apps/odd_glc/specification/GOALS.md",
+      "expectedSha256": "b56423eeaf0bb055ddf7dfe6221ed455b1ce8bc4ea6bbcc984093abba67b4c17",
+      "actualSha256": "b56423eeaf0bb055ddf7dfe6221ed455b1ce8bc4ea6bbcc984093abba67b4c17",
+      "matches": true
+    },
+    {
+      "kind": "tracking",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "expectedSha256": "50287229df6e3bf55c8f22772f83b428eddbefcbd92d85df2a7923bf00e0f371",
+      "actualSha256": "50287229df6e3bf55c8f22772f83b428eddbefcbd92d85df2a7923bf00e0f371",
+      "matches": true
+    }
+  ],
+  "isolatedDiffReconstructedFromAllTwelvePairs": true,
+  "closedEvidence": [
+    {
+      "label": "capsule",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/parallel-js/jobs/parallel-js/causal-capsule.json",
+      "sha256": "2c5cdeb66f58d11e63745e13841a70639021e8323c39f11ef65084c6a5a04fd7",
+      "matches": true
+    },
+    {
+      "label": "publicEvidence",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/parallel-js/jobs/parallel-js/causal-public-evidence.json",
+      "sha256": "3ad0472096490c486126cd2df025559cc14318bcc7463a87e94b6e946110363a",
+      "matches": true
+    }
+  ],
+  "acceptedDiagnosticFunctionComparison": {
+    "method": "TypeScript AST FunctionDeclaration.getText comparison, performed during review; exact preimages versus postimages",
+    "functions": [
+      {
+        "name": "deriveSemanticJobAsset",
+        "unchanged": true,
+        "functionTextSha256": "32ed7c264bc837cb403e6cc80e8ce7918bfa739f517cf61202f8bc3ccf214d38"
+      },
+      {
+        "name": "deriveNativeSemanticAsset",
+        "unchanged": true,
+        "functionTextSha256": "41167944e1a5e1b3dba55aabbc1c212ccd4253bba917f7a9e12ec5802f8e60f7"
+      },
+      {
+        "name": "projectNativeSemanticFold",
+        "unchanged": true,
+        "functionTextSha256": "c2271466307d7a2ab87d4897b30512e438a28e14a6bd992fe34265919f5d8805"
+      },
+      {
+        "name": "realizeNativeSemanticAuthorFold",
+        "unchanged": true,
+        "functionTextSha256": "5f918e0d24f58fd86cf3c0e9f9c9fde34c3d602b8e70bf0f66b637e7d1ce9345"
+      }
+    ]
+  },
+  "consumedChecks": {
+    "strictTypeScriptCompileExitCode": 0,
+    "focusedAbiPass": 2,
+    "focusedGlcPass": 1,
+    "focusedFailures": 0,
+    "focusedSkips": 0,
+    "upstreamComponentAuthenticationSupplied": true,
+    "initialFixtureBoundFailureDisclosed": true
+  },
+  "reviewerExecutedTests": 0,
+  "findings": [],
+  "results": {
+    "contractContextSufficiency": "satisfied",
+    "sourceComponentCongruence": "satisfied",
+    "exactInstalledNativePath": "out_of_frame",
+    "ordinaryLlmUsability": "out_of_frame"
+  }
+}

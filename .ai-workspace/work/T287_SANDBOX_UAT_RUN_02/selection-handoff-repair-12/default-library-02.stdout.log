@@ -1,0 +1,44 @@
+✔ default library preserves cumulative wrapper bindings and rejects duplicate carried refs (9.958584ms)
+✔ installed root publication precondition rejects a bad non-selected publication (5.866917ms)
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (12.924917ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (26.029292ms)
+✔ retention and execution share root, imported and exact external semantics owner selection (7.314833ms)
+✔ declared wrapper judgments advance actual observations, including red C2, without satisfying parent state (23.721666ms)
+✔ default role content is the selected STDO source with capability instructions separate (0.689667ms)
+(node:21674) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (43.179458ms)
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (151.054833ms)
+✔ parent conservation joins the pre-Run root basis through exact invocation and root implementation set (1.488292ms)
+✖ DataMapper caller separates author territories and baseline inputs from future final proof (2.23875ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (0.793584ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (32.920375ms)
+✔ observed command correspondence conserves explicit input across empty and different process environments (787.557041ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.042ms) # SKIP
+ℹ tests 15
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 1360.185625
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:379:1
+✖ DataMapper caller separates author territories and baseline inputs from future final proof (2.23875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  45 !== 44
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:396:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 45,
+    expected: 44,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

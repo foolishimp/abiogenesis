@@ -1,0 +1,35 @@
+{
+  "allOtherUnprovedCopiesRetained": 8492,
+  "candidateOriginalBodiesMatch": {
+    "candidateFiles": 197399,
+    "distinctOriginalWitnesses": 104688
+  },
+  "completeCopyPartition": {
+    "bytes": 10196841075,
+    "files": 222229
+  },
+  "context8PinsConserved": true,
+  "continuationProcess": {
+    "exitCode": 0,
+    "session": 70264
+  },
+  "deletion": 0,
+  "explicitAliasProjectionOnly": true,
+  "firstPass12RecordsUnchanged": true,
+  "firstPass1577CandidatesConserved": true,
+  "firstPass16338ProtectionsUnchanged": true,
+  "firstPassFreeze": {
+    "bytes": 5180,
+    "mode": 420,
+    "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/freeze.json",
+    "sha256": "2c4bd73004688d10d93aae17d3ef7646c5da2919555b3de9227af3fb248d2d7f"
+  },
+  "notes": [
+    "Copy body hashes reused from stopped first pass; all physical copy identity/bytes/mode reacquired, not a new full-body hash proof.",
+    "Original 1577 literal witnesses reused; explicit alias physical originals hashed once per distinct route.",
+    "Independent review and deletion preflight must reacquire actual file identities/bodies before any unlink.",
+    "No Product/Runtime/qualification or disk-space reclamation claim."
+  ],
+  "operation": "T287_COMMENTARY_CLEANUP_DOWNSTREAM_ALIAS_PLAN_03",
+  "status": "PASS_PURE_PLAN_CORRESPONDENCE"
+}

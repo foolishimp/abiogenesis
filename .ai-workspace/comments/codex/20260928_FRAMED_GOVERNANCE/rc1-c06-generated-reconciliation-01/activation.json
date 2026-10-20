@@ -1,0 +1,58 @@
+{
+  "ProductFrame": "Fixed15/F01/F05 source-generated agreement; existing WHAT/HOW; generated is build output, not Runtime truth. Source, accepted C06 Product and any future installed Runtime remain distinct.",
+  "status": "CLOSED",
+  "operation": "T287_C06_GENERATED_RECONCILIATION_01",
+  "actor": "/root/q03_input_review Worker",
+  "priorRoles": "CLOSED",
+  "reentry": "realization_refactor; no WHAT/HOW change",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/generated-request.txt",
+    "bytes": 1968,
+    "sha256": "04f1a3dbf52ad110e6207ba4acb02c0f72f75a5962a664a978f32a1e95d15ea6",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464698522,
+    "mtimeNs": 1790921897265854156
+  },
+  "allSevenSectionsRead": true,
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "bytes": 140347,
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464697483,
+    "mtimeNs": 1790920403960122467
+  },
+  "RootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/acceptance.json",
+    "bytes": 2938,
+    "sha256": "a4ff680eca8db749c159c322d2d1061a53b4393940b62afad5645b79ab765618",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464698460,
+    "mtimeNs": 1790921786225987556
+  },
+  "independentReviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-independent-review-controls-01/review/freeze.json",
+    "bytes": 1240,
+    "sha256": "5b8d179bba26d56a8e20a60fa9fc1833b0fbd41ec369f13347305826f9e7deb2",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464698209,
+    "mtimeNs": 1790921444520672893
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-01",
+  "onlyAmbientWritePaths": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+  ],
+  "ownerImportsBuildTestsRuntimeGitNetworkProvider": 0,
+  "Q07": "not activated; context only",
+  "independentAssurance": false,
+  "startedAt": "2026-10-02T06:28:04.599770+00:00",
+  "closedAt": "2026-10-02T06:28:04.818803+00:00",
+  "workResult": "STOPPED_FIRST_DISCREPANCY",
+  "noFurtherWrites": true
+}

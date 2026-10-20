@@ -1,0 +1,21 @@
+{
+  "Writer": "T287_RC1_POST_C03_ASSURANCE_AND_F11_CONTROLS_01",
+  "executionPreimage": "ce0cc76f8d4bbeae18ad94574d25e8e4066cd3935fbdb76681de227903a89f0e",
+  "requests": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-post-c03-controls-01/generated-review-request.txt",
+      "bytes": 2987,
+      "sha256": "6ff195f82c59650f47ae39d190fdec5dfb7f2a116c1b4df02d06934477217105"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-post-c03-controls-01/q03-review-request.txt",
+      "bytes": 3512,
+      "sha256": "6dca215eb0fb1baeef6c208b6e146705db9f25bdc204ce1688f2eb2f522f929b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-post-c03-controls-01/f11-request.txt",
+      "bytes": 5541,
+      "sha256": "ef251156f9a67d180e35d184c2e2e5396a88053ac68a66439eb24aab6fb7526f"
+    }
+  ]
+}

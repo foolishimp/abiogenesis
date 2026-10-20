@@ -1,4 +1,5 @@
 import * as Abg from "../abg/index.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
 import {
   isTraversalCursorCandidate,
   traversalCursorAdmissionEventRefAtPrefix,
@@ -8,6 +9,7 @@ import {
 } from "../abg/index.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import * as AbgRetry from "../abg/retry.js";
+import * as OwnedRoutes from "../abg/traversal_route.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
 import type { GraphFunction, GtlGraph } from "../gtl/contracts.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
@@ -18,8 +20,8 @@ import { sha256Canonical } from "../shared/digests.js";
 import {
   admissionBasis,
   materializedInputAtCursor,
-  replayAtDurable,
-  runtimePrefixAtDurable,
+  ownedReplayAtDurable as replayAtDurable,
+  ownedRuntimePrefixAtDurable as runtimePrefixAtDurable,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
 import {
@@ -60,6 +62,19 @@ export interface StructuralTransitionAdvance {
 export function advanceStructuralTransition(
   input: StructuralTransitionInput,
 ): StructuralTransitionAdvance {
+  return advanceStructuralTransitionUsing(input);
+}
+
+/** @internal The ordinary engine uses the same structural computation through its owned commit. */
+export function advanceOwnedStructuralTransition(
+  input: StructuralTransitionInput,
+): StructuralTransitionAdvance {
+  return advanceStructuralTransitionUsing(input);
+}
+
+function advanceStructuralTransitionUsing(
+  input: StructuralTransitionInput,
+): StructuralTransitionAdvance {
   const fail = (
     predecessorPrefix: DurablePrefixCoordinate,
     stage: string,
@@ -94,7 +109,7 @@ export function advanceStructuralTransition(
     input.graph,
     input.cursor,
     input.term,
-    Abg.projectRuntimePrefixesAtDurablePrefix(input.predecessorPrefix, input.cursor.runId).authorityPrefix,
+    projectOwnedRuntimeEventPrefixAtDurablePrefix(input.predecessorPrefix),
   );
   if (target === null || target.kind === "traversal_refusal") {
     return fail(
@@ -156,7 +171,7 @@ export function advanceStructuralTransition(
     completionWitnessEventRef: completionWitnessEventRef!,
   };
   const progressPlan = exitsRetry
-    ? AbgRetry.planCompletedRetryProgress(
+    ? AbgRetry.planOwnedCompletedRetryProgress(
         input.predecessorPrefix,
         input.graph,
         input.graphFunction,
@@ -227,7 +242,7 @@ export function advanceStructuralTransition(
       });
   const routeBasis = admissionBasis(clock, `route/${input.structuralOrdinal}`);
   const committed = progressPlan === null
-    ? Abg.admitTraversalTransition({
+    ? OwnedRoutes.admitOwnedTraversalTransition({
         predecessorPrefix: input.predecessorPrefix,
         store: input.store,
         executionBasis: input.executionBasis,
@@ -238,7 +253,7 @@ export function advanceStructuralTransition(
         candidate,
         basis: routeBasis,
       })
-    : Abg.admitCompletedRetryTraversalTransition({
+    : OwnedRoutes.admitOwnedCompletedRetryTraversalTransition({
         predecessorPrefix: input.predecessorPrefix,
         store: input.store,
         executionBasis: input.executionBasis,

@@ -1,0 +1,37 @@
+{
+  "activation_id": "T287_RC1_COVERAGE_SCHEDULE_01",
+  "role": "Worker",
+  "actor": "/root/rc1_coverage_schedule",
+  "executive": "/root",
+  "status_at_activation": "ACTIVE",
+  "date": "2026-10-02",
+  "intake_class": "realization_refactor",
+  "purpose": "Bound existing required RC1 obligations to actual retained producers, supported claims, missing joins and smallest executable discriminators; report-only evidence selection, no change to Product or runtime.",
+  "operation_grant": "Root coverage-request.txt: create report/control/evidence/freeze files only within rc1-coverage-schedule-01; pure inspection outside it; no execution, build, native/model/provider, install, source, runtime, Git or sibling effects; no Reviewer activation.",
+  "grant_path": "../rc1-sunny-day-steel-thread-01/coverage-request.txt",
+  "grant_bytes": 5282,
+  "grant_sha256": "d25e4086703bdd74c65b860eab3e548bccf768d29b7fc28744f5b602818188fa",
+  "write_territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-coverage-schedule-01/",
+  "checkpoint": "main@55a8a452141caf180ea6cee6365d2a1bfb9da34e plus preserved dirty worktree; immutable C02/Q02 remain read-only",
+  "governance": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "definition_sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "specializations": ["Product", "Proof", "Reuse", "Identity", "Release"],
+  "exact_subject": {
+    "construction": "../final-candidate-construction-02/",
+    "freeze_sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+    "archive_sha256": "766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+    "qualification_law_note": "Recorded immutable C02/Q02 law is RC1; current work governance is RC2. No silent retargeting or blanket recut."
+  },
+  "product_frame": {
+    "goal": "GOAL-035 / T-287",
+    "families": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F09", "F10", "F11", "F13", "F14", "F15", "F16", "F17"],
+    "pre_rc_scenarios": ["S01", "S02", "S03", "S06"],
+    "release_scenario": "S07",
+    "exclusions": ["F08", "F12", "S04", "S05", "extra host parity", "native human response/resume", "general recovery expansion", "Data Mapper completion"]
+  },
+  "stops": ["return CLOSED frozen schedule to Root", "unknown applicability remains explicit", "no semantic F11 sufficiency or release acceptance claim", "no next-stage activation inferred"]
+}

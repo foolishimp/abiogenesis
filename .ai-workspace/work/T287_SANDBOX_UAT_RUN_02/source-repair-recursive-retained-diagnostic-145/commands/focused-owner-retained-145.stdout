@@ -1,0 +1,35 @@
+✔ recursive fixture declares a valid bounded Program with one native selector (8.560791ms)
+✔ receiver counterevidence and unresolved task survive child returns until parent evaluation (1.215125ms)
+(node:91316) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (94091.014625ms)
+﹣ one installed Public start revises native choice from child evidence and reevaluates its parent (0.511791ms) # SKIP
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 94427.939792
+
+✖ failing tests:
+
+test at test_env/tests/t287-recursive-failure-reuse-control.test.mjs:129:1
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (94091.014625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22controlled%20F_D%20diagnostic%20bytes%20%C3%A9%F0%9D%84%9E%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20controlled%20F_D%20diagnostic%20bytes%20%C3%A9%F0%9D%84%9E%5Cn%20%20%20%20at%20TestContext.%3Canonymous%3E%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_SANDBOX_UAT_RUN_02%2Fsource-repair-recursive-retained-diagnostic-145%2Fbaseline%2Ftest_env%2Ftests%2Ft287-recursive-failure-reuse-control.test.mjs%3A152%3A103)%5Cn%20%20%20%20at%20async%20Test.run%20(node%3Ainternal%2Ftest_runner%2Ftest%3A1113%3A7)%5Cn%20%20%20%20at%20async%20Test.processPendingSubtests%20(node%3Ainternal%2Ftest_runner%2Ftest%3A788%3A7)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/test_env/tests/t287-recursive-failure-reuse-control.test.mjs:224:126)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22controlled%20F_D%20diagnostic%20bytes%20%C3%A9%F0%9D%84%9E%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20controlled%20F_D%20diagnostic%20bytes%20%C3%A9%F0%9D%84%9E%5Cn%20%20%20%20at%20TestContext.%3Canonymous%3E%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_SANDBOX_UAT_RUN_02%2Fsource-repair-recursive-retained-diagnostic-145%2Fbaseline%2Ftest_env%2Ftests%2Ft287-recursive-failure-reuse-control.test.mjs%3A152%3A103)%5Cn%20%20%20%20at%20async%20Test.run%20(node%3Ainternal%2Ftest_runner%2Ftest%3A1113%3A7)%5Cn%20%20%20%20at%20async%20Test.processPendingSubtests%20(node%3Ainternal%2Ftest_runner%2Ftest%3A788%3A7)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

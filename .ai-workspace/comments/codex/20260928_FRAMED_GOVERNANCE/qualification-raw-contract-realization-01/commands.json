@@ -1,0 +1,29 @@
+{
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "commands": {
+    "compile": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "regression": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs"
+    ],
+    "regression-final": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs"
+    ]
+  },
+  "compileAndTestTotalBudgetMs": 420000,
+  "noInstallOrRuntime": true,
+  "initialRegression": "exit1 local test expectation error, retained",
+  "finalRegression": "exit0 corrected owner-roster comparison plus exact publication digest joins"
+}

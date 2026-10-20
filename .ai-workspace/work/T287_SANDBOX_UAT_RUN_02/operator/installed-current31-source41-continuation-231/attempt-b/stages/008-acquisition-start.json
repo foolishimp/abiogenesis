@@ -1,0 +1,12 @@
+{
+  "stage": "acquisition-start",
+  "rss": 2441248768,
+  "heapTotal": 2104688640,
+  "heapUsed": 1944676448,
+  "external": 20526707,
+  "arrayBuffers": 18112274,
+  "at": "2026-10-09T19:03:52.203Z",
+  "elapsedMs": 23950.304,
+  "prefixLength": 2142096875,
+  "host": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/host/node_modules/@abiogenesis/typescript-tenant"
+}

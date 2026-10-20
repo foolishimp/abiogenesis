@@ -1,0 +1,70 @@
+{
+  "status": "PASS_COMPONENT_ONLY",
+  "parentCCallRef": "c-call:sha256:2d7e0b378d3b174c7b787e33e7d12bfeb7205e63275578dde4fa216970ab0d08",
+  "originalChildCCallRef": "c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c",
+  "originalChildResult": {
+    "ref": "result://abiogenesis/81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4",
+    "digest": "sha256:81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4"
+  },
+  "parentResult": {
+    "ref": "result://abiogenesis/d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee",
+    "digest": "sha256:d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee"
+  },
+  "parentBodyReferenceDecoded": true,
+  "directChildPreserved": true,
+  "aliasOriginalProducerCount": 1,
+  "sourceCursor": {
+    "ref": "traversal-cursor://abiogenesis/9bb76415b4669383c06b37e56112470acdd8bb733462befa97246d22515c0193",
+    "digest": "sha256:9bb76415b4669383c06b37e56112470acdd8bb733462befa97246d22515c0193"
+  },
+  "parentGraphFunction": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+  "negatives": [
+    {
+      "name": "missing foldback",
+      "preliminaryPrefixAccepted": true,
+      "eventCount": 75,
+      "parentNativeStateAccepted": true,
+      "expectedBoundary": "producerForResult: required unique sub_traversal evidence has no childResultRef/childResultDigest",
+      "witness": {
+        "subTraversalEvidenceCount": 0
+      },
+      "actualOutcome": "null (no exception)",
+      "lowerPremise": "counterfactual durable event read supplied; ordinal/cause normalization only for the removed evidence; no native admission"
+    },
+    {
+      "name": "crossed child graph call",
+      "preliminaryPrefixAccepted": true,
+      "eventCount": 76,
+      "parentNativeStateAccepted": true,
+      "expectedBoundary": "producerForResult: unique child Result graphCallId differs from sub_traversal.childGraphCallId",
+      "witness": {
+        "childResultCount": 1,
+        "actualGraphCallId": "graph-call://abiogenesis/59eec0f5583145ae1d79bcf302f40ac7e3231df97c778257b8e83f64d3cbfac6",
+        "evidenceGraphCallId": "graph-call://crossed"
+      },
+      "actualOutcome": "null (no exception)",
+      "lowerPremise": "counterfactual durable event read supplied; ordinal/cause normalization only for the removed evidence; no native admission"
+    },
+    {
+      "name": "crossed child result",
+      "preliminaryPrefixAccepted": true,
+      "eventCount": 76,
+      "parentNativeStateAccepted": true,
+      "expectedBoundary": "producerForResult: no child Result has the exact sub_traversal childResultRef/childResultDigest",
+      "witness": {
+        "childResultCount": 0,
+        "childResultRef": "result://abiogenesis/81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4",
+        "childResultDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "actualOutcome": "null (no exception)",
+      "lowerPremise": "counterfactual durable event read supplied; ordinal/cause normalization only for the removed evidence; no native admission"
+    }
+  ],
+  "competitionLowerPremise": "existing finite synthetic admitted-lookup fixture",
+  "resourceLowerPremise": "Only immutable declaration-proof lookup is supplied for the retained reference task; full 504760365-byte resource assembly and semantic adequacy are outside this focused proof.",
+  "RuntimeAdmissions": 0,
+  "providerCalls": 0,
+  "qualificationCredit": false,
+  "elapsedMs": 7934.916833,
+  "maxRSSBytes": 1064861696
+}

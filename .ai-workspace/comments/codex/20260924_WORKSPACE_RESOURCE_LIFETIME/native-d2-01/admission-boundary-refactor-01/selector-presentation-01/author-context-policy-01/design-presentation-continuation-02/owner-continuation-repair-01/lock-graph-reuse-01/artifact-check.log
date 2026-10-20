@@ -1,0 +1,18 @@
+{"kind":"artifact_admission_work","work":{"artifactRowsPrepared":1,"coldPrefixSelections":0,"calculusEffects":2,"completeLockChecks":1,"graphConstructions":2}}
+{"kind":"immediate_install_projection_work","consumerWork":{"successorConstructions":0,"rawProjectionValidation":0,"copiedProjectionValidations":1},"rawCopyValidated":true}
+{"kind":"artifact_admission_work","work":{"artifactRowsPrepared":1,"coldPrefixSelections":0,"calculusEffects":2,"completeLockChecks":1,"graphConstructions":2}}
+{"kind":"immediate_install_projection_work","consumerWork":{"successorConstructions":0,"rawProjectionValidation":0,"copiedProjectionValidations":1},"rawCopyValidated":true}
+{"kind":"artifact_admission_work","work":{"artifactRowsPrepared":1,"coldPrefixSelections":0,"calculusEffects":2,"completeLockChecks":0,"graphConstructions":0}}
+✔ T289 owner serialization and cold historical/reference reconstruction preserve exact install truth (6663.510417ms)
+✔ T289 live state recovers after rollback without changing earlier artifact prefixes (634.590041ms)
+{"kind":"artifact_admission_work","work":{"artifactRowsPrepared":1,"coldPrefixSelections":0,"calculusEffects":2,"completeLockChecks":1,"graphConstructions":2}}
+{"kind":"immediate_install_projection_work","consumerWork":{"successorConstructions":0,"rawProjectionValidation":0,"copiedProjectionValidations":1},"rawCopyValidated":true}
+✔ T289 established causal installs and binding admit a new lock without changing prior truth (2620.696833ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10224.99925

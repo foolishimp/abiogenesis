@@ -1,0 +1,12 @@
+{
+  "stage": "private-preparation-complete",
+  "rss": 4641701888,
+  "heapTotal": 4169039872,
+  "heapUsed": 4072541712,
+  "external": 2447762,
+  "arrayBuffers": 35455,
+  "at": "2026-10-09T11:32:29.351Z",
+  "elapsedMs": 404492.892959,
+  "kind": "product_run_invocation_preparation_refusal",
+  "code": null
+}

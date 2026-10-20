@@ -1,0 +1,70 @@
+--- final-native-continuation-04/public-support.mjs
++++ final-observed-c2-01/public-support.mjs
+@@ -57,8 +57,14 @@
+     ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
+     ...resolution.programValidation.interactionLeafRows.map((row) => row.fibre),
+   ]);
+-  assert.equal(selection.programRef, 'program://abiogenesis/conformance/hello-world@5', 'this grant selects only named Hello');
+-  assert.deepEqual([...declaredRegimes], ['F_D'], 'no provider regime selected');
++  assert.equal(selection.programRef, 'program://abiogenesis/worksite/command-execution@5', 'this grant selects only observed C2');
++  assert.equal(selection.selection.graphFunctionHandle, 'graph-function://abiogenesis/worksite/command-execution@5');
++  assert.deepEqual([...declaredRegimes], ['F_P'], 'exact selected C2 regime');
++  assert.equal(resolution.programValidation.executableLeafRows.length,1);
++  assert.equal(resolution.programValidation.interactionLeafRows.length,0);
++  const declaration=resolution.programPublication.runEnvironments.find(d=>d.declarationRef===resolution.program.policies['abg.run_environment']);
++  assert.ok(declaration);assert.equal(declaration.roles.length,1);assert.equal(declaration.roles[0].role,'command_executor');
++  assert.equal(declaration.roles[0].graphFunctionRef,selection.selection.graphFunctionHandle);
+   const policy = product.constructRootInvocationPolicy(
+     workspaceBinding,
+     resolution.program,
+@@ -85,16 +91,6 @@
+       },
+     ),
+   ]);
+-  const selectedInput = await inputFactory({ grants, resolution });
+-  const admittedInput = product.admitInstalledProductInput(
+-    resolution.productSemantics, resolution.resolution.inputContract.contractRef, selectedInput,
+-  );
+-  assert.ok(admittedInput);
+-  const inputContract = Object.freeze({ ref: resolution.resolution.inputContract.contractRef,
+-    digest: resolution.resolution.inputContractDigest });
+-  const contractBoundInput = Object.freeze({ contract: inputContract,
+-    valueRef: selection.inputRef,
+-    valueDigest: product.sha256Canonical(selectedInput), value: selectedInput });
+   const authority = product.constructInvocationAuthority(
+     actorRef,
+     workspaceBinding,
+@@ -109,6 +105,17 @@
+       fixedPacket,
+     },
+   );
++  const runEnvironmentResources=await environment.runEnvironmentResourceFactory({authority,resolution,declaration});
++  const selectedInput = await inputFactory({ grants, resolution });
++  const admittedInput = product.admitInstalledProductInput(
++    resolution.productSemantics, resolution.resolution.inputContract.contractRef, selectedInput,
++  );
++  assert.ok(admittedInput);
++  const inputContract = Object.freeze({ ref: resolution.resolution.inputContract.contractRef,
++    digest: resolution.resolution.inputContractDigest });
++  const contractBoundInput = Object.freeze({ contract: inputContract,
++    valueRef: selection.inputRef,
++    valueDigest: product.sha256Canonical(selectedInput), value: selectedInput });
+   const program = Object.freeze({
+     ref: resolution.resolution.programRef,
+     digest: resolution.resolution.programDigest,
+@@ -198,6 +205,7 @@
+     eventResource,
+     catalog,
+     catalogView,
++    runEnvironmentResources,
+     applications: Object.freeze([]),
+     applicationResources: Object.freeze([]),
+     source: Object.freeze({ kind: "none" }),
+@@ -222,6 +230,7 @@
+     resolution,
+     capabilityBasis: Object.freeze({
+       actorRef,
++      authority,
+       capabilityGrants: grants,
+       policy,
+       productInstalls: admittedInstalls,

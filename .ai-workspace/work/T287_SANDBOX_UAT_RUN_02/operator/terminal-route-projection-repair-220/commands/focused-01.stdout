@@ -1,0 +1,81 @@
+(node:43270) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ owned result-to-judgment conserves semantic digests without canonicalizing either complete prefix (58.558083ms)
+✖ terminal route-only projection preserves complete replay and avoids nonreturned populations (2.311208ms)
+✖ terminal route-only retains cold and hot malformed-history refusals (1.440833ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 766.056417
+
+✖ failing tests:
+
+test at test_env/tests/t287-held-prefix.test.mjs:209:1
+✖ owned result-to-judgment conserves semantic digests without canonicalizing either complete prefix (58.558083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'event_store_reopen_refusal'
+  - 'reopened_event_store_context'
+  
+      at judgmentOwnerFixture (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs:176:9)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs:212:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'event_store_reopen_refusal',
+    expected: 'reopened_event_store_context',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:77:1
+✖ terminal route-only projection preserves complete replay and avoids nonreturned populations (2.311208ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'event_store_reopen_refusal'
+  - 'reopened_event_store_context'
+  
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:46:9)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:78:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'event_store_reopen_refusal',
+    expected: 'reopened_event_store_context',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:107:1
+✖ terminal route-only retains cold and hot malformed-history refusals (1.440833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'event_store_reopen_refusal'
+  - 'reopened_event_store_context'
+  
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:46:9)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:108:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'event_store_reopen_refusal',
+    expected: 'reopened_event_store_context',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

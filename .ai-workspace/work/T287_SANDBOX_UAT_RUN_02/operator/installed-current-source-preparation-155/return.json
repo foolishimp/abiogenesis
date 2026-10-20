@@ -1,0 +1,92 @@
+{
+  "role": "Installed Continuity/Preparation Worker155",
+  "disposition": "HOLD: phase caller import premise failed; current26 source-use/private preparation not reached",
+  "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+  "sourceRunRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/60218dc5e58fb47a4f648dbca360280d337d36e2d7d5197913ee25e667b2d589",
+  "sourceBasisDigest": "sha256:60218dc5e58fb47a4f648dbca360280d337d36e2d7d5197913ee25e667b2d589",
+  "sourceInputDigest": "sha256:38a236b7e8d1e4e219f4d9c4b3c45d0728b1596294832ebcb44c0d24ecdfe4b7",
+  "observations": 34,
+  "nonterminal": true,
+  "genuineClosedChild": {
+    "result": {
+      "ref": "result://abiogenesis/072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16",
+      "digest": "sha256:072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16"
+    },
+    "contract": {
+      "ref": "contract://abiogenesis/worksite/command-execution-observation@5",
+      "digest": "sha256:8196321c4d36a23a6c93d871886149633537ee2a9eaa9594470c1297039ce559"
+    },
+    "valueKind": "worksite_command_execution_observation",
+    "valueDigest": "sha256:a3c9e9cca182a047459d1b0c8e452f379085703a5075f5a813a94b582d524600",
+    "producer": {
+      "runRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+      "graphCallRef": "graph-call://abiogenesis/69f0302fa67bde2f554b5698899dd481fbaf01b7223289d7130e1e81ac87a0eb",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/3f025b4846c9222aaa6ea8b72c2dc1b3dc5fbd9ed17b4126eb19f9d684253a9a",
+      "program": {
+        "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+        "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+      },
+      "graphFunction": {
+        "ref": "graph-function://abiogenesis/worksite/command-execution@5",
+        "digest": "sha256:5b33817eb4d092aea5179405fc21049dd3540a3845ecdb74f1c4f4c1de10c112"
+      },
+      "executionBasis": {
+        "ref": "execution-basis://abiogenesis/c01b12d0c6932e3aab526ee986a8da648c0d4e4551f7aa6c3333d25d9ed7b99f",
+        "digest": "sha256:c01b12d0c6932e3aab526ee986a8da648c0d4e4551f7aa6c3333d25d9ed7b99f"
+      },
+      "cCallRef": "c-call:sha256:5bd4b3484a8c8bb7fe4312ee4abc616cba256aa489eeb848575a2faf24a69128",
+      "resultAdmissionEventRef": "event://abiogenesis/8a977e1228bdcbbbe170336e5ca3decc57dcbcde899b6b79c0d9e7dc950b454c",
+      "judgmentRef": "judgment://abiogenesis/544d2d401fd096bedc985b3993c3719c9f126fdb582ec4015b4a77aec661c6d6",
+      "judgmentAdmissionEventRef": "event://abiogenesis/37f1efb76da7851a4fea5e0ba896997b9ca3eacf988ce63207ba15fc30e0df05",
+      "terminalRoute": {
+        "ref": "traversal-route://abiogenesis/54b06c642a451c5d89a22ca58abdb642375e02fd63dd426b30ffbe1f0e1eae11",
+        "digest": "sha256:54b06c642a451c5d89a22ca58abdb642375e02fd63dd426b30ffbe1f0e1eae11"
+      }
+    },
+    "projectionBasis": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "digest": "sha256:bd7e517ec7bc2d0a72e385a887f6400fa469ca299c7d5bb40cc78cb7256d976a"
+    }
+  },
+  "terminalProjectionMs": 113153.330209,
+  "command": {
+    "started": "2026-10-09T03:40:43.244Z",
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 163772.922583,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-155/first-cause.json",
+    "message": "a.projectHistoricalGraphCallSourceAtDurablePrefix is not a function",
+    "stage": "terminal-resource-start",
+    "classification": "operator import premise, not canonical owner refusal"
+  },
+  "selectedAction": "Bind existing canonical project_read_ports internal export in bounded successor caller after Root disposition; no retry now.",
+  "conservation": {
+    "sameActualAAndWorksite": true,
+    "files": 48,
+    "absence": 1,
+    "handoffUnchanged": true,
+    "physicalPrefixUnchanged": true,
+    "all155ProcessesAbsent": true,
+    "lockAbsent": true
+  },
+  "effects": {
+    "canonicalReadAndNormalClose": true,
+    "installBindCatalogWitness": false,
+    "runStartOrAdmission": false,
+    "modelProvider": false,
+    "appWrites": false,
+    "sourceOrGit": false
+  },
+  "proofLimits": [
+    "Actual root source basis and genuine closed-child terminal only; historical source projector was not entered.",
+    "Current26 binding/D2/current-use/private Product preparation and native admission/UAT remain open.",
+    "Historical14 detections and Accounting mutant unchanged; no fresh producer credit.",
+    "Memory measurements are stage samples, not peak or full installed capacity closure."
+  ]
+}

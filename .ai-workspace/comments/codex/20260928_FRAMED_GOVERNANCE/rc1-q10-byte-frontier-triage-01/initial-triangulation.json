@@ -1,0 +1,57 @@
+{
+  "status": "OBSERVED_NO_GO_REPAIR_SELECTION_PENDING_INDEPENDENT_REVIEW",
+  "actor": "Root Executive",
+  "reentryCandidate": "realization_refactor of owned external preparation unless actual owner contract requires design reframe",
+  "exactQ10Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/freeze.json",
+    "bytes": 867410,
+    "sha256": "9a380cedd7f1b306f5732ebfe200d71951fc1792f4f5e542431a2d32819f31d5",
+    "mode": 292
+  },
+  "failure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/first-readiness-refusal.json",
+    "bytes": 3204,
+    "sha256": "e0e4f26852ac322e3ee63521784e116bcb57b569a6ff53194d6904d17272e71f",
+    "mode": 420
+  },
+  "decomposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/actual-population-and-byte-decomposition.json",
+    "bytes": 6457,
+    "sha256": "14ea1a2980586f32d8a42debca07c9221c5c5e767df5f01829b3558489e93ff1",
+    "mode": 420
+  },
+  "authorMaterialIncrements": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/actual-author-material-increments.json",
+    "bytes": 32745,
+    "sha256": "c756e13b0fe8c878f557e0a0f6ba9493d230a3d7e0157e837da17fe082df0f8f",
+    "mode": 420
+  },
+  "currentStop": "sum(4 * ceil(inventory.member.byteCount / 3)) < 500000000",
+  "actualBase64Bytes": 543805156,
+  "guardBytes": 500000000,
+  "frames": {
+    "ProductRequirements": "Complete inventory, mechanical correspondence, justified context, original attribution and truthful unknowns remain mandatory. The preparation cap is not a qualification ruling.",
+    "DesignIntegration": "External authorer aggregates every current inventory body into one manifest. Actual source-auth/control bodies have grown, so a reused carrier algorithm no longer fits. Model-selected bodies remain separate.",
+    "IdentityProvenance": "C09/Setup09 unchanged,174records/23chains/90spans preserve originals. Need identify duplicate derived metadata without erasing required original records or opaque bodies.",
+    "EffectsLifecycle": "Complete Unit Task passed; no eighteencommands, nativeTask/Run/J/helper/provider/resourceopen performed. Both owned processes reaped/groupsabsent.",
+    "Proof": "Current scope correspondence passed, then actual body gate refused before serialization/referenceowner/prompt. This closes no runtime or semantic claim.",
+    "Cost": "Base64 total exceeds exact frozen Node maxString even before JSON overhead. Blind threshold or heap increase is unsupported.",
+    "Reuse": "Retain accepted C09/Setup09 and failedQ10. Earliest installed discriminator remains priority after bounded preparation repair."
+  },
+  "whyPriorCheckMissed": "Q09 was below the finite bound; Q10 inherited that budget and full-body aggregation without binding growth from current original-author/control material in prepayload readiness.",
+  "independentReview": {
+    "actor": "/root/rc1_c03_install_review",
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-input-review-controls-01/request.txt",
+      "bytes": 3697,
+      "sha256": "64ef840f7faba2e0c8d176520d4a9cd62c395a62ebb5c296a63b1a7c3eb553aa",
+      "mode": 420
+    },
+    "status": "ACTIVE"
+  },
+  "unknowns": [
+    "Exact smallest owner-valid representation/projection repair pending independent review",
+    "Genuine context sufficiency/independence and release qualification still unproved"
+  ],
+  "repairOrRetryGranted": false
+}

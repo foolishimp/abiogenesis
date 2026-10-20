@@ -1,0 +1,54 @@
+(node:18495) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ same-subject conformance retains one real owner derivation and predecessor semantic result (8406.630334ms)
+✖ conformance resolved-closure continuation preserves raw readiness and complete validation outcomes (4947.7835ms)
+(node:18496) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (657.109584ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14149.945417
+
+✖ failing tests:
+
+test at test_env/tests/t287-conformance-owner-reuse.test.mjs:168:1
+✖ same-subject conformance retains one real owner derivation and predecessor semantic result (8406.630334ms)
+  AssertionError [ERR_ASSERTION]: {"failureKind":"typed_execution_fault","fault":{"kind":"definition_execution_fault","schemaVersion":"5.0.0","definitionKey":{"operationId":"abg.operation.conformance.evaluate","memberKey":"gtl_program"},"stage":"resource_admission","code":"resource_relation_mismatch","message":"TypeError: definition call differs from its fixed owner","evidence":{}},"cause":"Error: {\"kind\":\"definition_execution_fault\",\"schemaVersion\":\"5.0.0\",\"definitionKey\":{\"operationId\":\"abg.operation.conformance.evaluate\",\"memberKey\":\"gtl_program\"},\"stage\":\"resource_admission\",\"code\":\"resource_relation_mismatch\",\"message\":\"TypeError: definition call differs from its fixed owner\",\"evidence\":{}}"}
+  
+  70 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs:172:77)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 70,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-conformance-owner-reuse.test.mjs:271:1
+✖ conformance resolved-closure continuation preserves raw readiness and complete validation outcomes (4947.7835ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'raw_admission_refused'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs:294:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'raw_admission_refused',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,92 @@
+{
+  "status": "CLOSED_FIRST_MATERIAL_INPUT_MISMATCH",
+  "operation": "pure final installed constructor \u2192 complete current manifest publication binding check",
+  "command": "GIT_OPTIONAL_LOCKS=0 node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/validate-inputs.mjs",
+  "exitCode": 1,
+  "error": "AssertionError [ERR_ASSERTION]: deepStrictEqual constructed10 != manifest11; absent module://abiogenesis/default-library/default@5",
+  "source": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/validate-inputs.mjs",
+    "bytes": 8092,
+    "sha256": "ef4081fff7bc9082ae220fefc813ac3029a5c51fcf53072731ae83e61ed7ce55"
+  },
+  "failureLine": 21,
+  "expectedPublicationBindings": [
+    {
+      "moduleRef": "module://abg/consensus@5",
+      "publicationDigest": "sha256:73ef63f358f247a3465fd0e3383bedfd968579befbd3d488afaa2398b7c655d9"
+    },
+    {
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:101b231116fdc94b941384c54fd9d8c54483502f3473ddb9e1a6545206716f9b"
+    },
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:10f051df60335dfdcf6a6b49ad9d0af68ce64ebcee7e546e3efc5622520412e9"
+    },
+    {
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "publicationDigest": "sha256:cc0b55209d484e643ab7fe887756fc30c794ad0f01cd951d035ac2d5ebe548a5"
+    },
+    {
+      "moduleRef": "module://abiogenesis/requirement-handoff@5",
+      "publicationDigest": "sha256:76301dcaef716c03d3a0c97ca75f033db203a1ed363d2a81ee3a54d79a41ccb5"
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "publicationDigest": "sha256:53597f53c8e6bb3ea976394b3b5303a1f4d7da0fe82f16407527ee2861200011"
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-stage@5",
+      "publicationDigest": "sha256:9a63a4691f72610e180f2cd7f216ddda139332a21a1244c226374e1b9772ef2b"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "publicationDigest": "sha256:a94f200e187221c7d1dd4b65f567cb4e675def4a7021769229abec977e557839"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+      "publicationDigest": "sha256:583947d074adf2e5d7715ccd3c92bdeb30959fd0f673af3caedb29b73576262a"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/construction@5",
+      "publicationDigest": "sha256:e02ee1a944a439386dbc8f9fcfb0c71e0b09f3f1878a68cec45dfd35f5a15a5d"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "publicationDigest": "sha256:a6203af985e323f6cb8a4420f4831da14c1fa3c680f4439f160dd7227f62c806"
+    }
+  ],
+  "missingFromDonorConstructorList": {
+    "moduleRef": "module://abiogenesis/default-library/default@5",
+    "publicationDigest": "sha256:10f051df60335dfdcf6a6b49ad9d0af68ce64ebcee7e546e3efc5622520412e9"
+  },
+  "constructedCount": 10,
+  "expectedCount": 11,
+  "tenSharedRows": "All exact current publication semantic digests match; actual/expected diff shows only the one missing default-library row.",
+  "priorChecksPassed": [
+    "1931 immutable source/generated bodies and716 protected input files",
+    "925 actual physical generated+preserved input comparison paths",
+    "config command/predicate/write digests; exact auxiliary/recipe/source bindings",
+    "actual installed recipe/inventory/null-slot basis schemas; basis readiness false",
+    "331 source syntax parses with no test import or execution",
+    "actual current manifest canonical digest matches selected candidate"
+  ],
+  "notReached": [
+    "complete current publication closure acceptance",
+    "C2 publication runEnvironment pure assertion",
+    "final rule catalog/law schema assertions at end of validate-inputs.mjs"
+  ],
+  "effects": {
+    "recipeCommands": 0,
+    "nativeCalls": 0,
+    "providerCalls": 0,
+    "newWorksites": 0,
+    "eventResources": 0,
+    "builds": 0,
+    "packages": 0,
+    "installs": 0,
+    "sourceMutations": 0,
+    "GitEffects": 0,
+    "onlyWrites": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01"
+  }
+}

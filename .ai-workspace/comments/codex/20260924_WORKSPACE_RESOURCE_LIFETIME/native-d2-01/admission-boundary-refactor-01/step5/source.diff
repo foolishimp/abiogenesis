@@ -1,0 +1,355 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts
+@@ -102,6 +102,16 @@
+       message: "Program validation input requires one Product-resolved declaration closure",
+     } as RawAdmissionRefusal;
+   }
++  return constructProgramValidationInputFromResolvedClosure(declarationClosure, program);
++}
++
++/** Internal continuation of the Product closure owner. Raw callers use the
++ * catalog wrapper above; this consumes its actual resolved value and retains
++ * declaration admission and subsequent Program validation. */
++export function constructProgramValidationInputFromResolvedClosure(
++  declarationClosure: ResolvedProgramDeclarationClosure,
++  program: Readonly<GtlProgram>,
++): ProgramValidationInput | RawAdmissionRefusal {
+   const declarationPublications = declarationClosure.publications;
+   const graphFunctionRefs = new Set(
+     declarationClosure.graphFunctionOwners.map((owner) => owner.declarationRef),
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts
+@@ -1,5 +1,5 @@
+ import { isRecord } from "../shared/admission_predicates.js";
+-import { constructCatalogProgramValidationInput } from "../product/catalog_operations.js";
++import { constructCatalogProgramValidationInput, constructProgramValidationInputFromResolvedClosure } from "../product/catalog_operations.js";
+ import type { ReadyGraphFunctionCatalog, GraphFunctionCatalogView } from "../product/catalog.js";
+ import type { ResolvedProgramDeclarationClosure } from "../product/declaration_closure.js";
+ import type {
+@@ -196,6 +196,28 @@
+   supplied: ConformanceEvaluatePacket,
+   declarationBasis?: ConformanceDeclarationBasis,
+ ): GtlProgramConformanceOperationResult {
++  return evaluateWithValidationInput(supplied, declarationBasis,
++    (packet) => declarationBasis === undefined
++      ? rawInput(packet.publication, packet.program)
++      : constructCatalogProgramValidationInput(declarationBasis.catalog, declarationBasis.catalogView,
++        declarationBasis.declarationClosure, packet.program));
++}
++
++/** Internal continuation after this conformance owner resolves the exact
++ * declaration closure. This is not exposed on the raw ConformancePort. */
++export function evaluateGtlProgramConformanceFromResolvedClosure(
++  supplied: ConformanceEvaluatePacket,
++  declarationClosure: ResolvedProgramDeclarationClosure,
++): GtlProgramConformanceOperationResult {
++  return evaluateWithValidationInput(supplied, { declarationClosure },
++    (packet) => constructProgramValidationInputFromResolvedClosure(declarationClosure, packet.program));
++}
++
++function evaluateWithValidationInput(
++  supplied: ConformanceEvaluatePacket,
++  declarationBasis: Pick<ConformanceDeclarationBasis, "declarationClosure"> | undefined,
++  inputForPacket: (packet: ConformanceEvaluatePacket) => ProgramValidationInput | RawAdmissionRefusal,
++): GtlProgramConformanceOperationResult {
+   let admitted: JsonValue;
+   try {
+     admitted = admitIJsonValue(supplied, "GTL Program conformance packet");
+@@ -239,10 +261,7 @@
+       code: "invalid_packet", path: "$.publication", message: "conformance closure differs from the original Program publication",
+     }]);
+   }
+-  const input = declarationBasis === undefined
+-    ? rawInput(packet.publication, packet.program)
+-    : constructCatalogProgramValidationInput(declarationBasis.catalog, declarationBasis.catalogView,
+-      declarationBasis.declarationClosure, packet.program);
++  const input = inputForPacket(packet);
+   if (isRawAdmissionRefusal(input)) {
+     return refusal(
+       "raw_admission_refused",
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts
+@@ -46,6 +46,7 @@
+ } from "../product/environment.js";
+ import {
+   ConformancePort,
++  evaluateGtlProgramConformanceFromResolvedClosure,
+   type ConformanceEvaluatePacket,
+   type ConformanceDeclarationBasis,
+   type GtlProgramConformanceOperationResult,
+@@ -75,6 +76,28 @@
+   readonly conformanceLaw: ReferenceDigest<"GtlConformanceLaw">;
+   readonly declaredInventory: readonly ModulePublication[];
+   readonly declarationCatalog?: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;
++}
++
++/** Read-only Definition resource handoff. The existing admitted grants bind
++ * the approved resource scope; no input packet, catalog or new proof is echoed. */
++export interface ConformanceEvaluationResourceReceipt {
++  readonly kind: "conformance_evaluation_resource_receipt";
++  readonly schemaVersion: "5.0.0";
++  readonly invocation: ReferenceDigest;
++  readonly request: ReferenceDigest;
++  readonly capabilityGrants: readonly ReferenceDigest[];
++}
++
++function resourceReceipt(
++  call: DefinitionCall<ConformanceContract, ConformanceEvaluationResourceAssertion>,
++): ConformanceEvaluationResourceReceipt {
++  return deepFreeze({
++    kind: "conformance_evaluation_resource_receipt" as const,
++    schemaVersion: "5.0.0" as const,
++    invocation: reference(call.invocation.invocationRef, call.invocation.invocationDigest),
++    request: reference(call.invocation.requestRef, call.invocation.requestDigest),
++    capabilityGrants: call.invocation.invocationAuthority.slots.capability_grants!.grants,
++  });
+ }
+ 
+ function fault(
+@@ -295,7 +318,7 @@
+ ) => Effect.try({
+   try: (): DefinitionReturn<
+     ConformanceContract,
+-    ConformanceEvaluationResourceAssertion
++    ConformanceEvaluationResourceReceipt
+   > => {
+     // withAdmissionAuthority has already canonicalized these exact resources
+     // for the approved digest, including the existing finite-JSON check;
+@@ -392,7 +415,7 @@
+     if (!sameCoordinate(request.conformanceLaw, GTL_PROGRAM_CONFORMANCE_LAW)) {
+       return deepFreeze({
+         ownerOutput: lawMismatchRefusal(),
+-        resources,
++        resources: resourceReceipt(call),
+       });
+     }
+     let declarationBasis: ConformanceDeclarationBasis | undefined;
+@@ -405,11 +428,13 @@
+     } catch (cause) {
+       throw fault(call.invocation.definitionKey, "resource_relation_mismatch", String(cause));
+     }
+-    const native = ConformancePort.evaluateGtlProgram(packet, declarationBasis);
++    const native = declarationBasis === undefined
++      ? ConformancePort.evaluateGtlProgram(packet)
++      : evaluateGtlProgramConformanceFromResolvedClosure(packet, declarationBasis.declarationClosure);
+     if (native.disposition === "failed" && native.code !== "validation_failed") {
+       return deepFreeze({
+         ownerOutput: nativeRefusal(native),
+-        resources,
++        resources: resourceReceipt(call),
+       });
+     }
+     const assessment = native.disposition === "passed"
+@@ -522,7 +547,7 @@
+       } as OwnerSemanticOutput<ConformanceContract>,
+       "Validator conformance",
+     );
+-    return deepFreeze({ ownerOutput, resources });
++    return deepFreeze({ ownerOutput, resources: resourceReceipt(call) });
+   },
+   catch: (cause) => isDefinitionFault(cause)
+     ? cause as DefinitionExecutionFault<ConformanceContract["definitionKey"]>
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/index.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/index.ts
+@@ -45,6 +45,7 @@
+ export {
+   CONFORMANCE_DEFINITION_BINDINGS,
+   type ConformanceEvaluationResourceAssertion,
++  type ConformanceEvaluationResourceReceipt,
+ } from "./conformance_definition_bindings.js";
+ export { CONFORMANCE_OPERATION_CONTRACTS } from "./conformance_operation_contracts.js";
+ export * from "./self_conformance_contracts.js";
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs
+@@ -60,7 +60,7 @@
+     },
+     './verify_product.js':{verifyProduct:async request=>{metrics.archiveChecks++;
+       assert.equal(request.artifactPath,join(territory,'unmaterialized-fixture.tgz'));
+-      return archiveFails?{kind:'product_verification_refusal'}:verified;}},
++      return archiveFails?{kind:'product_verification_refusal'}:structuredClone(verified);}},
+     'node:fs/promises':{readFile:async file=>{assert.equal(String(file),join(base,'product-toolchain-manifest.json'));
+       afterManifestRead?.();
+       return Buffer.from(JSON.stringify(manifestFails?{changed:true}:metadata.ownerManifest));}},
+@@ -70,12 +70,24 @@
+   invocation=await mechanism(base,'product/invocation',{'./admission_authority.js':authority});
+   const mechanics=await load(base,'shared/definition_binding_mechanics');
+   metrics.resourceSelfComparisons=0;
++  metrics.closureResolutions=0;metrics.rawClosureValidations=0;metrics.resolvedClosureContinuations=0;
++  const declarations=await load(base,'product/declaration_closure');
++  const catalogOperations=await load(base,'product/catalog_operations');
++  const conformance=base===root ? await mechanism(base,'validator/conformance_operation',{
++    '../product/catalog_operations.js':{
++      constructCatalogProgramValidationInput:(...args)=>{metrics.rawClosureValidations++;return catalogOperations.constructCatalogProgramValidationInput(...args);},
++      constructProgramValidationInputFromResolvedClosure:(...args)=>{metrics.resolvedClosureContinuations++;return catalogOperations.constructProgramValidationInputFromResolvedClosure(...args);},
++    },
++  }) : await load(base,'validator/conformance_operation');
+   const bindings=await mechanism(base,'validator/conformance_definition_bindings',{'../product/admission_authority.js':authority,
++    './conformance_operation.js':conformance,
++    '../product/declaration_closure.js':{resolveProgramDeclarationClosure:(...args)=>{metrics.closureResolutions++;return declarations.resolveProgramDeclarationClosure(...args);}},
+     '../abg/index.js':{...env,...artifact},
+     '../shared/definition_binding_mechanics.js':{sameJson:(a,b)=>{
+       if(a===b && a?.kind==='conformance_evaluation_resource_assertion')metrics.resourceSelfComparisons++;
+       return mechanics.sameJson(a,b);}}});
+-  return {base,authority,invocation,bindings,metrics,env,artifact,
++  return {base,authority,invocation,bindings,metrics,env,artifact,conformance,
++    projections:(await load(base,'shared/public_function_projections')).PUBLIC_PROJECTION_PAYLOADS,
+     publicApi:await load(base,'public/index'),contracts:await load(base,'validator/conformance_operation_contracts'),host:await load(base,'shared/effect_definition'),
+     failArchive:value=>{archiveFails=value;},failManifest:value=>{manifestFails=value;},afterManifestRead:fn=>{afterManifestRead=fn;}};
+ }
+@@ -139,7 +151,15 @@
+   const authority={kind:'resolved_admission_authority',schemaVersion:'5.0.0',actorRef:actor.ref,authorityMode:'trusted_developer',authority:{...coord('authority://conformance-fixture',authorityValue),value:authorityValue},approval:{...coord('approval://conformance-fixture',approvalValue),value:approvalValue}};
+   const grants=await Promise.all(definition.capabilityRefs.map(cap=>b.invocation.constructCapabilityGrant(authority,actor.ref,definition.definitionKey.operationId,cap,{kind:'admission_capability_grant_construction_basis',fixedPacket:packet,data:basis})));
+   slots.capability_grants={requiredCapabilityRefs:definition.capabilityRefs,grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))};
+-  return JSON.parse(JSON.stringify(b.publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:b.publicApi,definitionContractCoordinates:verified.definitionContractCoordinates,
++  // Archive/install verification is already a supplied component premise.
++  // Keep the historical metadata immutable; source-owned slot digests select
++  // the current reader's actual contract, not a newly verified package claim.
++  const definitionContractCoordinates=structuredClone(verified.definitionContractCoordinates);
++  if(b.base===root) for(const row of definitionContractCoordinates.operations) {
++    const asset=b.projections.operationContractAssets.find(asset=>asset.operationId===row.operationId);
++    for(const member of row.members)for(const coordinate of Object.values(member.slots))if(coordinate)coordinate.flatRow.contractDigest=asset.contentDigest;
++  }
++  return JSON.parse(JSON.stringify(b.publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:b.publicApi,definitionContractCoordinates,
+     contractCatalog:{productId:verified.productId,productContentDigest:verified.productContentDigest,catalogId:verified.catalogId,catalogVersion:'5.0.0',catalogDigest:verified.catalogDigest},operationId:definition.definitionKey.operationId,memberKey,request,slots,
+     resources:{...resources,admissionAuthority:{basis,authority,grants}},requestRef:'request://conformance-fixture',correlationRef:'correlation://conformance-fixture',eventTime:'2026-09-22T00:00:00.000Z',provenanceRefs:[]})));
+ }
+@@ -160,14 +180,25 @@
+   const before=fs.readFileSync(f.eventLogPath),a=await measured(old,f,call),b=await measured(next,f,nextCall);
+   assert.equal(a.result.exitCode,0,JSON.stringify(a.result.failure));assert.equal(b.result.exitCode,0,JSON.stringify(b.result.failure));
+   assert.deepEqual(b.result.ownerOutput,a.result.ownerOutput);
+-  const {artifactTruth:_removed,...oldResources}=a.result.resources;
+-  assert.deepEqual(b.result.resources,oldResources);assert.equal(b.result.ownerOutput.value.disposition,'passed');
++  assert.equal(a.result.resources.kind,'conformance_evaluation_resource_assertion','historical receipt remains an input echo');
++  assert.deepEqual(b.result.resources,{kind:'conformance_evaluation_resource_receipt',schemaVersion:'5.0.0',
++    invocation:{ref:nextCall.invocation.invocationRef,digest:nextCall.invocation.invocationDigest},
++    request:{ref:nextCall.invocation.requestRef,digest:nextCall.invocation.requestDigest},
++    capabilityGrants:nextCall.invocation.invocationAuthority.slots.capability_grants.grants});
++  assert.equal(b.result.invocationRef,nextCall.invocation.invocationRef);
++  assert.equal(b.result.failure,null);
++  assert.equal(b.result.ownerOutput.value.disposition,'passed');
++  assert.equal(b.closureResolutions,1);assert.equal(b.rawClosureValidations,0);assert.equal(b.resolvedClosureContinuations,1);
++  const copiedResources=structuredClone(f.resources),copiedCall=await callFor(next,f,copiedResources);
++  const copied=(await measured(next,f,copiedCall)).result;
++  assert.deepEqual(copied.ownerOutput,b.result.ownerOutput,'equal-body catalogs retain raw/cold meaning');
++  assert.deepEqual(copied.resources,b.result.resources);
+   assert.ok(b.physicalPrefixReads<=a.physicalPrefixReads,'resource deletion adds no physical environment acquisition');
+   assert.equal(a.resourceSelfComparisons,1);assert.equal(b.resourceSelfComparisons,0);
+   assert.equal(b.physicalPrefixReads,1,'cold ingress plus same-acquisition currentness reads history once');
+   assert.equal(a.archiveChecks,1);assert.equal(b.archiveChecks,1);assert.equal(b.environmentDerivations,1);assert.equal(b.warmEnvironmentRelations,0);
+   assert.deepEqual(fs.readFileSync(f.eventLogPath),before);
+-  console.log(JSON.stringify({kind:'conformance_reuse_differential',predecessor:{...a,result:undefined},successor:{...b,result:undefined},ownerOutputDigest:hash(b.result.ownerOutput),resourceDigest:hash(b.result.resources),fixtureOnly:true}));
++  console.log(JSON.stringify({kind:'conformance_reuse_differential',predecessor:{...a,result:undefined},successor:{...b,result:undefined},ownerOutputDigest:hash(b.result.ownerOutput),resourceDigest:hash(b.result.resources),predecessorReceiptBytes:Buffer.byteLength(JSON.stringify(a.result.resources)),compactReceiptBytes:Buffer.byteLength(JSON.stringify(b.result.resources)),fixtureOnly:true}));
+ 
+   for(const [label,change]of [
+     ['incomplete inventory',r=>r.declaredInventory.pop()],
+@@ -195,6 +226,12 @@
+       const c=await callFor(backend,f,changedResources,request);
+       const result=(await measured(backend,f,c)).result;
+       results.push(result.ownerOutput??{code:result.failure.fault.code,stage:result.failure.fault.stage});
++      if(backend===next && result.ownerOutput!==null) {
++        assert.equal(result.exitCode,1);
++        assert.equal(result.resources.kind,'conformance_evaluation_resource_receipt');
++        assert.deepEqual(result.resources.request,{ref:c.invocation.requestRef,digest:c.invocation.requestDigest});
++        assert.deepEqual(result.resources.capabilityGrants,c.invocation.invocationAuthority.slots.capability_grants.grants);
++      }
+     }
+     assert.deepEqual(results[1],results[0],label+' is conserved');
+     assert.ok(results[1].outcomeKind==='refusal' || results[1].code, label+' must refuse');
+@@ -238,6 +275,32 @@
+     try {assert.notEqual((await measured(backend,f,backend===old?call:nextCall)).result.exitCode,0,'physical drift after awaited verification refuses');}
+     finally {backend.afterManifestRead(null);fs.writeFileSync(f.eventLogPath,before);}
+   }
++});
++
++test('conformance resolved-closure continuation preserves raw readiness and complete validation outcomes',async t=>{
++  const f=await fixture(t),{catalog,catalogView}=f.resources.declarationCatalog;
++  const owner=await load(root,'product/declaration_closure');
++  const closure=owner.resolveProgramDeclarationClosure(catalog,catalogView,metadata.program.programRef);
++  assert.equal(closure.kind,'resolved_program_declaration_closure');
++  const basis={catalog,catalogView,declarationClosure:closure},packet=f.resources.packet;
++  const raw=next.conformance.evaluateGtlProgramConformance(packet,basis);
++  const continued=next.conformance.evaluateGtlProgramConformanceFromResolvedClosure(packet,closure);
++  assert.equal(raw.disposition,'passed');assert.deepEqual(continued,raw);
++  for(const [label,change]of [
++    ['static validation',p=>p.program.starts[0].graphFunctionRef='graph-function://missing'],
++    ['raw declaration',p=>p.program.starts='malformed'],
++    ['packet',p=>p.extra=true],
++    ['crossed publication',p=>p.publication.moduleRef='module://foreign'],
++  ]) {
++    const changed=structuredClone(packet);change(changed);
++    const expected=next.conformance.evaluateGtlProgramConformance(changed,basis);
++    const actual=next.conformance.evaluateGtlProgramConformanceFromResolvedClosure(changed,closure);
++    assert.equal(expected.disposition,'failed',label);assert.deepEqual(actual,expected,label);
++  }
++  const forgedClosure=structuredClone(closure);forgedClosure.closureDigest=hash('forged closure');
++  assert.equal(next.conformance.evaluateGtlProgramConformance(packet,{...basis,declarationClosure:forgedClosure}).code,'raw_admission_refused');
++  const changedCatalog=structuredClone(catalog);changedCatalog.basisDigest=hash('foreign catalog basis');
++  assert.equal(next.conformance.evaluateGtlProgramConformance(packet,{...basis,catalog:changedCatalog}).code,'raw_admission_refused');
+ });
+ 
+ test('compact selection binds scope, cold acquisition, historical cuts and trusted-desktop currentness',async t=>{
+--- a/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md
+@@ -103,3 +103,24 @@
+ actor output, broaden evidence eligibility or replace independent assessment.
+ Public carrier/receipt changes re-enter their exact owning contracts together
+ with their callers; this model does not silently relax an existing schema.
++
++### Conformance Definition resource receipt
++
++`conformance.evaluate/gtl_program` preserves its complete semantic result and
++refusal algebra. Its read-only `DefinitionReturn.resources` is a
++`ConformanceEvaluationResourceReceipt`: existing invocation, request and
++capability-grant coordinates, not an echo of the packet, declared inventory or
++catalog. The admitted grants already bind the exact approved resource scope;
++this receipt adds no admission authority. Host exit/failure and invocation
++association remain unchanged. Real event-resource completions from effect
++owners remain their existing handoffs; this read-only receipt invents none.
++Historical full resource receipts retain their original bytes and meaning.
++
++Within this conformance call, the owner reconstructs the declaration basis and
++resolves its exact Program closure once. Its internal validation continuation
++consumes that actual closure, while preserving packet/publication correspondence,
++raw declaration admission and `validateProgram`. The raw catalog/conformance
++entries still authenticate a supplied closure against its complete catalog and
++view. Equal-body catalog construction, cold/raw readiness and all additional
++operation-owned relations remain unchanged; no cross-call catalog authority or
++process-identity registry is introduced.
+--- a/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs
++++ b/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs
+@@ -85,6 +85,35 @@
+       if (disposition === "refusal") assert.equal(retained.receipt.failure.code, "retained refusal");
+       if (disposition === "exception") assert.match(retained.stack, /retained first cause/);
+     } finally { await setup.close(); await rm(scratch, { recursive: true, force: true }); }
++  }
++});
++
++test("setup retains compact conformance receipt and complete semantic outcome without echoing inputs", async () => {
++  // Controlled host results exercise only the existing caller's retention and
++  // refusal handling. The ABI conformance fixture covers actual owner admission.
++  for (const refused of [false, true]) {
++    const scratch = await mkdtemp(join(tmpdir(), "glc-conformance-receipt-")), calls = [];
++    const ref = name => ({ ref: `test://${name}`, digest: "sha256:" + "a".repeat(64) });
++    const invocation = { definitionKey: { operationId: "abg.operation.conformance.evaluate", memberKey: "gtl_program" }, invocationRef: "test://invocation" };
++    const receipt = { kind: "definition_host_receipt", schemaVersion: "5.0.0", invocationRef: invocation.invocationRef,
++      definitionKey: invocation.definitionKey, exitCode: refused ? 1 : 0, failure: null,
++      ownerOutput: refused ? { outcomeKind: "refusal", value: { code: "law_mismatch", issuePaths: ["/conformanceLaw"], evidenceRefs: [] } }
++        : { outcomeKind: "result", value: { program: ref("program"), inventory: ref("inventory"), assessment: ref("assessment"), disposition: "passed",
++          diagnostics: [], violatedAuthorities: [], evidence: [ref("assessment")], repairAffordances: [] } },
++      resources: { kind: "conformance_evaluation_resource_receipt", schemaVersion: "5.0.0", invocation: ref("invocation"), request: ref("request"), capabilityGrants: [ref("grant")] } };
++    const state = { ordinal: 0, installedPublic: { async runInstalledDefinitionCallTransport(acquisition) {
++      assert.equal(acquisition.kind, "eventless");return { kind: "installed_definition_call_transport_result", receipt };
++    } } };
++    const setup = fullSandboxSetupCalls({ scratch, calls, state });
++    try {
++      const action = setup.invoke({ invocation, resources: { packet: { retained: "standalone input" } } }, "conformance");
++      if (refused) await assert.rejects(action, /receipts\/00-conformance.json/);
++      else assert.deepEqual(await action, receipt);
++      const retained = JSON.parse(await readFile(join(scratch, "receipts/00-conformance.json"), "utf8"));
++      assert.deepEqual(retained.receipt, receipt);
++      assert.equal("packet" in retained.receipt.resources, false);
++      assert.equal(calls.length, refused ? 0 : 1);
++    } finally { await setup.close();await rm(scratch, { recursive: true, force: true }); }
+   }
+ });
+ 

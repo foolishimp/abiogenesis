@@ -1,0 +1,23 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=cold acquisition receipt|historical durable cuts|held derivation",
+    "test_env/tests/t287-ordered-reconstruction.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T03:52:40.642Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 180000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 574.7401249999966,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "✔ cold acquisition receipt detaches caller input and preserves pure, copied, explicit-fresh and current-prefix distinctions (38.722584ms)\n{\"kind\":\"historical_cut_derivation_controls\",\"exactOutput\":true,\"ordinalAloneRejected\":true,\"physicalDriftRefused\":true}\n✔ historical durable cuts reidentify only exact owner history after physical authentication (31.785959ms)\n{\"kind\":\"held_suffix_rollback_conservation\",\"work\":{},\"physicalDriftRefused\":true,\"copiedProofCold\":true}\n✔ held derivation preserves physical authentication and discards staged facts on rollback (21.633333ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 541.750542\n",
+  "stderr": ""
+}

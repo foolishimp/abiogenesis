@@ -1,0 +1,8 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculate-definition-identity.mjs:61
+  throw new Error('actual Catalog/canonical publication correspondence not established');
+        ^
+
+Error: actual Catalog/canonical publication correspondence not established
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculate-definition-identity.mjs:61:9
+
+Node.js v24.7.0

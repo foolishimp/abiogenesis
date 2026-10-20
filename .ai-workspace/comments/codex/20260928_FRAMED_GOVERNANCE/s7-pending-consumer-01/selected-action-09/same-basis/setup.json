@@ -1,0 +1,36 @@
+{
+  "setupMs": 22029.876125,
+  "accounting": {
+    "wallMs": {
+      "provisioning_pack": 3311.3594590000002,
+      "provisioning_extract": 474.6952080000001,
+      "bootstrap_owner_loading_and_candidate_preparation": 352.01295800000025,
+      "provisioning_verify_artifact": 12346.772917000002,
+      "provisioning_install": 2670.292624999998,
+      "provisioning_installed_content_check": 515.6338329999999,
+      "provisioning_additional_products": 228.39700000000084,
+      "installed_owner_loading": 237.95195800000147,
+      "environment_install_and_workspace_admission": 541.2691660000019,
+      "execution_preparation_publication_program_and_catalog": 338.07437500000015,
+      "execution_preparation_resolution_and_program_validation": 615.3794580000031,
+      "execution_preparation_invocation_admission": 196.5353329999998,
+      "execution_preparation_graph_and_implementation_resolution": 69.67391700000007,
+      "execution_preparation_basis_and_leaf_port": 10.769791999999143
+    },
+    "volumes": {
+      "archiveBytes": 10370153,
+      "archiveUnpackedBytes": 67809001,
+      "archiveMemberCount": 5256,
+      "installedTreeBytes": null
+    }
+  },
+  "archiveDigests": [
+    "sha256:c061fca61bc180e45b717527dc45f44dbeedcff69d67916d3801b85edb0c8c23",
+    "sha256:8b9a2a5c2323cb15132d37850309e976bc4470f6e609a527aef3c46261260205"
+  ],
+  "artifactPaths": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz"
+  ],
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/consumer/node_modules/@abiogenesis/typescript-tenant"
+}

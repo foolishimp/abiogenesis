@@ -1,0 +1,13 @@
+{
+  "stage": "eventless-grant-construction-complete",
+  "elapsedMs": 20109.645875,
+  "rss": 1726513152,
+  "heapTotal": 1365245952,
+  "heapUsed": 1171323768,
+  "external": 100796538,
+  "arrayBuffers": 95205592,
+  "ownerReceiptRetained": true,
+  "sdkResourceIdentityRetained": true,
+  "capabilities": 1,
+  "publicDispatch": false
+}

@@ -227,6 +227,40 @@ It cannot select foldback, change policy, advance the ordinal, emit runtime
 events, or certify the parent. Malformed or thrown output becomes a truthful
 blocked runtime resolution; recursion does not retry it.
 
+For the direct HoG realization, an admitted child-local failed return can leave
+the enclosing Run active. HoG authenticates that return against the prepared
+child execution basis and scope at its exact successor prefix, using the
+existing ABG child lifecycle projection. The failed route, Result, Judgment,
+C_Call, value digest and original diagnostic must agree. This return is a
+truthful failure, not a malformed completed-child foldback.
+
+HoG stops the active enclosing Run through the existing ABG runtime-failure
+owner. Its cause is the admitted failed child route. For an opaque diagnostic,
+the failure subject names the original child C_Call, Result and Judgment and
+the parent evaluator/input coordinates. For a canonical retained-JSON
+diagnostic, HoG uses the existing diagnostic owner to preserve its exact
+decoded subject, including JSON `null`; replacing that subject would violate
+the diagnostic's digest relation. The admitted parent scope and failed-child
+route causation retain the enclosing and child coordinates in either case.
+The returned failed completion preserves the child value and diagnostic.
+Prior admitted parent work and unresolved input remain unchanged.
+No successful child foldback, termination evaluation, rebind or retry follows.
+An already-failed Run propagates its existing failure without a second failure
+admission. Missing, crossed or stale child truth retains the existing refusal.
+
+```mermaid
+sequenceDiagram
+    participant Child as Declared child
+    participant HoG as HoG recursion
+    participant ABG as ABG owners
+    Child->>HoG: Failed completion with exact child refs
+    HoG->>ABG: Project admitted child basis, scope and failed route
+    ABG-->>HoG: Exact Result/Judgment/value/diagnostic correspondence
+    HoG->>ABG: Admit failure with exact diagnostic subject and child route cause
+    ABG-->>HoG: Non-green successor prefix and replay
+    HoG->>HoG: Return failed; no foldback or retry
+```
+
 ### D7. Termination is evaluated over admitted B
 
 Only an admitted exact-contract `completed` child result reaches the declared

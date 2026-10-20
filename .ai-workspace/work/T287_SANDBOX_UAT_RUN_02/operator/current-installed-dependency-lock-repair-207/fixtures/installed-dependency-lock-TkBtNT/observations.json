@@ -1,0 +1,72 @@
+{
+  "status": "focused physical installer proof",
+  "observations": [
+    {
+      "label": "correct",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/correct/artifacts/abi207-correct-5.0.0.tgz",
+      "consumer": "sha256:42d97652e2dd5013b96e994de2643c3a0d7ef4e579e12f31a28784ffa3c3117f",
+      "lockDigest": "sha256:beca5a726b5cada4264b38c0e3b4e1e189c6ff71f197e0dee21545c412127b00",
+      "expectedDependencyContent": "sha256:eef1ff302bf081d3ccfe18a396739966d2359ecda82eaaa5f6f1a6ae66bcd4bb",
+      "actualDependencyContent": "sha256:eef1ff302bf081d3ccfe18a396739966d2359ecda82eaaa5f6f1a6ae66bcd4bb",
+      "kind": "product_install_candidate",
+      "code": null,
+      "actualDependencyRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/correct/installed/node_modules/@abi207/dependency"
+    },
+    {
+      "label": "stale",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/stale/artifacts/abi207-stale-5.0.0.tgz",
+      "consumer": "sha256:a1a7c979ac9284ce9c64c268a32a630192ff5334aa22d7a0a692061190da52b3",
+      "lockDigest": "sha256:7ec0dabd9689f0115034da15e5029943d47dec4606759915e92fd15208f23a1d",
+      "expectedDependencyContent": "sha256:eef1ff302bf081d3ccfe18a396739966d2359ecda82eaaa5f6f1a6ae66bcd4bb",
+      "actualDependencyContent": "sha256:b66c36073e9b73c7222c04b4e7c55dff2b13755504e089a11685e1b9db1e696f",
+      "kind": "product_install_refusal",
+      "code": "dependency_lock_mismatch",
+      "actualDependencyRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/stale/installed/node_modules/@abi207/dependency"
+    },
+    {
+      "label": "missing",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/missing/artifacts/abi207-missing-5.0.0.tgz",
+      "consumer": "sha256:7ada2c243e89a2591db50c4e942ce66e987dd571b5f38855af1cc703ee510f04",
+      "lockDigest": "sha256:25e5f532e75f6335cfdd5c5503c618b96d0d9dca10e320a0eb3fa9d3357c1ae9",
+      "expectedDependencyContent": "sha256:eef1ff302bf081d3ccfe18a396739966d2359ecda82eaaa5f6f1a6ae66bcd4bb",
+      "actualDependencyContent": null,
+      "kind": "product_install_refusal",
+      "code": "dependency_lock_mismatch",
+      "actualDependencyRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/missing/installed/node_modules/@abi207/dependency"
+    },
+    {
+      "label": "foreign",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/foreign/artifacts/abi207-foreign-5.0.0.tgz",
+      "consumer": "sha256:d7ab192f0defc361d382a154bba654b96869b1330743e8314f7565a4983f35f0",
+      "lockDigest": "sha256:438f0a9842a1f7a56576b3d3768c4fc11e0e02e81480d1c079815bb979419673",
+      "expectedDependencyContent": "sha256:eef1ff302bf081d3ccfe18a396739966d2359ecda82eaaa5f6f1a6ae66bcd4bb",
+      "actualDependencyContent": "sha256:f78eae9f8646dfcaf03211b9fc72168d0b1d750d1d58a0299f6f8ce143ac8812",
+      "kind": "product_install_refusal",
+      "code": "dependency_lock_mismatch",
+      "actualDependencyRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/foreign/installed/node_modules/@abi207/dependency"
+    },
+    {
+      "label": "tampered",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/tampered/artifacts/abi207-tampered-5.0.0.tgz",
+      "consumer": "sha256:066517747ff12f8c1858770ad3ef9d60fe0be49b6b3dbffcaad088565e7a6207",
+      "lockDigest": "sha256:d98f864cdca887af48f345ce395d1214bc4275adb1317f8f78692be47f2e6463",
+      "expectedDependencyContent": "sha256:eef1ff302bf081d3ccfe18a396739966d2359ecda82eaaa5f6f1a6ae66bcd4bb",
+      "actualDependencyContent": "sha256:eef1ff302bf081d3ccfe18a396739966d2359ecda82eaaa5f6f1a6ae66bcd4bb",
+      "kind": "product_install_refusal",
+      "code": "dependency_lock_mismatch",
+      "actualDependencyRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/tampered/installed/node_modules/@abi207/dependency"
+    },
+    {
+      "label": "transitive",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/transitive/artifacts/abi207-transitive-5.0.0.tgz",
+      "consumer": "sha256:5dbb4334f4e3e07035fff2560e1771532b3dbd8ca92aca9cb2a5cf93a2767831",
+      "lockDigest": "sha256:a76be9c41e49ce7582ca4542cd20fb5365275c19123f577642df611d78da8795",
+      "expectedDependencyContent": "sha256:eef1ff302bf081d3ccfe18a396739966d2359ecda82eaaa5f6f1a6ae66bcd4bb",
+      "actualDependencyContent": "sha256:b66c36073e9b73c7222c04b4e7c55dff2b13755504e089a11685e1b9db1e696f",
+      "kind": "product_install_refusal",
+      "code": "dependency_lock_mismatch",
+      "actualDependencyRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/transitive/installed/node_modules/@abi207/dependency"
+    }
+  ],
+  "limits": "Minimal author-owned packed Products; no native callable declarations, managed Run/admission, actual Data Mapper or installed source-use credit."
+}

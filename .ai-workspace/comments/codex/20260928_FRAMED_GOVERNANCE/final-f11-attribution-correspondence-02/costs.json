@@ -1,0 +1,23 @@
+{
+  "elapsedSecondsSinceDeclaredActivation": 701.26984,
+  "originalMaterialBodyCount": 40,
+  "originalMaterialBytes": 2406440,
+  "derivedMaterialBodyCount": 4,
+  "derivedMaterialBytes": 47067,
+  "supplementalMaterialBodyCount": 4,
+  "supplementalMaterialBytes": 8887,
+  "independentEndpointReconstructions": 11,
+  "pureOwnerCheckExecutions": 2,
+  "reasonForSecondCheck": "New exact supplemental identity evidence changed two operation record sets; initial results were retained.",
+  "perFinalCheck": {
+    "originalCarrierRedChecks": 3,
+    "derivedAttributionInsufficientChecks": 3,
+    "negativeCases": 18,
+    "oldEightUnionCheck": 1
+  },
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "buildPackageInstallCalls": 0,
+  "GitCommands": 0,
+  "monetaryCostKnown": false
+}

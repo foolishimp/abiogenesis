@@ -1,3 +1,5 @@
+import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventAtPrefix, indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -20,20 +22,22 @@ import {
   isRuntimeEventTransactionActive,
   readHeldRuntimeEventsAtDurablePrefix,
   readActiveRuntimeTransactionAtDurablePrefix,
+  selectActiveRuntimeTransactionHistoryAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
   type RuntimeEventCandidateFactory,
 } from "./event_store.js";
 import { runtimeEventPrefixDigest,
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   selectRuntimeEventPrefixFromAuthority,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
   constructRuntimeFluent,
-  deriveRuntimeEventCalculusProjection,
+  deriveRuntimeHeldFluentProjection,
+  runtimeFluentKey,
   holdsAt,
 } from "./event_calculus.js";
 import {
@@ -45,12 +49,15 @@ import {
   projectRunQuiescence,
   replay,
   replayValidatedRuntimeEventPrefix,
-  type ReplayState,
+  type ReplayState, type RuntimeReplayGuard,
+  projectRuntimeReplayGuard, materializeRuntimeReplayGuard,
+  projectReplayCCallGuardAtPrefix, projectValidatedReplayRouteAtPrefix,
 } from "./replay.js";
 import {
   type AdmittedRoute,
 } from "./traversal_route.js";
 import { projectTraversalRouteBody } from "./traversal_transition.js";
+import { projectFhContinuations } from "./continuation.js";
 import type { FhInteractionResumeAdmission } from "./continuation.js";
 
 export interface ScopeClosureAdmission {
@@ -106,8 +113,8 @@ function refuseClosureWithoutEffects(
 }
 
 interface ExactClosurePrefix {
-  readonly fullPrefix: ValidatedRuntimeEventPrefix;
-  readonly runPrefix: ValidatedRuntimeEventPrefix;
+  readonly fullPrefix: RuntimeEventPrefix;
+  readonly runPrefix: RuntimeEventPrefix;
   readonly expectedStorePrefixDigest: Sha256Digest;
 }
 
@@ -117,10 +124,9 @@ function selectExactClosurePrefix(
   runId: string,
 ): ExactClosurePrefix | null {
   try {
-    const events = isRuntimeEventTransactionActive(store)
-      ? readActiveRuntimeTransactionAtDurablePrefix(store, predecessorPrefix)
-      : readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix);
-    const fullPrefix = selectValidatedRuntimeEventPrefix(events);
+    const fullPrefix = isRuntimeEventTransactionActive(store)
+      ? selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(store, predecessorPrefix))
+      : (assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix), selectRuntimeEventPrefixFromStore(store));
     const runPrefix = selectRuntimeEventPrefixFromAuthority(fullPrefix, { runId });
     return deepFreeze({
       fullPrefix,
@@ -133,7 +139,7 @@ function selectExactClosurePrefix(
 }
 
 function projectExactPreClosureQuiescence(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
 ) {
   return deepFreeze({
     ...projectRunQuiescence(prefix),
@@ -148,7 +154,7 @@ function appendClosureBatchAtExpectedPrefix(
 ): readonly RuntimeEvent[] | null {
   try {
     if (isRuntimeEventTransactionActive(store)) {
-      readActiveRuntimeTransactionAtDurablePrefix(store, predecessorPrefix, { durableOnly: true });
+      selectActiveRuntimeTransactionHistoryAtDurablePrefix(store, predecessorPrefix, { durableOnly: true });
     } else {
       assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
     }
@@ -212,12 +218,11 @@ export type ScopeClosureSubject =
     }>;
 
 interface CurrentClosureTruth {
-  readonly events: ReturnType<typeof runtimeEventsFromValidatedPrefix>;
-  readonly replay: ReplayState;
+  readonly activeFluents: readonly string[];
 }
 
 function exactAdmissionPayload(
-  event: CurrentClosureTruth["events"][number] | undefined,
+  event: RuntimeEvent | undefined,
   eventKind: "c_call_result_admitted" | "c_call_judged",
   admission: AdmittedCCallResult | AdmittedCCallJudgment,
 ): boolean {
@@ -236,37 +241,24 @@ function exactAdmissionPayload(
 }
 
 function projectCurrentClosureTruth(
-  prefix: ValidatedRuntimeEventPrefix,
-  authorityPrefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix,
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
   route: AdmittedRoute,
   resume: FhInteractionResumeAdmission | null = null,
 ): CurrentClosureTruth | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const currentReplay = replayValidatedRuntimeEventPrefix(
-    prefix,
-    authorityPrefix,
-  );
-  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
-  const cCallTruth = currentReplay.cCalls.find(
-    (candidate) => candidate.cCallRef === cCall.cCallRef,
-  );
-  const currentRoute = currentReplay.routes.find(
-    (candidate) =>
-      candidate.routeRef === route.routeRef &&
-      candidate.cCallRef === cCall.cCallRef &&
-      candidate.judgmentRef === judgment.judgmentRef &&
-      candidate.sourceCursorRef === route.sourceCursorRef,
-  );
-  const resultEvent = events.find(
+  const eventCalculus = deriveRuntimeHeldFluentProjection(prefix);
+  const cCallTruth = projectReplayCCallGuardAtPrefix(prefix, cCall.cCallRef);
+  const currentRoute = projectValidatedReplayRouteAtPrefix(prefix, route.admissionEventRef, authorityPrefix);
+  const resultEvent = indexedRuntimeEvents(prefix, "id:" + result.admissionEventRef).find(
     (event) => event.eventId === result.admissionEventRef,
   );
-  const judgmentEvent = events.find(
+  const judgmentEvent = indexedRuntimeEvents(prefix, "id:" + judgment.admissionEventRef).find(
     (event) => event.eventId === judgment.admissionEventRef,
   );
-  const routeEvent = events.find(
+  const routeEvent = indexedRuntimeEvents(prefix, "id:" + route.admissionEventRef).find(
     (event) => event.eventId === route.admissionEventRef,
   );
   const resultBody = {
@@ -293,7 +285,7 @@ function projectCurrentClosureTruth(
   if (exactRouteBody === null) return null;
   const resumeTruth = resume === null
     ? null
-    : currentReplay.continuations.find(
+    : projectFhContinuations(prefix, eventCalculus, authorityPrefix).find(
         (candidate) =>
           candidate.continuationRef === resume.continuationRef &&
           candidate.continuationKind === "fh_interaction" && candidate.status === "resolved" &&
@@ -353,17 +345,18 @@ function projectCurrentClosureTruth(
     ) ||
     (resume !== null && resumeTruth === null)
   ) return null;
-  return { events, replay: currentReplay };
+  return { activeFluents: eventCalculus.holds.map(runtimeFluentKey) };
 }
 
-export function admitScopeClosure(
+/** @internal Same canonical closure admission with a compact ordinary receipt. */
+export function admitOwnedScopeClosure(
   store: AbgEventStore,
   predecessorPrefix: DurablePrefixCoordinate,
   subject: ScopeClosureSubject,
   route: AdmittedRoute,
   closureContract: Readonly<ClosureContract>,
   basis: RuntimeAdmissionBasis,
-): ScopeClosureAdmissionResult {
+): OwnedScopeClosureAdmissionResult {
   const sourceCCall = subject.cCall;
   const sourceResult = subject.kind === "interaction"
     ? subject.pendingResult
@@ -460,9 +453,7 @@ export function admitScopeClosure(
 
   let childParentFrameId: string | null = null;
   if (childScope !== null) {
-    const childGraphCallOpen = runtimeEventsFromValidatedPrefix(
-      exactPrefix.runPrefix,
-    ).find((event) =>
+    const childGraphCallOpen = indexedRuntimeEvents(exactPrefix.runPrefix, "id:" + childScope.graphCallOpenEventRef).find((event) =>
       event.kind === "graph_call_opened" &&
       event.eventId === childScope.graphCallOpenEventRef &&
       event.graphCallId === childScope.graphCallId
@@ -511,7 +502,7 @@ export function admitScopeClosure(
   const expectedJudgmentContractRef = subject.kind === "interaction"
     ? cCall.continuationContractRef
     : judgment.contractRef;
-  const expectedScope = scopeClass === "child" ? "graph_call" : "run";
+  const expectedScope: ScopeClosureAdmission["scopeClass"] = scopeClass === "child" ? "graph_call" : "run";
   const expectedEventKinds = scopeClass === "child"
     ? ["terminal_reached", "frame_closed", "graph_call_closed"]
     : [
@@ -525,8 +516,8 @@ export function admitScopeClosure(
         `terminal_admitted(${cCall.frameId})`,
         `frame_closed(${cCall.frameId})`,
         `graph_call_closed(${cCall.graphCallId})`,
-      ].some((fluent) => currentTruth.replay.activeFluents.includes(fluent))
-    : currentTruth.replay.activeFluents.includes(
+      ].some((fluent) => currentTruth.activeFluents.includes(fluent))
+    : currentTruth.activeFluents.includes(
         `terminal_admitted(${cCall.frameId})`,
       );
   if (
@@ -699,6 +690,22 @@ export function admitScopeClosure(
     runClosedEventRef: events[3]?.eventId ?? null,
     childGraphCallId: childScope?.graphCallId ?? null,
     childFrameId: childScope?.frameId ?? null,
-    replayState: replay(store, { runId }),
+    replayState: projectRuntimeReplayGuard(
+      selectRuntimeEventPrefixFromAuthority(selectRuntimeEventPrefixFromStore(store), { runId }),
+      selectRuntimeEventPrefixFromStore(store)),
   });
+}
+
+/** @internal */
+export type OwnedScopeClosureAdmission = Omit<ScopeClosureAdmission,"replayState"> & { readonly replayState: RuntimeReplayGuard };
+/** @internal */
+export type OwnedScopeClosureAdmissionResult = OwnedScopeClosureAdmission | ScopeClosureAdmissionRefusal;
+
+export function admitScopeClosure(
+  store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate, subject: ScopeClosureSubject,
+  route: AdmittedRoute, closureContract: Readonly<ClosureContract>, basis: RuntimeAdmissionBasis,
+): ScopeClosureAdmissionResult {
+  const result=admitOwnedScopeClosure(store,predecessorPrefix,subject,route,closureContract,basis);
+  return result.kind === "scope_closure_admission"
+    ? deepFreeze({...result,replayState:materializeRuntimeReplayGuard(result.replayState)}) : result;
 }

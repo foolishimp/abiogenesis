@@ -1,0 +1,19 @@
+{
+  "status": "superseded_local_receipt_premise",
+  "exception": "AssertionError [ERR_ASSERTION]: actual Set(17) versus expected Set(7) at eval1:46",
+  "cause": "Comparator used reference equality for unchanged structured-cloned arrays; array values were equal.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/preparation.failed-eval-source.txt",
+    "sha256": "85dd44a76e2b11e8102444b16d0fa3cf39ca0346c447a5a44489018eb8a8d0b7",
+    "byteCount": 12969
+  },
+  "completedBeforeFailure": [
+    "selected package/source/preimage pins",
+    "48 material rows",
+    "4 original and40 authorized author material",
+    "configuration()",
+    "acquireResumeMaterial()"
+  ],
+  "correction": "Use node:util isDeepStrictEqual before recursive leaf comparison; preserve existing config/material/archives/source bytes.",
+  "nativeEffects": false
+}

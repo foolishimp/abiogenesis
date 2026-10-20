@@ -1,0 +1,171 @@
+{
+  "kind": "bounded_deterministic_boundary_diagnostic_readiness",
+  "status": "CLOSED",
+  "sourceCut": 38,
+  "productFrame": {
+    "product": "Fixed fifteen-family ABI5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "method": "STDO2.5.1rc2",
+    "methodManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "authority": "Existing owner/lifecycle/identity/authority/effects/Proof; Product unchanged."
+  },
+  "origin": {
+    "actualFrozen09": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/freeze.json",
+      "sha256": "7ffcc93732fffec0c029794e2d4bb1dcc49281579087ef181c5a7be7fac6e0d1",
+      "bytes": 76610
+    },
+    "relation": "F_D prepare-testing totalized implementation_exception erased the boundary stage and caught cause.",
+    "selectedAction": "Retain first boundary stage/reason and sanitized cause via the existing retained-JSON diagnostic subject.",
+    "knownLimits": "Authentic totalized evidence does not distinguish authority refusal/throw, loading/missing export or invocation throw."
+  },
+  "changedFiles": [
+    {
+      "relativePath": "code/src/implementation/leaf_invocation_port.ts",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "3a178c71c6dfadbfe39162d98e87ec326ed87788ab556ea13f22678125962e89",
+        "bytes": 77337
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/input-01/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "f3e1c1ddaf90b856e4b2fe2ebd90dfc901a368ef52034c5f62cde9636eeb3d54",
+        "bytes": 79176
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "f3e1c1ddaf90b856e4b2fe2ebd90dfc901a368ef52034c5f62cde9636eeb3d54",
+        "bytes": 79176
+      }
+    },
+    {
+      "relativePath": "design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+        "sha256": "e5c49d966aa60873d75c02cc6623f70b1f100e9b0fd05fe2bdb6fc105d951b1a",
+        "bytes": 13803
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/input-01/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+        "sha256": "d4b48d8da9da6c90ec9ea0950cc004418b1738ca3ddeaa6a9e75065952f739e0",
+        "bytes": 15266
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+        "sha256": "d4b48d8da9da6c90ec9ea0950cc004418b1738ca3ddeaa6a9e75065952f739e0",
+        "bytes": 15266
+      }
+    },
+    {
+      "relativePath": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "sha256": "bdf51ea41a63aef761512b4c7218a1d2863a4028c89a08f53bbe93b58af72c76",
+        "bytes": 15084
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/input-01/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "sha256": "57aa460f24cca66ccfdeec1c92b79992c0ab9fe09f377b7f8e96961e482463b1",
+        "bytes": 26449
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "sha256": "57aa460f24cca66ccfdeec1c92b79992c0ab9fe09f377b7f8e96961e482463b1",
+        "bytes": 26449
+      }
+    }
+  ],
+  "fullSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-inputs.json",
+    "sha256": "0a056ba82f21c0cd241f879c8977c12c27d3199e3fec5bd5d803ba5ef8a9a183",
+    "bytes": 80616
+  },
+  "fullEmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-emission.json",
+    "sha256": "52e15cc740e072bfab393cf2e082f2cc066b9cb159fa31bfd7b472d05006c767",
+    "bytes": 161512
+  },
+  "conservedDependencies": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-conjunction.json",
+    "sha256": "48f9ca9b0ee2c25787e7c5bdf27be996c8ab9091d0f73d0119b8e773d3ee1a03",
+    "bytes": 3364
+  },
+  "diagnosticContract": {
+    "stages": [
+      "authority_verification",
+      "implementation_load",
+      "implementation_invocation"
+    ],
+    "reasons": [
+      "refused",
+      "thrown",
+      "missing_export"
+    ],
+    "binding": [
+      "original diagnosticClassRef",
+      "F_D computeRegime",
+      "implementationRef",
+      "inputDigest"
+    ],
+    "caughtCause": "Existing safe error class/code; native Error own data message capped at8192 characters with explicit truncation flag. No getters, proxies, stack, full Error or input/workspace/transport/history serialization.",
+    "conserved": [
+      "failureClass",
+      "typed candidate shape",
+      "receipt/effect uncertainty",
+      "successful behavior",
+      "all evidence fields except correctly recomputed outputDigest",
+      "legacy opaque diagnostic readability"
+    ]
+  },
+  "proof": {
+    "strict": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/commands/strict-01.result.json",
+      "sha256": "130e96a6a66666770bd4a983fa15a9440f85f1ad942afb4e768cc50a351c1e72",
+      "bytes": 754
+    },
+    "strictElapsedMs": 6571.537583,
+    "sourceFiles": 264,
+    "strippedDeclarations": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/commands/declarations-01.result.json",
+      "sha256": "48f73e63cdbb9e5374868de220d13d5980822d5700da38b5eb7cbf27e4befa38",
+      "bytes": 237
+    },
+    "declarationsElapsedMs": 3259.652083,
+    "skipLibCheck": false,
+    "publicByteConservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/declaration-conservation.json",
+      "sha256": "8b1e0b590e4b43969166225162c38ad7f8078bcbb5d3ba45fae6fafbd1490d89",
+      "bytes": 422
+    },
+    "focused": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/commands/focused-01.result.json",
+      "sha256": "3f69642c87d0a8a6cb4e265a21e1872581165ef03de457f4b3be3df43125737b",
+      "bytes": 866
+    },
+    "focusedElapsedMs": 1580.140459,
+    "tests": 10,
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "scope": [
+      "Six existing failure/causation/route controls retained.",
+      "Authority refused/thrown, load thrown, missing export, synchronous/asynchronous invocation throw.",
+      "Getter/proxy avoidance, native-message truncation and exact evidence digests.",
+      "Actual durable failure admission plus cold/Public diagnostic projection and tamper refusal.",
+      "Successful returns, legacy opaque totalizer and malformed-return semantics conserved."
+    ],
+    "premises": "Finite boundary callbacks and controlled lower basis/frame/replay owner premises; genuine disposable durable failure admission and diagnostic projection.",
+    "readinessFailures": []
+  },
+  "limits": [
+    "Diagnostic realization and finite Source/type readiness only; independent review remains next.",
+    "Actual09 first functional Testing cause remains unknown; no installed38 diagnostic/native retry or C2 success.",
+    "Finite authority/loading callbacks and controlled basis/frame/replay premises do not authenticate installed execution.",
+    "F_D null receipt is preserved even after an invocation throw; it is not undispatched or no-effects evidence.",
+    "No original Data Mapper, actual07/09 resource, log, lease, worksite, app or model effects.",
+    "No new Product/Public shape, failure class, event profile, authority or source-use rule.",
+    "No normal generation/package/install, capacity, UAT, RC or release credit."
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "ProductFrame": "Fixed15/F01/F05 generated source agreement, STDO2.5.1RC2; no WHAT/HOW change; generated differs from Runtime truth.",
+  "status": "CLOSED",
+  "operation": "T287_C06_GENERATED_RECONCILIATION_02",
+  "actor": "/root/q03_input_review Worker",
+  "workResult": "COMPLETED_EXACT_THREE_GENERATED_RECONCILIATION",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/generated-resume-request.txt",
+    "bytes": 2042,
+    "sha256": "6d149dfc5a54a487af80b39d7d6197fcfab7c3b092474ba423d9b12dd13d3b4a",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464735387,
+    "mtimeNs": 1790923054188231142
+  },
+  "acceptedC06": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "bytes": 140347,
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464697483,
+    "mtimeNs": 1790920403960122467
+  },
+  "oldStoppedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-01/freeze.json",
+    "bytes": 3790,
+    "sha256": "5ebbc2f177b45f69f90a5db23fe8cfe64b90289f024cecdc2c745d7828daa76f",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464734840,
+    "mtimeNs": 1790922484822284171
+  },
+  "actualAmbientWriteCount": 3,
+  "postimages": [
+    {
+      "relative": "build/code/src/implementation/leaf_invocation_port.js",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-02/preimages/build/code/src/implementation/leaf_invocation_port.js",
+        "bytes": 69953,
+        "sha256": "7d583452a6692ad06d66e4a997f1148f0999380a050d091ad2394c45c72b6d7b",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464735895,
+        "mtimeNs": 1790923306231435627
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+        "bytes": 70127,
+        "sha256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464677920,
+        "mtimeNs": 1790919122586159382
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+        "bytes": 70127,
+        "sha256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 463716516,
+        "mtimeNs": 1790923307642983287
+      }
+    },
+    {
+      "relative": "contracts/capabilities/capability-definition-graph.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-02/preimages/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0d9b18a13510b3880d12af6e8a2f9e81b7cd3d3e22dccb850ddea2e51eae8f4c",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464735898,
+        "mtimeNs": 1790923306233169334
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464678544,
+        "mtimeNs": 1790919138177446805
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 463717140,
+        "mtimeNs": 1790923307643830162
+      }
+    },
+    {
+      "relative": "product-toolchain-manifest.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-02/preimages/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "87c8ccc41d4a6129cc01bf7b15dbd9673073e4672d359595b4df3d36b7b30f2c",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464735899,
+        "mtimeNs": 1790923306236938875
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464678543,
+        "mtimeNs": 1790919138223024385
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 463717139,
+        "mtimeNs": 1790923307646756744
+      }
+    }
+  ],
+  "complete926Join": true,
+  "complete5258ArchiveStageBootstrapJoin": true,
+  "declaredCLIModeAdaptations": [
+    {
+      "relative": "build/code/src/public/cli.js",
+      "declaredBin": "abg.cli",
+      "sourceLocator": "./build/code/src/public/cli.js",
+      "archiveStageMode": 420,
+      "installedMode": 493,
+      "bodyExact": true
+    },
+    {
+      "relative": "build/code/src/public/codex_cli.js",
+      "declaredBin": "abg.codex",
+      "sourceLocator": "./build/code/src/public/codex_cli.js",
+      "archiveStageMode": 420,
+      "installedMode": 493,
+      "bodyExact": true
+    }
+  ],
+  "sourceAuthorship": "original records/semantic authors unchanged; derived-copy Worker only",
+  "effects": {
+    "ambientGenerated": 3,
+    "ownerSourceBuildTestsCandidateRuntimeGitNetworkProviderQ07": 0
+  },
+  "cost": {
+    "elapsedMs": 1551.5295420773327,
+    "bodyBytesHashed": 281741935,
+    "PythonPeakRSSBytes": 71270400,
+    "HOME": "/Users/jim",
+    "toolsHeap": "default; unchanged"
+  },
+  "stop": null,
+  "independentAssurance": false,
+  "next": "Q07 separately activated under its dependency-ready grant; not based on self-acceptance or ambient Source.",
+  "closedAt": "2026-10-02T06:41:47.769054+00:00"
+}

@@ -1,0 +1,21 @@
+{
+  "normalGeneratedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/generated-delta.json",
+    "sha256": "8cb38797886c17b619a6766c8314cc04da877925a3cf8ab6702af6c5b5bbbd98",
+    "byteCount": 310835
+  },
+  "authorizedInvocationExecutionTruthJS": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/invocation_execution_truth.js",
+    "sha256": "abfe74370cf31d47a559414af2417e9cea30628eb97732cc3ded210839d5d692",
+    "byteCount": 31800
+  },
+  "accepted198InvocationExecutionTruthJS": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/abg/invocation_execution_truth.js",
+    "sha256": "abfe74370cf31d47a559414af2417e9cea30628eb97732cc3ded210839d5d692",
+    "byteCount": 31800
+  },
+  "exactBodyEqual": true,
+  "actualChangedNormalDeclarations": [],
+  "normalDeclarationsArePublicationOwnerOutputs": true,
+  "canonicalWholeDeclarationClosureStillVerifiedSeparately": true
+}

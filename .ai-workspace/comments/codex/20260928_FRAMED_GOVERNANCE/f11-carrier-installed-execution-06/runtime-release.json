@@ -1,0 +1,20 @@
+{
+  "operation": "T287_F11_C05_CARRIER_EXECUTION_06",
+  "releasedAt": "2026-10-02T04:07:35.142613+00:00",
+  "RootSeparateMessageRelease": true,
+  "RootMessage": "Root Executive ACCEPTED Q06 preparation; release exact Worker under8142B/2ada3d46 grant; input-acceptance.json4305B/5e878ae3\u2026; actual wrapper/corechild/J/foldback/parent/F11/non-greenAF22/sixcoldreads only; firstactualfailure stops. Root Writer CLOSED; Root Executive.",
+  "inputAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-06/input-acceptance.json",
+    "bytes": 4305,
+    "sha256": "5e878ae3cb494eb3ba0ff2ffca0754a4d5af81fe1a82ff43814823ce576695ef"
+  },
+  "allGrantJoins": "exact runtime grant/Q06freeze/Setup05freeze/Setup05RootACCEPT/initialdurableprefix+deviceinode verified; independent wholepopulation assurance reused",
+  "noRuntimeEffectsBeforeThisRelease": true,
+  "actualInitialResource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+    "bytes": 2490814,
+    "sha256": "7f568a9f3136b274c77730e152097bb47bf655145041dbbc1d92b21a4b74389d",
+    "device": 16777230,
+    "inode": 464611665
+  }
+}

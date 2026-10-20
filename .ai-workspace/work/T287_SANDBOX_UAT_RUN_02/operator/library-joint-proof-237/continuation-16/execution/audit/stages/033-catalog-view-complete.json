@@ -1,0 +1,12 @@
+{
+  "stage": "catalog-view-complete",
+  "elapsedMs": 90996.383625,
+  "at": "2026-10-10T21:24:28.153Z",
+  "rss": 2961801216,
+  "heapTotal": 765444096,
+  "heapUsed": 661799424,
+  "external": 2704458,
+  "arrayBuffers": 292151,
+  "beforeAcquisition": false,
+  "prefixLength": 31403384
+}

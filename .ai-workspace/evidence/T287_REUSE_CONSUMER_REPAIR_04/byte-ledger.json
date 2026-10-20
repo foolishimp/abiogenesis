@@ -1,0 +1,157 @@
+{
+  "operation": "T287_REUSE_CONSUMER_REPAIR_04",
+  "measurement": "actual retained artifacts and explicit authenticated supplier reads; no original-body restaging",
+  "requiredColdInputReads": {
+    "current": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/installed-authority-handoff.json",
+        "bytes": 7357822,
+        "sha256": "97b61ffc7d34d14ee18f4618192fcb7180728019e5e4911799f65af5fdbee56a",
+        "duty": "cold input authentication"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/closed-event-resource-handoff.json",
+        "bytes": 3591718,
+        "sha256": "d60035d70e3bd00ad157cdc64d59964b3d3fc01856f1729293b44de989739cd0",
+        "duty": "cold input authentication"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-closed-environment.json",
+        "bytes": 57715713,
+        "sha256": "58d22ec5859cc199416e6bd3666915ff059f1995e6e0d427fa9de72fc67f64a3",
+        "duty": "cold input authentication"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/workspace-binding-coordinate-join.json",
+        "bytes": 2839,
+        "sha256": "6970aab6a91ce2c7baccc1a126747496419a3dea21badb2b15cfb6de22c28459",
+        "duty": "cold input authentication"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+        "bytes": 61459,
+        "sha256": "41a3ab04f071c10c39e4d713f4ca2f4e2dfc744bb81e44ae19e23e0840199033",
+        "mode": 420,
+        "duty": "installed canonical component owner; not Public API"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_resources.js",
+        "bytes": 20061,
+        "sha256": "6be11c82e80e718ab3cebfd829e6d31baf1e661e1e9418278312dd0e906a3ff4",
+        "mode": 420,
+        "duty": "installed canonical component owner; not Public API"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-packet.json",
+        "bytes": 29410022,
+        "sha256": "c50b50b153a69104b7f54c6420368b786d6225c7394cd49923235e1a7ecae548",
+        "duty": "cold input authentication"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-resource-manifest.json",
+        "bytes": 504760365,
+        "sha256": "a920b4842b7cb779282ed7417deadd3361f75f2dfce79dc36324976d8c0e890b",
+        "duty": "cold input authentication"
+      }
+    ],
+    "historical": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/closed-event-resource-handoff.json",
+        "bytes": 3111,
+        "sha256": "7961012d4535184a5a11d9d916fbbf34faf22b0a2aacaea7af88f139a602c037",
+        "duty": "cold input authentication"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/selected-native-child-proof.json",
+        "bytes": 62866,
+        "sha256": "f41eadaa23a5b0ebab75ea45f0e017fc76521b5be92ad30f9786d036f2535d5b",
+        "duty": "cold input authentication"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-packet.json",
+        "bytes": 29410022,
+        "sha256": "c50b50b153a69104b7f54c6420368b786d6225c7394cd49923235e1a7ecae548",
+        "duty": "cold input authentication"
+      }
+    ]
+  },
+  "requiredColdInputBytes": {
+    "current": 602919999,
+    "historical": 29475999
+  },
+  "currentOriginalManifestColdBytes": 504760365,
+  "currentOriginalManifestColdReadCount": 1,
+  "selectedCanonicalAcquisition": {
+    "originalResource": {
+      "ref": "qualification-resource://abiogenesis/e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011",
+      "digest": "sha256:e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011"
+    },
+    "originalEntryCount": 4920,
+    "selectedEntryCount": 182,
+    "selectedMaterialCount": 4,
+    "selectedMaterialDecodedBytes": 85591,
+    "allRequiredRecordMaterialDecodedBytes": 11050145,
+    "completeInventoryMemberCount": 4653,
+    "retainedBodySnapshots": 0,
+    "entryJsonBytesFromReusedPreflight": 20963216,
+    "preflightAtOriginalOwner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_02/closure-preflight.json",
+      "bytes": 61121,
+      "sha256": "a04c65c1350ffdb4825db722f1075e3a168bf4ae2836c57557d5914d1d95bab6",
+      "mode": 420
+    },
+    "preflightTopLevelKeys": [
+      "allRequiredRecordMaterialDecodedBytes",
+      "completeInventoryMemberCount",
+      "necessaryOriginalColdReads",
+      "originalEntryCount",
+      "originalResource",
+      "retainedBodySnapshots",
+      "selectedEntries",
+      "selectedEntryCount",
+      "selectedEntrySerializedBytes",
+      "selectedMaterialCount",
+      "selectedMaterialDecodedBytes",
+      "standing"
+    ]
+  },
+  "nativeTransfer": {
+    "fullVerifierBodiesSerialized": 0,
+    "serializedCliCallInputs": 0,
+    "compactTwoReportJsonBytes": 2375,
+    "actualTwoReportFileBytes": 2732
+  },
+  "currentPhysicalConservationChecks": {
+    "eachPassBytes": 2498379,
+    "passes": 2
+  },
+  "historicalPhysicalConservationChecks": {
+    "eachPassBytes": 9183691,
+    "passes": 2
+  },
+  "publicationArchiveLogicalBytes": 10431333,
+  "beforeRemainingReportOverhead": {
+    "work": {
+      "files": 970,
+      "bytes": 8734569,
+      "directories": 6,
+      "links": 0
+    },
+    "evidence": {
+      "files": 14,
+      "bytes": 207106,
+      "directories": 1,
+      "links": 0
+    }
+  },
+  "unmeasured": [
+    "owner internal physical/archive/module-loader read totals",
+    "all intermediate in-memory representations and native argument byte traffic"
+  ],
+  "limits": [
+    "182-entry acquisition reduction does not reduce the necessary full stored manifest cold read in this storage shape",
+    "no claim of reduced whole cold I/O or RSS",
+    "no matched historical 14-call savings claim",
+    "final-freeze census supplies final owned byte totals; final-freeze excludes its own body"
+  ]
+}

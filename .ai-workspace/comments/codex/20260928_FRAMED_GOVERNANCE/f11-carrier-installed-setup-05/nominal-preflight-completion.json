@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "completedAt": "2026-10-02T02:40:26.144Z",
+  "elapsedMs": 17809.954333,
+  "verified": [
+    {
+      "name": "core",
+      "artifactDigest": "sha256:060f129747a51f29c07765fa802437f1b651d0109a79299d66de35f7a8cbe6f8",
+      "productContentDigest": "sha256:27fa7db21c6987976afdcaac1ac092ed5ff1b8af5e10fed51b72658390ca429a",
+      "manifestDigest": "sha256:d0da31f911c6ff7cdf5e22361d22c0ff75b878a040484f79328a8ceb1e96355e"
+    },
+    {
+      "name": "fixture",
+      "artifactDigest": "sha256:943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+      "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+      "manifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f"
+    }
+  ]
+}

@@ -1,0 +1,365 @@
+{
+  "kind": "pc02_read_only_runtime_cost_diagnostic",
+  "core": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/products/core46/node_modules/@abiogenesis/typescript-tenant",
+  "prefix": {
+    "coordinateDigest": "sha256:89c2f4a21b18733de0da12a2485d0a9def2f01d0d5c4942c56a53b42bbc415a2",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:23b26b3d1f55891f736d553c2357104a320d58271cf28dcc2c53187d64c128dc",
+    "prefixLength": 991116806,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "run": {
+    "digest": "sha256:1f118153d0cae390da2d74b4a51e5cdd2b7039a91b9b8287b3b4cb903853ca19",
+    "ref": "run://abiogenesis/39ca8cc226494392680b3d716e849ccc5f62c04b9c23ed2a4936f54ed4a3ea6e"
+  },
+  "projectionDigest": "sha256:dc7123652132ba8002776ef46f9ea438f2fa2f2f40a0ca21077fd7c6bf759be0",
+  "marks": [
+    {
+      "stage": "start",
+      "elapsedMs": 0
+    },
+    {
+      "stage": "prefix_authenticated_and_selected",
+      "elapsedMs": 36883.714458,
+      "memory": {
+        "rss": 3436494848,
+        "heapTotal": 2049802240,
+        "heapUsed": 1917574792,
+        "external": 993532662,
+        "arrayBuffers": 991143861
+      }
+    },
+    {
+      "stage": "semantic_projection_complete",
+      "elapsedMs": 58790.959333,
+      "memory": {
+        "rss": 3730620416,
+        "heapTotal": 1964441600,
+        "heapUsed": 1819568616,
+        "external": 2415896,
+        "arrayBuffers": 27055
+      }
+    }
+  ],
+  "cpuUsage": {
+    "user": 66615702,
+    "system": 9540642
+  },
+  "historyEventCount": 128721,
+  "runEventCount": 134,
+  "runLogicalBytes": 235804871,
+  "byKind": {
+    "run_segment_opened": {
+      "count": 1,
+      "logicalBytes": 2497
+    },
+    "graph_call_opened": {
+      "count": 4,
+      "logicalBytes": 10367
+    },
+    "frame_opened": {
+      "count": 4,
+      "logicalBytes": 10517
+    },
+    "runtime_activity_probe_observed": {
+      "count": 72,
+      "logicalBytes": 285318
+    },
+    "traversal_cursor_entered": {
+      "count": 4,
+      "logicalBytes": 12805
+    },
+    "c_call_opened": {
+      "count": 6,
+      "logicalBytes": 17245
+    },
+    "c_call_fibre_selected": {
+      "count": 6,
+      "logicalBytes": 14021
+    },
+    "basis_admitted": {
+      "count": 3,
+      "logicalBytes": 93064480
+    },
+    "c_call_evidenced": {
+      "count": 6,
+      "logicalBytes": 16688
+    },
+    "c_call_result_admitted": {
+      "count": 6,
+      "logicalBytes": 94763181
+    },
+    "c_call_judged": {
+      "count": 6,
+      "logicalBytes": 13431
+    },
+    "traversal_route_admitted": {
+      "count": 6,
+      "logicalBytes": 47572002
+    },
+    "terminal_reached": {
+      "count": 2,
+      "logicalBytes": 4839
+    },
+    "frame_closed": {
+      "count": 2,
+      "logicalBytes": 3383
+    },
+    "graph_call_closed": {
+      "count": 2,
+      "logicalBytes": 3409
+    },
+    "child_foldback_admitted": {
+      "count": 3,
+      "logicalBytes": 8820
+    },
+    "run_stopped": {
+      "count": 1,
+      "logicalBytes": 1868
+    }
+  },
+  "bodies": [
+    {
+      "ordinal": 128598,
+      "eventId": "event://abiogenesis/252d184446d759dd19259a0b5d1c815fbfe525f92cf100d714aebec78e56196e",
+      "kind": "basis_admitted",
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/authenticate-construction@5",
+      "aggregateId": "frame://abiogenesis/fdfc023dbde66074e92779e06b8cdaa78b632dfbc462f0297b8fc435df411fa8",
+      "slot": "rawInputValue",
+      "bodyBytes": 22834296,
+      "sharedObjectId": 1,
+      "jsonSha256": "72429ff24290b98b213e0b15243c8c258ef8f70b9e484d54eff485ce10afe1c6",
+      "topFields": {
+        "authority": 5645,
+        "constructionGroups": 1545,
+        "currentContext": 328015,
+        "historicalSelection": 2042,
+        "kind": 37,
+        "model": 89244,
+        "origin": 2122767,
+        "schemaVersion": 7,
+        "selectedDutyRefs": 117,
+        "sourceSelection": 20284717
+      }
+    },
+    {
+      "ordinal": 128610,
+      "eventId": "event://abiogenesis/9a74273cb3ef6db089ce4f2129aa01277ee38495f8d0200abd79fa4d69b1f071",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/authenticate-construction@5",
+      "aggregateId": "c-call:sha256:bcb445572dd4de3bf9f772cf1a206c0a156aecda01b50ca247bf48d56dab3370",
+      "slot": "value",
+      "bodyBytes": 22654931,
+      "sharedObjectId": 2,
+      "jsonSha256": "60a7013cb06a39fd85711052fa22eb38e087b5a9b5b9003473abb921856ee47a",
+      "topFields": {
+        "allowedWriteTerritories": 390,
+        "capabilityGrant": 2641,
+        "commands": 16080,
+        "currentContext": 328015,
+        "kind": 47,
+        "outcomePredicates": 2854,
+        "requestDigest": 73,
+        "requestRef": 114,
+        "schemaVersion": 7,
+        "selectedSources": 3876,
+        "source": 20284717,
+        "sourceNativeWork": 2012930,
+        "workspaceAuthorityBasis": 834,
+        "workspaceBinding": 2103
+      }
+    },
+    {
+      "ordinal": 128627,
+      "eventId": "event://abiogenesis/0893a1176895d24828c446d1424b2167fe1e1c37a9df1aaf19873d8a0c00ef99",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://odd-glc/construction/2bce52bfb744987eadc4d633f0f7d97638ade0ae336baf8899a8af90c8bc068f@5",
+      "aggregateId": "c-call:sha256:d3660075e455050e429b6d8c037c4a7218cb97dc0b4c36bd4c920470eb041353",
+      "slot": "value",
+      "bodyBytes": 22654931,
+      "sharedObjectId": 2,
+      "jsonSha256": "60a7013cb06a39fd85711052fa22eb38e087b5a9b5b9003473abb921856ee47a",
+      "topFields": {
+        "allowedWriteTerritories": 390,
+        "capabilityGrant": 2641,
+        "commands": 16080,
+        "currentContext": 328015,
+        "kind": 47,
+        "outcomePredicates": 2854,
+        "requestDigest": 73,
+        "requestRef": 114,
+        "schemaVersion": 7,
+        "selectedSources": 3876,
+        "source": 20284717,
+        "sourceNativeWork": 2012930,
+        "workspaceAuthorityBasis": 834,
+        "workspaceBinding": 2103
+      }
+    },
+    {
+      "ordinal": 128642,
+      "eventId": "event://abiogenesis/7ab46e7ea9e77e5704e5f8734b839bc11707ab0a634393926385a8103674ee71",
+      "kind": "basis_admitted",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-command-reacquisition@5",
+      "aggregateId": "frame://abiogenesis/fdfc023dbde66074e92779e06b8cdaa78b632dfbc462f0297b8fc435df411fa8",
+      "slot": "rawInputValue",
+      "bodyBytes": 22654931,
+      "sharedObjectId": 2,
+      "jsonSha256": "60a7013cb06a39fd85711052fa22eb38e087b5a9b5b9003473abb921856ee47a",
+      "topFields": {
+        "allowedWriteTerritories": 390,
+        "capabilityGrant": 2641,
+        "commands": 16080,
+        "currentContext": 328015,
+        "kind": 47,
+        "outcomePredicates": 2854,
+        "requestDigest": 73,
+        "requestRef": 114,
+        "schemaVersion": 7,
+        "selectedSources": 3876,
+        "source": 20284717,
+        "sourceNativeWork": 2012930,
+        "workspaceAuthorityBasis": 834,
+        "workspaceBinding": 2103
+      }
+    },
+    {
+      "ordinal": 128654,
+      "eventId": "event://abiogenesis/58cfd16408a3c75b587207f6d9d72434d4d18519f7f9061a4fefc1f1c496c8ac",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-command-reacquisition@5",
+      "aggregateId": "c-call:sha256:43e17028974bf4a6abc8ec6657b3dbfac9d48adebb3e8927f9102cc41126a798",
+      "slot": "value",
+      "bodyBytes": 24720389,
+      "sharedObjectId": 3,
+      "jsonSha256": "fef63afa99d7a9baebc3185627e37928734bb94c8aa3a2d642c043373aa1b622",
+      "topFields": {
+        "allowedWriteTerritories": 390,
+        "capabilityGrant": 2641,
+        "commands": 16080,
+        "instructionContractRef": 58,
+        "kind": 33,
+        "materializationPlanRef": 56,
+        "outcomePredicates": 2854,
+        "protectedObservations": 25744,
+        "rendererRef": 53,
+        "resultContractRef": 67,
+        "schemaVersion": 7,
+        "sourceNativeWork": 2012930,
+        "sourceReacquisition": 22655826,
+        "taskDigest": 73,
+        "taskRef": 112,
+        "transportLane": 17,
+        "workerActorRef": 57,
+        "workerBindingRef": 66,
+        "workspaceAuthorityBasis": 834,
+        "workspaceBinding": 2103
+      }
+    },
+    {
+      "ordinal": 128671,
+      "eventId": "event://abiogenesis/b91f5bd2b46d6cd9f32dded849d2e6db55f1368e41456d7fc0fae58897cddb10",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://odd-glc/construction/2bce52bfb744987eadc4d633f0f7d97638ade0ae336baf8899a8af90c8bc068f@5",
+      "aggregateId": "c-call:sha256:0d751aa3f43e64ab1a1edfc4916dea85ee3c92a9ef77cbf3d7835f7f350da906",
+      "slot": "value",
+      "bodyBytes": 24720389,
+      "sharedObjectId": 3,
+      "jsonSha256": "fef63afa99d7a9baebc3185627e37928734bb94c8aa3a2d642c043373aa1b622",
+      "topFields": {
+        "allowedWriteTerritories": 390,
+        "capabilityGrant": 2641,
+        "commands": 16080,
+        "instructionContractRef": 58,
+        "kind": 33,
+        "materializationPlanRef": 56,
+        "outcomePredicates": 2854,
+        "protectedObservations": 25744,
+        "rendererRef": 53,
+        "resultContractRef": 67,
+        "schemaVersion": 7,
+        "sourceNativeWork": 2012930,
+        "sourceReacquisition": 22655826,
+        "taskDigest": 73,
+        "taskRef": 112,
+        "transportLane": 17,
+        "workerActorRef": 57,
+        "workerBindingRef": 66,
+        "workspaceAuthorityBasis": 834,
+        "workspaceBinding": 2103
+      }
+    },
+    {
+      "ordinal": 128686,
+      "eventId": "event://abiogenesis/ad5c732843e86920a20db05e06d396c63bc5719e63e53079d7c207801dc090a6",
+      "kind": "basis_admitted",
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/prepare-construction@5",
+      "aggregateId": "frame://abiogenesis/fdfc023dbde66074e92779e06b8cdaa78b632dfbc462f0297b8fc435df411fa8",
+      "slot": "rawInputValue",
+      "bodyBytes": 47554759,
+      "sharedObjectId": 4,
+      "jsonSha256": "2c002d0719cc577ef3ffb3aee2dc78a62d49d52bfeedcf6415da09d6c9ae92e1",
+      "topFields": {
+        "entry": 22834296,
+        "kind": 22,
+        "schemaVersion": 7,
+        "source": 24720389
+      }
+    },
+    {
+      "ordinal": 128698,
+      "eventId": "event://abiogenesis/cf924c2d6fe60b206bd1ac0f44be73a5e9ca58448f9b92ef4cb9abd261f3da3d",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/prepare-construction@5",
+      "aggregateId": "c-call:sha256:c2150319c8bb0bde41d9050c82f2c658525b398340afd4b649309ea0bb90ff5b",
+      "slot": "value",
+      "bodyBytes": 192,
+      "sharedObjectId": 5,
+      "jsonSha256": "92bcb47564464459e1c7d3762c6249ea5f5e968c9bbafe0ef7df6b28b3f6bc69",
+      "topFields": {
+        "diagnosticRef": 68,
+        "failureClass": 26,
+        "kind": 32,
+        "schemaVersion": 7
+      }
+    },
+    {
+      "ordinal": 128711,
+      "eventId": "event://abiogenesis/7bb7cf64e638351cdc3db7616699e114ee2a6df7522a1f8021341192f7b63dff",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://odd-glc/construction/2bce52bfb744987eadc4d633f0f7d97638ade0ae336baf8899a8af90c8bc068f@5",
+      "aggregateId": "c-call:sha256:87d32bd6f4131593b2bf1911cad151fa3ea7d8f5aa5f525db5b68bbbb4627b94",
+      "slot": "value",
+      "bodyBytes": 190,
+      "sharedObjectId": 6,
+      "jsonSha256": "09709311051b85cfa134803c2ce3f4ab0a9d66fae6d1e3e9f6513798feca5025",
+      "topFields": {
+        "diagnosticRef": 68,
+        "failureClass": 24,
+        "kind": 32,
+        "schemaVersion": 7
+      }
+    }
+  ],
+  "statisticsMs": 1551.5264580000003,
+  "readCount": 1,
+  "semanticProjectionCount": 1,
+  "actors": 0,
+  "eventWrites": 0,
+  "storageBefore": {
+    "size": 991116806,
+    "mtimeMs": 1790502750898.4937,
+    "inode": 459405010
+  },
+  "storageAfter": {
+    "size": 991116806,
+    "mtimeMs": 1790502750898.4937,
+    "inode": 459405010
+  }
+}

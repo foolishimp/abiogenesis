@@ -1,0 +1,35 @@
+{
+  "status": "ACTIVE",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_15",
+  "actor": "/root/q03_input_review",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q14-triage-q15-controls-01/worker-request.txt",
+    "bytes": 4846,
+    "sha256": "ed6177914180ef980e492d9d5f305c8403a581c6ee890c099ef49447aa08be7a",
+    "mode": 420
+  },
+  "allSevenSectionsRead": true,
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q14-triage-q15-controls-01/triage.md",
+    "bytes": 3777,
+    "sha256": "e9e70141414c53553809063bd76589e14a5d2573c2a643a4b8d1597771578d2d",
+    "mode": 420
+  },
+  "path": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q14-triage-q15-controls-01/path.md",
+    "bytes": 1397,
+    "sha256": "b2f82111e1f11db72c8cc22f797711da3c5ecf03c1b534dff7d7f4a34c2b9076",
+    "mode": 420
+  },
+  "donor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/freeze.json",
+    "bytes": 19395,
+    "sha256": "34d77be96e1b0af62f350db093a2dbc7cb73474d167b7452bf2ec5f319af9dcd",
+    "mode": 292
+  },
+  "ProductFrame": "F-EndToEndInterfaceIntegration; fixed15/GOAL035/T287/F11/F15, STDO2.5.1RC2, unchanged Product/runtime; realization_refactor",
+  "firstFailure": "freeze and return Root; no repair/delete/retry",
+  "activatedAt": "2026-10-03T08:12:15.710216+00:00"
+}

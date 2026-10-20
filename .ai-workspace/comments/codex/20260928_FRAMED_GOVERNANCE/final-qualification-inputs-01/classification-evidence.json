@@ -1,0 +1,14 @@
+{
+  "ref": "selection://abiogenesis/rc1/final-qualification-inputs-01/source-and-material",
+  "selectedAuthority": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+    "bytes": 23029,
+    "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+  },
+  "population": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/population-binding.json",
+    "bytes": 1983,
+    "sha256": "153f203737b096c34950ffdc475854a05ba8d06d619f3c61d4f6269e6a481222"
+  },
+  "roleRule": "source paths classify constitutional/design/code/proof/execution_contract/public_contract/qualification/manifest/release_claim; generated outputs separately marked in source-inventory; supplier full membership retained as manifest inputs. Classification is a complete finite candidate claim requiring independent native applicability J."
+}

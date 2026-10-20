@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+    "bytes": 29339,
+    "sha256": "5183bce7a986462eb2d924fdd288cef23439dc72811f4047f3d964a286e46537",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "bytes": 43068,
+    "sha256": "a1e00db17056aebcd22186acdc87d2bd7d68985889d4572d81d0eedfdc85b051",
+    "mode": 420
+  }
+]

@@ -1,0 +1,22 @@
+--- frozen167/inputs.json
++++ intended169/inputs.json
+@@ -148,5 +148,18 @@
+     "sha256": "93151090bb58334131b5aabc46583bb550abdc8e52d906fe017f37529ecac6e3",
+     "byteCount": 20329061
+   },
+-  "classification": "Intended167 caller only; exact164 current close prefix is distinct from historical136 source and160 maintenance handoff; no current source-use claim."
++  "classification": "169 intended caller controls: exact retained164 packed-resource coordinates and live verifier request path;167 binding/current-lock/reuse logic retained. No resource or Public effects.",
++  "callerRepairBase": {
++    "phase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167",
++    "prepare": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prepare.mjs",
++      "sha256": "553851db1a6d75e5b37a9fba3c10dcfe2080190f25ad236d22b74b20f1be1950",
++      "byteCount": 36529
++    },
++    "freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/freeze.json",
++      "sha256": "5effe319b175a10901ee6402c1f1d0f659b8d4d7c3284f10ad2fcbad101fb436",
++      "byteCount": 29444
++    }
++  }
+ }

@@ -1,0 +1,68 @@
+{
+  "role": "Writer40 isolated model-free cold acquisition diagnostic",
+  "started": "2026-10-07T13:14:20.440300+00:00",
+  "method": "STDO2.5.1RC2",
+  "frames": [
+    "ABI5_PROJECT_REFERENCE_FRAME_BASIS#f-end-to-end-interface-integration",
+    "ABI5_PROJECT_REFERENCE_FRAME_BASIS#f-worksite-causality"
+  ],
+  "source39Preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/preparation.json",
+    "sha256": "6bbc88e3560f973bb1bc0ff3d2dbdcec1f8a30a2caa5425a5eb1ca7b3c72f5ee",
+    "byteCount": 71981
+  },
+  "closed39Refs": {
+    "return.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/return.md",
+      "sha256": "894aa1ac538fc95b29edc62c773b82b55d4cb695408f9bdb185860836fdbc449",
+      "byteCount": 2390
+    },
+    "freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/freeze.json",
+      "sha256": "d829d0af1b2f7fbfde7a6f947fb034f719a81a32c2b29667501e3bcc3ed5ef8b",
+      "byteCount": 23564
+    }
+  },
+  "closed38Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/execution-freeze.json",
+    "sha256": "4be21730b60a651def6b0e5a0f6ed9d2070cf485304d2fb8c212872467df3015",
+    "byteCount": 46311
+  },
+  "plainCoordinateBodyWithoutDigest": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/resources/events/runtime.events.jsonl",
+    "prefixLength": 1167689615,
+    "prefixDigest": "sha256:e211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467205895
+    }
+  },
+  "coordinateProvenance": {
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/final-close-handoff.json",
+      "sha256": "2a06257812efaf3cb52098c60c8e0cb90cb53337d2342a3ba250278aa3f461c6",
+      "byteCount": 1466
+    },
+    "selector": "$.prefix.storeIdentity",
+    "staleExtent3096922NotReused": true,
+    "lengthAndDigestFromClosed38FreezeAndExecutiveSelection": true
+  },
+  "storeBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 467205895,
+    "byteCount": 1167689615,
+    "mtimeNs": "1791359951311203492"
+  },
+  "expectedLastOrdinal": 200571,
+  "ownerPairsReacquired": 13,
+  "diagnosticWallLimitMs": 180000,
+  "noHeapOverride": true,
+  "controlledExposeGcPermitted": true,
+  "effectsOnlyNewPhase40": true,
+  "noReplayRecoveryProjectionRouteOrNativeAdmission": true,
+  "oneExactColdAcquisitionOnly": true
+}

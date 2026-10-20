@@ -1,0 +1,700 @@
+--- a/code/src/abg/c_call.ts
++++ b/code/src/abg/c_call.ts
+@@ -1708,16 +1708,29 @@
+   readonly stableFailureSource: Readonly<Record<string, JsonValue>> | null;
+ }
+ 
+-function projectAdmittedProbabilisticTransport(
++/** Internal same-call-chain owner projection, not a serialized admission input. */
++export interface AdmittedActorTransportProjection {
++  readonly kind: "admitted_actor_transport_projection";
++  readonly prefixDigest: Sha256Digest;
++  readonly cCallRef: string;
++  readonly sourceDigest: Sha256Digest;
++  readonly actorTerminalEventRef: string;
++  readonly failureClass: WorkerTransportFailureClass | null;
++  readonly nativeResultAssessment: NativeWorkerResultAssessment | null;
++}
++
++function actorTransportSourceDigest(source: Readonly<Record<string, JsonValue>>): Sha256Digest {
++  const { kind: _kind, schemaVersion: _schema, candidateRef: _candidateRef,
++    candidateDigest: _candidateDigest, outputDigest: _outputDigest, ...transport } = source;
++  return sha256Canonical(transport);
++}
++
++function projectAdmittedActorTransport(
+   prefix: ValidatedRuntimeEventPrefix,
+   cCallRef: string,
+   source: Readonly<Record<string, JsonValue>>,
+-): AdmittedProbabilisticTransportProjection | null {
+-  if (
+-    (source.candidateRef !== null &&
+-      typeof source.candidateRef !== "string") ||
+-    (source.candidateDigest !== null &&
+-      typeof source.candidateDigest !== "string") ||
++): AdmittedActorTransportProjection | null {
++  if (
+     typeof source.requestRef !== "string" ||
+     typeof source.requestDigest !== "string" ||
+     typeof source.rawOutputDigest !== "string" ||
+@@ -1727,7 +1740,6 @@
+     typeof source.implementationRef !== "string" ||
+     typeof source.inputDigest !== "string" ||
+     typeof source.observedOutputDigest !== "string" ||
+-    typeof source.outputDigest !== "string" ||
+     typeof source.processRef !== "string" ||
+     typeof source.transportBindingRef !== "string" ||
+     typeof source.transportBindingDigest !== "string" ||
+@@ -1766,11 +1778,6 @@
+   ) return null;
+   if (
+     source.timedOut !== (source.timeoutClass !== null) ||
+-    ((source.candidateRef === null) !== (source.candidateDigest === null)) ||
+-    (source.candidateDigest !== null &&
+-      (!isSha256Digest(source.candidateDigest) ||
+-        source.candidateRef !==
+-          `probabilistic-result-candidate://abiogenesis/${source.candidateDigest.slice("sha256:".length)}`)) ||
+     !isSha256Digest(source.requestDigest) ||
+     source.requestRef !==
+       `probabilistic-request://abiogenesis/${source.requestDigest.slice("sha256:".length)}` ||
+@@ -1980,6 +1987,32 @@
+     (lifecycle.processTerminalKind === "actor_process_spawn_failed" &&
+       processStartedRows.length !== 0)
+   ) return null;
++  return deepFreeze({
++    kind: "admitted_actor_transport_projection" as const,
++    prefixDigest: runtimeEventPrefixDigest(prefix),
++    cCallRef,
++    sourceDigest: actorTransportSourceDigest(source),
++    actorTerminalEventRef: terminal.eventId,
++    failureClass: classified,
++    nativeResultAssessment: source.nativeResultAssessment === undefined ? null
++      : source.nativeResultAssessment as unknown as NativeWorkerResultAssessment,
++  });
++}
++function projectAdmittedProbabilisticTransport(
++  prefix: ValidatedRuntimeEventPrefix,
++  cCallRef: string,
++  source: Readonly<Record<string, JsonValue>>,
++): AdmittedProbabilisticTransportProjection | null {
++  if ((source.candidateRef !== null && typeof source.candidateRef !== "string") ||
++      (source.candidateDigest !== null && typeof source.candidateDigest !== "string") ||
++      ((source.candidateRef === null) !== (source.candidateDigest === null)) ||
++      (source.candidateDigest !== null && (!isSha256Digest(source.candidateDigest) ||
++        source.candidateRef !== `probabilistic-result-candidate://abiogenesis/${source.candidateDigest.slice(7)}`)) ||
++      typeof source.outputDigest !== "string") return null;
++  const transport = projectAdmittedActorTransport(prefix, cCallRef, source);
++  if (transport === null) return null;
++  const artifactDigests = source.artifactDigests as Readonly<Record<string, JsonValue>>;
++  const classified = transport.failureClass;
+   const stableFailureSource = classified === null ? null : deepFreeze({
+     failureClass: classified,
+     sourceClass: "probabilistic_transport",
+@@ -2006,9 +2039,9 @@
+     stderrByteLength: source.stderrByteLength,
+     observedOutputDigest: source.observedOutputDigest,
+     outputDigest: source.outputDigest,
+-    artifactOutputDigest: source.artifactDigests.output,
+-    artifactStdoutDigest: source.artifactDigests.stdout,
+-    artifactStderrDigest: source.artifactDigests.stderr,
++    artifactOutputDigest: artifactDigests.output,
++    artifactStdoutDigest: artifactDigests.stdout,
++    artifactStderrDigest: artifactDigests.stderr,
+   } as unknown as Readonly<Record<string, JsonValue>>);
+   return deepFreeze({
+     kind: "admitted_probabilistic_transport_projection" as const,
+@@ -3594,14 +3627,40 @@
+       "probabilistic evidence requires the exact ABG-revalidated F04-A result carrier",
+     );
+   }
+-  const candidate = deepFreeze({
++  return probabilisticTransportEvidenceValue(request, observation, carrier, sha256Canonical(resultCandidate));
++}
++
++/** Establish actor/artifact/terminal truth before associating an output candidate. */
++export function projectActorTransportForResult(
++  prefix: ValidatedRuntimeEventPrefix,
++  cCall: CCall,
++  request: Readonly<ActorProcessRequest>,
++  observation: Readonly<ActorProcessObservation>,
++): AdmittedActorTransportProjection | null {
++  const requestDigest = sha256Canonical(request as unknown as JsonValue);
++  const source = probabilisticTransportEvidenceValue(request, observation, {
++    candidateRef: null, candidateDigest: null, requestDigest,
++    requestRef: `probabilistic-request://abiogenesis/${requestDigest.slice(7)}`,
++    rawOutputDigest: sha256Bytes(observation.finalOutput),
++  }, observation.observedOutputDigest);
++  return projectAdmittedActorTransport(prefix, cCall.cCallRef,
++    source as unknown as Readonly<Record<string, JsonValue>>);
++}
++
++function probabilisticTransportEvidenceValue(
++  request: Readonly<ActorProcessRequest>,
++  observation: Readonly<ActorProcessObservation>,
++  carrier: RevalidatedProbabilisticResultCarrier,
++  outputDigest: Sha256Digest,
++): ProbabilisticTransportEvidenceCandidate {
++  return deepFreeze({
+     kind: "probabilistic_transport_evidence_candidate" as const,
+     ...(observation.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: observation.nativeResultAssessment }),
+     schemaVersion: "5.0.0" as const,
+     implementationRef: observation.implementationRef,
+     inputDigest: observation.inputDigest,
+     observedOutputDigest: observation.observedOutputDigest,
+-    outputDigest: sha256Canonical(resultCandidate),
++    outputDigest,
+     candidateRef: carrier.candidateRef,
+     candidateDigest: carrier.candidateDigest,
+     requestRef: carrier.requestRef,
+@@ -3637,7 +3696,6 @@
+     stderrByteLength: observation.stderrByteLength,
+     artifactDigests: observation.artifactDigests,
+   }) as ProbabilisticTransportEvidenceCandidate;
+-  return candidate;
+ }
+ 
+ export function admitWorkflowChildPreparationRefusal(
+@@ -6013,6 +6071,33 @@
+ }
+ 
+ export function admitEvidence(
++  store: AbgEventStore,
++  prefix: ValidatedRuntimeEventPrefix,
++  graph: Readonly<GtlGraph>,
++  graphFunction: Readonly<GraphFunction>,
++  cursor: TraversalCursorCandidate,
++  cCall: CCall,
++  candidate: CCallEvidenceCandidate,
++  contractRef: string,
++  expectedInputDigest: Sha256Digest,
++  basis: RuntimeAdmissionBasis,
++  expectedInstructionContractRef: string = cCall.inputContractRef,
++  expectedResultContractRef: string = cCall.outputContractRef,
++  probabilisticResultBasis: ProbabilisticResultEvidenceBasis | null = null,
++): CCallEvidenceAdmissionResult {
++  return admitEvidenceUsingTransport(undefined, store, prefix, graph, graphFunction, cursor, cCall, candidate, contractRef, expectedInputDigest, basis, expectedInstructionContractRef, expectedResultContractRef, probabilisticResultBasis);
++}
++
++/** Internal composition only. Raw admitEvidence always authenticates its own source. */
++export function admitEvidenceFromActorTransport(
++  transport: AdmittedActorTransportProjection | null,
++  ...args: Parameters<typeof admitEvidence>
++): CCallEvidenceAdmissionResult {
++  return admitEvidenceUsingTransport(transport, ...args);
++}
++
++function admitEvidenceUsingTransport(
++  transport: AdmittedActorTransportProjection | null | undefined,
+   store: AbgEventStore,
+   prefix: ValidatedRuntimeEventPrefix,
+   graph: Readonly<GtlGraph>,
+@@ -6222,7 +6307,10 @@
+     Number.isSafeInteger(candidate.stdoutByteLength) && candidate.stdoutByteLength >= 0 &&
+     Number.isSafeInteger(candidate.stderrByteLength) && candidate.stderrByteLength >= 0 &&
+     (candidate.transportLane !== "closed_prompt_proof" || candidate.toolCallCount === 0) &&
+-    hasAdmittedActorEvidence(store, cCall, candidate);
++    (transport === undefined ? hasAdmittedActorEvidence(store, cCall, candidate) :
++      transport !== null && transport.cCallRef === cCall.cCallRef &&
++      transport.prefixDigest === runtimeEventPrefixDigest(prefix) &&
++      transport.sourceDigest === actorTransportSourceDigest(candidate as unknown as Readonly<Record<string, JsonValue>>));
+   const foldbackEvent = candidate.kind === "sub_traversal_evidence_candidate"
+     ? owner === null
+       ? undefined
+@@ -6360,7 +6448,7 @@
+   // lifecycle. Conserve its actual producer in the evidence cause chain for
+   // both success and failure, rather than leaving transport causes orphaned.
+   const actorTerminalEventRef = candidate.kind === "probabilistic_transport_evidence_candidate"
+-    ? projectActorProcessLifecycle(owner.prefix, candidate.actorInvocationRef).actorTerminalEventRef!
++    ? transport?.actorTerminalEventRef ?? projectActorProcessLifecycle(owner.prefix, candidate.actorInvocationRef).actorTerminalEventRef!
+     : null;
+   const event = admitCCallProgressEvent(
+     store,
+--- a/code/src/abg/c_call_outcome.ts
++++ b/code/src/abg/c_call_outcome.ts
+@@ -43,6 +43,9 @@
+ import type { ActorRuntimeBinding } from "./actor_process.js";
+ import {
+   admitEvidence,
++  admitEvidenceFromActorTransport,
++  projectActorTransportForResult,
++  type AdmittedActorTransportProjection,
+   admitJudgment,
+   admitResult,
+   completeRejectedCCall,
+@@ -85,7 +88,7 @@
+ } from "./event_prefix.js";
+ import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+ import {
+-  admitProbabilisticResultCandidate,
++  admitProbabilisticResultFromActorTransport,
+   type ProbabilisticResultAdmissionResult,
+ } from "./probabilistic_result.js";
+ import {
+@@ -520,12 +523,13 @@
+ function projectProbabilisticResultAtPrefix(
+   input: AdmitCCallResultInput,
+   prefix: ValidatedRuntimeEventPrefix,
++  actorTransport: () => AdmittedActorTransportProjection | null,
+ ): ProbabilisticResultAdmissionResult | null {
+   if (input.outcomeClass !== "leaf" || input.regime !== "F_P") return null;
+   const receipt = input.ownerReceipt.receipt;
+   if (receipt?.computeRegime !== "F_P") return null;
+   const exchange = receipt.actorProcessExchange;
+-  return admitProbabilisticResultCandidate({
++  return admitProbabilisticResultFromActorTransport({
+     artifactTruth: input.actorRuntimeBinding.artifactTruth,
+     executionBasis: input.executionBasis,
+     implementationSet: input.implementationSet,
+@@ -545,7 +549,7 @@
+     input: input.input,
+     request: exchange.request,
+     observation: exchange.observation,
+-  });
++  }, actorTransport);
+ }
+ 
+ function admitProbabilisticPayloadRejection(
+@@ -790,6 +794,7 @@
+   input: AdmitCCallResultInput,
+   probabilistic: ProbabilisticResultAdmissionResult | null,
+   payloadRejection: CCallAdmissionRejection | null,
++  actorTransport: () => AdmittedActorTransportProjection | null,
+ ): StagedCCallOutcome {
+   if (!isRuntimeEventTransactionActive(input.store)) {
+     throw new TypeError("CCall result admission requires one ABG transaction");
+@@ -887,7 +892,10 @@
+   const workerContracts = leafInput?.ownerReceipt.workerContracts ?? null;
+   const evidence: AdmittedCCallEvidence[] = [];
+   for (const row of evidenceCandidates) {
+-    const admitted = admitEvidence(
++    const admitCurrentEvidence = row.kind === "probabilistic_transport_evidence_candidate"
++      ? (...args: Parameters<typeof admitEvidence>) => admitEvidenceFromActorTransport(actorTransport(), ...args)
++      : admitEvidence;
++    const admitted = admitCurrentEvidence(
+       input.store,
+       authorityPrefix,
+       input.graph,
+@@ -1098,9 +1106,22 @@
+       const predecessorPrefix = selectValidatedRuntimeEventPrefix(
+         readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }),
+       );
++      // Retain the one actual owner projection for this transaction. Invalid raw
++      // framing still refuses before requesting actor-history authentication.
++      let transport: AdmittedActorTransportProjection | null | undefined;
++      const actorTransport = () => {
++        if (transport === undefined) {
++          const exchange = input.outcomeClass === "leaf" && input.ownerReceipt.receipt?.computeRegime === "F_P"
++            ? input.ownerReceipt.receipt.actorProcessExchange : null;
++          transport = exchange === null ? null : projectActorTransportForResult(
++            predecessorPrefix, input.cCall, exchange.request, exchange.observation);
++        }
++        return transport;
++      };
+       const probabilistic = projectProbabilisticResultAtPrefix(
+         input,
+         predecessorPrefix,
++        actorTransport,
+       );
+       if (
+         probabilistic?.kind === "probabilistic_result_admission_refusal" &&
+@@ -1153,6 +1174,7 @@
+         input,
+         probabilistic,
+         payloadRejection,
++        actorTransport,
+       );
+       const truth = projectActiveRuntimeTransaction(
+         input.store,
+--- a/code/src/abg/probabilistic_result.ts
++++ b/code/src/abg/probabilistic_result.ts
+@@ -1,3 +1,4 @@
++import type { AdmittedActorTransportProjection } from "./c_call.js";
+ import {
+   validateActorProcessCarrierPair,
+   type ActorProcessObservation,
+@@ -296,6 +297,22 @@
+ export function admitProbabilisticResultCandidate(
+   supplied: Readonly<ProbabilisticResultAdmissionInput>,
+ ): ProbabilisticResultAdmissionResult {
++  return admitResultCandidate(supplied);
++}
++
++/** Internal CCall composition; the callback obtains actual owner facts at the
++ * selected prefix, never a supplied serialized preimage. */
++export function admitProbabilisticResultFromActorTransport(
++  supplied: Readonly<ProbabilisticResultAdmissionInput>,
++  actorTransport: () => AdmittedActorTransportProjection | null,
++): ProbabilisticResultAdmissionResult {
++  return admitResultCandidate(supplied, actorTransport);
++}
++
++function admitResultCandidate(
++  supplied: Readonly<ProbabilisticResultAdmissionInput>,
++  actorTransport?: () => AdmittedActorTransportProjection | null,
++): ProbabilisticResultAdmissionResult {
+   if (
+     typeof supplied !== "object" ||
+     supplied === null ||
+@@ -494,15 +511,19 @@
+     LeafInvocationPort["verifyProbabilisticResultContractPreimage"]
+   >;
+   try {
+-    contractPreimage = supplied.leafPort
+-      .verifyProbabilisticResultContractPreimage({
+-        resolution: admittedResolution,
+-        input: admittedInput,
+-        inputDigest,
+-        instructionContractRef: request.instructionContractRef,
+-        rawResultContractRef: request.resultContractRef,
+-        rawResult: value,
+-      });
++    const contractInput = {
++      resolution: admittedResolution,
++      input: admittedInput,
++      inputDigest,
++      instructionContractRef: request.instructionContractRef,
++      rawResultContractRef: request.resultContractRef,
++      rawResult: value,
++    };
++    const assessment = observation.nativeResultAssessment?.disposition === "admitted"
++      ? actorTransport?.()?.nativeResultAssessment : undefined;
++    contractPreimage = assessment?.disposition === "admitted" && assessment.verification !== null
++      ? supplied.leafPort.revalidateProbabilisticResultContractPreimage(contractInput, assessment.verification)
++      : supplied.leafPort.verifyProbabilisticResultContractPreimage(contractInput);
+   } catch {
+     return refusal(
+       "unadmitted_contract_capability",
+--- a/code/src/implementation/leaf_invocation_port.ts
++++ b/code/src/implementation/leaf_invocation_port.ts
+@@ -1268,6 +1268,101 @@
+     });
+   }
+ 
++  function verifyContractPreimage(
++    receiver: unknown,
++    input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0],
++    verified: Parameters<LeafInvocationPort["revalidateProbabilisticResultContractPreimage"]>[1] | null,
++  ): Readonly<ProbabilisticResultContractPreimageVerification> {
++    try {
++      const admittedResolution = exactAdmittedResolution(input.resolution);
++      if (
++        receiver !== port ||
++        !isAdmittedLeafInvocationPort(port) ||
++        input.resolution.computeRegime !== "F_P" ||
++        !everyOwnerIsAdmitted ||
++        !hasAdmittedImplementationSetAtPrefix(
++          authority.prefix,
++          authority.implementationSet,
++        ) ||
++        admittedResolution === null
++      ) {
++        return preimageRefusal("unadmitted_resolution");
++      }
++      if (
++        sha256Canonical(input.input as unknown as JsonValue) !==
++          input.inputDigest ||
++        !port.validateContractValueByRef(
++          input.resolution.inputContractRef,
++          input.input,
++        )
++      ) {
++        return preimageRefusal("input_contract_refused");
++      }
++      const workerContracts = resolveWorkerContracts(
++        input.resolution,
++        input.input,
++      );
++      if (
++        workerContracts === null ||
++        workerContracts.instructionContractRef !==
++          input.instructionContractRef ||
++        workerContracts.resultContractRef !== input.rawResultContractRef
++      ) {
++        return preimageRefusal("contract_identity_mismatch");
++      }
++      const assessment = admittedResolution.implementationRef === nativeIds.implementationRef && isNativeWorkspaceWorkTask(input.input)
++        ? input.input.assessment : undefined;
++      const assessmentOwner = assessment === undefined ? null : uniqueContractByRef(workerContracts.resultContractRef);
++      const assessmentSchema = assessment === undefined || assessmentOwner === null ? null : resolveNativeWorkspaceAssessmentSchema(
++        assessment, authority.executionResolution.declarationPublications, authority.executionResolution.ownerInstalls);
++      const rawValid = assessment === undefined
++        ? verified !== null || port.validateContractValueByRef(workerContracts.resultContractRef, input.rawResult)
++        : admittedResolution.implementationRef === nativeIds.implementationRef && assessmentSchema !== null &&
++          (verified !== null || parseNativeWorkspaceAssessmentResult(assessmentSchema, JSON.stringify(input.rawResult)) !== null);
++      if (!rawValid ||
++          (admittedResolution.implementationRef === FP_HELLO_IMPLEMENTATION_DESCRIPTOR.implementationRef &&
++            !validateFpHelloResponse(input.input, input.rawResult))) {
++        return preimageRefusal("result_contract_refused");
++      }
++      const owner = implementationOwner(admittedResolution);
++      if (owner === null) {
++        return preimageRefusal("unadmitted_resolution");
++      }
++      const body = deepFreeze({
++        contractCapabilityBasis: {
++          installId: owner.install.installId,
++          implementationSetRef: port.implementationSetRef,
++          implementationSetDigest: port.implementationSetDigest,
++          publicationDigest: owner.coordinate.publicationDigest,
++        },
++        implementationResolutionDigest: sha256Canonical(
++          admittedResolution as unknown as JsonValue,
++        ),
++        implementationRef: admittedResolution.implementationRef,
++        inputContractRef: admittedResolution.inputContractRef,
++        targetOutputContractRef: admittedResolution.outputContractRef,
++        instructionContractRef: workerContracts.instructionContractRef,
++        rawResultContractRef: workerContracts.resultContractRef,
++        inputDigest: input.inputDigest,
++        rawResultDigest: sha256Canonical(
++          input.rawResult as unknown as JsonValue,
++        ),
++      });
++      const verificationDigest = sha256Canonical(body as unknown as JsonValue);
++      const result = deepFreeze({
++        kind: "verified_probabilistic_result_contract_preimage" as const,
++        schemaVersion: "5.0.0" as const,
++        verificationRef:
++          `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice("sha256:".length)}`,
++        verificationDigest,
++        ...body,
++      });
++      return verified === null || sha256Canonical(verified as unknown as JsonValue) === sha256Canonical(result as unknown as JsonValue)
++        ? result : preimageRefusal("contract_identity_mismatch");
++    } catch {
++      return preimageRefusal("owner_boundary_exception");
++    }
++  }
+   const port = Object.freeze({
+     kind: "admitted_leaf_invocation_port" as const,
+     isExactLoadedCapability(): boolean {
+@@ -1404,97 +1499,14 @@
+         admittedEvidence,
+       });
+     },
+-    verifyProbabilisticResultContractPreimage(
+-      input: Parameters<
+-        LeafInvocationPort["verifyProbabilisticResultContractPreimage"]
+-      >[0],
+-    ): Readonly<ProbabilisticResultContractPreimageVerification> {
+-      try {
+-        const admittedResolution = exactAdmittedResolution(input.resolution);
+-        if (
+-          this !== port ||
+-          !isAdmittedLeafInvocationPort(port) ||
+-          input.resolution.computeRegime !== "F_P" ||
+-          !everyOwnerIsAdmitted ||
+-          !hasAdmittedImplementationSetAtPrefix(
+-            authority.prefix,
+-            authority.implementationSet,
+-          ) ||
+-          admittedResolution === null
+-        ) {
+-          return preimageRefusal("unadmitted_resolution");
+-        }
+-        if (
+-          sha256Canonical(input.input as unknown as JsonValue) !==
+-            input.inputDigest ||
+-          !port.validateContractValueByRef(
+-            input.resolution.inputContractRef,
+-            input.input,
+-          )
+-        ) {
+-          return preimageRefusal("input_contract_refused");
+-        }
+-        const workerContracts = resolveWorkerContracts(
+-          input.resolution,
+-          input.input,
+-        );
+-        if (
+-          workerContracts === null ||
+-          workerContracts.instructionContractRef !==
+-            input.instructionContractRef ||
+-          workerContracts.resultContractRef !== input.rawResultContractRef
+-        ) {
+-          return preimageRefusal("contract_identity_mismatch");
+-        }
+-        const assessment = admittedResolution.implementationRef === nativeIds.implementationRef && isNativeWorkspaceWorkTask(input.input)
+-          ? input.input.assessment : undefined;
+-        const assessmentOwner = assessment === undefined ? null : uniqueContractByRef(workerContracts.resultContractRef);
+-        const assessmentSchema = assessment === undefined || assessmentOwner === null ? null : resolveNativeWorkspaceAssessmentSchema(
+-          assessment, authority.executionResolution.declarationPublications, authority.executionResolution.ownerInstalls);
+-        const rawValid = assessment === undefined ? port.validateContractValueByRef(workerContracts.resultContractRef, input.rawResult)
+-          : admittedResolution.implementationRef === nativeIds.implementationRef && assessmentSchema !== null &&
+-            parseNativeWorkspaceAssessmentResult(assessmentSchema, JSON.stringify(input.rawResult)) !== null;
+-        if (!rawValid ||
+-            (admittedResolution.implementationRef === FP_HELLO_IMPLEMENTATION_DESCRIPTOR.implementationRef &&
+-              !validateFpHelloResponse(input.input, input.rawResult))) {
+-          return preimageRefusal("result_contract_refused");
+-        }
+-        const owner = implementationOwner(admittedResolution);
+-        if (owner === null) {
+-          return preimageRefusal("unadmitted_resolution");
+-        }
+-        const body = deepFreeze({
+-          contractCapabilityBasis: {
+-            installId: owner.install.installId,
+-            implementationSetRef: port.implementationSetRef,
+-            implementationSetDigest: port.implementationSetDigest,
+-            publicationDigest: owner.coordinate.publicationDigest,
+-          },
+-          implementationResolutionDigest: sha256Canonical(
+-            admittedResolution as unknown as JsonValue,
+-          ),
+-          implementationRef: admittedResolution.implementationRef,
+-          inputContractRef: admittedResolution.inputContractRef,
+-          targetOutputContractRef: admittedResolution.outputContractRef,
+-          instructionContractRef: workerContracts.instructionContractRef,
+-          rawResultContractRef: workerContracts.resultContractRef,
+-          inputDigest: input.inputDigest,
+-          rawResultDigest: sha256Canonical(
+-            input.rawResult as unknown as JsonValue,
+-          ),
+-        });
+-        const verificationDigest = sha256Canonical(body as unknown as JsonValue);
+-        return deepFreeze({
+-          kind: "verified_probabilistic_result_contract_preimage" as const,
+-          schemaVersion: "5.0.0" as const,
+-          verificationRef:
+-            `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice("sha256:".length)}`,
+-          verificationDigest,
+-          ...body,
+-        });
+-      } catch {
+-        return preimageRefusal("owner_boundary_exception");
+-      }
++    verifyProbabilisticResultContractPreimage(input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0]) {
++      return verifyContractPreimage(this, input, null);
++    },
++    revalidateProbabilisticResultContractPreimage(
++      input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0],
++      verified: Parameters<LeafInvocationPort["revalidateProbabilisticResultContractPreimage"]>[1],
++    ) {
++      return verifyContractPreimage(this, input, verified);
+     },
+     async invoke(
+       call: Parameters<LeafInvocationPort["invoke"]>[0],
+--- a/code/src/implementation/contracts.ts
++++ b/code/src/implementation/contracts.ts
+@@ -408,6 +408,13 @@
+       readonly rawResult: Readonly<Record<string, JsonValue>>;
+     }>,
+   ) => Readonly<ProbabilisticResultContractPreimageVerification>;
++  /** Internal ABG use after authenticating the actual native artifact producer.
++   * Rechecks the current owner/input/schema basis; it does not admit a supplied
++   * preimage or authorize a result by itself. Raw entries use verify above. */
++  readonly revalidateProbabilisticResultContractPreimage: (
++    input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0],
++    verified: Readonly<VerifiedProbabilisticResultContractPreimage>,
++  ) => Readonly<ProbabilisticResultContractPreimageVerification>;
+   readonly invoke: (
+     call: Readonly<{
+       resolution: Readonly<LeafInvocationResolution>;
+--- a/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs
++++ b/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs
+@@ -932,3 +932,72 @@
+   }
+   assert.deepEqual(environment.store.readAll(), beforeEvents);
+ });
++
++// Source/component join: installation, prefix admission and loaded semantics are
++// explicit lower-owner premises. The real leaf port, raw verifier and F04 owner
++// run; no Product install, event append or provider is performed by this case.
++test('F04 same native contract proof is reused while raw and changed bases still check', async t => {
++  const {SourceTextModule,SyntheticModule}=await import('node:vm');
++  const fs=await import('node:fs/promises');
++  const digests=await import('../../build/code/src/shared/digests.js');
++  const hello=await import('../../build/code/src/gtl/hello_world.js');
++  const implementation=await import('../../build/code/src/implementation/fp_hello.js');
++  const {ABI5_PRODUCT_SEMANTICS:semantics}=await import('../../build/code/src/product/builtin_semantics.js');
++  const {modulePublicationSemanticDigest}=await import('../../build/code/src/product/publication.js');
++  const {ABI5_PACKAGE_NAME,ABI5_PACKAGE_VERSION}=await import('../../build/code/src/product/contracts.js');
++  async function component(name,overrides){
++    const path=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await fs.readFile(path,'utf8'),{identifier:path});
++    await module.link(async spec=>{const native=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(path),spec)).href);
++      const values={...native,...overrides[spec]};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
++    await module.evaluate();return module.namespace;
++  }
++  const hash=digests.sha256Canonical,artifact={artifactDigest:hash('archive'),productContentDigest:hash('content'),productManifestDigest:hash('manifest'),productId:'product://component/f04',packageName:ABI5_PACKAGE_NAME,packageVersion:ABI5_PACKAGE_VERSION};
++  const publication=hello.constructHelloWorldModulePublication(artifact),publicationDigest=modulePublicationSemanticDigest(publication);
++  const install={installId:'install://component/f04',productId:publication.owningProductId,productContentDigest:publication.productContentDigest,manifestDigest:publication.productManifestDigest,packageName:ABI5_PACKAGE_NAME,packageVersion:ABI5_PACKAGE_VERSION};
++  const coordinate=(declarationKind,declarationRef)=>({...install,moduleRef:publication.moduleRef,publicationDigest,declarationKind,declarationRef});
++  const binding=publication.implementationBindings.find(x=>x.implementationRef===hello.FP_HELLO_IDS.implementationRef);
++  const row={...binding,computeRegime:'F_P',implementationBindingRef:binding.bindingRef,implementationOwnerProductId:install.productId,implementationPublicationDigest:publicationDigest,graphFunctionRef:GRAPH_FUNCTION_REF,programLocusRef:'locus://component/f04'};
++  const set={rows:[row],implementationSetRef:'set://component/f04',implementationSetDigest:hash([row]),invocationAdmissionRef:'admission://component/f04',invocationRef:'invocation://component/f04'};
++  const execution={...set,graphFunctionRef:GRAPH_FUNCTION_REF,workspaceBindingId:'workspace://component/f04'};
++  const closure={selectedGraphFunctionRef:GRAPH_FUNCTION_REF,semanticsOwner:coordinate('semantics',publication.productSemanticsBinding.bindingRef),publications:[publication],
++    contractOwners:publication.contracts.map(c=>coordinate('contract',c.contractRef)),implementationBindingOwners:[coordinate('implementation_binding',binding.bindingRef)]};
++  const projection={...install,publicationDigest,bindingRef:publication.productSemanticsBinding.bindingRef};let current=true,rawChecks=0;
++  const lower={'../abg/environment_admission.js':{hasAdmittedProductInstall:()=>current},'../abg/execution_basis.js':{hasAdmittedImplementationSetAtPrefix:()=>current},
++    '../product/semantics.js':{inspectProductLeafSemanticsProjection:()=>({projection,runtime:{...semantics,verifyInstalledContent:async()=>true,
++      validateContractValue:(kind,value)=>{if(kind==='fp_hello_output')rawChecks++;return semantics.validateContractValue(kind,value);}}})}};
++  const ports=await component('implementation/leaf_invocation_port',lower);
++  const leafPort=await ports.constructAdmittedLeafInvocationPort({prefix:{},artifactTruth:{},implementationSet:set,semanticsProjection:projection,
++    executionResolution:{declarationClosure:closure,declarationPublications:[publication],ownerInstalls:[install]}});
++  const owner=await component('abg/probabilistic_result',{'./execution_basis.js':{hasAdmittedImplementationSetAtPrefix:()=>current,hasAdmittedExecutionBasisAtPrefix:()=>current},
++    './environment_admission.js':{projectAdmittedWorkspaceProductInstall:()=>current?{install}:null}});
++  const env={product:digests,implementationRow:row,implementation,artifactTruth:{},executionBasis:execution,implementationSet:set,leafPort,
++    abg:{selectValidatedRuntimeEventPrefix:x=>x},store:{readAll:()=>[]}};
++  const basis=constructBasis(env,JSON.stringify(validResult()));
++  const verifyInput={resolution:row,input:basis.input,inputDigest:hash(basis.input),instructionContractRef:INPUT_CONTRACT_REF,rawResultContractRef:OUTPUT_CONTRACT_REF,rawResult:validResult()};
++  const verified=leafPort.verifyProbabilisticResultContractPreimage(verifyInput);assert.equal(verified.kind,'verified_probabilistic_result_contract_preimage');assert.equal(rawChecks,1);
++  basis.observation.nativeResultAssessment={kind:'native_worker_result_assessment',schemaVersion:'5.0.0',resultContractRef:OUTPUT_CONTRACT_REF,
++    inputDigest:hash(basis.input),rawOutputDigest:digests.sha256Bytes(basis.observation.finalOutput),disposition:'admitted',verification:verified};
++  // The native actor projection itself is tested by the retained actual-owner
++  // relation in t287-native-assessment-evidence; here its exact proof is supplied.
++  let projections=0;const authenticated=()=>{projections++;return {nativeResultAssessment:{disposition:'admitted',verification:verified}};};
++  const warm=owner.admitProbabilisticResultFromActorTransport(basis,authenticated);assert.equal(warm.kind,'contract_admitted_probabilistic_result_candidate');assert.equal(rawChecks,1);assert.equal(projections,1);
++  assert.deepEqual(owner.admitProbabilisticResultCandidate({...basis,observation:structuredClone(basis.observation)}),warm);
++  assert.equal(rawChecks,2,'raw exported ingress still performs the declared result check');
++  assertRefusal(owner.admitProbabilisticResultCandidate({...basis,leafPort:{...leafPort}}),'unadmitted_contract_capability');
++  const badRaw={...validResult(),message:'forged schema acceptance'},badBasis=withRawResult(env,basis,JSON.stringify(badRaw));
++  const {kind:vk,schemaVersion:vs,verificationRef:vr,verificationDigest:vd,...vb}=verified;
++  const forgedBody={...vb,rawResultDigest:hash(badRaw)},forgedDigest=hash(forgedBody);
++  badBasis.observation.nativeResultAssessment={kind:'native_worker_result_assessment',schemaVersion:'5.0.0',resultContractRef:OUTPUT_CONTRACT_REF,
++    inputDigest:hash(badBasis.input),rawOutputDigest:digests.sha256Bytes(badBasis.observation.finalOutput),disposition:'admitted',
++    verification:{kind:vk,schemaVersion:vs,verificationRef:`probabilistic-result-contract-preimage://abiogenesis/${forgedDigest.slice(7)}`,verificationDigest:forgedDigest,...forgedBody}};
++  assertRefusal(owner.admitProbabilisticResultCandidate(badBasis),'declared_contract_refused','self-consistent supplied verification is not admission');
++  const duplicate=basis.observation.finalOutput.replace('{','{"kind":"fp_hello_output",');
++  const before=projections;assertRefusal(owner.admitProbabilisticResultFromActorTransport(withRawResult(env,basis,duplicate),authenticated),'duplicate_object_key');assert.equal(projections,before,'strict framing precedes history authentication');
++  assertRefusal(owner.admitProbabilisticResultFromActorTransport({...basis,occurrence:{...basis.occurrence,attempt:0}},authenticated),'request_basis_mismatch');
++  assertRefusal(owner.admitProbabilisticResultFromActorTransport(withInput(env,basis,{...basis.input,subject:'Changed'}),authenticated),'transport_basis_mismatch');
++  const changed=withRawResult(env,basis,JSON.stringify({...validResult(),message:'wrong'}));assertRefusal(owner.admitProbabilisticResultFromActorTransport(changed,authenticated),'declared_contract_refused');
++  assertRefusal(owner.admitProbabilisticResultFromActorTransport({...basis,request:{...basis.request,resultContractRef:'contract://foreign'}},authenticated),'transport_basis_mismatch');
++  assertRefusal(owner.admitProbabilisticResultFromActorTransport(withRawResult(env,basis,JSON.stringify({...validResult(),actorRef:'actor://ineligible'})),authenticated),'declared_contract_refused');
++  current=false;assertRefusal(owner.admitProbabilisticResultFromActorTransport(basis,authenticated),'unadmitted_contract_capability');
++  t.diagnostic('Actual compiled leaf/F04 owners; prefix/install/semantic-loader facts and authenticated actor proof are supplied component premises. No runtime or native claim.');
++});
+--- a/test_env/tests/t287-native-assessment-evidence.test.mjs
++++ b/test_env/tests/t287-native-assessment-evidence.test.mjs
+@@ -581,3 +581,30 @@
+   assert.equal(classifyWorkerTransportFailure({...base,nativeResultDisposition:'rejected'}),'contract_failure');
+   assert.equal(classifyWorkerTransportFailure({...base,processStatus:1,nativeResultDisposition:'admitted'}),null,'existing admitted-result salvage policy is unchanged');
+ });
++
++test('actor transport authentication is available before candidate association and refuses crossed facts',async()=>{
++  const {projectActorTransportForResult}=await import('../../build/code/src/abg/c_call.js');
++  const {sha256Canonical:hash,sha256Bytes}=await import('../../build/code/src/shared/digests.js');
++  const events=rows.slice(0,10).map(row=>({...structuredClone(scope),...structuredClone(row)}));
++  const artifact=events.find(e=>e.kind==='actor_result_artifact_observed'),started=events.find(e=>e.kind==='actor_invocation_started');
++  const p=artifact.payload;
++  // Original raw malformed-output/terminal relation; only the absent full
++  // request is supplied as a component premise and its two references rebound.
++  const request=Object.fromEntries(['actorRef','workerBindingRef','implementationRef','inputDigest','materializationPlanRef','rendererRef',
++    'instructionContractRef','resultContractRef','transportLane'].map(k=>[k,p[k]]));
++  Object.assign(request,{prompt:'component native assessment request',responseJsonSchema:{type:'object'}});
++  const rd=hash(request),rr=`probabilistic-request://abiogenesis/${rd.slice(7)}`;
++  for(const e of [artifact,started])Object.assign(e.payload,{requestRef:rr,requestDigest:rd,promptDigest:hash(request.prompt)});
++  p.artifactDigests.prompt=sha256Bytes(request.prompt);
++  const {cCallRef,requestRef,requestDigest,...observation}=p;
++  const prefix=selectValidatedRuntimeEventPrefix(deepFreeze(events));const call={cCallRef};
++  const projected=projectActorTransportForResult(prefix,call,request,observation);
++  assert(projected);assert.equal(projected.failureClass,'contract_failure');
++  assert.equal(projected.nativeResultAssessment.disposition,'rejected');
++  assert.equal(projected.actorTerminalEventRef,events.find(e=>e.kind==='actor_invocation_failed').eventId);
++  assert(!Object.hasOwn(projected,'candidateRef'),'artifact truth does not invent a result candidate');
++  for(const [key,value]of [['actorInvocationRef','actor://foreign'],['inputDigest',hash('other input')],['finalOutput','{}'],['processRef','process://foreign']])
++    assert.equal(projectActorTransportForResult(prefix,call,request,{...observation,[key]:value}),null,key);
++  assert.equal(projectActorTransportForResult(prefix,{cCallRef:'c-call://foreign'},request,observation),null);
++  assert.equal(projectActorTransportForResult(selectValidatedRuntimeEventPrefix(deepFreeze(events.slice(0,-1))),call,request,observation),null,'preterminal prefix cannot supply completed actor truth');
++});

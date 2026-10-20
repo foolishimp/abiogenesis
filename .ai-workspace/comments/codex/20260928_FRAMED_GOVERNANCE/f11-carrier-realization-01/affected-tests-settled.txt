@@ -1,0 +1,43 @@
+(node:18062) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused (60.388584ms)
+✔ green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task (47.701584ms)
+✔ whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green (106.538083ms)
+✔ AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked (489.807667ms)
+ℹ {"warm":{"catalog":1,"execution":8,"state":1,"assessment":0,"verdict":1,"terminal":0,"replay":0,"sourceRead":17,"environment":2},"cold":{"catalog":2,"execution":21,"state":3,"assessment":0,"verdict":2,"terminal":0,"replay":0,"sourceRead":31,"environment":5},"premises":"Existing nativeJoinFixture supplies lower admission/environment facts; invoking boundary, separate installed URLs, raw Result clone and proof construction are real. Genuine cold ownership is covered by held-prefix tests and the installed composition."}
+(node:18086) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ same candidate in distinct original install/workspace/resource authenticates and conserves original producer material (338.909625ms)
+ℹ {"sourceAcquisitions":2,"workspaceProjections":1,"materialBytes":234331,"scope":"explicit lower admission premises; actual owner relation"}
+✔ candidate law source and genuine runtime coordinates cannot be crossed or replaced by a read wrapper (421.525042ms)
+✔ original source currentness is rechecked at dispatch while historical authenticated prefix remains replayable (48.567958ms)
+✔ duplicate aliases and competing successful producers remain refused in their original context (47.599208ms)
+(node:18087) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ small whole subject grouped and singleton semantics agree under explicit independent/native premises (33.633334ms)
+✔ required group/member/root/domain omissions, duplicate and crossed basis never receive a complete assessment (36.156958ms)
+✔ unknown and falsified grouping/applicability are conserved; incomplete context and foreign J cannot discharge scope (88.653875ms)
+✔ grouped representation grows by explicit members/rules, not Cartesian semantic rows or findings (352.148625ms)
+ℹ {"representation":[{"members":3,"rules":3,"applications":1,"findings":10,"serializedBytes":10055,"avoidedCartesianRows":9},{"members":100,"rules":100,"applications":1,"findings":10,"serializedBytes":36508,"avoidedCartesianRows":10000}],"claim":"component representation only; independent/native facts supplied"}
+✔ actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records (7.943833ms)
+ℹ {"scopedPromptBytes":56721,"singletonWholeMaterialPromptBytes":52406,"providedBodies":3,"assessedMembers":3,"attributionSpans":2,"retainedRecordBodies":7,"rawSchemaBytes":1972,"claim":"actual constructor/renderer sizes on finite synthetic scope; no token quota or semantic sufficiency inference"}
+✔ scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence (7.9965ms)
+✔ fresh process conserves grouped result identities and refuses changed grouped bytes (55.758167ms)
+✔ explicit justified inapplicability conserves singleton meaning and cannot erase a falsified obligation (20.01075ms)
+✔ catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations (7.911792ms)
+ℹ {"catalogTaskPromptBytes":55869,"selectedCriterionRules":1,"providedCatalogRows":2,"totalCatalogRows":3,"fullCatalogBodies":0,"scope":"actual renderer; source-completeness union under explicit catalog component premise"}
+✔ catalog and rule prompts expose changed governed claims, evidence duties and source-span mappings; stale catalog refuses (10.556833ms)
+✔ inventory renderer exposes per-member role and classification-evidence swaps despite identical bytes and group-role union (6.660042ms)
+✔ per-rule complete member domains preserve flat semantics and do not split unrelated rule work (92.300583ms)
+ℹ {"perRuleDomains":[{"splits":2,"criteria":3,"promptBytes":57116,"memberBodies":3,"assessedMembers":4},{"splits":3,"criteria":4,"promptBytes":57116,"memberBodies":3,"assessedMembers":4}],"globalSplitRows":[4,6],"claim":"actual owner/renderer; J/native premises supplied"}
+✔ domain omission overlap foreign members and incomplete rule domains refuse; scoped J uncertainty survives (47.81675ms)
+✔ six-member discriminator keeps four rule domains when unrelated classification refinement would grow six global pairs to eight (68.733458ms)
+ℹ {"actualOwnerDiscriminator":[{"globalClassifications":3,"globalPairs":6,"actualRuleCriteria":4,"coveredMemberRelations":12,"selectedPromptBytes":57583},{"globalClassifications":4,"globalPairs":8,"actualRuleCriteria":4,"coveredMemberRelations":12,"selectedPromptBytes":57583}],"claim":"C conservation and representation; supplied J/native premises"}
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3084.004333

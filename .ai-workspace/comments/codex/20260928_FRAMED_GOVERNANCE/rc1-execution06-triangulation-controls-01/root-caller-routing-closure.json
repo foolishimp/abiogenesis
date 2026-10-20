@@ -1,0 +1,12 @@
+{
+  "operation": "T287_EXEC06_ROOT_CALLER_REVIEW_ROUTING_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/root-caller-request.txt",
+    "bytes": 3771,
+    "sha256": "48369b899145d9c07c344c0a5a85e670d6c2b25256057ec721c1dca2a65d4665"
+  },
+  "unactivatedPriorIndependentGrant": "No agent spawned; tool failed agent thread limit reached; zero agent effects",
+  "effects": "Commentary/grant routing only"
+}

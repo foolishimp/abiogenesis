@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "beforeSha256": "d29bc40ae801c7daa0f254ddab07c06b784303b397da57fec1a0e0996c03e5a2",
+    "sha256": "eba9c84992b6bf9412236b2264a66c6f7b5df119465c58461195af596c67afd7",
+    "beforeBytes": 57839,
+    "bytes": 56267
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "beforeSha256": "8a7dfd992a5101c94726b3193c8c29bf8a43e2b4b1a54ec6c3caa4e1a104018b",
+    "sha256": "0bc6d6442685ae3c17b321e09e22f33013e242ffe4b677ab17ef8d0eba646e3c",
+    "beforeBytes": 337881,
+    "bytes": 336812
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/specification/GOALS.md",
+    "beforeSha256": "ccd31bd90ba26b33e0313d1ec447771fcd3388aa71040fc58e104e5df275e266",
+    "sha256": "4ca6e99858e187b05bd97709cf58c0ff6202c8d8cde95a0bc16ef8877b7c3579",
+    "beforeBytes": 18601,
+    "bytes": 16799
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "beforeSha256": "9cedba8c73c44d5177392c76543790247d71be7828d6eb7dc7e5a183dfcdc3ac",
+    "sha256": "097e1ef347f9598be1857ed7b4f11f30e2b20e1ee91c08deb589cd0c36ed9850",
+    "beforeBytes": 53983,
+    "bytes": 52418
+  }
+]

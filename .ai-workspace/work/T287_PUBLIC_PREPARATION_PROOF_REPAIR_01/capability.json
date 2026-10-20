@@ -1,0 +1,33 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_PROOF_REPAIR_01",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/capability-conservation.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer",
+  "capSeconds": 240,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/tmp",
+    "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/tmp/node-compile-cache",
+    "ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "ABI5_PUBLIC_GROUPS_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "ABI5_PUBLIC_GROUPS_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/baseline.json"
+  },
+  "pid": 58371,
+  "pgid": 58371,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "groupAbsent": true,
+  "elapsedMs": 434.7684579988709,
+  "maxRSSPlatformBytes": 279838720,
+  "userCPUSeconds": 0.415481,
+  "systemCPUSeconds": 0.10015399999999999,
+  "stdoutBytes": 609,
+  "stdoutSHA256": "f1e4bc85e05950bd8d76d1ea13e435bad88a932309f26618ae61386de47ea98c",
+  "stderrBytes": 0,
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

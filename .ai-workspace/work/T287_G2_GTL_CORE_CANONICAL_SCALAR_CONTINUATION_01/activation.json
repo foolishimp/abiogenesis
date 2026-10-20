@@ -1,0 +1,46 @@
+{
+  "operation": "T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAtUTC": "2026-10-04T06:30:04.959117+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/grant.txt",
+    "bytes": 2826,
+    "sha256": "85adce5c7cf8c97974548c2fce383d435ef807a55eb730b646be7320a523778e",
+    "authority": "Root operative message"
+  },
+  "SourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+  "SourcePreimage": {
+    "bytes": 18342,
+    "sha256": "efdc38249aba099c34d7a5ce91a19bbddbd663ac17e5cbd6308b4cedd63d7340"
+  },
+  "foundationReadOnly": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+    "bytes": 26073,
+    "sha256": "386dcd58bfd7b0db94aab9c6f1ef3526a17e760b708e442e13c8522ec0f280f7"
+  },
+  "priorFailedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/freeze.json",
+    "bytes": 3669736,
+    "sha256": "288b62709514be9d112bd1b73496aa874b3376e1406bb17f2e61478ab455515d"
+  },
+  "acceptedHOW": {
+    "bytes": 18222,
+    "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901"
+  },
+  "workTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+  "evidenceTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+  "commentsWritesForbidden": true,
+  "HOME": "/Users/jim",
+  "defaultHeap": true,
+  "budgetsSeconds": {
+    "compile": 180,
+    "manifest": 180,
+    "pack": 180,
+    "focused": 180,
+    "terminationGrace": 5
+  },
+  "recordedBeforeSourceMutation": true,
+  "unchangedOtherSourcePostimages": 14
+}

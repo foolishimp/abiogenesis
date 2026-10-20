@@ -1,0 +1,26 @@
+{
+  "status": "closed_bounded_publication_stop",
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-29/freeze.json",
+    "sha256": "f37a320e75c62adb14edf30e7a05f2a87e71ae7cd493c74b75aa44c46d77aae5",
+    "byteCount": 3860
+  },
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/return.md",
+    "sha256": "1dfc668341be59eaf63e17181895ed222285f5af2fc1fcb7ba7fccb525d84ca0",
+    "byteCount": 3366
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/readiness.json",
+    "sha256": "aa3d3312cb798e34e2e725c42c0392424255fd9c13fb4a88f105f9bc829587eb",
+    "byteCount": 12565
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/pins.json",
+    "sha256": "d998f1c64c6738ac79cf021a30655acac770d888490e37ccdcaa66bf241f37be",
+    "byteCount": 35939
+  },
+  "localPinCount": 91,
+  "externalPinCount": 33,
+  "limits": "Local immutable publication/install/import/Program correspondence only. No ABG-admitted current ProductSet/binding/D2, private current-source preparation, provider/native/Run/UAT/capacity/P0/release acceptance. Historical controlled Source evidence stays bounded; actual204 setup/covers/closed resource remain historical and unchanged. No event-log read/hash/stat/acquisition/recovery or app/runtime effect."
+}

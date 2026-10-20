@@ -1,0 +1,49 @@
+{
+  "role": "Operator189 remaining-consumer diagnostic",
+  "at": "2026-10-09T08:40:43.642158Z",
+  "ExecutiveSelection": "Root accepts187 caller,188 independent GO and185 documentary02. One actual installed27 diagnostic; no native/model/UAT dispatch or Source fix.",
+  "ProductFrame": {
+    "familyCount": 15,
+    "ABI": "5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "method": "STDO2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "law": "Product817–867/CONT014–016; identity/lifecycle/effects/Proof"
+  },
+  "acceptedCallerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/freeze.json",
+    "sha256": "afcac14d24334cfe9055231e138f3e501821ccca7c4838d8b1888fc33d6f16ec",
+    "byteCount": 22867
+  },
+  "acceptedReviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-review-188/freeze.json",
+    "sha256": "352687ed1bdf86bba5a9b5b82869c1dee5e86397bb417a508523149008d873f3",
+    "byteCount": 1475
+  },
+  "acceptedDocumentaryCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/documentary-successor-02/freeze.json",
+    "sha256": "a38641ed7c1eaa005ea7e84aba39c8c0b87bc5c6fc185e93b0332b17b4d6f99e",
+    "byteCount": 4015
+  },
+  "selectedAction": "Run byte-identical reviewed caller with saved185 admissions/covers. One declaration input read and canonical acquisition; actual remaining private Product preparation and covered-use callback. No new Public admissions or future request dispatch.",
+  "onFirstFailure": "STOP; preserve first originating diagnostic and genuine normal close if supported; Root RCA/action before another attempt.",
+  "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+  "sourceRunRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+  "logicalLabels": "Reviewed187 request/input/correlation labels retained; only dynamicdirname routes actual189 outputs.",
+  "resourceAnchor": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1690085978,
+    "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a"
+  },
+  "noFiveHourQualityWindowStarted": true
+}

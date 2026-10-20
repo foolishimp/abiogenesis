@@ -1,0 +1,19 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "1fe497924a215c4215865c36e50230ebf96e81aefc1ba81705ee59150065267d",
+    "byteCount": 10623282
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3176.0923749999997,
+    "timedOut": false,
+    "truncated": false
+  },
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "source31Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-31/freeze.json",
+    "sha256": "28694b685d80299797d2aa6b0f45eded21febd4b21ce6e7d7141b9298805d4e9"
+  },
+  "noBuildNoNative": true
+}

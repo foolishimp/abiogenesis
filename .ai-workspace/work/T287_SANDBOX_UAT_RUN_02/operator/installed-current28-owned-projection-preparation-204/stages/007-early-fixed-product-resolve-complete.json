@@ -1,0 +1,16 @@
+{
+  "stage": "early-fixed-product-resolve-complete",
+  "rss": 2464694272,
+  "heapTotal": 2077917184,
+  "heapUsed": 1957720040,
+  "external": 20513199,
+  "arrayBuffers": 18096338,
+  "at": "2026-10-09T11:26:08.598Z",
+  "elapsedMs": 23726.010334,
+  "beforeAcquisition": true,
+  "lockRef": {
+    "ref": "product-lock://abiogenesis/6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3",
+    "digest": "sha256:6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3"
+  },
+  "meaning": "Actual live28+consumer owner-produced complete lock; later Public resolve coordinate and full admitted installs/environment must agree"
+}

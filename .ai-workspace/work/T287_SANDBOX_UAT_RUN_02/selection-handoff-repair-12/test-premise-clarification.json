@@ -1,0 +1,27 @@
+{
+  "disposition": "routine_test_premise_correction",
+  "tests": 15,
+  "pass": 13,
+  "fail": 1,
+  "liveSkipped": 1,
+  "correction": "Prior schema-path diagnosis was incorrect. The unchanged request has49 read paths; test-execution-result.json is its separate execution-result read outside original44 author roots. Caller regression now conserves this read and compares exactly the44 original author artifacts.",
+  "genericSelectedOutcomePartialFoldReassessmentAndNextChoicePassed": true,
+  "productionChangeRequired": false,
+  "retained": [
+    {
+      "path": "default-library-02.receipt.json",
+      "sha256": "fcc7b6a9d8f91cba2ec969b824957290b3d8aaf0a007bff42adcb940111721cf",
+      "byteLength": 474
+    },
+    {
+      "path": "default-library-02.stdout.log",
+      "sha256": "98ad5ce33d4b9730e80e4021dbd14f4cae55a96ccb6456b6c6040febf4fc5993",
+      "byteLength": 2738
+    },
+    {
+      "path": "default-library-02.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    }
+  ]
+}

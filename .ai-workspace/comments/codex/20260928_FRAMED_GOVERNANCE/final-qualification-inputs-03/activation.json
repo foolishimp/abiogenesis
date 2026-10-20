@@ -1,0 +1,29 @@
+{
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_03",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "pure input Worker",
+  "previousRole": "Reviewer T287_RC1_C03_IDENTITY_INSTALL_REVIEW_01 CLOSED and Root accepted",
+  "explicitRoleTransition": true,
+  "at": "2026-10-01T21:26:01.215477+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q03-input-controls-01/request.txt",
+    "bytes": 5341,
+    "sha256": "e57083e66ae0b2de8ba736d0535a4a6ef45c9a34a55a16f2051a2305447b8189"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-03",
+  "operationGrant": "construct new exact C03 input/recipe/inventory/test-selection/expected-output/provenance/assessment-binding/report/freeze files; syntax and in-memory JSON/hash/member/source/span/selection checks only",
+  "forbiddenEffects": [
+    "build",
+    "lint",
+    "tests",
+    "qualification compare commands",
+    "owner/helper/runtime calls",
+    "native/model/provider/network",
+    "Git",
+    "canonical or frozen source/candidate/stage/archive/install mutations",
+    "old reports and runtime stores",
+    "other Worker paths"
+  ],
+  "workResult": "active_preparation_only",
+  "lawfulReentry": "realization_refactor of external qualification input construction under accepted source/law/Product; no upstream meaning change"
+}

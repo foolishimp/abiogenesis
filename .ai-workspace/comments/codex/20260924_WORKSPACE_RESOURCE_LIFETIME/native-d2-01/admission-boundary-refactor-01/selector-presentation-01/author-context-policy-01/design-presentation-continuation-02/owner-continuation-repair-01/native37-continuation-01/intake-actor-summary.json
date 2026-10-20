@@ -1,0 +1,84 @@
+{
+  "transportPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/invocation/archives/fp-cc3a3f525ad18622-transport.json",
+  "transportSha256": "6c58c80b1b9313409c5ff67062449dcfffb5a06d5b9d430eabd518892955be9a",
+  "disposition": "success",
+  "status": 0,
+  "timedOut": false,
+  "failureClass": null,
+  "promptBytes": 849671,
+  "decodedOutputBytes": 1332,
+  "stdoutBytes": 111306,
+  "artifacts": {
+    "output": {
+      "byteLength": 1332,
+      "digest": "sha256:9826943e9d096ada66713a1b89a5c211d4310ed1283e4d6bde70168df8985013",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/invocation/archives/fp-cc3a3f525ad18622-output.txt"
+    },
+    "prompt": {
+      "byteLength": 849671,
+      "digest": "sha256:a64dfa834c17117706e3f9cd1dabb56b1af02e9f40e03e02f1932db3a8371ca2",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/invocation/archives/fp-cc3a3f525ad18622-prompt.txt"
+    },
+    "stderr": {
+      "byteLength": 0,
+      "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/invocation/archives/fp-cc3a3f525ad18622-stderr.log"
+    },
+    "stdout": {
+      "byteLength": 111306,
+      "digest": "sha256:5ec7ec2feb773aeb2f62bbe0c736100eb57c487215f8c00531401f03c2ef56c9",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/invocation/archives/fp-cc3a3f525ad18622-stdout.log"
+    }
+  },
+  "messageStartCount": 1,
+  "providerResults": [
+    {
+      "type": "result",
+      "subtype": "success",
+      "is_error": false,
+      "duration_ms": 66821,
+      "duration_api_ms": 57563,
+      "num_turns": 2,
+      "total_cost_usd": 3.1678439999999997,
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 382972,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 5203,
+        "output_tokens_details": {
+          "thinking_tokens": 4244
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 382972,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "modelUsage": {
+        "claude-opus-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 5203,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 382972,
+          "webSearchRequests": 0,
+          "costUSD": 3.1678439999999997,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 4244,
+          "canonicalModel": "claude-opus-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "stop_reason": "tool_use"
+    }
+  ],
+  "limit": "Retained protocol/usage only; no thinking text inspected or reproduced. Provider success is separate from actual native admission."
+}

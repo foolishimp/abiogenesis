@@ -1,0 +1,60 @@
+{
+  "status": "CLOSED_NATIVE_FIRST_CAUSE",
+  "failedRun": {
+    "digest": "sha256:d657ed77e1e7285075f6b117a6bec16fd6d3e62329fe7d082810d1729b1a67d1",
+    "ref": "run://abiogenesis/c2d46234134fabfecc725525d71359ee294c0dea7af5be977b6937b8f31d42dd"
+  },
+  "close": {
+    "coordinateDigest": "sha256:7c7e80d791372ef31f52b4cb0076cdab9ab5a5818ffc7f50943d29f8c189a83f",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:f0efec3976558776ce3149ae4f69ffe1f55426a51bc32674429e2bd0a7c3b477",
+    "prefixLength": 324503143,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "owner": "Claude Code provider transport terminal",
+  "code": "error_max_budget_usd",
+  "message": "Reached maximum budget ($5)",
+  "configuredIntakeUsd": 5,
+  "reportedListUsd": 6.1741984,
+  "providerMessageStartCount": 2,
+  "completeStructuredOutputAcknowledged": true,
+  "decodedOutputBytes": 0,
+  "nativeWorkerAdmission": "absent",
+  "terminalResult": null,
+  "timeout": false,
+  "exitCode": 1,
+  "providerProtocol": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/provider-protocol.json",
+    "bytes": 6284,
+    "sha256": "fb4d9705b0d576db2838b215a4da79d431805974b7dc72f370cd8d21a3fa933e"
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 20260.367125,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01/read-run_result.json",
+      "resultDigest": "sha256:60478d5a3fd16ce337d4b2341e09043d10b5d4a3299636820c7ce171ba171539",
+      "observation": "result_absent_not_found"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 20819.831791,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01/read-run_replay.json",
+      "resultDigest": "sha256:043fa5a57775fe118a1560167cb5d98a984c2bee950460008855b70ef7038768"
+    }
+  ],
+  "preservation": "Original source/job/oracle/Requirements/worksite unchanged; no suffix selected or executed. Internal stream continuation is provider/client protocol, not a host retry; no output salvage.",
+  "earlierCallerOnlyFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/witness-01/caller-boundary.json",
+    "bytes": 473,
+    "sha256": "919919755e855da66cf4b74c660bbf82e4e3af29f57fc1544ca1d139f062189c"
+  }
+}

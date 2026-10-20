@@ -1,0 +1,14 @@
+{
+  "pid": 10460,
+  "processGroup": 10460,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/setup-verify-core.jsonl"
+  ],
+  "startedAt": "2026-10-01T22:23:51.107Z",
+  "mode": "setup",
+  "label": "verify-core",
+  "capMs": 180000
+}

@@ -1,0 +1,16 @@
+{
+  "tool": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "sections": 7,
+  "literalMatched": true,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/request.txt",
+    "bytes": 3998,
+    "sha256": "2881bf783d959fb738ea1bf1fb8a758df38d86006568ae0630c659bce4c03d3e",
+    "mode": 420
+  }
+}

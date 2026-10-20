@@ -1,0 +1,9 @@
+{
+  "scope": "optional source-location read",
+  "guessedPaths": [
+    "code/src/product/install.ts",
+    "code/src/product/verification.ts"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "ownerExecution": false
+}

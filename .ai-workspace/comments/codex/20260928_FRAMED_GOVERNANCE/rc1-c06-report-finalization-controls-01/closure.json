@@ -1,0 +1,11 @@
+{
+  "operation": "T287_C06_REPORT_REENTRY_GRANT_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-report-finalization-controls-01/request.txt",
+    "bytes": 2626,
+    "sha256": "7fd3b6799f787f9e13ff694e8f45199dbcfe3a5acf1cf2363eae92f8ca75e090"
+  },
+  "subjectEffects": 0
+}

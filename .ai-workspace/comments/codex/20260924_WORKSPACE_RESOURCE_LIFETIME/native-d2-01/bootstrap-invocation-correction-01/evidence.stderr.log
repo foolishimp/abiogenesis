@@ -1,0 +1,26 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-evidence.mjs:17
+const fresh=JSON.parse(processResult.stdout).receipt;await save('read-run_evidence.boundary.json',{elapsedMs:performance.now()-start,outcomeKind:fresh.ownerOutput.outcomeKind,prefix:fresh.resources.eventResource.closeHandoff.prefix});
+                                                                                                                                                       ^
+
+TypeError: Cannot read properties of undefined (reading 'ownerOutput')
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-evidence.mjs:17:152
+
+Node.js v24.7.0
+        0.61 real         0.64 user         0.09 sys
+           362283008  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               42825  page reclaims
+                 164  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   1  messages sent
+                   1  messages received
+                   0  signals received
+                   0  voluntary context switches
+                1690  involuntary context switches
+          7385038988  instructions retired
+          1909001459  cycles elapsed
+           346902912  peak memory footprint

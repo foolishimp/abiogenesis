@@ -1,0 +1,35 @@
+{
+  "status": "CLOSED_FIRST_POST_NATIVE_PROOF_CONSUMER_MISMATCH",
+  "activation": "T287_FINAL_NATIVE_CONTINUATION_04",
+  "actualActor": "/root/s03_phase_b",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "nativeSuccesses": 5,
+  "priorSuccessesConserved": 7,
+  "HelloRun": {
+    "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+    "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+  },
+  "firstFailure": "TypeError: Cannot read properties of undefined (reading 'runRef')",
+  "resource": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "oldPrefixBytes": 2475382,
+    "oldPrefixSHA256": "cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+    "oldPrefixConserved": true,
+    "newBytes": 2582298,
+    "newSHA256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+    "device": 16777230,
+    "inode": 464012478,
+    "snapshotIdentical": true,
+    "stable": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock",
+    "lockPresent": false
+  },
+  "finalHandoff": "final-handoff.json",
+  "snapshot": "failure-native-prefix.jsonl",
+  "actualSupportedOutputs": "retained-public-observations.json",
+  "assertionFrontier": "assertion-frontier.json",
+  "remaining": "Root adjudication and selected retained-output proof only; no native rerun selected",
+  "tenantManifest": null,
+  "executionSelectionRef": null,
+  "Worker": "CLOSED"
+}

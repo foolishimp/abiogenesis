@@ -1,0 +1,11 @@
+{
+  "failedAttempt": "logs/attempt-01-focused-tests.process.json",
+  "failure": "Copied tenant omitted actual nested valibot dependencies, causing import refusal before test execution.",
+  "classification": "external copied-fixture completeness error",
+  "correction": "Copy exact C02 frozen node_modules/valibot and @valibot/to-json-schema members into report copied tenant; isolate both packages in temporary positive-test tenants.",
+  "sourceOwnersUnchanged": true,
+  "ambientOutputEffects": 0,
+  "secondAttempt": "logs/attempt-02-focused-tests.process.json",
+  "secondFailure": "Incomplete dependency subset also omitted jsonc-parser in the unchanged qualification owner import cone, before test execution.",
+  "completeCorrection": "Copy all exact C02 frozen nested dependency members into report tenant; positive/negative test tenants copy that complete dependency tree. No ambient package resolution supplies the test fixture."
+}

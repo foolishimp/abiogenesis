@@ -1,0 +1,62 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/reconcile.py",
+    "bytes": 13989,
+    "sha256": "d9278c28ace749524026c7512715ae993c54d6dc2fa3e71e5d97cacda5af88ad",
+    "mode": 420
+  },
+  "postimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/reconcile.py",
+    "bytes": 13985,
+    "sha256": "6648c3983833be1c4fb646764536354d56fbbdd0f9d1fd28b2755fca818b1972",
+    "mode": 420
+  },
+  "exactSubstitutions": [
+    {
+      "before": "rc1-c09-generated-reconciliation-controls-05",
+      "after": "rc1-c09-generated-census-triage-controls-06",
+      "occurrences": 1
+    },
+    {
+      "before": "rc1-c09-generated-reconciliation-05",
+      "after": "rc1-c09-generated-reconciliation-06",
+      "occurrences": 1
+    },
+    {
+      "before": "for name in ('build/code', 'contracts'):",
+      "after": "for name in ('build', 'contracts'):",
+      "occurrences": 1
+    },
+    {
+      "before": "'bytes': 3252,",
+      "after": "'bytes': 4215,",
+      "occurrences": 1
+    },
+    {
+      "before": "bc9fa44cc7bf0d0f6fad3c6aaf7aa7c02422ef3f256c7770f1e222abc7987a20",
+      "after": "2e1f43d289f7740527e6f5367567d2dddb7f87e4232ca2492dd62d97bb67ddbe",
+      "occurrences": 1
+    },
+    {
+      "before": "'bytes': 1016,",
+      "after": "'bytes': 1537,",
+      "occurrences": 1
+    },
+    {
+      "before": "c4774a6c5cd5a3da0b9c0b3a758be077ebbabbc823f1b6f8b011d3f545374ac2",
+      "after": "fe207943c1418e9c67dde38c53d1aff6a74b0c66a715b3667fe801e0b6bf5858",
+      "occurrences": 1
+    },
+    {
+      "before": "sorted(old_generated | {mirror_rel} - set(bm))",
+      "after": "sorted((old_generated | {mirror_rel}) - set(bm))",
+      "occurrences": 1
+    },
+    {
+      "before": "T287_C09_GENERATED_RECONCILIATION_05",
+      "after": "T287_C09_GENERATED_RECONCILIATION_06",
+      "occurrences": 2
+    }
+  ],
+  "otherHelperChanges": 0
+}

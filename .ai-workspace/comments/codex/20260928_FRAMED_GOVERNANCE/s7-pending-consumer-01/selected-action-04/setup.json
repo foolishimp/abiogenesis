@@ -1,0 +1,28 @@
+{
+  "setupMs": 18382.557208000002,
+  "accounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 601.131625,
+      "provisioning_verify_artifact": 12214.283916,
+      "provisioning_install": 2726.6249580000003,
+      "provisioning_installed_content_check": 498.7727500000001,
+      "provisioning_additional_products": 215.9369999999999,
+      "installed_owner_loading": 230.97512499999903,
+      "environment_install_and_workspace_admission": 533.4617920000019,
+      "execution_preparation_publication_program_and_catalog": 336.4390420000018,
+      "execution_preparation_resolution_and_program_validation": 624.1814169999998,
+      "execution_preparation_invocation_admission": 199.8578329999982,
+      "execution_preparation_graph_and_implementation_resolution": 70.40841699999874,
+      "execution_preparation_basis_and_leaf_port": 10.342957999997452
+    }
+  },
+  "archiveDigests": [
+    "sha256:b798e20edd4ae1d8649499ad0ccd822d893968fad3a5498948346df45211e043",
+    "sha256:8b9a2a5c2323cb15132d37850309e976bc4470f6e609a527aef3c46261260205"
+  ],
+  "artifactPaths": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/disposable/abi5-root-env-jMFds2/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz"
+  ],
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/consumer/node_modules/@abiogenesis/typescript-tenant"
+}

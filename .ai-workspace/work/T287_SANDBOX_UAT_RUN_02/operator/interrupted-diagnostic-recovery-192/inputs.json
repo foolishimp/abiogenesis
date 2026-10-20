@@ -1,0 +1,48 @@
+{
+  "sourcePreparation": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/freeze.json",
+    "sha256": "7e4fd01ebc7c87ff00236fff8efbfb565aefa8a92a256100c17c9eae445bc592",
+    "byteCount": 9625
+  },
+  "residue": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/selected-residue.json",
+    "sha256": "355debcc577be896b2be7c75d57055176e86c02d688ffc1ef21d899c4a2e5072",
+    "byteCount": 616
+  },
+  "physicalConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/physical-conservation.json",
+    "sha256": "38eed72700c1f83f05438c0efc6c81e444faee8549db742ad43f503fc5578647",
+    "byteCount": 14215
+  },
+  "interruption": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/commands/current-source-preparation.result.json",
+    "sha256": "74ed141ecfe48a51565368886db30d78d35dd5fb8f64edea95dd1395f3a01c38",
+    "byteCount": 17486
+  },
+  "handoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/host-preparation/exacthost-identity.json",
+    "sha256": "c6a43b22c312930437b4aaef5ee260e70fe4907a11373aea74d5437731384a74",
+    "byteCount": 3217
+  },
+  "acquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/host-preparation/host27-acquisition.json",
+    "sha256": "4238831abc75b1c79b35e29a284540fcd18add80e9ace78322f0e19eb17473a4",
+    "byteCount": 16373466
+  },
+  "expectedCurrent": {
+    "byteLength": 1690085978,
+    "digest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb"
+  },
+  "expectedPhysical": {
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1690085978,
+    "mtimeNs": "1791531873723955484"
+  }
+}

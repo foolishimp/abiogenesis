@@ -1,0 +1,18 @@
+{
+  "originatingRelation": "qualification F_P GraphFunction publishes assessment raw contract in module and environment.carries but omits existing abg.raw_result_contract dependency declaration required by native exact owner closure",
+  "frames": {
+    "Product": "F04/F11/F15 require exact raw native admission, J and same-subject proof; no WHAT change",
+    "Design": "D4/D5 exact raw-worker contract and existing resolver reused, additional explicit scope required for resolver changes; canonical GTL producer owns existing hook",
+    "GTLHoGIntegration": "Published raw symbol exists; selected closure collects named native raw contract declaration, absent at q.assess; typed carried bindings alone do not establish this native dependency",
+    "Identity": "Actual q.assessmentRaw lacks selected contractOwners coordinate; uniqueContractByRef null; source-derived result_contract_refused precedes raw schema guard",
+    "EffectsLifecycle": "helperexit0 \u2192 rejected native artifact/contract_failure \u2192 assessment_transport_mismatch \u2192 failed child foldback \u2192 parentfailure/run_stopped; no success, fresh consumers or qualification",
+    "Proof": "Direct F_P regression and Q08 owner preparation never exercised actual native raw preimage; provider/earlier failure masked this later seam",
+    "ReuseCrossProduct": "Earlier native-work report-owner failure repaired through existing explicit abg.raw_result_contract. That antecedent was not applied to qualification producer; supported recurring missing native producer dependency, no organizational siloing proven",
+    "Cost": "Actual30.501s/7498661888B defaultheap; report delay separate HOME-producer and partial-locals misses fixed with saved-evidence finalizer, no Runtime replay"
+  },
+  "scopeCorrection": "The frozen independent report overselects generic environment collection. The CLOSED final Reviewer return conjoins a later exact native-work antecedent and D4/D5 design224: existing abg.raw_result_contract is the lawful native raw owner declaration. Smallest supported repair is canonical qualification GTL producer, no declaration_closure.ts change. Root withdraws earlier commentary selection of collector repair. Missing raw owner/refusal localization stands.",
+  "smallestRepair": "conditional existing raw_result_contract declaration on qualification F_P producer only, preserve F_D/F_H bodies and generic resolver",
+  "affectedCone": "producer publication \u2192 exact execution closure/owner \u2192 child port/native preimage \u2192 actor success/J/child foldback/parent closure \u2192 fresh F11/sole non-greenAF22/six reads; successor identities as affected",
+  "requiredReproof": "actual current singleton/mixed native preimage positive with preserved legal indeterminate raw plus meaningful nearest owner/schema/identity negatives; then new exact installed whole carrier",
+  "sourceRootHintCorrection": "C06 actual final-source-freeze-manifest.json member paths relative to C06 root; earlier subject convenience source-freeze/repository hint invalid, no source cause"
+}

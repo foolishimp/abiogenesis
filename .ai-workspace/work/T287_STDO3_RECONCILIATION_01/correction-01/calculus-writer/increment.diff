@@ -1,0 +1,54 @@
+--- build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md:failed-candidate
++++ build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md:correction-01
+@@ -117,9 +117,10 @@
+ | Operation/evaluation predicate | Outcome and cause | Core result and conservation |
+ |---|---|---|
+ | Exact subject is admissible under contract/basis | All required relations established | `satisfied`; this establishes that admissibility only. |
+-| Exact subject is admissible under contract/basis | Known violated type, cardinality, membership, authority or other applicable constraint | `falsified`; retain the typed refusal and violated relation. |
+-| Exact subject is admissible under contract/basis | Required basis absent, stale, crossed or contradictory | `invalid_basis`; no effect may rely on it. |
+-| Applicable property is established by selected evaluation | Evidence is admissible but insufficient, actor/tool unavailable, or effect completion cannot be determined | `indeterminate`; retain what is known, pending evidence and any actual residue. Availability is not automatically semantic falsity. |
++| Exact submitted subject is admissible under contract/basis | The evaluation has its own valid contract and authoritative expected basis, and establishes a violated type, cardinality, membership, authority or other applicable constraint; this includes a wrong, missing, stale or crossed basis inside the submitted request when that law decides the violation | `falsified`; retain the typed refusal and known counterexample. Invalid submitted content does not invalidate an otherwise valid negative admission evaluation. |
++| Exact subject is admissible under contract/basis | Evaluation is attempted, but its own required subject/support or governing basis is unavailable, stale, crossed or incoherent, so it cannot support that evaluation | `invalid_basis`; identify the evaluator's unusable support. This is distinct from evaluating a submitted request's invalid basis against known valid law; no effect may rely on the unusable support. |
++| Applicable property is established by selected evaluation | Evaluation is actually performed on an admissible basis, but its admissible evidence is insufficient to decide the property, including observed uncertainty about effect completion | `indeterminate`; retain what is known, pending evidence and any actual residue. |
++| A required property was to be assessed | The required assessment is not performed because its actor/tool is unavailable, with no sufficient applicable assessment already available | No result for that assessment; retain an explicit coverage gap. A separately performed availability or operation-failure evaluation may have its own predicate/result, but it does not supply the missing assessment. |
+ | Selected evaluation is within the activated frame | Requested judgment requires a different undeclared capability/domain | `out_of_frame`; route to the owning evaluator without granting it authority by referral. |
+ | Declared measurement was executed, attributed and admitted | Authentic measurement/result meets that operation contract, including a negative test result | `satisfied` for measurement. The separate predicate “application meets tested criterion” is `falsified` when the criterion is disproved. |
+ | Declared physical install completed | Exact physical receipt establishes completed effect | `satisfied` for that physical act only. A subsequent ABG refusal leaves “installation admitted” non-satisfied under its actual cause. |
+@@ -127,6 +128,16 @@
+ | Declared 5.0 obligation applies | Current Product explicitly allocates that obligation to 5.1 | The applicability predicate is `falsified`; a design `not_applicable` verdict satisfies only the declared “met or excluded” disjunction, never implementation conformance. |
+ 
+ A constructor such as `blocked`, `refusal`, `failure`, `result` or exit code is insufficient to choose a core result without its cause and predicate. A concrete owner result with multiple possible causes must retain the distinguishing cause before the corresponding evaluation is relied on. An unperformed assessment has no result; it is not a sixth value. In particular, raw F_P output, an F_D process label and a human actor name are not evaluations.
++
++For example, an admission evaluator with the exact expected lock can falsify
++the admissibility of a request naming a different lock. If the evaluator cannot
++acquire its own authoritative expected lock, its attempted evaluation instead
++has `invalid_basis`. An evaluator that actually examines admissible effect
++evidence but cannot determine completion returns `indeterminate`. If the
++required evaluator never runs because its declared tool is unavailable, that
++assessment has no result; a stopped invocation record does not fill its gap.
++These cases preserve both the actual operation/effect facts and the separate
++semantic predicate being evaluated.
+ 
+ [AXIOMATIC_CALCULUS §5](stdo://releases/v3.0.0-rc.1/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds) owns its own traversal and functor-kind vocabulary. Its F_D evaluation/proof classification does not automatically identify all deterministic ABG construction/effect leaves. An optional a_c representation must bind operation kind, domain, authority and result meaning explicitly; equal spelling is no import.
+ 
+@@ -237,6 +248,11 @@
+ 
+ ### Domain view
+ 
++A CatalogView may contain zero or many Programs, and one Program may appear in
++zero or many views. The separate ExecutionBasis relations select one exact
++Program and one exact view for an admitted execution; they do not narrow the
++shared CatalogView domain or make an empty view executable.
++
+ ```mermaid
+ classDiagram
+     class DeclaredProgram {
+@@ -279,7 +295,7 @@
+       <<downstream>>
+       +declared complete or selected read
+     }
+-    DeclaredProgram "1" --> "0..*" CatalogView : projected through exact publications
++    DeclaredProgram "0..*" --> "0..*" CatalogView : projected through exact publications
+     ExecutionBasis "1" --> "1" DeclaredProgram : binds
+     ExecutionBasis "1" --> "1" CatalogView : selected basis
+     EventStore "1" *-- "0..*" HistorySelection : issues owned cuts

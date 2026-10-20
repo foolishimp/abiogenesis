@@ -1,0 +1,58 @@
+{
+  "disposition": {
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:86e7cf24bb8c812a0ffb5bf4c4a630850fd7d45dc5b9516eab488ba0382c09cd",
+      "ref": "run://abiogenesis/ef243f5ab796e5332cffc0cea94649160ad6d579a7ff533cff71c12313e8658c"
+    },
+    "receiptExitCode": 0
+  },
+  "failureEvidence": [
+    {
+      "admissionEventDigest": "sha256:7f2e72b8d597dfca7d4fc6ed8966932c5f20d85f076378cb81db7b88b07e3fc4",
+      "admissionEventRef": "event://abiogenesis/5a0cce6fe4f92df307abe5c421eef84c960cb066ab4136f7db0b898bb73763f9",
+      "availability": "not_retained",
+      "basisId": "execution-basis://abiogenesis/916cd8457a8a140b66870eb3adb92c0bde1edccb979c8ec51502ce3197fde936",
+      "causationEventRefs": [
+        "event://abiogenesis/559f7f6e4d9829c4dfd2af8515af7f2f73f5adf4a7b00ba13a6106c261f02fcb"
+      ],
+      "diagnosticClassRef": "diagnostic://abiogenesis/worksite/command-execution/transport-identity-mismatch@5",
+      "failureDigest": "sha256:e07d60e49f29959f823933059108a6819c4af91c5886bf4ae2622aa7d858e293",
+      "failureRef": "runtime-failure://abiogenesis/e07d60e49f29959f823933059108a6819c4af91c5886bf4ae2622aa7d858e293",
+      "frameId": "frame://abiogenesis/477f3c609aa0dd0ac466f71a9a77804f4b7c5cbb4b2f4925537834bda478151d",
+      "graphCallId": "graph-call://abiogenesis/bdc576313939f5a80cff0419953fc725f82c3fcf85d940cc3a27eaa61ff435b6",
+      "kind": "runtime_failure_evidence",
+      "runId": "run://abiogenesis/ef243f5ab796e5332cffc0cea94649160ad6d579a7ff533cff71c12313e8658c",
+      "schemaVersion": "5.0.0",
+      "stage": "route",
+      "subject": null,
+      "subjectDigest": "sha256:bab53abca0401b780f70813e054ab03b73acefc7d3ad318aade2e5417b8b59bb"
+    }
+  ],
+  "evidenceProjection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/runtime-failure-evidence.json",
+    "sha256": "f966145543f4c84b82b42c1b0e8f0501cecba0a65e6bcaffac7950f719f4c1c5",
+    "byteCount": 7621,
+    "mode": 420
+  },
+  "nativeOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/calls/lifecycle-start.outcome.json",
+    "sha256": "db14c405332e3ef505c0dfaabbcc5173c38d280b87289bdbf7282c196f08583d",
+    "byteCount": 47774,
+    "mode": 420
+  },
+  "actualNativeCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/commands/lifecycle-start.result.json",
+    "sha256": "450c5c30d9c8076c23f52fa5c0c37ee3c200b328c0b2e28ff3019405ad61a24e",
+    "byteCount": 40264,
+    "mode": 420
+  },
+  "normalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/calls/lifecycle-start.close.json",
+    "sha256": "a09092de71b70ea361994a8d868ac2f5fe30d45278a2df7c63337f231147be4d",
+    "byteCount": 1368,
+    "mode": 420
+  },
+  "originOrCommandEffectNotYetEstablished": true
+}

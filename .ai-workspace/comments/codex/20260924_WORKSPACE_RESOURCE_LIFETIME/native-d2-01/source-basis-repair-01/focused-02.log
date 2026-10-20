@@ -1,0 +1,17 @@
+(node:63731) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mechanical exact cover; unchanged initial observation crosses W only with its actual native coordinates (3184.66625ms)
+✔ mechanical exact cover rejects wrong direction, scope, historical basis and unadmitted or self projection (289.436583ms)
+(node:63732) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (645.346791ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+✔ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (130.82225ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3523.640083

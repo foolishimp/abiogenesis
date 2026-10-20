@@ -1,0 +1,7 @@
+{
+  "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/tmp",
+  "ABI5_RESULT_LINEAGE_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+  "ABI5_RESULT_LINEAGE_REPORT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/regression-outcome.json",
+  "ABG_RESULT_LINEAGE_TYPE_PROOF_DIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/type-proof"
+}

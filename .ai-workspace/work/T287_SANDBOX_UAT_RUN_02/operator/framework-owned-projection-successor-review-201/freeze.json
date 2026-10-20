@@ -1,0 +1,117 @@
+{
+  "status": "CLOSED_BOUNDED_PUBLICATION_INSTALLED_CORRESPONDENCE_GO",
+  "reviewer": 201,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-review-201/return.md",
+      "sha256": "8019c6a00111e3a6c2e6da8cb407cae81106187948fe5ba77f106433ba7943f8",
+      "byteCount": 5066
+    }
+  ],
+  "exactSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/freeze.json",
+    "sha256": "2443d56deb0a5072167705f459d89145bc461d71d06109a85475001569aa2cf6",
+    "byteCount": 27104
+  },
+  "candidateIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/identity.json",
+    "sha256": "d42bf07f9e831e7633cc2c0fcf6ec16eb7745732ababbea680f6be117bf41bee",
+    "byteCount": 7804
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/freeze.json",
+    "sha256": "876fff00374bcfe6eddcbe850aa61054c516ab2eee0842fd4ae93f466a0ad7b0",
+    "byteCount": 26693
+  },
+  "selectedEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/conservation.json",
+      "sha256": "e44bce007b7e5a4d1d8c73d6115f47ca25079fb52dd8bcbd1819dda2553d6f21",
+      "byteCount": 6328
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/accepted-emission-correspondence.json",
+      "sha256": "751d2ca5573e413034ad8995e5033a96747dafc70c95f4955bcdb753bd70a5eb",
+      "byteCount": 1138
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/essential-parity.json",
+      "sha256": "476d597e3c60b0bb8dd98f0b05a0312f37b83ded60841a921eca52591e3ca439",
+      "byteCount": 1550
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/metadata-parity.json",
+      "sha256": "ebec2c82cf8dc3b23cc9b7006ae4d16b0b11401edf068febd84357fe4e467ff8",
+      "byteCount": 536
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/public-catalog-diff.json",
+      "sha256": "8bddf5f971e640f65e3e005c09b2f31a1ac16768997c3ca6670c4077355293f3",
+      "byteCount": 123
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/contribution-diff.json",
+      "sha256": "f85c743762e4a9520fcd228e7a550a206aac65fe0a9b568b49f76a26c269bae0",
+      "byteCount": 18083
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/capability-diff.json",
+      "sha256": "64badecf178f0dd4585cf14e135d20bbca0bd66ca976ebbd96792e913bc9c09b",
+      "byteCount": 87427
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/exacthost-identity.json",
+      "sha256": "778cd599ac289210d51ccd0ff08dbc54c5abada3c350b749fc736e751d33bcf1",
+      "byteCount": 3251
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/installed-content-match.json",
+      "sha256": "c65840e2748b38ca7e06b287ec7d01efeb317bcfd346d5bc245c35209ec5872f",
+      "byteCount": 705
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/commands/clean-host.result.json",
+      "sha256": "8fb48ea9d78c5c284ad186f8861d355278585e7e22568244c52067bc9925d62b",
+      "byteCount": 2243
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/commands/member-comparison.result.json",
+      "sha256": "3152672d9f6d56a614d66ae7187cb1ed9964214642cd0e6b8a3ae6a15f01c9fa",
+      "byteCount": 2014
+    }
+  ],
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "b60a23703273315ce244328096b1dab2e17376bdd9225cb181afb481cc78b9bd",
+    "byteCount": 10639806
+  },
+  "independentInspection": {
+    "smallUniquePinsMatched": 94,
+    "archiveMetadataRowsMatched": 5265,
+    "changedArchiveInstalledBodyJoins": 3,
+    "newArchiveChecksumMatched": true,
+    "fullInstalledVerifierRepeated": false,
+    "old27ArchiveRead": false,
+    "hostAcquisitionBodyRead": false
+  },
+  "nonBlockingDocumentaryCaveats": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/member-delta.json",
+      "field": "/baselineRelation",
+      "observation": "Immutable26 prose label; all actual baseline coordinates and executable comparison select27.",
+      "disposition": "Preserve frozen record; do not substitute or relabel proof."
+    },
+    {
+      "error": "sed: host-preparation.mjs: No such file or directory",
+      "cause": "Reviewer selected parent path instead of exact frozen nested driver path.",
+      "action": "Read the owner row host-preparation/host-preparation.mjs; no writes/runtime attempt or Producer failure."
+    }
+  ],
+  "limits": [
+    "Accepted198 Source claim reused, no expanded Source semantics review",
+    "Publication/install correspondence only; no28 binding/cover/admission inferred",
+    "Actual stock-heap callback/private preparation/native/C2/UAT/global capacity/P0/release unearned",
+    "No runtime or canonical mutation effects"
+  ],
+  "stop": true
+}

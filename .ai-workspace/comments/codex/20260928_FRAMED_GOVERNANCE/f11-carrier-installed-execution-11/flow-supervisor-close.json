@@ -1,0 +1,62 @@
+{
+  "mode": "flow",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/run-continuation.mjs"
+  ],
+  "pid": 66528,
+  "processGroup": 66528,
+  "startedAt": "2026-10-03T11:06:34.585758+00:00",
+  "closedAt": "2026-10-03T11:07:43.738763+00:00",
+  "elapsedMs": 69155.16679221764,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 7712980992,
+  "userSeconds": 70.664627,
+  "systemSeconds": 7.557365,
+  "knownCLIProcessGroups": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/flow-af22-process-start.json",
+      "processGroup": 67187,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/flow-af22-run_replay-process-start.json",
+      "processGroup": 67303,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/flow-af22-run_result-process-start.json",
+      "processGroup": 67287,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/flow-f11-process-start.json",
+      "processGroup": 66802,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/flow-f11-run_replay-process-start.json",
+      "processGroup": 67080,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/flow-f11-run_result-process-start.json",
+      "processGroup": 67064,
+      "before": "absent",
+      "afterTERM": "absent"
+    }
+  ],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

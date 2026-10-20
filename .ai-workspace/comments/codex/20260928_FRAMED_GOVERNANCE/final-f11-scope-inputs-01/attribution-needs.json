@@ -1,0 +1,22 @@
+{
+  "status": "stable current inventory mapping for later Root conjunction; no author chain invented",
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "members": 1950
+  },
+  "mapping": "member-classification.json preserves every Q member coordinate and individual role. body-inputs/*.json selects exact subjectMembers subsets; generatedSourceJoins retain 520 current compiler-declaration/source relations.",
+  "firstConcreteMissingInput": {
+    "bodySelection": "inventory-0",
+    "memberRef": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "digest": "sha256:de8b1cca640cbe220c5d53108cc21602f8579ca0361eb3cb39df8876bbea1b5f",
+    "byteCount": 461456,
+    "needed": "Actual retained author/actor identity, authority/grant, selected preimage, delta, closure and postimage correspondence for this frozen inherited ticket member, with exact attribution-source spans. The snapshot/build/freeze activation is not an original author chain for it.",
+    "existingRoute": "Q/external-construction-context.json routes final construction, selected-action-07, S03 repair and Q input activations. It explicitly leaves complete per-member authorship unresolved.",
+    "meaning": "First missing join in this explicit inventory packet order, not a new globally mandated assessment ordering or a claim that every later member lacks provenance."
+  },
+  "scopeMaterialRecordJoin": "Selected material://abiogenesis/final-f11-scope-inputs-01/* bodies are authored external evaluation records. Existing self_conformance accepts these exact bytes only through genuine external construction records. Their record inclusion does not add them to the candidate inventory or attribute inherited candidate bytes to this Worker.",
+  "separateWorker": "Root reports a separate attribution Worker constructing real external chains over CLOSED C/Q. Its moving output was not inspected or consumed.",
+  "notSupplied": ["complete original author chains", "author independence judgment", "owner acknowledgment", "native declarations", "native admission or qualification judgment"],
+  "independentReview": "This Worker must not independently assess the adequacy of its own new scope/material construction."
+}

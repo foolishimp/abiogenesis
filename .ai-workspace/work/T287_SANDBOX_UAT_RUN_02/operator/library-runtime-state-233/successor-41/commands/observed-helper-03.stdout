@@ -1,0 +1,11 @@
+✔ observed C2 zero write declaration executes readonly helper and refuses real mirror mutation (986.629041ms)
+ℹ {"case":"readonly","taskDigest":"sha256:60cab3d6398307c8d3336c180b5b58cfcf8e594a598f76c7715e56cbf67bc24a","artifactDigest":"sha256:e56db05c72950eb6945a1163b330d7ead656399e3f2cebb894399b15fb2f3fc2","disposition":"success","worksiteDelta":0,"productDelta":0}
+ℹ {"case":"unauthorized-write","taskDigest":"sha256:2972bd104cae96d1213b4b40cc4d6ee0c8604d3a2b0d4e9ae76a2821a6e349f2","artifactDigest":"sha256:ae8befe7f3eadd1ef0bf62c5b3f5d7563b66d7607631fab3bade6f26c036c766","disposition":"territory_mismatch","worksiteDelta":1,"productDelta":0}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1274.120333

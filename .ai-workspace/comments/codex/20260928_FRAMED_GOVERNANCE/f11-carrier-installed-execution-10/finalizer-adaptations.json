@@ -1,0 +1,83 @@
+{
+  "donor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/close-runtime.py",
+  "donorSHA256": "41a13b6e231cd3798ffd1e203232471ff94266d03d6d59a8c8c6876fcffcc2aa",
+  "currentSHA256": "0874a2fccde01989bac887680f81e0d4c2e8c459174b715704d329fb9e220b51",
+  "changes": [
+    {
+      "before": "assert operation==cfg['operation']",
+      "after": "assert operation==cfg['runtimeOperation']"
+    },
+    {
+      "before": "accepted=read(activation['inputAcceptance']['path'])",
+      "after": "accepted=read('base-input-acceptance.json')\ncurrentRelease=read(activation['inputAcceptance']['path'])"
+    },
+    {
+      "before": "assert accepted['releasedConditionalOperation']==operation",
+      "after": "assert currentRelease is not None and operation==read('runtime-release.json')['operation']"
+    },
+    {
+      "before": "state=optional('actual-positive-flow-state.json')",
+      "after": "state=optional('actual-continuation-state.json')"
+    },
+    {
+      "before": "root/'setup09-initial-durable-prefix.bin'",
+      "after": "root/'runtime09-initial-durable-prefix.bin'"
+    },
+    {
+      "before": "'exactCurrentPacket':pin(root/'f11-bound-packet.json'),'exactCurrentResourceManifest':pin(root/'f11-bound-resource-manifest.json'),",
+      "after": "'exactCurrentPacket':pin(cfg['inputPacket']['path']),'exactCurrentResourceManifest':pin(cfg['inputManifest']['path']),"
+    },
+    {
+      "delta": "replace recursive ten-field bag collector with exact canonical retained correspondence and actual cold consumer"
+    },
+    {
+      "before": "check(len(completed)==3,'three actually completed Runs',len(completed))",
+      "after": "check(len(completed)==2,'two new actually completed Runs plus accepted original parent',len(completed))"
+    },
+    {
+      "before": "check(len(good_reads)==6 and len({r['call']['label']for r in good_reads})==6,'six distinct fresh CLI readbacks',len(good_reads))",
+      "after": "check(len(good_reads)==4 and len({r['call']['label']for r in good_reads})==4,'four distinct new reads plus two accepted original reads',len(good_reads))"
+    },
+    {
+      "before": "flow.get('mechanicalPath')=='completed'",
+      "after": "flow.get('mechanicalPath')=='completed_remaining_path'"
+    },
+    {
+      "before": "    check(bool(matches),'all ten metadata fields conserved in actual admitted evidence and original J')\n",
+      "after": ""
+    },
+    {
+      "before": "'completedRunReceipts':run_calls,'freshCLIReadReceipts':read_calls,'originalChildJProof':proof,",
+      "after": "'newCompletedRunReceipts':run_calls,'newFreshCLIReadReceipts':read_calls,'originalChildJProof':read('retained/actual-assessment-proof.json'),\n        'acceptedOriginalParentAndTwoReads':cfg['originalPositiveAcceptance'],'totalCompletedRuns':len(completed)+1,'totalFreshReads':len(good_reads)+2,"
+    },
+    {
+      "before": "proof=optional('actual-assessment-proof.json')",
+      "after": "proof=read('retained/actual-assessment-proof.json')"
+    },
+    {
+      "before": "check(all(r['afterActorExit']=='absent'for r in helper_probes),'all recorded helpers absent')",
+      "after": "check(all(r['afterActorExit']=='absent'for r in helper_probes),'all recorded helpers absent')\ncheck(not helper_pids,'remaining deterministic path did not dispatch an actor',helper_pids)"
+    },
+    {
+      "before": "'controlledActorStarts':len(helper_pids),'helperPidAfterClose':helper_probes,",
+      "after": "'controlledActorStarts':len(helper_pids),'helperPidAfterClose':helper_probes,\n    'acceptedOriginalCompletedRuns':1,'acceptedOriginalFreshReads':2,'totalCompletedRuns':len(completed)+1,'totalFreshCLIReads':len(good_reads)+2,\n    'borrowedInputBodies':[cfg['inputPacket'],cfg['inputManifest']],'RootOriginalCompanionAcceptance':cfg['originalPositiveAcceptance'],"
+    },
+    {
+      "before": "'futureReopen':'separate exact Root grant required','semanticQualification':False}",
+      "after": "'futureReopen':'separate exact Root grant required','semanticQualification':False,'acceptedOriginalParentAndReads':cfg['originalPositiveAcceptance']}"
+    },
+    {
+      "before": "'originalPrefixUnchanged':prefix_ok,'actualPublicCalls':len(calls),'completedRuns':len(completed),'freshCLIReads':len(good_reads),",
+      "after": "'originalPrefixUnchanged':prefix_ok,'actualPublicCalls':len(calls),'completedRuns':len(completed),'freshCLIReads':len(good_reads),\n    'acceptedOriginalCompletedRuns':1,'acceptedOriginalFreshReads':2,'totalCompletedRuns':len(completed)+1,'totalFreshCLIReads':len(good_reads)+2,"
+    }
+  ],
+  "ProductImports": 0,
+  "RuntimeCalls": 0,
+  "successAndFirstFailureBranches": true,
+  "preflightStartingHandoffBinding": {
+    "priorSHA256": "3c80c17fc6581c06b6a31f51697fcf93f43f0f9c49b1d7d5b93c439ecc42dc2b",
+    "before": "if handoff is None and len(body)==plan['initialPrefixBytes']:handoff=accepted['setup']['authenticCloseHandoff']",
+    "after": "if handoff is None and len(body)==plan['initialPrefixBytes']:handoff=json.loads(Path(cfg['currentClosedHandoff']['path']).read_bytes())['closeHandoff']",
+    "basis": "actual Runtime09 closed producer replaces older Setup09 fallback; no finalizer or Runtime executed"
+  }
+}

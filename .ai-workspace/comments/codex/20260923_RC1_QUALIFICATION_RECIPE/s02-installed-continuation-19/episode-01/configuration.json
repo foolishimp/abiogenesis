@@ -1,0 +1,90 @@
+{
+  "kind": "s02_isolated_operator_stop_configuration",
+  "status": "EXECUTIVE_SELECTED_FOR_EXECUTION",
+  "core": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:c0162f84504636ee263443b5bd0aa3bfd8059c186605dfd43ce0f3bc4b2c0a83",
+      "productContentDigest": "sha256:024eada560fcf768db13137da0948436a3b0d50a1abf540ef25dc24d81659ad1",
+      "manifestDigest": "sha256:feb5baaa0c77fedb632164929c7d52efd8b18bb7a55a43bd07cbf519367f8b68",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    },
+    "installedRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite11-install-s9p6ot60/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "acceptedCandidateRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/package-readiness.json",
+    "sha256": "246a43bd6365f199671af4c49808b8cdde4dcf00dd0562d2be1427a93b44f5a0",
+    "byteCount": 2087
+  },
+  "operatorDecisionRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/activation.json",
+    "sha256": "7cf4f6543f367cbdd2d92288841e43ee44287fd3d3bb9901f1dd1703d2706821",
+    "byteCount": 1586
+  },
+  "callerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/caller-freeze.json",
+    "sha256": "8ddef24ee986d5b6bc10e4f8e7ef08bfaf01c9c024e1ce8d632d77c51f26d861",
+    "byteCount": 1120
+  },
+  "mini": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mixed-declaration-repair-01/scratch/artifacts/abiogenesis-fixtures-developer-mini-product-5.0.0.tgz",
+    "artifactRef": "abiogenesis-fixtures-developer-mini-product-5.0.0.tgz",
+    "basis": {
+      "artifactDigest": "sha256:7bb4815da4a187450ca612549c18f32f8f54c9559e7d69203a96659ae6db43cd",
+      "manifestDigest": "sha256:00ed43f95d2e2d261b02469ee16045ea91b7a5e5095949a3e771f2556598126d",
+      "productContentDigest": "sha256:1d01299ef75f6b532a43d6591b50c1308ff4fc61652a5d52d2bc63c9fac6cfa4",
+      "productId": "product://developer.example/greeting@5.0.0",
+      "packageName": "@abiogenesis-fixtures/developer-mini-product",
+      "packageVersion": "5.0.0"
+    },
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mixed-declaration-repair-01/scratch/developer-mini-product-source",
+    "sourceSubject": "ae5cd020f57f5ae395f704d6c78898ef501ff7257c9ee499c646465601c5fa9b",
+    "publicationPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mixed-declaration-repair-01/scratch/prepared-mini.json",
+    "verificationRequest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mixed-declaration-repair-01/product-verification-request.json",
+    "verificationResult": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mixed-declaration-repair-01/product-verification.json",
+    "scope": "fixture package/component readiness; native adoption, catalog/install binding and mixed passage are pending"
+  },
+  "actorRef": "actor://abiogenesis/t287/s02/e347ab8b930e1f60f5af89d3bceb5bfe5502b3294b46c21def24369b2ebcac77/operator",
+  "toolchain": {
+    "nodeVersion": "v24.7.0",
+    "nodeExecutableSha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "runRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01",
+  "preparationAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/activation.json",
+    "sha256": "7cf4f6543f367cbdd2d92288841e43ee44287fd3d3bb9901f1dd1703d2706821",
+    "byteCount": 1586
+  },
+  "cases": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/cases.json",
+    "sha256": "fd04696b59f74e41669302d33c9e646a0e16821a1dd61513c587dc8c5800cc73",
+    "byteCount": 887
+  },
+  "oracleBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/oracle-basis.json",
+    "sha256": "0bd94689eab550251ebae07f3b2318e7fcb73476dd3d669f5e8229c94d30c729",
+    "byteCount": 1891
+  },
+  "policies": {
+    "stageMs": {
+      "setup": 600000,
+      "conformance": 600000,
+      "read": 600000,
+      "root": 300000,
+      "recursive": 600000,
+      "grace": 1000
+    },
+    "setupOuterMs": 6900000,
+    "caseOuterRule": "same s02-carrier-02 outerLimit; selected cases only",
+    "freshReadOuterMs": 1800000,
+    "heap": "default",
+    "providerCalls": 0,
+    "deterministicTransport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-carrier-02/simulated-fp.cjs"
+  },
+  "newIsolatedResource": true,
+  "configPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/configuration.json",
+  "configDigest": "sha256:514181ac8165f9af4feb5d0275fd0630eef146f88c730535e7619e9e2c7ca1d5"
+}

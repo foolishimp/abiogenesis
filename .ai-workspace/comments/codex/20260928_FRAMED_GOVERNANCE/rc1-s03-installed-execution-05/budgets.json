@@ -1,0 +1,9 @@
+{
+  "driverBudgetMs": 600000,
+  "stages": {
+    "read": 180000
+  },
+  "terminationGraceMs": 1000,
+  "heapChanges": false,
+  "timerChanges": false
+}

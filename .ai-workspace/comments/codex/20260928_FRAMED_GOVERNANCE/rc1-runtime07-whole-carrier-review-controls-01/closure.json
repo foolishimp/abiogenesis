@@ -1,0 +1,19 @@
+{
+  "operation": "T287_RUNTIME07_ASSURANCE_GRANT_01",
+  "status": "CLOSED",
+  "closedAt": "2026-10-02T07:50:53.224100+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-whole-carrier-review-controls-01/request.txt",
+    "bytes": 5002,
+    "sha256": "0c9cf44886bc61255a4ecba6d47a9cd3818d4d8caaf97922634fd4e7b667c942",
+    "mode": 420
+  },
+  "executionPostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 521814,
+    "sha256": "de6efaaac0a20e61541f26a7cbc8745d6945685f20147638922ab03590a295ea",
+    "mode": 420
+  },
+  "returnRole": "Executive",
+  "sourceCandidateRuntimeNetworkGitEffects": 0
+}

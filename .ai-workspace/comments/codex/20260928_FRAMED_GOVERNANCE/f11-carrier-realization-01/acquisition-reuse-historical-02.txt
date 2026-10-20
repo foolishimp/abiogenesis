@@ -1,0 +1,15 @@
+(node:25882) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25882) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+✔ serialized producer uses one real acquisition and retained representation through environment, dispatch and realization (4353.322167ms)
+ℹ {"physicalReadCalls":1,"physicalReadBytes":2757757,"decodedRepresentations":1,"artifactAcquisitions":1,"realWorkspaceProjections":1,"currentnessChecks":2,"materialBytes":6741,"premise":"finite copied source with real reader/environment/declaration/CCall owners; supplied consumer admission; no installed qualification"}
+✔ retained source currentness refuses advance truncation replacement and preserves historical material (5679.50625ms)
+✔ copied and foreign ingress cannot supply the retained acquisition or skip cold authentication (4556.49875ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14998.955125

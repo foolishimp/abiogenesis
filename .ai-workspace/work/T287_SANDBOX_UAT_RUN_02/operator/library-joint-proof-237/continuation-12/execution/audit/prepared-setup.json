@@ -1,0 +1,83 @@
+{
+  "kind": "prepared_product_run_invocation",
+  "sourceResultRef": "result://abiogenesis/069031ccb3f2f154aa95a00e2ff5a9b4904ceec0806a27ff4d5a1715744ba3bd",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/0d3be3b6a6db5a058784712705d0b7b41c29bb694730a77f2fb958df437ae035",
+  "sourceInputDigest": "sha256:8ea15aebe7d1157d29f141b84bcaefeefd77705e2a61240443a10c3e42a72ee2",
+  "observations": 1,
+  "terminal": false,
+  "workspaceBinding": {
+    "kind": "workspace_binding",
+    "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+    "authorityBasisId": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+    "authorizedActorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+    "bindingDigest": "sha256:9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+    "bindingId": "workspace-binding://abiogenesis/9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+    "lockDigest": "sha256:1aca7ccdd500d93ec3c2f8d350bd31da98606571b047a4e9c833f2bbe86d55d8",
+    "lockId": "product-lock://abiogenesis/1aca7ccdd500d93ec3c2f8d350bd31da98606571b047a4e9c833f2bbe86d55d8",
+    "productSetDigest": "sha256:c3fa8747a0b91a25da9388ad1e8f8a1d58cfe1f8a37cca9c44835edd7ffdbbfd",
+    "productSetId": "product-set://abiogenesis/c3fa8747a0b91a25da9388ad1e8f8a1d58cfe1f8a37cca9c44835edd7ffdbbfd",
+    "roots": {
+      "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives",
+      "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events",
+      "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/projections",
+      "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/runtime",
+      "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-native"
+    },
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37",
+    "admissionEventRef": "event://abiogenesis/57b3f60e8e22eaa67de33c1f3c297089efc1036ae34668716217f283f91fbbf1"
+  },
+  "workspaceAuthority": {
+    "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+    "authorityBasisId": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+    "authorityManifestDigest": "sha256:990ed6a2f1597122aab174fc1141c17ccb221ba31e0baf37103ed6773b69ea23",
+    "authorityManifestRef": "authority://abi5-tests/sandbox-uat/library-joint-proof-237/workspace",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+    "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite",
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37"
+  },
+  "program": {
+    "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+  },
+  "view": {
+    "ref": "graph-function-catalog-view://abiogenesis/46f694423ea152ff113403add6b928725b4ab3dbaeec1407689141785241213c",
+    "digest": "sha256:46f694423ea152ff113403add6b928725b4ab3dbaeec1407689141785241213c"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+  "currentUseDigest": "sha256:2011bb5e2d0dbe9c957dca571fae987ce91739ba62c106600c848b28d31091fa",
+  "consumedBases": 4,
+  "finalPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "prefixLength": 20273296,
+    "prefixDigest": "sha256:8371939cadce5fe058b819b9804edc6e5ad14f278b6deda5d8796d6a0a6b9277",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 469917053,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:b03453c72fd36228ebb6ecbf586fbd0e550a689ae32f40e5f02006da14a9d4d1"
+  },
+  "launch": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "--jsonl",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/calls/continuation-start.request.jsonl"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit"
+  },
+  "operatorControl": null,
+  "setupMode": "changed-installed-pair",
+  "limits": {
+    "nativeMs": 300000,
+    "nativeBytes": 16777216
+  },
+  "qualityClock": "Actual future native CLI command.request.started + 18000000ms; preparation starts no clock"
+}

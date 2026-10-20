@@ -1,0 +1,67 @@
+{
+  "status": "attribution_not_constructed",
+  "qualificationInventory": {
+    "ref": "qualification-inventory://abiogenesis/107360f76fdbdfa7920d912aac2edc10ecaf80ca88406190748f28d834c40101",
+    "digest": "sha256:107360f76fdbdfa7920d912aac2edc10ecaf80ca88406190748f28d834c40101"
+  },
+  "constructionRecords": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/activation.json",
+      "bytes": 986,
+      "sha256": "9ace51e36b6b48c3a7e2ae29fc53325e35c0d7e023718e84f58ba6e2d2bfd69b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-delta.json",
+      "bytes": 1946,
+      "sha256": "ee6a9240d76ce60bc3084fa19ef001ac46c274917f0369033bb4246791a30655"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-overlay.json",
+      "bytes": 420,
+      "sha256": "08b77cdb91cf2346c29a16c60f1e265620893cdd6721617c81fbd77c06031970"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze-manifest.json",
+      "bytes": 1045999,
+      "sha256": "98316a687a3ef45aa2e3fd1b6c94429c30c3feddd119b4f15600d3f771e11cc6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/operation-attribution.json",
+      "bytes": 905,
+      "sha256": "28ba8dfb739c11215138cc6736516fdc33fbf124f1fc6d434ecb6f2e5fa549e5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/return.md",
+      "bytes": 8084,
+      "sha256": "2676ea192b61bafb16f40c595d05b317cc9969f7936bcf6632c428cd327d0388"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+      "bytes": 4543994,
+      "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+    }
+  ],
+  "Q02operation": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/activation.json",
+    "bytes": 1663,
+    "sha256": "5799216f54ea3232d1d3d73e05216cf6393ea5b7a9e578944130f6be2ba90b24"
+  },
+  "originalQ01Context": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/external-construction-context.json",
+    "bytes": 6646,
+    "sha256": "c83218cb2a3cbe0a0136f5d3673c2fb721827f9fe323b9771f21888e27275705"
+  },
+  "scope": "This Worker authors new external input controls only; copies do not assign inherited semantic authorship. Root work grant is not the Product-owner qualification slot.",
+  "pending": [
+    "Authentic per-scope author/actor/authority correspondence",
+    "Adequate exact assessment Context",
+    "Actual admitted independent assessor and peer joins"
+  ],
+  "optionalLaterRootCoordinate": {
+    "freezeSHA256": "df4ff0bfe902a52b306565c5766d7042f73e0c94270dadb8369c4808b58daeac",
+    "consumed": false,
+    "meaning": "Root-routed future external correspondence; eight C01 endpoints plus three D endpoints are not asserted here as an eleven-member successor attribution union."
+  },
+  "nativeJudgments": 0,
+  "attributionChains": 0
+}

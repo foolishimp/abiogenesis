@@ -1,0 +1,22 @@
+{
+  "activation": "T287_FINAL_CANDIDATE_CONSTRUCTION_02",
+  "role": "Worker",
+  "externalAuthor": "/root/s03_phase_b",
+  "sessionId": "not separately available",
+  "requestSHA256": "2d2cd917a3202ba2211b313474fbd81af93e39b4d54c64ad34adb24cb842faaf",
+  "installedACJoinVerified": true,
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02",
+  "sourceSelection": "C frozen1103 plus exact three accepted D postimages; no moving source snapshot",
+  "changeClass": "realization_refactor",
+  "prospective": {
+    "namespace": "abiogenesis",
+    "profile": "one_project_unqualified",
+    "subtree": ".",
+    "versionLine": "5.0.0",
+    "ordinal": 1,
+    "version": "5.0.0-rc.1",
+    "published": false
+  },
+  "effectBoundary": "one isolated owner build/archive/offline physical verification install and static installed full11; no native/qualification/Git effects",
+  "at": "2026-09-30T07:21:49.965266+00:00"
+}

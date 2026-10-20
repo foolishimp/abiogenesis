@@ -1,0 +1,33 @@
+{
+  "status": "all_generated_changes_causally_explained",
+  "population": 828,
+  "changedFiles": 3,
+  "code": "gtl/default_library.js equals independently reviewed component postimage emission",
+  "derivedAssets": "Only capability graph and Product manifest identity/provenance digests/refs change under new Product content. No callable/contract/claim/authority schema shape, population or nonidentity declaration changes. Existing generators produced values; installed verification remains next.",
+  "fieldCategories": {
+    "contracts/capabilities/capability-definition-graph.json": {
+      "/graphDigest": 1,
+      "/rows/[]/capabilityDefinitionDigest": 16,
+      "/rows/[]/capabilityDefinitionRef": 16,
+      "/rows/[]/dependentCapabilities/[]/capabilityDefinitionDigest": 18,
+      "/rows/[]/dependentCapabilities/[]/capabilityDefinitionRef": 18,
+      "/rows/[]/owningPublicContracts/[]/contractCatalog/productContentDigest": 241
+    },
+    "product-toolchain-manifest.json": {
+      "/capabilityDefinitionGraph/assetLocator/contentDigest": 1,
+      "/capabilityDefinitionGraph/graphDigest": 1,
+      "/contributionManifest/capabilityDefinitionGraph/graphDigest": 1,
+      "/contributionManifest/contributionManifestRef": 1,
+      "/contributionManifest/descriptorRef": 1,
+      "/contributionManifest/productContentDigest": 1,
+      "/contributionManifest/publicationBindings/[]/publicationDigest": 11,
+      "/contributionManifest/rows/[]/provenanceRef": 67,
+      "/contributionManifestDigest": 1,
+      "/contributionManifestRef": 1,
+      "/descriptorRef": 1,
+      "/productContentDigest": 1,
+      "/provenanceRef": 1
+    }
+  },
+  "noUnexplainedDrift": true
+}

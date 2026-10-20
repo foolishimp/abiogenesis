@@ -1,0 +1,8 @@
+{
+  "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+  "oldStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript",
+  "newStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+  "physicalDependencyDonor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules",
+  "consumerPackageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "baseline": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/baseline.json"
+}

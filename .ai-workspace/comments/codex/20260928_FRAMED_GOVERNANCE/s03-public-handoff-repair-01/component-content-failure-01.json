@@ -1,0 +1,7 @@
+{
+  "message": "{\"kind\":\"abg_project_read_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"memberKey\":\"run_gaps\",\"targetRef\":\"run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8\",\"code\":\"invalid_history\",\"message\":\"ABG project read owner projectors refused the durable event history\"}\n+ actual - expected\n\n+ 'abg_project_read_refusal'\n- 'abg_project_read_projection'\n                    ^\n",
+  "stack": "AssertionError [ERR_ASSERTION]: {\"kind\":\"abg_project_read_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"memberKey\":\"run_gaps\",\"targetRef\":\"run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8\",\"code\":\"invalid_history\",\"message\":\"ABG project read owner projectors refused the durable event history\"}\n+ actual - expected\n\n+ 'abg_project_read_refusal'\n- 'abg_project_read_projection'\n                    ^\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-proof.mjs:27:133",
+  "redCompleted": [],
+  "liveResourceAccesses": [],
+  "elapsedMs": 245.756417
+}

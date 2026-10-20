@@ -1,0 +1,146 @@
+{
+  "role": "Worker174 CLOSED caller/readiness only",
+  "outcome": "GO for independently reviewed caller handoff; actual176 is not authorized by this receipt",
+  "productFrame": "Fixed15 ABI5.0 / GOAL035 T287 external original DataMapper / STDO2.5.1rc2",
+  "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "origin": {
+    "firstCause": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/first-cause.json",
+      "sha256": "e63fe87787ac75de694a73a9c780cff17b653c01b5c6908797c7fa4e06874951",
+      "byteCount": 2630
+    },
+    "relation": "After actual completion successor updates selection, initial enclosing resource.entryPrefix remains the old cut. Shared grant passed the old enclosing resource; canonical held-prefix guard correctly refused.",
+    "missedChecks": "Earlier packed-resource/binding/current-lock tests did not traverse append -> completion successor -> bound environment guard."
+  },
+  "action": {
+    "kind": "caller realization_refactor",
+    "operationResource": "Canonical acquireAbgEventResource(current nominal selection) borrowed view for each shared grant; enclosing acquisition retained solely for normal close",
+    "reentry": "Genuine171 final handoff, exact164 verification/resolve/native install, exact171 consumer/binding admissions through current-prefix canonical projections; no reinstall/rebind fallback",
+    "historicalCurrentSeparation": "Full original historical binding remains separate from projected current171 binding; exact historical Source136/raw34/original Program/actor/A retained",
+    "intentReferences": "New174 request/correlation/input refs; historical refs unchanged"
+  },
+  "caller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/prepare.mjs",
+    "sha256": "6709e1dcf37d787e341bc504afd4a86e0999b3f17461f7997b88a132c11b5302",
+    "byteCount": 37816
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/operation-resource.mjs",
+    "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+    "byteCount": 695
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/inputs.json",
+    "sha256": "e95e941130681ffc09db910b7e089f0052bc6c94f16147bc3cac066cb58571b8",
+    "byteCount": 13494
+  },
+  "diffs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/prepare.diff",
+      "sha256": "c899c2d59d1a1675d635b79569713e33b2dcde1b7471fb8429697a37afdfdadf",
+      "byteCount": 25578
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/inputs.diff",
+      "sha256": "f5517721aff5e8139325b6a4a77c9d471e282239d8ff483cd4222b93ab7bd585",
+      "byteCount": 6586
+    }
+  ],
+  "checks": [
+    {
+      "label": "syntax-prepare",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/commands/syntax-prepare.result.json",
+        "sha256": "7132bba3a8d002fe29076a74f4d44e8bdecf174911664d5e4a83797600fb4c34",
+        "byteCount": 703
+      },
+      "exitCode": 0,
+      "wallMs": 21.880833024624735,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "label": "syntax-operation-resource",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/commands/syntax-operation-resource.result.json",
+        "sha256": "7ebdf60a652b71e1bb75928a93be3e0fc7ba859dd74b6d3df19ac49bb4a5dc59",
+        "byteCount": 724
+      },
+      "exitCode": 0,
+      "wallMs": 18.31775001483038,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "label": "syntax-fixture",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/commands/syntax-fixture.result.json",
+        "sha256": "99b5498408f3ed795052de75c76c190c6a0983c3949639e0d76456c8809c3c81",
+        "byteCount": 703
+      },
+      "exitCode": 0,
+      "wallMs": 18.230458023026586,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "label": "owned-resource-guard",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/commands/owned-resource-guard.result.json",
+        "sha256": "071998cfc5a0b76a143394f9d524728d104fc9b1ba30477663e8ad949ce4a652",
+        "byteCount": 717
+      },
+      "exitCode": 0,
+      "wallMs": 1548.1474170228466,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    }
+  ],
+  "fixture": {
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture-result.json",
+      "sha256": "ed40cffb9f5d40d726225742032da325bedc3a5619b6a904eefba7a6387f7cd1",
+      "byteCount": 8841
+    },
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.physical-prefix.jsonl",
+      "sha256": "d37d30df4ba656cab7b31e233ca566fa9ba97b830f564568f13f9bac3990a89f",
+      "byteCount": 6191541,
+      "events": 434
+    },
+    "newCanonicalOwnerAdmissions": 1,
+    "positive": "Current borrowed environment guard accepted both unchanged original binding and newly admitted controlled sibling binding",
+    "refusals": [
+      "initial enclosing acquisition at advancing cut",
+      "stale nominal selection",
+      "copied current nominal selection",
+      "foreign nominal selection",
+      "closed enclosing owner"
+    ],
+    "completionAndClose": "Borrowed completion retains outer held store; only outer normal close releases it",
+    "controlledPremises": "Pinned real434-event history copied into disposable174 resource; sibling authority/roots and operation-basis helper are controlled component premises. No full nominal Product receipt or authentic actual171 consumer/binding projection is claimed."
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/conservation.json",
+    "sha256": "fa7f4c3baa6d2c69119b64634ed60b3fb37e126284112919462a9f0ef73301a7",
+    "byteCount": 7104
+  },
+  "owners": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/owner-pins.json",
+    "sha256": "7a6dc5975f07e1cee6cbae635c124c2343866983b96c36f1ecfe3124e4433d79",
+    "byteCount": 4335
+  },
+  "remainingProof": "Independent175 then Root-selected actual176: early live nominal Product verifier, actual171 owner admission projection/current lock/root checks, complete shared bound grant/transport through catalog/view/D2/currentSourceUse/private Product preparation and normal close. Stop first cause; no duplicated consumer/native install or binding. Native continuation/C2/UAT remain separate.",
+  "limits": [
+    "No actual campaign log read/hash/acquire/replay",
+    "No archive verification or Public/campaign dispatch",
+    "No new Run/model/native/app/provider effects",
+    "No Source/Product/schema/guard/limit/Git changes",
+    "No full nominal grant/current-source-use/capacity/UAT/recovery/release claim"
+  ]
+}

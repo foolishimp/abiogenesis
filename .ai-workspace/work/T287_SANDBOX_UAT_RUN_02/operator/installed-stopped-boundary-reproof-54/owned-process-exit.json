@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-08T04:26:50.415Z",
+  "pids": [
+    87206,
+    87208,
+    87947,
+    89743
+  ],
+  "psExitStatus": 1,
+  "stdout": "  PID  PPID  PGID    RSS ELAPSED STAT ARGS\n",
+  "stderr": "",
+  "signalsIssued": 0,
+  "scope": "Only exact recorder/reproof/two eventless CLI PIDs; no global process absence claim"
+}

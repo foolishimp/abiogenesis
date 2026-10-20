@@ -1,0 +1,9 @@
+Status ACTIVE
+Actor /root
+Prior role Executive; role Writer
+Operation T287_FRAMEWORK_CONTRACT_OWNERSHIP_WRITER_01
+Basis STDO2.5.1RC2
+Time 2026-10-03T07:36:34.988250+00:00
+Exact grant: apply owner's one-framework-library instruction as compact agent/HOW constraints after Product/Design/integration/type/proof triangulation. Preserve preimages, add only canonical ownership/consumption and typed transformation notes; record read-only Design finding and independent review grant with installed a_c. No new library/schema/API/export or implementation change; no new release gate from barrel convenience observation.
+Write territory: /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01; /Users/jim/src/apps/abiogenesis/AGENTS.md; /Users/jim/src/apps/abiogenesis/CLAUDE.md; /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md; /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md; append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md.
+All candidates/Setup/oldcuts/stores/generated/code/Product/requirements/law/library/Git/auth/network/Runtime readonly. Record before Source effects. Return Executive on closure.

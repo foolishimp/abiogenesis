@@ -1,0 +1,198 @@
+{
+  "kind": "worker_preparation_freeze",
+  "status": "CLOSED",
+  "workResult": "candidate_ready",
+  "evaluation": "satisfied_for_bounded_mechanical_preparation_only",
+  "subjectDigest": "sha256:a01e22891be61b7b5c7a49c3368a8a354a73620e92025ef26b8eaa89c2749532",
+  "subjectDigestEncoding": "SHA256 of compact sort_keys JSON members plus LF",
+  "members": [
+    {
+      "path": "activation.md",
+      "bytes": 2135,
+      "sha256": "5aec074e0f457b80054fa5c3e05d3ec8a3959cb6e1201777cd5ac3b9a71b48c7"
+    },
+    {
+      "path": "basis-template.json",
+      "bytes": 3294,
+      "sha256": "8b99c66354f282be0a93e12815eeca3a846a089ecd1a543fa6dbfc675d0af9f5"
+    },
+    {
+      "path": "caller-correspondence.json",
+      "bytes": 198,
+      "sha256": "838fffe05507292bb0a4ca60f8c96a8c5c412e9aebd353fe27fdc25c59b0916f"
+    },
+    {
+      "path": "caller-inputs.json",
+      "bytes": 5930,
+      "sha256": "6eac6da417d69f9d3de0525aa07474a9cd7adc40b5d723e705746ea505dbdddd"
+    },
+    {
+      "path": "candidate-selection.json",
+      "bytes": 3339,
+      "sha256": "20d7d76192db887a57fbfc36d7e317655204d5c90417339e8ce99c0bf3c6b664"
+    },
+    {
+      "path": "checks.json",
+      "bytes": 872,
+      "sha256": "525daf76c25cc0d911b4b6f1cd27a7c48e3d3aeab44147887afbd8be96b2e511"
+    },
+    {
+      "path": "compare-generated.mjs",
+      "bytes": 1988,
+      "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945"
+    },
+    {
+      "path": "config.json",
+      "bytes": 20048,
+      "sha256": "68f66f1cc2e9fac75061d7200e9e262a52d34aa86a0f76d8bcb28dd002fcca13"
+    },
+    {
+      "path": "configuration-binding.json",
+      "bytes": 47747,
+      "sha256": "7714564b9ebcd13d81641be507bb1977ca531c7ce884bdbb7e9a7a9cd5698d0a"
+    },
+    {
+      "path": "evidence-selection.json",
+      "bytes": 2240,
+      "sha256": "d2df0035a2a38bdfd8cec09628ba26d197ab0cdda41d57c51ffcc6a1c99a5c3e"
+    },
+    {
+      "path": "expected-output-inventory.json",
+      "bytes": 165478,
+      "sha256": "ad8432e0b4ad59e12cf6407c959e75932477f882ba3e2e225eca3becfb93a690"
+    },
+    {
+      "path": "final-checks.json",
+      "bytes": 289,
+      "sha256": "7b9abe09ae6b784cab8c40c49a5a8cd48fd3e770ca384e3606a30b733ced3088"
+    },
+    {
+      "path": "input-manifest.json",
+      "bytes": 224587,
+      "sha256": "e2cd6d74db3c6650e259ab534aec2bc74788b9b76488947bbb61807935a3e9bf"
+    },
+    {
+      "path": "inventory-delta.json",
+      "bytes": 50482,
+      "sha256": "2f39f81d271f70ce4ac4471b9d3d6d79e98c2b29c9337fca98d599630eb8b08b"
+    },
+    {
+      "path": "invocation-order.md",
+      "bytes": 5114,
+      "sha256": "e609bc634962e98086396199e25f4cd9e34af711066f081fd17fdf5ecc2d7d01"
+    },
+    {
+      "path": "lint-population.json",
+      "bytes": 2240,
+      "sha256": "c4712d1cb6a8793295763dc715f624017d9fa5f18498bf32633a7f30ad8dacb9"
+    },
+    {
+      "path": "method-verification.json",
+      "bytes": 1055,
+      "sha256": "1970723579336b6e30a347cf8ea545b168dd58e6784b6e30c5a522dadd8daae0"
+    },
+    {
+      "path": "native-bindings.json",
+      "bytes": 3329,
+      "sha256": "51886a64470d7e9b6b26b6cffdf607cd9426d46457b16e67f0adecc66534907a"
+    },
+    {
+      "path": "npm-toolchain-inventory.json",
+      "bytes": 414341,
+      "sha256": "57422b62fb01ddb84b3d55259bc2c929aa0038d28cdc5edf422a2216909168dc"
+    },
+    {
+      "path": "preparation.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "preparation.stdout",
+      "bytes": 767,
+      "sha256": "e4aeff05495f4cbb1afb3d462554444662f3ca95302d91b606ddcce285afe0a9"
+    },
+    {
+      "path": "prepare.mjs",
+      "bytes": 13732,
+      "sha256": "1a13bbc2eb95bf9d29149314e3019351572536786a672f151a9374050dfcbccc"
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 8856,
+      "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+    },
+    {
+      "path": "qualification-inventory.json",
+      "bytes": 1383801,
+      "sha256": "4b07cbd70926af23738959010ab094421c92359507273b11010d1e6977cb8db2"
+    },
+    {
+      "path": "recipe-stage.mjs",
+      "bytes": 1449,
+      "sha256": "de17486b1af297a006a7667bfc12f00add60134b3144e9be523d7fee8c50d075"
+    },
+    {
+      "path": "recipe.mjs",
+      "bytes": 3442,
+      "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68"
+    },
+    {
+      "path": "release-claims.json",
+      "bytes": 2228,
+      "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+    },
+    {
+      "path": "return.md",
+      "bytes": 4386,
+      "sha256": "b2539ffba514d330565b093cdc1773f42233d0b4023e0c0234db6ce2f608ef07"
+    },
+    {
+      "path": "reuse-selection.json",
+      "bytes": 7230,
+      "sha256": "6cf70fb65b6028a0b7800815730419bcc082fb40b5ab71a7d5d0cb61e7e8334a"
+    },
+    {
+      "path": "source-input-delta.json",
+      "bytes": 11626,
+      "sha256": "f3b6cdb19badaf368aaa6dd0d5b0e99d975e7491687775e77c6113f3ca2f7263"
+    },
+    {
+      "path": "source-inventory.json",
+      "bytes": 299656,
+      "sha256": "f80259cd8476b78fb4eebe9cabce14c313397bc0250e94ecde49ec06bf23417f"
+    },
+    {
+      "path": "syntax-checks.json",
+      "bytes": 490,
+      "sha256": "a4bfe5bfe5de9f96ca02de749ede8c0aa5714b80a376cd152e74f7e4588ee3c1"
+    },
+    {
+      "path": "test-environment.mjs",
+      "bytes": 533,
+      "sha256": "93913ad5f1574d7d38c7b2435e2e7d9b5c3e492518adb616ece83485c7d65208"
+    },
+    {
+      "path": "test-selection.json",
+      "bytes": 8553,
+      "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+    },
+    {
+      "path": "toolchain.json",
+      "bytes": 1571,
+      "sha256": "280717ffa7a67ee694613b1c6fcb52b73e72c0b80309d7fe1ba0cd55f156f64e"
+    },
+    {
+      "path": "verification-recipe.json",
+      "bytes": 86324,
+      "sha256": "dcab4f9584cb1af1f9387a740215299f34456946e7d59de566b53c3336a63bcc"
+    },
+    {
+      "path": "verification-selection-binding.json",
+      "bytes": 116050,
+      "sha256": "bc2f069c93a73103fece2b5d2633c215e03029e2c789ffd64c9a7e589a7b7b84"
+    }
+  ],
+  "returnSha256": "b2539ffba514d330565b093cdc1773f42233d0b4023e0c0234db6ce2f608ef07",
+  "independentQualificationClaim": false,
+  "consumer": "Executive /root"
+}

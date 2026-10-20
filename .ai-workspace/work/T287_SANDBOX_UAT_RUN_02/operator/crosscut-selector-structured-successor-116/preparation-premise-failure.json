@@ -1,0 +1,13 @@
+{
+  "status": "STOPPED_PROCEDURAL_PREPARATION_ERROR",
+  "firstToolChunk": "e79b7f",
+  "firstExitCode": 1,
+  "cause": "Local pin helper wrongly requires all build controls to be tenant-relative; external Node binary is an absolute control with no tenant relativePath.",
+  "dependentToolChunk": "ed7a9d",
+  "dependentExitCode": 1,
+  "dependentCause": "Agent did not check failed preparation before invoking uncreated build driver.",
+  "normalBuildAttempts": 0,
+  "packInstallVerifyAttempts": 0,
+  "sourceGeneratedCandidateEffects": false,
+  "proposedReentry": "Preserve original107 control metadata shape, adding relativePath only when originally present. Then execute the already selected single normal build and publication. Root disposition pending."
+}

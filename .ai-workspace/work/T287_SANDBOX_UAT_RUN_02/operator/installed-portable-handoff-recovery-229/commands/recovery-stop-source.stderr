@@ -1,0 +1,56 @@
+AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+
+... Skipped lines
+{
+  contractIds: {
+    nonTerminal: null,
+    refusal: 'contract://abiogenesis/abg/witnessadmission/admit/run-stopped/refusal@5',
+    request: 'contract://abiogenesis/abg/witnessadmission/admit/run-stopped/request@5',
+    result: 'contract://abiogenesis/abg/witnessadmission/admit/run-stopped/result@5'
+  },
+  definitionKey: {
+    memberKey: 'run-stopped',
+    operationId: 'abg.operation.witness.admit'
+  },
+  metadata: {
+    actorRequirement: 'required',
+    adapterExitMap: {
+      acceptedNonTerminal: null,
+      acceptedTerminal: 0,
+      adapterFailure: 70,
+      invalidInvocation: 2,
+      refused: 1
+    },
+    authorityClass: 'write',
+    authoritySlotRequirements: [
+      'capability_grants',
+      'workspace_binding',
+      'product_set',
+      'dependency_lock',
+      'actor',
+      'execution_basis'
+    ],
+    capabilityRefs: [
+      'abg.capability.operator.public-contract@5'
+    ],
+    cliCoordinate: 'witness admit run-stopped',
+    closedDomains: {
+      act: [
+        'run-stopped'
+      ],
+      subjectKind: [
+        'run'
+      ]
+    },
+    defaults: {},
+    effectClass: 'actor_attributed_witness_event',
+    eventAdmission: 'owning_semantic_authority',
+    sdkCoordinate: 'sdk.witness.admit',
+    workspaceBindingRequirement: 'exactly_one'
+  },
+  nonTerminalSchema: null,
+  owner: {
+    abstractModule: 'ABG.WitnessAdmission',
+...}
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/recover-stop-source.mjs:58:9

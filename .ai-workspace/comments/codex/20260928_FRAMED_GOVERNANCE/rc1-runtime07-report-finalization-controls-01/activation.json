@@ -1,0 +1,40 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RUNTIME07_REPORT_FINALIZATION_GRANT_01",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T08:06:44.182506+00:00",
+  "exactGrant": "Record pure report-consumer schema triangulation and separate Writer finalization grant. Only new controls and execution append, no implementation or Runtime effects.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-report-finalization-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 522538,
+      "sha256": "e3b8f3f99346385ac492059d5359f5d308df110b47c819fb6af03b9217ed7a36",
+      "mode": 420
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/close-failed-cut.py",
+      "bytes": 23390,
+      "sha256": "8bcd9c3f3217d6e55716d7f404a4bd709e8c8008a835beb561643efa365785a9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/flow-supervisor-start.json",
+      "bytes": 2198,
+      "sha256": "31b83a30655dc41e8a006802e87e44a01f13acbdb8401aaba2bd1f8c10b19f3b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/flow-supervisor-close.json",
+      "bytes": 1106,
+      "sha256": "32773c0a80837bd531bec03ac8924c229949e6cf8e1faa08975bbbd69e6404da",
+      "mode": 420
+    }
+  ]
+}

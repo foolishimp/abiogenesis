@@ -1,0 +1,90 @@
+{"kind":"closed_owner_artifact_snapshot","ownedAdditionalPhysicalOpens":0,"portableHandoffPhysicalOpens":1,"freshPhysicalOpens":1,"copiedPhysicalOpens":1,"projectionDigest":"sha256:2dd9b5e042501b492d7800765cf247456b453944b9659d583ef7328361ba2f3c","prefixLength":868,"scope":"one real contract-admitted fixture event/resource/ArtifactTruth; no installed environment, covered-source admission, campaign capacity or UAT credit"}
+✔ normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes (40.229958ms)
+✔ complete canonical declarations permit only publication identity consequences (20.852208ms)
+﹣ frozen176 selected declarations compare across artifact and manifest hash-order reversal (0.070375ms) # SKIP
+✔ only the substituted provenance inventory is ordered and every reference remains material (23.166375ms)
+✖ covered use binds exact original state, complete canonical Catalog and cold admitted coordinates (0.749875ms)
+✖ later completed work follows actual admitted covered-source ancestry without root or value guesses (0.160458ms)
+✖ built-in ingress preserves the whole captured34 state and independent assessment subject (0.111292ms)
+(node:87041) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ genuinely interrupted owner recovers once, keeps lock through validation and yields ordinary exact reopen (440.024625ms)
+ℹ {"logReads":1,"readBytes":6324,"elapsedMs":48.48625000000004,"events":3,"limit":"Product verifier supplied; actual physical owner, closed approval/manifest/export joins and ordinary reopen."}
+✔ selection, approval, owner and history mismatches leave the abandoned resource unchanged (381.265ms)
+✔ pre-adoption read failure and close-release failure retain primary cause and exact residue without a handoff (315.982334ms)
+✔ genuine append/close with undelivered handoff recovers selected absent lock and ordinarily reopens unchanged bytes (423.56925ms)
+ℹ {"coldReads":1,"bytes":6324,"premise":"Installed verifier supplied; genuine disposable process append+close, undelivered current handoff, exact maintenance approval and real ordinary reopen."}
+✔ absent-lock case refuses existing lock and invalid successor, cleans only its acquisition, and reports cleanup residue (368.217791ms)
+✔ initial origin survives first acquisition, first commit and first close before any handoff delivery (1547.667042ms)
+ℹ Four genuine process lifecycle cuts, both ownership residues, no invented predecessor handoff; artifact verification remains supplied lower premise.
+✔ initial-origin wrong selection, missing evidence and crossed approval refuse without changing actual residue (412.858583ms)
+✔ confirmed-unheld resource reconciles while former process lives; retained live ownership and unknown quiescence refuse (128.084667ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 11
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 4786.927458
+
+✖ failing tests:
+
+test at test_env/tests/t287-governance-covered-source-use.test.mjs:250:1
+✖ covered use binds exact original state, complete canonical Catalog and cold admitted coordinates (0.749875ms)
+  AssertionError [ERR_ASSERTION]: select the frozen bounded fixture
+      at captured (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:155:28)
+      at coveredFixture (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:183:11)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:251:17)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-governance-covered-source-use.test.mjs:285:1
+✖ later completed work follows actual admitted covered-source ancestry without root or value guesses (0.160458ms)
+  AssertionError [ERR_ASSERTION]: select the frozen bounded fixture
+      at captured (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:155:28)
+      at coveredFixture (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:183:11)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:286:17)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-governance-covered-source-use.test.mjs:329:1
+✖ built-in ingress preserves the whole captured34 state and independent assessment subject (0.111292ms)
+  AssertionError [ERR_ASSERTION]: select the frozen bounded fixture
+      at captured (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:155:28)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:330:11)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

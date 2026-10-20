@@ -1,0 +1,35 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/prepare.mjs"
+  ],
+  "subject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/prepare.mjs",
+      "sha256": "8f731c578a34b287a92f438d26a8741a8c5ebe2c2c71a783794a18929e99bafb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/selection.json",
+      "sha256": "a6efce30457c4c32e34a4e2af71416c9d3a0f268f40c471861df81e0c5293650"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/caller-subject.json",
+      "sha256": "8767131e965351140e488a5886425ba4d432941a0f70e5bd243a56cb6a39b7d6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/entry-close.json",
+      "sha256": "e8ca98606d626e917284c14ed83da2331aecf2110ccae80fb4d880878e5d425e"
+    }
+  ],
+  "effect": "one setup only; no actor/run/witness",
+  "heap": "default",
+  "priorEntryBytes": 115102824,
+  "predecessorCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/prepare.mjs",
+    "sha256": "926a0a761f7affc670c75ca4e7312b63177169e5447782b57aa69a36f796fbf0"
+  },
+  "callerDelta": "core24 artifact/target labels; exact genuine successor entry; frozen caller modules reused; complete verification refusal retention only",
+  "observations": "Existing operation elapsed windows, process time/RSS, owner entry/successors/close and retained file sizes; no production instrumentation"
+}

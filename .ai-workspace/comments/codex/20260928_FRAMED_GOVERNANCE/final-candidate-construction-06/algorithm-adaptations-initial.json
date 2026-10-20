@@ -1,0 +1,83 @@
+{
+  "boundedCurrentNamespaceAdaptations": [
+    {
+      "path": "final-controls/execute.py",
+      "donorBytes": 6182,
+      "donorSHA256": "ffb20b8b2b21e9b30d958ca12c7ba288651a280b4c06e0af54577368aaf19674",
+      "postimageBytes": 6182,
+      "postimageSHA256": "ecadf948bc92a760571d680a4960e577fc64d9b6800ccb578a33bcba70d2b0d3"
+    },
+    {
+      "path": "final-controls/finalize.py",
+      "donorBytes": 15975,
+      "donorSHA256": "628d38b79cedb215b53c3c9e2be3d63c2bac2886586899e9169559226f1cd25d",
+      "postimageBytes": 15975,
+      "postimageSHA256": "615a82d01537d3e1c7d51c44f95e6717f5b4ff0945f5bf1918cf6c07dd0c15c8"
+    },
+    {
+      "path": "final-controls/verify-installed.mjs",
+      "donorBytes": 5911,
+      "donorSHA256": "64418c8f0968b80e11223830c2f78bf191a4d489e60da6b28d1f55ca0cc11019",
+      "postimageBytes": 5911,
+      "postimageSHA256": "725e788eae980dac0bc31844b58924fe7299b88abcb8fd3f9b6b0e15bf5e2ed9"
+    },
+    {
+      "path": "final-controls/correspondence.py",
+      "donorBytes": 8067,
+      "donorSHA256": "5dd491241606c1080eead6801575ef57285e290cebdaac6ca12626fe9d8bcaba",
+      "postimageBytes": 8067,
+      "postimageSHA256": "36778f6358d9fabdb6bdeec45410da8a5e0d8769d28cd1e3d1fc985f1f97513c"
+    },
+    {
+      "path": "final-controls/compare-wrapper.mjs",
+      "donorBytes": 6426,
+      "donorSHA256": "26464640b0951371630e22c739045f9c4b5c46cc449b67e256c3d479afd40224",
+      "postimageBytes": 6426,
+      "postimageSHA256": "8961f5cb1ff75bdc8b7c797ca4a923e2ac54dc4fd2c278b8fc2245cf7b3d46e0"
+    },
+    {
+      "path": "final-controls/validate-installed-publications.mjs",
+      "donorBytes": 4520,
+      "donorSHA256": "ca393b224e231aa9872146eea84e9988621c7e623ef9252dba5a60d39a15fa66",
+      "postimageBytes": 4520,
+      "postimageSHA256": "02ba42494e649374d0de62cf2bc9b600a3f2bf6ed85f17e42e605b45f8b9d736"
+    },
+    {
+      "path": "final-controls/prepare.py",
+      "donorBytes": 11044,
+      "donorSHA256": "7b9359a9f3deb75ff820390c3d2a0ed0aaa6c777329d309c8525aa7fc22b3875",
+      "postimageBytes": 11044,
+      "postimageSHA256": "c87ff1b9d05cd080638ad68519cd051cec8a27d20b5a713c63657de0929d4a6e"
+    },
+    {
+      "path": "final-controls/prepare.py",
+      "donorBytes": 11044,
+      "donorSHA256": "c87ff1b9d05cd080638ad68519cd051cec8a27d20b5a713c63657de0929d4a6e",
+      "postimageBytes": 11711,
+      "postimageSHA256": "22c1dd24551d0d8a898b8cee90573518aecc1fb887e90d6e234f626aff77ead5"
+    },
+    {
+      "path": "final-controls/correspondence.py",
+      "donorBytes": 8067,
+      "donorSHA256": "36778f6358d9fabdb6bdeec45410da8a5e0d8769d28cd1e3d1fc985f1f97513c",
+      "postimageBytes": 8067,
+      "postimageSHA256": "3caedc22a90de05d2c95b962ef5a6c1285e4c3e823bd8c0a5deafb2bc95374b4"
+    },
+    {
+      "path": "final-controls/prepare-wrapper-comparison.py",
+      "donorBytes": 4463,
+      "donorSHA256": "7c202dd8dd38299519da06c16d6a5b118a24d9b6bdbb03342898da2a1db10e56",
+      "postimageBytes": 4463,
+      "postimageSHA256": "34fdfb0925f737398871503ca7c0119ff0fcc2648c19fb0d57d0ac44bf6369bd"
+    },
+    {
+      "path": "final-controls/compare-wrapper.mjs",
+      "donorBytes": 6426,
+      "donorSHA256": "8961f5cb1ff75bdc8b7c797ca4a923e2ac54dc4fd2c278b8fc2245cf7b3d46e0",
+      "postimageBytes": 6426,
+      "postimageSHA256": "5484b6f0938990592af3becfbba321464f90d35c4c6fa90d2a5a23fd5546fc52"
+    }
+  ],
+  "omittedDonorBehavior": "No repeated full historical source/Run/store payload verification; immutable metadata plus exact before/after store stat identity, accepted assurance reused",
+  "sourceOwnerEffects": 0
+}

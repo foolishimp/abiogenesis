@@ -1,0 +1,7 @@
+Create parcels/calculate.mjs as the reusable calculation module.
+Export the named synchronous function summarizeParcels(entries). Return the calculated summary without mutating entries. Importing or calling this module must not print output or perform I/O.
+The valid input is an array of entries with label (nonempty string), count (nonnegative safe integer), and gramsEach (nonnegative safe integer). All products and sums in the supported domain are safe integers.
+Compute lineCount as array length, totalParcels as the sum of count, and totalGrams as the sum of count * gramsEach. Empty input produces three zeroes; zero-count entries still count toward lineCount.
+The summary has exactly these properties in this order: lineCount, totalParcels, totalGrams. Compute from supplied values, with no fixture-identity checks or constant sample answers.
+Use dependency-free Node.js ES modules and Node built-ins only. Do not install packages, use a network, launch child processes, or write files from the generated modules.
+Return complete candidate bytes for only the declared target. Construction is tool-free: do not read files or execute commands or generated code.

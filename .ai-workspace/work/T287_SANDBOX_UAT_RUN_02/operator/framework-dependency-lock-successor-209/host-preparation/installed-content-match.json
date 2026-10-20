@@ -1,0 +1,9 @@
+{
+  "owner": "product.installedProductContentMatches",
+  "verifiedArtifactDigest": "sha256:88dc395a20d4ac0056224144e3cf5eab91411a5558018b34ec6f44e72a84ac2a",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "contentDigest": "sha256:4b0c7e13951bbd278588ae276816a661e04b3106e1171d776ffd3d9735121fa8",
+  "manifestDigest": "sha256:34fcc0db0e25c49653dfa16cbe4881f4c65bc8aba31c212084c2f5b0a3d96189",
+  "matches": true,
+  "scope": "Verified artifact expectation projected onto actual physical installed root; no ProductInstall/admission claim"
+}

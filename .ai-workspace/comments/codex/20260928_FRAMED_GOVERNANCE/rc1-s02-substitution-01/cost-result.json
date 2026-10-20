@@ -1,0 +1,21 @@
+{
+  "driverElapsedMs": 137905.182,
+  "driverPeakRSSBytes": 2587033600,
+  "maxCliPeakRSSBytes": 2587033600,
+  "summedCliElapsedMs": 117398.09,
+  "nodeOldSpaceMiB": 4096,
+  "driverBudgetMs": 2400000,
+  "allFiniteStageBudgetsSatisfied": true,
+  "osRSSCap": null,
+  "providerCapacityClaim": false,
+  "providerCalls": 0,
+  "modelCalls": 0,
+  "freshReadEventGrowthBytes": 0,
+  "rootEventGrowthBytes": 225779,
+  "finalEventBytes": 2701191,
+  "rootEventCount": 65,
+  "totalEventCount": 67,
+  "nativeCallCount": 11,
+  "paidCost": 0,
+  "interpretation": "Actual observed bounded cost, not an asymptotic or provider-capacity acceptance; full setup/publication/authentication material remains a cost residual."
+}

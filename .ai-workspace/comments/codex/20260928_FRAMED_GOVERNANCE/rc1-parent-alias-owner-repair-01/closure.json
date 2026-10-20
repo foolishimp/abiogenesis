@@ -1,0 +1,68 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_RC1_PARENT_ALIAS_OWNER_REPAIR_01",
+  "workResult": "NO_GO_REGRESSION_COMPLETENESS",
+  "firstMeaningfulFailure": "Three foldback mutants refuse at immutable snapshot precondition, before selected foldback predicates.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "bytes": 82284,
+    "sha256": "b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5",
+    "mode": 420
+  },
+  "newTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs",
+    "bytes": 12541,
+    "sha256": "56e2528757735d212be455383d651f47e05bc29dff38b02d5365267e7090ff51",
+    "mode": 420
+  },
+  "compiledEmitCount": 460,
+  "compiledChangedEmitCount": 24,
+  "changedEmits": [
+    "abg/construction_continuation.d.ts",
+    "abg/instruction_assembly.d.ts",
+    "abg/project_read_operation_contracts.d.ts",
+    "abg/qualification_proof.d.ts",
+    "abg/qualification_proof.js",
+    "abg/semantic_job.d.ts",
+    "abg/semantic_revision.d.ts",
+    "abg/semantic_stage.d.ts",
+    "abg/terminal_result_contracts.d.ts",
+    "abg/witness_operation_contracts.d.ts",
+    "implementation/release_publication.d.ts",
+    "product/environment_definition_bindings.d.ts",
+    "product/environment_operation_contracts.d.ts",
+    "product/interaction_operation_contracts.d.ts",
+    "product/project_read_definition_bindings.d.ts",
+    "product/project_read_operation_contracts.d.ts",
+    "product/release_snapshot_definition_bindings.d.ts",
+    "product/release_snapshot_operations.d.ts",
+    "product/worksite_command_forward.d.ts",
+    "product/workspace_definition_bindings.d.ts",
+    "product/workspace_operation_contracts.d.ts",
+    "shared/owner_contract_source_set.d.ts",
+    "validator/qualification_contracts.d.ts",
+    "validator/self_conformance_contracts.d.ts"
+  ],
+  "checks": {
+    "compile": {
+      "exitCode": 0,
+      "elapsedMs": 6083.438083063811,
+      "rssBytes": 1086832640,
+      "wait4ReapedMain": true,
+      "processGroupAfterWait": "absent"
+    },
+    "regression": {
+      "exitCode": 0,
+      "elapsedMs": 5012.11441680789,
+      "rssBytes": 879181824,
+      "wait4ReapedMain": true,
+      "processGroupAfterWait": "absent"
+    }
+  },
+  "runtimeProviderGitQualificationEffects": 0,
+  "nativeQualificationCredit": false,
+  "sourceIndependentAssurance": false,
+  "closedAt": "2026-10-03T16:48:25.790736+00:00",
+  "writes": "STOPPED_AFTER_FREEZE"
+}

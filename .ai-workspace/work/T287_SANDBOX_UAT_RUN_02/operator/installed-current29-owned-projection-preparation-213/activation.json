@@ -1,0 +1,117 @@
+{
+  "operator": 213,
+  "role": "One actual installed current29 owned-projection preparation; STOP before native dispatch",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2; original DataMapper Product/CONT source/identity/effects/Proof unchanged",
+  "rootConjunction": "Root accepted frozen211 plus independent212 and actual209/210 publication pair; this is one preparation attempt, not native/model authority",
+  "callerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-211/freeze.json",
+    "sha256": "104f85281e555a491b881830ac8a8f28d6444c399688787855f2872d88f6a888",
+    "byteCount": 11980
+  },
+  "reviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-review-212/freeze.json",
+    "sha256": "f305900e64c047305330323ec78f36ca326eb85d61eed872a92c440b83c3004c",
+    "byteCount": 1083
+  },
+  "exactCopies": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-211/prepare.mjs",
+        "sha256": "912ba3544ed04b0c4e71978be81bacf2045f5c8c4f26af21d7c53d38feccb144",
+        "byteCount": 44213
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/prepare.mjs",
+        "sha256": "912ba3544ed04b0c4e71978be81bacf2045f5c8c4f26af21d7c53d38feccb144",
+        "byteCount": 44213
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-211/inputs.json",
+        "sha256": "39637dbf2657250f51a1c4eb415747c436b30e793433be71ba11271fc1639827",
+        "byteCount": 13727
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/inputs.json",
+        "sha256": "39637dbf2657250f51a1c4eb415747c436b30e793433be71ba11271fc1639827",
+        "byteCount": 13727
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-211/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-211/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-211/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-211/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "byteExact": true
+    }
+  ],
+  "launcherOriginal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/launch.mjs",
+    "sha256": "dee0dea2c2c876eb0ef987c1a4ba550cfc32b17375ccb9752baaa52da7c26e31",
+    "byteCount": 960
+  },
+  "launcher": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/launch.mjs",
+    "sha256": "dee0dea2c2c876eb0ef987c1a4ba550cfc32b17375ccb9752baaa52da7c26e31",
+    "byteCount": 960
+  },
+  "logicalNamespace": "Frozen211 labels retained; dynamicdirname owns actual213 files",
+  "scope": "Only213 files/current29 native+freshconsumer canonical setup/binding/catalog/View/direct consumed-basis witness admissions and existing sameA canonical eventresource ownership. No source/app/Program/Git/manualhistory or model/Run effects.",
+  "limits": {
+    "stockHeap": true,
+    "outerMs": 19260000,
+    "outerBytes": 536870912,
+    "environment": "process.env; no credential values persisted"
+  },
+  "qualityClock": "Not started; later actual nativeCLI command.started only",
+  "stop": "First unexpected actual failure HOLD; preserve completed owners/earliest cause and genuine close if possible; no retry/repair/recovery"
+}

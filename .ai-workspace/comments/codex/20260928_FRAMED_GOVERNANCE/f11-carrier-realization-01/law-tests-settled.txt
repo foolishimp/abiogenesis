@@ -1,0 +1,14 @@
+✔ qualification law and every rule span bind the selected frozen source bytes (10.245292ms)
+✔ coverage declarations preserve retained behavior without execution slots or fabricated results (1.090291ms)
+✔ authority staging and ordinary reproduction bind retainedRC1's exact Definition-selected release (973.281875ms)
+✔ authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release (935.407333ms)
+✔ authority staging refuses wrong manifest and altered selected member before writing (795.334ms)
+✔ authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest (790.985542ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3817.878708

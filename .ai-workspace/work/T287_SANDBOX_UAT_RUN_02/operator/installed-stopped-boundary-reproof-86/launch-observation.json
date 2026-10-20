@@ -1,0 +1,19 @@
+{
+  "kind": "single_stock_heap_boundary_reproof_launch",
+  "startedAt": "2026-10-08T08:15:13.956Z",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/reproof.mjs"
+  ],
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "nodeOptions": null,
+  "timeoutMs": 19260000,
+  "defaultRecorderCaptureUnraised": true,
+  "noProviderOrNewRun": true
+}

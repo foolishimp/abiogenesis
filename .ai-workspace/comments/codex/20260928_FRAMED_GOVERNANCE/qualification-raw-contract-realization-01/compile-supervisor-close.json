@@ -1,0 +1,27 @@
+{
+  "mode": "compile",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.json"
+  ],
+  "pid": 8873,
+  "processGroup": 8873,
+  "startedAt": "2026-10-02T09:03:24.306537+00:00",
+  "closedAt": "2026-10-02T09:03:30.386133+00:00",
+  "elapsedMs": 6079.712458886206,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 1087733760,
+  "userSeconds": 10.107982,
+  "systemSeconds": 0.21903299999999998,
+  "knownCLIProcessGroups": [],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

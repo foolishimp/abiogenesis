@@ -1,0 +1,223 @@
+{
+  "classification": "Corrected existing public factory construction; historical source lifecycle conserved; no runtime effect",
+  "sourceReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/catalog-repair-01/return.md",
+    "sha256": "15a2b38943234ced33bb0c7530e99fc191ea25118b9888ef2645ecfd90ef6ecd",
+    "byteCount": 887
+  },
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/catalog-repair-01/frozen-subject.json",
+    "sha256": "c286bd2a595ef22160b0681841b72616ab729b9b82ef502afdbca51c292a2d81",
+    "byteCount": 1508
+  },
+  "generatedSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-02/generated-subject.json",
+    "sha256": "9ec5018f2376bad9512a2a058fef61b62680ffb4408a3b6dd705b4a779dd8d9e",
+    "byteCount": 322
+  },
+  "gtlPublicEntry": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/index.js",
+    "sha256": "058c931db7e9c18a88a64f79c92ca2200acc77059383ba37d799e4f570f73a0e",
+    "byteCount": 7986
+  },
+  "frozenGlcDeclarationSource": {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+    "sha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599",
+    "byteCount": 34704
+  },
+  "producer": {
+    "core": {
+      "artifactDigest": "sha256:64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+      "productContentDigest": "sha256:ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e",
+      "manifestDigest": "sha256:bd392df59fabfe2b47f6fd24dcbbf43817044cbb3e939bc49ea7f5ab41a48010",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "installedRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "consumer": {
+      "packageName": "@odd-glc/route-one-typescript",
+      "packageVersion": "0.2.0-dev.8",
+      "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.8",
+      "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "graphFunctionRef": "graph-function://odd-glc/generic-lifecycle-witness@5",
+      "graphRef": "graph://odd-glc/generic-lifecycle-witness@5",
+      "startRef": "start://odd-glc/generic-lifecycle-witness@5",
+      "closureContractRef": "contract://odd-glc/generic-lifecycle-witness/closure@5",
+      "descriptorRef": "descriptor://odd_glc/route-one-typescript@0.2.0-dev.8",
+      "contributionManifestRef": "contribution-manifest://odd_glc/route-one-typescript@0.2.0-dev.8",
+      "catalogRef": "catalog://odd_glc/public-contracts@0.2.0-dev.8",
+      "provenanceRef": "provenance://odd_glc/route-one-typescript@0.2.0-dev.8",
+      "sourceDeclarationRef": "declaration://odd-glc/generic-lifecycle/source@5",
+      "sourceGraphFunctionRef": "graph-function://odd-glc/generic-lifecycle/source@5",
+      "sourceModuleRef": "module://odd-glc/generic-lifecycle-source-setup@5",
+      "sourceProgramRef": "program://odd-glc/generic-lifecycle-source-setup@5",
+      "sourceClosureContractRef": "contract://odd-glc/generic-lifecycle/source/closure@5",
+      "lifecycleDeclarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+      "artifactDigest": "sha256:aef3df7a43da5d8af620c624a4c88f5eb30b6de26437458a8fd81156b6d877c9",
+      "productContentDigest": "sha256:e051c3c9a1260fac803b20c74658f34ba732699c972779a0b8aeed6950e21d16",
+      "manifestDigest": "sha256:36a0ff15d98dba52387d918a92014f7228ac17dbd80ec9d7e11394ef8004c526",
+      "artifactPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources/artifacts/odd-glc-route-one-typescript-0.2.0-dev.8.tgz",
+      "packageRoot": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources/development-product",
+      "payloadInventory": [
+        {
+          "path": "build/publication.json",
+          "sha256": "sha256:9372b18c5eca6e93ffb2179697b582b1642bf8637441d1474e165d777d442122"
+        },
+        {
+          "path": "contracts/public-contract-catalog.schema.json",
+          "sha256": "sha256:a69db2dd825711aba598d29d8880b20df39aa8ac691fa25b5d7c058eed964646"
+        },
+        {
+          "path": "package.json",
+          "sha256": "sha256:e5ee9ca705f3897a197ea647ea95aa5d66718b353a9b7e4d7fb2885f64a9f87e"
+        }
+      ]
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources/artifacts/odd-glc-route-one-typescript-0.2.0-dev.8.tgz",
+      "sha256": "aef3df7a43da5d8af620c624a4c88f5eb30b6de26437458a8fd81156b6d877c9",
+      "byteCount": 17462
+    },
+    "publicationArchiveMember": "package/build/publication.json",
+    "publication": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-01/original-dev8-publication.json",
+      "sha256": "9372b18c5eca6e93ffb2179697b582b1642bf8637441d1474e165d777d442122",
+      "byteCount": 159424
+    },
+    "consumerManifestArchiveMemberSha256": "b8416d5997ef9c729759749adc16e57349dd24c14dd3c55830abe245889fc000",
+    "prepared": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/prepared.json",
+      "sha256": "8a8dc8d3bdc2be4e88e013e9eda8d3d0a897e50149e7b10e854225e005e09159",
+      "byteCount": 8231
+    },
+    "closedOutcome": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/closed-outcome.json",
+      "sha256": "f82b401b94697bb48b02cacdea356115b2bce6bcc5de0ba5f401a11f42b92a11",
+      "byteCount": 9685
+    }
+  },
+  "historicalLifecycle": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-01/original-lifecycle.json",
+      "sha256": "89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+      "byteCount": 16809
+    },
+    "coordinate": {
+      "declarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+      "declarationDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+      "stageRefs": [
+        "stage://odd-glc/generic-lifecycle/intent@5",
+        "stage://odd-glc/generic-lifecycle/product@5",
+        "stage://odd-glc/generic-lifecycle/requirements@5",
+        "stage://odd-glc/generic-lifecycle/design@5",
+        "stage://odd-glc/generic-lifecycle/evidence@5"
+      ],
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "programDigest": "sha256:dbd93bf34f8ce3ffd9332cb0a436bf31a7e465437a2fae20b9c13b7b2021909c",
+      "actorLeafCount": 3
+    },
+    "stageDigests": [
+      {
+        "ref": "stage://odd-glc/generic-lifecycle/intent@5",
+        "digest": "sha256:6d923d52776321c8b20a7a719aef22a25c08317b4523a68d4042f0e97df37578"
+      },
+      {
+        "ref": "stage://odd-glc/generic-lifecycle/product@5",
+        "digest": "sha256:a4732fb74fa59c942271b5c024fa6bebe5a2adaaf9596f3e3c7937759976b815"
+      },
+      {
+        "ref": "stage://odd-glc/generic-lifecycle/requirements@5",
+        "digest": "sha256:1baf83c7fe1396bbafc4d0853b67300d58faf4078d6156c2bdb35121a8c8eb5e"
+      },
+      {
+        "ref": "stage://odd-glc/generic-lifecycle/design@5",
+        "digest": "sha256:346b07621a8e13bebd704a8bccf9a825d1d2bc6607197e0c887d0c53974b5390"
+      },
+      {
+        "ref": "stage://odd-glc/generic-lifecycle/evidence@5",
+        "digest": "sha256:bf3269bfe771ba20fe8d186802fd7b17e19b072d8f4292a8c1e65ae61fe3b5fe"
+      }
+    ]
+  },
+  "historicalEnvironment": {
+    "declarationRef": "environment://odd-glc/full-sandbox/fresh-native-rc4@5",
+    "declarationDigest": "sha256:fba79ce47429b53bd1b58ed79320bc23f6a3d769d17031f08af12f4ecbe41e13",
+    "resourcesDigest": "sha256:b22a2d6cebc6b422de7306f13aae27d08a39973e594da708c2006e0acb9dfe37"
+  },
+  "originalJob": {
+    "kind": "semantic_job_input",
+    "lifecycleRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+    "recordedInputDigest": "sha256:5b642eaceb26413bef4f6abe7121a17f7d6d1da5488a26ab9856a8e1f8ac40c6",
+    "originalInput": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/ordinary-input.json",
+      "sha256": "cf67b040b7e8b56e1b33cde65ba3f7435ac8f459ebb960d8d4fb820e9b87bc08",
+      "bytes": 12834
+    },
+    "originalSource": {
+      "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+      "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+      "startByte": 15571,
+      "endByte": 21691,
+      "selectedDigest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4"
+    },
+    "sourceMembers": [
+      {
+        "memberRef": "urn:sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "path": "original-js-sdlc-bootstrap-declaration.txt",
+        "sourceLocator": "repo://odd_glc/build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs#bytes=15571-21691"
+      }
+    ],
+    "protectedSourceRubricOracle": [
+      {
+        "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/original-js-sdlc-bootstrap-declaration.txt",
+        "sha256": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "currentSha256": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "unchanged": true
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/semantic-assets/lifecycle-rubric.json",
+        "sha256": "sha256:c77a38d684dde09c38197415796c9594c900278dcc047abf8744c07f382a0edf",
+        "currentSha256": "sha256:c77a38d684dde09c38197415796c9594c900278dcc047abf8744c07f382a0edf",
+        "unchanged": true
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-sdlc-bootstrap.oracle.json",
+        "sha256": "sha256:a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+        "unchanged": true
+      }
+    ],
+    "lifecycle": {
+      "declarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+      "declarationDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+      "stageRefs": [
+        "stage://odd-glc/generic-lifecycle/intent@5",
+        "stage://odd-glc/generic-lifecycle/product@5",
+        "stage://odd-glc/generic-lifecycle/requirements@5",
+        "stage://odd-glc/generic-lifecycle/design@5",
+        "stage://odd-glc/generic-lifecycle/evidence@5"
+      ],
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "programDigest": "sha256:dbd93bf34f8ce3ffd9332cb0a436bf31a7e465437a2fae20b9c13b7b2021909c",
+      "actorLeafCount": 3
+    },
+    "semanticJobRef": null,
+    "rootExecutionBasisRef": null,
+    "identityLimit": "Exact semantic-job/root execution coordinates are not supplied by these compact retained records; no formula or borrowed root used."
+  },
+  "nativeIntake": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-01/native-intake-input.json",
+    "sha256": "f30db46be39e92a68650bf12628da6d8b9ef8a8061d16e59f16c3cb268326736",
+    "byteCount": 1018
+  },
+  "prospectivePublicationIdentity": {
+    "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.11",
+    "descriptorRef": "descriptor://odd_glc/route-one-typescript@0.2.0-dev.11",
+    "contributionManifestRef": "contribution-manifest://odd_glc/route-one-typescript@0.2.0-dev.11",
+    "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+    "status": "authoring identity only; no package/version selection or install claim"
+  },
+  "preservation": "No historical archive, source/oracle, role environment, Run, workspace or resource is changed. SourceRun/prefix are ordinary retained public coordinates; acquisition and eligibility remain unexecuted."
+}

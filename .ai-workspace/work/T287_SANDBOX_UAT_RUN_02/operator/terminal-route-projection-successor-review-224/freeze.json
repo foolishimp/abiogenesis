@@ -1,0 +1,21 @@
+{
+  "status": "CLOSED_FROZEN_STOPPED",
+  "review": 224,
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/freeze.json",
+    "sha256": "5c5a8a7bed3b31640c9cfe9d68af8c7b7da7111612431e728150bdeaf8de066e",
+    "byteCount": 1588
+  },
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-review-224/return.md",
+    "sha256": "91654f16cc4bf5b5c5a45b74da209b8ecdc33d91356540ae5ad103400f0a6007",
+    "byteCount": 3136
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-review-224/pins.json",
+    "sha256": "0eb7e7dbaf6633efed4e5a39df4826cc9ae9128af4d53031a3584c0378fca4c3",
+    "byteCount": 4744
+  },
+  "effects": "Only these three new review files; canonical/runtime/history unchanged.",
+  "disposition": "BOUNDED_GO"
+}

@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED_HOLD_STOP_one_actual_preparation",
+  "operator": 213,
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/return.md",
+    "sha256": "d7c3ab85cdb7232a567e3e1e6d408763a451a02f0207644b31a038a90de60078",
+    "byteCount": 2707
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/readiness.json",
+    "sha256": "64252ff8b5110851f4cf63a690402cbd7cd0121761018a353ba3d5633128f08f",
+    "byteCount": 12775
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/pins.json",
+    "sha256": "9b813fde66c2c972d3f449fd39b70e5feed40be58c3991026a116af57435cfdd",
+    "byteCount": 15682
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/first-cause.json",
+    "sha256": "9ca8ec4e96c70308b16c65c498e905df1946a69e2749db3654eb310e39c09a46",
+    "byteCount": 1365
+  },
+  "actualResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/product-preparation-result.json",
+    "sha256": "0fed960afd997c79dabee78a1f06939acb7c37ee25ff9e6936a6d3c41fc79092",
+    "byteCount": 281
+  },
+  "genuineClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/final-close-handoff.json",
+    "sha256": "a174afdd863e8fad4d5dd17105e69c7d40127cb06cbc79d7a37a72451c52afb5",
+    "byteCount": 1472
+  },
+  "localPinCount": 36,
+  "externalPinCount": 15,
+  "limits": "One actual installed29 preparation attempt only. Successful current setup/source-use/real callback are bounded owner joins. Private Product preparation refused invalid_capability at /invocationAuthority; its exact inner predicate is not yet localized. No prepared native invocation, Run/model/app dispatch, original UAT/capacity/P0/release qualification or successful continuation. No heap/env/cap/Source/Program/Git change or extra log acquisition/hash."
+}

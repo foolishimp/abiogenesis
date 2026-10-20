@@ -1,0 +1,58 @@
+{
+  "status": "UNACCEPTED_FAILED_READINESS",
+  "Source": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10917,
+      "sha256": "0974a3d320452d98c58e01f11aa154935ffddbc5ed985c2708f0458a46059cc1",
+      "mode": 420,
+      "preimage": "absent before separately recorded Worker activation",
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_01",
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/retained-installed-consumer.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 4999,
+      "sha256": "79832a41d30f1a42d26f576e095c87ca9afe105bd8bdfe8afd16aa0e9642c182",
+      "mode": 420,
+      "preimage": "absent before separately recorded Worker activation",
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_01",
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/prepare-retained-setup-binding.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 13285,
+      "sha256": "e69f874005b1227512fc1bc27a20c4b31a17fe94900dcdcacaf87a2bb316fc1a",
+      "mode": 420,
+      "preimage": "absent before separately recorded Worker activation",
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_01",
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/t287-retained-installed-consumer.test.mjs"
+    }
+  ],
+  "readOnlyFrameworkConserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+      "bytes": 95404,
+      "sha256": "2fcf1a47f5c0760f3fdd38c4caa34b4252b1ad989f1943c098152a60a0387cfc",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "bytes": 18613,
+      "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "bytes": 16133,
+      "sha256": "a5e908e5da7a9d1059ae8dbc4446a5a407c10d43c8218c9f1c99fd1a9d77087b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+      "bytes": 23918,
+      "sha256": "429593f1d8e7041384da2bee509f3053999f86675146044fad1249a644f9353f",
+      "mode": 420
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "status": "passed",
+  "processExit": 0,
+  "elapsedSeconds": 8.556370500009507,
+  "directManagedChildrenMaxRSS": 1684750336,
+  "RSSScope": "OS RUSAGE_CHILDREN value; no whole-native/runtime memory claim",
+  "selectedCount": 6,
+  "expectedCount": 6,
+  "allOriginalAssertionsReachedAndPassed": true,
+  "cases": [
+    {
+      "ordinal": 1,
+      "type": "case",
+      "passed": true,
+      "name": "closed resource forms retain nonempty group arrays and actual old embedded identities",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 1,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 2,
+      "type": "case",
+      "passed": true,
+      "name": "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 2,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 3,
+      "type": "case",
+      "passed": true,
+      "name": "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 3,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 4,
+      "type": "case",
+      "passed": true,
+      "name": "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 4,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 5,
+      "type": "case",
+      "passed": true,
+      "name": "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 5,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 6,
+      "type": "case",
+      "passed": true,
+      "name": "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "nesting": 0,
+      "testNumber": 6,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": null
+    }
+  ],
+  "summaries": [
+    {
+      "ordinal": 7,
+      "type": "summary",
+      "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "counts": {
+        "tests": 6,
+        "failed": 0,
+        "passed": 6,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 6,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 8158.014083
+    },
+    {
+      "ordinal": 8,
+      "type": "summary",
+      "file": null,
+      "counts": {
+        "tests": 6,
+        "failed": 0,
+        "passed": 6,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 6,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 8478.869667
+    }
+  ],
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/stdout.jsonl",
+    "bytes": 2388,
+    "sha256": "d1b5055dbb3ffda2a13e90256410d43c9b62e1f51c353b2be408985ef340e220"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "oneCommandOnly": true,
+  "retryOrPatchAfterFailure": false,
+  "allKnownCommandProcessesStopped": true,
+  "qualification": "not observed QUAL056, native F11, independent J or AF22; existing isolated mechanical component readiness only"
+}

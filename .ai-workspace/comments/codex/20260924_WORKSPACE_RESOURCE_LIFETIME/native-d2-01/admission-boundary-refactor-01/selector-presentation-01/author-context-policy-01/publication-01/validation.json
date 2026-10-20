@@ -1,0 +1,189 @@
+{
+  "kind": "static_validation_refusal",
+  "schemaVersion": "5.0.0",
+  "disposition": "invalid",
+  "stage": "publication",
+  "subjectDigest": "sha256:5c430aa21aeb978d2160a5e7680ebf1380b30d9d38192578bd2987f6f23b73fd",
+  "diagnostics": [
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle-witness@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/design@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/design@5/native-assessment].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/envelope-output@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/evidence@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/evidence@5/native-assessment].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/intake@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/intent@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/intent@5/native-assessment].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/native-construction@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/product@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/product@5/native-assessment].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/requirements@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/generic-lifecycle/requirements@5/native-assessment].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/acquire@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/construction-repair-projection@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/construction-repair@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/construction@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-design-projection@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-design@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-evidence-projection@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-evidence@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-intent-projection@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-intent@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-product-projection@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-product@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-requirements-projection@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/from-requirements@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/intake@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/select@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/stage-0@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/stage-1@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/stage-2@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/stage-3@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/stage-4@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "code": "duplicate_identity",
+      "path": "$.contributions[graph-function://odd-glc/native-semantic-revision/terminal@5].provenanceRefs",
+      "message": "duplicate contribution provenance ref sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

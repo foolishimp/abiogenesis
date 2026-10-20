@@ -1,0 +1,19 @@
+{
+  "status": "accepted_bounded_document_reconciliation",
+  "created_utc": "2026-10-20T16:55:37.011766+00:00",
+  "subject_manifest": "candidate-freeze-02.json",
+  "subject_manifest_sha256": "d48dd904ce8a095f541d866894457dfdec8e54115c1fd2852c915cefc3762499",
+  "independent_review": "review-02.md",
+  "independent_review_sha256": "686206c8b3c93bb56bc6a4c2486126344677a7af01d5e15380f02d9d3f32afbc",
+  "independent_result": "satisfied",
+  "review_checks_sha256": "e291dff1ad8acdb39b83a8f5ad82db96b8571595e98f3c54506982ae27b7af78",
+  "executive_disposition": "disposition.md",
+  "executive_disposition_sha256": "4f6e1524e770eff05cd2bbb7f8f8971f71581dbe0c06c2a6b3da5fadd7a3ccce",
+  "candidate_files_verified": 18,
+  "mechanical_document_checks": 970,
+  "independent_identity_preservation_checks": 30,
+  "unrelated_source_files_preserved": 677,
+  "runtime_qualification": "open",
+  "release": "open",
+  "git_commit_or_push": "not_performed"
+}

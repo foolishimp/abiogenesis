@@ -1,0 +1,38 @@
+{
+  "sourceSelected": 1103,
+  "generatedOutputs": 828,
+  "qualificationSourceMembers": 1931,
+  "protectedSourceInputs": 691,
+  "lintFiles": 331,
+  "authorityJoins": 95,
+  "dependencies": 16,
+  "npmFiles": 2312,
+  "archiveFiles": 5256,
+  "expectedCompareMembers": 925,
+  "archiveInventory": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/archive-members.json",
+    "bytes": 1058817,
+    "sha256": "653e605d051ddfafd4649af53c0911572f997069232caf2baca1a644a0c1c68e"
+  },
+  "generatedInventory": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/generated-after.json",
+    "bytes": 142745,
+    "sha256": "ec78d4e32ad880dec3ac78aa69392a0c8c91cba5b01b50469a1ffadd0b15c6f4"
+  },
+  "preimageInventory": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/generated-before.json",
+    "bytes": 142745,
+    "sha256": "0f61d8c779e600a028fb1dea9de43d3836573ffe04aeeb5e37bd603a4f78481c"
+  },
+  "realizedBuildDependencies": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/realized-dependencies-before-build.json",
+    "bytes": 923742,
+    "sha256": "6c023f5eefa7be3f7362cf57fd5ca430dce41599e366e9a0177af15588679827"
+  },
+  "sourceOverlay": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-overlay.json",
+    "bytes": 420,
+    "sha256": "08b77cdb91cf2346c29a16c60f1e265620893cdd6721617c81fbd77c06031970"
+  },
+  "reason": "All 1103 selected members and 828 generated output members are qualification source inventory. Bundled supplier payload membership remains complete in archive inventory, not falsely attributed as new local authorship. Protected build/lint selects all 689 operational and proof source members plus two schema seeds. Design/original law remain qualification inputs. Five test selections unchanged."
+}

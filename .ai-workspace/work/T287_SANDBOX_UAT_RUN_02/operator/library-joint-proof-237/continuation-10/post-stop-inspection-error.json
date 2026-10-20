@@ -1,0 +1,6 @@
+{
+  "operation": "Read saved lifecycle outcome as ownerOutput rather than actual receipt wrapper",
+  "error": "KeyError: 'ownerOutput'",
+  "boundary": "Documentary lookup only; no owner/resource/Source/worksite effects",
+  "correction": "Read actual saved wrapper keys, then receipt.ownerOutput; retained results unchanged"
+}

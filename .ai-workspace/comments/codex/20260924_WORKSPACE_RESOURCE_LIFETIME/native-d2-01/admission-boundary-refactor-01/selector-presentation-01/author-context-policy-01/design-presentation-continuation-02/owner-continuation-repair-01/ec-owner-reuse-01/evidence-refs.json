@@ -1,0 +1,134 @@
+{
+  "status": "CLOSED_WORKER",
+  "claim": "bounded source owner continuation conservation; Root acceptance pending",
+  "files": {
+    "activation.md": {
+      "sha256": "be53fbc482fc84c05301284b35abaeb9d365265a502df6953f872f87f7a8c259",
+      "bytes": 799
+    },
+    "return.md": {
+      "sha256": "7d741af5b618c40838f88f732b68481e345e4572b396f531ee47c276725fd8aa",
+      "bytes": 6188
+    },
+    "closed-opus04-prefix.jsonl": {
+      "sha256": "1b5c9cd06f65197b150e14cb820495a7488a268bec142ddf15cc79d3b384614f",
+      "bytes": 17863616
+    },
+    "baseline-ordered-reconstruction.log": {
+      "sha256": "2318dd57e86c4d431494f1fdf99922f4dbc358b9ee38d3e1dfd846c1e693270d",
+      "bytes": 2336
+    },
+    "existing-checks-1.log": {
+      "sha256": "707e1ac4cbafe577572b0acb482396d8ea9b93e09a1fb45311f1a3d283700f8a",
+      "bytes": 1739
+    },
+    "replay-checks.py": {
+      "sha256": "d6e9eb4f19bd5f4998cf9f8166528e409ff2b2193e14c9a61f84be88d2d8d536",
+      "bytes": 719
+    },
+    "existing-checks-2.log": {
+      "sha256": "daf1adad1fcacc42a79ed179b81e15bb2421eb0c31521ce783f55366f22e61a0",
+      "bytes": 1708
+    },
+    "event_calculus.diff": {
+      "sha256": "161858dffcbc4d2677a4f3f31ced6cbed7d080228b2084f6170f733ecf10cfc7",
+      "bytes": 11415
+    },
+    "compile.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "build-code-src-postimages.json": {
+      "sha256": "f6b29bb724aedf29e3dab315125fcd0b597c1bf7038c9c4709f5c31e3936e70e",
+      "bytes": 59295
+    },
+    "preimage-loader.mjs": {
+      "sha256": "a6ce4bbb31daf61346611a2a282e35f90c8690a1f0613b17f1bf4b2a5b2e2686",
+      "bytes": 399
+    },
+    "closed-fixture.json": {
+      "sha256": "2da80a48dd4152e68eafc6d9cd35890c9f3385db642e016aa019898258b41adb",
+      "bytes": 2028
+    },
+    "code-src-preimages.json": {
+      "sha256": "728b9a6d1f54e1901881df123b255f860cf9be386335551d8c7ffe0dad61c66a",
+      "bytes": 27899
+    },
+    "focused-controls.log": {
+      "sha256": "5ae472fdaeae9c9b712695867420934500fbbf278fa3a8899c51992e16552d8c",
+      "bytes": 729
+    },
+    "subject-delta.json": {
+      "sha256": "08e6695dc3994b3625089c423e208b03508e5a462607f1901790b0147e308bc7",
+      "bytes": 1331
+    },
+    "build-code-src-preimages.json": {
+      "sha256": "33541cc34fef72e999b471501d074542d02cd58caa6e81c187eac21e15eaad22",
+      "bytes": 59295
+    },
+    "runtime_liveness.diff": {
+      "sha256": "ef079b5cc94689da701ecae2f4d0c2f0d72792329b829c144153f62412f466d4",
+      "bytes": 8201
+    },
+    "owner-continuation-controls.json": {
+      "sha256": "cb0af710fffa2476003bb8a618d1e1bfde241a33993af47fe8b53b9cfdf286db",
+      "bytes": 5781
+    },
+    "code-src-postimages.json": {
+      "sha256": "c6f802d50af2548eace80797c886236c9278cb07a4d1cd97b223c8170f295d97",
+      "bytes": 27899
+    },
+    "compile.json": {
+      "sha256": "a926011a40680d54d8406ea91603f52b9e14fff9fb7208f728d6ac0fac317467",
+      "bytes": 189
+    },
+    "baseline-terminal-locus.log": {
+      "sha256": "e9c50a8f0ddd168b9e0d975a16e4d0d1593e6e03c8bd45091d75f0b560b047f8",
+      "bytes": 1629
+    },
+    "preimage/code/src/abg/runtime_liveness.ts": {
+      "sha256": "a0ee579a28c6372ccb2bbb65d581b1953f4c27e829721a2189ea92102784f7f4",
+      "bytes": 75040
+    },
+    "preimage/code/src/abg/event_calculus.ts": {
+      "sha256": "100d037846789f56fbbc279ece7923a3f4d2b04effefdb5ae0f35e21357ae467",
+      "bytes": 72911
+    },
+    "preimage/build/code/src/abg/runtime_liveness.d.ts": {
+      "sha256": "25ed57317c05d3d7b4ff6f06e0802475cec129c0d67d0ac8966a4a71a06f8111",
+      "bytes": 5663
+    },
+    "preimage/build/code/src/abg/event_calculus.js": {
+      "sha256": "9edc80e3277e89b26103da2a0d646dba050282698753e5ed4b2b18cf680f2c1a",
+      "bytes": 76454
+    },
+    "preimage/build/code/src/abg/event_calculus.d.ts": {
+      "sha256": "1fee111da34680cf8d7ac6c6b974b617a4ac8915e39b9c26781a303e5bd246d3",
+      "bytes": 19197
+    },
+    "preimage/build/code/src/abg/runtime_liveness.js": {
+      "sha256": "0eb18b3605551e02098ca3ad60e65f8776d178a76723b3bed6e1a8606b96f008",
+      "bytes": 73764
+    },
+    "postimage/code/src/abg/runtime_liveness.ts": {
+      "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd",
+      "bytes": 76115
+    },
+    "postimage/code/src/abg/event_calculus.ts": {
+      "sha256": "354dde450eda3c986c25ec4919f2884ef54a13d4bebde8647693a6af97f2ed0e",
+      "bytes": 75468
+    },
+    "postimage/test_env/tests/t287-event-calculus-owner-continuation.test.mjs": {
+      "sha256": "0f86b55946040837d508345ad4a9233a86affa81aea0bd1022a36a20425c312f",
+      "bytes": 16791
+    },
+    "postimage/build/code/src/abg/event_calculus.js": {
+      "sha256": "f9defa9971b351f5d9aa578e4a60fe2fcd09f07da1042898541e781321548312",
+      "bytes": 78798
+    },
+    "postimage/build/code/src/abg/runtime_liveness.js": {
+      "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09",
+      "bytes": 74635
+    }
+  }
+}

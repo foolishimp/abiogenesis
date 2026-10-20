@@ -1,0 +1,165 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/consumer/genuine-pilot.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_06/consumer/genuine-pilot.mjs
+@@ -17,7 +17,7 @@
+ const archiveDigest = 'sha256:214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6';
+ const pinnedNode = join(repo, '.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node');
+ const eventLogPath = join(originalRoot, 'resources/events/runtime.events.jsonl');
+-const historicalHandoff = join(repo, '.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2/assessment-handoff.json');
++const historicalHandoff = join(repo, '.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/assessment-handoff.json');
+ const constructionRoot = join(repo, '.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction');
+ const currentConstructionRoot = join(repo, '.ai-workspace/evidence/T287_CONTEXT_PROJECTION_REPAIR_01/source-construction');
+ const mode = process.env.ABI5_GENUINE_MODE ?? 'prepare';
+@@ -32,15 +32,14 @@
+ const started = performance.now();
+ const metrics = () => ({elapsedMs: performance.now() - started, currentRssBytes: process.memoryUsage().rss,
+   currentHeapUsedBytes: process.memoryUsage().heapUsed, cumulativePeakRssBytes: process.resourceUsage().maxRSS * 1024});
+-const deadline = () => assert(performance.now() - started < (mode === 'prepare' ? 120000 : 600000), 'selected phase exceeds granted process cap');
++const deadline = () => assert(performance.now() - started < 180000, '06 flow/fresh exceeds180s');
+ const pin = async path => {const bytes = await readFile(path); return {path, bytes: bytes.length, digest: digest(bytes)};};
+ let phase = 'prerequisites';
+ assert.equal(process.execPath, pinnedNode);
+ assert.equal(process.env.HOME, '/Users/jim');
+ assert.equal(process.env.NODE_OPTIONS, undefined);
+ assert.equal(process.env.TMPDIR, join(originalRoot, 'tmp'));
+-if (mode === 'prepare') assert.equal(process.env.ABG_TS_CLAUDE_COMMAND, undefined, 'phase1 has no CLI dispatch configuration');
+-else assert.equal(process.env.ABG_TS_CLAUDE_COMMAND, '/Users/jim/.local/bin/claude');
++assert.equal(process.env.ABG_TS_CLAUDE_COMMAND, undefined, '06 dispatches no CLI or native actor');
+ 
+ async function restore(caller) {
+   const old = await readJson(join(originalRoot, 'setup-observation.json'));
+@@ -289,7 +288,7 @@
+   await writeJson(join(root, 'continuation-inputs.json'), {selfBase, basis, criterion, declarationSelection});
+   return {assessmentInput, assertion, prepared, resources, selfBase, basis, criterion, declarationSelection,
+     makeProof: (prefix, selections) => ({kind: 'qualification_proof_resource', schemaVersion, representation: 'resource_refs_v1', resource,
+-      prefix, declarations: [declarationSelection], selections, executionSelections: []})};
++      prefix, declarations: [declarationSelection], selections})};
+ }
+ 
+ async function main() {
+@@ -299,65 +298,39 @@
+   const handoff = await readJson(historicalHandoff);
+   assert.equal(hash(handoff.closeHandoff), handoff.handoffDigest);
+   const log = await readFile(eventLogPath), physical = await stat(eventLogPath);
+-  assert.equal(log.length, 5489354); assert.equal(digest(log), 'sha256:0fb336ea0a4f2c69ae3f2c629a8fa39bd8a96d12fecd551cc93728d94cf41811');
++  assert.equal(log.length, 13473583); assert.equal(digest(log), 'sha256:880afc79e4e1d5dcfee88f2168cce0e0341bfa866940a8bf2e10ea170ceb7591');
+   assert.equal(physical.dev, 16777231); assert.equal(physical.ino, 465654884);
+   await writeJson(join(root, 'entry-handoff.json'), handoff);
+   const caller = createCaller({root, native, binding: selected.binding, closeHandoff: handoff.closeHandoff, eventLogPath});
+   const install = await restore(caller);
+-  let packet;
+-  if (mode === 'prepare') {
+-    packet = await instances(caller, install);
+-    deadline();
+-    const after = await readFile(eventLogPath), afterPhysical = await stat(eventLogPath);
+-    assert(log.equals(after)); assert.equal(afterPhysical.dev, physical.dev); assert.equal(afterPhysical.ino, physical.ino);
+-    await writeJson(join(root, 'phase1-observation.json'), {status: 'prepared_frozen_input_pending_independent_review',
+-      inputDigest: hash(packet.assessmentInput), requestDigest: hash(packet.prepared.request),
+-      promptBytes: Buffer.byteLength(packet.prepared.request.prompt), currentPrefix: caller.state.closeHandoff.prefix,
+-      nativeCalls: 0, nativeDispatches: 0, cliInvocations: 0, realProviderCalls: 0, newEvents: 0,
+-      actualLogDevice: physical.dev, actualLogInode: physical.ino,
+-      semanticContextSufficiency: 'not yet independently assessed', phase2RequiresRootFollowup: true, ...metrics()});
+-    console.log(JSON.stringify({phase: 'phase1-complete-no-dispatch', ...metrics()}));
+-    return;
+-  }
+   const assessmentInput = await readJson(join(frozenInputRoot, 'assessment-input.json'));
+   const assertion = await readJson(join(frozenInputRoot, 'qualification-resource.json'));
+   const declarationProof = await readJson(join(frozenInputRoot, 'declaration-proof.json'));
+   const resources = preparation.acquireQualificationResources({...assertion, declarationProofs: [declarationProof]});
+-  const prepared = preparation.prepareQualificationAssessment(assessmentInput, resources);
+-  assert.deepEqual(prepared.request, await readJson(join(frozenInputRoot, 'prepared-request.json')));
+   const continuation = await readJson(join(frozenInputRoot, 'continuation-inputs.json'));
+-  packet = {assessmentInput, assertion, prepared, resources, ...continuation,
++  const packet = {assessmentInput, assertion, resources, ...continuation,
+     makeProof: (prefix, selections) => ({kind: 'qualification_proof_resource', schemaVersion, representation: 'resource_refs_v1', resource: assessmentInput.task.resource,
+-      prefix, declarations: [continuation.declarationSelection], selections, executionSelections: []})};
+-  deadline(); phase = 'native-assessment-preparation';
+-  const assessmentCall = await constructStart(caller, 'program://abiogenesis/qualification/assess@5',
+-    gtl.QUALIFICATION_IDS.assessGraph, packet.assessmentInput, packet.assertion);
+-  const assessmentOwner = await prepareNative(caller, assessmentCall);
+-  assert.equal(preparation.prepareQualificationAssessment(packet.assessmentInput, assessmentOwner.qualificationResources).request.prompt,
+-    packet.prepared.request.prompt, 'native owning request agrees with measured Public preparation');
+-  phase = 'native-independent-Claude-dispatch';
+-  await writeJson(join(root, 'dispatch-ready.json'), {status: 'ready', command: process.env.ABG_TS_CLAUDE_COMMAND,
+-    modelSelection: 'unchanged configured CLI model', providerRoute: 'native ActorProcess Claude OAuth firstParty',
+-    closedPromptProof: true, tools: '', inactivityMs: 120000, absoluteMs: 360000,
+-    inputDigest: hash(packet.assessmentInput), requestDigest: hash(packet.prepared.request), ...metrics()});
+-  console.log(JSON.stringify({phase, status: 'dispatching', promptBytes: Buffer.byteLength(packet.prepared.request.prompt), ...metrics()}));
+-  const assessed = await caller.invoke('assessment', assessmentCall), judgment = terminal(assessed, 'qualification_judgment');
+-  await writeJson(join(root, 'assessment-terminal.json'), judgment);
+-  await writeJson(join(root, 'actual-raw.json'), judgment.value.raw);
+-  assert(validator.isQualificationJudgment(judgment.value));
+-  assert.equal(judgment.value.source.cCallRef, judgment.producer.cCallRef);
+-  assert.equal(judgment.value.source.promptDigest, hash(packet.prepared.request.prompt));
+-  assert.equal(judgment.value.source.requestDigest, hash(packet.prepared.request));
+-  assert.equal(judgment.value.source.actorRef, policy.actorRefs[0]);
+-  assert.notEqual(judgment.value.source.actorRef, actualAuthor);
++      prefix, declarations: [continuation.declarationSelection], selections})};
++  const originalJudgmentPath = join(repo, '.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/assessment-terminal.json');
++  const judgment = await readJson(originalJudgmentPath);
++  phase = 'canonical-original-J-proof-authentication';
++  assert(abg.isAbgTypedTerminalResult(judgment));
+   const judgmentSelection = {kind: 'judgment_selection', selectionRef: 'selection://abiogenesis/t287/genuine-context-assessment-04',
+     slotRef, task: coord(packet.assessmentInput.task.taskRef, packet.assessmentInput.task.taskDigest),
+     programRef: judgment.producer.program.ref, invocationAdmissionRef: judgment.producer.invocationAdmissionRef, result: judgment.result};
+   const proof = packet.makeProof(caller.state.closeHandoff.prefix, [judgmentSelection]);
+-  assert.deepEqual(abg.projectQualificationJudgment(proof, packet.assessmentInput.plan, judgmentSelection,
+-    assessmentOwner.qualificationResources), judgment.value);
++  await writeJson(join(root, 'proof-input.json'), proof);
++  assert(validator.isQualificationProofResource(proof), 'published strict proof guard accepts actual original-J proof');
++  assert.deepEqual(abg.projectQualificationJudgment(proof, packet.assessmentInput.plan, judgmentSelection, resources), judgment.value);
++  const originalTruth = abg.projectRunTruthAtDurablePrefix(caller.state.closeHandoff.prefix, judgment.producer.runRef);
++  assert.equal(originalTruth.kind, 'abg_run_truth_projection', originalTruth.code);
++  assert.equal(originalTruth.runtimeStatus, 'closed');
++  assert.deepEqual(originalTruth.terminalResult, judgment);
++  await writeJson(join(root, 'original-assessment-truth.json'), {run: originalTruth.run, workspaceBinding: originalTruth.workspaceBinding,
++    runtimeStatus: originalTruth.runtimeStatus, result: originalTruth.result, originalProducer: judgment.producer,
++    originalTerminalDigest: hash(judgment), originalHandoff: await pin(historicalHandoff)});
+   const authors = abg.projectQualificationConstructionAuthors(proof, packet.assessmentInput.plan, judgment.value,
+-    assessmentOwner.qualificationResources);
++    resources);
+   await writeJson(join(root, 'assessment-authentication.json'), {status: 'authentic', result: judgment.result,
+     valueDigest: judgment.valueDigest, producer: judgment.producer, source: judgment.value.source, constructionAuthors: authors,
+     genuineNativeModelRoute: true, controlledTransport: false, ...metrics()});
+@@ -390,20 +363,24 @@
+   assert(selfResult.value.findings.some(f => f.disposition === 'blocked_incomplete' && f.provenance === 'J_required'),
+     'unassessed whole-candidate obligations stay explicit');
+   assert.notEqual(selfResult.value.disposition, 'passed', 'bounded pilot cannot establish whole qualification');
+-  const selections = [[assessed, judgment, 'assessment'], [evaluated, selfResult, 'f11']].map(([observation, result, label]) => ({label,
+-    run: observation.receipt.ownerOutput.value.run,
+-    slots: Object.fromEntries(['workspace_binding', 'product_set', 'dependency_lock'].map(key =>
+-      [key, observation.call.invocation.invocationAuthority.slots[key]])), terminalDigest: hash(result), result: result.result,
+-    producer: result.producer, ...(label === 'assessment' ? {source: result.value.source} : {})}));
++  const readSlots = Object.fromEntries(['workspace_binding', 'product_set', 'dependency_lock'].map(key =>
++    [key, evaluated.call.invocation.invocationAuthority.slots[key]]));
++  assert.deepEqual(readSlots.workspace_binding, originalTruth.workspaceBinding);
++  const selections = [{label: 'assessment', run: originalTruth.run, slots: readSlots,
++    terminalDigest: hash(judgment), result: judgment.result, producer: judgment.producer, source: judgment.value.source},
++    {label: 'f11', run: evaluated.receipt.ownerOutput.value.run, slots: readSlots,
++      terminalDigest: hash(selfResult), result: selfResult.result, producer: selfResult.producer}];
++  await writeJson(join(root, 'assessment-handoff.json'), await readJson(historicalHandoff));
+   await writeJson(join(root, 'read-selection.json'), {binding: caller.state.binding, closeHandoff: caller.state.closeHandoff, selections});
+-  const newEvents = (await readFile(eventLogPath)).subarray(5489354).toString('utf8').trim().split('\n').map(JSON.parse);
++  const newEvents = (await readFile(eventLogPath)).subarray(13473583).toString('utf8').trim().split('\n').map(JSON.parse);
+   const closures = newEvents.filter(e => e.kind === 'run_closed');
+-  assert.equal(closures.length, 2);
+-  await writeJson(join(root, 'flow-observation.json'), {status: 'passed_bounded_genuine', criterion: packet.criterion,
++  assert.equal(closures.length, 1);
++  assert.equal(newEvents.filter(e => e.kind === 'actor_transport_binding_admitted').length, 0, '06 cannot dispatch an actor');
++  await writeJson(join(root, 'flow-observation.json'), {status: 'passed_original_genuine_J_conservation', criterion: packet.criterion,
+     actualDisposition: criterion.disposition, actualApplicability: criterion.applicability, actualSource: judgment.value.source,
+     judgmentResult: judgment.result, f11Result: selfResult.result, f11Finding: finding, f11Disposition: selfResult.value.disposition,
+     findings: selfResult.value.findings.length, outstanding: selfResult.value.findings.filter(f => f.disposition === 'blocked_incomplete').length,
+-    closedRuns: closures.map(e => ({runRef: e.aggregateId, eventId: e.eventId})),
++    closedRuns: closures.map(e => ({runRef: e.aggregateId, eventId: e.eventId})), originalAssessmentRunClosed: true, realNativeCliAttempts: 0,
+     actorTransportBindings: newEvents.filter(e => e.kind === 'actor_transport_binding_admitted').map(e => ({eventId: e.eventId,
+       command: e.payload.command, actorRef: e.payload.actorRef, lane: e.payload.lane, cwd: e.payload.cwd,
+       archiveRoot: e.payload.archiveRoot, paths: e.payload.paths, timeoutMs: e.payload.timeoutMs, absoluteTimeoutMs: e.payload.absoluteTimeoutMs})),
+@@ -427,7 +404,7 @@
+   const after = await readFile(eventLogPath), actual = await stat(eventLogPath);
+   assert(before.equals(after)); assert.equal(actual.dev, physical.dev); assert.equal(actual.ino, physical.ino);
+   await writeJson(join(root, 'cold-read-observation.json'), {status: 'passed', reads, prefix: caller.state.closeHandoff.prefix,
+-    processId: process.pid, newEvents: 0, extraActors: 0, providerCalls: 0, genuineSubjectInputsFrom: inputRoot,
++    processId: process.pid, newEvents: 0, extraActors: 0, providerCalls: 0, genuineSubjectInputsFrom: inputRoot, originalJudgmentReused: true,
+     comparison: 'Full terminal canonical hash with ONLY projectionBasis normalized to actual original handoff; current read basis separately checked.',
+     wholeCandidateQualification: false, ...metrics()});
+ }

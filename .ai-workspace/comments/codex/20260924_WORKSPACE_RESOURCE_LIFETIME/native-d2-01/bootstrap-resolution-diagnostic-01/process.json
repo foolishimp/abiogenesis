@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-resolution-diagnostic-01/diagnose.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 30.729311999864876,
+  "pid": 9984
+}

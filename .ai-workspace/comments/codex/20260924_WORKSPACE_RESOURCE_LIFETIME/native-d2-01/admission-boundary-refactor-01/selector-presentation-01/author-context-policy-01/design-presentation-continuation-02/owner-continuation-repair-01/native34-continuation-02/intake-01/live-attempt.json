@@ -1,0 +1,40 @@
+{
+  "startedAt": "2026-09-25T19:23:53.318Z",
+  "launchDigest": "sha256:ecc06eb1a3a8a79e15e93b3f5b0dbafe891247cbd1afe5d48ee9aa2a7af976fe",
+  "preparedLaunchDigest": "sha256:f5373c5424bad8d3d50de755d959722b9de6b9380fd71a6e77a658339614388d",
+  "afterReceiptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01/live-receipt.json",
+  "installedBefore": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f/585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "productContentDigest": "sha256:2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/585699ab853b47639c5a9ff3307c38595025fe7b977682df763124cc143c5674",
+      "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.15",
+      "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e"
+    }
+  ],
+  "transport": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "12"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:51050fef1e4a879e1ca851cdfefa9b50fed352647037f08fef95405c3edc6803"
+  }
+}

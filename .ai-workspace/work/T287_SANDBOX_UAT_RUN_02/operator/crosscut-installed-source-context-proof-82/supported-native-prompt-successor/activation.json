@@ -1,0 +1,37 @@
+{
+  "role": "Writer82 selected fixture-only plain native prompt successor",
+  "oldPartialFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/evidence-successor/freeze.json",
+    "sha256": "2159e9af305d028b750b0f915eb930351496dd4bac2eabe22608f66a4d1a0144",
+    "byteCount": 16711
+  },
+  "protocolPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/evidence-successor/protocol.mjs",
+    "sha256": "e4f5d7c3368f1f0a2dd6b47a3910bb02165197c02611c3e032af511c800b7859",
+    "byteCount": 4737
+  },
+  "driverPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/evidence-successor/driver.mjs",
+    "sha256": "ee53d1fea3494960bb592db6deb16e0fc341f5e129f3e4581a35eefceed582a3",
+    "byteCount": 18417
+  },
+  "delta": "C2 still requires wrapped task.ownerPrompt; NativeWork/assessment consumes actual plain prompt only when wrapper absent; same root/write/read/summary/assessment guards",
+  "pureParserPremise": {
+    "nativePrompt": {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Ok123u/workspace/.ai-workspace/archive/fp-b19d388a0e1b3c3a-prompt.txt",
+      "sha256": "c61364a8ce39807cbb502a05df1d687528d24a5b4a72b849eb5c7483e71fac81",
+      "byteCount": 52421
+    },
+    "plainNativePrompt": true,
+    "rootMatchesAuthority": true,
+    "writeScopeExact": [
+      "generated/hello-world.mjs"
+    ]
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+    "byteCount": 3158
+  },
+  "effects": "new disposable local protocol sequence only; no framework/support/method/caps/model/DataMapper/old resource edit"
+}

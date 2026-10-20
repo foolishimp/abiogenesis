@@ -1,0 +1,17 @@
+{
+  "kind": "worker_close",
+  "activationId": "T287_RC1_S02_SUBSTITUTION_01",
+  "role": "Worker",
+  "actor": "/root/rc1_s02_substitution",
+  "status": "CLOSED",
+  "closedAt": "2026-10-01T14:48:54.405965+00:00",
+  "outcome": "bounded_native_success",
+  "nativeCalls": 11,
+  "retryCount": 0,
+  "pendingNativeProcesses": 0,
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01"
+  ],
+  "authorship": "Actual caller adaptation, finite control construction, ordinary Public requests, observer and proof construction only; inherited Product/GTL/oracle semantics not attributed to this Worker.",
+  "consumingAuthority": "Root Executive commissions independent review and conjoins bounded claim; this Worker emits no Reviewer/qualification verdict."
+}

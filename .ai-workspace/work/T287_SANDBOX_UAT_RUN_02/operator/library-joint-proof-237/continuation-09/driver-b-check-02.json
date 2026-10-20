@@ -1,0 +1,26 @@
+{
+  "compilerVersion": "5.9.2",
+  "options": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "module": 199,
+    "moduleResolution": 99,
+    "target": 9,
+    "typeRoots": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/publication/host/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types"
+    ],
+    "types": [
+      "node"
+    ]
+  },
+  "syntax": {
+    "status": 0,
+    "stderr": ""
+  },
+  "unresolvedIdentifiers": [],
+  "unrelatedUntypedJsDiagnostics": 0,
+  "correction": "Use the same genuine installed Node type roots as the passing external TS consumer; preserve first checker receipt.",
+  "scope": "Driver lexical cannot-find-name only; not whole Source/type acceptance"
+}

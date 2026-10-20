@@ -1,0 +1,431 @@
+{
+  "status": "CLOSED_CONTEXT_PROPORTIONALITY_REVIEW_THREE_FINDINGS",
+  "native39": "No actual context available/inspected; no current-continuation change selected",
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/reproduction.json",
+      "sha256": "622cc724fd64a1dff2d26a67cb1abc2b1a9e592925c9b3321906aa2abf09e893",
+      "bytes": 12698,
+      "role": "retained_component_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/reproduced-sections.json",
+      "sha256": "d9c5d86f9f7b998934b31280e90fda2d1a3ec008a01dbde9a15cf4d5e7664545",
+      "bytes": 1051291,
+      "role": "retained_component_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/implementation-01/successor-measurement.json",
+      "sha256": "308d80eeb21ea9aa5da1a4bc436e0deca018820a735300750b181e3871d19ddb",
+      "bytes": 799,
+      "role": "retained_component_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/implementation-01/derived-successor.json",
+      "sha256": "f5fc51ea1baf1c272b75416867d8b6b9fd16b8e712d66ea56ede8a9bea6386c2",
+      "bytes": 1586168,
+      "role": "retained_component_input"
+    }
+  ],
+  "unchangedCorrectionReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/implementation-01/review-01/return.md",
+    "sha256": "7cf52735353034d9e1d894f6af7c2f474f0b7597f1736f55fdf45c65607ff6a4",
+    "bytes": 6991,
+    "role": "closed_source_review_not_reopened"
+  },
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "222481d25ef39c4fb193f04455c39f9881b4054f1c59d9f0744a2b4315edd33b",
+      "bytes": 84564,
+      "role": "immediate_presentation_owner",
+      "lineAnchors": [
+        217,
+        225,
+        453,
+        466,
+        472,
+        502,
+        578,
+        601
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "sha256": "f955ce6c36403709ea73dd447e3937a30bdf8ee1d78608b6effe833ee85482d3",
+      "bytes": 92255,
+      "role": "actor_contract_and_deterministic_projection_owner",
+      "lineAnchors": [
+        322,
+        353,
+        354,
+        397,
+        641
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "sha256": "580f7680cb2fc4cc0dbadacd596fd361f8c1a0f5f13821821ad5530f68ac7a32",
+      "bytes": 37448,
+      "role": "existing_role_policy_and_context_owner",
+      "lineAnchors": [
+        128,
+        156,
+        270,
+        289
+      ]
+    }
+  ],
+  "componentSectionBytes": {
+    "role": 115778,
+    "source": 6709,
+    "obligations": 156072,
+    "predecessors": 1584,
+    "worksite": 225506,
+    "evidence": 349,
+    "task": 486305,
+    "response": 1612
+  },
+  "worksiteDuplicateRelations": [
+    {
+      "route": "#/worksite/observation/entries/6/textView/text",
+      "relativePath": "semantic-assets/stage-0.json",
+      "sameTypedCandidateRoutes": [
+        "#/task/historicalAssets/0/candidate"
+      ],
+      "textMatchesRetainedObservedBytes": true,
+      "rawDigest": "sha256:9f9003ed19bdeb7a43616baa2c5c28daaeabc2b932947db52a302e6773a82ffa",
+      "rawDigestMatches": true,
+      "fileByteLength": 32404,
+      "quotedTextBytes": 34101,
+      "wholeEntryBytes": 34476,
+      "typedCandidateBytes": 27441
+    },
+    {
+      "route": "#/worksite/observation/entries/7/textView/text",
+      "relativePath": "semantic-assets/stage-1.json",
+      "sameTypedCandidateRoutes": [
+        "#/task/historicalAssets/1/candidate"
+      ],
+      "textMatchesRetainedObservedBytes": true,
+      "rawDigest": "sha256:37cd402698f52fd722a6f00b20566e03c8037daeef7ce10fb5f53744c26fec9a",
+      "rawDigestMatches": true,
+      "fileByteLength": 47430,
+      "quotedTextBytes": 49795,
+      "wholeEntryBytes": 50170,
+      "typedCandidateBytes": 40272
+    },
+    {
+      "route": "#/worksite/observation/entries/8/textView/text",
+      "relativePath": "semantic-assets/stage-2.json",
+      "sameTypedCandidateRoutes": [
+        "#/task/historicalAssets/2/candidate"
+      ],
+      "textMatchesRetainedObservedBytes": true,
+      "rawDigest": "sha256:bb93b54aed07ea9c68a91d1aa152b80f972d08ee4523ffc0421cc68b0d7d5fc1",
+      "rawDigestMatches": true,
+      "fileByteLength": 106895,
+      "quotedTextBytes": 111941,
+      "wholeEntryBytes": 112318,
+      "typedCandidateBytes": 91902
+    }
+  ],
+  "worksiteGrossRepeatedQuotedTextBytes": 195837,
+  "groundedTermDuplicateRelations": [
+    {
+      "route": "#/task/historicalAssets/2/groundedTerms",
+      "bytes": 27678,
+      "retainedTermIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "allWholeTypedValuesEqual": true
+    },
+    {
+      "route": "#/task/historicalAssets/3/groundedTerms",
+      "bytes": 29474,
+      "retainedTermIndices": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      "allWholeTypedValuesEqual": true
+    },
+    {
+      "route": "#/obligations/groundedRequirements",
+      "bytes": 29474,
+      "retainedTermIndices": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      "equalsHistoricalAcceptedArray": true
+    }
+  ],
+  "groundedTermGrossRepeatedArrayBytes": 86626,
+  "componentCorrespondence": {
+    "oldFourHistoryValuesEqual": true,
+    "observationRefEqual": true,
+    "observationDigestEqual": true
+  },
+  "roleNativeMismatch": {
+    "route": "#/role/native",
+    "imperatives": [
+      "Propose the necessary implementation",
+      "Declare existing files",
+      "asset.requirementCandidates and bindings are empty"
+    ],
+    "actualResponseRequiredFields": [
+      "kind",
+      "schemaVersion",
+      "criteria",
+      "pressure"
+    ],
+    "assessorCriteria": [
+      "criterion://odd-glc/generic-lifecycle/design/source-faithfulness@5",
+      "criterion://odd-glc/generic-lifecycle/design/modality-and-conflicts@5",
+      "criterion://odd-glc/generic-lifecycle/design/obligation-conservation@5",
+      "criterion://odd-glc/generic-lifecycle/design/bounded-claim@5",
+      "criterion://odd-glc/generic-lifecycle/design/executable-proof@5"
+    ],
+    "expectedBenefit": "Role clarity only; no measured provider failure/latency reduction"
+  },
+  "roleEnvironment": {
+    "sourceContentBytes": 90127,
+    "spans": [
+      {
+        "path": "standards/SPEC_METHOD.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 47166,
+        "endByte": 51219,
+        "spanDigest": "sha256:6eb574fc5cdb0e2157f0d0b90d93a306e520964bd42fe7bb91a7a1daeedf205d",
+        "textBytes": 4053,
+        "spanDigestMatches": true,
+        "headers": [
+          "## Constitutional Chain"
+        ]
+      },
+      {
+        "path": "standards/SPEC_METHOD.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 4130,
+        "endByte": 5630,
+        "spanDigest": "sha256:9fac422af08221d1af95fa135e91178cb7c9d25137f2f77a3dd7a1a8900e1dcc",
+        "textBytes": 1500,
+        "spanDigestMatches": true,
+        "headers": [
+          "## Probabilistic Work Boundary"
+        ]
+      },
+      {
+        "path": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+        "sourceLocator": "basis://odd-glc/fresh-native-config/9780971880110d0a1c107899aff2c3668150fcd87b4a13c47df7bc6e321d6adc",
+        "startByte": 0,
+        "endByte": 13840,
+        "spanDigest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+        "textBytes": 13840,
+        "spanDigestMatches": true,
+        "headers": [
+          "# REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS - Generic Lifecycle Surface Model",
+          "## Purpose",
+          "## Scope",
+          "## Generic Lifecycle Surface Set",
+          "## Acceptance Criteria"
+        ]
+      },
+      {
+        "path": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+        "sourceLocator": "basis://odd-glc/fresh-native-config/9780971880110d0a1c107899aff2c3668150fcd87b4a13c47df7bc6e321d6adc",
+        "startByte": 0,
+        "endByte": 14008,
+        "spanDigest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+        "textBytes": 14008,
+        "spanDigestMatches": true,
+        "headers": [
+          "# REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION - Upstream Readiness Gate",
+          "## Purpose",
+          "## Upstream Readiness States",
+          "## Genericity Rule",
+          "## Bound System Functions And Carriers",
+          "## Acceptance Criteria"
+        ]
+      },
+      {
+        "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 31176,
+        "endByte": 34775,
+        "spanDigest": "sha256:01d490aeacd00bec69851ce9ea1ef7c7dc637fd4bada096884e8f8bda9af81cf",
+        "textBytes": 3599,
+        "spanDigestMatches": true,
+        "headers": [
+          "## Derived Reviewer Frame"
+        ]
+      },
+      {
+        "path": "standards/SPEC_METHOD.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 112016,
+        "endByte": 114008,
+        "spanDigest": "sha256:1de757693e72cc13d0f8c96b1e74650c0ac88590766fdc10140864504f3c41fb",
+        "textBytes": 1992,
+        "spanDigestMatches": true,
+        "headers": [
+          "## Reconstruction Litmus"
+        ]
+      },
+      {
+        "path": "standards/SPEC_METHOD.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 110225,
+        "endByte": 112016,
+        "spanDigest": "sha256:bfc29fb5fb2945408e52d77def912541eb35ddcac3bccf1c1faa4282b714a621",
+        "textBytes": 1791,
+        "spanDigestMatches": true,
+        "headers": [
+          "## Requirement Categories"
+        ]
+      },
+      {
+        "path": "standards/SPEC_METHOD.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 114008,
+        "endByte": 116378,
+        "spanDigest": "sha256:8e692ada13790c09080df6d1b46c27262b38ed6583a53f66e4cd43282231eccc",
+        "textBytes": 2370,
+        "spanDigestMatches": true,
+        "headers": [
+          "## Design Rule",
+          "## Renewal Path"
+        ]
+      },
+      {
+        "path": "standards/DESIGN_MODULE_METHOD.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 11353,
+        "endByte": 23161,
+        "spanDigest": "sha256:aaded0399d06c6acb8ab896822bc6da237e0e84c9bb78f5b3e09f3ecd269e4a4",
+        "textBytes": 11808,
+        "spanDigestMatches": true,
+        "headers": [
+          "## 4B. Ontology-First Design Rule",
+          "### Proportional Design Sequencing",
+          "### Decision-Complete Symbolic Design",
+          "### Bounded Frame Conservation (`STDO-UP-017`)",
+          "### Native Constructability Before Design Acceptance (`STDO-UP-002`)"
+        ]
+      },
+      {
+        "path": "standards/DESIGN_MODULE_METHOD.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 55679,
+        "endByte": 71900,
+        "spanDigest": "sha256:7ca71952fb9784c33be92f5e3353dc1c33252ca2ee1d11ca58628055c142c58f",
+        "textBytes": 16221,
+        "spanDigestMatches": true,
+        "headers": [
+          "## 5E. Ontology And Three-View Behavioral Design Gate",
+          "### Ontology evidence",
+          "### Invariant Reconstruction Sufficiency (`STDO-UP-018`)",
+          "### Domain model",
+          "### Sequence model",
+          "### State model",
+          "### Cross-view axiom evaluation",
+          "### Gate and retrospective work",
+          "### Computational Realization Projection (`STDO-UP-019`)"
+        ]
+      },
+      {
+        "path": "standards/DESIGN_MODULE_METHOD.md",
+        "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+        "startByte": 75556,
+        "endByte": 80696,
+        "spanDigest": "sha256:144228e54940846c666784298625a839449214b31a43a7167d6005e95e75b7f2",
+        "textBytes": 5140,
+        "spanDigestMatches": true,
+        "headers": [
+          "## 6A. Design To Module To (Implementation, Unit Tests) Evidence Route",
+          "## 6B. Module-Derived Unit Test Rule"
+        ]
+      },
+      {
+        "path": "reference-frame.md",
+        "sourceLocator": "source://odd-glc/application-policy@5/",
+        "startByte": 4586,
+        "endByte": 6249,
+        "spanDigest": "sha256:805410bf5c37f56e6c30d73b7b044a23475371cdeb967c93d81b1d84fe96f01e",
+        "textBytes": 1663,
+        "spanDigestMatches": true,
+        "headers": [
+          "## Evaluation And Decision Ownership",
+          "## Frame And Actor Binding"
+        ]
+      },
+      {
+        "path": "worksite-lifecycle.md",
+        "sourceLocator": "source://odd-glc/application-policy@5/",
+        "startByte": 0,
+        "endByte": 4341,
+        "spanDigest": "sha256:244db21118afa33e343bec0399c0701fecea6e181511e531cb5f3d10fc24d142",
+        "textBytes": 4341,
+        "spanDigestMatches": true,
+        "headers": [
+          "# REQ-GLC-WORKSITE-LIFECYCLE - Generic Mutable-Worksite Consumption",
+          "## Requirements"
+        ]
+      }
+    ],
+    "applicabilityLimit": "No individual selected span established removable; no source corpus pruning proposed"
+  },
+  "measurementLimits": [
+    "Gross serialized repeated fields, not net prompt reduction",
+    "No token/cost/latency or native39 behavior attribution",
+    "Original complete evidence, distinctions and authority retained"
+  ],
+  "diagnosticNote": "One retained-data parse stopped on a Python local variable shadowing builtin next; corrected comparison completed without executing assembly/runtime.",
+  "effects": [
+    "Only retained JSON parsing, equality/hash/size checks, immediate owner reads and this review"
+  ],
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/context-review-01/return.md",
+    "sha256": "6ab5c456f53ebb15e9dfbcb7b06de4acdadf83129139b62a0a0025cc8275f016",
+    "bytes": 6319,
+    "role": "closed_review"
+  }
+}

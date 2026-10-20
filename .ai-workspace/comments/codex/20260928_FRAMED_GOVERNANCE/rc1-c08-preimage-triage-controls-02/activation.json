@@ -1,0 +1,12 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_C08_PREIMAGE_CONTRACT_TRIAGE_WRITER_02",
+  "startedAt": "2026-10-02T13:44:12.152609+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02"
+  ],
+  "grant": "Record actual CLOSED control failure, bind structural source-addition correspondence and issue bounded C08 continuation plus independent review grants. No Source repair or acceptance widening.",
+  "returnsTo": "Executive"
+}

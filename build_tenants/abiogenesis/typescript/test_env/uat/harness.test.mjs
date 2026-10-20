@@ -159,6 +159,231 @@ test('Terminal-null admitted Run retains genuine C2 partial evidence and refuses
   assert.equal(relation.evaluate(fabricated.payload.value.task,fabricated.payload.value),false);
   assert.equal((await evaluate({events:[fabricated]})).criteria.find(row=>row.id===executionCriterion.id).disposition,'indeterminate');
 });
+test('Owned XML acquisition consumes authentic C2 reports outside the application without earning full UAT',
+  {skip:!process.env.ABI5_AUTHENTIC_XML_STORE},async()=>{
+  const bytes=Buffer.alloc(Number(process.env.ABI5_AUTHENTIC_XML_BYTES));
+  const handle=await fs.promises.open(process.env.ABI5_AUTHENTIC_XML_STORE,'r');
+  try {assert.equal((await handle.read(bytes,0,bytes.length,Number(process.env.ABI5_AUTHENTIC_XML_OFFSET))).bytesRead,bytes.length);}
+  finally {await handle.close();}
+  assert.equal(digest(bytes),process.env.ABI5_AUTHENTIC_XML_DIGEST);
+  const event=JSON.parse(bytes),value=event.payload.value;
+  const {root,rows}=await loadScenarios(fixtures),selected=await acquireScenario(root,rows.find(row=>row.key==='data-mapper-full'));
+  const checker=await import(pathToFileURL(fixturePath(root,selected.row.oracleModule)).href);
+  const relation=product.resolveWorksiteCommandExecutionJudgmentRelation(product.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef);
+  assert.equal(relation.evaluate(value.task,value),true,'published owner authenticates the exact native task/result');
+  const owner=commandObservationOwner(product,{receipt:{resources:{run:{ref:event.runId}},ownerOutput:{outcomeKind:'result',value:{terminalResult:null}}}});
+  const request={...selected.request,testing:{...selected.request.testing,commands:value.task.commands}};
+  const input={worksiteRoot:process.env.ABI5_AUTHENTIC_XML_WORKSITE,source:selected.row,request,events:[event],observationOwner:owner,
+    validateObservation:o=>relation.evaluate(o.task,o)};
+  for(const report of value.commandResults[0].reports)await assert.rejects(readFile(fixturePath(input.worksiteRoot,report.relativePath)),{code:'ENOENT'});
+  const result=await checker.evaluate(input);
+  assert.equal(result.criteria.filter(row=>row.id.startsWith('xml:')).length,8);
+  assert.ok(result.criteria.filter(row=>row.id.startsWith('xml:')).every(row=>row.disposition==='satisfied'));
+  for(const id of ['original-eight-xml-reports','original-scala-test-floor','all-eight-concerns-five-earned-depth-classes'])
+    assert.equal(result.criteria.find(row=>row.id===id).disposition,'satisfied',id);
+  assert.notEqual(result.disposition,'satisfied','a genuine green baseline does not prove sixteen mutant episodes/full original UAT');
+  const changed=structuredClone(event);changed.payload.value.commandResults[0].reports[0].digest=product.sha256Canonical('wrong-report');
+  assert.equal(relation.evaluate(changed.payload.value.task,changed.payload.value),false);
+  for(const overrides of [{events:[]},{events:[changed]},{observationOwner:{...owner,runId:'run://foreign/xml'}},{validateObservation:()=>false}])
+    assert.equal((await checker.evaluate({...input,...overrides})).criteria.find(row=>row.id==='original-eight-xml-reports').disposition,'unmet');
+});
+
+async function controlledReportFixture() {
+  const scratch=(await newArchive(policyUnits,'controlled-report-consumer')).path;
+  const worksite=join(scratch,'worksite');await mkdir(worksite);
+  const {root,rows}=await loadScenarios(fixtures),selected=await acquireScenario(root,rows.find(row=>row.key==='data-mapper-full'));
+  const rubric=JSON.parse(selected.assets.find(asset=>asset.path===selected.row.oracleFile).bytes.toString('utf8'));
+  const put=async(path,bytes)=>{await mkdir(dirname(path),{recursive:true});await writeFile(path,bytes);};
+  for(const source of selected.sources)await put(fixturePath(worksite,source.path),source.bytes);
+  // Artifact-existence and owner-validation are declared lower premises for
+  // pure consumer tests. This is no application implementation, native command,
+  // RuntimeEvent admission, mutation detection or semantic UAT judgment.
+  for(const path of rubric.requiredArtifacts)if(!selected.sources.some(source=>source.path===path))
+    await put(fixturePath(worksite,path),'controlled artifact-existence premise\n');
+  await put(fixturePath(worksite,'build_tenants/scala_spark/build.sbt'),'scalaVersion := "2.13.16"\n// spark-sql toolchain premise\n');
+  await put(fixturePath(worksite,'build_tenants/scala_spark/project/build.properties'),'sbt.version=1.11.7\n');
+  const depthRows=rubric.requirements.flatMap(({requirementId})=>rubric.requiredDepthClassRefs.map(depthClassRef=>({
+    requirementId,depthClassRef,testIdentityRefs:[requirementId+' '+depthClassRef]})));
+  await put(fixturePath(worksite,rubric.depthProof.file),JSON.stringify({rows:depthRows}));
+  await put(fixturePath(worksite,rubric.mutationProof.file),JSON.stringify({rows:[]}));
+  const commands=selected.request.testing.commands.map(command=>({...command,
+    environment:Object.entries(command.environment??{}).map(([name,value])=>({name,value}))}));
+  const owner={graphFunctionRef:product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
+    outputContractRef:product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef,resultClass:'success',runId:'run://controlled/xml-consumer'};
+  const supplied=new Set(),names=depthRows.map(row=>row.testIdentityRefs[0]);
+  const production=rubric.requiredArtifacts.find(path=>path.includes('/src/main/scala/'));
+  const baseline=digest(await readFile(fixturePath(worksite,production)));
+  const episode=async(label,{failedNames=[],replaceName=null,snapshotDigest=baseline}={})=>{
+    const sandbox=join(scratch,label);await mkdir(sandbox);
+    const reports=[];
+    for(const [ordinal,declaration]of commands[0].expectedReports.entries()) {
+      const reportNames=names.slice(ordinal*5,(ordinal+1)*5).map(name=>name===replaceName?.[0]?replaceName[1]:name);
+      const failures=reportNames.filter(name=>failedNames.includes(name));
+      const cases=reportNames.map(name=>'<testcase name="'+name+'">'+(failures.includes(name)?'<failure>controlled named failure</failure>':'')+'</testcase>').join('');
+      const bytes=Buffer.from('<testsuite tests="5" failures="'+failures.length+'" errors="0">'+cases+'</testsuite>');
+      await put(fixturePath(sandbox,declaration.relativePath),bytes);
+      reports.push({expectedReportIdentity:declaration.reportIdentity,relativePath:declaration.relativePath,state:'file',byteLength:bytes.length,
+        digest:digest(bytes),observationRef:'report://controlled/'+label+'/'+ordinal});
+    }
+    const command={...commands[0],kind:'worksite_command_result',reports,exitStatus:failedNames.length?1:0,timedOut:false,terminationConfirmed:true,
+      observationRef:'command://controlled/'+label,observationDigest:product.sha256Canonical(label),
+      stdout:{encoding:'base64',payload:Buffer.from('compilation completed\n').toString('base64')},stderr:{encoding:'base64',payload:''}};
+    const outcomePredicates=selected.request.testing.outcomePredicates.map((row,ordinal)=>({...structuredClone(row),ordinal}));
+    const inventory=outcomePredicates.find(row=>row.predicateKind==='test_report_set_exact');
+    const value={kind:'worksite_command_execution_observation',observationRef:'observation://controlled/'+label,task:{commands,outcomePredicates},commandResults:[command],
+      provenance:{helperPlan:{sandboxRoot:sandbox}},snapshotMembers:[{relativePath:production,digest:snapshotDigest}],
+      predicateObservations:[{kind:'worksite_predicate_observation',ordinal:inventory.ordinal,predicateId:inventory.predicateId,
+        predicateKind:inventory.predicateKind,observedValue:[...inventory.declaration.equals].reverse(),evidence:[],evidenceRefs:[]}]};
+    supplied.add(value);
+    const cCallRef='c-call:controlled/'+label;
+    const event={kind:'c_call_result_admitted',graphFunctionRef:owner.graphFunctionRef,runId:owner.runId,aggregateId:cCallRef,
+      payload:{contractRef:owner.outputContractRef,resultClass:'success',valueKind:value.kind,cCallRef,value}};
+    return {event,value,command,sandbox,reports};
+  };
+  const checker=await import(pathToFileURL(fixturePath(root,selected.row.oracleModule)).href);
+  const evaluate=(events,overrides={})=>checker.evaluate({worksiteRoot:worksite,runArchive:scratch,source:selected.row,request:selected.request,
+    events,observationOwner:owner,validateObservation:value=>supplied.has(value),...overrides});
+  return {scratch,worksite,selected,rubric,put,depthRows,names,production,baseline,owner,supplied,episode,evaluate};
+}
+const criterion=(result,id)=>result.criteria.find(row=>row.id===id)?.disposition;
+test('Owned XML acquisition verifies literal report digest, length, identity, complete set and symlink confinement',async()=>{
+  const f=await controlledReportFixture(),good=await f.episode('green');
+  assert.equal(criterion(await f.evaluate([good.event]),'original-scala-test-floor'),'satisfied');
+  const report=good.reports[0],path=fixturePath(good.sandbox,report.relativePath),bytes=await readFile(path);
+  const variants=[rows=>{rows[0].digest=product.sha256Canonical('wrong');},rows=>{rows[0].byteLength++;},
+    rows=>{rows[0].expectedReportIdentity='report://controlled/foreign';},rows=>{rows[0].relativePath='../foreign.xml';},
+    rows=>{rows.pop();}];
+  for(const change of variants) {
+    const original=structuredClone(good.command.reports);change(good.command.reports);
+    assert.equal(criterion(await f.evaluate([good.event]),'original-eight-xml-reports'),'unmet');
+    good.command.reports=original;good.reports=original;
+  }
+  // Actual physical bytes are checked even under the explicit validation premise.
+  await writeFile(path,Buffer.concat([bytes,Buffer.from('changed')]));
+  assert.equal(criterion(await f.evaluate([good.event]),'original-eight-xml-reports'),'unmet');
+  await writeFile(path,bytes);
+  const target=join(f.scratch,'outside-report.xml');await writeFile(target,bytes);
+  await rm(path);await symlink(target,path);
+  assert.equal(criterion(await f.evaluate([good.event]),'original-eight-xml-reports'),'unmet');
+  await rm(path);await writeFile(path,bytes);
+  const directory=dirname(path),moved=directory+'-moved';await rename(directory,moved);await symlink(moved,directory);
+  assert.equal(criterion(await f.evaluate([good.event]),'original-eight-xml-reports'),'unmet');
+  await rm(directory);await rename(moved,directory);
+  assert.equal(criterion(await f.evaluate([good.event]),'original-eight-xml-reports'),'satisfied');
+});
+test('Owned XML acquisition selects latest original red and its depth names, rejecting unadmitted and foreign sources',async()=>{
+  const f=await controlledReportFixture(),green=await f.episode('green'),red=await f.episode('red',{
+    failedNames:[f.names[1]],replaceName:[f.names[0],'controlled new population name']});
+  // A stale green report in the mutable app and elsewhere in the archive is irrelevant.
+  for(const report of green.reports)await f.put(fixturePath(f.worksite,report.relativePath),await readFile(fixturePath(green.sandbox,report.relativePath)));
+  const result=await f.evaluate([green.event,red.event]);
+  assert.equal(criterion(result,'execution:'+f.selected.request.testing.commands[0].commandId),'unmet');
+  assert.equal(criterion(result,'original-eight-xml-reports'),'satisfied');
+  assert.equal(criterion(result,'original-scala-test-floor'),'unmet');
+  assert.equal(criterion(result,'all-eight-concerns-five-earned-depth-classes'),'unmet');
+  for(const overrides of [{validateObservation:()=>false},{events:[]},
+    {observationOwner:{...f.owner,runId:'run://controlled/foreign'}}])
+    assert.equal(criterion(await f.evaluate([green.event],overrides),'original-eight-xml-reports'),'unmet');
+  const foreign={...green.event,runId:'run://controlled/earlier'};
+  assert.equal(criterion(await f.evaluate([foreign]),'original-eight-xml-reports'),'unmet');
+  assert.equal(criterion(await f.evaluate([foreign],{validateSourceObservation:event=>event===foreign}),'original-eight-xml-reports'),'satisfied',
+    'cross-Run membership is an explicit lower premise here, not a fabricated current admission');
+});
+test('Owned XML inventory requires the original complete matching set from the same selected observation',async()=>{
+  const f=await controlledReportFixture(),old=await f.episode('older-green'),current=await f.episode('current');
+  const originalPredicates=structuredClone(current.value.task.outcomePredicates),originalMeasured=structuredClone(current.value.predicateObservations);
+  const declaration=()=>current.value.task.outcomePredicates.find(row=>row.predicateKind==='test_report_set_exact');
+  const inventory=()=>current.value.predicateObservations[0];
+  // Original equality is set equality: declaration and measured order may differ.
+  declaration().declaration.equals.reverse();
+  assert.equal(criterion(await f.evaluate([old.event,current.event]),'original-eight-xml-reports'),'satisfied');
+  const extra='cdme-core/target/test-reports/TEST-controlled.ninth.xml';
+  await f.put(fixturePath(current.sandbox,declaration().declaration.base+'/'+extra),
+    '<testsuite tests="1" failures="0" errors="0"><testcase name="controlled ninth"/></testsuite>');
+  const variations=[
+    ()=>inventory().observedValue.push(extra),
+    ()=>inventory().observedValue.pop(),
+    ()=>inventory().observedValue.push(inventory().observedValue[0]),
+    ()=>{inventory().observedValue[0]=extra;},
+    ()=>{inventory().observedValue=null;},
+    ()=>{current.value.predicateObservations=[];},
+    ()=>{current.value.predicateObservations.push(structuredClone(inventory()));},
+    ()=>{inventory().predicateId='predicate://controlled/crossed';},
+    ()=>{declaration().declaration.base='foreign-base';},
+    ()=>{declaration().declaration.selector.includeSuffixes=['.json'];},
+    ()=>{declaration().declaration.equals[0]=extra;},
+    ()=>{current.value.task.outcomePredicates=[];}
+  ];
+  for(const change of variations) {
+    current.value.task.outcomePredicates=structuredClone(originalPredicates);
+    current.value.predicateObservations=structuredClone(originalMeasured);change();
+    const result=await f.evaluate([old.event,current.event]);
+    assert.equal(criterion(result,'original-eight-xml-reports'),'unmet','eight declared rows/older green cannot substitute for current inventory');
+    assert.equal(result.criteria.filter(row=>row.id.startsWith('xml:')&&row.disposition==='satisfied').length,8,
+      'individual named-file facts remain true independently of inventory satisfaction');
+  }
+  current.value.task.outcomePredicates=structuredClone(originalPredicates);
+  current.value.predicateObservations=structuredClone(originalMeasured);
+  await rm(fixturePath(current.sandbox,declaration().declaration.base+'/'+extra));
+  assert.equal(criterion(await f.evaluate([old.event,current.event]),'original-eight-xml-reports'),'satisfied');
+});
+test('Owned XML mutation episodes require their own snapshot reports and distinct actual command experiments',async()=>{
+  const f=await controlledReportFixture(),required=f.depthRows.filter(row=>f.rubric.mutationProof.requiredDepthClasses.includes(row.depthClassRef));
+  const failedNames=required.flatMap(row=>row.testIdentityRefs),green=await f.episode('baseline');
+  const red=await f.episode('mutant',{failedNames,snapshotDigest:product.sha256Canonical('controlled mutant')});
+  const restored=await f.episode('restored');
+  const rows=required.map((row,index)=>({requirementId:row.requirementId,mutantIdentity:f.production+'#controlled-'+index,
+    mutantCompiled:true,suiteExit:1,failedTestIdentityRefs:failedNames,baselineDigest:f.baseline,restoreDigest:f.baseline}));
+  await f.put(fixturePath(f.worksite,f.rubric.mutationProof.file),JSON.stringify({rows}));
+  const result=await f.evaluate([green.event,red.event,restored.event]);
+  assert.equal(criterion(result,'compiled-kills-and-declared-restoration'),'satisfied','declared shape is a controlled premise');
+  assert.equal(criterion(result,'every-negative-invariant-row-has-own-observed-kill'),'indeterminate','one red experiment cannot become sixteen');
+  const inventory=red.value.predicateObservations[0],originalInventory=[...inventory.observedValue];
+  const extra='cdme-core/target/test-reports/TEST-controlled.extra.xml';
+  await f.put(fixturePath(red.sandbox,'build_tenants/scala_spark/'+extra),
+    '<testsuite tests="1" failures="0" errors="0"><testcase name="controlled extra"/></testsuite>');
+  inventory.observedValue.push(extra);
+  const wrongInventory=await f.evaluate([green.event,red.event,restored.event]);
+  assert.equal(criterion(wrongInventory,'original-eight-xml-reports'),'satisfied','current restored inventory remains valid');
+  assert.ok(wrongInventory.criteria.filter(row=>row.id.startsWith('mutation:')).every(row=>row.disposition==='indeterminate'),
+    'red episode must supply its own exact original inventory, not the later restored inventory');
+  inventory.observedValue=originalInventory;
+  await rm(fixturePath(red.sandbox,'build_tenants/scala_spark/'+extra));
+  const report=red.reports[0],bytes=await readFile(fixturePath(red.sandbox,report.relativePath));
+  await f.put(fixturePath(f.scratch,'unrelated/'+report.relativePath),bytes);
+  await rm(fixturePath(red.sandbox,report.relativePath));
+  const missing=await f.evaluate([green.event,red.event,restored.event]);
+  assert.equal(criterion(missing,'original-scala-test-floor'),'satisfied','current restored reports remain valid');
+  assert.ok(missing.criteria.filter(row=>row.id.startsWith('mutation:')).every(row=>row.disposition==='indeterminate'),
+    'identical unrelated archived XML cannot replace the red episode own report');
+});
+test('Owned report repair preserves all six original Hello mechanical command and source cases',async t=>{
+  const {root,rows}=await loadScenarios(fixtures);
+  for(const row of rows.filter(row=>row.key!=='data-mapper-full'))await t.test(row.key,async()=>{
+    const selected=await acquireScenario(root,row),scratch=(await newArchive(policyUnits,'controlled-'+row.key)).path;
+    const rubric=JSON.parse(selected.assets.find(asset=>asset.path===row.oracleFile).bytes.toString('utf8'));
+    const put=async(path,bytes)=>{await mkdir(dirname(path),{recursive:true});await writeFile(path,bytes);};
+    for(const source of selected.sources)await put(fixturePath(scratch,source.path),source.bytes);
+    for(const path of rubric.requiredArtifacts)if(!selected.sources.some(source=>source.path===path))
+      await put(fixturePath(scratch,path),'controlled artifact-existence premise\n');
+    const commands=selected.request.testing.commands.map(command=>({...command,
+      environment:Object.entries(command.environment??{}).map(([name,value])=>({name,value}))}));
+    const value={kind:'worksite_command_execution_observation',observationRef:'observation://controlled/hello/'+row.key,task:{commands},
+      commandResults:commands.map((command,index)=>({...command,kind:'worksite_command_result',reports:[],exitStatus:0,timedOut:false,terminationConfirmed:true,
+        observationRef:'command://controlled/hello/'+row.key+'/'+index,observationDigest:product.sha256Canonical(command),
+        stdout:{encoding:'base64',payload:Buffer.from(index===0&&['basic-cli','rust-cli'].includes(row.key)?'Hello, world!\n':'# pass 20\n').toString('base64')},
+        stderr:{encoding:'base64',payload:''}})),predicateObservations:selected.request.testing.outcomePredicates
+          .filter(row=>row.predicateKind==='module_export_return_exact').map(row=>({predicateId:row.predicateId,observedValue:row.declaration.equals,evidenceRefs:[]}))};
+    const owner={graphFunctionRef:product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,outputContractRef:product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef,
+      resultClass:'success',runId:'run://controlled/hello/'+row.key},cCallRef='c-call:controlled/hello/'+row.key;
+    const event={kind:'c_call_result_admitted',graphFunctionRef:owner.graphFunctionRef,runId:owner.runId,aggregateId:cCallRef,
+      payload:{contractRef:owner.outputContractRef,resultClass:'success',valueKind:value.kind,cCallRef,value}};
+    const checker=await import(pathToFileURL(fixturePath(root,row.oracleModule)).href);
+    const input={worksiteRoot:scratch,source:row,request:selected.request,events:[event],observationOwner:owner,validateObservation:()=>true};
+    assert.equal((await checker.evaluate(input)).disposition,'satisfied','pure mechanical fixture, no native/semantic UAT credit');
+    assert.notEqual((await checker.evaluate({...input,events:[]})).disposition,'satisfied');
+  });
+});
 test('Source-use attribution refuses unauthenticated or unadmitted current invocations through actual installed owners',async t=>{
   const runtime=await installedModules(process.env.ABI5_ORACLE_SOURCE_OWNER_ROOT??fileURLToPath(new URL('../../',import.meta.url)));
   const f=await oracleEventFixture(t),prefix=runtime.abg.captureDurablePrefixCoordinate(f.prefix);

@@ -1,0 +1,15 @@
+{
+  "subjects": 6,
+  "c2Records": 86,
+  "c2Bytes": 101839365,
+  "recipeTaskJoin": true,
+  "actualTask": "worksite-command-execution-task://abiogenesis/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa",
+  "actualRun": {
+    "digest": "sha256:4072b5cc75b27bf22993a430cf6b007c70731cd0da0ddee8f623c88232690a64",
+    "ref": "run://abiogenesis/4a99520b11141d45c3b358cdd08a8f6689f56e4a29dfd1de5f6e78fe97fbb462"
+  },
+  "actualFailure": "result://abiogenesis/0aa58e2671d8b61ddbe3b029687e1edd22644ea0293273063107692909f3745d",
+  "judgment": "blocked",
+  "executionSelectionRef": "absent",
+  "nativeCalls": 0
+}

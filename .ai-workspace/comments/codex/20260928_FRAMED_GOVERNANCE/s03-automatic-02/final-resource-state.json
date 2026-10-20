@@ -1,0 +1,72 @@
+{
+  "at": "2026-09-30T03:16:47.490052+00:00",
+  "mutable_resource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+    "bytes": 4689421,
+    "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59",
+    "device": 16777230,
+    "inode": 463811526,
+    "mtimeMs": 1790737989398.071,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abiogenesis-event-store-locks-v5/16777230-463811526.lock",
+    "lock": "absent",
+    "eventCount": 566,
+    "prefix": {
+      "coordinateDigest": "sha256:c6f9e643169de2357fb92df60aea8dbb749317e988e7cfa565ef1e354994424e",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59",
+      "prefixLength": 4689421,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 463811526
+      }
+    }
+  },
+  "snapshot": {
+    "path": "final-native-prefix.jsonl",
+    "bytes": 4689421,
+    "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+  },
+  "original_prefix_preserved": {
+    "path": "../s03-automatic-01/failed-native-prefix.jsonl",
+    "bytes": 3863401,
+    "sha256": "c00b129cb95ec9d89d8f73e3f40fe85eeb646001616bfe100a7fee75f4b7d564"
+  },
+  "original_handoff_unchanged": "4de6abb6275a46119fc4e6ccde5e3593e0c84bfe6ef6c58e06b726c5f380f59c",
+  "final_handoff_sha256": "23542ae5af5054dda2d0f68ebd478524919fd3c69f9af596cabfdde15dbbc857",
+  "quiescence": {
+    "same_identity_bytes_and_mtime_as_closed_driver": true,
+    "owner_lock": "absent",
+    "owned_process": {
+      "exit_code": 0,
+      "pid": 76686,
+      "owned_process": "exited and reaped",
+      "elapsed_seconds": 11.243569500278682,
+      "finished_at": "2026-09-30T03:13:12.704154+00:00"
+    },
+    "host_wide_processes": "indeterminate; retained ps denial, no additional attempt"
+  },
+  "unchanged_phase_a_records": [
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/oracle.json",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-a-readiness.json",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-a-return.md",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-a-source-identities.json",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/preimages.json",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/pure-preflight-01.log",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/pure-preflight-02.log",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/pure-preflight-final.log",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/pure-preflight.json",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/request-sections.json",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/request.txt",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs"
+  ],
+  "deliberate_source_successor": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+    "bytes": 29264,
+    "sha256": "b54df94a0231b85fa87bb68eab39ec4744fef4f4a406f6ba1354990ec1b613e9"
+  },
+  "prior_resource_exception": "Only authorized ordinary owner reopen/read/close and one new no-action invocation; prior snapshots and metadata remain unchanged"
+}

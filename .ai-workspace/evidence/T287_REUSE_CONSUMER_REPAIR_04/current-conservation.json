@@ -1,0 +1,42 @@
+{
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+    "bytes": 2498379,
+    "digest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+    "device": 16777230,
+    "inode": 465155422,
+    "mode": 420
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+    "bytes": 2498379,
+    "digest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+    "device": 16777230,
+    "inode": 465155422,
+    "mode": 420
+  },
+  "eventAppends": 0,
+  "outerCloses": 1,
+  "nativeCalls": 2,
+  "originalPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/installed-authority-handoff.json",
+      "bytes": 7357822,
+      "sha256": "97b61ffc7d34d14ee18f4618192fcb7180728019e5e4911799f65af5fdbee56a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/closed-event-resource-handoff.json",
+      "bytes": 3591718,
+      "sha256": "d60035d70e3bd00ad157cdc64d59964b3d3fc01856f1729293b44de989739cd0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-closed-environment.json",
+      "bytes": 57715713,
+      "sha256": "58d22ec5859cc199416e6bd3666915ff059f1995e6e0d427fa9de72fc67f64a3",
+      "mode": 420
+    }
+  ],
+  "status": "passed"
+}

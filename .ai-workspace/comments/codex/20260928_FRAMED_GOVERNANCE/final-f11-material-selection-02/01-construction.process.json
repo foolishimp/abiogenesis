@@ -1,0 +1,12 @@
+{
+  "label": "01-construction",
+  "command": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/construct-selection.py"
+  ],
+  "pid": 33194,
+  "elapsedMs": 662.6596669666469,
+  "exitCode": 1,
+  "signals": [],
+  "nativeCalls": 0
+}

@@ -1,0 +1,426 @@
+{
+  "frozenAt": "2026-10-06T15:31:24.849Z",
+  "role": "Operator13 STOPPED",
+  "case": "data-mapper-full",
+  "status": "failed",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec",
+  "scope": "Explicit selected file ledger, unique by absolute path; no count-only conservation claim",
+  "ledgerCount": 83,
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/run.json",
+      "sha256": "741bded9c0fb2719a207fb7ffa3339fabefd702a42755df09d95ae169c59cf8f",
+      "byteCount": 11059
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/summary.json",
+      "sha256": "af42ca8a437745a534d1627d7acc2a6cb9452e8584dc85480de5cb6797e6a870",
+      "byteCount": 550
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/SEALED.json",
+      "sha256": "0bdd6625195a922cdab353e95c84476718824e8514e7b57cd6b2deebfa0897ce",
+      "byteCount": 286
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/final-close-handoff.json",
+      "sha256": "41dabc60ee96d62bccac77159f3b4614976dfcee0a10ac30a1ef881eaed7f7dd",
+      "byteCount": 1468
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/runtime-events.json",
+      "sha256": "0a74dc6db904eb24d9d7a6ba4bac8b0d39b341420107892b409ddb18cede3938",
+      "byteCount": 32774586
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/resources/events/runtime.events.jsonl",
+      "sha256": "8eb5f15128d1a2d292dddc864491e96b268e30a4fcf53733b5376277a2c1a988",
+      "byteCount": 27540842
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/fresh-readback.json",
+      "sha256": "bbe264a3ca05c7791483e225962fa90620673ef31a44ed2cd0900e546d65dca3",
+      "byteCount": 2462
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/independent-oracle.json",
+      "sha256": "1086ce32c8acd36b2f14c8fa2820677856df967cbfb6954342ef1b8cce05fb6e",
+      "byteCount": 28151
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/oracle-acquisition.json",
+      "sha256": "2e40be4b33fe0ba6b89b606960873343dfc33d6bc009d86826d7aeb237bbf7b5",
+      "byteCount": 1788
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/preflight.json",
+      "sha256": "11bac640073e4a687a98953269b22930405e0d3595225b0a3fca2fb2821b9a5a",
+      "byteCount": 4044
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/prepared-definition-call.json",
+      "sha256": "3e530fc148cbc9f0e32d7c499e87af53efdea6439da0f746af21708b4192e4a5",
+      "byteCount": 29029634
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/workload-source.json",
+      "sha256": "a9ae13e3e16a90f4c83f4fa62e254ca5b62f8e9c46877de2181f834dc7be6d30",
+      "byteCount": 80945
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/source-conservation.json",
+      "sha256": "ea8a5306a87c994b25e5bf15c136a3c6059688f27453e356abf6d16b17d9aa93",
+      "byteCount": 1002
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/installed-content-before-run.json",
+      "sha256": "ac00db904ddad31eed86c135302862cde51c70ada3c5604dd2d8eb45931c191b",
+      "byteCount": 2166
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/installed-content-after-run.json",
+      "sha256": "ddcf8e61c8c4b7abb3323a3af8e3a5a46a922d893eecd6e64876c689ae5c6685",
+      "byteCount": 2165
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/setup-identity.json",
+      "sha256": "c11ffe7f43ec1ed49c51b1d024e62022368411a28627fa198d02e976b236a33b",
+      "byteCount": 9225836
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/abg-acquisition.json",
+      "sha256": "5206a7b92da3bf535cf3deed5b6689c27f7947cb36fb6d77c7834ce70d84bf2f",
+      "byteCount": 16366553
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/consumer-acquisition.json",
+      "sha256": "274069431899562b67fc0006c57fdb0db971e07bf31d46bce9539789fbf643e9",
+      "byteCount": 10359
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/installed/0/identity.json",
+      "sha256": "4942c7610e849bc7de8cf87e91288ff58967454eda294bbe541d899d5522d342",
+      "byteCount": 4278180
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/installed/0/product-toolchain-manifest.json",
+      "sha256": "6b364f6fb03441f5eabfb04a86986a606fc06b1d7862073a9d1fb46a2e2cf573",
+      "byteCount": 4290018
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/installed/1/identity.json",
+      "sha256": "770ee13e3e3f59ad69068f2876f1b30c848449b1aadada11d4379375fcca25c0",
+      "byteCount": 13929
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/installed/1/product-toolchain-manifest.json",
+      "sha256": "268ba50ca28757b62881c60a8615ce8cd62dc81957a48557fe39febda9dced4d",
+      "byteCount": 5845
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/lifecycle-start.request.jsonl",
+      "sha256": "23dd618fc8a37dd47ca5dfe81358b021c72935764f33fe72b7e7b6311eb8ec43",
+      "byteCount": 21814412
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/lifecycle-start.outcome.json",
+      "sha256": "363b218a035beb2e812a04adb0580bc0101386e92bdb9b6a4a0dbbf4e04e28eb",
+      "byteCount": 1563211
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/lifecycle-start.close.json",
+      "sha256": "41dabc60ee96d62bccac77159f3b4614976dfcee0a10ac30a1ef881eaed7f7dd",
+      "byteCount": 1468
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/run_result.request.jsonl",
+      "sha256": "4e10341c5b5e8328d4ac79fa350fdd212149d511618f27023a17345419d9d9c8",
+      "byteCount": 10072
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/run_result.outcome.json",
+      "sha256": "5f8cb86895ff762481f8c58c2be67c0b01c6ebde2dc14d2e248670cc39f64e6d",
+      "byteCount": 3518
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/run_result.close.json",
+      "sha256": "41dabc60ee96d62bccac77159f3b4614976dfcee0a10ac30a1ef881eaed7f7dd",
+      "byteCount": 1468
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/run_replay.request.jsonl",
+      "sha256": "93fae3f3996c1b689a4ed2af47c107fc93c1717e70c6d3cbc9e2489c28909309",
+      "byteCount": 10109
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/run_replay.outcome.json",
+      "sha256": "b57342869507f81a6cbbf2ed9ee45c046a6badcd2e9893c64b9c6562388ab633",
+      "byteCount": 4743
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/calls/run_replay.close.json",
+      "sha256": "41dabc60ee96d62bccac77159f3b4614976dfcee0a10ac30a1ef881eaed7f7dd",
+      "byteCount": 1468
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/lifecycle-start.request.json",
+      "sha256": "2f354fb832e1621cf8cf7aca4c11f02233c403155df1c6e280db963753b1527b",
+      "byteCount": 1168
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/lifecycle-start.stdout",
+      "sha256": "93298b2498251a1a851c0f26f7c2ad7caaecb2b6769d48abfc2db6de58181ae5",
+      "byteCount": 1220521
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/lifecycle-start.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/lifecycle-start.result.json",
+      "sha256": "1bb23bc2eede8502bd7ec1fccaca2bd6157c05bad550778465fab2e254017836",
+      "byteCount": 1276778
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/run_result.request.json",
+      "sha256": "fcb67ac8ca77509d4b0209462ceeaa6d8e2022e3ac0a7944c859d3a21d1effd9",
+      "byteCount": 938
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/run_result.stdout",
+      "sha256": "4c56d10060e031bb97b46870ecad706f2f45f18c65b8c296cc36702439b3edfd",
+      "byteCount": 2789
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/run_result.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/run_result.result.json",
+      "sha256": "cba6e300fa6c941d476a12d784f55a51032fb35f9328c17b1901358e47997b10",
+      "byteCount": 4074
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/run_replay.request.json",
+      "sha256": "977936a71e350937dd415b07d559479595c058baf15cb5dfe91943828f9f8d6f",
+      "byteCount": 938
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/run_replay.stdout",
+      "sha256": "92c48b68169af2530c5c61d28b47624e1ca0e2bbdac073ed374e08d252f9f331",
+      "byteCount": 3767
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/run_replay.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/commands/run_replay.result.json",
+      "sha256": "45476bec3fd8b0d0935b3a2cd509a99730ffdbd7effb0892e69fa172144b2a11",
+      "byteCount": 5105
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/resources/archives/fp-2597e5a4a766bfdf-prompt.txt",
+      "sha256": "c13004cab4dbd0877bd6f14030b5101f882432a24c7bf213a9dd4cdebfcef0ba",
+      "byteCount": 167093
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/resources/archives/fp-2597e5a4a766bfdf-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/resources/archives/fp-2597e5a4a766bfdf-stdout.log",
+      "sha256": "9b84c8940a2b062c98b8729baa6fde63a9c10a3e206cbe453725923e31de9219",
+      "byteCount": 351237
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/resources/archives/fp-94d8384ca6d89eb5-prompt.txt",
+      "sha256": "be5bda5e7e9e2cd4aa3a8a7ffd2fb969f00318f057cc4e28992f3fce2289ebb6",
+      "byteCount": 73979
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/resources/archives/fp-94d8384ca6d89eb5-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/resources/archives/fp-94d8384ca6d89eb5-stdout.log",
+      "sha256": "44afe7af6fb5db3797b431fa02278bacb551216027c9c18f01df77c092695af3",
+      "byteCount": 2141510
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/build_tenants/scala_spark/build.sbt",
+      "sha256": "e80c7309ce50c7ec1f5a3f0617fac10a41c61c54a44548356842d2f9606813bb",
+      "byteCount": 4403
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+      "sha256": "38ea0f32be1af45ad71a84e507a6a7e7716a54bfed324e4c5f7f18a24e13983d",
+      "byteCount": 16589
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+      "sha256": "34cb1a8b5f2486b8bf17da08868a5ba42b3a62b7b42f9afc4022f66224f72516",
+      "byteCount": 8534
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "sha256": "26dc2bea0934f9717d99f3fe62aed8994b7ecd4a700a84640dd765fd38063c40",
+      "byteCount": 7840
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+      "sha256": "a9af569c2b09760713a7ca0ca100097fa80cef8e6e56fee6886177988592882e",
+      "byteCount": 2376
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+      "sha256": "f7b43162a09d201676d99349728555b0f0b1bfe30156c429c0dfcb4127c853fd",
+      "byteCount": 9226
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/build_tenants/scala_spark/project/build.properties",
+      "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+      "byteCount": 19
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/build_tenants/scala_spark/project/plugins.sbt",
+      "sha256": "3ee0e92b9c9e31c1b722282c6133856d75915e8ccad4f011ea70d61147e21bed",
+      "byteCount": 119
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/source/data-mapper-full/source.original.txt",
+      "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+      "byteCount": 41158
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/source/data-mapper-full/supporting-constants.original.txt",
+      "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+      "byteCount": 3713
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/source/data-mapper-full/obligations.json",
+      "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+      "byteCount": 50978
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T15-04-22-474Z-90b4c94e-6356-445d-8466-c293071ba9ec/sandbox/worksite/source/data-mapper-full/oracle.json",
+      "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+      "byteCount": 16774
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "byteCount": 2328
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "dd5e5b164af8198997b45d5575fc7febd43b4b9fcabc46073bdf8ffc7ce5904f",
+      "byteCount": 10621478
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/freeze.json",
+      "sha256": "c76117006a2e288b166770b3258c52023f6eeaa4e2c12fc2fc27dd5099313f95",
+      "byteCount": 9560
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/source-freeze.json",
+      "sha256": "c134b88715b8c9dec0c2134c48831ed664665f33a9be515c661279fe85edb24a",
+      "byteCount": 11471
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+      "byteCount": 31672
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "6aea6974a3fdcb93423e06b3836f085c090288bea2067eb40270e6e43c8163e3",
+      "byteCount": 45417
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "fd171b5ab38d617bcaf354641ccfa73061ad5f805ad05b752172d0384ef95e63",
+      "byteCount": 94105
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "byteCount": 34763
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "byteCount": 23452
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "byteCount": 22857
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "byteCount": 26202
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "a7c639158059ed39bdabde8825e1b03fcec7a470ebab26cec8246245ee8ca67b",
+      "byteCount": 23083
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-13.json",
+      "sha256": "099050b5a7d3db3fba140fd1aca97c2daca39e82ac248dc3bcb78a1aedcfba7d",
+      "byteCount": 2328
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-13/observations.json",
+      "sha256": "e32e91185b6755324759b939016fff542589e48ed5a13ba83ceac2bc0aa28d99",
+      "byteCount": 14963
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-13/return.md",
+      "sha256": "c428f31001ab63a424d96606234ae289e2d6bc5276742724b5d17a83daf84163",
+      "byteCount": 1863
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-13/preparation.json",
+      "sha256": "0c2394fb8385a4d17128c5c2c2202f41cc31f101dde74849d25b6410f35a1bea",
+      "byteCount": 6227
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-13/execution.md",
+      "sha256": "73682933d82dae32de11c25b6641297ba81f79d47fecaa953fee6036bae226b0",
+      "byteCount": 659
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-13/commands/data-mapper-full.request.json",
+      "sha256": "2c116b4563e5a7ac05d61116489e91fb4b4afc9119b0252e9978974fe09fcf57",
+      "byteCount": 1637
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-13/commands/data-mapper-full.stdout",
+      "sha256": "20e72636df410c7373d43df21d0dbc3b3c8c46db37d7b306ac8b8fe84e01457c",
+      "byteCount": 509
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-13/commands/data-mapper-full.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-13/commands/data-mapper-full.result.json",
+      "sha256": "5c2675f3661cbdd474abc18b1dbfa286d3f9f708519c5c4e15b1036cd30e636c",
+      "byteCount": 2340
+    }
+  ]
+}

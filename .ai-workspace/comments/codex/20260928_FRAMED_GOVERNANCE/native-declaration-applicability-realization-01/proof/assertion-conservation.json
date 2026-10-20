@@ -1,0 +1,19 @@
+{
+  "kind": "original_assertions_preserved",
+  "passed": true,
+  "beforePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+  "afterPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/copied-tenant/test_env/tests/m5-s06-prime.test.mjs",
+  "originalAssertions": 122,
+  "finalAssertions": 140,
+  "unchangedOriginalExactCallBytes": 121,
+  "originalExpectedAndDescriptionBytesPreservedInOrder": true,
+  "inputPropagation": [
+    {
+      "before": "assert.equal(\n    linkNativeContractSet(\n      [{\n        ...source,\n        declaredDependencies: [\n          dependencyFor([\n            alpha.contractId,\n            duplicateAlpha.contractId,\n            beta.contractId,\n            hidden.contractId,\n            runtimeOnly.contractId,\n          ]),\n        ],\n      }, {\n        ...target,\n        publicContracts: [\n          alpha,\n          duplicateAlpha,\n          beta,\n          hidden,\n          runtimeOnly,\n        ],\n      }],\n      toolchain.productContentDigest,\n    ).code,\n    \"ambiguous_dependency\",\n    \"two contracts cannot own the same crossing symbol\",\n  )",
+      "after": "assert.equal(\n    linkNativeContractSet(\n      [{\n        ...source,\n        declaredDependencies: [\n          dependencyFor([\n            alpha.contractId,\n            duplicateAlpha.contractId,\n            beta.contractId,\n            hidden.contractId,\n            runtimeOnly.contractId,\n          ]),\n        ],\n      }, {\n        ...target,\n        publicContracts: [\n          alpha,\n          duplicateAlpha,\n          beta,\n          hidden,\n          runtimeOnly,\n        ],\n        evidence: {\n          ...target.evidence,\n          contracts: [\n            ...target.evidence.contracts,\n            {\n              ...target.evidence.contracts.find(contract => contract.contractId === alpha.contractId),\n              contractId: duplicateAlpha.contractId,\n              contractDigest: duplicateAlpha.contractDigest,\n            },\n          ],\n        },\n      }],\n      toolchain.productContentDigest,\n    ).code,\n    \"ambiguous_dependency\",\n    \"two contracts cannot own the same crossing symbol\",\n  )",
+      "authority": "Root-authorized duplicateAlpha exact evidence setup is nested inside first actual-expression argument; expected code and explanatory oracle remain exact"
+    }
+  ],
+  "originalAssertionsSha256": "c6ab042816fca947f657cd4489294f403472091280b5f12a2ea5956759289e89",
+  "limit": "mechanical assertion conservation; semantic fixture propagation is separately recorded in first-source-readiness-failure and test-arrangement authority"
+}

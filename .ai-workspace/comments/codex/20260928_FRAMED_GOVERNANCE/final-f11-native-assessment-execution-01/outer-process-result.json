@@ -1,0 +1,37 @@
+{
+  "pid": 27402,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "signals": [],
+  "elapsedMs": 291588.677,
+  "nativeGroups": [
+    {
+      "label": "conformance-assess",
+      "processGroup": 27670,
+      "alive": false
+    },
+    {
+      "label": "assess-rule",
+      "processGroup": 27892,
+      "alive": false
+    },
+    {
+      "label": "assess-rule-run_replay",
+      "processGroup": 30557,
+      "alive": false
+    },
+    {
+      "label": "assessment-view",
+      "processGroup": 27537,
+      "alive": false
+    },
+    {
+      "label": "assess-rule-run_result",
+      "processGroup": 30494,
+      "alive": false
+    }
+  ],
+  "reaped": true,
+  "allOwnedGroupsClosed": true
+}

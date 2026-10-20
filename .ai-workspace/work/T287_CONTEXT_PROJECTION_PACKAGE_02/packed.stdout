@@ -1,0 +1,20 @@
+✔ all eight exact package addresses resolve canonical owner projections (208.379083ms)
+✔ catalog locates fresh complete declaration closures, retaining every extant identity (158.152292ms)
+✔ missing group and crossed locator are rejected by the same fixed oracle (16.555333ms)
+✔ ungrouped construction metadata retains spans and coordinates while selected bodies are quoted once (29.63475ms)
+ℹ {"selectedBodies":4,"retainedConstructionRecords":2,"promptBytes":68530,"duplicateBodyBytes":18485,"runtimeCalls":0,"qualificationClaims":0}
+✔ ungrouped canonical owners refuse corrupt construction record bytes and attribution spans (40.411375ms)
+✔ two responsibility bindings use the same published preparation and immutable resource owners (46.169834ms)
+ℹ {"responsibilityBindings":2,"embeddedPreparations":2,"referencePreparations":4,"resourceAcquisitions":1,"inventoryCoverage":"incomplete","assertionBytes":89498,"promptBytes":[49543,49550],"runtimeCalls":0,"qualificationClaims":0}
+✔ existing owners refuse missing resources, crossed selectors and changed task identity (11.467041ms)
+✔ source-blind strict caller imports canonical input, resource and request types from m05 (3012.056917ms)
+ℹ {"nativeConsumer":"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/consumer/public-preparation-consumer.mts","strict":true,"diagnostics":0,"closedTypeNegatives":3}
+✔ generated m05 group locates both canonical owners and hashes its actual native inventory (3.77175ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22736.289292

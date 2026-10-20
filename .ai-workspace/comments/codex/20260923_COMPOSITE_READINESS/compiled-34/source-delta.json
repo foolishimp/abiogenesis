@@ -1,0 +1,26 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/event_calculus.ts",
+      "bytes": 72911,
+      "sha256": "100d037846789f56fbbc279ece7923a3f4d2b04effefdb5ae0f35e21357ae467"
+    },
+    "after": {
+      "path": "code/src/abg/event_calculus.ts",
+      "bytes": 75468,
+      "sha256": "354dde450eda3c986c25ec4919f2884ef54a13d4bebde8647693a6af97f2ed0e"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/abg/runtime_liveness.ts",
+      "bytes": 75040,
+      "sha256": "a0ee579a28c6372ccb2bbb65d581b1953f4c27e829721a2189ea92102784f7f4"
+    },
+    "after": {
+      "path": "code/src/abg/runtime_liveness.ts",
+      "bytes": 76115,
+      "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd"
+    }
+  }
+]

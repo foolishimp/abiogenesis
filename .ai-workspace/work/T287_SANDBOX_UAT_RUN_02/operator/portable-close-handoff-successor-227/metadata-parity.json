@@ -1,0 +1,18 @@
+{
+  "nativeClosures": 15,
+  "nativeLocatorRows": 50,
+  "nativeTypedContractDigestsRecomputed": 23,
+  "publicCatalogOwnerBindingComplete": true,
+  "publicProposalRows": 21,
+  "capabilityDifferenceCount": 551,
+  "capabilityDifferenceKeyCounts": {
+    "graphDigest": 1,
+    "capabilityDefinitionDigest": 34,
+    "capabilityDefinitionRef": 34,
+    "catalogDigest": 241,
+    "productContentDigest": 241
+  },
+  "exactAccepted225GeneratedCounterparts": true,
+  "beforeAndAfterCompleteCapabilitiesCanonicallyRecomputed": true,
+  "noSourceSemanticOrRuntimeClaim": true
+}

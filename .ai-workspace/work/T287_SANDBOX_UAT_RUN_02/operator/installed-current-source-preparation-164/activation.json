@@ -1,0 +1,30 @@
+{
+  "role": "Worker164 actual installed current-source preparation discriminator",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "effectsFrame": "#f-worksite-causality",
+  "basis": "Fixed15 ABI5.0 GOAL035/T287 STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "rootConjunction": "163 boundedGO plus Root84 pins accepts exact162 caller;160 recovery accepted161. No native/model dispatch acceptance.",
+  "RCAandSelectedAction": "158/159: serialized verifier value loses disposable nominal receipt;157 re-inflated package with whole history held and OOMed, precise allocator/dominant retainer unproved.162 sequencing creates both real immutable owner verifier results before history, retains nominal identities, canonical shared grants/held resource; no Product/Source/schema/heap/cap change.",
+  "exactCopiedInputs": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/prepare.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/prepare.mjs",
+      "sha256": "f50fb725f38f64de1426b30f11622551ffa3669ac3f907be1f77a15814d476d4",
+      "byteCount": 33934
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/verify-artifacts.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/verify-artifacts.mjs",
+      "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+      "byteCount": 2071
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/inputs.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/inputs.json",
+      "sha256": "6a6193e436629d4cbcb1e6ea334d08a058551588bc9cdce161fe812272589407",
+      "byteCount": 4238
+    }
+  ],
+  "operation": "ONE copied162 prepare command on SAME eventresource/A/root/actor/Program/raw34/producers. Current26 Public install/resolve/bind/catalog/witness only as selected. No app/model/start/Run admission, SourceNone/copy/reset/privatewriter/Source/Git.",
+  "stop": "Every failure stops with exact first cause/residue; no local workaround/retry/recovery. Capacity/currentness/native/UAT still open. Future quality clock starts only actual later nativeCLI spawn."
+}

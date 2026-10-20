@@ -1,0 +1,516 @@
+{
+  "kind": "closed_catalog_refusal_diagnostic",
+  "reviewId": "NATIVE-D2-CATALOG-R01",
+  "frozenAtUtc": "2026-09-24T14:13:58.412754+00:00",
+  "reviewer": "/root/native_d2_review",
+  "consumer": "/root",
+  "result": "definite_producer_defect",
+  "findingCount": 1,
+  "severity": "S1 selected-path blocker; Root owns priority and disposition",
+  "reviewSha256": "9cbdbc5cbcd45d9efd0f60bdde77a078a7807caf1f4e28fb1f2468409a7b399b",
+  "subjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/return.md",
+      "sha256": "ef5a9879d1118ac627115a9c826a18ddd41c8dd317147d205ee899795a2c11aa",
+      "bytes": 3504,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-20/return.md",
+      "sha256": "8e21d42f724111ce79a6a6bc4ab918df81a5409e7340b9c04aa9bfb362a1f4ea",
+      "bytes": 2131,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/calls/06-catalog.jsonl",
+      "sha256": "e1aa08e269e08f648fe4257f23e55f94ae2129db60096d14470d783ed9e22f88",
+      "bytes": 28188465,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/receipts/06-catalog.json",
+      "sha256": "37b7692b3c8027d2cd9f4686c28816cc7cb4a6f47c6ac470d38da0c29c22e7f9",
+      "bytes": 6103,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-01/prospective-publication.json",
+      "sha256": "c3fe8b00d3b07006c49ae33465df746b3671b990ccadf651fafea3ea5c070731",
+      "bytes": 1084145,
+      "verified": true
+    }
+  ],
+  "method": {
+    "abi": {
+      "basis": "stdo://releases/v2.5.1-rc.1/",
+      "manifestSha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+      "definitionSha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051",
+      "statusVerify": "installed=true, valid=true, failures=[]"
+    },
+    "glc": {
+      "basis": "stdo://releases/v2.5.0-rc.4/",
+      "manifestSha256": "4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e",
+      "definitionSha256": "eb80c28381236b9d7ec7d4e7a694adbb4cddb0678231aebcb02e7a21623153ed",
+      "statusVerify": "installed=true, valid=true, failures=[]"
+    },
+    "mapUsed": false,
+    "companions": "Definition composition resolved as authority route; no companion map/tool was used or credited as runtime evidence.",
+    "selectedDefinitionHashesRechecked": true,
+    "exactMethodVerificationReusedFromReview01": true
+  },
+  "actualRefusal": {
+    "definitionKey": {
+      "memberKey": "admit",
+      "operationId": "abg.operation.catalog.admit"
+    },
+    "invocationRef": "invocation://abiogenesis/1ca1c7ed53dae2a9b00e8d0ff61ca55cfb6bb76bb4d36561e5117ff65e197cdc",
+    "ownerOutput": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "malformed_contribution",
+        "evidenceRefs": [],
+        "issuePaths": [
+          "/contributionManifests"
+        ]
+      }
+    },
+    "failure": null,
+    "resourceDisposition": "read_only_unchanged",
+    "locator": "/receipt/ownerOutput/value"
+  },
+  "firstRejectingPredicate": {
+    "installedFile": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/validation.js",
+    "line": 167,
+    "function": "validatePublishedDeclarations -> appendDuplicateDiagnostics",
+    "publicationIndex": 10,
+    "publicationModuleRef": "module://odd-glc/generic-lifecycle-witness@5",
+    "predicate": "environment.carries has no duplicate reference",
+    "diagnostic": {
+      "code": "duplicate_identity",
+      "path": "$.graphFunctions[graph-function://odd-glc/native-semantic-revision/construction@5].environment.carries",
+      "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/semantic-revision/envelope@5"
+    },
+    "earlierPublicationValidationCount": 10
+  },
+  "producer": {
+    "installedFile": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/semantic_revision_publication.js",
+    "installedLine": 102,
+    "sourceFile": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+    "sourceLine": 107,
+    "function": "nativeConstructionGraph",
+    "duplicate": "contract://abiogenesis/semantic-revision/envelope@5",
+    "mechanism": "Explicit entry envelope plus nativeEvidence terminal output",
+    "graphRef": "graph-function://odd-glc/native-semantic-revision/construction@5",
+    "relations": {
+      "factoryCanonicalGraphEqualsFrozenGraph": true,
+      "installedPayloadGraphEqualsFrozenGraph": true,
+      "preparedPublicationGraphEqualsFrozenGraph": true,
+      "materializedInstalledPublicationEqualsFrozenPublication": true,
+      "factoryCarries": [
+        "contract://abiogenesis/semantic-revision/envelope@5",
+        "contract://abiogenesis/worksite/retained-graph-input@5",
+        "contract://abiogenesis/worksite/native-work/task@5",
+        "contract://abiogenesis/worksite/native-work/observation@5",
+        "contract://abiogenesis/worksite/command-execution-task@5",
+        "contract://abiogenesis/worksite/command-execution-observation@5",
+        "contract://abiogenesis/semantic-revision/envelope@5"
+      ],
+      "nodeOutputCarriers": [
+        {
+          "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/prepare",
+          "output": "contract://abiogenesis/worksite/native-work/task@5"
+        },
+        {
+          "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/construct",
+          "output": "contract://abiogenesis/worksite/native-work/observation@5"
+        },
+        {
+          "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/prepare-execution",
+          "output": "contract://abiogenesis/worksite/command-execution-task@5"
+        },
+        {
+          "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/execute",
+          "output": "contract://abiogenesis/worksite/command-execution-observation@5"
+        },
+        {
+          "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/evidence",
+          "output": "contract://abiogenesis/semantic-revision/envelope@5"
+        }
+      ],
+      "rawCarriesCount": 7,
+      "uniqueCarriesCount": 6,
+      "exactFactoryRetentionPredicate": true
+    },
+    "manifestBinding": {
+      "binding": {
+        "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+        "publicationDigest": "sha256:4551c58efa1c82e9fd36792dc4698476ee086bf9cda3d2c02c8f8e26e94f9e21"
+      },
+      "actualPublicationSemanticDigest": "sha256:4551c58efa1c82e9fd36792dc4698476ee086bf9cda3d2c02c8f8e26e94f9e21"
+    },
+    "lifecycle": {
+      "requestDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+      "installedPayloadDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+      "preparedPublicationDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+      "counterexampleDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267"
+    }
+  },
+  "counterexample": {
+    "changedField": "one duplicate occurrence removed from target graph environment.carries in memory only",
+    "publicationValidationKind": "publication_validation",
+    "publicationValidationDisposition": "valid",
+    "diagnostics": [],
+    "exactOldFactoryRetentionPredicate": false,
+    "interpretation": "Single duplicate removal clears this publication validator. The old exact factory rejects caller-only cleanup; repair belongs to the shared producer, then successor declarations. No readiness/catalog/runtime continuation was attempted."
+  },
+  "minimumRepair": {
+    "class": "realization_refactor",
+    "owner": "existing generic GTL native-construction factory",
+    "change": "Construct the carried-contract inventory uniquely, retaining all six required references; derive successor publication/package identities through existing owners.",
+    "conserve": [
+      "Original lifecycle identity",
+      "Source/oracle/obligations",
+      "Existing validator and exact-factory retention predicate",
+      "GLC policy and complete suffix topology",
+      "Historical cuts and old Runs"
+    ],
+    "excluded": [
+      "Caller-side publication repair",
+      "Validator relaxation",
+      "New runtime or authority",
+      "Catalog retry under this activation"
+    ]
+  },
+  "focusedFalsifier": "Complete historical lifecycle plus intake/suffix publication from the corrected factory must pass raw admission and full validatePublication while its construction graph remains accepted by that same factory retention predicate. Remaining duplicate refusal falsifies the correction.",
+  "readRefs": [
+    {
+      "id": "frame",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "ff10c44e9efe12757e0babf5c5c19c0acf7cf699afd92f96bba08dac2c5230b8",
+      "lines": [
+        [
+          39,
+          133
+        ],
+        [
+          139,
+          253
+        ],
+        [
+          305,
+          338
+        ]
+      ],
+      "purpose": "Selected frame, worksite causality and S1 severity",
+      "priorOwningReadReused": true,
+      "identityRechecked": true
+    },
+    {
+      "id": "product",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631",
+      "lines": [
+        [
+          830,
+          907
+        ],
+        [
+          982,
+          1024
+        ],
+        [
+          1119,
+          1209
+        ]
+      ],
+      "purpose": "Fifteen-family scope, F17/S06 ordinary installed path, ownership and prohibitions",
+      "priorOwningReadReused": true,
+      "identityRechecked": true
+    },
+    {
+      "id": "qual",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sha256": "ee198c089c4f0344ed04605a902d186c750805a78ef67cac2940957d8aabec33",
+      "lines": [
+        [
+          307,
+          324
+        ],
+        [
+          367,
+          367
+        ],
+        [
+          463,
+          490
+        ]
+      ],
+      "purpose": "QUAL062 and proportional evidence order",
+      "priorOwningReadReused": true,
+      "identityRechecked": true
+    },
+    {
+      "id": "scenarios",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "sha256": "e84443f27e54e533a907565b84db7422657dd8b748d5753157649826a8f0d747",
+      "lines": [
+        [
+          169,
+          208
+        ]
+      ],
+      "purpose": "SCENARIOS013 obligation conservation and installed public witness",
+      "priorOwningReadReused": true,
+      "identityRechecked": true
+    },
+    {
+      "id": "installed-gtl-producer",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/semantic_revision_publication.js",
+      "sha256": "6a4bb957a415e357f723a3e9943e6c3ef334e06f81e49fb2ab7b3f19fc5d1788",
+      "lines": [
+        [
+          14,
+          19
+        ],
+        [
+          40,
+          42
+        ],
+        [
+          95,
+          118
+        ]
+      ],
+      "purpose": "Duplicate from entry envelope and final node output; exact factory retention guard"
+    },
+    {
+      "id": "source-gtl-producer",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+      "sha256": "250c58315af818b6d06e866eb5088f81f3036c63251215f397e74b32d5c8663c",
+      "lines": [
+        [
+          100,
+          120
+        ]
+      ],
+      "purpose": "Smallest owning source correction at line 107; source is not runtime authority"
+    },
+    {
+      "id": "installed-canonicalization",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/canonicalization.js",
+      "sha256": "f7c2371bb3a15e28be732f9c2525a97bc36a6e002b16dea4da2c29ed9d2da1b8",
+      "lines": [
+        [
+          22,
+          28
+        ],
+        [
+          75,
+          84
+        ]
+      ],
+      "purpose": "Sorting preserves duplicate inventory occurrences"
+    },
+    {
+      "id": "installed-glc-construction",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/odd-glc-dev10-install-wF5YLE/node_modules/@odd-glc/route-one-typescript/build/native-lifecycle-declarations.mjs",
+      "sha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599",
+      "lines": [
+        [
+          284,
+          294
+        ],
+        [
+          311,
+          324
+        ]
+      ],
+      "purpose": "GLC calls the generic factory for declared construction graph"
+    },
+    {
+      "id": "frozen-caller-materialization",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/test/d1-lifecycle-declarations.mjs",
+      "sha256": "b71f3550a9a8c0f15533b59adc568d6cb07b290db85b6e19053572efd9c0411b",
+      "lines": [
+        [
+          332,
+          340
+        ]
+      ],
+      "purpose": "Binds package coordinates/provenance without graph repair"
+    },
+    {
+      "id": "frozen-caller-prepare",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/prepare.mjs",
+      "sha256": "38e3b873d4a5de14253ff02f2f9cc7010d98cc64a33c22d56a485ff06862ecab",
+      "lines": [
+        [
+          63,
+          66
+        ],
+        [
+          84,
+          89
+        ]
+      ],
+      "purpose": "Installed publication is materialized and sent to Public catalog operation"
+    },
+    {
+      "id": "frozen-caller-transport",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/test/full-sandbox-support.mjs",
+      "sha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+      "lines": [
+        [
+          69,
+          90
+        ]
+      ],
+      "purpose": "Actual installed CLI route; assertion follows persisted owner refusal"
+    },
+    {
+      "id": "installed-raw-admission",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/raw_admission.js",
+      "sha256": "20df548a6cabca13ac95fc06d3a9d42b610eb5d837e1cce4881d1db94ea8e936",
+      "lines": [
+        [
+          50,
+          101
+        ]
+      ],
+      "purpose": "Pure canonical erased-input admission"
+    },
+    {
+      "id": "installed-publication-validator",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/validation.js",
+      "sha256": "bd9182e354139eeb1587e230695cb4bb514d8912f94b033fdfae2fc55c923f4f",
+      "lines": [
+        [
+          95,
+          108
+        ],
+        [
+          164,
+          175
+        ],
+        [
+          268,
+          288
+        ],
+        [
+          310,
+          320
+        ],
+        [
+          366,
+          402
+        ]
+      ],
+      "purpose": "First failing predicate is appendDuplicateDiagnostics on environment.carries, installed line 167"
+    },
+    {
+      "id": "installed-catalog-port",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/catalog_operations.js",
+      "sha256": "21f2201b11c4792fd43515c1ca72f71c58d1172beb9dc3ec793b67f314dcedb0",
+      "lines": [
+        [
+          81,
+          99
+        ]
+      ],
+      "purpose": "Full publication validation precedes catalog construction"
+    },
+    {
+      "id": "installed-public-owner",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/catalog_definition_bindings.js",
+      "sha256": "99b99af789482214ee46c078d6849f33fc62ca9f7a49b7fed81a358bb9699428",
+      "lines": [
+        [
+          92,
+          123
+        ],
+        [
+          125,
+          154
+        ],
+        [
+          273,
+          288
+        ]
+      ],
+      "purpose": "Reconstructs basis then maps static publication refusal to observed Public refusal"
+    },
+    {
+      "id": "installed-publication-payload",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/odd-glc-dev10-install-wF5YLE/node_modules/@odd-glc/route-one-typescript/build/publication.json",
+      "sha256": "ad8fc12b0472333ba4e85ef450df376b7dd4478b62061ad92f87ac13b257d78b",
+      "lines": [],
+      "purpose": "Exact immutable consumer publication; parsed only for bounded relations"
+    },
+    {
+      "id": "core-selection",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-20/selected-core.json",
+      "sha256": "e804b0ee0d37f5f9482b437148ffc6e37dd4784db60c17453f2214e373a646d3",
+      "lines": [],
+      "purpose": "Selected installed core and closed archive/content identity"
+    },
+    {
+      "id": "consumer-selection",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev10/installed-consumer.json",
+      "sha256": "e953926128c024fcbf9f50cfd93618187e6735c2f9e4ca018886948078c9d94f",
+      "lines": [],
+      "purpose": "Selected installed dev10 payload and package identity"
+    },
+    {
+      "id": "caller-freeze",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller-subject.json",
+      "sha256": "ad8592b56a9ccc15cea7377cf548985ae863fac4b3aae5867b99c20973420fa9",
+      "lines": [],
+      "purpose": "Closed caller source identities"
+    }
+  ],
+  "diagnosticArtifacts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/catalog-refusal-review-01/predicate-probe.mjs",
+      "sha256": "7269f3dcbf529a44e39cc71263c1e33de15742c4439717b6da47108b3f01a182",
+      "bytes": 2257
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/catalog-refusal-review-01/predicate-probe.json",
+      "sha256": "19564f8f1587810c64a94317bfcabf52ab7d8d134e2e0c9e97983ba5171d2a9d",
+      "bytes": 6291
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/catalog-refusal-review-01/producer-probe.mjs",
+      "sha256": "973da8dc3244fce6fed90e4e5e71e32b6051a7d1ce5fc6dc8c335caa9b4d852e",
+      "bytes": 4959
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/catalog-refusal-review-01/producer-probe.json",
+      "sha256": "52f0e3df60fa66829ee25cbe4a6ff047ee5f2e9d53b4e38975c1a920a569d605",
+      "bytes": 3451
+    }
+  ],
+  "evidenceLimits": [
+    "Two deterministic pure probes only; no installed catalog operation, event resource acquisition or history/replay read.",
+    "The in-memory normalized copy demonstrates only this publication predicate; no Catalog readiness/conservation result is claimed.",
+    "Later catalog readiness, allowlist, conformance, resolution, source eligibility, actors and native correction remain unknown.",
+    "Preparation duration/RSS are observed but no cause was investigated or attributed.",
+    "Checkpoint identifiers supplied by Root were not queried with Git and do not replace the frozen installed subject."
+  ],
+  "notPerformed": [
+    "Source/design/install edit",
+    "Installed admission retry",
+    "History or replay read",
+    "Actor or native execution",
+    "Rebuild/package/install",
+    "Git operation",
+    "Broader review"
+  ],
+  "memoryUse": {
+    "refs": [
+      "MEMORY.md:544",
+      "MEMORY.md:551-552"
+    ],
+    "purpose": "Bounded review and proportionality only; current facts verified from frozen request and installed code"
+  }
+}

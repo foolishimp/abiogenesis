@@ -1,0 +1,67 @@
+source/code/src/abg/continuation.ts(1324,52): error TS2322: Type '(Omit<Readonly<{ kind: "effectful_public_invocation_truth"; schemaVersion: "5.0.0"; disposition: "duplicate"; invocationRef: string; prefix: ExplicitInvocationTruthPrefix; priorAdmission: EffectfulPublicInvocationPriorAdmission; }>, "prefix"> & { ...; }) | (Omit<...> & { ...; })' is not assignable to type 'PreparedContinuationPublicOperationResult'.
+  Type 'Omit<Readonly<{ kind: "effectful_public_invocation_truth"; schemaVersion: "5.0.0"; disposition: "duplicate"; invocationRef: string; prefix: ExplicitInvocationTruthPrefix; priorAdmission: EffectfulPublicInvocationPriorAdmission; }>, "prefix"> & { ...; }' is not assignable to type 'PreparedContinuationPublicOperationResult'.
+    Type 'Omit<Readonly<{ kind: "effectful_public_invocation_truth"; schemaVersion: "5.0.0"; disposition: "duplicate"; invocationRef: string; prefix: ExplicitInvocationTruthPrefix; priorAdmission: EffectfulPublicInvocationPriorAdmission; }>, "prefix"> & { ...; }' is not assignable to type 'Readonly<{ kind: "effectful_public_invocation_truth"; schemaVersion: "5.0.0"; disposition: "duplicate"; invocationRef: string; prefix: ExplicitInvocationTruthPrefix; priorAdmission: EffectfulPublicInvocationPriorAdmission; }>'.
+      Types of property 'prefix' are incompatible.
+        Type 'OwnedExplicitInvocationTruthPrefix' is not assignable to type 'ExplicitInvocationTruthPrefix'.
+          Type 'OwnedRuntimeEventPrefix' is not assignable to type 'ExplicitInvocationTruthPrefix'.
+            Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'DurablePrefixCoordinate': schemaVersion, eventLogRef, prefixLength, prefixDigest, and 2 more.
+source/code/src/abg/continuation.ts(1391,57): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 7 more.
+source/code/src/abg/continuation.ts(1981,57): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 7 more.
+source/code/src/abg/continuation.ts(2257,57): error TS2345: Argument of type 'RuntimeEventBodyView' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+  Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 7 more.
+source/code/src/abg/effectful_invocation_truth.ts(229,49): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/fh_resume_relation.ts(84,51): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/invocation_execution_truth.ts(55,94): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(events: readonly RuntimeEvent[]): Readonly<{ byteLength: number; digest: `sha256:${string}`; }>', gave the following error.
+    Argument of type 'RuntimeHistorySelection | readonly RuntimeEvent[]' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+      Type 'RuntimeHistorySelection' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, slice, indexOf, and 19 more.
+  Overload 2 of 2, '(events: RuntimeHistorySelection): Readonly<{ byteLength: number; digest: `sha256:${string}`; }>', gave the following error.
+    Argument of type 'RuntimeHistorySelection | readonly RuntimeEvent[]' is not assignable to parameter of type 'RuntimeHistorySelection'.
+      Type 'readonly RuntimeEvent[]' is missing the following properties from type 'RuntimeHistorySelection': #history, #generation, #through, #indices, and 20 more.
+source/code/src/abg/native_worksite_execution.ts(147,109): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/project_read_ports.ts(137,20): error TS2552: Cannot find name 'RuntimeEventPrefix'. Did you mean 'RuntimeEvent'?
+source/code/src/abg/retry.ts(6006,52): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(admittedEvents: readonly RuntimeEvent[], scope?: RuntimeEventScope | undefined): ValidatedRuntimeEventPrefix', gave the following error.
+    Argument of type 'RuntimeEventScan' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+      Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 7 more.
+  Overload 2 of 2, '(admittedEvents: RuntimeEventBodyView, scope?: RuntimeEventScope | undefined): RuntimeEventPrefix', gave the following error.
+    Argument of type 'RuntimeEventScan' is not assignable to parameter of type 'RuntimeEventBodyView'.
+      Type 'readonly RuntimeEvent[]' is missing the following properties from type 'RuntimeEventBodyView': #source, materialize
+source/code/src/abg/retry.ts(6192,57): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(admittedEvents: readonly RuntimeEvent[], scope?: RuntimeEventScope | undefined): ValidatedRuntimeEventPrefix', gave the following error.
+    Argument of type 'RuntimeEventScan' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+      Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 7 more.
+  Overload 2 of 2, '(admittedEvents: RuntimeEventBodyView, scope?: RuntimeEventScope | undefined): RuntimeEventPrefix', gave the following error.
+    Argument of type 'RuntimeEventScan' is not assignable to parameter of type 'RuntimeEventBodyView'.
+      Type 'readonly RuntimeEvent[]' is missing the following properties from type 'RuntimeEventBodyView': #source, materialize
+source/code/src/abg/semantic_job.ts(253,53): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/semantic_job.ts(255,42): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/semantic_job.ts(261,55): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/semantic_job.ts(408,53): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/semantic_job.ts(483,53): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/traversal_route.ts(5194,180): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(admittedEvents: readonly RuntimeEvent[], scope?: RuntimeEventScope | undefined): ValidatedRuntimeEventPrefix', gave the following error.
+    Argument of type 'RuntimeEventScan' is not assignable to parameter of type 'readonly RuntimeEvent[]'.
+      Type 'RuntimeEventBodyView' is missing the following properties from type 'readonly RuntimeEvent[]': concat, join, indexOf, lastIndexOf, and 7 more.
+  Overload 2 of 2, '(admittedEvents: RuntimeEventBodyView, scope?: RuntimeEventScope | undefined): RuntimeEventPrefix', gave the following error.
+    Argument of type 'RuntimeEventScan' is not assignable to parameter of type 'RuntimeEventBodyView'.
+      Type 'readonly RuntimeEvent[]' is missing the following properties from type 'RuntimeEventBodyView': #source, materialize
+source/code/src/abg/traversal_route.ts(5339,3): error TS2322: Type 'Readonly<{ kind: "staged_route_transition_admission"; route: AdmittedRoute; retryAttempt: RetryAttemptAdmission | null; replayState: ReplayState; runtimePrefix: RuntimeEventPrefix; }>' is not assignable to type 'StagedRouteTransitionResult'.
+  Type 'Readonly<{ kind: "staged_route_transition_admission"; route: AdmittedRoute; retryAttempt: RetryAttemptAdmission | null; replayState: ReplayState; runtimePrefix: RuntimeEventPrefix; }>' is not assignable to type 'StagedRouteTransitionAdmission'.
+    Types of property 'runtimePrefix' are incompatible.
+      Type 'RuntimeEventPrefix' is not assignable to type 'ValidatedRuntimeEventPrefix'.
+        Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/worksite_input_provenance.ts(294,125): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+source/code/src/abg/worksite_revision.ts(1,10): error TS2300: Duplicate identifier 'RuntimeEventBodyView'.
+source/code/src/abg/worksite_revision.ts(2,15): error TS2300: Duplicate identifier 'RuntimeEventBodyView'.

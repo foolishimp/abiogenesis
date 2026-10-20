@@ -1,0 +1,17 @@
+{
+  "status": "CLOSED",
+  "workResult": "bounded_pair_evidence_ready",
+  "activation": "T287_RC1_S03_INSTALLED_COLD_READS_05",
+  "role": "Runtime/read Worker",
+  "actor": "/root/rc1_successor_builder",
+  "allFourFreshReads": "passed",
+  "bothOriginalCausalColdOracles": "passed",
+  "combinedFreshReads": 8,
+  "newStartsSetupConformanceCalls": 0,
+  "oldStoresAllReadOnly": true,
+  "appendBytes": 0,
+  "allOwnedPIDsExited": true,
+  "qualificationClaim": false,
+  "acceptanceClaim": false,
+  "writeStop": "After freeze creation, no further writes or effects by this activation."
+}

@@ -1,0 +1,71 @@
+{
+  "kind": "bounded_future_same_subject_F11_responsibility",
+  "status": "unexecuted; C04 preparation only",
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/candidate-binding.json",
+    "bytes": 3874,
+    "sha256": "b219ccf6fb01ad172dfffdffadaa10c7dfc0e2b2c39b25666aeb56f3ec6caada",
+    "mode": 420
+  },
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/3af377fd6965e792fddb0573725879faff18b9f140144f8d0af6ba9669abd566",
+    "digest": "sha256:3af377fd6965e792fddb0573725879faff18b9f140144f8d0af6ba9669abd566"
+  },
+  "currentLaw": {
+    "ref": "qualification-law://abiogenesis/edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f",
+    "digest": "sha256:edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f"
+  },
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/verification-recipe.json",
+    "bytes": 742768,
+    "sha256": "651ee00b92c259998ac7ba72d52f6064da0797a73cbfeb30ab263c628a5b63eb",
+    "mode": 420
+  },
+  "contextPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/f11-context-selection-plan.json",
+    "bytes": 55581,
+    "sha256": "febe90748d86a7e0bd1c9ce944f14a1dbb7f41c00877b9f12112543655d40bab",
+    "mode": 420
+  },
+  "resourceConstructor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/f11/current-resources.mjs",
+    "bytes": 2272,
+    "sha256": "547883e614535e35bc06224beb05aa18989b22919b113e3c65dcc3b78cc81dca",
+    "mode": 420
+  },
+  "parentChildFlow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/f11/flow-driver.mjs",
+    "bytes": 6002,
+    "sha256": "91685033506f3ee4eb62347bd579615188bdd0ad0be53a2dd10a9d2e5fa502cc",
+    "mode": 420
+  },
+  "proofOracles": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/f11/proof-oracles.mjs",
+    "bytes": 9029,
+    "sha256": "0c7c2c87774a62a0a6baef6b6efcfacd30ec989dc10827c8b6394e6c36bc4f6f",
+    "mode": 420
+  },
+  "publicOutcomeReader": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/f11/public-outcomes.mjs",
+    "bytes": 2183,
+    "sha256": "38c52837c1392757e498deb5f7e454eb6baca5ec0627fac53551e9d0d9e37290",
+    "mode": 420
+  },
+  "requiredWholePath": "unchanged actual selected wrapper parent -> current core assessment child -> admitted compact J -> ordinary foldback/parent closure -> two actual fresh reads -> fresh F11 -> soleAF22",
+  "rootOnlyFallback": false,
+  "observedMaterial": null,
+  "sourceAuthenticity": null,
+  "actualContextOrDomains": null,
+  "independentApplicability": null,
+  "wholeCoverage": "16claims/66behaviors remain required with current-law applicability; selected46 test titles and mechanical carrier transport cannot supply missing semantic coverage",
+  "controlledRawFixture": "all criteria remain indeterminate/unknown, wholeF11 and soleAF22 non-green, no green qualification manufactured",
+  "publicOutcomes": [
+    "result exit0",
+    "typed refusal/not_ready exit1",
+    "nonterminal exit3",
+    "host failure exit70",
+    "transport refusal exit2"
+  ],
+  "wholeQualification": false,
+  "currentSourceChanges": "C04 exact4 changes only; later C05 work excluded"
+}

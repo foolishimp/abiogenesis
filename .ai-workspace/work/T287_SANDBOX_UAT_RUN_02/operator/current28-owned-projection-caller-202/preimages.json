@@ -1,0 +1,84 @@
+{
+  "prepare": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/prepare.mjs",
+    "sha256": "19915a7357aa4352134c23b488f39acc8c1a58bfddb8fcb139dfbf0020c09952",
+    "byteCount": 35196
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/inputs.json",
+    "sha256": "c70996a2a073bff6a272239082d25216a609077d8484939ac6e7f9672407a9df",
+    "byteCount": 23624
+  },
+  "freshSetupPredecessor": {
+    "prepare": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/prepare.mjs",
+      "sha256": "b9233b2a94ff0be71b11dcab0abbd72ad05c569e54ac99b48661c7b3f10721ee",
+      "byteCount": 40353
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/freeze.json",
+      "sha256": "79a311f1c7c70bb9cf0930c3a2498591a0bf0355848ccd79aec04f9a4bff4a8a",
+      "byteCount": 25914
+    }
+  },
+  "helpers": [
+    {
+      "name": "verify-artifacts.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "unchanged174": true
+    },
+    {
+      "name": "binding-inputs.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "unchanged174": true
+    },
+    {
+      "name": "packed-resources.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "unchanged174": true
+    },
+    {
+      "name": "operation-resource.mjs",
+      "predecessor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "unchanged174": true
+    }
+  ],
+  "bulkAcquisition": "Descriptor only; not read/hash/parsed in202",
+  "historyAndBodies": "No event log or current-setup body read/hash/parse in202"
+}

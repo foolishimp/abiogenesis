@@ -1,0 +1,113 @@
+--- run-02.mjs
++++ run-03.mjs
+@@ -31,6 +31,73 @@
+ const record=recordAt(executionRoot),command=runner.commandRecorder(executionRoot,{environment,timeoutMs:configuration.processTimeoutMs,maxOutputBytes:configuration.maxProcessOutputBytes});
+ let caller,stage='live-native-verification';
+ const phaseResults=[];
++// Frozen cut30 replay.ts1306–1371 owns this body. Native liveness belongs
++// inside it when present; the four identity headers and private derivation do not.
++const REPLAY_BODY_FIELDS = [
++  'eventStoreDigest','eventCount','lastAdmissionOrdinal','runId','graphCallId','frameId',
++  'traversalCursorRef','traversalCursorDigest','traversalCursorEventRef','cCalls','routes',
++  'constructionDeltas','fanOutCompletions','continuations','actorProcesses','currentWorksiteObservations',
++  'activeFluents','terminalReachedEventRef','frameClosedEventRef','graphCallClosedEventRef','runClosedEventRef',
++  'runStoppedEventRef','runStoppedDisposition','invocationRefusalEventRef','runtimeFailureEventRef','runtimeStatus',
++];
++async function compareCompleteReplay(owner,executed,parent,reads) {
++  // Only this finite fixture's normal closed resource is comparison input.
++  // Raw values never replace the helper's Source/currentness/effect authority.
++  const prefix=owner.state.closeHandoff.prefix,runId=executed.receipt.resources.run.ref;
++  assert(fileURLToPath(prefix.eventLogRef).startsWith(resolve(executionRoot)+'/'),'Comparison is confined to the finite fixture');
++  const actual=await installedModules(owner.installedRoot),product=actual.product;
++  const [prefixes,replayOwner]=await Promise.all(['event_prefix','replay'].map(name=>
++    import(pathToFileURL(join(owner.installedRoot,'build/code/src/abg/'+name+'.js')).href)));
++  const rawRows=actual.abg.readRuntimeEventsAtDurablePrefix(structuredClone(prefix),{requireCurrent:true});
++  const rawAuthority=prefixes.selectValidatedRuntimeEventPrefix(rawRows);
++  const rawRun=prefixes.selectRuntimeEventPrefixFromAuthority(rawAuthority,{runId});
++  const full=replayOwner.replayValidatedRuntimeEventPrefix(rawRun,rawAuthority);
++  assert.equal(full.kind,'replay_state');assert.equal(full.schemaVersion,'5.0.0');assert.equal(full.runId,runId);
++  const livenessPresent=Object.hasOwn(full,'nativeLiveness');
++  assert(livenessPresent&&full.nativeLiveness!==null,'A genuine native specimen must exercise nativeLiveness inclusion');
++  const body=Object.fromEntries(REPLAY_BODY_FIELDS.map(field=>{
++    assert(Object.hasOwn(full,field),'Missing owner-defined replay body field: '+field);return [field,full[field]];
++  }));
++  if(livenessPresent)body.nativeLiveness=full.nativeLiveness;
++  assert.deepEqual(Object.keys(full).sort(),[...REPLAY_BODY_FIELDS,'nativeLiveness','kind','schemaVersion','replayRef','replayDigest'].sort(),'Complete ReplayState has an unreviewed field');
++  // Ordinary canonical JSON/hash over the full raw owner result is independent
++  // of the new replay streaming writer. No inferred exclusion-list digest.
++  const bodyDigest=product.sha256Canonical(body),canonical=product.canonicalJson(full);
++  assert.equal(full.replayDigest,bodyDigest);assert.equal(full.replayRef,'replay://abiogenesis/'+bodyDigest.slice(7));
++  const authority=prefixes.projectOwnedRuntimeEventPrefixAtDurablePrefix(prefix);
++  const run=prefixes.selectRuntimeEventPrefixFromAuthority(authority,{runId});
++  const guard=replayOwner.projectRuntimeReplayGuard(run,authority),parts=[];
++  replayOwner.writeRuntimeReplayGuardValue(guard,part=>parts.push(part));
++  assert.equal(parts.join(''),canonical,'Streamed complete value differs from raw logical ReplayState');
++  assert.equal(guard.replayDigest,bodyDigest);
++  let selectedPayloads=0;
++  for(const event of rawRows) {
++    const selectedEvent=prefixes.runtimeEventAtPrefix(authority,event.eventId);assert(selectedEvent);
++    assert.equal(product.canonicalJson(selectedEvent),product.canonicalJson(event),'Selected body differs from raw logical event '+event.eventId);
++    assert.equal(product.sha256Canonical(selectedEvent.payload),event.payloadDigest,'Complete payload digest differs '+event.eventId);
++    selectedPayloads++;
++  }
++  const physical=reads.find(read=>read.memberKey==='run_replay')?.projection?.physicalCoordinates;assert(physical);
++  assert.equal(physical.scopedReplayDigest,bodyDigest);assert.equal(physical.scopedReplayRef,full.replayRef);
++  assert.equal(physical.fullEventHistoryDigest,prefixes.runtimeEventPrefixDigest(rawAuthority));
++  const parentCall=full.cCalls.filter(call=>call.resultRef===parent.resultRef);assert.equal(parentCall.length,1);
++  assert.equal(parentCall[0].resultClass,'success');assert.equal(parentCall[0].judgment,'advance');
++  const parentRows=rawRows.filter(event=>event.kind==='c_call_result_admitted'&&event.runId===runId&&event.payload.resultRef===parent.resultRef);
++  assert.equal(parentRows.length,1);assert.equal(parentRows[0].aggregateId,parentCall[0].cCallRef);
++  assert.equal(parentRows[0].payload.resultDigest,parentCall[0].resultDigest);
++  assert.deepEqual(parentRows[0].payload.value,parentCall[0].resultValue);
++  assert.equal(product.sha256Canonical(product.retainedGovernanceWorkInput(parentCall[0].resultValue)),parent.inputDigest);
++  assert(full.actorProcesses.length>0,'Native actor rows must be present in the complete result');
++  // Return coordinates/digests/counts only. Complete rows, streamed strings,
++  // ReplayState and authority views are not recorded or carried to preparation.
++  return {replayRef:full.replayRef,replayDigest:bodyDigest,canonicalBytes:Buffer.byteLength(canonical),canonicalSha256:sha(canonical),
++    nativeLivenessPresent:livenessPresent,nativeLivenessDigest:product.sha256Canonical(full.nativeLiveness),
++    eventStoreDigest:full.eventStoreDigest,eventCount:full.eventCount,selectedPayloads,
++    collections:Object.fromEntries(['cCalls','routes','constructionDeltas','fanOutCompletions','continuations','actorProcesses','currentWorksiteObservations'].map(field=>[field,full[field].length])),
++    parent:{resultRef:parent.resultRef,resultDigest:parentCall[0].resultDigest,cCallRef:parentCall[0].cCallRef,admissionEventRef:parentRows[0].eventId},
++    sourceOfComparison:'Actual installed owner; one complete finite raw logical read; full authority scope and selected historical Run scope'};
++}
++
+ try {
+   const manifest=JSON.parse(await readFile(host.manifestPath,'utf8'));
+   const native=await verifyArtifact(runtime,{artifactPath:host.archivePath,manifest,expectedArtifactDigest:host.artifactDigest},record,'native');
+@@ -74,8 +141,9 @@
+     return candidates.at(-1);
+   };
+   let parent=await selectParent(caller,execution,1);assert.deepEqual(parent.original,original.original);
++  stage='construction-complete-replay';const initialReplay=await compareCompleteReplay(caller,execution,parent,reads);
+   assert.equal(await readFile(join(configuration.worksiteRoot,CANDIDATE),'utf8'),'broken\n');
+-  phaseResults.push({phase:'construction',run:execution.receipt.resources.run,parentResultRef:parent.resultRef,inputDigest:parent.inputDigest,observations:1,committedBytes:caller.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
++  phaseResults.push({phase:'construction',run:execution.receipt.resources.run,parentResultRef:parent.resultRef,inputDigest:parent.inputDigest,observations:1,replay:initialReplay,committedBytes:caller.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
+   const artifacts=[{label:'native',acquisition:JSON.parse(await readFile(join(executionRoot,'native-acquisition.json'),'utf8'))},
+     {label:'consumer',acquisition:JSON.parse(await readFile(join(executionRoot,'consumer-acquisition.json'),'utf8'))}];
+   for(const phase of ['audit','restart']) {
+@@ -96,6 +164,8 @@
+     assert.equal(next.calls.length,0,'Same-pair restart must not replay completed Public setup or witness effects');
+     assert.equal(next.summary.sourceResultRef,parent.resultRef);assert.equal(next.summary.sourceInputDigest,parent.inputDigest);
+     assert.equal(next.summary.observations,parent.observations.length);assert.equal(next.summary.terminal,false);
++    assert.equal(next.prepared.sourceResultBasis.sourceResultRef,parent.resultRef);
++    assert.equal(hash(p.retainedGovernanceWorkInput(next.prepared.sourceResultBasis.sourceResultValue)),parent.inputDigest);
+     const cycle=publicCaller({root:directory,runtime,native,command:phaseCommand,record:phaseRecord,config:instance.configuration,actorRef:caller.actorRef});
+     cycle.installedRoot=next.summary.installedRoot;cycle.state.closeHandoff=next.close.closeHandoff;
+     cycle.state.binding=caller.state.binding;cycle.state.resolvedLock=caller.state.resolvedLock;
+@@ -103,6 +173,7 @@
+     stage=phase+'-native';execution=await runner.invokeLifecycle(cycle,setup.installations,next.call,{...environment,...responderEnvironment(configuration.worksiteRoot,'audit')});
+     reads=await runner.freshReadbacks(cycle,execution);await phaseRecord('fresh-readbacks.json',reads);
+     const after=await selectParent(cycle,execution,4);assert.deepEqual(after.original,original.original);
++    stage=phase+'-complete-replay';const completeReplay=await compareCompleteReplay(cycle,execution,after,reads);
+     assert.deepEqual(after.observations.slice(0,parent.observations.length),parent.observations,'Earlier work and failed measurements must survive exactly');
+     const measured=after.observations.filter(row=>row.purpose==='testing');assert.equal(measured.length,2);
+     const [red,green]=measured.map(row=>row.value.commandResults[0]);
+@@ -112,7 +183,7 @@
+     assert.notEqual(measured[0].resultRef,measured[1].resultRef,'Remeasurement must have a distinct actual producer');
+     assert.equal(await readFile(join(configuration.worksiteRoot,CANDIDATE),'utf8'),'fixed\n');
+     phaseResults.push({phase,run:execution.receipt.resources.run,parentResultRef:after.resultRef,inputDigest:after.inputDigest,observations:4,
+-      redResultRef:measured[0].resultRef,greenResultRef:measured[1].resultRef,sourceBasisRef:next.summary.sourceBasisRef,currentUseDigest:next.summary.currentUseDigest,setupEffects:next.calls.length,committedBytes:cycle.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
++      redResultRef:measured[0].resultRef,greenResultRef:measured[1].resultRef,sourceResultRef:next.summary.sourceResultRef,replay:completeReplay,sourceBasisRef:next.summary.sourceBasisRef,currentUseDigest:next.summary.currentUseDigest,setupEffects:next.calls.length,committedBytes:cycle.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
+     caller=cycle;parent=after;
+   }
+   stage='original-file-conservation';

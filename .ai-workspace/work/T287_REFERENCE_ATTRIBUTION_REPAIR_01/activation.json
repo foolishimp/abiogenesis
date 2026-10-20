@@ -1,0 +1,21 @@
+{
+  "operation": "T287_REFERENCE_ATTRIBUTION_REPAIR_01",
+  "HOME": "/Users/jim",
+  "pinnedNode": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_REPAIR_01/grant.md",
+    "bytes": 6866,
+    "sha256": "9a16ea852a9bf735651ec28945a09773f3040d89d12e7beb855aeea580b0ddf3"
+  },
+  "frame": "interface-integration rev2; fixed15 ABG5 GOAL035/T287 F05/F10/F11/F15; realization_refactor at existing native proof and pure attribution owners",
+  "evidenceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01",
+  "stage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+  "oldArchive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "fixtureOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01",
+  "realProviderCalls": 0,
+  "controlledTransport": true,
+  "semanticIndependentAssessment": false,
+  "defaultHeap": true,
+  "HOMEUnchanged": true,
+  "firstMaterialFailureStops": true
+}

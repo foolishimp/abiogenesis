@@ -1,0 +1,24 @@
+{
+  "kind": "continuation14_readonly_rca_freeze",
+  "status": "CLOSED_STOP",
+  "disposition": "sufficient mandatory Context comparison refusal; owning HOW re-entry proposed; actual first-null unknown",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-14-triage/return.md",
+      "sha256": "4cabea74cd516a7c8a62122321487c9a58489f24a46a6eb71ccd8a2b1d72d156",
+      "byteCount": 5631
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-14-triage/pins.json",
+      "sha256": "2ad8fd3ff70a48c598b74653e8d80f102e0a94640ded2664960e4b403c5e26e6",
+      "byteCount": 9568
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-14-triage/selected-coordinates.json",
+      "sha256": "2731f21e50a5d2ef5fb0fc0e46f018c9fca6beaf8e11875dbe2ef352cd7d139b",
+      "byteCount": 5788
+    }
+  ],
+  "effects": "Only new RCA files in this phase. No source/runtime/test/build/package/resource/native effects.",
+  "rootSelectionRequired": "Any design/source repair or installed diagnostic/retry remains separate Executive selection."
+}

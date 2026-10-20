@@ -1,0 +1,26 @@
+--- qualification_proof.ts/preimage
++++ qualification_proof.ts/postimage
+@@ -17,6 +17,7 @@
+ import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
+ import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix,
+   type RehydratedAdmittedCCallState, type AdmittedCCallEvidence } from "./c_call.js";
++import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
+ import { readRuntimeEventsAtDurablePrefix, assertDurableRuntimePrefixCurrent, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
+ import { selectValidatedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix, runtimePrefixComputation } from "./event_prefix.js";
+ import { projectFhContinuations } from "./fh_continuation_projection.js";
+@@ -198,7 +199,14 @@
+   const graph = materializeGraph(fn, { invocationAdmissionRef: execution.invocationAdmissionRef, admittedInputRef: execution.rawInputAdmissionRef,
+     admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
+   if (graph.materializationDigest !== execution.graphDigest || graph.materializationRef !== execution.graphRef) return null;
+-  const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, cCallRef);
++  // A workflow's source position comes from its admitted cursor ancestry,
++  // never from the folded Result or a caller-supplied route. The canonical
++  // CCall owner checks that cursor against the exact published GraphFunction.
++  const workflow = record(opened.payload) && opened.payload.callClass === "workflow";
++  const sourceInput = workflow ? projectOpenedCCallTraversalInputAtPrefix(prefix, graph, cCallRef) : null;
++  if (workflow && sourceInput === null) return null;
++  const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, cCallRef,
++    sourceInput?.cursor, workflow ? fn : undefined);
+   if (call === null || call.basisId !== execution.basisRef || call.runId !== opened.runId) return null;
+   const set = rehydrateAdmittedImplementationSetAtPrefix(prefix, execution.implementationSetRef);
+   if (set === null || set.implementationSetDigest !== execution.implementationSetDigest) return null;

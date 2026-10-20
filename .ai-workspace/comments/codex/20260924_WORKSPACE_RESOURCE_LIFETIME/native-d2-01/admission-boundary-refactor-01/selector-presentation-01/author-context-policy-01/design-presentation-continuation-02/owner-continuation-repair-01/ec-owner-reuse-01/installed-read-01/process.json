@@ -1,0 +1,11 @@
+{
+  "supervisedPid": 21254,
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/installed-read-01/read.mjs"
+  ],
+  "timeoutMs": 600000,
+  "startedUnixSeconds": 1790357541.271242
+}

@@ -1,0 +1,11 @@
+{
+  "stage": "native31-preverify-start",
+  "rss": 598032384,
+  "heapTotal": 464781312,
+  "heapUsed": 386629032,
+  "external": 19363678,
+  "arrayBuffers": 16948593,
+  "at": "2026-10-09T19:03:28.656Z",
+  "elapsedMs": 402.574125,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+}

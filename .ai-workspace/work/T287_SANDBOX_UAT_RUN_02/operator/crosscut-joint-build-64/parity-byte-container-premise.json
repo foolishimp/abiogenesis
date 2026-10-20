@@ -1,0 +1,7 @@
+{
+  "classification": "local byte-comparison premise, after successful canonical build",
+  "source": "essential-parity.first.mjs:21",
+  "actual": "owner returns Uint8Array; filesystem read returns Buffer. deepStrictEqual rejects prototypes despite equal197474byte values",
+  "correction": "Buffer.from(owner bytes).equals(file bytes); no source/generated change or second build",
+  "firstExitCode": 1
+}

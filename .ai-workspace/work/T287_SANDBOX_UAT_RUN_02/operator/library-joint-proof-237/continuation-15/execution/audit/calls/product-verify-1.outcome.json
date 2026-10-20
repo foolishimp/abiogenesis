@@ -1,0 +1,50 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "eventless",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.product.verify",
+      "memberKey": "verify"
+    },
+    "invocationRef": "invocation://abiogenesis/0e3db47e99b4406f8aecdf1201b472ace2e46667401e66f36fbb28221a35c8de",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "targetKind": "packed_artifact",
+        "disposition": "locally_verified",
+        "verifiedArtifact": {
+          "ref": "product-verification://abiogenesis/1145646ecd0e5974f8c16bfa27c6d9afcf297c4311993fbc0a58bec7187714ea",
+          "digest": "sha256:1145646ecd0e5974f8c16bfa27c6d9afcf297c4311993fbc0a58bec7187714ea"
+        },
+        "localNativeEvidence": {
+          "ref": "local-native-evidence://abiogenesis/product-verification/120c1310981354084f8a49cd26afc4b12178262c0d4a248f1db9abe83a97a707",
+          "digest": "sha256:120c1310981354084f8a49cd26afc4b12178262c0d4a248f1db9abe83a97a707"
+        },
+        "pendingExternalSelectors": [],
+        "definitionContractCoordinates": null,
+        "residuals": [],
+        "provenance": [
+          {
+            "ref": "provenance://abiogenesis/product-verification/972991fea8d5f5e711cb1e8ca21cb317e4565b28814dbc10de971be4b7cd80f1",
+            "digest": "sha256:972991fea8d5f5e711cb1e8ca21cb317e4565b28814dbc10de971be4b7cd80f1"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "product_verification_resource_disposition",
+      "schemaVersion": "5.0.0",
+      "targetKind": "packed_artifact",
+      "disposition": "read_only_unchanged",
+      "packedArtifact": {
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "digest": "sha256:5a3f2beea6e8e53c0699b4d026a79827d716d2a719553f79e00991940790f3f4"
+      }
+    },
+    "failure": null
+  }
+}

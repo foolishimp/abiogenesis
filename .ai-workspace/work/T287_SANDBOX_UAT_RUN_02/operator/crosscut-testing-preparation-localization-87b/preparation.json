@@ -1,0 +1,14 @@
+{
+  "role": "Writer87b one exact HoG root/child owner diagnosis",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87/diagnose.mjs",
+    "sha256": "14c463461468fb3d0fecf35ccd7431026228852ba25069d8cc71e6741b7e17f6",
+    "byteCount": 11076
+  },
+  "oldFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87/freeze.json",
+    "sha256": "c3beb32ee2622aecf9f4ba72e9515a119486ae63cdce53cc6fc030845f59ff76"
+  },
+  "selectedRoute": "original start\u2192root execution resolution\u2192root admitted leaf port\u2192forGraphFunction(Testing)\u2192one F_D invoke",
+  "effects": "phase receipts only; old files read-only; Inspector exception observation/immediate resume; no actor/admission"
+}

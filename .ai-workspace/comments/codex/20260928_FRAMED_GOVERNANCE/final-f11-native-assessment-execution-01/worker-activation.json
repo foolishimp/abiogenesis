@@ -1,0 +1,28 @@
+{
+  "role": "Worker",
+  "activation": "T287_F11_NATIVE_ASSESSMENT_01",
+  "actor": "/root/f11_validation_path_plan",
+  "declaredAt": "2026-10-01T12:35:39.767859+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-execution-controls-01/request.txt",
+    "bytes": 5742,
+    "sha256": "54828efe64d68774fa28987c24e9cd09901afcfcd2d4ceae687a1d955023d6ec"
+  },
+  "callerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/freeze.json",
+    "bytes": 14545,
+    "sha256": "f1937dec28204ef6790f9650edb27c031ee62f1abb7960b80119517339d570a6"
+  },
+  "boundFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+    "bytes": 13795,
+    "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01",
+  "nativeTerritories": "Exact event append, original lock/archive/TMPDIR as enumerated by Root grant; no source/install/caller/binding/worksite/auth edits",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "candidateLaw": "Immutable C02/Q02 RC1",
+  "calls": 5,
+  "assessmentDispatches": 1,
+  "retries": 0
+}

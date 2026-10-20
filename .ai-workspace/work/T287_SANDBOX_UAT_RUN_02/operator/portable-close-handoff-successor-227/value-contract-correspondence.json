@@ -1,0 +1,101 @@
+{
+  "kind": "pure_installed29_31_value_contract_correspondence",
+  "installed29Root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/installed-current29/node_modules/@abiogenesis/typescript-tenant",
+  "installed31Root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "rootEventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+  "rootDescriptorMeaningDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+  "profileNames": [
+    "LEGACY_ROOT_EVENT_CONTRACT_DIGEST",
+    "ROOT_CURRENT_EVENT_PROFILE_REF",
+    "ROOT_EVENT_PROFILE_DECLARATION_REF",
+    "ROOT_EVENT_PROFILE_UPGRADE_REASON"
+  ],
+  "runStoppedPacketMeaningDigest": "sha256:21d4db923cd91db8d5674ee1b932ad6dceaf803cd91278de9e2c266b376e3fd6",
+  "runStoppedPublicProjectionDigest": "sha256:272c67d4159ceb7e1e6830d63acf9aea2291cd3c240768a321db6cb5859be2b2",
+  "runStoppedContentContract": {
+    "ref": "contract://abiogenesis/witness/run-stopped@5",
+    "digest": "sha256:875d96f956aace57f44b50855da1cf95a7a5d5c0afa6d73884049e03df783795",
+    "kind": "witness_content_contract",
+    "schemaVersion": "5.0.0",
+    "memberKey": "run-stopped",
+    "contentKind": "typed_reason",
+    "closedFields": [
+      "reasonKind",
+      "reasonDetail"
+    ]
+  },
+  "validators": [
+    {
+      "name": "validateDurablePrefixCoordinate",
+      "sourceDigest": "sha256:cbab45ac617c5162f9d6699e3e928f13b5e7b61a4be0d92eff7ae19be47f8c2e",
+      "unchanged": true
+    },
+    {
+      "name": "validateEventStoreReopenAuthority",
+      "sourceDigest": "sha256:2f5c6ed6d25d6e75a50f265733e4b6f2acb336c755b9986b440ea7efdda150b2",
+      "unchanged": true
+    },
+    {
+      "name": "validateEventStoreCloseHandoff",
+      "sourceDigest": "sha256:3b11434a98f8f989538781fa748963c3da2f17328bdc6225e9821e3646b2e74f",
+      "unchanged": true
+    }
+  ],
+  "bytePins": [
+    {
+      "path": "build/code/src/abg/event_contract_profiles.js",
+      "byteCount": 8443,
+      "digest": "sha256:d0a47b6028e5403d57e93863896165485c8ea42825445f0cba6ffe57810e3e10",
+      "byteEqual": true
+    },
+    {
+      "path": "build/code/src/abg/definition_event_resource.js",
+      "byteCount": 19088,
+      "digest": "sha256:5df2c4e61a7875fb1adc1e2325bb2072409c9a2cd28b0c4ad50aefbeae98cc2f",
+      "byteEqual": true
+    },
+    {
+      "path": "build/code/src/abg/witness_operation_contracts.js",
+      "byteCount": 4536,
+      "digest": "sha256:19d0ec157f7c1929e9bbdd8de76dd5f4298f15e86eccff4db053454d9cd3a852",
+      "byteEqual": true
+    },
+    {
+      "path": "build/code/src/abg/witness_admission_operation.js",
+      "byteCount": 34630,
+      "digest": "sha256:d23bee1ecf2a3d54470d7bfab5bc249d3e34882c401545fd34e3e045ad105c97",
+      "byteEqual": true
+    },
+    {
+      "path": "build/code/src/abg/witness_definition_bindings.js",
+      "byteCount": 17812,
+      "digest": "sha256:8dca269fcdea69a7b27b5924389c03ce7436a2954c5f113e6286148c11ab89b2",
+      "byteEqual": true
+    },
+    {
+      "path": "build/code/src/shared/public_function_contracts.js",
+      "byteCount": 17373,
+      "digest": "sha256:470e373128486e86ecac2cdd1ba089fbe169a571c1238e1d34c97e21c2ddac6b",
+      "byteEqual": true
+    },
+    {
+      "path": "build/code/src/shared/public_function_family.js",
+      "byteCount": 11567,
+      "digest": "sha256:91ca24a546815a2d84747eee40569621aa0724ddacb02d61dee6dd8af68a95d8",
+      "byteEqual": true
+    },
+    {
+      "path": "contracts/schemas/native-runtime-observation.json",
+      "byteCount": 150212,
+      "digest": "sha256:fbf8646cb49396dfb859efc9646ab2e05b3092d472cb46e8a8ffd0747054eb7e",
+      "byteEqual": true
+    }
+  ],
+  "recorded223Handoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recovered-close-handoff.json",
+    "sha256": "10a1f7047255f068840dd33f8d01763941287ed913e4fad55705e82b3325ce05",
+    "byteCount": 1472,
+    "acceptedByBothPureValidators": true
+  },
+  "scope": "Pure exported contract/schema/validator correspondence only. No history owner invocation, physical reopen/acquisition, current authority or31-to29 nominal object transfer; later maintenance returns portable data which29 must independently authenticate."
+}

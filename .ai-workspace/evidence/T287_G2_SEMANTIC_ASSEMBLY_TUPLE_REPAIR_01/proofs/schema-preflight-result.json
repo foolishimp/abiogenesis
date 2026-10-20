@@ -1,0 +1,157 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "kind": "COMPLETE_PACKAGED_SCHEMA_PREFLIGHT_READY",
+  "strictAjv2020": true,
+  "compiledDefinitions": [
+    "GraphFunction",
+    "ModulePublication",
+    "CProgramSyntax",
+    "GtlProgramConformanceInput",
+    "GtlLanguageConformanceCorpus"
+  ],
+  "tupleRows": [
+    {
+      "definition": "ModulePublication",
+      "pointer": "#/$defs/ModulePublication/properties/closureContracts/items/oneOf/0/properties/eventKindRefs",
+      "arity": 4,
+      "items": false
+    },
+    {
+      "definition": "ModulePublication",
+      "pointer": "#/$defs/ModulePublication/properties/closureContracts/items/oneOf/1/properties/eventKindRefs",
+      "arity": 3,
+      "items": false
+    },
+    {
+      "definition": "ModulePublication",
+      "pointer": "#/$defs/ModulePublication/properties/programs/items/properties/constructionComposition/properties/authorities",
+      "arity": 4,
+      "items": false
+    },
+    {
+      "definition": "ModulePublication",
+      "pointer": "#/$defs/ModulePublication/properties/semanticJobLifecycle/properties/stages/items/properties/assembly/oneOf/0/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "ModulePublication",
+      "pointer": "#/$defs/ModulePublication/properties/semanticJobLifecycle/properties/stages/items/properties/assembly/oneOf/1/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "ModulePublication",
+      "pointer": "#/$defs/ModulePublication/properties/semanticLifecycle/properties/stages/items/properties/assembly/oneOf/0/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "ModulePublication",
+      "pointer": "#/$defs/ModulePublication/properties/semanticLifecycle/properties/stages/items/properties/assembly/oneOf/1/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "GtlProgramConformanceInput",
+      "pointer": "#/$defs/GtlProgramConformanceInput/properties/program/properties/constructionComposition/properties/authorities",
+      "arity": 4,
+      "items": false
+    },
+    {
+      "definition": "GtlProgramConformanceInput",
+      "pointer": "#/$defs/GtlProgramConformanceInput/properties/publication/properties/closureContracts/items/oneOf/0/properties/eventKindRefs",
+      "arity": 4,
+      "items": false
+    },
+    {
+      "definition": "GtlProgramConformanceInput",
+      "pointer": "#/$defs/GtlProgramConformanceInput/properties/publication/properties/closureContracts/items/oneOf/1/properties/eventKindRefs",
+      "arity": 3,
+      "items": false
+    },
+    {
+      "definition": "GtlProgramConformanceInput",
+      "pointer": "#/$defs/GtlProgramConformanceInput/properties/publication/properties/programs/items/properties/constructionComposition/properties/authorities",
+      "arity": 4,
+      "items": false
+    },
+    {
+      "definition": "GtlProgramConformanceInput",
+      "pointer": "#/$defs/GtlProgramConformanceInput/properties/publication/properties/semanticJobLifecycle/properties/stages/items/properties/assembly/oneOf/0/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "GtlProgramConformanceInput",
+      "pointer": "#/$defs/GtlProgramConformanceInput/properties/publication/properties/semanticJobLifecycle/properties/stages/items/properties/assembly/oneOf/1/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "GtlProgramConformanceInput",
+      "pointer": "#/$defs/GtlProgramConformanceInput/properties/publication/properties/semanticLifecycle/properties/stages/items/properties/assembly/oneOf/0/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "GtlProgramConformanceInput",
+      "pointer": "#/$defs/GtlProgramConformanceInput/properties/publication/properties/semanticLifecycle/properties/stages/items/properties/assembly/oneOf/1/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "GtlLanguageConformanceCorpus",
+      "pointer": "#/$defs/GtlLanguageConformanceCorpus/properties/programs/items/properties/packet/properties/program/properties/constructionComposition/properties/authorities",
+      "arity": 4,
+      "items": false
+    },
+    {
+      "definition": "GtlLanguageConformanceCorpus",
+      "pointer": "#/$defs/GtlLanguageConformanceCorpus/properties/programs/items/properties/packet/properties/publication/properties/closureContracts/items/oneOf/0/properties/eventKindRefs",
+      "arity": 4,
+      "items": false
+    },
+    {
+      "definition": "GtlLanguageConformanceCorpus",
+      "pointer": "#/$defs/GtlLanguageConformanceCorpus/properties/programs/items/properties/packet/properties/publication/properties/closureContracts/items/oneOf/1/properties/eventKindRefs",
+      "arity": 3,
+      "items": false
+    },
+    {
+      "definition": "GtlLanguageConformanceCorpus",
+      "pointer": "#/$defs/GtlLanguageConformanceCorpus/properties/programs/items/properties/packet/properties/publication/properties/programs/items/properties/constructionComposition/properties/authorities",
+      "arity": 4,
+      "items": false
+    },
+    {
+      "definition": "GtlLanguageConformanceCorpus",
+      "pointer": "#/$defs/GtlLanguageConformanceCorpus/properties/programs/items/properties/packet/properties/publication/properties/semanticJobLifecycle/properties/stages/items/properties/assembly/oneOf/0/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "GtlLanguageConformanceCorpus",
+      "pointer": "#/$defs/GtlLanguageConformanceCorpus/properties/programs/items/properties/packet/properties/publication/properties/semanticJobLifecycle/properties/stages/items/properties/assembly/oneOf/1/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "GtlLanguageConformanceCorpus",
+      "pointer": "#/$defs/GtlLanguageConformanceCorpus/properties/programs/items/properties/packet/properties/publication/properties/semanticLifecycle/properties/stages/items/properties/assembly/oneOf/0/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    },
+    {
+      "definition": "GtlLanguageConformanceCorpus",
+      "pointer": "#/$defs/GtlLanguageConformanceCorpus/properties/programs/items/properties/packet/properties/publication/properties/semanticLifecycle/properties/stages/items/properties/assembly/oneOf/1/properties/sectionOrder",
+      "arity": 8,
+      "items": false
+    }
+  ],
+  "schemaPath": "contracts/schemas/gtl-serialization.schema.json",
+  "schemaDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+  "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "beforeIndividualFocusedCases": true,
+  "RuntimeEffects": 0
+}

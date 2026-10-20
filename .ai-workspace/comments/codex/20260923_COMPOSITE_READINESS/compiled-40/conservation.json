@@ -1,0 +1,31 @@
+{
+  "predecessor": "compiled-39",
+  "unchanged": 5210,
+  "changed": 23,
+  "changedPaths": [
+    "build/code/src/abg/event_prefix.js",
+    "build/code/src/abg/execution_basis.js",
+    "build/code/src/abg/instruction_assembly.js",
+    "build/code/src/abg/retry.js",
+    "build/code/src/abg/semantic_revision.js",
+    "build/code/src/abg/traversal_cursor.d.ts",
+    "build/code/src/abg/traversal_cursor.js",
+    "build/code/src/abg/traversal_route.js",
+    "build/code/src/gtl/source_path.d.ts",
+    "build/code/src/gtl/source_path.js",
+    "build/code/src/hog/ccall_lifecycle.js",
+    "build/code/src/hog/graph_execute.js",
+    "build/code/src/hog/interaction_resume.js",
+    "build/code/src/hog/recursion_lifecycle.js",
+    "build/code/src/hog/route_proposal.js",
+    "build/code/src/hog/structural_transition.js",
+    "build/code/src/hog/traversal.d.ts",
+    "build/code/src/hog/traversal.js",
+    "build/code/src/hog/workflow_lifecycle.js",
+    "build/code/src/product/semantic_job.d.ts",
+    "build/code/src/product/semantic_job.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "outsideAcceptedScope": []
+}

@@ -1,0 +1,13 @@
+Source39 is CLOSED for bounded canonical-binding realization readiness; Worker stopped for independent review.
+
+Product Frame: fixed fifteen-family ABI5.0 / GOAL035 / T287 / STDO2.5.1rc2, manifest `3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782`; existing end-to-end integration, native Testing/reuse/currentness, identity, lifecycle, authority, effects and Proof. No Product WHAT change.
+
+The actual10 conjunction establishes a sufficient constructability defect: GTL and actual fibre592 select `binding://abiogenesis/default-library/prepare-testing@5`, while the library occurrence guard required `implementation-binding://...`. Source39 corrects that one consumer coordinate. The existing governance HOW clarifies the declaration-to-occurrence join. Standalone identities, complete task values/digests, phase, historical declaration/closed-source, current-use, cover and normal failure guards remain. No diagnostic mechanism was added. Actual first-null/callback entry is not uniquely established.
+
+The regression derives its library binding from the canonical GTL leaf and matching descriptor, tests the former namespace as a refusal, and preserves copied/foreign/stale/declaration/source/cover/lineage controls. The same final fixture02 rejects old38 at the canonical-binding positive (expected exit1) and accepts corrected39. Its library preparation/matcher/cold-source case and standalone publication case passed 2/2 with VM support, zero failures/skips (0.451s). Strict264 passed (6.599s); all264 stripped declarations passed skipLibCheck:false (3.321s), byte-exact38. Only one TS/JS changes;263 Source and527 isolated emissions remain exact38.
+
+Focused01's cold-source failure is preserved with its immutable fixture: its old index stub hid later Result/J/evidence/parent rows. Root selected a test-only delegation to the actual prefix selector; no Production/HOW change followed that failure. Both preimage discriminator receipts and all first/successor proof receipts remain.
+
+Real physical constructors and GTL/selector/owner computations are exercised; prefix/native/source/environment/cover/C_Call/set lookups are controlled lower premises. Old/new runs use the same fixture and lower relations with separate disposable scratch roots. No actual fixture/resource, original Data Mapper, lease/worksite/app/model/Git, normal generation/package/install or native retry effects. Independent review, actual installed continuation/C2, capacity, UAT and release remain open.
+
+Exact subject: postimages.json, delta-from-38.patch, full264 Source/full528 emission manifests, dependency-conjunction.json, readiness.json, cause-action.json and freeze.json. Accepted38 dependencies remain referenced unchanged.

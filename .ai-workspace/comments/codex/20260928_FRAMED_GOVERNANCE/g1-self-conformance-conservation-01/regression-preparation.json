@@ -1,0 +1,10 @@
+{
+  "test": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "bytes": 43068,
+    "sha256": "a1e00db17056aebcd22186acdc87d2bd7d68985889d4572d81d0eedfdc85b051"
+  },
+  "preimageProductionUnchanged": true,
+  "lowerPremises": "Existing component fixture supplies small catalog, native execution, independently admitted J rows and tenant ownership. Actual evaluateSelfConformance matching/fold runs; no Runtime/store/provider invocation. Two declared roots have genuine positive coverage before one is omitted and the other is falsified.",
+  "reusePrecompiledSource": "Exact frozen C09 emitted self_conformance.js for the unchanged TS preimage; no preimage compiler rerun."
+}

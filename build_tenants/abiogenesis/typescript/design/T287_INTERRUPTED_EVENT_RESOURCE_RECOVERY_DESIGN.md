@@ -57,6 +57,16 @@ One trusted operator reserves the maintenance interval, establishes origin/inter
 4. Recheck ordinary descriptor/path identities and extents. Seed the same private durable-history correspondence used by reopen from these validated bytes/events and the selected ownership. Do not reacquire/redecode or author a caller reopen authority.
 5. Immediately invoke existing held-store close. Exact-prefix release produces the genuine current `EventStoreCloseHandoff`; only successful close returns `recovered`. Delivery may itself fail again, leaving a state governed by this same relation. No log byte, Run result or application fact changes.
 
+The returned close handoff is portable data. Its complete prefix is detached through the existing canonical I-JSON value owner, preserving every field, digest and reopen authority without retaining the nominal decoded-history receipt. A caller that separately retains the authenticated owner prefix or validated snapshot keeps its existing immutable post-close reads and preparation callbacks; close does not purge that evidence. Ordinary reopen still independently validates physical identity, bytes, profile and complete history. A retained portable handoff alone must not keep the previous decoded population alive during that cold acquisition.
+
+### Operational history representation
+
+Under Product's existing incremental-state and reuse law, cold acquisition validates the complete selected extent with bounded record decoding. The same Event Store owner retains authenticated envelope, ordinal, cause, profile and physical-body locations, staged append state and current folds. Locations are disposable derivations of that acquisition, not evidence or permission. Selecting a body checks its exact authenticated bytes and logical envelope; an unbound, copied or foreign selection still enters ordinary physical validation. Inline-body references retain source coordinates and digests, not the source event or decoded value.
+
+Internal prefix consumers borrow this private history selection and current facts. The existing complete event-array and replay outputs remain explicit materializations with unchanged values and digests. Those outputs consist of plain frozen data, never accessor-bearing events or partial arrays. A caller expressly retaining a materialized immutable snapshot keeps its post-close pure use. Portable close detachment, explicit fresh reads, physical mutation uncertainty, append/fsync/rollback and the one-writer law remain unchanged. Temporary decoding, validation and complete historical output do not become compulsory resident body populations at later internal handoffs.
+
+Prospective validation uses a distinct transient view of one authenticated unscoped predecessor and exactly one immutable candidate checked by the same envelope, profile and causation owner. It borrows predecessor locations and retains only that candidate body. This view is neither admitted history nor a durable prefix: it cannot grant append permission, advance currentness, supply admitted Source/Result evidence or issue a durable coordinate. Discard leaves the accepted predecessor unchanged. Explicit array callers keep their complete prospective array output and the same validation meaning.
+
 ## Refusal, residue and proof
 
 Before adoption, refusal closes temporary descriptors and leaves an abandoned lock untouched; for ordinary acquisition it releases only this operation's acquired lock. Primary validation cause and cleanup errors remain truthful. After seeding, failed close returns `recovery_fault` with original cause and observed descriptor/lock residue. Cleanup never overwrites/restores another lock, manufactures a handoff or retries. A later action requires exact current residue and authority selection.
@@ -66,3 +76,10 @@ The receipt binds complete request/approval, executing artifact/export, selected
 Focused proof uses genuine disposable owners at first acquisition before append, first commit, and first close before any delivery, plus historical handoff/successor release. Both abandoned and absent ownership converge to unchanged bytes/inode and ordinary next acquisition. New-origin mismatch, existing lock, invalid successor, exact approval and cleanup residue are decisive negatives. Reuse existing malformed-history/profile/live-owner coverage; do not multiply its matrix. Component-supplied artifact verification is explicitly not installed verification. No original-resource operation or semantic retry is implied.
 
 Finite production cone: `abg/event_store.ts`, `abg/definition_event_resource.ts`, existing `abg/index.ts` exports if needed, this HOW and focused fixture/generated inventory. No witness binding, event schema or semantic lifecycle change is selected.
+
+Cold decoding compares each canonical physical row with that row's exact byte
+extent, including its newline; comparison with the complete multirow buffer is
+not row authentication. Returned logical Events remain deeply frozen through
+inline/reference body reuse. Same-object snapshot reuse is owned by its existing
+WeakMap receipt; copied/foreign arrays follow full validation without hidden
+custom metadata weakening immutable-data admission.

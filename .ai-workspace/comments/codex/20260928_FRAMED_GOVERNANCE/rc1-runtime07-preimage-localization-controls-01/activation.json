@@ -1,0 +1,34 @@
+{
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_RUNTIME07_PREIMAGE_LOCALIZATION_GRANT_01",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T08:04:22.997419+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "exactGrant": "Capture readonly authentic already closed failure-prefix/receipt into new controls and compose immediate independent source-localization assignment; no Runtime/store/source/candidate effect. Entire Worker Runtime return remains unaccepted until CLOSED freeze.",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 521814,
+      "sha256": "de6efaaac0a20e61541f26a7cbc8745d6945685f20147638922ab03590a295ea",
+      "mode": 420
+    }
+  ],
+  "readSubjectPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/first-failure.json",
+      "bytes": 3846,
+      "sha256": "fc8baf4a246e53c7d53d779aae3ad3fe5959bef8a0b413a3901a04d88e302915",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "bytes": 2750762,
+      "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "mode": 420
+    }
+  ]
+}

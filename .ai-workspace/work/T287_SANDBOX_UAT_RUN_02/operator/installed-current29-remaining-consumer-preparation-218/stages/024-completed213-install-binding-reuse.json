@@ -1,0 +1,16 @@
+{
+  "stage": "completed213-install-binding-reuse",
+  "rss": 4277092352,
+  "heapTotal": 3831103488,
+  "heapUsed": 3695042504,
+  "external": 2455530,
+  "arrayBuffers": 43223,
+  "at": "2026-10-09T14:37:06.163Z",
+  "elapsedMs": 207048.8915,
+  "nativeInstallInvocationRef": "invocation://abiogenesis/e6f6f81ae2b895b430cc1a647233e89591dcbadbdb4518070b47060c9763875d",
+  "consumerInstallInvocationRef": "invocation://abiogenesis/b804850c0610e469ced9e4cfdfb4cc09306849de7bff1cbad48b71155b97f139",
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/bf8106ce57111f92cce58b2d2694b833e3ade73a97d3f36d199299a282501e99",
+    "digest": "sha256:bf8106ce57111f92cce58b2d2694b833e3ade73a97d3f36d199299a282501e99"
+  }
+}

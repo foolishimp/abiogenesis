@@ -1,0 +1,23 @@
+[
+  {
+    "path": "build/code/src/product/install_product.js",
+    "C04ActualStageSHA256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d",
+    "C05GeneratedSHA256": "897785dc428d82a00cbe641791dc050a69606930e4ed6c7e132b5a3d81ae76c1",
+    "C05Bytes": 14488,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "C04ActualStageSHA256": "79ab564f42589c119cc7bc501c0776c0b325cd4a83b22e118957878d9039a2c6",
+    "C05GeneratedSHA256": "0d9b18a13510b3880d12af6e8a2f9e81b7cd3d3e22dccb850ddea2e51eae8f4c",
+    "C05Bytes": 197474,
+    "role": "generated_output"
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "C04ActualStageSHA256": "6862a7882cf7a457c1e79207aa78001e8d1742efbed38a34ddfaee297663e88d",
+    "C05GeneratedSHA256": "87c8ccc41d4a6129cc01bf7b15dbd9673073e4672d359595b4df3d36b7b30f2c",
+    "C05Bytes": 2567514,
+    "role": "generated_output"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "stage": "fresh-readbacks-start",
+  "at": "2026-10-08T01:42:56.280Z",
+  "elapsedMs": 23975.084875,
+  "memory": {
+    "rss": 3572269056,
+    "heapTotal": 2131181568,
+    "heapUsed": 2012773624,
+    "external": 1184910690,
+    "arrayBuffers": 1182498998,
+    "maxRSSKiB": 3493904
+  }
+}

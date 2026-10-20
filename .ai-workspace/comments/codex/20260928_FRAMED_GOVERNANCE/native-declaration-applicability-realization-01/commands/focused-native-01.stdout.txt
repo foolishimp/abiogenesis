@@ -1,0 +1,74 @@
+✔ S06 native export resolution is TypeScript-program derived (3366.335333ms)
+✔ S06 native declaration closure binds package roots and reachable bytes (2463.952541ms)
+✔ Product native analysis preserves exact contract-indexed pending selectors (2183.332ms)
+✖ S06 native external meaning requires one direct named-symbol contract (1494.349416ms)
+✔ S06 namespace coverage and augmentation remain owner-relative (9827.882333ms)
+▶ S06 native applicability preserves complete nested suppliers and exact native boundaries
+  ✔ complete nested supplier contributes nothing and preserves native results in either position (1605.568ms)
+  ✔ substituted metadata digest (3.149375ms)
+  ✔ wrong root name (2.796333ms)
+  ✔ wrong root type (2.74525ms)
+  ✔ blank root version (2.712458ms)
+  ✔ missing current root (2.684208ms)
+  ✔ omitted current metadata (4.559958ms)
+  ✔ duplicate metadata path (2.807ms)
+  ✔ escaped metadata path (2.71275ms)
+  ✔ unnormalized metadata path (2.688917ms)
+  ✔ malformed JSON body (2.657542ms)
+  ✔ nonobject metadata body (2.663541ms)
+  ✔ conflicting bundle spellings (2.638833ms)
+  ✔ duplicate bundle name (2.632416ms)
+  ✔ undeclared bundle (2.646ms)
+  ✔ invalid dependency version (2.622666ms)
+  ✔ identity substitution (2.610042ms)
+  ✔ source contradiction (2.594125ms)
+  ✔ closure contradiction (2.590667ms)
+  ✔ contract contradiction (2.639042ms)
+  ✔ array-like sources (2.590542ms)
+  ✔ missing closures (2.607291ms)
+  ✔ null contracts (2.607458ms)
+  ✔ array-like metadata (2.595584ms)
+  ✔ array-like advertised rows (2.582042ms)
+  ✔ advertised native sources erased (5.217625ms)
+  ✔ advertised native closures erased (2.660458ms)
+  ✔ advertised native contracts erased (2.597125ms)
+  ✔ native advertisement erased (2.576334ms)
+  ✔ native locator erased (2.604583ms)
+  ✔ mismatched contract digest (2.599375ms)
+  ✔ mismatched named symbol (2.57375ms)
+  ✔ surplus contract evidence (2.577875ms)
+  ✔ array-like pending selectors (2.705834ms)
+  ✔ array-like native sources (2.791ms)
+  ✔ genuine external direct binding stays native and an empty target cannot supply it (494.172625ms)
+  ✔ unsupported selected native declaration targets still refuse (1027.169917ms)
+  ✔ empty Products retain the original multi-Product global boundary (521.848416ms)
+✔ S06 native applicability preserves complete nested suppliers and exact native boundaries (5748.998792ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 43
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25400.789125
+
+✖ failing tests:
+
+test at test_env/tests/m5-s06-prime.test.mjs:666:1
+✖ S06 native external meaning requires one direct named-symbol contract (1494.349416ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'refused'
+  - 'linked'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/copied-tenant/test_env/tests/m5-s06-prime.test.mjs:855:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'refused',
+    expected: 'linked',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

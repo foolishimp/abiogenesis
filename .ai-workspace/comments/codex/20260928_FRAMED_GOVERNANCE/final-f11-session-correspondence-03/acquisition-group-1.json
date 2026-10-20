@@ -1,0 +1,704 @@
+{
+  "kind": "minimal_metadata_and_candidate_index_no_tool_bodies",
+  "groupsUsed": 1,
+  "timeoutSeconds": 120,
+  "elapsedSeconds": 0.06902333395555615,
+  "sessions": [
+    {
+      "role": "parent",
+      "path": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-14-42-01a0edbb-7c4f-7493-bf06-2a600644bbb6.jsonl",
+      "capturedPrefixLength": 5565344,
+      "capturedPrefixSha256": "b40a19c64f2db0770aa0363cc4c3c62299573ade64ec18152264e16bd7319fc3",
+      "capturedThroughLine": 1220,
+      "metadata": {
+        "line": 1,
+        "startByte": 0,
+        "endByte": 22362,
+        "recordSha256": "368c8cae7c975aa4581fc7905fcc479e089f46303b5712dc76a571d749f1672a",
+        "timestamp": "2026-09-29T15:15:10.069Z",
+        "kind": "labeled_metadata_field_projection",
+        "fields": {
+          "id": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+          "cwd": "/Users/jim/src/apps",
+          "model_provider": "openai",
+          "source": "vscode"
+        }
+      },
+      "candidateRecords": [
+        {
+          "line": 1208,
+          "startByte": 5529311,
+          "endByte": 5542192,
+          "recordSha256": "9e8a8338731e7e3134c1816c1d86a27b4f83e65fdfe536fc411fffcb8fa98b3d",
+          "timestamp": "2026-09-29T17:04:23.226Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_Hiz8Dupn9vyD64T194OAxh0c",
+          "argumentBytes": 12358,
+          "matchedTerms": [
+            "construction_continuation.ts",
+            "run_invocation.ts",
+            "t287-selected-action-authority.test.mjs",
+            "t287-continuation-causation.test.mjs",
+            "source.patch",
+            "selected-action-07"
+          ]
+        },
+        {
+          "line": 1213,
+          "startByte": 5558645,
+          "endByte": 5559658,
+          "recordSha256": "4cd1b9f934a022f027999c5bfc885e5c51890d547a7798fbe83645122352e290",
+          "timestamp": "2026-09-29T17:04:23.368Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_Hiz8Dupn9vyD64T194OAxh0c",
+          "outputBytes": 562
+        },
+        {
+          "line": 1215,
+          "startByte": 5560474,
+          "endByte": 5562350,
+          "recordSha256": "0d119a7d7e9af7f238a352daa5f8eb81b942f36de172f4a37b59b8c44ec3e5af",
+          "timestamp": "2026-09-29T17:04:40.416Z",
+          "type": "function_call",
+          "name": "followup_task",
+          "call_id": "call_gUOs43bm2zfFEaAtKeJqBeVa",
+          "argumentBytes": 1397,
+          "matchedTerms": []
+        },
+        {
+          "line": 1218,
+          "startByte": 5563708,
+          "endByte": 5564134,
+          "recordSha256": "6c5dd9e847648f6a586bcaefcd5987d2a42068b5e70f7c7b03ed6cb1588789e0",
+          "timestamp": "2026-09-29T17:04:40.483Z",
+          "type": "function_call_output",
+          "call_id": "call_gUOs43bm2zfFEaAtKeJqBeVa",
+          "outputBytes": 0
+        }
+      ]
+    },
+    {
+      "role": "selected_action",
+      "path": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "capturedPrefixLength": 9982865,
+      "capturedPrefixSha256": "fc13215d4fc08fc1dc819d20d3ed6c561eebd9c1a91accaf3dd089eaca6b2a90",
+      "capturedThroughLine": 1495,
+      "metadata": {
+        "line": 1,
+        "startByte": 0,
+        "endByte": 22686,
+        "recordSha256": "ada745b41cf488d1bf0233d5ffa35ca49ca297f4b2e8ae260b65d81ba6a823be",
+        "timestamp": "2026-09-29T15:20:56.649Z",
+        "kind": "labeled_metadata_field_projection",
+        "fields": {
+          "id": "01a0edc1-320d-7403-98ce-670c97b96ecb",
+          "cwd": "/Users/jim/src/apps",
+          "parent_thread_id": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+          "agent_path": "/root/selected_action",
+          "model_provider": "openai",
+          "source": {
+            "subagent": {
+              "thread_spawn": {
+                "parent_thread_id": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+                "depth": 1,
+                "agent_path": "/root/selected_action"
+              }
+            }
+          }
+        }
+      },
+      "candidateRecords": [
+        {
+          "line": 1354,
+          "startByte": 9371812,
+          "endByte": 9378701,
+          "recordSha256": "156aabc02bb5278a35c44d1c763bcf5c2f5320c147d61110f74aee7b04f7924b",
+          "timestamp": "2026-09-29T17:05:53.346Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+          "argumentBytes": 6364,
+          "matchedTerms": [
+            "construction_continuation.ts",
+            "run_invocation.ts",
+            "t287-selected-action-authority.test.mjs",
+            "t287-continuation-causation.test.mjs",
+            "preimages.json",
+            "selected-action-07"
+          ]
+        },
+        {
+          "line": 1358,
+          "startByte": 9451464,
+          "endByte": 9471462,
+          "recordSha256": "70a990c51612b28508250b7a0ca041574c36c582d859245ff528910f8bbf6806",
+          "timestamp": "2026-09-29T17:05:56.472Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+          "outputBytes": 19581
+        },
+        {
+          "line": 1460,
+          "startByte": 9890144,
+          "endByte": 9894258,
+          "recordSha256": "d3c856bf3d4e4c4f7c8fa7c313eb543c6d293ce2bdac2a9849e08515908ef24d",
+          "timestamp": "2026-09-29T17:10:43.490Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_NRLpe6DRqetocWpoq2wmicLZ",
+          "argumentBytes": 3682,
+          "matchedTerms": [
+            "source.patch",
+            "preimages.json",
+            "selected-action-07"
+          ]
+        },
+        {
+          "line": 1463,
+          "startByte": 9907666,
+          "endByte": 9909779,
+          "recordSha256": "0da96e99df17b0736b4f808cb939045ca7905d4885f2268f8c80114e573f7863",
+          "timestamp": "2026-09-29T17:10:43.671Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_NRLpe6DRqetocWpoq2wmicLZ",
+          "outputBytes": 1652
+        },
+        {
+          "line": 1474,
+          "startByte": 9930747,
+          "endByte": 9939875,
+          "recordSha256": "41806f0e3f51a56fe23a76f018b1ea1007764d3b4876390350095f951840e485",
+          "timestamp": "2026-09-29T17:12:28.040Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_V3mFfy3kIFfs7NU2rLwIVo5U",
+          "argumentBytes": 8681,
+          "matchedTerms": [
+            "source.patch",
+            "preimages.json",
+            "selected-action-07"
+          ]
+        },
+        {
+          "line": 1477,
+          "startByte": 9958631,
+          "endByte": 9959193,
+          "recordSha256": "c27c5beb91f4bd86317e4f55ff818b73b36e7a7ddfc64b232b4935717327e110",
+          "timestamp": "2026-09-29T17:12:28.128Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_V3mFfy3kIFfs7NU2rLwIVo5U",
+          "outputBytes": 141
+        },
+        {
+          "line": 1483,
+          "startByte": 9966953,
+          "endByte": 9968754,
+          "recordSha256": "22b08eaa4836dbcda94b87a035a8283285f82eaa6476a403ccfe20edffe90735",
+          "timestamp": "2026-09-29T17:13:05.721Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_VdY1mgK9bXZmGqdWva1JqvEi",
+          "argumentBytes": 1382,
+          "matchedTerms": [
+            "preimages.json",
+            "freeze.json",
+            "selected-action-07"
+          ]
+        },
+        {
+          "line": 1486,
+          "startByte": 9973566,
+          "endByte": 9974347,
+          "recordSha256": "17978e00992c0c56fbda1f2bc29d1b247eb8f44503936d580a2ec088b316716e",
+          "timestamp": "2026-09-29T17:13:05.847Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_VdY1mgK9bXZmGqdWva1JqvEi",
+          "outputBytes": 346
+        }
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "path": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "capturedPrefixLength": 19647345,
+      "capturedPrefixSha256": "0591d6ec7897604fafbf9fc22c683abfe1ee8228726a1b718b9f2b0e695c62bc",
+      "capturedThroughLine": 2810,
+      "metadata": {
+        "line": 1,
+        "startByte": 0,
+        "endByte": 22678,
+        "recordSha256": "afcfb49fafdfbc0b9941719a6c3d00001ec46e433344ac200882044a40b2cdba",
+        "timestamp": "2026-09-30T02:48:37.140Z",
+        "kind": "labeled_metadata_field_projection",
+        "fields": {
+          "id": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+          "cwd": "/Users/jim/src/apps",
+          "parent_thread_id": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+          "agent_path": "/root/s03_phase_b",
+          "model_provider": "openai",
+          "source": {
+            "subagent": {
+              "thread_spawn": {
+                "parent_thread_id": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+                "depth": 1,
+                "agent_path": "/root/s03_phase_b"
+              }
+            }
+          }
+        }
+      },
+      "candidateRecords": [
+        {
+          "line": 815,
+          "startByte": 7032034,
+          "endByte": 7034124,
+          "recordSha256": "67b9da342a9ea6ce353b7ce25d54133d7fb927d0a8b6f7d65a570712a3840595",
+          "timestamp": "2026-09-30T03:54:05.540Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_H2tnI20Guk83Q2gCrp6TjfiL",
+          "argumentBytes": 1664,
+          "matchedTerms": [
+            "project_read_operation_contracts.ts",
+            "project_read_definition_bindings.ts",
+            "project_read_ports.ts",
+            "t287-s03-automatic.mjs",
+            "activation.json",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 818,
+          "startByte": 7039168,
+          "endByte": 7039965,
+          "recordSha256": "3afdaaad05464da688a17d8d555b971448ce1924a28785c166794397ff76d6a7",
+          "timestamp": "2026-09-30T03:54:05.714Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_H2tnI20Guk83Q2gCrp6TjfiL",
+          "outputBytes": 357
+        },
+        {
+          "line": 912,
+          "startByte": 7573169,
+          "endByte": 7575137,
+          "recordSha256": "13ec7b5c67c82f14e1f32ace41197b09e8eb8040ad7c0b75f58878222947ba23",
+          "timestamp": "2026-09-30T03:57:48.839Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_96pplFVgr4IEftYT1OBS0l7s",
+          "argumentBytes": 1507,
+          "matchedTerms": [
+            "project_read_operation_contracts.ts"
+          ]
+        },
+        {
+          "line": 915,
+          "startByte": 7578196,
+          "endByte": 7578740,
+          "recordSha256": "56793b5e8ab063a24d37e82d9de9591b5a268949f21464afdf76fd1f7c8bbdb5",
+          "timestamp": "2026-09-30T03:57:48.920Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_96pplFVgr4IEftYT1OBS0l7s",
+          "outputBytes": 124
+        },
+        {
+          "line": 925,
+          "startByte": 7595274,
+          "endByte": 7606463,
+          "recordSha256": "b77879009a31122f05064955bec7f498a2d71a5b90c288683201e505d50c245e",
+          "timestamp": "2026-09-30T03:59:49.801Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_kqNmXWFQKl448XS8UcoC8Agj",
+          "argumentBytes": 10399,
+          "matchedTerms": [
+            "project_read_ports.ts"
+          ]
+        },
+        {
+          "line": 928,
+          "startByte": 7618534,
+          "endByte": 7619077,
+          "recordSha256": "9dbb80939999d7f03d75feb9f80484a93abf91bf42367638c3a84ab963d9fe8b",
+          "timestamp": "2026-09-30T03:59:49.928Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_kqNmXWFQKl448XS8UcoC8Agj",
+          "outputBytes": 124
+        },
+        {
+          "line": 932,
+          "startByte": 7622209,
+          "endByte": 7624657,
+          "recordSha256": "7d77e21e1cfd4081285bb2afd149f966d7bbf42045eb61e974d24ee564cb4164",
+          "timestamp": "2026-09-30T04:00:16.034Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_g8ctmEOhyie0KuLbSSMwUID1",
+          "argumentBytes": 1917,
+          "matchedTerms": [
+            "project_read_definition_bindings.ts"
+          ]
+        },
+        {
+          "line": 935,
+          "startByte": 7628323,
+          "endByte": 7628867,
+          "recordSha256": "f1f50ab9f9675f983fb82dc8abfcfd39670fbe8603ca6d9d830aaedd19a9d3ab",
+          "timestamp": "2026-09-30T04:00:16.204Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_g8ctmEOhyie0KuLbSSMwUID1",
+          "outputBytes": 124
+        },
+        {
+          "line": 941,
+          "startByte": 7638426,
+          "endByte": 7643568,
+          "recordSha256": "1399e7d4a2fcb94b8d9bb4dc693ecb006d901d1510a3ef4ab09ba6bf33c9a259",
+          "timestamp": "2026-09-30T04:01:16.150Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_QkU3TyzYxJO72Ft1fdjrfvgL",
+          "argumentBytes": 4624,
+          "matchedTerms": [
+            "t287-s03-automatic.mjs",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 944,
+          "startByte": 7657674,
+          "endByte": 7659533,
+          "recordSha256": "6ed2ab7f07046c31bbc1c5cbc9f49cc0f213eb9a89153f4f12ddac9739acd0b7",
+          "timestamp": "2026-09-30T04:01:21.095Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_QkU3TyzYxJO72Ft1fdjrfvgL",
+          "outputBytes": 1449
+        },
+        {
+          "line": 955,
+          "startByte": 7685872,
+          "endByte": 7688446,
+          "recordSha256": "390a84cabe5bd5481e6da159486ad9c29565a32957557d8c0843955cb48f6970",
+          "timestamp": "2026-09-30T04:01:49.120Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_CfvBjhZO7BBgmbs5PKpWf98t",
+          "argumentBytes": 2159,
+          "matchedTerms": [
+            "project_read_ports.ts",
+            "t287-s03-automatic.mjs",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 958,
+          "startByte": 7694071,
+          "endByte": 7694727,
+          "recordSha256": "656827c3e59bad665f8a6c8c6fb5a00a31b12b0c44d6090bca5db297be219d94",
+          "timestamp": "2026-09-30T04:01:54.602Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_CfvBjhZO7BBgmbs5PKpWf98t",
+          "outputBytes": 222
+        },
+        {
+          "line": 992,
+          "startByte": 7780008,
+          "endByte": 7784353,
+          "recordSha256": "be6a7f164a5c13165f7881017ebeafaf76a01e22711c00861c0dbe366db2e007",
+          "timestamp": "2026-09-30T04:04:30.668Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_toX9kikY9IyQuZ8kz5SzCSxF",
+          "argumentBytes": 3906,
+          "matchedTerms": [
+            "project_read_ports.ts",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 995,
+          "startByte": 7793474,
+          "endByte": 7794134,
+          "recordSha256": "c9eca2d1b982c13c6b85d3c6fc1bcfb9914e491fa8e9ce13b809251abcdef55c",
+          "timestamp": "2026-09-30T04:04:36.015Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_toX9kikY9IyQuZ8kz5SzCSxF",
+          "outputBytes": 226
+        },
+        {
+          "line": 1112,
+          "startByte": 8147434,
+          "endByte": 8149873,
+          "recordSha256": "382f7df6dc8bcaa10b7ac4ff4132cc38e2d259d83677330d964a63cb0c310bac",
+          "timestamp": "2026-09-30T04:12:54.286Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_EaRLZZ4vRTWxByDXPbMjyGVL",
+          "argumentBytes": 2026,
+          "matchedTerms": [
+            "project_read_ports.ts",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 1115,
+          "startByte": 8155519,
+          "endByte": 8156262,
+          "recordSha256": "8ccf0b7e828b8cb238718aaea8eba73ee9c4f792404d0c73a5f04a6a87adec22",
+          "timestamp": "2026-09-30T04:12:54.396Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_EaRLZZ4vRTWxByDXPbMjyGVL",
+          "outputBytes": 308
+        },
+        {
+          "line": 1199,
+          "startByte": 9100118,
+          "endByte": 9108859,
+          "recordSha256": "6c7b8e1a8cd28139d8930e641865be788aca8845daaa609b4c254460a90531cb",
+          "timestamp": "2026-09-30T04:19:14.872Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_N0fRGB220y8K4KTJxVe0ypxh",
+          "argumentBytes": 8168,
+          "matchedTerms": [
+            "project_read_operation_contracts.ts",
+            "project_read_ports.ts",
+            "t287-s03-automatic.mjs",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 1202,
+          "startByte": 9126550,
+          "endByte": 9127211,
+          "recordSha256": "34436183e3849e5e5325129fbe40ede9d968c935fcf099d96abbc740338cc003",
+          "timestamp": "2026-09-30T04:19:14.980Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_N0fRGB220y8K4KTJxVe0ypxh",
+          "outputBytes": 226
+        },
+        {
+          "line": 1237,
+          "startByte": 9259661,
+          "endByte": 9262424,
+          "recordSha256": "1dcf601bf0a63c8e571e42d35c1b2e18de5df91c640429b53c1d3099c76ccfb2",
+          "timestamp": "2026-09-30T04:21:14.124Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_Ddtr0gvfI7nahcpqmsAfsRsF",
+          "argumentBytes": 2349,
+          "matchedTerms": [
+            "project_read_ports.ts",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 1241,
+          "startByte": 9270942,
+          "endByte": 9272398,
+          "recordSha256": "d4fc1fd8804aeed66f951b9e959312a71682dc05369fe11b89d082066a3a9b93",
+          "timestamp": "2026-09-30T04:21:20.650Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_Ddtr0gvfI7nahcpqmsAfsRsF",
+          "outputBytes": 1025
+        },
+        {
+          "line": 1345,
+          "startByte": 9910299,
+          "endByte": 9913845,
+          "recordSha256": "2d196981b0bf3e2de78e276559dd75615143604a06c609d22c9bd5de36e1b05f",
+          "timestamp": "2026-09-30T04:25:03.027Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_IJEO2ArSQZu2brGTTlpU3uG9",
+          "argumentBytes": 3102,
+          "matchedTerms": [
+            "t287-s03-automatic.mjs",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 1349,
+          "startByte": 9923795,
+          "endByte": 9925208,
+          "recordSha256": "05f84f0c8d53d177e2843f41a1252b0771ffea06d452072ba0712e5a45661a88",
+          "timestamp": "2026-09-30T04:25:04.499Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_IJEO2ArSQZu2brGTTlpU3uG9",
+          "outputBytes": 972
+        },
+        {
+          "line": 1396,
+          "startByte": 10082553,
+          "endByte": 10099226,
+          "recordSha256": "e41cac035ef0f7eb604348e5f495a8f5959336b35f77ea0e5ea862a86fbe5380",
+          "timestamp": "2026-09-30T04:28:42.841Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_fUOs0kyphZFTkk1BaHtM9YT3",
+          "argumentBytes": 16184,
+          "matchedTerms": [
+            "project_read_operation_contracts.ts",
+            "project_read_definition_bindings.ts",
+            "project_read_ports.ts",
+            "t287-s03-automatic.mjs",
+            "source.patch",
+            "final-sources.json",
+            "activation.json",
+            "freeze.json",
+            "s03-public-handoff-repair-01"
+          ]
+        },
+        {
+          "line": 1399,
+          "startByte": 10134244,
+          "endByte": 10135384,
+          "recordSha256": "a4df6889f3ef714a783bb994e631792dc2ecbbd180b0b8e485135f71799f4603",
+          "timestamp": "2026-09-30T04:28:43.004Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_fUOs0kyphZFTkk1BaHtM9YT3",
+          "outputBytes": 685
+        },
+        {
+          "line": 2660,
+          "startByte": 19234662,
+          "endByte": 19238165,
+          "recordSha256": "a9ebdf0a7e4177a4dd69d809441ba3cb4add2feb4bc9f5a42b5dba15283a4544",
+          "timestamp": "2026-09-30T06:49:41.340Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_D5d9Uz8wPqx4QGBBKmu0bFse",
+          "argumentBytes": 3077,
+          "matchedTerms": [
+            "default_library.ts",
+            "t287-default-library.test.mjs",
+            "root-installed-environment.mjs",
+            "preimages.json",
+            "activation.json",
+            "freeze.json",
+            "default-library-publication-repair-01"
+          ]
+        },
+        {
+          "line": 2663,
+          "startByte": 19245890,
+          "endByte": 19246625,
+          "recordSha256": "314f8e3c9690306ba86884a4b2d26391bf24570e534da621893e2f6368351071",
+          "timestamp": "2026-09-30T06:49:41.446Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_D5d9Uz8wPqx4QGBBKmu0bFse",
+          "outputBytes": 300
+        },
+        {
+          "line": 2672,
+          "startByte": 19260901,
+          "endByte": 19266347,
+          "recordSha256": "71a7fa4c625df2a71c0144f35cba50917c9a97ac3574b05fcaeb12ee41ad95f3",
+          "timestamp": "2026-09-30T06:50:51.251Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_xhY5RR6tpI2Lxb249P76JGXB",
+          "argumentBytes": 4934,
+          "matchedTerms": [
+            "default_library.ts",
+            "t287-default-library.test.mjs",
+            "root-installed-environment.mjs"
+          ]
+        },
+        {
+          "line": 2675,
+          "startByte": 19273831,
+          "endByte": 19274376,
+          "recordSha256": "7c9e6fffb8bfd01b224aa79b586780901807e572310b2a952d86c6ee5bc0094d",
+          "timestamp": "2026-09-30T06:50:51.373Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_xhY5RR6tpI2Lxb249P76JGXB",
+          "outputBytes": 124
+        },
+        {
+          "line": 2767,
+          "startByte": 19498268,
+          "endByte": 19502852,
+          "recordSha256": "37ad9da1f3630ad9c5075f3226cd424d50b2f3c80f8f264bfc231f8180b16a32",
+          "timestamp": "2026-09-30T06:56:12.428Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_tMko5f0eJi98K5T41vYrDFI1",
+          "argumentBytes": 4148,
+          "matchedTerms": [
+            "source-attribution.json",
+            "source.patch",
+            "preimages.json",
+            "default-library-publication-repair-01"
+          ]
+        },
+        {
+          "line": 2770,
+          "startByte": 19513294,
+          "endByte": 19514253,
+          "recordSha256": "1c87f20a09aada08a7b1d354348058c6e627fa08f9008e5322f82f5c926ad813",
+          "timestamp": "2026-09-30T06:56:12.573Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_tMko5f0eJi98K5T41vYrDFI1",
+          "outputBytes": 509
+        },
+        {
+          "line": 2788,
+          "startByte": 19580683,
+          "endByte": 19591826,
+          "recordSha256": "738572cefbc7175763aab36723ce88e276d921e45dc950c7e223bdbaab3ae18e",
+          "timestamp": "2026-09-30T06:58:27.539Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_QktEoFftFFkuh14bdZlhuoAa",
+          "argumentBytes": 10696,
+          "matchedTerms": [
+            "default_library.ts",
+            "source-attribution.json",
+            "source.patch",
+            "default-library-publication-repair-01"
+          ]
+        },
+        {
+          "line": 2791,
+          "startByte": 19616393,
+          "endByte": 19617729,
+          "recordSha256": "66a8b8a6813c13f482380f978e3bcc7c5a83fff59469fbff225f0b5bbb2a3bdc",
+          "timestamp": "2026-09-30T06:58:27.685Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_QktEoFftFFkuh14bdZlhuoAa",
+          "outputBytes": 869
+        },
+        {
+          "line": 2795,
+          "startByte": 19621912,
+          "endByte": 19624489,
+          "recordSha256": "8f48bf7c30a1350e72257a333c4587f2cf8a6cebb0de96a1212967f65a1e3d79",
+          "timestamp": "2026-09-30T06:58:56.026Z",
+          "type": "custom_tool_call",
+          "name": "exec",
+          "call_id": "call_t7GsDqOc6zdf0AnHkaIXKYKR",
+          "argumentBytes": 2153,
+          "matchedTerms": [
+            "source-attribution.json",
+            "source.patch",
+            "freeze.json",
+            "default-library-publication-repair-01"
+          ]
+        },
+        {
+          "line": 2798,
+          "startByte": 19631641,
+          "endByte": 19632872,
+          "recordSha256": "b8d14aa0a0c44da8dfc928b6c3ab554ba28acd5a54bc9b7c33b5722128c419fd",
+          "timestamp": "2026-09-30T06:58:56.487Z",
+          "type": "custom_tool_call_output",
+          "call_id": "call_t7GsDqOc6zdf0AnHkaIXKYKR",
+          "outputBytes": 772
+        }
+      ]
+    }
+  ],
+  "indexStatus": "Pruned to the exactly selected metadata/source-operation/paired-output records; no unrelated candidate records retained."
+}

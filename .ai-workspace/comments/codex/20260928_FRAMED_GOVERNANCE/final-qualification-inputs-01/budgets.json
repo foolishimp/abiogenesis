@@ -1,0 +1,207 @@
+{
+  "status": "finite proposal; Root selects launch and exact provider/executable identity",
+  "perCommand": [
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/stage",
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/clean",
+      "timeoutMs": 15000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/compile",
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/generate",
+      "timeoutMs": 180000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/lint",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "timeoutMs": 90000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/compare",
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000
+    }
+  ],
+  "C2": {
+    "commandCapsAndGracesMs": 958000,
+    "helperDispatchAndAckAllowanceMs": 5000,
+    "requiredHelperBudgetMs": 963000,
+    "ABG_TS_FP_TIMEOUT_MS": "1083000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "1263000",
+    "outerC2PublicBudgetMs": 1863000,
+    "outerDriverBudgetMs": 2763000,
+    "status": "finite proposal for later Root grant; unexecuted",
+    "basis": "13 actual command bounds/graces; construction01 build20.641s, offline ci1.335s; native actor setup/ack and assessment separate. Idle timeout must cover longest silent helper run, not be mistaken for total episode elapsed. Absolute and outer budgets exceed complete helper aggregate."
+  },
+  "otherScopesMs": {
+    "perSetupPublicOperation": 600000,
+    "perConformance": 600000,
+    "perColdRead": 600000,
+    "hello": 300000
+  },
+  "separate": "Setup aggregate grows with actual operation count; do not use one per-operation cap as a whole driver budget. Independent F11 assessments and scenarios require their own actual workloads/grants. No shared aggregate timeout substituted for per-actor idle progress semantics.",
+  "retainedCostEvidence": [
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/bootstrap-core-timing.json",
+        "bytes": 31,
+        "sha256": "fe605d01f18fb9560d181b4407909496acfb5b08ed237f0376089f2abb45c615"
+      },
+      "elapsedMs": 8027.096541
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/hello-root-run_replay-timing.json",
+        "bytes": 286,
+        "sha256": "2c51028a558f1f58db2b3f9940e8638b2b51df6ce455975b94084581e951c250"
+      },
+      "elapsedMs": 930.5222080000003
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/hello-root-run_result-timing.json",
+        "bytes": 286,
+        "sha256": "47d0fa5438f51ab3fd70edb94cbed2b680b71daf565a8e0a36dbbef3c72ad89b"
+      },
+      "elapsedMs": 937.2601670000004
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/hello-root-timing.json",
+        "bytes": 281,
+        "sha256": "781e118141459430df2a771fa23a3a347fe5986a2f3f221a0eb2ecaf132fd693"
+      },
+      "elapsedMs": 6110.009916
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-bind-timing.json",
+        "bytes": 287,
+        "sha256": "35ad8e6732c845f733649abaabe8937c0c5fdceb7f7e6346061a2f2d0781a823"
+      },
+      "elapsedMs": 9847.061833999993
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-catalog-timing.json",
+        "bytes": 288,
+        "sha256": "504718f2a28ea78e4fa174b12e77daf03599410110f7cf56853e6200e05812af"
+      },
+      "elapsedMs": 14283.553874999983
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-catalog-view-timing.json",
+        "bytes": 287,
+        "sha256": "3aa4445e74fd3c54a2f665095c8f0bebdd33718afbf1d14828b1252f086a1532"
+      },
+      "elapsedMs": 9878.664707999997
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-conformance-command-execution-timing.json",
+        "bytes": 294,
+        "sha256": "51f0304ba7585169dd3567955acb811385c9ef9a8fb3b56389c662aa1444e9fa"
+      },
+      "elapsedMs": 10533.694749999995
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-conformance-hello-world-timing.json",
+        "bytes": 294,
+        "sha256": "4d6f1fe2c7823eb79bc87c582528bbdbcc817ea956deb591f51e0c81c2ec2c3e"
+      },
+      "elapsedMs": 10701.969499999977
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-install-core-timing.json",
+        "bytes": 280,
+        "sha256": "1c03318aaa4982600023e25caaf8a5a136959035bbf7d93dc9abe4b649244970"
+      },
+      "elapsedMs": 20182.8425
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-resolve-timing.json",
+        "bytes": 288,
+        "sha256": "8769a31a55d1704275639a1b92056529495f7b97b4088ff1834db520be694993"
+      },
+      "elapsedMs": 13953.294584000003
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-verify-core-timing.json",
+        "bytes": 281,
+        "sha256": "34c95959f97f75463cd2290575b03e03a9929b26d4342305d83de555b418eb20"
+      },
+      "elapsedMs": 16370.13625
+    },
+    {
+      "source": {
+        "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup-workspace-timing.json",
+        "bytes": 287,
+        "sha256": "f1a900b0c46a9a6bbb8c4d2dc525415ba1e98583d7dcfb797b8f4d2155cdbaf1"
+      },
+      "elapsedMs": 8398.162083000001
+    }
+  ],
+  "constructionCostsSeconds": {
+    "offlineCi": 1.335,
+    "build": 20.641,
+    "pack": 3.42,
+    "offlineInstall": 2.375,
+    "verification": 9.589
+  },
+  "constructionEvidence": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/return.md",
+    "bytes": 11103,
+    "sha256": "94c0c402fba45a3d05a41852584ecdea55c58673b92c26001fa0f132fcb21f29"
+  },
+  "retry": "none; first material failure preserves exact partial-effects state and returns for causal triage"
+}

@@ -1,0 +1,20 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C08_PREIMAGE_CONTRACT_TRIAGE_WRITER_02",
+  "returnsTo": "Executive",
+  "stoppedPopulationVerified": {
+    "records": 1978,
+    "directories": 93,
+    "completeCensus": true
+  },
+  "selectedSourceVerified": {
+    "members": 1109,
+    "presentC07": 1108,
+    "changedExisting": 2,
+    "actualAbsent": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+    ]
+  },
+  "sourceCandidateRunProviderGitEffects": 0,
+  "writesStopped": true
+}

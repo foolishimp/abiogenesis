@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "receipt": {
+    "definitionKey": {
+      "memberKey": "gtl_program",
+      "operationId": "abg.operation.conformance.evaluate"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "invocationRef": "invocation://abiogenesis/d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a",
+    "kind": "definition_host_receipt",
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "assessment": {
+          "digest": "sha256:8a1f4993aa32c9c7859319cd9aef32354d562f91dade3abb8825cec32b5b13b4",
+          "ref": "evidence://abiogenesis/conformance/8a1f4993aa32c9c7859319cd9aef32354d562f91dade3abb8825cec32b5b13b4"
+        },
+        "diagnostics": [],
+        "disposition": "passed",
+        "evidence": [
+          {
+            "digest": "sha256:8a1f4993aa32c9c7859319cd9aef32354d562f91dade3abb8825cec32b5b13b4",
+            "ref": "evidence://abiogenesis/conformance/8a1f4993aa32c9c7859319cd9aef32354d562f91dade3abb8825cec32b5b13b4"
+          }
+        ],
+        "inventory": {
+          "digest": "sha256:e0bc2929597de55a69321b677062d0280bb85a49abf77a737000b8bfb580f26e",
+          "ref": "gtl-inventory://abiogenesis/e0bc2929597de55a69321b677062d0280bb85a49abf77a737000b8bfb580f26e"
+        },
+        "program": {
+          "digest": "sha256:e1ac4c0cedc4eb6350369893db2c7768e05ce014697145d402cb86d47ce0afa9",
+          "ref": "program://abiogenesis/conformance/hello-world@5"
+        },
+        "repairAffordances": [],
+        "violatedAuthorities": []
+      }
+    },
+    "resources": {
+      "capabilityGrants": [
+        {
+          "digest": "sha256:3768b7558d6c1a4eb3bed73f8606b14fb2b9302561ae93f43dfe300dc132fccf",
+          "ref": "capability-grant://abiogenesis/3768b7558d6c1a4eb3bed73f8606b14fb2b9302561ae93f43dfe300dc132fccf"
+        }
+      ],
+      "invocation": {
+        "digest": "sha256:d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a",
+        "ref": "invocation://abiogenesis/d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a"
+      },
+      "kind": "conformance_evaluation_resource_receipt",
+      "request": {
+        "digest": "sha256:ee23c382d577772faac89506a12a769d3298ea2e072c76b60cb8b3faad0f3214",
+        "ref": "request://abiogenesis/t287/final-native-continuation-04/continue/0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "preparedCallRef": "invocation://abiogenesis/d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a",
+  "closedPrefixConserved": true
+}

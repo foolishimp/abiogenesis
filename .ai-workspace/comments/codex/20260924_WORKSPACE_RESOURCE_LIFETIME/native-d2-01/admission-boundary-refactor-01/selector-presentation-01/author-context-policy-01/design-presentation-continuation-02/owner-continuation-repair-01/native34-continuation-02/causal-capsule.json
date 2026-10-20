@@ -1,0 +1,85 @@
+{
+  "classification": "owned runtime implementation exception during workflow admission-rejection completion; original rejection unknown",
+  "diagnostic": {
+    "admissionEventDigest": "sha256:372de4b998790606ee99c9c42806fc297d4b1707f3538132e194c1154894e508",
+    "admissionEventRef": "event://abiogenesis/1845b6af43e720290f021f83cbbb9b344158feabcabfc1480aed3314d65c88c3",
+    "availability": "retained",
+    "basisId": "execution-basis://abiogenesis/be442f51fa12f5d1ee764e5ba13df33da323ec74bdbbdfc7a6e9720469f51887",
+    "causationEventRefs": [
+      "event://abiogenesis/9628815e47ccec5f76b58f0c444d28abe8d99015987bab76c754ee189abd0a19"
+    ],
+    "diagnosticClassRef": "diagnostic://abiogenesis/hog/traversal-defect@5",
+    "failureDigest": "sha256:a8b867d7e25b8aaab90391f1c104b740e40b16831a59f3d814c9366d2fb7b7f5",
+    "failureRef": "runtime-failure://abiogenesis/a8b867d7e25b8aaab90391f1c104b740e40b16831a59f3d814c9366d2fb7b7f5",
+    "frameId": "frame://abiogenesis/801ffd77a450c42fc151637106418e2c645ac8744d81b7c5e48e6e41fa71f860",
+    "graphCallId": "graph-call://abiogenesis/9ca9cdf2c35002d6c6c9b653e36df53e98ae03640986cf6b8dc9840627e932bd",
+    "kind": "runtime_failure_evidence",
+    "runId": "run://abiogenesis/b03597ae79756303688e03f268ad1e0b2cc97cfd7385fe70a300a6842dafc2b1",
+    "schemaVersion": "5.0.0",
+    "stage": "hog_traversal",
+    "subjectDigest": "sha256:653a946fd0ba5c54e2d6c2388b0c5845264b3e5d3e79047069028d8144525657"
+  },
+  "message": "runtime event-prefix selection requires a total, gap-free admission-ordinal order",
+  "exactPublicEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/read-run_evidence.json",
+    "byteCount": 17158,
+    "sha256": "199b843785768cad7fd808604d4f25ad1e92885ca8f2c1c476acbccf1b57cce4"
+  },
+  "decodedOwnedDiagnostic": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/owned-runtime-diagnostic.json",
+    "byteCount": 23469,
+    "sha256": "f4932bd8d0c75f05f297f419614d47281a8f55f3598f09d18b42bb3550c86f6b"
+  },
+  "sourceTrace": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/products/core34/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+      "byteCount": 23041,
+      "sha256": "0d17b41ea89f96dffa6c284099fae3a52117f243bfd71cc7d3c2fdd4484f5fcf",
+      "startLine": 239,
+      "endLine": 242
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/products/core34/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js",
+      "byteCount": 236560,
+      "sha256": "210621b9ebcc704048ac54ef0776c09807de2ba6330a80c1a4e1ba63cec58ad6",
+      "startLine": 680,
+      "endLine": 685
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/products/core34/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js",
+      "byteCount": 236560,
+      "sha256": "210621b9ebcc704048ac54ef0776c09807de2ba6330a80c1a4e1ba63cec58ad6",
+      "startLine": 4436,
+      "endLine": 4446
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/products/core34/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call_outcome.js",
+      "byteCount": 53013,
+      "sha256": "bcd8ea0227c1ae3411084ce766430af28d327b244be8b298ef2d40997233f1d1",
+      "startLine": 708,
+      "endLine": 714
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/products/core34/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/workflow_lifecycle.js",
+      "byteCount": 33803,
+      "sha256": "b3c808d258a32becfd9285b5d4aae693b97df517d766076a3300af2b7059ed86",
+      "startLine": 91,
+      "endLine": 102
+    }
+  ],
+  "triggeringOwnerRelation": "admitCCallRejection selects a run-scoped prefix from the active durable transaction and passes it to completeRejectedCCall. projectCCallOwnerAtPrefix treats that argument as the full authority prefix, extracts the selected event array, and calls selectValidatedRuntimeEventPrefix again; RuntimeEventIndex.structure requires admissionOrdinal === array index + 1. A scoped multi-Run subset preserves global ordinals and fails this full-prefix predicate.",
+  "repairHandoff": "abg/c_call_outcome.ts admitCCallRejection -> abg/c_call.ts completeRejectedCCall/projectCCallOwnerAtPrefix; conserve actual full-prefix authority and separate derived Run scope through this existing owner chain. Do not relax event_prefix ordinal validation.",
+  "originalRejection": {
+    "status": "unknown",
+    "recoverability": "The retained ordinary Public diagnostic contains the throwing completion stack, not the original rejection value or its diagnosticRef. rejectWorkflowAdmission receives that value and completeRejectedCCall throws before completing its admission; these returned facts/source do not recover the actual value. No claim that it is permanently absent from all retained suffix records. No additional suffix scan or runtime read was made after the diagnostic was established."
+  },
+  "callerRelation": {
+    "afterReceiptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01/live-receipt.json",
+    "preparedLaunchDigest": "sha256:f5373c5424bad8d3d50de755d959722b9de6b9380fd71a6e77a658339614388d",
+    "actualLaunchDigest": "sha256:ecc06eb1a3a8a79e15e93b3f5b0dbafe891247cbd1afe5d48ee9aa2a7af976fe",
+    "owner": "existing executeFullSandbox afterReceiptPath -> definitionCall -> installed transport; genuine new current close and ordinal constructed by existing owners",
+    "limitsComparison": "The owned diagnostic does not route to transport/declared execution limits. No budget-causation inference or unrelated limit investigation."
+  },
+  "evidenceDecodingLimit": "Existing read-evidence helper filtered data:application/json, and omitted charset=utf-8. owned-runtime-diagnostic.json decodes the same already-returned Public data URI; no duplicate acquisition or modified receipt.",
+  "preservation": "Source Run74ac and its admitted Requirements, original job/root/oracle/worksite, accepted core34/dev15/setup/binding/witness and all failed Runs retained. No admitted intake selection, declared suffix, or application effect reached."
+}

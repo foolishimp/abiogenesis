@@ -1,0 +1,16 @@
+✔ Caller execution policy omits optional actor caps, retains explicit positive flags and rejects invalid caps (6.310083ms)
+✔ Caller execution policy preserves acquired meaning and all command fields except explicit effective timeout; canonical C2 budget fits (2.5335ms)
+✔ Fresh supplied work transfers exact retained material into source-none empty owner state without old archive or producer changes (13.861875ms)
+✔ Resume refuses changed pins, symlinks, unauthorized paths and existing destinations before file transfer (12.9165ms)
+✔ Resume selection requires one explicit source archive and cannot be activated by ordinary run flags (0.211625ms)
+✔ Seven exact original workloads authenticate source, request and independent oracle before use (6.723542ms)
+✔ Resolved toolchain identity and configured environment flow into the canonical owner carrier (1.289042ms)
+✔ Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner (10.747792ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 317.913375

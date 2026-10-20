@@ -1,0 +1,10 @@
+{
+  "label": "canonical-preflight-02",
+  "exitCode": 1,
+  "wallMs": 467.59770798962563,
+  "stdoutBytes": 0,
+  "stderrBytes": 480,
+  "timedOut": false,
+  "truncated": false,
+  "finished": "2026-10-09T04:59:13.402487+00:00"
+}

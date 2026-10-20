@@ -1,0 +1,16 @@
+{
+  "pid": 95030,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay.jsonl"
+  ],
+  "elapsedMs": 586.757,
+  "exitCode": 0,
+  "signal": null,
+  "peakRSSBytes": 331235328,
+  "userSeconds": 0.6238549999999999,
+  "systemSeconds": 0.074982,
+  "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+}

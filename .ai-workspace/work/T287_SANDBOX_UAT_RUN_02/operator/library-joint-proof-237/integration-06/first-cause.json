@@ -1,0 +1,195 @@
+{
+  "stage": "Canonical generated ProductContent versus isolated publication correspondence, before native dispatch",
+  "disposition": "STOP; Root RCA/action before any retry",
+  "canonicalContentDigest": "sha256:84f8f93c496bd77871cf567247159382f8436ea8f22672fca0b4cad66f304236",
+  "isolatedContentDigest": "sha256:64f611b7b6bc62a6d3408b3341839a74f127d2fecbc43472d230affc54592a9e",
+  "provenViolatedRelation": "The isolated npm-selected payload membership differs from the current canonical membership by exactly two bundled changelogs. Their physical stage bytes are present and correct; the packaging-selection cause is unproved.",
+  "selectedMembersOmitted": [
+    {
+      "path": "node_modules/fast-check/CHANGELOG.md",
+      "type": "file",
+      "mode": 420,
+      "byteCount": 68677,
+      "sha256": "1928e49c090a706a61c20fc620e97f22e83e0d154e758f869ccd6cdbcd634f34"
+    },
+    {
+      "path": "node_modules/pure-rand/CHANGELOG.md",
+      "type": "file",
+      "mode": 420,
+      "byteCount": 6039,
+      "sha256": "f6e1f6802a0205dcc17d5d117a9af83a63947ac722dd7de32e1d98b070c02c87"
+    }
+  ],
+  "physicalStageMembers": [
+    {
+      "relativePath": "node_modules/fast-check/CHANGELOG.md",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/staging-06/stage/node_modules/fast-check/CHANGELOG.md",
+      "sha256": "1928e49c090a706a61c20fc620e97f22e83e0d154e758f869ccd6cdbcd634f34",
+      "byteCount": 68677,
+      "mode": 420
+    },
+    {
+      "relativePath": "node_modules/pure-rand/CHANGELOG.md",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/staging-06/stage/node_modules/pure-rand/CHANGELOG.md",
+      "sha256": "f6e1f6802a0205dcc17d5d117a9af83a63947ac722dd7de32e1d98b070c02c87",
+      "byteCount": 6039,
+      "mode": 420
+    }
+  ],
+  "archive31AlreadyContainsMembers": [
+    {
+      "path": "package/node_modules/fast-check/CHANGELOG.md",
+      "type": "0",
+      "mode": 420,
+      "byteCount": 68677,
+      "sha256": "1928e49c090a706a61c20fc620e97f22e83e0d154e758f869ccd6cdbcd634f34"
+    },
+    {
+      "path": "package/node_modules/pure-rand/CHANGELOG.md",
+      "type": "0",
+      "mode": 420,
+      "byteCount": 6039,
+      "sha256": "f6e1f6802a0205dcc17d5d117a9af83a63947ac722dd7de32e1d98b070c02c87"
+    }
+  ],
+  "proof": {
+    "commonDeclaredMemberCount": 5263,
+    "commonBodyDifferences": 0,
+    "canonicalInventoryMinusOmittedEqualsIsolatedDigest": true,
+    "physicalAbsenceClaimRetracted": true
+  },
+  "owner": "Existing scripts/generate-product-manifest.mjs:439-488 computes membership from actual npm pack dry-run. No generator or Source algorithm defect is established.",
+  "packagingSelectors": {
+    "npmExecutable": "/opt/homebrew/bin/npm",
+    "currentNpmCli": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "currentNpmPackage": {
+      "path": "/opt/homebrew/lib/node_modules/npm/package.json",
+      "sha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484",
+      "byteCount": 6603
+    },
+    "currentNpmVersion": "11.5.1",
+    "canonicalInvocation": "npm run build -> node scripts/generate-product-manifest.mjs",
+    "isolatedInvocation": "node scripts/generate-product-manifest.mjs via existing publish.mjs",
+    "generatorNestedPackArgs": [
+      "pack",
+      "--dry-run",
+      "--ignore-scripts",
+      "--json"
+    ],
+    "isolatedExplicitEnvironment": {
+      "npm_config_offline": "true",
+      "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/publication/npm-cache"
+    },
+    "ordinaryInputs": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+        "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+        "byteCount": 9744,
+        "isolatedSha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package-lock.json",
+        "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+        "byteCount": 8001,
+        "isolatedSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+        "byteCount": 48959,
+        "isolatedSha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/fast-check/package.json",
+        "sha256": "b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4",
+        "byteCount": 3319,
+        "isolatedSha256": "b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/pure-rand/package.json",
+        "sha256": "e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143",
+        "byteCount": 2406,
+        "isolatedSha256": "e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143"
+      }
+    ],
+    "canonicalHiddenInstalledLock": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/.package-lock.json",
+      "sha256": "a1794bd45aaf7c95b74cf346123594372f153787e5592dc549e4da3e72ea1a3e",
+      "byteCount": 7232
+    },
+    "isolatedHiddenInstalledLockPresent": false,
+    "canonicalGitignore": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/.gitignore",
+      "sha256": "3666769fe8ff6113eda02c558c6ff0331c0d3bdd7905890178f65356ee0f26d1",
+      "byteCount": 108
+    },
+    "isolatedGitignorePresent": false,
+    "rootNpmignorePresent": {
+      "canonical": false,
+      "isolated": false
+    },
+    "captureLimit": "Request receipts record environment key names, not full subprocess values. Nested dry-run JSON was local to the unchanged generator; the manifest records its selected population. No dry-run was repeated and the exact npm selector cause is unproved."
+  },
+  "completedEffects": {
+    "canonicalBuildExitCode": 0,
+    "canonicalBuildMs": 32219.507666999998,
+    "exactSourceCount": 264,
+    "exactCompiledOutputCount": 528,
+    "isolatedGeneratorMs": 24933.398792,
+    "packMs": 3350.9659169999977,
+    "offlineInstallMs": 2302.595540999999,
+    "externalStrictSourceBlindDiagnosticCount": 0,
+    "outerPublicationMs": 34483.392666,
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/publication/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "109399f80de2da6436651652aa12ae54df1602617274c4d861643d266235af09",
+      "byteCount": 10654691
+    }
+  },
+  "actualArchiveInstalledCorrespondence": {
+    "memberCount": 5265,
+    "membershipAndBodiesMatch": true,
+    "installedModeChangesOnly": [
+      {
+        "path": "build/code/src/public/cli.js",
+        "archiveMode": 420,
+        "installedMode": 493,
+        "bytesAndDigestUnchanged": true
+      },
+      {
+        "path": "build/code/src/public/codex_cli.js",
+        "archiveMode": 420,
+        "installedMode": 493,
+        "bytesAndDigestUnchanged": true
+      }
+    ]
+  },
+  "recordingFailure": {
+    "observedToolChunk": "f62bd3",
+    "exitCode": 1,
+    "error": "Traceback (most recent call last): File \"<stdin>\", line 25, in <module>; AssertionError",
+    "failedPremise": "old_missing == missing and new_missing == missing and archive_missing == missing",
+    "cause": "Selected-membership omission was incorrectly treated as physical seed absence. Both changelogs exist in archive31, initial stages04/06 and the current stage.",
+    "boundedAction": "Remove the false absence assertion, retain actual presence coordinates and freeze the same comparison with selection cause explicitly unknown. No publication/owner retry."
+  },
+  "nativeDispatched": false,
+  "executionDirectoryExists": false,
+  "originalResourceAndWorksiteUntouched": true,
+  "minimumNextAction": "Root must select an affected packaging-input discriminator/repair for the real npm selection difference before any regeneration/repack. Copying the already-present files is not a supported repair. Preserve06 and all completed command outcomes; no Source/helper change is presently justified.",
+  "proofLimits": "Mechanically green generation/pack/install/TypeScript consumer do not establish canonical ProductContent equality, actual installed canonical verification, Program/native/C2/Source/restart/capacity or original DataMapper UAT.",
+  "comparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/integration-06/population-comparison.json",
+    "sha256": "c8699ee11c247cd0404459e6d8bf4f06b88dd08d6171480fed89eff544f52d18",
+    "byteCount": 2283270
+  },
+  "oldArchiveInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/tar-inventory.json",
+    "sha256": "8cc438553a8a4ada6ec29a3823f26b300201d2d51d6a320051ac61a78245b594",
+    "byteCount": 1250157
+  },
+  "selectedStageInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/staging-06/inputs.json",
+    "sha256": "94a3c561b94017347a4f25c5db77d8612b2cb1921cd72520eaf5aad63f0d3cdb",
+    "byteCount": 2525358
+  }
+}

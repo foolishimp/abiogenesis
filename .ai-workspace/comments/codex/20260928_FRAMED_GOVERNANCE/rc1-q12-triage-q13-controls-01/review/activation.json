@@ -1,0 +1,14 @@
+{
+  "operation": "T287_Q13_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T04:30:00.427721+00:00",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q12-triage-q13-controls-01/review-request.txt",
+  "grantBytes": 2685,
+  "grantSHA256": "3b871a88939540acf700a114fc38d488b23aa840e87ee9c5254a199976624568",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/freeze.json",
+  "subjectBytes": 18843,
+  "subjectSHA256": "2e41cc8d59d0741a663846058c5788c0d5c1e857992aa90b93ff48ffdf866684",
+  "effects": "read/hash/report only in this directory; no import/rerun/repair/native effects"
+}

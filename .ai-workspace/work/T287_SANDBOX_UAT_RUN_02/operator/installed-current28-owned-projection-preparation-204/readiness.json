@@ -1,0 +1,87 @@
+{
+  "status": "HOLD: actual Product preparation refusal; execution stopped",
+  "started": "2026-10-09T11:25:44.844Z",
+  "wallMs": 404616.993708,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "actualOwnerResult": {
+    "kind": "product_run_invocation_preparation_refusal",
+    "memberKey": "start",
+    "ownerOutput": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "invalid_input",
+        "issuePaths": [
+          "/input"
+        ],
+        "evidenceRefs": []
+      }
+    }
+  },
+  "directUseDigest": "sha256:ea5e33a25e4a0f56625c01d7b3db628a9c74a833e55e52010fae442052b8437c",
+  "postCloseCallback": {
+    "useDigest": "sha256:ea5e33a25e4a0f56625c01d7b3db628a9c74a833e55e52010fae442052b8437c",
+    "sourceBasisRef": "invocation-source-result://abiogenesis/3214fa98813790ad01120ede4cb7b2473b9605a226de93bbb4a4178d478b276d",
+    "sourceBasisDigest": "sha256:3214fa98813790ad01120ede4cb7b2473b9605a226de93bbb4a4178d478b276d"
+  },
+  "completeWitnessCount": 104,
+  "currentSetup": {
+    "installations": [
+      {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54/6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3",
+        "digest": "sha256:c6597bb0748938b3ccce6666b74c7a2a24469c7efadf302089826d227656b3d5"
+      },
+      {
+        "ref": "product-install://@abi5-tests/sandbox-uat/5.0.0/98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c/6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3",
+        "digest": "sha256:33352cb5469f935a192f75a2a3d8dda7af96420815fc45680f1ba322f23c936c"
+      }
+    ],
+    "resolvedLock": {
+      "ref": "product-lock://abiogenesis/6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3",
+      "digest": "sha256:6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3"
+    },
+    "workspaceBinding": {
+      "ref": "workspace-binding://abiogenesis/6879bb901b634fc2ca8f7ff45e75cb1af3ef3b29356f65b57af01f68d9f6fcf7",
+      "digest": "sha256:6879bb901b634fc2ca8f7ff45e75cb1af3ef3b29356f65b57af01f68d9f6fcf7"
+    },
+    "catalog": {
+      "ref": "graph-function-catalog://abiogenesis/04fd3bc35441e1c06191fb8251926bde99f8a44e6bf880c297dd3d47297dd236",
+      "digest": "sha256:04fd3bc35441e1c06191fb8251926bde99f8a44e6bf880c297dd3d47297dd236"
+    },
+    "view": {
+      "ref": "graph-function-catalog-view://abiogenesis/de0c9b5aa7f83b02c63bcac2bb176940fb5b790ce38b5e4ecdc88547cfd83c28",
+      "digest": "sha256:de0c9b5aa7f83b02c63bcac2bb176940fb5b790ce38b5e4ecdc88547cfd83c28"
+    },
+    "program": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+    "currentNativeOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/installed-current28/node_modules/@abiogenesis/typescript-tenant",
+    "meaning": "Documentary coordinates only; complete declarations remain actual owner-created and admitted, not reconstructed from this recording"
+  },
+  "genuineClosePrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1693913361,
+    "prefixDigest": "sha256:9410d093d7e19763d4bd700dae658247c15c66682962c0f25d347dd189695a60",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:0185d3c8487ae274b737f4c818b36aa5c5a5ab40c026482781f112071c435484"
+  },
+  "physical49Exact": true,
+  "currentLogIdentityAndExtentMatchClose": true,
+  "ownedProcessesAndGroupsAbsent": true,
+  "lockAbsent": true,
+  "futureSerializedRequestPresent": false,
+  "nativeDispatch": false,
+  "modelOrApplicationWork": false,
+  "fiveHourAppQualityClockStarted": false,
+  "nextAction": "Root multi-frame RCA and selected Product-bounded action before any retry; preserve both installed trees, current admissions and genuine close.",
+  "limits": "Callback return is bounded actual evidence; full Product preparation/native source admission/UAT/capacity/P0/release remain open. Generic /input refusal does not identify its inner predicate.",
+  "documentaryCorrection": "documentary-index-failure.json preserves the failed zero-based assumption and Executive-selected correction."
+}

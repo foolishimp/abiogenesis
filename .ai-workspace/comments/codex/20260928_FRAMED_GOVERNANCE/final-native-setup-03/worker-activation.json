@@ -1,0 +1,24 @@
+{
+  "status": "ACTIVE",
+  "at": "2026-09-30T08:00:16.247738+00:00",
+  "role": "Worker",
+  "activation": "T287_FINAL_NATIVE_SETUP_03",
+  "actualAgentPath": "/root/s03_phase_b",
+  "selectedProfile": "Astra/xhigh as assigned by Root",
+  "sessionIdentifier": null,
+  "sessionIdentifierLimit": "not separately available",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-controls-03/request.txt",
+    "bytes": 7998,
+    "sha256": "1106acffbe2a6da2149c12b007f06bb2185c75d8b7fa813695f9c246fe4a798a"
+  },
+  "requestJoinSHA256": "1106acffbe2a6da2149c12b007f06bb2185c75d8b7fa813695f9c246fe4a798a",
+  "method": "installed STDO v2.5.1-rc.1; installed a_c join verified",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame",
+  "localFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "soleTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+  "operation": "New current-C02 ordinary12 Public setup/S01/fresh result and replay; one attempt; first material mismatch stops",
+  "excluded": "All old native resources; canonical source/build/package/Git/provider/C2/F11/AF22/qualification effects",
+  "authorClaim": "This actual actor authors new controls and performs this operation; inherited source/semantic authorship, native ABG attribution and Product-owner qualification slot remain distinct. No session ID invented.",
+  "Root": "controls Writer CLOSED; Executive accepted exact independent C02 review and selected this new operation"
+}

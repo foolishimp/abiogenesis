@@ -1,0 +1,57 @@
+{
+  "frozen-caller.json": {
+    "path": "frozen-caller.json",
+    "sha256": "4f24358bfbbffbbc81f1ebcad4c042552185311cff7e203ecdc8266c64493f03",
+    "byteLength": 1909
+  },
+  "constructor-checks.json": {
+    "path": "constructor-checks.json",
+    "sha256": "7c1a1ce49facbfc803f9aa830a39934515850350a413bcec4edcb00d2c37d4f6",
+    "byteLength": 4367
+  },
+  "construction-return.md": {
+    "path": "construction-return.md",
+    "sha256": "f446d9b6481cf7a0cb4b17fb7a7312c3cd4fa8ab428ca520f2cdad7d03383778",
+    "byteLength": 1315
+  },
+  "live-receipt.json": {
+    "path": "live-receipt.json",
+    "sha256": "4b8dc976d6e38f6c3714719cda09143cf65b546ceb1a5c87c218699c892437ae",
+    "byteLength": 13281
+  },
+  "public-readback.json": {
+    "path": "public-readback.json",
+    "sha256": "718e042d14c39b181f001646b86c885d45c47f0a38050b18ccf91a18bf1a82a8",
+    "byteLength": 1631
+  },
+  "intake-readback.json": {
+    "path": "intake-readback.json",
+    "sha256": "27bdcc4536c06d41dd0b9eb6232071b275caf92fa0794d20c32a36fe964fb279",
+    "byteLength": 2908
+  },
+  "read-run_evidence-02.json": {
+    "path": "read-run_evidence-02.json",
+    "sha256": "d8c324d875d24e986fe355933226ff1a1e9413bfb748498ec5d3ac968480bd12",
+    "byteLength": 4615
+  },
+  "causal-capsule.json": {
+    "path": "causal-capsule.json",
+    "sha256": "bda696ed2693a376857b896d9dfc449f0c6418800114cfccb963e78701562e74",
+    "byteLength": 26873
+  },
+  "observed-metrics.json": {
+    "path": "observed-metrics.json",
+    "sha256": "e803fd83108855557c81934f51e96271e460e4b85464033d906d117cac4e094b",
+    "byteLength": 1782
+  },
+  "closed-suffix.json": {
+    "path": "closed-suffix.json",
+    "sha256": "a520694de1431d089bdee1a95aecafcc86489badcd74ce5528d53ee6fbb3f407",
+    "byteLength": 1384640
+  },
+  "historicalCompactIntake": {
+    "path": "../../native-d2-bootstrap-intake-01/return.md",
+    "refsPath": "../../native-d2-bootstrap-intake-01/refs.json",
+    "scope": "Original source/oracle, actual Product predecessor asset and rejected Requirements candidate/assessment; historical compact evidence, missing semantic leaf packets remained explicitly unacquired."
+  }
+}

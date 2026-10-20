@@ -1,0 +1,18 @@
+{
+  "counts": {
+    "catalogDigest": 1,
+    "declarationDigests": 50,
+    "contractDigests": 23
+  },
+  "declarationPath": "build/code/src/shared/canonical_json.d.ts",
+  "declarationDigest": "sha256:a0fc03f5f9b034de297ff7511955f018f97df9a1dcc8ca11d53ef03000c3ffcf",
+  "oldDeclarationDigest": "sha256:ed0e12fb3f654cd0d6a55f72c47d40d4241550d72f42f86976a84ba8a88ba7d2",
+  "ownerRoutes": {
+    "declaration": "product.sha256Bytes",
+    "contract": "generate-product-manifest.mjs nativeContractDigest/product.sha256Canonical(declarationInventory)",
+    "catalog": "product.productPublicContractCatalogDigest"
+  },
+  "allBeforeAndAfterRecomputed": true,
+  "noOtherPublicCatalogFieldDifference": true,
+  "noArbitraryDigestOmission": true
+}

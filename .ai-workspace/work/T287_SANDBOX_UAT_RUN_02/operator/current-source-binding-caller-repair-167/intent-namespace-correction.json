@@ -1,0 +1,16 @@
+{
+  "cause": "Final static read found copied162 suffixes in new approval/request/correlation references; caller had not executed.",
+  "selectedAction": "Worker167 grant explicitly requires new167 intent references. Correct only those three literal suffixes; historical136/164 producer coordinates remain unchanged.",
+  "scope": "Caller-only URI selection, no owner/schema/grant/Source/runtime change.",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/preimages/prepare-before-intent-namespace.mjs",
+    "sha256": "1131283d6e9f82a2cf1d6eed9c16307ce9fc1df986fd3595c451a04279b679bb",
+    "byteCount": 36529
+  },
+  "postimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prepare.mjs",
+    "sha256": "553851db1a6d75e5b37a9fba3c10dcfe2080190f25ad236d22b74b20f1be1950",
+    "byteCount": 36529
+  },
+  "effect": "Unexecuted intended caller; no actual Public/request/admission record created."
+}

@@ -1,0 +1,7 @@
+{
+  "kind": "declaration_check_dependency_premise",
+  "result": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/commands/declarations-02.result.json",
+  "cause": "input-01 resolves established dependencies through its node_modules link; build-01 cannot reach that sibling. The exact successor36 root dependency link was omitted in successor37.",
+  "selectedAction": "Add only successor37/node_modules -> established tenant node_modules; checker03 keeps all264 stripped declarations, skipLibCheck false, and unchanged options.",
+  "inferredDiagnosticsNotSourceVerdict": true
+}

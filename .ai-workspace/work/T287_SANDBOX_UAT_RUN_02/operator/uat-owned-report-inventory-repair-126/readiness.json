@@ -1,0 +1,170 @@
+{
+  "status": "FROZEN",
+  "role": "HarnessWorker126",
+  "basis": "fixed15 ABI5 GOAL035 T287 STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "triage": {
+    "review125": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-review-125/return.md",
+        "sha256": "b0f0a23e4048f48a7355e4bd11505f951e1264030fcb6bf7b69094ec925c116a",
+        "byteCount": 4848
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-review-125/pins.json",
+        "sha256": "4556192f59c05b387b4b24c523c32108eca08acd786ff499a7b174d02b3e33d9",
+        "byteCount": 27934
+      }
+    ],
+    "selectedCause": "122 omitted original complete matching XML inventory while validating eight named command reports; no actual ninth report/full UAT false-green claimed"
+  },
+  "changes": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/preimages/independent-oracle.mjs",
+        "sha256": "4a093c46193b9becf1c9ee36e1a04992e0664255bdfcd88eeafca3cb9bb2cd0b",
+        "byteCount": 25236
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+        "sha256": "a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
+        "byteCount": 26966
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/preimages/harness.test.mjs",
+        "sha256": "5c027de1834f5dd5b36b7b93c7c2771f47d233b85af5fccb47d2f75109cb4101",
+        "byteCount": 67591
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+        "sha256": "347131c9a3e48a9a3b2146ed9fdb6c0ab5ca8f1a3fb4ac7190748c1a53f41d55",
+        "byteCount": 71775
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/preimages/README.md",
+        "sha256": "e6d7555654f8a31334b686a0098a828454ee540b5e0a31ad5f72881a355520e7",
+        "byteCount": 2983
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/README.md",
+        "sha256": "14549d436da8b580b49c6c19982349ff79c080cb341b26da46ab3783247f38b4",
+        "byteCount": 3532
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/preimages/scenarios.json",
+        "sha256": "22d433085d9d4cf81221e45d566442c391cc35cb3fa7238a36a6d416c63a71d9",
+        "byteCount": 34763
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+        "sha256": "2c506450f29c26f95c9e3f218a7f58003e7d740ad8bc3065a874d20b1b05e3e8",
+        "byteCount": 34763
+      }
+    }
+  ],
+  "preservation": {
+    "allOtherScenarioJSONValuesEqual": true,
+    "derivedOraclePairsOnly": 7,
+    "READMEPreimagePrefixUnchanged": true,
+    "readOnlyOwnersUnchangedSince122": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+        "byteCount": 36805
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+        "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+        "byteCount": 7569
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+        "sha256": "0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa",
+        "byteCount": 109703
+      }
+    ],
+    "originalInputs": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+        "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+        "byteCount": 77648
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "byteCount": 16774
+      }
+    ]
+  },
+  "typedHandoff": "exact original inventory declaration -> same validated C2 task declaration and predicate measurement -> set comparison -> original completeness criterion and each episode evidence; named-file identity/digest/length acquisition stays separate",
+  "checks": [
+    {
+      "label": "syntax-oracle",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-oracle.result.json",
+        "sha256": "d7c34e111329f8756818f56df973a49a968fa9c911460846f98dff5c77e3bcf3",
+        "byteCount": 1842
+      },
+      "exitCode": 0,
+      "wallMs": 23.634334
+    },
+    {
+      "label": "syntax-harness",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/syntax-harness.result.json",
+        "sha256": "dfad9b2c81d0bfb28704317a85627f4db2e5128d471c19821cefa38705b80238",
+        "byteCount": 1828
+      },
+      "exitCode": 0,
+      "wallMs": 20.285207999999997
+    },
+    {
+      "label": "focused-harness",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/commands/focused-harness.result.json",
+        "sha256": "7f8adf0fd2abc9180f78fa07b582dd24da2546f508dacbe08c40597032a4a4d3",
+        "byteCount": 3329
+      },
+      "exitCode": 0,
+      "wallMs": 955.617
+    }
+  ],
+  "testSelection": "^(Owned XML|Owned report repair|Seven exact original workloads|Source-use attribution refuses)",
+  "counts": {
+    "tests": 14,
+    "pass": 14,
+    "fail": 0,
+    "skip": 0
+  },
+  "authenticEvidence": {
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418",
+    "store": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418/resources/events/runtime.events.jsonl",
+    "storeStatByteCount": 24516728,
+    "admissionOrdinal": 1738,
+    "offset": 11164798,
+    "byteCount": 1791926,
+    "sha256": "4fc78ef2fdfc62581d93157bc6a8545d4f9696c4d1bc9feab3dcd0a4db605e4d",
+    "runRef": "run://abiogenesis/c8e518744ee561de31bb98fb8f2b07f512e654caa33684acb22541710a8fb0e5",
+    "authenticatedBy": "bounded exact slice + published C2 task/result judgment; literal XML digest/length checks"
+  },
+  "claims": [
+    "original base/selector/report-set declaration joined to same selected observation and task",
+    "set-order independence; missing/extra/duplicate/crossed/wrong declaration are non-green",
+    "individual eight named-file facts remain independently true when inventory is unmet",
+    "each mutation episode needs its own complete inventory; old or later green cannot supply it",
+    "authentic1738 report/floor/depth-name evidence still satisfied/full original UAT unmet; frozen125 independently verifies44 tests/0fail/0error",
+    "six Hello mechanical cases/source/exact acquisition unchanged; all original dynamic distinct-mutant/restoration criteria preserved"
+  ],
+  "limits": [
+    "controlled fixtures are explicit lower owner-validation/artifact premises, no new native admission/detection/UAT authority",
+    "no Product/C2/original request/rubric/source/120Source/runner/build/package/provider/runtime/native app/Git effects",
+    "no cross-successor producer migration or original full-UAT/native assessment sufficiency claim",
+    "whole installed UAT and16 actual distinct mutant/restoration episode credit remain open"
+  ]
+}

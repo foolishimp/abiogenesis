@@ -1,0 +1,8 @@
+{
+  "operation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "inputAcceptance": null,
+  "RootSeparateMessageRelease": false,
+  "RootMessage": null,
+  "templateOnly": true,
+  "releaseRequiredFromExecutive": true
+}

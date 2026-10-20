@@ -1,0 +1,30 @@
+{
+  "status": "exact frozen installed owner bytes",
+  "records": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+      "bytes": 58968,
+      "sha256": "ebd5a1eab534adaf55a4e5c987156dec2ddc00dcc5a5aa608e6a566251d0b7ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_contracts.js",
+      "bytes": 31164,
+      "sha256": "e65d0cb476fd22ba4c0bf66cad9f3de52717e28c324a88d323461aade1b31daa"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/self_conformance.js",
+      "bytes": 28613,
+      "sha256": "f4fafd0ab7b58f5b9fe0010d6684e0321fb5c19f1225470639e47359890507c1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/digests.js",
+      "bytes": 838,
+      "sha256": "bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+      "bytes": 1551,
+      "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02"
+    }
+  ]
+}

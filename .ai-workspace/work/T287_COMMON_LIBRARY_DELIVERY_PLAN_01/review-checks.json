@@ -1,0 +1,276 @@
+{
+  "reviewer": "/root/reconciliation_review",
+  "created_utc": "2026-10-20T18:14:37.340560+00:00",
+  "subject": "T287_COMMON_LIBRARY_PREREQUISITE_DELIVERY_PLAN",
+  "freeze_sha256": "d2cb0f2e7c3967a64d5719e29c9b1ce21f3a47fd61988e9645e4000607c90a0e",
+  "scope": "Independent exact-subject, complete-delta, prior-subject recoverability and preservation checks only. No execution, library delivery or release outcome is inferred.",
+  "checks": [
+    {
+      "name": "plan record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/candidate-freeze.json",
+      "sha256": "d2cb0f2e7c3967a64d5719e29c9b1ce21f3a47fd61988e9645e4000607c90a0e"
+    },
+    {
+      "name": "plan record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/basis.json",
+      "sha256": "2ba9b4a9b9a3889e4de3bd8f39bf761f0cccc5575b08a357b559f6f583802536"
+    },
+    {
+      "name": "plan record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/candidate.diff",
+      "sha256": "a94a012045d2ace579daff3dc9d089571d59ff5e3c4444f5601669f08dcd63a9"
+    },
+    {
+      "name": "plan record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/checks.json",
+      "sha256": "a8340fdf7dff09294c511614d4bda7c562c64e9c0fc3ee57510b3ed04df2a947"
+    },
+    {
+      "name": "exact three-file subject",
+      "passed": true
+    },
+    {
+      "name": "frozen candidate identity",
+      "passed": true,
+      "path": "specification/GOALS.md",
+      "sha256": "fd759854a8a4e868513653df7ab8228ecffb49d6beab0096448a0c64b6c059b9"
+    },
+    {
+      "name": "frozen candidate identity",
+      "passed": true,
+      "path": "specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd"
+    },
+    {
+      "name": "frozen candidate identity",
+      "passed": true,
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "f61e3b9e8db7b003165fdb337e6e2d665bb1e11a588f2a841c207501cca65861"
+    },
+    {
+      "name": "preimage matches inventoried basis",
+      "passed": true,
+      "path": "specification/GOALS.md"
+    },
+    {
+      "name": "preimage matches inventoried basis",
+      "passed": true,
+      "path": "specification/PRODUCT.md"
+    },
+    {
+      "name": "preimage matches inventoried basis",
+      "passed": true,
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    },
+    {
+      "name": "complete diff matches actual three-file delta",
+      "passed": true
+    },
+    {
+      "name": "non-candidate inventory preserved",
+      "passed": true,
+      "count": 696,
+      "failures": []
+    },
+    {
+      "name": "production TypeScript preserved",
+      "passed": true,
+      "count": 264
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/candidate-freeze.json"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/candidate-freeze-02.json"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/completion.json"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review.md"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review-checks.json"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review-02.md"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review-checks-02.json"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/document-checks.json"
+    },
+    {
+      "name": "prior accepted evidence preserved",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/document-checks-02.json"
+    },
+    {
+      "name": "prior accepted five-document subject remains recoverable",
+      "passed": true,
+      "subject_path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "retained_at": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    },
+    {
+      "name": "prior accepted five-document subject remains recoverable",
+      "passed": true,
+      "subject_path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "retained_at": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+    },
+    {
+      "name": "prior accepted five-document subject remains recoverable",
+      "passed": true,
+      "subject_path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "retained_at": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md"
+    },
+    {
+      "name": "prior accepted five-document subject remains recoverable",
+      "passed": true,
+      "subject_path": "build_tenants/abiogenesis/typescript/design/README.md",
+      "retained_at": "build_tenants/abiogenesis/typescript/design/README.md"
+    },
+    {
+      "name": "prior accepted five-document subject remains recoverable",
+      "passed": true,
+      "subject_path": "specification/GOALS.md",
+      "retained_at": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/preimages/specification/GOALS.md"
+    },
+    {
+      "name": "ticket historical tail unchanged",
+      "passed": true
+    },
+    {
+      "name": "current runtime frontier evidence unchanged",
+      "passed": true
+    },
+    {
+      "name": "current fixed header preserved",
+      "passed": true,
+      "field": "current_runtime_frontier"
+    },
+    {
+      "name": "current fixed header preserved",
+      "passed": true,
+      "field": "current_qualification"
+    },
+    {
+      "name": "current fixed header preserved",
+      "passed": true,
+      "field": "current_product_target"
+    },
+    {
+      "name": "all fifteen Product outcome rows unchanged",
+      "passed": true
+    },
+    {
+      "name": "fixed Product section unchanged",
+      "passed": true,
+      "section": "Product Statement"
+    },
+    {
+      "name": "fixed Product section unchanged",
+      "passed": true,
+      "section": "Execution And Context Calculus"
+    },
+    {
+      "name": "fixed Product section unchanged",
+      "passed": true,
+      "section": "5.0 And 5.1 Release Boundaries"
+    },
+    {
+      "name": "fixed Product section unchanged",
+      "passed": true,
+      "section": "Required Product Scenarios"
+    },
+    {
+      "name": "fixed Product section unchanged",
+      "passed": true,
+      "section": "Root Product Outcome"
+    },
+    {
+      "name": "fixed Product section unchanged",
+      "passed": true,
+      "section": "Explicit Non-Features"
+    },
+    {
+      "name": "fixed Product section unchanged",
+      "passed": true,
+      "section": "Governance And Release Boundary"
+    },
+    {
+      "name": "fixed Product section unchanged",
+      "passed": true,
+      "section": "Product Completion Predicate"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "AGENTS.md"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/INTENT.md"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/requirements/README.md"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "stdo_abiogenesis.json"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+    },
+    {
+      "name": "installed method manifest matches",
+      "passed": true
+    },
+    {
+      "name": "exact method and empty companion selected",
+      "passed": true
+    },
+    {
+      "name": "library gate links have exact anchors",
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total": 51,
+    "passed": 51,
+    "failed": 0,
+    "preserved_non_candidate_files": 696,
+    "preserved_production_typescript_files": 264
+  }
+}

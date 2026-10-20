@@ -1,0 +1,7 @@
+{
+  "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+  "sha256": "aaf274e2585130ded1c637b1c34317fb8bd7f277281ae96d3f5d2de428ee6c7a",
+  "byteCount": 51621,
+  "beforeCodeEffect": true,
+  "ownedRelation": "C2 dependencies preserve exact protected task set; current independent assessment candidate is separately bound. Native candidate-in-producer requirement unchanged."
+}

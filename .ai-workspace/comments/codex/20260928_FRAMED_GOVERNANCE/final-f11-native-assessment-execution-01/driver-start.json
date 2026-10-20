@@ -1,0 +1,90 @@
+{
+  "pid": 27403,
+  "startedAt": "2026-10-01T12:35:40.234Z",
+  "activation": {
+    "kind": "root_native_execution_activation",
+    "operation": "T287_F11_NATIVE_ASSESSMENT_01",
+    "ordinaryCalls": 5,
+    "assessmentDispatches": 1,
+    "executionOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01",
+    "nodeOldSpaceMiB": 4096,
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-execution-controls-01/request.txt",
+      "bytes": 5742,
+      "sha256": "54828efe64d68774fa28987c24e9cd09901afcfcd2d4ceae687a1d955023d6ec"
+    },
+    "callerFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/freeze.json",
+      "bytes": 14545,
+      "sha256": "f1937dec28204ef6790f9650edb27c031ee62f1abb7960b80119517339d570a6"
+    },
+    "boundFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+      "bytes": 13795,
+      "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+    },
+    "budgets": {
+      "selection": "prospective finite workload envelope; Root grant required",
+      "actualPromptUtf8Bytes": 1021244,
+      "actualInputFileBytes": 82175295,
+      "actualInputCanonicalBytes": 67784040,
+      "sourceBodies": 39,
+      "hosts": 10,
+      "nodeOldSpaceMiB": 4096,
+      "purePreflightAllowanceMs": 180000,
+      "actorInactivityMs": 900000,
+      "actorAbsoluteMs": 1200000,
+      "terminationGraceMs": 1000,
+      "stages": {
+        "setup": 180000,
+        "assessment": 1440000,
+        "read": 180000
+      },
+      "totalCeilingMs": 2400000,
+      "outerTerminationGraceMs": 1000,
+      "operationPlan": [
+        "assessment-view",
+        "conformance-assess",
+        "assess-rule",
+        "assess-rule-run_result",
+        "assess-rule-run_replay"
+      ],
+      "rationale": "Accommodates complete 67,784,040-byte admission input, two catalog-bearing setup calls, one unchanged 1,021,244-byte prompt, native result/event JSON and two cold reads. A finite envelope is not a prediction or capacity acceptance.",
+      "memory": "Existing Node old-space setting bounds driver and CLI managed heaps to 4096 MiB each. No installed OS RSS or Claude resident-memory cap; wait4 actual peakRSS retained.",
+      "capacity": "Actual provider token/context capacity and account access remain unknown. No clipping, partitioning, model substitution, automatic retry or second assessment."
+    },
+    "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+    "rootWriterActivation": "T287_F11_NATIVE_EXECUTION_CONTROLS_01",
+    "createdAt": "2026-10-01T12:33:55.596058+00:00"
+  },
+  "budgets": {
+    "selection": "prospective finite workload envelope; Root grant required",
+    "actualPromptUtf8Bytes": 1021244,
+    "actualInputFileBytes": 82175295,
+    "actualInputCanonicalBytes": 67784040,
+    "sourceBodies": 39,
+    "hosts": 10,
+    "nodeOldSpaceMiB": 4096,
+    "purePreflightAllowanceMs": 180000,
+    "actorInactivityMs": 900000,
+    "actorAbsoluteMs": 1200000,
+    "terminationGraceMs": 1000,
+    "stages": {
+      "setup": 180000,
+      "assessment": 1440000,
+      "read": 180000
+    },
+    "totalCeilingMs": 2400000,
+    "outerTerminationGraceMs": 1000,
+    "operationPlan": [
+      "assessment-view",
+      "conformance-assess",
+      "assess-rule",
+      "assess-rule-run_result",
+      "assess-rule-run_replay"
+    ],
+    "rationale": "Accommodates complete 67,784,040-byte admission input, two catalog-bearing setup calls, one unchanged 1,021,244-byte prompt, native result/event JSON and two cold reads. A finite envelope is not a prediction or capacity acceptance.",
+    "memory": "Existing Node old-space setting bounds driver and CLI managed heaps to 4096 MiB each. No installed OS RSS or Claude resident-memory cap; wait4 actual peakRSS retained.",
+    "capacity": "Actual provider token/context capacity and account access remain unknown. No clipping, partitioning, model substitution, automatic retry or second assessment."
+  }
+}

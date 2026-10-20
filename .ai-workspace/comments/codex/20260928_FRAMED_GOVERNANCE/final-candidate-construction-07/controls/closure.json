@@ -1,0 +1,39 @@
+{
+  "operation": "T287_RAW_CONTRACT_ACCEPTANCE_AND_C07_CONSTRUCTION_GRANT_01",
+  "status": "CLOSED",
+  "closedAt": "2026-10-02T09:33:26.556069+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-07/request.txt",
+    "bytes": 5016,
+    "sha256": "355001e22bac15832e04e70f8f23dd3966bfe4eb9f21e8200a5b1ebfe127d864",
+    "mode": 420
+  },
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-07/source-cut.json",
+    "bytes": 6306639,
+    "sha256": "f1d8bfccbbc54b818da20be2446ab2c369f1ffc3e3ad4fd883b1068887175489",
+    "mode": 420
+  },
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 527357,
+      "sha256": "8b0598b333011cdb66c912fcd5804cfa79f71366bb259fc61f15c659ffdf0890",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 482888,
+      "sha256": "82c6a71c84aaa0e5a3a5c6404e5a908685d923a2a69c510d881edef21a87b214",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 4962,
+      "sha256": "e9cc05a409aca70af2d5dd427af0ccbd5d29d9d6d00b03e23d18ceb221681460",
+      "mode": 420
+    }
+  ],
+  "returnRole": "Executive",
+  "RootImplementationRuntimeNetworkGitEffects": 0
+}

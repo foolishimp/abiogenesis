@@ -1,0 +1,12 @@
+{
+  "pid": 69043,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "ownedExitObserved": true,
+  "elapsedMs": 172848.5148330219,
+  "budgetMs": 1200000,
+  "cleanup": [],
+  "stdoutSHA256": "d1c7279c5cefaf3aaf013060f2fa78f61e7896d0e6088fc1813bebbcc574edf3",
+  "stderrSHA256": "8de97979de169fb0330118c4155400ec4f43cbf1936b8c3460a5ed3c0e3ca3db"
+}

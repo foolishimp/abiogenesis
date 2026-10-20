@@ -1,0 +1,22 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "priorRole": "Executive",
+  "role": "Writer",
+  "operation": "T287_SETUP09_ACCEPTANCE_AND_Q10_RELEASE_WRITER_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01",
+    "append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "operationGrant": "Record Root bounded Setup09 acceptance and release exact Q10 preparation. No Source, generated, Product, candidate, resource, runtime, Git or provider mutation.",
+  "executiveDecision": "Verified actual CLOSED Setup09 and accepted C09 construction; accept installed setup only, release Q10 dependency.",
+  "executionPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 539172,
+    "sha256": "f7b72b8959598c4b7b6d83e1f6f91b37b3fc9269b9825dd9547c391692ed0e48",
+    "mode": 420
+  },
+  "recordedBeforeOtherEffects": true,
+  "activatedAt": "2026-10-02T16:39:56.121743+00:00"
+}

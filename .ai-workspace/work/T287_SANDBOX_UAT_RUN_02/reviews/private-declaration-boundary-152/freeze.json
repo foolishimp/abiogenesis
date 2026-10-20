@@ -1,0 +1,24 @@
+{
+  "status": "CLOSED",
+  "verdict": "GO \u2014 bounded Source/typed boundary",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/freeze.json",
+    "sha256": "1f5638478bf6fcfa594958be6e4ba07fbb1cb35f0eb461037d66bd39cbfa0a89",
+    "bytes": 18878
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/private-declaration-boundary-152/return.md",
+      "sha256": "4a8f8d9b84fd961e4200d4785985bff172895b9937f9df3155561d2657758ae1",
+      "bytes": 2877
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/private-declaration-boundary-152/pins.json",
+      "sha256": "7a31e0b3e7977cd508314cb6f1188b679126eaf9876da1b90aa4a9ddb68fdcf1",
+      "bytes": 10222
+    }
+  ],
+  "selectedPinCount": 34,
+  "effects": "new152 review artifacts only",
+  "stop": "Root owns further publication selection; reviewer stopped"
+}

@@ -1,0 +1,11 @@
+{
+  "stage": "catalog-view-grant-start",
+  "elapsedMs": 89799.783541,
+  "at": "2026-10-10T21:24:26.957Z",
+  "rss": 2657337344,
+  "heapTotal": 442826752,
+  "heapUsed": 308881856,
+  "external": 2695666,
+  "arrayBuffers": 283359,
+  "beforeAcquisition": false
+}

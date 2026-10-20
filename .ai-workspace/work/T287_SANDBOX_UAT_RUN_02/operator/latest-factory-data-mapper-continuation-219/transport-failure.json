@@ -1,0 +1,9 @@
+{
+  "name": "SyntaxError",
+  "message": "Unexpected end of JSON input",
+  "stack": "SyntaxError: Unexpected end of JSON input\n    at JSON.parse (<anonymous>)\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/launch-219b.mjs:18:94",
+  "exitCode": null,
+  "signal": "SIGABRT",
+  "timedOut": false,
+  "truncated": false
+}

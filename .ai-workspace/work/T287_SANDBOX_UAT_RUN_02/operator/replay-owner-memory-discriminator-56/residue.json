@@ -1,0 +1,34 @@
+{
+  "at": "2026-10-08T04:50:08.789Z",
+  "lock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-467374253.lock",
+    "sha256": "0cc6a2de08428f13d13f0f6124c686a68d37d440049f7cef57c9b9d94b4f41fa",
+    "byteCount": 123,
+    "device": 16777231,
+    "inode": 467609449,
+    "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY3Mzc0MjUzLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NTI2MSwic2NoZW1hVmVyc2lvbiI6IjUuMC4wIn0K",
+    "owner": {
+      "device": 16777231,
+      "inode": 467374253,
+      "kind": "abiogenesis_event_store_append_lock",
+      "ownerPid": 5261,
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "deadOwner": {
+    "pid": 5261,
+    "probe": "ESRCH"
+  },
+  "ownedProcesses": {
+    "pids": [
+      5259,
+      5261
+    ],
+    "psExitStatus": 1,
+    "stdout": "  PID  PPID  PGID    RSS ELAPSED STAT ARGS\n",
+    "stderr": ""
+  },
+  "normalCloseAbsent": true,
+  "noSignals": true,
+  "noRecoveryAttempt": true
+}

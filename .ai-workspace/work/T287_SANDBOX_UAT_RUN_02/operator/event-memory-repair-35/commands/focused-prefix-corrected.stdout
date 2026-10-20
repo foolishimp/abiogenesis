@@ -1,0 +1,46 @@
+✔ owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence (45.782583ms)
+✔ held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback (39.893459ms)
+{"kind":"trusted_desktop_owned_history","events":5,"liveHistoricalReadBytes":0,"coldReadBytes":4315,"eventLogBytes":4315}
+✔ trusted owned history conserves currentness, callback publication, rollback and cold reconstruction (319.959625ms)
+✔ owned append I/O failures restore committed bytes and hash or poison admission (113.754958ms)
+✔ shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays (0.350792ms)
+✔ shared canonical traversal preserves captured entries, array length and refusal precedence (4.424416ms)
+✔ incremental canonical hashes preserve independently declared golden bytes and refusal behavior (4.636458ms)
+✔ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (358.492791ms)
+ℹ {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+✔ physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences (53.534958ms)
+✔ nearest malformed body references refuse before logical history is exposed (67.37125ms)
+✔ reused cold bodies still require each new envelope identity, stamp, cause and logical digest (52.608542ms)
+✔ independently supplied mutable raw input remains detached at event admission (13.428542ms)
+✔ live body reuse preserves caller isolation, owned prefix and transaction rollback (60.623166ms)
+✔ literal marker-shaped Product data and small duplicate values remain unambiguous (31.301042ms)
+✔ failed durable batch discards new inline sources; committed same-batch references survive reopen (29.991833ms)
+✔ large duplicate Result bodies and complete replay hashing fit a constrained heap (10717.689375ms)
+ℹ {"seed":"pinned-authentic-parent-value","copies":96,"valueBytes":1397628,"logicalBodyBytes":135569916,"physicalBytes":1746125,"valueDigest":"sha256:689d44368f7bac09207970e91940ea2347a77a360cd7d1b8cfff50200ec8ea38","replayDigest":"sha256:5b305d824b4dfad9071dbda4240b5b3e00591cb56efd49733541766d47088864","completeStateDigest":"sha256:cc3a7fe0ea89a11fdccf2609e8ac77afc82541f4071b730cdfa2585b94a69bc4","heapUsed":76852880,"rss":260046848,"maxRSSKiB":321360,"heapLimitMiB":128,"allDistinctAdmissions":true,"callerIsolation":true,"coldReplayEqual":true,"noNativeCredit":true}
+{"kind":"d10_digest_conservation","cuts":9,"coldCopiedForeignScopedReverse":true,"repeatedOwnedEncodingRows":0}
+✔ logical prefix hashes conserve cold, copied, foreign, scoped and reverse values without re-encoding an owned history (798.0605ms)
+✖ store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal (48.165584ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13559.793583
+
+✖ failing tests:
+
+test at test_env/tests/t288-logical-prefix-digest.test.mjs:35:1
+✖ store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal (48.165584ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-logical-prefix-digest.test.mjs:59:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

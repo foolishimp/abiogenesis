@@ -1,0 +1,25 @@
+{
+  "compilerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/publication/host/node_modules/@abiogenesis/typescript-tenant/build/toolchain/typescript.cjs",
+  "compilerVersion": "5.9.2",
+  "driver": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-11/run-11.mjs",
+  "options": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "module": 199,
+    "moduleResolution": 99,
+    "target": 9,
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/publication/host/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types"
+    ]
+  },
+  "diagnostics": [],
+  "unresolvedIdentifierDiagnostics": [],
+  "wallMs": 393.95712499999996,
+  "claim": "Bounded unresolved-identifier readiness only; no owner execution"
+}

@@ -1,3 +1,5 @@
+import type { RuntimeReplayGuard } from "../abg/replay.js";
+import type { OwnedJudgedCCallOutcomeReceipt, OwnedBlockedCCallOutcomeReceipt } from "../abg/c_call_outcome.js";
 import type {
   AdmittedCCallResult,
   CCall,
@@ -32,6 +34,23 @@ export function proposeJudgmentCandidate<Input, Output>(input: Readonly<{
   cCall: CCall;
   result: AdmittedCCallResult;
   replayState: ReplayState;
+  contractRef: string;
+  decision: JudgmentDecision<Input, Output>;
+  currentOwnerPrefix?: DurablePrefixCoordinate;
+}>): JudgmentCandidate;
+/** @internal Same candidate construction from authenticated current guard facts. */
+export function proposeJudgmentCandidate<Input, Output>(input: Readonly<{
+  cCall: CCall;
+  result: AdmittedCCallResult;
+  replayState: RuntimeReplayGuard;
+  contractRef: string;
+  decision: JudgmentDecision<Input, Output>;
+  currentOwnerPrefix?: DurablePrefixCoordinate;
+}>): JudgmentCandidate;
+export function proposeJudgmentCandidate<Input, Output>(input: Readonly<{
+  cCall: CCall;
+  result: AdmittedCCallResult;
+  replayState: RuntimeReplayGuard;
   contractRef: string;
   decision: JudgmentDecision<Input, Output>;
   currentOwnerPrefix?: DurablePrefixCoordinate;

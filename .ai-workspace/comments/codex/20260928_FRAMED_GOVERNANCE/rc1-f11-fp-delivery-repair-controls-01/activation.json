@@ -1,0 +1,15 @@
+{
+  "operation": "T287_EXEC06_CONJUNCTION_AND_REPAIR_GRANTS_01",
+  "role": "Writer",
+  "actor": "/root",
+  "previousRole": "Executive",
+  "activatedAt": "2026-10-02T04:30:52.484409+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-fp-delivery-repair-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "grant": "Owner fix and close5; conjoin CLOSED source/independent caller findings and grant bounded Workers",
+  "prohibitedEffects": "No Source/candidate/Runtime/Git/network effects"
+}

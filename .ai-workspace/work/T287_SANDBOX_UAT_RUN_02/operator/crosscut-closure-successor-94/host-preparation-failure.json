@@ -1,0 +1,46 @@
+{
+  "classification": "proof-local comparator premise error after successful one offline install; no installed Product owner verification reached",
+  "cause": "expected mode-difference paths incorrectly abg/cli.js and abg/codex_cli.js; actual canonical package bin paths are public/cli.js and public/codex_cli.js",
+  "canonicalPackageBin": {
+    "abg.cli": "./build/code/src/public/cli.js",
+    "abg.codex": "./build/code/src/public/codex_cli.js"
+  },
+  "accepted83ModeDifferences": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "archiveMode": 420,
+      "installedMode": 493
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "archiveMode": 420,
+      "installedMode": 493
+    }
+  ],
+  "failedDriverPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/host-preparation.mjs",
+    "sha256": "5609ac392e2ff04e605384baab0316316e831683e21b9ebb135652e834e69f68",
+    "byteCount": 5447
+  },
+  "outerRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/commands/clean-host.request.json",
+    "sha256": "6f0c803a26fca87e6e31a7fbeea3b559f69d465c795c9154bf5bd82af9392d80",
+    "byteCount": 449
+  },
+  "outerResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/commands/clean-host.result.json",
+    "sha256": "b72e1053413ec50f82eee9f627c6b551c5fd85f5a2a0f9731187556ed0428f4b",
+    "byteCount": 2141
+  },
+  "installRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/commands/install-host21.request.json",
+    "sha256": "a86091a8e82f89914a9126be28449a88187b821d628be77a1edfa6336b6f5e27",
+    "byteCount": 718
+  },
+  "installResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/commands/install-host21.result.json",
+    "sha256": "fab836b2e77284d819bc793c2bc97dde5d83abc05b2e182c890393af3fa31c1e",
+    "byteCount": 1113
+  },
+  "scope": "No Source/generated/archive effects and no reinstall; awaiting Root selected verification-only continuation."
+}

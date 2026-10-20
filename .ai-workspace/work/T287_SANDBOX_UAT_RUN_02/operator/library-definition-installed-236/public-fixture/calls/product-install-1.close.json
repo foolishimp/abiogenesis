@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:a87e28f82bf00998134a43c0b442d3f8539875eb11ef2aaf4740b1a800d1f8e6",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/public-fixture/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:18ca6e599e4d00039f8996dc04e2d027978307ce7a3a0a5e032168c80c00ef95",
+    "prefixLength": 3090932,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 469743764
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:a12b965f807687f5c6e24b2a70c520906ef2ab0451f0714ff07924041a294664",
+    "device": 16777231,
+    "durableByteLength": 3090932,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventLogDigest": "sha256:18ca6e599e4d00039f8996dc04e2d027978307ce7a3a0a5e032168c80c00ef95",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/public-fixture/resources/events/runtime.events.jsonl",
+    "inode": 469743764,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

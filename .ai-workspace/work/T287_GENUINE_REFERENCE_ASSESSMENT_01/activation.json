@@ -1,0 +1,14 @@
+{
+  "operation": "T287_GENUINE_REFERENCE_ASSESSMENT_01",
+  "worker": "/root/public_preparation_worker",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_01/grant.md",
+    "bytes": 10599,
+    "sha256": "943fffe6a68428b06bda7c556b37089359849311d6baeb20055cbaded770f80f"
+  },
+  "frame": "fixed15 ABG5 GOAL035/T287 F05/F10/F11/F15; STDO2.5.1RC2; interface-integration rev2; one genuine native independent reference-attribution assessment",
+  "allowedEffects": "matching new work/evidence; actual same candidate log append only if prerequisite/native prep passes; no Source/package/install/AF22 writes",
+  "status": "FROZEN_PREREQUISITE_FAILURE",
+  "selectedCLI": "/Users/jim/.local/bin/claude2.1.289",
+  "HOME": "/Users/jim"
+}

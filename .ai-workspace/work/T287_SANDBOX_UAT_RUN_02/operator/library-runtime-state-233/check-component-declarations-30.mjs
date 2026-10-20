@@ -1,0 +1,13 @@
+import ts from '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/typescript.js';
+import {readFile,readdir,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+const root=new URL('.',import.meta.url).pathname;
+const output=join(root,'dependency-cut-30/build/code/src');
+const files=[];async function collect(path){for(const row of await readdir(path,{withFileTypes:true})){const next=join(path,row.name);if(row.isDirectory())await collect(next);else if(row.name.endsWith('.d.ts'))files.push(next);}}await collect(output);
+const raw=JSON.parse(await readFile(join(root,'tsconfig.json'),'utf8')).compilerOptions;
+delete raw.outDir;const start=performance.now();
+const options=ts.convertCompilerOptionsFromJson({...raw,rootDir:output,noEmit:true,declaration:false,stripInternal:false,skipLibCheck:false},root);
+const program=ts.createProgram({rootNames:files,options:options.options});
+const diagnostics=[...options.errors,...ts.getPreEmitDiagnostics(program)].map(d=>({code:d.code,file:d.file?.fileName,start:d.start,message:ts.flattenDiagnosticMessageText(d.messageText,'\n')}));
+const result={kind:'stripped_declaration_component_check',declarations:files.length,skipLibCheck:false,elapsedMs:performance.now()-start,diagnostics,limits:['Type linkage only; no normal publication or runtime readiness']};
+await writeFile(join(root,'commands/component-declarations-30.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));process.exitCode=diagnostics.length?1:0;

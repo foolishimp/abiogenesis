@@ -1,0 +1,57 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/first-failure.json",
+    "bytes": 4727,
+    "sha256": "7c6ef048449e41ca1f9897a24d363ec4ec02894759323abb0a75e00020860b55"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/flow-parent-owner-outcome.json",
+    "bytes": 10415,
+    "sha256": "898381474e87e08cd66b4e152ff928003f7b37e0cd37d35bb1513e22670ae88d"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/flow-assess-run_result-host-receipt.json",
+    "bytes": 1189,
+    "sha256": "8817dd098fe331a65a15e21ead61e083148ad947bc33a68d2cdab86c3ef99777"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/flow-supervisor-close.json",
+    "bytes": 1385,
+    "sha256": "cf6c16f377fea924f68c620601002cc51656d6e5e4c29f89f57f0c01f88e6813"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "bytes": 76350,
+    "sha256": "4a51cfe4adc7d5a200affb5b2ac8a704c01ead72a83e4fd1b632a4133f3ef997"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+    "bytes": 8607,
+    "sha256": "6534d19d6ea0c5a60fc1b12a548c69847aec85f62c2494b98780396711eb2891"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "bytes": 32200,
+    "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/f11/ordinary-caller.mjs",
+    "bytes": 17926,
+    "sha256": "dac635825ab7941766c2086433170bc5935d94bc3566bdad01755961ed82f9b6"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/f11/flow-driver.mjs",
+    "bytes": 6002,
+    "sha256": "7b1e47b4703583cce853e3f50e136b6b7ec7c5490f77030871048c3ae0ecd8dc"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-carrier-resource.test.mjs",
+    "bytes": 23400,
+    "sha256": "f63b2af71a4a5eb900f961a590b891a2eee95161a76e61e971b93fd3c9eb7af0"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    "bytes": 36658,
+    "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b"
+  }
+]

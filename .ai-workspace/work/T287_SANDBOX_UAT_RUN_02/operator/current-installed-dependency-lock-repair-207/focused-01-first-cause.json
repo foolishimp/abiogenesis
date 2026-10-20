@@ -1,0 +1,14 @@
+{
+  "cause": "Canonical lock fixture omitted the required exact ABIogenesis toolchain Product",
+  "origin": "constructResolvedProductLock\u2192resolveProductArtifacts\u2192linkNativeContractSet",
+  "observed": "environment_refusal unresolved_dependency: resolved native meaning requires one exact ABIogenesis toolchain Product",
+  "check": "focused-01 exit1/1736.380667ms,0PASS7FAIL; all before installer entry",
+  "sourceDisposition": "HOW and Source guard unchanged; strict-01 PASS6125.515625ms",
+  "failedTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/focused-01-test.mjs",
+    "sha256": "102dcd2e79f38f0da52a72680ac45f62a4385bfaf7172d1fddf2853c2e89223a",
+    "byteCount": 11784
+  },
+  "proposedAction": "Add genuine verified immutable ABI28 artifact to canonical test lock population; no simulated ABI shape, Source change, or admission bypass. Await Executive selection before fixture mutation/rerun.",
+  "effects": "207-only author fixture packing/verification; no current workspace/history/model/app/installed tree effects"
+}

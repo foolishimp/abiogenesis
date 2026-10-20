@@ -1,0 +1,20 @@
+{
+  "differenceSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/candidate15-publication-32/public-catalog-diff.json",
+  "exactSupportedChanges": {
+    "catalogDigest": 1,
+    "declarationDigests": 47,
+    "contractDigests": 21
+  },
+  "all69BeforeAndAfterValuesCorrespond": true,
+  "declarationPath": "build/code/src/product/default_library.d.ts",
+  "declarationDigest": "sha256:6bee0713052397379bd61816e42e423acaa8abb092df91706b4813d3f0268803",
+  "catalogDigest": "sha256:ea85d66475497bdbf7e5d47d1791cadcc12e4fe83a4d04aec7dd6dfba094c7d6",
+  "ownerRoutes": {
+    "catalog": "product.productPublicContractCatalogDigest",
+    "declaration": "product.sha256Bytes",
+    "contract": "product.sha256Canonical(nativeTypedLocator.declarationInventory), generate-product-manifest.mjs:550-555"
+  },
+  "callableDeclarationConservation": "Root independently verified the only emitted d.ts delta is a documentation comment; exact69 digest consequences independently confirmed by Source32/Proof32.",
+  "unexpectedMetadataDifferences": 0,
+  "noArbitraryDigestStripping": true
+}

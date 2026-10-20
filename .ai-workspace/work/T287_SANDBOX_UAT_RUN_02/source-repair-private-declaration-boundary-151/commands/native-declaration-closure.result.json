@@ -1,0 +1,199 @@
+{
+  "kind": "unchanged_canonical_native_declaration_closure",
+  "started": "2026-10-09T02:45:47.945Z",
+  "finished": "2026-10-09T02:46:06.926Z",
+  "wallMs": 18980.22425,
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_exports.js",
+    "sha256": "38c1bee63429bd808f62a8564c13b83ce32a84a3c1f2e2b8502bee5c80b670b2",
+    "bytes": 108445
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "fb4ba337d8f70db2f1f7df26f4a23bdf581646126186decd1bae80583e2f00fd",
+    "byteCount": 10630872
+  },
+  "completePackedMembers": 5265,
+  "payloadCount": 5263,
+  "sourceProductContentDigest": "sha256:c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463",
+  "sourceProductContentDigestMeaning": "canonical digest of isolated151 payload overlay, not a published Product",
+  "declarationCount": 1457,
+  "metadataCount": 197,
+  "overlayCount": 526,
+  "requestedRoots": [
+    {
+      "packageExportPath": ".",
+      "declarationPath": "build/code/src/index.d.ts"
+    },
+    {
+      "packageExportPath": "./abg",
+      "declarationPath": "build/code/src/abg/index.d.ts"
+    },
+    {
+      "packageExportPath": "./abg/m03",
+      "declarationPath": "build/code/src/abg/m03.d.ts"
+    },
+    {
+      "packageExportPath": "./abg/m03/transport",
+      "declarationPath": "build/code/src/abg/m03/transport.d.ts"
+    },
+    {
+      "packageExportPath": "./abg/requirements",
+      "declarationPath": "build/code/src/abg/requirements.d.ts"
+    },
+    {
+      "packageExportPath": "./app/m04",
+      "declarationPath": "build/code/src/app/m04.d.ts"
+    },
+    {
+      "packageExportPath": "./gtl",
+      "declarationPath": "build/code/src/gtl/index.d.ts"
+    },
+    {
+      "packageExportPath": "./gtl/m01",
+      "declarationPath": "build/code/src/gtl/m01.d.ts"
+    },
+    {
+      "packageExportPath": "./gtl/m02",
+      "declarationPath": "build/code/src/gtl/m02.d.ts"
+    },
+    {
+      "packageExportPath": "./gtl/requirements",
+      "declarationPath": "build/code/src/gtl/requirements.d.ts"
+    },
+    {
+      "packageExportPath": "./hog",
+      "declarationPath": "build/code/src/hog/index.d.ts"
+    },
+    {
+      "packageExportPath": "./product",
+      "declarationPath": "build/code/src/product/index.d.ts"
+    },
+    {
+      "packageExportPath": "./public",
+      "declarationPath": "build/code/src/public/index.d.ts"
+    },
+    {
+      "packageExportPath": "./qualification/m05",
+      "declarationPath": "build/code/src/qualification/m05.d.ts"
+    },
+    {
+      "packageExportPath": "./validator",
+      "declarationPath": "build/code/src/validator/index.d.ts"
+    }
+  ],
+  "succeeded": true,
+  "closureCount": 15,
+  "resultDigest": "sha256:5ab2cd83ad53c4567a92663f38390f3489e58dd3663c1f3841d1dc27c6b2959a",
+  "closures": [
+    {
+      "packageExportPath": ".",
+      "declarationPath": "build/code/src/index.d.ts",
+      "exportedSymbolCount": 1868,
+      "declarationCount": 305,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./abg",
+      "declarationPath": "build/code/src/abg/index.d.ts",
+      "exportedSymbolCount": 563,
+      "declarationCount": 305,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./abg/m03",
+      "declarationPath": "build/code/src/abg/m03.d.ts",
+      "exportedSymbolCount": 573,
+      "declarationCount": 306,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./abg/m03/transport",
+      "declarationPath": "build/code/src/abg/m03/transport.d.ts",
+      "exportedSymbolCount": 31,
+      "declarationCount": 306,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./abg/requirements",
+      "declarationPath": "build/code/src/abg/requirements.d.ts",
+      "exportedSymbolCount": 5,
+      "declarationCount": 306,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./app/m04",
+      "declarationPath": "build/code/src/app/m04.d.ts",
+      "exportedSymbolCount": 119,
+      "declarationCount": 307,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./gtl",
+      "declarationPath": "build/code/src/gtl/index.d.ts",
+      "exportedSymbolCount": 340,
+      "declarationCount": 305,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./gtl/m01",
+      "declarationPath": "build/code/src/gtl/m01.d.ts",
+      "exportedSymbolCount": 158,
+      "declarationCount": 307,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./gtl/m02",
+      "declarationPath": "build/code/src/gtl/m02.d.ts",
+      "exportedSymbolCount": 94,
+      "declarationCount": 21,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./gtl/requirements",
+      "declarationPath": "build/code/src/gtl/requirements.d.ts",
+      "exportedSymbolCount": 14,
+      "declarationCount": 11,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./hog",
+      "declarationPath": "build/code/src/hog/index.d.ts",
+      "exportedSymbolCount": 62,
+      "declarationCount": 305,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./product",
+      "declarationPath": "build/code/src/product/index.d.ts",
+      "exportedSymbolCount": 711,
+      "declarationCount": 305,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./public",
+      "declarationPath": "build/code/src/public/index.d.ts",
+      "exportedSymbolCount": 33,
+      "declarationCount": 305,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./qualification/m05",
+      "declarationPath": "build/code/src/qualification/m05.d.ts",
+      "exportedSymbolCount": 175,
+      "declarationCount": 306,
+      "physicalRelationCount": 0
+    },
+    {
+      "packageExportPath": "./validator",
+      "declarationPath": "build/code/src/validator/index.d.ts",
+      "exportedSymbolCount": 163,
+      "declarationCount": 305,
+      "physicalRelationCount": 0
+    }
+  ],
+  "canonicalGeneratedWrites": false,
+  "normalBuild": false,
+  "packageVerification": false,
+  "nativeModelEffects": false
+}

@@ -13,11 +13,11 @@ const core=process.env.ABI5_GTL_GRAPH_OWNER_CORE ?? resolve(tenant,'build/code/s
 const baselineCore=process.env.ABI5_GTL_GRAPH_BASELINE_CORE;
 const load=(base,name)=>import(pathToFileURL(resolve(base,name)));
 async function owners(base){
-  const [gtl,raw,validator,materialization,graphValidator,paths,construction,serialization,digests]=await Promise.all([
+  const [gtl,raw,validator,materialization,graphValidator,paths,construction,serialization,digests,immutable]=await Promise.all([
     'gtl/index.js','validator/raw_admission.js','validator/validation.js','gtl/materialize.js','validator/graph.js',
-    'gtl/source_path.js','gtl/graph_construction.js','gtl/serialization.js','shared/digests.js',
+    'gtl/source_path.js','gtl/graph_construction.js','gtl/serialization.js','shared/digests.js','shared/immutable.js',
   ].map(name=>load(base,name)));
-  return {gtl,raw,validator,materialization,graphValidator,paths,construction,serialization,digests};
+  return {gtl,raw,validator,materialization,graphValidator,paths,construction,serialization,digests,immutable};
 }
 const current=await owners(core),previous=baselineCore===undefined?null:await owners(baselineCore);
 const corpus=JSON.parse(readFileSync(resolve(tenant,'contracts/conformance/gtl-language-conformance-corpus.json')));
@@ -35,11 +35,12 @@ function validate(o,source,programRef=source.programs[0].programRef,graphRef,inp
   const admitted=raw(o,source,'module_publication'),pub=admitted.value;
   const program=pub.programs.find(p=>p.programRef===programRef);assert(program);
   const publication=o.validator.validatePublication(admitted,pub.contributions.map(c=>raw(o,c,'catalog_contribution')));
-  const whole=o.validator.validateProgram({declarationBasisDigest:admitted.subjectDigest,programPublication:admitted,
+  const programInput={declarationBasisDigest:admitted.subjectDigest,programPublication:admitted,
     program:raw(o,program,'gtl_program'),graphFunctions:pub.graphFunctions.map(g=>raw(o,g,'graph_function')),
     contracts:pub.contracts.map(c=>raw(o,c,'contract_declaration')),evaluators:pub.evaluators,rules:pub.rules,
     implementationBindings:pub.implementationBindings.map(b=>raw(o,b,'implementation_binding')),
-    closureContracts:pub.closureContracts.map(c=>raw(o,c,'closure_contract'))});
+    closureContracts:pub.closureContracts.map(c=>raw(o,c,'closure_contract'))};
+  const whole=o.validator.validateProgram(programInput);
   assert.equal(whole.kind,'program_validation',JSON.stringify(whole));
   const start=program.starts.find(s=>s.startRef===program.policies['abg.default_start_ref'])??program.starts[0];
   // A callable-only fixture Program may have no Public start. Materialize the
@@ -51,7 +52,7 @@ function validate(o,source,programRef=source.programs[0].programRef,graphRef,inp
   const graph=o.materialization.materializeGraph(graphFunction,basis);
   const graphValidation=o.graphValidator.validateGraph(graph,whole,graphFunction,basis);
   assert.equal(graphValidation.kind,'graph_validation',JSON.stringify(graphValidation));
-  return {pub,publication,whole,graphFunction,graph,basis,graphValidation};
+  return {pub,publication,whole,graphFunction,graph,basis,graphValidation,programInput};
 }
 function equivalent(a,b){for(const field of ['pub','publication','whole','graphFunction','graph','basis','graphValidation'])
   assert.deepEqual(a[field],b[field],`complete ${field}`);}
@@ -83,15 +84,61 @@ test('released original corpus and owner-contributed baseline preserve complete 
     current.paths.rootCSourcePath(good.graph.template.startNodeRef)).relation,'root_complete');
   if(previous){equivalent(untouched,validate(previous,clone(original)));equivalent(good,validate(previous,publishable(previous)));}
 });
+
+test('actual materializer handoff reuses fixed shape while occurrence/fan-out and foreign checks remain live',()=>{
+  const pub=constructStructuralPublication(current.gtl,artifact);
+  const actual=validate(current,pub,FAN_OUT_IDS.programRef,FAN_OUT_IDS.graphFunctionRef,constructMemberVector(['Alpha','Beta']));
+  assert.strictEqual(current.validator.validateProgram(actual.programInput),actual.whole);
+  assert.strictEqual(current.graphValidator.validateGraph(actual.graph,actual.whole,actual.graphFunction,actual.basis),actual.graphValidation);
+  const copied=current.materialization.rehydrateMaterializedGtlGraph(clone(actual.graph));
+  const cold=current.graphValidator.validateGraph(copied,actual.whole,actual.graphFunction,actual.basis);
+  assert.deepEqual(cold,actual.graphValidation);assert.notStrictEqual(cold,actual.graphValidation);
+  const changedInput={...actual.basis,admittedInput:constructMemberVector(['Alpha','Changed'])};
+  const changed=current.graphValidator.validateGraph(actual.graph,actual.whole,actual.graphFunction,changedInput);
+  assert.equal(changed.kind,'static_validation_refusal');
+  assert.match(changed.diagnostics[0].message,/input value differs/);
+  for(const value of [{...actual.basis.admittedInput,batch:['new geometry']},constructMemberVector(['Alpha'])]) {
+    assert.equal(current.graphValidator.validateGraph(actual.graph,actual.whole,actual.graphFunction,
+      {...actual.basis,admittedInput:value}).kind,'static_validation_refusal');
+  }
+  const changedOccurrence={...actual.basis,invocationAdmissionRef:'invocation://graph-law/other'};
+  assert.equal(current.graphValidator.validateGraph(actual.graph,actual.whole,actual.graphFunction,changedOccurrence).kind,'static_validation_refusal');
+  assert.equal(current.graphValidator.validateGraph(actual.graph,clone(actual.whole),actual.graphFunction,actual.basis).kind,'static_validation_refusal');
+  const changedFunction=clone(actual.graphFunction);changedFunction.name+='/changed-definition';
+  assert.equal(current.graphValidator.validateGraph(actual.graph,actual.whole,changedFunction,actual.basis).kind,'static_validation_refusal');
+  const tampered=clone(actual.graph);tampered.template.terminalNodeRefs=[];
+  assert.equal(current.materialization.rehydrateMaterializedGtlGraph(tampered),null);
+  if(previous)equivalent(actual,validate(previous,constructStructuralPublication(previous.gtl,artifact),FAN_OUT_IDS.programRef,FAN_OUT_IDS.graphFunctionRef,constructMemberVector(['Alpha','Beta'])));
+  const fixed=validate(current,publishable(current));
+  const independent={...fixed.basis,admittedInput:{...fixed.basis.admittedInput,batch:['different data']}};
+  assert.deepEqual(current.materialization.deriveMaterializedGraphShape(fixed.graphFunction,independent),
+    current.materialization.deriveMaterializedGraphShape(fixed.graphFunction,fixed.basis),
+    'no fan-out row means the declared shape has no input dependency');
+});
+
+test('frozen accessors cannot turn changed raw declarations into reusable immutable facts',()=>{
+  const actual=validate(current,publishable(current));
+  let edges=actual.graphFunction.template.edges,reads=0;
+  const template=Object.freeze({...actual.graphFunction.template,get edges(){reads++;return edges;}});
+  assert.equal(current.immutable.isDeeplyFrozen(template),false);assert.equal(reads,0,'reuse eligibility does not invoke an accessor');
+  assert.deepEqual(current.construction.graphTemplateDiagnostics(template),[]);
+  const functionValue=Object.freeze({...actual.graphFunction,template});
+  const graph=current.materialization.materializeGraph(functionValue,actual.basis);
+  assert.equal(current.materialization.retainedMaterializedGraphShape(graph,functionValue,actual.basis),null);
+  assert.deepEqual(current.graphValidator.validateGraph(graph,actual.whole,functionValue,actual.basis),actual.graphValidation);
+  edges=Object.freeze([...edges,{edgeRef:'edge://changed-raw',fromNodeRef:template.startNodeRef,toNodeRef:'node://absent',inputBinding:{kind:'identity'}}]);
+  const refused=current.construction.graphTemplateDiagnostics(template);
+  assert(refused.some(d=>d.code==='topology_mismatch'));
+  assert.equal(current.graphValidator.validateGraph(graph,actual.whole,functionValue,actual.basis).kind,'static_validation_refusal');
+  if(previous)assert.deepEqual(refused,previous.construction.graphTemplateDiagnostics(template));
+});
 for(const row of mutants)test(`nearest static and materialization refusal: ${row.name}`,()=>{
   const pub=publishable(current);row.mutate(pub);const g=pub.graphFunctions[0];
-  if(previous){const accepted=validate(previous,clone(pub));assert.equal(accepted.publication.kind,'publication_validation');
-    if(row.code==='duplicate_identity')assert.equal(accepted.whole.executableLeafRows.length,2);
-    assert.equal(current.materialization.rehydrateMaterializedGtlGraph(clone(accepted.graph)),null,'copied malformed graph cannot regain materialization identity');}
   for(const [subject,kind] of [[pub,'module_publication'],[g,'graph_function'],
     [{...clone(corpus.programs[0].packet),publication:pub},'conformance_evaluate_packet']]){
     const refused=current.raw.rawAdmitValue(subject,kind,`contract://graph-law/${kind}`);
-    assert.equal(refused.kind,'raw_admission_refusal');assert.equal(refused.code,'invalid_kind');assert.match(refused.message,row.message);}
+    assert.equal(refused.kind,'raw_admission_refusal');assert.equal(refused.code,'invalid_kind');assert.match(refused.message,row.message);
+    if(previous)assert.deepEqual(refused,previous.raw.rawAdmitValue(subject,kind,`contract://graph-law/${kind}`));}
   assert(current.construction.graphTemplateDiagnostics(g.template).some(d=>d.code===row.code&&row.message.test(d.message)));
   assert.throws(()=>current.serialization.serializeGraphFunction(g),row.message);
   assert.throws(()=>current.construction.promoteGraphFunction({name:`${g.name}/promoted`,source:g,

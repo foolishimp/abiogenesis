@@ -1,0 +1,18 @@
+{
+  "stage": "stream-current-log-hash-complete",
+  "at": "2026-10-09T17:34:02.246Z",
+  "wallMs": 21046.91125,
+  "pid": 75903,
+  "memory": {
+    "rss": 1448984576,
+    "heapTotal": 219299840,
+    "heapUsed": 77528016,
+    "external": 35842830,
+    "arrayBuffers": 33430523
+  },
+  "maxRSSKiB": 1901360,
+  "expectedCurrent": {
+    "byteLength": 2142089296,
+    "digest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277"
+  }
+}

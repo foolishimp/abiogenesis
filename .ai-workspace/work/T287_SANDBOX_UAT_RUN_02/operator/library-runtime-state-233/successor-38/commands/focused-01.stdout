@@ -1,0 +1,21 @@
+(node:25294) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ caught diagnostic survives owner admission, JSON-cloned cold read, and Public evidence projection (600.2465ms)
+✔ digest-only history is explicit not_retained; first failure cannot be overwritten (46.58275ms)
+✔ explicit causation remains exact and an absent material frontier falls back to the admitted frame open (85.154041ms)
+✔ malformed or substituted retained body refuses before append; cold projection rejects altered failure binding (45.54175ms)
+✔ typed sync and async faults conserve original Error cause and stack (29.9235ms)
+✔ historical route projection stays nullable while staged projection conserves its replay cause (93.396916ms)
+✔ deterministic boundary retains authority, loading, export and invocation first causes with exact evidence (26.395792ms)
+✔ deterministic caught-cause retention never evaluates arbitrary getters or proxies and bounds native messages (21.163375ms)
+✔ deterministic retained cause survives actual failure admission and cold/Public projection; tampering refuses (75.181958ms)
+ℹ Controlled basis/frame/replay premises; actual F_D boundary, durable failure admission and cold/Public diagnostic projection. No installed Testing/effect/currentness credit.
+✔ successful deterministic returns and legacy opaque failure totalization remain unchanged (19.071125ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1552.366584

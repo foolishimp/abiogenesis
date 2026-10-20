@@ -1,0 +1,21 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- 'run://abiogenesis/cf8c086c9ee49e2ebaf391a376d299c967019e868f0c6b0732b9ad9d51306140'
+
+    at selectParent (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-08/run-08.mjs:250:76)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-08/run-08.mjs:258:14 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 'run://abiogenesis/cf8c086c9ee49e2ebaf391a376d299c967019e868f0c6b0732b9ad9d51306140',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

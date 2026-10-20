@@ -1,0 +1,49 @@
+{
+  "role": "Operator195 installed remaining-consumer preparation only",
+  "at": "2026-10-09T09:32:15.759933Z",
+  "RootConjunction": {
+    "193": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/freeze.json",
+      "sha256": "cb8e1b48b2a9a28caf04b025d2a9c5c5a4ca6cd0a0c8306348514a5c19d20ab8",
+      "byteCount": 19627
+    },
+    "194": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-review-194/freeze.json",
+      "sha256": "8c26755346a1c05ea34df0fdb2514ef4d53d4b1a3f9832beff54558bc456b4e7",
+      "byteCount": 1098
+    },
+    "192": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/recovery-receipt.json",
+        "sha256": "ed0f0700367d5b0fd5716ffa87cb79944859047339fa3ccc03a44fd2eefd08df",
+        "byteCount": 5202
+      },
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/freeze.json",
+        "sha256": "3681905a63ca59f85ab73ed0bbfd688a74669533ad3fde42b4cab9e0660ed04b",
+        "byteCount": 9942
+      }
+    }
+  },
+  "ProductFrame": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2/Product817–867/CONT014–016/integration/identity/lifecycle/effects/Proof",
+  "selectedAction": "Execute reviewed caller once with genuine fixed ProductEnvironmentPort.resolve before history. Exact allocator remains unproved; no Source/package change.",
+  "scope": "One early live nominal native27/consumer verification+packed correspondence+fixed resolve; one pinned185 declaration input read and canonical192 resource acquisition; authenticate185 existing admissions/104covers/source/current-use; actual mandatory private Product preparation+callback and normal close. No new Public admissions or native/model/app dispatch.",
+  "logicalIntentLabels": "Frozen193 request/input/correlation labels unchanged; dynamicdirname routes actual195 receipts.",
+  "resourceAnchor": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1690085978,
+    "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a"
+  },
+  "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+  "sourceRunRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+  "fiveHourQualityClockStarted": false,
+  "stop": "Any unexpected failure STOP, preserve first cause and genuine close/residue; no automatic retry/recovery."
+}

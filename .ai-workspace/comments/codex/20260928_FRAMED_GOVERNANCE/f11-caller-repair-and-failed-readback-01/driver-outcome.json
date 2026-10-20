@@ -1,0 +1,52 @@
+{
+  "status": "failed_run_readback_passed",
+  "actualRunRemains": "failed",
+  "frontier": "bind cold projection to complete retained causal failure/foldback/stopped prefix",
+  "elapsedMs": 13461.300792,
+  "nominalChecks": 1,
+  "actualFreshCLIReads": 2,
+  "result": {
+    "outcome": "refusal",
+    "code": "not_found",
+    "exitCode": 1
+  },
+  "replay": {
+    "outcome": "result",
+    "status": "failed",
+    "terminalResult": null,
+    "exitCode": 0
+  },
+  "positiveStopRegression": "passed",
+  "qualificationResourcesLoaded": false,
+  "appendBytes": 0,
+  "newTask": 0,
+  "newRun": 0,
+  "helperCalls": 0,
+  "providerCalls": 0,
+  "fullQualification": false,
+  "processUsage": {
+    "userCPUTime": 15748241,
+    "systemCPUTime": 408713,
+    "maxRSS": 1660576,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 219067,
+    "majorPageFault": 84,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 0,
+    "ipcReceived": 4191,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 343,
+    "involuntaryContextSwitches": 23432
+  },
+  "memory": {
+    "rss": 1473134592,
+    "heapTotal": 294912000,
+    "heapUsed": 132123560,
+    "external": 5326892,
+    "arrayBuffers": 2912379
+  }
+}

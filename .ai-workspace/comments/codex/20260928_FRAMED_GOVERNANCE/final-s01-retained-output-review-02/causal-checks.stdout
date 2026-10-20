@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "checks": 10,
+  "causalEdges": 17,
+  "ownerReplay": {
+    "runId": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61",
+    "status": "closed",
+    "replay": {
+      "ref": "replay://abiogenesis/7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314",
+      "digest": "sha256:7b3d64a7990318bb7f3f48c0642effcec4c9dda69649a51db8297d5f8a866314"
+    },
+    "identity": {
+      "run": {
+        "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61",
+        "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922"
+      },
+      "nativeRun": {
+        "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61",
+        "digest": "sha256:ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+      },
+      "executionBasis": {
+        "ref": "execution-basis://abiogenesis/48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6",
+        "digest": "sha256:48ed812ac4804e48f48e4c05f6f69c841049dbc750fad7ca637dd5f83a2df6f6"
+      },
+      "runOpenEventRef": "event://abiogenesis/a17ac860257d1cd84126ac07fa544de3b02c314085e356319dc852f098481a93"
+    }
+  },
+  "history": {
+    "bytes": 2582298,
+    "sha256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+    "events": 33
+  }
+}

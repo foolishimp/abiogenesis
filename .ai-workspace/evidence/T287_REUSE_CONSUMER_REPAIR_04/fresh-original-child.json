@@ -1,0 +1,131 @@
+{
+  "standing": "authenticated_historical_controlled_result; not current qualification",
+  "originalPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/closed-event-resource-handoff.json",
+      "bytes": 3111,
+      "sha256": "7961012d4535184a5a11d9d916fbbf34faf22b0a2aacaea7af88f139a602c037",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/selected-native-child-proof.json",
+      "bytes": 62866,
+      "sha256": "f41eadaa23a5b0ebab75ea45f0e017fc76521b5be92ad30f9786d036f2535d5b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-packet.json",
+      "bytes": 29410022,
+      "sha256": "c50b50b153a69104b7f54c6420368b786d6225c7394cd49923235e1a7ecae548",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-positive-acceptance-01/acceptance.json",
+      "bytes": 15036,
+      "sha256": "9348c2a734d959d45c006a1cadab1346322d93976226e394971d794ad4cd4498",
+      "mode": 420
+    }
+  ],
+  "originalResult": {
+    "ref": "result://abiogenesis/81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4",
+    "digest": "sha256:81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4"
+  },
+  "producer": {
+    "runRef": "run://abiogenesis/06b733f76d8f9b5318185ed785f5ed130b3d7b6499ff431e230d44ea1b2d1964",
+    "graphCallRef": "graph-call://abiogenesis/59eec0f5583145ae1d79bcf302f40ac7e3231df97c778257b8e83f64d3cbfac6",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/1777212b49f005b1452832d29e827490386a3336c100ba9e13520c25c3e70071",
+    "program": {
+      "ref": "program://abiogenesis-fixture/f11-carrier/parent@5",
+      "digest": "sha256:a1c7af13bea9227f301a4863219b9d6cff55cb851dcc3901ce76dc608ab6ab7f"
+    },
+    "graphFunction": {
+      "ref": "graph-function://abiogenesis/qualification/assess@5",
+      "digest": "sha256:0c73d9acbd1a29915270f9e28d27e4ad1ee42211e8b8e8e8817404015405d1e5"
+    },
+    "executionBasis": {
+      "ref": "execution-basis://abiogenesis/0f821e09dd43fe9af9b8258f25c2a3a69ebc13f5644deb96532712e62a221d2c",
+      "digest": "sha256:0f821e09dd43fe9af9b8258f25c2a3a69ebc13f5644deb96532712e62a221d2c"
+    },
+    "cCallRef": "c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c",
+    "resultAdmissionEventRef": "event://abiogenesis/a8aab8273964a645ba6a42b27a2726f7283a75255f60d49853eb459e0b3a3359",
+    "judgmentRef": "judgment://abiogenesis/d9b03d01d84a2965c6b9a0143193c22fdeeeef3d6de3566cac2f66c9a64b394c",
+    "judgmentAdmissionEventRef": "event://abiogenesis/21426d5a5d91fd24a8873a27ba0e268f18b8164aea8f88adabc5d24ef6a7e74e",
+    "terminalRoute": {
+      "ref": "traversal-route://abiogenesis/2cd11c39ffd59de909e68b750a824979d5ec235c883531802eae6027bcacbc30",
+      "digest": "sha256:2cd11c39ffd59de909e68b750a824979d5ec235c883531802eae6027bcacbc30"
+    }
+  },
+  "valueDigest": "sha256:0101053a7bb710ef94d280e5d5fcd6af20dd3e09efbdc6a484d55a6200f94d58",
+  "judgment": {
+    "ref": "qualification-judgment://abiogenesis/921cd358d20af0d1944c9742b4541956e0b9e6632dabeb1f154425eefbcfdeb7",
+    "digest": "sha256:921cd358d20af0d1944c9742b4541956e0b9e6632dabeb1f154425eefbcfdeb7"
+  },
+  "source": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/81c9ea638f448a248e39acdaca1a0cfabef38e7264012b48f1a3633d4ecc6919",
+    "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+    "cCallRef": "c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c",
+    "inputDigest": "sha256:eca2b385b024d542efefd0f29c8e2cf10246f4c9bdff05d5add4c1763eff161c",
+    "observationDigest": "sha256:530ce06b91c0151c6d9c6d77223ac57cf1e6314131691e8523272deab5bce98c",
+    "promptDigest": "sha256:c644d5a575f380198bcda3e5dfaa4b43cfcd3fe768762e35ff9b3cef51a9821c",
+    "rawValueDigest": "sha256:caee3684318977505db8af80af3b00a2c096264f9927b879e2c65dd72ceb34c1",
+    "requestDigest": "sha256:035fe24ed43d193b42434e5e8433209dc3c4daf88391fd5220042bc4817ec73e",
+    "transportBindingDigest": "sha256:01944b03b3059e2883fe2f863e6fef3a29135f55c32b21eb9ce531c04e792980",
+    "transportBindingRef": "transport-binding://abiogenesis/01944b03b3059e2883fe2f863e6fef3a29135f55c32b21eb9ce531c04e792980",
+    "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5"
+  },
+  "rawDigest": "sha256:caee3684318977505db8af80af3b00a2c096264f9927b879e2c65dd72ceb34c1",
+  "residuals": [
+    "residual://independent-semantic-assessment-open",
+    "residual://complete-F11-open"
+  ],
+  "prefix": {
+    "coordinateDigest": "sha256:6401e191df54f79722146909ce510801542b5a4b024abc396da19815d7c32843",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:5bc13122df7769559794a695e381e818477b8a88c07305adb65029df2b86240e",
+    "prefixLength": 9183691,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464941019
+    }
+  },
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+    "bytes": 9183691,
+    "digest": "sha256:5bc13122df7769559794a695e381e818477b8a88c07305adb65029df2b86240e",
+    "device": 16777230,
+    "inode": 464941019,
+    "mode": 420
+  },
+  "requiredIngressLedger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/closed-event-resource-handoff.json",
+      "bytes": 3111,
+      "sha256": "7961012d4535184a5a11d9d916fbbf34faf22b0a2aacaea7af88f139a602c037",
+      "duty": "cold input authentication"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/selected-native-child-proof.json",
+      "bytes": 62866,
+      "sha256": "f41eadaa23a5b0ebab75ea45f0e017fc76521b5be92ad30f9786d036f2535d5b",
+      "duty": "cold input authentication"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-packet.json",
+      "bytes": 29410022,
+      "sha256": "c50b50b153a69104b7f54c6420368b786d6225c7394cd49923235e1a7ecae548",
+      "duty": "cold input authentication"
+    }
+  ],
+  "originalProducerReruns": 0,
+  "eventAppends": 0,
+  "negatives": [
+    "absent GraphCall",
+    "crossed prefix digest",
+    "crossed declaration View",
+    "crossed selected Result"
+  ],
+  "status": "passed"
+}

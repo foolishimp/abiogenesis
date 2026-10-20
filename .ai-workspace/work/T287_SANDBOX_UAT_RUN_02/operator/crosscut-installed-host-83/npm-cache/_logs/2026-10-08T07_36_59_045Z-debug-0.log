@@ -1,0 +1,31 @@
+0 verbose cli /opt/homebrew/Cellar/node/24.7.0/bin/node /opt/homebrew/bin/npm
+1 info using npm@11.5.1
+2 info using node@v24.7.0
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/.npmrc
+5 silly config load:file:/Users/jim/.npmrc
+6 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/etc/npmrc
+7 verbose title npm install /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+8 verbose argv "install" "--ignore-scripts" "--no-audit" "--no-fund" "--prefix" "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host" "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+9 verbose logfile logs-max:10 dir:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/npm-cache/_logs/2026-10-08T07_36_59_045Z-
+10 verbose logfile /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/npm-cache/_logs/2026-10-08T07_36_59_045Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 http fetch GET 200 https://registry.npmjs.org/npm 201ms
+14 silly idealTree buildDeps
+15 silly fetch manifest @abiogenesis/typescript-tenant@file:../../../candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+16 silly placeDep ROOT @abiogenesis/typescript-tenant@5.0.0-rc.1 OK for:  want: file:../../../candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+17 silly reify moves {}
+18 http cache @abiogenesis/typescript-tenant@file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz 0ms (cache hit)
+19 silly ADD node_modules/@abiogenesis/typescript-tenant
+20 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83
+21 verbose os Darwin 25.6.0
+22 verbose node v24.7.0
+23 verbose npm  v11.5.1
+24 notice
+24 notice New minor version of npm available! 11.5.1 -> 11.21.0
+24 notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.0
+24 notice To update run: npm install -g npm@11.21.0
+24 notice  { force: true, Symbol(proc-log.meta): true }
+25 verbose exit 0
+26 info ok

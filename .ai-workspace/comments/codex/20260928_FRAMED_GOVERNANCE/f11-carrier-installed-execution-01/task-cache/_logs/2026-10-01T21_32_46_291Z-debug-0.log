@@ -1,0 +1,20 @@
+0 verbose cli /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/bin/npm-cli.js
+1 info using npm@11.5.1
+2 info using node@v24.7.0
+3 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/npm/npmrc
+4 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/fixture-source/.npmrc
+5 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/task-config/npmrc
+6 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/task-config/globalnpmrc
+7 verbose title npm pack
+8 verbose argv "pack" "--offline" "--ignore-scripts" "--json" "--pack-destination" "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/fixture-artifacts"
+9 verbose logfile logs-max:10 dir:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/task-cache/_logs/2026-10-01T21_32_46_291Z-
+10 verbose logfile /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/task-cache/_logs/2026-10-01T21_32_46_291Z-debug-0.log
+11 silly logfile done cleaning log files
+12 http fetch GET https://registry.npmjs.org/npm attempt 1 failed with ENOTFOUND
+13 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+14 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/fixture-source
+15 verbose os Darwin 25.6.0
+16 verbose node v24.7.0
+17 verbose npm  v11.5.1
+18 verbose exit 0
+19 info ok

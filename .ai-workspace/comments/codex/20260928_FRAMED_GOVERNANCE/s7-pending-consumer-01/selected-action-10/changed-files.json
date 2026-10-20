@@ -1,0 +1,54 @@
+[
+  {
+    "preimage": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 39043,
+      "sha256": "e2d81582549dae9fa0b034cd490a3683206ddcf6b48553ca6752d4f22c03d935"
+    },
+    "current": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 47059,
+      "sha256": "1251352b6b54dc2d4165c221c2df2ca837a0cc28998fb0433ddd43568396e6cb"
+    },
+    "changed": true
+  },
+  {
+    "preimage": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "bytes": 15021,
+      "sha256": "0f8e9ccdaedfad99ea36670bc2ca43b94b8f5c799ee845270cd91aa32fd43787"
+    },
+    "current": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "bytes": 15022,
+      "sha256": "2ca292650b1ecd37266c6932c0c638fffdd5fe964e36c7ebf43a195c134201da"
+    },
+    "changed": true
+  },
+  {
+    "preimage": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 21971,
+      "sha256": "a9ea368be43d6b6d93dff8b1084f653997408185956f0f8a26b422520186d16d"
+    },
+    "current": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 21971,
+      "sha256": "a9ea368be43d6b6d93dff8b1084f653997408185956f0f8a26b422520186d16d"
+    },
+    "changed": false
+  },
+  {
+    "preimage": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "bytes": 5203,
+      "sha256": "ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5"
+    },
+    "current": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "bytes": 5203,
+      "sha256": "ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5"
+    },
+    "changed": false
+  }
+]

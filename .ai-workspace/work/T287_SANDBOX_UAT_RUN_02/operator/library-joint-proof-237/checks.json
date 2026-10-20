@@ -1,0 +1,28 @@
+{
+  "syntax": [
+    {
+      "command": "node --check responder.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check workload.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check fixture/checker.mjs",
+      "exitCode": 0
+    }
+  ],
+  "pureResponder": {
+    "command": "node --input-type=module <<'JS'\nimport assert from 'node:assert/strict';\nimport {fixtureJudgment} from './responder.mjs';\nimport {fixtureSelection, COMMAND, SUPPORT, STAGE, REPAIR, STAGED_REPORT, REPAIRED_REPORT} from './workload.mjs';\nconst selected=await fixtureSelection();\nassert.equal(selected.sources.length,3);\nassert.equal(selected.sources.some(row=>row.path==='fixture/value.txt'),false);\nassert.deepEqual(selected.request.workOrders.construction.writeRoots,['fixture/value.txt']);\nassert.equal(selected.request.testing.commands.length,1);\nassert.equal(selected.request.testing.commands[0].commandId,COMMAND);\nconst construction='graph-function://abiogenesis/default-library/construction@5';\nconst testing='graph-function://abiogenesis/default-library/testing@5';\nconst refs=['component-only:staged','component-only:red','component-only:repair','component-only:green'];\nconst schema={properties:{nextGraphFunctionRef:{enum:[construction,testing,null]},subjectEvidenceRef:{enum:[refs[0],refs[2],null]},nextEvidenceRefs:{items:{enum:refs}}}};\nconst stage={purpose:'construction',resultRef:refs[0],observed:{report:{summary:STAGED_REPORT}}};\nconst red={purpose:'testing',resultRef:refs[1],observed:{commandResults:[{commandId:COMMAND,exitStatus:1,timedOut:false,processSignal:null,stdout:{displayOnly:true,excerpts:[{startByte:0,endByte:54,text:'FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\\\n\"\\n'}]}}]}};\nconst repair={purpose:'construction',resultRef:refs[2],observed:{report:{summary:REPAIRED_REPORT}}};\nconst green={purpose:'testing',resultRef:refs[3],observed:{commandResults:[{commandId:COMMAND,exitStatus:0,timedOut:false,processSignal:null,stdout:{encoding:'utf8',text:'FIXTURE_VALUE_FIXED\\n'}}]}};\nconst prompt=observations=>'## task\\n'+JSON.stringify({taskRef:selected.request.taskRef,unresolvedSupportRefs:[SUPPORT],observations,subjectEvidenceDomains:{testing:[refs[0],refs[2],null]}})+'\\n\\n## evidence\\n{}';\nconst judge=(observations,mode='audit',carrier=schema)=>fixtureJudgment(prompt(observations),carrier,mode);\nassert.equal(judge([],'basis').contributions[0].contribution,STAGE);\nassert.equal(judge([stage],'basis').nextGraphFunctionRef,null);\nassert.equal(judge([stage]).subjectEvidenceRef,refs[0]);\nassert.equal(judge([stage,red]).contributions[0].contribution,REPAIR);\nassert.match(judge([stage,red]).nextReason,/actual C2 exit 1/i);\nassert.equal(judge([stage,red,repair]).subjectEvidenceRef,refs[2]);\nconst gap=judge([stage,red,repair,green]);\nassert.equal(gap.nextGraphFunctionRef,null);\nassert.equal(gap.subjectEvidenceRef,null);\nassert.deepEqual(gap.gaps[0].supportRefs,[SUPPORT]);\nassert.deepEqual(judge([stage,red,repair,green]),gap);\nassert.throws(()=>judge([stage,{...red,observed:{commandResults:[{...red.observed.commandResults[0],exitStatus:2}]}}]),/Unexpected actual C2 failure/);\nassert.throws(()=>judge([stage],'audit',{properties:{...schema.properties,nextGraphFunctionRef:{enum:[construction,null]}}}),/ineligible/);\nconst stream=[{type:'system',subtype:'init'},{type:'result',subtype:'success',is_error:false,result:JSON.stringify(gap),structured_output:gap}].map(row=>JSON.stringify(row)+'\\n').join('');\nassert.deepEqual(JSON.parse(stream.trim().split('\\n')[1]).structured_output,gap);\nconsole.log(JSON.stringify({disposition:'pass',cases:['source-and-scope-data','initial-construction','basis-gap','actual-domain-testing-selection','known-red-cause-before-repair','repaired-result-testing-selection','green-gap-no-acceptance','stateless-restart-decision','unexpected-red-refusal','ineligible-testing-refusal','structured-stream-framing'],premise:'Pure responder data checks with component-only refs; no runtime owner, worker process, native effect, Public setup or Run was executed.'}));\nJS",
+    "result": {
+      "chunk_id": "8232da",
+      "wall_time_seconds": 0.000006417,
+      "exit_code": 0,
+      "original_token_count": 120,
+      "output": "{\"disposition\":\"pass\",\"cases\":[\"source-and-scope-data\",\"initial-construction\",\"basis-gap\",\"actual-domain-testing-selection\",\"known-red-cause-before-repair\",\"repaired-result-testing-selection\",\"green-gap-no-acceptance\",\"stateless-restart-decision\",\"unexpected-red-refusal\",\"ineligible-testing-refusal\",\"structured-stream-framing\"],\"premise\":\"Pure responder data checks with component-only refs; no runtime owner, worker process, native effect, Public setup or Run was executed.\"}\n"
+    }
+  },
+  "classification": "Preparation-only caller fixture checks. Component-only raw references are supplied data, not admitted runtime evidence. No Public owner, worker process, setup or Run was dispatched."
+}
+

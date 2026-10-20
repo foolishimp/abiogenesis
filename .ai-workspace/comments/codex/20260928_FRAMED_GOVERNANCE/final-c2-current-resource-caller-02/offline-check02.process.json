@@ -1,0 +1,12 @@
+{
+  "name": "offline-check02",
+  "args": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/offline-check.mjs"
+  ],
+  "pid": 27985,
+  "code": 0,
+  "timedOut": false,
+  "budgetMs": 60000,
+  "elapsedMs": 1155.2334590815008
+}

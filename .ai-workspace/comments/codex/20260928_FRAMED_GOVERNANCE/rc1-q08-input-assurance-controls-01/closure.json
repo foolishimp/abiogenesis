@@ -1,0 +1,33 @@
+{
+  "operation": "T287_Q08_INPUT_ASSURANCE_GRANT_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T07:25:30.501329+00:00",
+  "outputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-assurance-controls-01/subject.json",
+      "bytes": 543,
+      "sha256": "2af5d804a78df2433a709ed7051a438325a73acf48423f44523fa01180c5e561",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-assurance-controls-01/request.txt",
+      "bytes": 3538,
+      "sha256": "68bde09a42d082b8fc146b4feb646661a5e39f20c95fd4d48f447d04aaf95b67",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 519562,
+      "sha256": "edc79218c6e6b3a8631ca01842c8abba181ce737314aaa89896b50135e33dc5a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 479040,
+      "sha256": "c367e137c821811854f7a6d0dfbcc4baec955312f65abbe5fd91cbdb21123754",
+      "mode": 420
+    }
+  ],
+  "candidateInputSourceRuntimeGitNetworkEffects": 0
+}

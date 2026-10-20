@@ -1,0 +1,36 @@
+{
+  "command": "commands/focused-native-01.json",
+  "firstRequiredFailure": "m5-s06-prime.test.mjs:855 expected unownedPhysicalRelation.kind linked; actual refused",
+  "Product": {
+    "productId": "product://s06-prime/native-source@5",
+    "packageName": "@s06-prime/native-source",
+    "contentDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "oldPopulation": {
+    "advertisedNativeRows": 0,
+    "sources": 1,
+    "closures": 1,
+    "contractEvidence": 0,
+    "packageMetadata": "absent legacy helper"
+  },
+  "oldSource": "build/product.d.ts re-exports Target as Source from @s06-prime/native-dependency/product",
+  "earliestRefusal": "nativeProductApplicability: no advertised native rows with retained sources/closures cannot be genuine empty applicability",
+  "newPopulation": {
+    "advertisedNativeRows": 1,
+    "sources": 2,
+    "closures": 2,
+    "contractEvidence": 1,
+    "packageMetadata": "absent legacy native helper preserved"
+  },
+  "newSource": "existing build/product.d.ts and ./product closure intact; independent build/local.d.ts and ./local closure with exact Local contract and empty pendingSelectors",
+  "identity": "existing same-Product identity preserved",
+  "authority": "Root explicitly selected exact arrangement within same granted test file after joining Product/Identity/Proof/Integration",
+  "noAuthorityAdded": [
+    "no direct target dependency",
+    "no external contract owner",
+    "no source or closure deletion",
+    "no assertion change",
+    "no production weakening"
+  ],
+  "repairedTestSha256": "aec911e94dfb4e237188d52606956ff41fd8e5d910abbf783d4f0eee485f91a7"
+}

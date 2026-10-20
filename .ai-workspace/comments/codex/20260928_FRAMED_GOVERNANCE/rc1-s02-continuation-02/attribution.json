@@ -1,0 +1,28 @@
+{
+  "status": "bounded_caller_proof",
+  "workerActor": "/root/rc1_s02_continuation",
+  "runtimeAuthorizedOperatorRef": "actor://abiogenesis/t287/rc1-s02-substitution-01/operator",
+  "callerGrant": "T287_RC1_S02_CONTINUATION_02",
+  "constructiveOwners": "Installed C02 GTL declaration/Program and Product input constructors; HoG direct traversal; declared F_D implementation owners; ABG event admission and Event Calculus; installed Public CLI/result/replay owners.",
+  "semanticAuthors": "Existing frozen C02 Product/source and independent retained scenario oracles; Worker did not author ABG results, judgments, events, closure or semantic expectations from observed outputs.",
+  "workerAuthored": [
+    "finite ordinary Public calls and effect coordinates",
+    "source-grounded external assertions",
+    "bounded new evidence reports"
+  ],
+  "historicalFixtureLimits": [
+    "Frozen m5 workflow omitted-child refusal oracle is discredited; no such refusal expected or executed.",
+    "Private runtime test harness, synthetic prefixes and forced terminalization were not executed.",
+    "Old donor fan-out input has caller-authored member refs; actual current public GTL input constructor was used, with exact resulting identities conserved."
+  ],
+  "nativeRuntimeEvidence": {
+    "startCalls": 9,
+    "freshReads": 18,
+    "actualObservedDispositions": {
+      "completed": 5,
+      "blocked": 4
+    }
+  },
+  "assessmentIndependence": "This Worker readiness result is not independent assurance or F11 semantic assessment; Root alone commissions/consumes separate review.",
+  "qualificationClaim": false
+}

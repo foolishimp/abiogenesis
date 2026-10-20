@@ -1,0 +1,284 @@
+{
+  "status": "CLOSED",
+  "verdict": "GO \u2014 bounded Source/UnitProof only",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/freeze.json",
+    "sha256": "57cc8f6ad69c1549d49a2492ee18422c784b4f01ae62270f366f5f283a0cf665",
+    "bytes": 43224
+  },
+  "completeSubjectVerification": {
+    "evidencePinCount": 146,
+    "mismatches": 0,
+    "scope": "all frozen evidencePins acquired during this independent review; no actual event-log acquisition"
+  },
+  "selectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "318d61a2177220a4838fa7210b386dd9692bb8897eaa701504b651d1325699fa",
+      "bytes": 34998
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "c326c582ca6cdedb24209814859b946fec06b07642653b93612c756235cbc48f",
+      "bytes": 57758
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/abg/invocation_admission.ts",
+      "sha256": "e3069cc9c2d8d1153673a9f33c2795c282f713d9b307e0e90f32596a49106ac3",
+      "bytes": 74139
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/owner_bindings/run_invocation.ts",
+      "sha256": "708023a2fe0835efa47521599ad852468092e3295bbc74ab4ae157063324c6fe",
+      "bytes": 84806
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/product/run_invocation_operation.ts",
+      "sha256": "e7c7803fc5e6d741a0a89b76b9ed7c66102c8602333fcb6bf217a59e3724cfa3",
+      "bytes": 33076
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/product/semantics.ts",
+      "sha256": "716e047b6635553b98ead38618281aac9613ceb60c870af31c138840a0bb98e4",
+      "bytes": 24269
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/product/builtin_semantics.ts",
+      "sha256": "79e4e13b773be7ef10ad36a2a9ae48de7f4511d6cb96e127fc613d906c08d058",
+      "bytes": 64872
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/abg/invocation_execution_truth.ts",
+      "sha256": "f2d6e47cdc23e3df095024982d0f13b99b4a014e2c03c581ee51c4c9cfec31dd",
+      "bytes": 33130
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/abg/default_library.ts",
+      "sha256": "55ee1f943bf9a7ec53eac37c21d2dc1a848975d1e8be43126f8d021d596e29dc",
+      "bytes": 33018
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "324e7f0d899b6202853021bf47d4a666f9ee7f48cb7b99f350ddc1fd532e119c",
+      "bytes": 29416
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/abg/native_worksite_execution.ts",
+      "sha256": "52e281a832ed32f82d725f81f5037504eae72feeea6fe7a2a99482d3d8b9e3a2",
+      "bytes": 13366
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/implementation/default_library.ts",
+      "sha256": "c354f4cf2575005919ebccf68fc81758ab1b3b9f0fe5216a857981bcfd9b5bc9",
+      "bytes": 6471
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "d4fee2081aba5eaaae2f77921aa4c94bcc65ec55c70be036d121bf4c546fdf1d",
+      "bytes": 153219
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "1e90f492ca5f8508037f17dac5a24e4eb99fc4cc0e2b9eda1a0c66489ef4822a",
+      "bytes": 39755
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/implementation/contracts.ts",
+      "sha256": "b1cff5f91c4b658255b195a10542ecc58032efef9380d320276a7a5a93dd5a4b",
+      "bytes": 19122
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "bfb90c5f5bf41b3929a5eb7e8f8d49a60a1d3b2892b82efc20a18738cb46499d",
+      "bytes": 77312
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/postimages/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "1f671cb9f14ea84b989cf6edadd34b7b04a0600fa39a77afe426de1c690a589a",
+      "bytes": 30925
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "cb7aeeb806f3e5ed9275d51a928a335698a06f2ce1ea1aaa93cd5af49ad1607b",
+      "bytes": 30840
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "8130de13afa2340b7b0b17c1e7b2a2176861aef300627d235be100b0a270acc8",
+      "bytes": 53773
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/abg/invocation_admission.ts",
+      "sha256": "e43694ac072cd60c08560200372a05bdf9ca41d15a734da355bd6dfd0593ca96",
+      "bytes": 71927
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/owner_bindings/run_invocation.ts",
+      "sha256": "4a78213ed2d4f22e3b864ebe58025746b389476d6517d1440dedbde33d6034e1",
+      "bytes": 83250
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/product/run_invocation_operation.ts",
+      "sha256": "903e3525d82af7822066fd1a3bef9eb83ef3c684f8bafe922d68d3b3be219ca9",
+      "bytes": 32288
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/product/semantics.ts",
+      "sha256": "b6919041f617814eae22d48b2b6e646fe1b2f9edc889708134f911472398f581",
+      "bytes": 19603
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/product/builtin_semantics.ts",
+      "sha256": "83962d336474fc2597319262a92db4933a788127fee6b0bfc1079626b7cb4fa7",
+      "bytes": 64470
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/abg/invocation_execution_truth.ts",
+      "sha256": "9dce495c2de00996e3a600c626d3110b2750d89c31b116a9363f724c71294f50",
+      "bytes": 17582
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/abg/default_library.ts",
+      "sha256": "3b6a8975da2c315258659aa9f113d156a8711a9e4b7a5ea83e617ccaf86f0270",
+      "bytes": 32405
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "e77b0450ca49ddd9146291b3c58b16395edbbd7a8baaf2aca0ceed22e65cbced",
+      "bytes": 20379
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/abg/native_worksite_execution.ts",
+      "sha256": "52e281a832ed32f82d725f81f5037504eae72feeea6fe7a2a99482d3d8b9e3a2",
+      "bytes": 13366
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/implementation/default_library.ts",
+      "sha256": "6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7",
+      "bytes": 6205
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "d4fee2081aba5eaaae2f77921aa4c94bcc65ec55c70be036d121bf4c546fdf1d",
+      "bytes": 153219
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "1cafd35e6f37ddd64cb079b578c78a0e0332ec7bfbe4a423dea6c18335b47cac",
+      "bytes": 28712
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/implementation/contracts.ts",
+      "sha256": "a9da9a1b7103db0c180615e22af86a8d8218aa2ad6e7c515d67263c7d96dcc21",
+      "bytes": 18689
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimages/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "a195281811bac8860dacebfbd489c5aaec7e3d79439bc89dd035891c9ed30813",
+      "bytes": 76599
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/return.md",
+      "sha256": "8645d4b8ace589800862de7c0aa4290fc345138528b8ea506f54bdc6fd458292",
+      "bytes": 3373
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/readiness.json",
+      "sha256": "6bbcb69c170ad5eb1e7a9528659a11be3f59839658a6febf9d1252707bf782e4",
+      "bytes": 39295
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/freeze.json",
+      "sha256": "57cc8f6ad69c1549d49a2492ee18422c784b4f01ae62270f366f5f283a0cf665",
+      "bytes": 43224
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/source.diff",
+      "sha256": "a9c9b5364721cccae90983884457671937eb56b1f3202be0885d3e213e8a76ae",
+      "bytes": 132762
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/preimage-inventory.json",
+      "sha256": "039281194872d7e8f60d65a24b1b9c887dd5402290a658f5a2dac10716ffd0cc",
+      "bytes": 59942
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/commands/private-route-profile-conservation.json",
+      "sha256": "252dfea6d9a348e9815d019bbe1f035166200bc195cc59f604e42cbf83046d02",
+      "bytes": 547
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/commands/strict-05.request.json",
+      "sha256": "c0580fdc4ba80f021d3023e490c943a106494bc1f1c826801911aa36069fb59b",
+      "bytes": 584
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/commands/strict-05.result.json",
+      "sha256": "69a1d40e7aaa5d61b1e9b853575113766817c5f027c6b060731ef59609c96973",
+      "bytes": 95
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/commands/focused-04.request.json",
+      "sha256": "8c642346730cb94b75a528102ce2c3111a16a9fc642561dc24e8f0042f2e3d41",
+      "bytes": 1267
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/commands/focused-04.result.json",
+      "sha256": "6f49cecdef0b529ff846f5a05b170548fd6168d4e63ff961c68cd0bbab94142b",
+      "bytes": 98
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/commands/focused-04.stdout.log",
+      "sha256": "d5e8038b8b22665728bcf88e74ea39041b7c60cd938b580aa2baba7ce87583a5",
+      "bytes": 3156
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "bytes": 11790
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "bytes": 93690
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+      "bytes": 6297
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "bytes": 16630
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "bytes": 4277
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "bytes": 25514
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/identity.json",
+      "sha256": "295dd60aec382e6d31829b13e2fa7760cd3202a0d319872bc8ada9bbfeb38c39",
+      "bytes": 5498
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/freeze.json",
+      "sha256": "4b29ced64b5ef232d7b7ba928dd79ba40624388a2dad1fa59c2bd83b09a8a0f9",
+      "bytes": 5831
+    }
+  ],
+  "controlledPremises": "Installation/environment/cover/source/replay/later producer and new-transcript premises disclosed by Source143; real canonical and physical constructors used.",
+  "excludedClaims": [
+    "actual installed covered-source admission",
+    "native/C2/UAT/model adequacy",
+    "publication/release",
+    "whole live-tree parity"
+  ],
+  "effects": "only new Reviewer147 return/pins/freeze"
+}

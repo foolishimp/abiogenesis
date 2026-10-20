@@ -1,0 +1,54 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    {
+      archiveMode: 420,
+      installedMode: 493,
++     path: 'build/code/src/public/cli.js'
+-     path: 'build/code/src/abg/cli.js'
+    },
+    {
+      archiveMode: 420,
+      installedMode: 493,
++     path: 'build/code/src/public/codex_cli.js'
+-     path: 'build/code/src/abg/codex_cli.js'
+    }
+  ]
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/host-preparation.mjs:34:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      path: 'build/code/src/public/cli.js',
+      archiveMode: 420,
+      installedMode: 493
+    },
+    {
+      path: 'build/code/src/public/codex_cli.js',
+      archiveMode: 420,
+      installedMode: 493
+    }
+  ],
+  expected: [
+    {
+      path: 'build/code/src/abg/cli.js',
+      archiveMode: 420,
+      installedMode: 493
+    },
+    {
+      path: 'build/code/src/abg/codex_cli.js',
+      archiveMode: 420,
+      installedMode: 493
+    }
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

@@ -1,0 +1,63 @@
+{
+  "status": "unbound_preparation_only",
+  "body": {
+    "kind": "exact_candidate_qualification",
+    "projection": "basis",
+    "schemaVersion": "5.0.0",
+    "subjectKind": "pre_rc_candidate",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "productVersion": "5.0.0-rc.1",
+    "sourceInventory": {
+      "ref": "qualification-inventory://abiogenesis/107360f76fdbdfa7920d912aac2edc10ecaf80ca88406190748f28d834c40101",
+      "digest": "sha256:107360f76fdbdfa7920d912aac2edc10ecaf80ca88406190748f28d834c40101"
+    },
+    "artifact": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "digest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747"
+    },
+    "productManifest": {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "digest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+    },
+    "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+    "toolchain": {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "digest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+    },
+    "installedProduct": null,
+    "workspaceBinding": null,
+    "prospectiveRelease": {
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "namespace": "abiogenesis",
+      "profile": "one_project_unqualified",
+      "projectSubtree": ".",
+      "versionLine": "5.0.0",
+      "ordinal": 1,
+      "version": "5.0.0-rc.1",
+      "releaseClaim": {
+        "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/release-claims.json",
+        "digest": "sha256:d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+      }
+    },
+    "tenantManifest": null,
+    "coverageCatalog": {
+      "ref": "qualification-coverage://abiogenesis/6c90854b22856d95063cae6435d5f0d88e095ea540b96fcf7b4aa8a48e1eb6e0",
+      "digest": "sha256:6c90854b22856d95063cae6435d5f0d88e095ea540b96fcf7b4aa8a48e1eb6e0"
+    },
+    "lawBasis": {
+      "ref": "qualification-law://abiogenesis/a9e6b29d55f8e5e8b90bca1297e232e01ea47b56d23909b3587e8c55c46d229a",
+      "digest": "sha256:a9e6b29d55f8e5e8b90bca1297e232e01ea47b56d23909b3587e8c55c46d229a"
+    }
+  },
+  "auxiliaryBuildConfiguration": {
+    "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/toolchain.json",
+    "digest": "sha256:c8a694ddb749b3f8e2aa7c76afacf2e074b9b15ab12411b0dca8eb877037f8b1",
+    "meaning": "Node/npm build configuration evidence; not the native Product toolchain manifest"
+  },
+  "requiredNativeBindings": [
+    "installedProduct",
+    "workspaceBinding",
+    "tenantManifest"
+  ],
+  "construction": "Genuine owner outputs then constructQualificationIdentity(body,basisRef,basisDigest,qualification-basis://abiogenesis/). Not a ready basis."
+}

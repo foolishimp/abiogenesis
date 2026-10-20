@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.product.verify",
+    "memberKey": "verify"
+  },
+  "elapsedMs": 61.77749999999833,
+  "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "C02Records": 16774,
+  "Q01Records": 46,
+  "qualificationMembers": 1950,
+  "protectedFiles": 716,
+  "sourceGeneratedChanged": 6,
+  "externalControlsAndManifests": 19,
+  "allRequiredPopulationsConserved": true,
+  "toolchainPreview": "actual immutable Product manifest; Node/npm build configuration separate",
+  "runtimeSlots": {
+    "installedProduct": null,
+    "workspaceBinding": null,
+    "tenantManifest": null
+  },
+  "executionSelectionRef": "absent",
+  "coldModelPhysicalWorksite": false,
+  "staging": false,
+  "recipeOrTestExecution": false,
+  "nativeOrProviderCalls": 0,
+  "attributionChains": 0,
+  "GitEffects": 0,
+  "elapsedMs": 7870.23466732353
+}

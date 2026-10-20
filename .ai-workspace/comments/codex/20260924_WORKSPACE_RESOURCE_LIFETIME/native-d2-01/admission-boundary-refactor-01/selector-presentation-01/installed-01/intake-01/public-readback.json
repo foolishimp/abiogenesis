@@ -1,0 +1,31 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:0a301dfd6a049a9d022a3f0c9dd697205bc6e449ed58de633d06753a929ba1c5",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:56c2605fff365dda4178354b97d7a028d47518da34f66065e745a8bb50caa912",
+    "prefixLength": 131691951,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 31928.577334000005,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/intake-01/read-run_result.json",
+      "resultDigest": "sha256:71268dd113d376e48616b8770f1d12ee8fba3d10af91771fb280ddeb254046c7"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 33445.963875,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/intake-01/read-run_replay.json",
+      "resultDigest": "sha256:774ffa9d21811ca903297b1c786ad46695a154ba827b8b9dc6fcf2b5751a53f9"
+    }
+  ]
+}

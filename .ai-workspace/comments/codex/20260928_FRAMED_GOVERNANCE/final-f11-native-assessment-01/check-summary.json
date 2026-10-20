@@ -1,0 +1,16 @@
+{
+  "status": "PASSED",
+  "jobs": [
+    "offline-readiness",
+    "syntax-driver.mjs",
+    "syntax-ordinary-caller.mjs",
+    "syntax-public-support.mjs",
+    "syntax-native-checks.mjs",
+    "syntax-owner-checks.mjs"
+  ],
+  "pythonSyntax": true,
+  "aggregateElapsedMs": 12791.455,
+  "driverImported": false,
+  "nativeCalls": 0,
+  "movingResourceReads": 0
+}

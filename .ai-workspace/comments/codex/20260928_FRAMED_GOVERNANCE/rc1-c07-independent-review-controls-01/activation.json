@@ -1,0 +1,11 @@
+{
+  "operation": "T287_C07_CONSTRUCTION_ASSURANCE_GRANT_01",
+  "role": "Writer",
+  "actor": "/root",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T09:36:33.745542+00:00",
+  "exactGrant": "Prepare conditional independent construction assurance grant only; no acceptance of forthcoming candidate and no Reviewer activation until CLOSED exact pin supplied.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-independent-review-controls-01"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "stages": {
+    "setup": 600000,
+    "conformance": 600000,
+    "hello": 300000,
+    "read": 600000
+  },
+  "operationPlan": [
+    "catalog",
+    "catalog-view",
+    "conformance-hello-world",
+    "conformance-command-execution",
+    "hello-root",
+    "hello-root-run_result",
+    "hello-root-run_replay"
+  ],
+  "calls": 7,
+  "nativeCapSumMs": 3900000,
+  "allCommandGraceMs": 7000,
+  "terminationGraceMs": 1000,
+  "purePreflightAllowanceMs": 120000,
+  "driverBudgetMs": 4027000,
+  "retry": "none",
+  "source": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/budgets.json",
+    "bytes": 1019,
+    "sha256": "b1431274571a780b9ad1ae0bcb4337ce99d6f8414fdc61959d0d28ab6665b2d0"
+  }
+}

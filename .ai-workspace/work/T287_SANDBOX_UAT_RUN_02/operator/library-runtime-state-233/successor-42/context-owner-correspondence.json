@@ -1,0 +1,59 @@
+{
+  "kind": "source42_context_owner_correspondence",
+  "sourceCut": 42,
+  "artifactBasis": "same controlled component artifact for old41/new42 definition comparison; no installed/admitted identity",
+  "members": [
+    {
+      "path": "build/code/src/product/worksite_command_execution.js",
+      "byteCount": 109611,
+      "digest": "sha256:5bdc29e4ccad5c2d33d4ce309e9eab2d70a70c7843bf289b75a087f027f82322",
+      "memberRef": "source-member://abiogenesis/worksite/command-execution/renderer@5",
+      "startByte": 99666,
+      "endByte": 101974,
+      "spanByteCount": 2308,
+      "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+      "old40PolicyBytesEqual": true
+    }
+  ],
+  "policy": {
+    "textAndDigestEqual41": true,
+    "digest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345"
+  },
+  "programs": {
+    "byteCanonicalEqual41": true,
+    "selectedProgramDigest": "sha256:452726cf8b748db0edc9dbebbfaa4f1a7c619172dd5aa887fa1ad60619d805dd",
+    "completeProgramsDigest": "sha256:b3f7d628ea78dade9595d78f4f28694e8705c9178c5180d3228246aaa315211e"
+  },
+  "graphFunctions": {
+    "byteCanonicalEqual41": true,
+    "completeGraphFunctionsDigest": "sha256:2dd874a3ecf5bac7d5c6505e5b0f16b78561e53873efb58916f0d0b9dc863d62"
+  },
+  "completePublicationEqualAfterReplacingOnlyRunEnvironments": true,
+  "changedIdentities": {
+    "runEnvironment": {
+      "old": "sha256:b87701845c106702e1fd8b6c30be08335323347b8efe00730847f28127c6dbdb",
+      "current": "sha256:2177b700adb36fe1f3afd5f1ebeb79a7e320d3735ee17584ffe73c3c4101e9bf"
+    },
+    "inventoryRecord": {
+      "old": "sha256:b768f223bee6d203c7d5762f87b1bfca6a4f1facda12c9592b5bdb445d1f36c4",
+      "current": "sha256:876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7"
+    },
+    "contextInventory": {
+      "old": "sha256:c68a7417be1b63909e0bf1ba9bfa2eb0df2e9b6efdc37d2ff6ee9424c5a8e133",
+      "current": "sha256:0c30d3d0d8f5988f098e1ee5191f95b141fb1303f1a64b51cbeec1cc8744a557"
+    },
+    "publication": {
+      "old": "sha256:6fd627b1e99399f63a5140c03a2695df95e26785caa0ad36ad2a8df9ad4b8685",
+      "current": "sha256:3d43377ead7127ee4e7a9b59cc3cb10eb839061d7351c3e6713fa05a7611bcc9"
+    }
+  },
+  "inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/input-01/contracts/worksite/command-execution-context.inventory.json",
+    "digest": "sha256:876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7",
+    "byteCount": 255
+  },
+  "limits": [
+    "Pure existing GTL/context declaration owners and actual isolated member bytes; no normal manifest/capability generation, Product publication/install or runtime admission",
+    "Complete Program/GraphFunction equality uses same declared controlled artifact coordinates; actual canonical Product identity consequences remain ordinary publication proof"
+  ]
+}

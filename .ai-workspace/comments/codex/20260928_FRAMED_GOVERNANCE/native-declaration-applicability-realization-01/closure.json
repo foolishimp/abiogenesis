@@ -1,0 +1,15 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "activation": "T287_NATIVE_DECLARATION_APPLICABILITY_SOURCE_01",
+  "workResult": "source_ready_for_independent_review",
+  "consumer": "Root Executive /root",
+  "scope": "exact three postimages plus this report",
+  "noFurtherEdits": true,
+  "reviewerActivated": false,
+  "sourceAccepted": false,
+  "sourceAcceptanceOwner": "Root after independent Source review",
+  "readiness": "readiness/summary.json",
+  "return": "return.md",
+  "at": "2026-10-02T00:14:49.467490+00:00"
+}

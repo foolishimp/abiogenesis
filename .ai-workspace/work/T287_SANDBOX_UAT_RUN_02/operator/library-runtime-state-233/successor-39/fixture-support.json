@@ -1,0 +1,9 @@
+{
+  "kind": "unchanged_existing_fixture_support",
+  "file": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-01/test_env/support/t287-generic-job-worksite.mjs",
+    "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0",
+    "bytes": 9623
+  },
+  "basis": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs"
+}

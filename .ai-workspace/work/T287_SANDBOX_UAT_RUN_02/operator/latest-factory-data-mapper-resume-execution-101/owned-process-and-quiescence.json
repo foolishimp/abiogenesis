@@ -1,0 +1,49 @@
+{
+  "observedAt": "2026-10-08T10:18:10.408206+00:00",
+  "knownOwnedProcesses": [
+    {
+      "pid": 2691,
+      "label": "outer recorder",
+      "probe": "kill(pid,0)",
+      "observed": "absent_ESRCH"
+    },
+    {
+      "pid": 2693,
+      "label": "harness",
+      "probe": "kill(pid,0)",
+      "observed": "absent_ESRCH"
+    },
+    {
+      "pid": 6268,
+      "label": "provider admitted55",
+      "probe": "kill(pid,0)",
+      "observed": "absent_ESRCH"
+    }
+  ],
+  "providerGroup": {
+    "pgid": 6268,
+    "probe": "killpg(6268,0)",
+    "observed": "absent_ESRCH"
+  },
+  "signalsSent": [],
+  "nativeCliPid": "Not captured before observed receipt exit; no guessed PID.",
+  "firstStat": {
+    "device": 16777231,
+    "inode": 468063957,
+    "byteCount": 5271934,
+    "mtimeNs": 1791453908763729389
+  },
+  "lastStat": {
+    "device": 16777231,
+    "inode": 468063957,
+    "byteCount": 5271934,
+    "mtimeNs": 1791453908763729389
+  },
+  "intervalMs": 150,
+  "store": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T09-59-49-674Z-81e3a186-a2d9-42e0-bcc1-131eefcda893/resources/events/runtime.events.jsonl",
+    "sha256": "5dc5c5f9f12087a1daeb53f88c251ef2af844a9dc50743f7dac8d27e30895a50",
+    "byteCount": 5271934
+  },
+  "limit": "Known owned processes/group only, no global containment claim."
+}

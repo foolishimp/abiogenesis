@@ -1,0 +1,11 @@
+{
+  "stage": "product-install-0-grant-start",
+  "elapsedMs": 44200.36387500001,
+  "at": "2026-10-10T16:29:49.446Z",
+  "rss": 3372957696,
+  "heapTotal": 1086029824,
+  "heapUsed": 965835984,
+  "external": 2566149,
+  "arrayBuffers": 153842,
+  "beforeAcquisition": false
+}

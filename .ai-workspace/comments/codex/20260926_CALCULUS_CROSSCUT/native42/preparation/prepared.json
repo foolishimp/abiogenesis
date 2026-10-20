@@ -1,0 +1,229 @@
+{
+  "status": "CLOSED_PREPARED_NOT_LAUNCHED",
+  "sourceRun": {
+    "digest": "sha256:c280b9cb5ecad0cfe6f7eb88d97aeabd17dcf3a30b4a1c86aadc93f2910999a2",
+    "ref": "run://abiogenesis/1d11eb78db2cb203eddb1229b2fb695ea37ebe499b4abdcdff71a6d2a8fcc51c"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:8ce6993a3da239407c9fb970c6ba06d03a5bb148985dde38d03ef3fd1da25ea3",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:ed0310df78eeda21c8f17af59455eb0c8bf3948fe3eceec2efb8c7317a904ad8",
+    "prefixLength": 429545568,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "successorCloseHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "prefixLength": 435553414,
+      "prefixDigest": "sha256:a74866a754119ec4b2d00b0e4a34c0cc621e492413955dc50bba2083cdb0b1d6",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 459405010,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+      },
+      "coordinateDigest": "sha256:6bc8181e43f035e939b44a525fa6ce08c3e45d93b4073dd819251604b5f22444"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "device": 16777230,
+      "inode": 459405010,
+      "eventLogDigest": "sha256:a74866a754119ec4b2d00b0e4a34c0cc621e492413955dc50bba2083cdb0b1d6",
+      "durableByteLength": 435553414,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "authorityDigest": "sha256:677481ceecf400f187bae6197c2ac2768d4e89963660ab89ff805e0eface84ee"
+    }
+  },
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite42-install-f93dwqhi/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-42/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-42/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:53526cfcfa4c5cff3fb5837924e3aa2c7d1ef85cdf9402905072b18affc5706c",
+      "productContentDigest": "sha256:ca8e0f255863449455bfe4dd817cc072e8cdb1fd1aa19dafb96586931462acb8",
+      "manifestDigest": "sha256:d6b84331ed4d8d1d00aecdf255033df8804eb4e09469cb33abc469593f825fdd",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "consumer": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/odd-glc-dev16-install-QrmYAx/node_modules/@odd-glc/route-one-typescript",
+    "artifactPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev16/artifacts/odd-glc-route-one-typescript-0.2.0-dev.16.tgz",
+    "basis": {
+      "packageName": "@odd-glc/route-one-typescript",
+      "packageVersion": "0.2.0-dev.16",
+      "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.16",
+      "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "graphFunctionRef": "graph-function://odd-glc/generic-lifecycle-witness@5",
+      "graphRef": "graph://odd-glc/generic-lifecycle-witness@5",
+      "startRef": "start://odd-glc/generic-lifecycle-witness@5",
+      "closureContractRef": "contract://odd-glc/generic-lifecycle-witness/closure@5",
+      "descriptorRef": "descriptor://odd_glc/route-one-typescript@0.2.0-dev.16",
+      "contributionManifestRef": "contribution-manifest://odd_glc/route-one-typescript@0.2.0-dev.16",
+      "catalogRef": "catalog://odd_glc/public-contracts@0.2.0-dev.16",
+      "provenanceRef": "provenance://odd_glc/route-one-typescript@0.2.0-dev.16",
+      "sourceDeclarationRef": "declaration://odd-glc/generic-lifecycle/source@5",
+      "sourceGraphFunctionRef": "graph-function://odd-glc/generic-lifecycle/source@5",
+      "sourceModuleRef": "module://odd-glc/generic-lifecycle-source-setup@5",
+      "sourceProgramRef": "program://odd-glc/generic-lifecycle-source-setup@5",
+      "sourceClosureContractRef": "contract://odd-glc/generic-lifecycle/source/closure@5",
+      "lifecycleDeclarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+      "artifactDigest": "sha256:3ca34c270eff38076c6b005559b67ced6dcc88bf87d99d9bc7d5887b118c7d8e",
+      "productContentDigest": "sha256:279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380",
+      "manifestDigest": "sha256:35372ceb02644d77c936cb4ba1f89c9a328e23d6ea9bec1d8fc520dfef2d1226"
+    },
+    "core": {
+      "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite39-install-xbnvtzyx/node_modules/@abiogenesis/typescript-tenant",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-39/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-39/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "basis": {
+        "artifactDigest": "sha256:3092d51178ad0f2aa7ea356802d8e385884d1879b82ebf4d7d09607bfb28bfc5",
+        "productContentDigest": "sha256:c73e339929b2c480639bd2bcfa73a4a8f59062123e8ed75f1b4adc7966541941",
+        "manifestDigest": "sha256:9b291706310b70ce730440d0524cad25d6d81ffba6a8ef8bc280e5a85720688d",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1"
+      }
+    }
+  },
+  "workspaceRoot": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap",
+  "programRef": "program://odd-glc/native-semantic-revision/intake@5",
+  "programDigest": "sha256:f2e1a844963bdc34e59194d01b8448a6eb35ba68cb4b1065dff549d7f13f2545",
+  "input": {
+    "kind": "native_semantic_revision_intake",
+    "schemaVersion": "5.0.0",
+    "sourceRun": {
+      "digest": "sha256:c280b9cb5ecad0cfe6f7eb88d97aeabd17dcf3a30b4a1c86aadc93f2910999a2",
+      "ref": "run://abiogenesis/1d11eb78db2cb203eddb1229b2fb695ea37ebe499b4abdcdff71a6d2a8fcc51c"
+    },
+    "sourcePrefix": {
+      "coordinateDigest": "sha256:8ce6993a3da239407c9fb970c6ba06d03a5bb148985dde38d03ef3fd1da25ea3",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:ed0310df78eeda21c8f17af59455eb0c8bf3948fe3eceec2efb8c7317a904ad8",
+      "prefixLength": 429545568,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    }
+  },
+  "launchPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation/intake-start.jsonl",
+  "launchDigest": "sha256:cd6e80cc9dd2fef369391ae8e3dc22fec6928af9027b42620f47427f2aa31344",
+  "transport": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "12"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:51050fef1e4a879e1ca851cdfefa9b50fed352647037f08fef95405c3edc6803"
+  },
+  "readbackMs": 600000,
+  "maximumPaidOccurrences": 1,
+  "perOccurrenceUsd": 12,
+  "calls": [
+    {
+      "label": "verify-core42",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/198dd51253dc72496ddeeade3bd3bafb19d41aca0e31ea38a84820494dac3fda"
+    },
+    {
+      "label": "verify-dev16",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/804d8ebdacfb03339e52f2a3e3b10b47652d2105bb58eaae0bc6f8094a3633a4"
+    },
+    {
+      "label": "resolve-core42-dev16",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/a766533de33fe85e166dd84942c8654e4b2e98c3b7322a7bc03879becebb7059"
+    },
+    {
+      "label": "install-core42",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/edeb0b949960c27837e85bd410d64d3e07eb1bdaaaeed34a681f20bd42c27f67"
+    },
+    {
+      "label": "install-dev16",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/b5aaff8f6e7662ef59f2462f0267ac0639cfeff02fd43743ed0fbc3e8a370973"
+    },
+    {
+      "label": "bootstrap-native-d2-intake-bind-existing-workspace",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "invocationRef": "invocation://abiogenesis/9f3f87ec1c48887d679121503bf4e24761fe6c680bf0cd48ba59ab2ecfb77903"
+    },
+    {
+      "label": "catalog",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "invocationRef": "invocation://abiogenesis/3d8ce698b71f99b32be7e8e89fd9b14ed2e7e9ce98c9f83f5253f6cbf82bc287"
+    },
+    {
+      "label": "view",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "invocationRef": "invocation://abiogenesis/dd3224909e6424460f8a34ca54765d62c7fb687215c6d9eaa26092e6e93f31bf"
+    },
+    {
+      "label": "intake-conformance",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/9dba9f641accf3701193fcdc597d13098c46acbccf36e8cb50258add65257910"
+    }
+  ],
+  "noActors": true,
+  "noApplicationEffects": true,
+  "pureLookupExport": "@odd-glc/route-one-typescript/native-lifecycle",
+  "next": "Root STEP6 selected ordinary original-root read, actual reprice witness, one intake and authenticated-choice declared suffix; no automatic retry"
+}

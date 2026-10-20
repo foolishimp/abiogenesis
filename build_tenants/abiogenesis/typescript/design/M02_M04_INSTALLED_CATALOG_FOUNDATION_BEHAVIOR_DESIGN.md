@@ -584,6 +584,50 @@ admission over a finite submitted carrier, not `C.batch` or hidden graph
 workflow. Public GraphFunction invocation and its ordinary M03 traversal are
 deferred and therefore absent from this sequence.
 
+### Fixed definition owner handoffs
+
+The actual verifier's immutable Product results may share the existing
+`resolveProductArtifacts` result, including both lock and linked declarations,
+between native and Public resolution. Reuse is private to that owner and exact
+verified Product population and compiler basis. A copied carrier, changed
+Product/dependency or unavailable owner result follows ordinary complete
+resolution. No serialized lock or digest alone supplies this provenance.
+Catalog construction likewise retains its own immutable result and narrowed
+view; execution resolution consumes those actual results while independently
+checking current install admission and binding. Raw Catalogs and views retain
+complete reconstruction. These derivations are optional and discardable; cold
+verification and physical managed-dependency checks keep their existing law.
+
+### Managed Product dependency materialization correspondence
+
+REQ-P-CATALOG-011/-012/-014 and REQ-P-INSTALL-044/-051/-055 distinguish
+one selected immutable Product lock from ordinary npm materialization. Before
+returning an installed candidate, the Product install owner reads back every
+declared managed Product dependency from the materialized package's actual
+Node package search paths. Each dependency must be inside that installation,
+have the exact selected package/Product/manifest identity, and pass the
+existing complete payload-inventory and capability-graph checks against its
+resolved-lock row. The same check follows the selected dependency's declared
+managed dependencies; an unrelated npm utility is not promoted to a managed
+Product by this check.
+
+The input is the verified supplied artifact and the existing complete resolved
+lock; the output remains the existing installed candidate or typed
+`dependency_lock_mismatch` refusal. A missing, crossed or different-content
+same-name/version dependency cannot become installed, admitted or callable
+under another row's lock. A package's immutable `file:` dependency is not
+rewritten or fetched from a digest to make it match. A different intended
+composition requires its own supplied immutable consumer and explicit lock.
+The installer neither overwrites historical products nor grants a package
+control of runtime admission. Installation, binding, catalog admission and
+current-use checks remain separate owner operations.
+
+The focused proof uses real packed artifacts and physical temporary installs:
+correct selected dependency payloads succeed; stale same-version, missing and
+crossed managed payloads refuse before the installed-candidate claim. It does
+not substitute a provider-shaped callback for actual dependency material and
+does not qualify the later source-use/native/UAT composition.
+
 ## Lifecycle State Machine
 
 ```mermaid

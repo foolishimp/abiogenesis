@@ -1,0 +1,68 @@
+{
+  "kind": "separately_activated_worker",
+  "status": "CLOSED",
+  "operation": "T287_F11_CALLER_REPAIR_AND_FAILED_READBACK_01",
+  "actor": "/root/q03_input_review Worker",
+  "priorAuthorDiagnostic": "CLOSED; explicitly non-independent",
+  "reentry": "realization_refactor",
+  "ProductFrame": "Fixed15 GOAL035/T287 active F11; STDO2.5.1RC2; exact C05 Product and actual Setup05 install distinct; existing HOW/WHAT unchanged",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-fp-delivery-repair-controls-01/caller-request.txt",
+    "bytes": 4565,
+    "sha256": "ed0eed8fd6971303ce52638c744a4a996307b9a7ac2ed5192ee30f38d1c45a0c"
+  },
+  "allSevenSectionsRead": true,
+  "conjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-fp-delivery-repair-controls-01/conjunction.json",
+    "bytes": 2944,
+    "sha256": "80bc2c2200c4b8a4bb3383e234765384174c007d6cc7aebdb672ea579487335f"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01",
+  "preservedQ06": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+    "bytes": 866138,
+    "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c"
+  },
+  "preservedRuntime06": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+    "bytes": 20017,
+    "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026"
+  },
+  "authenticClosedHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/closed-event-resource-handoff.json",
+    "bytes": 2586,
+    "sha256": "cdb9831d20cdf0de22e0b9a12bcdd93eeb03283ed6113aa2d4bd6113ab24fd37"
+  },
+  "frozenNode": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "permittedCalls": {
+    "sameProcessNominal": 1,
+    "freshCLIReadOnly": [
+      "run_result",
+      "run_replay"
+    ]
+  },
+  "prohibitedEffects": [
+    "setup",
+    "install",
+    "catalog",
+    "Task",
+    "Run",
+    "J",
+    "helper",
+    "provider",
+    "event append",
+    "source",
+    "candidate",
+    "Git",
+    "network",
+    "full qualification manifest load"
+  ],
+  "independentAssurance": false,
+  "startedAt": "2026-10-02T04:40:58.484541+00:00",
+  "closedAt": "2026-10-02T04:52:57.635952+00:00",
+  "workResult": "COMPLETED_BOUNDED_CALLER_REPAIR_AND_AUTHENTIC_FAILED_READBACK"
+}

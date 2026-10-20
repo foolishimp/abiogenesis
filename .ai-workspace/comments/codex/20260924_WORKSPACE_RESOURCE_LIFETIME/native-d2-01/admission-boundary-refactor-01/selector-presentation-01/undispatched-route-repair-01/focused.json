@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-undispatched-diagnostic.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "elapsedSeconds": 0.6699302503839135,
+  "exitCode": 0
+}

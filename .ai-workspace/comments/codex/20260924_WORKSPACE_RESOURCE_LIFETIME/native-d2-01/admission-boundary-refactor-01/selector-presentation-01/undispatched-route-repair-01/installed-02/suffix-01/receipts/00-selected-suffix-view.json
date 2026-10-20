@@ -1,0 +1,48 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.catalog.view",
+      "memberKey": "allowlist"
+    },
+    "invocationRef": "invocation://abiogenesis/7c2a630bb4b36ed88d6e5a540c8209344ae9a2dadc84aa7df78898f0d433a817",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "view": {
+          "ref": "graph-function-catalog-view://abiogenesis/82fc674eaeb3a2dc688f65f805f68bb90d7f58c55c133ffda1da79c8e20fb784",
+          "digest": "sha256:82fc674eaeb3a2dc688f65f805f68bb90d7f58c55c133ffda1da79c8e20fb784"
+        },
+        "effectiveHandles": [
+          "graph-function://odd-glc/native-semantic-revision/construction@5",
+          "graph-function://odd-glc/native-semantic-revision/from-requirements-projection@5",
+          "graph-function://odd-glc/native-semantic-revision/from-requirements@5",
+          "graph-function://odd-glc/native-semantic-revision/stage-2@5",
+          "graph-function://odd-glc/native-semantic-revision/stage-3@5",
+          "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+          "graph-function://odd-glc/native-semantic-revision/terminal@5"
+        ],
+        "residuals": []
+      }
+    },
+    "resources": {
+      "kind": "catalog_view_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "disposition": "read_only_unchanged",
+      "catalog": {
+        "ref": "graph-function-catalog://abiogenesis/abb0dc8b126f6a0fc2b4ec45fe2b24e48971564afb24376809f04394c93bb4a8",
+        "digest": "sha256:abb0dc8b126f6a0fc2b4ec45fe2b24e48971564afb24376809f04394c93bb4a8"
+      },
+      "view": {
+        "ref": "graph-function-catalog-view://abiogenesis/82fc674eaeb3a2dc688f65f805f68bb90d7f58c55c133ffda1da79c8e20fb784",
+        "digest": "sha256:82fc674eaeb3a2dc688f65f805f68bb90d7f58c55c133ffda1da79c8e20fb784"
+      }
+    },
+    "failure": null
+  }
+}

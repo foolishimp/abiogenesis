@@ -1,0 +1,17 @@
+{
+  "kind": "runtime_selected_component_check",
+  "args": [
+    "--expose-gc",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=terminal route-only|selected replay guard|finite pure candidate|ordinary selected route|drop complete output",
+    "dependency-cut-34/test_env/tests/t287-route-reconstruction.test.mjs"
+  ],
+  "sourceCut": 34,
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 2434.08375,
+  "limits": [
+    "Genuine disposable EventStore resources with controlled lower declaration/outcome premises; no installed native/Source41/campaign capacity proof"
+  ]
+}

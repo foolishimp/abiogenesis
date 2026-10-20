@@ -1,0 +1,9 @@
+ M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+ M build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+ M build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts
+ M build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts
+ M build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
+ M build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts
+ M build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+ M build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
+ M specification/GOALS.md

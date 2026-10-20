@@ -1,0 +1,16 @@
+{
+  "kind": "bounded_pure_diagnostic_correspondence",
+  "started": "2026-10-09T01:22:10.669Z",
+  "finished": "2026-10-09T01:22:10.670Z",
+  "wallMs": 0.1721249999999941,
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "owner": "event_contract_profiles.undispatchedOwnerDiagnosticRef + runtime_failure.readRuntimeFailureDiagnosticSubject/constructRuntimeFailureDiagnosticRef + shared/digests.sha256Canonical",
+  "nativeErrorProducesCanonicalRetainedJson": true,
+  "childSubjectDigest": "sha256:cf8503df14c970e023da0a2e2fd3c96f5a0b6e576b3b0ba0138fecb65fc73891",
+  "coordinateSubjectClassDigest": "sha256:e8a1c4df93ca0bb649898c2ef36bee4e5017d17b66e5c082c6094299e1e071d2",
+  "roundTripExact": true,
+  "guardSource": "runtime_failure.ts109-114/230-233: sha256Canonical(decoded diagnostic subject) must equal sha256Canonical(admission subject)",
+  "subjectClassDiscriminator": "Decoded owner subject contains diagnosticClassRef and stage preparation, while Source142 supplies stage child-failure and enclosing coordinates. Their canonical text differs independently of actual coordinate values.",
+  "result": "A current JSON carrier is supported; new142 argument pair violates existing owner digest relation if this live-child path is reached.",
+  "limits": "Pure canonical value correspondence plus source reachability, not new Run/child admission or end-to-end exception reproduction. No test retry or semantic owner mutation."
+}

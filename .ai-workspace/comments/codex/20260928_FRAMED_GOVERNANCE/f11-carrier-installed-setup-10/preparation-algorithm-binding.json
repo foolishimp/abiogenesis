@@ -1,0 +1,29 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/prepare-setup.py",
+    "bytes": 11968,
+    "sha256": "c67995dc7361d05128e7c76cee4b2f41ff8ce296fbba3d148ea62009a147f2bc",
+    "mode": 420
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/prepare-setup.py",
+    "bytes": 9263,
+    "sha256": "a8151a9b120e9953678d48b7d27ee86e4a0be5d3faca5e5c9367021147b4fd38",
+    "mode": 420
+  },
+  "sourceDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/freeze.json",
+    "bytes": 3912075,
+    "sha256": "cab9d9636723b8fa48719de8c6a664c384747c115901d621dbc861a0d6182c53",
+    "mode": 420
+  },
+  "adaptation": "reuse already generic CLOSED Setup09 caller/supervisor/finalizer; actual Root documentary independent-review record, not invented freeze; exact C10 acceptance/basis and current publication constructors; distinct setup10 callerIdentity; no altered Product semantics",
+  "failClosureDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/close-first-failure.py",
+    "bytes": 5987,
+    "sha256": "6149b0b9f4a4bd858a61a753014542b54b836e88c53fff113224901e0cd5b6c9",
+    "mode": 420
+  },
+  "payloadImports": 0,
+  "payloadCalls": 0
+}

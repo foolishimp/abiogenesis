@@ -1,0 +1,12 @@
+{
+  "role": "Operator107 deterministic successor publication",
+  "rootConjunction": "Source105 + independent106 CLOSED GO; all32 selected pins matched",
+  "frame": "ABI5 fixed15/GOAL035/T287/STDO2.5.1RC2 end-to-end-interface-integration",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-repair-105/freeze.json",
+    "sha256": "d5e9fa7e855b4b7366c8a1cc5e01fc2c2b99ca7ad30bf9c2e7146793d8a8779b",
+    "byteCount": 10159
+  },
+  "allowedEffects": "one normal build, one pack, clean offline host and actual owner verification, two-field resume config",
+  "nativeEffectsHeld": true
+}

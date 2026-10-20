@@ -1,0 +1,43 @@
+{
+  "status": "passed_at_preparation_scope",
+  "checks": [
+    {
+      "check": "Exact request",
+      "bytes": 4052,
+      "sha256": "241f54bd8cd31994b998088098a64ba9c46ce9c31b12075f700b99dd272ae261"
+    },
+    {
+      "check": "Archive members equal installed immutable donor preimages",
+      "members": 6
+    },
+    {
+      "check": "Source fixture equals installed fixture implementation",
+      "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+    },
+    {
+      "check": "Original oracle preserved byte for byte",
+      "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+    },
+    {
+      "check": "All original semantic/cold assertion bodies retained",
+      "result": "matched"
+    },
+    {
+      "check": "Node --check for caller-draft.mjs/original-consumers.mjs/sole-output-renderer.mjs",
+      "exitCodes": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "check": "44 source records unchanged since pin",
+      "changed": []
+    }
+  ],
+  "notPerformed": [
+    "No constructors, Product verification, nominalization, resource observations or oracle functions executed",
+    "No candidate build/install/runtime/provider/network/test suite/Git effect"
+  ],
+  "C03Join": "Pending accepted frozen candidate and separate execution grant; syntax and source correspondence do not establish execution readiness"
+}

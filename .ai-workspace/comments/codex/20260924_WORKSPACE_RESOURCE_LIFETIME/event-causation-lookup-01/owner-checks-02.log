@@ -1,0 +1,20 @@
+✔ M5 new-empty acquisition returns one genuine readable zero prefix (12.221375ms)
+✔ M5 EventStore batch factory interruption leaves the exact prefix unchanged (7.212625ms)
+✔ owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence (32.619291ms)
+{"kind":"owned_causation_lookup_growth","measurements":[{"events":128,"causalReferences":127,"live":{"lookups":127,"entries":128},"cold":{"lookups":127,"entries":128}},{"events":256,"causalReferences":255,"live":{"lookups":255,"entries":256},"cold":{"lookups":255,"entries":256}}],"limit":"lookup and index-entry counts only; immutable array copying and end-to-end latency unmeasured"}
+✔ owned causation lookup grows with causal references in live admission and cold reconstruction (53.044833ms)
+✔ held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback (37.4585ms)
+✔ M5 reopens one exact durable prefix without restamping and appends at max ordinal plus one (20.807958ms)
+✔ M5 rolls back an incomplete atomic F_H hold admission without a replay-visible prefix (20.723833ms)
+✔ M5 event contract refuses blank history and malformed kind/scope/payload variants (16.784291ms)
+{"kind":"trusted_desktop_owned_history","events":5,"liveHistoricalReadBytes":0,"coldReadBytes":4315,"eventLogBytes":4315}
+✔ trusted owned history conserves currentness, callback publication, rollback and cold reconstruction (286.648875ms)
+✔ owned append I/O failures restore committed bytes and hash or poison admission (99.907ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 834.951708

@@ -1,0 +1,7 @@
+{
+  "kind": "preserved_initial_test_premises",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/failed-premises-01.test.mjs",
+  "sha256": "11ea1b84b54a6c999f8eff494a2902ab8a29576ce03d5cb6683abc7a681589cd",
+  "failureReceipt": "commands/focused-01.result.json",
+  "productionUnchangedAfterCompile": true
+}

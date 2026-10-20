@@ -1,0 +1,12 @@
+{
+  "label": "syntax-prepare",
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prepare.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167",
+  "started": "2026-10-09T04:55:55.430373+00:00",
+  "effects": "Only167 receipts; no event resource or transport",
+  "NODE_OPTIONS": "unset"
+}

@@ -1,0 +1,324 @@
+{
+  "operation": "T287_Q13_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "disposition": "NO_GO_INPUT_PREPARATION_ONLY",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q12-triage-q13-controls-01/review-request.txt",
+    "bytes": 2685,
+    "sha256": "3b871a88939540acf700a114fc38d488b23aa840e87ee9c5254a199976624568",
+    "mode": 420
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/freeze.json",
+    "bytes": 18843,
+    "sha256": "2e41cc8d59d0741a663846058c5788c0d5c1e857992aa90b93ff48ffdf866684",
+    "mode": 292
+  },
+  "a_c": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "fixedAuthority": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 41647,
+      "sha256": "e0767072cd86114b742fc84e946d0012ffc8be541807e8fadb258b9b9e1714cb",
+      "mode": 420
+    }
+  ],
+  "acceptedPremises": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+      "bytes": 7019,
+      "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+      "bytes": 9596,
+      "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/review/freeze.json",
+      "bytes": 1810,
+      "sha256": "598d5681179d3e95cb5746fa3b6f5a3131f07ac2db0d9526c0dd0bc73c69210e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/review/freeze.json",
+      "bytes": 1859,
+      "sha256": "898f7670965bdca3f91c51e11947bdf51d22d3972b2e99b11cd6c98dfe150a8b",
+      "mode": 420
+    }
+  ],
+  "actualGrantAndTriage": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q12-triage-q13-controls-01/worker-request.txt",
+      "bytes": 4380,
+      "sha256": "baee8aff2aa4a3f7e9f5290cb09242630d1fb0574f8b1578f619d954a9441530",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q12-triage-q13-controls-01/triage.md",
+      "bytes": 3105,
+      "sha256": "6e5a8d495ad64b63f0d53f5f4c39362e1e31abeec110770f7765e41f00cc917c",
+      "mode": 420
+    }
+  ],
+  "evidence": {
+    "prepare-current-delta.py": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/prepare-current-delta.py",
+      "bytes": 7834,
+      "sha256": "6c681335ae66ef5e3982a3c8c5be765f5ff2ba22c3f44d21f20fa90e6bb4bc75",
+      "mode": 420
+    },
+    "f11/current-source-delta.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/current-source-delta.json",
+      "bytes": 60497,
+      "sha256": "7dc90f69cc03b39fae2a0860803f301aab67931a8e4de28d24580e7d2ce0faaa",
+      "mode": 420
+    },
+    "f11/current-source-delta-pin.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/current-source-delta-pin.json",
+      "bytes": 277,
+      "sha256": "ca3ec16021b1c857d6fd1e3c6373a23c96525fcc68419a5f19cd75d7c120715b",
+      "mode": 420
+    },
+    "current-source-delta-correspondence.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/current-source-delta-correspondence.json",
+      "bytes": 2278,
+      "sha256": "37893c65309888ad24c86c0e37df5492a4b4e6a88bc6e6228dde31fbecd9b520",
+      "mode": 420
+    },
+    "actual-copy-role-correspondence.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/actual-copy-role-correspondence.json",
+      "bytes": 16833,
+      "sha256": "05e3f85085201cf3bdee5624409edc08a98670fc3f7ff86ab7c97643262b2ab5",
+      "mode": 420
+    },
+    "run-delta-preflight.py": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/run-delta-preflight.py",
+      "bytes": 2453,
+      "sha256": "c7fff7bbddde5380e17e3c04e9af7a37a06c1af7ecbe1e421d5090d0bae263ea",
+      "mode": 420
+    },
+    "delta-supervisor-start.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/delta-supervisor-start.json",
+      "bytes": 1029,
+      "sha256": "6b8399bb5459bcaaac235af3750115304b091147bdc5f12d7421a12f27ec9b91",
+      "mode": 420
+    },
+    "delta-supervisor-close.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/delta-supervisor-close.json",
+      "bytes": 620,
+      "sha256": "c311d552492437d4dd76ea310dd6e05b36394074fbf7e0e0b3a95eeea36f3ae4",
+      "mode": 420
+    },
+    "delta-preflight.stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/delta-preflight.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 384
+    },
+    "delta-preflight.stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/delta-preflight.stderr",
+      "bytes": 839,
+      "sha256": "66cc931dc2edc51604920cc058c8a5be26ccaaabdc9b1b15500fcb693d05d286",
+      "mode": 384
+    },
+    "first-readiness-refusal.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/first-readiness-refusal.json",
+      "bytes": 3920,
+      "sha256": "17e8642aa5a2f123d5a0e25b7839587812cdef567a31034b4c43d7f9e2e60494",
+      "mode": 420
+    },
+    "accounting.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/accounting.json",
+      "bytes": 1499,
+      "sha256": "2be8c81a0a881fd47bf0c89a454214d300b67d2fe992fc97ced9b0a627faa1e5",
+      "mode": 420
+    },
+    "input-manifest.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/input-manifest.json",
+      "bytes": 2333464,
+      "sha256": "1ead7dcabe0c5876ca3001efa28ae0a15f05dc2de5cad1e0c2b67bf95619ba5f",
+      "mode": 420
+    },
+    "component-stage-plan.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/component-stage-plan.json",
+      "bytes": 362739,
+      "sha256": "6375d7099cde03b3f199c727d874ffa617275eb6ff14aa42377a868f39c4498f",
+      "mode": 420
+    },
+    "fixture-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/fixture-inventory.json",
+      "bytes": 86816,
+      "sha256": "f0b2d0fd4c262b9c1f41155786d89b263dfb6fe51b4bc6ce5b2bf31f85a0e088",
+      "mode": 420
+    },
+    "f11/source-authorship-records.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/source-authorship-records.json",
+      "bytes": 16092667,
+      "sha256": "29ebe3117d78c30892eadcbaeb0f08002a77c1c871d24ce5e78f63ab8ba494fd",
+      "mode": 420
+    },
+    "current-source-supplier-view.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/current-source-supplier-view.json",
+      "bytes": 1584963,
+      "sha256": "34512e684ca2ab08279ad337b1d6c4630ebb8d33e69740885cbb9297db443bb0",
+      "mode": 420
+    },
+    "f11/ordinary-caller.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/ordinary-caller.mjs",
+      "bytes": 18118,
+      "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+      "mode": 420
+    },
+    "f11/flow-driver.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/flow-driver.mjs",
+      "bytes": 6502,
+      "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+      "mode": 420
+    }
+  },
+  "independentChecks": {
+    "physicalRecords": 101,
+    "regularBodyBytes": 53975013,
+    "directories": 6,
+    "links": 0,
+    "pinsModesAndCensusErrors": 0,
+    "deltaChanges": 9,
+    "replacementCount": 7,
+    "additionCount": 2,
+    "exactCurrentC08ToC09BodyModeDelta": true,
+    "inheritedCallbackExcluded": true,
+    "allSourceTuplesBodiesPreimagePostimageOriginalRowsCanonicalDigests": true,
+    "eachCopyRoleMatchesOwnProducerAndCurrentConstructionActivation": true,
+    "legitimateAdditionHistoricalCopyAbsence": 2,
+    "derivedDeltaIdentityCorrect": true,
+    "original174Records23Chains90SpansAndBothProjectionsByteExactToQ11": true,
+    "original121Record12Chain46SpansConservedWithinAcceptedQ11": true,
+    "835PlanAndFiveC07FixtureInputManifestConserved": true,
+    "strictCallerAndDriverByteExactToQ11": true,
+    "actualHelperNegativeCasesExecuted": 0,
+    "newQ13InventoryProtectedRecipeSelfTaskResourceOwnerReadiness": false
+  },
+  "launchRelation": {
+    "managedCommand": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs"
+    ],
+    "savedStartCwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13",
+    "supervisorUsesInheritedCwd": true,
+    "moduleWriterRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13",
+    "reportedRelativeWriteErrors": [
+      "zsh:1: no such file or directory: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/source-delta-contract.mjs",
+      "zsh:50: no such file or directory: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs"
+    ],
+    "expectedAbsoluteEntry": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs",
+    "expectedAbsoluteImportedContract": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/source-delta-contract.mjs",
+    "bothExpectedModulesAbsentFromCompleteFrozenCensus": true,
+    "wrongRelativeWriteResolution": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs",
+    "entryErrorDirectlyMatchesSavedNodeStderr": true,
+    "writerCwdErrorSource": "Worker preserved first-failure report; module absence and launch error independently corroborated"
+  },
+  "actualProcess": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs"
+    ],
+    "pid": 16176,
+    "processGroup": 16176,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "exitCode": 1,
+    "timedOut": false,
+    "elapsedMs": 71.69329188764095,
+    "maxRSSBytesMacOS": 45301760,
+    "userSeconds": 0.015636999999999998,
+    "systemSeconds": 0.005827,
+    "RuntimeEffects": 0
+  },
+  "actualPreparation": {
+    "managedPurePreflight": {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs"
+      ],
+      "pid": 16176,
+      "processGroup": 16176,
+      "wait4Reaped": true,
+      "groupAfterWait": "absent",
+      "exitCode": 1,
+      "timedOut": false,
+      "elapsedMs": 71.69329188764095,
+      "maxRSSBytesMacOS": 45301760,
+      "userSeconds": 0.015636999999999998,
+      "systemSeconds": 0.005827,
+      "RuntimeEffects": 0
+    },
+    "preflightStderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/delta-preflight.stderr",
+      "bytes": 839,
+      "sha256": "66cc931dc2edc51604920cc058c8a5be26ccaaabdc9b1b15500fcb693d05d286",
+      "mode": 384
+    },
+    "managedPurePreflightLaunches": 1,
+    "completeTaskPayloads": 0,
+    "packetPayloads": 0,
+    "publishedProductImports": 0,
+    "fullResourceBodyMaterialization": 0,
+    "resourceSerializationBytes": null,
+    "assertionSerializationBytes": null,
+    "requestOrPromptBytes": null,
+    "qualificationCommandsExecuted": 0,
+    "nativeTaskRunJHelperProviderCalls": 0,
+    "SourceChanges": 0,
+    "builds": 0,
+    "candidateChanges": 0,
+    "GitEffects": 0,
+    "networkEffects": 0,
+    "retries": 0,
+    "defaultHeap": true,
+    "ordinaryHOME": true
+  },
+  "causeClass": "external harness realization violates existing owned output/entry/cwd launch relation; no missing architectural requirement identified",
+  "smallestReEntry": "Root multi-frame triangulation then separately granted realization_refactor within external preparation harness",
+  "affectedCone": [
+    "owned source-delta-contract.mjs and delta-preflight.mjs creation using one explicit successor root",
+    "fail-stop file creation/entry and dependency pin validation before managed launch; supervisor cwd/command/output binding",
+    "actual helper positive/nearest negative evidence over preserved role-aware delta",
+    "completion of external current-resources selector and prepare-resources consumer",
+    "affected input/inventory/protected/recipe-self/completeTask identities",
+    "basis/scope/task/plan/resource/declarations/request/prompt/pending snapshot/runtime bindings"
+  ],
+  "unknowns": [
+    "actual helper delta-refusal proof",
+    "current owner scope/resource/assertion/hash/reference guard/request/prompt readiness and measured envelope",
+    "context/material/source-attribution sufficiency and independence",
+    "installed Run/J/foldback/F11/readbacks/QUAL056/AF22/scenarios/release"
+  ],
+  "runtimeSemanticQualificationAcceptance": false,
+  "reviewerImportsTestsRepairNativeProviderNetworkGit": 0
+}

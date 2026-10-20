@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'environment_refusal'
+- 'workspace_binding_candidate'
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/preflight.mjs:17:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'environment_refusal',
+  expected: 'workspace_binding_candidate',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

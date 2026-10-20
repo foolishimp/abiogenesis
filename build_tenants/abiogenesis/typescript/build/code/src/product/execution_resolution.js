@@ -15,7 +15,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { validateImplementationResolutionSet, validateProgram, } from "../validator/index.js";
 import { admitGraphFunctionCatalog, lookupGraphFunction, lookupGraphFunctionDefinition, narrowGraphFunctionCatalog, } from "./catalog.js";
-import { constructCatalogProgramValidationInput } from "./catalog_operations.js";
+import { constructProgramValidationInputFromResolvedClosure } from "./catalog_operations.js";
 import { resolveExecutionDeclarationClosure, resolveProgramDeclarationClosure, selectExactClosureContract, } from "./declaration_closure.js";
 import { implementationDescriptorsFromProduct, resolveImplementationSet, } from "./implementation_resolution.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
@@ -166,8 +166,9 @@ async function resolveProductExecution(input) {
     })();
     if (reconstructedCatalog === null ||
         reconstructedCatalog.kind !== "graph_function_catalog" ||
-        canonicalJson(reconstructedCatalog) !==
-            canonicalJson(input.catalog)) {
+        (reconstructedCatalog !== input.catalog &&
+            canonicalJson(reconstructedCatalog) !==
+                canonicalJson(input.catalog))) {
         return refusal("incompatible_or_unproven", "catalog", "execution resolution requires the exact reconstructed ready Catalog");
     }
     const reconstructedView = (() => {
@@ -180,8 +181,9 @@ async function resolveProductExecution(input) {
     })();
     if (reconstructedView === null ||
         reconstructedView.kind !== "graph_function_catalog_view" ||
-        canonicalJson(reconstructedView) !==
-            canonicalJson(input.catalogView)) {
+        (reconstructedView !== input.catalogView &&
+            canonicalJson(reconstructedView) !==
+                canonicalJson(input.catalogView))) {
         return refusal("incompatible_or_unproven", "catalog", "execution resolution requires the exact reconstructed CatalogView");
     }
     if (input.admittedInstalls.length !==
@@ -314,7 +316,7 @@ async function resolveProductExecution(input) {
             ? "ambiguous"
             : "wrong_owner", "dependency", "Program or selected GraphFunction lacks one exact admitted owner install");
     }
-    const validationInput = constructCatalogProgramValidationInput(reconstructedCatalog, reconstructedView, programDeclarationClosure, program);
+    const validationInput = constructProgramValidationInputFromResolvedClosure(programDeclarationClosure, program);
     if ("kind" in validationInput &&
         validationInput.kind === "raw_admission_refusal") {
         return refusal("incompatible_or_unproven", "declaration_closure", validationInput.message);

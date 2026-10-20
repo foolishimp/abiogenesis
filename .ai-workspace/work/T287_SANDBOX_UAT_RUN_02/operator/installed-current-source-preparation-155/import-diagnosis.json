@@ -1,0 +1,21 @@
+{
+  "cause": "My phase155 caller looked up an internal canonical projector on the public ABG index; that index exports only the completed-child terminal helper. TypeError occurs before the internal projector was entered.",
+  "failureName": "TypeError",
+  "failureMessage": "a.projectHistoricalGraphCallSourceAtDurablePrefix is not a function",
+  "installedOwnerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/index.js",
+      "sha256": "8cb3d4ef63c94261fe3a4849a31246d6af283eaca807ce12a72348344a9f8439",
+      "byteCount": 10741
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_ports.js",
+      "sha256": "7f76ba05fd279071f9be583064989340acaefdc7add9ec279f816cdf45864fcd",
+      "byteCount": 76942
+    }
+  ],
+  "actualCanonicalModuleExport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_ports.js#projectHistoricalGraphCallSourceAtDurablePrefix",
+  "selectedProductBoundedAction": "A successor phase caller can bind the already existing canonical module export. No Product/API/source/guard change; renewed canonical acquisition cost must be considered by Root before retry.",
+  "retryPerformed": false,
+  "frameworkRefusalDemonstrated": false
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "check": "product-section-conserved:## Execution And Context Calculus",
+    "passed": true
+  },
+  {
+    "check": "product-section-conserved:## 5.0 And 5.1 Release Boundaries",
+    "passed": true
+  },
+  {
+    "check": "product-section-conserved:## Complete 5.0 Feature Set",
+    "passed": true
+  },
+  {
+    "check": "product-section-conserved:## Product Completion Predicate",
+    "passed": true
+  },
+  {
+    "check": "product-section-conserved:## Explicit Non-Features",
+    "passed": true
+  },
+  {
+    "check": "original-MGMT03-and-RC6-body-byte-preservation",
+    "passed": true
+  },
+  {
+    "check": "requirement-metadata:gtl",
+    "passed": true,
+    "details": {
+      "count": 32
+    }
+  },
+  {
+    "check": "requirement-index:gtl",
+    "passed": true,
+    "details": {
+      "count": 32
+    }
+  },
+  {
+    "check": "requirement-metadata:abg",
+    "passed": true,
+    "details": {
+      "count": 34
+    }
+  },
+  {
+    "check": "requirement-index:abg",
+    "passed": true,
+    "details": {
+      "count": 34
+    }
+  },
+  {
+    "check": "requirement-metadata:mapping",
+    "passed": true,
+    "details": {
+      "count": 4
+    }
+  },
+  {
+    "check": "requirement-index:mapping",
+    "passed": true,
+    "details": {
+      "count": 4
+    }
+  },
+  {
+    "check": "requirement-metadata:product",
+    "passed": true,
+    "details": {
+      "count": 8
+    }
+  },
+  {
+    "check": "requirement-index:product",
+    "passed": true,
+    "details": {
+      "count": 8
+    }
+  },
+  {
+    "check": "new-local-link-targets",
+    "passed": false,
+    "details": [
+      {
+        "source": "specification/PRODUCT.md",
+        "target": "../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/activation.md",
+        "exists": true
+      },
+      {
+        "source": "specification/PRODUCT.md",
+        "target": "../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+        "exists": false
+      },
+      {
+        "source": "specification/requirements/README.md",
+        "target": "../PRODUCT.md#stdo-governed-run-environment",
+        "exists": true
+      },
+      {
+        "source": "specification/requirements/README.md",
+        "target": "../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+        "exists": false
+      },
+      {
+        "source": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "target": "../../../../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/activation.md",
+        "exists": true
+      },
+      {
+        "source": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "target": "ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+        "exists": false
+      }
+    ]
+  },
+  {
+    "check": "frozen-assessment-preserved",
+    "passed": true
+  }
+]

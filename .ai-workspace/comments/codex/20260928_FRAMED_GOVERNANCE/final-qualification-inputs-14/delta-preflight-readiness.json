@@ -1,0 +1,64 @@
+{
+  "status": "CLOSED",
+  "workResult": "GO_CHEAP_ROLE_AWARE_DELTA_PREFLIGHT",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_14",
+  "sourceChanges": 9,
+  "replacements": 7,
+  "additions": 2,
+  "deltaRef": "qualification-derivation://abiogenesis/q07/current-source-delta/ecca5dac22b0daff63c911395308ed6a9dd677ede4377875b0e058c85b466b66",
+  "deltaDigest": "sha256:ecca5dac22b0daff63c911395308ed6a9dd677ede4377875b0e058c85b466b66",
+  "completeUniqueSourceAndOwnCopyRoleCorrespondence": true,
+  "legitimateAdditionsRetainHistoricalAbsence": true,
+  "inheritedCallbackExcluded": true,
+  "negatives": [
+    {
+      "name": "missing",
+      "outcome": "refused",
+      "message": "selected_delta_complete\n\n8 !== 9\n"
+    },
+    {
+      "name": "extra-inherited-callback",
+      "outcome": "refused",
+      "message": "selected_delta_complete\n\n10 !== 9\n"
+    },
+    {
+      "name": "duplicate",
+      "outcome": "refused",
+      "message": "selected_delta_unique\n\n8 !== 9\n"
+    },
+    {
+      "name": "wrong-cut",
+      "outcome": "refused",
+      "message": "selected_delta_cut\n+ actual - expected\n\n  {\n    bytes: 26506590,\n    mode: 420,\n    path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/controls/source-cut.json',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000'\n-   sha256: 'dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242'\n  }\n"
+    },
+    {
+      "name": "wrong-postimage",
+      "outcome": "refused",
+      "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 275535,\n    changeKind: 'replacement',\n    copyRoles: {\n      currentSupplier: {\n...\n      path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts',\n+     sha256: '0000000000000000000000000000000000000000000000000000000000000000'\n-     sha256: '1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7'\n    },\n    preimage: {\n      bytes: 275717,\n      mode: 420,\n      path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts',\n"
+    },
+    {
+      "name": "wrong-source-author",
+      "outcome": "refused",
+      "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 275535,\n    changeKind: 'replacement',\n    copyRoles: {\n      currentSupplier: {\n...\n    sha256: '1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7',\n+   sourceAuthor: 'source-author://counterfeit'\n-   sourceAuthor: '/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01'\n  }\n"
+    },
+    {
+      "name": "falsely-anchored-historical-copy",
+      "outcome": "refused",
+      "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 275535,\n    changeKind: 'replacement',\n    copyRoles: {\n      currentSupplier: {\n...\n        fields: {\n+         copyBuildAuthor: '/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09',\n-         copyBuildAuthor: '/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07',\n          copyOrigin: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts'\n        },\n        producer: {\n          canonicalRowDigest: 'sha256:7dc1370e7896bb16f19a1b02fbc369f628d0270abb9476335f9f738926562434',\n          manifest: {\n"
+    },
+    {
+      "name": "falsely-anchored-current-copy",
+      "outcome": "refused",
+      "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 275535,\n    changeKind: 'replacement',\n    copyRoles: {\n      currentSupplier: {\n...\n          path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/activation.json',\n+         sha256: '0000000000000000000000000000000000000000000000000000000000000000'\n-         sha256: '8a1d31a044ed8d3e4182fe8c05831c85386a0f633a79b927aa4d95c706470f3d'\n        },\n        fields: {\n          copyBuildAuthor: '/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09',\n          copyOrigin: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts'\n        },\n"
+    },
+    {
+      "name": "invented-addition-history",
+      "outcome": "refused",
+      "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 1976,\n    changeKind: 'addition',\n    copyRoles: {\n      currentSupplier: {\n...\n      selectedOrigin: {\n+       fields: {\n+         copyBuildAuthor: 'historical-copy://invented'\n+       },\n-       fields: {},\n        producer: {\n          canonicalRowDigest: 'sha256:5d30ca56ddb10f939e9e3a8ebae2ec84de532e2ef482dce33db07f435dcefa7a',\n          manifest: {\n            bytes: 26506590,\n            mode: 420,\n"
+    }
+  ],
+  "allNegativesRefused": true,
+  "ProductImports": 0,
+  "materialBodiesMaterialized": 0,
+  "RuntimeEffects": 0
+}

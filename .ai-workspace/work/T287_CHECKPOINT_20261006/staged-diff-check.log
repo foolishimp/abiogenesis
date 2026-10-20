@@ -1,0 +1,36 @@
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/public-support.mjs:243: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/public-support.mjs:234: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/public-support.mjs:232: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/public-support.mjs:234: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/public-support.mjs:234: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/public-support.mjs:243: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/public-support.mjs:232: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/public-support.mjs:232: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/sole-output-renderer.mjs:14: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/sole-output-renderer.mjs:14: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/sole-output-renderer.mjs:14: new blank line at EOF.
+.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/sole-output-renderer.mjs:14: new blank line at EOF.
+.ai-workspace/comments/codex/20261005_ABG_TRANSFORMATION_LIBRARY_DESIGN.md:3: trailing whitespace.
++**Status:** Proposed realization scaffold for the active T-287 session.  
+.ai-workspace/comments/codex/20261005_ABG_TRANSFORMATION_LIBRARY_DESIGN.md:4: trailing whitespace.
++**Basis:** Current Product, canonical owners and STDO 2.5.1 RC2.  
+.ai-workspace/evidence/T287_CONTEXT_CONSERVATION_02/acceptance.json:97: new blank line at EOF.
+.ai-workspace/evidence/T287_CONTEXT_PROJECTION_PACKAGE_02/acceptance.json:80: new blank line at EOF.
+.ai-workspace/evidence/T287_FRESH_CONSERVATION_READ_REPAIR_01/acceptance.json:136: new blank line at EOF.
+.ai-workspace/work/T287_COMMENTARY_CLEANUP_02/delete_exact_plan.py:280: trailing whitespace.
++    phase = 'complete_preflight_hashes' 
+.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/grant.md:16: new blank line at EOF.
+.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/grant.md:16: new blank line at EOF.
+.ai-workspace/work/T287_CONTEXT_PROJECTION_REPAIR_01/grant.md:25: new blank line at EOF.
+.ai-workspace/work/T287_FRESH_CONSERVATION_READ_REPAIR_01/grant.md:24: new blank line at EOF.
+.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/grant.md:28: new blank line at EOF.
+.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_01/grant.md:30: new blank line at EOF.
+.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_02/grant.md:19: new blank line at EOF.
+.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_03/grant.md:21: new blank line at EOF.
+.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/grant.md:26: new blank line at EOF.
+.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_02/grant.md:28: new blank line at EOF.
+.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/grant.md:16: new blank line at EOF.
+.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/plan.md:44: new blank line at EOF.
+.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/grant.md:22: new blank line at EOF.
+.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_FIXTURE_REPAIR_02/grant.md:18: new blank line at EOF.
+.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/grant.md:14: new blank line at EOF.

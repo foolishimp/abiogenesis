@@ -1,0 +1,32 @@
+{
+  "kind": "worker_activation",
+  "operation": "T287_F11_CURRENT_RESOURCE_CALLER_02",
+  "actor": "/root/f11_current_resource_caller",
+  "status": "CLOSED",
+  "activatedAt": "2026-10-01T14:51:25.595301+00:00",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-controls-02/request.txt",
+    "bytes": 5896,
+    "sha256": "788d3b7cdf50a62b7e94dd97de7329e1e358dcbf747e5f98f84ce872fac4f761"
+  },
+  "allocationAmendment": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#rc1-successor-caller-allocation-and-s02-independent-assurance",
+  "governance": "stdo://releases/v2.5.1-rc.2/",
+  "changeClass": "realization_refactor",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02",
+  "permittedEffects": [
+    "new caller/readiness/report files",
+    "owned preparation TMPDIR/cache/config",
+    "pure installed owner preparation",
+    "actual-prefix/environment projection reads",
+    "syntax checks"
+  ],
+  "prohibitedEffects": [
+    "Public CLI",
+    "effectful driver invocation/import",
+    "runtime/model/provider/probe/auth/network",
+    "N03 store/header/lock/archive/tmp/install/worksite mutation",
+    "source/Git/sibling mutation"
+  ],
+  "return": "one CLOSED frozen dependency-ready successor and concrete later five-call effect plan; no actual execution/qualification acceptance",
+  "closedAt": "2026-10-01T15:05:42.583907+00:00"
+}

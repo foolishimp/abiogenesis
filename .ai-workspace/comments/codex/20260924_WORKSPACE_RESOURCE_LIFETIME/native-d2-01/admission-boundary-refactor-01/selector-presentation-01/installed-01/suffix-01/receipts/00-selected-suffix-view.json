@@ -1,0 +1,48 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.catalog.view",
+      "memberKey": "allowlist"
+    },
+    "invocationRef": "invocation://abiogenesis/13b626c8b6b7bb34b8c6fdebfec7d622db86dcf0183ea49d6c4de677abbabc1b",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "view": {
+          "ref": "graph-function-catalog-view://abiogenesis/0ffe23106ce7cb47dbc328e36ca371af068ee00246cbd1e086c3f9fa4229ad7a",
+          "digest": "sha256:0ffe23106ce7cb47dbc328e36ca371af068ee00246cbd1e086c3f9fa4229ad7a"
+        },
+        "effectiveHandles": [
+          "graph-function://odd-glc/native-semantic-revision/construction@5",
+          "graph-function://odd-glc/native-semantic-revision/from-requirements-projection@5",
+          "graph-function://odd-glc/native-semantic-revision/from-requirements@5",
+          "graph-function://odd-glc/native-semantic-revision/stage-2@5",
+          "graph-function://odd-glc/native-semantic-revision/stage-3@5",
+          "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+          "graph-function://odd-glc/native-semantic-revision/terminal@5"
+        ],
+        "residuals": []
+      }
+    },
+    "resources": {
+      "kind": "catalog_view_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "disposition": "read_only_unchanged",
+      "catalog": {
+        "ref": "graph-function-catalog://abiogenesis/77e8ce72084eca658bc23b48bd4e5e79bb345c4f0ae38cf1d5e99f4f210dcc50",
+        "digest": "sha256:77e8ce72084eca658bc23b48bd4e5e79bb345c4f0ae38cf1d5e99f4f210dcc50"
+      },
+      "view": {
+        "ref": "graph-function-catalog-view://abiogenesis/0ffe23106ce7cb47dbc328e36ca371af068ee00246cbd1e086c3f9fa4229ad7a",
+        "digest": "sha256:0ffe23106ce7cb47dbc328e36ca371af068ee00246cbd1e086c3f9fa4229ad7a"
+      }
+    },
+    "failure": null
+  }
+}

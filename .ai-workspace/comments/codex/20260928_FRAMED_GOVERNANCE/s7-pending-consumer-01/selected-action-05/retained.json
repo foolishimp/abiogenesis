@@ -1,0 +1,52 @@
+{
+  "oldProofDir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/old",
+  "bindingControlPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/current-binding.json",
+  "snapshotPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-05/predecessor-217.jsonl",
+  "lockNamespaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable",
+  "nativeLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+    "bytes": 3324704,
+    "sha256": "1ad2022bbf00072338bd3285f27d88515794aaf1c8e96e0ce46465e55c73a741"
+  },
+  "physicalIdentity": {
+    "device": 16777230,
+    "inode": 463711677
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+      "prefixLength": 3324704,
+      "prefixDigest": "sha256:1ad2022bbf00072338bd3285f27d88515794aaf1c8e96e0ce46465e55c73a741",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 463711677,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:0dcc558772c46c0a40ccae65bca2534df08caf3be3596c661047447dd3d3780d"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+      "device": 16777230,
+      "inode": 463711677,
+      "eventLogDigest": "sha256:1ad2022bbf00072338bd3285f27d88515794aaf1c8e96e0ce46465e55c73a741",
+      "durableByteLength": 3324704,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "authorityDigest": "sha256:e17391f1f4d92251b2578f6648b7980802e69f5c87094b61bf785d6a8ab51f78"
+    }
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/freeze.json",
+    "bytes": 33386,
+    "sha256": "243b67d1956cd01c21a26d6725c0e7e66f0d16de3cb70bc0ef3e11feb02a80d9"
+  },
+  "predecessorSnapshot": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-05/predecessor-217.jsonl",
+    "bytes": 3324704,
+    "sha256": "1ad2022bbf00072338bd3285f27d88515794aaf1c8e96e0ce46465e55c73a741"
+  },
+  "ownerAppendOnly": true
+}

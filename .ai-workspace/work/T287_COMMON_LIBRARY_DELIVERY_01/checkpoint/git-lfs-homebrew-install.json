@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/brew",
+    "install",
+    "--formula",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-3.8.0.arm64_tahoe.bottle.tar.gz"
+  ],
+  "environment_overrides": {
+    "HOMEBREW_NO_AUTO_UPDATE": "1",
+    "HOMEBREW_NO_INSTALL_CLEANUP": "1",
+    "HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK": "1",
+    "HOMEBREW_NO_INSTALL_UPGRADE": "1"
+  },
+  "exit_code": 1,
+  "wall_seconds": 1.6166861669626087,
+  "observed_utc": "2026-10-20T19:00:22.098944+00:00"
+}

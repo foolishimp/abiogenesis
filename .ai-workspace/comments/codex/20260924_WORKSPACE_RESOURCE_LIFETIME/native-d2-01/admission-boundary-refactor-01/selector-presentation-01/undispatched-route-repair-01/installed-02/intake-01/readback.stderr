@@ -1,0 +1,30 @@
+node:internal/fs/promises:639
+  path = getValidatedPath(path);
+         ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+    at open (node:internal/fs/promises:639:10)
+    at readFile (node:internal/fs/promises:1279:20)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/intake-01/read-intake.mjs:10:56 {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+
+Node.js v24.7.0
+        0.02 real         0.02 user         0.00 sys
+            52723712  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                3451  page reclaims
+                  72  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                  62  involuntary context switches
+           404584895  instructions retired
+           124976859  cycles elapsed
+            17664520  peak memory footprint

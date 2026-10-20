@@ -1,0 +1,23 @@
+{
+  "compilerVersion": "5.9.2",
+  "rootFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/run-10.mjs",
+  "options": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "module": 199,
+    "moduleResolution": 99,
+    "target": 9,
+    "typeRoots": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/publication/host/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types"
+    ],
+    "types": [
+      "node"
+    ]
+  },
+  "elapsedMs": 300.582625,
+  "lexicalDiagnostics": [],
+  "otherDiagnosticCount": 0,
+  "pass": true
+}

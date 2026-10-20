@@ -1,0 +1,14 @@
+{
+  "pid": 30557,
+  "processGroup": 30557,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule-run_replay.jsonl"
+  ],
+  "startedAt": "2026-10-01T12:40:26.952Z",
+  "mode": "f11",
+  "label": "assess-rule-run_replay",
+  "capMs": 180000
+}

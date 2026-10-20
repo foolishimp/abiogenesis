@@ -1,0 +1,16 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME09_POSITIVE_ACCEPTANCE_WRITER_01",
+  "role": "Writer",
+  "workResult": "ACCEPTED_BOUNDED_INSTALLED_ASSESSMENT_CARRIER_AND_TWO_READS",
+  "restoredRole": "Executive",
+  "RuntimeReopenGranted": false,
+  "SourceCodeCandidateRuntimeGitEffects": 0,
+  "closedAt": "2026-10-03T09:34:09.797226+00:00",
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-positive-acceptance-01/acceptance.json",
+    "bytes": 15036,
+    "sha256": "9348c2a734d959d45c006a1cadab1346322d93976226e394971d794ad4cd4498",
+    "mode": "0o644"
+  }
+}

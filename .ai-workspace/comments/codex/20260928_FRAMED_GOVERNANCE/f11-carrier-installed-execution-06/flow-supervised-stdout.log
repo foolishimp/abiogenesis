@@ -1,0 +1,2 @@
+{"label":"parent","definitionKey":{"operationId":"abg.operation.run.invoke","memberKey":"start"},"invocationRef":"invocation://abiogenesis/ff8cc2550f659f74a2e6c3546218b3015f5ec1e12b215c5ce66ff4fdf1eec9ed","outcomeKind":"result","elapsedMs":8152.908833000001,"processFailure":null}
+{"label":"assess-run_result","definitionKey":{"operationId":"abg.operation.project.read","memberKey":"run_result"},"invocationRef":"invocation://abiogenesis/72aa8dcb5ddf11c8bfbaf97aabbc9bf4c4afa09ca8e18f7a5207d290918e5cc6","elapsedMs":740.0995000000003,"processFailure":null}

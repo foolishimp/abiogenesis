@@ -1,0 +1,74 @@
+{
+  "activation": "worker-activation.json",
+  "changes": [
+    {
+      "file": "ordinary-caller.mjs",
+      "donor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/ordinary-caller.mjs",
+        "bytes": 14225,
+        "sha256": "0c05f27de926a1b13885653e9d344df1c16e772ce2cf6e23b05420e9244eceea"
+      },
+      "preimage": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/preimages/ordinary-caller.mjs",
+        "bytes": 14225,
+        "sha256": "0c05f27de926a1b13885653e9d344df1c16e772ce2cf6e23b05420e9244eceea"
+      },
+      "postimage": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/ordinary-caller.mjs",
+        "bytes": 14670,
+        "sha256": "e8b685a9584da270c7718d79b6fd255da98fa8dc1b03727c789ed6d7ccebc3a5"
+      },
+      "patch": "ordinary-caller.mjs.patch",
+      "changed": true
+    },
+    {
+      "file": "public-support.mjs",
+      "donor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/public-support.mjs",
+        "bytes": 8856,
+        "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+      },
+      "preimage": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/preimages/public-support.mjs",
+        "bytes": 8856,
+        "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+      },
+      "postimage": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/public-support.mjs",
+        "bytes": 9066,
+        "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+      },
+      "patch": "public-support.mjs.patch",
+      "changed": true
+    },
+    {
+      "file": "observe-process.py",
+      "donor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/observe-process.py",
+        "bytes": 731,
+        "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+      },
+      "preimage": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/preimages/observe-process.py",
+        "bytes": 731,
+        "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+      },
+      "postimage": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/observe-process.py",
+        "bytes": 731,
+        "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+      },
+      "patch": "observe-process.py.patch",
+      "changed": false
+    }
+  ],
+  "newAuthored": [
+    "prepare.py",
+    "driver.mjs",
+    "budgets.json",
+    "resource-plan.json",
+    "runtime-environment.json",
+    "launch-once.py"
+  ],
+  "attribution": "N2 external caller/control construction only; original actor/workspace authority is conserved, inherited Product/source authors unchanged"
+}

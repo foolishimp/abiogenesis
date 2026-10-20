@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-10-20T18:55:09.697732+00:00",
+  "review": "independent targeted L2 review 02",
+  "core_result": "satisfied",
+  "subject_sha256": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/review-02.md",
+      "sha256": "ea958de360c4cfc516ebad844bf0e0ebf340f707a437f1c2d11c474607266dba",
+      "bytes": 5276
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/result-02.json",
+      "sha256": "87a4bb41bb14a098146693051077b9b327cbff20e531cfdd4e25856b8abdadec",
+      "bytes": 1604
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/checks-02.json",
+      "sha256": "36efc14b3de8beebcafbe92d1cc7f4e02ad156886013834006e0bef6d14c4100",
+      "bytes": 483955
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/independent-delta-02.diff",
+      "sha256": "d2e24370bf94fd24bc99eaa6fd7778810dc3a59d49da6f16bbb19a32197b6d25",
+      "bytes": 8735
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-02/L2-candidate-freeze-02.json",
+      "sha256": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
+      "bytes": 9957
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-02/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "bytes": 26888
+    }
+  ],
+  "prior_review_freeze_sha256": "2341b7f9fdeae0a06c9f2b2b064f7dacb11402691022e3da6fe402ae9ebcb4ea",
+  "next_owner": "Executive"
+}

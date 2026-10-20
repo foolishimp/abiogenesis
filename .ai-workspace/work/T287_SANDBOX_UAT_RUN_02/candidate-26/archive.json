@@ -1,0 +1,39 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-26/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "95d1e5a7e98ab47ed762c2d1c5cb3224632910b0baf7363d9ad03e62d62ebf1e",
+    "byteCount": 10639713
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3151.8946659999997,
+    "timedOut": false,
+    "truncated": false
+  },
+  "acceptedSourceFreezes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/freeze.json",
+      "sha256": "938337bdf7aae5e63f0b5858b8288b5112896073b2be1ec1c937f30e1b47f415",
+      "byteCount": 22891
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/freeze.json",
+      "sha256": "57cc8f6ad69c1549d49a2492ee18422c784b4f01ae62270f366f5f283a0cf665",
+      "byteCount": 43224
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/freeze.json",
+      "sha256": "e4985b01a7f61e4083fb861f3397b6abf272e6922ed7d5d4f2b62ae963c9b827",
+      "byteCount": 25200
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-private-declaration-boundary-151/freeze.json",
+      "sha256": "1f5638478bf6fcfa594958be6e4ba07fbb1cb35f0eb461037d66bd39cbfa0a89",
+      "byteCount": 18878
+    }
+  ],
+  "source151Disposition": "Root conjoined Source151 and independent152 after exact148 closure failure",
+  "sourceCommit": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "ordinaryBuildAlreadyRecorded": true,
+  "nativeEffects": false
+}

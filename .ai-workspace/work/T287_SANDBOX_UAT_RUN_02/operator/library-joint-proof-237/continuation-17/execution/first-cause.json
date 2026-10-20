@@ -1,0 +1,19 @@
+{
+  "stage": "audit-changed-pair-preparation",
+  "name": "Error",
+  "message": "product-install-0: {\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"target_failure\",\"issuePaths\":[\"/targetRoot\"],\"evidenceRefs\":[]}}",
+  "stack": "Error: product-install-0: {\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"target_failure\",\"issuePaths\":[\"/targetRoot\"],\"evidenceRefs\":[]}}\n    at invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/helpers/continuation.mjs:157:68)\n    at async Module.prepareInstalledContinuation (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/helpers/continuation.mjs:263:24)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/run-17.mjs:199:14",
+  "observation": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "target_failure",
+      "issuePaths": [
+        "/targetRoot"
+      ],
+      "evidenceRefs": []
+    }
+  },
+  "completedPhases": [],
+  "normalClose": null,
+  "disposition": "STOP; Root RCA/action before retry"
+}

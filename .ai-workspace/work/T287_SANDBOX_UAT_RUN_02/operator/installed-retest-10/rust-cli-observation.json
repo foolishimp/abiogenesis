@@ -1,0 +1,196 @@
+{
+  "recordedAt": "2026-10-06T11:16:31.563Z",
+  "scenario": "rust-cli",
+  "wrapper": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 807773.626083,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "nativeSummary": {
+    "scenario": "rust-cli",
+    "runId": "2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d",
+    "mode": "run",
+    "status": "passed",
+    "uatPass": true,
+    "runtimeDisposition": "result",
+    "terminalAvailable": true,
+    "independentOracle": "satisfied",
+    "reason": "Selected original obligations and exact terminal/readbacks agree"
+  },
+  "nativeProof": {
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d",
+    "assessment": {
+      "disposition": "satisfied",
+      "unresolvedCriteria": [],
+      "reasonSha256": "f76df212535d820c76496d7e696cc08bd4d29392106020eceb2b9b150a04718b"
+    },
+    "assessmentAdmission": {
+      "ordinal": 6879,
+      "eventRef": "event://abiogenesis/7d38b13cc7dc3c730877c15d6af500b58c58ecdeda577a2caa47b27834e3c7da",
+      "resultRef": "result://abiogenesis/410990882a9a4ce9bcd108a0a8692867f34ddb71e3d4d157d2fc4ede438e89f3"
+    },
+    "runClosure": {
+      "ordinal": 6964,
+      "eventRef": "event://abiogenesis/e3f59bd0f963b6a065c0b77338f374d6ce81e9d24d294aebf0b089b4e5a502d0",
+      "runRef": "run://abiogenesis/98e530fa29532a52c564cfceb71e2d290181804a4bffdd33ee2c408b3fafb14e"
+    },
+    "actorCounts": {
+      "actor_invocation_started": 6,
+      "actor_process_exited": 6,
+      "actor_invocation_closed": 6,
+      "actor_invocation_failed": 0
+    },
+    "fresh": {
+      "members": [
+        "run_result",
+        "run_replay"
+      ],
+      "ownerOutcomes": [
+        "result",
+        "result"
+      ],
+      "replayStatus": "closed",
+      "fullValueAgreement": true,
+      "producerAgreement": true,
+      "resultAgreement": true,
+      "valueDigestAgreement": true,
+      "terminalResult": {
+        "digest": "sha256:fcd2e44bf36d64fff92ea9f870e4d7685a8313a0784fa6d00ae8d27f9c8b222c",
+        "ref": "result://abiogenesis/fcd2e44bf36d64fff92ea9f870e4d7685a8313a0784fa6d00ae8d27f9c8b222c"
+      },
+      "valueDigest": "sha256:1261ba1a102fce4c7dea300a4c96027d4243a0cd4a170c9032bd9c665d683e32",
+      "cCallRef": "c-call:sha256:548ad8cd03cc7d4ea10d072e5edfa8f9fc17e44b4a75718c08dd2bf117e465da",
+      "resultAdmissionEventRef": "event://abiogenesis/55f0b24d0209f4c4b13551befc96f7d96cebbe1b981b2ccd7ebab20e19f767d2"
+    },
+    "oracle": {
+      "disposition": "satisfied",
+      "unresolvedCriteria": [],
+      "criteriaCount": 15
+    },
+    "zeroDelta": {
+      "bothInstallsMatchAndEqual": true,
+      "installedContentDigests": [
+        "sha256:403dd393cd35f306764070c4861c799464373bc736bd348c7f9b64ce157f9310",
+        "sha256:29cd2557fbab5e021f2f3d44c944620b745f805a9b38600911e3352f916104a7"
+      ],
+      "allOriginalSourceConserved": true
+    },
+    "providerResults": [
+      {
+        "path": "resources/archives/fp-27db88bd3ab2f2a3-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 37838,
+        "costUsd": "0.2500720"
+      },
+      {
+        "path": "resources/archives/fp-50c42db52e2a55c1-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 3,
+        "durationMs": 37570,
+        "costUsd": "0.3368732"
+      },
+      {
+        "path": "resources/archives/fp-58404f6ac899496c-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 15,
+        "durationMs": 200788,
+        "costUsd": "0.7012852"
+      },
+      {
+        "path": "resources/archives/fp-af5cc99428aeab67-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 49787,
+        "costUsd": "0.3261240"
+      },
+      {
+        "path": "resources/archives/fp-b23cf23d9c161da2-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 43142,
+        "costUsd": "0.2974640"
+      },
+      {
+        "path": "resources/archives/fp-e493222e6c51d8e9-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 13,
+        "durationMs": 96064,
+        "costUsd": "0.5065336"
+      }
+    ],
+    "observedCostUsd": "2.4183520",
+    "evidencePins": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/summary.json",
+        "sha256": "58c85b9c605bc6b4b82165767f5b03115fa3f1c5093f81dd12e048605b3f04ff",
+        "bytes": 529
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/SEALED.json",
+        "sha256": "d20d26bd350d5e2b0d5f47e531c083cea38535ca03ad614ed49b6fba02c0fc3a",
+        "bytes": 278
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/fresh-readback.json",
+        "sha256": "d610ab9bf76e66a468402514ddb68f0242f2e4be0647b9196d2bc3de1b5e729a",
+        "bytes": 254335
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/independent-oracle.json",
+        "sha256": "a0533d25aeeb48d8b2f7291f2cf1ef81271f76075a71fd222f950d6d7f051ef8",
+        "bytes": 5374
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/installed-content-before-run.json",
+        "sha256": "68886cd24f561c78aae55638e5d6e22e8e904f93555a69e5cfb580ef654e5e75",
+        "bytes": 2150
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/installed-content-after-run.json",
+        "sha256": "bd68e03db0771b1fa13b623b89232236ef6ca410a9ced0332709af62989b982b",
+        "bytes": 2149
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/source-conservation.json",
+        "sha256": "bcb1f9a308d958c4bcf35cc1d2946684e1759acb469f476e612defdc1d088976",
+        "bytes": 715
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/final-close-handoff.json",
+        "sha256": "45a0bf24d7cf5ac4db2bd1201ab7688fac35591fd6b372327498f6b0ca71bde8",
+        "bytes": 1452
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d/resources/events/runtime.events.jsonl",
+        "sha256": "d3c06f396709ff7abfa9c2d2829f30a3de0613b2d1e9aadbbe62bacdfa6647c6",
+        "bytes": 28644017
+      }
+    ],
+    "declaredCommandEffects": {
+      "admissionOrdinal": 4799,
+      "eventRef": "event://abiogenesis/2ae7afa8999ed2006361fbbe2ec66d6721145be000441318511d1c57a5a1e2d9",
+      "resultRef": "result://abiogenesis/5cc4d35d65bbd2d444169777a8f49b76777e4fe587522fb3e1282b13516fb43c",
+      "productDeltaCount": 0,
+      "worksiteDeltaCount": 38,
+      "roots": [
+        "Cargo.lock",
+        "target"
+      ],
+      "matchedTerritoryRefs": [
+        "worksite-command-write-territory://abiogenesis/3a0eac9679555d5203211f0c4c232814461c332db9428483195157e48ef6355f",
+        "worksite-command-write-territory://abiogenesis/4debf7aad632c4a0d2aec6d4e99c70ab4745bffb516594e24671dedfe6568258"
+      ]
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import * as Abg from "../abg/index.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority, indexedRuntimeEventEnvelopes } from "../abg/event_prefix.js";
 import type {
   AbgEventStore,
   AdmittedImplementationSet,
@@ -27,11 +28,11 @@ import {
 import { proposeJudgmentCandidate } from "./judgment.js";
 import {
   admissionBasis,
-  runtimePrefixAtDurable,
+  ownedRuntimePrefixAtDurable as runtimePrefixAtDurable,
   type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
+import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import {
   applyAdmittedRoute,
   deriveCompletedTraversalCursor,
@@ -39,10 +40,10 @@ import {
   type TraversalCursor,
 } from "./traversal.js";
 import {
-  projectCCallCompletion,
+  projectOwnedCCallCompletion as projectCCallCompletion,
 } from "./ccall_lifecycle.js";
 import {
-  projectExecutableTraversalCompletion as completion,
+  projectOwnedExecutableTraversalCompletion as completion,
   type ExecutableTraversalCompletion,
   type HeldWorkflowSuspension,
 } from "./traversal_completion.js";
@@ -119,6 +120,18 @@ export type WorkflowLocusStep =
       deferFailedRunStop: boolean;
     }>;
 
+
+import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
+import type { RuntimeReplayGuard } from "../abg/replay.js";
+import * as OwnedOutcome from "../abg/c_call_outcome.js";
+import * as OwnedReplay from "../abg/replay.js";
+
+/** @internal */
+export type OwnedExecutableTraversalCompletion = OwnedOutcomeValue<ExecutableTraversalCompletion>;
+/** @internal */
+export type OwnedTraversalLocusEvaluation = OwnedOutcomeValue<TraversalLocusEvaluation>;
+/** @internal */
+export type OwnedWorkflowLocusStep = OwnedOutcomeValue<WorkflowLocusStep>;
 function isJsonRecord(
   value: unknown,
 ): value is Readonly<Record<string, JsonValue>> {
@@ -184,7 +197,7 @@ function workflowFailure(
   diagnosticRef: string,
   candidate: JsonValue,
   causationEventRefs: readonly string[] = [],
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   const { authority: runtime } = context;
   const admitted = Abg.admitRuntimeFailure({
     store: runtime.store,
@@ -206,9 +219,9 @@ function workflowFailure(
 
 function completeBlockedWorkflowOutcome(
   context: WorkflowParentContext,
-  outcome: Abg.BlockedCCallOutcomeReceipt,
+  outcome: OwnedOutcome.OwnedBlockedCCallOutcomeReceipt,
   stage: string,
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   const { authority: runtime } = context;
   const candidate = Routes.proposeCCallOutcomeTransition({
     graph: runtime.graph,
@@ -227,7 +240,7 @@ function completeBlockedWorkflowOutcome(
       candidate as unknown as JsonValue,
     );
   }
-  const admitted = Abg.admitCCallCompletion({
+  const admitted = OwnedOutcome.admitOwnedCCallCompletion({
     store: runtime.store,
     predecessorPrefix: outcome.successorPrefix,
     executionBasis: runtime.executionBasis,
@@ -261,11 +274,11 @@ function rejectWorkflowAdmission(
   rejection: Abg.CCallAdmissionRejection,
   predecessorPrefix: DurablePrefixCoordinate,
   stage: string,
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   const { authority: runtime } = context;
   return completeBlockedWorkflowOutcome(
     context,
-    Abg.admitCCallRejection({
+    OwnedOutcome.admitOwnedCCallRejection({
       store: runtime.store,
       predecessorPrefix,
       graph: runtime.graph,
@@ -279,14 +292,15 @@ function rejectWorkflowAdmission(
   );
 }
 
-export function beginWorkflowLocus(input: Readonly<{
+/** @internal Same owner computation with a selected guard receipt. */
+export function beginOwnedWorkflowLocus(input: Readonly<{
   authority: WorkflowLocusAuthority;
   cursor: TraversalCursor;
   value: Readonly<Record<string, JsonValue>>;
   graphEntryInput: Readonly<Record<string, JsonValue>>;
   graphEntryInputDigest: `sha256:${string}`;
   ordinal: number;
-}>): WorkflowLocusStep {
+}>): OwnedWorkflowLocusStep {
     const { authority: runtime, cursor, ordinal } = input;
     const term = resolveTraversalTerm(runtime.graph, cursor);
     if (term.kind !== "c_workflow") {
@@ -325,8 +339,8 @@ export function beginWorkflowLocus(input: Readonly<{
       failureResolution.kind !== "workflow_failure_contract_resolution" ||
       childClosureContract === null ||
       childClosureContract.closureScope !== "graph_call" ||
-      !workflowOutputContractCorresponds({ prefix: Abg.projectRuntimePrefixesAtDurablePrefix(
-        runtime.predecessorPrefix, cursor.runId).authorityPrefix, executionBasis: runtime.executionBasis,
+      !workflowOutputContractCorresponds({ prefix: projectOwnedRuntimeEventPrefixAtDurablePrefix(
+        runtime.predecessorPrefix), executionBasis: runtime.executionBasis,
         graph: runtime.graph, cursor, childGraphFunction, childClosureContract }) ||
       childClosureContract.predicateRef.length === 0 ||
       judgmentPredicateRef === undefined || judgmentPredicateRef.length === 0 ||
@@ -498,10 +512,11 @@ export function beginWorkflowLocus(input: Readonly<{
     };
 }
 
-export function completeWorkflowLocus(
+/** @internal Same owner computation with a selected guard receipt. */
+export function completeOwnedWorkflowLocus(
   frame: WorkflowChildFoldFrame,
-  child: ExecutableTraversalCompletion,
-): TraversalLocusEvaluation {
+  child: OwnedExecutableTraversalCompletion,
+): OwnedTraversalLocusEvaluation {
   const {
     authority: runtime,
     cursor,
@@ -566,13 +581,18 @@ export function completeWorkflowLocus(
     (child.disposition !== "failed" && child.disposition !== "closed" &&
       child.disposition !== "blocked")
   ) {
-    const childCauseEventRefs = Abg.readRuntimeEventsAtDurablePrefix(child.successorPrefix)
+    const childPrefix = selectRuntimeEventPrefixFromAuthority(
+      projectOwnedRuntimeEventPrefixAtDurablePrefix(child.successorPrefix),
+      { runId: frame.childTraversalScope.runId },
+    );
+    const childCause = ["traversal_route_admitted", "c_call_judged", "runtime_failure_observed"]
+      .flatMap(kind => indexedRuntimeEventEnvelopes(childPrefix, "kind:" + kind))
       .filter(event => event.runId === frame.childTraversalScope.runId &&
         event.graphCallId === frame.childTraversalScope.graphCallId &&
-        event.frameId === frame.childTraversalScope.frameId &&
-        (event.kind === "traversal_route_admitted" || event.kind === "c_call_judged" ||
-          event.kind === "runtime_failure_observed"))
-      .slice(-1).map(event => event.eventId);
+        event.frameId === frame.childTraversalScope.frameId)
+      .reduce<(ReturnType<typeof indexedRuntimeEventEnvelopes>[number]) | null>(
+        (last, event) => last === null || event.admissionOrdinal > last.admissionOrdinal ? event : last, null);
+    const childCauseEventRefs = childCause === null ? [] : [childCause.eventId];
     return {
       completion: workflowFailure(
         frame,
@@ -679,7 +699,7 @@ export function completeWorkflowLocus(
       childValue,
     );
   }
-  const resultOutcome = Abg.admitCCallResult({
+  const resultOutcome = OwnedOutcome.admitOwnedCCallResult({
     outcomeClass: "workflow",
     resultDisposition: childSucceeded || childBlocked ? "success" : "failure",
     ...(childSucceeded || childBlocked ? {} : { failureDiagnosticRef }),
@@ -747,7 +767,7 @@ export function completeWorkflowLocus(
           reasonRef: failureDiagnosticRef,
         },
   });
-  const outcome = Abg.admitCCallJudgment({
+  const outcome = OwnedOutcome.admitOwnedCCallJudgment({
     store: runtime.store,
     graph: runtime.graph,
     graphFunction: runtime.graphFunction,
@@ -784,8 +804,8 @@ export function completeWorkflowLocus(
     let retained: ReturnType<typeof Abg.deriveRetainedCCallInputAtPrefix> = null;
     if (result.resultClass === "success" && judgment.judgment === "advance") {
       try {
-        const truth = Abg.projectRuntimePrefixesAtDurablePrefix(outcome.successorPrefix, cursor.runId);
-        retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, runtime.executionBasis,
+        const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(outcome.successorPrefix);
+        retained = Abg.deriveRetainedCCallInputAtPrefix(authorityPrefix, runtime.executionBasis,
           runtime.graph, cursor, outcome.admitted.cCall, result, judgment);
       } catch {
         return failWorkflow(frame, outcome.successorPrefix, `workflow-retention-${ordinal}`,
@@ -797,7 +817,7 @@ export function completeWorkflowLocus(
       const derived = deriveCompletedTraversalCursor(runtime.graph, cursor, {
         inputRef: retained?.input.admissionRef ?? result.resultRef,
         inputDigest: retained?.input.subjectDigest ?? result.valueDigest,
-      }, Abg.projectRuntimePrefixesAtDurablePrefix(outcome.successorPrefix, cursor.runId).authorityPrefix);
+      }, projectOwnedRuntimeEventPrefixAtDurablePrefix(outcome.successorPrefix));
       if (derived?.kind === "traversal_refusal") {
         return failWorkflow(frame,
           outcome.successorPrefix,
@@ -857,7 +877,7 @@ export function completeWorkflowLocus(
         candidate as unknown as JsonValue,
       );
     }
-    const admitted = Abg.admitCCallCompletion({
+    const admitted = OwnedOutcome.admitOwnedCCallCompletion({
       store: runtime.store,
       predecessorPrefix: outcome.successorPrefix,
       executionBasis: runtime.executionBasis,
@@ -934,7 +954,7 @@ export function completeWorkflowLocus(
     const derived = deriveCompletedTraversalCursor(runtime.graph, cursor, {
       inputRef: fanOutAdmission.outputVectorRef,
       inputDigest: fanOutAdmission.outputVectorDigest,
-    }, Abg.projectRuntimePrefixesAtDurablePrefix(fanOutCompletion.successorPrefix, cursor.runId).authorityPrefix);
+    }, projectOwnedRuntimeEventPrefixAtDurablePrefix(fanOutCompletion.successorPrefix));
     if (derived?.kind === "traversal_refusal") {
       return failWorkflow(frame,
         fanOutCompletion.successorPrefix,
@@ -976,7 +996,7 @@ export function completeWorkflowLocus(
   }
   const fanOutReplay = retryExit?.kind === "successful_retry_exit_plan"
     ? retryExit.plan.replayState
-    : Abg.projectRuntimeTruthAtDurablePrefix(
+    : OwnedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
         fanOutCompletion.successorPrefix,
         runtime.openedTraversalScope.runId,
       ).replayState;
@@ -1021,7 +1041,7 @@ export function completeWorkflowLocus(
     terminalizeRun: route.routeKind !== "advance" &&
       runtime.scopeClass === "root",
   });
-  const admitted = Abg.admitCCallCompletion({
+  const admitted = OwnedOutcome.admitOwnedCCallCompletion({
     store: runtime.store,
     predecessorPrefix: fanOutCompletion.successorPrefix,
     executionBasis: runtime.executionBasis,
@@ -1101,4 +1121,24 @@ export function completeWorkflowLocus(
     outputValueKind: outputKind,
     outputContractRef: workflowTerm.outputCarrierRef,
   };
+}
+
+export function beginWorkflowLocus(
+  input: Readonly<{
+  authority: WorkflowLocusAuthority;
+  cursor: TraversalCursor;
+  value: Readonly<Record<string, JsonValue>>;
+  graphEntryInput: Readonly<Record<string, JsonValue>>;
+  graphEntryInputDigest: `sha256:${string}`;
+  ordinal: number;
+}>
+): WorkflowLocusStep {
+  return completePublicOutcome<WorkflowLocusStep>(beginOwnedWorkflowLocus(input));
+}
+
+export function completeWorkflowLocus(
+  frame: WorkflowChildFoldFrame,
+  child: ExecutableTraversalCompletion
+): TraversalLocusEvaluation {
+  return completePublicOutcome<TraversalLocusEvaluation>(completeOwnedWorkflowLocus(frame, child));
 }

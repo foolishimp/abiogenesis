@@ -1,0 +1,13 @@
+{
+  "stage": "terminal-resource-start",
+  "rss": 4805132288,
+  "heapTotal": 2818932736,
+  "heapUsed": 2702743192,
+  "external": 4855541,
+  "arrayBuffers": 2442844,
+  "at": "2026-10-09T03:41:33.780Z",
+  "elapsedMs": 50508.086166,
+  "graphCallId": "graph-call://abiogenesis/69f0302fa67bde2f554b5698899dd481fbaf01b7223289d7130e1e81ac87a0eb",
+  "resultRef": "result://abiogenesis/072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16",
+  "admissionOrdinal": 200961
+}

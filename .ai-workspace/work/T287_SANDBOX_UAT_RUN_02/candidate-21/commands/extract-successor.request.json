@@ -1,0 +1,15 @@
+{
+  "executable": "/usr/bin/tar",
+  "args": [
+    "-xzf",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "-C",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/scratch/successor"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94",
+  "started": "2026-10-08T09:12:19.150Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000
+}

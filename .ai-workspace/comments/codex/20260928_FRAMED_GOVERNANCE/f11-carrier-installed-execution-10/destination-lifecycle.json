@@ -1,0 +1,25 @@
+{
+  "borrowedImmutable": [
+    "original C09/Setup09/Q15",
+    "Runtime09 J/proof/two readbacks/current close",
+    "exact ordinary caller and original flow driver"
+  ],
+  "newOwnedDescriptors": [
+    "current continuation config",
+    "bounded oracle diagnostic",
+    "contract-aware finalizer",
+    "future activation/release templates"
+  ],
+  "freshFutureOutputs": [
+    "runtime-activation.json",
+    "runtime-release.json",
+    "flow supervisor receipts",
+    "F11/AF22 calls and four reads",
+    "actual consumption checks",
+    "success or first-failure reports",
+    "final-runtime-freeze.json"
+  ],
+  "classificationBeforeCopies": true,
+  "exclusiveCreateProducerReplay": false,
+  "RuntimeActivated": false
+}

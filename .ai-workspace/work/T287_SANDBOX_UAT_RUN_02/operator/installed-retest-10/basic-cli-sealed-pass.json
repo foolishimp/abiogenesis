@@ -1,0 +1,12 @@
+{
+  "recordedAt": "2026-10-06T10:28:03.762Z",
+  "precedingArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T10-13-48-345Z-41cca485-dc2c-47c4-90a3-fa5821d5eb8c",
+  "summarySha256": "2450070aa9898c7c0458695bbda96981543cb3f55d16e0f0e09b9471f052c239",
+  "sealSha256": "c31bcd370619c7122e9d10e2bab3fbeadbd1221860ff4b8c7fe6a190458c2669",
+  "status": "passed",
+  "nativeUatPass": true,
+  "terminalAvailable": true,
+  "independentOracle": "satisfied",
+  "nextCase": "js-tenant-test",
+  "rootReleaseReused": true
+}

@@ -1,0 +1,22 @@
+{
+  "purePreparationLaunches": 1,
+  "actualOwningReadinessPayloads": 0,
+  "completeTaskPayloads": 0,
+  "packetPayloads": 0,
+  "purePreparationExitCode": 1,
+  "purePreparationExecWallTimeSeconds": 0.059746166,
+  "processClosure": "exec_command completed with exit1; no managed owner payload or process group was launched",
+  "RSSBytes": null,
+  "RSSStatus": "not measured for cheap Python preparation",
+  "materialBodiesMaterialized": 0,
+  "resourceSerializationBytes": null,
+  "promptBytes": null,
+  "actualResourceEnvelopeMeasurement": "not reached",
+  "nativeTaskRunJHelperProviderCalls": 0,
+  "qualificationCommandsExecuted": 0,
+  "SourceChanges": 0,
+  "builds": 0,
+  "GitEffects": 0,
+  "networkEffects": 0,
+  "retries": 0
+}

@@ -1,0 +1,42 @@
+(node:41965) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage (181.663459ms)
+(node:41983) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (190.342167ms)
+✔ native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations (39.328125ms)
+✔ native task conserves read-only scope and refuses malformed or wider input (9.277416ms)
+✔ owner refuses stale context before assembly/dispatch (13.39175ms)
+✔ actual observation remains independent of report and consumer judgment (14.023792ms)
+✔ read-only native assessment returns observed assets and an empty change set (11.610834ms)
+✔ native and assessment renders preserve scope and explain observation limits (6.409375ms)
+✔ assessment declaration selects an independent assessor role; ordinary constructor stays unchanged (0.318083ms)
+✔ assessment schema must match its unique declared installed owner and immutable schema asset (22.649334ms)
+✔ assessment schema defaults to fixed 2020 without changing declared validation or accepting conflicting markers (16.626875ms)
+✔ exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes (39.791542ms)
+ℹ {"ownerPreparationCount":1,"coldAndChangedCompiles":4,"coverage":"Exact installed-byte resolver -> response-schema projection -> result parser -> native completion -> observation/result predicates. Fixture supplies lower authority/assembly/exchange; no provider or native admission claim."}
+✔ typed read-only assessment retains F_P source and exact observed basis, not a work report (27.158208ms)
+✔ native assessment ordinary-report cannot produce semantic success (16.69425ms)
+✔ native assessment malformed cannot produce semantic success (16.41075ms)
+✔ native assessment empty cannot produce semantic success (14.230166ms)
+✔ native assessment duplicate-keys cannot produce semantic success (12.901583ms)
+✔ native assessment undeclared-field cannot produce semantic success (17.543416ms)
+✔ native assessment same-author cannot produce semantic success (18.693333ms)
+✔ native assessment failed-transport cannot produce semantic success (15.779292ms)
+✔ native assessment mutating cannot produce semantic success (15.562708ms)
+✔ assessment accepts a different declared verdict shape without core identity fields (19.131ms)
+✔ assessment treats a consumer-declared basisDigest as schema-owned data without rewriting it (18.201291ms)
+✔ assessment task refuses mutable scope and mismatched source/rubric coordinates before work (13.105375ms)
+(node:41995) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch (46.363667ms)
+✔ complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch with generated fulfillment (41.548958ms)
+ℹ Generated support anyOf bytes conserved through exact schema asset resolution, actual owned assembly/render, leaf preparation and explicitly selected result_text transport input. Full schema remains bound; controlled lower occurrence/role admission only; dispatch prohibited.
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1923.523667

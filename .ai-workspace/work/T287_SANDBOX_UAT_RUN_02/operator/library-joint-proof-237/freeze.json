@@ -1,0 +1,47 @@
+{
+  "scope": "237 scratch fixture/responder preparation only; no Public setup/Run/native dispatch",
+  "files": [
+    {
+      "path": "workload.mjs",
+      "sha256": "6073c05c0f6ab85c7b4fb4fcacdfbd49e55c4473238bb5f785ce2de42f2e19f1",
+      "byteCount": 3888,
+      "mode": "0o644"
+    },
+    {
+      "path": "responder.mjs",
+      "sha256": "bedefd30e2b67b7c3277c7bfe03c7ebe7051f14d7103c3caf18bed7255a367bd",
+      "byteCount": 9155,
+      "mode": "0o755"
+    },
+    {
+      "path": "fixture/source.md",
+      "sha256": "9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+      "byteCount": 1107,
+      "mode": "0o644"
+    },
+    {
+      "path": "fixture/checker.mjs",
+      "sha256": "5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+      "byteCount": 335,
+      "mode": "0o644"
+    },
+    {
+      "path": "fixture/rubric.md",
+      "sha256": "d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+      "byteCount": 634,
+      "mode": "0o644"
+    },
+    {
+      "path": "checks.json",
+      "sha256": "f942fa743b27d008abede8d480ac28fc6ffaa214a463a1ef7007147c2a34a78d",
+      "byteCount": 4982,
+      "mode": "0o644"
+    },
+    {
+      "path": "return.md",
+      "sha256": "9b5d942f4627dbbbe66ad45fba5594ff6b4d3fb9053e14670c49acc1de42c8c3",
+      "byteCount": 3633,
+      "mode": "0o644"
+    }
+  ]
+}

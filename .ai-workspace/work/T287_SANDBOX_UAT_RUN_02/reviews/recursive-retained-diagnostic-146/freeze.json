@@ -1,0 +1,227 @@
+{
+  "status": "CLOSED bounded GO",
+  "closed": "2026-10-09T02:00:32.830803+00:00",
+  "role": "Independent Reviewer146",
+  "basis": {
+    "product": "Fixed fifteen-family ABI5.0 / GOAL035 / T287",
+    "stdo": "2.5.1-rc.2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frames": [
+      "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+      "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+    ],
+    "law": [
+      "Product F03/F10",
+      "RECURSE003/004/006",
+      "CCALL013/018"
+    ]
+  },
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/freeze.json",
+    "sha256": "e4985b01a7f61e4083fb861f3397b6abf272e6922ed7d5d4f2b62ae963c9b827",
+    "byteCount": 25200
+  },
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-retained-diagnostic-146/return.md",
+    "sha256": "2c52288f9ac22ca8365c524192866e8b327db6b435cfff06bcbc3717242eaf37",
+    "byteCount": 2245
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-retained-diagnostic-146/readiness.json",
+    "sha256": "9e294de2c999eb9cd4d30af941d4690cc1ddd75822e1ffaadb2ba39520b8ab95",
+    "byteCount": 7885
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/return.md",
+      "sha256": "feb7519d1b7f4b2869fb08232aecf1a8ee245c05acf80859cebb960961cb9c67",
+      "byteCount": 2367
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/readiness.json",
+      "sha256": "c207d5f9304376e902baf1b4f4095da2cc82bc5dbd90329ef07c349160ee29c9",
+      "byteCount": 18066
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/freeze.json",
+      "sha256": "e4985b01a7f61e4083fb861f3397b6abf272e6922ed7d5d4f2b62ae963c9b827",
+      "byteCount": 25200
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/diff.patch",
+      "sha256": "e65e8c7f13ec60623004d84b93a3b9439317668027c2f5eb5ba321d4c6bef796",
+      "byteCount": 17329
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages.json",
+      "sha256": "2636b81a904749a16660539e05b5f8778defc747e89523877d60972510eee1a2",
+      "byteCount": 1801
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/postimages.json",
+      "sha256": "1098fc7730e4a3851fe8750bbd844774d1aacdc88c93e4af5d63d170099f8e5d",
+      "byteCount": 1893
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/source-correspondence.json",
+      "sha256": "7cb529dcebf82a1da0016124a0b40d8c1a53381d349086eb66d2840bdf8a92b8",
+      "byteCount": 1818
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/proof-cases.json",
+      "sha256": "5667b2adb7fc8231cde85cf5f3f3d9698a3ad50be97e765ea14362f56d2f0db9",
+      "byteCount": 7086
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/authentic-proof-slices.json",
+      "sha256": "ee8d97c9bf972ba477174b1d5dd837e119e0c3e108dc44ef1f7ea462ea4cc09b",
+      "byteCount": 27471
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-owner-import-145.request.json",
+      "sha256": "2d379062731e9b18963c8014368f419ddc91aa479fcf061181be394fd3a0d851",
+      "byteCount": 1876
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-owner-import-145.result.json",
+      "sha256": "d8ad2888d524a09dfd5b77224e8a2ccd24dd7da9da06b020c489dcb82f7fb04d",
+      "byteCount": 163
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-owner-import-145.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-owner-import-145.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-cold-evidence-145.request.json",
+      "sha256": "5f52abbb4a797c0f0075d0902d0a4e9cc2d53b8946a7d6df9224807a90cbbb96",
+      "byteCount": 1741
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-cold-evidence-145.result.json",
+      "sha256": "da60dac55b2f2947e31351dc5d0b9d91dec76ba902b6594d4466a7cc2e100f39",
+      "byteCount": 165
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-cold-evidence-145.stdout",
+      "sha256": "799e13b254ba25d526cbaec4b4e7dd38aa91bef35b32202ea2840297982ed545",
+      "byteCount": 5807
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-cold-evidence-145.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "481a6f654bbccfcc0d456fd4d47cf5082d77541581240f5855ef883e82996abd",
+      "byteCount": 34249
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/postimages/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "504a7647805304ff160c43717ec66c5fd00a73aa53360904e56ce4a44e9d9b51",
+      "byteCount": 34618
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "ee8baae788e9b7bc5064600d1bedd7446cca8ec9b15d088397d10f6c8cd32361",
+      "byteCount": 35898
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/postimages/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "6155d94bd085d8415761b00520d72251438829eae5dea3e252d2929d3b15f6b7",
+      "byteCount": 36278
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "ffb492428b6fd19b364cecb17bc7d353eaaecb06d2ccc8acf5c2d1160f0a0301",
+      "byteCount": 29100
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/postimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "0967cd09ec698275a9713673cc91dff0e3d902147f45f1a3d0fb8f60c98a80ad",
+      "byteCount": 35217
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/baseline/code/src/abg/runtime_failure.ts",
+      "sha256": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994",
+      "byteCount": 13253
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "a195281811bac8860dacebfbd489c5aaec7e3d79439bc89dd035891c9ed30813",
+      "byteCount": 76599
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/activation.json",
+      "sha256": "5a7363e98bc1c944af38dbeaf7639256cf99a4602c7c6ad8e73d9d776b7f6548",
+      "byteCount": 1135
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/return.md",
+      "sha256": "6af4147aad2e4e054cc4f0b8dc51259a85bff8ef78e35d84e5ddf14db4d57f70",
+      "byteCount": 4109
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/readiness.json",
+      "sha256": "b55c01215679d519a2b0e40c2853956c13b0309d26b92966e56bcf12f27ca75e",
+      "byteCount": 9491
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/freeze.json",
+      "sha256": "30dc4f22dbf55ede2ec112296354bdc3a8f89c5fc16269165aab19ca8dfee4dc",
+      "byteCount": 17352
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/finding.json",
+      "sha256": "0134d2d4198df45bfd16e78a01c776928e0e2fcfc780c34cb073b5944898cae4",
+      "byteCount": 1819
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/causal-route.json",
+      "sha256": "61993c599105841e22343622f102794a4cd815eeee510e3d05ecaa8a34ae9d5a",
+      "byteCount": 1654
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/diagnostic-correspondence.json",
+      "sha256": "dfea674113c1ea4426f75fe4ca7bb867ea20754a4ff1ff765b84715112644ea5",
+      "byteCount": 1597
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/immutable-owner-selector-correction.json",
+      "sha256": "70532864e05fbe2e4ec970c2b0acbf530412d5ff218da6cb4675cb2378bdb971",
+      "byteCount": 1058
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-retained-diagnostic-146/activation.json",
+      "sha256": "bc6f317b7f01f5e17180aca9001651ba03cfa9f2b0a976a7be0208c6a5d0dbb0",
+      "byteCount": 2090
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-retained-diagnostic-146/findings.json",
+      "sha256": "3a4a0b9cda17a5d4c26485bd94cd20defa756a2d344c0529ed777af6bc2ca30b",
+      "byteCount": 3262
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-retained-diagnostic-146/readiness.json",
+      "sha256": "9e294de2c999eb9cd4d30af941d4690cc1ddd75822e1ffaadb2ba39520b8ab95",
+      "byteCount": 7885
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-retained-diagnostic-146/return.md",
+      "sha256": "2c52288f9ac22ca8365c524192866e8b327db6b435cfff06bcbc3717242eaf37",
+      "byteCount": 2245
+    }
+  ],
+  "editingStopped": true,
+  "effectsStopped": true,
+  "limits": [
+    "Retained lanes use a disclosed in-memory controlled F_D realizer via actual invokeLeafOwnerBoundary and unchanged declared fibre/contracts. They do not authenticate changed installed implementation bytes and admit no F_P undispatched-owner evidence. Existing immutable25 source/pure check proves F_P producer reachability only. Complete installed F_P Error producer to HoG composition remains open.",
+    "No installed/native/UAT/P0/release credit"
+  ]
+}

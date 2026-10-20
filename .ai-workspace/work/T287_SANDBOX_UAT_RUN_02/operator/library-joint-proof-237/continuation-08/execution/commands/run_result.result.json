@@ -1,0 +1,28 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-08/execution/calls/run_result.request.jsonl"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-08/execution",
+  "started": "2026-10-10T12:21:18.738Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR",
+    "npm_config_cache",
+    "npm_config_offline"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 937.8321250000008,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"acquisitionKind\":\"reopen\",\"kind\":\"installed_definition_call_transport_result\",\"receipt\":{\"definitionKey\":{\"memberKey\":\"run_result\",\"operationId\":\"abg.operation.project.read\"},\"exitCode\":1,\"failure\":null,\"invocationRef\":\"invocation://abiogenesis/d40282fdd034e6ee1b768b851e539883d75d58a42d881fbcb26a6e2cb154158a\",\"kind\":\"definition_host_receipt\",\"ownerOutput\":{\"outcomeKind\":\"refusal\",\"value\":{\"code\":\"not_found\",\"evidenceRefs\":[],\"issuePaths\":[]}},\"resources\":{\"eventResource\":{\"acquisitionKind\":\"reopen\",\"closeHandoff\":{\"prefix\":{\"coordinateDigest\":\"sha256:0aabc75790f57edbf53b903dfc5be1e1f5d59cbb0af0566007830c469983f8c9\",\"eventLogRef\":\"file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl\",\"kind\":\"durable_prefix_coordinate\",\"prefixDigest\":\"sha256:b2afbf2a221b0d203371e71239999beefb0c96e2ac05605f96ee4bf811a790a5\",\"prefixLength\":3452868,\"schemaVersion\":\"5.0.0\",\"storeIdentity\":{\"device\":16777231,\"eventContractDigest\":\"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\",\"inode\":469917053}},\"reopenAuthority\":{\"authorityDigest\":\"sha256:e9479cdc66bdf8ccbd954df6d7d17cce869b7cb7fe0ea7d24384d6b9972c43f6\",\"device\":16777231,\"durableByteLength\":3452868,\"eventContractDigest\":\"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\",\"eventLogDigest\":\"sha256:b2afbf2a221b0d203371e71239999beefb0c96e2ac05605f96ee4bf811a790a5\",\"eventLogPath\":\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl\",\"inode\":469917053,\"kind\":\"event_store_reopen_authority\",\"schemaVersion\":\"5.0.0\"}},\"entryPrefix\":{\"coordinateDigest\":\"sha256:0aabc75790f57edbf53b903dfc5be1e1f5d59cbb0af0566007830c469983f8c9\",\"eventLogRef\":\"file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl\",\"kind\":\"durable_prefix_coordinate\",\"prefixDigest\":\"sha256:b2afbf2a221b0d203371e71239999beefb0c96e2ac05605f96ee4bf811a790a5\",\"prefixLength\":3452868,\"schemaVersion\":\"5.0.0\",\"storeIdentity\":{\"device\":16777231,\"eventContractDigest\":\"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64\",\"inode\":469917053}},\"kind\":\"abg_event_resource_receipt\",\"receiptDigest\":\"sha256:c904157a147738cd81c09af770df065a6f3d3167a063bad6b8b04222b6e7459c\",\"schemaVersion\":\"5.0.0\"},\"kind\":\"abg_project_read_resource_receipt\",\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"}\n",
+  "stderr": ""
+}

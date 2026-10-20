@@ -1,0 +1,304 @@
+{
+  "subject": "Worker176 ONE actual stopped current-source composition",
+  "status": "CLOSED/HOLD",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/activation.json",
+      "sha256": "9b958317c9cce36a3984f7a5aef3be45f621ecbf576de144958f50d4870f2c04",
+      "byteCount": 7769
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/binding-inputs.mjs",
+      "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+      "byteCount": 1942
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/closure-conservation.json",
+      "sha256": "95ced6db753fa99c6f965e699e30c5170a0de36bb984e2e0dcf0c3504c5cbdfe",
+      "byteCount": 20634
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/completed-witnesses.json",
+      "sha256": "2d1dde6d6bbbce56a1d3f1d0fd5547c78fa1904990bc20bfbde40f8eca563a52",
+      "byteCount": 125452
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/consumed-bases.json",
+      "sha256": "2be7ae16352ab594a6ce33fe4b83404ee971b7d084b6cd332d467b5bd528bfc9",
+      "byteCount": 93977
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/current-setup.json",
+      "sha256": "75954b0ff5e889a3d80fd498de2f9d6ec1aace39f78c721f2fff772b735b3ad1",
+      "byteCount": 37307292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/final-close-handoff.json",
+      "sha256": "99d5f7e4bc2ecf0abe8aca89e2a9c5a3acf128704ad75460de76ab61d572c2ee",
+      "byteCount": 1472
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/final-resource-receipt.json",
+      "sha256": "8a6674ad43d47798dcc5aad1de1be77066cce0289e5173398b0726786b0c7185",
+      "byteCount": 2488
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/first-cause.json",
+      "sha256": "68e55e3470bef64ce10dfc249aded521b4b2aad5e79d1608899131fd9f799eb9",
+      "byteCount": 804
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/historical-source-discriminator.json",
+      "sha256": "23efdf8f34f317624fb1c52d9a8375d78c8a59bac583ebeb0243d8834c27bd7f",
+      "byteCount": 29485316
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/inputs.json",
+      "sha256": "e95e941130681ffc09db910b7e089f0052bc6c94f16147bc3cac066cb58571b8",
+      "byteCount": 13494
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/launch.mjs",
+      "sha256": "dee0dea2c2c876eb0ef987c1a4ba550cfc32b17375ccb9752baaa52da7c26e31",
+      "byteCount": 960
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/operation-resource.mjs",
+      "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+      "byteCount": 695
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/packed-resources.mjs",
+      "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+      "byteCount": 2167
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/physical-preflight.json",
+      "sha256": "304b76b68e2844b3cdd965bc7eadc1078a2c0ebc7fcbb723b079a6eb493199a9",
+      "byteCount": 14572
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/prepare.mjs",
+      "sha256": "6709e1dcf37d787e341bc504afd4a86e0999b3f17461f7997b88a132c11b5302",
+      "byteCount": 37816
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/readiness.json",
+      "sha256": "cd52cff5b5967e4115408b4074958e24aedfd1fdc1037aa8611cb6c205e9fcc0",
+      "byteCount": 9830
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/recorder-pid.json",
+      "sha256": "540da9df2db11391b1aa53427c47ddde48b24ab1f91ed657b108028f05340306",
+      "byteCount": 1326
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/return.json",
+      "sha256": "7e2f46e23d8e1f0e144fb426fcf7d0fd6a2e983517fbffbaa2aa7eafaa7e4554",
+      "byteCount": 6058
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/source-current.json",
+      "sha256": "0581af8364d40155e12b627f558ad135f3645e3a70b0e4a815a5cb1dba7996e9",
+      "byteCount": 2414005
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/source-initial.json",
+      "sha256": "9aab0b3e0f5e385c502ce2329eb3bcabce6c8422ad0fab1c97712202638ebed0",
+      "byteCount": 2414005
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/terminal-discriminator.json",
+      "sha256": "25cffcf879ba18fa2f9c77195c3c90f539a06929b48acd107f3f545750ed3001",
+      "byteCount": 122796
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/verify-artifacts.mjs",
+      "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+      "byteCount": 2071
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/commands/current-source-preparation.request.json",
+      "sha256": "d287c6a89dd873f8b6c0cd3b4bca205eb3c4d837724abf27dec00409bac9510b",
+      "byteCount": 1627
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/commands/current-source-preparation.result.json",
+      "sha256": "942ea0ce61510495ea155baa0708be5180886e5ebe2ed07b64c10d41d5c3d4dc",
+      "byteCount": 131785
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/commands/current-source-preparation.stderr",
+      "sha256": "cb1df4a0e944f7b95458a6ae814a7f6ed3d40a424093d5c02f2fbf582df73b60",
+      "byteCount": 248
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/commands/current-source-preparation.stdout",
+      "sha256": "9b9b56ad76bc2d007ff63738b85a85ac66c8156e072eb2791473a25de375fe71",
+      "byteCount": 118949
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/calls/catalog-admit26.outcome.json",
+      "sha256": "fbfd7f43dfe0a4d747871259e5fd5efce895622d17b803ba0db1f8c3129257b5",
+      "byteCount": 173665
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/calls/catalog-admit26.request-projection.json",
+      "sha256": "a0ca9a22b6cbf3be3c04cfc134b27bb1abfcf2a6ce5ba813e8a328b08d204300",
+      "byteCount": 15744
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/calls/catalog-view26.outcome.json",
+      "sha256": "7251ee7f9428f20da898a9c33f61be4c0038c7f56061d6a2694fcce2d51d631e",
+      "byteCount": 2265
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/calls/catalog-view26.request-projection.json",
+      "sha256": "4fadda1c430995bf4360850b122881a392de6ee06f2db96e67518c9da06fae4e",
+      "byteCount": 15372
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/000-native26-preverify-start.json",
+      "sha256": "d1df52e025e3fa911ec88b4aa0a6e447c405f0b4d7333eed60b54e91fd4f1ed0",
+      "byteCount": 394
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/001-native26-preverify-complete.json",
+      "sha256": "b8bd2f7f353a4336cdb2900e8be122fe262afd1a06a45a45f9c9688b9c7b3b70",
+      "byteCount": 803
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/002-consumer-preverify-start.json",
+      "sha256": "f8c3fc5c20ba841cf1379399f231281a357b0175464264f7594d616587d334c5",
+      "byteCount": 497
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/003-consumer-preverify-complete.json",
+      "sha256": "a0884a2bde020908bbb8d8fc75bb2a6853baaa8f22444dc33543fa96eaa5247c",
+      "byteCount": 910
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/004-packed-resource-correspondence-complete.json",
+      "sha256": "a9ec06d12994468b61f72839099be9b0cdb94cc134468683cee3261df229e042",
+      "byteCount": 2916
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/005-acquisition-start.json",
+      "sha256": "8d5f4aa9140b11965360208a0ca1835246f9ddb6491e19e3bef57151f0884b81",
+      "byteCount": 451
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/006-acquisition-complete.json",
+      "sha256": "c3700998627e79008f84cec831640bcb1bead99075a4f1289eec7304c2621a7e",
+      "byteCount": 1003
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/007-source-initial.json",
+      "sha256": "b4342607b8779a15332bb25b34f5f9642ccfff00763777fef01ab3cde7ca0b86",
+      "byteCount": 553
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/008-terminal-resource-start.json",
+      "sha256": "e6cfd3b85beef711dd4cb2ca73f6f88b9080cef95539b6f74bfa21bf3e964d6d",
+      "byteCount": 477
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/009-terminal-resource-complete.json",
+      "sha256": "95cf2f5bf0a5887e7068e71bea0fd6d903ca119285bac582f641796191d5f40c",
+      "byteCount": 428
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/010-old-environment-complete.json",
+      "sha256": "aba9d8b5100c1b6723117305e74e3c91fb2f3a9639d2ab97bae08a02e6b15ad8",
+      "byteCount": 790
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/011-retained-native-install-complete.json",
+      "sha256": "964dc94711f06ffe4987ff1d02e184ea8283420392c8e6086764196a52234953",
+      "byteCount": 881
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/012-retained-consumer-install-complete.json",
+      "sha256": "e54bd510a3bce741be8da35759ae53ec1982dea10e96b44e100f3f7c3ac1f2c5",
+      "byteCount": 652
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/013-retained-current-binding-complete.json",
+      "sha256": "bb940b767d66a4cb860a7eaa037a3482d67d9b6e3d518e5582feb0b8caeb03e6",
+      "byteCount": 918
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/014-catalog-admit26-grant-start.json",
+      "sha256": "6c50dab1623891977efe6e3835317d964fdb73bcc110a647717a8733184da03e",
+      "byteCount": 233
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/015-catalog-admit26-grant-complete.json",
+      "sha256": "bf9bc25ae35244fba22af5683e63e1e8caf3df88f1ae584f6696221d9342cd61",
+      "byteCount": 297
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/016-catalog-admit26-transport-start.json",
+      "sha256": "e2c92c415c425e56fb060814f6ab1468edf8ee2d625b464124e9278f12de0894",
+      "byteCount": 234
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/017-catalog-admit26-complete.json",
+      "sha256": "d569ecea5763dabf7e5608e7e5f81093767ddca747f058f1653b22c8889bf6e1",
+      "byteCount": 404
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/018-catalog-view26-grant-start.json",
+      "sha256": "d84ebc910ace7d492da52abd0032ae3a755b5175eb31e06a38284d8b0a9aa8f8",
+      "byteCount": 232
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/019-catalog-view26-grant-complete.json",
+      "sha256": "74165ac5099f3245ecd6fe6137e9db6f61d1435c2d82d39c4720fa66fe41eb5e",
+      "byteCount": 296
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/020-catalog-view26-transport-start.json",
+      "sha256": "91985b2b3ae54cd2adce4543bda43c8cf7326c4bdd8df56c8e2bf5a2792f0b16",
+      "byteCount": 236
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/021-catalog-view26-complete.json",
+      "sha256": "eb7a79da4a9bbeec4e2f4ae6694607ddebbebae8ed9914a8f2cecdb27eeb1566",
+      "byteCount": 402
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/stages/438-covers-complete.json",
+      "sha256": "5edfbd5cfd1aca9a7ea768b530247cb77c39c0ebb312eeafd9355a56c5f60487",
+      "byteCount": 250
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/final-close-handoff.json",
+      "sha256": "1e5de97f11460a5cf41e97b4133fef7477bd1d576a5e685800423242de1f3f1c",
+      "byteCount": 1472
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+      "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+      "byteCount": 1723
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-26/identity.json",
+      "sha256": "162c720b648cb788932f299b9f97a5365be1134c542bd5f8654bc3cb4ce80257",
+      "byteCount": 9497
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/exacthost-identity.json",
+      "sha256": "f5a30d90a8b0ca80b02fa11f7e24bf424cd5411289d5fec3f15c848c3995d510",
+      "byteCount": 3217
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/freeze.json",
+      "sha256": "24415218d3c1980a911878b32dda367d9c3bd23dd0504efc3a1176dd3db84171",
+      "byteCount": 24009
+    }
+  ],
+  "witnessEvidence": "All104 original request/outcome/completion-stage pins are retained in completed-witnesses.json, itself frozen; no duplicated witness bodies or new authority.",
+  "physicalLog": "Only canonical permitted catalog/view/witness effects appended; final owner close and stat retained. Actual large log excluded from manual pins/hash/scan/replay.",
+  "RCA": "Current-source-use nullable refusal preserved after104 individual covers; Root independent triage before any next action. No prepared/newRun/model/app claim."
+}

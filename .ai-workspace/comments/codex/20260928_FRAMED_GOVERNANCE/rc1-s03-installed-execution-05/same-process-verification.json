@@ -1,0 +1,23 @@
+{
+  "kind": "product_verification_success",
+  "coordinates": {
+    "verifiedArtifact": {
+      "ref": "product-verification://abiogenesis/a82a70cab5b92785959e72b7cbb77be680d0f003ae02839a47cc0e1078c460f8",
+      "digest": "sha256:a82a70cab5b92785959e72b7cbb77be680d0f003ae02839a47cc0e1078c460f8"
+    },
+    "descriptor": {
+      "ref": "descriptor://abiogenesis/typescript-tenant/216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+      "digest": "sha256:9efbcb718119e0b6a43581385d24ac10560e6d70c6d298860a1408565dd1191e"
+    },
+    "localNativeEvidence": {
+      "ref": "local-native-evidence://abiogenesis/product-verification/bb8d16f6580aab2f78c7ec06cc9776a33a73877473d11f6709171d2d5cf7eca4",
+      "digest": "sha256:bb8d16f6580aab2f78c7ec06cc9776a33a73877473d11f6709171d2d5cf7eca4"
+    },
+    "provenance": {
+      "ref": "provenance://abiogenesis/product-verification/e987dc42104ab90e36c8d35f50b5be315d82f367daccb86dfb9f91bf79c595f0",
+      "digest": "sha256:e987dc42104ab90e36c8d35f50b5be315d82f367daccb86dfb9f91bf79c595f0"
+    }
+  },
+  "ownerSelection": "Actual same-process Product owner selected the identical nominal verified object; saved JSON is evidence only",
+  "role": "pure preparatory verification only; no CLI setup or Product mutation"
+}

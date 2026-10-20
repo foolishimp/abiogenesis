@@ -1,0 +1,54 @@
+{
+  "reports": [
+    {
+      "label": "before",
+      "productContentDigest": "sha256:89dd2d343ad41e15a21b16966ca77e4ff6770b9c24d83ee3d7d2259fbea4d91f",
+      "manifestDigest": "sha256:5411dfffb3abf6587eb29e02a3ceaba7824f362df7da3d4533089eceb0f1c2df",
+      "catalogDigest": "sha256:3f9c22092d763ef271da223cea455083297284c5bd07e3feca3ab7c1d8bba409",
+      "capabilityGraphCoordinate": {
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0",
+        "graphDigest": "sha256:ed66f021170abc976fcfaeadad9348533776236097a2475723513c5fc4955ab4"
+      },
+      "contributionManifestDigest": "sha256:29aab51372356f7bac61fb15fde7432e8f338767eb6930996e930abb5ac184aa",
+      "publicRows": 75,
+      "publicationBindings": 10,
+      "contributionRows": 47,
+      "nativeDeclarationClosures": 15,
+      "nativeLocatorRows": 50,
+      "assets": 53,
+      "completeCanonicalValuesRecomputed": true
+    },
+    {
+      "label": "after",
+      "productContentDigest": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+      "manifestDigest": "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+      "catalogDigest": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7",
+      "capabilityGraphCoordinate": {
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0",
+        "graphDigest": "sha256:a9af40ebcaa5261eb37a085f92a194adab1ff646b3aef55d58fbfc4e77d4eeb5"
+      },
+      "contributionManifestDigest": "sha256:4f2b080203cea7fcf688a13257ced6b695f8df8a64f676cfb5bdbec03b0d94da",
+      "publicRows": 75,
+      "publicationBindings": 10,
+      "contributionRows": 47,
+      "nativeDeclarationClosures": 15,
+      "nativeLocatorRows": 50,
+      "assets": 53,
+      "completeCanonicalValuesRecomputed": true
+    }
+  ],
+  "exactCatalogFieldDifferenceCount": 446,
+  "allPublicNonDigestFieldsEqual": true,
+  "exactContributionIdentityCounts": {
+    "graph": 1,
+    "contentRefs": 3,
+    "publicationDigests": 10,
+    "provenanceRefs": 47,
+    "catalog": 1
+  },
+  "fullCanonicalContributionValues": true,
+  "definitionRoleInstructionContractMetadataConserved": true,
+  "noArbitraryDigestOmission": true
+}

@@ -1,0 +1,20 @@
+{
+  "executable": "/usr/bin/python3",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/member-comparison.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107",
+  "started": "2026-10-08T10:44:57.125Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 532.393166,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"memberCount\": 5265, \"deltaCount\": 3, \"deltaPaths\": [\"package/build/code/src/abg/instruction_assembly.js\", \"package/contracts/capabilities/capability-definition-graph.json\", \"package/product-toolchain-manifest.json\"], \"catalogChanges\": 0, \"contributionChanges\": 61}\n",
+  "stderr": ""
+}

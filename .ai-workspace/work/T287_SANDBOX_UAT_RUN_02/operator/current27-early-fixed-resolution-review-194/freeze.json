@@ -1,0 +1,24 @@
+{
+  "role": "Independent Reviewer194",
+  "status": "CLOSED_BOUNDED_GO",
+  "frozenAt": "2026-10-09T09:27:32.348846+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/freeze.json",
+    "sha256": "cb8e1b48b2a9a28caf04b025d2a9c5c5a4ca6cd0a0c8306348514a5c19d20ab8",
+    "byteCount": 19627
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-review-194/return.md",
+      "sha256": "56eb1bd08c8027ff62d4a2cf1f381dc428b86abe7eead2b0e91a3fe67b9f9814",
+      "byteCount": 3773
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-review-194/pins.json",
+      "sha256": "1219ae33580ab6c508fceb88c61e99c1e617cbf05c8a9d3d25cd36b0f1d6ad88",
+      "byteCount": 8972
+    }
+  ],
+  "effects": "Only194 documentary review; all canonical/historical/campaign/runtime/app/Git bytes read-only",
+  "stop": true
+}

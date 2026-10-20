@@ -1,0 +1,15 @@
+{
+  "operation": "T287_EXECUTION06_TRIAGE_ASSIGNMENT_01",
+  "actor": "/root",
+  "role": "Writer",
+  "previousRole": "Executive",
+  "activatedAt": "2026-10-02T04:16:19.850716+00:00",
+  "grant": "Owner fix it and close 5.0; record measured triangulation and bounded independent assignments",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01"
+  ],
+  "prohibitedEffects": [
+    "Source/candidate/Runtime/old-proof/Git/network mutation"
+  ],
+  "status": "ACTIVE"
+}

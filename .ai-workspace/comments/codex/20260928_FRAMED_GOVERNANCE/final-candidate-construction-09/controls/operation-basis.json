@@ -1,0 +1,40 @@
+{
+  "kind": "explicit_root_selected_tool_operation_basis",
+  "operation": "T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+  "actor": "/root/native_applicability_design",
+  "phase": "exact_typed_source_successor",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09",
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-cut.json",
+    "bytes": 26506590,
+    "sha256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+    "mode": 420
+  },
+  "acceptedBuilder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-freeze.json",
+    "bytes": 384148,
+    "sha256": "5e9fd780078b081d83ae598a9e05ac84c58648b90e84324209305cbf8058f14b",
+    "mode": 420
+  },
+  "activationDependency": "Root separately releases this request only after independent typed Source GO and Root accepted component exact proof pins.",
+  "sourcePopulationRelation": {
+    "priorCandidate": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source",
+    "authorizedAdditions": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+        "bytes": 1976,
+        "sha256": "9797da8e09246f70f111eb1a7866da8f73db1b1aaecc0eda6685fed4d0417114",
+        "mode": 420
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+        "bytes": 7008,
+        "sha256": "c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b",
+        "mode": 420
+      }
+    ],
+    "actualExistingMembers": 1109,
+    "actualChangedExistingMembers": 7,
+    "descriptivePreimageStringsAreExecutableAuthority": false
+  }
+}

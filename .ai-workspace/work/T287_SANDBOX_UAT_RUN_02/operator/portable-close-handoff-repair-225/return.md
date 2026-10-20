@@ -1,0 +1,11 @@
+Worker225 CLOSED / STOP: bounded Source/component repair ready for independent review. Fixed15 ABI5.0 / GOAL035 / T287 / STDO2.5.1rc2 (manifest3d860ff4…), end-to-end interface integration, existing Product795–880 / CONT014–016.
+
+The existing close owner now returns a canonical detached prefix, with every coordinate field, digest and reopen authority unchanged. This removes the returned-prefix key’s association with the previous decoded history. Separately retained nominal prefixes/validated snapshots keep their immutable reads after close; all physical reopen checks remain. The primary interrupted-recovery HOW was clarified first. Pending-consumer HOW remains byte-exact.
+
+Strict263Source compilation PASS5.971s. Normal generator/typed declaration closure PASS26.769s. Same affected recovery/covered-source suites PASS15/15/0skip in10.671s. Real small-owner cases prove portable value equality/different nominal identity, no history association, normal recovery→reopen, retained owned reads with zero extra physical opens, and portable/copy/fresh/foreign/changed-byte/current/closed-owner behavior. Full34 semantic cases retain their explicitly controlled lower premises. Exact198 fixture inputs are39,657,765B and407,665B, referenced without copying; they are not the actual event log.
+
+Exact delta: one of263TS changed;262same. Compiler526 outputs:524same, event_store.js behavior delta and event_store.d.ts one documentation comment only. Normal934 outputs:930same; those two plus canonical capability graph/manifest consequences. Four canonical files changed (Source, primary HOW, two tests). Compact diffs/pins retained; disposable compiler tree removed.
+
+Focused-01 remains preserved: omitted fixture selector stopped three controlled cases before their owner checks; Root selected the exact frozen198 selectors for focused-02. A Python recording SyntaxError occurred before any statements and was corrected without rerunning checks.
+
+This proves the selected return-boundary relation, not223’s exact fatal allocation or full-history capacity. No actual history/log, app, runtime/model, installed tree, package/candidate or Git effects occurred. Genuine stock-heap recovery→portable handoff→reopen/current-source/native composition remains required after independent Source review/publication.

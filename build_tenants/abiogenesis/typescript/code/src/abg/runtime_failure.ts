@@ -1,3 +1,4 @@
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import { sha256Canonical } from "../shared/digests.js";
@@ -11,7 +12,7 @@ import {
 } from "./execution_basis.js";
 import {
   constructRunActiveFluent,
-  deriveRuntimeEventCalculusProjection,
+  deriveRuntimeHeldFluentProjection,
   holdsAt,
 } from "./event_calculus.js";
 import {
@@ -107,6 +108,13 @@ function retainedDiagnosticSubject(diagnosticRef: string, subjectDigest: Sha256D
 /** Diagnostic prose is evidence only; the admitted event owns failed truth. */
 export function projectRuntimeFailureEvidenceAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+): readonly JsonValue[];
+/** @internal */
+export function projectRuntimeFailureEvidenceAtPrefix(
+  prefix: RuntimeEventPrefix,
+): readonly JsonValue[];
+export function projectRuntimeFailureEvidenceAtPrefix(
+  prefix: RuntimeEventPrefix,
 ): readonly JsonValue[] {
   const runtimeFailures = indexedRuntimeEvents(prefix, "kind:runtime_failure_observed")
     .filter(event => event.aggregateType === "run")
@@ -188,7 +196,7 @@ const FAILURE_FRONTIER_KINDS = new Set<RuntimeEvent["kind"]>([
   "fan_out_completion_admitted", "traversal_route_admitted", "fh_interaction_resume_admitted",
 ]);
 
-function failureFrontierEventRef(prefix: ValidatedRuntimeEventPrefix, scope: OpenedTraversalScope): string {
+function failureFrontierEventRef(prefix: RuntimeEventPrefix, scope: OpenedTraversalScope): string {
   let frontier: RuntimeEvent | undefined;
   for (const event of indexedRuntimeEvents(prefix, "graph-call:" + scope.graphCallId)) {
     if (event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId &&
@@ -222,7 +230,7 @@ export function admitRuntimeFailure(
     scope.executionBasisRef !== executionBasis.basisRef ||
     diagnosticRef.length === 0 ||
     !holdsAt(
-      deriveRuntimeEventCalculusProjection(runPrefix),
+      deriveRuntimeHeldFluentProjection(runPrefix),
       constructRunActiveFluent(scope.runId),
     )
   ) {

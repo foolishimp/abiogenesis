@@ -1,0 +1,44 @@
+{
+  "status": "PASS pre-owner",
+  "fixture17ReviewPins": 6,
+  "closed16PinsMatched": true,
+  "selectedNativeArtifactDigest": "sha256:192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+  "selectedConsumerArtifactDigest": "sha256:ed8a2aa60fdcfc7dd5be939605488498c20de5226aa9b042077e4a442bf36e9d",
+  "physicalLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "bytes": 32758262,
+    "device": 16777231,
+    "inode": 469917053,
+    "mtimeNs": "1791667712606460604"
+  },
+  "protectedFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/source.md",
+      "sha256": "9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+      "byteCount": 1107
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/rubric.md",
+      "sha256": "d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+      "byteCount": 634
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/checker.mjs",
+      "sha256": "5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+      "byteCount": 335
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/value.txt",
+      "sha256": "cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048",
+      "byteCount": 7
+    }
+  ],
+  "locksAbsent": [
+    "/private/tmp/abiogenesis-event-store-locks-v5/16777231-469917053.lock",
+    "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-469917053.lock"
+  ],
+  "fixtureProcesses": [],
+  "noBuildOrPack": "accepted16 archives selected; genuine verification is before the one ordinary history acquisition",
+  "genericSamePairBoundary": "inapplicable for original37 Source binding versus current44 lock; Root selected existing changed-pair owner route",
+  "documentaryLookup": "run-native-outer.mjs was absent; existing commandRecorder is the actual outer recorder; no owner effect"
+}

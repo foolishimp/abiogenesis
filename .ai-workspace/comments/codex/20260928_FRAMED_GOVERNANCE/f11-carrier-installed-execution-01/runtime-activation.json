@@ -1,0 +1,32 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_01",
+  "actor": "/root/f11_installed_caller_preparation",
+  "role": "Runtime-only Worker",
+  "previousOperation": "T287_F11_CARRIER_INSTALLED_INPUT_PREPARATION_01",
+  "previousStatus": "CLOSED",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01",
+  "activatedAt": "2026-10-01T21:27:28.794992+00:00",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminators-controls-01/f11-request.txt",
+    "bytes": 6478,
+    "sha256": "397aada726b74672dd125dfea00c644acc182fef9a323be0ed9d2515f6151693"
+  },
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/acceptance.json",
+    "sha256": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f"
+  },
+  "candidateFreeze": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+  "realProviderCalls": 0,
+  "permittedTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01",
+  "semanticClaim": "mechanical_carrier_only",
+  "firstCompositionFailure": "stop new calls and return Root; no repair or retry",
+  "forbidden": [
+    "source/core patches",
+    "old reports/resources",
+    "genuine provider/network/auth",
+    "Git",
+    "review activation",
+    "green semantic/release claim"
+  ]
+}

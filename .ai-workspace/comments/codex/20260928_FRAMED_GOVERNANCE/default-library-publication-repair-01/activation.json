@@ -1,0 +1,26 @@
+{
+  "role": "Worker",
+  "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+  "author": {
+    "externalAgent": "/root/s03_phase_b",
+    "model": "inherited Astra/xhigh per Root activation",
+    "nativeAuthorIdentity": null,
+    "scope": "Actual external source/component authorship only; no ABG author attribution"
+  },
+  "at": "2026-09-30T06:49:41.418547+00:00",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+    "bytes": 7347,
+    "sha256": "4c48aa2fd7d4112bcc2a6fd9025ae9b82c64395134b517d28033dd2c7faf2cdd"
+  },
+  "requestJoin": "Installed a_c join SHA256 equals request SHA256",
+  "reentry": "realization_refactor",
+  "sourceTerritory": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+  ],
+  "evidenceTerritory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01",
+  "effects": "source edits and isolated compilation/pure named tests only",
+  "stop": "First distinct new failure returns; no native/package/install/provider/runtime/Git effects"
+}

@@ -1,0 +1,3 @@
+AssertionError [ERR_ASSERTION]: finite full resource byte budget must be satisfied before body materialization
+    at construct (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/current-resources.mjs:132:9)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/packet-readiness.mjs:29:15

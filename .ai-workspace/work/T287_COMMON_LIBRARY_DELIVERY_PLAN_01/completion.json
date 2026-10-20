@@ -1,0 +1,19 @@
+{
+  "created_utc": "2026-10-20T18:16:12.901284+00:00",
+  "status": "accepted_delivery_plan",
+  "candidate_freeze_sha256": "d2cb0f2e7c3967a64d5719e29c9b1ce21f3a47fd61988e9645e4000607c90a0e",
+  "review_sha256": "fedf874526088ccf274a9591c4ea208526596068d09987e258d692318b007a62",
+  "review_checks_sha256": "92249f30b8289fd1e3de887b12f8fbbc20f37093674b186d5fa999a6dc117441",
+  "review_result": "satisfied",
+  "review_findings": [],
+  "independent_checks_passed": 51,
+  "document_checks_passed": 731,
+  "disposition_sha256": "8906ba55e498868d92e277ceb1f70f90e48a4d483c807e9b216ec99246210bce",
+  "design_baseline": "accepted_on_original_subject",
+  "library_delivery": "open",
+  "release_resumption_gate": "closed_until_recorded_L5_delivery_acceptance",
+  "next_technical_activity": "L2_delivery_scope_and_material_design",
+  "implementation_effects": false,
+  "runtime_effects": false,
+  "git_effects": false
+}

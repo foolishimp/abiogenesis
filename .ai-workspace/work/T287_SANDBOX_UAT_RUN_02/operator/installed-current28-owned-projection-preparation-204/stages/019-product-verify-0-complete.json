@@ -1,0 +1,13 @@
+{
+  "stage": "product-verify-0-complete",
+  "rss": 4517986304,
+  "heapTotal": 4006985728,
+  "heapUsed": 3888200672,
+  "external": 2713750,
+  "arrayBuffers": 301443,
+  "at": "2026-10-09T11:29:03.939Z",
+  "elapsedMs": 199073.218917,
+  "wallMs": 101.49629200002528,
+  "invocationRef": "invocation://abiogenesis/7d086bdad677928871e9a2d7d91bd18190bf672bb5d6e561fe533f96d59a713e",
+  "prefixLength": 1690085978
+}

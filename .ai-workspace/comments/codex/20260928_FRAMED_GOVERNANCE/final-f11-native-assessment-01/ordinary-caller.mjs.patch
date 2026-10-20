@@ -1,0 +1,62 @@
+--- donor/ordinary-caller.mjs
++++ caller/ordinary-caller.mjs
+@@ -2,20 +2,21 @@
+ import {checkReadCall} from './owner-checks.mjs';
+ // Finite ordinary Public caller. No private imports, source dispatch or retries.
+ import assert from 'node:assert/strict';
+-import {readFile,writeFile,mkdir,open} from 'node:fs/promises';
++import {readFile,writeFile,open} from 'node:fs/promises';
+ import {join,dirname} from 'node:path';
+ import {pathToFileURL} from 'node:url';
+ import {spawn} from 'node:child_process';
+ import {loadRuntime,declaredCli,constructStart} from './public-support.mjs';
+ export const here=import.meta.dirname,schemaVersion='5.0.0';
+ export const read=async p=>JSON.parse(await readFile(p,'utf8'));
+-export const write=(n,v)=>writeFile(join(here,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
+-export async function caller(mode, nominalVerification, driverDeadline){
++export async function caller(mode, nominalVerification, driverDeadline, outputRoot){
++ assert.equal(outputRoot,join(dirname(here),'final-f11-native-assessment-execution-01'));
++ const write=(n,v)=>writeFile(join(outputRoot,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
+  const packageIdentity=await read(join(here,'selected-core.json')),prospect=await read(join(here,'prospective-cases.json'));
+  const r=await loadRuntime(packageIdentity.installedRoot),{product,abg,public:installedPublic}=r,hash=product.sha256Canonical,cli=await declaredCli(packageIdentity.installedRoot);
+  const core=prospect.core,verification=nominalVerification,verified=verification.verifiedArtifact;
+  const ownerRequest=verificationRequest(core),contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,catalogId:verified.catalogId,catalogVersion:schemaVersion,catalogDigest:verified.catalogDigest};
+- const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-c2-current-resource-caller-02',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';
++ const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-f11-native-assessment-01',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';
+  const op={actorRef,attributionRef:'attribution://'+base,authorityRef:'authority://'+base,approvalRef:'approval://'+base,requestBaseRef:'request://'+base,correlationRef:'correlation://'+base,provenanceRefs:[pathToFileURL(join(here,'worker-activation.json')).href,pathToFileURL(join(here,'prospective-cases.json')).href]};
+  const state={closeHandoff:null,environment:null,catalog:null,catalogView:null,binding:null,resolvedLock:null,calls:[]};
+  const budgets=await read(join(here,'budgets.json')),taskEnvironment=await read(join(here,'runtime-environment.json'));
+@@ -38,8 +39,8 @@
+   return installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots:{...slots,capability_grants:{requiredCapabilityRefs:[...definition.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}},resources:{...resources,admissionAuthority:{basis,authority,grants}},requestRef:op.requestBaseRef+'/'+mode+'/'+constructionIndex,correlationRef:op.correlationRef,eventTime:new Date().toISOString(),provenanceRefs:op.provenanceRefs});
+  }
+  async function invoke(label,call,stage='setup'){
+-  assert.equal(label,budgets.operationPlan[state.calls.length],'exact three-call population/order');
+-  const stem=join(here,mode+'-'+label),resource=call.resources.eventResource,acquisition=resource===undefined?{kind:'eventless'}:resource.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resource.eventLogPath}:{kind:'reopen',closeHandoff:resource.closeHandoff};
++  assert.equal(label,budgets.operationPlan[state.calls.length],'exact assessment view/conformance/start/two-read population/order');
++  const stem=join(outputRoot,mode+'-'+label),resource=call.resources.eventResource,acquisition=resource===undefined?{kind:'eventless'}:resource.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resource.eventLogPath}:{kind:'reopen',closeHandoff:resource.closeHandoff};
+   await writeFile(stem+'.jsonl',JSON.stringify({kind:'abg_cli_transport_request',schemaVersion,acquisition,invocation:call})+'\n',{flag:'wx'});
+   const out=await open(stem+'-stdout.json','wx'),err=await open(stem+'-stderr.log','wx');
+   const started=performance.now();let processFailure=null,terminal;const remaining=driverDeadline.deadline-performance.now();assert.ok(remaining>0,'finite driver deadline');const capMs=Math.min(budgets.stages[stage],remaining-1000);assert.ok(capMs>0,'termination grace preserved');await write(mode+'-'+label+'-command.json',{command:[process.execPath,cli,'--jsonl',stem+'.jsonl'],cwd:packageIdentity.installedRoot,environment:taskEnvironment,budgetMs:capMs,driverRemainingMs:remaining});
+@@ -61,16 +62,19 @@
+   assert.equal(transport.kind,'installed_definition_call_transport_result');const receipt=transport.receipt;
+   if(receipt.resources?.eventResource?.closeHandoff)state.closeHandoff=receipt.resources.eventResource.closeHandoff;
+   const row={label,definitionKey:call.invocation.definitionKey,invocationRef:call.invocation.invocationRef,outcomeKind:receipt.ownerOutput?.outcomeKind,elapsedMs,processFailure};state.calls.push(row);await write(mode+'-'+label+'-handoff.json',{closeHandoff:state.closeHandoff,calls:state.calls});console.log(JSON.stringify(row));
+-  await physical(label);assert.equal(processFailure,null,JSON.stringify(processFailure));assert.equal(receipt.ownerOutput?.outcomeKind,'result',JSON.stringify(receipt));assert.equal(receipt.exitCode,0,JSON.stringify(receipt));return {call,receipt};
++  await physical(label);
++  assert.equal(terminal.timedOut,false);assert.equal(terminal.signal,null);assert.equal(terminal.spawnError,null);
++  if(stage==='setup'){assert.equal(processFailure,null,JSON.stringify(processFailure));assert.equal(receipt.ownerOutput?.outcomeKind,'result',JSON.stringify(receipt));assert.equal(receipt.exitCode,0,JSON.stringify(receipt));}
++  return {call,receipt,processFailure,terminal,returnedHandoff:receipt.resources?.eventResource?.closeHandoff??null};
+  }
+  async function prepareConformance(programRef,label,publicationInputs){
+   const publication=publicationInputs.modulePublications.find(p=>p.programs.some(p=>p.programRef===programRef)),program=publication.programs.find(p=>p.programRef===programRef),law=coord('law://abiogenesis/validator/gtl-program@5');
+   const call=await authorized(r.validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,{program:coord(programRef,program),conformanceLaw:law,inventoryBasis:{kind:'declared_inventory',inventory:state.catalog.boundPublications.map(p=>coord(p.moduleRef,p)).sort((a,b)=>a.ref.localeCompare(b.ref))}},{kind:'conformance_evaluation_resource_assertion',schemaVersion,packet:{kind:'conformance_evaluate_packet',schemaVersion,memberKey:'gtl_program',publication,program},conformanceLaw:law,declaredInventory:state.catalog.boundPublications,declarationCatalog:{catalog:state.catalog,catalogView:state.catalogView}},boundSlots());
+   return {label,program,call};
+  }
+- async function prepareStart(programRef,graphFunctionHandle,inputFactory,label,runEnvironmentResourceFactory){
++ async function prepareStart(programRef,graphFunctionHandle,inputFactory,label){
+   refresh();const selection={programRef,selection:{kind:'start',scope:'program',target:'graph_function',graphFunctionHandle,until:'converged',rootMode:'direct'},fhMode:'direct',sourceBasis:{kind:'none'},inputRef:'input://'+base+'/'+label,requestRef:op.requestBaseRef+'/'+label,correlationRef:op.correlationRef,provenanceRefs:op.provenanceRefs};
+-  const s=await constructStart({environment:{...state.environment,product,abg,catalog:state.catalog,catalogView:state.catalogView,admittedInstalls:state.environment.productInstalls,verified,runEnvironmentResourceFactory},publicApi:installedPublic,eventResource:reopen(),inputFactory,selection});return s;
++  const s=await constructStart({environment:{...state.environment,product,abg,catalog:state.catalog,catalogView:state.catalogView,admittedInstalls:state.environment.productInstalls,verified},publicApi:installedPublic,eventResource:reopen(),inputFactory,selection});return s;
+  }
+  async function freshReads(label,started){
+   const run=started.receipt.ownerOutput?.value?.run;assert.ok(run&&state.closeHandoff);const closed=state.closeHandoff;refresh();const reads={};

@@ -1,0 +1,14 @@
+{
+  "status": "SELECTED_DOCUMENTARY_CORRECTION",
+  "failure": "FileNotFoundError: installed build/code/src/abg/route_proposal.js",
+  "firstCause": "Finalizer used wrong private owner namespace; actual HoG imports ./route_proposal.js",
+  "selectedAction": "Executive accepted correcting only pin selector to hog/route_proposal.js and finishing existing frozen evidence; no Source/compile/proof retry",
+  "preservedPartialOutputs": [
+    "postimages.json",
+    "diff.patch",
+    "source-correspondence.json",
+    "proof-cases.json",
+    "authentic-proof-slices.json"
+  ],
+  "proofUnaffected": true
+}

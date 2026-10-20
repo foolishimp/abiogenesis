@@ -1,0 +1,18 @@
+{
+  "failures": [
+    {
+      "toolChunk": "cf950c",
+      "cause": "Whole enriched inventory row versus smaller identity carrier."
+    },
+    {
+      "toolChunk": "775106",
+      "cause": "Dependent build launcher missing because phase preparation had not completed; npm build was not entered."
+    },
+    {
+      "toolChunk": "c41733",
+      "cause": "Inventory mode is octal string 0o644, not decimal integer420."
+    }
+  ],
+  "correction": "Compare path/sha256/byteCount and independently verify actual mode using the exact historical octal spelling; retain other enriched fields.",
+  "canonicalSourceOrGeneratedEffects": false
+}

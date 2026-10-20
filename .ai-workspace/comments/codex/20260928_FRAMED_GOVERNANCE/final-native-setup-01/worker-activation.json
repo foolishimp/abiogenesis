@@ -1,0 +1,16 @@
+{
+  "role": "Worker",
+  "worker": "T287_FINAL_NATIVE_SETUP_01",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-controls-01/request.txt",
+    "bytes": 6714,
+    "sha256": "dcfffe458d00dd543cc96c413618faf5167d6e37fad27d60aab0136f1ef929b8"
+  },
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01",
+  "selected": "one current ordinary Public setup and one Hello/cold proof",
+  "changeClass": "realization_refactor of external setup publication inputs",
+  "budget": "budgets.json",
+  "prohibited": "C2/recipe/test/provider/source/Git effects; no retry",
+  "author": "/root/s03_phase_b; activation by Root Executive"
+}

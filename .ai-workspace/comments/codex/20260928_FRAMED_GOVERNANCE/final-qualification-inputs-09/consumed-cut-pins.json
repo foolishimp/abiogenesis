@@ -1,0 +1,56 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+    "bytes": 865006,
+    "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+    "mode": 292
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+    "bytes": 381272,
+    "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source-freeze-manifest.json",
+    "bytes": 583106,
+    "sha256": "42e765d0595d76cd143f6faaf575d29aa44f1b30b8d6803dc539d1abca9a0887",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/controls/source-cut.json",
+    "bytes": 6306639,
+    "sha256": "f1d8bfccbbc54b818da20be2446ab2c369f1ffc3e3ad4fd883b1068887175489",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup07-generated04-acceptance-q09-selection-01/acceptance.json",
+    "bytes": 7276,
+    "sha256": "c4007c52781d9aaf3ee98f177a421d7b6e25e2712820c5cf523d02a256ecaab8",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/freeze.json",
+    "bytes": 3901259,
+    "sha256": "3df72c96b7d1424a7bd7811dc077adc2646bdf93ab767eef13ebde77add3f7e4",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/final-caller-freeze.json",
+    "bytes": 18604,
+    "sha256": "828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/freeze.json",
+    "bytes": 1928995,
+    "sha256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-07/closure.json",
+    "bytes": 1641,
+    "sha256": "f4dadd45c298f9012ae62f09b7576510663b6973e85254e0bb576ca2351511df",
+    "mode": 420
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "records": 4576,
+  "samePopulationBytesDigestsAndSymlinks": true,
+  "sameFileModes": true,
+  "initialComparison": "Whole JSON record equality failed because new inventory records mode and C inventory omits it. Exact shared-field equality and physical C mode comparison resolve all differences; zero dependency content drift.",
+  "ownerOperations": {
+    "ci": 1,
+    "reinstall": 0
+  },
+  "classification": "bounded observation-schema mismatch, not Product/dependency failure; no owner retry or input changes"
+}

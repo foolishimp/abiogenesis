@@ -1,0 +1,10 @@
+{
+  "activation": "T287_F11_EXTERNAL_ATTRIBUTION_REVIEW_01",
+  "role": "Independent Reviewer; bounded review-output Writer grant only",
+  "previousRole": "T287_FINAL_F11_SCOPE_INPUTS_01 Worker CLOSED and conserved",
+  "requestBytes": 6121,
+  "requestSha256": "cfd5bcc6275def7c61f6586c2990dea2de98495143ce9e26b1b5b21273aeb437",
+  "territory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-review-01",
+  "operation": "Read-only independent attribution review; pure discriminator evidence and one frozen report",
+  "excluded": ["own scope/grouping/material adequacy", "moving publication repair", "moving native resources", "implementation or source repair", "native/provider/build/package/install/qualification effects", "Git effects", "subagents"]
+}

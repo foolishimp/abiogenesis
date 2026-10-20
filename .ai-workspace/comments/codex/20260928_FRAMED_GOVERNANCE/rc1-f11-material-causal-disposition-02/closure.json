@@ -1,0 +1,18 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_MATERIAL_CAUSAL_DISPOSITION_02",
+  "returnRole": "Executive",
+  "outputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-material-causal-disposition-02/disposition.json",
+      "bytes": 2422,
+      "sha256": "0ee4fd59c824ffa42d901cf40b5be08d6c0903f735ec5889be373bbe421d8803"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 508712,
+      "sha256": "40258112b14988f3d43115ded1593bd8a3f78b9e35bffd63faa6f4539eb56c07"
+    }
+  ],
+  "implementationEffects": 0
+}

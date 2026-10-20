@@ -1,0 +1,19 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=snapshot proof identity|cold acquisition receipt|historical durable cuts|held derivation preserves|liveness historical-cut intermediates",
+    "test_env/tests/t287-ordered-reconstruction.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T05:04:29.621Z",
+  "environmentKeys": [
+    "ABI5_LIVENESS_CUT_HISTORY",
+    "ABI5_LIVENESS_CUT_PREDECESSOR",
+    "ABI5_LIVENESS_CUT_SHA256",
+    "ABI5_SNAPSHOT_PREDECESSOR",
+    "PATH"
+  ],
+  "timeoutMs": 180000
+}

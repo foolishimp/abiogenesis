@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "sha256": "1c56e84f05905979f3f731cebadf12a4e2834d2aa5d03caf755d6c7d61179745",
+    "bytes": 271943
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs",
+    "sha256": "b77e297eec5c30e597715661bcf0c224ad8a0f7331532837bf8659e3dc3a7ab2",
+    "bytes": 14446
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+    "sha256": "46cbceb3f9a2148cfdc28e941d863cf647d03880f7db25ae5842eb1b4df560b4",
+    "bytes": 235168
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.d.ts",
+    "sha256": "568fe5861972584b4c168d0c28f1c73ea91440cbe2817ff3ebf4657715c6ce64",
+    "bytes": 39422
+  }
+]

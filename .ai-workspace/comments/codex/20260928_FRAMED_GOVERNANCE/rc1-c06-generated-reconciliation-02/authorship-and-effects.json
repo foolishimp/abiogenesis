@@ -1,0 +1,108 @@
+{
+  "sourceAuthorship": "original Source authors/records/chains remain intact; this Worker only copies accepted generated derivatives",
+  "acceptedC06SourceAttribution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-attribution.json",
+    "bytes": 2104,
+    "sha256": "70d1fbf615071662815c9a3a115525de0a56a4843541b8cbdb8dd2a90c77e0a4",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464697479,
+    "mtimeNs": 1790920403526006343
+  },
+  "ambientWrites": [
+    {
+      "relative": "build/code/src/implementation/leaf_invocation_port.js",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-02/preimages/build/code/src/implementation/leaf_invocation_port.js",
+        "bytes": 69953,
+        "sha256": "7d583452a6692ad06d66e4a997f1148f0999380a050d091ad2394c45c72b6d7b",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464735895,
+        "mtimeNs": 1790923306231435627
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+        "bytes": 70127,
+        "sha256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464677920,
+        "mtimeNs": 1790919122586159382
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+        "bytes": 70127,
+        "sha256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 463716516,
+        "mtimeNs": 1790923307642983287
+      }
+    },
+    {
+      "relative": "contracts/capabilities/capability-definition-graph.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-02/preimages/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0d9b18a13510b3880d12af6e8a2f9e81b7cd3d3e22dccb850ddea2e51eae8f4c",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464735898,
+        "mtimeNs": 1790923306233169334
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464678544,
+        "mtimeNs": 1790919138177446805
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 463717140,
+        "mtimeNs": 1790923307643830162
+      }
+    },
+    {
+      "relative": "product-toolchain-manifest.json",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-02/preimages/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "87c8ccc41d4a6129cc01bf7b15dbd9673073e4672d359595b4df3d36b7b30f2c",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464735899,
+        "mtimeNs": 1790923306236938875
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464678543,
+        "mtimeNs": 1790919138223024385
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 463717139,
+        "mtimeNs": 1790923307646756744
+      }
+    }
+  ],
+  "sourceAuthorWrites": 0,
+  "ownerImportsBuildTestsSourceCandidateRuntimeGitNetworkProvider": 0,
+  "Q07": 0,
+  "old01CutAndOverclaim": "unchanged; historical failed attempt, never relabeled completion"
+}

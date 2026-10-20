@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--expose-gc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/diagnostic.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "started": "2026-10-07T12:58:28.576337+00:00",
+  "diagnosticOnly": true,
+  "runtimeHeapOverride": false
+}

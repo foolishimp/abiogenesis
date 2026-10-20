@@ -1,0 +1,259 @@
+--- before/code/src/abg/worksite_revision.ts
++++ after/code/src/abg/worksite_revision.ts
+@@ -1,5 +1,6 @@
+ import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+ import { projectNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
++import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
+ import { isSemanticJobEnvelope } from "../product/semantic_job.js";
+ import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
+ import { semanticJobConstructionSourceAtPrefix, semanticJobReadDependenciesAtPrefix } from "./semantic_job.js";
+@@ -420,11 +421,10 @@
+       const {acquisition:_acquisition,...retained} = native;
+       const prepared = {kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:nativeRequest.parent,causes:nativeRequest.causes,currentWorksite:null,nativeWorksite:retained};
+       const events = runtimeEventsFromValidatedPrefix(prefix);
+-      const sources = native.acquisition === undefined ? events.flatMap(event=>{
+-        // Child admission already names its producer. Equal acquisitions in
+-        // other Runs are not competitors for that exact admitted input.
+-        if(admittedInput!==undefined && (!record(event.payload) || event.payload.resultRef!==admittedInput.admittedInputRef ||
+-          event.payload.valueDigest!==admittedInput.admittedInputDigest))return [];
++      const inputSource = admittedInput === undefined ? null : projectWorksiteInputLeafResultAtPrefix(prefix,
++        admittedInput.admittedInputRef, admittedInput.admittedInputDigest);
++      const candidates = admittedInput === undefined ? events : inputSource === null ? [] : [inputSource];
++      const sources = native.acquisition === undefined ? candidates.flatMap(event=>{
+         if(event.kind!=="c_call_result_admitted"||!record(event.payload)||!same(event.payload.value,prepared))return [];
+         const c=coordinateFor(events,event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
+         return state===null?[]:[state];
+--- before/code/src/abg/worksite_input_provenance.ts
++++ after/code/src/abg/worksite_input_provenance.ts
+@@ -103,6 +103,37 @@
+     event.payload.judgmentRef === payload.childJudgmentRef && event.admissionOrdinal > completed.judgment.admissionOrdinal &&
+     event.admissionOrdinal < closed.admissionOrdinal);
+   return terminal === null ? null : { basis, result: completed.result, judgment: completed.judgment, foldback };
++}
++
++/** Resolve an exact admitted input through transparent, closed workflow
++ * foldbacks. Equal-valued results elsewhere are never candidate producers.
++ * The caller still authenticates the selected native leaf's implementation and
++ * outcome; this owner establishes only its exact input/foldback provenance. */
++export function projectWorksiteInputLeafResultAtPrefix(
++  prefix: ValidatedRuntimeEventPrefix, inputRef: string, inputDigest: string,
++): RuntimeEvent | null {
++  const events = runtimeEventsFromValidatedPrefix(prefix);
++  let result = one(events, e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === inputRef);
++  if (result === null || !record(result.payload) || result.payload.valueDigest !== inputDigest) return null;
++  while (true) {
++    if (!record(result.payload) || typeof result.payload.resultRef !== "string" || typeof result.basisId !== "string") return null;
++    const successful = successfulResult(events, result.payload.resultRef, result);
++    const opened = one(events, e => e.kind === "c_call_opened" && sameScope(e, result!) && e.aggregateId === result!.aggregateId);
++    if (successful === null || successful.result.eventId !== result.eventId || opened === null || !record(opened.payload)) return null;
++    if (opened.payload.callClass === "leaf") return result;
++    if (opened.payload.callClass !== "workflow" || typeof opened.payload.childGraphFunctionRef !== "string") return null;
++    const parent = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
++    const foldback = one(events, e => e.kind === "child_foldback_admitted" && sameScope(e, result!) &&
++      record(e.payload) && e.payload.parentCCallRef === result!.aggregateId);
++    const child = foldback !== null && record(foldback.payload) && typeof foldback.payload.childExecutionBasisRef === "string"
++      ? projectExactExecutionBasisAtPrefix(prefix, foldback.payload.childExecutionBasisRef) : null;
++    if (parent === null || child === null) return null;
++    const completed = completedC3Child(prefix, parent, result, opened.payload.childGraphFunctionRef, child.closureContractRef);
++    // A closed child precedes its enclosing Result. Strict decrease also
++    // excludes cycles without a parallel ancestry ledger or latest-match rule.
++    if (completed === null || completed.result.admissionOrdinal >= result.admissionOrdinal) return null;
++    result = completed.result;
++  }
+ }
+ 
+ export interface RetainedWorksiteInputProjection {
+--- before/test_env/tests/d2-binding-transition.test.mjs
++++ after/test_env/tests/d2-binding-transition.test.mjs
+@@ -59,6 +59,88 @@
+   assert(h.product.isSemanticRevisionRequest(request));
+   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,request,current.workspaceBinding),'covered',
+     'the existing request acquisition coordinate remains the authority for later consumers');
++  // Actual core36 shape: the selector consumes a workflow Result, whose
++  // admitted sub-traversal folds back a distinct native acquisition Result.
++  // These are component events with the existing explicit lookup premises,
++  // not reconstructed runtime authority or an installed replay of that Run.
++  function fold(name,produce){
++    const parent=h.addCall(name,structuredClone(input),{input:source,worksite:current,invocation:'invocation://component/'+name});
++    h.events.splice(-2); // parent Result/J arrive only after its child closes
++    parent.opened.payload.callClass='workflow';parent.fibre.payload.callClass='workflow';
++    const child=produce();
++    const basis=child.basis,pb=parent.basis;
++    for(const key of ['invocationAdmissionRef','invocationRef','invocationDigest','programRef','programDigest','programValidationRef',
++      'catalogBasisRef','catalogBasisDigest','catalogViewId','catalogViewDigest','actorRef','rootImplementationSetRef','rootImplementationSetDigest'])basis[key]=pb[key];
++    basis.parentExecutionBasisRef=pb.basisRef;basis.parentCCallRef=parent.opened.aggregateId;
++    basis.closureContractRef='contract://component/'+name+'/closed';
++    parent.opened.payload.childGraphFunctionRef=basis.graphFunctionRef;parent.fibre.payload.childGraphFunctionRef=basis.graphFunctionRef;
++    const descendants=h.events.filter(e=>e.runId===child.opened.runId);
++    for(const e of descendants){
++      e.runId=parent.opened.runId;
++      const descendant=h.bases.get(e.basisId);
++      if(descendant)for(const key of ['invocationAdmissionRef','invocationRef','invocationDigest','programRef','programDigest','programValidationRef',
++        'catalogBasisRef','catalogBasisDigest','catalogViewId','catalogViewDigest','actorRef','rootImplementationSetRef','rootImplementationSetDigest'])descendant[key]=pb[key];
++    }
++    const admission=h.events.find(e=>e.eventId===basis.admissionEventRef);admission.causationEventRefs=[parent.fibre.eventId];
++    child.judged.payload.judgmentRef='judgment://component/'+name+'/child';
++    const childScope={basisId:basis.basisRef,runId:parent.opened.runId,graphCallId:child.result.graphCallId,frameId:child.result.frameId};
++    const closureRef='closure://component/'+name;
++    const terminal=h.event('terminal_reached',{closureRef,closureContractRef:basis.closureContractRef,
++      resultRef:child.coordinate.resultRef,judgmentRef:child.judged.payload.judgmentRef},childScope);
++    const frame=h.event('frame_closed',{}, {...childScope,causationEventRefs:[terminal.eventId]});
++    const closed=h.event('graph_call_closed',{closureContractRef:basis.closureContractRef},{...childScope,causationEventRefs:[frame.eventId]});
++    const scope={basisId:pb.basisRef,runId:parent.opened.runId,graphCallId:parent.result.graphCallId,frameId:parent.result.frameId};
++    const body={parentCCallRef:parent.opened.aggregateId,childExecutionBasisRef:basis.basisRef,childExecutionBasisDigest:basis.basisDigest,
++      childGraphCallId:child.result.graphCallId,childFrameId:child.result.frameId,childDisposition:'closed',childResultRef:child.coordinate.resultRef,
++      childResultDigest:child.coordinate.resultDigest,childJudgmentRef:child.judged.payload.judgmentRef,childClosureRef:closureRef,
++      childReasonRef:null,childTerminalEventRef:closed.eventId,outputDigest:h.hash(input)};
++    const foldbackDigest=h.hash(body),foldback=h.event('child_foldback_admitted',{foldbackRef:'child-foldback://abiogenesis/'+foldbackDigest.slice(7),foldbackDigest,...body},
++      {...scope,causationEventRefs:[closed.eventId,parent.fibre.eventId]});
++    const evidenceBody={cCallRef:parent.opened.aggregateId,evidenceClass:'sub_traversal',contractRef:pb.evidenceContractRef,
++      inputDigest:h.hash(source),outputDigest:h.hash(input),foldbackEventRef:foldback.eventId,...foldback.payload};
++    delete evidenceBody.parentCCallRef;
++    const evidenceDigest=h.hash(evidenceBody),evidence=h.event('c_call_evidenced',{...evidenceBody,evidenceDigest,evidenceRef:'evidence://abiogenesis/'+evidenceDigest.slice(7)},
++      {...scope,aggregateId:parent.opened.aggregateId,causationEventRefs:[foldback.eventId]});
++    const {resultRef:oldRef,resultDigest:oldDigest,...resultBody}=parent.result.payload;
++    resultBody.evidenceRefs=[evidence.payload.evidenceRef];const resultDigest=h.hash(resultBody),resultRef='result://abiogenesis/'+resultDigest.slice(7);
++    Object.assign(parent.result.payload,resultBody,{resultRef,resultDigest});parent.result.causationEventRefs=[evidence.eventId];
++    Object.assign(parent.judged.payload,{resultRef,resultDigest});Object.assign(parent.coordinate,{resultRef,resultDigest});
++    parent.result.admissionOrdinal=h.events.length+1;h.events.push(parent.result);
++    parent.judged.admissionOrdinal=h.events.length+1;h.events.push(parent.judged);
++    return {...parent,child,foldback,closed,terminal,admission};
++  }
++  const composite=fold('workflow-acquisition',()=>acquire('nested-native-acquisition'));
++  assert.notEqual(composite.coordinate.resultRef,composite.child.coordinate.resultRef);
++  assert.equal(gate(composite),'covered','actual enclosing Result resolves through its admitted closed child to the native leaf');
++  assert.equal(rawGate(),'basis_fork_detected','foldback does not make raw equal-value ambiguity lawful');
++  assert.equal(gate(composite,{admittedInputDigest:composite.coordinate.resultDigest}),'basis_fork_detected');
++  for(const [object,key,value]of [
++    [composite.foldback.payload,'childResultRef',second.coordinate.resultRef],
++    [composite.foldback.payload,'childResultDigest',second.coordinate.resultDigest],
++    [composite.foldback.payload,'childExecutionBasisRef',second.basis.basisRef],
++    [composite.child.basis,'parentCCallRef','c-call://component/unrelated'],
++    [composite.child.basis,'programRef','program://component/crossed'],
++    [composite.child.basis,'workspaceBindingDigest',h.hash('crossed binding')],
++    [composite.child.result,'runId','run://component/crossed'],
++    [composite.child.judged.payload,'judgment','blocked'],
++    [composite.foldback.payload,'childDisposition','blocked'],
++    [composite.foldback.payload,'outputDigest',h.hash('wrong output')],
++    [composite.closed,'admissionOrdinal',composite.result.admissionOrdinal+1],
++    [composite.foldback,'admissionOrdinal',composite.result.admissionOrdinal+1],
++    [composite.child.fibre.payload,'implementationRef','implementation://component/foreign'],
++  ]){
++    const old=object[key];object[key]=value;
++    assert.equal(gate(composite),'basis_fork_detected','exact foldback/native relation: '+key);object[key]=old;
++  }
++  const atClosed=h.snapshot();
++  h.events.push({...structuredClone(composite.foldback),eventId:'lookup-event:later-duplicate',admissionOrdinal:h.events.length+1});
++  assert.equal(gate(composite),'basis_fork_detected','later competing foldback invalidates uniqueness');
++  assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(atClosed,h.graphFunction,input,current.workspaceBinding,coordinate(composite)),
++    'covered','earlier immutable prefix preserves its exact relation');h.events.pop();
++  const nested=fold('outer-acquisition',()=>fold('inner-acquisition',()=>acquire('twice-nested-native')));
++  assert.equal(gate(nested),'covered','each declared foldback is followed, without equal-value search');
++  assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(JSON.parse(JSON.stringify(h.snapshot())),h.graphFunction,
++    JSON.parse(JSON.stringify(input)),current.workspaceBinding,coordinate(nested)),'covered','cold copied events preserve exact provenance checks');
+   assert.equal(gate(second),'covered');assert.equal(h.physicalReads,0);
+   t.diagnostic('Real binding/native-leaf projection with explicit upstream lookup premises; no journal, actor, physical observation or installed qualification.');
+ });
+--- before/test_env/support/d2-binding-harness.mjs
++++ after/test_env/support/d2-binding-harness.mjs
+@@ -158,6 +158,17 @@
+       holdsAt:(p,ref)=>!p.events.some(e=>transitions.get(e.eventId)?.before===ref),projectWorksiteTransitionForResult:e=>transitions.get(e.eventId)??null},
+     'node:fs':{readFileSync:()=>{physicalReads++;throw Error('no original file read in replay');},lstatSync:()=>{physicalReads++;throw Error('no original stat in replay');},realpathSync:()=>{physicalReads++;throw Error('no original path in replay');}},
+   };
++  // The foldback provenance owner itself is real; only the same declared
++  // basis/install/prefix lookup premises above are substituted for this fixture.
++  const provenancePath=resolve(packageRoot,'build/code/src/abg/worksite_input_provenance.js');
++  const provenance=new SourceTextModule(readFileSync(provenancePath,'utf8'),{identifier:provenancePath});
++  await provenance.link(async specifier=>{
++    const native=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(provenancePath),specifier)).href);
++    const values={...native,...overrides[specifier]};
++    return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
++  });
++  await provenance.evaluate();
++  overrides['./worksite_input_provenance.js']={...provenance.namespace};
+   const module=new SourceTextModule(readFileSync(modulePath,'utf8'),{identifier:modulePath}),links=new Map();
+   await module.link(async specifier=>{
+     if(links.has(specifier))return links.get(specifier);
+--- before/build/code/src/abg/worksite_revision.js
++++ after/build/code/src/abg/worksite_revision.js
+@@ -1,5 +1,6 @@
+ import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+ import { projectNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
++import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
+ import { isSemanticJobEnvelope } from "../product/semantic_job.js";
+ import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision } from "../product/semantic_revision.js";
+ import { semanticJobConstructionSourceAtPrefix, semanticJobReadDependenciesAtPrefix } from "./semantic_job.js";
+@@ -458,12 +459,9 @@
+             const { acquisition: _acquisition, ...retained } = native;
+             const prepared = { kind: "semantic_revision_selection_input", schemaVersion: "5.0.0", parent: nativeRequest.parent, causes: nativeRequest.causes, currentWorksite: null, nativeWorksite: retained };
+             const events = runtimeEventsFromValidatedPrefix(prefix);
+-            const sources = native.acquisition === undefined ? events.flatMap(event => {
+-                // Child admission already names its producer. Equal acquisitions in
+-                // other Runs are not competitors for that exact admitted input.
+-                if (admittedInput !== undefined && (!record(event.payload) || event.payload.resultRef !== admittedInput.admittedInputRef ||
+-                    event.payload.valueDigest !== admittedInput.admittedInputDigest))
+-                    return [];
++            const inputSource = admittedInput === undefined ? null : projectWorksiteInputLeafResultAtPrefix(prefix, admittedInput.admittedInputRef, admittedInput.admittedInputDigest);
++            const candidates = admittedInput === undefined ? events : inputSource === null ? [] : [inputSource];
++            const sources = native.acquisition === undefined ? candidates.flatMap(event => {
+                 if (event.kind !== "c_call_result_admitted" || !record(event.payload) || !same(event.payload.value, prepared))
+                     return [];
+                 const c = coordinateFor(events, event), state = c === null ? null : projectWorksiteRevisionNativeResult(prefix, c);
+--- before/build/code/src/abg/worksite_input_provenance.js
++++ after/build/code/src/abg/worksite_input_provenance.js
+@@ -98,6 +98,41 @@
+         event.payload.judgmentRef === payload.childJudgmentRef && event.admissionOrdinal > completed.judgment.admissionOrdinal &&
+         event.admissionOrdinal < closed.admissionOrdinal);
+     return terminal === null ? null : { basis, result: completed.result, judgment: completed.judgment, foldback };
++}
++/** Resolve an exact admitted input through transparent, closed workflow
++ * foldbacks. Equal-valued results elsewhere are never candidate producers.
++ * The caller still authenticates the selected native leaf's implementation and
++ * outcome; this owner establishes only its exact input/foldback provenance. */
++export function projectWorksiteInputLeafResultAtPrefix(prefix, inputRef, inputDigest) {
++    const events = runtimeEventsFromValidatedPrefix(prefix);
++    let result = one(events, e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === inputRef);
++    if (result === null || !record(result.payload) || result.payload.valueDigest !== inputDigest)
++        return null;
++    while (true) {
++        if (!record(result.payload) || typeof result.payload.resultRef !== "string" || typeof result.basisId !== "string")
++            return null;
++        const successful = successfulResult(events, result.payload.resultRef, result);
++        const opened = one(events, e => e.kind === "c_call_opened" && sameScope(e, result) && e.aggregateId === result.aggregateId);
++        if (successful === null || successful.result.eventId !== result.eventId || opened === null || !record(opened.payload))
++            return null;
++        if (opened.payload.callClass === "leaf")
++            return result;
++        if (opened.payload.callClass !== "workflow" || typeof opened.payload.childGraphFunctionRef !== "string")
++            return null;
++        const parent = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
++        const foldback = one(events, e => e.kind === "child_foldback_admitted" && sameScope(e, result) &&
++            record(e.payload) && e.payload.parentCCallRef === result.aggregateId);
++        const child = foldback !== null && record(foldback.payload) && typeof foldback.payload.childExecutionBasisRef === "string"
++            ? projectExactExecutionBasisAtPrefix(prefix, foldback.payload.childExecutionBasisRef) : null;
++        if (parent === null || child === null)
++            return null;
++        const completed = completedC3Child(prefix, parent, result, opened.payload.childGraphFunctionRef, child.closureContractRef);
++        // A closed child precedes its enclosing Result. Strict decrease also
++        // excludes cycles without a parallel ancestry ledger or latest-match rule.
++        if (completed === null || completed.result.admissionOrdinal >= result.admissionOrdinal)
++            return null;
++        result = completed.result;
++    }
+ }
+ /** Version the relations read by retained-input provenance, including new
+  * matches that can invalidate cardinality. This selects no runtime truth: the
+--- before/build/code/src/abg/worksite_input_provenance.d.ts
++++ after/build/code/src/abg/worksite_input_provenance.d.ts
+@@ -5,6 +5,11 @@
+ import { type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+ import type { ExecutionBasis } from "./execution_basis.js";
+ import type { RuntimeEvent } from "./event_store.js";
++/** Resolve an exact admitted input through transparent, closed workflow
++ * foldbacks. Equal-valued results elsewhere are never candidate producers.
++ * The caller still authenticates the selected native leaf's implementation and
++ * outcome; this owner establishes only its exact input/foldback provenance. */
++export declare function projectWorksiteInputLeafResultAtPrefix(prefix: ValidatedRuntimeEventPrefix, inputRef: string, inputDigest: string): RuntimeEvent | null;
+ export interface RetainedWorksiteInputProjection {
+     readonly input: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+     readonly entryBasis: ExecutionBasis;

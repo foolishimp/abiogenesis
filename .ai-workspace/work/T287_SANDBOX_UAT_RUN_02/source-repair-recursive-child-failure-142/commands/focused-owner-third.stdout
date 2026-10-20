@@ -1,0 +1,23 @@
+✔ recursive fixture declares a valid bounded Program with one native selector (7.324667ms)
+✔ receiver counterevidence and unresolved task survive child returns until parent evaluation (1.083959ms)
+(node:67697) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (30241.683958ms)
+﹣ one installed Public start revises native choice from child evidence and reevaluates its parent (0.479417ms) # SKIP
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 30549.418625
+
+✖ failing tests:
+
+test at test_env/tests/t287-recursive-registered-selection.test.mjs:96:1
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (30241.683958ms)
+  TypeError [Error]: env.abg.openCall is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/tests/t287-recursive-registered-selection.test.mjs:136:26)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

@@ -40,6 +40,10 @@ import {
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
+  runtimeEventPrefixExtent,
+  isOwnedRuntimeEventPrefix,
+  projectOwnedRuntimeEventPrefixAtDurablePrefix,
+  type RuntimeEventPrefix,
   runtimePrefixComputation,
   selectValidatedRuntimeEventPrefix,
   validateRuntimeEventPrefixExtension,
@@ -487,7 +491,10 @@ class RuntimeArtifactFacts {
   }
 }
 
-export function projectArtifactTruth(prefix: ValidatedRuntimeEventPrefix): ArtifactTruthProjection {
+export function projectArtifactTruth(prefix: ValidatedRuntimeEventPrefix): ArtifactTruthProjection;
+/** @internal */
+export function projectArtifactTruth(prefix: RuntimeEventPrefix): ArtifactTruthProjection;
+export function projectArtifactTruth(prefix: RuntimeEventPrefix): ArtifactTruthProjection {
   const artifactRows = runtimeEventCalculusEffectsByKind(prefix, "public_operation_artifact_admitted");
   const facts = runtimePrefixComputation(prefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
   facts.advance(artifactRows);
@@ -583,7 +590,7 @@ export function prepareArtifactTruthCandidate(
   event: RuntimeEvent,
   establishedLock?: ResolvedProductLock,
 ): (appended: Readonly<{ event: RuntimeEvent; successorPrefix: DurablePrefixCoordinate }>) => ExactPrefixArtifactTruthProjectionResult {
-  const prefix = runtimePrefixFromArtifactTruth(predecessor);
+  const prefix = runtimePrefixFromOwnedArtifactTruth(predecessor);
   if (prefix === null) throw new TypeError("artifact candidate requires its owner-derived predecessor");
   if (event.kind !== "public_operation_artifact_admitted") throw new TypeError("artifact candidate requires an artifact event");
   validateRuntimeEventPrefixExtension(prefix, event);
@@ -596,13 +603,14 @@ export function prepareArtifactTruthCandidate(
     if (sha256Canonical(appended.event as unknown as JsonValue) !== sha256Canonical(event as unknown as JsonValue)) {
       throw new TypeError("artifact append differs from its exact pre-effect semantic projection");
     }
-    const events = projectRuntimeEventsAtDurablePrefix(appended.successorPrefix);
-    const actualPrefix = selectValidatedRuntimeEventPrefix(events);
+    const actualPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(appended.successorPrefix);
+    const extent = runtimeEventPrefixExtent(actualPrefix);
     const actualFacts = runtimePrefixComputation(actualPrefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
     // The append receipt owns the actual prefix; the prepared row must be its
     // next actual event and have the same complete predecessor derivation.
     if (actualFacts === facts && facts.artifacts.length === artifacts.length &&
-      events.length === predecessor.prefixEventCount + 1 && events.at(-1) === appended.event) {
+      extent.count === predecessor.prefixEventCount + 1 &&
+      actualPrefix.selection.row(extent.count - 1)?.envelope.eventId === appended.event.eventId) {
       facts.accept(prepared);
     }
     return projectOwnedPrefixArtifactTruth(appended.successorPrefix);
@@ -630,11 +638,14 @@ function refusal(
   });
 }
 
-export function projectValidatedPrefixArtifactTruth(
-  prefix: DurablePrefixCoordinate,
-  validatedPrefix: ValidatedRuntimeEventPrefix,
-): ExactPrefixArtifactTruthProjection {
-  const events = runtimeEventsFromValidatedPrefix(validatedPrefix);
+export function projectValidatedPrefixArtifactTruth(prefix: DurablePrefixCoordinate,
+  validatedPrefix: ValidatedRuntimeEventPrefix): ExactPrefixArtifactTruthProjection;
+/** @internal */
+export function projectValidatedPrefixArtifactTruth(prefix: DurablePrefixCoordinate,
+  validatedPrefix: RuntimeEventPrefix): ExactPrefixArtifactTruthProjection;
+export function projectValidatedPrefixArtifactTruth(prefix: DurablePrefixCoordinate,
+  validatedPrefix: RuntimeEventPrefix): ExactPrefixArtifactTruthProjection {
+  const extent = runtimeEventPrefixExtent(validatedPrefix);
   const folded = projectArtifactTruth(validatedPrefix);
   const rows = folded.artifacts.map((row): ArtifactTruthRow => deepFreeze({
     operationId: row.operationId,
@@ -666,8 +677,8 @@ export function projectValidatedPrefixArtifactTruth(
     kind: "exact_prefix_artifact_truth_projection" as const,
     schemaVersion: "5.0.0" as const,
     prefix,
-    prefixEventCount: events.length,
-    lastAdmissionOrdinal: events.at(-1)?.admissionOrdinal ?? 0,
+    prefixEventCount: extent.count,
+    lastAdmissionOrdinal: extent.lastOrdinal,
     rows,
   };
   const projectionDigest = sha256Canonical(body as unknown as JsonValue);
@@ -683,8 +694,8 @@ const ARTIFACT_DERIVATION = Symbol("owner_artifact_truth_derivation");
 const ARTIFACT_DERIVATION_KEY = Symbol("owner_artifact_truth_derivation_construction");
 class ArtifactTruthDerivation {
   readonly #projection: ExactPrefixArtifactTruthProjection;
-  readonly #prefix: ValidatedRuntimeEventPrefix;
-  constructor(key: typeof ARTIFACT_DERIVATION_KEY, projection: ExactPrefixArtifactTruthProjection, prefix: ValidatedRuntimeEventPrefix) {
+  readonly #prefix: RuntimeEventPrefix;
+  constructor(key: typeof ARTIFACT_DERIVATION_KEY, projection: ExactPrefixArtifactTruthProjection, prefix: RuntimeEventPrefix) {
     if (key !== ARTIFACT_DERIVATION_KEY) throw new TypeError("artifact truth derivation is owner constructed");
     this.#projection = projection; this.#prefix = prefix;
     Object.freeze(this);
@@ -694,7 +705,7 @@ class ArtifactTruthDerivation {
     const proof: unknown = Object.getOwnPropertyDescriptor(value, ARTIFACT_DERIVATION)?.value;
     return typeof proof === "object" && proof !== null && #projection in proof && proof.#projection === value;
   }
-  static prefix(value: ExactPrefixArtifactTruthProjection): ValidatedRuntimeEventPrefix | null {
+  static prefix(value: ExactPrefixArtifactTruthProjection): RuntimeEventPrefix | null {
     if (!this.isFor(value)) return null;
     return (Object.getOwnPropertyDescriptor(value, ARTIFACT_DERIVATION)!.value as ArtifactTruthDerivation).#prefix;
   }
@@ -706,13 +717,19 @@ export function validateArtifactTruthProjectionValue(value: unknown): value is E
   return ArtifactTruthDerivation.isFor(value) || validateExactPrefixArtifactTruthProjection(value);
 }
 export function runtimePrefixFromArtifactTruth(value: ExactPrefixArtifactTruthProjection): ValidatedRuntimeEventPrefix | null {
+  const prefix = ArtifactTruthDerivation.prefix(value);
+  if (prefix === null || prefix.kind === "runtime_validation_event_prefix") return null;
+  return isOwnedRuntimeEventPrefix(prefix) ? selectValidatedRuntimeEventPrefix(prefix.selection.materialize()) : prefix;
+}
+/** @internal Borrow the actual owner representation; copies have no binding. */
+export function runtimePrefixFromOwnedArtifactTruth(value: ExactPrefixArtifactTruthProjection): RuntimeEventPrefix | null {
   return ArtifactTruthDerivation.prefix(value);
 }
 
 export function projectExactPrefixArtifactTruth(
   prefix: DurablePrefixCoordinate,
 ): ExactPrefixArtifactTruthProjectionResult {
-  return deriveExactPrefixArtifactTruth(prefix, readRuntimeEventsAtDurablePrefix);
+  return deriveExactPrefixArtifactTruth(prefix, coordinate => selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(coordinate)));
 }
 
 /** Pure projection from the existing authenticated coordinate receipt. Raw
@@ -720,19 +737,18 @@ export function projectExactPrefixArtifactTruth(
 export function projectOwnedPrefixArtifactTruth(
   prefix: DurablePrefixCoordinate,
 ): ExactPrefixArtifactTruthProjectionResult {
-  return deriveExactPrefixArtifactTruth(prefix, projectRuntimeEventsAtDurablePrefix);
+  return deriveExactPrefixArtifactTruth(prefix, projectOwnedRuntimeEventPrefixAtDurablePrefix);
 }
 
 function deriveExactPrefixArtifactTruth(
   prefix: DurablePrefixCoordinate,
-  eventsAtPrefix: (prefix: DurablePrefixCoordinate) => readonly RuntimeEvent[],
+  prefixAt: (prefix: DurablePrefixCoordinate) => RuntimeEventPrefix,
 ): ExactPrefixArtifactTruthProjectionResult {
   try {
     // Capture ordinary data once so a mutable/accessor-bearing caller cannot
     // make the validated read and the computation key name different inputs.
     const coordinate = captureDurablePrefixCoordinate(prefix);
-    const events = eventsAtPrefix(coordinate);
-    const validatedPrefix = selectValidatedRuntimeEventPrefix(events);
+    const validatedPrefix = prefixAt(coordinate);
     const facts = runtimePrefixComputation(validatedPrefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
     const retained = facts.exactProjections.get(coordinate.coordinateDigest);
     if (retained !== undefined) return retained;

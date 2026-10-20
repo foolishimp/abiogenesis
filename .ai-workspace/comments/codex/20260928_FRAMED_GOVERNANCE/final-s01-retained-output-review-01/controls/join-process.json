@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "join",
+    "--input",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-01/controls/request-sections.json",
+    "--output",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-01/controls/joined-request.txt"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": ""
+}

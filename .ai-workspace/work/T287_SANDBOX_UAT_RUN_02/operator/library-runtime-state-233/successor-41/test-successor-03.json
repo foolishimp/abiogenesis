@@ -1,0 +1,15 @@
+{
+  "kind": "c2_helper_test_validator_successor",
+  "file": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/input-03/test_env/tests/t287-observed-worksite-command.test.mjs",
+    "sha256": "36fb9ec27213d8facc7aac98c5e9a41b8f06e2ab059496dcf7dbe410b2f2df68",
+    "bytes": 29001
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/input-02/test_env/tests/t287-observed-worksite-command.test.mjs",
+    "sha256": "a675415b7083799ba546f36bc2f3320261dedc40f5f37530dad8a826d5801c18"
+  },
+  "cause": "Test used the C1-specific artifact validator for an observed task after real readonly helper execution.",
+  "selectedAction": "Executive selected shared isWorksiteExecutionHelperArtifact, retaining all artifact/digest/delta assertions; no Production/HOW/emission change.",
+  "retainedFailure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/commands/observed-helper-02.result.json"
+}

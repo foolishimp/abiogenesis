@@ -1,0 +1,1 @@
+First documentary freezer command stopped before writing: SyntaxError: expected 'else' after 'if' expression; conditional token else30065 lacked a separating space. Corrected phase-only receipt premise; no source/test/build rerun.

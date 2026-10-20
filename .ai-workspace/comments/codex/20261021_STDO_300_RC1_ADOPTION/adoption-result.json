@@ -1,0 +1,26 @@
+{
+  "accepted_plan_sha256": "c2e350be3af5fc38997ea84dce86640e2b04edce6e0da2f1e0a8e4f61ee1c0f1",
+  "changed": true,
+  "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+  "definition_id": "urn:stdo:product-definition:abiogenesis",
+  "definition_sha256": "2e4d825e965a043303b10e4604064145d3049fb467e6ca20dfba5fcf0548b06f",
+  "dry_run": false,
+  "from": {
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "install_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1",
+  "install_status": "already_installed",
+  "kind": "stdo.adoption-plan",
+  "plan_sha256": "c2e350be3af5fc38997ea84dce86640e2b04edce6e0da2f1e0a8e4f61ee1c0f1",
+  "schema_version": 1,
+  "selector": "stdo://channels/3.0.0",
+  "to": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "commit": "0a04feb788c080183b58cf4a162e88372be1d87e",
+    "cut": "v3.0.0-rc.1",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "tag_object": "dde3e5f70d36f95369f88cc3b4130c6909678326",
+    "tree": "c8373448a5170c9cc43860719a609c49466cb538"
+  }
+}

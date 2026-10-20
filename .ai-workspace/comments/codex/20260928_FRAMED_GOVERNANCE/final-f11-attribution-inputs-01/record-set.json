@@ -1,0 +1,9 @@
+{
+  "recordSet": {
+    "ref": "construction-record-set://abiogenesis/eb52efae108c9e671c87cc307725bf4ef84dd321f9613468f248e39df96878a8",
+    "digest": "sha256:eb52efae108c9e671c87cc307725bf4ef84dd321f9613468f248e39df96878a8"
+  },
+  "recordCount": 26,
+  "source": "external-record-materials.json#/records",
+  "meaning": "Exact retained original material identities only; no established author or native provenance claim."
+}

@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {dirname,join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {configuration} from '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs';
+const phase=dirname(fileURLToPath(import.meta.url)),cfg=await configuration(join(phase,'resume-config.json'));
+const base=JSON.parse(await readFile('/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/resume-config.json','utf8'));
+assert.deepEqual(cfg.resumeEvidence,base.resumeEvidence);assert.equal(cfg.sourceCommit,'727f1dbcab3c198f7704735fdf91b994b7aac243');assert.equal(cfg.provider.model,base.provider.model);assert.equal(cfg.processTimeoutMs,base.processTimeoutMs);
+const result={owner:'runner.mjs configuration(path)',valid:true,package:cfg.package,sourceCommit:cfg.sourceCommit,resumeEvidence:cfg.resumeEvidence,processTimeoutMs:cfg.processTimeoutMs,maxProcessOutputBytes:cfg.maxProcessOutputBytes,recursionBound:cfg.recursionBound,model:cfg.provider.model,inactivityTimeoutMs:cfg.provider.inactivityTimeoutMs,absoluteTimeoutMs:cfg.provider.absoluteTimeoutMs,commandTimeoutOverrides:cfg.commandTimeoutOverrides,maxTurnsOrBudgetSupplied:cfg.provider.maxTurns!==undefined||cfg.provider.maxBudgetUsd!==undefined,nativeEffects:false};
+await writeFile(join(phase,'resume-config-validation.json'),JSON.stringify(result,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify(result));

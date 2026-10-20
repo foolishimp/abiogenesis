@@ -1,3 +1,4 @@
+import { runtimeEventBodiesAtPrefix } from "./event_prefix.js";
 import { projectWorksiteRevisionOrigins, worksiteRevisionPhysicalMatches, worksiteRevisionSeedMatches, worksiteRevisionEntryBindingDisposition, projectWorksiteRevisionBindingOrigin, worksiteRevisionMeaningMatches, retainedWorksitePhysicalMatches, worksiteRevisionOriginSurvives, worksiteExecutionSourcesCurrent } from "./worksite_revision.js";
 import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
@@ -14,7 +15,7 @@ import { SEMANTIC_REVISION_IDS as ids } from "../gtl/semantic_revision_identity.
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { deriveSemanticRevision, deriveRevisionAsset, deriveRevisionAssessment, isSemanticRevisionRequest, isSemanticRevisionSelection, isSemanticRevisionSelectionInput, isSemanticRevisionEnvelope, semanticRevisionSelectionInputMatchesRequest } from "../product/semantic_revision.js";
 import { isSemanticStageEnvelope, deriveSemanticWorksiteConstructionConfiguration, projectSemanticWorksiteCoordinates } from "../product/semantic_stage.js";
-import { authenticateSemanticStageBasis, projectSemanticPredecessorAtPrefix, semanticInputValueAtBasis } from "./semantic_stage.js";
+import { authenticateSemanticStageBasis, authenticateOwnedSemanticStageBasis, projectSemanticPredecessorAtPrefix, semanticInputValueAtBasis } from "./semantic_stage.js";
 import { rehydrateExecutionBasisAtPrefix } from "./execution_basis.js";
 import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
 import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
@@ -24,12 +25,12 @@ import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.
 import { constructWorksiteObservation, isWorksiteObservation, isWorksitePostPublicationFailure } from "../product/worksite_effect.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
-import { authenticateSemanticJobBasis, semanticJobRootAtPrefix, semanticJobConstructionSourceAtPrefix } from "./semantic_job.js";
+import { authenticateSemanticJobBasis, authenticateOwnedSemanticJobBasis, semanticJobRootAtPrefix, semanticJobConstructionSourceAtPrefix } from "./semantic_job.js";
 import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
 import { isSemanticJobEnvelope, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, projectSemanticJobBindings } from "../product/semantic_job.js";
 import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "../product/semantic_revision.js";
 import { isNativeSemanticRevisionIntake, constructNativeRevisionConstructionTask, constructNativeRevisionExecutionTask, deriveNativeRevisionEvidence, semanticJobRevisionNativeTargets } from "../product/semantic_revision.js";
-import { authenticateNativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate, readRuntimeEventsAtDurablePrefix } from "./event_store.js";
 import { indexedRuntimeEvents, runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
 import { projectRunIdentityAtPrefix } from "./replay.js";
@@ -181,7 +182,8 @@ function contextCorresponds(a, b) {
 function nativeIntakeFacts(basis, input, onRefusal) {
     const refuse = (relation) => { onRefusal?.(`native_revision_${relation}`); return null; };
     try {
-        const owner = authenticateNativeInstructionAssemblyBasis(basis);
+        const authenticated = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+        const owner = authenticated === null ? null : { ...authenticated, events: runtimeEventBodiesAtPrefix(authenticated.prefix) };
         if (owner === null || owner.call.implementationRef !== ids.nativeIntakeImplementationRef ||
             !same(owner.inputValue, input))
             return refuse("intake_basis_mismatch");
@@ -368,7 +370,7 @@ export function nativeSemanticRevisionIntakeMatches(basis, input, output) {
  * rediscovered at selection, correction or Evidence leaves. */
 function nativeJobRevisionSubject(basis, input, readPhysical) {
     try {
-        const owner = authenticateSemanticJobBasis(basis);
+        const owner = authenticateOwnedSemanticJobBasis(basis);
         const request = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
         if (owner === null || (!isSemanticRevisionSelectionInput(request) && !isSemanticRevisionRequest(request)) || request.nativeWorksite === undefined)
             return null;
@@ -412,7 +414,7 @@ function nativeJobRevisionSubject(basis, input, readPhysical) {
 /** The output is an ordinary terminal-readable request, derived from the one
  * admitted selection and the one admitted intake in this invocation. */
 export function projectNativeSemanticRevisionRequest(basis, input) {
-    const owner = authenticateSemanticJobBasis(basis);
+    const owner = authenticateOwnedSemanticJobBasis(basis);
     if (owner?.call.implementationRef !== ids.nativeRequestImplementationRef || !isSemanticRevisionSelection(input))
         return null;
     const prepared = owner.execution.rawInputValue;
@@ -432,6 +434,14 @@ export function projectNativeSemanticRevisionRequest(basis, input) {
 }
 /** D2's job arm reuses this owner's parent/cause and physical-origin relations. */
 export function projectJobRevisionSubject(basis, input, readPhysical = false) {
+    const subject = projectOwnedJobRevisionSubject(basis, input, readPhysical);
+    if (subject === null)
+        return null;
+    const owner = authenticateSemanticJobBasis(basis);
+    return owner === null ? null : { ...subject, owner };
+}
+/** @internal Ordinary consumers retain only the authenticated selected prefix. */
+export function projectOwnedJobRevisionSubject(basis, input, readPhysical = false) {
     const request = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
     if ((isSemanticRevisionSelectionInput(request) || isSemanticRevisionRequest(request)) && request.nativeWorksite !== undefined)
         return nativeJobRevisionSubject(basis, input, readPhysical);
@@ -441,7 +451,7 @@ export function projectJobRevisionSubject(basis, input, readPhysical = false) {
 }
 function jobRevisionSubjectAtBasis(basis, input, readPhysical, historicalBridge) {
     try {
-        const owner = authenticateSemanticJobBasis(basis);
+        const owner = authenticateOwnedSemanticJobBasis(basis);
         const request = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
         if (owner === null || (!isSemanticRevisionSelectionInput(request) && !isSemanticRevisionRequest(request)) ||
             hash(owner.inputValue) !== owner.inputDigest)
@@ -572,7 +582,7 @@ function jobRevisionEvidenceSubjectAtBasis(basis, input, readPhysical) {
     }
 }
 export function jobRevisionSelectionMatchesBasis(basis, input, output) {
-    const subject = projectJobRevisionSubject(basis, input);
+    const subject = projectOwnedJobRevisionSubject(basis, input);
     if (subject === null || !isSemanticRevisionSelectionInput(input) || !isSemanticRevisionSelection(output) ||
         subject.owner.call.implementationRef !== ids.selectionImplementationRef || basis.graphFunction.declarations["abg.semantic_revision_selection"] !== subject.owner.lifecycle.declarationRef ||
         hash(input.parent) !== hash(output.parent) || hash(input.causes) !== hash(output.causes))
@@ -595,7 +605,7 @@ export function jobRevisionSelectionMatchesBasis(basis, input, output) {
         (output.selectedStageRef === null || subject.owner.lifecycle.stages.some(s => s.declarationRef === output.selectedStageRef));
 }
 export function projectSemanticJobRevision(basis, input, readPhysical = true) {
-    const subject = projectJobRevisionSubject(basis, input, readPhysical);
+    const subject = projectOwnedJobRevisionSubject(basis, input, readPhysical);
     if (subject === null || !isSemanticRevisionRequest(input) || subject.owner.call.implementationRef !== ids.projectionImplementationRef)
         return null;
     const decision = projectWorksiteRevisionNativeResult(subject.owner.prefix, input.selection);
@@ -626,7 +636,7 @@ export function projectSemanticJobRevision(basis, input, readPhysical = true) {
 }
 export function semanticJobRevisionInputMatchesBasis(basis, input) {
     try {
-        const owner = authenticateSemanticJobBasis(basis);
+        const owner = authenticateOwnedSemanticJobBasis(basis);
         if (owner === null || !isSemanticJobRevisionEnvelope(input) || !(same(owner.inputValue, input) || [ids.nativeExecutionImplementationRef, ids.nativeEvidenceImplementationRef].some(r => r === owner.call.implementationRef) && isRetainedGraphInput(owner.inputValue) && same(owner.inputValue.entry, input)) ||
             hash(input.current.job) !== hash(owner.root.rawInputValue) || hash(input.current.declaration) !== hash(owner.lifecycle))
             return false;
@@ -651,7 +661,7 @@ export function projectJobRevisionPreparation(basis, input, readPhysical = true)
     try {
         if (!semanticJobRevisionInputMatchesBasis(basis, input))
             return null;
-        const subject = projectJobRevisionSubject(basis, input, readPhysical);
+        const subject = projectOwnedJobRevisionSubject(basis, input, readPhysical);
         return subject === null || "nativeWorksite" in subject ? null : jobRevisionPreparationFromSubject(subject, input);
     }
     catch {
@@ -703,7 +713,7 @@ function jobRevisionPreparationFromSubject(subject, input) {
 }
 export function projectNativeRevisionConstructionTask(basis, input) {
     try {
-        const owner = authenticateSemanticJobBasis(basis);
+        const owner = authenticateOwnedSemanticJobBasis(basis);
         if (owner?.call.implementationRef !== ids.nativeConstructionImplementationRef || !semanticJobRevisionInputMatchesBasis(basis, input) ||
             nativeJobRevisionSubject(basis, input, true) === null)
             return null;
@@ -715,7 +725,7 @@ export function projectNativeRevisionConstructionTask(basis, input) {
 }
 export function projectNativeRevisionExecutionTask(basis, input) {
     try {
-        const owner = authenticateSemanticJobBasis(basis);
+        const owner = authenticateOwnedSemanticJobBasis(basis);
         if (owner?.call.implementationRef !== ids.nativeExecutionImplementationRef || !isRetainedGraphInput(input) ||
             !semanticJobRevisionInputMatchesBasis(basis, input.entry) || !isNativeWorkspaceWorkObservation(input.source))
             return null;
@@ -734,7 +744,7 @@ export function projectNativeRevisionExecutionTask(basis, input) {
 }
 export function projectNativeRevisionEvidence(basis, input) {
     try {
-        const owner = authenticateSemanticJobBasis(basis);
+        const owner = authenticateOwnedSemanticJobBasis(basis);
         if (owner?.call.implementationRef !== ids.nativeEvidenceImplementationRef || !isRetainedGraphInput(input) ||
             !semanticJobRevisionInputMatchesBasis(basis, input.entry) || !isNativeWorksiteCommandExecutionObservation(input.source))
             return null;
@@ -756,10 +766,11 @@ export function projectNativeRevisionEvidence(basis, input) {
     }
 }
 export function semanticJobRevisionResultMatchesBasis(basis, input, output) {
-    const native = authenticateNativeInstructionAssemblyBasis(basis);
+    const authenticated = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+    const native = authenticated === null ? null : { ...authenticated, events: runtimeEventBodiesAtPrefix(authenticated.prefix) };
     if (native?.call.implementationRef === ids.nativeIntakeImplementationRef)
         return nativeSemanticRevisionIntakeMatches(basis, input, output);
-    const owner = authenticateSemanticJobBasis(basis);
+    const owner = authenticateOwnedSemanticJobBasis(basis);
     if (owner === null)
         return false;
     const nativeProjection = owner.call.implementationRef === ids.nativeRequestImplementationRef ? projectNativeSemanticRevisionRequest :
@@ -800,7 +811,7 @@ export function isSemanticRevisionCommandCause(value) {
     return isWorksiteCommandExecutionObservation(value) || isWorksiteRevisionCommandExecutionObservation(value);
 }
 function admitted(basis, c) {
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null)
         return null;
     const result = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, c.cCallRef, basis.declarationGraphFunctions);
@@ -810,7 +821,7 @@ function admitted(basis, c) {
 function revisionWorksiteProjection(basis, parentCoordinate, prior, current, readPhysical, causes, cut) {
     if (prior === null || current === null)
         return prior === current ? [] : null;
-    const owner = authenticateSemanticStageBasis(basis), parent = admitted(basis, parentCoordinate);
+    const owner = authenticateOwnedSemanticStageBasis(basis), parent = admitted(basis, parentCoordinate);
     if (owner === null || parent === null || !worksiteRevisionMeaningMatches(prior, current))
         return null;
     const env = projectExactPrefixWorkspaceEnvironment(basis.predecessorPrefix, { ref: owner.execution.workspaceBindingId, digest: owner.execution.workspaceBindingDigest });
@@ -871,7 +882,7 @@ function revisionWorksiteProjection(basis, parentCoordinate, prior, current, rea
 /** Resolves the actual failed result separately from valid advancing history. */
 export function projectSemanticRevision(basis, input, readPhysical = true) {
     try {
-        const owner = authenticateSemanticStageBasis(basis);
+        const owner = authenticateOwnedSemanticStageBasis(basis);
         if (owner === null || !isSemanticRevisionRequest(input) || hash(semanticInputValueAtBasis(basis)) !== hash(input) ||
             owner.call.implementationRef !== ids.projectionImplementationRef)
             return null;
@@ -922,7 +933,7 @@ export function projectSemanticRevision(basis, input, readPhysical = true) {
 /** The wrapper is admitted only as a whole native projection/author/assessor result. */
 export function semanticRevisionInputMatchesBasis(basis, input) {
     try {
-        const owner = authenticateSemanticStageBasis(basis);
+        const owner = authenticateOwnedSemanticStageBasis(basis);
         if (owner === null || !isSemanticRevisionEnvelope(input) || hash(semanticInputValueAtBasis(basis)) !== hash(input) ||
             hash(input.current.lifecycle) !== hash(owner.lifecycle) || hash(input.current.sourceHandoff.declaration) !== hash(owner.source))
             return false;
@@ -938,7 +949,7 @@ export function semanticRevisionInputMatchesBasis(basis, input) {
     }
 }
 export function semanticRevisionResultMatchesBasis(basis, input, output) {
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null)
         return false;
     if (owner.call.implementationRef === ids.selectionImplementationRef)
@@ -994,7 +1005,7 @@ export function projectRevisionHistoricalContext(basis, input) {
  * and whole revision-input admission remain required by preparation. */
 export function projectRevisionDesignCoordinates(basis, input) {
     try {
-        const owner = authenticateSemanticStageBasis(basis);
+        const owner = authenticateOwnedSemanticStageBasis(basis);
         if (owner === null || !isSemanticRevisionEnvelope(input) || input.current.worksite === null)
             return null;
         const parent = admitted(basis, input.revisionBasis.request.parent);
@@ -1053,7 +1064,7 @@ export function projectRevisionDesignCoordinates(basis, input) {
     }
 }
 function revisionPreparationAtBasis(basis, input, readPhysical, cut) {
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null)
         return null;
     const parent = admitted(basis, input.revisionBasis.request.parent);
@@ -1109,7 +1120,7 @@ export function projectRevisionWorksitePreparation(basis, input) {
 export function projectRevisionEvidenceInput(basis, input) {
     try {
         const job = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined;
-        const owner = job ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+        const owner = job ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
         if (owner === null || owner.call.implementationRef !== ids.evidenceInputImplementationRef ||
             !isWorksiteRevisionCommandExecutionObservation(input) || hash(input) !== owner.inputDigest || hash(semanticInputValueAtBasis(basis)) !== hash(input))
             return null;
@@ -1152,7 +1163,7 @@ export function projectRevisionEvidenceInput(basis, input) {
 function revisionEvidenceComponentsAtBasis(basis, input) {
     try {
         const owner = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined
-            ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+            ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
         if (owner === null)
             return null;
         const execution = selectedSemanticPredecessor(basis, WORKSITE_REVISION_IDS.implementationRef, input);
@@ -1198,7 +1209,15 @@ function revisionEvidenceComponentsAtBasis(basis, input) {
     }
 }
 export function projectRevisionSelectionSubject(basis, input, readPhysical = false) {
+    const subject = projectOwnedRevisionSelectionSubject(basis, input, readPhysical);
+    if (subject === null)
+        return null;
     const owner = authenticateSemanticStageBasis(basis);
+    return owner === null ? null : { ...subject, owner };
+}
+/** @internal The public complete owner remains an explicitly requested output. */
+export function projectOwnedRevisionSelectionSubject(basis, input, readPhysical = false) {
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null || owner.call.implementationRef !== ids.selectionImplementationRef || !isSemanticRevisionSelectionInput(input) ||
         hash(semanticInputValueAtBasis(basis)) !== hash(input) || basis.graphFunction.declarations["abg.semantic_revision_selection"] !== owner.lifecycle.declarationRef)
         return null;
@@ -1234,7 +1253,7 @@ export function projectRevisionSelectionSubject(basis, input, readPhysical = fal
         causes: causes.filter((c) => c !== null) };
 }
 export function semanticRevisionSelectionMatchesBasis(basis, input, output) {
-    const subject = projectRevisionSelectionSubject(basis, input);
+    const subject = projectOwnedRevisionSelectionSubject(basis, input);
     if (subject === null || !isSemanticRevisionSelectionInput(input) || !isSemanticRevisionSelection(output) ||
         hash(input.parent) !== hash(output.parent) || hash(input.causes) !== hash(output.causes))
         return false;

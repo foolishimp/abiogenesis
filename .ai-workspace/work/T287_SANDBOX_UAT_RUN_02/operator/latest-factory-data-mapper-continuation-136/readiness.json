@@ -1,0 +1,347 @@
+{
+  "status": "PREPARED_FROZEN_NOT_LAUNCHED",
+  "at": "2026-10-08T23:15:38.932601+00:00",
+  "classification": "Caller-owned current-control handoff + canonical same24/sameW source preparation; no native dispatch",
+  "basis": "ABI5 fixed15 GOAL035/T287 STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "inputs": {
+    "closed134": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/execution-freeze.json",
+      "sha256": "7ff6110bceae6bafb5438cda6d6ec36e0b9e01c24277a66f2e1be0e2610733b2",
+      "byteCount": 57231
+    },
+    "selectedCurrentRows": 101
+  },
+  "operatorControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+    "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+    "byteCount": 1723
+  },
+  "safeAuth": {
+    "classification": "Read-only authentication status through exact workerEnvironment/config.provider.command; no model or Run",
+    "started": "2026-10-08T23:10:39.580Z",
+    "wallMs": 97.345125,
+    "command": "/Users/jim/.local/bin/claude",
+    "args": [
+      "auth",
+      "status"
+    ],
+    "exitCode": 0,
+    "signal": null,
+    "spawnError": null,
+    "safeAuth": {
+      "loggedIn": true,
+      "authMethod": "oauth_token",
+      "apiProvider": "firstParty"
+    },
+    "variablePresence": {
+      "HOME": true,
+      "PATH": true,
+      "TMPDIR": true,
+      "LANG": true,
+      "LC_ALL": true,
+      "ANTHROPIC_API_KEY": false,
+      "CLAUDE_CONFIG_DIR": false,
+      "CLAUDE_CODE_OAUTH_TOKEN": true
+    },
+    "environmentNames": [
+      "ABG_TS_CLAUDE_APPEND_ARGS",
+      "ABG_TS_CLAUDE_COMMAND",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      "ABG_TS_FP_TERMINATION_GRACE_MS",
+      "ABG_TS_FP_TIMEOUT_MS",
+      "ABG_TS_WORKER_SANDBOX",
+      "CLAUDE_CODE_OAUTH_TOKEN",
+      "HOME",
+      "JAVA_HOME",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "TMPDIR"
+    ],
+    "stderrByteCount": 0,
+    "parsedStatus": true,
+    "credentialValues": "Never serialized, printed or hashed; raw status output discarded"
+  },
+  "argumentProof": {
+    "status": "PASS",
+    "classification": "Installed-owner argument/plan composition only; no model/actor/Run/native admission",
+    "operatorControl": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+      "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+      "byteCount": 1723
+    },
+    "capturedBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "offset": 1404602415,
+      "byteCount": 1525455,
+      "sha256": "9ffa301518dfa88608c7a95b3249e9b2448af1e68a86769a5d20e5adbbe9efa9",
+      "ref": "transport-binding://abiogenesis/7b7008609a2bb627e9ec9bc8cd623abf8d1e6692fa7b862f96bbc35d8c59eb91"
+    },
+    "prompt": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b830cf5f7334bb57-prompt.txt",
+      "sha256": "b75699fd92274cee14608eca90e1a427dfee8df78068f97044ec725247c7c03b",
+      "byteCount": 722105,
+      "unchangedHistoricalDeadline": true
+    },
+    "contractDigest": "sha256:830d1c231cb9b01d349e10c43ff9a644ca434faabf682640783118b088d010d7",
+    "argumentDigest": "sha256:2d72ee870ef4176aca52cb07fff0b17026f1430a91b1a4373332ca56ad7ba71e",
+    "planDigest": "sha256:69c356f0f68737fc993a24e4debc475b50d3eadfb9747ac4257507a9b48569e4",
+    "canonicalResponseDigest": "sha256:c7cc8d29fbd93cc559e9c41400478d36dda1c8fb72edaef84b3a2df9f04c5ed2",
+    "carrierResponseDigest": "sha256:d73cbf4ed4df16e61e0c8e53ae8aba44a9a399d7c6a4582713a56d8a24031a8b",
+    "exactlyOneAppendSystemPrompt": true,
+    "appendDeclarationExact": true,
+    "baseArgumentsEqualCapturedNativeBinding": true,
+    "strictSchemaProtocolToolsAndLimitsUnchanged": true,
+    "schemaWitness": "Actual authenticated binding argument reproduces byte-for-byte; deep equality to canonical assembly request and full schema root fields retained",
+    "effectiveConfigurationDifference": "provider.appendArgs only",
+    "environmentNames": [
+      "ABG_TS_CLAUDE_APPEND_ARGS",
+      "ABG_TS_CLAUDE_COMMAND",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      "ABG_TS_FP_TERMINATION_GRACE_MS",
+      "ABG_TS_FP_TIMEOUT_MS",
+      "ABG_TS_WORKER_SANDBOX",
+      "CLAUDE_CODE_OAUTH_TOKEN",
+      "HOME",
+      "JAVA_HOME",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "TMPDIR"
+    ],
+    "staticPlanEnvironmentNames": [
+      "ABG_TS_CLAUDE_APPEND_ARGS"
+    ],
+    "credentialValues": "Not serialized, printed or hashed; static plan environment includes only non-secret argument policy",
+    "clockTest": {
+      "classification": "Synthetic timestamp for pure shared-control calculation only; not actual native start/checkpoint",
+      "nativeT0": "2026-10-09T00:00:00.000Z",
+      "qualityCheckpointUTC": "2026-10-09T05:00:00.000Z",
+      "durationMs": 18000000,
+      "anchor": "nativeCLIcommand.request.started"
+    },
+    "nativeDispatch": false
+  },
+  "syntax": {
+    "status": "PASS",
+    "nodeChecks": 9,
+    "pythonSyntax": "PASS",
+    "wallMs": 173.8652079948224,
+    "results": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/args-composition-proof.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/auth-status.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/execute-continuation.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/execute-source-preparation.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/launch.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/monitor-clock.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/preflight.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/prepare.mjs",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "sourceBasis": {
+    "kind": "invocation_source_result_basis",
+    "schemaVersion": "5.0.0",
+    "basisRef": "invocation-source-result://abiogenesis/72bfe68c52d0b7f24623dd8b8096c44815d474f68f8257180de01b815d276c1f",
+    "basisDigest": "sha256:72bfe68c52d0b7f24623dd8b8096c44815d474f68f8257180de01b815d276c1f",
+    "publicAuthorityDigest": "sha256:23e0ae9adbe77080f520f39893268aab9dbd5f16540cb4c6bc2368f1744cfc7a",
+    "sourceInvocationAdmissionRef": "invocation-admission://abiogenesis/410bbe4c1c84a7748aa53c0a04d84764bdb99ed25bb93698cfa795239a087d6e",
+    "sourceInvocationRef": "invocation://abiogenesis/4c4e2c681b230b611ba7d00d636052feb3d8dd77072488ec42c7a7e723c558f7",
+    "sourceRunId": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+    "sourceGraphCallId": "graph-call://abiogenesis/8c28a09787e3f60a6539aeb8457442f00abd000efbae3a5cf821ab19340d0d22",
+    "sourceGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+    "sourceCCallRef": "c-call:sha256:ad42e21cb0e221d2b266f519eb1357bc2d3c29db79aa5eb57a1f851cee43374e",
+    "sourceResultAdmissionEventRef": "event://abiogenesis/1da2bf23336da2c6bb2523ac3c0cf88da4ae3ae7325d0c31b6ce16ebd65d0c23",
+    "sourceResultJudgmentEventRef": "event://abiogenesis/c971f6887a6d8901387d2fc1f2b351aff6292ae6ff5d976d1af5842d7c4b7eec",
+    "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+    "sourceResultDigest": "sha256:b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+    "sourceResultValueDigest": "sha256:d0c6b56492ae4b379e438471e9053dd3845ac8cd0b9c4d8ab6988a24554ec3a8",
+    "sourceResultContractRef": "contract://abiogenesis/default-library/state@5",
+    "sourceReplayRef": "replay://abiogenesis/1f458258e70660b6cbad8ca9f8b2baed67a873f6435199c57f23ec3091f7590d",
+    "sourceReplayDigest": "sha256:1f458258e70660b6cbad8ca9f8b2baed67a873f6435199c57f23ec3091f7590d",
+    "sourceWorkspaceId": "workspace://abiogenesis/64061dcb03cca2104110cc02e9d886b06e36b5cd0aed0ab5df781117806c14b5",
+    "workspaceBindingId": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "workspaceBindingDigest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+  },
+  "preparedSetup": {
+    "operatorControl": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+      "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+      "byteCount": 1723
+    },
+    "classification": "Owner-constructed same24/sameW source-result candidate; no dispatch or new admission",
+    "fromArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+    "sourceRunRef": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+    "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+    "sourceBasisRef": "invocation-source-result://abiogenesis/72bfe68c52d0b7f24623dd8b8096c44815d474f68f8257180de01b815d276c1f",
+    "sourceBasisDigest": "sha256:72bfe68c52d0b7f24623dd8b8096c44815d474f68f8257180de01b815d276c1f",
+    "sourceResultValueDigest": "sha256:d0c6b56492ae4b379e438471e9053dd3845ac8cd0b9c4d8ab6988a24554ec3a8",
+    "sourceObservations": 30,
+    "sourceTerminal": false,
+    "prefix": {
+      "coordinateDigest": "sha256:e4cd1ef797871a47bcdb232cd1b563a064aaeeb4e8ccc5f6870114525e7db703",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:4fa628228c369f789970e43946ea428219710b4eb8f5f30b9529e0b93e168a7f",
+      "prefixLength": 1418896561,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 468327400
+      }
+    },
+    "workspaceBinding": {
+      "digest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+      "ref": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+    },
+    "program": {
+      "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+      "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+    },
+    "view": {
+      "ref": "graph-function-catalog-view://abiogenesis/6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e",
+      "digest": "sha256:6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e"
+    },
+    "publicInvocationRef": "invocation://abiogenesis/cbf84ce05e2019602f03149ba5deb8dc541246900ba83c24cab409543ceec4f8",
+    "publicInvocationDigest": "sha256:cbf84ce05e2019602f03149ba5deb8dc541246900ba83c24cab409543ceec4f8",
+    "launch": {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/calls/continuation-start.request.jsonl"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/"
+    },
+    "limits": {
+      "nativeMs": 18060000,
+      "nativeBytes": 268435456,
+      "outerMs": 19260000,
+      "outerBytes": 536870912
+    },
+    "qualityWindow": "Derived from the exact operatorControl record and actual native CLI command.request.started; historical clocks retained",
+    "originalCriteriaConserved": true,
+    "physicalCopy": false
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/calls/continuation-start.request.jsonl",
+    "sha256": "1100007c52a381d87844a90e0fb503ee4d3d759b5e281c2903445c7e8b3291ec",
+    "byteCount": 27109064
+  },
+  "checks": {
+    "safe-auth-status": {
+      "started": "2026-10-08T23:10:39.548Z",
+      "wallMs": 131.89754200000002,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    "args-composition-corrected": {
+      "started": "2026-10-08T23:11:49.302Z",
+      "wallMs": 71.64079100000001,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    "mechanical-inspection": {
+      "started": "2026-10-08T23:11:49.376Z",
+      "wallMs": 598.305833,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    "dynamic-source-preparation": {
+      "started": "2026-10-08T23:12:04.088Z",
+      "wallMs": 137325.514792,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    }
+  },
+  "conservation": {
+    "sourceValueDeepEqualsCompleteOriginal129ActualParent": true,
+    "preparedInputDeepEqualsSource": true,
+    "originalAndHistoryIncludingOldClockUnchanged": true,
+    "observations": 30,
+    "terminal": false,
+    "sameProgramViewWCatalogApplicationsOriginalContract": true,
+    "sameEnvironmentDependenciesAndActor": true,
+    "same48PhysicalFilesIncludingOriginal4PlusAbsence": true,
+    "unchangedCurrentStoreStatIdentity": true,
+    "noEventAppend": true,
+    "noPhysicalCopyOrReset": true,
+    "allPriorCutsAndSelectedOwnersConserved": true,
+    "effectiveWorkerConfigurationChangesOnlyProviderAppendArgs": true,
+    "allOuterEnvironmentsExplicitProcessEnv": true,
+    "baseProviderFilteringUnchanged": true,
+    "controlIsSingleSourceForLaunchAndMonitor": true
+  },
+  "quiescence": {
+    "observedOwnedPIDsAndPGIDsAbsent": true,
+    "selectedLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "selectedLockAbsent": true,
+    "operatorSignals": []
+  },
+  "earned": "Prior12detections/12exactrestores/44green remain historical/applicable source; four dedicated INV and full-original UAT remain unresolved; no new credit",
+  "limits": [
+    "One canonical full owner cold source acquisition at current134 prefix; no extra full store hash/copy/replay",
+    "Static installed transport plan uses only non-secret argument environment; not actual new actor binding or provider acceptance",
+    "Actual native current-control binding, useful contribution and full-original UAT/P0 remain held for Root review/release",
+    "Owned rendered prompt/state/history preserved, no original workorder modification or numerical historical deadline override",
+    "Initial schema argument key-order comparator premise failed before dynamic owner; preserved and corrected within phase only"
+  ]
+}

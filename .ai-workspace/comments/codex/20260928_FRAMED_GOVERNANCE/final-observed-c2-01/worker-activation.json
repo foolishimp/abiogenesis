@@ -1,0 +1,25 @@
+{
+  "activation": "T287_FINAL_OBSERVED_C2_01",
+  "role": "Worker",
+  "actor": "/root/s03_phase_b",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "profile": "Astra/xhigh (Root-selected; session metadata does not independently assert model)",
+  "time": "2026-09-30T08:59:42.494051+00:00",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-controls-01/request.txt",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 10035,
+    "sha256": "ff833d1e03112ef08651919714a756bcd44443161fb9431e54c48c592ffcbdac"
+  },
+  "a_cJoin": {
+    "status": "exact",
+    "bytes": 10035,
+    "sha256": "ff833d1e03112ef08651919714a756bcd44443161fb9431e54c48c592ffcbdac"
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01",
+  "additionalEffects": "Exact Q02 716 absent target writes at original N03 worksite; existing C2 native/helper worksite verification and owned event/archive/runtime/transport effects, original lock namespace; exactly start/result/replay",
+  "actualRuntimeActor": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "authorStatement": "This actor authors the new caller/control/consumption code under this current scoped grant; retained source and Product inputs retain original authorship. No independent or native qualification attribution claimed.",
+  "exclusions": "No source/C02/Q02/recipe/qualification/F11/Git mutations or prior native replay; no fallback/retry."
+}

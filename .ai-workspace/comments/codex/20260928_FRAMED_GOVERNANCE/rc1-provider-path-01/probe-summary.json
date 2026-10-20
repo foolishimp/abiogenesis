@@ -1,0 +1,10 @@
+{
+  "probeCount": 2,
+  "externalProbeElapsedMs": 36.363,
+  "aggregateExternalBudgetSeconds": 60,
+  "individualBudgetSeconds": 10,
+  "modelDispatches": 0,
+  "authChanges": 0,
+  "networkSettingChanges": 0,
+  "alternateRoutes": 0
+}

@@ -1,0 +1,55 @@
+{
+  "observedAt": "2026-10-08T12:37:54.703914+00:00",
+  "knownOwnedProcesses": [
+    {
+      "pid": 91456,
+      "observation": "ESRCH"
+    },
+    {
+      "pid": 91458,
+      "observation": "ESRCH"
+    },
+    {
+      "pid": 95119,
+      "observation": "ESRCH"
+    },
+    {
+      "pid": 95158,
+      "observation": "ESRCH"
+    },
+    {
+      "pid": 95858,
+      "observation": "ESRCH"
+    },
+    {
+      "pid": 96914,
+      "observation": "ESRCH"
+    }
+  ],
+  "signalsSent": [],
+  "store": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418/resources/events/runtime.events.jsonl",
+    "sha256": "c5942ab8d04a62726692d5b30f1a92582b18250b74aa262994634f266f77bde4",
+    "byteCount": 24516728
+  },
+  "physicalIdentity": {
+    "device": 16777231,
+    "inode": 468215380,
+    "mtimeNs": 1791462684318277713
+  },
+  "quiescence": {
+    "twoIdentitySamplesEqual": true,
+    "intervalMs": 500,
+    "lastAdmissionOrdinal": 3930
+  },
+  "selectedLock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468215380.lock",
+    "absent": true
+  },
+  "C2": {
+    "terminationConfirmed": true,
+    "closedResultArtifact": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418/resources/archives/worksite-command-execution/1ebe5e29e69017dcf3c94fe53acb5267c21fc6903e3f2fc35210a1ac9f97ba9c/561bec2a05e5590ddc1848b76d3848e64e3f55cb443828373d55af5b4be844fe/result.json",
+    "externalHelperOrCommandPidRetained": false
+  },
+  "limits": "Exact scoped known PID absence and owner closure only; no global census or invented native exit."
+}

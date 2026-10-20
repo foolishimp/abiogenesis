@@ -1,0 +1,5 @@
+{
+  "message": "see receipts/00-original-public-run-status.json\n+ actual - expected\n\n+ undefined\n- 'result'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: see receipts/00-original-public-run-status.json\n+ actual - expected\n\n+ undefined\n- 'result'\n\n    at Object.invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/full-sandbox-support.mjs:131:12)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/execute.mjs:43:41",
+  "calls": []
+}

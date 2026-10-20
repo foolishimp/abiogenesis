@@ -1,0 +1,40 @@
+{
+  "scope": "Pure installed Product value projection over specifically referenced already-retained parent; no runtime acquisition or authority reconstruction",
+  "retainedPath": "../../../design-bound-diagnosis-01/result-events.json",
+  "parent": {
+    "eventId": "event://abiogenesis/fb431103b4a4b0a9a05cf667e5828fe0a4eaf04c939fc566b254e9b3811a8842",
+    "resultRef": "result://abiogenesis/7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6",
+    "resultDigest": "sha256:7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6",
+    "valueDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185",
+    "observedValueDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185"
+  },
+  "selectionInputParent": {
+    "cCallRef": "c-call:sha256:afa4e652785487111c4e15e0eb1527450d75fbff4818cd9980c6867f99f8770c",
+    "judgmentEventRef": "event://abiogenesis/36fa5b5beb8c80c97eab859a7dfbcf002f3ed2431f260fa16156e585d27cca1d",
+    "resultAdmissionEventRef": "event://abiogenesis/fb431103b4a4b0a9a05cf667e5828fe0a4eaf04c939fc566b254e9b3811a8842",
+    "resultDigest": "sha256:7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6",
+    "resultRef": "result://abiogenesis/7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6"
+  },
+  "activeBindingCount": 15,
+  "activeObligationRefs": [
+    "obligation://abiogenesis/semantic-job/b0d4821ca26232eeb993447f56e6af622e2b392cd82a274e9005ad742d88ac1a",
+    "obligation://abiogenesis/semantic-job/8db452e0e1bbc88e188c860d05a9a00b190c4c8efaac86d1867545807141dd0f",
+    "obligation://abiogenesis/semantic-job/7a8b5b917def2cca68739c356b11768944ef192b5c4466b73b395e574e4d2c32",
+    "obligation://abiogenesis/semantic-job/5424a144e7721982c9b4dd6c6a7511e0707e85f2fb11fa5f192774000623378f",
+    "obligation://abiogenesis/semantic-job/8192562fedfdf16555663296ac3d61c1d3361b2dd9e50bb50d98ffd26f4cd843",
+    "obligation://abiogenesis/semantic-job/7010ec2a96c88bd2d24ad996e6886455f71045c20bfdec4344e35e3867f4b681",
+    "obligation://abiogenesis/semantic-job/6c446dc68415a8717adac85c42a0f98efb3bbcc66e8011538333346f232334df",
+    "obligation://abiogenesis/semantic-job/4aa9ffafc520b40c7d18e7b1d37d231d8a7c806bb60cd7dfd18678193503506d",
+    "obligation://abiogenesis/semantic-job/0b94d7680d5b9fe54ac5f469ca8a369ed85751db38a4561f5a088d7500443d78",
+    "obligation://abiogenesis/semantic-job/41e61751720255f4a6b9c890ac9b248dbd8841700d0b0b7c22b99fb04e41fba0",
+    "obligation://abiogenesis/semantic-job/87511aff478a1e4700ba794c4bd0449e66ba1c22bf8a6aa69d736ae0eb862d69",
+    "obligation://abiogenesis/semantic-job/ef532097a24726244bf79cc637e15990ea8dcdd8740453dea9d74b89645d5fe3",
+    "obligation://abiogenesis/semantic-job/b9db7693ff6fc70946aedf347e7b347347e79100ea077c6d87c0f9bf7a7aca09",
+    "obligation://abiogenesis/semantic-job/999a34a746108698bce32c4926643d0d2cb6bb18aed1e6337025d7ad03d346c3",
+    "obligation://abiogenesis/semantic-job/3455007307fe03dfedde9e233996cf076f3fe5da4d0640e62329e00a658bf670"
+  ],
+  "candidateSelectedObligationRefs": [],
+  "predicate": "active.length === 0 || output.selectedObligationRefs.length > 0",
+  "predicateResult": false,
+  "qualification": "Establishes a concrete false necessary relation at the installed selection matcher; the collapsed generic failure does not preserve which earlier boolean branch or caught exception, if any, was first."
+}

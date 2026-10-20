@@ -1,0 +1,24 @@
+{
+  "created_utc": "2026-10-20T18:50:03.424054+00:00",
+  "rejected_cut": {
+    "L2-execution-contract.md": "0c2876519cec2452480eb4e7a86fb26efdd0a0dcfa36a005b6336490e947d24b",
+    "L2-candidate-freeze.json": "94b3517a5e6d9e1b901879058fa39a7c2a7a906de834ae6675434e93916057a9",
+    "review-L2/review-01.md": "c862ca6310be883f9311b12b7409a82319151eacbd5e8f5d6062f519b3346c47",
+    "review-L2/result-01.json": "74460d8c2bfa018136755a674d8c11b54fb37380d56cc5a982298a64f9e30517"
+  },
+  "preserved_preimages": [
+    {
+      "original_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "preimage_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/correction-L2-001/preimages/L2-execution-contract.md",
+      "sha256": "0c2876519cec2452480eb4e7a86fb26efdd0a0dcfa36a005b6336490e947d24b",
+      "reviewer_copy": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-01/L2-execution-contract.md"
+    },
+    {
+      "original_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-candidate-freeze.json",
+      "preimage_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/correction-L2-001/preimages/L2-candidate-freeze.json",
+      "sha256": "94b3517a5e6d9e1b901879058fa39a7c2a7a906de834ae6675434e93916057a9",
+      "reviewer_copy": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-01/L2-candidate-freeze.json"
+    }
+  ],
+  "reconstruction": "For original freeze validation, resolve its L2-execution-contract.md entry to this exact preimage or review-L2/subject-01; all other original bound sources/records remain at their original paths. Original freeze path and bytes are preserved."
+}

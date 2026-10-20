@@ -1,0 +1,13 @@
+{
+  "origin": "external Worker run-checks.py omitted existing test module flag",
+  "failedBoundary": "test-module import before any selected test body",
+  "symptom": "node:vm SourceTextModule named export unavailable",
+  "ownerRelation": "t287-default-library.test.mjs:5 imports SourceTextModule; Node24 requires --experimental-vm-modules",
+  "frames": {
+    "Integration": "runner must supply existing module import facility",
+    "Effect": "failure before tests; no runtime call or resource mutation",
+    "Proof": "compile and syntax results remain passed; initial failed test transcript retained"
+  },
+  "classification": "bounded harness command correction, no Product/source change",
+  "correction": "Rerun only same three exact pure names with --experimental-vm-modules; no recompile or mixed-file execution"
+}

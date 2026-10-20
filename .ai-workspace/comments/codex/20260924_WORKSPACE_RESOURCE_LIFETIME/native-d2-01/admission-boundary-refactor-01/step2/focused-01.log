@@ -1,0 +1,79 @@
+(node:77473) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native transport delegates one complete admission to the real fixed Run owner and conserves refusal ordering (83.853458ms)
+ℹ {"kind":"native_call_admission_conservation","observations":[{"member":"invoke","before":[0,1],"after":[0,1]},{"member":"start","before":[0,1],"after":[0,1]}],"rawCopyReAdmitted":true,"malformedBeforeEffects":true,"ambiguousAdmissionOrderingPreserved":true,"coldAdmissionPreserved":true,"resourceFaultPreserved":true,"copiedForeignStaleReleasedRefused":true,"realOuterClose":true,"limits":"Actual fixed Run owners consume a structurally valid unadmitted Catalog and return setup refusal; no Run or installed successor is claimed."}
+✔ preparation resolution retains its established native link and raw lock refusals (9089.586417ms)
+ℹ Actual native link and owner projection equal retained successful output; external grants/history not reacquired.
+✖ preparation module loading shares one physical basis and reacquires changed content (6.12675ms)
+✔ native detachment retains only actual immutable verifier bodies and detaches raw copies (8908.139125ms)
+ℹ Real verifier result retained; raw copy stays detached/unowned. Captured receiver is not an admission/effect claim.
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18553.981833
+
+✖ failing tests:
+
+test at test_env/tests/t287-w2-05-static-binding-algebra.test.mjs:818:1
+✖ preparation module loading shares one physical basis and reacquires changed content (6.12675ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + {
+  +   code: 'implementation_absent',
+  +   disposition: 'refused',
+  +   kind: 'implementation_resolution_set_refusal',
+  +   message: 'published implementation module cannot be loaded from the admitted Product install',
+  +   requirementKey: null,
+  +   schemaVersion: '5.0.0'
+  + }
+  - [
+  -   {
+  -     computeRegime: 'F_D',
+  -     descriptorDigest: 'sha256:7a9c53e44bb9c6675a64f5b4b2254139556c719922d2b35021f8fc4ca6c74f99',
+  -     failureContractRef: 'contract://failure',
+  -     implementationRef: 'implementation://preparation/leaf',
+  -     inputContractRef: 'contract://input',
+  -     kind: 'packaged_leaf_implementation_descriptor',
+  -     modulePath: 'leaf.mjs',
+  -     namedSymbol: 'leaf',
+  -     outputContractRef: 'contract://output',
+  -     packageName: 'fixture',
+  -     packageVersion: '1',
+  -     refusalContractRef: 'contract://refusal',
+  -     schemaVersion: '5.0.0'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs:842:31)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'implementation_resolution_set_refusal', schemaVersion: '5.0.0', disposition: 'refused', code: 'implementation_absent', requirementKey: null, message: 'published implementation module cannot be loaded from the admitted Product install' },
+    expected: [ { kind: 'packaged_leaf_implementation_descriptor', schemaVersion: '5.0.0', implementationRef: 'implementation://preparation/leaf', packageName: 'fixture', packageVersion: '1', modulePath: 'leaf.mjs', namedSymbol: 'leaf', computeRegime: 'F_D', inputContractRef: 'contract://input', outputContractRef: 'contract://output', failureContractRef: 'contract://failure', refusalContractRef: 'contract://refusal', descriptorDigest: 'sha256:7a9c53e44bb9c6675a64f5b4b2254139556c719922d2b35021f8fc4ca6c74f99' } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+       18.57 real        28.01 user         0.68 sys
+          2582446080  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              361909  page reclaims
+                 156  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5311  messages sent
+                3900  messages received
+                   0  signals received
+                 565  voluntary context switches
+               32017  involuntary context switches
+           441940904  instructions retired
+           145903674  cycles elapsed
+            17254536  peak memory footprint

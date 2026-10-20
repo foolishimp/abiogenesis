@@ -1,0 +1,3 @@
+Run run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8: Target remains 3; required value is 10. The declared correction capability is unavailable.
+Unfulfilled obligation: obligation://s03-automatic/target-value@5
+Admitted gap: next-action-projection://product/04b4a18042f2fda77338bdcdd584c1d90c6d748b1b95f918ec0b63698c878670

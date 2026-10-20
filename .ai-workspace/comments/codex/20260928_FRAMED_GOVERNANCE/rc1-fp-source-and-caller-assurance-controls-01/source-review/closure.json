@@ -1,0 +1,26 @@
+{
+  "operation": "T287_F11_FP_REPAIRED_SOURCE_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent nonauthor Source Reviewer",
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_SOURCE_ASSURANCE",
+  "report": "review.md",
+  "pins": "pins.json",
+  "subjectFreezeSHA256": "f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1",
+  "sourcePostimageSHA256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+  "testPostimageSHA256": "7188a3e5238c532153398f1bc8448373b78986cf7477d6f0e4a5b1facf3073eb",
+  "sourceRuntimeBuildTestOwnerHelperProviderGitNetworkEffects": 0,
+  "reportTerritoryWritesOnly": true,
+  "passedTestsReusedNotRerun": true,
+  "qualificationOrReleaseCredit": false,
+  "separateCallerAcceptance": "Root conjoins; no caller acceptance by this review",
+  "residuals": [
+    "successor Product/Install/Q identity",
+    "actual wrapper child/J/foldback/parent/RunClosed/six reads/F11/sole nongreen AF22",
+    "actual current owner-produced request binding distinct from cached Q06 renderer request",
+    "semantic/material-context/independence/QUAL056/scenario/release/human acceptance"
+  ],
+  "closedAt": "2026-10-02T05:15:11.277919+00:00",
+  "returnRelation": "Root Executive alone accepts and selects successor; no Worker activation",
+  "allWritesAfterFreeze": "STOPPED"
+}

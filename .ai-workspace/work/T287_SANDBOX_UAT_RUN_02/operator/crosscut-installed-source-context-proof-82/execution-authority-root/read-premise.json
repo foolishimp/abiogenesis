@@ -1,0 +1,6 @@
+{
+  "error": "ERR_MODULE_NOT_FOUND",
+  "attemptedOwnerSuffix": "build/abg/event_store.js",
+  "actualDriverOwnerSuffix": "build/code/src/abg/event_store.js",
+  "effect": "no owner read or runtime mutation entered; corrected local diagnostic import only"
+}

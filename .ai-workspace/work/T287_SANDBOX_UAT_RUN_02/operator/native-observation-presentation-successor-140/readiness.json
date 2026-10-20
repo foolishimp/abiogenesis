@@ -1,0 +1,221 @@
+{
+  "status": "CLOSED_FROZEN_STOP; publication and installed payload readiness only",
+  "role": "Publication Writer140",
+  "closed": "2026-10-09T00:39:29.127289+00:00",
+  "basisManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "rootSourceConjunction": "Root accepted exact138 through independent Authority CLOSED bounded GO before publication effects.",
+  "source138Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/freeze.json",
+    "sha256": "938337bdf7aae5e63f0b5858b8288b5112896073b2be1ec1c937f30e1b47f415",
+    "byteCount": 22891
+  },
+  "accepted138FocusedEvidenceReused": {
+    "strictIsolatedCompile": {
+      "status": 0,
+      "wallMs": 5955.741832964122,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    "syntax": {
+      "status": 0,
+      "wallMs": 25.962957995943725,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    "focusedFinal": {
+      "status": 0,
+      "wallMs": 2104.6896660118364,
+      "stdoutBytes": 1497,
+      "stderrBytes": 0,
+      "pass": 6,
+      "fail": 0,
+      "skip": 0
+    },
+    "metrics": [
+      {
+        "name": "actual34",
+        "observations": 34,
+        "oldCompletePromptBytes": 2033265,
+        "newCompletePromptBytes": 652208,
+        "factsBytes": 569828,
+        "namedFailureLines": 52
+      },
+      {
+        "name": "controlled51",
+        "observations": 51,
+        "oldCompletePromptBytes": 2282212,
+        "newCompletePromptBytes": 715098,
+        "factsBytes": 632718,
+        "namedFailureLines": 64
+      }
+    ],
+    "initialReceipts": "commands/focused.* =4pass/2fail; corrected =5pass/1fail; final6pass. Own test premises corrected: whole multiline stream/BOM boundary falsely required inside a bounded cue-first excerpt; isolated fixtures initially absent. No production change after compile."
+  },
+  "newFocusedTests": 0,
+  "actualNormalBuildCount": 1,
+  "actualPackCount": 1,
+  "actualOfflineInstallCount": 1,
+  "actualInstalledOwnerVerifyCount": 1,
+  "identity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/identity.json",
+    "sha256": "295dd60aec382e6d31829b13e2fa7760cd3202a0d319872bc8ada9bbfeb38c39",
+    "byteCount": 5498
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/freeze.json",
+    "sha256": "4b29ced64b5ef232d7b7ba928dd79ba40624388a2dad1fa59c2bd83b09a8a0f9",
+    "byteCount": 5831
+  },
+  "hostSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/exacthost-identity.json",
+    "sha256": "f751e676836e8eef74d72e2cc36f2fe6ddd05e492944aabc7a6a30ebeebf1112",
+    "byteCount": 3265
+  },
+  "generated": {
+    "count": 934,
+    "changed": 5,
+    "unchanged": 929,
+    "compilerMatchesAccepted138IsolatedEmission": true,
+    "changedDeclaration": "build/code/src/product/default_library.d.ts",
+    "other262DeclarationBytesUnchanged": true,
+    "ledger": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/generated-delta.json",
+      "sha256": "b3f7dd184b4487616e9f8a16c6be64300782353addd6510dd538702642a6f18a",
+      "byteCount": 312343
+    }
+  },
+  "package": {
+    "count": 5265,
+    "unchanged": 5260,
+    "exactChanged": 5,
+    "pathsTypesModesEqual": true,
+    "metadataDependenciesEqual": true,
+    "externalFixtureExclusionExact": true
+  },
+  "canonicalOwnerParity": {
+    "kind": "bounded_deterministic_generation_parity",
+    "productContentDigest": "sha256:9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c",
+    "payloadMembers": 5263,
+    "publicCatalogRows": 75,
+    "capabilityCount": 16,
+    "catalogDigest": "sha256:0fcd03d2c263b67a0c307f43f16e9238991d72393c4e5dc27b35634bbd1159cc",
+    "contributionManifestDigest": "sha256:fc2e4fba491efb7184ff697d884b09d41e950a5e9c802be06339e0f4a4cc7ca3",
+    "capabilityGraphCoordinate": {
+      "assetLocator": {
+        "contentDigest": "sha256:6e5553a715fd4cc9831da97b738c29e63984343e63bf565a70a95e1bf3a927bc",
+        "mediaType": "application/json",
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "schemaVersion": "5.0.0"
+      },
+      "graphDigest": "sha256:4ee119b35c6b5581ee6289d74a4ae421a524943564c1020c921b32989b1c0647",
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0"
+    },
+    "assetLocationsVerified": 53,
+    "declarationInventoryDigestLocationsVerified": 14352,
+    "currentNativeRuntimeAssetMatchesOwnedEventCalculus": true,
+    "noBuildTestRuntimeAdmissionOrQualificationClaim": true,
+    "canonicalManifestDigest": "sha256:659d8b0d1c8926070c3e7056d46887999064806aff3f6e09afbba69acae70e76",
+    "rawManifestDigest": "sha256:d149f5a5e9517370ce7c21a7ab8195e30a238800e6d321d007a480cb4722e32e",
+    "catalogDifferenceCount": 69,
+    "publicNonDigestMetadataUnchanged": true,
+    "publications": 10,
+    "contributions": 47,
+    "contributionDifferenceCount": 62,
+    "completeContributionValueReconstructed": true
+  },
+  "nativeDeclarationCatalogParity": {
+    "nativeClosures": 15,
+    "nativeLocatorRows": 50,
+    "nativeTypedContractDigestsRecomputed": 23,
+    "publicCatalogOwnerBindingComplete": true,
+    "publicProposalRows": 21,
+    "capabilityDifferenceCount": 551,
+    "capabilityDifferenceKeyCounts": {
+      "graphDigest": 1,
+      "capabilityDefinitionDigest": 34,
+      "capabilityDefinitionRef": 34,
+      "catalogDigest": 241,
+      "productContentDigest": 241
+    },
+    "accepted138DeclarationChangeOnly": true,
+    "beforeAndAfterCompleteCapabilitiesCanonicallyRecomputed": true,
+    "noSourceSemanticOrRuntimeClaim": true
+  },
+  "actualInstalledContentMatches": true,
+  "installedBinModeConsequences": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "archiveMode": 420,
+      "installedMode": 493
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "archiveMode": 420,
+      "installedMode": 493
+    }
+  ],
+  "timingsMs": {
+    "build": 30174.487625,
+    "pack": 3161.825583,
+    "essential-parity": 2317.9853329999996,
+    "metadata-parity": 19553.728292,
+    "member-comparison": 500.72595800000005,
+    "extracted-joins-absolute": 263.402542,
+    "clean-host": 24990.606625
+  },
+  "installedTimingsMs": {
+    "installWallMs": 2393.962333,
+    "verifyWallMs": 20799.925083000002
+  },
+  "receipts": {
+    "build": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/build.result.json",
+      "sha256": "20459338080bffeed1285c15912197996903bc46e4ddf6839106ecd0783d928d",
+      "byteCount": 1825
+    },
+    "pack": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/commands/pack.result.json",
+      "sha256": "8f181ccd8ac4a64f4a7290eced49c12a39e1298612ba9db7ff936f91683e45c4",
+      "byteCount": 762989
+    },
+    "essential-parity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/essential-parity.result.json",
+      "sha256": "306a13a61620c00bf02ef98f9c6a0cf52f338462caefab88c76ed5c380d64b44",
+      "byteCount": 3232
+    },
+    "metadata-parity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/metadata-parity.result.json",
+      "sha256": "16dfbae4467ec4f060b0731ec613377945ae4cec1deb22301908993c578dbad5",
+      "byteCount": 2250
+    },
+    "member-comparison": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/member-comparison.result.json",
+      "sha256": "d24f5ff46c9262668fd188cbbf3ee90646a1cfc8a43777ed14955d79849c9862",
+      "byteCount": 2129
+    },
+    "extracted-joins-absolute": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/extracted-joins-absolute.result.json",
+      "sha256": "b0c2f8e36e1da05ac92646abd48e71f2bf9848023c0dcd51e32f9ac466771c06",
+      "byteCount": 1802
+    },
+    "clean-host": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/clean-host.result.json",
+      "sha256": "3ee6d389ec9fa3d22c2cb0f8e0dab9a613aaf2fe4a255bd6b1a998a77aa7ca82",
+      "byteCount": 2247
+    }
+  },
+  "retainedPremiseFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/command-premise-correction.json",
+    "sha256": "c0c2adc2a417951f73586cffa5b98a7484827a6a134811aee60fd7d762911bc6",
+    "byteCount": 1341
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/final-conservation.json",
+    "sha256": "5b790818e07efd1630939195528d6d62ba3675e3781d5699822ebec85c0b6c09",
+    "byteCount": 2217
+  },
+  "runtimeReentry": "HOLD: source-applicability and cross-successor re-entry are separate Root selection; no old24 leaf, copied-W/SourceNone fallback or producer relabel.",
+  "limits": "No provider/API, native invocation/admission, full log acquisition/replay, application effect, UAT, installed P0 closure, capacity, qualification or release. Original all16 distinct compiled production mutants/restorations and whole original UAT remain binding."
+}

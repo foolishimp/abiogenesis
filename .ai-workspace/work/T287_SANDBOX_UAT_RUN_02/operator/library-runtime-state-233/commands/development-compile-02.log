@@ -1,0 +1,28 @@
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/event_prefix.ts(258,5): error TS2322: Type 'Readonly<{ kind: "root_event_profile_schedule"; schemaVersion: "5.0.0"; spans: readonly Readonly<unknown>[]; boundaryEventRef: string | null; currentEventContractDigest: `sha256:${string}`; }>' is not assignable to type 'RootEventProfileSchedule'.
+  Types of property 'spans' are incompatible.
+    Type 'readonly Readonly<unknown>[]' is not assignable to type 'readonly Readonly<{ eventContractDigest: `sha256:${string}`; firstOrdinal: number; lastOrdinal: number; }>[]'.
+      Type 'Readonly<unknown>' is missing the following properties from type 'Readonly<{ eventContractDigest: `sha256:${string}`; firstOrdinal: number; lastOrdinal: number; }>': eventContractDigest, firstOrdinal, lastOrdinal
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(324,31): error TS2339: Property 'invocationRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'invocationRef' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(331,18): error TS7053: Element implicitly has an 'any' type because expression of type '"resultRef" | "parentCCallRef" | "cursorRef" | "routeRef"' can't be used to index type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'resultRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(331,84): error TS7053: Element implicitly has an 'any' type because expression of type '"resultRef" | "parentCCallRef" | "cursorRef" | "routeRef"' can't be used to index type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'resultRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(332,75): error TS2339: Property 'cursorRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'cursorRef' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(333,61): error TS2339: Property 'targetCursorRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'targetCursorRef' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(334,67): error TS2339: Property 'successorCursorRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'successorCursorRef' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(336,27): error TS2339: Property 'boundInput' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'boundInput' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(336,57): error TS2339: Property 'graphSpanReentryProjection' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'graphSpanReentryProjection' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(339,72): error TS2339: Property 'resultRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'resultRef' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(340,67): error TS2339: Property 'successorInputRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'successorInputRef' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(341,64): error TS2339: Property 'outputVectorRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'outputVectorRef' does not exist on type 'readonly JsonValue[]'.
+../../../.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/source/code/src/abg/runtime_history.ts(342,57): error TS2339: Property 'inputRef' does not exist on type 'readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'inputRef' does not exist on type 'readonly JsonValue[]'.

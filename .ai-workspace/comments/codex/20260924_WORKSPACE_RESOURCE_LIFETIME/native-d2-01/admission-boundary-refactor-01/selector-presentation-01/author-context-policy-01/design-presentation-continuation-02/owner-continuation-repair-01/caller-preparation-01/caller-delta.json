@@ -1,0 +1,55 @@
+{
+  "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01",
+  "subject": "same existing caller; new exact core31/destinations and genuine current cut; successful Run74ac Public root receipt reused instead of repeating read",
+  "files": [
+    {
+      "path": "preparation/prepare.mjs",
+      "predecessorSha256": "24a03fda69d8439d86bc486e6d01d33b0cdcfa6bdd24f312c76e084b0bb0c5ef",
+      "sha256": "b23f780c0eee2cd413034de3b0ca104ee1aa5b45843932754a5d48f46372dfb7"
+    },
+    {
+      "path": "witness-01/execute.mjs",
+      "predecessorSha256": "c26af63a5992f0c2b9337d7733b62da4b7ce581d0d6f954054264df524336822",
+      "sha256": "7893f7e8071aeed7b2f3ee5f2d0c0f1f8bda056c57ee752348ca941892ed4701"
+    },
+    {
+      "path": "intake-01/construct.mjs",
+      "predecessorSha256": "860e59780e6f11e84cf7e0107752a8aaf054fef27ea9acd3781db2e9e1203a45",
+      "sha256": "860e59780e6f11e84cf7e0107752a8aaf054fef27ea9acd3781db2e9e1203a45"
+    },
+    {
+      "path": "intake-01/run.mjs",
+      "predecessorSha256": "45d73da54245993fb5acf2ab00e4c2f4986d4dccc9b7166350f95cb0f85d1fca",
+      "sha256": "45d73da54245993fb5acf2ab00e4c2f4986d4dccc9b7166350f95cb0f85d1fca"
+    },
+    {
+      "path": "intake-01/read-intake.mjs",
+      "predecessorSha256": "2952fedfba80ab3891998cde8599c6bada1f93dfbab3ee81556b9d399dee40a5",
+      "sha256": "2952fedfba80ab3891998cde8599c6bada1f93dfbab3ee81556b9d399dee40a5"
+    },
+    {
+      "path": "suffix-01/prepare.mjs",
+      "predecessorSha256": "d87fef9cb7e8aa6fbf22bcf975366c8fe0586c6980244b96964336578694fa54",
+      "sha256": "d87fef9cb7e8aa6fbf22bcf975366c8fe0586c6980244b96964336578694fa54"
+    },
+    {
+      "path": "suffix-01/run.mjs",
+      "predecessorSha256": "729bb33d9c69fa7d320efdcc6e099ff1981f7976c3da62f5260b3b12d4bc1992",
+      "sha256": "729bb33d9c69fa7d320efdcc6e099ff1981f7976c3da62f5260b3b12d4bc1992"
+    },
+    {
+      "path": "suffix-01/read-suffix.mjs",
+      "predecessorSha256": "a9787444b8ad212583868fbe76d7e34fa9929b7cd21867f9b25b136adeeb75ac",
+      "sha256": "a9787444b8ad212583868fbe76d7e34fa9929b7cd21867f9b25b136adeeb75ac"
+    },
+    {
+      "path": "suffix-01/read-evidence.mjs",
+      "predecessorSha256": "d29327c1f940b47b01d0e486c899334bc7eaf708ce8276fb39bc3744fb65988a",
+      "sha256": "d29327c1f940b47b01d0e486c899334bc7eaf708ce8276fb39bc3744fb65988a"
+    }
+  ],
+  "sourceInputByteIdentical": true,
+  "consumerUnchanged": true,
+  "noProductionChange": true,
+  "noCallExecuted": true
+}

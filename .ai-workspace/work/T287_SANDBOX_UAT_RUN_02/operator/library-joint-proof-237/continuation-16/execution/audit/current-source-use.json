@@ -1,0 +1,74 @@
+{
+  "kind": "governance_covered_source_use",
+  "schemaVersion": "5.0.0",
+  "predecessorPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "prefixLength": 31431260,
+    "prefixDigest": "sha256:b838d5e5947fa0a37a13a0146071e341b631d1748e33968bd1288ac60714f283",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 469917053,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:9070200af8bce3a9a786192f7d094f9106297fb484d2b14f0ed45ca74df90c85"
+  },
+  "sourceBasisRef": "invocation-source-result://abiogenesis/43da864d145f10ed91dd07d2464ffc10479237cac4eebc80f33d9729795e9e48",
+  "sourceBasisDigest": "sha256:43da864d145f10ed91dd07d2464ffc10479237cac4eebc80f33d9729795e9e48",
+  "currentWorkspaceBindingId": "workspace-binding://abiogenesis/5bde13de46f2f041e0d77192b2d249f260d5fe82348b2b5eee95f4719e40abaa",
+  "currentWorkspaceBindingDigest": "sha256:5bde13de46f2f041e0d77192b2d249f260d5fe82348b2b5eee95f4719e40abaa",
+  "currentCatalogBasisDigest": "sha256:c0b4fe1daba265ac575173ffbe9163a892773f50e4a74e314b19b9109cff44dd",
+  "currentCatalogViewDigest": "sha256:dfe2b56ccd8ab1599841fff2799856e3a4a384602c0bb3712b43e59668b3a3b8",
+  "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+  "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+  "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+  "graphFunctionDigest": "sha256:1ba4ec486b01f15ce9004b9d519730f8b630157a991cc477ea44d692f2d795ee",
+  "historicalClosureDigest": "sha256:8875b090385f80a99d3244397058fb5ac939e087fb92856e62105b050900f9dc",
+  "currentClosureDigest": "sha256:6686eb16161191525388b2def8fee0de72519d4241a1c079b666f6990dc49141",
+  "historicalDeclaration": {
+    "kind": "abg_historical_declaration_reference",
+    "schemaVersion": "5.0.0",
+    "catalogBasisDigest": "sha256:989785b88c3060bdc023ed65081ec031eabb0527808260e5c20b8f276b218c36",
+    "readinessBasisDigest": "sha256:989785b88c3060bdc023ed65081ec031eabb0527808260e5c20b8f276b218c36",
+    "viewDigest": "sha256:09241ddbe8bddcef3e0684700524f9b260ab6224952c2e8345dc98848f443d4f"
+  },
+  "currentDeclaration": {
+    "kind": "abg_historical_declaration_reference",
+    "schemaVersion": "5.0.0",
+    "catalogBasisDigest": "sha256:c0b4fe1daba265ac575173ffbe9163a892773f50e4a74e314b19b9109cff44dd",
+    "readinessBasisDigest": "sha256:c0b4fe1daba265ac575173ffbe9163a892773f50e4a74e314b19b9109cff44dd",
+    "viewDigest": "sha256:dfe2b56ccd8ab1599841fff2799856e3a4a384602c0bb3712b43e59668b3a3b8"
+  },
+  "declarationMeaningDigest": "sha256:21c2b2588e8381f66cd4eb7da6b6ca082fc8087322804ad3166f0905a0114e95",
+  "declarationOwners": [
+    {
+      "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "historicalPublicationDigest": "sha256:c820de9b80eb2b0e7e2057b4ac8b3596d490ef10cb7349ffa327e6a586a053de",
+      "currentPublicationDigest": "sha256:fdaa2af0fc84594e0030e74289cab6d1fd7e930ba45a711feac12fe2f32bb8a2"
+    },
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "historicalPublicationDigest": "sha256:0effde8bfa614a764e484011d273e230ab03573693c3411dca066b1d6cf2258d",
+      "currentPublicationDigest": "sha256:fc191f48122fd74615503afbf8c92bc14d793fa50c37db35de09f9937d3c726f"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "historicalPublicationDigest": "sha256:ec7ff88e20a6ccb37a5daf1e7485542765811f7b513b938fb686ac61686b8402",
+      "currentPublicationDigest": "sha256:58a3e8f159dfa4675c5e60be8d237359c3717f4cac203a4ebad56760f53b555e"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "historicalPublicationDigest": "sha256:08e7c3ed859eb45316bb3d458479faddc4ae82ad5d3d4202e137a4a625ef1523",
+      "currentPublicationDigest": "sha256:3004dfef64f9fad37e3db40cd46c2206d65a0f92fee76241929c17af66877e8e"
+    }
+  ],
+  "bindingCoverEventRefs": [
+    "event://abiogenesis/87205ef2628319cec754bbd0a8ead9af0f4586587c0f69c8a45948966d1f07fb"
+  ],
+  "useDigest": "sha256:7805da0dde5394d5897a4e4292aa7e80c368700e32c890e18304157541c88a91"
+}

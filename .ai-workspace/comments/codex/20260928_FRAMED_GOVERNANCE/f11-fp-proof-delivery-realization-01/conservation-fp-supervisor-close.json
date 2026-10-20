@@ -1,0 +1,28 @@
+{
+  "mode": "conservation-fp",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^C2A owner boundary preserves structural F_P proposals and totalizes exceptions$",
+    "test_env/tests/t287-c2a-fp-source-contract.test.mjs"
+  ],
+  "pid": 49558,
+  "processGroup": 49558,
+  "startedAt": "2026-10-02T04:45:33.741949+00:00",
+  "closedAt": "2026-10-02T04:45:34.100458+00:00",
+  "elapsedMs": 358.5389996878803,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 201834496,
+  "userSeconds": 0.35761,
+  "systemSeconds": 0.057368999999999996,
+  "knownCLIProcessGroups": [],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

@@ -1,5 +1,5 @@
 import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { runtimeEventAtPrefixIndex, indexedRuntimeEvents } from "./event_prefix.js";
 import {
   compareUnicodeCodeUnits,
   type JsonValue,
@@ -11,10 +11,18 @@ import {
   isWorksiteFileReplaceReceipt,
   isWorksiteFileReplaceRequest,
   isWorksiteObservation,
+  isWorksitePostPublicationFailure,
+  worksiteFailureAuthorization,
   type WorksiteObservation,
 } from "../product/worksite_effect.js";
 import {
   runtimeEventsFromValidatedPrefix,
+  isOwnedRuntimeEventPrefix,
+  runtimeEventValidationBase,
+  runtimeEventAtPrefix,
+  runtimeEventPrefixExtent,
+  validatedRuntimeEventPrefixBeforeEvent,
+  type RuntimeEventPrefix,
   runtimePrefixComputation,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -579,9 +587,12 @@ export function projectWorksiteTransitionForResult(
 
 /** Known native changes retire exact paths; unknown after-state retires the
  * declared writable scope. Neither case manufactures C0 provenance or successors. */
-export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): readonly string[] {
+export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): readonly string[];
+/** @internal */
+export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): readonly string[];
+export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): readonly string[] {
   if (event.kind === "actor_invocation_failed") {
-    const task = nativeTaskForTransportException(event, priorEvents);
+    const task = nativeTaskForTransportException(event, priorEvents, ownedPrefix);
     return task === null ? [] : retiredNativeWorkObservations(task, null, priorEvents);
   }
   if (event.kind !== "c_call_result_admitted" || !isRecord(event.payload)) return [];
@@ -604,7 +615,7 @@ export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorE
 
 /** This existing failure event has no exchange or native Result. Only a joined
  * admitted native task and actual process start warrant scoped unknown. */
-function nativeTaskForTransportException(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): NativeWorkspaceWorkTask | null {
+function nativeTaskForTransportException(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): NativeWorkspaceWorkTask | null {
   if (!isRecord(event.payload) || event.payload.failureClass !== "transport_exception" ||
     event.payload.disposition !== "failure" || event.payload.actorInvocationRef !== event.aggregateId ||
     event.payload.cCallRef !== event.parentAggregateId || typeof event.basisId !== "string") return null;
@@ -642,7 +653,7 @@ function nativeTaskForTransportException(event: RuntimeEvent, priorEvents: reado
   if (sha256Canonical(bindingBody) !== transportBindingDigest || transportBindingRef !==
     `transport-binding://abiogenesis/${String(transportBindingDigest).slice(7)}`) return null;
   try {
-    const prefix = selectValidatedRuntimeEventPrefix(Object.isFrozen(priorEvents) ? priorEvents : Object.freeze([...priorEvents]));
+    const prefix = ownedPrefix ?? selectValidatedRuntimeEventPrefix(Object.isFrozen(priorEvents) ? priorEvents : Object.freeze([...priorEvents]));
     const basis = projectExactExecutionBasisAtPrefix(prefix, event.basisId);
     if (basis === null || !isNativeWorkspaceWorkTask(basis.rawInputValue)) return null;
     const task = basis.rawInputValue;
@@ -740,7 +751,8 @@ function consumedAvailabilityFluents(
 }
 
 interface RuntimeEffectHistory {
-  readonly byId: Map<string, RuntimeEvent>;
+  readonly byId: Pick<Map<string, RuntimeEvent>, "get">;
+  prefix?: RuntimeEventPrefix;
   readonly interruptedScopes: Set<string>;
   readonly frameProbeScopes: Map<string, Set<string>>;
   readonly cCallProbeScopes: Map<string, Set<string>>;
@@ -992,7 +1004,7 @@ function eventCalculusEffectRefs(
         )],
         terminates: [
           fluent("actor_invocation_active", event.aggregateId),
-          ...projectNativeWorkRetiredObservations(event, priorEvents).map(ref => fluent("worksite_observation_current", ref)),
+          ...projectNativeWorkRetiredObservations(event, priorEvents, history?.prefix).map(ref => fluent("worksite_observation_current", ref)),
           ...(transportBindingRef === null
             ? []
             : [fluent("actor_transport_binding_admitted", transportBindingRef)]),
@@ -1036,7 +1048,7 @@ function eventCalculusEffectRefs(
           ...(worksite === null
             ? []
             : [fluent("worksite_observation_current", worksite.before)]),
-          ...projectNativeWorkRetiredObservations(event, priorEvents).map(ref => fluent("worksite_observation_current", ref)),
+          ...projectNativeWorkRetiredObservations(event, priorEvents, history?.prefix).map(ref => fluent("worksite_observation_current", ref)),
         ],
         clips: [],
         declips: [],
@@ -1814,41 +1826,157 @@ const EVENT_CALCULUS_DERIVATION = Symbol("ordered_event_calculus_derivation");
 /** The same fold serves cold input, suffix advancement and historical facts.
  * A scope is issued only for exact immutable prefix extensions; rollback drops
  * the store's source. No materialized projection is mutable admission truth. */
+interface RuntimeEffectFact extends EventCalculusEffect {
+  readonly eventKind: RuntimeEvent["kind"]; readonly sourceEventRef: string; readonly ordinal: number;
+}
+/** @internal The same exact transition dependencies serve the fold and replay. */
+export function eventCalculusDependencies(prefix: RuntimeEventPrefix, event: RuntimeEvent, prior: readonly RuntimeEvent[]): readonly RuntimeEvent[] {
+  if (prefix.kind === "validated_runtime_event_prefix") return prior;
+  const before = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
+  const selected = new Map<string, RuntimeEvent>();
+  const add = (key: string) => { for (const row of indexedRuntimeEvents(before, key)) selected.set(row.eventId, row); };
+  const payload = isRecord(event.payload) ? event.payload : null;
+  if (event.kind === "basis_admitted" && payload !== null) {
+    if (typeof payload.invocationAdmissionRef === "string") add("payload:invocationAdmissionRef:" + payload.invocationAdmissionRef);
+    if (typeof payload.parentExecutionBasisRef === "string") add("basis:" + payload.parentExecutionBasisRef);
+    if (typeof payload.parentCCallRef === "string") add("aggregate:c_call:" + payload.parentCCallRef);
+  } else if (event.kind === "c_call_result_admitted") {
+    add("aggregate:c_call:" + event.aggregateId);
+    if (payload?.contractRef === WORKSITE_C0_IDS.failureContractRef && isWorksitePostPublicationFailure(payload.value)) {
+      const authorization = worksiteFailureAuthorization(payload.value);
+      add("basis:" + authorization.executionBasisRef);
+      add("payload:artifactRef:" + authorization.workspaceBindingIdentity);
+      const basis = [...selected.values()].find(row => row.kind === "basis_admitted" && row.basisId === authorization.executionBasisRef);
+      if (basis !== undefined && isRecord(basis.payload) && typeof basis.payload.implementationSetRef === "string")
+        add("payload:implementationSetRef:" + basis.payload.implementationSetRef);
+      add("worksite-observation-dependency");
+    }
+    if (isNativeWorkspaceWorkObservation(payload?.value) || isNativeWorkspaceWorkFailure(payload?.value))
+      add("worksite-observation-dependency");
+  } else if (event.kind === "actor_invocation_failed" && payload?.failureClass === "transport_exception") {
+    add("aggregate:c_call:" + event.parentAggregateId); add("aggregate:actor_invocation:" + event.aggregateId);
+    if (typeof payload.transportBindingRef === "string") add("aggregate:transport_binding:" + payload.transportBindingRef);
+    add("related:" + event.aggregateId);
+    if (event.basisId !== undefined) add("basis:" + event.basisId);
+    add("kind:implementation_admitted"); add("kind:invocation_admitted"); add("worksite-observation-dependency");
+  } else if (event.kind === "traversal_route_admitted") {
+    for (const ref of stringArrayField(event, "consumedAvailabilityRefs"))
+      if (ref.startsWith("retry-progress://")) add("payload:progressRef:" + ref);
+  }
+  return [...selected.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
+}
 class RuntimeEventCalculusDerivation {
   readonly holds = new Map<string, RuntimeFluent>();
-  readonly effectRows: RuntimeEventCalculusEffectRow[] = [];
-  readonly effectByEvent = new Map<string, RuntimeEventCalculusEffectRow>();
+  readonly effectRows: RuntimeEffectFact[] = [];
+  readonly effectByEvent = new Map<string, RuntimeEffectFact>();
   readonly clippedFluentRefs: string[] = [];
   readonly declippedPatternRefs: string[] = [];
   readonly contextualFluentRunIds = new Map<string, string>();
   readonly priorEvents: RuntimeEvent[] = [];
-  readonly history: RuntimeEffectHistory = { byId: new Map(), interruptedScopes: new Set(),
-    frameProbeScopes: new Map(), cCallProbeScopes: new Map() };
+  private prefix: RuntimeEventPrefix | undefined;
+  private base: RuntimeEventCalculusDerivation | undefined;
+  private baseCount = 0;
+  private baseOrdinal = 0;
+  readonly probeFacts: { ordinal: number; actor: string | null; target: "frame" | "call" | null; key: string; digest: string }[] = [];
+  readonly interruptionFacts: { ordinal: number; digest: string }[] = [];
+  readonly unconfirmedFacts: { ordinal: number; process: string }[] = [];
+  private get effectCount(): number { return this.baseCount + this.effectRows.length; }
+  private *factsThrough(count: number): Iterable<RuntimeEffectFact> {
+    if (this.base !== undefined) yield* this.base.factsThrough(Math.min(count, this.baseCount));
+    yield* this.effectRows.slice(0, Math.max(0, count - this.baseCount));
+  }
+  effectAtRef(ref: string): RuntimeEffectFact | undefined {
+    const own = this.effectByEvent.get(ref);
+    if (own !== undefined) return own;
+    const fact = this.base?.effectAtRef(ref);
+    return fact !== undefined && fact.ordinal <= this.baseOrdinal ? fact : undefined;
+  }
+  private clipCountAt(count: number): number { return count < this.baseCount ? this.base!.clipCountAt(count) : this.clipCounts[count - this.baseCount]!; }
+  private declipCountAt(count: number): number { return count < this.baseCount ? this.base!.declipCountAt(count) : this.declipCounts[count - this.baseCount]!; }
+  private clippedAt(count: number): string[] {
+    return [...(this.base?.clippedAt(Math.min(count, this.baseCount)) ?? []),
+      ...this.clippedFluentRefs.slice(0, this.clipCountAt(count) - this.clipCounts[0]!)];
+  }
+  private declippedAt(count: number): string[] {
+    return [...(this.base?.declippedAt(Math.min(count, this.baseCount)) ?? []),
+      ...this.declippedPatternRefs.slice(0, this.declipCountAt(count) - this.declipCounts[0]!)];
+  }
+  private fluentKeys(): Iterable<string> {
+    return new Set([...(this.base?.fluentKeys() ?? []), ...this.transitions.keys()]);
+  }
+  private *allProbeFacts(): Iterable<(typeof this.probeFacts)[number]> {
+    if (this.base !== undefined) for (const fact of this.base.allProbeFacts()) if (fact.ordinal <= this.baseOrdinal) yield fact;
+    yield* this.probeFacts;
+  }
+  private *allInterruptionFacts(): Iterable<(typeof this.interruptionFacts)[number]> {
+    if (this.base !== undefined) for (const fact of this.base.allInterruptionFacts()) if (fact.ordinal <= this.baseOrdinal) yield fact;
+    yield* this.interruptionFacts;
+  }
+  private *allUnconfirmedFacts(): Iterable<(typeof this.unconfirmedFacts)[number]> {
+    if (this.base !== undefined) for (const fact of this.base.allUnconfirmedFacts()) if (fact.ordinal <= this.baseOrdinal) yield fact;
+    yield* this.unconfirmedFacts;
+  }
+  forkAt(prefix: RuntimeEventPrefix): RuntimeEventCalculusDerivation {
+    const fork = new RuntimeEventCalculusDerivation();
+    const extent = runtimeEventPrefixExtent(prefix);
+    fork.base = this; fork.baseCount = extent.count; fork.baseOrdinal = extent.lastOrdinal;
+    fork.clipCounts[0] = this.clipCountAt(extent.count); fork.declipCounts[0] = this.declipCountAt(extent.count);
+    for (const fluent of this.held(prefix)) {
+      fork.holds.set(fluent.fluentRef, fluent);
+      const run = this.fluentRunAt(fluent.fluentRef, extent.lastOrdinal);
+      if (run !== undefined) fork.contextualFluentRunIds.set(fluent.fluentRef, run);
+    }
+    for (const fact of this.allProbeFacts()) if (fact.ordinal <= extent.lastOrdinal) {
+      if (fact.actor !== null) {
+        const scopes = fork.actorProbeScopes.get(fact.actor) ?? new Set<string>();
+        scopes.add(fact.digest); fork.actorProbeScopes.set(fact.actor, scopes);
+      }
+      const target = fact.target === "call" ? fork.history.cCallProbeScopes : fact.target === "frame" ? fork.history.frameProbeScopes : null;
+      if (target !== null) { const scopes = target.get(fact.key) ?? new Set<string>(); scopes.add(fact.digest); target.set(fact.key, scopes); }
+    }
+    for (const fact of this.allInterruptionFacts()) if (fact.ordinal <= extent.lastOrdinal) fork.history.interruptedScopes.add(fact.digest);
+    for (const fact of this.allUnconfirmedFacts()) if (fact.ordinal <= extent.lastOrdinal) fork.unconfirmedProcesses.add(fact.process);
+    return fork;
+  }
+  private fluentRunAt(key: string, ordinal: number): string | undefined {
+    const rows = this.transitions.get(key) ?? [];
+    let low = 0, high = rows.length;
+    while (low < high) { const mid = (low + high) >>> 1; if (rows[mid]!.ordinal <= ordinal) low = mid + 1; else high = mid; }
+    return low > 0 ? rows[low - 1]!.runId : this.base?.fluentRunAt(key, Math.min(ordinal, this.baseOrdinal));
+  }
+  readonly actorProbeScopes = new Map<string, Set<string>>();
+  readonly unconfirmedProcesses = new Set<string>();
+  readonly history: RuntimeEffectHistory = { byId: { get: ref => this.prefix === undefined ? undefined : runtimeEventAtPrefix(this.prefix, ref) },
+    interruptedScopes: new Set(), frameProbeScopes: new Map(), cCallProbeScopes: new Map() };
   readonly clipCounts = [0];
   readonly declipCounts = [0];
-  readonly transitions = new Map<string, { ordinal: number; fluent: RuntimeFluent | null }[]>();
+  readonly transitions = new Map<string, { ordinal: number; fluent: RuntimeFluent | null; runId?: string }[]>();
   private materialized: { count: number; projection: RuntimeEventCalculusProjection } | undefined;
-  recordFluent(fluent: RuntimeFluent, ordinal: number, held: boolean): void {
+  recordFluent(fluent: RuntimeFluent, ordinal: number, held: boolean, runId?: string): void {
     const key = fluent.fluentRef, rows = this.transitions.get(key) ?? [];
-    rows.push({ ordinal, fluent: held ? fluent : null }); this.transitions.set(key, rows);
+    rows.push({ ordinal, fluent: held ? fluent : null, ...(runId === undefined ? {} : { runId }) }); this.transitions.set(key, rows);
   }
   fluentAt(key: string, ordinal: number): RuntimeFluent | null {
     const rows = this.transitions.get(key) ?? [];
     let low = 0, high = rows.length;
     while (low < high) { const middle = (low + high) >>> 1; if (rows[middle]!.ordinal <= ordinal) low = middle + 1; else high = middle; }
-    return rows[low - 1]?.fluent ?? null;
+    return low > 0 ? rows[low - 1]!.fluent : this.base?.fluentAt(key, Math.min(ordinal, this.baseOrdinal)) ?? null;
   }
-  advance(prefix: ValidatedRuntimeEventPrefix): void {
-    const events = runtimeEventsFromValidatedPrefix(prefix);
+  advance(prefix: RuntimeEventPrefix): void {
+    this.prefix = prefix;
+    const count = runtimeEventPrefixExtent(prefix).count;
     let validateLiveness: ((event: RuntimeEvent) => boolean) | undefined;
-  for (const event of events.slice(this.effectRows.length)) {
+  for (let index = this.effectCount; index < count; index++) {
+    const event = runtimeEventAtPrefixIndex(prefix, index)!;
+    const priorEvents = eventCalculusDependencies(prefix, event, this.priorEvents);
+    this.history.prefix = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
     if (event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
         (event.kind === "runtime_activity_probe_observed" || event.kind === "runtime_external_interruption_observed" ||
           event.kind === "actor_process_timeout_observed")) {
       validateLiveness ??= createRuntimeLivenessEventValidator(prefix);
       if (!validateLiveness(event)) throw new TypeError("native liveness effect has no exact admitted source/threshold relation");
     }
-    const baseEffect = completeEventCalculusEffect(eventCalculusEffectRefs(event, this.priorEvents, this.history));
+    const baseEffect = completeEventCalculusEffect(eventCalculusEffectRefs(event, priorEvents, this.history));
     const terminalLocusEvent =
       event.kind === "runtime_failure_observed" ||
       event.kind === "run_stopped" ||
@@ -1922,14 +2050,10 @@ class RuntimeEventCalculusDerivation {
               ...baseEffect.terminates,
               ...(event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
                   (event.kind === "actor_invocation_closed" || event.kind === "actor_invocation_failed")
-                ? [...this.holds.values()].filter(fluent => fluent.name === "runtime_invocation_active" && this.priorEvents.some(row => {
-                    if (row.kind !== "runtime_activity_probe_observed" || !isRecord(row.payload) || !isRuntimeProbeObservation(row.payload.observation)) return false;
-                    return row.payload.actorInvocationRef === event.aggregateId && row.payload.observation.scopeDigest === fluent.identity;
-                  })) : []),
+                ? [...this.holds.values()].filter(fluent => fluent.name === "runtime_invocation_active" && (this.actorProbeScopes.get(event.aggregateId)?.has(fluent.identity ?? "") ?? false)) : []),
               ...(event.kind === "actor_process_exited" ||
                   event.kind === "actor_process_spawn_failed"
-                ? (event.kind === "actor_process_exited" && this.priorEvents.some(row =>
-                    row.kind === "actor_process_termination_unconfirmed" && row.aggregateId === processRef)
+                ? (event.kind === "actor_process_exited" && this.unconfirmedProcesses.has(processRef)
                     ? [] : [constructRuntimeFluent({
                     name: "actor_cleanup_live",
                     identity: processRef,
@@ -1959,23 +2083,22 @@ class RuntimeEventCalculusDerivation {
       this.declippedPatternRefs.push(ownedRuntimeFluentPatternKey(pattern));
     }
     for (const fluent of effect.initiates) {
-      this.recordFluent(fluent, event.admissionOrdinal, true);
+      this.recordFluent(fluent, event.admissionOrdinal, true, event.runId);
       this.holds.set(fluent.fluentRef, fluent);
       if (event.runId !== undefined) {
         this.contextualFluentRunIds.set(fluent.fluentRef, event.runId);
       }
     }
-    this.effectRows.push(deepFreeze({
-      kind: "event_calculus_effect_row" as const,
-      eventKind: event.kind,
-      sourceEvent: event,
-      ...effect,
-    }) as RuntimeEventCalculusEffectRow);
+    this.effectRows.push(deepFreeze({ eventKind: event.kind, sourceEventRef: event.eventId,
+      ordinal: event.admissionOrdinal, ...effect }));
     this.effectByEvent.set(event.eventId, this.effectRows.at(-1)!);
-    this.clipCounts.push(this.clippedFluentRefs.length);
-    this.declipCounts.push(this.declippedPatternRefs.length);
-    this.priorEvents.push(event);
-    this.history.byId.set(event.eventId, event);
+    this.clipCounts.push(this.clipCounts[0]! + this.clippedFluentRefs.length);
+    this.declipCounts.push(this.declipCounts[0]! + this.declippedPatternRefs.length);
+    if (prefix.kind === "validated_runtime_event_prefix") this.priorEvents.push(event);
+    if (event.kind === "actor_process_termination_unconfirmed") {
+      this.unconfirmedProcesses.add(event.aggregateId);
+      this.unconfirmedFacts.push({ ordinal: event.admissionOrdinal, process: event.aggregateId });
+    }
     // A native observation has just completed its exact liveness source
     // relation. Other profiles retain the raw contract guards used by the
     // exported effect helper. Later closures consume only these scoped facts.
@@ -1985,6 +2108,14 @@ class RuntimeEventCalculusDerivation {
       const contract = event.payload.probeContract as unknown as RuntimeSystemProbeContract;
       const observation = event.payload.observation as unknown as RuntimeProbeObservation;
       const { scope } = contract;
+      this.probeFacts.push({ ordinal: event.admissionOrdinal,
+        actor: typeof event.payload.actorInvocationRef === "string" ? event.payload.actorInvocationRef : null,
+        target: scope.cCallRef !== null ? "call" : scope.actorInvocationRef === null ? "frame" : null,
+        key: scope.cCallRef ?? frameProbeScopeKey(scope), digest: observation.scopeDigest });
+      if (typeof event.payload.actorInvocationRef === "string") {
+        const scopes = this.actorProbeScopes.get(event.payload.actorInvocationRef) ?? new Set<string>();
+        scopes.add(observation.scopeDigest); this.actorProbeScopes.set(event.payload.actorInvocationRef, scopes);
+      }
       const target = scope.cCallRef !== null ? this.history.cCallProbeScopes :
         scope.actorInvocationRef === null ? this.history.frameProbeScopes : null;
       if (target !== null) {
@@ -1995,46 +2126,85 @@ class RuntimeEventCalculusDerivation {
     }
     if (event.kind === "runtime_external_interruption_observed" && isRecord(event.payload) && isRuntimeProbeObservation(event.payload.observation)) {
       this.history.interruptedScopes.add(event.payload.observation.scopeDigest);
+      this.interruptionFacts.push({ ordinal: event.admissionOrdinal, digest: event.payload.observation.scopeDigest });
     }
   }
   }
-  project(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusProjection {
-    const events = runtimeEventsFromValidatedPrefix(prefix), count = events.length;
-    if (this.materialized?.count === count) return this.materialized.projection;
-    const ordinal = events.at(-1)?.admissionOrdinal ?? 0;
-    const holds = count === this.effectRows.length ? [...this.holds.values()] :
-      [...this.transitions.keys()].flatMap(key => { const fluent = this.fluentAt(key, ordinal); return fluent === null ? [] : [fluent]; });
+  project(prefix: RuntimeEventPrefix): RuntimeEventCalculusProjection {
+    const { count, lastOrdinal: ordinal } = runtimeEventPrefixExtent(prefix);
+    if (prefix.kind === "validated_runtime_event_prefix" && this.materialized?.count === count) return this.materialized.projection;
+    const holds = count === this.effectCount ? [...this.holds.values()] :
+      [...this.fluentKeys()].flatMap(key => { const fluent = this.fluentAt(key, ordinal); return fluent === null ? [] : [fluent]; });
     const projection = deepFreeze({ kind: "event_calculus_projection" as const,
       holds: holds.sort((left, right) => compareUnicodeCodeUnits(left.fluentRef, right.fluentRef)),
-      effectRows: this.effectRows.slice(0, count),
-      clippedFluentRefs: this.clippedFluentRefs.slice(0, this.clipCounts[count]),
-      declippedPatternRefs: this.declippedPatternRefs.slice(0, this.declipCounts[count]),
+      effectRows: Array.from(this.factsThrough(count), fact => {
+        const { sourceEventRef, ordinal: _ordinal, ...effect } = fact;
+        return { kind: "event_calculus_effect_row" as const, ...effect, sourceEvent: runtimeEventAtPrefix(prefix, sourceEventRef)! };
+      }),
+      clippedFluentRefs: this.clippedAt(count),
+      declippedPatternRefs: this.declippedAt(count),
     }) as RuntimeEventCalculusProjection;
-    this.materialized = { count, projection }; return projection;
+    if (prefix.kind === "validated_runtime_event_prefix") this.materialized = { count, projection }; return projection;
+  }
+  held(prefix: RuntimeEventPrefix): readonly RuntimeFluent[] {
+    const { count, lastOrdinal } = runtimeEventPrefixExtent(prefix);
+    const values = count === this.effectCount ? [...this.holds.values()] :
+      [...this.fluentKeys()].flatMap(key => { const fluent = this.fluentAt(key, lastOrdinal); return fluent === null ? [] : [fluent]; });
+    return Object.freeze(values.sort((left, right) => compareUnicodeCodeUnits(left.fluentRef, right.fluentRef)));
   }
 }
 
-function eventCalculusDerivation(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusDerivation {
-  const derivation = runtimePrefixComputation(prefix, EVENT_CALCULUS_DERIVATION, () => new RuntimeEventCalculusDerivation());
+function eventCalculusDerivation(prefix: RuntimeEventPrefix): RuntimeEventCalculusDerivation {
+  const derivation = runtimePrefixComputation(prefix, EVENT_CALCULUS_DERIVATION, () => {
+    const base = runtimeEventValidationBase(prefix);
+    return base === undefined ? new RuntimeEventCalculusDerivation() : eventCalculusDerivation(base).forkAt(base);
+  });
   derivation.advance(prefix); return derivation;
 }
-export function deriveRuntimeEventCalculusProjection(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusProjection {
+export function deriveRuntimeEventCalculusProjection(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusProjection;
+/** @internal Explicit complete projection; the private fold does not retain its output. */
+export function deriveRuntimeEventCalculusProjection(prefix: RuntimeEventPrefix): RuntimeEventCalculusProjection;
+export function deriveRuntimeEventCalculusProjection(prefix: RuntimeEventPrefix): RuntimeEventCalculusProjection {
   return eventCalculusDerivation(prefix).project(prefix);
 }
+/** @internal The same authenticated fold, without complete historical effect bodies. */
+export type RuntimeHeldFluentProjection = Pick<RuntimeEventCalculusProjection, "holds">;
+/** @internal */
+export function deriveRuntimeHeldFluentProjection(prefix: RuntimeEventPrefix): RuntimeHeldFluentProjection {
+  return Object.freeze({ holds: eventCalculusDerivation(prefix).held(prefix) });
+}
 /** Select the required owner effects without materializing every effect row. */
-export function runtimeEventCalculusEffectsByKind(prefix: ValidatedRuntimeEventPrefix, kind: RuntimeEvent["kind"]): readonly RuntimeEventCalculusEffectRow[] {
+export function runtimeEventCalculusEffectsByKind(prefix: ValidatedRuntimeEventPrefix, kind: RuntimeEvent["kind"]): readonly RuntimeEventCalculusEffectRow[];
+/** @internal */
+export function runtimeEventCalculusEffectsByKind(prefix: RuntimeEventPrefix, kind: RuntimeEvent["kind"]): readonly RuntimeEventCalculusEffectRow[];
+export function runtimeEventCalculusEffectsByKind(prefix: RuntimeEventPrefix, kind: RuntimeEvent["kind"]): readonly RuntimeEventCalculusEffectRow[] {
   const derivation = eventCalculusDerivation(prefix);
-  return indexedRuntimeEvents(prefix, "kind:" + kind).map(event => derivation.effectByEvent.get(event.eventId)!);
+  return indexedRuntimeEvents(prefix, "kind:" + kind).map(event => {
+    const { sourceEventRef: _ref, ordinal: _ordinal, ...effect } = derivation.effectAtRef(event.eventId)!;
+    return deepFreeze({ kind: "event_calculus_effect_row" as const, ...effect, sourceEvent: event });
+  });
 }
 /** Exact historical availability without manufacturing a historical projection. */
-export function runtimeFluentHoldsAtPrefix(prefix: ValidatedRuntimeEventPrefix, fluent: RuntimeFluent,
-  ordinal = runtimeEventsFromValidatedPrefix(prefix).at(-1)?.admissionOrdinal ?? 0): boolean {
-  if (ordinal > (runtimeEventsFromValidatedPrefix(prefix).at(-1)?.admissionOrdinal ?? 0)) return false;
+export function runtimeFluentHoldsAtPrefix(prefix: ValidatedRuntimeEventPrefix, fluent: RuntimeFluent, ordinal?: number): boolean;
+/** @internal */
+export function runtimeFluentHoldsAtPrefix(prefix: RuntimeEventPrefix, fluent: RuntimeFluent, ordinal?: number): boolean;
+export function runtimeFluentHoldsAtPrefix(prefix: RuntimeEventPrefix, fluent: RuntimeFluent,
+  ordinal = runtimeEventPrefixExtent(prefix).lastOrdinal): boolean {
+  if (ordinal > runtimeEventPrefixExtent(prefix).lastOrdinal) return false;
   return eventCalculusDerivation(prefix).fluentAt(runtimeFluentKey(fluent), ordinal) !== null;
 }
 
 export function holdsAt(
   projection: RuntimeEventCalculusProjection,
+  fluent: RuntimeFluent,
+): boolean;
+/** @internal */
+export function holdsAt(
+  projection: RuntimeHeldFluentProjection,
+  fluent: RuntimeFluent,
+): boolean;
+export function holdsAt(
+  projection: RuntimeHeldFluentProjection,
   fluent: RuntimeFluent,
 ): boolean {
   const key = runtimeFluentKey(fluent);

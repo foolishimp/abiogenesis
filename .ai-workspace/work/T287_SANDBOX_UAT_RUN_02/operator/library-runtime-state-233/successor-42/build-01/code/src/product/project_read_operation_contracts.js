@@ -1,0 +1,233 @@
+import * as v from "valibot";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
+import { nonblankSchema, jsonValueSchema, nonemptyRefDigestSetSchema, ownerAuthorityDigest, ownerContractPacket, ownerMetadata, refDigestSchema, refDigestSetSchema, refusalSchema, TERMINAL_ONLY_ADAPTER_EXIT_MAP, typedResidualSetSchema, uniqueArray, } from "../shared/public_function_contracts.js";
+const noSelectorSchema = v.strictObject({ kind: v.literal("none") });
+const catalogListProjectionSchema = v.strictObject({
+    kind: v.literal("catalog_list_projection"),
+    catalog: refDigestSchema,
+    visibility: v.picklist(["workspace_catalog", "session_view"]),
+    view: v.nullable(refDigestSchema),
+    rows: uniqueArray(v.strictObject({
+        handle: nonblankSchema,
+        contributionKind: v.picklist(["graph_function", "node_type", "overlay"]),
+        entry: refDigestSchema,
+        readiness: v.nullable(refDigestSchema),
+    })),
+});
+const catalogDescriptionProjectionSchema = v.strictObject({
+    kind: v.literal("catalog_description_projection"),
+    catalog: refDigestSchema,
+    visibility: v.picklist(["workspace_catalog", "session_view"]),
+    view: v.nullable(refDigestSchema),
+    handle: nonblankSchema,
+    contributionKind: v.picklist(["graph_function", "node_type", "overlay"]),
+    entry: refDigestSchema,
+    readiness: v.nullable(refDigestSchema),
+});
+const workspaceStatusProjectionSchema = v.strictObject({
+    kind: v.literal("workspace_status_projection"),
+    workspace: refDigestSchema,
+    workspaceAuthority: refDigestSchema,
+    binding: refDigestSchema,
+    productSet: refDigestSchema,
+    resolvedLock: refDigestSchema,
+    boundProducts: refDigestSetSchema,
+    declaredRoots: refDigestSetSchema,
+    configurations: refDigestSetSchema,
+    catalog: v.nullable(refDigestSchema),
+    readiness: v.literal("ready"),
+    residuals: typedResidualSetSchema,
+    admissionEvent: refDigestSchema,
+});
+const installEvidenceProjectionSchema = v.strictObject({
+    kind: v.literal("install_evidence_projection"),
+    subject: refDigestSchema,
+    product: refDigestSchema,
+    artifact: refDigestSchema,
+    productContent: refDigestSchema,
+    manifest: refDigestSchema,
+    producer: v.literal("ProductInstallPort.install"),
+    basis: refDigestSetSchema,
+    provenance: refDigestSetSchema,
+});
+const releaseEvidenceProjectionSchema = v.strictObject({
+    kind: v.literal("release_evidence_projection"),
+    disposition: v.picklist(["published_unqualified", "qualified_unaccepted", "accepted", "superseded", "incomplete_effect"]),
+    observationArtifact: refDigestSchema,
+    acceptance: v.picklist(["incomplete", "accepted", "withheld"]),
+    ownerRuling: v.optional(v.nullable(refDigestSchema)), addendum: v.optional(v.nullable(refDigestSchema)),
+    originalRuling: v.optional(jsonValueSchema), sourceApproval: v.optional(jsonValueSchema),
+    releaseCut: refDigestSchema,
+    snapshotManifest: v.nullable(refDigestSchema),
+    artifacts: refDigestSetSchema,
+    qualification: refDigestSchema,
+    provenance: refDigestSetSchema,
+});
+const ticketConsensusProjectionSchema = v.strictObject({
+    kind: v.literal("ticket_consensus_projection"),
+    ticket: refDigestSchema,
+    consensus: refDigestSchema,
+    outputAuthority: refDigestSchema,
+    replayBasis: refDigestSchema,
+    evidence: nonemptyRefDigestSetSchema,
+});
+function productReadRefusal(catalog) {
+    const common = [
+        "unknown_source",
+        "source_kind_mismatch",
+        "source_digest_mismatch",
+        "projection_basis_mismatch",
+        "projection_unsupported",
+        "not_found",
+        "not_ready",
+    ];
+    return catalog
+        ? refusalSchema([
+            ...common,
+            "unknown_handle",
+            "ambiguous_handle",
+            "hidden_by_view",
+            "incompatible",
+            "unbound",
+            "inadmissible",
+        ])
+        : refusalSchema([...common]);
+}
+function productReadContract(input) {
+    const authorityRef = `authority://abiogenesis/project-read/${input.caseKey}@5`;
+    return ownerContractPacket({
+        operationId: "abg.operation.project.read",
+        memberKey: input.caseKey,
+    }, v.strictObject({
+        caseKey: v.literal(input.caseKey),
+        source: v.strictObject({
+            sourceKind: v.literal(input.sourceKind),
+            sourceRef: nonblankSchema,
+            sourceDigest: refDigestSchema.entries.digest,
+        }),
+        projectionBasis: v.strictObject({
+            projectionBasisRef: nonblankSchema,
+            projectionBasisDigest: refDigestSchema.entries.digest,
+        }),
+        selector: input.selector,
+    }), v.strictObject({
+        caseKey: v.literal(input.caseKey),
+        source: refDigestSchema,
+        projectionBasis: refDigestSchema,
+        projection: input.projection,
+    }), productReadRefusal(input.catalogRefusals === true), null, {
+        abstractModule: input.abstractModule,
+        exportName: "PRODUCT_PROJECT_READ_CONTRACTS",
+        memberPath: [input.caseKey],
+        authorityRef,
+        authorityDigest: ownerAuthorityDigest(authorityRef),
+    }, ownerMetadata({
+        authorityClass: "read",
+        effectClass: "pure_projection",
+        eventAdmission: "none",
+        actorRequirement: "forbidden",
+        workspaceBindingRequirement: input.bindingRequired
+            ? "exactly_one"
+            : "forbidden",
+        authoritySlotRequirements: input.bindingRequired
+            ? [
+                "capability_grants",
+                "workspace_binding",
+                "product_set",
+                "dependency_lock",
+                ...(input.catalogRefusals ? ["catalog_scope"] : []),
+            ]
+            : ["capability_grants"],
+        capabilityRefs: capabilityRefsForDefinition({
+            operationId: "abg.operation.project.read",
+            memberKey: input.caseKey,
+        }),
+        defaults: {},
+        closedDomains: {
+            caseKey: [input.caseKey],
+            sourceKind: [input.sourceKind],
+        },
+        sdkCoordinate: `sdk.project.read.${input.caseKey}`,
+        cliCoordinate: `project read ${input.caseKey}`,
+        adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
+    }));
+}
+const catalogList = productReadContract({
+    caseKey: "catalog_list",
+    sourceKind: "catalog",
+    selector: v.strictObject({
+        kind: v.literal("catalog_list"),
+        visibility: v.union([
+            v.strictObject({ kind: v.literal("workspace_catalog") }),
+            v.strictObject({ kind: v.literal("session_view"), view: refDigestSchema }),
+        ]),
+    }),
+    projection: catalogListProjectionSchema,
+    abstractModule: "Product.CatalogProjection",
+    bindingRequired: true,
+    catalogRefusals: true,
+});
+const catalogDescribe = productReadContract({
+    caseKey: "catalog_describe",
+    sourceKind: "catalog",
+    selector: v.strictObject({
+        kind: v.literal("catalog_describe"),
+        handle: nonblankSchema,
+        visibilityBasis: refDigestSchema,
+    }),
+    projection: catalogDescriptionProjectionSchema,
+    abstractModule: "Product.CatalogProjection",
+    bindingRequired: true,
+    catalogRefusals: true,
+});
+const workspaceStatus = productReadContract({
+    caseKey: "workspace_status",
+    sourceKind: "workspace_binding",
+    selector: noSelectorSchema,
+    projection: workspaceStatusProjectionSchema,
+    abstractModule: "Product.WorkspaceProjection",
+    bindingRequired: true,
+});
+const installEvidence = productReadContract({
+    caseKey: "install_evidence",
+    sourceKind: "installed_product",
+    selector: v.strictObject({
+        kind: v.literal("install_manifest"),
+        manifest: refDigestSchema,
+    }),
+    projection: installEvidenceProjectionSchema,
+    abstractModule: "Product.InstallProjection",
+    bindingRequired: false,
+});
+const releaseEvidence = productReadContract({
+    caseKey: "release_evidence",
+    sourceKind: "release_cut",
+    selector: v.strictObject({
+        kind: v.literal("release_operation_observation"),
+        artifact: refDigestSchema,
+    }),
+    projection: releaseEvidenceProjectionSchema,
+    abstractModule: "Product.ReleaseProjection",
+    bindingRequired: false,
+});
+const ticketConsensus = productReadContract({
+    caseKey: "ticket_consensus",
+    sourceKind: "consensus_result",
+    selector: v.strictObject({
+        kind: v.literal("ticket_consensus"),
+        ticket: refDigestSchema,
+        outputAuthority: refDigestSchema,
+        replayBasis: refDigestSchema,
+    }),
+    projection: ticketConsensusProjectionSchema,
+    abstractModule: "Product.ConsensusProjection",
+    bindingRequired: true,
+});
+export const PRODUCT_PROJECT_READ_CONTRACTS = Object.freeze({
+    catalog_list: catalogList,
+    catalog_describe: catalogDescribe,
+    workspace_status: workspaceStatus,
+    install_evidence: installEvidence,
+    release_evidence: releaseEvidence,
+    ticket_consensus: ticketConsensus,
+});

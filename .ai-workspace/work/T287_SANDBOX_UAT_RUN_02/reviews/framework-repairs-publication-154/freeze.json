@@ -1,0 +1,55 @@
+{
+  "status": "CLOSED",
+  "reviewer": 154,
+  "disposition": "GO_PUBLICATION_ONLY",
+  "closed": "2026-10-09T03:16:37.486439+00:00",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/framework-repairs-publication-154/return.md",
+    "sha256": "7413200834d438aa65d2f0e3f763cfd342f46880a59a299eff8ec4d50f3a30e1",
+    "byteCount": 2653
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/framework-repairs-publication-154/pins.json",
+    "sha256": "302a1adde62cc6cefb497f8c95d4fc37a4282c1c5aae56575bca330fd4df8411",
+    "byteCount": 41269
+  },
+  "subjectPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/return.md",
+      "sha256": "2da4a5a07202f1dba2ce122695c089d379b7a4733b84054a91f7cbfe460315c0",
+      "byteCount": 2473
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/readiness.json",
+      "sha256": "e2c02c4f7643bd036189b9202979d2841558cc97e4f13a9d93f2961e5235bf0f",
+      "byteCount": 44009
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/freeze.json",
+      "sha256": "74c95f95058f2b9352638247d168a451d8957758e88ace9d0407d20bd6c7e42a",
+      "byteCount": 35992
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-26/identity.json",
+      "sha256": "162c720b648cb788932f299b9f97a5365be1134c542bd5f8654bc3cb4ce80257",
+      "byteCount": 9497
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-26/freeze.json",
+      "sha256": "c9bfb27ae9418e482efde7e63b41f5ec24be78cd23b5736196556a071253f550",
+      "byteCount": 35828
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/exacthost-identity.json",
+      "sha256": "f5a30d90a8b0ca80b02fa11f7e24bf424cd5411289d5fec3f15c848c3995d510",
+      "byteCount": 3217
+    }
+  ],
+  "effectsStopped": true,
+  "limits": [
+    "Publication identity only; Source143/151 authorship excluded from semantic reacceptance; independent147/152 and146 accepted Source routes reused",
+    "No additional build, pack, install, verifier, test, model or runtime dispatch",
+    "No current covered-source/D2/private preparation/admission/FP-to-HoG/native Testing/C2/UAT/P0/release credit",
+    "No actual DataMapper event-resource acquisition/hash/replay or worksite effects; native capacity/continuity remains open"
+  ]
+}

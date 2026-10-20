@@ -1,0 +1,19 @@
+{
+  "selectedSource": "accepted225/226",
+  "counterparts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.d.ts",
+      "sha256": "5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877",
+      "byteCount": 38655,
+      "relativePath": "build/code/src/abg/event_store.d.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "sha256": "3f261f946b570611f2a37547970ad62c7327c211ed667db68499a339b1e2b533",
+      "byteCount": 163410,
+      "relativePath": "build/code/src/abg/event_store.js"
+    }
+  ],
+  "exactBodyEqual": true,
+  "declarationCommentOnly": "225 exact doc replacement proof; canonical publication identities honestly recomputed"
+}

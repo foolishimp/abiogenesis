@@ -1,0 +1,19 @@
+{
+  "stage": "retained-native-install-complete",
+  "rss": 4285972480,
+  "heapTotal": 3721691136,
+  "heapUsed": 3519160544,
+  "external": 2439146,
+  "arrayBuffers": 26839,
+  "at": "2026-10-09T05:33:53.925Z",
+  "elapsedMs": 198794.74274999998,
+  "invocationRef": "invocation://abiogenesis/f33c5db0a6fa6bfb7220fecf4e90c248b6e007c95f96c4907e33ebaab68851f9",
+  "install": {
+    "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+    "digest": "sha256:8e76802f97b9354ed26d994b3659991320fa541057a7558a188b6f9caef2c8e2"
+  },
+  "resolvedLock": {
+    "ref": "product-lock://abiogenesis/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+    "digest": "sha256:37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85"
+  }
+}

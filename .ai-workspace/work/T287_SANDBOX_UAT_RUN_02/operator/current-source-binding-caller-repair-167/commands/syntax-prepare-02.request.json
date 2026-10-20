@@ -1,0 +1,13 @@
+{
+  "label": "syntax-prepare-02",
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prepare.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167",
+  "started": "2026-10-09T04:59:12.888883+00:00",
+  "RootSelection": "167 native authority six-field fixture correction; same bounded preflight",
+  "NODE_OPTIONS": "unset",
+  "effects": "Only167 receipts; no resource/transport"
+}

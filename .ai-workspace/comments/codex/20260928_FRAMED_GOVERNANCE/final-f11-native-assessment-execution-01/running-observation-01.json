@@ -1,0 +1,9 @@
+{
+  "status": "auxiliary_running_snapshot_unavailable",
+  "operation": "ps process RSS snapshot",
+  "reason": "PermissionError errno 1 Operation not permitted by current environment",
+  "bypassed": false,
+  "retry": false,
+  "requiredEvidence": "existing wait4 observer will retain actual PID/exit/signal/peakRSS at closure",
+  "nativeAssessment": "continues within existing grant; this is not an assessment or provider failure"
+}

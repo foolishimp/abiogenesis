@@ -1,0 +1,263 @@
+{
+  "status": "CLOSED",
+  "disposition": "NO_SUPPORTED_BLOCKERS_IN_FROZEN_SOURCE_COMPONENT_SCOPE",
+  "repositoryRoot": "/Users/jim/src/apps/abiogenesis",
+  "subjectSha256": "84b12bc5ae997705e7784a7c6ebb4d11ec054b8bc3e88e7b32b2981c35372943",
+  "review": {
+    "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/review-01/review.md",
+    "bytes": 3789,
+    "sha256": "e6d7e9bd88eead7786f4f83cdcd491ef4744cb1feac166ea1cb788e305c2b39b"
+  },
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/return.md",
+      "bytes": 2687,
+      "sha256": "6a3e6307febb8bba44fdc73afbe721252759bd37d109d7fefa1c7fe39e0967ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/frozen-subject.json",
+      "bytes": 1450,
+      "sha256": "84b12bc5ae997705e7784a7c6ebb4d11ec054b8bc3e88e7b32b2981c35372943"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/changes.patch",
+      "bytes": 17660,
+      "sha256": "2abca7672c12e30c24db5e8aa0b00856b88c8a2d4b2d1b54346bbb7e48a2eafa"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/preimages.json",
+      "bytes": 684,
+      "sha256": "0a41d9ce4eaac1e0a3cb70e3e0b5106260700f2a1cd42f95dd8fe5e1e12fcd33"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks.json",
+      "bytes": 1851,
+      "sha256": "d89ca8f05fb4480a9f1e4757935ff68fbe6caf09bd183b11dfc1eaea1533830d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/refs.json",
+      "bytes": 5689,
+      "sha256": "5c07ac4c97c26fb17e88f050cdc28c39cad0000dc10a485fff58a5cfaa1dacec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/preimage.stdout",
+      "bytes": 1361,
+      "sha256": "451db06cfc21f878c8bdb633d71967c883f58b93c972572190c5adc2baead7b5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/preimage.stderr",
+      "bytes": 777,
+      "sha256": "b9a1160292f97a312840dbb7b4c68774bad1918e7de4dfd3b51bddd6e5d394cc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/compile.stderr",
+      "bytes": 777,
+      "sha256": "ee086bf3474ff6d126475635d8a4064c685d0047937cb60a473040cc27048d94"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks.stdout",
+      "bytes": 1419,
+      "sha256": "0ad203cd2b413c5621ecd5565b0428c3b77e5fd90eea517d8a0829c61877b44a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks.stderr",
+      "bytes": 777,
+      "sha256": "5d86bba5869fa8ca05a526ca33c7d6d43a60c8f4cf8c948ab7d4a654ec2d7567"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks-02.stdout",
+      "bytes": 945,
+      "sha256": "a97658cd2bc4ec146d20da94077b0d51fc863f383df1e598723a22fe2880a555"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/checks-02.stderr",
+      "bytes": 777,
+      "sha256": "6a6eb7a201633b52cba465efa9880e0bd7d6b1d096f2dffe700d20d8efbf75f3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 84012,
+      "sha256": "2f445d8d7b8090ac11d89bbb3187e71c663220840558b21e0370bfca90665fa9",
+      "preimageSha256": "e45c1a74ad761d55c2fd4089cb38d7eb5bb1ff35e29e8c06011280ecc4711649",
+      "changed": true,
+      "verification": "stored preimage and current postimage exact; changed members also verified by full patch reversal"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 67585,
+      "sha256": "510646f94640eaee0fc04976b1d2584f3321e7cd667cf3742f4ca90f786b8336",
+      "preimageSha256": "6fcb02789ec0d5d05a303ad16697db7d255706d80edd4f902d8250dac3645b76",
+      "changed": true,
+      "verification": "stored preimage and current postimage exact; changed members also verified by full patch reversal"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "bytes": 81885,
+      "sha256": "60a2f44aba88642c9bbdeabf888cd1ca4870bf1b5b7596a0702ad96afc4fd6cb",
+      "preimageSha256": "de6d482fdcfd0951cbe728c50787826d569730fb68648de425974e4746734127",
+      "changed": true,
+      "verification": "stored preimage and current postimage exact; changed members also verified by full patch reversal"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "bytes": 14248,
+      "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+      "preimageSha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+      "changed": false,
+      "verification": "stored preimage and current postimage exact; changed members also verified by full patch reversal"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "bytes": 92255,
+      "sha256": "f955ce6c36403709ea73dd447e3937a30bdf8ee1d78608b6effe833ee85482d3",
+      "inspectedLines": [
+        "175-223"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "bytes": 16676,
+      "sha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+      "inspectedLines": [
+        "52-84"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "bytes": 13854,
+      "sha256": "5ad7b666282327568624ae8d371169636c82a3c739e7970f0e0fb87c381f1384",
+      "inspectedLines": [
+        "47-71"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 65177,
+      "sha256": "0544ab335f1885f6f25b5aa3f157dc5300fc5ccd5f661c487122885dee69334d",
+      "inspectedLines": [
+        "1010-1015"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 84342,
+      "sha256": "ac240bfe34dc6a344f79415fa8da65f23d1c6596d27263d3995fb1a39fae6d02",
+      "inspectedLines": [
+        "550-567"
+      ]
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/review-01/review.md",
+      "bytes": 3867,
+      "sha256": "ee45eca0670e13d4423cb3efc65a0c6d4cb1213b1c67f79f68049ef8cce30500",
+      "classification": "prior bounded source disposition reused; conserved members verified"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-envelope-diagnostic-01/return.md",
+      "bytes": 3565,
+      "sha256": "4df3e9cfba4b09b8f1b678aaab7f2bc63fbc3cde557ab1f2fa925c70b3d3c6ef",
+      "classification": "closed supported mismatch and explicit attribution limits; no runtime acquisition"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md",
+      "bytes": 80479,
+      "sha256": "5902df320fe47c57f0e2df400e00bc178bb7da4e5115ca1afd8c10f6151d5aee",
+      "inspectedLines": [
+        "1191-1210"
+      ],
+      "classification": "Root grant at review time; tracking may advance independently"
+    }
+  ],
+  "conservedPriorFoldbackSubject": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "bytes": 63490,
+      "sha256": "3847e67b06986ef493667af804017b19f028e15f607d118631a102ff3adc1d3e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "bytes": 37962,
+      "sha256": "6d27337d5b87d0fdf677ef3268e3d63b217169fd230c2f8b6a45dbc5e303cf3f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+      "bytes": 33032,
+      "sha256": "1cc10451210f10f421263dfa427372b61e8550fcb47a76269ac5294d905e3c66"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "bytes": 23001,
+      "sha256": "b4e3642a9f7963e1fdeb51f22b0df7b7b563eb933c519e1576a3e34ed12ad4df"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js",
+      "bytes": 64482,
+      "sha256": "b73fb5b20cccac2a17e3bf58586c7c4ba025ea72d364d96d85af7b3b87b925be"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_input_provenance.js",
+      "bytes": 37016,
+      "sha256": "1c0538f1a990a9e4e7feaa8cccb4dddbf1603a75cf6c8cb106ca1b3b1213c354"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_input_provenance.d.ts",
+      "bytes": 3227,
+      "sha256": "14f1978919c2581b78103bbfddca5fb4a089e3058e27951012db67fc20051bd6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 121977,
+      "sha256": "91aec3f47a4da8ed33f2d59e665eed76fe459500dea4c4c363525b1ae5652af4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.d.ts",
+      "bytes": 5185,
+      "sha256": "00b7388875a2280a441eb1cfcdf9f49bfe1ef71b94f6dcc30a352a6388567562"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.js",
+      "bytes": 107821,
+      "sha256": "6afee3c1868f2d9c225234a26823b35b7327b89aee3313a358b9084263d8a9bd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.d.ts",
+      "bytes": 19062,
+      "sha256": "7c5a1cfd65f816f1db2e6392407c4e0249454142ac799380a98297757585e75d"
+    }
+  ],
+  "routes": {
+    "changedMatcher": "instruction_assembly.ts:758-807",
+    "sameCompletionConversion": [
+      "implementation/semantic_stage.ts:63-84",
+      "implementation/semantic_revision.ts:57-71"
+    ],
+    "materializer": "product/semantic_job.ts:187-223",
+    "assemblyAndCurrentness": "instruction_assembly.ts:406-435,540-549",
+    "enclosingAdmission": [
+      "c_call_outcome.ts:1010-1015",
+      "semantic_revision.ts:561-567"
+    ],
+    "retainedRegression": "t288-instruction-assembly-owner.test.mjs:639-721"
+  },
+  "verification": {
+    "threeChangedPrePostimagesAndDiffExact": true,
+    "declarationUnchanged": true,
+    "allWorkerRefsAndLogsRehashed": true,
+    "priorFoldbackSevenChangesAndFourConservedMembersExact": true,
+    "retainedChecks": "preimage completion-to-matcher failure; compile and final 2 focused checks pass; first fixture-constant failure retained",
+    "newChecksOrProbes": false
+  },
+  "limits": [
+    "Basis, prefix, role/currentness and actor/event authentication are explicit component premises.",
+    "Actual actorInvocationRef and rejected whole-envelope digest51861814 were not reconstructed.",
+    "Earlier compound runtime-admission short-circuits remain unproved.",
+    "No exclusive first-cause, installed/native success, independent semantic assessment or physical-currentness qualification claim.",
+    "Old raw response remains unadmitted."
+  ],
+  "effects": "Only review commentary written; no source, runtime, provider, package, test or Git action."
+}

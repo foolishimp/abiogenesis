@@ -1,0 +1,10 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_13",
+  "workResult": "NO_GO_EXTERNAL_HARNESS_ENTRY_MODULE_ABSENT",
+  "closedAt": "2026-10-03T04:24:55.886806+00:00",
+  "allWritesStopAfterFreeze": true,
+  "noRepairOrRetry": true,
+  "consumer": "Root Executive"
+}

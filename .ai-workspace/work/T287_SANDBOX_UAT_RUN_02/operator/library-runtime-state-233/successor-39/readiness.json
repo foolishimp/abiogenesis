@@ -1,0 +1,155 @@
+{
+  "kind": "canonical_native_testing_binding_readiness",
+  "status": "CLOSED",
+  "sourceCut": 39,
+  "productFrame": {
+    "product": "Fixed fifteen-family ABI5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "method": "STDO2.5.1rc2",
+    "methodManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "authority": "Existing Product reuse/currentness; native Testing HOW; exact identity, lifecycle, authority, effects and Proof. No WHAT change."
+  },
+  "origin": {
+    "actualFrozen10": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/freeze.json",
+      "sha256": "a0ab39335617c24183df9edc8632b667cef58794a8f8d99342e5c52ac9fbdaa3",
+      "bytes": 70011
+    },
+    "sufficientViolation": "Canonical GTL declares binding://.../prepare-testing@5; library occurrence consumer required implementation-binding://.../prepare-testing@5.",
+    "executiveConjunction": "Root and independent235 confirmed actual fibre592 uses the canonical binding; actual first-null/callback entry remains unproved."
+  },
+  "realization": "One library occurrence coordinate changed to governanceRef(binding,prepare-testing); all standalone and source/occurrence/set/phase/currentness guards retained.",
+  "changedFiles": [
+    {
+      "relativePath": "code/src/abg/native_work_reacquisition.ts",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/preimages/code/src/abg/native_work_reacquisition.ts",
+        "sha256": "cc7e54d979b6a291af4a9cf391a45bdfa44ef0919009e704736bd7e315d1c877",
+        "bytes": 31030
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-01/code/src/abg/native_work_reacquisition.ts",
+        "sha256": "d358bdd6c3d21b5a0348f95db02cf27711462aa387f43d436747a17232595045",
+        "bytes": 31015
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+        "sha256": "d358bdd6c3d21b5a0348f95db02cf27711462aa387f43d436747a17232595045",
+        "bytes": 31015
+      }
+    },
+    {
+      "relativePath": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/preimages/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "sha256": "9955ea2ceb5b0ddfb55835d18c34002460afcc221012890f11cecbee0b4e6516",
+        "bytes": 58845
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-01/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "sha256": "7059dac9708a54f3225dc6ced54cda86eddacdb56ade55d3897ef41958ff62b6",
+        "bytes": 59756
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "sha256": "7059dac9708a54f3225dc6ced54cda86eddacdb56ade55d3897ef41958ff62b6",
+        "bytes": 59756
+      }
+    },
+    {
+      "relativePath": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/preimages/test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "sha256": "1e90f492ca5f8508037f17dac5a24e4eb99fc4cc0e2b9eda1a0c66489ef4822a",
+        "bytes": 39755
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-02/test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "sha256": "b974a2706b629e296dd65da7cebae4514e394a39a3726dc6b3a6aaf7415d7d51",
+        "bytes": 41407
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "sha256": "b974a2706b629e296dd65da7cebae4514e394a39a3726dc6b3a6aaf7415d7d51",
+        "bytes": 41407
+      }
+    }
+  ],
+  "fullSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/dependency-cut-39-inputs.json",
+    "sha256": "3ae48fdeaeb686fa9cd7038fde10a0293d0836ff9d02db9dc3c5542ab84fcab5",
+    "bytes": 80616
+  },
+  "fullEmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/dependency-cut-39-emission.json",
+    "sha256": "b44b29b0ed56039bd2a09f4778043c67619221abd6b52daf86c290d56f2c3e64",
+    "bytes": 161512
+  },
+  "conservedDependencies": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/dependency-conjunction.json",
+    "sha256": "1ac53593b39dc80accdd547928d08224b3a158ae97eb8df63e52e218c574f1b2",
+    "bytes": 2676
+  },
+  "proof": {
+    "strict": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/commands/strict-01.result.json",
+      "sha256": "85a5ae60b17d8120730ae6f951fae12295f7c4a98b512569adbce36c0632c525",
+      "bytes": 760
+    },
+    "strictElapsedMs": 6598.778458000001,
+    "sourceFiles": 264,
+    "strippedDeclarations": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/commands/declarations-01.result.json",
+      "sha256": "7945ea9e3a4ab2a2bf11644c9dbda065ec5263737fcbb8c9379c5cbbd24165c2",
+      "bytes": 234
+    },
+    "declarationElapsedMs": 3321.389,
+    "skipLibCheck": false,
+    "publicDeclarationByteConservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/declaration-conservation.json",
+      "sha256": "b41a2183fa91daa55b95c4504b545e2d4f9a314497f0c9e94e7d85839c2208db",
+      "bytes": 422
+    },
+    "focused": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/commands/focused-02.result.json",
+      "sha256": "f89536cfa86c1678cbcbee70e6f2d04b4d0e47398a3914199dcee8098885845d",
+      "bytes": 970
+    },
+    "focusedElapsedMs": 451.081375,
+    "tests": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "vmSupport": true,
+    "preimageDiscriminator": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/commands/preimage-discriminator-02.result.json",
+      "sha256": "6536edf9ff3fed5997e3ce5d6a7fc95d09b3a152f55b8329f67f941bdfcbf206",
+      "bytes": 942
+    },
+    "oldOwnerElapsedMs": 588.97875,
+    "expectedOldOwnerExitCode": 1,
+    "observedCanonicalRefusal": true,
+    "scope": [
+      "Binding premise derived from canonical GTL leaf and matching descriptor, not mirrored consumer text.",
+      "Canonical preparation, returned complete task, governance matcher and cold Result/J/evidence consumption.",
+      "Former namespace/foreign binding, copied input/occurrence, missing declaration/source/cover/currentness and altered lineage refuse.",
+      "Standalone publication declaration unchanged; actual retained-resource tests not activated."
+    ],
+    "readinessFailureCauseAction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/cause-action.json",
+      "sha256": "61f103d71ac0d3a7668b2f0ed38e2eed27b1843c6af3ad763afd8a0fffc2b69a",
+      "bytes": 1572
+    }
+  },
+  "limits": [
+    "Bounded Source/type/controlled-owner readiness only; distinct review and actual installed continuation remain next.",
+    "The binding mismatch is sufficient to reject a supported canonical occurrence, not established as the unique first-null cause of actual Result598.",
+    "Prefix/native/source/environment/cover/C_Call/set lookups are controlled lower premises; real physical constructors and canonical GTL/graph/selector code are exercised.",
+    "The same fixture02/lower relations are used for old38 and corrected39, with independent disposable scratch roots; no actual runtime resource is acquired.",
+    "Standalone identities, phase, declaration/closed-source, current-use, covers, successful task values/digests, normal failure and receipt/effect uncertainty remain unchanged.",
+    "No diagnostic callback/helper, Product/Public shape/domain/grant change, controller, schema, publication/install, native/C2/model/app/Data Mapper/Git or original fixture effects.",
+    "Installed continuation, actual C2, capacity, UAT and release remain open."
+  ]
+}

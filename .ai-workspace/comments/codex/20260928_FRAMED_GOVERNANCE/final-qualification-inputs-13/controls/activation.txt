@@ -1,0 +1,9 @@
+Status ACTIVE
+Actor /root
+Prior role Executive; role Writer
+Operation T287_Q12_TRIAGE_Q13_GRANTS_WRITER_01
+Basis STDO2.5.1RC2
+Time 2026-10-03T04:17:51.488053+00:00
+Exact grant: conjoin CLOSED Q12/independent review; record multi-frame cause and adopted role-aware UML; prepare bounded Q13 Worker/assurance/conditional Runtime grants, update current plan/ticket selection, append execution. No Source Design/code/candidate/runtime changes.
+Write territory: /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q12-triage-q13-controls-01; /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md; /Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md; append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md
+Recorded before other effects.

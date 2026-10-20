@@ -1,0 +1,122 @@
+{
+  "kind": "source44_bounded_native_testing_published_definition_readiness",
+  "status": "CLOSED_READY_FOR_INDEPENDENT_SOURCE_REVIEW_ONLY",
+  "authority": {
+    "ABI": "5.0 fixed15families",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "STDO": "2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "reentry": "realization_refactor; existing canonical GTL owner and native Testing occurrence meaning"
+  },
+  "postimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/postimages.json",
+    "sha256": "c14786d6e260a7add60f2147a7b55b1819e12f81ddb0eb1cc1660492676189ae",
+    "bytes": 3084
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/dependency-cut-44-inputs.json",
+    "sha256": "114cc2756182cc763b322f5ed7727f68d00be3e7b0734db2f4d32df7b680fb7f",
+    "bytes": 95339
+  },
+  "emission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/dependency-cut-44-emission.json",
+    "sha256": "9b8225de8822f7ddaa310c94087498ab9005ad831e8f1b3612140b921c42234d",
+    "bytes": 190940
+  },
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/increment-from-43.diff",
+    "sha256": "1ea664752dd60ccdb7483920b2910ce123744d2718deebc005489d0be92b624f",
+    "bytes": 17695
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/emission-conservation.json",
+    "sha256": "6996b278e7d892f39a29819b8f68a14cd924e23686f3350cf1c1d605d29740ec",
+    "bytes": 1480
+  },
+  "dependencyConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/dependency-conjunction.json",
+    "sha256": "2aa5b78f253521f1040440dd1e58dc75d591c749caabe3f1082c52fc0e42c37d",
+    "bytes": 6338
+  },
+  "checks": {
+    "strict264": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/commands/strict-01.result.json",
+        "sha256": "6d7a616cfa8a92b372f9ec07ea96b2daebc491d9e10cefeed06cd841c7d645cb",
+        "bytes": 769
+      },
+      "elapsedMs": 6523.283375,
+      "exitCode": 0
+    },
+    "strippedDeclarations264": {
+      "byteExact43": true,
+      "skipLibCheckFalseProofReused": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/declarations-01.result.json",
+        "sha256": "bb57d3a2407f186a54279e2d62b63c67668e977139fa3dbc457bb2440f5ee72c",
+        "bytes": 784
+      },
+      "dependencyPopulationUnchanged": true
+    },
+    "focused03": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/commands/focused-03.result.json",
+        "sha256": "a82ccf15a4adbadbb88b3e1a5696a6701708a0d8b3e88065a52f6720af63892b",
+        "bytes": 1094
+      },
+      "elapsedMs": 586.5025840000001,
+      "pass": 6,
+      "fail": 0,
+      "skip": 0,
+      "VMEnabled": true,
+      "input": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/test-inputs-03.json",
+        "sha256": "33617418a9d33b049201c45fa44777bd36b68514cea5f8fce2f718a542815e8d",
+        "bytes": 622
+      }
+    },
+    "selectedDefinition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/selected-definition-correspondence.json",
+      "sha256": "ade84eaf93204c72de954de503fb84d06a8bff8e58ca145643354d2a29167e21",
+      "bytes": 3084
+    }
+  },
+  "refusals": [
+    "raw/foreign/tampered GraphFunction identity",
+    "raw/tampered materialization identity",
+    "wrong implementation binding and copied input/occurrence",
+    "missing/crossed/duplicate/changed declaration dependencies",
+    "absent/crossed preparation Result/J/evidence/parent",
+    "source/cover/eligibility/currentness and changed physical bytes"
+  ],
+  "preserved": [
+    "standalone reacquisition",
+    "complete successful task/matcher values and cold producer output",
+    "original implementation/input/request/Run/C_Call/frame/locus/set/grant/binding/source/current-use/cover/effect guards",
+    "legacy opaque failure diagnostics and current failure subjects through unchanged diagnostic component"
+  ],
+  "failuresPreserved": [
+    {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/commands/focused-01.result.json",
+        "sha256": "be5e5c1564e64d2cab8d6e37d327d5adc92255c12e74e6064e9dd0c3fe98cb07",
+        "bytes": 1088
+      },
+      "cause": "Obsolete controlled warm-count=1 assertion; removed without prescribing a call count or adding a cache."
+    },
+    {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/commands/focused-02.result.json",
+        "sha256": "d42e5e35d913672507147ddd9ab31f38d478cdaccac1037deb6f13edda1d3542",
+        "bytes": 1087
+      },
+      "cause": "Fixture invoked legacy leaf hook rather than existing issued nativeOwnedWorkReacquisition; three leaf assertions corrected, judgment/optional legacy paths untouched."
+    }
+  ],
+  "limits": [
+    "Source readiness only; no ordinary publication or installed continuation16 success.",
+    "Frozen diagnostic closed-prefix identities are established; the exclusive original15 first-null and later fresh request/currentness/physical guards are not proved here.",
+    "No resource acquisition/native/C2/model/original DataMapper execution or capacity/UAT/release credit."
+  ]
+}

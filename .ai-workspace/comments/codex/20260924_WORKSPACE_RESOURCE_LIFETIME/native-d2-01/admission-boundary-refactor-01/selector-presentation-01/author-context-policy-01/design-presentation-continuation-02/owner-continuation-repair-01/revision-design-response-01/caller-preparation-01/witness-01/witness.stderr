@@ -1,0 +1,21 @@
+{"phase":"retained_public_root_and_genuine_reprice","pid":91203,"entryBytes":286103401}
+{"phase":"retained_public_root_reused","executionBasis":{"ref":"execution-basis://abiogenesis/3b289e0a6c901b962dbe487fb98ab9872a76005cdf93555c0779bc72b167906e","digest":"sha256:3b289e0a6c901b962dbe487fb98ab9872a76005cdf93555c0779bc72b167906e"}}
+{"phase":"full_sandbox_public_setup","ordinal":1,"label":"original-root-binding-reprice"}
+       93.56 real        98.88 user         1.11 sys
+          2236891136  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              853948  page reclaims
+                  86  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5276  messages sent
+                4055  messages received
+                   0  signals received
+                  15  voluntary context switches
+               47150  involuntary context switches
+       2148067554236  instructions retired
+        404143643997  cycles elapsed
+          2225871136  peak memory footprint

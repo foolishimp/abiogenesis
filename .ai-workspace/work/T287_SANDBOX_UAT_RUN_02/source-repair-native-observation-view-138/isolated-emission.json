@@ -1,0 +1,30 @@
+{
+  "kind": "isolated compiler emission, not canonical generation or packaged identity",
+  "oldMembers": 526,
+  "newMembers": 526,
+  "removed": [],
+  "added": [],
+  "changed": [
+    {
+      "path": "abg/default_library.js",
+      "before": "633fc8610abb16c0df64c50674cbbd1e5f9d3998c4661aa96d45996614b8a5aa",
+      "after": "b938c8753a09c082ba22dd0f636d1cb3ee3998ae6b325ddbfc496b7e7b590c79",
+      "oldBytes": 31678,
+      "newBytes": 32191
+    },
+    {
+      "path": "product/default_library.d.ts",
+      "before": "c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0",
+      "oldBytes": 38602,
+      "newBytes": 40079
+    },
+    {
+      "path": "product/default_library.js",
+      "before": "13d5efeab4c0aea6043469cd6005e05635d4202cd00ac2ac1e57b485f13bb7b7",
+      "after": "06f27b201de7e2b91226793f48a2b561dbbc57fb1226bfa12b5fa0724aaebdef",
+      "oldBytes": 31335,
+      "newBytes": 31609
+    }
+  ]
+}

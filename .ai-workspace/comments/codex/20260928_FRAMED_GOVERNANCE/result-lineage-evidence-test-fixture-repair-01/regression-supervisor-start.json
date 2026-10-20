@@ -1,0 +1,28 @@
+{
+  "mode": "regression",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "pid": 43362,
+  "processGroup": 43362,
+  "groupEstablishedBeforeImports": true,
+  "startedAt": "2026-10-02T12:54:06.461714+00:00",
+  "monotonicStart": 3832913.265145416,
+  "preflightDeadlineMonotonic": 3833093.265145416,
+  "totalDeadlineMonotonic": 3833093.265145416,
+  "preflightSeconds": 180,
+  "totalSeconds": 180,
+  "heap": "unchanged",
+  "HOME": "/Users/jim",
+  "taskEnvironment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/tmp",
+    "ABI5_RESULT_LINEAGE_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+    "ABI5_RESULT_LINEAGE_REPORT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/regression-outcome.json"
+  },
+  "phaseCompletionReceipt": null
+}

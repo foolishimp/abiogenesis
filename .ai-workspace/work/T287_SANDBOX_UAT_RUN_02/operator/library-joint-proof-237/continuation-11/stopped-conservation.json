@@ -1,0 +1,62 @@
+{
+  "kind": "stopped_fixture_conservation",
+  "normalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-11/execution/audit/calls/lifecycle-start.close.json",
+    "prefix": {
+      "coordinateDigest": "sha256:2c302161f365f230e815beac170465932ba835480a498bd1cd9c1ed77bc5cecb",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:5e9e52e98b9acdd61f4f52c463c7992f6b61354da6b8b77850f4f458aa7fcd4a",
+      "prefixLength": 17131527,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 469917053
+      }
+    },
+    "unchangedAfterSelectedReads": true
+  },
+  "physicalLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "device": "16777231",
+    "inode": "469917053",
+    "byteCount": "17131527",
+    "mtimeNs": "1791646253777373864",
+    "digestAuthority": "Canonical selected-owner reads and unchanged genuine close; no external whole-file hash"
+  },
+  "checkedLockPaths": [
+    "/private/tmp/abiogenesis-event-store-locks-v5/16777231-469917053.lock",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-469917053.lock"
+  ],
+  "appendLocks": [],
+  "relatedNativeProcesses": [],
+  "quiescent": true,
+  "fixtureInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/source.md",
+      "sha256": "9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+      "byteCount": 1107,
+      "matchesFrozenFixture": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/rubric.md",
+      "sha256": "d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+      "byteCount": 634,
+      "matchesFrozenFixture": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/checker.mjs",
+      "sha256": "5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+      "byteCount": 335,
+      "matchesFrozenFixture": true
+    }
+  ],
+  "actualCandidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite/fixture/value.txt",
+    "byteCount": 7,
+    "sha256": "cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048",
+    "value": "broken\n"
+  },
+  "originalDataMapper": "Excluded; no original log/worksite/resource/lock access or effects"
+}

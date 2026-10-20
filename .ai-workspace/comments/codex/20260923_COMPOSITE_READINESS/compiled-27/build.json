@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "elapsedSeconds": 18.994674750138074,
+  "exitCode": 0,
+  "stdoutSha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

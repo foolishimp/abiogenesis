@@ -1,0 +1,46 @@
+{
+  "kind": "prospective_s03_domain_oracle",
+  "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+  "targetObligationRef": "obligation://s03-automatic/target-value@5",
+  "observationObligationRef": "obligation://s03-automatic/observe-gap@5",
+  "unaffectedObligationRef": "obligation://s03-automatic/unaffected-value@5",
+  "initialDomain": {
+    "target": {
+      "itemRef": "item://s03-automatic/target@5",
+      "value": 3,
+      "evidenceRef": "evidence://s03-automatic/target-initial@5"
+    },
+    "unaffected": {
+      "itemRef": "item://s03-automatic/unaffected@5",
+      "value": 7,
+      "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+    }
+  },
+  "desiredValues": {
+    "target": 10,
+    "unaffected": 7
+  },
+  "permittedCorrection": {
+    "operation": "set_target",
+    "from": 3,
+    "to": 10,
+    "maxApplications": 1,
+    "preserve": [
+      "unaffected.itemRef",
+      "unaffected.value",
+      "unaffected.evidenceRef"
+    ]
+  },
+  "positive": {
+    "correctionAvailable": true,
+    "expectedTarget": 10,
+    "expectedTerminal": "converged"
+  },
+  "negative": {
+    "correctionAvailable": false,
+    "expectedTarget": 3,
+    "expectedStop": "gap_stop",
+    "expectedHandoff": "Target remains 3; required value is 10. The declared correction capability is unavailable."
+  },
+  "proofRule": "Assert actual admitted child input/output and evaluation/delta provenance; never infer from labels or synthetic pure-stage data. Phase A pure checks carry no native claim."
+}

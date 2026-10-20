@@ -1,0 +1,14 @@
+{
+  "status": "stopped",
+  "boundary": "reference test fixture construction before actual canonical resource acquisition/attribution",
+  "error": "Cannot assign to read only property 'task' of object '#<Object>'",
+  "owningExpression": "resign assigns a.input.plan.slots[0].task after referenceAttributionFixture reuses the deeply frozen embedded.input.plan",
+  "sourceLine": 144,
+  "fixtureCallerLine": 160,
+  "focusedPassed": 2,
+  "focusedFailed": 2,
+  "ownerAttributionReachedByNewReferenceTests": false,
+  "sourceRepairTypecheckPassed": true,
+  "manifestPackAndNativeNotExecuted": true,
+  "noAutonomousRepairOrRetry": true
+}

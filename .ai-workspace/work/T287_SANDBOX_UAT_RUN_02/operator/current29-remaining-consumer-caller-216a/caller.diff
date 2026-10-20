@@ -1,0 +1,20 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216/prepare.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/prepare.mjs
+@@ -64,7 +64,7 @@
+  const sourceAdmission=a.rehydrateInvocationAdmissionAtPrefix(prefixAt(),sourceOutcome.receipt.resources.invocationAdmission.ref);assert.ok(sourceAdmission,'Actual136 invocation admission rehydration refused');
+  const derive=()=>a.deriveInvocationSourceResultBasisAtPrefix(prefixAt(),{publicAuthorityDigest:sourceCall.invocation.invocationDigest,runtimeInvocationRef:sourceAdmission.invocationRef,invocationAdmissionRef:sourceAdmission.invocationAdmissionRef,runId:selected.sourceRunRef,resultRef:selected.sourceResultRef});
+  let source=derive();assert.ok(source,'Actual34-observation source basis refused');const input=p.retainedGovernanceWorkInput(source.sourceResultValue);assert.ok(input);assert.equal(input.observations.length,34);assert.equal(input.terminal,false);assert.deepEqual(input.original,originalCall.invocation.request.input.value.original);
+- await record('source-initial.json',source);await pulse('source-initial',{basisRef:source.basisRef,basisDigest:source.basisDigest,inputDigest:hash(input),observations:34});
++ await pulse('source-initial',{basisRef:source.basisRef,basisDigest:source.basisDigest,inputDigest:hash(input),observations:34});
+  const {deepFreeze}=await import(pathToFileURL(join(host.installedRoot,'build/code/src/shared/immutable.js')).href);
+  const readPorts=await import(pathToFileURL(join(host.installedRoot,'build/code/src/abg/project_read_ports.js')).href);
+  const oldDeclaration=deepFreeze({kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:sourceCall.resources.catalog,catalogView:sourceCall.resources.catalogView});
+@@ -141,7 +141,7 @@
+   assert.ok(revision.projectWorksiteRevisionBindingCover(prefixAt(),before,binding,[basis]),'Existing213 exact direct D2 cover must reproject; no witness dispatch or transitive inference');
+  }
+  await pulse('covers-complete',{consumedBases:bases.size});
+- source=derive();assert.ok(source,'Source basis no longer applicable at actual current prefix');assert.equal(hash(p.retainedGovernanceWorkInput(source.sourceResultValue)),hash(input));await record('source-current.json',source);
++ source=derive();assert.ok(source,'Source basis no longer applicable at actual current prefix');assert.equal(hash(p.retainedGovernanceWorkInput(source.sourceResultValue)),hash(input));
+  const currentDeclaration={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog,catalogView:view};
+  // Existing owner projection only: scalar evidence of the actual source
+  // invocation and supplied comparison coordinates, not an inner-cause claim.

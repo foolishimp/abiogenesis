@@ -1,0 +1,35 @@
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts
+@@ -625,7 +625,7 @@
+       }
+       return judgment.task.subjectMembers.every(m => covered.has(m.ref)) ? [...new Set(actors)] : null;
+     }
+-    const attribution = projectExternalConstructionAttribution(judgment, plan);
++    const attribution = projectExternalConstructionAttribution(judgment, plan, provenance);
+     if (attribution.status === "invalid") return null;
+     const identityPairs = provenance.chains.map(c => ({ authorRef: c.authorRef, actorIdentityRef: c.actorIdentityRef }));
+     const adequate = attribution.status === "grounded";
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts
+@@ -27,7 +27,7 @@
+   qualificationHash as hash, sameQualificationValue as same, uniqueQualificationRefs as unique,
+   qualificationIdentity, constructQualificationIdentity, isQualificationAssessmentTask,
+   type QualificationAssessmentInput, type QualificationAssessmentTask, type QualificationEmbeddedTask, type QualificationInternedScope, type QualificationAssessmentPlan,
+-  type QualificationJudgment, type QualificationNativeBasis, type QualificationRawJudgment,
++  type QualificationJudgment, type QualificationNativeBasis, type QualificationRawJudgment, type QualificationConstructionProvenance,
+   type QualificationCoverageCatalog, type QualificationVerdictInput,
+   type ExactCandidateQualification, type QualificationOwnerRuling,
+   type QualificationRulingRequest,
+@@ -688,9 +688,10 @@
+     d === member.digest || d === member.digest.slice(7))) return true;
+   return Object.values(row).some(v => manifestHasMember(v, member, depth + 1));
+ }
+-export function projectExternalConstructionAttribution(judgment: QualificationJudgment, plan: QualificationAssessmentPlan):
++export function projectExternalConstructionAttribution(judgment: QualificationJudgment, plan: QualificationAssessmentPlan,
++  resolvedProvenance?: QualificationConstructionProvenance):
+   Readonly<{ status: "grounded" | "insufficient" | "invalid"; authors: readonly string[] }> {
+-  const provenance = judgment.task.provenance;
++  const provenance = resolvedProvenance ?? judgment.task.provenance;
+   const invalid = { status: "invalid" as const, authors: [] };
+   if (provenance.kind !== "external_construction" || !unique(provenance.records.map(r => r.ref)) ||
+       provenance.recordSet.digest !== hash(provenance.records)) return invalid;

@@ -1,0 +1,29 @@
+(node:67119) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ semantic stage, revision and selection implementations preserve the complete owner request (252.097208ms)
+✖ semantic result matcher follows the exact native compact Design materialization and preserves other roles (913.700458ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1216.008875
+
+✖ failing tests:
+
+test at test_env/tests/t288-instruction-assembly-owner.test.mjs:640:1
+✖ semantic result matcher follows the exact native compact Design materialization and preserves other roles (913.700458ms)
+  AssertionError [ERR_ASSERTION]: complete component assembly
+      at exercise (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs:680:81)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs:716:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

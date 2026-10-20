@@ -1,0 +1,5 @@
+{
+  "exit": 1,
+  "cause": "Isolated source lacked original module package and dependency resolution context; TS1295 and missing third-party types cascaded before meaningful runtime integration check.",
+  "action": "Stage exact original package metadata and dependency root in the isolated input; preserve strict compiler flags and frozen232 source."
+}

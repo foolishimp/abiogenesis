@@ -1,0 +1,18 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "--project",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+    "--outDir",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73/isolated/build/code/src"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T06:35:07.340Z",
+  "environmentKeys": [
+    "ABG_WORKSITE_BUILD_ROOT",
+    "ABI5_GENERIC_JOB_BUILD_ROOT",
+    "PATH"
+  ],
+  "timeoutMs": 180000
+}

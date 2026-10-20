@@ -1,0 +1,30 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern",
+    "M5 |owned process groups|CCall opening|post-effect channel conflict|native timeout retains|native malformed-report retains|native read-only-change retains|unknown native after-state|observed partial failure|unavailable after observation|cold leader exit|timeout and termination-unconfirmed|preterminal Process exit|duplicate Process terminality",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T06:07:45.199Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 120000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 13235.510291,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "✔ CCall opening is one atomic open-and-fibre transition (0.990583ms)\n✔ timeout and termination-unconfirmed never prove a started process absent (1.055792ms)\n✔ preterminal Process exit is the single cleanup confirmation (0.096041ms)\n✔ duplicate Process terminality and Actor terminal before confirmation fail closed (0.121416ms)\n✔ cold leader exit preserves unknown group cleanup across ordinary Run failure (0.668542ms)\n✔ M5 B-001 preserves lane-owned Claude execution posture (0.504334ms)\n✔ M5 native report keeps its original host schema presentation (0.070875ms)\n✔ M5 schema literal placeholders remain opaque while ordinary templates and append positions expand (0.342625ms)\n✔ M5 requested structured output uses only the final carrier and preserves raw/schema refusal (26.404416ms)\n✔ M5 B-001 bounds append arguments for all four transport contracts (0.268459ms)\n✔ M5 B-001 gives agent-specific sandbox binding precedence (0.099958ms)\n✔ M5 transport identity changes with parser and prompt-delivery semantics (2.931459ms)\n✔ M5 B-001 crosses a real worker process, parser, tool event, and archive (287.873583ms)\n✔ M5 Bash tool identity ignores only optional string description metadata (4208.982834ms)\n✔ M5 B-001 rejects tool activity only in the closed-prompt lane (299.246375ms)\n✔ M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool (1211.746916ms)\n✔ M5 selected result text cannot admit a valid file without its final carrier (1525.4655ms)\n✔ M5 ABG transport force-terminates a worker that ignores SIGTERM (523.70625ms)\n✔ M5 ABG transport renews its inactivity lease only from observed progress (381.966292ms)\n✔ M5 ABG transport does not renew from unacknowledged output (243.913833ms)\n✔ M5 ABG transport excludes semantic output emitted after its timeout boundary (422.428917ms)\n(node:56888) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n✔ owned process groups retain descendant cleanup after normal and TERM leader exits (2215.464ms)\n✔ M5 ABG transport excludes descendant output emitted after direct-process exit (106.035917ms)\n(node:57044) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n✖ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (782.582792ms)\n✔ native timeout retains actual partial edit and refuses success (22.251083ms)\n✔ native malformed-report retains actual partial edit and refuses success (17.659875ms)\n✔ native read-only-change retains actual partial edit and refuses success (16.454916ms)\n✔ unavailable after observation retains unknown and original native failure (12.785458ms)\n▶ unknown native after-state retires only potentially writable C0 facts\n  ✔ unknown exact and subtree (23.15075ms)\n  ✔ unknown whole root (23.146458ms)\n  ✔ unknown read-only (19.75925ms)\n  ✔ known exact change within wider scope (19.04125ms)\n✔ unknown native after-state retires only potentially writable C0 facts (85.5215ms)\n✔ observed partial failure retires touched C0 facts but preserves unchanged and absent paths (16.16475ms)\nℹ tests 34\nℹ suites 0\nℹ pass 33\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 13205.380041\n\n✖ failing tests:\n\ntest at test_env/tests/t287-native-workspace-work.test.mjs:34:1\n✖ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (782.582792ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  true !== false\n  \n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs:147:10)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: true,\n    expected: false,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+  "stderr": ""
+}

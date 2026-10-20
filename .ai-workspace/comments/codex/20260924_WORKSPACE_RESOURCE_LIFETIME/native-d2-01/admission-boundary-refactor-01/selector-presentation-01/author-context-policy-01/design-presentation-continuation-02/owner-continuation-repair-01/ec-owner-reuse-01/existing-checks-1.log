@@ -1,0 +1,35 @@
+✔ validated event-prefix selection is immutable, ordered, and causally run-local (3.740833ms)
+✔ closed typed Event Calculus law refuses missing, duplicate, malformed, and contradictory input (3.558083ms)
+✔ retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruction-stable (3.351333ms)
+✔ retry fluent identity is exact across graph-call, frame, and boundary scopes before and after consumption (3.574584ms)
+✔ retry handoff route matrix keeps retry, blocked, advance, and terminal effects decision-exact (2.597333ms)
+✔ retry judgment preserves attempt activity until exact progress consumption (3.169209ms)
+✔ run_stopped terminates every exact active retry attempt and available retry progress (10.084375ms)
+✖ terminal projection rows realize static locus law for the exact Run and preserve unrelated loci (2.958417ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 325.478084
+
+✖ failing tests:
+
+test at test_env/tests/m5-event-calculus-runtime.test.mjs:1316:1
+✖ terminal projection rows realize static locus law for the exact Run and preserve unrelated loci (2.958417ms)
+  AssertionError [ERR_ASSERTION]: runtime_failure_observed/runtime_invocation_active
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs:1453:14)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

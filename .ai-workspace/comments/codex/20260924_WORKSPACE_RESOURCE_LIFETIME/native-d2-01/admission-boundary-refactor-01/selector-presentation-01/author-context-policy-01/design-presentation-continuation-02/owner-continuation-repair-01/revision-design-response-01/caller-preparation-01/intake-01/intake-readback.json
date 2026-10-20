@@ -1,0 +1,68 @@
+{
+  "kind": "native_semantic_revision_intake_readback",
+  "run": {
+    "digest": "sha256:09ea24f131b8ba194a2a040261e74565095a89ce24f8eb9e0ffb2db74c164903",
+    "ref": "run://abiogenesis/788e1541444cb5e1503c6a7590388e5db8c9ba00e233dac02a6e5ef9189fe94b"
+  },
+  "result": {
+    "digest": "sha256:33f0a805681ddc382a87b6c2b985c18f9ec6539caa13ac3496b5f43de2b52ce5",
+    "ref": "result://abiogenesis/33f0a805681ddc382a87b6c2b985c18f9ec6539caa13ac3496b5f43de2b52ce5"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:e7990587f0e7b68162ba5dd5c1bc0a1dd28ec7bde972a5d7bd32c7c4c6313b99",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:65605418b01667439bc7d34ef37731420c254891bf70a6fc76169751ba14c111",
+    "prefixLength": 291429504,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 90044.707333,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/intake-01/read-run_result.json",
+      "resultDigest": "sha256:70616f76000c3cc9fc9f23890e6580d0c970c1a3d46b3986d7934d64f50dea24"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 90035.69758299999,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/intake-01/read-run_replay.json",
+      "resultDigest": "sha256:c0bbf9b6e7474d3985ecf78061a2c5d411c66fdd7c38b43656400b509a47dcf8"
+    }
+  ],
+  "installedAfter": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/85a5074f4a675fcf86ba62e3e582c57a94993ebf89f4590f7313e3b7261bc771/17082cb1e2d2521a7f15e0e006a41118303c4e9f45af330beff9007d9b47aaa4",
+      "productContentDigest": "sha256:85a5074f4a675fcf86ba62e3e582c57a94993ebf89f4590f7313e3b7261bc771"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/17082cb1e2d2521a7f15e0e006a41118303c4e9f45af330beff9007d9b47aaa4",
+      "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e"
+    }
+  ],
+  "inputDigest": "sha256:e057035b33ded64e3573adf727fb5edb1a34af80854dd0007b4a87ac7916335a",
+  "duplicateSdkProjection": false,
+  "status": "returned_unique_declared_suffix",
+  "selectionChoice": {
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/design@5"
+  },
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-design@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-design@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5"
+  },
+  "terminalResult": {
+    "digest": "sha256:33f0a805681ddc382a87b6c2b985c18f9ec6539caa13ac3496b5f43de2b52ce5",
+    "ref": "result://abiogenesis/33f0a805681ddc382a87b6c2b985c18f9ec6539caa13ac3496b5f43de2b52ce5"
+  },
+  "valueDigest": "sha256:089595741188b713a3f7b8d25e92b5eb44e34852554846a0fc0a5920d7e4f808",
+  "boundary": "Only ordinary Public terminal Result/replay and installed pure declaration lookup; no private leaf extraction or inferred selection."
+}

@@ -1,0 +1,112 @@
+{
+  "previousRecordsVerified": 5999,
+  "previousStaticRecordsToConserve": 5998,
+  "S03PreparationRecordsVerified": 13,
+  "externalPinsVerified": 44,
+  "sharedPureHelperRecordsVerified": 4,
+  "C03SourceMembersVerified": 1159,
+  "bootstrapPayloadMembersVerified": 5258,
+  "runtimePayloadMembersVerified": 5258,
+  "oldFrozenPrefixesCopied": false,
+  "oldStoreInitialPhysical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+    "bytes": 2490961,
+    "sha256": "3f4f443fe609b278d375e7667137e330fa25efcdc46c2297afc018bda4bc5298",
+    "device": 16777230,
+    "inode": 464429281,
+    "mtimeMs": 1790890495610.5955,
+    "stableDuringRead": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/tmp/abiogenesis-event-store-locks-v5/16777230-464429281.lock",
+    "lockPresent": false,
+    "prefix": {
+      "coordinateDigest": "sha256:6f015985dec8b70ff4b2e82568b96c3d8307b820c7fdb91f5eac21200337f388",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:3f4f443fe609b278d375e7667137e330fa25efcdc46c2297afc018bda4bc5298",
+      "prefixLength": 2490961,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464429281
+      }
+    }
+  },
+  "originalCopiesAndCallerOrigins": [
+    {
+      "path": "selected-core.json",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/selected-core.json",
+      "sha256": "4f1335aea86d9c59ad6d575cda84159162f8b6a9852c1659f36bbdae770443f9",
+      "copiedByteExact": true
+    },
+    {
+      "path": "prospective-cases.json",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/prospective-cases.json",
+      "sha256": "c08f39b39bfc09256f5c98f4b4262179295aac2103a857e7a3a079141bcfcc5c",
+      "copiedByteExact": true
+    },
+    {
+      "path": "caller-draft.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/caller-draft.mjs",
+      "sha256": "efe102a1bde1e84879ff539cf92c2216d6f0f79c534a6f775141d2a17d953139",
+      "copiedByteExact": true
+    },
+    {
+      "path": "original-consumers.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/original-consumers.mjs",
+      "sha256": "69038fa5837745e3e57e3ec8cbf82808997d8cc68660138f01e4d666ff4992c6",
+      "copiedByteExact": true
+    },
+    {
+      "path": "sole-output-renderer.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/sole-output-renderer.mjs",
+      "sha256": "a53044eca98cff334a9fbd87a1b21a8d6a6fe15220e83ab78db6bcc45a85901b",
+      "copiedByteExact": true
+    },
+    {
+      "path": "original-oracle.json",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/original-oracle.json",
+      "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c",
+      "copiedByteExact": true
+    },
+    {
+      "path": "pair-inputs.json",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/pair-inputs.json",
+      "sha256": "6d2d081557c9fa15ad6c354d2165e3838600e4eb4a68be7ec3d1a2edd2f4e4ad",
+      "copiedByteExact": true
+    },
+    {
+      "path": "readback-contract.json",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/readback-contract.json",
+      "sha256": "ef3dfedf988ce011ba83d0c8c91c7ccdaf4f39500ddd5a1c49140afcc4dcd69c",
+      "copiedByteExact": true
+    },
+    {
+      "path": "public-support.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/public-support.mjs",
+      "sha256": "fd94462ab478d3e4eeb6a42d80b2ee7fd1fea01c5ee126c8594623c1de0a4273",
+      "copiedByteExact": true
+    },
+    {
+      "path": "observe-process.py",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/observe-process.py",
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d",
+      "copiedByteExact": true
+    },
+    {
+      "path": "conformance-resources.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/conformance-resources.mjs",
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "copiedByteExact": true
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/ordinary-caller.mjs",
+      "originSHA256": "8e7993a040222a817293af0e1f26a3cdb4eda3d07bc25caeb752e9f1b5e3d423",
+      "copySHA256": "da14fb331f1850979f039f363ba2159d158b7c1362f7a00099779f9599ed434f",
+      "adaptation": "shared exact six-key conformance constructor; new activation/request/approval provenance; admitted actor retained from existing binding"
+    }
+  ],
+  "effects": "new activation territory only, plus sole exact owner append exception",
+  "setupCallsToRepeat": 0
+}

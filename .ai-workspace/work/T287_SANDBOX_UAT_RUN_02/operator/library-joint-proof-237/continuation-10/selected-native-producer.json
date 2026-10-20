@@ -1,0 +1,349 @@
+{
+  "installedOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+  "prefix": {
+    "coordinateDigest": "sha256:d359c4498ccf69d7d226af6be1a1cf3ec8ae8809eb7979761b9a48dab7527223",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:214f9a61815407f2f1d1182afa3121076e0d83eaccfa82cc41bd7d231a74db74",
+    "prefixLength": 13131877,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 469917053
+    }
+  },
+  "selection": {
+    "cCallRef": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+    "resultRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+    "purpose": "Root-authorized one addressed original native producer for Testing original-after/current-binding comparison"
+  },
+  "event": {
+    "admissionOrdinal": 188,
+    "aggregateId": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+    "aggregateType": "c_call",
+    "basisId": "execution-basis://abiogenesis/2fccf5b25aed74e9ac08c7559dde73a7a215d7fd13f613e7a55079d9e702d750",
+    "causationEventRefs": [
+      "event://abiogenesis/f766d158f0c836ecdb1bb2e8cb1dd9f5c05a5afd91b70204b8d4a5344478ba64"
+    ],
+    "correlationId": "correlation://abi5-tests/sandbox-uat/library-joint-proof-237-09-b/hog/recursion/0/child/workflow/3/child/workflow/1/child/leaf/0/outcome/result",
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventId": "event://abiogenesis/3abba56a242a7078485cb8e45562faf0b25c133237b5f6b6751544582535135f",
+    "eventTime": "2026-10-10T13:30:11.717Z",
+    "frameId": "frame://abiogenesis/41f37f2e1fa03e1510d3d91add5681ef567583e9184f3a1d8fdc348324f7d74d",
+    "graphCallId": "graph-call://abiogenesis/72c2fa0386adab6c41c45e93e84fc67c7dd961e47a779e3867f59e81211af2d5",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "kind": "c_call_result_admitted",
+    "parentAggregateId": "frame://abiogenesis/41f37f2e1fa03e1510d3d91add5681ef567583e9184f3a1d8fdc348324f7d74d",
+    "payload": {
+      "cCallRef": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+      "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+      "evidenceRefs": [
+        "evidence://abiogenesis/af147411f331754a8cb0bcbfc2659f7664f7e42d53c6fc05cdea4288f6fc0e59"
+      ],
+      "resultClass": "success",
+      "resultDigest": "sha256:4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+      "resultRef": "result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80",
+      "value": {
+        "after": {
+          "entries": [
+            {
+              "byteLength": 335,
+              "bytes": "aW1wb3J0IHsgcmVhZEZpbGUgfSBmcm9tICdub2RlOmZzL3Byb21pc2VzJzsKCmNvbnN0IHZhbHVlID0gYXdhaXQgcmVhZEZpbGUobmV3IFVSTCgnLi92YWx1ZS50eHQnLCBpbXBvcnQubWV0YS51cmwpLCAndXRmOCcpOwppZiAodmFsdWUgPT09ICdmaXhlZFxuJykgewogIHByb2Nlc3Muc3Rkb3V0LndyaXRlKCdGSVhUVVJFX1ZBTFVFX0ZJWEVEXG4nKTsKfSBlbHNlIHsKICBwcm9jZXNzLnN0ZG91dC53cml0ZSgnRklYVFVSRV9WQUxVRV9CQUQgZXhwZWN0ZWQ9Zml4ZWQgYWN0dWFsPScgKyBKU09OLnN0cmluZ2lmeSh2YWx1ZSkgKyAnXG4nKTsKICBwcm9jZXNzLmV4aXRDb2RlID0gMTsKfQo=",
+              "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+              "encoding": "base64",
+              "fileIdentity": "16777231:469947492",
+              "relativePath": "fixture/checker.mjs",
+              "state": "file"
+            },
+            {
+              "byteLength": 634,
+              "bytes": "IyBNZWNoYW5pY2FsIHByb29mIGxpbWl0cwoKVGhlIGNvbXBvbmVudCBwcm9vZiByZXF1aXJlcyBhbiBhY3R1YWwgbmF0aXZlIENvbnN0cnVjdGlvbiBvYnNlcnZhdGlvbiwgYW4KYWN0dWFsIEMyIGV4aXQtMSBkaWFnbm9zdGljLCBhIG5hdGl2ZSByZXBhaXIgY29uZmluZWQgdG8gZml4dHVyZS92YWx1ZS50eHQsIGFuCmFjdHVhbCByZW1lYXN1cmVtZW50IHdpdGggZXhpdCAwLCBhbmQgY29uc2VydmF0aW9uIGFjcm9zcyBjbG9zZS9yZXN0YXJ0IGFuZApmcmVzaCBvd25lciByZWFkcy4gVGhlIGZhaWxlZCBhbmQgcGFzc2luZyBjb21tYW5kIGlkcyBhbmQgY2hlY2tlciBieXRlcyBtdXN0CnJlbWFpbiBpZGVudGljYWwuIEVhY2ggbWVhc3VyZW1lbnQga2VlcHMgaXRzIG93biBwcm9kdWNlciBhbmQgY3VycmVudCBpbnB1dHMuCgpUaGVzZSBvYnNlcnZhdGlvbnMgZG8gbm90IGVzdGFibGlzaCBpbmRlcGVuZGVudCBVQVQsIENsYXVkZSBiZWhhdmlvciwKRGF0YSBNYXBwZXIgY29ycmVjdG5lc3MsIGxhcmdlLWhpc3RvcnkgY2FwYWNpdHksIG9yIHJlbGVhc2UgcXVhbGlmaWNhdGlvbi4KQW4gZXhwbGljaXQgc2VsZWN0b3IgZ2FwIGxlYXZlcyB0aGUgb3JpZ2luYWwgc3VwcG9ydCBvYmxpZ2F0aW9uIHVucmVzb2x2ZWQuCg==",
+              "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+              "encoding": "base64",
+              "fileIdentity": "16777231:469947493",
+              "relativePath": "fixture/rubric.md",
+              "state": "file"
+            },
+            {
+              "byteLength": 1107,
+              "bytes": "IyBNZWNoYW5pY2FsIGxpZmVjeWNsZSBzcGVjaW1lbgoKVGhpcyBpcyBhIHNjcmF0Y2ggY29tcG9uZW50IHdvcmtsb2FkLiBJdCBkb2VzIG5vdCBpbXBsZW1lbnQgRGF0YSBNYXBwZXIgb3IKZXN0YWJsaXNoIGFwcGxpY2F0aW9uIGFjY2VwdGFuY2UuCgpUaGUgb25seSB3cml0YWJsZSBjYW5kaWRhdGUgaXMgZml4dHVyZS92YWx1ZS50eHQuIEZpcnN0LCB0aGUgbmF0aXZlCkNvbnN0cnVjdGlvbiBhY3RvciBkZWxpYmVyYXRlbHkgd3JpdGVzIHRoZSBleGFjdCBieXRlcyAiYnJva2VuXG4iLiBUaGUKaW5kZXBlbmRlbnQsIHVuY2hhbmdlZCBmaXh0dXJlL2NoZWNrZXIubWpzIG11c3QgZXhlY3V0ZSB0aHJvdWdoIHRoZSBleGlzdGluZwpuYXRpdmUgQzIgb3duZXIgYW5kIHJlcG9ydCBGSVhUVVJFX1ZBTFVFX0JBRCB3aXRoIGV4aXQgc3RhdHVzIDEuCgpBZnRlciB0aGF0IGFjdHVhbCBkaWFnbm9zdGljIGhhcyBiZWVuIG9ic2VydmVkLCB0aGUgc2VsZWN0ZWQgbmF0aXZlIHJlcGFpcgpjaGFuZ2VzIG9ubHkgZml4dHVyZS92YWx1ZS50eHQgdG8gdGhlIGV4YWN0IGJ5dGVzICJmaXhlZFxuIi4gQzIgdGhlbiBleGVjdXRlcwp0aGUgc2FtZSBjb21tYW5kIGFuZCByZXBvcnRzIEZJWFRVUkVfVkFMVUVfRklYRUQgd2l0aCBleGl0IHN0YXR1cyAwLiBQcmVzZXJ2ZQpib3RoIG1lYXN1cmVtZW50cywgdGhlIG9yaWdpbmFsIHRhc2ssIHRoZSBmYWlsZWQgcHJvZHVjZXIgYW5kIGl0cyBsaXRlcmFsCmRpYWdub3N0aWMgY2l0YXRpb24uIE5ldmVyIGVkaXQgdGhpcyBzb3VyY2UsIHRoZSBjaGVja2VyIG9yIHRoZSBydWJyaWMuCgpUaGUgZGV0ZXJtaW5pc3RpYyByZXNwb25kZXIgc3VwcGxpZXMgZml4dHVyZSBkZWNpc2lvbnMsIG5vdCBzZW1hbnRpYwphc3Nlc3NtZW50LiBUaGUgc3VwcG9ydCBvYmxpZ2F0aW9uIHJlbWFpbnMgdW5yZXNvbHZlZCwgdGVybWluYWwgc3RheXMgZmFsc2UsCmFuZCB0aGUgc2VsZWN0b3IgZXhwbGljaXRseSBnYXBzLiBBIGxhdGVyIHN1cHBvcnRlZCBpbnZvY2F0aW9uIG11c3QgcmV1c2UgdGhlCnJlY29yZGVkIHdvcmsgYW5kIGFjdHVhbCBmaWxlcyB3aXRob3V0IHJlcnVubmluZyB0aGVpciBhdXRob3JzIG9yIG1lYXN1cmVtZW50cy4K",
+              "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+              "encoding": "base64",
+              "fileIdentity": "16777231:469947491",
+              "relativePath": "fixture/source.md",
+              "state": "file"
+            },
+            {
+              "byteLength": 7,
+              "bytes": "YnJva2VuCg==",
+              "digest": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048",
+              "encoding": "base64",
+              "fileIdentity": "16777231:470001681",
+              "relativePath": "fixture/value.txt",
+              "state": "file"
+            }
+          ],
+          "kind": "worksite_context_observation",
+          "maxBytes": 262144,
+          "maxFiles": 32,
+          "observationDigest": "sha256:08f41829541b7ff525a8eb0431fab58dd6e131ae44b80d7e61cdfdb94c104bec",
+          "observationRef": "worksite-context-observation://abiogenesis/08f41829541b7ff525a8eb0431fab58dd6e131ae44b80d7e61cdfdb94c104bec",
+          "readRoots": [
+            "fixture/source.md",
+            "fixture/checker.mjs",
+            "fixture/rubric.md",
+            "fixture/value.txt"
+          ],
+          "schemaVersion": "5.0.0",
+          "workspaceAuthorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+          "workspaceAuthorityBasisRef": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+          "workspaceBindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+          "workspaceBindingIdentity": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7"
+        },
+        "before": {
+          "entries": [
+            {
+              "byteLength": 335,
+              "bytes": "aW1wb3J0IHsgcmVhZEZpbGUgfSBmcm9tICdub2RlOmZzL3Byb21pc2VzJzsKCmNvbnN0IHZhbHVlID0gYXdhaXQgcmVhZEZpbGUobmV3IFVSTCgnLi92YWx1ZS50eHQnLCBpbXBvcnQubWV0YS51cmwpLCAndXRmOCcpOwppZiAodmFsdWUgPT09ICdmaXhlZFxuJykgewogIHByb2Nlc3Muc3Rkb3V0LndyaXRlKCdGSVhUVVJFX1ZBTFVFX0ZJWEVEXG4nKTsKfSBlbHNlIHsKICBwcm9jZXNzLnN0ZG91dC53cml0ZSgnRklYVFVSRV9WQUxVRV9CQUQgZXhwZWN0ZWQ9Zml4ZWQgYWN0dWFsPScgKyBKU09OLnN0cmluZ2lmeSh2YWx1ZSkgKyAnXG4nKTsKICBwcm9jZXNzLmV4aXRDb2RlID0gMTsKfQo=",
+              "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+              "encoding": "base64",
+              "fileIdentity": "16777231:469947492",
+              "relativePath": "fixture/checker.mjs",
+              "state": "file"
+            },
+            {
+              "byteLength": 634,
+              "bytes": "IyBNZWNoYW5pY2FsIHByb29mIGxpbWl0cwoKVGhlIGNvbXBvbmVudCBwcm9vZiByZXF1aXJlcyBhbiBhY3R1YWwgbmF0aXZlIENvbnN0cnVjdGlvbiBvYnNlcnZhdGlvbiwgYW4KYWN0dWFsIEMyIGV4aXQtMSBkaWFnbm9zdGljLCBhIG5hdGl2ZSByZXBhaXIgY29uZmluZWQgdG8gZml4dHVyZS92YWx1ZS50eHQsIGFuCmFjdHVhbCByZW1lYXN1cmVtZW50IHdpdGggZXhpdCAwLCBhbmQgY29uc2VydmF0aW9uIGFjcm9zcyBjbG9zZS9yZXN0YXJ0IGFuZApmcmVzaCBvd25lciByZWFkcy4gVGhlIGZhaWxlZCBhbmQgcGFzc2luZyBjb21tYW5kIGlkcyBhbmQgY2hlY2tlciBieXRlcyBtdXN0CnJlbWFpbiBpZGVudGljYWwuIEVhY2ggbWVhc3VyZW1lbnQga2VlcHMgaXRzIG93biBwcm9kdWNlciBhbmQgY3VycmVudCBpbnB1dHMuCgpUaGVzZSBvYnNlcnZhdGlvbnMgZG8gbm90IGVzdGFibGlzaCBpbmRlcGVuZGVudCBVQVQsIENsYXVkZSBiZWhhdmlvciwKRGF0YSBNYXBwZXIgY29ycmVjdG5lc3MsIGxhcmdlLWhpc3RvcnkgY2FwYWNpdHksIG9yIHJlbGVhc2UgcXVhbGlmaWNhdGlvbi4KQW4gZXhwbGljaXQgc2VsZWN0b3IgZ2FwIGxlYXZlcyB0aGUgb3JpZ2luYWwgc3VwcG9ydCBvYmxpZ2F0aW9uIHVucmVzb2x2ZWQuCg==",
+              "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+              "encoding": "base64",
+              "fileIdentity": "16777231:469947493",
+              "relativePath": "fixture/rubric.md",
+              "state": "file"
+            },
+            {
+              "byteLength": 1107,
+              "bytes": "IyBNZWNoYW5pY2FsIGxpZmVjeWNsZSBzcGVjaW1lbgoKVGhpcyBpcyBhIHNjcmF0Y2ggY29tcG9uZW50IHdvcmtsb2FkLiBJdCBkb2VzIG5vdCBpbXBsZW1lbnQgRGF0YSBNYXBwZXIgb3IKZXN0YWJsaXNoIGFwcGxpY2F0aW9uIGFjY2VwdGFuY2UuCgpUaGUgb25seSB3cml0YWJsZSBjYW5kaWRhdGUgaXMgZml4dHVyZS92YWx1ZS50eHQuIEZpcnN0LCB0aGUgbmF0aXZlCkNvbnN0cnVjdGlvbiBhY3RvciBkZWxpYmVyYXRlbHkgd3JpdGVzIHRoZSBleGFjdCBieXRlcyAiYnJva2VuXG4iLiBUaGUKaW5kZXBlbmRlbnQsIHVuY2hhbmdlZCBmaXh0dXJlL2NoZWNrZXIubWpzIG11c3QgZXhlY3V0ZSB0aHJvdWdoIHRoZSBleGlzdGluZwpuYXRpdmUgQzIgb3duZXIgYW5kIHJlcG9ydCBGSVhUVVJFX1ZBTFVFX0JBRCB3aXRoIGV4aXQgc3RhdHVzIDEuCgpBZnRlciB0aGF0IGFjdHVhbCBkaWFnbm9zdGljIGhhcyBiZWVuIG9ic2VydmVkLCB0aGUgc2VsZWN0ZWQgbmF0aXZlIHJlcGFpcgpjaGFuZ2VzIG9ubHkgZml4dHVyZS92YWx1ZS50eHQgdG8gdGhlIGV4YWN0IGJ5dGVzICJmaXhlZFxuIi4gQzIgdGhlbiBleGVjdXRlcwp0aGUgc2FtZSBjb21tYW5kIGFuZCByZXBvcnRzIEZJWFRVUkVfVkFMVUVfRklYRUQgd2l0aCBleGl0IHN0YXR1cyAwLiBQcmVzZXJ2ZQpib3RoIG1lYXN1cmVtZW50cywgdGhlIG9yaWdpbmFsIHRhc2ssIHRoZSBmYWlsZWQgcHJvZHVjZXIgYW5kIGl0cyBsaXRlcmFsCmRpYWdub3N0aWMgY2l0YXRpb24uIE5ldmVyIGVkaXQgdGhpcyBzb3VyY2UsIHRoZSBjaGVja2VyIG9yIHRoZSBydWJyaWMuCgpUaGUgZGV0ZXJtaW5pc3RpYyByZXNwb25kZXIgc3VwcGxpZXMgZml4dHVyZSBkZWNpc2lvbnMsIG5vdCBzZW1hbnRpYwphc3Nlc3NtZW50LiBUaGUgc3VwcG9ydCBvYmxpZ2F0aW9uIHJlbWFpbnMgdW5yZXNvbHZlZCwgdGVybWluYWwgc3RheXMgZmFsc2UsCmFuZCB0aGUgc2VsZWN0b3IgZXhwbGljaXRseSBnYXBzLiBBIGxhdGVyIHN1cHBvcnRlZCBpbnZvY2F0aW9uIG11c3QgcmV1c2UgdGhlCnJlY29yZGVkIHdvcmsgYW5kIGFjdHVhbCBmaWxlcyB3aXRob3V0IHJlcnVubmluZyB0aGVpciBhdXRob3JzIG9yIG1lYXN1cmVtZW50cy4K",
+              "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+              "encoding": "base64",
+              "fileIdentity": "16777231:469947491",
+              "relativePath": "fixture/source.md",
+              "state": "file"
+            },
+            {
+              "relativePath": "fixture/value.txt",
+              "state": "absent"
+            }
+          ],
+          "kind": "worksite_context_observation",
+          "maxBytes": 262144,
+          "maxFiles": 32,
+          "observationDigest": "sha256:e42de1011daae37ad5f9be1ddc5e06a3db2b9833d840ca4b48a9880da2defcd0",
+          "observationRef": "worksite-context-observation://abiogenesis/e42de1011daae37ad5f9be1ddc5e06a3db2b9833d840ca4b48a9880da2defcd0",
+          "readRoots": [
+            "fixture/source.md",
+            "fixture/checker.mjs",
+            "fixture/rubric.md",
+            "fixture/value.txt"
+          ],
+          "schemaVersion": "5.0.0",
+          "workspaceAuthorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+          "workspaceAuthorityBasisRef": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+          "workspaceBindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+          "workspaceBindingIdentity": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7"
+        },
+        "changedPaths": [
+          "fixture/value.txt"
+        ],
+        "kind": "native_workspace_work_observation",
+        "observationDigest": "sha256:e6dda4cf8a24e45e08f108b5b85e6d7480abf88af79c85f56c4293ece98cd012",
+        "observationRef": "native-work-observation://abiogenesis/e6dda4cf8a24e45e08f108b5b85e6d7480abf88af79c85f56c4293ece98cd012",
+        "provenance": {
+          "actorInvocationRef": "actor-invocation://abiogenesis/d852b4943c6897b374da6b366034c32baf9b3b761fdc835c7f7e9303d9f2b40b",
+          "cCallRef": "c-call:sha256:eb91f1b4c385a797dfc23f34f8b7888e2d3437c9eeff6b1fd8682f118fe0006f",
+          "executionAuthorityDigest": "sha256:64fbb739eed2e03afa14542335b425aeaa25634589ea6aefe80214b602a3101f",
+          "executionAuthorityRef": "leaf-execution-authority://abiogenesis/64fbb739eed2e03afa14542335b425aeaa25634589ea6aefe80214b602a3101f",
+          "promptDigest": "sha256:17103cf6d8c1a2d525daa314c4ac879fc6bfff115429309ab98c0b3a6d6d94c1",
+          "transportBindingDigest": "sha256:4943a4748e29549b727a726ed035792a77d5c6b58d066ffa4b54273a67e3f922",
+          "transportBindingRef": "transport-binding://abiogenesis/4943a4748e29549b727a726ed035792a77d5c6b58d066ffa4b54273a67e3f922",
+          "transportDigest": "sha256:b7191046076657932e290724246763251229ba76e35e8388b724002ed22e024e"
+        },
+        "report": {
+          "gaps": [
+            "The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved."
+          ],
+          "summary": "fixture candidate staged"
+        },
+        "schemaVersion": "5.0.0",
+        "task": {
+          "capabilityGrant": {
+            "actorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+            "approvalDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "approvalRef": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "authorityBasisRef": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "capabilityDefinition": {
+              "capabilityDefinitionDigest": "sha256:5eab7e35a8fedff7dd4d264ae5580ad9cd8b69c9a7bf4b4e6433d85e5edb65f0",
+              "capabilityDefinitionRef": "capability-definition://abiogenesis/5eab7e35a8fedff7dd4d264ae5580ad9cd8b69c9a7bf4b4e6433d85e5edb65f0",
+              "capabilityId": "abg.capability.catalog.invoke-graph-function@5",
+              "graphDigest": "sha256:b531b033b3972dca048fdd1512b8e7de84e7e73f070da7bc5df1e1025913c1a8",
+              "graphId": "capability-definition-graph://abiogenesis/abg-5",
+              "graphVersion": "5.0.0"
+            },
+            "capabilityRef": "abg.capability.catalog.invoke-graph-function@5",
+            "definitionDigest": "sha256:6652d6863a66cf6934c907c20a02f1e2b45c44bf933ab902ec8c4ee7a223a8dc",
+            "definitionKey": {
+              "memberKey": "start",
+              "operationId": "abg.operation.run.invoke"
+            },
+            "definitionRef": "public-function://abiogenesis/run/invoke/start@5",
+            "grantDigest": "sha256:d31ba006282ec97664763bccaf8babc5c42745b11b18e89a293d45e3ea9dae75",
+            "grantRef": "capability-grant://abiogenesis/d31ba006282ec97664763bccaf8babc5c42745b11b18e89a293d45e3ea9dae75",
+            "kind": "capability_grant",
+            "operationContract": {
+              "contractCatalog": {
+                "catalogDigest": "sha256:829d23f6a4b93a021ec7c2c1544f29b798d3142f75fadee5a8ff8d3f3319e0e9",
+                "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+                "catalogVersion": "5.0.0",
+                "productContentDigest": "sha256:440444817bc0190a45a29c448fc607449e63e1491d8145320815ad7a2fa6ad27",
+                "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1"
+              },
+              "flatRow": {
+                "contractDigest": "sha256:5d17ade444768f2ee5b5226795bc4a33f1ebcb1c44894d63e9c99d978e41fbc7",
+                "contractId": "abg.operation.run.invoke",
+                "contractVersion": "5.0.0"
+              },
+              "nestedSelector": {
+                "definitionKey": null,
+                "definitionRef": null,
+                "selectorKind": "flat_contract",
+                "slot": null
+              }
+            },
+            "operationId": "abg.operation.run.invoke",
+            "policyDigest": "sha256:8e9812186cc73fba794407ed1d7c86e9e4a6c10635c4cba0bb5f050d5831e771",
+            "policyRef": "invocation-policy://abiogenesis/root/8e9812186cc73fba794407ed1d7c86e9e4a6c10635c4cba0bb5f050d5831e771",
+            "schemaVersion": "5.0.0",
+            "scopeDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+            "scopeRef": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7"
+          },
+          "checks": [],
+          "context": {
+            "entries": [
+              {
+                "byteLength": 335,
+                "bytes": "aW1wb3J0IHsgcmVhZEZpbGUgfSBmcm9tICdub2RlOmZzL3Byb21pc2VzJzsKCmNvbnN0IHZhbHVlID0gYXdhaXQgcmVhZEZpbGUobmV3IFVSTCgnLi92YWx1ZS50eHQnLCBpbXBvcnQubWV0YS51cmwpLCAndXRmOCcpOwppZiAodmFsdWUgPT09ICdmaXhlZFxuJykgewogIHByb2Nlc3Muc3Rkb3V0LndyaXRlKCdGSVhUVVJFX1ZBTFVFX0ZJWEVEXG4nKTsKfSBlbHNlIHsKICBwcm9jZXNzLnN0ZG91dC53cml0ZSgnRklYVFVSRV9WQUxVRV9CQUQgZXhwZWN0ZWQ9Zml4ZWQgYWN0dWFsPScgKyBKU09OLnN0cmluZ2lmeSh2YWx1ZSkgKyAnXG4nKTsKICBwcm9jZXNzLmV4aXRDb2RlID0gMTsKfQo=",
+                "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+                "encoding": "base64",
+                "fileIdentity": "16777231:469947492",
+                "relativePath": "fixture/checker.mjs",
+                "state": "file"
+              },
+              {
+                "byteLength": 634,
+                "bytes": "IyBNZWNoYW5pY2FsIHByb29mIGxpbWl0cwoKVGhlIGNvbXBvbmVudCBwcm9vZiByZXF1aXJlcyBhbiBhY3R1YWwgbmF0aXZlIENvbnN0cnVjdGlvbiBvYnNlcnZhdGlvbiwgYW4KYWN0dWFsIEMyIGV4aXQtMSBkaWFnbm9zdGljLCBhIG5hdGl2ZSByZXBhaXIgY29uZmluZWQgdG8gZml4dHVyZS92YWx1ZS50eHQsIGFuCmFjdHVhbCByZW1lYXN1cmVtZW50IHdpdGggZXhpdCAwLCBhbmQgY29uc2VydmF0aW9uIGFjcm9zcyBjbG9zZS9yZXN0YXJ0IGFuZApmcmVzaCBvd25lciByZWFkcy4gVGhlIGZhaWxlZCBhbmQgcGFzc2luZyBjb21tYW5kIGlkcyBhbmQgY2hlY2tlciBieXRlcyBtdXN0CnJlbWFpbiBpZGVudGljYWwuIEVhY2ggbWVhc3VyZW1lbnQga2VlcHMgaXRzIG93biBwcm9kdWNlciBhbmQgY3VycmVudCBpbnB1dHMuCgpUaGVzZSBvYnNlcnZhdGlvbnMgZG8gbm90IGVzdGFibGlzaCBpbmRlcGVuZGVudCBVQVQsIENsYXVkZSBiZWhhdmlvciwKRGF0YSBNYXBwZXIgY29ycmVjdG5lc3MsIGxhcmdlLWhpc3RvcnkgY2FwYWNpdHksIG9yIHJlbGVhc2UgcXVhbGlmaWNhdGlvbi4KQW4gZXhwbGljaXQgc2VsZWN0b3IgZ2FwIGxlYXZlcyB0aGUgb3JpZ2luYWwgc3VwcG9ydCBvYmxpZ2F0aW9uIHVucmVzb2x2ZWQuCg==",
+                "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+                "encoding": "base64",
+                "fileIdentity": "16777231:469947493",
+                "relativePath": "fixture/rubric.md",
+                "state": "file"
+              },
+              {
+                "byteLength": 1107,
+                "bytes": "IyBNZWNoYW5pY2FsIGxpZmVjeWNsZSBzcGVjaW1lbgoKVGhpcyBpcyBhIHNjcmF0Y2ggY29tcG9uZW50IHdvcmtsb2FkLiBJdCBkb2VzIG5vdCBpbXBsZW1lbnQgRGF0YSBNYXBwZXIgb3IKZXN0YWJsaXNoIGFwcGxpY2F0aW9uIGFjY2VwdGFuY2UuCgpUaGUgb25seSB3cml0YWJsZSBjYW5kaWRhdGUgaXMgZml4dHVyZS92YWx1ZS50eHQuIEZpcnN0LCB0aGUgbmF0aXZlCkNvbnN0cnVjdGlvbiBhY3RvciBkZWxpYmVyYXRlbHkgd3JpdGVzIHRoZSBleGFjdCBieXRlcyAiYnJva2VuXG4iLiBUaGUKaW5kZXBlbmRlbnQsIHVuY2hhbmdlZCBmaXh0dXJlL2NoZWNrZXIubWpzIG11c3QgZXhlY3V0ZSB0aHJvdWdoIHRoZSBleGlzdGluZwpuYXRpdmUgQzIgb3duZXIgYW5kIHJlcG9ydCBGSVhUVVJFX1ZBTFVFX0JBRCB3aXRoIGV4aXQgc3RhdHVzIDEuCgpBZnRlciB0aGF0IGFjdHVhbCBkaWFnbm9zdGljIGhhcyBiZWVuIG9ic2VydmVkLCB0aGUgc2VsZWN0ZWQgbmF0aXZlIHJlcGFpcgpjaGFuZ2VzIG9ubHkgZml4dHVyZS92YWx1ZS50eHQgdG8gdGhlIGV4YWN0IGJ5dGVzICJmaXhlZFxuIi4gQzIgdGhlbiBleGVjdXRlcwp0aGUgc2FtZSBjb21tYW5kIGFuZCByZXBvcnRzIEZJWFRVUkVfVkFMVUVfRklYRUQgd2l0aCBleGl0IHN0YXR1cyAwLiBQcmVzZXJ2ZQpib3RoIG1lYXN1cmVtZW50cywgdGhlIG9yaWdpbmFsIHRhc2ssIHRoZSBmYWlsZWQgcHJvZHVjZXIgYW5kIGl0cyBsaXRlcmFsCmRpYWdub3N0aWMgY2l0YXRpb24uIE5ldmVyIGVkaXQgdGhpcyBzb3VyY2UsIHRoZSBjaGVja2VyIG9yIHRoZSBydWJyaWMuCgpUaGUgZGV0ZXJtaW5pc3RpYyByZXNwb25kZXIgc3VwcGxpZXMgZml4dHVyZSBkZWNpc2lvbnMsIG5vdCBzZW1hbnRpYwphc3Nlc3NtZW50LiBUaGUgc3VwcG9ydCBvYmxpZ2F0aW9uIHJlbWFpbnMgdW5yZXNvbHZlZCwgdGVybWluYWwgc3RheXMgZmFsc2UsCmFuZCB0aGUgc2VsZWN0b3IgZXhwbGljaXRseSBnYXBzLiBBIGxhdGVyIHN1cHBvcnRlZCBpbnZvY2F0aW9uIG11c3QgcmV1c2UgdGhlCnJlY29yZGVkIHdvcmsgYW5kIGFjdHVhbCBmaWxlcyB3aXRob3V0IHJlcnVubmluZyB0aGVpciBhdXRob3JzIG9yIG1lYXN1cmVtZW50cy4K",
+                "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+                "encoding": "base64",
+                "fileIdentity": "16777231:469947491",
+                "relativePath": "fixture/source.md",
+                "state": "file"
+              },
+              {
+                "relativePath": "fixture/value.txt",
+                "state": "absent"
+              }
+            ],
+            "kind": "worksite_context_observation",
+            "maxBytes": 262144,
+            "maxFiles": 32,
+            "observationDigest": "sha256:e42de1011daae37ad5f9be1ddc5e06a3db2b9833d840ca4b48a9880da2defcd0",
+            "observationRef": "worksite-context-observation://abiogenesis/e42de1011daae37ad5f9be1ddc5e06a3db2b9833d840ca4b48a9880da2defcd0",
+            "readRoots": [
+              "fixture/source.md",
+              "fixture/checker.mjs",
+              "fixture/rubric.md",
+              "fixture/value.txt"
+            ],
+            "schemaVersion": "5.0.0",
+            "workspaceAuthorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "workspaceAuthorityBasisRef": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "workspaceBindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+            "workspaceBindingIdentity": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7"
+          },
+          "instructions": [
+            "Implement only the selected bounded change. Preserve original sources, valid supplied assets and declared effect scope. A report or self-run check is not independent acceptance.",
+            "Read source, checker and rubric. Only the native Construction actor may write fixture/value.txt. First stage the deliberate defect; repair only after the actual C2 diagnostic. Do not execute the checker yourself or alter any immutable fixture file.",
+            "Conserved original task: # Mechanical lifecycle specimen\n\nThis is a scratch component workload. It does not implement Data Mapper or\nestablish application acceptance.\n\nThe only writable candidate is fixture/value.txt. First, the native\nConstruction actor deliberately writes the exact bytes \"broken\\n\". The\nindependent, unchanged fixture/checker.mjs must execute through the existing\nnative C2 owner and report FIXTURE_VALUE_BAD with exit status 1.\n\nAfter that actual diagnostic has been observed, the selected native repair\nchanges only fixture/value.txt to the exact bytes \"fixed\\n\". C2 then executes\nthe same command and reports FIXTURE_VALUE_FIXED with exit status 0. Preserve\nboth measurements, the original task, the failed producer and its literal\ndiagnostic citation. Never edit this source, the checker or the rubric.\n\nThe deterministic responder supplies fixture decisions, not semantic\nassessment. The support obligation remains unresolved, terminal stays false,\nand the selector explicitly gaps. A later supported invocation must reuse the\nrecorded work and actual files without rerunning their authors or measurements.\n",
+            "Unresolved parent outcomes: [\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"]",
+            "Actual admitted observations: []",
+            "This parent-context view retains admitted causal coordinates, command/report/predicate facts and bounded literal diagnostics. Complete raw stream and predicate bodies remain in the cited admitted Result; field paths are relative to its value and confer no additional access. Excerpts are exact byte-range diagnostics, not interpreted verdicts. Reacquire all mandatory selected source and assessment material through the declared reads.",
+            "Supplied purpose outcome (parent context): Perform only the selected mechanical fixture contribution; keep the parent obligation unresolved.",
+            "Current admitted selection for this work unit: {\"resultRef\":\"result://abiogenesis/2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\",\"resultDigest\":\"sha256:2b6c079b8a7a0f2ddf18dd6868e9f3d2cba465c58584b446dba6f036c05921b9\",\"interpretation\":\"Controlled mechanical fixture; runtime facts remain installed-owner results, and the original support obligation remains unresolved.\",\"contributions\":[{\"contribution\":\"MECHANICAL_STAGE_BROKEN_VALUE: write only fixture/value.txt with the exact bytes broken followed by one newline.\",\"dependsOn\":[],\"evidenceRefs\":[],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/construction@5\",\"reason\":\"Stage the explicitly declared controlled defect.\",\"supportRefs\":[\"support://abi5-tests/library-joint-proof-237/mechanical-lifecycle\"]}],\"nextReason\":\"Stage the explicitly declared controlled defect.\",\"nextEvidenceRefs\":[]}",
+            "This native task's outcome is the selected bounded contribution. The supplied purpose outcome, conserved original task and unresolved outcomes are parent context. Work within the supplied order and write roots; return a truthful partial report with remaining gaps for parent reassessment when this work unit does not complete the parent obligations."
+          ],
+          "kind": "native_workspace_work_task",
+          "outcome": "MECHANICAL_STAGE_BROKEN_VALUE: write only fixture/value.txt with the exact bytes broken followed by one newline.",
+          "readFirst": [
+            "fixture/source.md",
+            "fixture/checker.mjs",
+            "fixture/rubric.md"
+          ],
+          "schemaVersion": "5.0.0",
+          "workspaceAuthorityBasis": {
+            "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "authorityBasisId": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "authorityManifestDigest": "sha256:990ed6a2f1597122aab174fc1141c17ccb221ba31e0baf37103ed6773b69ea23",
+            "authorityManifestRef": "authority://abi5-tests/sandbox-uat/library-joint-proof-237/workspace",
+            "authorityMode": "trusted_developer",
+            "authorizedActorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+            "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite",
+            "kind": "workspace_authority_basis",
+            "schemaVersion": "5.0.0",
+            "workspaceId": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37"
+          },
+          "workspaceBinding": {
+            "admissionEventRef": "event://abiogenesis/94ddd0f9c6140d4d037fa101ca04039f9741498dae647e29b74330d7e346d7f8",
+            "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "authorityBasisId": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+            "authorizedActorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+            "bindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+            "bindingId": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+            "kind": "workspace_binding",
+            "lockDigest": "sha256:75d23cc3cf2494168ac5ad2a4a0c827201436cd63f14b317e4c0050bdc509312",
+            "lockId": "product-lock://abiogenesis/75d23cc3cf2494168ac5ad2a4a0c827201436cd63f14b317e4c0050bdc509312",
+            "productSetDigest": "sha256:bcf2e99b12b8b5b8bddd00b3590a626863a0e626dc2d9049002f95ee67f0377f",
+            "productSetId": "product-set://abiogenesis/bcf2e99b12b8b5b8bddd00b3590a626863a0e626dc2d9049002f95ee67f0377f",
+            "roots": {
+              "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives",
+              "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events",
+              "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+              "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/projections",
+              "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/runtime",
+              "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg"
+            },
+            "schemaVersion": "5.0.0",
+            "workspaceId": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37"
+          },
+          "writeRoots": [
+            "fixture/value.txt"
+          ]
+        }
+      },
+      "valueDigest": "sha256:126fa5ea5c177934714e5f39e62bf7f64b748b4fda1486dd4f4d1e449476e4f4",
+      "valueKind": "native_workspace_work_observation"
+    },
+    "payloadDigest": "sha256:2d537303c094408a07472099767de5e32ecd8be5015d32d8bdaece5b913fa58a",
+    "runId": "run://abiogenesis/ddfa825f54cb3ed540dc6da12d37b86cb11aff0d3fc03beaf6e45843d72c319f",
+    "scopeClass": "run",
+    "workflowVersion": "5.0.0"
+  }
+}

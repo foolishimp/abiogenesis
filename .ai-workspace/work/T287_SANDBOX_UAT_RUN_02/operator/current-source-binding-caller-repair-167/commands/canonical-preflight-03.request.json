@@ -1,0 +1,17 @@
+{
+  "label": "canonical-preflight-03",
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/preflight.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167",
+  "started": "2026-10-09T05:07:07.034158+00:00",
+  "RootSelection": "167 second test-only correction: canonical ProductEnvironmentPort.resolve, same bounded preflight; one affected rerun",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/preflight.mjs",
+    "sha256": "b72708c6d8eff92bbcc40f43c3073711269fcc0e430b4362855b12262dbf8696",
+    "byteCount": 8458
+  },
+  "NODE_OPTIONS": "unset",
+  "effects": "Only167 receipts; no verifier/resource/Public transport/install/app effects"
+}

@@ -1,0 +1,33 @@
+✔ recursive fixture declares a valid bounded Program with one native selector (8.458334ms)
+✔ receiver counterevidence and unresolved task survive child returns until parent evaluation (1.18975ms)
+(node:70317) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (31071.436917ms)
+﹣ one installed Public start revises native choice from child evidence and reevaluates its parent (0.671458ms) # SKIP
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 31410.204292
+
+✖ failing tests:
+
+test at test_env/tests/t287-recursive-failure-reuse-control.test.mjs:97:1
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (31071.436917ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/tests/t287-recursive-failure-reuse-control.test.mjs:150:132)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

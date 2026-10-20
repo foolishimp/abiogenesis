@@ -231,7 +231,7 @@ test("Design preparation refuses missing binding refs before transport while Req
     "./execution_basis.js": { constructNativeInstructionAssemblyBasis: value => value },
     "./semantic_job.js": { authenticateSemanticJobBasis: () => owner,
       semanticJobInputMatchesBasis: (_, value) => value === selected && product.isSemanticJobEnvelope(value), semanticJobContextCurrent: () => true },
-    "./stdo_environment.js": { projectRunEnvironmentRoleEvidence: () => null },
+    "./stdo_environment.js": { projectRunEnvironmentRoleEvidenceAtPrefix: () => null },
   });
   const expected = { kind: "native_instruction_assembly_refusal", cause: "unavailable_required_content", policy: stage.assembly.ruleRef, role: "author", unresolvedRefs: missing };
   assert.equal(hash(assembly.evaluateNativeInstructionAssembly(basis, input)), hash(expected));

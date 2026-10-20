@@ -1,0 +1,94 @@
+{
+  "status": "CLOSED_FIRST_ACTUAL_PREFLIGHT_REFUSAL",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_12",
+  "workResult": "NO_GO_EXTERNAL_COPY_ROLE_EQUALITY_PREFLIGHT",
+  "frontier": "cheap selected-cut/current-supplier tuple correspondence before materialization",
+  "owner": "external prepare-current-delta.py:28",
+  "predicate": "For each field, selected source-cut replacement == current manifest == projected Source origin == derived supplier view",
+  "firstField": "copyBuildAuthor",
+  "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+  "actualSelectedCutValue": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+  "actualCurrentSupplierValue": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+  "projectedOriginValue": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+  "derivedSupplierValue": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+  "actualSelectedCutRow": {
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/controls/source-cut.json",
+      "bytes": 26506590,
+      "sha256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+      "mode": 420
+    },
+    "pointer": "/replacements/0",
+    "tuple": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sha256": "1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7",
+      "bytes": 275535,
+      "mode": 420,
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "originalSource": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "originalAuthorship": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "selectedRelation": "shared_functional_typed_evidence_join",
+      "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+      "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts"
+    }
+  },
+  "actualCurrentSupplierRow": {
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source-members.json",
+      "bytes": 25894743,
+      "sha256": "84bf29b7fdeec32449eca3b82b06522ab23f5f4ad2929b193a2722d0ae2132f8",
+      "mode": 420
+    },
+    "pointer": "/7",
+    "tuple": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sha256": "1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7",
+      "bytes": 275535,
+      "mode": 420,
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "originalSource": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "originalAuthorship": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "selectedRelation": "shared_functional_typed_evidence_join",
+      "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+      "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts"
+    }
+  },
+  "originalFlatViewsFaithfullyRetainTheirDistinctRoles": true,
+  "priorFieldsMatched": [
+    "path",
+    "origin",
+    "sha256",
+    "bytes",
+    "mode",
+    "sourceAuthor",
+    "originalSource",
+    "originalAuthorship",
+    "selectedRelation"
+  ],
+  "failingCommand": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/prepare-current-delta.py"
+  ],
+  "processExitCode": 1,
+  "execWallTimeSeconds": 0.059746166,
+  "actualStderr": "Traceback (most recent call last):\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/prepare-current-delta.py\", line 28, in <module>\n    for other in [sm,origins[m['path']],viewRows[m['path']]]:assert (field in m)==(field in other)and(field not in m or other[field]==m[field]),(m['path'],field)\nAssertionError: ('build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts', 'copyBuildAuthor')\n",
+  "selectedDeltaProducerCounts": {
+    "replacements": 7,
+    "additions": 2
+  },
+  "completeNineTupleJoin": "NOT_ESTABLISHED",
+  "notReached": [
+    "current-source-delta.json/identity/pin creation",
+    "cheap discriminator negatives",
+    "new complete inventory/protected/recipe-self binding",
+    "prepayload envelope measurement",
+    "complete published command Task payload",
+    "full resource/material/scope/embedded/reference owner/render payload"
+  ],
+  "noProductDefectInferred": true,
+  "noRepairOrRetry": true,
+  "ProductImports": 0,
+  "nativeCalls": 0
+}

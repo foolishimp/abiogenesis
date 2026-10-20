@@ -1,0 +1,7 @@
+{
+  "fourthCause": "Test retained historical carrier-kind expectation after selecting current openTraversalScope API",
+  "actualOwnedKind": "traversal_scope_open_admission",
+  "sourceOwner": "code/src/abg/open_call.ts:106",
+  "action": "Correct test assertion only; preserve failed cut and exact sole fixture pack",
+  "runtimeSourceCorrection": false
+}

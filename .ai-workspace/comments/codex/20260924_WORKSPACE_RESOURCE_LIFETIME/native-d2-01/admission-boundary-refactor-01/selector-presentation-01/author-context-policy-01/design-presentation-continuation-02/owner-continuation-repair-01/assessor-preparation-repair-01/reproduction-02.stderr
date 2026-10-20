@@ -1,0 +1,20 @@
+(node:96892) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+        0.44 real         0.45 user         0.06 sys
+           321748992  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               32219  page reclaims
+                  82  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                 728  involuntary context switches
+          8714658752  instructions retired
+          2246394039  cycles elapsed
+           304991992  peak memory footprint

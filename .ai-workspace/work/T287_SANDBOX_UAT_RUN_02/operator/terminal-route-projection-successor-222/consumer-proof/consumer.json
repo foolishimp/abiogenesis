@@ -1,0 +1,822 @@
+{
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+  "artifactRef": "abi5-tests-sandbox-uat-5.0.0.tgz",
+  "basis": {
+    "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+    "packageName": "@abi5-tests/sandbox-uat",
+    "packageVersion": "5.0.0",
+    "artifactDigest": "sha256:0b356a5a266a30c045f83e9347e2bf9f4e190f8547e94383daa7937e397259af",
+    "manifestDigest": "sha256:c86b01602c1b552a0c570843bf2b9eca9ebb7d19e5cd0b9089079b66dd3aeaff",
+    "productContentDigest": "sha256:13a02ec39d6effa84df833976a5b2d5f7d11d6b4f011f23437ade6bd0e905dcf"
+  },
+  "manifest": {
+    "kind": "abg_product_toolchain_manifest",
+    "schemaVersion": "5.0.0",
+    "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+    "packageName": "@abi5-tests/sandbox-uat",
+    "packageVersion": "5.0.0",
+    "productContentDigest": "sha256:13a02ec39d6effa84df833976a5b2d5f7d11d6b4f011f23437ade6bd0e905dcf",
+    "productRelativeLocators": [
+      "package.json",
+      "build/publication.json",
+      "build/semantics.mjs",
+      "contracts/assessment.schema.json",
+      "contracts/public-contract-catalog.schema.json"
+    ],
+    "descriptorRef": "descriptor://abi5-tests/sandbox-uat/consumer@5",
+    "publisherNamespace": "abi5-tests",
+    "contributionManifestRef": "contribution-manifest://abi5-tests/sandbox-uat/consumer@5",
+    "contributionManifestDigest": "sha256:d9ba489b32ec085ec2d46073801f5fbd6011e49e830b9fe730d9d941ab1572b1",
+    "contributionManifest": {
+      "kind": "product_contribution_manifest",
+      "schemaVersion": "5.0.0",
+      "contributionManifestRef": "contribution-manifest://abi5-tests/sandbox-uat/consumer@5",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "productVersion": "5.0.0",
+      "descriptorRef": "descriptor://abi5-tests/sandbox-uat/consumer@5",
+      "productContentDigest": "sha256:13a02ec39d6effa84df833976a5b2d5f7d11d6b4f011f23437ade6bd0e905dcf",
+      "publicContractCatalogId": "catalog://abi5-tests/sandbox-uat/public-contracts@5",
+      "publicContractCatalogDigest": "sha256:34d92e0cbbd64914e8d3cf5f14efb59e82077a6ecd6b3cb26d34037eecd40f29",
+      "capabilityDefinitionGraph": {
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0",
+        "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d"
+      },
+      "publicationBindings": [
+        {
+          "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+          "publicationDigest": "sha256:4cfb7d09ce5c8126e05e755c59d761b4a3e73fa6601e0f9977b40b3eca734dcf"
+        }
+      ],
+      "rows": [
+        {
+          "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+          "handle": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+          "kind": "graph_function",
+          "declarationOrContractRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+          "owningProductId": "product://abi5-tests/sandbox-uat@5.0.0",
+          "programMembershipRefs": [
+            "program://abi5-tests/sandbox-uat/lifecycle@5"
+          ],
+          "readinessPrerequisiteRefs": [
+            "program://abi5-tests/sandbox-uat/lifecycle@5"
+          ],
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "provenanceRef": "provenance://abi5-tests/sandbox-uat/external-test-artifact@5"
+        },
+        {
+          "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+          "handle": "graph-function://abi5-tests/sandbox-uat/executive@5",
+          "kind": "graph_function",
+          "declarationOrContractRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+          "owningProductId": "product://abi5-tests/sandbox-uat@5.0.0",
+          "programMembershipRefs": [
+            "program://abi5-tests/sandbox-uat/lifecycle@5"
+          ],
+          "readinessPrerequisiteRefs": [
+            "program://abi5-tests/sandbox-uat/lifecycle@5"
+          ],
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "provenanceRef": "provenance://abi5-tests/sandbox-uat/external-test-artifact@5"
+        }
+      ]
+    },
+    "compatibilityRefs": [
+      "compatibility://abiogenesis/major/5"
+    ],
+    "declaredDependencies": [
+      {
+        "kind": "requires",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "packageVersion": "5.0.0-rc.1",
+        "compatibilityRef": "compatibility://abiogenesis/major/5",
+        "requiredContractRefs": [
+          "abg.contract.gtl.root-declaration",
+          "abg.schema.public-operation-invocation"
+        ],
+        "requiredCapabilityRefs": [
+          "abg.capability.catalog.invoke-graph-function@5",
+          "abg.capability.gtl.declare@5"
+        ]
+      }
+    ],
+    "provenanceRef": "provenance://abi5-tests/sandbox-uat/external-test-artifact@5",
+    "declaredCapabilityRefs": [],
+    "capabilityDefinitionGraph": {
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0",
+      "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+      "assetLocator": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "mediaType": "application/json",
+        "schemaVersion": "5.0.0",
+        "contentDigest": "sha256:f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+      }
+    },
+    "publicContractCatalog": {
+      "schemaVersion": "5.0.0",
+      "catalogId": "catalog://abi5-tests/sandbox-uat/public-contracts@5",
+      "catalogVersion": "5.0.0",
+      "catalogSchemaPath": "contracts/public-contract-catalog.schema.json",
+      "catalogSchemaDigest": "sha256:61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "rows": [
+        {
+          "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+          "contractVersion": "5.0.0",
+          "contractDigest": "sha256:f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7",
+          "contractKind": "schema_asset",
+          "owningProduct": "product://abi5-tests/sandbox-uat@5.0.0",
+          "requirementAuthorityRefs": [
+            "requirement://abiogenesis/qual/018G"
+          ],
+          "capabilityIdentities": [],
+          "assetLocator": {
+            "path": "contracts/assessment.schema.json",
+            "mediaType": "application/schema+json",
+            "schemaVersion": "5.0.0",
+            "contentDigest": "sha256:f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7"
+          }
+        }
+      ],
+      "catalogDigest": "sha256:34d92e0cbbd64914e8d3cf5f14efb59e82077a6ecd6b3cb26d34037eecd40f29"
+    }
+  },
+  "publication": {
+    "artifactDigest": "sha256:0b356a5a266a30c045f83e9347e2bf9f4e190f8547e94383daa7937e397259af",
+    "closureContracts": [],
+    "contracts": [
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "sandbox_uat_assessment"
+      }
+    ],
+    "contributionManifestRef": "contribution-manifest://abi5-tests/sandbox-uat/consumer@5",
+    "contributions": [
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "handle": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abi5-tests/sandbox-uat@5.0.0",
+        "programMembershipRefs": [
+          "program://abi5-tests/sandbox-uat/lifecycle@5"
+        ],
+        "provenanceRefs": [
+          "sha256:0b356a5a266a30c045f83e9347e2bf9f4e190f8547e94383daa7937e397259af",
+          "sha256:c86b01602c1b552a0c570843bf2b9eca9ebb7d19e5cd0b9089079b66dd3aeaff"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abi5-tests/sandbox-uat/lifecycle@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+        "handle": "graph-function://abi5-tests/sandbox-uat/executive@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abi5-tests/sandbox-uat@5.0.0",
+        "programMembershipRefs": [
+          "program://abi5-tests/sandbox-uat/lifecycle@5"
+        ],
+        "provenanceRefs": [
+          "sha256:0b356a5a266a30c045f83e9347e2bf9f4e190f8547e94383daa7937e397259af",
+          "sha256:c86b01602c1b552a0c570843bf2b9eca9ebb7d19e5cd0b9089079b66dd3aeaff"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abi5-tests/sandbox-uat/lifecycle@5"
+        ]
+      }
+    ],
+    "descriptorRef": "descriptor://abi5-tests/sandbox-uat/consumer@5",
+    "evaluators": [],
+    "graphFunctions": [
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/default-library/closure-child@5",
+          "abg.closure_contract": "contract://abiogenesis/default-library/closure-child@5",
+          "abg.compute_regime": "mixed",
+          "abg.conditions_for_use": "Unresolved original outcomes remain; the permitted domain and framed context are explicit.",
+          "abg.evidence_contract": "contract://abiogenesis/default-library/evidence@5",
+          "abg.framed_synthesis_locus": "node://abiogenesis/default-library/select@5",
+          "abg.framed_synthesis_projection": "node://abiogenesis/default-library/project-choice@5",
+          "abg.functional_purpose": "Map the conserved problem to framed registered contributions, reasons, dependencies and gaps; explicitly choose the next member or gap and revise against actual observations.",
+          "abg.judgment_contract": "contract://abiogenesis/default-library/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/default-library/fold@5",
+          "abg.raw_result_contract": "contract://abiogenesis/default-library/native-response@5",
+          "abg.transition_contract": "contract://abiogenesis/default-library/transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/worksite/native-work/v1"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/default-library/choice@5",
+            "contract://abiogenesis/default-library/selection-task@5",
+            "contract://abiogenesis/default-library/state@5",
+            "contract://abiogenesis/default-library/synthesis@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/default-library/state@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/default-library/state@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/default-library/state@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+        "outputs": [
+          "contract://abiogenesis/default-library/state@5"
+        ],
+        "tags": [
+          "default-library",
+          "executive"
+        ],
+        "template": {
+          "applications": [
+            {
+              "applicationRef": "graph-function-application://abiogenesis/82d81452e4476d800f937ce6165eab4f867259987397720a3507f06bd99e197f",
+              "evaluatorRef": "evaluator://abiogenesis/default-library/project-choice@5",
+              "inputContractRef": "contract://abiogenesis/default-library/choice@5",
+              "kind": "graph_function_application",
+              "outputContractRef": "contract://abiogenesis/default-library/state@5",
+              "relationKind": "registered_selection",
+              "ruleRef": "rule://abiogenesis/default-library/project-choice@5",
+              "sourceProgramLocusRef": "node://abiogenesis/default-library/project-choice@5"
+            }
+          ],
+          "edges": [
+            {
+              "edgeRef": "graph-vector://abiogenesis/20293201baa3eb26d44de2d4025f793579c9ab0a769286691d9de52bb77798c7",
+              "fromNodeRef": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+              "toNodeRef": "node://abiogenesis/default-library/select@5"
+            },
+            {
+              "edgeRef": "graph-vector://abiogenesis/7d625200f74d544f7a62ef1475689422a6e9ae27cdff1bb82581f63bbc938d0c",
+              "fromNodeRef": "node://abiogenesis/default-library/select@5",
+              "toNodeRef": "node://abiogenesis/default-library/project-choice@5"
+            },
+            {
+              "edgeRef": "graph-vector://abiogenesis/efb885e5ec12d8520719df2b31fa6ef0c79a41c578470a25078af1c83150edb6",
+              "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+              "toNodeRef": "graph-function://abiogenesis/default-library/induction@5/invoke"
+            },
+            {
+              "edgeRef": "graph-vector://abiogenesis/3fe0734675550bfacb6aafa9fb2e14b70a0588fb735418a906908dd43de29bae",
+              "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+              "toNodeRef": "graph-function://abiogenesis/default-library/specification@5/invoke"
+            },
+            {
+              "edgeRef": "graph-vector://abiogenesis/5fa7984102d417e5aa93c17e55a36abcf19fb7c202778a6d547a4d65e3991773",
+              "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+              "toNodeRef": "graph-function://abiogenesis/default-library/design@5/invoke"
+            },
+            {
+              "edgeRef": "graph-vector://abiogenesis/c9bf41d3980bd3c2a9f8639633a7790463360b0eec092898ec46a152ba116343",
+              "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+              "toNodeRef": "graph-function://abiogenesis/default-library/construction@5/invoke"
+            },
+            {
+              "edgeRef": "graph-vector://abiogenesis/b1b6320ef60bc27ee057db35d252217bd9906e3c3a595120dbe182befc86c922",
+              "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+              "toNodeRef": "graph-function://abiogenesis/default-library/testing@5/invoke"
+            },
+            {
+              "edgeRef": "graph-vector://abiogenesis/2db7a75187ab2f58915ac75bde88cb1ece20d0b6ae85b8daa403548980a64a9a",
+              "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+              "toNodeRef": "graph-function://abiogenesis/default-library/uat@5/invoke"
+            }
+          ],
+          "graphRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5/graph",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+              "term": {
+                "armId": "graph-function://abiogenesis/default-library/executive-step@5/prepare/arm",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/default-library/prepare-selection@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/default-library/selection-task@5",
+                "programLocusRef": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+                  "implementationBindingRef": "binding://abiogenesis/default-library/prepare-selection@5",
+                  "inputContractRef": "contract://abiogenesis/default-library/state@5",
+                  "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/default-library/selection-task@5",
+                  "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "result",
+                "vectorIndex": 0
+              }
+            },
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/default-library/select@5",
+              "term": {
+                "armId": "node://abiogenesis/default-library/select@5/arm",
+                "compositionRef": null,
+                "fibre": "F_P",
+                "inputCarrierRef": "contract://abiogenesis/default-library/selection-task@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/default-library/select@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/default-library/synthesis@5",
+                "programLocusRef": "node://abiogenesis/default-library/select@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+                  "implementationBindingRef": "binding://abiogenesis/default-library/select@5",
+                  "inputContractRef": "contract://abiogenesis/default-library/selection-task@5",
+                  "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/default-library/synthesis@5",
+                  "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "evaluate",
+                "vectorIndex": 0
+              }
+            },
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/default-library/project-choice@5",
+              "term": {
+                "armId": "node://abiogenesis/default-library/project-choice@5/arm",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/default-library/synthesis@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/default-library/project-choice@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/default-library/choice@5",
+                "programLocusRef": "node://abiogenesis/default-library/project-choice@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+                  "implementationBindingRef": "binding://abiogenesis/default-library/project-choice@5",
+                  "inputContractRef": "contract://abiogenesis/default-library/synthesis@5",
+                  "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/default-library/choice@5",
+                  "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "evaluate",
+                "vectorIndex": 0
+              }
+            },
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "graph-function://abiogenesis/default-library/induction@5/invoke",
+              "term": {
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/induction@5",
+                "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+              }
+            },
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "graph-function://abiogenesis/default-library/specification@5/invoke",
+              "term": {
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+                "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+              }
+            },
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "graph-function://abiogenesis/default-library/design@5/invoke",
+              "term": {
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+                "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+              }
+            },
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "graph-function://abiogenesis/default-library/construction@5/invoke",
+              "term": {
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+              }
+            },
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "graph-function://abiogenesis/default-library/testing@5/invoke",
+              "term": {
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+                "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+              }
+            },
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "graph-function://abiogenesis/default-library/uat@5/invoke",
+              "term": {
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+                "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+              }
+            }
+          ],
+          "startNodeRef": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+          "terminalNodeRefs": [
+            "graph-function://abiogenesis/default-library/induction@5/invoke",
+            "graph-function://abiogenesis/default-library/specification@5/invoke",
+            "graph-function://abiogenesis/default-library/design@5/invoke",
+            "graph-function://abiogenesis/default-library/construction@5/invoke",
+            "graph-function://abiogenesis/default-library/testing@5/invoke",
+            "graph-function://abiogenesis/default-library/uat@5/invoke"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/default-library/closure-child@5",
+          "abg.closure_contract": "contract://abiogenesis/default-library/closure-run@5",
+          "abg.compute_regime": "mixed",
+          "abg.conditions_for_use": "A complete original task, criterion/authority basis and bounded permitted library are declared.",
+          "abg.evidence_contract": "contract://abiogenesis/default-library/evidence@5",
+          "abg.functional_purpose": "Preserve original outcomes through bounded declared recursion; reevaluate the current independent verdict before parent closure.",
+          "abg.judgment_contract": "contract://abiogenesis/default-library/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/default-library/evaluate-parent@5",
+          "abg.raw_result_contract": "contract://abi5-tests/sandbox-uat/assessment@5",
+          "abg.supported_fulfillment_profile": "policy://abiogenesis/default-library/admitted-fulfillment@5",
+          "abg.transition_contract": "contract://abiogenesis/default-library/transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/worksite/native-work/v1"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/default-library/choice@5",
+            "contract://abiogenesis/default-library/selection-task@5",
+            "contract://abiogenesis/default-library/state@5",
+            "contract://abiogenesis/default-library/synthesis@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/default-library/state@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/default-library/state@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/default-library/state@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abi5-tests/sandbox-uat/executive@5",
+        "outputs": [
+          "contract://abiogenesis/default-library/state@5"
+        ],
+        "tags": [
+          "default-library",
+          "executive"
+        ],
+        "template": {
+          "applications": [
+            {
+              "applicationRef": "graph-function-application://abiogenesis/0a580ed5b73d8c070b800b877ca8b4c918b610b39b1316db154b20412742a3b4",
+              "bound": 1000,
+              "foldback": {
+                "binding": "$",
+                "mode": "rebind",
+                "requiresParentEvaluation": true
+              },
+              "foldbackRef": "foldback://abiogenesis/e7df59cd5dc25a9252febf61e03e386cd22158dca44e9380fab9c984465b9a17",
+              "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+              "inputContractRef": "contract://abiogenesis/default-library/state@5",
+              "kind": "graph_function_application",
+              "outputContractRef": "contract://abiogenesis/default-library/state@5",
+              "relationKind": "recurse",
+              "terminationEvaluatorRefs": [
+                "evaluator://abiogenesis/default-library/parent@5"
+              ],
+              "terminationFieldRef": "$.terminal",
+              "terminationRuleRef": "rule://abiogenesis/default-library/parent@5"
+            }
+          ],
+          "edges": [],
+          "graphRef": "graph-function://abi5-tests/sandbox-uat/executive@5/graph",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/default-library/parent@5",
+              "term": {
+                "armId": "node://abiogenesis/default-library/parent@5/arm",
+                "compositionRef": "graph-function-application://abiogenesis/0a580ed5b73d8c070b800b877ca8b4c918b610b39b1316db154b20412742a3b4",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/default-library/evaluate-parent@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                "programLocusRef": "node://abiogenesis/default-library/parent@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+                  "implementationBindingRef": "binding://abiogenesis/default-library/evaluate-parent@5",
+                  "inputContractRef": "contract://abiogenesis/default-library/state@5",
+                  "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/default-library/state@5",
+                  "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "termination",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/default-library/parent@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/default-library/parent@5"
+          ]
+        },
+        "version": "5.0.0"
+      }
+    ],
+    "implementationBindings": [],
+    "kind": "module_publication",
+    "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+    "moduleVersion": "5.0.0",
+    "owningProductId": "product://abi5-tests/sandbox-uat@5.0.0",
+    "productContentDigest": "sha256:13a02ec39d6effa84df833976a5b2d5f7d11d6b4f011f23437ade6bd0e905dcf",
+    "productManifestDigest": "sha256:c86b01602c1b552a0c570843bf2b9eca9ebb7d19e5cd0b9089079b66dd3aeaff",
+    "productSemanticsBinding": {
+      "bindingRef": "semantics://abi5-tests/sandbox-uat/consumer@5",
+      "kind": "product_semantics_binding",
+      "modulePath": "build/semantics.mjs",
+      "namedSymbol": "SEMANTICS",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "packageVersion": "5.0.0"
+    },
+    "programs": [
+      {
+        "callableMembership": [
+          "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+          "graph-function://abi5-tests/sandbox-uat/executive@5",
+          "graph-function://abiogenesis/default-library/construction@5",
+          "graph-function://abiogenesis/default-library/design@5",
+          "graph-function://abiogenesis/default-library/induction@5",
+          "graph-function://abiogenesis/default-library/specification@5",
+          "graph-function://abiogenesis/default-library/testing@5",
+          "graph-function://abiogenesis/default-library/uat@5",
+          "graph-function://abiogenesis/worksite/command-execution@5",
+          "graph-function://abiogenesis/worksite/native-work/assessment@5",
+          "graph-function://abiogenesis/worksite/native-work@5"
+        ],
+        "closureContractRef": "contract://abiogenesis/default-library/closure-run@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+        "policies": {
+          "abg.compute_regime": "mixed",
+          "abg.default_start_ref": "start://abi5-tests/sandbox-uat/lifecycle@5",
+          "abg.root_mode": "direct",
+          "abg.run_environment": "environment://abi5-tests/sandbox-uat/default-library@5"
+        },
+        "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+            "startRef": "start://abi5-tests/sandbox-uat/lifecycle@5"
+          }
+        ],
+        "version": "5.0.0"
+      }
+    ],
+    "rules": [],
+    "runEnvironments": [
+      {
+        "accesses": [],
+        "contexts": [
+          {
+            "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+            "inventoryDigest": "sha256:4fcbd103b97cb2b9f3c78e06068d7a4ceb7d560c8c00b4c939396d7cd38c09a2",
+            "members": [
+              {
+                "byteCount": 133684,
+                "digest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md"
+              }
+            ],
+            "sourceLocator": "stdo://releases/v2.5.1-rc.1/"
+          }
+        ],
+        "corpusAccess": null,
+        "declarationRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+        "dependencies": [
+          {
+            "basisRef": "stdo://releases/v2.5.1-rc.1/",
+            "dependencyRef": "dependency://abiogenesis/default-library/stdo-frames@5",
+            "inventoryDigest": "sha256:da7f256cea723bf58cbfe14db52f83a8e4e12ef19044192e12fbb442414ee992",
+            "members": [
+              {
+                "digest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+                "target": null,
+                "type": "file"
+              }
+            ],
+            "recordDigest": "sha256:cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b",
+            "recordFormat": "member_inventory@1",
+            "recordRef": "record://abiogenesis/default-library/selected-stdo-member-inventory@5"
+          }
+        ],
+        "kind": "run_environment_declaration",
+        "roles": [
+          {
+            "accessRefs": [],
+            "contextPolicy": {
+              "policyRef": "policy://abiogenesis/default-library/selector/context@5",
+              "selectors": [
+                "full_source",
+                "active_binding_semantics"
+              ]
+            },
+            "frameRefs": [
+              "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+            ],
+            "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+            "policy": {
+              "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+              "policyRef": "policy://abiogenesis/default-library/selector@5",
+              "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+            },
+            "programLocusRef": "node://abiogenesis/default-library/select@5",
+            "role": "selector",
+            "sourceBindings": [
+              {
+                "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+                "endByte": 35546,
+                "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                "spanDigest": "sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485",
+                "startByte": 30700
+              }
+            ]
+          },
+          {
+            "accessRefs": [],
+            "contextPolicy": {
+              "policyRef": "policy://abiogenesis/default-library/constructor/context@5",
+              "selectors": [
+                "current_worksite",
+                "admitted_execution_evidence"
+              ]
+            },
+            "frameRefs": [
+              "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-generic-specialist-frame-set",
+              "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+            ],
+            "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+            "policy": {
+              "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+              "policyRef": "policy://abiogenesis/default-library/constructor@5",
+              "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+            },
+            "programLocusRef": "node://abiogenesis/worksite/native-work@5",
+            "role": "constructor",
+            "sourceBindings": [
+              {
+                "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+                "endByte": 38401,
+                "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                "spanDigest": "sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26",
+                "startByte": 35546
+              },
+              {
+                "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+                "endByte": 52663,
+                "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                "spanDigest": "sha256:a837522281bdfbaa533e8e9ab048b21c183465e8094a8b43c599be40e1586c2b",
+                "startByte": 42638
+              }
+            ]
+          },
+          {
+            "accessRefs": [],
+            "contextPolicy": {
+              "policyRef": "policy://abiogenesis/default-library/assessor/context@5",
+              "selectors": [
+                "current_worksite",
+                "admitted_execution_evidence"
+              ]
+            },
+            "frameRefs": [
+              "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+              "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame"
+            ],
+            "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+            "policy": {
+              "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+              "policyRef": "policy://abiogenesis/default-library/assessor@5",
+              "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+            },
+            "programLocusRef": "node://abiogenesis/worksite/native-work/assessment@5",
+            "role": "assessor",
+            "sourceBindings": [
+              {
+                "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+                "endByte": 42638,
+                "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                "spanDigest": "sha256:b5e9f2ac18af32a6586f860b9bfe23826d9b633ac844a880170652e35952791b",
+                "startByte": 38401
+              },
+              {
+                "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+                "endByte": 76400,
+                "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                "spanDigest": "sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b",
+                "startByte": 52663
+              }
+            ]
+          },
+          {
+            "accessRefs": [],
+            "contextPolicy": {
+              "policyRef": "policy://abiogenesis/default-library/command_executor/context@5",
+              "selectors": [
+                "current_worksite",
+                "admitted_execution_evidence"
+              ]
+            },
+            "frameRefs": [
+              "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+              "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+            ],
+            "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+            "policy": {
+              "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+              "policyRef": "policy://abiogenesis/default-library/command_executor@5",
+              "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+            },
+            "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+            "role": "command_executor",
+            "sourceBindings": [
+              {
+                "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+                "endByte": 38401,
+                "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                "spanDigest": "sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26",
+                "startByte": 35546
+              },
+              {
+                "contextRef": "context://abiogenesis/default-library/stdo-frames@5",
+                "endByte": 76400,
+                "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+                "spanDigest": "sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b",
+                "startByte": 52663
+              }
+            ]
+          }
+        ],
+        "schemaVersion": "5.0.0"
+      }
+    ]
+  },
+  "ids": {
+    "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+    "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+    "stepRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+    "startRef": "start://abi5-tests/sandbox-uat/lifecycle@5",
+    "environmentRef": "environment://abi5-tests/sandbox-uat/default-library@5",
+    "descriptorRef": "descriptor://abi5-tests/sandbox-uat/consumer@5",
+    "contributionManifestRef": "contribution-manifest://abi5-tests/sandbox-uat/consumer@5",
+    "semanticsRef": "semantics://abi5-tests/sandbox-uat/consumer@5"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "originalObserver": "close.py",
+  "failure": "AssertionError build/code/src/public/cli.js; checker assumed every installed mode equals archiveMode; no closure output had yet been written",
+  "readOnlyEvidence": "Both declared package.json bins cli.js and codex_cli.js have mode0755 in the new native install AND unchanged accepted C02 physical verification install; archive metadata is0644 for both. Every other installed mode equals archive metadata.",
+  "correction": "Compare file bytes/digests to exact archive and all installed modes to the accepted C02 physical install, rather than imposing an unowned archive-mode equality. Preserve original checker and reconstructable change.",
+  "nativeOrProductMutation": false,
+  "retry": "No native retry. Read-only proof observer corrected its comparison subject; original conformance fault remains sole native failure."
+}

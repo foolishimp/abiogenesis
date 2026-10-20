@@ -1,0 +1,78 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED",
+  "disposition": "SOURCE_PACKAGED_COMPONENT_READY_PENDING_INDEPENDENT_ASSURANCE",
+  "closedAtUTC": "2026-10-04T16:47:36.984464+00:00",
+  "SourceChanges": 2,
+  "unchangedSourcePins": 15,
+  "outsideSourceScopeEffects": 0,
+  "RuntimeEffects": 0,
+  "payloadRetries": 0,
+  "passedPhases": [
+    "preflight",
+    "compile",
+    "manifest",
+    "pack",
+    "extract",
+    "schema_preflight",
+    "focused"
+  ],
+  "focused": {
+    "passed": 12,
+    "failed": 0
+  },
+  "closedComposedTuples": 23,
+  "assembly": {
+    "optionalOwners": [
+      "semanticLifecycle",
+      "semanticJobLifecycle",
+      "requirementHandoffs",
+      "stdoRunEnvironments",
+      "runEnvironments"
+    ],
+    "guardNegatives": 11,
+    "originalRestorations": 11,
+    "assemblyPolicies": 2,
+    "assemblyLifecycleFamilies": 2,
+    "assemblyPositives": 4,
+    "assemblyNegatives": 16,
+    "assemblyRestorations": 16,
+    "suppliedLocalDeclarations": true,
+    "wholeProgramClaims": 0,
+    "RuntimeCalls": 0
+  },
+  "nativePublication": {
+    "catalogRows": 75,
+    "oldIdentities": 69,
+    "packageExports": 15,
+    "nativeDeclarationSources": 1466,
+    "ctsMtsDeclarations": 5,
+    "completeProducerPopulation": true,
+    "pairedRows": 4,
+    "corpusDigest": "sha256:328401a41f1c82793b2cefc47c0faa7aaca663dce0ee946fb675da90a5236c07",
+    "diagnosticValues": 19
+  },
+  "nativeCatalogRows": 50,
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10660984,
+    "sha256": "c00589d0073f6f118f7ab0209ae90d21ef53d5ec976845e1dc0e95918e2d925b",
+    "shasum": "aab608106a320fb92dc515cdee7f88941e9c155e",
+    "integrity": "sha512-GTYgQywdb2DzPTVO5NmozUYBDF3JE2EDs+fr3h6Lk58BKzdkPLp91hvhoYAC8oCIwSAKMUoDQ6clwUM2YDANLA=="
+  },
+  "productContentDigest": "sha256:433af1826cd65b03785a61f63b1111bd78978701d17f58445286b9e73f52e398",
+  "catalogDigest": "sha256:4c33dbab3f9fb3d67b1324939ebb60f4dcc7913109c883b10811d5769dd0add0",
+  "allKnownGroupsReapedAndAbsent": true,
+  "qualificationLimit": "Author Source/package component readiness only. No independent acceptance, installed Public execution or semantic qualification follows.",
+  "residuals": [
+    "four drift maps",
+    "adjunct/remaining mandatory Public content",
+    "installed G1/G3 F11-AF22-cold chain",
+    "genuine complete F11/seven defects",
+    "exact qualification and RC1"
+  ],
+  "nextAuthority": "Root conjoins independent frozen-cut assurance; Worker does not activate another actor.",
+  "stopWritesAfterFreeze": true
+}

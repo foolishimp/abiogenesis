@@ -1,0 +1,12 @@
+{
+  "status": "CLOSED",
+  "role": "Worker preparation only",
+  "operation": "T287_F11_C09_PROOF_CONSUMER_PREPARATION_10",
+  "workResult": "PREPARED_CONTINUATION_ONLY",
+  "closedAt": "2026-10-03T09:51:56.553529+00:00",
+  "ProductImports": 0,
+  "RunOrResourceEffects": 0,
+  "Runtime10Activated": false,
+  "writesAfterFreeze": "STOPPED",
+  "returnsTo": "Root Executive"
+}

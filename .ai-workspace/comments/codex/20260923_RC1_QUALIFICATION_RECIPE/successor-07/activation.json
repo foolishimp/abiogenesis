@@ -1,0 +1,17 @@
+{
+  "role": "Worker/Writer",
+  "model": "gpt-6-astra",
+  "reasoningEffort": "max",
+  "scope": "Same QUAL056 recipe rebound to compiled13; no recipe/test/native execution",
+  "sourceSubject": "923b510a82d9e3eda5b0ee3680b512b6bc152ba07dfc17e6d3aee62a0e51ef01",
+  "rootSourceAcceptance": {
+    "status": "ROOT_ACCEPTED_FROZEN_SOURCE_PACKAGE_NOT_YET_ACCEPTED",
+    "sourceSubject": "923b510a82d9e3eda5b0ee3680b512b6bc152ba07dfc17e6d3aee62a0e51ef01",
+    "independentReviewReturn": "10fd2d2fd1cf361b0c88d805558a3288de29539ec4d08b56d343d514b435ebaf",
+    "reviewerActual": "gpt-6-astra/xhigh",
+    "workerActual": "gpt-6-astra/max",
+    "meaning": "Root accepts source only; installed stopped-Run readback remains pending and no repeated stop is authorized."
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "effects": "successor-07 preparation only"
+}

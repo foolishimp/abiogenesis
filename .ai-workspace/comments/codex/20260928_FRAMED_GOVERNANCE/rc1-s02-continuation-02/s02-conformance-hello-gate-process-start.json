@@ -1,0 +1,14 @@
+{
+  "pid": 58139,
+  "processGroup": 58139,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-hello-gate.jsonl"
+  ],
+  "startedAt": "2026-10-01T15:59:01.075Z",
+  "mode": "s02",
+  "label": "conformance-hello-gate",
+  "capMs": 360000
+}

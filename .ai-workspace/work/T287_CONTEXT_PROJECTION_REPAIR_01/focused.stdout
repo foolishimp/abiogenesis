@@ -1,0 +1,15 @@
+(node:60575) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ reference-form attribution consumes canonical resolved provenance and preserves original judgment bytes (11.644583ms)
+✔ reference attribution retains missing crossed record scope and independence refusals (4.966458ms)
+✔ actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records (6.4155ms)
+ℹ {"scopedPromptBytes":56721,"singletonWholeMaterialPromptBytes":52071,"providedBodies":3,"assessedMembers":3,"attributionSpans":2,"retainedRecordBodies":7,"rawSchemaBytes":1972,"claim":"actual constructor/renderer sizes on finite synthetic scope; no token quota or semantic sufficiency inference"}
+✔ scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence (7.245291ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 406.059459

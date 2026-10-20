@@ -1,0 +1,181 @@
+--- pre/code/src/abg/native_worksite_execution.ts
++++ post/code/src/abg/native_worksite_execution.ts
+@@ -1,4 +1,4 @@
+-import { indexedRuntimeEvents } from "./event_prefix.js";
++import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, isValidationRuntimeEventPrefix, runtimeEventAtPrefix } from "./event_prefix.js";
+ import type { RuntimeEventPrefix } from "./event_prefix.js";
+ import { isDeepStrictEqual } from "node:util";
+ import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_reacquisition.js";
+@@ -9,38 +9,61 @@
+ import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, nativeWorkspacePathWithin } from "../product/native_workspace_work.js";
+ import { WORKSITE_COMMAND_EXECUTION_IDS as c2 } from "../product/worksite_command_execution_identity.js";
+ import { isWorksiteFileReplaceRequest } from "../product/worksite_effect.js";
+-import { runtimeEventBodiesAtPrefix, runtimePrefixComputation, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
++import { runtimePrefixComputation, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+ import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix, hasAdmittedGovernanceSourceUse } from "./invocation_execution_truth.js";
+ import type { ExecutionBasis } from "./execution_basis.js";
+ import type { DurablePrefixCoordinate, RuntimeEvent } from "./event_store.js";
+ const record = (v: unknown): v is Readonly<Record<string, JsonValue>> => typeof v === "object" && v !== null && !Array.isArray(v);
+ const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
+-const one = (events: readonly RuntimeEvent[], predicate: (e: RuntimeEvent) => boolean) => {
++const one = <T>(events: readonly T[], predicate: (e: T) => boolean) => {
+   const rows = events.filter(predicate); return rows.length === 1 ? rows[0]! : null;
+ };
++type EventEnvelope = Omit<RuntimeEvent, "payload">;
++const envelopes = (prefix: RuntimeEventPrefix, key: string): readonly EventEnvelope[] =>
++  isOwnedRuntimeEventPrefix(prefix) || isValidationRuntimeEventPrefix(prefix)
++    ? Array.from(prefix.selection.select(key).rows(), row => row.envelope) : indexedRuntimeEvents(prefix, key);
++const bodies = (prefix: RuntimeEventPrefix, key: string, kind: string): readonly RuntimeEvent[] =>
++  envelopes(prefix, key).filter(row => row.kind === kind).map(row => {
++    const value = runtimeEventAtPrefix(prefix, row.eventId);
++    if (value === undefined) throw new TypeError("selected native source event is absent");
++    return value;
++  });
+ 
+ const NATIVE_TASK_PROOF = Symbol("native_command_task_proof");
+ const NATIVE_SOURCE_PROOF = Symbol("native_command_source_proof");
+ type NativeSource = Readonly<{ sourceBasis: ExecutionBasis; sourceResult: RuntimeEvent;
+   sourceJudgment: RuntimeEvent; sourceClosedEvent: RuntimeEvent }>;
+-type NativeSourceFact = { source: NativeWorksiteCommandExecutionTask["sourceNativeWork"]; workspaceId: string;
+-  rows: readonly RuntimeEvent[]; value: NativeSource };
++type NativeTaskFact = Readonly<{ eventRef: string; payloadDigest: string; admissionOrdinal: number;
++  field: "rawInputValue" | "value"; taskDigest: string }>;
++type NativeSourceFact = Readonly<{ workspaceId: string; sourceDigest: string; membershipDigest: string;
++  sourceJudgmentRef: string; sourceClosedEventRef: string }>;
+ /** @internal Product validation is retained once for the owned immutable task. Copies
+  * must match the whole established value, never merely its claimed digest. */
+ export function admittedNativeTask(prefix: ValidatedRuntimeEventPrefix, task: unknown): NativeWorksiteCommandExecutionTask | null;
+ /** @internal */
+ export function admittedNativeTask(prefix: RuntimeEventPrefix, task: unknown): NativeWorksiteCommandExecutionTask | null;
+ export function admittedNativeTask(prefix: RuntimeEventPrefix, task: unknown): NativeWorksiteCommandExecutionTask | null {
+-  const tasks = runtimePrefixComputation(prefix, NATIVE_TASK_PROOF, () => new Map<string, NativeWorksiteCommandExecutionTask>());
+-  const known = record(task) && typeof task.taskRef === "string" ? tasks.get(task.taskRef) : undefined;
+-  if (known !== undefined && same(known, task)) return known;
+-  const owned = runtimeEventBodiesAtPrefix(prefix).flatMap(e => record(e.payload) ?
+-    [e.payload.rawInputValue, e.payload.value] : []).find(v => record(v) && record(task) && v.taskRef === task.taskRef && same(v, task));
+-  const selected = owned ?? task;
++  const tasks = isOwnedRuntimeEventPrefix(prefix)
++    ? runtimePrefixComputation(prefix, NATIVE_TASK_PROOF, () => new Map<string, NativeTaskFact>()) : null;
++  const owned = record(task) && typeof task.taskRef === "string"
++    ? indexedRuntimeEvents(prefix, "native-command-task:" + task.taskRef).flatMap(event => {
++      if (!record(event.payload)) return [];
++      const payload = event.payload;
++      return (["rawInputValue", "value"] as const).map(field => ({ event, field, value: payload[field] }));
++    })
++      .find(row => record(row.value) && row.value.taskRef === task.taskRef && same(row.value, task)) : undefined;
++  const selected = owned?.value ?? task;
++  const known = record(selected) && typeof selected.taskRef === "string" ? tasks?.get(selected.taskRef) : undefined;
++  if (owned !== undefined && known !== undefined && known.eventRef === owned.event.eventId &&
++      known.payloadDigest === owned.event.payloadDigest && known.admissionOrdinal === owned.event.admissionOrdinal &&
++      known.field === owned.field && record(selected) && selected.taskDigest === known.taskDigest)
++    return selected as unknown as NativeWorksiteCommandExecutionTask;
+   if (!isNativeWorksiteCommandExecutionTask(selected)) return null;
+-  // Retain only the actual event-owned immutable input/Result, never a
+-  // caller's shallow freeze or equal-looking digest. Raw copies still validate.
+-  if (owned !== undefined) tasks.set(selected.taskRef, selected);
++  // Only established physical-owner applicability coordinates survive. Raw
++  // copies still match the whole selected value and validate without a receipt.
++  if (owned !== undefined) tasks?.set(selected.taskRef, { eventRef: owned.event.eventId,
++    payloadDigest: owned.event.payloadDigest, admissionOrdinal: owned.event.admissionOrdinal,
++    field: owned.field, taskDigest: selected.taskDigest });
+   return selected;
+ }
+ /** Existing admitted producer relation, shared by C2 and semantic native-source
+@@ -57,47 +80,56 @@
+   const graphFunctionRef = source.task.assessment === undefined ? native.graphFunctionRef : native.assessmentGraphFunctionRef;
+   const implementationRef = native.implementationRef;
+   const implementationBindingRef = native.implementationBindingRef;
+-  const events = runtimeEventBodiesAtPrefix(prefix);
+-  const result = one(indexedRuntimeEvents(prefix, "related:" + source.provenance.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === source.provenance.cCallRef);
++  const result = one(bodies(prefix, "related:" + source.provenance.cCallRef, "c_call_result_admitted"), e => e.aggregateId === source.provenance.cCallRef);
+   if (result === null || typeof result.basisId !== "string" || !record(result.payload) ||
+     result.graphFunctionRef !== graphFunctionRef || result.payload.contractRef !== native.observationContractRef ||
+     result.payload.resultClass !== "success" || !same(result.payload.value, source) ||
+     result.payload.valueDigest !== sha256Canonical(source as unknown as JsonValue) || !Array.isArray(result.payload.evidenceRefs)) return null;
+-  const facts = runtimePrefixComputation(prefix, NATIVE_SOURCE_PROOF, () => new Map<string, NativeSourceFact>());
++  const facts = isOwnedRuntimeEventPrefix(prefix)
++    ? runtimePrefixComputation(prefix, NATIVE_SOURCE_PROOF, () => new Map<string, NativeSourceFact>()) : null;
+   // Immutable producer facts may survive unrelated append activity. Any change
+   // in this producer's admitted evidence/closure membership forces derivation.
+-  const rows = events.filter(e => e.aggregateId === result.aggregateId || e.basisId === result.basisId);
+-  const known = facts.get(result.eventId);
+-  if (known !== undefined && known.workspaceId === source.task.workspaceAuthorityBasis.workspaceId && same(known.source, source) &&
+-      rows.length === known.rows.length && rows.every((e, i) => e === known.rows[i]))
+-    return known.value;
++  const membership = new Map<string, EventEnvelope>();
++  for (const row of [...envelopes(prefix, "related:" + result.aggregateId), ...envelopes(prefix, "basis:" + result.basisId)])
++    if (row.aggregateId === result.aggregateId || row.basisId === result.basisId) membership.set(row.eventId, row);
++  const membershipDigest = sha256Canonical([...membership.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal)
++    .map(row => ({ eventRef: row.eventId, payloadDigest: row.payloadDigest, admissionOrdinal: row.admissionOrdinal })));
++  const known = facts?.get(result.eventId);
+   const payload = result.payload;
+   const basis = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
+   if (basis === null || basis.graphFunctionRef !== graphFunctionRef || !same(basis.rawInputValue, source.task) ||
+     basis.workspaceBindingId !== source.task.workspaceBinding.bindingId || basis.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest) return null;
++  if (known !== undefined && known.workspaceId === source.task.workspaceAuthorityBasis.workspaceId &&
++      known.sourceDigest === payload.valueDigest && known.membershipDigest === membershipDigest) {
++    const judgment = runtimeEventAtPrefix(prefix, known.sourceJudgmentRef), closed = runtimeEventAtPrefix(prefix, known.sourceClosedEventRef);
++    if (judgment !== undefined && closed !== undefined)
++      return Object.freeze({ sourceBasis: basis, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
++  }
+   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, basis.invocationAdmissionRef);
+   if (invocation === null || invocation.workspaceBindingId !== source.task.workspaceBinding.bindingId ||
+     invocation.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest || invocation.workspaceId !== source.task.workspaceAuthorityBasis.workspaceId) return null;
+-  const fibre = one(indexedRuntimeEvents(prefix, "related:" + result.aggregateId), e => e.kind === "c_call_fibre_selected" && e.aggregateId === result.aggregateId &&
++  const fibre = one(bodies(prefix, "related:" + result.aggregateId, "c_call_fibre_selected"), e => e.aggregateId === result.aggregateId &&
+     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
+     e.payload.regime === "F_P" && e.payload.implementationRef === implementationRef && e.payload.implementationBindingRef === implementationBindingRef);
+-  const evidence = one(indexedRuntimeEvents(prefix, "related:" + result.aggregateId), e => e.kind === "c_call_evidenced" && e.aggregateId === result.aggregateId &&
++  const evidence = one(bodies(prefix, "related:" + result.aggregateId, "c_call_evidenced"), e => e.aggregateId === result.aggregateId &&
+     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
+     (payload.evidenceRefs as readonly JsonValue[]).includes(e.payload.evidenceRef!) && e.payload.evidenceClass === "probabilistic_transport" &&
+     e.payload.implementationRef === implementationRef && e.payload.transportDigest === source.provenance.transportDigest &&
+     e.payload.outputDigest === payload.valueDigest);
+-  const judgment = one(indexedRuntimeEvents(prefix, "related:" + result.aggregateId), e => e.kind === "c_call_judged" && e.aggregateId === result.aggregateId &&
++  const judgment = one(bodies(prefix, "related:" + result.aggregateId, "c_call_judged"), e => e.aggregateId === result.aggregateId &&
+     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
+     e.payload.resultRef === payload.resultRef && e.payload.resultDigest === payload.resultDigest && e.payload.judgment === "advance" &&
+     e.admissionOrdinal > result.admissionOrdinal && e.causationEventRefs.includes(result.eventId));
+-  const closed = one(indexedRuntimeEvents(prefix, "basis:" + result.basisId), e => e.kind === "graph_call_closed" && e.basisId === result.basisId &&
++  const closed = one(bodies(prefix, "basis:" + result.basisId, "graph_call_closed"), e => e.basisId === result.basisId &&
+     e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
+     e.payload.closureContractRef === basis.closureContractRef);
+   if (fibre === null || evidence === null || judgment === null || closed === null ||
+     fibre.admissionOrdinal >= evidence.admissionOrdinal || evidence.admissionOrdinal >= result.admissionOrdinal ||
+     closed.admissionOrdinal <= judgment.admissionOrdinal) return null;
+   const value = Object.freeze({ sourceBasis: basis, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
+-  facts.set(result.eventId, { source: result.payload.value as unknown as NativeWorksiteCommandExecutionTask["sourceNativeWork"], workspaceId: source.task.workspaceAuthorityBasis.workspaceId, rows, value });
++  facts?.set(result.eventId, { workspaceId: source.task.workspaceAuthorityBasis.workspaceId,
++    sourceDigest: payload.valueDigest as string, membershipDigest,
++    sourceJudgmentRef: judgment.eventId, sourceClosedEventRef: closed.eventId });
+   return value;
+ }
+ 
+@@ -172,7 +204,6 @@
+   canonicalRoot: string, selectedPaths: readonly string[], readRoots?: readonly string[]): boolean;
+ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefix, afterOrdinal: number,
+   canonicalRoot: string, selectedPaths: readonly string[], readRoots?: readonly string[]): boolean {
+-  const events = runtimeEventBodiesAtPrefix(prefix);
+   const selected = new Set(selectedPaths);
+   const invalidates = (path: string) => readRoots === undefined ? selected.has(path)
+     : nativeWorkspacePathWithin(path, readRoots);
+--- pre/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
++++ post/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+@@ -125,6 +125,17 @@
+ invocation and Run, the actual declared C2 workflow call and original grant.
+ No fixed consumer preparation implementation or cumulative envelope is added.
+ Ordinary HoG input routing and graph membership still govern that call.
++
++The private native task/source projection retains successful applicability
++coordinates and producer-membership versions, not complete task, observation,
++Result, basis or history-row bodies. The existing named input/Result task
++selection and exact native call/basis indexes acquire the required complete
++values transiently. Authenticated owned prefixes may reuse unchanged predicate
++facts; raw or copied public values retain their full derivation. The unique
++native Result, F_P implementation/evidence, advancing judgment, source closure,
++invocation, workspace and binding joins above remain governing, as do later
++work and physical currentness below. No digest alone admits a task or source,
++and complete public projections and legacy records preserve their meaning.
+ 
+ Before C2 effects, recheck that no later admitted native mutation (including
+ observed failed-call residue) or C0 replacement invalidates a selected file.

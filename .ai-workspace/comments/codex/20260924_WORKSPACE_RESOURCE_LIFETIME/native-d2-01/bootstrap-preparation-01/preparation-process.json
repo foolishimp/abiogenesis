@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/prepare.mjs"
+  ],
+  "pid": 81461,
+  "elapsedSeconds": 337.56520341616124,
+  "exitCode": 1,
+  "peakRssBytes": 2790080512,
+  "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSha256": "b07b6296c82dada8862d0b09a4f78c597e6911f2430d1c2ad8666e2b3b42de3e",
+  "noActorsSelected": true
+}

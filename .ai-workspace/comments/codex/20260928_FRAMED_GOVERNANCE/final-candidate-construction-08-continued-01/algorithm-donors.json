@@ -1,0 +1,157 @@
+{
+  "operation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "actor": "/root/native_applicability_design",
+  "operationBasisSHA256": "55ddf5217581fc7a8fcee8ff171e315df9e62885d25c9deeab7a364bdfdde558",
+  "sevenCurrentControlsConsumeAuthenticatedData": [
+    "compare-wrapper.mjs",
+    "correspondence.py",
+    "execute.py",
+    "finalize.py",
+    "prepare.py",
+    "validate-installed-publications.mjs",
+    "verify-installed.mjs"
+  ],
+  "stoppedPredecessorPreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/stopped-preparation-01/freeze.json",
+    "bytes": 5435,
+    "sha256": "e30184d40b485707ba604b12cefd246a92fe8f0c196d8cbd8fc6387a1a97b828",
+    "mode": 420
+  },
+  "donor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls",
+  "earlierAcceptedAlgorithm": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-controls",
+  "records": [
+    {
+      "name": "compare-wrapper.mjs",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/compare-wrapper.mjs",
+      "donorBytes": 8860,
+      "donorSHA256": "f7b7aa366c3df1204dcdad8b5b995e4bc867988f7c3ffe4f6cdb14e68ceb7519",
+      "postimagePath": "final-controls/compare-wrapper.mjs",
+      "postimageBytes": 9485,
+      "postimageSHA256": "b5392b360ab57e3b7fd0e0648cc29f8b1f3930a5cbdb21a15cbf59dbd6ddd51f",
+      "mode": 420,
+      "adaptation": "authenticated Root operation/actor current control identity",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "correspondence.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/correspondence.py",
+      "donorBytes": 8067,
+      "donorSHA256": "3a2db9aacec05c214c2bf76fbf46b407be1c64eea938f1f33dd4b08d6e94b0ee",
+      "postimagePath": "final-controls/correspondence.py",
+      "postimageBytes": 8553,
+      "postimageSHA256": "5332a551278574aebfb5f630b71b5003296cc152843a243e0dd8e8effd44942c",
+      "mode": 420,
+      "adaptation": "authenticated Root operation/actor current control identity",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "execute.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/execute.py",
+      "donorBytes": 6182,
+      "donorSHA256": "3ba9b195da050ad57a7dc31c6ee942b4180df98a812f11e6e1b58486060b7959",
+      "postimagePath": "final-controls/execute.py",
+      "postimageBytes": 7227,
+      "postimageSHA256": "2e0a192eff0861a2ca9c12c44e000dc9a427ec2fac77909b2724459cfabd4981",
+      "mode": 420,
+      "adaptation": "authenticated Root operation/actor current control identity; owned wait4 per-child CPU/RSS/default heap/finite caps",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "finalize.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/finalize.py",
+      "donorBytes": 19914,
+      "donorSHA256": "9928a34c2bf60a7d4d6f5a18a90fffa31c1ab9531a619cbca372aa04e238a506",
+      "postimagePath": "final-controls/finalize.py",
+      "postimageBytes": 20353,
+      "postimageSHA256": "5e598834926bc45fd2e7812ba8379df52b51f2bd4d28cf17bba781436fcc9f59",
+      "mode": 420,
+      "adaptation": "authenticated Root operation/actor current control identity",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "prepare-wrapper-comparison.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/prepare-wrapper-comparison.py",
+      "donorBytes": 4463,
+      "donorSHA256": "ab2c67f28501889503ff1648d5843d5c8cd4d6fe04f881270a6b660d4bb55b78",
+      "postimagePath": "final-controls/prepare-wrapper-comparison.py",
+      "postimageBytes": 4463,
+      "postimageSHA256": "ab2c67f28501889503ff1648d5843d5c8cd4d6fe04f881270a6b660d4bb55b78",
+      "mode": 420,
+      "adaptation": "unchanged accepted donor algorithm",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "prepare.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/prepare.py",
+      "donorBytes": 11660,
+      "donorSHA256": "aee7d87ade60859aefd34587dadb1238ea3ba795bb9f44cca42d2d11c8209630",
+      "postimagePath": "final-controls/prepare.py",
+      "postimageBytes": 12032,
+      "postimageSHA256": "9d62093626320045b8e9e374273acb891d58c00031be489388f542911f3b0039",
+      "mode": 420,
+      "adaptation": "authenticated Root operation/actor current control identity",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "run-build.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/run-build.py",
+      "donorBytes": 1236,
+      "donorSHA256": "bdec6da11043bcafbc2511861977c39d260b157a07be9661f48edde199d3ccb8",
+      "postimagePath": "final-controls/run-build.py",
+      "postimageBytes": 1236,
+      "postimageSHA256": "bdec6da11043bcafbc2511861977c39d260b157a07be9661f48edde199d3ccb8",
+      "mode": 420,
+      "adaptation": "unchanged accepted donor algorithm",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "run-installed-readiness.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/run-installed-readiness.py",
+      "donorBytes": 1002,
+      "donorSHA256": "7d403f4d52d400eebecb74571405b3b2d3d3cd95b55a05cde42583cdc0ae80ae",
+      "postimagePath": "final-controls/run-installed-readiness.py",
+      "postimageBytes": 1002,
+      "postimageSHA256": "7d403f4d52d400eebecb74571405b3b2d3d3cd95b55a05cde42583cdc0ae80ae",
+      "mode": 420,
+      "adaptation": "unchanged accepted donor algorithm",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "run-package.py",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/run-package.py",
+      "donorBytes": 1203,
+      "donorSHA256": "6db24cceccb593640e4be4ad7312fc8ba54d8c7594568a556c330095c1313f0d",
+      "postimagePath": "final-controls/run-package.py",
+      "postimageBytes": 1203,
+      "postimageSHA256": "6db24cceccb593640e4be4ad7312fc8ba54d8c7594568a556c330095c1313f0d",
+      "mode": 420,
+      "adaptation": "unchanged accepted donor algorithm",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "validate-installed-publications.mjs",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/validate-installed-publications.mjs",
+      "donorBytes": 4520,
+      "donorSHA256": "1b19e3fd6bfe9b0b60fc58e3c6ee09d014e32a28b656520bbe357f7e89b8a0a7",
+      "postimagePath": "final-controls/validate-installed-publications.mjs",
+      "postimageBytes": 5145,
+      "postimageSHA256": "09afcda564b6c12a969de8a52a2c5020c858ebb97d477853f3543712bf839c3b",
+      "mode": 420,
+      "adaptation": "authenticated Root operation/actor current control identity",
+      "historicalSourceAndC07RoutesConserved": true
+    },
+    {
+      "name": "verify-installed.mjs",
+      "donorPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/verify-installed.mjs",
+      "donorBytes": 5911,
+      "donorSHA256": "5f96c8e763357289157911c185c57123145912e4d062dacd142552e15e3a9749",
+      "postimagePath": "final-controls/verify-installed.mjs",
+      "postimageBytes": 6536,
+      "postimageSHA256": "4da693fbb3760426ddb28eb1a307b4a4672dc5d1745062e4cae10c035583b39c",
+      "mode": 420,
+      "adaptation": "authenticated Root operation/actor current control identity",
+      "historicalSourceAndC07RoutesConserved": true
+    }
+  ],
+  "sourceAndSemanticChanges": 0
+}

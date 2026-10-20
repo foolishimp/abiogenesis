@@ -1,0 +1,164 @@
+{
+  "disposition": "PASS: maintenance31 portable close ->29-owned reopen -> published preserving Run stop -> actual Source41 -> normal29 close; STOPPED before installed31 preparation/native dispatch.",
+  "productFrame": {
+    "families": 15,
+    "ABI": "5.0",
+    "goal": "GOAL035",
+    "task": "T287",
+    "STDO": "2.5.1rc2",
+    "manifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  },
+  "acceptedRoutes": {
+    "Source": "225/226",
+    "publication": "227/228",
+    "actualHistoricalOwner": "29",
+    "maintenanceOwner": "31",
+    "RootDisposition": "Existing Root-approved operator stop, not fabricated runtime failure or Product extension."
+  },
+  "actual": {
+    "commandStarted": "2026-10-09T18:40:55.583Z",
+    "commandWallMs": 268028.287833,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "resourceEffects": "Only existing maintenance adoption/release and canonical29 preserving stop append",
+    "entryBytes": 2142089296,
+    "exitBytes": 2142096875,
+    "appendedBytes": 7579,
+    "maintenanceElapsedMs": 65087.497584,
+    "completeElapsedMs": 267908.7035,
+    "maximumCheckpointHeapUsedBytes": 3835782240,
+    "maximumCheckpointRSSBytes": 5618270208,
+    "processMaxRSSReportedKiB": 8026512,
+    "sampleLimits": "Checkpoint/ps samples and process resourceUsage value are not a proven allocator or dominant-retainer diagnosis; full UAT/capacity remains open."
+  },
+  "ownerSource": {
+    "basisRef": "invocation-source-result://abiogenesis/c0bce28a2a30c4926a0b8dc4aa5167361f2dc51e3e026bcafdd08c63abac041f",
+    "basisDigest": "sha256:c0bce28a2a30c4926a0b8dc4aa5167361f2dc51e3e026bcafdd08c63abac041f",
+    "publicAuthorityDigest": "sha256:c63b2883358c97e3226c9b43c6a276df042bd75d6c36575811cb888c121c6f95",
+    "sourceInvocationAdmissionRef": "invocation-admission://abiogenesis/18b98bfe8ecc11799655964a25fe76578012cee84313b892d968fcac77c1adae",
+    "sourceInvocationRef": "invocation://abiogenesis/685494c51b8bae554dffaed6b6feb209283f6a92fed563313204779d629fd0cd",
+    "sourceRunId": "run://abiogenesis/6ea5bad308dc191a2e84cb887b3555ce26c5d2f20e33ed6b142b6b505c83d43c",
+    "sourceGraphCallId": "graph-call://abiogenesis/d26459aceca20ded1cafb11934ddba18110608508c2c7ffdfe43fdb1bdb83228",
+    "sourceGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+    "sourceCCallRef": "c-call:sha256:18c000055a0fb652cacc54a0c4fbbb9ca1a4c0b1844678f487260e1491be40e6",
+    "sourceResultRef": "result://abiogenesis/a8746cb4c4fbbe7e6021dccd54f99bfad76bad50b4314ccbfb58f87da3db767c",
+    "sourceResultDigest": "sha256:a8746cb4c4fbbe7e6021dccd54f99bfad76bad50b4314ccbfb58f87da3db767c",
+    "sourceResultValueDigest": "sha256:6538aedc3658881219d484ab3c8dc67ea1ff2b7704a60f02634572ef6c2a7046",
+    "sourceResultAdmissionEventRef": "event://abiogenesis/ff6651b0c22c4861c0d2cce04b867fa2405a9b9de0af29b64ce26d52d738cf08",
+    "sourceResultJudgmentEventRef": "event://abiogenesis/2e7871bbf6d8519f6a5b41bdd2eccd563a9f6ba5c37650d06759618024b1a9df",
+    "observations": 41,
+    "terminal": false,
+    "inputDigest": "sha256:6538aedc3658881219d484ab3c8dc67ea1ff2b7704a60f02634572ef6c2a7046",
+    "originalDigest": "sha256:2ffa07372d1ca52fbd465a79a4394f58c9567a5cf8dff3e898f66335cb47ee83"
+  },
+  "actualLatestJudgmentAdmissionOrdinal": 271560,
+  "entryPhysicalDigest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277",
+  "exitPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 2142096875,
+    "prefixDigest": "sha256:32da61f7f6f3a98967e37eef6e29177ea5920b25d5f5e63ceac639fd7554b72a",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:00de3e0ae6264743944e8a01d1e76aefee75f77df46f6b06b22e2137e9e3d732"
+  },
+  "exitLogStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 2142096875,
+    "mtimeNs": "1791571498568642895"
+  },
+  "proofs": {
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/commands/recovery-stop-source.result.json",
+      "sha256": "c71ca2fcad858f2ebcc927e820cb80323b1f9134e68af37da63fdc0f1cc4cfec",
+      "byteCount": 14772
+    },
+    "recoveryReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/recovery-receipt.json",
+      "sha256": "1baa110c08dd81ac49160a3b5b27baf00ee1adb68c9a8239b3823915f412945e",
+      "byteCount": 5184
+    },
+    "portableRecoveryHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/recovered-close-handoff.json",
+      "sha256": "10a1f7047255f068840dd33f8d01763941287ed913e4fad55705e82b3325ce05",
+      "byteCount": 1472
+    },
+    "stopOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/stop-outcome.json",
+      "sha256": "7f30a5b8cee292c501e55c1765c51d85ad0044718706e7784c5f479e10621f78",
+      "byteCount": 3909
+    },
+    "source41": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/source41-discriminator.json",
+      "sha256": "ea8ce941dec70e9ad2c0e46366677a5ec5e59f82023472742e39c7f9d19cd855",
+      "byteCount": 2893
+    },
+    "finalResourceReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/final-resource-receipt.json",
+      "sha256": "1332d2bd0b4995a3ade3ba4d448e0970b3660ba9fb76de3d00cb80c2eb22f3e5",
+      "byteCount": 2488
+    },
+    "finalHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/final-close-handoff.json",
+      "sha256": "1d878dfda0fe80700f983e103eba64a449d0bcbc852372168335737bb68b5779",
+      "byteCount": 1472
+    },
+    "conservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/conservation.json",
+      "sha256": "81bb7f132cd91ddade6fce63000ca55fa0fc2a1a09258b964cd4c8fc1aabc561",
+      "byteCount": 16447
+    },
+    "caller": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/recover-stop-source.mjs",
+      "sha256": "c2f5cb41ce534c44df4b00b56433af1baae17b38c81d59fd5b0456acd97e761c",
+      "byteCount": 25620
+    }
+  },
+  "conservation": {
+    "physicalRows": 49,
+    "physicalBytesUnchanged": true,
+    "source41OriginalDigest": "sha256:2ffa07372d1ca52fbd465a79a4394f58c9567a5cf8dff3e898f66335cb47ee83",
+    "measuredAppHistory": {
+      "distinctDetections": 16,
+      "exactRestores": 16,
+      "laterGreenSuite": {
+        "tests": 44,
+        "pass": 44,
+        "fail": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "noNewRunModelAppSourceGit": true,
+    "oldCutsImmutable": true,
+    "oldCounter271559": "Preserved as an earlier documentary error; actualjudgment271560 used."
+  },
+  "preservedCallerFailures": [
+    "pre-owner-caller-construction-failure.json",
+    "first-cause.json",
+    "pre-maintenance-comparator-rca.json",
+    "pre-maintenance-failure-conservation.json",
+    "attempt-b/caller-correction.json",
+    "attempt-b/caller-close-signature-correction.json"
+  ],
+  "nextRemainingPredicates": [
+    "Independent actual229 stop/source/close proof and Root conjunction before effects.",
+    "Fresh authenticated31 native AND31-pinned consumer pair; actual31 nominal results before history.",
+    "Same original A/actor/physical root/Program and unchanged original criteria, Source41 producer/admission/result/value coordinates; never fallback34 or retag29.",
+    "Current31 native leaf resolution, authentic31 installs/lock/binding/catalog/View; historical29 declaration/resource stays separate.",
+    "New target-binding direct covers for every actually consumed source ExecutionBasis; derive coverage set canonically rather than reuse104 by count.",
+    "Actual installed31 current-source/current-use and canonical Product preparation + real covered-use callback/nativeResourceSchema, portable fresh finalclose and exact single-line SDK request.",
+    "Only separately authorized nativeCLI starts a fresh five-hour quality clock; existing limits and Rootcontrol3a58164b\u2026 retained.",
+    "Original full independent UAT, terminal and fresh Public reads remain OPEN; unit/mutation green does not confer fullpass."
+  ],
+  "stop": "No subsequent preparation, install, model/native launch, Source or app edits."
+}

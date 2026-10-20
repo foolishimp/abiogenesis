@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "actualRetainedParentInvocationRef": "invocation://abiogenesis/ff8cc2550f659f74a2e6c3546218b3015f5ec1e12b215c5ce66ff4fdf1eec9ed",
+  "route": {
+    "status": "stopped",
+    "disposition": "runtime_failed",
+    "publicOutcome": "result",
+    "exitCode": 0,
+    "run": {
+      "digest": "sha256:b9855e8ce73c18fc5f2d94bea62b101dcc076f850e1f9d7e7fbbf98e664a5924",
+      "ref": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271"
+    },
+    "terminalResult": null,
+    "stop": {
+      "digest": "sha256:a40295f946eec39081b49c276852e8ecec24e43e6283bcc655e59d6a18238c1e",
+      "ref": "event://abiogenesis/ba3ca8e10eb8707abfaba524358af4b4e5847f7a4f75b888e5b95771d04f3ab8"
+    },
+    "qualification": false,
+    "noFallback": true
+  },
+  "actualPublicOutcome": "result",
+  "actualRunDisposition": "runtime_failed",
+  "positiveAdvancementPermitted": false,
+  "actualFreshCallsBeforeDiagnostic": 0,
+  "noFakeJudgmentOrSemanticPass": true,
+  "qualificationResourcesLoaded": false
+}

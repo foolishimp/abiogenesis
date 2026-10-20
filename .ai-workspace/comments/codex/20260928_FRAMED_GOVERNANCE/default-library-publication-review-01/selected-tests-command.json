@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-reporter=tap",
+    "--test-name-pattern=^(?:default\\ library\\ preserves\\ cumulative\\ wrapper\\ bindings\\ and\\ rejects\\ duplicate\\ carried\\ refs|installed\\ root\\ publication\\ precondition\\ rejects\\ a\\ bad\\ non\\-selected\\ publication|default\\ catalogue\\ publishes\\ conditional\\ purposes\\ over\\ fixed\\ native/C2\\ children\\ and\\ mandatory\\ parent\\ evaluation|independent\\ consumer\\ restricts\\ choices\\ while\\ preserving\\ actual\\ native\\ role\\ and\\ schema\\ owners)$",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-review-01/scratch/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-review-01/scratch",
+  "timeoutSeconds": 60,
+  "selectedNames": [
+    "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+    "installed root publication precondition rejects a bad non-selected publication",
+    "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation",
+    "independent consumer restricts choices while preserving actual native role and schema owners"
+  ],
+  "HOMEUnchanged": true,
+  "nativeEffects": false
+}

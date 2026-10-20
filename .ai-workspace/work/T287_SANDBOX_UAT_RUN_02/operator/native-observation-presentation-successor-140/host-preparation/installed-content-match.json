@@ -1,0 +1,9 @@
+{
+  "owner": "product.installedProductContentMatches",
+  "verifiedArtifactDigest": "sha256:fb4ba337d8f70db2f1f7df26f4a23bdf581646126186decd1bae80583e2f00fd",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "contentDigest": "sha256:9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c",
+  "manifestDigest": "sha256:659d8b0d1c8926070c3e7056d46887999064806aff3f6e09afbba69acae70e76",
+  "matches": true,
+  "scope": "Verified artifact expectation projected onto actual physical installed root; no ProductInstall/admission claim"
+}

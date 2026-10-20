@@ -1,0 +1,56 @@
+{
+  "classification": "Actual stock-heap process SIGABRT after canonical historical-source acceptance; OOM allocator/caller not resolved",
+  "command": {
+    "started": "2026-10-09T03:50:24.670Z",
+    "exitCode": null,
+    "signal": "SIGABRT",
+    "wallMs": 182509.27800000002,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-157/commands/current-source-preparation.stderr",
+    "sha256": "94446cd28137e03b3019009b9ab07a8c5da61e156b4381c3dc1ad9beec61e219",
+    "byteCount": 6707
+  },
+  "diagnostic": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "lastCompletedStage": {
+    "stage": "terminal-resource-complete",
+    "rss": 4268244992,
+    "heapTotal": 3948822528,
+    "heapUsed": 3780778032,
+    "external": 31934526,
+    "arrayBuffers": 29523955,
+    "at": "2026-10-09T03:53:16.428Z",
+    "elapsedMs": 171732.140333,
+    "resultRef": "result://abiogenesis/072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16",
+    "sourceInputGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5"
+  },
+  "nextSourceRegion": "prepare.mjs invoke(product-verify-0): canonical admission scope/capability construction before request-projection or actual Public transport. Async zlib appears in native stack; exact JS allocation not identified.",
+  "publicDispatchEvidence": {
+    "requestFile": null,
+    "outcomeFile": null,
+    "callsDirectoryAbsent": true,
+    "runtimePrefixUnchanged": true
+  },
+  "normalCloseImpossibleAfterAbort": true,
+  "processes": [
+    {
+      "pid": 71563,
+      "absent": true
+    },
+    {
+      "pid": 71569,
+      "absent": true
+    }
+  ],
+  "residue": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-157/resource-residue.json",
+    "sha256": "3896ec2c77cab3181862d604c536067aa4d9636cd8e6b67ec0e806488623d059",
+    "byteCount": 724
+  },
+  "action": "Root multi-frame source/identity/effects/Proof triangulation must localize retained/transient pressure and select bounded action before retry; selected abandoned lock requires separately authorized existing SDK recovery, no direct unlink.",
+  "noRetry": true,
+  "noRecovery": true
+}

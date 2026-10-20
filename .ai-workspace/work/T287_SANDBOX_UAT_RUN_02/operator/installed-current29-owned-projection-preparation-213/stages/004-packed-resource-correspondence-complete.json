@@ -1,0 +1,53 @@
+{
+  "stage": "packed-resource-correspondence-complete",
+  "rss": 2023899136,
+  "heapTotal": 1729413120,
+  "heapUsed": 1597399776,
+  "external": 97852728,
+  "arrayBuffers": 95435867,
+  "at": "2026-10-09T13:42:06.745Z",
+  "elapsedMs": 20154.073792,
+  "beforeAcquisition": true,
+  "resources": [
+    {
+      "kind": "product_verification_artifact_resource",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-29/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "artifact": {
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-29/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "digest": "sha256:88dc395a20d4ac0056224144e3cf5eab91411a5558018b34ec6f44e72a84ac2a"
+      },
+      "productContent": {
+        "ref": "product-content://abi5-tests/4b0c7e13951bbd278588ae276816a661e04b3106e1171d776ffd3d9735121fa8",
+        "digest": "sha256:4b0c7e13951bbd278588ae276816a661e04b3106e1171d776ffd3d9735121fa8"
+      },
+      "descriptor": {
+        "ref": "descriptor://abiogenesis/typescript-tenant/4b0c7e13951bbd278588ae276816a661e04b3106e1171d776ffd3d9735121fa8",
+        "digest": "sha256:894c2c5dbfa623a07fbb1f12cd5436752ec4e4c4076bb59b9386fdec30a89cd3"
+      },
+      "contributionManifest": {
+        "ref": "contribution-manifest://abiogenesis/conformance/4b0c7e13951bbd278588ae276816a661e04b3106e1171d776ffd3d9735121fa8",
+        "digest": "sha256:def86c557841676e027a83c9727647580dcbe28b960abc90f385e70bac7167ce"
+      }
+    },
+    {
+      "kind": "product_verification_artifact_resource",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+      "artifact": {
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "digest": "sha256:70f2fa9bd8e9206672b88f18f80b2db7817e7892413a0bc39ea23e144c3f6761"
+      },
+      "productContent": {
+        "ref": "product-content://abi5-tests/bb5343e6d864bf7631ddc97e65888447f01f42e901d3f0118dea51d477a86755",
+        "digest": "sha256:bb5343e6d864bf7631ddc97e65888447f01f42e901d3f0118dea51d477a86755"
+      },
+      "descriptor": {
+        "ref": "descriptor://abi5-tests/sandbox-uat/consumer@5",
+        "digest": "sha256:cc8cfde58ef0c821f65be9691d0105d5410176a7ece40187eadef570df3062a1"
+      },
+      "contributionManifest": {
+        "ref": "contribution-manifest://abi5-tests/sandbox-uat/consumer@5",
+        "digest": "sha256:719ed9f7219f5a2a50db245fffd73a6dd066a01ba7cfc2e45679e804b2bc8aac"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "file": "abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "function": "export function deriveSemanticJobAsset(",
+    "unchanged": true,
+    "sha256": "f6c775a8edddd99dbb74b69281b71bbe97a94864dbdbb5142b15f7d63561faa8"
+  },
+  {
+    "file": "abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "function": "export function deriveNativeSemanticAsset(",
+    "unchanged": true,
+    "sha256": "5dceabe033c170ea8a65d6e23728d82c8b91bb67aad7e7f02b8492dbc5170ff2"
+  },
+  {
+    "file": "abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "function": "export function projectNativeSemanticFold(",
+    "unchanged": true,
+    "sha256": "654f0f1a18e23520af15a225e8d5b5ac7e130f8baaea1b786eb8ec598d784763"
+  },
+  {
+    "file": "abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+    "function": "export function realizeNativeSemanticAuthorFold(",
+    "unchanged": true,
+    "sha256": "5105eede3fe66dc8a8fccf7d7114989a22f75211de1f01d87341dc9f5d584b83"
+  }
+]

@@ -1,0 +1,88 @@
+{
+  "disposition": "CLOSED_FAILED/HOLD",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "productFrame": "fixed15 ABI5.0 GOAL035/T287 STDO2.5.1rc2 / original DataMapper",
+  "origin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/actual-first-cause.json",
+    "sha256": "45f66f018a5bab1bb033ecd778380a83bdf21bf8ea45b678b9f9d1c3a6ac2437",
+    "byteCount": 5164
+  },
+  "physicalConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/stopped-conservation.json",
+    "sha256": "e20741e577103ce5c6aff86faff41b59b7a5ce3ed96a1d9c5ab4b4464e7008bd",
+    "byteCount": 16966
+  },
+  "maintenance": {
+    "accepted": true,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recovery-receipt.json",
+      "sha256": "8582c5d84a6c17ec5009c354fedda3cd70799199a66c1bbcc01793182412fd41",
+      "byteCount": 5184
+    },
+    "validatedEvents": 271563,
+    "genuineCloseHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recovered-close-handoff.json",
+      "sha256": "10a1f7047255f068840dd33f8d01763941287ed913e4fad55705e82b3325ce05",
+      "byteCount": 1472
+    },
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "prefixLength": 2142089296,
+      "prefixDigest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 468327400,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:e4df7e94bd71bbf08b085883442ed61aae94590ffa51339c6e9b545e6767fdbd"
+    }
+  },
+  "laterReopen": {
+    "signal": "SIGABRT",
+    "wallMs": 110137.93062500001,
+    "lastMarker": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/009-reopen-current-resource-start.json",
+      "sha256": "f182424bbb890defc3ba9bb2957f446e040a2946b08bad98ea47c2a84c9e2d59",
+      "byteCount": 1058
+    },
+    "preciseJavascriptOwnerAndRetainerUnproved": true,
+    "normalCloseProduced": false
+  },
+  "witnessStopAdmitted": false,
+  "source41Derived": false,
+  "source41ResultRetained": "result://abiogenesis/a8746cb4c4fbbe7e6021dccd54f99bfad76bad50b4314ccbfb58f87da3db767c",
+  "sourceApplicabilityUnproved": true,
+  "counterCorrection": "Actual judgment admissionOrdinal271560; old219 diagnostic271559 preserved",
+  "physical49RowsUnchanged": true,
+  "oldAnd223OwnedProcessesAbsent": true,
+  "newDeadLock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "device": 16777231,
+    "inode": 469573954,
+    "byteCount": 124,
+    "sha256": "247fab7ada83a758a8b7e043b16b7280651ebe0de1d89523f5137963ca6bf93a",
+    "base64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY4MzI3NDAwLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NzU5MDMsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "owner": {
+      "device": 16777231,
+      "inode": 468327400,
+      "kind": "abiogenesis_event_store_append_lock",
+      "ownerPid": 75903,
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "nativeModelApplicationDispatch": false,
+  "fullUAT": "OPEN",
+  "nextAction": "Root multi-frame read-only recovery/reopen RCA; no retry, recovery, fallback34 or native dispatch selected",
+  "initialPreResourceFormatFailurePreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/first-cause.json",
+    "sha256": "80277ca9b9931c79bdaeb762e420c606ddc66ac35aafb17e3fd57e175766d078",
+    "byteCount": 760
+  },
+  "oneBoundedEnvelopeCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/pre-owner-format-correction.json",
+    "sha256": "ccdeda6c2697019fdaaddc8a6cf7e402263a5a64cf9c55dd1186bb58e4f016e5",
+    "byteCount": 978
+  }
+}

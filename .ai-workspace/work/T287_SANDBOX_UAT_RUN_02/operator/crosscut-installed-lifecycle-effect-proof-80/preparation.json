@@ -1,0 +1,37 @@
+{
+  "kind": "prepared_installed_lifecycle_effect_driver",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver.mjs",
+      "sha256": "aa591d8bd5c74ac3e630fe2c225682e9ad4499ada25762c4d21a57cb4d995240",
+      "byteCount": 18627
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/declarations.mjs",
+      "sha256": "8f7e94463383806af7b3627b1ff0c4609601085ae39d558605d2ef474e901ac4",
+      "byteCount": 3091
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/ordinary-protocol-fixture.mjs",
+      "sha256": "16f870b64a8689165d1a6c8ffbb656407fe0fc32dc9f6eaedaa79febdb0c1737",
+      "byteCount": 2932
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+      "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+      "byteCount": 3158
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/method.mjs",
+      "sha256": "303bed8f5dcefcc780c26e6b93a0e771b9c3ff403a8c38ba215871041e75eaa2",
+      "byteCount": 4378
+    }
+  ],
+  "syntaxChecks": 3,
+  "importCheck": "current exact host canonical exports resolved; execute/setup not called",
+  "nativeExecutionAtPreparation": false,
+  "modelCredit": false,
+  "method": "STDO2.5.1RC2",
+  "canonicalOwnerPreserved": true,
+  "authority": "Root explicit candidate20 execution grant; first integration failure stops without repair"
+}

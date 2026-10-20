@@ -1,0 +1,41 @@
+✔ Caller execution policy omits optional actor caps, retains explicit positive flags and rejects invalid caps (7.450292ms)
+✔ Caller execution policy preserves acquired meaning and all command fields except explicit effective timeout; canonical C2 budget fits (2.60175ms)
+✔ Fresh supplied work transfers exact retained material into source-none empty owner state without old archive or producer changes (14.483875ms)
+✔ Resume refuses changed pins, symlinks, unauthorized paths and existing destinations before file transfer (14.375167ms)
+✔ Resume selection requires one explicit source archive and cannot be activated by ordinary run flags (0.21425ms)
+✔ Seven exact original workloads authenticate source, request and independent oracle before use (6.909292ms)
+✔ Resolved toolchain identity and configured environment flow into the canonical owner carrier (1.313833ms)
+✖ Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner (6.5105ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 407.984583
+
+✖ failing tests:
+
+test at test_env/uat/harness.test.mjs:294:1
+✖ Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner (6.5105ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   sourceDigest: null,
+  -   sourceKind: 'none',
+  -   sourceRef: null
+  - }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs:327:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { sourceKind: 'none', sourceRef: null, sourceDigest: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

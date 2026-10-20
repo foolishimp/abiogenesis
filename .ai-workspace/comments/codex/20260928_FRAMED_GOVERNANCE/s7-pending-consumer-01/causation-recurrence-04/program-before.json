@@ -1,0 +1,93 @@
+{
+  "actionCatalog": {
+    "catalogDigest": "sha256:763bb1b7dc9c940e0e0f79f04ddac99b7a4ba87e08b86337992d3a417710700c",
+    "catalogRef": "action-catalog://product/763bb1b7dc9c940e0e0f79f04ddac99b7a4ba87e08b86337992d3a417710700c",
+    "kind": "action_catalog",
+    "rows": [
+      {
+        "actionKind": "invoke_graph_function",
+        "actionRef": "action://exact-intent/consumer@5",
+        "expectedDeltaRef": "delta://exact-intent/echo@5",
+        "graphFunctionRef": "graph-function://exact-intent/child@5",
+        "inputAssetRefs": [
+          "asset://exact-intent/input@5"
+        ],
+        "kind": "action_catalog_row",
+        "outputAssetRefs": [
+          "asset://exact-intent/output@5"
+        ],
+        "programRef": "program://exact-intent/root@5",
+        "progressConditionRef": "condition://exact-intent/progress@5",
+        "stopConditionRef": "condition://exact-intent/stop@5",
+        "targetObligationRefs": [
+          "obligation://exact-intent/echo@5"
+        ],
+        "targetProgramLocusRef": "graph-function://exact-intent/child@5"
+      }
+    ],
+    "schemaVersion": "5.0.0"
+  },
+  "callableMembership": [
+    "graph-function://exact-intent/root@5",
+    "graph-function://exact-intent/child@5"
+  ],
+  "closureContractRef": "contract://exact-intent/closure-run@5",
+  "constructionComposition": {
+    "authorities": [
+      {
+        "authorityRef": "authority://exact-intent/synthesizeModel@5",
+        "initialProgramLocusRef": "locus://exact-intent/model@5",
+        "kind": "construction_authority_binding",
+        "refreshProgramLocusRef": "locus://exact-intent/refreshModel@5",
+        "semanticAuthority": "synthesizeModel"
+      },
+      {
+        "authorityRef": "authority://exact-intent/evalGap@5",
+        "initialProgramLocusRef": "locus://exact-intent/gap@5",
+        "kind": "construction_authority_binding",
+        "refreshProgramLocusRef": "locus://exact-intent/refreshGap@5",
+        "semanticAuthority": "evalGap"
+      },
+      {
+        "authorityRef": "authority://exact-intent/evaluateNext@5",
+        "initialProgramLocusRef": "locus://exact-intent/next@5",
+        "kind": "construction_authority_binding",
+        "refreshProgramLocusRef": "locus://exact-intent/finish@5",
+        "semanticAuthority": "evaluateNext"
+      },
+      {
+        "authorityRef": "authority://exact-intent/evaluateAction@5",
+        "initialProgramLocusRef": "locus://exact-intent/evaluate@5",
+        "kind": "construction_authority_binding",
+        "refreshProgramLocusRef": null,
+        "semanticAuthority": "evaluateAction"
+      }
+    ],
+    "closurePolicy": {
+      "kind": "construction_policy",
+      "policyRef": "policy://exact-intent/closure@5",
+      "requireCompleteEvidence": true,
+      "requirePostEvidenceRefresh": true
+    },
+    "compositionDigest": "sha256:21354996beaad1039e5c255cce50e696a76af4553e8f47ab27e717c17411cd65",
+    "compositionRef": "composition://exact-intent/root@5",
+    "graphFunctionRef": "graph-function://exact-intent/root@5",
+    "interactionProgramLocusRef": "graph-function://exact-intent/child@5",
+    "kind": "construction_composition",
+    "schemaVersion": "5.0.0"
+  },
+  "kind": "gtl_program",
+  "moduleRef": "module://exact-intent/product@5",
+  "policies": {
+    "abg.default_start_ref": "start://exact-intent/root@5",
+    "abg.root_mode": "supervised"
+  },
+  "programRef": "program://exact-intent/root@5",
+  "starts": [
+    {
+      "graphFunctionRef": "graph-function://exact-intent/root@5",
+      "startRef": "start://exact-intent/root@5"
+    }
+  ],
+  "version": "5.0.0"
+}

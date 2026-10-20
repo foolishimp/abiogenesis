@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/npm",
+    "run",
+    "build"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-07T15:45:30.080887+00:00",
+  "diagnosticWallBoundMs": 180000
+}

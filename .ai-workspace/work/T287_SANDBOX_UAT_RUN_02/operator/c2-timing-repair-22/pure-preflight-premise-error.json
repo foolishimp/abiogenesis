@@ -1,0 +1,8 @@
+{
+  "kind": "recording-premise-error",
+  "cause": "raw GovernanceWorkState does not carry A/W at its top level",
+  "failedProjection": "raw.workspaceAuthorityBasis.canonicalRoot",
+  "commandExit": 1,
+  "keptOriginalDataEqualityBeforePremiseFailure": true,
+  "correction": "Use retained canonical native observation task owner coordinates; no Product/schema changes"
+}

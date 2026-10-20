@@ -1,0 +1,24 @@
+{
+  "observedAt": "2026-10-06T19:58:46.181Z",
+  "kind": "old-emitted-owner-counterexample-before-build",
+  "eventOrdinal": 22945,
+  "producerOrdinal": 22190,
+  "store": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6/resources/events/runtime.events.jsonl",
+  "pathOffset": 91124878,
+  "pathLength": 118260,
+  "selectedLineSha256": "5a4f6c96223a2e6b9fdccedfa10e8120cefd232f09a9bc13de3ffe797a9848b0",
+  "effectiveTestingSha256": "sha256:6e5463201b4091f654fa3c69fc90c3f73b753ad784943429d0549575456355c1",
+  "portableDerivedEqualsFrozen": true,
+  "toolchainDeclarationEqualsFrozenConfig": true,
+  "selectedPaths": 26,
+  "commands": 1,
+  "expectedReports": 8,
+  "outcomePredicates": 9,
+  "timeoutMs": 18000000,
+  "terminationGraceMs": 10000,
+  "schemaMaximum": 3600000,
+  "oldConstructorFailure": {
+    "name": "TypeError",
+    "message": "worksite command requires exact executable, args, cwd, timeout, and reports"
+  }
+}

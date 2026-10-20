@@ -1,0 +1,22 @@
+{
+  "a_c": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "worker": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/request.txt",
+    "bytes": 5428,
+    "sha256": "e7b1a27fbe8ba4653e5c381f0f83e611702b1ef7a97c697a562de595b4e09e87",
+    "mode": 420
+  },
+  "reviewer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/review-request.txt",
+    "bytes": 2371,
+    "sha256": "e06c902cce33a5a404b25a2cc3dbce9ac8e4f0102f145b8dcdced54391f11bb1",
+    "mode": 420
+  },
+  "sevenSectionsEach": true,
+  "literalJoin": true
+}

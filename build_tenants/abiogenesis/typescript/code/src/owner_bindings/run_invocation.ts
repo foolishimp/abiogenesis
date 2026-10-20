@@ -1,4 +1,7 @@
 import { prepareRunQualificationResources } from "../product/run_invocation_operation.js";
+import { projectGovernanceCoveredSourceUse } from "../abg/invocation_execution_truth.js";
+import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import { readRuntimeEventsAtDurablePrefix } from "../abg/event_store.js";
 import { QUALIFICATION_RESOURCE_ASSERTION_SCHEMA } from "../validator/qualification_contracts.js";
 import { ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA } from "../abg/terminal_result_contracts.js";
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
@@ -70,7 +73,7 @@ import type {
   GraphFunction,
   ModulePublication,
 } from "../gtl/contracts.js";
-import { executeGraphTraversalEffect } from "../hog/graph_execute.js";
+import { executeOwnedGraphTraversalEffect as executeGraphTraversalEffect } from "../hog/graph_execute.js";
 import { constructAdmittedLeafInvocationPort } from
   "../implementation/leaf_invocation_port.js";
 import {
@@ -1325,6 +1328,14 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
           hasAdmittedProductInstall(setup.artifactTruth, install),
         transportResourceAssertion:
           call.resources.eventResource as unknown as JsonValue,
+        deriveCurrentSourceUse: (basis, resolution) => projectGovernanceCoveredSourceUse(
+          selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(entryPrefix)), {
+            predecessorPrefix: entryPrefix, source: basis, workspaceBinding: setup.workspaceBinding,
+            program: resolution.program, graphFunction: resolution.graphFunction,
+            currentDeclaration: { kind: "abg_historical_declaration_proof", schemaVersion: "5.0.0", catalog: call.resources.catalog, catalogView: call.resources.catalogView },
+            historicalDeclarations: call.resources.historicalSource === undefined ? [] : [call.resources.historicalSource.declarationProof,
+              ...(call.resources.historicalSource.declarationDependencies ?? [])],
+          }),
       }),
     );
     if (preparedResult.kind === "product_run_invocation_preparation_refusal") {
@@ -1386,6 +1397,10 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
           ...(prepared.sourceResultBasis === null
             ? {}
             : { sourceResultBasis: prepared.sourceResultBasis }),
+          ...(prepared.currentSourceUse === undefined ? {} : { currentSourceUse: prepared.currentSourceUse,
+            sourceUseDeclarations: { current: { kind: "abg_historical_declaration_proof" as const, schemaVersion: "5.0.0" as const,
+              catalog: call.resources.catalog, catalogView: call.resources.catalogView }, historical: call.resources.historicalSource === undefined ? [] :
+                [call.resources.historicalSource.declarationProof, ...(call.resources.historicalSource.declarationDependencies ?? [])] } }),
         },
         operationBasis(call, setup.workspaceBinding),
       )

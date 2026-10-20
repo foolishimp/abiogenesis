@@ -1,0 +1,33 @@
+✔ M5 new-empty acquisition returns one genuine readable zero prefix (10.956209ms)
+✔ M5 EventStore batch factory interruption leaves the exact prefix unchanged (7.184292ms)
+✖ owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence (17.47175ms)
+{"kind":"owned_causation_lookup_growth","measurements":[{"events":128,"causalReferences":127,"live":{"lookups":127,"entries":128},"cold":{"lookups":127,"entries":128}},{"events":256,"causalReferences":255,"live":{"lookups":255,"entries":256},"cold":{"lookups":255,"entries":256}}],"limit":"lookup and index-entry counts only; immutable array copying and end-to-end latency unmeasured"}
+✔ owned causation lookup grows with causal references in live admission and cold reconstruction (56.737458ms)
+✔ held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback (36.986834ms)
+✔ M5 reopens one exact durable prefix without restamping and appends at max ordinal plus one (20.717042ms)
+✔ M5 rolls back an incomplete atomic F_H hold admission without a replay-visible prefix (20.739ms)
+✔ M5 event contract refuses blank history and malformed kind/scope/payload variants (16.827792ms)
+{"kind":"trusted_desktop_owned_history","events":5,"liveHistoricalReadBytes":0,"coldReadBytes":4315,"eventLogBytes":4315}
+✔ trusted owned history conserves currentness, callback publication, rollback and cold reconstruction (293.343417ms)
+✔ owned append I/O failures restore committed bytes and hash or poison admission (99.879166ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 862.198209
+
+✖ failing tests:
+
+test at test_env/tests/m5-event-store-reopen.test.mjs:298:1
+✖ owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence (17.47175ms)
+  TypeError [Error]: runtime event payload matches no admitted event-contract variant
+      at assertRuntimeEventContract (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09/build/code/src/abg/event_store.js:1611:15)
+      at projectRuntimeEventAtContract (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09/build/code/src/abg/event_store.js:1323:5)
+      at admitRuntimeEventInternal (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09/build/code/src/abg/event_store.js:2558:36)
+      at admitRuntimeEvent (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09/build/code/src/abg/event_store.js:2531:12)
+      at TestContext.<anonymous> (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09/test_env/tests/m5-event-store-reopen.test.mjs:327:20)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

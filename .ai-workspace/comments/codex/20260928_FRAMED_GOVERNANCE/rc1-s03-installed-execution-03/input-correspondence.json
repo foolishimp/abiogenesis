@@ -1,0 +1,68 @@
+{
+  "preparationRecordsVerified": 13,
+  "externalPinsVerified": 44,
+  "fixtureArchiveMembersVerified": 6,
+  "C03PayloadMembersVerified": 5258,
+  "originalCopiesAndCallerOrigins": [
+    {
+      "path": "caller-draft.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/caller-draft.mjs",
+      "sha256": "efe102a1bde1e84879ff539cf92c2216d6f0f79c534a6f775141d2a17d953139",
+      "copiedByteExact": true
+    },
+    {
+      "path": "original-consumers.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/original-consumers.mjs",
+      "sha256": "69038fa5837745e3e57e3ec8cbf82808997d8cc68660138f01e4d666ff4992c6",
+      "copiedByteExact": true
+    },
+    {
+      "path": "sole-output-renderer.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/sole-output-renderer.mjs",
+      "sha256": "a53044eca98cff334a9fbd87a1b21a8d6a6fe15220e83ab78db6bcc45a85901b",
+      "copiedByteExact": true
+    },
+    {
+      "path": "original-oracle.json",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/original-oracle.json",
+      "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c",
+      "copiedByteExact": true
+    },
+    {
+      "path": "pair-inputs.json",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/pair-inputs.json",
+      "sha256": "6d2d081557c9fa15ad6c354d2165e3838600e4eb4a68be7ec3d1a2edd2f4e4ad",
+      "copiedByteExact": true
+    },
+    {
+      "path": "readback-contract.json",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/readback-contract.json",
+      "sha256": "ef3dfedf988ce011ba83d0c8c91c7ccdaf4f39500ddd5a1c49140afcc4dcd69c",
+      "copiedByteExact": true
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/ordinary-caller.mjs",
+      "originSHA256": "d691f1c3057ec47eaaec938ce7e5a3f3f533b37ba25e36baa03effc7a3090b59",
+      "copySHA256": "8e7993a040222a817293af0e1f26a3cdb4eda3d07bc25caeb752e9f1b5e3d423",
+      "adaptation": "bounded caller activation/namespace and actual declared expected refusal mapping; unused F11 start/control functions omitted"
+    },
+    {
+      "path": "public-support.mjs",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/public-support.mjs",
+      "originSHA256": "23aea016a2f7c179c86525708887a3c1ebee062f4ff813a735152833716bdbb7",
+      "copySHA256": "fd94462ab478d3e4eeb6a42d80b2ee7fd1fea01c5ee126c8594623c1de0a4273",
+      "adaptation": "loader-only current public exports"
+    },
+    {
+      "path": "observe-process.py",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/observe-process.py",
+      "originSHA256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d",
+      "copySHA256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d",
+      "adaptation": "byte-exact process observer"
+    }
+  ],
+  "ProductSourceFixtureCandidateMutations": 0,
+  "coreBootstrapReadOnly": true,
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03"
+}

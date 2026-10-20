@@ -1,0 +1,18 @@
+{
+  "command": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-08T06:15:42.857778+00:00",
+  "authority": "Root Writer68 one normal build after explicit immutable-source handoff from61; no tests/source repair",
+  "finishedAt": "2026-10-08T06:16:12.923149+00:00",
+  "exitCode": 0,
+  "wallMs": 30065.035375,
+  "stdoutBytes": 215,
+  "stderrBytes": 0,
+  "timedOut": false,
+  "truncated": false,
+  "normalBuildAttempts": 1
+}

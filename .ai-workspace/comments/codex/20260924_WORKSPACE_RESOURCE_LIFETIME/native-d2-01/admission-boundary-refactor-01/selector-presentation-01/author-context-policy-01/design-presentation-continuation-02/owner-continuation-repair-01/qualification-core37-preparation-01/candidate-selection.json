@@ -1,0 +1,55 @@
+{
+  "status": "prepared_core37_not_a_qualification_basis",
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite37-install-79g01s0w/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:c676fad10c62aeea0331f1b926b882fd9d940b0d9b65ed18a35913f7334a6bbc",
+      "productContentDigest": "sha256:47eaa506935d1e125234196c983babd04328bcaf66c96a50c75b3d5c76f99f0e",
+      "manifestDigest": "sha256:e7ea2d44e1214675e92b19e30adf0343ed448206c7d309279a71f80cc072cfd5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceCheckpoint": {
+    "kind": "exact_core37_package_inputs_plus_explicit_current_candidate_inventory",
+    "buildInputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/build-inputs.json",
+      "sha256": "a252c30c3bc715eb30ccc0e70eb71dabdff582da4a3f10e970ac17f24b08f57d",
+      "bytes": 42177
+    },
+    "acceptedSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/accepted-source.json",
+      "sha256": "bcf4f8fa425537c10b6389db2f4288170c2fe32b4bf29b98569484ad469545ed",
+      "bytes": 6469
+    },
+    "sourceInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core37-preparation-01/source-inventory.json",
+      "sha256": "d5fa175cf481a704150f768b62ea50af579e2c9d911578ca92a5490a907942b1",
+      "bytes": 299656
+    }
+  },
+  "lawBasis": {
+    "ref": "qualification-law://abiogenesis/ef42ec32f28b3e81a63841624bfdc89a0fdd0996c9154a422527c039350b85eb",
+    "digest": "sha256:ef42ec32f28b3e81a63841624bfdc89a0fdd0996c9154a422527c039350b85eb"
+  },
+  "coverage": {
+    "ref": "qualification-coverage://abiogenesis/482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513",
+    "digest": "sha256:482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513"
+  },
+  "consumer": {
+    "label": "unchanged_dev15_witness_dependency_only",
+    "artifactDigest": "sha256:0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+    "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e",
+    "manifestDigest": "sha256:0327ef3c929aecdd282342f93304ed45e1ae2fdeb71a528b4d113984cfdaf6ee",
+    "evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/return.md",
+      "sha256": "4af943268c0120e9a111fb0188dacac13458f1ee1d45d560480430bbbbfbef61",
+      "bytes": 2035
+    },
+    "admittedBinding": null
+  },
+  "executedHere": false
+}

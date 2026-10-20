@@ -1,0 +1,7 @@
+{
+  "field": "lifecycle.actorLeafCount",
+  "before": 12,
+  "afterField": "lifecycle.actorOccurrenceUpperBound",
+  "after": 12,
+  "reason": "The inherited selected ceiling is not a resolved or observed actor count; launch packet and authority bytes unchanged."
+}

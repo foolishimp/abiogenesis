@@ -1,0 +1,225 @@
+{
+  "scope": "Static source occurrences only; no runtime, build or test execution.",
+  "D02": {
+    "product/environment_definition_bindings.ts": {
+      "sameJson": [
+        {
+          "line": 128,
+          "source": "function sameJson(left: unknown, right: unknown): boolean {"
+        },
+        {
+          "line": 252,
+          "source": "!sameJson(resources, resources)"
+        },
+        {
+          "line": 264,
+          "source": "!sameJson("
+        },
+        {
+          "line": 415,
+          "source": "!sameJson(closure.value, {"
+        },
+        {
+          "line": 547,
+          "source": "!sameJson(resources, resources) ||"
+        },
+        {
+          "line": 572,
+          "source": "manifest === null || !sameJson(manifest, resources.workspaceManifest) ||"
+        },
+        {
+          "line": 579,
+          "source": "!sameJson(request.installedSet, installCoordinates) ||"
+        },
+        {
+          "line": 581,
+          "source": "!sameJson("
+        },
+        {
+          "line": 783,
+          "source": "if (binding === null || !sameJson(binding, admitted.value)) {"
+        }
+      ],
+      "sameCoordinate": [
+        {
+          "line": 136,
+          "source": "function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean {"
+        },
+        {
+          "line": 230,
+          "source": "!sameCoordinate("
+        },
+        {
+          "line": 575,
+          "source": "!sameCoordinate("
+        },
+        {
+          "line": 580,
+          "source": "!sameCoordinate(request.resolvedLock, resolvedLockCoordinate(resources.resolvedLock)) ||"
+        }
+      ]
+    },
+    "product/verification_definition_bindings.ts": {
+      "sameCoordinate": [
+        {
+          "line": 92,
+          "source": "function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean {"
+        },
+        {
+          "line": 101,
+          "source": "return sameCoordinate(artifact.artifact, request.artifact) &&"
+        },
+        {
+          "line": 102,
+          "source": "sameCoordinate(artifact.productContent, request.productContent) &&"
+        },
+        {
+          "line": 103,
+          "source": "sameCoordinate(artifact.descriptor, request.descriptor) &&"
+        },
+        {
+          "line": 104,
+          "source": "sameCoordinate(artifact.contributionManifest, request.contributionManifest);"
+        },
+        {
+          "line": 141,
+          "source": "!sameCoordinate(authorityLock, request.resolvedLock) ||"
+        },
+        {
+          "line": 144,
+          "source": "!sameCoordinate(request.installedProduct, installedProductCoordinate) ||"
+        },
+        {
+          "line": 145,
+          "source": "!sameCoordinate(request.installManifest, manifest.manifest) ||"
+        },
+        {
+          "line": 264,
+          "source": "if (!sameCoordinate(coordinates.descriptor, request.descriptor)) {"
+        }
+      ]
+    }
+  },
+  "D03": {
+    "product/execution_resolution.ts": {
+      "exact": [
+        {
+          "line": 276,
+          "source": "function exact<T>(values: readonly T[], predicate: (value: T) => boolean):"
+        },
+        {
+          "line": 317,
+          "source": "return exact(installs, (install) =>"
+        },
+        {
+          "line": 327,
+          "source": "return exact(installs, (install) =>"
+        },
+        {
+          "line": 377,
+          "source": "return exact(publications, (publication) =>"
+        }
+      ]
+    },
+    "shared/definition_binding_mechanics.ts": {
+      "selectedDefinition": [
+        {
+          "line": 118,
+          "source": "function selectedDefinition("
+        },
+        {
+          "line": 336,
+          "source": "const definition = selectedDefinition(packet);"
+        }
+      ]
+    },
+    "product/implementation_resolution.ts": {
+      "resolveExactMatch": [
+        {
+          "line": 323,
+          "source": "const graphFunctionMatch = resolveExactMatch("
+        },
+        {
+          "line": 612,
+          "source": "const graphFunctionMatch = resolveExactMatch("
+        },
+        {
+          "line": 635,
+          "source": "const match = resolveExactMatch("
+        }
+      ]
+    }
+  },
+  "D04": {
+    "shared/rooted_topology_partition.ts": {
+      "hasExactKeys": [
+        {
+          "line": 67,
+          "source": "function hasExactKeys(value: object, keys: readonly string[]): boolean {"
+        },
+        {
+          "line": 81,
+          "source": "!hasExactKeys(value, WITNESS_KEYS)"
+        },
+        {
+          "line": 112,
+          "source": "!hasExactKeys(segmentValue, SEGMENT_KEYS)"
+        }
+      ]
+    },
+    "abg/event_body_encoding.ts": {
+      "exactKeys": [
+        {
+          "line": 163,
+          "source": "if (!exactKeys(record, [\"kind\", \"codecVersion\", \"event\", \"bodyReference\"]) || (record.codecVersion !== 1 && record.codecVersion !== 2) ||"
+        },
+        {
+          "line": 164,
+          "source": "!isRecord(reference) || !exactKeys(reference, [\"sourceEventRef\", \"sourcePayloadDigest\", \"sourceSlot\", \"bodyDigest\"]) ||"
+        }
+      ]
+    },
+    "abg/event_store.ts": {
+      "decodeEventBody": [
+        {
+          "line": 3324,
+          "source": "const representation = decodeEventBody(physical, inlineByEvent), decoded = representation.event;"
+        },
+        {
+          "line": 3518,
+          "source": "const representation = decodeEventBody(physical, inlineByEvent, coordinate => {"
+        },
+        {
+          "line": 3599,
+          "source": "const representation = decodeEventBody(physical, inlineByEvent, coordinate =>"
+        }
+      ]
+    }
+  },
+  "K11": {
+    "gtl/stdo_run_environment.ts": {
+      "constructStdoRunEnvironmentDeclaration": [
+        {
+          "line": 219,
+          "source": "export function constructStdoRunEnvironmentDeclaration(value: RunEnvironmentDeclaration): Readonly<RunEnvironmentDeclaration> {"
+        }
+      ]
+    },
+    "product/run_invocation_operation.ts": {
+      "observeRunEnvironment": [
+        {
+          "line": 668,
+          "source": "const environmentObservation = await observeRunEnvironment({"
+        }
+      ]
+    },
+    "abg/invocation_admission.ts": {
+      "runEnvironmentEvidenceMatchesInvocation": [
+        {
+          "line": 1548,
+          "source": "if (!runEnvironmentEvidenceMatchesInvocation(input.runEnvironment, input.programPublication, input.program,"
+        }
+      ]
+    }
+  }
+}

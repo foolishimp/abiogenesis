@@ -1,0 +1,18 @@
+{
+  "stage": "sdk-recovery-start",
+  "at": "2026-10-08T04:35:19.075Z",
+  "wallMs": 618.57675,
+  "memory": {
+    "rss": 435011584,
+    "heapTotal": 286425088,
+    "heapUsed": 149486016,
+    "external": 34928785,
+    "arrayBuffers": 32542887
+  },
+  "maxRSSKiB": 424816,
+  "pid": 98492,
+  "requestDigest": "sha256:c5d25f5667b1658f98cd9bfad944e29ef1d09ad173d27ecb45f082cf20cb9bb6",
+  "scopeDigest": "sha256:e7c043aa03dd8ccdf6f6c27e8b28be91bda212374ee79159e6068941c6f252ce",
+  "ownerArtifactDigest": "sha256:29ba81c26cbf22857d4be6150cd20386f0e843b18f7754bd5f738e298fc8e63e",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant"
+}

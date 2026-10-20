@@ -1,0 +1,11 @@
+--- t287-result-evidence-lineage-projection.test.mjs.preimage
++++ t287-result-evidence-lineage-projection.test.mjs.postimage
+@@ -169,7 +169,7 @@
+     implementationRef: fixture.implementationRef ?? q.assessImplementation, inputContractRef: q.assessmentInput,
+     outputContractRef: fixture.outputContractRef ?? q.judgment, evidenceContractRef: 'contract://component-premise/evidence', retryPath: []};
+   const input = {outcomeClass: 'leaf', regime, store: lower.store, predecessorPrefix: prefix, cCall,
+-    graph: {}, graphFunction: {name: cCall.graphFunctionRef, template: {applications: []}, declarations: {}}, cursor: {},
++    graph: {}, graphFunction: {name: cCall.graphFunctionRef, template: {applications: []}, declarations: {}, effects: []}, cursor: {},
+     basis: {correlationId: 'component-lineage'}, executionBasis: {programRef: 'program://component-premise'},
+     implementationSet: {}, resolution: {}, input: fixture.input, inputDigest: hash(fixture.input),
+     actorRuntimeBinding: {artifactTruth: {}}, outputValueKind: 'qualification_judgment', failureValueKind: 'self_conformance_failure',

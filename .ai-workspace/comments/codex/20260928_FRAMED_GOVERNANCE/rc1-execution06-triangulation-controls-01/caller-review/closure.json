@@ -1,0 +1,12 @@
+{
+  "status": "CLOSED",
+  "role": "Reviewer read scope; author diagnostic/advice only for inherited caller",
+  "operation": "T287_EXEC06_CALLER_PROOF_REVIEW_01",
+  "workResult": "COUNTEREXAMPLE_AUTHOR_DIAGNOSTIC_ONLY",
+  "consumer": "Root Executive",
+  "independentCallerAssurance": false,
+  "RootDecisionOnly": true,
+  "noRepairOrRetry": true,
+  "noFurtherWrites": true,
+  "closedAt": "2026-10-02T04:30:39.282761+00:00"
+}

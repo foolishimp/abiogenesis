@@ -1,0 +1,47 @@
+{
+  "kind": "raw_eventless_conformance_diagnostic",
+  "exitCode": 70,
+  "signal": null,
+  "wallMs": 21268.194708000003,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdoutBytes": 1195,
+  "stderrBytes": 0,
+  "ownerOutput": {
+    "acquisitionKind": "eventless",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "exitCode": 70,
+      "failure": {
+        "cause": "Error: {\"kind\":\"definition_execution_fault\",\"schemaVersion\":\"5.0.0\",\"definitionKey\":{\"operationId\":\"abg.operation.conformance.evaluate\",\"memberKey\":\"gtl_program\"},\"stage\":\"resource_admission\",\"code\":\"resource_relation_mismatch\",\"message\":\"TypeError: conformance Program has no exact compatible declaration owner closure\",\"evidence\":{}}",
+        "failureKind": "typed_execution_fault",
+        "fault": {
+          "code": "resource_relation_mismatch",
+          "definitionKey": {
+            "memberKey": "gtl_program",
+            "operationId": "abg.operation.conformance.evaluate"
+          },
+          "evidence": {},
+          "kind": "definition_execution_fault",
+          "message": "TypeError: conformance Program has no exact compatible declaration owner closure",
+          "schemaVersion": "5.0.0",
+          "stage": "resource_admission"
+        }
+      },
+      "invocationRef": "invocation://abiogenesis/a2622358790a6b6c095154ed6e3f7981e6a235098284a3dca5257b16962fa214",
+      "kind": "definition_host_receipt",
+      "ownerOutput": null,
+      "resources": null,
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "parseError": null,
+  "setupPrefixUnchanged": true,
+  "noHoGOrProviderDispatch": true
+}

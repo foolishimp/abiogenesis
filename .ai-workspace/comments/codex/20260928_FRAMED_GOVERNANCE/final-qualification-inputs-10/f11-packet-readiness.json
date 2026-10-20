@@ -1,0 +1,34 @@
+{
+  "kind": "current_C09_full_F11_input_preparation",
+  "status": "CLOSED",
+  "workResult": "NO_GO",
+  "frontier": "concrete-full-current-b-task-plan-scope-material-construction",
+  "error": {
+    "name": "AssertionError",
+    "message": "finite full resource byte budget must be satisfied before body materialization",
+    "stack": "AssertionError [ERR_ASSERTION]: finite full resource byte budget must be satisfied before body materialization\n    at construct (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/current-resources.mjs:132:9)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/packet-readiness.mjs:29:15"
+  },
+  "noAutonomousRepair": true,
+  "RuntimeAdmission": false,
+  "cost": {
+    "elapsedMs": 1776.213042,
+    "resourceUsage": {
+      "userCPUTime": 1904686,
+      "systemCPUTime": 185322,
+      "maxRSS": 1078464,
+      "sharedMemorySize": 0,
+      "unsharedDataSize": 0,
+      "unsharedStackSize": 0,
+      "minorPageFault": 131421,
+      "majorPageFault": 82,
+      "swappedOut": 0,
+      "fsRead": 0,
+      "fsWrite": 0,
+      "ipcSent": 0,
+      "ipcReceived": 0,
+      "signalsCount": 0,
+      "voluntaryContextSwitches": 0,
+      "involuntaryContextSwitches": 3776
+    }
+  }
+}

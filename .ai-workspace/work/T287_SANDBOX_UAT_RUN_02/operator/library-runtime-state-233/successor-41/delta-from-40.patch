@@ -1,0 +1,186 @@
+--- source40/code/src/product/worksite_command_execution.ts
++++ source41/code/src/product/worksite_command_execution.ts
+@@ -1393,7 +1393,7 @@
+   if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
+     !Array.isArray(input.commands) || input.commands.length === 0 ||
+     !Array.isArray(input.outcomePredicates) || !Array.isArray(input.protectedSubjects) ||
+-    !Array.isArray(input.allowedWriteTerritories) || input.allowedWriteTerritories.length === 0 ||
++    !Array.isArray(input.allowedWriteTerritories) ||
+     input.protectedSubjects.some((subject) => !isWorksiteSubject(subject))) {
+     throw new TypeError("worksite command configuration requires exact A/W, subjects and explicit arrays");
+   }
+@@ -1525,7 +1525,7 @@
+     ) || !Array.isArray(input.commands) || input.commands.length === 0 ||
+     !Array.isArray(input.outcomePredicates ?? []) ||
+     !Array.isArray(input.protectedObservations) ||
+-    !Array.isArray(input.allowedWriteTerritories) || input.allowedWriteTerritories.length === 0) {
++    !Array.isArray(input.allowedWriteTerritories)) {
+     throw new TypeError("worksite command execution task requires exact W, grant, source C1 result, commands, and predicates");
+   }
+   const source = input.sourceConstructionResult;
+--- source40/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
++++ source41/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+@@ -532,6 +532,18 @@
+ target state before and after execution. Every created, changed, or deleted
+ path must match exactly one declared file or subtree territory. Protected
+ snapshot members must remain byte-exact.
++
++The command write-territory array is explicit and may be empty. `[]` grants
++no command mutation of the snapshot; a read-only command can still supply
++exit and stream predicates. Each declared report or HTTP port file continues
++to require a matching territory, and any unpermitted snapshot delta yields
++the existing `territory_mismatch` disposition. The shared native, observed,
++construction-result and forward task owners preserve this same declaration.
++Archive snapshot and result evidence creation retain their separate owner
++authority below. Continuation-12's retained configuration exposed the former
++nonempty-array constructor restriction; that pure discriminator establishes
++this downstream blocker, while its fresh native context and unique first
++throw were not retained.
+ 
+ The helper separately inventories the admitted Program-owner install at
+ `W.roots.productRoot == I_P.installedRoot` before and after and requires
+--- source40/test_env/tests/t287-worksite-command-execution.test.mjs
++++ source41/test_env/tests/t287-worksite-command-execution.test.mjs
+@@ -33,6 +33,38 @@
+   "}",
+   "",
+ ].join("\n"), "utf8");
++
++test("C2 explicit zero write territory preserves array, report and HTTP port authorization", async (t) => {
++  const c2 = await import("../../build/code/src/product/worksite_command_execution.js");
++  const { loadWorksiteOwner, worksiteFixture } = await import("../support/t287-generic-job-worksite.mjs");
++  const env = await worksiteFixture(await loadWorksiteOwner());
++  t.after(() => rm(env.scratch, { recursive: true, force: true }));
++  const command = { commandId: "command://c2/readonly", executable: process.execPath, args: ["--version"],
++    relativeCwd: ".", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };
++  const input = { ...env, commands: [command], outcomePredicates: [], protectedSubjects: [], allowedWriteTerritories: [] };
++  const configuration = c2.constructWorksiteCommandConfiguration(input);
++  assert.deepEqual(configuration.allowedWriteTerritories, []);
++  assert.equal(c2.worksiteCommandConfigurationMatches(input, JSON.parse(JSON.stringify(configuration))), true);
++  const { allowedWriteTerritories: _territories, ...absent } = input;
++  assert.throws(() => c2.constructWorksiteCommandConfiguration(absent), TypeError);
++  for (const allowedWriteTerritories of [undefined, null, {}, "", false]) {
++    assert.throws(() => c2.constructWorksiteCommandConfiguration({ ...input, allowedWriteTerritories }), TypeError);
++  }
++  const report = { reportIdentity: "report://c2/readonly", relativePath: "evidence/report.txt" };
++  const reportInput = { ...input, commands: [{ ...command, expectedReports: [report] }] };
++  assert.throws(() => c2.constructWorksiteCommandConfiguration(reportInput), TypeError);
++  assert.doesNotThrow(() => c2.constructWorksiteCommandConfiguration({ ...reportInput,
++    allowedWriteTerritories: [{ pathKind: "file", relativePath: report.relativePath }] }));
++  const http = { predicateId: "predicate://c2/readonly/http", predicateKind: "http_response_exact",
++    declaration: { validationCommandId: command.commandId, body: "ok", status: 200,
++      launch: { executable: process.execPath, args: [c2.WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder],
++        environment: {}, relativeCwd: ".", portFile: { relativePath: "evidence/port.txt" }, timeoutMs: 1000, terminationGraceMs: 100 },
++      request: { hostname: "127.0.0.1", method: "GET", path: "/", timeoutMs: 100 } } };
++  const httpInput = { ...input, outcomePredicates: [http] };
++  assert.doesNotThrow(() => c2.constructWorksiteCommandConfiguration({ ...httpInput,
++    allowedWriteTerritories: [{ pathKind: "file", relativePath: "evidence/port.txt" }] }));
++  assert.throws(() => c2.constructWorksiteCommandConfiguration(httpInput), TypeError);
++});
+ 
+ test("C2 finite host timer schema and constructor share bounds without changing grace", async (t) => {
+   const c2 = await import("../../build/code/src/product/worksite_command_execution.js");
+--- source40/test_env/tests/t287-observed-worksite-command.test.mjs
++++ source41/test_env/tests/t287-observed-worksite-command.test.mjs
+@@ -4,6 +4,7 @@
+ import { join, dirname, resolve } from 'node:path';
+ import { pathToFileURL } from 'node:url';
+ import { SourceTextModule, SyntheticModule } from 'node:vm';
++import { spawnSync } from 'node:child_process';
+ import * as p from '../../build/code/src/product/index.js';
+ import * as events from '../../build/code/src/abg/event_store.js';
+ import { constructNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure } from '../../build/code/src/product/native_workspace_work.js';
+@@ -147,6 +148,61 @@
+   assert.deepEqual(Object.keys(schema.properties).sort(), ['attemptRef', 'helperArtifactDigest', 'helperArtifactRef', 'kind', 'schemaVersion', 'taskDigest', 'taskRef']);
+ });
+ 
++test('observed C2 zero write declaration executes readonly helper and refuses real mirror mutation', async t => {
++  const f = await fixture(t);
++  // A/W/grant are the existing cold fixture premises. These real helper modules
++  // come from the source under test; staging does not claim a Product install.
++  const nativeRoot = join(f.workspaceBinding.roots.toolchainRoot, 'node_modules/@abiogenesis/typescript-tenant');
++  fs.mkdirSync(nativeRoot, { recursive: true });
++  fs.cpSync(resolve(import.meta.dirname, '../../build/code/src'), join(nativeRoot, 'build/code/src'),
++    { recursive: true, filter: path => fs.statSync(path).isDirectory() || path.endsWith('.js') });
++  fs.writeFileSync(join(nativeRoot, 'package.json'), JSON.stringify({ type: 'module' }));
++  fs.symlinkSync(resolve(import.meta.dirname, '../../node_modules'), join(nativeRoot, 'node_modules'), 'dir');
++  fs.mkdirSync(f.workspaceBinding.roots.productRoot);
++  fs.mkdirSync(f.workspaceBinding.roots.archiveRoot);
++  fs.writeFileSync(join(f.workspaceBinding.roots.productRoot, 'protected.txt'), 'unchanged Product fixture\n');
++  for (const [label, script, expected] of [
++    ['readonly', "process.stdout.write(require('node:fs').readFileSync('source.txt','utf8'))", 'success'],
++    ['unauthorized-write', "require('node:fs').writeFileSync('undeclared.txt','changed\\n')", 'territory_mismatch'],
++  ]) {
++    const task = p.constructObservedWorksiteCommandExecutionTask({ ...f.input, allowedWriteTerritories: [],
++      commands: [{ ...f.input.commands[0], executable: process.execPath, args: ['-e', script] }] });
++    assert(p.isObservedWorksiteCommandExecutionTask(JSON.parse(p.canonicalJson(task))));
++    assert.deepEqual(task.allowedWriteTerritories, []);
++    const occurrence = { cCallRef: `c-call://observed/zero-write/${label}`, runId: 'run://observed/zero-write',
++      graphCallId: 'graph-call://observed/zero-write', frameId: 'frame://observed/zero-write',
++      programLocusRef: ids.nodeRef, taskOrdinal: null, attempt: 1, executionAuthority: null };
++    realizeWorksiteCommandExecution(task, occurrence);
++    const attemptDigest = hash({ cCallRef: occurrence.cCallRef, runId: occurrence.runId,
++      graphCallId: occurrence.graphCallId, frameId: occurrence.frameId,
++      taskOrdinal: occurrence.taskOrdinal, attempt: occurrence.attempt });
++    const plan = worksiteCommandExecutionHelperPlan(task, `worksite-command-attempt://abiogenesis/${attemptDigest.slice(7)}`);
++    const execution = spawnSync(process.execPath, [plan.helperModulePath, '--task', join(dirname(plan.taskManifestPath), 'launch.json')],
++      { encoding: 'utf8', timeout: 10_000 });
++    assert.equal(execution.status, 0, execution.stderr);
++    const artifact = JSON.parse(fs.readFileSync(plan.artifactPath, 'utf8'));
++    assert.equal(p.isWorksiteExecutionHelperArtifact(task, artifact), true);
++    assert.equal(artifact.disposition, expected);
++    assert.equal(JSON.parse(execution.stdout).helperArtifactDigest, artifact.artifactDigest);
++    assert.equal(artifact.commandResults[0].exitStatus, 0);
++    assert.deepEqual(artifact.productDelta, []);
++    assert.deepEqual(artifact.protectedBefore, artifact.protectedAfter);
++    if (label === 'readonly') {
++      assert.deepEqual(artifact.worksiteDelta, []);
++      assert.equal(Buffer.from(artifact.commandResults[0].stdout.payload, 'base64').toString(), 'exact retained source.txt\n');
++    } else {
++      assert.deepEqual(artifact.worksiteDelta.map(row => [row.relativePath, row.changeKind, row.matchedTerritoryRef]),
++        [['undeclared.txt', 'created', null]]);
++      assert.equal(fs.existsSync(join(f.canonicalRoot, 'undeclared.txt')), false);
++    }
++    t.diagnostic(JSON.stringify({ case: label, taskDigest: task.taskDigest, artifactDigest: artifact.artifactDigest,
++      disposition: artifact.disposition, worksiteDelta: artifact.worksiteDelta.length, productDelta: artifact.productDelta.length }));
++  }
++  for (const row of f.input.observedFiles) {
++    assert.deepEqual(await owner.observeWorksiteSubject(f.workspaceAuthorityBasis, f.workspaceBinding, row.subject), row.observation);
++  }
++});
++
+ test('observed C2 refuses foreign, absent, duplicate, mixed and writable source claims', async t => {
+   const f = await fixture(t);
+   const other = await worksiteFixture(owner); t.after(() => fs.rmSync(other.scratch, { recursive: true, force: true }));
+--- source40/test_env/tests/forward-command-contracts.test.mjs
++++ source41/test_env/tests/forward-command-contracts.test.mjs
+@@ -37,6 +37,29 @@
+   assert.deepEqual(task.sourceConstructionResult,originalTask.sourceConstructionResult);
+   assert.equal(p.isWorksiteCommandExecutionTask(task),false);assert.equal(p.isWorksiteRevisionCommandExecutionTask(task),false);
+   for(const row of task.snapshotSources)assert.equal(row.source.kind,'retained_construction');
++});
++
++test('explicit zero write territory survives C1 and forward cold carrier round-trip without adding rights',()=>{
++  // Existing component Source, binding and cover facts remain supplied lower premises.
++  const {request,originalTask}=componentSource();
++  const readonly=p.constructWorksiteCommandExecutionTask({...originalTask,allowedWriteTerritories:[]});
++  assert.equal(p.isWorksiteCommandExecutionTask(JSON.parse(p.canonicalJson(readonly))),true);
++  assert.deepEqual(readonly.allowedWriteTerritories,[]);
++  assert.deepEqual(readonly.sourceConstructionResult,originalTask.sourceConstructionResult);
++  assert.deepEqual(readonly.protectedObservations,originalTask.protectedObservations);
++  const supplied=carrierTask();
++  const task=p.constructWorksiteCommandForwardTask({request,originalTask:readonly,
++    snapshotSources:supplied.snapshotSources,bindingCoverEventRefs:supplied.bindingCoverEventRefs});
++  assert.equal(p.isWorksiteCommandForwardTask(JSON.parse(p.canonicalJson(task))),true);
++  assert.deepEqual(task.originalTask,readonly);
++  assert.deepEqual(task.allowedWriteTerritories,[]);
++  assert.deepEqual(task.commands,readonly.commands);
++  assert.deepEqual(task.outcomePredicates,readonly.outcomePredicates);
++  for(const allowedWriteTerritories of [undefined,null,{}]){
++    assert.throws(()=>p.constructWorksiteCommandExecutionTask({...originalTask,allowedWriteTerritories}),TypeError);
++  }
++  const changed=structuredClone(task);changed.allowedWriteTerritories=originalTask.allowedWriteTerritories;
++  assert.equal(p.isWorksiteCommandForwardTask(changed),false);
+ });
+ 
+ test('missing reordered duplicate changed or crossed retained members refuse at real Product constructor',()=>{

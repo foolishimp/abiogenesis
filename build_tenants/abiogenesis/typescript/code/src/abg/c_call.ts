@@ -1,3 +1,7 @@
+import { createHash } from "node:crypto";
+import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventPrefixExtent, runtimeEventAtPrefix, projectOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
+import { selectActiveRuntimeTransactionHistoryAtDurablePrefix } from "./event_store.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { parseNativeWorkspaceAssessmentResult } from "../product/native_workspace_assessment.js";
 import type { ResultEvidenceLineageSource } from "./result_evidence_lineage_contracts.js";
 import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
@@ -17,7 +21,7 @@ import {
   resolveEnclosingCBatchRef,
 } from "../gtl/source_path.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, writeCanonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
   sha256Bytes,
@@ -70,8 +74,8 @@ import {
   type RuntimeEvent,
   type RuntimeEventCandidate,
 } from "./event_store.js";
-import { runtimeEventPrefixDigest,
-  runtimeEventsFromValidatedPrefix,
+import { runtimeEventPrefixDigest, extendRuntimeEventPlanPrefixForValidation, writeRuntimeEventPrefixValue,
+  runtimeEventBodiesAtPrefix,
   indexedRuntimeEvents,
   validatedRuntimeEventPrefixThroughEvent,
   selectValidatedRuntimeEventPrefix,
@@ -80,13 +84,14 @@ import { runtimeEventPrefixDigest,
 } from "./event_prefix.js";
 import {
   constructRuntimeFluent,
-  deriveRuntimeEventCalculusProjection,
+  deriveRuntimeHeldFluentProjection,
   holdsAt,
 } from "./event_calculus.js";
 import {
   replay,
   replayValidatedRuntimeEventPrefix,
   type ReplayState,
+  type RuntimeReplayGuard, projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, materializeRuntimeReplayGuard, writeRuntimeReplayGuardValue,
 } from "./replay.js";
 import {
   hasOpenedTraversalScopeAtPrefix,
@@ -675,6 +680,12 @@ export interface PendingInteractionAdmissionPlan {
   readonly replayState: ReplayState;
 }
 
+/** @internal Ordinary pending construction retains the finite suffix and
+ * genuine owner coordinates. Complete historical outputs stay Public-only. */
+export type OwnedPendingInteractionAdmissionPlan = Omit<PendingInteractionAdmissionPlan,"projectedPrefix"|"replayState"> & {
+  readonly projectedPrefix: RuntimeEventPrefix; readonly replayState: RuntimeReplayGuard;
+};
+
 export interface RehydratedPendingInteraction {
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
@@ -982,6 +993,15 @@ export interface CCallPhaseProjection {
 export function projectCCallPhase(
   prefix: ValidatedRuntimeEventPrefix,
   cCallRef: string,
+): CCallPhaseProjection;
+/** @internal */
+export function projectCCallPhase(
+  prefix: RuntimeEventPrefix,
+  cCallRef: string,
+): CCallPhaseProjection;
+export function projectCCallPhase(
+  prefix: RuntimeEventPrefix,
+  cCallRef: string,
 ): CCallPhaseProjection {
   const rows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef);
   const opened = rows.filter((event) => event.kind === "c_call_opened");
@@ -1082,6 +1102,15 @@ export function projectCCallPhase(
 export function projectCCallCarrierPhaseAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   cCall: CCall,
+): CCallPhaseProjection | null;
+/** @internal */
+export function projectCCallCarrierPhaseAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
+): CCallPhaseProjection | null;
+export function projectCCallCarrierPhaseAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
 ): CCallPhaseProjection | null {
   if (!isCCall(cCall)) return null;
   let phase: CCallPhaseProjection;
@@ -1149,6 +1178,33 @@ export function projectCurrentChildParentCCallAtPrefix(
     admittedInputRef: string;
     admittedInputDigest: Sha256Digest;
   }>,
+): CurrentChildParentCCallProjection | null;
+/** @internal */
+export function projectCurrentChildParentCCallAtPrefix(
+  prefix: RuntimeEventPrefix,
+  coordinates: Readonly<{
+    parentCCallRef: string;
+    parentExecutionBasisRef: string;
+    runId: string;
+    graphCallId: string;
+    frameId: string;
+    childGraphFunctionRef: string;
+    admittedInputRef: string;
+    admittedInputDigest: Sha256Digest;
+  }>,
+): CurrentChildParentCCallProjection | null;
+export function projectCurrentChildParentCCallAtPrefix(
+  prefix: RuntimeEventPrefix,
+  coordinates: Readonly<{
+    parentCCallRef: string;
+    parentExecutionBasisRef: string;
+    runId: string;
+    graphCallId: string;
+    frameId: string;
+    childGraphFunctionRef: string;
+    admittedInputRef: string;
+    admittedInputDigest: Sha256Digest;
+  }>,
 ): CurrentChildParentCCallProjection | null {
   let projectedPhase: CCallPhaseProjection;
   try {
@@ -1162,11 +1218,11 @@ export function projectCurrentChildParentCCallAtPrefix(
     projectedPhase.fibreEventRef === null
   ) return null;
 
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const opened = events.find((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const opened = indexedRuntimeEvents(prefix, "id:" + projectedPhase.openedEventRef).find((event) =>
     event.eventId === projectedPhase.openedEventRef
   );
-  const fibre = events.find((event) =>
+  const fibre = indexedRuntimeEvents(prefix, "id:" + projectedPhase.fibreEventRef).find((event) =>
     event.eventId === projectedPhase.fibreEventRef
   );
   if (
@@ -1230,7 +1286,7 @@ export function projectCurrentChildParentCCallAtPrefix(
     return null;
   }
 
-  const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   const commonActive = [
     constructRuntimeFluent({ name: "run_active", identity: coordinates.runId }),
     constructRuntimeFluent({
@@ -1275,10 +1331,10 @@ export function projectCurrentChildParentCCallAtPrefix(
 
   const result = projectedPhase.resultEventRef === null
     ? undefined
-    : events.find((event) => event.eventId === projectedPhase.resultEventRef);
+    : indexedRuntimeEvents(prefix, "id:" + projectedPhase.resultEventRef).find((event) => event.eventId === projectedPhase.resultEventRef);
   const judgment = projectedPhase.judgmentEventRef === null
     ? undefined
-    : events.find((event) => event.eventId === projectedPhase.judgmentEventRef);
+    : indexedRuntimeEvents(prefix, "id:" + projectedPhase.judgmentEventRef).find((event) => event.eventId === projectedPhase.judgmentEventRef);
   if (
     carrier.callClass !== "leaf" ||
     carrierPhase.phase !== "judged" ||
@@ -1320,8 +1376,8 @@ export function projectCurrentChildParentCCallAtPrefix(
 
 interface CCallOpeningAuthority {
   readonly expectedStorePrefixDigest: Sha256Digest;
-  readonly authorityPrefix: ValidatedRuntimeEventPrefix;
-  readonly runPrefix: ValidatedRuntimeEventPrefix;
+  readonly authorityPrefix: RuntimeEventPrefix;
+  readonly runPrefix: RuntimeEventPrefix;
   readonly executionBasis: ExecutionBasis;
   readonly scope: OpenedTraversalScope;
   readonly cursorAdmissionEventRef: string;
@@ -1344,16 +1400,11 @@ function projectCCallOpeningAuthority(
   cursor: TraversalCursorCandidate,
 ): CCallOpeningAuthority | null {
   try {
-    const snapshot = readActiveRuntimeTransactionAtDurablePrefix(
-      store, predecessorPrefix, { durableOnly: true },
-    );
-    const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+    const authorityPrefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(
+      store, predecessorPrefix, { durableOnly: true }));
     const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
     if (store.digest() !== expectedStorePrefixDigest) return null;
-    const runPrefix = selectValidatedRuntimeEventPrefix(
-      runtimeEventsFromValidatedPrefix(authorityPrefix),
-      { runId: scope.runId },
-    );
+    const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: scope.runId });
     const exactBasis = rehydrateExecutionBasisAtPrefix(
       authorityPrefix,
       executionBasis.basisRef,
@@ -1379,7 +1430,7 @@ function projectCCallOpeningAuthority(
       cursor.graphCallId !== exactScope.graphCallId ||
       cursor.frameId !== exactScope.frameId
     ) return null;
-    const calculus = deriveRuntimeEventCalculusProjection(runPrefix);
+    const calculus = deriveRuntimeHeldFluentProjection(runPrefix);
     if (![
       constructRuntimeFluent({
         name: "run_active",
@@ -1412,7 +1463,7 @@ function projectCCallOpeningAuthority(
 }
 
 function cCallPhasePermitsOpening(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   cCallRef: string,
 ): boolean {
   try {
@@ -1426,6 +1477,17 @@ export function projectAdmittedCCallResultAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   cCall: CCall,
   result: AdmittedCCallResult,
+): AdmittedCCallResult | null;
+/** @internal */
+export function projectAdmittedCCallResultAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+): AdmittedCCallResult | null;
+export function projectAdmittedCCallResultAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
+  result: AdmittedCCallResult,
 ): AdmittedCCallResult | null {
   return projectAdmittedCCallResultFromPhase(
     prefix, cCall, result, projectCCallCarrierPhaseAtPrefix(prefix, cCall),
@@ -1433,7 +1495,7 @@ export function projectAdmittedCCallResultAtPrefix(
 }
 
 function projectAdmittedCCallResultFromPhase(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   cCall: CCall,
   result: AdmittedCCallResult,
   phase: CCallPhaseProjection | null,
@@ -1457,6 +1519,19 @@ function projectAdmittedCCallResultFromPhase(
 
 export function projectAdmittedCCallOutcomeAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+): RehydratedAdmittedCCallState | null;
+/** @internal */
+export function projectAdmittedCCallOutcomeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+): RehydratedAdmittedCCallState | null;
+export function projectAdmittedCCallOutcomeAtPrefix(
+  prefix: RuntimeEventPrefix,
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
@@ -1646,7 +1721,7 @@ function runtimeFailureCloseRefusal(
 }
 
 function exactCCallRows(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   cCallRef: string,
 ) {
   return indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef);
@@ -1656,8 +1731,7 @@ function projectCCallOwnerPrefix(
   store: AbgEventStore,
   cCall: CCall,
 ): ReturnType<typeof projectCCallOwnerAtPrefix> {
-  const snapshot = store.readAll();
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const authorityPrefix = selectRuntimeEventPrefixFromStore(store);
   const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
   if (store.digest() !== expectedStorePrefixDigest) return null;
   return projectCCallOwnerAtPrefix(
@@ -1667,11 +1741,11 @@ function projectCCallOwnerPrefix(
 }
 
 function projectCCallOwnerAtPrefix(
-  authorityPrefix: ValidatedRuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix,
   cCall: CCall,
 ): Readonly<{
-  prefix: ValidatedRuntimeEventPrefix;
-  authorityPrefix: ValidatedRuntimeEventPrefix;
+  prefix: RuntimeEventPrefix;
+  authorityPrefix: RuntimeEventPrefix;
   phase: CCallPhaseProjection;
   rows: readonly RuntimeEvent[];
   expectedStorePrefixDigest: Sha256Digest;
@@ -1720,7 +1794,7 @@ function actorTransportSourceDigest(source: Readonly<Record<string, JsonValue>>)
 }
 
 function projectAdmittedActorTransport(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   cCallRef: string,
   source: Readonly<Record<string, JsonValue>>,
 ): AdmittedActorTransportProjection | null {
@@ -1777,7 +1851,7 @@ function projectAdmittedActorTransport(
       `probabilistic-request://abiogenesis/${source.requestDigest.slice("sha256:".length)}` ||
     !isSha256Digest(source.rawOutputDigest)
   ) return null;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const lifecycle = (() => {
     try {
       return projectActorProcessLifecycle(prefix, source.actorInvocationRef as string);
@@ -1790,23 +1864,23 @@ function projectAdmittedActorTransport(
     lifecycle.processTerminalEventRef === null ||
     lifecycle.cleanupDisposition !== "complete"
   ) return null;
-  const bindingRows = events.filter((event) =>
+  const bindingRows = indexedRuntimeEvents(prefix, "related:" + source.transportBindingRef).filter((event) =>
     event.kind === "actor_transport_binding_admitted" &&
     event.aggregateId === source.transportBindingRef
   );
-  const actorStartedRows = events.filter((event) =>
+  const actorStartedRows = indexedRuntimeEvents(prefix, "related:" + source.actorInvocationRef).filter((event) =>
     event.kind === "actor_invocation_started" &&
     event.aggregateId === source.actorInvocationRef
   );
-  const processStartedRows = events.filter((event) =>
+  const processStartedRows = indexedRuntimeEvents(prefix, "related:" + source.processRef).filter((event) =>
     event.kind === "actor_process_started" &&
     event.aggregateId === source.processRef &&
     event.parentAggregateId === source.actorInvocationRef
   );
-  const terminal = events.find((event) =>
+  const terminal = indexedRuntimeEvents(prefix, "id:" + lifecycle.actorTerminalEventRef).find((event) =>
     event.eventId === lifecycle.actorTerminalEventRef
   );
-  const processTerminal = events.find((event) =>
+  const processTerminal = indexedRuntimeEvents(prefix, "id:" + lifecycle.processTerminalEventRef).find((event) =>
     event.eventId === lifecycle.processTerminalEventRef
   );
   const artifactEventRef = terminal !== undefined && isJsonRecord(terminal.payload) &&
@@ -1815,8 +1889,8 @@ function projectAdmittedActorTransport(
     : null;
   const artifact = artifactEventRef === null
     ? undefined
-    : events.find((event) => event.eventId === artifactEventRef);
-  const fibreRows = events.filter((event) =>
+    : indexedRuntimeEvents(prefix, "id:" + artifactEventRef).find((event) => event.eventId === artifactEventRef);
+  const fibreRows = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter((event) =>
     event.kind === "c_call_fibre_selected" && event.aggregateId === cCallRef
   );
   const binding = bindingRows[0];
@@ -1993,7 +2067,7 @@ function projectAdmittedActorTransport(
   });
 }
 function projectAdmittedProbabilisticTransport(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   cCallRef: string,
   source: Readonly<Record<string, JsonValue>>,
 ): AdmittedProbabilisticTransportProjection | null {
@@ -2050,7 +2124,7 @@ function hasAdmittedActorEvidence(
   cCall: CCall,
   candidate: ProbabilisticTransportEvidenceCandidate,
 ): boolean {
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  const prefix = selectRuntimeEventPrefixFromStore(store);
   return projectAdmittedProbabilisticTransport(
     prefix,
     cCall.cCallRef,
@@ -2141,11 +2215,11 @@ function exactCCallEvidenceIdentity(event: RuntimeEvent): boolean {
 }
 
 function exactProbabilisticFailureSource(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   cCallRef: string,
   sourceEventRef: string,
 ): ExactCCallRuntimeFailureSource | null {
-  const evidence = runtimeEventsFromValidatedPrefix(prefix).find((event) =>
+  const evidence = indexedRuntimeEvents(prefix, "id:" + sourceEventRef).find((event) =>
     event.eventId === sourceEventRef
   );
   if (
@@ -2172,11 +2246,11 @@ function exactProbabilisticFailureSource(
   return deepFreeze({ ...resolved, sourceEventRef: evidence.eventId });
 }
 function exactContractRejectionFailureSource(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   cCallRef: string,
   sourceEventRef: string,
 ): ExactCCallRuntimeFailureSource | null {
-  const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
+  const event = indexedRuntimeEvents(prefix, "id:" + sourceEventRef).find((candidate) =>
     candidate.eventId === sourceEventRef
   );
   if (
@@ -2213,13 +2287,13 @@ function admittedEvidencePayload(
   return body as unknown as Readonly<Record<string, JsonValue>>;
 }
 
-function hasUndispatchedEvidence(prefix: ValidatedRuntimeEventPrefix, cCallRef: string): boolean {
-  return runtimeEventsFromValidatedPrefix(prefix).some(event => event.kind === "c_call_evidenced" &&
+function hasUndispatchedEvidence(prefix: RuntimeEventPrefix, cCallRef: string): boolean {
+  return indexedRuntimeEvents(prefix, "related:" + cCallRef).some(event => event.kind === "c_call_evidenced" &&
     event.aggregateId === cCallRef && isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
 }
-function undispatchedResultRelation(prefix: ValidatedRuntimeEventPrefix, cCall: CCall, result: AdmittedCCallResult): boolean {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const evidence = events.filter(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
+function undispatchedResultRelation(prefix: RuntimeEventPrefix, cCall: CCall, result: AdmittedCCallResult): boolean {
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const evidence = indexedRuntimeEvents(prefix, "related:" + cCall.cCallRef).filter(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
   if (!evidence.some(event => isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal")) return true;
   const event = evidence[0], p = event?.payload;
   if (evidence.length !== 1 || event === undefined || !isJsonRecord(p) ||
@@ -2252,13 +2326,13 @@ function hasGenericCCallAttemptCoordinates(
 }
 
 function projectOpenedLeafCCallCarrier(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   cCallRef: string,
 ): CCall | null {
   if (!isMaterializedGtlGraph(graph) || cCallRef.length === 0) return null;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const rows = events.filter((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const rows = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter((event) =>
     event.aggregateType === "c_call" && event.aggregateId === cCallRef
   );
   const opened = rows[0];
@@ -2350,7 +2424,7 @@ function projectOpenedLeafCCallCarrier(
   };
   const openedCursorRef = opened.payload.cursorRef;
   const openedCursorDigest = opened.payload.cursorDigest;
-  const cursorCause = events.find((event) =>
+  const cursorCause = indexedRuntimeEvents(prefix, "id:" + opened.causationEventRefs[0]).find((event) =>
     event.eventId === opened.causationEventRefs[0] &&
     event.admissionOrdinal < opened.admissionOrdinal &&
     isJsonRecord(event.payload) &&
@@ -2563,7 +2637,7 @@ function projectOpenedLeafCCallCarrier(
 }
 
 function projectOpenedWorkflowCCallCarrier(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   cCallRef: string,
   sourceCursor: TraversalCursorCandidate,
@@ -2634,8 +2708,8 @@ function projectOpenedWorkflowCCallCarrier(
   if (failureContractRef === null) return null;
   const judgmentPredicateRef =
     graphFunction.declarations["abg.judgment_predicate"];
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const rows = events.filter((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const rows = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter((event) =>
     event.aggregateType === "c_call" && event.aggregateId === cCallRef
   );
   const opened = rows[0];
@@ -2800,10 +2874,31 @@ export function projectOpenedCCallCarrier(
   graphFunction?: Readonly<GraphFunction>,
   childGraphFunction?: Readonly<GraphFunction>,
   programValidation?: ProgramValidation,
+): CCall | null;
+/** @internal */
+export function projectOpenedCCallCarrier(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  cCallRef: string,
+  sourceCursor?: TraversalCursorCandidate,
+  graphFunction?: Readonly<GraphFunction>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
+): CCall | null;
+export function projectOpenedCCallCarrier(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  cCallRef: string,
+  sourceCursor?: TraversalCursorCandidate,
+  graphFunction?: Readonly<GraphFunction>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
 ): CCall | null {
-  const prefixEvents = runtimeEventsFromValidatedPrefix(prefix);
+  const prefixEvents = runtimeEventBodiesAtPrefix(prefix);
   if (
-    store.readAll().length !== prefixEvents.length ||
+    runtimeEventPrefixExtent(selectRuntimeEventPrefixFromStore(store)).count !== prefixEvents.length ||
     store.digest() !==
       runtimeEventPrefixDigest(prefix)
   ) return null;
@@ -2833,6 +2928,25 @@ export function projectOpenedCCallCarrierAtPrefix(
   graphFunction?: Readonly<GraphFunction>,
   childGraphFunction?: Readonly<GraphFunction>,
   programValidation?: ProgramValidation,
+): CCall | null;
+/** @internal */
+export function projectOpenedCCallCarrierAtPrefix(
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  cCallRef: string,
+  sourceCursor?: TraversalCursorCandidate,
+  graphFunction?: Readonly<GraphFunction>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
+): CCall | null;
+export function projectOpenedCCallCarrierAtPrefix(
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  cCallRef: string,
+  sourceCursor?: TraversalCursorCandidate,
+  graphFunction?: Readonly<GraphFunction>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
 ): CCall | null {
   const leaf = projectOpenedLeafCCallCarrier(prefix, graph, cCallRef);
   return leaf ?? (sourceCursor === undefined || graphFunction === undefined
@@ -2849,7 +2963,7 @@ export function projectOpenedCCallCarrierAtPrefix(
 }
 
 function exactRuntimeFailureSource(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   cCall: CCall,
   source: CCallRuntimeFailureSource,
 ): ExactCCallRuntimeFailureSource | null {
@@ -2869,7 +2983,7 @@ function exactRuntimeFailureSource(
     source.cCallRef !== cCall.cCallRef ||
     source.evidenceClass !== "probabilistic_transport"
   ) return null;
-  const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
+  const event = indexedRuntimeEvents(prefix, "id:" + source.admissionEventRef).find((candidate) =>
     candidate.eventId === source.admissionEventRef
   );
   if (
@@ -2912,8 +3026,35 @@ export function planCCallRuntimeFailureClose(
   failureValueKind: string,
   disposition: "blocked" | "retry",
   basis: RuntimeAdmissionBasis,
+): CCallRuntimeFailureClosePlan | CCallRuntimeFailureCloseRefusal;
+/** @internal */
+export function planCCallRuntimeFailureClose(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  source: CCallRuntimeFailureSource,
+  failureCandidate: JsonValue,
+  failureValueKind: string,
+  disposition: "blocked" | "retry",
+  basis: RuntimeAdmissionBasis,
+): CCallRuntimeFailureClosePlan | CCallRuntimeFailureCloseRefusal;
+export function planCCallRuntimeFailureClose(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  source: CCallRuntimeFailureSource,
+  failureCandidate: JsonValue,
+  failureValueKind: string,
+  disposition: "blocked" | "retry",
+  basis: RuntimeAdmissionBasis,
 ): CCallRuntimeFailureClosePlan | CCallRuntimeFailureCloseRefusal {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const expectedPrefixDigest = runtimeEventPrefixDigest(prefix);
   let phase: CCallPhaseProjection;
   try {
@@ -2938,7 +3079,7 @@ export function planCCallRuntimeFailureClose(
     : phase.phase === "evidencing";
   if (
     store.digest() !== expectedPrefixDigest ||
-    store.readAll().length !== events.length ||
+    runtimeEventPrefixExtent(selectRuntimeEventPrefixFromStore(store)).count !== events.length ||
     (() => {
       const projected = projectOpenedCCallCarrier(
         store,
@@ -2988,17 +3129,17 @@ export function planCCallRuntimeFailureClose(
     );
   }
   const activeRetryAttemptRef = retryOwner.active.attempt.attemptRef;
-  const projectedHistory = [...events];
+  let planPrefix = prefix;
   const eventCandidates: RuntimeEventCandidate[] = [];
   const projectedEvents: RuntimeEvent[] = [];
   const project = (candidate: RuntimeEventCandidate): RuntimeEvent => {
     const event = projectRuntimeEventFromValidatedHistory(
-      projectedHistory,
+      runtimeEventBodiesAtPrefix(planPrefix),
       candidate,
     );
     eventCandidates.push(deepFreeze(candidate));
     projectedEvents.push(event);
-    projectedHistory.push(event);
+    planPrefix = extendRuntimeEventPlanPrefixForValidation(planPrefix,event);
     return event;
   };
 
@@ -3047,9 +3188,7 @@ export function planCCallRuntimeFailureClose(
       "runtime failure source event is absent",
     );
   }
-  const projectedPrefix = selectValidatedRuntimeEventPrefix(
-    Object.freeze([...projectedHistory]),
-  );
+  const projectedPrefix = planPrefix;
   const evidenceRefs = exactCCallRows(
     projectedPrefix,
     cCall.cCallRef,
@@ -3119,14 +3258,8 @@ export function planCCallRuntimeFailureClose(
     ...resultBody,
     admissionEventRef: resultEvent.eventId,
   }) as AdmittedCCallResult;
-  const runPrefix = selectValidatedRuntimeEventPrefix(
-    Object.freeze([...projectedHistory]),
-    { runId: cCall.runId },
-  );
-  const replayState = replayValidatedRuntimeEventPrefix(
-    runPrefix,
-    selectValidatedRuntimeEventPrefix(Object.freeze([...projectedHistory])),
-  );
+  const runPrefix = selectRuntimeEventPrefixFromAuthority(planPrefix,{runId:cCall.runId});
+  const replayState = projectRuntimeReplayGuard(runPrefix,planPrefix);
   const judgmentBody = {
     cCallRef: cCall.cCallRef,
     resultRef,
@@ -3235,7 +3368,7 @@ export function admitPlannedCCallRuntimeFailureClose(
     plan.admissionBasisDigest !==
       sha256Canonical(basis as unknown as JsonValue)
   ) throw runtimeFailureCloseError("plan identity or expected prefix differs");
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  const prefix = selectRuntimeEventPrefixFromStore(store);
   const rederived = planCCallRuntimeFailureClose(
     store,
     prefix,
@@ -3283,8 +3416,21 @@ export function projectCCallRuntimeFailureSignal(
   cCallRef: string,
   resultRef: string,
   judgmentRef: string,
+): CCallRuntimeFailureSignal | null;
+/** @internal */
+export function projectCCallRuntimeFailureSignal(
+  prefix: RuntimeEventPrefix,
+  cCallRef: string,
+  resultRef: string,
+  judgmentRef: string,
+): CCallRuntimeFailureSignal | null;
+export function projectCCallRuntimeFailureSignal(
+  prefix: RuntimeEventPrefix,
+  cCallRef: string,
+  resultRef: string,
+  judgmentRef: string,
 ): CCallRuntimeFailureSignal | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   let phase: CCallPhaseProjection;
   try {
     phase = projectCCallPhase(prefix, cCallRef);
@@ -3295,8 +3441,8 @@ export function projectCCallRuntimeFailureSignal(
     phase.phase !== "judged" || phase.resultEventRef === null ||
     phase.judgmentEventRef === null
   ) return null;
-  const result = events.find((event) => event.eventId === phase.resultEventRef);
-  const judgment = events.find((event) =>
+  const result = indexedRuntimeEvents(prefix, "id:" + phase.resultEventRef).find((event) => event.eventId === phase.resultEventRef);
+  const judgment = indexedRuntimeEvents(prefix, "id:" + phase.judgmentEventRef).find((event) =>
     event.eventId === phase.judgmentEventRef
   );
   if (
@@ -3339,7 +3485,7 @@ export function projectCCallRuntimeFailureSignal(
     judgmentRef !==
       `judgment://abiogenesis/${String(judgmentDigest).slice("sha256:".length)}`
   ) return null;
-  const sourceEvents = events.filter((event) =>
+  const sourceEvents = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter((event) =>
     event.kind === "c_call_evidenced" && event.aggregateId === cCallRef &&
     isJsonRecord(event.payload) && typeof event.payload.evidenceRef === "string" &&
     evidenceRefs.includes(event.payload.evidenceRef) &&
@@ -3630,6 +3776,19 @@ export function projectActorTransportForResult(
   cCall: CCall,
   request: Readonly<ActorProcessRequest>,
   observation: Readonly<ActorProcessObservation>,
+): AdmittedActorTransportProjection | null;
+/** @internal */
+export function projectActorTransportForResult(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
+  request: Readonly<ActorProcessRequest>,
+  observation: Readonly<ActorProcessObservation>,
+): AdmittedActorTransportProjection | null;
+export function projectActorTransportForResult(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
+  request: Readonly<ActorProcessRequest>,
+  observation: Readonly<ActorProcessObservation>,
 ): AdmittedActorTransportProjection | null {
   const requestDigest = sha256Canonical(request as unknown as JsonValue);
   const source = probabilisticTransportEvidenceValue(request, observation, {
@@ -3705,9 +3864,7 @@ export function admitWorkflowChildPreparationRefusal(
   let owner: ReturnType<typeof projectCCallOwnerAtPrefix>;
   try {
     owner = projectCCallOwnerAtPrefix(
-      selectValidatedRuntimeEventPrefix(
-        readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
-      ),
+      (() => { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); return selectRuntimeEventPrefixFromStore(store); })(),
       parentCCall,
     );
   } catch {
@@ -3822,7 +3979,7 @@ export function admitWorkflowChildFoldback(
   basis: RuntimeAdmissionBasis,
 ): ChildFoldbackAdmission | ChildFoldbackRefusal {
   return admitWorkflowChildFoldbackUsing(
-    () => readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
+    () => { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); return selectRuntimeEventPrefixFromStore(store); },
     store, predecessorPrefix, graph, graphFunction, cursor, parentCCall, childExecutionBasis, childScope, input, basis,
   );
 }
@@ -3832,7 +3989,7 @@ export function prepareWorkflowChildFoldback(
   input: Extract<ChildFoldbackInput, Readonly<{ relationClass: "workflow" }>>,
 ) {
   const { store, predecessorPrefix, cursor } = input;
-  const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  const prefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
   const intent = rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
   return Object.freeze({ intent, admit(): ChildFoldbackAdmission | ChildFoldbackRefusal {
     // The optional action-evaluation branch retains its existing acquisition.
@@ -3841,7 +3998,7 @@ export function prepareWorkflowChildFoldback(
         input.graphFunction, cursor, input.parentCCall, input.childExecutionBasis,
         input.childScope, input.child, input.basis);
     }
-    const readCurrent = () => projectHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix);
+    const readCurrent = () => { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); return selectRuntimeEventPrefixFromStore(store); };
     let result: ChildFoldbackAdmission | ChildFoldbackRefusal;
     try {
       result = admitWorkflowChildFoldbackUsing(readCurrent, store, predecessorPrefix,
@@ -3863,7 +4020,7 @@ export function prepareWorkflowChildFoldback(
 }
 
 function admitWorkflowChildFoldbackUsing(
-  readCurrent: () => readonly RuntimeEvent[],
+  readCurrent: () => RuntimeEventPrefix,
 
   store: AbgEventStore,
   predecessorPrefix: DurablePrefixCoordinate,
@@ -3883,9 +4040,7 @@ function admitWorkflowChildFoldbackUsing(
   let parentOwner: ReturnType<typeof projectCCallOwnerAtPrefix>;
   try {
     parentOwner = projectCCallOwnerAtPrefix(
-      selectValidatedRuntimeEventPrefix(
-        readCurrent(),
-      ),
+      readCurrent(),
       parentCCall,
     );
   } catch {
@@ -4021,6 +4176,19 @@ export function projectWorkflowCCallInputDigestAtPrefix(
   opened: RuntimeEvent,
   foldback: RuntimeEvent,
   result: RuntimeEvent,
+): Sha256Digest | null;
+/** @internal */
+export function projectWorkflowCCallInputDigestAtPrefix(
+  prefix: RuntimeEventPrefix,
+  opened: RuntimeEvent,
+  foldback: RuntimeEvent,
+  result: RuntimeEvent,
+): Sha256Digest | null;
+export function projectWorkflowCCallInputDigestAtPrefix(
+  prefix: RuntimeEventPrefix,
+  opened: RuntimeEvent,
+  foldback: RuntimeEvent,
+  result: RuntimeEvent,
 ): Sha256Digest | null {
   if (!isJsonRecord(opened.payload) || opened.kind !== "c_call_opened" ||
     opened.payload.callClass !== "workflow" || typeof opened.payload.cursorRef !== "string" ||
@@ -4114,7 +4282,7 @@ export function rehydrateWorkflowCCall(
   programValidation?: ProgramValidation,
 ): CCall | null {
   return rehydrateWorkflowCCallAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     executionBasis,
     implementationSet,
     scope,
@@ -4129,6 +4297,31 @@ export function rehydrateWorkflowCCall(
 
 export function rehydrateWorkflowCCallAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  executionBasis: ExecutionBasis,
+  implementationSet: AdmittedImplementationSet,
+  scope: OpenedTraversalScope,
+  graphFunction: Readonly<GraphFunction>,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
+): CCall | null;
+/** @internal */
+export function rehydrateWorkflowCCallAtPrefix(
+  prefix: RuntimeEventPrefix,
+  executionBasis: ExecutionBasis,
+  implementationSet: AdmittedImplementationSet,
+  scope: OpenedTraversalScope,
+  graphFunction: Readonly<GraphFunction>,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
+): CCall | null;
+export function rehydrateWorkflowCCallAtPrefix(
+  prefix: RuntimeEventPrefix,
   executionBasis: ExecutionBasis,
   implementationSet: AdmittedImplementationSet,
   scope: OpenedTraversalScope,
@@ -4208,7 +4401,7 @@ export function rehydrateWorkflowCCallAtPrefix(
   };
   const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
   const cCallRef = `c-call:${cCallDigest}`;
-  const events = runtimeEventsFromValidatedPrefix(prefix).filter(
+  const events = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter(
     (event) => event.aggregateType === "c_call" && event.aggregateId === cCallRef,
   );
   const openedEvent = events[0];
@@ -4412,6 +4605,22 @@ export function projectAdmittedLeafCCallOutcomeAtPrefix(
   predecessorPrefix: DurablePrefixCoordinate,
   input: AdmittedLeafCCallOutcomeProjectionInput,
 ): RehydratedAdmittedCCallState | null {
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  return projectAdmittedLeafCCallOutcomeFromPrefix(authorityPrefix, input);
+}
+
+/** @internal Reuse the current owned cut; the selected outcome keeps all leaf guards. */
+export function projectOwnedAdmittedLeafCCallOutcomeAtPrefix(
+  predecessorPrefix: DurablePrefixCoordinate,
+  input: AdmittedLeafCCallOutcomeProjectionInput,
+): RehydratedAdmittedCCallState | null {
+  return projectAdmittedLeafCCallOutcomeFromPrefix(projectOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix), input);
+}
+
+function projectAdmittedLeafCCallOutcomeFromPrefix(
+  authorityPrefix: RuntimeEventPrefix,
+  input: AdmittedLeafCCallOutcomeProjectionInput,
+): RehydratedAdmittedCCallState | null {
   const basis = input.executionBasis;
   const implementationSet = input.implementationSet;
   const scope = input.openedTraversalScope;
@@ -4426,9 +4635,7 @@ export function projectAdmittedLeafCCallOutcomeAtPrefix(
       implementationBindingRef: stop.implementationBindingRef,
     },
   );
-  const snapshot = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
-  const prefix = selectValidatedRuntimeEventPrefix(snapshot, {
+  const prefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
     runId: scope.runId,
   });
   if (
@@ -4476,8 +4683,8 @@ export function projectAdmittedLeafCCallOutcomeAtPrefix(
   const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
   const cCallRef = `c-call:${cCallDigest}`;
   if (input.cCallRef !== cCallRef) return null;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const cCallEvents = events.filter(
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const cCallEvents = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter(
     (event) =>
       event.aggregateType === "c_call" && event.aggregateId === cCallRef,
   );
@@ -4630,6 +4837,19 @@ export function projectAdmittedCCallStateAtPrefix(
   cCallValue: Readonly<Record<string, JsonValue>>,
   resultValue: Readonly<Record<string, JsonValue>>,
   judgmentValue: Readonly<Record<string, JsonValue>>,
+): RehydratedAdmittedCCallState | null;
+/** @internal */
+export function projectAdmittedCCallStateAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  resultValue: Readonly<Record<string, JsonValue>>,
+  judgmentValue: Readonly<Record<string, JsonValue>>,
+): RehydratedAdmittedCCallState | null;
+export function projectAdmittedCCallStateAtPrefix(
+  prefix: RuntimeEventPrefix,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  resultValue: Readonly<Record<string, JsonValue>>,
+  judgmentValue: Readonly<Record<string, JsonValue>>,
 ): RehydratedAdmittedCCallState | null {
   const cCall = deepFreeze(cCallValue) as unknown as CCall;
   const result = deepFreeze(resultValue) as unknown as AdmittedCCallResult;
@@ -4653,14 +4873,10 @@ export function rehydrateAdmittedCCallState(
     : null;
   const opened = cCallRef === null
     ? undefined
-    : store.readAll().find((event) =>
-        event.kind === "c_call_opened" && event.aggregateId === cCallRef
-      );
+    : indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(store), "aggregate:c_call:" + cCallRef).find(event => event.kind === "c_call_opened");
   const prefix = opened?.runId === undefined
     ? null
-    : selectValidatedRuntimeEventPrefix(store.readAll(), {
-        runId: opened.runId,
-      });
+    : selectRuntimeEventPrefixFromStore(store, {runId: opened.runId});
   const projected = prefix === null
     ? null
     : projectAdmittedCCallStateAtPrefix(
@@ -4675,6 +4891,19 @@ export function rehydrateAdmittedCCallState(
 
 export function projectPendingInteractionCarrier(
   prefix: ValidatedRuntimeEventPrefix,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  resultValue: Readonly<Record<string, JsonValue>>,
+  judgmentValue: Readonly<Record<string, JsonValue>>,
+): RehydratedPendingInteraction | null;
+/** @internal */
+export function projectPendingInteractionCarrier(
+  prefix: RuntimeEventPrefix,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  resultValue: Readonly<Record<string, JsonValue>>,
+  judgmentValue: Readonly<Record<string, JsonValue>>,
+): RehydratedPendingInteraction | null;
+export function projectPendingInteractionCarrier(
+  prefix: RuntimeEventPrefix,
   cCallValue: Readonly<Record<string, JsonValue>>,
   resultValue: Readonly<Record<string, JsonValue>>,
   judgmentValue: Readonly<Record<string, JsonValue>>,
@@ -4720,14 +4949,10 @@ export function rehydratePendingInteraction(
     : null;
   const openedCCall = cCallRef === null
     ? undefined
-    : store.readAll().find((event) =>
-        event.kind === "c_call_opened" && event.aggregateId === cCallRef
-      );
+    : indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(store), "aggregate:c_call:" + cCallRef).find(event => event.kind === "c_call_opened");
   const prefix = openedCCall?.runId === undefined
     ? null
-    : selectValidatedRuntimeEventPrefix(store.readAll(), {
-        runId: openedCCall.runId,
-      });
+    : selectRuntimeEventPrefixFromStore(store, {runId: openedCCall.runId});
   const projected = prefix === null
     ? null
     : projectPendingInteractionCarrier(
@@ -4737,8 +4962,8 @@ export function rehydratePendingInteraction(
         judgmentValue,
       );
   if (projected === null) return null;
-  const events = runtimeEventsFromValidatedPrefix(prefix!);
-  const continuationEvent = events.find(
+  const events = runtimeEventBodiesAtPrefix(prefix!);
+  const continuationEvent = indexedRuntimeEvents(prefix!, "kind:" + "fh_interaction_opened").find(
     (event) =>
       event.kind === "fh_interaction_opened" &&
       isJsonRecord(event.payload) &&
@@ -4747,7 +4972,7 @@ export function rehydratePendingInteraction(
   if (
     continuationEvent === undefined ||
     !holdsAt(
-      deriveRuntimeEventCalculusProjection(prefix!),
+      deriveRuntimeHeldFluentProjection(prefix!),
       constructRuntimeFluent({
         name: "interaction_pending",
         identity: continuationEvent.aggregateId,
@@ -5009,8 +5234,8 @@ function admitCCallProgressEvent(store: AbgEventStore, expectedPrefixDigest: Sha
 function admitPreparedCCallOpening(input: Readonly<{
   store: AbgEventStore;
   predecessorPrefix: DurablePrefixCoordinate;
-  openingAuthorityPrefix: ValidatedRuntimeEventPrefix;
-  openingPrefix: ValidatedRuntimeEventPrefix;
+  openingAuthorityPrefix: RuntimeEventPrefix;
+  openingPrefix: RuntimeEventPrefix;
   cursorAdmissionEventRef: string;
   executionBasis: ExecutionBasis;
   scope: OpenedTraversalScope;
@@ -5438,6 +5663,17 @@ export function workflowOutputContractCorresponds(input: Readonly<{
   prefix: ValidatedRuntimeEventPrefix; executionBasis: ExecutionBasis;
   graph: Readonly<GtlGraph>; cursor: TraversalCursorCandidate;
   childGraphFunction: Readonly<GraphFunction>; childClosureContract: Readonly<ClosureContract>;
+}>): boolean;
+/** @internal */
+export function workflowOutputContractCorresponds(input: Readonly<{
+  prefix: RuntimeEventPrefix; executionBasis: ExecutionBasis;
+  graph: Readonly<GtlGraph>; cursor: TraversalCursorCandidate;
+  childGraphFunction: Readonly<GraphFunction>; childClosureContract: Readonly<ClosureContract>;
+}>): boolean;
+export function workflowOutputContractCorresponds(input: Readonly<{
+  prefix: RuntimeEventPrefix; executionBasis: ExecutionBasis;
+  graph: Readonly<GtlGraph>; cursor: TraversalCursorCandidate;
+  childGraphFunction: Readonly<GraphFunction>; childClosureContract: Readonly<ClosureContract>;
 }>): boolean {
   const { prefix, executionBasis, graph, cursor, childGraphFunction: child, childClosureContract: closure } = input;
   const term = resolveCProgramTermAtSourcePath(graph.template, cursor.currentNodeRef, cursor.termPath);
@@ -5693,7 +5929,7 @@ export function openCCall(
 }
 
 function pendingInteractionPlanBody(
-  plan: PendingInteractionAdmissionPlan,
+  plan: PendingInteractionAdmissionPlan | OwnedPendingInteractionAdmissionPlan,
 ): Readonly<Record<string, JsonValue>> {
   const {
     kind: _kind,
@@ -5705,7 +5941,8 @@ function pendingInteractionPlanBody(
   return body as unknown as Readonly<Record<string, JsonValue>>;
 }
 
-export function planPendingInteractionAdmission(
+/** @internal Same pure planner and digest law, with selected operational fields. */
+export function planOwnedPendingInteractionAdmission(
   store: AbgEventStore,
   graph: Readonly<GtlGraph>,
   graphFunction: Readonly<GraphFunction>,
@@ -5714,7 +5951,7 @@ export function planPendingInteractionAdmission(
   request: Readonly<Record<string, JsonValue>>,
   expectedInputDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
-): PendingInteractionAdmissionPlan {
+): OwnedPendingInteractionAdmissionPlan {
   const owner = projectCCallOwnerPrefix(store, cCall);
   const retryOwner = cCall.retryPath.length === 0 || owner === null
     ? null
@@ -5784,19 +6021,17 @@ export function planPendingInteractionAdmission(
     `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
   const judgmentReasonRef =
     `reason://abiogenesis/fh/${cCall.interactionKind}/pending@5`;
-  const projectedHistory = [
-    ...runtimeEventsFromValidatedPrefix(owner.authorityPrefix),
-  ];
+  let planPrefix = owner.authorityPrefix;
   const eventCandidates: RuntimeEventCandidate[] = [];
   const projectedEvents: RuntimeEvent[] = [];
   const project = (candidate: RuntimeEventCandidate): RuntimeEvent => {
     const event = projectRuntimeEventFromValidatedHistory(
-      projectedHistory,
+      runtimeEventBodiesAtPrefix(planPrefix),
       candidate,
     );
     eventCandidates.push(deepFreeze(candidate));
     projectedEvents.push(event);
-    projectedHistory.push(event);
+    planPrefix = extendRuntimeEventPlanPrefixForValidation(planPrefix,event);
     return event;
   };
   const evidenceEvent = project({
@@ -5854,17 +6089,9 @@ export function planPendingInteractionAdmission(
     ...resultBody,
     admissionEventRef: resultEvent.eventId,
   }) as AdmittedCCallResult;
-  const resultAuthorityPrefix = selectValidatedRuntimeEventPrefix(
-    Object.freeze([...projectedHistory]),
-  );
-  const resultRunPrefix = selectValidatedRuntimeEventPrefix(
-    Object.freeze([...projectedHistory]),
-    { runId: cCall.runId },
-  );
-  const resultReplayState = replayValidatedRuntimeEventPrefix(
-    resultRunPrefix,
-    resultAuthorityPrefix,
-  );
+  const resultAuthorityPrefix = planPrefix;
+  const resultRunPrefix = selectRuntimeEventPrefixFromAuthority(planPrefix,{runId:cCall.runId});
+  const resultReplayState = projectRuntimeReplayGuard(resultRunPrefix,resultAuthorityPrefix);
   const judgmentBody = {
     cCallRef: cCall.cCallRef,
     resultRef,
@@ -5918,17 +6145,9 @@ export function planPendingInteractionAdmission(
     requestRef,
     requestDigest,
   }) as PendingInteractionAdmission;
-  const projectedPrefix = selectValidatedRuntimeEventPrefix(
-    Object.freeze([...projectedHistory]),
-  );
-  const projectedRunPrefix = selectValidatedRuntimeEventPrefix(
-    Object.freeze([...projectedHistory]),
-    { runId: cCall.runId },
-  );
-  const replayState = replayValidatedRuntimeEventPrefix(
-    projectedRunPrefix,
-    projectedPrefix,
-  );
+  const projectedPrefix = planPrefix;
+  const projectedRunPrefix = selectRuntimeEventPrefixFromAuthority(projectedPrefix,{runId:cCall.runId});
+  const replayState = projectRuntimeReplayGuard(projectedRunPrefix,projectedPrefix);
   const projected = projectPendingInteractionCarrier(
     projectedRunPrefix,
     cCall as unknown as Readonly<Record<string, JsonValue>>,
@@ -5969,7 +6188,7 @@ export function planPendingInteractionAdmission(
     projectedPrefix,
     replayState,
   };
-  const planDigest = sha256Canonical(body as unknown as JsonValue);
+  const planDigest = pendingInteractionBodyDigest(body);
   return deepFreeze({
     kind: "pending_interaction_admission_plan" as const,
     schemaVersion: "5.0.0" as const,
@@ -5980,7 +6199,8 @@ export function planPendingInteractionAdmission(
   });
 }
 
-export function admitPlannedPendingInteraction(
+/** @internal Revalidates the complete canonical plan at the same actual owner. */
+export function admitOwnedPlannedPendingInteraction(
   store: AbgEventStore,
   graph: Readonly<GtlGraph>,
   graphFunction: Readonly<GraphFunction>,
@@ -5988,16 +6208,14 @@ export function admitPlannedPendingInteraction(
   cCall: CCall,
   request: Readonly<Record<string, JsonValue>>,
   expectedInputDigest: Sha256Digest,
-  plan: PendingInteractionAdmissionPlan,
+  plan: PendingInteractionAdmissionPlan | OwnedPendingInteractionAdmissionPlan,
   basis: RuntimeAdmissionBasis,
 ): PendingInteractionAdmission {
   assertRuntimeEventTransactionActive(store);
   if (
     plan.kind !== "pending_interaction_admission_plan" ||
     plan.schemaVersion !== "5.0.0" || plan.cCallRef !== cCall.cCallRef ||
-    plan.planDigest !== sha256Canonical(
-      pendingInteractionPlanBody(plan) as unknown as JsonValue,
-    ) ||
+    plan.planDigest !== pendingInteractionBodyDigest(plan) ||
     plan.planRef !==
       `pending-interaction-plan://abiogenesis/${plan.planDigest.slice("sha256:".length)}` ||
     plan.admissionBasisDigest !== sha256Canonical(basis as unknown as JsonValue) ||
@@ -6007,7 +6225,7 @@ export function admitPlannedPendingInteraction(
       "planned pending F_H admission differs from its exact owner prefix",
     );
   }
-  const rederived = planPendingInteractionAdmission(
+  const rederived = planOwnedPendingInteractionAdmission(
     store,
     graph,
     graphFunction,
@@ -6018,8 +6236,7 @@ export function admitPlannedPendingInteraction(
     basis,
   );
   if (
-    sha256Canonical(rederived as unknown as JsonValue) !==
-      sha256Canonical(plan as unknown as JsonValue)
+    rederived.planDigest !== plan.planDigest || pendingInteractionBodyDigest(rederived) !== pendingInteractionBodyDigest(plan)
   ) {
     throw new TypeError(
       "planned pending F_H admission no longer reprojects exactly",
@@ -6057,6 +6274,19 @@ export function undispatchedOwnerEvidenceMatches(
   cCall: CCall,
   candidate: UndispatchedOwnerRefusalEvidenceCandidate,
   expectedInputDigest: Sha256Digest,
+): boolean;
+/** @internal */
+export function undispatchedOwnerEvidenceMatches(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
+  candidate: UndispatchedOwnerRefusalEvidenceCandidate,
+  expectedInputDigest: Sha256Digest,
+): boolean;
+export function undispatchedOwnerEvidenceMatches(
+  prefix: RuntimeEventPrefix,
+  cCall: CCall,
+  candidate: UndispatchedOwnerRefusalEvidenceCandidate,
+  expectedInputDigest: Sha256Digest,
 ): boolean {
   try {
     const expectedKeys = ["kind", "schemaVersion", "implementationRef", "inputDigest", "outputDigest",
@@ -6076,9 +6306,9 @@ export function undispatchedOwnerEvidenceMatches(
         o.inputContractRef !== cCall.inputContractRef || o.outputContractRef !== cCall.outputContractRef ||
         o.inputDigest !== expectedInputDigest || candidate.failureValue.diagnosticRef !== o.diagnosticRef ||
         candidate.failureValue.failureClass !== (o.reason === "malformed_preparation" ? "malformed_return" : "implementation_exception")) return false;
-    const events = runtimeEventsFromValidatedPrefix(prefix);
-    const opened = events.find(event => event.eventId === cCall.openedEventRef);
-    const fibre = events.find(event => event.eventId === cCall.fibreSelectedEventRef);
+    const events = runtimeEventBodiesAtPrefix(prefix);
+    const opened = indexedRuntimeEvents(prefix, "id:" + cCall.openedEventRef).find(event => event.eventId === cCall.openedEventRef);
+    const fibre = indexedRuntimeEvents(prefix, "id:" + cCall.fibreSelectedEventRef).find(event => event.eventId === cCall.fibreSelectedEventRef);
     if (opened?.kind !== "c_call_opened" || fibre?.kind !== "c_call_fibre_selected" ||
         !isJsonRecord(opened.payload) || !isJsonRecord(fibre.payload) ||
         opened.aggregateId !== cCall.cCallRef || fibre.payload.implementationRef !== cCall.implementationRef ||
@@ -6099,18 +6329,49 @@ export function undispatchedOwnerEvidenceMatches(
         (origin.kind === "fh_interaction_resume_admitted" && origin.payload.successorInputDigest !== expectedInputDigest)) return false;
     // Link actor/process children through the actual binding and invocation,
     // not an assumption that every process event repeats payload.cCallRef.
-    const bindings = events.filter(event => event.kind === "actor_transport_binding_admitted" &&
+    const bindings = indexedRuntimeEvents(prefix, "kind:" + "actor_transport_binding_admitted").filter(event => event.kind === "actor_transport_binding_admitted" &&
       isJsonRecord(event.payload) && event.payload.cCallRef === cCall.cCallRef);
-    const actors = events.filter(event => event.kind === "actor_invocation_started" && isJsonRecord(event.payload) &&
+    const actors = indexedRuntimeEvents(prefix, "kind:" + "actor_invocation_started").filter(event => event.kind === "actor_invocation_started" && isJsonRecord(event.payload) &&
       (event.payload.cCallRef === cCall.cCallRef || bindings.some(binding => binding.aggregateId === (event.payload as Record<string, JsonValue>).transportBindingRef)));
     return bindings.length === 0 && actors.length === 0 &&
-      !events.some(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
+      !indexedRuntimeEvents(prefix, "related:" + cCall.cCallRef).some(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
   } catch { return false; }
 }
 
 export function admitEvidence(
   store: AbgEventStore,
   prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  candidate: CCallEvidenceCandidate,
+  contractRef: string,
+  expectedInputDigest: Sha256Digest,
+  basis: RuntimeAdmissionBasis,
+  expectedInstructionContractRef?: string ,
+  expectedResultContractRef?: string ,
+  probabilisticResultBasis?: ProbabilisticResultEvidenceBasis | null ,
+): CCallEvidenceAdmissionResult;
+/** @internal */
+export function admitEvidence(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  candidate: CCallEvidenceCandidate,
+  contractRef: string,
+  expectedInputDigest: Sha256Digest,
+  basis: RuntimeAdmissionBasis,
+  expectedInstructionContractRef?: string ,
+  expectedResultContractRef?: string ,
+  probabilisticResultBasis?: ProbabilisticResultEvidenceBasis | null ,
+): CCallEvidenceAdmissionResult;
+export function admitEvidence(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   graphFunction: Readonly<GraphFunction>,
   cursor: TraversalCursorCandidate,
@@ -6137,7 +6398,7 @@ export function admitEvidenceFromActorTransport(
 function admitEvidenceUsingTransport(
   transport: AdmittedActorTransportProjection | null | undefined,
   store: AbgEventStore,
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   graphFunction: Readonly<GraphFunction>,
   cursor: TraversalCursorCandidate,
@@ -6360,7 +6621,7 @@ function admitEvidenceUsingTransport(
   const foldbackEvent = candidate.kind === "sub_traversal_evidence_candidate"
     ? owner === null
       ? undefined
-      : runtimeEventsFromValidatedPrefix(owner.prefix).find(
+      : indexedRuntimeEvents(owner.prefix, "id:" + candidate.foldbackEventRef).find(
           (event) => event.eventId === candidate.foldbackEventRef,
         )
     : undefined;
@@ -6550,6 +6811,37 @@ export function admitResult(
   validateValue: (value: unknown) => boolean,
   evidence: readonly AdmittedCCallEvidence[],
   basis: RuntimeAdmissionBasis,
+): CCallResultAdmissionResult;
+/** @internal */
+export function admitResult(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  candidate: JsonValue,
+  resultClass: "failure" | "success",
+  contractRef: string,
+  valueKind: string,
+  validateValue: (value: unknown) => boolean,
+  evidence: readonly AdmittedCCallEvidence[],
+  basis: RuntimeAdmissionBasis,
+): CCallResultAdmissionResult;
+export function admitResult(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  candidate: JsonValue,
+  resultClass: "failure" | "success",
+  contractRef: string,
+  valueKind: string,
+  validateValue: (value: unknown) => boolean,
+  evidence: readonly AdmittedCCallEvidence[],
+  basis: RuntimeAdmissionBasis,
 ): CCallResultAdmissionResult {
   const owner = projectCCallOwnerAtPrefix(prefix, cCall);
   const retryOwner = cCall.retryPath.length === 0 || owner === null
@@ -6660,6 +6952,31 @@ export function admitJudgment(
   candidate: JudgmentCandidate,
   replayState: ReplayState,
   basis: RuntimeAdmissionBasis,
+): CCallJudgmentAdmissionResult;
+/** @internal */
+export function admitJudgment(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  candidate: JudgmentCandidate,
+  replayState: RuntimeReplayGuard,
+  basis: RuntimeAdmissionBasis,
+): CCallJudgmentAdmissionResult;
+export function admitJudgment(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  candidate: JudgmentCandidate,
+  replayState: RuntimeReplayGuard,
+  basis: RuntimeAdmissionBasis,
 ): CCallJudgmentAdmissionResult {
   const owner = projectCCallOwnerAtPrefix(prefix, cCall);
   const retryOwner = cCall.retryPath.length === 0 || owner === null
@@ -6685,13 +7002,8 @@ export function admitJudgment(
     replayStateDigest: candidate.replayStateDigest,
   };
   const candidateValue = candidateBody as unknown as JsonValue;
-  const currentReplay = replayValidatedRuntimeEventPrefix(
-    owner?.prefix ?? prefix,
-    prefix,
-  );
-  const currentCCall = currentReplay.cCalls.find(
-    (row) => row.cCallRef === cCall.cCallRef,
-  );
+  const currentReplay = projectRuntimeReplayGuard(owner?.prefix ?? prefix, prefix);
+  const currentCCall = projectReplayCCallGuardAtPrefix(owner?.prefix ?? prefix,cCall.cCallRef);
   const undispatchedEvidence = (owner?.rows ?? []).find(event => event.kind === "c_call_evidenced" &&
     isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
   if (
@@ -6762,6 +7074,27 @@ export function admitJudgment(
 export function completeRejectedCCall(
   store: AbgEventStore,
   prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  admissionRejection: CCallAdmissionRejection,
+  basis: RuntimeAdmissionBasis,
+): RejectedCCallCompletion;
+/** @internal */
+export function completeRejectedCCall(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  admissionRejection: CCallAdmissionRejection,
+  basis: RuntimeAdmissionBasis,
+): RejectedCCallCompletion;
+export function completeRejectedCCall(
+  store: AbgEventStore,
+  prefix: RuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   graphFunction: Readonly<GraphFunction>,
   cursor: TraversalCursorCandidate,
@@ -6972,3 +7305,27 @@ export function completeRejectedCCall(
 }
 
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, parseNativeWorkspaceWorkReport } from "../product/native_workspace_work.js";
+
+function pendingInteractionBodyDigest(plan: Pick<OwnedPendingInteractionAdmissionPlan,"projectedPrefix"|"replayState"> & object): Sha256Digest {
+  const body = "planRef" in plan ? pendingInteractionPlanBody(plan as OwnedPendingInteractionAdmissionPlan) : plan as unknown as Readonly<Record<string,JsonValue>>;
+  const hash=createHash("sha256");const write=(part:string)=>{hash.update(part);};write("{");let comma=false;
+  for(const key of Object.keys(body).sort(compareUnicodeCodeUnits)) {
+    if(comma)write(",");comma=true;writeCanonicalJson(key,write);write(":");
+    if(key==="projectedPrefix") { if(plan.projectedPrefix.kind === "validated_runtime_event_prefix")writeCanonicalJson(body[key]!,write);else writeRuntimeEventPrefixValue(plan.projectedPrefix,write); }
+    else if(key==="replayState") { if("kind" in plan.replayState && plan.replayState.kind === "replay_state")writeCanonicalJson(body[key]!,write);else writeRuntimeReplayGuardValue(plan.replayState,write); }
+    else writeCanonicalJson(body[key]!,write);
+  }
+  write("}");return `sha256:${hash.digest("hex")}`;
+}
+export function planPendingInteractionAdmission(store: AbgEventStore, graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate, cCall: CCall, request: Readonly<Record<string,JsonValue>>, expectedInputDigest: Sha256Digest,
+  basis: RuntimeAdmissionBasis): PendingInteractionAdmissionPlan {
+  const plan=planOwnedPendingInteractionAdmission(store,graph,graphFunction,cursor,cCall,request,expectedInputDigest,basis);
+  return deepFreeze({...plan,projectedPrefix:selectValidatedRuntimeEventPrefix(Object.freeze([...runtimeEventBodiesAtPrefix(plan.projectedPrefix)])),
+    replayState:materializeRuntimeReplayGuard(plan.replayState)});
+}
+export function admitPlannedPendingInteraction(store: AbgEventStore, graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate, cCall: CCall, request: Readonly<Record<string,JsonValue>>, expectedInputDigest: Sha256Digest,
+  plan: PendingInteractionAdmissionPlan, basis: RuntimeAdmissionBasis): PendingInteractionAdmission {
+  return admitOwnedPlannedPendingInteraction(store,graph,graphFunction,cursor,cCall,request,expectedInputDigest,plan,basis);
+}

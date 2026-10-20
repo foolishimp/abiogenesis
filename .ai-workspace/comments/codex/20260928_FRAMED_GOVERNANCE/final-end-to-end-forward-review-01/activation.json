@@ -1,0 +1,16 @@
+{
+  "activation": "T287_END_TO_END_FORWARD_INTEGRATION_01",
+  "actor": "/root/current_authority_review",
+  "roleTransition": "Independent Reviewer to report-only Writer for observations, source spans, report and one freeze",
+  "request": "../final-end-to-end-forward-review-controls-01/request.txt",
+  "requestBytes": 6272,
+  "requestSha256": "e621447eb1179ae7fe90ca10e15cc0a7a1758a8337d9b9b3046932bac2927495",
+  "method": "Consumed Root's exact installed-a_c joined request; selected installed STDO2.5.1-rc.1 and existing local F-END-TO-END-INTERFACE-INTEGRATION/SP-01..09, not a new method",
+  "writeTerritory": "this directory only",
+  "limits": {"aggregateCheckMs":600000,"perProcessMs":120000,"terminationGraceMs":1000},
+  "effects": "read-only frozen-source and contract checks; no moving native/resource/worksite observation, provider/network/native calls, staging, implementation, package/build/install/suite, Git, sibling or delegation effects",
+  "observationErrors": [
+    {"operation":"source acquisition","error":"The summary printer assumed current-owner-source-relations.json was an object; it is an array. AttributeError stopped the read command.","resolution":"Read the actual array shape; retained tool output and this record. No candidate failure."},
+    {"operation":"source route discovery","error":"One rg call named guessed run_projection.ts, run_query.ts and project.ts paths, which do not exist.","resolution":"Discovered the actual project_read_ports.ts and project_read_definition_bindings.ts paths before reading their selected spans. No runtime probe or candidate effect."}
+  ]
+}

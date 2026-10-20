@@ -1,0 +1,10 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_14",
+  "workResult": "NO_GO_EXTERNAL_EXISTING_BIJECTION_OUTPUT_PRECONDITION",
+  "closedAt": "2026-10-03T07:41:36.222823+00:00",
+  "allWritesStopAfterFreeze": true,
+  "noRepairOrRetry": true,
+  "returnsTo": "Root Executive"
+}

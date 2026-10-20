@@ -1,0 +1,12 @@
+{"phase":"same-process-owned-core-verification","elapsedMs":667.77525}
+{"phase":"original-negative-causal-oracle","elapsedMs":11937.326666}
+{"phase":"no-action-run_result","elapsedMs":11939.2325}
+{"label":"no-action-run_result","definitionKey":{"operationId":"abg.operation.project.read","memberKey":"run_result"},"invocationRef":"invocation://abiogenesis/e9923bdeda29a9df0dda868d7ae475a9367b08a0f025f0a336d7e10a7ff916d6","outcomeKind":"refusal","elapsedMs":1807.524958,"processFailure":null}
+{"phase":"no-action-run_replay","elapsedMs":14093.2625}
+{"label":"no-action-run_replay","definitionKey":{"operationId":"abg.operation.project.read","memberKey":"run_replay"},"invocationRef":"invocation://abiogenesis/95f781fce4eff6e154e46e69b40ab41ce493f02b7d10adee5f040e891984d73b","outcomeKind":"result","elapsedMs":810.3071670000008,"processFailure":null}
+{"phase":"no-action-run_status","elapsedMs":15257.310583}
+{"label":"no-action-run_status","definitionKey":{"operationId":"abg.operation.project.read","memberKey":"run_status"},"invocationRef":"invocation://abiogenesis/2625fdfc7e738b5adb0aa9a4dadd7d3c006dc8a5f305ba7be3047f4211f25806","outcomeKind":"result","elapsedMs":819.5309170000019,"processFailure":null}
+{"phase":"no-action-run_gaps","elapsedMs":16432.382125}
+{"label":"no-action-run_gaps","definitionKey":{"operationId":"abg.operation.project.read","memberKey":"run_gaps"},"invocationRef":"invocation://abiogenesis/52e2af54fa060bf14eefe9751f4045ab736ba3af7e3bb4654b0814ebe44110ba","outcomeKind":"result","elapsedMs":814.9939999999988,"processFailure":null}
+{"phase":"original-negative-cold-oracle","elapsedMs":17605.295541}
+{"status":"passed","newCalls":4,"combinedFreshReads":8,"newStarts":0,"elapsedMs":17649.89775}

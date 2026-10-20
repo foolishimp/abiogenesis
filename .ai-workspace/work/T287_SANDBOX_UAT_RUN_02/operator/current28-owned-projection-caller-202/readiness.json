@@ -1,0 +1,55 @@
+{
+  "role": "Worker202",
+  "status": "CLOSED_FROZEN_CALLER_READINESS_ONLY",
+  "closed": "2026-10-09T11:14:34.700323+00:00",
+  "ProductFrame": "Fixed15 ABI5.0/GOAL035/T287 original external Data Mapper/STDO2.5.1rc2",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "prepare": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/prepare.mjs",
+    "sha256": "cfd41fa089311a5ccdf22dcf73db07fa45b1e4a90abbca74c129daea5a38d13c",
+    "byteCount": 43876
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/inputs.json",
+    "sha256": "9cc82310303c7769ea5a47e82ee0a07209f1907ad4e95c48af15a09b22fbc6c1",
+    "byteCount": 10534
+  },
+  "syntax": {
+    "kind": "command_result",
+    "started": "2026-10-09T11:13:04.091031+00:00",
+    "completed": "2026-10-09T11:13:04.119368+00:00",
+    "wallMs": 27.75820897659287,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "stdoutBytes": 0,
+    "stderrBytes": 0,
+    "scope": "Syntax only; no caller execution/import/resource or runtime effect"
+  },
+  "changed": "Only202 caller/inputs/documentary territory. Four174 helpers byte-exact. Canonical Source/HOW/Product/generated/package/installs/resources/worksite untouched.",
+  "entry": {
+    "genuine195Handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/final-close-handoff.json",
+      "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+      "byteCount": 1472
+    },
+    "prefixBytes": 1690085978,
+    "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+    "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a",
+    "mtimeNsDecimal": "1791531873723955484",
+    "currentPhysicalAcquisitionPerformed": false
+  },
+  "intendedHandoffs": [
+    "200 frozen expected28 verification descriptors -> fresh actual live ProductVerificationPort receipts and exact packed correspondence",
+    "actual live28+unchanged consumer receipts -> one early ProductEnvironmentPort.resolve complete lock BEFORE one history acquisition",
+    "existing183 real Public verify/resolve/new installs/binding/catalog/View owner calls -> full admitted installs/environment compare against early whole lock",
+    "exact136 raw34 source and actual104 consumed bases -> each direct target28 cover must reproject or be owner-admitted; saved27 covers/use grant nothing",
+    "actual new28 declaration owners plus historical24 source/declarations -> full guarded covered use -> genuine normal close -> real private callback using installed post198 owner projection"
+  ],
+  "noActualEffects": true,
+  "bulkAcquisitionReadIn202": false,
+  "historyOrActualSetupBodyReadIn202": false,
+  "scope": "Syntax and frozen small-selector preparation only; no factory guard/admission/cold acquisition/setup/current-use/callback/capacity/native/UAT proof",
+  "next": "Independent review then separately granted ONE actual installed preparation. Stop each unexpected failure before repair or retry."
+}

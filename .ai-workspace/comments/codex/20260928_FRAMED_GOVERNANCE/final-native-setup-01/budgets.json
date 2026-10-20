@@ -1,0 +1,36 @@
+{
+  "stages": {
+    "setup": 600000,
+    "conformance": 600000,
+    "hello": 300000,
+    "read": 600000
+  },
+  "operationPlan": [
+    "workspace",
+    "verify-core",
+    "resolve",
+    "install-core",
+    "bind",
+    "catalog",
+    "catalog-view",
+    "conformance-hello-world",
+    "conformance-command-execution",
+    "hello-root",
+    "hello-root-run_result",
+    "hello-root-run_replay"
+  ],
+  "setupAndConformanceCalls": 9,
+  "helloCalls": 1,
+  "readCalls": 2,
+  "nativeCapSumMs": 6900000,
+  "terminationGraceMs": 1000,
+  "allCommandGraceMs": 12000,
+  "driverBudgetMs": 6912000,
+  "driverScope": "starts after pure nominal verification/full11/context/syntax preflight;12 finite ordinary CLI calls, each own cap, group termination, genuine receipt conservation",
+  "retry": "none",
+  "basis": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/budgets.json",
+    "bytes": 7717,
+    "sha256": "36492bd8ab8b6ce7bf6d9338254cd95ba88c2d949266933c71ae8f8899e238a9"
+  }
+}

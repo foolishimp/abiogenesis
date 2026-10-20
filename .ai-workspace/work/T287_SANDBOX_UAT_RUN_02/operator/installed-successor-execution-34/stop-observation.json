@@ -1,0 +1,92 @@
+{
+  "at": "2026-10-07T03:15:02.672Z",
+  "scope": "Only admitted provider PIDs plus owned recorder/harness/CLI; no global process census or containment claim",
+  "observedPids": [
+    97685,
+    97687,
+    1621,
+    2648,
+    3700,
+    4962,
+    7636,
+    9312,
+    10418,
+    12179,
+    22576,
+    26992,
+    31354,
+    35522,
+    37807,
+    43175,
+    47807,
+    51886,
+    54279,
+    59515,
+    63973,
+    70301,
+    72837,
+    79146,
+    89471,
+    97175,
+    99847,
+    6356,
+    11167,
+    15478,
+    18562,
+    23045,
+    29678,
+    34490,
+    37583,
+    42069,
+    47699,
+    51996,
+    55649,
+    61446,
+    67218,
+    72334,
+    76441,
+    81842
+  ],
+  "psExit": 1,
+  "psRows": [],
+  "signalsIssued": false,
+  "admittedProviderStarts": 41,
+  "admittedProviderExits": 42,
+  "lastProviderExit": {
+    "ordinal": 117765,
+    "offset": 804454754,
+    "byteCount": 1835,
+    "sha256": "3c0cb806febec357a799211b0c1f0d7d20fc1c668a1e7d37ab0905c48d459984"
+  },
+  "nativeCli": {
+    "pid": 1621,
+    "signal": "SIGABRT",
+    "admittedRuntimeExitNotInvented": true
+  },
+  "eventStore": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T00-36-16-801Z-aba03409-467d-452b-a547-b87a81db6f45/resources/events/runtime.events.jsonl",
+    "byteCount": 816181362,
+    "sha256": "03147e0ec30ee4c5b935c9b6a6d6de5ed4283d6614d8658194ebe24ef9798ba9",
+    "before": {
+      "size": 816181362,
+      "mtime": "2026-10-07T03:10:18.182Z"
+    },
+    "after": {
+      "size": 816181362,
+      "mtime": "2026-10-07T03:10:18.182Z"
+    },
+    "stableDuringHash": true,
+    "priorSameSizeObservations": [
+      {
+        "at": "2026-10-07T03:11:34.852Z",
+        "size": 816181362
+      },
+      {
+        "at": "2026-10-07T03:13:12.843Z",
+        "size": 816181362
+      }
+    ]
+  },
+  "normalFreshReadbackAbsent": true,
+  "newSupportedReadOrRecovery": false
+}

@@ -1,0 +1,20 @@
+✖ M5 installed HoG traverses an independently declared composed GraphFunction (32299.840667ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 32374.00475
+
+✖ failing tests:
+
+test at test_env/tests/m5-installed-graph-edge.test.mjs:9:1
+✖ M5 installed HoG traverses an independently declared composed GraphFunction (32299.840667ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'kind')
+      at setupInstalledRootCatalog (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:499:34)
+      at async runInstalledLanguageTest (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs:13:23)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs:10:17)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

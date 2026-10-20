@@ -1,0 +1,90 @@
+[
+  {
+    "prefix": "compile",
+    "scope": "first compile: role literal widened; no emit",
+    "stdoutSha256": "ad0a233d71622afa8c48e78741350cff51f8b29c2b6df0c551908d403890d20c",
+    "stderrSha256": "df0b7d45a6f0680d51e5d063b30ae6bc6e95ca069e48bbf97f620e1f40d1d10e",
+    "timing": [
+      "real 4.40",
+      "user 7.42",
+      "sys 0.15"
+    ]
+  },
+  {
+    "prefix": "compile-02",
+    "scope": "compile success",
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSha256": "b11e41bd850d5fa9219cbb66361ec55004d264f9ff5be01342d387c753d1ae65",
+    "timing": [
+      "real 5.41",
+      "user 9.28",
+      "sys 0.19"
+    ]
+  },
+  {
+    "prefix": "native-tests",
+    "scope": "first checks: known stale loader fixture plus test used terminal identity instead of assessor transition",
+    "stdoutSha256": "0fff0509e12419b459f980a8e74f52aa6cb61738c5fcb3605577bb931774798b",
+    "stderrSha256": "0797547e9d356290a3115444eb53faee7e0d675760ea7c8e62c8586626741477",
+    "timing": [
+      "real 2.59",
+      "user 2.58",
+      "sys 0.22"
+    ]
+  },
+  {
+    "prefix": "native-tests-02",
+    "scope": "six intake/request/continuation checks pass; excludes known stale unrelated loader fixture",
+    "stdoutSha256": "96675d9fb2357103b5f5a19b7774b880e77ea7f2014d1b070f8ef9567176c6d1",
+    "stderrSha256": "752c2c503e4204557b3e7b67a4e63d0f768763a291f2c7c6529b34cff2061fc3",
+    "timing": [
+      "real 2.77",
+      "user 2.79",
+      "sys 0.23"
+    ]
+  },
+  {
+    "prefix": "glc-tests",
+    "scope": "first checks: role fixture chose first graph for stage, now assessment-only graph",
+    "stdoutSha256": "a5a040b9af200201702f1c5faf98e9dc4ed230759b43e5c3515384c6f9b691de",
+    "stderrSha256": "61d74a85e8f79bed47c888cd656c170884cb9c2cfad90753f7754fed7890fd57",
+    "timing": [
+      "real 0.75",
+      "user 0.82",
+      "sys 0.07"
+    ]
+  },
+  {
+    "prefix": "glc-tests-02",
+    "scope": "all Programs and fourteen role combinations pass",
+    "stdoutSha256": "96177a1e775f3fec87c3197c168aa22191735d39569830dea7b1eb36c3c00cc7",
+    "stderrSha256": "a84eed629f54e7c14ac46d328f1a652603a87f91d2f00b6f93eedcffd442ac40",
+    "timing": [
+      "real 0.73",
+      "user 0.80",
+      "sys 0.07"
+    ]
+  },
+  {
+    "prefix": "assembly-tests",
+    "scope": "opaque and author-successor pass; new opaque fixture changed job without its basis, correctly refused",
+    "stdoutSha256": "4c76dd60a85646d810e02d1fd0132e48f7b06897af1d3d27cba276583c7815d2",
+    "stderrSha256": "6fd0927f9599d7b636f721f583a0504ee81e0e6e1a8a4576dad71df482d1a7a1",
+    "timing": [
+      "real 1.56",
+      "user 1.58",
+      "sys 0.13"
+    ]
+  },
+  {
+    "prefix": "assembly-tests-02",
+    "scope": "actual assessment-first successor/preservation/refusal checks pass",
+    "stdoutSha256": "40b210cc08bbf33d659575d2665ff403c6023b96453db4d0d2b20bc2a4866ab8",
+    "stderrSha256": "75805f57d462854751e9f062a84a55847e363839f572eef3c4c036f364b54b82",
+    "timing": [
+      "real 0.47",
+      "user 0.52",
+      "sys 0.06"
+    ]
+  }
+]

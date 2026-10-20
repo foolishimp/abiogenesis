@@ -1,0 +1,80 @@
+{
+  "operation": "T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+  "actor": "/root",
+  "role": "Writer",
+  "priorRole": "Executive",
+  "reentry": "realization_refactor",
+  "kind": "documentary acceptance projection only; unchanged WHAT/HOW",
+  "basis": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "consumes": {
+    "authorCut": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/freeze.json",
+    "rootVerification": "read-only exact final freeze and 17 Source postimages",
+    "reviewer": "/root/q03_input_review T287_G2_GTL_CORE_PACKAGE_ASSURANCE_01 CLOSED return required before activation"
+  },
+  "produces": "bounded Source/core/package acceptance in existing T-287, GOALS and permanent closure commentary plus new documentary controls/evidence",
+  "territory": {
+    "work": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+    "evidence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+    "existingPaths": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md"
+    ]
+  },
+  "preserves": [
+    "17 Source postimages",
+    "all frozen original cuts/work/evidence",
+    "unrelated dirty worktree",
+    "accepted installed Hello/Rust/lifecycle evidence",
+    "C10 installed candidate identity separate from pure new core package"
+  ],
+  "mayChange": [
+    "only named current tracking fields and library selection paragraph",
+    "one permanent append to current closure commentary",
+    "small new documentary activation/preimages/review capture/acceptance/closure; no runtime authority"
+  ],
+  "stops": [
+    "review has unresolved material blocker",
+    "any named preimage changed",
+    "Source/final frozen cut invalidation",
+    "any required effect lies outside exact documentary territory"
+  ],
+  "validWhile": "exact final cut, RC2 basis, current tracking preimages and independent CLOSED GO remain unchanged",
+  "exit": "verify exact intended documentary postimages and named Source conservation; close Writer and return Executive",
+  "open": [
+    "four drift maps and adjunct/remaining mandatory Public content",
+    "current installed G1/G3 judgment-F11-AF22-cold chain",
+    "genuine complete F11 and seven defect cases",
+    "complete scenario conjunction and exact qualification",
+    "green sole-AF22, publication and same-RC acceptance"
+  ],
+  "trackingPreimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 492937,
+      "sha256": "22b3c22904be7baa24bbe75d523b12a22e1d0aaa29342209448ecd8c70523058"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 68143,
+      "sha256": "89713269fa893225b5aa9d8deecccdb67542475fde69aec17cb914c0dd5d360d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "sha256": "bd104d1c395dd9f3b30b12f4afd99f0593d548bc0185080eed1dfe36e2a8c405"
+    }
+  ],
+  "goalsReplacement": "The [current library closure](../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md) accepts independently reviewed G1 finding/citation conservation, G3 canonical parent-alias Source/component evidence, G2 eight canonical-owner exports and the GTL serialization/API/schema/corpus core. The core's exact seventeen-path cut passes strict compilation, offline packaging, complete composed-schema checking and source-blind native/API/declaration/catalog/roundtrip/corpus proof: all twenty-three selected tuple occurrences are closed and all twelve tests pass. Its independent acceptance is Source/component/package only. Preserve the original stopped cuts and valid bounded evidence. Working files and retained proof use separate work/evidence storage; comments hold permanent explanation. C10 construction is accepted; its actual Setup10 completed fourteen Public calls, two admitted installs and four Program conformances and is in independent assurance. Current installed G1/G3 whole-path proof, four drift mappings and constitutional adjunct, remaining mandatory Public content, genuine F11, defect cases, exact qualification and release remain open. C10 is a bounded development witness.",
+  "reviewReturnRequiredBeforeActivation": "CLOSED GO_SOURCE_COMPONENT_CORE_PACKAGE_ONLY delivered by /root/q03_input_review; Root conjoins with exact read-only verification",
+  "acceptance": {
+    "authority": "Executive /root disposition conjoins CLOSED author readiness, nonauthor independent review and Root exact verification",
+    "status": "ACCEPT_SOURCE_COMPONENT_CORE_PACKAGE_ONLY",
+    "sourceOperation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01"
+  },
+  "activated": true,
+  "activatedAtUTC": "2026-10-04T17:07:01.099240+00:00"
+}

@@ -1,0 +1,122 @@
+{
+  "kind": "static_original_packet_child_join_preflight",
+  "status": "pass",
+  "wallMs": 505.0408340000001,
+  "validationRef": "program-validation://abiogenesis/562f9755c3fe676c56f26c9b4c393caa45ed9947e3c3ffcb0b619bcc690b9cdc",
+  "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+  "graphFunctionCount": 15,
+  "referencedChildren": [
+    {
+      "parentGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "path": "/template/nodes/3/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/induction@5",
+      "childDigest": "sha256:bd4e694bf773ef15993694751daea0655fae4c6991b0f00e6bd71e72f106358f"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "path": "/template/nodes/4/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+      "childDigest": "sha256:e4d1a9473a55fd394e74e01dbe7a6107f513d943340b0f7c2ef791cba891dba2"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "path": "/template/nodes/5/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+      "childDigest": "sha256:1b451aef8e6b6d2a44334613dae6ec856228c67f119cd321494e0e11f3ec6918"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "path": "/template/nodes/6/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "childDigest": "sha256:c155862b67f048dd9368b255cbeb081fe3d254b8d049cb4f4905b2127d7eb4f2"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "path": "/template/nodes/7/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "childDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "path": "/template/nodes/8/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "childDigest": "sha256:2cac0c6b68532d197c60c087cc6a029b200689bc9bd2ba231ab64bb3c2d3394b"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "path": "/template/nodes/1/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "childDigest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+      "path": "/template/nodes/1/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "childDigest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/executive-step@5",
+      "path": "/template/nodes/3/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/induction@5",
+      "childDigest": "sha256:bd4e694bf773ef15993694751daea0655fae4c6991b0f00e6bd71e72f106358f"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/executive-step@5",
+      "path": "/template/nodes/4/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+      "childDigest": "sha256:e4d1a9473a55fd394e74e01dbe7a6107f513d943340b0f7c2ef791cba891dba2"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/executive-step@5",
+      "path": "/template/nodes/5/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+      "childDigest": "sha256:1b451aef8e6b6d2a44334613dae6ec856228c67f119cd321494e0e11f3ec6918"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/executive-step@5",
+      "path": "/template/nodes/6/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "childDigest": "sha256:c155862b67f048dd9368b255cbeb081fe3d254b8d049cb4f4905b2127d7eb4f2"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/executive-step@5",
+      "path": "/template/nodes/7/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "childDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/executive-step@5",
+      "path": "/template/nodes/8/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "childDigest": "sha256:2cac0c6b68532d197c60c087cc6a029b200689bc9bd2ba231ab64bb3c2d3394b"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/induction@5",
+      "path": "/template/nodes/1/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "childDigest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+      "path": "/template/nodes/1/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "childDigest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "path": "/template/nodes/1/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "childDigest": "sha256:5b33817eb4d092aea5179405fc21049dd3540a3845ecdb74f1c4f4c1de10c112"
+    },
+    {
+      "parentGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "path": "/template/nodes/1/term",
+      "childGraphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "childDigest": "sha256:408fc33a83516703ac6427dd4b51cb9301e257a33eaa391ac802db6c48f5eb9c"
+    }
+  ],
+  "remainingDigestKeyAssumptions": [],
+  "sameInstalledClosureAndValidationOwners": true,
+  "noFullEventRead": true,
+  "noRuntimeEffects": true
+}

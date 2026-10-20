@@ -1,0 +1,59 @@
+{
+  "freeze": {
+    "bytes": 7759222,
+    "sha256": "2b30493d4874518d96613e04211cfbd4c4c76dda5989b74c688717fa22af70c4"
+  },
+  "physical": {
+    "files": 13528,
+    "directories": 1288,
+    "symlinks": 0,
+    "logicalBytes": 288129669,
+    "bodyModeMismatches": 0,
+    "missingMembers": 0,
+    "extraMembers": 0
+  },
+  "source": {
+    "rows": 17,
+    "changed": 2,
+    "conserved": 15,
+    "mismatches": 0
+  },
+  "receipts": {
+    "phases": 7,
+    "allExit0": true,
+    "allReapedAndAbsent": true,
+    "digestMismatches": 0,
+    "retries": 0
+  },
+  "nodeSummary": {
+    "tests": 12,
+    "passed": 12,
+    "failed": 0
+  },
+  "schema": {
+    "definitions": [
+      "GraphFunction",
+      "ModulePublication",
+      "CProgramSyntax",
+      "GtlProgramConformanceInput",
+      "GtlLanguageConformanceCorpus"
+    ],
+    "closedTuples": 23
+  },
+  "actor": "/root",
+  "role": "Executive",
+  "effects": "read-only inspection; no payload rerun",
+  "archive": {
+    "bytes": 10660984,
+    "sha256": "c00589d0073f6f118f7ab0209ae90d21ef53d5ec976845e1dc0e95918e2d925b"
+  },
+  "productContentDigest": "sha256:433af1826cd65b03785a61f63b1111bd78978701d17f58445286b9e73f52e398",
+  "catalogDigest": "sha256:4c33dbab3f9fb3d67b1324939ebb60f4dcc7913109c883b10811d5769dd0add0",
+  "archiveExtraction": {
+    "files": 5283,
+    "logicalBytes": 70753401,
+    "membershipMissing": 0,
+    "membershipExtra": 0,
+    "errors": 0
+  }
+}

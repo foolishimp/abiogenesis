@@ -1,0 +1,11 @@
+{
+  "operation": "T287_C06_REPORT_REENTRY_GRANT_01",
+  "role": "Writer",
+  "previousRole": "Executive",
+  "actor": "/root",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-report-finalization-controls-01"
+  ],
+  "grant": "Record bounded Tool/Integration/Proof finalizer RCA and dependency-ready report-only continuation",
+  "activatedAt": "2026-10-02T05:46:12.330079+00:00"
+}

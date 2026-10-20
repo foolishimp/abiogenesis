@@ -1,0 +1,495 @@
+{
+  "hook": "test-only node:fs fsyncSync wrapper after native fsync; no runtime bytes patched",
+  "processId": 59401,
+  "signal": "SIGKILL",
+  "eventCount": 216,
+  "selectionCount": 2,
+  "selectedEvent": {
+    "admissionOrdinal": 216,
+    "aggregateId": "frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d",
+    "aggregateType": "frame",
+    "basisId": "execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+    "causationEventRefs": [
+      "event://abiogenesis/3da6141dee5af260b154331bd38418491ee52fece69668b459349f33ac6c01e2"
+    ],
+    "correlationId": "correlation://selected-action/initial/leaf/8/completion/transition/route/construction-intent",
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventId": "event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b",
+    "eventTime": "2026-09-29T15:57:19.333Z",
+    "frameId": "frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d",
+    "graphCallId": "graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467",
+    "graphFunctionRef": "graph-function://selected-action/root@5",
+    "kind": "construction_intent_selected",
+    "materializationRef": "graph-materialization://abiogenesis/5ada78c69c1c60e8575c566316529118c7e59fa957142b431562dc87d2b7cc7e",
+    "parentAggregateId": "graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467",
+    "payload": {
+      "actionCatalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "actionCatalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "actionCatalogRowDigest": "sha256:e6cddf0ea4491babde67634537fab5abac6955812a7b8b73afdc5a3e76d9bd1a",
+      "constructionIntent": {
+        "actionCatalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+        "actionCatalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+        "actionCatalogRowDigest": "sha256:e6cddf0ea4491babde67634537fab5abac6955812a7b8b73afdc5a3e76d9bd1a",
+        "actionKind": "invoke_graph_function",
+        "constructionCompositionDigest": "sha256:66ab3360919a3ca6dc43e526a874456138627f4607812ab0bdf924c6e78b3858",
+        "constructionCompositionRef": "composition://selected-action/root@5",
+        "constructionIntentDigest": "sha256:f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f",
+        "constructionIntentRef": "construction-intent://abiogenesis/f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f",
+        "disposition": "admitted",
+        "executionBasisDigest": "sha256:81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+        "executionBasisRef": "execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+        "expectedDeltaRef": "delta://selected-action/echo@5",
+        "frameId": "frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d",
+        "graphCallId": "graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467",
+        "graphFunctionDigest": "sha256:492497c253379819ff4d7ebffa9b0a7be2ddb438921d2615ad3ca9fe5f6a6d81",
+        "graphFunctionRef": "graph-function://selected-action/root@5",
+        "inputAssetRefs": [
+          "asset://selected-action/input@5"
+        ],
+        "invocationAdmissionRef": "invocation-admission://abiogenesis/115c03f78986ff9f1f0fc0a7c6bee607715ab55be3b7c0ffe60a7c88a30c5d0b",
+        "invocationDigest": "sha256:95ac3a56a2f3d5b0819085b79d798118f645ee6b641001ee1412bf70c5f06fa7",
+        "invocationRef": "invocation://abiogenesis/95ac3a56a2f3d5b0819085b79d798118f645ee6b641001ee1412bf70c5f06fa7",
+        "kind": "construction_intent",
+        "nextActionAuthorityRef": "authority://selected-action/evaluateNext@5",
+        "nextActionBasisDigest": "sha256:f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+        "nextActionBasisRef": "next-action-basis://product/f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+        "nextActionProjectionDigest": "sha256:2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1",
+        "nextActionProjectionRef": "next-action-projection://product/2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1",
+        "outputAssetRefs": [
+          "asset://selected-action/output@5"
+        ],
+        "programDigest": "sha256:0f90deaea87ed5a56670566e0fdf881785f4b25deb190978307278bced1b6cb7",
+        "programRef": "program://selected-action/root@5",
+        "progressConditionRef": "condition://selected-action/progress@5",
+        "runId": "run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029",
+        "schemaVersion": "5.0.0",
+        "selectedActionRef": "action://selected-action/consumer@5",
+        "selectedGraphFunctionRef": "graph-function://selected-action/child@5",
+        "sourceCCallRef": "c-call:sha256:ae0a2aea14563f91e48ae44719ab1de8bcf2436c3f7ba9c0a7553fce32a333ea",
+        "sourceJudgmentRef": "judgment://abiogenesis/5eaceb65f2ac8bc2e3bf176b5e260448e3c195de03db920344e0db51bdeedbd4",
+        "sourceResultDigest": "sha256:2f5755512bc53ac10804efe721d205ec7d88fbbb649e3c3d5c4456beb74149a4",
+        "sourceResultRef": "result://abiogenesis/2f5755512bc53ac10804efe721d205ec7d88fbbb649e3c3d5c4456beb74149a4",
+        "stopConditionRef": "condition://selected-action/stop@5",
+        "targetCursorDigest": "sha256:79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355",
+        "targetCursorRef": "traversal-cursor://abiogenesis/79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355",
+        "targetInput": {
+          "kind": "fixture_task",
+          "payload": "selected second action",
+          "schemaVersion": "5.0.0"
+        },
+        "targetInputDigest": "sha256:25697b512d0ded99d3a399fc3aa98f885e9f129f7d6e98c5a5864b14e870dcab",
+        "targetInputRef": "input://selected-action/task@5",
+        "targetObligationRefs": [
+          "obligation://selected-action/echo@5"
+        ],
+        "targetOutcomeRef": "outcome://selected-action/echo@5",
+        "targetProgramLocusRef": "graph-function://selected-action/child@5",
+        "workspaceBindingDigest": "sha256:70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5",
+        "workspaceBindingId": "workspace-binding://abiogenesis/70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5"
+      },
+      "constructionIntentDigest": "sha256:f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f",
+      "constructionIntentRef": "construction-intent://abiogenesis/f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f",
+      "nextActionBasis": {
+        "admittedActionCatalog": {
+          "catalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+          "catalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+          "kind": "action_catalog",
+          "rows": [
+            {
+              "actionKind": "invoke_graph_function",
+              "actionRef": "action://selected-action/consumer@5",
+              "expectedDeltaRef": "delta://selected-action/echo@5",
+              "graphFunctionRef": "graph-function://selected-action/child@5",
+              "inputAssetRefs": [
+                "asset://selected-action/input@5"
+              ],
+              "kind": "action_catalog_row",
+              "outputAssetRefs": [
+                "asset://selected-action/output@5"
+              ],
+              "programRef": "program://selected-action/root@5",
+              "progressConditionRef": "condition://selected-action/progress@5",
+              "stopConditionRef": "condition://selected-action/stop@5",
+              "targetObligationRefs": [
+                "obligation://selected-action/echo@5"
+              ],
+              "targetProgramLocusRef": "graph-function://selected-action/child@5"
+            },
+            {
+              "actionKind": "invoke_graph_function",
+              "actionRef": "action://selected-action/initial@5",
+              "expectedDeltaRef": "delta://selected-action/echo@5",
+              "graphFunctionRef": "graph-function://selected-action/child@5",
+              "inputAssetRefs": [
+                "asset://selected-action/input@5"
+              ],
+              "kind": "action_catalog_row",
+              "outputAssetRefs": [
+                "asset://selected-action/output@5"
+              ],
+              "programRef": "program://selected-action/root@5",
+              "progressConditionRef": "condition://selected-action/progress@5",
+              "stopConditionRef": "condition://selected-action/stop@5",
+              "targetObligationRefs": [
+                "obligation://selected-action/echo@5"
+              ],
+              "targetProgramLocusRef": "graph-function://selected-action/child@5"
+            }
+          ],
+          "schemaVersion": "5.0.0"
+        },
+        "basisDigest": "sha256:f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+        "basisRef": "next-action-basis://product/f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+        "declaredPolicy": {
+          "kind": "construction_policy",
+          "policyRef": "policy://selected-action/closure@5",
+          "requireCompleteEvidence": true,
+          "requirePostEvidenceRefresh": true
+        },
+        "gapProjection": {
+          "gapRef": "gap://selected-action/echo@5",
+          "missingAssetRefs": [],
+          "targetOutcomeRef": "outcome://selected-action/echo@5"
+        },
+        "kind": "next_action_basis",
+        "observationSnapshot": {
+          "actionCatalog": {
+            "catalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+            "catalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+            "kind": "action_catalog",
+            "rows": [
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://selected-action/consumer@5",
+                "expectedDeltaRef": "delta://selected-action/echo@5",
+                "graphFunctionRef": "graph-function://selected-action/child@5",
+                "inputAssetRefs": [
+                  "asset://selected-action/input@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://selected-action/output@5"
+                ],
+                "programRef": "program://selected-action/root@5",
+                "progressConditionRef": "condition://selected-action/progress@5",
+                "stopConditionRef": "condition://selected-action/stop@5",
+                "targetObligationRefs": [
+                  "obligation://selected-action/echo@5"
+                ],
+                "targetProgramLocusRef": "graph-function://selected-action/child@5"
+              },
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://selected-action/initial@5",
+                "expectedDeltaRef": "delta://selected-action/echo@5",
+                "graphFunctionRef": "graph-function://selected-action/child@5",
+                "inputAssetRefs": [
+                  "asset://selected-action/input@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://selected-action/output@5"
+                ],
+                "programRef": "program://selected-action/root@5",
+                "progressConditionRef": "condition://selected-action/progress@5",
+                "stopConditionRef": "condition://selected-action/stop@5",
+                "targetObligationRefs": [
+                  "obligation://selected-action/echo@5"
+                ],
+                "targetProgramLocusRef": "graph-function://selected-action/child@5"
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "constructionPolicy": {
+            "kind": "construction_policy",
+            "policyRef": "policy://selected-action/closure@5",
+            "requireCompleteEvidence": true,
+            "requirePostEvidenceRefresh": true
+          },
+          "kind": "fixture_request",
+          "phase": 1,
+          "priorRefreshedModel": {
+            "evaluation": {
+              "actionEvaluationBasisDigest": "sha256:9b586bc52efe256f5e89d17735ea97a11a71161ddeb3ea2d0d612106587aa3ef",
+              "actionEvaluationBasisRef": "action-evaluation-basis://abiogenesis/9b586bc52efe256f5e89d17735ea97a11a71161ddeb3ea2d0d612106587aa3ef",
+              "actionEvaluationDigest": "sha256:f911b90e03db0b8763f61cf707255fc798b0603d0d116e6b0e65119d9434e860",
+              "actionEvaluationRef": "action-evaluation://product/f911b90e03db0b8763f61cf707255fc798b0603d0d116e6b0e65119d9434e860",
+              "admittedEvidenceRefs": [
+                "result://abiogenesis/cc813077f6265d233c975106bada7a3aff67386861f82510754e511c56996d7c"
+              ],
+              "constructionIntentRef": "construction-intent://abiogenesis/2190f6fffae31432b8ca75aeaadf7c27464b15aee4d670ed67a624e2575d736c",
+              "edgeClosureDecision": {
+                "constructionIntentRef": "construction-intent://abiogenesis/2190f6fffae31432b8ca75aeaadf7c27464b15aee4d670ed67a624e2575d736c",
+                "correctionDisposition": null,
+                "decisionDigest": "sha256:90a4f20e63abb695393b294d03ad30270e3de0878c7fca92f1bc705516f72dcf",
+                "decisionRef": "edge-closure-decision://product/90a4f20e63abb695393b294d03ad30270e3de0878c7fca92f1bc705516f72dcf",
+                "disposition": "close_candidate",
+                "kind": "edge_closure_decision",
+                "ledgerRef": "edge-fulfillment-ledger://product/973ee74f99ed27afb538a1442a415f065226e888b6dad9f9f1ad687f8333119f",
+                "schemaVersion": "5.0.0",
+                "targetOutcomeRef": "outcome://selected-action/echo@5"
+              },
+              "edgeFulfillmentLedger": {
+                "constructionIntentRef": "construction-intent://abiogenesis/2190f6fffae31432b8ca75aeaadf7c27464b15aee4d670ed67a624e2575d736c",
+                "kind": "edge_fulfillment_ledger",
+                "ledgerDigest": "sha256:973ee74f99ed27afb538a1442a415f065226e888b6dad9f9f1ad687f8333119f",
+                "ledgerRef": "edge-fulfillment-ledger://product/973ee74f99ed27afb538a1442a415f065226e888b6dad9f9f1ad687f8333119f",
+                "rows": [
+                  {
+                    "disposition": "fulfilled",
+                    "evidenceAssetRefs": [
+                      "asset://selected-action/output@5"
+                    ],
+                    "evidenceRefs": [
+                      "result://abiogenesis/cc813077f6265d233c975106bada7a3aff67386861f82510754e511c56996d7c"
+                    ],
+                    "obligationRef": "obligation://selected-action/echo@5"
+                  }
+                ],
+                "schemaVersion": "5.0.0",
+                "targetOutcomeRef": "outcome://selected-action/echo@5"
+              },
+              "kind": "action_evaluation_projection",
+              "observationSnapshot": {
+                "actionCatalog": {
+                  "catalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+                  "catalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+                  "kind": "action_catalog",
+                  "rows": [
+                    {
+                      "actionKind": "invoke_graph_function",
+                      "actionRef": "action://selected-action/consumer@5",
+                      "expectedDeltaRef": "delta://selected-action/echo@5",
+                      "graphFunctionRef": "graph-function://selected-action/child@5",
+                      "inputAssetRefs": [
+                        "asset://selected-action/input@5"
+                      ],
+                      "kind": "action_catalog_row",
+                      "outputAssetRefs": [
+                        "asset://selected-action/output@5"
+                      ],
+                      "programRef": "program://selected-action/root@5",
+                      "progressConditionRef": "condition://selected-action/progress@5",
+                      "stopConditionRef": "condition://selected-action/stop@5",
+                      "targetObligationRefs": [
+                        "obligation://selected-action/echo@5"
+                      ],
+                      "targetProgramLocusRef": "graph-function://selected-action/child@5"
+                    },
+                    {
+                      "actionKind": "invoke_graph_function",
+                      "actionRef": "action://selected-action/initial@5",
+                      "expectedDeltaRef": "delta://selected-action/echo@5",
+                      "graphFunctionRef": "graph-function://selected-action/child@5",
+                      "inputAssetRefs": [
+                        "asset://selected-action/input@5"
+                      ],
+                      "kind": "action_catalog_row",
+                      "outputAssetRefs": [
+                        "asset://selected-action/output@5"
+                      ],
+                      "programRef": "program://selected-action/root@5",
+                      "progressConditionRef": "condition://selected-action/progress@5",
+                      "stopConditionRef": "condition://selected-action/stop@5",
+                      "targetObligationRefs": [
+                        "obligation://selected-action/echo@5"
+                      ],
+                      "targetProgramLocusRef": "graph-function://selected-action/child@5"
+                    }
+                  ],
+                  "schemaVersion": "5.0.0"
+                },
+                "constructionPolicy": {
+                  "kind": "construction_policy",
+                  "policyRef": "policy://selected-action/closure@5",
+                  "requireCompleteEvidence": true,
+                  "requirePostEvidenceRefresh": true
+                },
+                "kind": "fixture_request",
+                "phase": 0,
+                "schemaVersion": "5.0.0",
+                "task": {
+                  "kind": "fixture_task",
+                  "payload": "first action",
+                  "schemaVersion": "5.0.0"
+                },
+                "workspaceBinding": {
+                  "workspaceBindingDigest": "sha256:70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5",
+                  "workspaceBindingId": "workspace-binding://abiogenesis/70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5"
+                }
+              },
+              "runtimeArchiveInspection": null,
+              "schemaVersion": "5.0.0",
+              "semanticEvidenceAssetRefs": [
+                "asset://selected-action/output@5"
+              ],
+              "targetOutcomeRef": "outcome://selected-action/echo@5"
+            },
+            "kind": "fixture_refreshed_model",
+            "observationSnapshot": {
+              "actionCatalog": {
+                "catalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+                "catalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+                "kind": "action_catalog",
+                "rows": [
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://selected-action/consumer@5",
+                    "expectedDeltaRef": "delta://selected-action/echo@5",
+                    "graphFunctionRef": "graph-function://selected-action/child@5",
+                    "inputAssetRefs": [
+                      "asset://selected-action/input@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://selected-action/output@5"
+                    ],
+                    "programRef": "program://selected-action/root@5",
+                    "progressConditionRef": "condition://selected-action/progress@5",
+                    "stopConditionRef": "condition://selected-action/stop@5",
+                    "targetObligationRefs": [
+                      "obligation://selected-action/echo@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://selected-action/child@5"
+                  },
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://selected-action/initial@5",
+                    "expectedDeltaRef": "delta://selected-action/echo@5",
+                    "graphFunctionRef": "graph-function://selected-action/child@5",
+                    "inputAssetRefs": [
+                      "asset://selected-action/input@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://selected-action/output@5"
+                    ],
+                    "programRef": "program://selected-action/root@5",
+                    "progressConditionRef": "condition://selected-action/progress@5",
+                    "stopConditionRef": "condition://selected-action/stop@5",
+                    "targetObligationRefs": [
+                      "obligation://selected-action/echo@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://selected-action/child@5"
+                  }
+                ],
+                "schemaVersion": "5.0.0"
+              },
+              "constructionPolicy": {
+                "kind": "construction_policy",
+                "policyRef": "policy://selected-action/closure@5",
+                "requireCompleteEvidence": true,
+                "requirePostEvidenceRefresh": true
+              },
+              "kind": "fixture_request",
+              "phase": 0,
+              "schemaVersion": "5.0.0",
+              "task": {
+                "kind": "fixture_task",
+                "payload": "first action",
+                "schemaVersion": "5.0.0"
+              },
+              "workspaceBinding": {
+                "workspaceBindingDigest": "sha256:70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5",
+                "workspaceBindingId": "workspace-binding://abiogenesis/70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5"
+              }
+            },
+            "schemaVersion": "5.0.0"
+          },
+          "schemaVersion": "5.0.0",
+          "task": {
+            "kind": "fixture_task",
+            "payload": "selected second action",
+            "schemaVersion": "5.0.0"
+          },
+          "workspaceBinding": {
+            "workspaceBindingDigest": "sha256:70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5",
+            "workspaceBindingId": "workspace-binding://abiogenesis/70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5"
+          }
+        },
+        "priorityScheme": {
+          "kind": "construction_priority_scheme",
+          "schemeRef": "priority://selected-action/fixed@5"
+        },
+        "runtimeFrontier": {
+          "phase": "initial"
+        },
+        "schemaVersion": "5.0.0",
+        "targetInput": {
+          "kind": "fixture_task",
+          "payload": "selected second action",
+          "schemaVersion": "5.0.0"
+        },
+        "targetInputDigest": "sha256:25697b512d0ded99d3a399fc3aa98f885e9f129f7d6e98c5a5864b14e870dcab",
+        "targetInputRef": "input://selected-action/task@5",
+        "targetObligationRefs": [
+          "obligation://selected-action/echo@5"
+        ]
+      },
+      "nextActionBasisDigest": "sha256:f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+      "nextActionBasisRef": "next-action-basis://product/f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+      "nextActionProjection": {
+        "actionKind": "invoke_graph_function",
+        "disposition": "selected",
+        "expectedDeltaRef": "delta://selected-action/echo@5",
+        "gapRef": "gap://selected-action/echo@5",
+        "graphFunctionRef": "graph-function://selected-action/child@5",
+        "inputAssetRefs": [
+          "asset://selected-action/input@5"
+        ],
+        "kind": "next_action_projection",
+        "lawfulBasisRefs": [
+          "next-action-basis://product/f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+          "program://selected-action/root@5",
+          "gap://selected-action/echo@5"
+        ],
+        "nextActionBasisDigest": "sha256:f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+        "nextActionBasisRef": "next-action-basis://product/f57d9d145a8c9852190239dc5242cbfc75f1992932059f06cd8da8686678fe1c",
+        "outputAssetRefs": [
+          "asset://selected-action/output@5"
+        ],
+        "priorityProjection": {
+          "kind": "deterministic_priority_projection",
+          "orderedActionRefs": [
+            "action://selected-action/consumer@5"
+          ],
+          "schemeRef": "priority://selected-action/fixed@5"
+        },
+        "programRef": "program://selected-action/root@5",
+        "progressConditionRef": "condition://selected-action/progress@5",
+        "projectionDigest": "sha256:2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1",
+        "projectionRef": "next-action-projection://product/2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1",
+        "rejectedAlternativeRefs": [],
+        "schemaVersion": "5.0.0",
+        "selectedActionRef": "action://selected-action/consumer@5",
+        "stopConditionRef": "condition://selected-action/stop@5",
+        "targetObligationBindings": [
+          {
+            "disposition": "bound",
+            "eligibleActionRefs": [
+              "action://selected-action/consumer@5"
+            ],
+            "kind": "target_obligation_binding",
+            "obligationRef": "obligation://selected-action/echo@5"
+          }
+        ],
+        "targetObligationRefs": [
+          "obligation://selected-action/echo@5"
+        ],
+        "targetOutcomeRef": "outcome://selected-action/echo@5",
+        "targetProgramLocusRef": "graph-function://selected-action/child@5"
+      },
+      "nextActionProjectionDigest": "sha256:2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1",
+      "nextActionProjectionRef": "next-action-projection://product/2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1",
+      "routeRef": "traversal-route://abiogenesis/0f6f4dc4f7d6cb190aac7d9964ffda0b82bc4f4533953e649064352a378f0044",
+      "targetCursorDigest": "sha256:79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355",
+      "targetCursorRef": "traversal-cursor://abiogenesis/79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355"
+    },
+    "payloadDigest": "sha256:d510e5dca1ee4227e2adfd805ab7d09d248b62d6501ad2eb1f6116916a1d8643",
+    "runId": "run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029",
+    "scopeClass": "run",
+    "workflowVersion": "5.0.0"
+  },
+  "initialTraversalMs": 628.9445839999971
+}

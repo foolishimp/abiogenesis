@@ -1,0 +1,42 @@
+{
+  "kind": "source42_unchanged_context_test_inputs",
+  "files": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-core-environment.test.mjs",
+        "sha256": "96bd664c08c7fd767d7a232c5d583c43cdbc69ee0f1e4649acf0969574a4ab82",
+        "bytes": 11776
+      },
+      "isolated": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/input-01/test_env/tests/t287-c2-core-environment.test.mjs",
+        "sha256": "96bd664c08c7fd767d7a232c5d583c43cdbc69ee0f1e4649acf0969574a4ab82",
+        "bytes": 11776
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+        "sha256": "603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0",
+        "bytes": 1349
+      },
+      "isolated": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/input-01/test_env/support/r10-private-owner-harness.mjs",
+        "sha256": "603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0",
+        "bytes": 1349
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+        "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0",
+        "bytes": 9623
+      },
+      "isolated": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/input-01/test_env/support/t287-generic-job-worksite.mjs",
+        "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0",
+        "bytes": 9623
+      }
+    }
+  ],
+  "premises": "Existing test source unchanged; lower artifact/native/A-W/grant facts controlled; no actual Product installation/admission"
+}

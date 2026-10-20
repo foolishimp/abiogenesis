@@ -1,0 +1,29 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "command": [
+    "/usr/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/extract.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "capSeconds": 120,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/tmp"
+  },
+  "pid": 69981,
+  "pgid": 69981,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 0,
+  "groupAbsent": true,
+  "elapsedMs": 2033.0162080000002,
+  "userCPUSeconds": 0.479548,
+  "systemCPUSeconds": 0.515037,
+  "maxRSSPlatformBytes": 66240512,
+  "stdoutSHA256": "a31f3262c8122687d94a636ef2a05170e9af6f30d34b3f32f2718040a8adfb9a",
+  "stderrSHA256": "e5be33f9c5dd2d95e479ec5b7e022f0cfea4665b141709fcb7396e1c309acfdf"
+}

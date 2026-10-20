@@ -1,0 +1,31 @@
+(node:90388) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ reference-form attribution consumes canonical resolved provenance and preserves original judgment bytes (11.563625ms)
+✖ reference attribution retains missing crossed record scope and independence refusals (4.726792ms)
+✔ actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records (6.588917ms)
+ℹ {"scopedPromptBytes":56721,"singletonWholeMaterialPromptBytes":52406,"providedBodies":3,"assessedMembers":3,"attributionSpans":2,"retainedRecordBodies":7,"rawSchemaBytes":1972,"claim":"actual constructor/renderer sizes on finite synthetic scope; no token quota or semantic sufficiency inference"}
+✔ scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence (7.651375ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 454.091084
+
+✖ failing tests:
+
+test at test_env/tests/t287-qualification-scopes.test.mjs:183:1
+✖ reference attribution retains missing crossed record scope and independence refusals (4.726792ms)
+  AssertionError [ERR_ASSERTION]: canonical role cannot waive author independence
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_FIXTURE_REPAIR_02/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs:200:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

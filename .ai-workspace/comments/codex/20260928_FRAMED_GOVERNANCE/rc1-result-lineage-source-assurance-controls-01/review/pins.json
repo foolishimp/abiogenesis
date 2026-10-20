@@ -1,0 +1,256 @@
+{
+  "activation": "T287_RESULT_LINEAGE_SOURCE_ASSURANCE_01",
+  "role": "Reviewer",
+  "recommendation": "GO_SOURCE_COMPONENT_ONLY",
+  "subjectPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/request.txt",
+      "bytes": 3813,
+      "sha256": "ff2bbe650a86d4e944057f453879c590c858469bb83c46510ceff5879713baa7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+      "bytes": 1920828,
+      "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/freeze.json",
+      "bytes": 1918499,
+      "sha256": "cc036b4c49f75ecafdff98adff6900ad48445923f8f7118c53336ab6b9e82d33",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/c_call_outcome.ts.preimage",
+      "bytes": 67237,
+      "sha256": "e5c6fda5b10689d0df9f4c8c4c20a6ca6c557a9d861563fd5528adf88050047d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/postimages/c_call_outcome.ts",
+      "bytes": 68281,
+      "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/postimages/t287-result-evidence-lineage-projection.test.mjs",
+      "bytes": 22555,
+      "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/first-readiness-failure.json",
+      "bytes": 4806,
+      "sha256": "379c514dfc768cbd7f7b9d855fd151994ec307264d0f29e5bb45a092cfdffa1a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+      "bytes": 1374,
+      "sha256": "68e2fb7240b051aa172f5cdc2785951a7b1f968fad019e9ef044845873ad6719",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/compile-supervisor-close.json",
+      "bytes": 888,
+      "sha256": "ed3601a46d0c39198470bb5cca11075e7c0f3183d1a6e83f09fd709472ac7e88",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/regression-supervisor-close.json",
+      "bytes": 936,
+      "sha256": "ee20e17b7618551c011c095618806aa6a0ed9c5db13a66ccf033d76858367280",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/preimage.test.mjs",
+      "bytes": 22555,
+      "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/postimage.test.mjs",
+      "bytes": 22568,
+      "sha256": "d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+      "bytes": 2604,
+      "sha256": "d7f981087f6e67ca89d8b34a1e7c5909fb8a9e4d6b101f28632c89abaa649651",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/copied-population-correspondence.json",
+      "bytes": 1772,
+      "sha256": "fa4e43938b8210669a7e1c4536ab1e90c898a4face04f4344c08f40d9d00f4d8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/regression-supervisor-start.json",
+      "bytes": 1742,
+      "sha256": "64a0fc06e461232203c0ee5e6ffad965b162c4372aa5ecf2652b43564a7bf475",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/regression-supervisor-close.json",
+      "bytes": 946,
+      "sha256": "98c85f61efebe9aa8102ca0c62b0496b5c9596cd8ba9c8a6af86806c590e17f3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/regression-outcome.json",
+      "bytes": 2299,
+      "sha256": "adecb06b9097e680c132dffaa8c23262c5d11f4f11dea9f73514b46ea3803a9c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/readiness.json",
+      "bytes": 4153,
+      "sha256": "62b7cdc43c6420bad7ee6ec909d8685172165c6130383b29857f059fcf0b3bb1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/accounting.json",
+      "bytes": 670,
+      "sha256": "b961136449273eb2cc28ae4630d4e9d485e036651a330a8fcc28667d9a70d966",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/closure.json",
+      "bytes": 1133,
+      "sha256": "1ba6e4498436875dec3e5cd76dec1a1e60f7443ef335aa8d33daf28dbec6ba99",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "bytes": 66415,
+      "sha256": "af524bc1eaf89323d13934927353185b610ef4048a3c009bac69998cbdd38b15",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "bytes": 12182,
+      "sha256": "935aff49fca7f37738d512489a873bb04d9bc6ccad58e12d5198718e8fedde9a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 40955,
+      "sha256": "e2b77f22ec4516f36a28940ef0544223b59d8c6dcf681c383482595a6ebd3e29",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76530,
+      "sha256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "bytes": 55138,
+      "sha256": "89cad42042a4517cf4f5cf216b47972d444e41be5280d43dfb53ac55d9b33906",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "bytes": 56202,
+      "sha256": "e6cbf21433251b46dafcb149298a4539217eefd497dccaddc32442598e3c570c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "bytes": 56202,
+      "sha256": "e6cbf21433251b46dafcb149298a4539217eefd497dccaddc32442598e3c570c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 36658,
+      "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+      "mode": 420
+    }
+  ],
+  "independentChecks": {
+    "originalFreeze": {
+      "records": 6546,
+      "regularFiles": 6544,
+      "regularBytes": 151071486,
+      "directories": 645,
+      "symlinks": 2,
+      "bodyModeCensusErrors": 0
+    },
+    "correctedFixtureFreeze": {
+      "records": 6535,
+      "regularFiles": 6533,
+      "regularBytes": 149590674,
+      "directories": 642,
+      "symlinks": 2,
+      "bodyModeCensusErrors": 0
+    },
+    "copiedStageRecords": 6515,
+    "soleCopiedStageDifference": "test effects: []",
+    "sourcePreimageEqualsAcceptedC07": true,
+    "productionDiff": "required inputDigest and nine optional admitted row fields; 1044 additive bytes only",
+    "compiledGuardAndConsumerSource": {
+      "selfConformanceGuard": "unchanged C07",
+      "qualificationContractSchema": "unchanged C07",
+      "nativeWorkspaceAndConsensusSemantics": "unchanged C07",
+      "leafInvocationPort": "unchanged C07"
+    },
+    "sourceCompilerEmission": "e6cbf21433251b46dafcb149298a4539217eefd497dccaddc32442598e3c570c",
+    "actualCallbackRegression": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "forms": [
+        "embedded",
+        "reference"
+      ],
+      "preimageRefusedBothForms": true,
+      "corruptionCasesPerForm": 13,
+      "referenceWithoutOwnedRequestRefused": true,
+      "deterministicAbsenceAndTransportNull": "conserved"
+    }
+  },
+  "suppliedComponentPremises": [
+    "lower ABG transaction/evidence/result/prefix facts",
+    "native raw-result preimage admission",
+    "current prepared-request/native-proof operation",
+    "synthetic native construction attribution"
+  ],
+  "readOnlyConsumerRoutingLimit": "An initial compiled-file comparison used final-source, which carries source rather than emitted code. Correct actual final-stage paths establish unchanged guards; the false path result was not treated as a payload mismatch. An initial report pin path omitted requirements/product; corrected actual producer coordinates were pinned before closure.",
+  "qualificationAccepted": false,
+  "installedProof": "open"
+}

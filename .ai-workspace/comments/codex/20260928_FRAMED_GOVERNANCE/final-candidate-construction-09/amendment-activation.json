@@ -1,0 +1,14 @@
+{
+  "status": "AMENDMENT_ACCEPTED_BEFORE_FIRST_PAYLOAD",
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+  "role": "Worker",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01/request.txt",
+    "bytes": 3945,
+    "sha256": "f61ea926b00ae13a87248cd1943a7ddeccb844f18869b6eb72546c110bf59c61"
+  },
+  "allSevenSectionsReadAndJoined": true,
+  "triageSHA256": "ec98cd863ec170ec1190340f2a16439ab3c8125a6da0dd2a80824f9d67a39169",
+  "priorComparatorAndFrontierConserved": true,
+  "sourceWrapperRuntimeGitEffects": 0
+}

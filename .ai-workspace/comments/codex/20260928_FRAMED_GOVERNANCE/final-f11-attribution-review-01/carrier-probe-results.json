@@ -1,0 +1,226 @@
+{
+  "status": "pure_partial_record_branch_discriminators_NOT_assurance",
+  "fullQualificationSchemasSatisfied": false,
+  "actualJudgments": 0,
+  "nativeEffects": 0,
+  "controlledVariables": "Original missing actorIdentityRef and authorityRef stay null; plan.ownerAuthorityRef is also null only to isolate byte/representation branches. All raw attribution arrays remain empty. No complete plan/task/J is constructed.",
+  "originalRecordSet": "Computed by installed canonical digest owner in validate-inputs.mjs.",
+  "results": [
+    {
+      "case": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "actualCurrentMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+          "digest": "sha256:a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+          "byteCount": 15165
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+          "digest": "sha256:c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+          "byteCount": 32200
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+          "digest": "sha256:e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+          "byteCount": 84829
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+          "digest": "sha256:a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+          "byteCount": 32193
+        }
+      ],
+      "original": {
+        "status": "invalid",
+        "authors": []
+      },
+      "sourcePreservingRepresentation": {
+        "status": "insufficient",
+        "authors": [
+          null
+        ]
+      },
+      "missingMember": {
+        "status": "invalid",
+        "authors": []
+      },
+      "meaning": "All actual transitions reach attribution-insufficient after the stated representational change. No actor/authority correspondence or semantic J is established."
+    },
+    {
+      "case": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "actualCurrentMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "digest": "sha256:f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+          "byteCount": 55572
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "digest": "sha256:83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550",
+          "byteCount": 81875
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+          "digest": "sha256:f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+          "byteCount": 9773
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+          "digest": "sha256:ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+          "byteCount": 5203
+        }
+      ],
+      "original": {
+        "status": "invalid",
+        "authors": []
+      },
+      "sourcePreservingRepresentation": {
+        "status": "insufficient",
+        "authors": [
+          null
+        ]
+      },
+      "missingMember": {
+        "status": "invalid",
+        "authors": []
+      },
+      "meaning": "All actual transitions reach attribution-insufficient after the stated representational change. No actor/authority correspondence or semantic J is established."
+    },
+    {
+      "case": "inherited-README-preservation",
+      "member": {
+        "ref": "repo://abiogenesis/README.md",
+        "path": "README.md",
+        "digest": "sha256:41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+        "byteCount": 3083
+      },
+      "preimageDigest": "sha256:41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "postimageDigest": "sha256:41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "result": {
+        "status": "insufficient",
+        "authors": [
+          null
+        ]
+      },
+      "identicalEndpoints": true,
+      "operation": "C.prepare.py actual copy/sha conservation; README exact frozen-head blob membership",
+      "meaning": "Representable structural relation only. No original edit, actor or semantic authorship is inferred."
+    },
+    {
+      "case": "generated-unchanged",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js",
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js",
+        "digest": "sha256:9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179",
+        "byteCount": 54801
+      },
+      "preimageDigest": "sha256:9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179",
+      "postimageDigest": "sha256:9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179",
+      "result": {
+        "status": "insufficient",
+        "authors": [
+          null
+        ]
+      },
+      "identicalEndpoints": true,
+      "operation": "C build receipt plus exact generated preimage/postimage inventories",
+      "meaning": "Representable structural relation only. No original edit, actor or semantic authorship is inferred."
+    },
+    {
+      "case": "generated-changed",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_definition_bindings.js",
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_definition_bindings.js",
+        "digest": "sha256:8d445d598e6c1a9265502040b703907bf491c6197c2d06cc1ad0bd5921f14e2d",
+        "byteCount": 27705
+      },
+      "preimageDigest": "sha256:1cad02333882c8467f09fffbb4bc3102f5707aed73e4c386a9ffe8e8334fbc05",
+      "postimageDigest": "sha256:8d445d598e6c1a9265502040b703907bf491c6197c2d06cc1ad0bd5921f14e2d",
+      "result": {
+        "status": "insufficient",
+        "authors": [
+          null
+        ]
+      },
+      "identicalEndpoints": false,
+      "operation": "C build receipt plus exact generated preimage/postimage inventories",
+      "meaning": "Representable structural relation only. No original edit, actor or semantic authorship is inferred."
+    }
+  ],
+  "conclusion": "Exact retained changed, preserved and generated text can reach insufficient without a qualification-owner edit. This proves representability, not attribution sufficiency, operation authority, semantic scope, independence or final qualification.",
+  "sourceInputs": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/activation.json",
+      "bytes": 467,
+      "sha256": "7402ae149622133b7d3986607186a9f814439f6ecab37f685a0625177f7fc2d4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/freeze.json",
+      "bytes": 4534351,
+      "sha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/prepare.py",
+      "bytes": 10075,
+      "sha256": "e6196bcf41b9bc43368e46006db213e44b1f3b21bec70318723cad34598491b9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/build.json",
+      "bytes": 1788,
+      "sha256": "352eb9aa07042662b8ca80bd3cb798113542439f1ab6cc814111a3a0abc536af"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-members.json",
+      "bytes": 462979,
+      "sha256": "47c7e5e36eb8fe05196696b5948477559cd4ecbe6de67c41cfeda3a2e3e863a8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/generated-before.json",
+      "bytes": 142745,
+      "sha256": "c0ad1a254f6218d4d0e3121abef85a39bb7f838940097e21da72936c1d746b8c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/generated-after.json",
+      "bytes": 142745,
+      "sha256": "0f61d8c779e600a028fb1dea9de43d3836573ffe04aeeb5e37bd603a4f78481c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/staged-repo/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/generated-preimages/build/code/src/abg/actor_process.js",
+      "bytes": 54801,
+      "sha256": "9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/staged-repo/build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js",
+      "bytes": 54801,
+      "sha256": "9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/generated-preimages/build/code/src/abg/project_read_definition_bindings.js",
+      "bytes": 26971,
+      "sha256": "1cad02333882c8467f09fffbb4bc3102f5707aed73e4c386a9ffe8e8334fbc05"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/staged-repo/build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_definition_bindings.js",
+      "bytes": 27705,
+      "sha256": "8d445d598e6c1a9265502040b703907bf491c6197c2d06cc1ad0bd5921f14e2d"
+    }
+  ]
+}

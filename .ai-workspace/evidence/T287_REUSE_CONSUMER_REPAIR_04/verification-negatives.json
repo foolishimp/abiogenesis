@@ -1,0 +1,18 @@
+{
+  "changedRequest": {
+    "kind": "product_verification_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "artifact_digest_mismatch",
+    "message": "artifact bytes differ from the externally expected artifact identity",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+  },
+  "changedArchive": {
+    "kind": "product_verification_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "artifact_unreadable",
+    "message": "Error: tar: Error opening archive: Unrecognized archive format\n",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_04/changed-archive.tgz"
+  }
+}

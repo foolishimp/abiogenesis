@@ -1,0 +1,60 @@
+{
+  "kind": "derived_original_record_path_view",
+  "original": {
+    "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+    "digest": "sha256:3afdda2bde3a3d2454d8b6aa1e3920d3c161c96d8efba7e3d47ebc342aca5e55",
+    "byteCount": 63091
+  },
+  "originalSpan": {
+    "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+    "startByte": 0,
+    "endByte": 63091,
+    "spanDigest": "sha256:3afdda2bde3a3d2454d8b6aa1e3920d3c161c96d8efba7e3d47ebc342aca5e55"
+  },
+  "repositoryRoot": "/Users/jim/src/apps/abiogenesis",
+  "rule": "Only absolute source paths under this exact repository root become repository-relative paths; other source-row fields remain identical.",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "bytes": 15165,
+      "sha256": "a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_operation_contracts.ts",
+      "preimageSha256": "a095a108400e5fb91ca1e49027526c9d8dcfc8dcb9b53a4d6c24c790cc730936",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 32200,
+      "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_definition_bindings.ts",
+      "preimageSha256": "69624a50cff0f736434b7900bd8a356db0f6576bc373566bacc6fffc92a6a8ea",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 84829,
+      "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_ports.ts",
+      "preimageSha256": "93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "bytes": 32193,
+      "sha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/test_env/support/t287-s03-automatic.mjs",
+      "preimageSha256": "b54df94a0231b85fa87bb68eab39ec4744fef4f4a406f6ba1354990ec1b613e9",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+      "bytes": 1030,
+      "sha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/test_env/tests/t287-s03-automatic.test.mjs",
+      "preimageSha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+      "changed": false
+    }
+  ],
+  "limit": "Representation of original closure bytes, not a historical closure, performed source edit, grant or author observation."
+}

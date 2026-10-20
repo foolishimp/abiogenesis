@@ -1,0 +1,12 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/private/tmp/abi5-root-env-nB6Rgx/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/execution/81-graph-edge.request.jsonl"
+  ],
+  "cwd": "/private/tmp/abi5-root-env-nB6Rgx",
+  "started": "2026-10-08T09:26:41.931Z",
+  "environmentKeys": [],
+  "timeoutMs": 300000
+}

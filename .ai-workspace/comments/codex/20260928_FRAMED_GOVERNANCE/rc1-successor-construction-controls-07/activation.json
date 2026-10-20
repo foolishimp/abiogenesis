@@ -1,0 +1,34 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RAW_CONTRACT_ACCEPTANCE_AND_C07_CONSTRUCTION_GRANT_01",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T09:33:26.314171+00:00",
+  "exactGrant": "Record Root acceptance of CLOSED independently assured bounded source increment, exact C07 source selection, refreshed commentary plan and separate construction Worker grant. No Root source, build, runtime or Git effects.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-07",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 525847,
+      "sha256": "e4c6944832888a067c3fae884ad654d111fc980730ed9fe54e929e86c6727025",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 481378,
+      "sha256": "36c946fb3272a9d82a2eebce95286f40263d8aec2adf4ee2f19c7d81cca2e960",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 12724,
+      "sha256": "955f79e47a94e17886c40d9646d6561d212cb10b5ed59499a875bcbac03b8038",
+      "mode": 420
+    }
+  ]
+}

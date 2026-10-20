@@ -1,0 +1,22 @@
+{
+  "activation": "T287_F11_LAW_STAGE_REPAIR_01",
+  "role": "Worker",
+  "actor": "/root/f11_binding_plan",
+  "timestamp": "2026-10-01T18:45:04.430069+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-controls-01/request.txt",
+    "bytes": 3974,
+    "sha256": "2de2a64e0a5a756d2a6008ca99545336c4b99ee48f27fd1ed98e235815564db4"
+  },
+  "changeClass": "realization_refactor",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "selectedFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "purpose": "Candidate Definition -> verified selected immutable release -> staged authority source and method identity; Identity/Install/Proof joins",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01"
+  ],
+  "forbiddenEffects": "ambient generated contracts/build/manifests, runtime/native/model/network/Git/sibling and prior frozen cut mutations",
+  "return": "CLOSED frozen patch, copied-tenant source/test evidence and residuals to Root; no Reviewer activation"
+}

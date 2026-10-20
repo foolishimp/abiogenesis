@@ -1,0 +1,15 @@
+{
+  "label": "positive/cli",
+  "pid": 64596,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/positive/request.jsonl"
+  ],
+  "startedAt": "2026-09-30T05:06:01.161Z",
+  "code": 0,
+  "signal": null,
+  "elapsedMs": 768.7152079999996,
+  "exitObserved": true
+}

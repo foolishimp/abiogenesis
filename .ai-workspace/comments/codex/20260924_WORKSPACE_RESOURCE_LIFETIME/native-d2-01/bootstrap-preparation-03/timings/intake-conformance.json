@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.conformance.evaluate",
+    "memberKey": "gtl_program"
+  },
+  "elapsedMs": 36348.55699999997,
+  "timingScope": "existing helper call including request write, Public CLI and receipt retention; not isolated runtime attribution"
+}

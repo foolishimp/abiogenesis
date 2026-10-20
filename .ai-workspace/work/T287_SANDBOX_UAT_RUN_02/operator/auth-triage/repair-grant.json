@@ -1,0 +1,23 @@
+{
+  "activation": "T287_SANDBOX_UAT_RUN_02_AUTH_REALIZATION_REFACTOR",
+  "recordedAt": "2026-10-06T02:57:52.468473+00:00",
+  "executiveSelection": "Add only existing supported CLAUDE_CODE_OAUTH_TOKEN name to explicit provider inheritance",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "frame": "F-END-TO-END-INTERFACE-INTEGRATION / F-WORKSITE-CAUSALITY",
+  "effectScope": [
+    "test_env/uat/config.example.json inheritance list only",
+    "new operator/config-auth-02.json and compact observations",
+    "one bounded provider probe followed on success by existing authorized basic-cli clean UAT"
+  ],
+  "preimages": {
+    "config.example.json": "8d9420bf16d6178f5a72b7397140abfdf2b1727a6d459898763efdfb8a6a5e88",
+    "operator/config.json": "e311e7a66567041a8396c86204f1682015c36b28c10584a7ddc148046c431e78"
+  },
+  "preserved": [
+    "original refusal/config/logs",
+    "package89e/content1c6/source0b",
+    "all provider/process bounds and selected model",
+    "Product/native transport/source/fixtures/oracle/credentials"
+  ],
+  "stop": "First failure returns to Executive without retry or framework repair"
+}

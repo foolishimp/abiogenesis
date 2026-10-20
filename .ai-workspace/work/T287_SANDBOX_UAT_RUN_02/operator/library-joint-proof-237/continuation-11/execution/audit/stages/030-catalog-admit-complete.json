@@ -1,0 +1,12 @@
+{
+  "stage": "catalog-admit-complete",
+  "elapsedMs": 61156.48725,
+  "at": "2026-10-10T15:29:23.144Z",
+  "rss": 2707292160,
+  "heapTotal": 498941952,
+  "heapUsed": 377872768,
+  "external": 2878238,
+  "arrayBuffers": 465931,
+  "beforeAcquisition": false,
+  "prefixLength": 16245778
+}

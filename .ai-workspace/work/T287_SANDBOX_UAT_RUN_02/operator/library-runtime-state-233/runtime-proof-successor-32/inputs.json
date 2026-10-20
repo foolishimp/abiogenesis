@@ -1,0 +1,22 @@
+{
+  "kind": "test_only_selected_successor",
+  "sourceInputs": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-31-inputs.json",
+  "emission": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-31-emission.json",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/runtime-proof-successor-32/preimage-test.mjs",
+      "sha256": "868f11a860a5306d2a70fff817db7fc09d0863ad0cec7ae551f27d160e724395",
+      "bytes": 35957
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/runtime-proof-successor-32/test.mjs",
+      "sha256": "aed58ede0a073ef6c533a988c34fd1295a60f993f087888a39ce779895f60b8b",
+      "bytes": 37233
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/runtime-proof-successor-32/test_env/tests/t287-route-reconstruction.test.mjs",
+      "sha256": "aed58ede0a073ef6c533a988c34fd1295a60f993f087888a39ce779895f60b8b",
+      "bytes": 37233
+    }
+  ]
+}

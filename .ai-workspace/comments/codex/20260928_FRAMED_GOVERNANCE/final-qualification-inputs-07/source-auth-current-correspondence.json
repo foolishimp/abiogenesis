@@ -1,0 +1,33 @@
+{
+  "status": "CLOSED",
+  "retainedRecords": 98,
+  "retainedChains": 8,
+  "newChains": 2,
+  "currentPostimages": [
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "digest": "sha256:c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+      "byteCount": 76530
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+      "digest": "sha256:7188a3e5238c532153398f1bc8448373b78986cf7477d6f0e4a5b1facf3073eb",
+      "byteCount": 11009
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "digest": "sha256:053a3197eedf69ab10cd2304699bb06db3e7bf10c238c3a7202db0e05e21b856",
+      "byteCount": 475564
+    }
+  ],
+  "historicalLeaf4a51ChainUnchanged": true,
+  "sourceCopyOrBuildIsAuthorship": false,
+  "testPreimage": "ABSENT",
+  "recordBytes": 7924741,
+  "chains": 10,
+  "attributionSufficiency": "unknown",
+  "independence": "unknown"
+}

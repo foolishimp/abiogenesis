@@ -1,0 +1,71 @@
+{
+  "kind": "unchanged_accepted_dependency_conjunction",
+  "sourceCut": 38,
+  "basis": {
+    "freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/freeze.json",
+      "sha256": "a4485d4f33ecce4c410c9b734a646cb59be87cb4b9fcc1a2be82e131eae3346e",
+      "bytes": 14823
+    },
+    "dependency-cut-37-inputs.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/dependency-cut-37-inputs.json",
+      "sha256": "4d2b833f195103e7b00825dc2cbd42e1dbaf8e70743fe746f888b35ae408d9dc",
+      "bytes": 80616
+    },
+    "dependency-cut-37-emission.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/dependency-cut-37-emission.json",
+      "sha256": "3ff80064a64bdf842bfe5833fd688fbb889e2ae058503672dfbd4e4034fe4e4c",
+      "bytes": 161512
+    },
+    "dependency-conjunction.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/dependency-conjunction.json",
+      "sha256": "ca68440ae534d5b40fa3faa75d0711bcc72070e6a24b4e770ba5a0b8c76c6faa",
+      "bytes": 20015
+    },
+    "review-235/review.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/review-235/review.md",
+      "sha256": "382dc04d9641004db7ab097f2579656c94d454146895f089a67d053104932ded",
+      "bytes": 5953
+    },
+    "review-235/pins.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/review-235/pins.json",
+      "sha256": "d27cdfd61ac87b5457aa4145368f7fdbb41fb750c186c7dae473be34800179a7",
+      "bytes": 11636
+    },
+    "review-235/freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/review-235/freeze.json",
+      "sha256": "59eda05a872ca000baa0c3ca64e4e9eca0c14977019bf430d808fc5c2dee1388",
+      "bytes": 1666
+    }
+  },
+  "fullSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-inputs.json",
+    "sha256": "0a056ba82f21c0cd241f879c8977c12c27d3199e3fec5bd5d803ba5ef8a9a183",
+    "bytes": 80616
+  },
+  "fullEmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-emission.json",
+    "sha256": "52e15cc740e072bfab393cf2e082f2cc066b9cb159fa31bfd7b472d05006c767",
+    "bytes": 161512
+  },
+  "sourceConservation": {
+    "total": 264,
+    "unchanged": 263,
+    "changed": [
+      "implementation/leaf_invocation_port.ts"
+    ]
+  },
+  "emissionConservation": {
+    "total": 528,
+    "unchanged": 527,
+    "changed": [
+      "implementation/leaf_invocation_port.js"
+    ],
+    "publicDeclarations": 264,
+    "unchangedDeclarations": 264
+  },
+  "limits": [
+    "Accepted37 dependencies and its distinct review are referenced, not requalified.",
+    "No canonical generation, publication or installed38 proof."
+  ]
+}

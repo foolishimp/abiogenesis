@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "--project",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/tsconfig.isolated.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-09T06:34:26.590630+00:00",
+  "environment": {},
+  "NODE_OPTIONS": "unset",
+  "scope": "Source179 bounded pure comparator, strict isolated compilation or affected owner units; no campaign runtime"
+}

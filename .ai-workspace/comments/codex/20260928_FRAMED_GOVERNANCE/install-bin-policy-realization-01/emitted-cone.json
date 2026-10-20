@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "emittedRecords": 714,
+  "changedCone": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+      "preimageSHA256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d",
+      "postimageSHA256": "897785dc428d82a00cbe641791dc050a69606930e4ed6c7e132b5a3d81ae76c1",
+      "bytes": 14488
+    }
+  ],
+  "unchangedRecords": 713,
+  "allNativeDeclarationsUnchanged": true,
+  "publicContractAssetsAndCapabilitiesUnchanged": true,
+  "qualificationMetadataRegenerated": false,
+  "sourceBuiltStageScope": "readiness only; later C05 construction regenerates exact packaged identity"
+}

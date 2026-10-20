@@ -1,0 +1,49 @@
+{
+  "kind": "same_C09_Q07_population_bindings",
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+    "bytes": 388347,
+    "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+    "mode": 420
+  },
+  "qualificationInventory": {
+    "ref": "qualification-inventory://abiogenesis/767fba2296eee0cd53cdcaae5a743d7520bf2207c07be8764bc9862220b7c895",
+    "digest": "sha256:767fba2296eee0cd53cdcaae5a743d7520bf2207c07be8764bc9862220b7c895"
+  },
+  "inventoryMembers": 4643,
+  "sourcePreimages": 1111,
+  "effectiveSourceAndGenerated": 1943,
+  "generated": 928,
+  "generatedCode": 832,
+  "derivedAliases": 96,
+  "changedDerivedAliases": 12,
+  "expectedCurrentOutputs": 929,
+  "historicalComponentOutputs": 835,
+  "historicalSixCaseResult": "Q04 only; not rerun on C09",
+  "protectedInputs": 3294,
+  "protectedBytes": 252164602,
+  "sourceInputs": 785,
+  "auxiliaryInputs": 2508,
+  "recipeInputsIncludingSelf": 16,
+  "commands": 18,
+  "physicalMemberAliases": 95,
+  "physicalCensusDeltaFromAliases": 0,
+  "aliasTrace": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/member-alias-trace.json",
+    "bytes": 205250,
+    "sha256": "f047b2c88dc13b2727e11eb4f23bf7ae297fb95908ac67a5f4f3f128decca52b",
+    "mode": 420
+  },
+  "predicates": 19,
+  "selectedGroups": 8,
+  "selectedTitles": 46,
+  "lintFiles": 332,
+  "currentRecipeDigestsProposedFromPriorActualOwner": {
+    "commandConfigurationDigest": "sha256:a4cff2c6495cfc39cbccded093797f93ba06aab9b9a6549448bd57d40206420e",
+    "predicateConfigurationDigest": "sha256:77c818483c281fc249f19dae307b8f717377661b3105daba8a089d0d8269987d",
+    "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0"
+  },
+  "completeCurrentOwnerDiscriminator": "not yet executed",
+  "actualNativeTask": null,
+  "qualificationMaterial": null
+}

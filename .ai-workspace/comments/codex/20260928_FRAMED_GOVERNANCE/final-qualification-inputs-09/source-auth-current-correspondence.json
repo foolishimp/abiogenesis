@@ -1,0 +1,36 @@
+{
+  "status": "CLOSED",
+  "retainedRecords": 110,
+  "retainedChains": 10,
+  "newChains": 2,
+  "currentPostimages": [
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "digest": "sha256:8396aee64c5d800861c97b9a5ce0ccdde06d5ba507539da7216f62080238614f",
+      "byteCount": 18733
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+      "digest": "sha256:f57e520c9a7ce2ca5ee61044bc70293b93618f4649a816b52d1fc4393d29334e",
+      "byteCount": 14115
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "digest": "sha256:82c6a71c84aaa0e5a3a5c6404e5a908685d923a2a69c510d881edef21a87b214",
+      "byteCount": 482888
+    }
+  ],
+  "allHistoricalChainsUnchanged": true,
+  "sourceCopyOrBuildIsAuthorship": false,
+  "testPreimage": "ABSENT",
+  "recordBytes": 8466891,
+  "records": 121,
+  "chains": 12,
+  "currentGtlAndTestAuthor": "/root/q03_input_review under T287_QUALIFICATION_RAW_CONTRACT_PUBLICATION_REALIZATION_01",
+  "preparationAuthorSameAsGtlTestAuthor": true,
+  "attributionSufficiency": "unknown",
+  "independence": "unknown"
+}

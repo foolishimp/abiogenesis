@@ -1,0 +1,40 @@
+{
+  "requestDigest": "sha256:a4075c5e7447f4e59fa807117aa9be311620045a685eea6298ac887c72b089c4",
+  "scope": {
+    "ref": "native-maintenance-scope://abiogenesis/sha256:aab1c37aec58d80aae5fcb1267aba937ac5852afdcf0f924ac27c121248523fb",
+    "digest": "sha256:aab1c37aec58d80aae5fcb1267aba937ac5852afdcf0f924ac27c121248523fb"
+  },
+  "expectedCurrent": {
+    "byteLength": 2142089296,
+    "digest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277"
+  },
+  "lastCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/final-close-handoff.json",
+    "sha256": "a174afdd863e8fad4d5dd17105e69c7d40127cb06cbc79d7a37a72451c52afb5",
+    "byteCount": 1472
+  },
+  "abandonedLock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "device": 16777231,
+    "inode": 469454324,
+    "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY4MzI3NDAwLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NzMzNjMsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "digest": "sha256:77d51ce253fd490e08a019ab6a844ddf78dce67d59122785fd07fae451d7eea1"
+  },
+  "interruption": {
+    "ownerPid": 73363,
+    "evidence": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/commands/lifecycle-continuation-219b.result.json",
+      "digest": "sha256:610c4359d79dcbf3a5c8603d9af84801a0d193f14a074d1fbdab8fce93c8ef4c"
+    },
+    "quiescenceEvidence": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/quiescence.json",
+      "digest": "sha256:fc7426f102eba8c922b9e154b06911c7c2cdf1f9766931f10d3beba2594f0e9e"
+    },
+    "exclusiveMaintenance": true
+  },
+  "ownerArtifactReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/host-preparation/host29-acquisition.json",
+    "sha256": "b9afd78eeaa7a02ac5d66b2640d4d6d28a3311bd799917d0f3aefa4eefa8aac3",
+    "byteCount": 16373466
+  }
+}

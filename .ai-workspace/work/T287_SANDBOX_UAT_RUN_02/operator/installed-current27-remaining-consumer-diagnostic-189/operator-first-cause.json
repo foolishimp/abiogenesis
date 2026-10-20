@@ -1,0 +1,65 @@
+{
+  "classification": "External Operator observation of fatal process abort; not an invented caught implementation exception or runtime event",
+  "at": "2026-10-09T08:49:55.072330Z",
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/commands/current-source-preparation.result.json",
+    "sha256": "74ed141ecfe48a51565368886db30d78d35dd5fb8f64edea95dd1395f3a01c38",
+    "byteCount": 17486
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/commands/current-source-preparation.stderr",
+    "sha256": "5d4d97863222fda1f7b57868d88c1ddde92eeb9b621f05f1131a4d09fe91cef1",
+    "byteCount": 6797
+  },
+  "exactDiagnostic": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "exitCode": null,
+  "signal": "SIGABRT",
+  "wallMs": 210613.63737500002,
+  "timedOut": false,
+  "truncated": false,
+  "lastCompletedCheckpoint": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/stages/010-old-environment-complete.json",
+      "sha256": "fd701efeb0b012d0689994a21c180648dda61d6a0a023b8beaab157db08e0172",
+      "byteCount": 790
+    },
+    "stage": "old-environment-complete",
+    "elapsedMs": 202878.631583,
+    "heapUsed": 3836494128,
+    "rss": 4386586624
+  },
+  "nextUncheckpointedCallerBlock": {
+    "caller": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/prepare.mjs",
+      "sha256": "5c29dd6d5649f58df046c3b6021e2d8ed49c17e262c50c8d6c66c93f93ad9b3b",
+      "byteCount": 33200
+    },
+    "firstLine": 90,
+    "lastLine": 102,
+    "operations": [
+      "ProductEnvironmentPort.resolve on early verified artifacts",
+      "Compare saved resolve outcome",
+      "Project saved admitted native/consumer installations",
+      "Project saved binding and refresh current environment"
+    ],
+    "nextCheckpoint": "completed185-install-binding-reuse",
+    "enteredOperationOrPreciseThrowLine": "UNRESOLVED; checkpoint range only, no JavaScript source stack"
+  },
+  "allocationEvidence": {
+    "nativeFrames": [
+      "Runtime_AllocateInYoungGeneration",
+      "Builtins_ArrayPrototypeValues",
+      "Builtins_CallIteratorWithFeedback",
+      "Builtins_GetIteratorBaseline"
+    ],
+    "lastGCReportedMB": {
+      "before": 4081.7,
+      "after": 4070.2
+    },
+    "exactJSAllocationAndDominantRetainer": "UNPROVED"
+  },
+  "mandatoryRemainingProductPreparation": "NOT_REACHED_BY_CHECKPOINT",
+  "genuineNewNormalClose": "NOT_RECORDED_FATAL_ABORT",
+  "noNewPublicAdmissionsOrModelRunAppWork": true,
+  "action": "STOP; Root multi-frame RCA and selected Product-bounded action before any retry/recovery. No local repair."
+}

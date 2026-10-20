@@ -1,0 +1,37 @@
+{
+  "kind": "source42_publication_coordinate_preimages",
+  "sourceCut": 42,
+  "changedOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "sha256": "714a80823899e03cef43726917f6be852923f424c26638f1c4afe188e14e19ef",
+    "bytes": 24180
+  },
+  "frozenPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-42/preimages/code/src/gtl/worksite_command_execution.ts",
+    "sha256": "714a80823899e03cef43726917f6be852923f424c26638f1c4afe188e14e19ef",
+    "bytes": 24180
+  },
+  "unchangedTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-core-environment.test.mjs",
+    "sha256": "96bd664c08c7fd767d7a232c5d583c43cdbc69ee0f1e4649acf0969574a4ab82",
+    "bytes": 11776
+  },
+  "predecessor": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/freeze.json",
+      "sha256": "3cb67735e50818f43316a49f5f4f07465a8158054f02d57744839a435ad08f5d",
+      "bytes": 28415
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/dependency-cut-41-inputs.json",
+      "sha256": "eae94c390e249a9e0fd8135550a44e9744539977d729e7f8daa9582a7e0fbb1f",
+      "bytes": 95262
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-41/dependency-cut-41-emission.json",
+      "sha256": "519975be35dcef198114a901955166e508a78e1d4bab236c0cba02989c4744cc",
+      "bytes": 190945
+    }
+  ],
+  "scope": "Exactly four scalar C2 GTL Context source coordinates; no HOW/test/Product/generator/runtime changes"
+}

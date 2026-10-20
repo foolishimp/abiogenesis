@@ -1,0 +1,14 @@
+{
+  "kind": "worker_close_verification",
+  "checkedAt": "2026-10-02T00:20:16.933545+00:00",
+  "actualReceiptsAndStreamsExact": true,
+  "completeSelectedInputObservationJoin": 3277,
+  "protectedBytes": 251384737,
+  "nonPATHCommandMeaningsUnchanged": 18,
+  "proposedRecipeActualTaskDigestsEqual": true,
+  "negativeCases": 8,
+  "newNodeInvocations": 2,
+  "qualificationCommandsExecuted": 0,
+  "additionalTestsExecuted": 0,
+  "claim": "Receipt/source/body accounting verification only; no repeated owner driver, qualifier or semantic assessment."
+}

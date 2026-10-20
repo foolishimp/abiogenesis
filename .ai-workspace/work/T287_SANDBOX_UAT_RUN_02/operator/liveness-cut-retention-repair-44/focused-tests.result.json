@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=historical durable cuts|held derivation preserves|liveness historical-cut intermediates",
+    "test_env/tests/t287-ordered-reconstruction.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-07T14:34:31.718775+00:00",
+  "selectedTestPattern": "historical durable cuts|held derivation preserves|liveness historical-cut intermediates",
+  "explicitTestEnvironment": {
+    "ABI5_LIVENESS_CUT_HISTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.logical.jsonl",
+    "ABI5_LIVENESS_CUT_SHA256": "sha256:b22178799d600fbde510c235b8cee58f95b458b363507f98e4da7738557d7afb",
+    "ABI5_LIVENESS_CUT_PREDECESSOR": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "completed": "2026-10-07T14:34:35.051903+00:00",
+  "exitCode": 1,
+  "wallMs": 3332.7847920008935,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/focused-tests.stdout",
+    "sha256": "769bd80cf11dbaa4bd148b30aa5a4f84c865f1920dac61db35726e48f67d7751",
+    "byteCount": 2477
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/focused-tests.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteCount": 0
+  }
+}

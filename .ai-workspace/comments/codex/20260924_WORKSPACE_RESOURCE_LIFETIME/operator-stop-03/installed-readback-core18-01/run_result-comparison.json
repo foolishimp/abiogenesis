@@ -1,0 +1,11 @@
+{
+  "checks": {
+    "transport": true,
+    "noFailure": true,
+    "genuineClose": true,
+    "physicalUnchanged": true,
+    "expectedRefusal": true,
+    "notFound": true
+  },
+  "passed": true
+}

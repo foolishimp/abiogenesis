@@ -1,0 +1,28 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01_GRANT_WRITER_01",
+  "status": "CLOSED_DOCUMENTARY_ONLY",
+  "SourceUnchanged": true,
+  "sourcePaths": 17,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/controls/worker-grant.md",
+    "bytes": 5085,
+    "sha256": "65ff6a91e9256b22ed56afef99b61cfbba99a93befe6e39615939c61275cfcf7"
+  },
+  "documents": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "before": "4fe48527e0cfddd1b321544e9e4e63e86dbd0e48c00ba3c4292aed17acaa1d1c",
+      "after": "22b3c22904be7baa24bbe75d523b12a22e1d0aaa29342209448ecd8c70523058"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "before": "3c445d53bec81a6b6a528b3c9792331e276929299e005d59791c80413b28b42d",
+      "after": "89713269fa893225b5aa9d8deecccdb67542475fde69aec17cb914c0dd5d360d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "before": "fe18fae1b9763763a068ed5fe6438b6fbb39f49499e59679241f6e2594e209f5",
+      "after": "bd104d1c395dd9f3b30b12f4afd99f0593d548bc0185080eed1dfe36e2a8c405"
+    }
+  ]
+}

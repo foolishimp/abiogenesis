@@ -1,0 +1,11 @@
+{
+  "initialFailure": "Final review guard found current leaf_invocation_port.ts SHA bfb90c5f5bf41b3929a5eb7e8f8d49a60a1d3b2892b82efc20a18738cb46499d/77312 differs from frozen25 source a195281811bac8860dacebfbd489c5aaec7e3d79439bc89dd035891c9ed30813/76599. Freeze writes stopped at that assertion.",
+  "cause": "Reviewer selected a moving143 source path for an immutable25 route. All118142 subject pins still match.",
+  "action": "Bind captured142 baseline/code/src/implementation/leaf_invocation_port.ts plus actual installed25 module. Source143 difference only adds prepare-testing reacquisition imports/helper outside undispatched path; no new143 meaning is accepted by this review.",
+  "correctedReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/code/src/implementation/leaf_invocation_port.ts",
+    "sha256": "a195281811bac8860dacebfbd489c5aaec7e3d79439bc89dd035891c9ed30813",
+    "byteCount": 76599
+  },
+  "sourceSubjectMutationOrTestRetry": false
+}

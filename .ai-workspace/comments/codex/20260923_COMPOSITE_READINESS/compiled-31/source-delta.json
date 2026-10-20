@@ -1,0 +1,38 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/environment_admission.ts",
+      "bytes": 44515,
+      "sha256": "3d4ec834d362107a5cbf16ac597e28fdfd733a1ff2ad275c1cd295046ca8c065"
+    },
+    "after": {
+      "path": "code/src/abg/environment_admission.ts",
+      "bytes": 44775,
+      "sha256": "5c64b06afd7ea50ca37a1555dddb078df043efd0718db49c437fb84885086f8a"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/abg/semantic_revision.ts",
+      "bytes": 83938,
+      "sha256": "e8233fa269e0e8ea459b92b40aaa9e78cabafd1971e612adaddd54dc8931aecb"
+    },
+    "after": {
+      "path": "code/src/abg/semantic_revision.ts",
+      "bytes": 84342,
+      "sha256": "ac240bfe34dc6a344f79415fa8da65f23d1c6596d27263d3995fb1a39fae6d02"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/product/semantic_revision.ts",
+      "bytes": 34538,
+      "sha256": "e973b1ed01980b773637b13ce15ed0a059f7de41123d906971a4dd557de4303f"
+    },
+    "after": {
+      "path": "code/src/product/semantic_revision.ts",
+      "bytes": 35383,
+      "sha256": "b1028e1dc2aaf06c8b2f46e96de7eddde7a97c9ef2799559b454d06ce537a9a7"
+    }
+  }
+]

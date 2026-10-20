@@ -1,0 +1,26 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'worksite_effect_refusal'
+- 'worksite_file_replace_request'
+            ^
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-successor.mjs:166:14
+    at async inputFactory (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-successor.mjs:106:89)
+    at async Module.constructInstalledStartCall (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:269:43)
+    at async invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-successor.mjs:103:17)
+    at async execute (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-successor.mjs:158:19)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-successor.mjs:216:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'worksite_effect_refusal',
+  expected: 'worksite_file_replace_request',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

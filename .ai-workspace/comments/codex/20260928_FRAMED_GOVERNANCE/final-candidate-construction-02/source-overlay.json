@@ -1,0 +1,9 @@
+{
+  "head": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "committedTree": "4c62849aea7a973c28015ab4d503ccbec3fa728a",
+  "dirtyOverlayIsCommit": false,
+  "baseOverlay": "source-freeze/controls/final-candidate-construction-01/source-overlay.json",
+  "successorSourceDelta": "source-delta.json",
+  "movingTreeResnapshot": false,
+  "frozenTicketSHA256": "de8b1cca640cbe220c5d53108cc21602f8579ca0361eb3cb39df8876bbea1b5f"
+}

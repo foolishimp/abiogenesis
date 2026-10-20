@@ -1,0 +1,43 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RC1_FORECAST_WITHDRAWAL_REPAIR_GRANTS_WRITER_01",
+  "role": "Writer",
+  "restoredRole": "Executive",
+  "requests": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/parent-request.txt",
+      "bytes": 4481,
+      "sha256": "dd0dd0c1326311dd709a4b04971d51982080dbf7a10ba71ccd4d5493655e38d3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/publication-request.txt",
+      "bytes": 3907,
+      "sha256": "5d75549a92814cb18b892664d1e14454995fcc5d769db1ff4e392757e44e42bb",
+      "mode": 420
+    }
+  ],
+  "tracking": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 12681,
+      "sha256": "9154a10678e0740ed671837a3c333fc000bd5bf1bbd7bb2bf989c6d717e339f1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 492563,
+      "sha256": "e3f196da59364cd564da1bc2cbebefc21b133b97ceea46daa8ce63313b0b18b6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 566124,
+      "sha256": "0a8710bc31cf87123bd3955bb29e704c68cabc0105236cbd470d31b99ba3eca1",
+      "mode": 420
+    }
+  ],
+  "sourcePinsConserved": true,
+  "implementationRuntimeProviderReleaseGitEffects": 0,
+  "closedAt": "2026-10-03T16:21:21.720787+00:00"
+}

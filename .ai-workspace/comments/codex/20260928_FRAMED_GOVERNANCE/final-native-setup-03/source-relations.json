@@ -1,0 +1,186 @@
+[
+  {
+    "logicalRepositoryPath": "specification/PRODUCT.md",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/specification/PRODUCT.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 93561,
+      "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+    },
+    "lines": [
+      1257,
+      1275
+    ],
+    "excerpt": "1257: ## Required Product Scenarios\n1258: \n1259: One exact installed `pre_rc_candidate` must pass the four selected pre-RC\n1260: scenarios `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, and `ABG5-S06` and\n1261: become eligible to authorize an RC. `ABG5-S07` then preserves the distinct\n1262: subjects of the release lifecycle. `ABG5-S04` and `ABG5-S05` retain their identities\n1263: as planned 5.1 scenarios and are not 5.0 gates. Every selected scenario uses the\n1264: same public product path; no scenario may introduce a feature-specific harness\n1265: or alternate authority.\n1266: \n1267: ### `ABG5-S01`: Clean Install And Minimal Invocation\n1268: \n1269: Pack the exact candidate, install it in a clean temporary location, verify and\n1270: bind the product, admit its catalog, resolve\n1271: `program://abiogenesis/conformance/hello-world@5` and\n1272: `graph-function://abiogenesis/conformance/hello-world@5`, invoke the function\n1273: through the public CLI, and read its typed result and replay without source\n1274: imports or private paths.\n1275: "
+  },
+  {
+    "logicalRepositoryPath": "specification/requirements/product/REQ-P-POLICY.md",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/specification/requirements/product/REQ-P-POLICY.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 34046,
+      "sha256": "e13953bc84a5a41d9d54f7fac4ab3b53142e12a9a35ee8b3fbefb210a6104d98"
+    },
+    "lines": [
+      286,
+      291
+    ],
+    "excerpt": "286: **REQ-P-POLICY-038**: The public `gtl_program` variant of\n287: `abg.operation.conformance.evaluate` shall accept a submitted GTL program and\n288: return a typed conformance result with program or inventory\n289: identity, passed or failed disposition, stable diagnostics, violated law or\n290: contract references, evidence, and admissible repair affordances. It shall not\n291: silently repair or execute an inadmissible program."
+  },
+  {
+    "logicalRepositoryPath": "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 16531,
+      "sha256": "aa6f0c878253541b50469ca5f04540f3007755272382d284e3a3234efffb99e5"
+    },
+    "lines": [
+      73,
+      97
+    ],
+    "excerpt": "73: **REQ-P-SCENARIOS-008**: `ABG5-S01` shall use the exact root binding\n74: `ABI5-ROOT-001` and governor `abg5.root.s01.hello_world@5`. It shall:\n75: \n76: 1. pack one exact `pre_rc_candidate` containing the destination-owned all-`F_D`\n77:    conformance module;\n78: 2. install it source-blind on the trusted developer desktop;\n79: 3. verify and bind the exact product set and workspace;\n80: 4. admit and narrow the installed catalog;\n81: 5. select and admit\n82:    `program://abiogenesis/conformance/hello-world@5`;\n83: 6. resolve\n84:    `graph-function://abiogenesis/conformance/hello-world@5` and its exact\n85:    `hello-input@5` and `hello-output@5` contracts;\n86: 7. materialize and validate the GTL graph without lowering;\n87: 8. enter HoG through installed `abg.cli` and the public invocation contract;\n88: 9. admit the causal invocation, C-call, evidence, result, judgment, and closure\n89:    events through ABG; and\n90: 10. derive the same typed terminal result and closed state twice from replay\n91:     and return it through the CLI.\n92: \n93: Those ten ordered obligations are `R1` through `R10` of `ABI5-ROOT-001`.\n94: Package or symbol presence, a catalog row, component success, event\n95: co-presence, fixture-authored output, a continuation, hold, gap, block,\n96: non-admission, source import, private path, wrong contract, missing event, or\n97: replay disagreement leaves the root red."
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9551,
+      "sha256": "f8bf443e35b64be7950665e57e4902407ae387a607ad7dab660b99e3e700da73"
+    },
+    "lines": [
+      8,
+      32
+    ],
+    "excerpt": "8: `@abiogenesis/typescript-tenant/public` exports\n9: `constructInstalledPublicDefinitionCall` and its typed explicit input. It is\n10: deterministic construction of an invocation candidate, not runtime admission\n11: or execution. The implementation moves from test support into the Public owner;\n12: test support re-exports that function by the public package specifier.\n13: \n14: The caller supplies the installed Product canonical JSON/hash functions,\n15: installed Public family/projections, verified definition coordinates, exact\n16: contract catalog, operation/member selection, request, authority slots,\n17: resource assertion, refs, event time and provenance. There are no implicit\n18: selection defaults. Product verification remains the source of coordinates;\n19: this helper is not a substitute for verification.\n20: \n21: The constructor selects one exact definition/operation/member, checks slot\n22: catalog, operation, version, selector, key, slot and definition ref against the\n23: installed owner projection, then preserves the supplied coordinates. It hashes\n24: the same authority, request and invocation preimages as the predecessor helper\n25: and derives the same invocation ref. Request, slots and resources retain their\n26: identity. Provenance is copied and frozen; construction does not deep-freeze\n27: caller values or acquire resources.\n28: \n29: Transport and the exact selected owners retain complete raw contract and\n30: semantic admission. Construction does not admit capabilities, request meaning,\n31: resource assertions, runtime events or outcomes. GTL declares; HoG traverses;\n32: ABG admits. Existing transport and CLI receive the same DefinitionCall envelope."
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9551,
+      "sha256": "f8bf443e35b64be7950665e57e4902407ae387a607ad7dab660b99e3e700da73"
+    },
+    "lines": [
+      70,
+      92
+    ],
+    "excerpt": "70: The path is **external/raw input \u2192 owning admission \u2192 established typed internal\n71: values \u2192 additional operation-owned relations/currentness \u2192 admitted change**.\n72: An owner establishes only the facts within its contract. Same-process origin,\n73: `F_D`, a TypeScript cast, matching digest or successful construction does not\n74: admit a value or authorize an effect. A structurally admitted wire result does\n75: not thereby satisfy a target contract or substantive judgment.\n76: \n77: | Boundary | Checks retained by the existing owner | Work reusable after those checks |\n78: |---|---|---|\n79: | Supplied Product, lock and declarations | Exact bytes, identities, schemas, dependency/contract linkage and provenance; installed physical correspondence where required | The unchanged verified body, resolved linkage and validated lock inside their lawful owner scope; a later operation checks its membership/selection and actual physical currentness rather than rebuilding the same body |\n80: | Raw Public/serialized request | Selected definition/contract, structural schema, supplied authority, request/resource correspondence and permissions | Established immutable constituents across native calls; detach mutable caller input without first copying an unchanged verified body merely to restore it |\n81: | Proposed runtime change | Authentic current predecessor, exact call/Run/binding, authority, additional semantic relation and lawful transition; preserve refusal precedence | Existing live derived state and candidate delta; refusal leaves the accepted predecessor unchanged |\n82: | Raw `F_P` output and subsequent use | Schema and call/attempt/input/contract correspondence; eligible references and evidence; authority/currentness, substantive judgment and lawful transition | The actual checked result and established facts, scoped to the exact result/basis; a downstream owner still judges every additional relation it owns |\n83: | Ordinary query and genuine recovery | Exact requested source/prefix, current read authority, typed absence/refusal and resource ownership | Live projections for queries against that owned state; cold acquisition/recovery reconstructs equivalent facts from the log and immutable inputs |\n84: \n85: Reuse follows actual owner-established values and their exact basis, not a new\n86: registry, cache, controller, trust token or required process-local semantic\n87: authority. Serialized/reacquired data crosses its ordinary admission boundary;\n88: a cast cannot replace it. A changed subject, contract, dependency, prefix or\n89: physical observation requires the corresponding owner check. Prior immutable\n90: facts remain historical facts; reuse does not make an old permission, witness\n91: or worksite observation current. Existing physical resource lifetime ownership\n92: continues to govern borrowing, successor selection, append and genuine close."
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9551,
+      "sha256": "f8bf443e35b64be7950665e57e4902407ae387a607ad7dab660b99e3e700da73"
+    },
+    "lines": [
+      111,
+      130
+    ],
+    "excerpt": "111: ### Conformance Definition resource receipt\n112: \n113: `conformance.evaluate/gtl_program` preserves its complete semantic result and\n114: refusal algebra. Its read-only `DefinitionReturn.resources` is a\n115: `ConformanceEvaluationResourceReceipt`: existing invocation, request and\n116: capability-grant coordinates, not an echo of the packet, declared inventory or\n117: catalog. The admitted grants already bind the exact approved resource scope;\n118: this receipt adds no admission authority. Host exit/failure and invocation\n119: association remain unchanged. Real event-resource completions from effect\n120: owners remain their existing handoffs; this read-only receipt invents none.\n121: Historical full resource receipts retain their original bytes and meaning.\n122: \n123: Within this conformance call, the owner reconstructs the declaration basis and\n124: resolves its exact Program closure once. Its internal validation continuation\n125: consumes that actual closure, while preserving packet/publication correspondence,\n126: raw declaration admission and `validateProgram`. The raw catalog/conformance\n127: entries still authenticate a supplied closure against its complete catalog and\n128: view. Equal-body catalog construction, cold/raw readiness and all additional\n129: operation-owned relations remain unchanged; no cross-call catalog authority or\n130: process-identity registry is introduced."
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 20912,
+      "sha256": "86ea16b534cb9c52f3b42e898e736be84c71ce874d9056fa0fcbbf3871055c41"
+    },
+    "lines": [
+      72,
+      81
+    ],
+    "excerpt": "72: export interface ConformanceEvaluationResourceAssertion {\n73:   readonly kind: \"conformance_evaluation_resource_assertion\";\n74:   readonly schemaVersion: \"5.0.0\";\n75:   readonly packet: ConformanceEvaluatePacket;\n76:   readonly conformanceLaw: ReferenceDigest<\"GtlConformanceLaw\">;\n77:   readonly declaredInventory: readonly ModulePublication[];\n78:   readonly declarationCatalog?: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;\n79: }\n80: \n81: /** Read-only Definition resource handoff. The existing admitted grants bind"
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 20912,
+      "sha256": "86ea16b534cb9c52f3b42e898e736be84c71ce874d9056fa0fcbbf3871055c41"
+    },
+    "lines": [
+      225,
+      311
+    ],
+    "excerpt": "225: function conformanceAuthorityMatches(\n226:   call: Parameters<\n227:     ExactDefinitionCallable<\n228:       ConformanceContract,\n229:       ConformanceEvaluationResourceAssertion,\n230:       ConformanceEvaluationResourceAssertion\n231:     >\n232:   >[0],\n233:   artifactTruth: ExactPrefixArtifactTruthProjection,\n234: ): boolean {\n235:   const slots = call.invocation.invocationAuthority.slots;\n236:   if (\n237:     !isRecord(slots.workspace_binding) ||\n238:     !isRecord(slots.dependency_lock) ||\n239:     !Array.isArray(slots.product_set) ||\n240:     !isRecord(slots.actor) ||\n241:     !isRecord(slots.actor.actor)\n242:   ) return false;\n243:   const bindingRow = artifactTruth.rows.find((row) =>\n244:     row.operationId === \"abg.operation.workspace.bind\" &&\n245:     row.artifactRef === slots.workspace_binding!.ref &&\n246:     row.artifactDigest === slots.workspace_binding!.digest\n247:   );\n248:   if (\n249:     bindingRow === undefined ||\n250:     !isWorkspaceAuthorityBasis(bindingRow.workspaceAuthorityBasis) ||\n251:     slots.actor.actor.ref !==\n252:       bindingRow.workspaceAuthorityBasis.authorizedActorRef\n253:   ) return false;\n254:   const installs = bindingRow.causationEventRefs.map((eventRef) =>\n255:     projectAdmittedProductInstallByAdmissionEventRef(artifactTruth, eventRef)\n256:   );\n257:   if (installs.length === 0 || installs.some((install) => install === null)) {\n258:     return false;\n259:   }\n260:   const lock = installs[0]!.resolvedLock;\n261:   if (\n262:     installs.some((install) => !sameJson(install!.resolvedLock, lock)) ||\n263:     !sameCoordinate(slots.dependency_lock, {\n264:       ref: lock.lockId,\n265:       digest: lock.lockDigest,\n266:     }) ||\n267:     !exactCoordinateSet(\n268:       slots.product_set,\n269:       installs.map((install) => productInstallCoordinate(install!.install)),\n270:     )\n271:   ) return false;\n272:   const binding = projectAdmittedWorkspaceBindingByInvocationRef(\n273:     artifactTruth,\n274:     bindingRow.invocationRef,\n275:     lock,\n276:   );\n277:   return binding !== null &&\n278:     binding.binding.bindingId === slots.workspace_binding.ref &&\n279:     binding.binding.bindingDigest === slots.workspace_binding.digest;\n280: }\n281: \n282: function reconstructDeclarationBasis(\n283:   resources: ConformanceEvaluationResourceAssertion,\n284:   environment: ExactPrefixWorkspaceEnvironment,\n285: ): ConformanceDeclarationBasis {\n286:   const supplied = resources.declarationCatalog;\n287:   if (!isRecord(supplied) || !hasExactKeys(supplied, [\"catalog\", \"catalogView\"])) {\n288:     throw new TypeError(\"declared inventory requires its exact admitted catalog and view\");\n289:   }\n290:   const installs = environment.productInstalls.map(install =>\n291:     projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, install.admissionEventRef));\n292:   if (installs.some(install => install === null)) {\n293:     throw new TypeError(\"conformance artifact truth differs from its exact admitted environment\");\n294:   }\n295:   const { catalog, catalogView } = reconstructHistoricalDeclarationCatalog(supplied, {\n296:     workspaceBinding: environment.workspaceBindingCandidate,\n297:     resolvedLock: environment.resolvedProductLock,\n298:     installedProducts: installs.map((install) => install!.candidate),\n299:   });\n300:   if (\n301:       !exactCoordinateSet(catalog.boundPublications.map(publication => reference(publication.moduleRef,\n302:         sha256Canonical(publication as unknown as JsonValue))).sort(compareCoordinates),\n303:       resources.declaredInventory.map(publication => reference(publication.moduleRef,\n304:         sha256Canonical(publication as unknown as JsonValue))).sort(compareCoordinates))) {\n305:     throw new TypeError(\"conformance inventory differs from its admitted workspace, installs, lock or publication owners\");\n306:   }\n307:   const declarationClosure = resolveProgramDeclarationClosure(catalog, catalogView, resources.packet.program.programRef);\n308:   if (declarationClosure.kind !== \"resolved_program_declaration_closure\" ||\n309:       !sameJson(declarationClosure.programPublication, resources.packet.publication)) {\n310:     throw new TypeError(\"conformance Program has no exact compatible declaration owner closure\");\n311:   }"
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 20912,
+      "sha256": "86ea16b534cb9c52f3b42e898e736be84c71ce874d9056fa0fcbbf3871055c41"
+    },
+    "lines": [
+      314,
+      445
+    ],
+    "excerpt": "314: \n315: const gtl_program = (\n316:   call: DefinitionCall<ConformanceContract, ConformanceEvaluationResourceAssertion>,\n317:   boundEnvironment: ExactPrefixWorkspaceEnvironment | null,\n318: ) => Effect.try({\n319:   try: (): DefinitionReturn<\n320:     ConformanceContract,\n321:     ConformanceEvaluationResourceReceipt\n322:   > => {\n323:     // withAdmissionAuthority has already canonicalized these exact resources\n324:     // for the approved digest, including the existing finite-JSON check;\n325:     // repeating a self-comparison here would serialize the entire body twice.\n326:     const resources = call.resources;\n327:     if (\n328:       !isRecord(resources) ||\n329:       !hasExactKeys(resources, [\n330:         \"conformanceLaw\",\n331:         \"declaredInventory\",\n332:         \"kind\",\n333:         \"packet\",\n334:         \"schemaVersion\",\n335:         ...(Object.hasOwn(resources, \"declarationCatalog\") ? [\"declarationCatalog\"] : []),\n336:       ]) ||\n337:       resources.kind !== \"conformance_evaluation_resource_assertion\" ||\n338:       resources.schemaVersion !== \"5.0.0\" ||\n339:       !isRecord(resources.packet) ||\n340:       !isRecord(resources.conformanceLaw) ||\n341:       !Array.isArray(resources.declaredInventory) ||\n342:       resources.declaredInventory.length === 0\n343:     ) {\n344:       throw fault(\n345:         call.invocation.definitionKey,\n346:         \"invalid_resource_assertion\",\n347:         \"GTL Program conformance requires one exact typed publication and Program packet\",\n348:       );\n349:     }\n350:     const request = call.invocation.request;\n351:     const packet = resources.packet;\n352:     if (!exactDefinitionCallMatches(\n353:       call,\n354:       CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,\n355:     )) {\n356:       throw fault(\n357:         call.invocation.definitionKey,\n358:         \"call_identity_mismatch\",\n359:         \"conformance call differs from its fixed definition, contracts, request digest, or authority topology\",\n360:       );\n361:     }\n362:     const program = reference(\n363:       packet.program.programRef,\n364:       sha256Canonical(packet.program as unknown as JsonValue),\n365:     );\n366:     const publication = reference(\n367:       packet.publication.moduleRef,\n368:       sha256Canonical(packet.publication as unknown as JsonValue),\n369:     );\n370:     const inventory = resources.declaredInventory.map((entry) => {\n371:       const canonical = canonicalizeAuthoredGtlCarrier(\n372:         entry,\n373:         \"module_publication\",\n374:       );\n375:       if (!sameJson(canonical, entry)) {\n376:         throw fault(\n377:           call.invocation.definitionKey,\n378:           \"invalid_resource_assertion\",\n379:           \"declared inventory contains a noncanonical Module publication\",\n380:         );\n381:       }\n382:       return reference(\n383:         entry.moduleRef,\n384:         sha256Canonical(entry as unknown as JsonValue),\n385:       );\n386:     }).sort(compareCoordinates);\n387:     const requestedInventory = request.inventoryBasis.kind ===\n388:         \"declared_inventory\"\n389:       ? canonicalCoordinateSet(request.inventoryBasis.inventory)\n390:       : null;\n391:     const inventoryMatches = request.inventoryBasis.kind === \"program_only\" ||\n392:       (inventory.length === new Set(inventory.map(({ ref }) => ref)).size &&\n393:         requestedInventory !== null &&\n394:         exactCoordinateSet(requestedInventory, inventory) &&\n395:         inventory.some((coordinate) => sameCoordinate(coordinate, publication)));\n396:     if (\n397:       packet.kind !== \"conformance_evaluate_packet\" ||\n398:       packet.schemaVersion !== \"5.0.0\" ||\n399:       packet.memberKey !== \"gtl_program\" ||\n400:       !sameCoordinate(request.program, program) ||\n401:       !sameCoordinate(request.conformanceLaw, resources.conformanceLaw) ||\n402:       !inventoryMatches ||\n403:       boundEnvironment === null ||\n404:       // Grant construction awaited archive verification. Recheck the physical\n405:       // prefix at this owner boundary while borrowing its completed derivation.\n406:       !validateExactPrefixArtifactTruthProjection(boundEnvironment.artifactTruth, { requireCurrent: true }) ||\n407:       !conformanceAuthorityMatches(call, boundEnvironment.artifactTruth)\n408:     ) {\n409:       throw fault(\n410:         call.invocation.definitionKey,\n411:         \"resource_relation_mismatch\",\n412:         \"conformance packet differs from the public Program, law, or inventory coordinates\",\n413:       );\n414:     }\n415:     if (!sameCoordinate(request.conformanceLaw, GTL_PROGRAM_CONFORMANCE_LAW)) {\n416:       return deepFreeze({\n417:         ownerOutput: lawMismatchRefusal(),\n418:         resources: resourceReceipt(call),\n419:       });\n420:     }\n421:     let declarationBasis: ConformanceDeclarationBasis | undefined;\n422:     try {\n423:       if (request.inventoryBasis.kind === \"declared_inventory\") {\n424:         declarationBasis = reconstructDeclarationBasis(resources, boundEnvironment);\n425:       } else if (resources.declarationCatalog !== undefined) {\n426:         throw new TypeError(\"program_only conformance does not consume a declaration catalog\");\n427:       }\n428:     } catch (cause) {\n429:       throw fault(call.invocation.definitionKey, \"resource_relation_mismatch\", String(cause));\n430:     }\n431:     const native = declarationBasis === undefined\n432:       ? ConformancePort.evaluateGtlProgram(packet)\n433:       : evaluateGtlProgramConformanceFromResolvedClosure(packet, declarationBasis.declarationClosure);\n434:     if (native.disposition === \"failed\" && native.code !== \"validation_failed\") {\n435:       return deepFreeze({\n436:         ownerOutput: nativeRefusal(native),\n437:         resources: resourceReceipt(call),\n438:       });\n439:     }\n440:     const assessment = native.disposition === \"passed\"\n441:       ? reference(native.evidenceRef, native.evidenceDigest)\n442:       : reference(\n443:         native.diagnosticRef,\n444:         sha256Canonical(native as unknown as JsonValue),\n445:       );"
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18613,
+      "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c"
+    },
+    "lines": [
+      186,
+      205
+    ],
+    "excerpt": "186: export function admitCapabilityEnvironment(\n187:   value: unknown,\n188:   acquiredResource: AcquiredAbgEventResource | null = null,\n189:   requireCurrent = true,\n190: ): ExactPrefixWorkspaceEnvironment {\n191:   const selection = v.parse(admissionEnvironmentSelectionSchema, value);\n192:   let prefix = selection.prefix;\n193:   if (acquiredResource !== null) {\n194:     assertHeldEventStoreAtDurablePrefix(acquiredResource.store, acquiredResource.entryPrefix);\n195:     if (!sameJson(prefix, acquiredResource.entryPrefix))\n196:       throw new TypeError(\"admission environment differs from the acquired current prefix\");\n197:     prefix = acquiredResource.entryPrefix;\n198:   }\n199:   const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);\n200:   if (artifactTruth.kind !== \"exact_prefix_artifact_truth_projection\")\n201:     throw new TypeError(\"admission requires authenticated exact-prefix artifact truth\");\n202:   const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, selection.workspaceBinding);\n203:   if (environment.kind !== \"exact_prefix_workspace_environment\")\n204:     throw new TypeError(\"admission requires the exact admitted prefix environment\");\n205:   if (requireCurrent) assertDurableRuntimePrefixCurrent(environment.prefix);"
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 18613,
+      "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c"
+    },
+    "lines": [
+      296,
+      343
+    ],
+    "excerpt": "296: export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration, R, O>(\n297:   packet: P,\n298:   owner: AdmissionDefinitionOwner<P, R, O>,\n299: ): ExactDefinitionCallable<P, AdmissionAuthorizedResources<R>, O> {\n300:   return (call) => Effect.suspend(() => {\n301:     let acquiredResource: AcquiredAbgEventResource | null = null;\n302:     return Effect.tryPromise({\n303:       try: async () => {\n304:         if (admitExactDefinitionCall(call, packet) === null || !isRecord(call.resources)) {\n305:           throw new TypeError(\"definition call differs from its fixed owner\");\n306:         }\n307:         const parsed = v.parse(admissionAuthorityResourceStructure, call.resources.admissionAuthority);\n308:         const { admissionAuthority: _authority, ...resources } = call.resources;\n309:         if (!sameJson(parsed.basis.request, call.invocation.request) ||\n310:             parsed.basis.resourceScope.resourcesDigest !== digest(resources) ||\n311:             !sameJson(parsed.basis.resourceScope.authoritySlots, admissionAuthoritySlots(call.invocation.invocationAuthority.slots))) {\n312:           throw new TypeError(\"admission resources differ from the approved request and authority scope\");\n313:         }\n314:         // Bound reopened effects acquire once, before semantic reconstruction.\n315:         // A new resource is still created only by its authorized effect owner.\n316:         const assertion = (resources as Record<string, unknown>).eventResource;\n317:         if (isAcquiredAbgEventResourceSelection(assertion) ||\n318:             (parsed.basis.boundEnvironment !== null && isRecord(assertion) && assertion.kind === \"reopen_abg_event_resource\")) {\n319:           if (!validateAbgEventResourceInput(assertion)) throw new TypeError(\"invalid event resource assertion\");\n320:           const acquired = acquireAbgEventResource(assertion);\n321:           if (acquired.kind !== \"acquired_abg_event_resource\") throw definitionFault(\n322:             packet.definitionKey, \"resource_acquisition\", acquired.code, acquired.message);\n323:           acquiredResource = acquired.resource;\n324:         }\n325:         const { grants, boundEnvironment } = await constructAdmissionCapabilityGrants(\n326:           parsed.authority, parsed.authority.actorRef,\n327:           { kind: \"admission_capability_grant_construction_basis\", fixedPacket: packet, data: parsed.basis },\n328:           acquiredResource,\n329:         );\n330:         if (!sameJson(parsed.grants, grants) || !sameJson(\n331:           call.invocation.invocationAuthority.slots.capability_grants,\n332:           { requiredCapabilityRefs: [...packet.metadata.capabilityRefs], grants: grants.map((grant) => ({ ref: grant.grantRef, digest: grant.grantDigest })) },\n333:         )) throw new TypeError(\"admission grants differ from exact owner reconstruction\");\n334:         return { call: { ...call, resources: resources as R }, boundEnvironment };\n335:       },\n336:       catch: (cause) => definitionFault(packet.definitionKey, \"resource_admission\", \"resource_relation_mismatch\", String(cause)),\n337:     }).pipe(\n338:       Effect.flatMap(({ call, boundEnvironment }) => owner(call, boundEnvironment, acquiredResource)),\n339:       // An owner may refuse before entering its effect scope. Release the same\n340:       // acquisition in every outcome; ordinary owner close still issues truth.\n341:       Effect.ensuring(Effect.sync(() => { if (acquiredResource !== null) abandonAbgEventResource(acquiredResource); })),\n342:     );\n343:   });"
+  },
+  {
+    "installedOwner": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/conformance_definition_bindings.js",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 17522,
+      "sha256": "69aa310344ffb9b16ceb33a6ca244ae4a648835c81cd5da863b3f3ed49f2d9b2"
+    },
+    "lines": [
+      150,
+      172
+    ],
+    "archiveMember": {
+      "path": "build/code/src/validator/conformance_definition_bindings.js",
+      "bytes": 17522,
+      "sha256": "69aa310344ffb9b16ceb33a6ca244ae4a648835c81cd5da863b3f3ed49f2d9b2",
+      "archiveMode": 420
+    }
+  }
+]

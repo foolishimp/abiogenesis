@@ -1,0 +1,64 @@
+{
+  "sourceCount": 264,
+  "outputCount": 528,
+  "allExactSource42": true,
+  "payloadCount": 5265,
+  "sameDeclaredMembershipAs12": true,
+  "changesFrom12": [
+    {
+      "relativePath": "build/code/src/gtl/worksite_command_execution.js",
+      "before": {
+        "sha256": "6afd1478dcfb3582943a8b347ce2cd134f975997e223061db1135ce0ba5cf682",
+        "byteCount": 25001,
+        "mode": 420
+      },
+      "after": {
+        "sha256": "baabc471651f583599a0f6616967c43ef262dbdb3fc389f445a10f723d60d1ac",
+        "byteCount": 25001,
+        "mode": 420
+      }
+    },
+    {
+      "relativePath": "build/code/src/product/worksite_command_execution.js",
+      "before": {
+        "sha256": "0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa",
+        "byteCount": 109703,
+        "mode": 420
+      },
+      "after": {
+        "sha256": "5bdc29e4ccad5c2d33d4ce309e9eab2d70a70c7843bf289b75a087f027f82322",
+        "byteCount": 109611,
+        "mode": 420
+      }
+    },
+    {
+      "relativePath": "contracts/worksite/command-execution-context.inventory.json",
+      "before": {
+        "sha256": "b768f223bee6d203c7d5762f87b1bfca6a4f1facda12c9592b5bdb445d1f36c4",
+        "byteCount": 255,
+        "mode": 420
+      },
+      "after": {
+        "sha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7",
+        "byteCount": 255,
+        "mode": 420
+      }
+    }
+  ],
+  "mandatoryFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "5c4aba8e7bb432979b75cad7783029df4835acd06526be6a829681a7fdc8bae4",
+      "byteCount": 3189430,
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "779ba769b1f82cdcaaf9b3058aa4829c4181553acc0b39516af9578825157230",
+      "byteCount": 197474,
+      "mode": 420
+    }
+  ],
+  "productContentDigest": "sha256:502cbd2d38c6a54a864ddb509c8d9d38c6ee27e929ef12de006df3f274c218fa",
+  "elapsedMs": 217.74991700658575
+}

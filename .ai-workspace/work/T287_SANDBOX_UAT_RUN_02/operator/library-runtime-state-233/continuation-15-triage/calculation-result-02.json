@@ -1,0 +1,81 @@
+{
+  "kind": "continuation15_pure_definition_identity_result",
+  "testing": {
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+    "authoredDigest": "sha256:dc80de4064018925dc7a329442cda788912f6c635815e7bc1921f164cfa0be92",
+    "publishedDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+    "canonicalOwnerDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+    "canonicalOwnerEqualsPublished": true,
+    "exactDifferences": [
+      {
+        "path": "/environment/carries",
+        "authored": [
+          "contract://abiogenesis/default-library/state@5",
+          "contract://abiogenesis/worksite/command-execution-task@5",
+          "contract://abiogenesis/worksite/command-execution-observation@5"
+        ],
+        "published": [
+          "contract://abiogenesis/default-library/state@5",
+          "contract://abiogenesis/worksite/command-execution-observation@5",
+          "contract://abiogenesis/worksite/command-execution-task@5"
+        ]
+      }
+    ],
+    "materialization": {
+      "premise": "A descriptive non-admitted basis with empty input is used identically for both representations. Neither selected graph has fan-out; this only demonstrates identity propagation and grants no admission/occurrence/currentness.",
+      "templateDigest": "sha256:cac8a0a39afc8445a18735a87d4e4b1c08b4b64c1cdbfbf5c12e516ae9637dad",
+      "templateEqual": true,
+      "fanOutMaterializationsEqual": true,
+      "authored": {
+        "graphFunctionDigest": "sha256:dc80de4064018925dc7a329442cda788912f6c635815e7bc1921f164cfa0be92",
+        "materializationDigest": "sha256:19256876d97f6324b01493a1ee5daf9528d90754472c098de7c593d50c83d73b",
+        "materializationRef": "graph-materialization://abiogenesis/19256876d97f6324b01493a1ee5daf9528d90754472c098de7c593d50c83d73b"
+      },
+      "published": {
+        "graphFunctionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+        "materializationDigest": "sha256:c7ac46f8c878c43083b0d3efeb6e046b64c903000890c143d35b85466c517938",
+        "materializationRef": "graph-materialization://abiogenesis/c7ac46f8c878c43083b0d3efeb6e046b64c903000890c143d35b85466c517938"
+      },
+      "canonicalOwnerEqualsPublished": true,
+      "exactDifferentFields": [
+        "/materializationRef",
+        "/materializationDigest",
+        "/graphFunctionDigest"
+      ]
+    },
+    "actualCatalogDigest": "sha256:ba8cbe390591146f21777f453dc6e9be5bdbd70e6a17778b9e32043197328645",
+    "publishedEqualsActualCatalog": false,
+    "authoredEqualsActualCatalog": false,
+    "canonicalOwnerEqualsActualCatalog": false
+  },
+  "standalone": {
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-command-reacquisition@5",
+    "authoredDigest": "sha256:4db979fdea94b4413938b9b82e81fe8909f13a4ae382b9eb6bb4bf74d5dff613",
+    "publishedDigest": "sha256:4db979fdea94b4413938b9b82e81fe8909f13a4ae382b9eb6bb4bf74d5dff613",
+    "canonicalOwnerDigest": "sha256:4db979fdea94b4413938b9b82e81fe8909f13a4ae382b9eb6bb4bf74d5dff613",
+    "canonicalOwnerEqualsPublished": true,
+    "exactDifferences": [],
+    "materialization": {
+      "premise": "A descriptive non-admitted basis with empty input is used identically for both representations. Neither selected graph has fan-out; this only demonstrates identity propagation and grants no admission/occurrence/currentness.",
+      "templateDigest": "sha256:e4babb7281799bc79d496ea62f8ceb31742c3aece525c4f6610b715549c056ed",
+      "templateEqual": true,
+      "fanOutMaterializationsEqual": true,
+      "authored": {
+        "graphFunctionDigest": "sha256:4db979fdea94b4413938b9b82e81fe8909f13a4ae382b9eb6bb4bf74d5dff613",
+        "materializationDigest": "sha256:a2a29fcb0d7cb35745d7ea3c023356f740ec61be6e2799a88450758e0d00fbf6",
+        "materializationRef": "graph-materialization://abiogenesis/a2a29fcb0d7cb35745d7ea3c023356f740ec61be6e2799a88450758e0d00fbf6"
+      },
+      "published": {
+        "graphFunctionDigest": "sha256:4db979fdea94b4413938b9b82e81fe8909f13a4ae382b9eb6bb4bf74d5dff613",
+        "materializationDigest": "sha256:a2a29fcb0d7cb35745d7ea3c023356f740ec61be6e2799a88450758e0d00fbf6",
+        "materializationRef": "graph-materialization://abiogenesis/a2a29fcb0d7cb35745d7ea3c023356f740ec61be6e2799a88450758e0d00fbf6"
+      },
+      "canonicalOwnerEqualsPublished": true,
+      "exactDifferentFields": []
+    }
+  },
+  "supportedRelation": "The native occurrence owner hashes and materializes the authored Testing wrapper. The independently reported authored/publication/canonical/Catalog identities bound what definition and materialization correspondence is established; no observed opened execution basis is substituted.",
+  "scope": "Pure frozen43 definition calculation compared with the actual15 admitted Catalog Testing digest. Any failed equality remains explicit. No actual opened execution basis or occurrence request was reprojected.",
+  "exclusiveActualRefusalConjunctEstablished": false,
+  "authorityOrRuntimeEffects": false
+}

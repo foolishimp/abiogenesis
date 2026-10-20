@@ -1,0 +1,18 @@
+[
+  {
+    "path": "staged-repo/build_tenants/abiogenesis/typescript/node_modules/.bin/tsc",
+    "target": "../typescript/bin/tsc"
+  },
+  {
+    "path": "staged-repo/build_tenants/abiogenesis/typescript/node_modules/.bin/tsserver",
+    "target": "../typescript/bin/tsserver"
+  },
+  {
+    "path": "install/node_modules/.bin/abg.cli",
+    "target": "../@abiogenesis/typescript-tenant/build/code/src/public/cli.js"
+  },
+  {
+    "path": "install/node_modules/.bin/abg.codex",
+    "target": "../@abiogenesis/typescript-tenant/build/code/src/public/codex_cli.js"
+  }
+]

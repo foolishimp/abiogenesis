@@ -1,0 +1,18 @@
+{
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core37-preparation-01/input-manifest.json",
+    "sha256": "2d90deba3185150beeb5492ec1fca91ab3e7447edc405715e7eff2822537f3eb",
+    "bytes": 224545
+  },
+  "changed": [
+    {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "beforeSha256": "e45c1a74ad761d55c2fd4089cb38d7eb5bb1ff35e29e8c06011280ecc4711649",
+      "afterSha256": "2f445d8d7b8090ac11d89bbb3187e71c663220840558b21e0370bfca90665fa9",
+      "bytes": 84012
+    }
+  ],
+  "reusedCount": 365,
+  "sourceCopies": 0,
+  "preservation": "Current origins are checked against exact selected core38 input/generated records; the existing staging helper checks extent and digest again before copying. Changed or missing origins refuse. No Git lookup or source-body copy was performed."
+}

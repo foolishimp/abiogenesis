@@ -1,0 +1,30 @@
+(node:78361) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ preparation module loading shares one physical basis and reacquires changed content (26.686583ms)
+ℹ Two descriptor projections share one physical result; new acquisition, path, absent module and crossed install refuse.
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 403.803625
+        0.42 real         0.52 user         0.04 sys
+           253984768  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               19232  page reclaims
+                 152  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  17  messages sent
+                  12  messages received
+                   0  signals received
+                   2  voluntary context switches
+                 952  involuntary context switches
+           422243412  instructions retired
+           139533525  cycles elapsed
+            15976584  peak memory footprint

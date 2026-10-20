@@ -1,0 +1,12 @@
+{
+  "kind": "static_original_packet_child_join_preflight",
+  "status": "stopped",
+  "wallMs": 536.953125,
+  "error": {
+    "name": "AssertionError",
+    "message": "AssertionError [ERR_ASSERTION]: exact executive-step child is validated",
+    "stack": "AssertionError [ERR_ASSERTION]: exact executive-step child is validated\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/static-preflight.mjs:43:2"
+  },
+  "noFullEventRead": true,
+  "noRetry": true
+}

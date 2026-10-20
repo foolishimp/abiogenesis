@@ -1,0 +1,43 @@
+{
+  "acceptance": "Root independent disposal postcheck decides acceptance; this closure does not self-assure the deletion",
+  "actualExitCode": 1,
+  "effectsOfClosure": {
+    "commentsOriginalSourceNativeGitNetwork": 0,
+    "newReportRecordsOnly": true,
+    "oldArtifactWrites": 0,
+    "payloadReruns": 0,
+    "unlinks": 0
+  },
+  "operation": "T287_COMMENTARY_CLEANUP_DELETE_03_REPORT_ONLY_CLOSURE",
+  "payload": {
+    "operation": "T287_COMMENTARY_CLEANUP_DELETE_03",
+    "remainingCopies": 24830,
+    "removedAllocatedBytesFromStBlocks": 10174103552,
+    "removedDirectories": 0,
+    "removedFiles": 197399,
+    "removedLogicalBytes": 9634686370,
+    "result": {
+      "bytes": 1201,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/result.json",
+      "sha256": "a3e4d8d9c4cfda9fee02cc52976269b5d13349dce4f963266320e365a9159a6c"
+    },
+    "retainedDirectories": 29137,
+    "savedResultPostConservationCompleted": true,
+    "stop": {
+      "bytes": 395,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/stop.json",
+      "sha256": "520718a8a25db23ce637d264fb3ed8cfc5028fd48d0d7f5690a779a2e14bbdbb"
+    }
+  },
+  "payloadSession": 42039,
+  "process": {
+    "noRetry": true,
+    "pid": 30369,
+    "pidAbsent": true,
+    "synchronousNoChildren": true
+  },
+  "status": "CLOSED_REPORT_ONLY",
+  "writesAfterFreeze": "STOPPED"
+}

@@ -1,0 +1,20 @@
+{
+  "modifiedDonorCopies": [
+    "driver.mjs",
+    "ordinary-caller.mjs",
+    "runtime-environment.json",
+    "budgets.json",
+    "resource-plan.json"
+  ],
+  "identicalDonorCopies": [
+    "public-support.mjs",
+    "owner-checks.mjs",
+    "observe-process.py",
+    "launch-once.py",
+    "selected-core.json",
+    "prospective-cases.json"
+  ],
+  "newHelper": "current-inputs.mjs",
+  "acceptedReader": "../final-c2-output-consumer-repair-01/output-checks.mjs",
+  "acceptedReaderChanged": false
+}

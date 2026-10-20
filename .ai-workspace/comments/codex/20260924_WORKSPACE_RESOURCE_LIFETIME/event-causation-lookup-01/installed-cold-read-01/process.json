@@ -1,0 +1,13 @@
+{
+  "supervisedPid": 98701,
+  "startedUnixSeconds": 1790243153.0888078,
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/caller/jobs/basic-cli/read-run_result.jsonl"
+  ],
+  "timeoutMs": 600000
+}

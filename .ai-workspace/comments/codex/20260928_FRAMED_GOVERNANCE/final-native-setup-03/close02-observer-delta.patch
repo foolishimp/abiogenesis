@@ -1,0 +1,14 @@
+--- close.py
++++ close02.py
+@@ -17,9 +17,9 @@
+ for x in read(N/'input-joins.json'):verify(R/x['path'],x)
+ slots=read(N/'runtime-slots.json');installedRoot=pathlib.Path(slots['admittedInstalls'][0]['installedRoot']);payload=read(C/'archive-members.json')
+ for x in payload:
+- p=installedRoot/x['path'];verify(p,x);assert stat.S_IMODE(p.stat().st_mode)==x['archiveMode'],x['path']
++ p=installedRoot/x['path'];verify(p,x);accepted=pathlib.Path(read(C/'selected-core.json')['packageRoot'])/x['path'];assert stat.S_IMODE(p.stat().st_mode)==stat.S_IMODE(accepted.stat().st_mode),x['path']
+ actual=sorted(str(p.relative_to(installedRoot)) for p in installedRoot.rglob('*') if p.is_file() or p.is_symlink());assert actual==sorted(x['path'] for x in payload),'native installed package unexpected/missing members'
+-save('conservation.json',{'status':'passed','C02FrozenRecords':len(read(C/'freeze.json')['records']),'C02Freeze':row(C/'freeze.json',R),'preEffectInputRecords':len(read(N/'pre-effect-input-freeze.json')['records']),'donorPreimagesAndOriginals':len(read(N/'donor-preimages.json')),'exactNewNativeInstalledPayloadMembers':len(payload),'nativeInstalledRoot':str(installedRoot),'archiveMembersIndex':row(C/'archive-members.json',R),'extraNativePayloadMembers':0,'archive':row(pathlib.Path(read(N/'selected-core.json')['artifactPath']),R),'oldNativeResourcesTouched':False})
++save('conservation.json',{'status':'passed','C02FrozenRecords':len(read(C/'freeze.json')['records']),'C02Freeze':row(C/'freeze.json',R),'preEffectInputRecords':len(read(N/'pre-effect-input-freeze.json')['records']),'donorPreimagesAndOriginals':len(read(N/'donor-preimages.json')),'exactNewNativeInstalledPayloadMembers':len(payload),'nativeInstalledRoot':str(installedRoot),'archiveMembersIndex':row(C/'archive-members.json',R),'extraNativePayloadMembers':0,'modes':'All native payload modes equal accepted C02 verification install; two declared bin entries0755 in both installs versus0644 archive metadata; see closure-observer-note.json','archive':row(pathlib.Path(read(N/'selected-core.json')['artifactPath']),R),'oldNativeResourcesTouched':False})
+ f=read(N/'setup-failure.json');driver=read(N/'driver-process.json');assert driver['exitObserved'] and driver['exitCode']==1 and not driver['timedOut'];assert len(f['calls'])==8
+ processRows=[]
+ for call in f['calls']:

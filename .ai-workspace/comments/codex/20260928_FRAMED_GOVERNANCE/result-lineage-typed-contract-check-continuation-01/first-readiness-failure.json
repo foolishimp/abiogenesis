@@ -1,0 +1,21 @@
+{
+  "mode": "types",
+  "exitCode": 1,
+  "firstUnexpectedDiagnostic": {
+    "code": 2339,
+    "message": "Property 'validateResultEvidenceLineage' does not exist on type 'InstalledLeafSemanticsProjection'.",
+    "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/type-proof/valid-probabilistic-and-nonprobabilistic.mts",
+    "start": 2558
+  },
+  "cause": "Prepared test selects coordinate-only InstalledLeafSemanticsProjection instead of actual runtime hook returned by existing projectInstalledLeafSemantics.",
+  "secondaryPreparedTestIssue": "actual admitted-source omission diagnostic2375 absent from whitelist",
+  "aggregateTypePass": false,
+  "unexpectedSourceDiagnostics": [],
+  "stop": "No repair/retry/other check after this actual refusal",
+  "compilerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/type-proof/compiler-receipt.json",
+    "bytes": 66558,
+    "sha256": "7c9c9b7b647d76b1399b1282b6d4530dbd675699d9c485fe7aec13cac9288764",
+    "mode": 420
+  }
+}

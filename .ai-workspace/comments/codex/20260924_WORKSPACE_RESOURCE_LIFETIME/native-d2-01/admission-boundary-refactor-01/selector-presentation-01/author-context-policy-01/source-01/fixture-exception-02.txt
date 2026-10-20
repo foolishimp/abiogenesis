@@ -1,0 +1,27 @@
+(node:20407) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native D2 stage role policies reach assembly and preserve required-content refusals (21.99625ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 271.08425
+
+✖ failing tests:
+
+test at test/full-sandbox.test.mjs:556:1
+✖ native D2 stage role policies reach assembly and preserve required-content refusals (21.99625ms)
+  TypeError [Error]: Cannot convert undefined or null to object
+      at Object.entries (<anonymous>)
+      at canonicalJson (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:17:28)
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:19:58
+      at Array.map (<anonymous>)
+      at canonicalJson (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:19:10)
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:19:58
+      at Array.map (<anonymous>)
+      at canonicalJson (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:19:10)
+      at sha256Canonical (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/digests.js:11:24)
+      at constructJobInstructionAssembly (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js:479:24)

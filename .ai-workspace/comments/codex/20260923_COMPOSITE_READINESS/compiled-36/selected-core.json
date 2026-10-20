@@ -1,0 +1,13 @@
+{
+  "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite36-install-j3tj2x00/node_modules/@abiogenesis/typescript-tenant",
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-36/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-36/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "basis": {
+    "artifactDigest": "sha256:e8751bfaa71d2969d95a30a278e2c69c6f5e4c815db7fbf4552aa19172827868",
+    "productContentDigest": "sha256:534d5cfbb90a1df0179bac43ceb707b6263947326fc07ff1cdb6174b5dc42eb7",
+    "manifestDigest": "sha256:25c4a64498140a89c3be86db5b5c38b91c90703de916eca0a41f9ecad0364704",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  }
+}

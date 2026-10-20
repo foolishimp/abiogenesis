@@ -1,0 +1,24 @@
+﹣ installed post-disposition selected action survives actual host interruption and continues once (0.243916ms) # SKIP
+✖ installed covered-current selection consumes the old and current occurrences under the exact admitted cover (19321.466791ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 19366.152458
+
+✖ failing tests:
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:76:1
+✖ installed covered-current selection consumes the old and current occurrences under the exact admitted cover (19321.466791ms)
+  TypeError [Error]: admission grant requires the exact admitted workspace, Product set and lock
+      at validateAdmissionCapabilityBasis (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/admission_authority.js:213:19)
+      at constructAdmissionGrant (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/invocation.js:503:28)
+      at Module.constructCapabilityGrant (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/invocation.js:474:16)
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:118:77
+      at Array.map (<anonymous>)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:118:60)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

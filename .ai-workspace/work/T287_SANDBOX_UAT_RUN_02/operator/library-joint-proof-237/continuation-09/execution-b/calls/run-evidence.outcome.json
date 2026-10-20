@@ -1,0 +1,302 @@
+{
+  "acquisitionKind": "reopen",
+  "kind": "installed_definition_call_transport_result",
+  "receipt": {
+    "definitionKey": {
+      "memberKey": "run_evidence",
+      "operationId": "abg.operation.project.read"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "invocationRef": "invocation://abiogenesis/6e85d82382ed1b13420f6a28e3f5b7cd49366fb83b35ebec2462fbd28de1df5c",
+    "kind": "definition_host_receipt",
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "caseKey": "run_evidence",
+        "projection": {
+          "eventAtoms": [
+            {
+              "digest": "sha256:3ecddebe41cad705e5be3b8e98c8a34715106b36c7f2bd0978a05a62746c2329",
+              "ref": "r15"
+            },
+            {
+              "digest": "sha256:0a16c78d6e23268d7ebd566eaaa797856e2923277c1339b6bf13c535799177e2",
+              "ref": "r17"
+            },
+            {
+              "digest": "sha256:544dd035bda4799fcfe799f238e76ad76764ca641b20b77586acc61691919e54",
+              "ref": "r21"
+            },
+            {
+              "digest": "sha256:0637902a099e15e52452abb10f05a07b8643b140cef20d7c9db133c715b562cd",
+              "ref": "r35"
+            },
+            {
+              "digest": "sha256:610dd8f598a36f230057d5144607fd56da1c600a7ebaf5026583d6f90afc3a9c",
+              "ref": "r37"
+            },
+            {
+              "digest": "sha256:38406cce81b840ed16bdfedb784829669f4e635cefacd989a402aa03556c29c3",
+              "ref": "r41"
+            },
+            {
+              "digest": "sha256:87da3a83524ea9760e154c54d13904593c3c05145ff3d77df1c3134fb8a6505f",
+              "ref": "r70"
+            },
+            {
+              "digest": "sha256:2a7c8c9657807a25a67f88f0d1e356176aef05c702331cba447f9b1361ff5838",
+              "ref": "r72"
+            },
+            {
+              "digest": "sha256:870890f5f61ddd11c35fb5b00c16aaead478e4412b580ab7918c3b6e2853752d",
+              "ref": "r74"
+            },
+            {
+              "digest": "sha256:8f5c0b2194bce452385ec13af3cfb80e926c84fb308826f74750eb582a2e023c",
+              "ref": "r83"
+            },
+            {
+              "digest": "sha256:3ea5f45803930fa9eb71642aa6f9202c0574196a07b89aceb12e91cad716a48d",
+              "ref": "r85"
+            },
+            {
+              "digest": "sha256:fceb240970ead7b1643b8f1ac0d34b325b990c32de624f0389dac2b05cf41486",
+              "ref": "r89"
+            },
+            {
+              "digest": "sha256:71f3fb705006b0cca86c8a62b78ba4e81078592a398561c83963e49d53cc0ed2",
+              "ref": "r110"
+            },
+            {
+              "digest": "sha256:99cc8c4e7088bc7997b163b264ca06958bccca84f38fe916c34b5f8e6f26f40c",
+              "ref": "r112"
+            },
+            {
+              "digest": "sha256:1b9f94e57ff688d1605e70beff335be1510177b5e01df9c6e1173ade1df6901a",
+              "ref": "r116"
+            },
+            {
+              "digest": "sha256:9043b8cb505aa042b10892ea12969d368f81a3ef95f98c55d239e9974f2f53e7",
+              "ref": "r155"
+            },
+            {
+              "digest": "sha256:2d537303c094408a07472099767de5e32ecd8be5015d32d8bdaece5b913fa58a",
+              "ref": "r157"
+            },
+            {
+              "digest": "sha256:443a0c5a1dbd2445df84809fb1ac1eea134ccfea4ecf39d399e62bf60270a333",
+              "ref": "r159"
+            },
+            {
+              "digest": "sha256:59b539ff7b44d313512a305e5eed026d421d0e9dcc388b4077923b465b434034",
+              "ref": "r168"
+            },
+            {
+              "digest": "sha256:f349384370c3caa65d5ef93ad6370ef3dedd422ea720316761c0e5a74bc0f1dd",
+              "ref": "r170"
+            },
+            {
+              "digest": "sha256:06d5f20685829872073a1e6451de6a79c68e4e2c48142a8b48b86d6d7151b81b",
+              "ref": "r174"
+            },
+            {
+              "digest": "sha256:023a815a9f163e7ab2e43ce2533a3f81548eb688937b05065657af5151dfc968",
+              "ref": "r185"
+            },
+            {
+              "digest": "sha256:63ea50b84cbf3a03d49d68da7a0688c7af643c80d196b2f64780857fb2ca2426",
+              "ref": "r187"
+            },
+            {
+              "digest": "sha256:88ad01b9ac74e3b76936e93482b24ab9214dbe0ad41066b1e5ab662ef0437b87",
+              "ref": "r191"
+            },
+            {
+              "digest": "sha256:81f1f13abc35512972c3401c749a0b78941c1e1f75d9702f2408fa1ed210c4dc",
+              "ref": "r202"
+            },
+            {
+              "digest": "sha256:536bfee4e188268e7f5b1385845f012440ca2cfdcc4a55f204f0c8dfb0b76729",
+              "ref": "r204"
+            },
+            {
+              "digest": "sha256:0d98b24c8b07b75a8fbc6c0d53fe0921e53f9fb90d451787871a2ffefd303487",
+              "ref": "r208"
+            },
+            {
+              "digest": "sha256:3604823122f97f924fb048a4138ac98120c94f20691bef1e183d22404cd7f07a",
+              "ref": "r226"
+            },
+            {
+              "digest": "sha256:033725bf560c004a626ec8a044c754369526ad678f33e20fb8bbfeb8bd595286",
+              "ref": "r228"
+            },
+            {
+              "digest": "sha256:2a329a6c0326213976e1c8850a8f53f85bb43b5a3d0e2b7a337825076c0bd79d",
+              "ref": "r232"
+            },
+            {
+              "digest": "sha256:90ea875d785c0dc294598a5e5bc691d45ed168a27228d81548dd47d77805b6c8",
+              "ref": "r246"
+            },
+            {
+              "digest": "sha256:aa3d79e102d82aa65dddbc7a54a86f22ff79ee0d6e08d56ce17389b41602bfe4",
+              "ref": "r248"
+            },
+            {
+              "digest": "sha256:2371d15a07a9385889900f5ebc5aa21f42ea71c9710de993707dce5d1d3856a1",
+              "ref": "r252"
+            },
+            {
+              "digest": "sha256:bb4aa23fdbfefaff089759fb7f9228fadfcef9b80ecd917b3bb2abc832340c34",
+              "ref": "r281"
+            },
+            {
+              "digest": "sha256:b3f156fa8d4182f5b32f310015d366cbd057058372cffa34fa967a03a9f5fcba",
+              "ref": "r283"
+            },
+            {
+              "digest": "sha256:77a5c615f3878c4bd00b3a92bd7aa46ec67834e723c3575390d40885e0c7302d",
+              "ref": "r285"
+            },
+            {
+              "digest": "sha256:4a26342882976e85d62795f418cdccadcd094372f75293843c3f190b1a634858",
+              "ref": "r294"
+            },
+            {
+              "digest": "sha256:14ae85398b48f8bd96acbd97aa336188b726adaa9c8abf76abb7b3f3e1f02dcc",
+              "ref": "r296"
+            },
+            {
+              "digest": "sha256:5941e3b95408968ab5ccfabde22939f5ac1f7e3320eec9b278725e59d8538d3b",
+              "ref": "r300"
+            }
+          ],
+          "evidence": [
+            {
+              "digest": "sha256:71141399f4f3c3cec94c948f68e3b47c019bd8e8637e8402ae26fdcfb47b872c",
+              "ref": "evidence://abiogenesis/247ff45bfbfcb1a8092a10ddc499754796e2e23b8d16f2157c31ea74bab880d6"
+            },
+            {
+              "digest": "sha256:71ee341bb07b1ee737291303e0398bf0763955aca3ffb1d9dc03e371b40a9111",
+              "ref": "evidence://abiogenesis/35e053969e364f5fb81c91c666a05e3b6198dc022e943e7f2a7f14099984b276"
+            },
+            {
+              "digest": "sha256:87af22cfe232efa8051bbc11b474fd3f9484cc7cbb40624f487451a4e53a1398",
+              "ref": "evidence://abiogenesis/3731b900a497324f20a9b9e406598fb464f4da6118a64279373c2aca8c70ddc0"
+            },
+            {
+              "digest": "sha256:ec2c54fa1171579ca416faa97684df70b21b731757cba7643394fc4f9b7dd0a6",
+              "ref": "evidence://abiogenesis/4d3d26472d2965a6d3982f99da30947172c62484c1f3663907d77fbffd46e1c4"
+            },
+            {
+              "digest": "sha256:4bf81a4f8d1126d82ab2e916337f1b539d2753dc7e2c9ef25b6057161708681c",
+              "ref": "evidence://abiogenesis/55cbfa2847188edeed4fdb31c838b3d8f01ac27da72c729578915339d34d1bfb"
+            },
+            {
+              "digest": "sha256:590b34ac41ddc984f61c3a6861803ca295c4bcd6825c8184879d62984390d7d0",
+              "ref": "evidence://abiogenesis/5f7bd0d72b65370789d7fa13e7d5e46bb950eddb65d81ed48b392844e7c7f804"
+            },
+            {
+              "digest": "sha256:24e90416c630f273d1fe476457b20214325b1ad64b4aee1de3d9fd334cf6c526",
+              "ref": "evidence://abiogenesis/a9fbaae20f2562300516ae9a5b37be79b560edabcf45ee04e2863591e506de13"
+            },
+            {
+              "digest": "sha256:ea7d5f35dd5ac22ec4e62d9e4a71a34639dc451db3c2074b696fb4a894869d93",
+              "ref": "evidence://abiogenesis/af147411f331754a8cb0bcbfc2659f7664f7e42d53c6fc05cdea4288f6fc0e59"
+            },
+            {
+              "digest": "sha256:3bd72a95ea2c7ad80be5b38b7b3b0aa1f194fdde5f0269577d0ed09c51c01a9b",
+              "ref": "evidence://abiogenesis/b58fb4b7def7b096b2cc753ed9b7efce8d51b2fe9d38e7ba7bf9ef66054bdc7d"
+            },
+            {
+              "digest": "sha256:9f7d70e0599c524eac4e0713f4e89ac413aa0cb2ada14292885ef0d954fb15bb",
+              "ref": "evidence://abiogenesis/ba6153abe9932397efff5c286e0fd7aa21c0a1604e3f36c9b378f2c72552599f"
+            },
+            {
+              "digest": "sha256:d73b3c08a3664f89e145e564b8a2127558d8cee6757008d71346b30f9430db4c",
+              "ref": "evidence://abiogenesis/d2ae57e33cc0619d1682314f82bb7b9ff5418b842e0e32cad18af6e5cd07af1b"
+            },
+            {
+              "digest": "sha256:b924eb72ef6905dd2d557c0d6566ad95f09b53e5a75d02dca7f4d36adb1bc8b6",
+              "ref": "evidence://abiogenesis/ed8444950b93745f539728b2f61d1960560fa38d8e200dd0a7a40ab7e3a0cb19"
+            },
+            {
+              "digest": "sha256:30294ae941bad49e6217a324b479bf2bf8d599340dd4a07564da186dfd7e87c3",
+              "ref": "evidence://abiogenesis/f6f477d764855a0bc088bbcee85c05540008a5f932cd74650b2adb5fec05815d"
+            }
+          ],
+          "kind": "run_evidence_projection",
+          "replay": {
+            "digest": "sha256:e765cdfc92fa741292f02b08e3ebc1422caba56556b5cfb1e322d1c03a2cfc87",
+            "ref": "replay://abiogenesis/e765cdfc92fa741292f02b08e3ebc1422caba56556b5cfb1e322d1c03a2cfc87"
+          },
+          "subject": {
+            "digest": "sha256:2e6b7874c26131480884de2ffafe1a11362f05730efa23e4d81661bff9b0b28f",
+            "ref": "run://abiogenesis/ddfa825f54cb3ed540dc6da12d37b86cb11aff0d3fc03beaf6e45843d72c319f"
+          }
+        },
+        "projectionBasis": {
+          "digest": "sha256:752a6178195c83c5011a3010f6202a53aaa8c73d38a9c2a579892ba11a930f20",
+          "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl"
+        },
+        "source": {
+          "digest": "sha256:2e6b7874c26131480884de2ffafe1a11362f05730efa23e4d81661bff9b0b28f",
+          "ref": "run://abiogenesis/ddfa825f54cb3ed540dc6da12d37b86cb11aff0d3fc03beaf6e45843d72c319f"
+        }
+      }
+    },
+    "resources": {
+      "eventResource": {
+        "acquisitionKind": "reopen",
+        "closeHandoff": {
+          "prefix": {
+            "coordinateDigest": "sha256:752a6178195c83c5011a3010f6202a53aaa8c73d38a9c2a579892ba11a930f20",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:eb3fac69ad37aa6de27fe452c895923a1714ac9fc2a52e03c16c23a200566607",
+            "prefixLength": 8285789,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777231,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "inode": 469917053
+            }
+          },
+          "reopenAuthority": {
+            "authorityDigest": "sha256:8eea69479cf76c69fb3319a4707fed7b2b2c5aac01748a5940244f50302cca44",
+            "device": 16777231,
+            "durableByteLength": 8285789,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+            "eventLogDigest": "sha256:eb3fac69ad37aa6de27fe452c895923a1714ac9fc2a52e03c16c23a200566607",
+            "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+            "inode": 469917053,
+            "kind": "event_store_reopen_authority",
+            "schemaVersion": "5.0.0"
+          }
+        },
+        "entryPrefix": {
+          "coordinateDigest": "sha256:752a6178195c83c5011a3010f6202a53aaa8c73d38a9c2a579892ba11a930f20",
+          "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+          "kind": "durable_prefix_coordinate",
+          "prefixDigest": "sha256:eb3fac69ad37aa6de27fe452c895923a1714ac9fc2a52e03c16c23a200566607",
+          "prefixLength": 8285789,
+          "schemaVersion": "5.0.0",
+          "storeIdentity": {
+            "device": 16777231,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+            "inode": 469917053
+          }
+        },
+        "kind": "abg_event_resource_receipt",
+        "receiptDigest": "sha256:06b7245101d18aa885a16ae9810382821e9a5e41a7681e0cc47ed2e268cc68ec",
+        "schemaVersion": "5.0.0"
+      },
+      "kind": "abg_project_read_resource_receipt",
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

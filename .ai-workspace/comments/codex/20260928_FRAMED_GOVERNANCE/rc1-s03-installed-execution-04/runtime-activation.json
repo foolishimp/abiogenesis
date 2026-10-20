@@ -1,0 +1,17 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_RC1_S03_INSTALLED_PAIR_04",
+  "role": "Runtime Worker",
+  "actor": "/root/rc1_successor_builder",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04",
+  "realProviderCalls": 0,
+  "startedAt": "2026-10-01T22:06:14.052765+00:00",
+  "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminator-repair-controls-02/s03-request.txt",
+  "requestSHA256": "c1b45835e842986ed1bab29f6ea781747fcb5b8780b9f60e67b6584a160fc164",
+  "a_cControls": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminator-repair-controls-02/bindings.json",
+  "rootAcceptanceSHA256": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f",
+  "C03FreezeSHA256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+  "previousFailureFreezeSHA256": "ba1fcefd7259d3641f187fcefb1e545f45dfecb321fb273b2ab5d1e04e7f59bd",
+  "sharedPureConstructorFreezeSHA256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+  "exception": "Only existing ABG owners may append to the exact existing physical event store; all other old bytes remain immutable."
+}

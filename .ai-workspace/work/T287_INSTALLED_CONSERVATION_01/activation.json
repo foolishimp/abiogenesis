@@ -1,0 +1,50 @@
+{
+  "operation": "T287_INSTALLED_CONSERVATION_01",
+  "HOME": "/Users/jim",
+  "pinnedNode": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/grant.md",
+      "bytes": 8171,
+      "sha256": "75ca7eb8464bf8da255f008f07700fa0c806544d9c2aad04936b65fe54043c81"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/acceptance.json",
+      "bytes": 4351,
+      "sha256": "d3d66e347667eef6f669dbda64add0fc7c3be7b32ae11c59141210cf6c4e272d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+      "bytes": 697,
+      "sha256": "5609a3ca5ea8893ea66ea4330d358042bcf3c30940d26fc483b32a068ce6961e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10661096,
+      "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+      "bytes": 28861,
+      "sha256": "e44513df5076941376e93119268d29467bedf256bf7768eaf35712b2c61c8483",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/consumer/test_env/support/installed-qualification-conservation.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-qualification-conservation.test.mjs",
+      "bytes": 27740,
+      "sha256": "b2c436fd6f4cd9358e8757a33ead30923aab1ec97be59c2403a42160663ee276",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs"
+    }
+  ],
+  "zeroRebuilds": true,
+  "archiveFiles": 5283,
+  "archiveLogicalBytes": 70754027,
+  "realProviderCalls": 0,
+  "controlledTransport": true,
+  "semanticIndependentAssessment": false,
+  "processCapSeconds": 180,
+  "setupCapSeconds": 300,
+  "flowCapSeconds": 300,
+  "actorInactivityMs": 60000,
+  "actorAbsoluteMs": 120000
+}

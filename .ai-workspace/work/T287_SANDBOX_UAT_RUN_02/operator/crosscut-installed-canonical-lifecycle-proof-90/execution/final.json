@@ -1,0 +1,43 @@
+{
+  "status": "bounded_installed_lifecycle_effect_proof",
+  "handoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:324c87b1d609d2c619b9e24db5dbe0ea0ce1200b24ae0205e71c3cffc4fa4416",
+      "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-5FHVjK/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:ba5c8ba27bfa5aa6578ce1acfdfd6cda7eba8cdfd8c43fea089e39e182e7df3f",
+      "prefixLength": 3510949,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 467931365
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:b604cd7ba1ca02923e8641d7a82639fe2a8506a6751c9bca70e0127d1657cf4c",
+      "device": 16777231,
+      "durableByteLength": 3510949,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:ba5c8ba27bfa5aa6578ce1acfdfd6cda7eba8cdfd8c43fea089e39e182e7df3f",
+      "eventLogPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-5FHVjK/runtime/events.jsonl",
+      "inode": 467931365,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "r01": {
+    "reusedHistorical": true,
+    "leaderStatus": 0,
+    "coldLiveness": true
+  },
+  "r02": {
+    "currentA": false,
+    "currentB": true,
+    "unknownAfter": true
+  },
+  "semanticAssessment": false,
+  "modelProvider": false,
+  "UAT": false,
+  "remaining": "No general capacity, HTTP, C2 descendant or application adequacy claim."
+}

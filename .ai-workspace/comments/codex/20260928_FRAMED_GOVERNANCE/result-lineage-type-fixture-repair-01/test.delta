@@ -1,0 +1,39 @@
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs preimage
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs postimage
+@@ -8,7 +8,8 @@
+ import ts from 'typescript';
+ 
+ test('shared result-lineage contract requires the actual probabilistic metadata', () => {
+-  const tenant = path.resolve(import.meta.dirname, '../..');
++  const tenant = path.resolve(process.env.ABG_RESULT_LINEAGE_TYPE_TENANT_ROOT ??
++    path.resolve(import.meta.dirname, '../..'));
+   const output = process.env.ABG_RESULT_LINEAGE_TYPE_PROOF_DIR ??
+     fs.mkdtempSync(path.join(os.tmpdir(), 'abg-result-lineage-types-'));
+   fs.mkdirSync(output, {recursive: true});
+@@ -16,7 +17,7 @@
+   const header = `import type { ResultEvidenceLineage } from ${modulePath('abg/result_evidence_lineage_contracts.js')};
+ import type { AdmittedCCallEvidence } from ${modulePath('abg/c_call.js')};
+ import type { LeafInvocationPort } from ${modulePath('implementation/contracts.js')};
+-import type { ProductSemanticsProvider, InstalledLeafSemanticsProjection } from ${modulePath('product/semantics.js')};
++import type { ProductSemanticsProvider, inspectProductLeafSemanticsProjection } from ${modulePath('product/semantics.js')};
+ type Probabilistic = Extract<ResultEvidenceLineage, {evidenceClass: 'probabilistic_transport'}>;
+ type AdmittedProbabilistic = Extract<AdmittedCCallEvidence, {evidenceClass: 'probabilistic_transport'}>;
+ const valid: Probabilistic = {
+@@ -35,7 +36,8 @@
+   admissionEventRef: 'event://component'};
+ type LeafRows = Parameters<LeafInvocationPort['validateResultEvidenceLineage']>[2];
+ type ProductRows = Parameters<NonNullable<ProductSemanticsProvider['validateResultEvidenceLineage']>>[0]['admittedEvidence'];
+-type InstalledRows = Parameters<InstalledLeafSemanticsProjection['validateResultEvidenceLineage']>[0]['admittedEvidence'];
++type InstalledRuntime = NonNullable<ReturnType<typeof inspectProductLeafSemanticsProjection>>['runtime'];
++type InstalledRows = Parameters<InstalledRuntime['validateResultEvidenceLineage']>[0]['admittedEvidence'];
+ `;
+   const cases = [];
+   const add = (name, body, expectedErrors) => {
+@@ -104,6 +106,6 @@
+   assert.deepEqual(unrelated.map(format), []);
+   for (const outcome of outcomes) {
+     assert.equal(outcome.diagnostics.length, outcome.expectedErrors, outcome.name);
+-    for (const d of outcome.diagnostics) assert.ok([2322, 2741, 2739].includes(d.code), `${outcome.name}: ${d.code}`);
++    for (const d of outcome.diagnostics) assert.ok([2322, 2375, 2741, 2739].includes(d.code), `${outcome.name}: ${d.code}`);
+   }
+ });

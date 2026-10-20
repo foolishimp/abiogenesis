@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.workspace.bind",
+    "memberKey": "bind"
+  },
+  "elapsedMs": 1336.0350830000025,
+  "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+}

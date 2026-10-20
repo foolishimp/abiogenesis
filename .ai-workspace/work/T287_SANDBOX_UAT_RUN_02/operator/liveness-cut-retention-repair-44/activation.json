@@ -1,0 +1,46 @@
+{
+  "role": "Writer44 framework liveness projection representation repair",
+  "method": "STDO2.5.1RC2",
+  "frames": [
+    "ABI5_PROJECT_REFERENCE_FRAME_BASIS#f-end-to-end-interface-integration",
+    "ABI5_PROJECT_REFERENCE_FRAME_BASIS#f-worksite-causality"
+  ],
+  "selectedCause": "derivation source/scope owners hold RuntimeLivenessReconstruction.cuts: one pair of whole historical vectors per requested ordinal",
+  "actual4GBShareProved": false,
+  "selectedAlgorithm": "reuse same ordinal; construct any different cut with exact existing owner, then clear only prior intermediate cut cache before retaining new single entry; completed facts untouched",
+  "sourcePreimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd",
+      "byteCount": 76115,
+      "beforeCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/code/src/abg/runtime_liveness.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "sha256": "8f16957ea3bb20996ed9ae3a7f9c2f8801289d02e06dc6cd4130644e3eabbed7",
+      "byteCount": 25773,
+      "beforeCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "sha256": "2b441ca587aa372644f1784afa3d767d34eabee47c516cbccc5289bc25e1793b",
+      "byteCount": 19321,
+      "beforeCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/test_env/tests/t287-ordered-reconstruction.test.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09",
+      "byteCount": 74635,
+      "beforeCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/build/code/src/abg/runtime_liveness.js"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.d.ts",
+      "sha256": "25ed57317c05d3d7b4ff6f06e0802475cec129c0d67d0ac8966a4a71a06f8111",
+      "byteCount": 5663,
+      "beforeCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/build/code/src/abg/runtime_liveness.d.ts"
+    }
+  ],
+  "old43Return": "7e3920ed30f0d824d72bd4a8be060aec1ee866376362ebb00e41001727cbae23",
+  "closedSourceProofConjunction": "Root Writer44 grant, independent Source+Proof strong chain",
+  "noNativeRecoveryOrUatCredit": true
+}

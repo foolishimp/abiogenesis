@@ -1,0 +1,23 @@
+[
+  {
+    "path": "build/code/src/gtl/self_conformance.js",
+    "C06ActualStageSHA256": "4de8b39dbdbe7f1d1691ea326f6047fe95b19040655d284ca6b78f46036b6037",
+    "C06GeneratedSHA256": "1cda3500928d4d5aa754db23ca17c7197750ce9814458548deef606f77e48002",
+    "C06Bytes": 19029,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "C06ActualStageSHA256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+    "C06GeneratedSHA256": "012f7a5ab6633742ef51142559b4971992aa13c7b32b719d2a48503f1ee86dcf",
+    "C06Bytes": 197474,
+    "role": "generated_output"
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "C06ActualStageSHA256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+    "C06GeneratedSHA256": "0a864bb480457dd8befee163ccf5fc2cadce3544b66a450d90cc11705557240a",
+    "C06Bytes": 2567514,
+    "role": "generated_output"
+  }
+]

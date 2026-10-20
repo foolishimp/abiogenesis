@@ -1,0 +1,19 @@
+{
+  "mode": "setup",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/run-setup.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "pid": 10129,
+  "processGroup": 10129,
+  "groupEstablishedBeforeImports": true,
+  "startedAt": "2026-10-01T22:23:28.084802+00:00",
+  "monotonicStart": 3781618.193911958,
+  "preflightDeadlineMonotonic": 3781798.193911958,
+  "totalDeadlineMonotonic": 3782818.193911958,
+  "preflightSeconds": 180,
+  "totalSeconds": 1200,
+  "heap": "unchanged",
+  "phaseCompletionReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/nominal-preflight-completion.json"
+}

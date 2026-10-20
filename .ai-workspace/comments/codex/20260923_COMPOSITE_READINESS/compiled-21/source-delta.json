@@ -1,0 +1,14 @@
+[
+  {
+    "before": {
+      "path": "code/src/gtl/semantic_revision_publication.ts",
+      "bytes": 14740,
+      "sha256": "250c58315af818b6d06e866eb5088f81f3036c63251215f397e74b32d5c8663c"
+    },
+    "after": {
+      "path": "code/src/gtl/semantic_revision_publication.ts",
+      "bytes": 14754,
+      "sha256": "9d7b75fdbb0eaa94df55c0cdfea3db9da3e0e94e806313b325fd27d394942597"
+    }
+  }
+]

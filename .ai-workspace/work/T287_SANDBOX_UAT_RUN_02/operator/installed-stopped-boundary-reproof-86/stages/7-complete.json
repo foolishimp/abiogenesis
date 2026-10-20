@@ -1,0 +1,13 @@
+{
+  "stage": "complete",
+  "at": "2026-10-08T08:20:58.546Z",
+  "elapsedMs": 344555.23637500004,
+  "memory": {
+    "rss": 2446245888,
+    "heapTotal": 2094465024,
+    "heapUsed": 1977540064,
+    "external": 100349709,
+    "arrayBuffers": 97939138,
+    "maxRSSKiB": 3834224
+  }
+}

@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {join,resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+const D=import.meta.dirname, A=resolve(D,'../../../../../..');
+const read=async p=>JSON.parse(await readFile(p,'utf8'));
+const sha=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
+const selectedPath=join(A,'.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-21/selected-core.json');
+const selected=await read(selectedPath), pkg=await read(join(selected.packageRoot,'package.json'));
+const product=await import(pathToFileURL(join(selected.packageRoot,pkg.exports['./product'].import)).href);
+const requestPath=join(D,'../bootstrap-preparation-02/calls/08-intake-conformance.jsonl'),requestBytes=await readFile(requestPath),request=JSON.parse(requestBytes);
+const r=request.invocation.resources, publications=r.declarationCatalog.catalog.boundPublications;
+const modulePath='build/code/src/implementation/semantic_revision.js',moduleFile=join(selected.packageRoot,modulePath),implementation=await import(pathToFileURL(moduleFile).href);
+const offered=Object.entries(implementation).filter(([,v])=>product.isPackagedLeafImplementationDescriptor(v));
+const array=implementation.SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
+const roles=['NativeIntake','NativeRequest','NativeConstruction','NativeExecution','NativeEvidence'];
+const fields=['implementationRef','packageName','packageVersion','modulePath','namedSymbol','computeRegime','inputContractRef','outputContractRef','failureContractRef','refusalContractRef'];
+const rows=roles.map(role=>{
+ const matches=publications.flatMap(p=>p.implementationBindings.filter(b=>b.namedSymbol==='realizeSemanticRevision'+role).map(binding=>({publication:p,binding})));
+ assert.equal(matches.length,1,role+' exact declared owner');
+ const {publication,binding}=matches[0];
+ const same=d=>fields.every(k=>d[k]===binding[k]);
+ const graphFunctions=r.packet.publication.graphFunctions.filter(g=>JSON.stringify(g).includes(binding.bindingRef));
+ const direct=offered.filter(([,d])=>same(d));
+ const nested=array.filter(d=>product.isPackagedLeafImplementationDescriptor(d)&&same(d));
+ assert.equal(direct.length,0);assert.equal(nested.length,1);assert.equal(typeof implementation[binding.namedSymbol],'function');
+ return {role,declaringPublication:{moduleRef:publication.moduleRef,owningProductId:publication.owningProductId,artifactDigest:publication.artifactDigest,productContentDigest:publication.productContentDigest,productManifestDigest:publication.productManifestDigest},required:binding,offeredTopLevelMatches:direct.map(([exportName,descriptor])=>({exportName,descriptor})),arrayOnlyDescriptor:nested[0],callableExportPresent:true,graphFunctions:graphFunctions.map(g=>g.name),programs:r.packet.publication.programs.filter(p=>graphFunctions.some(g=>p.callableMembership.includes(g.name))).map(p=>p.programRef)};
+});
+const sourceFiles=['code/src/implementation/semantic_revision.ts','code/src/product/implementation_resolution.ts','code/src/product/execution_resolution.ts','code/src/gtl/semantic_revision_publication.ts'];
+const sources=[];for(const p of sourceFiles){const file=join(A,'build_tenants/abiogenesis/typescript',p),b=await readFile(file);sources.push({path:file,sha256:sha(b),byteCount:b.length});}
+const result={scope:'Read-only comparison of retained declarations and immutable installed module exports; no runtime owner, resolver, admission or event resource access.',core:selected.basis,request:{path:requestPath,sha256:sha(requestBytes),byteCount:requestBytes.length},installedModule:{path:moduleFile,sha256:sha(await readFile(moduleFile))},offeredTopLevelDescriptors:offered.map(([exportName,descriptor])=>({exportName,descriptor})),arrayDescriptorCount:array.length,missingNewNativeDescriptors:rows,sources,conclusion:'All five new native-D2 callable functions and matching array descriptors exist, but none is offered as a top-level descriptor consumed by the existing loader. The original seven top-level descriptors remain present. Implementation export inventory is the owning producer seam; no declaration or authority waiver is needed.'};
+await writeFile(join(D,'descriptor-comparison.json'),JSON.stringify(result,null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({topLevel:offered.length,array:array.length,missing:rows.map(x=>({role:x.role,bindingRef:x.required.bindingRef,implementationRef:x.required.implementationRef,descriptorDigest:x.arrayOnlyDescriptor.descriptorDigest,programs:x.programs}))},null,2));

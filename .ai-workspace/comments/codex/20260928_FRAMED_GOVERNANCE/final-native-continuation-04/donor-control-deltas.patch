@@ -1,0 +1,104 @@
+--- .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/ordinary-caller.mjs
++++ .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/ordinary-caller.mjs
+@@ -1,4 +1,5 @@
+ import {writeFileSync} from 'node:fs';
++import {checkReadCall} from './owner-checks.mjs';
+ // Finite ordinary Public caller. No private imports, source dispatch or retries.
+ import assert from 'node:assert/strict';
+ import {readFile,writeFile,mkdir,open} from 'node:fs/promises';
+@@ -14,7 +15,7 @@
+  const r=await loadRuntime(packageIdentity.installedRoot),{product,abg,public:installedPublic}=r,hash=product.sha256Canonical,cli=await declaredCli(packageIdentity.installedRoot);
+  const core=prospect.core,verification=nominalVerification,verified=verification.verifiedArtifact;
+  const ownerRequest=verificationRequest(core),contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,catalogId:verified.catalogId,catalogVersion:schemaVersion,catalogDigest:verified.catalogDigest};
+- const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-native-setup-03',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';
++ const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-native-continuation-04',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';
+  const op={actorRef,attributionRef:'attribution://'+base,authorityRef:'authority://'+base,approvalRef:'approval://'+base,requestBaseRef:'request://'+base,correlationRef:'correlation://'+base,provenanceRefs:[pathToFileURL(join(here,'worker-activation.json')).href,pathToFileURL(join(here,'prospective-cases.json')).href]};
+  const state={closeHandoff:null,environment:null,catalog:null,catalogView:null,binding:null,resolvedLock:null,calls:[]};
+  const budgets=await read(join(here,'budgets.json')),taskEnvironment=await read(join(here,'runtime-environment.json'));
+@@ -24,21 +25,24 @@
+  const boundSlots=()=>({workspace_binding:state.binding,product_set:state.environment.productInstalls.map(product.productInstallCoordinate),dependency_lock:{ref:state.resolvedLock.lockId,digest:state.resolvedLock.lockDigest},actor});
+  const reopen=()=>({kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:state.closeHandoff,handoffDigest:hash(state.closeHandoff)});
+  const refresh=()=>{state.environment=abg.projectExactPrefixWorkspaceEnvironment(state.closeHandoff.prefix,state.binding);assert.equal(state.environment.kind,'exact_prefix_workspace_environment');return state.environment;};
++ let authorizationSequence=0;
+  async function authorized(packet,request,resources,supplied={}){
++  const constructionIndex=authorizationSequence++;
+   const definition=installedPublic.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId===packet.definitionKey.operationId&&d.definitionKey.memberKey===packet.definitionKey.memberKey);assert.ok(definition);
+   const slots={workspace_binding:null,product_set:null,dependency_lock:null,catalog_scope:null,execution_program:null,graph_function:null,input_contract:null,session_policy:null,capability_grants:{requiredCapabilityRefs:[...definition.capabilityRefs],grants:[]},actor:null,transport_steering:null,verification_references:null,execution_basis:null,...supplied};
+   const basis={kind:'admission_capability_data',schemaVersion,definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},ownerArtifact:{request:ownerRequest,verified},request,resourceScope:{resourcesDigest:hash(resources),authoritySlots:product.admissionAuthoritySlots(slots)},boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:product.admissionEnvironmentSelection(state.closeHandoff.prefix,slots.workspace_binding)};
+   const authorityValue={actorRef,authorityMode:'trusted_developer'},approvalValue={decision:'allow',actorRef,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,requestDigest:hash(request),scopeDigest:product.admissionAuthorityScope(basis).digest};
+-  const authority={kind:'resolved_admission_authority',schemaVersion,actorRef,authorityMode:'trusted_developer',authority:{...coord(op.authorityRef,authorityValue),value:authorityValue},approval:{...coord(op.approvalRef+'/'+mode+'/'+state.calls.length,approvalValue),value:approvalValue}};
++  const authority={kind:'resolved_admission_authority',schemaVersion,actorRef,authorityMode:'trusted_developer',authority:{...coord(op.authorityRef,authorityValue),value:authorityValue},approval:{...coord(op.approvalRef+'/'+mode+'/'+constructionIndex,approvalValue),value:approvalValue}};
+   const grants=await Promise.all(definition.capabilityRefs.map(cap=>product.constructCapabilityGrant(authority,actorRef,definition.definitionKey.operationId,cap,{kind:'admission_capability_grant_construction_basis',fixedPacket:packet,data:basis})));
+-  await write(mode+'-authorization-'+state.calls.length+'.json',{basis,authority,grants,scope:product.admissionAuthorityScope(basis),claim:'Actual current selection/scope/approval/grants before native invocation; selection is not an admitted environment'});
+-  return installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots:{...slots,capability_grants:{requiredCapabilityRefs:[...definition.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}},resources:{...resources,admissionAuthority:{basis,authority,grants}},requestRef:op.requestBaseRef+'/'+mode+'/'+state.calls.length,correlationRef:op.correlationRef,eventTime:new Date().toISOString(),provenanceRefs:op.provenanceRefs});
++  await write(mode+'-authorization-'+constructionIndex+'.json',{basis,authority,grants,scope:product.admissionAuthorityScope(basis),claim:'Actual current selection/scope/approval/grants before native invocation; selection is not an admitted environment'});
++  return installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots:{...slots,capability_grants:{requiredCapabilityRefs:[...definition.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}},resources:{...resources,admissionAuthority:{basis,authority,grants}},requestRef:op.requestBaseRef+'/'+mode+'/'+constructionIndex,correlationRef:op.correlationRef,eventTime:new Date().toISOString(),provenanceRefs:op.provenanceRefs});
+  }
+  async function invoke(label,call,stage='setup'){
++  assert.equal(label,budgets.operationPlan[state.calls.length],'exact five-call population/order');
+   const stem=join(here,mode+'-'+label),resource=call.resources.eventResource,acquisition=resource===undefined?{kind:'eventless'}:resource.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resource.eventLogPath}:{kind:'reopen',closeHandoff:resource.closeHandoff};
+   await writeFile(stem+'.jsonl',JSON.stringify({kind:'abg_cli_transport_request',schemaVersion,acquisition,invocation:call})+'\n',{flag:'wx'});
+   const out=await open(stem+'-stdout.json','wx'),err=await open(stem+'-stderr.log','wx');
+-  const started=performance.now();let processFailure=null,terminal;const remaining=driverDeadline-performance.now();assert.ok(remaining>0,'finite driver deadline');const capMs=Math.min(budgets.stages[stage],remaining-1000);assert.ok(capMs>0,'termination grace preserved');await write(mode+'-'+label+'-command.json',{command:[process.execPath,cli,'--jsonl',stem+'.jsonl'],cwd:packageIdentity.installedRoot,environment:taskEnvironment,budgetMs:capMs,driverRemainingMs:remaining});
++  const started=performance.now();let processFailure=null,terminal;const remaining=driverDeadline.deadline-performance.now();assert.ok(remaining>0,'finite driver deadline');const capMs=Math.min(budgets.stages[stage],remaining-1000);assert.ok(capMs>0,'termination grace preserved');await write(mode+'-'+label+'-command.json',{command:[process.execPath,cli,'--jsonl',stem+'.jsonl'],cwd:packageIdentity.installedRoot,environment:taskEnvironment,budgetMs:capMs,driverRemainingMs:remaining});
+   try{
+    terminal=await new Promise(resolve=>{
+     const child=spawn('python3',[join(here,'observe-process.py'),stem+'-native-process.json',process.execPath,cli,'--jsonl',stem+'.jsonl'],{cwd:packageIdentity.installedRoot,env:{...process.env,...taskEnvironment},detached:true,stdio:['ignore',out.fd,err.fd]});
+@@ -59,14 +63,14 @@
+   const row={label,definitionKey:call.invocation.definitionKey,invocationRef:call.invocation.invocationRef,outcomeKind:receipt.ownerOutput?.outcomeKind,elapsedMs,processFailure};state.calls.push(row);await write(mode+'-'+label+'-handoff.json',{closeHandoff:state.closeHandoff,calls:state.calls});console.log(JSON.stringify(row));
+   await physical(label);assert.equal(processFailure,null,JSON.stringify(processFailure));assert.equal(receipt.ownerOutput?.outcomeKind,'result',JSON.stringify(receipt));assert.equal(receipt.exitCode,0,JSON.stringify(receipt));return {call,receipt};
+  }
+- async function conformance(programRef,label,publicationInputs){
++ async function prepareConformance(programRef,label,publicationInputs){
+   const publication=publicationInputs.modulePublications.find(p=>p.programs.some(p=>p.programRef===programRef)),program=publication.programs.find(p=>p.programRef===programRef),law=coord('law://abiogenesis/validator/gtl-program@5');
+-  const res=await invoke(label,await authorized(r.validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,{program:coord(programRef,program),conformanceLaw:law,inventoryBasis:{kind:'declared_inventory',inventory:state.catalog.boundPublications.map(p=>coord(p.moduleRef,p)).sort((a,b)=>a.ref.localeCompare(b.ref))}},{kind:'conformance_evaluation_resource_assertion',schemaVersion,packet:{kind:'conformance_evaluate_packet',schemaVersion,memberKey:'gtl_program',publication,program},conformanceLaw:law,artifactTruth:state.environment.artifactTruth,declaredInventory:state.catalog.boundPublications,declarationCatalog:{catalog:state.catalog,catalogView:state.catalogView}},boundSlots()),'conformance');
+-  assert.equal(res.receipt.ownerOutput.value.disposition,'passed',JSON.stringify(res.receipt));return program;
++  const call=await authorized(r.validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,{program:coord(programRef,program),conformanceLaw:law,inventoryBasis:{kind:'declared_inventory',inventory:state.catalog.boundPublications.map(p=>coord(p.moduleRef,p)).sort((a,b)=>a.ref.localeCompare(b.ref))}},{kind:'conformance_evaluation_resource_assertion',schemaVersion,packet:{kind:'conformance_evaluate_packet',schemaVersion,memberKey:'gtl_program',publication,program},conformanceLaw:law,declaredInventory:state.catalog.boundPublications,declarationCatalog:{catalog:state.catalog,catalogView:state.catalogView}},boundSlots());
++  return {label,program,call};
+  }
+- async function start(programRef,graphFunctionHandle,input,label,stage){
++ async function prepareStart(programRef,graphFunctionHandle,input,label){
+   refresh();const selection={programRef,selection:{kind:'start',scope:'program',target:'graph_function',graphFunctionHandle,until:'converged',rootMode:'direct'},fhMode:'direct',sourceBasis:{kind:'none'},inputRef:'input://'+base+'/'+label,requestRef:op.requestBaseRef+'/'+label,correlationRef:op.correlationRef,provenanceRefs:op.provenanceRefs};
+-  const s=await constructStart({environment:{...state.environment,product,abg,catalog:state.catalog,catalogView:state.catalogView,admittedInstalls:state.environment.productInstalls,verified},publicApi:installedPublic,eventResource:reopen(),inputFactory:()=>input,selection});return invoke(label,s.call,stage);
++  const s=await constructStart({environment:{...state.environment,product,abg,catalog:state.catalog,catalogView:state.catalogView,admittedInstalls:state.environment.productInstalls,verified},publicApi:installedPublic,eventResource:reopen(),inputFactory:()=>input,selection});return s;
+  }
+  async function freshReads(label,started){
+   const run=started.receipt.ownerOutput?.value?.run;assert.ok(run&&state.closeHandoff);const closed=state.closeHandoff;refresh();const reads={};
+@@ -76,10 +80,11 @@
+    const slots=Object.fromEntries(Object.keys(originalSlots).map(k=>[k,null]));Object.assign(slots,{workspace_binding:originalSlots.workspace_binding,product_set:originalSlots.product_set,dependency_lock:originalSlots.dependency_lock,capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}});
+    const request={caseKey:memberKey,source:{sourceKind:'run',sourceRef:run.ref,sourceDigest:run.digest},projectionBasis:{projectionBasisRef:closed.prefix.eventLogRef,projectionBasisDigest:closed.prefix.coordinateDigest},selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:1000}:{kind:'none'}};
+    const call=installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots,resources:{kind:'abg_project_read_resource_assertion',schemaVersion,eventResource:{kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:state.closeHandoff,handoffDigest:hash(state.closeHandoff)}},requestRef:op.requestBaseRef+'/'+label+'/'+memberKey,correlationRef:op.correlationRef+'/fresh-read',eventTime:new Date().toISOString(),provenanceRefs:op.provenanceRefs});
++   await checkReadCall({product,abg,call,state,verified,run,closed,grants,write,label:label+'-'+memberKey});
+    reads[memberKey]=(await invoke(label+'-'+memberKey,call,'read')).receipt;assert.deepEqual(state.closeHandoff.prefix,closed.prefix);
+   }
+   return reads;
+  }
+- return {...r,installedPublic,hash,coord,actor,op,state,core,verified,verification,ownerRequest,prospect,contractCatalog,packageIdentity,authorized,invoke,conformance,start,freshReads,reopen,refresh,boundSlots,physical,physicalLog};
++ return {...r,installedPublic,hash,coord,actor,op,state,core,verified,verification,ownerRequest,prospect,contractCatalog,packageIdentity,authorized,invoke,prepareConformance,prepareStart,freshReads,reopen,refresh,boundSlots,physical,physicalLog};
+ }
+ export function verificationRequest(item){return {artifactPath:item.artifactPath,artifactRef:item.artifactRef,...Object.fromEntries(['ArtifactDigest','ProductContentDigest','ManifestDigest','ProductId','PackageName','PackageVersion'].map(k=>['expected'+k,item.basis[k[0].toLowerCase()+k.slice(1)]]))};}
+--- .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/launch-once.py
++++ .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/launch-once.py
+@@ -1,18 +1,18 @@
+ import os,sys,json,time,signal,subprocess
+ from pathlib import Path
+ N=Path(__file__).resolve().parent;env=os.environ.copy();overlay=json.loads((N/'runtime-environment.json').read_text());env.update(overlay);budget=json.loads((N/'budgets.json').read_text());command=['/opt/homebrew/Cellar/node/24.7.0/bin/node',str(N/'driver.mjs')]
+-assert budget['driverBudgetMs']==6912000 and budget['totalCeilingMs']==7032000 and budget['purePreflightAllowanceMs']==120000
++assert budget['driverBudgetMs']==2705000 and budget['totalCeilingMs']==2825000 and budget['purePreflightAllowanceMs']==120000
+ assert not (N/'driver-process.json').exists() and not (N/'driver.stdout').exists()
+ def save(name,d):
+  with (N/name).open('x') as f:json.dump(d,f,indent=2);f.write('\n')
+-save('launch-command.json',{'command':command,'cwd':str(N),'environmentOverlay':overlay,'maximumIncludingPreflightAndGraceMs':7032000,'purePreflightAllowanceMs':120000,'terminationGraceMs':1000,'HOMEUnchanged':env.get('HOME')==os.environ.get('HOME')})
++save('launch-command.json',{'command':command,'cwd':str(N),'environmentOverlay':overlay,'maximumIncludingPreflightAndGraceMs':2825000,'purePreflightAllowanceMs':120000,'terminationGraceMs':1000,'HOMEUnchanged':env.get('HOME')==os.environ.get('HOME')})
+ started=time.monotonic();timedout=False;owned=[]
+ with (N/'driver.stdout').open('x') as out,(N/'driver.stderr').open('x') as err:
+  child=subprocess.Popen(command,cwd=N,env=env,stdout=out,stderr=err,start_new_session=True);save('driver-process-start.json',{'pid':child.pid,'processGroup':child.pid,'supervisorPid':os.getpid(),'command':command})
+- try:code=child.wait(timeout=(7031000/1000))
++ try:code=child.wait(timeout=(2824000/1000))
+  except subprocess.TimeoutExpired:
+   timedout=True
+-  for p in N.glob('setup-*-process-start.json'):
++  for p in N.glob('continue-*-process-start.json'):
+    stem=p.name.removesuffix('-process-start.json')
+    if not (N/(stem+'-timing.json')).exists():owned.append(json.loads(p.read_text())['processGroup'])
+   owned.append(child.pid)

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "relativePath": "code/src/abg/event_store.ts",
+    "sha256": "233c49f311d99bb0829cc2bb0105ef369c6d4635df9f24c682ce6fcd80da6af7",
+    "byteCount": 176844
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md",
+    "relativePath": "design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md",
+    "sha256": "5497e6e2b2512881b9fd8c0bee68d37be82071f2cbe2e971ee283cd92bac206e",
+    "byteCount": 11467
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "sha256": "52de5e4ed66ca62ea7247add4fcd232dda649d30aca3330412233419d1c15fa4",
+    "byteCount": 37264
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+    "relativePath": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+    "sha256": "ad161a1ee306263f1d478a527a04e195bc2c20f8bfb0503af04f746b2c2ebfe2",
+    "byteCount": 24350
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "sha256": "532b36e5217ad91a0ac3a22abdd72367f1389f6c7490997f125d4abe3be72bf7",
+    "byteCount": 40340
+  }
+]

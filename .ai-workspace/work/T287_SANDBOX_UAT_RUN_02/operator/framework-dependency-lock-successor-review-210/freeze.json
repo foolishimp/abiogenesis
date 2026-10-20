@@ -1,0 +1,29 @@
+{
+  "status": "CLOSED_STOPPED",
+  "disposition": "BOUNDED_GO",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/freeze.json",
+    "sha256": "b3e1b56c52b16869793c9f529dc5fd5391a186aa0717b11ede5b838d28970220",
+    "byteCount": 1593
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-29/freeze.json",
+    "sha256": "f37a320e75c62adb14edf30e7a05f2a87e71ae7cd493c74b75aa44c46d77aae5",
+    "byteCount": 3860
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-review-210/return.md",
+      "sha256": "df92bb3c9e881bd1d0826b86bcb6ae1c68ef42f06e24f4e0052903fcf7b20d91",
+      "byteCount": 3364
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-review-210/pins.json",
+      "sha256": "7905f3fef545460bd21e6d65203ca392a67e59e3d1dbfa81add1c1ef7aaf3465",
+      "byteCount": 10427
+    }
+  ],
+  "fileCount": 2,
+  "effects": "Review documentary files only",
+  "limits": "No current-source/private preparation/Run/provider/native/C2/UAT/capacity/P0/release qualification"
+}

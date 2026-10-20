@@ -1,0 +1,66 @@
+✔ CCall opening is one atomic open-and-fibre transition (0.990583ms)
+✔ timeout and termination-unconfirmed never prove a started process absent (1.055792ms)
+✔ preterminal Process exit is the single cleanup confirmation (0.096041ms)
+✔ duplicate Process terminality and Actor terminal before confirmation fail closed (0.121416ms)
+✔ cold leader exit preserves unknown group cleanup across ordinary Run failure (0.668542ms)
+✔ M5 B-001 preserves lane-owned Claude execution posture (0.504334ms)
+✔ M5 native report keeps its original host schema presentation (0.070875ms)
+✔ M5 schema literal placeholders remain opaque while ordinary templates and append positions expand (0.342625ms)
+✔ M5 requested structured output uses only the final carrier and preserves raw/schema refusal (26.404416ms)
+✔ M5 B-001 bounds append arguments for all four transport contracts (0.268459ms)
+✔ M5 B-001 gives agent-specific sandbox binding precedence (0.099958ms)
+✔ M5 transport identity changes with parser and prompt-delivery semantics (2.931459ms)
+✔ M5 B-001 crosses a real worker process, parser, tool event, and archive (287.873583ms)
+✔ M5 Bash tool identity ignores only optional string description metadata (4208.982834ms)
+✔ M5 B-001 rejects tool activity only in the closed-prompt lane (299.246375ms)
+✔ M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool (1211.746916ms)
+✔ M5 selected result text cannot admit a valid file without its final carrier (1525.4655ms)
+✔ M5 ABG transport force-terminates a worker that ignores SIGTERM (523.70625ms)
+✔ M5 ABG transport renews its inactivity lease only from observed progress (381.966292ms)
+✔ M5 ABG transport does not renew from unacknowledged output (243.913833ms)
+✔ M5 ABG transport excludes semantic output emitted after its timeout boundary (422.428917ms)
+(node:56888) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owned process groups retain descendant cleanup after normal and TERM leader exits (2215.464ms)
+✔ M5 ABG transport excludes descendant output emitted after direct-process exit (106.035917ms)
+(node:57044) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (782.582792ms)
+✔ native timeout retains actual partial edit and refuses success (22.251083ms)
+✔ native malformed-report retains actual partial edit and refuses success (17.659875ms)
+✔ native read-only-change retains actual partial edit and refuses success (16.454916ms)
+✔ unavailable after observation retains unknown and original native failure (12.785458ms)
+▶ unknown native after-state retires only potentially writable C0 facts
+  ✔ unknown exact and subtree (23.15075ms)
+  ✔ unknown whole root (23.146458ms)
+  ✔ unknown read-only (19.75925ms)
+  ✔ known exact change within wider scope (19.04125ms)
+✔ unknown native after-state retires only potentially writable C0 facts (85.5215ms)
+✔ observed partial failure retires touched C0 facts but preserves unchanged and absent paths (16.16475ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 33
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13205.380041
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-workspace-work.test.mjs:34:1
+✖ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (782.582792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs:147:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

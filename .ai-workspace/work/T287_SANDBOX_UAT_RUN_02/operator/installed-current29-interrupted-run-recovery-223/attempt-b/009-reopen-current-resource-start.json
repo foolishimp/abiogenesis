@@ -1,0 +1,27 @@
+{
+  "stage": "reopen-current-resource-start",
+  "at": "2026-10-09T17:35:02.953Z",
+  "wallMs": 81757.42758399999,
+  "pid": 75903,
+  "memory": {
+    "rss": 5610176512,
+    "heapTotal": 2987507712,
+    "heapUsed": 2850731472,
+    "external": 2144580610,
+    "arrayBuffers": 2142168303
+  },
+  "maxRSSKiB": 5692832,
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 2142089296,
+    "prefixDigest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:e4df7e94bd71bbf08b085883442ed61aae94590ffa51339c6e9b545e6767fdbd"
+  }
+}

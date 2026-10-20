@@ -1,0 +1,189 @@
+{
+  "claim": "bounded exact-preimage semantic differential; no installed/package/runtime qualification",
+  "cases": [
+    {
+      "name": "raw valid lock",
+      "result": true
+    },
+    {
+      "name": "raw valid candidate",
+      "result": true
+    },
+    {
+      "name": "raw valid ProductSet",
+      "result": true
+    },
+    {
+      "name": "binding construction",
+      "result": "workspace_binding_candidate"
+    },
+    {
+      "name": "binding raw optional relation 0:false",
+      "result": true
+    },
+    {
+      "name": "binding raw optional relation 1:true",
+      "result": true
+    },
+    {
+      "name": "binding raw optional relation 2:false",
+      "result": true
+    },
+    {
+      "name": "binding raw optional relation 2:true",
+      "result": true
+    },
+    {
+      "name": "lock identity",
+      "result": false
+    },
+    {
+      "name": "candidate refuses lock identity",
+      "result": false
+    },
+    {
+      "name": "unvalidated claimed digest",
+      "result": false
+    },
+    {
+      "name": "candidate refuses unvalidated claimed digest",
+      "result": false
+    },
+    {
+      "name": "graph digest",
+      "result": false
+    },
+    {
+      "name": "candidate refuses graph digest",
+      "result": false
+    },
+    {
+      "name": "graph asset",
+      "result": false
+    },
+    {
+      "name": "candidate refuses graph asset",
+      "result": false
+    },
+    {
+      "name": "catalog correspondence after complete rehash",
+      "result": false
+    },
+    {
+      "name": "candidate refuses catalog correspondence after complete rehash",
+      "result": false
+    },
+    {
+      "name": "owner contract correspondence after lock rehash",
+      "result": false
+    },
+    {
+      "name": "candidate refuses owner contract correspondence after lock rehash",
+      "result": false
+    },
+    {
+      "name": "dependency mismatch after rehash",
+      "result": false
+    },
+    {
+      "name": "candidate refuses dependency mismatch after rehash",
+      "result": false
+    },
+    {
+      "name": "raw malformed lock null",
+      "result": false
+    },
+    {
+      "name": "raw malformed candidate null",
+      "result": false
+    },
+    {
+      "name": "raw malformed optional set null",
+      "result": false
+    },
+    {
+      "name": "raw malformed lock {}",
+      "result": false
+    },
+    {
+      "name": "raw malformed candidate {}",
+      "result": false
+    },
+    {
+      "name": "raw malformed optional set {}",
+      "result": false
+    },
+    {
+      "name": "raw malformed lock []",
+      "result": false
+    },
+    {
+      "name": "raw malformed candidate []",
+      "result": false
+    },
+    {
+      "name": "raw malformed optional set []",
+      "result": false
+    },
+    {
+      "name": "raw malformed lock 42",
+      "result": false
+    },
+    {
+      "name": "raw malformed candidate 42",
+      "result": false
+    },
+    {
+      "name": "raw malformed optional set 42",
+      "result": false
+    },
+    {
+      "name": "candidate exception precedence",
+      "result": {
+        "error": "TypeError",
+        "message": "Cannot read properties of null (reading 'slice')"
+      }
+    },
+    {
+      "name": "candidate shape refusal precedes malformed lock",
+      "result": false
+    },
+    {
+      "name": "binding authority/root refusal",
+      "result": "environment_refusal"
+    }
+  ],
+  "work": [
+    {
+      "variant": "preimage",
+      "lockChecks": 1,
+      "graphConstructions": 6
+    },
+    {
+      "variant": "successor",
+      "lockChecks": 1,
+      "graphConstructions": 2
+    }
+  ],
+  "inheritedAssertions": [
+    {
+      "source": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs:260",
+      "assertion": "every manifest catalog row has capabilityIdentities.length > 0",
+      "manifestSha256": "2df6ef63dfdad39f508f40affbe2a16b4c620c096b03fee3f575072193648747",
+      "contractId": "abg.asset.qualification.rule-catalog",
+      "preimageProjection": [],
+      "successorProjection": [],
+      "actualManifestProjection": [],
+      "assertionPasses": false
+    },
+    {
+      "source": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs:370",
+      "assertion": "parseProductPublicContract(native product.verification with empty capabilityIdentities) === null",
+      "verificationOwnerSha256": "f1998352ac6e08919246a9b3c8b6af59a018e4936e43576b283c4525f6e6de18",
+      "closedPreimage": "../setup-cost-review-02/evidence-refs.json",
+      "samePreimageAndSuccessorOwner": true,
+      "returned": "ProductPublicContract",
+      "assertionPasses": false
+    }
+  ]
+}

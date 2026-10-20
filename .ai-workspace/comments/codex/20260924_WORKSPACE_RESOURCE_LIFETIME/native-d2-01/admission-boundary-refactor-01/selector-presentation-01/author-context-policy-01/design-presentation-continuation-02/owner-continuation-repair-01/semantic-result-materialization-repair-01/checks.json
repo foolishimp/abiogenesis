@@ -1,0 +1,40 @@
+{
+  "preimage": {
+    "exitCode": 1,
+    "wallSeconds": 0.58,
+    "cause": "Existing revision completion succeeds; matcher raw-vs-canonical equality refuses exact retained compact response"
+  },
+  "compile": {
+    "command": "/usr/bin/time -l ./node_modules/.bin/tsc -p tsconfig.json",
+    "exitCode": 0,
+    "wallSeconds": 5.58,
+    "userSeconds": 9.42,
+    "systemSeconds": 0.22,
+    "peakRssBytes": 1011695616
+  },
+  "focusedFirst": {
+    "exitCode": 1,
+    "wallSeconds": 1.24,
+    "cause": "Ordinary test fixture used nonexistent S.jobEnvelopeContractRef; fixed only to actual S.envelopeContractRef"
+  },
+  "focusedFinal": {
+    "command": "node --experimental-vm-modules --test --test-name-pattern=\"semantic result matcher follows|semantic stage, revision and selection implementations preserve\" test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "environment": {
+      "ABI5_NATIVE37_DIRECTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01",
+      "ABI5_NATIVE_D2_DESIGN_DIRECTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01"
+    },
+    "exitCode": 0,
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "skip": 0,
+    "wallSeconds": 1.23,
+    "userSeconds": 1.25,
+    "systemSeconds": 0.1,
+    "peakRssBytes": 362889216
+  },
+  "diffCheck": {
+    "exitCode": 0
+  },
+  "limits": "Explicit component basis/actor rows; no installed admission or reconstruction of rejected envelope51861814; no proof excluding preceding runtime short-circuits."
+}

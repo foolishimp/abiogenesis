@@ -1,0 +1,41 @@
+[
+  {
+    "path": "build/code/src/gtl/default_library.js",
+    "before": {
+      "path": "build/code/src/gtl/default_library.js",
+      "bytes": 18591,
+      "sha256": "53addbe21cffc0eb92b2ad65a66cfede6dbf2ee16ab7276fa95e24005b3b635f"
+    },
+    "after": {
+      "path": "build/code/src/gtl/default_library.js",
+      "bytes": 18605,
+      "sha256": "727a6ab601b6b76ca479a111b675e4fd67060cfa14a5fc8c3a9816a933ed768b"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "74aaccc26d94bbaf397953e53b3873afe45ec5ea93eb10cb5f165ecd307b73b0"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "f5b45d8c96570f0856f5b6dd5e6ea7380817a7bbb157eaf76ccca3bb9cf0405a"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "f966726a252d2aac3109d685b7f7e49d89c1f8c7d3836b34313d4f2152f39bc8"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "ccae3c530199a813bc943f8d07a0cf90ee89e3201839082c2df6744ae57e9518"
+    }
+  }
+]

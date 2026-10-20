@@ -1,0 +1,21 @@
+(node:31403) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ start accepts canonical installs and rejects content hashes, tampering and lost population (0.753083ms)
+✔ invoke accepts canonical installs and rejects content hashes, tampering and lost population (0.162917ms)
+✔ current_intent accepts canonical installs and rejects content hashes, tampering and lost population (0.122959ms)
+✔ selected_action accepts canonical installs and rejects content hashes, tampering and lost population (0.13525ms)
+✔ run_status preserves canonical InstalledProduct authority before source lookup (25.874416ms)
+✔ run_result preserves canonical InstalledProduct authority before source lookup (24.702791ms)
+✔ run_replay preserves canonical InstalledProduct authority before source lookup (20.644ms)
+✔ run_gaps preserves canonical InstalledProduct authority before source lookup (21.272ms)
+✔ graph_call_result preserves canonical InstalledProduct authority before source lookup (21.627041ms)
+✔ graph_call_replay preserves canonical InstalledProduct authority before source lookup (20.113875ms)
+✔ release artifact fold consumes the unchanged canonical productSet and refuses other coordinate domains (2.324917ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 428.654041

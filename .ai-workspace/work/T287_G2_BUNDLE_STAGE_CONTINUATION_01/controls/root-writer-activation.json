@@ -1,0 +1,25 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01_GRANT_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "activatedAtUTC": "2026-10-04T15:32:24.381257+00:00",
+  "operationGrant": "Record staging-only Worker selection and exact controls, Source-read-only correspondence plus three tracking/commentary documents; no implementation or runtime effects",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/controls",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/controls",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md"
+  ],
+  "methodBasis": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifestSHA256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "managerVerified": true
+  },
+  "documentPreimages": {
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": "027bf8e98ebe3f1ff5df556ab15b61413690243462825b5fa04686e9a779e088",
+    "specification/GOALS.md": "7173151ac52b95a26e4d541bf3cb8303857c0abafd108bda03176bb1b2b2dd78",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md": "3e4ea166d52b2930b844a716c7bc6429869a95357b1587af740f3e63f681a54d"
+  },
+  "workerSourceWriteTerritory": []
+}

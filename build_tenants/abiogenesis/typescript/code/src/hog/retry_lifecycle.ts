@@ -2,6 +2,7 @@ import * as Abg from "../abg/index.js";
 import type { RuntimeAdmissionBasis } from "../abg/execution_basis.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import * as AbgRetry from "../abg/retry.js";
+import * as OwnedRoutes from "../abg/traversal_route.js";
 import type { GraphFunction, GtlGraph } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -21,7 +22,7 @@ import type {
   ExecuteGraphTraversalCommonInput,
 } from "./traversal_contract.js";
 import {
-  projectExecutableTraversalCompletion,
+  projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion,
   type ExecutableTraversalCompletion,
 } from "./traversal_completion.js";
 import { failTraversal } from "./traversal_failure.js";
@@ -100,6 +101,20 @@ export type SuccessfulRetryExitPlan =
       refusal: AbgRetry.RetryAdmissionRefusal;
     }>;
 
+
+import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
+import * as OwnedOutcome from "../abg/c_call_outcome.js";
+import * as OwnedReplay from "../abg/replay.js";
+/** @internal */
+export type OwnedRetryLifecycleStep = OwnedOutcomeValue<RetryLifecycleStep>;
+/** @internal Ordinary retry exit carries its finite suffix and canonical replay guard. */
+export type OwnedSuccessfulRetryExitPlan = Exclude<SuccessfulRetryExitPlan, { kind: "successful_retry_exit_plan" }> |
+  Readonly<{
+    kind: "successful_retry_exit_plan";
+    plan: AbgRetry.OwnedCompletedRetryProgressPlan;
+    completion: AbgRetry.RetrySuccessfulExitEvidence;
+    basis: RuntimeAdmissionBasis;
+  }>;
 export function planSuccessfulRetryExit(input: Readonly<{
   predecessorPrefix: DurablePrefixCoordinate;
   graph: Readonly<GtlGraph>;
@@ -109,10 +124,24 @@ export function planSuccessfulRetryExit(input: Readonly<{
   completion: AbgRetry.RetrySuccessfulExitEvidence;
   basis: RuntimeAdmissionBasis;
 }>): SuccessfulRetryExitPlan {
+  return planSuccessfulRetryExitUsing(input, AbgRetry.planCompletedRetryProgress);
+}
+
+/** @internal Same declared exit relation through the owned planner. */
+export function planOwnedSuccessfulRetryExit(input: Parameters<typeof planSuccessfulRetryExit>[0]): OwnedSuccessfulRetryExitPlan {
+  return planSuccessfulRetryExitUsing(input, AbgRetry.planOwnedCompletedRetryProgress);
+}
+
+function planSuccessfulRetryExitUsing(input: Parameters<typeof planSuccessfulRetryExit>[0],
+  planner: typeof AbgRetry.planCompletedRetryProgress): SuccessfulRetryExitPlan;
+function planSuccessfulRetryExitUsing(input: Parameters<typeof planSuccessfulRetryExit>[0],
+  planner: typeof AbgRetry.planOwnedCompletedRetryProgress): OwnedSuccessfulRetryExitPlan;
+function planSuccessfulRetryExitUsing(input: Parameters<typeof planSuccessfulRetryExit>[0],
+  planner: typeof AbgRetry.planOwnedCompletedRetryProgress): OwnedSuccessfulRetryExitPlan {
   if (AbgRetry.hasNoCompletedRetryExit(input.graph, input.source, input.target)) {
     return Object.freeze({ kind: "successful_retry_exit_not_applicable" as const });
   }
-  const plan = AbgRetry.planCompletedRetryProgress(
+  const plan = planner(
     input.predecessorPrefix,
     input.graph,
     input.graphFunction,
@@ -143,7 +172,7 @@ export function planSuccessfulRetryExit(input: Readonly<{
 }
 
 function failRetry(
-  request: CCallRetryRequest,
+  request: OwnedOutcomeValue<CCallRetryRequest>,
   predecessorPrefix: DurablePrefixCoordinate,
   stage: string,
   diagnosticRef: string,
@@ -194,7 +223,7 @@ export function resumeProjectedRetry(
 ): ProjectedRetryResumeResult {
   let fresh: AbgRetry.ProjectExecutableRetryInputResult;
   try {
-    fresh = AbgRetry.projectExecutableRetryInput({
+    fresh = AbgRetry.projectOwnedExecutableRetryInput({
       prefix: request.predecessorPrefix,
       selector: request.retry.selector,
       program: request.runtime.program,
@@ -231,9 +260,9 @@ export function resumeProjectedRetry(
     );
   }
 
-  let truth: ReturnType<typeof Abg.projectRuntimeTruthAtDurablePrefix>;
+  let truth: ReturnType<typeof OwnedReplay.projectOwnedRuntimeTruthAtDurablePrefix>;
   try {
-    truth = Abg.projectRuntimeTruthAtDurablePrefix(
+    truth = OwnedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
       request.predecessorPrefix,
       fresh.selector.runId,
     );
@@ -426,7 +455,7 @@ export function resumeProjectedRetry(
   }
   let transition;
   try {
-    transition = Abg.admitTraversalTransition({
+    transition = OwnedRoutes.admitOwnedTraversalTransition({
       predecessorPrefix: request.predecessorPrefix,
       store: request.store,
       executionBasis: request.runtime.executionBasis,
@@ -512,12 +541,13 @@ export function resumeProjectedRetry(
 }
 
 /** @internal */
-export function advanceRetryLifecycle(
-  request: CCallRetryRequest,
-): RetryLifecycleStep {
+/** @internal Same current completion with a selected guard receipt. */
+export function advanceOwnedRetryLifecycle(
+  request: OwnedOutcomeValue<CCallRetryRequest>,
+): OwnedRetryLifecycleStep {
   const runtime = request.context;
   const admitted = request.outcome;
-  const prefix = Abg.projectRuntimeTruthAtDurablePrefix(
+  const prefix = OwnedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
     admitted.successorPrefix,
     runtime.stop.cursor.runId,
   ).authorityPrefix;
@@ -581,7 +611,7 @@ export function advanceRetryLifecycle(
       },
       terminalizeRun: runtime.scopeClass === "root",
     });
-    const route = Abg.admitBlockedRetryTraversalTransition({
+    const route = OwnedRoutes.admitOwnedBlockedRetryTraversalTransition({
       predecessorPrefix: admitted.successorPrefix,
       store: runtime.store,
       executionBasis: runtime.executionBasis,
@@ -663,7 +693,7 @@ export function advanceRetryLifecycle(
       retryTransition as unknown as JsonValue,
     );
   }
-  const retry = AbgRetry.projectExecutableRetryInput({
+  const retry = AbgRetry.projectOwnedExecutableRetryInput({
     prefix: retryTransition.successorPrefix,
     selector: {
       kind: "retry_frontier_selector",
@@ -718,3 +748,7 @@ export function advanceRetryLifecycle(
       `${runtime.clock.correlationId}/retry/${retry.nextAttempt}`,
   };
 }
+
+export function advanceRetryLifecycle(
+  request: CCallRetryRequest
+): RetryLifecycleStep { return completePublicOutcome<RetryLifecycleStep>(advanceOwnedRetryLifecycle(request)); }

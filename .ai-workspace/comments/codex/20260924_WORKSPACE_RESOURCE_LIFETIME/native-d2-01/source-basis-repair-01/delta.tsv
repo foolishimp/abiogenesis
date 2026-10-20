@@ -1,0 +1,11 @@
+8	8	.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+2	0	build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts
+3	2	build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js
+36	16	build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js
+3	2	build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+24	13	build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
+19	0	build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md
+71	4	build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
+1	1	specification/GOALS.md
+4	4	.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md
+1	1	specification/GOALS.md

@@ -1,0 +1,38 @@
+{
+  "kind": "worker_activation",
+  "status": "ACTIVE",
+  "actor": "/root/q03_input_review",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_10",
+  "lawfulReentry": "realization_refactor",
+  "activatedAt": "2026-10-02T16:48:28.045034+00:00",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/inputs-request.txt",
+    "bytes": 4064,
+    "sha256": "379c849a296dcf001cbf1a5020be9dd213d50078184af7a0f8e7a741d26a7dac",
+    "mode": 420
+  },
+  "sevenSectionsRead": true,
+  "C09Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+    "bytes": 7019,
+    "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+    "mode": 420
+  },
+  "Setup09Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+    "bytes": 9596,
+    "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74",
+    "mode": 420
+  },
+  "donorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/freeze.json",
+    "bytes": 863173,
+    "sha256": "3ca693f27e86a063ce0f3d21da02852949e69b34a70da1bf11fd6f19e150b2a3",
+    "mode": 292
+  },
+  "scope": "Pure complete qualification input preparation only; no native Task/Run/J/helper/provider/18 commands/source/generated/candidate/event reopen effects",
+  "semanticClaims": "unknown; mechanical readiness only",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+}

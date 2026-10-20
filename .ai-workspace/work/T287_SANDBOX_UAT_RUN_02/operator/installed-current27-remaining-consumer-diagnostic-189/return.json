@@ -1,0 +1,70 @@
+{
+  "status": "CLOSED_STOPPED_FATAL_ABORT",
+  "ProductFrame": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2; interface-integration/Product817–867/CONT014–016/identity/lifecycle/effects/Proof",
+  "acceptedInputs": {
+    "caller187": 71,
+    "review188": 3,
+    "source179Publication181185AndDocumentary02": "Historical accepted subjects remain unchanged; no new credit"
+  },
+  "timing": {
+    "started": "2026-10-09T08:41:04.262Z",
+    "wallMs": 210613.63737500002,
+    "lastCompletedElapsedMs": 202878.631583
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/operator-first-cause.json",
+    "sha256": "29e4424edfec1a6a8361a5d22e924889cad8e2f5b762bbcf03c9012aa49377ef",
+    "byteCount": 3019
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/readiness.json",
+    "sha256": "aef2320471a44680828093b3a06e24aae14442dfd036472168b4b8d4b177630e",
+    "byteCount": 1666
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/closure-conservation.json",
+    "sha256": "48e7505843d92ecfb1ef59b55fcc49b0b1133391186c24e993c5001232504589",
+    "byteCount": 3538
+  },
+  "quiescence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/execution-quiescence.json",
+    "sha256": "f72e0c5dda0e475ffde8a110b6a2a6d19a3d5191fa3035a7be83f70b84c34eaf",
+    "byteCount": 1531
+  },
+  "stageIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/stage-index.json",
+    "sha256": "756cb21ba4068b155a49cebae5069d87e776efa2c565cae6139e3ed7d66aa07f",
+    "byteCount": 3658
+  },
+  "source": {
+    "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+    "sourceRunRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+    "observations": 34,
+    "terminal": false,
+    "stateAndProducerRelabel": false
+  },
+  "effects": {
+    "newPublicAdmissions": 0,
+    "newRunModelNativeAppWork": false,
+    "canonicalResourceAdoption": true,
+    "normalClose": false,
+    "abandonedLock": {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+      "present": true,
+      "device": 16777231,
+      "inode": 469292605,
+      "byteCount": 124,
+      "mtimeNs": 1791535284288271025,
+      "sha256": "1188aad4e0978faa4c3e7be595fb50a5afc3a4c0fbc59ebfa4c0d86c07b3eb08",
+      "base64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY4MzI3NDAwLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NDg0MDAsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+      "observedOwnedPreparationPid": 48400,
+      "ownedPreparationPidStatus": "ESRCH",
+      "operatorLockMutation": false
+    },
+    "logStatUnchanged": true,
+    "physical49Unchanged": true
+  },
+  "limits": "Default heap/inherited environment/19260000ms recorder/536870912B; no flags/cap/config/Source changes",
+  "scopeLimit": "Earlier checkpoint range than185; exact failing JS owner/allocator/dominant retainer unproved. No remaining Product preparation or Source-use/native/UAT success inferred.",
+  "selectedAction": "STOP; Root RCA/action before recovery or any further attempt."
+}

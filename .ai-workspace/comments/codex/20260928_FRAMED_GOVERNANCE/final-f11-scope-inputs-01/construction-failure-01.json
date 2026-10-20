@@ -1,0 +1,13 @@
+{
+  "status": "retained helper failure; corrected within granted external-input territory",
+  "error": "KeyError: build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js.map",
+  "origin": "This Worker's new input helper assumed source maps in the immutable generated inventory.",
+  "producer": "Frozen tsconfig declares rootDir code/src, outDir build/code/src and declaration true; no sourceMap setting. Frozen generated-after contains actor_process.js and actor_process.d.ts only.",
+  "consumer": "The external classification helper needed the declared source-to-generated ownership relation, not a source map or a new compiler effect.",
+  "identityAndEffect": "Failure occurred before scope/domain outputs. Already written exact material-bank bodies remain preserved and are byte-compared on resumption. No candidate or native effect occurred.",
+  "escapeCause": "A generic emission assumption was used before reading the exact compiler configuration.",
+  "repair": "Use the actual frozen rootDir/outDir/declaration/include relation and current generated inventory. Keep semantic compilation correspondence pending observed C2.",
+  "uncertainty": "Declared emission paths and exact retained bytes do not prove an observed reproduction or semantic adequacy.",
+  "ownerAndReentry": "T287_FINAL_F11_SCOPE_INPUTS_01 external-input helper; realization_refactor within existing grant. No protected recipe, source, Product or design change.",
+  "reproof": "Reconstruct the finite input cut, check every generated member/source relation, then existing owner scope/Context schema checks. No build or test rerun."
+}

@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-09T09:12:43.243Z",
+  "processFacts": [
+    {
+      "pid": 48400,
+      "probe": "ESRCH"
+    },
+    {
+      "pid": 48398,
+      "probe": "ESRCH"
+    }
+  ],
+  "exclusiveMaintenance": true,
+  "log": {
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1690085978,
+    "mtimeNs": "1791531873723955484"
+  },
+  "materialFiles": 48,
+  "absence": 1,
+  "literalRowsUnchanged": true,
+  "selectedLock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "present": true,
+    "device": 16777231,
+    "inode": 469292605,
+    "byteCount": 124,
+    "mtimeNs": 1791535284288271000,
+    "sha256": "1188aad4e0978faa4c3e7be595fb50a5afc3a4c0fbc59ebfa4c0d86c07b3eb08",
+    "base64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY4MzI3NDAwLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NDg0MDAsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "observedOwnedPreparationPid": 48400,
+    "ownedPreparationPidStatus": "ESRCH",
+    "operatorLockMutation": false
+  }
+}

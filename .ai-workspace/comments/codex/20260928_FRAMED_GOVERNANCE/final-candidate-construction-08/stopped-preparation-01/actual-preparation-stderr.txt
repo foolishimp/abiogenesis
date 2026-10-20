@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/final-controls/prepare.py", line 21, in <module>
+    assert read(D/'activation.json')['activation']=='T287_RC1_SUCCESSOR_CONSTRUCTION_07'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

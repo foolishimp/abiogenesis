@@ -1,0 +1,12 @@
+{
+  "stage": "post-close-request-slots-build-complete",
+  "rss": 4480450560,
+  "heapTotal": 4008132608,
+  "heapUsed": 3928986760,
+  "external": 2459554,
+  "arrayBuffers": 43647,
+  "at": "2026-10-09T11:32:24.669Z",
+  "elapsedMs": 399810.318625,
+  "inputDigest": "sha256:38a236b7e8d1e4e219f4d9c4b3c45d0728b1596294832ebcb44c0d24ecdfe4b7",
+  "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+}

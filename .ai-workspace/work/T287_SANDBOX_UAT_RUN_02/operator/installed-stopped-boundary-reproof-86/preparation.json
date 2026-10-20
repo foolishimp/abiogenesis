@@ -1,0 +1,74 @@
+{
+  "kind": "exact_stopped_boundary_reproof_preparation",
+  "createdAt": "2026-10-08T08:13:42.519624+00:00",
+  "route": "unchanged54 route; only Reader20 acquisition source/content selector substituted",
+  "scriptOriginalSha256": "dfc73c4ae16624f9287c67b539944330968c81fbcf8004a10b1093f338aa7af1",
+  "scriptSha256": "7cf3753cb585cf6efc1f3aee43d6604faa18601a05ade748476bdb8f56a44579",
+  "hostIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+    "byteCount": 3158
+  },
+  "hostAcquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host20-acquisition.json",
+    "sha256": "85ef58b334e2825cb7752fdf8ed151df183c4d3b690fec4c8528c601151af758",
+    "byteCount": 16369499
+  },
+  "inputPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/input-pins.json",
+    "sha256": "9c41e2c3e05a5884226a1a6e47e0743c96b9e40537d23448ce978f67f25685c2",
+    "byteCount": 10621
+  },
+  "oldArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+  "run": {
+    "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+    "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+    "prefixLength": 1182449986,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467374253
+    }
+  },
+  "initialPhysicalStatConserved": true,
+  "currentCallerPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+      "byteCount": 36805
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "de913911b9347fc63615ded0a41a12d09ee60794e1d8c03c10f4780ef811de4a",
+      "byteCount": 51551
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "93e3489ccb6b53bb99503eb7652f1d965081ee46aaedd889d84e337f2cd7fc40",
+      "byteCount": 26830
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "byteCount": 7569
+    }
+  ],
+  "oracleSelection": "immutable original48 oracle-inputs snapshot, no silent live replacement",
+  "noReverificationOrInstallation": true,
+  "exclusions": [
+    "no native/model/Run dispatch",
+    "no recovery",
+    "no heap/capture/time cap raise",
+    "no old control/worksite/log writes"
+  ],
+  "outerTimeoutMs": 19260000,
+  "innerTimeoutMs": 18060000,
+  "innerMaxOutputBytes": 268435456
+}

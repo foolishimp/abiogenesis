@@ -1,0 +1,1828 @@
+{
+  "kind": "prospective_observed_source_c2_recipe",
+  "programRef": "program://abiogenesis/worksite/command-execution@5",
+  "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+  "inputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+  "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+  "sourceSelection": {
+    "kind": "none"
+  },
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/stage",
+      "executable": "./toolchain/bin/node",
+      "args": [
+        "recipe/recipe-stage.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": "verification/.global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": "verification/.system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": "verification/.npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        }
+      ],
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+      "executable": "./toolchain/bin/node",
+      "args": [
+        "toolchain/npm/bin/npm-cli.js",
+        "cache",
+        "add",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "dependency-inputs/00.tgz",
+        "dependency-inputs/01.tgz",
+        "dependency-inputs/02.tgz",
+        "dependency-inputs/03.tgz",
+        "dependency-inputs/04.tgz",
+        "dependency-inputs/05.tgz",
+        "dependency-inputs/06.tgz",
+        "dependency-inputs/07.tgz",
+        "dependency-inputs/08.tgz",
+        "dependency-inputs/09.tgz",
+        "dependency-inputs/10.tgz",
+        "dependency-inputs/11.tgz",
+        "dependency-inputs/12.tgz",
+        "dependency-inputs/13.tgz",
+        "dependency-inputs/14.tgz",
+        "dependency-inputs/15.tgz"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": "verification/.global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": "verification/.system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": "verification/.npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        ".toolchain/npm/bin/npm-cli.js",
+        "ci",
+        "--offline",
+        "--ignore-scripts",
+        "--include=dev",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/clean",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "scripts/clean.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 15000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/compile",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/stage-current-authorities",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "scripts/generate-qualification-rule-catalog.mjs",
+        "--stage-authorities",
+        ".authority-source",
+        ".law-source/currentRC2"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/generate",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 180000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/stage-historical-component",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        ".recipe/component-stage.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": [
+        {
+          "reportIdentity": "report://abiogenesis/rc1-qual056/component-staging",
+          "relativePath": "verification/reports/component-staging.json"
+        }
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/lint",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "scripts/lint-verification.mjs",
+        ".recipe/verification-recipe.json"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-observed-worksite-command.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 90000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "--test-name-pattern=^(?:M5\\ GTL\\ exposes\\ exactly\\ seven\\ direct\\ C\\ constructors|M5\\ C\\.compose\\ is\\ canonical,\\ flat,\\ and\\ identity\\-eliding|M5\\ native\\ constructors\\ refuse\\ invalid\\ batch,\\ retry,\\ and\\ F_H\\ realization|M5\\ whole\\-program\\ validation\\ refuses\\ forged\\ or\\ widened\\ graph\\-edge\\ declarations|M5\\ raw\\ admission\\ and\\ validator\\ reject\\ invented\\ or\\ contradictory\\ C\\ data|M4\\ Hello\\ World\\ remains\\ one\\ valid\\ direct\\ C\\.of\\ Program|M5\\ whole\\-root\\ validation\\ keeps\\ F_H\\ interaction\\ keys\\ out\\ of\\ executable\\ resolution)$",
+        "test_env/tests/m5-c-algebra-validation.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-carrier-resource",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "--test-name-pattern=^(?:closed\\ resource\\ forms\\ retain\\ nonempty\\ group\\ arrays\\ and\\ actual\\ old\\ embedded\\ identities|full\\ omission\\ overlap\\ and\\ missing\\-domain\\ negatives\\ reach\\ complete\\ correspondence\\ after\\ every\\ identity\\ is\\ repaired|missing\\ crossed\\ ambiguous\\ inventory\\ sets\\ bodies\\ and\\ declaration\\ dependencies\\ refuse\\ before\\ material\\ can\\ be\\ used|Run\\ pre\\-effect\\ acquisition\\ borrows\\ only\\ the\\ exact\\ invoking\\ proof\\ and\\ rejects\\ redundant\\ dependencies|selected\\ full\\ prompt\\ preserves\\ source\\ bodies\\ rubric\\ ordering\\ and\\ attribution\\ apart\\ from\\ explicit\\ normalized\\ coordinates|fresh\\ explicit\\ acquisition\\ agrees;\\ warmed\\ and\\ fresh\\ missing\\ resources\\ refuse\\ at\\ actual\\ cold\\ consumer\\ entrypoints)$",
+        ".components/retained-carrier/test_env/tests/t287-qualification-carrier-resource.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "name": "ABI5_F11_CARRIER_FULL_FIXTURE",
+          "value": ".fixtures/carrier/assessment-input.json"
+        },
+        {
+          "name": "ABI5_F11_CARRIER_REPORT",
+          "value": "reports/carrier-component"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-law",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-qualification-law.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "name": "ABG_QUALIFICATION_STAGE_FIXTURES",
+          "value": ".recipe/staging-fixtures.json"
+        },
+        {
+          "name": "ABG_QUALIFICATION_SOURCE_ROOT",
+          "value": ".authority-source"
+        },
+        {
+          "name": "ABG_QUALIFICATION_RELEASE_ROOT",
+          "value": ".law-source/currentRC2"
+        }
+      ],
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-producer-context",
+      "executable": "./.toolchain/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/compare",
+      "executable": "./toolchain/bin/node",
+      "args": [
+        "recipe/compare-generated.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": "verification/.global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": "verification/.system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": "verification/.npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        }
+      ],
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": [
+        {
+          "reportIdentity": "report://abiogenesis/rc1-qual056/generated-comparison",
+          "relativePath": "verification/reports/generated-comparison.json"
+        }
+      ]
+    }
+  ],
+  "outcomePredicates": [
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/stage/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/stage",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/seed-npm-cache/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/locked-dependencies/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/clean/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/clean",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/compile/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compile",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/stage-current-authorities/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/stage-current-authorities",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/generate/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/generate",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/stage-historical-component/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/stage-historical-component",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/lint/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/lint",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qual056-material/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-release-acceptance/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qualification-carrier-resource/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qualification-carrier-resource",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qualification-law/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qualification-law",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qualification-producer-context/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qualification-producer-context",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/compare/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compare",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc1-qual056/generated-equality",
+      "predicateKind": "stdout_exact",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compare",
+        "equals": "inventory matches\n"
+      }
+    }
+  ],
+  "allowedWriteTerritories": [
+    {
+      "pathKind": "subtree",
+      "relativePath": "verification"
+    }
+  ],
+  "supervisionProposal": {
+    "commandCapsAndGracesMs": 1293000,
+    "helperDispatchAndAckAllowanceMs": 5000,
+    "requiredHelperBudgetMs": 1298000,
+    "ABG_TS_FP_TIMEOUT_MS": "1418000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "1598000",
+    "outerC2PublicBudgetMs": 2198000,
+    "outerDriverBudgetMs": 3098000,
+    "status": "finite proposal; actual runtime selection remains pending",
+    "basis": "sum of all exact declared command bounds and graces; new authority stage, six carrier/cold cases, six law cases and four current context cases; no command executed"
+  },
+  "claim": "Prospective current C03 observed producer only. No current native execution, semantic adequacy, AF22 or release claim."
+}

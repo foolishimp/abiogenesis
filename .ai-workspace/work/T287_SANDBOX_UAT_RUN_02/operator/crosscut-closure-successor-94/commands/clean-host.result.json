@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/host-preparation.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94",
+  "started": "2026-10-08T09:13:51.308Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 3020.9617089999997,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"stage\":\"host21-installed\",\"wallMs\":2214.248375,\"installedRoot\":\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host/node_modules/@abiogenesis/typescript-tenant\"}\n",
+  "stderr": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    {\n      archiveMode: 420,\n      installedMode: 493,\n+     path: 'build/code/src/public/cli.js'\n-     path: 'build/code/src/abg/cli.js'\n    },\n    {\n      archiveMode: 420,\n      installedMode: 493,\n+     path: 'build/code/src/public/codex_cli.js'\n-     path: 'build/code/src/abg/codex_cli.js'\n    }\n  ]\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/host-preparation.mjs:34:8 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [\n    {\n      path: 'build/code/src/public/cli.js',\n      archiveMode: 420,\n      installedMode: 493\n    },\n    {\n      path: 'build/code/src/public/codex_cli.js',\n      archiveMode: 420,\n      installedMode: 493\n    }\n  ],\n  expected: [\n    {\n      path: 'build/code/src/abg/cli.js',\n      archiveMode: 420,\n      installedMode: 493\n    },\n    {\n      path: 'build/code/src/abg/codex_cli.js',\n      archiveMode: 420,\n      installedMode: 493\n    }\n  ],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.7.0\n"
+}

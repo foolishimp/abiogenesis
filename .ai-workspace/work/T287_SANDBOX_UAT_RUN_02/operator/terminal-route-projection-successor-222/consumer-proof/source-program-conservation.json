@@ -1,0 +1,47 @@
+{
+  "originalSourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-source",
+  "newSourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/consumer-source",
+  "preserved": [
+    {
+      "path": "build/publication.json",
+      "sha256": "589f6b44872b5aefb0155837308e0c941150dae816547bc8d50998de33ce6307",
+      "byteCount": 27497,
+      "originalByteEqual": true
+    },
+    {
+      "path": "build/semantics.mjs",
+      "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3",
+      "byteCount": 757,
+      "originalByteEqual": true
+    },
+    {
+      "path": "contracts/assessment.schema.json",
+      "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7",
+      "byteCount": 462,
+      "originalByteEqual": true
+    },
+    {
+      "path": "contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "byteCount": 75,
+      "originalByteEqual": true
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "byteCount": 247,
+      "originalByteEqual": true
+    }
+  ],
+  "packageChange": {
+    "path": "/dependencies/@abiogenesis~1typescript-tenant",
+    "before": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-29/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "after": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-30/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+  },
+  "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+  "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+  "wholeCanonicalProgramUnchanged": true,
+  "canonicalOwner": "gtl.modulePublication",
+  "recursionBound": 1000,
+  "scope": "Immutable declaration correspondence; no execution resolution or ABG admission is asserted"
+}

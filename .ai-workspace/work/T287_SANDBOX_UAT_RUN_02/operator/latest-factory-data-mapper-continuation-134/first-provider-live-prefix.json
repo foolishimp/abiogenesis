@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-08T22:55:08.177650+00:00",
+  "classification": "Live provider prefix observation only; final/native choice still pending",
+  "actorPID": 85252,
+  "bindingOrdinal": 176119,
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b830cf5f7334bb57-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b830cf5f7334bb57-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b830cf5f7334bb57-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b830cf5f7334bb57-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b830cf5f7334bb57-transport.json"
+  },
+  "promptByteCount": 722105,
+  "stdoutBytesRead": 175586,
+  "stdoutPrefixSHA256": "ca793dd57b5d351256e06fb93b9aaaf4a12084b2b50f61090ce1786446eb3312",
+  "objectTypes": {
+    "system": 54,
+    "stream_event": 396,
+    "assistant": 1
+  },
+  "usage": [
+    {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 359967,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 359967
+      },
+      "output_tokens": 8,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 359967,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 359967
+      },
+      "output_tokens": 8,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    }
+  ],
+  "errorFlags": [],
+  "command": "/Users/jim/.local/bin/claude",
+  "argsHaveJsonSchema": true,
+  "lane": "closed_prompt_proof"
+}

@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-07T14:33:22.179028+00:00",
+  "scope": "existing compiler build component; no manifest/contracts generator or clean"
+}

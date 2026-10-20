@@ -1,0 +1,62 @@
+{
+  "status": "CLOSED_READ_ONLY_COMPOSITION_FINDING",
+  "worker": "astra/xhigh",
+  "modelSubject": "f816c981615eba0cb33520f122f5d1a747a56ee8c63277fe2925adc717c41e3c",
+  "step2SourceSubject": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1",
+  "step3SourceSubject": "1df2966c65cc3309b45ca443bd1f6eb0c2bcb542a48f009f9c4f5ee740519dae",
+  "readSubject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+      "sha256": "9b1c8746133406d0288d068763a9966a7d7cf19d9887988a3ce23bf6461bba36",
+      "bytes": 21851
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "sha256": "2130c59330f8a9f51bc91fa636217f4d451dcdd36d0973835f1157af208a79ad",
+      "bytes": 59099
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "sha256": "242f5ee50d5c51cb378f6f735b536c4b74ad5db5579618af62192bc8aea68890",
+      "bytes": 14489
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sha256": "81df9b254be28818201cbb6c56924ee06b1003fba4813a3852f27a8ef6838008",
+      "bytes": 267601
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "sha256": "2c39789ac41c12d71c4da68c85b2f0a8d809ba6473b725bd5d1c1395535962fb",
+      "bytes": 63782
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "362d42d96ffcf90e825f0a70efa0e07e3bd1685d69ec77128b155a930e8d8581",
+      "bytes": 73932
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "sha256": "323aa38b6b3782e7b93517964c82ab52352270c119ac5b6937ecdc6fe21d7d63",
+      "bytes": 17721
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "sha256": "a6759d40d4c2267560c36c91540e3ff5c5148223bd8d8fe07a85d501e2e5eafe",
+      "bytes": 8123
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "sha256": "4625b7437f366bd05f1cb5212328a6294950b22b18bea0bd5b9c68bcd2603b3e",
+      "bytes": 30366
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "sha256": "a315bcd12c25bf13d500311dc4e1050259e4743c71fdcc5ce64f594005d45ff8",
+      "bytes": 7940
+    }
+  ],
+  "sourceDelta": 0,
+  "testsRun": 0,
+  "runtimeEffects": 0
+}

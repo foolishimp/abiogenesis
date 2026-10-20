@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/preflight.mjs"
+  ],
+  "result": {
+    "chunk_id": "e5a1b8",
+    "wall_time_seconds": 0.000005625,
+    "exit_code": 0,
+    "original_token_count": 125,
+    "output": "{\"status\":\"PASS\",\"sameSixFileBase\":true,\"fourHelpersUnchanged\":true,\"sameOwnerPacket\":true,\"singleResolutionBeforeAcquisition\":true,\"completeLockComparisonsPreserved\":true,\"actualNullRecordedBeforeAssert\":true,\"remainingConsumerTailUnchanged\":true,\"genuine192HandoffCorrespondence\":true,\"noHistoryOrDeclarationBodyRead\":true,\"noOwnerExecution\":true,\"limits\":\"Static sequencing/pin correspondence only; live verification, full lock equality, current-use and stock-heap preparation remain unproved.\"}\n"
+  },
+  "claim": "Small frozen selector/helper/ordering correspondence; no owner compiler/verifier/resource execution."
+}

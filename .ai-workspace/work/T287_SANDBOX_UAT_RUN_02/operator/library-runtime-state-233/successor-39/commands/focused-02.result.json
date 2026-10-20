@@ -1,0 +1,18 @@
+{
+  "kind": "canonical_native_testing_binding_component_check",
+  "sourceCut": 39,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^(library prepare-testing|reacquisition publishes)",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-02/test_env/tests/t287-native-work-reacquisition.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 451.081375,
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/inputs-01.json",
+  "limits": [
+    "Actual preparation/matcher/cold-source code with canonical GTL-derived binding, physical constructors, and controlled prefix/native/environment/source/cover/C_Call/set premises; no installed/native/C2 credit. Actual retained-resource tests are not activated."
+  ]
+}

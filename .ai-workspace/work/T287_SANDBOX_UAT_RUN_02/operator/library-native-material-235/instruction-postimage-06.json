@@ -1,0 +1,7 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+  "postimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/instruction-postimage-06.ts",
+  "sha256": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+  "byteCount": 118854,
+  "delta": "Two semantic subject imports and their call sites use released private selected-prefix owners; logical assembly fields unchanged."
+}

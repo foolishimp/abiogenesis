@@ -1,3 +1,5 @@
+import type { RuntimeEventScan } from "./runtime_history.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isOptionalJsonRecord as isRecord, isNonEmptyJsonString as isNonEmptyString, hasExactJsonKeys as exactKeys } from "../shared/admission_predicates.js";
 import type {
   FanOutApplication,
@@ -12,7 +14,7 @@ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { runtimeEventPrefixDigest,
   validatedRuntimeEventPrefixThroughEvent,
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   runtimePrefixComputation,
   indexedRuntimeEvents,
   type ValidatedRuntimeEventPrefix,
@@ -108,7 +110,7 @@ function sameStrings(
 }
 
 function uniqueEvent(
-  events: readonly RuntimeEvent[],
+  events: RuntimeEventScan,
   predicate: (event: RuntimeEvent) => boolean,
 ): RuntimeEvent | null {
   const matches = events.filter(predicate);
@@ -116,7 +118,7 @@ function uniqueEvent(
 }
 
 function isCausallyReachable(
-  events: readonly RuntimeEvent[],
+  events: RuntimeEventScan,
   ancestorEventRef: string,
   descendant: RuntimeEvent,
 ): boolean {
@@ -339,7 +341,7 @@ function exactDeclaredFanOutWorkflowLocus(
 }
 
 function exactChildFoldbackBody(
-  events: readonly RuntimeEvent[],
+  events: RuntimeEventScan,
   opened: RuntimeEvent,
   fibre: RuntimeEvent,
   foldback: RuntimeEvent,
@@ -505,7 +507,7 @@ function exactChildFoldbackBody(
 }
 
 function exactTaskTruth(
-  events: readonly RuntimeEvent[],
+  events: RuntimeEventScan,
   opened: RuntimeEvent,
   boundaryOrdinal: number,
   authority: FanOutProjectionAuthority | null,
@@ -758,7 +760,7 @@ function exactTaskTruth(
 }
 
 function exactTaskCensus(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   boundaryOrdinal: number,
   envelope: Readonly<{
     runId: string;
@@ -768,9 +770,9 @@ function exactTaskCensus(
   batchRef: string,
   authority: FanOutProjectionAuthority | null,
 ): readonly ExactTaskTruth[] | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   if (Number.isFinite(boundaryOrdinal) && !events.some(event => event.admissionOrdinal === boundaryOrdinal - 1)) return null;
-  const openedRows = events.filter((event) =>
+  const openedRows = indexedRuntimeEvents(prefix, "graph-call:" + envelope.graphCallId).filter((event) =>
     event.kind === "c_call_opened" &&
     event.admissionOrdinal < boundaryOrdinal &&
     event.runId === envelope.runId &&
@@ -792,7 +794,7 @@ function exactTaskCensus(
   const current = (truths as ExactTaskTruth[]).filter((truth) => {
     if (truth.retryPath.length === 0) return truth.retryAttemptRef === null;
     if (truth.retryAttemptRef === null) return false;
-    const attemptRows = events.filter((event) =>
+    const attemptRows = indexedRuntimeEvents(prefix, "graph-call:" + envelope.graphCallId).filter((event) =>
       event.kind === "retry_attempt_opened" &&
       event.runId === envelope.runId &&
       event.graphCallId === envelope.graphCallId &&
@@ -952,10 +954,10 @@ function completionCommon(
 }
 
 function candidateProjection(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   request: Extract<ExactFanOutCompletionProjectionRequest, { mode: "candidate" }>,
 ): FanOutCompletionCandidateProjection | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   if (
     runtimeEventPrefixDigest(prefix) !==
       request.expectedPrefixDigest
@@ -1059,10 +1061,10 @@ function candidateProjection(
 
 const CANONICAL_COMPLETION_FACTS = Symbol("canonical_completion_facts");
 function canonicalAdmission(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   request: Exclude<ExactFanOutCompletionProjectionRequest, { mode: "candidate" }>,
 ): FanOutCompletionAdmission | null {
-  if (request.mode !== "event_canonical") return deriveCanonicalAdmission(prefix, request);
+  if (request.mode !== "event_canonical" || prefix.kind !== "validated_runtime_event_prefix") return deriveCanonicalAdmission(prefix, request);
   const matches = indexedRuntimeEvents(prefix, "kind:fan_out_completion_admitted").filter(e => e.eventId === request.admissionEventRef);
   if (matches.length !== 1) return null;
   const event = matches[0]!;
@@ -1078,11 +1080,11 @@ function canonicalAdmission(
 }
 
 function deriveCanonicalAdmission(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   request: Exclude<ExactFanOutCompletionProjectionRequest, { mode: "candidate" }>,
 ): FanOutCompletionAdmission | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const completionEvent = uniqueEvent(events, (event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const completionEvent = uniqueEvent(indexedRuntimeEvents(prefix, "id:" + request.admissionEventRef), (event) =>
     event.eventId === request.admissionEventRef &&
     event.kind === "fan_out_completion_admitted"
   );
@@ -1349,6 +1351,15 @@ function deriveCanonicalAdmission(
 export function projectExactFanOutCompletion(
   prefix: ValidatedRuntimeEventPrefix,
   request: ExactFanOutCompletionProjectionRequest,
+): FanOutCompletionCandidateProjection | FanOutCompletionAdmission | null;
+/** @internal */
+export function projectExactFanOutCompletion(
+  prefix: RuntimeEventPrefix,
+  request: ExactFanOutCompletionProjectionRequest,
+): FanOutCompletionCandidateProjection | FanOutCompletionAdmission | null;
+export function projectExactFanOutCompletion(
+  prefix: RuntimeEventPrefix,
+  request: ExactFanOutCompletionProjectionRequest,
 ): FanOutCompletionCandidateProjection | FanOutCompletionAdmission | null {
   return request.mode === "candidate"
     ? candidateProjection(prefix, request)
@@ -1383,8 +1394,19 @@ export function hasExactPartialFanOutStopRouteBridge(
   prefix: ValidatedRuntimeEventPrefix,
   routeAdmissionEventRef: string,
   coordinates: PartialFanOutStopRouteBridgeCoordinates,
+): boolean;
+/** @internal */
+export function hasExactPartialFanOutStopRouteBridge(
+  prefix: RuntimeEventPrefix,
+  routeAdmissionEventRef: string,
+  coordinates: PartialFanOutStopRouteBridgeCoordinates,
+): boolean;
+export function hasExactPartialFanOutStopRouteBridge(
+  prefix: RuntimeEventPrefix,
+  routeAdmissionEventRef: string,
+  coordinates: PartialFanOutStopRouteBridgeCoordinates,
 ): boolean {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const route = uniqueEvent(events, (event) =>
     event.eventId === routeAdmissionEventRef &&
     event.kind === "traversal_route_admitted"
@@ -1426,7 +1448,7 @@ export function hasExactPartialFanOutStopRouteBridge(
       (value) => typeof value === "string",
     )
   ) return false;
-  const completionEvent = uniqueEvent(events, (event) =>
+  const completionEvent = uniqueEvent(indexedRuntimeEvents(prefix, "id:" + route.causationEventRefs[0]), (event) =>
     event.eventId === route.causationEventRefs[0] &&
     event.kind === "fan_out_completion_admitted"
   );

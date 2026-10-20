@@ -1,0 +1,18 @@
+{
+  "label": "syntax-preflight",
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/preflight.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169",
+  "started": "2026-10-09T05:24:11.646966+00:00",
+  "RootSelection": "Worker169 exact packed-resource correspondence and syntax only; first unexpected failure stops before retry",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/preflight.mjs",
+    "sha256": "ec2d5b8c40a8af83c1bf76a5163186c36f5a0610f40db6f21cf40abfefc2a999",
+    "byteCount": 7018
+  },
+  "NODE_OPTIONS": "unset",
+  "effects": "Only169 receipts; no verifier/resource/Public/native/model/app effects"
+}

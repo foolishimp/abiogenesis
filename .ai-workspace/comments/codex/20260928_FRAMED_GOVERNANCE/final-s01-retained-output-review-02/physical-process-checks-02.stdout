@@ -1,0 +1,156 @@
+{
+  "status": "passed",
+  "checks": 40,
+  "operations": [
+    {
+      "label": "setup-workspace",
+      "definitionKey": {
+        "memberKey": "clean",
+        "operationId": "abg.operation.workspace.create"
+      },
+      "nativePid": 75075,
+      "observerPid": 75074,
+      "exitCode": 0,
+      "elapsedMs": 9699.584
+    },
+    {
+      "label": "setup-verify-core",
+      "definitionKey": {
+        "memberKey": "verify",
+        "operationId": "abg.operation.product.verify"
+      },
+      "nativePid": 75197,
+      "observerPid": 75196,
+      "exitCode": 0,
+      "elapsedMs": 18763.619
+    },
+    {
+      "label": "setup-install-core",
+      "definitionKey": {
+        "memberKey": "install",
+        "operationId": "abg.operation.product.install"
+      },
+      "nativePid": 75594,
+      "observerPid": 75593,
+      "exitCode": 0,
+      "elapsedMs": 22282.838
+    },
+    {
+      "label": "setup-resolve",
+      "definitionKey": {
+        "memberKey": "resolve",
+        "operationId": "abg.operation.product.resolve"
+      },
+      "nativePid": 75448,
+      "observerPid": 75447,
+      "exitCode": 0,
+      "elapsedMs": 12904.749
+    },
+    {
+      "label": "setup-bind",
+      "definitionKey": {
+        "memberKey": "bind",
+        "operationId": "abg.operation.workspace.bind"
+      },
+      "nativePid": 75884,
+      "observerPid": 75883,
+      "exitCode": 0,
+      "elapsedMs": 10648.058
+    },
+    {
+      "label": "setup-catalog",
+      "definitionKey": {
+        "memberKey": "admit",
+        "operationId": "abg.operation.catalog.admit"
+      },
+      "nativePid": 75949,
+      "observerPid": 75948,
+      "exitCode": 0,
+      "elapsedMs": 15617.279
+    },
+    {
+      "label": "setup-catalog-view",
+      "definitionKey": {
+        "memberKey": "allowlist",
+        "operationId": "abg.operation.catalog.view"
+      },
+      "nativePid": 76069,
+      "observerPid": 76068,
+      "exitCode": 0,
+      "elapsedMs": 10796.493
+    },
+    {
+      "label": "continue-conformance-hello-world",
+      "definitionKey": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "nativePid": 94684,
+      "observerPid": 94683,
+      "exitCode": 0,
+      "elapsedMs": 10701.499
+    },
+    {
+      "label": "continue-conformance-command-execution",
+      "definitionKey": {
+        "memberKey": "gtl_program",
+        "operationId": "abg.operation.conformance.evaluate"
+      },
+      "nativePid": 94847,
+      "observerPid": 94846,
+      "exitCode": 0,
+      "elapsedMs": 10724.489
+    },
+    {
+      "label": "continue-hello-root",
+      "definitionKey": {
+        "memberKey": "start",
+        "operationId": "abg.operation.run.invoke"
+      },
+      "nativePid": 94962,
+      "observerPid": 94961,
+      "exitCode": 0,
+      "elapsedMs": 3042.874
+    },
+    {
+      "label": "continue-hello-root-run_result",
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "nativePid": 95005,
+      "observerPid": 95003,
+      "exitCode": 0,
+      "elapsedMs": 581.931
+    },
+    {
+      "label": "continue-hello-root-run_replay",
+      "definitionKey": {
+        "memberKey": "run_replay",
+        "operationId": "abg.operation.project.read"
+      },
+      "nativePid": 95030,
+      "observerPid": 95029,
+      "exitCode": 0,
+      "elapsedMs": 586.757
+    }
+  ],
+  "physicalIdentity": {
+    "resourcePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "device": 16777230,
+    "inode": 464012478,
+    "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5",
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock"
+  },
+  "originalDriver": {
+    "pid": 94535,
+    "exitCode": 1,
+    "signal": null,
+    "exitObserved": true,
+    "timedOut": false,
+    "elapsedMs": 41140.36558382213,
+    "ownedGroupsSignalled": [],
+    "stdout": "driver.stdout",
+    "stderr": "driver.stderr"
+  }
+}

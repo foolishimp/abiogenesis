@@ -1,6 +1,254 @@
 # T-287 - Deliver ABIogenesis 5.0 Native Runtime and Default Library
 
 - id: T-287
+- status: active
+- goal: GOAL-035
+- owner: abiogenesis
+- build_tenant: typescript
+- updated_at: 2026-10-21
+- current_method_basis: stdo://releases/v3.0.0-rc.1/
+- current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
+- current_activation: T287_COMMON_LIBRARY_DELIVERY_01
+- current_activation_status: L1_L2_design_ACCEPTED_user_checkpoint_SELECTED_L3_L5_PENDING_library_delivery_OPEN
+- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
+- current_next_work: full_tree_commit_push_checkpoint_before_separate_L3_activation_then_L4_proof_L5_acceptance
+- current_prerequisite_deliverable: common_computational_capability_library
+- current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
+- current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
+- current_runtime_frontier: Source44_installed_preparation_retained_continuation17_install_scope_admission_refusal
+- current_qualification: OPEN_fifteen_families_F11_sole_AF22_pre_RC_installed_RC_and_human_acceptance
+- change_class: goal_reprice
+- derived_change_classes: product_reprice
+- re_entry_point: specification/GOALS.md#current-selection
+
+## Current Delivery Plan
+
+The owner's 2026-10-21 instruction selects **delivery of the common computational
+capability library before resuming the 5.0 release**. L1 and the exact L2
+delivery design are accepted; implementation, consumer adoption, executed
+obligations and delivery acceptance remain open. The user now selects a
+full-tree commit/push checkpoint before implementation; no L3 activation is
+current. The concrete asset is a library of
+reusable computations and lawful compositions that reduces independently
+invented solutions. Explicit obligations govern each capability and
+composition; actual execution and assessment determine their outcomes.
+[Goals](../../../specification/GOALS.md#current-selection) selects that work;
+[Product](../../../specification/PRODUCT.md#50-and-51-release-boundaries)
+keeps the fifteen-family 5.0 outcome and exclusions.
+The [reconciliation](../../comments/codex/20261021_STDO3_ABG5_RECONCILIATION.md)
+records applicability and changes. The
+[computational binding](../../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md)
+locates the current HOW and its remaining completeness obligations.
+The [common capability library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
+turns that binding into concrete capability contracts, consumer routes,
+consolidation decisions and realization/proof order.
+
+This section is the sole current delivery schedule. It supersedes earlier
+current-status fields, launch/retry instructions, management ordering and
+downstream T-043 ownership in this ticket. Earlier records retain their exact
+evidence and accepted semantic decisions where compatible with current Product
+and requirements. An old active label supplies no new operation grant.
+
+### Selected outcome and evidence boundary
+
+The Product destination remains one usable installed runtime that supports a
+complete prospectively selected application lifecycle, consequential correction,
+independent assessment and honest continuation/closure. The original source,
+obligations, independent oracle and excluded downstream work stay explicit.
+Full Data Mapper completion and odd_glc delivery are not dependencies.
+
+The preceding reconciliation is [accepted on its exact document subject](../../work/T287_STDO3_RECONCILIATION_01/disposition.md).
+The [library design baseline is accepted](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md)
+on its exact five-document subject. It specifies
+admitted domains, inputs/outputs, effects, refusals, lifetime and resource
+obligations, composition rules, actual foundation and owner bindings, existing
+and proposed consumers, and a finite realization/proof sequence. This is L1
+evidence. [L2 successor 02 is accepted](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
+after independent review 02: exact D02–D04/K11/E03/U1 realization scope,
+E01/E02/E04 retention and P1–P5 proof are bound, including the timer-domain
+correction. Library delivery still requires L3–L5 below; design acceptance
+does not establish implementation, observed contraction or successful execution.
+The [delivery-plan activation](../../work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md)
+records this successor selection and preserves the accepted design cut.
+The [current checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
+records the stop before L3. The isolated baseline built and packed successfully;
+that is mechanical readiness, with no runtime tests or candidate implementation.
+
+The method pin does not migrate an admitted Run. The current STDO template
+binds exact native source/material and only explicitly selected supplementary
+representations or access tools. The changed Product/requirement meaning must
+flow through its typed declaration, actual acquisition/admission, actor context,
+history and fresh readback before runtime STDO 3 capability is claimed.
+Historical cohort-bound Runs and evidence keep their original dependencies.
+
+### Common computational library deliverable
+
+**Owner:** ABIogenesis/T-287. **Status:** open; L1 and L2 design accepted,
+L3–L5 pending; user checkpoint selected before implementation.
+**Release-resumption gate:** closed until L5 acceptance is recorded against
+the exact delivered subject.
+
+The deliverable contains:
+
+1. The accepted K01–K12 capability contracts and D01–D11 dispositions, refined
+   into an exact implementation and consumer scope. Every capability has a
+   concrete usable route through a retained or selected implementation.
+   E01–E04 receive explicit decisions or justified scope exclusions; no
+   exclusion may leave a required selected capability or consumer unsupported.
+2. Implemented common relations and actual production consumer adoption,
+   beginning with the source-supported D02–D04 consolidations and retained
+   owner capabilities. Superseded implementations are removed or retained for
+   an explicit domain/authority reason. Any newly discovered counterexample
+   returns the affected decision for review before implementation continues.
+3. Execution evidence for the applicable V1–V7 obligations on exact subjects,
+   including the selected installed producer-to-consumer path, its material
+   refusal/partial-effect cases, and close/reopen/fresh-read conservation.
+   Record actual contraction and complete-path cost against a declared basis;
+   a function count or projected saving is insufficient.
+4. An independent assessment and recorded delivery acceptance binding the
+   design, exact source/package where exercised, consumers, retired/retained
+   responsibilities, proof and material residuals. Required in-scope
+   obligations must be satisfied; open or indeterminate results do not
+   authorize release resumption.
+
+This is a bounded library deliverable within the existing TypeScript tenant.
+Existing implementations can satisfy a capability through demonstrated
+consumer use; unnecessary rewrites, a new universal runtime and a separately
+published library package are not selected. Optional unrelated compression
+retains [Product's later allocation](../../../specification/PRODUCT.md#50-compression-boundary).
+Its exclusion must not be used to defer selected library delivery work.
+
+Library-specific integration and installed proof may use the affected D1/D4
+owners under a bounded library activation. This prevents a circular dependency
+on the release campaign: only work needed to deliver and prove the selected
+library proceeds before L5. General release integration, D2/D3 lifecycle work,
+D5 qualification and D6 publication remain waiting. Applicable library
+evidence can later be reused on its exact support; it does not itself qualify
+the whole Product.
+
+### Current state to preserve
+
+- Definition reuse232 and preparation234 have bounded completed results;
+  installed236 proves its selected definition composition, excluding the
+  later joint runtime/native-material claim.
+- Runtime233 and native-material235 progressed through Source44.
+  Continuation16 has exact source/emission/archive/install correspondence,
+  twelve Public setup outcomes, authentic Source/current-use and normal close
+  evidence. Preserve those claims without restarting their work.
+- Continuation16 reached native Testing but the responder rejected the C2
+  acknowledgment schema before executing the helper. Its transport triage
+  supports a fixture failure; it supplies no Source identity-guard repair.
+  Fixture17 corrects that premise within its reviewed scope.
+- [Continuation17](../../work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/return-02.md)
+  is the newest stopped attempt. Physical installation succeeded; ABG refused
+  admission of an already-held install scope under another invocation.
+  Testing/C2 and the complete red/repair/green/restart path did not run.
+  The actual physical target, admitted predecessor facts and conserved
+  handoff remain evidence to reconcile before another effect.
+- Earlier accepted lifecycle and retained-work results keep their original
+  source, producer, subject, method and evidence scope. They do not qualify a
+  changed package by relabeling it.
+
+The [delivery assessment](../../work/T287_STDO3_RECONCILIATION_01/delivery-assessment.md)
+contains the exact source routes and limits. Source44 is a preserved candidate;
+current dirty source still needs an exact affected-delta comparison.
+
+### Dependency order and exits
+
+D1–D6 remain increments of this ticket. The following prerequisite and
+completion order replaces their older schedule. L1–L5 form the prerequisite
+library work package; L5 acceptance opens the remaining release sequence.
+
+| Step | Selected work and prerequisite | Observable exit | Stop or next action |
+|---|---|---|---|
+| Reconciliation — accepted | Retain the exact STDO 3 Product/requirement destination and calculus binding from the preceding accepted document subject. | Independent assessment and recorded disposition in `T287_STDO3_RECONCILIATION_01`. | Retain evidence within its original scope; the owner-selected library prerequisite supersedes the earlier next-work order. |
+| L1 library design baseline — accepted | Retain the source-grounded K01–K12 contracts, D01–D11 dispositions, compositions and obligations. | [Accepted exact design](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md), including corrected owner/effect views and explicit E01–E04 stops. | Retain this accepted design; L2 now supplies the selected material decisions. Library delivery remains open. |
+| L2 delivery scope and material design — accepted | Retain [successor 02 execution contract](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md): D02–D04/K11/E03/U1, E01/E02/E04 retained domains, finite P1–P5 proof, independent oracles and measurement basis. | [Executive acceptance](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md) conjoins independent review 01's ten scoped predicates and review 02's timer-domain correction on exact freeze 02. | Stop at the user-selected full-tree checkpoint. No L3 implementation activation follows automatically from design acceptance. |
+| User checkpoint — selected | Preserve and commit/push the full visible tree, including other-session commentary/analysis and exact failed/accepted design evidence, under the separate checkpoint Writer. | The logical checkpoint and remote transport are verified; oversized evidence retains exact bytes through the selected transport. | No source implementation or native/runtime work. A later bounded L3 activation binds the accepted contract. |
+| L3 realization and consumer adoption — pending | After the checkpoint and separate activation, implement D02–D04, K11, E03 timing/lifetime and U1 within the accepted territories; adopt selected consumers and retire equivalent implementations. Preserve semantic owners and inventoried evidence. | Exact source changes show usable common implementations and real consumer adoption; focused contract and integration checks pass. Every retained separate responsibility has a concrete justification. | Freeze the candidate for L4. No claimed savings, delivery or release resumption follows from source edits alone. |
+| L4 execution and independent evidence — pending | Execute the applicable V1–V7 partitions and earliest selected installed composition discriminator. Preserve physical effects/admission distinctions, retained work, exact identities and fresh readback. Measure complete-path work and actual contraction on the declared basis. | Actual results discharge required selected obligations; source/package correspondence and an independent assessment bind equivalence, consumer use, retirement and observed cost. | A failed join returns its exact causal relation for bounded repair and affected reproof. No blind retry, claimed success from missing evidence or wider release campaign. |
+| L5 library delivery acceptance — pending | Conjoin the accepted design, exact implementation/consumer/retirement record, L4 evidence and independent result. | T-287 Executive records acceptance of the delivered library subject with no unresolved required in-scope obligation, identifies reusable evidence and explicitly opens the release-resumption gate. | Only this recorded delivery acceptance permits the remaining 5.0 release sequence. L1/L2 design acceptance cannot open it. |
+| D1/D4 remaining release integration — waiting for L5 | After library acceptance, compare current source to the accepted design and frozen Source44; reuse valid library evidence and implement only remaining admitted release deltas. | Focused checks plus exact installed producer/consumer composition establish the changed release relations. Source/package correspondence and authentic setup evidence are retained or renewed only where invalidated. | Return a failed join to its owning boundary; no blind clean restart or extra controller. |
+| D2 controlled correction/restart | Reconcile17's completed physical install with admitted16 facts; select lawful reuse or an owner-supported changed pair. Bind the actual Source, Program, current input and reviewed fixture. | Actual helper execution gives a failing C2 result with original diagnostics/citations; parent retains it; selected native repair changes the candidate; the same checker passes; close/reopen and fresh Public reads conserve producer, state and effects. | A refusal or uncertain effect stops and is explained. This finite controlled proof does not establish genuine semantic work. |
+| D3 genuine selected lifecycle | Select the exact installed candidate, original source, full selected obligations, independent oracle and actual worker/assessment configuration prospectively. | The supported ordinary interface produces and corrects a working application, receives independent assessment and reaches admitted closure/fresh readback. Required ambiguity, refusal and recovery cases retain their outcomes. | No hidden assistance or shrinking of the oracle. Apply remaining D4 generic-composition obligations and D5 coverage; reuse valid prior evidence. |
+| D5 exact qualification | All fifteen families and retained 4.6 conservation obligations have explicit dispositions. Bind S01/S02/S03/S06, actual self-conformance and the owning gate vector to one exact candidate and selected law basis. | Actual independent native assessments and sole AF22 yield the complete non-bypassed pre-RC verdict, with applicable negative/recovery and workload evidence. | Missing applicable results, invalid basis or hard-stop violation withholds qualification. Then D6. |
+| D6 immutable release | Exact qualified bytes and native AF25 publication prerequisites are established. | Publish unchanged RC bytes; freshly install and qualify that RC; actual human Product authority accepts the same RC; fresh source-blind post-publication installation identifies it. | Qualifying-byte changes require the proper higher RC and affected qualification. Acceptance creates no second final cut. |
+
+The controlled discriminator is a bounded prerequisite for the genuine selected
+lifecycle. Once its declared observation is obtained, that prerequisite is
+exhausted. Further repetitions supply preservation evidence unless a named
+material invalidator or new admitted obligation requires them.
+
+### Design and proof controls
+
+The common capability library is the current delivery target. Operator names classify
+computations; they do not by themselves specify reusable implementations.
+Each selected capability names its admitted domain, actual implementation or
+proposed realization, consumers and the obligations preserved in composition.
+An in-domain use consumes or parameterizes the common capability. A new
+capability or retained independent realization requires its concrete material
+distinction and disposition. Shared mechanics preserve each consumer's
+semantic authority. Contraction is established only when the selected
+consumers use the common relation and superseded production responsibility
+is retired or explicitly retained under its governing law.
+
+For each affected boundary, state its admitted domain, complete material
+relations, legal compositions, constructor/result coverage and independent
+falsifiers. A source inventory or plausible diagram does not prove
+decision completeness. Mathematical arguments, exhaustive finite-model checks,
+sampled execution and actual use retain separate scopes.
+
+The requirements calculus selects the obligations; the computational calculus
+states lawful operations, transformations, composition, effects and material
+resource behaviour; the execution binding states the actual TypeScript/Node,
+Effect, native transport and human decision means. The binding preserves
+authority and independence. ABG and a_c compute names are not equated by spelling.
+
+Computational review follows each material producer-to-consumer path through
+fact establishment, acquisition, currentness/invalidators, execution, admission,
+persistence, projection and reuse. Each shared mechanism gets both a semantic
+disposition and a realization disposition. Common machinery never merges
+semantic owners. Full-history output keeps its meaning; narrow current work
+avoids unrelated-history work unless a governing dependency requires it.
+
+Operational qualification declares supported workload dimensions and any
+acceptance limits before execution. Measurements separate startup, framework
+work, external compute, transport, assurance, memory and durable data with
+units and boundaries. The older OOM and later finite improvements do not alone
+establish current capacity or its absence. Do not repeat effects merely to
+measure them again.
+
+Correctness, authority and supported-path defects remain blockers under Product.
+The selected library deliverable gates release resumption. Optional compression
+outside its accepted scope retains Product's later allocation. This plan adds
+no seven-workload prerequisite, universal resource
+quota, method requalification campaign, per-helper review or all-profile gate.
+
+### Current operation boundary
+
+Current recording accepts exact L2 design and selects the user's full-tree
+checkpoint before implementation. L1/L2 are accepted; L3–L5 and library
+delivery remain pending/open respectively. No L3 source or runtime activation
+is current, and the release-resumption gate remains closed. The isolated
+baseline build/pack is mechanical readiness only. Each later implementation
+or runtime operation requires a separate activation binding
+its exact candidate, accepted design, effect territory, prerequisites, limits,
+stop and return under the existing project configuration.
+
+Historical attempts remain stopped. No cleanup of their physical targets,
+recreation of completed installs or mutation of their evidence follows merely
+from this plan. Required independent assessment and actual human release
+acceptance remain with their owners.
+
+## Historical Routing Snapshot
+
+The following routing fields are retained verbatim from the prior ticket
+state. They are historical data, including every `current_*` and
+`next_bounded_work` label inside the block. The current fields and schedule
+above supersede them.
+
+```text
+- id: T-287
 - type: feature
 - ticket_category: goal_reprice
 - status: active
@@ -391,6 +639,14 @@
 - accepted_wave_2_roadmap_tree: 9ae5438410d1528614cb887cff5caebb699b708d
 - accepted_wave_2_roadmap_verdict: A0_B0_C0_D0
 
+
+```
+
+## Prior Execution And Design Records
+
+The records below preserve original subjects, accepted semantics and failed
+attempts. Their time-relative status and launch instructions are historical.
+Current Product/requirements and the current plan above decide applicability.
 
 ## Current integration design constraint
 
@@ -1953,7 +2209,7 @@ inactivity; GLC/default-pin closure remains open. Further paid execution needs
 its own exact activation. No full compatibility, ordinary-live D1/D2 or release
 closure is claimed by this mechanical return.
 
-## Current Delivery Plan
+## Historical Delivery Plan Of 2026-09-13
 
 [Product Release Boundaries](../../../specification/PRODUCT.md#50-and-51-release-boundaries)
 owns scope. The owner approves this delivery allocation with "ok update the
@@ -4772,3 +5028,15 @@ Executive conjoined CLOSED Source21/Proof21 mailbox triage under STDO 2.5.1-rc.2
 Selected increment: one private supported-Node timer maximum (2,147,483,647ms) supplies the canonical constructor and raw configuration schema. The finite execution envelope remains caller policy. Preserve exact command/argv/env/cwd/reports/nine predicates, complete 26-source selection, grace at most 30,000ms and below timeout, authority/currentness and strict enclosing budget. Selected fit is 18,015,000 < 18,030,000 < 18,040,000 < 18,060,000ms. No Product expansion, external application implementation or global timer redesign.
 
 Readiness is limited to one normal build, pure actual-plan native/observed/configuration/manifest/render checks and the existing short real M5 transport termination test (transport, not C2-helper proof). Native C2 execution, installed repair proof, original UAT/quality and completion remain unearned; no package/deployment selected in Writer22. Extreme aggregate-budget overflow is outside this bounded increment. Evidence: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/c2-timing-repair-22/. All prior sealed cuts remain immutable.
+
+### T287-ASSURANCE-MODULE-ORIGIN-01
+
+Owner: Jim (Executive triage). Status: deferred_assurance/owner_triage. Frame: [end-to-end interface integration](../../../build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration), exact dependency identity/physical effects and Proof.
+
+Evidence: frozen [207](../../work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/freeze.json) (`631f6554014e5310b6ba2b715656ebfe97957b50dfd77734c4a161a0ee16412f`) and [208](../../work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-review-208/freeze.json) (`034b8284b726e799ce18f6eb005c93e7e95d968d129968a0e5386fc2374cd43a`), [208 return](../../work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-review-208/return.md). Package-root dependency search can differ from a nearer inventoried dependency resolved by a deeper executable module; no real counterexample was executed.
+
+No-block rationale: exact204 consumer's sole executable `build/semantics.mjs` has zero nested `node_modules` inventory and no nearer shadow;207's six physical cases support that flat route. No general-layout guarantee.
+
+Re-entry: existing install/owner-module HOW plus bounded realization/proof after ordinary Executive intake. Activation: a selected consumer/module layout introduces a nearer managed dependency, or an actual module resolves content different from its exact lock; HOLD affected publication/use and return to Executive triage. Dependent boundary: exact-consumer steel thread, affected installation and RC qualification scope.
+
+Closure falsifier: authenticated supported module-origin mismatch after install success. Closure evidence: exact owner-module/dependency/lock proof including a nearest-shadow discriminator under canonical verification. Product remains unchanged; old cuts remain immutable. This capsule grants no Source repair or retry authority.

@@ -1,0 +1,29 @@
+{
+  "kind": "caller_actor_body_counterexample",
+  "phase": "214",
+  "actorRef": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+  "actualSharedActorCoordinate": {
+    "ref": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+    "digest": "sha256:1700391ee011b0f0407b5132f3e017f9f6015696fb1f74513da5c87d9c75447a"
+  },
+  "executedFinalRunConstructor": "prepare.mjs:183 uses actor.actor=coord(actorRef), whose prepare.mjs:81 default body is {ref:actorRef}.",
+  "callerBody": {
+    "ref": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9"
+  },
+  "callerBodyDigest": "sha256:1700391ee011b0f0407b5132f3e017f9f6015696fb1f74513da5c87d9c75447a",
+  "requiredBody": {
+    "actorRef": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9"
+  },
+  "requiredBodyDigest": "sha256:f5bd9bfad3c6d0b81ba69de2ec15ec06e03396d7d72532712913d8fa6a51a280",
+  "actualEqualsCallerBody": true,
+  "actualEqualsRequiredActorBody": false,
+  "measurement": {
+    "method": "Previously executed pure sha256Canonical import from exact installed29 shared/digests.js on the captured workspace-bind actor coordinate. Exit 0; no dispatch or resource access. Recorded here without rerunning.",
+    "owner": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/installed-current29/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/digests.js"
+  },
+  "limits": [
+    "Final run slots were not separately serialized before private preparation failed. Their same actor coordinate is established by exact executed frozen caller and captured shared actorRef/digest.",
+    "This is a sufficient false matcher conjunct, not an instrumented claim of unique first short-circuit.",
+    "Setup test-owner attribution is not claimed to be the final run attribution."
+  ]
+}

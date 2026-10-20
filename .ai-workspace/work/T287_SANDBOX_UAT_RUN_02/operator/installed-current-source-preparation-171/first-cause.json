@@ -1,0 +1,16 @@
+{
+  "stage": "catalog-admit26-grant-start",
+  "rss": 4426842112,
+  "heapTotal": 3863478272,
+  "heapUsed": 3604584336,
+  "external": 5628446,
+  "arrayBuffers": 3215539,
+  "at": "2026-10-09T05:33:57.412Z",
+  "elapsedMs": 202282.17887499998,
+  "name": "TypeError",
+  "message": "ABG held store differs from the selected durable prefix",
+  "stack": "TypeError: ABG held store differs from the selected durable prefix\n    at heldRuntimePrefixState (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:1282:15)\n    at readHeldRuntimeEventsAtDurablePrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:1290:19)\n    at assertHeldEventStoreAtDurablePrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:1269:5)\n    at admitCapabilityEnvironment (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/admission_authority.js:145:9)\n    at validateAdmissionCapabilityBasis (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/admission_authority.js:175:9)\n    at Module.constructAdmissionCapabilityGrants (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/invocation.js:511:28)\n    at invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/prepare.mjs:91:26)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/prepare.mjs:136:18",
+  "actualOutcome": null,
+  "disposition": "HOLD; first actual failure preserved; no retry or model dispatch",
+  "action": "Root multi-frame owner triage and selected Product-bounded action required before any retry"
+}

@@ -1,0 +1,11 @@
+# Continuation08 — stopped on the first runtime failure
+
+The actual07 installed pair and setup were reconstructed through the installed owners without replaying any setup effect. The missing Public conformance passed in 23.045s. The whole Program comparison remained `804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2`.
+
+The initial lifecycle command returned process/CLI exit0 in 5.666s, but its actual Product disposition is **`runtime_failed`**, with no Result or terminal Result. Fresh run-replay reports failed. The returned runtime-failure evidence names `diagnostic://abiogenesis/hog/recursion-restoration-mismatch@5`; its exact inner failed relation remains unknown here. The candidate file is absent. This earns no native Construction/C2/Source credit.
+
+A downstream fixture assertion then expected `projection.runId` and `projection.cCalls`. The actual installed Public `run_evidence_projection` owns `subject`, `replay`, `evidence` and `eventAtoms`; those expected fields do not exist. The original run03 assumption was preserved by the continuation adapter and was not exercised by earlier package/type checks. No payload adaptation or retry was made. The outer driver exited1 normally after 62.617s, without timeout.
+
+The genuine close selects 3,452,868 bytes, digest `b2afbf2a221b0d203371e71239999beefb0c96e2ac05605f96ee4bf811a790a5`, coordinate `0aabc75790f57edbf53b903dfc5be1e1f5d59cbb0af0566007830c469983f8c9`, device16777231/inode469917053. Actual bytes match it; the earlier07 prefix remains exact. No scoped process or append lock remains. Completed setup, fixture sources and the failed Run remain available for lawful owner-based re-entry.
+
+[Stopped result](stopped-result.json), [actual first cause](execution/first-cause.json), [lifecycle receipt](execution/calls/lifecycle-start.outcome.json), [evidence receipt](execution/calls/run-evidence.outcome.json) and [driver delta](run-08.diff) bind this cut. The helper/fixture bytes and exact canonical package remain unchanged; the only native-scope physical writes observed are the three fixture input files. Inner refusal, actor population and all further composition/capacity/UAT claims are open. Root must triangulate the runtime failure and the separate consumer-shape assumption before selecting any repair/retry. **STOPPED.**

@@ -1,0 +1,50 @@
+{
+  "acquisitionKind": "eventless",
+  "kind": "installed_definition_call_transport_result",
+  "receipt": {
+    "definitionKey": {
+      "memberKey": "verify",
+      "operationId": "abg.operation.product.verify"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "invocationRef": "invocation://abiogenesis/b11b84228125905ed045fed4ee94865e751dfa492c81b2ee1e0fe73a2963c0f3",
+    "kind": "definition_host_receipt",
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "definitionContractCoordinates": null,
+        "disposition": "locally_verified",
+        "localNativeEvidence": {
+          "digest": "sha256:a5b13c0abb3fabbafb84f12bfb387f0888ce901aa07ec1c8971b4e7a9de19597",
+          "ref": "local-native-evidence://abiogenesis/product-verification/a5b13c0abb3fabbafb84f12bfb387f0888ce901aa07ec1c8971b4e7a9de19597"
+        },
+        "pendingExternalSelectors": [],
+        "provenance": [
+          {
+            "digest": "sha256:e1e43f49782c7c169a663ccd816600c736c12c9fdfdafc893aafd97769753999",
+            "ref": "provenance://abiogenesis/product-verification/e1e43f49782c7c169a663ccd816600c736c12c9fdfdafc893aafd97769753999"
+          }
+        ],
+        "residuals": [],
+        "targetKind": "packed_artifact",
+        "verifiedArtifact": {
+          "digest": "sha256:da78a85073882642fcb38e453771f1688a388e3082fc018bccaea471fcbe0d8e",
+          "ref": "product-verification://abiogenesis/da78a85073882642fcb38e453771f1688a388e3082fc018bccaea471fcbe0d8e"
+        }
+      }
+    },
+    "resources": {
+      "disposition": "read_only_unchanged",
+      "kind": "product_verification_resource_disposition",
+      "packedArtifact": {
+        "digest": "sha256:e1dc994f5d4deb4bef6dcae2452e980834dcde1ebd2c5211f689875124941da3",
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+      },
+      "schemaVersion": "5.0.0",
+      "targetKind": "packed_artifact"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

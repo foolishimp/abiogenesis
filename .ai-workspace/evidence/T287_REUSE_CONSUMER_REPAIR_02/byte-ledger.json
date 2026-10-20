@@ -1,0 +1,57 @@
+{
+  "standing": "failed attempt measured extents only; no14-call-to2-call matched saving claim",
+  "necessaryPurePreflightOriginalColdReads": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-packet.json",
+      "bytes": 29410022,
+      "sha256": "c50b50b153a69104b7f54c6420368b786d6225c7394cd49923235e1a7ecae548",
+      "duty": "cold input authentication"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-resource-manifest.json",
+      "bytes": 504760365,
+      "sha256": "a920b4842b7cb779282ed7417deadd3361f75f2dfce79dc36324976d8c0e890b",
+      "duty": "cold input authentication"
+    }
+  ],
+  "necessaryPreflightOriginalColdReadBytes": 534170387,
+  "originalReportsReachedByCurrentTest": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/installed-authority-handoff.json",
+      "bytes": 7357822,
+      "sha256": "97b61ffc7d34d14ee18f4618192fcb7180728019e5e4911799f65af5fdbee56a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/closed-event-resource-handoff.json",
+      "bytes": 3591718,
+      "sha256": "d60035d70e3bd00ad157cdc64d59964b3d3fc01856f1729293b44de989739cd0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-closed-environment.json",
+      "bytes": 57715713,
+      "sha256": "58d22ec5859cc199416e6bd3666915ff059f1995e6e0d427fa9de72fc67f64a3",
+      "mode": 420
+    }
+  ],
+  "currentArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10431333,
+    "verificationAttempts": 2,
+    "duty": "positive current check and exact changed expected digest negative"
+  },
+  "changedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_02/changed-archive.tgz",
+    "bytes": 21,
+    "sha256": "5e0c5e917d32dfc1603f2632b6104807f667c7361898de4e045633f6e592a851",
+    "mode": 420
+  },
+  "encodedSelectedEntriesWouldBeAcquiredBytes": 20963216,
+  "historicalBodySnapshots": 0,
+  "serializedFullVerifierOrCLIInputBodies": 0,
+  "newCanonicalSourceBytes": 36243,
+  "currentPreparationManifestColdReadExecuted": false,
+  "historicalRecoveryExecuted": false,
+  "fullLoaderIOAndInMemoryByteGrowth": "unmeasured; no qualified reduction claim"
+}

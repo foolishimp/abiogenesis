@@ -1,0 +1,440 @@
+{
+  "status": "CLOSED_REVIEW",
+  "disposition": "NO_SUPPORTED_BLOCKERS_IN_EXACT_SOURCE_COMPONENT_SCOPE",
+  "subject": {
+    "directory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01",
+    "workerReturnSha256": "7d741af5b618c40838f88f732b68481e345e4572b396f531ee47c276725fd8aa",
+    "workerEvidenceRefsSha256": "6639fb27ddabe889b18adb9067ac37847143a5d4e0a98366a610dbaffb49e7e9",
+    "subjectDeltaSha256": "08e6695dc3994b3625089c423e208b03508e5a462607f1901790b0147e308bc7",
+    "referencedFilesIndependentlyVerified": 32,
+    "referencedFileMismatches": []
+  },
+  "governing": {
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "rootDisposition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/../../../root-disposition.md#cost33-owner-continuation-correction",
+    "rootGrantLines": [
+      646,
+      670
+    ],
+    "priorDiagnosis": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/setup-cost-review-03/return.md",
+    "priorDiagnosisSha256": "488674d9e8c8c3da1c8bf0af1bb93d59141cc26bcb63d8639524351e412c1ef2",
+    "abiBasis": "STDO2.5.1RC1",
+    "glcBasis": "RC4/dev15"
+  },
+  "independentChecks": {
+    "diffs": [
+      {
+        "owner": "event_calculus",
+        "exact": true,
+        "added": 60,
+        "removed": 23
+      },
+      {
+        "owner": "runtime_liveness",
+        "exact": true,
+        "added": 38,
+        "removed": 14
+      }
+    ],
+    "declarations": [
+      {
+        "path": "build/code/src/abg/event_calculus.d.ts",
+        "sha256": "1fee111da34680cf8d7ac6c6b974b617a4ac8915e39b9c26781a303e5bd246d3",
+        "unchanged": true
+      },
+      {
+        "path": "build/code/src/abg/runtime_liveness.d.ts",
+        "sha256": "25ed57317c05d3d7b4ff6f06e0802475cec129c0d67d0ac8966a4a71a06f8111",
+        "unchanged": true
+      }
+    ],
+    "retainedInventories": [
+      {
+        "name": "code-src",
+        "shape": "dict",
+        "preCount": 250,
+        "postCount": 250,
+        "differingKeys": [
+          "code/src/abg/runtime_liveness.ts",
+          "code/src/abg/event_calculus.ts"
+        ]
+      },
+      {
+        "name": "build-code-src",
+        "shape": "dict",
+        "preCount": 500,
+        "postCount": 500,
+        "differingKeys": [
+          "build/code/src/abg/event_calculus.js",
+          "build/code/src/abg/runtime_liveness.js"
+        ]
+      }
+    ],
+    "protectedFiles": [
+      {
+        "packet": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/frozen-subject.json",
+        "keys": [
+          "closedAtUtc",
+          "state",
+          "canonicalHead",
+          "scope",
+          "members",
+          "diffStats"
+        ],
+        "sha256": "ce12802cf968ae828511eccd7dc30739cb101b70146baef8d1f22e94414c2190"
+      },
+      {
+        "packet": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/frozen-subject.json",
+        "keys": [
+          "closedAtUtc",
+          "status",
+          "scope",
+          "members",
+          "diffStats",
+          "preservedLockGraphMembers",
+          "reuse"
+        ],
+        "sha256": "915f5668a638690433de3de1d7270439aca6169a55d5f8d3f65f30e319341591"
+      }
+    ]
+  },
+  "protectedSubjects": [
+    {
+      "packet": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/frozen-subject.json",
+      "memberCount": 22,
+      "mismatches": [],
+      "members": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+          "sha256": "96f6547138e43578fba31ace0b02a4e5060b1ffbfef3682802565ec8de4ed9d7",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/environment.js",
+          "sha256": "0b7d64479fd2fcfabb7a90b5f6acaefb51dfe5c8b61a7289d5d1561e7e5dcf64",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/environment.d.ts",
+          "sha256": "00128d7282ea9202f8f08f8da4a64a08314a889afeef18089504baa9e15c4a63",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/capability_contracts.ts",
+          "sha256": "b56acca42e5cd383c09a778e85cad1a993cf5abf20f318ece2fe1333075f3501",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/capability_contracts.js",
+          "sha256": "ce2aa8d8a6472a30ca68d463c83893f656a31d28a4cee7be3897631bddf8d0f5",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/capability_contracts.d.ts",
+          "sha256": "d4ce8cf256e42a42daa8d8c21bd08b427b470520077bc1a4583aae2e560aa23f",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+          "sha256": "b6fd0be714f25c244ec358416bfd666e9abf7c9fd0cef3e1e23a98f607eeee80",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+          "sha256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.d.ts",
+          "sha256": "c097aa37faeba56ac0e581a73acd89e82b69ba88d1e2ed1536a1503757fd5871",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_operation.ts",
+          "sha256": "ea77ee96a10a6f57d210fcc7c557f72a2a1f5efc8b3aea6216cfff234cb94769",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_operation.js",
+          "sha256": "4d3b2a6092ae26e32c2da231d7b094721668757586a7768fafb2a152e6dcd43d",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_operation.d.ts",
+          "sha256": "c6531267a9f985fb50cd25a3c990534c398c04834fa50174bf76296314097032",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+          "sha256": "e978a8c6e27e297197b75619e32c946ea8891480ac236f4a5f2238847049679e",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_definition_bindings.js",
+          "sha256": "435dcaae56ce0fb089fe765a18180de345354622a27b5e7b0029c58a5d7b6ec2",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_definition_bindings.d.ts",
+          "sha256": "ee8c1af9a9c1954d937eae01d1c89a1eb529430d78db0a18a0dcf01c43e5ace9",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+          "sha256": "96e179167006d9f0f4d648ab6c8abf5844076f361adef4fe4821290a2181136a",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js",
+          "sha256": "f77e95373de5828958fc7d5794b033197a6ccc5429385ec358070426e1775872",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.d.ts",
+          "sha256": "48ebcc8c513e71d891ded9c5d351e933bbc920b2a975a5b2513d7011b0240584",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+          "sha256": "7a50e8282b36d0601660845993dec674c50a1eaa04591c5664a8bf80001d90b9",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/environment_admission.js",
+          "sha256": "41cb1e897aa61e46e9625a8a22ce7c53c3de976720d36f7f9ef1ba71517a8141",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/environment_admission.d.ts",
+          "sha256": "eda57a7e271f78fa6d3a750710cfd02398ba2e23f906f5c96b3616b2bc602056",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+          "sha256": "5c3d8463c10ea15f1e9a6fdc71e0bd972590b468e536726ccbf337368a73dea1",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "packet": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/frozen-subject.json",
+      "memberCount": 12,
+      "mismatches": [],
+      "members": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+          "sha256": "cf58447a94c95875d475c89ab38f4d26c4042648c32853ba2971324ca642a002",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+          "sha256": "f955ce6c36403709ea73dd447e3937a30bdf8ee1d78608b6effe833ee85482d3",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+          "sha256": "e45c1a74ad761d55c2fd4089cb38d7eb5bb1ff35e29e8c06011280ecc4711649",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+          "sha256": "5ad7b666282327568624ae8d371169636c82a3c739e7970f0e0fb87c381f1384",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+          "sha256": "830bc0643e233ec268f6d7234990d1705ef26d5b709c4f10c2243afa82a3c0a7",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+          "sha256": "6fcb02789ec0d5d05a303ad16697db7d255706d80edd4f902d8250dac3645b76",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+          "sha256": "0fb18d4662143abd28dc15acd43f2e3e3c9be0233b4fbab0ebf20e827f67cae7",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+          "sha256": "6cd62b9d4978127328ce3614fc4ce8276f06213fa0bbd8c33ae4042e39d0cc92",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+          "sha256": "de6d482fdcfd0951cbe728c50787826d569730fb68648de425974e4746734127",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+          "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+          "sha256": "93d7933e7f0f133a1bce7e6ead260e5b9170bd325ce4a111148ddc0f11052c50",
+          "matches": true
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.d.ts",
+          "sha256": "fe2d9dea45ab616e630b820f0b065eecc9b2f08015a9ca4d3502b83ef43ca669",
+          "matches": true
+        }
+      ]
+    }
+  ],
+  "currentPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "354dde450eda3c986c25ec4919f2884ef54a13d4bebde8647693a6af97f2ed0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "sha256": "f9defa9971b351f5d9aa578e4a60fe2fcd09f07da1042898541e781321548312"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "sha256": "0f86b55946040837d508345ad4a9233a86affa81aea0bd1022a36a20425c312f"
+    }
+  ],
+  "relations": [
+    {
+      "owner": "event_calculus.ts",
+      "lines": [
+        399,
+        412,
+        977,
+        994,
+        1265,
+        1273,
+        1325,
+        1340,
+        1758,
+        1768,
+        1894,
+        1915
+      ],
+      "checked": "scope predicates, ordering, both closure families and frame failure, post-validation scope insertion, raw fallback"
+    },
+    {
+      "owner": "runtime_liveness.ts",
+      "lines": [
+        57,
+        62,
+        125,
+        173,
+        211,
+        341,
+        353,
+        589,
+        595,
+        625,
+        674,
+        696,
+        750,
+        911,
+        937
+      ],
+      "checked": "owned immutable context, duplicate stamp, current cut, raw/copied validation, unique declared probe, fresh observation and physical producer relation"
+    },
+    {
+      "owner": "event_calculus.ts",
+      "lines": [
+        1597,
+        1617,
+        1651,
+        1674,
+        1701,
+        1714,
+        1733,
+        1929
+      ],
+      "checked": "private constructed fluent consumption, exported guards, overlap refusal, historical and owner lifetime"
+    },
+    {
+      "test": "t287-event-calculus-owner-continuation.test.mjs",
+      "lines": [
+        24,
+        75,
+        77,
+        104,
+        106,
+        144,
+        146,
+        196,
+        198,
+        225
+      ],
+      "checked": "actual retained data parsing, module/counter substitutions, exact comparisons, raw negatives, duplicate and rollback scope"
+    },
+    {
+      "test": "t287-ordered-reconstruction.test.mjs",
+      "lines": [
+        21,
+        44,
+        76,
+        105
+      ],
+      "checked": "matched inherited physical-drift assertions and predecessor completed historical/copy/rollback assertions"
+    },
+    {
+      "test": "m5-event-calculus-runtime.test.mjs",
+      "lines": [
+        1316,
+        1457
+      ],
+      "checked": "matched inherited terminal static-name assertion"
+    }
+  ],
+  "disclosedExecution": {
+    "compile": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/compile.json",
+      "sha256": "a926011a40680d54d8406ea91603f52b9e14fff9fb7208f728d6ac0fac317467",
+      "exitCode": 0
+    },
+    "focused": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/focused-controls.log",
+      "sha256": "5ae472fdaeae9c9b712695867420934500fbbf278fa3a8899c51992e16552d8c",
+      "pass": 4,
+      "fail": 0,
+      "reviewerReran": false
+    },
+    "existing": {
+      "pass": 7,
+      "matchedInheritedFailures": 3,
+      "notSuiteGreen": true
+    },
+    "diagnostics": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/owner-continuation-controls.json",
+      "sha256": "cb0af710fffa2476003bb8a618d1e1bfde241a33993af47fe8b53b9cfdf286db",
+      "kind": "component invocation counts, not elapsed/profile evidence"
+    },
+    "fixture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/closed-opus04-prefix.jsonl",
+      "sha256": "1b5c9cd06f65197b150e14cb820495a7488a268bec142ddf15cc79d3b384614f",
+      "bytes": 17863616,
+      "recordCountReported": 3471,
+      "reviewerAction": "hash only; no source resource route followed"
+    }
+  },
+  "supportedFindings": [],
+  "limits": [
+    "Source/component scope only",
+    "Inherited physical-drift assertions remain failures",
+    "No dedicated native frame-failure execution",
+    "No installed performance improvement established",
+    "No native/provider/Runtime resource accessed",
+    "No new checks or counterexample execution",
+    "Root owns acceptance and further selection"
+  ]
+}
+

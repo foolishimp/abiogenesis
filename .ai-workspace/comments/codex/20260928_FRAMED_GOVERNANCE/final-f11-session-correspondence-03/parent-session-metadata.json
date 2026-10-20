@@ -1,0 +1,16 @@
+{
+  "kind": "session_metadata_field_projection",
+  "sourcePath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-14-42-01a0edbb-7c4f-7493-bf06-2a600644bbb6.jsonl",
+  "startByte": 0,
+  "endByte": 22362,
+  "containingRecordSha256": "368c8cae7c975aa4581fc7905fcc479e089f46303b5712dc76a571d749f1672a",
+  "timestamp": "2026-09-29T15:15:10.069Z",
+  "fields": {
+    "id": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+    "cwd": "/Users/jim/src/apps",
+    "model_provider": "openai",
+    "source": "vscode"
+  },
+  "modelProfile": null,
+  "modelProfileLimit": "No exact model/profile is asserted from system instructions, private context or an unobserved runtime setting."
+}

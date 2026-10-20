@@ -1,0 +1,20 @@
+{
+  "actualTransportBindings": [],
+  "actualCCallEvidence": [],
+  "bodyReferenceRecords": [],
+  "exactInvocationFiles": [],
+  "exactCurrentPacket": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-packet.json",
+    "bytes": 29410022,
+    "sha256": "c50b50b153a69104b7f54c6420368b786d6225c7394cd49923235e1a7ecae548",
+    "mode": "0o644"
+  },
+  "exactCurrentResourceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-resource-manifest.json",
+    "bytes": 504760365,
+    "sha256": "a920b4842b7cb779282ed7417deadd3361f75f2dfce79dc36324976d8c0e890b",
+    "mode": "0o644"
+  },
+  "cachedWorkerRequestUsed": false,
+  "policy": "retain actual available evidence; no owner call or candidate reconstruction"
+}

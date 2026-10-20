@@ -1,0 +1,33 @@
+{
+  "kind": "fixture17_syntax_checks",
+  "checks": [
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/responder.mjs"
+      ],
+      "inputSha256": "953b3ffe07d71b23dba5f69d8f1dbb316944ac656c9d040e4daf80ca1e22c67f",
+      "inputBytes": 11540,
+      "exitCode": 0,
+      "elapsedMs": 24.000000033993274,
+      "stdout": "",
+      "stderr": "",
+      "executionScope": "syntax only; no module evaluation"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/workload.mjs"
+      ],
+      "inputSha256": "4af014a78b695171918ba613e60d240244c60f4833067bcafd513e30cdee7e9b",
+      "inputBytes": 492,
+      "exitCode": 0,
+      "elapsedMs": 19.9992090347223,
+      "stdout": "",
+      "stderr": "",
+      "executionScope": "syntax only; no module evaluation"
+    }
+  ]
+}

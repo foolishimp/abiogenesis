@@ -1,0 +1,15 @@
+{
+  "kind": "checker_premise_failure",
+  "command": "node check-declarations-01.mjs",
+  "exitCode": 1,
+  "stage": "before TypeScript compiler entry",
+  "error": {
+    "code": "ENOENT",
+    "selectedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/tsconfig-02.json",
+    "operation": "open"
+  },
+  "evidenceLimit": "The direct initial exec error was observed; no stdout/stderr file was captured. This documentary receipt records only the known selector failure.",
+  "cause": "Copied checker01 retained the predecessor config selector tsconfig-02.json; successor37 config is tsconfig-01.json.",
+  "selectedAction": "Preserve checker01; checker02 changes only the config selector and result receipt name.",
+  "sourceVerdict": "none"
+}

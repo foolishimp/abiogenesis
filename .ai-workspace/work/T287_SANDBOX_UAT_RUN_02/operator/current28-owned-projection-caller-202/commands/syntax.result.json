@@ -1,0 +1,13 @@
+{
+  "kind": "command_result",
+  "started": "2026-10-09T11:13:04.091031+00:00",
+  "completed": "2026-10-09T11:13:04.119368+00:00",
+  "wallMs": 27.75820897659287,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "truncated": false,
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "scope": "Syntax only; no caller execution/import/resource or runtime effect"
+}

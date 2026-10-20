@@ -1,0 +1,15 @@
+{
+  "consumedInputs": 2005,
+  "mismatches": [],
+  "indexObserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 2814720,
+    "sha256": "2b0e5154a5b9145385b027bc82b54bb9da07ba740c86e01d5816dd261f38ae88"
+  },
+  "gitReadPolicy": "GIT_OPTIONAL_LOCKS=0; git --no-optional-locks",
+  "sourceWrites": 0,
+  "nativeResourceAccesses": 0,
+  "providerCalls": 0,
+  "movingSiblingOutputReads": 0,
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-inputs-01"
+}

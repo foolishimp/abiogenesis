@@ -1,0 +1,45 @@
+--- subject-01/L2-execution-contract.md
++++ successor-02/L2-execution-contract.md
+@@ -1,6 +1,8 @@
+ # L2 common computational library execution contract
+ 
+ **Status:** Executive-selected L2 candidate for independent design assessment. This document records `/root` Executive's conjunction; the separately activated Writer has not accepted, implemented or executed it. The general ABIogenesis 5.0 release campaign still waits for L5 library delivery acceptance.
++
++**R-L2-001 successor:** [independent review 01](review-L2/review-01.md) requires the bounded timing HOW clarification in §4. The rejected [original cut](review-L2/subject-01/L2-execution-contract.md) and [original freeze](L2-candidate-freeze.json) remain preserved; the ten other supported predicates retain their stated scope pending exact successor assessment. This Writer stops after the successor freeze at the USER CHECKPOINT boundary. No L3 implementation or Git action is authorized by this correction.
+ 
+ ## 1. Exact subject and controlling decisions
+ 
+@@ -26,7 +28,7 @@
+ |---|---|
+ | D02–D04 | `product/environment_definition_bindings.ts`, `product/verification_definition_bindings.ts`, `product/execution_resolution.ts`, `shared/definition_binding_mechanics.ts`, `shared/rooted_topology_partition.ts`, `abg/event_body_encoding.ts`. Reuse existing equalities, `product/exact_match.ts` and `shared/admission_predicates.ts`; remove exactly the selected private algorithms while retaining owner projections, predicates and failures. |
+ | K11 standalone STDO3 | `gtl/stdo_run_environment.ts`, current `constructStdoRunEnvironmentDeclaration` only. Generic schema/acquisition/evidence/assembly are consumed unchanged; historical schemas and Runs retain their basis. |
+-| E03 physical lifetime | New `shared/owned_process_lifetime.ts`; adopt in `abg/worker_transport.ts::runProcess`, `implementation/worksite_command_helper.ts::{runCommand,runHttpProbe}`; update `product/worksite_command_execution.ts` budget rule/calculation. Shared code owns physical observation/cleanup only. |
++| E03 physical lifetime | New `shared/owned_process_lifetime.ts`; adopt in `abg/worker_transport.ts::runProcess`, `implementation/worksite_command_helper.ts::{runCommand,runHttpProbe}`; update `product/worksite_command_execution.ts` budget rule/calculation. One internal shared timing mechanic in the same selected module serves lifetime waits and the affected owner timers in §4. Owners retain timing policy; shared code owns physical observation/cleanup and host-compatible waits only. |
+ | E03 exact source correspondence | `gtl/worksite_command_execution.ts`: synchronize the emitted Product member digest, byte count and renderer source-span coordinates after the isolated build. Preserve renderer meaning and owner policy; verify the actual emitted bytes. Never patch generated output to force correspondence. |
+ | U1 existing admitted-task relation | New internal `abg/native_work_effect.ts`; update `abg/event_calculus.ts`, `abg/runtime_history.ts`, `abg/native_worksite_execution.ts`. Reuse one authenticated task join for transport exception and unconfirmed termination; propagate scoped currentness withdrawal through indexed/lazy/full/cold paths. No new event, resource, Result, runtime owner or public carrier. |
+ 
+@@ -69,6 +71,24 @@
+ - Finite late-output and inherited-pipe cases must distinguish all three owner boundaries.
+ 
+ For **each command and each HTTP probe**, the declared upper-bound calculation includes two `terminationGraceMs` phases and an additional bounded drain `min(terminationGraceMs,250)`. HTTP also retains its request timeout; all operations retain their declared launch/command timeout. The 5,000 ms owner allowance remains separate and does not hide per-operation cleanup. Preserve `required < inactivity`, `required < absolute`, and `absolute > inactivity`. Test exact-fit rejection, one-below/above, multiple operations and large grace against the displayed rule and calculation.
++
++### R-L2-001: preserve the admitted timer domain
++
++Executive classifies the [review finding](review-L2/review-01.md#r-l2-001--preserve-admitted-long-timer-bounds) as an E03 HOW correction under the existing HANDLERS-008 effect envelope. The supported Node host clamps a raw timer delay above `2,147,483,647` ms to 1 ms. The selected worker grace and HTTP launch/grace admit values above that host maximum; worker inactivity/absolute limits and native-supervision wakeup values also reach direct timers. Copying those raw calls would permit an early timeout, KILL or confirmation over admitted input. Do not narrow Product admission, public schema or duration values to avoid this obligation.
++
++Use **one internal cancellable monotonic remaining-time scheduling mechanic** within `shared/owned_process_lifetime.ts`, shared by its cleanup waits and the selected owner modules. It arms only positive host-bounded chunks no greater than `2,147,483,647` ms, recomputes remaining duration from monotonic elapsed time after each wakeup, and invokes the consequential callback only when the owner-selected wait is due. Recheck rather than treating a chunk callback as deadline proof. Preserve admitted positive safe-integer bounds and the native wakeup's positive finite-number domain; arithmetic, chunk rounding and deadline representation must not overflow into infinity, truncate a large wait, or make a positive remaining wait eligible early.
++
++Apply that mechanic to:
++
++- Common TERM grace, KILL confirmation and bounded completion/drain scheduling for all three E03 consumers.
++- Worker inactivity lease renewal, absolute timeout and native-supervision wakeup scheduling in `abg/worker_transport.ts`. The owner still decides when progress renews a lease, which timeout class applies, and whether a native wakeup is consequential; the timing mechanic does not apply that policy.
++- Command timeout scheduling in `implementation/worksite_command_helper.ts`, preserving its existing admitted `timeoutMs ≤ 2,147,483,647` and grace guards. A host-safe command may require only one chunk; no wider command domain is introduced.
++
++HTTP request socket timeouts already use `min(request.timeoutMs,500)`; HTTP/command heartbeat and polling waits are already bounded. Preserve those owner policies and their distinct roles. They neither justify leaving an affected large grace/wakeup as a raw timer nor require a new polling controller. No new scheduler, runtime owner or timing registry is selected.
++
++Cancellation clears the active host chunk and invalidates pending callbacks; rescheduling replaces the prior generation so a stale callback cannot fire the owner action. Lease renewal retains its owner-defined deadline relation and cannot reset the separately owned absolute limit. Each still-active due schedule invokes its consequential callback exactly once; a cancelled schedule invokes it zero times. Every acquired lifetime still settles exactly once, with the first owner/observer failure conserved. Strengthening cleanup may shorten the remaining wait or escalate immediately under the existing policy, but cannot restart a full grace/confirmation period or extend the already selected final cleanup bound. Preserve actual elapsed/late/unknown observations rather than claiming timely completion from the requested delay.
++
++The finite local falsifier uses a controlled monotonic clock and controlled host timer callbacks: host maximum minus one, maximum, maximum plus one, large admitted finite duration, positive fractional native wakeup, premature chunk callback, cancellation before/between chunks, renewal/reschedule with stale callback, absolute-limit independence, and strengthened cleanup before/during confirmation. Assert no host arm exceeds its bound, no consequential early firing, exact cancellation/reschedule behavior, first-failure preservation, exactly-once active action/lifetime completion and no final-bound extension. The existing `t287-owned-process-lifetime.test.mjs` allocation and selected worker/command test territory carry these cases; no days-long wait or new test framework is required. Controlled timing-law results do not substitute for P5 real process/installed-owner evidence or P4 actual native execution.
+ 
+ Every post-launch path finalizes through the shared lifetime, including invalid/missing port, request failure, observer error and unexpected owner exception. The first owner/observer error survives cleanup. Unresolved physical completion stops dependent work; no retry, success, rollback or terminal ABG closure is inferred. Retire duplicated signal/probe/escalation/confirmation/drain loops and the obsolete HTTP `waitForExit` once unreachable; retain the distinct emergency parent-exit best-effort path.
+ 

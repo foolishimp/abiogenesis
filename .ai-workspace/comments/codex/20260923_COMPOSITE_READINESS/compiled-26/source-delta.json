@@ -1,0 +1,14 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "bytes": 70401,
+      "sha256": "44a17142cc66db21a0c992ff8565e1bfc17479f6604aa81304a21fd273aa0d44"
+    },
+    "after": {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "bytes": 78884,
+      "sha256": "f38fe67524000ed82e26735d5c764817d95702ebf919ce654518892e280b9121"
+    }
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "path": "fixture-proof/accounting.json",
+    "bytes": 409,
+    "sha256": "e23efd21c52c8c66c04db80d45163b9fb9668c0d6ecb8715eb6337eaad1b7a93"
+  },
+  {
+    "path": "fixture-proof/compact-f11-input.json",
+    "bytes": 302501,
+    "sha256": "b9bcd79165678492ea69533e0fe78b3f6c4c807521506b6cd5320899333c79a8"
+  },
+  {
+    "path": "fixture-proof/compact-f11-result.json",
+    "bytes": 1312355,
+    "sha256": "0fa2142fc6c54ea31a570bd24100522bcfca6363ad9bf8458ce7efd9c80fb6fc"
+  },
+  {
+    "path": "fixture-proof/compact-input.json",
+    "bytes": 42780,
+    "sha256": "80ad066ea79c0780efc039ebf144c2ae73a9c4bc7d391a7f3e3c5227e24878ba"
+  },
+  {
+    "path": "fixture-proof/compact-judgment.json",
+    "bytes": 45280,
+    "sha256": "5efbbba6f1db5bbf657513704d6de3fc5a3c8ca485b2dfc050b54b58686208d6"
+  },
+  {
+    "path": "fixture-proof/fresh-process.json",
+    "bytes": 98,
+    "sha256": "b8e460edf069c5479001c66893837c2c9b858880922e464b974e957dd6b498a7"
+  },
+  {
+    "path": "fixture-proof/resource-assertion.json",
+    "bytes": 27312607,
+    "sha256": "6ea13fd6d182fa63877fa08516323d1ba716c7b6c8546263b9b9d9c0aa96e67e"
+  }
+]

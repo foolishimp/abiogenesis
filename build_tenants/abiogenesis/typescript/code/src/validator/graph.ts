@@ -2,6 +2,7 @@ import type { GraphFunction, GtlGraph } from "../gtl/contracts.js";
 import {
   deriveMaterializedGraphShape,
   isMaterializedGtlGraph,
+  retainedMaterializedGraphShape,
 } from "../gtl/materialize.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -39,6 +40,10 @@ export interface GraphValidation {
 export type GraphValidationResult = GraphValidation | StaticValidationRefusal;
 
 const graphValidations = new WeakSet<object>();
+const materializationValidations = new WeakMap<object, Readonly<{
+  programValidation: ProgramValidation;
+  validation: GraphValidation;
+}>>();
 
 export function isGraphValidation(value: object): boolean {
   return graphValidations.has(value);
@@ -65,8 +70,10 @@ export function validateGraph(
     return invalid(graph.materializationDigest, "Graph or ProgramValidation lacks package construction identity");
   }
   let expectedShape;
+  let ownedShape;
   try {
-    expectedShape = deriveMaterializedGraphShape(graphFunction, basis);
+    ownedShape = retainedMaterializedGraphShape(graph, graphFunction, basis);
+    expectedShape = ownedShape ?? deriveMaterializedGraphShape(graphFunction, basis);
   } catch (error) {
     return invalid(
       graph.materializationDigest,
@@ -84,22 +91,27 @@ export function validateGraph(
     fanOutMaterializations: graph.fanOutMaterializations,
     template: graph.template,
   };
-  const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
+  const graphFunctionDigest = ownedShape !== null
+    ? graph.graphFunctionDigest : sha256Canonical(graphFunction as unknown as JsonValue);
   if (
-    graph.materializationDigest !== sha256Canonical(graphBody as unknown as JsonValue) ||
+    (ownedShape === null && graph.materializationDigest !== sha256Canonical(graphBody as unknown as JsonValue)) ||
     graph.graphFunctionRef !== graphFunction.name ||
     graph.graphFunctionDigest !== graphFunctionDigest ||
     !programValidation.graphFunctionDigests.includes(graphFunctionDigest) ||
     graph.invocationAdmissionRef !== basis.invocationAdmissionRef ||
     graph.admittedInputRef !== basis.admittedInputRef ||
     graph.admittedInputDigest !== basis.admittedInputDigest ||
-    canonicalJson(graph.fanOutMaterializations as unknown as JsonValue) !==
-      canonicalJson(expectedShape.fanOutMaterializations as unknown as JsonValue) ||
-    canonicalJson(graph.template as unknown as JsonValue) !==
-      canonicalJson(expectedShape.template as unknown as JsonValue)
+    (graph.fanOutMaterializations !== expectedShape.fanOutMaterializations &&
+      canonicalJson(graph.fanOutMaterializations as unknown as JsonValue) !==
+        canonicalJson(expectedShape.fanOutMaterializations as unknown as JsonValue)) ||
+    (graph.template !== expectedShape.template &&
+      canonicalJson(graph.template as unknown as JsonValue) !==
+        canonicalJson(expectedShape.template as unknown as JsonValue))
   ) {
     return invalid(graph.materializationDigest, "materialized Graph does not preserve exact function, topology, input, and invocation basis");
   }
+  const retained = ownedShape !== null ? materializationValidations.get(graph) : undefined;
+  if (retained?.programValidation === programValidation) return retained.validation;
   const body = {
     graphRef: graph.materializationRef,
     graphDigest: graph.materializationDigest,
@@ -121,5 +133,6 @@ export function validateGraph(
     diagnostics: [] as const,
   }) as GraphValidation;
   graphValidations.add(validation);
+  if (ownedShape !== null) materializationValidations.set(graph, { programValidation, validation });
   return validation;
 }

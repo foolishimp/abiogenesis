@@ -10,6 +10,8 @@ import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction_iden
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import * as Effect from "effect/Effect";
 import * as Abg from "../abg/index.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
+import { deriveRuntimeHeldFluentProjection } from "../abg/event_calculus.js";
 import { hasNoCompletedRetryExit } from "../abg/retry.js";
 import { WORKSITE_C0_IDS, WORKSITE_FILE_PARENTS_IDS } from "../gtl/worksite_c0.js";
 import { constructLeafExecutionAuthority } from "../implementation/leaf_invocation_port.js";
@@ -20,10 +22,13 @@ import { sha256Canonical } from "../shared/digests.js";
 import { proposeJudgmentCandidate } from "./judgment.js";
 import { admissionBasis, } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
+import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import { applyAdmittedRoute, deriveCompletedTraversalCursor, } from "./traversal.js";
 import { failTraversal } from "./traversal_failure.js";
-import { projectExecutableTraversalCompletion, } from "./traversal_completion.js";
+import { projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion, } from "./traversal_completion.js";
+import { completePublicOutcome } from "../abg/c_call_outcome.js";
+import * as OwnedOutcome from "../abg/c_call_outcome.js";
+import * as OwnedReplay from "../abg/replay.js";
 function worksiteLeafAuthority(input, resolution, cCall, openedPrefix) {
     const parents = isWorksiteFileParentsRequest(input.input);
     const native = isNativeWorkspaceWorkTask(input.input);
@@ -53,8 +58,8 @@ function worksiteLeafAuthority(input, resolution, cCall, openedPrefix) {
         input.input.capabilityGrant.scopeDigest !== input.executionBasis.workspaceBindingDigest)
         return null;
     Abg.assertHeldEventStoreAtDurablePrefix(input.store, openedPrefix);
-    const current = Abg.projectRuntimePrefixesAtDurablePrefix(openedPrefix, cCall.runId);
-    const calculus = Abg.deriveRuntimeEventCalculusProjection(current.runtimePrefix);
+    const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(openedPrefix);
+    const calculus = deriveRuntimeHeldFluentProjection(selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: cCall.runId }));
     if (!parents && isWorksiteFileReplaceRequest(input.input) &&
         !Abg.holdsAt(calculus, Abg.constructWorksiteObservationCurrentFluent(input.input.predecessorObservation.observationRef)))
         return null;
@@ -116,7 +121,8 @@ function projectBlockedCCallCompletion(replayState, successorPrefix, cCall, resu
         diagnosticRef: reasonRef,
     });
 }
-export function projectCCallCompletion(source, admitted, target) {
+/** @internal Same owner computation with a selected guard receipt. */
+export function projectOwnedCCallCompletion(source, admitted, target) {
     if (admitted.disposition === "blocked") {
         const outcome = admitted.outcome;
         const cCall = outcome.disposition === "blocked"
@@ -163,7 +169,8 @@ export function projectCCallCompletion(source, admitted, target) {
                 diagnosticRef: "diagnostic://abiogenesis/hog/advanced-target-absent@5",
             });
         }
-        const { runtimePrefix, authorityPrefix } = Abg.projectRuntimePrefixesAtDurablePrefix(admitted.transition.successorPrefix, source.runId);
+        const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.transition.successorPrefix);
+        const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: source.runId });
         const route = admitted.transition.route;
         const continuationKind = route.routeKind === "re_enter" ? "re_enter" : "advance";
         const nextCursor = applyAdmittedRoute(runtimePrefix, source, target, continuationKind, route, authorityPrefix);
@@ -198,7 +205,8 @@ export function projectCCallCompletion(source, admitted, target) {
         resultValue: result.value,
     });
 }
-export function evaluateExecutableCCall(input) {
+/** @internal Same owner computation with a selected guard receipt. */
+export function evaluateOwnedExecutableCCall(input) {
     return Effect.gen(function* () {
         const resolution = Abg.selectAdmittedImplementationResolution(input.implementationSet, {
             graphFunctionRef: input.graph.graphFunctionRef,
@@ -351,18 +359,18 @@ export function evaluateExecutableCCall(input) {
         let resultOutcome;
         try {
             resultOutcome = input.stop.computeRegime === "F_P"
-                ? Abg.admitCCallResult({
+                ? OwnedOutcome.admitOwnedCCallResult({
                     ...outcomeInput,
                     regime: "F_P",
                     actorRuntimeBinding: input.actorRuntimeBinding,
                 })
-                : Abg.admitCCallResult({ ...outcomeInput, regime: "F_D" });
+                : OwnedOutcome.admitOwnedCCallResult({ ...outcomeInput, regime: "F_D" });
         }
         catch (error) {
             const residue = unadmittedPhysicalCommit(opened.cCall.cCallRef, completedOwner.candidate.resultCandidate, outcomePredecessor);
             if (residue === null)
                 throw error;
-            const replayState = Abg.projectRuntimeTruthAtDurablePrefix(outcomePredecessor, opened.cCall.runId).replayState;
+            const replayState = OwnedReplay.projectOwnedRuntimeTruthAtDurablePrefix(outcomePredecessor, opened.cCall.runId).replayState;
             return {
                 kind: "c_call_evaluation",
                 outputValueKind,
@@ -395,7 +403,7 @@ export function evaluateExecutableCCall(input) {
                             reasonRef: completedOwner.candidate.diagnosticRef,
                         },
                 });
-                return Abg.admitCCallJudgment({
+                return OwnedOutcome.admitOwnedCCallJudgment({
                     store: input.store,
                     graph: input.graph,
                     graphFunction: input.graphFunction,
@@ -418,8 +426,8 @@ export function evaluateExecutableCCall(input) {
         if (admitted.disposition === "judged" && admitted.admitted.result.resultClass === "success" &&
             admitted.admitted.judgment.judgment === "advance" && input.deferToApplication !== true) {
             try {
-                const truth = Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId);
-                retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, input.executionBasis, input.graph, input.stop.cursor, admitted.admitted.cCall, admitted.admitted.result, admitted.admitted.judgment);
+                const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.successorPrefix);
+                retained = Abg.deriveRetainedCCallInputAtPrefix(authorityPrefix, input.executionBasis, input.graph, input.stop.cursor, admitted.admitted.cCall, admitted.admitted.result, admitted.admitted.judgment);
             }
             catch (error) {
                 return failCCall(input, admitted.successorPrefix, `leaf-retention-${input.ordinal}`, "diagnostic://abiogenesis/hog/retention-binding-invalid@5", {
@@ -440,7 +448,7 @@ export function evaluateExecutableCCall(input) {
             const derived = deriveCompletedTraversalCursor(input.graph, input.stop.cursor, {
                 inputRef: retained?.input.admissionRef ?? admitted.admitted.result.resultRef,
                 inputDigest: retained?.input.subjectDigest ?? admitted.admitted.result.valueDigest,
-            }, Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId).authorityPrefix);
+            }, projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.successorPrefix));
             if (derived?.kind === "traversal_refusal") {
                 return failCCall(input, admitted.successorPrefix, `leaf-continuation-${input.ordinal}`, `diagnostic://abiogenesis/hog/${derived.code}@5`, derived);
             }
@@ -498,7 +506,7 @@ export function evaluateExecutableCCall(input) {
             proposedTransition.kind !== "traversal_transition_candidate") {
             return failCCall(input, admitted.successorPrefix, `leaf-route-${input.ordinal}`, `diagnostic://abiogenesis/hog/${proposedTransition.code}@5`, proposedTransition);
         }
-        const completionAdmission = Abg.admitCCallCompletion({
+        const completionAdmission = OwnedOutcome.admitOwnedCCallCompletion({
             store: input.store,
             predecessorPrefix: admitted.successorPrefix,
             executionBasis: input.executionBasis,
@@ -523,9 +531,15 @@ export function evaluateExecutableCCall(input) {
         }
         return {
             kind: "c_call_evaluation",
-            completion: projectCCallCompletion(input.stop.cursor, completionAdmission, target),
+            completion: projectOwnedCCallCompletion(input.stop.cursor, completionAdmission, target),
             outputValueKind,
             outputContractRef: input.stop.outputContractRef,
         };
     });
+}
+export function projectCCallCompletion(source, admitted, target) {
+    return completePublicOutcome(projectOwnedCCallCompletion(source, admitted, target));
+}
+export function evaluateExecutableCCall(input) {
+    return Effect.map(evaluateOwnedExecutableCCall(input), value => completePublicOutcome(value));
 }

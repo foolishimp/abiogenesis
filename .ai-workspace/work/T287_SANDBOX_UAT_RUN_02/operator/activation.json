@@ -1,0 +1,36 @@
+{
+  "activation": "T287_SANDBOX_UAT_RUN_02",
+  "role": "Runtime Operator Worker",
+  "createdAt": "2026-10-06T02:53:00.981798+00:00",
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "worksiteFrame": "F-WORKSITE-CAUSALITY",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "basisManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "selectedPackage": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_HELLO_EXPUNCTION_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52"
+  },
+  "productContentDigest": "sha256:1c6e4baf3b2d67ebdef6041d851c10fb5dc2d9c405d89fca0e21cdb595b909ec",
+  "config": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config.json",
+  "configSha256": "e311e7a66567041a8396c86204f1682015c36b28c10584a7ddc148046c431e78",
+  "configExampleSha256": "8d9420bf16d6178f5a72b7397140abfdf2b1727a6d459898763efdfb8a6a5e88",
+  "modelBasis": {
+    "transport": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/companion-01/actor-1-transport-fp-4ac8f868b81eb1c7-transport.json",
+    "sha256": "2e04d014d4fef56a540a240b7c64f6a3aa8c3897f61fabf1718cb0466c7456ba",
+    "exitStatus": 0,
+    "actualResponseModel": "claude-opus-5-5"
+  },
+  "effects": [
+    "operator config and concise process observations in this directory",
+    "new unique native archives and clean installations under test_env/test_runs/sandbox-uat"
+  ],
+  "stops": [
+    "No lifecycle dispatch before Root candidate confirmation",
+    "First failure freezes/reaps and returns to Executive; no repair or automatic retry"
+  ],
+  "order": [
+    "preflight all seven and one authorized bounded no-tools provider probe",
+    "after candidate acceptance run basic-cli; request continuation after pass"
+  ]
+}

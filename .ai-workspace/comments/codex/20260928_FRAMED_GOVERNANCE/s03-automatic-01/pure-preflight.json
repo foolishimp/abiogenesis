@@ -1,0 +1,3664 @@
+{
+  "status": "passed",
+  "scope": "Pure declared/candidate correspondence only; no runtime admission, package, install or resource acquisition",
+  "program": {
+    "actionCatalog": {
+      "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+      "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+      "kind": "action_catalog",
+      "rows": [
+        {
+          "actionKind": "invoke_graph_function",
+          "actionRef": "action://s03-automatic/correct@5",
+          "expectedDeltaRef": "delta://s03-automatic/correct@5",
+          "graphFunctionRef": "graph-function://s03-automatic/child@5",
+          "inputAssetRefs": [
+            "asset://s03-automatic/domain@5"
+          ],
+          "kind": "action_catalog_row",
+          "outputAssetRefs": [
+            "asset://s03-automatic/corrected-domain@5"
+          ],
+          "programRef": "program://s03-automatic/root@5",
+          "progressConditionRef": "condition://s03-automatic/correct@5",
+          "stopConditionRef": "condition://s03-automatic/bounded@5",
+          "targetObligationRefs": [
+            "obligation://s03-automatic/target-value@5"
+          ],
+          "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+        },
+        {
+          "actionKind": "invoke_graph_function",
+          "actionRef": "action://s03-automatic/observe@5",
+          "expectedDeltaRef": "delta://s03-automatic/observe@5",
+          "graphFunctionRef": "graph-function://s03-automatic/child@5",
+          "inputAssetRefs": [
+            "asset://s03-automatic/domain@5"
+          ],
+          "kind": "action_catalog_row",
+          "outputAssetRefs": [
+            "asset://s03-automatic/observation@5"
+          ],
+          "programRef": "program://s03-automatic/root@5",
+          "progressConditionRef": "condition://s03-automatic/observe@5",
+          "stopConditionRef": "condition://s03-automatic/bounded@5",
+          "targetObligationRefs": [
+            "obligation://s03-automatic/observe-gap@5"
+          ],
+          "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+        }
+      ],
+      "schemaVersion": "5.0.0"
+    },
+    "callableMembership": [
+      "graph-function://s03-automatic/child@5",
+      "graph-function://s03-automatic/root@5"
+    ],
+    "closureContractRef": "contract://s03-automatic/closure-run@5",
+    "constructionComposition": {
+      "authorities": [
+        {
+          "authorityRef": "authority://s03-automatic/synthesizeModel@5",
+          "initialProgramLocusRef": "locus://s03-automatic/model@5",
+          "kind": "construction_authority_binding",
+          "refreshProgramLocusRef": "locus://s03-automatic/refreshModel@5",
+          "semanticAuthority": "synthesizeModel"
+        },
+        {
+          "authorityRef": "authority://s03-automatic/evalGap@5",
+          "initialProgramLocusRef": "locus://s03-automatic/gap@5",
+          "kind": "construction_authority_binding",
+          "refreshProgramLocusRef": "locus://s03-automatic/refreshGap@5",
+          "semanticAuthority": "evalGap"
+        },
+        {
+          "authorityRef": "authority://s03-automatic/evaluateNext@5",
+          "initialProgramLocusRef": "locus://s03-automatic/next@5",
+          "kind": "construction_authority_binding",
+          "refreshProgramLocusRef": "locus://s03-automatic/finish@5",
+          "semanticAuthority": "evaluateNext"
+        },
+        {
+          "authorityRef": "authority://s03-automatic/evaluateAction@5",
+          "initialProgramLocusRef": "locus://s03-automatic/evaluate@5",
+          "kind": "construction_authority_binding",
+          "refreshProgramLocusRef": null,
+          "semanticAuthority": "evaluateAction"
+        }
+      ],
+      "closurePolicy": {
+        "kind": "construction_policy",
+        "policyRef": "policy://s03-automatic/closure@5",
+        "requireCompleteEvidence": true,
+        "requirePostEvidenceRefresh": true
+      },
+      "compositionDigest": "sha256:df3e2f24be6d81ea4398e5fd781c844dccbfafadadba790e22f4b2f362f2bf32",
+      "compositionRef": "composition://s03-automatic/root@5",
+      "graphFunctionRef": "graph-function://s03-automatic/root@5",
+      "interactionProgramLocusRef": "graph-function://s03-automatic/child@5",
+      "kind": "construction_composition",
+      "schemaVersion": "5.0.0"
+    },
+    "kind": "gtl_program",
+    "moduleRef": "module://s03-automatic/product@5",
+    "policies": {
+      "abg.default_start_ref": "start://s03-automatic/root@5",
+      "abg.root_mode": "supervised"
+    },
+    "programRef": "program://s03-automatic/root@5",
+    "starts": [
+      {
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "startRef": "start://s03-automatic/root@5"
+      }
+    ],
+    "version": "5.0.0"
+  },
+  "programValidation": {
+    "kind": "program_validation",
+    "schemaVersion": "5.0.0",
+    "disposition": "valid",
+    "validationRef": "program-validation://abiogenesis/1e48098005053dd1af19832139db8d8fee76d2e2081acc79190d0f592915168e",
+    "sourceDigest": "sha256:1e48098005053dd1af19832139db8d8fee76d2e2081acc79190d0f592915168e",
+    "publicationDigest": "sha256:9da8369d6b4662d1d6ccd4b4cf948030bc3908323bdd296b1cda39af2b7d1256",
+    "programRef": "program://s03-automatic/root@5",
+    "programDigest": "sha256:8c84c435f17a554ae52b4ebb714a90871acc4baa7a454bcee7d9c6a866dff190",
+    "graphFunctionDigests": [
+      "sha256:44be046c78780ce74bd087cbaba8663b7ecaffb73539858e945a2c22519c473f",
+      "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755"
+    ],
+    "contractDigests": [
+      "sha256:bd8c891266d6148bd7f728c3e7a32de3d5d1ae46be64e52529dbb0b72abb117c",
+      "sha256:b0efd00670ae67011bf379b3472260c6d02fb0172b0ae20ecc5266c6cd805290",
+      "sha256:1f3fcd6d7732530add00f3ed7e8a7266f9dacebb2a66e107cccddda2a1759daf",
+      "sha256:cdf45483a76cb881ae8ca7d9f18fbc61f862acf5b93c1b47d58d66a9f1ea522a",
+      "sha256:dae27495f594399261518cd0f2404cb4d7ef168937f52fe13c0d80a322612a81",
+      "sha256:240b9eb3b3c0dcb276bb35b4a88a427e15c25cd7cea7f5c0f12670f87799423c",
+      "sha256:285e746bb183d65fa96fc5596265f49f58f5f04270385785f9b0a861a1d42e51",
+      "sha256:a90852cc544306de7a04ada7300b983a9034d55485e500290a3d2e493188b0f9",
+      "sha256:dd5abfbaa5dc8b134336689c7463658f12c119362975f87e2bdf18bad1d064d2",
+      "sha256:5a84483c2cfa0a521260a04e0b3e20b6244112c7c6b9e7ef67e643d1b03bfd40",
+      "sha256:0a575617fc7f689842979cfccd969260e8416ce5a297aa9eeaabb148dd93782f",
+      "sha256:c3fdb270be0932532453deda5be060f55f8166e1fb742ab4cad9b1cf4875ac32",
+      "sha256:b90aa1964b102710095567ca4709380a50884c4360c3bd0e85bcf3fd786105cc",
+      "sha256:b8577f2f91436b48738dbe017b36a7ff5097d653ecd863b16d528853be9ead71",
+      "sha256:48259711a2c924e502aaa40daeb5b28663ec7d446b14bccef6b2cfc5e0df1bc5",
+      "sha256:e2285e07fc459dab754b45b605e81bd6fd8af5eb49ebe43081a2950f86dc7308",
+      "sha256:5b0431a11a23f75bbe571385020b1684b8df9bf09115887540cbdfa342152b32",
+      "sha256:e5b25a52278f4ce3e6d1b18f04cd9ffb9598ecd5289dc48ee8af2f91abbd43a0",
+      "sha256:eda6bf20e23c469c264933af86f4cbd1fc0943238cf26fd8e8b08860828d367f"
+    ],
+    "implementationBindingDigests": [
+      "sha256:9a89bced02b3b1731b085d4e5cb54a664d1baf749d74c212e33fcedb882aa176",
+      "sha256:cec93ad20c6eaf451e330a7969f768879a35202c84230b3d9b03a8c42e05e49e",
+      "sha256:714057dc01cba2122c259df8f76a0d38313f24d8005b1c40e16212b5e0825047",
+      "sha256:b000682b89a9c1111a534469f029b86171044cb5e8996e591541bed7530562a5",
+      "sha256:bd6b499343681a511c789663982c008a79ace128054d0b5939870a8a16c30ce3",
+      "sha256:805f296b67f69a4a2671f7b7b15a58e07a5613262fa32fd97130a489206ed79c",
+      "sha256:b149f3e4b88ec6803a2cdb95f6d71a7ff1266010c316a276cbd4ad660178c624",
+      "sha256:8aab6ed6aff14fdca71521baeac9da8fd6de8cffaf92ad950fd547a83bff1c50",
+      "sha256:81f5fc26b1cfa333d1017215d3759be08f514f53404920fe2ea93a2b005d9df8"
+    ],
+    "closureContractDigests": [
+      "sha256:be318133e3065e6d383889bc162199f4ede186d6ba1f97812f23a8452072cd75",
+      "sha256:77e455316e023e6d8f3d5959314b1544e3ddf6f03c84f13334ee8856ec149939"
+    ],
+    "executableLeafRows": [
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/1d3bd2392ce6f4fe1269d8167d8c0e71d7092e7d3190e81956cdde4912ce96ca",
+        "requirementKeyDigest": "sha256:1d3bd2392ce6f4fe1269d8167d8c0e71d7092e7d3190e81956cdde4912ce96ca",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "graphFunctionDigest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+        "nodeRef": "node://s03-automatic/root@5",
+        "programLocusRef": "locus://s03-automatic/model@5",
+        "stageRole": "evaluate",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/model@5",
+        "compositionRef": "composition://s03-automatic/root@5",
+        "vectorIndex": 0,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/request@5",
+        "outputCarrierRef": "contract://s03-automatic/model@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/model@5",
+          "inputContractRef": "contract://s03-automatic/request@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/model@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      },
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/233029e3ca904c806da450f07dfad65b69dd7c074b9fa884377c5cd22b6a2109",
+        "requirementKeyDigest": "sha256:233029e3ca904c806da450f07dfad65b69dd7c074b9fa884377c5cd22b6a2109",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "graphFunctionDigest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+        "nodeRef": "node://s03-automatic/root@5",
+        "programLocusRef": "locus://s03-automatic/next@5",
+        "stageRole": "evaluate",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/next@5",
+        "compositionRef": "composition://s03-automatic/root@5",
+        "vectorIndex": 2,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/basis@5",
+        "outputCarrierRef": "contract://s03-automatic/next@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/next@5",
+          "inputContractRef": "contract://s03-automatic/basis@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/next@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      },
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/439802b3aac9c73cdb27a0b8f66bf409f49f33c7f9675c78afd6a1d33983b5da",
+        "requirementKeyDigest": "sha256:439802b3aac9c73cdb27a0b8f66bf409f49f33c7f9675c78afd6a1d33983b5da",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "graphFunctionDigest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+        "nodeRef": "node://s03-automatic/root@5",
+        "programLocusRef": "locus://s03-automatic/finish@5",
+        "stageRole": "result",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/finish@5",
+        "compositionRef": "composition://s03-automatic/root@5",
+        "vectorIndex": 7,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/refresh-basis@5",
+        "outputCarrierRef": "contract://s03-automatic/final@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/finish@5",
+          "inputContractRef": "contract://s03-automatic/refresh-basis@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/final@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      },
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/616102fb299088edbcad9c31454a023d727b8dc4d88cae1460db441b997b690d",
+        "requirementKeyDigest": "sha256:616102fb299088edbcad9c31454a023d727b8dc4d88cae1460db441b997b690d",
+        "graphFunctionRef": "graph-function://s03-automatic/child@5",
+        "graphFunctionDigest": "sha256:44be046c78780ce74bd087cbaba8663b7ecaffb73539858e945a2c22519c473f",
+        "nodeRef": "node://s03-automatic/child@5",
+        "programLocusRef": "locus://s03-automatic/consumer@5",
+        "stageRole": "result",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/consumer@5",
+        "compositionRef": null,
+        "vectorIndex": 1,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/produced@5",
+        "outputCarrierRef": "contract://s03-automatic/consumed@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/consumer@5",
+          "inputContractRef": "contract://s03-automatic/produced@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/consumed@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      },
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/7baf22079be30f1905d7739c0bc18430305eaa8cfafd6fc4be1d349cd842c269",
+        "requirementKeyDigest": "sha256:7baf22079be30f1905d7739c0bc18430305eaa8cfafd6fc4be1d349cd842c269",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "graphFunctionDigest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+        "nodeRef": "node://s03-automatic/root@5",
+        "programLocusRef": "locus://s03-automatic/refreshModel@5",
+        "stageRole": "evaluate",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/refreshModel@5",
+        "compositionRef": "composition://s03-automatic/root@5",
+        "vectorIndex": 5,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/evaluation@5",
+        "outputCarrierRef": "contract://s03-automatic/refresh-model@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/refreshModel@5",
+          "inputContractRef": "contract://s03-automatic/evaluation@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/refresh-model@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      },
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/7c9f4180a1c493ff5fb1b4d436a9ca5b444c619357d3e66cd2d3b6aabc3593d9",
+        "requirementKeyDigest": "sha256:7c9f4180a1c493ff5fb1b4d436a9ca5b444c619357d3e66cd2d3b6aabc3593d9",
+        "graphFunctionRef": "graph-function://s03-automatic/child@5",
+        "graphFunctionDigest": "sha256:44be046c78780ce74bd087cbaba8663b7ecaffb73539858e945a2c22519c473f",
+        "nodeRef": "node://s03-automatic/child@5",
+        "programLocusRef": "locus://s03-automatic/producer@5",
+        "stageRole": "evaluate",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/producer@5",
+        "compositionRef": null,
+        "vectorIndex": 0,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/task@5",
+        "outputCarrierRef": "contract://s03-automatic/produced@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/producer@5",
+          "inputContractRef": "contract://s03-automatic/task@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/produced@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      },
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/8b4816e64bc266483bc3affd87120ac6762c8116cd98f2c1d053eb12c86e94ed",
+        "requirementKeyDigest": "sha256:8b4816e64bc266483bc3affd87120ac6762c8116cd98f2c1d053eb12c86e94ed",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "graphFunctionDigest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+        "nodeRef": "node://s03-automatic/root@5",
+        "programLocusRef": "locus://s03-automatic/refreshGap@5",
+        "stageRole": "evaluate",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/refreshGap@5",
+        "compositionRef": "composition://s03-automatic/root@5",
+        "vectorIndex": 6,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/refresh-model@5",
+        "outputCarrierRef": "contract://s03-automatic/refresh-basis@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/refreshGap@5",
+          "inputContractRef": "contract://s03-automatic/refresh-model@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/refresh-basis@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      },
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/8d0a94caa46ea68106ca9a09a3ea2978b5be237cf6bad23a8dcd329f965f0d44",
+        "requirementKeyDigest": "sha256:8d0a94caa46ea68106ca9a09a3ea2978b5be237cf6bad23a8dcd329f965f0d44",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "graphFunctionDigest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+        "nodeRef": "node://s03-automatic/root@5",
+        "programLocusRef": "locus://s03-automatic/gap@5",
+        "stageRole": "evaluate",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/gap@5",
+        "compositionRef": "composition://s03-automatic/root@5",
+        "vectorIndex": 1,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/model@5",
+        "outputCarrierRef": "contract://s03-automatic/basis@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/gap@5",
+          "inputContractRef": "contract://s03-automatic/model@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/basis@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      },
+      {
+        "kind": "validated_executable_leaf",
+        "requirementKey": "executable-leaf://abiogenesis/b2be5bb908063bbd02590ea3b376f8d953d0ef3950bf387873347fd3066c9619",
+        "requirementKeyDigest": "sha256:b2be5bb908063bbd02590ea3b376f8d953d0ef3950bf387873347fd3066c9619",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "graphFunctionDigest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+        "nodeRef": "node://s03-automatic/root@5",
+        "programLocusRef": "locus://s03-automatic/evaluate@5",
+        "stageRole": "evaluate",
+        "fibre": "F_D",
+        "armId": "arm://s03-automatic/evaluate@5",
+        "compositionRef": "composition://s03-automatic/root@5",
+        "vectorIndex": 4,
+        "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+        "inputCarrierRef": "contract://s03-automatic/evaluation-basis@5",
+        "outputCarrierRef": "contract://s03-automatic/evaluation@5",
+        "requirement": {
+          "evidenceContractRef": "contract://s03-automatic/evidence@5",
+          "failureContractRef": "contract://s03-automatic/failure@5",
+          "implementationBindingRef": "binding://s03-automatic/evaluate@5",
+          "inputContractRef": "contract://s03-automatic/evaluation-basis@5",
+          "judgmentContractRef": "contract://s03-automatic/judgment@5",
+          "kind": "executable_leaf_requirement",
+          "outputContractRef": "contract://s03-automatic/evaluation@5",
+          "refusalContractRef": "contract://s03-automatic/refusal@5"
+        }
+      }
+    ],
+    "interactionLeafRows": [],
+    "transitiveReachableExecutableLeafKeys": [
+      "executable-leaf://abiogenesis/1d3bd2392ce6f4fe1269d8167d8c0e71d7092e7d3190e81956cdde4912ce96ca",
+      "executable-leaf://abiogenesis/233029e3ca904c806da450f07dfad65b69dd7c074b9fa884377c5cd22b6a2109",
+      "executable-leaf://abiogenesis/439802b3aac9c73cdb27a0b8f66bf409f49f33c7f9675c78afd6a1d33983b5da",
+      "executable-leaf://abiogenesis/616102fb299088edbcad9c31454a023d727b8dc4d88cae1460db441b997b690d",
+      "executable-leaf://abiogenesis/7baf22079be30f1905d7739c0bc18430305eaa8cfafd6fc4be1d349cd842c269",
+      "executable-leaf://abiogenesis/7c9f4180a1c493ff5fb1b4d436a9ca5b444c619357d3e66cd2d3b6aabc3593d9",
+      "executable-leaf://abiogenesis/8b4816e64bc266483bc3affd87120ac6762c8116cd98f2c1d053eb12c86e94ed",
+      "executable-leaf://abiogenesis/8d0a94caa46ea68106ca9a09a3ea2978b5be237cf6bad23a8dcd329f965f0d44",
+      "executable-leaf://abiogenesis/b2be5bb908063bbd02590ea3b376f8d953d0ef3950bf387873347fd3066c9619"
+    ],
+    "transitiveReachableInteractionLeafKeys": [],
+    "diagnostics": []
+  },
+  "graphValidation": {
+    "kind": "graph_validation",
+    "schemaVersion": "5.0.0",
+    "disposition": "valid",
+    "validationRef": "graph-validation://abiogenesis/9de149db451e96af476cd139ace571f2fde926f0c816e0dbb408cefc4ed2621e",
+    "validationDigest": "sha256:9de149db451e96af476cd139ace571f2fde926f0c816e0dbb408cefc4ed2621e",
+    "graphRef": "graph-materialization://abiogenesis/00c9e1d5c0e2487d31dd1fab6ab56cc0f5a0ccf188c059e18defaee5947715f0",
+    "graphDigest": "sha256:00c9e1d5c0e2487d31dd1fab6ab56cc0f5a0ccf188c059e18defaee5947715f0",
+    "graphFunctionRef": "graph-function://s03-automatic/root@5",
+    "graphFunctionDigest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+    "programValidationRef": "program-validation://abiogenesis/1e48098005053dd1af19832139db8d8fee76d2e2081acc79190d0f592915168e",
+    "invocationAdmissionRef": "invocation-admission://s03-pure/structural",
+    "admittedInputRef": "input://s03-pure/structural",
+    "admittedInputDigest": "sha256:9808dec371d0e3a4f10da46e03f11ed343a822bae55863ddc0c4b262050d8302",
+    "diagnostics": []
+  },
+  "graphFunction": {
+    "declarations": {
+      "abg.closure_contract": "contract://s03-automatic/closure-run@5",
+      "abg.compute_regime": "F_D",
+      "abg.evidence_contract": "contract://s03-automatic/evidence@5",
+      "abg.judgment_contract": "contract://s03-automatic/judgment@5",
+      "abg.judgment_predicate": "predicate://s03-automatic/valid@5",
+      "abg.transition_contract": "contract://s03-automatic/transition@5"
+    },
+    "effects": [],
+    "environment": {
+      "carries": [
+        "contract://s03-automatic/final@5",
+        "contract://s03-automatic/request@5"
+      ],
+      "provides": [
+        "contract://s03-automatic/final@5"
+      ],
+      "requires": [
+        "contract://s03-automatic/request@5"
+      ]
+    },
+    "inputs": [
+      "contract://s03-automatic/request@5"
+    ],
+    "kind": "graph_function",
+    "name": "graph-function://s03-automatic/root@5",
+    "outputs": [
+      "contract://s03-automatic/final@5"
+    ],
+    "tags": [],
+    "template": {
+      "applications": [
+        {
+          "applicationRef": "graph-function-application://abiogenesis/873d1d29d83a9b68c023b6fe220a3016034be61c933020e1fc0effb862bee8e3",
+          "graphFunctionRef": "graph-function://s03-automatic/root@5",
+          "inputContractRef": "contract://s03-automatic/refresh-model@5",
+          "kind": "graph_function_application",
+          "maxApplications": 1,
+          "outputContractRef": "contract://s03-automatic/request@5",
+          "relationKind": "re_enter",
+          "sourceProgramLocusRef": "locus://s03-automatic/refreshModel@5",
+          "targetProgramLocusRef": "locus://s03-automatic/model@5"
+        }
+      ],
+      "edges": [],
+      "graphRef": "graph://s03-automatic/root@5",
+      "kind": "inline_graph",
+      "nodes": [
+        {
+          "nodeKind": "c_locus",
+          "nodeRef": "node://s03-automatic/root@5",
+          "term": {
+            "inputCarrierRef": "contract://s03-automatic/request@5",
+            "kind": "c_compose",
+            "outputCarrierRef": "contract://s03-automatic/final@5",
+            "terms": [
+              {
+                "armId": "arm://s03-automatic/model@5",
+                "compositionRef": "composition://s03-automatic/root@5",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://s03-automatic/request@5",
+                "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://s03-automatic/model@5",
+                "programLocusRef": "locus://s03-automatic/model@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://s03-automatic/evidence@5",
+                  "failureContractRef": "contract://s03-automatic/failure@5",
+                  "implementationBindingRef": "binding://s03-automatic/model@5",
+                  "inputContractRef": "contract://s03-automatic/request@5",
+                  "judgmentContractRef": "contract://s03-automatic/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://s03-automatic/model@5",
+                  "refusalContractRef": "contract://s03-automatic/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "evaluate",
+                "vectorIndex": 0
+              },
+              {
+                "armId": "arm://s03-automatic/gap@5",
+                "compositionRef": "composition://s03-automatic/root@5",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://s03-automatic/model@5",
+                "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://s03-automatic/basis@5",
+                "programLocusRef": "locus://s03-automatic/gap@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://s03-automatic/evidence@5",
+                  "failureContractRef": "contract://s03-automatic/failure@5",
+                  "implementationBindingRef": "binding://s03-automatic/gap@5",
+                  "inputContractRef": "contract://s03-automatic/model@5",
+                  "judgmentContractRef": "contract://s03-automatic/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://s03-automatic/basis@5",
+                  "refusalContractRef": "contract://s03-automatic/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "evaluate",
+                "vectorIndex": 1
+              },
+              {
+                "armId": "arm://s03-automatic/next@5",
+                "compositionRef": "composition://s03-automatic/root@5",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://s03-automatic/basis@5",
+                "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://s03-automatic/next@5",
+                "programLocusRef": "locus://s03-automatic/next@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://s03-automatic/evidence@5",
+                  "failureContractRef": "contract://s03-automatic/failure@5",
+                  "implementationBindingRef": "binding://s03-automatic/next@5",
+                  "inputContractRef": "contract://s03-automatic/basis@5",
+                  "judgmentContractRef": "contract://s03-automatic/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://s03-automatic/next@5",
+                  "refusalContractRef": "contract://s03-automatic/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "evaluate",
+                "vectorIndex": 2
+              },
+              {
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputCarrierRef": "contract://s03-automatic/next@5",
+                "kind": "c_workflow",
+                "outputCarrierRef": "contract://s03-automatic/evaluation-basis@5"
+              },
+              {
+                "armId": "arm://s03-automatic/evaluate@5",
+                "compositionRef": "composition://s03-automatic/root@5",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://s03-automatic/evaluation-basis@5",
+                "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://s03-automatic/evaluation@5",
+                "programLocusRef": "locus://s03-automatic/evaluate@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://s03-automatic/evidence@5",
+                  "failureContractRef": "contract://s03-automatic/failure@5",
+                  "implementationBindingRef": "binding://s03-automatic/evaluate@5",
+                  "inputContractRef": "contract://s03-automatic/evaluation-basis@5",
+                  "judgmentContractRef": "contract://s03-automatic/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://s03-automatic/evaluation@5",
+                  "refusalContractRef": "contract://s03-automatic/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "evaluate",
+                "vectorIndex": 4
+              },
+              {
+                "armId": "arm://s03-automatic/refreshModel@5",
+                "compositionRef": "composition://s03-automatic/root@5",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://s03-automatic/evaluation@5",
+                "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://s03-automatic/refresh-model@5",
+                "programLocusRef": "locus://s03-automatic/refreshModel@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://s03-automatic/evidence@5",
+                  "failureContractRef": "contract://s03-automatic/failure@5",
+                  "implementationBindingRef": "binding://s03-automatic/refreshModel@5",
+                  "inputContractRef": "contract://s03-automatic/evaluation@5",
+                  "judgmentContractRef": "contract://s03-automatic/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://s03-automatic/refresh-model@5",
+                  "refusalContractRef": "contract://s03-automatic/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "evaluate",
+                "vectorIndex": 5
+              },
+              {
+                "armId": "arm://s03-automatic/refreshGap@5",
+                "compositionRef": "composition://s03-automatic/root@5",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://s03-automatic/refresh-model@5",
+                "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://s03-automatic/refresh-basis@5",
+                "programLocusRef": "locus://s03-automatic/refreshGap@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://s03-automatic/evidence@5",
+                  "failureContractRef": "contract://s03-automatic/failure@5",
+                  "implementationBindingRef": "binding://s03-automatic/refreshGap@5",
+                  "inputContractRef": "contract://s03-automatic/refresh-model@5",
+                  "judgmentContractRef": "contract://s03-automatic/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://s03-automatic/refresh-basis@5",
+                  "refusalContractRef": "contract://s03-automatic/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "evaluate",
+                "vectorIndex": 6
+              },
+              {
+                "armId": "arm://s03-automatic/finish@5",
+                "compositionRef": "composition://s03-automatic/root@5",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://s03-automatic/refresh-basis@5",
+                "judgmentPredicateRef": "predicate://s03-automatic/valid@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://s03-automatic/final@5",
+                "programLocusRef": "locus://s03-automatic/finish@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://s03-automatic/evidence@5",
+                  "failureContractRef": "contract://s03-automatic/failure@5",
+                  "implementationBindingRef": "binding://s03-automatic/finish@5",
+                  "inputContractRef": "contract://s03-automatic/refresh-basis@5",
+                  "judgmentContractRef": "contract://s03-automatic/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://s03-automatic/final@5",
+                  "refusalContractRef": "contract://s03-automatic/refusal@5"
+                },
+                "resultBearing": false,
+                "stageRole": "result",
+                "vectorIndex": 7
+              }
+            ]
+          }
+        }
+      ],
+      "startNodeRef": "node://s03-automatic/root@5",
+      "terminalNodeRefs": [
+        "node://s03-automatic/root@5"
+      ]
+    },
+    "version": "5.0.0"
+  },
+  "application": {
+    "applicationRef": "graph-function-application://abiogenesis/873d1d29d83a9b68c023b6fe220a3016034be61c933020e1fc0effb862bee8e3",
+    "graphFunctionRef": "graph-function://s03-automatic/root@5",
+    "inputContractRef": "contract://s03-automatic/refresh-model@5",
+    "kind": "graph_function_application",
+    "maxApplications": 1,
+    "outputContractRef": "contract://s03-automatic/request@5",
+    "relationKind": "re_enter",
+    "sourceProgramLocusRef": "locus://s03-automatic/refreshModel@5",
+    "targetProgramLocusRef": "locus://s03-automatic/model@5"
+  },
+  "results": [
+    {
+      "correctionAvailable": true,
+      "observation": {
+        "kind": "fixture_consumed",
+        "schemaVersion": "5.0.0",
+        "domain": {
+          "target": {
+            "itemRef": "item://s03-automatic/target@5",
+            "value": 3,
+            "evidenceRef": "evidence://s03-automatic/target-initial@5"
+          },
+          "unaffected": {
+            "itemRef": "item://s03-automatic/unaffected@5",
+            "value": 7,
+            "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+          }
+        },
+        "observedGap": {
+          "obligationRef": "obligation://s03-automatic/target-value@5",
+          "actual": 3,
+          "desired": 10,
+          "disposition": "unmet"
+        },
+        "correctionDisposition": "repair"
+      },
+      "evaluation": {
+        "kind": "action_evaluation_projection",
+        "schemaVersion": "5.0.0",
+        "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+        "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+        "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+        "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+        "observationSnapshot": {
+          "kind": "fixture_request",
+          "schemaVersion": "5.0.0",
+          "workspaceBinding": {
+            "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+            "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+          },
+          "actionCatalog": {
+            "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "kind": "action_catalog",
+            "rows": [
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/correct@5",
+                "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/corrected-domain@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/correct@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/target-value@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              },
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/observe@5",
+                "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/observe@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/observe-gap@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "constructionPolicy": {
+            "kind": "construction_policy",
+            "policyRef": "policy://s03-automatic/closure@5",
+            "requireCompleteEvidence": true,
+            "requirePostEvidenceRefresh": true
+          },
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 3,
+              "evidenceRef": "evidence://s03-automatic/target-initial@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": true,
+          "observedGap": null,
+          "correctionsApplied": 0,
+          "priorEvaluation": null
+        },
+        "admittedEvidenceRefs": [
+          "result://s03-pure/value"
+        ],
+        "semanticEvidenceAssetRefs": [
+          "asset://s03-automatic/observation@5"
+        ],
+        "runtimeArchiveInspection": {
+          "kind": "runtime_archive_inspection",
+          "schemaVersion": "5.0.0",
+          "disposition": "inspected",
+          "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+          "runtimeEvidenceEventRefs": [
+            "event://s03-pure/intent",
+            "event://s03-pure/result",
+            "event://s03-pure/judgment",
+            "event://s03-pure/terminal",
+            "event://s03-pure/graph-closure"
+          ],
+          "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+          "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+        },
+        "edgeFulfillmentLedger": {
+          "kind": "edge_fulfillment_ledger",
+          "schemaVersion": "5.0.0",
+          "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "rows": [
+            {
+              "disposition": "fulfilled",
+              "obligationRef": "obligation://s03-automatic/observe-gap@5",
+              "evidenceRefs": [
+                "result://s03-pure/value"
+              ],
+              "evidenceAssetRefs": [
+                "asset://s03-automatic/observation@5"
+              ]
+            }
+          ],
+          "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+          "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+        },
+        "edgeClosureDecision": {
+          "kind": "edge_closure_decision",
+          "schemaVersion": "5.0.0",
+          "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+          "disposition": "continue_candidate",
+          "correctionDisposition": "repair",
+          "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+          "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+        },
+        "actionEvaluationRef": "action-evaluation://product/759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2",
+        "actionEvaluationDigest": "sha256:759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2"
+      },
+      "refresh": {
+        "kind": "graph_span_selection",
+        "schemaVersion": "5.0.0",
+        "disposition": "re_enter",
+        "applicationRef": "graph-function-application://abiogenesis/873d1d29d83a9b68c023b6fe220a3016034be61c933020e1fc0effb862bee8e3",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "sourceProgramLocusRef": "locus://s03-automatic/refreshModel@5",
+        "targetProgramLocusRef": "locus://s03-automatic/model@5",
+        "targetInputRef": "graph-span-input://product/19e91b521c7591021105f89a3c246b6b7f52e59c12b55646c38091ffc0536b51",
+        "targetInputDigest": "sha256:19e91b521c7591021105f89a3c246b6b7f52e59c12b55646c38091ffc0536b51",
+        "targetInput": {
+          "kind": "fixture_request",
+          "schemaVersion": "5.0.0",
+          "workspaceBinding": {
+            "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+            "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+          },
+          "actionCatalog": {
+            "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "kind": "action_catalog",
+            "rows": [
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/correct@5",
+                "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/corrected-domain@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/correct@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/target-value@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              },
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/observe@5",
+                "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/observe@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/observe-gap@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "constructionPolicy": {
+            "kind": "construction_policy",
+            "policyRef": "policy://s03-automatic/closure@5",
+            "requireCompleteEvidence": true,
+            "requirePostEvidenceRefresh": true
+          },
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 3,
+              "evidenceRef": "evidence://s03-automatic/target-initial@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": true,
+          "observedGap": {
+            "obligationRef": "obligation://s03-automatic/target-value@5",
+            "actual": 3,
+            "desired": 10,
+            "disposition": "unmet"
+          },
+          "correctionsApplied": 0,
+          "priorEvaluation": {
+            "kind": "action_evaluation_projection",
+            "schemaVersion": "5.0.0",
+            "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+            "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+            "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+            "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+            "observationSnapshot": {
+              "kind": "fixture_request",
+              "schemaVersion": "5.0.0",
+              "workspaceBinding": {
+                "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+              },
+              "actionCatalog": {
+                "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "kind": "action_catalog",
+                "rows": [
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/correct@5",
+                    "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/corrected-domain@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/correct@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/target-value@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  },
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/observe@5",
+                    "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/observation@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/observe@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/observe-gap@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  }
+                ],
+                "schemaVersion": "5.0.0"
+              },
+              "constructionPolicy": {
+                "kind": "construction_policy",
+                "policyRef": "policy://s03-automatic/closure@5",
+                "requireCompleteEvidence": true,
+                "requirePostEvidenceRefresh": true
+              },
+              "domain": {
+                "target": {
+                  "itemRef": "item://s03-automatic/target@5",
+                  "value": 3,
+                  "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                },
+                "unaffected": {
+                  "itemRef": "item://s03-automatic/unaffected@5",
+                  "value": 7,
+                  "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                }
+              },
+              "desiredValues": {
+                "target": 10,
+                "unaffected": 7
+              },
+              "correctionAvailable": true,
+              "observedGap": null,
+              "correctionsApplied": 0,
+              "priorEvaluation": null
+            },
+            "admittedEvidenceRefs": [
+              "result://s03-pure/value"
+            ],
+            "semanticEvidenceAssetRefs": [
+              "asset://s03-automatic/observation@5"
+            ],
+            "runtimeArchiveInspection": {
+              "kind": "runtime_archive_inspection",
+              "schemaVersion": "5.0.0",
+              "disposition": "inspected",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "runtimeEvidenceEventRefs": [
+                "event://s03-pure/intent",
+                "event://s03-pure/result",
+                "event://s03-pure/judgment",
+                "event://s03-pure/terminal",
+                "event://s03-pure/graph-closure"
+              ],
+              "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+              "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+            },
+            "edgeFulfillmentLedger": {
+              "kind": "edge_fulfillment_ledger",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "rows": [
+                {
+                  "disposition": "fulfilled",
+                  "obligationRef": "obligation://s03-automatic/observe-gap@5",
+                  "evidenceRefs": [
+                    "result://s03-pure/value"
+                  ],
+                  "evidenceAssetRefs": [
+                    "asset://s03-automatic/observation@5"
+                  ]
+                }
+              ],
+              "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+              "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+            },
+            "edgeClosureDecision": {
+              "kind": "edge_closure_decision",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+              "disposition": "continue_candidate",
+              "correctionDisposition": "repair",
+              "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+              "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+            },
+            "actionEvaluationRef": "action-evaluation://product/759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2",
+            "actionEvaluationDigest": "sha256:759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2"
+          }
+        },
+        "projectionRef": "graph-span-reentry-projection://product/9706d3c586d533296e92f95a9e3a73738c376c2f52576be4e6eb5657550555ef",
+        "projectionDigest": "sha256:9706d3c586d533296e92f95a9e3a73738c376c2f52576be4e6eb5657550555ef"
+      },
+      "target": {
+        "kind": "fixture_task",
+        "schemaVersion": "5.0.0",
+        "operation": "set_target",
+        "domain": {
+          "target": {
+            "itemRef": "item://s03-automatic/target@5",
+            "value": 3,
+            "evidenceRef": "evidence://s03-automatic/target-initial@5"
+          },
+          "unaffected": {
+            "itemRef": "item://s03-automatic/unaffected@5",
+            "value": 7,
+            "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+          }
+        },
+        "desiredValues": {
+          "target": 10,
+          "unaffected": 7
+        },
+        "correctionAvailable": true,
+        "correctionsApplied": 0
+      },
+      "corrected": {
+        "kind": "fixture_consumed",
+        "schemaVersion": "5.0.0",
+        "domain": {
+          "target": {
+            "itemRef": "item://s03-automatic/target@5",
+            "value": 10,
+            "evidenceRef": "evidence://s03-automatic/corrected-target@5"
+          },
+          "unaffected": {
+            "itemRef": "item://s03-automatic/unaffected@5",
+            "value": 7,
+            "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+          }
+        },
+        "observedGap": {
+          "obligationRef": "obligation://s03-automatic/target-value@5",
+          "actual": 10,
+          "desired": 10,
+          "disposition": "fulfilled"
+        }
+      },
+      "evaluated": {
+        "kind": "action_evaluation_projection",
+        "schemaVersion": "5.0.0",
+        "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+        "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+        "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+        "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+        "observationSnapshot": {
+          "kind": "fixture_request",
+          "schemaVersion": "5.0.0",
+          "workspaceBinding": {
+            "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+            "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+          },
+          "actionCatalog": {
+            "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "kind": "action_catalog",
+            "rows": [
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/correct@5",
+                "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/corrected-domain@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/correct@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/target-value@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              },
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/observe@5",
+                "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/observe@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/observe-gap@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "constructionPolicy": {
+            "kind": "construction_policy",
+            "policyRef": "policy://s03-automatic/closure@5",
+            "requireCompleteEvidence": true,
+            "requirePostEvidenceRefresh": true
+          },
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 3,
+              "evidenceRef": "evidence://s03-automatic/target-initial@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": true,
+          "observedGap": {
+            "obligationRef": "obligation://s03-automatic/target-value@5",
+            "actual": 3,
+            "desired": 10,
+            "disposition": "unmet"
+          },
+          "correctionsApplied": 0,
+          "priorEvaluation": {
+            "kind": "action_evaluation_projection",
+            "schemaVersion": "5.0.0",
+            "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+            "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+            "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+            "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+            "observationSnapshot": {
+              "kind": "fixture_request",
+              "schemaVersion": "5.0.0",
+              "workspaceBinding": {
+                "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+              },
+              "actionCatalog": {
+                "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "kind": "action_catalog",
+                "rows": [
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/correct@5",
+                    "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/corrected-domain@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/correct@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/target-value@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  },
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/observe@5",
+                    "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/observation@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/observe@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/observe-gap@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  }
+                ],
+                "schemaVersion": "5.0.0"
+              },
+              "constructionPolicy": {
+                "kind": "construction_policy",
+                "policyRef": "policy://s03-automatic/closure@5",
+                "requireCompleteEvidence": true,
+                "requirePostEvidenceRefresh": true
+              },
+              "domain": {
+                "target": {
+                  "itemRef": "item://s03-automatic/target@5",
+                  "value": 3,
+                  "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                },
+                "unaffected": {
+                  "itemRef": "item://s03-automatic/unaffected@5",
+                  "value": 7,
+                  "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                }
+              },
+              "desiredValues": {
+                "target": 10,
+                "unaffected": 7
+              },
+              "correctionAvailable": true,
+              "observedGap": null,
+              "correctionsApplied": 0,
+              "priorEvaluation": null
+            },
+            "admittedEvidenceRefs": [
+              "result://s03-pure/value"
+            ],
+            "semanticEvidenceAssetRefs": [
+              "asset://s03-automatic/observation@5"
+            ],
+            "runtimeArchiveInspection": {
+              "kind": "runtime_archive_inspection",
+              "schemaVersion": "5.0.0",
+              "disposition": "inspected",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "runtimeEvidenceEventRefs": [
+                "event://s03-pure/intent",
+                "event://s03-pure/result",
+                "event://s03-pure/judgment",
+                "event://s03-pure/terminal",
+                "event://s03-pure/graph-closure"
+              ],
+              "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+              "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+            },
+            "edgeFulfillmentLedger": {
+              "kind": "edge_fulfillment_ledger",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "rows": [
+                {
+                  "disposition": "fulfilled",
+                  "obligationRef": "obligation://s03-automatic/observe-gap@5",
+                  "evidenceRefs": [
+                    "result://s03-pure/value"
+                  ],
+                  "evidenceAssetRefs": [
+                    "asset://s03-automatic/observation@5"
+                  ]
+                }
+              ],
+              "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+              "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+            },
+            "edgeClosureDecision": {
+              "kind": "edge_closure_decision",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+              "disposition": "continue_candidate",
+              "correctionDisposition": "repair",
+              "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+              "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+            },
+            "actionEvaluationRef": "action-evaluation://product/759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2",
+            "actionEvaluationDigest": "sha256:759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2"
+          }
+        },
+        "admittedEvidenceRefs": [
+          "result://s03-pure/value"
+        ],
+        "semanticEvidenceAssetRefs": [
+          "asset://s03-automatic/corrected-domain@5"
+        ],
+        "runtimeArchiveInspection": null,
+        "edgeFulfillmentLedger": {
+          "kind": "edge_fulfillment_ledger",
+          "schemaVersion": "5.0.0",
+          "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "rows": [
+            {
+              "disposition": "fulfilled",
+              "obligationRef": "obligation://s03-automatic/target-value@5",
+              "evidenceRefs": [
+                "result://s03-pure/value"
+              ],
+              "evidenceAssetRefs": [
+                "asset://s03-automatic/corrected-domain@5"
+              ]
+            }
+          ],
+          "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+          "ledgerDigest": "sha256:6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc"
+        },
+        "edgeClosureDecision": {
+          "kind": "edge_closure_decision",
+          "schemaVersion": "5.0.0",
+          "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+          "disposition": "close_candidate",
+          "correctionDisposition": null,
+          "decisionRef": "edge-closure-decision://product/968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50",
+          "decisionDigest": "sha256:968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50"
+        },
+        "actionEvaluationRef": "action-evaluation://product/c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188",
+        "actionEvaluationDigest": "sha256:c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188"
+      },
+      "refreshed": {
+        "kind": "graph_span_selection",
+        "schemaVersion": "5.0.0",
+        "disposition": "continue",
+        "state": {
+          "kind": "fixture_refreshed_model",
+          "schemaVersion": "5.0.0",
+          "observationSnapshot": {
+            "kind": "fixture_request",
+            "schemaVersion": "5.0.0",
+            "workspaceBinding": {
+              "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+              "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+            },
+            "actionCatalog": {
+              "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+              "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+              "kind": "action_catalog",
+              "rows": [
+                {
+                  "actionKind": "invoke_graph_function",
+                  "actionRef": "action://s03-automatic/correct@5",
+                  "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                  "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                  "inputAssetRefs": [
+                    "asset://s03-automatic/domain@5"
+                  ],
+                  "kind": "action_catalog_row",
+                  "outputAssetRefs": [
+                    "asset://s03-automatic/corrected-domain@5"
+                  ],
+                  "programRef": "program://s03-automatic/root@5",
+                  "progressConditionRef": "condition://s03-automatic/correct@5",
+                  "stopConditionRef": "condition://s03-automatic/bounded@5",
+                  "targetObligationRefs": [
+                    "obligation://s03-automatic/target-value@5"
+                  ],
+                  "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                },
+                {
+                  "actionKind": "invoke_graph_function",
+                  "actionRef": "action://s03-automatic/observe@5",
+                  "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                  "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                  "inputAssetRefs": [
+                    "asset://s03-automatic/domain@5"
+                  ],
+                  "kind": "action_catalog_row",
+                  "outputAssetRefs": [
+                    "asset://s03-automatic/observation@5"
+                  ],
+                  "programRef": "program://s03-automatic/root@5",
+                  "progressConditionRef": "condition://s03-automatic/observe@5",
+                  "stopConditionRef": "condition://s03-automatic/bounded@5",
+                  "targetObligationRefs": [
+                    "obligation://s03-automatic/observe-gap@5"
+                  ],
+                  "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                }
+              ],
+              "schemaVersion": "5.0.0"
+            },
+            "constructionPolicy": {
+              "kind": "construction_policy",
+              "policyRef": "policy://s03-automatic/closure@5",
+              "requireCompleteEvidence": true,
+              "requirePostEvidenceRefresh": true
+            },
+            "domain": {
+              "target": {
+                "itemRef": "item://s03-automatic/target@5",
+                "value": 10,
+                "evidenceRef": "evidence://s03-automatic/corrected-target@5"
+              },
+              "unaffected": {
+                "itemRef": "item://s03-automatic/unaffected@5",
+                "value": 7,
+                "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+              }
+            },
+            "desiredValues": {
+              "target": 10,
+              "unaffected": 7
+            },
+            "correctionAvailable": true,
+            "observedGap": {
+              "obligationRef": "obligation://s03-automatic/target-value@5",
+              "actual": 10,
+              "desired": 10,
+              "disposition": "fulfilled"
+            },
+            "correctionsApplied": 1,
+            "priorEvaluation": {
+              "kind": "action_evaluation_projection",
+              "schemaVersion": "5.0.0",
+              "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+              "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+              "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "observationSnapshot": {
+                "kind": "fixture_request",
+                "schemaVersion": "5.0.0",
+                "workspaceBinding": {
+                  "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                  "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+                },
+                "actionCatalog": {
+                  "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                  "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                  "kind": "action_catalog",
+                  "rows": [
+                    {
+                      "actionKind": "invoke_graph_function",
+                      "actionRef": "action://s03-automatic/correct@5",
+                      "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                      "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                      "inputAssetRefs": [
+                        "asset://s03-automatic/domain@5"
+                      ],
+                      "kind": "action_catalog_row",
+                      "outputAssetRefs": [
+                        "asset://s03-automatic/corrected-domain@5"
+                      ],
+                      "programRef": "program://s03-automatic/root@5",
+                      "progressConditionRef": "condition://s03-automatic/correct@5",
+                      "stopConditionRef": "condition://s03-automatic/bounded@5",
+                      "targetObligationRefs": [
+                        "obligation://s03-automatic/target-value@5"
+                      ],
+                      "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                    },
+                    {
+                      "actionKind": "invoke_graph_function",
+                      "actionRef": "action://s03-automatic/observe@5",
+                      "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                      "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                      "inputAssetRefs": [
+                        "asset://s03-automatic/domain@5"
+                      ],
+                      "kind": "action_catalog_row",
+                      "outputAssetRefs": [
+                        "asset://s03-automatic/observation@5"
+                      ],
+                      "programRef": "program://s03-automatic/root@5",
+                      "progressConditionRef": "condition://s03-automatic/observe@5",
+                      "stopConditionRef": "condition://s03-automatic/bounded@5",
+                      "targetObligationRefs": [
+                        "obligation://s03-automatic/observe-gap@5"
+                      ],
+                      "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                    }
+                  ],
+                  "schemaVersion": "5.0.0"
+                },
+                "constructionPolicy": {
+                  "kind": "construction_policy",
+                  "policyRef": "policy://s03-automatic/closure@5",
+                  "requireCompleteEvidence": true,
+                  "requirePostEvidenceRefresh": true
+                },
+                "domain": {
+                  "target": {
+                    "itemRef": "item://s03-automatic/target@5",
+                    "value": 3,
+                    "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                  },
+                  "unaffected": {
+                    "itemRef": "item://s03-automatic/unaffected@5",
+                    "value": 7,
+                    "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                  }
+                },
+                "desiredValues": {
+                  "target": 10,
+                  "unaffected": 7
+                },
+                "correctionAvailable": true,
+                "observedGap": {
+                  "obligationRef": "obligation://s03-automatic/target-value@5",
+                  "actual": 3,
+                  "desired": 10,
+                  "disposition": "unmet"
+                },
+                "correctionsApplied": 0,
+                "priorEvaluation": {
+                  "kind": "action_evaluation_projection",
+                  "schemaVersion": "5.0.0",
+                  "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+                  "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+                  "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                  "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                  "observationSnapshot": {
+                    "kind": "fixture_request",
+                    "schemaVersion": "5.0.0",
+                    "workspaceBinding": {
+                      "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                      "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+                    },
+                    "actionCatalog": {
+                      "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                      "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                      "kind": "action_catalog",
+                      "rows": [
+                        {
+                          "actionKind": "invoke_graph_function",
+                          "actionRef": "action://s03-automatic/correct@5",
+                          "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                          "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                          "inputAssetRefs": [
+                            "asset://s03-automatic/domain@5"
+                          ],
+                          "kind": "action_catalog_row",
+                          "outputAssetRefs": [
+                            "asset://s03-automatic/corrected-domain@5"
+                          ],
+                          "programRef": "program://s03-automatic/root@5",
+                          "progressConditionRef": "condition://s03-automatic/correct@5",
+                          "stopConditionRef": "condition://s03-automatic/bounded@5",
+                          "targetObligationRefs": [
+                            "obligation://s03-automatic/target-value@5"
+                          ],
+                          "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                        },
+                        {
+                          "actionKind": "invoke_graph_function",
+                          "actionRef": "action://s03-automatic/observe@5",
+                          "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                          "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                          "inputAssetRefs": [
+                            "asset://s03-automatic/domain@5"
+                          ],
+                          "kind": "action_catalog_row",
+                          "outputAssetRefs": [
+                            "asset://s03-automatic/observation@5"
+                          ],
+                          "programRef": "program://s03-automatic/root@5",
+                          "progressConditionRef": "condition://s03-automatic/observe@5",
+                          "stopConditionRef": "condition://s03-automatic/bounded@5",
+                          "targetObligationRefs": [
+                            "obligation://s03-automatic/observe-gap@5"
+                          ],
+                          "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                        }
+                      ],
+                      "schemaVersion": "5.0.0"
+                    },
+                    "constructionPolicy": {
+                      "kind": "construction_policy",
+                      "policyRef": "policy://s03-automatic/closure@5",
+                      "requireCompleteEvidence": true,
+                      "requirePostEvidenceRefresh": true
+                    },
+                    "domain": {
+                      "target": {
+                        "itemRef": "item://s03-automatic/target@5",
+                        "value": 3,
+                        "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                      },
+                      "unaffected": {
+                        "itemRef": "item://s03-automatic/unaffected@5",
+                        "value": 7,
+                        "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                      }
+                    },
+                    "desiredValues": {
+                      "target": 10,
+                      "unaffected": 7
+                    },
+                    "correctionAvailable": true,
+                    "observedGap": null,
+                    "correctionsApplied": 0,
+                    "priorEvaluation": null
+                  },
+                  "admittedEvidenceRefs": [
+                    "result://s03-pure/value"
+                  ],
+                  "semanticEvidenceAssetRefs": [
+                    "asset://s03-automatic/observation@5"
+                  ],
+                  "runtimeArchiveInspection": {
+                    "kind": "runtime_archive_inspection",
+                    "schemaVersion": "5.0.0",
+                    "disposition": "inspected",
+                    "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                    "runtimeEvidenceEventRefs": [
+                      "event://s03-pure/intent",
+                      "event://s03-pure/result",
+                      "event://s03-pure/judgment",
+                      "event://s03-pure/terminal",
+                      "event://s03-pure/graph-closure"
+                    ],
+                    "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+                    "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+                  },
+                  "edgeFulfillmentLedger": {
+                    "kind": "edge_fulfillment_ledger",
+                    "schemaVersion": "5.0.0",
+                    "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                    "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                    "rows": [
+                      {
+                        "disposition": "fulfilled",
+                        "obligationRef": "obligation://s03-automatic/observe-gap@5",
+                        "evidenceRefs": [
+                          "result://s03-pure/value"
+                        ],
+                        "evidenceAssetRefs": [
+                          "asset://s03-automatic/observation@5"
+                        ]
+                      }
+                    ],
+                    "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+                    "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+                  },
+                  "edgeClosureDecision": {
+                    "kind": "edge_closure_decision",
+                    "schemaVersion": "5.0.0",
+                    "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                    "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                    "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+                    "disposition": "continue_candidate",
+                    "correctionDisposition": "repair",
+                    "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+                    "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+                  },
+                  "actionEvaluationRef": "action-evaluation://product/759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2",
+                  "actionEvaluationDigest": "sha256:759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2"
+                }
+              },
+              "admittedEvidenceRefs": [
+                "result://s03-pure/value"
+              ],
+              "semanticEvidenceAssetRefs": [
+                "asset://s03-automatic/corrected-domain@5"
+              ],
+              "runtimeArchiveInspection": null,
+              "edgeFulfillmentLedger": {
+                "kind": "edge_fulfillment_ledger",
+                "schemaVersion": "5.0.0",
+                "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+                "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                "rows": [
+                  {
+                    "disposition": "fulfilled",
+                    "obligationRef": "obligation://s03-automatic/target-value@5",
+                    "evidenceRefs": [
+                      "result://s03-pure/value"
+                    ],
+                    "evidenceAssetRefs": [
+                      "asset://s03-automatic/corrected-domain@5"
+                    ]
+                  }
+                ],
+                "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+                "ledgerDigest": "sha256:6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc"
+              },
+              "edgeClosureDecision": {
+                "kind": "edge_closure_decision",
+                "schemaVersion": "5.0.0",
+                "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+                "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+                "disposition": "close_candidate",
+                "correctionDisposition": null,
+                "decisionRef": "edge-closure-decision://product/968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50",
+                "decisionDigest": "sha256:968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50"
+              },
+              "actionEvaluationRef": "action-evaluation://product/c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188",
+              "actionEvaluationDigest": "sha256:c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188"
+            }
+          },
+          "evaluation": {
+            "kind": "action_evaluation_projection",
+            "schemaVersion": "5.0.0",
+            "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+            "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+            "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+            "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+            "observationSnapshot": {
+              "kind": "fixture_request",
+              "schemaVersion": "5.0.0",
+              "workspaceBinding": {
+                "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+              },
+              "actionCatalog": {
+                "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "kind": "action_catalog",
+                "rows": [
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/correct@5",
+                    "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/corrected-domain@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/correct@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/target-value@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  },
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/observe@5",
+                    "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/observation@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/observe@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/observe-gap@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  }
+                ],
+                "schemaVersion": "5.0.0"
+              },
+              "constructionPolicy": {
+                "kind": "construction_policy",
+                "policyRef": "policy://s03-automatic/closure@5",
+                "requireCompleteEvidence": true,
+                "requirePostEvidenceRefresh": true
+              },
+              "domain": {
+                "target": {
+                  "itemRef": "item://s03-automatic/target@5",
+                  "value": 3,
+                  "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                },
+                "unaffected": {
+                  "itemRef": "item://s03-automatic/unaffected@5",
+                  "value": 7,
+                  "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                }
+              },
+              "desiredValues": {
+                "target": 10,
+                "unaffected": 7
+              },
+              "correctionAvailable": true,
+              "observedGap": {
+                "obligationRef": "obligation://s03-automatic/target-value@5",
+                "actual": 3,
+                "desired": 10,
+                "disposition": "unmet"
+              },
+              "correctionsApplied": 0,
+              "priorEvaluation": {
+                "kind": "action_evaluation_projection",
+                "schemaVersion": "5.0.0",
+                "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+                "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+                "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                "observationSnapshot": {
+                  "kind": "fixture_request",
+                  "schemaVersion": "5.0.0",
+                  "workspaceBinding": {
+                    "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                    "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+                  },
+                  "actionCatalog": {
+                    "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                    "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                    "kind": "action_catalog",
+                    "rows": [
+                      {
+                        "actionKind": "invoke_graph_function",
+                        "actionRef": "action://s03-automatic/correct@5",
+                        "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                        "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                        "inputAssetRefs": [
+                          "asset://s03-automatic/domain@5"
+                        ],
+                        "kind": "action_catalog_row",
+                        "outputAssetRefs": [
+                          "asset://s03-automatic/corrected-domain@5"
+                        ],
+                        "programRef": "program://s03-automatic/root@5",
+                        "progressConditionRef": "condition://s03-automatic/correct@5",
+                        "stopConditionRef": "condition://s03-automatic/bounded@5",
+                        "targetObligationRefs": [
+                          "obligation://s03-automatic/target-value@5"
+                        ],
+                        "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                      },
+                      {
+                        "actionKind": "invoke_graph_function",
+                        "actionRef": "action://s03-automatic/observe@5",
+                        "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                        "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                        "inputAssetRefs": [
+                          "asset://s03-automatic/domain@5"
+                        ],
+                        "kind": "action_catalog_row",
+                        "outputAssetRefs": [
+                          "asset://s03-automatic/observation@5"
+                        ],
+                        "programRef": "program://s03-automatic/root@5",
+                        "progressConditionRef": "condition://s03-automatic/observe@5",
+                        "stopConditionRef": "condition://s03-automatic/bounded@5",
+                        "targetObligationRefs": [
+                          "obligation://s03-automatic/observe-gap@5"
+                        ],
+                        "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                      }
+                    ],
+                    "schemaVersion": "5.0.0"
+                  },
+                  "constructionPolicy": {
+                    "kind": "construction_policy",
+                    "policyRef": "policy://s03-automatic/closure@5",
+                    "requireCompleteEvidence": true,
+                    "requirePostEvidenceRefresh": true
+                  },
+                  "domain": {
+                    "target": {
+                      "itemRef": "item://s03-automatic/target@5",
+                      "value": 3,
+                      "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                    },
+                    "unaffected": {
+                      "itemRef": "item://s03-automatic/unaffected@5",
+                      "value": 7,
+                      "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                    }
+                  },
+                  "desiredValues": {
+                    "target": 10,
+                    "unaffected": 7
+                  },
+                  "correctionAvailable": true,
+                  "observedGap": null,
+                  "correctionsApplied": 0,
+                  "priorEvaluation": null
+                },
+                "admittedEvidenceRefs": [
+                  "result://s03-pure/value"
+                ],
+                "semanticEvidenceAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "runtimeArchiveInspection": {
+                  "kind": "runtime_archive_inspection",
+                  "schemaVersion": "5.0.0",
+                  "disposition": "inspected",
+                  "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                  "runtimeEvidenceEventRefs": [
+                    "event://s03-pure/intent",
+                    "event://s03-pure/result",
+                    "event://s03-pure/judgment",
+                    "event://s03-pure/terminal",
+                    "event://s03-pure/graph-closure"
+                  ],
+                  "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+                  "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+                },
+                "edgeFulfillmentLedger": {
+                  "kind": "edge_fulfillment_ledger",
+                  "schemaVersion": "5.0.0",
+                  "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                  "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                  "rows": [
+                    {
+                      "disposition": "fulfilled",
+                      "obligationRef": "obligation://s03-automatic/observe-gap@5",
+                      "evidenceRefs": [
+                        "result://s03-pure/value"
+                      ],
+                      "evidenceAssetRefs": [
+                        "asset://s03-automatic/observation@5"
+                      ]
+                    }
+                  ],
+                  "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+                  "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+                },
+                "edgeClosureDecision": {
+                  "kind": "edge_closure_decision",
+                  "schemaVersion": "5.0.0",
+                  "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                  "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                  "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+                  "disposition": "continue_candidate",
+                  "correctionDisposition": "repair",
+                  "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+                  "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+                },
+                "actionEvaluationRef": "action-evaluation://product/759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2",
+                "actionEvaluationDigest": "sha256:759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2"
+              }
+            },
+            "admittedEvidenceRefs": [
+              "result://s03-pure/value"
+            ],
+            "semanticEvidenceAssetRefs": [
+              "asset://s03-automatic/corrected-domain@5"
+            ],
+            "runtimeArchiveInspection": null,
+            "edgeFulfillmentLedger": {
+              "kind": "edge_fulfillment_ledger",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "rows": [
+                {
+                  "disposition": "fulfilled",
+                  "obligationRef": "obligation://s03-automatic/target-value@5",
+                  "evidenceRefs": [
+                    "result://s03-pure/value"
+                  ],
+                  "evidenceAssetRefs": [
+                    "asset://s03-automatic/corrected-domain@5"
+                  ]
+                }
+              ],
+              "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+              "ledgerDigest": "sha256:6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc"
+            },
+            "edgeClosureDecision": {
+              "kind": "edge_closure_decision",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+              "disposition": "close_candidate",
+              "correctionDisposition": null,
+              "decisionRef": "edge-closure-decision://product/968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50",
+              "decisionDigest": "sha256:968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50"
+            },
+            "actionEvaluationRef": "action-evaluation://product/c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188",
+            "actionEvaluationDigest": "sha256:c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188"
+          }
+        }
+      },
+      "gap": {
+        "kind": "next_action_basis",
+        "schemaVersion": "5.0.0",
+        "observationSnapshot": {
+          "kind": "fixture_request",
+          "schemaVersion": "5.0.0",
+          "workspaceBinding": {
+            "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+            "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+          },
+          "actionCatalog": {
+            "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "kind": "action_catalog",
+            "rows": [
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/correct@5",
+                "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/corrected-domain@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/correct@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/target-value@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              },
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/observe@5",
+                "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/observe@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/observe-gap@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "constructionPolicy": {
+            "kind": "construction_policy",
+            "policyRef": "policy://s03-automatic/closure@5",
+            "requireCompleteEvidence": true,
+            "requirePostEvidenceRefresh": true
+          },
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 10,
+              "evidenceRef": "evidence://s03-automatic/corrected-target@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": true,
+          "observedGap": {
+            "obligationRef": "obligation://s03-automatic/target-value@5",
+            "actual": 10,
+            "desired": 10,
+            "disposition": "fulfilled"
+          },
+          "correctionsApplied": 1,
+          "priorEvaluation": {
+            "kind": "action_evaluation_projection",
+            "schemaVersion": "5.0.0",
+            "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+            "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+            "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+            "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+            "observationSnapshot": {
+              "kind": "fixture_request",
+              "schemaVersion": "5.0.0",
+              "workspaceBinding": {
+                "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+              },
+              "actionCatalog": {
+                "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "kind": "action_catalog",
+                "rows": [
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/correct@5",
+                    "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/corrected-domain@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/correct@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/target-value@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  },
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/observe@5",
+                    "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/observation@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/observe@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/observe-gap@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  }
+                ],
+                "schemaVersion": "5.0.0"
+              },
+              "constructionPolicy": {
+                "kind": "construction_policy",
+                "policyRef": "policy://s03-automatic/closure@5",
+                "requireCompleteEvidence": true,
+                "requirePostEvidenceRefresh": true
+              },
+              "domain": {
+                "target": {
+                  "itemRef": "item://s03-automatic/target@5",
+                  "value": 3,
+                  "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                },
+                "unaffected": {
+                  "itemRef": "item://s03-automatic/unaffected@5",
+                  "value": 7,
+                  "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                }
+              },
+              "desiredValues": {
+                "target": 10,
+                "unaffected": 7
+              },
+              "correctionAvailable": true,
+              "observedGap": {
+                "obligationRef": "obligation://s03-automatic/target-value@5",
+                "actual": 3,
+                "desired": 10,
+                "disposition": "unmet"
+              },
+              "correctionsApplied": 0,
+              "priorEvaluation": {
+                "kind": "action_evaluation_projection",
+                "schemaVersion": "5.0.0",
+                "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+                "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+                "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                "observationSnapshot": {
+                  "kind": "fixture_request",
+                  "schemaVersion": "5.0.0",
+                  "workspaceBinding": {
+                    "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                    "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+                  },
+                  "actionCatalog": {
+                    "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                    "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                    "kind": "action_catalog",
+                    "rows": [
+                      {
+                        "actionKind": "invoke_graph_function",
+                        "actionRef": "action://s03-automatic/correct@5",
+                        "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                        "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                        "inputAssetRefs": [
+                          "asset://s03-automatic/domain@5"
+                        ],
+                        "kind": "action_catalog_row",
+                        "outputAssetRefs": [
+                          "asset://s03-automatic/corrected-domain@5"
+                        ],
+                        "programRef": "program://s03-automatic/root@5",
+                        "progressConditionRef": "condition://s03-automatic/correct@5",
+                        "stopConditionRef": "condition://s03-automatic/bounded@5",
+                        "targetObligationRefs": [
+                          "obligation://s03-automatic/target-value@5"
+                        ],
+                        "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                      },
+                      {
+                        "actionKind": "invoke_graph_function",
+                        "actionRef": "action://s03-automatic/observe@5",
+                        "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                        "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                        "inputAssetRefs": [
+                          "asset://s03-automatic/domain@5"
+                        ],
+                        "kind": "action_catalog_row",
+                        "outputAssetRefs": [
+                          "asset://s03-automatic/observation@5"
+                        ],
+                        "programRef": "program://s03-automatic/root@5",
+                        "progressConditionRef": "condition://s03-automatic/observe@5",
+                        "stopConditionRef": "condition://s03-automatic/bounded@5",
+                        "targetObligationRefs": [
+                          "obligation://s03-automatic/observe-gap@5"
+                        ],
+                        "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                      }
+                    ],
+                    "schemaVersion": "5.0.0"
+                  },
+                  "constructionPolicy": {
+                    "kind": "construction_policy",
+                    "policyRef": "policy://s03-automatic/closure@5",
+                    "requireCompleteEvidence": true,
+                    "requirePostEvidenceRefresh": true
+                  },
+                  "domain": {
+                    "target": {
+                      "itemRef": "item://s03-automatic/target@5",
+                      "value": 3,
+                      "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                    },
+                    "unaffected": {
+                      "itemRef": "item://s03-automatic/unaffected@5",
+                      "value": 7,
+                      "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                    }
+                  },
+                  "desiredValues": {
+                    "target": 10,
+                    "unaffected": 7
+                  },
+                  "correctionAvailable": true,
+                  "observedGap": null,
+                  "correctionsApplied": 0,
+                  "priorEvaluation": null
+                },
+                "admittedEvidenceRefs": [
+                  "result://s03-pure/value"
+                ],
+                "semanticEvidenceAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "runtimeArchiveInspection": {
+                  "kind": "runtime_archive_inspection",
+                  "schemaVersion": "5.0.0",
+                  "disposition": "inspected",
+                  "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                  "runtimeEvidenceEventRefs": [
+                    "event://s03-pure/intent",
+                    "event://s03-pure/result",
+                    "event://s03-pure/judgment",
+                    "event://s03-pure/terminal",
+                    "event://s03-pure/graph-closure"
+                  ],
+                  "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+                  "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+                },
+                "edgeFulfillmentLedger": {
+                  "kind": "edge_fulfillment_ledger",
+                  "schemaVersion": "5.0.0",
+                  "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                  "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                  "rows": [
+                    {
+                      "disposition": "fulfilled",
+                      "obligationRef": "obligation://s03-automatic/observe-gap@5",
+                      "evidenceRefs": [
+                        "result://s03-pure/value"
+                      ],
+                      "evidenceAssetRefs": [
+                        "asset://s03-automatic/observation@5"
+                      ]
+                    }
+                  ],
+                  "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+                  "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+                },
+                "edgeClosureDecision": {
+                  "kind": "edge_closure_decision",
+                  "schemaVersion": "5.0.0",
+                  "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                  "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                  "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+                  "disposition": "continue_candidate",
+                  "correctionDisposition": "repair",
+                  "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+                  "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+                },
+                "actionEvaluationRef": "action-evaluation://product/759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2",
+                "actionEvaluationDigest": "sha256:759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2"
+              }
+            },
+            "admittedEvidenceRefs": [
+              "result://s03-pure/value"
+            ],
+            "semanticEvidenceAssetRefs": [
+              "asset://s03-automatic/corrected-domain@5"
+            ],
+            "runtimeArchiveInspection": null,
+            "edgeFulfillmentLedger": {
+              "kind": "edge_fulfillment_ledger",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "rows": [
+                {
+                  "disposition": "fulfilled",
+                  "obligationRef": "obligation://s03-automatic/target-value@5",
+                  "evidenceRefs": [
+                    "result://s03-pure/value"
+                  ],
+                  "evidenceAssetRefs": [
+                    "asset://s03-automatic/corrected-domain@5"
+                  ]
+                }
+              ],
+              "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+              "ledgerDigest": "sha256:6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc"
+            },
+            "edgeClosureDecision": {
+              "kind": "edge_closure_decision",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+              "disposition": "close_candidate",
+              "correctionDisposition": null,
+              "decisionRef": "edge-closure-decision://product/968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50",
+              "decisionDigest": "sha256:968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50"
+            },
+            "actionEvaluationRef": "action-evaluation://product/c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188",
+            "actionEvaluationDigest": "sha256:c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188"
+          }
+        },
+        "admittedActionCatalog": {
+          "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+          "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+          "kind": "action_catalog",
+          "rows": [
+            {
+              "actionKind": "invoke_graph_function",
+              "actionRef": "action://s03-automatic/correct@5",
+              "expectedDeltaRef": "delta://s03-automatic/correct@5",
+              "graphFunctionRef": "graph-function://s03-automatic/child@5",
+              "inputAssetRefs": [
+                "asset://s03-automatic/domain@5"
+              ],
+              "kind": "action_catalog_row",
+              "outputAssetRefs": [
+                "asset://s03-automatic/corrected-domain@5"
+              ],
+              "programRef": "program://s03-automatic/root@5",
+              "progressConditionRef": "condition://s03-automatic/correct@5",
+              "stopConditionRef": "condition://s03-automatic/bounded@5",
+              "targetObligationRefs": [
+                "obligation://s03-automatic/target-value@5"
+              ],
+              "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+            },
+            {
+              "actionKind": "invoke_graph_function",
+              "actionRef": "action://s03-automatic/observe@5",
+              "expectedDeltaRef": "delta://s03-automatic/observe@5",
+              "graphFunctionRef": "graph-function://s03-automatic/child@5",
+              "inputAssetRefs": [
+                "asset://s03-automatic/domain@5"
+              ],
+              "kind": "action_catalog_row",
+              "outputAssetRefs": [
+                "asset://s03-automatic/observation@5"
+              ],
+              "programRef": "program://s03-automatic/root@5",
+              "progressConditionRef": "condition://s03-automatic/observe@5",
+              "stopConditionRef": "condition://s03-automatic/bounded@5",
+              "targetObligationRefs": [
+                "obligation://s03-automatic/observe-gap@5"
+              ],
+              "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+            }
+          ],
+          "schemaVersion": "5.0.0"
+        },
+        "declaredPolicy": {
+          "kind": "construction_policy",
+          "policyRef": "policy://s03-automatic/closure@5",
+          "requireCompleteEvidence": true,
+          "requirePostEvidenceRefresh": true
+        },
+        "targetObligationRefs": [
+          "obligation://s03-automatic/target-value@5"
+        ],
+        "priorityScheme": {
+          "kind": "construction_priority_scheme",
+          "schemeRef": "priority://s03-automatic/fixed@5"
+        },
+        "runtimeFrontier": {
+          "phase": "post_evidence"
+        },
+        "gapProjection": {
+          "gapRef": "gap://s03-automatic/fulfilled@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "missingAssetRefs": [],
+          "actual": 10,
+          "desired": 10
+        },
+        "targetInput": {
+          "kind": "fixture_task",
+          "schemaVersion": "5.0.0",
+          "operation": "set_target",
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 10,
+              "evidenceRef": "evidence://s03-automatic/corrected-target@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": true,
+          "correctionsApplied": 1
+        },
+        "targetInputRef": "input://s03-automatic/a12fa469f309126f8c296a4db4b4c9027727b83f99fc0afdb9dc26110ede77bc",
+        "targetInputDigest": "sha256:a12fa469f309126f8c296a4db4b4c9027727b83f99fc0afdb9dc26110ede77bc",
+        "evaluation": {
+          "kind": "action_evaluation_projection",
+          "schemaVersion": "5.0.0",
+          "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+          "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+          "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "observationSnapshot": {
+            "kind": "fixture_request",
+            "schemaVersion": "5.0.0",
+            "workspaceBinding": {
+              "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+              "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+            },
+            "actionCatalog": {
+              "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+              "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+              "kind": "action_catalog",
+              "rows": [
+                {
+                  "actionKind": "invoke_graph_function",
+                  "actionRef": "action://s03-automatic/correct@5",
+                  "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                  "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                  "inputAssetRefs": [
+                    "asset://s03-automatic/domain@5"
+                  ],
+                  "kind": "action_catalog_row",
+                  "outputAssetRefs": [
+                    "asset://s03-automatic/corrected-domain@5"
+                  ],
+                  "programRef": "program://s03-automatic/root@5",
+                  "progressConditionRef": "condition://s03-automatic/correct@5",
+                  "stopConditionRef": "condition://s03-automatic/bounded@5",
+                  "targetObligationRefs": [
+                    "obligation://s03-automatic/target-value@5"
+                  ],
+                  "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                },
+                {
+                  "actionKind": "invoke_graph_function",
+                  "actionRef": "action://s03-automatic/observe@5",
+                  "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                  "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                  "inputAssetRefs": [
+                    "asset://s03-automatic/domain@5"
+                  ],
+                  "kind": "action_catalog_row",
+                  "outputAssetRefs": [
+                    "asset://s03-automatic/observation@5"
+                  ],
+                  "programRef": "program://s03-automatic/root@5",
+                  "progressConditionRef": "condition://s03-automatic/observe@5",
+                  "stopConditionRef": "condition://s03-automatic/bounded@5",
+                  "targetObligationRefs": [
+                    "obligation://s03-automatic/observe-gap@5"
+                  ],
+                  "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                }
+              ],
+              "schemaVersion": "5.0.0"
+            },
+            "constructionPolicy": {
+              "kind": "construction_policy",
+              "policyRef": "policy://s03-automatic/closure@5",
+              "requireCompleteEvidence": true,
+              "requirePostEvidenceRefresh": true
+            },
+            "domain": {
+              "target": {
+                "itemRef": "item://s03-automatic/target@5",
+                "value": 3,
+                "evidenceRef": "evidence://s03-automatic/target-initial@5"
+              },
+              "unaffected": {
+                "itemRef": "item://s03-automatic/unaffected@5",
+                "value": 7,
+                "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+              }
+            },
+            "desiredValues": {
+              "target": 10,
+              "unaffected": 7
+            },
+            "correctionAvailable": true,
+            "observedGap": {
+              "obligationRef": "obligation://s03-automatic/target-value@5",
+              "actual": 3,
+              "desired": 10,
+              "disposition": "unmet"
+            },
+            "correctionsApplied": 0,
+            "priorEvaluation": {
+              "kind": "action_evaluation_projection",
+              "schemaVersion": "5.0.0",
+              "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+              "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "observationSnapshot": {
+                "kind": "fixture_request",
+                "schemaVersion": "5.0.0",
+                "workspaceBinding": {
+                  "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                  "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+                },
+                "actionCatalog": {
+                  "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                  "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                  "kind": "action_catalog",
+                  "rows": [
+                    {
+                      "actionKind": "invoke_graph_function",
+                      "actionRef": "action://s03-automatic/correct@5",
+                      "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                      "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                      "inputAssetRefs": [
+                        "asset://s03-automatic/domain@5"
+                      ],
+                      "kind": "action_catalog_row",
+                      "outputAssetRefs": [
+                        "asset://s03-automatic/corrected-domain@5"
+                      ],
+                      "programRef": "program://s03-automatic/root@5",
+                      "progressConditionRef": "condition://s03-automatic/correct@5",
+                      "stopConditionRef": "condition://s03-automatic/bounded@5",
+                      "targetObligationRefs": [
+                        "obligation://s03-automatic/target-value@5"
+                      ],
+                      "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                    },
+                    {
+                      "actionKind": "invoke_graph_function",
+                      "actionRef": "action://s03-automatic/observe@5",
+                      "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                      "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                      "inputAssetRefs": [
+                        "asset://s03-automatic/domain@5"
+                      ],
+                      "kind": "action_catalog_row",
+                      "outputAssetRefs": [
+                        "asset://s03-automatic/observation@5"
+                      ],
+                      "programRef": "program://s03-automatic/root@5",
+                      "progressConditionRef": "condition://s03-automatic/observe@5",
+                      "stopConditionRef": "condition://s03-automatic/bounded@5",
+                      "targetObligationRefs": [
+                        "obligation://s03-automatic/observe-gap@5"
+                      ],
+                      "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                    }
+                  ],
+                  "schemaVersion": "5.0.0"
+                },
+                "constructionPolicy": {
+                  "kind": "construction_policy",
+                  "policyRef": "policy://s03-automatic/closure@5",
+                  "requireCompleteEvidence": true,
+                  "requirePostEvidenceRefresh": true
+                },
+                "domain": {
+                  "target": {
+                    "itemRef": "item://s03-automatic/target@5",
+                    "value": 3,
+                    "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                  },
+                  "unaffected": {
+                    "itemRef": "item://s03-automatic/unaffected@5",
+                    "value": 7,
+                    "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                  }
+                },
+                "desiredValues": {
+                  "target": 10,
+                  "unaffected": 7
+                },
+                "correctionAvailable": true,
+                "observedGap": null,
+                "correctionsApplied": 0,
+                "priorEvaluation": null
+              },
+              "admittedEvidenceRefs": [
+                "result://s03-pure/value"
+              ],
+              "semanticEvidenceAssetRefs": [
+                "asset://s03-automatic/observation@5"
+              ],
+              "runtimeArchiveInspection": {
+                "kind": "runtime_archive_inspection",
+                "schemaVersion": "5.0.0",
+                "disposition": "inspected",
+                "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                "runtimeEvidenceEventRefs": [
+                  "event://s03-pure/intent",
+                  "event://s03-pure/result",
+                  "event://s03-pure/judgment",
+                  "event://s03-pure/terminal",
+                  "event://s03-pure/graph-closure"
+                ],
+                "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+                "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+              },
+              "edgeFulfillmentLedger": {
+                "kind": "edge_fulfillment_ledger",
+                "schemaVersion": "5.0.0",
+                "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                "rows": [
+                  {
+                    "disposition": "fulfilled",
+                    "obligationRef": "obligation://s03-automatic/observe-gap@5",
+                    "evidenceRefs": [
+                      "result://s03-pure/value"
+                    ],
+                    "evidenceAssetRefs": [
+                      "asset://s03-automatic/observation@5"
+                    ]
+                  }
+                ],
+                "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+                "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+              },
+              "edgeClosureDecision": {
+                "kind": "edge_closure_decision",
+                "schemaVersion": "5.0.0",
+                "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+                "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+                "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+                "disposition": "continue_candidate",
+                "correctionDisposition": "repair",
+                "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+                "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+              },
+              "actionEvaluationRef": "action-evaluation://product/759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2",
+              "actionEvaluationDigest": "sha256:759980a98802e740b6b7b6e0c7d5b4b149d5e841a45c3f28678aca22d90a73b2"
+            }
+          },
+          "admittedEvidenceRefs": [
+            "result://s03-pure/value"
+          ],
+          "semanticEvidenceAssetRefs": [
+            "asset://s03-automatic/corrected-domain@5"
+          ],
+          "runtimeArchiveInspection": null,
+          "edgeFulfillmentLedger": {
+            "kind": "edge_fulfillment_ledger",
+            "schemaVersion": "5.0.0",
+            "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+            "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+            "rows": [
+              {
+                "disposition": "fulfilled",
+                "obligationRef": "obligation://s03-automatic/target-value@5",
+                "evidenceRefs": [
+                  "result://s03-pure/value"
+                ],
+                "evidenceAssetRefs": [
+                  "asset://s03-automatic/corrected-domain@5"
+                ]
+              }
+            ],
+            "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+            "ledgerDigest": "sha256:6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc"
+          },
+          "edgeClosureDecision": {
+            "kind": "edge_closure_decision",
+            "schemaVersion": "5.0.0",
+            "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+            "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+            "ledgerRef": "edge-fulfillment-ledger://product/6a081dba97fe5f6db331b24f20582dc3f71ef4c5326b71d48776dd5615ce7ecc",
+            "disposition": "close_candidate",
+            "correctionDisposition": null,
+            "decisionRef": "edge-closure-decision://product/968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50",
+            "decisionDigest": "sha256:968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50"
+          },
+          "actionEvaluationRef": "action-evaluation://product/c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188",
+          "actionEvaluationDigest": "sha256:c8972591524ab5cf43eccbbe775bd489341a0cbcec3d86918cead929b22a8188"
+        },
+        "basisRef": "next-action-basis://product/684675c8211452cc3e9df7f4804c4a29b0a9ab1e00b5b886cb1a4816532497a6",
+        "basisDigest": "sha256:684675c8211452cc3e9df7f4804c4a29b0a9ab1e00b5b886cb1a4816532497a6"
+      },
+      "terminal": {
+        "kind": "next_action_projection",
+        "schemaVersion": "5.0.0",
+        "disposition": "converged",
+        "constructionIntentRef": "construction-intent://s03-pure/correct@5",
+        "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+        "gapRef": "gap://s03-automatic/fulfilled@5",
+        "edgeClosureDecisionRef": "edge-closure-decision://product/968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50",
+        "nextActionBasisRef": "next-action-basis://product/684675c8211452cc3e9df7f4804c4a29b0a9ab1e00b5b886cb1a4816532497a6",
+        "nextActionBasisDigest": "sha256:684675c8211452cc3e9df7f4804c4a29b0a9ab1e00b5b886cb1a4816532497a6",
+        "targetObligationBindings": [
+          {
+            "kind": "target_obligation_binding",
+            "disposition": "fulfilled",
+            "obligationRef": "obligation://s03-automatic/target-value@5",
+            "eligibleActionRefs": []
+          }
+        ],
+        "priorityProjection": {
+          "kind": "deterministic_priority_projection",
+          "schemeRef": "priority://s03-automatic/fixed@5",
+          "orderedActionRefs": []
+        },
+        "lawfulBasisRefs": [
+          "construction-intent://s03-pure/correct@5",
+          "edge-closure-decision://product/968c04c02054b49085784164ab5ad90b01481c3bec80324d9b3ab8147e502c50",
+          "gap://s03-automatic/fulfilled@5"
+        ],
+        "projectionRef": "next-action-projection://product/98c02858c3296d6c0bea1b33459d9a52bbb10f599d2cddb9bdef8bed800ca03f",
+        "projectionDigest": "sha256:98c02858c3296d6c0bea1b33459d9a52bbb10f599d2cddb9bdef8bed800ca03f"
+      }
+    },
+    {
+      "correctionAvailable": false,
+      "observation": {
+        "kind": "fixture_consumed",
+        "schemaVersion": "5.0.0",
+        "domain": {
+          "target": {
+            "itemRef": "item://s03-automatic/target@5",
+            "value": 3,
+            "evidenceRef": "evidence://s03-automatic/target-initial@5"
+          },
+          "unaffected": {
+            "itemRef": "item://s03-automatic/unaffected@5",
+            "value": 7,
+            "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+          }
+        },
+        "observedGap": {
+          "obligationRef": "obligation://s03-automatic/target-value@5",
+          "actual": 3,
+          "desired": 10,
+          "disposition": "unmet"
+        },
+        "correctionDisposition": "repair"
+      },
+      "evaluation": {
+        "kind": "action_evaluation_projection",
+        "schemaVersion": "5.0.0",
+        "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+        "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+        "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+        "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+        "observationSnapshot": {
+          "kind": "fixture_request",
+          "schemaVersion": "5.0.0",
+          "workspaceBinding": {
+            "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+            "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+          },
+          "actionCatalog": {
+            "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "kind": "action_catalog",
+            "rows": [
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/correct@5",
+                "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/corrected-domain@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/correct@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/target-value@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              },
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/observe@5",
+                "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/observe@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/observe-gap@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "constructionPolicy": {
+            "kind": "construction_policy",
+            "policyRef": "policy://s03-automatic/closure@5",
+            "requireCompleteEvidence": true,
+            "requirePostEvidenceRefresh": true
+          },
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 3,
+              "evidenceRef": "evidence://s03-automatic/target-initial@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": false,
+          "observedGap": null,
+          "correctionsApplied": 0,
+          "priorEvaluation": null
+        },
+        "admittedEvidenceRefs": [
+          "result://s03-pure/value"
+        ],
+        "semanticEvidenceAssetRefs": [
+          "asset://s03-automatic/observation@5"
+        ],
+        "runtimeArchiveInspection": {
+          "kind": "runtime_archive_inspection",
+          "schemaVersion": "5.0.0",
+          "disposition": "inspected",
+          "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+          "runtimeEvidenceEventRefs": [
+            "event://s03-pure/intent",
+            "event://s03-pure/result",
+            "event://s03-pure/judgment",
+            "event://s03-pure/terminal",
+            "event://s03-pure/graph-closure"
+          ],
+          "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+          "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+        },
+        "edgeFulfillmentLedger": {
+          "kind": "edge_fulfillment_ledger",
+          "schemaVersion": "5.0.0",
+          "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "rows": [
+            {
+              "disposition": "fulfilled",
+              "obligationRef": "obligation://s03-automatic/observe-gap@5",
+              "evidenceRefs": [
+                "result://s03-pure/value"
+              ],
+              "evidenceAssetRefs": [
+                "asset://s03-automatic/observation@5"
+              ]
+            }
+          ],
+          "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+          "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+        },
+        "edgeClosureDecision": {
+          "kind": "edge_closure_decision",
+          "schemaVersion": "5.0.0",
+          "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+          "disposition": "continue_candidate",
+          "correctionDisposition": "repair",
+          "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+          "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+        },
+        "actionEvaluationRef": "action-evaluation://product/48ca2db0d131815b44d25540d4a04e6932c13207445067c74e2da8cc4c47ea64",
+        "actionEvaluationDigest": "sha256:48ca2db0d131815b44d25540d4a04e6932c13207445067c74e2da8cc4c47ea64"
+      },
+      "refresh": {
+        "kind": "graph_span_selection",
+        "schemaVersion": "5.0.0",
+        "disposition": "re_enter",
+        "applicationRef": "graph-function-application://abiogenesis/873d1d29d83a9b68c023b6fe220a3016034be61c933020e1fc0effb862bee8e3",
+        "graphFunctionRef": "graph-function://s03-automatic/root@5",
+        "sourceProgramLocusRef": "locus://s03-automatic/refreshModel@5",
+        "targetProgramLocusRef": "locus://s03-automatic/model@5",
+        "targetInputRef": "graph-span-input://product/40e641d0a8be79f7ff025e8d8f855a31af21377edfa8080c0936c1e60401527f",
+        "targetInputDigest": "sha256:40e641d0a8be79f7ff025e8d8f855a31af21377edfa8080c0936c1e60401527f",
+        "targetInput": {
+          "kind": "fixture_request",
+          "schemaVersion": "5.0.0",
+          "workspaceBinding": {
+            "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+            "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+          },
+          "actionCatalog": {
+            "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "kind": "action_catalog",
+            "rows": [
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/correct@5",
+                "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/corrected-domain@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/correct@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/target-value@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              },
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/observe@5",
+                "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/observe@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/observe-gap@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "constructionPolicy": {
+            "kind": "construction_policy",
+            "policyRef": "policy://s03-automatic/closure@5",
+            "requireCompleteEvidence": true,
+            "requirePostEvidenceRefresh": true
+          },
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 3,
+              "evidenceRef": "evidence://s03-automatic/target-initial@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": false,
+          "observedGap": {
+            "obligationRef": "obligation://s03-automatic/target-value@5",
+            "actual": 3,
+            "desired": 10,
+            "disposition": "unmet"
+          },
+          "correctionsApplied": 0,
+          "priorEvaluation": {
+            "kind": "action_evaluation_projection",
+            "schemaVersion": "5.0.0",
+            "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+            "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+            "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+            "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+            "observationSnapshot": {
+              "kind": "fixture_request",
+              "schemaVersion": "5.0.0",
+              "workspaceBinding": {
+                "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+              },
+              "actionCatalog": {
+                "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "kind": "action_catalog",
+                "rows": [
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/correct@5",
+                    "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/corrected-domain@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/correct@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/target-value@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  },
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/observe@5",
+                    "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/observation@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/observe@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/observe-gap@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  }
+                ],
+                "schemaVersion": "5.0.0"
+              },
+              "constructionPolicy": {
+                "kind": "construction_policy",
+                "policyRef": "policy://s03-automatic/closure@5",
+                "requireCompleteEvidence": true,
+                "requirePostEvidenceRefresh": true
+              },
+              "domain": {
+                "target": {
+                  "itemRef": "item://s03-automatic/target@5",
+                  "value": 3,
+                  "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                },
+                "unaffected": {
+                  "itemRef": "item://s03-automatic/unaffected@5",
+                  "value": 7,
+                  "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                }
+              },
+              "desiredValues": {
+                "target": 10,
+                "unaffected": 7
+              },
+              "correctionAvailable": false,
+              "observedGap": null,
+              "correctionsApplied": 0,
+              "priorEvaluation": null
+            },
+            "admittedEvidenceRefs": [
+              "result://s03-pure/value"
+            ],
+            "semanticEvidenceAssetRefs": [
+              "asset://s03-automatic/observation@5"
+            ],
+            "runtimeArchiveInspection": {
+              "kind": "runtime_archive_inspection",
+              "schemaVersion": "5.0.0",
+              "disposition": "inspected",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "runtimeEvidenceEventRefs": [
+                "event://s03-pure/intent",
+                "event://s03-pure/result",
+                "event://s03-pure/judgment",
+                "event://s03-pure/terminal",
+                "event://s03-pure/graph-closure"
+              ],
+              "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+              "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+            },
+            "edgeFulfillmentLedger": {
+              "kind": "edge_fulfillment_ledger",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "rows": [
+                {
+                  "disposition": "fulfilled",
+                  "obligationRef": "obligation://s03-automatic/observe-gap@5",
+                  "evidenceRefs": [
+                    "result://s03-pure/value"
+                  ],
+                  "evidenceAssetRefs": [
+                    "asset://s03-automatic/observation@5"
+                  ]
+                }
+              ],
+              "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+              "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+            },
+            "edgeClosureDecision": {
+              "kind": "edge_closure_decision",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+              "disposition": "continue_candidate",
+              "correctionDisposition": "repair",
+              "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+              "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+            },
+            "actionEvaluationRef": "action-evaluation://product/48ca2db0d131815b44d25540d4a04e6932c13207445067c74e2da8cc4c47ea64",
+            "actionEvaluationDigest": "sha256:48ca2db0d131815b44d25540d4a04e6932c13207445067c74e2da8cc4c47ea64"
+          }
+        },
+        "projectionRef": "graph-span-reentry-projection://product/e7e009d7bc84bff2c9b6bbabdc29937a09ee04dc477e8379bc016f39cc2a3078",
+        "projectionDigest": "sha256:e7e009d7bc84bff2c9b6bbabdc29937a09ee04dc477e8379bc016f39cc2a3078"
+      },
+      "target": {
+        "kind": "fixture_task",
+        "schemaVersion": "5.0.0",
+        "operation": "set_target",
+        "domain": {
+          "target": {
+            "itemRef": "item://s03-automatic/target@5",
+            "value": 3,
+            "evidenceRef": "evidence://s03-automatic/target-initial@5"
+          },
+          "unaffected": {
+            "itemRef": "item://s03-automatic/unaffected@5",
+            "value": 7,
+            "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+          }
+        },
+        "desiredValues": {
+          "target": 10,
+          "unaffected": 7
+        },
+        "correctionAvailable": false,
+        "correctionsApplied": 0
+      },
+      "gap": {
+        "kind": "next_action_basis",
+        "schemaVersion": "5.0.0",
+        "observationSnapshot": {
+          "kind": "fixture_request",
+          "schemaVersion": "5.0.0",
+          "workspaceBinding": {
+            "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+            "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+          },
+          "actionCatalog": {
+            "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+            "kind": "action_catalog",
+            "rows": [
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/correct@5",
+                "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/corrected-domain@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/correct@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/target-value@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              },
+              {
+                "actionKind": "invoke_graph_function",
+                "actionRef": "action://s03-automatic/observe@5",
+                "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                "inputAssetRefs": [
+                  "asset://s03-automatic/domain@5"
+                ],
+                "kind": "action_catalog_row",
+                "outputAssetRefs": [
+                  "asset://s03-automatic/observation@5"
+                ],
+                "programRef": "program://s03-automatic/root@5",
+                "progressConditionRef": "condition://s03-automatic/observe@5",
+                "stopConditionRef": "condition://s03-automatic/bounded@5",
+                "targetObligationRefs": [
+                  "obligation://s03-automatic/observe-gap@5"
+                ],
+                "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "constructionPolicy": {
+            "kind": "construction_policy",
+            "policyRef": "policy://s03-automatic/closure@5",
+            "requireCompleteEvidence": true,
+            "requirePostEvidenceRefresh": true
+          },
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 3,
+              "evidenceRef": "evidence://s03-automatic/target-initial@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": false,
+          "observedGap": {
+            "obligationRef": "obligation://s03-automatic/target-value@5",
+            "actual": 3,
+            "desired": 10,
+            "disposition": "unmet"
+          },
+          "correctionsApplied": 0,
+          "priorEvaluation": {
+            "kind": "action_evaluation_projection",
+            "schemaVersion": "5.0.0",
+            "actionEvaluationBasisRef": "action-evaluation-basis://s03-pure/value",
+            "actionEvaluationBasisDigest": "sha256:a9cd662424573866ac34a0edf522c16c1d7f28a731817acd9de6e354a770b22b",
+            "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+            "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+            "observationSnapshot": {
+              "kind": "fixture_request",
+              "schemaVersion": "5.0.0",
+              "workspaceBinding": {
+                "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+                "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+              },
+              "actionCatalog": {
+                "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+                "kind": "action_catalog",
+                "rows": [
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/correct@5",
+                    "expectedDeltaRef": "delta://s03-automatic/correct@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/corrected-domain@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/correct@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/target-value@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  },
+                  {
+                    "actionKind": "invoke_graph_function",
+                    "actionRef": "action://s03-automatic/observe@5",
+                    "expectedDeltaRef": "delta://s03-automatic/observe@5",
+                    "graphFunctionRef": "graph-function://s03-automatic/child@5",
+                    "inputAssetRefs": [
+                      "asset://s03-automatic/domain@5"
+                    ],
+                    "kind": "action_catalog_row",
+                    "outputAssetRefs": [
+                      "asset://s03-automatic/observation@5"
+                    ],
+                    "programRef": "program://s03-automatic/root@5",
+                    "progressConditionRef": "condition://s03-automatic/observe@5",
+                    "stopConditionRef": "condition://s03-automatic/bounded@5",
+                    "targetObligationRefs": [
+                      "obligation://s03-automatic/observe-gap@5"
+                    ],
+                    "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+                  }
+                ],
+                "schemaVersion": "5.0.0"
+              },
+              "constructionPolicy": {
+                "kind": "construction_policy",
+                "policyRef": "policy://s03-automatic/closure@5",
+                "requireCompleteEvidence": true,
+                "requirePostEvidenceRefresh": true
+              },
+              "domain": {
+                "target": {
+                  "itemRef": "item://s03-automatic/target@5",
+                  "value": 3,
+                  "evidenceRef": "evidence://s03-automatic/target-initial@5"
+                },
+                "unaffected": {
+                  "itemRef": "item://s03-automatic/unaffected@5",
+                  "value": 7,
+                  "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+                }
+              },
+              "desiredValues": {
+                "target": 10,
+                "unaffected": 7
+              },
+              "correctionAvailable": false,
+              "observedGap": null,
+              "correctionsApplied": 0,
+              "priorEvaluation": null
+            },
+            "admittedEvidenceRefs": [
+              "result://s03-pure/value"
+            ],
+            "semanticEvidenceAssetRefs": [
+              "asset://s03-automatic/observation@5"
+            ],
+            "runtimeArchiveInspection": {
+              "kind": "runtime_archive_inspection",
+              "schemaVersion": "5.0.0",
+              "disposition": "inspected",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "runtimeEvidenceEventRefs": [
+                "event://s03-pure/intent",
+                "event://s03-pure/result",
+                "event://s03-pure/judgment",
+                "event://s03-pure/terminal",
+                "event://s03-pure/graph-closure"
+              ],
+              "inspectionRef": "runtime-archive-inspection://product/5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6",
+              "inspectionDigest": "sha256:5b303edf7599025f983c46768f1a63a2c3413b5317389aee9324c059a9b307e6"
+            },
+            "edgeFulfillmentLedger": {
+              "kind": "edge_fulfillment_ledger",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "rows": [
+                {
+                  "disposition": "fulfilled",
+                  "obligationRef": "obligation://s03-automatic/observe-gap@5",
+                  "evidenceRefs": [
+                    "result://s03-pure/value"
+                  ],
+                  "evidenceAssetRefs": [
+                    "asset://s03-automatic/observation@5"
+                  ]
+                }
+              ],
+              "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+              "ledgerDigest": "sha256:c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0"
+            },
+            "edgeClosureDecision": {
+              "kind": "edge_closure_decision",
+              "schemaVersion": "5.0.0",
+              "constructionIntentRef": "construction-intent://s03-pure/observe@5",
+              "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+              "ledgerRef": "edge-fulfillment-ledger://product/c68b1901fb754582781dd7084d2814c4ecc1f6b139a403a9c6e9ec8c69eb19e0",
+              "disposition": "continue_candidate",
+              "correctionDisposition": "repair",
+              "decisionRef": "edge-closure-decision://product/657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94",
+              "decisionDigest": "sha256:657e7dca432b1f10bd43cd1f61d3cf23614ef95d64167f81fe94a870db752a94"
+            },
+            "actionEvaluationRef": "action-evaluation://product/48ca2db0d131815b44d25540d4a04e6932c13207445067c74e2da8cc4c47ea64",
+            "actionEvaluationDigest": "sha256:48ca2db0d131815b44d25540d4a04e6932c13207445067c74e2da8cc4c47ea64"
+          }
+        },
+        "admittedActionCatalog": {
+          "catalogDigest": "sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+          "catalogRef": "action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4",
+          "kind": "action_catalog",
+          "rows": [
+            {
+              "actionKind": "invoke_graph_function",
+              "actionRef": "action://s03-automatic/correct@5",
+              "expectedDeltaRef": "delta://s03-automatic/correct@5",
+              "graphFunctionRef": "graph-function://s03-automatic/child@5",
+              "inputAssetRefs": [
+                "asset://s03-automatic/domain@5"
+              ],
+              "kind": "action_catalog_row",
+              "outputAssetRefs": [
+                "asset://s03-automatic/corrected-domain@5"
+              ],
+              "programRef": "program://s03-automatic/root@5",
+              "progressConditionRef": "condition://s03-automatic/correct@5",
+              "stopConditionRef": "condition://s03-automatic/bounded@5",
+              "targetObligationRefs": [
+                "obligation://s03-automatic/target-value@5"
+              ],
+              "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+            },
+            {
+              "actionKind": "invoke_graph_function",
+              "actionRef": "action://s03-automatic/observe@5",
+              "expectedDeltaRef": "delta://s03-automatic/observe@5",
+              "graphFunctionRef": "graph-function://s03-automatic/child@5",
+              "inputAssetRefs": [
+                "asset://s03-automatic/domain@5"
+              ],
+              "kind": "action_catalog_row",
+              "outputAssetRefs": [
+                "asset://s03-automatic/observation@5"
+              ],
+              "programRef": "program://s03-automatic/root@5",
+              "progressConditionRef": "condition://s03-automatic/observe@5",
+              "stopConditionRef": "condition://s03-automatic/bounded@5",
+              "targetObligationRefs": [
+                "obligation://s03-automatic/observe-gap@5"
+              ],
+              "targetProgramLocusRef": "graph-function://s03-automatic/child@5"
+            }
+          ],
+          "schemaVersion": "5.0.0"
+        },
+        "declaredPolicy": {
+          "kind": "construction_policy",
+          "policyRef": "policy://s03-automatic/closure@5",
+          "requireCompleteEvidence": true,
+          "requirePostEvidenceRefresh": true
+        },
+        "targetObligationRefs": [
+          "obligation://s03-automatic/target-value@5"
+        ],
+        "priorityScheme": {
+          "kind": "construction_priority_scheme",
+          "schemeRef": "priority://s03-automatic/fixed@5"
+        },
+        "runtimeFrontier": {
+          "phase": "initial"
+        },
+        "gapProjection": {
+          "gapRef": "gap://s03-automatic/target-unmet@5",
+          "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+          "missingAssetRefs": [
+            "asset://s03-automatic/correction-capability@5"
+          ],
+          "actual": 3,
+          "desired": 10,
+          "handoff": "Target remains 3; required value is 10. The declared correction capability is unavailable."
+        },
+        "targetInput": {
+          "kind": "fixture_task",
+          "schemaVersion": "5.0.0",
+          "operation": "set_target",
+          "domain": {
+            "target": {
+              "itemRef": "item://s03-automatic/target@5",
+              "value": 3,
+              "evidenceRef": "evidence://s03-automatic/target-initial@5"
+            },
+            "unaffected": {
+              "itemRef": "item://s03-automatic/unaffected@5",
+              "value": 7,
+              "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+            }
+          },
+          "desiredValues": {
+            "target": 10,
+            "unaffected": 7
+          },
+          "correctionAvailable": false,
+          "correctionsApplied": 0
+        },
+        "targetInputRef": "input://s03-automatic/9b54654c6b48e8fd34b34d57658f4a6486d845c659be07befe2803165db4e3b3",
+        "targetInputDigest": "sha256:9b54654c6b48e8fd34b34d57658f4a6486d845c659be07befe2803165db4e3b3",
+        "basisRef": "next-action-basis://product/5b5af4d27a6855959fff54aee959bc4f321dbf2bde6653b0e781f67cc3ac89b0",
+        "basisDigest": "sha256:5b5af4d27a6855959fff54aee959bc4f321dbf2bde6653b0e781f67cc3ac89b0"
+      },
+      "stop": {
+        "kind": "next_action_projection",
+        "schemaVersion": "5.0.0",
+        "targetOutcomeRef": "outcome://s03-automatic/two-item-target@5",
+        "gapRef": "gap://s03-automatic/target-unmet@5",
+        "nextActionBasisRef": "next-action-basis://product/5b5af4d27a6855959fff54aee959bc4f321dbf2bde6653b0e781f67cc3ac89b0",
+        "nextActionBasisDigest": "sha256:5b5af4d27a6855959fff54aee959bc4f321dbf2bde6653b0e781f67cc3ac89b0",
+        "targetObligationBindings": [
+          {
+            "kind": "target_obligation_binding",
+            "disposition": "unbound",
+            "obligationRef": "obligation://s03-automatic/target-value@5",
+            "eligibleActionRefs": []
+          }
+        ],
+        "priorityProjection": {
+          "kind": "deterministic_priority_projection",
+          "schemeRef": "priority://s03-automatic/fixed@5",
+          "orderedActionRefs": []
+        },
+        "lawfulBasisRefs": [
+          "next-action-basis://product/5b5af4d27a6855959fff54aee959bc4f321dbf2bde6653b0e781f67cc3ac89b0",
+          "program://s03-automatic/root@5",
+          "gap://s03-automatic/target-unmet@5"
+        ],
+        "disposition": "no_action",
+        "noActionDisposition": "gap_stop",
+        "programRef": "program://s03-automatic/root@5",
+        "targetObligationRefs": [
+          "obligation://s03-automatic/target-value@5"
+        ],
+        "missingAssetRefs": [
+          "asset://s03-automatic/correction-capability@5"
+        ],
+        "reasonRef": "reason://s03-automatic/correction-unavailable@5",
+        "rejectedActionRefs": [
+          "action://s03-automatic/correct@5"
+        ],
+        "projectionRef": "next-action-projection://product/089fa8d650c401b46efa2f40d449083e0730f1a5b7b06b7f58e6c679218d70cc",
+        "projectionDigest": "sha256:089fa8d650c401b46efa2f40d449083e0730f1a5b7b06b7f58e6c679218d70cc"
+      }
+    }
+  ]
+}

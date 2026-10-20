@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability
 **Date**: 2026-04-05
-**Updated**: 2026-09-28
+**Updated**: 2026-10-21
 **Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.2/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001/INT-008, [ODD_METHOD.md](stdo://releases/v2.5.1-rc.2/standards/ODD_METHOD.md), [Product calculus](../../PRODUCT.md#graph-composition-and-reference-frames)
 
 ---
@@ -37,13 +37,19 @@ locator or private workspace handle shall not replace the declared relation.
 **REQ-L-GTL3-CONTEXT-008**: An STDO-governed Program shall explicitly select a
 reusable GTL-declared environment and its snapshot-bound Context data. The
 declaration shall identify the exact immutable STDO release and content basis,
-matching axiomatic program and index, released corpus-access implementation,
-required access selections, and role-specific frame and instruction-policy
-references. Publication, raw admission and interpretation shall preserve these
-relations. A mutable selector, ambient install or instruction text shall not
-substitute for the declaration. Programs that do not adopt this environment
-shall not acquire an STDO requirement implicitly. Environment declaration
-truth grants neither access permission nor runtime admission.
+required native source material, permitted acquisition and required access
+evidence, and role-specific frame and instruction-policy references. A
+supplementary representation, index or corpus-access implementation shall be
+required only when explicitly selected by that environment; each selected
+supplement shall preserve its exact released identity, source relationship,
+access contract and required evidence. Publication, raw admission and
+interpretation shall preserve these relations. A mutable selector, ambient
+install, available tool, source-development composition or instruction text
+shall not substitute for the declaration. Programs that do not adopt this
+environment shall not acquire an STDO requirement implicitly. Environment
+declaration truth grants neither access permission nor runtime admission;
+optional selection shall not make required declared content or access evidence
+optional.
 
 **REQ-L-GTL3-CONTEXT-009**: A framed call shall explicitly bind a reusable
 evaluation/work contract through existing Context, contract and policy

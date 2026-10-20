@@ -1,0 +1,1 @@
+{"code":"invalid_transport_request","disposition":"refused","kind":"public_transport_refusal","message":"request file must contain one explicit CLI transport request","schemaVersion":"5.0.0"}

@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/caller-builder.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "started": "2026-10-09T08:21:44.069756+00:00",
+  "scriptSha256": "4f2a8266a0e2f9ad2d91ceb5f4f8de57c9a84836c2657a5430f0132258c9cf54",
+  "meaning": "Selected builder execution only; writes intended187 caller and receipts, no runtime script execution"
+}

@@ -1,0 +1,81 @@
+{
+  "status": "supported incompatible caller coordinate",
+  "claim": "Actual task/attempt plan and source prove different output roots; no successful Result, artifact, output bytes, or ENOENT execution is fabricated",
+  "launchRecord": {
+    "path": "resource-snapshot/resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/launch.json",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 3075,
+    "sha256": "5d5985067ff314e200644b40cecfbbf9244357e05c797cb5b46906d1de486349"
+  },
+  "task": {
+    "ref": "worksite-command-execution-task://abiogenesis/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa",
+    "digest": "sha256:b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa"
+  },
+  "actualAttempt": {
+    "ref": "worksite-command-attempt://abiogenesis/268bdce4b9ef0ee3b439dc49dc8911587a1b96d34c8ded86e7dd3bd468617367",
+    "digest": "sha256:15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e",
+    "occurrence": {
+      "attempt": 1,
+      "cCallRef": "c-call:sha256:78be8b7b2c0d6fa2075b606771d947f77f8ce110e4b9a4f64fc6054d4b953a8b",
+      "executionAuthority": null,
+      "frameId": "frame://abiogenesis/b2e15b27a5c6850c288d5a7e60e1a5c24ca99df24e3d8bbff5001dbc895169c2",
+      "graphCallId": "graph-call://abiogenesis/011d4fd4e994a29b6d485a1265602402aefd2ea91063c32e01d3618ace08c0be",
+      "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+      "runId": "run://abiogenesis/4a99520b11141d45c3b358cdd08a8f6689f56e4a29dfd1de5f6e78fe97fbb462",
+      "taskOrdinal": null
+    }
+  },
+  "plan": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/result.json",
+    "sandboxRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/sandbox",
+    "taskManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/task.json",
+    "taskManifestDigest": "sha256:d46076358ecd61a7a2a92129fa8411947edc5102a765288b5c499dcfb4660a68"
+  },
+  "originalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite",
+  "firstAffected": {
+    "ordinal": 12,
+    "commandId": "command://abiogenesis/rc1-qual056/compare",
+    "relativePath": "verification/reports/generated-comparison.json",
+    "ownerOutputPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/worksite-command-execution/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa/15503e8e731b79ad04f5efec94faa5d3324c6e908dfabd9fc7eaed638a52124e/sandbox/verification/reports/generated-comparison.json",
+    "callerReadPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite/verification/reports/generated-comparison.json",
+    "callerSource": "output-checks.mjs:23"
+  },
+  "affectedConsumerCone": [
+    {
+      "source": "output-checks.mjs:23",
+      "role": "all command report rereads",
+      "selectedCount": 1
+    },
+    {
+      "source": "output-checks.mjs:28",
+      "role": "generated-comparison JSON reread",
+      "selectedCount": 1
+    },
+    {
+      "source": "output-checks.mjs:28",
+      "role": "generated output byte comparisons",
+      "selectedCount": 925
+    }
+  ],
+  "protectedConservation": {
+    "source": "driver.mjs:28",
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite",
+    "selectedCount": 716,
+    "changeRequired": false
+  },
+  "verificationConstructor": {
+    "source": "validator/qualification.ts:104-208",
+    "inputs": "authenticated C2 observation plus retained recipe/inventory/basis/actual producer selection",
+    "filesystemOutputReads": false,
+    "claim": "No snapshot-path repair in this pure constructor; do not replace native input with caller summary"
+  },
+  "pathDifferenceChecks": 927,
+  "nativeCalls": 0,
+  "movingResourceReads": 0,
+  "limitations": [
+    "The actual attempt failed before the helper ran. This is a static conditional successful-path falsifier, not an observed second runtime failure.",
+    "A future result must supply its own validated task/attempt plan and artifact; never reuse this failed attempt snapshot coordinate.",
+    "No provider repair, caller repair, C2 rerun, positive consume, qualification or F11 execution was performed."
+  ]
+}

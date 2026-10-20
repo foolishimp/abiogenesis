@@ -1,0 +1,78 @@
+{
+  "message": "The expression evaluated to a falsy value:\n\n  assert.ok(peerIndex>=0)\n",
+  "stack": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(peerIndex>=0)\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-proof.mjs:44:36\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-proof.mjs:46:47",
+  "redCompleted": [
+    {
+      "name": "missing_basis",
+      "syntheticCandidateOnly": true,
+      "candidateRowsDigest": "sha256:1701f3e969fe3f40de89e9e707e7db0f316f41a8896a26c5c8ef4b6f1d508a0c",
+      "coordinate": {
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:3b03e1e54474384dbd99cd348a44f8caa5755fdfed0dd1311f5aece999420e4d",
+        "prefixLength": 4689384,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463811526
+        },
+        "coordinateDigest": "sha256:a6e8b384d18b84a34adf523ba0964b7b0f271df0624489ddf913bfe989574790"
+      },
+      "outcome": {
+        "kind": "abg_project_read_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "refused",
+        "memberKey": "run_gaps",
+        "targetRef": "run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8",
+        "code": "invalid_history",
+        "message": "ABG project read owner projectors refused the durable event history"
+      },
+      "output": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "projection_basis_mismatch",
+          "issuePaths": [],
+          "evidenceRefs": []
+        }
+      }
+    },
+    {
+      "name": "crossed_positive_basis",
+      "syntheticCandidateOnly": true,
+      "candidateRowsDigest": "sha256:0f0ab8ca6b532c73308d711385a48739ab233b5539f8639fd2dac5584203af0c",
+      "coordinate": {
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:9955ad7e1804cd2cca754a29f541730f628f777026fb4ff0bc96aa6d635ef926",
+        "prefixLength": 4683637,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463811526
+        },
+        "coordinateDigest": "sha256:846a65ead65ed1b547d397dfa7307f6d5bcdb97219d4960b342fce0f348aa39c"
+      },
+      "outcome": {
+        "kind": "abg_project_read_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "refused",
+        "memberKey": "run_gaps",
+        "targetRef": "run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8",
+        "code": "invalid_history",
+        "message": "ABG project read owner projectors refused the durable event history"
+      },
+      "output": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "projection_basis_mismatch",
+          "issuePaths": [],
+          "evidenceRefs": []
+        }
+      }
+    }
+  ],
+  "liveResourceAccesses": [],
+  "elapsedMs": 571.19575
+}

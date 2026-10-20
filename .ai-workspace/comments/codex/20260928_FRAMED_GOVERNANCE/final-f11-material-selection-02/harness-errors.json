@@ -1,0 +1,15 @@
+{
+  "errors": [
+    {
+      "kind": "source-acquisition",
+      "diagnostic": "Two guessed event_contracts.ts/traversal_contracts.ts paths absent; rg exit 2. Exact path enumeration resolved actual owner. No subject claim derived."
+    },
+    {
+      "kind": "construction-anchor",
+      "process": "01-construction.process.json",
+      "diagnostic": "Assumed frame_opened anchor in event_contract_profiles.ts was absent. Actual HoG evaluation-frame import and abg/open_call.ts identify the frame opening owner. Original script/output preserved.",
+      "candidateCounterexample": false,
+      "preimageSha256": "35481e7a8f0d6dd5ba8b7e5155e53abf42d9ad757912539a64423cca21744b91"
+    }
+  ]
+}

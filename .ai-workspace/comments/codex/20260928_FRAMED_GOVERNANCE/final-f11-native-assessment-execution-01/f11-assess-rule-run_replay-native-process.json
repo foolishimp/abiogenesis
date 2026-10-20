@@ -1,0 +1,16 @@
+{
+  "pid": 30558,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule-run_replay.jsonl"
+  ],
+  "elapsedMs": 4181.38,
+  "exitCode": 0,
+  "signal": null,
+  "peakRSSBytes": 1639579648,
+  "userSeconds": 4.362492,
+  "systemSeconds": 0.332347,
+  "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+}

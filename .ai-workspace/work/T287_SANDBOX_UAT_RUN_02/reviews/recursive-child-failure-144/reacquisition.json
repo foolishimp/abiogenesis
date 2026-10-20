@@ -1,0 +1,21 @@
+{
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/freeze.json",
+    "sha256": "460d70b13380e29108985cc21ef95b3094e1fb3a36036af6758b1ee6c4d21c29",
+    "byteCount": 35718
+  },
+  "subjectReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/return.md",
+    "sha256": "0708ccc5b809553ef791e6073e89b9611adba52e513b63fb10330baa60df6865",
+    "byteCount": 2999
+  },
+  "subjectReadiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/readiness.json",
+    "sha256": "fbb9f8f1d7f9125a131e4b6b75ed0555cf646bb63e1067f07ac899e1ad345695",
+    "byteCount": 43974
+  },
+  "exactEvidencePins": 118,
+  "mismatches": 0,
+  "source143Excluded": "Review targets142 frozen copies and captured263-source baseline; lower owners imported from immutable installed25. No moving143 code consumed as a new proof subject.",
+  "effectScope": "Read/hash118 selected small proof/published owner/store files; no reopening/runtime admission, test rerun, model/provider/app/source/package/generated effects."
+}

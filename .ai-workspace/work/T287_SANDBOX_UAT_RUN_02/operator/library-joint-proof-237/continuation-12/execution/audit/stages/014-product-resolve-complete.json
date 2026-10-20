@@ -1,0 +1,12 @@
+{
+  "stage": "product-resolve-complete",
+  "elapsedMs": 25613.479375,
+  "at": "2026-10-10T16:29:30.859Z",
+  "rss": 2822504448,
+  "heapTotal": 2147975168,
+  "heapUsed": 2004535640,
+  "external": 20556419,
+  "arrayBuffers": 18144112,
+  "beforeAcquisition": true,
+  "prefixLength": null
+}

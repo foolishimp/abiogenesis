@@ -1,0 +1,97 @@
+{
+  "status": "unbound_preparation_not_transport_request",
+  "package": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite38-install-gn7k7tfy/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-38/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-38/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:84f8b93aaa922e06db5569eeb8ed0f1064e1256f4007f81552c640de46d90813",
+      "productContentDigest": "sha256:a8010f52911002242d60131bcd23ecff707558147fbc2c7e6e94794f2be13e1d",
+      "manifestDigest": "sha256:137d6139685514deaff2fcded5165186dac6408569d342823f801e03be556977",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "recipe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core38-preparation-01/recipe.mjs",
+    "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68",
+    "bytes": 3442
+  },
+  "startConstructor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core38-preparation-01/public-support.mjs",
+    "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48",
+    "bytes": 8856
+  },
+  "entry": {
+    "loader": "public-support.mjs:loadRuntime(core.packageRoot)",
+    "staging": "recipe.mjs:stageSelectedInputs(newDisposableRoot)",
+    "task": "recipe.mjs:constructObservedProducerTask({product,workspaceAuthorityBasis,workspaceBinding,capabilityGrant})",
+    "start": "public-support.mjs:constructStart({environment,publicApi,eventResource,inputFactory,selection})",
+    "installedCallConstructor": "@abiogenesis/typescript-tenant/public:constructInstalledPublicDefinitionCall",
+    "operationId": "abg.operation.run.invoke",
+    "memberKey": "start",
+    "programRef": "program://abiogenesis/worksite/command-execution@5",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "inputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+    "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5"
+  },
+  "selectionBody": {
+    "programRef": "program://abiogenesis/worksite/command-execution@5",
+    "selection": {
+      "kind": "start",
+      "scope": "program",
+      "target": "graph_function",
+      "graphFunctionHandle": "graph-function://abiogenesis/worksite/command-execution@5",
+      "until": "converged",
+      "rootMode": "direct"
+    },
+    "fhMode": "direct",
+    "sourceBasis": {
+      "kind": "none"
+    }
+  },
+  "dependentCallFields": {
+    "environment": null,
+    "eventResource": null,
+    "inputFactory": "Construct task with the actual grants[0] provided by constructStart after real installed resolution; do not pre-mint a capability grant.",
+    "inputRef": null,
+    "requestRef": null,
+    "correlationRef": null,
+    "provenanceRefs": null,
+    "actorAndTransportPolicy": null
+  },
+  "stagedWorkspaceAdmission": {
+    "operationId": "abg.operation.workspace.create",
+    "memberKey": "imported",
+    "request": {
+      "targetRoot": null,
+      "createPolicy": "imported",
+      "importAuthority": null,
+      "preservationPolicy": "preserve_all_existing"
+    },
+    "reason": "The unchanged staging helper creates a new directory; imported workspace creation preserves it. Do not run the historical create.clean setup against that already-staged root."
+  },
+  "commandConfiguration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core38-preparation-01/config.json",
+    "sha256": "68f66f1cc2e9fac75061d7200e9e262a52d34aa86a0f76d8bcb28dd002fcca13",
+    "bytes": 20048
+  },
+  "qualifiedVerificationSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core38-preparation-01/verification-selection-binding.json",
+    "sha256": "347f3a47c3a15fd0dcb9884739fc49a485b72d60074d112227f52cb8add219c3",
+    "bytes": 116050
+  },
+  "nativeSetupPrecedent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup.mjs",
+    "sha256": "f0c661542082bd077dc2e2bbea8e197409891b4c837470e6e756fab4e51204a2",
+    "bytes": 10407
+  },
+  "historicalCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/ordinary-caller.mjs",
+    "sha256": "cac62d090b6cdb6f67f315072ca1d14dbeae775e4def233d2b1415a47fad3944",
+    "bytes": 12585
+  },
+  "historicalCallerLimit": "Reference only: hardcoded old package/state/namespace and setup resources must not be executed as the current qualification caller. Reusable exported constructors are frozen here; real context remains required.",
+  "runtimeExecuted": false
+}

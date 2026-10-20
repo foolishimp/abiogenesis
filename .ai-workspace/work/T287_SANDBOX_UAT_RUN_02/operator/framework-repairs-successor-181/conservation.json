@@ -1,0 +1,31 @@
+{
+  "productionSourceCount": 263,
+  "allProductionSourceBytesEqualCapturedPre181": true,
+  "sourceDeltaFrom26": {
+    "changed": 1,
+    "unchanged": 262,
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/source-delta.json",
+      "sha256": "23742be07190c160605fc476cbb5857daba47ec4fa63f090683a3b849b436c18",
+      "byteCount": 1015
+    }
+  },
+  "generatedCount": 934,
+  "exactGeneratedAndPackageDeltaCount": 3,
+  "unchangedGeneratedFrom26": 931,
+  "all263NormalDeclarationsExact26": true,
+  "authorizedSemanticsJSEqualsAccepted179": true,
+  "selectedSourceHowTestAndProtectedPinsConserved": true,
+  "candidate26ArchiveIdentityFreezeConserved": true,
+  "generatedRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/generated-delta.json",
+    "sha256": "8b003f92ebadd4f3240d29495dec4a62a66d321ed81c428720ad4c3bc37372a8",
+    "byteCount": 310746
+  },
+  "acceptedEmissionRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/accepted-emission-correspondence.json",
+    "sha256": "a50cb5023d35be615c4ab4632d590547d924ba6fe81d2c32bf99ac63ed22c894",
+    "byteCount": 1059
+  },
+  "actualEventLogNotReadOrHashed": true
+}

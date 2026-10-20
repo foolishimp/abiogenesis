@@ -1,3 +1,5 @@
+import { RuntimeEventBodyView } from "./runtime_history.js";
+import { indexedRuntimeEvents } from "./event_prefix.js";
 import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
 import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
@@ -15,7 +17,7 @@ import { WORKSITE_REVISION_IDS, worksiteExecutionSources } from "../product/work
 import { isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { isWorksitePreparationInput } from "../product/worksite_preparation.js";
 import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
-import { runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { runtimeEventBodiesAtPrefix, selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
 import { projectAdmittedCCallStateAtPrefix } from "./c_call.js";
@@ -26,7 +28,7 @@ import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { constructWorksiteSubject } from "../product/worksite_effect.js";
 import { projectRuntimeEventFromValidatedHistory } from "./event_store.js";
-import { projectWorksiteTransitionForResult, deriveRuntimeEventCalculusProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
+import { projectWorksiteTransitionForResult, deriveRuntimeHeldFluentProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
 const same = (a, b) => canonicalJson(a) === canonicalJson(b);
@@ -44,16 +46,13 @@ const one = (rows, accepts) => {
 };
 const sameScope = (a, b) => a.basisId === b.basisId && a.runId === b.runId &&
     a.graphCallId === b.graphCallId && a.frameId === b.frameId;
-/** Reconstruct the recorded native leaf carrier, then reuse CCall's outcome
- * validator. No GraphFunction is synthesized and no value-equivalent wrapper
- * is admitted as its producer. The installed resolution row owns the locus. */
 export function projectWorksiteRevisionNativeResult(prefix, coordinate) {
     try {
-        const events = runtimeEventsFromValidatedPrefix(prefix);
-        const opened = one(events, e => e.kind === "c_call_opened" && e.aggregateId === coordinate.cCallRef);
-        const fibre = one(events, e => e.kind === "c_call_fibre_selected" && e.aggregateId === coordinate.cCallRef);
-        const result = one(events, e => e.kind === "c_call_result_admitted" && e.aggregateId === coordinate.cCallRef);
-        const judgment = one(events, e => e.kind === "c_call_judged" && e.aggregateId === coordinate.cCallRef);
+        const events = runtimeEventBodiesAtPrefix(prefix);
+        const opened = one(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === coordinate.cCallRef);
+        const fibre = one(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_fibre_selected" && e.aggregateId === coordinate.cCallRef);
+        const result = one(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === coordinate.cCallRef);
+        const judgment = one(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_judged" && e.aggregateId === coordinate.cCallRef);
         if (opened === null || fibre === null || result === null || judgment === null || !record(opened.payload) ||
             !record(fibre.payload) || !record(result.payload) || !record(judgment.payload) || opened.payload.callClass !== "leaf" ||
             fibre.payload.callClass !== "leaf" || typeof opened.basisId !== "string" ||
@@ -111,7 +110,6 @@ export function projectAdmittedWorkspaceBindingAtCoordinate(prefix, ref, digest)
     const { kind: _kind, ...body } = row.artifact;
     return { kind: "workspace_binding", ...body, admissionEventRef: row.admissionEventRef };
 }
-/** All exact covering witness occurrences, not a latest/first chosen token. */
 export function projectWorksiteRevisionBindingCover(prefix, before, after, historicalBases) {
     if (same(before, after))
         return [];
@@ -121,8 +119,6 @@ export function projectWorksiteRevisionBindingCover(prefix, before, after, histo
         return null;
     return projectWitnessedWorkspaceBindingCover(prefix, before, after, historicalBases);
 }
-/** Exact witnessed cover only. Each caller still owns applicability and current
- * work permission; D2's stricter authority continuity remains above. */
 export function projectWitnessedWorkspaceBindingCover(prefix, before, after, historicalBases) {
     try {
         if (same(before, after))
@@ -130,7 +126,7 @@ export function projectWitnessedWorkspaceBindingCover(prefix, before, after, his
         const old = nativeBinding(prefix, before), current = nativeBinding(prefix, after);
         if (old === null || current === null)
             return null;
-        const events = runtimeEventsFromValidatedPrefix(prefix);
+        const events = runtimeEventBodiesAtPrefix(prefix);
         const bases = historicalBases.flatMap((b, index) => {
             const actual = projectExactExecutionBasisAtPrefix(prefix, b.basisRef);
             return actual !== null && same(actual, b) && historicalBases.findIndex(row => row.basisRef === b.basisRef) === index &&
@@ -153,8 +149,8 @@ export function projectWitnessedWorkspaceBindingCover(prefix, before, after, his
             if (![before, after].every(w => evidence.filter(c => record(c) && c.ref === w.bindingId && c.digest === w.bindingDigest).length === 1))
                 return false;
             const historical = one(bases, b => b.basisRef === p.subjectRef && b.basisDigest === p.subjectDigest);
-            const admitted = historical === null ? null : events.find(e => e.eventId === historical.admissionEventRef);
-            const operation = one(events, e => e.kind === "public_operation_admitted" && event.causationEventRefs.includes(e.eventId) &&
+            const admitted = historical === null ? null : indexedRuntimeEvents(prefix, "id:" + historical.admissionEventRef).find(e => e.eventId === historical.admissionEventRef);
+            const operation = one(indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted"), e => e.kind === "public_operation_admitted" && event.causationEventRefs.includes(e.eventId) &&
                 record(e.payload) && e.payload.operationId === "abg.operation.witness.admit" && e.payload.memberKey === "reprice");
             if (admitted === null || admitted === undefined || operation === null || !record(operation.payload) ||
                 [old.row.admissionOrdinal, current.row.admissionOrdinal, admitted.admissionOrdinal, operation.admissionOrdinal].some(o => o >= event.admissionOrdinal) ||
@@ -187,7 +183,7 @@ function inputWorksite(basis, prefix) {
     if (isSemanticStageEnvelope(input) || isSemanticJobEnvelope(input))
         return input.worksite;
     if (prefix !== undefined && isWorksiteFileParentsSuccess(input)) {
-        const source = runtimeEventsFromValidatedPrefix(prefix).find(e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === input.request.sourceEnvelopeRef);
+        const source = indexedRuntimeEvents(prefix, "payload:resultRef:" + input.request.sourceEnvelopeRef).find(e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === input.request.sourceEnvelopeRef);
         const value = record(source?.payload) ? source.payload.value : null;
         const original = isSemanticJobEnvelope(value) ? semanticJobConstructionSourceAtPrefix(prefix, value) : null;
         return original?.seed.basisRef === basis.basisRef ? original.worksite : null;
@@ -211,7 +207,7 @@ function coordinateFor(events, result) {
         resultDigest: result.payload.resultDigest, resultAdmissionEventRef: result.eventId, judgmentEventRef: judged.eventId };
 }
 function nativeHistory(prefix, parentRef, causeRefs) {
-    const events = runtimeEventsFromValidatedPrefix(prefix), bases = [], eligible = new Set();
+    const events = runtimeEventBodiesAtPrefix(prefix), bases = [], eligible = new Set();
     const parent = projectWorksiteRevisionNativeResult(prefix, parentRef);
     const first = parent === null ? null : isRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
     if (parent === null || parent.result.resultClass !== "success" || parent.judgment.judgment !== "advance" ||
@@ -261,10 +257,10 @@ function nativeHistory(prefix, parentRef, causeRefs) {
         if (visited.has(envelope.revisionBasis.basisRef) || !sameSemanticSubject(envelope.current, first))
             return null;
         visited.add(envelope.revisionBasis.basisRef);
-        const ordinal = events.find(e => e.eventId === ancestor.result.admissionEventRef).admissionOrdinal;
+        const ordinal = indexedRuntimeEvents(prefix, "id:" + ancestor.result.admissionEventRef).find(e => e.eventId === ancestor.result.admissionEventRef).admissionOrdinal;
         for (const coordinate of [envelope.revisionBasis.request.parent, ...envelope.revisionBasis.request.causes]) {
             const source = projectWorksiteRevisionNativeResult(prefix, coordinate), b = source === null ? null : addBasis(source.cCall.basisId);
-            const judged = events.find(e => e.eventId === coordinate.judgmentEventRef);
+            const judged = indexedRuntimeEvents(prefix, "id:" + coordinate.judgmentEventRef).find(e => e.eventId === coordinate.judgmentEventRef);
             if (source === null || b === null || judged === undefined || judged.admissionOrdinal >= ordinal)
                 return null;
         }
@@ -311,7 +307,7 @@ function samePhysicalSubject(prefix, a, b) {
 /** A known native write under any W for this physical subject invalidates an
  * older alias. It never provides a replacement from an unrelated invocation. */
 function invalidatedAcrossBindings(prefix, subject, ordinal, work) {
-    const events = runtimeEventsFromValidatedPrefix(prefix);
+    const events = runtimeEventBodiesAtPrefix(prefix);
     return events.some(e => {
         if (e.kind !== "c_call_result_admitted" || e.admissionOrdinal <= ordinal || typeof e.basisId !== "string")
             return false;
@@ -330,7 +326,7 @@ function projectionFacts(prefix, result, work) {
     work.active.add(result.eventId);
     let answer = null;
     try {
-        const events = runtimeEventsFromValidatedPrefix(prefix), coordinate = coordinateFor(events, result);
+        const events = runtimeEventBodiesAtPrefix(prefix), coordinate = coordinateFor(events, result);
         const state = coordinate === null ? null : projectWorksiteRevisionNativeResult(prefix, coordinate);
         const basis = state === null ? null : projectExactExecutionBasisAtPrefix(prefix, state.cCall.basisId);
         if (state === null || basis === null || state.cCall.implementationRef !== SEMANTIC_REVISION_IDS.projectionImplementationRef ||
@@ -360,7 +356,7 @@ function projectionFacts(prefix, result, work) {
             current.workspaceBinding.bindingId !== basis.workspaceBindingId || current.workspaceBinding.bindingDigest !== basis.workspaceBindingDigest ||
             invocation?.capabilityGrants.length !== 1 || !same(invocation.capabilityGrants[0], current.capabilityGrant))
             return null;
-        const evidence = one(events, e => e.kind === "c_call_evidenced" && e.aggregateId === result.aggregateId);
+        const evidence = one(indexedRuntimeEvents(prefix, "related:" + result.aggregateId), e => e.kind === "c_call_evidenced" && e.aggregateId === result.aggregateId);
         if (evidence === null || !record(evidence.payload) || !sameScope(evidence, result) || evidence.payload.evidenceClass !== "deterministic" ||
             evidence.payload.cCallRef !== state.cCall.cCallRef || evidence.payload.contractRef !== state.cCall.evidenceContractRef ||
             evidence.payload.implementationRef !== SEMANTIC_REVISION_IDS.projectionImplementationRef || evidence.payload.inputDigest !== hash(request) ||
@@ -385,7 +381,7 @@ function projectionFacts(prefix, result, work) {
     }
 }
 function deriveCurrentOrigins(prefix, seedBasis, historical, current, eligible, bases, work) {
-    const seed = inputWorksite(seedBasis, prefix), events = runtimeEventsFromValidatedPrefix(prefix);
+    const seed = inputWorksite(seedBasis, prefix), events = runtimeEventBodiesAtPrefix(prefix);
     if (seed === null || !worksiteRevisionMeaningMatches(historical, current) || !same(seed.workspaceAuthorityBasis, current.workspaceAuthorityBasis))
         return null;
     const results = [];
@@ -397,7 +393,7 @@ function deriveCurrentOrigins(prefix, seedBasis, historical, current, eligible, 
             return null;
         const candidates = [];
         const original = seed.targets.find(t => samePhysicalSubject(prefix, t.target.subject, row.target.subject) && t.role === row.role);
-        const seedEvent = events.find(e => e.eventId === seedBasis.admissionEventRef);
+        const seedEvent = indexedRuntimeEvents(prefix, "id:" + seedBasis.admissionEventRef).find(e => e.eventId === seedBasis.admissionEventRef);
         if (original !== undefined && seedEvent !== undefined && !invalidatedAcrossBindings(prefix, original.target.subject, seedEvent.admissionOrdinal))
             candidates.push({
                 origin: { kind: "admitted_input", basisAdmissionEventRef: seedBasis.admissionEventRef, inputAdmissionRef: seedBasis.rawInputAdmissionRef, inputDigest: seedBasis.rawInputDigest },
@@ -455,8 +451,6 @@ function deriveCurrentOrigins(prefix, seedBasis, historical, current, eligible, 
     }
     return results;
 }
-/** One selected native D2 admission gate, shared by new actions, child bases
- * and later assembly. Raw kind strings cannot select an owner or grant. */
 export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, input, currentBinding, admittedInput) {
     if (graphFunction.declarations["abg.semantic_revision_history"] !== SEMANTIC_REVISION_IDS.historicalOwnerDependencyRef)
         return "not_applicable";
@@ -468,9 +462,9 @@ export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, i
                 return "basis_fork_detected";
             const { acquisition: _acquisition, ...retained } = native;
             const prepared = { kind: "semantic_revision_selection_input", schemaVersion: "5.0.0", parent: nativeRequest.parent, causes: nativeRequest.causes, currentWorksite: null, nativeWorksite: retained };
-            const events = runtimeEventsFromValidatedPrefix(prefix);
+            const events = runtimeEventBodiesAtPrefix(prefix);
             const inputSource = admittedInput === undefined ? null : projectWorksiteInputLeafResultAtPrefix(prefix, admittedInput.admittedInputRef, admittedInput.admittedInputDigest);
-            const candidates = admittedInput === undefined ? events : inputSource === null ? [] : [inputSource];
+            const candidates = admittedInput === undefined ? events : new RuntimeEventBodyView(inputSource === null ? [] : [inputSource]);
             const sources = native.acquisition === undefined ? candidates.flatMap(event => {
                 if (event.kind !== "c_call_result_admitted" || !record(event.payload) || !same(event.payload.value, prepared))
                     return [];
@@ -486,7 +480,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, i
             // performs the complete C1/bridge/command/evidence join after this gate.
             if (!same(input.task.workspaceBinding, currentBinding))
                 return "basis_fork_detected";
-            const observed = input, events = runtimeEventsFromValidatedPrefix(prefix);
+            const observed = input, events = runtimeEventBodiesAtPrefix(prefix);
             const sources = events.flatMap(e => {
                 if (e.kind !== "c_call_result_admitted" || !record(e.payload) || !same(e.payload.value, observed))
                     return [];
@@ -498,7 +492,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, i
             });
             if (sources.length !== 1)
                 return "basis_fork_detected";
-            const sourceOrdinal = events.find(e => e.eventId === sources[0].result.admissionEventRef).admissionOrdinal, work = session();
+            const sourceOrdinal = indexedRuntimeEvents(prefix, "id:" + sources[0].result.admissionEventRef).find(e => e.eventId === sources[0].result.admissionEventRef).admissionOrdinal, work = session();
             const projections = events.flatMap(e => {
                 if (e.kind !== "c_call_result_admitted" || e.admissionOrdinal >= sourceOrdinal || !record(e.payload) || !isRevisionEnvelope(e.payload.value) ||
                     e.payload.value.revisionBasis.basisRef !== observed.task.revisionBasisRef || e.payload.value.revisionBasis.basisDigest !== observed.task.revisionBasisDigest)
@@ -525,7 +519,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, i
             return "covered";
         if (nativeBinding(prefix, currentBinding) === null)
             return "basis_fork_detected";
-        const events = runtimeEventsFromValidatedPrefix(prefix), work = session();
+        const events = runtimeEventBodiesAtPrefix(prefix), work = session();
         const projections = events.flatMap(e => {
             if (e.kind !== "c_call_result_admitted" || typeof e.basisId !== "string")
                 return [];
@@ -548,10 +542,8 @@ export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, i
         return "basis_fork_detected";
     }
 }
-/** Actual already admitted projection, selected by its revision identity.
- * This is used only when serializing a pending correspondence into E_D. */
 export function projectWorksiteRevisionBindingOrigin(prefix, envelope) {
-    const events = runtimeEventsFromValidatedPrefix(prefix), work = session();
+    const events = runtimeEventBodiesAtPrefix(prefix), work = session();
     const matches = events.flatMap(e => {
         if (e.kind !== "c_call_result_admitted" || !record(e.payload) || !isRevisionEnvelope(e.payload.value) ||
             e.payload.value.revisionBasis.basisRef !== envelope.revisionBasis.basisRef || e.payload.value.revisionBasis.basisDigest !== envelope.revisionBasis.basisDigest)
@@ -581,8 +573,8 @@ function retainedTransition(work, event) {
 function currentReplacement(prefix, observation, work) {
     if (work !== undefined && work.prefix !== prefix)
         return null;
-    const events = work?.events ?? runtimeEventsFromValidatedPrefix(prefix);
-    const calculus = work?.calculus ?? deriveRuntimeEventCalculusProjection(prefix);
+    const events = work?.events ?? runtimeEventBodiesAtPrefix(prefix);
+    const calculus = work?.calculus ?? deriveRuntimeHeldFluentProjection(prefix);
     if (!holdsAt(calculus, constructWorksiteObservationCurrentFluent(observation.observationRef)))
         return null;
     const candidates = events.flatMap(event => {
@@ -616,10 +608,10 @@ export function projectClosedConstructionRetainedVector(prefix, task, request, b
             task.protectedObservations.length !== request.protectedObservations.length ||
             task.sourceConstructionResult.members.length !== task.protectedObservations.length)
             return null;
-        const events = runtimeEventsFromValidatedPrefix(prefix), sources = [], sourceBases = [...bases];
+        const events = runtimeEventBodiesAtPrefix(prefix), sources = [], sourceBases = [...bases];
         // One invocation-local immutable-prefix session, never a filesystem or
         // cross-prefix cache. Shared C0 proof queries are not multiplied by N.
-        const work = { prefix, events, calculus: deriveRuntimeEventCalculusProjection(prefix), transitions: new Map() };
+        const work = { prefix, events, calculus: deriveRuntimeHeldFluentProjection(prefix), transitions: new Map() };
         for (const [ordinal, old] of task.protectedObservations.entries()) {
             const member = task.sourceConstructionResult.members[ordinal], asserted = request.protectedObservations[ordinal];
             if (member === undefined || asserted === undefined || member.inputMemberRef !== old.sourceMemberRef ||
@@ -633,7 +625,7 @@ export function projectClosedConstructionRetainedVector(prefix, task, request, b
                 return null;
             // The C0 transition owner excludes workflow aliases; genuine producer
             // multiplicity is still a refusal even when the observed bytes agree.
-            const producers = events.filter(e => e.kind === "c_call_result_admitted" &&
+            const producers = indexedRuntimeEvents(prefix, "kind:" + "c_call_result_admitted").filter(e => e.kind === "c_call_result_admitted" &&
                 same(retainedTransition(work, e)?.successorObservation ?? null, old.observation));
             if (producers.length !== 1 || producers[0].eventId !== producer.event.eventId)
                 return null;
@@ -659,11 +651,10 @@ export function projectClosedConstructionRetainedVector(prefix, task, request, b
         return null;
     }
 }
-/** Rehydrates the exact recorded origin and rejects all native supersession. */
 export function worksiteRevisionOriginSurvives(prefix, row) {
-    const events = runtimeEventsFromValidatedPrefix(prefix), origin = row.origin;
+    const events = runtimeEventBodiesAtPrefix(prefix), origin = row.origin;
     if (origin.kind === "admitted_initial_job_bridge") {
-        const event = one(events, e => e.kind === "c_call_result_admitted" && e.eventId === origin.resultAdmissionEventRef);
+        const event = one(indexedRuntimeEvents(prefix, "id:" + origin.resultAdmissionEventRef), e => e.kind === "c_call_result_admitted" && e.eventId === origin.resultAdmissionEventRef);
         const coordinate = event === null ? null : coordinateFor(events, event);
         const result = coordinate === null ? null : projectWorksiteRevisionNativeResult(prefix, coordinate);
         const value = result?.result.value;
@@ -679,7 +670,7 @@ export function worksiteRevisionOriginSurvives(prefix, row) {
             !invalidatedAcrossBindings(prefix, row.subject, source.contextEvent.admissionOrdinal);
     }
     if (origin.kind === "admitted_binding_projection") {
-        const result = one(events, e => e.kind === "c_call_result_admitted" && e.eventId === origin.resultAdmissionEventRef);
+        const result = one(indexedRuntimeEvents(prefix, "id:" + origin.resultAdmissionEventRef), e => e.kind === "c_call_result_admitted" && e.eventId === origin.resultAdmissionEventRef);
         const p = result === null ? null : projectionFacts(prefix, result, session());
         return p !== null && p.state.judgment.admissionEventRef === origin.judgmentEventRef &&
             p.envelope.current.worksite.targets.filter(t => same(t.target.subject, row.subject) && same(t.target.predecessorObservation, row.observation)).length === 1 &&
@@ -693,21 +684,21 @@ export function worksiteRevisionOriginSurvives(prefix, row) {
     // Once there is a native successor, the old input is not an alternative origin.
     if (replacement !== null)
         return false;
-    const event = events.find(e => e.eventId === origin.basisAdmissionEventRef && e.kind === "basis_admitted");
+    const event = indexedRuntimeEvents(prefix, "id:" + origin.basisAdmissionEventRef).find(e => e.eventId === origin.basisAdmissionEventRef && e.kind === "basis_admitted");
     const basis = event?.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prefix, event.basisId);
     const worksite = basis === null ? null : inputWorksite(basis, prefix);
     if (basis === null || worksite === null || basis.rawInputAdmissionRef !== origin.inputAdmissionRef || basis.rawInputDigest !== origin.inputDigest ||
         !worksite.targets.some(t => same(t.target.subject, row.subject) && same(t.target.predecessorObservation, row.observation)))
         return false;
     // Failure after publication terminates O0 but creates no successful O1.
-    return !invalidatedAcrossBindings(prefix, row.subject, event.admissionOrdinal) && !events.some(e => e.kind === "c_call_result_admitted" &&
+    return !invalidatedAcrossBindings(prefix, row.subject, event.admissionOrdinal) && !indexedRuntimeEvents(prefix, "kind:" + "c_call_result_admitted").some(e => e.kind === "c_call_result_admitted" &&
         projectWorksiteTransitionForResult(e, events.filter(p => p.admissionOrdinal < e.admissionOrdinal))?.before === row.observation.observationRef);
 }
 export function projectWorksiteRevisionOrigins(prefix, seedBasis, historical, current, eligibleInvocationRefs) {
     const seed = inputWorksite(seedBasis, prefix);
     if (seed === null || current.targets.length !== historical.targets.length)
         return null;
-    const prefixEvents = runtimeEventsFromValidatedPrefix(prefix);
+    const prefixEvents = runtimeEventBodiesAtPrefix(prefix);
     const crossedHistory = prefixEvents.some(e => {
         if (e.kind !== "basis_admitted" || typeof e.basisId !== "string")
             return false;
@@ -716,7 +707,7 @@ export function projectWorksiteRevisionOrigins(prefix, seedBasis, historical, cu
             (b.workspaceBindingId !== current.workspaceBinding.bindingId || b.workspaceBindingDigest !== current.workspaceBinding.bindingDigest);
     });
     if (!same(seed.workspaceBinding, current.workspaceBinding) || crossedHistory) {
-        const events = runtimeEventsFromValidatedPrefix(prefix), bases = events.flatMap(e => {
+        const events = runtimeEventBodiesAtPrefix(prefix), bases = events.flatMap(e => {
             const b = e.kind === "basis_admitted" && typeof e.basisId === "string" ? projectExactExecutionBasisAtPrefix(prefix, e.basisId) : null;
             return b !== null && eligibleInvocationRefs.includes(b.invocationAdmissionRef) ? [b] : [];
         });
@@ -747,9 +738,9 @@ export function projectWorksiteRevisionOrigins(prefix, seedBasis, historical, cu
             origin = { kind: "admitted_input", basisAdmissionEventRef: seedBasis.admissionEventRef,
                 inputAdmissionRef: seedBasis.rawInputAdmissionRef, inputDigest: seedBasis.rawInputDigest };
             // The initial file/absence seed is allowed only while no native transition invalidates it.
-            const events = runtimeEventsFromValidatedPrefix(prefix);
-            const initial = events.find(e => e.eventId === seedBasis.admissionEventRef);
-            if (initial === undefined || invalidatedAcrossBindings(prefix, row.target.subject, initial.admissionOrdinal) || events.some(e => e.kind === "c_call_result_admitted" &&
+            const events = runtimeEventBodiesAtPrefix(prefix);
+            const initial = indexedRuntimeEvents(prefix, "id:" + seedBasis.admissionEventRef).find(e => e.eventId === seedBasis.admissionEventRef);
+            if (initial === undefined || invalidatedAcrossBindings(prefix, row.target.subject, initial.admissionOrdinal) || indexedRuntimeEvents(prefix, "kind:" + "c_call_result_admitted").some(e => e.kind === "c_call_result_admitted" &&
                 projectWorksiteTransitionForResult(e, events.filter(p => p.admissionOrdinal < e.admissionOrdinal))?.before === observation.observationRef))
                 return null;
         }
@@ -830,7 +821,7 @@ export function worksiteExecutionSourcesCurrent(prefix, task) {
         return false;
     if (isNativeWorksiteCommandExecutionTask(task))
         return projectNativeWorkCommandSourceAtPrefix(prefix, task) !== null;
-    const calculus = deriveRuntimeEventCalculusProjection(prefix);
+    const calculus = deriveRuntimeHeldFluentProjection(prefix);
     const readBasis = task.kind === "worksite_command_execution_task" ? task.readDependencyBasis : undefined;
     const readSource = readBasis === undefined ? null : semanticJobReadDependenciesAtPrefix(prefix, readBasis);
     if (readBasis !== undefined && readSource === null)

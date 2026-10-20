@@ -1,0 +1,22 @@
+{
+  "executable": "/opt/homebrew/bin/npm",
+  "args": [
+    "pack",
+    "--ignore-scripts",
+    "--json",
+    "--pack-destination",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/setup/consumer-artifacts"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/setup/consumer-source",
+  "started": "2026-10-10T20:17:31.903Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR",
+    "npm_config_cache",
+    "npm_config_offline"
+  ],
+  "timeoutMs": 300000
+}

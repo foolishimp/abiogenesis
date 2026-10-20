@@ -1,0 +1,10 @@
+{
+  "cause": "command recorder uses canonical tenant cwd; proof-local invocation supplied repo-relative .ai-workspace script path",
+  "originatingBoundary": "argv script coordinate to Node loader; no declaration owner entered",
+  "failedReceipt": "commands/counterexample-before.result.json",
+  "runtimeOrSourceFailure": false,
+  "sourceEditsMade": false,
+  "proposedAction": "same frozen capture script with its canonical absolute path, fresh counterexample-before-02 receipt",
+  "decision": "awaiting Executive selection before retry",
+  "scriptSha256": "7542c252394ee39b23772cef2fda3916ea5adac8b40264022b58d7911190f1e3"
+}

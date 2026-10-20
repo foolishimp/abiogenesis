@@ -1,0 +1,18 @@
+{
+  "activation": "T287_RC1_C03_INSTALLED_DISCRIMINATORS_CONTROLS_01",
+  "role": "Writer",
+  "status": "CLOSED",
+  "runtimeActivations": "pending separate Root exactC03 acceptance",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminators-controls-01/f11-request.txt",
+      "bytes": 6478,
+      "sha256": "397aada726b74672dd125dfea00c644acc182fef9a323be0ed9d2515f6151693"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminators-controls-01/s03-request.txt",
+      "bytes": 5295,
+      "sha256": "58331ab54f4b9da983f627bbd273d332d9554560adae0fc9caa566cd14047651"
+    }
+  ]
+}

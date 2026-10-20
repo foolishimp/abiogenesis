@@ -1,0 +1,47 @@
+{
+  "scope": "237 caller-only successor02 preparation; execution ungranted",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/run-02.mjs",
+      "sha256": "36adbb6e50a7c7f79100fd94ea15cb668b06c3ed2e24d8321bfc975d81cabde9",
+      "byteCount": 13833
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/preparation-02.diff",
+      "sha256": "e218572a174bec2903ef723bcc216e7c5ad129c42eb67758daaeb32aa07c3ee2",
+      "byteCount": 3743
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/preparation-02-checks.json",
+      "sha256": "af4356115b9a6c116b212235d6642b19fa3b5df75b0d51df850c6ce387ad4507",
+      "byteCount": 323
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/preparation-02-return.md",
+      "sha256": "09cd529f52103baea1a7ad0869e199bc40600ef6cad46ee3dc2d4bf446fe4b87",
+      "byteCount": 1654
+    }
+  ],
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/preparation-freeze.json",
+      "sha256": "589e9d69febabdfd32ef4fddcdcb1b9fa902c62fc05e988043ec96a10801e626",
+      "byteCount": 2045
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/run.mjs",
+      "sha256": "e93e4d569eae4c55d1153c37d1bc0bd4437710cf377b82e0d6aab2692ae6f1de",
+      "byteCount": 13390
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/freeze.json",
+      "sha256": "6b12bf04b3507692b365098e0f0345599c5881ae7ce1fda37b25ff60c79a6951",
+      "byteCount": 1348
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/helper-postimage-07.mjs",
+      "sha256": "7e75e8953fb05538c41a9e7e78c3525fdfdcebfb5bd489d2f720d7a71d236f2e",
+      "byteCount": 40162
+    }
+  ]
+}

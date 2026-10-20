@@ -1,0 +1,62 @@
+{
+  "activation": "T287_SANDBOX_UAT_RUN_02_AUTH_REALIZATION_REFACTOR",
+  "frozenAt": "2026-10-06T03:01:03.772248+00:00",
+  "outcome": "auth_recognition_fixed_provider_probe_timed_out",
+  "refs": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/auth-triage/repair-grant.json",
+      "sha256": "27d5d7c215422cbbeaecf667cb37a6e8026b3592f79fd9e8f652acd07ff98e52",
+      "byteCount": 1113
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/auth-triage/repair-delta.json",
+      "sha256": "6c5cc1fb1252ecc9a0de9009d05e8f6da94d835143faa15ba2dada866e980ab8",
+      "byteCount": 818
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/auth-triage/successor-auth-status.json",
+      "sha256": "592fed6e0171da29fc04f687264713ee867ba9f127051cd0aeecab00b9cd4ae6",
+      "byteCount": 349
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/auth-triage/probe-timeout-auth-02.json",
+      "sha256": "561560ea476a94a897f45ec0359693aeb5a3466aec7a2e088388144e6c1a7ada",
+      "byteCount": 1209
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/auth-triage/return-auth-repair-02.md",
+      "sha256": "2ad126cdb6294204b80286ff0d5bc7a7809ab606fe327ad9be63a636a5d94595",
+      "byteCount": 1347
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-auth-02.json",
+      "sha256": "413824692abe66b374973af16446fa28a1b0d8626f79aaf5ce2b34a3ee31588b",
+      "byteCount": 2315
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/commands/provider-probe-auth-02.request.json",
+      "sha256": "0d62a26c3832665df9087f0d17726ef76a3879f0776b6dbed2e2e71584fbec3d",
+      "byteCount": 615
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/commands/provider-probe-auth-02.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/commands/provider-probe-auth-02.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/commands/provider-probe-auth-02.result.json",
+      "sha256": "8a904508823424f97fd03a78b398d77509eaa5bef8cb65ae217b99a741467a78",
+      "byteCount": 772
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "sha256": "bcd65d86f9f2fece3695342c977ad1fe72f0381f54e238811e53883d17355a4d",
+      "byteCount": 1848
+    }
+  ]
+}

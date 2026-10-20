@@ -1,0 +1,192 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_12",
+  "workResult": "NO_GO_EXTERNAL_COPY_ROLE_EQUALITY_PREFLIGHT",
+  "ProductFrame": "F-EndToEndInterfaceIntegration, fixed15/GOAL035/T287/F11/F15; unchanged WHAT/runtime, selected external HOW4.1 contract",
+  "currentC09Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+    "bytes": 7019,
+    "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+    "mode": 420
+  },
+  "actualSetup09Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+    "bytes": 9596,
+    "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74",
+    "mode": 420
+  },
+  "donorQ11Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/freeze.json",
+    "bytes": 867975,
+    "sha256": "827d5cbb98b5d68acb9af7da791f2173cb4f086f2fbd9a50bb3d047c051c76e5",
+    "mode": 292
+  },
+  "pathRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/controls/q12-path-record.json",
+    "bytes": 3403,
+    "sha256": "b7143c87009de5fdb94e45310caace0e1532c86a65956c6798aa6798e3d789dd",
+    "mode": 420
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/request.txt",
+    "bytes": 4710,
+    "sha256": "a943c48f8e4658646ae1f5af809c2cf6f1cf8b6c45d6e2f6d1dd52eaa6e6a4ad",
+    "mode": 420
+  },
+  "firstActualRefusal": {
+    "status": "CLOSED_FIRST_ACTUAL_PREFLIGHT_REFUSAL",
+    "operation": "T287_FINAL_QUALIFICATION_INPUTS_12",
+    "workResult": "NO_GO_EXTERNAL_COPY_ROLE_EQUALITY_PREFLIGHT",
+    "frontier": "cheap selected-cut/current-supplier tuple correspondence before materialization",
+    "owner": "external prepare-current-delta.py:28",
+    "predicate": "For each field, selected source-cut replacement == current manifest == projected Source origin == derived supplier view",
+    "firstField": "copyBuildAuthor",
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "actualSelectedCutValue": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+    "actualCurrentSupplierValue": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+    "projectedOriginValue": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+    "derivedSupplierValue": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+    "actualSelectedCutRow": {
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/controls/source-cut.json",
+        "bytes": 26506590,
+        "sha256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+        "mode": 420
+      },
+      "pointer": "/replacements/0",
+      "tuple": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "sha256": "1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7",
+        "bytes": 275535,
+        "mode": 420,
+        "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+        "originalSource": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "originalAuthorship": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+        "selectedRelation": "shared_functional_typed_evidence_join",
+        "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+        "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts"
+      }
+    },
+    "actualCurrentSupplierRow": {
+      "manifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source-members.json",
+        "bytes": 25894743,
+        "sha256": "84bf29b7fdeec32449eca3b82b06522ab23f5f4ad2929b193a2722d0ae2132f8",
+        "mode": 420
+      },
+      "pointer": "/7",
+      "tuple": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "sha256": "1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7",
+        "bytes": 275535,
+        "mode": 420,
+        "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+        "originalSource": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "originalAuthorship": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+        "selectedRelation": "shared_functional_typed_evidence_join",
+        "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+        "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts"
+      }
+    },
+    "originalFlatViewsFaithfullyRetainTheirDistinctRoles": true,
+    "priorFieldsMatched": [
+      "path",
+      "origin",
+      "sha256",
+      "bytes",
+      "mode",
+      "sourceAuthor",
+      "originalSource",
+      "originalAuthorship",
+      "selectedRelation"
+    ],
+    "failingCommand": [
+      "python3",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/prepare-current-delta.py"
+    ],
+    "processExitCode": 1,
+    "execWallTimeSeconds": 0.059746166,
+    "actualStderr": "Traceback (most recent call last):\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/prepare-current-delta.py\", line 28, in <module>\n    for other in [sm,origins[m['path']],viewRows[m['path']]]:assert (field in m)==(field in other)and(field not in m or other[field]==m[field]),(m['path'],field)\nAssertionError: ('build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts', 'copyBuildAuthor')\n",
+    "selectedDeltaProducerCounts": {
+      "replacements": 7,
+      "additions": 2
+    },
+    "completeNineTupleJoin": "NOT_ESTABLISHED",
+    "notReached": [
+      "current-source-delta.json/identity/pin creation",
+      "cheap discriminator negatives",
+      "new complete inventory/protected/recipe-self binding",
+      "prepayload envelope measurement",
+      "complete published command Task payload",
+      "full resource/material/scope/embedded/reference owner/render payload"
+    ],
+    "noProductDefectInferred": true,
+    "noRepairOrRetry": true,
+    "ProductImports": 0,
+    "nativeCalls": 0
+  },
+  "retainedStrictCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/f11/ordinary-caller.mjs",
+    "bytes": 18118,
+    "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+    "mode": 420
+  },
+  "retainedParentChildDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/f11/flow-driver.mjs",
+    "bytes": 6502,
+    "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+    "mode": 420
+  },
+  "retainedOriginalSourceAuth": {
+    "body": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/f11/source-authorship-records.json",
+      "bytes": 16092667,
+      "sha256": "29ebe3117d78c30892eadcbaeb0f08002a77c1c871d24ce5e78f63ab8ba494fd",
+      "mode": 420
+    },
+    "records": 174,
+    "chains": 23,
+    "spans": 90,
+    "recordAndChainValuesUnchanged": true,
+    "sourceOriginsAndSupplierViewsConserveQ11Bytes": true,
+    "sufficiency": "unknown",
+    "independence": "unknown"
+  },
+  "proofScope": "This cut records a rejected cheap preparation assertion. It establishes neither the complete nine-tuple preflight nor current Q12 Task/resource/request readiness. Q11 evidence remains historical and immutable.",
+  "accounting": {
+    "purePreparationLaunches": 1,
+    "actualOwningReadinessPayloads": 0,
+    "completeTaskPayloads": 0,
+    "packetPayloads": 0,
+    "purePreparationExitCode": 1,
+    "purePreparationExecWallTimeSeconds": 0.059746166,
+    "processClosure": "exec_command completed with exit1; no managed owner payload or process group was launched",
+    "RSSBytes": null,
+    "RSSStatus": "not measured for cheap Python preparation",
+    "materialBodiesMaterialized": 0,
+    "resourceSerializationBytes": null,
+    "promptBytes": null,
+    "actualResourceEnvelopeMeasurement": "not reached",
+    "nativeTaskRunJHelperProviderCalls": 0,
+    "qualificationCommandsExecuted": 0,
+    "SourceChanges": 0,
+    "builds": 0,
+    "GitEffects": 0,
+    "networkEffects": 0,
+    "retries": 0
+  },
+  "unknowns": [
+    "Correct source-cut versus current builder copy-role contract disposition",
+    "Complete current delta correspondence and counterexamples",
+    "Current Q12 inventory/task/reference-owner/request/prompt/envelope readiness",
+    "Semantic source attribution/material/context/applicability/grouping/independence",
+    "Installed Result/J/foldback/F11/readbacks/QUAL056/greenAF22/release"
+  ],
+  "independentAssuranceClaim": false,
+  "noFurtherWritesAfterFreeze": true,
+  "returnsTo": "Root Executive"
+}

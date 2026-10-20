@@ -1,0 +1,52 @@
+{
+  "acceptedSource232": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/freeze.json",
+    "sha256": "b808e5f31a4005081e44bbd36976f72ec314ddabc1f1501ebfe7dea10817d76e"
+  },
+  "acceptedHelper234": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-preparation-reuse-234/review-232/review.md",
+    "sha256": "bff47849c941f72eb511f2df9229877cbefb1d7f8eda22690ec07228691644a5"
+  },
+  "baseArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "18e1eac0d22a12f1d041947bb0e60a3f568ab10be7ce1ad604b3e6b5af610475",
+    "byteCount": 10640868
+  },
+  "sourceCount": 263,
+  "emittedCount": 526,
+  "sourceInventorySha256": "d47b7db98a0b1af444fb75086dd40505bc044ca7ae3544d82bc472c04e03a944",
+  "emissionInventorySha256": "a9b9eb461b03df44502804105596c06f39215cfffa30e5bd372ed2c8839586d5",
+  "generationInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/source/package.json",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/stage/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "byteCount": 9744
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package-lock.json",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/stage/package-lock.json",
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+      "byteCount": 8001
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/stage/tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+      "byteCount": 604
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/stage/scripts/generate-product-manifest.mjs",
+      "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+      "byteCount": 48959
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/stage/scripts/generate-qualification-rule-catalog.mjs",
+      "sha256": "3c326f02bf54214aebf64c827f2431cbc40dbebabc37bfe59a706da44b89fd68",
+      "byteCount": 13671
+    }
+  ],
+  "excluded": "all moving233/235 Source and originalDataMapper resource"
+}

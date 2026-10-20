@@ -1,0 +1,31 @@
+{
+  "activation": "T287_F11_MATERIAL_SELECTION_02",
+  "actor": "/root/f11_attribution_inputs",
+  "role": "Worker",
+  "previousActivation": "T287_S01_RETAINED_CAUSAL_SUPPLEMENT_02 CLOSED; unchanged",
+  "changeClass": "realization_refactor",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-controls-02/request.txt",
+    "bytes": 6982,
+    "sha256": "224e58b4ceb130b2065673d2da9e18fbf4b8dcf2198dc72bf6f8b447a62b0da6"
+  },
+  "operation": "One external C02/Q02 015B material selection and pure existing-owner binding path",
+  "excluded": [
+    "native/provider/model/helper dispatch",
+    "source mutation",
+    "prior cut mutation",
+    "moving resources",
+    "Git",
+    "whole campaign",
+    "independent qualification J"
+  ],
+  "status": "ACTIVE",
+  "at": "2026-09-30T12:08:21.179923+00:00",
+  "acquisitionNotes": [
+    "Initial broad path search and overly verbose nested metadata display truncated; no subject conclusion based on truncated displays. Subsequent acquisition bounded by named files and shapes."
+  ],
+  "proofBudgetMs": 300000,
+  "processCapMs": 120000,
+  "ownedGraceMs": 1000
+}

@@ -1,0 +1,58 @@
+{
+  "kind": "executive_measured_root_cause_triangulation",
+  "status": "PROVISIONAL_PENDING_INDEPENDENT_CONJUNCTION",
+  "operation": "T287_EXECUTION06_TRIAGE_ASSIGNMENT_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "subject": {
+    "candidate": "C05",
+    "productDigest": "27fa7db21c6987976afdcaac1ac092ed5ff1b8af5e10fed51b72658390ca429a",
+    "run": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271",
+    "oldPrefixBytes": 2490814,
+    "newPrefixBytes": 2668364,
+    "newPrefixSHA256": "2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+    "inode": 464611665
+  },
+  "failures": [
+    {
+      "id": "EXEC06-FP-PROOF-OMISSION",
+      "originatingRelation": "Run qualification resource -> prepared native proof operation -> actual F_P implementation argument -> current native qualification owner",
+      "firstDiagnostic": "qualification assessment lacks an exact current owner and admitted task",
+      "stage": "preparation before helper/actor dispatch",
+      "actualSource": "leaf_invocation_port.ts passes nativeLeafProofOperations as argument5 only in F_D branch; F_P preparation supplies four arguments. qualification.ts expects argument5 and reference-form fallback cannot resolve resources.",
+      "designAuthority": "T287_F11_CARRIER_RESOURCE_DESIGN.md section4 already requires this borrowed operation; no missing Product/requirement outcome established.",
+      "frames": {
+        "Product": "F04/F11/F15 require real admitted probabilistic assessment; root-only dispatch fallback prohibited.",
+        "Design": "Existing same-input/occurrence borrowed operation is present but omitted at F_P dispatcher.",
+        "Integration": "Root Run resource acquisition succeeded and actual child opened; missing fifth argument prevents prepared view reaching implementation.",
+        "IdentityLifecycle": "Actual child failure Result and failure J folded back to parent, which truthfully run_stopped; no semantic qualification J or RunClosed.",
+        "Effects": "No helper/provider/18 qualification commands; original prefix conserved.",
+        "Proof": "Carrier readiness tested pure preparation/completion/cold guards, not real dispatcher F_P delivery.",
+        "Cost": "Actual supervised run31.266s/default heap peak7771881472B; no timeout/OOM evidence."
+      },
+      "affectedCone": "Qualification F_P assessment direct and child dispatch using borrowed preparation; preserve unrelated native F_P arguments3/4, all exact currentness/Result/J/lineage checks, F_D proof operations and strict refusal.",
+      "smallestReentry": "realization_refactor",
+      "proposedOwner": "implementation/leaf_invocation_port.ts",
+      "requiredReproof": "Meaningful actual F_P boundary callback delivery/identity rejection plus exact successor installed wrapper-child/J/foldback/parent/reads/F11/sole non-greenAF22; candidate successor required for changed Product bytes."
+    },
+    {
+      "id": "EXEC06-COLD-RESOURCE-MISMATCH",
+      "originatingRelation": "External caller root-read resource assertion -> existing project-read structural owner contract",
+      "actualFault": "resource_admission invalid_resource_assertion exit70 before owner read",
+      "actualSource": "ordinary-caller.freshReads adds qualificationResources; AbgProjectReadResourceAssertion and bindExactPrefixRead root members accept eventResource/kind/schemaVersion only.",
+      "frames": {
+        "Product": "Ordinary Result/replay projects admitted compact values; it need not perform new semantic qualification.",
+        "Design": "HOW section8 allows non-expanding root projection and adds optional resources only where implemented read actually needs them.",
+        "Integration": "Caller generalized Run qualification resource into a narrower root-read contract.",
+        "IdentityEffects": "Fault precedes resource reopen/read; attempted fresh read caused no append.",
+        "Proof": "Typed Public outcomeKind=result is operation truth, not proof of successful Run; parent returned runtime_failed/result:null and caller missed this discriminator."
+      },
+      "affectedCone": "Q06 ordinary caller fresh root result/replay assertions and stop routing, not Product project-read API.",
+      "smallestReentry": "realization_refactor of external caller",
+      "proposedOwner": "successor Runtime caller only, preserve accepted Q06 and execution06 files",
+      "requiredReproof": "Actual cold read of retained failed Run gives truthful no-result and failed replay under existing contract; successor successful child path gets result and replay. Correct stop selection precedes remaining flow."
+    }
+  ],
+  "recurrence": "Supported recurring boundary omission/reconstructed caller contracts; organizational siloing is not established by these two codepaths. The retained producer/consumer relation and actual dispatcher must be exercised before local readiness receives integration credit.",
+  "selection": "No repair/retry authority created by this report. Independent bounded source/caller results return to Root; Executive conjoins and then grants smallest implementation increment."
+}

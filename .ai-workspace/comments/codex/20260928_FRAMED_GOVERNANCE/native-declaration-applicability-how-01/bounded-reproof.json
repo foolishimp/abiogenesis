@@ -1,0 +1,42 @@
+{
+  "status": "PLAN_ONLY_NO_EXECUTION",
+  "owner": "NativeDefinition/NCC-F02",
+  "productionTerritory": [
+    "build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts"
+  ],
+  "testSourceTerritory": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs"
+  ],
+  "designAdoptionSuggestion": "bounded applicability section in existing T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md after independent HOW review; separate grant",
+  "readOnlyOwnerSeams": [
+    "verify_product.ts native/no-native producer",
+    "environment.ts actual verified evidence/publicContracts forwarding and lock construction"
+  ],
+  "sourceCases": [
+    "mixed native core plus complete finite nested no-native guard supplier",
+    "metadata substitution/root identity/duplicate or escaped path/required-root refusal",
+    "malformed or contradictory empty evidence and advertised-native/empty-evidence refusal",
+    "genuine direct external native composition with missing/transitive/empty-target refusals",
+    "unsupported selected declaration refusal",
+    "native singleton and existing owner-relative namespace/augmentation conservation"
+  ],
+  "installedFirstDiscriminator": [
+    "new exact source-blind installed candidate",
+    "actual Public verify core and complete C03 pure-guard fixture",
+    "actual Public core singleton resolution with real non-null lock",
+    "actual Public mixed resolution with real non-null lock",
+    "actual install/bind/catalog on exact lock",
+    "actual F11 child independent J/consumption/foldback/Run closure",
+    "fresh Public and applicable cold F11/QUAL056/sole AF22 evidence"
+  ],
+  "newCandidateRequired": true,
+  "oldEvidenceRestamping": false,
+  "HelloRerunSelected": false,
+  "generalNodeResolverSelected": false,
+  "stop": "first failed owner seam or any extra WHAT/requirement/Public/production-owner scope; return to Root",
+  "proposedHow": {
+    "path": "proposed-how.md",
+    "bytes": 26882,
+    "sha256": "819bb622475071d5ae7a48e2c62ceb198b563968263f9a1ec28e9553fb3e6db6"
+  }
+}

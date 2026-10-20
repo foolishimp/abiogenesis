@@ -1,0 +1,20 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+    "bytes": 21635,
+    "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb",
+    "preimage": "absent"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+    "bytes": 25353,
+    "sha256": "b2ccf7c6f157b6cea11d31e1ceff9443fb38e122c3f1fcc7e2b626d8524f2be5",
+    "preimage": "absent"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+    "bytes": 1030,
+    "sha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+    "preimage": "absent"
+  }
+]

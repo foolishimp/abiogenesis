@@ -1,0 +1,11 @@
+--- N1/public-support.mjs
++++ N2/public-support.mjs
+@@ -57,6 +57,8 @@
+     ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
+     ...resolution.programValidation.interactionLeafRows.map((row) => row.fibre),
+   ]);
++  assert.equal(selection.programRef, 'program://abiogenesis/conformance/hello-world@5', 'this grant selects only named Hello');
++  assert.deepEqual([...declaredRegimes], ['F_D'], 'no provider regime selected');
+   const policy = product.constructRootInvocationPolicy(
+     workspaceBinding,
+     resolution.program,

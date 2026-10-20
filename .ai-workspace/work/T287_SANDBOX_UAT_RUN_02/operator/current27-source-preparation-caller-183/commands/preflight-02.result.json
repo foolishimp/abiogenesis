@@ -1,0 +1,12 @@
+{
+  "exitCode": 0,
+  "wallMs": 4133.794582972769,
+  "stdoutPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/commands/preflight-02.stdout.log",
+  "stderrPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/commands/preflight-02.stderr.log",
+  "stdoutSha256": "d2297417cd13ffa380f44b3ac9627987bbf131d28cb7ca42beca8761cc80fce4",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutByteCount": 463,
+  "stderrByteCount": 0,
+  "timedOut": false,
+  "truncated": false
+}

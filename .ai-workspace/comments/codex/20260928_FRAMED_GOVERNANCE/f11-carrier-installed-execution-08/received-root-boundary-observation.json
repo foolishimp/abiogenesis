@@ -1,0 +1,13 @@
+{
+  "source": "Root Executive independent read-only admitted event inspection",
+  "nativeResultAssessmentDisposition": "admitted",
+  "rawContract": "assessment-raw@5",
+  "verifiedProbabilisticResultPreimagePrefix": "3e51edd5",
+  "currentC07QualificationPublicationPrefix": "b73df128",
+  "nextRejectedCandidatePrefix": "fdb86621",
+  "nextOutputContract": "judgment@5",
+  "probabilisticEvidenceOutputDigestEqualsRejectedCandidateDigest": true,
+  "distinction": "current installed raw admission crossed; later compact result predicate rejection is distinct from Runtime07 raw refusal",
+  "WorkerSourceInvestigationOrRuntimeRepeats": 0,
+  "classification": "received independent observation; actual complete c_call_evidenced records retained for Root joining"
+}

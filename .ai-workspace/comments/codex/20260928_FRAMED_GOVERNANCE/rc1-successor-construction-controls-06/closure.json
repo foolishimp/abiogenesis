@@ -1,0 +1,45 @@
+{
+  "operation": "T287_F11_REPAIR_ACCEPTANCE_AND_C06_CONSTRUCTION_GRANT_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T05:23:16.440472+00:00",
+  "outputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/acceptance.json",
+      "bytes": 2857,
+      "sha256": "d1144f857c0229d59a6d362f11a08ee782776caeb793f16d6f9fa501ed636cf3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/source-cut.json",
+      "bytes": 6113457,
+      "sha256": "defead6bba302bb64e76b44c93a16090f70040e253fc22148a78be4ec2e6dfab",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/request.txt",
+      "bytes": 5426,
+      "sha256": "3cba0f3a2535a78793ddea81d9b19a4203169b7e3cf209a284da4bba248fc1eb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 516086,
+      "sha256": "b772e5450afe6f402d39efe5c015aa83948754f60a3b78eb67687f34860a227c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 475564,
+      "sha256": "053a3197eedf69ab10cd2304699bb06db3e7bf10c238c3a7202db0e05e21b856",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 8527,
+      "sha256": "63b4e35033238c226943de71adf26c7910e8c061fbba57b733642e315bc8c679",
+      "mode": 420
+    }
+  ],
+  "implementationRuntimeGitNetworkEffects": 0
+}

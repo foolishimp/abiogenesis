@@ -1,0 +1,14 @@
+{
+  "status": "PASS syntax and unresolved-name check only",
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/run-17.mjs",
+    "sha256": "42b323c17117c321c15ca525bfc848880eb10f196b7c97be23087724e51d61b4",
+    "byteCount": 29184
+  },
+  "syntaxReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/commands/driver-syntax.result.json",
+  "lexicalReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/commands/driver-lexical-02.result.json",
+  "lexicalResult": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/lexical-result-02.json",
+  "preservedFailure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/commands/driver-lexical.result.json",
+  "correction": "Existing shipped compiler is build/toolchain/typescript.cjs; only checker module extension corrected",
+  "noOwnerInvocation": true
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+    "sha256": "02a549dc4598d125ac69b42ebc10193a7854694b80fe5291ab800aff015102ec",
+    "byteCount": 90575
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "sha256": "a14e1621c138680168ab397f176548039e413eda46f043f0799d39d119348086",
+    "byteCount": 36651
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+    "sha256": "671a9bfc87b1b1b2e833a32a626afedd4a5566157918a04049b773f012294422",
+    "byteCount": 22777
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+    "sha256": "6e8a73516979dc42e6d476c1180ed3a2f9c7083c31e17339290eb1e7bb32b738",
+    "byteCount": 10253
+  }
+]

@@ -1,0 +1,2 @@
+TypeError: a.projectHistoricalGraphCallSourceAtDurablePrefix is not a function
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-155/prepare.mjs:55:31

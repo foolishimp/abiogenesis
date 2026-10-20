@@ -1,0 +1,44 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:d359c4498ccf69d7d226af6be1a1cf3ec8ae8809eb7979761b9a48dab7527223",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:214f9a61815407f2f1d1182afa3121076e0d83eaccfa82cc41bd7d231a74db74",
+    "prefixLength": 13131877,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 469917053
+    }
+  },
+  "run": {
+    "digest": "sha256:b1fbf4d047532dd1e806fbd2354b8cc0cd980195a58635891619e084558ee449",
+    "ref": "run://abiogenesis/2068f9d4efa436967722a9fdae172d2605695d88cfd59abe5506b04ce2c27c80"
+  },
+  "metadataSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/selected-event-index.json",
+  "eventRefs": [
+    "event://abiogenesis/a1930d3edc0184584237a65688da9beb2877ef0459b98d77ec236fb0d46f78c9",
+    "event://abiogenesis/6cd64a38be2e5cfaf7d2ab00b1a3be086ab4372c17eacdbceadfaaae9e6542db",
+    "event://abiogenesis/24d24742d653a05a6a6e1da9e14fe184dd0a22ed8579f1b3709c6b86967d9940",
+    "event://abiogenesis/79b8d28f11aadcba86f12d536fb85462163863345263fd839b3bb53ad8462c8f",
+    "event://abiogenesis/cb5e196411ecc9095fa81f1628a538c13e20e31943d503b7fa731b9d49f0f8c1",
+    "event://abiogenesis/baed8534d76fdab70e734e602aa1b007a85252ab815a08c64aa553847bce9c30",
+    "event://abiogenesis/a23a659f4bc2b1363fc7a1d79bba2919be9774207cc3a35a498516a74612d10b",
+    "event://abiogenesis/07d60a216f18430bd0761cd1c0230370124b638a829191f02400772deda4f344",
+    "event://abiogenesis/bb6d7e78b08bb8c6026767c6d6b24c5f169851f86a62f7d6c5c1548c8144de28",
+    "event://abiogenesis/0837363e05fc76bd2e6e73811156fb5e9a697ea6cfbca076bc87e4407e1b8cb3",
+    "event://abiogenesis/d900df2f9d4b60c0db113e4cd67b9308b386aee01892be7b0c528a27cd47b859",
+    "event://abiogenesis/ffc3703f5d7195df1512befab4a30d6e4e05a307952c36aa3050a37a4ab57d5a",
+    "event://abiogenesis/572eb3c40faa9c04e688441590c6082567c22852c0c0abc3ac713d19bfeb21f3",
+    "event://abiogenesis/d076f78412073218047bb33f1c41d3f2be45cdf2259e247fda3dfadacaacdbf7",
+    "event://abiogenesis/ec6f50905f860eb10335f19ef94762935fcecdcb2bd3c36fe8f36f54e856838b",
+    "event://abiogenesis/e15d8edc2a290de6df1281c997be8e2f65ecca74db22ba2feeb9f71a449958cb",
+    "event://abiogenesis/dfe02964bbdda410e474d4dfcba3c3d0a3c018069e7f4c1748aa70bee06f0a4d",
+    "event://abiogenesis/beec9179fb3e5d5f5f44e0b6aff45522b5a200d6cac65d3f9c5696d986451836",
+    "event://abiogenesis/433e319ff850b10621e3a747dd9b02967dae5ed4da52e512753f0528d5993f44",
+    "event://abiogenesis/5982f65ee3fbe73691558af2e20cc0bc2ba65eb302aeef30efef9afaff214ed4",
+    "event://abiogenesis/1457118d19f288b9ba9aa5af6f84632445b55459dfac9e66568f41d4cf0ad87b"
+  ],
+  "purpose": "Remaining exact addressed Testing basis/input and leaf fibre/evidence/judgment/runtime failure; earlier returned result/native bodies referenced, not recopied"
+}

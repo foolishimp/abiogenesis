@@ -1,0 +1,103 @@
+{
+  "kind": "odd_glc_full_sandbox_prepared",
+  "schemaVersion": "3",
+  "key": "bootstrap-native-d2-intake",
+  "scenarioId": "SCN-GLC-HELLO-WORLD-JS-SDLC-BOOTSTRAP",
+  "status": "prepared_not_live_qualified",
+  "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01",
+  "setupRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03",
+  "workspaceRoot": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap",
+  "freshNative": true,
+  "maximumActorOccurrences": 1,
+  "abiRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/products/core22/node_modules/@abiogenesis/typescript-tenant",
+  "consumerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/products/dev12/node_modules/@odd-glc/route-one-typescript",
+  "cliPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "launchPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/intake-start.jsonl",
+  "launchDigest": "sha256:8e15a61aaa5e38dd8d61d82e6f52b87a10ec6277b7bdb1862d4f8e22259b60bd",
+  "ordinal": 2301,
+  "inputDigest": "sha256:7856723d108dcb984c8b0a0004d927a4a0a8d45a01f2e931bfbb09449d604694",
+  "setupPrefix": {
+    "coordinateDigest": "sha256:9b81f93d8d5ad8bc0e362508a50a02bb970d9d1f110d039fc6c6acf77857723d",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:d6063c6f7e730731890c4fe4936ab8ac58c37014bc089fb01085f4dcd6e462e5",
+    "prefixLength": 111462891,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "abiArtifact": {
+    "artifactDigest": "sha256:b1f6a7c3743975553c9ac44a629bb2b313e1a97a504d1fe63114a6ad424a7572",
+    "productContentDigest": "sha256:81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3",
+    "manifestDigest": "sha256:06ddd3003d698cb0c8d0a87b50df9d989debe2b8ba451cce96a86fdb338864e6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "oddGlcArtifact": {
+    "packageName": "@odd-glc/route-one-typescript",
+    "packageVersion": "0.2.0-dev.12",
+    "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.12",
+    "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+    "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+    "graphFunctionRef": "graph-function://odd-glc/generic-lifecycle-witness@5",
+    "graphRef": "graph://odd-glc/generic-lifecycle-witness@5",
+    "startRef": "start://odd-glc/generic-lifecycle-witness@5",
+    "closureContractRef": "contract://odd-glc/generic-lifecycle-witness/closure@5",
+    "descriptorRef": "descriptor://odd_glc/route-one-typescript@0.2.0-dev.12",
+    "contributionManifestRef": "contribution-manifest://odd_glc/route-one-typescript@0.2.0-dev.12",
+    "catalogRef": "catalog://odd_glc/public-contracts@0.2.0-dev.12",
+    "provenanceRef": "provenance://odd_glc/route-one-typescript@0.2.0-dev.12",
+    "sourceDeclarationRef": "declaration://odd-glc/generic-lifecycle/source@5",
+    "sourceGraphFunctionRef": "graph-function://odd-glc/generic-lifecycle/source@5",
+    "sourceModuleRef": "module://odd-glc/generic-lifecycle-source-setup@5",
+    "sourceProgramRef": "program://odd-glc/generic-lifecycle-source-setup@5",
+    "sourceClosureContractRef": "contract://odd-glc/generic-lifecycle/source/closure@5",
+    "lifecycleDeclarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+    "artifactDigest": "sha256:65e8a3822fb6f761ad670053496dab8231a5bca6ba2c9af3d82bcc77e1e20f03",
+    "productContentDigest": "sha256:2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b",
+    "manifestDigest": "sha256:e9e606c6f7469831db2069a7f71a46cec80d20dd25fb2df12641385fc5ed100d"
+  },
+  "lifecycle": {
+    "declarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+    "declarationDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+    "stageRefs": [
+      "stage://odd-glc/generic-lifecycle/intent@5",
+      "stage://odd-glc/generic-lifecycle/product@5",
+      "stage://odd-glc/generic-lifecycle/requirements@5",
+      "stage://odd-glc/generic-lifecycle/design@5",
+      "stage://odd-glc/generic-lifecycle/evidence@5"
+    ],
+    "programRef": "program://odd-glc/native-semantic-revision/intake@5",
+    "programDigest": "sha256:f2e1a844963bdc34e59194d01b8448a6eb35ba68cb4b1065dff549d7f13f2545",
+    "actorLeafCount": 1
+  },
+  "transport": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "5"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:64d2a2e971603ad180dab7a009392bb71004f4cec7ce85e525bdda386e2bab44"
+  },
+  "noSubjectExecution": true,
+  "noLiveActors": true,
+  "boundary": "Root-authorized corrected ordinary intake over unchanged setup. Only current Product content authority coordinates are corrected through constructors; one launch, no local progression."
+}

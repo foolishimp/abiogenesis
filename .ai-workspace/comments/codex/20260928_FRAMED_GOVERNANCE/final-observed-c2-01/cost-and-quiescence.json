@@ -1,0 +1,85 @@
+{
+  "preflightElapsedMs": 13533.677292,
+  "driver": {
+    "pid": 14674,
+    "exitCode": 1,
+    "signal": null,
+    "exitObserved": true,
+    "timedOut": false,
+    "elapsedMs": 219677.6767084375,
+    "ownedGroupsSignalled": [],
+    "stdout": "driver.stdout",
+    "stderr": "driver.stderr"
+  },
+  "nativeCLI": {
+    "pid": 14828,
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "--jsonl",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/c2-observed-c2.jsonl"
+    ],
+    "elapsedMs": 205973.247,
+    "exitCode": 0,
+    "signal": null,
+    "peakRSSBytes": 876953600,
+    "userSeconds": 15.38447,
+    "systemSeconds": 4.046381,
+    "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+  },
+  "nativeWrapper": {
+    "pid": 14827,
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "spawnError": null
+  },
+  "nativeCallElapsedMs": 206015.359792,
+  "providerDurationMs": 198258,
+  "providerReportedCostUSD": 0,
+  "providerUsage": {
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "input_tokens": 0,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 0,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "actorNativeProcessExit": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/dc14e98c17b9f0117095bcd88aee77b2078f6dd48de7abc3df4ac9952c86ba17",
+    "processRef": "process://abiogenesis/fc0412f908397f3bcacc0ac1951a94e73769e64fedd9315b532074cc6437972e",
+    "signal": null,
+    "status": 1
+  },
+  "actorTransport": {
+    "exitObserved": true,
+    "terminationConfirmed": true,
+    "processStatus": 1,
+    "processSignal": null,
+    "timedOut": false,
+    "signalSequence": [],
+    "apiRetryCount": 10,
+    "toolCallCount": 0
+  },
+  "actualCalls": 1,
+  "freshReads": 0,
+  "helperInvocations": 0,
+  "commandsExecuted": 0,
+  "declaredCommands": 13,
+  "providerEpisodes": 1,
+  "retries": "No Public/Run/provider episode retry by Worker; existing provider internally emitted10 API retry notices within the same process",
+  "quiescence": "ABG admitted actual provider exit1, termination confirmed; wait4 reaped native CLI exit0; wrapper closed; supervisor waited driver exit1. Same original resource stable and lock absent. No host-wide process absence claimed."
+}

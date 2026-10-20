@@ -1,0 +1,73 @@
+{
+  "status": "STOP / no material receipts, config, acquisition or version preflight created",
+  "exitCode": 1,
+  "executedSource": {
+    "entrypoint": "node --input-type=module -e",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/material-receipt.failed-eval-source.txt",
+      "sha256": "bf2363c5232d619c5cf4e646bc1e46378e55a8eb73e4e960ddde6d76202fc777",
+      "byteCount": 6395
+    },
+    "runtimeLocation": "[eval1]:21:205",
+    "failingExpression": "assert(new17.has(row.relativePath)||transfer.transferred.some(x=>x.path===row.relativePath))"
+  },
+  "exception": {
+    "name": "AssertionError",
+    "code": "ERR_ASSERTION",
+    "text": "false == true",
+    "actual": false,
+    "expected": true
+  },
+  "membership": {
+    "expectedCount": 26,
+    "actualMixedCount": 26,
+    "missingCount": 17,
+    "unexpectedCount": 17,
+    "missingSample": [
+      "build_tenants/scala_spark/build.sbt",
+      "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala"
+    ],
+    "unexpectedSample": [
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6/sandbox/worksite/build_tenants/scala_spark/build.sbt",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6/sandbox/worksite/build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6/sandbox/worksite/build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala"
+    ]
+  },
+  "diagnosis": {
+    "old17PathIsAbsolute": true,
+    "old17HasSeparateRelativePath": true,
+    "all17AbsoluteRelativeCorrespondences": true,
+    "all17FrozenDigestsAndSizesMatch": true,
+    "noCurrentMaterialDiscrepancyObserved": true,
+    "neededReceiptPremise": "Use existing relativePath for membership; preserve absolute literal path for acquired freeze rows"
+  },
+  "priorPassedAssertions": {
+    "physicalAfterSnapshotFiles": 30,
+    "originals": 4,
+    "authoredWithinOriginalGrant": 26,
+    "incoming9TransferIdentityUnchanged": true
+  },
+  "protectedOldObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-execution-18/observations.json",
+    "sha256": "6037e1a38d7810e891c0c68f25688b72153645bedf3c27d38779c5dd7c491ced",
+    "byteCount": 90531
+  },
+  "protectedIncomingTransfer": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6/supplied-work-transfer.json",
+    "sha256": "ced7e9f56f0f450c0ab0f7dbf87ab68e31bded80ed800e537b14001359702f8f",
+    "byteCount": 6241
+  },
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-14/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "e5731dcebb3b01b0179816b3319c170a9f63ae4d79acab7e8e9e32d514b3c4e6",
+    "byteCount": 10622015
+  },
+  "packageProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-14/owner-verification.json",
+    "sha256": "2b27ac0c2b046680a4505d647a6ab0b9b65703cdcc483a049edb44b7f4e5963d",
+    "byteCount": 1560
+  },
+  "noRerunNoConfigNoNative": true
+}

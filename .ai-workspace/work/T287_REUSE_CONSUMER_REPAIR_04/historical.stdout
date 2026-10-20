@@ -1,0 +1,19 @@
+{"type":"test:enqueue","data":{"nesting":0,"name":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs","type":"test","line":1,"column":1,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:dequeue","data":{"nesting":0,"name":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs","type":"test","line":1,"column":1,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:enqueue","data":{"nesting":0,"name":"fresh original child Result/J recovery and nearest crossed-reference refusals","type":"test","line":170,"column":29,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:dequeue","data":{"nesting":0,"name":"fresh original child Result/J recovery and nearest crossed-reference refusals","type":"test","line":170,"column":29,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:complete","data":{"name":"fresh original child Result/J recovery and nearest crossed-reference refusals","nesting":0,"testNumber":1,"details":{"duration_ms":5063.038375,"type":"test","passed":true},"line":170,"column":29,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:start","data":{"nesting":0,"name":"fresh original child Result/J recovery and nearest crossed-reference refusals","line":170,"column":29,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:pass","data":{"name":"fresh original child Result/J recovery and nearest crossed-reference refusals","nesting":0,"testNumber":1,"details":{"duration_ms":5063.038375,"type":"test"},"line":170,"column":29,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:summary","data":{"success":true,"counts":{"tests":1,"failed":0,"passed":1,"cancelled":0,"skipped":0,"todo":0,"topLevel":1,"suites":0},"duration_ms":5064.898583,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:complete","data":{"name":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs","nesting":0,"testNumber":1,"details":{"duration_ms":5154.563541,"type":"test","passed":true},"line":1,"column":1,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:plan","data":{"nesting":0,"count":1}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"tests 1","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"suites 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"pass 1","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"fail 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"cancelled 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"skipped 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"todo 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"duration_ms 5159.292833","level":"info"}}
+{"type":"test:summary","data":{"success":true,"counts":{"tests":1,"failed":0,"passed":1,"cancelled":0,"skipped":0,"todo":0,"topLevel":1,"suites":0},"duration_ms":5159.292833}}

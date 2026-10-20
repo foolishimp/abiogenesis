@@ -1,0 +1,248 @@
+{
+  "status": "CLOSED",
+  "disposition": "NO_SUPPORTED_BLOCKERS_IN_FROZEN_SOURCE_COMPONENT_SCOPE",
+  "repositoryRoot": "/Users/jim/src/apps/abiogenesis",
+  "subjectSha256": "5341cc18c34c83e8d057aa641def5c23574235176eeb215c106e492c59a6656e",
+  "review": {
+    "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/review-01/review.md",
+    "bytes": 3867,
+    "sha256": "ee45eca0670e13d4423cb3efc65a0c6d4cb1213b1c67f79f68049ef8cce30500"
+  },
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/return.md",
+      "bytes": 3610,
+      "sha256": "0328f698bf645801cb0c4f05713baa8259fe0924d8066a031200db58489b15c7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/frozen-subject.json",
+      "bytes": 6453,
+      "sha256": "5341cc18c34c83e8d057aa641def5c23574235176eeb215c106e492c59a6656e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/source.diff",
+      "bytes": 21419,
+      "sha256": "425640b2c87a94cd48467a59704de268b0ae27cc4a9205a481d0c00f9bc0c114"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/preimages.json",
+      "bytes": 3294,
+      "sha256": "4ad56362bd79e853f9cac40c0436c6fc8bf4e4f7968fab837797aa57541c106d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/checks.json",
+      "bytes": 1524,
+      "sha256": "0c7698e7df8df90c9080b419bb34692eb8bb2faf98216c45583c0d727aacfc8a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/refs.json",
+      "bytes": 3836,
+      "sha256": "8320083a53eaf290b5a4d76e8c79d41c2ea7e72cabdc9efe6185ff69607ceb04"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/compile.stderr",
+      "bytes": 777,
+      "sha256": "d3835c6e3cd01572e2af0f518fc763e0e1319de97b07ba85591eb9e2f6832df4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/focused.stdout",
+      "bytes": 1660,
+      "sha256": "f13366b9c0f48e44949c8f32fdbbad01185ead8a31e5e5604f5cacae88ed6891"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/foldback-acquisition-repair-01/focused.stderr",
+      "bytes": 777,
+      "sha256": "071beb55d812c679639b6c06fd13bdb071138840100317915281635c28aaaac3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "bytes": 63490,
+      "sha256": "3847e67b06986ef493667af804017b19f028e15f607d118631a102ff3adc1d3e",
+      "preimageSha256": "7c8e69865a1c0d3fd2d777ea603cd0a747ab375e854048b45c46fc777ce984ec",
+      "preimageBytes": 63465,
+      "verification": "stored preimage, current postimage and entire reversed frozen diff match"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "bytes": 37962,
+      "sha256": "6d27337d5b87d0fdf677ef3268e3d63b217169fd230c2f8b6a45dbc5e303cf3f",
+      "preimageSha256": "37891cd219f67f33bfab0b61ae7430d8da079b51e532d1e1ca5b241cd07b6f7a",
+      "preimageBytes": 35550,
+      "verification": "stored preimage, current postimage and entire reversed frozen diff match"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+      "bytes": 33032,
+      "sha256": "1cc10451210f10f421263dfa427372b61e8550fcb47a76269ac5294d905e3c66",
+      "preimageSha256": "b1abdac4481120ab983cf26ca2a65375c5eb4432b2bc2a6377521a545d7f2e0b",
+      "preimageBytes": 25478,
+      "verification": "stored preimage, current postimage and entire reversed frozen diff match"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "bytes": 23001,
+      "sha256": "b4e3642a9f7963e1fdeb51f22b0df7b7b563eb933c519e1576a3e34ed12ad4df",
+      "preimageSha256": "fd7559d1befb6e73c4a10d16902ce742d6a0d3290e15de70c0dccda2cf65cade",
+      "preimageBytes": 22163,
+      "verification": "stored preimage, current postimage and entire reversed frozen diff match"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js",
+      "bytes": 64482,
+      "sha256": "b73fb5b20cccac2a17e3bf58586c7c4ba025ea72d364d96d85af7b3b87b925be",
+      "preimageSha256": "f84c19cd557ed7e0afdedfc8e9ffc75f707ceec644c2188ce3f5bc588f1f0390",
+      "preimageBytes": 64515,
+      "verification": "stored preimage, current postimage and entire reversed frozen diff match"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_input_provenance.js",
+      "bytes": 37016,
+      "sha256": "1c0538f1a990a9e4e7feaa8cccb4dddbf1603a75cf6c8cb106ca1b3b1213c354",
+      "preimageSha256": "706a2455c410fc8f677ad0654a75ada2100a772fa85c4cd7369d6d173ed6114a",
+      "preimageBytes": 34518,
+      "verification": "stored preimage, current postimage and entire reversed frozen diff match"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_input_provenance.d.ts",
+      "bytes": 3227,
+      "sha256": "14f1978919c2581b78103bbfddca5fb4a089e3058e27951012db67fc20051bd6",
+      "preimageSha256": "a72c029f34f91150f18979e36057d8619b1375ede7eed8cc42f0b9c2f30ca4aa",
+      "preimageBytes": 2757,
+      "verification": "stored preimage, current postimage and entire reversed frozen diff match"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 121977,
+      "sha256": "91aec3f47a4da8ed33f2d59e665eed76fe459500dea4c4c363525b1ae5652af4",
+      "classification": "declared conserved source/emission"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.d.ts",
+      "bytes": 5185,
+      "sha256": "00b7388875a2280a441eb1cfcdf9f49bfe1ef71b94f6dcc30a352a6388567562",
+      "classification": "declared conserved source/emission"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.js",
+      "bytes": 107821,
+      "sha256": "6afee3c1868f2d9c225234a26823b35b7327b89aee3313a358b9084263d8a9bd",
+      "classification": "declared conserved source/emission"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.d.ts",
+      "bytes": 19062,
+      "sha256": "7c5a1cfd65f816f1db2e6392407c4e0249454142ac799380a98297757585e75d",
+      "classification": "declared conserved source/emission"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 273186,
+      "sha256": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d",
+      "classification": "accepted masking repair conserved"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 65177,
+      "sha256": "0544ab335f1885f6f25b5aa3f157dc5300fc5ccd5f661c487122885dee69334d",
+      "classification": "accepted masking repair conserved"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs",
+      "bytes": 28018,
+      "sha256": "7d02c2955b50ae11ba4df2db9109b55e3f666d7faae3f8c8b0776995350c65a1",
+      "classification": "accepted masking repair conserved"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+      "bytes": 236538,
+      "sha256": "45af70afb17273a9f73f359eca63083dc32bcddff422a56b0291c1d82dec9e5f",
+      "classification": "accepted masking repair conserved"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "bytes": 53151,
+      "sha256": "43b24ecd56a45c4efda3527b59549177ae8e7ec761bd3551bcb0d2c68ac2c855",
+      "classification": "accepted masking repair conserved"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.d.ts",
+      "bytes": 39422,
+      "sha256": "568fe5861972584b4c168d0c28f1c73ea91440cbe2817ff3ebf4657715c6ce64",
+      "classification": "accepted masking repair conserved"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.d.ts",
+      "bytes": 9764,
+      "sha256": "533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c",
+      "classification": "accepted masking repair conserved"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/first-cause-addendum.md",
+      "bytes": 2374,
+      "sha256": "6e6007924082888e8884ed0a29e5b4d8ca2d45d917ac30dd59c9279865ad2fbd",
+      "classification": "closed installed counterexample record; no journal acquisition"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 64544,
+      "sha256": "ae4dbcff40f4784a648d98a1faaf0b139ca40610062eb4787fe25e16c1415794",
+      "inspectedLines": [
+        "41-49"
+      ]
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md",
+      "bytes": 74528,
+      "sha256": "f385b9d34cb572ee015abb022f988cfa4942062a28979499b4b3a169036d4a94",
+      "inspectedLines": [
+        "1083-1110"
+      ],
+      "classification": "grant snapshot; independent tracking may advance"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/review-01/review.md",
+      "bytes": 3910,
+      "sha256": "e96c102326feb989124d47368871df13802aa79dc494ebbcdf8fe8d7aabd7608",
+      "classification": "prior direct-producer bounded acceptance reused"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/review-01/review.md",
+      "bytes": 3762,
+      "sha256": "991c12a13a1d123e1befbdd44ca608e90fbf334926dc6f228da035d39b0d0c6d",
+      "classification": "prior masking-repair bounded acceptance reused"
+    }
+  ],
+  "routes": {
+    "exactEnclosingResult": "worksite_input_provenance.ts:112-137",
+    "reusedCompletedChildOwner": "worksite_input_provenance.ts:38-105",
+    "nativeLeafAndBinding": "worksite_revision.ts:56-96,412-433",
+    "focusedControls": "d2-binding-transition.test.mjs:6-145",
+    "actualOwnerFixtureLink": "d2-binding-harness.mjs:148-178"
+  },
+  "unchangedHelperBodyHashes": {
+    "sameInvocation": "a976a1547447e3ed6b140f63edab2818a5316b183c737a4b5d60784f7a993a3e",
+    "successfulResult": "229b2de448c87ecbdd095637f3aad7ca505628b6ebc8353a008f94234126a5bf",
+    "completedC3Child": "b70c387a596cd6a1b288c25260c22298319f3605feec688bd207fa23f3ed7fc1"
+  },
+  "verification": {
+    "sevenPreimagesPostimagesAndDiffRelationsExact": true,
+    "fourDeclaredConservedPathsExact": true,
+    "sevenMaskingRepairPostimagesExact": true,
+    "workerRefsAndLogsRehashed": true,
+    "retainedChecks": "normal compile and 10 affected checks passed; not rerun",
+    "newCounterexampleProbe": false
+  },
+  "limits": [
+    "Preimage failure is a compact checks.json record from the original tool output, not retained standalone stdout.",
+    "Fixture substitutes prefix, basis/install, final CCall authentication and existing owner/physical observations.",
+    "Synthetic foldback/terminal rows are component premises, not original live bodies.",
+    "Full live foldback body and matching cardinality were not acquired.",
+    "No installed cold-recovery, physical-currentness, native D2 completion or timing claim."
+  ],
+  "effects": "Only review commentary written; no source, runtime, provider, package, test or Git actions."
+}

@@ -1,0 +1,367 @@
+{
+  "observedAt": "2026-10-08T23:44:03.810229+00:00",
+  "eventStore": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+  "events": {
+    "188504": {
+      "ordinal": 188504,
+      "offset": 1503229945,
+      "byteCount": 6538961,
+      "sha256": "abff6ecafeed0a0e2ab6da01a7bc45a968abbd61fa05139c6e7c234f618c9545",
+      "eventId": "event://abiogenesis/e0009232d06a966f151e927332b9a258e713224a638f8f20ccc6865660257c5c",
+      "resultRef": "result://abiogenesis/d43b9187a43ef29e5d3cd161b291bd7c81de4085bffc6c89ce1b26b071eb2cdb"
+    },
+    "188534": {
+      "ordinal": 188534,
+      "offset": 1518223015,
+      "byteCount": 1942451,
+      "sha256": "921564b33d7235b90d3df131ac86d23b4fa3ca61735eb62a2c2370a3caf0d913",
+      "eventId": "event://abiogenesis/fd29546157f6bdabefce15e7ca8b546fe92368e54ae615223c95d5be2610b216",
+      "resultRef": "result://abiogenesis/4b926ded7b3ae15f6bf05b7230afed0cacfdce6a04ce305b24ecc98a3cf90ee7"
+    },
+    "183869": {
+      "ordinal": 183869,
+      "offset": 1465235425,
+      "byteCount": 1823942,
+      "sha256": "dc1a65183b04c563f614349ee8945b1614a53d03d8edb5eef48f0772291d2b79",
+      "eventId": "event://abiogenesis/49d8b7a6b7a158dd41bf97b60d89b047d358ece598119a80344f1dbdbb6a57f9",
+      "resultRef": "result://abiogenesis/556ba15f3cfcaac5bdc8d313d96d4a403fd6a5a4b2d2632e9763de0d996eabb6"
+    },
+    "183839": {
+      "ordinal": 183839,
+      "offset": 1453884494,
+      "byteCount": 4720749,
+      "sha256": "c51d68d23f85deba481f2a3268bcabb17a8f30c02276d999fbef7d024b87781d",
+      "eventId": "event://abiogenesis/6a5a972a442a68e9d061aff7cb9f1e436eec09f9fbbf952230cc71a2e335939c",
+      "resultRef": "result://abiogenesis/38c363d2d304d5385288d11c4e9e23e62646b4a1e98558fc8b46dc28920884cd"
+    },
+    "193279": {
+      "ordinal": 193279,
+      "offset": 1539805009,
+      "byteCount": 1967216,
+      "sha256": "17e0500ff9b0b67f7b26770893e62c299207ef80033807497fba65369206d395",
+      "eventId": "event://abiogenesis/d9a2103782eaa0ea80cd323a0bb0a6c1e610ea6f904e28477025e393e5c890f8",
+      "resultRef": "result://abiogenesis/8672271deb17f15f2fe67653288836ff02946cc7019de13a013dad887d09f39e"
+    },
+    "193292": {
+      "ordinal": 193292,
+      "offset": 1541811461,
+      "byteCount": 1944975,
+      "sha256": "96ac196fd95b713e3fcc4298e0a3d5a037a4dbea2969905cda315edc271bba0f",
+      "eventId": "event://abiogenesis/798e637f9ef224ac2b94347d4e5b42ce693660dafdc9d137daa99fe2b112837f",
+      "resultRef": "result://abiogenesis/96e9b2c5fc009da4bbf2c66f4c9d520d7d65a664146d8ed67324bf3a221de754"
+    },
+    "193319": {
+      "ordinal": 193319,
+      "offset": 1547732436,
+      "byteCount": 2925356,
+      "sha256": "4b9ad3334559fdf488b107a97595b23366fd6f856c174cd54d98bea89dda8cd3",
+      "eventId": "event://abiogenesis/400745adfe8aed1dd4aedad69878c472acda3967cdf1d651a0cbda2a73884031",
+      "resultRef": "result://abiogenesis/98c0f84892dbff2536bd529a68d8443b97a57718b1ca1c6df219b0a0630f990e"
+    }
+  },
+  "command": {
+    "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+    "executable": "/opt/homebrew/bin/sbt",
+    "args": [
+      "test"
+    ],
+    "relativeCwd": "build_tenants/scala_spark",
+    "exitStatus": 1,
+    "timedOut": false,
+    "processSignal": null,
+    "terminationConfirmed": true,
+    "timeoutMs": 18000000,
+    "terminationGraceMs": 10000
+  },
+  "originalRequestDeepUnchanged": true,
+  "canonicalTaskObservationGuardReceipt": "row13-c2-owner-correspondence.json",
+  "all26InputSnapshotsMatchNativeAfter": true,
+  "productDeltaCount": 0,
+  "helperSandboxRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/f2156d3fd00914882721f32cca846dcc3fed6b594b04ff9324ecba5ffbf63e63/1832082d21473fbd84f0fb814b78c43fb66194102baa67941185ac0d68e977a3/sandbox",
+  "reports": [
+    {
+      "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-core",
+      "relativePath": "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+      "sha256": "7f396d16388ae63e39cd1b247af82517da8ee56423cad8c1466cacc448e9fba8",
+      "byteCount": 6409,
+      "counts": {
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-compiler",
+      "relativePath": "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+      "sha256": "fd32b63a2db6eac8f1bc38a920a7723aacf596b72df2125a5ef9ff3faad5dd34",
+      "byteCount": 6192,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-executor",
+      "relativePath": "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+      "sha256": "d0ec3b65084141e6b3a0aa5af5bfbae214f97f465f0b251d6ac6ea6b4fcfc359",
+      "byteCount": 18303,
+      "counts": {
+        "tests": 5,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "name": "UAT-EXEC-NEG: unparseable and null-required bad rows reach the error sink with their edge and cause",
+          "diagnostics": [
+            "org.scalatest.exceptions.TestFailedException: Vector((\"D-1\", \"C-1\", 1.0, Some(\"GB\")), (\"D-2\", null, 2.0, Some(\"US\")), (\"D-4\", \"C-3\", 4.0, None)) did not equal Vector((\"D-1\", \"C-1\", 1.0, Some(\"GB\")), (\"D-4\", \"C-3\", 4.0, None))"
+          ]
+        },
+        {
+          "name": "UAT-EXEC-BND: empty input gives empty partitions and all-bad input sends every row to the error sink",
+          "diagnostics": [
+            "org.scalatest.exceptions.TestFailedException: 2 did not equal 0"
+          ]
+        },
+        {
+          "name": "UAT-EXEC-INV: input rows equal output rows plus error-sink rows with no row in both partitions",
+          "diagnostics": [
+            "org.scalatest.exceptions.TestFailedException: 3 did not equal 2 degraded"
+          ]
+        }
+      ]
+    },
+    {
+      "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-adjoint",
+      "relativePath": "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+      "sha256": "61fe95cd29fab5f0feb38d378faf5d644ad87ac060fd603ed6f19c8992367690",
+      "byteCount": 6238,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-accounting",
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+      "sha256": "d9b95f7e7324bacf06b65c0fb16b3debe8702c40196e1f547bd8128eaaac6044",
+      "byteCount": 6191,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-assurance",
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+      "sha256": "a3896c5df94628a40f9ffb3e307b1428c83c1f59abfc24bd9ea93953be3bb744",
+      "byteCount": 6170,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-fidelity",
+      "relativePath": "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+      "sha256": "cac27624376aea60a261b2327e27ce584f33527da0822083f2f626fd39160862",
+      "byteCount": 6177,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-engine",
+      "relativePath": "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+      "sha256": "2093192ca829bace14d3840a794be640efa58e7e5c5802c1ec8c1aed47ac2074",
+      "byteCount": 15117,
+      "counts": {
+        "tests": 8,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "name": "UAT-ENG-NEG: a type-mismatched topology halts at compile and degraded rows halt at assure",
+          "diagnostics": [
+            "org.scalatest.exceptions.TestFailedException: Vector(\"compile\", \"execute\", \"lineage\", \"account\") did not equal Vector(\"compile\", \"execute\", \"lineage\", \"account\", \"assure\")"
+          ]
+        },
+        {
+          "name": "U8 runner negative: run on the degraded request returns a Left naming assure",
+          "diagnostics": [
+            "org.scalatest.exceptions.TestFailedException: Left(\"account: unbalanced by -1: input 4, output 3, error sink 2\") did not equal Left(\"assure: breached error-rate\")"
+          ]
+        }
+      ]
+    }
+  ],
+  "xmlTotals": {
+    "tests": 44,
+    "failures": 5,
+    "errors": 0,
+    "skipped": 0
+  },
+  "streams": {
+    "stdout": {
+      "digest": "sha256:295cc5f6b91034ec772734aa29210b995329fa59849f08304ab6a29974253fc6",
+      "byteCount": 39776,
+      "compileCompletionLines": 16,
+      "totalTimeLines": [
+        "[error] Total time: 30 s, completed 9 Oct. 2026, 10:37:35 am"
+      ],
+      "failedNameLines": [
+        "[info] - UAT-EXEC-NEG: unparseable and null-required bad rows reach the error sink with their edge and cause *** FAILED *** (117 milliseconds)",
+        "[info] - UAT-EXEC-BND: empty input gives empty partitions and all-bad input sends every row to the error sink *** FAILED *** (699 milliseconds)",
+        "[info] - UAT-EXEC-INV: input rows equal output rows plus error-sink rows with no row in both partitions *** FAILED *** (277 milliseconds)",
+        "[info] - UAT-ENG-NEG: a type-mismatched topology halts at compile and degraded rows halt at assure *** FAILED *** (107 milliseconds)",
+        "[info] - U8 runner negative: run on the degraded request returns a Left naming assure *** FAILED *** (65 milliseconds)"
+      ]
+    },
+    "stderr": {
+      "digest": "sha256:64bdc056ee864c8db620b163399d282956dc9085b696899362f8443a9f38e06e",
+      "byteCount": 26646,
+      "compileCompletionLines": 0,
+      "totalTimeLines": [],
+      "failedNameLines": []
+    }
+  },
+  "predicateValues": [
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-exit",
+      "predicateKind": "process_exit",
+      "ordinal": 0,
+      "observedValue": 1
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/module-set",
+      "predicateKind": "module_set_exact",
+      "ordinal": 1,
+      "observedValue": [
+        "cdme-core",
+        "cdme-compiler",
+        "cdme-executor",
+        "cdme-adjoint",
+        "cdme-accounting",
+        "cdme-assurance",
+        "cdme-fidelity",
+        "cdme-engine"
+      ]
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/config-count",
+      "predicateKind": "file_count",
+      "ordinal": 2,
+      "observedValue": 3
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/main-count",
+      "predicateKind": "file_count",
+      "ordinal": 3,
+      "observedValue": 11
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-source-count",
+      "predicateKind": "file_count",
+      "ordinal": 4,
+      "observedValue": 8
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-reports",
+      "predicateKind": "test_report_set_exact",
+      "ordinal": 5,
+      "observedValue": [
+        "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml"
+      ]
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-count",
+      "predicateKind": "test_pass_count",
+      "ordinal": 6,
+      "observedValue": 31
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/report-failures",
+      "predicateKind": "test_report_failure_count",
+      "ordinal": 7,
+      "observedValue": 5
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/report-errors",
+      "predicateKind": "test_report_error_count",
+      "ordinal": 8,
+      "observedValue": 0
+    }
+  ],
+  "completeDeclaredReportInventorySetMatches": true,
+  "parentConservation": {
+    "originalEqual": true,
+    "allPrior31Equal": true,
+    "observationCount": 32,
+    "terminal": false,
+    "exactResultDigestCallActorJoin": true,
+    "lastFoldValueKeys": [
+      "commandResults",
+      "predicateObservations"
+    ]
+  },
+  "nativeRCA": {
+    "nextReason": "Testing d43b9187 admitted the row-13 mutant run. All 8 reports were produced (so the mutant compiled), exit was 1 and report-failures was 5, with UAT-EXEC-INV marked FAILED. No further proof can proceed while the worksite holds that mutant.\n\nConstruction now verifies the d43b9187 archive read-only, restores DataFrameExecutor.scala to 2f046f26…/5293 B, and applies the dedicated row-23 ACCOUNTING-invariant mutant at the per-partition sum locus, distinct from row 21. This keeps the one-file-per-cycle pattern, so the next Testing run observes both the row-13 restore and the row-23 mutant.",
+    "selectedContribution": {
+      "contribution": "Runs next. One bounded increment covering rows 13 and 23.\n\n**(1) Read-only check of Testing d43b9187's archived snapshot and XML.**\n- Each of the 8 reports must match the digest and byte length d43b9187 recorded. Executor is d0ec3b65…/18303 and engine is 2093192c…/15117.\n- Read the exact `<testcase name>` values of every `<failure>` and `<error>`.\n- Confirm UAT-EXEC-INV is among them, and record any collateral failures.\n- Reconcile the counts: 44 = passed + failures + errors + skipped.\n- Confirm that DataFrameExecutor.scala is the only one of the 22 tracked files that differs from the b5b5cad3 snapshot, and that it carries fc325c93…/5346 B.\n- Report any discrepancy instead of assuming one is absent.\n\n**(2) Restore row 13.** Put DataFrameExecutor.scala line 53 back to exactly `      .filter(col(StagedCause).isNull)`. Confirm the file hashes to sha256:2f046f268ceea5e4a118ca79ff9d20d07d647dbf4dd2af9e513fcecad7df48e1 at 5293 B and is byte-identical to the b5b5cad3 snapshot copy.\n\n**(3) Apply the dedicated row-23 mutant** (REQ-CDME-ACCOUNTING × depth-class://invariant, identity \"UAT-ACCT-INV: the verdict is Balanced exactly when summed input equals summed output plus error sink in any entry order\").\n- First confirm AccountingVerifier.scala equals baseline 56c2c1a1…/2083 B.\n- Make one minimal semantic edit to production code at the per-partition sum locus that test-design §7 plans for ACCOUNTING × INV. Read the file to locate it.\n- It must differ in locus and mechanism from row 21's line-40 `== → >=` verdict mutant.\n- Record the mutant digest and byte length, the exact restore obligation, compile-safety reasoning and the predicted red tests. Mark the predictions as unobserved.\n\n**Constraints.**\n- Do not write row 13 into mutation-outcomes.json yet. Its restore must first be observed by the next Testing snapshot.\n- Do not compile or run sbt.\n- Touch no test, comment, build file, XML or test-execution-result.json, and make no kill claim.\n- Confirm afterwards that only AccountingVerifier.scala differs from baseline and that no target/ directories exist.\n- Disclose out-of-scope reads, partial reads of mandatory inputs and possible incidental writes.\n- If a reading suggests the locus is unsuitable, say so rather than force a mutant.\n\n**Later increments**, each a separate reassessment:\n- the row-23 restore and projection, then row 28 (AssuranceReport.passed);\n- the row-28 restore and projection, then row 38 (the EngineRunResult.succeeded conjunction);\n- the row-38 restore and projection, then the final restore;\n- after the final restored green run: re-project mutation-outcomes.json to 16 rows, re-project the depth-proof-map basis onto that run, decide whether to move the basis objects into the archive (recording any change of representation), and re-project both qualifications, repair-application, archive, release-depth-parity and release-preparation.",
+      "dependsOn": [],
+      "evidenceRefs": [
+        "task://abiogenesis-sandbox-uat/data-mapper-full/original",
+        "worksite-context-observation://abiogenesis/dc21fa100ccb15ed6239cdc6d52bbf992c74e53ebaa1c13fd3931a21bd59d4b2",
+        "result://abiogenesis/d43b9187a43ef29e5d3cd161b291bd7c81de4085bffc6c89ce1b26b071eb2cdb",
+        "result://abiogenesis/38c363d2d304d5385288d11c4e9e23e62646b4a1e98558fc8b46dc28920884cd",
+        "result://abiogenesis/b5b5cad3c6a7a6ae2736032b31f62e70967d2511e22b68ad6a142c3f28dad313",
+        "result://abiogenesis/ba4aff232d697e494e41fe71962d17a4f94cdaee3660b2f82d46d4116ad76621",
+        "result://abiogenesis/abff7bea363232d6162f03b563e1ca070f5d099765ad11d75156f8fddd394d12",
+        "result://abiogenesis/57874e2798a9401a829b837c6b30f3a3b12a436ee2eb23a972330922c2eb7ff3",
+        "result://abiogenesis/909436e9a003c85152d0e7883a833b6b2f9a1619cdb160c324f49f65b95e23b0"
+      ],
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "reason": "Testing d43b9187 admitted the row-13 compiled-mutant red run, so the worksite must now go back to baseline before any further proof. Construction alone holds write authority over production sources and mutation-outcomes.json.\n\nCombining the row-13 restore with the next dedicated invariant mutant follows the established one-file-at-a-time cycle: every red-run snapshot differs from baseline in exactly one file, and the next Testing run observes the restore. UAT ba4aff23 ruled that spillover does not prove rows 23, 28 and 38 (source L504, REQ-MUT-01), and this is the largest unmet obligation that existing authority can discharge.",
+      "supportRefs": [
+        "support://abiogenesis-sandbox-uat/data-mapper-full/complete-original-outcome"
+      ]
+    },
+    "nativeTaskOutcomeEqualsSelectedContribution": true
+  },
+  "determinedRepair": {
+    "path": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+    "digest": "sha256:2f046f268ceea5e4a118ca79ff9d20d07d647dbf4dd2af9e513fcecad7df48e1",
+    "byteCount": 5293,
+    "plannedAction": "Restore the original output filter and exact baseline file; unchanged tests/requirements. Native next Testing must observe restoration."
+  },
+  "proofLimits": "One additional actual compiled mutant red; exact restoration/later restored green/full original UAT pending. Expected mutation red is application evidence, no framework failure shown. Native capability/authority gaps remain.",
+  "recordingPremises": "Pure documentary lookups corrected to commandResults/stream.payload. Physical file SHA and helper body identity are separate; exact installed owners verified both. Raw original declarations and constructed command/predicate carriers differ by canonical metadata/environment/report construction, so no unsupported whole-carrier equality is claimed. Original state remains deep-equal; no native retry or value alteration."
+}

@@ -1,0 +1,19 @@
+{
+  "borrowedImmutable": [
+    "C09/Setup09/Q15",
+    "Runtime09 original parent/J/fold/closures/two reads",
+    "Runtime10 failure and Preparation10 accepted code/checks"
+  ],
+  "newlyDerived": [
+    "selected-native-child-proof.json",
+    "current driver config/environment/templates"
+  ],
+  "freshFutureOutputs": [
+    "runtime-activation.json",
+    "runtime-release.json",
+    "flow supervisor/call/read receipts",
+    "final-runtime-freeze.json"
+  ],
+  "consumedProducersReplayed": false,
+  "Runtime11Activated": false
+}

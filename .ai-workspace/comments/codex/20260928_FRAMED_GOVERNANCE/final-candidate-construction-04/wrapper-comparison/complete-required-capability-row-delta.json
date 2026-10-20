@@ -1,0 +1,92 @@
+[
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/capabilityDefinitionDigest",
+    "before": "sha256:63b025cedfaaa380d53ef05edda1ca4c04ee5fd803e255e7b50e7729499a415d",
+    "after": "sha256:8a01e617af50e53e00f0de89677c2e4cb341554c45ba4389f48829a21beb1bd5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/capabilityDefinitionRef",
+    "before": "capability-definition://abiogenesis/63b025cedfaaa380d53ef05edda1ca4c04ee5fd803e255e7b50e7729499a415d",
+    "after": "capability-definition://abiogenesis/8a01e617af50e53e00f0de89677c2e4cb341554c45ba4389f48829a21beb1bd5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/dependentCapabilities/0/capabilityDefinitionDigest",
+    "before": "sha256:27a0dfda9cc7ec328be430a18586deec39748065679c5d1351b26dbe49fb06e5",
+    "after": "sha256:8bedb94db9fa97e581e64ffa26f664701655e5e9482b71bda76327d27b30c3b9"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/dependentCapabilities/0/capabilityDefinitionRef",
+    "before": "capability-definition://abiogenesis/27a0dfda9cc7ec328be430a18586deec39748065679c5d1351b26dbe49fb06e5",
+    "after": "capability-definition://abiogenesis/8bedb94db9fa97e581e64ffa26f664701655e5e9482b71bda76327d27b30c3b9"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/dependentCapabilities/1/capabilityDefinitionDigest",
+    "before": "sha256:b4b3999e93e47698fd9f2349fe8b28bf792cbdb570d3aa7a248bad343847b9f8",
+    "after": "sha256:00e4256177bb89e39a4e22c22585292e8d88b192210a564035bd85b3d20b1061"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/dependentCapabilities/1/capabilityDefinitionRef",
+    "before": "capability-definition://abiogenesis/b4b3999e93e47698fd9f2349fe8b28bf792cbdb570d3aa7a248bad343847b9f8",
+    "after": "capability-definition://abiogenesis/00e4256177bb89e39a4e22c22585292e8d88b192210a564035bd85b3d20b1061"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/0/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/1/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/2/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/3/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/4/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/5/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/6/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/7/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.catalog.invoke-graph-function@5/owningPublicContracts/8/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  },
+  {
+    "path": "abg.capability.gtl.declare@5/capabilityDefinitionDigest",
+    "before": "sha256:43f4a873f57974fa7d1574d2cb735920fca2e88a17f8cbb25bdcfcf280c8b214",
+    "after": "sha256:b7b61bf75f95d81ea09706053fb377676bbd6c5e6559e4599c2cbf355fbc8edb"
+  },
+  {
+    "path": "abg.capability.gtl.declare@5/capabilityDefinitionRef",
+    "before": "capability-definition://abiogenesis/43f4a873f57974fa7d1574d2cb735920fca2e88a17f8cbb25bdcfcf280c8b214",
+    "after": "capability-definition://abiogenesis/b7b61bf75f95d81ea09706053fb377676bbd6c5e6559e4599c2cbf355fbc8edb"
+  },
+  {
+    "path": "abg.capability.gtl.declare@5/owningPublicContracts/0/contractCatalog/productContentDigest",
+    "before": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "after": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+  }
+]

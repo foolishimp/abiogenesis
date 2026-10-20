@@ -1,0 +1,7 @@
+{
+  "kind": "preserved_registered_selection_test_premise",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/failed-premises-02.test.mjs",
+  "sha256": "520b5ece420a0c61b4b18dc38c4cd6326671a2d037b4e65b5495dc2175d36bbb",
+  "failureReceipt": "commands/focused-02.result.json",
+  "cause": "existing fixture contribution rows omit required provenanceRefs before canonical publication constructor; production untouched"
+}

@@ -1,0 +1,10 @@
+{
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01",
+  "types": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "--test",
+    "corrected-type-contract.test.mjs"
+  ],
+  "noEmit": true,
+  "compileAndCallback": "not repeated"
+}

@@ -1,0 +1,51 @@
+{
+  "status": "ACTIVE",
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_12",
+  "reentry": "realization_refactor under accepted owning HOW4.1 design_reframe",
+  "ProductFrame": "F-EndToEndInterfaceIntegration; fixed15/GOAL035/T287/F11/F15; unchanged WHAT and accepted runtime",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12",
+  "readAllSevenGrantSections": true,
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/worker-request.txt",
+      "bytes": 4710,
+      "sha256": "a943c48f8e4658646ae1f5af809c2cf6f1cf8b6c45d6e2f6d1dd52eaa6e6a4ad",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/q12-path-record.json",
+      "bytes": 3403,
+      "sha256": "b7143c87009de5fdb94e45310caace0e1532c86a65956c6798aa6798e3d789dd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/scaffold.json",
+      "bytes": 883,
+      "sha256": "9dd05d33994aeed446a81ca76dafbfd0e0cfd7af0b3118699f3e7f941745214c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/triage.json",
+      "bytes": 4373,
+      "sha256": "cbbd1f7f1235709b204a758908e0a22a5857907bbdc430893dfd49e8db36f6da",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/freeze.json",
+      "bytes": 3753,
+      "sha256": "15fa3bf79a29d18b178e4047eb3510a535aec44b7d5fbae6a0ad7057075a1fc8",
+      "mode": 420
+    }
+  ],
+  "donorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/freeze.json",
+    "bytes": 867975,
+    "sha256": "827d5cbb98b5d68acb9af7da791f2173cb4f086f2fbd9a50bb3d047c051c76e5",
+    "mode": 292
+  },
+  "activatedAt": "2026-10-03T02:10:18.091082+00:00",
+  "noRuntimeAdmission": true,
+  "firstFailure": "freeze and return Root; no repair/retry"
+}

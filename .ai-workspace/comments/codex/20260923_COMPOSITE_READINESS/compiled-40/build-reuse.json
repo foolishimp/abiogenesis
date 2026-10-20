@@ -1,0 +1,9 @@
+{
+  "status": "REUSED_EXACT_FROZEN_BUILD",
+  "evidence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/checks.json",
+  "evidenceSha256": "b8efe2c143ea921240b468d2d835c594e2cc5e65bcbc2e44ae64a24225db5f2d",
+  "frozenMembersVerified": 69,
+  "newCompile": false,
+  "newManifestGeneration": false,
+  "newTests": false
+}

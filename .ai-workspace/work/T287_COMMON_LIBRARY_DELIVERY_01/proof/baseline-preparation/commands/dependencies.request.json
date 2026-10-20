@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/npm",
+    "ci",
+    "--offline",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+  "started_utc": "2026-10-20T18:41:34.248264+00:00",
+  "environment_overrides": {
+    "npm_config_offline": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/npm-logs"
+  }
+}

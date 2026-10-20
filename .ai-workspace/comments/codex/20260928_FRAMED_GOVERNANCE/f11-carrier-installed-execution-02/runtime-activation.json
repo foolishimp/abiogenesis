@@ -1,0 +1,20 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_02",
+  "actor": "/root/f11_installed_caller_preparation",
+  "role": "Runtime Worker",
+  "previousOperation": "T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_01",
+  "previousStatus": "CLOSED_FIRST_FAILURE_STOPPED",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-02",
+  "activatedAt": "2026-10-01T22:03:12.274548+00:00",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminator-repair-controls-02/f11-request.txt",
+    "bytes": 8155,
+    "sha256": "c8c082e85fe958a4034edd3e17be6caa076abc3fb1bea1bc5c51e7833e1d686c"
+  },
+  "realProviderCalls": 0,
+  "permittedTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-02",
+  "semanticClaim": "mechanical_carrier_only",
+  "firstFailure": "stop before repair/retry",
+  "selectedRepair": "one complete standard tar/gzip from exact frozen fixture; shared corrected conformance resource construction"
+}

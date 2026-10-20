@@ -1,0 +1,47 @@
+[
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-continuation-contracts.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/src/native-continuation-contracts.mjs",
+    "sha256": "98b26c5f39806e3673ebc99b1fe4b110ced7370c3f59e4384ca83e4cea37f886"
+  },
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-continuation-declarations.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/src/native-continuation-declarations.mjs",
+    "sha256": "31447f63a40a22794a82f9f68eddc70cfac79169be339647e6e1ae2010c2d901"
+  },
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-intent-declarations.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/src/native-intent-declarations.mjs",
+    "sha256": "5630d1d25802a8ad1bd3c81d6f68155b439c5edb4cad5e4135650afdf1077ea9"
+  },
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/src/native-lifecycle-declarations.mjs",
+    "sha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599"
+  },
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/product-package.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/src/product-package.mjs",
+    "sha256": "4c9dd6ee36f7bff43995adee94901add62ef66f2ac25b221592fb595a1ecd3e0"
+  },
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/d1-lifecycle-declarations.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/test/d1-lifecycle-declarations.mjs",
+    "sha256": "b71f3550a9a8c0f15533b59adc568d6cb07b290db85b6e19053572efd9c0411b"
+  },
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/test/full-sandbox-declarations.mjs",
+    "sha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a"
+  },
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/test/full-sandbox-support.mjs",
+    "sha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7"
+  },
+  {
+    "source": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/generic-live-workflow-support.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller/test/generic-live-workflow-support.mjs",
+    "sha256": "8216dd9411235657d98206449611f38673e51323ef1ee2b692afc450e30281d7"
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "operation": "T287_INSTALLED_CONSERVATION_REPAIR_03",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "--test",
+    "--test-concurrency=1",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_03/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_03/consumer",
+  "capSeconds": 180,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/tmp",
+    "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_03/tmp/node-compile-cache",
+    "ABI5_INSTALLED_CONSERVATION_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_03",
+    "ABI5_INSTALLED_CONSERVATION_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "ABI5_INSTALLED_CONSERVATION_ARCHIVE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "ABI5_INSTALLED_CONSERVATION_NODE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "ABI5_INSTALLED_CONSERVATION_MODE": "flow"
+  },
+  "pid": 60824,
+  "pgid": 60824,
+  "exitCode": 1,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "groupAbsent": true,
+  "elapsedMs": 24526.84933400451,
+  "maxRSSPlatformBytes": 3131293696,
+  "userCPUSeconds": 27.874649,
+  "systemCPUSeconds": 1.381297,
+  "stdoutBytes": 2429,
+  "stdoutSHA256": "e5ce1a986a3f6becb70327dc9e9996de387606eca042f623ab9f7b3b82ca7ca4",
+  "stderrBytes": 0,
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

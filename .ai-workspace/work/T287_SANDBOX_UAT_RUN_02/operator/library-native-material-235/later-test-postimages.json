@@ -1,0 +1,23 @@
+{
+  "subject": "235 later old/new metric and native-source lease component tests; not yet run",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "postimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/later-test-postimages/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "sha256": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a",
+      "byteCount": 10486,
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/preimages/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "preSha256": "7170a0fb41a78953d8c40c3483695f4ce0c170a3bee2e60bf599a28f867c94d0",
+      "preByteCount": 8126
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "postimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/later-test-postimages/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "sha256": "03b0373acd2b2ba15fe7597de4a68f02a39314cc07ff82987d2b6eb417638683",
+      "byteCount": 21537,
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/preimages/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "preSha256": "c08354d21fdfa6534500191162c70ae06592b204609b97f6d4276751125d7583",
+      "preByteCount": 14764
+    }
+  ]
+}

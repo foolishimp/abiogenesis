@@ -1,0 +1,10 @@
+input-01/code/src/abg/retry.ts(4672,54): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string'.
+  Type 'null' is not assignable to type 'string'.
+input-01/code/src/hog/workflow_lifecycle.ts(584,25): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(authorityPrefix: ValidatedRuntimeEventPrefix, scope: RuntimeEventScope): ValidatedRuntimeEventPrefix', gave the following error.
+    Argument of type 'OwnedRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+      Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+  Overload 2 of 3, '(authorityPrefix: OwnedRuntimeEventPrefix, scope: RuntimeEventScope): OwnedRuntimeEventPrefix', gave the following error.
+    Object literal may only specify known properties, and 'graphCallId' does not exist in type 'RuntimeEventScope'.
+  Overload 3 of 3, '(authorityPrefix: RuntimeEventPrefix, scope: RuntimeEventScope): RuntimeEventPrefix', gave the following error.
+    Object literal may only specify known properties, and 'graphCallId' does not exist in type 'RuntimeEventScope'.

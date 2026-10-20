@@ -1,0 +1,22 @@
+{
+  "kind": "source43_affected_declaration_material_proof",
+  "sourceCut": 43,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=complete canonical declarations|only the substituted provenance|actual installed C2 material",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/test-inputs/t287-governance-covered-source-use.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 2322.2700839999998,
+  "input": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/dependency-cut-43-inputs.json",
+  "tests": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/test-inputs.json",
+  "selectedMaterial": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/material-test-selectors.json",
+  "limits": [
+    "Causal ProductInstall availability is controlled; actual installed material bytes are read",
+    "No whole Catalog reconstruction, admission/currentness/native/UAT qualification"
+  ]
+}

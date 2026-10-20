@@ -1,0 +1,13 @@
+{
+  "sourceCutAuthor": "Root_Executive_selection_recorded_by_Writer",
+  "sourceCutSHA256": "bbad7056fdc7a4ed844dcecf419cedc1be88831ebe162cb5e00a8dfbc4126bf5",
+  "originalSources": "all1106 exact originalSource/originalAuthorship/sourceAuthor/C04SourceProvenance relations preserved, including original C03/native author chain",
+  "sourceChangesFromC04": 2,
+  "acceptedInstallerSourceAuthor": "/root/native_applicability_design under T287_INSTALL_BIN_POLICY_SOURCE_01",
+  "acceptedSourceFreezeSHA256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+  "trackingSnapshotAuthor": "Root Writer tracking",
+  "builderReportActor": "/root/native_applicability_design under separately activated T287_RC1_SUCCESSOR_CONSTRUCTION_05",
+  "C04SourceAttributionReference": "C04-source-attribution-reference.json",
+  "sourceRepair": false,
+  "qualificationActorIndependence": "future assessor must bind actual original source authors; builder role does not confer independence"
+}

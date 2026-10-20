@@ -1,0 +1,23 @@
+[
+  {
+    "path": "build/code/src/implementation/leaf_invocation_port.js",
+    "C05ActualStageSHA256": "7d583452a6692ad06d66e4a997f1148f0999380a050d091ad2394c45c72b6d7b",
+    "C06GeneratedSHA256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+    "C06Bytes": 70127,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "C05ActualStageSHA256": "0d9b18a13510b3880d12af6e8a2f9e81b7cd3d3e22dccb850ddea2e51eae8f4c",
+    "C06GeneratedSHA256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+    "C06Bytes": 197474,
+    "role": "generated_output"
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "C05ActualStageSHA256": "87c8ccc41d4a6129cc01bf7b15dbd9673073e4672d359595b4df3d36b7b30f2c",
+    "C06GeneratedSHA256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+    "C06Bytes": 2567514,
+    "role": "generated_output"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/readiness-driver.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09",
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/tmp",
+    "LANG": "C",
+    "LC_ALL": "C"
+  },
+  "pid": 72943,
+  "processGroup": 72943,
+  "groupEstablishedBeforeImports": true,
+  "defaultHeap": true,
+  "budgetSeconds": 180,
+  "RuntimeEffects": 0
+}

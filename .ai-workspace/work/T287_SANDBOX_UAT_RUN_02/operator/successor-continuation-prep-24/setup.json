@@ -1,0 +1,61 @@
+{
+  "role": "Writer26 continuation preparation only",
+  "executionAuthorized": false,
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 1048576,
+    "basis": "Prior Operator18 actual setup/recording allowance; drainage extends no execution authority"
+  },
+  "nativeStart": {
+    "authority": "NEW archive commands/lifecycle-start.request.json.started immediately before CLI spawn",
+    "deadline": "Actual T0 + 18000000ms; Root externally monitors progress and may stop earlier",
+    "driverTimeoutMs": 18060000
+  },
+  "stop": {
+    "order": [
+      "resolve exact admitted C2 occurrence/task/attempt to launch.json/helper argv and matching live command/helper PID/PGID ancestry",
+      "stop owned active C2 helper/command first while CLI lives, preserving missing result artifact if actual",
+      "stop exact admitted owned provider group while CLI lives",
+      "retain real exit/Result/failure admission then driver drainage"
+    ],
+    "authority": "Root common five-hour deadline or explicit earlier decision; no private ABG events/watchdog/semantic planner"
+  },
+  "resume": {
+    "fromArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6",
+    "originalFiles": 4,
+    "retainedAuthorFiles": 26,
+    "incomingAuthorFiles": 9,
+    "newAuthorFiles": 17,
+    "source": "none",
+    "observations": [],
+    "synthesis": null,
+    "oldProducerParentCredit": false,
+    "oldWorkspaceManifestExcluded": true
+  },
+  "limits": {
+    "executionMs": 18000000,
+    "inactivityMs": 18030000,
+    "absoluteMs": 18040000,
+    "driverMs": 18060000,
+    "recorderMs": 19260000,
+    "recursionBound": 1000,
+    "optionalTurnBudgetOmitted": true,
+    "effectiveCommandTimeoutMs": 18000000
+  },
+  "originalObligationsUnchanged": true
+}

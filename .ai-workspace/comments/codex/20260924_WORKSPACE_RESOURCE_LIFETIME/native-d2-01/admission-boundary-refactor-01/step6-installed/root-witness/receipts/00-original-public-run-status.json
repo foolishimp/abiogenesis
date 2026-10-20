@@ -1,0 +1,7 @@
+{
+  "kind": "installed_definition_call_transport_refusal",
+  "schemaVersion": "5.0.0",
+  "disposition": "refused",
+  "code": "acquisition_mismatch",
+  "message": "native call resources differ from the explicit acquired prefix"
+}

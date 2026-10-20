@@ -1,0 +1,84 @@
+{
+  "at": "2026-10-08T22:51:12.909467+00:00",
+  "role": "Operator134 actual execution after Root closed135 GO/fresh115pin/source/auth/current-prefix conjunction",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+  ],
+  "basis": "Fixed15 ABI5/GOAL035/T287/STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frozenPreparationSHA": "916259d494f8632840a3754e46f591a9066d40f69fdba88acb6f0c5be25b9fe4",
+  "executionScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/execute-continuation.mjs",
+    "sha256": "8f4e8231075110d2750efd2a5d93a241638ba8268fec1efa32033932a09c4012",
+    "byteCount": 856
+  },
+  "checkedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/execute-continuation.mjs",
+      "sha256": "8f4e8231075110d2750efd2a5d93a241638ba8268fec1efa32033932a09c4012",
+      "byteCount": 856
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/launch.mjs",
+      "sha256": "014fe5a2a167a2d1fb4c2a448b48785d55138014bb7f926c8d54f38abd641436",
+      "byteCount": 2208
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/continuation-setup.json",
+      "sha256": "091420ddfb62501cfe6d7c5584cdafb1a5d853d33f3317e833e61159449eb2ed",
+      "byteCount": 3492
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/calls/continuation-start.request.jsonl",
+      "sha256": "fe9dc893fd9ad8142b0d5cda1a2ee4604bf761d4d73672b08b29a2d41fa2f909",
+      "byteCount": 27109064
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/safe-auth-readiness.json",
+      "sha256": "c825f8a03d678bb125b9c19338f2b52c3e7c614750ba32a7184f2d32e258b2a4",
+      "byteCount": 1150
+    }
+  ],
+  "matchedMaterialFiles": 48,
+  "observedAbsences": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/worksite/test-execution-result.json"
+  ],
+  "sourceObservations": 30,
+  "priorActualDetections": 12,
+  "priorExactRestorations": 12,
+  "priorRestoredGreenTests": 44,
+  "requiredDistinctMutants": 16,
+  "selectedOldProcesses": {
+    "66838": "ESRCH",
+    "66840": "ESRCH",
+    "66842": "ESRCH",
+    "68147": "ESRCH",
+    "79353": "ESRCH",
+    "79355": "ESRCH"
+  },
+  "selectedLockAbsent": true,
+  "closedPrefix": {
+    "coordinateDigest": "sha256:a4e5f15892ab74d9983becf76951b27051031cbe8737e881092b8b1c61e6a439",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9b3020ee1d86896e429f36bcc4eaf1423b7b108a43fc70c1dde3d0947e924213",
+    "prefixLength": 1402366875,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 468327400
+    }
+  },
+  "sourceInput": "Original129 b5e95/valueDigestd0c6b564\u2026 is retained through canonical source31216013\u2026 on same24/Program/View/W",
+  "clock": "Actual NEW commands/lifecycle-continuation.request.json.started +18000000ms quality checkpoint; old clocks retained as history",
+  "limits": {
+    "outerMs": 19260000,
+    "outerBytes": 536870912,
+    "nativeMs": 18060000,
+    "nativeBytes": 268435456
+  },
+  "stop": "Actual framework firstcause -> Root triage; exact owned C2/helper before provider with CLI alive, real exits/drain, no guessed/global kill/private events",
+  "credentialPolicy": "Inherited process.env through frozen outer; declared inner workerEnvironment unchanged; credential values never logged/serialized/hashed",
+  "noManualAppSourceGitOrSourceNoneCopyEffects": true
+}

@@ -1,0 +1,21 @@
+{
+  "operation": "T287_TYPED_LINEAGE_CHECK_CONTROL_CONTINUATION_01",
+  "status": "CLOSED",
+  "disposition": "STOPPED_NO_GO_STATIC_CHECK",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/freeze.json",
+    "bytes": 1927723,
+    "sha256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+    "mode": 420
+  },
+  "sourcePostimagesUnchanged": 7,
+  "emittedBodiesUnchanged": 524,
+  "callbackExit": 0,
+  "typesExit": 1,
+  "typeTestError": "TS2339 wrong projection/runtime hook type selection; expected admitted omission TS2375 not whitelisted",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01",
+  "historicalReportBodyModeUnchanged": true,
+  "suppliedComponentPremises": "Lower ABG/admission/native-request facts remain supplied; no installed/semantic qualification",
+  "noIndependentAssurance": true,
+  "stop": "No further writes after freeze. Root selects any test-only successor."
+}

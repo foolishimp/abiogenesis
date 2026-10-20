@@ -1,0 +1,11 @@
+{
+  "stage": "consumer-preverify-start",
+  "rss": 2024947712,
+  "heapTotal": 1728577536,
+  "heapUsed": 1592363480,
+  "external": 97607711,
+  "arrayBuffers": 95190850,
+  "at": "2026-10-09T11:26:04.945Z",
+  "elapsedMs": 20072.817417,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+}

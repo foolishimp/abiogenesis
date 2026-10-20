@@ -1,0 +1,14 @@
+{
+  "message": "ordinary Public root ExecutionBasis is required",
+  "stack": "AssertionError [ERR_ASSERTION]: ordinary Public root ExecutionBasis is required\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/execute.mjs:65:9",
+  "calls": [
+    {
+      "label": "original-public-run-status",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_status"
+      },
+      "invocationRef": "invocation://abiogenesis/ecfd212a7fc773a9c9e7357dbb0432a57e2d72d41c62153508cfe9ea7b980e50"
+    }
+  ]
+}

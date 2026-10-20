@@ -1,0 +1,22 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern",
+    "M5 |owned process groups|CCall opening|post-effect channel conflict|native timeout retains|native malformed-report retains|native read-only-change retains|unknown native after-state|observed partial failure|unavailable after observation|cold leader exit|timeout and termination-unconfirmed|preterminal Process exit|duplicate Process terminality",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T06:01:01.780Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 120000
+}

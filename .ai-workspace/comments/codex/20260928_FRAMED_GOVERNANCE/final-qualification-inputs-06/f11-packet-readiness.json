@@ -1,0 +1,132 @@
+{
+  "kind": "current_C05_full_F11_input_preparation",
+  "status": "CLOSED",
+  "workResult": "GO_PREPARATION_EXISTING_SETUP_ASSERTIONS",
+  "frontier": "exact-full-resource-readiness-artifact",
+  "coordinateStatus": "actual_admitted",
+  "actualBindingsAlreadyAdmitted": true,
+  "runtimeAdmission": false,
+  "newTaskOrRunAdmission": false,
+  "firstCriterion": {
+    "criterionRef": "criterion://abiogenesis/q06/current-definition-catalog-fidelity",
+    "ruleRef": "scope-group://abiogenesis/q06/rule/retained/0",
+    "surfaceRef": "catalog://abiogenesis/qualification/self-conformance@2",
+    "evidenceRole": "catalog_fidelity"
+  },
+  "subjectInventory": {
+    "ref": "qualification-inventory://abiogenesis/45951f5962cda9764bd19cedee7eb3847f85724e7a29e65db74384422e09d85b",
+    "digest": "sha256:45951f5962cda9764bd19cedee7eb3847f85724e7a29e65db74384422e09d85b"
+  },
+  "inventoryMembers": 4627,
+  "inventoryBodyBytes": 351944687,
+  "inventoryBase64Bytes": 469265684,
+  "effectiveSourceMembers": 1936,
+  "ruleGroups": 167,
+  "perRuleDomains": 167,
+  "globalSurfaceGroups": 50,
+  "referenceSets": 492,
+  "retainedHistoricalRules": 1728,
+  "newOrChangedRules": 409,
+  "authorityBodies": 95,
+  "resourceEntries": 4818,
+  "resource": {
+    "ref": "qualification-resource://abiogenesis/169e85bb7fde966b544e75e2b289e5047b383f9bf4bd260ec0571ce84d4fb10f",
+    "digest": "sha256:169e85bb7fde966b544e75e2b289e5047b383f9bf4bd260ec0571ce84d4fb10f"
+  },
+  "physicalMemberAliases": 95,
+  "physicalMemberCensusDelta": 0,
+  "sourceAuthPostimageRefsAffected": 0,
+  "originalSourceAuthRecords": 98,
+  "derivationRecords": 1,
+  "governingModelBodies": [
+    {
+      "ref": "repo://abiogenesis/stdo_abiogenesis.json",
+      "path": "contracts/qualification/sources/stdo_abiogenesis.json",
+      "digest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    },
+    {
+      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "byteCount": 6687
+    },
+    {
+      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+      "digest": "sha256:9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "byteCount": 35509
+    }
+  ],
+  "derivationContextBytes": 39118,
+  "originalChainsAndSpansUnchanged": true,
+  "sourceAuthRecords": 99,
+  "sourceAuthRecordBytes": 7553938,
+  "sourceAuthChains": 8,
+  "attributionSpanBytes": 114823,
+  "promptBytes": 318333,
+  "promptSHA256": "sha256:f34793b3a55688271dfaf13a396f18a242b742b7a42100ef2214de5ac6d62011",
+  "selectedModelBodies": [
+    {
+      "ref": "repo://abiogenesis/stdo_abiogenesis.json",
+      "path": "contracts/qualification/sources/stdo_abiogenesis.json",
+      "digest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    },
+    {
+      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "byteCount": 6687
+    },
+    {
+      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+      "digest": "sha256:9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "byteCount": 35509
+    },
+    {
+      "ref": "qualification-derivation://abiogenesis/q06/material-role-alias-context",
+      "path": ".qualification-material/derivation/member-alias-context.json",
+      "digest": "sha256:c895831764a0075db320a3241fa33080d01f78b0de8370d1e7feb975f473cb1f",
+      "byteCount": 39118
+    }
+  ],
+  "ownerEmbeddedGuard": true,
+  "ownerReferenceGuard": true,
+  "actualPublishedRenderer": true,
+  "semanticClaims": "unknown",
+  "qualification": false,
+  "resourceSerializationBytes": 489526432,
+  "actualAdmission": false,
+  "actualReferenceOwnerConsumption": "future actual Runtime preparation required",
+  "cost": {
+    "elapsedMs": 9239.148792,
+    "resourceUsage": {
+      "userCPUTime": 9546746,
+      "systemCPUTime": 824490,
+      "maxRSS": 3374272,
+      "sharedMemorySize": 0,
+      "unsharedDataSize": 0,
+      "unsharedStackSize": 0,
+      "minorPageFault": 575665,
+      "majorPageFault": 82,
+      "swappedOut": 0,
+      "fsRead": 0,
+      "fsWrite": 0,
+      "ipcSent": 0,
+      "ipcReceived": 0,
+      "signalsCount": 0,
+      "voluntaryContextSwitches": 179,
+      "involuntaryContextSwitches": 68278
+    },
+    "heap": "default; no heap override",
+    "nativeTaskOrRuntimeEffects": 0
+  },
+  "limits": [
+    "Published complete embedded input/material/scope owner and renderer were exercised with current law and exact retained bodies.",
+    "This constructs assertions over exact Root-accepted already admitted Setup05 A/W/install/catalog/View coordinates. It creates no new Task, Run, J or admission.",
+    "All inventory byte selections are resource data. Three governing bodies, a 39KB alias derivation context and unchanged original attribution spans enter this prompt.",
+    "No semantic criteria, source attribution sufficiency, independent J, F11, observed qualification, AF22 or release are established."
+  ]
+}

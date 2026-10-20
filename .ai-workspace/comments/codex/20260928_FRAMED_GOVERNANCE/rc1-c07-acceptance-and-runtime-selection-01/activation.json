@@ -1,0 +1,34 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C07_ACCEPTANCE_AND_NEXT_EFFECT_SELECTION_01",
+  "status": "ACTIVE",
+  "at": "2026-10-02T10:12:13.458679+00:00",
+  "grant": "Record Executive acceptance of CLOSED independently assured C07 construction, select conditional actual Setup07 and three-file generated reconciliation; refresh current tracking. No Root payload effects.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-acceptance-and-runtime-selection-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 527357,
+      "sha256": "8b0598b333011cdb66c912fcd5804cfa79f71366bb259fc61f15c659ffdf0890",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 482888,
+      "sha256": "82c6a71c84aaa0e5a3a5c6404e5a908685d923a2a69c510d881edef21a87b214",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 4962,
+      "sha256": "e9cc05a409aca70af2d5dd427af0ccbd5d29d9d6d00b03e23d18ceb221681460",
+      "mode": 420
+    }
+  ]
+}

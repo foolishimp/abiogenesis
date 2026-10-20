@@ -1,0 +1,26 @@
+{
+  "role": "Writer",
+  "operation": "T287_RUNTIME08_CALLER_PREPARATION_01",
+  "actor": "/root/native_applicability_design",
+  "status": "ACTIVE",
+  "at": "2026-10-02T10:43:12.004831+00:00",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-caller-preparation-controls-01/request.txt",
+    "bytes": 2746,
+    "sha256": "ca10f8e6df97798ef53f86cbf985b8bd85e25481db139f02798ca5a37b8284f9",
+    "mode": 420
+  },
+  "readyAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup07-generated04-acceptance-q09-selection-01/acceptance.json",
+    "bytes": 7276,
+    "sha256": "c4007c52781d9aaf3ee98f177a421d7b6e25e2712820c5cf523d02a256ecaab8",
+    "mode": 420
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01",
+  "RuntimeActivation": false,
+  "Q09Accepted": false,
+  "ownerImportsResourcesHelpersRuntimeCLIProviderEffects": 0,
+  "futureRuntimeOperation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "futureRuntimeGate": "exact accepted Q09 plus Root input-acceptance byte/hash message and separately activated full Runtime Worker",
+  "priorRoles": "CLOSED"
+}

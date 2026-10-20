@@ -1,0 +1,66 @@
+{
+  "kind": "finite_remaining_invocation_joins",
+  "candidateConstruction": {
+    "kind": "public_invocation_candidate",
+    "code": null,
+    "limit": "Pure constructor only; current authority predicate is still false and no candidate was admitted."
+  },
+  "runEnvironmentPermission": {
+    "exactInstalledGuardRejects": false,
+    "guardSha256": "6e304f44d694b5efaeac426a0fc5ba6c960fe7d7548aaef0e0bd56ecd79140b9",
+    "schemaValid": true,
+    "declaredOperations": [
+      "read_context",
+      "validate"
+    ],
+    "expectedOperations": [
+      "read_context",
+      "validate"
+    ],
+    "scope": "Complete pre-physical-read guard only; no dependency, tool or corpus observation performed."
+  },
+  "controls": {
+    "selectionToPrepared": true,
+    "preparedToRecord": true,
+    "recordToAttempt": true,
+    "transportDigestValid": true,
+    "actualLauncherEnvironmentProjection": {
+      "NODE_OPTIONS": "",
+      "ABG_TS_CLAUDE_COMMAND": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "ABG_TS_CLAUDE_APPEND_ARGS": "[\"--model\",\"claude-opus-5-5\",\"--max-budget-usd\",\"5\"]",
+      "CLAUDE_CODE_EFFORT_LEVEL": "xhigh",
+      "ABG_TS_FP_TIMEOUT_MS": "300000",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "900000",
+      "ABG_TS_FP_TERMINATION_GRACE_MS": "1000"
+    },
+    "wholeRunTimeoutMs": 5400000,
+    "readbackBudgetMs": 600000,
+    "declaredMaximumActorOccurrences": 1,
+    "actualProgramProbabilisticLeafCount": 1,
+    "afterReceiptPath": null,
+    "processWasRefusedBeforeActor": true
+  },
+  "identities": {
+    "currentBuilderSourceRoots": [
+      "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/products/core22/node_modules/@abiogenesis/typescript-tenant"
+    ],
+    "ownerModuleBytesEqual": [
+      {
+        "path": "product/run_invocation_operation.js",
+        "equal": true
+      },
+      {
+        "path": "product/invocation.js",
+        "equal": true
+      }
+    ],
+    "historicalInputDigest": "sha256:7856723d108dcb984c8b0a0004d927a4a0a8d45a01f2e931bfbb09449d604694",
+    "originalLifecycleDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267"
+  },
+  "preflight": {
+    "owner": "ProductRunInvocationPort.prepare / prepareProductRunInvocation",
+    "scope": "The actual owner preparation consumes exact setup facts, admission verifier, resources and transport assertion, but continues into physical STDO observation. This describes an existing seam, not a selected preflight or new gate.",
+    "sideEffects": "Not strictly pure: this declared STDO environment causes dependency reads, deterministic corpus-tool calls and temporary files cleaned by observeRunEnvironment. No actor or Run admission belongs to preparation. Not executed in this diagnostic."
+  }
+}

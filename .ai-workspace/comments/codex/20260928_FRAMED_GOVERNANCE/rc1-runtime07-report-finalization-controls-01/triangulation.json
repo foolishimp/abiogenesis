@@ -1,0 +1,33 @@
+{
+  "originatingRelation": "External report consumer reads HOME from close receipt, while actual supervisor producer publishes it in start receipt",
+  "frames": {
+    "Product": "No runtime or release behavior change",
+    "Integration": "Actual start/close producer field schemas differ",
+    "IdentityEffects": "Actual captured process/HOME remains same; no new subprocess or resource effect needed",
+    "Proof": "Failure is after nine saved report bodies, before accounting/closure/freeze; no valid CLOSED return yet",
+    "CostReuse": "Reuse saved Runtime observations and actual owner conservation, no replay or campaign"
+  },
+  "reentry": "realization_refactor of external report consumer only",
+  "repair": "Replace sole supervisor['HOME'] report expression with existing flow-supervisor-start.json['HOME'] reading; preserve failed script/error and finish saved reporting only",
+  "notEstablished": "No underlying native raw-result refusal localization follows from this report typo",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/close-failed-cut.py",
+      "bytes": 23390,
+      "sha256": "8bcd9c3f3217d6e55716d7f404a4bd709e8c8008a835beb561643efa365785a9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/flow-supervisor-start.json",
+      "bytes": 2198,
+      "sha256": "31b83a30655dc41e8a006802e87e44a01f13acbdb8401aaba2bd1f8c10b19f3b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/flow-supervisor-close.json",
+      "bytes": 1106,
+      "sha256": "32773c0a80837bd531bec03ac8924c229949e6cf8e1faa08975bbbd69e6404da",
+      "mode": 420
+    }
+  ]
+}

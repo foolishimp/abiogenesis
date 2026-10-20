@@ -1,0 +1,11 @@
+{
+  "failedCommand": [
+    "node",
+    "--check",
+    "test_env/uat/continuation.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "firstCause": "MODULE_NOT_FOUND before any selected owner: syntax invocation used repository root instead of tenant path.",
+  "action": "Use the exact absolute existing helper path; no Source or owner repair.",
+  "correctedExitCode": 0
+}

@@ -1,3 +1,5 @@
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
@@ -16,7 +18,7 @@ import {
   constructRunClosedFluent,
   constructRunTerminalFluent,
   constructRuntimeFluent,
-  deriveRuntimeEventCalculusProjection,
+  deriveRuntimeHeldFluentProjection,
   holdsAt,
 } from "./event_calculus.js";
 import {
@@ -29,7 +31,7 @@ import {
   type RuntimeEvent,
 } from "./event_store.js";
 import { runtimeEventPrefixDigest,
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -160,24 +162,24 @@ function sameCanonicalValue(left: unknown, right: unknown): boolean {
 type RunPhase = "not_open" | "active" | "closed" | "stopped" | "failed";
 
 function projectRunPhaseAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   input: Readonly<{
     runId: string;
     runDigest: Sha256Digest;
     executionBasisRef: string;
   }>,
 ): RunPhase | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const openEvents = events.filter((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const openEvents = indexedRuntimeEvents(prefix, "related:" + input.runId).filter((event) =>
     event.kind === "run_segment_opened" && event.aggregateId === input.runId
   );
-  const failureEvents = events.filter((event) =>
+  const failureEvents = indexedRuntimeEvents(prefix, "kind:" + "runtime_failure_observed").filter((event) =>
     event.kind === "runtime_failure_observed" && event.runId === input.runId
   );
-  const stoppedEvents = events.filter((event) =>
+  const stoppedEvents = indexedRuntimeEvents(prefix, "kind:" + "run_stopped").filter((event) =>
     event.kind === "run_stopped" && event.runId === input.runId
   );
-  const closedEvents = events.filter((event) =>
+  const closedEvents = indexedRuntimeEvents(prefix, "kind:" + "run_closed").filter((event) =>
     event.kind === "run_closed" && event.runId === input.runId
   );
   if (openEvents.length === 0) {
@@ -201,7 +203,7 @@ function projectRunPhaseAtPrefix(
     [failureEvents, stoppedEvents, closedEvents]
       .filter((rows) => rows.length === 1).length > 1
   ) return null;
-  const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   if (failureEvents.length === 1) return "failed";
   if (
     stoppedEvents.length === 1 &&
@@ -219,19 +221,19 @@ function projectRunPhaseAtPrefix(
 type GraphCallPhase = "not_open" | "active" | "closed" | "inactive";
 
 function projectGraphCallPhaseAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   input: Readonly<{
     graphCallId: string;
     graphCallDigest: Sha256Digest;
     executionBasisRef: string;
   }>,
 ): GraphCallPhase | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const openEvents = events.filter((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const openEvents = indexedRuntimeEvents(prefix, "related:" + input.graphCallId).filter((event) =>
     event.kind === "graph_call_opened" &&
     event.aggregateId === input.graphCallId
   );
-  const closedEvents = events.filter((event) =>
+  const closedEvents = indexedRuntimeEvents(prefix, "graph-call:" + input.graphCallId).filter((event) =>
     event.kind === "graph_call_closed" &&
     event.graphCallId === input.graphCallId
   );
@@ -248,7 +250,7 @@ function projectGraphCallPhaseAtPrefix(
     openEvent.payload.graphCallId !== input.graphCallId ||
     openEvent.payload.graphCallDigest !== input.graphCallDigest
   ) return null;
-  const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   if (closedEvents.length === 1) {
     return holdsAt(calculus, constructRuntimeFluent({
         name: "graph_call_closed",
@@ -268,6 +270,15 @@ function projectGraphCallPhaseAtPrefix(
 export function hasOpenedTraversalScopeAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   scope: OpenedTraversalScope,
+): boolean;
+/** @internal */
+export function hasOpenedTraversalScopeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): boolean;
+export function hasOpenedTraversalScopeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  scope: OpenedTraversalScope,
 ): boolean {
   if (!isOpenedTraversalScope(scope)) return false;
   const {
@@ -277,10 +288,10 @@ export function hasOpenedTraversalScopeAtPrefix(
     scopeDigest: _scopeDigest,
     ...body
   } = scope;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const runEvent = events.find((event) => event.eventId === scope.runOpenEventRef);
-  const graphCallEvent = events.find((event) => event.eventId === scope.graphCallOpenEventRef);
-  const frameEvent = events.find((event) => event.eventId === scope.frameOpenEventRef);
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const runEvent = indexedRuntimeEvents(prefix, "id:" + scope.runOpenEventRef).find((event) => event.eventId === scope.runOpenEventRef);
+  const graphCallEvent = indexedRuntimeEvents(prefix, "id:" + scope.graphCallOpenEventRef).find((event) => event.eventId === scope.graphCallOpenEventRef);
+  const frameEvent = indexedRuntimeEvents(prefix, "id:" + scope.frameOpenEventRef).find((event) => event.eventId === scope.frameOpenEventRef);
   return (
     sha256Canonical(body as unknown as JsonValue) === scope.scopeDigest &&
     scope.scopeRef === `traversal-scope://abiogenesis/${scope.scopeDigest.slice("sha256:".length)}` &&
@@ -311,21 +322,30 @@ export function hasOpenedTraversalScopeAtPrefix(
 export function projectOpenedTraversalScopeClassAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   scope: OpenedTraversalScope,
+): "root" | "child" | null;
+/** @internal */
+export function projectOpenedTraversalScopeClassAtPrefix(
+  prefix: RuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): "root" | "child" | null;
+export function projectOpenedTraversalScopeClassAtPrefix(
+  prefix: RuntimeEventPrefix,
+  scope: OpenedTraversalScope,
 ): "root" | "child" | null {
   if (!hasOpenedTraversalScopeAtPrefix(prefix, scope)) return null;
   const basis = rehydrateExecutionBasisAtPrefix(
     prefix,
     scope.executionBasisRef,
   );
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const graphCallOpen = events.find((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const graphCallOpen = indexedRuntimeEvents(prefix, "id:" + scope.graphCallOpenEventRef).find((event) =>
     event.kind === "graph_call_opened" &&
     event.eventId === scope.graphCallOpenEventRef &&
     event.aggregateId === scope.graphCallId &&
     event.basisId === scope.executionBasisRef &&
     event.runId === scope.runId
   );
-  const frameOpen = events.find((event) =>
+  const frameOpen = indexedRuntimeEvents(prefix, "id:" + scope.frameOpenEventRef).find((event) =>
     event.kind === "frame_opened" &&
     event.eventId === scope.frameOpenEventRef &&
     event.aggregateId === scope.frameId &&
@@ -367,7 +387,7 @@ export function projectOpenedTraversalScopeClassAtPrefix(
     frameParentFrameId === graphParentFrameId &&
     graphCallOpen.causationEventRefs.includes(basis.admissionEventRef) &&
     graphCallOpen.causationEventRefs.some((eventRef) =>
-      events.some((event) =>
+      indexedRuntimeEvents(prefix, "id:" + eventRef).some((event) =>
         event.eventId === eventRef &&
         event.kind === "frame_opened" &&
         event.aggregateId === graphParentFrameId &&
@@ -401,6 +421,15 @@ export function rehydrateOpenedTraversalScope(
 
 export function rehydrateOpenedTraversalScopeAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  value: Readonly<Record<string, JsonValue>>,
+): OpenedTraversalScope | null;
+/** @internal */
+export function rehydrateOpenedTraversalScopeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  value: Readonly<Record<string, JsonValue>>,
+): OpenedTraversalScope | null;
+export function rehydrateOpenedTraversalScopeAtPrefix(
+  prefix: RuntimeEventPrefix,
   value: Readonly<Record<string, JsonValue>>,
 ): OpenedTraversalScope | null {
   const scope = deepFreeze({
@@ -533,7 +562,7 @@ export function openTraversalScope(
     });
   } else {
     const runPrefix = selectValidatedRuntimeEventPrefix(
-      runtimeEventsFromValidatedPrefix(authorityPrefix),
+      runtimeEventBodiesAtPrefix(authorityPrefix),
       { runId: subject.parentScope.runId },
     );
     const exactBasis = rehydrateExecutionBasisAtPrefix(
@@ -829,13 +858,20 @@ export function openTraversalScope(
  * The events remain the carrier; no persisted parent stack is reconstructed. */
 export function projectOpenedTraversalScopeForFrameAtPrefix(
   prefix: ValidatedRuntimeEventPrefix, frameId: string,
+): OpenedTraversalScope | null;
+/** @internal */
+export function projectOpenedTraversalScopeForFrameAtPrefix(
+  prefix: RuntimeEventPrefix, frameId: string,
+): OpenedTraversalScope | null;
+export function projectOpenedTraversalScopeForFrameAtPrefix(
+  prefix: RuntimeEventPrefix, frameId: string,
 ): OpenedTraversalScope | null {
-  const rows = runtimeEventsFromValidatedPrefix(prefix);
-  const frames = rows.filter(e => e.kind === "frame_opened" && e.aggregateId === frameId);
+  const rows = runtimeEventBodiesAtPrefix(prefix);
+  const frames = indexedRuntimeEvents(prefix, "related:" + frameId).filter(e => e.kind === "frame_opened" && e.aggregateId === frameId);
   const frame = frames.length === 1 ? frames[0] : undefined;
   if (frame === undefined || !isRecord(frame.payload) || typeof frame.graphCallId !== "string" || typeof frame.runId !== "string") return null;
-  const graphRows = rows.filter(e => e.kind === "graph_call_opened" && e.aggregateId === frame.graphCallId);
-  const runRows = rows.filter(e => e.kind === "run_segment_opened" && e.aggregateId === frame.runId);
+  const graphRows = indexedRuntimeEvents(prefix, "related:" + frame.graphCallId).filter(e => e.kind === "graph_call_opened" && e.aggregateId === frame.graphCallId);
+  const runRows = indexedRuntimeEvents(prefix, "related:" + frame.runId).filter(e => e.kind === "run_segment_opened" && e.aggregateId === frame.runId);
   const graph = graphRows.length === 1 ? graphRows[0] : undefined;
   const run = runRows.length === 1 ? runRows[0] : undefined;
   const execution = rehydrateExecutionBasisAtPrefix(prefix, frame.basisId);

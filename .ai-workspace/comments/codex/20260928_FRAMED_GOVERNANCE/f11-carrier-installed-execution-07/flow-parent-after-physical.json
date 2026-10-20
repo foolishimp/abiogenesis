@@ -1,0 +1,24 @@
+{
+  "label": "parent-after",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+  "bytes": 2750762,
+  "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+  "device": 16777230,
+  "inode": 464698960,
+  "stable": true,
+  "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/task-tmp/abiogenesis-event-store-locks-v5/16777230-464698960.lock",
+  "lockPresent": false,
+  "prefix": {
+    "coordinateDigest": "sha256:41c143e37effce5af95270d3e9f56dd42dd7d8845ae9a98a3a895b3fe450a6f0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+    "prefixLength": 2750762,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464698960
+    }
+  }
+}

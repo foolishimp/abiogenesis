@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/host-preparation/host-preparation.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107",
+  "started": "2026-10-08T10:46:42.086Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 24121.842208,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"stage\":\"host22-verified\",\"verifyWallMs\":20665.575042,\"installWallMs\":2279.753042,\"content\":\"sha256:d14445ba56d1cf14f70aff3ecc87e70fa18c64fa66f64830f5cd9453190d5284\",\"manifest\":\"sha256:c30cbe4bd78c3dd8354fb8a79dc4c7ef4364f51c313cd6d3081707cd2a6e3934\",\"members\":5265,\"modeDifferences\":[{\"path\":\"build/code/src/public/cli.js\",\"archiveMode\":420,\"installedMode\":493},{\"path\":\"build/code/src/public/codex_cli.js\",\"archiveMode\":420,\"installedMode\":493}]}\n",
+  "stderr": ""
+}

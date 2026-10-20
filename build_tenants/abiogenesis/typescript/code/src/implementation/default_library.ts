@@ -1,16 +1,19 @@
-import { isDeepStrictEqual as same } from "node:util";
+import { isDeepStrictEqual as same, types } from "node:util";
 import { defaultLibraryImplementationBindings } from "../gtl/default_library.js";
 import { governanceRef as ref, GOVERNANCE_OPERATIONS } from "../product/default_library.js";
 import { bindFramedSynthesisResult, isFramedSynthesisTask, type FramedSynthesisTarget, type FramedSynthesisBasis } from "../product/default_library.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "../product/contracts.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
-import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation } from "./contracts.js";
+import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
 import type { NativeInstructionAssembly } from "../abg/instruction_assembly.js";
 import { projectGovernanceSelection, projectGovernanceNativeTask, projectGovernanceTestingTask, projectGovernanceFold, projectGovernanceParent, projectGovernanceChoice as projectChoice } from "../abg/default_library.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
+import { sanitizeUndispatchedOwnerError } from "../abg/event_contract_profiles.js";
+import type { GovernanceTestingRefusal } from "../abg/native_work_reacquisition.js";
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const descriptors = defaultLibraryImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION })
   .map(({ kind: _kind, bindingRef: _bindingRef, ...body }) => deepFreeze({ kind: "packaged_leaf_implementation_descriptor", schemaVersion: "5.0.0", ...body, descriptorDigest: hash(body) }) as PackagedLeafImplementationDescriptor);
@@ -21,8 +24,8 @@ export const GOVERNANCE_NATIVE_TASK_DESCRIPTOR = descriptors[3]!;
 export const GOVERNANCE_TESTING_TASK_DESCRIPTOR = descriptors[4]!;
 export const GOVERNANCE_FOLD_DESCRIPTOR = descriptors[5]!;
 export const GOVERNANCE_CHOICE_DESCRIPTOR = descriptors[6]!;
-function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: unknown, output: unknown): LeafRealizationCandidate {
-  const diagnosticRef = ref("diagnostic", "missing-owned-" + operation), success = output !== null;
+function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: unknown, output: unknown, refusalDiagnosticRef?: string): LeafRealizationCandidate {
+  const diagnosticRef = refusalDiagnosticRef ?? ref("diagnostic", "missing-owned-" + operation), success = output !== null;
   const resultCandidate = (output ?? { kind: "governance_failure", schemaVersion: "5.0.0", diagnosticRef }) as Readonly<Record<string, JsonValue>>;
   const evidenceCandidates = operation === "select" ? [] : [{ kind: "deterministic_evidence_candidate" as const, schemaVersion: "5.0.0" as const,
     implementationRef: ref("implementation", operation), inputDigest: hash(input), outputDigest: hash(resultCandidate) }];
@@ -35,8 +38,27 @@ export async function prepareGovernanceSelection(input: Readonly<Record<string, 
 export async function prepareGovernanceNativeTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
   return realized("prepare-native", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceNativeTask(occurrence.nativeInstructionAssemblyBasis, input));
 }
-export async function prepareObservedTestingTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
-  return realized("prepare-testing", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceTestingTask(occurrence.nativeInstructionAssemblyBasis, input));
+export async function prepareObservedTestingTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+  _resolution?: unknown, _inputDigest?: unknown, proof?: NativeLeafProofOperations) {
+  let diagnosticRef: string | undefined;
+  const refusal: GovernanceTestingRefusal = (stage, relation, selectors = {}, error) => {
+    if (diagnosticRef !== undefined) return;
+    const caught = relation === "caught" && !types.isProxy(error) ? error : null;
+    diagnosticRef = constructRuntimeFailureDiagnosticRef({
+      diagnosticClassRef: ref("diagnostic", "missing-owned-prepare-testing"), computeRegime: "F_D",
+      implementationRef: ref("implementation", "prepare-testing"), inputDigest: hash(input),
+      occurrence: { cCallRef: occurrence.cCallRef, runId: occurrence.runId ?? null, graphCallId: occurrence.graphCallId ?? null,
+        frameId: occurrence.frameId ?? null, programLocusRef: occurrence.programLocusRef ?? null,
+        taskOrdinal: occurrence.taskOrdinal ?? null, attempt: occurrence.attempt ?? null },
+      stage, relation, selectors, cause: relation === "caught" ? sanitizeUndispatchedOwnerError(caught) : null,
+    });
+  };
+  const basis = occurrence.nativeInstructionAssemblyBasis;
+  if (basis === undefined) refusal("testing_basis", "assembly_basis_absent");
+  const output = basis === undefined ? null : await projectGovernanceTestingTask(basis, input,
+    proof?.governanceTestingReacquisition === undefined ? undefined :
+      (context, report) => proof.governanceTestingReacquisition!(input, occurrence, context, report), refusal);
+  return realized("prepare-testing", input, output, output === null ? diagnosticRef : undefined);
 }
 export function foldGovernanceWork(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
   return realized("fold", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectGovernanceFold(occurrence.nativeInstructionAssemblyBasis, input));

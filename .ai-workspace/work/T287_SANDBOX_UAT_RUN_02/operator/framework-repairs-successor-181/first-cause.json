@@ -1,0 +1,22 @@
+{
+  "stage": "postbuild raw isolated declaration comparator",
+  "firstError": "AssertionError: abg/instruction_assembly.d.ts",
+  "lastPassed": {
+    "normalBuild": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/commands/build.result.json",
+      "sha256": "5c4627d11dc7aa63ce7718b8e39d65f87024e13db5c8fce8e4612826c55df1ce",
+      "byteCount": 1831
+    },
+    "generatedCount": 934,
+    "normalGeneratedChangedPaths": [
+      "build/code/src/product/semantics.js",
+      "contracts/capabilities/capability-definition-graph.json",
+      "product-toolchain-manifest.json"
+    ],
+    "all263SourcePreserved": true
+  },
+  "effects": "One successful normal build only; no pack/install/Run/model/app/resource effects",
+  "downstreamError": "MODULE_NOT_FOUND publication.mjs: attempted helper had not been created after first comparator refusal; no npm pack entered.",
+  "status": "STOPPED pending Root causal disposition",
+  "captured": "2026-10-09T06:54:05.501680+00:00"
+}

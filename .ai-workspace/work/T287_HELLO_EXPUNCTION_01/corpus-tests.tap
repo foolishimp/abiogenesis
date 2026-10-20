@@ -1,0 +1,12 @@
+✔ published seven-constructor/local-refusal cases exercise exact original recursive syntax (2.307833ms)
+✔ fixed Program mutations reach the actual sole validator and restore the original positive (14.629458ms)
+ℹ {"actualOwner":"validator/conformance_operation","soleValidator":"validator/validation","programs":1,"mutations":5,"restorations":5,"RuntimeCalls":0}
+✔ current input is exact, owner branded and preserves actual resolved-publication matching (1.016375ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 282.801041

@@ -1,0 +1,8 @@
+Execute the declared ABIogenesis F_P conformance instruction.
+Instruction contract: contract://abiogenesis/conformance/fp-hello-instruction@5
+Result contract: contract://abiogenesis/conformance/fp-hello-output@5
+Attributed actor: actor://abiogenesis/conformance/claude-worker@5
+Subject: "World"
+Instruction: Produce one concise greeting for the declared subject.
+The message field must equal exactly "Hello World".
+Return only the declared JSON result. Do not call tools.

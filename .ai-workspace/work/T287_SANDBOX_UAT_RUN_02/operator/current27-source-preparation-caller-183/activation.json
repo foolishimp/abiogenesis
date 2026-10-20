@@ -1,0 +1,21 @@
+{
+  "role": "Worker183 caller readiness only",
+  "ProductFrame": {
+    "families": 15,
+    "version": "ABI5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "STDO": "2.5.1rc2",
+    "STDOManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "ProductBasis": [
+      "817\u2013867",
+      "CONT014\u2013016"
+    ],
+    "externalDataMapper": "unchanged original A/actor/Program/source136/raw34/C2"
+  },
+  "selectedAction": "Fresh ordinary27 identity-dependent setup; historical26 completed work remains authentic, not retagged. Existing four helper laws unchanged. Capture only owner-derived source invocation scalars and real nullable projector outcome.",
+  "permittedEffects": "183 caller/config/cheap proof documentary territory only",
+  "actual185Preparation": "not executed or authorized here",
+  "stops": "Every unexpected failure preserved and returned to Root for RCA/action before retry"
+}

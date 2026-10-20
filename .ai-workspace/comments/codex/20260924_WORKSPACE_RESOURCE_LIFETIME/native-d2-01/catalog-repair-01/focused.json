@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "exitCode": 1,
+  "elapsedSeconds": 0.2066536247730255
+}

@@ -1,0 +1,57 @@
+{
+  "kind": "step3_runtime_admission_source_candidate",
+  "initialGit": "ff29a8bab8f8cb3ec6f864536075ccfe3422652e",
+  "modelSubjectSha256": "f816c981615eba0cb33520f122f5d1a747a56ee8c63277fe2925adc717c41e3c",
+  "preparationSubjectSha256": "5bef10090ac6e517139751ac567d7cdf6ec2562f9e04d3f3533aa9ba9e63eed1",
+  "sourceSubjectSha256": "1df2966c65cc3309b45ca443bd1f6eb0c2bcb542a48f009f9c4f5ee740519dae",
+  "sourceHashDefinition": "SHA256 of the ordered source path/sha256 rows below with sorted keys and compact JSON separators",
+  "sourceAndTest": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "preimageSha256": "646bd1cff7a996017a6d1ff3ed2631e26f458cf0c0f85a20fdd3f658305295b2",
+      "sha256": "3d4ec834d362107a5cbf16ac597e28fdfd733a1ff2ad275c1cd295046ca8c065"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "preimageSha256": "e4cc2dad164ba4f638647a21e8de20e45ef2f879e63df2eee5224a5ba420ab16",
+      "sha256": "fe1bda23ff6ad6cce3c1b58b0239b971a46690d3b55e9984c3bf885e91dd3c26"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "preimageSha256": "62bf1335ed7529b2d13d32e8810871f2e7e99bfc7ab7b6716d3b1360aca39805",
+      "sha256": "7ce5bc2f9f04c649fd7e83175dff5ca4e4977c3005b79c727138dfb19c1ee3c2"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "preimageSha256": "e97bd9297b5bd12eae4ca1736391a0891f11e2f15e39ce3c690a5674fdfe98c9",
+      "sha256": "9a951b33dd5ea30d5f91efeaa01bbeb46a32f756287c6b6df2823a698039ac80"
+    }
+  ],
+  "ordinaryCompilerProjections": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.d.ts",
+      "preimageSha256": "ae3b7b2e03d433fe6f48631f378deb50c3216f4ec060c83d07a43fb440f14a29",
+      "sha256": "48ebcc8c513e71d891ded9c5d351e933bbc920b2a975a5b2513d7011b0240584"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js",
+      "preimageSha256": "16a4d09efa3238188a71a61f0c9efeb4adf415ca241eaadbbc3feb7dbac0a89b",
+      "sha256": "4ba0663f7bacc6bc0457573ea5ba0aa33e2ef4ba034b61987c9501457fa90ba7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/environment_admission.js",
+      "preimageSha256": "fd08169436de8ab2f2eb1b994232d68dd5b01d4dfe205aa31b54e5e6a7686d9e",
+      "sha256": "fdef3dd176edfd1e98c1459b806dea3527bbcb960717e0eb4e2828317a4f0d19"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.d.ts",
+      "preimageSha256": "b5dfc3e32a6063b617a99cf3de82ba451f07968d6fd965eeb3a46e9755eab19a",
+      "sha256": "e0aa0959968112c08dfd7a1a1d4c84046932303abc46c4cb26d754cd6708b6e2"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js",
+      "preimageSha256": "3dee38122b2c97a5f34ec0ac28fea3f776e109c4f25dd573130243980ac7c234",
+      "sha256": "0d17b41ea89f96dffa6c284099fae3a52117f243bfd71cc7d3c2fdd4484f5fcf"
+    }
+  ]
+}

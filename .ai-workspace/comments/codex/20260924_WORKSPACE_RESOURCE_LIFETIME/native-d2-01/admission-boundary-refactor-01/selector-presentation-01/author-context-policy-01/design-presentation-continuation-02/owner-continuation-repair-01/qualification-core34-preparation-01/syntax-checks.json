@@ -1,0 +1,29 @@
+{
+  "checks": [
+    {
+      "path": "compare-generated.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "prepare.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "public-support.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "recipe-stage.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "recipe.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "test-environment.mjs",
+      "exitCode": 0
+    }
+  ],
+  "scope": "Syntax only; no recipe commands or runtime executed."
+}

@@ -1,0 +1,333 @@
+--- .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/GOALS.md
++++ specification/GOALS.md
+@@ -15,7 +15,7 @@
+ 
+ | Goal ID | Goal | Success signal | Status |
+ |---|---|---|---|
+-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The [common computational library deliverable](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable) must be implemented, evidenced and accepted before remaining 5.0 release work resumes. Its design baseline is accepted; library delivery is open. Existing accepted evidence retains its original subjects. Current-candidate lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
++| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The [common computational library deliverable](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable) must be implemented, evidenced and accepted before remaining 5.0 release work resumes. L1 and exact L2 design are accepted; L3–L5 remain pending and library delivery is open. The user selects a full-tree checkpoint before implementation; no L3 activation is current. Existing accepted evidence retains its original subjects. Current-candidate lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+ 
+ ## Current Selection
+ 
+@@ -29,15 +29,23 @@
+ that acceptance. Bounded integration and installed proof needed to deliver
+ the library belong to the library work package.
+ 
+-The [design baseline is accepted](../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md).
+-It supplies twelve capability contracts, consumer/consolidation decisions,
+-lawful compositions and explicit execution obligations. Design acceptance
+-does not establish implementation, observed contraction or delivery. The
+-next activity completes the exact capability/consumer delivery scope and
+-material decisions, then realizes and proves that scope under
++The [L1 design baseline](../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md)
++and [exact L2 delivery design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
++are accepted. L2 binds D02–D04 contraction, K11 standalone STDO3 context,
++E03 shared physical lifetime/timing, U1 scoped unknown-effect currentness,
++E01/E02/E04 retained domains, and frozen P1–P5 proof. Independent review 02
++closed the bounded timer-domain design finding; implementation and execution
++remain pending. The isolated baseline built and packed, which establishes
++mechanical readiness only.
++
++The user now selects a [full-tree commit/push checkpoint](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md),
++including other-session commentary and analysis, before implementation.
++No L3 source or runtime activation is current. After that checkpoint, a
++separate bounded activation may realize the accepted scope, execute its
++obligations and seek L5 independent delivery acceptance under
+ [T-287's library milestones](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable).
+-E01–E04 require explicit in-scope decisions or justified exclusion before
+-dependent work; an exclusion cannot remove a selected capability obligation.
++Design acceptance does not establish observed contraction, delivery or
++release readiness; the release-resumption gate remains closed.
+ 
+ The intended asset is a reusable computational basis from which feature
+ behaviour is composed. The calculus identifies common structure, contracts
+--- .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/T-287-deliver-abiogenesis-5-feature-waves.md
++++ .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -8,10 +8,10 @@
+ - updated_at: 2026-10-21
+ - current_method_basis: stdo://releases/v3.0.0-rc.1/
+ - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
+-- current_activation: T287_COMMON_LIBRARY_DELIVERY_PLAN_01
+-- current_activation_status: library_delivery_OPEN_design_baseline_ACCEPTED_release_resumption_BLOCKED
+-- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md
+-- current_next_work: L2_close_library_delivery_scope_and_material_design_then_L3_realize_L4_prove_L5_accept_before_release
++- current_activation: T287_COMMON_LIBRARY_DELIVERY_01
++- current_activation_status: L1_L2_design_ACCEPTED_user_checkpoint_SELECTED_L3_L5_PENDING_library_delivery_OPEN
++- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
++- current_next_work: full_tree_commit_push_checkpoint_before_separate_L3_activation_then_L4_proof_L5_acceptance
+ - current_prerequisite_deliverable: common_computational_capability_library
+ - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
+ - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
+@@ -24,9 +24,11 @@
+ ## Current Delivery Plan
+ 
+ The owner's 2026-10-21 instruction selects **delivery of the common computational
+-capability library before resuming the 5.0 release**. Its design baseline is
+-accepted; implementation, consumer adoption, executed obligations and delivery
+-acceptance remain open. The concrete asset is a library of
++capability library before resuming the 5.0 release**. L1 and the exact L2
++delivery design are accepted; implementation, consumer adoption, executed
++obligations and delivery acceptance remain open. The user now selects a
++full-tree commit/push checkpoint before implementation; no L3 activation is
++current. The concrete asset is a library of
+ reusable computations and lawful compositions that reduces independently
+ invented solutions. Explicit obligations govern each capability and
+ composition; actual execution and assessment determine their outcomes.
+@@ -61,10 +63,16 @@
+ admitted domains, inputs/outputs, effects, refusals, lifetime and resource
+ obligations, composition rules, actual foundation and owner bindings, existing
+ and proposed consumers, and a finite realization/proof sequence. This is L1
+-evidence. Library delivery requires L2–L5 below; a reviewed design does not
+-establish implementation, observed contraction or successful execution.
++evidence. [L2 successor 02 is accepted](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
++after independent review 02: exact D02–D04/K11/E03/U1 realization scope,
++E01/E02/E04 retention and P1–P5 proof are bound, including the timer-domain
++correction. Library delivery still requires L3–L5 below; design acceptance
++does not establish implementation, observed contraction or successful execution.
+ The [delivery-plan activation](../../work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md)
+ records this successor selection and preserves the accepted design cut.
++The [current checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
++records the stop before L3. The isolated baseline built and packed successfully;
++that is mechanical readiness, with no runtime tests or candidate implementation.
+ 
+ The method pin does not migrate an admitted Run. The current STDO template
+ binds exact native source/material and only explicitly selected supplementary
+@@ -75,9 +83,10 @@
+ 
+ ### Common computational library deliverable
+ 
+-**Owner:** ABIogenesis/T-287. **Status:** open; L1 design baseline accepted,
+-L2–L5 pending. **Release-resumption gate:** closed until L5 acceptance is
+-recorded against the exact delivered subject.
++**Owner:** ABIogenesis/T-287. **Status:** open; L1 and L2 design accepted,
++L3–L5 pending; user checkpoint selected before implementation.
++**Release-resumption gate:** closed until L5 acceptance is recorded against
++the exact delivered subject.
+ 
+ The deliverable contains:
+ 
+@@ -153,11 +162,12 @@
+ | Step | Selected work and prerequisite | Observable exit | Stop or next action |
+ |---|---|---|---|
+ | Reconciliation — accepted | Retain the exact STDO 3 Product/requirement destination and calculus binding from the preceding accepted document subject. | Independent assessment and recorded disposition in `T287_STDO3_RECONCILIATION_01`. | Retain evidence within its original scope; the owner-selected library prerequisite supersedes the earlier next-work order. |
+-| L1 library design baseline — accepted | Retain the source-grounded K01–K12 contracts, D01–D11 dispositions, compositions and obligations. | [Accepted exact design](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md), including corrected owner/effect views and explicit E01–E04 stops. | Design is complete within that accepted scope; library delivery remains open. Proceed to L2. |
+-| L2 delivery scope and material design — next | Freeze the exact capability/consumer and retirement scope; close required E01–E04 decisions or justified exclusions. Apply the library to native STDO environment, install/reuse/continuation, cleanup and partial-effect boundaries where selected consumers require them. Bind the finite obligations, independent oracle and measurement basis. | Every selected capability and consumer has an implementable common route, retained owner, lawful composition, result/refusal/effect/lifetime contract and explicit invalidators. D02–D04 are bound to their actual domains; no unresolved material choice is left to code. | Independent assessment accepts the exact affected decisions. Missing required decisions block dependent L3 work. |
+-| L3 realization and consumer adoption — pending | Implement the admitted common relations, starting with D02–D04 and existing owner capabilities; replace selected consumers and retire equivalent implementations. Preserve exact semantic owners and the inventoried source/evidence. | Exact source changes show usable common implementations and real consumer adoption; focused contract and integration checks pass. Every retained separate responsibility has a concrete justification. | Freeze the candidate for L4. No claimed savings, delivery or release resumption follows from source edits alone. |
++| L1 library design baseline — accepted | Retain the source-grounded K01–K12 contracts, D01–D11 dispositions, compositions and obligations. | [Accepted exact design](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md), including corrected owner/effect views and explicit E01–E04 stops. | Retain this accepted design; L2 now supplies the selected material decisions. Library delivery remains open. |
++| L2 delivery scope and material design — accepted | Retain [successor 02 execution contract](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md): D02–D04/K11/E03/U1, E01/E02/E04 retained domains, finite P1–P5 proof, independent oracles and measurement basis. | [Executive acceptance](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md) conjoins independent review 01's ten scoped predicates and review 02's timer-domain correction on exact freeze 02. | Stop at the user-selected full-tree checkpoint. No L3 implementation activation follows automatically from design acceptance. |
++| User checkpoint — selected | Preserve and commit/push the full visible tree, including other-session commentary/analysis and exact failed/accepted design evidence, under the separate checkpoint Writer. | The logical checkpoint and remote transport are verified; oversized evidence retains exact bytes through the selected transport. | No source implementation or native/runtime work. A later bounded L3 activation binds the accepted contract. |
++| L3 realization and consumer adoption — pending | After the checkpoint and separate activation, implement D02–D04, K11, E03 timing/lifetime and U1 within the accepted territories; adopt selected consumers and retire equivalent implementations. Preserve semantic owners and inventoried evidence. | Exact source changes show usable common implementations and real consumer adoption; focused contract and integration checks pass. Every retained separate responsibility has a concrete justification. | Freeze the candidate for L4. No claimed savings, delivery or release resumption follows from source edits alone. |
+ | L4 execution and independent evidence — pending | Execute the applicable V1–V7 partitions and earliest selected installed composition discriminator. Preserve physical effects/admission distinctions, retained work, exact identities and fresh readback. Measure complete-path work and actual contraction on the declared basis. | Actual results discharge required selected obligations; source/package correspondence and an independent assessment bind equivalence, consumer use, retirement and observed cost. | A failed join returns its exact causal relation for bounded repair and affected reproof. No blind retry, claimed success from missing evidence or wider release campaign. |
+-| L5 library delivery acceptance — pending | Conjoin the accepted design, exact implementation/consumer/retirement record, L4 evidence and independent result. | T-287 Executive records acceptance of the delivered library subject with no unresolved required in-scope obligation, identifies reusable evidence and explicitly opens the release-resumption gate. | Only this recorded delivery acceptance permits the remaining 5.0 release sequence. L1 acceptance alone cannot open it. |
++| L5 library delivery acceptance — pending | Conjoin the accepted design, exact implementation/consumer/retirement record, L4 evidence and independent result. | T-287 Executive records acceptance of the delivered library subject with no unresolved required in-scope obligation, identifies reusable evidence and explicitly opens the release-resumption gate. | Only this recorded delivery acceptance permits the remaining 5.0 release sequence. L1/L2 design acceptance cannot open it. |
+ | D1/D4 remaining release integration — waiting for L5 | After library acceptance, compare current source to the accepted design and frozen Source44; reuse valid library evidence and implement only remaining admitted release deltas. | Focused checks plus exact installed producer/consumer composition establish the changed release relations. Source/package correspondence and authentic setup evidence are retained or renewed only where invalidated. | Return a failed join to its owning boundary; no blind clean restart or extra controller. |
+ | D2 controlled correction/restart | Reconcile17's completed physical install with admitted16 facts; select lawful reuse or an owner-supported changed pair. Bind the actual Source, Program, current input and reviewed fixture. | Actual helper execution gives a failing C2 result with original diagnostics/citations; parent retains it; selected native repair changes the candidate; the same checker passes; close/reopen and fresh Public reads conserve producer, state and effects. | A refusal or uncertain effect stops and is explained. This finite controlled proof does not establish genuine semantic work. |
+ | D3 genuine selected lifecycle | Select the exact installed candidate, original source, full selected obligations, independent oracle and actual worker/assessment configuration prospectively. | The supported ordinary interface produces and corrects a working application, receives independent assessment and reaches admitted closure/fresh readback. Required ambiguity, refusal and recovery cases retain their outcomes. | No hidden assistance or shrinking of the oracle. Apply remaining D4 generic-composition obligations and D5 coverage; reuse valid prior evidence. |
+@@ -216,11 +226,12 @@
+ 
+ ### Current operation boundary
+ 
+-This activation updates the prerequisite delivery plan, Product allocation
+-and current routing, with focused document verification. It does not execute
+-L2–L5 or resume release work. L2 is the next selected technical activity;
+-the accepted L1 design and prior runtime frontier are retained. Each later
+-implementation or runtime operation binds
++Current recording accepts exact L2 design and selects the user's full-tree
++checkpoint before implementation. L1/L2 are accepted; L3–L5 and library
++delivery remain pending/open respectively. No L3 source or runtime activation
++is current, and the release-resumption gate remains closed. The isolated
++baseline build/pack is mechanical readiness only. Each later implementation
++or runtime operation requires a separate activation binding
+ its exact candidate, accepted design, effect territory, prerequisites, limits,
+ stop and return under the existing project configuration.
+ 
+--- .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/frontier.md
++++ .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/frontier.md
+@@ -4,15 +4,16 @@
+ 
+ | Evaluation/activity | Assigned frame/role and exact predicate | Dependencies | Current disposition / residual |
+ |---|---|---|---|
+-| L2-C domain/calculus | `/root/calculus_assessment`, Worker/Writer: D02-D04 exact consumer/retirement scope and equivalence/refusal cases; E01/E02 explicit decisions; K01-K11 usable owner routes. | Accepted plan/design and fresh inventory. | Ready/activated by this grant; source-grounded report required. No implementation. |
+-| L2-E effect/foundation | Separate Worker selected by root: E03/E04 decisions or justified exclusions preserve every selected capability, effect/platform/lifetime/partial-failure obligation and lawful foundation choice. | Same exact inventory; accepted K12 and owner contracts. | Root-activated peer evaluation; do not infer its result. |
+-| L2-P installed-proof design | Separate Worker selected by root: exact ordinary installed consumer path, prerequisites, independent oracle, finite V1-V7 population, measurements and no forbidden assistance; prior stopped effects reconciled. | Same inventory, accepted design and retained evidence. | Root-activated peer evaluation; no actual execution claimed. |
+-| L2 conjunction and candidate scope | Executive consumes closed L2-C/L2-E/L2-P, resolves conflicts and identifies the exact design/consumer/retirement/proof subject; separate Writer records selected changes. | All required L2 reports closed and applicable; material conflicts resolved at owner. | Waiting. No unclosed material choice may be delegated to L3 code. |
+-| L2 independent design assessment | Separate Reviewer independently reacquires the frozen affected decisions and assesses Product, domain, authority/effect, foundation and proof constructability. | Exact conjoined candidate and Executive activation. | Waiting; Worker never activates Reviewer. |
+-| L3 realization/adoption | Separately activated Writer(s): implement admitted common routes, adopt actual consumers and retire exactly equivalent responsibilities; focused mechanical/contract checks. | Executive disposition of independent L2 result; exact implementation grant. | Waiting. Preserve pre-existing dirty bytes and unrelated accepted evidence. |
++| L2-C domain/calculus | `/root/calculus_assessment`, Worker/Writer: D02-D04 exact consumer/retirement scope and equivalence/refusal cases; E01/E02 explicit decisions; K01-K11 usable owner routes. | Accepted plan/design and fresh inventory. | [Closed report](calculus/L2-report.md), consumed by Executive; no implementation. |
++| L2-E effect/foundation | Separate Worker selected by root: E03/E04 decisions or justified exclusions preserve every selected capability, effect/platform/lifetime/partial-failure obligation and lawful foundation choice. | Same exact inventory; accepted K12 and owner contracts. | [Closed report](effects/L2-report.md); E03 and separate U1 selected, E04 retained domains; conjoined with explicit refinements. |
++| L2-P installed-proof design | Separate Worker selected by root: exact ordinary installed consumer path, prerequisites, independent oracle, finite V1-V7 population, measurements and no forbidden assistance; prior stopped effects reconciled. | Same inventory, accepted design and retained evidence. | [Closed report](proof/L2-report.md); P1–P5 selected. Isolated baseline build/pack is mechanical readiness only, not execution proof. |
++| L2 conjunction and candidate scope | Executive consumes closed L2-C/L2-E/L2-P, resolves conflicts and identifies the exact design/consumer/retirement/proof subject; separate Writer records selected changes. | All required L2 reports closed and applicable; material conflicts resolved at owner. | [Exact successor 02 accepted](disposition.md), including actual-prefix P2, HTTP capture/budget and R-L2-001 timing HOW. |
++| L2 independent design assessment | Separate Reviewer independently reacquires the frozen affected decisions and assesses Product, domain, authority/effect, foundation and proof constructability. | Exact conjoined candidate and Executive activation. | Review 01's failed cut preserved; [review 02](review-L2/review-02.md) satisfies the bounded correction with ten scoped findings retained. Executive accepts design only. |
++| User full-tree checkpoint | Separate checkpoint Writer: record and push the full visible tree, including other-session commentary/analysis, with exact oversized-file transport where required. | L2 acceptance and [checkpoint handoff](CHECKPOINT_HANDOFF.md); all recording Writers quiescent. | Current selection before implementation. No L3 activation; no runtime/native work. |
++| L3 realization/adoption | Separately activated Writer(s): implement admitted common routes, adopt actual consumers and retire exactly equivalent responsibilities; focused mechanical/contract checks. | User checkpoint, accepted exact L2 contract and a separate implementation grant. | Pending; no implementation activated at this checkpoint. Preserve pre-existing dirty bytes and unrelated accepted evidence. |
+ | L4 execution and independent evidence | Bounded execution Writer(s) and independent Reviewer(s): applicable contract/whole-path cases, actual install/consumer/fresh-read outcomes and measured contraction/cost on exact subjects. | Frozen L3 candidate, concrete runnable proof contract, lawful effect grant and ready prerequisites. | Waiting. Failures return exact causal relation; no blind retry or general release campaign. |
+ | L5 delivery acceptance | Executive conjoins accepted design, exact source/package, consumers/retirements, executed obligations and independent result; records exact library delivery acceptance and gate opening. | Every mandatory in-scope obligation closed with sufficient evidence; justified residuals outside claim. | Waiting. Release-resumption gate remains closed. |
+ 
+-Material residuals currently include E01 exact-versus-NUL raw-input domains, E02 broader equality/closure/cache demand, E03 process-lifetime extraction and platform/observer uncertainty, E04 inventory/archive factoring, exact source/package correspondence, the prior physical-install/admission split, and actual whole-path resource/equivalence evidence. L2 must decide the selected scope concretely rather than blanket-defer these. An exclusion is lawful only if each required selected capability/consumer still has a usable owner route and all applicable obligations remain allocated.
++L1 and L2 design are accepted on their exact subjects. E01/E02/E04 retain the named distinct domains; D02–D04, standalone K11, E03 physical lifetime/timing and U1 scoped currentness have accepted realization/proof contracts. Remaining obligations are actual L3 implementation/adoption/retirement, source/package correspondence, P1–P5/V1–V7 execution and independent evidence, then L5 delivery acceptance. The prior physical-install/admission split and all failed cuts remain preserved; no blind retry or source-currentness claim follows from design acceptance.
+ 
+ Conjunction preserves each predicate and its support. Source equivalence or a green mechanical check cannot discharge installed effects, independent semantic assessment or Product completion. General lifecycle, qualification and release remain waiting for L5; library-specific integration needed to establish L4 is permitted only under its later bounded activation.
+--- /dev/null
++++ .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md
+@@ -0,0 +1,23 @@
++# Executive L2 design acceptance
++
++Current reading order: [accepted L2 execution contract](L2-execution-contract.md), [independent review 02](review-L2/review-02.md) with [review 01's retained predicates](review-L2/review-01.md#supported-predicates-retained), [accepted L1 library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md), and [current delivery plan](../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan).
++
++Root `/root`, acting as STDO 3 Executive, **accepts exact L2 successor 02** after consuming the closed independent result and verifying the bounded correction. This record is written by the separately activated Writer; it is not that Writer's independent approval.
++
++| Accepted subject / support | SHA-256 |
++|---|---|
++| [L2 freeze 02](L2-candidate-freeze-02.json) | `4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae` |
++| L2 execution contract | `65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1` |
++| Independent review 02 | `ea958de360c4cfc516ebad844bf0e0ebf340f707a437f1c2d11c474607266dba` |
++| [Independent result 02](review-L2/result-02.json) | `87a4bb41bb14a098146693051077b9b327cbff20e531cfdd4e25856b8abdadec` |
++| [Independent review freeze 02](review-L2/freeze-02.json) | `dde2f653c8980a2ad317ee50ba83da377a7791c6284fe1ceec091734d86e786c` |
++
++The independent predicate is satisfied at the design boundary: R-L2-001 is resolved by the monotonic host-bounded timing contract, and review 01's ten scoped predicates retain their original support and limits. Acceptance covers the specified D02–D04 contractions, K11 standalone STDO3 native-source specialization, E03 physical lifetime/timing, U1 unknown-effect currentness, E01/E02/E04 retention and P1–P5 proof contract. It makes no whole-source Prime or executed-outcome claim.
++
++**State:** L1 and L2 design ACCEPTED; L3–L5 PENDING; library delivery OPEN; release-resumption gate CLOSED. No L3 source or runtime activation is current. The user selects the [full-tree checkpoint](CHECKPOINT_HANDOFF.md) before implementation.
++
++The [isolated baseline return](proof/baseline-preparation/return.md), SHA-256 `2769e69a7126a041632c22eff39bf0070dbf57d461d9ab788114942a997daaf5`, records successful baseline build and pack only. It establishes mechanical readiness. No runtime tests, candidate common-library implementation, actual retirement, P1–P5 outcome or L5 delivery acceptance follows from it.
++
++Preserve the [rejected first subject](review-L2/subject-01/L2-execution-contract.md), its [original freeze](L2-candidate-freeze.json), both independent reviews, exact [correction preimages](correction-L2-001/preimages.json), original source basis and old release-attempt evidence. The current status updates have separate [acceptance preimages](acceptance/preimages.json); old accepted records are not rewritten. Continuation17 remains stopped with its physical install/admission distinction and residue.
++
++After the checkpoint, a separate bounded L3 activation may realize the accepted contract; frozen candidate/oracles then govern P1–P5, V1–V7 and independent evidence before L5. Material changes to source, domain, owner policy, timing relation, scope, oracle or support re-open affected design/evidence. L5 alone opens release resumption; qualification and human release acceptance remain later owner decisions.
+--- /dev/null
++++ .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.json
+@@ -0,0 +1,95 @@
++{
++  "created_utc": "2026-10-20T18:59:53.130932+00:00",
++  "decision": "ACCEPT_exact_L2_design_successor_02",
++  "decision_authority": "/root as STDO3 Executive",
++  "recording_actor": "/root/calculus_assessment as separately activated Writer; no independent approval",
++  "method_basis": "stdo://releases/v3.0.0-rc.1/",
++  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
++  "accepted_subject": {
++    "freeze": {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-candidate-freeze-02.json",
++      "sha256": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
++      "bytes": 9957
++    },
++    "contract": {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
++      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
++      "bytes": 26888
++    }
++  },
++  "independent_support": [
++    {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/review-02.md",
++      "sha256": "ea958de360c4cfc516ebad844bf0e0ebf340f707a437f1c2d11c474607266dba",
++      "bytes": 5276
++    },
++    {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/result-02.json",
++      "sha256": "87a4bb41bb14a098146693051077b9b327cbff20e531cfdd4e25856b8abdadec",
++      "bytes": 1604
++    },
++    {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/freeze-02.json",
++      "sha256": "dde2f653c8980a2ad317ee50ba83da377a7791c6284fe1ceec091734d86e786c",
++      "bytes": 1686
++    },
++    {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/review-01.md",
++      "sha256": "c862ca6310be883f9311b12b7409a82319151eacbd5e8f5d6062f519b3346c47",
++      "bytes": 11583
++    },
++    {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/result-01.json",
++      "sha256": "74460d8c2bfa018136755a674d8c11b54fb37380d56cc5a982298a64f9e30517",
++      "bytes": 1763
++    }
++  ],
++  "state": {
++    "L1": "accepted_design",
++    "L2": "accepted_exact_design",
++    "L3": "pending_not_activated",
++    "L4": "pending",
++    "L5": "pending",
++    "library_delivery": "OPEN",
++    "release_resumption_gate": "CLOSED"
++  },
++  "scope": [
++    "D02-D04 six-file contraction",
++    "K11 current public STDO specialization and standalone native source consumer",
++    "E03 physical lifetime plus admitted-domain monotonic host-bounded timing",
++    "U1 authenticated scoped unknown-effect currentness",
++    "E01/E02/E04 explicit domain retention",
++    "P1-P5 and V1-V7 proof, costs and retirement"
++  ],
++  "baseline_readiness": {
++    "return": {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/return.md",
++      "sha256": "2769e69a7126a041632c22eff39bf0070dbf57d461d9ab788114942a997daaf5",
++      "bytes": 2996
++    },
++    "claim": "Unchanged isolated baseline built and packed; mechanical readiness only, no runtime tests or candidate common-library implementation."
++  },
++  "checkpoint": {
++    "selection": "User-directed logical full-visible-tree commit/push before implementation, including other-session commentary/analysis",
++    "git_owner": "Separate checkpoint Writer",
++    "oversized_transport": "Exact-byte LFS transport where required; no omission of visible work",
++    "implementation_activated": false,
++    "handoff": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
++    "recording_writer_action": "Stop all writes after handoff; no Git effects or later commit-SHA repository update"
++  },
++  "preservation": {
++    "status_preimages": {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages.json",
++      "sha256": "c7b76159bbbe8d5e4a965835359a79520bf4f91d6c572bcd0c36ce459123f858",
++      "bytes": 1721
++    },
++    "original_failed_cut": {
++      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-candidate-freeze.json",
++      "sha256": "94b3517a5e6d9e1b901879058fa39a7c2a7a906de834ae6675434e93916057a9",
++      "bytes": 6693
++    },
++    "old_release_attempts": "Source44/continuation16/continuation17 retain their original support, failure and physical residue; no retry/cleanup/migration authorized."
++  },
++  "invalidators": "Material changes to source, domain, owner policy, timing relation, scope, oracle or supporting evidence re-open affected design/evidence.",
++  "limits": "Acceptance is design-only. Implementation/adoption/retirement, executed outcomes, independent implementation assessment, L5 delivery, whole-Product qualification and release remain unperformed/open."
++}
+--- /dev/null
++++ .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
+@@ -0,0 +1,23 @@
++# User checkpoint before common-library implementation
++
++Start with the [current L2 execution contract](L2-execution-contract.md), [review 02](review-L2/review-02.md) and [review 01's preserved support](review-L2/review-01.md#supported-predicates-retained), [L1 library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md), and [current T-287 plan](../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan). [Executive disposition](disposition.md) accepts exact L2 freeze 02 `4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae`.
++
++**Checkpoint state:** L1/L2 design accepted; L3–L5 pending; common-library delivery open; release-resumption gate closed. No implementation activation is current. The accepted design names source changes and proof obligations; those changes and outcomes have not been performed.
++
++The user explicitly requests **everything committed and pushed**, including visible work from other sessions and repository commentary/analysis. The separate checkpoint Writer owns the logical full-tree Git checkpoint, remote verification and oversized-file LFS transport. Preserve exact bytes and visible work; do not omit unrelated commentary or evidence to make transport easier. This recording Writer performs no Git actions and stops all writes after the handoff. Do not append the eventual commit SHA to repository files afterward.
++
++## Preserved evidence and current limits
++
++- [Baseline preparation](proof/baseline-preparation/return.md) built and packed the unchanged preserved source in a separate copy. Its exact source, toolchain, archive and correspondence receipts establish mechanical readiness only; runtime tests and installed/native outcomes remain unperformed.
++- [First rejected cut](review-L2/subject-01/L2-execution-contract.md), [review 01](review-L2/review-01.md), [R-L2-001 correction](correction-L2-001/return.md) and [accepted review 02](review-L2/result-02.json) retain their separate subjects. The timer finding is design-resolved; implementation/proof remains required.
++- Original source/plan/design records and [status preimages](acceptance/preimages.json) reconstruct prior accepted subjects. Source44, continuation16 and the [stopped continuation17](../T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/return-02.md) retain their exact claims and physical residue. No install retry, relabelled invocation, cleanup or historical-source migration is selected.
++- The new scope preserves all fifteen Product families and existing semantic owners. Default GraphFunctions and the lower common implementation library remain distinct. No new runtime, registry, public schema, scheduler or package is selected.
++
++## Next technical work after checkpoint
++
++1. **Separate L3 activation:** implement the contract's exact territories for D02–D04 contraction, K11 public standalone STDO3 constructor and consumer, E03 common owned-process lifetime plus monotonic host-bounded timing, and U1 authenticated scoped unknown-effect currentness. Preserve the accepted retained domains and owner-specific semantics. Synchronize the existing GTL emitted-member/span coordinates from actual isolated bytes.
++2. **Freeze realization and proof support:** exact source/package, selected consumer/retirement evidence, bounded P1–P4 runner, P5 process/currentness cases, immutable task/oracle/source spans and prospective provider/toolchain/resource configuration. Preserve main-tree build bytes; build candidate stages separately. A newly discovered material choice returns to its owner.
++3. **Execute the frozen P1–P5/V1–V7 contract:** P1 ordinary installed preparation first; P2 actual-prefix/partial-install preservation; P3 external deterministic execution and fresh reads; P5 actual process and scoped currentness evidence; then P4's single prospectively bound real native STDO3 selector. Local timing tests cannot substitute for real process/native evidence. Stop at the first failed required seam, preserving actual prefix, first failure, physical residue and uncertainty; no blind retry.
++4. **L5 independent delivery acceptance:** conjoin actual implementation/adoption/retirement, complete-path measurements, executed obligations and independent exact-subject assessment. Only recorded library delivery acceptance opens the existing release-resumption gate. General lifecycle, qualification and human release acceptance remain subsequent work.
++
++This is a review checkpoint, not an authorization to start those technical effects. Root Executive owns subsequent activations and disposition.
+--- /dev/null
++++ .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/activation.md
+@@ -0,0 +1,11 @@
++# Executive L2 acceptance and checkpoint recording activation
++
++Root `/root` Executive consumed independent review 02, its result and freeze, verified the bounded correction, and **accepts exact L2 successor freeze 02** `4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae`, contract `65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1`. This Writer records that decision; it supplies no independent approval.
++
++Independent review: `ea958de360c4cfc516ebad844bf0e0ebf340f707a437f1c2d11c474607266dba`; result `87a4bb41bb14a098146693051077b9b327cbff20e531cfdd4e25856b8abdadec`; review freeze `dde2f653c8980a2ad317ee50ba83da377a7791c6284fe1ceec091734d86e786c`. L1 and L2 are accepted design; L3–L5 pending; library delivery OPEN; release-resumption gate CLOSED.
++
++The user selects a logical full-visible-tree commit/push checkpoint before implementation, including other-session commentary and analysis. A separate checkpoint Writer handles Git and any oversized-file LFS transport. No Git effect or later commit-SHA edit belongs to this Writer.
++
++Allowed writes: compact `disposition.json`, `disposition.md`, `CHECKPOINT_HANDOFF.md` and acceptance preimage/readiness/freeze/return records in this delivery directory; only current selection/status portions of `specification/GOALS.md`, the nonhistorical current T-287 plan and `frontier.md`. Preserve their exact preimages first and conserve all historical tails. No Product, accepted design, closed report/review, source, test, package or generated change.
++
++Baseline build/pack is mechanical readiness only, bound by `proof/baseline-preparation/return.md` SHA-256 `2769e69a7126a041632c22eff39bf0070dbf57d461d9ab788114942a997daaf5`. No runtime tests or new common-library implementation have occurred. Record the exact handoff, verify conservation, return and stop all writes.

@@ -1,0 +1,19 @@
+0 verbose cli /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/npm
+1 info using npm@11.5.1
+2 info using node@v24.7.0
+3 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/npm/npmrc
+4 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/.npmrc
+5 silly config load:file:/Users/jim/.npmrc
+6 silly config load:file:/opt/homebrew/etc/npmrc
+7 verbose title npm pack
+8 verbose argv "pack" "--dry-run" "--ignore-scripts" "--json"
+9 verbose logfile logs-max:10 dir:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/npm-cache/_logs/2026-10-01T19_44_50_848Z-
+10 verbose logfile /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/npm-cache/_logs/2026-10-01T19_44_50_848Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant
+14 verbose os Darwin 25.6.0
+15 verbose node v24.7.0
+16 verbose npm  v11.5.1
+17 verbose exit 0
+18 info ok

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/run.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/native-prepared.json"
+  ],
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "maximumActorOccurrences": 1,
+  "usdPerOccurrence": 5,
+  "idleMs": 300000,
+  "absoluteMs": 900000,
+  "graceMs": 1000,
+  "nativeMs": 5400000,
+  "readbackMs": 600000,
+  "defaultHeap": true,
+  "automaticRetry": false
+}

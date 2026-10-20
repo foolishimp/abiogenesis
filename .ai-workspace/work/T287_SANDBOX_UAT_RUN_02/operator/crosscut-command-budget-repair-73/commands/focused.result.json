@@ -1,0 +1,26 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=native Design command budget|command cleanup budget|command budget shares HTTP|extended original C2 plan",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73/isolated/t287-observed-worksite-command.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T06:35:13.407Z",
+  "environmentKeys": [
+    "ABG_WORKSITE_BUILD_ROOT",
+    "ABI5_GENERIC_JOB_BUILD_ROOT",
+    "PATH"
+  ],
+  "timeoutMs": 180000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 749.8846249999997,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "✔ extended original C2 plan preserves all 26 sources through native and observed owners (152.021875ms)\n(node:73965) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n✔ native Design command budget retains exact capacity through both roles, readiness and historical correspondence (176.003333ms)\nℹ Component Design/C2 budget and native preparation proof; upstream authentication supplied, no actor or installed execution.\n✖ command cleanup budget rejects the old one-grace envelope through the semantic owner (78.052625ms)\n✔ command budget shares HTTP terms and exact existing C2 selector behavior (0.404333ms)\nℹ tests 4\nℹ suites 0\nℹ pass 3\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 725.238459\n\n✖ failing tests:\n\ntest at test_env/tests/t287-native-semantic-job.test.mjs:157:1\n✖ command cleanup budget rejects the old one-grace envelope through the semantic owner (78.052625ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  false !== true\n  \n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs:168:10)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+  "stderr": ""
+}

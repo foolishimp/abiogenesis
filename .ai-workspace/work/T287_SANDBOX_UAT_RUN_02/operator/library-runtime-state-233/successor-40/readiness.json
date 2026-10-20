@@ -1,0 +1,97 @@
+{
+  "kind": "testing_first_refusal_source_readiness",
+  "sourceCut": 40,
+  "disposition": "ready_for_independent_source_review",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "productBasis": {
+    "families": 15,
+    "version": "5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "method": "STDO2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "cause": "Actual installed39 continuation11 still totalizes a nullable Testing preparation to the opaque missing-owned marker; the first refusing relation was not retained. No next functional guard defect is proven.",
+  "selectedAction": "Call-local first-refusal reporting through existing owners and retained diagnosticRef; no functional guard/authority/currentness or failure-class change.",
+  "postimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/postimages.json",
+    "sha256": "3b0c24f3e9f39991a22e1e878af86ca702ed8388d1218c8ce905ca26197d629f",
+    "bytes": 10005
+  },
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/delta-from-39.patch",
+    "sha256": "0f9699481cc26ba330f7a81e49a382291dff158ceba4d86b15ab0581baa928c0",
+    "bytes": 59370
+  },
+  "declarationDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/declaration-delta.patch",
+    "sha256": "ffff127bc26537093bea1748577875464fe9c7a6ce9bf13ef60d2fa2c7e6e56a",
+    "bytes": 1274
+  },
+  "dependencies": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/dependency-conjunction.json",
+    "sha256": "2a99ced877b1a548cdd10575341083f5de5bb431fa6bf0b1020679977b801480",
+    "bytes": 3626
+  },
+  "commands": {
+    "strict-01": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/commands/strict-01.result.json",
+        "sha256": "89d95db8abdd2c60da843d971d235c210a02f3e190842c77d89f53c700e9e454",
+        "bytes": 769
+      },
+      "elapsedMs": 6589.806208
+    },
+    "declarations-01": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/commands/declarations-01.result.json",
+        "sha256": "209dcf86406f83f27173269448e7f90ab0008ce45f3fe7296f9ceac84cdb7b7d",
+        "bytes": 237
+      },
+      "elapsedMs": 3257.540083
+    },
+    "testing-refusals-01": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/commands/testing-refusals-01.result.json",
+        "sha256": "e0e7fa91ee3611c892308908618fa3c9835a961496fdcd6994cccdbea1e56936",
+        "bytes": 1038
+      },
+      "elapsedMs": 549.69575
+    },
+    "diagnostic-readback-01": {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/commands/diagnostic-readback-01.result.json",
+        "sha256": "81317934a0def47442bddba2753811b8181580ef4d280a56e1ec34942d4af49d",
+        "bytes": 940
+      },
+      "elapsedMs": 1630.3571660000002
+    }
+  },
+  "focusedCounts": {
+    "testingOwnerPaths": {
+      "pass": 3,
+      "fail": 0,
+      "skip": 0
+    },
+    "diagnosticReadback": {
+      "pass": 11,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "proved": [
+    "First specific basis/owner/context/subject/native declaration/current-use/occurrence/closed-source refusal survives enclosing null; callback absence differs from entered-refused",
+    "Caught native TypeError/ENOENT retains safe class/code; Proxy traps and full input/Error/stack are not retained",
+    "Successful task/output evidence, original input/native Source and exact guard refusal behavior conserved in the selected controlled-lower-premise specimen",
+    "Normal governance_failure diagnostic/evidence agreement and actual disposable durable failure admission, tamper refusal, cold/Public retained-subject readback",
+    "Legacy opaque diagnostics and successful deterministic totalization conserved",
+    "264 strict Source and all 264 stripped declarations skipLibCheck:false; 259 Source and 523 emissions unchanged"
+  ],
+  "limits": [
+    "Actual continuation11 null versus caught relation remains unobserved until ordinary successor install/discriminator",
+    "Source/environment/cover/CCall/set/terminal and basis/frame/replay test premises are explicitly controlled; this does not prove actual GTL/native/C2 composition",
+    "No null diagnostic or receipt establishes no physical effects",
+    "No normal generation, package, installed acceptance, actual resource acquisition/retry, DataMapper/app/model effect, capacity/UAT/release credit"
+  ],
+  "stop": true
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-01/caller-preparation-01/preparation/caller-subject.json",
+    "sha256": "6a7c1f6931729f77d592bc36fa0a2fdafc1fc4c17b5f04b6bb4de51ba43b19ba",
+    "byteCount": 2670
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-01/caller-preparation-01/preparation/selection.json",
+    "sha256": "448b1a6425ed53ea82f779b86269f3ff447a6a404a49c2b2b3545964d5223ef5",
+    "byteCount": 7764
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-01/caller-preparation-01/operation-selection.json",
+    "sha256": "b0dbf912778d8d4797c41e116b427bdb6861faa8c4f509a24b0548c69fb2c452",
+    "byteCount": 4836
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-01/caller-preparation-01/caller-checks.json",
+    "sha256": "55cb5262153cc28ed8a6222bfc1d2d6b4e707bdc6a5eb700ddf5f179f1efce6c",
+    "byteCount": 5816
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-29/selected-core.json",
+    "sha256": "f3324cc9ccabd03ffd8e5e47ae30790b66b292ff963153df02c4636afa71f11d",
+    "byteCount": 986
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-29/retained-consumer.json",
+    "sha256": "4611036f9120fb9f8cf93668fa5cd8b502a605c07f1c775d445bc7f06f858a0d",
+    "byteCount": 2236
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-29/frozen-source-conservation.json",
+    "sha256": "df8b7c7495738f2576e6d1c20d5209df0a1ad0f3e260078d5fc11e9db95b0319",
+    "byteCount": 3003
+  }
+]

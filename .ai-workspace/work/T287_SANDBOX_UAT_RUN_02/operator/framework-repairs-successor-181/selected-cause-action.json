@@ -1,0 +1,52 @@
+{
+  "ExecutiveConjunction": "Root selected bounded181 proof/caller correction after observed failure RCA; original successful normal build is retained.",
+  "firstCause": "Unsupported equality premise for all raw isolated declarations; first differing owner declaration has only property-order display differences.",
+  "premises": {
+    "normalDeclSettings": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+      "byteCount": 604
+    },
+    "isolatedDeclSettings": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/tsconfig.isolated.json",
+      "sha256": "fd6135418705e91864c1c2416acd3a01de6351e2683e871053e9bbe325fdcf08",
+      "byteCount": 49560
+    },
+    "firstRawDeclaration": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/isolated/build/code/src/abg/instruction_assembly.d.ts",
+      "sha256": "97f655f33fbdc0570ae4cb0325e35188cb815c8a4cbcbf5de5b01511d8febdd9",
+      "byteCount": 43002
+    },
+    "firstNormalDeclaration": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "sha256": "07d59aa31a2eac3ffb3bbad4a6f1b7d25a4a573444d4592f44f48ad39d68c4de",
+      "byteCount": 43002
+    },
+    "all263NormalDeclarationsRemainImmutable26": true,
+    "authorizedSemanticsJS": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantics.js",
+      "sha256": "068961d76f578d1734b3e067a1fe63196d1dd76c9838d9874842be2473b2dabd",
+      "byteCount": 13067
+    },
+    "accepted179SemanticsJS": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/isolated/build/code/src/product/semantics.js",
+      "sha256": "068961d76f578d1734b3e067a1fe63196d1dd76c9838d9874842be2473b2dabd",
+      "byteCount": 13067
+    }
+  },
+  "selectedAction": "Compare exact authorized semantics.js; retain exact normal outputs against26 and all canonical closure/catalog/metadata/archive/install byte checks. No type normalization/Source/tsconfig/codegen edit or build rerun.",
+  "sequencingAction": "Each command is awaited and its exit/signal/timeout/truncation inspected before any dependent action; failure immediately stops.",
+  "preservedFailures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/first-cause.json",
+      "sha256": "fe902db329d6e7bc141d25c9fdf7a303f85a72d9fe80de9ed24a68ff153eec7a",
+      "byteCount": 1053
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/preflight-first-failure.json",
+      "sha256": "8c1ed46aeaf1ac1b4f4ffb0fd620421f5a7cbdf5e9ff9dcfa7f0ba0b9a122f76",
+      "byteCount": 783
+    }
+  ],
+  "zeroPackInstallAtSelection": true
+}

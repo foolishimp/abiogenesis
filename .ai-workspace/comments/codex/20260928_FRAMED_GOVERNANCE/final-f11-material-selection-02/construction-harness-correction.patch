@@ -1,0 +1,20 @@
+--- construct-selection-failed-01.py
++++ construct-selection.py
+@@ -130,7 +130,7 @@
+  'hog/evaluation_frame.ts':('EvaluationFrame','HoG local evaluation/return frames remain distinct from reference-frame evaluation contracts.'),
+  'hog/workflow_lifecycle.ts':('export','Ordinary nested workflow invocation/return path.'),
+  'hog/recursion_lifecycle.ts':('export','Ordinary recursive frame/foldback path.'),
+- 'abg/event_contract_profiles.ts':('frame_opened','Existing ABG Frame event contract family.'),
++ 'abg/open_call.ts':('frame_opened','Existing ABG graph-call/frame opening owner and admitted runtime Frame identity.'),
+  'abg/traversal_transition.ts':('export','Existing native transition/admission owner for graph consequences.')}
+ designs={
+  'T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md':('Common application contract','Accepted ownership and complete default-library graph composition relation.'),
+@@ -159,7 +159,7 @@
+   {'part':'nested graph calls and declared computations share HoG law','sources':[P+T+'code/src/gtl/c_algebra.ts',P+T+'code/src/hog/graph_execute.ts',P+T+'code/src/hog/workflow_lifecycle.ts']},
+   {'part':'frame contracts reuse composition Context contracts and policy, including Context009..012','sources':[P+'specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md',P+T+'code/src/gtl/stdo_run_environment.ts',P+T+'code/src/gtl/requirement_handoff.ts',P+T+'code/src/product/default_library.ts']},
+   {'part':'no separate topology callable kind registry or interpreter','sources':[P+T+'code/src/gtl/contracts.ts',P+T+'code/src/gtl/declarations.ts',P+T+'code/src/gtl/registered_selection.ts',P+T+'code/src/hog/graph_execute.ts']},
+-  {'part':'frame contract overlay composition and runtime Frame retain distinct meanings','sources':[P+'specification/requirements/abg/REQ-R-ABG3-FRAME.md',P+T+'code/src/abg/event_contract_profiles.ts',P+T+'code/src/hog/evaluation_frame.ts',P+T+'design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md']}],
++  {'part':'frame contract overlay composition and runtime Frame retain distinct meanings','sources':[P+'specification/requirements/abg/REQ-R-ABG3-FRAME.md',P+T+'code/src/abg/open_call.ts',P+T+'code/src/hog/evaluation_frame.ts',P+T+'design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md']}],
+  'materialReasons':selected,'unprovidedAndUnknown':{'otherMemberResponsibilities':'Complete union and member refs in scope-transform/domain-responsibilities; every unselected group remains unassessed. No representative-example qualification.',
+  'execution':'No actual current execution result is supplied in this source-only preparation; runtime adequacy remains unknown wherever required.',
+  'grouping':'This common declaration/realization responsibility is a proposal requiring independent J. Metadata and source selection do not establish sufficiency.',

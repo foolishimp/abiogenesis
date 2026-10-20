@@ -1,0 +1,12 @@
+{
+  "scope": "Syntax only; no imports or owner effects",
+  "command": [
+    "node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/run-02.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": ""
+}

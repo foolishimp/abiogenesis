@@ -1,0 +1,24 @@
+{
+  "stage": "acquisition-complete",
+  "rss": 4762353664,
+  "heapTotal": 2677456896,
+  "heapUsed": 2571239272,
+  "external": 1687983565,
+  "arrayBuffers": 1685571258,
+  "at": "2026-10-09T06:02:54.623Z",
+  "elapsedMs": 50346.891209,
+  "eventCount": 206280,
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1685528035,
+    "prefixDigest": "sha256:63dd7384fcb43dc433c005313f4681df323e817f2180a23900faa05f3f2aff71",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:6922fcad866079631b0233dfd2c0142c9d04e11afdee0e491e7832226137dc10"
+  }
+}

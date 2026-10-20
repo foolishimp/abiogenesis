@@ -1,0 +1,223 @@
+file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-EyL5NN/consumer/node_modules/@abiogenesis/typescript-tenant/node_modules/valibot/dist/index.mjs:7385
+	if (dataset.issues) throw new ValiError(dataset.issues);
+	                          ^
+
+ValiError: Invalid type: Expected (null | boolean | number | string | Array | Object) but received Object
+    at Module.parse (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-EyL5NN/consumer/node_modules/@abiogenesis/typescript-tenant/node_modules/valibot/dist/index.mjs:7385:28)
+    at Module.admissionAuthoritySlots (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-EyL5NN/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/admission_authority.js:129:14)
+    at conformanceCall (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/driver.mjs:38:79)
+    at async executeInstalledGraphProof (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/driver.mjs:96:18)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/driver.mjs:180:3 {
+  issues: [
+    {
+      kind: 'schema',
+      type: 'union',
+      input: {
+        workspace_binding: {
+          ref: 'workspace-binding://abiogenesis/b268e12346959ac0dbd65ca83185a022210d28dc100080e73b0c51a00567e431',
+          digest: 'sha256:b268e12346959ac0dbd65ca83185a022210d28dc100080e73b0c51a00567e431'
+        },
+        product_set: [
+          {
+            ref: 'product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c/23a60128757e88fd15481dc24c67453337985582bf30ea682c23c2f7078161f9',
+            digest: 'sha256:ac218568ca03e14039452f7deaf4eb9a1872bf4980dd6848c85ca2e5990a7639'
+          },
+          {
+            ref: 'product-install://@abi5-tests/structural-fixtures/5.0.0/859f2b5162b2954d06f0b6566a9715a6b831d07a70111961fb4abc0aa19e455b/23a60128757e88fd15481dc24c67453337985582bf30ea682c23c2f7078161f9',
+            digest: 'sha256:64319dcf435ded9c5ec2ffe32ad256bbaf94e162b6cc119ff5af8dd268f5d864'
+          }
+        ],
+        dependency_lock: {
+          ref: 'product-lock://abiogenesis/23a60128757e88fd15481dc24c67453337985582bf30ea682c23c2f7078161f9',
+          digest: 'sha256:23a60128757e88fd15481dc24c67453337985582bf30ea682c23c2f7078161f9'
+        },
+        catalog_scope: null,
+        execution_program: null,
+        graph_function: null,
+        input_contract: null,
+        session_policy: null,
+        actor: {
+          actor: {
+            ref: 'actor://abiogenesis/t286/trusted-developer',
+            digest: 'sha256:af5fa538bd58aa2189abcc7f4cc9c6b053abcb24413df12ee5d80ec67c4c81a9'
+          },
+          attribution: {
+            ref: undefined,
+            digest: 'sha256:545a02176288e2639ddf9c6c54309f7cb4a7f8e91cca89dfe847d33b19a66868'
+          }
+        },
+        transport_steering: null,
+        verification_references: null,
+        execution_basis: null
+      },
+      expected: '(null | boolean | number | string | Array | Object)',
+      received: 'Object',
+      message: 'Invalid type: Expected (null | boolean | number | string | Array | Object) but received Object',
+      requirement: undefined,
+      path: undefined,
+      issues: [
+        {
+          kind: 'schema',
+          type: 'null',
+          input: {
+            workspace_binding: [Object],
+            product_set: [Array],
+            dependency_lock: [Object],
+            catalog_scope: null,
+            execution_program: null,
+            graph_function: null,
+            input_contract: null,
+            session_policy: null,
+            actor: [Object],
+            transport_steering: null,
+            verification_references: null,
+            execution_basis: null
+          },
+          expected: 'null',
+          received: 'Object',
+          message: 'Invalid type: Expected null but received Object',
+          requirement: undefined,
+          path: undefined,
+          issues: undefined,
+          lang: undefined,
+          abortEarly: undefined,
+          abortPipeEarly: undefined
+        },
+        {
+          kind: 'schema',
+          type: 'boolean',
+          input: {
+            workspace_binding: [Object],
+            product_set: [Array],
+            dependency_lock: [Object],
+            catalog_scope: null,
+            execution_program: null,
+            graph_function: null,
+            input_contract: null,
+            session_policy: null,
+            actor: [Object],
+            transport_steering: null,
+            verification_references: null,
+            execution_basis: null
+          },
+          expected: 'boolean',
+          received: 'Object',
+          message: 'Invalid type: Expected boolean but received Object',
+          requirement: undefined,
+          path: undefined,
+          issues: undefined,
+          lang: undefined,
+          abortEarly: undefined,
+          abortPipeEarly: undefined
+        },
+        {
+          kind: 'schema',
+          type: 'number',
+          input: {
+            workspace_binding: [Object],
+            product_set: [Array],
+            dependency_lock: [Object],
+            catalog_scope: null,
+            execution_program: null,
+            graph_function: null,
+            input_contract: null,
+            session_policy: null,
+            actor: [Object],
+            transport_steering: null,
+            verification_references: null,
+            execution_basis: null
+          },
+          expected: 'number',
+          received: 'Object',
+          message: 'Invalid type: Expected number but received Object',
+          requirement: undefined,
+          path: undefined,
+          issues: undefined,
+          lang: undefined,
+          abortEarly: undefined,
+          abortPipeEarly: undefined
+        },
+        {
+          kind: 'schema',
+          type: 'string',
+          input: {
+            workspace_binding: [Object],
+            product_set: [Array],
+            dependency_lock: [Object],
+            catalog_scope: null,
+            execution_program: null,
+            graph_function: null,
+            input_contract: null,
+            session_policy: null,
+            actor: [Object],
+            transport_steering: null,
+            verification_references: null,
+            execution_basis: null
+          },
+          expected: 'string',
+          received: 'Object',
+          message: 'Invalid type: Expected string but received Object',
+          requirement: undefined,
+          path: undefined,
+          issues: undefined,
+          lang: undefined,
+          abortEarly: undefined,
+          abortPipeEarly: undefined
+        },
+        {
+          kind: 'schema',
+          type: 'array',
+          input: {
+            workspace_binding: [Object],
+            product_set: [Array],
+            dependency_lock: [Object],
+            catalog_scope: null,
+            execution_program: null,
+            graph_function: null,
+            input_contract: null,
+            session_policy: null,
+            actor: [Object],
+            transport_steering: null,
+            verification_references: null,
+            execution_basis: null
+          },
+          expected: 'Array',
+          received: 'Object',
+          message: 'Invalid type: Expected Array but received Object',
+          requirement: undefined,
+          path: undefined,
+          issues: undefined,
+          lang: undefined,
+          abortEarly: undefined,
+          abortPipeEarly: undefined
+        },
+        {
+          kind: 'schema',
+          type: 'union',
+          input: { actor: [Object], attribution: [Object] },
+          expected: '(null | boolean | number | string | Array | Object)',
+          received: 'Object',
+          message: 'Invalid type: Expected (null | boolean | number | string | Array | Object) but received Object',
+          requirement: undefined,
+          path: [ [Object] ],
+          issues: [
+            [Object],
+            [Object],
+            [Object],
+            [Object],
+            [Object],
+            [Object]
+          ],
+          lang: undefined,
+          abortEarly: undefined,
+          abortPipeEarly: undefined
+        }
+      ],
+      lang: undefined,
+      abortEarly: undefined,
+      abortPipeEarly: undefined
+    }
+  ]
+}
+
+Node.js v24.7.0

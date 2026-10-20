@@ -1,0 +1,7 @@
+Construct a service source artifact.
+The source artifact shall compile with the declared rustc toolchain.
+When the compiled service starts, it shall bind a loopback TCP listener.
+The service shall publish its chosen port to the declared port-file env binding.
+A client request to /hello shall receive HTTP status 200.
+The response body shall be exactly: Hello, world! followed by one newline.
+The service shall close after the request so cleanup is replay-visible.

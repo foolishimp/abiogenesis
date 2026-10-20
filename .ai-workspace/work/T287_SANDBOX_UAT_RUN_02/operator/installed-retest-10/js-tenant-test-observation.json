@@ -1,0 +1,240 @@
+{
+  "case": "js-tenant-test",
+  "command": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 845309.1337080001,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "nativeSummary": {
+    "scenario": "js-tenant-test",
+    "runId": "2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533",
+    "mode": "run",
+    "status": "passed",
+    "uatPass": true,
+    "runtimeDisposition": "result",
+    "terminalAvailable": true,
+    "independentOracle": "satisfied",
+    "reason": "Selected original obligations and exact terminal/readbacks agree"
+  },
+  "nativeProof": {
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533",
+    "nativeAssessorAdmission": {
+      "ordinal": 7062,
+      "eventRef": "event://abiogenesis/49fd014fd657b4cb020a07fcd895affe18aa94b831ab585a2826d0a6ed28adc6",
+      "resultRef": "result://abiogenesis/dab2d542fa4093c0600f083a5b2d902823236cb54ab929ac4f2abdb9ccb3cc65"
+    },
+    "runClosureOrdinal": 7147,
+    "actorCounts": {
+      "started": 6,
+      "closed": 6,
+      "failed": 0
+    },
+    "freshReads": {
+      "members": [
+        "run_result",
+        "run_replay"
+      ],
+      "ownerOutcomes": [
+        "result",
+        "result"
+      ],
+      "replayStatus": "closed",
+      "fullValueAgreement": true,
+      "producerAgreement": true,
+      "resultAgreement": true,
+      "valueDigestAgreement": true,
+      "terminalResult": {
+        "digest": "sha256:71ca3607bc3b43d958af6a9a6f62f21d2e66f2aeecace3ca8f55d2757752629c",
+        "ref": "result://abiogenesis/71ca3607bc3b43d958af6a9a6f62f21d2e66f2aeecace3ca8f55d2757752629c"
+      },
+      "valueDigest": "sha256:f1a87725f07b116f5b4895afbd14d85e24fb838f3730dbc677441b41d8aec4be",
+      "runRef": "run://abiogenesis/5df1158d3ebe4acc245074af752f991de0c7c5cf5dc3b1c2b9185eb3baf5fadc",
+      "cCallRef": "c-call:sha256:d778cfde9d058554a335a8f947810d371ba827388a72e3d11b6a6c4a65bfb2e4",
+      "resultAdmissionEventRef": "event://abiogenesis/7acccc0d9d9246a8119168ecc4738bf8a00693ff5ee05ad4592129085cab7e3c"
+    },
+    "originalOracle": {
+      "disposition": "satisfied",
+      "unresolvedCriteria": [],
+      "criteria": [
+        {
+          "criterionId": "original-source:source/js-tenant-test/source.original.txt",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "original-source:source/js-tenant-test/obligations.json",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "original-source:source/js-tenant-test/oracle.json",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "execution:command://abiogenesis-sandbox-uat/js-tenant-test/tests",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "artifact:specification/project-conformance.md",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "artifact:design/implementation-design.md",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "artifact:package.json",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "artifact:src/hello.mjs",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "artifact:design/test-design.md",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "artifact:test/component/hello.test.mjs",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "artifact:test/uat/hello.uat.test.mjs",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "artifact:test-execution-plan.json",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "original-test-floor",
+          "disposition": "satisfied"
+        },
+        {
+          "criterionId": "predicate://abiogenesis-sandbox-uat/js-tenant-test/module-0",
+          "disposition": "satisfied"
+        }
+      ]
+    },
+    "zeroDelta": {
+      "installedBothMatchBeforeAfter": true,
+      "installedContentDigests": [
+        "sha256:403dd393cd35f306764070c4861c799464373bc736bd348c7f9b64ce157f9310",
+        "sha256:29cd2557fbab5e021f2f3d44c944620b745f805a9b38600911e3352f916104a7"
+      ],
+      "originalSourceConserved": true
+    },
+    "providerResults": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/resources/archives/fp-1ce45af3d39a8192-stdout.log",
+        "sha256": "bb7961ac82154fd7d16ae2a19b622f9a6af09ad28dc047c9e8445d5424f771a7",
+        "bytes": 46669,
+        "subtype": "success",
+        "isError": false,
+        "turns": 3,
+        "durationMs": 35424,
+        "costUsd": "0.3361746"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/resources/archives/fp-542827c58e785761-stdout.log",
+        "sha256": "26ce3c2c1d57d2ca073c2f8083453b072f72fa72c5c0b668a136bc4ce463ec28",
+        "bytes": 157776,
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 54078,
+        "costUsd": "0.2469520"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/resources/archives/fp-90f63ed864f8a1d1-stdout.log",
+        "sha256": "659b2f37ca76f0d095eac2e2a23d3ec1e389a5e4bb9a362eef29dbbd1695bf16",
+        "bytes": 300795,
+        "subtype": "success",
+        "isError": false,
+        "turns": 14,
+        "durationMs": 103021,
+        "costUsd": "0.4935316"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/resources/archives/fp-918212a999ab36d4-stdout.log",
+        "sha256": "46a5479b9bbe00de8283c1625bc1b9d7907f3662ee6cc1c8eeb86be27aa40014",
+        "bytes": 722223,
+        "subtype": "success",
+        "isError": false,
+        "turns": 17,
+        "durationMs": 210880,
+        "costUsd": "0.7463964"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/resources/archives/fp-d3b3950760072564-stdout.log",
+        "sha256": "f979638276e648ce977e06693e03967849c9c1dfa6592f58e1ccd9afda9a89f3",
+        "bytes": 246594,
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 65319,
+        "costUsd": "0.3529040"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/resources/archives/fp-dcd038d22456b3a8-stdout.log",
+        "sha256": "a74ba1008b3ee3eca6fe5123ba39c3ef6f376e022133c5ec7b62dfe19166d56d",
+        "bytes": 191531,
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 46662,
+        "costUsd": "0.3028600"
+      }
+    ],
+    "observedCostUsd": "2.4788186",
+    "evidencePins": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/summary.json",
+        "sha256": "d78547feb68db0517f53d811cf8bf0e59621b206e3a9205db84a8fe80680f846",
+        "bytes": 541
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/SEALED.json",
+        "sha256": "ad539703757aade7fe3fe9bf7f597a5048c3c86ff4e0ccb280191c57458d4d7a",
+        "bytes": 284
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/fresh-readback.json",
+        "sha256": "32f9b0b6b4f1e516370cdf23f3616b23cd542f553c543092a9d9e45c4d5a07df",
+        "bytes": 238275
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/independent-oracle.json",
+        "sha256": "01a59899b65399d1ad43b79d7530f976cb8ea363827209ea0d80e2bc2f9056e2",
+        "bytes": 4985
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/installed-content-before-run.json",
+        "sha256": "82cb95ccd7afc51b51209cdaea543d90d30b4c2696f03068eb43cbc3b065afe6",
+        "bytes": 2162
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/installed-content-after-run.json",
+        "sha256": "79f1f21788e24c6f3e313380caff7f35e7903069a2b3360d96e8ef1c37893927",
+        "bytes": 2161
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/source-conservation.json",
+        "sha256": "90ff7a5cc17729224437a685efe01347bef5af117e3376b8fc9e13ae56bbe742",
+        "bytes": 733
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/final-close-handoff.json",
+        "sha256": "06f0815840424a106face4c48c2786c8ee03d90d24ce837520a7a05cc6d8e3bd",
+        "bytes": 1464
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533/resources/events/runtime.events.jsonl",
+        "sha256": "41f72083cc10adc9e37fd445d420d1a73e6b1edd774d97a86a8c1b689174a8cd",
+        "bytes": 29079300
+      }
+    ]
+  }
+}

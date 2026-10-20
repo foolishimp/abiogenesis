@@ -1,0 +1,39 @@
+{
+  "status": "ACTIVE_WORKER",
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_04",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "at": "2026-10-02T00:30:57.061015+00:00",
+  "previousRole": "Source Worker CLOSED and independently accepted; separate construction activation declared before effects",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/request.txt",
+    "bytes": 5896,
+    "sha256": "a4217014ca8a05ac5a66317a3a6abf1d3226ff4f6b14e2fecbabce3a8cac8342"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04",
+  "productFrame": "fixed15/GOAL035/T287/STDO2.5.1RC2; F01/F05/F13/F11/F15/F16; finite prospective candidate construction only",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "composedFrames": [
+    "Identity",
+    "Install",
+    "Reuse",
+    "NativeDefinition",
+    "Proof",
+    "Cost"
+  ],
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/source-cut.json",
+    "sha256": "ecb4cd8ee495e75e623566b20fa868982c2cfed1408a2a1369141acd3fa625db",
+    "sourceMembers": 1106,
+    "sourceChangedFromC03": 4
+  },
+  "sevenSectionsRead": true,
+  "noMovingCanonicalSource": true,
+  "prohibited": [
+    "source/dependency repair",
+    "ambient generated/stores/HOME caches",
+    "Runtime/ProductEnvironment/Provider/native assessment/Git/network/release effects",
+    "repeating accepted source tests or Hello proof",
+    "Reviewer activation"
+  ]
+}

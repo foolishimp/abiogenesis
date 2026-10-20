@@ -1,0 +1,25 @@
+{
+  "kind": "executed_read_only_frozen_node_limit_observation",
+  "observer": "Root Executive",
+  "observedAt": "2026-10-02T17:12:36.087113+00:00",
+  "runtimeExecutable": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "mode": 365
+  },
+  "command": [
+    "node",
+    "-e",
+    "process.stdout.write(JSON.stringify({node:process.version,maxStringLength:require(\"node:buffer\").constants.MAX_STRING_LENGTH,maxBufferLength:require(\"node:buffer\").constants.MAX_LENGTH}))"
+  ],
+  "actualOutput": {
+    "node": "v24.7.0",
+    "maxStringLength": 536870888,
+    "maxBufferLength": 9007199254740991
+  },
+  "scope": "Builtin constant observation only; no Product owner import/large serialization/resourceopen/file mutation/provider effects.",
+  "actualCurrentBase64Bytes": 543805156,
+  "base64CharactersAboveMaxStringLength": 6934268,
+  "inference": "A monolithic canonical JSON string containing all these ASCII base64 bodies cannot fit this runtime; no large serialization was attempted."
+}

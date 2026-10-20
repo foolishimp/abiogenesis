@@ -1,0 +1,177 @@
+{
+  "status": "SOURCE_MECHANICALLY_READY",
+  "coherentSubject": "three exact postimages; current test overlay; production compiled once with frozen C03 source/tools",
+  "compile": {
+    "passed": true,
+    "seconds": 6.151440790854394
+  },
+  "focusedNative": {
+    "selectedExistingTests": 5,
+    "newParentTests": 1,
+    "newSubcases": 38,
+    "initialPasses": 43,
+    "initialFailures": 1,
+    "initialFailurePreserved": "readiness/first-source-readiness-failure.json",
+    "affectedTestRerunPassed": true,
+    "unaffectedInitialPassesCarried": true,
+    "skips": 0,
+    "allSelectedFinalDispositions": "passed"
+  },
+  "conservation": {
+    "passed": true,
+    "cases": [
+      {
+        "name": "cycle retains complete refs from either entry and aliases",
+        "refused": false,
+        "sha256": "ffe16ffa0f273be1789f0947d4d4c3372c949540e9abf1fbe91e72ef725f21a3"
+      },
+      {
+        "name": "diamond aliases and merged declarations retain both branches",
+        "refused": false,
+        "sha256": "b3e63bbd072ba5c168d2fc463217f26b3650fcf0cd7fb9391f4de643de91a560"
+      },
+      {
+        "name": "root and reachable relation bases do not leak",
+        "refused": false,
+        "sha256": "4843f829c7a85384bc81f98f2fe62b0b28c887a18671e76caaa39c27adc2bf3a"
+      },
+      {
+        "name": "metadata-proven bundled declaration remains local",
+        "refused": false,
+        "sha256": "d3700933b2374f02eadc643539a9b78cea5e27f130ee84032269fdeaf8a539af"
+      },
+      {
+        "name": "node_modules presence without declared bundle remains external",
+        "refused": false,
+        "sha256": "7312bdb4d10dcc1a873fb147c9c532073f4fa76d3033b8cfaedb4c4ab59058ce"
+      },
+      {
+        "name": "new request with same path has no prior symbol analysis",
+        "refused": false,
+        "sha256": "46c996250cc299cd6b5cae514b0d2300da8b9c8ac316c9bf7faf93ea1c741c0d"
+      },
+      {
+        "name": "one checker merged symbol is analyzed on each exact root basis",
+        "refused": false,
+        "sha256": "e9e88f288c7cf2b4b2ea899db7faf14d17acf571507447e9aafccb4a3cec5a28"
+      },
+      {
+        "name": "missing claimed bundled declaration refuses",
+        "refused": true,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      },
+      {
+        "name": "missing claimed bundle metadata refuses",
+        "refused": true,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      },
+      {
+        "name": "substituted claimed package identity refuses",
+        "refused": true,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      },
+      {
+        "name": "relative escape cannot become ambient resolution",
+        "refused": true,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      }
+    ],
+    "completeOrderedOutputBytesEqual": true,
+    "skips": 0
+  },
+  "declarations": {
+    "passed": true,
+    "emittedFiles": 261,
+    "nativeRows": 37,
+    "completeNativeInventoriesExactC03": true,
+    "generatedContractAndCapabilityConservation": "pending successor generation and actual packaged C03 comparison; frozen source versus generated installed populations explicitly separated"
+  },
+  "assertionConservation": {
+    "originalAssertions": 122,
+    "exactOriginalCalls": 121,
+    "oneInputPropagation": "duplicateAlpha exact target evidence is nested inside original actual-expression; expected oracle and description bytes unchanged",
+    "allOriginalOraclesPreserved": true
+  },
+  "lint": {
+    "productionTS": "not applicable: existing finite lint accepts only mjs/json; full isolated TypeScript compile passed",
+    "touchedMJS": "node --check passed initially; final affected test parser/execution passed"
+  },
+  "cost": {
+    "defaultHeapUnchanged": true,
+    "allRequiredProcessesReaped": true,
+    "commands": {
+      "compile-01": {
+        "elapsedSeconds": 6.151440790854394,
+        "deadlineSeconds": 180.0,
+        "exitCode": 0,
+        "timedOut": false,
+        "childUserCPUSeconds": 10.235186,
+        "childSystemCPUSeconds": 0.229992,
+        "childMaxResidentSetSizePlatformBytes": 1107197952
+      },
+      "focused-native-01": {
+        "elapsedSeconds": 25.482537707779557,
+        "deadlineSeconds": 600.0,
+        "exitCode": 1,
+        "timedOut": false,
+        "childUserCPUSeconds": 38.883477,
+        "childSystemCPUSeconds": 1.2929979999999999,
+        "childMaxResidentSetSizePlatformBytes": 1334378496
+      },
+      "focused-direct-native-02": {
+        "elapsedSeconds": 5.222953999880701,
+        "deadlineSeconds": 600.0,
+        "exitCode": 0,
+        "timedOut": false,
+        "childUserCPUSeconds": 9.009874,
+        "childSystemCPUSeconds": 0.344259,
+        "childMaxResidentSetSizePlatformBytes": 1144946688
+      },
+      "conservation-01": {
+        "elapsedSeconds": 10.502689125016332,
+        "deadlineSeconds": 180.0,
+        "exitCode": 0,
+        "timedOut": false,
+        "childUserCPUSeconds": 19.178226,
+        "childSystemCPUSeconds": 0.6332599999999999,
+        "childMaxResidentSetSizePlatformBytes": 1257766912
+      },
+      "touched-test-syntax-01": {
+        "elapsedSeconds": 0.11148595809936523,
+        "deadlineSeconds": 30.0,
+        "exitCode": 0,
+        "timedOut": false,
+        "childUserCPUSeconds": 0.016159,
+        "childSystemCPUSeconds": 0.006599,
+        "childMaxResidentSetSizePlatformBytes": 44843008
+      },
+      "declaration-comparison-03": {
+        "elapsedSeconds": 1.541981500107795,
+        "deadlineSeconds": 120.0,
+        "exitCode": 0,
+        "timedOut": false,
+        "childUserCPUSeconds": 0.727827,
+        "childSystemCPUSeconds": 0.92345,
+        "childMaxResidentSetSizePlatformBytes": 112607232
+      },
+      "assertion-conservation-02": {
+        "elapsedSeconds": 0.21962487511336803,
+        "deadlineSeconds": 30.0,
+        "exitCode": 0,
+        "timedOut": false,
+        "childUserCPUSeconds": 0.143526,
+        "childSystemCPUSeconds": 0.012454,
+        "childMaxResidentSetSizePlatformBytes": 131678208
+      }
+    }
+  },
+  "effects": "only exact three mutable source/design/test paths and this new report territory",
+  "limits": [
+    "source readiness only",
+    "no successor candidate/archive/install generated",
+    "no actual installed Public singleton/mixed lock",
+    "no F11 child invocation/physical append/J closure",
+    "no cold QUAL056/AF22 integrated/release/network claim",
+    "no Hello rerun or accepted cut restamping"
+  ]
+}

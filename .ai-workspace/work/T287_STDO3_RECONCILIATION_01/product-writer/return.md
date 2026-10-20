@@ -1,0 +1,11 @@
+# Product Writer return
+
+Role: bounded Writer; consumer: root Executive. Status: frozen document delta ready for joined independent assessment, with one integration dependency pending. No acceptance or runtime claim.
+
+The eleven exact granted paths are frozen by `freeze.json` (SHA-256 `d551513f72f7df50d5785a52acf82884b6da5677f2e3cc1ff4727419d7f7f6a1`). `preimages.json` and its copied bytes preserve the starting dirty state. Product assessment remains frozen at `cdc6b4a3acead4c9800611b6d033ef102883e34ce8859aae6cd536aa6e471821`.
+
+Changes: Product and CONTEXT/BINDING/RUN/INSTRUCTION-ASSEMBLY now declare exact native STDO source as primary and require supplemental representation/index/access inputs only when explicitly selected; all required content, permission, identity, access evidence and replay/re-entry rules remain. Product explicitly applies DESIGN_MODULE and SPEC_METHOD build-tenant law through the separately authored computational binding. The existing HOW has a current V3 delta, preserves its earlier body verbatim as exact historical evidence and compatible generic owner design, and leaves implementation/installed proof open. Requirement metadata and indexes cover all 78 live family files.
+
+Readiness: five preserved Product sections are byte-identical (execution calculus, release boundaries, complete feature set, non-features and completion predicate); original MGMT03/RC6 body preserved; Status/Category and domain-index checks pass across 78 files; frozen assessment unchanged. `checks.json` records 15 of 16 checks passing. The remaining check is the three links to `ABI5_STDO3_COMPUTATIONAL_BINDING.md`, which the separately assigned Writer had not yet created when checked. Root must close that joined link relation before document acceptance. `whitespace-disposition.json` establishes no added trailing whitespace or Git whitespace diagnostics; `--no-index` exit 1 reflects intentional content differences.
+
+No source changes outside the eleven paths, no code/test execution, no package/install/publication/Git mutation, and no historical-evidence rewrite were performed. Runtime implementation, native context/access/replay proof, same-candidate qualification and release remain open. Root owns conjunction and independent review. This Writer stops editing the frozen source delta.

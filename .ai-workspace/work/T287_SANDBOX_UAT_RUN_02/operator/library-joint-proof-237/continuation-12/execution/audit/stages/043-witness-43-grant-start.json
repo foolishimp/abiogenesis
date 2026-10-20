@@ -1,0 +1,11 @@
+{
+  "stage": "witness-43-grant-start",
+  "elapsedMs": 84061.022958,
+  "at": "2026-10-10T16:30:29.308Z",
+  "rss": 3154640896,
+  "heapTotal": 972587008,
+  "heapUsed": 843542552,
+  "external": 12343495,
+  "arrayBuffers": 3354961,
+  "beforeAcquisition": false
+}

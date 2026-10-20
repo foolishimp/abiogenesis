@@ -1,0 +1,58 @@
+{
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactSha256": "b60a23703273315ce244328096b1dab2e17376bdd9225cb181afb481cc78b9bd",
+  "installHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/host",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "productContentDigest": "sha256:3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54",
+  "manifestDigest": "sha256:f7e817a90b6899689b63248b2972ed501bb0157ca027b1240bea8e2fc8591b33",
+  "verifiedKind": "verified_product_artifact",
+  "verifiedDisposition": "verified",
+  "installedMemberCount": 5265,
+  "allArchiveBytesEqual": true,
+  "modeDifferences": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "archiveMode": 420,
+      "installedMode": 493
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "archiveMode": 420,
+      "installedMode": 493
+    }
+  ],
+  "lockedDependenciesBundledOnly": true,
+  "existingDependencyFixtures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/scratch/successor/package/node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888,
+      "relativePath": "node_modules/fast-uri/test/fixtures/uri-js-parse.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/scratch/successor/package/node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688,
+      "relativePath": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/scratch/successor/package/node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544,
+      "relativePath": "node_modules/json-schema-traverse/spec/fixtures/schema.js"
+    }
+  ],
+  "timings": {
+    "installWallMs": 2435.4959999999996,
+    "verifyWallMs": 20631.674709
+  },
+  "environment": {
+    "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-owned-projection-successor-200/host-preparation/host",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "b60a23703273315ce244328096b1dab2e17376bdd9225cb181afb481cc78b9bd"
+  },
+  "sourceBlindActualInstalledOwner": true,
+  "nativeExecution": false,
+  "modelExecution": false,
+  "scope": "clean host provisioning only; no UAT/qualification/P0 closure"
+}

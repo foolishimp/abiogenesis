@@ -1,0 +1,32 @@
+node:internal/modules/esm/resolve:274
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/fixtures/language-smoke/program.mjs' imported from /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/support/language-smoke-fixture.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:864:10)
+    at defaultResolve (node:internal/modules/esm/resolve:990:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:749:20)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:726:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:312:38)
+    at #link (node:internal/modules/esm/module_job:208:49) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/fixtures/language-smoke/program.mjs'
+}
+
+Node.js v24.7.0
+✖ test_env/tests/t287-recursive-registered-selection.test.mjs (157.178583ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 160.398958
+
+✖ failing tests:
+
+test at test_env/tests/t287-recursive-registered-selection.test.mjs:1:1
+✖ test_env/tests/t287-recursive-registered-selection.test.mjs (157.178583ms)
+  'test failed'

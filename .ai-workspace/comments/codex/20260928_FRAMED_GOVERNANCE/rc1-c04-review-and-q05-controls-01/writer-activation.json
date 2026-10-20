@@ -1,0 +1,14 @@
+{
+  "activation": "T287_C04_REVIEW_Q05_CONTROL_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "status": "ACTIVE_BEFORE_EFFECTS",
+  "activatedAt": "2026-10-02T00:52:39.604473+00:00",
+  "grant": "Record two separate candidate assurance and successor-bound qualification preparation operations; no implementation/native effect",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c04-review-and-q05-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ]
+}

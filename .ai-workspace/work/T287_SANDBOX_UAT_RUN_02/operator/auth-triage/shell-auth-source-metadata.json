@@ -1,0 +1,485 @@
+{
+  "shellConfiguration": [
+    {
+      "path": "/Users/jim/.zshrc",
+      "sha256": "5b79563d7701010f1479cd90e55bd9cd9045d7d3dd8485c0df451c055c1e7431",
+      "relevantLocations": [
+        {
+          "line": 4,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 7,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 9,
+          "variableNames": [],
+          "mentionsSecurityCLI": true,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 10,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 11,
+          "variableNames": [],
+          "mentionsSecurityCLI": true,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 12,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 13,
+          "variableNames": [
+            "CLAUDE_CODE_OAUTH_TOKEN"
+          ],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 15,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/bin/claude-seed-token",
+      "sha256": "dc91b65b31677d7cf358f654057bb72dfc1466389e37eefd4d3f2cf7a807ab79",
+      "relevantLocations": [
+        {
+          "line": 2,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 3,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 4,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 5,
+          "variableNames": [
+            "CLAUDE_CODE_OAUTH_TOKEN"
+          ],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 9,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 11,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 15,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 21,
+          "variableNames": [],
+          "mentionsSecurityCLI": true,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 27,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 28,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 30,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 33,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 35,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 51,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 56,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 59,
+          "variableNames": [
+            "CLAUDE_CODE_OAUTH_TOKEN"
+          ],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/bin/claude_analysis.py",
+      "sha256": "1facf9b341891a5d6b660604a925dd5f9f7b299da7ef834f043545f8a04db2de",
+      "relevantLocations": [
+        {
+          "line": 3,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 4,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 15,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 19,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 34,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 36,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 40,
+          "variableNames": [],
+          "mentionsSecurityCLI": true,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 56,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 95,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 97,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 101,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 114,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 115,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 124,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 126,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 137,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 143,
+          "variableNames": [],
+          "mentionsSecurityCLI": true,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 169,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 170,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 171,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 173,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": true
+        },
+        {
+          "line": 174,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 177,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 180,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 183,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 201,
+          "variableNames": [
+            "CLAUDE"
+          ],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 238,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 243,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 250,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        },
+        {
+          "line": 262,
+          "variableNames": [],
+          "mentionsSecurityCLI": false,
+          "mentionsCredentialFile": false,
+          "mentionsClaudeAliasOrFunction": false,
+          "comment": false
+        }
+      ]
+    }
+  ],
+  "settingsMetadata": [
+    {
+      "path": "/Users/jim/.claude/settings.json",
+      "apiKeyHelperDeclared": false,
+      "oauthAccountMetadataPresent": false,
+      "authenticationRelatedKeyNames": []
+    },
+    {
+      "path": "/Users/jim/.claude.json",
+      "apiKeyHelperDeclared": false,
+      "oauthAccountMetadataPresent": true,
+      "authenticationRelatedKeyNames": [
+        "claudeCodeFirstTokenDate",
+        "oauthAccount"
+      ]
+    }
+  ],
+  "claudeCommand": {
+    "path": "/Users/jim/.local/bin/claude",
+    "realpath": "/Users/jim/.local/share/claude/versions/2.1.290",
+    "isDirectBinary": true
+  },
+  "contentOrCredentialValuesArchived": false
+}

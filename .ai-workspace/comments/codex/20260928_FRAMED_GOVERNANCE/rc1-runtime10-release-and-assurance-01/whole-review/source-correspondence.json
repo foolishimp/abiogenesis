@@ -1,0 +1,77 @@
+{
+  "status": "CLOSED_SAVED_EVIDENCE_AND_SOURCE_CORRESPONDENCE_ONLY",
+  "runtimeOwnerExecutedByReviewer": false,
+  "physicalRecordCount": 76,
+  "logicalEnvelopeCount": 76,
+  "bodyReferenceCount": 2,
+  "bodyReferences": [
+    {
+      "eventRef": "event://abiogenesis/25123d461f9f060e964bad1eba180d83823e6f1d018509ecd08deee4d295d85e",
+      "kind": "basis_admitted",
+      "admissionOrdinal": 18,
+      "bodyReference": {
+        "bodyDigest": "sha256:eca2b385b024d542efefd0f29c8e2cf10246f4c9bdff05d5add4c1763eff161c",
+        "sourceEventRef": "event://abiogenesis/628d595afad3bd50feba47ecaa2737c37991734f81935df686a80c11d98b01a2",
+        "sourcePayloadDigest": "sha256:7ad0adb8028a31fef0d108e5ab1b38125d800f6ac13016ed30dc81f0a04bef86",
+        "sourceSlot": "basis_input"
+      },
+      "sourcePayloadAndBodyDigestMatch": true
+    },
+    {
+      "eventRef": "event://abiogenesis/d1cc91b2dbc4d6b51675f712191237a704a70457f73062fd968e171a4ba2b1f1",
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 62,
+      "bodyReference": {
+        "bodyDigest": "sha256:0101053a7bb710ef94d280e5d5fcd6af20dd3e09efbdc6a484d55a6200f94d58",
+        "sourceEventRef": "event://abiogenesis/a8aab8273964a645ba6a42b27a2726f7283a75255f60d49853eb459e0b3a3359",
+        "sourcePayloadDigest": "sha256:04865a8738c25543115226fd6ff7e2bbced6994685adf2a516b85971df24d8fc",
+        "sourceSlot": "c_call_result_value"
+      },
+      "sourcePayloadAndBodyDigestMatch": true
+    }
+  ],
+  "parentResult": {
+    "eventRef": "event://abiogenesis/d1cc91b2dbc4d6b51675f712191237a704a70457f73062fd968e171a4ba2b1f1",
+    "coordinate": {
+      "digest": "sha256:d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee",
+      "ref": "result://abiogenesis/d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee"
+    },
+    "cCallRef": "c-call:sha256:2d7e0b378d3b174c7b787e33e7d12bfeb7205e63275578dde4fa216970ab0d08",
+    "callClass": "workflow"
+  },
+  "childResult": {
+    "eventRef": "event://abiogenesis/a8aab8273964a645ba6a42b27a2726f7283a75255f60d49853eb459e0b3a3359",
+    "coordinate": {
+      "ref": "result://abiogenesis/81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4",
+      "digest": "sha256:81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4"
+    },
+    "cCallRef": "c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c",
+    "callClass": "leaf"
+  },
+  "childBasis": {
+    "eventRef": "event://abiogenesis/25123d461f9f060e964bad1eba180d83823e6f1d018509ecd08deee4d295d85e",
+    "basisRef": "execution-basis://abiogenesis/0f821e09dd43fe9af9b8258f25c2a3a69ebc13f5644deb96532712e62a221d2c",
+    "basisClass": "child",
+    "parentExecutionBasisRef": "execution-basis://abiogenesis/e1f00b8690d73faac6c79d05ad39b582aa6377c386ae0fcf68fb03272d0cc5ec",
+    "parentCCallRef": "c-call:sha256:2d7e0b378d3b174c7b787e33e7d12bfeb7205e63275578dde4fa216970ab0d08",
+    "programRef": "program://abiogenesis-fixture/f11-carrier/parent@5",
+    "programDigest": "sha256:a1c7af13bea9227f301a4863219b9d6cff55cb851dcc3901ce76dc608ab6ab7f",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/1777212b49f005b1452832d29e827490386a3336c100ba9e13520c25c3e70071",
+    "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+    "rawInputDigest": "sha256:eca2b385b024d542efefd0f29c8e2cf10246f4c9bdff05d5add4c1763eff161c"
+  },
+  "planSlotGraphFunctionAndLocusMatch": true,
+  "sameParentChildAndOriginalJudgmentValue": true,
+  "foldbackResultAndValueMatch": true,
+  "nativeSourceRefusal": {
+    "caller": "qualification_proof.ts:201",
+    "callee": "c_call.ts:2828-2848",
+    "missingWorkflowPremises": [
+      "sourceCursor",
+      "graphFunction"
+    ],
+    "staticConclusion": "parent graphOwner returns null at or before omitted-workflow-premise refusal; parent nativeState cannot reach fold alias loop",
+    "correctedChildColdGuardPass": "UNKNOWN; not executed"
+  },
+  "withdrawnHypothesis": "Raw top-level kind scan wrongly omitted two canonical admitted body-reference events. Parent Result and child basis exist; there are two logical admitted CCall Results. No codec/runtime defect follows."
+}

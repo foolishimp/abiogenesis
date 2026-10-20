@@ -1,0 +1,13 @@
+{
+  "priorEventsPreserved": true,
+  "distinctLockEmbedded": true,
+  "warmColdEqual": true,
+  "work": {
+    "artifactRowsPrepared": 1,
+    "coldPrefixSelections": 0,
+    "calculusEffects": 2,
+    "completeLockChecks": 1,
+    "graphConstructions": 2
+  },
+  "scope": "isolated Product-valid lock fixture; no native declaration/package qualification claim"
+}

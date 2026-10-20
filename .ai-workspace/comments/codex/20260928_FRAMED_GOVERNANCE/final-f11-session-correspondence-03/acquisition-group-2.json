@@ -1,0 +1,952 @@
+{
+  "group": 2,
+  "timeoutSeconds": 120,
+  "elapsedSeconds": 0.006029041949659586,
+  "exactSourceRecordsAndProjections": [
+    {
+      "sessionRole": "parent",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-14-42-01a0edbb-7c4f-7493-bf06-2a600644bbb6.jsonl",
+      "sourceLine": 1208,
+      "startByte": 5529311,
+      "endByte": 5542192,
+      "containingRecordSha256": "9e8a8338731e7e3134c1816c1d86a27b4f83e65fdfe536fc411fffcb8fa98b3d",
+      "timestamp": "2026-09-29T17:04:23.226Z",
+      "callId": "call_Hiz8Dupn9vyD64T194OAxh0c",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/parent-line1208-call_Hiz8Dupn9vyD64T194OAxh0c.json",
+      "bytes": 12881,
+      "sha256": "9e8a8338731e7e3134c1816c1d86a27b4f83e65fdfe536fc411fffcb8fa98b3d"
+    },
+    {
+      "sessionRole": "parent",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-14-42-01a0edbb-7c4f-7493-bf06-2a600644bbb6.jsonl",
+      "sourceLine": 1213,
+      "startByte": 5558645,
+      "endByte": 5559658,
+      "containingRecordSha256": "4cd1b9f934a022f027999c5bfc885e5c51890d547a7798fbe83645122352e290",
+      "timestamp": "2026-09-29T17:04:23.368Z",
+      "callId": "call_Hiz8Dupn9vyD64T194OAxh0c",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/parent-line1213-call_Hiz8Dupn9vyD64T194OAxh0c-output.json",
+      "bytes": 1013,
+      "sha256": "4cd1b9f934a022f027999c5bfc885e5c51890d547a7798fbe83645122352e290"
+    },
+    {
+      "sessionRole": "parent",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-14-42-01a0edbb-7c4f-7493-bf06-2a600644bbb6.jsonl",
+      "sourceLine": 1215,
+      "startByte": 5560474,
+      "endByte": 5562350,
+      "containingRecordSha256": "0d119a7d7e9af7f238a352daa5f8eb81b942f36de172f4a37b59b8c44ec3e5af",
+      "timestamp": "2026-09-29T17:04:40.416Z",
+      "callId": "call_gUOs43bm2zfFEaAtKeJqBeVa",
+      "kind": "field_projection_not_original_complete_record",
+      "path": "extracts/parent-line1215-call_gUOs43bm2zfFEaAtKeJqBeVa.json",
+      "bytes": 257,
+      "sha256": "88a96935e8c61a022f98af8fc9104645ad904690f0643a4d8346e7f9104a4b7b"
+    },
+    {
+      "sessionRole": "parent",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-14-42-01a0edbb-7c4f-7493-bf06-2a600644bbb6.jsonl",
+      "sourceLine": 1218,
+      "startByte": 5563708,
+      "endByte": 5564134,
+      "containingRecordSha256": "6c5dd9e847648f6a586bcaefcd5987d2a42068b5e70f7c7b03ed6cb1588789e0",
+      "timestamp": "2026-09-29T17:04:40.483Z",
+      "callId": "call_gUOs43bm2zfFEaAtKeJqBeVa",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/parent-line1218-call_gUOs43bm2zfFEaAtKeJqBeVa-output.json",
+      "bytes": 426,
+      "sha256": "6c5dd9e847648f6a586bcaefcd5987d2a42068b5e70f7c7b03ed6cb1588789e0"
+    },
+    {
+      "sessionRole": "selected_action",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "sourceLine": 1354,
+      "startByte": 9371812,
+      "endByte": 9378701,
+      "containingRecordSha256": "156aabc02bb5278a35c44d1c763bcf5c2f5320c147d61110f74aee7b04f7924b",
+      "timestamp": "2026-09-29T17:05:53.346Z",
+      "callId": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+      "kind": "field_projection_not_original_complete_record",
+      "path": "extracts/selected_action-line1354-call_ahIzrSfqxJKrJ6PUavkIESxW.json",
+      "bytes": 6127,
+      "sha256": "0ff6ccf1cc0db1522aab0025bb18b4635e8e92d62da378025bcdf27767cdfb15"
+    },
+    {
+      "sessionRole": "selected_action",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "sourceLine": 1358,
+      "startByte": 9451464,
+      "endByte": 9471462,
+      "containingRecordSha256": "70a990c51612b28508250b7a0ca041574c36c582d859245ff528910f8bbf6806",
+      "timestamp": "2026-09-29T17:05:56.472Z",
+      "callId": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+      "kind": "field_projection_not_original_complete_record",
+      "path": "extracts/selected_action-line1358-call_ahIzrSfqxJKrJ6PUavkIESxW-output.json",
+      "bytes": 696,
+      "sha256": "30b4dfe96dff3ab6e9a9a303747b6d056d2b5f7c288692c17c200bc47f5a4f18"
+    },
+    {
+      "sessionRole": "selected_action",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "sourceLine": 1460,
+      "startByte": 9890144,
+      "endByte": 9894258,
+      "containingRecordSha256": "d3c856bf3d4e4c4f7c8fa7c313eb543c6d293ce2bdac2a9849e08515908ef24d",
+      "timestamp": "2026-09-29T17:10:43.490Z",
+      "callId": "call_NRLpe6DRqetocWpoq2wmicLZ",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/selected_action-line1460-call_NRLpe6DRqetocWpoq2wmicLZ.json",
+      "bytes": 4114,
+      "sha256": "d3c856bf3d4e4c4f7c8fa7c313eb543c6d293ce2bdac2a9849e08515908ef24d"
+    },
+    {
+      "sessionRole": "selected_action",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "sourceLine": 1463,
+      "startByte": 9907666,
+      "endByte": 9909779,
+      "containingRecordSha256": "0da96e99df17b0736b4f808cb939045ca7905d4885f2268f8c80114e573f7863",
+      "timestamp": "2026-09-29T17:10:43.671Z",
+      "callId": "call_NRLpe6DRqetocWpoq2wmicLZ",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/selected_action-line1463-call_NRLpe6DRqetocWpoq2wmicLZ-output.json",
+      "bytes": 2113,
+      "sha256": "0da96e99df17b0736b4f808cb939045ca7905d4885f2268f8c80114e573f7863"
+    },
+    {
+      "sessionRole": "selected_action",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "sourceLine": 1474,
+      "startByte": 9930747,
+      "endByte": 9939875,
+      "containingRecordSha256": "41806f0e3f51a56fe23a76f018b1ea1007764d3b4876390350095f951840e485",
+      "timestamp": "2026-09-29T17:12:28.040Z",
+      "callId": "call_V3mFfy3kIFfs7NU2rLwIVo5U",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/selected_action-line1474-call_V3mFfy3kIFfs7NU2rLwIVo5U.json",
+      "bytes": 9128,
+      "sha256": "41806f0e3f51a56fe23a76f018b1ea1007764d3b4876390350095f951840e485"
+    },
+    {
+      "sessionRole": "selected_action",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "sourceLine": 1477,
+      "startByte": 9958631,
+      "endByte": 9959193,
+      "containingRecordSha256": "c27c5beb91f4bd86317e4f55ff818b73b36e7a7ddfc64b232b4935717327e110",
+      "timestamp": "2026-09-29T17:12:28.128Z",
+      "callId": "call_V3mFfy3kIFfs7NU2rLwIVo5U",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/selected_action-line1477-call_V3mFfy3kIFfs7NU2rLwIVo5U-output.json",
+      "bytes": 562,
+      "sha256": "c27c5beb91f4bd86317e4f55ff818b73b36e7a7ddfc64b232b4935717327e110"
+    },
+    {
+      "sessionRole": "selected_action",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "sourceLine": 1483,
+      "startByte": 9966953,
+      "endByte": 9968754,
+      "containingRecordSha256": "22b08eaa4836dbcda94b87a035a8283285f82eaa6476a403ccfe20edffe90735",
+      "timestamp": "2026-09-29T17:13:05.721Z",
+      "callId": "call_VdY1mgK9bXZmGqdWva1JqvEi",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/selected_action-line1483-call_VdY1mgK9bXZmGqdWva1JqvEi.json",
+      "bytes": 1801,
+      "sha256": "22b08eaa4836dbcda94b87a035a8283285f82eaa6476a403ccfe20edffe90735"
+    },
+    {
+      "sessionRole": "selected_action",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+      "sourceLine": 1486,
+      "startByte": 9973566,
+      "endByte": 9974347,
+      "containingRecordSha256": "17978e00992c0c56fbda1f2bc29d1b247eb8f44503936d580a2ec088b316716e",
+      "timestamp": "2026-09-29T17:13:05.847Z",
+      "callId": "call_VdY1mgK9bXZmGqdWva1JqvEi",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/selected_action-line1486-call_VdY1mgK9bXZmGqdWva1JqvEi-output.json",
+      "bytes": 781,
+      "sha256": "17978e00992c0c56fbda1f2bc29d1b247eb8f44503936d580a2ec088b316716e"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 815,
+      "startByte": 7032034,
+      "endByte": 7034124,
+      "containingRecordSha256": "67b9da342a9ea6ce353b7ce25d54133d7fb927d0a8b6f7d65a570712a3840595",
+      "timestamp": "2026-09-30T03:54:05.540Z",
+      "callId": "call_H2tnI20Guk83Q2gCrp6TjfiL",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line815-call_H2tnI20Guk83Q2gCrp6TjfiL.json",
+      "bytes": 2090,
+      "sha256": "67b9da342a9ea6ce353b7ce25d54133d7fb927d0a8b6f7d65a570712a3840595"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 818,
+      "startByte": 7039168,
+      "endByte": 7039965,
+      "containingRecordSha256": "3afdaaad05464da688a17d8d555b971448ce1924a28785c166794397ff76d6a7",
+      "timestamp": "2026-09-30T03:54:05.714Z",
+      "callId": "call_H2tnI20Guk83Q2gCrp6TjfiL",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line818-call_H2tnI20Guk83Q2gCrp6TjfiL-output.json",
+      "bytes": 797,
+      "sha256": "3afdaaad05464da688a17d8d555b971448ce1924a28785c166794397ff76d6a7"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 912,
+      "startByte": 7573169,
+      "endByte": 7575137,
+      "containingRecordSha256": "13ec7b5c67c82f14e1f32ace41197b09e8eb8040ad7c0b75f58878222947ba23",
+      "timestamp": "2026-09-30T03:57:48.839Z",
+      "callId": "call_96pplFVgr4IEftYT1OBS0l7s",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line912-call_96pplFVgr4IEftYT1OBS0l7s.json",
+      "bytes": 1968,
+      "sha256": "13ec7b5c67c82f14e1f32ace41197b09e8eb8040ad7c0b75f58878222947ba23"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 915,
+      "startByte": 7578196,
+      "endByte": 7578740,
+      "containingRecordSha256": "56793b5e8ab063a24d37e82d9de9591b5a268949f21464afdf76fd1f7c8bbdb5",
+      "timestamp": "2026-09-30T03:57:48.920Z",
+      "callId": "call_96pplFVgr4IEftYT1OBS0l7s",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line915-call_96pplFVgr4IEftYT1OBS0l7s-output.json",
+      "bytes": 544,
+      "sha256": "56793b5e8ab063a24d37e82d9de9591b5a268949f21464afdf76fd1f7c8bbdb5"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 925,
+      "startByte": 7595274,
+      "endByte": 7606463,
+      "containingRecordSha256": "b77879009a31122f05064955bec7f498a2d71a5b90c288683201e505d50c245e",
+      "timestamp": "2026-09-30T03:59:49.801Z",
+      "callId": "call_kqNmXWFQKl448XS8UcoC8Agj",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line925-call_kqNmXWFQKl448XS8UcoC8Agj.json",
+      "bytes": 11189,
+      "sha256": "b77879009a31122f05064955bec7f498a2d71a5b90c288683201e505d50c245e"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 928,
+      "startByte": 7618534,
+      "endByte": 7619077,
+      "containingRecordSha256": "9dbb80939999d7f03d75feb9f80484a93abf91bf42367638c3a84ab963d9fe8b",
+      "timestamp": "2026-09-30T03:59:49.928Z",
+      "callId": "call_kqNmXWFQKl448XS8UcoC8Agj",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line928-call_kqNmXWFQKl448XS8UcoC8Agj-output.json",
+      "bytes": 543,
+      "sha256": "9dbb80939999d7f03d75feb9f80484a93abf91bf42367638c3a84ab963d9fe8b"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 932,
+      "startByte": 7622209,
+      "endByte": 7624657,
+      "containingRecordSha256": "7d77e21e1cfd4081285bb2afd149f966d7bbf42045eb61e974d24ee564cb4164",
+      "timestamp": "2026-09-30T04:00:16.034Z",
+      "callId": "call_g8ctmEOhyie0KuLbSSMwUID1",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line932-call_g8ctmEOhyie0KuLbSSMwUID1.json",
+      "bytes": 2448,
+      "sha256": "7d77e21e1cfd4081285bb2afd149f966d7bbf42045eb61e974d24ee564cb4164"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 935,
+      "startByte": 7628323,
+      "endByte": 7628867,
+      "containingRecordSha256": "f1f50ab9f9675f983fb82dc8abfcfd39670fbe8603ca6d9d830aaedd19a9d3ab",
+      "timestamp": "2026-09-30T04:00:16.204Z",
+      "callId": "call_g8ctmEOhyie0KuLbSSMwUID1",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line935-call_g8ctmEOhyie0KuLbSSMwUID1-output.json",
+      "bytes": 544,
+      "sha256": "f1f50ab9f9675f983fb82dc8abfcfd39670fbe8603ca6d9d830aaedd19a9d3ab"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 941,
+      "startByte": 7638426,
+      "endByte": 7643568,
+      "containingRecordSha256": "1399e7d4a2fcb94b8d9bb4dc693ecb006d901d1510a3ef4ab09ba6bf33c9a259",
+      "timestamp": "2026-09-30T04:01:16.150Z",
+      "callId": "call_QkU3TyzYxJO72Ft1fdjrfvgL",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line941-call_QkU3TyzYxJO72Ft1fdjrfvgL.json",
+      "bytes": 5142,
+      "sha256": "1399e7d4a2fcb94b8d9bb4dc693ecb006d901d1510a3ef4ab09ba6bf33c9a259"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 944,
+      "startByte": 7657674,
+      "endByte": 7659533,
+      "containingRecordSha256": "6ed2ab7f07046c31bbc1c5cbc9f49cc0f213eb9a89153f4f12ddac9739acd0b7",
+      "timestamp": "2026-09-30T04:01:21.095Z",
+      "callId": "call_QkU3TyzYxJO72Ft1fdjrfvgL",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line944-call_QkU3TyzYxJO72Ft1fdjrfvgL-output.json",
+      "bytes": 1859,
+      "sha256": "6ed2ab7f07046c31bbc1c5cbc9f49cc0f213eb9a89153f4f12ddac9739acd0b7"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 955,
+      "startByte": 7685872,
+      "endByte": 7688446,
+      "containingRecordSha256": "390a84cabe5bd5481e6da159486ad9c29565a32957557d8c0843955cb48f6970",
+      "timestamp": "2026-09-30T04:01:49.120Z",
+      "callId": "call_CfvBjhZO7BBgmbs5PKpWf98t",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line955-call_CfvBjhZO7BBgmbs5PKpWf98t.json",
+      "bytes": 2574,
+      "sha256": "390a84cabe5bd5481e6da159486ad9c29565a32957557d8c0843955cb48f6970"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 958,
+      "startByte": 7694071,
+      "endByte": 7694727,
+      "containingRecordSha256": "656827c3e59bad665f8a6c8c6fb5a00a31b12b0c44d6090bca5db297be219d94",
+      "timestamp": "2026-09-30T04:01:54.602Z",
+      "callId": "call_CfvBjhZO7BBgmbs5PKpWf98t",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line958-call_CfvBjhZO7BBgmbs5PKpWf98t-output.json",
+      "bytes": 656,
+      "sha256": "656827c3e59bad665f8a6c8c6fb5a00a31b12b0c44d6090bca5db297be219d94"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 992,
+      "startByte": 7780008,
+      "endByte": 7784353,
+      "containingRecordSha256": "be6a7f164a5c13165f7881017ebeafaf76a01e22711c00861c0dbe366db2e007",
+      "timestamp": "2026-09-30T04:04:30.668Z",
+      "callId": "call_toX9kikY9IyQuZ8kz5SzCSxF",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line992-call_toX9kikY9IyQuZ8kz5SzCSxF.json",
+      "bytes": 4345,
+      "sha256": "be6a7f164a5c13165f7881017ebeafaf76a01e22711c00861c0dbe366db2e007"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 995,
+      "startByte": 7793474,
+      "endByte": 7794134,
+      "containingRecordSha256": "c9eca2d1b982c13c6b85d3c6fc1bcfb9914e491fa8e9ce13b809251abcdef55c",
+      "timestamp": "2026-09-30T04:04:36.015Z",
+      "callId": "call_toX9kikY9IyQuZ8kz5SzCSxF",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line995-call_toX9kikY9IyQuZ8kz5SzCSxF-output.json",
+      "bytes": 660,
+      "sha256": "c9eca2d1b982c13c6b85d3c6fc1bcfb9914e491fa8e9ce13b809251abcdef55c"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1112,
+      "startByte": 8147434,
+      "endByte": 8149873,
+      "containingRecordSha256": "382f7df6dc8bcaa10b7ac4ff4132cc38e2d259d83677330d964a63cb0c310bac",
+      "timestamp": "2026-09-30T04:12:54.286Z",
+      "callId": "call_EaRLZZ4vRTWxByDXPbMjyGVL",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line1112-call_EaRLZZ4vRTWxByDXPbMjyGVL.json",
+      "bytes": 2439,
+      "sha256": "382f7df6dc8bcaa10b7ac4ff4132cc38e2d259d83677330d964a63cb0c310bac"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1115,
+      "startByte": 8155519,
+      "endByte": 8156262,
+      "containingRecordSha256": "8ccf0b7e828b8cb238718aaea8eba73ee9c4f792404d0c73a5f04a6a87adec22",
+      "timestamp": "2026-09-30T04:12:54.396Z",
+      "callId": "call_EaRLZZ4vRTWxByDXPbMjyGVL",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line1115-call_EaRLZZ4vRTWxByDXPbMjyGVL-output.json",
+      "bytes": 743,
+      "sha256": "8ccf0b7e828b8cb238718aaea8eba73ee9c4f792404d0c73a5f04a6a87adec22"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1199,
+      "startByte": 9100118,
+      "endByte": 9108859,
+      "containingRecordSha256": "6c7b8e1a8cd28139d8930e641865be788aca8845daaa609b4c254460a90531cb",
+      "timestamp": "2026-09-30T04:19:14.872Z",
+      "callId": "call_N0fRGB220y8K4KTJxVe0ypxh",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line1199-call_N0fRGB220y8K4KTJxVe0ypxh.json",
+      "bytes": 8741,
+      "sha256": "6c7b8e1a8cd28139d8930e641865be788aca8845daaa609b4c254460a90531cb"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1202,
+      "startByte": 9126550,
+      "endByte": 9127211,
+      "containingRecordSha256": "34436183e3849e5e5325129fbe40ede9d968c935fcf099d96abbc740338cc003",
+      "timestamp": "2026-09-30T04:19:14.980Z",
+      "callId": "call_N0fRGB220y8K4KTJxVe0ypxh",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line1202-call_N0fRGB220y8K4KTJxVe0ypxh-output.json",
+      "bytes": 661,
+      "sha256": "34436183e3849e5e5325129fbe40ede9d968c935fcf099d96abbc740338cc003"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1237,
+      "startByte": 9259661,
+      "endByte": 9262424,
+      "containingRecordSha256": "1dcf601bf0a63c8e571e42d35c1b2e18de5df91c640429b53c1d3099c76ccfb2",
+      "timestamp": "2026-09-30T04:21:14.124Z",
+      "callId": "call_Ddtr0gvfI7nahcpqmsAfsRsF",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line1237-call_Ddtr0gvfI7nahcpqmsAfsRsF.json",
+      "bytes": 2763,
+      "sha256": "1dcf601bf0a63c8e571e42d35c1b2e18de5df91c640429b53c1d3099c76ccfb2"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1241,
+      "startByte": 9270942,
+      "endByte": 9272398,
+      "containingRecordSha256": "d4fc1fd8804aeed66f951b9e959312a71682dc05369fe11b89d082066a3a9b93",
+      "timestamp": "2026-09-30T04:21:20.650Z",
+      "callId": "call_Ddtr0gvfI7nahcpqmsAfsRsF",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line1241-call_Ddtr0gvfI7nahcpqmsAfsRsF-output.json",
+      "bytes": 1456,
+      "sha256": "d4fc1fd8804aeed66f951b9e959312a71682dc05369fe11b89d082066a3a9b93"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1345,
+      "startByte": 9910299,
+      "endByte": 9913845,
+      "containingRecordSha256": "2d196981b0bf3e2de78e276559dd75615143604a06c609d22c9bd5de36e1b05f",
+      "timestamp": "2026-09-30T04:25:03.027Z",
+      "callId": "call_IJEO2ArSQZu2brGTTlpU3uG9",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line1345-call_IJEO2ArSQZu2brGTTlpU3uG9.json",
+      "bytes": 3546,
+      "sha256": "2d196981b0bf3e2de78e276559dd75615143604a06c609d22c9bd5de36e1b05f"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1349,
+      "startByte": 9923795,
+      "endByte": 9925208,
+      "containingRecordSha256": "05f84f0c8d53d177e2843f41a1252b0771ffea06d452072ba0712e5a45661a88",
+      "timestamp": "2026-09-30T04:25:04.499Z",
+      "callId": "call_IJEO2ArSQZu2brGTTlpU3uG9",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line1349-call_IJEO2ArSQZu2brGTTlpU3uG9-output.json",
+      "bytes": 1413,
+      "sha256": "05f84f0c8d53d177e2843f41a1252b0771ffea06d452072ba0712e5a45661a88"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1396,
+      "startByte": 10082553,
+      "endByte": 10099226,
+      "containingRecordSha256": "e41cac035ef0f7eb604348e5f495a8f5959336b35f77ea0e5ea862a86fbe5380",
+      "timestamp": "2026-09-30T04:28:42.841Z",
+      "callId": "call_fUOs0kyphZFTkk1BaHtM9YT3",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line1396-call_fUOs0kyphZFTkk1BaHtM9YT3.json",
+      "bytes": 16673,
+      "sha256": "e41cac035ef0f7eb604348e5f495a8f5959336b35f77ea0e5ea862a86fbe5380"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 1399,
+      "startByte": 10134244,
+      "endByte": 10135384,
+      "containingRecordSha256": "a4df6889f3ef714a783bb994e631792dc2ecbbd180b0b8e485135f71799f4603",
+      "timestamp": "2026-09-30T04:28:43.004Z",
+      "callId": "call_fUOs0kyphZFTkk1BaHtM9YT3",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line1399-call_fUOs0kyphZFTkk1BaHtM9YT3-output.json",
+      "bytes": 1140,
+      "sha256": "a4df6889f3ef714a783bb994e631792dc2ecbbd180b0b8e485135f71799f4603"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2660,
+      "startByte": 19234662,
+      "endByte": 19238165,
+      "containingRecordSha256": "a9ebdf0a7e4177a4dd69d809441ba3cb4add2feb4bc9f5a42b5dba15283a4544",
+      "timestamp": "2026-09-30T06:49:41.340Z",
+      "callId": "call_D5d9Uz8wPqx4QGBBKmu0bFse",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line2660-call_D5d9Uz8wPqx4QGBBKmu0bFse.json",
+      "bytes": 3503,
+      "sha256": "a9ebdf0a7e4177a4dd69d809441ba3cb4add2feb4bc9f5a42b5dba15283a4544"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2663,
+      "startByte": 19245890,
+      "endByte": 19246625,
+      "containingRecordSha256": "314f8e3c9690306ba86884a4b2d26391bf24570e534da621893e2f6368351071",
+      "timestamp": "2026-09-30T06:49:41.446Z",
+      "callId": "call_D5d9Uz8wPqx4QGBBKmu0bFse",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line2663-call_D5d9Uz8wPqx4QGBBKmu0bFse-output.json",
+      "bytes": 735,
+      "sha256": "314f8e3c9690306ba86884a4b2d26391bf24570e534da621893e2f6368351071"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2672,
+      "startByte": 19260901,
+      "endByte": 19266347,
+      "containingRecordSha256": "71a7fa4c625df2a71c0144f35cba50917c9a97ac3574b05fcaeb12ee41ad95f3",
+      "timestamp": "2026-09-30T06:50:51.251Z",
+      "callId": "call_xhY5RR6tpI2Lxb249P76JGXB",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line2672-call_xhY5RR6tpI2Lxb249P76JGXB.json",
+      "bytes": 5446,
+      "sha256": "71a7fa4c625df2a71c0144f35cba50917c9a97ac3574b05fcaeb12ee41ad95f3"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2675,
+      "startByte": 19273831,
+      "endByte": 19274376,
+      "containingRecordSha256": "7c9e6fffb8bfd01b224aa79b586780901807e572310b2a952d86c6ee5bc0094d",
+      "timestamp": "2026-09-30T06:50:51.373Z",
+      "callId": "call_xhY5RR6tpI2Lxb249P76JGXB",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line2675-call_xhY5RR6tpI2Lxb249P76JGXB-output.json",
+      "bytes": 545,
+      "sha256": "7c9e6fffb8bfd01b224aa79b586780901807e572310b2a952d86c6ee5bc0094d"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2767,
+      "startByte": 19498268,
+      "endByte": 19502852,
+      "containingRecordSha256": "37ad9da1f3630ad9c5075f3226cd424d50b2f3c80f8f264bfc231f8180b16a32",
+      "timestamp": "2026-09-30T06:56:12.428Z",
+      "callId": "call_tMko5f0eJi98K5T41vYrDFI1",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line2767-call_tMko5f0eJi98K5T41vYrDFI1.json",
+      "bytes": 4584,
+      "sha256": "37ad9da1f3630ad9c5075f3226cd424d50b2f3c80f8f264bfc231f8180b16a32"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2770,
+      "startByte": 19513294,
+      "endByte": 19514253,
+      "containingRecordSha256": "1c87f20a09aada08a7b1d354348058c6e627fa08f9008e5322f82f5c926ad813",
+      "timestamp": "2026-09-30T06:56:12.573Z",
+      "callId": "call_tMko5f0eJi98K5T41vYrDFI1",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line2770-call_tMko5f0eJi98K5T41vYrDFI1-output.json",
+      "bytes": 959,
+      "sha256": "1c87f20a09aada08a7b1d354348058c6e627fa08f9008e5322f82f5c926ad813"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2788,
+      "startByte": 19580683,
+      "endByte": 19591826,
+      "containingRecordSha256": "738572cefbc7175763aab36723ce88e276d921e45dc950c7e223bdbaab3ae18e",
+      "timestamp": "2026-09-30T06:58:27.539Z",
+      "callId": "call_QktEoFftFFkuh14bdZlhuoAa",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line2788-call_QktEoFftFFkuh14bdZlhuoAa.json",
+      "bytes": 11143,
+      "sha256": "738572cefbc7175763aab36723ce88e276d921e45dc950c7e223bdbaab3ae18e"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2791,
+      "startByte": 19616393,
+      "endByte": 19617729,
+      "containingRecordSha256": "66a8b8a6813c13f482380f978e3bcc7c5a83fff59469fbff225f0b5bbb2a3bdc",
+      "timestamp": "2026-09-30T06:58:27.685Z",
+      "callId": "call_QktEoFftFFkuh14bdZlhuoAa",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line2791-call_QktEoFftFFkuh14bdZlhuoAa-output.json",
+      "bytes": 1336,
+      "sha256": "66a8b8a6813c13f482380f978e3bcc7c5a83fff59469fbff225f0b5bbb2a3bdc"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2795,
+      "startByte": 19621912,
+      "endByte": 19624489,
+      "containingRecordSha256": "8f48bf7c30a1350e72257a333c4587f2cf8a6cebb0de96a1212967f65a1e3d79",
+      "timestamp": "2026-09-30T06:58:56.026Z",
+      "callId": "call_t7GsDqOc6zdf0AnHkaIXKYKR",
+      "kind": "exact_original_tool_record_bytes",
+      "path": "extracts/s03_phase_b-line2795-call_t7GsDqOc6zdf0AnHkaIXKYKR.json",
+      "bytes": 2577,
+      "sha256": "8f48bf7c30a1350e72257a333c4587f2cf8a6cebb0de96a1212967f65a1e3d79"
+    },
+    {
+      "sessionRole": "s03_phase_b",
+      "sessionPath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "sourceLine": 2798,
+      "startByte": 19631641,
+      "endByte": 19632872,
+      "containingRecordSha256": "b8d14aa0a0c44da8dfc928b6c3ab554ba28acd5a54bc9b7c33b5722128c419fd",
+      "timestamp": "2026-09-30T06:58:56.487Z",
+      "callId": "call_t7GsDqOc6zdf0AnHkaIXKYKR",
+      "kind": "exact_original_tool_output_record_bytes",
+      "path": "extracts/s03_phase_b-line2798-call_t7GsDqOc6zdf0AnHkaIXKYKR-output.json",
+      "bytes": 1231,
+      "sha256": "b8d14aa0a0c44da8dfc928b6c3ab554ba28acd5a54bc9b7c33b5722128c419fd"
+    }
+  ],
+  "callSummaries": [
+    {
+      "role": "parent",
+      "line": 1208,
+      "callId": "call_Hiz8Dupn9vyD64T194OAxh0c",
+      "timestamp": "2026-09-29T17:04:23.226Z",
+      "inputBytes": 12358,
+      "outputLines": [
+        1213
+      ],
+      "sourceMentions": []
+    },
+    {
+      "role": "parent",
+      "line": 1215,
+      "callId": "call_gUOs43bm2zfFEaAtKeJqBeVa",
+      "timestamp": "2026-09-29T17:04:40.416Z",
+      "inputBytes": 1397,
+      "outputLines": [
+        1218
+      ],
+      "sourceMentions": []
+    },
+    {
+      "role": "selected_action",
+      "line": 1354,
+      "callId": "call_ahIzrSfqxJKrJ6PUavkIESxW",
+      "timestamp": "2026-09-29T17:05:53.346Z",
+      "inputBytes": 6364,
+      "outputLines": [
+        1358
+      ],
+      "sourceMentions": []
+    },
+    {
+      "role": "selected_action",
+      "line": 1460,
+      "callId": "call_NRLpe6DRqetocWpoq2wmicLZ",
+      "timestamp": "2026-09-29T17:10:43.490Z",
+      "inputBytes": 3682,
+      "outputLines": [
+        1463
+      ],
+      "sourceMentions": []
+    },
+    {
+      "role": "selected_action",
+      "line": 1474,
+      "callId": "call_V3mFfy3kIFfs7NU2rLwIVo5U",
+      "timestamp": "2026-09-29T17:12:28.040Z",
+      "inputBytes": 8681,
+      "outputLines": [
+        1477
+      ],
+      "sourceMentions": []
+    },
+    {
+      "role": "selected_action",
+      "line": 1483,
+      "callId": "call_VdY1mgK9bXZmGqdWva1JqvEi",
+      "timestamp": "2026-09-29T17:13:05.721Z",
+      "inputBytes": 1382,
+      "outputLines": [
+        1486
+      ],
+      "sourceMentions": []
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 815,
+      "callId": "call_H2tnI20Guk83Q2gCrp6TjfiL",
+      "timestamp": "2026-09-30T03:54:05.540Z",
+      "inputBytes": 1664,
+      "outputLines": [
+        818
+      ],
+      "sourceMentions": [
+        "project_read_operation_contracts.ts",
+        "project_read_definition_bindings.ts",
+        "project_read_ports.ts",
+        "t287-s03-automatic.mjs"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 912,
+      "callId": "call_96pplFVgr4IEftYT1OBS0l7s",
+      "timestamp": "2026-09-30T03:57:48.839Z",
+      "inputBytes": 1507,
+      "outputLines": [
+        915
+      ],
+      "sourceMentions": [
+        "project_read_operation_contracts.ts"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 925,
+      "callId": "call_kqNmXWFQKl448XS8UcoC8Agj",
+      "timestamp": "2026-09-30T03:59:49.801Z",
+      "inputBytes": 10399,
+      "outputLines": [
+        928
+      ],
+      "sourceMentions": [
+        "project_read_ports.ts"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 932,
+      "callId": "call_g8ctmEOhyie0KuLbSSMwUID1",
+      "timestamp": "2026-09-30T04:00:16.034Z",
+      "inputBytes": 1917,
+      "outputLines": [
+        935
+      ],
+      "sourceMentions": [
+        "project_read_definition_bindings.ts"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 941,
+      "callId": "call_QkU3TyzYxJO72Ft1fdjrfvgL",
+      "timestamp": "2026-09-30T04:01:16.150Z",
+      "inputBytes": 4624,
+      "outputLines": [
+        944
+      ],
+      "sourceMentions": [
+        "t287-s03-automatic.mjs"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 955,
+      "callId": "call_CfvBjhZO7BBgmbs5PKpWf98t",
+      "timestamp": "2026-09-30T04:01:49.120Z",
+      "inputBytes": 2159,
+      "outputLines": [
+        958
+      ],
+      "sourceMentions": [
+        "project_read_ports.ts",
+        "t287-s03-automatic.mjs"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 992,
+      "callId": "call_toX9kikY9IyQuZ8kz5SzCSxF",
+      "timestamp": "2026-09-30T04:04:30.668Z",
+      "inputBytes": 3906,
+      "outputLines": [
+        995
+      ],
+      "sourceMentions": [
+        "project_read_ports.ts"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 1112,
+      "callId": "call_EaRLZZ4vRTWxByDXPbMjyGVL",
+      "timestamp": "2026-09-30T04:12:54.286Z",
+      "inputBytes": 2026,
+      "outputLines": [
+        1115
+      ],
+      "sourceMentions": [
+        "project_read_ports.ts"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 1199,
+      "callId": "call_N0fRGB220y8K4KTJxVe0ypxh",
+      "timestamp": "2026-09-30T04:19:14.872Z",
+      "inputBytes": 8168,
+      "outputLines": [
+        1202
+      ],
+      "sourceMentions": [
+        "project_read_operation_contracts.ts",
+        "project_read_ports.ts",
+        "t287-s03-automatic.mjs"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 1237,
+      "callId": "call_Ddtr0gvfI7nahcpqmsAfsRsF",
+      "timestamp": "2026-09-30T04:21:14.124Z",
+      "inputBytes": 2349,
+      "outputLines": [
+        1241
+      ],
+      "sourceMentions": [
+        "project_read_ports.ts"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 1345,
+      "callId": "call_IJEO2ArSQZu2brGTTlpU3uG9",
+      "timestamp": "2026-09-30T04:25:03.027Z",
+      "inputBytes": 3102,
+      "outputLines": [
+        1349
+      ],
+      "sourceMentions": [
+        "t287-s03-automatic.mjs"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 1396,
+      "callId": "call_fUOs0kyphZFTkk1BaHtM9YT3",
+      "timestamp": "2026-09-30T04:28:42.841Z",
+      "inputBytes": 16184,
+      "outputLines": [
+        1399
+      ],
+      "sourceMentions": [
+        "project_read_operation_contracts.ts",
+        "project_read_definition_bindings.ts",
+        "project_read_ports.ts",
+        "t287-s03-automatic.mjs"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 2660,
+      "callId": "call_D5d9Uz8wPqx4QGBBKmu0bFse",
+      "timestamp": "2026-09-30T06:49:41.340Z",
+      "inputBytes": 3077,
+      "outputLines": [
+        2663
+      ],
+      "sourceMentions": [
+        "default_library.ts",
+        "t287-default-library.test.mjs",
+        "root-installed-environment.mjs"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 2672,
+      "callId": "call_xhY5RR6tpI2Lxb249P76JGXB",
+      "timestamp": "2026-09-30T06:50:51.251Z",
+      "inputBytes": 4934,
+      "outputLines": [
+        2675
+      ],
+      "sourceMentions": [
+        "default_library.ts",
+        "t287-default-library.test.mjs",
+        "root-installed-environment.mjs"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 2767,
+      "callId": "call_tMko5f0eJi98K5T41vYrDFI1",
+      "timestamp": "2026-09-30T06:56:12.428Z",
+      "inputBytes": 4148,
+      "outputLines": [
+        2770
+      ],
+      "sourceMentions": []
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 2788,
+      "callId": "call_QktEoFftFFkuh14bdZlhuoAa",
+      "timestamp": "2026-09-30T06:58:27.539Z",
+      "inputBytes": 10696,
+      "outputLines": [
+        2791
+      ],
+      "sourceMentions": [
+        "default_library.ts"
+      ]
+    },
+    {
+      "role": "s03_phase_b",
+      "line": 2795,
+      "callId": "call_t7GsDqOc6zdf0AnHkaIXKYKR",
+      "timestamp": "2026-09-30T06:58:56.026Z",
+      "inputBytes": 2153,
+      "outputLines": [
+        2798
+      ],
+      "sourceMentions": []
+    }
+  ],
+  "extractedBytes": 146892,
+  "privacy": "No neighboring assistant reasoning, system/developer instructions, encrypted message body or whole rollout exported. The dispatch is a target/time/call-id field projection. Exact metadata is a permitted field projection.",
+  "minimalityRefinement": "Selected-action bundled source-read diagnostics removed; source-edit input and paired completion/empty-first-output are explicit field projections with unchanged original containing-record coordinates."
+}

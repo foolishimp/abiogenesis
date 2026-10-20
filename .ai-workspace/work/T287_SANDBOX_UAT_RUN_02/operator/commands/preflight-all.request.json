@@ -1,0 +1,21 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "scripts/sandbox-uat.mjs",
+    "preflight",
+    "--config",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config.json",
+    "--all"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-06T02:53:23.971Z",
+  "environmentKeys": [
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 180000
+}

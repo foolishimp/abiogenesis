@@ -1,0 +1,179 @@
+{
+  "reviewer": "/root/reconciliation_review",
+  "created_utc": "2026-10-20T16:45:45.097827+00:00",
+  "frozen_subject": "T287_STDO3_RECONCILIATION_01_DOCUMENTS",
+  "freeze_sha256": "51cc0151cdfc922867766448687c5ebf3f2cb0ca2108dcdee8052af5e860b9ef",
+  "checks": [
+    {
+      "check": "freeze_identity",
+      "passed": true,
+      "sha256": "51cc0151cdfc922867766448687c5ebf3f2cb0ca2108dcdee8052af5e860b9ef"
+    },
+    {
+      "check": "frozen_candidate",
+      "path": ".ai-workspace/comments/codex/20261021_STDO3_ABG5_RECONCILIATION.md",
+      "passed": true,
+      "sha256": "cb43d4eb9ce9b15439f98db4de410c5d2987b5f4eb75ec24a1d70b52f0b1016c",
+      "bytes": 15784
+    },
+    {
+      "check": "frozen_candidate",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "passed": true,
+      "sha256": "85c7407e2e057049c0e3ea4238520074e362fdc45b51d153b442732d5a382b76",
+      "bytes": 524806
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "passed": true,
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "passed": true,
+      "sha256": "4ac054f0718abe5fe1d1346a9ae9f3cfe9d726c35ff39922e198e4db6c7aca84",
+      "bytes": 54101
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "sha256": "c131a472c0fb76907ff0100911ed556ea034d87e0503cc49c8f7123311b9ca73",
+      "bytes": 96586
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "build_tenants/abiogenesis/typescript/design/README.md",
+      "passed": true,
+      "sha256": "34b1eb4020afef810c309b9a20bead6bff4593648f6464a9581717615eef11d6",
+      "bytes": 35113
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "passed": true,
+      "sha256": "8b395f108d7e52229709c60a2108ac565359d8bb8e84bd8f1386c374674dd652",
+      "bytes": 78451
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/GOALS.md",
+      "passed": true,
+      "sha256": "0c832adf283cf17f14444b8d9660df4b51f4493dad0c31ed43cc65a881bd58d8",
+      "bytes": 74953
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/PRODUCT.md",
+      "passed": true,
+      "sha256": "27e79e8336b7988121814a49a1d77976cba4b139a04e4b3bd39e250821992fd3",
+      "bytes": 96170
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/README.md",
+      "passed": true,
+      "sha256": "741cbaf8d7ea1b82006718d8fa84ccd62c01c59bff93885e75a26d16f8944169",
+      "bytes": 8706
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/abg/README.md",
+      "passed": true,
+      "sha256": "c3eeb69701836792e0c1f0c355272c968c93400c33555a383de1084a1b92461b",
+      "bytes": 3144
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "passed": true,
+      "sha256": "2a0fc5559673a860c2b7ff16091ba2ba37da3b1fe1337141c2faa639d6ca1e64",
+      "bytes": 7870
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "passed": true,
+      "sha256": "baf81ffdc9948f96a903b2f4af98b4975445d1a9f24f89a657a35b5b95743f9e",
+      "bytes": 8976
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "passed": true,
+      "sha256": "0ed4ec30606484c9430354b4676f4166ca0e19fe338830a3b71bf9947e70222d",
+      "bytes": 12282
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "passed": true,
+      "sha256": "c58539026886596543c3ec6c2e6fd010f1220c6031bb68df8fff22e1e6ed50c6",
+      "bytes": 2952
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/gtl/README.md",
+      "passed": true,
+      "sha256": "be6365c9fd06027f3144ba5fbf18ffaa62ed016474d2a4377c31314af38c7786",
+      "bytes": 3104
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "passed": true,
+      "sha256": "bdc3f6b3a30813c85eb48603ada692cff34222e67debd2413560aaa39a1af8c4",
+      "bytes": 4522
+    },
+    {
+      "check": "frozen_candidate",
+      "path": "specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "passed": true,
+      "sha256": "f5494e90c534f17280357e03cf5755cf8c78627fd642887d226cb959da138ec0",
+      "bytes": 5929
+    },
+    {
+      "check": "unrelated_initial_inventory_preserved",
+      "passed": true,
+      "files": 677,
+      "failures": []
+    },
+    {
+      "check": "product_semantics_preserved",
+      "section": "## Execution And Context Calculus",
+      "passed": true,
+      "sha256": "22d6c0e92ce40793988a49b818cee811d07a244f63f58df5fbbb7500015d0252"
+    },
+    {
+      "check": "product_semantics_preserved",
+      "section": "## 5.0 And 5.1 Release Boundaries",
+      "passed": true,
+      "sha256": "2d64d412262902b92a0b827b329f755ed597b9c31ed684f9cd20eec59cd9e9dd"
+    },
+    {
+      "check": "product_semantics_preserved",
+      "section": "## Product Completion Predicate",
+      "passed": true,
+      "sha256": "c798f4cb49774355d34332ab3bdb55e0fd618c46bdb2e36c432bfb765645249e"
+    },
+    {
+      "check": "product_semantics_preserved",
+      "section": "## Explicit Non-Features",
+      "passed": true,
+      "sha256": "a04b769ffe322fee01035975b3e84214777b85e4de685057faf2dc94aed53d35"
+    },
+    {
+      "check": "all_fifteen_actual_feature_rows_preserved",
+      "passed": true,
+      "count": 15
+    },
+    {
+      "check": "initial_basis_identity",
+      "passed": true
+    }
+  ],
+  "semantic_scope": "mechanical identity and preservation only; semantic review is review.md"
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/artifact_truth.ts",
+      "bytes": 30909,
+      "sha256": "7ce5bc2f9f04c649fd7e83175dff5ca4e4977c3005b79c727138dfb19c1ee3c2"
+    },
+    "after": {
+      "path": "code/src/abg/artifact_truth.ts",
+      "bytes": 33503,
+      "sha256": "96e179167006d9f0f4d648ab6c8abf5844076f361adef4fe4821290a2181136a"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/abg/environment_admission.ts",
+      "bytes": 44775,
+      "sha256": "5c64b06afd7ea50ca37a1555dddb078df043efd0718db49c437fb84885086f8a"
+    },
+    "after": {
+      "path": "code/src/abg/environment_admission.ts",
+      "bytes": 46611,
+      "sha256": "7a50e8282b36d0601660845993dec674c50a1eaa04591c5664a8bf80001d90b9"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/product/environment.ts",
+      "bytes": 39647,
+      "sha256": "db5de97b08af4dfdeff8c05901aaf845e1555be7efc518e1380008442bedcb36"
+    },
+    "after": {
+      "path": "code/src/product/environment.ts",
+      "bytes": 42399,
+      "sha256": "96f6547138e43578fba31ace0b02a4e5060b1ffbfef3682802565ec8de4ed9d7"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/product/install_definition_bindings.ts",
+      "bytes": 15275,
+      "sha256": "b41c703d907076104a3067c1229ec53704f6d23a56e565fd02b8a49e6ef4737b"
+    },
+    "after": {
+      "path": "code/src/product/install_definition_bindings.ts",
+      "bytes": 15317,
+      "sha256": "e978a8c6e27e297197b75619e32c946ea8891480ac236f4a5f2238847049679e"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/product/install_operation.ts",
+      "bytes": 694,
+      "sha256": "ba10204144517b605a576c9f9915d6ce021d27ab0ef1365f3eaab8970e599646"
+    },
+    "after": {
+      "path": "code/src/product/install_operation.ts",
+      "bytes": 955,
+      "sha256": "ea77ee96a10a6f57d210fcc7c557f72a2a1f5efc8b3aea6216cfff234cb94769"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/product/install_product.ts",
+      "bytes": 14371,
+      "sha256": "db7a4a220ffe79f9eabe21e96e9129e0f5e993959d0e27cb3b6cfbb396a681ea"
+    },
+    "after": {
+      "path": "code/src/product/install_product.ts",
+      "bytes": 14987,
+      "sha256": "b6fd0be714f25c244ec358416bfd666e9abf7c9fd0cef3e1e23a98f607eeee80"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/shared/capability_contracts.ts",
+      "bytes": 26551,
+      "sha256": "dccdc5dfbb584dd2d15b400637b35f15146d98da96be19a4e460c3c159f79572"
+    },
+    "after": {
+      "path": "code/src/shared/capability_contracts.ts",
+      "bytes": 26794,
+      "sha256": "b56acca42e5cd383c09a778e85cad1a993cf5abf20f318ece2fe1333075f3501"
+    }
+  }
+]

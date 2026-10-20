@@ -1,0 +1,14 @@
+{
+  "status": "EFFECTLESS_CALLER_PRECONDITION_CORRECTED",
+  "firstCause": "EEXIST creating precreated empty timings directory at execute.mjs:8",
+  "firstFailureStderr": "witness.stderr.caller-first-failure",
+  "removedEmptyDirectories": [
+    "calls",
+    "receipts",
+    "timings"
+  ],
+  "ownerImportsOrInvocationsBeforeFailure": 0,
+  "scriptUnchanged": true,
+  "scriptSha256": "c39658e43fcd8d9e2b8d531fb416c2e36eb5547d164bfc5fb1eb1ef7e7c08c98",
+  "runtimeRetry": false
+}

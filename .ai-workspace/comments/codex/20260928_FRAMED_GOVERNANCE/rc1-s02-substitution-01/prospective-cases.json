@@ -1,0 +1,33 @@
+{
+  "core": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+      "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+      "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "cases": [
+    {
+      "case": "graph-substitution",
+      "programRef": "program://abiogenesis/conformance/hello-substitute@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-substitute@5",
+      "variant": {
+        "subject": "World"
+      },
+      "donor": "m5-installed-substitute.test.mjs:25",
+      "claim": "Native graph composition and substitution, three loci/two composition identities; no lowered carrier.",
+      "expected": "completed",
+      "nativeLimitMs": 300000,
+      "simulatedFp": null,
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/hello-substitute@5"
+      ]
+    }
+  ],
+  "claim": "One new exact C02 graph-substitution S02 witness through supported Public/native CLI with two fresh cold reads; no S01 or F_P work and no qualification claim."
+}

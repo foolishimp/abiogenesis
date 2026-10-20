@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216b/prepare.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216b",
+  "started": "2026-10-09T14:49:41.661964+00:00",
+  "parseOnly": true
+}

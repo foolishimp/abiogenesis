@@ -1,0 +1,10 @@
+{
+  "members": 1950,
+  "ruleDomains": 187,
+  "surfaceGroups": 777,
+  "ruleRelations": 2137,
+  "internedReferenceSets": 517,
+  "distinctEffectivePartitionsIgnoringGroupRef": 54,
+  "distinctFullGroupsIgnoringGroupRef": 118,
+  "meaning": "counted from exact normalized full-fixture archive after established scope view equals original fixture with explicit normalized coordinate replacement"
+}

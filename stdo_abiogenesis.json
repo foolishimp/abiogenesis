@@ -1,5 +1,5 @@
 {
-  "$schema": "stdo://releases/v2.5.1-rc.2/standards/schemas/product-definition.schema.json",
+  "$schema": "stdo://releases/v3.0.0-rc.1/standards/schemas/product-definition.schema.json",
   "kind": "stdo.product-definition",
   "product": {
     "definition_id": "urn:stdo:product-definition:abiogenesis",
@@ -12,17 +12,17 @@
       "source": {
         "repository": "https://github.com/foolishimp/specification_methodology.git"
       },
-      "selector": "stdo://channels/2.5.1",
+      "selector": "stdo://channels/3.0.0",
       "basis": {
-        "uri": "stdo://releases/v2.5.1-rc.2/",
-        "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+        "uri": "stdo://releases/v3.0.0-rc.1/",
+        "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
       }
     },
     "additional_authorities": [],
     "entrypoints": [
       {
         "basis": "#/constitution/stdo/basis",
-        "uri": "standards/authority_compressions/stdo_bootstrap.md"
+        "uri": "standards/frames/bootstrap.md"
       },
       {
         "basis": "#/constitution/stdo/basis",
@@ -30,23 +30,23 @@
       },
       {
         "basis": "#/constitution/stdo/basis",
-        "uri": "standards/REFERENCE_FRAME_METHOD.md"
+        "uri": "standards/REFERENCE_FRAME.md"
       },
       {
         "basis": "#/constitution/stdo/basis",
-        "uri": "standards/STDO_REFERENCE_FRAME_BASELINE.md"
+        "uri": "standards/EXECUTIVE_BASELINE.md"
       },
       {
         "basis": "#/constitution/stdo/basis",
-        "uri": "standards/ODD_METHOD.md"
+        "uri": "standards/ODD.md"
       },
       {
         "basis": "#/constitution/stdo/basis",
-        "uri": "standards/IDENTITY_METHOD.md"
+        "uri": "standards/IDENTITY.md"
       },
       {
         "basis": "#/constitution/stdo/basis",
-        "uri": "standards/RELEASE_METHOD.md"
+        "uri": "standards/RELEASE.md"
       }
     ],
     "agent_bootstrap": {
@@ -110,22 +110,5 @@
       "root": "./.ai-workspace/comments/"
     }
   },
-  "composition": [
-    {
-      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/4e83fdc4e31ad2161ab70a9759cecbbae5390b69/stdo_representation/stdo_representation.json",
-      "target_definition_id": "urn:stdo:product-definition:stdo-representation",
-      "relation": "urn:stdo:concept:recursive-product-taxonomy:substrate",
-      "contracts": [
-        "https://raw.githubusercontent.com/foolishimp/specification_methodology/4e83fdc4e31ad2161ab70a9759cecbbae5390b69/stdo_representation/releases/v2.5.1.md"
-      ]
-    },
-    {
-      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/4e83fdc4e31ad2161ab70a9759cecbbae5390b69/axiom_indexer/stdo_default.json",
-      "target_definition_id": "urn:stdo:product-definition:axiom-indexer",
-      "relation": "urn:stdo:concept:recursive-product-taxonomy:substrate",
-      "contracts": [
-        "https://raw.githubusercontent.com/foolishimp/specification_methodology/4e83fdc4e31ad2161ab70a9759cecbbae5390b69/axiom_indexer/releases/v2.5.1.md"
-      ]
-    }
-  ]
+  "composition": []
 }

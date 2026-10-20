@@ -1,0 +1,9 @@
+{
+  "stage": "preflight",
+  "elapsedMs": 0.21420900000157417,
+  "name": "AssertionError",
+  "message": "Expected values to be strictly equal:\n\n7 !== 8\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n7 !== 8\n\n    at physicalPreflight (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs:33:14)\n    at async prepareInstalledContinuation (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs:96:20)\n    at async waitForActual (node:assert:644:5)\n    at async strict.rejects (node:assert:767:25)\n    at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.test.mjs:81:3)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+  "observation": null,
+  "disposition": "HOLD; retain completed owner effects; Executive root-cause/action before retry"
+}

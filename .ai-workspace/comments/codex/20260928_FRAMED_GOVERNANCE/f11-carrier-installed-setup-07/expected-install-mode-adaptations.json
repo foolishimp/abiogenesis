@@ -1,0 +1,18 @@
+{
+  "products": {
+    "core": [
+      {
+        "path": "build/code/src/public/cli.js",
+        "archiveMode": "0o644",
+        "installedMode": "0o755"
+      },
+      {
+        "path": "build/code/src/public/codex_cli.js",
+        "archiveMode": "0o644",
+        "installedMode": "0o755"
+      }
+    ],
+    "fixture": []
+  },
+  "basis": "exact declared bin locators; source owner disables npm bin links; strict full payload comparison unchanged"
+}

@@ -1,0 +1,69 @@
+{
+  "recordedAt": "2026-10-06T08:49:30.776465+00:00",
+  "disposition": "STOP_CONFIG_PREPARATION_INVARIANT_NO_NATIVE_DISPATCH",
+  "origin": "Operator omitted sha256: prefix from successor config package.sha256",
+  "nativeDispatched": false,
+  "nativeArchive": null,
+  "selectedPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+      "sha256": "84cf6c93aa411b71f0d4baa27e9ce8763473fd06e4639c20091e1c814dd5b760",
+      "bytes": 2328
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4",
+      "bytes": 10620551
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "bytes": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "bytes": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+      "bytes": 17357
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "bytes": 34763
+    }
+  ],
+  "newConfig": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json",
+    "sha256": "eeaca4aa9543a34039c90e22c137231ffe502bb55f2b065b10dc82fb9c3a1ef3",
+    "bytes": 2321
+  },
+  "reportFiles": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-08/preparation.md",
+      "sha256": "46ea08e02ed723b358ecb43f326adeb699d665114121686c43a51918ac5364b1",
+      "bytes": 4338
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-08/freeze.json",
+      "sha256": "6c5f15487654291e0d89103e85ac2693d8301fc04f01a2b52a8b27499d8e5b1a",
+      "bytes": 4004
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-08/execution.md",
+      "sha256": "99b590da2015e44fe6d1cf28141c1f030fab3ef9e3cee51bc423201f8391e3ad",
+      "bytes": 1552
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-08/return.md",
+      "sha256": "1c52543a1105526c3d3d22ade546f56a656ffb3113612e5a04b29477b9bf0703",
+      "bytes": 1006
+    }
+  ],
+  "materializedConfigCorrection": false,
+  "pureCorrectedConfigSha256": "432cef9a19355e88700183500f9f322533be32287090d8e0ed1d3810be2c2a82",
+  "sourceCandidateAcceptanceChanged": false
+}

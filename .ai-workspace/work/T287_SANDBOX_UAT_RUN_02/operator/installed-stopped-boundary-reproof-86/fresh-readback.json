@@ -1,0 +1,64 @@
+[
+  {
+    "memberKey": "run_result",
+    "ownerOutput": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "not_found",
+        "evidenceRefs": [],
+        "issuePaths": []
+      }
+    }
+  },
+  {
+    "memberKey": "run_replay",
+    "projection": {
+      "fromOrdinal": 0,
+      "kind": "run_replay_projection",
+      "limit": 4096,
+      "replay": {
+        "digest": "sha256:16753825cda52f10a600d994ea067ef6a5e450fb761af99d18d1453fc7cf952f",
+        "ref": "replay://abiogenesis/16753825cda52f10a600d994ea067ef6a5e450fb761af99d18d1453fc7cf952f"
+      },
+      "status": "blocked",
+      "subject": {
+        "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96",
+        "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93"
+      },
+      "terminalResult": null
+    },
+    "source": {
+      "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96",
+      "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93"
+    },
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "caseKey": "run_replay",
+        "projection": {
+          "fromOrdinal": 0,
+          "kind": "run_replay_projection",
+          "limit": 4096,
+          "replay": {
+            "digest": "sha256:16753825cda52f10a600d994ea067ef6a5e450fb761af99d18d1453fc7cf952f",
+            "ref": "replay://abiogenesis/16753825cda52f10a600d994ea067ef6a5e450fb761af99d18d1453fc7cf952f"
+          },
+          "status": "blocked",
+          "subject": {
+            "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96",
+            "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93"
+          },
+          "terminalResult": null
+        },
+        "projectionBasis": {
+          "digest": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23",
+          "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl"
+        },
+        "source": {
+          "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96",
+          "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93"
+        }
+      }
+    }
+  }
+]

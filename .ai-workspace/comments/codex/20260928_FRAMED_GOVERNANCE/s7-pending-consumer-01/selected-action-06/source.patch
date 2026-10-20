@@ -1,0 +1,25 @@
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
+@@ -502,6 +502,11 @@
+   selectedAction: SelectedCoordinate; basisRelation: Readonly<{ kind: "same_basis" }> |
+     Readonly<{ kind: "authority_changed"; coveringReprice: SelectedCoordinate }> }>;
+ 
++function pendingSelectedOccurrence(candidates: readonly SelectedActionContinuation[]): SelectedActionContinuation | null {
++  const current = candidates.length === 1 ? candidates[0] : undefined;
++  return current?.status === "open" ? current : null;
++}
++
+ /** Same owner predicate for new admission and cold operation correspondence. A
+  * covering witness never substitutes for a fresh current semantic selection. */
+ export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest) {
+@@ -516,8 +521,8 @@
+     e.payload.nextActionProjectionRef === request.selectedAction.ref && e.payload.nextActionProjectionDigest === request.selectedAction.digest);
+   const candidates = selectedRows.flatMap(e => typeof e.runId === "string" ? projectSelectedActionContinuations(prefix, e.runId)
+     .filter(c => c.intentAdmissionEventRef === e.eventId) : []);
+-  const current = candidates.length === 1 ? candidates[0] : undefined;
+-  if (current === undefined || current.status !== "open") return { kind: "refused" as const, code: "stale_action" as const };
++  const current = pendingSelectedOccurrence(candidates);
++  if (current === null) return { kind: "refused" as const, code: "stale_action" as const };
+   const currentBasis = projectExactExecutionBasisAtPrefix(prefix, current.executionBasisRef);
+   if (sourceBasis === null || currentBasis === null) return { kind: "refused" as const, code: "basis_mismatch" as const };
+   let coveringEventRef: string | null = null;

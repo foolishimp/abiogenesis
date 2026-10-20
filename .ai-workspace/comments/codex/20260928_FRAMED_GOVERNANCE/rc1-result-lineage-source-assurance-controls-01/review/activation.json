@@ -1,0 +1,27 @@
+{
+  "activation": "T287_RESULT_LINEAGE_SOURCE_ASSURANCE_01",
+  "role": "Reviewer",
+  "status": "ACTIVE_SOURCE_INSPECTION_FINAL_TEST_DISPOSITION_PENDING",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/request.txt",
+    "bytes": 3813,
+    "sha256": "ff2bbe650a86d4e944057f453879c590c858469bb83c46510ceff5879713baa7"
+  },
+  "originalWorkerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+    "bytes": 1920828,
+    "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a"
+  },
+  "sourcePostimage": {
+    "bytes": 68281,
+    "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75"
+  },
+  "originalTestA": {
+    "bytes": 22555,
+    "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+    "overallPass": false
+  },
+  "pending": "Root exact CLOSED corrected test freeze",
+  "ProductFrame": "STDO2.5.1RC2/fixed15/GOAL035/T287/F04/F11/F15; pure admitted evidence delivery, no new authority; source component assurance only",
+  "permittedEffects": "read/hash/source comparison; new report-only writes; no tests/imports/owner/Runtime/source/repair/provider/network/Git"
+}

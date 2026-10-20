@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { SourceTextModule, SyntheticModule } from 'node:vm';
+import { spawnSync } from 'node:child_process';
 import * as p from '../../build/code/src/product/index.js';
 import * as events from '../../build/code/src/abg/event_store.js';
 import { constructNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure } from '../../build/code/src/product/native_workspace_work.js';
@@ -145,6 +146,61 @@ test('observed C2 has an exact cold source arm, direct semantics and unchanged h
   assert.equal(schema.properties.taskDigest.const, task.taskDigest);
   assert.equal(schema.properties.attemptRef.const, plan.attemptRef);
   assert.deepEqual(Object.keys(schema.properties).sort(), ['attemptRef', 'helperArtifactDigest', 'helperArtifactRef', 'kind', 'schemaVersion', 'taskDigest', 'taskRef']);
+});
+
+test('observed C2 zero write declaration executes readonly helper and refuses real mirror mutation', async t => {
+  const f = await fixture(t);
+  // A/W/grant are the existing cold fixture premises. These real helper modules
+  // come from the source under test; staging does not claim a Product install.
+  const nativeRoot = join(f.workspaceBinding.roots.toolchainRoot, 'node_modules/@abiogenesis/typescript-tenant');
+  fs.mkdirSync(nativeRoot, { recursive: true });
+  fs.cpSync(resolve(import.meta.dirname, '../../build/code/src'), join(nativeRoot, 'build/code/src'),
+    { recursive: true, filter: path => fs.statSync(path).isDirectory() || path.endsWith('.js') });
+  fs.writeFileSync(join(nativeRoot, 'package.json'), JSON.stringify({ type: 'module' }));
+  fs.symlinkSync(resolve(import.meta.dirname, '../../node_modules'), join(nativeRoot, 'node_modules'), 'dir');
+  fs.mkdirSync(f.workspaceBinding.roots.productRoot);
+  fs.mkdirSync(f.workspaceBinding.roots.archiveRoot);
+  fs.writeFileSync(join(f.workspaceBinding.roots.productRoot, 'protected.txt'), 'unchanged Product fixture\n');
+  for (const [label, script, expected] of [
+    ['readonly', "process.stdout.write(require('node:fs').readFileSync('source.txt','utf8'))", 'success'],
+    ['unauthorized-write', "require('node:fs').writeFileSync('undeclared.txt','changed\\n')", 'territory_mismatch'],
+  ]) {
+    const task = p.constructObservedWorksiteCommandExecutionTask({ ...f.input, allowedWriteTerritories: [],
+      commands: [{ ...f.input.commands[0], executable: process.execPath, args: ['-e', script] }] });
+    assert(p.isObservedWorksiteCommandExecutionTask(JSON.parse(p.canonicalJson(task))));
+    assert.deepEqual(task.allowedWriteTerritories, []);
+    const occurrence = { cCallRef: `c-call://observed/zero-write/${label}`, runId: 'run://observed/zero-write',
+      graphCallId: 'graph-call://observed/zero-write', frameId: 'frame://observed/zero-write',
+      programLocusRef: ids.nodeRef, taskOrdinal: null, attempt: 1, executionAuthority: null };
+    realizeWorksiteCommandExecution(task, occurrence);
+    const attemptDigest = hash({ cCallRef: occurrence.cCallRef, runId: occurrence.runId,
+      graphCallId: occurrence.graphCallId, frameId: occurrence.frameId,
+      taskOrdinal: occurrence.taskOrdinal, attempt: occurrence.attempt });
+    const plan = worksiteCommandExecutionHelperPlan(task, `worksite-command-attempt://abiogenesis/${attemptDigest.slice(7)}`);
+    const execution = spawnSync(process.execPath, [plan.helperModulePath, '--task', join(dirname(plan.taskManifestPath), 'launch.json')],
+      { encoding: 'utf8', timeout: 10_000 });
+    assert.equal(execution.status, 0, execution.stderr);
+    const artifact = JSON.parse(fs.readFileSync(plan.artifactPath, 'utf8'));
+    assert.equal(p.isWorksiteExecutionHelperArtifact(task, artifact), true);
+    assert.equal(artifact.disposition, expected);
+    assert.equal(JSON.parse(execution.stdout).helperArtifactDigest, artifact.artifactDigest);
+    assert.equal(artifact.commandResults[0].exitStatus, 0);
+    assert.deepEqual(artifact.productDelta, []);
+    assert.deepEqual(artifact.protectedBefore, artifact.protectedAfter);
+    if (label === 'readonly') {
+      assert.deepEqual(artifact.worksiteDelta, []);
+      assert.equal(Buffer.from(artifact.commandResults[0].stdout.payload, 'base64').toString(), 'exact retained source.txt\n');
+    } else {
+      assert.deepEqual(artifact.worksiteDelta.map(row => [row.relativePath, row.changeKind, row.matchedTerritoryRef]),
+        [['undeclared.txt', 'created', null]]);
+      assert.equal(fs.existsSync(join(f.canonicalRoot, 'undeclared.txt')), false);
+    }
+    t.diagnostic(JSON.stringify({ case: label, taskDigest: task.taskDigest, artifactDigest: artifact.artifactDigest,
+      disposition: artifact.disposition, worksiteDelta: artifact.worksiteDelta.length, productDelta: artifact.productDelta.length }));
+  }
+  for (const row of f.input.observedFiles) {
+    assert.deepEqual(await owner.observeWorksiteSubject(f.workspaceAuthorityBasis, f.workspaceBinding, row.subject), row.observation);
+  }
 });
 
 test('observed C2 refuses foreign, absent, duplicate, mixed and writable source claims', async t => {

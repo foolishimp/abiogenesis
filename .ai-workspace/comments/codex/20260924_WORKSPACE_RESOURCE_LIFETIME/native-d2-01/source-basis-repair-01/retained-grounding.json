@@ -1,0 +1,53 @@
+{
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/retained-facts.json",
+  "sha256": "56ee43ceab70e71333309664d91f5c970c146bcade68f83e9a1a8eed00b6d819",
+  "scope": "Existing SB01 forensic facts only; no owner admission or new journal read",
+  "basisShape": {
+    "sourceRoot": {
+      "basisRef": "execution-basis://abiogenesis/57483d222cc969fb8d2d78797f06011dd4f3b3cc954eedf7cc5552c8dc377722",
+      "parentExecutionBasisRef": null,
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/77ce7846d226fcbc6210d4f512ac34bcd1f73eace60718adb00d5461dd50769b",
+      "invocationRef": "invocation://abiogenesis/05446ea5c0ce156702eafaa4a4919a6d7f7bbd5abd1098a0d7af23abccd5cf26",
+      "invocationDigest": "sha256:05446ea5c0ce156702eafaa4a4919a6d7f7bbd5abd1098a0d7af23abccd5cf26",
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "programDigest": "sha256:dbd93bf34f8ce3ffd9332cb0a436bf31a7e465437a2fae20b9c13b7b2021909c",
+      "rootImplementationSetRef": "implementation-set://abiogenesis/c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+      "rootImplementationSetDigest": "sha256:c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+      "workspaceBindingId": "workspace-binding://abiogenesis/4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826",
+      "workspaceBindingDigest": "sha256:4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826"
+    },
+    "parentBasis": {
+      "basisRef": "execution-basis://abiogenesis/d4dd6cd7b408fbf21c77010a3dce721fab61b42e115a2525a8f55bb513354383",
+      "parentExecutionBasisRef": "execution-basis://abiogenesis/7706e89916ac56bd7c12e35c66f25cc229e00e8a1232ccd0c87175bf582b0630",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/77ce7846d226fcbc6210d4f512ac34bcd1f73eace60718adb00d5461dd50769b",
+      "invocationRef": "invocation://abiogenesis/05446ea5c0ce156702eafaa4a4919a6d7f7bbd5abd1098a0d7af23abccd5cf26",
+      "invocationDigest": "sha256:05446ea5c0ce156702eafaa4a4919a6d7f7bbd5abd1098a0d7af23abccd5cf26",
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "programDigest": "sha256:dbd93bf34f8ce3ffd9332cb0a436bf31a7e465437a2fae20b9c13b7b2021909c",
+      "rootImplementationSetRef": "implementation-set://abiogenesis/c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+      "rootImplementationSetDigest": "sha256:c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+      "workspaceBindingId": "workspace-binding://abiogenesis/4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826",
+      "workspaceBindingDigest": "sha256:4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826"
+    },
+    "causeBasis": {
+      "basisRef": "execution-basis://abiogenesis/4d9114cb5713a6938f640c97d0380c775045e863d5ac5c1db0145907706e1da2",
+      "parentExecutionBasisRef": "execution-basis://abiogenesis/3c9bc9df8a5e3fd6bebdb9a5dd44613ed592f82499d3ef4200ada6373acf00f5",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/77ce7846d226fcbc6210d4f512ac34bcd1f73eace60718adb00d5461dd50769b",
+      "invocationRef": "invocation://abiogenesis/05446ea5c0ce156702eafaa4a4919a6d7f7bbd5abd1098a0d7af23abccd5cf26",
+      "invocationDigest": "sha256:05446ea5c0ce156702eafaa4a4919a6d7f7bbd5abd1098a0d7af23abccd5cf26",
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "programDigest": "sha256:dbd93bf34f8ce3ffd9332cb0a436bf31a7e465437a2fae20b9c13b7b2021909c",
+      "rootImplementationSetRef": "implementation-set://abiogenesis/c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+      "rootImplementationSetDigest": "sha256:c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+      "workspaceBindingId": "workspace-binding://abiogenesis/4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826",
+      "workspaceBindingDigest": "sha256:4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826"
+    }
+  },
+  "componentSubstitutions": [
+    "Generic ordinary job/candidate/assessment and temporary physical files replace original bootstrap content",
+    "Prefix ancestry, event/basis/install/invocation and leaf lookup are supplied component facts",
+    "Existing complete cover owner and event constructor execute over those facts; no genuine Public witness is admitted",
+    "New case preserves two descendant leaves, same original root/W0, unique rejected Requirements and advancing Product shape; intermediate tables are synthetic",
+    "No runtime or installed eligibility claim; actual original intermediate bases not reacquired"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-08T22:22:28.975425+00:00",
+  "role": "Operator130 actual execution after Root frozen130+closed133 conjunction",
+  "frame": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+  ],
+  "basis": "Fixed15 ABI5/GOAL035/T287/STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "publicInvocationRef": "invocation://abiogenesis/4328556a2301804d6c9913172fcd16473ae63523242ee8f4fc4502ebc6d03542",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/ed83216c5891b898792f36d8ac699a9b0d714153cf208177bbd504148ed7ca35",
+  "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+  "sourceRunRef": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+  "validatedRows": 50,
+  "materialRowsMatched": 48,
+  "mismatches": 0,
+  "sourceObservations": 30,
+  "priorActualDetections": 12,
+  "priorExactRestorations": 12,
+  "restoredGreenTests": 44,
+  "requiredDistinctMutants": 16,
+  "sameWorkspace": {
+    "digest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "ref": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+  },
+  "sameProgram": {
+    "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+  },
+  "sameView": {
+    "ref": "graph-function-catalog-view://abiogenesis/6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e",
+    "digest": "sha256:6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e"
+  },
+  "closedPrefix": {
+    "coordinateDigest": "sha256:834bbe5f643c1e0db7453e8d013b9a9e613a4fba6165c55fb2c4640dfb01a07a",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:89c73404ba4550a5b1fa7ece8149b7e0de2f8a2d34ac02506e22239e06bc92f4",
+    "prefixLength": 1398511166,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 468327400
+    }
+  },
+  "priorClock": {
+    "nativeT0": "2026-10-08T17:45:46.407Z",
+    "qualityCheckpoint": "2026-10-08T22:45:46.407Z"
+  },
+  "newClock": "commands/lifecycle-continuation.request.json.started +18000000ms quality window; not this activation timestamp",
+  "limits": {
+    "nativeMs": 18060000,
+    "nativeBytes": 268435456,
+    "outerMs": 19260000,
+    "outerBytes": 536870912
+  },
+  "quiescence": "  PID  PPID  PGID STAT COMM\n",
+  "selectedLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+  "selectedLockAbsent": true,
+  "noPhysicalCopyResetOrStateEdit": true,
+  "stopOrder": "Resolve actual admitted current C2 task/attempt/helper argv and live PID/PGID ancestry; C2/helper first, provider next with CLI alive for genuine exit admission/drain. No guessed/global signals.",
+  "sourceApplicability": "Actual prior source accepted during dynamic preparation; far-side admission pending"
+}

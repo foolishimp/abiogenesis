@@ -1,0 +1,55 @@
+### Executive Public handoff realization selection
+
+2026-09-30: Root declares Writer T287_S03_HANDOFF_REPAIR_CONTROLS_01 solely for
+this append, T-287 current pointers and new
+s03-public-handoff-repair-controls-01/{request-sections.json,request.txt}.
+Re-entry is realization_refactor of work records. Preimages:
+execution.md bce06d87a8ff33f394fd33eecdc1c0b8c752284c990e042193b6fbe8497831bc;
+T-287 bc44c234fba5cbeb6ca9b25a98311a29d646706abc87f40115a7a95492ea9f66.
+This Writer grants no source, native, package, install or Git effects of its own.
+
+Root consumes closed s03-public-handoff-intake-01.md, independently reacquired
+18544 bytes/SHA256 d73cabe239e15ba2dc2fbea596625622c6c237b5cd07cc57144c389e22db8c34.
+Accept the bounded absence finding across the current supported installed
+18-operation/56-member family: no runtime-value resolver exposes the admitted
+handoff omitted by the strict gaps projection. Rich native route data alone
+also omits the full basis value; the required join reaches the exact admitted
+NextActionBasis. The accepted correction/stop/conservation findings stand.
+
+Root independently read M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md status and
+Section12.5, and the operative ABI5 realization constitution. Existing HOW
+already requires replayed gap and lawful no-action basis in the side-effect-free
+Public read. Its aligned read/owner obligation remains current; the historical
+serialized PublicGapAuthority implementation is not the remedy. Thus select
+realization_refactor under existing HOW, not another design cycle. A changed
+strict carrier is not itself evidence of missing design authority. A newly
+demonstrated structural/semantic/authority decision would require its actual
+re-entry before implementation.
+
+The supported originating defect is an incomplete realization of the existing
+ABG-owned read contract: stopped Run/route to no-action to admitted basis/gap
+content is reduced to refs before ordinary caller consumption. Proof escape is
+the independently valid internal-content check plus Public-status check with
+their connecting relation absent. Original Phase A grant explicitly requested
+fresh Public handoff reads; its return instead proposed internal rendering,
+and Root released it. Repair02 repeated that separation. This is a concrete
+Executive/proof decision failure and operational siloing; new methodology law
+or delegation itself is not established as the missing cause.
+
+Select one Worker change in the three ABG project_read owner files and S03
+support/test, with preimages and a frozen source/component-proof return.
+The full affected cone includes shared workspace_gaps contract/projection,
+generated schema/family/package identity, actual admitted identity/provenance,
+thin caller rendering and final installed proof. Field/helper choices remain
+Worker realization choices. No fixture/oracle/traversal/admission change, new
+operation or controller is selected. Component proof uses the immutable566-event
+snapshot, meaningful wrong/missing-basis cases and positive gap absence. Bind
+the changed reader to the retained historical workload identity law before
+proposing its later native call; do not assume arbitrary history transplantation
+or replacement of installed Product bytes is lawful.
+
+Independent review follows one closed source cut. The accepted source change
+feeds the already prepared single final-candidate build. Actual supported
+installed handoff access remains open until its separate native proof; source
+checks cannot close it. No accepted positive/Hello restart, throwaway core
+package or broad scenario campaign is selected by this grant.

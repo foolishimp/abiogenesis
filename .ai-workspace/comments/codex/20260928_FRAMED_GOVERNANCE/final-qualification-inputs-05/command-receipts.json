@@ -1,0 +1,59 @@
+{
+  "kind": "mechanical_command_receipts",
+  "commandsExecuted": 2,
+  "qualificationCommandsExecuted": 0,
+  "receipts": [
+    {
+      "ordinal": 0,
+      "purpose": "pinned mechanical tool identity",
+      "executable": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+      "args": [
+        "--version"
+      ],
+      "timeoutMs": 30000,
+      "startedAt": "2026-10-02T01:33:29.103076+00:00",
+      "elapsedMs": 24.145166855305433,
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdout": {
+        "path": "node-version.stdout",
+        "bytes": 8,
+        "sha256": "ebd5e9829a4e69c868f1b38781f18579f6ac9fe4257b3601dfff8ae71327c297"
+      },
+      "stderr": {
+        "path": "node-version.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "ordinal": 1,
+      "purpose": "one complete published-owner readiness driver",
+      "executable": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/readiness-driver.mjs"
+      ],
+      "timeoutMs": 120000,
+      "startedAt": "2026-10-02T01:33:29.127322+00:00",
+      "elapsedMs": 10440.75429206714,
+      "exitStatus": 0,
+      "timedOut": false,
+      "terminationConfirmed": true,
+      "stdout": {
+        "path": "readiness.stdout",
+        "bytes": 218,
+        "sha256": "9b39177523ffd1fd3c2f07bfb7d9987f21173c1d9183c99e5027f15528ba3a71"
+      },
+      "stderr": {
+        "path": "readiness.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "childrenMaxRSSBytesMacOS": 1243250688,
+  "childrenUserSeconds": 11.249238,
+  "childrenSystemSeconds": 4.5045649999999995,
+  "scope": "version process and one Node readiness driver only"
+}

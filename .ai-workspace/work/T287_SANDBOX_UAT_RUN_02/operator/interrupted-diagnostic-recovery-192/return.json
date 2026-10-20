@@ -1,0 +1,79 @@
+{
+  "status": "CLOSED_CANONICAL_MAINTENANCE_RECOVERY_PASS",
+  "ProductFrame": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2;Product817–867/CONT014–016;identity/lifecycle/effects/Proof",
+  "causeAction": "Frozen189 heap abort adopted then abandoned exact lock. Root conjoined190/191 RCA and selected unchanged canonical maintenance recovery through actual installed27; not a semantic retry or Source/app repair.",
+  "method": "Frozen160 request/scope/resolved-admission-authority path with literal current27/185/189 controls; SDK performs actual owner verification before necessary history validation, no duplicate standalone verifier or manual log read/hash/reparse.",
+  "execution": {
+    "started": "2026-10-09T09:12:43.199Z",
+    "wallMs": 53956.992625,
+    "sdkWallMs": 53853.475208,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "requestDigest": "sha256:a7b4a47c31f29d6333124f3a617b9786e8cc72ca95866586ea9d075adf1baa47",
+    "scopeDigest": "sha256:ba6cd285049080c1c1c36446631f21f851982a65fd277d20de83103adcff339c"
+  },
+  "actualReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/recovery-receipt.json",
+    "sha256": "ed0f0700367d5b0fd5716ffa87cb79944859047339fa3ccc03a44fd2eefd08df",
+    "byteCount": 5202
+  },
+  "finalCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/readiness.json",
+    "sha256": "035bdc29c8bf399378b0875c14c7b50f722441e864278a51eb67fb315877444b",
+    "byteCount": 1253
+  },
+  "quiescence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/owned-process-exit.json",
+    "sha256": "ea2f03d6f27f779372e8b459ae3f64b886242f491677e579ea7743c74027ebbe",
+    "byteCount": 1406
+  },
+  "validatedEventCount": 206699,
+  "sameFull185Handoff": true,
+  "logStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1690085978,
+    "mtimeNs": "1791531873723955484",
+    "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+    "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a"
+  },
+  "physicalConservation": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/conservation.json",
+      "sha256": "cd76a98e94ecdc9c302752b794eea87e353fbced55a255cebef8484bb0af4191",
+      "byteCount": 14340
+    },
+    "rowCount": 49,
+    "sameRows": true,
+    "appOrOriginalSourceChanges": false
+  },
+  "memory": {
+    "sdkReturnSample": {
+      "rss": 4679860224,
+      "heapTotal": 2654912512,
+      "heapUsed": 2534720120,
+      "external": 1692547358,
+      "arrayBuffers": 1690135051
+    },
+    "sdkReturnReportedMaxRSSKiB": 4576224,
+    "completeReportedMaxRSSKiB": 4576224,
+    "limits": "Maintenance process only; no installed native/global capacity/P0 closure attribution"
+  },
+  "effects": {
+    "selectedDeadLockRecoveredAndReleased": true,
+    "logAppend": false,
+    "publicSetupWitnessInstallPreparation": false,
+    "nativeRunModelAppSourceGit": false
+  },
+  "remaining": "Private Product preparation/capacity/native/C2/UAT remain OPEN. No further execution/repair/retry authorized.",
+  "stop": true
+}

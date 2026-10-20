@@ -1,0 +1,688 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts b/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
+index 247a41a4..1d049abe 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
+@@ -388,3 +388,251 @@ export function admitConstructionContinuationReentry(store: AbgEventStore, prede
+   });
+   return Object.freeze({ continuation: admitted.value, successorPrefix: admitted.successorPrefix! });
+ }
++
++import { projectAdmittedTraversalCursorAtPrefix, projectTraversalInputAtPrefix } from "./traversal_cursor.js";
++import { projectAdmittedWorkspaceBindingAtCoordinate, projectWitnessedWorkspaceBindingCover } from "./worksite_revision.js";
++
++/** A selected route is the occurrence. This projection neither opens another
++ * intent nor grants permission to run it. */
++export interface SelectedActionContinuation {
++  readonly continuationKind: "selected_action";
++  readonly continuationRef: string;
++  readonly continuationDigest: Sha256Digest;
++  readonly runId: string;
++  readonly graphCallId: string;
++  readonly frameId: string;
++  readonly cCallRef: string;
++  readonly heldCursorRef: string;
++  readonly heldCursorDigest: Sha256Digest;
++  readonly executionBasisRef: string;
++  readonly executionBasisDigest: Sha256Digest;
++  readonly constructionIntentRef: string;
++  readonly constructionIntentDigest: Sha256Digest;
++  readonly selectedActionRef: string;
++  readonly selectedActionDigest: Sha256Digest;
++  readonly intentAdmissionEventRef: string;
++  readonly causedByEventRef: string;
++  readonly openedEventRef: string;
++  readonly terminalEventRef: string | null;
++  readonly status: "open" | "consumed" | "resolved" | "superseded" | "abandoned";
++}
++
++export function projectSelectedActionContinuations(prefix: ValidatedRuntimeEventPrefix,
++  runId: string): readonly SelectedActionContinuation[] {
++  const events = indexedRuntimeEvents(prefix, "run:" + runId);
++  const operations = indexedRuntimeEvents(prefix, "kind:public_operation_admitted").filter(e =>
++    isRecord(e.payload) && e.payload.continuationKind === "selected_action");
++  return Object.freeze(events.filter(e => e.kind === "construction_intent_selected").flatMap(selected => {
++    const p = selected.payload;
++    if (!isRecord(p) || !isRecord(p.constructionIntent) || !isRecord(p.nextActionProjection) ||
++      typeof selected.basisId !== "string" || typeof selected.graphCallId !== "string" || typeof selected.frameId !== "string" ||
++      typeof p.targetCursorRef !== "string" || typeof p.targetCursorDigest !== "string" ||
++      typeof p.constructionIntentRef !== "string" || typeof p.constructionIntentDigest !== "string" ||
++      typeof p.nextActionProjectionRef !== "string" || typeof p.nextActionProjectionDigest !== "string") return [];
++    const basis = projectExactExecutionBasisAtPrefix(prefix, selected.basisId);
++    const route = one(events.filter(e => e.kind === "traversal_route_admitted" && selected.causationEventRefs.includes(e.eventId)));
++    if (basis === null || basis.constructionComposition === null || route === null || !isRecord(route.payload) ||
++      route.basisId !== basis.basisRef || route.frameId !== selected.frameId || route.graphCallId !== selected.graphCallId ||
++      route.admissionOrdinal >= selected.admissionOrdinal || route.payload.routeRef !== p.routeRef ||
++      route.payload.targetCursorRef !== p.targetCursorRef || route.payload.targetCursorDigest !== p.targetCursorDigest ||
++      typeof route.payload.cCallRef !== "string" || p.constructionIntent.actionKind !== "invoke_graph_function" ||
++      p.constructionIntent.runId !== runId || p.constructionIntent.executionBasisRef !== basis.basisRef ||
++      p.constructionIntent.targetCursorRef !== p.targetCursorRef || p.constructionIntent.targetCursorDigest !== p.targetCursorDigest ||
++      p.constructionIntent.nextActionProjectionRef !== p.nextActionProjectionRef ||
++      p.constructionIntent.nextActionProjectionDigest !== p.nextActionProjectionDigest) return [];
++    const { constructionIntentRef, constructionIntentDigest, ...intentBody } = p.constructionIntent;
++    const { projectionRef, projectionDigest, ...selectionBody } = p.nextActionProjection;
++    if (constructionIntentRef !== p.constructionIntentRef || constructionIntentDigest !== p.constructionIntentDigest ||
++      hash(intentBody) !== constructionIntentDigest || projectionRef !== p.nextActionProjectionRef ||
++      projectionDigest !== p.nextActionProjectionDigest || hash(selectionBody) !== projectionDigest) return [];
++    const body = { continuationKind: "selected_action" as const, runId, graphCallId: selected.graphCallId,
++      frameId: selected.frameId, cCallRef: route.payload.cCallRef, heldCursorRef: p.targetCursorRef,
++      heldCursorDigest: p.targetCursorDigest as Sha256Digest, executionBasisRef: basis.basisRef,
++      executionBasisDigest: basis.basisDigest, constructionIntentRef: p.constructionIntentRef,
++      constructionIntentDigest: p.constructionIntentDigest as Sha256Digest,
++      selectedActionRef: p.nextActionProjectionRef, selectedActionDigest: p.nextActionProjectionDigest as Sha256Digest,
++      intentAdmissionEventRef: selected.eventId, causedByEventRef: route.eventId };
++    const continuationDigest = hash(body), continuationRef = `continuation://abiogenesis/${continuationDigest.slice(7)}`;
++    const superseded = one(indexedRuntimeEvents(prefix, "aggregate:continuation:" + continuationRef)
++      .filter(e => e.kind === "continuation_superseded"));
++    const delta = events.find(e => e.kind === "construction_delta_observed" && isRecord(e.payload) &&
++      e.payload.constructionIntentRef === constructionIntentRef && e.payload.constructionIntentDigest === constructionIntentDigest);
++    const consumption = operations.find(e => isRecord(e.payload) &&
++      (e.payload.continuationRef === continuationRef || e.payload.currentContinuationRef === continuationRef));
++    const call = events.find(e => e.kind === "c_call_opened" && e.frameId === selected.frameId && isRecord(e.payload) &&
++      e.payload.cursorRef === p.targetCursorRef && e.payload.cursorDigest === p.targetCursorDigest);
++    const departed = events.find(e => e.kind === "traversal_route_admitted" && e.frameId === selected.frameId &&
++      e.admissionOrdinal > selected.admissionOrdinal);
++    const terminal = events.find(e => ["run_closed", "run_stopped", "runtime_failure_observed"].includes(e.kind) && e.aggregateType === "run");
++    const status: SelectedActionContinuation["status"] = superseded !== null ? "superseded" : delta !== undefined ? "resolved" :
++      call !== undefined || consumption !== undefined ? "consumed" : terminal !== undefined || departed !== undefined ? "abandoned" : "open";
++    return [deepFreeze({ ...body, continuationRef, continuationDigest, openedEventRef: selected.eventId,
++      terminalEventRef: superseded?.eventId ?? delta?.eventId ?? consumption?.eventId ?? call?.eventId ?? terminal?.eventId ?? departed?.eventId ?? null, status })];
++  }));
++}
++
++type SelectedCoordinate = Readonly<{ ref: string; digest: string }>;
++export type SelectedActionUseRequest = Readonly<{ run: SelectedCoordinate; continuation: SelectedCoordinate;
++  selectedAction: SelectedCoordinate; basisRelation: Readonly<{ kind: "same_basis" }> |
++    Readonly<{ kind: "authority_changed"; coveringReprice: SelectedCoordinate }> }>;
++
++/** Same owner predicate for new admission and cold operation correspondence. A
++ * covering witness never substitutes for a fresh current semantic selection. */
++export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest) {
++  const source = projectSelectedActionContinuations(prefix, request.run.ref).find(c =>
++    c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
++  if (source === undefined) return { kind: "refused" as const, code: "missing_continuation" as const };
++  if (source.status !== "open") return { kind: "refused" as const, code: "resolved_continuation" as const };
++  const sourceScope = projectOpenedTraversalScopeForFrameAtPrefix(prefix, source.frameId);
++  if (sourceScope?.runDigest !== request.run.digest) return { kind: "refused" as const, code: "basis_mismatch" as const };
++  const sourceBasis = projectExactExecutionBasisAtPrefix(prefix, source.executionBasisRef);
++  const selectedRows = indexedRuntimeEvents(prefix, "kind:construction_intent_selected").filter(e => isRecord(e.payload) &&
++    e.payload.nextActionProjectionRef === request.selectedAction.ref && e.payload.nextActionProjectionDigest === request.selectedAction.digest);
++  const candidates = selectedRows.flatMap(e => typeof e.runId === "string" ? projectSelectedActionContinuations(prefix, e.runId)
++    .filter(c => c.intentAdmissionEventRef === e.eventId) : []);
++  const current = candidates.length === 1 ? candidates[0] : undefined;
++  if (current === undefined || current.status !== "open") return { kind: "refused" as const, code: "stale_action" as const };
++  const currentBasis = projectExactExecutionBasisAtPrefix(prefix, current.executionBasisRef);
++  if (sourceBasis === null || currentBasis === null) return { kind: "refused" as const, code: "basis_mismatch" as const };
++  let coveringEventRef: string | null = null;
++  if (request.basisRelation.kind === "same_basis") {
++    if (source.continuationRef !== current.continuationRef || sourceBasis.basisRef !== currentBasis.basisRef)
++      return { kind: "refused" as const, code: "action_mismatch" as const };
++  } else {
++    const before = projectAdmittedWorkspaceBindingAtCoordinate(prefix, sourceBasis.workspaceBindingId, sourceBasis.workspaceBindingDigest);
++    const after = projectAdmittedWorkspaceBindingAtCoordinate(prefix, currentBasis.workspaceBindingId, currentBasis.workspaceBindingDigest);
++    const covers = before === null || after === null ? null : projectWitnessedWorkspaceBindingCover(prefix, before, after, [sourceBasis]);
++    // The witness result coordinate is the admitted act, not a caller's assertion.
++    const coordinate = request.basisRelation.coveringReprice;
++    const witness = one(indexedRuntimeEvents(prefix, "kind:declaration_reprice_admitted").filter(e =>
++      covers?.includes(e.eventId) && isRecord(e.payload) && e.payload.witnessedActRef === coordinate.ref && e.payload.witnessedActDigest === coordinate.digest));
++    const sourceEvent = indexedRuntimeEvents(prefix, "kind:construction_intent_selected").find(e => e.eventId === source.intentAdmissionEventRef);
++    const currentEvent = selectedRows[0];
++    const oldSelection = isRecord(sourceEvent?.payload) ? sourceEvent.payload.nextActionProjection : null;
++    const selection = isRecord(currentEvent?.payload) ? currentEvent.payload.nextActionProjection : null;
++    if (source.continuationRef === current.continuationRef || witness === null || currentEvent === undefined ||
++      witness.admissionOrdinal <= (sourceEvent?.admissionOrdinal ?? Infinity) || currentEvent.admissionOrdinal <= witness.admissionOrdinal ||
++      !isRecord(oldSelection) || !isRecord(selection) || !Array.isArray(selection.lawfulBasisRefs) ||
++      !selection.lawfulBasisRefs.includes(source.continuationRef) || !selection.lawfulBasisRefs.includes(coordinate.ref) ||
++      selection.targetOutcomeRef !== oldSelection.targetOutcomeRef || !Array.isArray(oldSelection.targetObligationRefs) ||
++      !Array.isArray(selection.targetObligationRefs) || !oldSelection.targetObligationRefs.every(r => (selection.targetObligationRefs as JsonValue[]).includes(r)))
++      return { kind: "refused" as const, code: "reprice_mismatch" as const };
++    coveringEventRef = witness.eventId;
++  }
++  const invocation = projectExactInvocationAdmissionAtPrefix(prefix, currentBasis.invocationAdmissionRef);
++  if (invocation === null) return { kind: "refused" as const, code: "basis_mismatch" as const };
++  return Object.freeze({ kind: "selected_action_use" as const, source, current, sourceBasis, currentBasis, invocation, coveringEventRef, request });
++}
++
++const selectedPreparations = new WeakSet<object>();
++export function prepareSelectedActionContinuation(prefix: ValidatedRuntimeEventPrefix,
++  use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution) {
++  const root = rehydrateExecutionBasisAtPrefix(prefix, use.currentBasis.basisRef);
++  if (root === null || root.basisClass !== "root" || root.constructionContinuationUse !== undefined ||
++    root.programRef !== resolution.program.programRef || root.programDigest !== hash(resolution.program) ||
++    root.programValidationRef !== resolution.programValidation.validationRef || root.graphFunctionRef !== resolution.graphFunction.name) return null;
++  const graph = materializeGraph(resolution.graphFunction, { invocationAdmissionRef: root.invocationAdmissionRef,
++    admittedInputRef: root.rawInputAdmissionRef, admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue });
++  const graphValidation = validateGraph(graph, resolution.programValidation, resolution.graphFunction, {
++    invocationAdmissionRef: root.invocationAdmissionRef, admittedInputRef: root.rawInputAdmissionRef,
++    admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue });
++  if (graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== root.graphValidationRef ||
++    graph.materializationRef !== root.graphRef || graph.materializationDigest !== root.graphDigest) return null;
++  const selected = use.current;
++  const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, graph, { cursorRef: selected.heldCursorRef,
++    cursorDigest: selected.heldCursorDigest, executionBasisRef: root.basisRef, runId: selected.runId,
++    graphCallId: selected.graphCallId, frameId: selected.frameId });
++  const input = cursor === null ? null : projectTraversalInputAtPrefix(prefix, graph, root, cursor);
++  const intent = cursor === null ? null : rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
++  const term = cursor === null ? null : resolveCProgramTermAtSourcePath(graph.template, cursor.currentNodeRef, cursor.termPath);
++  const scope = projectOpenedTraversalScopeForFrameAtPrefix(prefix, selected.frameId);
++  const implementationSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, root.rootImplementationSetRef);
++  const interactionSet = rehydrateAdmittedInteractionSetAtPrefix(prefix, root.rootInteractionSetRef);
++  if (cursor === null || input === null || intent === null || term?.kind !== "c_workflow" || scope === null ||
++    implementationSet === null || interactionSet === null || !isRecord(input.value) ||
++    intent.constructionIntentRef !== selected.constructionIntentRef || intent.selectedGraphFunctionRef !== term.graphFunctionRef) return null;
++  const result = Object.freeze({ use, root, graph, graphValidation, cursor, input, inputValue: input.value, intent, term, scope, implementationSet, interactionSet, resolution, predecessorDigest: runtimeEventPrefixDigest(prefix) });
++  selectedPreparations.add(result);
++  return result;
++}
++export type PreparedSelectedActionContinuation = NonNullable<ReturnType<typeof prepareSelectedActionContinuation>>;
++
++export function admitSelectedActionContinuationOperation(store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
++  prepared: PreparedSelectedActionContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis) {
++  const { use } = prepared, { invocation, source, current } = use;
++  if (!selectedPreparations.has(prepared) || runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix))) !== prepared.predecessorDigest || validatePublicOperationBasis(basis, "abg.operation.run.continue", "selected_action") !== null ||
++    !isCapabilityGrantValue(grant) || grant.operationId !== "abg.operation.run.continue" || grant.actorRef !== invocation.actorRef ||
++    grant.policyRef !== invocation.policyRef || basis.authorityScopeRef !== invocation.workspaceBindingId ||
++    basis.authorityScopeDigest !== invocation.workspaceBindingDigest)
++    throw new TypeError("selected-action use requires exact current work and separate operation authority");
++  return admitRuntimeEventTransactionAtDurablePrefix(store, predecessorPrefix, () => {
++    const operation = admitRuntimeEvent(store, {
++      kind: "public_operation_admitted", eventTime: basis.eventTime, aggregateType: "workspace",
++      aggregateId: invocation.workspaceBindingId, parentAggregateId: basis.invocationRef,
++      causationEventRefs: [invocation.admissionEventRef, source.openedEventRef, ...(current.openedEventRef === source.openedEventRef ? [] : [current.openedEventRef]),
++        ...(use.coveringEventRef === null ? [] : [use.coveringEventRef]), ...basis.causationEventRefs], correlationId: basis.correlationId,
++      workflowVersion: "5.0.0", scopeClass: "workspace", basisId: invocation.authorityRef,
++      payload: {
++        operationId: "abg.operation.run.continue", memberKey: "selected_action", variant: "selected_action", continuationKind: "selected_action",
++        continuationRef: source.continuationRef, continuationDigest: source.continuationDigest,
++        currentContinuationRef: current.continuationRef, currentContinuationDigest: current.continuationDigest,
++        sourceRunId: source.runId, sourceRunDigest: use.request.run.digest, currentRunId: current.runId,
++        selectedActionRef: current.selectedActionRef, selectedActionDigest: current.selectedActionDigest,
++        currentIntentRef: current.constructionIntentRef, currentIntentDigest: current.constructionIntentDigest,
++        executionBasisRef: prepared.root.basisRef, executionBasisDigest: prepared.root.basisDigest,
++        basisRelation: use.request.basisRelation as unknown as JsonValue,
++        definitionDigest: basis.definitionDigest, invocationRef: basis.invocationRef,
++        invocationPayloadDigest: basis.invocationPayloadDigest, invocationDigest: basis.invocationDigest,
++        actorRef: grant.actorRef, authorityRef: invocation.authorityRef, authorityDigest: invocation.authorityDigest,
++        capabilityGrantRefs: [grant.grantRef], capabilityGrant: grant as unknown as JsonValue, capabilityRef: grant.capabilityRef,
++        policyRef: invocation.policyRef, policyDigest: invocation.policyDigest,
++        workspaceBindingId: invocation.workspaceBindingId, workspaceBindingDigest: invocation.workspaceBindingDigest,
++        catalogBasisRef: invocation.catalogBasisRef, catalogBasisDigest: invocation.catalogBasisDigest,
++        catalogViewId: invocation.catalogViewId, catalogViewDigest: invocation.catalogViewDigest,
++        programRef: invocation.programRef, programDigest: invocation.programDigest,
++        graphFunctionRef: invocation.graphFunctionRef, graphFunctionDigest: invocation.graphFunctionDigest,
++      },
++    });
++    if (source.continuationRef !== current.continuationRef) admitRuntimeEvent(store, {
++      kind: "continuation_superseded", eventTime: basis.eventTime, aggregateType: "continuation", aggregateId: source.continuationRef,
++      parentAggregateId: source.frameId, causationEventRefs: [source.openedEventRef, operation.eventId], correlationId: basis.correlationId,
++      workflowVersion: "5.0.0", scopeClass: "run", basisId: source.executionBasisRef,
++      runId: source.runId, graphCallId: source.graphCallId, frameId: source.frameId,
++      payload: { continuationRef: source.continuationRef, continuationDigest: source.continuationDigest,
++        continuationKind: "selected_action", constructionIntentRef: source.constructionIntentRef, terminalDisposition: "superseded",
++        candidateRef: basis.invocationRef, candidateDigest: basis.invocationDigest, causedByEventRef: source.openedEventRef },
++    });
++    return operation;
++  });
++}
++
++/** Cold validation consumes the same admission relation at its actual predecessor. */
++export function projectSelectedActionOperation(prefix: ValidatedRuntimeEventPrefix, operation: RuntimeEvent) {
++  const p = operation.payload;
++  if (operation.kind !== "public_operation_admitted" || !isRecord(p) || p.continuationKind !== "selected_action" ||
++    p.operationId !== "abg.operation.run.continue" || p.memberKey !== "selected_action" ||
++    typeof p.sourceRunId !== "string" || typeof p.sourceRunDigest !== "string" ||
++    typeof p.continuationRef !== "string" || typeof p.continuationDigest !== "string" ||
++    typeof p.selectedActionRef !== "string" || typeof p.selectedActionDigest !== "string" ||
++    !isRecord(p.basisRelation) || (p.basisRelation.kind !== "same_basis" &&
++      (p.basisRelation.kind !== "authority_changed" || !isRecord(p.basisRelation.coveringReprice))) ||
++    !isCapabilityGrantValue(p.capabilityGrant) || typeof p.invocationRef !== "string" || typeof p.invocationDigest !== "string") return null;
++  const before = validatedRuntimeEventPrefixBeforeEvent(prefix, operation.eventId);
++  const use = selectPendingActionUse(before, { run: { ref: p.sourceRunId, digest: p.sourceRunDigest },
++    continuation: { ref: p.continuationRef, digest: p.continuationDigest }, selectedAction: { ref: p.selectedActionRef, digest: p.selectedActionDigest },
++    basisRelation: p.basisRelation as unknown as SelectedActionUseRequest["basisRelation"] });
++  if (use.kind !== "selected_action_use" || p.currentContinuationRef !== use.current.continuationRef ||
++    p.currentContinuationDigest !== use.current.continuationDigest || p.currentRunId !== use.current.runId ||
++    p.currentIntentRef !== use.current.constructionIntentRef || p.currentIntentDigest !== use.current.constructionIntentDigest ||
++    p.executionBasisRef !== use.currentBasis.basisRef || p.executionBasisDigest !== use.currentBasis.basisDigest ||
++    p.authorityRef !== use.invocation.authorityRef || p.authorityDigest !== use.invocation.authorityDigest ||
++    p.policyRef !== use.invocation.policyRef || p.policyDigest !== use.invocation.policyDigest ||
++    p.actorRef !== use.invocation.actorRef || p.capabilityGrant.actorRef !== use.invocation.actorRef ||
++    p.capabilityGrant.policyRef !== use.invocation.policyRef || p.capabilityGrant.operationId !== "abg.operation.run.continue" ||
++    operation.aggregateId !== use.invocation.workspaceBindingId || operation.basisId !== use.invocation.authorityRef ||
++    !operation.causationEventRefs.includes(use.invocation.admissionEventRef) || !operation.causationEventRefs.includes(use.source.openedEventRef) ||
++    !operation.causationEventRefs.includes(use.current.openedEventRef) || (use.coveringEventRef !== null && !operation.causationEventRefs.includes(use.coveringEventRef))) return null;
++  return { operationId: "abg.operation.run.continue" as const, publicInvocationRef: p.invocationRef,
++    ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
++    publicOperationEventRef: operation.eventId, admissionEventRef: operation.eventId };
++}
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts b/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts
+index 1a68f859..88551d72 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts
+@@ -1,3 +1,4 @@
++import { projectSelectedActionOperation } from "./construction_continuation.js";
+ import { isRecord } from "../shared/admission_predicates.js";
+ import type { Sha256Digest } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -206,6 +207,12 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
+       ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
+       publicOperationEventRef: operation.eventId, admissionEventRef: basis.admissionEventRef });
+   }
++  for (const operation of events.filter(e => e.kind === "public_operation_admitted" &&
++    isRecord(e.payload) && e.payload.continuationKind === "selected_action")) {
++    const fact = projectSelectedActionOperation(validatedPrefix, operation);
++    if (fact === null) return invalidHistory(prefix, invocationRef, "invocation_pair_invalid", [operation.eventId]);
++    facts.push(fact);
++  }
+   const byPublicRef = new Map<string, EffectfulPublicInvocationPriorAdmission[]>();
+   for (const fact of facts) {
+     const held = byPublicRef.get(fact.publicInvocationRef) ?? [];
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts b/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts
+index 630f413b..e88a358f 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts
+@@ -332,7 +332,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
+   },
+   continuation_superseded: {
+     initiates: ["continuation_superseded"],
+-    terminates: ["continuation_open", "interaction_pending", "continuation_response_available"], clips: [], declips: [],
++    terminates: ["continuation_open", "interaction_pending", "continuation_response_available", "construction_intent_available"], clips: [], declips: [],
+   },
+   continuation_reentry_link_admitted: {
+     initiates: ["continuation_reentry_link_available"],
+@@ -1249,6 +1249,8 @@ function eventCalculusEffectRefs(
+               fluent("continuation_open", continuationRef),
+               fluent("interaction_pending", continuationRef),
+               fluent("continuation_response_available", continuationRef),
++              ...(stringField(event, "continuationKind") === "selected_action" && stringField(event, "constructionIntentRef") !== null
++                ? [fluent("construction_intent_available", stringField(event, "constructionIntentRef")!)] : []),
+             ],
+         clips: [], declips: [],
+       };
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts b/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
+index 6214421d..27009281 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
+@@ -1113,7 +1113,15 @@ export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContr
+     ...LEGACY_ROOT_EVENT_CONTRACTS.public_operation_admitted,
+     payloadVariants: [...LEGACY_ROOT_EVENT_CONTRACTS.public_operation_admitted.payloadVariants,
+       payloadVariant(payloadKeys("actorRef authorityDigest authorityRef capabilityGrant capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationKind continuationRef continuationDigest currentIntentRef currentIntentDigest definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId"),
+-        undefined, { operationId: "abg.operation.run.continue", memberKey: "current_intent", continuationKind: "construction_intent" })],
++        undefined, { operationId: "abg.operation.run.continue", memberKey: "current_intent", continuationKind: "construction_intent" }),
++      payloadVariant(payloadKeys("actorRef authorityDigest authorityRef capabilityGrant capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationKind continuationRef continuationDigest currentContinuationRef currentContinuationDigest sourceRunId sourceRunDigest currentRunId selectedActionRef selectedActionDigest currentIntentRef currentIntentDigest executionBasisRef executionBasisDigest basisRelation definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId"),
++        undefined, { operationId: "abg.operation.run.continue", memberKey: "selected_action", continuationKind: "selected_action" })],
++  },
++  continuation_superseded: {
++    ...LEGACY_ROOT_EVENT_CONTRACTS.continuation_superseded,
++    payloadVariants: [...LEGACY_ROOT_EVENT_CONTRACTS.continuation_superseded.payloadVariants,
++      payloadVariant(payloadKeys("candidateDigest candidateRef causedByEventRef constructionIntentRef continuationDigest continuationKind continuationRef terminalDisposition"),
++        undefined, { continuationKind: "selected_action", terminalDisposition: "superseded" })],
+   },
+   traversal_cursor_entered: {
+     ...LEGACY_ROOT_EVENT_CONTRACTS.traversal_cursor_entered,
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts b/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts
+index b39228b4..8a85d84b 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts
+@@ -292,7 +292,7 @@ function exactLifecycleEnvelope(
+   opened: RuntimeEvent,
+   basisId: string,
+ ): boolean {
+-  return event.aggregateType === "continuation" && (!isRecord(event.payload) || event.payload.continuationKind !== "construction_intent") &&
++  return event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind)))) &&
+     event.aggregateId === opened.aggregateId &&
+     event.parentAggregateId === opened.frameId &&
+     event.workflowVersion === "5.0.0" && event.scopeClass === "run" &&
+@@ -540,7 +540,7 @@ export function projectFhContinuations(
+ ): readonly ReplayContinuationState[] {
+   const allEvents = runtimeEventsFromValidatedPrefix(prefix);
+   const events = allEvents.filter((event) =>
+-    event.aggregateType === "continuation" && (!isRecord(event.payload) || event.payload.continuationKind !== "construction_intent")
++    event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))))
+   );
+   const refs = [...new Set(events.map((event) => event.aggregateId))];
+   return refs.map((continuationRef) => {
+@@ -795,7 +795,7 @@ export function projectFhEffectfulPublicInvocationFacts(
+   const events = runtimeEventsFromValidatedPrefix(prefix);
+   const publicEvents = events.filter((event) =>
+     event.kind === "public_operation_admitted" &&
+-    isRecord(event.payload) && event.payload.continuationKind !== "construction_intent" &&
++    isRecord(event.payload) && !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))) &&
+     (
+       event.payload.operationId === "abg.operation.interaction.respond" ||
+       event.payload.operationId === "abg.operation.run.continue"
+@@ -815,7 +815,7 @@ export function projectFhEffectfulPublicInvocationFacts(
+   }>[];
+   try {
+     const continuationEvents = events.filter((event) =>
+-      event.aggregateType === "continuation" && (!isRecord(event.payload) || event.payload.continuationKind !== "construction_intent")
++      event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))))
+     );
+     const continuationRefs = [
+       ...new Set(continuationEvents.map((event) => event.aggregateId)),
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts b/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
+index cd84fc56..41f15860 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
+@@ -1,4 +1,4 @@
+-import { projectConstructionIntentContinuations, type ConstructionIntentContinuation } from "./construction_continuation.js";
++import { projectConstructionIntentContinuations, projectSelectedActionContinuations, type SelectedActionContinuation, type ConstructionIntentContinuation } from "./construction_continuation.js";
+ import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_provenance.js";
+ import { isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+ import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion } from "./registered_selection_provenance.js";
+@@ -414,7 +414,7 @@ export interface ReplayState {
+   readonly routes: readonly ReplayRouteState[];
+   readonly constructionDeltas: readonly ReplayConstructionDeltaState[];
+   readonly fanOutCompletions: readonly FanOutCompletionAdmission[];
+-  readonly continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation)[];
++  readonly continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation | SelectedActionContinuation)[];
+   readonly actorProcesses: readonly ReplayActorProcessState[];
+   readonly currentWorksiteObservations: readonly ReplayCurrentWorksiteObservation[];
+   readonly activeFluents: readonly string[];
+@@ -1126,7 +1126,8 @@ function deriveReplayPrefixFacts(
+ 
+   const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
+   const continuations = [...projectFhContinuations(prefix, eventCalculus, authorityPrefix),
+-    ...projectConstructionIntentContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? "")];
++    ...projectConstructionIntentContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? ""),
++    ...projectSelectedActionContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? "")];
+   const graphCallOpen = indexedRuntimeEvents(prefix, "kind:graph_call_opened").find(
+     (event) =>
+       event.kind === "graph_call_opened" &&
+@@ -1749,7 +1750,7 @@ function projectOwnerFacts(
+   prefix: ValidatedRuntimeEventPrefix,
+   authorityPrefix: ValidatedRuntimeEventPrefix,
+   replayState: ReplayState,
+-  continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation)[],
++  continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation | SelectedActionContinuation)[],
+   correspondence: ReadonlyMap<string, string>,
+   currentOwnerPrefix?: DurablePrefixCoordinate,
+ ): readonly Readonly<Record<string, JsonValue>>[] {
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts b/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts
+index 3e248b69..a6a3b646 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts
+@@ -509,6 +509,12 @@ function projectCursorAncestry(prefix: ValidatedRuntimeEventPrefix, graph: Reado
+   return current.cursorRef === selected.cursorRef && current.cursorDigest === selected.cursorDigest ? ancestry : null;
+ }
+ 
++/** Cold acquisition of one already-admitted cursor, never a proposed position. */
++export function projectAdmittedTraversalCursorAtPrefix(prefix: ValidatedRuntimeEventPrefix,
++  graph: Readonly<GtlGraph>, selected: CursorIdentity): TraversalCursorCandidate | null {
++  return projectCursorAncestry(prefix, graph, selected)?.at(-1) ?? null;
++}
++
+ /** Historical calls retain their opened cursor even after failure/closure. */
+ export function projectOpenedCCallTraversalInputAtPrefix(prefix: ValidatedRuntimeEventPrefix,
+   graph: Readonly<GtlGraph>, cCallRef: string) {
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts b/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
+index e19c7dd9..2c3f0de4 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
+@@ -108,7 +108,7 @@ function nativeBinding(prefix: ValidatedRuntimeEventPrefix, binding: WorkspaceBi
+   return same({kind:"workspace_binding",...body,admissionEventRef:row.admissionEventRef},binding)
+     ? { row, binding, authority: row.workspaceAuthorityBasis as unknown as WorkspaceAuthorityBasis } : null;
+ }
+-function bindingAtCoordinate(prefix:ValidatedRuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null {
++export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:ValidatedRuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null {
+   const row=one(projectArtifactTruth(prefix).artifacts,r=>r.operationId==="abg.operation.workspace.bind"&&
+     r.authorityScopeRef===ref&&r.authorityScopeDigest===digest);
+   if(row===null||!record(row.artifact))return null;
+@@ -118,12 +118,22 @@ function bindingAtCoordinate(prefix:ValidatedRuntimeEventPrefix,ref:string,diges
+ 
+ /** All exact covering witness occurrences, not a latest/first chosen token. */
+ export function projectWorksiteRevisionBindingCover(prefix: ValidatedRuntimeEventPrefix,
++  before: WorkspaceBinding, after: WorkspaceBinding, historicalBases: readonly ExecutionBasis[]): readonly string[] | null {
++  if (same(before, after)) return [];
++  const old = nativeBinding(prefix, before), current = nativeBinding(prefix, after);
++  if (old === null || current === null || !same(old.authority, current.authority) ||
++    before.workspaceId !== after.workspaceId || before.authorizedActorRef !== after.authorizedActorRef) return null;
++  return projectWitnessedWorkspaceBindingCover(prefix, before, after, historicalBases);
++}
++
++/** Exact witnessed cover only. Each caller still owns applicability and current
++ * work permission; D2's stricter authority continuity remains above. */
++export function projectWitnessedWorkspaceBindingCover(prefix: ValidatedRuntimeEventPrefix,
+   before: WorkspaceBinding, after: WorkspaceBinding, historicalBases: readonly ExecutionBasis[]): readonly string[] | null {
+   try {
+     if (same(before,after)) return [];
+     const old = nativeBinding(prefix,before), current = nativeBinding(prefix,after);
+-    if (old === null || current === null || !same(old.authority,current.authority) || before.workspaceId !== after.workspaceId ||
+-      before.authorizedActorRef !== after.authorizedActorRef) return null;
++    if (old === null || current === null) return null;
+     const events = runtimeEventsFromValidatedPrefix(prefix);
+     const bases = historicalBases.flatMap((b,index) => {
+       const actual = projectExactExecutionBasisAtPrefix(prefix,b.basisRef);
+@@ -376,7 +386,7 @@ function deriveCurrentOrigins(prefix:ValidatedRuntimeEventPrefix,seedBasis:Execu
+           !samePhysicalSubject(prefix,b.rawInputValue.subject as unknown as WorksiteSubject,row.target.subject)||
+           invalidatedAcrossBindings(prefix,row.target.subject,event.admissionOrdinal))continue;
+         const request=b.rawInputValue;
+-        const sourceBinding=bindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest);
++        const sourceBinding=projectAdmittedWorkspaceBindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest);
+         if(sourceBinding===null||!same(request.workspaceAuthorityBasis,current.workspaceAuthorityBasis))continue;
+         const source={...historical,workspaceAuthorityBasis:request.workspaceAuthorityBasis,workspaceBinding:sourceBinding,
+           capabilityGrant:request.capabilityGrant} as unknown as SemanticWorksiteBasis;
+@@ -474,7 +484,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeE
+       const p=projectionFacts(prefix,e,work);
+       return p!==null&&p.history.seed.basisRef===history.seed.basisRef?[p]:[];
+     });
+-    const bindings=[...history.heads.map(b=>({basis:b,binding:bindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest),projection:null as BindingProjectionFacts|null})),
++    const bindings=[...history.heads.map(b=>({basis:b,binding:projectAdmittedWorkspaceBindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest),projection:null as BindingProjectionFacts|null})),
+       ...projections.map(p=>({basis:p.basis,binding:p.envelope.current.worksite!.workspaceBinding,projection:p}))];
+     // A projection's actual history, not time or byte equality, covers its
+     // earlier binding aliases. Every surviving branch must be covered.
+diff --git a/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts b/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+index b1efa2ca..2703add9 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+@@ -131,7 +131,8 @@ type InvokePacket = typeof RUN_OPERATION_CONTRACTS.invoke.invoke;
+ type StartPacket = typeof RUN_OPERATION_CONTRACTS.invoke.start;
+ type InvocationPacket = InvokePacket | StartPacket;
+ type ContinuePacket = typeof RUN_OPERATION_CONTRACTS.continue.current_intent;
+-type RunPacket = InvocationPacket | ContinuePacket;
++type SelectedActionPacket = typeof RUN_OPERATION_CONTRACTS.continue.selected_action;
++type RunPacket = InvocationPacket | ContinuePacket | SelectedActionPacket;
+ 
+ export interface RunInvocationResourceAssertion
+   extends ProductRunInvocationResourceAssertion {
+@@ -1748,7 +1749,7 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
+ }
+ 
+ import { projectConstructionIntentContinuations, prepareConstructionIntentContinuation,
+-  prepareConstructionContinuationOperation } from "../abg/construction_continuation.js";
++  prepareConstructionContinuationOperation, selectPendingActionUse, prepareSelectedActionContinuation, admitSelectedActionContinuationOperation, type SelectedActionUseRequest } from "../abg/construction_continuation.js";
+ import { projectExactExecutionBasisAtPrefix } from "../abg/invocation_execution_truth.js";
+ import { projectEffectfulPublicInvocationTruthAtPrefix } from "../abg/effectful_invocation_truth.js";
+ import { prepareConstructionContinuationTraversal } from "../hog/entry.js";
+@@ -1845,6 +1846,86 @@ function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocatio
+   }));
+ }
+ 
++function runSelectedActionOwner(call: DefinitionCall<SelectedActionPacket, RunInvocationResourceAssertion>): ReturnType<RunCallable<SelectedActionPacket>> {
++  return Effect.scoped(Effect.gen(function* () {
++    const resource = yield* Effect.acquireRelease(Effect.suspend(() => {
++      const acquired = acquireAbgEventResource(call.resources.eventResource);
++      return acquired.kind === "acquired_abg_event_resource" ? Effect.succeed(acquired.resource)
++        : Effect.fail(fault(call, "resource_acquisition", acquired.code, acquired.message));
++    }), held => Effect.sync(() => abandonAbgEventResource(held)));
++    const entryPrefix = resource.entryPrefix;
++    const refuse = (code: "missing_continuation" | "resolved_continuation" | "replay_mismatch" | "basis_mismatch" | "stale_action" | "action_mismatch" | "reprice_mismatch", field: string) =>
++      finish(call, resource, entryPrefix, { outcomeKind: "refusal", value: { code, issuePaths: [field], evidenceRefs: [] } } as OwnerSemanticOutput<SelectedActionPacket>, null, null, null);
++    const request = call.invocation.request;
++    if (!("selectedAction" in request) || call.resources.source.kind !== "none") return yield* refuse("action_mismatch", "/request");
++    const setup = yield* syncStage(call, "setup_truth", () => projectSetupTruth(entryPrefix, call.resources.catalog));
++    if (setup === null) return yield* refuse("basis_mismatch", "/workspace");
++    const prefixes = yield* syncStage(call, "runtime_truth", () => projectRuntimePrefixesAtDurablePrefix(entryPrefix, request.run.ref));
++    const prefix = prefixes.authorityPrefix;
++    const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
++    if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
++    const use = yield* syncStage(call, "runtime_truth", () => selectPendingActionUse(prefix, request as SelectedActionUseRequest));
++    if (use.kind === "refused") return yield* refuse(use.code, "/request");
++    const resolution = yield* asyncStage(call, "product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
++      catalog: call.resources.catalog, catalogView: call.resources.catalogView, admittedInstalls: setup.admittedInstalls,
++      verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
++      programRef: use.currentBasis.programRef, selection: { kind: "admitted", graphFunctionRef: use.currentBasis.graphFunctionRef },
++    }));
++    if (resolution.kind !== "loaded_product_execution_resolution") return yield* refuse("basis_mismatch", "/program");
++    const prepared = yield* syncStage(call, "runtime_truth", () => prepareSelectedActionContinuation(prefix, use, resolution));
++    if (prepared === null) return yield* refuse("basis_mismatch", "/continuation");
++    const regimes = new Set([...resolution.programValidation.executableLeafRows, ...resolution.programValidation.interactionLeafRows].map(row => row.fibre));
++    const policy = constructRootInvocationPolicy(setup.workspaceBinding, resolution.program,
++      resolution.programValidation.interactionLeafRows.map(row => ({ requirementKey: row.requirementKey,
++        requirementKeyDigest: row.requirementKeyDigest, actorCapabilityRef: row.requirement.actorCapabilityRef })),
++      (["F_D", "F_P", "F_H"] as const).filter(regime => regimes.has(regime)), call.resources.applications);
++    const packet = RUN_OPERATION_CONTRACTS.continue.selected_action;
++    const grant = constructCapabilityGrant(policy, use.invocation.actorRef, "abg.operation.run.continue", packet.metadata.capabilityRefs[0]!,
++      { admittedInstalls: setup.admittedInstalls, workspaceBinding: setup.workspaceBinding, fixedPacket: packet });
++    const slot = call.invocation.invocationAuthority.slots.input_contract;
++    const basisSlot = call.invocation.invocationAuthority.slots.execution_basis;
++    const inputContracts = resolution.declarationPublications.flatMap(p => p.contracts).filter(c => c.contractRef === prepared.term.inputCarrierRef);
++    if (policy.policyRef !== use.invocation.policyRef || policy.policyDigest !== use.invocation.policyDigest ||
++      !runOperationAuthorityMatches(call.invocation, call.resources, resolution, setup.workspaceBinding, setup.admittedInstalls,
++        policy, [grant], use.invocation, call.resources.eventResource as unknown as JsonValue) ||
++      basisSlot?.ref !== prepared.root.basisRef || basisSlot.digest !== prepared.root.basisDigest || slot === null || inputContracts.length !== 1 ||
++      slot.contract.ref !== prepared.term.inputCarrierRef || slot.contract.digest !== sha256Canonical(inputContracts[0] as unknown as JsonValue) ||
++      slot.valueRef !== prepared.input.inputRef || slot.valueDigest !== prepared.input.inputDigest || sha256Canonical(slot.value) !== sha256Canonical(prepared.input.value))
++      return yield* refuse("basis_mismatch", "/invocationAuthority");
++    const leafPort = yield* asyncStage(call, "leaf_port", () => constructAdmittedLeafInvocationPort(Object.freeze({
++      prefix, artifactTruth: setup.artifactTruth, implementationSet: prepared.implementationSet, executionResolution: resolution,
++      semanticsProjection: projectInstalledLeafSemantics(resolution.productSemantics),
++    })));
++    const admitted = yield* syncStage(call, "open_call", () => admitSelectedActionContinuationOperation(resource.store, entryPrefix,
++      prepared, grant, operationBasis(call, setup.workspaceBinding)));
++    const traversal = yield* executeGraphTraversalEffect({
++      store: resource.store, predecessorPrefix: admitted.successorPrefix!, executionBasis: prepared.root,
++      openedTraversalScope: prepared.scope, program: resolution.program, programPublication: resolution.programPublication,
++      graphFunction: resolution.graphFunction, graph: prepared.graph, graphValidation: prepared.graphValidation,
++      programValidation: resolution.programValidation, implementationSet: prepared.implementationSet, interactionSet: prepared.interactionSet,
++      continuationProductBasis: { install: resolution.programInstall, workspaceBinding: setup.workspaceBinding,
++        artifactTruth: setup.artifactTruth, catalogView: call.resources.catalogView, programValidation: resolution.programValidation, graphValidation: prepared.graphValidation },
++      leafPort, closureContract: resolution.closureContract, actorRuntimeBinding: { workspaceBinding: setup.workspaceBinding, artifactTruth: setup.artifactTruth },
++      input: prepared.root.rawInputValue, inputDigest: prepared.root.rawInputDigest,
++      resume: { cursor: prepared.cursor, input: prepared.inputValue, inputDigest: prepared.input.inputDigest },
++      eventTime: sampleNativeEventTime(), correlationId: `${call.invocation.correlationRef}/selected-action`,
++    });
++    const finalPrefix = "successorPrefix" in traversal ? traversal.successorPrefix : admitted.successorPrefix!;
++    const truth = yield* syncStage(call, "run_truth", () => projectRunTruthAtDurablePrefix(finalPrefix, prepared.scope.runId));
++    if (truth.kind !== "abg_run_truth_projection") return yield* finish(call, resource, finalPrefix,
++      { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } } as OwnerSemanticOutput<SelectedActionPacket>, null, use.invocation, null);
++    const successor = { ref: use.current.continuationRef, digest: use.current.continuationDigest };
++    const ownerOutput: OwnerSemanticOutput<SelectedActionPacket> = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
++      ? { outcomeKind: "nonterminal", value: { continuationKind: "selected_action", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
++          run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
++      : { outcomeKind: "result", value: { continuationKind: "selected_action", run: truth.run, graphCall: truth.graphCall,
++          admittedIntent: { ref: prepared.intent.constructionIntentRef, digest: prepared.intent.constructionIntentDigest }, successor,
++          disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
++          evidence: [...truth.evidence], replay: truth.replay } };
++    return yield* finish(call, resource, finalPrefix, ownerOutput, null, use.invocation, truth);
++  }));
++}
++
+ const invoke = bindExactPrefixTransition(
+   RUN_OPERATION_CONTRACTS.invoke.invoke,
+   runInvocationOwner<InvokePacket>,
+@@ -1862,8 +1943,11 @@ const start = bindExactPrefixTransition(
+ const current_intent = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.continue.current_intent,
+   runCurrentIntentOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
+ 
++const selected_action = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.continue.selected_action,
++  runSelectedActionOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
++
+ export const RUN_DEFINITION_BINDINGS = Object.freeze({
+   invoke: Object.freeze({ invoke, start }),
+-  continue: Object.freeze({ current_intent }),
++  continue: Object.freeze({ current_intent, selected_action }),
+ });
+ import type { CatalogApplicationResources } from "../product/declaration_application.js";
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts b/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts
+index ac09b094..783e5edd 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts
+@@ -306,7 +306,7 @@ function sourceBasis(
+ }
+ 
+ export function runOperationAuthorityMatches(
+-  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"],
++  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"] | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.selected_action, unknown>["invocation"],
+   resources: ProductRunInvocationResourceAssertion,
+   resolution: LoadedProductExecutionResolution,
+   workspaceBinding: WorkspaceBinding,
+@@ -328,7 +328,7 @@ export function runOperationAuthorityMatches(
+   const capabilities = slots.capability_grants;
+   const steering = slots.transport_steering;
+   const isContinue = invocation.definitionKey.operationId === "abg.operation.run.continue";
+-  const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue.current_intent
++  const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue[invocation.definitionKey.memberKey as "current_intent" | "selected_action"]
+     : packet(invocation.definitionKey.memberKey as RunInvocationMemberKey)).metadata.capabilityRefs;
+   const steeringDigest = sha256Canonical(transportResourceAssertion);
+   const authorityRequest = invocation.request as Readonly<
+@@ -338,7 +338,9 @@ export function runOperationAuthorityMatches(
+   // The public binder authenticates slot syntax/digests; this owner joins the
+   // exact asserted input to the selected request, just as the other coordinates.
+   const exactInputAuthority = inputSlot !== null && (isContinue
+-    ? isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
++    ? invocation.definitionKey.memberKey === "selected_action"
++      ? inputSlot.valueDigest === sha256Canonical(inputSlot.value) // exact selected cursor/input joins in its owner
++      : isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
+     : invocation.definitionKey.memberKey === "start"
+     ? exactJson(inputSlot, authorityRequest.input)
+     : exactJson(inputSlot.contract, authorityRequest.inputContract) && exactJson(inputSlot.value, authorityRequest.input) &&
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+index 4e733220..343eced7 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -238,3 +238,55 @@ proof. No new provider campaign, generic reliability claim or broad test roster
+ is selected. The current grant covers local retained-work implementation and
+ mechanical readiness only; installed/native execution remains separately selected.
+ Exact execution resumption is selected for the bounded realization above; it remains unqualified until its actual-owner and installed evidence close.
++
++
++## Selected Action At An Unconsumed Durable Boundary
++
++The selected_action member consumes an actual admitted AF-14 selection, not a
++catalogue label or lawful-actions read. Its run-local continuation identity binds
++the selected route, original intent, exact target cursor and selected basis. A
++pending occurrence has an active Run, that current cursor and no workflow CCall
++consuming it. Cold acquisition proves this event relation; process interruption
++only explains availability of the resource and does not establish pending truth.
++Same-basis continuation keeps the current Run and its existing parents. A separately
++admitted continue-operation grant consumes the occurrence once before ordinary
++HoG enters the selected workflow. The already-admitted intent is conserved; its
++actual child, evaluation and delta resolve the obligation. Ordinary in-process
++traversal remains unchanged and can consume the same selection without Public
++continuation. Completed, stopped, crossed or already consumed occurrences refuse.
++
++Request-field correspondence is exact:
++
++- run and continuation identify the originating unconsumed occurrence and native
++  Run identity; selectedAction identifies the admitted NextActionProjection.
++- For same_basis the selected occurrence is the originating occurrence. Current
++  authority slots bind its ExecutionBasis, installed Program/catalog, original
++  InvocationAdmission work authority and exact cursor input; a new selected_action
++  operation capability authorizes this use.
++- For authority_changed, selectedAction identifies a separately admitted *current*
++  occurrence under its own current InvocationAdmission/work authority. The
++  execution_basis/input/actor and other authority slots bind that current occurrence.
++  coveringReprice is the actual witnessedAct ref/digest returned by the existing
++  witness owner, covering the old ExecutionBasis and old/current WorkspaceBinding
++  pair. The current selection follows the covering witness and explicitly names
++  both the predecessor continuation and covering witness in its existing
++  lawfulBasisRefs. It retains the same target outcome and all predecessor target
++  obligations. Current GTL model/gap/evaluateNext have already established this
++  selection under current authority; no semantic old-selection transfer occurs.
++  A cover without that current applicable selection is a truthful refusal.
++- Admission atomically records the current operation and consumes both the source
++  occurrence and (if different) current occurrence. The source is superseded only
++  by that admitted use; current HoG execution and evaluation resolve the current
++  occurrence. No events, input values, old parent scopes or work grant are copied.
++
++Reprice matching extracts the existing exact witnessed binding-cover predicate;
++D2 keeps its additional same-WorkspaceAuthorityBasis restriction. Selected-action
++use independently requires already admitted current work/operation authority and
++fresh semantic selection, so a witnessed cover alone is never permission. No
++request-domain, authority variant, event family, pause port or controller is added.
++Post-disposition selection may use the existing declared bounded graph-span reentry
++back through model/gap/evaluateNext; the eight-term construction stays unchanged.
++The installed discriminator interrupts only its fixture host after the actual
++selection/cursor transaction is durable, retains the complete prefix, then uses
++existing physical resource recovery and cold Public continuation. Fixture injection
++must not truncate history, invent failure truth or alter the model's answer.

@@ -1,0 +1,107 @@
+✔ released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values (10.118041ms)
+✔ actual materializer handoff reuses fixed shape while occurrence/fan-out and foreign checks remain live (40.061291ms)
+✖ nearest static and materialization refusal: duplicate node identities with distinct C loci (0.677584ms)
+✖ nearest static and materialization refusal: terminal node with outgoing edge (0.296208ms)
+✖ nearest static and materialization refusal: two ordinary edges without registered selection (0.275583ms)
+✔ existing constructor and source-path guards retain their earlier refusal precedence (0.488208ms)
+✔ authored composition, substitution, recursion and fan-out retain full static and materialized owner results (317.772125ms)
+✔ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (7.692333ms)
+✔ fixed declaration owner results reuse facts and preserve cold/basis-qualified validation (147.118834ms)
+✔ compose sources retain exact published owners without callable rows in both closure modes (408.368917ms)
+✔ substitute source provenance resolves without widening its Program (278.269125ms)
+✔ unpublished or ambiguous static sources still refuse at their exact declaration owner (17.564125ms)
+✔ static sources remain dependency-bound and require an exact installed owner (100.206416ms)
+✔ static sources conserve required contracts and implementation bindings (37.225542ms)
+✔ runtime use of a private static source refuses before or after static discovery (46.785916ms)
+✔ existing named workflow, gate, recursion and fan-out owner rows remain required (490.400875ms)
+✔ registered selection retains strict named-child ownership and whole validation (27.121666ms)
+✔ borrowed implementation declarations retain dependency, uniqueness and installed-owner guards (218.873542ms)
+﹣ frozen81 unchanged ready basis resolves where its predecessor refused (0.1595ms) # requires the exact frozen81 input; portable source checks above remain active
+ℹ tests 19
+ℹ suites 0
+ℹ pass 15
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 2096.34475
+
+✖ failing tests:
+
+test at test_env/tests/t287-gtl-graph-law.test.mjs:109:26
+✖ nearest static and materialization refusal: duplicate node identities with distinct C loci (0.677584ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"raw_admission_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"invalid_kind","message":"$/graphFunctions/0/template/nodes: GraphFunction has duplicate node identities"}
+  + actual - expected
+  
+  + 'raw_admission_refusal'
+  - 'raw_admitted_value'
+             ^
+  
+      at raw (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:29:10)
+      at validate (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:35:18)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:111:31)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'raw_admission_refusal',
+    expected: 'raw_admitted_value',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-gtl-graph-law.test.mjs:109:26
+✖ nearest static and materialization refusal: terminal node with outgoing edge (0.296208ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"raw_admission_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"invalid_kind","message":"$/graphFunctions/0/template/edges: terminal GTL node cannot declare an outgoing graph edge"}
+  + actual - expected
+  
+  + 'raw_admission_refusal'
+  - 'raw_admitted_value'
+             ^
+  
+      at raw (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:29:10)
+      at validate (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:35:18)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:111:31)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'raw_admission_refusal',
+    expected: 'raw_admitted_value',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-gtl-graph-law.test.mjs:109:26
+✖ nearest static and materialization refusal: two ordinary edges without registered selection (0.275583ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"raw_admission_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"invalid_kind","message":"$/graphFunctions/0/template/edges: non-terminal GTL node requires exactly one declared graph edge"}
+  + actual - expected
+  
+  + 'raw_admission_refusal'
+  - 'raw_admitted_value'
+             ^
+  
+      at raw (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:29:10)
+      at validate (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:35:18)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:111:31)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'raw_admission_refusal',
+    expected: 'raw_admitted_value',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

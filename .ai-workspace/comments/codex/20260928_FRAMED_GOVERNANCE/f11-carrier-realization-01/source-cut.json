@@ -1,0 +1,10 @@
+{
+  "kind": "source_postimage_cut",
+  "activation": "T287_F11_CARRIER_REALIZATION_01",
+  "sourceIndexSHA256": "99a89da21aa6e6f9f0296ca55c388ab12cac319692a4dec9a944242a723afe90",
+  "sourceCutDigest": "sha256:8c8c1e2cd8cf4a79a0a59b92edd1299362c10ab315e95cd998ef80e27314194d",
+  "serialization": "UTF8 JSON sorted object keys, compact separators, source grant row order; fields path/bytes/sha256/changed/preimage",
+  "changed": 17,
+  "unchanged": 8,
+  "sourceDeltaSHA256": "871cb9eb02e4c52ccfdc3c5e9a8111ba348de2b68b587adb80debb6de9d3c872"
+}

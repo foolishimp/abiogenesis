@@ -1,0 +1,21 @@
+(node:3686) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ complete canonical declarations permit only publication identity consequences (19.431666ms)
+✔ covered use binds exact original state, complete canonical Catalog and cold admitted coordinates (5078.785166ms)
+ℹ {"controlledPremises":["environment/install membership","execution source lookup","witnessed cover"],"actualStateObservations":34,"historicalStateDigest":"sha256:38a236b7e8d1e4e219f4d9c4b3c45d0728b1596294832ebcb44c0d24ecdfe4b7","privateComparisonBytes":4043,"extraAdmissionBytes":0,"owners":[{"moduleRef":"module://abi5-tests/sandbox-uat/consumer@5","historicalPublicationDigest":"sha256:5c435efd26afbc23c18006e07fc05586ae683cf756e941a080029d760a84b8c3","currentPublicationDigest":"sha256:5c435efd26afbc23c18006e07fc05586ae683cf756e941a080029d760a84b8c3"},{"moduleRef":"module://abiogenesis/default-library/default@5","historicalPublicationDigest":"sha256:4178163ca9239b0cac3d4cb29ce3931343204d032ce84934cfa3243b5ddc142f","currentPublicationDigest":"sha256:4178163ca9239b0cac3d4cb29ce3931343204d032ce84934cfa3243b5ddc142f"},{"moduleRef":"module://abiogenesis/worksite/command-execution@5","historicalPublicationDigest":"sha256:af4a152acc6ca79b129bf5d54d47b7a4c9c71d8cd1fcbbad61c23057927fd30e","currentPublicationDigest":"sha256:af4a152acc6ca79b129bf5d54d47b7a4c9c71d8cd1fcbbad61c23057927fd30e"},{"moduleRef":"module://abiogenesis/worksite/native-work@5","historicalPublicationDigest":"sha256:3f39c34b39ddabe45ba53597d49cb7898a178e2c4d744727950cb26fe4b6e33a","currentPublicationDigest":"sha256:3f39c34b39ddabe45ba53597d49cb7898a178e2c4d744727950cb26fe4b6e33a"}],"installedContinuation":false}
+✔ built-in ingress preserves the whole captured34 state and independent assessment subject (73.377625ms)
+(node:3687) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ reference preparation resolves exact dependencies in leaf and builtin fallbacks before warm reuse (61.174958ms)
+✔ cold admitted preparation consumes Result/J without declaration resolution or history reread (51.806584ms)
+✔ inline request and task identities remain unchanged through cold admitted consumption (20.378083ms)
+✔ library prepare-testing reuses the invoking private operation and its actual F_D origin (74.885875ms)
+ℹ Actual library preparation/matcher and cold F_D Result/J/evidence relations; physical constructors are real. Source/environment/cover/CCall lookups are controlled lower premises, not new native or installed admission.
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5512.782458

@@ -1,0 +1,27 @@
+{
+  "selected": [
+    {
+      "relativePath": "design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "sha256": "481a6f654bbccfcc0d456fd4d47cf5082d77541581240f5855ef883e82996abd",
+      "byteCount": 34249,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md"
+    },
+    {
+      "relativePath": "code/src/hog/recursion_lifecycle.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "ee8baae788e9b7bc5064600d1bedd7446cca8ec9b15d088397d10f6c8cd32361",
+      "byteCount": 35898,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/code/src/hog/recursion_lifecycle.ts"
+    },
+    {
+      "relativePath": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "ffb492428b6fd19b364cecb17bc7d353eaaecb06d2ccc8acf5c2d1160f0a0301",
+      "byteCount": 29100,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/preimages/test_env/tests/t287-recursive-registered-selection.test.mjs"
+    }
+  ],
+  "isolatedBaselineReuse": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline",
+  "excludesMoving143": true
+}

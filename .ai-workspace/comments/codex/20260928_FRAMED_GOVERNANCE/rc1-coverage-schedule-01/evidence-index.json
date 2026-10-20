@@ -1,0 +1,590 @@
+{
+  "status": "read-and-pinned",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709",
+      "relation": "declared Worker/Reviewer separation and Executive mutation lock",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "relation": "Product and source/installed native path boundary",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 66413,
+      "sha256": "108207726681c787bae7a63271f1eff2834bbba83e65ca94396063c9ccab1363",
+      "relation": "GOAL-035 fixed wave and preserved accepted witnesses",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "relation": "selected composable graph/reference-frame intent",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "relation": "fifteen families; S01/S02/S03/S06 and ordered S07",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "relation": "exact current STDO RC2 work-governance selection",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "relation": "056/057/062/064A-C exact qualification, shared proof and sole reducer",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "relation": "full real-subject F11 and seven defect categories",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 16531,
+      "sha256": "33939c54db28a76cee08841731258cfdebcd870975a749d84a5d957466b7469d",
+      "relation": "source-linked required scenario joins and exclusions",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+      "relation": "selected end-to-end integration claims and material coordinates",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "bytes": 45510,
+      "sha256": "7f2ef6b22c5e6d7176e08dd2283ba3c09869a7738490090c444022a13ddfa41a",
+      "relation": "reuse conditions, sufficient scoped material, identity/independence and actual proof",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/coverage-request.txt",
+      "bytes": 5282,
+      "sha256": "d25e4086703bdd74c65b860eab3e548bccf768d29b7fc28744f5b602818188fa",
+      "relation": "Root exact bounded report operation grant",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 6140,
+      "sha256": "475058996fefb1de24306b00a9590284b713ee0d4f637317d5e4f06371d6c87d",
+      "relation": "Root selected sunny-day steel thread; commentary, not Product authority",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/return.md",
+      "bytes": 8084,
+      "sha256": "2676ea192b61bafb16f40c595d05b317cc9969f7936bcf6632c428cd327d0388",
+      "relation": "exact frozen prospective C02 construction/install; no qualification",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+      "bytes": 4543994,
+      "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+      "relation": "C02 enclosing evidence coordinate only; not wholly reverified here",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/selected-core.json",
+      "bytes": 1067,
+      "sha256": "ea5bb6e5f6ac979c0bdd4891d567afc4eb79ad937532d5c48d8b987fa1cc3629",
+      "relation": "actual selected read-only bootstrap/archive coordinate",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/selected-core.json",
+      "bytes": 1261,
+      "sha256": "fc659ef56d13a53b7e127e4fdac184f72dca97af4700f76b0567b7d5b765a1f1",
+      "relation": "N03 caller actual selected C02/archive",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/driver.mjs",
+      "bytes": 14926,
+      "sha256": "6b133ac3285564a7f2e9c1ff9d27338cae341412b004e24bf78b3bdcdc803473",
+      "relation": "ready seven-operation isolated setup donor; old final Hello assertions excluded",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/public-support.mjs",
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8",
+      "relation": "installed exports loader; original start is Hello-grant pinned",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/return.md",
+      "bytes": 11528,
+      "sha256": "c2c7165e4002f5f6acd4e822b3bbdb05d8b26ae7a9bdf57fd24170eec570106b",
+      "relation": "actual S01 operation success and stale proof-consumer failure preserved",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/ordinary-caller.mjs",
+      "bytes": 14861,
+      "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351",
+      "relation": "current six-key conformance and three-key read resource/caller donor",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/owner-checks.mjs",
+      "bytes": 9469,
+      "sha256": "a0f54b19fc3fdb562b5f4e22f8dd93b94cd79efa1c9939ab271365a6e086a868",
+      "relation": "current native wrapper/owner construction seam donor",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/return.md",
+      "bytes": 6698,
+      "sha256": "a8befbaf233e46345dacff3b876a7ee4c5dc1aee61d17f5950d81ed83a244c2a",
+      "relation": "accepted exact C02 retained S01 proof",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+      "bytes": 23029,
+      "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde",
+      "relation": "C01 advisory history; old S01/build-input selection superseded",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-release-scenario-inputs.md",
+      "bytes": 10685,
+      "sha256": "44b378c6f542734898f0e800f7cabec50ea20eded0c1e1de418fbdcd1f9f1141",
+      "relation": "routed scenario source/caller/oracle donors; not executable unchanged",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/cases.json",
+      "bytes": 5413,
+      "sha256": "df772a1691c9b53a167f4ade6a6f12b3d79b367b0435ab6ed5d1a03526fb1eb3",
+      "relation": "selected World graph-substitution and gate/child/view cases",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/caller.mjs",
+      "bytes": 13232,
+      "sha256": "2d37f99b56337f2d58054eb6d42dca74edcf7a37f97e2da73e6b5f2c9fe4bc0a",
+      "relation": "general DefinitionCall/Program-membership donor",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/campaign.mjs",
+      "bytes": 16422,
+      "sha256": "f3c76875394272f2e9aa2dc0ebd36a2cab23ccd25a660e488b2a2659cd97cede",
+      "relation": "external malformed subject and native result/failed oracle",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/oracle-basis.json",
+      "bytes": 1891,
+      "sha256": "0bd94689eab550251ebae07f3b2318e7fcb73476dd3d669f5e8229c94d30c729",
+      "relation": "exact independent source/assertion routes",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/return.md",
+      "bytes": 7124,
+      "sha256": "095b86f5c661166922f8bd85e3e29621d16d1baf34cc40456c1833c17928ed72",
+      "relation": "actual foreign-subject substitution/child/gate/conformance outcomes",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-13/assertions.mjs",
+      "bytes": 19538,
+      "sha256": "99aa99208be2a005504d523a9c9f0ec86f8398da38a106480c3f31807fb36d28",
+      "relation": "caseInput at5-12 and graph-substitution oracle at102-105",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-carrier-02/public-support.mjs",
+      "bytes": 8948,
+      "sha256": "2027f3ca8b7246f94a16e780911d76275b9f08db61fede54f32ee3f6b0591254",
+      "relation": "general installed public export loader and constructStart donor",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-carrier-02/cases.json",
+      "bytes": 17232,
+      "sha256": "13d1e26980b9270f02a7a636911e880bb203d6048966bd9bcca1658bca8279ae",
+      "relation": "existing recursion/vector/compute/input donor population",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/return.md",
+      "bytes": 4602,
+      "sha256": "adb27fc3a220a1c41cd07475e71e953993edbd1bb0920f3b284d99cc7b8773b1",
+      "relation": "bounded recursion/vector/compute acceptance on foreign archive; prior nested-retry stop",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/cases.json",
+      "bytes": 6047,
+      "sha256": "4c9bcd556c136ef77c9da264361166f0a2005b7ba4bd2ea33d15fc836fd4308f",
+      "relation": "exact nested-compose donor input",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/return.md",
+      "bytes": 3638,
+      "sha256": "a9263977a3737d0b7acec5dade7bb23b3c5b3ca1c2ca94c464eba3e2ed073590",
+      "relation": "actual six-call compose and later genuine cold read relation",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/cases.json",
+      "bytes": 11316,
+      "sha256": "3dad981bcaba3edc26494c1ecf2fa352b84eff6d97665d5639bedae207fe265c",
+      "relation": "invalid-json/const-contradiction F_P and later case donors",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-10/cases.json",
+      "bytes": 9969,
+      "sha256": "1b304d888ffe2b370488495f9196422714920081bc1ee21f244a1446b1254c72",
+      "relation": "incomplete/missing/wrong attribution F_P donor inputs",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-10/return.md",
+      "bytes": 4475,
+      "sha256": "b5ced442ff3449719f65385b637fe04e2c3b370d0a55ab25f146ef29d97db81d",
+      "relation": "preserved actual malformed/unattributed transport outcomes",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/held-readback-disposition.json",
+      "bytes": 7809,
+      "sha256": "0aee61496cd6b709b1b9b45aaa76c51930b71aa0bf1bd76032864b989ecdcfbe",
+      "relation": "correct actual nonterminal held/refusal/replay scope",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/oracle.json",
+      "bytes": 1509,
+      "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c",
+      "relation": "independent target3/desired10/unaffected7 paired oracle",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-review-01.md",
+      "bytes": 12250,
+      "sha256": "acd80a8782adb5055f2170a248c5e6c64abd435993e06ecf010be0fdf185a155",
+      "relation": "accepted bounded deterministic loop plus old Public handoff gap",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/return.md",
+      "bytes": 9992,
+      "sha256": "62c7932c2721320f51fa92445bc494a002117b9a65f269e87640bce3a995320e",
+      "relation": "actual final installed reader over historical workload",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-final-review-03.md",
+      "bytes": 11135,
+      "sha256": "a5ce330892bf9341553bd7d2c064ddc98caa9ef4a1a380252c4d498c46a56d1d",
+      "relation": "foreign-subject same/covered occurrence acceptance and refusal limits",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/review.md",
+      "bytes": 9015,
+      "sha256": "18aa2f128c5f3acdace6a8fde41c2731325bb25596a6d30bac17000116a655a6",
+      "relation": "complete original selected basic-CLI lifecycle at exact foreign subject",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/input.json",
+      "bytes": 85461,
+      "sha256": "2821278c30b0528fc890a1de30534d1879a60a25bb084ee3467cb8f76fa3f930",
+      "relation": "preserved original witness input meaning",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/fulfillment-policy.json",
+      "bytes": 28692,
+      "sha256": "f5cfa9df3369a46892745b1d9207448ba560402544541bb2460b39dcafc55a72",
+      "relation": "preserved selected complete application obligations/oracle",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/prepare.mjs",
+      "bytes": 9345,
+      "sha256": "3aee7fcce3c77ebb5cd52c95612ca80ee436e9348589442abef38139763fa764",
+      "relation": "original installed native lifecycle preparation donor; not launch authority",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/launch.mjs",
+      "bytes": 10979,
+      "sha256": "4ab2e2bba33cc3bc7ce0999c84915a05d8dd597bdde8b665ef4bc84b3130f4a0",
+      "relation": "original native lifecycle launcher donor; foreign subject",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/return.md",
+      "bytes": 11460,
+      "sha256": "93acef28bcceaf9dbf46a87f4ee9280aef3c0fa6f9be0f962748f73506fcc911",
+      "relation": "exact Q02 immutable inputs and unbound native/independence slots",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/verification-recipe.json",
+      "bytes": 193070,
+      "sha256": "99770779369b9d7ee2470b8a1df7930b8e6aec2062e46acc2a375d4554b392f0",
+      "relation": "thirteen command selections",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/test-selection.json",
+      "bytes": 8553,
+      "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f",
+      "relation": "five group thirty exact test titles; prepared not run",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/recipe.mjs",
+      "bytes": 3442,
+      "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68",
+      "relation": "existing recipe/native producer task constructor route",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/output-checks.mjs",
+      "bytes": 11908,
+      "sha256": "d59cebeeed35234f4d69f978030a5a1094919291513c523a0d34b07fcb6f8b2a",
+      "relation": "task/attempt/artifact snapshot-root output consumer",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/return.md",
+      "bytes": 5449,
+      "sha256": "efc0a002234927551235faa217e5a9081210bcd400e26bdc344f9ac458640728",
+      "relation": "prepared C2 caller at old 84, not current 136 execution",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/owner-relations.json",
+      "bytes": 6943,
+      "sha256": "6171309693d3f48bb2f38b12a039ac5082823efc543bc0adcd129df961bfec43",
+      "relation": "exact current owned C2/qualification proof path",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/return.md",
+      "bytes": 2436,
+      "sha256": "bc6f475b85f3219fa9aab68df7be5eda49fbf097c852a893813a1b71f170c6cc",
+      "relation": "one genuinely bound015B responsibility, eight unassessed",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/closed-state.json",
+      "bytes": 7906,
+      "sha256": "82a7814b608c0e11ea61d142507813a55bcb4dbe589d69ccfc8414d7e82fd861",
+      "relation": "genuine bound input/plan/role/render footprint",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/task.json",
+      "bytes": 80757937,
+      "sha256": "99b2b490c8ff6fd041bb456285fea52ec0a845263dd814c4192e9ba33b1f3133",
+      "relation": "one exact task; no semantic sufficiency",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/plan.json",
+      "bytes": 3803,
+      "sha256": "94cffbb25fec6967c98e0f9f917dabc8feae30d6afee88f26d42f5169ed82cbc",
+      "relation": "one exact declared role/selection slot",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/domain-responsibilities.json",
+      "bytes": 466245,
+      "sha256": "ecc805dfa3522a4ddadffb3150b5426f77a5d785168e5e048f9d36e20480e2cc",
+      "relation": "all nine 015B responsibility populations; proposed applicability",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/return.md",
+      "bytes": 7669,
+      "sha256": "4171bf47616ce0ce55d4a62ab5a73a7088f231c747a1039ccee6cb9f1572b466",
+      "relation": "scope/material conflation root cause and unresolved fullcampaign",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-disposition-01/disposition.md",
+      "bytes": 3461,
+      "sha256": "869019dfa5ceab6405006d68c8c13ba03bfff185ec736ea32755bf7e7385ec9b",
+      "relation": "accepted dispatch/failure closure only; actual cost and provider unknowns",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+      "bytes": 1330,
+      "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a",
+      "relation": "genuine current 136 handoff; no source/store acquisition here",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-substitute.test.mjs",
+      "bytes": 3153,
+      "sha256": "3b1e2f150f48654d649f22c9ca098c3f4dcffd0c1970515e40e74fa1f8961f5d",
+      "relation": "original independent exact3locus/twoComposition oracle",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-substitute.test.mjs",
+      "bytes": 3153,
+      "sha256": "3b1e2f150f48654d649f22c9ca098c3f4dcffd0c1970515e40e74fa1f8961f5d",
+      "relation": "same oracle included in frozen exact candidate source",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/hello_world.ts",
+      "bytes": 96708,
+      "sha256": "b0ccd37dec574f0e948c9a296f66b252aa7cbd36dd1e6c2dece64e75f5bdd423",
+      "relation": "exact installed source publication/substituteGraphFunction construction",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18649,
+      "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+      "relation": "declared qualification assess/native/malformed/F11/sole AF22 carriers",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/release_publication.ts",
+      "bytes": 32769,
+      "sha256": "dcd2a8074ad11c07a8eaa1e8ff6e79b8b12613eaac5ba3643963ec23c79f6827",
+      "relation": "clean exact source carrier and unchanged archive/verdict publication preconditions",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/stdo_bootstrap.md",
+      "bytes": 5772,
+      "sha256": "f7bec3f86d9f24d1fb22acc553ade2eb0861105ec4cd2f1afa7290cc85c5b61a",
+      "relation": "exact release authority entrypoint and scoped engagement",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/REFERENCE_FRAME_METHOD.md",
+      "bytes": 55118,
+      "sha256": "6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+      "relation": "required results/conjunction/exact closed result applicability",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "bytes": 133684,
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "relation": "Worker return/Executive conjunction and whole-path integration claims",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "relation": "installed section join only; not source authority",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    }
+  ],
+  "populationLimit": "Selected source/file reads; no complete freeze, runtime, scenario or qualification recertification."
+}

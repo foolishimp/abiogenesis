@@ -1,0 +1,156 @@
+{
+  "status": "CLOSED",
+  "claim": "retained Design request diagnosis; no source or installed acceptance",
+  "reportSha256": "3e1964f2f9418fd31e63e797c858ae5c7a5c1c01b803b67289691bcb95da3d35",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/execution-return.md",
+      "bytes": 5998,
+      "sha256": "1072facd10d359f4e70ecfaad04df161dfe01812fa9f020dc9119b81283fedd2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/observed-metrics.json",
+      "bytes": 54638,
+      "sha256": "305a6896f75ca69399c6680655d4a78c411f355da032e7b0435865776c1dff09"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/execution-subject.json",
+      "bytes": 22197,
+      "sha256": "3c466d0cf26a5fb3911e7225ce65218a4d36d45bc369834b7bea15442c181c50"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/causal-capsule.json",
+      "bytes": 10039,
+      "sha256": "d3c7a1ddbd3ea3e3958c490fbb29fd6a50a0e650de627bb6847862f17a4bebfd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-prompt.txt",
+      "bytes": 985119,
+      "sha256": "6b3e7830ec5a8b06d126d36daf73ee22869cda649ce76871c210a127c0a6332d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-stdout.log",
+      "bytes": 2368858,
+      "sha256": "26029d487072205114d4779bbe40b77d8e0112e75020bef2002d3bbc6f6d2a94"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-transport.json",
+      "bytes": 2634501,
+      "sha256": "ebdeba48b0644e6950666aeb0e5f234a172dc650713176c7aed2f0b113cffd29"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-output.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/semantic_job.js",
+      "bytes": 85419,
+      "sha256": "483bd9e98e388110a71536b9026a87550c67bce2efa6d09be0be2fcd73d12435"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+      "bytes": 81288,
+      "sha256": "531b090ad5dbf1aa0cf930ff13e0e26ef564ed52f3f0928ca5b5143aa64e7225"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/semantic_revision.js",
+      "bytes": 86023,
+      "sha256": "cb1833b2199b2fb9159a933d0a1eb26cec7b8d25c8a6f2d2705a64f1512d933f"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/semantic_revision.js",
+      "bytes": 30515,
+      "sha256": "7d35da7fd7f9779c2837b252dcb1ebe29c30638b25efb9c937e221de2d45bacd"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_stage.js",
+      "bytes": 14703,
+      "sha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js",
+      "bytes": 11907,
+      "sha256": "af6d25986a512e7244353ad2dd6917d382a5a1af49907ff30ef07f72a83a3a3b"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/odd-glc-dev15-install-IxVEDr/node_modules/@odd-glc/route-one-typescript/build/native-lifecycle-declarations.mjs",
+      "bytes": 36431,
+      "sha256": "1ec7d08e68e45b9c55a86b4a9366c48d8afbbc3e6ce248b6ad227ac38c8daa0d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "bytes": 72891,
+      "sha256": "8f20bfef670694453d00cd5ba3f624eaa44f711152541f39000dd1f5d0311338"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 64544,
+      "sha256": "ae4dbcff40f4784a648d98a1faaf0b139ca40610062eb4787fe25e16c1415794"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 23813,
+      "sha256": "ff10c44e9efe12757e0babf5c5c19c0acf7cf699afd92f96bba08dac2c5230b8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 71660,
+      "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1/standards/SPEC_METHOD.md",
+      "bytes": 156900,
+      "sha256": "ff93375a862cd3c31b27a2cc79f8f6a4111586ca7e31e5514b8af88d3fbb99e3"
+    }
+  ],
+  "installedCorrespondence": {
+    "coreArchive": "fb13cf52d5733dc85ed5ca3c651182c0bb49073a3a9705d012b9a11903b29579",
+    "coreContent": "5c34c976ba905ec4c4024c308e9fc18a4ba15be2a536ac006255414107840e91",
+    "directAbiMembersEqualArchive": [
+      "product/semantic_job.js",
+      "abg/instruction_assembly.js",
+      "abg/semantic_revision.js",
+      "product/semantic_revision.js",
+      "implementation/semantic_stage.js",
+      "implementation/semantic_revision.js"
+    ],
+    "glcFactoryEqualArchive": true
+  },
+  "locators": {
+    "prompt": "lines 2/5/8/11/14/17/20/23: role/source/obligations/predecessors/worksite/evidence/task/response",
+    "schema": "transport.args[13]; structurally equal prompt line23",
+    "providerUsage": "stdout JSONL line3 /event/message/usage",
+    "structuredOutput": "stdout line915 block start; lines916\u20137518 input_json_delta, 6603 fragments",
+    "timeout": "transport /absoluteTimeoutMs,/timedOut,/timeoutClass,/status,/terminationConfirmed",
+    "assembly": "abg/instruction_assembly.js:418\u2013420,439\u2013451,465\u2013487",
+    "typedOwner": "product/semantic_job.js:118\u2013172,260\u2013288,638\u2013674",
+    "ordinaryCompletion": "implementation/semantic_stage.js:64\u201375",
+    "revisionCompletion": "implementation/semantic_revision.js:48\u201360",
+    "revisionCanonicalAdmission": "product/semantic_revision.js:319\u2013328",
+    "how": "T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md:232\u2013289; T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md:437\u2013448",
+    "proportionality": "STDO RC1 SPEC_METHOD.md:1413\u20131463"
+  },
+  "derivedFromRetainedData": {
+    "partialStructuredBytes": 68431,
+    "partialStructuredSha256": "74ef7741b902e5376c5e7770704095e28c3de5ad538e03c63eea5f95814ad124",
+    "completeStatements": 16,
+    "completePressureRows": 13,
+    "completeTargets": 10,
+    "typedReferencesInCompletedFields": 323,
+    "quotedIdentityScalarBytes": 30912,
+    "integerScalarBytesForSameChoices": 510,
+    "outOfActualDomains": 0,
+    "actualRevisionRequirementDomainLength": 29,
+    "ordinaryRequirementDomainLength": 15,
+    "index14ExpectedSuffix": "6cec93b453f2df9b331e5908febb36e581998805218c49fab406ce4e9370a287",
+    "ordinaryIndex14WrongSuffix": "db07c18d91f1dcee127290132e58619874224e0edc21af9af0b29245818242ff"
+  },
+  "limits": [
+    "no terminal provider usage/cost",
+    "no CPU/token attribution to prompt sections or ambient host",
+    "no semantic acceptance of partial structured output",
+    "no timing promise",
+    "no tests/source edits/runtime acquisition/replay/model calls"
+  ]
+}

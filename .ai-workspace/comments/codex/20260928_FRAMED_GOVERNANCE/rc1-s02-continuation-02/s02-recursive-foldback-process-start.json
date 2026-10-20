@@ -1,0 +1,14 @@
+{
+  "pid": 58796,
+  "processGroup": 58796,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-recursive-foldback.jsonl"
+  ],
+  "startedAt": "2026-10-01T15:59:57.570Z",
+  "mode": "s02",
+  "label": "recursive-foldback",
+  "capMs": 720000
+}

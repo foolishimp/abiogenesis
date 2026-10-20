@@ -1,0 +1,41 @@
+{
+  "status": "local test expectation correction",
+  "at": "2026-10-02T09:10:58.221937+00:00",
+  "failurePreserved": [
+    {
+      "path": "regression-supervisor-start.json",
+      "bytes": 3220,
+      "sha256": "31d442e01e5b6b28364d19e354fc77261c8470f7767acefb781593d339b2a20e"
+    },
+    {
+      "path": "regression-supervisor-close.json",
+      "bytes": 965,
+      "sha256": "4beac55a746f115ff680765e8d7391b9a528333e7faf578137d673ed5eb8d181"
+    },
+    {
+      "path": "regression-supervised-stdout.log",
+      "bytes": 15717,
+      "sha256": "8c9c50079ee29329d8fa8413b1418baac60521a21724b77ce70e83c112ef84b0"
+    },
+    {
+      "path": "regression-supervised-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceChangedByCorrection": false,
+  "cause": "Adding an unselected sibling legitimately changes the publication semantic digest. Full owner coordinate equality was invalid.",
+  "correction": "Compare exact selected dependency coordinates except publicationDigest; independently bind every owner to its actual selected publication digest. No guard or verifier changed.",
+  "postimageTest": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+    "bytes": 14115,
+    "sha256": "f57e520c9a7ce2ca5ee61044bc70293b93618f4649a816b52d1fc4393d29334e"
+  },
+  "next": "One targeted regression-final; no repeated compile or additional suite.",
+  "failedTestBody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/preimages/test-expectation-before-correction.mjs",
+    "bytes": 13588,
+    "sha256": "96d2fd4bf7d0cf4cbd361683d12e32fe4a33251e3c18960a5d8ae52333c0c0d7",
+    "mode": 420
+  }
+}

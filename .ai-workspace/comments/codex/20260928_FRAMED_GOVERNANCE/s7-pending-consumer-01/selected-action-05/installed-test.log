@@ -1,0 +1,31 @@
+﹣ installed post-disposition selected action survives actual host interruption and continues once (0.272542ms) # SKIP
+✖ installed covered-current selection consumes the old and current occurrences under the exact admitted cover (31670.318875ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 31742.042584
+
+✖ failing tests:
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:76:1
+✖ installed covered-current selection consumes the old and current occurrences under the exact admitted cover (31670.318875ms)
+  AssertionError [ERR_ASSERTION]: {"outcomeKind":"refusal","value":{"code":"basis_mismatch","evidenceRefs":[],"issuePaths":["/invocationAuthority"]}}
+  + actual - expected
+  
+  + undefined
+  - 'completed'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:173:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'completed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,21 @@
+{
+  "operation": "T287_C09_INSTALLED_CARRIER_ASSURANCE_01",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INSTALLED_MECHANICAL_CARRIER_ONLY",
+  "positiveCompanion": "GO_BOUNDED_ORIGINAL_ASSESSMENT_CARRIER_AND_TWO_READS",
+  "closedAt": "2026-10-03T09:31:37.049664+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/final-runtime-freeze.json",
+    "bytes": 25683,
+    "sha256": "fbd13541c072abe6ca683dda97ed03f8b5f341b7e980eb0cbc0e94c4e4e4c7fb",
+    "mode": 420
+  },
+  "counterexamples": [
+    "eager full-owner diagnostic before kind comparison",
+    "collector identical-column matcher contradicts canonical J source contract"
+  ],
+  "reentry": "new external consumer/report realization_refactor, Root alone authorizes",
+  "runtimeOrRepairEffects": 0,
+  "furtherEffectsAuthorized": false
+}

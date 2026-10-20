@@ -1,0 +1,24 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-directory-successor.mjs",
+    "--execute",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json"
+  ],
+  "exitCode": 1,
+  "startedAt": "2026-10-08T07:53:21.495487+00:00",
+  "finishedAt": "2026-10-08T07:54:04.304514+00:00",
+  "wallMs": 42808.644042001106,
+  "timedOut": false,
+  "truncated": false,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteCount": 0
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution.stderr",
+    "sha256": "ed7ee8693699c2ced4e631df5a26902ed3c18a79067bef0c6ceb579d2e8089b7",
+    "byteCount": 725
+  }
+}

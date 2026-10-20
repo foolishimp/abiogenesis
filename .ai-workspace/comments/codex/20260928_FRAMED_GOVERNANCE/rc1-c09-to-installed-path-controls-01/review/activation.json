@@ -1,0 +1,24 @@
+{
+  "activation": "T287_C09_CONSTRUCTION_ASSURANCE_01",
+  "role": "Reviewer",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T15:54:32.454139+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/review-request.txt",
+    "bytes": 3485,
+    "sha256": "dfe6c98f1bc6105837b628569ffe305475cd844b176042a580f205c7172e50b9"
+  },
+  "amendment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01/request.txt",
+    "bytes": 3945,
+    "sha256": "f61ea926b00ae13a87248cd1943a7ddeccb844f18869b6eb72546c110bf59c61"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+    "bytes": 388347,
+    "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb"
+  },
+  "scope": "exact prospective C09 construction; actual dependency and bounded declaration amendment independently judged; accepted typed component assurance reused",
+  "effects": "reads/hash/source/archive comparison and only new review reports; no Runtime/source proof reruns"
+}

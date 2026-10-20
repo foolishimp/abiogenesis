@@ -1,0 +1,13 @@
+{
+  "kind": "baseline_preparation_activation",
+  "created_utc": "2026-10-20T18:41:06.824328+00:00",
+  "executive_grant": "Separate ready-frontier Writer; baseline copy, offline ignore-scripts dependencies, isolated tsc/generator and pack only. No tests/installed host/runtime/native/historical effects/source repairs. First genuine build/generation failure stops dependent work.",
+  "source_manifest": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source-manifest.json",
+  "source_manifest_sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+  "stage_root": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build",
+  "staged_files": 1311,
+  "staged_bytes": 60480437,
+  "all_input_hashes_verified": true,
+  "main_protected_files": 936,
+  "preserved_snapshot_mutated": false
+}

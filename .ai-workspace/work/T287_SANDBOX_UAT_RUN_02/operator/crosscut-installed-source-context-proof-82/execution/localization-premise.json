@@ -1,0 +1,4 @@
+{
+  "cause": "First pure-localization script used guessed registered-selection-data-product-artifacts path; ENOENT before validation.",
+  "ownerPath": "Existing registered-graph-selection.mjs193 uses registered-selection-artifacts; corrected local read selector only, no setup/runtime retry."
+}

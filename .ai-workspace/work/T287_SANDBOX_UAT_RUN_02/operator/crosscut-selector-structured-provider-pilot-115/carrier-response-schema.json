@@ -1,0 +1,201 @@
+{
+  "type": "object",
+  "properties": {
+    "interpretation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contributions": {
+      "type": "array",
+      "maxItems": 6,
+      "description": "At most one contribution row per graphFunctionRef in this current mapping.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "graphFunctionRef": {
+            "type": "string",
+            "enum": [
+              "graph-function://abiogenesis/default-library/induction@5",
+              "graph-function://abiogenesis/default-library/specification@5",
+              "graph-function://abiogenesis/default-library/design@5",
+              "graph-function://abiogenesis/default-library/construction@5",
+              "graph-function://abiogenesis/default-library/testing@5",
+              "graph-function://abiogenesis/default-library/uat@5"
+            ]
+          },
+          "contribution": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "supportRefs": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "support://abiogenesis-sandbox-uat/data-mapper-full/complete-original-outcome"
+              ]
+            }
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "task://abiogenesis-sandbox-uat/data-mapper-full/original",
+                "worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e",
+                "result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f",
+                "result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9"
+              ]
+            }
+          },
+          "dependsOn": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "graph-function://abiogenesis/default-library/induction@5",
+                "graph-function://abiogenesis/default-library/specification@5",
+                "graph-function://abiogenesis/default-library/design@5",
+                "graph-function://abiogenesis/default-library/construction@5",
+                "graph-function://abiogenesis/default-library/testing@5",
+                "graph-function://abiogenesis/default-library/uat@5"
+              ]
+            },
+            "description": "Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes."
+          }
+        },
+        "required": [
+          "graphFunctionRef",
+          "contribution",
+          "reason",
+          "supportRefs",
+          "evidenceRefs",
+          "dependsOn"
+        ]
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "supportRefs": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "support://abiogenesis-sandbox-uat/data-mapper-full/complete-original-outcome"
+              ]
+            },
+            "minItems": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "task://abiogenesis-sandbox-uat/data-mapper-full/original",
+                "worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e",
+                "result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f",
+                "result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9"
+              ]
+            }
+          }
+        },
+        "required": [
+          "supportRefs",
+          "reason",
+          "evidenceRefs"
+        ]
+      }
+    },
+    "nextGraphFunctionRef": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "graph-function://abiogenesis/default-library/induction@5",
+        "graph-function://abiogenesis/default-library/specification@5",
+        "graph-function://abiogenesis/default-library/design@5",
+        "graph-function://abiogenesis/default-library/construction@5",
+        "graph-function://abiogenesis/default-library/testing@5",
+        "graph-function://abiogenesis/default-library/uat@5",
+        null
+      ],
+      "description": "Must name a contribution row in THIS response, explicitly chosen to execute next. Testing is available immediately only when every original selected path is an observed file; future Testing contributions remain allowed. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule."
+    },
+    "nextReason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nextEvidenceRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "task://abiogenesis-sandbox-uat/data-mapper-full/original",
+          "worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e",
+          "result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f",
+          "result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9"
+        ]
+      }
+    },
+    "subjectEvidenceRef": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        null,
+        "result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f"
+      ],
+      "description": "For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null."
+    },
+    "revisionReason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revisionEvidenceRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "task://abiogenesis-sandbox-uat/data-mapper-full/original",
+          "worksite-context-observation://abiogenesis/c47f38bbf1af19b0ee36aef721dd04932378ccd02de52fe66083387bd90d665e",
+          "result://abiogenesis/c35047628b331324a23b8463c92bc2290f78d8670f60e6520b24471eaba7622f",
+          "result://abiogenesis/cec6bf90c7ee67b6ab5eef0156b69e04a333580489a185500088de9bba3bd2b9"
+        ]
+      }
+    }
+  },
+  "required": [
+    "interpretation",
+    "contributions",
+    "gaps",
+    "nextGraphFunctionRef",
+    "nextReason",
+    "nextEvidenceRefs",
+    "subjectEvidenceRef",
+    "revisionReason",
+    "revisionEvidenceRefs"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,105 @@
+{
+  "operation": "projectClosedGraphCallTerminalAtDurablePrefix",
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 2142096875,
+    "prefixDigest": "sha256:32da61f7f6f3a98967e37eef6e29177ea5920b25d5f5e63ceac639fd7554b72a",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:00de3e0ae6264743944e8a01d1e76aefee75f77df46f6b06b22e2137e9e3d732"
+  },
+  "graphCallId": "graph-call://abiogenesis/81d2fa2b4b921bd4baf13f1bf812e93aff5972bc2e787e723e309a6b4bec3e43",
+  "selectedObservation": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/33c883ea5bb13d449be54b8720ba1ddfd0980e9d3433aa6be401647c4003abf1",
+    "cCallRef": "c-call:sha256:b647d0a224a67a636a902554ca91b6567fc1227a35ca6ec7b87ace8e0ccb5091",
+    "purpose": "construction",
+    "resultDigest": "sha256:14c4abea770e04a5f765ab6e282d94b9623b7184e49b3b4208bdd4e6d5265581",
+    "resultRef": "result://abiogenesis/14c4abea770e04a5f765ab6e282d94b9623b7184e49b3b4208bdd4e6d5265581",
+    "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+    "synthesisResultRef": "result://abiogenesis/83a3e6bf6ba3d7d977cfdf6656ed427bae97058390e72b086a27dc19195c89b5",
+    "value": {
+      "changedPaths": [
+        "archive/test-run-archive.md",
+        "depth-proof-map.json",
+        "mutation-outcomes.json",
+        "proof/component-test-execution-qualification.md",
+        "proof/repaired-component-test-execution-qualification.md",
+        "release/release-depth-parity.md",
+        "release/release-preparation.md",
+        "repair/component-repair-application.md"
+      ],
+      "report": {
+        "gaps": [
+          "test-execution-result.json is still absent and the oracle requires it. Using the admitted Testing Results in its place is a recorded change of representation, but nothing has ratified it, and no authority exists for writing that file.",
+          "planSatisfied and assertedReturnValue ('data_mapper_full_sbt ok') are not bound to any admitted observation. The passing U8 runner-carrier testcase is test evidence only.",
+          "`sbt clean assembly` (oracle declaredBuildCommand) has never been observed and no assembly jar exists. Offline-only dependency resolution (toolchain.offlineCacheRequired) has not been observed.",
+          "The admitted predicate and command ids (predicate://abiogenesis-sandbox-uat/…, command://abiogenesis-sandbox-uat/…/tests) differ from the oracle's (predicate://odd-glc/…, validation://odd-glc/…/tests). Kinds and values match, but no equivalence has been ratified.",
+          "On red runs the test_pass_count predicate counts 0 passes for any report that has a failure, so it undercounts on all 16 red runs (e.g. 9a4d32b8 reports 36 against 42 in the XML). It is correct on the 3 green runs.",
+          "Collateral failures: 14 of the 16 red runs failed identities outside the mutated row's citations. Counts: row 1 (1), 3 (1), 6 (4), 11 (9), 13 (4), 16 (1), 18 (1), 21 (2), 26 (11), 28 (4), 31 (2), 33 (1), 36 (1), 38 (1). Rows 8 and 23 had none. Whether these mutants are isolated enough is for the evaluator.",
+          "Never-red identities: row 1's 'UAT-CORE-NEG: DataFrameRef.bind refuses missing, extra, reordered and mistyped columns' and row 36's 'U8 runner negative: run on the degraded request returns a Left naming assure' stayed green under their own row's mutants.",
+          "The row-23 mutant edits three case arms (AccountingVerifier.scala:32-34) using one mechanism. Whether that counts as one minimal semantic edit is for the evaluator.",
+          "mutation-outcomes.json and depth-proof-map.json each carry a top-level 'basis' object that the source shape {\"rows\":[...]} does not include. It is unknown whether a strict-shape consumer accepts it.",
+          "repair/component-repair-schedule.md (5f7cd238) is stale and outside this write scope. It cites depth-proof-map 7648fe52 and mutation-outcomes 059c16d4, which are superseded, and describes twelve runs. Its no-repair decision still holds. It needs refreshing by its owner (design).",
+          "I did not re-project or re-check proof/component-realization-qualification.md (ccdd08d6). Stages 1–11 and 14 are marked present only because the artifact exists at its digest; I did not re-assess their content.",
+          "Whether the cross-suite depth identity 'UAT-TOPO-INT (engine path)' (in the engine suite, cited for REQ-CDME-TOPOLOGY × integration) counts is still for the evaluator to decide.",
+          "No original failing run has been admitted, so the lifecycle has no failed-then-repaired sequence. I did not reconstruct one.",
+          "There has been no fresh independent UAT assessment of this final candidate. support://abiogenesis-sandbox-uat/data-mapper-full/complete-original-outcome and all 28 stage meanings remain unresolved, so UAT is non-green. I claim no acceptance and chose no graph continuation.",
+          "Reads of the mandatory inputs: I read source.original.txt, supporting-constants.original.txt and oracle.json in full. I read obligations.json programmatically: its structure, sourcePin, span stages and depth classes, plus all 171 stage-meaning instructions compared against the source (18 differ only by template expansion). I printed only one of its 8 requirement entries; the same 8 requirements appear in full in oracle.json.",
+          "Reads outside the readable scope, all read-only: a listing of the run directory (../..) and of resources/archives/worksite-command-execution/. For all 19 archived runs I read result.json (with stdout base64 payloads decoded in memory), the sandbox source snapshots and the target/test-reports XML. I read the keys of one task.json. I did not read runtime.events.jsonl.",
+          "Writes: mutation-outcomes.json and depth-proof-map.json were rewritten in place by `python3 -I -c` using open('wb'), with no temp file. I wrote the six markdown artifacts with the Write tool and made two Edit-tool edits to the repaired qualification; those tools may have used a transient temp file and rename in their directories. I created no scratch files, heredocs or redirections. The Python interpreter might cache stdlib bytecode in its own install location, which I cannot rule out."
+        ],
+        "summary": "I finished the bounded projection increment. Verification found no discrepancy. I ran no sbt, git, network or install command, applied no mutant, wrote no XML or test-execution-result.json, and made no kill claim beyond the admitted XML.\n\n(1) Read-only check of 88907255 (archive f96bd7d8…/d30e0e6c…)\n- Run: exit 0, argv [\"test\"], cwd build_tenants/scala_spark, JAVA_HOME openjdk@11, command observation 6c221657, no signal, no timeout.\n- Reports: all 8 match the admitted digest and length: core 5d07a603/6407, compiler 143729da/6192, executor 7c8e6ad3/6181, adjoint 9dfa3a96/6236, accounting c482e4c2/6194, assurance b449abe6/6170, fidelity f8eba8d8/6175, engine 1f29c4f6/6908.\n- XML: 44 testcases = 44 passed + 0 failures + 0 errors + 0 skipped. The stdout body decoded from the archive matches d582f294/18065.\n- Snapshot, compared by fileDigest and byteLength (not by observation refs): the 26 tracked and source paths are the same set as b5b5cad3 and 5963e1fc and are byte-identical to both. This includes CdmeEngineImpl.scala 280197b6/9581 (the row-38 restore) and AssuranceService.scala 7cacd34a/3257. The worksite also equals that snapshot; it has no target/ directories and test-execution-result.json is absent.\n- I also re-verified all 19 archived runs (3 green, 16 red): reports, stdout digests and XML counts. Each red snapshot differs from 5963e1fc only in the mutated file, and every restore is byte-observed in the next run.\n\n(2) mutation-outcomes.json: 0e39519d → daa6db47bc1571b45effd9a13e52539048142996727324cf90c63dff89225ea3 (34167 B)\n- Re-verified the 9a4d32b8 reports (archive ae64f674…). XML is 44/42/2/0/0. Its CdmeEngineImpl.scala is 3ebf7bd9/9581 and differs from the baseline only at L56 (forall→exists).\n- Added row 38 with exactly the seven fields. Failures in XML order: UAT-ENG-BND, then UAT-ENG-INV. suiteExit 1. Baseline and restore are both 280197b6.\n- Added the cycle-38 entry: red run 9a4d32b8, command observation f5778565, XML 44/42/2/0/0, restore observed in 88907255, depthRowIdentitiesNotRed empty.\n- finalRestoredGreen now points to 88907255 (command observation 6c221657), with a note that it follows the last restore (row 38). priorProjectionDigest is 0e39519d. absentDepthRows is empty, and the absence sentence is removed from admissionRule. admissionRule also now states that row numbers are 0-based.\n- Reverse check: undoing the edits reproduces the 0e39519d bytes exactly. All 16 rows have the seven fields, compiled true, exit 1 and baseline == restore. Each row's failedTestIdentityRefs equals its red run's XML failure list.\n\n(3) depth-proof-map.json: 4285b857 → 9e083c155f0a3c7425ed83ea346c865c0de1e53890b092b3862202bc3c8fcc51 (21615 B)\n- The basis is re-projected onto 88907255 with all 8 report digests and lengths. b5b5cad3 is kept as the prior restored green, and the superseded basis is recorded.\n- The 40 rows are unchanged (checked structurally).\n- All 44 cited identities resolve to unique passing testcase names in the 88907255 XML, and no XML testcase is uncited. The only cross-suite citation is UAT-TOPO-INT (engine path).\n\n(4) Re-projected files, in dependency order\n- proof/component-test-execution-qualification.md: 158a62be. Basis stays 5963e1fc; open items updated.\n- repair/component-repair-application.md: a34b5c31. No-repair branch per schedule 5f7cd238; all 16 mutant applications and restores; the 22 files were re-hashed.\n- proof/repaired-component-test-execution-qualification.md: a033dfd0. b5b5cad3 is the preserved-implementation rerun and 88907255 the final restored green run, both 44/0/0. The two runs' reports differ only in timestamp, time and the user.dir property; testcase names are identical.\n- archive/test-run-archive.md: 08a1142d. All 3 green runs and all 16 red runs, with exact failing names generated from the XML (each marked as the row's own identity or collateral) and the restore observations.\n- release/release-depth-parity.md: 744aa265. All 28 stage meanings: 21 present, 7 partial, 0 absent. 26 is treated as an obsolete count.\n- release/release-preparation.md: 0034ec8a. ABG owns proof truth; no production release authority is claimed.\n\nCorrection carried into these artifacts: the earlier files listed collateral failures only for rows 26, 31, 3, 18 and 33. Counting every failed identity that the mutated row does not cite, 14 of the 16 red runs had collateral failures; only rows 8 and 23 had none."
+      }
+    }
+  },
+  "admissionEventRef": "event://abiogenesis/7c9d5f9af142c0e33df1d65b5bb0508315d0638ef092ebee849eaeaa43f35480",
+  "admissionOrdinal": 271526,
+  "declarationProofDigest": "sha256:8ccae5235461aed4d5d00076531d53eec342b80ee75ea6161b3a5430a71b5f88",
+  "returned": {
+    "result": {
+      "ref": "result://abiogenesis/14c4abea770e04a5f765ab6e282d94b9623b7184e49b3b4208bdd4e6d5265581",
+      "digest": "sha256:14c4abea770e04a5f765ab6e282d94b9623b7184e49b3b4208bdd4e6d5265581"
+    },
+    "contract": {
+      "ref": "contract://abiogenesis/worksite/native-work/observation@5",
+      "digest": "sha256:e99c9eb1b4838652e97ab3df28b6d9b14d9558ac4ebd0772669f3df44720f152"
+    },
+    "valueKind": "native_workspace_work_observation",
+    "valueDigest": "sha256:d3fd240e5b93857c5540cf41d796636dfad8433f14790cb97a6520e59c8658fb",
+    "producer": {
+      "runRef": "run://abiogenesis/6ea5bad308dc191a2e84cb887b3555ce26c5d2f20e33ed6b142b6b505c83d43c",
+      "graphCallRef": "graph-call://abiogenesis/81d2fa2b4b921bd4baf13f1bf812e93aff5972bc2e787e723e309a6b4bec3e43",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/18b98bfe8ecc11799655964a25fe76578012cee84313b892d968fcac77c1adae",
+      "program": {
+        "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+        "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+      },
+      "graphFunction": {
+        "ref": "graph-function://abiogenesis/worksite/native-work@5",
+        "digest": "sha256:e9e6be1e9760757671d188471c9a461957d8dc198fbe590a621472fb4e5cd2ef"
+      },
+      "executionBasis": {
+        "ref": "execution-basis://abiogenesis/260f0bf97b93215c2f212fc6a720a530d048a80b908c4ed396c6b230dbadd65b",
+        "digest": "sha256:260f0bf97b93215c2f212fc6a720a530d048a80b908c4ed396c6b230dbadd65b"
+      },
+      "cCallRef": "c-call:sha256:b647d0a224a67a636a902554ca91b6567fc1227a35ca6ec7b87ace8e0ccb5091",
+      "resultAdmissionEventRef": "event://abiogenesis/7c9d5f9af142c0e33df1d65b5bb0508315d0638ef092ebee849eaeaa43f35480",
+      "judgmentRef": "judgment://abiogenesis/4d994f96df6e73722d779197eaddf43abc113bc5ea4f21ba7d104bece546b179",
+      "judgmentAdmissionEventRef": "event://abiogenesis/60194d0e2343083cfc3264cb9434d5cffa9f32648fbdf23da093f5c8c62f471d",
+      "terminalRoute": {
+        "ref": "traversal-route://abiogenesis/694af7aa75012ce9bdfd5c8fddc9929e034d63c2c07b6756cbcf4a62299aa04e",
+        "digest": "sha256:694af7aa75012ce9bdfd5c8fddc9929e034d63c2c07b6756cbcf4a62299aa04e"
+      }
+    },
+    "projectionBasis": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "digest": "sha256:00de3e0ae6264743944e8a01d1e76aefee75f77df46f6b06b22e2137e9e3d732"
+    }
+  },
+  "meaning": "Auxiliary authentic closed-child declaration-resource lineage; parenta8746 remains nonterminal with41 observations."
+}

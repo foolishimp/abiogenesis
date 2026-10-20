@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-19/build-once.py", line 20, in <module>
+    assert {r['after']['path'] for r in changes}<=set(allowed)|set(generatedAllowed),changes
+            ~~~~~~~~~~^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+        0.11 real         0.07 user         0.03 sys
+            30818304  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                2994  page reclaims
+                   0  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   7  voluntary context switches
+                  10  involuntary context switches
+          1738336358  instructions retired
+           452405102  cycles elapsed
+            18940528  peak memory footprint

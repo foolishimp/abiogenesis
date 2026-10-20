@@ -1,0 +1,109 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.product.install",
+      "memberKey": "install"
+    },
+    "invocationRef": "invocation://abiogenesis/b6b3e1442f41dbaf89da68ec0895a0934ad7e0e3a138089a81db20463d7235f4",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "disposition": "materialized",
+        "installedProduct": {
+          "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/1159b570ca498e8106f544c8ac88ef53c6f9bb60340db860c860a33e4e28f40a",
+          "digest": "sha256:fb29a6011e5c953dd8a853720c8a1d3cfabd813fa53ceb6a7db5cac50ef7446b"
+        },
+        "installManifest": {
+          "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/preparation/products/dev15/node_modules/@odd-glc/route-one-typescript/product-toolchain-manifest.json",
+          "digest": "sha256:0327ef3c929aecdd282342f93304ed45e1ae2fdeb71a528b4d113984cfdaf6ee"
+        },
+        "installerManifest": {
+          "ref": "artifact-truth-projection://abiogenesis/701edf0f6b814af524dd2bd6c175d6004eb491588bb6e66c5b601967232697fa",
+          "digest": "sha256:701edf0f6b814af524dd2bd6c175d6004eb491588bb6e66c5b601967232697fa"
+        },
+        "resolvedLock": {
+          "ref": "product-lock://abiogenesis/1159b570ca498e8106f544c8ac88ef53c6f9bb60340db860c860a33e4e28f40a",
+          "digest": "sha256:1159b570ca498e8106f544c8ac88ef53c6f9bb60340db860c860a33e4e28f40a"
+        },
+        "provenance": [
+          {
+            "ref": "artifact-truth-projection://abiogenesis/701edf0f6b814af524dd2bd6c175d6004eb491588bb6e66c5b601967232697fa",
+            "digest": "sha256:701edf0f6b814af524dd2bd6c175d6004eb491588bb6e66c5b601967232697fa"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "product_install_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "eventResource": {
+        "kind": "abg_event_resource_completion",
+        "schemaVersion": "5.0.0",
+        "acquisitionKind": "reopen",
+        "entryPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+          "prefixLength": 218659589,
+          "prefixDigest": "sha256:063200464fde953ecdd13004c0cea44e195a0ea79f9fa2f472343ccfaf10dd26",
+          "storeIdentity": {
+            "device": 16777230,
+            "inode": 459405010,
+            "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+          },
+          "coordinateDigest": "sha256:e63963898f8047d4eec6c871b32f76a39afe95b793234c6ea735e26778d92bb3"
+        },
+        "successor": {
+          "kind": "acquired_abg_event_resource_selection",
+          "schemaVersion": "5.0.0",
+          "prefix": {
+            "kind": "durable_prefix_coordinate",
+            "schemaVersion": "5.0.0",
+            "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+            "prefixLength": 218663130,
+            "prefixDigest": "sha256:9629ff7e9e65b13d5e469876edc2febc3e3dc8870695700078c75aebf0126b47",
+            "storeIdentity": {
+              "device": 16777230,
+              "inode": 459405010,
+              "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+            },
+            "coordinateDigest": "sha256:2b94fb934da60d90115fb62759542384344874e191965e93e6648a863aef8896"
+          }
+        },
+        "receiptDigest": "sha256:3e1beadc0c40e413d7cbb94887d65ee5fffed63379a910303ba62f6beb46e341"
+      },
+      "packedArtifact": {
+        "ref": "odd-glc-route-one-typescript-0.2.0-dev.15.tgz",
+        "digest": "sha256:0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964"
+      },
+      "resolvedLock": {
+        "ref": "product-lock://abiogenesis/1159b570ca498e8106f544c8ac88ef53c6f9bb60340db860c860a33e4e28f40a",
+        "digest": "sha256:1159b570ca498e8106f544c8ac88ef53c6f9bb60340db860c860a33e4e28f40a"
+      },
+      "targetRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/preparation/products/dev15",
+      "installCandidate": {
+        "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/1159b570ca498e8106f544c8ac88ef53c6f9bb60340db860c860a33e4e28f40a",
+        "digest": "sha256:fb29a6011e5c953dd8a853720c8a1d3cfabd813fa53ceb6a7db5cac50ef7446b"
+      },
+      "installedProduct": {
+        "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/1159b570ca498e8106f544c8ac88ef53c6f9bb60340db860c860a33e4e28f40a",
+        "digest": "sha256:fb29a6011e5c953dd8a853720c8a1d3cfabd813fa53ceb6a7db5cac50ef7446b"
+      },
+      "installManifest": {
+        "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/preparation/products/dev15/node_modules/@odd-glc/route-one-typescript/product-toolchain-manifest.json",
+        "digest": "sha256:0327ef3c929aecdd282342f93304ed45e1ae2fdeb71a528b4d113984cfdaf6ee"
+      },
+      "installerManifest": {
+        "ref": "artifact-truth-projection://abiogenesis/701edf0f6b814af524dd2bd6c175d6004eb491588bb6e66c5b601967232697fa",
+        "digest": "sha256:701edf0f6b814af524dd2bd6c175d6004eb491588bb6e66c5b601967232697fa"
+      }
+    },
+    "failure": null
+  }
+}

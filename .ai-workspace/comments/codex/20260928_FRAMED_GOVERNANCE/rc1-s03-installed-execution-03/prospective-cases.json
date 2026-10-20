@@ -1,0 +1,46 @@
+{
+  "core": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+      "productContentDigest": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+      "manifestDigest": "sha256:cb7b8045e769fa6c019e599e5aef932827d915ce9de11a91cfcb5946a9eb153d",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "fixture": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+    "basis": {
+      "artifactDigest": "sha256:c199ca3a2004d26ae26f1ef00b6f6b197a3bd01dc26a6d0d623333edfcc66088",
+      "manifestDigest": "sha256:dc8ea7ebec320fef5da56ade9fa97c3552563822d65fc77d227a8b7992cb37e0",
+      "productContentDigest": "sha256:6e3797c11565a485c294da58eca600ce7571c45bfbe2bbb1b7f222c907b914ec",
+      "productId": "product://s03-automatic/product@5",
+      "packageName": "@abiogenesis-fixtures/registered-selection",
+      "packageVersion": "5.0.0"
+    }
+  },
+  "cases": [
+    {
+      "name": "positive",
+      "correctionAvailable": true
+    },
+    {
+      "name": "no-action",
+      "correctionAvailable": false
+    }
+  ],
+  "originalFixtureImplementation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/index.js",
+    "bytes": 21635,
+    "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+  },
+  "originalPublicationPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/publication.json",
+    "bytes": 24899,
+    "sha256": "143ffe71d3980cddb81bfbf7ea543188fd2efd3e9eb198c41ec819e9e9177957"
+  }
+}

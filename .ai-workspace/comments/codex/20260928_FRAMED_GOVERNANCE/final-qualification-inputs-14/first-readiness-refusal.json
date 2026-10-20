@@ -1,0 +1,32 @@
+{
+  "status": "CLOSED_FIRST_ACTUAL_PREPARATION_REFUSAL",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_14",
+  "workResult": "NO_GO_EXTERNAL_EXISTING_BIJECTION_OUTPUT_PRECONDITION",
+  "frontier": "pure owned bijection preparation after actual helper GO, before complete binding/Product imports",
+  "owner": "prepare-bijection.py:17",
+  "predicate": "assert not (Q/f11/member-alias-trace.json).exists()",
+  "actual": "The exact reused C09 alias trace already exists in Q14; an unnecessary create-only regeneration was selected by the local preparation harness.",
+  "existingOutput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/member-alias-trace.json",
+    "bytes": 205250,
+    "sha256": "ef9157f67d6695d6d50b7e880e3a6f0bf9bfa30c244112ba72ecfa541efcc89f",
+    "mode": 420
+  },
+  "copiedDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/member-alias-trace.json",
+    "bytes": 205250,
+    "sha256": "ef9157f67d6695d6d50b7e880e3a6f0bf9bfa30c244112ba72ecfa541efcc89f",
+    "mode": 420
+  },
+  "existingBytesUnchanged": true,
+  "sourceRoleAndProductDefectInferred": false,
+  "command": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/prepare-bijection.py"
+  ],
+  "exitCode": 1,
+  "actualStderr": "Traceback (most recent call last):\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/prepare-bijection.py\", line 17, in <module>\n    p=Q/'f11/member-alias-trace.json';assert not p.exists();p.write_text(json.dumps(a,indent=2,ensure_ascii=False)+'\\n')\nAssertionError\n",
+  "ProductImports": 0,
+  "RuntimeEffects": 0,
+  "noRepairOrRetry": true
+}

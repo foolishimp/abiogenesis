@@ -1,0 +1,26 @@
+{
+  "kind": "session_metadata_field_projection",
+  "sourcePath": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-20-56-01a0edc1-320d-7403-98ce-670c97b96ecb.jsonl",
+  "startByte": 0,
+  "endByte": 22686,
+  "containingRecordSha256": "ada745b41cf488d1bf0233d5ffa35ca49ca297f4b2e8ae260b65d81ba6a823be",
+  "timestamp": "2026-09-29T15:20:56.649Z",
+  "fields": {
+    "id": "01a0edc1-320d-7403-98ce-670c97b96ecb",
+    "cwd": "/Users/jim/src/apps",
+    "parent_thread_id": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+    "agent_path": "/root/selected_action",
+    "model_provider": "openai",
+    "source": {
+      "subagent": {
+        "thread_spawn": {
+          "parent_thread_id": "01a0edbb-7c4f-7493-bf06-2a600644bbb6",
+          "depth": 1,
+          "agent_path": "/root/selected_action"
+        }
+      }
+    }
+  },
+  "modelProfile": null,
+  "modelProfileLimit": "No exact model/profile is asserted from system instructions, private context or an unobserved runtime setting."
+}

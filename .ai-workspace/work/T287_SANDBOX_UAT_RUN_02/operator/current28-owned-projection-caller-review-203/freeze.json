@@ -1,0 +1,25 @@
+{
+  "role": "Reviewer203",
+  "status": "CLOSED_FROZEN_STOPPED",
+  "frozenAt": "2026-10-09T11:23:19.225187+00:00",
+  "verdict": "BOUNDED_GO_CALLER_ONLY",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/freeze.json",
+    "sha256": "34fb2b07051607e0ee315348a12095ac270315b619d22353b63e82e504401d5c",
+    "byteCount": 11105
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-review-203/return.md",
+      "sha256": "b7f773631cfcf860a1b3c68b7e09ee87b7c60c10d480208b27c302d9e9021385",
+      "byteCount": 3854
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-review-203/pins.json",
+      "sha256": "6c9951fbd1a57a3faa22bf0fec4216037238c3882a876e818c90bb28d6a2ccbe",
+      "byteCount": 4070
+    }
+  ],
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-review-203",
+  "executionAuthorization": false
+}

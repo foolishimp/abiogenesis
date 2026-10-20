@@ -1,4 +1,13 @@
 import * as Abg from "../abg/index.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
+import { projectOwnedAdmittedLeafCCallOutcomeAtPrefix } from "../abg/c_call.js";
+import { projectOwnedDeferredApplicationAtPrefix } from "../abg/deferred_application.js";
+import { projectChildFoldbackTruth } from "../abg/child_lifecycle.js";
+import { indexedRuntimeEvents } from "../abg/event_prefix.js";
+import {
+  constructRuntimeFailureDiagnosticRef,
+  readRuntimeFailureDiagnosticSubject,
+} from "../abg/runtime_failure.js";
 import type {
   AbgEventStore,
   ActorRuntimeBinding,
@@ -29,16 +38,16 @@ import {
   type ChildTraversalPreparationRefusal,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
-import { projectCCallCompletion } from "./ccall_lifecycle.js";
+import { projectOwnedCCallCompletion as projectCCallCompletion } from "./ccall_lifecycle.js";
 import {
   admissionBasis,
-  replayAtDurable,
-  runtimePrefixAtDurable,
+  ownedReplayAtDurable as replayAtDurable,
+  ownedRuntimePrefixAtDurable as runtimePrefixAtDurable,
   sameCanonical,
   type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
+import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import {
   applyRecursionRoute,
   deriveCompletedTraversalCursor,
@@ -46,7 +55,7 @@ import {
   type TraversalCursor,
 } from "./traversal.js";
 import {
-  projectExecutableTraversalCompletion as completion,
+  projectOwnedExecutableTraversalCompletion as completion,
   type ExecutableTraversalCompletion,
   type HeldRecursionSuspension,
 } from "./traversal_completion.js";
@@ -115,6 +124,18 @@ export type RecursionApplicationStep =
       correlationId: string;
     }>;
 
+
+import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
+import type { RuntimeReplayGuard } from "../abg/replay.js";
+import * as OwnedOutcome from "../abg/c_call_outcome.js";
+import * as OwnedReplay from "../abg/replay.js";
+
+/** @internal */
+export type OwnedExecutableTraversalCompletion = OwnedOutcomeValue<ExecutableTraversalCompletion>;
+/** @internal */
+export type OwnedRecursionChildFoldFrame = OwnedOutcomeValue<RecursionChildFoldFrame>;
+/** @internal */
+export type OwnedRecursionApplicationStep = OwnedOutcomeValue<RecursionApplicationStep>;
 function isJsonRecord(
   value: unknown,
 ): value is Readonly<Record<string, JsonValue>> {
@@ -169,8 +190,8 @@ interface DeferredApplicationState {
 
 function admittedDeferredCCallOutcome(
   state: DeferredApplicationState,
-): Abg.JudgedCCallOutcomeReceipt {
-  const projected = Abg.projectCCallOutcomeReceiptAtPrefix(
+): OwnedOutcome.OwnedJudgedCCallOutcomeReceipt {
+  const projected = OwnedOutcome.projectOwnedCCallOutcomeReceiptAtPrefix(
     state.input.predecessorPrefix,
     {
       disposition: "judged",
@@ -191,7 +212,7 @@ function deferredApplicationState(
   input: RestoreDeferredRecursionInput,
 ): DeferredApplicationState | null {
   const traversal = input.traversalInput;
-  const outcome = Abg.projectAdmittedLeafCCallOutcomeAtPrefix(
+  const outcome = projectOwnedAdmittedLeafCCallOutcomeAtPrefix(
     traversal.predecessorPrefix,
     {
     executionBasis: traversal.executionBasis,
@@ -213,7 +234,7 @@ function deferredApplicationState(
       inputRef: outcome.result.resultRef,
       inputDigest: outcome.result.valueDigest,
     },
-    Abg.projectRuntimePrefixesAtDurablePrefix(traversal.predecessorPrefix, traversal.traversalStop.cursor.runId).authorityPrefix,
+    projectOwnedRuntimeEventPrefixAtDurablePrefix(traversal.predecessorPrefix),
   );
   if (
     target?.kind === "traversal_refusal" ||
@@ -239,12 +260,13 @@ function deferredApplicationState(
   };
 }
 
-export function restoreDeferredRecursion(
+/** @internal Same owner computation with a selected guard receipt. */
+export function restoreOwnedDeferredRecursion(
   input: RestoreDeferredRecursionInput,
-): ExecutableTraversalCompletion | null {
+): OwnedExecutableTraversalCompletion | null {
   const state = deferredApplicationState(input);
   if (state === null) return null;
-  const projected = Abg.projectDeferredApplicationAtPrefix(
+  const projected = projectOwnedDeferredApplicationAtPrefix(
     state.input.predecessorPrefix,
     {
     runId: state.cCall.runId,
@@ -275,7 +297,7 @@ function recursionFailure(
   stage: string,
   diagnosticRef: string,
   candidate: JsonValue,
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   const admitted = Abg.admitRuntimeFailure({
     store: state.input.store,
     predecessorPrefix,
@@ -299,23 +321,39 @@ function recursionFailure(
 }
 
 function requireDeferredApplication(
-  completionValue: ExecutableTraversalCompletion,
+  completionValue: OwnedExecutableTraversalCompletion,
   restoration: RestoreDeferredRecursionInput,
+  complete = false,
 ): DeferredApplicationState {
   const state = deferredApplicationState(restoration);
-  const projected = restoreDeferredRecursion(restoration);
+  const projected = restoreOwnedDeferredRecursion(restoration);
   if (state === null || projected === null ||
-      !sameCanonical(completionValue, projected)) {
+      !deferredRecursionCompletionsMatch(completionValue, projected, complete)) {
     throw new TypeError("deferred application differs from admitted truth");
   }
   return state;
+}
+
+function deferredRecursionCompletionsMatch(
+  actual: OwnedExecutableTraversalCompletion,
+  projected: OwnedExecutableTraversalCompletion,
+  complete: boolean,
+): boolean {
+  if (complete) {
+    return sameCanonical(actual,
+      completePublicOutcome<ExecutableTraversalCompletion>(projected));
+  }
+  const { replayState: actualReplay, ...actualFields } = actual;
+  const { replayState: projectedReplay, ...projectedFields } = projected;
+  return OwnedReplay.runtimeReplayGuardsHaveSameOwnedCut(actualReplay, projectedReplay) &&
+    sameCanonical(actualFields, projectedFields);
 }
 
 function finishRecursionTerminal(
   state: DeferredApplicationState,
   application: Readonly<RecurseApplication>,
   clock: ExecutionClock,
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   if (recursionTerminationDecision(application, state.result.value) !== true) {
     return recursionFailure(
       state,
@@ -379,7 +417,7 @@ function finishRecursionTerminal(
       candidate as unknown as JsonValue,
     );
   }
-  const admitted = Abg.admitCCallCompletion({
+  const admitted = OwnedOutcome.admitOwnedCCallCompletion({
     store: state.input.store,
     predecessorPrefix: outcome.successorPrefix,
     executionBasis: state.input.executionBasis,
@@ -418,7 +456,7 @@ function blockRecursion(
   application: Readonly<RecurseApplication>,
   clock: ExecutionClock,
   preparation?: ChildTraversalPreparationRefusal,
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   const outcome = admittedDeferredCCallOutcome(state);
   const preparationReceipt = preparation === undefined
     ? null
@@ -499,7 +537,7 @@ function blockRecursion(
     },
     terminalizeRun: state.input.completionScopeClass === "root",
   });
-  const admitted = Abg.admitCCallCompletion({
+  const admitted = OwnedOutcome.admitOwnedCCallCompletion({
     store: state.input.store,
     predecessorPrefix,
     executionBasis: state.input.executionBasis,
@@ -545,25 +583,33 @@ function blockRecursion(
   );
 }
 
-export function beginRecursionApplication(input: Readonly<{
+/** @internal Same owner computation with a selected guard receipt. */
+export function beginOwnedRecursionApplication(input: Readonly<{
   traversalInput: CompleteExecutableTraversalInput<
     Readonly<Record<string, JsonValue>>
   >;
   childTraversalBasis: ChildTraversalBasis;
   parentClock: ExecutionClock;
   application: Readonly<RecurseApplication>;
-  completion: ExecutableTraversalCompletion;
+  completion: OwnedExecutableTraversalCompletion;
   graphEntryInput: Readonly<Record<string, JsonValue>>;
   graphEntryInputDigest: `sha256:${string}`;
   leafOrdinal: number;
 }>):
-  | Readonly<{ kind: "recursion_completion"; completion: ExecutableTraversalCompletion }>
+  | Readonly<{ kind: "recursion_completion"; completion: OwnedExecutableTraversalCompletion }>
   | Readonly<{
       kind: "recursion_child_request";
-      frame: RecursionChildFoldFrame;
+      frame: OwnedRecursionChildFoldFrame;
       prepared: PreparedChildTraversal;
       correlationId: string;
     }> {
+  return beginRecursionApplicationUsing(input, false);
+}
+
+function beginRecursionApplicationUsing(
+  input: Parameters<typeof beginOwnedRecursionApplication>[0],
+  complete: boolean,
+): ReturnType<typeof beginOwnedRecursionApplication> {
     const { application, traversalInput, leafOrdinal } = input;
     const coordinates = input.completion;
     if (coordinates.cCallRef === null || coordinates.resultRef === null ||
@@ -582,8 +628,8 @@ export function beginRecursionApplication(input: Readonly<{
       resultRef: coordinates.resultRef,
       judgmentRef: coordinates.judgmentRef,
     };
-    const restored = restoreDeferredRecursion(restoration);
-    if (restored === null || !sameCanonical(restored, coordinates)) {
+    const restored = restoreOwnedDeferredRecursion(restoration);
+    if (restored === null || !deferredRecursionCompletionsMatch(coordinates, restored, complete)) {
       return failRecursionInput(input,
         coordinates.successorPrefix,
         `recursion-restoration-${leafOrdinal}`,
@@ -680,11 +726,65 @@ export function beginRecursionApplication(input: Readonly<{
     };
 }
 
-export function completeRecursionChild(
-  frame: RecursionChildFoldFrame,
-  child: ExecutableTraversalCompletion,
-): ExecutableTraversalCompletion {
-  const state = requireDeferredApplication(frame.restored, frame.restoration);
+function projectFailedRecursionChildTruth(
+  frame: OwnedRecursionChildFoldFrame,
+  state: DeferredApplicationState,
+  child: OwnedExecutableTraversalCompletion,
+): ReturnType<typeof projectChildFoldbackTruth> {
+  if (child.disposition !== "failed" || child.cCallRef === null ||
+      child.resultRef === null || child.judgmentRef === null ||
+      child.resultValue === null || child.diagnosticRef === null) return null;
+  const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(child.successorPrefix);
+  const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: state.cCall.runId });
+  const childBasis = frame.childExecutionBasis;
+  const childScope = frame.childTraversalScope;
+  const truth = childBasis.parentExecutionBasisRef === state.input.executionBasis.basisRef &&
+      childBasis.parentTraversalScopeRef === state.input.openedTraversalScope.scopeRef &&
+      childBasis.parentCCallRef === state.cCall.cCallRef &&
+      childBasis.rawInputAdmissionRef === state.result.resultRef &&
+      childBasis.rawInputDigest === state.result.valueDigest &&
+      childBasis.graphFunctionRef === frame.application.graphFunctionRef &&
+      childScope.executionBasisRef === childBasis.basisRef &&
+      childScope.runId === state.cCall.runId &&
+      Abg.hasAdmittedExecutionBasisAtPrefix(authorityPrefix, childBasis) &&
+      Abg.hasOpenedTraversalScopeAtPrefix(authorityPrefix, childScope)
+    ? projectChildFoldbackTruth({
+        prefix: runtimePrefix,
+        childScope,
+        childResultRef: child.resultRef,
+        childJudgmentRef: child.judgmentRef,
+        childClosureRef: child.closureRef,
+        selectedRouteEventRef: null,
+        allowedDispositions: ["failed"],
+        directCausation: "includes",
+        allowRetryBridges: false,
+      })
+    : null;
+  const result = indexedRuntimeEvents(runtimePrefix, "kind:c_call_result_admitted")
+    .find(event => event.runId === childScope.runId &&
+      event.graphCallId === childScope.graphCallId &&
+      event.frameId === childScope.frameId && event.basisId === childBasis.basisRef &&
+      isJsonRecord(event.payload) && event.payload.resultRef === child.resultRef &&
+      event.payload.cCallRef === child.cCallRef);
+  return truth !== null && result !== undefined &&
+      truth.outputDigest === sha256Canonical(child.resultValue) &&
+      truth.childReasonRef === child.diagnosticRef ? truth : null;
+}
+
+/** @internal Same owner computation with a selected guard receipt. */
+export function completeOwnedRecursionChild(
+  frame: OwnedRecursionChildFoldFrame,
+  child: OwnedExecutableTraversalCompletion,
+): OwnedExecutableTraversalCompletion {
+  return completeRecursionChildUsing(frame, child, false);
+}
+
+function completeRecursionChildUsing(
+  frame: OwnedRecursionChildFoldFrame,
+  child: OwnedExecutableTraversalCompletion,
+  complete: boolean,
+): OwnedExecutableTraversalCompletion {
+  const state = requireDeferredApplication(frame.restored, frame.restoration, complete);
   const clock: ExecutionClock = {
     eventTime: frame.parentClock.eventTime,
     correlationId:
@@ -730,6 +830,50 @@ export function completeRecursionChild(
   }
   if (child.disposition === "failed" && child.replayState.runtimeStatus === "failed") {
     return child;
+  }
+  if (child.disposition === "failed" && child.cCallRef !== null &&
+      child.resultRef !== null && child.judgmentRef !== null &&
+      child.resultValue !== null && child.diagnosticRef !== null) {
+    const truth = projectFailedRecursionChildTruth(frame, state, child);
+    const childBasis = frame.childExecutionBasis;
+    const childScope = frame.childTraversalScope;
+    if (truth !== null) {
+      const retainedSubject = readRuntimeFailureDiagnosticSubject(child.diagnosticRef);
+      const retainsSubject = retainedSubject !== null ||
+        child.diagnosticRef === constructRuntimeFailureDiagnosticRef(null);
+      const admitted = Abg.admitRuntimeFailure({
+        store: state.input.store,
+        predecessorPrefix: child.successorPrefix,
+        executionBasis: state.input.executionBasis,
+        scope: state.input.openedTraversalScope,
+        stage: "route",
+        subject: retainsSubject ? retainedSubject : {
+          stage: "child-failure",
+          parentCCallRef: state.cCall.cCallRef,
+          parentResultRef: state.result.resultRef,
+          parentJudgmentRef: state.judgment.judgmentRef,
+          parentInputDigest: state.input.inputDigest,
+          childExecutionBasisRef: childBasis.basisRef,
+          childTraversalScopeRef: childScope.scopeRef,
+          childCCallRef: child.cCallRef,
+          childResultRef: child.resultRef,
+          childJudgmentRef: child.judgmentRef,
+          childRouteEventRef: truth.routeEventRef,
+        },
+        diagnosticRef: child.diagnosticRef,
+        basis: {
+          ...admissionBasis(clock, "child-failure"),
+          causationEventRefs: [truth.routeEventRef],
+        },
+      });
+      return completion("failed", admitted.replayState, admitted.successorPrefix, {
+        cCallRef: child.cCallRef,
+        resultRef: child.resultRef,
+        judgmentRef: child.judgmentRef,
+        resultValue: child.resultValue,
+        diagnosticRef: child.diagnosticRef,
+      });
+    }
   }
   if (
     (child.disposition !== "closed" && child.disposition !== "blocked") ||
@@ -837,7 +981,7 @@ export function completeRecursionChild(
       state.input.completionScopeClass === "root",
   });
   const outcome = admittedDeferredCCallOutcome(state);
-  const admitted = Abg.admitCCallCompletion({
+  const admitted = OwnedOutcome.admitOwnedCCallCompletion({
     store: state.input.store,
     predecessorPrefix: foldbackReceipt.successorPrefix,
     executionBasis: state.input.executionBasis,
@@ -940,4 +1084,46 @@ export function completeRecursionChild(
     nextInputContractRef: frame.application.outputContractRef,
     },
   );
+}
+
+export function restoreDeferredRecursion(
+  input: RestoreDeferredRecursionInput
+): ExecutableTraversalCompletion | null {
+  return completePublicOutcome<ExecutableTraversalCompletion | null>(restoreOwnedDeferredRecursion(input));
+}
+
+export function beginRecursionApplication(
+  input: Readonly<{
+  traversalInput: CompleteExecutableTraversalInput<
+    Readonly<Record<string, JsonValue>>
+  >;
+  childTraversalBasis: ChildTraversalBasis;
+  parentClock: ExecutionClock;
+  application: Readonly<RecurseApplication>;
+  completion: ExecutableTraversalCompletion;
+  graphEntryInput: Readonly<Record<string, JsonValue>>;
+  graphEntryInputDigest: `sha256:${string}`;
+  leafOrdinal: number;
+}>
+): | Readonly<{ kind: "recursion_completion"; completion: ExecutableTraversalCompletion }>
+  | Readonly<{
+      kind: "recursion_child_request";
+      frame: RecursionChildFoldFrame;
+      prepared: PreparedChildTraversal;
+      correlationId: string;
+    }> {
+  return completePublicOutcome<| Readonly<{ kind: "recursion_completion"; completion: ExecutableTraversalCompletion }>
+  | Readonly<{
+      kind: "recursion_child_request";
+      frame: RecursionChildFoldFrame;
+      prepared: PreparedChildTraversal;
+      correlationId: string;
+    }>>(beginRecursionApplicationUsing(input, true));
+}
+
+export function completeRecursionChild(
+  frame: RecursionChildFoldFrame,
+  child: ExecutableTraversalCompletion
+): ExecutableTraversalCompletion {
+  return completePublicOutcome<ExecutableTraversalCompletion>(completeRecursionChildUsing(frame, child, true));
 }

@@ -1,0 +1,130 @@
+{
+  "status": "actual external records routed; complete per-member author/context/independence join still pending",
+  "qualificationInventory": {
+    "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+  },
+  "chains": [
+    {
+      "ownerActivation": "T287_FINAL_CANDIDATE_CONSTRUCTION_01",
+      "records": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/activation.json",
+          "bytes": 467,
+          "sha256": "7402ae149622133b7d3986607186a9f814439f6ecab37f685a0625177f7fc2d4"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-overlay.json",
+          "bytes": 11968,
+          "sha256": "c0b8a38cc8f0d1fd3bb21786477136eba298941b40811dfdacd2aa93a7ed03cb"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze-manifest.json",
+          "bytes": 1043938,
+          "sha256": "3bbc0f064e8f00c2860081d1fa475abbe3604a25b627178d6792875ef5f23a1e"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/generated-delta.json",
+          "bytes": 14827,
+          "sha256": "07959324d23940355346fea22cf6a9bd9572a2f01281c0e0899134f058fb62b1"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/return.md",
+          "bytes": 11103,
+          "sha256": "94c0c402fba45a3d05a41852584ecdea55c58673b92c26001fa0f132fcb21f29"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/freeze.json",
+          "bytes": 4534351,
+          "sha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f"
+        }
+      ],
+      "meaning": "Snapshot/build/freeze author only; preserves inherited source identities, not original authorship of all1103members"
+    },
+    {
+      "ownerActivation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "records": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+          "bytes": 2115,
+          "sha256": "159c710713c7b9fd97b39994264a0fafb08458814dc6eaef57774c6ab1a97636"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/final-sources.json",
+          "bytes": 2530,
+          "sha256": "a049c69916b6d879acdbe4d5337a3c607bbfdfef0e4e1c9971d90c97284bc4f2"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+          "bytes": 30600,
+          "sha256": "aac9ed74195122f3932c2a888a9b49ff2501659d3675fad2c17edbfc22a934fd"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+          "bytes": 12680,
+          "sha256": "d3f4b8e86eb9f5a1aae5235cb63c3420c15a9802e1a384a990e2264888c4d604"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+          "bytes": 63091,
+          "sha256": "3afdda2bde3a3d2454d8b6aa1e3920d3c161c96d8efba7e3d47ebc342aca5e55"
+        }
+      ],
+      "meaning": "Four changed source/proof members with preimages/delta/postimages; unchanged fifth test is not newly authored"
+    },
+    {
+      "ownerActivation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "records": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "bytes": 8724,
+          "sha256": "b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages.json",
+          "bytes": 3377,
+          "sha256": "2fadba7a6ece2efde85f81d9a86fd2a5ba8354774310d8593986da3aae2005da"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+          "bytes": 34089,
+          "sha256": "02e124abb177e4ca530ee8f1f249affd2e41279fedecb90d9330e37f9d7df315"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/checks.json",
+          "bytes": 5775,
+          "sha256": "32ec5e581d634ac0d0e363a64006acf822835e096d8c248fb999b45c4e5a7cc6"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+          "bytes": 8369,
+          "sha256": "89d1a4683f31ccdbe3e077f3557edc742490847fba75c954073115a9439b1dda"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+          "bytes": 19588,
+          "sha256": "0273a0192c51f369eed0f124f41fd796d99c8154d8dbd412a3a16651342788cb"
+        }
+      ],
+      "meaning": "accepted occurrence/causation cone only; later source changes need their own authors, partial host not promoted"
+    },
+    {
+      "ownerActivation": "T287_FINAL_QUALIFICATION_INPUTS_01",
+      "records": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/activation.json",
+          "bytes": 703,
+          "sha256": "9c069357f609a6fe5fb120c9255641a194f4f7da9aa68b763c5d0dfa2143c1d2"
+        }
+      ],
+      "meaning": "new external input/control realization only; never author of inherited candidate"
+    }
+  ],
+  "nextMissingJoin": "For each applicable rule-group/member domain, supply adequate Context with exact grants, selected preimage spans, delta and postimage, actual author/closure and accepted proof source. Resolve remaining inherited-member provenance from retained real records; do not label all as this Worker. Actual independent assessor must satisfy QUALIFICATION_ROLE_POLICY author/peer relations. Conditional unresolved attribution returns to existing owner ruling, not invented native events.",
+  "notPerformed": [
+    "F11 partition/applicability judgments",
+    "assessment task/native request",
+    "seven semantic or mechanical mutants",
+    "new release/design law"
+  ]
+}

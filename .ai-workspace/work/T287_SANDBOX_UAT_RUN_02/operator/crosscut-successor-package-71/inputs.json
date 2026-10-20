@@ -1,0 +1,76 @@
+{
+  "fixedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/manifest.json",
+      "sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+      "byteCount": 12434
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/return.md",
+      "sha256": "7a55741111a2e258b43c614963ceb5b52a327a086db60f5e2325947d722aacdd",
+      "byteCount": 2687
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/freeze.json",
+      "sha256": "80cc0615036f15be45c04591335a0ec65f7946075feea7e0a87aeac15b6adca4",
+      "byteCount": 18394
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/readiness.json",
+      "sha256": "6ec6f7e3dd97f459e40f8d926aff66605eab068affe8696b7c1c9c11ff9507a7",
+      "byteCount": 13778
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "3a5b39b50fbc841b3a3f8e67fa7c53836562dd6aed42a3ea0ae2e3e104639c1b",
+      "byteCount": 10624009
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/pre-build.json",
+      "sha256": "47e49dda9afc6b38016b9e7fc573c98fb69b9fd57c4d914b2aee84c7887a5769",
+      "byteCount": 2093858
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/generated-delta.json",
+      "sha256": "0c3432b6a24889831c1d2136b7636e21d9d273d52dcfe8ecb050c2ef1090d529",
+      "byteCount": 335489
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/generated-delta.json",
+      "sha256": "5d03f0682877f09fa754b768b4680a6b4af0a42d44adbf0f8c4dac6f29565f0d",
+      "byteCount": 369015
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/generated-delta.json",
+      "sha256": "8171a663db9c0d9f17c9158869dd840f749e068b4351963af752532ead1679a0",
+      "byteCount": 3268
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/publication.mjs",
+      "sha256": "4348a615c9fc7791fc7fb9eaffa3ff4cdf1029f6642ea648ae2199a149a19644",
+      "byteCount": 4334
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/member-comparison.py",
+      "sha256": "176431a4773fc36fef96fc236f342393f0f1c055aabd80292db6d9e4c6d1fa70",
+      "byteCount": 5371
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/packaged-owner.mjs",
+      "sha256": "8d8174d3f2cbf0620e7ea86443b949a1bcdfd527e3830ade12fdae973cb69942",
+      "byteCount": 8257
+    }
+  ],
+  "sourceInventoryPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/pre-build.json",
+  "generatedInventoryPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/generated-delta.json",
+  "sourceConjunction": "Executive closed 61/62/63/73 Source conjunction; accepted deterministic final75, independent77 pending at activation. Package draft only.",
+  "finalContentDigest": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+  "finalManifestDigest": "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+  "publicationProcedure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/publication.mjs",
+  "noBuildOrNative": true
+}

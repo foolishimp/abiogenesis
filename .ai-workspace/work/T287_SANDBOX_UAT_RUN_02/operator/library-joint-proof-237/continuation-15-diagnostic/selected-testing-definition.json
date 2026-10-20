@@ -1,0 +1,134 @@
+{
+  "declarations": {
+    "abg.child_closure_contract": "contract://abiogenesis/default-library/closure-child@5",
+    "abg.closure_contract": "contract://abiogenesis/default-library/closure-child@5",
+    "abg.compute_regime": "mixed",
+    "abg.conditions_for_use": "Every original selected path is an observed file and the unchanged full declared command/predicate plan is available; no author prerequisite. Missing selected files or plan remain gaps. A partial-probe contribution cannot replace the fixed declaration.",
+    "abg.default_library_purpose": "testing",
+    "abg.evidence_contract": "contract://abiogenesis/default-library/evidence@5",
+    "abg.functional_purpose": "Execute the selected reproducible command plan against the actual files and retain command, stream and predicate observations, including nonzero exits. Reuse files without inventing an author. A missing verifier or command plan is a gap, not permission to fabricate evidence.",
+    "abg.judgment_contract": "contract://abiogenesis/default-library/judgment@5",
+    "abg.judgment_predicate": "predicate://abiogenesis/worksite/command-execution-observation@5",
+    "abg.transition_contract": "contract://abiogenesis/default-library/transition@5"
+  },
+  "effects": [],
+  "environment": {
+    "carries": [
+      "contract://abiogenesis/default-library/state@5",
+      "contract://abiogenesis/worksite/command-execution-observation@5",
+      "contract://abiogenesis/worksite/command-execution-task@5"
+    ],
+    "provides": [
+      "contract://abiogenesis/default-library/state@5"
+    ],
+    "requires": [
+      "contract://abiogenesis/default-library/state@5"
+    ]
+  },
+  "inputs": [
+    "contract://abiogenesis/default-library/state@5"
+  ],
+  "kind": "graph_function",
+  "name": "graph-function://abiogenesis/default-library/testing@5",
+  "outputs": [
+    "contract://abiogenesis/default-library/state@5"
+  ],
+  "tags": [
+    "default-library",
+    "testing"
+  ],
+  "template": {
+    "applications": [],
+    "edges": [
+      {
+        "edgeRef": "graph-vector://abiogenesis/a60de445490cdb6afa3a23c968eb386aea06935fcc2a8d95b5373ad2476dc30f",
+        "fromNodeRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+        "toNodeRef": "graph-function://abiogenesis/default-library/testing@5/work"
+      },
+      {
+        "edgeRef": "graph-vector://abiogenesis/d4863793e23c7e0745ef31bf3b0ee90a094d6d4910f3254170882e321a7b6598",
+        "fromNodeRef": "graph-function://abiogenesis/default-library/testing@5/work",
+        "inputBinding": {
+          "entryContractRef": "contract://abiogenesis/default-library/state@5",
+          "kind": "retain_graph_input",
+          "sourceContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+          "targetContractRef": "contract://abiogenesis/worksite/retained-graph-input@5"
+        },
+        "toNodeRef": "graph-function://abiogenesis/default-library/testing@5/fold"
+      }
+    ],
+    "graphRef": "graph-function://abiogenesis/default-library/testing@5/graph",
+    "kind": "inline_graph",
+    "nodes": [
+      {
+        "nodeKind": "c_locus",
+        "nodeRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+        "term": {
+          "armId": "graph-function://abiogenesis/default-library/testing@5/prepare/arm",
+          "compositionRef": null,
+          "fibre": "F_D",
+          "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+          "judgmentPredicateRef": "predicate://abiogenesis/default-library/prepare-testing@5",
+          "kind": "c_of",
+          "outputCarrierRef": "contract://abiogenesis/worksite/command-execution-task@5",
+          "programLocusRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+          "requirement": {
+            "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+            "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+            "implementationBindingRef": "binding://abiogenesis/default-library/prepare-testing@5",
+            "inputContractRef": "contract://abiogenesis/default-library/state@5",
+            "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+            "kind": "executable_leaf_requirement",
+            "outputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+            "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+          },
+          "resultBearing": true,
+          "stageRole": "result",
+          "vectorIndex": 0
+        }
+      },
+      {
+        "nodeKind": "c_locus",
+        "nodeRef": "graph-function://abiogenesis/default-library/testing@5/work",
+        "term": {
+          "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+          "inputCarrierRef": "contract://abiogenesis/worksite/command-execution-task@5",
+          "kind": "c_workflow",
+          "outputCarrierRef": "contract://abiogenesis/worksite/command-execution-observation@5"
+        }
+      },
+      {
+        "nodeKind": "c_locus",
+        "nodeRef": "graph-function://abiogenesis/default-library/testing@5/fold",
+        "term": {
+          "armId": "graph-function://abiogenesis/default-library/testing@5/fold/arm",
+          "compositionRef": null,
+          "fibre": "F_D",
+          "inputCarrierRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+          "judgmentPredicateRef": "predicate://abiogenesis/default-library/fold@5",
+          "kind": "c_of",
+          "outputCarrierRef": "contract://abiogenesis/default-library/state@5",
+          "programLocusRef": "graph-function://abiogenesis/default-library/testing@5/fold",
+          "requirement": {
+            "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+            "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+            "implementationBindingRef": "binding://abiogenesis/default-library/fold@5",
+            "inputContractRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+            "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+            "kind": "executable_leaf_requirement",
+            "outputContractRef": "contract://abiogenesis/default-library/state@5",
+            "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+          },
+          "resultBearing": true,
+          "stageRole": "result",
+          "vectorIndex": 0
+        }
+      }
+    ],
+    "startNodeRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+    "terminalNodeRefs": [
+      "graph-function://abiogenesis/default-library/testing@5/fold"
+    ]
+  },
+  "version": "5.0.0"
+}

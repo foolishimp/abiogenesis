@@ -111,6 +111,18 @@ The state view describes pure transforms, not persisted runtime states. Every se
 
 ### 3.1 Shared Original Graph Structure And Continuation
 
+The actual declaration-closure owner passes its resolved result directly to
+`constructProgramValidationInputFromResolvedClosure`; a raw or foreign closure
+keeps the reconstructing wrapper. The sole validator may reuse successful
+static facts for the complete unchanged admitted Program, publications,
+declarations, evaluators and rules, deriving the existing basis-qualified
+`ProgramValidation` identity. Changed facts still enter the whole validator;
+malformed or unadmitted inputs never acquire reuse standing. Fixed immutable
+template checks share their existing owner result. Materialization supplies its
+actual shape to graph validation, preserving every invocation/input identity
+and ordered fan-out check. None of these private handoffs publishes another
+certificate, lowers GTL or changes a Public result/refusal or digest law.
+
 T-287 crosscut R03 selects `realization_refactor` under Product's Validation
 Contract, LAWS001/010/014 and PROGRAM-TRAVERSAL004–006. The original
 `GraphTemplate` owns unique node/edge identities, exact start/terminal members,

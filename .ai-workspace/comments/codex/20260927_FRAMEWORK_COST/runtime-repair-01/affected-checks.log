@@ -1,0 +1,41 @@
+(node:24547) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster (260.186292ms)
+✔ legal I-JSON null is not absence (pure carrier and replay-row selection, not a new admitted result) (0.121375ms)
+✔ held/failed/missing terminal truth cannot become a completed Product result (0.258708ms)
+✔ scope and packet crossings refuse; root does not accept a caller declarationProof field (97.110209ms)
+✔ native CCall owner rejects altered value, contract, producer, judgment and pre-result prefix without test-owned admission (3.650042ms)
+✔ the shared mapper rejects crossed result aliases and keeps failed-command observation data verbatim (62.543167ms)
+(node:24556) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ route-origin workflow cursor stages, replays, commits and cold-projects exact retained input (107.835916ms)
+(node:24573) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ record decoder preserves complete framing precedence and exact historical refusals (2.284208ms)
+✔ record decoder preserves UTF-8 replacement, offset views and physical-prefix identity (0.791167ms)
+✔ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (333.041458ms)
+ℹ {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+✔ nearest malformed body references refuse before logical history is exposed (62.218208ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2111.590875
+
+✖ failing tests:
+
+test at test_env/tests/retained-route-cursor-transition.test.mjs:25:1
+✖ route-origin workflow cursor stages, replays, commits and cold-projects exact retained input (107.835916ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs:117:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

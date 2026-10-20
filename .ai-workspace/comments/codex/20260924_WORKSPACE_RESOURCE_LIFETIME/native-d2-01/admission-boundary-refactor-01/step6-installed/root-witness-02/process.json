@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/execute.mjs"
+  ],
+  "pid": 31715,
+  "startedEpoch": 1790301244.369907
+}

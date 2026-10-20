@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "name": "C03",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+        "kind": "file",
+        "bytes": 44443,
+        "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+        "mode": 420
+      },
+      "recordsChecked": 92,
+      "recordBytes": 21451377,
+      "passed": true
+    },
+    {
+      "name": "Runtime03",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+        "kind": "file",
+        "bytes": 16113,
+        "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+        "mode": 420
+      },
+      "recordsChecked": 69,
+      "recordBytes": 108462557,
+      "passed": true
+    },
+    {
+      "name": "HOW",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-how-01/freeze.json",
+        "kind": "file",
+        "bytes": 12720,
+        "sha256": "3c6fe0f069ade5386eb95d583bceaddadd7b8a27a7255fdc925c1d60a4b425d3",
+        "mode": 420
+      },
+      "recordsChecked": 52,
+      "recordBytes": 2198971,
+      "passed": true
+    }
+  ],
+  "credit": "preserved evidence cuts only; no rerun, restamping or successor identity"
+}

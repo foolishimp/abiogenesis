@@ -126,6 +126,21 @@ invocation and Run, the actual declared C2 workflow call and original grant.
 No fixed consumer preparation implementation or cumulative envelope is added.
 Ordinary HoG input routing and graph membership still govern that call.
 
+The private native task/source projection retains successful applicability
+coordinates and producer-membership versions, not complete task, observation,
+Result, basis or history-row bodies. The existing named input/Result task
+selection and exact native call/basis indexes acquire the required complete
+values transiently. Authenticated owned prefixes may reuse unchanged predicate
+facts. Within the same physical owner and history generation, exact relevant
+call/basis selector counts and last ordinals establish unchanged append
+membership without rehashing completed stdout or liveness rows. A changed
+relevant version reopens the full predicates; raw or copied public values
+retain their full derivation. The unique
+native Result, F_P implementation/evidence, advancing judgment, source closure,
+invocation, workspace and binding joins above remain governing, as do later
+work and physical currentness below. No digest alone admits a task or source,
+and complete public projections and legacy records preserve their meaning.
+
 Before C2 effects, recheck that no later admitted native mutation (including
 observed failed-call residue) or C0 replacement invalidates a selected file.
 An unobserved failed native write invalidates its overlapping selected scope.
@@ -517,6 +532,18 @@ confinement. The helper inventories snapshot path/content/node-kind/symlink-
 target state before and after execution. Every created, changed, or deleted
 path must match exactly one declared file or subtree territory. Protected
 snapshot members must remain byte-exact.
+
+The command write-territory array is explicit and may be empty. `[]` grants
+no command mutation of the snapshot; a read-only command can still supply
+exit and stream predicates. Each declared report or HTTP port file continues
+to require a matching territory, and any unpermitted snapshot delta yields
+the existing `territory_mismatch` disposition. The shared native, observed,
+construction-result and forward task owners preserve this same declaration.
+Archive snapshot and result evidence creation retain their separate owner
+authority below. Continuation-12's retained configuration exposed the former
+nonempty-array constructor restriction; that pure discriminator establishes
+this downstream blocker, while its fresh native context and unique first
+throw were not retained.
 
 The helper separately inventories the admitted Program-owner install at
 `W.roots.productRoot == I_P.installedRoot` before and after and requires

@@ -1,0 +1,66 @@
+{
+  "classification": "Actual selected bounded job→one production effect→authenticated native observation→conserved parent; detection pending",
+  "at": "2026-10-08T23:36:40.098752+00:00",
+  "nativeResult": "result://abiogenesis/38c363d2d304d5385288d11c4e9e23e62646b4a1e98558fc8b46dc28920884cd",
+  "parentResult": "result://abiogenesis/556ba15f3cfcaac5bdc8d313d96d4a403fd6a5a4b2d2632e9763de0d996eabb6",
+  "sourceSlices": [
+    {
+      "ordinal": 183839,
+      "offset": 1453884494,
+      "byteCount": 4720749,
+      "sha256": "c51d68d23f85deba481f2a3268bcabb17a8f30c02276d999fbef7d024b87781d"
+    },
+    {
+      "ordinal": 183869,
+      "offset": 1465235425,
+      "byteCount": 1823942,
+      "sha256": "dc1a65183b04c563f614349ee8945b1614a53d03d8edb5eef48f0772291d2b79"
+    }
+  ],
+  "changedPaths": [
+    "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala"
+  ],
+  "selectedOutcomeDigest": "3ffe2b7dee41d692d823b4aa72f818ab943131d648b08980a0494805382375d8",
+  "actualTaskOutcomeConserved": true,
+  "mutation": {
+    "path": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+    "before": {
+      "state": "file",
+      "digest": "sha256:2f046f268ceea5e4a118ca79ff9d20d07d647dbf4dd2af9e513fcecad7df48e1",
+      "byteLength": 5293,
+      "encoding": "base64",
+      "fileIdentity": "16777231:468414878"
+    },
+    "after": {
+      "state": "file",
+      "digest": "sha256:fc325c934a3efffc3cd39d02651959485523085e62841c95d8db063b84f6041b",
+      "byteLength": 5346,
+      "encoding": "base64",
+      "fileIdentity": "16777231:468414878"
+    },
+    "allOther48ObservedEntriesUnchanged": true,
+    "mechanism": "Output partition accepts NULL_REQUIRED error rows as well as valid rows; anticipated overlap violates row13 partition invariant; actual compiled diagnostic still required"
+  },
+  "parent": {
+    "originalDeepEqual": true,
+    "prior30ObservationsDeepEqual": true,
+    "newObservationExactNativeResultAndReport": true,
+    "observations": 31,
+    "terminal": false
+  },
+  "disclosures": [
+    "The worksite now holds the row-13 mutant (fc325c93…, 5346 B). It is not a valid green baseline. Testing/C2 must run full sbt test against it and record failedTestIdentityRefs from the XML. Then the restore to 2f046f26…48e1 (5293 B) is still owed, and a C2 observation must show restoreDigest == baselineDigest before a row-13 entry can be written to mutation-outcomes.json.",
+    "No compile or sbt run in this increment, as instructed. Compile safety and the predicted red/green tests are reasoning only, not admitted execution proof.",
+    "The predicted collateral reds (UAT-EXEC-NEG, UAT-EXEC-BND, UAT-ENG-NEG, U8 runner negative) are unverified. If Testing records a different failure set, it is the observed set that counts.",
+    "Rows 23 (accounting per-partition sum), 28 (AssuranceReport.passed) and 38 (EngineRunResult.succeeded conjunction) still need dedicated mutants. Row 13 also has no recorded outcome yet.",
+    "test-execution-result.json does not exist. planSatisfied and assertedReturnValue are unbound. `sbt clean assembly` and offline dependency resolution have not been observed.",
+    "Issues carried forward from earlier reads, not re-verified this increment: predicate ids in the proof surfaces differ from the oracle's predicate://odd-glc/… ids; test_pass_count is wrong on red runs; the repair schedule is stale; the basis-object shape in mutation-outcomes.json is an open question.",
+    "Partial reads of mandatory inputs: obligations.json was not read, and source/data-mapper-full/source.original.txt was read only in part.",
+    "Out-of-scope reads: under ../../resources/archives/worksite-command-execution/ I listed the directory and read the 2154d73d…/ea939b52… snapshot (its sandbox/build_tenants files twice, and its result.json once earlier). The snapshot was used for the 22-file comparison and the diff.",
+    "Writes: the only intended write is DataFrameExecutor.scala, rewritten in place by `python3 -I -c` (open 'wb', truncate and write, no temp file). Possible incidental writes: zsh process substitution `<(cat …)` in the diff most likely used /dev/fd rather than a file in TMPDIR, but I did not confirm this. No other files were created.",
+    "UAT is still not green. I claim no acceptance, kill or graph continuation."
+  ],
+  "disclosureCredit": "Retained verbatim; no legality/containment or semantic adequacy claim",
+  "nextRequiredProof": "Actual C2 compiled red attributed to injected defect, then native RCA/action and exact baseline restoration before retry/episode credit",
+  "credit": "No new detection or restoration credit yet"
+}

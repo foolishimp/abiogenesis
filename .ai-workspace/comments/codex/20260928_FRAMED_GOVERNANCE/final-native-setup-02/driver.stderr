@@ -1,0 +1,14 @@
+AssertionError [ERR_ASSERTION]: {"pid":12846,"code":1,"signal":null,"timedOut":false,"spawnError":null}
++ actual - expected
+
++ {
++   code: 1,
++   pid: 12846,
++   signal: null,
++   spawnError: null,
++   timedOut: false
++ }
+- null
+
+    at invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/ordinary-caller.mjs:60:32)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/driver.mjs:25:38

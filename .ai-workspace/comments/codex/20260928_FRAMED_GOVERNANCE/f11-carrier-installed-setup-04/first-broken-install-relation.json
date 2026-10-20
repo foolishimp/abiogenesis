@@ -1,0 +1,18 @@
+{
+  "status": "FIRST_BROKEN_PHYSICAL_RELATION",
+  "origin": "installedPayloadMatchesGraphCarrier; install_product.ts actualFiles versus expectedFiles; earliest return false",
+  "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/installed/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child",
+  "expectedCount": 5263,
+  "actualCount": 5263,
+  "equal": true,
+  "missing": [],
+  "extra": [],
+  "symlinks": [
+    "node_modules/.bin/abg.cli",
+    "node_modules/.bin/abg.codex"
+  ],
+  "installedManifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f",
+  "verifiedManifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f",
+  "refusalProjection": "installed_manifest_mismatch -> content_mismatch /verifiedArtifact",
+  "noRepairOrRetry": true
+}

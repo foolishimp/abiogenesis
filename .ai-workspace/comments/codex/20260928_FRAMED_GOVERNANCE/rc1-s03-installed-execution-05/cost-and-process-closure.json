@@ -1,0 +1,151 @@
+{
+  "newNativePublicCalls": 4,
+  "newStartsSetupConformanceCalls": 0,
+  "pureNominalProductPreparations": 1,
+  "newFreshReads": 4,
+  "combinedFreshReads": 8,
+  "driver": {
+    "pid": 17629,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "ownedExitObserved": true,
+    "elapsedMs": 17757.217708975077,
+    "budgetMs": 600000,
+    "cleanup": [],
+    "stdoutSHA256": "db21262c1dc6abe32eb65cf0ed395d5409e10390d86db8989ce39c94b8344ad4",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "previous04DriverElapsedMs": 38782.45437517762,
+  "previous03DriverElapsedMs": 172848.5148330219,
+  "costInterpretation": "Native05 cold read cost is separate from retained prior setup/start costs. Existing two Runs and positive proof were reused.",
+  "nativeCLIElapsedMs": 3058.937,
+  "maximumNativeCLIPeakRSSBytes": 357236736,
+  "sumPerCallPeakRSSBytes": 1415102464,
+  "RSSInterpretation": "Sum of independent peaks is not concurrent memory or model traffic.",
+  "nativeUserSeconds": 3.399305,
+  "nativeSystemSeconds": 0.316767,
+  "selectedRequestBytes": 38417,
+  "selectedReceiptBytes": 158496,
+  "rawLogBytes": 4709556,
+  "eventGrowthBytes": 0,
+  "processes": [
+    {
+      "label": "no-action-run_result",
+      "pid": 17789,
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_result.jsonl"
+      ],
+      "elapsedMs": 748.38,
+      "exitCode": 1,
+      "signal": null,
+      "peakRSSBytes": 350994432,
+      "userSeconds": 0.819507,
+      "systemSeconds": 0.076864,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes",
+      "stageElapsedMs": 1807.524958,
+      "terminal": {
+        "pid": 17760,
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "spawnError": null
+      },
+      "expectedSemanticOutcome": "refusal",
+      "selectedAdapterSlot": "refused",
+      "selectedAdapterExit": 1
+    },
+    {
+      "label": "no-action-run_replay",
+      "pid": 17792,
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_replay.jsonl"
+      ],
+      "elapsedMs": 767.156,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 352960512,
+      "userSeconds": 0.858161,
+      "systemSeconds": 0.079904,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes",
+      "stageElapsedMs": 810.3071670000008,
+      "terminal": {
+        "pid": 17791,
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "spawnError": null
+      },
+      "expectedSemanticOutcome": "result",
+      "selectedAdapterSlot": "acceptedTerminal",
+      "selectedAdapterExit": 0
+    },
+    {
+      "label": "no-action-run_status",
+      "pid": 17810,
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_status.jsonl"
+      ],
+      "elapsedMs": 773.621,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 353910784,
+      "userSeconds": 0.860039,
+      "systemSeconds": 0.080979,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes",
+      "stageElapsedMs": 819.5309170000019,
+      "terminal": {
+        "pid": 17808,
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "spawnError": null
+      },
+      "expectedSemanticOutcome": "result",
+      "selectedAdapterSlot": "acceptedTerminal",
+      "selectedAdapterExit": 0
+    },
+    {
+      "label": "no-action-run_gaps",
+      "pid": 17835,
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/s03-no-action-run_gaps.jsonl"
+      ],
+      "elapsedMs": 769.78,
+      "exitCode": 0,
+      "signal": null,
+      "peakRSSBytes": 357236736,
+      "userSeconds": 0.861598,
+      "systemSeconds": 0.07901999999999999,
+      "observation": "wait4 actual native CLI; macOS ru_maxrss bytes",
+      "stageElapsedMs": 814.9939999999988,
+      "terminal": {
+        "pid": 17834,
+        "code": 0,
+        "signal": null,
+        "timedOut": false,
+        "spawnError": null
+      },
+      "expectedSemanticOutcome": "result",
+      "selectedAdapterSlot": "acceptedTerminal",
+      "selectedAdapterExit": 0
+    }
+  ],
+  "allOwnedPIDsExited": true,
+  "ownedPIDCount": 9,
+  "modelProviderNetworkGitSourceBuildCoreFixtureEffects": 0,
+  "timersHeapToolsChanged": false,
+  "timeoutSignalCount": 0
+}

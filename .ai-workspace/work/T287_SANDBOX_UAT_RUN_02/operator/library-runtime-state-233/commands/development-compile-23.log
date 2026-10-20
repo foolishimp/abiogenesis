@@ -1,0 +1,7 @@
+source/code/src/abg/c_call_outcome.ts(1518,11): error TS2322: Type 'RuntimeEventPrefix' is not assignable to type 'OwnedRuntimeEventPrefix'.
+  Property 'selection' is missing in type 'ValidatedRuntimeEventPrefix' but required in type 'OwnedRuntimeEventPrefix'.
+source/code/src/abg/closure.ts(675,3): error TS2322: Type 'Readonly<{ kind: "scope_closure_admission"; schemaVersion: "5.0.0"; disposition: "closed"; scopeClass: string; closureRef: string; closureDigest: `sha256:${string}`; cCallRef: string; resultRef: string; judgmentRef: string; ... 8 more ...; replayState: RuntimeReplayGuard; }>' is not assignable to type 'OwnedScopeClosureAdmissionResult'.
+  Type 'Readonly<{ kind: "scope_closure_admission"; schemaVersion: "5.0.0"; disposition: "closed"; scopeClass: string; closureRef: string; closureDigest: `sha256:${string}`; cCallRef: string; resultRef: string; judgmentRef: string; ... 8 more ...; replayState: RuntimeReplayGuard; }>' is not assignable to type 'OwnedScopeClosureAdmission'.
+    Type 'Readonly<{ kind: "scope_closure_admission"; schemaVersion: "5.0.0"; disposition: "closed"; scopeClass: string; closureRef: string; closureDigest: `sha256:${string}`; cCallRef: string; resultRef: string; judgmentRef: string; ... 8 more ...; replayState: RuntimeReplayGuard; }>' is not assignable to type 'Omit<ScopeClosureAdmission, "replayState">'.
+      Types of property 'scopeClass' are incompatible.
+        Type 'string' is not assignable to type '"graph_call" | "run"'.

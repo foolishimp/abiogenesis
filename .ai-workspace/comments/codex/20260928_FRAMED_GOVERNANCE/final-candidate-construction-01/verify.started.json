@@ -1,0 +1,8 @@
+{
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/verify-installed.mjs"
+  ],
+  "owner": "actual installed ProductVerificationPort.verify",
+  "nativeCalls": 0
+}

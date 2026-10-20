@@ -1,0 +1,125 @@
+{
+  "fixedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-repair-120/return.md",
+      "sha256": "1529838a8b8befc3933b6c30b566323b6295a68856cc7d4042c0b73f5c7b81ab",
+      "byteCount": 3510
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-repair-120/readiness.json",
+      "sha256": "2210f52e0c76bf06fab662f9c553cb4ae378354bf9000f2d65c795dea671af5b",
+      "byteCount": 6493
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-repair-120/freeze.json",
+      "sha256": "f6680e8d617409ecb7c4c45871b805fd797acb2ba802545a1b852ae783261a45",
+      "byteCount": 12076
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/resume-config.json",
+      "sha256": "6243d33d39a08647cc3db9b277632c377b886452fa19448a58fd70de0c904fe6",
+      "byteCount": 2991
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/identity.json",
+      "sha256": "e09b2b3bdf7ad60e0c382c7d1ab4d64ae1ee1dba65aeed67403602c07e6a1b3b",
+      "byteCount": 3603
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/freeze.json",
+      "sha256": "82f2f8916e786fbebb76995bfbdaedcd06373b76f74d3ce31b1ebe11e293af1a",
+      "byteCount": 6997
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "e1deb8a3d000566ccc550055e333c422b759cb63b8b412820f147046685e2dcb",
+      "byteCount": 10630096
+    }
+  ],
+  "source120Postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "aaf274e2585130ded1c637b1c34317fb8bd7f277281ae96d3f5d2de428ee6c7a",
+      "byteCount": 51621
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "c07c875fffb72e9c5f1659917e4e860ab6e88934a59590ede1bd031c2da85a33",
+      "byteCount": 31896
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "0d47b1cc1f15fbf821ae3e7e4803bca491ce2abbbc8e123c3c10f4a04431837c",
+      "byteCount": 143466
+    }
+  ],
+  "protectedSelected": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "byteCount": 93690,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "d30b3de24a8615a5e0aefe3f025f4a4ab9b8539148eaae801eb1a150263d73ce",
+      "byteCount": 33507,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "sha256": "6b73778a52dfd32bf357f7c902798dee3c40ce4bff37c78607492cbf7d7decf5",
+      "byteCount": 21207,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "sha256": "fb140fcb9868ff66147e677216442f6f501aaa73d87288318a6fddf057d7aa8a",
+      "byteCount": 8161,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "5667d5a2a814d95f55f85be4026f13c6d169c7e50fc5adf2227142d5e9d655b9",
+      "byteCount": 21730,
+      "unchanged": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648,
+      "unchanged": true
+    }
+  ],
+  "callerControlPinsAtPublicationEntry": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+      "byteCount": 36805
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "93e3489ccb6b53bb99503eb7652f1d965081ee46aaedd889d84e337f2cd7fc40",
+      "byteCount": 26830
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "byteCount": 9744
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package-lock.json",
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+      "byteCount": 8001
+    }
+  ],
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-repair-120/freeze.json",
+    "sha256": "f6680e8d617409ecb7c4c45871b805fd797acb2ba802545a1b852ae783261a45",
+    "byteCount": 12076
+  },
+  "sourceCommit": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "sourceCommitMeaning": "Checkpoint ancestor only; actual working Source120 and generated postimages independently pinned.",
+  "sourceConjunction": "Root accepted Source120 through independent123; external oracle122 edits are concurrent and outside Productpack. No native dispatch until Root accepts122.",
+  "scope": "Reuse one120 normalbuild; one pack/clean offline install/installed verify, no native/provider/Run/Git or source effects."
+}

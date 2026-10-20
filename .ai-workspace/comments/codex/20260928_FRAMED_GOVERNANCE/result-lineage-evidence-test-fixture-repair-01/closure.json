@@ -1,0 +1,27 @@
+{
+  "operation": "T287_RESULT_LINEAGE_TEST_FIXTURE_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED",
+  "closedAt": "2026-10-02T12:56:29.750536+00:00",
+  "disposition": "ONE_FIELD_FIXTURE_SUCCESSOR_COMPONENT_READINESS_PASSED",
+  "productionSourceReadOnly": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 68281,
+    "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+    "mode": 420
+  },
+  "correctedTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22568,
+    "sha256": "d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4",
+    "mode": 420
+  },
+  "returnTo": "Root Executive",
+  "furtherEffects": "STOPPED",
+  "residuals": [
+    "Independent source/test conjunction assurance",
+    "Root successor construction/install/current inputs/whole carrier selection",
+    "Genuine F11/QUAL056/full scenarios/green AF22/release remain open"
+  ]
+}

@@ -1,0 +1,37 @@
+✖ S03 Phase B ordinary installed positive and no-action (22767.850375ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22857.113792
+
+✖ failing tests:
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs:13:1
+✖ S03 Phase B ordinary installed positive and no-action (22767.850375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   undefined,
+  +   undefined
+  -   'action://s03-automatic/observe@5',
+  -   'action://s03-automatic/correct@5'
+    ]
+  
+      at assertNativeDomain (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:59:9)
+      at oneCase (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:115:19)
+      at async runInstalledProof (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:124:18)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs:15:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ undefined, undefined ],
+    expected: [ 'action://s03-automatic/observe@5', 'action://s03-automatic/correct@5' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

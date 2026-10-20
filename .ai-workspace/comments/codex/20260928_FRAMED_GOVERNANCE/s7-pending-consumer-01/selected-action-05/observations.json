@@ -1,0 +1,361 @@
+{
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+    "bytes": 3324704,
+    "sha256": "1ad2022bbf00072338bd3285f27d88515794aaf1c8e96e0ce46465e55c73a741",
+    "snapshot": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-05/predecessor-217.jsonl",
+      "bytes": 3324704,
+      "sha256": "1ad2022bbf00072338bd3285f27d88515794aaf1c8e96e0ce46465e55c73a741"
+    },
+    "events": 217,
+    "closeHandoff": {
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+        "prefixLength": 3324704,
+        "prefixDigest": "sha256:1ad2022bbf00072338bd3285f27d88515794aaf1c8e96e0ce46465e55c73a741",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 463711677,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:0dcc558772c46c0a40ccae65bca2534df08caf3be3596c661047447dd3d3780d"
+      },
+      "reopenAuthority": {
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+        "device": 16777230,
+        "inode": 463711677,
+        "eventLogDigest": "sha256:1ad2022bbf00072338bd3285f27d88515794aaf1c8e96e0ce46465e55c73a741",
+        "durableByteLength": 3324704,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "authorityDigest": "sha256:e17391f1f4d92251b2578f6648b7980802e69f5c87094b61bf785d6a8ab51f78"
+      }
+    }
+  },
+  "successor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+    "bytes": 3600313,
+    "sha256": "97c846593397d256efc5acc537daa10ad61267163d69043ef50f0001d307491c",
+    "device": 16777230,
+    "inode": 463711677,
+    "events": 282,
+    "closeHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:7f71bb0d7cf838809610ac8f89fe99bb38d6ccaf1d837b131169a81d59699a71",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:97c846593397d256efc5acc537daa10ad61267163d69043ef50f0001d307491c",
+        "prefixLength": 3600313,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463711677
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:200a769cf6549717a0216c49bdb9c6172dbcf6a3f77d4fb56c911c4813465145",
+        "device": 16777230,
+        "durableByteLength": 3600313,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:97c846593397d256efc5acc537daa10ad61267163d69043ef50f0001d307491c",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+        "inode": 463711677,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    }
+  },
+  "prefixBytesPreserved": true,
+  "nativePrefixAncestryAuthenticated": true,
+  "appendedEvents": 65,
+  "markers": [
+    {
+      "ordinal": 218,
+      "kind": "public_operation_admitted",
+      "eventRef": "event://abiogenesis/8855fd73fa60cd3777db6d53067e045f38b774a2fa2d2bde50d6a999f651d277",
+      "runId": null,
+      "memberKey": "reprice",
+      "valueKind": null
+    },
+    {
+      "ordinal": 219,
+      "kind": "declaration_reprice_admitted",
+      "eventRef": "event://abiogenesis/0a1aefd10bf861a662643952035269759675fe178c5206b6316bcc24df243ad2",
+      "runId": null,
+      "memberKey": null,
+      "valueKind": null
+    },
+    {
+      "ordinal": 220,
+      "kind": "public_operation_admitted",
+      "eventRef": "event://abiogenesis/9493df408708e51fdb5334471236025b6dbfd39466c7cd5d776d24de583810c0",
+      "runId": null,
+      "memberKey": "start",
+      "valueKind": null
+    },
+    {
+      "ordinal": 221,
+      "kind": "invocation_admitted",
+      "eventRef": "event://abiogenesis/ba4126b985ee7e3ccc11da6c527868d3f4aa581238b0d32fed815c4e8a37515b",
+      "runId": null,
+      "memberKey": null,
+      "valueKind": null
+    },
+    {
+      "ordinal": 223,
+      "kind": "basis_admitted",
+      "eventRef": "event://abiogenesis/97f95afbfa22bce80e552d04588aedae05a6905ff3f2d66c4ca1047453a0bbf9",
+      "runId": null,
+      "memberKey": null,
+      "valueKind": null
+    },
+    {
+      "ordinal": 224,
+      "kind": "run_segment_opened",
+      "eventRef": "event://abiogenesis/2c280cf064f516af7e7498cca2e64cc134370a0835b761e864d6afb9e0173fb6",
+      "runId": "run://abiogenesis/2391f6820b7c3cfe93831c64e659a86ac851411e319d8d383687dd800f21d2b0",
+      "memberKey": null,
+      "valueKind": null
+    },
+    {
+      "ordinal": 238,
+      "kind": "c_call_result_admitted",
+      "eventRef": "event://abiogenesis/2b9c5afb12cb48a8b80e942ec052a35390cec8f6ad24125cabd2b5f2e38157c8",
+      "runId": "run://abiogenesis/2391f6820b7c3cfe93831c64e659a86ac851411e319d8d383687dd800f21d2b0",
+      "memberKey": null,
+      "valueKind": "fixture_model"
+    },
+    {
+      "ordinal": 255,
+      "kind": "c_call_result_admitted",
+      "eventRef": "event://abiogenesis/16b6302337237b41d1c6345c87dbf49cc2b4474a1de03a0a3c2a094eed148200",
+      "runId": "run://abiogenesis/2391f6820b7c3cfe93831c64e659a86ac851411e319d8d383687dd800f21d2b0",
+      "memberKey": null,
+      "valueKind": "next_action_basis"
+    },
+    {
+      "ordinal": 272,
+      "kind": "c_call_result_admitted",
+      "eventRef": "event://abiogenesis/fdd941ad3485fa527d1fc6a3723d5787fb1d830e167e0a1acf2cd86ef1226d84",
+      "runId": "run://abiogenesis/2391f6820b7c3cfe93831c64e659a86ac851411e319d8d383687dd800f21d2b0",
+      "memberKey": null,
+      "valueKind": "next_action_projection"
+    },
+    {
+      "ordinal": 282,
+      "kind": "construction_intent_selected",
+      "eventRef": "event://abiogenesis/385261f6caa3274b56c0b2fae3c232b8207fc966c452d12a0273aee640bb0c14",
+      "runId": "run://abiogenesis/2391f6820b7c3cfe93831c64e659a86ac851411e319d8d383687dd800f21d2b0",
+      "memberKey": null,
+      "valueKind": null
+    }
+  ],
+  "pending": {
+    "source": {
+      "continuationKind": "selected_action",
+      "runId": "run://abiogenesis/19158e92c9ddc9b46b8955cee045cfb8a2ac7e5645b619bd3a94b08307460568",
+      "graphCallId": "graph-call://abiogenesis/94359f25dd7311f6d5571bb571203121e4d0d8289d37edfe65aedcd44f40c5c1",
+      "frameId": "frame://abiogenesis/de129e834f983a563b6be0d33b2f63a95f71ef7ca0aa9fa16889638238f793fd",
+      "cCallRef": "c-call:sha256:3d913ba652976bcb91edeb83879ab26d4d9c4adbba1b6c86428b2376eae2276f",
+      "heldCursorRef": "traversal-cursor://abiogenesis/8fdc982176e785f5534ab59eeabe1e777bd1f9bd403530126c8ad5df87a50739",
+      "heldCursorDigest": "sha256:8fdc982176e785f5534ab59eeabe1e777bd1f9bd403530126c8ad5df87a50739",
+      "executionBasisRef": "execution-basis://abiogenesis/e178ae45978ff0f3b632a636c44498c09bf0cc8e27a9c18a9123234170d8d086",
+      "executionBasisDigest": "sha256:e178ae45978ff0f3b632a636c44498c09bf0cc8e27a9c18a9123234170d8d086",
+      "constructionIntentRef": "construction-intent://abiogenesis/3272df08a50cb51ccaf40c15dd43a2cb773c584ebf580d87a4fcf7bf55739ecc",
+      "constructionIntentDigest": "sha256:3272df08a50cb51ccaf40c15dd43a2cb773c584ebf580d87a4fcf7bf55739ecc",
+      "selectedActionRef": "next-action-projection://product/418c37d6ea38f30395943f9befffa855cb5a0647743bcff4056a1cc3312abaa0",
+      "selectedActionDigest": "sha256:418c37d6ea38f30395943f9befffa855cb5a0647743bcff4056a1cc3312abaa0",
+      "intentAdmissionEventRef": "event://abiogenesis/eec4c681abdcb6c86dd353307050a43deac056d4762cd36328086145aab29bd0",
+      "causedByEventRef": "event://abiogenesis/95cfa38107e51f65762a1a37237531b5db9f7efbeb52d9e5971100ee709d2fa2",
+      "continuationRef": "continuation://abiogenesis/0bfd14e57860d3f15d6ebaaf8f6de3bda576b3570020133d2e468e3a8b5f336c",
+      "continuationDigest": "sha256:0bfd14e57860d3f15d6ebaaf8f6de3bda576b3570020133d2e468e3a8b5f336c",
+      "openedEventRef": "event://abiogenesis/eec4c681abdcb6c86dd353307050a43deac056d4762cd36328086145aab29bd0",
+      "terminalEventRef": null,
+      "status": "open"
+    },
+    "current": {
+      "continuationKind": "selected_action",
+      "runId": "run://abiogenesis/2391f6820b7c3cfe93831c64e659a86ac851411e319d8d383687dd800f21d2b0",
+      "graphCallId": "graph-call://abiogenesis/2bc4b45cbf93d3f1efb7a98f74f4a7d3e022596f976ac66f1f0b63c2826ac181",
+      "frameId": "frame://abiogenesis/ff1f044e25f86fe0fd9ecf8ab30c5ca3fa97d8729860aade32d0627660471bf3",
+      "cCallRef": "c-call:sha256:14ec6e6ce28a12ce687243f63a40ea8c4fe3e311d5102f9abaa90a940c909fa7",
+      "heldCursorRef": "traversal-cursor://abiogenesis/09ffd5130e1cf6c9f5ee60a62c0f58a61d2823c105a626996f6e5d8445e1d680",
+      "heldCursorDigest": "sha256:09ffd5130e1cf6c9f5ee60a62c0f58a61d2823c105a626996f6e5d8445e1d680",
+      "executionBasisRef": "execution-basis://abiogenesis/b5cf24f2bbb4dee127ee2931e2ac88b2a2b7a7f679117bc13c018f920626cf74",
+      "executionBasisDigest": "sha256:b5cf24f2bbb4dee127ee2931e2ac88b2a2b7a7f679117bc13c018f920626cf74",
+      "constructionIntentRef": "construction-intent://abiogenesis/9fa9721f1b78d9da2373dd18fd34e75f11f9b77a26ab9042f83d14506eda1768",
+      "constructionIntentDigest": "sha256:9fa9721f1b78d9da2373dd18fd34e75f11f9b77a26ab9042f83d14506eda1768",
+      "selectedActionRef": "next-action-projection://product/ab9668234cabb811bf2a4ccdbd9d8ba8b324572fcc57fcf31f0b367b8cc2c8d2",
+      "selectedActionDigest": "sha256:ab9668234cabb811bf2a4ccdbd9d8ba8b324572fcc57fcf31f0b367b8cc2c8d2",
+      "intentAdmissionEventRef": "event://abiogenesis/385261f6caa3274b56c0b2fae3c232b8207fc966c452d12a0273aee640bb0c14",
+      "causedByEventRef": "event://abiogenesis/efb510787f2de2ab4525ca6757dea8924b3cb75f62dd38640bfa1081c36294a8",
+      "continuationRef": "continuation://abiogenesis/c47c24fad8625f6ccdc543083aa48d609b9c21342d554e3d2dea747b4e6a7090",
+      "continuationDigest": "sha256:c47c24fad8625f6ccdc543083aa48d609b9c21342d554e3d2dea747b4e6a7090",
+      "openedEventRef": "event://abiogenesis/385261f6caa3274b56c0b2fae3c232b8207fc966c452d12a0273aee640bb0c14",
+      "terminalEventRef": null,
+      "status": "open"
+    }
+  },
+  "selectedActionAdmissions": 0,
+  "oldSupersessions": 0,
+  "currentProducerDispatches": 0,
+  "currentRunClosed": false,
+  "currentHostExited": true,
+  "appendLockAbsent": true,
+  "positiveRefusal": {
+    "name": "continue",
+    "wallMs": 1293.9244580000013,
+    "invocationRef": "invocation://abiogenesis/0b741626f3b5cfa38d382bda79f8fba7373c6eaa7f2811c6228a7fc461b37ac9",
+    "ownerOutput": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "basis_mismatch",
+        "evidenceRefs": [],
+        "issuePaths": [
+          "/invocationAuthority"
+        ]
+      }
+    },
+    "closeHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:7f71bb0d7cf838809610ac8f89fe99bb38d6ccaf1d837b131169a81d59699a71",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:97c846593397d256efc5acc537daa10ad61267163d69043ef50f0001d307491c",
+        "prefixLength": 3600313,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463711677
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:200a769cf6549717a0216c49bdb9c6172dbcf6a3f77d4fb56c911c4813465145",
+        "device": 16777230,
+        "durableByteLength": 3600313,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:97c846593397d256efc5acc537daa10ad61267163d69043ef50f0001d307491c",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/runtime/events.jsonl",
+        "inode": 463711677,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    }
+  },
+  "negativeStages": [
+    {
+      "name": "missing-cover",
+      "publicOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "reprice_mismatch",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/request"
+          ]
+        }
+      },
+      "selectionOwnerResult": {
+        "kind": "refused",
+        "code": "reprice_mismatch"
+      },
+      "credit": "Selected request relation discriminated before invocation-authority check"
+    },
+    {
+      "name": "stale-cover-digest",
+      "publicOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "reprice_mismatch",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/request"
+          ]
+        }
+      },
+      "selectionOwnerResult": {
+        "kind": "refused",
+        "code": "reprice_mismatch"
+      },
+      "credit": "Reprice coordinate/digest mismatch discriminated; does not prove rejection of a separately admitted older temporal witness"
+    },
+    {
+      "name": "mismatched-cover",
+      "publicOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "reprice_mismatch",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/request"
+          ]
+        }
+      },
+      "selectionOwnerResult": {
+        "kind": "refused",
+        "code": "reprice_mismatch"
+      },
+      "credit": "Selected request relation discriminated before invocation-authority check"
+    },
+    {
+      "name": "crossed-selection",
+      "publicOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "reprice_mismatch",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/request"
+          ]
+        }
+      },
+      "selectionOwnerResult": {
+        "kind": "refused",
+        "code": "reprice_mismatch"
+      },
+      "credit": "Selected request relation discriminated before invocation-authority check"
+    },
+    {
+      "name": "crossed-run",
+      "publicOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "basis_mismatch",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/request"
+          ]
+        }
+      },
+      "selectionOwnerResult": {
+        "kind": "refused",
+        "code": "basis_mismatch"
+      },
+      "credit": "Selected request relation discriminated before invocation-authority check"
+    },
+    {
+      "name": "crossed-basis",
+      "publicOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "basis_mismatch",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/invocationAuthority"
+          ]
+        }
+      },
+      "selectionOwnerResult": {
+        "kind": "selected_action_use"
+      },
+      "credit": "No crossed-basis-specific credit: selection accepted, earlier unchanged catalog-derived policy mismatch masks the crossed basis slot"
+    }
+  ],
+  "reuse": "Same-basis04, unchanged core/fixture archive and installed member correspondence reused by exact04 manifest references; no setup/member survey repeated"
+}

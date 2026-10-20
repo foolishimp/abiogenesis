@@ -1,0 +1,155 @@
+{
+  "status": "CLOSED",
+  "disposition": "candidate_ready_requires_native_prerequisite_and_separate_grant",
+  "activation": "T287_F11_CURRENT_RESOURCE_CALLER_02",
+  "actor": "/root/f11_current_resource_caller",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "candidateQualificationLaw": "Immutable C02/Q02 RC1",
+  "initialHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+    "bytes": 1330,
+    "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a"
+  },
+  "currentPrefix": {
+    "coordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+    "prefixLength": 73530699,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464012478
+    }
+  },
+  "checks": [
+    "actual current-prefix/read-only environment",
+    "actual pure installed start owner",
+    "three stale/crossed negatives",
+    "syntax9checks",
+    "output/readback contract joins",
+    "all dependency/artifact conservation"
+  ],
+  "nativeReadyNow": false,
+  "nativeCalls": 0,
+  "modelCalls": 0,
+  "probeCalls": 0,
+  "CLIInvocations": 0,
+  "fullRenderRepeated": false,
+  "futureOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02",
+  "operationPlan": [
+    "assessment-view",
+    "conformance-assess",
+    "assess-rule",
+    "assess-rule-run_result",
+    "assess-rule-run_replay"
+  ],
+  "laterNativeActivation": {
+    "kind": "root_native_execution_activation",
+    "operation": "T287_F11_NATIVE_ASSESSMENT_02",
+    "ordinaryCalls": 5,
+    "assessmentDispatches": 1,
+    "executionOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02",
+    "nodeOldSpaceMiB": 4096,
+    "grant": "exact later Root request file record {path,bytes,sha256}",
+    "callerFreeze": "exact CLOSED prep freeze record {path,bytes,sha256}",
+    "boundFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+      "bytes": 13795,
+      "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+    },
+    "budgets": {
+      "selection": "prospective finite workload envelope; Root grant required",
+      "actualPromptUtf8Bytes": 1021244,
+      "actualInputFileBytes": 82175295,
+      "actualInputCanonicalBytes": 67784040,
+      "sourceBodies": 39,
+      "hosts": 10,
+      "nodeOldSpaceMiB": 4096,
+      "purePreflightAllowanceMs": 180000,
+      "actorInactivityMs": 900000,
+      "actorAbsoluteMs": 1200000,
+      "terminationGraceMs": 1000,
+      "stages": {
+        "setup": 180000,
+        "assessment": 1440000,
+        "read": 180000
+      },
+      "totalCeilingMs": 2400000,
+      "outerTerminationGraceMs": 1000,
+      "operationPlan": [
+        "assessment-view",
+        "conformance-assess",
+        "assess-rule",
+        "assess-rule-run_result",
+        "assess-rule-run_replay"
+      ],
+      "rationale": "Accommodates complete 67,784,040-byte admission input, two catalog-bearing setup calls, one unchanged 1,021,244-byte prompt, native result/event JSON and two cold reads. A finite envelope is not a prediction or capacity acceptance.",
+      "memory": "Existing Node old-space setting bounds driver and CLI managed heaps to 4096 MiB each. No installed OS RSS or Claude resident-memory cap; wait4 actual peakRSS retained.",
+      "capacity": "Actual provider token/context capacity and account access remain unknown. No clipping, partitioning, model substitution, automatic retry or second assessment."
+    },
+    "initialHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+      "bytes": 1330,
+      "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a"
+    },
+    "providerPrerequisite": "usable_actual_native_provider_access",
+    "providerAccessEvidence": "Later Root-supplied exact evidence record; not fabricated by this readiness cut"
+  },
+  "cost": {
+    "prefix": {
+      "command": [
+        "node",
+        "--max-old-space-size=4096",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/prefix-checks.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5304.565,
+      "peakRSSBytes": 1920778240,
+      "nativeCalls": 0,
+      "environment": {
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/cache/npm",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/cache/npm-prefix",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/user.npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/global.npmrc",
+        "GIT_CONFIG_GLOBAL": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/global.gitconfig",
+        "GIT_CONFIG_SYSTEM": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/system.gitconfig",
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "NODE_OPTIONS": "--max-old-space-size=4096"
+      }
+    },
+    "owner": {
+      "command": [
+        "node",
+        "--max-old-space-size=4096",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/owner-readiness.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 19312.705,
+      "peakRSSBytes": 4142678016,
+      "nativeCalls": 0,
+      "environment": {
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/cache/npm",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/cache/npm-prefix",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/user.npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/global.npmrc",
+        "GIT_CONFIG_GLOBAL": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/global.gitconfig",
+        "GIT_CONFIG_SYSTEM": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/system.gitconfig",
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "NODE_OPTIONS": "--max-old-space-size=4096"
+      }
+    }
+  },
+  "residuals": [
+    "Actual provider access remains unavailable",
+    "Actual raw semantic assessment/J/Result and native readbacks unperformed",
+    "Historical author/grant and assessor independence adequacy",
+    "Complete F11/AF22/RC1 remains open"
+  ],
+  "claim": "One exact CLOSED successor caller with genuine 136 input and concrete future five-call effect plan. Readiness is mechanical; not native execution, semantic context sufficiency, F11, AF22 or RC1 acceptance."
+}

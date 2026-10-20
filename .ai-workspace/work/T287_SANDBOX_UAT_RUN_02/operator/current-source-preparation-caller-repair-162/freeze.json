@@ -1,0 +1,37 @@
+{
+  "disposition": "CLOSED STOPPED bounded caller readiness",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/return.md",
+    "sha256": "58ab7cb966e1b0caa9cc1bba2f562384db25e42d197a9df8cdfb0c058ca49a0e",
+    "byteCount": 2924
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/readiness.json",
+    "sha256": "3d2dce7ff7396669fbbc4ab33cd2b91ddefa7493619a7255c37018c044e7bb45",
+    "byteCount": 6145
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/pins.json",
+    "sha256": "0b8b7610d04f3f16b3a7a5977d85685efb417ca250a243801b03d6d6c67fb9cb",
+    "byteCount": 25815
+  },
+  "caller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/prepare.mjs",
+    "sha256": "f50fb725f38f64de1426b30f11622551ffa3669ac3f907be1f77a15814d476d4",
+    "byteCount": 33934
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/verify-artifacts.mjs",
+    "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+    "byteCount": 2071
+  },
+  "intendedInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/inputs.json",
+    "sha256": "6a6193e436629d4cbcb1e6ea334d08a058551588bc9cdce161fe812272589407",
+    "byteCount": 4238
+  },
+  "ownedArtifactCount": 25,
+  "actualPreparationReleased": false,
+  "immutableHistoricalSubjectsPreserved": true,
+  "noFurtherEffects": true
+}

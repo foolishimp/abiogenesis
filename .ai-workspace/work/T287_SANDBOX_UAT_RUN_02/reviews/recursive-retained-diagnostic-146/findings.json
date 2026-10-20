@@ -1,0 +1,48 @@
+{
+  "verdict": "CLOSED bounded GO",
+  "previousFinding": {
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/finding.json",
+      "sha256": "0134d2d4198df45bfd16e78a01c776928e0e2fcfc780c34cb073b5944898cae4",
+      "byteCount": 1819
+    },
+    "disposition": "144 retained-JSON subject mismatch closed within reviewed Source/controlled-owner scope"
+  },
+  "sourceDelta": {
+    "exactWholeHoGCorrespondence": true,
+    "changes": [
+      "Direct imports of the existing diagnostic decoder and constructor",
+      "Use exact decoded retained subject; distinguish canonical JSON null from opaque diagnostic sentinel",
+      "Keep coordinate subject for opaque diagnostics"
+    ],
+    "allOther142HoGBytesUnchanged": true,
+    "abgRuntimeFailureGuardsSchemasExportsUnchanged": true,
+    "baselineSourceRows": 263,
+    "unchangedRows": 262,
+    "moving143Consumed": false
+  },
+  "authentication": [
+    "Exact active parent input/Result and child basis/scope/rawInputAdmissionRef/rawInputDigest",
+    "Authentic child C_Call/Result/Judgment/route/value/diagnostic joins",
+    "Stale/crossed/earlier-parent/missing and held-lineage controls retain refusal",
+    "Enclosing scope and actual failed-child route causation preserve provenance"
+  ],
+  "failureSemantics": [
+    "Exact child failed value/Result/Judgment/diagnostic retained",
+    "Prior valid parent contribution and unresolved input retained",
+    "No successful foldback, retry, termination/rebind or fabricated producer credit",
+    "Already globally failed Run passes through without a second admission",
+    "Existing held/blocked/success and fallback branches otherwise unchanged"
+  ],
+  "proof": [
+    "Source-only target compile exit0",
+    "Three passed tests, zero failed, one existing live test skipped",
+    "Five actual proof cases: old mismatch, opaque URI, retained object, retained JSON null, success",
+    "Real lower owner admission/storage and cold eventless Run readers; failed lanes have null terminal and no successful Run result",
+    "Cold retained subject, failure/admission/payload digests and route causation correspond exactly"
+  ],
+  "controlledProducerLimit": "Retained lanes use a disclosed in-memory controlled F_D realizer via actual invokeLeafOwnerBoundary and unchanged declared fibre/contracts. They do not authenticate changed installed implementation bytes and admit no F_P undispatched-owner evidence. Existing immutable25 source/pure check proves F_P producer reachability only. Complete installed F_P Error producer to HoG composition remains open.",
+  "scopeImpact": "Repairs graceful propagation for the reviewed authenticated child-local failures, including retained JSON null; no new counterexample found in this bounded review. No native long-run memory/P0, UAT or release qualification claim.",
+  "cost": "One existing decoder call and a null-owner comparison on this failure branch; no new cache/history traversal, retry or authority. Runtime latency not measured independently.",
+  "nextAction": "Root may select normal generation/package and genuine installed F_P-to-HoG owner composition separately; no additional Source repair indicated by this bounded review."
+}

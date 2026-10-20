@@ -1,0 +1,3 @@
+Error: actual-private-Product-preparation: {"kind":"product_run_invocation_preparation_refusal","memberKey":"start","ownerOutput":{"outcomeKind":"refusal","value":{"code":"invalid_input","issuePaths":["/input"],"evidenceRefs":[]}}}
+    at requireKind (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs:19:75)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/prepare.mjs:199:2

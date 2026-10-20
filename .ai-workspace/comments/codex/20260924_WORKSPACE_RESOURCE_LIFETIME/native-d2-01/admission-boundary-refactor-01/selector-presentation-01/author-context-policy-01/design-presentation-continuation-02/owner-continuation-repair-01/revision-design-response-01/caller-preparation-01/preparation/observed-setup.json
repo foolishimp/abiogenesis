@@ -1,0 +1,118 @@
+{
+  "status": "CLOSED_PREPARED_NOT_LAUNCHED",
+  "calls": 8,
+  "entryPrefix": {
+    "coordinateDigest": "sha256:6d14d89e9978b2e433039e5dd3ea988e5b435ad296228ed372e84592006a7746",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:ff957c147a41acb8b9eb9debd45dad175136023894250b3d31591f898952d5a9",
+    "prefixLength": 283768726,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "close": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "prefixLength": 286103401,
+    "prefixDigest": "sha256:0e09a48cf5a9e869b425678842711ad567f0a87ffe0f2aa071d05f5d18fe4c72",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 459405010,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+    },
+    "coordinateDigest": "sha256:b1ae93264aa5f5d283e7e5d6215e1efe7e5724e88cdb9f2aba56c7eaa91db246"
+  },
+  "realSeconds": 119.91,
+  "userSeconds": 127.81,
+  "systemSeconds": 6.23,
+  "peakRssBytes": 5131534336,
+  "operationTimings": {
+    "install-dev15": {
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "elapsedMs": 815.2131669999944,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "verify-core33": {
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "elapsedMs": 179.10000000000036,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "view": {
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "elapsedMs": 902.0868330000085,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "nominal-verification-1": {
+      "elapsedMs": 12.721208000000843,
+      "kind": "product_verification_success"
+    },
+    "nominal-verification-0": {
+      "elapsedMs": 9050.224584,
+      "kind": "product_verification_success"
+    },
+    "resolve-core33-dev15": {
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "elapsedMs": 2776.8491250000006,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "bootstrap-native-d2-intake-bind-existing-workspace": {
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "elapsedMs": 875.9190840000083,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "install-core33": {
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "elapsedMs": 80281.320625,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "catalog": {
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "elapsedMs": 4995.362125,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    },
+    "execution-resolution": {
+      "elapsedMs": 4565.600166999997,
+      "kind": "loaded_product_execution_resolution"
+    },
+    "intake-conformance": {
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "elapsedMs": 2072.4963750000024,
+      "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+    }
+  },
+  "profile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/setup.cpuprofile",
+    "byteCount": 48493864,
+    "sha256": "3cd66a0603f94987288b04734a18fdc3a4ffdac27832037bef6fcf368fa4e93b"
+  },
+  "limit": "One actual required setup with V8 sampling; not isolated attribution or unprofiled benchmark"
+}

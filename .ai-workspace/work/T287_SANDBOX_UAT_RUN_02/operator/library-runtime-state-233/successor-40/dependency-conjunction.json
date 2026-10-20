@@ -1,0 +1,78 @@
+{
+  "kind": "accepted_source39_testing_diagnostic_successor",
+  "basis": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/freeze.json",
+      "sha256": "92464f35020b275d72956e64488a8092b83fc650a91be3aca4703f17cbe3959b",
+      "bytes": 17814
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/dependency-cut-39-inputs.json",
+      "sha256": "3ae48fdeaeb686fa9cd7038fde10a0293d0836ff9d02db9dc3c5542ab84fcab5",
+      "bytes": 80616
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/dependency-cut-39-emission.json",
+      "sha256": "b44b29b0ed56039bd2a09f4778043c67619221abd6b52daf86c290d56f2c3e64",
+      "bytes": 161512
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-11/freeze.json",
+      "sha256": "5a607dbd7ae727ebaeba92b3700342af11db8b95512289b865e353ff16fb1895",
+      "bytes": 69225
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-11/return.md",
+      "sha256": "799a38ff270f0caad7a5c8ce10f9d189d2ae66e53403de20c261fd4edde6065f",
+      "bytes": 4645
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/dependency-conjunction.json",
+      "sha256": "1ac53593b39dc80accdd547928d08224b3a158ae97eb8df63e52e218c574f1b2",
+      "bytes": 2676
+    }
+  ],
+  "fullSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/dependency-cut-40-inputs.json",
+    "sha256": "7bec1d1f98dd7515ddf6325041eea468ebf3c739f58a6bd66aea8c8e6a32503a",
+    "bytes": 95262
+  },
+  "fullEmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-40/dependency-cut-40-emission.json",
+    "sha256": "bd930ac8bb585b7b0a0bdfcd3fd3068ff4015c7f69d7ea3b79d1a31cf522dba0",
+    "bytes": 190945
+  },
+  "sourceConservation": {
+    "total": 264,
+    "unchanged": 259,
+    "changed": [
+      "abg/default_library.ts",
+      "abg/native_work_reacquisition.ts",
+      "implementation/contracts.ts",
+      "implementation/default_library.ts",
+      "implementation/leaf_invocation_port.ts"
+    ]
+  },
+  "emissionConservation": {
+    "total": 528,
+    "unchanged": 523,
+    "changed": [
+      "abg/default_library.js",
+      "abg/native_work_reacquisition.js",
+      "implementation/contracts.d.ts",
+      "implementation/default_library.js",
+      "implementation/leaf_invocation_port.js"
+    ],
+    "declarations": 264,
+    "unchangedDeclarations": 263,
+    "changedDeclarations": [
+      "implementation/contracts.d.ts"
+    ]
+  },
+  "nonPublicCallableDelta": "One optional first-refusal callback on the existing NativeLeafProofOperations.governanceTestingReacquisition operation. Nullable exported task signatures remain byte-exact; stripped private overloads/type do not publish a diagnostic API.",
+  "protected": [
+    "All other Source39 production bytes, including accepted232/235 and Source38 runtime-failure owner",
+    "Every predecessor freeze/snapshot/receipt and actual continuation11",
+    "Canonical generated/package/install and original DataMapper/resources/worksites"
+  ]
+}

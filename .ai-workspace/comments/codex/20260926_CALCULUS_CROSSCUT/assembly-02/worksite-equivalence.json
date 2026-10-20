@@ -1,0 +1,37 @@
+[
+  {
+    "variant": "worksite",
+    "digest": "sha256:fb4b4c9f85e2da2e5ba6d9a7f33a2d748e3e8d1a51b40380fa256c09cbbd5680",
+    "promptBytes": 3668
+  },
+  {
+    "variant": null,
+    "digest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "promptBytes": null
+  },
+  {
+    "variant": "native-work",
+    "digest": "sha256:40a7a574d922546a1e57ce229901613fbd8d753d3887141e8a11fa1408d658dc",
+    "promptBytes": 1139
+  },
+  {
+    "variant": null,
+    "digest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "promptBytes": null
+  },
+  {
+    "variant": null,
+    "digest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "promptBytes": null
+  },
+  {
+    "variant": null,
+    "digest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "promptBytes": null
+  },
+  {
+    "variant": null,
+    "digest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "promptBytes": null
+  }
+]

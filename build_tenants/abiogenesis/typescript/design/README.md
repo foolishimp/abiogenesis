@@ -1,5 +1,37 @@
 # ABIogenesis TypeScript Design
 
+## Common Computational Capability Library
+
+[ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
+is the first design activity selected by the owner. It defines a reusable
+library of computational capabilities, their contracts and lawful
+compositions, with actual foundation/owner/consumer routes and
+reuse/consolidation/justified-separation decisions. The objective is to reduce
+independent computational solutions. Explicit obligations govern the library;
+execution and assessment establish actual outcomes.
+
+The [work record](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/activation.md)
+binds its exact assessment and disposition. Earlier common realization and
+delivery library designs supply historical evidence where their relations
+still apply; their old paths and status labels do not establish current
+implementation. T-287 orders affected realization after this design work.
+
+## STDO 3 Computational Binding
+
+[ABI5_STDO3_COMPUTATIONAL_BINDING.md](ABI5_STDO3_COMPUTATIONAL_BINDING.md)
+binds the current Product and requirement obligations to the existing GTL/HoG/
+ABG calculus and its concrete TypeScript execution environment. It owns the
+cross-design reconciliation, finite completeness boundaries, computational
+projection and remaining decision/proof obligations. Existing owning designs
+continue to define their accepted relations; old acceptance records keep their
+original subjects.
+
+The [STDO 3 reconciliation](../../../../.ai-workspace/comments/codex/20261021_STDO3_ABG5_RECONCILIATION.md)
+records method/profile applicability and the bounded document changes.
+[T-287's current plan](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan)
+selects remaining work. Historical status statements below supply no current
+activation or whole-candidate acceptance.
+
 ## Release Applicability
 
 [Product Release Boundaries](../../../../specification/PRODUCT.md#50-and-51-release-boundaries)
@@ -29,20 +61,25 @@ qualification authority is selected.
 ## Current Method And Work Selection
 
 The sole exact method selection is
-`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`; its
-composition owns the release-matched Axiom Indexer and STDO Representation
-Development Products. The RC6 migration and all current work are bounded by
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
+The [V3 adoption](../../../../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md)
+selects the standalone native method with no companion Product composition.
+Acquire current method routes through the
+[project frame basis](ABI5_PROJECT_REFERENCE_FRAME_BASIS.md).
+Earlier exact method links in design derivation and acceptance records retain
+their original provenance; they do not select the method for new work.
+All current work is bounded by
 [GOALS](../../../../specification/GOALS.md#current-selection) and
-[T-287](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#stdo-rc6-migration).
-The current delivery plan owns work selection; predecessor Wave 2 holds are
-historical. Bounded C0 correction-01 is completed and Executive-accepted
+[T-287](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md).
+The current delivery plan owns work selection; predecessor Wave 2 holds and
+the checkpoint statuses below are historical. Bounded C0 correction-01 is completed and Executive-accepted
 after independent review returned `satisfied`.
 [Current Selection](../../../../specification/GOALS.md#current-selection),
 [T-287 W2-BL-C0](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w2-bl-c0),
 and its [corrective record](../../../../.ai-workspace/comments/codex/20260907T033506Z_W2_BL_C0_POST_PUBLICATION/correction-01/execution.md)
 own the exact accepted subject, review and evidence limits. Parent subjects and
 exercised proof remain immutable history. Local context is regenerated from
-these settled owners; no next implementation is selected.
+these settled owners; that earlier acceptance selects no new implementation.
 
 Recorded accepted hashes identify their original exact subjects. The completed
 RC6 migration changed method/frame routes only. C0's correction changes only

@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/packaged-owner.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20",
+  "started": "2026-10-08T07:13:30.620Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 62231.473916,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"projection\":{\"kind\":\"verified_product_artifact\",\"disposition\":\"verified\",\"artifactDigest\":\"sha256:88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4\",\"productContentDigest\":\"sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c\",\"manifestDigest\":\"sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35\",\"catalogDigest\":\"sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7\",\"contributionManifestDigest\":\"sha256:4f2b080203cea7fcf688a13257ced6b695f8df8a64f676cfb5bdbec03b0d94da\",\"checkedPayloadFiles\":5263},\"wallMs\":21362.531375}\n",
+  "stderr": ""
+}

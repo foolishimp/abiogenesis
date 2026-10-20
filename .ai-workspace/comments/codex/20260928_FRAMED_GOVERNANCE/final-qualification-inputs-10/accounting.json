@@ -1,0 +1,47 @@
+{
+  "actualPayloads": 2,
+  "completeTask": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/readiness-driver.mjs"
+    ],
+    "pid": 95938,
+    "processGroup": 95938,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "exitCode": 0,
+    "timedOut": false,
+    "elapsedMs": 6691.932291723788,
+    "maxRSSBytesMacOS": 591134720,
+    "userSeconds": 7.2705400000000004,
+    "systemSeconds": 3.908279,
+    "RuntimeEffects": 0
+  },
+  "packet": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/packet-readiness.mjs"
+    ],
+    "pid": 96389,
+    "processGroup": 96389,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "exitCode": 2,
+    "timedOut": false,
+    "elapsedMs": 1845.6721249967813,
+    "maxRSSBytesMacOS": 1104347136,
+    "userSeconds": 1.907084,
+    "systemSeconds": 0.19766699999999998,
+    "RuntimeEffects": 0
+  },
+  "completeInventoryEncodedByteBudget": 500000000,
+  "measuredBase64PayloadBytes": 543805156,
+  "actualFullResourceBytes": null,
+  "promptBytes": null,
+  "defaultHeap": true,
+  "ordinaryHOME": true,
+  "payloadsAllReapedGroupsAbsent": true,
+  "qualificationCommands": 0,
+  "providerCalls": 0,
+  "RuntimeEffects": 0
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/execution_basis.ts",
+      "bytes": 121970,
+      "sha256": "9843dca203feeaeb701f1640bd080d91ad3166670fe9c4217621b981ea1a6ace"
+    },
+    "after": {
+      "path": "code/src/abg/execution_basis.ts",
+      "bytes": 121977,
+      "sha256": "91aec3f47a4da8ed33f2d59e665eed76fe459500dea4c4c363525b1ae5652af4"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/abg/worksite_revision.ts",
+      "bytes": 62993,
+      "sha256": "947a882c9473ae5e4fd8cdc6d9dab021cf63bc6e00169984177859f939637e0e"
+    },
+    "after": {
+      "path": "code/src/abg/worksite_revision.ts",
+      "bytes": 63465,
+      "sha256": "7c8e69865a1c0d3fd2d777ea603cd0a747ab375e854048b45c46fc777ce984ec"
+    }
+  }
+]

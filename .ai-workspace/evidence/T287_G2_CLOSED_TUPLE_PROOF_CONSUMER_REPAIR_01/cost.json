@@ -1,0 +1,214 @@
+{
+  "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+  "acquisition": {
+    "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+    "elapsedMs": 1536.474042,
+    "userCPUSeconds": 0.302558,
+    "systemCPUSeconds": 1.225544,
+    "maxRSSPlatformBytes": 39731200,
+    "dependencyFiles": 4576,
+    "dependencyLogicalBytes": 58291040,
+    "SourceChanges": 2,
+    "unchangedSource": 14,
+    "HOME": "/Users/jim",
+    "defaultHeap": true,
+    "beforePayloadCallerCorrection": {
+      "optionalNativeLocator": "actual emitted serialized-only rows omit optional nativeTypedLocator; proof selects only present native locators before execution",
+      "noPayloadFailureOrRetry": true
+    }
+  },
+  "phases": {
+    "preflight": {
+      "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/preflight.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/tmp"
+      },
+      "pid": 49004,
+      "pgid": 49004,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 94.6405,
+      "userCPUSeconds": 0.030372,
+      "systemCPUSeconds": 0.028554,
+      "maxRSSPlatformBytes": 67354624,
+      "stdoutSHA256": "aabd79ce65402283840bb31bc1439c03c5d889084de38fb16e6c9e1d07225b5f",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile": {
+      "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--project",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/tmp"
+      },
+      "pid": 49211,
+      "pgid": 49211,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 6189.3279999999995,
+      "userCPUSeconds": 10.226195,
+      "systemCPUSeconds": 0.229565,
+      "maxRSSPlatformBytes": 1164951552,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "manifest": {
+      "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/tmp"
+      },
+      "pid": 49790,
+      "pgid": 49790,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 24771.544667000002,
+      "userCPUSeconds": 27.990653,
+      "systemCPUSeconds": 1.601816,
+      "maxRSSPlatformBytes": 1775337472,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pack": {
+      "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/bin/npm-cli.js",
+        "pack",
+        "--ignore-scripts",
+        "--offline",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/packs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/tmp"
+      },
+      "pid": 50846,
+      "pgid": 50846,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 3301.843125,
+      "userCPUSeconds": 3.452702,
+      "systemCPUSeconds": 0.35565199999999997,
+      "maxRSSPlatformBytes": 303857664,
+      "stdoutSHA256": "562364bf16afa95cd8f33a089f74c8caed6953e74f4b2ef9004d4412ac7c7609",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "extract": {
+      "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "command": [
+        "/usr/bin/python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/extract.py"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "capSeconds": 120,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/tmp"
+      },
+      "pid": 51939,
+      "pgid": 51939,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 2550.957875,
+      "userCPUSeconds": 0.48157,
+      "systemCPUSeconds": 0.530826,
+      "maxRSSPlatformBytes": 66256896,
+      "stdoutSHA256": "52e8195904d863a2f76c7f0d3f967708aae248a2c75d832aab3eddcc393b1a1a",
+      "stderrSHA256": "3ba55fafb55daf9345f3afd19d57600d5e80d13e2fb3e3eb4dbb2e183799e16b"
+    },
+    "focused": {
+      "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/test-reporter.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+      "capSeconds": 240,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/tmp"
+      },
+      "pid": 52464,
+      "pgid": 52464,
+      "exitCode": 1,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 256,
+      "groupAbsent": true,
+      "elapsedMs": 24108.406292000003,
+      "userCPUSeconds": 31.292357,
+      "systemCPUSeconds": 0.736721,
+      "maxRSSPlatformBytes": 2375614464,
+      "stdoutSHA256": "2dfcb281a996999e18291113f8c05dbcde44027ba22b5e71533bbe72727c15b4",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "userCPUSeconds": 73.473849,
+  "systemCPUSeconds": 3.4831339999999997,
+  "maxRSSPlatformBytes": 2375614464,
+  "compileCount": 1,
+  "offlinePackCount": 1,
+  "focusedInvocationCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "priorPreparedFactoryRoute": "projectInstalledLeafSemantics returns coordinate projection, not runtime",
+  "actualExportedAccessor": "inspectProductLeafSemanticsProjection:252 returns { projection, runtime } | null",
+  "selectedType": "NonNullable<ReturnType<typeof inspectProductLeafSemanticsProjection>>['runtime']",
+  "sourceHookSha256": "b6919041f617814eae22d48b2b6e646fe1b2f9edc889708134f911472398f581",
+  "beforeNodeImports": true,
+  "RootSteering": "Correct mistaken factory suggestion from actual source; test-only grant and32cases unchanged",
+  "productionSourceChanges": 0
+}

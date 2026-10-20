@@ -1,0 +1,18 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_RESULT_LINEAGE_FIXTURE_TRIAGE_GRANT_WRITER_01",
+  "startedAt": "2026-10-02T12:50:08.184519+00:00",
+  "grant": "Record exact failed fixture triage and compose conditional test-only continuation; no source/test/Run/tracking effects.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/activation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/triangulation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/sections.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/request.txt",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/literal-verification.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/closure.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/freeze.json"
+  ],
+  "returnsTo": "Executive"
+}

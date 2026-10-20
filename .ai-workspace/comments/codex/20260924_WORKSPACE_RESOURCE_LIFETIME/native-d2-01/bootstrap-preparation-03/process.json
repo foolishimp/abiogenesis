@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/prepare.mjs"
+  ],
+  "pid": 18270,
+  "exitCode": 0,
+  "elapsedSeconds": 485.04279341641814
+}

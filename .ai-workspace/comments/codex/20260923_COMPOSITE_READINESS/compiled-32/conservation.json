@@ -1,0 +1,240 @@
+{
+  "closedAtUtc": "2026-09-25T16:18:44.090257+00:00",
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/frozen-subject.json",
+    "sha256": "ce12802cf968ae828511eccd7dc30739cb101b70146baef8d1f22e94414c2190"
+  },
+  "sourcePostimagesMatched": 22,
+  "unchangedNativeRendererMembers": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "sha256": "ac240bfe34dc6a344f79415fa8da65f23d1c6596d27263d3995fb1a39fae6d02",
+      "expectedSha256": "ac240bfe34dc6a344f79415fa8da65f23d1c6596d27263d3995fb1a39fae6d02",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/frozen-subject.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "sha256": "b1028e1dc2aaf06c8b2f46e96de7eddde7a97c9ef2799559b454d06ce537a9a7",
+      "expectedSha256": "b1028e1dc2aaf06c8b2f46e96de7eddde7a97c9ef2799559b454d06ce537a9a7",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/frozen-subject.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "sha256": "ea6dfc6a617a2f9764e4c29bcee6ad887d3afabcfd642068e048d6ee6a793c2e",
+      "expectedSha256": "ea6dfc6a617a2f9764e4c29bcee6ad887d3afabcfd642068e048d6ee6a793c2e",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/frozen-subject.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "sha256": "cb1833b2199b2fb9159a933d0a1eb26cec7b8d25c8a6f2d2705a64f1512d933f",
+      "expectedSha256": "cb1833b2199b2fb9159a933d0a1eb26cec7b8d25c8a6f2d2705a64f1512d933f",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/frozen-subject.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+      "sha256": "7d35da7fd7f9779c2837b252dcb1ebe29c30638b25efb9c937e221de2d45bacd",
+      "expectedSha256": "7d35da7fd7f9779c2837b252dcb1ebe29c30638b25efb9c937e221de2d45bacd",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/frozen-subject.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.d.ts",
+      "sha256": "cf0a5810cc52bca737e62b297df488d1646697c6cd4a4f99a5761308300c0a6a",
+      "expectedSha256": "cf0a5810cc52bca737e62b297df488d1646697c6cd4a4f99a5761308300c0a6a",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/frozen-subject.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "41ecdee597adb2f2eb18229ee7dc49557127f788b32dd6114c020d0e65b5d9aa",
+      "expectedSha256": "41ecdee597adb2f2eb18229ee7dc49557127f788b32dd6114c020d0e65b5d9aa",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/frozen-subject.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "sha256": "78c2073d94f041a1da5cf7584a937c36cafbbb9d8509b9e1deb0acda6fb3176a",
+      "expectedSha256": "78c2073d94f041a1da5cf7584a937c36cafbbb9d8509b9e1deb0acda6fb3176a",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/frozen-subject.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "sha256": "531b090ad5dbf1aa0cf930ff13e0e26ef564ed52f3f0928ca5b5143aa64e7225",
+      "expectedSha256": "531b090ad5dbf1aa0cf930ff13e0e26ef564ed52f3f0928ca5b5143aa64e7225",
+      "unchanged": true,
+      "sourceManifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/frozen-subject.json"
+    }
+  ],
+  "predecessorArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-31/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:fb13cf52d5733dc85ed5ca3c651182c0bb49073a3a9705d012b9a11903b29579"
+  },
+  "archiveDelta": [
+    {
+      "path": "build/code/src/abg/artifact_truth.js",
+      "before": {
+        "path": "build/code/src/abg/artifact_truth.js",
+        "bytes": 26694,
+        "sha256": "4ba0663f7bacc6bc0457573ea5ba0aa33e2ef4ba034b61987c9501457fa90ba7"
+      },
+      "after": {
+        "path": "build/code/src/abg/artifact_truth.js",
+        "bytes": 29087,
+        "sha256": "f77e95373de5828958fc7d5794b033197a6ccc5429385ec358070426e1775872"
+      }
+    },
+    {
+      "path": "build/code/src/abg/environment_admission.js",
+      "before": {
+        "path": "build/code/src/abg/environment_admission.js",
+        "bytes": 35638,
+        "sha256": "99eced7ac66159ab8062be1482b5169ce3cf9f303f480b995d55dc7ddad2c992"
+      },
+      "after": {
+        "path": "build/code/src/abg/environment_admission.js",
+        "bytes": 36935,
+        "sha256": "41cb1e897aa61e46e9625a8a22ce7c53c3de976720d36f7f9ef1ba71517a8141"
+      }
+    },
+    {
+      "path": "build/code/src/product/environment.js",
+      "before": {
+        "path": "build/code/src/product/environment.js",
+        "bytes": 33519,
+        "sha256": "898f64a0ae2684429ff54404fffc0a25e04e00f07c946e698adb00500542e0d3"
+      },
+      "after": {
+        "path": "build/code/src/product/environment.js",
+        "bytes": 35210,
+        "sha256": "0b7d64479fd2fcfabb7a90b5f6acaefb51dfe5c8b61a7289d5d1561e7e5dcf64"
+      }
+    },
+    {
+      "path": "build/code/src/product/install_definition_bindings.js",
+      "before": {
+        "path": "build/code/src/product/install_definition_bindings.js",
+        "bytes": 12150,
+        "sha256": "dc74909680b9b167c38f2450f61daa76b82f0320eb5e44ac73144284c812763e"
+      },
+      "after": {
+        "path": "build/code/src/product/install_definition_bindings.js",
+        "bytes": 12192,
+        "sha256": "435dcaae56ce0fb089fe765a18180de345354622a27b5e7b0029c58a5d7b6ec2"
+      }
+    },
+    {
+      "path": "build/code/src/product/install_operation.d.ts",
+      "before": {
+        "path": "build/code/src/product/install_operation.d.ts",
+        "bytes": 612,
+        "sha256": "c6cd7d14d1042e9ee73af0cd480709b8616c02bc1ecb9d9185f2346f18ce09db"
+      },
+      "after": {
+        "path": "build/code/src/product/install_operation.d.ts",
+        "bytes": 797,
+        "sha256": "c6531267a9f985fb50cd25a3c990534c398c04834fa50174bf76296314097032"
+      }
+    },
+    {
+      "path": "build/code/src/product/install_operation.js",
+      "before": {
+        "path": "build/code/src/product/install_operation.js",
+        "bytes": 354,
+        "sha256": "52cc31ddb6e4028d4d772b22a130a6cf824d5c9dc03c29afae9959450aecfe5c"
+      },
+      "after": {
+        "path": "build/code/src/product/install_operation.js",
+        "bytes": 562,
+        "sha256": "4d3b2a6092ae26e32c2da231d7b094721668757586a7768fafb2a152e6dcd43d"
+      }
+    },
+    {
+      "path": "build/code/src/product/install_product.js",
+      "before": {
+        "path": "build/code/src/product/install_product.js",
+        "bytes": 13880,
+        "sha256": "e5c1b2838cec7357e9c40fc1deaabc64a0b8ee9629342b6fac6343fd89bde96e"
+      },
+      "after": {
+        "path": "build/code/src/product/install_product.js",
+        "bytes": 14359,
+        "sha256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d"
+      }
+    },
+    {
+      "path": "build/code/src/shared/capability_contracts.js",
+      "before": {
+        "path": "build/code/src/shared/capability_contracts.js",
+        "bytes": 23859,
+        "sha256": "9a0f140f4e0c0c81f747d742c3dcb2f0398ff1ca967eec22cb1e4eddb77e72eb"
+      },
+      "after": {
+        "path": "build/code/src/shared/capability_contracts.js",
+        "bytes": 24059,
+        "sha256": "ce2aa8d8a6472a30ca68d463c83893f656a31d28a4cee7be3897631bddf8d0f5"
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "8a72475e8f62cee6eeaa10e91f2af6b70d68bd3eb4f714d24e94d1a435da21d4"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "f824dab2abb82ff5aa1ca3230bc7d26273dac1285bbde8597411b0daa83b18bf"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "2df6ef63dfdad39f508f40affbe2a16b4c620c096b03fee3f575072193648747"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "dca011dc9d410c2a69d07d756dfd176161655fe9b30ccb128326a2dd023668fa"
+      }
+    }
+  ],
+  "unchangedArchiveMembers": 5223,
+  "dev15ArchiveUnchanged": "sha256:0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+  "generatedMetadataOnly": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "8a72475e8f62cee6eeaa10e91f2af6b70d68bd3eb4f714d24e94d1a435da21d4"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "f824dab2abb82ff5aa1ca3230bc7d26273dac1285bbde8597411b0daa83b18bf"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "2df6ef63dfdad39f508f40affbe2a16b4c620c096b03fee3f575072193648747"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "dca011dc9d410c2a69d07d756dfd176161655fe9b30ccb128326a2dd023668fa"
+      }
+    }
+  ],
+  "scope": "No source/compiler/test/runtime/caller/Git effect; normal metadata, archive and isolated install only"
+}

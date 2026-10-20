@@ -1,0 +1,17 @@
+✔ all eight exact package addresses resolve canonical owner projections (262.338875ms)
+✔ catalog locates fresh complete declaration closures, retaining every extant identity (141.611708ms)
+✔ missing group and crossed locator are rejected by the same fixed oracle (31.806167ms)
+✔ two responsibility bindings use the same published preparation and immutable resource owners (55.3625ms)
+ℹ {"responsibilityBindings":2,"embeddedPreparations":2,"referencePreparations":4,"resourceAcquisitions":1,"inventoryCoverage":"incomplete","assertionBytes":89498,"promptBytes":[49279,49286],"runtimeCalls":0,"qualificationClaims":0}
+✔ existing owners refuse missing resources, crossed selectors and changed task identity (12.326667ms)
+✔ source-blind strict caller imports canonical input, resource and request types from m05 (3104.55075ms)
+ℹ {"nativeConsumer":"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/public-preparation-consumer.mts","strict":true,"diagnostics":0,"closedTypeNegatives":3}
+✔ generated m05 group locates both canonical owners and hashes its actual native inventory (3.886917ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22611.406334

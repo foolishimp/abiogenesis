@@ -1,0 +1,30 @@
+{
+  "knownExternalActors": [
+    {
+      "identity": "/root/s03_phase_b",
+      "meaning": "C02 preservation/import operator and separately observed narrow D repair performer; not all inherited semantic authors",
+      "knownDSession": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+      "DSessionEvidence": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-03/s03_phase_b-session-metadata.json",
+      "C02OperationSession": null
+    },
+    {
+      "identity": "/root/f11_attribution_inputs",
+      "meaning": "Material02 selection rationale constructor",
+      "session": null
+    },
+    {
+      "identity": "/root/f11_binding_plan",
+      "meaning": "Current external binding/representation writer",
+      "grant": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-controls-01/request.txt",
+      "session": null
+    }
+  ],
+  "publishedProspectiveNativeAssessor": "actor://abiogenesis/qualification/assessor-primary@5",
+  "actualNativeActorInvocation": null,
+  "independence": "Native transport occurrence and source-grounded J must establish required relations; labels alone establish no acceptance",
+  "unresolved": [
+    "Relevant inherited semantic authorship outside retained operation chains",
+    "Historical source-grant-to-qualification capability correspondence",
+    "Actual future assessor invocation/transport identity and independence"
+  ]
+}

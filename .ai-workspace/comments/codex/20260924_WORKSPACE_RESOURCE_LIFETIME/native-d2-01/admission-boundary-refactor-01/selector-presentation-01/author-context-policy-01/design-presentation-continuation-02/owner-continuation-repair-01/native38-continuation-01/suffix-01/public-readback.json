@@ -1,0 +1,32 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:d9d7086ab47280c8b44b232bfeb6838349aabf30382e1823ae08d8e6381e85ea",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:22081c65ad328fac4dfc28e05e3050226d7f82085efdb03683bfbc555c180827",
+    "prefixLength": 399209962,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 26615.253875000002,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/read-run_result.json",
+      "resultDigest": "sha256:b4f5f53d09abda4aa47480a1caa6942277e75e3d56224f6e522bc4736d191a00",
+      "observation": "result_absent_not_found"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 26839.820417,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/read-run_replay.json",
+      "resultDigest": "sha256:db8ad778e501732248c2504a34b6cb1d92f954b071397c37a32dcf1ee171cc6c"
+    }
+  ]
+}

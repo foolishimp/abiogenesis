@@ -1,0 +1,3 @@
+{"type":"system","subtype":"init"}
+{"type":"assistant","message":{"content":[{"type":"text","text":"attempt 2"}]}}
+{"type":"result","subtype":"success","result":"{\"kind\":\"fp_hello_output\",\"schemaVersion\":\"5.0.0\",\"resultContractRef\":\"contract://abiogenesis/conformance/fp-hello-output@5\",\"actorRef\":\"actor://abiogenesis/conformance/claude-worker@5\",\"message\":\"Goodbye World\"}"}

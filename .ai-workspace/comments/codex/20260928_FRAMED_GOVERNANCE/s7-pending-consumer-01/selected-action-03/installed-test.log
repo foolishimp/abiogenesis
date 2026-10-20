@@ -1,0 +1,36 @@
+✖ installed post-disposition selected action survives actual host interruption and continues once (19346.578625ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19381.103208
+
+✖ failing tests:
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:16:1
+✖ installed post-disposition selected action survives actual host interruption and continues once (19346.578625ms)
+  AssertionError [ERR_ASSERTION]: node:internal/modules/run_main:107
+      triggerUncaughtException(
+      ^
+  
+  Error: Selected second action boundary was not reached
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs:45:301
+  
+  Node.js v24.7.0
+  
+  
+  null !== 'SIGKILL'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:23:110)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SIGKILL',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,229 @@
+--- preimage/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ postimage/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -688,6 +688,40 @@
+ Writer29's lossless-sharing counterexample remains frozen; genuine excess still
+ refuses.
+ 
++### Native parent-context observation correspondence (Run02 repair138)
++
++Native author and independent-assessment preparation use the same Product-owned
++factual observation view as the selector. The canonical retained state and its
++input digest keep every complete admitted observation; native preparation,
++preparation admission and child-fold correspondence compute the same task from
++that state and the exact current context. No planner task or new evidence is
++constructed to obtain the view.
++
++The native instructions retain each observation's Result/digest/call, actor,
++selected-function and synthesis coordinates, native report, assessment finding,
++command status, report facts, predicate values, adverse and unknown facts, and
++currentness/dependency correspondence. Full C2 stream and detailed predicate
++bodies remain in the authenticated owning Results. Their exact existing owner
++references and field paths, plus the literal diagnostic byte-range excerpts
++specified above, replace repeated inline execution envelopes; these citations
++neither grant external access nor substitute for mandatory selected material.
++
++The complete original task, selected bounded contribution and its admitted
++provenance, mandatory source reads, effect scope and currentness guards remain
++unchanged. UAT still reacquires the complete independent subject, sources and
++rubric and consumes its full authenticated producer; the parent-context view
++cannot establish assessment adequacy or satisfaction. Preparation and admission
++must agree on this presentation, and later child-fold validation must use the
++same relation. Raw state, response schemas, evidence admission and parent
++consequence remain unchanged.
++
++The actual thirty-four-observation failed author history and the realistic
++controlled fifty-one-observation history discriminate causal-fact and literal
++citation conservation through native preparation and complete owned assembly.
++The retained pre-fix prompt is a capacity counterexample, not a new Product
++bound. Reduced presentation and controlled checks establish bounded source
++readiness; actual installed provider acceptance and full UAT remain separate.
++
+ ### Declared source roles in selector context (S6 live-02 correction)
+ 
+ The selector presentation distinguishes the existing `original.sources` and
+--- preimage/code/src/product/default_library.ts
++++ postimage/code/src/product/default_library.ts
+@@ -206,27 +206,12 @@
+     rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: true },
+     displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 }, excerpts, displayedByteCount, omittedCandidates };
+ }
+-/** Presentation over the already-bound task; canonical proof stays in its owner. */
+-export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
+-  const { state, context } = task, original = state.original;
++/** Parent-context presentation; full admitted bodies and authority stay in their owners. */
++export function projectGovernanceObservationFacts(state: GovernanceWorkState, context: WorksiteContextObservation) {
++  const original = state.original;
+   const record = (value: JsonValue | undefined): value is Readonly<Record<string, JsonValue>> =>
+     value !== null && typeof value === "object" && !Array.isArray(value);
+-  const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
+-    ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
+-  const sourceTextsInTask = new Set<string>();
+-  const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
+-    const bytes = Buffer.from(entry.bytes, "base64");
+-    let text: string;
+-    try { text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes); }
+-    catch { return { encoding: "base64", content: entry.bytes }; }
+-    // Exact containment only. The actor receives the complete text in this
+-    // same prompt, not a locator that would require a forbidden file read.
+-    const start = text.length === 0 ? -1 : original.task.indexOf(text);
+-    if (start >= 0) sourceTextsInTask.add(text);
+-    return start < 0 ? { encoding: "utf8", content: text } :
+-      { contentIn: "originalTask", startCharacter: start, endCharacter: start + text.length };
+-  };
+-  const evidence = state.observations.map(observation => {
++  return deepFreeze(state.observations.map(observation => {
+     const value = observation.value;
+     const observed = observation.purpose === "testing" && Array.isArray(value.commandResults)
+       ? { commandResults: value.commandResults.map((row, index) => record(row) ? { ...row,
+@@ -253,7 +238,27 @@
+           e.relativePath === file.path && e.digest === file.digest)).map(file => file.path),
+         assessmentContractRef: fact.assessmentContractRef, producerResultRef: fact.producerResultRef,
+         producerActorRef: fact.producerActorRef } }) };
+-  });
++  }));
++}
++/** Presentation over the already-bound task; canonical proof stays in its owner. */
++export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
++  const { state, context } = task, original = state.original;
++  const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
++    ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
++  const sourceTextsInTask = new Set<string>();
++  const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
++    const bytes = Buffer.from(entry.bytes, "base64");
++    let text: string;
++    try { text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes); }
++    catch { return { encoding: "base64", content: entry.bytes }; }
++    // Exact containment only. The actor receives the complete text in this
++    // same prompt, not a locator that would require a forbidden file read.
++    const start = text.length === 0 ? -1 : original.task.indexOf(text);
++    if (start >= 0) sourceTextsInTask.add(text);
++    return start < 0 ? { encoding: "utf8", content: text } :
++      { contentIn: "originalTask", startCharacter: start, endCharacter: start + text.length };
++  };
++  const evidence = projectGovernanceObservationFacts(state, context);
+   const declaration = original.fulfillment;
+   const fulfillment = declaration === undefined ? null : {
+     obligations: governanceFulfillmentActive(declaration, state.fulfillment!).map(active => ({
+--- preimage/code/src/abg/default_library.ts
++++ postimage/code/src/abg/default_library.ts
+@@ -22,7 +22,7 @@
+ import { governanceFulfillmentSelection, initialGovernanceFulfillment, governanceFulfillmentSourceMatches, deriveGovernanceObligations,
+   bindGovernanceFulfillmentAssessment, projectGovernanceFulfillment, invalidateGovernanceFulfillment, governanceFulfillmentActive,
+   type GovernanceFulfillmentEvidence } from "../product/default_library_fulfillment.js";
+-import { framedSynthesisEvidenceRefs, governanceSubjectEvidenceRefs } from "../product/default_library.js";
++import { framedSynthesisEvidenceRefs, governanceSubjectEvidenceRefs, projectGovernanceObservationFacts } from "../product/default_library.js";
+ const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
+ const asJson = (x: unknown) => x as Readonly<Record<string, JsonValue>>;
+ function owner(basis: NativeInstructionAssemblyBasis, input: unknown) {
+@@ -141,7 +141,8 @@
+   const order = state.original.workOrders[purpose]; if (order === undefined || !contextMatches(o, state, context)) return null;
+   const instructions = [GOVERNANCE_POLICIES[purpose], ...order.instructions,
+     `Conserved original task: ${state.original.task}`, `Unresolved parent outcomes: ${JSON.stringify(state.unresolvedSupportRefs)}`,
+-    `Actual admitted observations: ${JSON.stringify(state.observations)}`];
++    `Actual admitted observations: ${JSON.stringify(projectGovernanceObservationFacts(state, context))}`,
++    "This parent-context view retains admitted causal coordinates, command/report/predicate facts and bounded literal diagnostics. Complete raw stream and predicate bodies remain in the cited admitted Result; field paths are relative to its value and confer no additional access. Excerpts are exact byte-range diagnostics, not interpreted verdicts. Reacquire all mandatory selected source and assessment material through the declared reads."];
+   const synthesis = state.synthesis, judgment = synthesis?.judgment;
+   const selectedContribution = judgment !== undefined && judgment.nextGraphFunctionRef === ref("graph-function", purpose)
+     ? judgment.contributions.find(c => c.graphFunctionRef === judgment.nextGraphFunctionRef) : undefined;
+--- preimage/test_env/tests/t287-default-library.test.mjs
++++ postimage/test_env/tests/t287-default-library.test.mjs
+@@ -511,6 +511,83 @@
+         displayed.predicateObservations[j].evidenceBody.fieldPath.reduce((v,k)=>v[k],owner),p.evidence);
+     }}finally{await handle.close();}
+     t.diagnostic(JSON.stringify({metrics,authenticOwningResults:fixture.owners.length,controlled:'synthetic; not native mutant detection'}));
++  });
++
++test('native observation facts preserve captured history through preparation admission and complete assembly',
++  {skip:!process.env.ABI5_NATIVE_OBSERVATION_CAPTURE},async t=>{
++    const fixture=JSON.parse(await readFile(process.env.ABI5_NATIVE_OBSERVATION_CAPTURE,'utf8'));
++    const pinned=async pin=>{const bytes=await readFile(pin.path);assert.equal(product.sha256Bytes(bytes),'sha256:'+pin.sha256);assert.equal(bytes.length,pin.bytes);return bytes;};
++    const events=Object.fromEntries(await Promise.all(Object.entries(fixture.events).map(async([key,pin])=>[key,JSON.parse(await pinned(pin))])));
++    for(const key of ['206160','206200']){
++      const {resultRef,resultDigest,...body}=events[key].payload;
++      assert.equal(product.sha256Canonical(body),resultDigest);assert.equal(resultRef,'result://abiogenesis/'+resultDigest.slice(7));
++      assert.equal(product.sha256Canonical(body.value),body.valueDigest);
++    }
++    const selected=events['206160'].payload,previous=events['206200'].payload.value,recorded=events['206223'].payload.instructionAssembly;
++    const state={...selected.value.state,synthesis:{resultRef:selected.resultRef,resultDigest:selected.resultDigest,basis:selected.value.basis,judgment:selected.value.judgment}};
++    assert.equal(state.observations.length,34);assert.equal(product.isGovernanceWorkState(state),true);
++    assert.deepEqual(recorded.envelope.task,previous);assert.equal(product.sha256Canonical(previous),recorded.request.inputDigest);
++    assert.equal(recorded.request.prompt,(await pinned(fixture.recordedPrompt)).toString());
++    const controlled=JSON.parse(await pinned(fixture.controlled));assert.equal(controlled.state.observations.length,51);
++    const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),construction=library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']==='construction');
++    const nativeBasis=recorded.envelope.nativeBasis,program=nativeBasis.publication.programs.find(p=>p.programRef===nativeBasis.executionBasis.programRef);
++    const environment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:previous.workspaceAuthorityBasis,workspaceBinding:previous.workspaceBinding,productInstalls:[]};
++    const execution={...nativeBasis.executionBasis,rootImplementationSetRef:'set:controlled-context'};
++    const invocation={invocationRef:'invocation:controlled-context',invocationAdmissionRef:execution.invocationAdmissionRef,capabilityGrants:[previous.capabilityGrant],
++      sourceResultBasis:{sourceResultContractRef:product.governanceContract('state'),sourceResultValueDigest:product.sha256Canonical(state)},rawInputDigest:product.sha256Canonical(state)};
++    const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:state}};
++    const owned={program,prefix:{},execution,environment,call:{runId:'run:controlled-context',implementationRef:product.governanceRef('implementation','prepare-native')},inputRef:'input:controlled-context',inputValue:state,inputOrigin:{}};
++    const {default:ts}=await import('typescript');
++    const module=async(file,replacements={},source)=>{
++      const bytes=source?ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText:await readFile(file,'utf8');
++      const m=new SourceTextModule(bytes,{identifier:file});await m.link(async s=>{
++        const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(file),s)).href),values={...actual,...(replacements[s]??{})};
++        return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m.namespace;
++    };
++    // Captured values are authentic retained evidence. Occurrence/index, role
++    // acquisition and current-context delivery below are controlled lower
++    // premises, not new admission, physical reads or actor execution.
++    const replacements={'./execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>owned},
++      './invocation_execution_truth.js':{projectExactInvocationAdmissionAtPrefix:()=>invocation},
++      './event_prefix.js':{indexedRuntimeEvents:()=>[root]},'../product/worksite_operations.js':{observeWorksiteContext:async()=>previous.context}};
++    const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),current=await module(file,replacements),old=await module(file,replacements,(await pinned(fixture.oldAbg)).toString());
++    const oldProduct=await module(resolve(packageRoot,'build/code/src/product/default_library.js'),{},(await pinned(fixture.oldProduct)).toString());
++    let assemblyOwner;
++    const assembly=await module(resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),{
++      './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>assemblyOwner},
++      './stdo_environment.js':{projectRunEnvironmentRoleEvidence:()=>recorded.plan.role}});
++    const fullAssembly=task=>{
++      assemblyOwner={events:[],call:nativeBasis.cCall,execution:nativeBasis.executionBasis,program,environment,inputValue:task,inputDigest:product.sha256Canonical(task),inputRef:recorded.envelope.inputRef};
++      const output=assembly.constructWorksiteNativeInstructionAssembly(nativeBasis,task);assert.ok(output);return output;
++    };
++    const oldActual=await old.projectGovernanceNativeTask({graphFunction:construction},state);assert.deepEqual(oldActual,previous);
++    assert.equal(fullAssembly(oldActual).request.prompt,recorded.request.prompt,'pre-fix owned assembly reproduces the refused prompt');
++    const metrics=[];
++    for(const[name,input]of [['actual34',state],['controlled51',{...state,observations:controlled.state.observations}]]){
++      const before=product.sha256Canonical(input);root.payload.rawInputValue=input;owned.inputValue=input;invocation.rawInputDigest=invocation.sourceResultBasis.sourceResultValueDigest=before;
++      const framed={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state:input,context:previous.context};
++      assert.deepEqual(product.projectFramedSynthesisPromptTask(framed),oldProduct.projectFramedSynthesisPromptTask(framed),'selector presentation stays equivalent');
++      const facts=product.projectGovernanceObservationFacts(input,previous.context);planningFactCorrespondence(framed,{...product.projectFramedSynthesisPromptTask(framed),observations:facts});
++      const task=await current.projectGovernanceNativeTask({graphFunction:construction},input),prior=await old.projectGovernanceNativeTask({graphFunction:construction},input);
++      assert.ok(product.isNativeWorkspaceWorkTask(task));assert.deepEqual({...task,instructions:[]},{...prior,instructions:[]});
++      assert.equal(task.outcome,input.synthesis.judgment.contributions.find(c=>c.graphFunctionRef===construction.name).contribution);
++      assert.equal(current.governanceResultMatches({graphFunction:construction},input,task),true);
++      assert.equal(current.governanceResultMatches({graphFunction:construction},input,prior),false,'old raw-history adaptation cannot satisfy the new exact preparation');
++      const shown=JSON.parse(task.instructions.find(i=>i.startsWith('Actual admitted observations: ')).slice('Actual admitted observations: '.length));assert.deepEqual(shown,facts);
++      assert.ok(task.instructions.includes('Conserved original task: '+input.original.task));
++      const altered=structuredClone(task);altered.instructions[altered.instructions.findIndex(i=>i.startsWith('Actual admitted observations: '))]='Actual admitted observations: []';
++      assert.equal(current.governanceResultMatches({graphFunction:construction},input,altered),false,'facts cannot be silently removed');
++      let namedLines=0;for(const[i,o]of input.observations.entries())if(o.purpose==='testing')for(const[j,c]of o.value.commandResults.entries()){
++        const lines=(c.stdout.text??'').split('\n').filter(line=>line.includes('*** FAILED ***'));namedLines+=lines.length;
++        for(const line of lines)assert.ok(facts[i].observed.commandResults[j].stdout.excerpts.some(e=>e.text.includes(line)),line);
++      }
++      const next=fullAssembly(task),priorAssembly=fullAssembly(prior);assert.deepEqual(next.request.responseJsonSchema,priorAssembly.request.responseJsonSchema);
++      assert.deepEqual(next.plan,priorAssembly.plan);assert.equal(next.envelope.inputDigest,product.sha256Canonical(task));assert.deepEqual(next.envelope.task,task);
++      assert.ok(Buffer.byteLength(next.request.prompt)<Buffer.byteLength(priorAssembly.request.prompt));assert.equal(product.sha256Canonical(input),before);
++      metrics.push({name,observations:input.observations.length,oldCompletePromptBytes:Buffer.byteLength(priorAssembly.request.prompt),newCompletePromptBytes:Buffer.byteLength(next.request.prompt),factsBytes:Buffer.byteLength(JSON.stringify(facts)),namedFailureLines:namedLines});
++    }
++    assert.equal(product.sha256Canonical(state.original),product.sha256Canonical(selected.value.state.original));
++    t.diagnostic(JSON.stringify({metrics,controlled51:'distinct synthetic observation fixture; no authenticated producer or mutant credit',scope:'pure owners under disclosed lower premises; no provider/token-limit or UAT guarantee'}));
+   });
+ 
+ test('fold and assessment consume actual native, C2 and assessment carriers with exact retained origin',async t=>{
+@@ -609,8 +686,13 @@
+   planningFactCorrespondence(planningTask,product.projectFramedSynthesisPromptTask(planningTask));
+   const author=synth(measured,'construction'),authorTask=await m.namespace.projectGovernanceNativeTask(at('construction','prepare-native',author),author);
+   const literalContext=JSON.parse(authorTask.instructions.find(i=>i.startsWith('Actual admitted observations: ')).slice('Actual admitted observations: '.length));
+-  assert.equal(literalContext.at(-1).value.commandResults[0].stdout.text,literal);
+-  assert.equal(Buffer.from(literalContext.at(-1).value.commandResults[0].stdout.text).equals(literalBytes),true);
++  assert.deepEqual(literalContext,product.projectGovernanceObservationFacts(author,authorTask.context));
++  const displayedNativeStream=literalContext.at(-1).observed.commandResults[0].stdout;
++  assert.equal(displayedNativeStream.digest,bomStream.digest);
++  assert.equal(displayedNativeStream.byteLength,literalBytes.length);
++  assert.ok(displayedNativeStream.omittedCandidates>0,'the long literal diagnostic consumes the existing display bound');
++  for(const excerpt of displayedNativeStream.excerpts)assert.equal(
++    literalBytes.subarray(excerpt.startByte,excerpt.endByte).toString(),excerpt.text);
+   const uat=synth(measured,'uat',measured.observations.at(-1).resultRef),b=at('uat','prepare-native',uat);
+   const assessmentTask=await selectedReads(uat,measured.observations.at(-1));assert.equal(assessmentTask.assessment.producer.actorInvocationRef,'actor:measurement');
+   at('uat','prepare-native',uat);

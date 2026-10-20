@@ -1,0 +1,46 @@
+{
+  "status": "STOPPED_NO_RETRY",
+  "diagnostic": {
+    "type": "test:fail",
+    "data": {
+      "name": "actual native C10 consumer and current-bound canonical successor preparation",
+      "nesting": 0,
+      "testNumber": 1,
+      "details": {
+        "duration_ms": 11139.862584,
+        "type": "test",
+        "error": {
+          "name": "Error",
+          "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'artifact_unreadable'\n- 'artifact_digest_mismatch'\n            ^\n",
+          "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'artifact_unreadable'\n- 'artifact_digest_mismatch'\n            ^\n",
+          "cause": {
+            "name": "AssertionError",
+            "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'artifact_unreadable'\n- 'artifact_digest_mismatch'\n            ^\n",
+            "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'artifact_unreadable'\n- 'artifact_digest_mismatch'\n            ^\n\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs:45:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+            "code": "ERR_ASSERTION",
+            "actual": "artifact_unreadable",
+            "expected": "artifact_digest_mismatch"
+          },
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure"
+        }
+      },
+      "line": 22,
+      "column": 26,
+      "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+    }
+  },
+  "originalProducerFailure": false,
+  "originatingRelation": "test changed-archive negative supplied non-gzip bytes but expected digest mismatch instead of actual unreadable archive refusal",
+  "actualCode": "artifact_unreadable",
+  "wrongExpectedCode": "artifact_digest_mismatch",
+  "callerLine": 45,
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_02/changed-archive.tgz",
+    "bytes": 21,
+    "sha256": "5e0c5e917d32dfc1603f2632b6104807f667c7361898de4e045633f6e592a851",
+    "mode": 420
+  },
+  "RootReentry": "realization_refactor of exact negative fixture/oracle",
+  "noVerifierGuardChange": true
+}

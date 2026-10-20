@@ -1,0 +1,57 @@
+{
+  "created_utc": "2026-10-20T17:44:40.006134+00:00",
+  "status": "accepted_bounded_library_design",
+  "subject": "T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01_DOCUMENTS",
+  "candidate_freeze": {
+    "path": "candidate-freeze-02.json",
+    "sha256": "476aa57a3b0660f05a4a84f8c238a0095c1c4daaeb8bd9ac753dfa3e858c659f"
+  },
+  "review": {
+    "path": "review-02.md",
+    "sha256": "d8aec866723b72f6ca36362ca76d0f3216922252b39095819d6d2c6f7a355686",
+    "core_value": "satisfied"
+  },
+  "review_checks": {
+    "path": "review-checks-02.json",
+    "sha256": "c506a09b9a97965b2ba21a239356ff462a8176a22fda16eec1a59c81ff94f460",
+    "passed": 35
+  },
+  "document_checks": {
+    "path": "document-checks-02.json",
+    "sha256": "92031e436667b8e506ab3cb2dd898e1e086d3e38641e8c1b62f56bf0e2efe26b",
+    "counts": {
+      "checks": 1002,
+      "passed": 1002,
+      "references": 113,
+      "unrelated_source_files_preserved": 692,
+      "unchanged_production_typescript_files": 264
+    }
+  },
+  "disposition": {
+    "path": "disposition.md",
+    "sha256": "771b1770b28a9a3efadd5729ef0d7b9c5aae1f865c77f827bec93d4c20dc1f93"
+  },
+  "resolved_findings": [
+    "R1",
+    "R2"
+  ],
+  "retained_design_stops": [
+    "E01",
+    "E02",
+    "E03",
+    "E04"
+  ],
+  "unperformed_obligations": [
+    "V1-V7 execution and independent assessment",
+    "implementation equivalence and consumer retirement",
+    "measured contraction and whole-path benefit",
+    "installed lifecycle and qualification",
+    "release"
+  ],
+  "next_work": "Apply library contracts to affected D1/D4 material relations before dependent realization",
+  "source_subject_final_identity": "all_five_files_match",
+  "implementation_effects": false,
+  "runtime_effects": false,
+  "git_effects": false,
+  "prior_evidence_preserved": true
+}

@@ -1,0 +1,47 @@
+{
+  "role": "Writer101 preparation only",
+  "state": "READY_HELD_STOPPED",
+  "at": "2026-10-08T09:58:58.300973+00:00",
+  "executionAuthorized": false,
+  "launchScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-execution-101/launch.mjs",
+    "sha256": "bccaa92d1dc91462f07a5c1f774f4f38a1a1c1d1c391f4f5acfd77c23c21de7b",
+    "byteCount": 4407
+  },
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-execution-101/activation.json",
+    "sha256": "6e46ef39113a2a103854def6ecbcd6fef8a1161fe526eb3e4835537489849ebe",
+    "byteCount": 4686
+  },
+  "syntaxCheck": {
+    "command": [
+      "/opt/homebrew/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-execution-101/launch.mjs"
+    ],
+    "exitCode": 0,
+    "dispatchOrImportsExecuted": false
+  },
+  "futureInvocation": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-execution-101/launch.mjs"
+  ],
+  "existingRecorderLimits": {
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912
+  },
+  "newNativeT0Owner": "new archive commands/lifecycle-start.request.json.started at CLI spawn; Root quality checkpoint +18000000ms",
+  "all16OriginalCriteriaConserved": true,
+  "oldArchiveClocksPreserved": true,
+  "rawAssetBuffersEmbedded": false,
+  "physicalLogGuard": "wrapper checks exact frozen device/inode/size/mtime; existing harness acquireResumeMaterial streams/authenticates complete log on actual execution",
+  "pending": "Root explicit release after material100 conjunction",
+  "actualEffects": {
+    "install": 0,
+    "provider": 0,
+    "nativeRun": 0,
+    "appEdits": 0,
+    "sourceEdits": 0,
+    "oldArchiveWrites": 0
+  }
+}

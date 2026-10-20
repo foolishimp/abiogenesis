@@ -1,0 +1,19 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_C04_INSTALLED_SETUP_04",
+  "role": "Runtime Worker",
+  "actor": "/root/native_applicability_design",
+  "previousStatus": "CLOSED Source / C04 construction; independent CLOSED GO / Root ACCEPT",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04",
+  "activatedAt": "2026-10-02T01:12:14.017880+00:00",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c04-acceptance-and-installed-setup-controls-01/request.txt",
+    "bytes": 6897,
+    "sha256": "a342701630c079d433e62c7bb26fa7c507e90fb841a44a35878cfb22d604ab9f"
+  },
+  "realProviderCalls": 0,
+  "scope": "accepted C04 installed singleton/mixed resolution and ordinary setup/conformance only",
+  "Q05": "STOPPED awaiting separate independent GO / Root grant",
+  "firstFailure": "stop; no repair/retry",
+  "permittedTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04"
+}

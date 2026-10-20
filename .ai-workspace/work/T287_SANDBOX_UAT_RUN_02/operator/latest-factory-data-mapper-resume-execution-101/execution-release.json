@@ -1,0 +1,24 @@
+{
+  "role": "Operator101",
+  "releasedAt": "2026-10-08T09:59:49.536785+00:00",
+  "authority": "Root RELEASE101 actual native Data Mapper resume; closed Source/installed five P2 proofs,89/92,94/96,82/97,81/99,98/100 conjunction",
+  "frame": "f-worksite-causality; fixed15 ABI5 GOAL035/T287 STDO2.5.1RC2",
+  "executionAuthorized": true,
+  "configSha256": "4f53ac591c692f542ab4057c63f95433f97aebfcf3d5b32b96d30e298b9651a9",
+  "setupSha256": "54e698910b0cf1a05db5d36d5e8c1a1644a1466cddaacd9ab1e6d5ca2e9fb286",
+  "archiveSha256": "a6e9ed7a905ed36d5575ce3a394f8d2a30a418718f6eb5f7cff86461480fb673",
+  "sourceState": {
+    "kind": "none",
+    "observations": [],
+    "synthesis": null,
+    "oldProducerCredit": false
+  },
+  "physicalTransfer": {
+    "originals": 4,
+    "authors": 44
+  },
+  "originalDistinctMutantsRequired": 16,
+  "externalQualityWindowMs": 18000000,
+  "nativeT0Owner": "new commands/lifecycle-start.request.json.started at CLI spawn",
+  "noOperatorAppSourceHeapOrControlEdits": true
+}

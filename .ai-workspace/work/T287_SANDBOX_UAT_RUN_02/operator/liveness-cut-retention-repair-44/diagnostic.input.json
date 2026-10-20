@@ -1,0 +1,41 @@
+{
+  "role": "isolated old/new actual liveness cut-cache diagnostic",
+  "coordinate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/selected-coordinate.json",
+    "sha256": "4afd6392625c596490e208030b57425d859bc399a4ae903adaf6564bfbfc0ddc",
+    "byteCount": 709
+  },
+  "oldRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "newRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "oldLiveness": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_liveness.js",
+    "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09",
+    "byteCount": 74635
+  },
+  "sourceOld": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/code/src/abg/runtime_liveness.ts",
+    "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd",
+    "byteCount": 76115
+  },
+  "sourceNew": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+    "sha256": "91ab5595acc630b8b2eea221a9466eb1273de1b9a10fd361b1a5c417bb5bcfed",
+    "byteCount": 76288
+  },
+  "sourceLogStat": {
+    "device": 16777231,
+    "inode": 467205895,
+    "byteCount": 1167689615,
+    "mtimeNs": "1791359951311203492"
+  },
+  "actorScopesSampled": 16,
+  "oneColdReadPerIsolatedProcess": true,
+  "defaultHeapOnly": true,
+  "maxWallMs": 180000,
+  "noReplayNativeOrRuntimeEffects": true,
+  "newLiveness": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+    "sha256": "8e55aed6810f56bc557df87c10f7f4f8c98764eaa20add38fb312fbbbcad0403",
+    "byteCount": 74826
+  }
+}

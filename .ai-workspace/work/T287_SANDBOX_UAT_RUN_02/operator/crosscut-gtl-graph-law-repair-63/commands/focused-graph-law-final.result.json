@@ -1,0 +1,23 @@
+{
+  "label": "focused-graph-law-final",
+  "args": [
+    "/opt/homebrew/bin/node",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T05:53:22.059575+00:00",
+  "timeoutMs": 120000,
+  "environment": {
+    "ABI5_GTL_GRAPH_OWNER_CORE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/scratch/current/build/code/src",
+    "ABI5_GTL_GRAPH_BASELINE_CORE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/scratch/successor/package/build/code/src"
+  },
+  "productionSourceUnchangedSinceStrictCompile": true,
+  "consumedSourceCount": 263,
+  "effectScope": "pure static owner imports/fixtures only; no Runtime/admission/provider/installed or Data Mapper execution",
+  "exitCode": 1,
+  "wallMs": 993.4420000063255,
+  "stdoutBytes": 2003,
+  "stderrBytes": 0,
+  "timedOut": false
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "expected_canonical_binding_preimage_counterexample",
+  "sourceCut": 38,
+  "fixtureSourceCut": 39,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^library prepare-testing",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/input-01/test_env/tests/t287-native-work-reacquisition.test.mjs"
+  ],
+  "ownerBuildRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/build-01/code/src",
+  "exitCode": 1,
+  "signal": null,
+  "expectedExitCode": 1,
+  "observedCanonicalRefusal": true,
+  "elapsedMs": 607.1632920000001,
+  "limits": [
+    "Expected old38 rejection of canonical GTL-declared occurrence under exactly the same controlled lower fixture premises; not a new installed/native execution."
+  ]
+}

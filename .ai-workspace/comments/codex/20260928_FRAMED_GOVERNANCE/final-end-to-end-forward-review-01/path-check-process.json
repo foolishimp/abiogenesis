@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-end-to-end-forward-review-01/path-check.mjs"
+  ],
+  "startedAt": "2026-09-30T09:50:57.560931+00:00",
+  "pid": 43327,
+  "processGroup": 43327,
+  "elapsedSeconds": 0.49766695825383067,
+  "exitCode": 0,
+  "timedOut": false,
+  "capMs": 120000,
+  "graceMs": 1000,
+  "stdout": "path-check.stdout",
+  "stderr": "path-check.stderr",
+  "scope": "pure actual closed task/attempt coordinate comparison; no original resource reads"
+}

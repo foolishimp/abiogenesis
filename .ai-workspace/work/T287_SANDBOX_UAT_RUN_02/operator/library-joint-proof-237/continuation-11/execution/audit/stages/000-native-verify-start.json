@@ -1,0 +1,11 @@
+{
+  "stage": "native-verify-start",
+  "elapsedMs": 0.9528750000026776,
+  "at": "2026-10-10T15:28:21.992Z",
+  "rss": 2924789760,
+  "heapTotal": 2598453248,
+  "heapUsed": 2450153776,
+  "external": 81564435,
+  "arrayBuffers": 79147614,
+  "beforeAcquisition": true
+}

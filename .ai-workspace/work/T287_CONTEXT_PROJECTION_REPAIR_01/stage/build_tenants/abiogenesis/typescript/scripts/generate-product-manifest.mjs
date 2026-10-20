@@ -1,0 +1,1220 @@
+import { constructDefaultGovernanceLibraryModulePublication, DEFAULT_LIBRARY_CONTEXT_INVENTORY, DEFAULT_LIBRARY_STDO_SOURCE } from "../build/code/src/gtl/default_library.js";
+import { DEFAULT_LIBRARY_POLICY } from "../build/code/src/product/default_library.js";
+import { NATIVE_SEMANTIC_ASSESSMENT_CONTRACT, NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT } from "../build/code/src/product/semantic_job.js";
+import { constructSelfConformanceAssetRows } from "../build/code/src/product/public_contract_publication.js";
+import * as v from "valibot";
+import { GTL_SERIALIZATION_SCHEMA_DEFINITIONS, GTL_LANGUAGE_CONFORMANCE_CORPUS_SCHEMA } from "../build/code/src/gtl/serialization_contracts.js";
+import { GTL_PROGRAM_DIAGNOSTIC_ID_VALUES, constructGtlProgramDiagnosticId } from "../build/code/src/validator/validation.js";
+import { generateQualificationAssets, qualificationSchema } from "./generate-qualification-rule-catalog.mjs";
+import { SELF_CONFORMANCE_INPUT_SCHEMA, SELF_CONFORMANCE_RESULT_SCHEMA, EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_LAW_BASIS_SCHEMA, TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_RULE_CATALOG_SCHEMA } from "../build/code/src/validator/self_conformance_contracts.js";
+import {
+  copyFile,
+  cp,
+  lstat,
+  mkdir,
+  readFile,
+  readdir,
+  rm,
+  writeFile,
+} from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { createRequire } from "node:module";
+import { dirname, join, relative, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
+
+import {
+  ABI5_PACKAGE_NAME,
+  ABI5_PACKAGE_VERSION,
+  ABI5_PRODUCT_ID,
+  CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+  PUBLIC_CATALOG_BINDING_CONTRACTS,
+  bindS06PublicFunctionCatalog,
+  capabilityDefinitionGraphAssetBytes,
+  capabilityDefinitionGraphCoordinate,
+  capabilityRefsForContract,
+  canonicalJson,
+  constructCapabilityDefinitionGraph,
+  derivePublicCatalogRowProposals,
+  payloadInventoryDigest,
+  modulePublicationSemanticDigest,
+  sha256Canonical,
+  sha256Bytes,
+  sha256File,
+} from "../build/code/src/product/index.js";
+import {
+  PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
+} from "../build/code/src/shared/public_function_family.js";
+import {
+  resolveNativeDeclarationClosures,
+} from "../build/code/src/product/declaration_exports.js";
+import {
+  CONSENSUS_FH_DECISION_VALUES,
+  CONSENSUS_ROUND_OUTCOME_VALUES,
+  CONSENSUS_PUBLIC_SCHEMA,
+  CONSENSUS_SCHEMA_ASSET_BINDINGS,
+  REVIEW_RULING_KIND_VALUES,
+} from "../build/code/src/gtl/consensus_schema.js";
+import {
+  constructConsensusModulePublication,
+  constructHelloWorldModulePublication,
+  constructWorksiteConstructionModulePublication,
+  constructWorksiteCommandExecutionModulePublication,
+  WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY,
+  constructNativeWorkspaceWorkModulePublication,
+  constructWorksiteCommandForwardModulePublication,
+  constructRequirementHandoffModulePublication,
+  constructSemanticStageModulePublication,
+  constructSemanticRevisionModulePublication,
+  constructSelfConformanceModulePublication,
+} from "../build/code/src/gtl/index.js";
+import {
+  PUBLIC_PROJECTION_PAYLOADS,
+} from "../build/code/src/shared/public_function_projections.js";
+import {
+  projectStrictJsonSchema,
+} from "../build/code/src/shared/public_function_contracts.js";
+import {
+  ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DESCRIPTOR, LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
+  ROOT_EVENT_CALCULUS, RUNTIME_LIVENESS_READ_PROJECTION_SCHEMA,
+  RUNTIME_PROBE_SOURCE_VALUES, RUNTIME_INVOCATION_DISPOSITION_VALUES,
+} from "../build/code/src/abg/index.js";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const require = createRequire(import.meta.url);
+const execFileAsync = promisify(execFile);
+const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+const packageLock = JSON.parse(
+  await readFile(join(root, "package-lock.json"), "utf8"),
+);
+const productId = `product://abiogenesis/typescript-tenant@${packageJson.version}`;
+
+// Verify the existing packaged renderer as the declared generic C2 context.
+// Neither this record nor the declaration depends on the final Product digest.
+const contextPublication = constructWorksiteCommandExecutionModulePublication({ productId, packageName: packageJson.name,
+  packageVersion: packageJson.version, artifactDigest: `sha256:${"0".repeat(64)}`,
+  productContentDigest: `sha256:${"0".repeat(64)}`, productManifestDigest: `sha256:${"0".repeat(64)}` });
+const commandEnvironment = contextPublication.runEnvironments[0];
+for (const member of commandEnvironment.contexts.flatMap(context => context.members)) {
+  const bytes = await readFile(join(root, member.path));
+  if (bytes.length !== member.byteCount || sha256Bytes(bytes) !== member.digest)
+    throw new Error("C2 declared context member differs from its packaged Product source: " + member.path);
+  for (const role of commandEnvironment.roles) for (const span of role.sourceBindings.filter(span => span.memberRef === member.memberRef)) {
+    const selected = bytes.subarray(span.startByte, span.endByte);
+    if (sha256Bytes(selected) !== span.spanDigest || selected.toString("utf8") !== role.policy.text)
+      throw new Error("C2 declared context span differs from its Product-owned renderer");
+  }
+}
+const defaultFrameBytes = await readFile(join(root, DEFAULT_LIBRARY_STDO_SOURCE.assetPath));
+if (defaultFrameBytes.length !== DEFAULT_LIBRARY_STDO_SOURCE.byteCount || sha256Bytes(defaultFrameBytes) !== DEFAULT_LIBRARY_STDO_SOURCE.digest ||
+    Object.values(DEFAULT_LIBRARY_STDO_SOURCE.spans).some(span => sha256Bytes(defaultFrameBytes.subarray(span.startByte, span.endByte)) !== span.spanDigest))
+  throw new Error("default library frame content differs from selected STDO v2.5.1-rc.1 source");
+await mkdir(dirname(join(root, DEFAULT_LIBRARY_CONTEXT_INVENTORY.path)), { recursive: true });
+await writeFile(join(root, DEFAULT_LIBRARY_CONTEXT_INVENTORY.path), DEFAULT_LIBRARY_CONTEXT_INVENTORY.content);
+await writeFile(join(root, "contracts/default-library/policy.txt"), DEFAULT_LIBRARY_POLICY);
+await mkdir(dirname(join(root, WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.path)), { recursive: true });
+await writeFile(join(root, WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.path), WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.content);
+
+if (
+  packageJson.name !== ABI5_PACKAGE_NAME ||
+  packageJson.version !== ABI5_PACKAGE_VERSION ||
+  productId !== ABI5_PRODUCT_ID
+) {
+  throw new Error("package metadata and exported ABI5 Product identity disagree");
+}
+
+const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
+const nativeRuntimeContractPath = "contracts/schemas/native-runtime-observation.json";
+const nativeRuntimeContractBytes = Buffer.from(JSON.stringify({
+  kind: "native_runtime_observation_contract", schemaVersion: "5.0.0",
+  currentEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
+  historicalEventContractDigest: LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
+  currentDescriptor: ROOT_EVENT_CONTRACT_DESCRIPTOR,
+  sourceKinds: RUNTIME_PROBE_SOURCE_VALUES, dispositions: RUNTIME_INVOCATION_DISPOSITION_VALUES,
+  eventCalculus: ROOT_EVENT_CALCULUS,
+  readProjection: projectStrictJsonSchema(RUNTIME_LIVENESS_READ_PROJECTION_SCHEMA),
+}, null, 2) + "\n");
+const nativeRuntimeContractDigest = sha256Bytes(nativeRuntimeContractBytes);
+const publicOperationSchemaPath =
+  PUBLIC_PROJECTION_PAYLOADS.commonSchemaAsset.path;
+const reviewRulingVocabularyPath =
+  "contracts/vocabularies/review-ruling-kind.json";
+const consensusRoundOutcomeVocabularyPath =
+  "contracts/vocabularies/consensus-round-outcome.json";
+const consensusFhDecisionVocabularyPath =
+  "contracts/vocabularies/consensus-fh-decision.json";
+
+function closedVocabulary(vocabularyId, values) {
+  return {
+    kind: "closed_vocabulary",
+    schemaVersion: "5.0.0",
+    vocabularyId,
+    values: [...values],
+  };
+}
+
+await Promise.all([
+  mkdir(dirname(join(root, consensusSchemaPath)), { recursive: true }),
+  mkdir(dirname(join(root, reviewRulingVocabularyPath)), { recursive: true }),
+]);
+
+await Promise.all([
+  rm(join(root, "contracts/public-functions"), { force: true, recursive: true }),
+  rm(join(root, "contracts/public-operations"), { force: true, recursive: true }),
+  rm(join(root, "contracts/schemas/operations"), { force: true, recursive: true }),
+  rm(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH), { force: true }),
+]);
+
+const nativeSemanticAssessmentPath = "contracts/schemas/native-semantic-assessment.schema.json";
+const nativeSemanticAssessmentBytes = Buffer.from(NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT);
+await writeFile(join(root, nativeSemanticAssessmentPath), nativeSemanticAssessmentBytes);
+const nativeSemanticAssessmentDigest = sha256Bytes(nativeSemanticAssessmentBytes);
+const selfConformanceSchemaPath = "contracts/schemas/self-conformance.schema.json";
+generateQualificationAssets();
+const selfConformanceSchema = qualificationSchema();
+const selfConformanceSchemaBytes = Buffer.from(JSON.stringify(selfConformanceSchema, null, 2) + "\n");
+await writeFile(join(root, selfConformanceSchemaPath), selfConformanceSchemaBytes);
+const selfConformanceCatalogBytes = await readFile(join(root, "contracts/qualification/rule-catalog.json"));
+
+const catalogSchemaPath = "contracts/schemas/public-contract-catalog.schema.json";
+const catalogSchema = JSON.parse(
+  await readFile(join(root, catalogSchemaPath), "utf8"),
+);
+function nestedProjectedSchema(schema) {
+  const { $schema: _schema, ...projection } = projectStrictJsonSchema(schema);
+  return projection;
+}
+const gtlSchemaPath = "contracts/schemas/gtl-serialization.schema.json";
+const gtlFamilyProjection = projectStrictJsonSchema(v.strictObject({
+  ...GTL_SERIALIZATION_SCHEMA_DEFINITIONS, GtlLanguageConformanceCorpus: GTL_LANGUAGE_CONFORMANCE_CORPUS_SCHEMA,
+}));
+const gtlSchemaDocument = {
+  $schema: gtlFamilyProjection.$schema,
+  $id: "schema://abiogenesis/gtl/serialization@5",
+  $defs: { ...gtlFamilyProjection.$defs, ...gtlFamilyProjection.properties },
+};
+const gtlSchemaBytes = Buffer.from(canonicalJson(gtlSchemaDocument) + "\n");
+const gtlSchemaDigest = sha256Bytes(gtlSchemaBytes);
+await writeFile(join(root, gtlSchemaPath), gtlSchemaBytes);
+const gtlDiagnosticVocabularyPath = "contracts/vocabularies/gtl-program-diagnostic-id.json";
+const gtlDiagnosticVocabularyBytes = Buffer.from(canonicalJson(closedVocabulary(
+  "gtl-program-diagnostic-id", GTL_PROGRAM_DIAGNOSTIC_ID_VALUES,
+)) + "\n");
+const gtlDiagnosticVocabularyDigest = sha256Bytes(gtlDiagnosticVocabularyBytes);
+await writeFile(join(root, gtlDiagnosticVocabularyPath), gtlDiagnosticVocabularyBytes);
+const gtlCorpusPath = "contracts/conformance/gtl-language-conformance-corpus.json";
+const gtlCorpus = { ...JSON.parse(await readFile(join(root, gtlCorpusPath), "utf8")),
+  schema: { path: gtlSchemaPath, contentDigest: gtlSchemaDigest, definitionRef: "#/$defs/GtlLanguageConformanceCorpus" },
+};
+v.parse(GTL_LANGUAGE_CONFORMANCE_CORPUS_SCHEMA, gtlCorpus);
+if (gtlCorpus.kind !== "gtl_language_conformance_corpus" || gtlCorpus.schemaVersion !== "5.0.0" ||
+    gtlCorpus.diagnosticVocabularyContractRef !== "abg.vocabulary.gtl-program-diagnostic-id")
+  throw new Error("GTL corpus differs from its canonical current asset identity");
+for (const program of gtlCorpus.programs) {
+  for (const id of [...program.expectedDiagnosticIds, ...program.mutations.flatMap(row => row.expectedDiagnosticIds)])
+    constructGtlProgramDiagnosticId(id);
+}
+const gtlCorpusBytes = Buffer.from(canonicalJson(gtlCorpus) + "\n");
+const gtlCorpusDigest = sha256Bytes(gtlCorpusBytes);
+await writeFile(join(root, gtlCorpusPath), gtlCorpusBytes);
+catalogSchema.$defs.PublicCatalogBindingAttempt = nestedProjectedSchema(
+  PUBLIC_CATALOG_BINDING_CONTRACTS.attempt,
+);
+catalogSchema.$defs.PublicCatalogBindingRefusal = nestedProjectedSchema(
+  PUBLIC_CATALOG_BINDING_CONTRACTS.refusal,
+);
+
+const toolchainRoot = join(root, "build/toolchain");
+const typescriptRoot = dirname(require.resolve("typescript/package.json"));
+const typescriptLibRoot = join(typescriptRoot, "lib");
+const nodeTypesRoot = dirname(require.resolve("@types/node/package.json"));
+const undiciTypesRoot = dirname(require.resolve("undici-types/package.json"));
+await mkdir(join(toolchainRoot, "node_modules/@types"), { recursive: true });
+await Promise.all([
+  copyFile(
+    join(typescriptLibRoot, "typescript.js"),
+    join(toolchainRoot, "typescript.cjs"),
+  ),
+  copyFile(
+    join(typescriptRoot, "LICENSE.txt"),
+    join(toolchainRoot, "typescript.LICENSE.txt"),
+  ),
+  cp(
+    nodeTypesRoot,
+    join(toolchainRoot, "node_modules/@types/node"),
+    { recursive: true },
+  ),
+  cp(
+    undiciTypesRoot,
+    join(toolchainRoot, "node_modules/undici-types"),
+    { recursive: true },
+  ),
+]);
+for (const entry of await readdir(typescriptLibRoot)) {
+  if (/^lib(?:\..+)?\.d\.ts$/u.test(entry)) {
+    await copyFile(
+      join(typescriptLibRoot, entry),
+      join(toolchainRoot, entry),
+    );
+  }
+}
+
+await Promise.all([
+  writeFile(join(root, nativeRuntimeContractPath), nativeRuntimeContractBytes),
+  writeFile(
+    join(root, consensusSchemaPath),
+    `${JSON.stringify(CONSENSUS_PUBLIC_SCHEMA, null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, publicOperationSchemaPath),
+    PUBLIC_PROJECTION_PAYLOADS.commonSchemaAsset.bytes,
+    "utf8",
+  ),
+  writeFile(
+    join(root, catalogSchemaPath),
+    `${JSON.stringify(catalogSchema, null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, reviewRulingVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.review-ruling-kind",
+      REVIEW_RULING_KIND_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, consensusRoundOutcomeVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.consensus-round-outcome",
+      CONSENSUS_ROUND_OUTCOME_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, consensusFhDecisionVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.consensus-fh-decision",
+      CONSENSUS_FH_DECISION_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+]);
+
+await Promise.all(PUBLIC_PROJECTION_PAYLOADS.assets
+  .filter(({ path }) => path !== publicOperationSchemaPath)
+  .map(async ({ path, bytes }) => {
+    await mkdir(dirname(join(root, path)), { recursive: true });
+    await writeFile(join(root, path), bytes, "utf8");
+  }));
+
+async function listFiles(path) {
+  const files = [];
+  async function visit(absolute) {
+    const stat = await lstat(absolute);
+    if (stat.isSymbolicLink()) {
+      throw new Error(`refusing symbolic-link payload: ${absolute}`);
+    }
+    if (stat.isDirectory()) {
+      for (const entry of (await readdir(absolute)).sort()) {
+        await visit(join(absolute, entry));
+      }
+      return;
+    }
+    if (stat.isFile()) {
+      files.push(relative(root, absolute).split(sep).join("/"));
+    }
+  }
+  await visit(path);
+  return files;
+}
+
+const bundledDependencyNames = packageJson.bundleDependencies ??
+  packageJson.bundledDependencies ?? [];
+if (
+  !Array.isArray(bundledDependencyNames) ||
+  bundledDependencyNames.some(
+    (name) =>
+      typeof name !== "string" ||
+      packageJson.dependencies?.[name] === undefined,
+  )
+) {
+  throw new Error(
+    "bundled runtime dependencies must name exact declared dependencies",
+  );
+}
+
+const lockedPackages = packageLock.packages;
+if (
+  lockedPackages === null ||
+  typeof lockedPackages !== "object" ||
+  Array.isArray(lockedPackages)
+) {
+  throw new Error("package lock does not expose an installed package inventory");
+}
+
+function dependencyLocator(ownerLocator, dependencyName) {
+  const dependencySuffix = `node_modules/${dependencyName}`;
+  let cursor = ownerLocator;
+  while (cursor !== "") {
+    const nestedCandidate = `${cursor}/${dependencySuffix}`;
+    if (lockedPackages[nestedCandidate] !== undefined) {
+      return nestedCandidate;
+    }
+    const parentMarker = cursor.lastIndexOf("/node_modules/");
+    cursor = parentMarker === -1 ? "" : cursor.slice(0, parentMarker);
+  }
+  return lockedPackages[dependencySuffix] === undefined
+    ? null
+    : dependencySuffix;
+}
+
+function bundledDependencyClosure(names) {
+  const pending = names.map((name) => `node_modules/${name}`);
+  const visited = new Set();
+  while (pending.length > 0) {
+    const locator = pending.pop();
+    if (visited.has(locator)) {
+      continue;
+    }
+    const lockedPackage = lockedPackages[locator];
+    if (
+      lockedPackage === null ||
+      typeof lockedPackage !== "object" ||
+      Array.isArray(lockedPackage)
+    ) {
+      throw new Error(`bundled dependency is absent from package lock: ${locator}`);
+    }
+    visited.add(locator);
+    const requiredDependencies = lockedPackage.dependencies ?? {};
+    for (const dependencyName of Object.keys(requiredDependencies).sort()) {
+      const dependency = dependencyLocator(locator, dependencyName);
+      if (dependency === null) {
+        throw new Error(
+          `bundled dependency closure is incomplete: ${locator} -> ${dependencyName}`,
+        );
+      }
+      pending.push(dependency);
+    }
+    const optionalDependencies = lockedPackage.optionalDependencies ?? {};
+    for (const dependencyName of Object.keys(optionalDependencies).sort()) {
+      const dependency = dependencyLocator(locator, dependencyName);
+      if (dependency !== null) {
+        pending.push(dependency);
+      }
+    }
+  }
+  return [...visited].sort();
+}
+
+for (const locator of bundledDependencyClosure(bundledDependencyNames)) {
+  const name = locator.slice("node_modules/".length);
+  const expectedRoot = join(root, ...locator.split("/"));
+  const dependencyEntry = resolve(require.resolve(name));
+  const entryRelativeToExpected = relative(
+    resolve(expectedRoot),
+    dependencyEntry,
+  );
+  if (
+    entryRelativeToExpected === "" ||
+    entryRelativeToExpected.startsWith(`..${sep}`) ||
+    entryRelativeToExpected === ".."
+  ) {
+    throw new Error(`bundled dependency resolves outside its exact package root: ${name}`);
+  }
+  await listFiles(expectedRoot);
+}
+
+// The immutable development cut is the package npm actually projects, not a
+// separately predicted traversal of the mutable source and dependency trees.
+// Placeholders keep the two subsequently generated mandatory members visible
+// to the dry-run; their final bytes do not change the selected path set.
+await mkdir(dirname(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)), {
+  recursive: true,
+});
+await Promise.all([
+  writeFile(join(root, "product-toolchain-manifest.json"), "{}\n", "utf8"),
+  writeFile(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH), "{}\n", "utf8"),
+]);
+const { stdout: packProjectionJson } = await execFileAsync(
+  "npm",
+  ["pack", "--dry-run", "--ignore-scripts", "--json"],
+  { cwd: root, maxBuffer: 32 * 1024 * 1024 },
+);
+const packProjection = JSON.parse(packProjectionJson);
+if (
+  !Array.isArray(packProjection) ||
+  packProjection.length !== 1 ||
+  !Array.isArray(packProjection[0]?.files)
+) {
+  throw new Error("npm pack did not return one exact file projection");
+}
+const projectedPaths = packProjection[0].files.map(({ path }) => path);
+if (
+  projectedPaths.some((path) => typeof path !== "string") ||
+  !projectedPaths.includes("product-toolchain-manifest.json") ||
+  !projectedPaths.includes(CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)
+) {
+  throw new Error("npm pack projection omits a mandatory Product cut member");
+}
+const productRelativeLocators = projectedPaths.filter(
+  (path) =>
+    path !== "product-toolchain-manifest.json" &&
+    path !== CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+).sort();
+if (new Set(productRelativeLocators).size !== productRelativeLocators.length) {
+  throw new Error("npm pack projection contains duplicate Product paths");
+}
+for (const path of productRelativeLocators) {
+  const absolute = resolve(root, path);
+  const relativeToRoot = relative(root, absolute);
+  if (
+    relativeToRoot === "" ||
+    relativeToRoot === ".." ||
+    relativeToRoot.startsWith(`..${sep}`)
+  ) {
+    throw new Error(`npm pack projected an unsafe Product path: ${path}`);
+  }
+  const stat = await lstat(absolute);
+  if (!stat.isFile() || stat.isSymbolicLink()) {
+    throw new Error(`npm pack projected a non-file Product member: ${path}`);
+  }
+}
+
+const payloadInventory = [];
+for (const path of productRelativeLocators) {
+  payloadInventory.push({ path, sha256: await sha256File(join(root, path)) });
+}
+const productContentDigest = payloadInventoryDigest(payloadInventory);
+
+const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.json";
+const catalogSchemaDigest = await sha256File(join(root, catalogSchemaPath));
+const manifestSchemaDigest = await sha256File(join(root, manifestSchemaPath));
+const consensusSchemaDigest = await sha256File(join(root, consensusSchemaPath));
+const publicOperationSchemaDigest = await sha256File(
+  join(root, publicOperationSchemaPath),
+);
+const reviewRulingVocabularyDigest = await sha256File(
+  join(root, reviewRulingVocabularyPath),
+);
+const consensusRoundOutcomeVocabularyDigest = await sha256File(
+  join(root, consensusRoundOutcomeVocabularyPath),
+);
+const consensusFhDecisionVocabularyDigest = await sha256File(
+  join(root, consensusFhDecisionVocabularyPath),
+);
+const declarationSources = await Promise.all(
+  productRelativeLocators
+    .filter((path) => /\.d\.(?:c|m)?ts$/u.test(path))
+    .map(async (path) => ({ path, bytes: await readFile(join(root, path)) })),
+);
+const nativeDeclarationClosures = await resolveNativeDeclarationClosures({
+  packageName: packageJson.name,
+  packageType: packageJson.type === "module" ? "module" : "commonjs",
+  packageExports: packageJson.exports,
+  declarationSources,
+  packageMetadataSources: await Promise.all(
+    productRelativeLocators
+      .filter(path => path === "package.json" || path.endsWith("/package.json"))
+      .map(async path => ({ path, bytes: await readFile(join(root, path)) })),
+  ),
+  sourceProductContentDigest: productContentDigest,
+});
+if (nativeDeclarationClosures === null) {
+  throw new Error("packed native declaration closure is invalid");
+}
+const nativeClosureByExport = new Map(
+  nativeDeclarationClosures.map((closure) => [
+    closure.packageExportPath,
+    closure,
+  ]),
+);
+function nativeClosureFor(packageExportPath) {
+  const closure = nativeClosureByExport.get(packageExportPath);
+  if (closure === undefined) {
+    throw new Error(`missing native declaration closure: ${packageExportPath}`);
+  }
+  return closure;
+}
+
+function nativeInventoryFor(packageExportPath) {
+  return [nativeClosureFor(packageExportPath)];
+}
+
+const nativeInventory = nativeInventoryFor("./product");
+const abgNativeInventory = nativeInventoryFor("./abg");
+const gtlNativeInventory = nativeInventoryFor("./gtl");
+const validatorNativeInventory = nativeInventoryFor("./validator");
+const hogNativeInventory = nativeInventoryFor("./hog");
+const publicNativeClosure = nativeClosureFor("./public");
+
+function nativeContractDigest(inventory) {
+  if (inventory.length !== 1) {
+    throw new Error("native contract requires one exact package export");
+  }
+  return sha256Canonical(inventory[0].declarationInventory);
+}
+
+function nativeTypedLocator(inventory, namedSymbol) {
+  if (inventory.length !== 1) {
+    throw new Error("native locator requires one exact package export");
+  }
+  const closure = inventory[0];
+  if (!closure.exportedSymbols.includes(namedSymbol)) {
+    throw new Error(
+      `native contract symbol ${namedSymbol} is not exported by ${closure.packageExportPath}`,
+    );
+  }
+  return {
+    packageName: packageJson.name,
+    packageExportPath: closure.packageExportPath,
+    namedSymbol,
+    declarationPath: closure.declarationPath,
+    declarationInventory: closure.declarationInventory,
+  };
+}
+
+const consensusContractRows = CONSENSUS_SCHEMA_ASSET_BINDINGS.map(
+  ([contractId, definitionName]) => ({
+  contractId,
+  contractVersion: "5.0.0",
+  contractDigest: consensusSchemaDigest,
+  contractKind: "schema_asset",
+  owningProduct: productId,
+  requirementAuthorityRefs: [
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
+  ],
+  capabilityIdentities: capabilityRefsForContract(contractId),
+  assetLocator: {
+    path: consensusSchemaPath,
+    mediaType: "application/schema+json",
+    schemaVersion: "5.0.0",
+    contentDigest: consensusSchemaDigest,
+    definitionRef: `#/$defs/${definitionName}`,
+  },
+}));
+
+const consensusVocabularyRows = [
+  [
+    "abg.vocabulary.review-ruling-kind",
+    reviewRulingVocabularyPath,
+    reviewRulingVocabularyDigest,
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-007",
+  ],
+  [
+    "abg.vocabulary.consensus-round-outcome",
+    consensusRoundOutcomeVocabularyPath,
+    consensusRoundOutcomeVocabularyDigest,
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-008",
+  ],
+  [
+    "abg.vocabulary.consensus-fh-decision",
+    consensusFhDecisionVocabularyPath,
+    consensusFhDecisionVocabularyDigest,
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
+  ],
+].map(([contractId, path, digest, requirementAuthorityRef]) => ({
+  contractId,
+  contractVersion: "5.0.0",
+  contractDigest: digest,
+  contractKind: "vocabulary_asset",
+  owningProduct: productId,
+  requirementAuthorityRefs: [requirementAuthorityRef],
+  capabilityIdentities: capabilityRefsForContract(contractId),
+  assetLocator: {
+    path,
+    mediaType: "application/json",
+    schemaVersion: "5.0.0",
+    contentDigest: digest,
+  },
+}));
+
+const extantRows = [
+  ...[
+    ["abg.schema.gtl-graph-function", "GraphFunction", "./gtl/m01", "GTL_GRAPH_FUNCTION_SERIALIZATION_API"],
+    ["abg.schema.gtl-module", "ModulePublication", "./gtl/m02", "GTL_MODULE_SERIALIZATION_API"],
+    ["abg.schema.gtl-c-program", "CProgramSyntax", "./gtl/m01", "GTL_C_PROGRAM_SERIALIZATION_API"],
+    ["abg.schema.gtl-program-conformance-input", "GtlProgramConformanceInput", "./abg/m03", "GTL_PROGRAM_CONFORMANCE_INPUT_API"],
+  ].map(([contractId, definition, packageExportPath, namedSymbol]) => ({
+    contractId, contractVersion: "5.0.0", contractDigest: gtlSchemaDigest, contractKind: "serialized_native_contract", owningProduct: productId,
+    requirementAuthorityRefs: ["specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-007A"],
+    capabilityIdentities: capabilityRefsForContract(contractId),
+    assetLocator: { path: gtlSchemaPath, mediaType: "application/schema+json", schemaVersion: "5.0.0",
+      contentDigest: gtlSchemaDigest, definitionRef: `#/$defs/${definition}` },
+    nativeTypedLocator: nativeTypedLocator(nativeInventoryFor(packageExportPath), namedSymbol),
+  })),
+  {
+    contractId: "abg.vocabulary.gtl-program-diagnostic-id", contractVersion: "5.0.0", contractDigest: gtlDiagnosticVocabularyDigest,
+    contractKind: "serialized_native_contract", owningProduct: productId,
+    requirementAuthorityRefs: ["specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-007"],
+    capabilityIdentities: capabilityRefsForContract("abg.vocabulary.gtl-program-diagnostic-id"),
+    assetLocator: { path: gtlDiagnosticVocabularyPath, mediaType: "application/json", schemaVersion: "5.0.0", contentDigest: gtlDiagnosticVocabularyDigest },
+    nativeTypedLocator: nativeTypedLocator(nativeInventoryFor("./abg/m03"), "GTL_PROGRAM_DIAGNOSTIC_ID_VALUES"),
+  },
+  {
+    contractId: "abg.asset.gtl.language-conformance-corpus", contractVersion: "5.0.0", contractDigest: gtlCorpusDigest,
+    contractKind: "schema_asset", owningProduct: productId,
+    requirementAuthorityRefs: ["specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-007A",
+      "specification/requirements/gtl/REQ-L-GTL3-LAWS.md#REQ-L-GTL3-LAWS-027"],
+    capabilityIdentities: capabilityRefsForContract("abg.asset.gtl.language-conformance-corpus"),
+    assetLocator: { path: gtlCorpusPath, mediaType: "application/json", schemaVersion: "5.0.0", contentDigest: gtlCorpusDigest },
+  },
+  ...[
+    ["abg.contract.gtl.m01", "./gtl/m01", "C"],
+    ["abg.contract.gtl.m02", "./gtl/m02", "modulePublication"],
+    ["abg.contract.gtl.requirements", "./gtl/requirements", "REQUIREMENT_HANDOFF_DECLARATION_SCHEMA"],
+    ["abg.contract.abg.requirements", "./abg/requirements", "authenticateRequirementHandoffBasis"],
+    ["abg.contract.abg.m03", "./abg/m03", "RuntimeEvent"],
+    ["abg.contract.abg.transport", "./abg/m03/transport", "WorkerTransportContract"],
+    ["abg.contract.app.m04", "./app/m04", "PUBLIC_FUNCTION_DEFINITION_FAMILY"],
+    ["abg.contract.qualification.m05", "./qualification/m05", "QualificationLawBasis"],
+  ].map(([contractId, packageExportPath, namedSymbol]) => {
+    const inventory = nativeInventoryFor(packageExportPath);
+    return {
+      contractId,
+      contractVersion: "5.0.0",
+      contractDigest: nativeContractDigest(inventory),
+      contractKind: "native_typed_group",
+      owningProduct: productId,
+      requirementAuthorityRefs: [
+        "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
+      ],
+      capabilityIdentities: capabilityRefsForContract(contractId),
+      nativeTypedLocator: nativeTypedLocator(inventory, namedSymbol),
+    };
+  }),
+  ...constructSelfConformanceAssetRows({ productId, schemaBytes: selfConformanceSchemaBytes, catalogBytes: selfConformanceCatalogBytes, nativeLocator: nativeTypedLocator(validatorNativeInventory, "QualificationRuleCatalog") }),
+  ...consensusContractRows,
+  ...consensusVocabularyRows,
+  {
+    contractId: "abg.contract.product.verification",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(nativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-049",
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-003",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.product.verification",
+    ),
+    nativeTypedLocator: nativeTypedLocator(nativeInventory, "verifyProduct"),
+  },
+  {
+    contractId: "abg.contract.abg.environment-admission",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-032",
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.environment-admission",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      abgNativeInventory,
+      "AbgEventStore",
+    ),
+  },
+  {
+    contractId: "abg.contract.gtl.root-declaration",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(gtlNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-029",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.gtl.root-declaration",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      gtlNativeInventory,
+      "GTL_DECLARATION_CONSTRUCTORS",
+    ),
+  },
+  {
+    contractId: "abg.contract.hog.graph-function-catalog",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(nativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-029",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-051A",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-053",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.hog.graph-function-catalog",
+    ),
+    nativeTypedLocator: nativeTypedLocator(nativeInventory, "buildGraphFunctionCatalog"),
+  },
+  {
+    contractId: "abg.contract.product.invocation-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(nativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-062",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.product.invocation-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      nativeInventory,
+      "constructDirectInvocation",
+    ),
+  },
+  {
+    contractId: "abg.contract.abg.invocation-root-admission",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-002",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.invocation-root-admission",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      abgNativeInventory,
+      "admitInvocation",
+    ),
+  },
+  {
+    contractId: "abg.contract.product.implementation-resolution-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(nativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-010",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.product.implementation-resolution-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      nativeInventory,
+      "resolveImplementation",
+    ),
+  },
+  {
+    contractId: "abg.contract.gtl.materialization-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(gtlNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-003",
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-006",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.gtl.materialization-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      gtlNativeInventory,
+      "materializeGraph",
+    ),
+  },
+  {
+    contractId: "abg.contract.abg.execution-basis-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-004",
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-010",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.execution-basis-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      abgNativeInventory,
+      "admitExecutionBasis",
+    ),
+  },
+  {
+    contractId: "abg.contract.abg.open-call-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-004",
+      "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-010",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.open-call-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      abgNativeInventory,
+      "openTraversalScope",
+    ),
+  },
+  {
+    contractId: "abg.contract.hog.traversal-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(hogNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-005",
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-006",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.hog.traversal-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(hogNativeInventory, "traverse"),
+  },
+  {
+    contractId: "abg.contract.abg.c-call-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-CCALL.md#-001-uniformity",
+      "specification/requirements/abg/REQ-R-ABG3-CCALL.md#-007-shape-preservation",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.c-call-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "openCCall"),
+  },
+  {
+    contractId: "abg.contract.abg.replay-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-002",
+      "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-018",
+      "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-022",
+      "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md#REQ-R-ABG3-PROJECTION-016",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.replay-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "replay"),
+    assetLocator: {
+      path: nativeRuntimeContractPath, mediaType: "application/json", schemaVersion: "5.0.0",
+      contentDigest: nativeRuntimeContractDigest,
+    },
+  },
+  {
+    contractId: "abg.contract.hog.judgment-transition-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(hogNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-CCALL.md#-008-judgment-vocabulary",
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-005",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.hog.judgment-transition-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      hogNativeInventory,
+      "proposeJudgmentCandidate",
+    ),
+  },
+  {
+    contractId: "abg.contract.gtl.validation-root",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(validatorNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/PRODUCT.md#validation-contract",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.gtl.validation-root",
+    ),
+    nativeTypedLocator: nativeTypedLocator(
+      validatorNativeInventory,
+      "rawAdmitValue",
+    ),
+  },
+  {
+    contractId: NATIVE_SEMANTIC_ASSESSMENT_CONTRACT.contractRef, contractVersion: "5.0.0",
+    contractDigest: nativeSemanticAssessmentDigest, contractKind: "schema_asset", owningProduct: productId,
+    requirementAuthorityRefs: ["specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md"],
+    capabilityIdentities: capabilityRefsForContract(NATIVE_SEMANTIC_ASSESSMENT_CONTRACT.contractRef),
+    assetLocator: { path: nativeSemanticAssessmentPath, mediaType: "application/schema+json", schemaVersion: "5.0.0", contentDigest: nativeSemanticAssessmentDigest },
+  },
+  {
+    contractId: "abg.schema.product-toolchain-manifest",
+    contractVersion: "5.0.0",
+    contractDigest: manifestSchemaDigest,
+    contractKind: "schema_asset",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-001",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.schema.product-toolchain-manifest",
+    ),
+    assetLocator: {
+      path: manifestSchemaPath,
+      mediaType: "application/schema+json",
+      schemaVersion: "5.0.0",
+      contentDigest: manifestSchemaDigest,
+    },
+  },
+  {
+    contractId: "abg.schema.public-contract-catalog",
+    contractVersion: "5.0.0",
+    contractDigest: catalogSchemaDigest,
+    contractKind: "schema_asset",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-002",
+    ],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.schema.public-contract-catalog",
+    ),
+    assetLocator: {
+      path: catalogSchemaPath,
+      mediaType: "application/schema+json",
+      schemaVersion: "5.0.0",
+      contentDigest: catalogSchemaDigest,
+    },
+  },
+];
+
+const catalogWithoutDigest = {
+  schemaVersion: "5.0.0",
+  catalogId: `catalog://abiogenesis/typescript-tenant/public-contracts@${packageJson.version}`,
+  catalogVersion: "5.0.0",
+  catalogSchemaPath,
+  catalogSchemaDigest,
+  rows: extantRows,
+};
+
+const extantPublicContractCatalog = {
+  ...catalogWithoutDigest,
+  catalogDigest: sha256Canonical(catalogWithoutDigest),
+};
+const extantCatalogCoordinate = {
+  productId,
+  productContentDigest,
+  catalogId: extantPublicContractCatalog.catalogId,
+  catalogVersion: extantPublicContractCatalog.catalogVersion,
+  catalogDigest: extantPublicContractCatalog.catalogDigest,
+};
+const publicProposalSet = derivePublicCatalogRowProposals(
+  productId,
+  packageJson.name,
+  publicNativeClosure,
+);
+const catalogBinding = bindS06PublicFunctionCatalog({
+  extantCatalog: extantPublicContractCatalog,
+  extantCatalogCoordinate,
+  productId,
+  productContentDigest,
+  proposalSequence: publicProposalSet.proposals,
+  publicPackageName: packageJson.name,
+  publicDeclarationClosure: publicNativeClosure,
+});
+if (catalogBinding.disposition !== "bound") {
+  throw new Error(
+    `PFC-F08 refused generated catalog: ${catalogBinding.failureClass} ${catalogBinding.issuePaths.join(", ")}`,
+  );
+}
+const publicContractCatalog = catalogBinding.catalog;
+const rows = publicContractCatalog.rows;
+for (const row of rows) {
+  if (
+    canonicalJson(row.capabilityIdentities) !==
+      canonicalJson(capabilityRefsForContract(row.contractId))
+  ) {
+    throw new Error(
+      `public contract capability projection diverged for ${row.contractId}`,
+    );
+  }
+}
+const finalCatalogCoordinate = {
+  productId,
+  productContentDigest,
+  catalogId: publicContractCatalog.catalogId,
+  catalogVersion: publicContractCatalog.catalogVersion,
+  catalogDigest: publicContractCatalog.catalogDigest,
+};
+const flatCatalogCoordinates = rows.map((row) => ({
+  contractCatalog: finalCatalogCoordinate,
+  flatRow: {
+    contractId: row.contractId,
+    contractVersion: row.contractVersion,
+    contractDigest: row.contractDigest,
+  },
+  nestedSelector: {
+    selectorKind: "flat_contract",
+    definitionKey: null,
+    slot: null,
+    definitionRef: null,
+  },
+}));
+const flatCatalogCoordinatesById = new Map(
+  flatCatalogCoordinates.map((coordinate) => [
+    coordinate.flatRow.contractId,
+    coordinate,
+  ]),
+);
+const operationDefinitionSlotCoordinates =
+  PUBLIC_OPERATION_CONTRACT_PROJECTIONS.flatMap((projection) => {
+    const flat = flatCatalogCoordinatesById.get(projection.operationId);
+    if (flat === undefined) {
+      throw new Error(`missing operation catalog row ${projection.operationId}`);
+    }
+    return projection.definitions.flatMap((definition) => [
+      ["request", definition.requestContract],
+      ["result", definition.resultContract],
+      ["refusal", definition.refusalContract],
+      ...(definition.nonTerminalContract === null
+        ? []
+        : [["non_terminal", definition.nonTerminalContract]]),
+    ].map(([slot, identity]) => ({
+      contractCatalog: flat.contractCatalog,
+      flatRow: flat.flatRow,
+      nestedSelector: {
+        selectorKind: "operation_definition_slot",
+        definitionKey: definition.definitionKey,
+        slot,
+        definitionRef: identity.definitionRef,
+      },
+    })));
+  });
+const capabilityDefinitionGraph = constructCapabilityDefinitionGraph(
+  [...flatCatalogCoordinates, ...operationDefinitionSlotCoordinates],
+);
+const capabilityDefinitionGraphBytes = capabilityDefinitionGraphAssetBytes(
+  capabilityDefinitionGraph,
+);
+const capabilityDefinitionGraphAssetDigest = sha256Bytes(
+  capabilityDefinitionGraphBytes,
+);
+await mkdir(dirname(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)), {
+  recursive: true,
+});
+await writeFile(
+  join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH),
+  capabilityDefinitionGraphBytes,
+);
+const graphCoordinate = capabilityDefinitionGraphCoordinate(
+  capabilityDefinitionGraph,
+);
+const graphManifestCoordinate = {
+  ...graphCoordinate,
+  assetLocator: {
+    path: CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+    mediaType: "application/json",
+    schemaVersion: "5.0.0",
+    contentDigest: capabilityDefinitionGraphAssetDigest,
+  },
+};
+const contentIdentity = productContentDigest.slice("sha256:".length);
+const descriptorRef =
+  `descriptor://abiogenesis/typescript-tenant/${contentIdentity}`;
+const contributionManifestRef =
+  `contribution-manifest://abiogenesis/conformance/${contentIdentity}`;
+const provenanceRef =
+  `provenance://abiogenesis/typescript-tenant/${contentIdentity}`;
+const placeholderDigest = `sha256:${"0".repeat(64)}`;
+const publicationBasis = {
+  productId,
+  artifactDigest: placeholderDigest,
+  productContentDigest,
+  productManifestDigest: placeholderDigest,
+  packageName: packageJson.name,
+  packageVersion: packageJson.version,
+};
+const modulePublications = [
+  constructDefaultGovernanceLibraryModulePublication(publicationBasis),
+  constructHelloWorldModulePublication(publicationBasis),
+  constructConsensusModulePublication(publicationBasis),
+  constructWorksiteConstructionModulePublication(publicationBasis),
+  constructWorksiteCommandExecutionModulePublication(publicationBasis),
+  constructNativeWorkspaceWorkModulePublication(publicationBasis),
+  constructWorksiteCommandForwardModulePublication(publicationBasis),
+  constructRequirementHandoffModulePublication(publicationBasis),
+  constructSemanticStageModulePublication(publicationBasis),
+  constructSemanticRevisionModulePublication(publicationBasis),
+  constructSelfConformanceModulePublication(publicationBasis),
+];
+const publicationBindings = modulePublications.map((publication) => ({
+  moduleRef: publication.moduleRef,
+  publicationDigest: modulePublicationSemanticDigest(publication),
+})).sort((left, right) => left.moduleRef.localeCompare(right.moduleRef));
+const contributionRows = modulePublications.flatMap((publication) =>
+  publication.contributions.map((contribution) => ({
+    moduleRef: publication.moduleRef,
+    handle: contribution.handle,
+    kind: contribution.kind,
+    declarationOrContractRef: contribution.declarationOrContractRef,
+    owningProductId: contribution.owningProductId,
+    programMembershipRefs: [...contribution.programMembershipRefs],
+    compatibilityRefs: [...contribution.compatibilityRefs],
+    provenanceRef,
+    readinessPrerequisiteRefs: [...contribution.readinessPrerequisiteRefs],
+  }))
+).sort((left, right) => {
+  const leftKey = `${left.moduleRef}\0${left.handle}`;
+  const rightKey = `${right.moduleRef}\0${right.handle}`;
+  return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
+});
+const contributionManifest = {
+  kind: "product_contribution_manifest",
+  schemaVersion: "5.0.0",
+  contributionManifestRef,
+  productId,
+  productVersion: packageJson.version,
+  descriptorRef,
+  productContentDigest,
+  publicContractCatalogId: publicContractCatalog.catalogId,
+  publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+  capabilityDefinitionGraph: graphCoordinate,
+  publicationBindings,
+  rows: contributionRows,
+};
+const manifest = {
+  kind: "abg_product_toolchain_manifest",
+  schemaVersion: "5.0.0",
+  productId,
+  packageName: packageJson.name,
+  packageVersion: packageJson.version,
+  productContentDigest,
+  productRelativeLocators,
+  descriptorRef,
+  publisherNamespace: "abiogenesis",
+  contributionManifestRef,
+  contributionManifestDigest: sha256Canonical(contributionManifest),
+  contributionManifest,
+  compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+  declaredDependencies: [],
+  provenanceRef,
+  declaredCapabilityRefs: [
+    ...capabilityDefinitionGraph.rows.map((row) => row.capabilityId),
+  ],
+  capabilityDefinitionGraph: graphManifestCoordinate,
+  publicContractCatalog,
+};
+
+await writeFile(
+  join(root, "product-toolchain-manifest.json"),
+  `${canonicalJson(manifest)}\n`,
+  "utf8",
+);

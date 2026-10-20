@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+    "bytes": 29264,
+    "sha256": "b54df94a0231b85fa87bb68eab39ec4744fef4f4a406f6ba1354990ec1b613e9"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+    "bytes": 1030,
+    "sha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "status": "passed_structural_preparation",
+  "inventoryRef": "qualification-inventory://abiogenesis/39b7065e2367d65d891e4807ae596af3e78b0caf190784d9569c56a70b94bac3",
+  "inventoryDigest": "sha256:39b7065e2367d65d891e4807ae596af3e78b0caf190784d9569c56a70b94bac3",
+  "members": 1824,
+  "sourceInputs": 366,
+  "recipeSchema": true,
+  "sourceInventoryBindings": true,
+  "coverageClaim": "Candidate finite inventory/classification claim only; independent source-grounded completeness/applicability judgment remains required. No native authority follows from complete_claim.",
+  "runtime": "none"
+}

@@ -1,0 +1,32 @@
+✖ complete selected-action acquisition, occurrence and cold-proof composition (1795.249708ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1840.472084
+
+✖ failing tests:
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:127:1
+✖ complete selected-action acquisition, occurrence and cold-proof composition (1795.249708ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"product_execution_resolution_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"incompatible_or_unproven","stage":"catalog","message":"direct public control requires next or asset target with until converged and no caller-selected start"}
+  + actual - expected
+  
+  + 'product_execution_resolution_refusal'
+  - 'loaded_product_execution_resolution'
+  
+      at constructInstalledStartCall (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:262:10)
+      at async prepareStart (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:60:13)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs:135:16)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'product_execution_resolution_refusal',
+    expected: 'loaded_product_execution_resolution',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

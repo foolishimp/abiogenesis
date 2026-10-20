@@ -1,0 +1,175 @@
+{
+  "preparationMs": 2124.431500211358,
+  "operationMs": 40541.103541851044,
+  "operations": [
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/npm",
+        "ci",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "elapsedMs": 1600.290291942656,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.501552,
+      "childSystemCPUSeconds": 0.576676,
+      "childMaxResidentSetSizePlatformBytes": 244629504
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "scripts/clean.mjs"
+      ],
+      "elapsedMs": 45.67254101857543,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.016708999999999998,
+      "childSystemCPUSeconds": 0.005397,
+      "childMaxResidentSetSizePlatformBytes": 46366720
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "elapsedMs": 6276.071084197611,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 10.360915,
+      "childSystemCPUSeconds": 0.233615,
+      "childMaxResidentSetSizePlatformBytes": 1098874880
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "scripts/generate-qualification-rule-catalog.mjs",
+        "--stage-authorities",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source",
+        "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2"
+      ],
+      "elapsedMs": 135.73937490582466,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.11373799999999999,
+      "childSystemCPUSeconds": 0.020555999999999998,
+      "childMaxResidentSetSizePlatformBytes": 93831168
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "elapsedMs": 14686.148500069976,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 18.068338,
+      "childSystemCPUSeconds": 1.1154789999999999,
+      "childMaxResidentSetSizePlatformBytes": 1567440896
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-artifacts"
+      ],
+      "elapsedMs": 3214.5895827561617,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 3.381741,
+      "childSystemCPUSeconds": 0.36336199999999996,
+      "childMaxResidentSetSizePlatformBytes": 320421888
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/npm",
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--package-lock=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "elapsedMs": 2376.514666713774,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 1.895969,
+      "childSystemCPUSeconds": 2.59044,
+      "childMaxResidentSetSizePlatformBytes": 422412288
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/verify-installed.mjs"
+      ],
+      "elapsedMs": 11518.93095811829,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 15.313198,
+      "childSystemCPUSeconds": 0.390992,
+      "childMaxResidentSetSizePlatformBytes": 1544372224
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/validate-installed-publications.mjs"
+      ],
+      "elapsedMs": 313.5565002448857,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.34192,
+      "childSystemCPUSeconds": 0.052398999999999994,
+      "childMaxResidentSetSizePlatformBytes": 209272832
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/compare-wrapper.mjs"
+      ],
+      "elapsedMs": 373.5900418832898,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.36569799999999997,
+      "childSystemCPUSeconds": 0.061367,
+      "childMaxResidentSetSizePlatformBytes": 242630656
+    }
+  ],
+  "generatedCorrespondenceMs": 416.484790854156,
+  "packageCorrespondenceMs": 887.4987922608852,
+  "retainedComparisonAttempt": "C06 uses one distinct-path comparison; earlier failed control attempts remain preserved, no repeat pack/install",
+  "defaultHeapUnchanged": true,
+  "allFinalOwnedExitObserved": true,
+  "donorC05TenIntervalMs": 40186,
+  "donorC05PreparationMs": 5171,
+  "basis": "actual finite subprocess intervals; reasoning/report assembly and retained first-comparison timing uncertainty are separate",
+  "sourceTestsRepeated": 0,
+  "nativeModelProviderNetworkRuntimeStoreGitEffects": 0,
+  "reportFinalization": {
+    "status": "CLOSED",
+    "operation": "T287_C06_REPORT_FINALIZATION_01",
+    "actor": "/root/native_applicability_design",
+    "role": "Worker report-only",
+    "requestSHA256": "7fd3b6799f787f9e13ff694e8f45199dbcfe3a5acf1cf2363eae92f8ca75e090",
+    "correctedOnlyRoute": "contracts/capabilities/capability-definition-graph.json",
+    "originalTenCommandOperation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+    "failedAttempt": "final-report-refusal-01.json",
+    "failedScript": "final-controls/finalize-failed-attempt-01.py",
+    "completedPopulationPreimages": "report-finalization-preimage-pins.json",
+    "controlPostimageSHA256": "3f01583ed3467a5874ccaa57476c8818a4c5e782962582e451a3ee0907796631",
+    "payloadSourceGeneratedRuntimeEffects": 0,
+    "allNativeBuildPackInstallTestChecksRepeated": 0,
+    "remainingNativeAndSemanticObligations": "unknown; no qualification credit",
+    "allWritesAfterFinalFreeze": "STOPPED",
+    "return": "Root Executive; independent review follows",
+    "reportedAt": "2026-10-02T05:53:23.504492+00:00"
+  },
+  "reportOnlyElapsedBeforeRemainingClosureMs": 25.05937498062849
+}

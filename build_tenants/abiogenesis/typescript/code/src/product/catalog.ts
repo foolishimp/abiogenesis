@@ -10,7 +10,7 @@ import {
   type JsonValue,
 } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
+import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import type { ProductInstall, ResolvedProductLock, WorkspaceBindingCandidate } from "./environment.js";
 import { constructProductSet, isResolvedProductLock } from "./environment.js";
 import type { ProductInstallCandidate, VerifiedProductArtifact } from "./contracts.js";
@@ -396,9 +396,28 @@ export function directSatisfiedDependencyRefs(
   return satisfied;
 }
 
+const readyCatalogs = new WeakMap<object, ReadyGraphFunctionCatalog>();
+const ownedCatalogs = new WeakSet<object>();
+const canonicalPublications = new WeakMap<object, Readonly<ModulePublication>>();
+const catalogViews = new WeakMap<object, Readonly<{
+  allowlist: string;
+  view: GraphFunctionCatalogView;
+}>>();
+
+function canonicalPublication(publication: Readonly<ModulePublication>): Readonly<ModulePublication> {
+  const retained = canonicalPublications.get(publication);
+  if (retained !== undefined) return retained;
+  const canonical = canonicalizeAuthoredGtlCarrier(publication, "module_publication");
+  canonicalPublications.set(canonical, canonical);
+  if (isDeeplyFrozen(publication)) canonicalPublications.set(publication, canonical);
+  return canonical;
+}
+
 export function admitGraphFunctionCatalog(
   basis: CatalogReadinessBasis,
 ): ReadyGraphFunctionCatalogResult {
+  const retained = readyCatalogs.get(basis);
+  if (retained !== undefined) return retained;
   const canonicalBasis: CatalogReadinessBasis = {
     workspaceBinding: basis.workspaceBinding,
     resolvedLock: basis.resolvedLock,
@@ -407,9 +426,7 @@ export function admitGraphFunctionCatalog(
     // ProductSet order belongs to the selected lock, not catalog row ordering.
     installedProducts: [...basis.installedProducts],
     publications: basis.publications
-      .map((publication) =>
-        canonicalizeAuthoredGtlCarrier(publication, "module_publication")
-      )
+      .map(canonicalPublication)
       .sort((left, right) =>
         compareUnicodeCodeUnits(
           modulePublicationSemanticDigest(left),
@@ -653,7 +670,7 @@ export function admitGraphFunctionCatalog(
   const catalog = buildGraphFunctionCatalog(admittedPublications);
   if (catalog.kind !== "graph_function_catalog") return catalog;
   const readinessBasisDigest = sha256Canonical(canonicalBasis as unknown as JsonValue);
-  return deepFreeze({
+  const ready = deepFreeze({
     ...catalog,
     basisDigest: readinessBasisDigest,
     readinessBasisDigest,
@@ -669,16 +686,19 @@ export function admitGraphFunctionCatalog(
       compareUnicodeCodeUnits(left.handle, right.handle) ||
       compareUnicodeCodeUnits(left.rowDigest, right.rowDigest)),
   }) as ReadyGraphFunctionCatalog;
+  if (isDeeplyFrozen(ready)) {
+    readyCatalogs.set(canonicalBasis, ready);
+    if (isDeeplyFrozen(basis)) readyCatalogs.set(basis, ready);
+    ownedCatalogs.add(ready);
+  }
+  return ready;
 }
 
 export function buildGraphFunctionCatalog(
   exactPublications: readonly Readonly<ModulePublication>[],
 ): GraphFunctionCatalogResult {
   const publications = exactPublications.map((authoredPublication) => {
-    const publication = canonicalizeAuthoredGtlCarrier(
-      authoredPublication,
-      "module_publication",
-    );
+    const publication = canonicalPublication(authoredPublication);
     return {
       publication,
       digest: modulePublicationSemanticDigest(publication),
@@ -798,7 +818,7 @@ export function buildGraphFunctionCatalog(
     entries: entries.map((entry) => entry.entryDigest),
     declarationEntries: declarationEntries.map((entry) => entry.entryDigest),
   });
-  return deepFreeze({
+  const catalog = deepFreeze({
     kind: "graph_function_catalog" as const,
     schemaVersion: "5.0.0" as const,
     basisDigest,
@@ -808,6 +828,8 @@ export function buildGraphFunctionCatalog(
     declarationEntries,
     declarationsByHandle: frozenIndex(declarationEntries),
   }) as GraphFunctionCatalog;
+  ownedCatalogs.add(catalog);
+  return catalog;
 }
 
 export function refreshGraphFunctionCatalog(
@@ -879,6 +901,9 @@ export function narrowGraphFunctionCatalog(
       `unknown catalog allowlist handle ${unknown}`,
     );
   }
+  const allowlistKey = canonicalJson(orderedAllowlist);
+  const retained = ownedCatalogs.has(catalog) ? catalogViews.get(catalog) : undefined;
+  if (retained?.allowlist === allowlistKey) return retained.view;
   const entries = orderedAllowlist.flatMap((handle) => {
     const entry = catalog.byHandle[handle];
     return entry === undefined ? [] : [entry];
@@ -893,7 +918,7 @@ export function narrowGraphFunctionCatalog(
     entries: entries.map((entry) => entry.entryDigest),
     declarationEntries: declarationEntries.map((entry) => entry.entryDigest),
   };
-  return deepFreeze({
+  const view = deepFreeze({
     kind: "graph_function_catalog_view" as const,
     catalogBasisDigest: catalog.basisDigest,
     allowlist: orderedAllowlist,
@@ -903,6 +928,8 @@ export function narrowGraphFunctionCatalog(
     declarationsByHandle: frozenIndex(declarationEntries),
     viewDigest: sha256Canonical(body as unknown as JsonValue),
   }) as GraphFunctionCatalogView;
+  if (ownedCatalogs.has(catalog)) catalogViews.set(catalog, { allowlist: allowlistKey, view });
+  return view;
 }
 
 export function applyCatalogDeclaration(

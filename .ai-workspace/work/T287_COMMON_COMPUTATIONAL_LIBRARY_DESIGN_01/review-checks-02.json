@@ -1,0 +1,204 @@
+{
+  "reviewer": "/root/reconciliation_review",
+  "created_utc": "2026-10-20T17:42:23.617241+00:00",
+  "subject": "T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01_DOCUMENTS",
+  "freeze_sha256": "476aa57a3b0660f05a4a84f8c238a0095c1c4daaeb8bd9ac753dfa3e858c659f",
+  "scope": "Affected successor identity, bounded delta and preservation only; no runtime execution or semantic acceptance inferred from these checks.",
+  "checks": [
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/candidate-freeze-02.json",
+      "sha256": "476aa57a3b0660f05a4a84f8c238a0095c1c4daaeb8bd9ac753dfa3e858c659f"
+    },
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/candidate-freeze.json",
+      "sha256": "7a39d3ac51da19a79275cb6ab99f2024481ef57132bf19bcdfc2112bd0c1ab2c"
+    },
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/basis.json",
+      "sha256": "7c4196afaf481be05056a5c3b5120b98b9e4d012ccf2b673f765076b3ec23376"
+    },
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/correction-01/calculus-writer/freeze.json",
+      "sha256": "0422b6bd7a027be8afb4abc453aa99efc5007e8e68c3abb73ccc543a142573a1"
+    },
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review.md",
+      "sha256": "7683a82d936a6af4b9842ecd4c6da0aa86f6e27f53b3b6b581971304339e4519"
+    },
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review-checks.json",
+      "sha256": "3d6143f9214ad9bd6a04be30759efb0a4995f787e675b8a4842203d61a05da23"
+    },
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/document-checks.json",
+      "sha256": "5cff3313ba33d6840a53aadcdd0c9e7ee2071e22165a53c34b6827a4a2df7cc1"
+    },
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/document-checks-02.json",
+      "sha256": "92031e436667b8e506ab3cb2dd898e1e086d3e38641e8c1b62f56bf0e2efe26b"
+    },
+    {
+      "name": "record identity",
+      "passed": true,
+      "path": ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/correction-01/decision.md",
+      "sha256": "14f05a510295cf67db5572bb9614a07f191d040e0018320f5cfe886321f872cb"
+    },
+    {
+      "name": "same five candidate paths",
+      "passed": true
+    },
+    {
+      "name": "successor candidate identity",
+      "passed": true,
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "cff436cd67161703d3b3faa9d2a2d8d7360f48a5284836b406f215de8774e6be"
+    },
+    {
+      "name": "successor candidate identity",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b"
+    },
+    {
+      "name": "successor candidate identity",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "sha256": "9a84ef16c1524abf56e4ab3dafa8f894d697fb34cb4ed37eb5ca5acbf1a9af31"
+    },
+    {
+      "name": "successor candidate identity",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/README.md",
+      "sha256": "68f4f0ef12ab4a25f42c66e2be11dfa7083292a926a2ee0d4644876fe62213b7"
+    },
+    {
+      "name": "successor candidate identity",
+      "passed": true,
+      "path": "specification/GOALS.md",
+      "sha256": "626c12c2fc28090f64463d4829c2aafe54377986c55d80a10a3f575999f08890"
+    },
+    {
+      "name": "only library successor changed",
+      "passed": true
+    },
+    {
+      "name": "correction and combined freeze agree",
+      "passed": true
+    },
+    {
+      "name": "correction record identity",
+      "passed": true,
+      "path": "activation.md",
+      "sha256": "a09a68f52140ba3a02eaabb265b6c526a2d323a5d90f7032396b81faa65b5622"
+    },
+    {
+      "name": "correction record identity",
+      "passed": true,
+      "path": "preimage-record.json",
+      "sha256": "d15ea468f42e16813fa4d9a8d9dfe8b0d1dccaca59c33721cd65ca8003f1eade"
+    },
+    {
+      "name": "correction record identity",
+      "passed": true,
+      "path": "library.preimage.md",
+      "sha256": "924789be491175cf570bf5407c14dbd9ccfd4f682b495e48a50ec6788f9b3527"
+    },
+    {
+      "name": "correction record identity",
+      "passed": true,
+      "path": "candidate.diff",
+      "sha256": "60165e05fc1e70a7ce458db9e65239a5b143b02a9ac41b159855a5ff61684362"
+    },
+    {
+      "name": "correction record identity",
+      "passed": true,
+      "path": "readiness.json",
+      "sha256": "05a16f32a8c3986fe07a9ea0958a232276b434b9f2c324b6e7cddad2a49d7d44"
+    },
+    {
+      "name": "correction record identity",
+      "passed": true,
+      "path": "return.md",
+      "sha256": "e8a76f7e806b78846bcae732e815f848d9aa0502f82bb6bf769013b4566cd1f3"
+    },
+    {
+      "name": "exact rejected library preserved",
+      "passed": true
+    },
+    {
+      "name": "bytes before affected sequence unchanged",
+      "passed": true
+    },
+    {
+      "name": "bytes after affected state note unchanged",
+      "passed": true
+    },
+    {
+      "name": "recorded correction diff matches source",
+      "passed": true
+    },
+    {
+      "name": "all inventoried non-candidate bytes preserved",
+      "passed": true,
+      "count": 692,
+      "failures": []
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "AGENTS.md"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "stdo_abiogenesis.json"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/PRODUCT.md"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/INTENT.md"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "specification/requirements/README.md"
+    },
+    {
+      "name": "governing source preserved",
+      "passed": true,
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+    },
+    {
+      "name": "installed method manifest identity",
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total": 35,
+    "passed": 35,
+    "failed": 0,
+    "unchanged_other_candidate_files": 4,
+    "preserved_non_candidate_files": 692
+  }
+}

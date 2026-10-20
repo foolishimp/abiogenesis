@@ -1,0 +1,20 @@
+{
+  "RootSelection": "Root explicitly selected167 test-only six-field native authority carrier correction before one affected rerun; source/owner/parser/permission unchanged.",
+  "projectedFields": [
+    "workspaceId",
+    "canonicalRoot",
+    "authorityMode",
+    "authorizedActorRef",
+    "authorityManifestRef",
+    "authorityManifestDigest"
+  ],
+  "existingCanonicalProjection": "environment_definition_bindings.ts693\u2013700; environment.ts987\u20131057",
+  "preservedFailure": [
+    "commands/canonical-preflight.result.json",
+    "commands/canonical-preflight.stderr",
+    "failed-preflight/preflight.mjs",
+    "first-preflight-cause.json"
+  ],
+  "nextRecorderSuffix": "canonical-preflight-02",
+  "actualEffectsExcluded": "No resource acquisition/log read/Public dispatch/app/Source/Git"
+}

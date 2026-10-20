@@ -1,0 +1,98 @@
+{
+  "role": "Operator129",
+  "selectedAt": "2026-10-08T17:40:42.368Z",
+  "authority": "Root RELEASE129 conjoins Source120/123, Publication124/127, externalChecker126/128 closing125 HOLD; one original full Data Mapper resume",
+  "method": "fixed15 ABI5 GOAL035/T287 STDO2.5.1RC2",
+  "frames": [
+    "f-end-to-end-interface-integration",
+    "f-worksite-causality"
+  ],
+  "selectedInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/freeze.json",
+      "sha256": "14de15c7f111f85fd79af71699c8922e37d767c304794bf79984bb7c45dddf3c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-repair-126/freeze.json",
+      "sha256": "495a4e3f53dbc6acfe8a49ea8153538e55d9e71bef08a83f6318660cb3ba057d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/resume-config.json",
+      "sha256": "9fbca1db1155351fd5b28a613ec786a84e268257767a6333c748b4e4f285bd09"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/setup.json",
+      "sha256": "4086dd8b70fb4a785a40f26e473d018d10c9ad26d875d2132cfb7b25be1e4a51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-publication-review-127/return.md",
+      "sha256": "92a3a5a291a3eac3d536f8efda406866a2fa867629aec78261d0e64fa637186b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-publication-review-127/pins.json",
+      "sha256": "52ddf1e660ea4c0fed816cf7f37e7fe045f2962066d8ee2c94619736955e20c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-review-128/return.md",
+      "sha256": "b8fcebea9a3dab9ba12baca70c2fb690dce111e69fcf04820e275ad0ab5776e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-inventory-review-128/pins.json",
+      "sha256": "bd88db0ac4906f916a70e4430715aecb091c9a4f79155edf33df4c35ee20787e"
+    }
+  ],
+  "package": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-24/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:b04a563cb4dd81c6f27dde620e54a6dffde5bdc05d8d190d04b00dfdc7ad74df"
+  },
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/resume-config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912
+  },
+  "limits": {
+    "commandTimeoutMs": 18000000,
+    "terminationGraceMs": 10000,
+    "currentCommandBudgetMs": 18025000,
+    "providerInactivityMs": 18030000,
+    "providerAbsoluteMs": 18040000,
+    "driverMs": 18060000,
+    "recursionBound": 1000,
+    "nativeCaptureBytes": 268435456,
+    "outerRecorderMs": 19260000,
+    "outerRecorderBytes": 536870912,
+    "model": "claude-opus-5-5",
+    "maxTurnsOrUsdSupplied": false
+  },
+  "executionAuthority": "NEW commands/lifecycle-start.request.json.started +18000000ms after actual Root release; all old clocks retained historically.",
+  "stop": "Resolve exact admitted C2 task/attempt/helper argv and live ownership; stop owned helper/command first, then admitted provider group while CLI can admit actual exits; bounded TERM/KILL confirmation and truthful missing artifact/exit. No guessed/global signals/private events.",
+  "sourceState": {
+    "kind": "none",
+    "observations": [],
+    "synthesis": null,
+    "terminal": false,
+    "oldProducerCredit": false
+  },
+  "material": {
+    "originals": 4,
+    "authors": 44,
+    "ledgerRows": 52,
+    "oldStoreCopyOrReplay": false
+  },
+  "criteria": "All67 original oracle criteria and16 distinct compiled production mutants/exact restorations/full independent UAT; no app/proof credit from material or publication.",
+  "firstSelectorProof": "Actual current selected structured carrier/native Result/choice/next-child equality; current-dossier UAT preparation and same-C2 inventory/report consumer; no old11 or1738 credit",
+  "noOperatorSourceOrApplicationEdits": true
+}

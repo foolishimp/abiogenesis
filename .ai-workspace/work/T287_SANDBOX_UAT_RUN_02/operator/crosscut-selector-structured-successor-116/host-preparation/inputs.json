@@ -1,0 +1,37 @@
+{
+  "installHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host/node_modules/@abiogenesis/typescript-tenant",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "e1deb8a3d000566ccc550055e333c422b759cb63b8b412820f147046685e2dcb",
+    "byteCount": 10630096
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/scratch/successor/package/product-toolchain-manifest.json",
+    "sha256": "632e7f77076f06b3862d7893971ffd034edefd9a91524f828394ae047723d5ec",
+    "byteCount": 3171685
+  },
+  "fixtures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/scratch/successor/package/node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888,
+      "relativePath": "node_modules/fast-uri/test/fixtures/uri-js-parse.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/scratch/successor/package/node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688,
+      "relativePath": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/scratch/successor/package/node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544,
+      "relativePath": "node_modules/json-schema-traverse/spec/fixtures/schema.js"
+    }
+  ],
+  "expectedContentDigest": "sha256:c492168158fc38032f8b778be78de3a64f99f409bf8b0785257121821f200951",
+  "expectedManifestDigest": "sha256:99e87edce37ad6267feb2c28f387a55beaf4e53c99fb7609ed7864836aa40d3e",
+  "scope": "One clean offline host and actual source-blind installed owner verification; no native/provider/model/app effects"
+}

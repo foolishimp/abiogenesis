@@ -1,0 +1,43 @@
+{
+  "scope": "237 preparation only; runtime/package effects ungranted",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/publish.mjs",
+      "sha256": "c73eaee064bf742b1b104104b207dd01c08336d43a8cad861d7e4b10e9edd96c",
+      "byteCount": 5057
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/run.mjs",
+      "sha256": "e93e4d569eae4c55d1153c37d1bc0bd4437710cf377b82e0d6aab2692ae6f1de",
+      "byteCount": 13390
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/consumer.mts",
+      "sha256": "2f324626ebf9d4ef630de0b587df3519f0fa986f8620f678e883b66e082225ac",
+      "byteCount": 864
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/preparation-checks.json",
+      "sha256": "52a0fb9ed0f7e39321aec88322290e0b4af05b5e741e30ef789280ba3e7c964e",
+      "byteCount": 871
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/preparation-return.md",
+      "sha256": "a8a364e23d56d29db74cc76e34b58678525ae81fb0869e640b22ea2da297829e",
+      "byteCount": 3004
+    }
+  ],
+  "references": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/freeze.json",
+      "sha256": "6b12bf04b3507692b365098e0f0345599c5881ae7ce1fda37b25ff60c79a6951",
+      "byteCount": 1348
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/helper-postimage-07.mjs",
+      "sha256": "7e75e8953fb05538c41a9e7e78c3525fdfdcebfb5bd489d2f720d7a71d236f2e",
+      "byteCount": 40162
+    }
+  ],
+  "pending": "Root-selected exact accepted joint successor and coherent helper population"
+}

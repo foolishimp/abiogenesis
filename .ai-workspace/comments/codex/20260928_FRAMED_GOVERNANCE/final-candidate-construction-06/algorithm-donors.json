@@ -1,0 +1,57 @@
+{
+  "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls",
+  "donorPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/run-package.py",
+      "bytes": 1203,
+      "sha256": "6db24cceccb593640e4be4ad7312fc8ba54d8c7594568a556c330095c1313f0d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/execute.py",
+      "bytes": 6182,
+      "sha256": "ffb20b8b2b21e9b30d958ca12c7ba288651a280b4c06e0af54577368aaf19674"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/finalize.py",
+      "bytes": 15975,
+      "sha256": "628d38b79cedb215b53c3c9e2be3d63c2bac2886586899e9169559226f1cd25d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/run-build.py",
+      "bytes": 1236,
+      "sha256": "bdec6da11043bcafbc2511861977c39d260b157a07be9661f48edde199d3ccb8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/prepare-wrapper-comparison.py",
+      "bytes": 4463,
+      "sha256": "7c202dd8dd38299519da06c16d6a5b118a24d9b6bdbb03342898da2a1db10e56"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/verify-installed.mjs",
+      "bytes": 5911,
+      "sha256": "64418c8f0968b80e11223830c2f78bf191a4d489e60da6b28d1f55ca0cc11019"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/correspondence.py",
+      "bytes": 8067,
+      "sha256": "5dd491241606c1080eead6801575ef57285e290cebdaac6ca12626fe9d8bcaba"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/compare-wrapper.mjs",
+      "bytes": 6426,
+      "sha256": "26464640b0951371630e22c739045f9c4b5c46cc449b67e256c3d479afd40224"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/validate-installed-publications.mjs",
+      "bytes": 4520,
+      "sha256": "ca393b224e231aa9872146eea84e9988621c7e623ef9252dba5a60d39a15fa66"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-controls/prepare.py",
+      "bytes": 11044,
+      "sha256": "7b9359a9f3deb75ff820390c3d2a0ed0aaa6c777329d309c8525aa7fc22b3875"
+    }
+  ],
+  "originalAuthorship": "prior construction controls are algorithm donors; source authorship remains exact source-cut records",
+  "adaptations": "Only current activation/baseline/source counts/new-test absent preimage, immutable metadata preservation without repeated historical body campaign, current frozen tool routes and new namespace report fields"
+}

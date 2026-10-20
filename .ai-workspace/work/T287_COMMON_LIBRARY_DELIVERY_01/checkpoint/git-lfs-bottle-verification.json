@@ -1,0 +1,10 @@
+{
+  "source": "https://ghcr.io/v2/homebrew/core/git-lfs/blobs/sha256:fcefb0b6742a77251b31a71780e91baba1cc02d23e2d36ef577fc91d4e74d751",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/git-lfs-3.8.0.arm64_tahoe.bottle.tar.gz",
+  "bytes": 5482220,
+  "sha256": "fcefb0b6742a77251b31a71780e91baba1cc02d23e2d36ef577fc91d4e74d751",
+  "expected_sha256": "fcefb0b6742a77251b31a71780e91baba1cc02d23e2d36ef577fc91d4e74d751",
+  "verified": true,
+  "wall_seconds": 0.5958586251363158,
+  "credentials_emitted": false
+}

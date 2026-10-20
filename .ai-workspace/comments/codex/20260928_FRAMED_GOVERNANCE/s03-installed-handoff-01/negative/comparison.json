@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "run": {
+    "ref": "run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8",
+    "digest": "sha256:3df8116ae6a3ad65a84fcac0c0e53a947a1a51cef44a0e86a560654e019fde79"
+  },
+  "reader": {
+    "artifactDigest": "sha256:2840b889d9207b48f7b1492934d3158a25352efa7b942f8ea58992ed15b57bcc",
+    "productContentDigest": "sha256:2c7bab8f7425a2a675fd7c8666349391fefae76150823f5cc3050eb57cd9176a",
+    "manifestDigest": "sha256:11e22a986898a4d91a75162f12f45452d6a1dc631b08bdad975dea657c72db1f",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "frontiers": 1,
+  "rendering": "Run run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8: Target remains 3; required value is 10. The declared correction capability is unavailable.\nUnfulfilled obligation: obligation://s03-automatic/target-value@5\nAdmitted gap: next-action-projection://product/04b4a18042f2fda77338bdcdd584c1d90c6d748b1b95f918ec0b63698c878670\n",
+  "zeroAppend": true,
+  "beforePhysical": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59",
+  "afterPrefix": {
+    "coordinateDigest": "sha256:c6f9e643169de2357fb92df60aea8dbb749317e988e7cfa565ef1e354994424e",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59",
+    "prefixLength": 4689421,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 463811526
+    }
+  },
+  "cliPid": 64571,
+  "rendererPid": 64581,
+  "cliElapsedMs": 758.4602080000004,
+  "rendererElapsedMs": 22.38366700000006
+}

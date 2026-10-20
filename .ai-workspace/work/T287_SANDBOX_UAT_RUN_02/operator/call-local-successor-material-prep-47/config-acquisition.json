@@ -1,0 +1,152 @@
+{
+  "configurationAccepted": true,
+  "existingAcquireResumeMaterialAccepted": true,
+  "acquisitionWallMs": 548.040208,
+  "material": {
+    "originals": 4,
+    "authors": 44,
+    "ledgerRows": 52,
+    "snapshotRows": 49,
+    "missingPaths": [
+      "test-execution-result.json"
+    ]
+  },
+  "allMaterialRowsLiteralRegularNonsymlink": true,
+  "all49NativeAfterStatesAndPhysicalCurrentBytesEqual": true,
+  "native52Cut": {
+    "ordinal": 196530,
+    "offset": 1106637911,
+    "byteCount": 4753175,
+    "sha256": "6cbdbf994ed77726c369312f9e4455faab27a78f885e6b14bb15cb98dae4a311",
+    "kind": "c_call_result_admitted",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5"
+  },
+  "streamedStoreDigestValidated": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/resources/events/runtime.events.jsonl",
+    "sha256": "e211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825",
+    "byteCount": 1167689615
+  },
+  "allSevenScenarioAcquisitionsAccepted": [
+    {
+      "key": "basic-cli",
+      "assetCount": 5
+    },
+    {
+      "key": "js-tenant-test",
+      "assetCount": 5
+    },
+    {
+      "key": "js-sdlc-bootstrap",
+      "assetCount": 5
+    },
+    {
+      "key": "rust-cli",
+      "assetCount": 5
+    },
+    {
+      "key": "rust-service",
+      "assetCount": 5
+    },
+    {
+      "key": "parallel-js",
+      "assetCount": 5
+    },
+    {
+      "key": "data-mapper-full",
+      "assetCount": 7
+    }
+  ],
+  "onlySixSelectedConfigFieldsChanged": [
+    {
+      "path": [
+        "package",
+        "archivePath"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    },
+    {
+      "path": [
+        "package",
+        "sha256"
+      ],
+      "before": "sha256:c6a8e51bdcfba28324b3158e5805510631548ea80af2374c41c19c2f03870ea0",
+      "after": "sha256:cc47965b537b417d262e5edcb211584d6412084c4f63e53628ceca6fdab5191c"
+    },
+    {
+      "path": [
+        "resumeEvidence",
+        "observation",
+        "path"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/material-observation.json",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/material-observation.json"
+    },
+    {
+      "path": [
+        "resumeEvidence",
+        "observation",
+        "digest"
+      ],
+      "before": "sha256:98560f1ecfc127504cd22e301ce1334160f13ffaeac601c6de47694ac22854f5",
+      "after": "sha256:8e7bd39e2cd6714a7d4d9326ba15c0e46b4ab735cc77bb6a6a6aad03161db746"
+    },
+    {
+      "path": [
+        "resumeEvidence",
+        "freeze",
+        "path"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/material-freeze.json",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/material-freeze.json"
+    },
+    {
+      "path": [
+        "resumeEvidence",
+        "freeze",
+        "digest"
+      ],
+      "before": "sha256:e0e06c57421a42b987f8b7618a4c9cd705e5e02bf2bf42042deee992c809d825",
+      "after": "sha256:923657488d51b394e4018d13b09918559c0423ac0123e547078b9c04b417b7d0"
+    }
+  ],
+  "allOtherFieldsDeepEqual": true,
+  "originalWholeWorkloadValueExact": true,
+  "freshInput": {
+    "observations": 0,
+    "synthesis": null,
+    "terminal": false,
+    "originalCanonicalDigest": "sha256:2ffa07372d1ca52fbd465a79a4394f58c9567a5cf8dff3e898f66335cb47ee83"
+  },
+  "sourceNoneOwner": "existing constructLifecycleCall request.sourceBasis/resources.source kind:none; no lifecycle call in preparation",
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 18010000,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 18015000
+  },
+  "canonicalBudgetFits": true,
+  "topologyInvariantFaultUntouched": true,
+  "original16DistinctMutantAndFullUatDemandUnchanged": true,
+  "transferExecuted": false,
+  "installedExpectedContentDigest": "sha256:cb547b9289b53bfee01460404da22d47d1fa906765c4dba83d08d128454a566e",
+  "nativeEffects": false
+}

@@ -1,0 +1,33 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/test-reporter.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/consumer/t287-gtl-serialization-publication.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/consumer/t287-gtl-language-corpus.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "capSeconds": 240,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/tmp"
+  },
+  "pid": 35235,
+  "pgid": 35235,
+  "exitCode": 1,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 256,
+  "groupAbsent": true,
+  "elapsedMs": 7070.803084,
+  "userCPUSeconds": 12.332389,
+  "systemCPUSeconds": 0.47447999999999996,
+  "maxRSSPlatformBytes": 1878605824,
+  "stdoutSHA256": "3bf4482604784d60b8d0f804e3db637f22d1c6cf2d7b6927942c7a5125009475",
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

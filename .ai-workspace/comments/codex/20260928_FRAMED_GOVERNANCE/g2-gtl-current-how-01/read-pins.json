@@ -1,0 +1,196 @@
+{
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "bytes": 7701,
+      "sha256": "9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LAWS.md",
+      "bytes": 9060,
+      "sha256": "8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md",
+      "bytes": 14789,
+      "sha256": "4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "bytes": 6880,
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-MODULE.md",
+      "bytes": 1531,
+      "sha256": "c1b1f7644f59776854103b3f0bfab515e88ed444363b6f81f9bfc4cb83e0d27c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 25514,
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md",
+      "bytes": 26624,
+      "sha256": "7e8b887eaf0c73187cdfdb72ec157500ef5ca383087a69c5242cf4590efe3cd4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md",
+      "bytes": 25408,
+      "sha256": "3b162063ca79ccc6a6d9f64005042fd94e0e49e952971c4c1b82d8eeb8e1ca8f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md",
+      "bytes": 22693,
+      "sha256": "bec51ad757382e771f97b3ab7a4d8f67529aacb321a37f06565e6c2e5e91f7ef",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md",
+      "bytes": 12062,
+      "sha256": "7ab45374809f1c0ebe6ebde020d0427d96a405626eb7953594d35c888a8e47ce",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "bytes": 16213,
+      "sha256": "a474670f70f5d9e7b8648dc3f0b8144204d836d4b596b707c7f9704038c901c2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+      "bytes": 18426,
+      "sha256": "e0e2f272d922e7d8378272f6faeb3020db984d06cd300be14f7d18c7d7494db0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/canonicalization.ts",
+      "bytes": 6892,
+      "sha256": "613596370b583163ca6304559fc52cf71c7810e3b7d0306ded2ca14a68b0e388",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+      "bytes": 7176,
+      "sha256": "28f5ffea7ebf7f82ebc51b3bef6406f61d0cbce43a7c0294e1c24a826713f168",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+      "bytes": 4695,
+      "sha256": "05d2b4fa2d89a16a74b7358f3b4b20d6be05a442eaca46f99968dad55a53c64d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/c_algebra.ts",
+      "bytes": 16201,
+      "sha256": "e50360d009e99fd14ee6dd812009c8c04e2f514d1a8e27762d56aba211e634cd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "bytes": 80415,
+      "sha256": "f74055b27496707775f6a0e7f15e2331ae385364ba43ce703fc15cd2ff8a65e0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+      "bytes": 11577,
+      "sha256": "25519b9ae993a95497c46f64f9028fec8e5c7a62c3851f10bf3ed50d401ef5a0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+      "bytes": 2993,
+      "sha256": "66a9bb7f0dc72acd2916df5ce7366efc35d5bb2e99b0630488dd221c4c8e158b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/i_json.ts",
+      "bytes": 7830,
+      "sha256": "3fcb51ed6add6297c1536ece38b7e362c8ef696f8cfbc3524947438369f9ba61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "bytes": 26073,
+      "sha256": "386dcd58bfd7b0db94aab9c6f1ef3526a17e760b708e442e13c8522ec0f280f7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "bytes": 119230,
+      "sha256": "22bc8a46aa596e8d5fa4b0336c9a0edc8f0878b1f96af00f2e8a03ad348772ae",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+      "bytes": 26651,
+      "sha256": "3e2cc54899f17d47c928c77fe39907befebce3314fbf9cc166ea7e3f6ecc9088",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 44203,
+      "sha256": "3ddf0224ad78e9fa58872f7e5115adb676749e7b447ff99b3df6bf77e3f3e02f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10997,
+      "sha256": "9be6214f72cb8665c925763e1d4ae6393b85abcd6f2a52c698236e983feab46a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "bytes": 519,
+      "sha256": "936477eab1caec07060aa101956aec18c46369c72dd236756f49b9d451976c2d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "bytes": 277,
+      "sha256": "4535916231be67481475c32c31aca6e7fff4ba11265a56162c6e631cbccdbecf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "bytes": 105,
+      "sha256": "db96e35ff64efea7bc6859eba8eb78924f709a9a5ffa343d04d3b78875b8daaf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/freeze.json",
+      "bytes": 3671662,
+      "sha256": "fc1c6a4bf6b9ff8de6b30f8b7c7b29bb687608e1f4849c1984ae0fa2aa7d6e93",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/DESIGN_MODULE_METHOD.md",
+      "bytes": 121432,
+      "sha256": "5cb69556bba1171ec347cac96811c50071f0648a367103aa215070239b93785e",
+      "mode": 292
+    }
+  ]
+}

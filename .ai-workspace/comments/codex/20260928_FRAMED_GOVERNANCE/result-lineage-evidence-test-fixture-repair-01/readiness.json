@@ -1,0 +1,106 @@
+{
+  "status": "TARGETED_COMPONENT_READINESS_PASSED",
+  "testResult": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/regression-outcome.json",
+    "bytes": 2299,
+    "sha256": "adecb06b9097e680c132dffaa8c23262c5d11f4f11dea9f73514b46ea3803a9c",
+    "mode": 420
+  },
+  "actualResults": {
+    "route": "actual admitCCallResult -> stageCCallResult success callback -> actual qualification Product lineage guard; actual pure receipt rehydration",
+    "forms": [
+      {
+        "form": "embedded",
+        "inputDigest": "sha256:af282a3894d1b20f7afdb146fecd3a11a0effe04ded3b1704458e70ccf92a895",
+        "requestDigest": "sha256:185ee1cd7533dc69c8f23ba5dbaedb07042a67d2c038878326620d7b60aa8971",
+        "judgmentDigest": "sha256:e2ded7e2722798c72634d938be9c855528a13e5604de14766dd8c243c14010f9",
+        "callback": "accepted",
+        "exactPreimage": "refused",
+        "negatives": [
+          "inputDigest",
+          "requestDigest",
+          "promptDigest",
+          "outputDigest",
+          "actorInvocationRef",
+          "actorRef",
+          "workerBindingRef",
+          "transportBindingRef",
+          "transportBindingDigest",
+          "transportDisposition",
+          "transportFailureClass",
+          "missing inputDigest",
+          "crossed prepared request"
+        ]
+      },
+      {
+        "form": "reference",
+        "inputDigest": "sha256:95f81b6a915d2725f14eb9cc91253f9df1db44f082b354efde5495d71a0bc28c",
+        "requestDigest": "sha256:5c57ad04a7dadb3bf1fe59d6a550e6b7edff98f57da646e8c45e8638c4737396",
+        "judgmentDigest": "sha256:53a6ab3c6304f1eb74a077f2ff2d95a8405ec1b663b04982bb0ebc61a802af31",
+        "callback": "accepted",
+        "exactPreimage": "refused",
+        "negatives": [
+          "inputDigest",
+          "requestDigest",
+          "promptDigest",
+          "outputDigest",
+          "actorInvocationRef",
+          "actorRef",
+          "workerBindingRef",
+          "transportBindingRef",
+          "transportBindingDigest",
+          "transportDisposition",
+          "transportFailureClass",
+          "missing inputDigest",
+          "crossed prepared request"
+        ]
+      }
+    ],
+    "deterministicAbsenceAndTransportNull": "conserved",
+    "suppliedPremises": [
+      "lower ABG transaction/evidence/result/prefix facts",
+      "native raw result preimage admission",
+      "current prepared-request/native-proof operation",
+      "synthetic native construction attribution"
+    ],
+    "alteredRows": "component guard counterexamples; no native admission of corrupted rows is claimed",
+    "RuntimeAdmissions": 0,
+    "resourcesOpened": 0,
+    "helperActorProviderCalls": 0,
+    "semanticF11": "open",
+    "elapsedMs": 416.05858300000006
+  },
+  "sourceCompile": {
+    "reused": true,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/compile-supervisor-close.json",
+      "bytes": 888,
+      "sha256": "ed3601a46d0c39198470bb5cca11075e7c0f3183d1a6e83f09fd709472ac7e88",
+      "mode": 420
+    },
+    "exitCode": 0
+  },
+  "readinessComposition": "Original successfully compiled production source plus the one-field corrected test in one owned pure copy.",
+  "crossConsumers": "Existing native-work/Consensus coordinate subset unchanged; deterministic missing optional fields stay absent and transportDigest stays null.",
+  "requirementTrace": [
+    "REQ-P-QUAL-064A",
+    "REQ-P-QUAL-064B",
+    "REQ-P-QUAL-064C",
+    "REQ-P-SELF-CONFORMANCE-007A",
+    "T287 carrier HOW section 5"
+  ],
+  "limits": [
+    "Lower ABG/native/prefix/request operations are explicitly supplied component premises.",
+    "No genuine installed successor or semantic F11 credit.",
+    "Corrupt evidence is a Product-guard counterexample, not a native admission claim."
+  ],
+  "Runtime08": "Still failed/stopped; zero completed Runs, cold reads, F11 or AF22; no Runtime retry."
+}

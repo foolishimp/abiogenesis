@@ -1,0 +1,7 @@
+{
+  "kind": "documentary_finalizer_selector_failure",
+  "stage": "after Source/emission/postimage/diff capture; before conjunction/return/freeze",
+  "error": "Guessed successor36/delta-from-35.patch absent",
+  "selectedAction": "Use the actual predecessor freeze.deltaFrom35 selector increment-from-35.diff; preserve all captured files and passing receipts.",
+  "runtimeOrSourceEffects": false
+}

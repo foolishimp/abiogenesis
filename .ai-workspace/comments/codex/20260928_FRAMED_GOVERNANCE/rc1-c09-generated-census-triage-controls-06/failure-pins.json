@@ -1,0 +1,26 @@
+{
+  "closedFailedReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/freeze.json",
+    "bytes": 3323,
+    "sha256": "f6dd4e29a49d453f427d0c744a8b67dfb3872ff457edc05c231562ff0734a3b5",
+    "mode": 292
+  },
+  "RootVerifiedRows": 8,
+  "RootVerifiedBodyBytes": 834990,
+  "canonicalEffects": 0,
+  "helperOrigin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/reconcile.py",
+    "bytes": 13989,
+    "sha256": "d9278c28ace749524026c7512715ae993c54d6dc2fa3e71e5d97cacda5af88ad",
+    "mode": 420
+  },
+  "originLine": 64,
+  "completeBuildToolchainOmissions": 213,
+  "helperDiagnosticLine": 137,
+  "exactOriginalScopeControls": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-controls-05/subject-pins.json",
+    "bytes": 9182,
+    "sha256": "db610673b9a60a0c1def14e9ea63aa10a60e9c9c9401026f8c384fd09110ee6b",
+    "mode": 420
+  }
+}

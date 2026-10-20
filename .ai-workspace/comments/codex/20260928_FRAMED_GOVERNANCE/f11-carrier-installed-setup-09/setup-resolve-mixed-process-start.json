@@ -1,0 +1,14 @@
+{
+  "pid": 74118,
+  "processGroup": 74118,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/setup-resolve-mixed.jsonl"
+  ],
+  "startedAt": "2026-10-02T16:24:49.862Z",
+  "mode": "setup",
+  "label": "resolve-mixed",
+  "capMs": 180000
+}

@@ -1,0 +1,73 @@
+{
+  "role": "Carrier10 coherent Source/build/candidate Worker",
+  "sourceHead": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "reentry": "realization_refactor",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodBasis": {
+    "version": "v2.5.1-rc.2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "exactPreimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "sha256": "7d4a1fa3d03481703012bf9ab54e090eb45d95a55d2bf8498680b2132ba715d9",
+      "byteCount": 38651
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "54f4f66b1b94fddc72a8f4e9ea67add0021c05382346417131b1778001f672de",
+      "byteCount": 36883
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "340f6c837e5670e1dde032618ff5f9848c8936cfc7b847a1592f03473b33b6f7",
+      "byteCount": 19376
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-review-09/return.md",
+      "sha256": "f963b9e8818f139fd64a72ae09f586a3f6381fe7d6eb8b8e8dbb4ccbc992aaa4",
+      "byteCount": 5424
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-review-09/pins.json",
+      "sha256": "26d65f22f47d3b1d285eb7d0edf664c71fe4bc6d9d1a410ed1dcc3c2f5b35b76",
+      "byteCount": 10322
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-carrier-proof-10/return.md",
+      "sha256": "0b0d34ffb51f8fa0ac4e44e321fd11686772ca761da2d488d7c58d0ac16bcba4",
+      "byteCount": 4310
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-carrier-proof-10/pins.json",
+      "sha256": "0a6999e2602277fff93cb9062becd86aab66c7a1cc70511b562a5c60228d6f78",
+      "byteCount": 4385
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-carrier-proof-10/freeze.json",
+      "sha256": "0eca035382f30242d912fd197e275c3511bd32be51e444b4c7a1c607c5e82489",
+      "byteCount": 504
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/freeze.json",
+      "sha256": "71b154faec33c155b98f9236510b3d352f531e783b1309bdaf70325b28f8ea1e",
+      "byteCount": 9957
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-09/freeze.json",
+      "sha256": "bd1eccd2eb12d99dcafdc7df669555feedc44cb1424bd2178835abca8b363171",
+      "byteCount": 6068
+    }
+  ],
+  "designRecord": {
+    "outcome": "Explicit result_text final carrier remains absent despite a schema-valid written output file.",
+    "owner": "Native-work HOW193-197; existing transport file-handling owner732-746",
+    "typedPath": "ProbabilisticWorkerRequest -> WorkerTransportRequest -> parsed final text -> NativeWorkerResultAssessment -> native leaf completion; reuse G09 request/assembly/transport diagram and handoff.",
+    "computations": "Observe selected final stream carrier, compare conflicting present channels, assess unchanged carrier through existing strict native schema owner.",
+    "invariants": "Explicit result_text forbids file substitution; omitted and structured policies, positive text, conflict refusal and exact full-schema/I-JSON/authority/currentness/independence conserved.",
+    "effectGrant": "Only worker_transport.ts, existing m5-worker-transport test, established build outputs and two new report/candidate destinations. No live model or runtime effects.",
+    "preflight": "Closed independent Root-conjoined first cause and exact source/test/frozen09 preimages freshly verified.",
+    "exitProof": "One build; actual process/parser/file/native-schema callback regression and current unit lane; frozen Source subject followed by one ignore-scripts pack and canonical identity. Installed UAT meaning remains Root/Operator-owned."
+  },
+  "createdAt": "2026-10-06T09:57:03.896033+00:00"
+}

@@ -1,0 +1,12 @@
+{
+  "stage": "product-verify-0-grant-complete",
+  "rss": 4509204480,
+  "heapTotal": 3997433856,
+  "heapUsed": 3897454096,
+  "external": 5631415,
+  "arrayBuffers": 3214908,
+  "at": "2026-10-09T11:29:03.737Z",
+  "elapsedMs": 198871.20375000002,
+  "ownerArtifactReceiptRetained": true,
+  "capabilities": 1
+}

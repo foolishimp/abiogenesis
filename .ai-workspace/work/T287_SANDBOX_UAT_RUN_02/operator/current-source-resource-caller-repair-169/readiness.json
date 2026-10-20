@@ -1,0 +1,150 @@
+{
+  "kind": "bounded_caller_resource_readiness",
+  "status": "CLOSED_BOUNDED_GO",
+  "ProductFrame": "Fixed fifteen-family ABI5.0 GOAL035/T287 original external Data Mapper; STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782. Product817\u2013867 preserves completed admitted producers and separately authenticates current dependency/use. ABG alone admits truth.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "base": {
+    "phase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167",
+    "prepare": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prepare.mjs",
+      "sha256": "553851db1a6d75e5b37a9fba3c10dcfe2080190f25ad236d22b74b20f1be1950",
+      "byteCount": 36529
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/freeze.json",
+      "sha256": "5effe319b175a10901ee6402c1f1d0f659b8d4d7c3284f10ad2fcbad101fb436",
+      "byteCount": 29444
+    }
+  },
+  "caller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/prepare.mjs",
+    "sha256": "c89f5c98a6f3b5ee536396681877a67b9559ee7c9b365c926fd50d1938dd09fd",
+    "byteCount": 36300
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/inputs.json",
+    "sha256": "2690c82191ff400aa88198d5badbc1067d6e68f6ec9cd97e6904471ee0be35b1",
+    "byteCount": 9953
+  },
+  "packedCorrespondenceHelper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/packed-resources.mjs",
+    "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+    "byteCount": 2167
+  },
+  "unchangedHelpers": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/verify-artifacts.mjs",
+      "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+      "byteCount": 2071
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/binding-inputs.mjs",
+      "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+      "byteCount": 1942
+    }
+  ],
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/prepare.diff",
+    "sha256": "718856d51a30bf0b7ee0fc534e105e97ad7e3f26529df1e76069a59d9e25c8f1",
+    "byteCount": 17435
+  },
+  "cause": "Frozen167 fabricated the packed-resource presentation: productContent.ref was replaced by productId, kind changed, artifactPath omitted. Retained164 request equality would necessarily fail after expensive acquisition; install forwards artifactPath from this exact resource.",
+  "selectedAction": "Preserve the complete recorded164 coordinate tuple and exact live verifier request path in canonical ProductVerificationArtifactResource. Check all selected scalar/tuple/dependency relations immediately after live verification and before acquire. Distinct169 intended refs only; binding/current-lock/retained-native-install logic unchanged.",
+  "whyPriorProofMissed": "167 tested six-root schema/hash and lock/ProductSet under recorded/controlled metadata but did not exercise its actual packed-resource producer against retained verifier requests or the install resource consumer.",
+  "ownerRelations": [
+    "public-setup.mjs122\u2013125 constructs ProductVerificationArtifactResource from verification item request/coordinates",
+    "product/contracts.ts238\u2013251 declares exact packed resource fields",
+    "verification_definition_bindings.ts34\u201346 strict carrier schema and96\u2013123 exact request tuple",
+    "install_definition_bindings.ts161\u2013179 requires matching resource;280 forwards its artifactPath"
+  ],
+  "checks": [
+    {
+      "name": "syntax-caller",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/commands/syntax-caller.result.json",
+        "sha256": "5394b89a422d407ec9b357fe70ff196b2ad12df6a06ace111d6f3e778d6c7e3d",
+        "byteCount": 163
+      },
+      "exitCode": 0,
+      "wallMs": 23.469624982681125,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "name": "syntax-packed-helper",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/commands/syntax-packed-helper.result.json",
+        "sha256": "c3b3e6426cdeeaccd862b4d791e6a23e8a377892fe2377ae2820fcf3b566a177",
+        "byteCount": 169
+      },
+      "exitCode": 0,
+      "wallMs": 19.93791596032679,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "name": "syntax-preflight",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/commands/syntax-preflight.result.json",
+        "sha256": "033685af6842b30749c32d00464ae5e8472556ae84ae6994fc9dfa30a9ab9570",
+        "byteCount": 166
+      },
+      "exitCode": 0,
+      "wallMs": 18.761749961413443,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "name": "packed-correspondence",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/commands/packed-correspondence.result.json",
+        "sha256": "9a28cb5b4fd883c1fdbfb349ba44f93be765ac0a728e0a824a478bb2ac1b0533",
+        "byteCount": 173
+      },
+      "exitCode": 0,
+      "wallMs": 306.11187499016523,
+      "stdoutBytes": 197,
+      "stderrBytes": 0,
+      "timedOut": false,
+      "truncated": false
+    }
+  ],
+  "contractDiscriminator": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/preflight-result.json",
+    "sha256": "8db8e19fbb2ea4ca23513ddeb73af8aef9e16e0d106f408521f9bab020f8c916",
+    "byteCount": 6715
+  },
+  "positives": 2,
+  "negativeScope": "Original frozen167 expression evaluated from exact captured source for both native26 and consumer; isolated kind/missing-path schema refusal and wrong-productContent exact tuple refusal. A wrong content ref still passes structural schema, correctly distinguished from semantic/request correspondence.",
+  "premises": {
+    "authenticRetainedOrigin": "All selected164 request/outcome/acquisition pins match. Frozen values are reused; no new verifier or admission performed.",
+    "purePrivateOwnerInstrumentation": "Unchanged installed private schema/matcher bytes evaluated in memory with the installed Valibot and canonical schema leaves. This is pure contract instrumentation, not complete owner-operation execution or nominal authentication.",
+    "nominalReceiptNotCreated": true,
+    "beforeAcquisition": "Static caller order is proved; actual stage execution remains future."
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-resource-caller-repair-169/conservation.json",
+    "sha256": "8be8ee1c7feb5e0f052ddfa15e7c420649d548f50a9830ff2467a0f3faa95e18",
+    "byteCount": 10951
+  },
+  "currentHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/final-close-handoff.json",
+    "sha256": "bd61944faffbe1e8ab5417a4a8f1ace3ad70e7b64b363856c92a62b19348d860",
+    "byteCount": 1472
+  },
+  "nativeInstallInvocationRef": "invocation://abiogenesis/f33c5db0a6fa6bfb7220fecf4e90c248b6e007c95f96c4907e33ebaab68851f9",
+  "preservedSourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+  "limits": [
+    "No intended prepare.mjs execution, archive verification, large event-log/read/hash/acquire, Public verification/resolution/install/bind, model/provider or application effects.",
+    "No new nominal receipt, consumer installation/admission/currentness, full binding/D2/source-use/stockheap capacity/native/C2/UAT/release proof.",
+    "Exact completed164 native install and current close remain selected; historical136 producer/raw34/Program/physicalA remain separate and unchanged.",
+    "The unchanged early helper must produce live verified identities before any actual acquisition. Complete installed execution remains separately Root-selected after independent review.",
+    "No Product/Source/parser/schema/grant/controller/guard/limit changes;169 is caller-only."
+  ]
+}

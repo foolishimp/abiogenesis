@@ -1,0 +1,90 @@
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs
+@@ -126,6 +126,87 @@
+   }, "taskRef", "taskDigest", "qualification-task://abiogenesis/"));
+ }
+ 
++test("ungrouped construction metadata retains spans and coordinates while selected bodies are quoted once", t => {
++  const original = embedded(0), context = material("fixture://preparation/duplicate-body", "fixture/duplicate-body.txt",
++    "UNIQUE_SELECTED_BODY_START\n" + "abcdefghijklmnopqrstuvwxyz0123456789".repeat(512) + "\nUNIQUE_SELECTED_BODY_END\n");
++  const supplied = [...original.task.material, context], records = [...original.task.provenance.records, context];
++  const members = supplied.map(value => ({ memberRef: value.ref, path: value.path, digest: value.digest, byteCount: value.byteCount }));
++  const provenance = { ...original.task.provenance, records,
++    recordSet: coordinate(original.task.provenance.recordSet.ref, hash(records)) };
++  const input = inputFor(identity({ ...original.task, material: supplied, provenance,
++    context: { ...original.task.context, members, inventoryDigest: hash(members) } },
++  "taskRef", "taskDigest", "qualification-task://abiogenesis/"));
++  const value = { ...provenance, records: records.map(record =>
++    ({ entryKind: "material", entry: coordinate(record.ref, record.digest) })) };
++  const localEntries = [{ entryKind: "inventory", coordinate: inventoryCoordinate, value: inventory },
++    { entryKind: "law", coordinate: lawBasis, value: law }];
++  for (const value of [...supplied, ...records])
++    if (!localEntries.some(entry => entry.entryKind === "material" && entry.coordinate.ref === value.ref))
++      localEntries.push({ entryKind: "material", coordinate: coordinate(value.ref, value.digest), value });
++  localEntries.push({ entryKind: "provenance",
++    coordinate: coordinate("qualification-provenance://abiogenesis/" + hash(value).slice(7), hash(value)), value });
++  const resource = identity({ ...manifest, entries: localEntries },
++    "resourceRef", "resourceDigest", "qualification-resource://abiogenesis/");
++  const resources = acquireQualificationResources(assertionFor(resource));
++  const direct = prepareQualificationAssessment(input), selected = prepareQualificationAssessment(reference(input, resource), resources);
++  assert.equal(selected.request.prompt, direct.request.prompt);
++  assert.deepEqual(selected.view.task.provenance, provenance, "C still receives every complete original record byte");
++  const prompt = direct.request.prompt;
++  const attributionLine = prompt.split("\n\n").find(line => line.startsWith("CONSTRUCTION ATTRIBUTION (assess; do not blindly trust): "));
++  const projected = JSON.parse(attributionLine.slice(attributionLine.indexOf(": ") + 2));
++  assert.deepEqual(projected.records, records.map(({ contentBase64, ...coordinate }) => coordinate));
++  assert(!projected.records.some(record => "contentBase64" in record));
++  assert.deepEqual(projected.chains, provenance.chains);
++  assert.deepEqual(projected.recordSet, provenance.recordSet);
++  for (const span of provenance.chains.flatMap(chain => chain.attributionSources)) {
++    const record = records.find(record => record.ref === span.sourceRef), bytes = Buffer.from(record.contentBase64, "base64");
++    assert.deepEqual(projected.providedAttributionSpans.find(value => value.sourceRef === span.sourceRef),
++      { ...span, text: bytes.subarray(span.startByte, span.endByte).toString("utf8") });
++  }
++  for (const selectedBody of supplied) {
++    const header = "SOURCE DATA " + selectedBody.ref + " " + selectedBody.digest + "\n";
++    assert.equal(prompt.split(header).length - 1, 1, "each exact selected source appears once in SOURCE DATA");
++  }
++  const quotedBody = JSON.stringify(Buffer.from(context.contentBase64, "base64").toString("utf8"));
++  assert.equal(prompt.split(quotedBody).length - 1, 1, "the duplicate large record body is quoted only once");
++  assert(!prompt.includes(context.contentBase64), "record base64 is not a second semantic body");
++  assert.equal(projected.records.find(record => record.ref === context.ref).digest, context.digest);
++  assert.equal(selected.request.inputDigest, hash(reference(input, resource)));
++  t.diagnostic(JSON.stringify({ selectedBodies: supplied.length, retainedConstructionRecords: records.length,
++    promptBytes: Buffer.byteLength(prompt), duplicateBodyBytes: context.byteCount, runtimeCalls: 0, qualificationClaims: 0 }));
++});
++
++test("ungrouped canonical owners refuse corrupt construction record bytes and attribution spans", () => {
++  const original = embedded(0);
++  const corrupt = structuredClone(original.task);
++  corrupt.provenance.records[0].contentBase64 = Buffer.from("corrupted record").toString("base64");
++  corrupt.provenance.recordSet = coordinate(corrupt.provenance.recordSet.ref, hash(corrupt.provenance.records));
++  const corruptInput = inputFor(identity(corrupt, "taskRef", "taskDigest", "qualification-task://abiogenesis/"));
++  assert.throws(() => prepareQualificationAssessment(corruptInput), /invalid qualification assessment input/);
++  const corruptAssertion = structuredClone(assertion);
++  const record = corruptAssertion.manifests[0].entries.find(entry => entry.entryKind === "material" &&
++    entry.coordinate.ref === original.task.provenance.records[0].ref);
++  record.value.contentBase64 = Buffer.from("corrupted record").toString("base64");
++  corruptAssertion.manifests[0] = identity(corruptAssertion.manifests[0],
++    "resourceRef", "resourceDigest", "qualification-resource://abiogenesis/");
++  assert.throws(() => acquireQualificationResources(corruptAssertion), /qualification_resource_material_bytes/);
++  const badSpan = structuredClone(original.task);
++  badSpan.provenance.chains[0].attributionSources[0].spanDigest = hash("corrupted attribution span");
++  const badSpanInput = inputFor(identity(badSpan, "taskRef", "taskDigest", "qualification-task://abiogenesis/"));
++  assert.throws(() => prepareQualificationAssessment(badSpanInput), /invalid qualification assessment input/);
++  const badEntries = structuredClone(manifest.entries);
++  const provenance = badEntries.find(entry => entry.entryKind === "provenance" &&
++    entry.value.chains[0].activationRef === original.task.provenance.chains[0].activationRef);
++  provenance.value.chains[0].attributionSources[0].spanDigest = hash("corrupted attribution span");
++  provenance.coordinate = coordinate("qualification-provenance://abiogenesis/" + hash(provenance.value).slice(7), hash(provenance.value));
++  const badResource = identity({ ...manifest, entries: badEntries },
++    "resourceRef", "resourceDigest", "qualification-resource://abiogenesis/");
++  const resources = acquireQualificationResources(assertionFor(badResource));
++  assert.throws(() => prepareQualificationAssessment(reference(badSpanInput, badResource), resources),
++    /qualification resource material\/scope correspondence differs/);
++  assert.equal(prepareQualificationAssessment(original).request.inputDigest, hash(original));
++});
++
+ test("two responsibility bindings use the same published preparation and immutable resource owners", t => {
+   const resources = acquireQualificationResources(assertion);
+   assert.notEqual(resources.assertion, assertion, "acquisition detaches supplied mutable input once");

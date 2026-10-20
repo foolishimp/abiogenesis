@@ -1,0 +1,60 @@
+{
+  "status": "CLOSED_construction_correspondence_and_installed_static_readiness",
+  "activation": "T287_FINAL_CANDIDATE_CONSTRUCTION_02",
+  "at": "2026-09-30T07:33:43.268955+00:00",
+  "selected": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+      "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+      "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceFreeze": {
+    "sha256": "98316a687a3ef45aa2e3fd1b6c94429c30c3feddd119b4f15600d3f771e11cc6",
+    "members": 1103,
+    "delta": 3,
+    "frozenTicketSHA256": "de8b1cca640cbe220c5d53108cc21602f8579ca0361eb3cb39df8876bbea1b5f"
+  },
+  "claims": {
+    "groups": 16,
+    "behaviors": 66,
+    "authorityJoins": 95,
+    "unchanged": true
+  },
+  "correspondence": {
+    "archiveMembers": 5256,
+    "stageAndPhysicalInstallExact": true,
+    "missingExtraInstalled": 0,
+    "generatedPopulation": 828,
+    "generatedChanged": 3
+  },
+  "actualInstalledProductVerification": true,
+  "nominalSelection": "selectOwnedProductVerification same in-process result; JSON is evidence only",
+  "full11StaticValidation": true,
+  "attempts": {
+    "dependencies": 1,
+    "build": 1,
+    "pack": 1,
+    "install": 1,
+    "verify": 1,
+    "installed-publications": 1
+  },
+  "totalOwnedExecutionMs": 38857.13554220274,
+  "effects": {
+    "nativeAdmission": false,
+    "nativeScenario": false,
+    "runtimeResourceAccess": false,
+    "provider": false,
+    "qualification": false,
+    "Git": false,
+    "publication": false
+  },
+  "pending": "Independent construction review, Root acceptance, explicit native/qualification input and identity rebinds, F11 actor/authority correspondence and native independence, Q current Product manifest preview binding, exact-subject qualification and release refs reacquisition",
+  "stop": "Worker CLOSED. Root owns independent review and every next effect."
+}

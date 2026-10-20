@@ -1,0 +1,31 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "18e1eac0d22a12f1d041947bb0e60a3f568ab10be7ce1ad604b3e6b5af610475",
+    "byteCount": 10640868
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3159.8248750000002,
+    "timedOut": false,
+    "truncated": false
+  },
+  "acceptedSourceFreezes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/freeze.json",
+      "sha256": "b54637462ab026a30c8065cb1baf1c9912898b07337710d222ec91eac0674803",
+      "byteCount": 14912
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-review-226/freeze.json",
+      "sha256": "5cb0a6a846929761270546a2a79e51c93eb4b89ede95b7c0beeb95244c3fe949",
+      "byteCount": 6105
+    }
+  ],
+  "source225Disposition": "Root conjoined Source225 and independent226 bounded single-route owner GO",
+  "sourceCommit": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "sourceCommitIsHistorical": true,
+  "sourceCommitContainsAcceptedSource": false,
+  "ordinaryBuildAlreadyRecorded": true,
+  "nativeEffects": false
+}

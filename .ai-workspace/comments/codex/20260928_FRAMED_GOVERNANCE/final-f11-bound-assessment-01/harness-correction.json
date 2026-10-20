@@ -1,0 +1,13 @@
+{
+  "failure": "01-acquisition",
+  "classification": "external assertion field-role error",
+  "actualCoordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c",
+  "actualPrefixDigest": "sha256:e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+  "preimage": "preimages/prepare-inputs-01.py",
+  "preimageSHA256": "e4435b610ffdb44f6692e86e2259002e94c023eb5e08a70e1a6ec6985d276eca",
+  "sourceMutation": false,
+  "nativeCalls": 0,
+  "rootControlWordingContribution": "Root control described prefix81... without naming its field. This abbreviated the distinction between coordinateDigest and byte prefixDigest. Worker Integration compared different coordinate types. Existing durable-prefix design/schema already distinguished them.",
+  "escape": "Identity/Proof did not expose the field-type mismatch before the initial external assertion; full typed prefix/handoff comparison now preserves both exact producer fields.",
+  "disposition": "Root confirmed correction is within this granted realization_refactor; no installed owner repair or native re-proof campaign."
+}

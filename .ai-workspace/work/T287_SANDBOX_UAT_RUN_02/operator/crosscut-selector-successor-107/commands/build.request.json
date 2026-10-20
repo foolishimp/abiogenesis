@@ -1,0 +1,14 @@
+{
+  "executable": "/opt/homebrew/bin/npm",
+  "args": [
+    "run",
+    "build"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T10:40:39.761Z",
+  "environmentKeys": [
+    "PATH",
+    "npm_config_cache"
+  ],
+  "timeoutMs": 300000
+}

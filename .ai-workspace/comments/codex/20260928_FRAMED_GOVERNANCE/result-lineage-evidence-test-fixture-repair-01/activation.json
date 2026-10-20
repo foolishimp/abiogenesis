@@ -1,0 +1,54 @@
+{
+  "operation": "T287_RESULT_LINEAGE_TEST_FIXTURE_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T12:52:56.224376+00:00",
+  "priorSourceWorker": "CLOSED",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/request.txt",
+    "bytes": 3959,
+    "sha256": "8e155738768b73855ee5bab09ab56b2ad113f818f38d97f80d676219096d9ea7",
+    "mode": 420
+  },
+  "sevenLiteralSectionsReadAndJoined": true,
+  "triangulation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/triangulation.json",
+    "bytes": 2271,
+    "sha256": "8025485df2216e0d9f126b08ddf33819ed00dda1a05fb0cec0699310ec47d471",
+    "mode": 420
+  },
+  "originalSourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+    "bytes": 1920828,
+    "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+    "mode": 420
+  },
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/first-readiness-failure.json",
+    "bytes": 4806,
+    "sha256": "379c514dfc768cbd7f7b9d855fd151994ec307264d0f29e5bb45a092cfdffa1a",
+    "mode": 420
+  },
+  "testPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22555,
+    "sha256": "1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+    "mode": 420
+  },
+  "sourceReadOnly": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 68281,
+    "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+    "mode": 420
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01"
+  ],
+  "smallestRepair": "Only graphFunction fixture effects: []",
+  "commands": "One supervised same-test rerun; no compile or Runtime",
+  "budgetSeconds": 180,
+  "heap": "default",
+  "HOME": "ordinary inherited"
+}

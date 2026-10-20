@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "exitCode": 1,
+  "elapsedSeconds": 0.8671735413372517,
+  "predecessor": "focused.json missing existing --experimental-vm-modules flag; no test body ran"
+}

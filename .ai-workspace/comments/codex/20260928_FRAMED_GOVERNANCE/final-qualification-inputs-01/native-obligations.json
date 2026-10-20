@@ -1,0 +1,155 @@
+{
+  "coverageSelection": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+    "bytes": 23029,
+    "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+  },
+  "scenarios": [
+    {
+      "scenario": "S01",
+      "donors": [
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/hello.mjs",
+          "bytes": 1303,
+          "sha256": "926a92414498f31103355a97e8ae4ae8219c24b24205a2a848c3701fba508acb"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/setup.mjs",
+          "bytes": 10407,
+          "sha256": "f0c661542082bd077dc2e2bbea8e197409891b4c837470e6e756fab4e51204a2"
+        }
+      ],
+      "pendingRebindAndOracle": "one Hello + cold typed result/replay on genuine final environment; input constructHelloWorldInput(prospective 5.0.0-rc.1 qualification)",
+      "status": "not_executed_on_final_candidate"
+    },
+    {
+      "scenario": "S02",
+      "donors": [
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/caller.mjs",
+          "bytes": 13232,
+          "sha256": "2d37f99b56337f2d58054eb6d42dca74edcf7a37f97e2da73e6b5f2c9fe4bc0a"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/cases.json",
+          "bytes": 5413,
+          "sha256": "df772a1691c9b53a167f4ade6a6f12b3d79b367b0435ab6ed5d1a03526fb1eb3"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/fresh-read.mjs",
+          "bytes": 7123,
+          "sha256": "2723358ce98fec2f455b4273e211ef15c7ee5d737fab64e4cc37309b111ff908"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/oracle-basis.json",
+          "bytes": 1891,
+          "sha256": "0bd94689eab550251ebae07f3b2318e7fcb73476dd3d669f5e8229c94d30c729"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/return.md",
+          "bytes": 4602,
+          "sha256": "adb27fc3a220a1c41cd07475e71e953993edbd1bb0920f3b284d99cc7b8773b1"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/return.md",
+          "bytes": 3638,
+          "sha256": "a9263977a3737d0b7acec5dade7bb23b3c5b3ca1c2ca94c464eba3e2ed073590"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-10/return.md",
+          "bytes": 4475,
+          "sha256": "b5ced442ff3449719f65385b637fe04e2c3b370d0a55ab25f146ef29d97db81d"
+        }
+      ],
+      "pendingRebindAndOracle": "bind smallest declared04/15/17/18 union plus malformed/unattributed F_P boundary; retain held and omitted-public-root truth. Real F_P may share C2/S06; controlled transports do not supply it. Schema-valid semantic-negative mapping remains conditional unresolved.",
+      "status": "not_executed_on_final_candidate"
+    },
+    {
+      "scenario": "S03 automatic",
+      "donors": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+          "bytes": 32193,
+          "sha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+          "bytes": 21635,
+          "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/oracle.json",
+          "bytes": 1509,
+          "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+        }
+      ],
+      "pendingRebindAndOracle": "current environment/caller/fixture closure true and false correctionAvailable; one positive and no-action pair and exact cold status/result/replay/run_gaps. Do not run frozen09 pinned old Phase command.",
+      "status": "not_executed_on_final_candidate"
+    },
+    {
+      "scenario": "S03 consequence/control",
+      "donors": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-external-product.test.mjs",
+          "bytes": 178976,
+          "sha256": "513ebbf23842996bd652a3ad46b5c7f7d421256bf7876e261c890627a178695a"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+          "bytes": 16381,
+          "sha256": "bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+          "bytes": 17472,
+          "sha256": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-final-review-03.md",
+          "bytes": 11135,
+          "sha256": "a5ce330892bf9341553bd7d2c064ddc98caa9ef4a1a380252c4d498c46a56d1d"
+        }
+      ],
+      "pendingRebindAndOracle": "map actual retry/depth/graph span/ticket/reprice/yield/block/non-admission/six public-control union to uncovered current Results, rebind same-basis/covered occurrence scenario. Old private/human ingress donors are not launch-ready; no5.1 response/resume.",
+      "status": "not_executed_on_final_candidate"
+    },
+    {
+      "scenario": "S06",
+      "donors": [
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/review.md",
+          "bytes": 9015,
+          "sha256": "18aa2f128c5f3acdace6a8fde41c2731325bb25596a6d30bac17000116a655a6"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/input.json",
+          "bytes": 85461,
+          "sha256": "2821278c30b0528fc890a1de30534d1879a60a25bb084ee3467cb8f76fa3f930"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/fulfillment-policy.json",
+          "bytes": 28692,
+          "sha256": "f5cfa9df3369a46892745b1d9207448ba560402544541bb2460b39dcafc55a72"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/prepare.mjs",
+          "bytes": 9345,
+          "sha256": "3aee7fcce3c77ebb5cd52c95612ca80ee436e9348589442abef38139763fa764"
+        },
+        {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/launch.mjs",
+          "bytes": 10979,
+          "sha256": "4ab2e2bba33cc3bc7ce0999c84915a05d8dd597bdde8b665ef4bc84b3130f4a0"
+        }
+      ],
+      "pendingRebindAndOracle": "fresh original29-byte defective CLI and protected tests; final witness dependency closure; real failure/correction/new conformance/design/test-design/plan/current C2/separate assessment and cold reads. No inherited authored LIVE05 assets or actor relabeling.",
+      "status": "not_executed_on_final_candidate"
+    }
+  ],
+  "qualification": "Observed C2 material \u2192 complete native F11 including valid companions for seven negative seeds \u2192 sole declared AF22; no producer fabricated. Fresh S06 application tests do not replace qualification recipe material.",
+  "F11preparation": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-f11-input-preparation.md",
+    "bytes": 5155,
+    "sha256": "260aca847013874e06b8820215f9f6d03d5b35a74b04f28a1b7edf9c615f89bb"
+  }
+}

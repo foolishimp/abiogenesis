@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+    "beforeBytes": 11490,
+    "beforeSHA256": "634de59f5f68e9f053ec7df78f3911291202ab1b415560928dfda1744da2ddab",
+    "bytes": 11790,
+    "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+    "beforeBytes": 5021,
+    "beforeSHA256": "36266e47729420b945ebf2534c5b9189c32a8f9f59dcf43f14bd21c6eba4ae63",
+    "bytes": 5290,
+    "sha256": "13bf0624db72c64a11cb2cff16848599b32f174fb61b7d3b77c426e561c4f0fc"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "beforeBytes": 25078,
+    "beforeSHA256": "e4740db3f1b0b86bf9db3ebd6c28a95c5d63b6ff975c817595c762c5474a8543",
+    "bytes": 25514,
+    "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    "beforeBytes": 41647,
+    "beforeSHA256": "e0767072cd86114b742fc84e946d0012ffc8be541807e8fadb258b9b9e1714cb",
+    "bytes": 41920,
+    "sha256": "8547907d297ee2736f47c13035372c2623abac0bac3f01e695af7817b930d06b"
+  }
+]

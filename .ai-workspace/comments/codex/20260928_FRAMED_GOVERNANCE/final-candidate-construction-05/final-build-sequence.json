@@ -1,0 +1,35 @@
+{
+  "statuses": [
+    {
+      "stage": "clean",
+      "supervisorExitCode": 0,
+      "stdout": "{\"pid\": 54184, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 24.330333340913057}\n",
+      "stderr": ""
+    },
+    {
+      "stage": "compile",
+      "supervisorExitCode": 0,
+      "stdout": "{\"pid\": 54186, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 6107.3518339544535}\n",
+      "stderr": ""
+    },
+    {
+      "stage": "authority-stage",
+      "supervisorExitCode": 0,
+      "stdout": "{\"pid\": 54249, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 148.7900000065565}\n",
+      "stderr": ""
+    },
+    {
+      "stage": "manifest",
+      "supervisorExitCode": 0,
+      "stdout": "{\"pid\": 54273, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 14579.888250213116}\n",
+      "stderr": ""
+    },
+    {
+      "stage": "generated-correspondence",
+      "supervisorExitCode": 0,
+      "stdout": "{\"generatedMembers\": 926, \"generatedChangedFromC04\": 3, \"derivedAuthorityInputPreimages\": 96, \"derivedAuthorityInputsChanged\": 12, \"sourceInputsPreserved\": 1106, \"actualAuthorityJoins\": 95, \"rules\": 2137, \"lawBasis\": {\"ref\": \"qualification-law://abiogenesis/edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f\", \"digest\": \"sha256:edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f\"}, \"method\": {\"releaseRef\": \"stdo://releases/v2.5.1-rc.2/\", \"methodVersion\": \"2.5.1-rc.2\", \"installedManifestDigest\": \"sha256:3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782\", \"memberSetDigest\": \"sha256:2f54671dfde54a6ad87347ac7190028af5e21021988247edf8068ab6248ef7e8\"}, \"coverageClaims\": 16, \"coverageBehaviors\": 66, \"completeRuleSpanJoins\": true, \"elapsedMs\": 340.8187087625265}\n",
+      "stderr": ""
+    }
+  ],
+  "elapsedMs": 22124.574957881123
+}

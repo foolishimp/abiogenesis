@@ -1,0 +1,50 @@
+{
+  "status": "PASSED",
+  "initialHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+    "bytes": 1330,
+    "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a"
+  },
+  "rawPrefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+  "ownerCoordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+  "events": 136,
+  "bytes": 73530699,
+  "device": 16777230,
+  "inode": 464012478,
+  "lockAbsent": true,
+  "invariantKeys": [
+    "workspaceAuthorityBasis",
+    "workspaceBindingCandidate",
+    "workspaceBinding",
+    "productInstalls",
+    "resolvedProductLock",
+    "productSet"
+  ],
+  "artifactRowsConserved": true,
+  "derivedArtifactProjectionAdvanced": true,
+  "negatives": [
+    {
+      "case": "raw prefix digest substituted for owner coordinate",
+      "owner": "validateDurablePrefixCoordinate",
+      "disposition": "refused"
+    },
+    {
+      "case": "foreign WorkspaceBinding digest",
+      "owner": "projectExactPrefixWorkspaceEnvironment",
+      "disposition": "exact_prefix_workspace_environment_refusal",
+      "code": "workspace_binding_mismatch"
+    },
+    {
+      "case": "old84 coordinate used as current resource",
+      "owner": "readRuntimeEventsAtDurablePrefix requireCurrent",
+      "disposition": "refused",
+      "name": "TypeError",
+      "code": "prefix_length_mismatch",
+      "message": "ABG durable prefix is not the current durable event-log prefix"
+    }
+  ],
+  "elapsedMs": 5246.053083,
+  "nativeCalls": 0,
+  "modelCalls": 0,
+  "claim": "Current genuine136 resource acquired with separately checked byte/owner identity and current owner environment. No runtime/transport/assessment outcome implied."
+}

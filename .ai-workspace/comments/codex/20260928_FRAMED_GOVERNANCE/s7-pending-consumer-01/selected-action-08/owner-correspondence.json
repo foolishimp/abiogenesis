@@ -1,0 +1,74 @@
+[
+  {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/public_start.ts",
+      "bytes": 3959,
+      "sha256": "a4d41d413a08e0a14296d9768c4b335ea030ed711d414a0ec1523bdb8e3c86a7"
+    },
+    "emitted": {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/gtl/public_start.js",
+      "bytes": 3006,
+      "sha256": "640071fde6cee3e4302af81cfb3eff70f2cc7c29afd416a44d19ba93b246d571"
+    },
+    "preflightInstalledOwner": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/public_start.js",
+      "bytes": 3006,
+      "sha256": "640071fde6cee3e4302af81cfb3eff70f2cc7c29afd416a44d19ba93b246d571"
+    },
+    "identicalEmittedInstalled": true
+  },
+  {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "bytes": 46996,
+      "sha256": "73d296ac7dbcab675c5a1f9a1399459356d81f9cd34772a0d037a6daf0a1e920"
+    },
+    "emitted": {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js",
+      "bytes": 38571,
+      "sha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82"
+    },
+    "preflightInstalledOwner": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/execution_resolution.js",
+      "bytes": 38571,
+      "sha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82"
+    },
+    "identicalEmittedInstalled": true
+  },
+  {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 28096,
+      "sha256": "683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100"
+    },
+    "emitted": {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/run_invocation_operation.js",
+      "bytes": 22722,
+      "sha256": "5d2d6c6237b6530823d0f5bb1c40dca3e458489036a32770e77befdb578b0d0c"
+    },
+    "preflightInstalledOwner": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.js",
+      "bytes": 22722,
+      "sha256": "5d2d6c6237b6530823d0f5bb1c40dca3e458489036a32770e77befdb578b0d0c"
+    },
+    "identicalEmittedInstalled": true
+  },
+  {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+      "bytes": 40314,
+      "sha256": "572c226b91a8d7c1bc4911f26427306ec0aa00a081b08fb92a0e737ddc195354"
+    },
+    "emitted": {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/declaration_closure.js",
+      "bytes": 34935,
+      "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63"
+    },
+    "preflightInstalledOwner": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/covered/disposable/abi5-root-env-Kj1vFR/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/declaration_closure.js",
+      "bytes": 34935,
+      "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63"
+    },
+    "identicalEmittedInstalled": true
+  }
+]

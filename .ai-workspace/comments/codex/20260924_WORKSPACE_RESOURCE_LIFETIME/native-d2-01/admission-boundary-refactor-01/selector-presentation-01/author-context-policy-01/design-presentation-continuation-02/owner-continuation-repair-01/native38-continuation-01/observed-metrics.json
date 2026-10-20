@@ -1,0 +1,154 @@
+{
+  "scope": "One exact core38/dev15 installed continuation, enclosing observations only",
+  "phases": [
+    {
+      "phase": "setup",
+      "wallSeconds": 57.78,
+      "userSeconds": 65.2,
+      "systemSeconds": 5.67,
+      "peakRssBytes": 4815421440,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/setup.stderr"
+    },
+    {
+      "phase": "witness",
+      "wallSeconds": 32.4,
+      "userSeconds": 36.41,
+      "systemSeconds": 1.16,
+      "peakRssBytes": 3098640384,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/witness-01/witness.stderr"
+    },
+    {
+      "phase": "intake_constructor",
+      "wallSeconds": 0.86,
+      "userSeconds": 0.94,
+      "systemSeconds": 0.15,
+      "peakRssBytes": 1125826560,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/intake-01/construct.stderr"
+    },
+    {
+      "phase": "intake_native",
+      "wallSeconds": 91.43,
+      "userSeconds": 60.6,
+      "systemSeconds": 6.83,
+      "peakRssBytes": 3656925184,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/intake-01/native.stderr"
+    },
+    {
+      "phase": "intake_result_replay",
+      "wallSeconds": 49.05,
+      "userSeconds": 51.36,
+      "systemSeconds": 2.2,
+      "peakRssBytes": 2252800000,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/intake-01/readback.stderr"
+    },
+    {
+      "phase": "suffix_prepare",
+      "wallSeconds": 41.32,
+      "userSeconds": 46.61,
+      "systemSeconds": 1.94,
+      "peakRssBytes": 4442931200,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/prepare.stderr"
+    },
+    {
+      "phase": "suffix_native",
+      "wallSeconds": 740.2,
+      "userSeconds": 144.84,
+      "systemSeconds": 10.93,
+      "peakRssBytes": 3688349696,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/native.stderr"
+    },
+    {
+      "phase": "suffix_result_replay",
+      "wallSeconds": 54.61,
+      "userSeconds": 56.5,
+      "systemSeconds": 2.47,
+      "peakRssBytes": 2478178304,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/readback.stderr"
+    },
+    {
+      "phase": "suffix_evidence",
+      "wallSeconds": 37.29,
+      "userSeconds": 37.72,
+      "systemSeconds": 1.97,
+      "peakRssBytes": 3242688512,
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/evidence.stderr"
+    }
+  ],
+  "reads": [
+    {
+      "phase": "intake-01",
+      "memberKey": "run_result",
+      "elapsedMs": 23913.354708,
+      "entryEqualsClose": true,
+      "prefix": "sha256:d98af365d3beec432d1d0be165882445985145646678f7b1fcb1109c504615c3",
+      "prefixLength": 371277919
+    },
+    {
+      "phase": "intake-01",
+      "memberKey": "run_replay",
+      "elapsedMs": 24041.414833,
+      "entryEqualsClose": true,
+      "prefix": "sha256:d98af365d3beec432d1d0be165882445985145646678f7b1fcb1109c504615c3",
+      "prefixLength": 371277919
+    },
+    {
+      "phase": "suffix-01",
+      "memberKey": "run_result",
+      "elapsedMs": 26615.253875000002,
+      "entryEqualsClose": true,
+      "prefix": "sha256:d9d7086ab47280c8b44b232bfeb6838349aabf30382e1823ae08d8e6381e85ea",
+      "prefixLength": 399209962
+    },
+    {
+      "phase": "suffix-01",
+      "memberKey": "run_replay",
+      "elapsedMs": 26839.820417,
+      "entryEqualsClose": true,
+      "prefix": "sha256:d9d7086ab47280c8b44b232bfeb6838349aabf30382e1823ae08d8e6381e85ea",
+      "prefixLength": 399209962
+    },
+    {
+      "phase": "suffix-01",
+      "memberKey": "run_evidence",
+      "elapsedMs": 36156.248958,
+      "entryEqualsClose": true,
+      "prefix": "sha256:d9d7086ab47280c8b44b232bfeb6838349aabf30382e1823ae08d8e6381e85ea",
+      "prefixLength": 399209962
+    }
+  ],
+  "actors": [
+    {
+      "role": "selector",
+      "providerDurationMs": 41922,
+      "reportedListCostUsd": 3.1005184,
+      "promptBytes": 849671,
+      "decodedOutputBytes": 1332,
+      "rawStreamBytes": 81141
+    },
+    {
+      "role": "design_author",
+      "providerDurationMs": 685498,
+      "reportedListCostUsd": 5.1266622,
+      "promptBytes": 986751,
+      "decodedOutputBytes": 47753,
+      "rawStreamBytes": 1534763
+    }
+  ],
+  "reportedListCostTotalUsd": 8.2271806,
+  "resourceGrowth": {
+    "entryBytes": 363731863,
+    "afterSetupBytes": 366066363,
+    "afterWitnessBytes": 366073203,
+    "afterIntakeBytes": 371277919,
+    "afterSuffixBytes": 399209962,
+    "totalBytes": 35478099,
+    "suffixBytes": 27932043
+  },
+  "forensicSuffixSeconds": 0.07523554190993309,
+  "limits": [
+    "Different phases include their own verification, acquisition, invocation and close duties; no isolated speed attribution.",
+    "Internal install/admit/project timing remains unknown; no runtime instrumentation added.",
+    "Peak RSS remains high; source/component deletions do not establish whole-path performance.",
+    "Failed assessor draft bytes and per-member contributions are not retained."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/npm",
+  "args": [
+    "install",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund",
+    "--prefix",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation",
+  "started": "2026-10-08T09:13:51.339Z",
+  "environmentKeys": [
+    "PATH",
+    "npm_config_cache",
+    "npm_config_offline"
+  ],
+  "timeoutMs": 300000
+}

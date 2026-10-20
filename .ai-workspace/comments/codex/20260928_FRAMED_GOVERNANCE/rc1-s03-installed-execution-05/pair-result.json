@@ -1,0 +1,152 @@
+{
+  "status": "passed",
+  "activation": "T287_RC1_S03_INSTALLED_COLD_READS_05",
+  "positive": {
+    "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/positive/oracle-result.json",
+    "run": {
+      "ref": "run://abiogenesis/aa52a15d1e29110ba83b65f77c9364f881167382ab2f100a25b78a45a4bfdcaa",
+      "digest": "sha256:17943562008a45d9067170e72d51c618f3ac93b3044ba6e959a37005e508b096"
+    },
+    "executionBasis": {
+      "ref": "execution-basis://abiogenesis/a987c6ffbac65ec938174bda1c9f427468af54673c66b9c0e87f56260152e26e",
+      "digest": "sha256:a987c6ffbac65ec938174bda1c9f427468af54673c66b9c0e87f56260152e26e"
+    },
+    "status": "passed",
+    "actual": 10,
+    "desired": 10,
+    "freshReads": 4
+  },
+  "noAction": {
+    "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/no-action/oracle-result.json",
+    "run": {
+      "ref": "run://abiogenesis/9e885b342e6014e08a7f7ed33f4420ecf780bc337290b680b9640306fd91cf39",
+      "digest": "sha256:7cdb69577138ff92c0be23766e625be171efdaf95be6a6d47b204c7af4380ebd"
+    },
+    "executionBasis": {
+      "ref": "execution-basis://abiogenesis/38a5c558bc53e8c7cf2b4daa575cf65b02de6c58c8b9a75fb78b7ce7225fb564",
+      "digest": "sha256:38a5c558bc53e8c7cf2b4daa575cf65b02de6c58c8b9a75fb78b7ce7225fb564"
+    },
+    "status": "passed",
+    "actual": 3,
+    "desired": 10,
+    "freshReads": 4,
+    "rendering": "Run run://abiogenesis/9e885b342e6014e08a7f7ed33f4420ecf780bc337290b680b9640306fd91cf39: Target remains 3; required value is 10. The declared correction capability is unavailable.\nUnfulfilled obligation: obligation://s03-automatic/target-value@5\nAdmitted gap: next-action-projection://product/8808d8550ea3d97cc56a3e431b090ccc193303b887af41c9606b21d66739afa0\n"
+  },
+  "pair": {
+    "sameC03": true,
+    "sameProgramResolution": true,
+    "sameRootPolicy": true,
+    "sameWorkspaceBinding": true,
+    "inputDiffOnlyCorrectionAvailable": true,
+    "twoExistingActualRuns": true,
+    "newStarts": 0,
+    "newSetupConformanceCalls": 0,
+    "combinedFreshReads": 8,
+    "originalOraclesUnchanged": true
+  },
+  "currentReadCalls": [
+    {
+      "label": "no-action-run_result",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_result"
+      },
+      "invocationRef": "invocation://abiogenesis/e9923bdeda29a9df0dda868d7ae475a9367b08a0f025f0a336d7e10a7ff916d6",
+      "outcomeKind": "refusal",
+      "elapsedMs": 1807.524958,
+      "processFailure": null
+    },
+    {
+      "label": "no-action-run_replay",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_replay"
+      },
+      "invocationRef": "invocation://abiogenesis/95f781fce4eff6e154e46e69b40ab41ce493f02b7d10adee5f040e891984d73b",
+      "outcomeKind": "result",
+      "elapsedMs": 810.3071670000008,
+      "processFailure": null
+    },
+    {
+      "label": "no-action-run_status",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_status"
+      },
+      "invocationRef": "invocation://abiogenesis/2625fdfc7e738b5adb0aa9a4dadd7d3c006dc8a5f305ba7be3047f4211f25806",
+      "outcomeKind": "result",
+      "elapsedMs": 819.5309170000019,
+      "processFailure": null
+    },
+    {
+      "label": "no-action-run_gaps",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_gaps"
+      },
+      "invocationRef": "invocation://abiogenesis/52e2af54fa060bf14eefe9751f4045ab736ba3af7e3bb4654b0814ebe44110ba",
+      "outcomeKind": "result",
+      "elapsedMs": 814.9939999999988,
+      "processFailure": null
+    }
+  ],
+  "initial": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+    "bytes": 4709556,
+    "sha256": "26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+    "device": 16777230,
+    "inode": 464429281,
+    "mtimeMs": 1790892638098.5886,
+    "stableDuringRead": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/tmp/abiogenesis-event-store-locks-v5/16777230-464429281.lock",
+    "lockPresent": false,
+    "prefix": {
+      "coordinateDigest": "sha256:407881d7b23f560d53be253b38bedad0598dbd05c88b01f22dca7f196d3f174d",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+      "prefixLength": 4709556,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464429281
+      }
+    }
+  },
+  "final": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+    "bytes": 4709556,
+    "sha256": "26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+    "device": 16777230,
+    "inode": 464429281,
+    "mtimeMs": 1790892638098.5886,
+    "stableDuringRead": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/tmp/abiogenesis-event-store-locks-v5/16777230-464429281.lock",
+    "lockPresent": false,
+    "prefix": {
+      "coordinateDigest": "sha256:407881d7b23f560d53be253b38bedad0598dbd05c88b01f22dca7f196d3f174d",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+      "prefixLength": 4709556,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464429281
+      }
+    }
+  },
+  "elapsedMs": 17649.728375,
+  "budgetMs": 600000,
+  "coldAppendBytes": 0,
+  "zeroModelCalls": true,
+  "qualificationClaim": false,
+  "acceptanceClaim": false,
+  "limits": [
+    "bounded original S03a pair only",
+    "fullS03/control/disposition/consequence remains open",
+    "Root separately assures/conjoins"
+  ]
+}

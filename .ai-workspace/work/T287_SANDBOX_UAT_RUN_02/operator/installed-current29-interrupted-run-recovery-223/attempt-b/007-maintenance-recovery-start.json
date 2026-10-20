@@ -1,0 +1,19 @@
+{
+  "stage": "maintenance-recovery-start",
+  "at": "2026-10-09T17:34:02.442Z",
+  "wallMs": 21243.682042,
+  "pid": 75903,
+  "memory": {
+    "rss": 1458012160,
+    "heapTotal": 228327424,
+    "heapUsed": 136919944,
+    "external": 2567996,
+    "arrayBuffers": 155689
+  },
+  "maxRSSKiB": 1901360,
+  "requestDigest": "sha256:a4075c5e7447f4e59fa807117aa9be311620045a685eea6298ac887c72b089c4",
+  "expectedCurrent": {
+    "byteLength": 2142089296,
+    "digest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277"
+  }
+}

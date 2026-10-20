@@ -1,0 +1,476 @@
+{
+  "kind": "report_finalization_refusal",
+  "time": "2026-10-02T05:45:56.817728+00:00",
+  "operation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+  "failedControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/finalize-failed-attempt-01.py",
+    "bytes": 16253,
+    "sha256": "844c71576fb05800e6fddc8e21260e4c903e5b2744bb1cdff44142cc1f3b7f56"
+  },
+  "traceback": "final-controls/finalize.py:50 AssertionError at expected delta-set path comparison",
+  "originatingViolatedRelation": "report delta consumer guessed shortened capability path instead of actual manifest assetLocator path",
+  "guessedPath": "contracts/capability-definition-graph.json",
+  "actualManifestRoute": "contracts/capabilities/capability-definition-graph.json",
+  "actualMeasuredDelta": [
+    {
+      "path": "build/code/src/implementation/leaf_invocation_port.js",
+      "C05ActualStageSHA256": "7d583452a6692ad06d66e4a997f1148f0999380a050d091ad2394c45c72b6d7b",
+      "C06GeneratedSHA256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+      "C06Bytes": 70127,
+      "role": "generated_output"
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "C05ActualStageSHA256": "0d9b18a13510b3880d12af6e8a2f9e81b7cd3d3e22dccb850ddea2e51eae8f4c",
+      "C06GeneratedSHA256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+      "C06Bytes": 197474,
+      "role": "generated_output"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "C05ActualStageSHA256": "87c8ccc41d4a6129cc01bf7b15dbd9673073e4672d359595b4df3d36b7b30f2c",
+      "C06GeneratedSHA256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+      "C06Bytes": 2567514,
+      "role": "generated_output"
+    }
+  ],
+  "ProductSourceLawNativeFailure": false,
+  "actualTenCommands": [
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/npm",
+        "ci",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 240000,
+      "priorExecutionMs": 2124.431500211358,
+      "maximumMs": 3060000,
+      "scriptsDisabled": true,
+      "defaultHeapUnchanged": true,
+      "pid": 77968,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 1600.290291942656,
+      "stdoutSHA256": "a42f7d5b5597e0e86a8fb0431b17f0940888fc1c396e57664396e5df45da8e21",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 0.501552,
+      "childSystemCPUSeconds": 0.576676,
+      "childMaxResidentSetSizePlatformBytes": 244629504
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "scripts/clean.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 60000,
+      "priorExecutionMs": 3724.721792154014,
+      "maximumMs": 3060000,
+      "scriptsDisabled": false,
+      "defaultHeapUnchanged": true,
+      "pid": 77988,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 45.67254101857543,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 0.016708999999999998,
+      "childSystemCPUSeconds": 0.005397,
+      "childMaxResidentSetSizePlatformBytes": 46366720
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 600000,
+      "priorExecutionMs": 3770.3943331725895,
+      "maximumMs": 3060000,
+      "scriptsDisabled": false,
+      "defaultHeapUnchanged": true,
+      "pid": 77990,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 6276.071084197611,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 10.360915,
+      "childSystemCPUSeconds": 0.233615,
+      "childMaxResidentSetSizePlatformBytes": 1098874880
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "scripts/generate-qualification-rule-catalog.mjs",
+        "--stage-authorities",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source",
+        "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 300000,
+      "priorExecutionMs": 10046.4654173702,
+      "maximumMs": 3060000,
+      "scriptsDisabled": false,
+      "defaultHeapUnchanged": true,
+      "pid": 78016,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 135.73937490582466,
+      "stdoutSHA256": "a5bf8948e93322a6d9ee4ff460fb55f9d0d94a054ebbbcdb3279a9c7cd0802e8",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 0.11373799999999999,
+      "childSystemCPUSeconds": 0.020555999999999998,
+      "childMaxResidentSetSizePlatformBytes": 93831168
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 600000,
+      "priorExecutionMs": 10182.204792276025,
+      "maximumMs": 3060000,
+      "scriptsDisabled": false,
+      "defaultHeapUnchanged": true,
+      "pid": 78018,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 14686.148500069976,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 18.068338,
+      "childSystemCPUSeconds": 1.1154789999999999,
+      "childMaxResidentSetSizePlatformBytes": 1567440896
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-artifacts"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 240000,
+      "priorExecutionMs": 24868.353292346,
+      "maximumMs": 3060000,
+      "scriptsDisabled": true,
+      "defaultHeapUnchanged": true,
+      "pid": 80067,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 3214.5895827561617,
+      "stdoutSHA256": "9243bd5cc3c169102901b207b73cc1aff97bc242b3892d975b54435b9a6f8180",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 3.381741,
+      "childSystemCPUSeconds": 0.36336199999999996,
+      "childMaxResidentSetSizePlatformBytes": 320421888
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/npm",
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--package-lock=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 240000,
+      "priorExecutionMs": 28082.942875102162,
+      "maximumMs": 3060000,
+      "scriptsDisabled": true,
+      "defaultHeapUnchanged": true,
+      "pid": 80091,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 2376.514666713774,
+      "stdoutSHA256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 1.895969,
+      "childSystemCPUSeconds": 2.59044,
+      "childMaxResidentSetSizePlatformBytes": 422412288
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/verify-installed.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 300000,
+      "priorExecutionMs": 30459.457541815937,
+      "maximumMs": 3060000,
+      "scriptsDisabled": false,
+      "defaultHeapUnchanged": true,
+      "pid": 81950,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 11518.93095811829,
+      "stdoutSHA256": "717b835e6eedcaa5f81def2fed4d0fa247f68f89e3722cd7e2c8f574366a1c31",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 15.313198,
+      "childSystemCPUSeconds": 0.390992,
+      "childMaxResidentSetSizePlatformBytes": 1544372224
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/validate-installed-publications.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 240000,
+      "priorExecutionMs": 41978.388499934226,
+      "maximumMs": 3060000,
+      "scriptsDisabled": false,
+      "defaultHeapUnchanged": true,
+      "pid": 82098,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 313.5565002448857,
+      "stdoutSHA256": "9489cee367425377d50470ec12e7217779d2800acbef0660bc984af0e8ab3730",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 0.34192,
+      "childSystemCPUSeconds": 0.052398999999999994,
+      "childMaxResidentSetSizePlatformBytes": 209272832
+    },
+    {
+      "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/compare-wrapper.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-tmp",
+        "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-cache",
+        "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npmrc",
+        "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-globalnpmrc",
+        "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-npm-prefix",
+        "npm_config_offline": "true",
+        "GIT_OPTIONAL_LOCKS": "0"
+      },
+      "HOMEUnchanged": true,
+      "capMs": 120000,
+      "priorExecutionMs": 42291.94500017911,
+      "maximumMs": 3060000,
+      "scriptsDisabled": false,
+      "defaultHeapUnchanged": true,
+      "pid": 82151,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "ownedExitObserved": true,
+      "elapsedMs": 373.5900418832898,
+      "stdoutSHA256": "e28502dc0b2847d78797d28958a97d95848488e7e5e949e660d99f27873db291",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "childUserCPUSeconds": 0.36569799999999997,
+      "childSystemCPUSeconds": 0.061367,
+      "childMaxResidentSetSizePlatformBytes": 242630656
+    }
+  ],
+  "actualInstalledBasis": {
+    "artifactDigest": "sha256:9ac4ca5a40940cc98de8080d9c119788f75596890dde3aae4050a058fe383ced",
+    "productContentDigest": "sha256:7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace",
+    "manifestDigest": "sha256:42e82d4942736d5b97087cfdba143dda5cca0690ae05402b05066d2c518326f6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "actualPackInstallCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-package-correspondence.json",
+    "bytes": 1334,
+    "sha256": "0e0bea078adbad29a00ca337e82baf3fe189ce8e7fba47cc0142e5d76cca430c"
+  },
+  "alreadyCompletedPhysicalPopulations": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source-population.json",
+      "bytes": 285808,
+      "sha256": "2e36d051a88fe3dc8556e6fe6fea2f18b386586e5a8d23bee1168592fd184a37"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-law-population.json",
+      "bytes": 11693,
+      "sha256": "443adbae39bd52dcf764dc4737ad2d921eae13b37aa45717c0e147ec417b1989"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage-population.json",
+      "bytes": 1706665,
+      "sha256": "aa63936fe388546786a2e0bc978196dbc755c0be0d10c6ac489868bbdb7fecda"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage-dependency-population.json",
+      "bytes": 1207488,
+      "sha256": "8108c4fe36b15f4b4aa662197da7b4851011ab2c88f6738bf7ae9f6877bee427"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install-population.json",
+      "bytes": 1433308,
+      "sha256": "ae8f3a771ff0e03a3a55e6b2e9b408c0d752c6e2e264fa4e6b3d556a8908716f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-toolchain-population.json",
+      "bytes": 544129,
+      "sha256": "127fad754899ca96e23a37de7c8ee7937b1e476257b3d2789e6d51a059936893"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-cache-population.json",
+      "bytes": 7723,
+      "sha256": "d2f27e5fbc39a972b3dd5c974043905117e4b1a616507d3654de487843af5be8"
+    }
+  ],
+  "priorMetadataAndStoreConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-preservation-verification.json",
+    "bytes": 12604,
+    "sha256": "b42c5e90d5c54712b849c9d538223529b371f19e33e2bd16f53f584a009907d2"
+  },
+  "effectsAfterRefusal": "failure record only; no repair/retry, source/runtime/provider/build/pack/install/check effects",
+  "return": "Root triangulation; bounded report continuation can use completed actual measurements"
+}

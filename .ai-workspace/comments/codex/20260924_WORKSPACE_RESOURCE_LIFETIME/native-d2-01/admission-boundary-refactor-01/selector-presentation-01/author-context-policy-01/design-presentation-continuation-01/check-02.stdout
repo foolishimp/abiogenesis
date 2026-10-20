@@ -1,0 +1,31 @@
+(node:70865) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (600.790584ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+✔ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (117.772917ms)
+✔ native D2 operational author preparation cause retains accepted stages and selects only the actual failed stage (176.022958ms)
+ℹ Actual failed source Run 74ac812a / close 216334690: failure shape and three accepted-stage frontier conserved; prefix/leaf admission and physical roots remain supplied component premises.
+(node:70866) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+﹣ native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data (0.30175ms) # SKIP
+✔ native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations (232.233667ms)
+✔ native revision decision view leaves all opaque C2 and application JSON verbatim (1.283125ms)
+✖ retained revision Design presentation preserves material once under the unchanged declared bound (73.202ms)
+ℹ {"scope":"complete actual-input component presentation; upstream authentication supplied","promptBytes":937078,"maxPromptBytes":1048576,"sections":{"role":113242,"source":6709,"obligations":126599,"predecessors":176985,"worksite":225506,"evidence":349,"task":274656,"response":12925},"roleSourceSpans":13}
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 1163.316459
+
+✖ failing tests:
+
+test at test_env/tests/t288-instruction-assembly-owner.test.mjs:474:1
+✖ retained revision Design presentation preserves material once under the unchanged declared bound (73.202ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'sections')
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs:540:39)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

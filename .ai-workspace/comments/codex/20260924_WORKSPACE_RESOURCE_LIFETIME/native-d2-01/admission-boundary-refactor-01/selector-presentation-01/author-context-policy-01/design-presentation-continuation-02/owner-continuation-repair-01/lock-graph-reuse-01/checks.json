@@ -1,0 +1,74 @@
+{
+  "compile": {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json --pretty false",
+    "exitCode": 0,
+    "count": 1,
+    "log": "compile.log",
+    "timing": "No full command elapsed or RSS retained; no timing rerun."
+  },
+  "artifactOwner": {
+    "command": {
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=^T289 (owner serialization|live state|established causal)",
+        "test_env/tests/t289-install-event-bodies.test.mjs"
+      ],
+      "environment": {
+        "ABI5_INSTALL_BODY_HISTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/fixture-history.jsonl",
+        "ABI5_INSTALL_BODY_HISTORY_SHA256": "efde33afd29f86be6ae4c50a172f45ab44b13306fda4c4febda9d660ff97b776",
+        "ABI5_INSTALL_BODY_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/artifact-check",
+        "ABI5_LOCK_REUSE_EXPECTED_EVENTS": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/artifact-check-01/owner-produced.jsonl"
+      },
+      "exitCode": 0
+    },
+    "exitCode": 0,
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 10224.99925,
+    "durationScope": "ordinary Node test-runner total; not install performance",
+    "log": "artifact-check.log",
+    "results": [
+      "artifact-check/result.json",
+      "artifact-check/rollback-result.json",
+      "artifact-check/new-lock-result.json"
+    ],
+    "claims": [
+      "exact predecessor serialized event bytes",
+      "embedded lock then referenced install then binding",
+      "16 cold histories including crossed/malformed reference refusals",
+      "new distinct-lock append after binding",
+      "raw copied projection validation and forged-copy refusal",
+      "actual isolated rollback, physical mutation refusal and immutable prior prefixes"
+    ]
+  },
+  "focusedPreimageDifferential": {
+    "command": "node --experimental-vm-modules focused-differential.mjs /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "cases": 37,
+    "log": "focused-differential.log",
+    "report": "focused-differential.json",
+    "initialRunnerFailure": "focused-differential-initial.log: bare valibot resolved as relative path; no semantic cases reached; fixed only the diagnostic module resolver before one completed differential."
+  },
+  "existingGraphFile": {
+    "command": "node --test --test-name-pattern='^ST-2A-G (admits|publishes|rejects)' test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+    "exitCode": 1,
+    "passed": 1,
+    "failed": 2,
+    "skipped": 0,
+    "durationMs": 379.03675,
+    "log": "graph-check.log",
+    "disposition": "Retained unrelated failures; no test-family or catalog repair. Exact failed expressions reproduced in focused-differential.json: preimage/current graph projections are empty for qualification.rule-catalog, and byte-identical COST32 verification owner accepts product.verification with empty capabilityIdentities."
+  },
+  "mechanical": {
+    "preimagesVerify": true,
+    "subjectMatchesWorkspace": true,
+    "changedLineWhitespaceClean": true,
+    "governingEdits": false,
+    "trackingEdits": false,
+    "packageGitProviderEffects": false,
+    "activeNativeSubjectAccess": false
+  },
+  "reused": "basis-and-reuse.json: nine exact unaffected source/test/emitted members retain their previous accepted hashes."
+}

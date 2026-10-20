@@ -1,0 +1,50 @@
+{
+  "status": "activated_report_only",
+  "activation": "T287_RUNTIME07_PREIMAGE_LOCALIZATION_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "activatedAt": "2026-10-02T08:31:13.388618+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/request.txt",
+    "kind": "file",
+    "bytes": 4581,
+    "sha256": "47e06ff29e400cf783fe9cd06b7663909dd80553e9bd564b57fcee15104b50ee",
+    "mode": 420,
+    "role": "fixed activation/subject/copy or accepted C06 boundary"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/subject.json",
+    "kind": "file",
+    "bytes": 3559,
+    "sha256": "4ee81d5df1109f98a6357b02d29def67c0eca9b2e7fd0b678ced429fde6f2ef2",
+    "mode": 420,
+    "role": "fixed activation/subject/copy or accepted C06 boundary"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/review",
+  "previousQ08Role": "CLOSED",
+  "conditionalWholeCarrierRole": "not activated",
+  "references": [
+    "F-END-TO-END-INTERFACE-INTEGRATION",
+    "NativeDefinition",
+    "Contract/Identity",
+    "Material",
+    "Effects/Lifecycle",
+    "Proof/Reuse/Cost"
+  ],
+  "sourceAuthorship": "not author of C06 collector/native source; accepted original chains reused",
+  "operationGrant": "pure read/hash/compare and new report-only activation/source pins/predicate report/closure/freeze",
+  "denied": [
+    "imports",
+    "owner calls",
+    "tests",
+    "repair",
+    "build",
+    "Runtime",
+    "unfinished stores/reports",
+    "helpers",
+    "model/provider",
+    "network",
+    "Git",
+    "fixture/candidate/Q08/source edits"
+  ]
+}

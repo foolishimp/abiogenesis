@@ -1,0 +1,4312 @@
+{
+  "kind": "qualification_verification_recipe",
+  "schemaVersion": "1",
+  "sourceInputs": [
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "relativePath": "subject/code/src/abg/actor_process.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "relativePath": "subject/code/src/abg/artifact_truth.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "relativePath": "subject/code/src/abg/c_call.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "relativePath": "subject/code/src/abg/c_call_outcome.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/child_lifecycle.ts",
+      "relativePath": "subject/code/src/abg/child_lifecycle.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "relativePath": "subject/code/src/abg/closure.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "relativePath": "subject/code/src/abg/construction_continuation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "relativePath": "subject/code/src/abg/continuation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "relativePath": "subject/code/src/abg/default_library.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts",
+      "relativePath": "subject/code/src/abg/deferred_application.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+      "relativePath": "subject/code/src/abg/definition_event_resource.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "relativePath": "subject/code/src/abg/effectful_invocation_truth.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "relativePath": "subject/code/src/abg/environment_admission.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "relativePath": "subject/code/src/abg/event_body_encoding.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "relativePath": "subject/code/src/abg/event_calculus.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "relativePath": "subject/code/src/abg/event_contract_profiles.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_log.ts",
+      "relativePath": "subject/code/src/abg/event_log.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "relativePath": "subject/code/src/abg/event_prefix.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "relativePath": "subject/code/src/abg/event_store.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "relativePath": "subject/code/src/abg/execution_basis.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/fan_out.ts",
+      "relativePath": "subject/code/src/abg/fan_out.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/fan_out_projection.ts",
+      "relativePath": "subject/code/src/abg/fan_out_projection.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "relativePath": "subject/code/src/abg/fh_continuation_projection.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/fh_resume_relation.ts",
+      "relativePath": "subject/code/src/abg/fh_resume_relation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "relativePath": "subject/code/src/abg/graph_application.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "relativePath": "subject/code/src/abg/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "relativePath": "subject/code/src/abg/instruction_assembly.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "relativePath": "subject/code/src/abg/invocation_admission.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "relativePath": "subject/code/src/abg/invocation_execution_truth.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_event_time.ts",
+      "relativePath": "subject/code/src/abg/native_event_time.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "relativePath": "subject/code/src/abg/native_work_reacquisition.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "relativePath": "subject/code/src/abg/native_worksite_execution.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "relativePath": "subject/code/src/abg/open_call.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+      "relativePath": "subject/code/src/abg/probabilistic_result.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "relativePath": "subject/code/src/abg/project_read_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "relativePath": "subject/code/src/abg/project_read_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "relativePath": "subject/code/src/abg/project_read_ports.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "relativePath": "subject/code/src/abg/qualification_proof.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+      "relativePath": "subject/code/src/abg/registered_selection_provenance.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "relativePath": "subject/code/src/abg/replay.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts",
+      "relativePath": "subject/code/src/abg/requirement_handoff.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "relativePath": "subject/code/src/abg/retry.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/retry_lifecycle.ts",
+      "relativePath": "subject/code/src/abg/retry_lifecycle.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+      "relativePath": "subject/code/src/abg/runtime_derivation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+      "relativePath": "subject/code/src/abg/runtime_failure.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "relativePath": "subject/code/src/abg/runtime_liveness.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "relativePath": "subject/code/src/abg/runtime_liveness_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "relativePath": "subject/code/src/abg/semantic_job.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "relativePath": "subject/code/src/abg/semantic_revision.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+      "relativePath": "subject/code/src/abg/semantic_stage.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+      "relativePath": "subject/code/src/abg/stdo_environment.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+      "relativePath": "subject/code/src/abg/terminal_result_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "relativePath": "subject/code/src/abg/transport_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "relativePath": "subject/code/src/abg/traversal_cursor.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "relativePath": "subject/code/src/abg/traversal_route.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_transition.ts",
+      "relativePath": "subject/code/src/abg/traversal_transition.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+      "relativePath": "subject/code/src/abg/witness_admission_operation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "relativePath": "subject/code/src/abg/witness_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts",
+      "relativePath": "subject/code/src/abg/witness_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "relativePath": "subject/code/src/abg/worker_transport.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "relativePath": "subject/code/src/abg/worksite_command_forward.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "relativePath": "subject/code/src/abg/worksite_construction_recovery.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "relativePath": "subject/code/src/abg/worksite_input_provenance.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "relativePath": "subject/code/src/abg/worksite_revision.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+      "relativePath": "subject/code/src/gtl/c_algebra.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/canonicalization.ts",
+      "relativePath": "subject/code/src/gtl/canonicalization.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/consensus.ts",
+      "relativePath": "subject/code/src/gtl/consensus.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/consensus_schema.ts",
+      "relativePath": "subject/code/src/gtl/consensus_schema.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "relativePath": "subject/code/src/gtl/contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/declaration_references.ts",
+      "relativePath": "subject/code/src/gtl/declaration_references.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+      "relativePath": "subject/code/src/gtl/declarations.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "relativePath": "subject/code/src/gtl/default_library.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/fan_out.ts",
+      "relativePath": "subject/code/src/gtl/fan_out.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_applications.ts",
+      "relativePath": "subject/code/src/gtl/graph_applications.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_construction.ts",
+      "relativePath": "subject/code/src/gtl/graph_construction.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/hello_world.ts",
+      "relativePath": "subject/code/src/gtl/hello_world.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+      "relativePath": "subject/code/src/gtl/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+      "relativePath": "subject/code/src/gtl/materialize.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+      "relativePath": "subject/code/src/gtl/native_workspace_work.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/public_start.ts",
+      "relativePath": "subject/code/src/gtl/public_start.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/recursion.ts",
+      "relativePath": "subject/code/src/gtl/recursion.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+      "relativePath": "subject/code/src/gtl/registered_selection.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+      "relativePath": "subject/code/src/gtl/requirement_handoff.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "relativePath": "subject/code/src/gtl/self_conformance.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_job.ts",
+      "relativePath": "subject/code/src/gtl/semantic_job.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_identity.ts",
+      "relativePath": "subject/code/src/gtl/semantic_revision_identity.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+      "relativePath": "subject/code/src/gtl/semantic_revision_publication.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts",
+      "relativePath": "subject/code/src/gtl/semantic_stage.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_identity.ts",
+      "relativePath": "subject/code/src/gtl/semantic_stage_identity.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts",
+      "relativePath": "subject/code/src/gtl/semantic_stage_publication.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/source_path.ts",
+      "relativePath": "subject/code/src/gtl/source_path.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "relativePath": "subject/code/src/gtl/stdo_run_environment.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_branch_construction.ts",
+      "relativePath": "subject/code/src/gtl/worksite_branch_construction.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_c0.ts",
+      "relativePath": "subject/code/src/gtl/worksite_c0.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "relativePath": "subject/code/src/gtl/worksite_command_execution.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_forward.ts",
+      "relativePath": "subject/code/src/gtl/worksite_command_forward.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction.ts",
+      "relativePath": "subject/code/src/gtl/worksite_construction.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction_recovery.ts",
+      "relativePath": "subject/code/src/gtl/worksite_construction_recovery.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "relativePath": "subject/code/src/hog/ccall_lifecycle.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/child_traversal.ts",
+      "relativePath": "subject/code/src/hog/child_traversal.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "relativePath": "subject/code/src/hog/entry.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/evaluation_frame.ts",
+      "relativePath": "subject/code/src/hog/evaluation_frame.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "relativePath": "subject/code/src/hog/graph_execute.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/index.ts",
+      "relativePath": "subject/code/src/hog/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/interaction_lifecycle.ts",
+      "relativePath": "subject/code/src/hog/interaction_lifecycle.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/interaction_resume.ts",
+      "relativePath": "subject/code/src/hog/interaction_resume.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts",
+      "relativePath": "subject/code/src/hog/judgment.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+      "relativePath": "subject/code/src/hog/operator_support.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+      "relativePath": "subject/code/src/hog/parent_rehydration.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "relativePath": "subject/code/src/hog/recursion_lifecycle.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/retry_lifecycle.ts",
+      "relativePath": "subject/code/src/hog/retry_lifecycle.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+      "relativePath": "subject/code/src/hog/route_proposal.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/structural_transition.ts",
+      "relativePath": "subject/code/src/hog/structural_transition.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/traversal.ts",
+      "relativePath": "subject/code/src/hog/traversal.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+      "relativePath": "subject/code/src/hog/traversal_completion.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "relativePath": "subject/code/src/hog/traversal_contract.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/traversal_failure.ts",
+      "relativePath": "subject/code/src/hog/traversal_failure.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "relativePath": "subject/code/src/hog/workflow_lifecycle.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/consensus.ts",
+      "relativePath": "subject/code/src/implementation/consensus.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "relativePath": "subject/code/src/implementation/contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+      "relativePath": "subject/code/src/implementation/default_library.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/fan_out.ts",
+      "relativePath": "subject/code/src/implementation/fan_out.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/fp_hello.ts",
+      "relativePath": "subject/code/src/implementation/fp_hello.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/hello_compose.ts",
+      "relativePath": "subject/code/src/implementation/hello_compose.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/hello_gate.ts",
+      "relativePath": "subject/code/src/implementation/hello_gate.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/hello_world.ts",
+      "relativePath": "subject/code/src/implementation/hello_world.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/index.ts",
+      "relativePath": "subject/code/src/implementation/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_execution_authority.ts",
+      "relativePath": "subject/code/src/implementation/leaf_execution_authority.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "relativePath": "subject/code/src/implementation/leaf_invocation_port.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+      "relativePath": "subject/code/src/implementation/native_work_reacquisition.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "relativePath": "subject/code/src/implementation/native_workspace_work.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "relativePath": "subject/code/src/implementation/qualification.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/recursion.ts",
+      "relativePath": "subject/code/src/implementation/recursion.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/release_publication.ts",
+      "relativePath": "subject/code/src/implementation/release_publication.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/requirement_handoff.ts",
+      "relativePath": "subject/code/src/implementation/requirement_handoff.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/self_conformance.ts",
+      "relativePath": "subject/code/src/implementation/self_conformance.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "relativePath": "subject/code/src/implementation/semantic_revision.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "relativePath": "subject/code/src/implementation/semantic_stage.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_branch_construction.ts",
+      "relativePath": "subject/code/src/implementation/worksite_branch_construction.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "relativePath": "subject/code/src/implementation/worksite_command_execution.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_forward.ts",
+      "relativePath": "subject/code/src/implementation/worksite_command_forward.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "relativePath": "subject/code/src/implementation/worksite_command_helper.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_construction.ts",
+      "relativePath": "subject/code/src/implementation/worksite_construction.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+      "relativePath": "subject/code/src/implementation/worksite_file_replace.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/index.ts",
+      "relativePath": "subject/code/src/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "relativePath": "subject/code/src/owner_bindings/run_invocation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "relativePath": "subject/code/src/product/admission_authority.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "relativePath": "subject/code/src/product/builtin_semantics.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "relativePath": "subject/code/src/product/catalog.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "relativePath": "subject/code/src/product/catalog_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/catalog_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts",
+      "relativePath": "subject/code/src/product/catalog_operations.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "relativePath": "subject/code/src/product/contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts",
+      "relativePath": "subject/code/src/product/declaration_application.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+      "relativePath": "subject/code/src/product/declaration_closure.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "relativePath": "subject/code/src/product/declaration_exports.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "relativePath": "subject/code/src/product/default_library.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+      "relativePath": "subject/code/src/product/default_library_fulfillment.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library_identity.ts",
+      "relativePath": "subject/code/src/product/default_library_identity.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "relativePath": "subject/code/src/product/environment.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "relativePath": "subject/code/src/product/environment_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/environment_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment_operations.ts",
+      "relativePath": "subject/code/src/product/environment_operations.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/exact_match.ts",
+      "relativePath": "subject/code/src/product/exact_match.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "relativePath": "subject/code/src/product/execution_resolution.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/implementation_resolution.ts",
+      "relativePath": "subject/code/src/product/implementation_resolution.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "relativePath": "subject/code/src/product/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "relativePath": "subject/code/src/product/install_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_operation.ts",
+      "relativePath": "subject/code/src/product/install_operation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/install_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "relativePath": "subject/code/src/product/install_product.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/installed_module.ts",
+      "relativePath": "subject/code/src/product/installed_module.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/interaction_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/interaction_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "relativePath": "subject/code/src/product/invocation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/materialization_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/materialization_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/materialization_operations.ts",
+      "relativePath": "subject/code/src/product/materialization_operations.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "relativePath": "subject/code/src/product/native_workspace_assessment.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "relativePath": "subject/code/src/product/native_workspace_work.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+      "relativePath": "subject/code/src/product/native_workspace_work_identity.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "relativePath": "subject/code/src/product/project_read_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/project_read_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/project_read_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+      "relativePath": "subject/code/src/product/project_read_ports.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+      "relativePath": "subject/code/src/product/public_contract_publication.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/publication.ts",
+      "relativePath": "subject/code/src/product/publication.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+      "relativePath": "subject/code/src/product/registered_selection_native.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/release_acceptance.ts",
+      "relativePath": "subject/code/src/product/release_acceptance.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+      "relativePath": "subject/code/src/product/release_snapshot_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_operations.ts",
+      "relativePath": "subject/code/src/product/release_snapshot_operations.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/requirement_handoff.ts",
+      "relativePath": "subject/code/src/product/requirement_handoff.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+      "relativePath": "subject/code/src/product/result_assessment_operation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "relativePath": "subject/code/src/product/run_invocation_operation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/run_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "relativePath": "subject/code/src/product/semantic_job.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "relativePath": "subject/code/src/product/semantic_revision.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts",
+      "relativePath": "subject/code/src/product/semantic_stage.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "relativePath": "subject/code/src/product/semantics.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "relativePath": "subject/code/src/product/stdo_environment.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+      "relativePath": "subject/code/src/product/verification_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/verification_operation.ts",
+      "relativePath": "subject/code/src/product/verification_operation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/verification_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/verification_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+      "relativePath": "subject/code/src/product/verify_product.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts",
+      "relativePath": "subject/code/src/product/worksite_branch_construction.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "relativePath": "subject/code/src/product/worksite_command_execution.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution_identity.ts",
+      "relativePath": "subject/code/src/product/worksite_command_execution_identity.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+      "relativePath": "subject/code/src/product/worksite_command_forward.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "relativePath": "subject/code/src/product/worksite_command_forward_identity.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+      "relativePath": "subject/code/src/product/worksite_construction.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "relativePath": "subject/code/src/product/worksite_construction_identity.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts",
+      "relativePath": "subject/code/src/product/worksite_construction_recovery.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "relativePath": "subject/code/src/product/worksite_effect.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "relativePath": "subject/code/src/product/worksite_operations.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation.ts",
+      "relativePath": "subject/code/src/product/worksite_preparation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+      "relativePath": "subject/code/src/product/worksite_preparation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_revision.ts",
+      "relativePath": "subject/code/src/product/worksite_revision.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_revision_identity.ts",
+      "relativePath": "subject/code/src/product/worksite_revision_identity.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+      "relativePath": "subject/code/src/product/workspace_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/workspace_operation_contracts.ts",
+      "relativePath": "subject/code/src/product/workspace_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/workspace_operations.ts",
+      "relativePath": "subject/code/src/product/workspace_operations.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+      "relativePath": "subject/code/src/public/cli.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/codex_cli.ts",
+      "relativePath": "subject/code/src/public/codex_cli.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/continuation_authority.ts",
+      "relativePath": "subject/code/src/public/continuation_authority.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+      "relativePath": "subject/code/src/public/gap_authority.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "relativePath": "subject/code/src/public/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "relativePath": "subject/code/src/public/installed_definition_call_transport.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "relativePath": "subject/code/src/public/installed_public_definition_call.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+      "relativePath": "subject/code/src/public/run_projection_authority.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "relativePath": "subject/code/src/shared/admission_predicates.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "relativePath": "subject/code/src/shared/canonical_json.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/capability_contracts.ts",
+      "relativePath": "subject/code/src/shared/capability_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "relativePath": "subject/code/src/shared/definition_binding_mechanics.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/digests.ts",
+      "relativePath": "subject/code/src/shared/digests.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+      "relativePath": "subject/code/src/shared/effect_definition.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/i_json.ts",
+      "relativePath": "subject/code/src/shared/i_json.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts",
+      "relativePath": "subject/code/src/shared/immutable.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/index.ts",
+      "relativePath": "subject/code/src/shared/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "relativePath": "subject/code/src/shared/operation_definition_coordinate.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owner_contract_source_set.ts",
+      "relativePath": "subject/code/src/shared/owner_contract_source_set.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "relativePath": "subject/code/src/shared/public_function_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts",
+      "relativePath": "subject/code/src/shared/public_function_family.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/public_function_projections.ts",
+      "relativePath": "subject/code/src/shared/public_function_projections.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/public_invocation.ts",
+      "relativePath": "subject/code/src/shared/public_invocation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/references.ts",
+      "relativePath": "subject/code/src/shared/references.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+      "relativePath": "subject/code/src/shared/rooted_topology_partition.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/static_definition_bindings.ts",
+      "relativePath": "subject/code/src/shared/static_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/c_algebra.ts",
+      "relativePath": "subject/code/src/validator/c_algebra.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "relativePath": "subject/code/src/validator/conformance_definition_bindings.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+      "relativePath": "subject/code/src/validator/conformance_operation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+      "relativePath": "subject/code/src/validator/conformance_operation_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/graph.ts",
+      "relativePath": "subject/code/src/validator/graph.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/implementation_resolution.ts",
+      "relativePath": "subject/code/src/validator/implementation_resolution.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/index.ts",
+      "relativePath": "subject/code/src/validator/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "relativePath": "subject/code/src/validator/qualification.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "relativePath": "subject/code/src/validator/qualification_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+      "relativePath": "subject/code/src/validator/raw_admission.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "relativePath": "subject/code/src/validator/self_conformance.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+      "relativePath": "subject/code/src/validator/self_conformance_basis.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_contracts.ts",
+      "relativePath": "subject/code/src/validator/self_conformance_contracts.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_publication.ts",
+      "relativePath": "subject/code/src/validator/self_conformance_publication.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "relativePath": "subject/code/src/validator/self_conformance_semantics.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "relativePath": "subject/code/src/validator/validation.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "relativePath": "subject/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "relativePath": "subject/contracts/qualification/authority-inputs.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/00-starter.md",
+      "relativePath": "subject/contracts/qualification/sources/00-starter.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/AXIOMATIC_CALCULUS.md",
+      "relativePath": "subject/contracts/qualification/sources/AXIOMATIC_CALCULUS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/IDENTITY_METHOD.md",
+      "relativePath": "subject/contracts/qualification/sources/IDENTITY_METHOD.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/INTENT.md",
+      "relativePath": "subject/contracts/qualification/sources/INTENT.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/ODD_METHOD.md",
+      "relativePath": "subject/contracts/qualification/sources/ODD_METHOD.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+      "relativePath": "subject/contracts/qualification/sources/PRODUCT.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REFERENCE_FRAME_METHOD.md",
+      "relativePath": "subject/contracts/qualification/sources/REFERENCE_FRAME_METHOD.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/RELEASE_METHOD.md",
+      "relativePath": "subject/contracts/qualification/sources/RELEASE_METHOD.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-ASSET-SURFACE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-ASSET-SURFACE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-ATTRS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-ATTRS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-COMPOSE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-COMPOSE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-COMPUTE-NOTATION.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-CONTEXT.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-EVALUATOR.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-GRAPH.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-GRAPH.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-GRAPHVECTOR.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-GRAPHVECTOR.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-HOF.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-HOF.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-HOOKS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-HOOKS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-IDENTITY.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-IDENTITY.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-INTERFACE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-INTERFACE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-JOB.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-JOB.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-LANGUAGE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-LANGUAGE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-LAWS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-LAWS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-MODULE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-MODULE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-NODE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-NODE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-OPERATOR.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-OPERATOR.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-RECURSE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-RECURSE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-ROLE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-ROLE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-RULE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-RULE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-SELECTION-BOUNDARY.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-SUBSTITUTE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-SUBSTITUTE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-SUBWORK.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-SUBWORK.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-SYNTHESIS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-SYNTHESIS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-L-GTL3-TEMPORAL-PROPERTIES.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-M-GTL3-CAPABILITY.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-M-GTL3-CAPABILITY.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-M-GTL3-MAPPING.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-M-GTL3-MAPPING.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-M-GTL3-PROGRAM-TRAVERSAL.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-M-GTL3-PROVENANCE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-M-GTL3-PROVENANCE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-CATALOG.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-P-CATALOG.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-CONSENSUS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-P-CONSENSUS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-INSTALL.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-P-INSTALL.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-POLICY.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-P-POLICY.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-QUAL.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-P-QUAL.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-SCENARIOS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-P-SCENARIOS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-ASSURANCE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-ASSURANCE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-BINDING.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-BINDING.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-CCALL.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-CONVERGENCE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-CONVERGENCE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-CORRECTION.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-CORRECTION.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-EVENTS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-EVENTS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-FRAME.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-FRAME.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-GRAPHCALL.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-GRAPHCALL.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-HANDLERS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-HANDLERS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-INTERPRET.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-INTERPRET.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-ITERATION.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-ITERATION.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-JOB-WORKER.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-JOB-WORKER.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-LEAFTASK.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-LEAFTASK.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-LINEAGE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-LINEAGE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-PAYLOAD.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-PAYLOAD.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-PLUGIN-SEAMS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-POLICY.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-POLICY.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-PROVENANCE.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-PROVENANCE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-RETRY.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-RETRY.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-RUN.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-RUN.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-SELECTION-APPLICATION.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SELFHOSTING.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-SELFHOSTING.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-TRANSPORT.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-TRANSPORT.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-TUNER.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-TUNER.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-WORKER.md",
+      "relativePath": "subject/contracts/qualification/sources/REQ-R-ABG3-WORKER.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/SPEC_METHOD.md",
+      "relativePath": "subject/contracts/qualification/sources/SPEC_METHOD.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/STDO_REFERENCE_FRAME_BASELINE.md",
+      "relativePath": "subject/contracts/qualification/sources/STDO_REFERENCE_FRAME_BASELINE.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/specification__requirements__README.md",
+      "relativePath": "subject/contracts/qualification/sources/specification__requirements__README.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/specification__requirements__abg__README.md",
+      "relativePath": "subject/contracts/qualification/sources/specification__requirements__abg__README.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/specification__requirements__gtl__README.md",
+      "relativePath": "subject/contracts/qualification/sources/specification__requirements__gtl__README.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/specification__requirements__mapping__README.md",
+      "relativePath": "subject/contracts/qualification/sources/specification__requirements__mapping__README.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/specification__requirements__product__README.md",
+      "relativePath": "subject/contracts/qualification/sources/specification__requirements__product__README.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/stdo_abiogenesis.json",
+      "relativePath": "subject/contracts/qualification/sources/stdo_abiogenesis.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/qualification/sources/stdo_bootstrap.md",
+      "relativePath": "subject/contracts/qualification/sources/stdo_bootstrap.md"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/schemas/product-toolchain-manifest.schema.json",
+      "relativePath": "subject/contracts/schemas/product-toolchain-manifest.schema.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/contracts/schemas/public-contract-catalog.schema.json",
+      "relativePath": "subject/contracts/schemas/public-contract-catalog.schema.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/package-lock.json",
+      "relativePath": "subject/package-lock.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+      "relativePath": "subject/package.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/clean.mjs",
+      "relativePath": "subject/scripts/clean.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "relativePath": "subject/scripts/generate-product-manifest.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "relativePath": "subject/scripts/generate-qualification-rule-catalog.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/lint-verification.mjs",
+      "relativePath": "subject/scripts/lint-verification.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+      "relativePath": "subject/scripts/node-test-evidence-reporter.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/refresh-candidate-basis.mjs",
+      "relativePath": "subject/scripts/refresh-candidate-basis.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/authority-lanes.mjs",
+      "relativePath": "subject/test_env/falsifiers/authority-lanes.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/contract-lanes.mjs",
+      "relativePath": "subject/test_env/falsifiers/contract-lanes.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/evidence.mjs",
+      "relativePath": "subject/test_env/falsifiers/evidence.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/installed-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/installed-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/pfc-f08-lane.mjs",
+      "relativePath": "subject/test_env/falsifiers/pfc-f08-lane.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/run-s06-increment-0a.mjs",
+      "relativePath": "subject/test_env/falsifiers/run-s06-increment-0a.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f06-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-f06-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f08.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-f08.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-product.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-f09-product.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-f09-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-f09.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f10-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-f10-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-lanes.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-lanes.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-preparation-refusal-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-preparation-refusal-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-public-fh-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-public-fh-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-recursion-lifecycle-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-recursion-lifecycle-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-recursion-route-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-recursion-route-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-retained-projections-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/runtime-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/t287-r3-reopen-route-worker.mjs",
+      "relativePath": "subject/test_env/falsifiers/t287-r3-reopen-route-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "relativePath": "subject/test_env/fixtures/abi5-root-candidate-basis.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/continuation-causation.json",
+      "relativePath": "subject/test_env/fixtures/continuation-causation.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+      "relativePath": "subject/test_env/fixtures/default-library-product/index.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/contracts/greeting.schema.json",
+      "relativePath": "subject/test_env/fixtures/developer-mini-product/contracts/greeting.schema.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/contracts/public-contract-catalog.schema.json",
+      "relativePath": "subject/test_env/fixtures/developer-mini-product/contracts/public-contract-catalog.schema.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/package.json",
+      "relativePath": "subject/test_env/fixtures/developer-mini-product/package.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/src/index.ts",
+      "relativePath": "subject/test_env/fixtures/developer-mini-product/src/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/tsconfig.json",
+      "relativePath": "subject/test_env/fixtures/developer-mini-product/tsconfig.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "relativePath": "subject/test_env/fixtures/exact-intent-product/index.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/flavored-catalog-product/contracts/flavored-text.schema.json",
+      "relativePath": "subject/test_env/fixtures/flavored-catalog-product/contracts/flavored-text.schema.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/flavored-catalog-product/contracts/public-contract-catalog.schema.json",
+      "relativePath": "subject/test_env/fixtures/flavored-catalog-product/contracts/public-contract-catalog.schema.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/flavored-catalog-product/package.json",
+      "relativePath": "subject/test_env/fixtures/flavored-catalog-product/package.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/flavored-catalog-product/src/index.ts",
+      "relativePath": "subject/test_env/fixtures/flavored-catalog-product/src/index.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/flavored-catalog-product/src/publication.ts",
+      "relativePath": "subject/test_env/fixtures/flavored-catalog-product/src/publication.ts"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/flavored-catalog-product/tsconfig.json",
+      "relativePath": "subject/test_env/fixtures/flavored-catalog-product/tsconfig.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "relativePath": "subject/test_env/fixtures/registered-selection-product/index.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs",
+      "relativePath": "subject/test_env/fixtures/registered-selection-product/native.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/recursive.mjs",
+      "relativePath": "subject/test_env/fixtures/registered-selection-product/recursive.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/archive-supervisor.mjs",
+      "relativePath": "subject/test_env/fixtures/t287-management-supervision/archive-supervisor.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+      "relativePath": "subject/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/process-worker.mjs",
+      "relativePath": "subject/test_env/fixtures/t287-management-supervision/process-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/retained-api-retry.jsonl",
+      "relativePath": "subject/test_env/fixtures/t287-management-supervision/retained-api-retry.jsonl"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/semantic-worker.mjs",
+      "relativePath": "subject/test_env/fixtures/t287-management-supervision/semantic-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+      "relativePath": "subject/test_env/fixtures/t287-s03-automatic-product/index.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "relativePath": "subject/test_env/fixtures/t287-selected-action-product/index.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-m5-live-fp.json",
+      "relativePath": "subject/test_env/proof/abi5-m5-live-fp.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-governor.json",
+      "relativePath": "subject/test_env/proof/abi5-root-governor.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.events.jsonl",
+      "relativePath": "subject/test_env/proof/abi5-root-r10.events.jsonl"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.json",
+      "relativePath": "subject/test_env/proof/abi5-root-r10.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.outcomes.json",
+      "relativePath": "subject/test_env/proof/abi5-root-r10.outcomes.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.transcript.json",
+      "relativePath": "subject/test_env/proof/abi5-root-r10.transcript.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-rival-authority-mutations.json",
+      "relativePath": "subject/test_env/proof/abi5-root-rival-authority-mutations.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/admitted-graph-execution.mjs",
+      "relativePath": "subject/test_env/support/admitted-graph-execution.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "relativePath": "subject/test_env/support/candidate-basis.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d1-preserved-result-harness.mjs",
+      "relativePath": "subject/test_env/support/d1-preserved-result-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "relativePath": "subject/test_env/support/d2-binding-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "relativePath": "subject/test_env/support/d2-bounded-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-conservation.mjs",
+      "relativePath": "subject/test_env/support/d2-evidence-owner-conservation.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+      "relativePath": "subject/test_env/support/d2-evidence-owner-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-frame-fixture.mjs",
+      "relativePath": "subject/test_env/support/d2-frame-fixture.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+      "relativePath": "subject/test_env/support/d2-historical-design-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-historical-owner-harness.mjs",
+      "relativePath": "subject/test_env/support/d2-historical-owner-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-static-smoke.mjs",
+      "relativePath": "subject/test_env/support/d2-static-smoke.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-workflow-step-harness.mjs",
+      "relativePath": "subject/test_env/support/d2-workflow-step-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+      "relativePath": "subject/test_env/support/declared-testing-capability.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/default-library-fulfillment.mjs",
+      "relativePath": "subject/test_env/support/default-library-fulfillment.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "relativePath": "subject/test_env/support/default-library.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs",
+      "relativePath": "subject/test_env/support/developer-mini-product.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/flavored-catalog-product.mjs",
+      "relativePath": "subject/test_env/support/flavored-catalog-product.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "relativePath": "subject/test_env/support/forward-command-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "relativePath": "subject/test_env/support/forward-observation-carrier.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/forward-owner-lookups.mjs",
+      "relativePath": "subject/test_env/support/forward-owner-lookups.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "relativePath": "subject/test_env/support/fresh-process-runtime-proof.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-public-definition-call.mjs",
+      "relativePath": "subject/test_env/support/installed-public-definition-call.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/isolated-compiled-copy.mjs",
+      "relativePath": "subject/test_env/support/isolated-compiled-copy.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "relativePath": "subject/test_env/support/malformed-gtl-native-fixture.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/multi-candidate-admission-owner.mjs",
+      "relativePath": "subject/test_env/support/multi-candidate-admission-owner.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs",
+      "relativePath": "subject/test_env/support/native-registered-selection.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/native-runtime-structural-cases.mjs",
+      "relativePath": "subject/test_env/support/native-runtime-structural-cases.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/neutral-schema-product.mjs",
+      "relativePath": "subject/test_env/support/neutral-schema-product.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+      "relativePath": "subject/test_env/support/new-empty-append-sink.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "relativePath": "subject/test_env/support/r10-private-owner-harness.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "relativePath": "subject/test_env/support/registered-graph-selection.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "relativePath": "subject/test_env/support/root-cli-environment.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-governor.mjs",
+      "relativePath": "subject/test_env/support/root-governor.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "relativePath": "subject/test_env/support/root-installed-environment.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-owner-evidence.mjs",
+      "relativePath": "subject/test_env/support/root-owner-evidence.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/serial-branch-worksite-program.mjs",
+      "relativePath": "subject/test_env/support/serial-branch-worksite-program.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/single-start-worksite-program.mjs",
+      "relativePath": "subject/test_env/support/single-start-worksite-program.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/stdo-environment-pilot.mjs",
+      "relativePath": "subject/test_env/support/stdo-environment-pilot.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/steel-consumer-resolution.mjs",
+      "relativePath": "subject/test_env/support/steel-consumer-resolution.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-declaration-closure-symbol-reuse.mjs",
+      "relativePath": "subject/test_env/support/t287-declaration-closure-symbol-reuse.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-entry212-reopen-worker.mjs",
+      "relativePath": "subject/test_env/support/t287-entry212-reopen-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "relativePath": "subject/test_env/support/t287-exact-prefix-projection-reuse.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "relativePath": "subject/test_env/support/t287-generic-job-intake.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-lifecycle.mjs",
+      "relativePath": "subject/test_env/support/t287-generic-job-lifecycle.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-parent-audit.mjs",
+      "relativePath": "subject/test_env/support/t287-generic-job-parent-audit.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs",
+      "relativePath": "subject/test_env/support/t287-generic-job-readback.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "relativePath": "subject/test_env/support/t287-generic-job-revision.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "relativePath": "subject/test_env/support/t287-generic-job-worksite.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-native-event-time.mjs",
+      "relativePath": "subject/test_env/support/t287-native-event-time.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-native-frame-observation.mjs",
+      "relativePath": "subject/test_env/support/t287-native-frame-observation.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-native-frame-route-conservation.mjs",
+      "relativePath": "subject/test_env/support/t287-native-frame-route-conservation.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+      "relativePath": "subject/test_env/support/t287-predecessor-context.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "relativePath": "subject/test_env/support/t287-s03-automatic.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "relativePath": "subject/test_env/support/t287-selected-action-host.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-setup-invocation-authority-worker.mjs",
+      "relativePath": "subject/test_env/support/t287-setup-invocation-authority-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-st3-fresh-process-read-worker.mjs",
+      "relativePath": "subject/test_env/support/t287-st3-fresh-process-read-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-tv5-success-reconstruction-worker.mjs",
+      "relativePath": "subject/test_env/support/t287-tv5-success-reconstruction-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-wave2-owner-chain-worker.mjs",
+      "relativePath": "subject/test_env/support/t287-wave2-owner-chain-worker.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t288-admission-helper-preimages.json",
+      "relativePath": "subject/test_env/support/t288-admission-helper-preimages.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/wave1-interface-receipt.mjs",
+      "relativePath": "subject/test_env/support/wave1-interface-receipt.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/wave1-proof-capture.mjs",
+      "relativePath": "subject/test_env/support/wave1-proof-capture.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/witness-reprice-mechanics.mjs",
+      "relativePath": "subject/test_env/support/witness-reprice-mechanics.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+      "relativePath": "subject/test_env/tests/a5-f02-canonical-gtl-identity.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/abi5-root-installed-function-chain.test.mjs",
+      "relativePath": "subject/test_env/tests/abi5-root-installed-function-chain.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d1-preserved-result-mechanics.test.mjs",
+      "relativePath": "subject/test_env/tests/d1-preserved-result-mechanics.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d1-preserved-result.test.mjs",
+      "relativePath": "subject/test_env/tests/d1-preserved-result.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-acknowledgment.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-acknowledgment.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-query-reuse.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-binding-query-reuse.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-retained-diagnostic.mjs",
+      "relativePath": "subject/test_env/tests/d2-binding-retained-diagnostic.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-binding-transition.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-bounded-repair.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-bounded-repair.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-evidence-owner-lookup.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-evidence-owner.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-frame-installed.mjs",
+      "relativePath": "subject/test_env/tests/d2-frame-installed.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-historical-design.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-historical-design.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-historical-owner.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-historical-owner.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-workflow-step.test.mjs",
+      "relativePath": "subject/test_env/tests/d2-workflow-step.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d4-s01-program-owner.test.mjs",
+      "relativePath": "subject/test_env/tests/d4-s01-program-owner.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/forward-command-contracts.test.mjs",
+      "relativePath": "subject/test_env/tests/forward-command-contracts.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/forward-command-owners.test.mjs",
+      "relativePath": "subject/test_env/tests/forward-command-owners.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/generic-input-retention.test.mjs",
+      "relativePath": "subject/test_env/tests/generic-input-retention.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/hog-operator-support.test.mjs",
+      "relativePath": "subject/test_env/tests/hog-operator-support.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/integration-d1-readonly-discriminator.mjs",
+      "relativePath": "subject/test_env/tests/integration-d1-readonly-discriminator.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/integration-shared-seams.test.mjs",
+      "relativePath": "subject/test_env/tests/integration-shared-seams.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-c-algebra-validation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-consensus-module.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-consensus-module.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-event-calculus-runtime.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-event-store-reopen.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-fibre-substitution.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-fibre-substitution.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-compose.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-compose.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-consensus.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-consensus.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-external-product.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-external-product.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fan-out.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-fan-out.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp-fd-compose.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-fp-fd-compose.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-fp.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-gate.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-gate.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-graph-edge.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-portability.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-portability.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-recursion.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-retry.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-retry.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-substitute.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-substitute.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-workflow.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-installed-workflow.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-live-fp.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-live-fp.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-retry-lifecycle-authority.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s03-authority.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-s03-authority.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-s06-prime.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-terminal-quiescence-owner.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-traversal-conservation.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-traversal-conservation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "relativePath": "subject/test_env/tests/m5-worker-transport.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs",
+      "relativePath": "subject/test_env/tests/r1-packed-artifact.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r10-child-proof.test.mjs",
+      "relativePath": "subject/test_env/tests/r10-child-proof.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r10-fresh-imports.mjs",
+      "relativePath": "subject/test_env/tests/r10-fresh-imports.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r10-installed-cli-outcome.test.mjs",
+      "relativePath": "subject/test_env/tests/r10-installed-cli-outcome.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r10-projection-contracts.test.mjs",
+      "relativePath": "subject/test_env/tests/r10-projection-contracts.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r10-retained-child-projection.mjs",
+      "relativePath": "subject/test_env/tests/r10-retained-child-projection.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r10-retained-hello-projection.mjs",
+      "relativePath": "subject/test_env/tests/r10-retained-hello-projection.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r2-clean-install.test.mjs",
+      "relativePath": "subject/test_env/tests/r2-clean-install.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r3-workspace-binding.test.mjs",
+      "relativePath": "subject/test_env/tests/r3-workspace-binding.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+      "relativePath": "subject/test_env/tests/r4-catalog-admission.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs",
+      "relativePath": "subject/test_env/tests/r5-invocation-admission.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r6-implementation-resolution.test.mjs",
+      "relativePath": "subject/test_env/tests/r6-implementation-resolution.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r7-graph-validation-basis.test.mjs",
+      "relativePath": "subject/test_env/tests/r7-graph-validation-basis.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r8-direct-hog-entry.test.mjs",
+      "relativePath": "subject/test_env/tests/r8-direct-hog-entry.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r9-causal-result-closure.test.mjs",
+      "relativePath": "subject/test_env/tests/r9-causal-result-closure.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+      "relativePath": "subject/test_env/tests/retained-route-cursor-transition.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/rival-authority-mutations.test.mjs",
+      "relativePath": "subject/test_env/tests/rival-authority-mutations.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/root-cli-environment-timeout.test.mjs",
+      "relativePath": "subject/test_env/tests/root-cli-environment-timeout.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/root-governor.test.mjs",
+      "relativePath": "subject/test_env/tests/root-governor.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/runtime-scope-regressions.test.mjs",
+      "relativePath": "subject/test_env/tests/runtime-scope-regressions.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/steel-basic-cli-c2.test.mjs",
+      "relativePath": "subject/test_env/tests/steel-basic-cli-c2.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/steel-basic-cli-projection.test.mjs",
+      "relativePath": "subject/test_env/tests/steel-basic-cli-projection.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/steel-basic-cli-public.test.mjs",
+      "relativePath": "subject/test_env/tests/steel-basic-cli-public.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/steel-basic-cli-source-replay.test.mjs",
+      "relativePath": "subject/test_env/tests/steel-basic-cli-source-replay.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/steel-consumer-authority.test.mjs",
+      "relativePath": "subject/test_env/tests/steel-consumer-authority.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/steel-consumer-declaration.test.mjs",
+      "relativePath": "subject/test_env/tests/steel-consumer-declaration.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-family.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-authenticated-owner-family.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-authenticated-owner-values.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-c0-correction-regressions.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-c0-post-publication-failure.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-child-program.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-c2-child-program.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-core-environment.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-c2-core-environment.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-c2a-fp-source-contract.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-calculus-state-transfer.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-cold-record-decoder.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-conformance-owner-reuse.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-continuation-causation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-cross-cut-public-read.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-cross-cut-public-read.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-d1-requirement-handoff.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-d1-semantic-stage.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-declared-testing-capability.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-default-library-fulfillment.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-deferred-application-restoration.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-environment-projection-conservation.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-environment-projection-conservation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-event-body-encoding.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-event-calculus-owner-continuation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-exact-construction-intent.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-fh-hold-open.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-fh-hold-open.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-intake.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-generic-job-intake.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-generic-job-lifecycle.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-generic-job-meaning.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-parent-audit.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-generic-job-parent-audit.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-generic-job-parent-foldback.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-read-dependency.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-generic-job-read-dependency.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-generic-job-revision.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-worksite.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-generic-job-worksite.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-held-prefix.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-historical-source-resource.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-interrupted-event-resource-recovery.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-json-value-definition.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-json-value-definition.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-live-worksite-construction.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-malformed-gtl-gate.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-malformed-gtl-gate.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-management-context.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-stream-drain.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-management-stream-drain.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-management-supervision.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-multi-candidate-admission.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-multi-candidate-admission.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-assembly-retained-input.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-assessment-evidence.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-c2-instruction-assembly.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-event-time.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-event-time.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-frame-observation.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-frame-observation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-frame-route-conservation.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-frame-route-conservation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-owner-reuse.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-registered-selection.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-runtime-gate.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-selection-profile-scope.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-selection-profile-scope.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-evidence.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-semantic-evidence.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-semantic-job.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-semantic-revision.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-structural-gates.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-work-reacquisition.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-worksite-execution.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-observed-worksite-command.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-ordered-reconstruction.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-owned-native-proof.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-post-binding-worksite-write.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-predecessor-context.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-predecessor-context.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-public-terminal-projection.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-public-terminal-projection.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-qual056-material.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-qualification-contraction.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-qualification-law.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-qualification-producer-context.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-qualification-scopes.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-r4-aba-retry.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-r4-aba-retry.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-r6-retry-success-exit.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-reacquisition-root-contract.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-reacquisition-root-contract.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-reconstruction-conservation.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-reconstruction-conservation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-recursive-registered-selection.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-registered-graph-selection.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-release-acceptance.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-publication.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-release-publication.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-retry-run-prefix.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-route-reconstruction.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-runtime-activity-quiescence.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-runtime-failure-diagnostic.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-s03-automatic.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-selected-action-authority.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-selected-action.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-execution-closure.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-selected-execution-closure.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-setup-invocation-authority.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-setup-invocation-authority.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-stdo-environment-citation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-stdo-proof-entry.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment-installed.mjs",
+      "relativePath": "subject/test_env/tests/t287-stdo-run-environment-installed.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-stdo-run-environment.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-tv5-rooted-topology-partition.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-undispatched-diagnostic.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-run-invoke-installed.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-w2-05-run-invoke-installed.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-wave2-definition-coordinate.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-wave2-installed-product-verification.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-wave2-owner-chain.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-wave2-owner-chain.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-wave2-owner-contract-source-set.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-worksite-branch-construction.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-worksite-command-execution.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-worksite-construction.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-file-replace-owner.test.mjs",
+      "relativePath": "subject/test_env/tests/t287-worksite-file-replace-owner.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-admission-predicates.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-blocked-retry-entry.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-blocked-retry-entry.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-composition-conservation.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-composition-conservation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-environment-context-reuse.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-environment-context-reuse.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-environment-guard-contraction.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-environment-guard-contraction.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-initial-cursor-entry.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-initial-cursor-entry.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-instruction-assembly-owner.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-logical-prefix-digest.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-native-producer-membership.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-native-producer-membership.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-physical-return-conservation.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-physical-return-conservation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-prefix-structure.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-prefix-structure.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-scoped-retry-guard.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-scoped-retry-guard.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-workflow-scope-conservation.test.mjs",
+      "relativePath": "subject/test_env/tests/t288-workflow-scope-conservation.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "relativePath": "subject/test_env/tests/t289-install-event-bodies.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+      "relativePath": "subject/test_env/tests/w2-steel-serial-branch-installed.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "relativePath": "subject/test_env/tests/w2-steel-single-start-closure.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-installed.test.mjs",
+      "relativePath": "subject/test_env/tests/w2-steel-single-start-installed.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start.test.mjs",
+      "relativePath": "subject/test_env/tests/w2-steel-single-start.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "relativePath": "subject/test_env/tests/witness-reprice-definition-binding.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+      "relativePath": "subject/test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "relativePath": "subject/tsconfig.json"
+    }
+  ],
+  "auxiliaryInputs": [
+    {
+      "relativePath": "dependency-inputs/00.tgz",
+      "digest": "sha256:a7cb7268be280ab518d450f8c3b07c86f23417225c0ab53691ed59b3067cceaf",
+      "byteCount": 4178
+    },
+    {
+      "relativePath": "dependency-inputs/01.tgz",
+      "digest": "sha256:f0c189f2e4afb3a09d5a8e54d925658be1f290f96f5651547b0697126aab30bf",
+      "byteCount": 442417
+    },
+    {
+      "relativePath": "dependency-inputs/02.tgz",
+      "digest": "sha256:37d9210b3613f84d9c1952a274c40e7b65c0ef7a7a197c743f0c694e8f8428b8",
+      "byteCount": 26470
+    },
+    {
+      "relativePath": "dependency-inputs/03.tgz",
+      "digest": "sha256:b2f0b3a893bbb8cc5efb6814f08b1499e19e31d5dd73683f5893382f48f6e7b3",
+      "byteCount": 217611
+    },
+    {
+      "relativePath": "dependency-inputs/04.tgz",
+      "digest": "sha256:f4d6980fd367381fd29199066911e863db8d97496613b6c2c5b91563a150acc5",
+      "byteCount": 15999
+    },
+    {
+      "relativePath": "dependency-inputs/05.tgz",
+      "digest": "sha256:94d00b7672f53dcb7482c3eea269ae0ce704ff138d07e9103a26433b2bb3d986",
+      "byteCount": 4215337
+    },
+    {
+      "relativePath": "dependency-inputs/06.tgz",
+      "digest": "sha256:e0dc9a854e04856bd9962fc64001a21d609d44a3ef0f3b1b224de5f488334646",
+      "byteCount": 281432
+    },
+    {
+      "relativePath": "dependency-inputs/07.tgz",
+      "digest": "sha256:b019a0980f27638dc3f85836b0e478f188e00d7a6e5852c0819fa86f56e47b8f",
+      "byteCount": 3656
+    },
+    {
+      "relativePath": "dependency-inputs/08.tgz",
+      "digest": "sha256:3fa380284be4ecbf471c1dbb8c5da6f517c95f54279f88c2037985d03fdc6d92",
+      "byteCount": 43760
+    },
+    {
+      "relativePath": "dependency-inputs/09.tgz",
+      "digest": "sha256:023222622df29fc274bde5d3590e47aa1d4a8e3c1d6e2aba029948ed79799b21",
+      "byteCount": 6074
+    },
+    {
+      "relativePath": "dependency-inputs/10.tgz",
+      "digest": "sha256:4a0315b8671e7463bae7af7c142cdf19e9aa7ba39eb36dc2df383b8648e3cbc9",
+      "byteCount": 27354
+    },
+    {
+      "relativePath": "dependency-inputs/11.tgz",
+      "digest": "sha256:cb9e5ff9b8f365590b793b63a29941913414285a143ba2ac8313f963f7f06fd7",
+      "byteCount": 18677
+    },
+    {
+      "relativePath": "dependency-inputs/12.tgz",
+      "digest": "sha256:cb694a4965908f7775a0c757f00cf4e624d193cd71d77988fbcca0f597b88d82",
+      "byteCount": 1816
+    },
+    {
+      "relativePath": "dependency-inputs/13.tgz",
+      "digest": "sha256:67a3bc82e822b8f45f653a80fc3a9730d23214d36c83ba85dd7f5abebee82062",
+      "byteCount": 4376902
+    },
+    {
+      "relativePath": "dependency-inputs/14.tgz",
+      "digest": "sha256:de1edd1be9533525edf772b908e1b5643821c5bf95de199539c08fc534e7fd63",
+      "byteCount": 25969
+    },
+    {
+      "relativePath": "dependency-inputs/15.tgz",
+      "digest": "sha256:523d2044ac64460f8f29cae16fec163ff96e8012c084d0f01a817c3db04db447",
+      "byteCount": 184447
+    },
+    {
+      "relativePath": "recipe/input-manifest.json",
+      "digest": "sha256:31b2570099dca822979ac3b8f3ce9ba21f83fde070b07940bb81fca3b7068907",
+      "byteCount": 526663
+    },
+    {
+      "relativePath": "recipe/expected-output-inventory.json",
+      "digest": "sha256:93ee396c6c4ab55acd49a6e5a4ab4ba1695d00d5090d720ade5dcadfcb09af05",
+      "byteCount": 169792
+    },
+    {
+      "relativePath": "recipe/recipe-stage.mjs",
+      "digest": "sha256:1f0fb1cefe4b7b5da2ea0e0a060fb82733efbe03cc9f61d708728108af325f56",
+      "byteCount": 1497
+    },
+    {
+      "relativePath": "recipe/compare-generated.mjs",
+      "digest": "sha256:5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945",
+      "byteCount": 1988
+    },
+    {
+      "relativePath": "recipe/config.json",
+      "digest": "sha256:1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4",
+      "byteCount": 34145
+    },
+    {
+      "relativePath": "recipe/toolchain.json",
+      "digest": "sha256:a81c04f4613d8326bd1209bf9f65016c0c7cbc2a3e51a963f54aec3973589b1d",
+      "byteCount": 2223
+    },
+    {
+      "relativePath": "recipe/npm-toolchain-inventory.json",
+      "digest": "sha256:54140b1ad3786cc658e0a04584fad6996685591b768e4ea0cb2274713ca00e03",
+      "byteCount": 414516
+    },
+    {
+      "relativePath": "recipe/test-environment.mjs",
+      "digest": "sha256:2e578975a7bfe7b89e8c54e55cef3f7da318aa2e40d10572ae69ea54b13e2c15",
+      "byteCount": 779
+    }
+  ],
+  "commandConfigurationDigest": "sha256:80e03de33233be80d36dd5e277f9f276736e68bc9eb28b7795d634361d08308d",
+  "predicateConfigurationDigest": "sha256:a18f01341e24b78a2849e509f8e08f79ea33e871bb7a5e1a144ea2d2be4e227b",
+  "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0",
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/stage",
+      "role": "setup"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+      "role": "setup"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+      "role": "setup"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/clean",
+      "role": "build"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/compile",
+      "role": "build"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/generate",
+      "role": "build"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/lint",
+      "role": "lint"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "role": "test"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "role": "test"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "role": "test"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "role": "test"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "role": "test"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/compare",
+      "role": "compare"
+    }
+  ],
+  "lint": {
+    "commandId": "command://abiogenesis/rc1-qual056/lint",
+    "files": [
+      {
+        "path": "contracts/qualification/authority-inputs.json",
+        "kind": "json"
+      },
+      {
+        "path": "contracts/qualification/sources/stdo_abiogenesis.json",
+        "kind": "json"
+      },
+      {
+        "path": "contracts/schemas/product-toolchain-manifest.schema.json",
+        "kind": "json"
+      },
+      {
+        "path": "contracts/schemas/public-contract-catalog.schema.json",
+        "kind": "json"
+      },
+      {
+        "path": "package-lock.json",
+        "kind": "json"
+      },
+      {
+        "path": "package.json",
+        "kind": "json"
+      },
+      {
+        "path": "scripts/clean.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/generate-product-manifest.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/generate-qualification-rule-catalog.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/lint-verification.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/node-test-evidence-reporter.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/refresh-candidate-basis.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/authority-lanes.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/contract-lanes.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/evidence.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/installed-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/pfc-f08-lane.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/run-s06-increment-0a.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-f06-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-f08.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-f09-product.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-f09-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-f09.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-f10-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-lanes.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-preparation-refusal-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-public-fh-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-recursion-lifecycle-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-recursion-route-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-retained-projections-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/runtime-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/falsifiers/t287-r3-reopen-route-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/continuation-causation.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/default-library-product/index.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/developer-mini-product/contracts/greeting.schema.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/developer-mini-product/contracts/public-contract-catalog.schema.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/developer-mini-product/package.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/developer-mini-product/tsconfig.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/exact-intent-product/index.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/flavored-catalog-product/contracts/flavored-text.schema.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/flavored-catalog-product/contracts/public-contract-catalog.schema.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/flavored-catalog-product/package.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/flavored-catalog-product/tsconfig.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/fixtures/registered-selection-product/index.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/registered-selection-product/native.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/registered-selection-product/recursive.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/t287-management-supervision/archive-supervisor.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/t287-management-supervision/process-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/t287-management-supervision/semantic-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/t287-s03-automatic-product/index.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/fixtures/t287-selected-action-product/index.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/proof/abi5-m5-live-fp.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/proof/abi5-root-governor.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/proof/abi5-root-r10.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/proof/abi5-root-r10.outcomes.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/proof/abi5-root-r10.transcript.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/proof/abi5-root-rival-authority-mutations.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/support/admitted-graph-execution.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/candidate-basis.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d1-preserved-result-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-binding-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-bounded-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-evidence-owner-conservation.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-evidence-owner-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-frame-fixture.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-historical-design-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-historical-owner-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-static-smoke.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/d2-workflow-step-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/declared-testing-capability.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/default-library-fulfillment.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/default-library.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/developer-mini-product.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/flavored-catalog-product.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/forward-command-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/forward-observation-carrier.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/forward-owner-lookups.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/fresh-process-runtime-proof.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/installed-public-definition-call.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/isolated-compiled-copy.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/malformed-gtl-native-fixture.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/multi-candidate-admission-owner.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/native-registered-selection.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/native-runtime-structural-cases.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/neutral-schema-product.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/new-empty-append-sink.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/r10-private-owner-harness.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/registered-graph-selection.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/root-cli-environment.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/root-governor.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/root-installed-environment.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/root-owner-evidence.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/serial-branch-worksite-program.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/single-start-worksite-program.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/stdo-environment-pilot.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/steel-consumer-resolution.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-declaration-closure-symbol-reuse.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-entry212-reopen-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-exact-prefix-projection-reuse.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-generic-job-intake.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-generic-job-lifecycle.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-generic-job-parent-audit.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-generic-job-readback.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-generic-job-revision.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-generic-job-worksite.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-native-event-time.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-native-frame-observation.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-native-frame-route-conservation.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-predecessor-context.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-s03-automatic.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-selected-action-host.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-setup-invocation-authority-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-st3-fresh-process-read-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-tv5-success-reconstruction-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t287-wave2-owner-chain-worker.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/t288-admission-helper-preimages.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/support/wave1-interface-receipt.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/wave1-proof-capture.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/witness-reprice-mechanics.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/abi5-root-installed-function-chain.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d1-preserved-result.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-acknowledgment.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-binding-query-reuse.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-binding-retained-diagnostic.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-binding-transition.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-bounded-repair.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-evidence-owner.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-frame-installed.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-historical-design.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-historical-owner.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d2-workflow-step.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/d4-s01-program-owner.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/forward-command-contracts.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/forward-command-owners.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/generic-input-retention.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/hog-operator-support.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/integration-d1-readonly-discriminator.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/integration-shared-seams.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-consensus-module.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-event-store-reopen.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-fibre-substitution.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-compose.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-consensus.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-external-product.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-fan-out.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-fp-fd-compose.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-fp.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-gate.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-graph-edge.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-portability.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-recursion.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-retry.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-substitute.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-installed-workflow.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-live-fp.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-s03-authority.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-s06-prime.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-traversal-conservation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-worker-transport.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r1-packed-artifact.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r10-child-proof.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r10-fresh-imports.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r10-installed-cli-outcome.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r10-projection-contracts.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r10-retained-child-projection.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r10-retained-hello-projection.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r2-clean-install.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r3-workspace-binding.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r4-catalog-admission.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r5-invocation-admission.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r6-implementation-resolution.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r7-graph-validation-basis.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r8-direct-hog-entry.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r9-causal-result-closure.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/rival-authority-mutations.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/root-cli-environment-timeout.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/root-governor.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/runtime-scope-regressions.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/steel-basic-cli-c2.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/steel-basic-cli-projection.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/steel-basic-cli-public.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/steel-basic-cli-source-replay.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/steel-consumer-authority.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/steel-consumer-declaration.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-authenticated-owner-family.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-authenticated-owner-values.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-c0-correction-regressions.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-c2-child-program.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-c2-core-environment.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-cold-record-decoder.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-continuation-causation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-d1-requirement-handoff.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-declared-testing-capability.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-default-library.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-deferred-application-restoration.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-environment-projection-conservation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-event-body-encoding.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-exact-construction-intent.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-fh-hold-open.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-generic-job-intake.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-generic-job-meaning.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-generic-job-parent-audit.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-generic-job-revision.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-generic-job-worksite.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-held-prefix.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-historical-source-resource.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-json-value-definition.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-live-worksite-construction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-management-context.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-management-stream-drain.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-management-supervision.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-event-time.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-frame-observation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-frame-route-conservation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-owner-reuse.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-registered-selection.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-semantic-evidence.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-worksite-execution.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-workspace-work.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-observed-worksite-command.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-owned-native-proof.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-predecessor-context.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-public-terminal-projection.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qual056-material.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-contraction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-law.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-scopes.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-r4-aba-retry.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-reacquisition-root-contract.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-reconstruction-conservation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-registered-graph-selection.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-release-acceptance.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-release-publication.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-retry-run-prefix.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-route-reconstruction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-s03-automatic.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-selected-action-authority.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-selected-action.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-selected-execution-closure.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-setup-invocation-authority.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-stdo-environment-citation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-stdo-run-environment-installed.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-stdo-run-environment.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-w2-05-run-invoke-installed.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-wave2-owner-chain.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-worksite-command-execution.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-worksite-construction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-worksite-file-replace-owner.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-admission-predicates.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-blocked-retry-entry.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-composition-conservation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-environment-context-reuse.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-environment-guard-contraction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-logical-prefix-digest.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-native-producer-membership.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-physical-return-conservation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-prefix-structure.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-scoped-retry-guard.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-workflow-scope-conservation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t289-install-event-bodies.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/w2-steel-single-start-installed.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/w2-steel-single-start.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "tsconfig.json",
+        "kind": "json"
+      }
+    ]
+  },
+  "tests": [
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "files": [
+        "test_env/tests/t287-qual056-material.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "files": [
+        "test_env/tests/t287-qualification-contraction.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "files": [
+        "test_env/tests/t287-observed-worksite-command.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "files": [
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "files": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs"
+      ]
+    }
+  ],
+  "skipPolicy": "incomplete",
+  "reportFormat": "node-test-events-jsonl@1"
+}

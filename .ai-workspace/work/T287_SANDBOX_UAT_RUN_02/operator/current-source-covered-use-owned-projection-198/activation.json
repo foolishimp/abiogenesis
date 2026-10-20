@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-09T10:09:30.236538+00:00",
+  "worker": 198,
+  "authority": "Executive grant198 conjoining CLOSED196/197",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "product": "fixed15 ABI5.0/GOAL035/T287 original external Data Mapper/STDO2.5.1rc2",
+  "purpose": "Existing covered-source projection uses established nominal snapshot after close; all fresh/current/admission guards unchanged",
+  "ownerHandoffs": [
+    "DurablePrefixCoordinate -> existing projectOwnedPrefixArtifactTruth -> authenticated ArtifactTruth",
+    "ArtifactTruth + exact binding coordinate -> existing projectWorkspaceEnvironmentFromArtifactTruth -> complete environment",
+    "ValidatedRuntimeEventPrefix + exact source/Program/declarations/cover -> existing projectGovernanceCoveredSourceUse or refusal"
+  ],
+  "effects": [
+    "exact four canonical files in preimages",
+    "own198 scratch/receipts"
+  ],
+  "preimages": [
+    {
+      "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "60f5d2bb91378f66285c2ca3ac78f71a98b9032031a9c646cfd5fb86aec9c3e7",
+      "byteCount": 35936
+    },
+    {
+      "relativePath": "code/src/abg/invocation_execution_truth.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "sha256": "f2d6e47cdc23e3df095024982d0f13b99b4a014e2c03c581ee51c4c9cfec31dd",
+      "byteCount": 33130
+    },
+    {
+      "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "3a9384145f9c3700eae5a3d5572d952f9b4565847f988badc5eedc0548f0c30d",
+      "byteCount": 35115
+    },
+    {
+      "relativePath": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+      "byteCount": 39274
+    }
+  ],
+  "limits": [
+    "no actual campaign history/declaration body read",
+    "no archive verification/recovery/Public/native/model/app/setup effects",
+    "no normal generated or package changes",
+    "exact195 allocator/retainer unproved"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "catalogDigest": "sha256:3f9c22092d763ef271da223cea455083297284c5bd07e3feca3ab7c1d8bba409",
+  "beforeCatalogDigest": "sha256:3f9c22092d763ef271da223cea455083297284c5bd07e3feca3ab7c1d8bba409",
+  "allBeforeAndAfterCanonicallyRecomputed": true,
+  "exactCatalogFieldDifferenceCount": 0,
+  "publicRows": 75,
+  "publicationBindings": 10,
+  "contributionRows": 47,
+  "exactContributionIdentityCounts": {
+    "graph": 1,
+    "contentRefs": 3,
+    "publicationDigests": 10,
+    "provenanceRefs": 47,
+    "catalog": 0
+  },
+  "canonicalConsequenceResults": [
+    {
+      "label": "before",
+      "productContentDigest": "sha256:e4c213aeb707937298c71056f36506f415f2202137fa1c6df253f7cb345bd3a9",
+      "graphDigest": "sha256:b424d08fd66a6c1258202715e23642a8b06bc304d2bd13e53b3faf1523ec6f3a",
+      "contributionManifestDigest": "sha256:cee67a26c7d63bcf972ed688337dc05763aff7772f60895910a3d8b1fa62eebc",
+      "publicationBindingCount": 10,
+      "rowCount": 47,
+      "entireCanonicalValueExact": true
+    },
+    {
+      "label": "after",
+      "productContentDigest": "sha256:89dd2d343ad41e15a21b16966ca77e4ff6770b9c24d83ee3d7d2259fbea4d91f",
+      "graphDigest": "sha256:ed66f021170abc976fcfaeadad9348533776236097a2475723513c5fc4955ab4",
+      "contributionManifestDigest": "sha256:29aab51372356f7bac61fb15fde7432e8f338767eb6930996e930abb5ac184aa",
+      "publicationBindingCount": 10,
+      "rowCount": 47,
+      "entireCanonicalValueExact": true
+    }
+  ],
+  "allOtherContributionFieldsEqual": true,
+  "exactCatalogCounts": {
+    "catalogCount": 0,
+    "inventoryCount": 0,
+    "contractCount": 0
+  },
+  "declarationPath": "build/code/src/abg/index.d.ts",
+  "declarations": [
+    "sha256:1dd1ebd1edcfe4cfc792d380495b97f9545218718ce59a9d6d78b287ba3aef09",
+    "sha256:1dd1ebd1edcfe4cfc792d380495b97f9545218718ce59a9d6d78b287ba3aef09"
+  ],
+  "noArbitraryDigestOmission": true,
+  "ownerRoute": "product.productPublicContractCatalogDigest and verifyProduct"
+}

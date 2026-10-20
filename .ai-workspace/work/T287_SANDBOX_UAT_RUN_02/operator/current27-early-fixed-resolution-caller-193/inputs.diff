@@ -1,0 +1,93 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/inputs.json
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-early-fixed-resolution-caller-193/inputs.json
+@@ -93,7 +93,7 @@
+   },
+   "intendedOnly": true,
+   "handoff": {
+-    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/final-close-handoff.json",
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/final-close-handoff.json",
+     "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+     "byteCount": 1472
+   },
+@@ -104,27 +104,27 @@
+     "original185MtimeNsDecimal": "1791531873723955484",
+     "authority": "Genuine185 handoff + original185 exact integer. Documentary correction01 excluded; no numeric-rounding or old logStat.path authority."
+   },
+-  "classification": "Intended remaining-consumer diagnostic only; no runtime/acquisition/effect performed187",
++  "classification": "Intended early fixed-resolution sequencing readiness only; no runtime/acquisition/effect performed193",
+   "callerBase": {
+     "prepare": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/prepare.mjs",
+-      "sha256": "b9233b2a94ff0be71b11dcab0abbd72ad05c569e54ac99b48661c7b3f10721ee",
+-      "byteCount": 40353
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/prepare.mjs",
++      "sha256": "5c29dd6d5649f58df046c3b6021e2d8ed49c17e262c50c8d6c66c93f93ad9b3b",
++      "byteCount": 33200
+     },
+     "freeze": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/freeze.json",
+-      "sha256": "bda39504c3d00660ca8e36cf40dc6c92ce70ef8980c008f1faf3058846fed2a2",
+-      "byteCount": 18456
+-    },
+-    "accepted183": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/freeze.json",
+-      "sha256": "79a311f1c7c70bb9cf0930c3a2498591a0bf0355848ccd79aec04f9a4bff4a8a",
+-      "byteCount": 25914
+-    },
+-    "reuse174": {
+-      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/prepare.mjs",
+-      "sha256": "6709e1dcf37d787e341bc504afd4a86e0999b3f17461f7997b88a132c11b5302",
+-      "byteCount": 37816
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/freeze.json",
++      "sha256": "afcac14d24334cfe9055231e138f3e501821ccca7c4838d8b1888fc33d6f16ec",
++      "byteCount": 22867
++    },
++    "actual189Freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/freeze.json",
++      "sha256": "7e4fd01ebc7c87ff00236fff8efbfb565aefa8a92a256100c17c9eae445bc592",
++      "byteCount": 9625
++    },
++    "inputs": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-remaining-consumer-diagnostic-caller-187/inputs.json",
++      "sha256": "c7ef165854abade9240a7fd6f3875ed939994f4d0975af54cf82bb2720f44c1e",
++      "byteCount": 22637
+     }
+   },
+   "closedRCA186": {
+@@ -333,16 +333,34 @@
+     "graphFunctionDigest": "sha256:1ba4ec486b01f15ce9004b9d519730f8b630157a991cc477ea44d692f2d795ee"
+   },
+   "requiredFutureExtent": {
+-    "eventResource": "Exactly one ordinary canonical acquire at genuine185 close; complete admitted history needed by source/terminal/environment/current-use and callback, not a finite receipt substitute",
++    "eventResource": "Exactly one ordinary canonical acquire at genuine recovered latest192 close after explicit Root runtime grant; complete admitted history remains required, no finite receipt substitute",
+     "declarationInput": {
+       "pin": {
+         "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/current-setup.json",
+         "sha256": "16a9b7bd76b2438932396899872ffabffcc9447e29b67139190b3da31047605f",
+         "byteCount": 37307310
+       },
+-      "read": "One complete pinned current-setup declaration input read before history; retain only catalog/View preimages needed by canonical reconstruction against actual owner-derived environment. No current-setup read/parse performed187."
++      "read": "One complete pinned185 declaration input read before history; catalog/View preimages retained for owner reconstruction, saved resolvedLock compared wholly with the genuine early owner result then released. No37MB read/parse/hash performed193."
+     },
+     "consumedBasisCover": "Derive complete consumed source-result/observation/synthesis ancestry at held prefix; authenticate all104 expected exact basis owners and direct covers, no witness admissions or transitive cover inference",
+     "callback": "Retain nominal finalValidatedPrefix and invoke actual projectGovernanceCoveredSourceUse callback during mandatory private Product preparation; saved use is comparison evidence only"
++  },
++  "closedRCA190": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-memory-root-cause-190/freeze.json",
++    "sha256": "4e24bf0c5d4ea2e850645ebbc32f4c3a1bbf76f8eeb323e5dea50c095cc9a711",
++    "byteCount": 10495
++  },
++  "latestEntryStatus": "BOUND_GENUINE_CLOSED192",
++  "latestEntryRecovery": {
++    "receipt": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/recovery-receipt.json",
++      "sha256": "ed0f0700367d5b0fd5716ffa87cb79944859047339fa3ccc03a44fd2eefd08df",
++      "byteCount": 5202
++    },
++    "freeze": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/freeze.json",
++      "sha256": "3681905a63ca59f85ab73ed0bbfd688a74669533ad3fde42b4cab9e0660ed04b",
++      "byteCount": 9942
++    }
+   }
+ }

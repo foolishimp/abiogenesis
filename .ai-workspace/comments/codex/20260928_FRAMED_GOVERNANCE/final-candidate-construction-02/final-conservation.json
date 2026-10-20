@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "closedCuts": {
+    "final-candidate-construction-01": {
+      "freezeSHA256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f",
+      "recordsVerified": 16732
+    },
+    "default-library-publication-repair-01": {
+      "freezeSHA256": "19f97fe0758b204829d4f4695c83f49cc641d1c4affdd7defd46022c36eaa01d",
+      "recordsVerified": 5470
+    },
+    "default-library-publication-review-01": {
+      "freezeSHA256": "a1670b454cb139baa508fdb97ad09553b65c9ebd40efba1d1d8ce196eeeac250",
+      "recordsVerified": 5449
+    },
+    "final-qualification-inputs-01": {
+      "freezeSHA256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe",
+      "recordsVerified": 46
+    },
+    "final-native-setup-02": {
+      "freezeSHA256": "098f847543752e5d69efa4bd86ce36490a79fd34c707bffa2237a5275d5d2fbf",
+      "recordsVerified": 62
+    },
+    "successorSourceFreeze": {
+      "manifestSHA256": "98316a687a3ef45aa2e3fd1b6c94429c30c3feddd119b4f15600d3f771e11cc6",
+      "recordsVerified": 4299
+    }
+  },
+  "sourceMemberCount": 1103,
+  "stageSourceMembersConserved": true,
+  "canonicalReadOnlyCheck": "Only the three explicit canonical postimages were selected and reverified; moving tree/ticket never reselected. Frozen original T287 remains exact.",
+  "authorityOriginalCopyJoins": 95,
+  "hostExecutablesAndFileBackedLibrariesConserved": true,
+  "archiveStageInstallMembers": 5256,
+  "absentExtraInstalledPayload": true,
+  "originalNativeResources": "Not accessed or re-opened; N2 immutable receipt/snapshot cut conserved. N1/F11 native resources outside effects.",
+  "canonicalSourceGeneratedDependencyWrites": 0,
+  "GitEffects": 0,
+  "nativeCalls": 0,
+  "qualificationEffects": 0
+}

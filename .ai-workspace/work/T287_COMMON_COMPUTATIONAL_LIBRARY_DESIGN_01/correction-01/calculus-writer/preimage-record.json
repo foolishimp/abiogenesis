@@ -1,0 +1,21 @@
+{
+  "created_utc": "2026-10-20T17:38:46.202497+00:00",
+  "candidate_path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+  "preimage_sha256": "924789be491175cf570bf5407c14dbd9ccfd4f682b495e48a50ec6788f9b3527",
+  "protected_paths": {
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/basis.json": "7c4196afaf481be05056a5c3b5120b98b9e4d012ccf2b673f765076b3ec23376",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/candidate-freeze.json": "7a39d3ac51da19a79275cb6ab99f2024481ef57132bf19bcdfc2112bd0c1ab2c",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review.md": "7683a82d936a6af4b9842ecd4c6da0aa86f6e27f53b3b6b581971304339e4519",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review-checks.json": "3d6143f9214ad9bd6a04be30759efb0a4995f787e675b8a4842203d61a05da23",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/document-checks.json": "5cff3313ba33d6840a53aadcdd0c9e7ee2071e22165a53c34b6827a4a2df7cc1",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/calculus-writer/freeze.json": "c993f0095b309370912506e47a05aba5fb7ba8d8a6345a13ac9c97340082b064",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/calculus-writer/return.md": "af71b453f9996463aa12c2ad2028dba46571904fb571fe52399ca460442075ec",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/product-assessment.md": "372d1ad54e0a960668f85df115fe6676cc9a7880f7e281ac7554567ce3c8cc96",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/realization-assessment.md": "501d395356e72cbcfdb45269ecfdab4c81ed9d16a8d0a315173b6d29d6a73e1a",
+    ".ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/correction-01/decision.md": "14f05a510295cf67db5572bb9614a07f191d040e0018320f5cfe886321f872cb",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": "cff436cd67161703d3b3faa9d2a2d8d7360f48a5284836b406f215de8774e6be",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md": "9a84ef16c1524abf56e4ab3dafa8f894d697fb34cb4ed37eb5ca5acbf1a9af31",
+    "build_tenants/abiogenesis/typescript/design/README.md": "68f4f0ef12ab4a25f42c66e2be11dfa7083292a926a2ee0d4644876fe62213b7",
+    "specification/GOALS.md": "626c12c2fc28090f64463d4829c2aafe54377986c55d80a10a3f575999f08890"
+  }
+}

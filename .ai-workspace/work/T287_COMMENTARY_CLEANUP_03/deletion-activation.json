@@ -1,0 +1,25 @@
+{
+  "activatedUTC": "2026-10-04T07:32:23.529201+00:00",
+  "actor": "/root/rc1_c03_install_review",
+  "managedWallBudgetSeconds": 900,
+  "manager": "one direct Python PTY session; periodic polls; on deadline interrupt once and return stop without retry",
+  "noBroaderEffects": true,
+  "operation": "T287_COMMENTARY_CLEANUP_DELETE_03",
+  "release": {
+    "bytes": 1474,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/deletion-release.txt",
+    "sha256": "3d12e3eee63f004b4768dab8a1f23ff2fc68973b916aea69568024d57d11921b"
+  },
+  "role": "Worker",
+  "scope": "exact listed197399 copies; all directories and nonregulars retained",
+  "selectedHelper": {
+    "bytes": 17033,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/delete_exact_alias_plan.py",
+    "sha256": "aa33fdd4a84b94e96721880c70490dce194d1d0a7166c9e86c1a558a85f7c72c"
+  },
+  "writeOnly": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/deletion-release.txt",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/deletion-activation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution"
+  ]
+}

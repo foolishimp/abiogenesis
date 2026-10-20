@@ -1,0 +1,223 @@
+{
+  "materialRecords": 2958,
+  "originalBytesChecked": 150775662,
+  "catalogSpansChecked": 2137,
+  "bodySelectionsChecked": 1003,
+  "declaredMemberOccurrences": 367241,
+  "criterionCount": 1109,
+  "roleTotals": {
+    "catalog": {
+      "packets": 187,
+      "criteria": 187,
+      "rawSelectedBytes": 39956478
+    },
+    "inventory": {
+      "packets": 42,
+      "criteria": 84,
+      "rawSelectedBytes": 103252674
+    },
+    "rule": {
+      "packets": 772,
+      "criteria": 772,
+      "rawSelectedBytes": 18219970119
+    },
+    "tenant": {
+      "packets": 1,
+      "criteria": 0,
+      "rawSelectedBytes": 12680912
+    },
+    "coverage": {
+      "packets": 1,
+      "criteria": 66,
+      "rawSelectedBytes": 4715431
+    }
+  },
+  "fixtureStructure": [
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-m5-live-fp.json",
+      "bytes": 3424,
+      "digest": "sha256:a35b09b85269629edb40fdb95c5bf138e243fe9170c60915079b6580d4cab676",
+      "shape": {
+        "type": "object",
+        "keys": [
+          "kind",
+          "schemaVersion",
+          "candidateBasis",
+          "programRef",
+          "graphFunctionRef",
+          "command",
+          "model",
+          "transportBindingRef",
+          "transportBindingDigest",
+          "actorInvocationRef",
+          "processRef",
+          "eventCount",
+          "eventKinds",
+          "eventLogDigest",
+          "artifactDigests",
+          "result",
+          "publicOutcomeDigest",
+          "replayDigest",
+          "replayAgreement"
+        ],
+        "shortScalars": {
+          "kind": "abi5_m5_live_fp_proof",
+          "schemaVersion": "5.0.0",
+          "programRef": "program://abiogenesis/conformance/fp-hello@5",
+          "graphFunctionRef": "graph-function://abiogenesis/conformance/fp-hello@5",
+          "command": "/Users/jim/.local/bin/claude",
+          "model": "claude-opus-5",
+          "transportBindingRef": "transport-binding://abiogenesis/e4df101ce51ffe344f82591cbea9f14072c7364cad557781b31315a598c35dc2",
+          "transportBindingDigest": "sha256:e4df101ce51ffe344f82591cbea9f14072c7364cad557781b31315a598c35dc2",
+          "actorInvocationRef": "actor-invocation://abiogenesis/bf28789e4bdd28d5ee78131867509c3fd3a13a2730a03a38b08b70bf9c3517d4",
+          "processRef": "process://abiogenesis/f775f038db23adfc8e69c7ef6e87f536d33211db9e5c3e0a30e06cf37f99e85d",
+          "eventCount": 34,
+          "eventLogDigest": "sha256:15a1a06ec26f04aa3594476823a85d056cf708eee85800f6a9ee5bdc67dae906",
+          "publicOutcomeDigest": "sha256:b78b993f7eec70122a065a532401145e115b0bb325753bcfd82b6336ad5f3285",
+          "replayDigest": "sha256:4d6dd004ba2598acf17e6490ed00ddf6da0e8eb95059e86b40478e520e43b9df",
+          "replayAgreement": true
+        }
+      }
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-governor.json",
+      "bytes": 760,
+      "digest": "sha256:8a2bee65efe9d2bad279b693c2fef18551c24f94cd09b5f5a60a6832ae7db854",
+      "shape": {
+        "type": "object",
+        "keys": [
+          "kind",
+          "schemaVersion",
+          "bindingId",
+          "governorId",
+          "disposition",
+          "obligationResults",
+          "firstFrontier",
+          "ownerSemanticViewRef",
+          "ownerSemanticViewDigest",
+          "ownerReplayRef",
+          "failures"
+        ],
+        "shortScalars": {
+          "kind": "abi5_root_governor_result",
+          "schemaVersion": "5.0.0",
+          "bindingId": "ABI5-ROOT-001",
+          "governorId": "abg5.root.s01.hello_world@5",
+          "disposition": "root_satisfied",
+          "firstFrontier": null,
+          "ownerSemanticViewRef": "run-semantic-relation://abiogenesis/194f4207a5f3927a5440d8fa2a0a068f822574d361d73246a15550c2584189fa",
+          "ownerSemanticViewDigest": "sha256:194f4207a5f3927a5440d8fa2a0a068f822574d361d73246a15550c2584189fa",
+          "ownerReplayRef": "replay://abiogenesis/5f1f58bbde55d7f5fb4e4d1f1f267d35d38efeaf880338c6072c5d7c1aec8b4d"
+        }
+      }
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.events.jsonl",
+      "bytes": 504306,
+      "digest": "sha256:50747a853660779d91ad76fb9df1e9c4de3163c893be947bb30b8f010b17bbfd",
+      "shape": {
+        "type": "non-single-JSON retained fixture body"
+      }
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.json",
+      "bytes": 18642450,
+      "digest": "sha256:f80d6ce54997b2b2f5acdd57cdc8363f5215a600119a2abab79fa00fc2a79097",
+      "shape": {
+        "type": "object",
+        "keys": [
+          "kind",
+          "schemaVersion",
+          "bindingId",
+          "obligation",
+          "result",
+          "sourceImportUsed",
+          "artifactDigest",
+          "productInstallId",
+          "workspaceBindingId",
+          "catalogViewId",
+          "targetIdentity",
+          "runOutcomes",
+          "replayAgreement",
+          "rootGovernorId",
+          "ownerSemanticViewRef",
+          "ownerSemanticViewDigest",
+          "ownerReplayRef",
+          "rootGovernorDisposition",
+          "transportExecutors",
+          "transportRequests",
+          "transportResults",
+          "transportOutcomeProjection",
+          "runSemanticEventCount",
+          "durableEventLogLocator",
+          "durableEventLogDigest",
+          "authorityBoundary"
+        ],
+        "shortScalars": {
+          "kind": "abi5_root_obligation_evidence",
+          "schemaVersion": "5.0.0",
+          "bindingId": "ABI5-ROOT-001",
+          "obligation": "R10_replay_and_cli_typed_outcome_agree",
+          "result": "satisfied",
+          "sourceImportUsed": false,
+          "artifactDigest": "sha256:9ec77c7088b4c1b83eaf1edd32c170e002b94c2d33757e3dc76fb06f3d905216",
+          "productInstallId": "product-install://@abiogenesis/typescript-tenant/5.0.0-dev.286/8595d51f4757d80e2da6a25a2d2dea1f7585651e277eb17ff14a4836343929f1/6121224de75ace10a635cc15618355754600307cb7fb550372366542a3a713eb",
+          "workspaceBindingId": "workspace-binding://abiogenesis/c4662c441ec23abc76b6621fc7be0977f1fad1807d4b2bcf94317452c31d5532",
+          "catalogViewId": "graph-function-catalog-view://abiogenesis/46c815819c32088593a0006f6c105dfd63ed25c336b8bb4e9e9fae8d67ac3d90",
+          "replayAgreement": true,
+          "rootGovernorId": "abg5.root.s01.hello_world@5",
+          "ownerSemanticViewRef": "run-semantic-relation://abiogenesis/194f4207a5f3927a5440d8fa2a0a068f822574d361d73246a15550c2584189fa",
+          "ownerSemanticViewDigest": "sha256:194f4207a5f3927a5440d8fa2a0a068f822574d361d73246a15550c2584189fa",
+          "ownerReplayRef": "replay://abiogenesis/5f1f58bbde55d7f5fb4e4d1f1f267d35d38efeaf880338c6072c5d7c1aec8b4d",
+          "rootGovernorDisposition": "root_satisfied",
+          "runSemanticEventCount": 18,
+          "durableEventLogLocator": "test_env/proof/abi5-root-r10.events.jsonl",
+          "durableEventLogDigest": "sha256:50747a853660779d91ad76fb9df1e9c4de3163c893be947bb30b8f010b17bbfd"
+        }
+      }
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.outcomes.json",
+      "bytes": 4259486,
+      "digest": "sha256:d913a2f5d0fa5d00edbf3090106a4dac3098df537dd8946d06693e8474f26bc5",
+      "shape": {
+        "type": "array",
+        "length": 7
+      }
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.transcript.json",
+      "bytes": 9801195,
+      "digest": "sha256:2e05b430b42a4646ac7efd116c44502cc77b0ce2f8e660d8bd5b982d5bb63d35",
+      "shape": {
+        "type": "array",
+        "length": 7
+      }
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-rival-authority-mutations.json",
+      "bytes": 2627,
+      "digest": "sha256:d27af99aa74987f922b32886f781924a622f14744869218bb2a5fdd504d492aa",
+      "shape": {
+        "type": "object",
+        "keys": [
+          "kind",
+          "schemaVersion",
+          "bindingId",
+          "result",
+          "sourceImportUsed",
+          "mutations",
+          "installedAbsence"
+        ],
+        "shortScalars": {
+          "kind": "abi5_root_rival_authority_evidence",
+          "schemaVersion": "5.0.0",
+          "bindingId": "ABI5-ROOT-001",
+          "result": "real_owner_boundary_mutations_refused_or_non_closing",
+          "sourceImportUsed": false
+        }
+      }
+    }
+  ],
+  "limits": "Mechanical complete material/selection correspondence. Fixture structure is candidate data, not source-session transcripts, not acquired native resources, and not semantic or current execution credit. No complete assessment task fabricated or renderer dispatch invoked."
+}

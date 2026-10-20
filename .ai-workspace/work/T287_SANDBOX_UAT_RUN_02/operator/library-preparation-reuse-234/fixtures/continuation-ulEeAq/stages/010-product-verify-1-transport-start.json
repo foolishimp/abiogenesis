@@ -1,0 +1,11 @@
+{
+  "stage": "product-verify-1-transport-start",
+  "elapsedMs": 23527.233,
+  "at": "2026-10-10T05:55:23.888Z",
+  "rss": 2364817408,
+  "heapTotal": 2022211584,
+  "heapUsed": 1877669928,
+  "external": 20766724,
+  "arrayBuffers": 18097917,
+  "beforeAcquisition": true
+}

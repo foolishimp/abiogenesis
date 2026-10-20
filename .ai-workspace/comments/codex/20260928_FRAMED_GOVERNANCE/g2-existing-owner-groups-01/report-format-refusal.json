@@ -1,0 +1,49 @@
+{
+  "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+  "stage": "report-only finalization before its first write",
+  "failure": "AssertionError at supplied finalizer line10",
+  "failedConsumerExpression": "assert '# tests 3' in stdout and '# pass 3' in stdout and '# fail 0' in stdout",
+  "actualProducer": "focused.stdout",
+  "actualProducerBytes": 400,
+  "actualProducerSHA256": "90380f2706730fd3af88afca392279ac05c5c76f30f05aec135c285996f4814e",
+  "actualProducerBody": "\u2714 all eight exact package addresses resolve canonical owner projections (402.085042ms)\n\u2714 catalog locates fresh complete declaration closures, retaining every extant identity (207.817417ms)\n\u2714 missing group and crossed locator are rejected by the same fixed oracle (16.723583ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 15752.232958\n",
+  "focusedReceipt": {
+    "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "--test",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/consumer/t287-public-groups.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript",
+    "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01",
+    "capSeconds": 180,
+    "HOMEUnchanged": true,
+    "defaultHeap": true,
+    "environment": {
+      "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/tmp"
+    },
+    "pid": 28565,
+    "pgid": 28565,
+    "exitCode": 0,
+    "timedOut": false,
+    "wait4Reaped": true,
+    "wait4Status": 0,
+    "groupAbsent": true,
+    "elapsedMs": 15797.32424998656,
+    "userCPUSeconds": 19.355788,
+    "systemCPUSeconds": 0.854163,
+    "maxRSSPlatformBytes": 1443708928,
+    "stdoutSHA256": "90380f2706730fd3af88afca392279ac05c5c76f30f05aec135c285996f4814e",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "payloadsCompletedExactlyOnce": [
+    "compile",
+    "manifest",
+    "pack",
+    "focused"
+  ],
+  "effectsOfFailedFinalizer": 0,
+  "sourcePostimagesUnchanged": true,
+  "proposedDisposition": "Consume actual saved Node spec-reporter summary fields instead of guessed TAP prefix; report-only continuation, zero payload repeats. Root decision pending."
+}

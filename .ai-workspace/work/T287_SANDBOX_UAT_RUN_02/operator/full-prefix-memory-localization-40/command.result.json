@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--expose-gc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/diagnostic.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "started": "2026-10-07T13:18:21.711011+00:00",
+  "diagnosticOnly": true,
+  "timeoutMs": 180000,
+  "defaultHeap": true,
+  "noRuntimeControlChange": true,
+  "completed": "2026-10-07T13:18:45.370157+00:00",
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 23658.157624973683,
+  "timedOut": false,
+  "diagnosticTimeoutSignals": [],
+  "truncated": false,
+  "pid": 98872,
+  "pgid": 98872,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/command.stdout",
+    "byteCount": 980,
+    "sha256": "eaf1d2f519bfb3e4fabf3bde77638fe2d4fbc23183d093af0fef4fdb16198b51"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/command.stderr",
+    "byteCount": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

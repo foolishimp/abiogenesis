@@ -1,0 +1,20 @@
+0 verbose cli /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/bin/npm-cli.js
+1 info using npm@11.5.1
+2 info using node@v24.7.0
+3 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/npmrc
+4 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/stage/build_tenants/abiogenesis/typescript/.npmrc
+5 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/npmrc
+6 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/globalnpmrc
+7 verbose title npm pack
+8 verbose argv "pack" "--ignore-scripts" "--offline" "--json" "--pack-destination" "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/packs"
+9 verbose logfile logs-max:10 dir:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/npm-cache/_logs/2026-10-05T15_13_35_435Z-
+10 verbose logfile /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/npm-cache/_logs/2026-10-05T15_13_35_435Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+14 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/stage/build_tenants/abiogenesis/typescript
+15 verbose os Darwin 25.6.0
+16 verbose node v24.7.0
+17 verbose npm  v11.5.1
+18 verbose exit 0
+19 info ok

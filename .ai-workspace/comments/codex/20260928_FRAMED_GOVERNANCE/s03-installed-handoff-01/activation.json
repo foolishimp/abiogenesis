@@ -1,0 +1,13 @@
+{
+  "worker": "T287_S03_INSTALLED_HANDOFF_01",
+  "role": "Worker",
+  "at": "2026-09-30T05:03:12.216009+00:00",
+  "requestSha256": "aa3a20f90bd834ced79ec054e852bbbb4cafa715335fb9c3d7d81701eef94e85",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01",
+  "exception": "Only ordinary owner reopen/read/close and original exact historical resource lock; zero append",
+  "nativeSequence": [
+    "negative run_gaps",
+    "positive run_gaps"
+  ],
+  "budgetMs": 120000
+}

@@ -1,0 +1,35 @@
+{
+  "status": "active",
+  "startedAt": "2026-09-30T03:13:02.872Z",
+  "pid": 76686,
+  "supportIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+    "sha256": "b54df94a0231b85fa87bb68eab39ec4744fef4f4a406f6ba1354990ec1b613e9"
+  },
+  "initial": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+    "bytes": 3863401,
+    "sha256": "c00b129cb95ec9d89d8f73e3f40fe85eeb646001616bfe100a7fee75f4b7d564",
+    "device": 16777230,
+    "inode": 463811526,
+    "mtimeMs": 1790736826154.5396,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abiogenesis-event-store-locks-v5/16777230-463811526.lock",
+    "lock": "absent",
+    "eventCount": 353,
+    "prefix": {
+      "coordinateDigest": "sha256:704eb98c676910e535daed71413ebdc5838121bac72afc9d12eaba937018d122",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:c00b129cb95ec9d89d8f73e3f40fe85eeb646001616bfe100a7fee75f4b7d564",
+      "prefixLength": 3863401,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 463811526
+      }
+    }
+  },
+  "operation": "Only retained positive cold reads then one missing no-action start and cold reads",
+  "originalLockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable"
+}

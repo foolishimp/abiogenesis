@@ -1,0 +1,8 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/test-inputs-02/test_env/tests/t287-native-work-reacquisition.test.mjs",
+  "sha256": "2f846500bf71353145f76ed36f6c90f1c5eb452a8584cb9760d1f10386475cbb",
+  "bytes": 48450,
+  "canonicalPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+  "firstInputPreserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/input-01/test_env/tests/t287-native-work-reacquisition.test.mjs",
+  "correction": "Remove obsolete fixture-local warm-count=1 assertion; retain exact outputs, dependency bodies/refusals and cold0-entry checks; no Source/HOW/emission change."
+}

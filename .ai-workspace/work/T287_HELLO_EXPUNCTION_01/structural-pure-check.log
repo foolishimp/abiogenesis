@@ -1,0 +1,36 @@
+✔ A5-F02 canonicalizes every selected authored set inventory (118.227125ms)
+✔ A5-F02 canonicalizes Program action candidates and rederives their catalog identity (16.183958ms)
+✔ A5-F02 Validator publication and Program identity ignore selected set permutations (18.032625ms)
+✔ A5-F02 Product semantic and catalog identity consume the canonical authored carrier (12.398125ms)
+✔ A5-F02 retains decision-exact duplicate refusal for every selected set (141.002208ms)
+✔ A5-F02 retains typed raw refusal for invalid selected set entries (7.316792ms)
+✔ A5-F02 preserves ordered topology, C composition, arguments, and closure sequences (3.057709ms)
+✔ M5 GTL exposes exactly seven direct C constructors (0.937375ms)
+✔ M5 C.compose is canonical, flat, and identity-eliding (0.10475ms)
+✔ M5 GraphFunction composition preserves exact left and right identity (26.246209ms)
+✔ M5 GraphFunction promotion preserves topology and semantic truth (18.32875ms)
+✔ M5 native constructors refuse invalid batch, retry, and F_H realization (0.123209ms)
+✔ M5 native GTL constructs all ten graph relations with derived identities (0.350833ms)
+✔ M5 same-object relation is one validator-owned canonical identity witness (17.336833ms)
+✔ M5 closure validation distinguishes run and child GraphCall scope (29.398042ms)
+✔ M5 whole-program validation admits exact recursion law and refuses its substitutes (45.654459ms)
+✔ M5 whole-program validation binds gate law to published Rule and Evaluator declarations (42.595375ms)
+✔ M5 fan-out materialization derives one exact task per admitted input member (11.034625ms)
+✔ M5 fan-out and fan-in outer contracts equal their declared vectors (26.203167ms)
+✔ M5 native GraphFunction composition materializes source GTL without a second executable carrier (16.613375ms)
+✔ M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL (18.181291ms)
+✔ M5 whole-program validation refuses forged or widened graph-edge declarations (18.719583ms)
+✔ M5 raw admission and validator reject invented or contradictory C data (1.8385ms)
+✔ M4 independently authored data fixture remains one valid direct C.of Program (8.491542ms)
+✔ M5 whole-root validation keeps F_H interaction keys out of executable resolution (10.545833ms)
+﹣ M5 resolves and independently validates the complete executable root set (0.048ms) # requires retained Thread 2 installed consumer proof
+﹣ M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases (0.021ms) # requires retained Thread 2 installed consumer proof
+﹣ M5 F_H-only roots produce one valid empty executable-resolution set (0.016833ms) # requires retained Thread 2 installed consumer proof
+ℹ tests 28
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 3
+ℹ todo 0
+ℹ duration_ms 1140.508791

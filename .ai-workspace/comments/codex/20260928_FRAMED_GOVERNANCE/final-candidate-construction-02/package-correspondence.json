@@ -1,0 +1,19 @@
+{
+  "status": "exact",
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+  "archiveBytes": 10375084,
+  "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant",
+  "bootstrapRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install",
+  "archiveMembers": 5256,
+  "stagedMatches": 5256,
+  "installedMatches": 5256,
+  "extraInstalledMembers": 0,
+  "missingInstalledMembers": 0,
+  "archiveNonregular": [],
+  "symlinkHandling": "No archive or installed Product payload symlinks; npm bin links explicitly confined to each node_modules root. Source staging never links canonical source or dependencies.",
+  "scripts": "disabled in dependency realization, pack and install",
+  "network": "offline",
+  "archiveMembersSha256": "653e605d051ddfafd4649af53c0911572f997069232caf2baca1a644a0c1c68e",
+  "elapsedSeconds": 1.0120517080649734
+}

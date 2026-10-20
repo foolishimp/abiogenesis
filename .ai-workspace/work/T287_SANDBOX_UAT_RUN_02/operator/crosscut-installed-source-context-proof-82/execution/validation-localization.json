@@ -1,0 +1,311 @@
+{
+  "actualScratch": "/private/tmp/abi5-root-env-hWOknd",
+  "installedRoot": "/private/tmp/abi5-root-env-hWOknd/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "externalRoot": "/private/tmp/abi5-root-env-hWOknd/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+  "sourcePublication": {
+    "path": "/private/tmp/abi5-root-env-hWOknd/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/publication.json",
+    "sha256": "02cf76563f2763f5bfe2dc62ead605ce6d242e17f92cac9433fe0b689c2f96b3",
+    "byteCount": 36966
+  },
+  "externalManifest": {
+    "path": "/private/tmp/abi5-root-env-hWOknd/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/product-toolchain-manifest.json",
+    "sha256": "b9a3fc27488740ec21fb9569e27eb90aab039f2153394fcf4379d0d0ab44f5b2",
+    "byteCount": 4901
+  },
+  "externalArchive": {
+    "path": "/private/tmp/abi5-root-env-hWOknd/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+    "sha256": "db5a1afc6e4874d166475ce2e0926414fb47818c430a39756e35b67ad40b6983",
+    "byteCount": 9765
+  },
+  "owners": [
+    {
+      "path": "/private/tmp/abi5-root-env-hWOknd/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/index.js",
+      "sha256": "ec554004410b9d01dd7ddd569c6b4d7ece256dd855233b4a0d63e4b2335665e0",
+      "byteCount": 1397
+    },
+    {
+      "path": "/private/tmp/abi5-root-env-hWOknd/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/index.js",
+      "sha256": "4fc5fa0f9ae71c5b253da4f21e2814613d373bae72124e83cf0cdc7350dcf1dd",
+      "byteCount": 7224
+    }
+  ],
+  "canonicalPublicationDigest": "sha256:451044382026bb2fac35d2424b0784ff368e1b64c726ac328fb96e92260d47a7",
+  "actualProgramRef": "program://default-library-witness/witness@5",
+  "localGraphRefs": [
+    "graph-function://default-library-witness/executive-step@5",
+    "graph-function://default-library-witness/executive@5"
+  ],
+  "requiredCallableRefs": [
+    "graph-function://abiogenesis/default-library/construction@5",
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/uat@5",
+    "graph-function://abiogenesis/worksite/command-execution@5",
+    "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "graph-function://abiogenesis/worksite/native-work@5",
+    "graph-function://default-library-witness/executive-step@5",
+    "graph-function://default-library-witness/executive@5"
+  ],
+  "actualValidation": {
+    "kind": "static_validation_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "invalid",
+    "stage": "program",
+    "subjectDigest": "sha256:62c8c16de0b49d4f750104063cc12f5e157e4ced10e8742da4f2174abe6fae44",
+    "diagnostics": [
+      {
+        "code": "invalid_reference",
+        "path": "$.runEnvironments",
+        "message": "STDO environment must cover every supported dependent semantic or worksite leaf exactly once"
+      },
+      {
+        "code": "missing_membership",
+        "path": "$.program.callableMembership",
+        "message": "missing exact GraphFunction graph-function://abiogenesis/default-library/construction@5"
+      },
+      {
+        "code": "missing_membership",
+        "path": "$.program.callableMembership",
+        "message": "missing exact GraphFunction graph-function://abiogenesis/default-library/testing@5"
+      },
+      {
+        "code": "missing_membership",
+        "path": "$.program.callableMembership",
+        "message": "missing exact GraphFunction graph-function://abiogenesis/default-library/uat@5"
+      },
+      {
+        "code": "missing_membership",
+        "path": "$.program.callableMembership",
+        "message": "missing exact GraphFunction graph-function://abiogenesis/worksite/command-execution@5"
+      },
+      {
+        "code": "missing_membership",
+        "path": "$.program.callableMembership",
+        "message": "missing exact GraphFunction graph-function://abiogenesis/worksite/native-work/assessment@5"
+      },
+      {
+        "code": "missing_membership",
+        "path": "$.program.callableMembership",
+        "message": "missing exact GraphFunction graph-function://abiogenesis/worksite/native-work@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5]",
+        "message": "missing contract contract://abiogenesis/default-library/state@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5]",
+        "message": "missing contract contract://abiogenesis/default-library/state@5"
+      },
+      {
+        "code": "missing_binding",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/executive-step@5/prepare].term.requirement.implementationBindingRef",
+        "message": "missing implementation binding binding://abiogenesis/default-library/prepare-selection@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/executive-step@5/prepare].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/state@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/executive-step@5/prepare].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/selection-task@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/executive-step@5/prepare].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/evidence@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/executive-step@5/prepare].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/failure@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/executive-step@5/prepare].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/refusal@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/executive-step@5/prepare].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/judgment@5"
+      },
+      {
+        "code": "missing_binding",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/select@5].term.requirement.implementationBindingRef",
+        "message": "missing implementation binding binding://abiogenesis/default-library/select@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/select@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/selection-task@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/select@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/synthesis@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/select@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/evidence@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/select@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/failure@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/select@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/refusal@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/select@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/judgment@5"
+      },
+      {
+        "code": "missing_binding",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/project-choice@5].term.requirement.implementationBindingRef",
+        "message": "missing implementation binding binding://abiogenesis/default-library/project-choice@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/project-choice@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/synthesis@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/project-choice@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/choice@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/project-choice@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/evidence@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/project-choice@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/failure@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/project-choice@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/refusal@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[node://abiogenesis/default-library/project-choice@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/judgment@5"
+      },
+      {
+        "code": "invalid_reference",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/construction@5/invoke].term.graphFunctionRef",
+        "message": "workflow.C GraphFunction graph-function://abiogenesis/default-library/construction@5 is not in the admitted Program root"
+      },
+      {
+        "code": "invalid_reference",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/testing@5/invoke].term.graphFunctionRef",
+        "message": "workflow.C GraphFunction graph-function://abiogenesis/default-library/testing@5 is not in the admitted Program root"
+      },
+      {
+        "code": "invalid_reference",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.nodes[graph-function://abiogenesis/default-library/uat@5/invoke].term.graphFunctionRef",
+        "message": "workflow.C GraphFunction graph-function://abiogenesis/default-library/uat@5 is not in the admitted Program root"
+      },
+      {
+        "code": "invalid_application",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.applications[graph-function-application://abiogenesis/82d81452e4476d800f937ce6165eab4f867259987397720a3507f06bd99e197f]",
+        "message": "GraphFunction application has an empty reference or unpublished outer contract"
+      },
+      {
+        "code": "invalid_application",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.applications[graph-function-application://abiogenesis/82d81452e4476d800f937ce6165eab4f867259987397720a3507f06bd99e197f]",
+        "message": "registered selection requires an exact evaluator/policy source and unique permitted workflow targets with one shared interface and purpose"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5]",
+        "message": "missing contract contract://abiogenesis/default-library/state@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5]",
+        "message": "missing contract contract://abiogenesis/default-library/state@5"
+      },
+      {
+        "code": "missing_binding",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.nodes[node://abiogenesis/default-library/parent@5].term.requirement.implementationBindingRef",
+        "message": "missing implementation binding binding://abiogenesis/default-library/evaluate-parent@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.nodes[node://abiogenesis/default-library/parent@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/state@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.nodes[node://abiogenesis/default-library/parent@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/state@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.nodes[node://abiogenesis/default-library/parent@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/evidence@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.nodes[node://abiogenesis/default-library/parent@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/failure@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.nodes[node://abiogenesis/default-library/parent@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/refusal@5"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.nodes[node://abiogenesis/default-library/parent@5].term.requirement",
+        "message": "missing executable leaf contract contract://abiogenesis/default-library/judgment@5"
+      },
+      {
+        "code": "invalid_application",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.applications[graph-function-application://abiogenesis/c8caffbf67ce5798e1f2a4328b15d476ba01b7fc6da02bb914b7797f25afada4]",
+        "message": "GraphFunction application has an empty reference or unpublished outer contract"
+      },
+      {
+        "code": "invalid_application",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].template.applications[graph-function-application://abiogenesis/c8caffbf67ce5798e1f2a4328b15d476ba01b7fc6da02bb914b7797f25afada4]",
+        "message": "recurse application requires published termination Rule and Evaluator declarations over its exact decision field"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.program.closureContractRef",
+        "message": "Program closure contract is absent"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].declarations[abg.raw_result_contract]",
+        "message": "raw result declaration must name one published output contract distinct from the GraphFunction output"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive-step@5].declarations[abg.child_closure_contract]",
+        "message": "child GraphFunction closure must name one published GraphCall-scope contract over its output"
+      },
+      {
+        "code": "missing_contract",
+        "path": "$.graphFunctions[graph-function://default-library-witness/executive@5].declarations[abg.child_closure_contract]",
+        "message": "child GraphFunction closure must name one published GraphCall-scope contract over its output"
+      }
+    ]
+  },
+  "downstream": "setup helper .find(value.programRef===rootProgramRef) cannot select this failure; programValidation then undefined at500.",
+  "runtimeEffects": false,
+  "nativeStartEntered": false,
+  "methodAndCandidateUnchanged": true
+}

@@ -1,0 +1,16 @@
+{
+  "stage": "old-environment-complete",
+  "rss": 4623499264,
+  "heapTotal": 4170858496,
+  "heapUsed": 4110440368,
+  "external": 2448538,
+  "arrayBuffers": 36231,
+  "at": "2026-10-09T19:07:46.711Z",
+  "elapsedMs": 258353.567166,
+  "bindingCoordinate": {
+    "ref": "workspace-binding://abiogenesis/bf8106ce57111f92cce58b2d2694b833e3ade73a97d3f36d199299a282501e99",
+    "digest": "sha256:bf8106ce57111f92cce58b2d2694b833e3ade73a97d3f36d199299a282501e99"
+  },
+  "workspaceId": "workspace://abiogenesis/64061dcb03cca2104110cc02e9d886b06e36b5cd0aed0ab5df781117806c14b5",
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/worksite"
+}

@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-31/verify-installed.mjs"
+  ],
+  "elapsedSeconds": 8.993202167097479,
+  "exitCode": 0,
+  "stdoutSha256": "3e89f5b52bc751cde0962b0d357c1cd317f9c27d75f66710f7ea6ff41e938c68",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

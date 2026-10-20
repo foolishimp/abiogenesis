@@ -1,0 +1,263 @@
+{
+  "status": "CLOSED",
+  "oneAcquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/setup-resource-entry.json",
+    "bytes": 893,
+    "sha256": "bd908c2168917f889cf937bccc6777d2f2d4d81e776fb082ac00858ca9c7a471"
+  },
+  "calls": [
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/00-verify-core24.json",
+        "bytes": 257095,
+        "sha256": "d09589ab6f95e9c4d54dec12d67975a1779494c7e1b7e815f321911b387af2e8"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/d1650d81b8756ad1bc7f3ea4908e20042c7faf0475b41b78985045afba16f44e",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result"
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/01-verify-dev14.json",
+        "bytes": 1966,
+        "sha256": "5ba9df7034c1b8fab666fd6258ddaabe570ee7f8488400ab2e007bc21c734e7f"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/77a2bcd0b6bd6e14b28e6732cb08a3fd80fc4329e5d428d110fc13d81b5e77d9",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result"
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/02-resolve-core24-dev14.json",
+        "bytes": 5400,
+        "sha256": "f27e3bee3c52afdf443b72f83bad5ae7950890c5cdf4d493a1f99c45307937f1"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/1e33de8a72000d1602aa5796bfe2a2854891a31e4aad497b2a1e2186a9c73d16",
+      "acquisitionKind": "eventless",
+      "outcomeKind": "result"
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/03-install-core24.json",
+        "bytes": 6210,
+        "sha256": "eab23f2d9ea7453c42156ed5b25a541d89d991094d16120bdea0044d47024f56"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/506a16bc26c6614bdc8b92fafd383cf49f4e775c86b04d75b5902c13f4165907",
+      "acquisitionKind": "acquired",
+      "outcomeKind": "result",
+      "entryPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 115102824,
+        "prefixDigest": "sha256:9476f873689561cd018c18f839819cd4f16ef12a9655c42d1be55c5ffdd25e0b",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:3b005942ef5996e4ac064dd7a59f61fef94996477e7683c7bee3bd9766a19757"
+      },
+      "successorPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 117427619,
+        "prefixDigest": "sha256:63202cb4804c62c4d7dcff8a09a206ecd3312d594c17b36e4fe4753c02c07bf1",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:f3011a6a3ab69a0bea6c5f1e3268a9fa5e80fa76ae81ff5b3a707a23e02d0602"
+      },
+      "sourceField": "receipt.resources.eventResource.successor.prefix",
+      "completionReceiptDigest": "sha256:78f914295cdaa0578554c4f39ed144eefd0a6bde26049b5f2aa097d5da966b20",
+      "appendedBytes": 2324795
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/04-install-dev14.json",
+        "bytes": 6209,
+        "sha256": "e03ef41411fcda8fb8d150fccb5fd318714f6822514ac7c47be27969c5f37a83"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/ac166b34aa2095508298b9ccf8f340f53a2662bea7c573528e991a7c65deab19",
+      "acquisitionKind": "acquired",
+      "outcomeKind": "result",
+      "entryPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 117427619,
+        "prefixDigest": "sha256:63202cb4804c62c4d7dcff8a09a206ecd3312d594c17b36e4fe4753c02c07bf1",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:f3011a6a3ab69a0bea6c5f1e3268a9fa5e80fa76ae81ff5b3a707a23e02d0602"
+      },
+      "successorPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 117431056,
+        "prefixDigest": "sha256:564d4898169afb69681d7b2ed2a16db5559cf1bf77a8b84e9677fa3796659ff3",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:9bd201b92c1bfcd0718acac0a1fa90a497ee707409c3c91d5ba12a0154723ade"
+      },
+      "sourceField": "receipt.resources.eventResource.successor.prefix",
+      "completionReceiptDigest": "sha256:4d9c3e3bdea46cf909b1199e1795d2cafca43257dd0614a6f8ea9b42fa3c0b14",
+      "appendedBytes": 3437
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/05-bootstrap-native-d2-intake-bind-existing-workspace.json",
+        "bytes": 7221,
+        "sha256": "4968ecc89a615c3b97d674f2c953a638eb78dc73bfbfe74a2f73d638c2e2e267"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "invocationRef": "invocation://abiogenesis/e4ec3952da21ac3ba94dcaccd3ecc2fa584f55a95bb27c9d5054a364668891a9",
+      "acquisitionKind": "acquired",
+      "outcomeKind": "result",
+      "entryPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 117431056,
+        "prefixDigest": "sha256:564d4898169afb69681d7b2ed2a16db5559cf1bf77a8b84e9677fa3796659ff3",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:9bd201b92c1bfcd0718acac0a1fa90a497ee707409c3c91d5ba12a0154723ade"
+      },
+      "successorPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 117436372,
+        "prefixDigest": "sha256:2297f344b1202eeef838db056f33dd2cdc3b1db794443cb7842acf603c223e31",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:38f2d7b5cad45104bca4cb793fcfb3da5e3afd56218369db426f039f72d77d4d"
+      },
+      "sourceField": "receipt.resources.eventResource.successor.prefix",
+      "completionReceiptDigest": "sha256:d93259af7638a915ee3672928213ff6074d48a878b77fd3502e797c642c153fd",
+      "appendedBytes": 5316
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/06-catalog.json",
+        "bytes": 327171,
+        "sha256": "3b923475f1214edba7b564eb0a96556215592c056bd5c548767467ae503395ea"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "invocationRef": "invocation://abiogenesis/e169673a930f8385186fd3fe5321fccc451b43d4f8d654ffc1d5ff69592ba1e1",
+      "acquisitionKind": "acquired",
+      "outcomeKind": "result",
+      "entryPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 117436372,
+        "prefixDigest": "sha256:2297f344b1202eeef838db056f33dd2cdc3b1db794443cb7842acf603c223e31",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:38f2d7b5cad45104bca4cb793fcfb3da5e3afd56218369db426f039f72d77d4d"
+      },
+      "successorPrefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 117436372,
+        "prefixDigest": "sha256:2297f344b1202eeef838db056f33dd2cdc3b1db794443cb7842acf603c223e31",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:38f2d7b5cad45104bca4cb793fcfb3da5e3afd56218369db426f039f72d77d4d"
+      },
+      "sourceField": "receipt.resources.eventResource.successor.prefix",
+      "completionReceiptDigest": "sha256:2aeaed67ca6655fec36bc30330e8c06f85f7ce1f14e68aa0736ed4b07067a020",
+      "appendedBytes": 0
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/07-view.json",
+        "bytes": 1719,
+        "sha256": "c1fbe55442e5570344e39fc3c11af6acb25048a07f069f3635e060584b6db166"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "invocationRef": "invocation://abiogenesis/4c89ab5f5c357081f0a4a6ccff8ffae82da31ed004c4647e6221f2c5ab38daea",
+      "acquisitionKind": "acquired",
+      "outcomeKind": "result"
+    },
+    {
+      "record": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/08-intake-conformance.json",
+        "bytes": 30108541,
+        "sha256": "218a3c052b56f55cde29af8c7196414696e9acd0a3c3475adc76ad6f27beea22"
+      },
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/ff5018824adb1b5885c049b12692afcbbdd9c8ffb0f9607f65bafdb5424b7c58",
+      "acquisitionKind": "acquired",
+      "outcomeKind": "result"
+    }
+  ],
+  "oneClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/setup-resource-close.json",
+    "bytes": 2578,
+    "sha256": "96917f1cd67134da37cb0a42b36cb5db6a621ef3c6a86843de9fff81273cb7b8"
+  },
+  "eventlessCalls": 3,
+  "acquiredCalls": 6,
+  "completions": 4,
+  "appendingCompletions": 3,
+  "noIntermediateClose": true,
+  "projectionOnly": "Serialized successors are evidence; caller used authentic owner selections in one live lifetime."
+}

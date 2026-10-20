@@ -1,0 +1,271 @@
+{
+  "actualOwner": "qualificationWorkerRequest",
+  "task": {
+    "ref": "qualification-task://abiogenesis/acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85",
+    "digest": "sha256:acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85"
+  },
+  "plan": {
+    "ref": "qualification-plan://abiogenesis/c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98",
+    "digest": "sha256:c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98"
+  },
+  "requestDigest": "sha256:878c490753ba05b9a618bf261de55d33a8a71aa600d48c1fc12d5253bbc25ff3",
+  "promptDigest": "sha256:e096e92f2a5359807f554e2197026b62d87efe1a9ea71257752ab4f156742316",
+  "promptByteSHA256": "sha256:35d718313300c7feb1ebc64d699c373c58dd9de868bc68c9c14a83e7d7ee4264",
+  "promptUTF8Bytes": 1021244,
+  "responseSchemaCanonicalDigest": "sha256:17c7daa2deb84c8bc3b3682297d84fca429252e2bea124ec3208a23a403b7d6c",
+  "requestCanonicalDigest": "sha256:878c490753ba05b9a618bf261de55d33a8a71aa600d48c1fc12d5253bbc25ff3",
+  "providedSourceBodies": 39,
+  "providedHosts": 10,
+  "unprovidedAssessedMemberRefs": [],
+  "sections": [
+    {
+      "ordinal": 0,
+      "kind": "ROLE",
+      "utf8Bytes": 237
+    },
+    {
+      "ordinal": 1,
+      "kind": "ROLE BINDING",
+      "utf8Bytes": 984
+    },
+    {
+      "ordinal": 2,
+      "kind": "SUBJECT/LAW",
+      "utf8Bytes": 778
+    },
+    {
+      "ordinal": 3,
+      "kind": "CONTEXT/ASSET SURFACE",
+      "utf8Bytes": 12693
+    },
+    {
+      "ordinal": 4,
+      "kind": "CRITERIA",
+      "utf8Bytes": 494
+    },
+    {
+      "ordinal": 5,
+      "kind": "SCOPE AND COMPUTED CORRESPONDENCE (C, not semantic satisfaction)",
+      "utf8Bytes": 25539
+    },
+    {
+      "ordinal": 6,
+      "kind": "CONSTRUCTION ATTRIBUTION (assess; do not blindly trust)",
+      "utf8Bytes": 118631
+    },
+    {
+      "ordinal": 7,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 95324
+    },
+    {
+      "ordinal": 8,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 6979
+    },
+    {
+      "ordinal": 9,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 36217
+    },
+    {
+      "ordinal": 10,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 19886
+    },
+    {
+      "ordinal": 11,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 4367
+    },
+    {
+      "ordinal": 12,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 7140
+    },
+    {
+      "ordinal": 13,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 15208
+    },
+    {
+      "ordinal": 14,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 1605
+    },
+    {
+      "ordinal": 15,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 19941
+    },
+    {
+      "ordinal": 16,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 6056
+    },
+    {
+      "ordinal": 17,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 25692
+    },
+    {
+      "ordinal": 18,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 27196
+    },
+    {
+      "ordinal": 19,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 23367
+    },
+    {
+      "ordinal": 20,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 473
+    },
+    {
+      "ordinal": 21,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 5962
+    },
+    {
+      "ordinal": 22,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 30238
+    },
+    {
+      "ordinal": 23,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 5063
+    },
+    {
+      "ordinal": 24,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 6544
+    },
+    {
+      "ordinal": 25,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 17092
+    },
+    {
+      "ordinal": 26,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 19468
+    },
+    {
+      "ordinal": 27,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 10693
+    },
+    {
+      "ordinal": 28,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 7733
+    },
+    {
+      "ordinal": 29,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 9697
+    },
+    {
+      "ordinal": 30,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 15974
+    },
+    {
+      "ordinal": 31,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 49481
+    },
+    {
+      "ordinal": 32,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 6869
+    },
+    {
+      "ordinal": 33,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 40349
+    },
+    {
+      "ordinal": 34,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 33117
+    },
+    {
+      "ordinal": 35,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 32380
+    },
+    {
+      "ordinal": 36,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 13044
+    },
+    {
+      "ordinal": 37,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 43703
+    },
+    {
+      "ordinal": 38,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 14164
+    },
+    {
+      "ordinal": 39,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 15586
+    },
+    {
+      "ordinal": 40,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 24708
+    },
+    {
+      "ordinal": 41,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 78242
+    },
+    {
+      "ordinal": 42,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 17679
+    },
+    {
+      "ordinal": 43,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 16220
+    },
+    {
+      "ordinal": 44,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 8858
+    },
+    {
+      "ordinal": 45,
+      "kind": "SOURCE DATA",
+      "utf8Bytes": 48193
+    },
+    {
+      "ordinal": 46,
+      "kind": "PRIOR EVIDENCE/RESIDUALS",
+      "utf8Bytes": 663
+    },
+    {
+      "ordinal": 47,
+      "kind": "For each scoped criterion include grouping",
+      "utf8Bytes": 468
+    },
+    {
+      "ordinal": 48,
+      "kind": "Respond to every criterion in its declared order with source-grounded reasons. satisfied, falsified and indeterminate are all lawful assessment outcom",
+      "utf8Bytes": 153
+    }
+  ],
+  "sectionsTotalWithSeparators": 1021244,
+  "attributionRecords": 56,
+  "attributionRawBytes": 3967307,
+  "limits": "This is a complete actual owner render, not a provider/model capacity acceptance or independent semantic assessment."
+}

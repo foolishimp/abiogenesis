@@ -1,0 +1,22 @@
+{
+  "stage": "owner-read-complete",
+  "at": "2026-10-08T01:42:56.279Z",
+  "elapsedMs": 23974.756792,
+  "memory": {
+    "rss": 3572252672,
+    "heapTotal": 2131181568,
+    "heapUsed": 2012724680,
+    "external": 1184910090,
+    "arrayBuffers": 1182498398,
+    "maxRSSKiB": 3493904
+  },
+  "eventCount": 165617,
+  "first": {
+    "eventId": "event://abiogenesis/715afee9a389eb3ccfa81a0c5a1ef496a9bc0ad151dfcbc64b3dd76e6c681f88",
+    "ordinal": 1
+  },
+  "last": {
+    "eventId": "event://abiogenesis/7d258cb9cfb3daf97cbb98b9c6c778fe1e01340ab060e6d1b4eed7ff64af5722",
+    "ordinal": 165617
+  }
+}

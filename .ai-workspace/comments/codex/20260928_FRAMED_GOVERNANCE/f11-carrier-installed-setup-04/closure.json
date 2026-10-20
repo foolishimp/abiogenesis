@@ -1,0 +1,15 @@
+{
+  "status": "CLOSED",
+  "role": "Runtime Worker",
+  "operation": "T287_F11_C04_INSTALLED_SETUP_04",
+  "actor": "/root/native_applicability_design",
+  "workResult": "actual_singleton_mixed_resolution_proved_first_fixture_install_failure_frozen",
+  "closedAt": "2026-10-02T01:21:52.785877+00:00",
+  "firstFailure": "first-violated-relation.json",
+  "resourceHandoff": "closed-event-resource-handoff.json",
+  "accounting": "accounting.json",
+  "conservation": "conservation.json",
+  "noRetryRepair": true,
+  "F11TaskRun": "STOPPED pending separate Q05 independent GO / Root grant",
+  "qualificationReleaseCredit": false
+}

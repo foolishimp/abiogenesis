@@ -1,0 +1,12 @@
+{
+  "startedAtMs": 1790204459867.89,
+  "at": "2026-09-23T23:00:59.867925+00:00",
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/campaign-02.mjs",
+    "configuration-02.json"
+  ],
+  "limitMs": 6900000,
+  "processGroupId": 77080,
+  "claim": "OS deadline/resource observation only; no runtime authority"
+}

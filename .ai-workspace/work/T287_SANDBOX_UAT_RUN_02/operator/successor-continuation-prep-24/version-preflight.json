@@ -1,0 +1,141 @@
+{
+  "disposition": "ready",
+  "issues": [],
+  "observations": [
+    {
+      "name": "node",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24",
+      "started": "2026-10-06T20:36:57.049Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 14.922458000000006,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "v24.7.0\n",
+      "stderr": ""
+    },
+    {
+      "name": "npm",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24",
+      "started": "2026-10-06T20:36:57.065Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 57.385500000000036,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "11.5.1\n",
+      "stderr": ""
+    },
+    {
+      "name": "sbt",
+      "executable": "/opt/homebrew/bin/sbt",
+      "args": [
+        "--script-version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24",
+      "started": "2026-10-06T20:36:57.124Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "PATH_PREFIX",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 245.56833400000005,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "1.11.7\n",
+      "stderr": ""
+    },
+    {
+      "name": "java",
+      "executable": "/opt/homebrew/opt/openjdk@11/bin/java",
+      "args": [
+        "-version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24",
+      "started": "2026-10-06T20:36:57.371Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 33.89149999999995,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "",
+      "stderr": "openjdk version \"11.0.28\" 2025-07-15\nOpenJDK Runtime Environment Homebrew (build 11.0.28+0)\nOpenJDK 64-Bit Server VM Homebrew (build 11.0.28+0, mixed mode)\n"
+    },
+    {
+      "name": "provider",
+      "executable": "/Users/jim/.local/bin/claude",
+      "args": [
+        "--version"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24",
+      "started": "2026-10-06T20:36:57.405Z",
+      "environmentKeys": [
+        "HOME",
+        "JAVA_HOME",
+        "LANG",
+        "LC_ALL",
+        "PATH",
+        "TMPDIR"
+      ],
+      "timeoutMs": 20000,
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 100.71133400000008,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "stdout": "2.1.291 (Claude Code)\n",
+      "stderr": ""
+    }
+  ],
+  "providerReachability": "Not dispatched or network-qualified",
+  "selectedCases": [
+    "data-mapper-full"
+  ]
+}

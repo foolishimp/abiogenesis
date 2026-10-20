@@ -1,0 +1,80 @@
+{
+  "scope": "Direct retained records inside the same exact closed suffix; no replacement proof packet or new admission",
+  "run": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116",
+  "leaves": [
+    {
+      "role": "semantic-revision-author",
+      "programLocusRef": "locus://odd-glc/generic-lifecycle/requirements/author@5",
+      "cCallRef": "c-call:sha256:85ecb4f0ec6098ede78f221374ab35ac1c110ea0d748483ad280b589864b1405",
+      "openedEventRef": "event://abiogenesis/a08c90d50191a4b38d13a28a8ebd400a9c754c8d49c32a3dc9ade80deeb79c59",
+      "result": {
+        "resultRef": "result://abiogenesis/d8e917c18e2160b8c727dc5739f2aab6a3a551843554bbd24b1bbe258da154d0",
+        "resultDigest": "sha256:d8e917c18e2160b8c727dc5739f2aab6a3a551843554bbd24b1bbe258da154d0",
+        "resultClass": "success",
+        "valueDigest": "sha256:40e9c77f5b1a418a7de4e75dfb83d4dc908e06bc62961d2fc927bf1a19cd2079",
+        "valueKind": "semantic_revision_envelope"
+      },
+      "resultAdmissionEventRef": "event://abiogenesis/6bd1c63c44aa59b3081be1169315fc8cc7bd9d778967ae6e45d2cadb9dee8f9f",
+      "judgmentEventRef": "event://abiogenesis/3454fcbdc2bc867ffc8263d8cc9f3e41c6b9d3975e8d9155d9be4cee15d2400c",
+      "judgment": {
+        "judgment": "advance",
+        "judgmentRef": "judgment://abiogenesis/ce798c3211c73271e2412b0ecbcb5d77db622be77deb995a794207d1f0be756e",
+        "predicateRef": "predicate://abiogenesis/semantic-revision/authored@5",
+        "reasonRef": "reason://abiogenesis/semantic-revision/relation-satisfied@5"
+      },
+      "asset": {
+        "assetRef": "semantic-job-asset://abiogenesis/7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+        "assetDigest": "sha256:7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+        "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5"
+      },
+      "assessment": null
+    },
+    {
+      "role": "semantic-revision-assessor",
+      "programLocusRef": "locus://odd-glc/generic-lifecycle/requirements/assessor@5",
+      "cCallRef": "c-call:sha256:afa4e652785487111c4e15e0eb1527450d75fbff4818cd9980c6867f99f8770c",
+      "openedEventRef": "event://abiogenesis/474aab4102f5a7816d1b217d55a1dbb422627bebda3a01ce9aac20c81e38bb4a",
+      "result": {
+        "resultRef": "result://abiogenesis/7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6",
+        "resultDigest": "sha256:7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6",
+        "resultClass": "success",
+        "valueDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185",
+        "valueKind": "semantic_revision_envelope"
+      },
+      "resultAdmissionEventRef": "event://abiogenesis/fb431103b4a4b0a9a05cf667e5828fe0a4eaf04c939fc566b254e9b3811a8842",
+      "judgmentEventRef": "event://abiogenesis/36fa5b5beb8c80c97eab859a7dfbcf002f3ed2431f260fa16156e585d27cca1d",
+      "judgment": {
+        "judgment": "advance",
+        "judgmentRef": "judgment://abiogenesis/cf5d2573847b2d933e61af810e9562653572cbc649497eb3a29e81790af9d5de",
+        "predicateRef": "predicate://abiogenesis/semantic-revision/assessed@5",
+        "reasonRef": "reason://abiogenesis/semantic-revision/relation-satisfied@5"
+      },
+      "asset": {
+        "assetRef": "semantic-job-asset://abiogenesis/7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+        "assetDigest": "sha256:7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+        "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5"
+      },
+      "assessment": {
+        "disposition": "satisfied",
+        "keys": [
+          "candidate",
+          "disposition",
+          "source"
+        ],
+        "source": {
+          "actorInvocationRef": "actor-invocation://abiogenesis/41b02ba33cddee5f64cee34655b808e978ca0639529d5d614d687e911a1557a9",
+          "cCallRef": "c-call:sha256:afa4e652785487111c4e15e0eb1527450d75fbff4818cd9980c6867f99f8770c",
+          "inputDigest": "sha256:40e9c77f5b1a418a7de4e75dfb83d4dc908e06bc62961d2fc927bf1a19cd2079",
+          "promptDigest": "sha256:db3a33c70fa8ca7934a53b9b1930498c08c3cb4f6ef7a2389dba2f5f63008649",
+          "transportDigest": "sha256:b78cb97a57382f9c33b1231a01a9fe6b33aa2f789c8b207629f5ea8421efbc85"
+        }
+      }
+    }
+  ],
+  "stageFold": {
+    "resultRef": "result://abiogenesis/25cd09a9d0686c6205daa9b87835432877edf247f80ea2b38c0dc02edcb4955d",
+    "admissionEventRef": "event://abiogenesis/54bfba35bac9529e2018a4f424e5ea1d431d1e504f99f53430f95c2a144aa676",
+    "judgmentEventRef": "event://abiogenesis/c88f4fc38816c981dbb70c627e18816c22a4782b33afde13fef14f693c875827",
+    "judgment": "advance"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "status": "configuration_correspondence_only",
+  "claim": "Successor must bind its actual adapted recipe body and all affected input/inventory digests before native dispatch; the copied Q04 recipe remains unchanged.",
+  "runtimeAdmission": false,
+  "qualification": false,
+  "actualTaskDigests": {
+    "commandConfigurationDigest": "sha256:dcf83a4353ec72d654e3059866d79f68a0bcaba9ce01550fd2bd1f9b95c9b5ee",
+    "predicateConfigurationDigest": "sha256:77c818483c281fc249f19dae307b8f717377661b3105daba8a089d0d8269987d",
+    "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0"
+  },
+  "originalQ04Digests": {
+    "commandConfigurationDigest": "sha256:b4b4147803ec971e49237c0d6e873c2e9ab8b0d2a22f0b3406e6f0172657ed1f",
+    "predicateConfigurationDigest": "sha256:77c818483c281fc249f19dae307b8f717377661b3105daba8a089d0d8269987d",
+    "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0"
+  },
+  "originalRecipeBodyRetainedAt": "mechanical-worksite/recipe/verification-recipe.json",
+  "originalQ04RecipeConfigurationMatches": false,
+  "actualProposedRecipeSelectedObservation": null,
+  "successorRecipeInputInventoryJoin": null
+}

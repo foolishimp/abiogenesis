@@ -1,0 +1,10 @@
+{
+  "capsule": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/parallel-js/jobs/parallel-js/causal-capsule.json",
+    "sha256": "2c5cdeb66f58d11e63745e13841a70639021e8323c39f11ef65084c6a5a04fd7"
+  },
+  "publicEvidence": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/parallel-js/jobs/parallel-js/causal-public-evidence.json",
+    "sha256": "3ad0472096490c486126cd2df025559cc14318bcc7463a87e94b6e946110363a"
+  }
+}

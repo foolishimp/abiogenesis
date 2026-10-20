@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/prepare.mjs"
+  ],
+  "observedExitCode": 1,
+  "toolWallSeconds": 0.197435417,
+  "origin": "phase-owned prepare.mjs:37 unsupported snapshot state spelling assumption",
+  "diagnostic": "AssertionError [ERR_ASSERTION]: 0 !== 1; absentEntries selected state=missing",
+  "failedScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/prepare.failed.mjs",
+    "sha256": "1cc0c14421d9bcbc55d2f323f89ea99f474616bb856338775f65af2262327606",
+    "byteCount": 17585
+  },
+  "effectsBeforeFailure": "phase inputs/script only; no material/config/acquisition/native writes"
+}

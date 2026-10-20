@@ -1,0 +1,34 @@
+{
+  "state": "CLOSED / STOP",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/return.md",
+    "sha256": "b28ec2e341c9299ea813ed1eca8ce62d82e09a772ab2943e61bcfa808fdd3815",
+    "byteCount": 2809
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/readiness.json",
+    "sha256": "86c685eacdf4f4941dd0b668e62eb1ad4ea875d08b4a36d49abfee854d7bdc37",
+    "byteCount": 11971
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/pins.json",
+    "sha256": "a29b0ddd3b87f5c38d3da54b4dd121966ca5d5509d34733e7d1689be4c70a3cc",
+    "byteCount": 36203
+  },
+  "candidateIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/identity.json",
+    "sha256": "f78e30080bdf23d43ed2ab4fe4f2e59ebcb8a2eeea72a145e7e0cf041f5adcae",
+    "byteCount": 18321
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/freeze.json",
+    "sha256": "78e08ef8d9fe28a9ada3bab87d5b848831cc68a0fdde37b7ffa3adb558758447",
+    "byteCount": 2363
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "18e1eac0d22a12f1d041947bb0e60a3f568ab10be7ce1ad604b3e6b5af610475",
+    "byteCount": 10640868
+  },
+  "scope": "Immutable publication, clean installed payload, flat consumer ESM/dependency/whole-Program and pure29\u219431 value-contract correspondence only. No current ABG install/binding/catalog/cover/source-use, Source41, private preparation, Run/native/model/UAT/capacity/P0/release claim. Exact223 allocator and full-history composition remain unproved; no actual log read/hash/stat/acquisition/recovery or app/runtime effects."
+}

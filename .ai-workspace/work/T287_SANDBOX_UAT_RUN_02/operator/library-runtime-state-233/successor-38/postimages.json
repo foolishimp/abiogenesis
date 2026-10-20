@@ -1,0 +1,70 @@
+{
+  "kind": "bounded_deterministic_diagnostic_postimages",
+  "sourceCut": 38,
+  "files": [
+    {
+      "relativePath": "code/src/implementation/leaf_invocation_port.ts",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "3a178c71c6dfadbfe39162d98e87ec326ed87788ab556ea13f22678125962e89",
+        "bytes": 77337
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/input-01/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "f3e1c1ddaf90b856e4b2fe2ebd90dfc901a368ef52034c5f62cde9636eeb3d54",
+        "bytes": 79176
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "f3e1c1ddaf90b856e4b2fe2ebd90dfc901a368ef52034c5f62cde9636eeb3d54",
+        "bytes": 79176
+      }
+    },
+    {
+      "relativePath": "design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+        "sha256": "e5c49d966aa60873d75c02cc6623f70b1f100e9b0fd05fe2bdb6fc105d951b1a",
+        "bytes": 13803
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/input-01/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+        "sha256": "d4b48d8da9da6c90ec9ea0950cc004418b1738ca3ddeaa6a9e75065952f739e0",
+        "bytes": 15266
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+        "sha256": "d4b48d8da9da6c90ec9ea0950cc004418b1738ca3ddeaa6a9e75065952f739e0",
+        "bytes": 15266
+      }
+    },
+    {
+      "relativePath": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "sha256": "bdf51ea41a63aef761512b4c7218a1d2863a4028c89a08f53bbe93b58af72c76",
+        "bytes": 15084
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/input-01/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "sha256": "57aa460f24cca66ccfdeec1c92b79992c0ab9fe09f377b7f8e96961e482463b1",
+        "bytes": 26449
+      },
+      "livePostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "sha256": "57aa460f24cca66ccfdeec1c92b79992c0ab9fe09f377b7f8e96961e482463b1",
+        "bytes": 26449
+      }
+    }
+  ],
+  "fullSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-inputs.json",
+    "sha256": "0a056ba82f21c0cd241f879c8977c12c27d3199e3fec5bd5d803ba5ef8a9a183",
+    "bytes": 80616
+  },
+  "fullEmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-emission.json",
+    "sha256": "52e15cc740e072bfab393cf2e082f2cc066b9cb159fa31bfd7b472d05006c767",
+    "bytes": 161512
+  }
+}

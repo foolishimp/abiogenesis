@@ -1,0 +1,41 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RESULT_LINEAGE_ACCEPTANCE_C08_SELECTION_WRITER_01",
+  "closedAt": "2026-10-02T13:07:11.941015+00:00",
+  "returnsTo": "Executive",
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08/acceptance.json",
+    "bytes": 3828,
+    "sha256": "cbf7b233abb96b0957f6df749f372c6b78fa47d57730b5158a2f7b50a5649b32",
+    "mode": 420
+  },
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08/source-cut.json",
+    "bytes": 13018234,
+    "sha256": "f131c687fbae3be7cf0cbb4ee340def5d4a328de0716e883d4be08d471b5c18c",
+    "mode": 420
+  },
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 534726,
+      "sha256": "ce6076509dcb57b8999f90afa27cb34d85d7b0f836f11a14a5faac54d23ad3e6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 490257,
+      "sha256": "47b182a0404708219c0b01a726b542108ac2bd307b12c783d94fb88032533288",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 5260,
+      "sha256": "d1d049b06e0796eada52bef1363d418e1cf96934e2732b15addb24c752972082",
+      "mode": 420
+    }
+  ],
+  "canonicalSourceCandidateRuntimeGitEffects": 0
+}

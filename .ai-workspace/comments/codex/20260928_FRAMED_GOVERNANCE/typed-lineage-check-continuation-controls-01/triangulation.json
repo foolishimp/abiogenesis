@@ -1,0 +1,11 @@
+{
+  "failure": "regression final receipt EEXIST; assertions ran but aggregatefailed",
+  "ProductDesign": "Shared typed-interface code compiled; no new Product/Design failure identified by receipt error.",
+  "Integration": "Copied runner environment sends report/TMP to CLOSED donor proof instead of current operation.",
+  "IdentityEffects": "wx refused old report overwrite; exact body/mode retained; no runtime/store/provider. All owned test processesreaped/absent.",
+  "Proof": "Compilation reused; aggregate test acceptance stillopen, staticcase NOT_RUN. Preserve failed receipt and sourceauthor chains.",
+  "ReuseCost": "No source edits/copy/build; retarget three external control coordinates and run two bounded checks.",
+  "owner": "Test-control caller/Root handoff preparation",
+  "lawfulReentry": "realization_refactor of external test controls only",
+  "requiredReproof": "One actual callback test + one static type test against unchanged compiled/source owner; no native or suite retry."
+}

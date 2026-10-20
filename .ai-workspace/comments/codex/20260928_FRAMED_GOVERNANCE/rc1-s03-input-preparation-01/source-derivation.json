@@ -1,0 +1,39 @@
+{
+  "callerSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "bytes": 21971,
+    "sha256": "a9ea368be43d6b6d93dff8b1084f653997408185956f0f8a26b422520186d16d"
+  },
+  "callerSpan": {
+    "startByte": 9309,
+    "endByte": 20704,
+    "originalSha256": "eba4000ec938154dd2a10d554a93f4da5ff15ba855c4ddd2c6cbc8a2c6107795"
+  },
+  "callerAdaptations": [
+    "Only node assert and constant schemaVersion/operationId plumbing retained; no pack/setup/CLI-effect helper copied",
+    "External prospective ref namespaces identify this S03a caller",
+    "Event time is a required actual future call parameter; no historical time reused",
+    "Added bounded verifyInstalledCurrent/preparePairCase/preparePairColdRead wrappers; all installed closures/environment remain injected dependencies",
+    "Original fixture has applications=[] and no RunEnvironment; owner prepare checks actual full resources and runEnvironment=null"
+  ],
+  "oracleSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+    "bytes": 32193,
+    "sha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465"
+  },
+  "oracleSpan": {
+    "startByte": 9733,
+    "endByte": 25504,
+    "originalSha256": "5666155a3172cdfb1b7319fb6ace6d03e1a899efb14c72a3f49ddc4a29b90c2f"
+  },
+  "oracleAdaptations": [
+    "Only export keyword moved into factory-returned functions; exact original assertion bodies retained",
+    "Installed fixture f is injected in closure instead of importing source fixture"
+  ],
+  "rendererSpan": {
+    "startByte": 20804,
+    "endByte": 21535,
+    "originalSha256": "08af2693bf433e03072f376ca84cc9fc53888006a4f9a8c94ea24457e841b1a4"
+  },
+  "execution": "No constructor, verifier, resource observer, native/runtime or oracle function invoked in this preparation."
+}

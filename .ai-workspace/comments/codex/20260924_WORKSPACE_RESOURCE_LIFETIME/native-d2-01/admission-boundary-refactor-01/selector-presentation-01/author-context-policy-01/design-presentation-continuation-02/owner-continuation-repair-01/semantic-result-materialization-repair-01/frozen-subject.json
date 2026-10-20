@@ -1,0 +1,35 @@
+{
+  "kind": "semantic-result-materialization-repair-source",
+  "scope": "One existing matcher, its affected test and compiler emission; no Public/schema/HOW change",
+  "root": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "members": [
+    {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "sha256": "2f445d8d7b8090ac11d89bbb3187e71c663220840558b21e0370bfca90665fa9",
+      "bytes": 84012,
+      "preimageSha256": "e45c1a74ad761d55c2fd4089cb38d7eb5bb1ff35e29e8c06011280ecc4711649",
+      "changed": true
+    },
+    {
+      "path": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "sha256": "510646f94640eaee0fc04976b1d2584f3321e7cd667cf3742f4ca90f786b8336",
+      "bytes": 67585,
+      "preimageSha256": "6fcb02789ec0d5d05a303ad16697db7d255706d80edd4f902d8250dac3645b76",
+      "changed": true
+    },
+    {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "sha256": "60a2f44aba88642c9bbdeabf888cd1ca4870bf1b5b7596a0702ad96afc4fd6cb",
+      "bytes": 81885,
+      "preimageSha256": "de6d482fdcfd0951cbe728c50787826d569730fb68648de425974e4746734127",
+      "changed": true
+    },
+    {
+      "path": "build/code/src/abg/instruction_assembly.d.ts",
+      "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+      "bytes": 14248,
+      "preimageSha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+      "changed": false
+    }
+  ]
+}

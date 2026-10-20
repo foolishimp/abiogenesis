@@ -1,0 +1,21 @@
+{
+  "role": "Worker",
+  "activation": "T287_F11_SESSION_CORRESPONDENCE_03",
+  "actor": "/root/f11_attribution_inputs",
+  "transition": "T287_F11_EXTERNAL_ATTRIBUTION_CORRESPONDENCE_02 CLOSED -> session-correspondence Worker",
+  "at": "2026-09-30T08:08:13.576141+00:00",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-controls-03/request.txt",
+    "bytes": 6518,
+    "sha256": "f4c776df74886347e886d354ff150b6326685683edda8152e09f5bf8edfb05de"
+  },
+  "soleWriteTerritory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-03",
+  "reentry": "realization_refactor",
+  "effects": "Minimal original metadata/source-tool/output acquisition and exact existing source joins only; commands in transcripts are inspected, never executed",
+  "limits": [
+    "Exactly three routed session files",
+    "No private reasoning, system/developer instructions, unrelated conversation, encrypted-message bodies or credentials exported",
+    "No source, Product, Git or native effects",
+    "No successor binding or independent assurance"
+  ]
+}

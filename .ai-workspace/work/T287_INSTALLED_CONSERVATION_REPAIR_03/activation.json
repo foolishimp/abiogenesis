@@ -1,0 +1,55 @@
+{
+  "operation": "T287_INSTALLED_CONSERVATION_REPAIR_03",
+  "HOME": "/Users/jim",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_03/grant.md",
+    "bytes": 6026,
+    "sha256": "4d2780ebf51bc27fa763d2c41bf91cc1d49c159d989a2a141518fcfb693a9375"
+  },
+  "originalFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_INSTALLED_CONSERVATION_REPAIR_02/freeze.json",
+    "bytes": 8283,
+    "sha256": "d05514c2778c46fa5cedb90164548fed2f14395f344b313c00381f39f41636f6"
+  },
+  "pinnedNode": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661096,
+    "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+  },
+  "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "originalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01",
+  "evidenceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_INSTALLED_CONSERVATION_REPAIR_03",
+  "originalTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/tmp",
+  "sourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+      "bytes": 40735,
+      "sha256": "f853caaf7d55be4ed18ec10ad69197d6d2390660c7f305ea79c123ef69efe6a6",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_03/consumer/test_env/support/installed-qualification-conservation.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-qualification-conservation.test.mjs",
+      "bytes": 30226,
+      "sha256": "8794816f4515926b13cc8793d4ebfbc983a579755b85eba13823c1b7c8c8f1dd",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_03/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs"
+    }
+  ],
+  "zeroRebuilds": true,
+  "zeroFullPackageCopies": true,
+  "controlledTransport": true,
+  "realProviderCalls": 0,
+  "semanticIndependentAssessment": false,
+  "rootReservedMaintenance": false,
+  "processCapSeconds": 180,
+  "maintenanceSetupCapSeconds": 300,
+  "flowCapSeconds": 300,
+  "actorInactivityMs": 60000,
+  "actorAbsoluteMs": 120000,
+  "ordinaryReopenOnly": true,
+  "currentHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_02/recovery-handoff.json",
+    "bytes": 1239,
+    "sha256": "921ca0fa0c47caf785a0c8ceb707e94cd5cd069e583e07210f5bb9d0846bce22"
+  }
+}

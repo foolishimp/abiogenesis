@@ -1,0 +1,24 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-11/select-stopped-facts.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-11",
+  "started": "2026-10-10T15:37:53.375Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 805.647958,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"testingBasis\":{\"eventId\":\"event://abiogenesis/599fa6be356f694aef990d101817a683e0cd33294df68b19a113b5e6facd99cb\",\"inputDigest\":\"sha256:b4b7f1d3f6bcaa6b91875920ca171f71c016cb001ccff5cab9756f525134f14d\"},\"leaf\":\"c-call:sha256:0f4422decf915a1d7999fd16eef890ca76b01a08b16b6683f71c769f127b4916\",\"results\":[{\"eventId\":\"event://abiogenesis/a06cac9fc4aa5231ea908b3e6242202988bb8e85ba2654ccd4e2be7e8ed784ff\",\"ordinal\":744,\"resultRef\":\"result://abiogenesis/3b4391b21fbe4e40c6a49f46d109fbb27e2b21c99cbc2cd17fcc35fe0bea3e2f\",\"resultClass\":\"failure\",\"value\":{\"diagnosticRef\":\"diagnostic://abiogenesis/default-library/missing-owned-prepare-testing@5\",\"kind\":\"governance_failure\",\"schemaVersion\":\"5.0.0\"}}],\"invocationAdmissionFacts\":0,\"rootBasis\":\"event://abiogenesis/c07652854eb2f4e249980144d892fed0f2bee41889f988db3013dca16c06370f\",\"contextCount\":1}\n",
+  "stderr": ""
+}

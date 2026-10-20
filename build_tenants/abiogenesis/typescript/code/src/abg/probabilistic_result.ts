@@ -1,3 +1,4 @@
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import type { AdmittedActorTransportProjection } from "./c_call.js";
 import {
   validateActorProcessCarrierPair,
@@ -60,6 +61,9 @@ export interface ProbabilisticResultAdmissionInput {
   readonly request: Readonly<ProbabilisticWorkerRequest>;
   readonly observation: Readonly<ActorProcessObservation>;
 }
+/** @internal Same admission contract over the actual private history owner. */
+type RuntimeProbabilisticResultAdmissionInput = Omit<ProbabilisticResultAdmissionInput, "prefix"> & { readonly prefix: RuntimeEventPrefix };
+
 
 export interface ContractAdmittedProbabilisticResultCandidate {
   readonly kind: "contract_admitted_probabilistic_result_candidate";
@@ -296,6 +300,13 @@ function transportBasisMatches(
 
 export function admitProbabilisticResultCandidate(
   supplied: Readonly<ProbabilisticResultAdmissionInput>,
+): ProbabilisticResultAdmissionResult;
+/** @internal */
+export function admitProbabilisticResultCandidate(
+  supplied: Readonly<RuntimeProbabilisticResultAdmissionInput>,
+): ProbabilisticResultAdmissionResult;
+export function admitProbabilisticResultCandidate(
+  supplied: Readonly<RuntimeProbabilisticResultAdmissionInput>,
 ): ProbabilisticResultAdmissionResult {
   return admitResultCandidate(supplied);
 }
@@ -305,12 +316,21 @@ export function admitProbabilisticResultCandidate(
 export function admitProbabilisticResultFromActorTransport(
   supplied: Readonly<ProbabilisticResultAdmissionInput>,
   actorTransport: () => AdmittedActorTransportProjection | null,
+): ProbabilisticResultAdmissionResult;
+/** @internal */
+export function admitProbabilisticResultFromActorTransport(
+  supplied: Readonly<RuntimeProbabilisticResultAdmissionInput>,
+  actorTransport: () => AdmittedActorTransportProjection | null,
+): ProbabilisticResultAdmissionResult;
+export function admitProbabilisticResultFromActorTransport(
+  supplied: Readonly<RuntimeProbabilisticResultAdmissionInput>,
+  actorTransport: () => AdmittedActorTransportProjection | null,
 ): ProbabilisticResultAdmissionResult {
   return admitResultCandidate(supplied, actorTransport);
 }
 
 function admitResultCandidate(
-  supplied: Readonly<ProbabilisticResultAdmissionInput>,
+  supplied: Readonly<RuntimeProbabilisticResultAdmissionInput>,
   actorTransport?: () => AdmittedActorTransportProjection | null,
 ): ProbabilisticResultAdmissionResult {
   if (

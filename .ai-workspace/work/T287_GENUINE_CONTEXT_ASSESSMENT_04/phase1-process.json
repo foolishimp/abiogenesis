@@ -1,0 +1,36 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "phase": "phase1_preparation_only",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/genuine-pilot.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer",
+  "capSeconds": 120,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/tmp",
+    "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/tmp/node-compile-cache",
+    "ABI5_GENUINE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+    "ABI5_GENUINE_MODE": "prepare"
+  },
+  "pid": 97690,
+  "pgid": 97690,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "groupAbsent": true,
+  "elapsedMs": 20910.542332996556,
+  "maxRSSPlatformBytes": 2383757312,
+  "userCPUSeconds": 24.431957,
+  "systemCPUSeconds": 0.574244,
+  "nativeDispatches": 0,
+  "cliInvocations": 0,
+  "providerCalls": 0,
+  "stdoutBytes": 2200,
+  "stdoutSHA256": "09f2096480dd4cd6ae597071ee531f10ec3b1d96c11c13cc5665f51ff8a6e6c6",
+  "stderrBytes": 0,
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

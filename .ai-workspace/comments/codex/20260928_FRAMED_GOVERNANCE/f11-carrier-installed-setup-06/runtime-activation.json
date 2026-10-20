@@ -1,0 +1,46 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_C06_INSTALLED_SETUP_06",
+  "role": "Runtime Worker",
+  "actor": "/root/native_applicability_design",
+  "activatedAt": "2026-10-02T06:20:57.193013+00:00",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/setup-request.txt",
+    "bytes": 3109,
+    "sha256": "89fa61a6a68937bedaf3a56d0104c4e8230d5445ba40f9348b40840d325ccd59",
+    "mode": 420
+  },
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/acceptance.json",
+    "bytes": 2938,
+    "sha256": "a4ff680eca8db749c159c322d2d1061a53b4393940b62afad5645b79ab765618",
+    "mode": 420
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "bytes": 140347,
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "mode": 420
+  },
+  "independentReviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-independent-review-controls-01/review/freeze.json",
+    "bytes": 1240,
+    "sha256": "5b8d179bba26d56a8e20a60fa9fc1833b0fbd41ec369f13347305826f9e7deb2",
+    "mode": 420
+  },
+  "sourceDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/freeze.json",
+    "bytes": 3902338,
+    "sha256": "3aa1948357cbce79b8c029f0be610fda129e325d6b0a267501e9e690cdd92f82",
+    "mode": 420
+  },
+  "changeClass": "realization_refactor; accepted construction actual installed setup",
+  "firstDiscrepancy": "STOP and freeze for Root triangulation; no repair or retry",
+  "realProviderCalls": 0,
+  "TaskRunHelperQualificationEffects": 0,
+  "heap": "unchanged",
+  "HOME": "/Users/jim",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06",
+  "RootAloneAccepts": true
+}

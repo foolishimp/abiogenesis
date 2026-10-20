@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-08T05:58:35.510670+00:00",
+  "sourceRepair": false,
+  "preservedFailedReceipts": [
+    "commands/focused-graph-law.result.json",
+    "commands/focused-graph-law-corrected.result.json",
+    "commands/focused-graph-law-final.result.json"
+  ],
+  "finalReceipt": "commands/focused-graph-law-complete-premises.result.json",
+  "corrections": [
+    "Program default/start selects the GraphFunction; callable-only fixtures use an explicit callable premise with no Public entry credit. Fan-out names its exact GraphFunction.",
+    "Existing registered-selection declarations return a fragment; modulePublication receives supplied fixture Artifact metadata and both artifact/manifest provenanceRefs exactly as the existing preparation owner does.",
+    "Existing registered-selection child A/B environments each repeat child-input in carries. Preserve exact duplicate_identity publication refusal and compare its complete old/new value; whole Program/Graph and registered-selection positives remain valid."
+  ],
+  "effectLimits": "Pure static owner construction, admission, validation, materialization and continuation; supplied identity/input basis is not runtime producer/installed/admitted evidence."
+}

@@ -1,0 +1,144 @@
+{
+  "kind": "closed_baseline_preparation_freeze",
+  "created_utc": "2026-10-20T18:44:27.808451+00:00",
+  "readiness_sha256": "b14c0e7d08f2f5c219550accf9b6ec18e3a9979edaa5803e8703ee724e6e1ea8",
+  "source_manifest_sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/activation.json",
+      "sha256": "bfa1af8fdd3b3be66e4063250a11d7b73d5409f34ad9a3689b9c652a463b4eed",
+      "bytes": 839
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+      "bytes": 10676374
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/dependencies.request.json",
+      "sha256": "c7fcbad5414e17ce03aefa70fe566261e123bc16728d0e8837b67608760c1ba6",
+      "bytes": 664
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/dependencies.result.json",
+      "sha256": "9794837c089e980d58fa5ddca71ef70bcf786294babb1a2cb5f6102fd91278a5",
+      "bytes": 282
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/dependencies.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/dependencies.stdout",
+      "sha256": "68bbc88a83066bd1575568d15aa8b12d163138e00ca671c39cb1c2e78cf90059",
+      "bytes": 28
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/generate.request.json",
+      "sha256": "555bf476d975aa84ab487e258c8e8051a2a6830e475aee0afa3fae712fb2fd80",
+      "bytes": 624
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/generate.result.json",
+      "sha256": "4dc8be68678aa708530c81ad0cd04a33ded70cb33703e2ec055193655ae1b458",
+      "bytes": 282
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/generate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/generate.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/pack.request.json",
+      "sha256": "22ba9b8447ba77aebb8cc6760693296236a64e3e1597edea4f98955dbe63f86b",
+      "bytes": 781
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/pack.result.json",
+      "sha256": "e0e6ec60861afb3194720f7836bde5d090900f8067f2ee0d19cd9c7ba1066c6a",
+      "bytes": 282
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/pack.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/pack.stdout",
+      "sha256": "97b1b031c22542bd67e498b8693612ebd93e095e28badc53da382ae8fbb7c753",
+      "bytes": 692935
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/tsc.request.json",
+      "sha256": "5f401b3cd2a15c4a397135f0185541239a297857bcbcbf96800e4f97e8f37ef9",
+      "bytes": 649
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/tsc.result.json",
+      "sha256": "2cd8013f17dce35329cfddf51cb25f653ed0b61ccc6d1e70db03d9fc52a4dc2d",
+      "bytes": 282
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/tsc.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/commands/tsc.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/npm-logs/2026-10-20T18_41_34_294Z-debug-0.log",
+      "sha256": "44addae26e68ab3de2ec59f166114322379e1fa57f12c129f298b2ba0e3d5ba7",
+      "bytes": 3693
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/npm-logs/2026-10-20T18_42_16_443Z-debug-0.log",
+      "sha256": "d9da125a1bfbec0669b9e36b93b4c390bfa7448d54127c27c590e231f9eedc41",
+      "bytes": 1284
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/npm-logs/2026-10-20T18_42_54_201Z-debug-0.log",
+      "sha256": "38591573b66faad058c6667fc25808fd3dda0ed7eebedf3df31dfdb1c3206315",
+      "bytes": 1415
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/package-source-correspondence.json",
+      "sha256": "d7673f821dbc3d1244a0567617bb03c1777bc19f7b680e40e5b0ee44a91258e0",
+      "bytes": 1311817
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/protected-main-before.json",
+      "sha256": "5719405d1c83524500a70c4d4f41f6f1026958830e9c0bd81ea41eea93a386db",
+      "bytes": 206172
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/readiness.json",
+      "sha256": "b14c0e7d08f2f5c219550accf9b6ec18e3a9979edaa5803e8703ee724e6e1ea8",
+      "bytes": 3845
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/return.md",
+      "sha256": "2769e69a7126a041632c22eff39bf0070dbf57d461d9ab788114942a997daaf5",
+      "bytes": 2996
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/run-command.py",
+      "sha256": "02272a249c28752947071dcc95cc8b1293d9f37cec62eefeb13be43c5438afec",
+      "bytes": 2156
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/toolchain-and-dependencies.json",
+      "sha256": "18164e4340552720de87fbaae57c7ca85a1529d717c9b07961fce173aa3d1561",
+      "bytes": 968979
+    }
+  ],
+  "claim": "Exact baseline mechanical preparation only; no installed execution/acceptance."
+}

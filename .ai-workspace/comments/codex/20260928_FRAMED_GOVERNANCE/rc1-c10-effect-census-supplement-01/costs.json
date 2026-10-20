@@ -1,0 +1,10 @@
+{
+  "elapsedReadAndReportMs": 4416.802582796663,
+  "actualPhysicalRecordsReadPerCompleteCensus": 16362,
+  "completeCensuses": 2,
+  "regularBytesPerCompleteCensus": 538415091,
+  "payloadCommands": 0,
+  "PYTHONDONTWRITEBYTECODE": "1",
+  "C10Writes": 0,
+  "unknownCacheTimingInfluence": true
+}

@@ -1,0 +1,12 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_RESULT_LINEAGE_TYPED_CONTRACT_GRANT_WRITER_01",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01"
+  ],
+  "startedAt": "2026-10-02T13:48:50.324369+00:00",
+  "grant": "Record independently localized enforceable-interface gap and issue exact Source Worker grant plus conditional independent review.",
+  "returnsTo": "Executive"
+}

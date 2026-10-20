@@ -1,0 +1,25 @@
+{
+  "role": "Reviewer206",
+  "status": "CLOSED_FROZEN_STOPPED",
+  "frozenAt": "2026-10-09T11:51:23.237562+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/freeze.json",
+    "sha256": "e23aaa03f0ec050e850770d60d7172c467c9e6b1f7a8b6e006aa6b87f5863ae9",
+    "byteCount": 12470
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-input-refusal-independent-triage-206/return.md",
+      "sha256": "21a5028e93a68da1f571b033015c51b91e5b2cffc7d2ad1df3a25fe7d17305e7",
+      "byteCount": 6294
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-input-refusal-independent-triage-206/pins.json",
+      "sha256": "6d904ad9357390ea814e10c35fb9c5bbfcbc0944f48449af39b24fdb302f6e91",
+      "byteCount": 10008
+    }
+  ],
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-input-refusal-independent-triage-206",
+  "runtimeOrSourceEffects": false,
+  "retryAuthorization": false
+}

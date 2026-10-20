@@ -1,0 +1,11 @@
+{
+  "stage": "workspace-bind-grant-start",
+  "elapsedMs": 66786.17587499999,
+  "at": "2026-10-10T20:18:42.482Z",
+  "rss": 2635972608,
+  "heapTotal": 453804032,
+  "heapUsed": 345071040,
+  "external": 5619061,
+  "arrayBuffers": 3199355,
+  "beforeAcquisition": false
+}

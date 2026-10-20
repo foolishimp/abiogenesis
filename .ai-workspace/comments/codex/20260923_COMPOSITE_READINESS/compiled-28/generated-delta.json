@@ -1,0 +1,28 @@
+[
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "37f2098df69efb5a5a544ae947548876b432e2f254d520a12eda34e3dc9a1068"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "9741cb02efe5f282cbef5981324bb4a0d34230a51e51df4053fc844de1e16b5a"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "235684d36000ae5911125a913b65aabb61f58076fa6ed20791574a4284e911aa"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "ab3c4fa828a930c29d2302994a7160d21678ef66d5232f814355d9a0805366ab"
+    }
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "kind": "independent_source_review",
+  "reviewer": "221",
+  "status": "CLOSED_STOPPED_BOUNDED_GO",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/freeze.json",
+    "sha256": "d2f08b647bf4786bf058ceeb8a8efddbee760c3bd76eb98365ea3a09f229aa84",
+    "byteCount": 14186
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-review-221/return.md",
+      "sha256": "236056e56c5fa836a2e29e4ff3cb9de0b805b259453d8d1f4bc50d88768cf177",
+      "byteCount": 2977
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-review-221/pins.json",
+      "sha256": "e510103276eb8bf7bc140e3ac75495990062ec6f661cf2bac2bcf9377009cb6b",
+      "byteCount": 3594
+    }
+  ],
+  "effects": "Only these compact independent review records."
+}

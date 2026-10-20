@@ -1,0 +1,11 @@
+{
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/publication/host/node_modules/@abiogenesis/typescript-tenant",
+  "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/publication/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactDigest": "sha256:d073751972a6174a2f1ca84f29c54934084d154c05480e2470bbf4bedd6872d5",
+  "byteCount": 10672240,
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "productContentDigest": "sha256:84f8f93c496bd77871cf567247159382f8436ea8f22672fca0b4cad66f304236",
+  "manifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/publication/host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json"
+}

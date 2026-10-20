@@ -1,0 +1,1048 @@
+--- before/code/src/product/environment.ts
++++ after/code/src/product/environment.ts
+@@ -29,9 +29,11 @@
+   isProductContributionManifest,
+   nativeDeclarationEvidenceForVerifiedArtifact,
+   parseProductPublicContract,
++  retainedProductVerification,
+ } from "./verify_product.js";
+ import {
+   linkNativeContractSet,
++  installedToolchainProductContentDigest,
+   type NativeLinkProduct,
+   type NativeContractLinkResult,
+ } from "./declaration_exports.js";
+@@ -403,6 +405,11 @@
+   readonly linked: Extract<NativeContractLinkResult, { readonly kind: "linked" }>;
+ }
+ 
++const resolvedProductEnvironments = new WeakMap<object, Readonly<{
++  artifacts: readonly VerifiedProductArtifact[];
++  result: ResolvedProductEnvironment;
++}>>();
++
+ /** Internal owner result: preserve the link already established for this lock.
+  * It is not a new serialized lock or runtime admission. */
+ export function resolveProductArtifacts(
+@@ -413,6 +420,18 @@
+       "empty_product_set",
+       "a resolved lock requires at least one verified Product artifact",
+     );
++  }
++  // Only this verifier's immutable results can reuse a link. Raw or copied
++  // carriers still enter the complete structural and compiler checks below.
++  const owned = artifacts.every((artifact) =>
++    retainedProductVerification(artifact) === artifact);
++  const retained = owned ? resolvedProductEnvironments.get(artifacts[0]!) : undefined;
++  if (retained !== undefined &&
++      retained.artifacts.length === artifacts.length &&
++      retained.artifacts.every((artifact, index) => artifact === artifacts[index]) &&
++      installedToolchainProductContentDigest() ===
++        artifacts.find((artifact) => artifact.productId === ABI5_PRODUCT_ID)?.productContentDigest) {
++    return retained.result;
+   }
+   if (
+     artifacts.some(
+@@ -499,7 +518,11 @@
+     rows,
+     dependencyEdges,
+   });
+-  return Object.freeze({ kind: "resolved_product_environment", lock, linked });
++  const result = deepFreeze({ kind: "resolved_product_environment" as const, lock, linked });
++  if (owned) resolvedProductEnvironments.set(artifacts[0]!, {
++    artifacts: Object.freeze([...artifacts]), result,
++  });
++  return result;
+ }
+ 
+ export function constructResolvedProductLock(
+--- before/code/src/product/catalog.ts
++++ after/code/src/product/catalog.ts
+@@ -10,7 +10,7 @@
+   type JsonValue,
+ } from "../shared/canonical_json.js";
+ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+-import { deepFreeze } from "../shared/immutable.js";
++import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
+ import type { ProductInstall, ResolvedProductLock, WorkspaceBindingCandidate } from "./environment.js";
+ import { constructProductSet, isResolvedProductLock } from "./environment.js";
+ import type { ProductInstallCandidate, VerifiedProductArtifact } from "./contracts.js";
+@@ -396,9 +396,28 @@
+   return satisfied;
+ }
+ 
++const readyCatalogs = new WeakMap<object, ReadyGraphFunctionCatalog>();
++const ownedCatalogs = new WeakSet<object>();
++const canonicalPublications = new WeakMap<object, Readonly<ModulePublication>>();
++const catalogViews = new WeakMap<object, Readonly<{
++  allowlist: string;
++  view: GraphFunctionCatalogView;
++}>>();
++
++function canonicalPublication(publication: Readonly<ModulePublication>): Readonly<ModulePublication> {
++  const retained = canonicalPublications.get(publication);
++  if (retained !== undefined) return retained;
++  const canonical = canonicalizeAuthoredGtlCarrier(publication, "module_publication");
++  canonicalPublications.set(canonical, canonical);
++  if (isDeeplyFrozen(publication)) canonicalPublications.set(publication, canonical);
++  return canonical;
++}
++
+ export function admitGraphFunctionCatalog(
+   basis: CatalogReadinessBasis,
+ ): ReadyGraphFunctionCatalogResult {
++  const retained = readyCatalogs.get(basis);
++  if (retained !== undefined) return retained;
+   const canonicalBasis: CatalogReadinessBasis = {
+     workspaceBinding: basis.workspaceBinding,
+     resolvedLock: basis.resolvedLock,
+@@ -407,9 +426,7 @@
+     // ProductSet order belongs to the selected lock, not catalog row ordering.
+     installedProducts: [...basis.installedProducts],
+     publications: basis.publications
+-      .map((publication) =>
+-        canonicalizeAuthoredGtlCarrier(publication, "module_publication")
+-      )
++      .map(canonicalPublication)
+       .sort((left, right) =>
+         compareUnicodeCodeUnits(
+           modulePublicationSemanticDigest(left),
+@@ -653,7 +670,7 @@
+   const catalog = buildGraphFunctionCatalog(admittedPublications);
+   if (catalog.kind !== "graph_function_catalog") return catalog;
+   const readinessBasisDigest = sha256Canonical(canonicalBasis as unknown as JsonValue);
+-  return deepFreeze({
++  const ready = deepFreeze({
+     ...catalog,
+     basisDigest: readinessBasisDigest,
+     readinessBasisDigest,
+@@ -669,16 +686,19 @@
+       compareUnicodeCodeUnits(left.handle, right.handle) ||
+       compareUnicodeCodeUnits(left.rowDigest, right.rowDigest)),
+   }) as ReadyGraphFunctionCatalog;
++  if (isDeeplyFrozen(ready)) {
++    readyCatalogs.set(canonicalBasis, ready);
++    if (isDeeplyFrozen(basis)) readyCatalogs.set(basis, ready);
++    ownedCatalogs.add(ready);
++  }
++  return ready;
+ }
+ 
+ export function buildGraphFunctionCatalog(
+   exactPublications: readonly Readonly<ModulePublication>[],
+ ): GraphFunctionCatalogResult {
+   const publications = exactPublications.map((authoredPublication) => {
+-    const publication = canonicalizeAuthoredGtlCarrier(
+-      authoredPublication,
+-      "module_publication",
+-    );
++    const publication = canonicalPublication(authoredPublication);
+     return {
+       publication,
+       digest: modulePublicationSemanticDigest(publication),
+@@ -798,7 +818,7 @@
+     entries: entries.map((entry) => entry.entryDigest),
+     declarationEntries: declarationEntries.map((entry) => entry.entryDigest),
+   });
+-  return deepFreeze({
++  const catalog = deepFreeze({
+     kind: "graph_function_catalog" as const,
+     schemaVersion: "5.0.0" as const,
+     basisDigest,
+@@ -808,6 +828,8 @@
+     declarationEntries,
+     declarationsByHandle: frozenIndex(declarationEntries),
+   }) as GraphFunctionCatalog;
++  ownedCatalogs.add(catalog);
++  return catalog;
+ }
+ 
+ export function refreshGraphFunctionCatalog(
+@@ -879,6 +901,9 @@
+       `unknown catalog allowlist handle ${unknown}`,
+     );
+   }
++  const allowlistKey = canonicalJson(orderedAllowlist);
++  const retained = ownedCatalogs.has(catalog) ? catalogViews.get(catalog) : undefined;
++  if (retained?.allowlist === allowlistKey) return retained.view;
+   const entries = orderedAllowlist.flatMap((handle) => {
+     const entry = catalog.byHandle[handle];
+     return entry === undefined ? [] : [entry];
+@@ -893,7 +918,7 @@
+     entries: entries.map((entry) => entry.entryDigest),
+     declarationEntries: declarationEntries.map((entry) => entry.entryDigest),
+   };
+-  return deepFreeze({
++  const view = deepFreeze({
+     kind: "graph_function_catalog_view" as const,
+     catalogBasisDigest: catalog.basisDigest,
+     allowlist: orderedAllowlist,
+@@ -903,6 +928,8 @@
+     declarationsByHandle: frozenIndex(declarationEntries),
+     viewDigest: sha256Canonical(body as unknown as JsonValue),
+   }) as GraphFunctionCatalogView;
++  if (ownedCatalogs.has(catalog)) catalogViews.set(catalog, { allowlist: allowlistKey, view });
++  return view;
+ }
+ 
+ export function applyCatalogDeclaration(
+--- before/code/src/product/declaration_closure.ts
++++ after/code/src/product/declaration_closure.ts
+@@ -23,7 +23,7 @@
+ import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
+   "../shared/canonical_json.js";
+ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+-import { deepFreeze } from "../shared/immutable.js";
++import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
+ import {
+   admitGraphFunctionCatalog,
+   narrowGraphFunctionCatalog,
+@@ -259,6 +259,8 @@
+   catalog: ReadyGraphFunctionCatalog,
+   catalogView: GraphFunctionCatalogView,
+ ): boolean {
++  const owned = resolvedClosureOwners.get(value);
++  if (owned?.catalog === catalog && owned.catalogView === catalogView) return true;
+   if (!isResolvedExecutionDeclarationClosure(value)) return false;
+   const reconstructed = resolveExecutionDeclarationClosure(
+     catalog,
+@@ -276,6 +278,8 @@
+   catalog: ReadyGraphFunctionCatalog,
+   catalogView: GraphFunctionCatalogView,
+ ): boolean {
++  const owned = resolvedClosureOwners.get(value);
++  if (owned?.catalog === catalog && owned.catalogView === catalogView) return true;
+   if (!isResolvedProgramDeclarationClosure(value)) return false;
+   const reconstructed = resolveProgramDeclarationClosure(
+     catalog,
+@@ -385,6 +389,21 @@
+   ));
+ }
+ 
++const immutableClosureInputs = new WeakSet<object>();
++const resolvedClosureOwners = new WeakMap<object, Readonly<{
++  catalog: ReadyGraphFunctionCatalog;
++  catalogView: GraphFunctionCatalogView;
++}>>();
++const declarationClosures = new WeakMap<object,
++  WeakMap<object, Map<string, ResolvedDeclarationClosure>>>();
++
++function immutableClosureInput(value: object): boolean {
++  if (immutableClosureInputs.has(value)) return true;
++  if (!isDeeplyFrozen(value)) return false;
++  immutableClosureInputs.add(value);
++  return true;
++}
++
+ function resolveDeclarationClosure(
+   catalog: ReadyGraphFunctionCatalog,
+   catalogView: GraphFunctionCatalogView,
+@@ -392,6 +411,10 @@
+   closureScope: "execution" | "program",
+   requestedGraphFunctionRef: string | null,
+ ): ResolvedDeclarationClosure | ExecutionDeclarationClosureRefusal {
++  const reusable = immutableClosureInput(catalog) && immutableClosureInput(catalogView);
++  const key = canonicalJson([programRef, closureScope, requestedGraphFunctionRef]);
++  const retained = reusable ? declarationClosures.get(catalog)?.get(catalogView)?.get(key) : undefined;
++  if (retained !== undefined) return retained;
+   if (
+     catalog.kind !== "graph_function_catalog" ||
+     catalogView.kind !== "graph_function_catalog_view" ||
+@@ -912,7 +935,7 @@
+     semanticsOwner,
+   });
+   const closureDigest = sha256Canonical(body as unknown as JsonValue);
+-  return deepFreeze({
++  const result = deepFreeze({
+     kind: closureScope === "execution"
+       ? "resolved_execution_declaration_closure" as const
+       : "resolved_program_declaration_closure" as const,
+@@ -924,6 +947,15 @@
+     programPublication,
+     publications,
+   }) as ResolvedDeclarationClosure;
++  if (reusable) {
++    let views = declarationClosures.get(catalog);
++    if (views === undefined) { views = new WeakMap(); declarationClosures.set(catalog, views); }
++    let closures = views.get(catalogView);
++    if (closures === undefined) { closures = new Map(); views.set(catalogView, closures); }
++    closures.set(key, result);
++    resolvedClosureOwners.set(result, { catalog, catalogView });
++  }
++  return result;
+ }
+ 
+ export function resolveExecutionDeclarationClosure(
+--- before/code/src/product/catalog_operations.ts
++++ after/code/src/product/catalog_operations.ts
+@@ -1,4 +1,6 @@
+ import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
++import { isDeeplyFrozen, deepFreeze } from "../shared/immutable.js";
++import type { RawSubjectKind } from "../validator/raw_admission.js";
+ import type {
+   CatalogContribution,
+   ClosureContract,
+@@ -30,7 +32,6 @@
+   type ReadyGraphFunctionCatalogResult,
+ } from "./catalog.js";
+ import {
+-  isResolvedProgramDeclarationClosure,
+   validateResolvedProgramDeclarationClosure,
+   type ResolvedProgramDeclarationClosure,
+ } from "./declaration_closure.js";
+@@ -87,7 +88,6 @@
+   program: Readonly<GtlProgram>,
+ ): ProgramValidationInput | RawAdmissionRefusal {
+   if (
+-    !isResolvedProgramDeclarationClosure(declarationClosure) ||
+     !validateResolvedProgramDeclarationClosure(
+       declarationClosure,
+       catalog,
+@@ -105,6 +105,24 @@
+   return constructProgramValidationInputFromResolvedClosure(declarationClosure, program);
+ }
+ 
++const admittedDeclarations = new WeakMap<object, Map<string, RawAdmittedValue<unknown>>>();
++const programValidationInputs = new WeakMap<object, WeakMap<object, ProgramValidationInput>>();
++
++function admitDeclaration<S>(
++  value: object, kind: RawSubjectKind, contractRef: string,
++): RawAdmittedValue<S> | RawAdmissionRefusal {
++  const key = `${kind}\0${contractRef}`;
++  const retained = admittedDeclarations.get(value)?.get(key);
++  if (retained !== undefined) return retained as RawAdmittedValue<S>;
++  const admitted = rawAdmitValue<S>(value, kind, contractRef);
++  if (admitted.kind === "raw_admitted_value" && isDeeplyFrozen(value)) {
++    let admissions = admittedDeclarations.get(value);
++    if (admissions === undefined) { admissions = new Map(); admittedDeclarations.set(value, admissions); }
++    admissions.set(key, admitted);
++  }
++  return admitted;
++}
++
+ /** Internal continuation of the Product closure owner. Raw callers use the
+  * catalog wrapper above; this consumes its actual resolved value and retains
+  * declaration admission and subsequent Program validation. */
+@@ -112,6 +130,8 @@
+   declarationClosure: ResolvedProgramDeclarationClosure,
+   program: Readonly<GtlProgram>,
+ ): ProgramValidationInput | RawAdmissionRefusal {
++  const retained = programValidationInputs.get(declarationClosure)?.get(program);
++  if (retained !== undefined) return retained;
+   const declarationPublications = declarationClosure.publications;
+   const graphFunctionRefs = new Set(
+     declarationClosure.graphFunctionOwners.map((owner) => owner.declarationRef),
+@@ -129,13 +149,13 @@
+       (owner) => owner.declarationRef,
+     ),
+   );
+-  const programAdmission = rawAdmitValue<GtlProgram>(
++  const programAdmission = admitDeclaration<GtlProgram>(
+     program,
+     "gtl_program",
+     "contract://abiogenesis/gtl/program@5",
+   );
+   if (programAdmission.kind !== "raw_admitted_value") return programAdmission;
+-  const programPublicationAdmission = rawAdmitValue<ModulePublication>(
++  const programPublicationAdmission = admitDeclaration<ModulePublication>(
+     declarationClosure.programPublication,
+     "module_publication",
+     "contract://abiogenesis/gtl/module-publication@5",
+@@ -147,7 +167,7 @@
+   const graphFunctions = declarationPublications
+     .flatMap((publication) => publication.graphFunctions)
+     .filter((value) => graphFunctionRefs.has(value.name))
+-    .map((value) => rawAdmitValue<GraphFunction>(
++    .map((value) => admitDeclaration<GraphFunction>(
+       value,
+       "graph_function",
+       "contract://abiogenesis/gtl/graph-function@5",
+@@ -156,7 +176,7 @@
+     publication.contracts.filter((value) =>
+       contractRefs.has(value.contractRef)
+     ).map((value) =>
+-    rawAdmitValue<ContractDeclaration>(
++    admitDeclaration<ContractDeclaration>(
+       value,
+       "contract_declaration",
+       "contract://abiogenesis/gtl/contract-declaration@5",
+@@ -166,7 +186,7 @@
+     (publication) => publication.implementationBindings.filter((value) =>
+       implementationBindingRefs.has(value.bindingRef)
+     ).map(
+-      (value) => rawAdmitValue<ImplementationBinding>(
++      (value) => admitDeclaration<ImplementationBinding>(
+       value,
+       "implementation_binding",
+       "contract://abiogenesis/gtl/implementation-binding@5",
+@@ -177,7 +197,7 @@
+     publication.closureContracts.filter((value) =>
+       closureContractRefs.has(value.closureContractRef)
+     ).map((value) =>
+-    rawAdmitValue<ClosureContract>(
++    admitDeclaration<ClosureContract>(
+       value,
+       "closure_contract",
+       "contract://abiogenesis/gtl/closure-contract@5",
+@@ -193,17 +213,17 @@
+   if (refusal !== undefined) return refusal;
+   const lifecycleRef = semanticLifecycleRefForProgram(declarationClosure.programPublication, programAdmission.value);
+   const lifecycleOwners = lifecycleRef === undefined ? [] : declarationPublications.filter(p => (p.semanticLifecycle ?? p.semanticJobLifecycle)?.declarationRef === lifecycleRef);
+-  const lifecycleAdmission = lifecycleOwners.length === 1 ? rawAdmitValue<ModulePublication>(lifecycleOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
++  const lifecycleAdmission = lifecycleOwners.length === 1 ? admitDeclaration<ModulePublication>(lifecycleOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
+   if (lifecycleRef !== undefined && lifecycleAdmission?.kind !== "raw_admitted_value") {
+     return { kind: "raw_admission_refusal", schemaVersion: "5.0.0", disposition: "refused", code: "invalid_kind", message: "semantic lifecycle has no unique raw admitted owner" } as RawAdmissionRefusal;
+   }
+   const sourceRef = lifecycleOwners[0]?.semanticLifecycle?.sourceDeclarationRef;
+   const sourceOwners = lifecycleOwners[0]?.semanticJobLifecycle !== undefined ? lifecycleOwners : sourceRef === undefined ? [] : declarationPublications.filter(p => p.requirementHandoffs?.some(d => d.declarationRef === sourceRef));
+-  const sourceAdmission = sourceOwners.length === 1 ? rawAdmitValue<ModulePublication>(sourceOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
++  const sourceAdmission = sourceOwners.length === 1 ? admitDeclaration<ModulePublication>(sourceOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
+   if (sourceRef !== undefined && sourceAdmission?.kind !== "raw_admitted_value") {
+     return { kind: "raw_admission_refusal", schemaVersion: "5.0.0", disposition: "refused", code: "invalid_kind", message: "semantic source has no unique raw admitted owner" } as RawAdmissionRefusal;
+   }
+-  return {
++  const input: ProgramValidationInput = {
+     ...(lifecycleAdmission?.kind === "raw_admitted_value" ? { semanticLifecyclePublication: lifecycleAdmission } : {}),
+     ...(sourceAdmission?.kind === "raw_admitted_value" ? { semanticSourcePublication: sourceAdmission } : {}),
+     declarationBasisDigest: declarationClosure.closureDigest,
+@@ -234,6 +254,13 @@
+     closureContracts:
+       closureContracts as readonly RawAdmittedValue<ClosureContract>[],
+   };
++  if (isDeeplyFrozen(declarationClosure) && isDeeplyFrozen(program)) {
++    deepFreeze(input);
++    let programs = programValidationInputs.get(declarationClosure);
++    if (programs === undefined) { programs = new WeakMap(); programValidationInputs.set(declarationClosure, programs); }
++    programs.set(program, input);
++  }
++  return input;
+ }
+ 
+ export function constructReadyCatalog(
+--- before/code/src/product/execution_resolution.ts
++++ after/code/src/product/execution_resolution.ts
+@@ -41,7 +41,7 @@
+   type GraphFunctionCatalogView,
+   type ReadyGraphFunctionCatalog,
+ } from "./catalog.js";
+-import { constructCatalogProgramValidationInput } from
++import { constructProgramValidationInputFromResolvedClosure } from
+   "./catalog_operations.js";
+ import type { ProductInstallCandidate } from "./contracts.js";
+ import {
+@@ -430,8 +430,9 @@
+   if (
+     reconstructedCatalog === null ||
+     reconstructedCatalog.kind !== "graph_function_catalog" ||
+-    canonicalJson(reconstructedCatalog as unknown as JsonValue) !==
+-      canonicalJson(input.catalog as unknown as JsonValue)
++    (reconstructedCatalog !== input.catalog &&
++      canonicalJson(reconstructedCatalog as unknown as JsonValue) !==
++        canonicalJson(input.catalog as unknown as JsonValue))
+   ) {
+     return refusal(
+       "incompatible_or_unproven",
+@@ -452,8 +453,9 @@
+   if (
+     reconstructedView === null ||
+     reconstructedView.kind !== "graph_function_catalog_view" ||
+-    canonicalJson(reconstructedView as unknown as JsonValue) !==
+-      canonicalJson(input.catalogView as unknown as JsonValue)
++    (reconstructedView !== input.catalogView &&
++      canonicalJson(reconstructedView as unknown as JsonValue) !==
++        canonicalJson(input.catalogView as unknown as JsonValue))
+   ) {
+     return refusal(
+       "incompatible_or_unproven",
+@@ -715,9 +717,7 @@
+     );
+   }
+ 
+-  const validationInput = constructCatalogProgramValidationInput(
+-    reconstructedCatalog,
+-    reconstructedView,
++  const validationInput = constructProgramValidationInputFromResolvedClosure(
+     programDeclarationClosure,
+     program,
+   );
+--- before/code/src/validator/validation.ts
++++ after/code/src/validator/validation.ts
+@@ -12,7 +12,7 @@
+   type JsonValue,
+ } from "../shared/canonical_json.js";
+ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+-import { deepFreeze } from "../shared/immutable.js";
++import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
+ import type {
+   CatalogContribution,
+   ClosureContract,
+@@ -520,6 +520,42 @@
+ 
+ const publicationValidations = new WeakSet<object>();
+ const programValidations = new WeakSet<object>();
++const programDefinitionFacts = new WeakMap<object, Readonly<{
++  input: ProgramValidationInput;
++  validation: ProgramValidation;
++}>>();
++
++function sameProgramDefinitions(left: ProgramValidationInput, right: ProgramValidationInput): boolean {
++  const same = (a: readonly object[], b: readonly object[]) =>
++    a.length === b.length && a.every((value, index) => value === b[index]);
++  return left.programPublication === right.programPublication &&
++    left.program === right.program &&
++    left.semanticLifecyclePublication === right.semanticLifecyclePublication &&
++    left.semanticSourcePublication === right.semanticSourcePublication &&
++    same(left.graphFunctions, right.graphFunctions) && same(left.contracts, right.contracts) &&
++    same(left.evaluators, right.evaluators) && same(left.rules, right.rules) &&
++    same(left.implementationBindings, right.implementationBindings) &&
++    same(left.closureContracts, right.closureContracts);
++}
++
++function validationAtBasis(facts: ProgramValidation, declarationBasisDigest: Sha256Digest): ProgramValidation {
++  const sourceDigest = sha256Canonical({
++    publicationDigest: facts.publicationDigest,
++    declarationBasisDigest,
++    programDigest: facts.programDigest,
++    graphFunctionDigests: facts.graphFunctionDigests,
++    contractDigests: facts.contractDigests,
++    implementationBindingDigests: facts.implementationBindingDigests,
++    closureContractDigests: facts.closureContractDigests,
++    executableLeafRows: facts.executableLeafRows,
++    interactionLeafRows: facts.interactionLeafRows,
++  } as unknown as JsonValue);
++  if (sourceDigest === facts.sourceDigest) return facts;
++  const validation = deepFreeze({ ...facts, sourceDigest,
++    validationRef: `program-validation://abiogenesis/${sourceDigest.slice("sha256:".length)}` });
++  programValidations.add(validation);
++  return validation;
++}
+ 
+ export function isPublicationValidation(value: object): boolean {
+   return publicationValidations.has(value);
+@@ -717,6 +753,11 @@
+   ) {
+     diagnostics.push({ code: "raw_subject_mismatch", path: "$", message: "Program validation accepts package-admitted raw values only" });
+     return invalid("program", input.program.subjectDigest, diagnostics);
++  }
++  const retained = programDefinitionFacts.get(input.program);
++  if (retained !== undefined && sameProgramDefinitions(retained.input, input)) {
++    if (retained.input.declarationBasisDigest === input.declarationBasisDigest) return retained.validation;
++    return validationAtBasis(retained.validation, input.declarationBasisDigest);
+   }
+   const publication = input.programPublication.value;
+   if (!validRunEnvironmentPublication(publication) || !validRunEnvironmentProgram(publication, input.program.value, input.graphFunctions.map(g => g.value))) {
+@@ -1883,6 +1924,21 @@
+     diagnostics: [],
+   }) as ProgramValidation;
+   programValidations.add(validation);
++  if (isDeeplyFrozen(input.evaluators) && isDeeplyFrozen(input.rules)) {
++    // Hold only the existing immutable declaration admissions, not a second
++    // serialized definition or a caller-addressed certificate.
++    programDefinitionFacts.set(input.program, {
++      input: Object.freeze({ ...input,
++        graphFunctions: Object.freeze([...input.graphFunctions]),
++        contracts: Object.freeze([...input.contracts]),
++        evaluators: Object.freeze([...input.evaluators]),
++        rules: Object.freeze([...input.rules]),
++        implementationBindings: Object.freeze([...input.implementationBindings]),
++        closureContracts: Object.freeze([...input.closureContracts]),
++      }),
++      validation,
++    });
++  }
+   return validation;
+ }
+ 
+--- before/code/src/validator/graph.ts
++++ after/code/src/validator/graph.ts
+@@ -2,6 +2,7 @@
+ import {
+   deriveMaterializedGraphShape,
+   isMaterializedGtlGraph,
++  retainedMaterializedGraphShape,
+ } from "../gtl/materialize.js";
+ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+@@ -39,6 +40,10 @@
+ export type GraphValidationResult = GraphValidation | StaticValidationRefusal;
+ 
+ const graphValidations = new WeakSet<object>();
++const materializationValidations = new WeakMap<object, Readonly<{
++  programValidation: ProgramValidation;
++  validation: GraphValidation;
++}>>();
+ 
+ export function isGraphValidation(value: object): boolean {
+   return graphValidations.has(value);
+@@ -65,8 +70,10 @@
+     return invalid(graph.materializationDigest, "Graph or ProgramValidation lacks package construction identity");
+   }
+   let expectedShape;
++  let ownedShape;
+   try {
+-    expectedShape = deriveMaterializedGraphShape(graphFunction, basis);
++    ownedShape = retainedMaterializedGraphShape(graph, graphFunction, basis);
++    expectedShape = ownedShape ?? deriveMaterializedGraphShape(graphFunction, basis);
+   } catch (error) {
+     return invalid(
+       graph.materializationDigest,
+@@ -84,22 +91,27 @@
+     fanOutMaterializations: graph.fanOutMaterializations,
+     template: graph.template,
+   };
+-  const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
++  const graphFunctionDigest = ownedShape !== null
++    ? graph.graphFunctionDigest : sha256Canonical(graphFunction as unknown as JsonValue);
+   if (
+-    graph.materializationDigest !== sha256Canonical(graphBody as unknown as JsonValue) ||
++    (ownedShape === null && graph.materializationDigest !== sha256Canonical(graphBody as unknown as JsonValue)) ||
+     graph.graphFunctionRef !== graphFunction.name ||
+     graph.graphFunctionDigest !== graphFunctionDigest ||
+     !programValidation.graphFunctionDigests.includes(graphFunctionDigest) ||
+     graph.invocationAdmissionRef !== basis.invocationAdmissionRef ||
+     graph.admittedInputRef !== basis.admittedInputRef ||
+     graph.admittedInputDigest !== basis.admittedInputDigest ||
+-    canonicalJson(graph.fanOutMaterializations as unknown as JsonValue) !==
+-      canonicalJson(expectedShape.fanOutMaterializations as unknown as JsonValue) ||
+-    canonicalJson(graph.template as unknown as JsonValue) !==
+-      canonicalJson(expectedShape.template as unknown as JsonValue)
++    (graph.fanOutMaterializations !== expectedShape.fanOutMaterializations &&
++      canonicalJson(graph.fanOutMaterializations as unknown as JsonValue) !==
++        canonicalJson(expectedShape.fanOutMaterializations as unknown as JsonValue)) ||
++    (graph.template !== expectedShape.template &&
++      canonicalJson(graph.template as unknown as JsonValue) !==
++        canonicalJson(expectedShape.template as unknown as JsonValue))
+   ) {
+     return invalid(graph.materializationDigest, "materialized Graph does not preserve exact function, topology, input, and invocation basis");
+   }
++  const retained = ownedShape !== null ? materializationValidations.get(graph) : undefined;
++  if (retained?.programValidation === programValidation) return retained.validation;
+   const body = {
+     graphRef: graph.materializationRef,
+     graphDigest: graph.materializationDigest,
+@@ -121,5 +133,6 @@
+     diagnostics: [] as const,
+   }) as GraphValidation;
+   graphValidations.add(validation);
++  if (ownedShape !== null) materializationValidations.set(graph, { programValidation, validation });
+   return validation;
+ }
+--- before/code/src/gtl/materialize.ts
++++ after/code/src/gtl/materialize.ts
+@@ -1,7 +1,7 @@
+ import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import { sha256Canonical } from "../shared/digests.js";
+-import { deepFreeze } from "../shared/immutable.js";
++import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
+ import type {
+   FanOutMaterialization,
+   GraphFunction,
+@@ -13,6 +13,11 @@
+ import { graphTemplateDiagnostics } from "./graph_construction.js";
+ 
+ const materializedGraphs = new WeakSet<object>();
++const materializedShapes = new WeakMap<object, Readonly<{
++  graphFunction: Readonly<GraphFunction>;
++  immutableFunction: boolean;
++  shape: MaterializedGraphShape;
++}>>();
+ 
+ export function isMaterializedGtlGraph(value: object): boolean {
+   return materializedGraphs.has(value);
+@@ -87,6 +92,27 @@
+ export interface MaterializedGraphShape {
+   readonly template: GraphTemplate;
+   readonly fanOutMaterializations: readonly FanOutMaterialization[];
++}
++
++/** @internal The actual materializer's shape, qualified by current occurrence
++ * and input. Rehydrated or foreign Graphs keep full shape reconstruction. */
++export function retainedMaterializedGraphShape(
++  graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
++  basis: GraphMaterializationBasis,
++): MaterializedGraphShape | null {
++  const retained = materializedShapes.get(graph);
++  if (retained === undefined || retained.graphFunction !== graphFunction ||
++      graph.invocationAdmissionRef !== basis.invocationAdmissionRef ||
++      graph.admittedInputRef !== basis.admittedInputRef ||
++      graph.admittedInputDigest !== basis.admittedInputDigest ||
++      (!retained.immutableFunction && sha256Canonical(graphFunction as unknown as JsonValue) !== graph.graphFunctionDigest)) {
++    return null;
++  }
++  if (retained.shape.fanOutMaterializations.length > 0 &&
++      sha256Canonical(basis.admittedInput as unknown as JsonValue) !== basis.admittedInputDigest) {
++    throw new TypeError("graph materialization input value differs from the admitted input digest");
++  }
++  return retained.shape;
+ }
+ 
+ function fanOutMembers(
+@@ -301,5 +327,7 @@
+     ...body,
+   }) as GtlGraph;
+   materializedGraphs.add(graph);
++  if (isDeeplyFrozen(graph)) materializedShapes.set(graph,
++    { graphFunction, immutableFunction: isDeeplyFrozen(graphFunction), shape });
+   return graph;
+ }
+--- before/code/src/gtl/graph_construction.ts
++++ after/code/src/gtl/graph_construction.ts
+@@ -4,6 +4,7 @@
+   type JsonValue,
+ } from "../shared/canonical_json.js";
+ import { sha256Canonical } from "../shared/digests.js";
++import { isDeeplyFrozen } from "../shared/immutable.js";
+ import { requireRef } from "../shared/references.js";
+ import {
+   cCarrier,
+@@ -113,11 +114,14 @@
+   readonly message: string;
+ }
+ 
++const validImmutableTemplates = new WeakSet<object>();
++
+ /** Local structure only; evaluator, policy and callable law remain whole checks. */
+ export function graphTemplateDiagnostics(
+   template: Readonly<GraphTemplate>,
+   path = "$.template",
+ ): readonly GraphTemplateDiagnostic[] {
++  if (validImmutableTemplates.has(template)) return [];
+   const diagnostics: GraphTemplateDiagnostic[] = [];
+   const duplicateNodes = graphNodeIdentityFailure(template);
+   if (duplicateNodes !== null) {
+@@ -162,6 +166,7 @@
+     if (failure !== null) diagnostics.push({ code: "topology_mismatch",
+       path: `${path}/edges`, message: failure });
+   }
++  if (diagnostics.length === 0 && isDeeplyFrozen(template)) validImmutableTemplates.add(template);
+   return diagnostics;
+ }
+ 
+--- before/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md
++++ after/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md
+@@ -584,6 +584,20 @@
+ workflow. Public GraphFunction invocation and its ordinary M03 traversal are
+ deferred and therefore absent from this sequence.
+ 
++### Fixed definition owner handoffs
++
++The actual verifier's immutable Product results may share the existing
++`resolveProductArtifacts` result, including both lock and linked declarations,
++between native and Public resolution. Reuse is private to that owner and exact
++verified Product population and compiler basis. A copied carrier, changed
++Product/dependency or unavailable owner result follows ordinary complete
++resolution. No serialized lock or digest alone supplies this provenance.
++Catalog construction likewise retains its own immutable result and narrowed
++view; execution resolution consumes those actual results while independently
++checking current install admission and binding. Raw Catalogs and views retain
++complete reconstruction. These derivations are optional and discardable; cold
++verification and physical managed-dependency checks keep their existing law.
++
+ ### Managed Product dependency materialization correspondence
+ 
+ REQ-P-CATALOG-011/-012/-014 and REQ-P-INSTALL-044/-051/-055 distinguish
+--- before/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md
++++ after/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md
+@@ -111,6 +111,18 @@
+ 
+ ### 3.1 Shared Original Graph Structure And Continuation
+ 
++The actual declaration-closure owner passes its resolved result directly to
++`constructProgramValidationInputFromResolvedClosure`; a raw or foreign closure
++keeps the reconstructing wrapper. The sole validator may reuse successful
++static facts for the complete unchanged admitted Program, publications,
++declarations, evaluators and rules, deriving the existing basis-qualified
++`ProgramValidation` identity. Changed facts still enter the whole validator;
++malformed or unadmitted inputs never acquire reuse standing. Fixed immutable
++template checks share their existing owner result. Materialization supplies its
++actual shape to graph validation, preserving every invocation/input identity
++and ordered fan-out check. None of these private handoffs publishes another
++certificate, lowers GTL or changes a Public result/refusal or digest law.
++
+ T-287 crosscut R03 selects `realization_refactor` under Product's Validation
+ Contract, LAWS001/010/014 and PROGRAM-TRAVERSAL004–006. The original
+ `GraphTemplate` owns unique node/edge identities, exact start/terminal members,
+--- before/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ after/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -111,6 +111,14 @@
+ exact call/actor/contract/subject and independence checks. The unchanged result,
+ route, child and parent owners still produce all new runtime facts. Warm calls
+ must not rederive the history or rehash established declarations.
++
++Warm child, parent-return and resume validation consumes the actual immutable
++materialization and successful graph-validation relation for the same Program,
++function and occurrence basis. The graph owner checks current input/fan-out
++correspondence before reuse. Rehydrated, copied or foreign materializations
++retain full reconstruction, and changed input, Program or binding reopens its
++affected checks. This shares existing owner facts underneath unchanged entry
++points; no process-local receipt is required for cold continuation.
+ 
+ An internal single-route replay read retains the complete existing replay
+ validation responsibility, including malformed unrelated history and Run
+--- before/test_env/tests/t287-static-declaration-closure.test.mjs
++++ after/test_env/tests/t287-static-declaration-closure.test.mjs
+@@ -13,10 +13,10 @@
+ const tenant = resolve(import.meta.dirname, '../..');
+ const ownerRoot = process.env.ABI5_STATIC_CLOSURE_OWNER_ROOT ?? join(tenant, 'build/code/src');
+ const load = file => import(pathToFileURL(join(ownerRoot, file + '.js')).href);
+-const [owner, catalogOwner, gtl, digests, publicationOwner, catalogOperations, validator] =
++const [owner, catalogOwner, gtl, digests, publicationOwner, catalogOperations, validator, immutable] =
+   await Promise.all(['product/declaration_closure', 'product/catalog', 'gtl/index',
+     'shared/digests', 'product/publication', 'product/catalog_operations',
+-    'validator/validation'].map(load));
++    'validator/validation', 'shared/immutable'].map(load));
+ const baselinePath = process.env.ABI5_STATIC_CLOSURE_BASELINE_MODULE;
+ const baseline = baselinePath ? await import(pathToFileURL(baselinePath).href) : null;
+ const artifact = {productId: 'product://abi5-tests/static-source-owner@5',
+@@ -58,6 +58,35 @@
+   assert.equal(result.kind, kind, JSON.stringify(result)); return result;
+ };
+ 
++test('fixed declaration owner results reuse facts and preserve cold/basis-qualified validation', () => {
++  const basis = immutable.deepFreeze(fixture());
++  const closure = resolved(programClosure(basis));
++  assert.strictEqual(programClosure(basis), closure, 'same immutable owner handoff retains its closure');
++  const program = closure.programPublication.programs.find(p => p.programRef === closure.programRef);
++  const input = catalogOperations.constructCatalogProgramValidationInput(basis.catalog, basis.view, closure, program);
++  assert.notEqual(input.kind, 'raw_admission_refusal');
++  assert.strictEqual(catalogOperations.constructCatalogProgramValidationInput(basis.catalog, basis.view, closure, program), input);
++  const validation = validator.validateProgram(input);
++  assert.equal(validation.kind, 'program_validation');
++  assert.strictEqual(validator.validateProgram(input), validation, 'same definitions/basis need no repeated static validation');
++  const changedBasis = {...input, declarationBasisDigest: digests.sha256Canonical({binding: 'new-current-basis'})};
++  const rebound = validator.validateProgram(changedBasis);
++  assert.equal(rebound.kind, 'program_validation');
++  assert.notEqual(rebound.sourceDigest, validation.sourceDigest);
++  assert.strictEqual(rebound.executableLeafRows, validation.executableLeafRows, 'only basis-qualified identity is rederived');
++  const copiedClosure = structuredClone(closure), copiedProgram = structuredClone(program);
++  const coldInput = catalogOperations.constructCatalogProgramValidationInput(basis.catalog, basis.view, copiedClosure, copiedProgram);
++  assert.notEqual(coldInput.kind, 'raw_admission_refusal');
++  assert.notStrictEqual(coldInput, input);
++  assert.deepEqual(validator.validateProgram(coldInput), validation, 'ordinary copied path preserves complete output/digest');
++  assert.deepEqual(validator.validateProgram({...coldInput, declarationBasisDigest: changedBasis.declarationBasisDigest}), rebound);
++  const foreignRaw = {...input, program: structuredClone(input.program)};
++  assert.equal(validator.validateProgram(foreignRaw).diagnostics[0].code, 'raw_subject_mismatch');
++  const changedOwner = {...copiedClosure, closureDigest: digests.sha256Canonical({changed: true})};
++  assert.equal(catalogOperations.constructCatalogProgramValidationInput(basis.catalog, basis.view, changedOwner, program).kind, 'raw_admission_refusal');
++  assert.equal(catalogOwner.narrowGraphFunctionCatalog(basis.catalog, ['not-a-member']).kind, 'catalog_construction_refusal');
++});
++
+ test('compose sources retain exact published owners without callable rows in both closure modes', () => {
+   const pub = publication(), before = JSON.stringify(pub), basis = fixture([pub]);
+   const program = pub.programs.find(p => p.programRef === GRAPH_EDGE_IDS.programRef);
+--- before/test_env/tests/t287-gtl-graph-law.test.mjs
++++ after/test_env/tests/t287-gtl-graph-law.test.mjs
+@@ -13,11 +13,11 @@
+ const baselineCore=process.env.ABI5_GTL_GRAPH_BASELINE_CORE;
+ const load=(base,name)=>import(pathToFileURL(resolve(base,name)));
+ async function owners(base){
+-  const [gtl,raw,validator,materialization,graphValidator,paths,construction,serialization,digests]=await Promise.all([
++  const [gtl,raw,validator,materialization,graphValidator,paths,construction,serialization,digests,immutable]=await Promise.all([
+     'gtl/index.js','validator/raw_admission.js','validator/validation.js','gtl/materialize.js','validator/graph.js',
+-    'gtl/source_path.js','gtl/graph_construction.js','gtl/serialization.js','shared/digests.js',
++    'gtl/source_path.js','gtl/graph_construction.js','gtl/serialization.js','shared/digests.js','shared/immutable.js',
+   ].map(name=>load(base,name)));
+-  return {gtl,raw,validator,materialization,graphValidator,paths,construction,serialization,digests};
++  return {gtl,raw,validator,materialization,graphValidator,paths,construction,serialization,digests,immutable};
+ }
+ const current=await owners(core),previous=baselineCore===undefined?null:await owners(baselineCore);
+ const corpus=JSON.parse(readFileSync(resolve(tenant,'contracts/conformance/gtl-language-conformance-corpus.json')));
+@@ -35,11 +35,12 @@
+   const admitted=raw(o,source,'module_publication'),pub=admitted.value;
+   const program=pub.programs.find(p=>p.programRef===programRef);assert(program);
+   const publication=o.validator.validatePublication(admitted,pub.contributions.map(c=>raw(o,c,'catalog_contribution')));
+-  const whole=o.validator.validateProgram({declarationBasisDigest:admitted.subjectDigest,programPublication:admitted,
++  const programInput={declarationBasisDigest:admitted.subjectDigest,programPublication:admitted,
+     program:raw(o,program,'gtl_program'),graphFunctions:pub.graphFunctions.map(g=>raw(o,g,'graph_function')),
+     contracts:pub.contracts.map(c=>raw(o,c,'contract_declaration')),evaluators:pub.evaluators,rules:pub.rules,
+     implementationBindings:pub.implementationBindings.map(b=>raw(o,b,'implementation_binding')),
+-    closureContracts:pub.closureContracts.map(c=>raw(o,c,'closure_contract'))});
++    closureContracts:pub.closureContracts.map(c=>raw(o,c,'closure_contract'))};
++  const whole=o.validator.validateProgram(programInput);
+   assert.equal(whole.kind,'program_validation',JSON.stringify(whole));
+   const start=program.starts.find(s=>s.startRef===program.policies['abg.default_start_ref'])??program.starts[0];
+   // A callable-only fixture Program may have no Public start. Materialize the
+@@ -51,7 +52,7 @@
+   const graph=o.materialization.materializeGraph(graphFunction,basis);
+   const graphValidation=o.graphValidator.validateGraph(graph,whole,graphFunction,basis);
+   assert.equal(graphValidation.kind,'graph_validation',JSON.stringify(graphValidation));
+-  return {pub,publication,whole,graphFunction,graph,basis,graphValidation};
++  return {pub,publication,whole,graphFunction,graph,basis,graphValidation,programInput};
+ }
+ function equivalent(a,b){for(const field of ['pub','publication','whole','graphFunction','graph','basis','graphValidation'])
+   assert.deepEqual(a[field],b[field],`complete ${field}`);}
+@@ -83,15 +84,61 @@
+     current.paths.rootCSourcePath(good.graph.template.startNodeRef)).relation,'root_complete');
+   if(previous){equivalent(untouched,validate(previous,clone(original)));equivalent(good,validate(previous,publishable(previous)));}
+ });
++
++test('actual materializer handoff reuses fixed shape while occurrence/fan-out and foreign checks remain live',()=>{
++  const pub=constructStructuralPublication(current.gtl,artifact);
++  const actual=validate(current,pub,FAN_OUT_IDS.programRef,FAN_OUT_IDS.graphFunctionRef,constructMemberVector(['Alpha','Beta']));
++  assert.strictEqual(current.validator.validateProgram(actual.programInput),actual.whole);
++  assert.strictEqual(current.graphValidator.validateGraph(actual.graph,actual.whole,actual.graphFunction,actual.basis),actual.graphValidation);
++  const copied=current.materialization.rehydrateMaterializedGtlGraph(clone(actual.graph));
++  const cold=current.graphValidator.validateGraph(copied,actual.whole,actual.graphFunction,actual.basis);
++  assert.deepEqual(cold,actual.graphValidation);assert.notStrictEqual(cold,actual.graphValidation);
++  const changedInput={...actual.basis,admittedInput:constructMemberVector(['Alpha','Changed'])};
++  const changed=current.graphValidator.validateGraph(actual.graph,actual.whole,actual.graphFunction,changedInput);
++  assert.equal(changed.kind,'static_validation_refusal');
++  assert.match(changed.diagnostics[0].message,/input value differs/);
++  for(const value of [{...actual.basis.admittedInput,batch:['new geometry']},constructMemberVector(['Alpha'])]) {
++    assert.equal(current.graphValidator.validateGraph(actual.graph,actual.whole,actual.graphFunction,
++      {...actual.basis,admittedInput:value}).kind,'static_validation_refusal');
++  }
++  const changedOccurrence={...actual.basis,invocationAdmissionRef:'invocation://graph-law/other'};
++  assert.equal(current.graphValidator.validateGraph(actual.graph,actual.whole,actual.graphFunction,changedOccurrence).kind,'static_validation_refusal');
++  assert.equal(current.graphValidator.validateGraph(actual.graph,clone(actual.whole),actual.graphFunction,actual.basis).kind,'static_validation_refusal');
++  const changedFunction=clone(actual.graphFunction);changedFunction.name+='/changed-definition';
++  assert.equal(current.graphValidator.validateGraph(actual.graph,actual.whole,changedFunction,actual.basis).kind,'static_validation_refusal');
++  const tampered=clone(actual.graph);tampered.template.terminalNodeRefs=[];
++  assert.equal(current.materialization.rehydrateMaterializedGtlGraph(tampered),null);
++  if(previous)equivalent(actual,validate(previous,constructStructuralPublication(previous.gtl,artifact),FAN_OUT_IDS.programRef,FAN_OUT_IDS.graphFunctionRef,constructMemberVector(['Alpha','Beta'])));
++  const fixed=validate(current,publishable(current));
++  const independent={...fixed.basis,admittedInput:{...fixed.basis.admittedInput,batch:['different data']}};
++  assert.deepEqual(current.materialization.deriveMaterializedGraphShape(fixed.graphFunction,independent),
++    current.materialization.deriveMaterializedGraphShape(fixed.graphFunction,fixed.basis),
++    'no fan-out row means the declared shape has no input dependency');
++});
++
++test('frozen accessors cannot turn changed raw declarations into reusable immutable facts',()=>{
++  const actual=validate(current,publishable(current));
++  let edges=actual.graphFunction.template.edges,reads=0;
++  const template=Object.freeze({...actual.graphFunction.template,get edges(){reads++;return edges;}});
++  assert.equal(current.immutable.isDeeplyFrozen(template),false);assert.equal(reads,0,'reuse eligibility does not invoke an accessor');
++  assert.deepEqual(current.construction.graphTemplateDiagnostics(template),[]);
++  const functionValue=Object.freeze({...actual.graphFunction,template});
++  const graph=current.materialization.materializeGraph(functionValue,actual.basis);
++  assert.equal(current.materialization.retainedMaterializedGraphShape(graph,functionValue,actual.basis),null);
++  assert.deepEqual(current.graphValidator.validateGraph(graph,actual.whole,functionValue,actual.basis),actual.graphValidation);
++  edges=Object.freeze([...edges,{edgeRef:'edge://changed-raw',fromNodeRef:template.startNodeRef,toNodeRef:'node://absent',inputBinding:{kind:'identity'}}]);
++  const refused=current.construction.graphTemplateDiagnostics(template);
++  assert(refused.some(d=>d.code==='topology_mismatch'));
++  assert.equal(current.graphValidator.validateGraph(graph,actual.whole,functionValue,actual.basis).kind,'static_validation_refusal');
++  if(previous)assert.deepEqual(refused,previous.construction.graphTemplateDiagnostics(template));
++});
+ for(const row of mutants)test(`nearest static and materialization refusal: ${row.name}`,()=>{
+   const pub=publishable(current);row.mutate(pub);const g=pub.graphFunctions[0];
+-  if(previous){const accepted=validate(previous,clone(pub));assert.equal(accepted.publication.kind,'publication_validation');
+-    if(row.code==='duplicate_identity')assert.equal(accepted.whole.executableLeafRows.length,2);
+-    assert.equal(current.materialization.rehydrateMaterializedGtlGraph(clone(accepted.graph)),null,'copied malformed graph cannot regain materialization identity');}
+   for(const [subject,kind] of [[pub,'module_publication'],[g,'graph_function'],
+     [{...clone(corpus.programs[0].packet),publication:pub},'conformance_evaluate_packet']]){
+     const refused=current.raw.rawAdmitValue(subject,kind,`contract://graph-law/${kind}`);
+-    assert.equal(refused.kind,'raw_admission_refusal');assert.equal(refused.code,'invalid_kind');assert.match(refused.message,row.message);}
++    assert.equal(refused.kind,'raw_admission_refusal');assert.equal(refused.code,'invalid_kind');assert.match(refused.message,row.message);
++    if(previous)assert.deepEqual(refused,previous.raw.rawAdmitValue(subject,kind,`contract://graph-law/${kind}`));}
+   assert(current.construction.graphTemplateDiagnostics(g.template).some(d=>d.code===row.code&&row.message.test(d.message)));
+   assert.throws(()=>current.serialization.serializeGraphFunction(g),row.message);
+   assert.throws(()=>current.construction.promoteGraphFunction({name:`${g.name}/promoted`,source:g,
+--- before/test_env/tests/t287-installed-dependency-lock.test.mjs
++++ after/test_env/tests/t287-installed-dependency-lock.test.mjs
+@@ -10,9 +10,9 @@
+ const tenant = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+ const compiled = process.env.ABI207_COMPILED_ROOT ?? join(tenant, 'build/code/src');
+ const load = (relative) => import(pathToFileURL(join(compiled, relative)).href);
+-const [verification, environment, installation, capability, digests, canonical] = await Promise.all([
++const [verification, environment, installation, capability, digests, canonical, catalog] = await Promise.all([
+   load('product/verify_product.js'), load('product/environment.js'), load('product/install_product.js'),
+-  load('shared/capability_contracts.js'), load('shared/digests.js'), load('shared/canonical_json.js'),
++  load('shared/capability_contracts.js'), load('shared/digests.js'), load('shared/canonical_json.js'), load('product/catalog.js'),
+ ]);
+ const exec = promisify(execFile);
+ const canonicalJson = canonical.canonicalJson;
+@@ -71,6 +71,64 @@
+ const requires = (productId) => ({kind: 'requires', productId, packageVersion: '5.0.0', compatibilityRef,
+   requiredContractRefs: [], requiredCapabilityRefs: []});
+ 
++test('fixed definition resolution shares actual verifier/link and Catalog owner results, with cold/toolchain refusals intact', async t => {
++  const selectedIdentity = process.env.ABI232_NATIVE_IDENTITY;
++  const isolatedManifest = process.env.ABI232_ISOLATED_MANIFEST;
++  if (!selectedIdentity || !isolatedManifest) {t.skip('requires immutable native artifact and isolated compiler-basis fixture'); return;}
++  const identity = JSON.parse(await readFile(selectedIdentity, 'utf8'));
++  const request = {artifactPath: identity.archive.path, artifactRef: basename(identity.archive.path),
++    expectedArtifactDigest: `sha256:${identity.archive.sha256}`, expectedProductContentDigest: identity.productContentDigest,
++    expectedManifestDigest: identity.manifestDigest, expectedProductId: identity.productId,
++    expectedPackageName: identity.packageName, expectedPackageVersion: identity.packageVersion};
++  const verified = await verification.verifyProduct(request);
++  assert.equal(verified.kind, 'verified_product_artifact', JSON.stringify(verified));
++  assert.strictEqual(verification.selectOwnedProductVerification(request, verified), verified);
++  const resolved = environment.resolveProductArtifacts([verified]);
++  assert.equal(resolved.kind, 'resolved_product_environment', JSON.stringify(resolved));
++  assert.strictEqual(environment.constructResolvedProductLock([verified]), resolved.lock);
++  assert.strictEqual(environment.resolveProductArtifacts([verified]), resolved, 'native/Public resolution shares the actual link result');
++  const copied = environment.resolveProductArtifacts([structuredClone(verified)]);
++  assert.equal(copied.kind, 'resolved_product_environment');assert.notStrictEqual(copied, resolved);
++  assert.deepEqual(copied, resolved, 'copied data retains complete cold resolution and identical output');
++  const changed = structuredClone(verified);changed.nativeDeclarationEvidence.sources[0].sourceText += '\nexport const changed = true;\n';
++  assert.equal(environment.resolveProductArtifacts([changed]).kind, 'environment_refusal');
++  const before = await readFile(isolatedManifest);
++  try {
++    const altered = JSON.parse(before);altered.productContentDigest = digests.sha256Canonical({changedCompilerBasis: true});
++    await writeFile(isolatedManifest, canonicalJson(altered) + '\n');
++    const refused = environment.resolveProductArtifacts([verified]);
++    assert.equal(refused.kind, 'environment_refusal');assert.equal(refused.code, 'incompatible_dependency');
++  } finally {await writeFile(isolatedManifest, before);}
++  const scratch = await mkdtemp(join(process.env.ABI207_PROOF_ROOT ?? tmpdir(), 'fixed-definition-'));
++  t.after(() => rm(scratch, {recursive: true, force: true}));
++  const installed = await installation.installProduct({artifactPath: request.artifactPath, targetRoot: join(scratch, 'install'),
++    verifiedArtifact: verified, resolvedLock: resolved.lock});
++  assert.equal(installed.kind, 'product_install_candidate', JSON.stringify(installed));
++  // Product admission is a controlled lower premise here. Physical material,
++  // verifier, lock, binding and catalog are actual owners; no Run is admitted.
++  const productSet = environment.constructProductSet([installed], resolved.lock);
++  assert.equal(productSet.kind, 'product_set');
++  const authorityBody = {workspaceId: 'workspace://fixed-definition.test', canonicalRoot: scratch,
++    authorityMode: 'trusted_developer', authorizedActorRef: 'actor://fixed-definition.test'};
++  const authority = environment.constructWorkspaceAuthorityBasis({...authorityBody,
++    authorityManifestRef: 'manifest://fixed-definition.test', authorityManifestDigest: digests.sha256Canonical(authorityBody)});
++  assert.equal(authority.kind, 'workspace_authority_basis', JSON.stringify(authority));
++  const binding = environment.constructWorkspaceBinding(authority, productSet, resolved.lock,
++    {toolchainRoot: installed.installedRoot, productRoot: installed.installedRoot, eventLogRoot: join(scratch, 'events'),
++      runtimeStateRoot: join(scratch, 'state'), projectionRoot: join(scratch, 'projection'), archiveRoot: join(scratch, 'archive')});
++  assert.equal(binding.kind, 'workspace_binding_candidate');
++  const ready = catalog.admitGraphFunctionCatalog({workspaceBinding: binding, resolvedLock: resolved.lock,
++    verifiedProducts: [verified], installedProducts: [installed], publications: []});
++  assert.equal(ready.kind, 'graph_function_catalog');
++  assert.strictEqual(catalog.admitGraphFunctionCatalog(ready.readinessBasis), ready);
++  const view = catalog.narrowGraphFunctionCatalog(ready, []);
++  assert.strictEqual(catalog.narrowGraphFunctionCatalog(ready, []), view);
++  const cold = catalog.admitGraphFunctionCatalog(structuredClone(ready.readinessBasis));
++  assert.deepEqual(cold, ready);assert.notStrictEqual(cold, ready);
++  const crossed = structuredClone(ready.readinessBasis);crossed.workspaceBinding.lockDigest = digests.sha256Canonical({wrongLock: true});
++  assert.equal(catalog.admitGraphFunctionCatalog(crossed).kind, 'catalog_construction_refusal');
++});
++
+ test('physical managed dependency material must match the selected immutable Product lock', async t => {
+   const base = process.env.ABI207_PROOF_ROOT ?? tmpdir();
+   await mkdir(base, {recursive: true});
+--- before/code/src/product/declaration_exports.ts
++++ after/code/src/product/declaration_exports.ts
+@@ -502,7 +502,8 @@
+   return (compilerModule.default ?? compilerModule) as typeof TypeScript;
+ }
+ 
+-function installedToolchainProductContentDigest(): Sha256Digest | null {
++/** @internal Current linker basis; reused resolutions retain this check. */
++export function installedToolchainProductContentDigest(): Sha256Digest | null {
+   try {
+     const manifest = JSON.parse(
+       readFileSync(
+--- before/code/src/shared/immutable.ts
++++ after/code/src/shared/immutable.ts
+@@ -14,7 +14,13 @@
+ ): boolean {
+   if (typeof value !== "object" || value === null) return true;
+   if (!Object.isFrozen(value)) return false;
++  const prototype: unknown = Object.getPrototypeOf(value);
++  if (prototype !== null && prototype !== Object.prototype && prototype !== Array.prototype) return false;
+   if (visited.has(value)) return true;
+   visited.add(value);
+-  return Object.values(value).every((child) => isDeeplyFrozen(child, visited));
++  return Reflect.ownKeys(value).every((key) => {
++    const descriptor = Object.getOwnPropertyDescriptor(value, key);
++    return descriptor !== undefined && Object.hasOwn(descriptor, "value") &&
++      isDeeplyFrozen(descriptor.value, visited);
++  });
+ }

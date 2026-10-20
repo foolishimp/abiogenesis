@@ -1,0 +1,38 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/operational-selection-addendum.md",
+    "sha256": "001cf99666a9cb9fa84aa2d73f82d0f36f1d09d407b8df73e62a831dc414bc4d"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/execution-return.md",
+    "sha256": "e3ad5c96772da8597180ca75ab9eca157757a9fe69c1ac332e0bf5443de7fa88"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/causal-capsule.json",
+    "sha256": "1e2750e0290760e3bf910cba7de18c66368f757840326eeeef1153f935dd4c37"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/preparation/invocation/archives/fp-bdfb7a0ef62a1cd0-output.txt",
+    "sha256": "f1c1b03cc838ccd99fdd7e0c223557ff4f2c067f8cb5767a58733004eb5ad28f"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "sha256": "ae4dbcff40f4784a648d98a1faaf0b139ca40610062eb4787fe25e16c1415794"
+  },
+  {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite30-install-gb08bzfk/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js",
+    "sha256": "af6d25986a512e7244353ad2dd6917d382a5a1af49907ff30ef07f72a83a3a3b"
+  },
+  {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite30-install-gb08bzfk/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/semantic_revision.js",
+    "sha256": "b39dae1ed17d42b9f0373ae54bf58c9d6542c70f05f1ff1c52aa79872be25725"
+  },
+  {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite30-install-gb08bzfk/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/semantic_revision.js",
+    "sha256": "ca6679f3b5d339cffad5decce958946c4308737559377e14014afa3d8788dfb9"
+  },
+  {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite30-install-gb08bzfk/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+    "sha256": "531b090ad5dbf1aa0cf930ff13e0e26ef564ed52f3f0928ca5b5143aa64e7225"
+  }
+]

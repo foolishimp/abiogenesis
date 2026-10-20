@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "checks": {
+    "Root_a_c_request_byte_equal": true,
+    "grant_exact_bytes_sha256": true,
+    "current_definition_exact_RC2": true,
+    "installed_a_c_exact": true,
+    "selected_file_pins_conserved": 73,
+    "coverage_groups_conserved": 16,
+    "coverage_behaviors_conserved": 66,
+    "F11_member_partition_conserved": 1950,
+    "one_selected_plus_eight_unassessed": true,
+    "ready_operation_route_count": 11,
+    "ready_required_provider_calls": 0
+  },
+  "scope": "Worker mechanical report readiness only; no semantic coverage/context/independence or RC verdict."
+}

@@ -1,0 +1,16 @@
+{
+  "label": "focused-graph-law-corrected",
+  "args": [
+    "/opt/homebrew/bin/node",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T05:49:50.440677+00:00",
+  "timeoutMs": 120000,
+  "environment": {
+    "ABI5_GTL_GRAPH_OWNER_CORE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/scratch/current/build/code/src",
+    "ABI5_GTL_GRAPH_BASELINE_CORE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/scratch/successor/package/build/code/src"
+  },
+  "productionSourceUnchangedSinceStrictCompile": true
+}

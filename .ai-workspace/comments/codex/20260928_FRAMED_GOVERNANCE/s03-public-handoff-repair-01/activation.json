@@ -1,0 +1,38 @@
+{
+  "worker": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+  "changeClass": "realization_refactor",
+  "requestSha256": "78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f",
+  "sourcePreimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_operation_contracts.ts",
+      "bytes": 13620,
+      "sha256": "a095a108400e5fb91ca1e49027526c9d8dcfc8dcb9b53a4d6c24c790cc730936"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 31496,
+      "sha256": "69624a50cff0f736434b7900bd8a356db0f6576bc373566bacc6fffc92a6a8ea"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_ports.ts",
+      "bytes": 72530,
+      "sha256": "93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/test_env/support/t287-s03-automatic.mjs",
+      "bytes": 29264,
+      "sha256": "b54df94a0231b85fa87bb68eab39ec4744fef4f4a406f6ba1354990ec1b613e9"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/test_env/tests/t287-s03-automatic.test.mjs",
+      "bytes": 1030,
+      "sha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c"
+    }
+  ],
+  "nativeEffects": "not authorized"
+}

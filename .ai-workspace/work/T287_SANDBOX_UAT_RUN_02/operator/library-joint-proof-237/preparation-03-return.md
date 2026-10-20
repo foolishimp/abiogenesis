@@ -1,0 +1,13 @@
+237 preparation03 CLOSED; execution remains ungranted.
+
+Frame: fixed fifteen ABI5.0 families / GOAL035 / T287 / STDO2.5.1rc2; repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration. Existing runtime/recovery/Public projection laws and accepted lifecycle audit govern this finite fixture.
+
+run-03 extends frozen run-02 only with complete replay/body comparison after construction and both unchanged-pair continuation phases, and equality of the actual prepared Source to its selected parent. The prior scripts, helper07, responder and fixture remain unchanged. No Source/HOW/library/helper/controller/API is added.
+
+Preparation basis is exact233 cut30 inputsb49a1632…/79633B and emissioncae7cccd…/162650B; selected replay.ts812f390f…/109914B. Cut30 has an open warm-growth defect and is not selected for execution. Root must bind the final accepted successor/package before dispatch.
+
+Future checks use the actual installed native owner at the phase's genuine closed prefix, confined to237 scratch. One complete canonical raw logical event read supplies comparison data. Full authority scope remains separate from the historical Run scope. Complete ReplayState ordinary canonical JSON is compared with the guard's streamed complete output. Its digest is independently recomputed over all26 explicitly listed body fields plus nativeLiveness whenever present, matching cut30 replay.ts1306–1371; kind/schemaVersion/replayRef/replayDigest and nonenumerable derivation are outside the body. This is not comparison of only two streaming functions. Selected full events and payload digests are compared against raw logical rows; Public physical replay coordinates and the actual parent C_Call/Result/value are joined. Genuine native rows must exercise liveness inclusion. Only coordinates/digests/counts leave the comparison; full rows/values/strings are not recorded or passed as Source/effect authority.
+
+Original fixture input, failed C2 diagnostic, distinct remeasurement producer, bounded repair and unchanged-pair zero-setup checks remain. The common helper still independently derives actual Source/currentness and uses the real post-close callback. No saved success or raw comparison value confers authority. Memory samples are observations, not peaks/capacity proof.
+
+node --check and pure field/framing checks PASS. No package/install/owner/native/resource/model/app execution occurred. Positive native/continuation/full-body proof, scoped growth, original DataMapper capacity and UAT remain open. Exact changed scripts and basis pins are in preparation-03-freeze.json. STOP.

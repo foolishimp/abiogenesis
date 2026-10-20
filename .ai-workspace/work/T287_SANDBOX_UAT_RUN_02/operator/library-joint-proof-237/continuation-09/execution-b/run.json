@@ -1,0 +1,6 @@
+{
+  "runId": "library-joint-proof-237-09-b",
+  "scope": "Controlled mechanical native/C2 lifecycle only",
+  "semanticPremise": "Responder selects a declared injected defect and its exact restoration; no Claude or semantic UAT judgment",
+  "stockNodeHeap": true
+}

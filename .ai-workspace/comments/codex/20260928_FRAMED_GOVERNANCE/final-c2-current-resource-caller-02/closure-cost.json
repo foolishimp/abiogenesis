@@ -1,0 +1,7 @@
+{
+  "closureElapsedMs": 298.2595837675035,
+  "aggregatePriorCheckAndClosureMs": 2015.1222916319966,
+  "closureProcessBudgetMs": 60000,
+  "graceMs": 1000,
+  "nativeOrProviderProcesses": 0
+}

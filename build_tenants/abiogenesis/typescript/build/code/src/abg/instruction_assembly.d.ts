@@ -100,7 +100,7 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         provenance: import("../product/native_workspace_work.js").NativeWorkspaceWorkProvenance;
     };
     executionObservation: {
-        task: import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | import("../index.js").WorksiteRevisionCommandExecutionTask | {
+        task: import("../index.js").WorksiteRevisionCommandExecutionTask | import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | {
             sourceReacquisition?: import("../product/worksite_command_execution.js").NativeWorksiteCommandReacquisition | {
                 request: {
                     sourceNativeWork: {
@@ -225,12 +225,12 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                 disposition: string;
             };
             kind: "worksite_command_execution_task";
+            schemaVersion: "5.0.0";
+            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
             workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
-            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
             materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
-            schemaVersion: "5.0.0";
-            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             transportLane: "worker_executes";
             workspaceBinding: import("../index.js").WorkspaceBinding;
             taskRef: string;
@@ -314,7 +314,7 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
     } | {
-        task: import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | import("../index.js").WorksiteRevisionCommandExecutionTask | {
+        task: import("../index.js").WorksiteRevisionCommandExecutionTask | import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | {
             sourceReacquisition?: import("../product/worksite_command_execution.js").NativeWorksiteCommandReacquisition | {
                 request: {
                     sourceNativeWork: {
@@ -439,12 +439,12 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                 disposition: string;
             };
             kind: "worksite_command_execution_task";
+            schemaVersion: "5.0.0";
+            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
             workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
-            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
             materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
-            schemaVersion: "5.0.0";
-            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             transportLane: "worker_executes";
             workspaceBinding: import("../index.js").WorkspaceBinding;
             taskRef: string;
@@ -528,7 +528,7 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
     } | {
-        task: import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | import("../index.js").WorksiteRevisionCommandExecutionTask | {
+        task: import("../index.js").WorksiteRevisionCommandExecutionTask | import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | {
             sourceReacquisition?: import("../product/worksite_command_execution.js").NativeWorksiteCommandReacquisition | {
                 request: {
                     sourceNativeWork: {
@@ -653,12 +653,12 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                 disposition: string;
             };
             kind: "worksite_command_execution_task";
+            schemaVersion: "5.0.0";
+            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
             workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
-            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
             materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
-            schemaVersion: "5.0.0";
-            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             transportLane: "worker_executes";
             workspaceBinding: import("../index.js").WorkspaceBinding;
             taskRef: string;

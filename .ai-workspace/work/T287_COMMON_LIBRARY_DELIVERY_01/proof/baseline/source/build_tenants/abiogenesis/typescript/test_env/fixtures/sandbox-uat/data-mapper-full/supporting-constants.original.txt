@@ -1,0 +1,66 @@
+const DATA_MAPPER_SCALA_MODULES = Object.freeze([
+  "cdme-core",
+  "cdme-compiler",
+  "cdme-executor",
+  "cdme-adjoint",
+  "cdme-accounting",
+  "cdme-assurance",
+  "cdme-fidelity",
+  "cdme-engine"
+]);
+
+const DATA_MAPPER_SCALA_MAIN_FILES = Object.freeze([
+  "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+  "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+  "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+  "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+  "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+  "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+  "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+  "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+  "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+  "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+  "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala"
+]);
+
+const DATA_MAPPER_SCALA_TEST_FILES = Object.freeze([
+  "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+  "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+  "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+  "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+  "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+  "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+  "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+  "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+]);
+
+const DATA_MAPPER_SCALA_TEST_REPORTS = Object.freeze([
+  "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+  "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+  "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+  "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+  "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+  "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+  "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+  "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml"
+]);
+
+const DATA_MAPPER_SCALA_JAVA11_HOME = "/opt/homebrew/opt/openjdk@11";
+// campaign #12: the sbt binary home is an ENVIRONMENTAL BINDING
+// (HANDLERS-015 class) — declared here as scenario env data so the
+// deterministic gate finds the toolchain regardless of the CLI
+// process env it inherits.
+const DATA_MAPPER_TOOLCHAIN_BIN = "/opt/homebrew/bin";
+const DATA_MAPPER_SCALA_JAVA11_ENV = Object.freeze({
+  JAVA_HOME: DATA_MAPPER_SCALA_JAVA11_HOME,
+  PATH: `${DATA_MAPPER_SCALA_JAVA11_HOME}/bin:${DATA_MAPPER_TOOLCHAIN_BIN}:${process.env.PATH ?? ""}`
+});
+
+const DATA_MAPPER_SHARED_CORE_CONTRACT_TYPES = Object.freeze([
+  "CompiledTopology",
+  "ExecutionResult",
+  "StageResult",
+  "AccountingLedger",
+  "LedgerEntry",
+  "DataFrameRef"
+]);

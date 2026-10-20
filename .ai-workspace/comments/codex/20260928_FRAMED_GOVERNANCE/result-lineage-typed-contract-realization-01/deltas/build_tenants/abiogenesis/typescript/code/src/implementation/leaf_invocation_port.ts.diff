@@ -1,0 +1,17 @@
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts preimage
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts postimage
+@@ -1,4 +1,5 @@
+ import { isQualificationAssessmentInput, prepareQualificationAssessment, type PreparedQualificationAssessment } from "../validator/qualification.js";
++import type { ResultEvidenceLineage } from "../abg/result_evidence_lineage_contracts.js";
+ import type { QualificationResources } from "../validator/qualification_resources.js";
+ import { graphFunctionSemanticsOwner } from "../product/execution_resolution.js";
+ import { projectHistoricalGraphCallSourceAtDurablePrefix } from "../abg/project_read_ports.js";
+@@ -1479,7 +1480,7 @@
+     validateResultEvidenceLineage(
+       outputContractRef: string,
+       value: Readonly<Record<string, JsonValue>>,
+-      admittedEvidence: readonly Readonly<Record<string, JsonValue>>[],
++      admittedEvidence: readonly ResultEvidenceLineage[],
+     ) {
+       return semantics.validateResultEvidenceLineage({
+         outputContractRef,

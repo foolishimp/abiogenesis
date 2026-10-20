@@ -1,0 +1,32 @@
+{
+  "heldBranchByteIdentical": true,
+  "successfulBlockedFoldAndFallbackTailByteIdentical": true,
+  "runtimeFailureOwnerUnchanged": true,
+  "phaseTestControlOnlyFixtureAcquisitionImport": true,
+  "source143Consumed": false,
+  "baselineSourceCount": 263,
+  "sourceUnderTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+    "relativePath": "code/src/hog/recursion_lifecycle.ts",
+    "sha256": "ee8baae788e9b7bc5064600d1bedd7446cca8ec9b15d088397d10f6c8cd32361",
+    "byteCount": 35898,
+    "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/postimages/code/src/hog/recursion_lifecycle.ts",
+    "preSha256": "7fb2656e927ade4159c4dc18eed6d6e4139e48d4791f85177912b7879fb697c2",
+    "preByteCount": 31714
+  },
+  "baselineLedger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/source-preimages.json",
+    "sha256": "df34aecf794c5d9d38c1ed75d79c33d40a4b7a117f2f30fd77225f66d29db1fe",
+    "byteCount": 78250
+  },
+  "baselineAll263Bound": true,
+  "baselineUnchanged262": true,
+  "baselineChanged": [
+    {
+      "relativePath": "code/src/hog/recursion_lifecycle.ts",
+      "before": "7fb2656e927ade4159c4dc18eed6d6e4139e48d4791f85177912b7879fb697c2",
+      "after": "ee8baae788e9b7bc5064600d1bedd7446cca8ec9b15d088397d10f6c8cd32361"
+    }
+  ],
+  "isolatedHoGDtsUnchangedAgainstInstalled25": true
+}

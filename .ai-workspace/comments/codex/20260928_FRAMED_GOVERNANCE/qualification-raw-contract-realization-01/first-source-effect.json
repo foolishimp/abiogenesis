@@ -1,0 +1,11 @@
+{
+  "operation": "existing F_P raw-result contract declaration only",
+  "postimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "bytes": 18733,
+    "sha256": "8396aee64c5d800861c97b9a5ce0ccdde06d5ba507539da7216f62080238614f",
+    "mode": 420
+  },
+  "otherCanonicalSourceEffects": 0,
+  "testNotWrittenYet": true
+}

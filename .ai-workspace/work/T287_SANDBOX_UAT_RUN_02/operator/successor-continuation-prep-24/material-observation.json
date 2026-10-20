@@ -1,0 +1,171 @@
+{
+  "role": "Writer24 supplied material receipt only",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6",
+  "retainedAuthorFiles": [
+    {
+      "path": "build_tenants/scala_spark/build.sbt",
+      "byteCount": 3888
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "byteCount": 2083
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+      "byteCount": 2679
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "byteCount": 3257
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+      "byteCount": 2068
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+      "byteCount": 2541
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+      "byteCount": 9131
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "byteCount": 9581
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+      "byteCount": 2538
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "byteCount": 5293
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+      "byteCount": 2495
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+      "byteCount": 3500
+    },
+    {
+      "path": "build_tenants/scala_spark/project/build.properties",
+      "byteCount": 19
+    },
+    {
+      "path": "build_tenants/scala_spark/project/plugins.sbt",
+      "byteCount": 56
+    },
+    {
+      "path": "design/component-code-surface.md",
+      "byteCount": 25088
+    },
+    {
+      "path": "design/feature-decomposition.md",
+      "byteCount": 16215
+    },
+    {
+      "path": "design/implementation-design.md",
+      "byteCount": 56240
+    },
+    {
+      "path": "design/module-design.md",
+      "byteCount": 41481
+    },
+    {
+      "path": "proof/component-realization-qualification.md",
+      "byteCount": 17575
+    },
+    {
+      "path": "specification/goals.md",
+      "byteCount": 4907
+    },
+    {
+      "path": "specification/intent.md",
+      "byteCount": 23615
+    },
+    {
+      "path": "specification/product.md",
+      "byteCount": 12262
+    },
+    {
+      "path": "specification/requirements.md",
+      "byteCount": 30618
+    },
+    {
+      "path": "specification/scenario.md",
+      "byteCount": 39351
+    },
+    {
+      "path": "specification/testcase-authority.md",
+      "byteCount": 10468
+    },
+    {
+      "path": "specification/uat-testcases.md",
+      "byteCount": 18808
+    }
+  ],
+  "provenance": {
+    "operator18Observation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-execution-18/observations.json",
+      "sha256": "6037e1a38d7810e891c0c68f25688b72153645bedf3c27d38779c5dd7c491ced",
+      "byteCount": 90531
+    },
+    "operator18ExecutionFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-execution-18/execution-freeze.json",
+      "sha256": "c3abd48b4b39ac529c5ae299985de526b83417244a69ebe0f63802dd23a72618",
+      "byteCount": 54822
+    },
+    "operator18IncomingTransfer": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6/supplied-work-transfer.json",
+      "sha256": "ced7e9f56f0f450c0ab0f7dbf87ab68e31bded80ed800e537b14001359702f8f",
+      "byteCount": 6241
+    },
+    "workloadSourceCurrentAcquisition": {
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T18-11-27-924Z-a19ab706-5fcb-4b75-8fb7-080df38ff2f6/workload-source.json",
+        "sha256": "a9ae13e3e16a90f4c83f4fa62e254ca5b62f8e9c46877de2181f834dc7be6d30",
+        "byteCount": 80945
+      },
+      "historicalLedgerRowAbsent": true,
+      "wholeValueMatchesExistingRunnerAcquisition": true,
+      "historicalConservationClaim": false
+    },
+    "incomingEvidence": {
+      "observation": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-14/observations.json",
+        "digest": "sha256:0666d2543bb091704305d85e118ebdd2f435c03e9b3ff5227ef4e868cff5aa47"
+      },
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-14/execution-freeze.json",
+        "digest": "sha256:3571c678a68a73eee4c0de020b0189659df38a6ed10f621823ea1e8f8077f148"
+      }
+    },
+    "incomingSourceArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T16-02-51-357Z-3143698d-5b27-4b56-8bda-9221932cdef4",
+    "originalScenario": {
+      "key": "data-mapper-full"
+    },
+    "nativeAfterSnapshot": {
+      "eventId": "event://abiogenesis/fc6c07c53352deecf6f71de6d36e49e8bb81221ecd05472c458489a5b743b632",
+      "admissionOrdinal": 22190,
+      "offset": 83417793,
+      "byteLength": 1774681,
+      "lineSha256": "efdf4c74c520c755cba8848d6f0dd179327841d0d5e10e76c4067df7098383e7",
+      "observationRef": "native-work-observation://abiogenesis/f78a64282f5d6ba99a24a1c2d7c06b10125c68301e72fc8c4dce033c57b2c0be",
+      "observationDigest": "sha256:f78a64282f5d6ba99a24a1c2d7c06b10125c68301e72fc8c4dce033c57b2c0be"
+    }
+  },
+  "counts": {
+    "original": 4,
+    "incomingAuthor": 9,
+    "newAuthor": 17,
+    "retainedAuthor": 26,
+    "currentFiles": 30
+  },
+  "suppliedMaterialOnly": true,
+  "oldObservationsImported": false,
+  "oldSynthesisImported": false,
+  "oldProducerCreditImported": false
+}

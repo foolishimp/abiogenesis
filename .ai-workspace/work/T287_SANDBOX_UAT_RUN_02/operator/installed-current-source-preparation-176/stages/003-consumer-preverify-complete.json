@@ -1,0 +1,17 @@
+{
+  "stage": "consumer-preverify-complete",
+  "rss": 1943207936,
+  "heapTotal": 1662337024,
+  "heapUsed": 1540719184,
+  "external": 98754141,
+  "arrayBuffers": 96337280,
+  "at": "2026-10-09T06:02:24.389Z",
+  "elapsedMs": 20112.384041999998,
+  "wallMs": 10.258708000001207,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+  "artifactDigest": "sha256:23e50f93533be202b3faaf499631471a5876a278de3dfeaa761439ab496ce6d6",
+  "verificationRef": "product-verification://abiogenesis/36f7cc600488ef32317a65f70394981a89b271134de056d554d1d98f912b77aa",
+  "verificationDigest": "sha256:36f7cc600488ef32317a65f70394981a89b271134de056d554d1d98f912b77aa",
+  "checkedPayloadFiles": 5,
+  "nominalReceipt": true
+}

@@ -1,0 +1,25 @@
+0 verbose cli /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/source-freeze/toolchain/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/source-freeze/toolchain/bin/npm
+1 info using npm@11.5.1
+2 info using node@v24.7.0
+3 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/source-freeze/toolchain/npm/npmrc
+4 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-install/.npmrc
+5 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-npmrc
+6 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-globalnpmrc
+7 verbose title npm install /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+8 verbose argv "install" "--offline" "--ignore-scripts" "--no-audit" "--no-fund" "--package-lock" "false" "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+9 verbose logfile logs-max:10 dir:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-npm-cache/_logs/2026-10-02T13_49_37_570Z-
+10 verbose logfile /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-npm-cache/_logs/2026-10-02T13_49_37_570Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 silly fetch manifest @abiogenesis/typescript-tenant@file:../final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+15 silly placeDep ROOT @abiogenesis/typescript-tenant@5.0.0-rc.1 OK for:  want: file:../final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+16 silly reify moves {}
+17 http cache @abiogenesis/typescript-tenant@file:/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz 0ms (cache hit)
+18 silly ADD node_modules/@abiogenesis/typescript-tenant
+19 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-install
+20 verbose os Darwin 25.6.0
+21 verbose node v24.7.0
+22 verbose npm  v11.5.1
+23 verbose exit 0
+24 info ok

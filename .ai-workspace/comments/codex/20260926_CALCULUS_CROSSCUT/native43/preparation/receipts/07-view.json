@@ -1,0 +1,44 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.catalog.view",
+      "memberKey": "allowlist"
+    },
+    "invocationRef": "invocation://abiogenesis/fc49992147a248936517efb1ed8378638608519a43205214af54257de2e0f05e",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "view": {
+          "ref": "graph-function-catalog-view://abiogenesis/99c8fe94da2d8a125e822121ed1757d8c4aa40ac44930b36543a3c430648b7f9",
+          "digest": "sha256:99c8fe94da2d8a125e822121ed1757d8c4aa40ac44930b36543a3c430648b7f9"
+        },
+        "effectiveHandles": [
+          "graph-function://odd-glc/native-semantic-revision/acquire@5",
+          "graph-function://odd-glc/native-semantic-revision/intake@5",
+          "graph-function://odd-glc/native-semantic-revision/select@5"
+        ],
+        "residuals": []
+      }
+    },
+    "resources": {
+      "kind": "catalog_view_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "disposition": "read_only_unchanged",
+      "catalog": {
+        "ref": "graph-function-catalog://abiogenesis/cb2c2e42e3525e2910f9ed82d958ae8830525ebd572106319fd1811abc2d8944",
+        "digest": "sha256:cb2c2e42e3525e2910f9ed82d958ae8830525ebd572106319fd1811abc2d8944"
+      },
+      "view": {
+        "ref": "graph-function-catalog-view://abiogenesis/99c8fe94da2d8a125e822121ed1757d8c4aa40ac44930b36543a3c430648b7f9",
+        "digest": "sha256:99c8fe94da2d8a125e822121ed1757d8c4aa40ac44930b36543a3c430648b7f9"
+      }
+    },
+    "failure": null
+  }
+}

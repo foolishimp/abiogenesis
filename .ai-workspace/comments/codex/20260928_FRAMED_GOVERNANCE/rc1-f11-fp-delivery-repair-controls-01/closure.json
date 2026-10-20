@@ -1,0 +1,41 @@
+{
+  "operation": "T287_EXEC06_CONJUNCTION_AND_REPAIR_GRANTS_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T04:30:52.549488+00:00",
+  "grants": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-fp-delivery-repair-controls-01/source-request.txt",
+      "bytes": 4433,
+      "sha256": "004f885a237019f479ac2f0f9a36813827c3bb91a35448f8dbba8c2b8c757aef"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-fp-delivery-repair-controls-01/caller-request.txt",
+      "bytes": 4565,
+      "sha256": "ed0eed8fd6971303ce52638c744a4a996307b9a7ac2ed5192ee30f38d1c45a0c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-fp-delivery-repair-controls-01/conjunction.json",
+      "bytes": 2944,
+      "sha256": "80bc2c2200c4b8a4bb3383e234765384174c007d6cc7aebdb672ea579487335f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 514307,
+      "sha256": "480eb496293b4663807cdf8adee1d0e37512f6bc1f2949c3de1c3f3aed2c23c6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 473785,
+      "sha256": "fa1877d8de1bdc7389fb94a3a210536472353fa23ee517fccf8264c253aa4687"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 8075,
+      "sha256": "4dea382abdb655807e0b09700284a256d113f942f725da75e2a3d5d00d72a9d7"
+    }
+  ],
+  "sourceCandidateRuntimeNetworkGitEffects": 0
+}

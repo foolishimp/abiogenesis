@@ -1,0 +1,25 @@
+{
+  "scope": "R-DPC01 renderer-only correction; prior operational/HOW subject reused",
+  "predecessorSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-01/frozen-subject.json",
+  "predecessorSubjectSha256": "83a011af7acf53c2a2597837d58e8edb003fa485ffa08b24c146598010fa47f6",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "preimageSha256": "670561e6170e296ca1129534135fafb18bc54b2b59e1c16c033c700097b19fb0",
+      "sha256": "41ecdee597adb2f2eb18229ee7dc49557127f788b32dd6114c020d0e65b5d9aa",
+      "byteCount": 83429
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "preimageSha256": "0609a9b01bde62b448ca283c2d10a5361ba50a4066c11b5c847dd8d3ff6809a9",
+      "sha256": "78c2073d94f041a1da5cf7584a937c36cafbbb9d8509b9e1deb0acda6fb3176a",
+      "byteCount": 48882
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "preimageSha256": "447ba8ef595cbe6fe7c61f85f55d86fbdd3c5a25a29c80234e2a3b07939f6774",
+      "sha256": "531b090ad5dbf1aa0cf930ff13e0e26ef564ed52f3f0928ca5b5143aa64e7225",
+      "byteCount": 81288
+    }
+  ]
+}

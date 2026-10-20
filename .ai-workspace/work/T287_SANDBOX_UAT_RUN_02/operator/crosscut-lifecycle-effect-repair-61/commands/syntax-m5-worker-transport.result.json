@@ -1,0 +1,24 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--check",
+    "test_env/tests/m5-worker-transport.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T05:57:38.548Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 120000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 24.584625000000003,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "",
+  "stderr": ""
+}

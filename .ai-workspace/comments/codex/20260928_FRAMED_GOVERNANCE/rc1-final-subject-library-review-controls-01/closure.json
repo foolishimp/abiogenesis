@@ -1,0 +1,22 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "operation": "T287_RC1_OFFLINE_SUBJECT_LIBRARY_REVIEW_GRANTS_WRITER_01",
+  "restoredRole": "Executive",
+  "grants": {
+    "subject": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/subject-request.txt",
+      "bytes": 3343,
+      "sha256": "68eb8904cb365364c559577143b9c52a3598f1bbc85f78a3d1f30431fe4370bc",
+      "mode": 420
+    },
+    "library": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/library-request.txt",
+      "bytes": 3390,
+      "sha256": "7e0a7790542f1eb40d24429aa13296b01172fcae08de61933c47b04aa5ed0011",
+      "mode": 420
+    }
+  },
+  "SourceGeneratedRuntimeProviderReleaseGitEffects": 0,
+  "closedAt": "2026-10-03T14:11:57.952466+00:00"
+}

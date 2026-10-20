@@ -1,0 +1,54 @@
+{
+  "status": "CLOSED_FIRST_ACTUAL_MANAGED_PREFLIGHT_REFUSAL",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_13",
+  "workResult": "NO_GO_EXTERNAL_HARNESS_ENTRY_MODULE_ABSENT",
+  "frontier": "managed cheap external delta discriminator before Product imports",
+  "failedRelation": "Owned module write paths must resolve under the actual execution cwd before launching the discriminator",
+  "cause": "The shell used .ai-workspace/comments/.../final-qualification-inputs-13/... relative output paths while cwd was already final-qualification-inputs-13. Both module writes failed; a later preparation block still launched the absent entry.",
+  "shellWriteErrors": [
+    "zsh:1: no such file or directory: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/source-delta-contract.mjs",
+    "zsh:50: no such file or directory: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs"
+  ],
+  "actualCwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13",
+  "missingEntry": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs",
+  "missingImportedContract": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/source-delta-contract.mjs",
+  "actualNodeError": "node:internal/modules/cjs/loader:1413\n  throw err;\n  ^\n\nError: Cannot find module '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs'\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1410:15)\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1051:19)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1056:22)\n    at Module._load (node:internal/modules/cjs/loader:1219:37)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:238:24)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47 {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: []\n}\n\nNode.js v24.7.0\n",
+  "managedReceipt": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs"
+    ],
+    "pid": 16176,
+    "processGroup": 16176,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "exitCode": 1,
+    "timedOut": false,
+    "elapsedMs": 71.69329188764095,
+    "maxRSSBytesMacOS": 45301760,
+    "userSeconds": 0.015636999999999998,
+    "systemSeconds": 0.005827,
+    "RuntimeEffects": 0
+  },
+  "producerNineTupleJoinPassed": true,
+  "roleAwareJoinReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/current-source-delta-correspondence.json",
+    "bytes": 2278,
+    "sha256": "37893c65309888ad24c86c0e37df5492a4b4e6a88bc6e6228dde31fbecd9b520",
+    "mode": 420
+  },
+  "sourceDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/current-source-delta.json",
+    "bytes": 60497,
+    "sha256": "7dc90f69cc03b39fae2a0860803f301aab67931a8e4de28d24580e7d2ce0faaa",
+    "mode": 420
+  },
+  "cheapActualHelperNegatives": "NOT_EXECUTED",
+  "completeTaskPayloads": 0,
+  "packetPayloads": 0,
+  "ProductImports": 0,
+  "fullMaterializationCalls": 0,
+  "RuntimeEffects": 0,
+  "noProductDefectInferred": true,
+  "noRepairOrRetry": true
+}

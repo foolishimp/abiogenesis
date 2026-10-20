@@ -1,0 +1,66 @@
+(node:71930) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ complete canonical declarations permit only publication identity consequences (18.777333ms)
+✔ frozen176 selected declarations compare across artifact and manifest hash-order reversal (10.576167ms)
+ℹ {"selectedCapturedPublications":4,"meaningDigest":"sha256:5e905c6734e551d7d3a7eca2f06d294cad3fb4d950d872ba65b07a4748519ba8","scope":"pure comparison of frozen176 selected declaration values; no whole Catalog reconstruction, admission or installed current-use credit"}
+✖ only the substituted provenance inventory is ordered and every reference remains material (19.175625ms)
+✔ covered use binds exact original state, complete canonical Catalog and cold admitted coordinates (5108.349667ms)
+ℹ {"controlledPremises":["environment/install membership","execution source lookup","witnessed cover"],"actualStateObservations":34,"historicalStateDigest":"sha256:38a236b7e8d1e4e219f4d9c4b3c45d0728b1596294832ebcb44c0d24ecdfe4b7","privateComparisonBytes":4043,"extraAdmissionBytes":0,"owners":[{"moduleRef":"module://abi5-tests/sandbox-uat/consumer@5","historicalPublicationDigest":"sha256:5c435efd26afbc23c18006e07fc05586ae683cf756e941a080029d760a84b8c3","currentPublicationDigest":"sha256:5c435efd26afbc23c18006e07fc05586ae683cf756e941a080029d760a84b8c3"},{"moduleRef":"module://abiogenesis/default-library/default@5","historicalPublicationDigest":"sha256:4178163ca9239b0cac3d4cb29ce3931343204d032ce84934cfa3243b5ddc142f","currentPublicationDigest":"sha256:4178163ca9239b0cac3d4cb29ce3931343204d032ce84934cfa3243b5ddc142f"},{"moduleRef":"module://abiogenesis/worksite/command-execution@5","historicalPublicationDigest":"sha256:af4a152acc6ca79b129bf5d54d47b7a4c9c71d8cd1fcbbad61c23057927fd30e","currentPublicationDigest":"sha256:af4a152acc6ca79b129bf5d54d47b7a4c9c71d8cd1fcbbad61c23057927fd30e"},{"moduleRef":"module://abiogenesis/worksite/native-work@5","historicalPublicationDigest":"sha256:3f39c34b39ddabe45ba53597d49cb7898a178e2c4d744727950cb26fe4b6e33a","currentPublicationDigest":"sha256:3f39c34b39ddabe45ba53597d49cb7898a178e2c4d744727950cb26fe4b6e33a"}],"installedContinuation":false}
+✔ later completed work follows actual admitted covered-source ancestry without root or value guesses (1109.101833ms)
+ℹ Source derivation and actual admitted-coordinate ancestry exercised; semantic replay, environment/cover and later-result producer premises are controlled, with no native/current-app admission credit.
+✔ built-in ingress preserves the whole captured34 state and independent assessment subject (75.958583ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6664.960125
+
+✖ failing tests:
+
+test at test_env/tests/t287-governance-covered-source-use.test.mjs:62:1
+✖ only the substituted provenance inventory is ordered and every reference remains material (19.175625ms)
+  AssertionError [ERR_ASSERTION]: other ordered meaning
+  + actual - expected
+  
+  + {
+  +   meaningDigest: 'sha256:28c2671773e53175c9709a117638865aa0833eaea142a4c724631c769730238d',
+  +   owners: [
+  +     {
+  +       currentPublicationDigest: 'sha256:094e7e4445812340ec2375bebc9285e90c2b3491deafeefdb9425260a1c5c40e',
+  +       historicalPublicationDigest: 'sha256:3bb2d2dfc4c51cd0efef3e9d57969a13a66c79c385bcd4fa078aed171265f5c9',
+  +       moduleRef: 'module://abiogenesis/default-library/default@5',
+  +       productId: 'product://abiogenesis/typescript-tenant@5.0.0-rc.1'
+  +     },
+  +     {
+  +       currentPublicationDigest: 'sha256:83fbc066bd4c6ffce674702b03f0ad4a320f9eece966a3b65af1cfcd913747ef',
+  +       historicalPublicationDigest: 'sha256:cdf6cf0014ec905b542515df7f09a690c1b7241922a8623384f100b110f18322',
+  +       moduleRef: 'module://abiogenesis/worksite/command-execution@5',
+  +       productId: 'product://abiogenesis/typescript-tenant@5.0.0-rc.1'
+  +     },
+  +     {
+  +       currentPublicationDigest: 'sha256:d85fdaf77a5e71fff1f0cfcf24f0d2630c59c182355db0b85a7e854ecb8f7677',
+  +       historicalPublicationDigest: 'sha256:4f6a1feb38da6b18320d7b39dd5a44759adde9a9fd95b985a5cd36260072bf41',
+  +       moduleRef: 'module://abiogenesis/worksite/native-work@5',
+  +       productId: 'product://abiogenesis/typescript-tenant@5.0.0-rc.1'
+  +     }
+  +   ]
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs:80:81)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { meaningDigest: 'sha256:28c2671773e53175c9709a117638865aa0833eaea142a4c724631c769730238d', owners: [ [Object], [Object], [Object] ] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

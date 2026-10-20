@@ -1,0 +1,55 @@
+{
+  "purpose": "G09 owning design_reframe, full-schema native assessor with explicit existing result_text presentation",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "closedTriageRefs": [
+    "../triage-assessor-09/pins.json",
+    "../triage-proof-09/pins.json"
+  ],
+  "plan": "Own HOW correction first; canonical optional presentation type in request, exact leaf/carrier guards, owned native assessment assembly/identity selection, transport propagation and native request correspondence; strict native raw/full-schema result validation unchanged. Existing native-workspace and worker-transport proofs; build before emitted-owner checks/current unit lane; one pack and canonical identity freeze after closure. Five production files are necessary, transport implementation is unchanged.",
+  "typedPath": "declared native assessment task + installed schema/role -> instruction assembly/request -> exact prepared leaf -> actor request/transport plan(result_text) -> retained final result text -> strict I-JSON/Ajv2020 native assessment -> owner admission/fold",
+  "invariants": "Exact authored schema/asset/declaration retained in task/request/prompt/digests; read-only/currentness/distinct assessor unchanged; no fallback/retry/conversion/new Product/controller/authority; omitted/nonassessment/C2/other structured routes unchanged.",
+  "effects": "Only this owning HOW, five necessary production files, two affected existing test files, established build outputs, compact source/candidate reports. All caller/config/oracle/old candidates/failure archives/Git/version/provider/native Run effects excluded.",
+  "exitProof": "Root independent Source and candidate review then genuine clean successor UAT; local correspondence is controlled preparation/occurrence evidence and grants no whole-run semantic qualification.",
+  "preimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "97c693884670eeb6a4640f13cd3ab88c6d0a4b02b1609582bae69a41d6769068",
+      "byteCount": 18513
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "sha256": "3141dff02fd0a0b1bddc926c2e8b932d0bd00231496e33eec2cdf7b2a7e9bd43",
+      "byteCount": 18533
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "1642c2b513eb9dc773deb1090a1c4217fdb7a06c163d584faba2663997e5a26d",
+      "byteCount": 117624
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "sha256": "904103fed326cfbbf6fdbb2e9cbf5bcc7e171a4558cad5b5403e66609619fbc3",
+      "byteCount": 59021
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "be5c9007617ed1707e92e254188caa7dd99c2b631ff5d9e76e155c207d573b08",
+      "byteCount": 76334
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "sha256": "0ef1238ca721bd2877a5ba1e257119544c6705f940324138012934f6d04b8d9a",
+      "byteCount": 6736
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "adb81f5092f1ef20f116ded796e6c21d4c044b845a61956591e6f3904812fd54",
+      "byteCount": 68694
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "4fd72316efc857b2ea4c59036ffdd57808ca876822aa0ca9d05f1cf92c889aea",
+      "byteCount": 36496
+    }
+  ]
+}

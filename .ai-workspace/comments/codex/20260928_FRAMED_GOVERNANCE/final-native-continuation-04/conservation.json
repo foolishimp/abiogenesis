@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "C02FrozenRecords": 16774,
+  "N03ImmutableFrozenRecords": 5995,
+  "originalResourceException": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "oldPrefixBytes": 2475382,
+    "oldPrefixSHA256": "cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+    "oldPrefixConserved": true,
+    "newBytes": 2582298,
+    "newSHA256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+    "device": 16777230,
+    "inode": 464012478,
+    "snapshotIdentical": true,
+    "stable": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock",
+    "lockPresent": false
+  },
+  "N03PersistentNewFiles": 0,
+  "N03SnapshotFreezeReceiptsSourcesPayloadWorkspace": "unchanged; all except permitted original event file verified",
+  "preEffectControls": "unchanged",
+  "donorOriginalAndPreimages": "unchanged",
+  "C02Freeze": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 4543994,
+    "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+  },
+  "N03Freeze": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/freeze.json",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 1734377,
+    "sha256": "1d80caa472ee5f53ea431bb8d53262d48974a516510ae132355c8eaa4303e135"
+  }
+}

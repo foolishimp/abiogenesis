@@ -1,0 +1,22 @@
+{
+  "status": "EXACT_WITH_TWO_DECLARED_BIN_ADAPTATIONS",
+  "normalizedDeclaredBinPaths": [
+    "build/code/src/public/cli.js",
+    "build/code/src/public/codex_cli.js"
+  ],
+  "adaptations": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "archiveMode": 420,
+      "installedMode": 493,
+      "relation": "declared npm bin target adaptation only"
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "archiveMode": 420,
+      "installedMode": 493,
+      "relation": "declared npm bin target adaptation only"
+    }
+  ],
+  "otherPayloadModeChanges": 0
+}

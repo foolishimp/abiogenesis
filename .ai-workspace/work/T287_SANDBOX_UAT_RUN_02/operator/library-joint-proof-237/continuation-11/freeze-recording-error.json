@@ -1,0 +1,7 @@
+{
+  "stage": "documentary freeze recording, before return/freeze writes",
+  "error": "KeyError: 'byteCount'",
+  "failedPremise": "Expected emission metadata used byteCount without checking its own field spelling",
+  "effects": "No owner/resource/native/model/Source/worksite effects; no return or freeze file written",
+  "action": "Use the actual emitted-file size field for the already-matched owner hash; repeat documentary freeze recording only"
+}

@@ -1,0 +1,21 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "priorRole": "Executive",
+  "role": "Writer",
+  "operation": "T287_Q10_FIRST_REFUSAL_RECORDING_WRITER_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "activatedAt": "2026-10-02T17:12:36.086946+00:00",
+  "exactGrant": "Record observed CLOSED Q10 refusal, read-only Node limits/provider probes, initial material triangulation and independent review activation. No repair/retry or Source/generated/candidate/resource/runtime/Git effects.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-byte-frontier-triage-01",
+    "append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "executionPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 540894,
+    "sha256": "6990dbdb806106560a35a20477dd0da41e8db04419ccaefa43cd2d4a710e566f",
+    "mode": 420
+  },
+  "recordedBeforeOtherEffects": true
+}

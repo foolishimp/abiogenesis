@@ -1,0 +1,9 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/test-installs/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child/build/index.js",
+  "originalSHA256": "c114c148f5f8eb13df2973ef9cf626ee8fca6e5caf41bf846a33577524a3c606",
+  "changedSHA256": "6a7ad6661a36ae8e60bb39743c65daf2779e19aa201c2111fb3def67ba129c48",
+  "originalBytes": 1413,
+  "changedBytes": 1453,
+  "contentMatches": false,
+  "expected": false
+}

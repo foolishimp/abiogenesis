@@ -1,0 +1,38 @@
+{
+  "kind": "independent_source_review_freeze",
+  "status": "CLOSED",
+  "disposition": "BOUNDED_GO",
+  "sourceCut": 43,
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/freeze.json",
+    "sha256": "948d0ab5bb44ba808974e4f67d8ad031484b09f9200d4b15a68849b63db62f05",
+    "bytes": 20771
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/review-235/review.md",
+      "sha256": "7e20c23799a521607ffd01d5bea813a9dabef7ed5de7bc567e2164e372028d88",
+      "bytes": 6091
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/review-235/pins.json",
+      "sha256": "3f4faabfb8e6463ef64954754909c12f4c756e501ccf4936c0160a09bc1460e3",
+      "bytes": 13775
+    }
+  ],
+  "selectedPinCount": 41,
+  "scope": "Existing C2 installed-material location and complete consumed-span comparison; complete Source/currentness/authority guards preserved",
+  "authority": {
+    "productSha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+    "frameSha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+    "stdoManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "remainingExit": "Ordinary installed15 publication and genuine retained-producer covered Source/preparation/native Testing join",
+  "limits": [
+    "Causal install/admission/lock availability is controlled in local tests; actual physical09/14 material checks are genuine",
+    "Actual14 first-null remains unobserved; no exclusive runtime-cause claim",
+    "No actual covered Source/current-use/native/C2/restart/original capacity/UAT/release acceptance",
+    "Reviewer ran no tests, imports, owners, resource, publication, native or worksite effects"
+  ],
+  "stop": true
+}

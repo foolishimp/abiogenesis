@@ -1,0 +1,5 @@
+{
+  "code": 1,
+  "signal": null,
+  "message": "Command failed: /opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/products/core28/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js --jsonl /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/read-run_result.jsonl\n"
+}

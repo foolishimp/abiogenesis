@@ -1,0 +1,110 @@
+--- a/code/src/abg/native_work_reacquisition.ts
++++ b/code/src/abg/native_work_reacquisition.ts
+@@ -114,7 +114,7 @@
+     const library = execution?.graphFunctionRef === governanceRef("graph-function", "testing");
+     const gf = library ? defaultGovernanceGraphFunctions().find(g => g.name === execution!.graphFunctionRef)! : nativeWorkReacquisitionGraphFunction();
+     const implementationRef = library ? governanceRef("implementation", "prepare-testing") : ids.implementationRef;
+-    const implementationBindingRef = library ? governanceRef("implementation-binding", "prepare-testing") : ids.implementationBindingRef;
++    const implementationBindingRef = library ? governanceRef("binding", "prepare-testing") : ids.implementationBindingRef;
+     const predicateRef = library ? governanceRef("predicate", "prepare-testing") : ids.predicateRef;
+     if (execution === null || execution.graphFunctionRef !== gf.name || execution.graphFunctionDigest !== hash(gf) ||
+       (library ? !governanceReacquisitionRequestMatches(prefix, execution, input) : !same(execution.rawInputValue, input)) ||
+--- a/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ b/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -316,6 +316,20 @@
+ implementation, task Result, deterministic evidence and advancing judgment;
+ the standalone reacquisition GraphFunction remains exact. This adds no GTL node,
+ Public operation, task schema or fabricated preparation event.
++
++The library occurrence joins the exact GTL leaf's declared
++`binding://abiogenesis/default-library/prepare-testing@5` through its C_Call and
++implementation-set row. A consumer must not substitute an
++`implementation-binding://` coordinate for that declaration. The standalone
++reacquisition binding remains its own declared identity. This is the existing
++`prepare-testing -> native reacquisition occurrence -> current C2 task` relation;
++the phase, historical declaration/closed-source, current-use and D2 cover guards
++remain unchanged. The earlier controlled C_Call fixture mirrored the wrong
++namespace and missed this constructability violation. Its binding premise now
++comes from the canonical GTL leaf and descriptor, with the former namespace
++tested as a refusal. This sufficient counterexample does not establish the first
++null in the actual installed failure; installed continuation remains the exit
++proof.
+ 
+ The owner joins the selected native Result/call/actor/closed child to the
+ historical declaration resource, actual source-use ancestry and current D2
+--- a/test_env/tests/t287-native-work-reacquisition.test.mjs
++++ b/test_env/tests/t287-native-work-reacquisition.test.mjs
+@@ -66,8 +66,13 @@
+     selectedSources:[{relativePath:'source.txt',subjectUri:pathToFileURL(path.join(env.canonicalRoot,'source.txt')).href}],
+     commands:[{commandId:'command://component',executable:'node',args:['--version'],relativeCwd:'.',environment:{},timeoutMs:1000,terminationGraceMs:100,expectedReports:[]}],outcomePredicates:[],allowedWriteTerritories:[{pathKind:'subtree',relativePath:'evidence'}]});
+   const gf=library?gtl.defaultGovernanceGraphFunctions().find(g=>g.name===p.governanceRef('graph-function','testing')):gtl.nativeWorkReacquisitionGraphFunction();
++  const libraryLeaf=library?gf.template.nodes[0].term:null;
++  const libraryBinding=library?gtl.defaultLibraryImplementationBindings({packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION})
++    .find(binding=>binding.bindingRef===libraryLeaf.requirement.implementationBindingRef):null;
++  if(library){assert.ok(libraryBinding);assert.equal(libraryBinding.implementationRef,p.governanceRef('implementation','prepare-testing'));
++    assert.equal(libraryBinding.computeRegime,libraryLeaf.fibre);}
+   const implementationRef=library?p.governanceRef('implementation','prepare-testing'):ids.implementationRef;
+-  const implementationBindingRef=library?p.governanceRef('implementation-binding','prepare-testing'):ids.implementationBindingRef;
++  const implementationBindingRef=library?libraryBinding.bindingRef:ids.implementationBindingRef;
+   const predicateRef=library?p.governanceRef('predicate','prepare-testing'):ids.predicateRef;
+   let raw=request;
+   if(library){
+@@ -95,7 +100,7 @@
+   const graph=gtl.materializeGraph(gf,{invocationAdmissionRef:basis.invocationAdmissionRef,admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:raw});
+   Object.assign(basis,{graphRef:graph.materializationRef,graphDigest:graph.materializationDigest});
+   const source={sourceBasis:{...env.executionBasis,basisRef:'basis://source'},sourceResult:library?sourceResult:{eventId:'source-result',runId:'run://source',graphCallId:old.graphCallId},sourceJudgment:{eventId:'source-judgment'},sourceClosedEvent:old};
+-  const state={source:true,cover:true,current:true,eligible:true,impl:implementationRef,declarationReads:0,reads:0};
++  const state={source:true,cover:true,current:true,eligible:true,impl:implementationRef,binding:implementationBindingRef,declarationReads:0,reads:0};
+   const assemblyBasis={predecessorPrefix:nativeBasis.predecessorPrefix,cCall:call};
+   const owned={prefix:heldPrefix,inputValue:raw,call,execution:basis,graphFunction:gf,program:gtl.constructDefaultGovernanceLibraryModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:hash('artifact'),productContentDigest:hash('content'),productManifestDigest:hash('manifest')}).programs[0],
+     environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]}};
+@@ -103,7 +108,9 @@
+   const rootEvent={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:basis.invocationAdmissionRef,implementationSetRef:basis.rootImplementationSetRef,rawInputValue:raw}};
+   const overrides={
+     './event_prefix.js':{selectValidatedRuntimeEventPrefix:rows=>rows===before?heldPrefix:prefixOwner.selectValidatedRuntimeEventPrefix(rows),
+-      indexedRuntimeEvents:(_p,key)=>key.startsWith('invocation:')?[rootEvent]:key.startsWith('payload:resultRef:')?[sourceResult]:before},
++      projectOwnedRuntimeEventPrefixAtDurablePrefix:()=>heldPrefix,
++      readOwnedRuntimeEventPrefixAtDurablePrefix:(_p,options)=>{state.reads++;if(options?.requireCurrent&&!state.current)throw Error('stale occurrence');return heldPrefix;},
++      indexedRuntimeEvents:(prefix,key)=>key.startsWith('invocation:')?[rootEvent]:prefixOwner.indexedRuntimeEvents(prefix,key)},
+     './event_store.js':{readRuntimeEventsAtDurablePrefix:(_p,options)=>{state.reads++;if(options?.requireCurrent&&!state.current)throw Error('stale occurrence');return before;},authenticateRuntimePrefixAncestry:()=>true,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
+     './project_read_ports.js':{projectClosedGraphCallTerminalAtDurablePrefix:(_p,_g,proof)=>{state.declarationReads++;return JSON.stringify(proof)===JSON.stringify(declaration)?{value:observation,
+       producer:{graphFunction:{ref:p.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef},executionBasis:{ref:source.sourceBasis.basisRef},cCallRef:observation.provenance.cCallRef,resultAdmissionEventRef:source.sourceResult.eventId,judgmentAdmissionEventRef:source.sourceJudgment.eventId}}:null;}},
+@@ -113,8 +120,9 @@
+       governanceHistoricalDeclarationReferenceAtPrefix:()=>constructAbgHistoricalDeclarationReference(declaration)},
+     './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>({kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding})},
+     './worksite_revision.js':{projectWorksiteRevisionBindingCover:()=>state.cover?[]:null},
+-    './c_call.js':{projectOpenedCCallCarrierAtPrefix:()=>({...call,implementationRef:state.impl})},
+-    './execution_basis.js':{rehydrateAdmittedImplementationSetAtPrefix:()=>({implementationSetDigest:basis.rootImplementationSetDigest,rows:[call]}),authenticateNativeInstructionAssemblyBasis:()=>state.current?owned:null},
++    './c_call.js':{projectOpenedCCallCarrierAtPrefix:()=>({...call,implementationRef:state.impl,implementationBindingRef:state.binding})},
++    './execution_basis.js':{rehydrateAdmittedImplementationSetAtPrefix:()=>({implementationSetDigest:basis.rootImplementationSetDigest,rows:[call]}),
++      authenticateNativeInstructionAssemblyBasis:()=>state.current?owned:null,authenticateOwnedNativeInstructionAssemblyBasis:()=>state.current?owned:null},
+     './native_worksite_execution.js':{projectNativeWorkCommandSourceAtPrefix:()=>state.source?source:null,projectNativeWorkspaceWorkSourceAtPrefix:()=>state.source?source:null},
+   };
+   const {SourceTextModule,SyntheticModule}=await import('node:vm');
+@@ -201,7 +209,16 @@
+   const f=await declarationFixture(t,false,true),occurrence={cCallRef:f.call.cCallRef,nativeInstructionAssemblyBasis:f.assemblyBasis};
+   const proof=f.leaf.nativeLeafProofOperations(f.call.implementationRef,f.raw,occurrence,f.resource),beforeState=JSON.stringify(f.raw),sourceBytes=JSON.stringify(f.request.sourceNativeWork);
+   assert.equal(await f.governance.projectGovernanceTestingTask({graphFunction:gtl.defaultGovernanceGraphFunctions().find(g=>g.name===p.governanceRef('graph-function','testing'))},f.raw),null,'cross-binding source has no observed-files fallback');
+-  assert.deepEqual(proof.governanceTestingReacquisition(f.raw,occurrence,f.context),f.task);
++  const declaredLeaf=gtl.defaultGovernanceGraphFunctions().find(g=>g.name===p.governanceRef('graph-function','testing')).template.nodes[0].term;
++  assert.equal(f.call.implementationBindingRef,declaredLeaf.requirement.implementationBindingRef);
++  const preparedTask=proof.governanceTestingReacquisition(f.raw,occurrence,f.context);
++  assert.notEqual(preparedTask,null,'canonical declared prepare-testing binding must be accepted by its occurrence owner');
++  assert.deepEqual(preparedTask,f.task);
++  for(const binding of [p.governanceRef('implementation-binding','prepare-testing'),'binding://foreign']){
++    f.state.binding=binding;
++    assert.equal(proof.governanceTestingReacquisition(f.raw,occurrence,f.context),null,'nondeclared occurrence binding refuses');
++  }
++  f.state.binding=f.call.implementationBindingRef;
+   assert.throws(()=>proof.governanceTestingReacquisition(structuredClone(f.raw),occurrence,f.context),/exact admitted input/);
+   assert.throws(()=>proof.governanceTestingReacquisition(f.raw,{...occurrence},f.context),/exact admitted input/);
+   assert.equal(f.leaf.nativeLeafProofOperations('implementation://foreign',f.raw,occurrence,f.resource).governanceTestingReacquisition,undefined);
+@@ -226,7 +243,7 @@
+   assert.deepEqual(f.task.commands,f.request.commands);assert.deepEqual(f.task.outcomePredicates,f.request.outcomePredicates);
+   fs.writeFileSync(path.join(f.request.workspaceAuthorityBasis.canonicalRoot,'source.txt'),'changed after source preparation');
+   assert.equal(await f.governance.projectGovernanceTestingTask(carrier,f.raw,context=>actualProof.governanceTestingReacquisition(f.raw,actualOccurrence,context)),null,'physical currentness is reacquired before the operation');
+-  t.diagnostic('Actual library preparation/matcher and cold F_D Result/J/evidence relations; physical constructors are real. Source/environment/cover/CCall lookups are controlled lower premises, not new native or installed admission.');
++  t.diagnostic('Canonical GTL leaf/descriptor binding with actual library preparation/matcher and cold F_D Result/J/evidence relations; physical constructors are real. Source/environment/cover/CCall and implementation-set lookups are controlled lower premises, not new native or installed admission.');
+ });
+ let loaded;
+ function actual(){

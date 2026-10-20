@@ -1,0 +1,30 @@
+{
+  "base167": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prepare.mjs",
+      "sha256": "553851db1a6d75e5b37a9fba3c10dcfe2080190f25ad236d22b74b20f1be1950",
+      "byteCount": 36529
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/freeze.json",
+      "sha256": "5effe319b175a10901ee6402c1f1d0f659b8d4d7c3284f10ad2fcbad101fb436",
+      "byteCount": 29444
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/verify-artifacts.mjs",
+      "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+      "byteCount": 2071
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/binding-inputs.mjs",
+      "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+      "byteCount": 1942
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/inputs.json",
+      "sha256": "d4c0ad1d1c73e22034ae8275c6bfd3543a92223693cd07957810d3f6b19b60ed",
+      "byteCount": 9176
+    }
+  ],
+  "helperAndBindingFieldProjectionUnchanged": true
+}

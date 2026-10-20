@@ -1,0 +1,11 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RUNTIME08_CALLER_PREPARATION_GRANT_01",
+  "status": "ACTIVE",
+  "at": "2026-10-02T10:37:14.329275+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-caller-preparation-controls-01"
+  ],
+  "grant": "Separately authorize external controller preparation in parallel with Q09. No Runtime or owner readiness activation; preserve main Runtime08 conditional dependency."
+}

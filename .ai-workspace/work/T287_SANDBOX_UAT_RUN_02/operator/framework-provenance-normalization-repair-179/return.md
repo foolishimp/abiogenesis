@@ -1,0 +1,13 @@
+Worker179 CLOSED — bounded provenance comparison repair, pending independent180 review.
+
+Product Frame: fixed15 ABI5.0 / GOAL035 / T287; original external Data Mapper; STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782. Selected integration/identity/Proof slice is private declaration comparison, distinct from ABG admission and runtime qualification. Product817–837/860–867 and CONT014–016 remain unchanged.
+
+Frozen176’s actual four selected publication closures reproduce the preimage comparator null:24 differing positions are solely artifact/manifest role order. The original canonical hash inventory changes order when archive/manifest hashes cross; exact identity substitution must precede canonical ordering. HOW was amended first. The Source change imports the existing string comparator and orders only the newly mapped provenance array. Arbitrary references, multiplicity, role membership, original owned bytes and every other declaration field remain material.
+
+Strict263-source isolated compile passed6066.800333ms. The affected suite passed6/0fail/0skip in6759.751042ms. Actual frozen176 comparisons accept forward and reverse with exact owner digests and unchanged values. Missing/duplicate/arbitrary/foreign provenance and contract/rule/policy/prerequisite/other declared-vector changes remain non-green. Existing controlled34-state, source ancestry, cold admitted-coordinate and independent-subject claims pass with their disclosed lower premises.
+
+Both proof-local failures are preserved: a relative script coordinate failed before owner entry (23.680667ms); Root selected its absolute address. Focused-01 was5pass/1fail because reversing the parent evaluator’s one-element inventory changed nothing; Root selected the named select evaluator plus exact two-field and byte-inequality assertions. Source/HOW stayed unchanged for that correction. Strict compilation was not repeated.
+
+Exactly three canonical files changed;262 other Sources and selected176/declaration/control inputs remain byte-exact. No normal generated tree, archive/install, worksite, campaign event resource, native/provider or Git effect. Genuine latest176 close1686258635B/digest8acaa9862be4a108bac3946fe09f4403a08bff344f21ac34ad813add5679c858 and completed catalog/View/104 witnesses remain preserved.
+
+This is a sufficient comparator blocker repair, not proof of the first inner projector refusal. Complete owner reconstruction/current-source applicability, fresh successor publication and actual preparation/admission/native/C2/UAT remain open. No capacity/P0/release credit. STOP for independent180; preserve and reuse completed176 producers where applicable rather than rerunning them solely to recreate the boundary.

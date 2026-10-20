@@ -1,0 +1,45 @@
+{
+  "kind": "bounded source-derived elimination and isolated diagnostic evidence",
+  "observed": {
+    "rawTwoProductLock": {
+      "preimageCompleteLockChecks": 1,
+      "successorCompleteLockChecks": 1,
+      "preimageGraphConstructions": 6,
+      "successorGraphConstructions": 2
+    },
+    "rawLiveInstallAppend": {
+      "completeLockChecks": 1,
+      "graphConstructions": 2,
+      "artifactRowsPrepared": 1,
+      "coldPrefixSelections": 0
+    },
+    "liveBindingAppendOverCausalInstalls": {
+      "completeLockChecks": 0,
+      "graphConstructions": 0,
+      "artifactRowsPrepared": 1
+    },
+    "immediateInstallConsumer": {
+      "successorConstructions": 0,
+      "rawProjectionValidation": 0,
+      "copiedProjectionValidations": 1
+    }
+  },
+  "sourceDerivedCost32NamedRelation": {
+    "originalLockCheckLowerBound": 76,
+    "residualRawEmbeddedHistoricalLockChecks": 11,
+    "residualNewPublicLockCheck": 1,
+    "removedRepeatedLockChecksAtLeast": 64,
+    "originalCoreGraphConstructionLowerBound": 228,
+    "residualCoreGraphConstructionsInNamedRelation": 12,
+    "removedCoreGraphConstructionsAtLeast": 216,
+    "priorDifferentDigestSources": 11,
+    "sourceSearchCanonicalBytesBefore": 51033740,
+    "sourceSearchCanonicalBytesAfterForThoseDifferentDigestSources": 0
+  },
+  "limits": [
+    "Original COST32 numbers are closed source-derived lower bounds, not a retained CPU profile. The remaining named relation is source-derived, not an observed core32 setup.",
+    "No elapsed, peak-memory or install-window saving is claimed; other whole-path work and physical package/tree checks remain.",
+    "Observer counts are diagnostic and do not become permanent implementation-spelling/count acceptance rules.",
+    "Raw/cold copied embedded bodies each retain full admission; distinct required physical and source-event/causality checks are not removed."
+  ]
+}

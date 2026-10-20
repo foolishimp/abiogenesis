@@ -1,0 +1,26 @@
+{
+  "sourceCutAuthor": "Root_Executive_selection_recorded_by_Writer",
+  "sourceCutSHA256": "f131c687fbae3be7cf0cbb4ee340def5d4a328de0716e883d4be08d471b5c18c",
+  "originalSources": "all1109 exact originalSource/originalAuthorship/sourceAuthor and every existing C04/C07SourceProvenance relation retained; new test original ABSENT preimage retained",
+  "sourceChangesFromC07": 2,
+  "sourceAddedFromC07": 1,
+  "selectedProjectionOriginalSourceAuthor": "/root/native_applicability_design under T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01",
+  "acceptedProjectionIncrementAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+    "bytes": 1374,
+    "sha256": "68e2fb7240b051aa172f5cdc2785951a7b1f968fad019e9ef044845873ad6719",
+    "mode": 420
+  },
+  "acceptedTestFixtureAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+    "bytes": 2604,
+    "sha256": "d7f981087f6e67ca89d8b34a1e7c5909fb8a9e4d6b101f28632c89abaa649651",
+    "mode": 420
+  },
+  "acceptedSourceFreezeSHA256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+  "trackingSnapshotAuthor": "Root Writer tracking",
+  "builderReportActor": "/root/native_applicability_design under separately activated T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "C07SourceAttributionReference": "C07-source-attribution-reference.json",
+  "sourceRepair": false,
+  "qualificationActorIndependence": "future assessor binds actual original source authors; builder role does not confer independence"
+}

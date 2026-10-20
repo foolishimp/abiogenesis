@@ -1,0 +1,21 @@
+{
+  "operation": "T287_Q12_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INPUT_PREPARATION_ONLY",
+  "closedAt": "2026-10-03T03:04:14.182149+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/freeze.json",
+    "bytes": 17038,
+    "sha256": "9f04f0a6d097a0cc511e745153334691595bbf6a112a6942e1709d574c394f1c",
+    "mode": 292
+  },
+  "boundedCause": "cross-producer copy-role equality conflates source authorship and historical/current materialization attribution",
+  "smallestReEntry": "separate realization_refactor after Root triangulation, under current role-aware HOW/UML",
+  "allWritesStopped": true,
+  "effects": "new review reports only",
+  "testsImportsRepairsRuntimeProviderGitNetwork": 0,
+  "semanticOrQualificationAcceptance": false,
+  "rootAloneSelectsNextEffect": true
+}

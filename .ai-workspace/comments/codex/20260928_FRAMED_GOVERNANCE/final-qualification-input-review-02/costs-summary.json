@@ -1,0 +1,16 @@
+{
+  "readCheckGroups": 3,
+  "perGroupProcessAlarmSeconds": 120,
+  "perGroupGraceMilliseconds": 1000,
+  "aggregateAllowedSeconds": 363,
+  "innerPureNodeCheckTimeoutSeconds": 75,
+  "group2ElapsedMeasurement": "Unavailable: formatter failed before recording elapsed time; original tool result retained",
+  "protectedFileBodiesChecked": 716,
+  "expectedOutputMembersCompared": 925,
+  "Q02LocalRecordHashesVerified": 82,
+  "priorUnchangedTestsRerun": 0,
+  "physicalStaging": 0,
+  "nativeProviderCalls": 0,
+  "monetaryCostKnown": false,
+  "lastPhase": "Report-only writes; no fourth read/check process"
+}

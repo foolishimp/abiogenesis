@@ -1,0 +1,20 @@
+{
+  "createdBy": "Current ordinary caller exclusive mkdir after recorded absence; Root confirmed current grant",
+  "operationIntent": "context-resource-creation-intent.json",
+  "directories": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives",
+      "mode": 493,
+      "canonical": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives",
+      "children": "actual archive population frozen separately"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/observed-c2-01-context",
+      "mode": 493,
+      "canonical": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/observed-c2-01-context",
+      "children": []
+    }
+  ],
+  "currentPermission": "read_context only",
+  "temporaryFilesCreatedByObservation": 0
+}

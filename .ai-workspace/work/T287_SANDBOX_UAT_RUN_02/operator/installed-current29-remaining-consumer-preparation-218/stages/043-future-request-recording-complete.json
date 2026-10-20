@@ -1,0 +1,11 @@
+{
+  "stage": "future-request-recording-complete",
+  "rss": 4892295168,
+  "heapTotal": 4118265856,
+  "heapUsed": 3941591704,
+  "external": 70485776,
+  "arrayBuffers": 68073469,
+  "at": "2026-10-09T14:39:00.996Z",
+  "elapsedMs": 321883.091542,
+  "invocationRef": "invocation://abiogenesis/c63b2883358c97e3226c9b43c6a276df042bd75d6c36575811cb888c121c6f95"
+}

@@ -1,0 +1,32 @@
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts preimage
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts postimage
+@@ -1,6 +1,7 @@
+ import type { NativeJudgmentProofOperations } from "../implementation/contracts.js";
+ import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+ import { isRecord } from "../shared/admission_predicates.js";
++import type { ResultEvidenceLineage } from "../abg/result_evidence_lineage_contracts.js";
+ import type {
+   ModulePublication,
+   ProductSemanticsBinding,
+@@ -106,9 +107,7 @@
+       readonly outputContractRef: string;
+       readonly value: Readonly<Record<string, JsonValue>>;
+       readonly nativeProof?: import("../implementation/contracts.js").NativeJudgmentProofOperations;
+-      readonly admittedEvidence: readonly Readonly<
+-        Record<string, JsonValue>
+-      >[];
++      readonly admittedEvidence: readonly ResultEvidenceLineage[];
+     }>,
+   ) => boolean;
+   readonly resolveProbabilisticWorkerContracts?: (
+@@ -195,9 +194,7 @@
+       readonly outputContractRef: string;
+       readonly value: Readonly<Record<string, JsonValue>>;
+       readonly nativeProof?: NativeJudgmentProofOperations;
+-      readonly admittedEvidence: readonly Readonly<
+-        Record<string, JsonValue>
+-      >[];
++      readonly admittedEvidence: readonly ResultEvidenceLineage[];
+     }>,
+   ) => boolean;
+   readonly resolveProbabilisticWorkerContracts: (

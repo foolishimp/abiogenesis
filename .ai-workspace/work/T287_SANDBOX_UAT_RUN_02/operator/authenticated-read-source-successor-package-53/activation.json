@@ -1,0 +1,22 @@
+{
+  "role": "Worker53 immutable unpublished candidate18 construction",
+  "rootClosedSource51GO": true,
+  "rootClosedProof51GO": true,
+  "method": "STDO2.5.1RC2/fixed15 ABI5 GOAL035/T287",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "classification": "deterministic immutable package construction",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-reuse-repair-51/freeze-corrected.json",
+    "sha256": "6c76b966311987636c44f66bc7f04b64104c5cff4e21b6262e3d434df3b30440",
+    "byteCount": 23686
+  },
+  "effectTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-successor-package-53"
+  ],
+  "inputs": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-successor-package-53/inputs.json",
+  "allInputCount": 951,
+  "path": "accepted51 build -> one npm pack --ignore-scripts -> exact5 member delta -> source-blind packaged verifyProduct -> immutable freeze",
+  "retainedP0": "Installed memory P0 and fullUAT OPEN; accepted51 authenticated read source reuse is bounded mechanical readiness only",
+  "nativeCredit": false
+}

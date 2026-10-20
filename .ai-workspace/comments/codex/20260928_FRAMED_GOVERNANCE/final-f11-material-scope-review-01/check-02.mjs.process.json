@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-scope-review-01/check-02.mjs"
+  ],
+  "startedAt": "2026-09-30T08:47:42.885204+00:00",
+  "pid": 3160,
+  "processGroup": 3160,
+  "timeoutMs": 120000,
+  "terminationGraceMs": 1000,
+  "elapsedSeconds": 0.9526448333635926,
+  "exitCode": 0,
+  "timedOut": false,
+  "stdout": "check-02.mjs.stdout",
+  "stderr": "check-02.mjs.stderr",
+  "claim": "owned process only; no provider/native execution"
+}

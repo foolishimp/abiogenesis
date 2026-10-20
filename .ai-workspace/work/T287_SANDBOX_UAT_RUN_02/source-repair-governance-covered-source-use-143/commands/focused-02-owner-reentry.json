@@ -1,0 +1,19 @@
+{
+  "authority": "Root existing143 grant/private admitted-coordinate re-entry",
+  "priorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/commands/focused-02.result.json",
+    "sha256": "0e4730c9deca8d1adb97a6402134bfd5836513b0051823c201c55255234f3e11",
+    "bytes": 99
+  },
+  "originatingConflict": "new persisted currentSourceUse not supported by the canonical invocation_admitted event profile",
+  "selectedAction": "call-local comparison; ordinary invocation admission attests complete pre-effect declaration check and binds historical SourceBasis unchanged; cold consumers authenticate whole admitted coordinates, actual source Result/J/call/value and each covering reprice",
+  "profileEffects": "none; event_store.ts and event_contract_profiles.ts unchanged",
+  "auditedFixtureAction": [
+    "exact closed Public invocation field projection",
+    "one canonical Run envelope and source fibre/result/advancing judgment",
+    "exact SourceBasis self-digest and Run/invocation/graph/Workspace coordinates",
+    "current rawInputDigest equals unchanged retained source value",
+    "no private comparison field persisted; save complete source-prefix rows rather than guessed row count"
+  ],
+  "limits": "controlled event projection/occurrence, environment/install membership and witnessed cover/source execution lookup; authentic34 state preserved, no DataMapper admission credit"
+}

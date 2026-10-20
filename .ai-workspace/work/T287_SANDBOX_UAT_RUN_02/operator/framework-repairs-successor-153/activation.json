@@ -1,0 +1,28 @@
+{
+  "role": "Publication Writer153",
+  "at": "2026-10-09T02:53:48.708546+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "productFrame": {
+    "features": "Fixed15 ABI5.0",
+    "wave": "GOAL035/T287",
+    "basis": "STDO2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "classification": "Deterministic immutable Product package and clean physical installed-payload verification",
+    "ownerSplit": "Product owns artifact/catalog/declaration meaning; canonical generator owns emitted metadata; thin npm/host transports do not admit ABG runtime truth",
+    "prohibitions": "No source/spec/requirements/package/lock/version/Git/app/event/provider/Run mutation or identity waiver"
+  },
+  "rootConjunction": "138+143+145 accepted bounded Source; Source151 type-boundary repair conjoined with independent152 after the actual148 canonical closure refusal. No installed Source-use/FP-to-HoG/native/C2/UAT credit.",
+  "path": "Exact263 accepted Source \u2192 one normal153 build \u2192 one candidate26 pack \u2192 canonical complete correspondence \u2192 one clean offline installed owner verify \u2192 freeze/STOP",
+  "typedHandoffs": "Canonical normal generator emits934 selected files; archive member pins must match every allowed generated delta; packaged Product verifyArtifact consumes actual archive/manifest and installedRoot; canonical installedProductContentMatches retains byte authority",
+  "invariants": [
+    "251 unchanged Source + exact11 Source143 production changes + cumulative HoG145",
+    "All full Product/Public contracts accounted canonically; no digest omission",
+    "Preserve24/25 and stopped136 A/root/workspace/log/material",
+    "Controlled Source unit premises stay bounded; no model/UAT/current-use credit"
+  ],
+  "exitProof": "Build, pack, full membership/mode/body/metadata/canonical owner correspondence and actual clean host verify pass, followed by Source/generated/protected conservation",
+  "effects": "Only phase153/candidate26/new host/scratch and ordinary normal generated outputs; Root remains read-only",
+  "stop": "First unexpected failure or unexplained drift returns exact RCA/action to Root before retry",
+  "priorFailureAndSelectedAction": "148 closure owner rejected TWO TS2305 dangling references to stripInternal GovernanceCoveredSourceUse;151 marks the two currentSourceUse and coherent private sourceUseDeclarations fields internal. Same unchanged closure owner passed isolated overlay. Canonical placeholders before failure are explained; preserve148 cut.",
+  "preflightGeneratedCut": "All934 current partial148 generated postimages captured before153; capability/manifest are canonical3B placeholders, not a Product identity"
+}

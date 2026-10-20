@@ -1,0 +1,68 @@
+{
+  "status": "CLOSED_READY_FOR_INDEPENDENT_SOURCE_REVIEW",
+  "source": {
+    "selectedFiles": 4,
+    "changedFiles": 3,
+    "conformanceUnchanged": true,
+    "full263MemberComparison": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/conservation.json",
+      "sha256": "03b079a463c113679cf26d217fd517edc396f3db19be430bd0343a3d44e8dc6b",
+      "byteCount": 6344
+    }
+  },
+  "checks": {
+    "strict263": {
+      "exitCode": 0,
+      "wallMs": 6063.694459,
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/commands/strict-01.result.json",
+        "sha256": "d200627201d292c1d505d1ae2fa0d5931e06b7dd107386cee130b9f88cc9d93a",
+        "byteCount": 748
+      }
+    },
+    "focused": {
+      "exitCode": 0,
+      "wallMs": 6824.38325,
+      "pass": 7,
+      "fail": 0,
+      "skip": 0,
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/commands/focused-01.result.json",
+        "sha256": "bf32c806241da80b1d11b331c078cd6921361a331c0a2270721d9e8e95e602d8",
+        "byteCount": 1525
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/commands/focused-01.stdout",
+        "sha256": "2dfa1eb6cd82d1a7481b95ab68a7b5925476d1775735ef31dddd67d8d6faae70",
+        "byteCount": 3326
+      }
+    }
+  },
+  "realBoundary": {
+    "fixtureEvents": 1,
+    "prefixBytes": 868,
+    "ownedAdditionalPhysicalOpens": 0,
+    "freshPhysicalOpens": 1,
+    "copiedPhysicalOpens": 1,
+    "completeArtifactMeaningPreserved": true,
+    "foreignInodeAndChangedDigestRefused": true,
+    "requireCurrentExtentRefused": true,
+    "limits": "Finite canonical resource/ArtifactTruth only; no installed environment, covered-source admission, large capacity or UAT credit"
+  },
+  "controlledClaims": [
+    "Complete34 retained-state and independent assessment subject conservation",
+    "Complete declaration/source/ancestry positive and negative guards; ArtifactTruth/environment/install, execution lookup/replay and covers are lower premises"
+  ],
+  "proofInputDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/proof-scope-reprice.md",
+    "sha256": "a841f4df091161c9f652e903de7dbbd7c359cfbebf7af66b6007e0029de97c28",
+    "byteCount": 536
+  },
+  "limits": [
+    "Exact195 fatal allocator/dominant retainer unproved",
+    "No campaign history, actual37MBcurrent-setup declaration body, archive verifier, recovery, Public/native/model/application effects",
+    "Existing143 controlled-owner fixture39657765B and179 selected declaration pair407665B used only by granted affected unit suite",
+    "Five emitted declaration byte deltas are recorded, not treated as byte-identical or full ABI-equivalent",
+    "No normal generation/package/install; actual installed private callback requires separate proof"
+  ]
+}

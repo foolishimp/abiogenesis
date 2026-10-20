@@ -1,0 +1,15 @@
+{
+  "ordinal": 211827,
+  "offset": 1729626095,
+  "byteCount": 3994915,
+  "sha256": "1dcc727ec6e3c492561a047404b67cca31d79ea083d2d689937740f2090a07da",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-ab787c609e02bf29-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-ab787c609e02bf29-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-ab787c609e02bf29-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-ab787c609e02bf29-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-ab787c609e02bf29-transport.json"
+  },
+  "promptDigest": "sha256:450417ce87d402199f72e9bcd010bb19ae8a5296881d7555edd448e4b371f172",
+  "promptBytes": 650992
+}

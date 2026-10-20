@@ -1,0 +1,13 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:503
+        throw new TypeError("worksite command requires exact executable, args, cwd, timeout, and reports");
+              ^
+
+TypeError: worksite command requires exact executable, args, cwd, timeout, and reports
+    at constructCommand (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:503:15)
+    at Array.map (<anonymous>)
+    at constructWorksiteCommandConfiguration (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:858:37)
+    at Module.constructObservedWorksiteCommandExecutionTask (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:226:27)
+    at makeTask (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/check.mjs:15:34)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/check.mjs:15:294
+
+Node.js v24.7.0

@@ -1,0 +1,36 @@
+{
+  "aggregateBudgetMs": 300000,
+  "aggregateElapsedMs": 708.857832942158,
+  "processes": [
+    {
+      "label": "syntax02",
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/output-checks.mjs"
+      ],
+      "pid": 51936,
+      "exitCode": 0,
+      "elapsedMs": 23.368542082607746,
+      "capMs": 120000,
+      "timedOut": false,
+      "signals": [],
+      "exitObserved": true
+    },
+    {
+      "label": "relation02",
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/check.mjs"
+      ],
+      "pid": 51937,
+      "exitCode": 0,
+      "elapsedMs": 329.55204183235765,
+      "capMs": 120000,
+      "timedOut": false,
+      "signals": [],
+      "exitObserved": true
+    }
+  ],
+  "status": "passed"
+}

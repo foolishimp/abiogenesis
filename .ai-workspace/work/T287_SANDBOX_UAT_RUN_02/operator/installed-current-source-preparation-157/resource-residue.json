@@ -1,0 +1,19 @@
+{
+  "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+  "device": 16777231,
+  "inode": 469189808,
+  "byteCount": 124,
+  "sha256": "034d452d502235ebb2ad8dba4cdca001410299b61713738e0c59427ce7354fbf",
+  "base64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY4MzI3NDAwLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NzE1NjksInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+  "value": {
+    "device": 16777231,
+    "inode": 468327400,
+    "kind": "abiogenesis_event_store_append_lock",
+    "ownerPid": 71569,
+    "schemaVersion": "5.0.0"
+  },
+  "ownerPID": 71569,
+  "ownerAbsentESRCH": true,
+  "recoveryPerformed": false,
+  "releaseReceipt": null
+}

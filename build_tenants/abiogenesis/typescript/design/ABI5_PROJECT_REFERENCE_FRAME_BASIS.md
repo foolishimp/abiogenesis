@@ -19,13 +19,13 @@ or authorize a deterministic interpreter of open-world frame meaning.
 
 - sole operative selection:
   `repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`;
-- method: `stdo://releases/v2.5.1-rc.2/standards/REFERENCE_FRAME_METHOD.md`,
-  heading `Reference Frame Laws`;
+- method: `stdo://releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md`,
+  heading `3. Laws`;
 - engagement profile:
-  `stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md`,
-  heading `Canonical Compression`;
+  `stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md`,
+  heading `1. Canonical compression`;
 - Executive, Worker, and Reviewer:
-  `stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md`;
+  `stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md`;
 - ABI local frame atlas:
   `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas`;
 - admitting authority: `repo://abiogenesis/specification/PRODUCT.md#governance-and-release-boundary`
@@ -35,11 +35,31 @@ The STDO baseline already supplies Product, Design, Design Component, Public
 Boundary, Entity, Operator, Owner, Effect, Reuse/Foundation, Install, Proof,
 and testing frame families. The ABI atlas already supplies Design, Design
 Component, ABIogenesis, GTL, HoG, and ABG specializations. This basis references
-those declarations without copying them. The Definition's composition selects
-the exact Axiom Indexer and STDO Representation Development Products. Their
-verified native routes and fresh maps are read models, not frame authority.
+those declarations without copying them. The Definition selects the standalone
+V3 method with an empty companion composition. Resolve its native documents
+through the STDO toolchain manager. A map requires an explicit exact source
+selection and freshness verification; previous 2.x companion maps and the
+separately published source-checkpoint representation are not this frame basis.
 
 ## Governed Outcome And Workspace
+
+For the STDO 3 reconciliation, the TypeScript tenant's requirements-calculus,
+computational-calculus and execution-environment binding is
+[ABI5_STDO3_COMPUTATIONAL_BINDING.md](ABI5_STDO3_COMPUTATIONAL_BINDING.md).
+It applies `SPEC_METHOD.md#11-build-tenant-binding` and the selected
+`DESIGN_MODULE.md` profile to existing ABI owners. Domain, sequence, state
+and computational projections must account for the same material relations.
+A source-linked algebra or a successful structural check establishes only
+its declared claim. Formal categorical claims require their separate
+demonstration under `FOUNDATIONS.md#4-algebra`.
+
+The current work selection is [T-287's current delivery plan](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan).
+Its explicit outcome and affected relation set govern frame selection.
+Product/requirements, computational Design, authority/effect/lifecycle,
+integration, usability and Proof evaluations preserve their distinct scopes.
+The optional traversal-occurrence, world-model and UX profiles are not adopted
+by similarity of vocabulary or by this reference. Required independent review
+and actual human release acceptance keep their existing owners.
 
 The governed outcome is the smallest T-287 causal increment or admitted method
 prerequisite selected under the current ABIogenesis mandate. Product F17/S06
@@ -148,7 +168,7 @@ This development/review frame specializes the selected STDO evaluations below wi
 the ABI [frame atlas](./ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas)
 and [SP-01..09 seam/proof law](./ABI5_REALIZATION_CONSTITUTION.md#532-compounded-frame-scenario-proof-law).
 It is a local extension under
-`stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#extension-versus-replacement`,
+`stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#extension-versus-replacement`,
 not adoption of mutable methodology source, a replacement engagement profile,
 a runtime environment declaration, or a change to the fifteen-family Product.
 
@@ -158,10 +178,10 @@ what has actually been demonstrated? Keep four claims distinct:
 
 | Claim | ABI evaluation and source route |
 |---|---|
-| Contract/context sufficiency | The declared input, success or candidate output, refusal, domain and supplied context make each participant's responsibility usable. Design/Public Boundary/Owner/Proof families: `stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-generic-specialist-frame-set`. |
-| Actual producer-consumer congruence | Both actual participants and material translations preserve the selected contract over the bounded interaction population. `stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-integration-frame`. |
-| Exact native path | The exact installed subject realizes the selected entry-to-outcome chain, including required owner effects, admission, closure and fresh projections. `stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-frame`. |
-| Ordinary-user/LLM usability | The declared caller obtains the independently specified outcome using its ordinary information and capabilities, with live external compute when claimed. `stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-user-acceptance-frame`. |
+| Contract/context sufficiency | The declared input, success or candidate output, refusal, domain and supplied context make each participant's responsibility usable. Design/Public Boundary/Owner/Proof families: `stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set`. |
+| Actual producer-consumer congruence | Both actual participants and material translations preserve the selected contract over the bounded interaction population. `stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md#integration-frame`. |
+| Exact native path | The exact installed subject realizes the selected entry-to-outcome chain, including required owner effects, admission, closure and fresh projections. `stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md#end-to-end-frame`. |
+| Ordinary-user/LLM usability | The declared caller obtains the independently specified outcome using its ordinary information and capabilities, with live external compute when claimed. `stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md#user-acceptance-frame`. |
 
 **Subject and basis.** Bind the T-287 outcome and independently fixed oracle,
 governing Product/requirement/HOW, exact source checkpoint or artifact/install,
@@ -213,7 +233,9 @@ contract returns to its owning HOW through triangulation.
 UML is the primary scaffold: a small sequence, structure or state diagram
 with brief constraint notes. These concerns guide agents; they do not define
 a JSON schema, generator, interpreter or scaffold implementation. These are two views of the existing system, not
-adoption of a new category calculus or traversal mechanism. Compose existing statements rather than
+adoption of a new runtime calculus or traversal mechanism. The explicit
+computational binding derives and tests the existing composition laws;
+categorical preservation remains a separate claim. Compose existing statements rather than
 enumerating every graph walk. Every integration failure returns this record
 for Executive triangulation. Missing Design is repaired at its owning HOW
 before the grant, realization and affected proof proceed. Constraint tightening
@@ -309,19 +331,19 @@ bounded source mutation. It is not a fourth role and acquires no Product,
 admission, acceptance, or publication authority.
 
 This configuration permits direct Writer entry under the selected
-`STDO_REFERENCE_FRAME_BASELINE.md#engagement-applicability`. One capable
+`EXECUTIVE_BASELINE.md#3-engagement-applicability`. One capable
 context with sufficient intake and an exact existing operation grant needs no
 Executive appointment solely to begin. Materially distinct contexts and any
 required independence select coordination. The RC6 migration is coordinated
 under its recorded separate Writer grants and independent assessment; direct
 entry does not waive that specific requirement or the held C0 design gate.
 
-`REFERENCE_FRAME_METHOD.md#applicability-and-required-results` owns required
+`ACTIVATION.md#applicability` owns required
 evaluations: true applicability requires the result, false excludes only that
 obligation, and unknown withholds the dependent claim. A listed frame, role,
 tool or review event alone creates no requirement and supplies no closure.
 Valid computed facts, recorded judgments and original owner rulings are reused
-through their source routes under SPEC_METHOD and TICKET_METHOD; only material
+through their source routes under SPEC_METHOD and TICKETS; only material
 invalidators reopen affected support. Independent assessment supplies its own
 judgment and cannot reuse the author's judgment as independent assurance.
 

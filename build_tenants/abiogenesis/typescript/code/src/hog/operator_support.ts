@@ -1,3 +1,5 @@
+import { projectOwnedRuntimeTruthAtDurablePrefix, type RuntimeReplayGuard } from "../abg/replay.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority, type RuntimeEventPrefix } from "../abg/event_prefix.js";
 import { sampleNativeEventTime } from "../abg/native_event_time.js";
 import {
   projectRuntimeTruthAtDurablePrefix,
@@ -143,4 +145,13 @@ export function traversalBasis(input: Readonly<{
     executionBasis: input.executionBasis,
     openedTraversalScope: input.openedTraversalScope,
   };
+}
+
+/** @internal Same selected authority without requesting complete public arrays. */
+export function ownedRuntimePrefixAtDurable(prefix: DurablePrefixCoordinate, runId: string): RuntimeEventPrefix {
+  return selectRuntimeEventPrefixFromAuthority(projectOwnedRuntimeEventPrefixAtDurablePrefix(prefix), { runId });
+}
+/** @internal */
+export function ownedReplayAtDurable(prefix: DurablePrefixCoordinate, runId: string): RuntimeReplayGuard {
+  return projectOwnedRuntimeTruthAtDurablePrefix(prefix, runId).replayState;
 }

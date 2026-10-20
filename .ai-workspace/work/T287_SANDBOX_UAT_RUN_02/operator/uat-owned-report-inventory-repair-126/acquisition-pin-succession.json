@@ -1,0 +1,9 @@
+{
+  "selected": "Root126 seven derived module pairs only",
+  "pairs": 7,
+  "allOtherJSONValuesEqual": true,
+  "oldManifestSHA": "22d433085d9d4cf81221e45d566442c391cc35cb3fa7238a36a6d416c63a71d9",
+  "newManifestSHA": "2c506450f29c26f95c9e3f218a7f58003e7d740ad8bc3065a874d20b1b05e3e8",
+  "oracleSHA": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
+  "oracleByteCount": 26966
+}

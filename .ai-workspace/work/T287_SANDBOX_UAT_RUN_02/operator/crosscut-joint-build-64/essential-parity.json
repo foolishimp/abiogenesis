@@ -1,0 +1,42 @@
+{
+  "kind": "bounded_deterministic_generation_parity",
+  "productContentDigest": "sha256:1de2c6e3eff5f744c7f2bb7733c1aa217ae95a1d24796fddf43f03f2b58103be",
+  "payloadMembers": 5263,
+  "publicCatalogRows": 75,
+  "capabilityIds": [
+    "abg.capability.catalog.apply-node-type@5",
+    "abg.capability.catalog.apply-overlay@5",
+    "abg.capability.catalog.contribute@5",
+    "abg.capability.catalog.invoke-graph-function@5",
+    "abg.capability.graph-function.consensus@5",
+    "abg.capability.gtl.admit@5",
+    "abg.capability.gtl.declare@5",
+    "abg.capability.gtl.serialize@5",
+    "abg.capability.gtl.typecheck@5",
+    "abg.capability.install.bind-products@5",
+    "abg.capability.module.publish@5",
+    "abg.capability.operator.public-contract@5",
+    "abg.capability.qualification.self-conformance@5",
+    "abg.capability.runtime.admit-fp-result@5",
+    "abg.capability.runtime.execute-seven-term-c@5",
+    "abg.capability.runtime.replay-continuation@5"
+  ],
+  "catalogDigest": "sha256:9f61d1565261aa9f50daf76e8a2c68e819a938455f2b104d68ad2e8cb3e0f2e1",
+  "contributionManifestDigest": "sha256:9eeee14b2fa75b64a7d404e0cc95b4e53680c540dcd9e54c9c2ea21433846918",
+  "capabilityGraphCoordinate": {
+    "assetLocator": {
+      "contentDigest": "sha256:c706eff3c15e8283658e71740de61e10f3033e760224d2897ce31be96c0b7771",
+      "mediaType": "application/json",
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "schemaVersion": "5.0.0"
+    },
+    "graphDigest": "sha256:975ac8fcf3a55a40ccda8e6a968025723ae2c102b968a8dc4303e5975af77bd7",
+    "graphId": "capability-definition-graph://abiogenesis/abg-5",
+    "graphVersion": "5.0.0"
+  },
+  "assetLocationsVerified": 53,
+  "declarationInventoryDigestLocationsVerified": 14352,
+  "source62EmittedJavaScriptExact": 3,
+  "currentNativeRuntimeAssetMatchesOwnedEventCalculus": true,
+  "noBuildTestRuntimeAdmissionOrQualificationClaim": true
+}

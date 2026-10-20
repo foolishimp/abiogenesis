@@ -1,0 +1,20 @@
+{
+  "kind": "installed_graph_proof_successor_process_result",
+  "startedAt": "2026-10-08T07:53:28.105600+00:00",
+  "completedAt": "2026-10-08T07:56:54.229865+00:00",
+  "pid": 23191,
+  "exitCode": 1,
+  "wallTimeMs": 206122.439792,
+  "timedOut": false,
+  "truncated": false,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/execution-successor.stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/execution-successor.stderr.log",
+    "bytes": 905,
+    "sha256": "14440ffb1b373b6392c1fc19398daf2365707d67fa843fb3dc4215197cf6b16b"
+  }
+}

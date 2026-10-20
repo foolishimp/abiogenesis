@@ -1,0 +1,27 @@
+{
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_CONSTRUCTION_ASSURANCE",
+  "activation": "T287_RC1_C07_CONSTRUCTION_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "closedAt": "2026-10-02T10:10:00.738921+00:00",
+  "subjectSHA256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+  "blockingFindings": [],
+  "scope": "exact C07 source/law/generated/archive/bootstrap/publication/nominal-wrapper mechanical correspondence",
+  "cacheLimit": "593 scratch Node cache bodies excluded;16 archive bodies separately bound; no whole-territory body-freeze claim",
+  "basis": {
+    "artifactDigest": "sha256:4f868f2839da72718cb6809ed15ac1c224fc0d29f31ec113eef37d32190df3b6",
+    "productContentDigest": "sha256:5ba7ecd89da845d556cf830c4bae6ceaf5f34a27f921f0998a3cf4d56626cc3a",
+    "manifestDigest": "sha256:c3070a8f153cb0550d6962d4a5aa15fa4a617242b04678f5318a2fc07a30cfe6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "actualSingletonMixedLocks": false,
+  "nativeAdmissionWholeCarrier": "unproved",
+  "semanticQualificationGreenAF22Release": "open",
+  "RootAloneConjoins": true,
+  "ReviewerWorkloadEffects": 0,
+  "sourceCandidateOldEvidenceWrites": 0,
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-independent-review-controls-01/review",
+  "stop": "freeze final; no additional effects under this activation"
+}

@@ -1,0 +1,86 @@
+{
+  "status": "verified",
+  "immutableSubjects": [
+    {
+      "name": "C03",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+      "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+      "recordsVerified": 92,
+      "bodyBytesVerified": 21451377,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "Source",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/freeze.json",
+      "sha256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+      "recordsVerified": 8663,
+      "bodyBytesVerified": 206153025,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "CallerPrep",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+      "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+      "recordsVerified": 3308,
+      "bodyBytesVerified": 349030200,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "Runtime03",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+      "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+      "recordsVerified": 69,
+      "bodyBytesVerified": 108462557,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "C04",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+      "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+      "recordsVerified": 461,
+      "bodyBytesVerified": 43746497,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "InstallerSource",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/freeze.json",
+      "sha256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+      "recordsVerified": 12415,
+      "bodyBytesVerified": 258922251,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "Setup04",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/freeze.json",
+      "sha256": "856c39d500b5e9a2c14a366bd39da2a31d2811469d2c4f8e2f2997d6e3a5ff80",
+      "recordsVerified": 11231,
+      "bodyBytesVerified": 440658117,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "final-f11-current-resource-caller-02",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json",
+      "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+      "recordsVerified": 58,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "rc1-c03-conformance-caller-repair-01",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/freeze.json",
+      "sha256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+      "recordsVerified": 4,
+      "reverifiedAtClose": true
+    },
+    {
+      "name": "OriginalQ04",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/freeze.json",
+      "sha256": "2296636418d8851ed2ce61932fb9be64eccecc41e445e61c1052e10745cbad97",
+      "recordsVerified": 5229,
+      "reverifiedAtClose": true
+    }
+  ],
+  "sourceOriginsVerified": 1106,
+  "sixteenOriginalArchiveCacheBodiesVerified": true,
+  "oldStores": "Referenced complete Runtime03 and original Q04 closed record bodies reverified in place; no old store copied or mutated",
+  "sourceOrAmbientMutation": false
+}

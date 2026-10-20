@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/prepare.py", line 28, in <module>
+    copy(c03/'final-stage/build_tenants/abiogenesis/typescript/node_modules',stage/'node_modules')
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/prepare.py", line 16, in copy
+    copy(p,dst/p.relative_to(src),exclude_generated)
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/prepare.py", line 18, in copy
+    assert src.is_file() and not src.is_symlink(), str(src)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-stage/build_tenants/abiogenesis/typescript/node_modules/.bin/tsc

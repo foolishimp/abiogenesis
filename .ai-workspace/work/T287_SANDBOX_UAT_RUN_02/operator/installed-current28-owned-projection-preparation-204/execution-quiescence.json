@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-09T11:45:08.175638+00:00",
+  "actualOwnedPidSource": "204 recorded execution, tool session 49215; recorder-pid.json owns 49809; observed preparation PID/PGID 49811",
+  "ownedProcesses": [
+    {
+      "pid": 49809,
+      "status": "ESRCH"
+    },
+    {
+      "pid": 49811,
+      "status": "ESRCH"
+    }
+  ],
+  "ownedGroups": [
+    {
+      "pgid": 49809,
+      "status": "ESRCH"
+    },
+    {
+      "pgid": 49811,
+      "status": "ESRCH"
+    }
+  ],
+  "selectedLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+  "lockAbsent": true,
+  "signalsSent": [],
+  "recoveryAttempted": false,
+  "nativeDispatch": false
+}

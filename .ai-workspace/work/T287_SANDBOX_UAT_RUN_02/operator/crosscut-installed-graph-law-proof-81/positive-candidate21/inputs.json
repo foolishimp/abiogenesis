@@ -1,0 +1,8 @@
+{
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactSha256": "a6e9ed7a905ed36d5575ce3a394f8d2a30a418718f6eb5f7cff86461480fb673",
+  "installHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host",
+  "expectedProductContentDigest": "sha256:571eec0a28bfdb1461aaab8d6bf641950c808fe0e06ef27bffe33b303b404146",
+  "expectedManifestDigest": "sha256:7fd686312577b6c7d32db894dc80bebc05eb89c8496b8c3a8fd1de39b773dcba",
+  "evidenceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/execution"
+}

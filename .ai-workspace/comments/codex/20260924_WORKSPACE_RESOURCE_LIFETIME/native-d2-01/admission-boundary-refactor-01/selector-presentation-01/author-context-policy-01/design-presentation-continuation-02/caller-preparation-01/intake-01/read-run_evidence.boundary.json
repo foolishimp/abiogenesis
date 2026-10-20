@@ -1,0 +1,24 @@
+{
+  "memberKey": "run_evidence",
+  "disposition": "preserved_and_checked",
+  "elapsedMs": 68670.473708,
+  "run": {
+    "digest": "sha256:588b964f609ecd3e8a313921260183255bf47b42d09027998077bb91f87dec45",
+    "ref": "run://abiogenesis/ca14f2e0f649751862844c98923934652fce1c86b67bc5be5c8088c7029f4302"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:4de6fefda791d6d218e15c339167da67e290351ab3447b7036ee22da30421483",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:7d4d66630935556505c7439b678b862ad6e17c785929b77e8f0470fd78fa4918",
+    "prefixLength": 223704751,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/intake-01/read-run_evidence.json",
+  "resultDigest": "sha256:7e9e4dd90e17a8488623e6608e626cebe66be9a064a1a64698f40de02dea97fa"
+}

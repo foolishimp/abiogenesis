@@ -1,0 +1,30 @@
+{
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/resume-config.json",
+    "sha256": "8220ea387b1aee6eb52f2bd61f55592caf3a23fb87c569de8880fca7355a952c",
+    "byteCount": 2991
+  },
+  "differences": [
+    {
+      "path": [
+        "package",
+        "archivePath"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    },
+    {
+      "path": [
+        "package",
+        "sha256"
+      ],
+      "before": "sha256:515f208b27cffc784c006692726b7a81ac6717f6665a1400c4b55e583dcad6a9",
+      "after": "sha256:e1deb8a3d000566ccc550055e333c422b759cb63b8b412820f147046685e2dcb"
+    }
+  ],
+  "onlyTwoPackageFieldsChanged": true,
+  "resumeEvidenceUnchanged": true,
+  "sameControlsAndFullOriginalWorkload": true,
+  "retainedMaterial": "Exact accepted98/100 old48 physical4+44; no remapping/replay/109 source-result reuse or producer credit",
+  "runtimeExecutionHeld": true
+}

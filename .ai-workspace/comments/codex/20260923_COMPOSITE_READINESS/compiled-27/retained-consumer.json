@@ -1,0 +1,10 @@
+{
+  "selectionPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev14/installed-consumer.json",
+  "selectionSha256": "8a7ffee376a55c561d48d106e45f6e44f74184a067855ba385769903e42947a6",
+  "artifactPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev14/artifacts/odd-glc-route-one-typescript-0.2.0-dev.14.tgz",
+  "artifactDigest": "sha256:6bb1c603594258cafb80349edde611dab3bd6a33265aada806114ccb5d06e2a2",
+  "productContentDigest": "sha256:a275b9bb06a30ac6580d3e6b81c749f2f42f248cd09fe903fcad02caeb68205e",
+  "manifestDigest": "sha256:8a552520c7fcfa50a651ea8eab5a7a82e247c9b11e70a24238199d706b2c78e8",
+  "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/odd-glc-dev14-install-jYdjgq/node_modules/@odd-glc/route-one-typescript",
+  "status": "unchanged retained dev14; no rebuild, reinstall, retarget or relabel; actual new composition is a later installed setup duty"
+}

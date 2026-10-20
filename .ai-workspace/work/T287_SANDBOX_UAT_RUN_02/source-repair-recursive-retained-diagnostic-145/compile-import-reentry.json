@@ -1,0 +1,10 @@
+{
+  "status": "SELECTED_LOCAL_IMPORT_CORRECTION",
+  "firstCause": "TS2339: existing diagnostic helpers exported by abg/runtime_failure.ts but not abg/index.ts; HoG used the wrong import surface",
+  "ownerRelation": "Private HoG consumer must import the existing canonical owner functions directly, without widening ABG index/Public exports",
+  "proposedAction": "Add named imports from ../abg/runtime_failure.js in granted HoG source; same isolated compile and affected proof only after selected correction",
+  "effects": "No test/native/fixture execution; compiler noEmitOnError prevented new outputs",
+  "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/isolated-compile-145.result.json",
+  "selectedAction": "Executive accepted direct named runtime_failure imports; decoder returns JsonValue|null; constructor(null) distinguishes retained JSON null; canonical test loads the existing runtime_failure module directly",
+  "nextCommand": "run-targeted-owner-import.mjs"
+}

@@ -1,0 +1,229 @@
+{
+  "kind": "closed_independent_source_checkpoint",
+  "reviewId": "NATIVE-D2-01-SB01-REPAIR-REVIEW-01",
+  "frozenAtUtc": "2026-09-24T16:10:41.491119+00:00",
+  "reviewer": "/root/native_d2_review; astra/max",
+  "verdict": "Bounded design/source/component acceptance; no supported blocker. Root owns installed selection and disposition.",
+  "subjectSha256": "d321ffba668c3733c3f003a2d26dfb6a5847790588a7c19fbad4011f5c02f003",
+  "subjectDigestRecomputedFrom": "canonical members array",
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/review.md",
+    "sha256": "1d0c48c152e9fdf39ab655315f2cde9307d7f3d9cd4d11fadfc755f6bb403957",
+    "byteLength": 6692
+  },
+  "readRefs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/return.md",
+      "sha256": "82fc9f4310e3824e3932d23e74c888625ea1164bcc4d3770e624358a69ba2fc3",
+      "byteLength": 3881
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/frozen-subject.json",
+      "sha256": "90df7dceeb0353c89123f0fb591d5d7287ab19089dfe5344a5e901dbdfbf46e8",
+      "byteLength": 5404
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/source-design-test.diff",
+      "sha256": "e9100f67ac4fec3a9778287b9c2bcd7e93de99e45afa0c66580501165c8e4b76",
+      "byteLength": 28356
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/caller-sequence.md",
+      "sha256": "e5ad247b989e5c03164e1324b7e2d982d4d636e3244bc8d067697b4dbb173920",
+      "byteLength": 1813
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/retained-grounding.json",
+      "sha256": "a0fce2de157f9327b84897ee58a1ba50e8a57e7bd4bca223233364ffeab982f4",
+      "byteLength": 4727
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/checks.json",
+      "sha256": "acbd7da2607c6c8a7396869f4acdfcc84792373ff140f8e1571044562f994ddb",
+      "byteLength": 1985
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/compile-01.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/focused-01.log",
+      "sha256": "ee77fc824e3e8e4e17e030b406b436d9c27398847e662ca5cb0dbc1468f3c5d1",
+      "byteLength": 1410
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/focused-02.log",
+      "sha256": "c5afabb0feb804602f17b21194613c040b112b108c495742a02976b021d1245c",
+      "byteLength": 1219
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preservation.json",
+      "sha256": "212e1ff9fb1d5562dac8acfdcb121ce5f7bc7445e074475359b155a27c146bae",
+      "byteLength": 410
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "sha256": "5c9196e5761551d7bfa9c3f0841d8aaef84ed2430824866c405b02c4f9e54ff2",
+      "byteLength": 48882,
+      "kind": "source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "sha256": "cc5a526479f4ac70443bb89b933bfffd10cbee90bed4a28731ba8ce9ea9a1818",
+      "byteLength": 79771,
+      "kind": "source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "sha256": "5299f9fa948555e908e5fb39b01a5577fc81405d4bc773c82bc68a920f6c8771",
+      "byteLength": 39825,
+      "kind": "test"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "sha256": "9ce7221a2425c26a5fe914633c91a5a547981690a0ef81a01ee04b832102d07e",
+      "byteLength": 61322,
+      "kind": "design"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "sha256": "947a882c9473ae5e4fd8cdc6d9dab021cf63bc6e00169984177859f939637e0e",
+      "byteLength": 62993
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts",
+      "sha256": "a7aa452807794f68db2697345689a2ceb7d46828f63a7cbdc8dd9dbe6ecea3f5",
+      "byteLength": 4795
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+      "sha256": "ba07832b5d7e03760ece4acfb22504325fe5b65e77367d0cf34be6aa6449fab5",
+      "byteLength": 39871
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "sha256": "a2cbbc8525d5dd56c3024a23c2eaa22876cb600cde2ea6079e19126a7c3e8d67",
+      "byteLength": 20855
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "sha256": "69624a50cff0f736434b7900bd8a356db0f6576bc373566bacc6fffc92a6a8ea",
+      "byteLength": 31496
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "sha256": "8f5137dbd7785d392c208007b3c51ca12e1cc2c5a3adc6a96d5b0fc2311ccc9b",
+      "byteLength": 72206
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "sha256": "a095a108400e5fb91ca1e49027526c9d8dcfc8dcb9b53a4d6c24c790cc730936",
+      "byteLength": 13620
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "sha256": "2bd7db1ffaebdc72f0e956b1062da5343299715f93a6922d2effd9e1fe253bc2",
+      "byteLength": 13518
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "sha256": "fd7559d1befb6e73c4a10d16902ce742d6a0d3290e15de70c0dccda2cf65cade",
+      "byteLength": 22163
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/review.md",
+      "sha256": "e0c6ed89153bec279bbf26a7e5164b39b77faef896b33ab8b9fa77530f2c9b84",
+      "byteLength": 9241
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/retained-facts.json",
+      "sha256": "56ee43ceab70e71333309664d91f5c970c146bcade68f83e9a1a8eed00b6d819",
+      "byteLength": 61341
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/constructability.json",
+      "sha256": "a065f0b9833b7e9e1c2ff5c14fa3eb528ffdda858d85ac06f86898b600931211",
+      "byteLength": 3691
+    }
+  ],
+  "governingRefs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "ff10c44e9efe12757e0babf5c5c19c0acf7cf699afd92f96bba08dac2c5230b8",
+      "byteLength": 23813,
+      "id": "frame",
+      "readBasis": "reused exact prior authority read",
+      "sameAsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631",
+      "byteLength": 71660,
+      "id": "product",
+      "readBasis": "reused exact prior authority read",
+      "sameAsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sha256": "ee198c089c4f0344ed04605a902d186c750805a78ef67cac2940957d8aabec33",
+      "byteLength": 33727,
+      "id": "qual",
+      "readBasis": "reused exact prior authority read",
+      "sameAsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "sha256": "e84443f27e54e533a907565b84db7422657dd8b748d5753157649826a8f0d747",
+      "byteLength": 13957,
+      "id": "scenarios",
+      "readBasis": "reused exact prior authority read",
+      "sameAsClosedSB01": true
+    }
+  ],
+  "methodBasis": {
+    "abi": "Definition-selected STDO2.5.1RC1; immutable manifest 5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+    "glc": "Definition-selected RC4; immutable manifest 4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e",
+    "scope": "Reuse closed exact-release authority reads; no STDO qualification rerun"
+  },
+  "diagnostics": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/identity-checks.json",
+      "sha256": "238c1aa8799ac2780e293cd744d056855e9ef82e619e2cfe70aff5239d0015cf",
+      "byteLength": 7133
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/read-permission-probe.mjs",
+      "sha256": "00b83eceb5d5c4129e8eba456c71922ca7cf55c10fbadbb49bb9b28209418a1f",
+      "byteLength": 2319
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/read-permission-probe.json",
+      "sha256": "fd0357a62b3e8c7b2bbc1a06eb421a97c492fe082677020bb0efde8abf728a32",
+      "byteLength": 2016
+    }
+  ],
+  "checksPerformed": [
+    "All 11 postimages; four diff preimages; canonical member fingerprint; immutable supplied return/manifest identities",
+    "Seven unchanged owner identities matched closed SB01 inspection",
+    "Actual worker compile/focused logs inspected and identities verified; no rerun",
+    "One pure current run_status grant construction/validation over retained ordinary W0 environment, without history acquisition or witness construction"
+  ],
+  "callerBoundary": "Current reader uses current contract plus source W0 read permissions. Subsequent witness and native intake use current W1. A W1 run_status authority would be refused for the historical W0 Run.",
+  "evidenceLimits": [
+    "Component prefix/basis/install/invocation and leaf facts are substitutions; synthetic witness-event construction is not Public witness admission",
+    "Actual original intermediate ancestry and current physical context were not reacquired",
+    "Installed root read/witness/intake and consequential native suffix/C2/Evidence remain pending",
+    "Generic missing-SemanticStageBasis failure remains outside the newly named intake relations"
+  ],
+  "noEffects": [
+    "No source/design edit",
+    "No package/install",
+    "No witness construction/admission",
+    "No Run/actor/retry",
+    "No old full-history acquisition",
+    "No Git operation",
+    "No broader test suite/review roster/gate"
+  ],
+  "memoryUse": "Prior MEMORY.md 544 and551\u2013552 informed bounded review/proportionality only; findings verified in workspace."
+}

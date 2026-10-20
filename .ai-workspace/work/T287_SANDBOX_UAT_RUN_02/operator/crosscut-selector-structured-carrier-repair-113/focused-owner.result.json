@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-reporter=spec",
+    "--test-name-pattern",
+    "framed synthesis binds imported contracts|framed Testing prerequisite|fold and assessment consume actual",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "environment": {
+    "ABI5_DEFAULT_LIBRARY_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/isolated"
+  },
+  "startedAt": "2026-10-08T11:33:40.421876+00:00",
+  "exitCode": 0,
+  "durationMs": 937.5987919629551,
+  "timedOut": false,
+  "stdoutByteCount": 633,
+  "stderrByteCount": 0
+}

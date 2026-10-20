@@ -1,0 +1,40 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_Q08_ACCEPTANCE_AND_F11_RELEASE_01",
+  "activatedAt": "2026-10-02T07:47:48.309980+00:00",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-acceptance-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07/input-acceptance.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "exactGrant": "Record received independently CLOSED current Q08 GO, Root bounded preparation acceptance and exact fulfillment of the already separately granted Runtime07 condition. Append current tracking only. No input/source/candidate/install/store/Runtime/network/Git effects by Root Writer.",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 519562,
+      "sha256": "edc79218c6e6b3a8631ca01842c8abba181ce737314aaa89896b50135e33dc5a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 479040,
+      "sha256": "c367e137c821811854f7a6d0dfbcc4baec955312f65abbe5fd91cbdb21123754",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 10386,
+      "sha256": "2f564dd3631b40e7b94053447fb674a15a19755efc6f0c4cccb27b84ddb81abd",
+      "mode": 420
+    }
+  ],
+  "newPathsWereAbsent": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-acceptance-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07/input-acceptance.json"
+  ]
+}

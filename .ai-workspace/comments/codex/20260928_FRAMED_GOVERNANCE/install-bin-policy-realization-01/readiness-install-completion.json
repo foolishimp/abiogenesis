@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "completedAt": "2026-10-02T01:42:48.248Z",
+  "elapsedMs": 3365.775832999998,
+  "installId": "product-install://@abiogenesis-fixtures/f11-carrier-child/5.0.0/3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c/6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/test-installs/fixture/node_modules/@abiogenesis-fixtures/f11-carrier-child",
+  "ABGAdmission": false
+}

@@ -1,0 +1,104 @@
+{
+  "kind": "baseline_mechanical_readiness",
+  "closed_utc": "2026-10-20T18:43:50.056113+00:00",
+  "status": "built_and_packed",
+  "artifact": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+    "bytes": 10676374,
+    "npm_integrity": "sha512-QayiBXUl1tI2Fyu9YDEy1JYzd25CpdxV4hC7n4wFeUM5TdCjWHC0buL7AIfnzUTPaCXIGRCs3/SofMIbepuKRA==",
+    "unpacked_size": 70662393,
+    "entry_count": 5267,
+    "bundled": [
+      "fast-uri",
+      "@standard-schema/spec",
+      "ajv-formats",
+      "ajv",
+      "effect",
+      "fast-check",
+      "fast-deep-equal",
+      "json-schema-traverse",
+      "pure-rand",
+      "require-from-string",
+      "@valibot/to-json-schema",
+      "valibot",
+      "jsonc-parser"
+    ]
+  },
+  "manifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "byte_sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee",
+    "bytes": 3189430,
+    "product_content_digest": "sha256:6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3",
+    "product_id": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "payload_locators": 5265
+  },
+  "correspondence_sha256": "d7673f821dbc3d1244a0567617bb03c1777bc19f7b680e40e5b0ee44a91258e0",
+  "toolchain_and_dependencies_sha256": "18164e4340552720de87fbaae57c7ca85a1529d717c9b07961fce173aa3d1561",
+  "source_manifest_sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+  "generated_source_changes": 0,
+  "commands": [
+    {
+      "label": "dependencies",
+      "argv": [
+        "/opt/homebrew/bin/npm",
+        "ci",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+      "wall_ms": 668.3613748755306,
+      "exit_code": 0
+    },
+    {
+      "label": "tsc",
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+      "wall_ms": 6821.803665952757,
+      "exit_code": 0
+    },
+    {
+      "label": "generate",
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+      "wall_ms": 24847.93912479654,
+      "exit_code": 0
+    },
+    {
+      "label": "pack",
+      "argv": [
+        "/opt/homebrew/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+      "wall_ms": 3293.541041901335,
+      "exit_code": 0
+    }
+  ],
+  "source_and_snapshot_conserved": true,
+  "protected_main_hashes_unchanged": true,
+  "not_performed": [
+    "tests",
+    "installed host",
+    "Product runtime execution",
+    "native actor",
+    "historical resource access or cleanup",
+    "source repair",
+    "Git mutation"
+  ],
+  "claim": "Baseline mechanical build/package readiness only; no L2/L4 acceptance, installation proof or release claim."
+}

@@ -1,0 +1,25 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_CALLER_REPAIR_AND_FAILED_READBACK_01",
+  "workResult": "COMPLETED_BOUNDED_CALLER_REPAIR_AND_AUTHENTIC_FAILED_READBACK",
+  "actor": "/root/q03_input_review Worker",
+  "closedAt": "2026-10-02T04:52:57.635952+00:00",
+  "noFurtherWritesOrExecution": true,
+  "independentAssurance": false,
+  "nextRelation": "Root obtains independent assurance/conjoins; actual failed Run stays failed",
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/result.json",
+    "bytes": 9958,
+    "sha256": "10c0dc49c9f238293cb87a0a78613d2c759f6a4f28757f6c7bea55b4d0f7d91a",
+    "mode": "0o644"
+  },
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/report.md",
+    "bytes": 3568,
+    "sha256": "b5f8759e14dd1467cc6f6afddb920f5a51e6a94b91ada02b9b8638cd0e9d29e8",
+    "mode": "0o644"
+  },
+  "knownGroupsAbsent": true,
+  "ownerReadLockFilesAbsent": true,
+  "eventAppendBytes": 0
+}

@@ -1,0 +1,126 @@
+{
+  "role": "Operator18",
+  "releasedAt": "2026-10-06T18:11:27.893Z",
+  "executive": "Root",
+  "conjunction": "CLOSED SourceReviewer18 and ProofReviewer18 GO for exact Writer17; no prior native/UAT/stop/quality credit",
+  "basis": "fixed15 ABI5/GOAL035/T287 STDO2.5.1RC2 integration/worksite-causality; same original full Data Mapper",
+  "observations": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-run-17/return.md",
+      "sha256": "2223a61d5901a0821e7c1c754c7793a0091fb40b3dd4b49b675df183193990fc",
+      "byteCount": 2348
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-run-17/freeze.json",
+      "sha256": "9291337f4cfd65a1be77b0e3c4c67310139297f83d9d12861b7da5c51c3bff0f",
+      "byteCount": 20685
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-run-17/config.json",
+      "sha256": "05349008130030a803ec3c5d8b027f167a7f43245a7411935a2176aea4e93cfe",
+      "byteCount": 2939
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-run-17/setup.json",
+      "sha256": "2dc3c4cd2876045c84bc0a9bf48d4c1fa8ebafb7d7c4cf03b8ded9f2212b17ea",
+      "byteCount": 2613
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "f2b5065878426098278567e81dae8fb638c82880d696934ac43ccf24da74cee8",
+      "byteCount": 32748
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+      "sha256": "9bf48e6e7fe4200458ed9156f8f0841d1846cf26d44ffa9595adbdb2b7672bb8",
+      "byteCount": 7415
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "sha256": "1c6e6da5dc3ab79243318cf85f821fff1caed7bac0d86ed152aa62faa7a2aa62",
+      "byteCount": 1812
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "61f20872561689420b08c62133f521dfdb9a749b9629b73af605dc7e296d8f7d",
+      "byteCount": 33397
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "dd5e5b164af8198997b45d5575fc7febd43b4b9fcabc46073bdf8ffc7ce5904f",
+      "byteCount": 10621478
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+      "byteCount": 31672
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "6aea6974a3fdcb93423e06b3836f085c090288bea2067eb40270e6e43c8163e3",
+      "byteCount": 45417
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "fd171b5ab38d617bcaf354641ccfa73061ad5f805ad05b752172d0384ef95e63",
+      "byteCount": 94105
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "byteCount": 34763
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "byteCount": 23452
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "byteCount": 26202
+    }
+  ],
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T16-02-51-357Z-3143698d-5b27-4b56-8bda-9221932cdef4",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-run-17/config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recorder": {
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 1048576,
+    "preparationTimeoutMs": 18660000,
+    "delta": "Root selected +1200000 setup/recording margin over driver18060000; common execution authority remains T0+18000000 only"
+  },
+  "deadline": {
+    "authority": "new archive commands/lifecycle-start.request.json.started immediately before CLI spawn; run.json timestamp is setup only",
+    "deadline": "T0 + 18000000 ms; Root externally observes and decides earlier stop based on actual progress",
+    "driverTimeoutMs": 18060000
+  },
+  "stop": {
+    "order": [
+      "resolve admitted C2 occurrence/task/attempt to exact launch.json/helper argv and matching live helper/command PID/PGID ancestry",
+      "stop only owned active helper/command via existing supervision while CLI lives; preserve missing result artifact when actual",
+      "stop only owned provider group via existing supervision while CLI lives",
+      "allow actual native exit/Result admission before driver drainage cleanup"
+    ],
+    "authority": "Root at common T0+5h or explicit earlier stop; no new watchdog, ABG event writer, or semantic progress classifier"
+  },
+  "effects": "existing harness new clean installs/worksite/archive and mechanical4+9 transfer; native actors/commands through admitted grants; new Operator18 records only",
+  "preserved": "all Source/config/candidate/fixtures/oracle/old stores and cuts; no old observations/producers or private app authoring",
+  "residuals": "runtime progress/quality/cleanup proof unearned; no retry/repair"
+}

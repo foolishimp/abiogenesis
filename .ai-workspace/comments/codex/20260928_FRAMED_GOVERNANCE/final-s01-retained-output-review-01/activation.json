@@ -1,0 +1,28 @@
+{
+  "role": "Reviewer T287_FINAL_S01_RETAINED_OUTPUT_REVIEW_01",
+  "actor": "/root/f11_attribution_inputs",
+  "previousRole": "T287_FINAL_QUALIFICATION_INPUT_REVIEW_02 CLOSED",
+  "independence": "did not author C02, D, N03, or N04; Q02 input review remains separate and unchanged",
+  "reportWriter": {
+    "role": "Writer",
+    "grant": "observations/checks/report/freeze only",
+    "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-01"
+  },
+  "exclusions": [
+    "source or caller repair",
+    "native calls",
+    "moving resource/worksite/runtime reads",
+    "Git effects",
+    "wider scenarios/F11/C2/release"
+  ],
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-controls-02/request.txt",
+    "bytes": 6761,
+    "sha256": "45144b1017940667251b035b696dd722c18367e711b55351f42b8e3ff6c5e151"
+  },
+  "processGroups": {
+    "cap": 3,
+    "perGroupMs": 120000,
+    "graceMs": 1000
+  }
+}

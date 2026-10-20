@@ -1,0 +1,363 @@
+{
+  "scope": "ABG installed deterministic fixture, not odd_glc sandbox setup",
+  "cpuAttribution": "unmeasured; wall intervals include I/O and subprocess waits",
+  "fixtureProvisioning": [
+    {
+      "phase": "fixture_file_provisioning_once",
+      "wallMs": 1038.3009579999998,
+      "scope": "copy ABG deterministic fixture files and dependencies; no odd_glc scenario setup"
+    }
+  ],
+  "cases": [
+    {
+      "shape": "compose",
+      "inputs": [
+        "seed",
+        "seed!"
+      ],
+      "basis": "execution-basis://abiogenesis/60484b182114dec1cf405e916148c48787fd4a3430a70c61adf5be74b5bdc012",
+      "result": {
+        "kind": "hello_world_output",
+        "message": "Hello seed!!",
+        "schemaVersion": "5.0.0"
+      },
+      "timings": {
+        "fixtureArtifactPreparationMs": 14115.02325,
+        "setupMs": 22521.91,
+        "traversalMs": 2346.925583999997,
+        "accounting": {
+          "wallMs": {
+            "provisioning_pack": 3327.099,
+            "provisioning_extract": 498.5377499999995,
+            "bootstrap_owner_loading_and_candidate_preparation": 276.739625000002,
+            "provisioning_verify_artifact": 12068.04625,
+            "provisioning_install": 2701.798333999999,
+            "provisioning_installed_content_check": 582.6965419999979,
+            "provisioning_additional_products": 0.003500000006170012,
+            "installed_owner_loading": 262.2834590000057,
+            "environment_install_and_workspace_admission": 441.25566699999763,
+            "execution_preparation_publication_program_and_catalog": 336.22908400000597,
+            "execution_preparation_resolution_and_program_validation": 1227.222249999999,
+            "execution_preparation_invocation_admission": 144.4807079999955,
+            "execution_preparation_graph_and_implementation_resolution": 88.80591700000514,
+            "execution_preparation_basis_and_leaf_port": 565.7287910000014,
+            "execution_preparation_open_scope": 25.33558400000038
+          },
+          "volumes": {
+            "archiveBytes": 10165702,
+            "archiveUnpackedBytes": 66857195,
+            "archiveMemberCount": 5231,
+            "installedTreeBytes": null,
+            "preTraversalEventCount": 6,
+            "preTraversalLogBytes": 2341560,
+            "finalEventCount": 86,
+            "finalLogBytes": 2592981
+          },
+          "cpuAttribution": "unmeasured; wall intervals include I/O and subprocess waits"
+        }
+      },
+      "scope": "scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"
+    },
+    {
+      "shape": "batch",
+      "inputs": [
+        "seed",
+        "seed"
+      ],
+      "basis": "execution-basis://abiogenesis/ca4d4854094b3f542f16d63e2780705aa36cd897634a09c89f7b168957206534",
+      "result": {
+        "kind": "hello_world_output",
+        "message": "Hello seed!",
+        "schemaVersion": "5.0.0"
+      },
+      "timings": {
+        "fixtureArtifactPreparationMs": 13358.494625,
+        "setupMs": 22686.222416999997,
+        "traversalMs": 2286.311499999996,
+        "accounting": {
+          "wallMs": {
+            "provisioning_pack": 3473.391875000001,
+            "provisioning_extract": 486.83804199999577,
+            "bootstrap_owner_loading_and_candidate_preparation": 233.99887500000477,
+            "provisioning_verify_artifact": 12358.365459,
+            "provisioning_install": 2680.776582999999,
+            "provisioning_installed_content_check": 611.2235409999994,
+            "provisioning_additional_products": 0.0022089999984018505,
+            "installed_owner_loading": 243.22149999999965,
+            "environment_install_and_workspace_admission": 394.20945799999754,
+            "execution_preparation_publication_program_and_catalog": 302.1507500000007,
+            "execution_preparation_resolution_and_program_validation": 1156.7894579999993,
+            "execution_preparation_invocation_admission": 135.89875000000757,
+            "execution_preparation_graph_and_implementation_resolution": 83.0765420000098,
+            "execution_preparation_basis_and_leaf_port": 525.4611249999871,
+            "execution_preparation_open_scope": 17.123124999998254
+          },
+          "volumes": {
+            "archiveBytes": 10165762,
+            "archiveUnpackedBytes": 66857193,
+            "archiveMemberCount": 5231,
+            "installedTreeBytes": null,
+            "preTraversalEventCount": 6,
+            "preTraversalLogBytes": 2342366,
+            "finalEventCount": 88,
+            "finalLogBytes": 2600034
+          },
+          "cpuAttribution": "unmeasured; wall intervals include I/O and subprocess waits"
+        }
+      },
+      "scope": "scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"
+    },
+    {
+      "shape": "nested",
+      "inputs": [
+        "seed",
+        "seed!",
+        "seed",
+        "seed!"
+      ],
+      "basis": "execution-basis://abiogenesis/51544cd26874376e5a3790b031ee4e89b12aba6e91ab6215a2ce634103ca45c5",
+      "result": {
+        "kind": "hello_world_output",
+        "message": "Hello seed!!",
+        "schemaVersion": "5.0.0"
+      },
+      "timings": {
+        "fixtureArtifactPreparationMs": 12965.203125,
+        "setupMs": 22130.304541999998,
+        "traversalMs": 3433.4809160000004,
+        "accounting": {
+          "wallMs": {
+            "provisioning_pack": 3443.7898749999877,
+            "provisioning_extract": 483.33466600000975,
+            "bootstrap_owner_loading_and_candidate_preparation": 236.7340419999964,
+            "provisioning_verify_artifact": 11794.430000000008,
+            "provisioning_install": 2613.2954169999866,
+            "provisioning_installed_content_check": 569.1957079999993,
+            "provisioning_additional_products": 0.0025830000085989013,
+            "installed_owner_loading": 253.8367500000022,
+            "environment_install_and_workspace_admission": 454.65495799999917,
+            "execution_preparation_publication_program_and_catalog": 305.53162500000326,
+            "execution_preparation_resolution_and_program_validation": 1190.1794170000067,
+            "execution_preparation_invocation_admission": 140.22854200001166,
+            "execution_preparation_graph_and_implementation_resolution": 120.98741699999664,
+            "execution_preparation_basis_and_leaf_port": 523.3131670000002,
+            "execution_preparation_open_scope": 18.60837500001071
+          },
+          "volumes": {
+            "archiveBytes": 10165713,
+            "archiveUnpackedBytes": 66857194,
+            "archiveMemberCount": 5231,
+            "installedTreeBytes": null,
+            "preTraversalEventCount": 6,
+            "preTraversalLogBytes": 2353004,
+            "finalEventCount": 126,
+            "finalLogBytes": 2733795
+          },
+          "cpuAttribution": "unmeasured; wall intervals include I/O and subprocess waits"
+        }
+      },
+      "scope": "scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"
+    },
+    {
+      "shape": "progressed",
+      "inputs": [
+        "seed",
+        "seed!",
+        "seed!"
+      ],
+      "basis": "execution-basis://abiogenesis/715453b19b03bb826d3160eb7e0f8fc68e4f6fa9b0687a9b0b72efe7d91a7125",
+      "result": {
+        "kind": "hello_world_output",
+        "message": "Hello seed!!",
+        "schemaVersion": "5.0.0"
+      },
+      "timings": {
+        "fixtureArtifactPreparationMs": 12984.071916,
+        "setupMs": 22000.928209000005,
+        "traversalMs": 2830.346749999997,
+        "accounting": {
+          "wallMs": {
+            "provisioning_pack": 3370.4184169999935,
+            "provisioning_extract": 483.2417499999865,
+            "bootstrap_owner_loading_and_candidate_preparation": 236.23375000001397,
+            "provisioning_verify_artifact": 11704.99208299999,
+            "provisioning_install": 2642.8518330000225,
+            "provisioning_installed_content_check": 562.2319169999973,
+            "provisioning_additional_products": 0.003958999994210899,
+            "installed_owner_loading": 257.0427090000012,
+            "environment_install_and_workspace_admission": 442.90895799998543,
+            "execution_preparation_publication_program_and_catalog": 318.1936670000141,
+            "execution_preparation_resolution_and_program_validation": 1194.4532920000202,
+            "execution_preparation_invocation_admission": 139.20087499998044,
+            "execution_preparation_graph_and_implementation_resolution": 103.20412499998929,
+            "execution_preparation_basis_and_leaf_port": 545.2777500000084,
+            "execution_preparation_open_scope": 25.498166000004858
+          },
+          "volumes": {
+            "archiveBytes": 10165724,
+            "archiveUnpackedBytes": 66857198,
+            "archiveMemberCount": 5231,
+            "installedTreeBytes": null,
+            "preTraversalEventCount": 6,
+            "preTraversalLogBytes": 2347307,
+            "finalEventCount": 105,
+            "finalLogBytes": 2660298
+          },
+          "cpuAttribution": "unmeasured; wall intervals include I/O and subprocess waits"
+        }
+      },
+      "scope": "scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"
+    },
+    {
+      "shape": "batch_in_batch",
+      "inputs": [
+        "seed",
+        "seed",
+        "seed",
+        "seed"
+      ],
+      "basis": "execution-basis://abiogenesis/754a170f7d1bd3fb7f2aa8f7c02cc594f1649320b56589b64ded5f4094b48835",
+      "result": {
+        "kind": "hello_world_output",
+        "message": "Hello seed!",
+        "schemaVersion": "5.0.0"
+      },
+      "timings": {
+        "fixtureArtifactPreparationMs": 12972.56812500002,
+        "setupMs": 22136.224541000003,
+        "traversalMs": 3544.574290999997,
+        "accounting": {
+          "wallMs": {
+            "provisioning_pack": 3369.587041999999,
+            "provisioning_extract": 490.9474170000176,
+            "bootstrap_owner_loading_and_candidate_preparation": 235.19525000001886,
+            "provisioning_verify_artifact": 11871.428249999997,
+            "provisioning_install": 2643.5474579999864,
+            "provisioning_installed_content_check": 573.765167000005,
+            "provisioning_additional_products": 0.0035419999912846833,
+            "installed_owner_loading": 253.31241700000828,
+            "environment_install_and_workspace_admission": 392.6958750000049,
+            "execution_preparation_publication_program_and_catalog": 304.9784159999981,
+            "execution_preparation_resolution_and_program_validation": 1200.457208000007,
+            "execution_preparation_invocation_admission": 139.5899999999965,
+            "execution_preparation_graph_and_implementation_resolution": 121.6498750000028,
+            "execution_preparation_basis_and_leaf_port": 538.6554159999941,
+            "execution_preparation_open_scope": 18.92483400000492
+          },
+          "volumes": {
+            "archiveBytes": 10165724,
+            "archiveUnpackedBytes": 66857202,
+            "archiveMemberCount": 5231,
+            "installedTreeBytes": null,
+            "preTraversalEventCount": 6,
+            "preTraversalLogBytes": 2353838,
+            "finalEventCount": 126,
+            "finalLogBytes": 2734629
+          },
+          "cpuAttribution": "unmeasured; wall intervals include I/O and subprocess waits"
+        }
+      },
+      "scope": "scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"
+    },
+    {
+      "shape": "recovery",
+      "inputs": [
+        "seed",
+        "seed",
+        "seed!"
+      ],
+      "basis": "execution-basis://abiogenesis/a0d31cc910e479edf0f15c5ca09250e1dd7729ca944fd5993fc4382a52fd2b31",
+      "result": {
+        "diagnosticRef": "diagnostic://abiogenesis/implementation/implementation-exception@5",
+        "failureClass": "implementation_exception",
+        "kind": "hello_world_failure",
+        "schemaVersion": "5.0.0"
+      },
+      "timings": {
+        "fixtureArtifactPreparationMs": 12976.223708000005,
+        "setupMs": 22281.769792000006,
+        "traversalMs": 2348.7040829999896,
+        "accounting": {
+          "wallMs": {
+            "provisioning_pack": 3424.3659159999806,
+            "provisioning_extract": 485.1559589999961,
+            "bootstrap_owner_loading_and_candidate_preparation": 240.24920900000143,
+            "provisioning_verify_artifact": 11899.062082999997,
+            "provisioning_install": 2682.025708000001,
+            "provisioning_installed_content_check": 587.8327909999934,
+            "provisioning_additional_products": 0.0023330000112764537,
+            "installed_owner_loading": 259.2903749999823,
+            "environment_install_and_workspace_admission": 416.5560420000111,
+            "execution_preparation_publication_program_and_catalog": 312.80791699999827,
+            "execution_preparation_resolution_and_program_validation": 1192.4283750000177,
+            "execution_preparation_invocation_admission": 139.26250000001164,
+            "execution_preparation_graph_and_implementation_resolution": 103.00245800000266,
+            "execution_preparation_basis_and_leaf_port": 539.2473330000066,
+            "execution_preparation_open_scope": 24.51312499999767
+          },
+          "volumes": {
+            "archiveBytes": 10165753,
+            "archiveUnpackedBytes": 66857281,
+            "archiveMemberCount": 5231,
+            "installedTreeBytes": null,
+            "preTraversalEventCount": 6,
+            "preTraversalLogBytes": 2347317,
+            "finalEventCount": 84,
+            "finalLogBytes": 2596476
+          },
+          "cpuAttribution": "unmeasured; wall intervals include I/O and subprocess waits"
+        }
+      },
+      "scope": "scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"
+    },
+    {
+      "shape": "identity_end",
+      "inputs": [
+        "seed",
+        "seed"
+      ],
+      "basis": "execution-basis://abiogenesis/13ee4b3d8f8d21c7dc3eeabe596add77bd45ea91754ac61ba7fa8093b7df2541",
+      "result": {
+        "kind": "hello_world_output",
+        "message": "Hello seed!",
+        "schemaVersion": "5.0.0"
+      },
+      "timings": {
+        "fixtureArtifactPreparationMs": 13036.022167000017,
+        "setupMs": 21951.992666999984,
+        "traversalMs": 2337.1411249999655,
+        "accounting": {
+          "wallMs": {
+            "provisioning_pack": 3406.9118749999907,
+            "provisioning_extract": 487.8739169999899,
+            "bootstrap_owner_loading_and_candidate_preparation": 244.8556249999965,
+            "provisioning_verify_artifact": 11688.950624999998,
+            "provisioning_install": 2610.4637499999662,
+            "provisioning_installed_content_check": 608.317834000045,
+            "provisioning_additional_products": 0.002957999997306615,
+            "installed_owner_loading": 259.0139580000541,
+            "environment_install_and_workspace_admission": 407.15916600002674,
+            "execution_preparation_publication_program_and_catalog": 303.6221670000232,
+            "execution_preparation_resolution_and_program_validation": 1162.5257500000298,
+            "execution_preparation_invocation_admission": 136.87354100000812,
+            "execution_preparation_graph_and_implementation_resolution": 85.3216249999823,
+            "execution_preparation_basis_and_leaf_port": 549.6402090000338,
+            "execution_preparation_open_scope": 24.20033299998613
+          },
+          "volumes": {
+            "archiveBytes": 10165707,
+            "archiveUnpackedBytes": 66857200,
+            "archiveMemberCount": 5231,
+            "installedTreeBytes": null,
+            "preTraversalEventCount": 6,
+            "preTraversalLogBytes": 2342374,
+            "finalEventCount": 88,
+            "finalLogBytes": 2600051
+          },
+          "cpuAttribution": "unmeasured; wall intervals include I/O and subprocess waits"
+        }
+      },
+      "scope": "scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"
+    }
+  ]
+}

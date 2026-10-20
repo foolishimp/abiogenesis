@@ -1,0 +1,58 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_C05_CARRIER_EXECUTION_06",
+  "role": "Worker conditional Runtime",
+  "actor": "/root/native_applicability_design",
+  "activatedAt": "2026-10-02T03:49:58.395268+00:00",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06",
+  "previousRoles": "all Source/Builder/Setup05/ReportWriter CLOSED; previous Executive has no mutation authority",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-06/request.txt",
+    "bytes": 8142,
+    "sha256": "2ada3d46c4d74e3083f24f967493518835242db2d3963f14c7376549c592a763"
+  },
+  "phase": "Root accepted and released exact Runtime",
+  "RuntimeGate": "HELD until Root input-acceptance.json plus separate exact byte/hash pin message",
+  "ownerPreparationImportsResourceReopenHelperRuntime": "NOT AUTHORIZED YET",
+  "realProviderCalls": 0,
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06",
+  "sourceGitNetworkOldStores": "READONLY",
+  "pinnedDonors": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+      "bytes": 866138,
+      "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/freeze.json",
+      "bytes": 3902338,
+      "sha256": "3aa1948357cbce79b8c029f0be610fda129e325d6b0a267501e9e690cdd92f82"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-installed-setup-acceptance-01/acceptance.json",
+      "bytes": 5219,
+      "sha256": "8b730d544806534d799282ba45e474289f53a985cc19decf222989b848c8ff2d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 36658,
+      "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b"
+    }
+  ],
+  "preparationFreezeSHA256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+  "actorRef": "actor://abiogenesis/t287/f11-c05-installed-setup-05/operator",
+  "parentSelection": {
+    "programRef": "program://abiogenesis-fixture/f11-carrier/parent@5",
+    "graphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+    "childGraphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+    "inputContractRef": "contract://abiogenesis/qualification/assessment-input@5",
+    "historicalFixtureArchiveUnchanged": true,
+    "scope": "prospective ordinary caller selection only; actual catalog/View/closure binding remains a Runtime owner obligation"
+  },
+  "RootInputAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-06/input-acceptance.json",
+    "bytes": 4305,
+    "sha256": "5e878ae3cb494eb3ba0ff2ffca0754a4d5af81fe1a82ff43814823ce576695ef"
+  },
+  "RootReleaseRecorded": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/runtime-release.json"
+}

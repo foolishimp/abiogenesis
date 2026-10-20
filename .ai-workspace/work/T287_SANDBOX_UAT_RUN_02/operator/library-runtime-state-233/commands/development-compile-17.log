@@ -1,0 +1,7 @@
+source/code/src/abg/traversal_route.ts(4362,25): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(prefix: ValidatedRuntimeEventPrefix, authorityPrefix?: ValidatedRuntimeEventPrefix | undefined, priorDerivation?: ReplayState | undefined): ReplayState', gave the following error.
+    Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+      Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+  Overload 2 of 2, '(prefix: RuntimeEventPrefix, authorityPrefix?: RuntimeEventPrefix | undefined, priorDerivation?: ReplayState | undefined): ReplayState', gave the following error.
+    Argument of type 'RuntimeReplayGuard' is not assignable to parameter of type 'ReplayState'.
+      Type 'RuntimeReplayGuard' is missing the following properties from type 'ReplayState': kind, schemaVersion, cCalls, routes, and 5 more.

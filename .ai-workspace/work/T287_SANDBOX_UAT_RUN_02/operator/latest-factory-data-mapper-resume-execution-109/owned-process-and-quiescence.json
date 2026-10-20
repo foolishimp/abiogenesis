@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-08T11:21:27.469079+00:00",
+  "exactOwnedPids": [
+    {
+      "pid": 42859,
+      "observation": "absent/ESRCH"
+    },
+    {
+      "pid": 42861,
+      "observation": "absent/ESRCH"
+    },
+    {
+      "pid": 46391,
+      "observation": "absent/ESRCH"
+    },
+    {
+      "pid": 46437,
+      "observation": "absent/ESRCH"
+    },
+    {
+      "pid": 47011,
+      "observation": "absent/ESRCH"
+    },
+    {
+      "pid": 48078,
+      "observation": "absent/ESRCH"
+    }
+  ],
+  "psExitCode": 1,
+  "psOutput": "  PID  PPID  PGID ELAPSED    RSS COMM\n",
+  "signalsSent": [],
+  "nativeAndProviderExitFactsFromAdmittedEvents": true,
+  "store": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c/resources/events/runtime.events.jsonl",
+    "sha256": "0a47df5aedc9282530dc4b3bf638d60ab2c4507cedd01bfc3cec72b31e0242ec",
+    "byteCount": 22952230
+  },
+  "stableObservationMs": 1000,
+  "stableDevice": 16777231,
+  "stableInode": 468136431,
+  "stableMtimeNs": "1791458049499806141",
+  "scopeLimit": "Exact owned PID observations and finite store stability only; no global census, future-writer or containment claim. C2 command terminationConfirmed is admitted owner evidence; helper PID was not independently sampled."
+}

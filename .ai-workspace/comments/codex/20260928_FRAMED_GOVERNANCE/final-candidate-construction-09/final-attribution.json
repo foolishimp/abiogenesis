@@ -1,0 +1,182 @@
+{
+  "sourceCutAuthor": "/root Writer T287_TYPED_C09_SOURCE_SELECTION_WRITER_01",
+  "sourceCutSHA256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+  "originalSources": "all selected originalSource/originalAuthorship/sourceAuthor and nested historical SourceProvenance/preimage/sourceAuthorship relations retained",
+  "sourceChangesFromBaseline": 7,
+  "sourceAddedFromBaseline": 2,
+  "unchangedFromBaseline": 1102,
+  "selectedIncrementAuthors": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "bytes": 275717,
+        "sha256": "72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+        "bytes": 9375,
+        "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+        "bytes": 68281,
+        "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+        "bytes": 9375,
+        "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+        "bytes": 18923,
+        "sha256": "74c055f0126a6dc3f2e403d8fb58f03073244e20a798c9b7be85f281f4da0ef1",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+        "bytes": 9375,
+        "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 76530,
+        "sha256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+        "bytes": 9375,
+        "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 19573,
+        "sha256": "5da1cf726fe749056d81ac69ef60188e38977bd1df3b9b59df68fab9228f3140",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+        "bytes": 9375,
+        "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "sourceAuthor": "/root Writer T287_RESULT_LINEAGE_INTEGRATION_DESIGN_WRITER_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+        "bytes": 36658,
+        "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/design-acceptance.json",
+        "bytes": 3001,
+        "sha256": "c384fb1b887d99b9237f0fef3e7fc239dbce506d8bb0faa229b946bd73e82c7e",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sourceAuthor": "/root Writer T287_RESULT_LINEAGE_INTEGRATION_DESIGN_WRITER_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 490257,
+        "sha256": "47b182a0404708219c0b01a726b542108ac2bd307b12c783d94fb88032533288",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/design-acceptance.json",
+        "bytes": 3001,
+        "sha256": "c384fb1b887d99b9237f0fef3e7fc239dbce506d8bb0faa229b946bd73e82c7e",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+      "preimage": "ABSENT",
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+        "bytes": 9375,
+        "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "sourceAuthor": "/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01; fixture successor T287_TYPED_LINEAGE_TYPE_FIXTURE_REPAIR_01",
+      "preimage": "ABSENT",
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+        "bytes": 9375,
+        "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/source-authorship.json",
+        "bytes": 2000,
+        "sha256": "e5e36fc04f82071b643e5b1426afe77f784dbefd1af5bc04f672eb08f0f8c0bc",
+        "mode": 420
+      }
+    }
+  ],
+  "acceptedSourceAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+    "bytes": 9375,
+    "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+    "mode": 420
+  },
+  "acceptedTestFixtureAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/source-authorship.json",
+    "bytes": 2000,
+    "sha256": "e5e36fc04f82071b643e5b1426afe77f784dbefd1af5bc04f672eb08f0f8c0bc",
+    "mode": 420
+  },
+  "acceptedSourceFreezeSHA256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+  "operativeSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+    "bytes": 1436,
+    "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+    "mode": 420
+  },
+  "historicalPreparedReviewField": "PENDING_EXACT_CLOSED_INDEPENDENT_REVIEW",
+  "builderReportActor": "/root/native_applicability_design under separately activated T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+  "baselineSourceAttributionReference": "baseline-source-attribution-reference.json",
+  "sourceRepair": false,
+  "qualificationActorIndependence": "builder is not source author; no new qualification independence"
+}

@@ -1,0 +1,10 @@
+{
+  "stage": "private-preparation-start",
+  "elapsedMs": 82419.93341600001,
+  "at": "2026-10-10T15:29:44.406Z",
+  "rss": 2782756864,
+  "heapTotal": 612532224,
+  "heapUsed": 500281152,
+  "external": 2530960,
+  "arrayBuffers": 118653
+}

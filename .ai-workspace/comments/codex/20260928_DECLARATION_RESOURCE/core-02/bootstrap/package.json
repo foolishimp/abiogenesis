@@ -1,0 +1,1 @@
+{"name":"abi5-declaration-resource-bootstrap","private":true,"version":"1.0.0","dependencies":{"@abiogenesis/typescript-tenant":"file:../artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"}}

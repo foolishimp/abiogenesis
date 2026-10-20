@@ -1,0 +1,32 @@
+{
+  "state": "STAGING_CHECKS_PASS",
+  "initialFrozenPinRecords": 839,
+  "pinMismatches": 0,
+  "sourceCount": 264,
+  "emittedCount": 528,
+  "same232": 196,
+  "same235": 7,
+  "baseArchiveMembers": 5265,
+  "baseArchiveMemberByteModeTypeCorrespondence": true,
+  "stageFileCount": 5778,
+  "stageFileBytes": 104188264,
+  "ordinaryDevDependencyFiles": 243,
+  "ordinaryDevDependencyBytes": 26133993,
+  "typescriptLibraryByteComparisons": 100,
+  "helperFiles": 5,
+  "replayBodyByteEquivalent": true,
+  "correctedComparisonElapsedMs": 273.151,
+  "preservedFirstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/staging-04/staging-first-check-failure.json",
+    "sha256": "c9dd105933a24757942164318f89d05075abe3c704cbc907e78900df66cfb277",
+    "byteCount": 728
+  },
+  "selectedCorrection": "Root selected exact existing generator252-259 library filter; only that affected comparison and metadata completion repeated.",
+  "limits": [
+    "No new artifact/content/manifest/installed identity generated or asserted.",
+    "Seed31 manifest and graph remain old input bytes until the existing generator runs.",
+    "Final233 independent acceptance and separate Root execution grant remain required.",
+    "Future npm pack inventory/modes must be measured independently;236 two CHANGELOG exclusions/two CLI modes do not establish this successor inventory.",
+    "No original DataMapper resources or shared Source/build writes."
+  ]
+}

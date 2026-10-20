@@ -1,0 +1,11 @@
+{
+  "kind": "public_declaration_byte_conservation",
+  "baselineEmissionManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-emission.json",
+    "sha256": "52e15cc740e072bfab393cf2e082f2cc066b9cb159fa31bfd7b472d05006c767",
+    "bytes": 161512
+  },
+  "declarations": 264,
+  "unchanged": 264,
+  "changed": []
+}

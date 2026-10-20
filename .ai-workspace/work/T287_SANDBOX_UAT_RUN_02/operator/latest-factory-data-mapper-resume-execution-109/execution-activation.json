@@ -1,0 +1,94 @@
+{
+  "role": "Operator109",
+  "selectedAt": "2026-10-08T11:03:59.784Z",
+  "authority": "Root RELEASE109 conjoins frozen107 and independent108; one original full Data Mapper resume",
+  "method": "fixed15 ABI5 GOAL035/T287 STDO2.5.1RC2",
+  "frames": [
+    "f-end-to-end-interface-integration",
+    "f-worksite-causality"
+  ],
+  "selectedInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/return.md",
+      "sha256": "6ec9fbb2568b6bf15b719d648b9c3d5108b2f700d0e271e19f9ca806773b32c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/readiness.json",
+      "sha256": "6600f71194e84497d9ad7c87fc1a09b5fa959cb7521ad7cc72ef46dda63d38fb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/freeze.json",
+      "sha256": "1e60e3d9e14fb63783673941807dfb8fc96185a78a928af4c2098a9b0e098c79"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/setup.json",
+      "sha256": "e359582024069413a71d50c5cbb3c1b5a2b539582fc6fba5f8c4df9a44a306c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/resume-config.json",
+      "sha256": "8220ea387b1aee6eb52f2bd61f55592caf3a23fb87c569de8880fca7355a952c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-publication-review-108/return.md",
+      "sha256": "4c59f0fbb7f3e51b2ad1cd65b0c948d0162268733aad8c1b8b2a47f24ca233a9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-publication-review-108/pins.json",
+      "sha256": "b11f784ca129a4a344e389d7260f68eecfad30042e87d862b535eeb8d44fc4af"
+    }
+  ],
+  "package": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:515f208b27cffc784c006692726b7a81ac6717f6665a1400c4b55e583dcad6a9"
+  },
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/resume-config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912
+  },
+  "limits": {
+    "commandTimeoutMs": 18000000,
+    "terminationGraceMs": 10000,
+    "currentCommandBudgetMs": 18025000,
+    "providerInactivityMs": 18030000,
+    "providerAbsoluteMs": 18040000,
+    "driverMs": 18060000,
+    "recursionBound": 1000,
+    "nativeCaptureBytes": 268435456,
+    "outerRecorderMs": 19260000,
+    "outerRecorderBytes": 536870912,
+    "model": "claude-opus-5-5",
+    "maxTurnsOrUsdSupplied": false
+  },
+  "executionAuthority": "NEW commands/lifecycle-start.request.json.started +18000000ms after actual Root release; all old clocks retained historically.",
+  "stop": "Resolve exact admitted C2 task/attempt/helper argv and live ownership; stop owned helper/command first, then admitted provider group while CLI can admit actual exits; bounded TERM/KILL confirmation and truthful missing artifact/exit. No guessed/global signals/private events.",
+  "sourceState": {
+    "kind": "none",
+    "observations": [],
+    "synthesis": null,
+    "terminal": false,
+    "oldProducerCredit": false
+  },
+  "material": {
+    "originals": 4,
+    "authors": 44,
+    "ledgerRows": 52,
+    "oldStoreCopyOrReplay": false
+  },
+  "criteria": "All67 original oracle criteria and16 distinct compiled production mutants/exact restorations/full independent UAT; no app/proof credit from material or publication.",
+  "firstSelectorProof": "Actual result_text argv/no json-schema; canonical full response schema retained; raw JSON completion/admission/choice/next-task ownership",
+  "noOperatorSourceOrApplicationEdits": true
+}

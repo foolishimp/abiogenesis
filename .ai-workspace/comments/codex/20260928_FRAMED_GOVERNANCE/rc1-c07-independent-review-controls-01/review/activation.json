@@ -1,0 +1,35 @@
+{
+  "status": "activated_report_only",
+  "activation": "T287_RC1_C07_CONSTRUCTION_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "activatedAt": "2026-10-02T10:10:00.738921+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-independent-review-controls-01/request.txt",
+    "kind": "file",
+    "bytes": 3511,
+    "sha256": "4955ca9f803202a53ac54020a70e520d22954e71fa471e750d20cb4fa033d105",
+    "mode": 420,
+    "role": "exact seven-section independent grant"
+  },
+  "dependency": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+    "kind": "file",
+    "bytes": 381272,
+    "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+    "mode": 420,
+    "role": "CLOSED exact construction subject"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-independent-review-controls-01/review",
+  "ProductFrame": "fixed15/STDO2.5.1RC2; GTL native raw ownership; source/cut/Product/Install distinct; construction not qualification",
+  "referenceFrames": [
+    "end-to-end-interface-integration",
+    "NativeDefinition",
+    "Identity",
+    "Effects",
+    "Proof/Reuse/Cost"
+  ],
+  "priorSourceC06Assurance": "CLOSED and reused; no author role",
+  "independentOfBuilder": true,
+  "effectGrant": "pure read/hash/compare and new report only"
+}

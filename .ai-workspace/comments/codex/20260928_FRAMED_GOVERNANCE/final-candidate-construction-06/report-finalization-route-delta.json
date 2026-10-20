@@ -1,0 +1,15 @@
+{
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/finalize.py",
+    "bytes": 16253,
+    "sha256": "844c71576fb05800e6fddc8e21260e4c903e5b2744bb1cdff44142cc1f3b7f56"
+  },
+  "postimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/finalize.py",
+    "bytes": 16266,
+    "sha256": "3f01583ed3467a5874ccaa57476c8818a4c5e782962582e451a3ee0907796631"
+  },
+  "change": "only expected capability route literal; existing measured reports are preserved",
+  "actualProducerRoute": "contracts/capabilities/capability-definition-graph.json",
+  "actualSourceGeneratedPayloadEffects": 0
+}

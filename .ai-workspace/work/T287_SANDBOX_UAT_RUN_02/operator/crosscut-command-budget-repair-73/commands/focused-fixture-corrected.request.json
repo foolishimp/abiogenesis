@@ -1,0 +1,17 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=command cleanup budget",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T06:37:01.632Z",
+  "environmentKeys": [
+    "ABG_WORKSITE_BUILD_ROOT",
+    "ABI5_GENERIC_JOB_BUILD_ROOT",
+    "PATH"
+  ],
+  "timeoutMs": 180000
+}

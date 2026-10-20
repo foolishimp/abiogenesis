@@ -1,0 +1,383 @@
+--- continuation-08/run-08.mjs
++++ continuation-09/run-09.mjs
+@@ -19,12 +19,12 @@
+   assert(selected.helperFiles.some(pin=>pin.path===join(selected.helperRoot,name)),'Unselected helper: '+name);
+ const [setupOwner,runner,scenarios,consumerOwner,continuation]=await Promise.all(
+   ['public-setup.mjs','runner.mjs','scenarios.mjs','consumer.mjs','continuation.mjs'].map(name=>import(pathToFileURL(join(selected.helperRoot,name)).href)));
+-const {installedModules,verifyArtifact,publicCaller,constructLifecycleCall,requireKind,corePublications}=setupOwner;
++const {installedModules,verifyArtifact,publicCaller,constructLifecycleCall,requireKind,corePublications,BoundaryFailure}=setupOwner;
+ const host=JSON.parse(await readFile(selected.publicationHost,'utf8'));
+ const runtime=await installedModules(host.installedRoot),p=runtime.product,a=runtime.abg,hash=p.sha256Canonical;
+ const executionRoot=selected.fixtureRoot,outputRoot=join(root,'execution');await mkdir(outputRoot);
+ const environment={...Object.fromEntries(['HOME','PATH','TMPDIR','LANG','LC_ALL'].filter(key=>process.env[key]!==undefined).map(key=>[key,process.env[key]])),npm_config_cache:join(selected.publicationRoot,'npm-cache'),npm_config_offline:'true'};
+-const configuration={runId:'library-joint-proof-237',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
++const configuration={runId:'library-joint-proof-237-09',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
+   nodePath:process.execPath,setupEnvironment:environment,toolchains:{npm:{executable:selected.npm},node:{executable:process.execPath}},
+   recursionBound:1000,processTimeoutMs:300000,maxProcessOutputBytes:16777216};
+ const recordAt=directory=>async(name,value,raw=false)=>{const path=join(directory,name);assert(path.startsWith(directory+'/'));await mkdir(dirname(path),{recursive:true});await writeFile(path,raw?value:JSON.stringify(value,null,2)+'\n',{flag:'wx'});};
+@@ -40,7 +40,7 @@
+   'activeFluents','terminalReachedEventRef','frameClosedEventRef','graphCallClosedEventRef','runClosedEventRef',
+   'runStoppedEventRef','runStoppedDisposition','invocationRefusalEventRef','runtimeFailureEventRef','runtimeStatus',
+ ];
+-async function compareCompleteReplay(owner,executed,parent,reads) {
++async function compareCompleteReplay(owner,executed,expectedCount,reads,evidence) {
+   // Only this finite fixture's normal closed resource is comparison input.
+   // Raw values never replace the helper's Source/currentness/effect authority.
+   const prefix=owner.state.closeHandoff.prefix,runId=executed.receipt.resources.run.ref;
+@@ -77,9 +77,26 @@
+     assert.equal(product.sha256Canonical(selectedEvent.payload),event.payloadDigest,'Complete payload digest differs '+event.eventId);
+     selectedPayloads++;
+   }
+-  const physical=reads.find(read=>read.memberKey==='run_replay')?.projection?.physicalCoordinates;assert(physical);
+-  assert.equal(physical.scopedReplayDigest,bodyDigest);assert.equal(physical.scopedReplayRef,full.replayRef);
+-  assert.equal(physical.fullEventHistoryDigest,prefixes.runtimeEventPrefixDigest(rawAuthority));
++  const publicReplay=reads.find(read=>read.memberKey==='run_replay');
++  assert.equal(publicReplay?.projection?.kind,'run_replay_projection');
++  assert.deepEqual(publicReplay.projection.subject,executed.receipt.resources.run);
++  assert.deepEqual(publicReplay.source,executed.receipt.resources.run);
++  assert.deepEqual(publicReplay.projection.replay,{ref:full.replayRef,digest:bodyDigest});
++  assert.deepEqual(publicReplay.ownerOutput.value.projectionBasis,{ref:prefix.eventLogRef,digest:prefix.coordinateDigest});
++  assert.equal(prefixes.runtimeEventPrefixDigest(authority),prefixes.runtimeEventPrefixDigest(rawAuthority));
++  assert.deepEqual(evidence.source,executed.receipt.resources.run);
++  assert.deepEqual(evidence.projection.subject,executed.receipt.resources.run);
++  assert.deepEqual(evidence.projection.replay,{ref:full.replayRef,digest:bodyDigest});
++  assert.deepEqual(evidence.projectionBasis,{ref:prefix.eventLogRef,digest:prefix.coordinateDigest});
++  assert.equal(evidence.projection.kind,'run_evidence_projection');
++  assert(Array.isArray(evidence.projection.evidence)&&Array.isArray(evidence.projection.eventAtoms));
++  const candidates=full.cCalls.flatMap(row=>{
++    const input=product.retainedGovernanceWorkInput(row.resultValue);
++    return row.resultClass==='success'&&row.judgment==='advance'&&input?.terminal===false&&input.observations.length===expectedCount?
++      [{resultRef:row.resultRef,inputDigest:product.sha256Canonical(input),originalDigest:product.sha256Canonical(input.original),original:input.original,observations:input.observations}]:[];
++  });
++  assert(candidates.length>0,'Complete actual replay has no judged nonterminal parent with the expected completed work');
++  const parent=candidates.at(-1);
+   const parentCall=full.cCalls.filter(call=>call.resultRef===parent.resultRef);assert.equal(parentCall.length,1);
+   assert.equal(parentCall[0].resultClass,'success');assert.equal(parentCall[0].judgment,'advance');
+   const parentRows=rawRows.filter(event=>event.kind==='c_call_result_admitted'&&event.runId===runId&&event.payload.resultRef===parent.resultRef);
+@@ -90,137 +107,147 @@
+   assert(full.actorProcesses.length>0,'Native actor rows must be present in the complete result');
+   // Return coordinates/digests/counts only. Complete rows, streamed strings,
+   // ReplayState and authority views are not recorded or carried to preparation.
+-  return {replayRef:full.replayRef,replayDigest:bodyDigest,canonicalBytes:Buffer.byteLength(canonical),canonicalSha256:sha(canonical),
++  return {selectedParent:parent,replay:{replayRef:full.replayRef,replayDigest:bodyDigest,canonicalBytes:Buffer.byteLength(canonical),canonicalSha256:sha(canonical),
+     nativeLivenessPresent:livenessPresent,nativeLivenessDigest:product.sha256Canonical(full.nativeLiveness),
+     eventStoreDigest:full.eventStoreDigest,eventCount:full.eventCount,selectedPayloads,
+     collections:Object.fromEntries(['cCalls','routes','constructionDeltas','fanOutCompletions','continuations','actorProcesses','currentWorksiteObservations'].map(field=>[field,full[field].length])),
+     parent:{resultRef:parent.resultRef,resultDigest:parentCall[0].resultDigest,cCallRef:parentCall[0].cCallRef,admissionEventRef:parentRows[0].eventId},
+-    sourceOfComparison:'Actual installed owner; one complete finite raw logical read; full authority scope and selected historical Run scope'};
++    sourceOfComparison:'Actual installed owner; one complete finite raw logical read; full authority scope and selected historical Run scope'}};
+ }
+ 
+-async function restoreRecordedSetup(owner) {
+-  const version='5.0.0',read=async path=>JSON.parse(await readFile(path,'utf8'));
+-  const previous=selected.previousExecution,close=await read(join(previous,'calls/catalog-admit.close.json'));
++async function setupChangedPair(caller) {
++  const {root,runtime,native,config,record,state,actor,actorRef,authorize,invoke}=caller;
++  const {product,abg,gtl,validator}=runtime, hash=product.sha256Canonical;
++  const version='5.0.0';
++  const workspaceManifest=JSON.parse(await readFile(join(executionRoot,'workspace-manifest.json'),'utf8'));
++  await record('workspace-manifest.json',workspaceManifest);
++  const fixture=await prepareConsumer({root:join(root,'setup'),product,gtl,verified:native.verified,archivePath:native.request.artifactPath,
++    npm:config.toolchains.npm.executable,recursionBound:config.recursionBound,command:caller.command});
++  const consumer=await verifyArtifact(runtime,{artifactPath:fixture.artifactPath,manifest:fixture.manifest,expectedArtifactDigest:fixture.basis.artifactDigest},record,'consumer');
++  const natives=[native,consumer], verificationRefs=[], packedArtifacts=[], verificationOutputs=[];
++  assert.strictEqual(product.selectOwnedProductVerification(consumer.request,consumer.verified),consumer.verified);
++  assert.equal(hash(fixture.publication.programs[0]),expectedProgramDigest,'The new consumer must preserve the complete original Program');
++  for(const relative of ['build/semantics.mjs','contracts/assessment.schema.json','contracts/public-contract-catalog.schema.json']) assert.deepEqual(await readFile(join(root,'setup/consumer-source',relative)),await readFile(join(executionRoot,'setup/consumer-source',relative)),relative);
++  const resolvedLock=requireKind(product.ProductEnvironmentPort.resolve({kind:'product_resolution_packet',schemaVersion:version,
++    memberKey:'resolve',verifiedArtifacts:natives.map(item=>item.verified)}),'resolved_product_lock','lock-construction');
++  stage='same-workspace-owner-reconstruction';
++  const close=JSON.parse(await readFile(selected.resource.closeHandoff,'utf8'));
+   const physical=await stat(fileURLToPath(close.prefix.eventLogRef),{bigint:true});
+   assert.equal(physical.dev.toString(),selected.resource.device);assert.equal(physical.ino.toString(),selected.resource.inode);
+   assert.equal(physical.size.toString(),selected.resource.byteCount);assert.equal(physical.mtimeNs.toString(),selected.resource.mtimeNs);
+-  assert(!(await readdir(dirname(fileURLToPath(close.prefix.eventLogRef)))).some(name=>/lock/iu.test(name)),'A quiet fixture must not retain an append lock');
+-  assert.deepEqual(close,await read(selected.resource.closeHandoff));
+-  const consumerExpected=await read(join(previous,'consumer-acquisition.json'));
+-  const consumerManifest=await read(join(previous,'setup/consumer-source/product-toolchain-manifest.json'));
+-  stage='live-consumer-verification';
+-  const consumer=await verifyArtifact(runtime,{artifactPath:consumerExpected.request.artifactPath,manifest:consumerManifest,
+-    expectedArtifactDigest:consumerExpected.request.expectedArtifactDigest},record,'consumer');
+-  assert.deepEqual(consumer.request,consumerExpected.request);
+-  assert.deepEqual(consumer.verification,consumerExpected.verification);
+-  assert.strictEqual(p.selectOwnedProductVerification(consumer.request,consumer.verified),consumer.verified);
+-  stage='same-pair-pure-resolution';
+-  const resolvedLock=requireKind(p.ProductEnvironmentPort.resolve({kind:'product_resolution_packet',schemaVersion:version,
+-    memberKey:'resolve',verifiedArtifacts:[owner.native.verified,consumer.verified]}),'resolved_product_lock','recorded-lock-construction');
+-  const readOutcome=async label=>{const value=await read(join(previous,'calls',label+'.outcome.json'));
+-    assert.equal(value.kind,'installed_definition_call_transport_result');assert.equal(value.receipt.exitCode,0);
+-    assert.equal(value.receipt.ownerOutput.outcomeKind,'result');return value.receipt;};
+-  const resolved=await readOutcome('product-resolve'),bound=await readOutcome('workspace-bind'),catalog=await readOutcome('catalog-admit'),view=await readOutcome('catalog-view');
++  assert.equal(close.prefix.prefixDigest,selected.resource.prefixDigest);assert.equal(close.prefix.coordinateDigest,selected.resource.coordinateDigest);
++  assert(!(await readdir(dirname(fileURLToPath(close.prefix.eventLogRef)))).some(name=>/lock/iu.test(name)),'Fixture must be quiescent');
++  const prior=JSON.parse(await readFile(selected.previousSetup,'utf8'));
++  state.closeHandoff=close;state.binding=prior.binding;
++  let held=null,oldEnvironment;
++  try {
++    held=requireKind(abg.acquireAbgEventResource(caller.reopen()),'acquired_abg_event_resource','same-fixture-acquisition').resource;
++    oldEnvironment=caller.refresh(held.entryPrefix);
++    assert.deepEqual(oldEnvironment.workspaceBinding.bindingId,state.binding.ref);
++    assert.deepEqual(oldEnvironment.workspaceBinding.bindingDigest,state.binding.digest);
++    assert.equal(oldEnvironment.workspaceAuthorityBasis.authorizedActorRef,actorRef);
++    assert.equal(oldEnvironment.workspaceAuthorityBasis.workspaceId,workspaceManifest.workspaceRef);
++    assert.equal(oldEnvironment.workspaceAuthorityBasis.canonicalRoot,config.worksiteRoot);
++    const normal=abg.closeAbgEventResource(held,held.entryPrefix);held=null;
++    assert.deepEqual(normal.closeHandoff,close);state.closeHandoff=normal.closeHandoff;
++  } finally {if(held)state.closeHandoff=abg.closeAbgEventResource(held,held.entryPrefix).closeHandoff;}
++  stage='new-pair-public-setup';
++  for(let i=0;i<natives.length;i++) {
++    const item=natives[i], v=item.verified;
++    const packed={kind:'product_verification_artifact_resource',schemaVersion:version,artifactPath:item.request.artifactPath,
++      artifact:{ref:v.artifactRef,digest:v.artifactDigest},productContent:{ref:'product-content://abi5-tests/'+v.productContentDigest.slice(7),digest:v.productContentDigest},
++      descriptor:item.verification.coordinates.descriptor,contributionManifest:{ref:v.contributionManifestRef,digest:v.contributionManifestDigest},
++      manifestDigest:v.manifestDigest,productId:v.productId,packageName:v.packageName,packageVersion:v.packageVersion};
++    const checked=await invoke('product-verify-'+i,await authorize(product.PRODUCT_VERIFICATION_SOURCE_DECLARATIONS.verify,
++      {targetKind:'packed_artifact',artifact:packed.artifact,productContent:packed.productContent,descriptor:packed.descriptor,
++        contributionManifest:packed.contributionManifest,declaredDependencies:v.declaredDependencies,
++        compatibilityInputs:v.compatibilityRefs.map(compatibilityRef=>({compatibilityRef,subjectRef:packed.productContent.ref}))},
++      {kind:'product_verification_resources',schemaVersion:version,targetKind:'packed_artifact',packedArtifact:packed,verifiedArtifact:v}));
++    verificationRefs.push({invocation:{ref:checked.call.invocation.invocationRef,digest:checked.call.invocation.invocationDigest},
++      outcome:checked.receipt.ownerOutput.value.verifiedArtifact});packedArtifacts.push(packed);verificationOutputs.push(checked.receipt.ownerOutput);
++  }
++  state.resolvedLock=resolvedLock;
+   const lock={ref:resolvedLock.lockId,digest:resolvedLock.lockDigest};
+-  assert.deepEqual(resolved.receipt??resolved.ownerOutput.value.resolvedLock,lock);
+-  assert.deepEqual(bound.ownerOutput.value.resolvedLock,lock);
+-  owner.state.closeHandoff=close;owner.state.binding=bound.ownerOutput.value.binding;owner.state.resolvedLock=resolvedLock;
+-  const completedLabels=['workspace-create','product-verify-0','product-verify-1','product-resolve','product-install-0','product-install-1','workspace-bind','catalog-admit','catalog-view'];
+-  for(const label of completedLabels){const receipt=await readOutcome(label);owner.state.calls.push({label,exitCode:receipt.exitCode,
+-    definitionKey:receipt.definitionKey,outcomeKind:receipt.ownerOutput.outcomeKind,invocationRef:receipt.invocationRef});}
+-  let resource=null,environment,installations,installedProducts,workspaceAuthority;
+-  stage='recorded-fixture-resource-acquisition';
+-  try {
+-    resource=requireKind(a.acquireAbgEventResource(owner.reopen()),'acquired_abg_event_resource','recorded-fixture-acquisition').resource;
+-    assert.deepEqual(resource.entryPrefix,close.prefix);
+-    environment=owner.refresh(resource.entryPrefix);
+-    assert.deepEqual(environment.resolvedProductLock,resolvedLock);
+-    assert.equal(environment.workspaceAuthorityBasis.authorizedActorRef,owner.actorRef);
+-    const workspaceManifest=await read(join(previous,'workspace-manifest.json'));
+-    assert.equal(environment.workspaceAuthorityBasis.workspaceId,workspaceManifest.workspaceRef);
+-    assert.equal(environment.workspaceAuthorityBasis.canonicalRoot,configuration.worksiteRoot);
+-    workspaceAuthority=environment.workspaceAuthorityBasis;owner.workspaceAuthority=workspaceAuthority;
+-    installations=[];installedProducts=[];
+-    for(let i=0;i<2;i++){
+-      const receipt=await readOutcome('product-install-'+i);
+-      const actual=a.projectAdmittedProductInstallByInvocationRef(environment.artifactTruth,receipt.invocationRef);
+-      assert(actual?.install&&actual?.candidate,'Recorded install must be actually admitted');
+-      assert.deepEqual(p.productInstallCoordinate(actual.install),receipt.ownerOutput.value.installedProduct);
+-      assert.deepEqual(actual.resolvedLock,resolvedLock);assert.deepEqual(receipt.ownerOutput.value.resolvedLock,lock);
+-      assert(environment.productInstalls.some(install=>hash(install)===hash(actual.install)));
+-      const v=i===0?owner.native.verified:consumer.verified;
+-      assert.equal(actual.install.artifactDigest,v.artifactDigest);assert.equal(actual.install.productContentDigest,v.productContentDigest);
+-      assert.equal(actual.install.manifestDigest,v.manifestDigest);
+-      installations.push(actual.install);installedProducts.push(actual.candidate);
+-    }
+-    assert.equal(environment.productInstalls.length,installations.length);
+-    assert.deepEqual(bound.ownerOutput.value.installedSet,installations.map(p.productInstallCoordinate));
+-    const actualBinding=a.projectAdmittedWorkspaceBindingByInvocationRef(environment.artifactTruth,bound.invocationRef,resolvedLock);
+-    assert(actualBinding?.binding);assert.deepEqual(actualBinding.binding,environment.workspaceBinding);
+-    assert.equal(actualBinding.binding.bindingId,owner.state.binding.ref);assert.equal(actualBinding.binding.bindingDigest,owner.state.binding.digest);
+-    const rootFields={toolchain:'toolchainRoot',product:'productRoot',event_log:'eventLogRoot',runtime_state:'runtimeStateRoot',projection:'projectionRoot',archive:'archiveRoot'};
+-    for(const row of bound.ownerOutput.value.declaredRoots)assert.equal(environment.workspaceBinding.roots[rootFields[row.rootKind]],row.path);
+-    owner.installedRoot=installations[0].installedRoot;
+-    stage='recorded-catalog-pure-reconstruction';
+-    const data=await read(join(previous,'setup/consumer-source/build/publication.json')),v=consumer.verified;
+-    const publication=runtime.gtl.modulePublication({...data,artifactDigest:v.artifactDigest,productContentDigest:v.productContentDigest,
+-      productManifestDigest:v.manifestDigest,contributions:data.contributions.map(row=>({...row,provenanceRefs:[v.artifactDigest,v.manifestDigest]}))});
+-    const publications=corePublications(runtime.gtl,owner.native.verified).concat(publication);
+-    assert.deepEqual(publications.slice(0,-1).map(value=>[value.moduleRef,p.modulePublicationSemanticDigest(value)]).sort(),
+-      owner.native.verified.contributionManifest.publicationBindings.map(value=>[value.moduleRef,value.publicationDigest]).sort());
+-    assert.deepEqual(v.contributionManifest.publicationBindings,[{moduleRef:publication.moduleRef,publicationDigest:p.modulePublicationSemanticDigest(publication)}]);
+-    owner.state.catalog=requireKind(p.CatalogOperationPort.admit({kind:'catalog_admit_packet',schemaVersion:version,memberKey:'admit',
+-      readinessBasis:{workspaceBinding:environment.workspaceBindingCandidate,resolvedLock,verifiedProducts:[owner.native.verified,v],installedProducts,publications}}),'graph_function_catalog','recorded-catalog-reconstruction');
+-    assert.equal(owner.state.catalog.basisDigest,catalog.ownerOutput.value.catalog.digest);
+-    assert.equal('graph-function-catalog://abiogenesis/'+owner.state.catalog.basisDigest.slice(7),catalog.ownerOutput.value.catalog.ref);
+-    const program=publication.programs[0],allowlist=[...program.callableMembership].sort();
+-    assert.equal(hash(program),expectedProgramDigest,'The reconstructed whole Program must equal the original comparison');
+-    owner.state.catalogView=requireKind(p.narrowGraphFunctionCatalog(owner.state.catalog,allowlist),'graph_function_catalog_view','recorded-view-reconstruction');
+-    assert.equal(owner.state.catalogView.viewDigest,view.ownerOutput.value.view.digest);
+-    assert.equal('graph-function-catalog-view://abiogenesis/'+owner.state.catalogView.viewDigest.slice(7),view.ownerOutput.value.view.ref);
+-    assert.deepEqual(view.ownerOutput.value.effectiveHandles,allowlist);assert.deepEqual(owner.state.catalogView.allowlist,allowlist);
+-    const fixture={artifactPath:consumer.request.artifactPath,artifactRef:consumer.verified.artifactRef,manifest:consumerManifest,publication,
+-      basis:{productId:v.productId,packageName:v.packageName,packageVersion:v.packageVersion,artifactDigest:v.artifactDigest,manifestDigest:v.manifestDigest,productContentDigest:v.productContentDigest},ids:consumerOwner.IDS};
+-    // No writes occurred under this acquisition; its normal close remains the same complete value.
+-    const normal=a.closeAbgEventResource(resource,resource.entryPrefix);resource=null;
+-    assert.deepEqual(normal.closeHandoff,close);owner.state.closeHandoff=normal.closeHandoff;
+-    await record('setup-reconstruction.json',{installs:installations.map(p.productInstallCoordinate),binding:owner.state.binding,lock,
+-      catalog:catalog.ownerOutput.value.catalog,view:view.ownerOutput.value.view,programDigest:hash(program),close:normal.closeHandoff,replayedSetupEffects:0});
+-    stage='remaining-program-conformance';
+-    const priorOutcome=join(previous,'calls/program-conformance.outcome.json');
+-    let conformance;
+-    try{const prior=await read(priorOutcome);assert.equal(prior.receipt.ownerOutput.value.disposition,'passed');conformance=prior.receipt;}
+-    catch(error){if(error.code!=='ENOENT')throw error;
+-      const conformanceLaw={ref:'law://abiogenesis/validator/gtl-program@5',digest:hash({ref:'law://abiogenesis/validator/gtl-program@5'})};
+-      const packet=runtime.validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program;
+-      const request={program:{ref:program.programRef,digest:hash(program)},conformanceLaw,
+-        inventoryBasis:{kind:'declared_inventory',inventory:owner.state.catalog.boundPublications.map(value=>({ref:value.moduleRef,digest:hash(value)})).sort((a,b)=>a.ref.localeCompare(b.ref))}};
+-      const resources={kind:'conformance_evaluation_resource_assertion',schemaVersion:version,
+-        packet:{kind:'conformance_evaluate_packet',schemaVersion:version,memberKey:'gtl_program',publication,program},
+-        conformanceLaw,declaredInventory:owner.state.catalog.boundPublications,declarationCatalog:{catalog:owner.state.catalog,catalogView:owner.state.catalogView}};
+-      const call=await setupOwner.authorizeInstalledOperation({runtime,native:owner.native,actorRef:owner.actorRef,packet,request,resources,
+-        supplied:{...owner.boundSlots(),dependency_lock:lock},prefix:owner.state.closeHandoff.prefix,
+-        requestRef:'request://abi5-tests/sandbox-uat/'+configuration.runId+'/continuation08/program-conformance',
+-        correlationRef:'correlation://abi5-tests/sandbox-uat/'+configuration.runId+'/continuation08',authorityRef:'authority://abi5-tests/sandbox-uat/'+configuration.runId,
+-        provenanceRefs:[pathToFileURL(join(outputRoot,'run.json')).href]});
+-      const evaluated=await owner.invoke('program-conformance',call);conformance=evaluated.receipt;
+-      assert.equal(conformance.ownerOutput.value.disposition,'passed');
+-    }
+-    await record('setup-identity.json',{installations,resolvedLock,workspaceAuthority,workspaceBinding:owner.state.binding,
+-      catalog:{basisDigest:owner.state.catalog.basisDigest},catalogView:owner.state.catalogView,program,fixture:fixture.basis,
+-      closeHandoff:owner.state.closeHandoff,classification:'Actual recorded07 setup reconstructed; only missing conformance completed; no application/native effect yet'});
+-    return {fixture,publications,installations,workspaceAuthority};
+-  } finally {if(resource){const normal=a.closeAbgEventResource(resource,resource.entryPrefix);owner.state.closeHandoff=normal.closeHandoff;}}
++  const resolved=await invoke('product-resolve',await authorize(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.resolve,
++    {requirements:natives.map(({verified:v})=>({productId:v.productId,packageVersion:v.packageVersion,requiredContractRefs:[],requiredCapabilityRefs:[]})),verifiedCandidates:verificationRefs},
++    {kind:'product_resolution_resource_assertion',schemaVersion:version,
++      verifiedPreimages:natives.map((item,i)=>({verification:verificationRefs[i],verifiedArtifact:item.verified,
++        verificationOutput:verificationOutputs[i]})),
++      nativeContractClosure:{selectorDispositions:[],occurrences:[],nativeBindings:[]}},{verification_references:verificationRefs}));
++  if(hash(resolved.receipt.ownerOutput.value.resolvedLock)!==hash(lock))throw new BoundaryFailure('resolved-lock-identity',resolved.receipt);
++  const eventLogPath=fileURLToPath(state.closeHandoff.prefix.eventLogRef);
++  const installations=[];
++  for(let i=0;i<natives.length;i++) {
++    const item=natives[i],packed=packedArtifacts[i],eventResource=caller.reopen();
++    const result=await invoke('product-install-'+i,await authorize(product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,
++      {verifiedArtifact:item.verification.coordinates.verifiedArtifact,descriptor:packed.descriptor,contributionManifest:packed.contributionManifest,
++        resolvedLock:lock,targetRoot:join(root,'sandbox/installed',i===0?'abg':'test-consumer'),installPolicy:'clean'},
++      {kind:'product_install_resource_assertion',schemaVersion:version,eventResource,packedArtifact:packed,verifiedArtifact:item.verified,resolvedLock},
++      {dependency_lock:lock,verification_references:[verificationRefs[i]],actor}));
++    const artifactTruth=abg.projectExactPrefixArtifactTruth(state.closeHandoff.prefix);
++    const admitted=abg.projectAdmittedProductInstallByInvocationRef(artifactTruth,result.call.invocation.invocationRef);
++    if(!admitted?.install)throw new BoundaryFailure('installed-event-projection',admitted);
++    installations.push(admitted.install);
++    await record('installed/'+i+'/product-toolchain-manifest.json',JSON.parse(await readFile(result.receipt.resources.installManifest.ref,'utf8')));
++    const installerManifest=result.receipt.resources.installerManifest;
++    await record('installed/'+i+'/installer-manifest-reference.json',{installerManifest,prefix:state.closeHandoff.prefix});
++    if(installerManifest?.ref!==artifactTruth.projectionRef||installerManifest?.digest!==artifactTruth.projectionDigest)throw new BoundaryFailure('installer-manifest-projection',installerManifest);
++    await record('installed/'+i+'/identity.json',{install:admitted.install,receipt:result.receipt});
++  }
++  caller.installedRoot=installations[0].installedRoot;
++  const workspaceAuthority=oldEnvironment.workspaceAuthorityBasis;
++  caller.workspaceAuthority=workspaceAuthority;
++  const roots={...oldEnvironment.workspaceBinding.roots,toolchainRoot:join(root,'sandbox/installed','abg'),productRoot:installations[1].installedRoot};
++  const fields={toolchain:'toolchainRoot',product:'productRoot',event_log:'eventLogRoot',runtime_state:'runtimeStateRoot',projection:'projectionRoot',archive:'archiveRoot'};
++  const bound=await invoke('workspace-bind',await authorize(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,
++    {workspaceAuthority:{ref:workspaceAuthority.authorityBasisId,digest:workspaceAuthority.authorityBasisDigest},installedSet:installations.map(product.productInstallCoordinate),
++      resolvedLock:lock,declaredRoots:Object.entries(fields).map(([rootKind,field])=>({rootKind,path:roots[field]}))},
++    {kind:'product_workspace_binding_resource_assertion',schemaVersion:version,eventResource:caller.reopen(),workspaceAuthority,workspaceManifest,
++      admittedInstalls:installations,resolvedLock,declaredRoots:roots},{product_set:installations.map(product.productInstallCoordinate),dependency_lock:lock,actor}));
++  state.binding=bound.receipt.ownerOutput.value.binding;caller.refresh();
++  const core=native.verified;
++  const publications=corePublications(gtl,core).concat(fixture.publication);
++  const actualCore=publications.slice(0,-1).map(value=>[value.moduleRef,product.modulePublicationSemanticDigest(value)]).sort();
++  const manifestCore=core.contributionManifest.publicationBindings.map(value=>[value.moduleRef,value.publicationDigest]).sort();
++  if(hash(actualCore)!==hash(manifestCore))throw new BoundaryFailure('candidate-publication-identity',{actualCore,manifestCore});
++  const published=await invoke('catalog-admit',await authorize(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,
++    {workspaceBinding:state.binding,descriptors:packedArtifacts.map(item=>item.descriptor),contributionManifests:packedArtifacts.map(item=>item.contributionManifest),resolvedLock:lock},
++    {kind:'catalog_admission_resource_assertion',schemaVersion:version,eventResource:caller.reopen(),workspaceBinding:state.environment.workspaceBinding,
++      resolvedLock,verifiedProducts:natives.map(item=>item.verified),admittedInstalls:state.environment.productInstalls,publications},
++    {...caller.boundSlots(),dependency_lock:lock}));
++  caller.refresh();
++  const installedProducts=state.environment.productInstalls.map(install=>abg.projectAdmittedProductInstallByAdmissionEventRef(state.environment.artifactTruth,install.admissionEventRef).candidate);
++  state.catalog=requireKind(product.CatalogOperationPort.admit({kind:'catalog_admit_packet',schemaVersion:version,memberKey:'admit',
++    readinessBasis:{workspaceBinding:state.environment.workspaceBindingCandidate,resolvedLock,verifiedProducts:natives.map(item=>item.verified),installedProducts,publications}}),'graph_function_catalog','catalog-projection');
++  if(published.receipt.ownerOutput.value.catalog.digest!==state.catalog.basisDigest)throw new BoundaryFailure('catalog-public-projection',published.receipt);
++  const selectedProgram=fixture.publication.programs[0],allowlist=[...selectedProgram.callableMembership].sort();
++  await invoke('catalog-view',await authorize(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,
++    {catalog:published.receipt.ownerOutput.value.catalog,allowlist},{kind:'catalog_view_resource_assertion',schemaVersion:version,catalog:state.catalog},
++    {...caller.boundSlots(),dependency_lock:lock}));
++  state.catalogView=requireKind(product.narrowGraphFunctionCatalog(state.catalog,allowlist),'graph_function_catalog_view','catalog-view-projection');
++  const conformanceLaw={ref:'law://abiogenesis/validator/gtl-program@5',digest:hash({ref:'law://abiogenesis/validator/gtl-program@5'})};
++  const conformance=await invoke('program-conformance',await authorize(validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
++    {program:{ref:selectedProgram.programRef,digest:hash(selectedProgram)},conformanceLaw,
++      inventoryBasis:{kind:'declared_inventory',inventory:state.catalog.boundPublications.map(value=>({ref:value.moduleRef,digest:hash(value)})).sort((a,b)=>a.ref.localeCompare(b.ref))}},
++    {kind:'conformance_evaluation_resource_assertion',schemaVersion:version,
++      packet:{kind:'conformance_evaluate_packet',schemaVersion:version,memberKey:'gtl_program',publication:fixture.publication,program:selectedProgram},
++      conformanceLaw,declaredInventory:state.catalog.boundPublications,declarationCatalog:{catalog:state.catalog,catalogView:state.catalogView}},
++    {...caller.boundSlots(),dependency_lock:lock}));
++  if(conformance.receipt.ownerOutput.value.disposition!=='passed')throw new BoundaryFailure('program-conformance',conformance.receipt);
++  await record('setup-identity.json',{installations,resolvedLock,workspaceAuthority,workspaceBinding:state.binding,
++    catalog:{basisDigest:state.catalog.basisDigest},catalogView:state.catalogView,program:selectedProgram,fixture:fixture.basis,
++    closeHandoff:state.closeHandoff,classification:'Prepared installed generic path; no application UAT pass or provider dispatch'});
++  return {fixture,publications,installations,workspaceAuthority};
+ }
+ 
+ try {
+   const manifest=JSON.parse(await readFile(host.manifestPath,'utf8'));
+   const native=await verifyArtifact(runtime,{artifactPath:host.archivePath,manifest,expectedArtifactDigest:host.artifactDigest},record,'native');
+   assert.strictEqual(p.selectOwnedProductVerification(native.request,native.verified),native.verified);
+-  caller=publicCaller({root:outputRoot,runtime,native,command,record,config:configuration});
+-  stage='actual-recorded-setup-reconstruction';const setup=await restoreRecordedSetup(caller);
++  caller=publicCaller({root:outputRoot,runtime,native,command,record,config:configuration,actorRef:selected.actorRef});
++  stage='actual-new-pair-setup';const setup=await setupChangedPair(caller);
+   const selectedFixture=await fixtureSelection();
+-  for(const source of selectedFixture.sources){const path=join(configuration.worksiteRoot,source.path);await mkdir(dirname(path),{recursive:true});await writeFile(path,source.bytes,{flag:'wx'});}
++  for(const source of selectedFixture.sources)assert.deepEqual(await readFile(join(configuration.worksiteRoot,source.path)),source.bytes,'Existing original input changed: '+source.path);
+   await record('run.json',{runId:configuration.runId,scope:'Controlled mechanical native/C2 lifecycle only',semanticPremise:'Responder selects a declared injected defect and its exact restoration; no Claude or semantic UAT judgment',stockNodeHeap:true});
+   await record('workload-source.json',{request:selectedFixture.request,sourceMembers:selectedFixture.sources.map(({bytes,...row})=>({...row,byteCount:bytes.length}))});
+   const original=scenarios.constructWorkloadInput(p,selectedFixture,consumerOwner.assessmentSelection,configuration.toolchains);
+@@ -229,8 +256,7 @@
+   const setupIdentity=JSON.parse(await readFile(join(outputRoot,'setup-identity.json'),'utf8'));
+   await record('prepared-definition-call.json',initial.call);
+   stage='construction-and-gap';let execution=await runner.invokeLifecycle(caller,setup.installations,initial.call,{...environment,...responderEnvironment(configuration.worksiteRoot,'basis')});
+-  let reads=await runner.freshReadbacks(caller,execution);await record('fresh-readbacks.json',reads);
+-  const selectParent=async(owner,executed,expectedCount)=>{
++  const readEvidence=async(owner,executed)=>{
+     const env=owner.refresh(),prefix=owner.state.closeHandoff.prefix,run=executed.receipt.resources.run;
+     const packet=a.ABG_PROJECT_READ_CONTRACTS.run_evidence;
+     const grants=packet.metadata.capabilityRefs.map(cap=>p.constructCapabilityGrant(env.workspaceAuthorityBasis,owner.actorRef,packet.definitionKey.operationId,cap,
+@@ -247,16 +273,29 @@
+       eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(outputRoot,'run.json')).href]});
+     const observed=await owner.invoke('run-evidence',call,{runtimeRoot:owner.installedRoot,expectResult:true});
+     assert.equal(hash(owner.state.closeHandoff.prefix),hash(prefix),'Evidence read must preserve the closed prefix');
+-    const projection=observed.receipt.ownerOutput.value?.projection;assert.equal(projection?.runId,run.ref);assert(Array.isArray(projection.cCalls));
+-    const candidates=projection.cCalls.flatMap(row=>{const input=p.retainedGovernanceWorkInput(row.resultValue);return row.resultClass==='success'&&row.judgment==='advance'&&input?.terminal===false&&input.observations.length===expectedCount?
+-      [{resultRef:row.resultRef,inputDigest:hash(input),originalDigest:hash(input.original),original:input.original,observations:input.observations}]:[];});
+-    assert(candidates.length>0,'Actual evidence has no judged nonterminal parent with the expected completed work');
+-    // Keep only the selected address and work needed for fixture comparisons.
+-    // The shared helper reauthenticates the Result, producer and current Source.
+-    return candidates.at(-1);
++    const value=observed.receipt.ownerOutput.value;
++    assert.equal(value?.projection?.kind,'run_evidence_projection');
++    assert.deepEqual(value.source,run);assert.deepEqual(value.projection.subject,run);
++    assert.deepEqual(value.projectionBasis,{ref:prefix.eventLogRef,digest:prefix.coordinateDigest});
++    return value;
+   };
+-  let parent=await selectParent(caller,execution,1);assert.deepEqual(parent.original,original.original);
+-  stage='construction-complete-replay';const initialReplay=await compareCompleteReplay(caller,execution,parent,reads);
++  const checkLifecycle=async(owner,executed)=>{
++    const result=executed.receipt.ownerOutput,disposition=result.value?.disposition;
++    await owner.record('lifecycle-disposition.json',{outcomeKind:result.outcomeKind,disposition:disposition??null,run:executed.receipt.resources.run??null,receiptExitCode:executed.receipt.exitCode});
++    console.log(JSON.stringify({stage:'actual-native-disposition',disposition:disposition??null,outcomeKind:result.outcomeKind,run:executed.receipt.resources.run??null}));
++    if(disposition==='runtime_failed') {
++      const evidence=await readEvidence(owner,executed);
++      await owner.record('runtime-failure-evidence.json',evidence);
++      throw new setupOwner.BoundaryFailure('actual-native-runtime-failed',{receipt:executed.receipt,evidence});
++    }
++    assert.notEqual(result.outcomeKind,'refusal','Actual lifecycle owner refused');
++    assert(['held','gap_stop','blocked','completed'].includes(disposition),'Unknown actual lifecycle disposition');
++  };
++  await checkLifecycle(caller,execution);
++  let reads=await runner.freshReadbacks(caller,execution);await record('fresh-readbacks.json',reads);
++  const initialEvidence=await readEvidence(caller,execution);
++  stage='construction-complete-replay';const initialComparison=await compareCompleteReplay(caller,execution,1,reads,initialEvidence);
++  let parent=initialComparison.selectedParent;assert.deepEqual(parent.original,original.original);const initialReplay=initialComparison.replay;
+   assert.equal(await readFile(join(configuration.worksiteRoot,CANDIDATE),'utf8'),'broken\n');
+   phaseResults.push({phase:'construction',run:execution.receipt.resources.run,parentResultRef:parent.resultRef,inputDigest:parent.inputDigest,observations:1,replay:initialReplay,committedBytes:caller.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
+   const artifacts=[{label:'native',acquisition:JSON.parse(await readFile(join(outputRoot,'native-acquisition.json'),'utf8'))},
+@@ -285,10 +324,12 @@
+     cycle.installedRoot=next.summary.installedRoot;cycle.state.closeHandoff=next.close.closeHandoff;
+     cycle.state.binding=caller.state.binding;cycle.state.resolvedLock=caller.state.resolvedLock;
+     cycle.state.catalog=next.call.resources.catalog;cycle.state.catalogView=next.call.resources.catalogView;
+-    stage=phase+'-native';execution=await runner.invokeLifecycle(cycle,setup.installations,next.call,{...environment,...responderEnvironment(configuration.worksiteRoot,'audit')});
++    stage=phase+'-native';caller=cycle;execution=await runner.invokeLifecycle(cycle,setup.installations,next.call,{...environment,...responderEnvironment(configuration.worksiteRoot,'audit')});
++    await checkLifecycle(cycle,execution);
+     reads=await runner.freshReadbacks(cycle,execution);await phaseRecord('fresh-readbacks.json',reads);
+-    const after=await selectParent(cycle,execution,4);assert.deepEqual(after.original,original.original);
+-    stage=phase+'-complete-replay';const completeReplay=await compareCompleteReplay(cycle,execution,after,reads);
++    const phaseEvidence=await readEvidence(cycle,execution);
++    stage=phase+'-complete-replay';const phaseComparison=await compareCompleteReplay(cycle,execution,4,reads,phaseEvidence);
++    const after=phaseComparison.selectedParent;assert.deepEqual(after.original,original.original);const completeReplay=phaseComparison.replay;
+     assert.deepEqual(after.observations.slice(0,parent.observations.length),parent.observations,'Earlier work and failed measurements must survive exactly');
+     const measured=after.observations.filter(row=>row.purpose==='testing');assert.equal(measured.length,2);
+     const [red,green]=measured.map(row=>row.value.commandResults[0]);

@@ -1,0 +1,20 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "29ba81c26cbf22857d4be6150cd20386f0e843b18f7754bd5f738e298fc8e63e",
+    "byteCount": 10623995
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3687.5775,
+    "timedOut": false,
+    "truncated": false
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-reuse-repair-51/freeze-corrected.json",
+    "sha256": "6c76b966311987636c44f66bc7f04b64104c5cff4e21b6262e3d434df3b30440",
+    "byteCount": 23686
+  },
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "noBuildOrNative": true
+}

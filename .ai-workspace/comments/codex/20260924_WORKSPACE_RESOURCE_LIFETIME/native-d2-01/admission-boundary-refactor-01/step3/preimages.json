@@ -1,0 +1,18 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "sha256": "646bd1cff7a996017a6d1ff3ed2631e26f458cf0c0f85a20fdd3f658305295b2"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "sha256": "e4cc2dad164ba4f638647a21e8de20e45ef2f879e63df2eee5224a5ba420ab16"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "sha256": "62bf1335ed7529b2d13d32e8810871f2e7e99bfc7ab7b6716d3b1360aca39805"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+    "sha256": "e97bd9297b5bd12eae4ca1736391a0891f11e2f15e39ce3c690a5674fdfe98c9"
+  }
+]

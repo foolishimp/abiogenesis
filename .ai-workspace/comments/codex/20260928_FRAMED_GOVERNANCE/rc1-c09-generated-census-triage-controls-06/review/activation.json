@@ -1,0 +1,15 @@
+{
+  "operation": "T287_C09_GENERATED_RECONCILIATION_REVIEW_06",
+  "role": "independent Reviewer",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T11:37:28.421515+00:00",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/review-request.txt",
+  "grantBytes": 2677,
+  "grantSHA256": "5634aa2a9477f92a1c3e0f2fbe5fa8599b72f07e127fb719f73baaccc3c58624",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/freeze.json",
+  "subjectBytes": 8520,
+  "subjectSHA256": "28309c504ad8364737f6b5aaaf37d713c37abf3dd6c10ce3602ea269d127d9aa",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/review",
+  "effects": "reads/hash/source comparison plus NEW report only; no imports/tests/probes/native/Source/runtime/resource/Git"
+}

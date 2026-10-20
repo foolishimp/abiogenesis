@@ -1,0 +1,88 @@
+{
+  "role": "Operator48",
+  "selectedAt": "2026-10-07T16:33:17.148Z",
+  "authority": "Root RELEASE48: CLOSED Source47+Proof47 GO; accepted Source45/Proof45 and Publication46",
+  "method": "fixed15 ABI5 GOAL035/T287 STDO2.5.1RC2",
+  "frames": [
+    "f-end-to-end-interface-integration",
+    "f-worksite-causality"
+  ],
+  "preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/return.md",
+    "sha256": "85b8b175ea435530ce2ca93d47f4fb2d939bfd931270c1c6f3fb5757b103eb6f",
+    "byteCount": 2040
+  },
+  "preparationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/freeze.json",
+    "sha256": "5c9836437ed0c0055a2f57bca3c136612ebdd30447a64d01b19a7cf59fe34932",
+    "byteCount": 9522
+  },
+  "package": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:cc47965b537b417d262e5edcb211584d6412084c4f63e53628ceca6fdab5191c"
+  },
+  "expectedInstalledContentDigest": "sha256:cb547b9289b53bfee01460404da22d47d1fa906765c4dba83d08d128454a566e",
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912,
+    "basis": "setup/recording drainage only; never native execution authority extension"
+  },
+  "executionAuthority": {
+    "history": {
+      "previousCampaignT0": "2026-10-06T20:52:43.725Z",
+      "firstQualityCheckpoint": "2026-10-07T01:52:43.725Z",
+      "previousCurrentQualityCheckpoint": "2026-10-07T06:52:43.725Z",
+      "previousRun38NativeT0": "2026-10-07T04:26:21.200Z",
+      "notRelabeled": true
+    },
+    "nextInvocation": {
+      "nativeT0Owner": "NEW commands/lifecycle-start.request.json.started at CLI spawn",
+      "externalQualityWindowMs": 18000000,
+      "qualityCheckpoint": "actual new native T0+18000000ms; Root external Executive decides continuation/stop",
+      "nativeTimeOrRecordingLimitsUnchanged": true
+    },
+    "oldRunRestored": false,
+    "rootExternalExecutiveDecidesContinueOrStop": true
+  },
+  "stop": {
+    "owner": "existing native C2/helper/provider process supervision",
+    "order": [
+      "While CLI lives resolve exact admitted C2 occurrence/task/attempt to launch.json/helper argv; match live helper and detached command PID/PGID via ancestry.",
+      "At Root stop/checkpoint disposition stop only exact owned helper/command first: TERM, bounded confirmation/grace, KILL only if still exact-owned; preserve real missing artifact/exit.",
+      "Resolve exact current admitted provider PID/PGID, verify identity immediately, then stop only that owned group while CLI remains alive.",
+      "Allow real exit/failure admission/drain; retain fresh-read presence/absence and raw truncation/exit truth."
+    ],
+    "noGuessedPidsOrPrivateEvents": true
+  },
+  "sourceState": {
+    "kind": "none",
+    "observations": [],
+    "synthesis": null,
+    "terminal": false,
+    "oldProducerCredit": false
+  },
+  "material": {
+    "originals": 4,
+    "authors": 44,
+    "ledgerRows": 52,
+    "protectedAndNativeAfterPinsReacquired": true
+  },
+  "criteria": "Full original unchanged sixteen distinct compiled mutants/restorations and independent UAT; honest unmet application evidence is iterative",
+  "originalInstalledMemoryP0": "OPEN",
+  "noSourceOrApplicationEditsByOperator": true
+}

@@ -1,0 +1,32 @@
+{
+  "subjectInventory": {
+    "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+  },
+  "recordSet": {
+    "ref": "construction-record-set://abiogenesis/eb52efae108c9e671c87cc307725bf4ef84dd321f9613468f248e39df96878a8",
+    "digest": "sha256:eb52efae108c9e671c87cc307725bf4ef84dd321f9613468f248e39df96878a8"
+  },
+  "usableNow": [
+    "26 exact original material records with current installed schema/byte validation",
+    "6 original attribution spans",
+    "8 independently reconstructed real source transitions",
+    "1,950 exact member classifications and origin coordinates",
+    "frozen-head Git tree/blob membership without blanket authorship",
+    "existing source-bound carrier, authority and ruling limits"
+  ],
+  "pendingBeforeProvenance": [
+    "Root disposition of original path/header carrier joins",
+    "original concrete author/actor and authority correspondence",
+    "remaining relevant original construction records for actual selected member domains"
+  ],
+  "laterDistinctInputs": [
+    "closed per-rule domain mapping",
+    "actual candidate/source/law/native basis in future exact activation",
+    "actual admitted assessor/peer identities and semantic attribution judgments"
+  ],
+  "notLaunchReady": true,
+  "readyAssessmentTasks": 0,
+  "nativeEffectsAuthorized": false,
+  "exactSubjectConservation": "This cut remains about C/Q only. Source changes invalidate dependent current-subject claims; do not relabel these records to a successor."
+}

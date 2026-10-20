@@ -1,0 +1,17 @@
+{
+  "stage": "acquisition-start",
+  "at": "2026-10-08T04:45:09.766Z",
+  "elapsedMs": 249.01062500000003,
+  "memory": {
+    "rss": 180076544,
+    "heapTotal": 115326976,
+    "heapUsed": 60255344,
+    "external": 2742051,
+    "arrayBuffers": 356153
+  },
+  "maxRSSKiB": 192608,
+  "pid": 5261,
+  "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+  "expectedBytes": 1182449986,
+  "runRef": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93"
+}

@@ -1,0 +1,23 @@
+{
+  "rootSelection": "Existing WorkspaceAuthorityBasis canonicalRoot with canonical authority/binding predicates and exact IDs/digests; actual external Program resolved at start.",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver-c0-setup.mjs",
+    "sha256": "d5ba88c7b9319c907bc173c1d068a419127022baee8704b553a7e818d1bd9663"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver-authority-root.mjs",
+    "sha256": "e90d6b13a9ff774e95a3202a7cebf32faea9aeac17861b2b58dfe904d9e24790"
+  },
+  "checkedAccesses": [
+    "Product WorkspaceAuthorityBasis/WorkspaceBindingCandidate owner predicates and immutable reference fields",
+    "GraphFunctionCatalog.boundPublications/current registered target fields",
+    "Actual native owner prompt labels/schema and C2 helper toolInput JSON",
+    "Folded C2 UTF8 text versus owning base64 stream and exact payload paths",
+    "Framed task/result/schema/binder shapes; actual transport binding instructionAssembly",
+    "Supported fresh read request source/selector carrier and accepted helper84"
+  ],
+  "completeClosurePurecheck": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/successor-purecheck.json",
+  "methodUnchanged": true,
+  "sourceSupportGuardUnchanged": true,
+  "failedAttemptsPreserved": true
+}

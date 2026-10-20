@@ -1,0 +1,8 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/essential-parity.mjs"
+  ],
+  "kind": "existing64 pure deterministic owner parity, no tests/admission",
+  "startedAt": "2026-10-08T06:17:23.142356+00:00"
+}

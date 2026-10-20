@@ -1,0 +1,11 @@
+{
+  "cause": "Before execution, direct recorded verifier outcomes showed canonical disposition locally_verified. Initial new caller assertion guessed verified.",
+  "action": "Match actual canonical Public success domain locally_verified; no producer or parser change.",
+  "effects": "Intended caller assertion only; never executed; no retry or owner effects.",
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/preimages/prepare-before-recorded-disposition.mjs",
+    "sha256": "f9f4bf018e79d5c0a4f3e708b1167e81d4ade0ea831d63271dc9541811bd6b9c",
+    "byteCount": 36521
+  },
+  "source": "Frozen164 calls/product-verify-0.outcome.json and product-verify-1.outcome.json; canonical verification owner"
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "Closed installed execution and exact retained first cause",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/return.md",
+      "bytes": 5665,
+      "sha256": "7179f828345142974477d0ca660dc5b8f51d10666427bc2bb97a2c13a1ade617"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/observed-metrics.json",
+      "bytes": 16277,
+      "sha256": "52097cb039ebf66a16249bfe3cdeb47fbcdf114f1ea6debec605e787864beb95"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/first-cause-public-evidence-02.json",
+      "bytes": 5289,
+      "sha256": "1660eed7a9d5c644b205c2be714c9317fdc1175d9ac402ff161c7e907b1fdc52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/intake-01/intake-readback.json",
+      "bytes": 3921,
+      "sha256": "3a99c882c1ac381aacc65d73a07ffa3cafcabd7e85f6f2c93076ede0e6abcb2e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/public-readback.json",
+      "bytes": 1763,
+      "sha256": "f91d9a0954b020205b56c2409f6e2c20f261106ac4225ae7428841f91af0a66d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/read-run_evidence.boundary.json",
+      "bytes": 1385,
+      "sha256": "9e5a5dfca05f3d4e4cdb4beca5bdc775273cb33b0bc6ee4d5dc7b705b11d4f6d"
+    }
+  ]
+}

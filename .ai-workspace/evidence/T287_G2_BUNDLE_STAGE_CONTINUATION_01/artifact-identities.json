@@ -1,0 +1,136 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "productContentDigest": "sha256:774b3fcd4c9b7808b22df7a1b51f6770b748090d4d1db2d8abaae6c4c12936e0",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "contributionManifestDigest": "sha256:db7ef28fbd93c3a0132b7307d9eb39c4dbf6de5239b526c15fdddaa011f3308c",
+  "catalogDigest": "sha256:8ad85fc76ca97205bf826ba56e4da2a577eebfbe7db007fcfa39198b25727b95",
+  "catalogRowCount": 75,
+  "packageExportCount": 15,
+  "schemaDefinitions": [
+    "CProgramSyntax",
+    "GraphFunction",
+    "GtlLanguageConformanceCorpus",
+    "GtlProgramConformanceInput",
+    "ModulePublication",
+    "d0",
+    "d1"
+  ],
+  "artifacts": [
+    {
+      "relativePath": "package.json",
+      "actual": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/consumer/node_modules/@abiogenesis/typescript-tenant/package.json",
+        "bytes": 10997,
+        "sha256": "9be6214f72cb8665c925763e1d4ae6393b85abcd6f2a52c698236e983feab46a",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465259856
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/artifacts/package.json",
+        "bytes": 10997,
+        "sha256": "9be6214f72cb8665c925763e1d4ae6393b85abcd6f2a52c698236e983feab46a",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465266419
+      }
+    },
+    {
+      "relativePath": "product-toolchain-manifest.json",
+      "actual": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/consumer/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+        "bytes": 3211625,
+        "sha256": "54d2a48d62909f2c6bea7fbc3c8f96fb26e2116d7f93fbd5b40e68da81a8da9f",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465259857
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/artifacts/product-toolchain-manifest.json",
+        "bytes": 3211625,
+        "sha256": "54d2a48d62909f2c6bea7fbc3c8f96fb26e2116d7f93fbd5b40e68da81a8da9f",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465266420
+      }
+    },
+    {
+      "relativePath": "contracts/schemas/gtl-serialization.schema.json",
+      "actual": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/consumer/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/gtl-serialization.schema.json",
+        "bytes": 183327,
+        "sha256": "2e65b54b4fe967a0b20d50596f57c76dcf6c492df85fac37ce8914fee21dba78",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465259409
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/artifacts/contracts/schemas/gtl-serialization.schema.json",
+        "bytes": 183327,
+        "sha256": "2e65b54b4fe967a0b20d50596f57c76dcf6c492df85fac37ce8914fee21dba78",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465266423
+      }
+    },
+    {
+      "relativePath": "contracts/conformance/gtl-language-conformance-corpus.json",
+      "actual": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/consumer/node_modules/@abiogenesis/typescript-tenant/contracts/conformance/gtl-language-conformance-corpus.json",
+        "bytes": 138661,
+        "sha256": "11b6ae849c1b53b1fcdb4aec9bae905c66feb7372f59e57569183f67c7350c40",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465259407
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/artifacts/contracts/conformance/gtl-language-conformance-corpus.json",
+        "bytes": 138661,
+        "sha256": "11b6ae849c1b53b1fcdb4aec9bae905c66feb7372f59e57569183f67c7350c40",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465266425
+      }
+    },
+    {
+      "relativePath": "contracts/vocabularies/gtl-program-diagnostic-id.json",
+      "actual": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/consumer/node_modules/@abiogenesis/typescript-tenant/contracts/vocabularies/gtl-program-diagnostic-id.json",
+        "bytes": 500,
+        "sha256": "d27861fdfc318ceb7abb74249318b66207f2efe382626a9d2dd0e7f56e51c03b",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465259408
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/artifacts/contracts/vocabularies/gtl-program-diagnostic-id.json",
+        "bytes": 500,
+        "sha256": "d27861fdfc318ceb7abb74249318b66207f2efe382626a9d2dd0e7f56e51c03b",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465266427
+      }
+    },
+    {
+      "archive": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "bytes": 10660890,
+        "sha256": "c530a78b54a6946f39ab6968f49850217bf49671c2c506765237ea4f492b4008",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465257438
+      },
+      "retained": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_BUNDLE_STAGE_CONTINUATION_01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "bytes": 10660890,
+        "sha256": "c530a78b54a6946f39ab6968f49850217bf49671c2c506765237ea4f492b4008",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 465266428
+      }
+    }
+  ],
+  "packageProof": "FAILED_NOT_ACCEPTED"
+}

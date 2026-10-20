@@ -1,0 +1,68 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/prepare.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/preparation/prepare.mjs
+@@ -10,6 +10,7 @@
+ const selected=await read(join(import.meta.dirname,'selection.json'));
+ const scratch=import.meta.dirname,schemaVersion='5.0.0',actorRef='actor://odd-glc/generic-lifecycle/owner@5';
+ const save=async(n,v)=>writeFile(join(scratch,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
++await mkdir(join(scratch,'timings'));
+ const core=await read(selected.coreSelection),configuration=await read(selected.configurationSource),consumer=await read(selected.consumerSelection);
+ const input=await read(selected.ordinaryInput),nativeInput=await read(selected.nativeIntakeInput),builtBasis=await read(selected.consumerBasis);
+ const pin={...core.basis,artifactPath:core.artifactPath,installedRoot:core.packageRoot};
+@@ -61,23 +62,23 @@
+  contributionManifest:item.packed.contributionManifest,declaredDependencies:v.declaredDependencies,
+  compatibilityInputs:v.compatibilityRefs.map(compatibilityRef=>({compatibilityRef,subjectRef:item.packed.productContent.ref}))},
+  {kind:'product_verification_resources',schemaVersion,targetKind:'packed_artifact',packedArtifact:item.packed,verifiedArtifact:v});
+- item.receipt=await invoke(verificationCall,i===0?'verify-core34':'verify-dev15');
++ item.receipt=await invoke(verificationCall,i===0?'verify-core36':'verify-dev15');
+  assert.equal(item.receipt.ownerOutput.value.verifiedArtifact.digest,v.verificationDigest);
+  item.reference={invocation:{ref:verificationCall.invocation.invocationRef,digest:verificationCall.invocation.invocationDigest},outcome:item.receipt.ownerOutput.value.verifiedArtifact};
+ }
+ const resolutionReceipt=await invoke(await authorized(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.resolve,
+  {requirements:verifiedProducts.map(p=>({productId:p.productId,packageVersion:p.packageVersion,requiredContractRefs:[],requiredCapabilityRefs:[]})),verifiedCandidates:products.map(p=>p.reference)},
+  {kind:'product_resolution_resource_assertion',schemaVersion,verifiedPreimages:products.map(p=>({verification:p.reference,verifiedArtifact:p.verification.verifiedArtifact,verificationOutput:p.receipt.ownerOutput})),
+- nativeContractClosure:{selectorDispositions:[],occurrences:[],nativeBindings:[]}}, {verification_references:products.map(p=>p.reference)}),'resolve-core34-dev15');
++ nativeContractClosure:{selectorDispositions:[],occurrences:[],nativeBindings:[]}}, {verification_references:products.map(p=>p.reference)}),'resolve-core36-dev15');
+ assert.equal(hash(resolutionReceipt.ownerOutput.value.resolvedLock),hash(lock));
+-const actor={actor:coord(actorRef),attribution:coord('attribution://odd-glc/full-sandbox')},targets=[join(scratch,'products/core34'),join(scratch,'products/dev15')],installed=[];
++const actor={actor:coord(actorRef),attribution:coord('attribution://odd-glc/full-sandbox')},targets=[join(scratch,'products/core36'),join(scratch,'products/dev15')],installed=[];
+ await acquire();
+ for(const [i,item]of products.entries()){
+  const request=await authorized(product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,
+  {verifiedArtifact:item.verification.coordinates.verifiedArtifact,descriptor:item.packed.descriptor,contributionManifest:item.packed.contributionManifest,resolvedLock:lock,targetRoot:targets[i],installPolicy:'clean'},
+  {kind:'product_install_resource_assertion',schemaVersion,eventResource:reopen(),packedArtifact:item.packed,verifiedArtifact:item.verification.verifiedArtifact,resolvedLock},
+  {dependency_lock:lock,verification_references:[item.reference],actor});
+- await invoke(request,i===0?'install-core34':'install-dev15');
++ await invoke(request,i===0?'install-core36':'install-dev15');
+  const row=abg.projectAdmittedProductInstallByInvocationRef(abg.projectExactPrefixArtifactTruth(prefix()),request.invocation.invocationRef);assert.ok(row);installed.push(row);
+ }
+ const abiRoot=installed[0].install.installedRoot,consumerRoot=installed[1].install.installedRoot,jobRoot=join(scratch,'invocation');await mkdir(jobRoot,{recursive:true});
+@@ -141,7 +142,7 @@
+ const transport=await prepareFullSandboxTransport(selected.transportConfiguration,{product,abg});
+ await save('intake-start.jsonl',{kind:'abg_cli_transport_request',schemaVersion,acquisition:{kind:'reopen',closeHandoff:eventResource.closeHandoff},invocation:prepared});
+ await save('readback-basis.json',{abiRoot,abiArtifact,environment,boundSlots,lock,actorRef,ordinal:callerState.ordinal,closeHandoff:callerState.closeHandoff,declaration:lifecycle,publication});
+-await save('prepared.json',{status:'CLOSED_PREPARED_NOT_LAUNCHED',sourceRun:selected.sourceRun,sourcePrefix:selected.sourcePrefix,successorCloseHandoff:callerState.closeHandoff,core,consumer,workspaceRoot:selected.workspaceRoot,programRef:program.programRef,programDigest:resolution.resolution.programDigest,input:nativeInput,launchPath:join(scratch,'intake-start.jsonl'),launchDigest:await product.sha256File(join(scratch,'intake-start.jsonl')),transport,readbackMs:selected.readbackMs,maximumPaidOccurrences:1,perOccurrenceUsd:5,calls,noActors:true,noApplicationEffects:true,pureLookupExport:'@odd-glc/route-one-typescript/native-lifecycle',next:'Root STEP6 selected ordinary original-root read, actual reprice witness, one intake and authenticated-choice declared suffix; no automatic retry'});
++await save('prepared.json',{status:'CLOSED_PREPARED_NOT_LAUNCHED',sourceRun:selected.sourceRun,sourcePrefix:selected.sourcePrefix,successorCloseHandoff:callerState.closeHandoff,core,consumer,workspaceRoot:selected.workspaceRoot,programRef:program.programRef,programDigest:resolution.resolution.programDigest,input:nativeInput,launchPath:join(scratch,'intake-start.jsonl'),launchDigest:await product.sha256File(join(scratch,'intake-start.jsonl')),transport,readbackMs:selected.readbackMs,maximumPaidOccurrences:1,perOccurrenceUsd:selected.perOccurrenceUsd,calls,noActors:true,noApplicationEffects:true,pureLookupExport:'@odd-glc/route-one-typescript/native-lifecycle',next:'Root STEP6 selected ordinary original-root read, actual reprice witness, one intake and authenticated-choice declared suffix; no automatic retry'});
+ console.log(JSON.stringify({status:'CLOSED_PREPARED_NOT_LAUNCHED',programRef:program.programRef,sourceRun:selected.sourceRun,successorPrefix:prefix()}));
+ 
+ } finally { await close(); }
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/witness-01/execute.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/witness-01/execute.mjs
+@@ -50,7 +50,7 @@
+  const request={subjectKind:'authority_basis',subject:root,act:'reprice',
+   content:{kind:'typed_payload',contentContract:{ref:contentContract.ref,digest:contentContract.digest},value:{
+    declarationRef:W0.ref,beforeDigest:W0.digest,afterDigest:W1.digest,changeClass:'realization_refactor',
+-   owningTicketRef:'ticket://abiogenesis/T-287',reason:'Root-selected native-D2 correction preserves original job/source/oracle while repricing its historical binding to the current reviewed core34/dev15 installation.'}},
++   owningTicketRef:'ticket://abiogenesis/T-287',reason:'Root-selected native-D2 correction preserves original job/source/oracle while repricing its historical binding to the current reviewed core36/dev15 installation.'}},
+   context:{kind:'basis',basis:root},evidence:[W0,W1],provenance:[root]};
+  started=performance.now();
+  const witnessCall=await setup.authorized(abg.WITNESS_OPERATION_CONTRACTS.admit.reprice,request,
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/suffix-01/prepare.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/suffix-01/prepare.mjs
+@@ -5,6 +5,7 @@
+ import {installedFullSandboxApis,prepareFullSandboxTransport,fullSandboxSetupCalls,constructFullSandboxEnvironmentResources} from '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/full-sandbox-support.mjs';
+ const D=import.meta.dirname,P=join(D,'../preparation'),I=join(D,'../intake-01'),read=async p=>JSON.parse(await readFile(p,'utf8'));
+ const save=async(n,v)=>writeFile(join(D,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
++await mkdir(join(D,'timings'));
+ const prepared=await read(join(P,'prepared.json')),prior=await read(join(P,'readback-basis.json')),selection=await read(join(P,'selection.json'));
+ const intake=await read(join(I,'intake-readback.json')),requestValue=await read(join(I,'intake-terminal-request.json'));
+ assert.equal(intake.status,'returned_unique_declared_suffix');

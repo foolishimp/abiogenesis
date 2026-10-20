@@ -1,0 +1,42 @@
+{
+  "status": "HOLD_FIRST_FAILURE",
+  "role": "Operator189 actual remaining-consumer diagnostic only",
+  "commandStart": "2026-10-09T08:41:04.262Z",
+  "wallMs": 210613.63737500002,
+  "exitCode": null,
+  "signal": "SIGABRT",
+  "timedOut": false,
+  "truncated": false,
+  "checkpointCount": 11,
+  "lastCompletedStage": "old-environment-complete",
+  "completed": [
+    "Live native27/consumer nominal verification before history",
+    "Packed correspondence",
+    "One pinned185 declaration-input read before history",
+    "One canonical acquisition at1690085978/206699 events",
+    "Original34 source basis/raw input rederivation",
+    "Actual closedC2 terminal/historical source relation",
+    "Original sameA/sameW environment"
+  ],
+  "notEstablished": [
+    "Saved185 install/binding reuse completion",
+    "Current declaration reconstruction",
+    "104 existing cover revalidation",
+    "Current-use rederivation",
+    "Post-close Public call",
+    "Mandatory private Product preparation/covered-use callback",
+    "Future request serialization",
+    "Native execution/UAT/capacity"
+  ],
+  "newPublicAdmissionCount": 0,
+  "physical49Unchanged": true,
+  "normalCloseRecorded": false,
+  "ownedProcessesAndGroupsAbsent": true,
+  "abandonedLockPreserved": true,
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/operator-first-cause.json",
+    "sha256": "29e4424edfec1a6a8361a5d22e924889cad8e2f5b762bbcf03c9012aa49377ef",
+    "byteCount": 3019
+  },
+  "nextAction": "Root RCA and separately selected supported maintenance/action; no retry granted."
+}

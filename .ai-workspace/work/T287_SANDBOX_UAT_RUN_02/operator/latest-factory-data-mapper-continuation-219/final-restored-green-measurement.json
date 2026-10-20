@@ -1,0 +1,109 @@
+{
+  "ordinal": 251076,
+  "resultRef": "result://abiogenesis/88907255ce49b6947d89c45c213d0abb86772aa298852dca57fa25c8d999abf2",
+  "event": {
+    "offset": 2027591634,
+    "byteCount": 5433161,
+    "sha256": "2b5af3b09c4d3c15e8db8592b0d4e7065b57792b4e1b8e5503b00b05e89a39fe"
+  },
+  "command": {
+    "exitStatus": 0,
+    "timedOut": false,
+    "processSignal": null,
+    "terminationConfirmed": true,
+    "reportCount": 8
+  },
+  "counts": {
+    "tests": 44,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 44
+  },
+  "reports": [
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-core",
+      "relativePath": "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+      "digest": "sha256:5d07a603575846b14eb1f6edd02eafef74cbe13c84abe030ed8f8a2da82147a0",
+      "byteLength": 6407
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-compiler",
+      "relativePath": "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+      "digest": "sha256:143729da6ef690e3ea6d6fd9542e3d7c922341774db1e4b60a71f28c2e2d00c0",
+      "byteLength": 6192
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-executor",
+      "relativePath": "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+      "digest": "sha256:7c8e6ad3fe1d8ed5e777d41d7faf3740c01a3c78373afd45f3dc38be93556030",
+      "byteLength": 6181
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-adjoint",
+      "relativePath": "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+      "digest": "sha256:9dfa3a96f0bf24a4c5568a7503a36c4c5b686d338df63389f6ee03c769bf708b",
+      "byteLength": 6236
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-accounting",
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+      "digest": "sha256:c482e4c2e8013472bc171d05a1cbce344f0e2850f2733ea9955de46ea5b89603",
+      "byteLength": 6194
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-assurance",
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+      "digest": "sha256:b449abe61ac19767b2d5bf13af5426ddfd43959053b9e850e0ccf8c769db642b",
+      "byteLength": 6170
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-fidelity",
+      "relativePath": "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+      "digest": "sha256:f8eba8d8cc0ee4a80614a5b36745cfeb8dc8da0633f0d85a3becc5719f59af32",
+      "byteLength": 6175
+    },
+    {
+      "expectedReportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-engine",
+      "relativePath": "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+      "digest": "sha256:1f29c4f699d6fd5a9892f9d53c6dfa5f14e0d2287f4db21d682a45c0e3e75df1",
+      "byteLength": 6908
+    }
+  ],
+  "selectedInputSnapshot": [
+    {
+      "byteLength": 2083,
+      "digest": "sha256:56c2c1a1df362be1ecc81366321bed60d51f215b3d86e5740e620a70007a470b",
+      "kind": "worksite_snapshot_member",
+      "ordinal": 9,
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "schemaVersion": "5.0.0",
+      "sourceMemberRef": "native-work-execution-source://abiogenesis/347c3653fa6dbd0c774c5f2d29dccc50ff23b016248aa514d0fc09603ce34243",
+      "sourceObservationDigest": "sha256:9ca8d6253129ca18bceb182a1f6e81d47f94fcea7027c01586d4d2a818cb6dc8",
+      "sourceObservationRef": "worksite-observation://abiogenesis/9ca8d6253129ca18bceb182a1f6e81d47f94fcea7027c01586d4d2a818cb6dc8"
+    },
+    {
+      "byteLength": 3257,
+      "digest": "sha256:7cacd34af5f3713fc4b385f5017f31c131f9278605584abf45f72307c8af4d45",
+      "kind": "worksite_snapshot_member",
+      "ordinal": 10,
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "schemaVersion": "5.0.0",
+      "sourceMemberRef": "native-work-execution-source://abiogenesis/d45f02bb28ebd3f72614218823a712b9280aba7a0fa72ea316fd4ebfc44bb052",
+      "sourceObservationDigest": "sha256:8726d4c2bfc5028f6468a84817911d3a19808c7ca63407d30fa654bdeba54f37",
+      "sourceObservationRef": "worksite-observation://abiogenesis/8726d4c2bfc5028f6468a84817911d3a19808c7ca63407d30fa654bdeba54f37"
+    },
+    {
+      "byteLength": 9581,
+      "digest": "sha256:280197b60fa5ba8873aa4becdf599a326f579c90994557d9722baa5ac2e88adc",
+      "kind": "worksite_snapshot_member",
+      "ordinal": 12,
+      "relativePath": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "schemaVersion": "5.0.0",
+      "sourceMemberRef": "native-work-execution-source://abiogenesis/91c85f2e40240331762a2fb4ef5282a9de6129118f0064bcab3f5c97330ed829",
+      "sourceObservationDigest": "sha256:281d769a615a0dac14425b8d6cf59426b4e634f81001dd08538c4ec2525b7d4b",
+      "sourceObservationRef": "worksite-observation://abiogenesis/281d769a615a0dac14425b8d6cf59426b4e634f81001dd08538c4ec2525b7d4b"
+    }
+  ],
+  "claim": "Measured restored full-suite green and final Engine byte restoration. Original full independent oracle/UAT/terminal/freshreads not established."
+}

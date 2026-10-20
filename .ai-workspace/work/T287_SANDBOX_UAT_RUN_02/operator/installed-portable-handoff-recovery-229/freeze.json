@@ -1,0 +1,37 @@
+{
+  "disposition": "CLOSED/PASS bounded actual229 composition, no native dispatch",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/return.md",
+    "sha256": "528f780bf0ccafb6b68bed5db055376f7e6cd3e54a2b1314f4a655eb59cb6db0",
+    "byteCount": 2119
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/readiness.json",
+    "sha256": "bdd7ea11745d37eda75b3472c97bd6094c7237df4864232e168cf93fdceb7cd8",
+    "byteCount": 9681
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/pins.json",
+    "sha256": "b295b45c0b6063eb45d5e348d5e6acccc22eb5cf724c2621bc6f4f5a5bffd70a",
+    "byteCount": 25831
+  },
+  "finalHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/final-close-handoff.json",
+    "sha256": "1d878dfda0fe80700f983e103eba64a449d0bcbc852372168335737bb68b5779",
+    "byteCount": 1472
+  },
+  "source41": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/source41-discriminator.json",
+    "sha256": "ea8ce941dec70e9ad2c0e46366677a5ec5e59f82023472742e39c7f9d19cd855",
+    "byteCount": 2893
+  },
+  "actualCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/commands/recovery-stop-source.result.json",
+    "sha256": "c71ca2fcad858f2ebcc927e820cb80323b1f9134e68af37da63fdc0f1cc4cfec",
+    "byteCount": 14772
+  },
+  "ownedPinCount": 72,
+  "selectedInputCount": 13,
+  "priorFailurePreserved": true,
+  "nextEffects": "HOLD pending Root conjunction"
+}

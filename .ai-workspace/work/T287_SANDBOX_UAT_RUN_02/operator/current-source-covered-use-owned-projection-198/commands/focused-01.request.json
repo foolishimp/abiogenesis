@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-09T10:19:54.550905+00:00",
+  "environment": {
+    "ABG_GOVERNANCE_COVERED_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src",
+    "ABG_GOVERNANCE_COVERED_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/controlled-owner-fixtures.json",
+    "ABG_GOVERNANCE_COVERED_DECLARATION_PAIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/inputs/actual176-selected-publications.json",
+    "ABG_GOVERNANCE_COVERED_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/owned-resource-fixtures"
+  },
+  "NODE_OPTIONS": "unset",
+  "scope": "Worker198 affected covered-source suite plus real finite normal-close/owned snapshot boundary; no campaign resource or archive verifier"
+}

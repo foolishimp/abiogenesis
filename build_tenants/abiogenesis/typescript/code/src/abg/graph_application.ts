@@ -1,3 +1,5 @@
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isJsonRecord as isRecord, isNonEmptyJsonString as isNonEmptyString, hasJsonNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import type {
   GraphFunction,
@@ -24,13 +26,13 @@ import {
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
   constructRuntimeFluent,
-  deriveRuntimeEventCalculusProjection,
+  deriveRuntimeHeldFluentProjection,
   holdsAt,
 } from "./event_calculus.js";
 import { hasExactPartialFanOutStopRouteBridge } from "./fan_out_projection.js";
@@ -309,10 +311,19 @@ export function isAdmittedApplicationChildFoldback(
 export function isAdmittedApplicationChildFoldbackAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   value: ApplicationChildFoldbackAdmission,
+): value is ApplicationChildFoldbackAdmission;
+/** @internal */
+export function isAdmittedApplicationChildFoldbackAtPrefix(
+  prefix: RuntimeEventPrefix,
+  value: ApplicationChildFoldbackAdmission,
+): value is ApplicationChildFoldbackAdmission;
+export function isAdmittedApplicationChildFoldbackAtPrefix(
+  prefix: RuntimeEventPrefix,
+  value: ApplicationChildFoldbackAdmission,
 ): value is ApplicationChildFoldbackAdmission {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const projected = projectApplicationChildFoldbackAtPrefix(prefix, {
-    runId: events.find(
+    runId: indexedRuntimeEvents(prefix, "id:" + value.admissionEventRef).find(
       (event) => event.eventId === value.admissionEventRef,
     )?.runId ?? "",
     foldbackRef: value.foldbackRef,
@@ -335,10 +346,19 @@ export function isAdmittedApplicationChildPreparationRefusal(
 export function isAdmittedApplicationChildPreparationRefusalAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   value: ApplicationChildPreparationRefusalAdmission,
+): value is ApplicationChildPreparationRefusalAdmission;
+/** @internal */
+export function isAdmittedApplicationChildPreparationRefusalAtPrefix(
+  prefix: RuntimeEventPrefix,
+  value: ApplicationChildPreparationRefusalAdmission,
+): value is ApplicationChildPreparationRefusalAdmission;
+export function isAdmittedApplicationChildPreparationRefusalAtPrefix(
+  prefix: RuntimeEventPrefix,
+  value: ApplicationChildPreparationRefusalAdmission,
 ): value is ApplicationChildPreparationRefusalAdmission {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const projected = projectApplicationChildPreparationRefusalAtPrefix(prefix, {
-    runId: events.find(
+    runId: indexedRuntimeEvents(prefix, "id:" + value.admissionEventRef).find(
       (event) => event.eventId === value.admissionEventRef,
     )?.runId ?? "",
     refusalRef: value.refusalRef,
@@ -363,12 +383,21 @@ export function projectCurrentApplicationChildPreparationRefusal(
 export function projectApplicationChildPreparationRefusalAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   coordinates: Readonly<{ runId: string; refusalRef: string }>,
+): ApplicationChildPreparationRefusalAdmission | null;
+/** @internal */
+export function projectApplicationChildPreparationRefusalAtPrefix(
+  prefix: RuntimeEventPrefix,
+  coordinates: Readonly<{ runId: string; refusalRef: string }>,
+): ApplicationChildPreparationRefusalAdmission | null;
+export function projectApplicationChildPreparationRefusalAtPrefix(
+  prefix: RuntimeEventPrefix,
+  coordinates: Readonly<{ runId: string; refusalRef: string }>,
 ): ApplicationChildPreparationRefusalAdmission | null {
   if (coordinates.runId.length === 0 || coordinates.refusalRef.length === 0) {
     return null;
   }
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const event = events.find(
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const event = indexedRuntimeEvents(prefix, "kind:" + "child_preparation_refused").find(
     (candidate) =>
       candidate.kind === "child_preparation_refused" &&
       isRecord(candidate.payload) &&
@@ -403,7 +432,7 @@ export function projectApplicationChildPreparationRefusalAtPrefix(
     typeof body.message !== "string" ||
     body.message.length === 0 ||
     !holdsAt(
-      deriveRuntimeEventCalculusProjection(prefix),
+      deriveRuntimeHeldFluentProjection(prefix),
       constructRuntimeFluent({
         name: "child_preparation_refused",
         identity: refusalRef,
@@ -438,12 +467,21 @@ export function projectCurrentApplicationChildFoldback(
 export function projectApplicationChildFoldbackAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   coordinates: Readonly<{ runId: string; foldbackRef: string }>,
+): ApplicationChildFoldbackAdmission | null;
+/** @internal */
+export function projectApplicationChildFoldbackAtPrefix(
+  prefix: RuntimeEventPrefix,
+  coordinates: Readonly<{ runId: string; foldbackRef: string }>,
+): ApplicationChildFoldbackAdmission | null;
+export function projectApplicationChildFoldbackAtPrefix(
+  prefix: RuntimeEventPrefix,
+  coordinates: Readonly<{ runId: string; foldbackRef: string }>,
 ): ApplicationChildFoldbackAdmission | null {
   if (coordinates.runId.length === 0 || coordinates.foldbackRef.length === 0) {
     return null;
   }
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const event = events.find(
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const event = indexedRuntimeEvents(prefix, "kind:" + "child_foldback_admitted").find(
     (candidate) =>
       candidate.kind === "child_foldback_admitted" &&
       isRecord(candidate.payload) &&
@@ -460,7 +498,7 @@ export function projectApplicationChildFoldbackAtPrefix(
     foldbackRef !==
       `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}` ||
     !holdsAt(
-      deriveRuntimeEventCalculusProjection(prefix),
+      deriveRuntimeHeldFluentProjection(prefix),
       constructRuntimeFluent({
         name: "child_foldback_available",
         identity: foldbackRef,
@@ -511,9 +549,32 @@ export function projectApplicationChildRouteAtPrefix(
     cCallRef: string;
     judgmentRef: string;
   }>,
+): ReplayRouteState | null;
+/** @internal */
+export function projectApplicationChildRouteAtPrefix(
+  prefix: RuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix,
+  coordinates: Readonly<{
+    runId: string;
+    graphCallId: string;
+    frameId: string;
+    cCallRef: string;
+    judgmentRef: string;
+  }>,
+): ReplayRouteState | null;
+export function projectApplicationChildRouteAtPrefix(
+  prefix: RuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix,
+  coordinates: Readonly<{
+    runId: string;
+    graphCallId: string;
+    frameId: string;
+    cCallRef: string;
+    judgmentRef: string;
+  }>,
 ): ReplayRouteState | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const eventCalculus = deriveRuntimeHeldFluentProjection(prefix);
   const route = replayValidatedRuntimeEventPrefix(
     prefix,
     authorityPrefix,
@@ -524,7 +585,7 @@ export function projectApplicationChildRouteAtPrefix(
       (candidate.routeKind === "terminal" || candidate.routeKind === "blocked"),
   );
   if (route === undefined) return null;
-  const routeEvent = events.find(
+  const routeEvent = indexedRuntimeEvents(prefix, "id:" + route.admissionEventRef).find(
     (event) =>
       event.eventId === route.admissionEventRef &&
       event.kind === "traversal_route_admitted" &&
@@ -534,7 +595,7 @@ export function projectApplicationChildRouteAtPrefix(
   );
   const matchingRunStopped = routeEvent === undefined
     ? undefined
-    : events.find(
+    : indexedRuntimeEvents(prefix, "payload:routeRef:" + route.routeRef).find(
         (event) =>
           event.kind === "run_stopped" &&
           event.runId === coordinates.runId &&
@@ -804,9 +865,9 @@ function admitRecursiveApplicationChildFoldback(
             "application foldback requires the exact evaluated parent cursor and CCall",
           );
         }
-        const events = runtimeEventsFromValidatedPrefix(prefix);
-        const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
-        const parentJudgmentEvent = events.find(
+        const events = runtimeEventBodiesAtPrefix(prefix);
+        const eventCalculus = deriveRuntimeHeldFluentProjection(prefix);
+        const parentJudgmentEvent = indexedRuntimeEvents(prefix, "related:" + parentCCall.cCallRef).find(
           (event) =>
             event.kind === "c_call_judged" &&
             event.aggregateId === parentCCall.cCallRef &&
@@ -843,14 +904,14 @@ function admitRecursiveApplicationChildFoldback(
             "application foldback requires one exact admitted child basis and scope",
           );
         }
-        const childGraphCallEvent = events.find(
+        const childGraphCallEvent = indexedRuntimeEvents(prefix, "related:" + childScope.graphCallId).find(
           (event) =>
             event.kind === "graph_call_opened" &&
             event.aggregateId === childScope.graphCallId &&
             isRecord(event.payload) &&
             event.payload.parentFrameId === sourceCursor.frameId,
         );
-        const resultEvent = events.find(
+        const resultEvent = indexedRuntimeEvents(prefix, "payload:resultRef:" + child.resultRef).find(
           (event) =>
             event.kind === "c_call_result_admitted" &&
             event.runId === childScope.runId &&
@@ -858,7 +919,7 @@ function admitRecursiveApplicationChildFoldback(
             isRecord(event.payload) &&
             event.payload.resultRef === child.resultRef,
         );
-        const judgmentEvent = events.find(
+        const judgmentEvent = indexedRuntimeEvents(prefix, "payload:resultRef:" + child.resultRef).find(
           (event) =>
             event.kind === "c_call_judged" &&
             event.runId === childScope.runId &&
@@ -882,7 +943,7 @@ function admitRecursiveApplicationChildFoldback(
             }) ?? undefined;
         const routeEvent = routeProjection === undefined
           ? undefined
-          : events.find(
+          : indexedRuntimeEvents(prefix, "id:" + routeProjection.admissionEventRef).find(
               (event) =>
                 event.eventId === routeProjection.admissionEventRef &&
                 event.kind === "traversal_route_admitted" &&
@@ -891,7 +952,7 @@ function admitRecursiveApplicationChildFoldback(
             );
         const routeKind = routeProjection?.routeKind ?? null;
         const terminalReachedEvent = routeKind === "terminal"
-          ? events.find(
+          ? indexedRuntimeEvents(prefix, "kind:" + "terminal_reached").find(
               (event) =>
                 event.kind === "terminal_reached" &&
                 event.runId === childScope.runId &&
@@ -903,7 +964,7 @@ function admitRecursiveApplicationChildFoldback(
           : undefined;
         const frameClosedEvent = terminalReachedEvent === undefined
           ? undefined
-          : events.find(
+          : indexedRuntimeEvents(prefix, "kind:" + "frame_closed").find(
               (event) =>
                 event.kind === "frame_closed" &&
                 event.runId === childScope.runId &&
@@ -912,7 +973,7 @@ function admitRecursiveApplicationChildFoldback(
             );
         const graphCallClosedEvent = frameClosedEvent === undefined
           ? undefined
-          : events.find(
+          : indexedRuntimeEvents(prefix, "graph-call:" + childScope.graphCallId).find(
               (event) =>
                 event.kind === "graph_call_closed" &&
                 event.runId === childScope.runId &&

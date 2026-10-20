@@ -1,0 +1,25 @@
+{
+  "kind": "authorized_installed_graph_proof_successor_request",
+  "startedAt": "2026-10-08T07:53:28.105600+00:00",
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "argv": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/driver-successor.mjs",
+    "--artifact-path",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "--artifact-sha256",
+    "88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4",
+    "--install-host",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host",
+    "--expected-content",
+    "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+    "--expected-manifest",
+    "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+    "--evidence-root",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/execution-successor"
+  ],
+  "driverSha256": "73c3dbaf6048281065bc177051200c6c1ba9c02866d9697466b4f4a0798bdbb6",
+  "hostIdentitySha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+  "nodeOptions": null,
+  "scope": "Root granted two exact phase-only fixture corrections; first subsequent integration failure stops"
+}

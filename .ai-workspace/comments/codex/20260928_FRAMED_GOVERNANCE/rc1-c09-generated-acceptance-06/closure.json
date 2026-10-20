@@ -1,0 +1,15 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "operation": "T287_C09_GENERATED_ACCEPTANCE_STATUS_WRITER_06",
+  "restoredRole": "Executive",
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-acceptance-06/acceptance.json",
+    "bytes": 2651,
+    "sha256": "b1eb4373e8c563fe4c61bb2d50bd207aad71e2717cad83bbc3aa7c10db1a868b",
+    "mode": 420
+  },
+  "SourceGeneratedRuntimeGitEffects": 0,
+  "liveWorkerOrRun": false,
+  "closedAt": "2026-10-03T11:49:08.661375+00:00"
+}

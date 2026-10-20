@@ -1,0 +1,22 @@
+{
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "verification": "read/hash exact installed members; no installation mutation",
+  "standards": [
+    {
+      "path": "authority_compressions/stdo_bootstrap.md",
+      "sha256": "f7bec3f86d9f24d1fb22acc553ade2eb0861105ec4cd2f1afa7290cc85c5b61a",
+      "matchesManifest": true
+    },
+    {
+      "path": "REFERENCE_FRAME_METHOD.md",
+      "sha256": "6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+      "matchesManifest": true
+    },
+    {
+      "path": "STDO_REFERENCE_FRAME_BASELINE.md",
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "matchesManifest": true
+    }
+  ]
+}

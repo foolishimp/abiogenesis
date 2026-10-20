@@ -1,0 +1,142 @@
+{
+  "status": "mechanical_preparation_only",
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/return.md",
+      "sha256": "4af943268c0120e9a111fb0188dacac13458f1ee1d45d560480430bbbbfbef61",
+      "bytes": 2035
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/accepted-source.json",
+      "sha256": "bcf4f8fa425537c10b6389db2f4288170c2fe32b4bf29b98569484ad469545ed",
+      "bytes": 6469
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/build-inputs.json",
+      "sha256": "a252c30c3bc715eb30ccc0e70eb71dabdff582da4a3f10e970ac17f24b08f57d",
+      "bytes": 42177
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/generated-after.json",
+      "sha256": "7ab3889f7b2fb9d4da5f30e9b86bcb9d10cc3ed9f050cee54a302a1274b35652",
+      "bytes": 156347
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/archive-members.json",
+      "sha256": "f9a35e50c37b3d3054fa45966b34991f5f9d0cefdc48e28d5db09c51d6c5cf08",
+      "bytes": 928685
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/package-correspondence.json",
+      "sha256": "ffb88baa42818144bc840faa2f0094c1b37842b3af81905c9e2861f6f0409276",
+      "bytes": 833
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/return.md",
+      "sha256": "b2539ffba514d330565b093cdc1773f42233d0b4023e0c0234db6ce2f608ef07",
+      "bytes": 4386
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/checks.json",
+      "sha256": "525daf76c25cc0d911b4b6f1cd27a7c48e3d3aeab44147887afbd8be96b2e511",
+      "bytes": 872
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/return.md",
+      "sha256": "21509ac0990faec5a48e39d4aa00ad0c40cf28099c26acb680f0732865f2bc0a",
+      "bytes": 17978
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/release-readiness-01/return.md",
+      "sha256": "a2099be52091d46280b49e91c4f07404a79b542deb1bb4b0a288df2f68adbb42",
+      "bytes": 8489
+    }
+  ],
+  "reusedControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/recipe.mjs",
+      "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68",
+      "bytes": 3442,
+      "local": "recipe.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/recipe-stage.mjs",
+      "sha256": "de17486b1af297a006a7667bfc12f00add60134b3144e9be523d7fee8c50d075",
+      "bytes": 1449,
+      "local": "recipe-stage.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/compare-generated.mjs",
+      "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945",
+      "bytes": 1988,
+      "local": "compare-generated.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/test-environment.mjs",
+      "sha256": "93913ad5f1574d7d38c7b2435e2e7d9b5c3e492518adb616ece83485c7d65208",
+      "bytes": 533,
+      "local": "test-environment.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/config.json",
+      "sha256": "68f66f1cc2e9fac75061d7200e9e262a52d34aa86a0f76d8bcb28dd002fcca13",
+      "bytes": 20048,
+      "local": "config.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/toolchain.json",
+      "sha256": "280717ffa7a67ee694613b1c6fcb52b73e72c0b80309d7fe1ba0cd55f156f64e",
+      "bytes": 1571,
+      "local": "toolchain.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/npm-toolchain-inventory.json",
+      "sha256": "57422b62fb01ddb84b3d55259bc2c929aa0038d28cdc5edf422a2216909168dc",
+      "bytes": 414341,
+      "local": "npm-toolchain-inventory.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/test-selection.json",
+      "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f",
+      "bytes": 8553,
+      "local": "test-selection.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/lint-population.json",
+      "sha256": "c4712d1cb6a8793295763dc715f624017d9fa5f18498bf32633a7f30ad8dacb9",
+      "bytes": 2240,
+      "local": "lint-population.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/release-claims.json",
+      "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0",
+      "bytes": 2228,
+      "local": "release-claims.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/configuration-binding.json",
+      "sha256": "7714564b9ebcd13d81641be507bb1977ca531c7ce884bdbb7e9a7a9cd5698d0a",
+      "bytes": 47747,
+      "local": "configuration-binding.json"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/public-support.mjs",
+      "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48",
+      "bytes": 8856,
+      "local": "public-support.mjs"
+    }
+  ],
+  "sourceInputs": {
+    "unchanged": 361,
+    "changed": 5,
+    "copied": 0
+  },
+  "dependencies": {
+    "reused": 16,
+    "copied": 0,
+    "digestsChecked": true
+  },
+  "acceptedPackageCorrespondence": "Reused closed 5233-member source/archive/install correspondence; no archive expansion or full package re-verification.",
+  "toolchain": "Exact unchanged toolchain and npm inventory controls reused from closed core18 checks; no present host executable or full npm population requalification. Later execution must preserve or refresh the actual executable premise.",
+  "coverageDomain": "Same installed source-linked catalog, no new executable roster; F11 owns applicability/sufficiency."
+}

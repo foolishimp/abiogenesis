@@ -1,0 +1,3 @@
+{"phase":"716_inputs_staged_after_complete_absence_and_byte_checks","nativeCalls":0}
+{"phase":"complete_c2_input_and_consumer_preflight_passed","staged":716,"nativeCalls":0}
+{"label":"observed-c2","definitionKey":{"operationId":"abg.operation.run.invoke","memberKey":"start"},"invocationRef":"invocation://abiogenesis/e9fdb6e9e9e4114680a10144d201cddd8dd0fa975546fd5cdcf97f1d81dd5cd8","outcomeKind":"result","elapsedMs":206015.359792,"processFailure":null}

@@ -1,0 +1,35 @@
+{
+  "status": "source-located_after_first_failure_no_constructor_retry",
+  "constructor": "constructDefaultGovernanceLibraryModulePublication",
+  "source": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+    "bytes": 18901,
+    "sha256": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35",
+    "line": 136
+  },
+  "installed": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/default_library.js",
+    "bytes": 18591,
+    "sha256": "53addbe21cffc0eb92b2ad65a66cfede6dbf2ee16ab7276fa95e24005b3b635f",
+    "line": 133
+  },
+  "publicGtlExport": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/index.js",
+    "bytes": 8371,
+    "sha256": "ca671104e8f82a7c86fe0b5a7b63501e65f03a1e12e158625f140013e41823c6",
+    "line": 1
+  },
+  "generatorBinding": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+    "bytes": 42963,
+    "sha256": "79ce13a2998a3b3a805391650eaaf6d0f7d12592e7d0df0937bd0f7e06def4c8",
+    "line": 1057
+  },
+  "manifestBinding": {
+    "moduleRef": "module://abiogenesis/default-library/default@5",
+    "publicationDigest": "sha256:10f051df60335dfdcf6a6b49ad9d0af68ce64ebcee7e546e3efc5622520412e9"
+  },
+  "input": "Existing RootModuleArtifactBasis with final productId, artifactDigest, productContentDigest, productManifestDigest, packageName, packageVersion; identical selected basis shape already accepted by10 peers. This constructor declares its packaged defaultLibraryRunEnvironment and source spans; no new Product or external publication is needed.",
+  "preciseRemainingJoin": "Ordinary Public setup producer must include this existing installed constructor with10 peers, compare complete11 semantic bindings to actual current contributionManifest.publicationBindings, preserve required declaration/context inventory closure, then supply these exact publications to current ordinary catalog admission with genuine verified Products, admitted installs, resolved lock and WorkspaceBinding. Only existing Program/GraphFunction selection narrows execution; publication inventory is not narrowed by dropping the default module.",
+  "nativeLimit": "No call to the missing constructor, no repeated full check, no ordinary setup or native effect occurred after failure."
+}

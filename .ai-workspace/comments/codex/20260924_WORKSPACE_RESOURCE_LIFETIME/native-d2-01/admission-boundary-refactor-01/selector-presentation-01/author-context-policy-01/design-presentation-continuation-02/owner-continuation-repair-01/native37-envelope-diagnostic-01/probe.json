@@ -1,0 +1,20 @@
+{
+  "scope": "Pure installed Product diagnostic; no runtime authentication/admission",
+  "originalDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185",
+  "inputDigest": "sha256:16619acefe2ce4f1ceebc40eb90c20aa47c8b1612ab2d8a5bfbaf4c13e3dd3ce",
+  "expectedInputDigest": "sha256:16619acefe2ce4f1ceebc40eb90c20aa47c8b1612ab2d8a5bfbaf4c13e3dd3ce",
+  "rawValid": true,
+  "rawCanonicalDigest": "sha256:79475b2f5b951948607b818ec007ad510756c0d93e4a23430e0512bc3ac9b15e",
+  "materializedDigest": "sha256:bcd234c866262ca7303c9b7f4fdf3204e172d31e257dae60c4bcc4c58e2b99d9",
+  "verifiedRawResultDigest": "sha256:79475b2f5b951948607b818ec007ad510756c0d93e4a23430e0512bc3ac9b15e",
+  "inputValid": true,
+  "materializedValid": true,
+  "failureDigest": "sha256:96c70ac60db6ffd9c6c486ae4214d1832a320de8e5a088e6aee001ee2b38f0a1",
+  "contractIssues": [],
+  "rawCandidateEquality": false,
+  "rejectedEnvelope": {
+    "expectedDigest": "sha256:518618148bc7e537b517d5154b16f04ba9da6f7d86090ff29e3ce4352fdc435d",
+    "reconstructed": false,
+    "missing": "Actual actorInvocationRef in new asset source; complete rejected envelope is not retained in selected Public projections or six retained refusal rows. No substituted source or guessed envelope is used."
+  }
+}

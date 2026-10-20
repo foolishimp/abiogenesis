@@ -1,0 +1,47 @@
+{
+  "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED",
+  "disposition": "STOPPED_AT_REUSED_SECTION_ORDER_TUPLE_PROFILE",
+  "closedAtUTC": "2026-10-04T16:20:51.617445+00:00",
+  "SourceChanges": 2,
+  "unchangedSourcePins": 14,
+  "outsideSourceScopeEffects": 0,
+  "RuntimeEffects": 0,
+  "payloadRetries": 0,
+  "passedPhases": [
+    "physical acquisition/preflight",
+    "strict compile",
+    "full manifest",
+    "offline pack",
+    "exact regular-member Source-blind extraction"
+  ],
+  "focused": {
+    "passed": 6,
+    "failed": 5
+  },
+  "nativeClosurePopulationAndInventoryProgress": "proved preceding assertions from actual later-failure control path; full test failed",
+  "newTupleNegatives": "NOT_REACHED because Module schema getter refuses before cases",
+  "allKnownGroupsReapedAndAbsent": true,
+  "failure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/failure-boundary.json",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661036,
+    "sha256": "db4157d89700484acd0ce555faf549a62fdd1c48761e70410ce58ac62ccf5326",
+    "shasum": "3b68862c91acee18f5e9a66801c9f47fce75f4a9",
+    "integrity": "sha512-7Vq4uINxgZJjsvNqsHHppYv4dwqzwYVP2jEMfLyGPZHUVrqQXRDTgw6QyNsCqVHvjJIJmJ+VkZpOJ24ZMDWFWQ=="
+  },
+  "qualificationLimit": "Author Source/component readiness only, presently failed. No independent acceptance, installed or semantic qualification.",
+  "residuals": [
+    "reused semantic assembly closed-tuple/profile relation",
+    "full tuple negatives/optional/schema/aggregate/roundtrip proof",
+    "four drift maps",
+    "adjunct/remaining mandatory Public content",
+    "installed G1/G3 F11-AF22-cold chain",
+    "genuine complete F11/seven defects",
+    "exact qualification and RC1"
+  ],
+  "smallestReentry": "Root conjoins exact reused sectionOrder owner/law/native/serialized denotation before assigning a bounded Source continuation",
+  "stopWritesAfterFreeze": true
+}

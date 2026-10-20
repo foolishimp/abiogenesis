@@ -1,0 +1,93 @@
+{
+  "status": "partial_first_failure_stopped",
+  "correctedConformance": "passed",
+  "positive": {
+    "caseKey": "positive",
+    "run": {
+      "ref": "run://abiogenesis/aa52a15d1e29110ba83b65f77c9364f881167382ab2f100a25b78a45a4bfdcaa",
+      "digest": "sha256:17943562008a45d9067170e72d51c618f3ac93b3044ba6e959a37005e508b096"
+    },
+    "executionBasis": {
+      "ref": "execution-basis://abiogenesis/a987c6ffbac65ec938174bda1c9f427468af54673c66b9c0e87f56260152e26e",
+      "digest": "sha256:a987c6ffbac65ec938174bda1c9f427468af54673c66b9c0e87f56260152e26e"
+    },
+    "status": "passed",
+    "disposition": "completed",
+    "eventGrowth": 1387877,
+    "rootEvents": 346,
+    "prefix": {
+      "coordinateDigest": "sha256:a4a2f68e4c85711976302900ef447de0058b30cdc4d25caec6cea7a04c3ba085",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:dc5fbb98505b28192a31b52696201d0c11edefc5d1657b0d445dca5b63f36d80",
+      "prefixLength": 3878838,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464429281
+      }
+    },
+    "coldReads": 4,
+    "coldAppendBytes": 0,
+    "desired": 10,
+    "actual": 10,
+    "unaffected": {
+      "itemRef": "item://s03-automatic/unaffected@5",
+      "value": 7,
+      "evidenceRef": "evidence://s03-automatic/unaffected-initial@5"
+    },
+    "rendering": ""
+  },
+  "positiveFullOriginalCausalAndColdOracle": "passed",
+  "positiveFreshReads": 4,
+  "positiveColdAppendBytes": 0,
+  "negative": {
+    "run": {
+      "digest": "sha256:7cdb69577138ff92c0be23766e625be171efdaf95be6a6d47b204c7af4380ebd",
+      "ref": "run://abiogenesis/9e885b342e6014e08a7f7ed33f4420ecf780bc337290b680b9640306fd91cf39"
+    },
+    "nativeOwnerOutcome": "nonterminal",
+    "nativeDisposition": "gap_stop",
+    "nativeFailure": null,
+    "nativeExitCode": 3,
+    "rootEvents": 208,
+    "observedRunStoppedEvents": 1,
+    "observedRunClosedEvents": 0,
+    "fourColdReads": "unexecuted",
+    "fullOriginalNegativeOracle": "not reached before caller assertion stop",
+    "genuineHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:407881d7b23f560d53be253b38bedad0598dbd05c88b01f22dca7f196d3f174d",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+        "prefixLength": 4709556,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464429281
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:6094d537e6fd899f9c151079a5a2e291207ed967a3152f93250937f90d348866",
+        "device": 16777230,
+        "durableByteLength": 4709556,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+        "inode": 464429281,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    }
+  },
+  "pairInputsDifferOnlyByCorrectionAvailable": true,
+  "newCLICalls": 7,
+  "setupCallsRepeated": 0,
+  "ProgramStartsRepeated": 0,
+  "fullPairAccepted": false,
+  "qualificationClaim": false,
+  "acceptanceClaim": false
+}

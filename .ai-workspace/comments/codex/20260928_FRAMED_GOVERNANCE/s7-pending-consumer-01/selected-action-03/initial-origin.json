@@ -1,0 +1,12 @@
+{
+  "initialOrigin": {
+    "newResourceRequest": {
+      "kind": "new_empty_append_sink_request",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-03/disposable/abi5-root-env-xqYzeR/runtime/events.jsonl"
+    },
+    "device": 16777230,
+    "inode": 463670706
+  },
+  "ownerPid": 49488
+}

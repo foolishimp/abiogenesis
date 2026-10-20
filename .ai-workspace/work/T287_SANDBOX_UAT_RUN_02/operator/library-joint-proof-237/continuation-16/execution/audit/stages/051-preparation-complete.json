@@ -1,0 +1,12 @@
+{
+  "stage": "preparation-complete",
+  "elapsedMs": 135233.6545,
+  "at": "2026-10-10T21:25:12.389Z",
+  "rss": 2823716864,
+  "heapTotal": 539557888,
+  "heapUsed": 320123640,
+  "external": 45990115,
+  "arrayBuffers": 43577808,
+  "kind": "prepared_product_run_invocation",
+  "currentUseDigest": "sha256:7805da0dde5394d5897a4e4292aa7e80c368700e32c890e18304157541c88a91"
+}

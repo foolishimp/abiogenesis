@@ -1,0 +1,91 @@
+{
+  "kind": "mechanical_unit_coordinates",
+  "runtimeAdmission": false,
+  "claim": "No ProductEnvironment owner or workspace.bind operation; no admission event exists. These unit values exercise only the published pure constructor and physical reads.",
+  "workspaceAuthorityBasis": {
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://command-preparation/unit-only",
+    "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/mechanical-worksite",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://command-preparation/unit-only",
+    "authorityManifestRef": "unit-manifest://command-preparation/authority",
+    "authorityManifestDigest": "sha256:1fa3e2fa63bb91e714c825ab0d5955849bc937ec24451f46d80c6b0269edb278",
+    "authorityBasisId": "workspace-authority://abiogenesis/478a520fc40d0dad7362cafa02218e7e8684a97a3c557521bd6b45e5ca5c36a4",
+    "authorityBasisDigest": "sha256:478a520fc40d0dad7362cafa02218e7e8684a97a3c557521bd6b45e5ca5c36a4"
+  },
+  "workspaceBinding": {
+    "kind": "workspace_binding",
+    "schemaVersion": "5.0.0",
+    "bindingId": "workspace-binding://abiogenesis/b8be4bcea743d172ce4207cf055ceb6fbe72f822fb7b0a96a1b03fb54bcb6a65",
+    "bindingDigest": "sha256:b8be4bcea743d172ce4207cf055ceb6fbe72f822fb7b0a96a1b03fb54bcb6a65",
+    "workspaceId": "workspace://command-preparation/unit-only",
+    "authorityBasisId": "workspace-authority://abiogenesis/478a520fc40d0dad7362cafa02218e7e8684a97a3c557521bd6b45e5ca5c36a4",
+    "authorityBasisDigest": "sha256:478a520fc40d0dad7362cafa02218e7e8684a97a3c557521bd6b45e5ca5c36a4",
+    "authorizedActorRef": "actor://command-preparation/unit-only",
+    "productSetId": "unit-product-set://command-preparation",
+    "productSetDigest": "sha256:9cb82321cef5642e78eb8f4b14c83439190ddb979a3b086c3d9e44e0e124d11a",
+    "lockId": "unit-lock://command-preparation",
+    "lockDigest": "sha256:f0dfa840e04333aaacd0a103d8b9a702f3d0e25a6644f625e2ff65f9ec1f9cfa",
+    "roots": {
+      "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/unit-protected-roots/toolchain",
+      "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/unit-protected-roots/product",
+      "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/unit-protected-roots/eventLog",
+      "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/unit-protected-roots/runtimeState",
+      "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/unit-protected-roots/projection",
+      "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/unit-protected-roots/archive"
+    },
+    "admissionEventRef": "unit-coordinate-only://command-preparation/no-admission-event"
+  },
+  "capabilityGrant": {
+    "kind": "capability_grant",
+    "schemaVersion": "5.0.0",
+    "grantRef": "capability-grant://abiogenesis/cc712590a36795d0466023c88840c202497f8bca0e6a0094324e4fc9f899874b",
+    "grantDigest": "sha256:cc712590a36795d0466023c88840c202497f8bca0e6a0094324e4fc9f899874b",
+    "definitionKey": {
+      "operationId": "abg.operation.run.invoke",
+      "memberKey": "invoke"
+    },
+    "definitionRef": "unit-definition://command-preparation/invoke",
+    "definitionDigest": "sha256:d41182a781c59c996ed1c45ea780c27c7b3f6b2ded40ec9e7e2e0eda2050aa77",
+    "capabilityDefinition": {
+      "graphId": "unit-capability-graph://command-preparation",
+      "graphVersion": "5.0.0",
+      "graphDigest": "sha256:40540838d17a1e3f18e771983bab3f95a467a04d2eacd6b20b03be8a9b300cbf",
+      "capabilityId": "capability://abiogenesis/run.invoke",
+      "capabilityDefinitionRef": "unit-capability-definition://command-preparation",
+      "capabilityDefinitionDigest": "sha256:cff5028a826170a0ea01316b059a776e2e56d18566342807128c4bc3f55ce9b4"
+    },
+    "operationContract": {
+      "contractCatalog": {
+        "productId": "unit-product://command-preparation",
+        "productContentDigest": "sha256:47a8bcae997c137c8b1b8c3a55517152f3a50524b20a8a7c4c2fcef2e0852b1c",
+        "catalogId": "unit-catalog://command-preparation",
+        "catalogVersion": "5.0.0",
+        "catalogDigest": "sha256:948641fb4d922864e36ecbe923f223d6531ee529733fe34bc7ed683fb2989154"
+      },
+      "flatRow": {
+        "contractId": "unit-contract://command-preparation/request",
+        "contractVersion": "5.0.0",
+        "contractDigest": "sha256:46633eca51ff6e8f571874e033c76409b0007db1405144bacd9fabc064d8b367"
+      },
+      "nestedSelector": {
+        "selectorKind": "flat_contract",
+        "definitionKey": null,
+        "slot": null,
+        "definitionRef": null
+      }
+    },
+    "operationId": "abg.operation.run.invoke",
+    "capabilityRef": "capability://abiogenesis/run.invoke",
+    "actorRef": "actor://command-preparation/unit-only",
+    "approvalRef": "workspace-authority://abiogenesis/478a520fc40d0dad7362cafa02218e7e8684a97a3c557521bd6b45e5ca5c36a4",
+    "approvalDigest": "sha256:478a520fc40d0dad7362cafa02218e7e8684a97a3c557521bd6b45e5ca5c36a4",
+    "policyRef": "unit-policy://command-preparation",
+    "policyDigest": "sha256:1ff666dff3298fae6bdd1a217054199460a506c055b5f0523112bc2ee7875ea9",
+    "scopeRef": "workspace-binding://abiogenesis/b8be4bcea743d172ce4207cf055ceb6fbe72f822fb7b0a96a1b03fb54bcb6a65",
+    "scopeDigest": "sha256:b8be4bcea743d172ce4207cf055ceb6fbe72f822fb7b0a96a1b03fb54bcb6a65",
+    "authorityBasisRef": "workspace-authority://abiogenesis/478a520fc40d0dad7362cafa02218e7e8684a97a3c557521bd6b45e5ca5c36a4",
+    "authorityBasisDigest": "sha256:478a520fc40d0dad7362cafa02218e7e8684a97a3c557521bd6b45e5ca5c36a4"
+  }
+}

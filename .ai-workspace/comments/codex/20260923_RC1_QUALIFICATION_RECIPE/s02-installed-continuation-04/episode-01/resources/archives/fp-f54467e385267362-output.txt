@@ -1,0 +1,1 @@
+{"kind":"fp_hello_output","schemaVersion":"5.0.0","resultContractRef":"contract://abiogenesis/conformance/fp-hello-output@5","actorRef":"actor://abiogenesis/conformance/claude-worker@5"}

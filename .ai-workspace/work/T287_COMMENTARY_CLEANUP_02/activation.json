@@ -1,0 +1,29 @@
+{
+  "activation": "ACTIVE_PLANNING_ONLY",
+  "activationUTC": "2026-10-04T06:49:27.517460+00:00",
+  "actor": "/root/native_applicability_design",
+  "commentaryWritesAuthorized": false,
+  "deletionAuthorized": false,
+  "donorPlanner": {
+    "bytes": 16787,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_01/build_plan.py",
+    "sha256": "d6d0dbcad6b5bd596ed7fe2da36b5d78ae0b2a1a0c548f0fdd8aa27b4589eef2"
+  },
+  "excludedWholeRoot": "codex/20260928_FRAMED_GOVERNANCE",
+  "grantSHA256": "cb3acdcfcac0d635ae5b9f99cfec791c1bab0447bc051cb689de026ddc651ec3",
+  "grantSource": "Exact operative Root NEW_TASK; this record preserves its selected constraints",
+  "noRuntimeOrSourceEffects": true,
+  "operation": "T287_COMMENTARY_CLEANUP_GLOBAL_PLAN_02",
+  "preservedCodeFreeze": {
+    "bytes": 3689807,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/freeze.json",
+    "sha256": "0abbb8bf2678efc6d8d44a58cc85abe8a40765362e90a784b9e885b1b2f10db9"
+  },
+  "readSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments",
+  "reentry": "realization_refactor",
+  "role": "Worker",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_02"
+  ]
+}

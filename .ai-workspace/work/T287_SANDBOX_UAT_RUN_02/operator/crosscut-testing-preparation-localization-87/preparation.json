@@ -1,0 +1,28 @@
+{
+  "role": "Writer87 read-only defining-owner localization",
+  "targetCall": "c-call:sha256:acc331ce3a7cf9328ec09ff760cae9ad700646d3a29d99bbf03bfb2d6907096f",
+  "firstFailureOrdinal": 115,
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/authority-root-readiness.json",
+      "sha256": "3946e446effd0026a6ff54e90042db30ac5e26a4c0d89b1bdb89fb707f58bc77",
+      "byteCount": 15106
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/authority-root-freeze.json",
+      "sha256": "a8389637522059ce6efdd46e0671928459e01f9071e7ed53d2869b8dee5e4a33",
+      "byteCount": 19790
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/execution-authority-root/first-failure.json",
+      "sha256": "e36a184f0bae9af0aad011d860d606cfad34cb165aa436fdcd5ba8ab99ad8e54",
+      "byteCount": 225407
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+      "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+      "byteCount": 3158
+    }
+  ],
+  "limits": "phase receipts only; no actor, admission, old-resource or Source effects; failure115 may precede implementation dispatch"
+}

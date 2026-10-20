@@ -1,0 +1,13 @@
+{
+  "scope": "report-freeze data inspection only",
+  "firstAttempt": "ValueError: substring not found while selecting compiled JS terminator",
+  "cause": "report script expected Source-style })), terminator; actual emit uses })))",
+  "effectsBeforeFailure": {
+    "newWrites": 0,
+    "imports": 0,
+    "ownerCalls": 0,
+    "runtimeCalls": 0
+  },
+  "boundedContinuation": "read exact retained emitted text; select following failure callback delimiter",
+  "productDefectClaim": false
+}

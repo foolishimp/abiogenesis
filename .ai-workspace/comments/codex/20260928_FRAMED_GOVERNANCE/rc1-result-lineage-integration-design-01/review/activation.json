@@ -1,0 +1,17 @@
+{
+  "activation": "T287_RESULT_LINEAGE_TYPED_CONTRACT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T14:48:05.272688+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review-request.txt",
+    "bytes": 2466,
+    "sha256": "70f7990d0b8092a04d92e837b834931531a3b543b113b1208ff976e8fa357cfe"
+  },
+  "sourceFreezeSHA256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+  "callbackFreezeSHA256": "5715b514ff7502e91c2f72410f03a62f284ca39ea19f32d72b8d3aebc38016b7",
+  "finalFixtureFreezeSHA256": "c2668c0fb0295173652ebeeceecee6157e3ed40237a870541449fec092a3a6bb",
+  "effects": "read/hash/source/proof comparison; only new review report files",
+  "ProductFrame": "Product lineage conservation; design_reframe with no new runtime authority; type presence distinct from semantic sufficiency and installed admission"
+}

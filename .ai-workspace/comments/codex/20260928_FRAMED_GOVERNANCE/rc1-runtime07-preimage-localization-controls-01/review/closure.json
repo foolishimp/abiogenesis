@@ -1,0 +1,38 @@
+{
+  "status": "CLOSED",
+  "workResult": "SOURCE_LOCALIZATION_SUPPORTED",
+  "activation": "T287_RUNTIME07_PREIMAGE_LOCALIZATION_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent source Reviewer",
+  "closedAt": "2026-10-02T08:31:13.388618+00:00",
+  "sourcePredicate": "result_contract_refused",
+  "sourcePredicateEmittedInCopiedEvent": false,
+  "supportedCause": "selected GraphFunction environment.carries omitted by declaration closure collector; raw owner absent; schema guard unreachable",
+  "smallestReentry": "realization_refactor",
+  "canonicalSourceCone": [
+    "product/declaration_closure.ts"
+  ],
+  "dynamicConfirmation": "unknown; separately granted real admitted preimage regression required",
+  "wholeRuntimeReview": "not activated",
+  "runtime07Accepted": false,
+  "semanticQualification": "unknown",
+  "sourceAuthAdequacy": "unknown",
+  "AF22": "not exercised; no green",
+  "RootAcceptanceRequired": true,
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/review",
+  "sourceCandidateFixtureOrOldEvidenceMutation": false,
+  "effects": {
+    "pureReadsHashesComparisons": true,
+    "reportOnlyWrites": true,
+    "imports": 0,
+    "tests": 0,
+    "builds": 0,
+    "ownerCalls": 0,
+    "helperCalls": 0,
+    "RuntimeCalls": 0,
+    "modelProviderCalls": 0,
+    "networkCalls": 0,
+    "GitCalls": 0
+  },
+  "stop": "all processes complete; no runtime process started; freeze then no further writes/effects under this role"
+}

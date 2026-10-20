@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/predicate-classification.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b",
+  "started": "2026-10-08T08:45:26.342Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 180000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 737.9094590000001,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "",
+  "stderr": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   message: 'product.constructWorksiteCommandConfiguration is not a function',\n-   message: 'worksite command configuration requires exact A/W, subjects and explicit arrays',\n    name: 'TypeError'\n  }\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/predicate-classification.mjs:28:8 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: {\n    name: 'TypeError',\n    message: 'product.constructWorksiteCommandConfiguration is not a function'\n  },\n  expected: {\n    name: 'TypeError',\n    message: 'worksite command configuration requires exact A/W, subjects and explicit arrays'\n  },\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.7.0\n"
+}

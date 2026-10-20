@@ -1,0 +1,47 @@
+{
+  "classification": "Actual deterministic normal publication boundary failure",
+  "origin": "scripts/generate-product-manifest.mjs:524",
+  "diagnostic": "Error: packed native declaration closure is invalid",
+  "mechanism": "Normal clean and tsc completed; generator passed emitted declaration and package metadata inventories to existing resolveNativeDeclarationClosures. That owner returned null, so manifest generation refused. run-command assertion is downstream.",
+  "sourceRoutes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+      "byteCount": 48959
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "sha256": "22bc8a46aa596e8d5fa4b0336c9a0edc8f0878b1f96af00f2e8a03ad348772ae",
+      "byteCount": 119230
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_exports.js",
+      "sha256": "38c1bee63429bd808f62a8564c13b83ce32a84a3c1f2e2b8502bee5c80b670b2",
+      "byteCount": 108445
+    }
+  ],
+  "exactOwnerCall": "generate-product-manifest.mjs509\u2013524 \u2192 product/declaration_exports.resolveNativeDeclarationClosures(package exports + all selected .d.ts + package metadata + computed payload content digest)",
+  "innerRefusalReason": "Not yet localized: null may represent owned resolution/diagnostic/package/declaration closure guards; no unsupported attribution to a specific Source143/145 edit",
+  "whyFocusedEvidenceInsufficient": "143/145 source-only isolated typechecks and controlled owner tests did not exercise this complete packed normal declaration closure owner over their joined emitted cut.",
+  "boundedNextAction": "Executive multi-frame Source/Design/integration/identity/Proof triage must localize the actual canonical declaration-owner refusal before selecting a Source or publication-input repair and any retry. Preserve all partial emissions; do not omit declarations, weaken closure guard, edit metadata or repeat build.",
+  "buildReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/commands/build.result.json",
+    "sha256": "d2b99564c38dbb679a91026405622865a0ed31880c3c6fcf157a087db16c93bb",
+    "byteCount": 2226
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/commands/build.stdout",
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteCount": 215
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/commands/build.stderr",
+    "sha256": "324f2077b7fcde71a4cefc447b06e2b8e6a91f4774ef3a6e25ca4bf26f2c1503",
+    "byteCount": 392
+  },
+  "buildCount": 1,
+  "packCount": 0,
+  "installCount": 0,
+  "candidate26Absent": true,
+  "sourceChangedByPublication": false
+}

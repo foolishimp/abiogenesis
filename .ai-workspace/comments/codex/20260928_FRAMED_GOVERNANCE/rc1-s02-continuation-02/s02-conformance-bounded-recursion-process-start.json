@@ -1,0 +1,14 @@
+{
+  "pid": 58635,
+  "processGroup": 58635,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-bounded-recursion.jsonl"
+  ],
+  "startedAt": "2026-10-01T15:59:43.413Z",
+  "mode": "s02",
+  "label": "conformance-bounded-recursion",
+  "capMs": 360000
+}

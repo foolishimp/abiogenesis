@@ -1,0 +1,68 @@
+{
+  "kind": "native_semantic_revision_intake_readback",
+  "run": {
+    "digest": "sha256:02b4a38d52e127dd1ddea19261bcc84115be3249d456cfe4847ba03c02eb59d3",
+    "ref": "run://abiogenesis/779b7f6f70c562c9fc856af847ba1f4a66249ca9c1f423e5bc8f76caa6ad1c4e"
+  },
+  "result": {
+    "digest": "sha256:62aea2ac92cde6fe2c088f7eb218affee8dfe1ff4ffb902bc934a760665e0ad6",
+    "ref": "result://abiogenesis/62aea2ac92cde6fe2c088f7eb218affee8dfe1ff4ffb902bc934a760665e0ad6"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:e1fa04faa19c1a46e53bcf6235c3ec8694fca096752fb7b4019ba8513a2730ac",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:d55aa750f8f2cf5384a4f9a2340eb65ebc6a77d3ef0125ceb71c18c4174154f2",
+    "prefixLength": 337679621,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 21529.04775,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/intake-01/read-run_result.json",
+      "resultDigest": "sha256:6334a92c40e3d8b01f649715b1e5424710971edffa71dee9feaff927d50e5527"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 21831.514875,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/intake-01/read-run_replay.json",
+      "resultDigest": "sha256:29345f106129c9f76429604ce5a1b1a21bd40ed98690e9b4417ce2142e3c5d91"
+    }
+  ],
+  "installedAfter": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/47eaa506935d1e125234196c983babd04328bcaf66c96a50c75b3d5c76f99f0e/637f421154fef731a4a618a479bc81c3c93576574e2c44a8c0ebd390ce52e84b",
+      "productContentDigest": "sha256:47eaa506935d1e125234196c983babd04328bcaf66c96a50c75b3d5c76f99f0e"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/637f421154fef731a4a618a479bc81c3c93576574e2c44a8c0ebd390ce52e84b",
+      "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e"
+    }
+  ],
+  "inputDigest": "sha256:e057035b33ded64e3573adf727fb5edb1a34af80854dd0007b4a87ac7916335a",
+  "duplicateSdkProjection": false,
+  "status": "returned_unique_declared_suffix",
+  "selectionChoice": {
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/design@5"
+  },
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-design@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-design@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5"
+  },
+  "terminalResult": {
+    "digest": "sha256:62aea2ac92cde6fe2c088f7eb218affee8dfe1ff4ffb902bc934a760665e0ad6",
+    "ref": "result://abiogenesis/62aea2ac92cde6fe2c088f7eb218affee8dfe1ff4ffb902bc934a760665e0ad6"
+  },
+  "valueDigest": "sha256:aa41998c7313220967a39c516755f179313610abf9440926f340a259549dfe4d",
+  "boundary": "Only ordinary Public terminal Result/replay and installed pure declaration lookup; no private leaf extraction or inferred selection."
+}

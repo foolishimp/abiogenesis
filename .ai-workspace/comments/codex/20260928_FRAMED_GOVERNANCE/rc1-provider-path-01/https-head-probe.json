@@ -1,0 +1,26 @@
+{
+  "label": "https-head",
+  "host": "api.anthropic.com",
+  "command": [
+    "/usr/bin/curl",
+    "--head",
+    "--silent",
+    "--show-error",
+    "--connect-timeout",
+    "5",
+    "--max-time",
+    "10",
+    "--write-out",
+    "\nhttp_code=%{http_code}\nremote_ip=%{remote_ip}\ntime_total=%{time_total}\n",
+    "https://api.anthropic.com/"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+  "observedAt": "2026-10-01T14:25:33.322054+00:00",
+  "timeoutSeconds": 10,
+  "authenticated": false,
+  "modelDispatch": false,
+  "exitCode": 6,
+  "stdout": "\nhttp_code=000\nremote_ip=\ntime_total=0.000026\n",
+  "stderr": "curl: (6) Could not resolve host: api.anthropic.com\n",
+  "elapsedMs": 8.877
+}

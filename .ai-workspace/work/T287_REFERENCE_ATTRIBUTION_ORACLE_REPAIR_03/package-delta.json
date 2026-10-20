@@ -1,0 +1,97 @@
+[
+  {
+    "path": "build/code/src/abg/qualification_proof.js",
+    "before": {
+      "path": "build/code/src/abg/qualification_proof.js",
+      "bytes": 78198,
+      "sha256": "4e25a437becd5c3908ec8e2418a067186e5c56b2e6a637697388d59d1afadf3a",
+      "mode": 420
+    },
+    "after": {
+      "path": "build/code/src/abg/qualification_proof.js",
+      "bytes": 78210,
+      "sha256": "8d36fdd2f8ba8dfc0a6f8b7b9f1dd92cd5eae323f21e1566ece97e85a8e49346",
+      "mode": 420
+    }
+  },
+  {
+    "path": "build/code/src/validator/qualification.d.ts",
+    "before": {
+      "path": "build/code/src/validator/qualification.d.ts",
+      "bytes": 6875,
+      "sha256": "98156b6121cce43b6e17a4fec6b57b72bb2709c6a7732397cd0733f1c50fb425",
+      "mode": 420
+    },
+    "after": {
+      "path": "build/code/src/validator/qualification.d.ts",
+      "bytes": 6975,
+      "sha256": "3b5f48389cd44c2c5860b6136a0049c5fa7458099939c7423ee96d7924b41483",
+      "mode": 420
+    }
+  },
+  {
+    "path": "build/code/src/validator/qualification.js",
+    "before": {
+      "path": "build/code/src/validator/qualification.js",
+      "bytes": 61459,
+      "sha256": "41a3ab04f071c10c39e4d713f4ca2f4e2dfc744bb81e44ae19e23e0840199033",
+      "mode": 420
+    },
+    "after": {
+      "path": "build/code/src/validator/qualification.js",
+      "bytes": 61501,
+      "sha256": "2bb6022aa53fe83f1f6481ff7ae20391669351955120428af5ce5f70534bfc9e",
+      "mode": 420
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "425334a5a51653027e8f4d9ce0b971b982366ede04f5aa19eaa17f8058ff3288",
+      "mode": 420
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "8304f6302e9630b4d9fa1c7b0e8caa35c889a9dd9c943281bd23d6d1c0719e95",
+      "mode": 420
+    }
+  },
+  {
+    "path": "node_modules/fast-check/CHANGELOG.md",
+    "before": {
+      "path": "node_modules/fast-check/CHANGELOG.md",
+      "bytes": 68677,
+      "sha256": "1928e49c090a706a61c20fc620e97f22e83e0d154e758f869ccd6cdbcd634f34",
+      "mode": 420
+    },
+    "after": null
+  },
+  {
+    "path": "node_modules/pure-rand/CHANGELOG.md",
+    "before": {
+      "path": "node_modules/pure-rand/CHANGELOG.md",
+      "bytes": 6039,
+      "sha256": "f6e1f6802a0205dcc17d5d117a9af83a63947ac722dd7de32e1d98b070c02c87",
+      "mode": 420
+    },
+    "after": null
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 3211625,
+      "sha256": "4446c5a0d14d9383deacec53969f9ac3768353708df5132b93fe711db5ee8b53",
+      "mode": 420
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 3211548,
+      "sha256": "60713c9550780b6bb513d21da458f8bbd9b7c7e7ec6b71154f255df41a161abd",
+      "mode": 420
+    }
+  }
+]

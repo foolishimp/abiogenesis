@@ -1,0 +1,70 @@
+{
+  "compilerVersion": "5.9.2",
+  "options": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "module": 199,
+    "moduleResolution": 99,
+    "target": 9
+  },
+  "syntax": {
+    "status": 0,
+    "stderr": ""
+  },
+  "unresolvedIdentifiers": [
+    {
+      "code": 2580,
+      "start": 583,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 712,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 2115,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 2159,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 2414,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 2519,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 9772,
+      "message": "Cannot find name 'Buffer'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 29947,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 35084,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    },
+    {
+      "code": 2580,
+      "start": 35598,
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`."
+    }
+  ],
+  "unrelatedUntypedJsDiagnostics": 8,
+  "scope": "Driver lexical cannot-find-name only; not whole Source/type acceptance"
+}

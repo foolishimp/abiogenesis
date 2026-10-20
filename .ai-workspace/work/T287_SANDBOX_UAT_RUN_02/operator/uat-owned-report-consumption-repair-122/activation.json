@@ -1,0 +1,31 @@
+{
+  "role": "HarnessWorker122",
+  "selectedAt": "2026-10-08T16:50:55.526103+00:00",
+  "authority": "Root122 following closed121; caller report acquisition only",
+  "basis": "main727f1dbc/fixed15 ABI5 GOAL035/T287/STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "HOW": "test_env/README.md report acquisition paragraph before realization; existing UAT_01 plan command-oracle/archived acquisition",
+  "typedHandoff": "authenticated C2 Result/task -> published C2 judgment/source-use -> exact helperPlan.sandboxRoot/report tuple bytes -> unchanged original oracle",
+  "firstCause": "1181738 reports are in owned helper snapshot, oracle186\u2013202 acquired mutable application tree",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+      "byteCount": 23659,
+      "preservedAt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/preimages/independent-oracle.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "de913911b9347fc63615ded0a41a12d09ee60794e1d8c03c10f4780ef811de4a",
+      "byteCount": 51551,
+      "preservedAt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/preimages/harness.test.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/README.md",
+      "sha256": "c859e95c9b504a3b07faa612f9164519043f8966e7e76bc3d0c8d8a711b45c4e",
+      "byteCount": 2041,
+      "preservedAt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-owned-report-consumption-repair-122/preimages/README.md"
+    }
+  ],
+  "limits": "No runner/original rubric/request/120source/runtime/model/app/Git changes; no old evidence rewrite or cross-successor source credit; independent runtime UAT remains open"
+}

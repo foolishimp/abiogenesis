@@ -1,0 +1,11 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_TYPED_C09_SOURCE_SELECTION_WRITER_01",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01"
+  ],
+  "grant": "Freeze exact current typed Source/HOW/tracking postimages and prepare dependency-conditional successor builder. No Source edits or qualification acceptance.",
+  "returnsTo": "Executive"
+}

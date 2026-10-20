@@ -1,0 +1,17 @@
+{
+  "event": {
+    "ordinal": 188504,
+    "offset": 1503229945,
+    "byteCount": 6538961,
+    "sha256": "abff6ecafeed0a0e2ab6da01a7bc45a968abbd61fa05139c6e7c234f618c9545"
+  },
+  "installedOwner": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+  "helperArtifactPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/f2156d3fd00914882721f32cca846dcc3fed6b594b04ff9324ecba5ffbf63e63/1832082d21473fbd84f0fb814b78c43fb66194102baa67941185ac0d68e977a3/result.json",
+  "helperArtifactPhysicalSHA": "7ab8a03ba86e982f82a81770d0c351283f12cb7382cbb52852896b512e4097a2",
+  "helperArtifactPhysicalBytes": 1785511,
+  "helperArtifactIdentityDigest": "sha256:3a34dc0281d706952a3a590d47fa0b303070f11fb86186619a6472a110d9cee5",
+  "canonicalPhysicalFileMatches": true,
+  "existingHelperArtifactGuard": true,
+  "existingExecutionObservationGuard": true,
+  "recordingPremiseCorrection": "Earlier documentary assertion incorrectly compared physical file SHA with helper artifact body identity. The installed canonical owner derives artifactDigest from its body; physical file is canonicalJson(completeArtifact)+newline. Both domains now independently verified without changing any native value."
+}

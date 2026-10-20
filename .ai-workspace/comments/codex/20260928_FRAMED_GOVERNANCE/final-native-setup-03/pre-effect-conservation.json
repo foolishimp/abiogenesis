@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "C02FrozenRecords": 16774,
+  "C02FreezeSHA256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+  "syntax": [
+    {
+      "path": "driver.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "preflight.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "public-support.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "launch-once.py",
+      "pythonAst": "passed; no pycache"
+    },
+    {
+      "path": "observe-process.py",
+      "pythonAst": "passed; no pycache"
+    },
+    {
+      "path": "prepare.py",
+      "pythonAst": "passed; no pycache"
+    }
+  ],
+  "elapsedSeconds": 0.6372223338112235,
+  "oldNativeResourcesTouched": false
+}

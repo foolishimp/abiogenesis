@@ -1,0 +1,167 @@
+{
+  "disposition": "PASS",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.physical-prefix.jsonl",
+    "sha256": "d37d30df4ba656cab7b31e233ca566fa9ba97b830f564568f13f9bac3990a89f",
+    "byteCount": 6191541,
+    "events": 434
+  },
+  "actualOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "initialPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture/advancing.jsonl",
+    "prefixLength": 6191541,
+    "prefixDigest": "sha256:d37d30df4ba656cab7b31e233ca566fa9ba97b830f564568f13f9bac3990a89f",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 469226884,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:7913076d6f54fbd173235fef59d31c3d8b598ec24c676b74dc2952a4b4f563e1"
+  },
+  "successorPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture/advancing.jsonl",
+    "prefixLength": 6196546,
+    "prefixDigest": "sha256:ad1c2d07db3123eca34dbf68e6c0fcaa76f442c69daf2f4b6577292490efbe93",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 469226884,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:33fc5fb3dcd0efe8caecc45ef2fcd62b7465ef1956eb6dc086da4d5e55cec10c"
+  },
+  "append": {
+    "admissionEventRef": "event://abiogenesis/e01df76e6a34adec5379aa293c37cf94ed2ee0e322ae6f0f638f077fc58c57d8",
+    "invocationRef": "invocation://abi5-tests/174/fixture-bind",
+    "binding": {
+      "ref": "workspace-binding://abiogenesis/fdeb75a167e939028fd8b726358a9c80a6a89752e01c021dda2038dc8168b28e",
+      "digest": "sha256:fdeb75a167e939028fd8b726358a9c80a6a89752e01c021dda2038dc8168b28e"
+    }
+  },
+  "completionKind": "abg_event_resource_completion",
+  "currentBorrowedEnvironmentAccepted": true,
+  "originalBindingConserved": true,
+  "newBindingProjected": true,
+  "enclosingHeldAfterCompletion": true,
+  "normalClose": {
+    "kind": "abg_event_resource_receipt",
+    "schemaVersion": "5.0.0",
+    "acquisitionKind": "reopen",
+    "entryPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture/advancing.jsonl",
+      "prefixLength": 6191541,
+      "prefixDigest": "sha256:d37d30df4ba656cab7b31e233ca566fa9ba97b830f564568f13f9bac3990a89f",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 469226884,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:7913076d6f54fbd173235fef59d31c3d8b598ec24c676b74dc2952a4b4f563e1"
+    },
+    "closeHandoff": {
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture/advancing.jsonl",
+        "prefixLength": 6196546,
+        "prefixDigest": "sha256:ad1c2d07db3123eca34dbf68e6c0fcaa76f442c69daf2f4b6577292490efbe93",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 469226884,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:33fc5fb3dcd0efe8caecc45ef2fcd62b7465ef1956eb6dc086da4d5e55cec10c"
+      },
+      "reopenAuthority": {
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture/advancing.jsonl",
+        "device": 16777231,
+        "inode": 469226884,
+        "eventLogDigest": "sha256:ad1c2d07db3123eca34dbf68e6c0fcaa76f442c69daf2f4b6577292490efbe93",
+        "durableByteLength": 6196546,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "authorityDigest": "sha256:3c2e04432549f46e58e78337d1060a12bdf65325e2815931d43bf77e4ff40248"
+      }
+    },
+    "receiptDigest": "sha256:eb25802172c65bb57ca9a1451bb4dce8a798f3d56882a78a3c4e1e65286d99ca"
+  },
+  "foreignClose": {
+    "kind": "abg_event_resource_receipt",
+    "schemaVersion": "5.0.0",
+    "acquisitionKind": "reopen",
+    "entryPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture/foreign.jsonl",
+      "prefixLength": 6191541,
+      "prefixDigest": "sha256:d37d30df4ba656cab7b31e233ca566fa9ba97b830f564568f13f9bac3990a89f",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 469226893,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:a318613812a6d8993baecc2239d7edeb15da50e94802bd03b706c97ccf28769a"
+    },
+    "closeHandoff": {
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture/foreign.jsonl",
+        "prefixLength": 6191541,
+        "prefixDigest": "sha256:d37d30df4ba656cab7b31e233ca566fa9ba97b830f564568f13f9bac3990a89f",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 469226893,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:a318613812a6d8993baecc2239d7edeb15da50e94802bd03b706c97ccf28769a"
+      },
+      "reopenAuthority": {
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/fixture/foreign.jsonl",
+        "device": 16777231,
+        "inode": 469226893,
+        "eventLogDigest": "sha256:d37d30df4ba656cab7b31e233ca566fa9ba97b830f564568f13f9bac3990a89f",
+        "durableByteLength": 6191541,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "authorityDigest": "sha256:3b1325b0f36a3dbdd51537324a69f878bdb1e23f6202eec8b859eb6eb89be72b"
+      }
+    },
+    "receiptDigest": "sha256:de200b82720d37ba50f73ad248e4f0a355f3d7d10f08a21840c9929174ba325f"
+  },
+  "refusals": [
+    {
+      "label": "initial enclosing acquisition at advancing cut",
+      "name": "TypeError",
+      "message": "ABG held store differs from the selected durable prefix"
+    },
+    {
+      "label": "stale nominal selection",
+      "name": "AssertionError",
+      "message": "{\"kind\":\"abg_event_resource_refusal\",\"code\":\"acquisition_refused\",\"message\":\"TypeError: ABG held store differs from the selected durable prefix\"}\n+ actual - expected\n\n+ 'abg_event_resource_refusal'\n- 'acquired_abg_event_resource'\n"
+    },
+    {
+      "label": "copied current nominal selection",
+      "name": "AssertionError",
+      "message": "{\"kind\":\"abg_event_resource_refusal\",\"code\":\"invalid_resource_assertion\",\"message\":\"native selection has no acquired owner\"}\n+ actual - expected\n\n+ 'abg_event_resource_refusal'\n- 'acquired_abg_event_resource'\n"
+    },
+    {
+      "label": "foreign nominal selection",
+      "name": "AssertionError",
+      "message": "Foreign operation resource cannot borrow this enclosing owner\n\nAbgEventStore {}\n"
+    },
+    {
+      "label": "closed enclosing owner",
+      "name": "TypeError",
+      "message": "ABG durable event sink is not open for append"
+    }
+  ],
+  "limits": "Real copied434-row owner history plus one controlled canonical sibling binding admission. Exact admitCapabilityEnvironment guard only; no actual campaign resource, current source-use, full nominal capability grant, installed dispatch, native/model/UAT or capacity claim."
+}

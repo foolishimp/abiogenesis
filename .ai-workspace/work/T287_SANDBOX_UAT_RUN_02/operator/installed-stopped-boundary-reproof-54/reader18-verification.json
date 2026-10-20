@@ -1,0 +1,8 @@
+{
+  "readerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant",
+  "verifiedDigest": "sha256:e4c213aeb707937298c71056f36506f415f2202137fa1c6df253f7cb345bd3a9",
+  "manifestDigest": "sha256:d312a6b1a6f885969f754e34468f16599e9466b41d338b0cc8ec4b63c3f9310f",
+  "wallMs": 22239.940833,
+  "sourceBlindActualOwner": true,
+  "noNativeModelOrInstallOfHistoricalSource": true
+}

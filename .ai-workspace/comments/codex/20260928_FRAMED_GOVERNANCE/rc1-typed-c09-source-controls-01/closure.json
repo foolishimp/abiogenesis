@@ -1,0 +1,7 @@
+{
+  "status": "CLOSED",
+  "returnsTo": "Executive",
+  "dependency": "PENDING_SOURCE_INDEPENDENT_GO",
+  "sourceCandidateRuntimeGitEffects": 0,
+  "writesStopped": true
+}

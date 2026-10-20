@@ -1,0 +1,25 @@
+file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:65
+import {SourceTextModule,SyntheticModule} from 'node:vm';
+        ^^^^^^^^^^^^^^^^
+SyntaxError: The requested module 'node:vm' does not provide an export named 'SourceTextModule'
+    at #_instantiate (node:internal/modules/esm/module_job:254:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:363:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0
+✖ test_env/tests/t287-native-semantic-revision.test.mjs (179.775125ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 182.982541
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:1:1
+✖ test_env/tests/t287-native-semantic-revision.test.mjs (179.775125ms)
+  'test failed'

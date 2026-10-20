@@ -1,0 +1,144 @@
+{
+  "kind": "source43_bounded_c2_consumed_material_correspondence_readiness",
+  "status": "CLOSED_READY_FOR_INDEPENDENT_SOURCE_REVIEW_ONLY",
+  "sourceCut": 43,
+  "authority": {
+    "Product": "fixed ABI5.0 fifteen families",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "STDO": "2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "reentry": "bounded design_reframe and realization for canonical C2 consumed material; Product/WHAT unchanged"
+  },
+  "postimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/postimages.json",
+    "sha256": "8957c5f431f583f0767af0b1312351449cf09680dfc93fe44a169b2d45c58be1",
+    "bytes": 7670
+  },
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/dependency-cut-43-inputs.json",
+    "sha256": "b5016ceab01d5a4e8fce19193dc1ae9671058639531e7e45cf3a6ed6b92a81c1",
+    "bytes": 95280
+  },
+  "emission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/dependency-cut-43-emission.json",
+    "sha256": "1f229fa13f092781437503f0df5c0c6043ac0b4a34b6b86f709a7594cae7ec0b",
+    "bytes": 190943
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/emission-conservation.json",
+    "sha256": "9e608f462c9129ad752c7c1428a58fc579dd5e22ae30d99c518b43b21b3de6c5",
+    "bytes": 2936
+  },
+  "dependencyConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/dependency-conjunction.json",
+    "sha256": "feb6ae0e3a442d1412fdff79ed0487dffac87b83548542fd6b0b0edd5bf3f5fd",
+    "bytes": 4574
+  },
+  "checks": [
+    {
+      "name": "strict-01",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/strict-01.result.json",
+        "sha256": "12ced5a304b1ee0c0b0f50eeee15b4c6515d9c01b9e7313d5804661552e01a5e",
+        "bytes": 775
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/strict-01.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/strict-01.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "elapsedMs": 6619.612542000001,
+      "exitCode": 0
+    },
+    {
+      "name": "declarations-01",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/declarations-01.result.json",
+        "sha256": "bb57d3a2407f186a54279e2d62b63c67668e977139fa3dbc457bb2440f5ee72c",
+        "bytes": 784
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/declarations-01.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/declarations-01.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "elapsedMs": 3206.651792,
+      "exitCode": 0
+    },
+    {
+      "name": "focused-01",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/focused-01.result.json",
+        "sha256": "d9c126e207593e90241f6a5c26a504376aef45f714bc60b7960c1c0e247ab771",
+        "bytes": 1300
+      },
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/focused-01.stdout",
+        "sha256": "71a0d15c0ba63341fa781fe09ab61dc49c76f800576f242a14005edb5f5363ad",
+        "bytes": 978
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/commands/focused-01.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "elapsedMs": 2322.2700839999998,
+      "exitCode": 0
+    }
+  ],
+  "focused": {
+    "pass": 3,
+    "fail": 0,
+    "skip": 0,
+    "selectedTests": [
+      "strict canonical publication comparison",
+      "provenance-only canonical order",
+      "actual installed C2 material correspondence and refusals"
+    ],
+    "historicalMemberBytes": 109703,
+    "currentMemberBytes": 109611,
+    "consumedBytes": 2308,
+    "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+    "meaningDigest": "sha256:9451e73019da7416a5b7988abc0fb2520e9f9fca724f60cb3ef15fde6c556cdb",
+    "controlledLowerPremises": "Causal ABG install/lock availability only; actual09/14 material bytes and installed-publication binding checked by existing production owner",
+    "positives": [
+      "forward/reverse exact consumed span",
+      "copied metadata accepted only with independent actual material validation",
+      "raw two-argument Context comparison remains strict",
+      "original declaration values/digests unchanged"
+    ],
+    "refusals": [
+      "missing/crossed/duplicate/unadmitted/foreign install owners",
+      "false manifest coordinates",
+      "changed consumed or unconsumed member/record/manifest bytes",
+      "changed policy/role/order/graph/contract/contribution/source locator",
+      "changed span/bounds/inventory/member",
+      "whole-member or unproved tool consumption"
+    ]
+  },
+  "declarations": {
+    "count": 264,
+    "byteExactSource42": true,
+    "skipLibCheck": false,
+    "publicSignatureOrSchemaChanges": false
+  },
+  "ordinaryOwnerPath": "projectGovernanceCoveredSourceUse -> actual old/current ArtifactTruth environments and complete reconstructed closures -> compareGovernanceDeclarationPublications -> existing run-environment material verification; original Source/Program/currentness/cover/occurrence guards preserved",
+  "limits": [
+    "Actual14 unique first-null branch remains unobserved; this increment addresses the sufficient mandatory Context comparison blocker only",
+    "No changed implementation behavior-equivalence judgment; accepted Source41/42 work remains separate",
+    "No whole closure/actual covered Source use or invocation/admission/native/C2/currentness/recovery/capacity/UAT/release acceptance",
+    "No canonical generation/package/install, runtime resource/history/lease/worksite/app/model/Git effects"
+  ]
+}

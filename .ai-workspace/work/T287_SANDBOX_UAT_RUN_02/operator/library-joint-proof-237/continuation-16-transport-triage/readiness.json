@@ -1,0 +1,68 @@
+{
+  "status": "CLOSED_SELECTED_CAUSE_IDENTIFIED_NO_RETRY",
+  "firstFalse": {
+    "relation": "disposition",
+    "expected": "success",
+    "observed": "failure",
+    "equal": false
+  },
+  "precedingComparisonsTrue": 12,
+  "observation": {
+    "eventRef": "event://abiogenesis/c45cd5294fa138ae77a31a57dae26197eb8d51776726766069cf47876b493f80",
+    "disposition": "failure",
+    "failureClass": "transport_failure",
+    "processStatus": 1,
+    "processSignal": null,
+    "toolCallCount": 0,
+    "toolInvocations": [],
+    "structuredEventCount": 0,
+    "stdoutByteLength": 0,
+    "stderrByteLength": 482
+  },
+  "authenticStderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/fp-48907df68734a757-stderr.log",
+    "sha256": "a1e256ece69c2337be26b230efbf6aeb116e43d8f9ec780f9b353ad9e0c51728",
+    "byteCount": 482,
+    "authenticatedBy": "event://abiogenesis/c45cd5294fa138ae77a31a57dae26197eb8d51776726766069cf47876b493f80",
+    "content": {
+      "byteCount": 482,
+      "digest": "sha256:a1e256ece69c2337be26b230efbf6aeb116e43d8f9ec780f9b353ad9e0c51728",
+      "text": "TypeError: Unexpected native response schema; assessment is not selected\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/responder.mjs:102:23\n    at main (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/responder.mjs:102:104)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n"
+    }
+  },
+  "responseSchemaKind": "worksite_command_execution_worker_result",
+  "normalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16-transport-triage/normal-close.json",
+    "sha256": "7b79a2395ee2acb168078743508ad8f9e5ebfa79ae166c1ec062f1efade18e73",
+    "byteCount": 2332
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:782900f814ac04f8623000ba058356e2f10a5b0ce8e27fccff92bc9cb6984b5e",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:4350f5f17e39e115c0dcd5f8fee43df9902e42d2556449c98ffeaf711e230f9e",
+    "prefixLength": 32758262,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 469917053
+    }
+  },
+  "identicalOriginalHandoff": true,
+  "acquisitions": 1,
+  "completedOwnerCommand": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 1419.156,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "noNewTransportOrWorksiteEffects": true,
+  "limits": [
+    "Existing stored request and observation are the authentic comparison inputs; the private transient exchange object is not newly acquired.",
+    "Later failing comparisons are independently evaluated recorded facts; actual exactExchange short-circuits at disposition.",
+    "No semantic UAT, capacity or retry credit; Root selects next action."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "created_utc": "2026-10-20T18:48:28.670096+00:00",
+  "review": "independent L2 review 01",
+  "core_result": "falsified",
+  "subject_sha256": "94b3517a5e6d9e1b901879058fa39a7c2a7a906de834ae6675434e93916057a9",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/activation.md",
+      "sha256": "8ece14416c1743453e49f9145a21a06e2d894a93445c0846ad2ba1f0dfa6ea8a",
+      "bytes": 4175
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/review-01.md",
+      "sha256": "c862ca6310be883f9311b12b7409a82319151eacbd5e8f5d6062f519b3346c47",
+      "bytes": 11583
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/checks-01.json",
+      "sha256": "52624ad6e80f1f5030458dcaf43c8d68db5d587e707c0173d9f7b8db1981a0af",
+      "bytes": 467747
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/result-01.json",
+      "sha256": "74460d8c2bfa018136755a674d8c11b54fb37380d56cc5a982298a64f9e30517",
+      "bytes": 1763
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-01/L2-candidate-freeze.json",
+      "sha256": "94b3517a5e6d9e1b901879058fa39a7c2a7a906de834ae6675434e93916057a9",
+      "bytes": 6693
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-01/L2-execution-contract.md",
+      "sha256": "0c2876519cec2452480eb4e7a86fb26efdd0a0dcfa36a005b6336490e947d24b",
+      "bytes": 21965
+    }
+  ],
+  "next_owner": "Executive"
+}

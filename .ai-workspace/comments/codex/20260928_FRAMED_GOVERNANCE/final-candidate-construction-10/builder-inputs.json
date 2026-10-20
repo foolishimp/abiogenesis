@@ -1,0 +1,38 @@
+{
+  "operationBasisSHA256": "6bba20a790d7efc29393af130b95f2ba2570ee485740b17904100fb08325a7f4",
+  "sourceCutSHA256": "dfcbe13c1b667a9b16fb89caaf4afa59a1e911fa44b11e6508e847a2bd1c5aa8",
+  "sourceAcceptanceSHA256": "58063331b229c8881bef0a449fff485ca3b6a5304fd094f76ab79f46b8f41d60",
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-grant.txt",
+    "bytes": 6025,
+    "sha256": "7f254642a603b1f90e7ce2a992f11c60bf84119a845a42f10687171a07d07a86",
+    "mode": 420
+  },
+  "priorCandidateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09",
+  "sourceCount": 1113,
+  "changedCount": 4,
+  "addedCount": 2,
+  "unchangedCount": 1107,
+  "priorMemberCount": 1111,
+  "baselineSourceFreezeSHA256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+  "requestSHA256": "7f254642a603b1f90e7ce2a992f11c60bf84119a845a42f10687171a07d07a86",
+  "baselineArtifactDigest": "sha256:fb5517bd32afeca44a9236f73137e0ecdcc3eb21cf94a6ad0d5681af74d89122",
+  "sourceEmittedPaths": [
+    "build/code/src/validator/self_conformance.js",
+    "build/code/src/validator/self_conformance.d.ts",
+    "build/code/src/abg/qualification_proof.js",
+    "build/code/src/abg/qualification_proof.d.ts"
+  ],
+  "newSourceEmittedPaths": [],
+  "permittedDerivedIdentityChanges": [
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "typescriptEmitOptions": {
+    "rootDir": "code/src",
+    "outDir": "build/code/src",
+    "declaration": true,
+    "stripInternal": true,
+    "noEmitOnError": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "role": "Writer33 preparation only",
+  "source32AndProof32ClosedGO": true,
+  "executionAuthorized": false,
+  "method": "STDO2.5.1-rc.2",
+  "methodManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frames": [
+    "f-end-to-end-interface-integration",
+    "f-worksite-causality"
+  ],
+  "selectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "1fe497924a215c4215865c36e50230ebf96e81aefc1ba81705ee59150065267d",
+      "byteCount": 10623282
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/identity.json",
+      "sha256": "ff215ba791996ec5ba1d34220de881a2c3db9db961719a4d11a105633491a6c9",
+      "byteCount": 6512
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/freeze.json",
+      "sha256": "fe38075c3acdf6b9dc3cc8ea6c6b5a809c3aa5b6b8e33b1d5a6b979299de1015",
+      "byteCount": 10359
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-28/observations.json",
+      "sha256": "3ef204421113aeb32b9c3380a84f1ff26c16a356eaf3ed317824a41aa238224d",
+      "byteCount": 65877
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-28/execution-freeze.json",
+      "sha256": "4b1be1344e6b0dddc90193d17f1e7f12e9daed5de270051aeab5fde4ff29776e",
+      "byteCount": 58497
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/config.json",
+      "sha256": "0267728b4e92e7b5b8d414bf2aa377624561d9b4e4ffc48e271d3ba1c0bd9592",
+      "byteCount": 2968
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    }
+  ],
+  "overallT0": "2026-10-06T20:52:43.725Z",
+  "overallDeadline": "2026-10-07T01:52:43.725Z",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33",
+  "packageMeaning": "Accepted successor; preparation has no installed runtime/UAT credit."
+}

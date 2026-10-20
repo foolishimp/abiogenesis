@@ -1,0 +1,29 @@
+0 verbose cli /opt/homebrew/Cellar/node/24.7.0/bin/node /opt/homebrew/bin/npm
+1 info using npm@11.5.1
+2 info using node@v24.7.0
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/public-fixture/sandbox/installed/test-consumer/.npmrc
+5 silly config load:file:/Users/jim/.npmrc
+6 silly config load:file:/opt/homebrew/etc/npmrc
+7 verbose title npm install /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/public-fixture/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz
+8 verbose argv "install" "--bin-links" "false" "--ignore-scripts" "--no-audit" "--no-fund" "--offline" "--package-lock" "true" "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/public-fixture/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+9 verbose logfile logs-max:10 dir:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/npm-cache/_logs/2026-10-10T06_28_14_858Z-
+10 verbose logfile /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/npm-cache/_logs/2026-10-10T06_28_14_858Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 silly fetch manifest @abi5-tests/sandbox-uat@file:../../../setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz
+15 silly placeDep ROOT @abi5-tests/sandbox-uat@5.0.0 OK for: abiogenesis-installed-product-consumer@0.0.0 want: file:../../../setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz
+16 silly fetch manifest @abiogenesis/typescript-tenant@file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+17 silly placeDep ROOT @abiogenesis/typescript-tenant@5.0.0-rc.1 OK for: @abi5-tests/sandbox-uat@5.0.0 want: file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+18 silly reify moves {}
+19 http cache @abiogenesis/typescript-tenant@file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz 0ms (cache hit)
+20 http cache @abi5-tests/sandbox-uat@file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/public-fixture/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz 0ms (cache hit)
+21 silly ADD node_modules/@abiogenesis/typescript-tenant
+22 silly ADD node_modules/@abi5-tests/sandbox-uat
+23 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/public-fixture/sandbox/installed/test-consumer
+24 verbose os Darwin 25.6.0
+25 verbose node v24.7.0
+26 verbose npm  v11.5.1
+27 verbose exit 0
+28 info ok

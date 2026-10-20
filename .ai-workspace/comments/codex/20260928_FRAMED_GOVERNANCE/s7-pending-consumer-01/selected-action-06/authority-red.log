@@ -1,0 +1,118 @@
+✖ equal historical projection values do not mask the exact open current basis (0.907333ms)
+✖ occurrence selection refuses genuine ambiguity and crossed basis (0.137667ms)
+✖ retained catalog and view authority reject a coherent same-binding alternative (2321.512667ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2865.498791
+
+✖ failing tests:
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs:24:1
+✖ equal historical projection values do not mask the exact open current basis (0.907333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + null
+  - {
+  -   cCallRef: 'c-call:sha256:ae0a2aea14563f91e48ae44719ab1de8bcf2436c3f7ba9c0a7553fce32a333ea',
+  -   causedByEventRef: 'event://abiogenesis/3da6141dee5af260b154331bd38418491ee52fece69668b459349f33ac6c01e2',
+  -   constructionIntentDigest: 'sha256:f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f',
+  -   constructionIntentRef: 'construction-intent://abiogenesis/f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f',
+  -   continuationDigest: 'sha256:83cbd4c3c4d3bc92c1afe90b76173fc7734d8915a0c898101d680c9007d418f4',
+  -   continuationKind: 'selected_action',
+  -   continuationRef: 'continuation://abiogenesis/83cbd4c3c4d3bc92c1afe90b76173fc7734d8915a0c898101d680c9007d418f4',
+  -   executionBasisDigest: 'sha256:81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac',
+  -   executionBasisRef: 'execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac',
+  -   frameId: 'frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d',
+  -   graphCallId: 'graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467',
+  -   heldCursorDigest: 'sha256:79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355',
+  -   heldCursorRef: 'traversal-cursor://abiogenesis/79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355',
+  -   intentAdmissionEventRef: 'event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b',
+  -   openedEventRef: 'event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b',
+  -   runId: 'run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029',
+  -   selectedActionDigest: 'sha256:2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1',
+  -   selectedActionRef: 'next-action-projection://product/2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1',
+  -   status: 'open',
+  -   terminalEventRef: null
+  - }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs:27:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { continuationKind: 'selected_action', runId: 'run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029', graphCallId: 'graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467', frameId: 'frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d', cCallRef: 'c-call:sha256:ae0a2aea14563f91e48ae44719ab1de8bcf2436c3f7ba9c0a7553fce32a333ea', heldCursorRef: 'traversal-cursor://abiogenesis/79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355', heldCursorDigest: 'sha256:79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355', executionBasisRef: 'execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac', executionBasisDigest: 'sha256:81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac', constructionIntentRef: 'construction-intent://abiogenesis/f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f', constructionIntentDigest: 'sha256:f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f', selectedActionRef: 'next-action-projection://product/2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1', selectedActionDigest: 'sha256:2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1', intentAdmissionEventRef: 'event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b', causedByEventRef: 'event://abiogenesis/3da6141dee5af260b154331bd38418491ee52fece69668b459349f33ac6c01e2', continuationRef: 'continuation://abiogenesis/83cbd4c3c4d3bc92c1afe90b76173fc7734d8915a0c898101d680c9007d418f4', continuationDigest: 'sha256:83cbd4c3c4d3bc92c1afe90b76173fc7734d8915a0c898101d680c9007d418f4', openedEventRef: 'event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b', terminalEventRef: null, status: 'open' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs:30:1
+✖ occurrence selection refuses genuine ambiguity and crossed basis (0.137667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   cCallRef: 'c-call:sha256:ae0a2aea14563f91e48ae44719ab1de8bcf2436c3f7ba9c0a7553fce32a333ea',
+  +   causedByEventRef: 'event://abiogenesis/3da6141dee5af260b154331bd38418491ee52fece69668b459349f33ac6c01e2',
+  +   constructionIntentDigest: 'sha256:f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f',
+  +   constructionIntentRef: 'construction-intent://abiogenesis/f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f',
+  +   continuationDigest: 'sha256:83cbd4c3c4d3bc92c1afe90b76173fc7734d8915a0c898101d680c9007d418f4',
+  +   continuationKind: 'selected_action',
+  +   continuationRef: 'continuation://abiogenesis/83cbd4c3c4d3bc92c1afe90b76173fc7734d8915a0c898101d680c9007d418f4',
+  +   executionBasisDigest: 'sha256:81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac',
+  +   executionBasisRef: 'execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac',
+  +   frameId: 'frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d',
+  +   graphCallId: 'graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467',
+  +   heldCursorDigest: 'sha256:79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355',
+  +   heldCursorRef: 'traversal-cursor://abiogenesis/79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355',
+  +   intentAdmissionEventRef: 'event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b',
+  +   openedEventRef: 'event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b',
+  +   runId: 'run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029',
+  +   selectedActionDigest: 'sha256:2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1',
+  +   selectedActionRef: 'next-action-projection://product/2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1',
+  +   status: 'open',
+  +   terminalEventRef: null
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs:33:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { continuationKind: 'selected_action', runId: 'run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029', graphCallId: 'graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467', frameId: 'frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d', cCallRef: 'c-call:sha256:ae0a2aea14563f91e48ae44719ab1de8bcf2436c3f7ba9c0a7553fce32a333ea', heldCursorRef: 'traversal-cursor://abiogenesis/79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355', heldCursorDigest: 'sha256:79e5420cf3d22dc026b382a63e512cab927db0e41faaee86190475eb1ffb9355', executionBasisRef: 'execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac', executionBasisDigest: 'sha256:81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac', constructionIntentRef: 'construction-intent://abiogenesis/f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f', constructionIntentDigest: 'sha256:f4c77d9bae2987ad2cec9f7db46fe0b24f4aec348b6af10e49f325e3ecf5879f', selectedActionRef: 'next-action-projection://product/2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1', selectedActionDigest: 'sha256:2bd15e6dbb6d7c181d9027297ffe535eb809bd410842f1166cbd81451277d5e1', intentAdmissionEventRef: 'event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b', causedByEventRef: 'event://abiogenesis/3da6141dee5af260b154331bd38418491ee52fece69668b459349f33ac6c01e2', continuationRef: 'continuation://abiogenesis/83cbd4c3c4d3bc92c1afe90b76173fc7734d8915a0c898101d680c9007d418f4', continuationDigest: 'sha256:83cbd4c3c4d3bc92c1afe90b76173fc7734d8915a0c898101d680c9007d418f4', openedEventRef: 'event://abiogenesis/ae0e954593d9ca70d57d0b9e14479c7c55093940ab17d911ff6ed30c8f321a1b', terminalEventRef: null, status: 'open' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs:35:1
+✖ retained catalog and view authority reject a coherent same-binding alternative (2321.512667ms)
+  AssertionError [ERR_ASSERTION]: same selected Program validation is a counterexample precondition
+  + actual - expected
+  
+  + 'program-validation://abiogenesis/9dbee2f0b11571020eb4c9889cf394b1fc6f59b683ee9e75fc3451759aad9ab0'
+  - 'program-validation://abiogenesis/8183bc2a51ce5b59e105a27a2aab693870458297feee8abe879f4d8a239548a6'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs:41:305)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'program-validation://abiogenesis/9dbee2f0b11571020eb4c9889cf394b1fc6f59b683ee9e75fc3451759aad9ab0',
+    expected: 'program-validation://abiogenesis/8183bc2a51ce5b59e105a27a2aab693870458297feee8abe879f4d8a239548a6',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

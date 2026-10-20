@@ -1,0 +1,13 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/packaged-owner.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T05:13:54.183Z",
+  "environmentKeys": [
+    "PATH",
+    "npm_config_cache"
+  ],
+  "timeoutMs": 300000
+}

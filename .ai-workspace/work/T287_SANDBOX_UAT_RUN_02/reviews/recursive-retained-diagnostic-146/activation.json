@@ -1,0 +1,43 @@
+{
+  "role": "Independent Reviewer146",
+  "created": "2026-10-09T02:00:32.826693+00:00",
+  "subject": {
+    "return.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/return.md",
+      "sha256": "feb7519d1b7f4b2869fb08232aecf1a8ee245c05acf80859cebb960961cb9c67",
+      "byteCount": 2367
+    },
+    "readiness.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/readiness.json",
+      "sha256": "c207d5f9304376e902baf1b4f4095da2cc82bc5dbd90329ef07c349160ee29c9",
+      "byteCount": 18066
+    },
+    "freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/freeze.json",
+      "sha256": "e4985b01a7f61e4083fb861f3397b6abf272e6922ed7d5d4f2b62ae963c9b827",
+      "byteCount": 25200
+    }
+  },
+  "basis": {
+    "product": "Fixed fifteen-family ABI5.0 / GOAL035 / T287",
+    "stdo": "2.5.1-rc.2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frames": [
+      "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+      "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+    ],
+    "law": [
+      "Product F03/F10",
+      "RECURSE003/004/006",
+      "CCALL013/018"
+    ]
+  },
+  "productFrameReuse": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/recursive-child-failure-144/activation.json",
+    "sha256": "5a7363e98bc1c944af38dbeaf7639256cf99a4602c7c6ad8e73d9d776b7f6548",
+    "byteCount": 1135
+  },
+  "scope": "Cumulative142+145 Source and existing-owner correspondence; documentary review only",
+  "excluded": "Moving143, normal generation, installed145/F_P composition, provider, DataMapper/native/UAT/release",
+  "noAuthoredSubjectSource": true
+}

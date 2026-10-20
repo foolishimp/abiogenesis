@@ -1,0 +1,18 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=Terminal-null admitted Run",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T03:56:18.388Z",
+  "environmentKeys": [
+    "ABI5_AUTHENTIC_C2_EVENT",
+    "ABI5_AUTHENTIC_C2_EVENT_DIGEST",
+    "ABI5_AUTHENTIC_C2_PROVENANCE",
+    "PATH"
+  ],
+  "timeoutMs": 180000
+}

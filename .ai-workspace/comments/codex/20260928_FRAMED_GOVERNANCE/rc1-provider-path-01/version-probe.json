@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/jim/.local/share/claude/versions/2.1.280",
+    "--version"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+  "timeoutSeconds": 10,
+  "observedAt": "2026-10-01T14:24:45.259696+00:00",
+  "modelDispatch": false,
+  "exitCode": 0,
+  "stdout": "2.1.280 (Claude Code)\n",
+  "stderr": "",
+  "elapsedMs": 30.778
+}

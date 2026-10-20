@@ -1,0 +1,107 @@
+{
+  "sourceCompile": {
+    "mode": "compile",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "pid": 90031,
+    "processGroup": 90031,
+    "startedAt": "2026-10-02T14:10:02.575093+00:00",
+    "closedAt": "2026-10-02T14:10:09.047018+00:00",
+    "elapsedMs": 6472.036832943559,
+    "exitCode": 0,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": null,
+    "rssBytes": 1099907072,
+    "userSeconds": 10.536141,
+    "systemSeconds": 0.270828,
+    "knownCLIProcessGroups": [],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "actualCallbackRegression": {
+    "mode": "regression",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+    ],
+    "pid": 90864,
+    "processGroup": 90864,
+    "startedAt": "2026-10-02T14:11:25.711835+00:00",
+    "closedAt": "2026-10-02T14:11:26.575995+00:00",
+    "elapsedMs": 864.1932504251599,
+    "exitCode": 1,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": null,
+    "rssBytes": 355368960,
+    "userSeconds": 0.8534419999999999,
+    "systemSeconds": 0.11787399999999999,
+    "knownCLIProcessGroups": [],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "compilerNegativeTest": {
+    "status": "NOT_RUN",
+    "reason": "first unexpected regression receipt refusal stops the grant",
+    "expectedNegativeDiagnosticsArePass": true
+  },
+  "sourcePostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275535,
+      "sha256": "1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 69320,
+      "sha256": "97774ea7ad08052a4031f8388577fa558cbbd4a294178731711a70ba119fdb58",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 18999,
+      "sha256": "051e9238332705c0131ae6161c1dfca8a41ca01336b6aeacaf21a8cbfef0fd31",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76606,
+      "sha256": "539186740c0fc386b9f76e23fd96fc6c7ff128f89851f1a3f57b77704f296340",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "bytes": 19603,
+      "sha256": "b6919041f617814eae22d48b2b6e646fe1b2f9edc889708134f911472398f581",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+      "bytes": 1976,
+      "sha256": "9797da8e09246f70f111eb1a7866da8f73db1b1aaecc0eda6685fed4d0417114",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "bytes": 6838,
+      "sha256": "0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7",
+      "mode": 420
+    }
+  ],
+  "aggregateDisposition": "STOPPED_NO_GO_READINESS",
+  "noInstalledQualificationCredit": true
+}

@@ -1,0 +1,43 @@
+{
+  "correctRelativeTarget": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261002_HANDOFF_ABG_5_RC1_STEEL_THREAD.md",
+  "targetExists": true,
+  "checkedExactReferences": [
+    {
+      "record": "final-f11-bound-assessment-01/freeze.json",
+      "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e",
+      "present": true
+    },
+    {
+      "record": "final-f11-native-assessment-execution-01/final-handoff.json",
+      "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a",
+      "present": true
+    },
+    {
+      "record": "final-f11-current-resource-caller-02/freeze.json",
+      "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+      "present": true
+    },
+    {
+      "record": "rc1-s02-continuation-02/final-handoff.json",
+      "sha256": "759e26d44b93623ac9b32d09942d5c7e730ca8d056196365ad0fc659f106dee1",
+      "present": true
+    },
+    {
+      "record": "rc1-s02-continuation-02/freeze.json",
+      "sha256": "4ea6a784630b1ebefe7cb099b0289e21e2633109c123c7ff93b5bff378989654",
+      "present": true
+    },
+    {
+      "record": "rc1-s02-continuation-review-02/freeze.json",
+      "sha256": "f54bc12454346e1b0e0156f736f7a471482e0223a5462d47a4987067c74a24a2",
+      "present": true
+    }
+  ],
+  "planPostimage": "8e594268b3199caf00b0d45121b88875298f46059caf2a529f7baf655b7bb9b9",
+  "handoffPostimage": "c9ea23d8bc67f0931bc2031b722934edda62e72477f8dff6c99b3fafa38cb35a",
+  "preimages": {
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md": "dc9ff8d442bcfc9b9992c7588b4d17ae9df3c047673aaf610646c55efa23766f",
+    ".ai-workspace/comments/codex/20261002_HANDOFF_ABG_5_RC1_STEEL_THREAD.md": "f5fc919bfc4dc1ba037aa430302e5ac9a66e9789769247c67e729be775624b8a",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": "1d778315e7dee04c5854adf218bb2c705ace581d2f61c8508d6bcb37819d54fc"
+  }
+}

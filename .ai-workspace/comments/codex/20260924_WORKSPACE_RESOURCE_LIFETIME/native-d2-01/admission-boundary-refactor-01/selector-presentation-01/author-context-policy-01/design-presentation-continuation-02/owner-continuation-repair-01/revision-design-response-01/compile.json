@@ -1,0 +1,14 @@
+{
+  "command": [
+    "./node_modules/.bin/tsc",
+    "-p",
+    "tsconfig.json",
+    "--pretty",
+    "false"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "exitCode": 0,
+  "elapsedSeconds": 5.593403708655387,
+  "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

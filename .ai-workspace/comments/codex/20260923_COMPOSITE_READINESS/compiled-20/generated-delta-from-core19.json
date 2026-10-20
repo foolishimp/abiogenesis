@@ -1,0 +1,254 @@
+[
+  {
+    "before": {
+      "path": "build/code/src/abg/instruction_assembly.d.ts",
+      "bytes": 10661,
+      "sha256": "c7005416d267292deb017563884886ff33a14886ca6d9176684f31be4d9b003c"
+    },
+    "after": {
+      "path": "build/code/src/abg/instruction_assembly.d.ts",
+      "bytes": 13796,
+      "sha256": "42cae6dd4e42bac9763809634d6a5e0de7505357e00c6c5e0c8d12affac830da"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 66968,
+      "sha256": "0214dad40876f042a3bc59d84584bf863fb4a362b9e8c1c4542562d9336f778b"
+    },
+    "after": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 68409,
+      "sha256": "abfb429689ddd5064d3a0ad032395e0931c9528d12d76bc1bc98b18a79a17bb4"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/abg/semantic_job.js",
+      "bytes": 48525,
+      "sha256": "e7141fe1fb853667a6d56f3847d113bb975e1326aadf5b3349527821a53086c3"
+    },
+    "after": {
+      "path": "build/code/src/abg/semantic_job.js",
+      "bytes": 49001,
+      "sha256": "cbddee3694199e2fea205b9c2e426751243af62a4a15c665ee879a7854feb196"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/abg/semantic_revision.d.ts",
+      "bytes": 6908,
+      "sha256": "2f5f595043ce298c64f45bc574d26c0fb0b6a5422a3b95227e4419e12f064b62"
+    },
+    "after": {
+      "path": "build/code/src/abg/semantic_revision.d.ts",
+      "bytes": 10037,
+      "sha256": "2db611564d5fd50b0d5d840edf1cedffc063894d53532ffb2af90f3fd976f78d"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/abg/semantic_revision.js",
+      "bytes": 55388,
+      "sha256": "9c8eca0ca5e9568e8b185ce1b517d31ee2db6bf9d28c5cf08de524d2640b9a08"
+    },
+    "after": {
+      "path": "build/code/src/abg/semantic_revision.js",
+      "bytes": 79993,
+      "sha256": "c4e9d8c1a8e3b6934ec477d1e940744c6b7b0d40dfe1c5fd93a386e2f151e922"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/abg/worksite_revision.js",
+      "bytes": 62449,
+      "sha256": "4ded3d50631c4739a49299d30da0af68ed403eebcbd6a9b7d5f4ef48b3bc74a6"
+    },
+    "after": {
+      "path": "build/code/src/abg/worksite_revision.js",
+      "bytes": 64076,
+      "sha256": "67afbb9700c68ed4f15cb2fd42524c60e640c34a4b2d4e3785f0d2577bb3a169"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/gtl/semantic_revision_identity.d.ts",
+      "bytes": 3070,
+      "sha256": "a0eacd1a31db7bd73958cf1f597c7f737041e853076a85bfe684a625ebf9bb5e"
+    },
+    "after": {
+      "path": "build/code/src/gtl/semantic_revision_identity.d.ts",
+      "bytes": 4701,
+      "sha256": "2c3bb9ee18446fe4f832ebe7f3964476747477369ff53fa268bd852e68bfbd7e"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/gtl/semantic_revision_identity.js",
+      "bytes": 2747,
+      "sha256": "795b6574c5d796ed5011162a3584f2f9d55804d95a36cb49e29d11a95d8234ad"
+    },
+    "after": {
+      "path": "build/code/src/gtl/semantic_revision_identity.js",
+      "bytes": 4287,
+      "sha256": "f7d7b0c3e6498c7083de85b09e38dc4cfea3dbc61bd317f490884619a26e646c"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/gtl/semantic_revision_publication.d.ts",
+      "bytes": 1240,
+      "sha256": "3770f37cb59005b9d79b4f6f84b84dd28d5b3ba5de5b1264fd1037eac6badb10"
+    },
+    "after": {
+      "path": "build/code/src/gtl/semantic_revision_publication.d.ts",
+      "bytes": 1727,
+      "sha256": "92d0623811ba3f29f1931789d6cc0e6ddefd9951740ea58649a8acdce453595a"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/gtl/semantic_revision_publication.js",
+      "bytes": 9645,
+      "sha256": "2628101c31f84e93c324efed42a8935fb027f78c5f16844a34528650d6148247"
+    },
+    "after": {
+      "path": "build/code/src/gtl/semantic_revision_publication.js",
+      "bytes": 13623,
+      "sha256": "6a4bb957a415e357f723a3e9943e6c3ef334e06f81e49fb2ab7b3f19fc5d1788"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/gtl/stdo_run_environment.js",
+      "bytes": 16993,
+      "sha256": "da61b2d040561dfa85982332eda976a70dd5c40719382b0f673817a49ef6c86b"
+    },
+    "after": {
+      "path": "build/code/src/gtl/stdo_run_environment.js",
+      "bytes": 18027,
+      "sha256": "28c6bb3af242c3eab2ad787010026b92bc235a57f8d6a362532acb7c8bd97bef"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/implementation/semantic_revision.d.ts",
+      "bytes": 2742,
+      "sha256": "f71a2f41d5b822d7be9d41123f2492a1dc6cb4090bc0545e7c0bb4a9718352cb"
+    },
+    "after": {
+      "path": "build/code/src/implementation/semantic_revision.d.ts",
+      "bytes": 3703,
+      "sha256": "04e68de843beb9d15d1ea89318bc634127e95a114fb6f556f4f0d13551160ec7"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/implementation/semantic_revision.js",
+      "bytes": 9501,
+      "sha256": "5ed97abbff9f5eae765b5eefe39bbe7849dc2fc5fcf36a05fada3e02650d2f98"
+    },
+    "after": {
+      "path": "build/code/src/implementation/semantic_revision.js",
+      "bytes": 11675,
+      "sha256": "8cd39f61158ecf3280afb71e93768f89f953c6385561790d382c52d147397775"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/product/builtin_semantics.js",
+      "bytes": 60875,
+      "sha256": "35631ad9c26b464fb1f083e4dc5301676381280a3299bca8c55866694e50baee"
+    },
+    "after": {
+      "path": "build/code/src/product/builtin_semantics.js",
+      "bytes": 62009,
+      "sha256": "63264f4c181867b56bb3e87b84383f8b3577cce0f782a480901ad5cd6e1f6e4c"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/product/execution_resolution.js",
+      "bytes": 33350,
+      "sha256": "157746e0ff31de9463be39cb802f84766af7aa8a366e1e2cf48704c66178d77f"
+    },
+    "after": {
+      "path": "build/code/src/product/execution_resolution.js",
+      "bytes": 33958,
+      "sha256": "1d765fd057a68fe12c0fcccc33e617ae397657b724a4b9a7c0eb220857de04d2"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/product/semantic_job.d.ts",
+      "bytes": 32206,
+      "sha256": "663a7135420edeab24ab3440ac50d56b32f308a12d2e771c8ebbb0dabeb23665"
+    },
+    "after": {
+      "path": "build/code/src/product/semantic_job.d.ts",
+      "bytes": 32874,
+      "sha256": "291551278d6aeef1bd1804639429b7b8d85710f6fbc0feef95566e0c9802d89f"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/product/semantic_job.js",
+      "bytes": 83911,
+      "sha256": "ace741fb60d2f448cad23c5d886203bf9564bf0388b94c7143dd9e3d77cb51d2"
+    },
+    "after": {
+      "path": "build/code/src/product/semantic_job.js",
+      "bytes": 85419,
+      "sha256": "483bd9e98e388110a71536b9026a87550c67bce2efa6d09be0be2fcd73d12435"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/product/semantic_revision.d.ts",
+      "bytes": 5851,
+      "sha256": "b0f398507a0107c6cb8d8951e744329045e4c61714369e82c2e2ae75042806f5"
+    },
+    "after": {
+      "path": "build/code/src/product/semantic_revision.d.ts",
+      "bytes": 10029,
+      "sha256": "5d992663ebed8e2ce9d5998285101a856ff2e8219742b980c633a25deba0ca95"
+    }
+  },
+  {
+    "before": {
+      "path": "build/code/src/product/semantic_revision.js",
+      "bytes": 15205,
+      "sha256": "75e066b990f2b2faee95ba540899de2cbe621a64e5268613182a312272d5bace"
+    },
+    "after": {
+      "path": "build/code/src/product/semantic_revision.js",
+      "bytes": 29671,
+      "sha256": "ca6679f3b5d339cffad5decce958946c4308737559377e14014afa3d8788dfb9"
+    }
+  },
+  {
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "923a7b662a1f2a01da0d083258424fac76812141ee50065fc1b10e5a56a8b928"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "3e0ef10f6685646c8de2dab730461336d02119bd839ebd603ce7568d066e8cfd"
+    }
+  },
+  {
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2377790,
+      "sha256": "31dc2cb589835eb4cf4b91acbc0b83a70e48d623cd3434a98551152714770df2"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2377790,
+      "sha256": "1f6d63662a45ad1a83ea2d927f9ad1e22ea764ba69493e3aad797c9ab23cb059"
+    }
+  }
+]

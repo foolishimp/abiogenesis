@@ -1,0 +1,7 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/codec-handoff-233.ts",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+  "sha256": "fdaef00f4b0ca1374de30a875598ed53a2a156c828e8da1056899fba92641d18",
+  "byteCount": 6020,
+  "lease": "released to Worker235; EventStore remains Worker233"
+}

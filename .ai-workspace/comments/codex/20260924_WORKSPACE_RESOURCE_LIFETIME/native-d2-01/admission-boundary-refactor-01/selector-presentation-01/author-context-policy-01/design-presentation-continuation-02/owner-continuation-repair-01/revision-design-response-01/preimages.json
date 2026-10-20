@@ -1,0 +1,89 @@
+{
+  "createdAtUtc": "2026-09-25T16:26:39.220657+00:00",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "relativePath": "design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "preimageSha256": "8f20bfef670694453d00cd5ba3f624eaa44f711152541f39000dd1f5d0311338",
+      "preimageBytes": 72891
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "relativePath": "code/src/product/semantic_job.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/code/src/product/semantic_job.ts",
+      "preimageSha256": "22148c16b13afea031ebf126b01e0dc96fc705223e96a8c14e507bd4cf8239bf",
+      "preimageBytes": 91750
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "relativePath": "code/src/abg/instruction_assembly.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/code/src/abg/instruction_assembly.ts",
+      "preimageSha256": "41ecdee597adb2f2eb18229ee7dc49557127f788b32dd6114c020d0e65b5d9aa",
+      "preimageBytes": 83429
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "relativePath": "code/src/implementation/semantic_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/code/src/implementation/semantic_revision.ts",
+      "preimageSha256": "2bd7db1ffaebdc72f0e956b1062da5343299715f93a6922d2effd9e1fe253bc2",
+      "preimageBytes": 13518
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+      "relativePath": "test_env/tests/t287-management-context.test.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/test_env/tests/t287-management-context.test.mjs",
+      "preimageSha256": "8caf0a4d0e32fff0bf00e5ff093fc199e59fd6f0a2a18fe7d04af259b95ff824",
+      "preimageBytes": 42832
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "relativePath": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "preimageSha256": "78c2073d94f041a1da5cf7584a937c36cafbbb9d8509b9e1deb0acda6fb3176a",
+      "preimageBytes": 48882
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+      "relativePath": "build/code/src/product/semantic_job.js",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/build/code/src/product/semantic_job.js",
+      "preimageSha256": "483bd9e98e388110a71536b9026a87550c67bce2efa6d09be0be2fcd73d12435",
+      "preimageBytes": 85419
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+      "relativePath": "build/code/src/product/semantic_job.d.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/build/code/src/product/semantic_job.d.ts",
+      "preimageSha256": "291551278d6aeef1bd1804639429b7b8d85710f6fbc0feef95566e0c9802d89f",
+      "preimageBytes": 32874
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "relativePath": "build/code/src/abg/instruction_assembly.js",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/build/code/src/abg/instruction_assembly.js",
+      "preimageSha256": "531b090ad5dbf1aa0cf930ff13e0e26ef564ed52f3f0928ca5b5143aa64e7225",
+      "preimageBytes": 81288
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "relativePath": "build/code/src/abg/instruction_assembly.d.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/build/code/src/abg/instruction_assembly.d.ts",
+      "preimageSha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+      "preimageBytes": 14248
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+      "relativePath": "build/code/src/implementation/semantic_revision.js",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/build/code/src/implementation/semantic_revision.js",
+      "preimageSha256": "af6d25986a512e7244353ad2dd6917d382a5a1af49907ff30ef07f72a83a3a3b",
+      "preimageBytes": 11907
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.d.ts",
+      "relativePath": "build/code/src/implementation/semantic_revision.d.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/preimages/build/code/src/implementation/semantic_revision.d.ts",
+      "preimageSha256": "fe2d9dea45ab616e630b820f0b065eecc9b2f08015a9ca4d3502b83ef43ca669",
+      "preimageBytes": 4185
+    }
+  ]
+}

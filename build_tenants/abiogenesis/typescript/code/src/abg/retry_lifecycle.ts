@@ -1,3 +1,4 @@
+import type { RuntimeEventScan } from "./runtime_history.js";
 import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { RuntimeEvent } from "./event_store.js";
@@ -54,6 +55,19 @@ function sharesBridgeScope(
  */
 export function hasExactCompletedRetryProgressBridge(
   events: readonly RuntimeEvent[],
+  route: RuntimeEvent,
+  judgment: RuntimeEvent,
+  coordinates: CompletedRetryProgressBridgeCoordinates,
+): boolean;
+/** @internal */
+export function hasExactCompletedRetryProgressBridge(
+  events: RuntimeEventScan,
+  route: RuntimeEvent,
+  judgment: RuntimeEvent,
+  coordinates: CompletedRetryProgressBridgeCoordinates,
+): boolean;
+export function hasExactCompletedRetryProgressBridge(
+  events: RuntimeEventScan,
   route: RuntimeEvent,
   judgment: RuntimeEvent,
   coordinates: CompletedRetryProgressBridgeCoordinates,
@@ -150,6 +164,19 @@ export function hasExactCompletedRetryProgressBridge(
  */
 export function hasExactStoppedRetryProgressBridge(
   events: readonly RuntimeEvent[],
+  route: RuntimeEvent,
+  judgment: RuntimeEvent,
+  coordinates: StoppedRetryProgressBridgeCoordinates,
+): boolean;
+/** @internal */
+export function hasExactStoppedRetryProgressBridge(
+  events: RuntimeEventScan,
+  route: RuntimeEvent,
+  judgment: RuntimeEvent,
+  coordinates: StoppedRetryProgressBridgeCoordinates,
+): boolean;
+export function hasExactStoppedRetryProgressBridge(
+  events: RuntimeEventScan,
   route: RuntimeEvent,
   judgment: RuntimeEvent,
   coordinates: StoppedRetryProgressBridgeCoordinates,

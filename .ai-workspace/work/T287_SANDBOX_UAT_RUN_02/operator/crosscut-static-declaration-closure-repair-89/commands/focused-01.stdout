@@ -1,0 +1,66 @@
+✔ compose sources retain exact published owners without callable rows in both closure modes (424.590875ms)
+✔ substitute source provenance resolves without widening its Program (266.466583ms)
+✔ unpublished or ambiguous static sources still refuse at their exact declaration owner (16.902166ms)
+✖ static sources remain dependency-bound and require an exact installed owner (18.725917ms)
+✖ static sources conserve required contracts and implementation bindings (123.59925ms)
+✔ runtime use of a private static source refuses before or after static discovery (42.183958ms)
+✔ existing named workflow, gate, recursion and fan-out owner rows remain required (438.926708ms)
+✔ frozen81 unchanged ready basis resolves where its predecessor refused (950.886833ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 6
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2588.219667
+
+✖ failing tests:
+
+test at test_env/tests/t287-static-declaration-closure.test.mjs:102:1
+✖ static sources remain dependency-bound and require an exact installed owner (18.725917ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'ambiguous'
+  - 'wrong_owner'
+  
+      at refused (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs:49:10)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs:110:3)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ambiguous',
+    expected: 'wrong_owner',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-static-declaration-closure.test.mjs:113:1
+✖ static sources conserve required contracts and implementation bindings (123.59925ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'resolved_program_declaration_closure'
+  - 'execution_declaration_closure_refusal'
+  
+      at refused (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs:48:10)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs:121:5)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'resolved_program_declaration_closure',
+    expected: 'execution_declaration_closure_refusal',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

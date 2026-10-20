@@ -1,0 +1,8 @@
+{
+  "kind": "product_execution_resolution_refusal",
+  "schemaVersion": "5.0.0",
+  "disposition": "refused",
+  "code": "absent",
+  "stage": "implementation",
+  "message": "no packaged LeafImplementation matches the validated executable requirement"
+}

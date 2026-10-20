@@ -1,0 +1,41 @@
+{
+  "activation": "T287_SANDBOX_UAT_RUN_02",
+  "status": "stopped_external_name_resolution_dependency",
+  "config": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-auth-02.json",
+    "sha256": "413824692abe66b374973af16446fa28a1b0d8626f79aaf5ce2b34a3ee31588b"
+  },
+  "sampleConfig": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+    "postimageSha256": "bcd65d86f9f2fece3695342c977ad1fe72f0381f54e238811e53883d17355a4d",
+    "patchPath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/network-triage/config-example.patch",
+    "patchSha256": "1a57eb33f7c543b99813d7e6039fad20d27b7d93f57b7b8e5e156e87e63b6a68"
+  },
+  "candidateArchiveSha256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+  "productContentDigest": "sha256:1c6e4baf3b2d67ebdef6041d851c10fb5dc2d9c405d89fca0e21cdb595b909ec",
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "authRecognition": "loggedIn true / oauth_token after retaining existing CLAUDE_CODE_OAUTH_TOKEN; no credential edit",
+  "boundedProbe": {
+    "exitCode": 143,
+    "wallMs": 120023.485625,
+    "timedOut": true,
+    "stdoutBytes": 0,
+    "stderrBytes": 0,
+    "directChildClosureObserved": true,
+    "groupTerminationRequested": true,
+    "descendantListing": "unavailable ps EPERM; no unsupported claim",
+    "resultSha256": "8a904508823424f97fd03a78b398d77509eaa5bef8cb65ae217b99a741467a78"
+  },
+  "resolverObservation": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/network-triage/resolver-observation.json",
+    "sha256": "4dd599326f2cab86af9a8a8933325db3e2d9446550df336520fb07949ad321a3",
+    "observedCodes": {
+      "api.anthropic.com": "ENOTFOUND/getaddrinfo",
+      "github.com": "ENOTFOUND/getaddrinfo"
+    }
+  },
+  "liveUATsRun": 0,
+  "nativeLifecycleDispatches": 0,
+  "allPriorFailuresPreserved": true,
+  "noFurtherRetry": true
+}

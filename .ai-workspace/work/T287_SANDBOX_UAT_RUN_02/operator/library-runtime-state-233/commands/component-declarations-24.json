@@ -1,0 +1,17 @@
+{
+  "kind": "stripped_declaration_component_check",
+  "declarations": 264,
+  "skipLibCheck": false,
+  "elapsedMs": 3280.235917,
+  "diagnostics": [
+    {
+      "code": 2724,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-24/build/code/src/hog/ccall_lifecycle.d.ts",
+      "start": 2471,
+      "message": "'\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-24/build/code/src/abg/c_call_outcome\"' has no exported member named 'OwnedCCallCompletionAdmission'. Did you mean 'CCallCompletionAdmission'?"
+    }
+  ],
+  "limits": [
+    "Type linkage only; no normal publication or runtime readiness"
+  ]
+}

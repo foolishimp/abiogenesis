@@ -25,7 +25,7 @@ import { projectActorProcessLifecycle, validateActorProcessCarrierPair } from ".
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix, type CCall } from "./c_call.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
 import { authenticateRuntimePrefixAncestry, readRuntimeEventsAtDurablePrefix, validateDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
-import { runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { runtimeEventBodiesAtPrefix, indexedRuntimeEvents, runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type RuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
@@ -53,8 +53,8 @@ function materialized(execution: ExecutionBasis, graphFunction: GraphFunction) {
     admittedInputRef: execution.rawInputAdmissionRef, admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
   return graph.materializationRef === execution.graphRef && graph.materializationDigest === execution.graphDigest ? graph : null;
 }
-function admittedLeaf(prefix: ValidatedRuntimeEventPrefix, callRef: string, graphFunction: GraphFunction) {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+function admittedLeaf(prefix: RuntimeEventPrefix, callRef: string, graphFunction: GraphFunction) {
+  const events = indexedRuntimeEvents(prefix, "related:" + callRef);
   const opened = one(events, e => e.kind === "c_call_opened" && e.aggregateId === callRef);
   const execution = opened?.basisId === undefined ? null : rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
   const graph = execution === null ? null : materialized(execution, graphFunction);
@@ -372,10 +372,13 @@ export function worksitePreservedResultMatchesBasis(basis: WorksitePreservedResu
 
 /** Replay/C2 recognizes the exact admitted recovery owner and both F_D producers.
  * It reads no original application bytes or temporary command snapshot. */
-export function nativeWorksiteRecoverySourceAtPrefix(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBasis): boolean {
+export function nativeWorksiteRecoverySourceAtPrefix(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBasis): boolean;
+/** @internal */
+export function nativeWorksiteRecoverySourceAtPrefix(prefix: RuntimeEventPrefix, execution: ExecutionBasis): boolean;
+export function nativeWorksiteRecoverySourceAtPrefix(prefix: RuntimeEventPrefix, execution: ExecutionBasis): boolean {
   try {
     if (!isWorksiteConstructionTask(execution.rawInputValue)) return false;
-    const events = runtimeEventsFromValidatedPrefix(prefix);
+    const events = indexedRuntimeEvents(prefix, "basis:" + execution.basisRef);
     const artifacts = events.filter(e => e.kind === "c_call_result_admitted" && e.basisId === execution.basisRef && record(e.payload) &&
       isWorksitePreservedResultArtifact(e.payload.value)).map(e => e.payload as Readonly<Record<string, JsonValue>>);
     if (artifacts.length !== 1) return false;

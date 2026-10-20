@@ -1,0 +1,26 @@
+# Independent cut15 runtime-owner review — CLOSED
+
+**Product Frame.** Fixed fifteen-family ABI5.0 / GOAL035 / T287 / STDO2.5.1rc2 manifest `3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782`. The selected frame is `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`, with lifecycle/recovery, identity/effects and Proof. Product795–880 requires incremental established state, reproducible cold recovery and qualified reuse. ABG alone admits events; private history/indexes/folds are disposable projections, prospective views are pure constructions, and complete Public arrays/projections remain explicit outputs. No process-local receipt replaces physical or admission authority.
+
+**Bounded recommendation: GO for the inspected cut15 core representation and five-owner publication correction.** No new material counterexample was found in this scope. This does not accept the complete233 increment or establish native/installed/capacity/UAT behavior.
+
+Exact [cut15 inputs](../dependency-cut-15/inputs.json) SHA `a2ccf28392456a2a4270287091c09c75e4cacad8ae632eea4ff8b30c850a89f4`, 79785B. All264 frozen SourceInputs were independently read/hashed: 7308414B, zero mismatches. The earlier cut11 review stays unchanged. Its two findings are addressed by the following exact Source relations:
+
+- **Private preview:** `event_prefix.ts:94–121/235–243` separately brands one checked candidate and borrows only its owner-authenticated predecessor. A preview cannot become an owned physical selection or advance a second candidate. `event_calculus.ts:1832–1864/1880–1976/2148–2162` uses selected dependencies, a separate fork and predecessor effect/scalar facts. Only the fork receives candidate effects; preparing uncached predecessor facts may warm its ordinary derivation. Private paths do not populate `priorEvents` or cache complete `sourceEvent` projections. Complete array callers keep their separate compatibility behavior. The preview still retains its necessary candidate body; no zero-allocation claim follows.
+- **Publication:** the five emitted owners now reference `ValidatedRuntimeEventPrefix` and ordinary complete Public results instead of erased private aliases. The owned effectful alias is explicitly internal; native reacquisition, semantic revision and replay distinguish public complete materialization from private selected operations. I inspected the exact five emitted declarations. The retained unchanged strict checker reports264 declarations, `skipLibCheck:false`, zero diagnostics in2989.479ms. This review did not rerun it or establish canonical packed closure/source-blind installation.
+
+Other inspected invariants:
+
+| Boundary | Exact preserved relation |
+| --- | --- |
+| Resident representation | `runtime_history.ts:18–30/55–78/481–536` stores envelopes, scalar/index/location facts. Committed inline references retain coordinates/digests. Body caches are consumer-local; explicit full arrays remain caller-retained outputs. |
+| Cold acquisition | `event_store.ts:3540–3630` authenticates the complete selected extent, canonical JSON/framing/digest, profile schedule, ordinals, causes and logical restamping before issuing history ownership. Profile transition retains its named exceptional complete dependency. |
+| Selected body | `event_store.ts:3474–3531` checks file identity and authenticated row bytes/digest, earlier inline-source lineage, complete envelope and payload digest, then returns a frozen complete Event. |
+| Admission/rollback | `event_store.ts:2246–2314/2347–2429/4150–4205` retains candidate/profile/cause checks, staged suffix, fsync-before-commit, physical truncation and derivation-generation invalidation. Caller/foreign histories lack the Event Store receipt. |
+| Close/reuse | `event_store.ts:1749–1777/2508–2545/3431–3468` separates active append authority, retained immutable selected reads, explicit cold/fresh checks and the detached portable close value. Closing does not promote a retained snapshot into current physical proof. |
+
+Worker/Executive reports36 component PASS for raw/v1/cold/rollback/immutability/constrained-heap cases. Three new fixtures failed before their intended native-liveness/nativeResultAssessment owners; none earns native credit. Those reports are routing context, not independently reexecuted proofs in this Source review.
+
+Unfinished replay/CCall/HoG forced-output receipts, the later scoped-extent successor and final235 codec/import/native/helper changes are excluded, even where their dependencies appear in the264-source cut. This recommendation can be reused only while the inspected exact owner bytes remain unchanged. Final emission/publication, affected consumer/currentness/refusal correspondence,198 post-close pure use,220 selected replay,225 maintenance/reopen and the genuine native failed-C2→repair→remeasurement/restart join remain to be conjoined against a frozen successor. The original resource, full capacity, semantic UAT and release remain unproved.
+
+Only these compact reviewer records were written. No Source, shared emit, compiler/test execution, package/install, history/resource/lock, native/provider/model/app or Git effects. STOP.

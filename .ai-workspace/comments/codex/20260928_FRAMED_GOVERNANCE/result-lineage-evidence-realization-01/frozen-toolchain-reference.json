@@ -1,0 +1,13 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/toolchain-pins.json",
+  "bytes": 1076202,
+  "sha256": "1b3542cfc14c74792526b9832600878d29303cf941bef577d1d57368a95668ec",
+  "mode": 420,
+  "node": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "mode": 365
+  },
+  "premise": "Accepted C07 toolchain and 16 offline dependencies; no tool installation or network."
+}

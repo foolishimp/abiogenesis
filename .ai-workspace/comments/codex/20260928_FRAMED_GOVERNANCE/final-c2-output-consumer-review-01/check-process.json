@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-review-01/check.mjs"
+  ],
+  "startedAt": "2026-09-30T10:15:38.680615+00:00",
+  "pid": 58562,
+  "processGroup": 58562,
+  "elapsedSeconds": 0.31512116687372327,
+  "exitCode": 0,
+  "timedOut": false,
+  "capMs": 60000,
+  "graceMs": 1000,
+  "stdout": "check.stdout",
+  "stderr": "check.stderr",
+  "scope": "frozen record/delta and actual failed-value refusal; no fixture creation"
+}

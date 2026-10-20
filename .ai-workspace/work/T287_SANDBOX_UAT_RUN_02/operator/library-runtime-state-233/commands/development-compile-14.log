@@ -1,0 +1,2 @@
+source/code/src/implementation/native_work_reacquisition.ts(19,79): error TS2551: Property 'nativeOwnedWorkReacquisition' does not exist on type 'NativeLeafProofOperations'. Did you mean 'nativeWorkReacquisition'?
+source/code/src/implementation/native_work_reacquisition.ts(20,19): error TS2551: Property 'nativeOwnedWorkReacquisition' does not exist on type 'NativeLeafProofOperations'. Did you mean 'nativeWorkReacquisition'?

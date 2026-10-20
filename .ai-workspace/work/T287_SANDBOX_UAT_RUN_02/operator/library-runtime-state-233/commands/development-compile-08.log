@@ -1,0 +1,35 @@
+code/src/abg/runtime_history.ts(135,57): error TS2304: Cannot find name 'LEGACY_ROOT_EVENT_CONTRACT_DIGEST'.
+code/src/abg/runtime_history.ts(137,48): error TS18048: 'span' is possibly 'undefined'.
+code/src/abg/runtime_history.ts(196,65): error TS2304: Cannot find name 'RootEventProfileSchedule'.
+code/src/abg/runtime_history.ts(205,30): error TS7006: Parameter 'span' implicitly has an 'any' type.
+code/src/abg/runtime_history.ts(207,89): error TS2304: Cannot find name 'LEGACY_ROOT_EVENT_CONTRACT_DIGEST'.
+code/src/abg/runtime_history.ts(209,52): error TS18048: 'span' is possibly 'undefined'.
+code/src/abg/runtime_history.ts(330,3): error TS2393: Duplicate function implementation.
+code/src/abg/runtime_history.ts(330,65): error TS2304: Cannot find name 'RootEventProfileSchedule'.
+code/src/abg/runtime_history.ts(334,14): error TS2339: Property '#validation' does not exist on type 'RuntimeHistorySelection'.
+code/src/abg/runtime_history.ts(335,20): error TS2339: Property '#profileSpans' does not exist on type 'RuntimeHistorySelection'.
+code/src/abg/runtime_history.ts(335,41): error TS7006: Parameter 'span' implicitly has an 'any' type.
+code/src/abg/runtime_history.ts(335,83): error TS7006: Parameter 'span' implicitly has an 'any' type.
+code/src/abg/runtime_history.ts(336,31): error TS2339: Property '#profileBoundaries' does not exist on type 'RuntimeHistorySelection'.
+code/src/abg/runtime_history.ts(336,57): error TS7006: Parameter 'row' implicitly has an 'any' type.
+code/src/abg/runtime_history.ts(338,25): error TS2339: Property '#validation' does not exist on type 'RuntimeHistorySelection'.
+code/src/abg/runtime_history.ts(338,69): error TS2339: Property '#validation' does not exist on type 'RuntimeHistorySelection'.
+code/src/abg/runtime_history.ts(339,30): error TS7006: Parameter 'span' implicitly has an 'any' type.
+code/src/abg/runtime_history.ts(340,26): error TS2339: Property '#validation' does not exist on type 'RuntimeHistorySelection'.
+code/src/abg/runtime_history.ts(341,26): error TS2339: Property '#validation' does not exist on type 'RuntimeHistorySelection'.
+code/src/abg/runtime_history.ts(341,89): error TS2304: Cannot find name 'LEGACY_ROOT_EVENT_CONTRACT_DIGEST'.
+code/src/abg/runtime_history.ts(343,52): error TS18048: 'span' is possibly 'undefined'.
+code/src/abg/runtime_history.ts(417,3): error TS2393: Duplicate function implementation.
+code/src/abg/runtime_history.ts(417,48): error TS2304: Cannot find name 'RootEventProfileSchedule'.
+code/src/abg/semantic_job.ts(122,57): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(139,55): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(144,57): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(150,61): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(259,42): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(265,55): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]

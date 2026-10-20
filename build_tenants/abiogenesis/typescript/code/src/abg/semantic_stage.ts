@@ -1,5 +1,7 @@
+import { runtimeEventBodiesAtPrefix, indexedRuntimeEvents, type RuntimeEventPrefix } from "./event_prefix.js";
+import type { RuntimeEventScan } from "./runtime_history.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
-import { authenticateSemanticJobBasis } from "./semantic_job.js";
+import { authenticateOwnedSemanticJobBasis } from "./semantic_job.js";
 import { worksiteRevisionPhysicalMatches } from "./worksite_revision.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { isWorksitePreparationInput, prepareWorksiteCommandTask } from "../product/worksite_preparation.js";
@@ -11,7 +13,7 @@ import type { SemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { rehydrateExecutionBasisAtPrefix, authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type ExecutionBasis } from "./execution_basis.js";
+import { rehydrateExecutionBasisAtPrefix, authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type ExecutionBasis } from "./execution_basis.js";
 import { readRuntimeEventsAtDurablePrefix, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
@@ -43,7 +45,7 @@ const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 function record(value: unknown): value is Readonly<Record<string, JsonValue>> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
-function owningGraph(prefix: ValidatedRuntimeEventPrefix, publication: Readonly<ModulePublication>, basisRef: string, graphFunctions: readonly Readonly<GraphFunction>[] = publication.graphFunctions) {
+function owningGraph(prefix: RuntimeEventPrefix, publication: Readonly<ModulePublication>, basisRef: string, graphFunctions: readonly Readonly<GraphFunction>[] = publication.graphFunctions) {
   const execution = rehydrateExecutionBasisAtPrefix(prefix, basisRef);
   if (execution === null) return null;
   const functions = graphFunctions.filter(g => g.name === execution.graphFunctionRef && hash(g) === execution.graphFunctionDigest);
@@ -56,16 +58,24 @@ function owningGraph(prefix: ValidatedRuntimeEventPrefix, publication: Readonly<
 
 /** Reuses the native CCall outcome projector; raw event payloads are not authority. */
 export function projectSemanticPredecessorAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix, events: readonly RuntimeEvent[], publication: Readonly<ModulePublication>, cCallRef: string, graphFunctions: readonly Readonly<GraphFunction>[] = publication.graphFunctions,
+  prefix: ValidatedRuntimeEventPrefix, events: readonly RuntimeEvent[], publication: Readonly<ModulePublication>, cCallRef: string, graphFunctions?: readonly Readonly<GraphFunction>[] ,
+): RehydratedAdmittedCCallState | null;
+/** @internal */
+export function projectSemanticPredecessorAtPrefix(
+  prefix: RuntimeEventPrefix, events: RuntimeEventScan, publication: Readonly<ModulePublication>, cCallRef: string, graphFunctions?: readonly Readonly<GraphFunction>[] ,
+): RehydratedAdmittedCCallState | null;
+export function projectSemanticPredecessorAtPrefix(
+  prefix: RuntimeEventPrefix, events: RuntimeEventScan, publication: Readonly<ModulePublication>, cCallRef: string, graphFunctions: readonly Readonly<GraphFunction>[] = publication.graphFunctions,
 ): RehydratedAdmittedCCallState | null {
   try {
-    const opened = events.find(e => e.kind === "c_call_opened" && e.aggregateId === cCallRef);
+    const selected = indexedRuntimeEvents(prefix, "related:" + cCallRef);
+    const opened = selected.find(e => e.kind === "c_call_opened" && e.aggregateId === cCallRef);
     if (opened?.basisId === undefined) return null;
     const owner = owningGraph(prefix, publication, opened.basisId, graphFunctions);
     if (owner === null) return null;
     const call = projectOpenedCCallCarrierAtPrefix(prefix, owner.graph, cCallRef);
-    const result = events.filter(e => e.kind === "c_call_result_admitted" && e.aggregateId === cCallRef);
-    const judgment = events.filter(e => e.kind === "c_call_judged" && e.aggregateId === cCallRef);
+    const result = selected.filter(e => e.kind === "c_call_result_admitted" && e.aggregateId === cCallRef);
+    const judgment = selected.filter(e => e.kind === "c_call_judged" && e.aggregateId === cCallRef);
     if (call === null || result.length !== 1 || judgment.length !== 1 || !record(result[0]!.payload) || !record(judgment[0]!.payload)) return null;
     return projectAdmittedCCallStateAtPrefix(prefix, call as unknown as Readonly<Record<string, JsonValue>>,
       { kind: "admitted_c_call_result", schemaVersion: "5.0.0", disposition: "admitted", ...result[0]!.payload,
@@ -75,9 +85,11 @@ export function projectSemanticPredecessorAtPrefix(
   } catch { return null; }
 }
 
-export function authenticateSemanticStageBasis(basis: SemanticStageNativeBasis) {
+/** @internal */
+export function authenticateOwnedSemanticStageBasis(basis: SemanticStageNativeBasis) {
   try {
-    const native = authenticateNativeInstructionAssemblyBasis(basis);
+    const ownedNative = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+    const native = ownedNative === null ? null : { ...ownedNative, events: runtimeEventBodiesAtPrefix(ownedNative.prefix) };
     if (native === null) return null;
     const { events, prefix, call } = native;
     const lifecyclePublication = basis.lifecyclePublication ?? basis.publication;
@@ -111,12 +123,12 @@ export function constructSemanticStageNativeBasis(basis: SemanticStageNativeBasi
   const captured = constructNativeInstructionAssemblyBasis(basis);
   if (captured === null) return null;
   return (captured.lifecyclePublication ?? captured.publication).semanticJobLifecycle !== undefined
-    ? authenticateSemanticJobBasis(captured) === null ? null : captured
-    : authenticateSemanticStageBasis(captured) === null ? null : captured;
+    ? authenticateOwnedSemanticJobBasis(captured) === null ? null : captured
+    : authenticateOwnedSemanticStageBasis(captured) === null ? null : captured;
 }
 
 /** Private pure projection; only this owner's fresh authentication supplies it. */
-function semanticInputValueFromOwner(owner: NonNullable<ReturnType<typeof authenticateSemanticStageBasis>>): unknown {
+function semanticInputValueFromOwner(owner: NonNullable<ReturnType<typeof authenticateOwnedSemanticStageBasis>>): unknown {
   if (owner.inputRef === owner.execution.rawInputAdmissionRef) return owner.execution.rawInputValue;
   const event = owner.events.find(e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === owner.inputRef);
   return record(event?.payload) ? event.payload.value : undefined;
@@ -124,8 +136,8 @@ function semanticInputValueFromOwner(owner: NonNullable<ReturnType<typeof authen
 
 export function semanticInputValueAtBasis(basis: SemanticStageNativeBasis): unknown {
   if ((basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined)
-    return authenticateSemanticJobBasis(basis)?.inputValue;
-  const owner = authenticateSemanticStageBasis(basis);
+    return authenticateOwnedSemanticJobBasis(basis)?.inputValue;
+  const owner = authenticateOwnedSemanticStageBasis(basis);
   return owner === null ? undefined : semanticInputValueFromOwner(owner);
 }
 
@@ -133,6 +145,13 @@ export function semanticInputValueAtBasis(basis: SemanticStageNativeBasis): unkn
  * Individual valid assets cannot authorize a caller-spliced envelope. */
 export function semanticEnvelopeMatchesAdmittedPredecessor(prefix: ValidatedRuntimeEventPrefix,
   events: readonly RuntimeEvent[], publication: Readonly<ModulePublication>,
+  graphFunctions: readonly Readonly<GraphFunction>[], input: SemanticStageEnvelope): boolean;
+/** @internal */
+export function semanticEnvelopeMatchesAdmittedPredecessor(prefix: RuntimeEventPrefix,
+  events: RuntimeEventScan, publication: Readonly<ModulePublication>,
+  graphFunctions: readonly Readonly<GraphFunction>[], input: SemanticStageEnvelope): boolean;
+export function semanticEnvelopeMatchesAdmittedPredecessor(prefix: RuntimeEventPrefix,
+  events: RuntimeEventScan, publication: Readonly<ModulePublication>,
   graphFunctions: readonly Readonly<GraphFunction>[], input: SemanticStageEnvelope): boolean {
   const exactSources = events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
     hash(e.payload.value) === hash(input)).filter(event => {
@@ -148,7 +167,7 @@ export function semanticEnvelopeMatchesAdmittedPredecessor(prefix: ValidatedRunt
 /** The current input must be the actual root admission or preceding native result. */
 export function semanticInputMatchesBasis(basis: SemanticStageNativeBasis, input: unknown): input is SemanticStageEnvelope {
   try {
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null || !isSemanticStageEnvelope(input) || hash(input.lifecycle) !== hash(owner.lifecycle) ||
       hash(input.sourceHandoff.declaration) !== hash(owner.source)) return false;
     const expectedValue = semanticInputValueFromOwner(owner);
@@ -194,7 +213,7 @@ export function semanticInputMatchesBasis(basis: SemanticStageNativeBasis, input
 export function semanticWorksiteContextMatchesBasis(basis: SemanticStageNativeBasis, worksite: SemanticWorksiteBasis,
   readPhysical = false): boolean {
   try {
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null) return false;
     const value = semanticInputValueFromOwner(owner);
     const input = record(value) && record(value.current) ? value.current : value;
@@ -211,7 +230,7 @@ export function semanticWorksiteContextMatchesBasis(basis: SemanticStageNativeBa
 
 export function semanticResultMatchesBasis(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
   try {
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null || owner.role === null || owner.stage === undefined || !semanticInputMatchesBasis(basis, input) || !isSemanticStageEnvelope(output)) return false;
     const last = output.assets.at(-1);
     if (last === undefined) return false;
@@ -227,7 +246,7 @@ export function semanticResultMatchesBasis(basis: SemanticStageNativeBasis, inpu
 /** Changes only the published wire contract. Every carried byte remains the
  * exact authenticated current input; semantic and application claims do not change. */
 export function projectSemanticEnvelopeOutput(basis: SemanticStageNativeBasis, input: unknown): Readonly<SemanticStageEnvelope> | null {
-  const owner = authenticateSemanticStageBasis(basis);
+  const owner = authenticateOwnedSemanticStageBasis(basis);
   return owner !== null && owner.call.implementationRef === SEMANTIC_STAGE_IDS.terminalImplementationRef &&
     owner.call.regime === "F_D" && owner.call.inputContractRef === SEMANTIC_STAGE_IDS.envelopeContractRef &&
     owner.call.outputContractRef === SEMANTIC_STAGE_IDS.outputContractRef && semanticInputMatchesBasis(basis, input)
@@ -236,7 +255,7 @@ export function projectSemanticEnvelopeOutput(basis: SemanticStageNativeBasis, i
 
 export function projectSemanticWorksitePreparation(basis: SemanticStageNativeBasis, input: unknown) {
   try {
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null || owner.call.implementationRef !== SEMANTIC_STAGE_IDS.bridgeImplementationRef ||
       !semanticInputMatchesBasis(basis, input) || input.worksite === null) return null;
     const worksite = input.worksite;
@@ -287,7 +306,7 @@ function sameInvocation(a: ExecutionBasis, b: ExecutionBasis): boolean {
 /** Finds only the named leaf's admitted, judged result in this invocation. */
 export function selectedSemanticPredecessor(basis: SemanticStageNativeBasis, implementationRef: string, value: unknown) {
   const owner = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined
-    ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+    ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
   if (owner === null) return null;
   const matches = owner.events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && hash(e.payload.value) === hash(value))
     .map(event => {
@@ -304,7 +323,7 @@ export function selectedSemanticPredecessor(basis: SemanticStageNativeBasis, imp
  * from the admitted helper plan, never a caller-selected path. */
 export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, input: unknown): Readonly<SemanticStageEnvelope> | null {
   try {
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null || owner.call.implementationRef !== SEMANTIC_STAGE_IDS.evidenceInputImplementationRef ||
       !isWorksiteCommandExecutionObservation(input) || hash(input) !== owner.inputDigest ||
       hash(semanticInputValueAtBasis(basis)) !== hash(input)) return null;
@@ -355,4 +374,11 @@ export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, in
       executionResultDigest: execution.previous.result.resultDigest, constructionResult: input.task.sourceConstructionResult as unknown as Readonly<Record<string, JsonValue>>,
       executionObservation: input as unknown as Readonly<Record<string, JsonValue>>, artifacts } });
   } catch { return null; }
+}
+
+export function authenticateSemanticStageBasis(basis: SemanticStageNativeBasis) {
+  const owner = authenticateOwnedSemanticStageBasis(basis);
+  if (owner === null || owner.prefix.kind === "runtime_validation_event_prefix") return null;
+  const events = runtimeEventBodiesAtPrefix(owner.prefix).materialize();
+  return { ...owner, events, prefix: selectValidatedRuntimeEventPrefix(events) };
 }

@@ -1,0 +1,421 @@
+{
+  "scope": "Read-only comparison of retained declarations and immutable installed module exports; no runtime owner, resolver, admission or event resource access.",
+  "core": {
+    "artifactDigest": "sha256:6e8dc1b785abdbc439cdedc78751deee3bc9020d69a6ceba1c81c8854d0a7028",
+    "productContentDigest": "sha256:01a62b0a9a42e5b9350e5509a113759c2cec36d2c48c908960ebd11278b34141",
+    "manifestDigest": "sha256:45b18649cf17d6e27fb7190d8b67091a6ea79eb1d2d3deb28f1462a6da0f87ed",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-02/calls/08-intake-conformance.jsonl",
+    "sha256": "sha256:18aa4efc5ca080aee2ca8e202c6c2514797d3c85d37dc1450f14da4796b2402d",
+    "byteCount": 32368843
+  },
+  "installedModule": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite21-install-xk8zfep4/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js",
+    "sha256": "sha256:8cd39f61158ecf3280afb71e93768f89f953c6385561790d382c52d147397775"
+  },
+  "offeredTopLevelDescriptors": [
+    {
+      "exportName": "SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR",
+      "descriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/assessor@5",
+        "namedSymbol": "realizeSemanticRevisionAssessor",
+        "computeRegime": "F_P",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:35b1620e08567ac2e61318eb54faac69301930188a7555f4e7942246d2ccbce4"
+      }
+    },
+    {
+      "exportName": "SEMANTIC_REVISION_AUTHOR_DESCRIPTOR",
+      "descriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/author@5",
+        "namedSymbol": "realizeSemanticRevisionAuthor",
+        "computeRegime": "F_P",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:eda6ecf77981ee786ee3586f7bdd235da2cccbabf1a231a4505e4d311b8d2524"
+      }
+    },
+    {
+      "exportName": "SEMANTIC_REVISION_BRIDGE_DESCRIPTOR",
+      "descriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/worksite@5",
+        "namedSymbol": "realizeSemanticRevisionBridge",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "outputContractRef": "contract://abiogenesis/worksite/revision-command-execution-preparation-input@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:7cf8b951dacd17775f35d46245fbe6ac2a786894dd83f6afb6617d452e190ff6"
+      }
+    },
+    {
+      "exportName": "SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR",
+      "descriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/evidence-input@5",
+        "namedSymbol": "realizeSemanticRevisionEvidenceInput",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/worksite/revision-command-execution-observation@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:6f99537006d9d9a670ceacea6e427238aec7eb3b9340dc9ae4b172466f9b5df1"
+      }
+    },
+    {
+      "exportName": "SEMANTIC_REVISION_PROJECTION_DESCRIPTOR",
+      "descriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/projection@5",
+        "namedSymbol": "realizeSemanticRevisionProjection",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/request@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:1a4644a1df35a97e6eed55b82ccd39f531bac28da3e6cbbb1a6993b70ff92aa6"
+      }
+    },
+    {
+      "exportName": "SEMANTIC_REVISION_SELECTION_DESCRIPTOR",
+      "descriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/selection@5",
+        "namedSymbol": "realizeSemanticRevisionSelection",
+        "computeRegime": "F_P",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/selection-input@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/selection@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:34b9e3c9184e31b2d033f06c2d8fb70b5a2aca2c481e00fddb92b101a0c6619d"
+      }
+    },
+    {
+      "exportName": "SEMANTIC_REVISION_TERMINAL_DESCRIPTOR",
+      "descriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/output@5",
+        "namedSymbol": "realizeSemanticRevisionTerminal",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/output@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:ee4fc3ba6dbdecd65795ed1a4e64db444d5bdcf6832df873d197f3357c340df0"
+      }
+    }
+  ],
+  "arrayDescriptorCount": 12,
+  "missingNewNativeDescriptors": [
+    {
+      "role": "NativeIntake",
+      "declaringPublication": {
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "artifactDigest": "sha256:6e8dc1b785abdbc439cdedc78751deee3bc9020d69a6ceba1c81c8854d0a7028",
+        "productContentDigest": "sha256:01a62b0a9a42e5b9350e5509a113759c2cec36d2c48c908960ebd11278b34141",
+        "productManifestDigest": "sha256:45b18649cf17d6e27fb7190d8b67091a6ea79eb1d2d3deb28f1462a6da0f87ed"
+      },
+      "required": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-intake@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-intake@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/native-intake@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeIntake",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/selection-input@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "offeredTopLevelMatches": [],
+      "arrayOnlyDescriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-intake@5",
+        "namedSymbol": "realizeSemanticRevisionNativeIntake",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/native-intake@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/selection-input@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:e0549bd545cbb868958a2824701f9a38b524905473c6dac4231de7eb24e99214"
+      },
+      "callableExportPresent": true,
+      "graphFunctions": [
+        "graph-function://odd-glc/native-semantic-revision/acquire@5"
+      ],
+      "programs": [
+        "program://odd-glc/native-semantic-revision/intake@5"
+      ]
+    },
+    {
+      "role": "NativeRequest",
+      "declaringPublication": {
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "artifactDigest": "sha256:6e8dc1b785abdbc439cdedc78751deee3bc9020d69a6ceba1c81c8854d0a7028",
+        "productContentDigest": "sha256:01a62b0a9a42e5b9350e5509a113759c2cec36d2c48c908960ebd11278b34141",
+        "productManifestDigest": "sha256:45b18649cf17d6e27fb7190d8b67091a6ea79eb1d2d3deb28f1462a6da0f87ed"
+      },
+      "required": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-request@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-request@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/selection@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeRequest",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/request@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "offeredTopLevelMatches": [],
+      "arrayOnlyDescriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-request@5",
+        "namedSymbol": "realizeSemanticRevisionNativeRequest",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/selection@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/request@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:4c6b4de6c4c0d1c2157a37777ba6a1d0fd4ae0176b39caf6c0a28d7bde71aa76"
+      },
+      "callableExportPresent": true,
+      "graphFunctions": [
+        "graph-function://odd-glc/native-semantic-revision/select@5"
+      ],
+      "programs": [
+        "program://odd-glc/native-semantic-revision/intake@5"
+      ]
+    },
+    {
+      "role": "NativeConstruction",
+      "declaringPublication": {
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "artifactDigest": "sha256:6e8dc1b785abdbc439cdedc78751deee3bc9020d69a6ceba1c81c8854d0a7028",
+        "productContentDigest": "sha256:01a62b0a9a42e5b9350e5509a113759c2cec36d2c48c908960ebd11278b34141",
+        "productManifestDigest": "sha256:45b18649cf17d6e27fb7190d8b67091a6ea79eb1d2d3deb28f1462a6da0f87ed"
+      },
+      "required": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-construction@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-construction@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeConstruction",
+        "outputContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "offeredTopLevelMatches": [],
+      "arrayOnlyDescriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-construction@5",
+        "namedSymbol": "realizeSemanticRevisionNativeConstruction",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "outputContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:e8ed49afee8a07cd3519fa97d0ca9d57056321fac88da39c673d630ef4ebdf14"
+      },
+      "callableExportPresent": true,
+      "graphFunctions": [
+        "graph-function://odd-glc/native-semantic-revision/construction@5"
+      ],
+      "programs": [
+        "program://odd-glc/native-semantic-revision/construction-repair@5",
+        "program://odd-glc/native-semantic-revision/from-design@5",
+        "program://odd-glc/native-semantic-revision/from-intent@5",
+        "program://odd-glc/native-semantic-revision/from-product@5",
+        "program://odd-glc/native-semantic-revision/from-requirements@5"
+      ]
+    },
+    {
+      "role": "NativeExecution",
+      "declaringPublication": {
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "artifactDigest": "sha256:6e8dc1b785abdbc439cdedc78751deee3bc9020d69a6ceba1c81c8854d0a7028",
+        "productContentDigest": "sha256:01a62b0a9a42e5b9350e5509a113759c2cec36d2c48c908960ebd11278b34141",
+        "productManifestDigest": "sha256:45b18649cf17d6e27fb7190d8b67091a6ea79eb1d2d3deb28f1462a6da0f87ed"
+      },
+      "required": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-execution@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-execution@5",
+        "inputContractRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeExecution",
+        "outputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "offeredTopLevelMatches": [],
+      "arrayOnlyDescriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-execution@5",
+        "namedSymbol": "realizeSemanticRevisionNativeExecution",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+        "outputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:c938d4bad5e58ece76c29433aba4f4f67843c5152bc0095aa908b4e5bed19c71"
+      },
+      "callableExportPresent": true,
+      "graphFunctions": [
+        "graph-function://odd-glc/native-semantic-revision/construction@5"
+      ],
+      "programs": [
+        "program://odd-glc/native-semantic-revision/construction-repair@5",
+        "program://odd-glc/native-semantic-revision/from-design@5",
+        "program://odd-glc/native-semantic-revision/from-intent@5",
+        "program://odd-glc/native-semantic-revision/from-product@5",
+        "program://odd-glc/native-semantic-revision/from-requirements@5"
+      ]
+    },
+    {
+      "role": "NativeEvidence",
+      "declaringPublication": {
+        "moduleRef": "module://abiogenesis/semantic-revision@5",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "artifactDigest": "sha256:6e8dc1b785abdbc439cdedc78751deee3bc9020d69a6ceba1c81c8854d0a7028",
+        "productContentDigest": "sha256:01a62b0a9a42e5b9350e5509a113759c2cec36d2c48c908960ebd11278b34141",
+        "productManifestDigest": "sha256:45b18649cf17d6e27fb7190d8b67091a6ea79eb1d2d3deb28f1462a6da0f87ed"
+      },
+      "required": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-evidence@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-evidence@5",
+        "inputContractRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeEvidence",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "offeredTopLevelMatches": [],
+      "arrayOnlyDescriptor": {
+        "kind": "packaged_leaf_implementation_descriptor",
+        "schemaVersion": "5.0.0",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-evidence@5",
+        "namedSymbol": "realizeSemanticRevisionNativeEvidence",
+        "computeRegime": "F_D",
+        "inputContractRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5",
+        "descriptorDigest": "sha256:9c847fa58b0148648fdcdb68e6999f7c0d8b21ce75009e102f5b99202e58ac66"
+      },
+      "callableExportPresent": true,
+      "graphFunctions": [
+        "graph-function://odd-glc/native-semantic-revision/construction@5"
+      ],
+      "programs": [
+        "program://odd-glc/native-semantic-revision/construction-repair@5",
+        "program://odd-glc/native-semantic-revision/from-design@5",
+        "program://odd-glc/native-semantic-revision/from-intent@5",
+        "program://odd-glc/native-semantic-revision/from-product@5",
+        "program://odd-glc/native-semantic-revision/from-requirements@5"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "sha256": "sha256:3a2bfb6e5aa06ac7de261f59179c2dd4e05d9b97d78a943a3347af3b8e49a913",
+      "byteCount": 13282
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/implementation_resolution.ts",
+      "sha256": "sha256:96526bbc40448f864cf3b15230d3377d7d5eb2355ad738f699769825d6998db0",
+      "byteCount": 26202
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "sha256": "sha256:1b633dd7a0d982f5d00181669b69561480fc176794020cafeada4a65c1cdbdc1",
+      "byteCount": 41980
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+      "sha256": "sha256:9d7b75fdbb0eaa94df55c0cdfea3db9da3e0e94e806313b325fd27d394942597",
+      "byteCount": 14754
+    }
+  ],
+  "conclusion": "All five new native-D2 callable functions and matching array descriptors exist, but none is offered as a top-level descriptor consumed by the existing loader. The original seven top-level descriptors remain present. Implementation export inventory is the owning producer seam; no declaration or authority waiver is needed."
+}

@@ -1,0 +1,10 @@
+{
+  "operation": "T287_RUNTIME08_RESULT_TRIANGULATION_GRANTS_01",
+  "role": "Writer",
+  "actor": "Root",
+  "status": "ACTIVE",
+  "startedAt": "2026-10-02T11:36:16.962761+00:00",
+  "exactWriteTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01",
+  "grant": "Write only two seven-section a_c inspection grants, activation/closure/freeze; no source/payload/Runtime/Git effects",
+  "returnsTo": "Executive"
+}

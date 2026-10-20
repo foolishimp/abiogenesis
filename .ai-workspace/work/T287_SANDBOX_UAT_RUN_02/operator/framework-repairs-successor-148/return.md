@@ -1,0 +1,11 @@
+Publication148 CLOSED/STOPPED with actual normal-build owner refusal. Root accepted joint Source138+143+145, including cumulative142+145 through independent146 and bounded143 through independent147. Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782; existing end-to-end integration/publication frame.
+
+Preflight: all263 production bytes equal accepted25 Source except exactly11 accepted143 files and cumulative HoG145;251 unchanged. All19 selected HOW/test/Source posts,934 prior generated preimages, protected controls/owners, package/lock and immutable25 identities matched.
+
+The ONE ordinary `npm run build` exited1 in 14.907s, without signal, timeout, truncation or spawn error. Clean and TypeScript compilation completed. The original diagnostic is `Error: packed native declaration closure is invalid` at tenant/scripts/generate-product-manifest.mjs:524, after the canonical resolveNativeDeclarationClosures owner returned null for the joined emitted declaration/package metadata inventory. The outer assertion is downstream. The specific inner guard is unlocalized; this is not yet attributed to a particular Source edit.
+
+All263 Source bytes and accepted posts remain unchanged. Partial normal generated output is preserved: 21 changed, 913 unchanged, 0 missing among934 selected paths. The exact before/after rows are in generated-failed-build-delta.json. No cleanup, restore or second build occurred. Candidate26 remains absent; pack/install counts are zero. Old24/25, installed129/136, DataMapper files/resources, native/model/provider and Git were untouched.
+
+Root must triangulate the canonical declaration-owner refusal through Source/Design/integration/identity/Proof, then select the smallest lawful repair before retry. Source-only isolated compilation and controlled proofs did not establish this complete packed declaration closure. Do not omit declarations, weaken guards, edit metadata or manufacture package success.
+
+Accepted Source unit/owner limits remain explicit: actual installed source-use/D2/currentness/F_P-to-HoG/native/C2/UAT/P0/release are still open. This publication earned no successor identity or runtime credit. Exact receipts, inputs, source conservation, partial generated delta and first cause accompany readiness/freeze. Effects STOP.

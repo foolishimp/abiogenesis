@@ -1,0 +1,44 @@
+{
+  "isolatedStagePreparationMs": 1759.7865844145417,
+  "managedJobs": [
+    {
+      "mode": "compile",
+      "elapsedMs": 6079.712458886206,
+      "exitCode": 0,
+      "rssBytes": 1087733760,
+      "processGroupAfterWait": "absent",
+      "wait4ReapedMain": true,
+      "timedOut": false
+    },
+    {
+      "mode": "regression",
+      "elapsedMs": 555.4676670581102,
+      "exitCode": 1,
+      "rssBytes": 394100736,
+      "processGroupAfterWait": "absent",
+      "wait4ReapedMain": true,
+      "timedOut": false
+    },
+    {
+      "mode": "regression-final",
+      "elapsedMs": 696.6593749821186,
+      "exitCode": 0,
+      "rssBytes": 398344192,
+      "processGroupAfterWait": "absent",
+      "wait4ReapedMain": true,
+      "timedOut": false
+    }
+  ],
+  "managedTotalMs": 7331.839500926435,
+  "compileMs": 6079.712458886206,
+  "finalRegressionMs": 696.6593749821186,
+  "peakSupervisedRssBytes": 1087733760,
+  "perCompileOrRegressionBudgetMs": 180000,
+  "totalManagedBudgetMs": 420000,
+  "heap": "default; no NODE_OPTIONS/NODE_PATH/V8_OPTIONS",
+  "HOME": "preserved",
+  "qualificationCommandsExecuted": 0,
+  "helperProviderCalls": 0,
+  "actualRuntimeCalls": 0,
+  "canonicalizationCost": "Exact retained packet/request/raw and Source-component catalogs only; no all-body qualification canonicalization."
+}

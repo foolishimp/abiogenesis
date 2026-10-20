@@ -1,0 +1,14 @@
+{
+  "pid": 9453,
+  "processGroup": 9453,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/s02-substitution-root-run_replay.jsonl"
+  ],
+  "startedAt": "2026-10-01T14:46:10.682Z",
+  "mode": "s02",
+  "label": "substitution-root-run_replay",
+  "capMs": 180000
+}

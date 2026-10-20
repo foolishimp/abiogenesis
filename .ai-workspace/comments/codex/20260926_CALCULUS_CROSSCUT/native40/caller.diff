@@ -1,0 +1,41 @@
+--- native39/preparation/prepare.mjs
++++ native40/preparation/prepare.mjs
+@@ -51,23 +51,23 @@
+  contributionManifest:item.packed.contributionManifest,declaredDependencies:v.declaredDependencies,
+  compatibilityInputs:v.compatibilityRefs.map(compatibilityRef=>({compatibilityRef,subjectRef:item.packed.productContent.ref}))},
+  {kind:'product_verification_resources',schemaVersion,targetKind:'packed_artifact',packedArtifact:item.packed,verifiedArtifact:v});
+- item.receipt=await invoke(verificationCall,i===0?'verify-core39':'verify-dev16');
++ item.receipt=await invoke(verificationCall,i===0?'verify-core40':'verify-dev16');
+  assert.equal(item.receipt.ownerOutput.value.verifiedArtifact.digest,v.verificationDigest);
+  item.reference={invocation:{ref:verificationCall.invocation.invocationRef,digest:verificationCall.invocation.invocationDigest},outcome:item.receipt.ownerOutput.value.verifiedArtifact};
+ }
+ const resolutionReceipt=await invoke(await authorized(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.resolve,
+  {requirements:verifiedProducts.map(p=>({productId:p.productId,packageVersion:p.packageVersion,requiredContractRefs:[],requiredCapabilityRefs:[]})),verifiedCandidates:products.map(p=>p.reference)},
+  {kind:'product_resolution_resource_assertion',schemaVersion,verifiedPreimages:products.map(p=>({verification:p.reference,verifiedArtifact:p.verification.verifiedArtifact,verificationOutput:p.receipt.ownerOutput})),
+- nativeContractClosure:{selectorDispositions:[],occurrences:[],nativeBindings:[]}}, {verification_references:products.map(p=>p.reference)}),'resolve-core39-dev16');
++ nativeContractClosure:{selectorDispositions:[],occurrences:[],nativeBindings:[]}}, {verification_references:products.map(p=>p.reference)}),'resolve-core40-dev16');
+ assert.equal(hash(resolutionReceipt.ownerOutput.value.resolvedLock),hash(lock));
+-const actor={actor:coord(actorRef),attribution:coord('attribution://odd-glc/full-sandbox')},targets=[join(scratch,'products/core39'),join(scratch,'products/dev16')],installed=[];
++const actor={actor:coord(actorRef),attribution:coord('attribution://odd-glc/full-sandbox')},targets=[join(scratch,'products/core40'),join(scratch,'products/dev16')],installed=[];
+ await acquire();
+ for(const [i,item]of products.entries()){
+  const request=await authorized(product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,
+  {verifiedArtifact:item.verification.coordinates.verifiedArtifact,descriptor:item.packed.descriptor,contributionManifest:item.packed.contributionManifest,resolvedLock:lock,targetRoot:targets[i],installPolicy:'clean'},
+  {kind:'product_install_resource_assertion',schemaVersion,eventResource:reopen(),packedArtifact:item.packed,verifiedArtifact:item.verification.verifiedArtifact,resolvedLock},
+  {dependency_lock:lock,verification_references:[item.reference],actor});
+- await invoke(request,i===0?'install-core39':'install-dev16');
++ await invoke(request,i===0?'install-core40':'install-dev16');
+  const row=abg.projectAdmittedProductInstallByInvocationRef(abg.projectExactPrefixArtifactTruth(prefix()),request.invocation.invocationRef);assert.ok(row);installed.push(row);
+ }
+ const abiRoot=installed[0].install.installedRoot,consumerRoot=installed[1].install.installedRoot,jobRoot=join(scratch,'invocation');await mkdir(jobRoot,{recursive:true});
+--- native39/witness-01/execute.mjs
++++ native40/witness-01/execute.mjs
+@@ -70,7 +70,7 @@
+  const request={subjectKind:'authority_basis',subject:root,act:'reprice',
+   content:{kind:'typed_payload',contentContract:{ref:contentContract.ref,digest:contentContract.digest},value:{
+    declarationRef:W0.ref,beforeDigest:W0.digest,afterDigest:W1.digest,changeClass:'realization_refactor',
+-   owningTicketRef:'ticket://abiogenesis/T-287',reason:'Root-selected native-D2 correction preserves original job/source/oracle while repricing its historical binding to the current reviewed core39/dev16 installation.'}},
++   owningTicketRef:'ticket://abiogenesis/T-287',reason:'Root-selected native-D2 correction preserves original job/source/oracle while repricing its historical binding to the current reviewed core40/dev16 installation.'}},
+   context:{kind:'basis',basis:root},evidence:[W0,W1],provenance:[root]};
+  started=performance.now();
+  const witnessCall=await setup.authorized(abg.WITNESS_OPERATION_CONTRACTS.admit.reprice,request,

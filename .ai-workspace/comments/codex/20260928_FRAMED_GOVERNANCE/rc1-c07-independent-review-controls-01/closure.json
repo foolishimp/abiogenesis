@@ -1,0 +1,9 @@
+{
+  "operation": "T287_C07_CONSTRUCTION_ASSURANCE_GRANT_01",
+  "status": "CLOSED",
+  "requestBytes": 3511,
+  "requestSha256": "4955ca9f803202a53ac54020a70e520d22954e71fa471e750d20cb4fa033d105",
+  "returnRole": "Executive",
+  "ReviewerActivation": "PENDING exact CLOSED candidate pin",
+  "otherEffects": 0
+}

@@ -1,0 +1,8 @@
+{
+  "cause": "caller precreated empty output directories before inherited mkdir",
+  "firstFailure": "process.stderr",
+  "effects": "before input read, verification or resource acquisition; zero runtime effects",
+  "change": "allow existing caller-owned output directory",
+  "beforeSha256": "b10a94d1ace1611ee28544b7198689b62a0c5193fd12c191cd31de85a6cea0bb",
+  "afterSha256": "67b4f59f0c1f97ea46058a88d83a1f04db5ada3c7372fcb71420f697ba857a8f"
+}

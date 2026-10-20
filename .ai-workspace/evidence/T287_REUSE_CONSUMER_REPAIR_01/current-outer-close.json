@@ -1,0 +1,45 @@
+{
+  "kind": "abg_event_resource_receipt",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "reopen",
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+    "prefixLength": 2498379,
+    "prefixDigest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 465155422,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:9a1faba999522ed2e7813e7d4c7cbff960c665a8b9c1700d890d4d0fffd6f2dd"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+      "prefixLength": 2498379,
+      "prefixDigest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 465155422,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:9a1faba999522ed2e7813e7d4c7cbff960c665a8b9c1700d890d4d0fffd6f2dd"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+      "device": 16777230,
+      "inode": 465155422,
+      "eventLogDigest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+      "durableByteLength": 2498379,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "authorityDigest": "sha256:d4b0700233e44b29d3c714b0f713ac75f4d846e5cbf3246c5c6dda7a894906f3"
+    }
+  },
+  "receiptDigest": "sha256:624e40de2a6158635c4c553c425409a70604f13e4dcc426c063cf82b8b75c457"
+}

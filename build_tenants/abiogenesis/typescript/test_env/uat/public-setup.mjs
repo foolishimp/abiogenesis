@@ -9,7 +9,7 @@ const constructors=['constructConsensusModulePublication','constructDefaultGover
   'constructSemanticRevisionModulePublication','constructSemanticStageModulePublication',
   'constructWorksiteCommandExecutionModulePublication','constructWorksiteCommandForwardModulePublication',
   'constructWorksiteConstructionModulePublication','constructNativeWorkspaceWorkModulePublication'];
-const emptySlots=()=>Object.fromEntries(['workspace_binding','product_set','dependency_lock','catalog_scope',
+export const emptyAuthoritySlots=()=>Object.fromEntries(['workspace_binding','product_set','dependency_lock','catalog_scope',
   'execution_program','graph_function','input_contract','session_policy','capability_grants','actor',
   'transport_steering','verification_references','execution_basis'].map(key=>[key,null]));
 
@@ -25,6 +25,50 @@ export async function installedModules(root) {
   return {product,abg,gtl,validator,api,invocationTruth};
 }
 
+export function corePublications(gtl,verified) {
+  return constructors.map(name=>gtl[name]({...verified,productManifestDigest:verified.manifestDigest}));
+}
+
+/** Fixture authority is explicit input; the installed owner validates every grant. */
+export async function authorizeInstalledOperation({runtime,native,actorRef,packet,request,resources,
+  supplied={},prefix=null,resource=null,requestRef,correlationRef,authorityRef,provenanceRefs=[]}) {
+  const {product,api}=runtime,hash=product.sha256Canonical,verified=native.verified;
+  const definition=api.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(row=>
+    row.definitionKey.operationId===packet.definitionKey.operationId&&row.definitionKey.memberKey===packet.definitionKey.memberKey);
+  if(!definition)throw new BoundaryFailure('installed-definition',packet.definitionKey);
+  const slots={...emptyAuthoritySlots(),...supplied};
+  const data={kind:'admission_capability_data',schemaVersion:version,
+    definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,
+      owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},
+    ownerArtifact:{request:native.request,verified},request,
+    resourceScope:{resourcesDigest:hash(resources),authoritySlots:product.admissionAuthoritySlots(slots)},
+    boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:
+      product.admissionEnvironmentSelection(prefix,slots.workspace_binding)};
+  const coordinate=(ref,value)=>({ref,digest:hash(value)});
+  const authorityValue={actorRef,authorityMode:'trusted_developer'};
+  const approvalValue={decision:'allow',actorRef,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,
+    requestDigest:hash(request),scopeDigest:product.admissionAuthorityScope(data).digest};
+  const authority={kind:'resolved_admission_authority',schemaVersion:version,actorRef,authorityMode:'trusted_developer',
+    authority:{...coordinate(authorityRef,authorityValue),value:authorityValue},
+    approval:{...coordinate(requestRef+'/approval',approvalValue),value:approvalValue}};
+  const admitted=await product.constructAdmissionCapabilityGrants(authority,actorRef,
+    {kind:'admission_capability_grant_construction_basis',fixedPacket:packet,data},resource);
+  const operation=verified.definitionContractCoordinates.operations.find(row=>row.operationId===packet.definitionKey.operationId);
+  const member=operation?.members.find(row=>row.memberKey===packet.definitionKey.memberKey);
+  if(!member)throw new BoundaryFailure('installed-definition-contract',packet.definitionKey);
+  slots.capability_grants={requiredCapabilityRefs:[...definition.capabilityRefs],
+    grants:admitted.grants.map(grant=>({ref:grant.grantRef,digest:grant.grantDigest}))};
+  return api.constructInstalledPublicDefinitionCall({product,installedPublic:api,
+    definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog:member.slots.request.contractCatalog,
+    ...packet.definitionKey,request,slots,resources:{...resources,admissionAuthority:{basis:admitted.data,authority,grants:admitted.grants}},
+    requestRef,correlationRef,eventTime:new Date().toISOString(),provenanceRefs});
+}
+
+/** CLI framing is a single JSON line; canonical encoding preserves the owner's value. */
+export function cliTransportJsonl(product,call,acquisition) {
+  return product.canonicalJson({kind:'abg_cli_transport_request',schemaVersion:version,acquisition,invocation:call})+'\n';
+}
+
 export async function verifyArtifact(runtime,{artifactPath,manifest,expectedArtifactDigest},record,label) {
   const {product}=runtime;
   const request={artifactPath,artifactRef:pathToFileURL(artifactPath).href,expectedArtifactDigest,
@@ -37,10 +81,10 @@ export async function verifyArtifact(runtime,{artifactPath,manifest,expectedArti
   return {request,verification,verified:verification.verifiedArtifact};
 }
 
-export function publicCaller({root,runtime,native,command,record,config}) {
+export function publicCaller({root,runtime,native,command,record,config,actorRef:selectedActorRef}) {
   const {product,abg,api}=runtime, hash=product.sha256Canonical;
   const state={closeHandoff:null,binding:null,environment:null,resolvedLock:null,catalog:null,catalogView:null,calls:[]};
-  const actorRef='actor://abi5-tests/sandbox-uat/'+config.runId;
+  const actorRef=selectedActorRef??'actor://abi5-tests/sandbox-uat/'+config.runId;
   const coordinate=(ref,value={ref})=>({ref,digest:hash(value)});
   const actor={actor:coordinate(actorRef),attribution:coordinate(actorRef+'/test-owner')};
   const verified=native.verified, contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,
@@ -58,36 +102,17 @@ export function publicCaller({root,runtime,native,command,record,config}) {
   const boundSlots=()=>({workspace_binding:state.binding,product_set:state.environment.productInstalls.map(product.productInstallCoordinate),
     dependency_lock:{ref:state.resolvedLock.lockId,digest:state.resolvedLock.lockDigest},actor});
   async function authorize(packet,request,resources,supplied={}) {
-    const definition=api.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(row=>row.definitionKey.operationId===packet.definitionKey.operationId&&row.definitionKey.memberKey===packet.definitionKey.memberKey);
-    if(!definition)throw new BoundaryFailure('installed-definition',packet.definitionKey);
-    const selected={...emptySlots(),capability_grants:{requiredCapabilityRefs:[...definition.capabilityRefs],grants:[]},...supplied};
-    const data={kind:'admission_capability_data',schemaVersion:version,
-      definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,
-        owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},
-      ownerArtifact:{request:native.request,verified},request,
-      resourceScope:{resourcesDigest:hash(resources),authoritySlots:product.admissionAuthoritySlots(selected)},
-      boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:product.admissionEnvironmentSelection(state.closeHandoff.prefix,selected.workspace_binding)};
-    const authorityValue={actorRef,authorityMode:'trusted_developer'}, authorityRef='authority://abi5-tests/sandbox-uat/'+config.runId;
-    const approvalValue={decision:'allow',actorRef,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,
-      requestDigest:hash(request),scopeDigest:product.admissionAuthorityScope(data).digest};
-    const authority={kind:'resolved_admission_authority',schemaVersion:version,actorRef,authorityMode:'trusted_developer',
-      authority:{...coordinate(authorityRef,authorityValue),value:authorityValue},
-      approval:{...coordinate(authorityRef+'/approval/'+state.calls.length,approvalValue),value:approvalValue}};
-    const grants=await Promise.all(definition.capabilityRefs.map(cap=>product.constructCapabilityGrant(authority,actorRef,
-      packet.definitionKey.operationId,cap,{kind:'admission_capability_grant_construction_basis',fixedPacket:packet,data})));
-    return api.constructInstalledPublicDefinitionCall({product,installedPublic:api,definitionContractCoordinates:verified.definitionContractCoordinates,
-      contractCatalog,...packet.definitionKey,request,slots:{...selected,capability_grants:{requiredCapabilityRefs:[...definition.capabilityRefs],
-        grants:grants.map(grant=>({ref:grant.grantRef,digest:grant.grantDigest}))}},
-      resources:{...resources,admissionAuthority:{basis:data,authority,grants}},requestRef:'request://abi5-tests/sandbox-uat/'+config.runId+'/'+state.calls.length,
-      correlationRef:'correlation://abi5-tests/sandbox-uat/'+config.runId,eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(root,'run.json')).href]});
+    return authorizeInstalledOperation({runtime,native,actorRef,packet,request,resources,supplied,
+      prefix:state.closeHandoff?.prefix??null,requestRef:'request://abi5-tests/sandbox-uat/'+config.runId+'/'+state.calls.length,
+      correlationRef:'correlation://abi5-tests/sandbox-uat/'+config.runId,
+      authorityRef:'authority://abi5-tests/sandbox-uat/'+config.runId,provenanceRefs:[pathToFileURL(join(root,'run.json')).href]});
   }
   async function invoke(label,call,{runtimeRoot=config.bootstrapRoot,environment=config.setupEnvironment,expectResult=true}={}) {
     const resources=call.resources.eventResource;
     const acquisition=!resources?{kind:'eventless'}:resources.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resources.eventLogPath}
       :{kind:'reopen',closeHandoff:resources.closeHandoff};
-    const request={kind:'abg_cli_transport_request',schemaVersion:version,acquisition,invocation:call};
     const requestPath=join(root,'calls',label+'.request.jsonl');
-    await record('calls/'+label+'.request.jsonl',JSON.stringify(request)+'\n',true);
+    await record('calls/'+label+'.request.jsonl',cliTransportJsonl(product,call,acquisition),true);
     const execution=await command(label,config.nodePath,[join(runtimeRoot,'build/code/src/public/cli.js'),'--jsonl',requestPath],{cwd:root,environment});
     let outcome;
     try{const lines=execution.stdout.trim().split(/\r?\n/u);if(lines.length!==1)throw new Error('Expected one CLI outcome');outcome=JSON.parse(lines[0]);}
@@ -179,7 +204,7 @@ export async function populateSandbox(caller) {
       admittedInstalls:installations,resolvedLock,declaredRoots:roots},{product_set:installations.map(product.productInstallCoordinate),dependency_lock:lock,actor}));
   state.binding=bound.receipt.ownerOutput.value.binding;caller.refresh();
   const core=native.verified;
-  const publications=constructors.map(name=>gtl[name]({...core,productManifestDigest:core.manifestDigest})).concat(fixture.publication);
+  const publications=corePublications(gtl,core).concat(fixture.publication);
   const actualCore=publications.slice(0,-1).map(value=>[value.moduleRef,product.modulePublicationSemanticDigest(value)]).sort();
   const manifestCore=core.contributionManifest.publicationBindings.map(value=>[value.moduleRef,value.publicationDigest]).sort();
   if(hash(actualCore)!==hash(manifestCore))throw new BoundaryFailure('candidate-publication-identity',{actualCore,manifestCore});
@@ -232,7 +257,7 @@ export async function constructLifecycleCall(caller,input) {
   const eventResource=caller.reopen(),steering=hash(eventResource),lock={ref:state.resolvedLock.lockId,digest:state.resolvedLock.lockDigest};
   const request={program,scope:'program',target:{kind:'next'},until:'converged',catalogView:view,allowlist:[...state.catalogView.allowlist],
     input:boundInput,fhMode:'direct',rootMode:'direct',sourceBasis:{kind:'none'}};
-  const slots={...emptySlots(),workspace_binding:state.binding,product_set:admittedInstalls.map(product.productInstallCoordinate),dependency_lock:lock,
+  const slots={...emptyAuthoritySlots(),workspace_binding:state.binding,product_set:admittedInstalls.map(product.productInstallCoordinate),dependency_lock:lock,
     catalog_scope:{catalog:{ref:'graph-function-catalog://abiogenesis/'+state.catalog.basisDigest.slice(7),digest:state.catalog.basisDigest},view,allowlist:request.allowlist},
     execution_program:program,input_contract:boundInput,session_policy:{ref:policy.policyRef,digest:policy.policyDigest},
     capability_grants:{requiredCapabilityRefs:[...fixedPacket.metadata.capabilityRefs],grants:grants.map(grant=>({ref:grant.grantRef,digest:grant.grantDigest}))},

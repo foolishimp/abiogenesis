@@ -1,0 +1,33 @@
+✔ native D2 declares public intake and every selected whole suffix with exact GTL and role owners (249.5355ms)
+(node:46623) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native D2 public intake keeps an old job, rejects absent/ambiguous causes, and composes Requirements correction through native C2 and fresh Evidence (233.952833ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 519.367875
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:101:1
+✖ native D2 public intake keeps an old job, rejects absent/ambiguous causes, and composes Requirements correction through native C2 and fresh Evidence (233.952833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failure'
+  - 'success'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:156:123)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failure',
+    expected: 'success',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

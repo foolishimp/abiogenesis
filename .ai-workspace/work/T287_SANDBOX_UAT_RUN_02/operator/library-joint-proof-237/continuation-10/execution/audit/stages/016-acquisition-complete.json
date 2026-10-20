@@ -1,0 +1,24 @@
+{
+  "stage": "acquisition-complete",
+  "elapsedMs": 26081.015958000004,
+  "at": "2026-10-10T14:30:06.300Z",
+  "rss": 2750922752,
+  "heapTotal": 1394786304,
+  "heapUsed": 1273756768,
+  "external": 12163122,
+  "arrayBuffers": 9750815,
+  "eventCount": 475,
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "prefixLength": 9132141,
+    "prefixDigest": "sha256:83b2b3749a258eb73be8a43b577575dbb1320dab6a6f4d5c7cc966a2fb9c40e0",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 469917053,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:5b7f935fb60f9a2c854a9e5cfdc327111e138a71755e8e3989272cd5f7400373"
+  }
+}

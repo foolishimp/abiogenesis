@@ -1,0 +1,4 @@
+{
+  "cause": "preimages.path selects archived copy, not live tenant path; relative_to tenant refused before compilation",
+  "action": "select preimages.originalPath; preserve exact archived preimages, no owner change"
+}

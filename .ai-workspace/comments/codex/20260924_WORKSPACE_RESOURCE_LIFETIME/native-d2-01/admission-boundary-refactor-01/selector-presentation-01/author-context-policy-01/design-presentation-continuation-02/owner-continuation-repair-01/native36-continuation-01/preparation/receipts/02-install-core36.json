@@ -1,0 +1,109 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.product.install",
+      "memberKey": "install"
+    },
+    "invocationRef": "invocation://abiogenesis/dee13ebb0770c5ac7bd5387d9bace52baacdf28ca0257e138844418b9209eaa2",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "disposition": "materialized",
+        "installedProduct": {
+          "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/534d5cfbb90a1df0179bac43ceb707b6263947326fc07ff1cdb6174b5dc42eb7/a6945f956cf24d786e570ea973abcf977a9a0ebb5ea55059134ab51b9e4ef709",
+          "digest": "sha256:0d438dabd3d6d5ace8be1e80be24d178d8cf0fb9f1e851c30418c93a44636c33"
+        },
+        "installManifest": {
+          "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/preparation/products/core36/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+          "digest": "sha256:25c4a64498140a89c3be86db5b5c38b91c90703de916eca0a41f9ecad0364704"
+        },
+        "installerManifest": {
+          "ref": "artifact-truth-projection://abiogenesis/bdcc138067649a8d3006d2aa9e5e28c9671dffdb50e71ae883448ccb4e2123a9",
+          "digest": "sha256:bdcc138067649a8d3006d2aa9e5e28c9671dffdb50e71ae883448ccb4e2123a9"
+        },
+        "resolvedLock": {
+          "ref": "product-lock://abiogenesis/a6945f956cf24d786e570ea973abcf977a9a0ebb5ea55059134ab51b9e4ef709",
+          "digest": "sha256:a6945f956cf24d786e570ea973abcf977a9a0ebb5ea55059134ab51b9e4ef709"
+        },
+        "provenance": [
+          {
+            "ref": "artifact-truth-projection://abiogenesis/bdcc138067649a8d3006d2aa9e5e28c9671dffdb50e71ae883448ccb4e2123a9",
+            "digest": "sha256:bdcc138067649a8d3006d2aa9e5e28c9671dffdb50e71ae883448ccb4e2123a9"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "product_install_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "eventResource": {
+        "kind": "abg_event_resource_completion",
+        "schemaVersion": "5.0.0",
+        "acquisitionKind": "reopen",
+        "entryPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+          "prefixLength": 325856830,
+          "prefixDigest": "sha256:363232d2c67c2b7b203eee8a2e95abb1e208c4fff649b9f9e5d8596d94e813aa",
+          "storeIdentity": {
+            "device": 16777230,
+            "inode": 459405010,
+            "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+          },
+          "coordinateDigest": "sha256:32b2fa1f01e5506fc53f8dfb35aa05a2cb96e27ff18ed06e668d9a14d611c8bd"
+        },
+        "successor": {
+          "kind": "acquired_abg_event_resource_selection",
+          "schemaVersion": "5.0.0",
+          "prefix": {
+            "kind": "durable_prefix_coordinate",
+            "schemaVersion": "5.0.0",
+            "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+            "prefixLength": 328181761,
+            "prefixDigest": "sha256:65beaa9e87e19663393ccf5dcb0e8be331a4bf25e919d08e72cc078482260465",
+            "storeIdentity": {
+              "device": 16777230,
+              "inode": 459405010,
+              "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+            },
+            "coordinateDigest": "sha256:563608be057eabc6c569d397b5a5271d5a85f5115f744820bca32ccf634b1f28"
+          }
+        },
+        "receiptDigest": "sha256:707bbe8b414d52c4613924f2c270f1502a9e3c6f0917f7054c0a753c8006a855"
+      },
+      "packedArtifact": {
+        "ref": "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "digest": "sha256:e8751bfaa71d2969d95a30a278e2c69c6f5e4c815db7fbf4552aa19172827868"
+      },
+      "resolvedLock": {
+        "ref": "product-lock://abiogenesis/a6945f956cf24d786e570ea973abcf977a9a0ebb5ea55059134ab51b9e4ef709",
+        "digest": "sha256:a6945f956cf24d786e570ea973abcf977a9a0ebb5ea55059134ab51b9e4ef709"
+      },
+      "targetRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/preparation/products/core36",
+      "installCandidate": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/534d5cfbb90a1df0179bac43ceb707b6263947326fc07ff1cdb6174b5dc42eb7/a6945f956cf24d786e570ea973abcf977a9a0ebb5ea55059134ab51b9e4ef709",
+        "digest": "sha256:0d438dabd3d6d5ace8be1e80be24d178d8cf0fb9f1e851c30418c93a44636c33"
+      },
+      "installedProduct": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/534d5cfbb90a1df0179bac43ceb707b6263947326fc07ff1cdb6174b5dc42eb7/a6945f956cf24d786e570ea973abcf977a9a0ebb5ea55059134ab51b9e4ef709",
+        "digest": "sha256:0d438dabd3d6d5ace8be1e80be24d178d8cf0fb9f1e851c30418c93a44636c33"
+      },
+      "installManifest": {
+        "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/preparation/products/core36/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+        "digest": "sha256:25c4a64498140a89c3be86db5b5c38b91c90703de916eca0a41f9ecad0364704"
+      },
+      "installerManifest": {
+        "ref": "artifact-truth-projection://abiogenesis/bdcc138067649a8d3006d2aa9e5e28c9671dffdb50e71ae883448ccb4e2123a9",
+        "digest": "sha256:bdcc138067649a8d3006d2aa9e5e28c9671dffdb50e71ae883448ccb4e2123a9"
+      }
+    },
+    "failure": null
+  }
+}

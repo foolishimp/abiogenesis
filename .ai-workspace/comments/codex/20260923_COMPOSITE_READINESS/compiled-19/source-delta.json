@@ -1,0 +1,74 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/semantic_job.ts",
+      "bytes": 47674,
+      "sha256": "afe6844bff1433d04c245d2ccc1af640b3301c14144fd80030ee3627e8210c68"
+    },
+    "after": {
+      "path": "code/src/abg/semantic_job.ts",
+      "bytes": 48290,
+      "sha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/gtl/worksite_command_execution.ts",
+      "bytes": 24179,
+      "sha256": "f87beba2cc5b4924132a8d34156c649bb27a3f1c3b8f1987f87eaea7dd479f44"
+    },
+    "after": {
+      "path": "code/src/gtl/worksite_command_execution.ts",
+      "bytes": 24179,
+      "sha256": "21294f03144b82f6c6bf7078e0ea711f5682e7b1a7c8a7c5c44e7e88c8469c9c"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/implementation/semantic_stage.ts",
+      "bytes": 16336,
+      "sha256": "fb50fc45dba166c0c16427b01eb560c9d6149534a6d4cdca192f3b7cfc5e0a47"
+    },
+    "after": {
+      "path": "code/src/implementation/semantic_stage.ts",
+      "bytes": 16676,
+      "sha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/implementation/worksite_command_execution.ts",
+      "bytes": 40341,
+      "sha256": "cdc325bd55811597ffa12db34fd92be9b52f6db5553df1dbfb105b260af7924f"
+    },
+    "after": {
+      "path": "code/src/implementation/worksite_command_execution.ts",
+      "bytes": 39509,
+      "sha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/product/semantic_job.ts",
+      "bytes": 87240,
+      "sha256": "e60893ce71f9325679f0d2005d35b20837d6847eb54a3e185716d844d5a674a2"
+    },
+    "after": {
+      "path": "code/src/product/semantic_job.ts",
+      "bytes": 89750,
+      "sha256": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/product/worksite_command_execution.ts",
+      "bytes": 125856,
+      "sha256": "5cf3ffcb26b293c64f6977428211164a13f2e5452930631edb981b737b3c773d"
+    },
+    "after": {
+      "path": "code/src/product/worksite_command_execution.ts",
+      "bytes": 128556,
+      "sha256": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496"
+    }
+  }
+]

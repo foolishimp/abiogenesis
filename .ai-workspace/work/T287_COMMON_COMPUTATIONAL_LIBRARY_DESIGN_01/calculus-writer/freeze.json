@@ -1,0 +1,28 @@
+{
+  "created_utc": "2026-10-20T17:26:28.854311+00:00",
+  "role": "computational Design / Reuse / Foundation Writer",
+  "scope": "one new library design plus Writer records",
+  "basis_sha256": "7c4196afaf481be05056a5c3b5120b98b9e4d012ccf2b673f765076b3ec23376",
+  "method": "stdo://releases/v3.0.0-rc.1/",
+  "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "candidate": {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "sha256": "924789be491175cf570bf5407c14dbd9ccfd4f682b495e48a50ec6788f9b3527",
+    "bytes": 61316
+  },
+  "inputs": {
+    "activation.md": "e05af22033c15a305c7d08d0e9d404fd86bd051b97602cb74e3e700e7a5bae99",
+    "conjunction.md": "da58a257fe566caf78aa8c56ddde663abddfe49799c5874d1b4619dac6c7abff",
+    "product-assessment.md": "372d1ad54e0a960668f85df115fe6676cc9a7880f7e281ac7554567ce3c8cc96",
+    "realization-assessment.md": "501d395356e72cbcfdb45269ecfdab4c81ed9d16a8d0a315173b6d29d6a73e1a",
+    "document-checks.json": "5cff3313ba33d6840a53aadcdd0c9e7ee2071e22165a53c34b6827a4a2df7cc1"
+  },
+  "records": {
+    "activation.md": "3ec6ec022d25138b688c5a18f75eec608e3972a901f2d20f4a0801047f41ba2c",
+    "preimages.json": "a62c43788866e93a2f1de6c54fb4efb85ac4b718146a2cb64853cb7ddb76f2e0",
+    "readiness.json": "8eedc14514f2e7867a6fffee65d493b3d4f1f23b82309c4937b0d6031fab7432",
+    "candidate.diff": "0c42a96f0f8bc1abf24ea379a4989c6fbbc64e7e29a8b4a6d82e3466adcbdf11",
+    "return.md": "af71b453f9996463aa12c2ad2028dba46571904fb571fe52399ca460442075ec"
+  },
+  "claimed_outcome": "library design candidate ready for independent assessment; no semantic acceptance or runtime proof"
+}

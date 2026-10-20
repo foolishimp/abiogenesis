@@ -1,0 +1,925 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/admitted-event-observation.json",
+    "bytes": 25936,
+    "sha256": "dc0e841118e5b1a42342ac4c337c7681378ddc1cee0edee278e22abed73e216f",
+    "shape": [
+      "eventCount",
+      "initialEvents",
+      "newEvents",
+      "kindCounts",
+      "actualRun",
+      "actualProducer",
+      "rows",
+      "limit"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/assertion-frontier.json",
+    "bytes": 2459,
+    "sha256": "44ad1620dd8cb78beb571b54365f3f33332f00bb9baa0de20fc9b9086cfbc326",
+    "shape": [
+      "firstFailure",
+      "reachedAndPassed",
+      "notReached",
+      "closureObservationsAfterStop",
+      "limit"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/budgets.json",
+    "bytes": 701,
+    "sha256": "200dbe1cf07f45573286762d9bd74e931ecfb1441a4ede6a212eb00966f5784f",
+    "shape": [
+      "stages",
+      "operationPlan",
+      "nativeCapSumMs",
+      "terminationGraceMs",
+      "allCommandGraceMs",
+      "driverBudgetMs",
+      "purePreflightAllowanceMs",
+      "totalCeilingMs",
+      "retry",
+      "source"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/causal-triage.json",
+    "bytes": 4651,
+    "sha256": "3e1ae1972bf6475254d9459d7ff6d12f7f56c963b0b34781bbd5d04f38beed47",
+    "shape": [
+      "status",
+      "origin",
+      "notAnOwnerFailure",
+      "actualOwnerContract",
+      "frames",
+      "alternatives",
+      "recurrenceAndEscape",
+      "completeAffectedCone",
+      "smallestReentry",
+      "requiredReproof",
+      "effectState"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/closed-state.json",
+    "bytes": 1675,
+    "sha256": "4f18bd44e3e5e9198a689da444864163e8c7739b2376d53eeaf6c8d3c8374400",
+    "shape": [
+      "status",
+      "activation",
+      "actualActor",
+      "sessionId",
+      "nativeSuccesses",
+      "priorSuccessesConserved",
+      "HelloRun",
+      "firstFailure",
+      "resource",
+      "finalHandoff",
+      "snapshot",
+      "actualSupportedOutputs",
+      "assertionFrontier",
+      "remaining",
+      "tenantManifest",
+      "executionSelectionRef",
+      "Worker"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/closure-attribution.json",
+    "bytes": 1791,
+    "sha256": "6e8a981abd7d75ba6a043b4732e537f82fabd986f4e0e04dbc371bf7eeb4634f",
+    "shape": [
+      "actualActor",
+      "activation",
+      "sessionId",
+      "sessionRoute",
+      "profile",
+      "grantSHA256",
+      "newControlBodies",
+      "donorCorrection",
+      "noEditsAfterNativeLaunch",
+      "afterFailure",
+      "qualificationAndIndependence"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/conformance-command-execution-semantic-result.json",
+    "bytes": 2526,
+    "sha256": "1f8c606606d952265d6add8429cf06cba24f0042886a16d06a26f4df6fae1d75",
+    "shape": [
+      "status",
+      "receipt",
+      "preparedCallRef",
+      "closedPrefixConserved"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/conformance-hello-world-semantic-result.json",
+    "bytes": 2523,
+    "sha256": "1386a5d1d7d5049634a240e6816e63490adeaafcb641c42dc3e6e4fb20ca3441",
+    "shape": [
+      "status",
+      "receipt",
+      "preparedCallRef",
+      "closedPrefixConserved"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/conservation.json",
+    "bytes": 1610,
+    "sha256": "76434c008ef2568a7cf0d4ef54c335a0e5296a9c497ce96127136d311863343f",
+    "shape": [
+      "status",
+      "C02FrozenRecords",
+      "N03ImmutableFrozenRecords",
+      "originalResourceException",
+      "N03PersistentNewFiles",
+      "N03SnapshotFreezeReceiptsSourcesPayloadWorkspace",
+      "preEffectControls",
+      "donorOriginalAndPreimages",
+      "C02Freeze",
+      "N03Freeze"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/construction-attribution.json",
+    "bytes": 2660,
+    "sha256": "842f95d4ec727714de81685982fbe5e568f76bf0eb61f4e7dfd3940d475b13c4",
+    "shape": [
+      "actualActor",
+      "sessionId",
+      "profile",
+      "grant",
+      "inheritedDonors",
+      "changes",
+      "proofScope",
+      "immutableInputs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-command.json",
+    "bytes": 1941,
+    "sha256": "9ee452eed177fc930bff5ef331ab19af982bd0c72f96ed1b392e3c08a1de2c1a",
+    "shape": [
+      "command",
+      "cwd",
+      "environment",
+      "budgetMs",
+      "driverRemainingMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-handoff.json",
+    "bytes": 2223,
+    "sha256": "21810584eb4f0f24ffde0ef4d636f5ca74b6eba261eaf5fa85020b784b89f831",
+    "shape": [
+      "closeHandoff",
+      "calls"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-native-process.json",
+    "bytes": 692,
+    "sha256": "ecddb9bf8965d67dd13eb09d3417adba74601608bdbd77b70d7a2389c88024b9",
+    "shape": [
+      "pid",
+      "command",
+      "elapsedMs",
+      "exitCode",
+      "signal",
+      "peakRSSBytes",
+      "userSeconds",
+      "systemSeconds",
+      "observation"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-physical.json",
+    "bytes": 1256,
+    "sha256": "0bc2a7ec36bd896a392f33d015b3055d33c3bc1e50d2ea5f0ce62bd122ef0b8e",
+    "shape": [
+      "label",
+      "path",
+      "bytes",
+      "sha256",
+      "device",
+      "inode",
+      "stable",
+      "lockPath",
+      "lockPresent",
+      "prefix"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-process-start.json",
+    "bytes": 632,
+    "sha256": "42f708bf6c3bead366f461ca6a4de1584bff7f779bbcdab0eeff9be5e4588bab",
+    "shape": [
+      "pid",
+      "processGroup",
+      "command",
+      "startedAt",
+      "mode",
+      "label",
+      "capMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-stdout.json",
+    "bytes": 1972,
+    "sha256": "464e7ded75d2db27175987235cee9145d19a3649d07f12c7b41a23b0a9bdce81",
+    "shape": [
+      "acquisitionKind",
+      "kind",
+      "receipt",
+      "schemaVersion"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-command-execution-timing.json",
+    "bytes": 294,
+    "sha256": "23db85678de01251d6c5a55092c6e7bf88deed6fd47df56e8e49fa58b654bef3",
+    "shape": [
+      "elapsedMs",
+      "processFailure",
+      "terminal",
+      "stage",
+      "budgetMs",
+      "capture"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-command.json",
+    "bytes": 1939,
+    "sha256": "f06b77d62310d6b83df4948cac5c46eee2ed45ba5097498140a753b7fd4c7c8e",
+    "shape": [
+      "command",
+      "cwd",
+      "environment",
+      "budgetMs",
+      "driverRemainingMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-handoff.json",
+    "bytes": 1817,
+    "sha256": "6701b427bca84d1dd0b9205f5e831476d3e08aa3738502a61aed87372e5406e8",
+    "shape": [
+      "closeHandoff",
+      "calls"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-native-process.json",
+    "bytes": 699,
+    "sha256": "6b73db54b57ffed7c4f6345fb326e3a6bdbd61ba1ab7b933b47fc4a768d4a5e2",
+    "shape": [
+      "pid",
+      "command",
+      "elapsedMs",
+      "exitCode",
+      "signal",
+      "peakRSSBytes",
+      "userSeconds",
+      "systemSeconds",
+      "observation"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-physical.json",
+    "bytes": 1250,
+    "sha256": "4ddffb12745332a4d087e202f31eea1cefcde8ce6c1267ddc85c03d601003da6",
+    "shape": [
+      "label",
+      "path",
+      "bytes",
+      "sha256",
+      "device",
+      "inode",
+      "stable",
+      "lockPath",
+      "lockPresent",
+      "prefix"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-process-start.json",
+    "bytes": 620,
+    "sha256": "e6bc6cfb21d64f79244baf3a6fcbaa641362166bea45ae3fc1712d95ebcb40ce",
+    "shape": [
+      "pid",
+      "processGroup",
+      "command",
+      "startedAt",
+      "mode",
+      "label",
+      "capMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-stdout.json",
+    "bytes": 1969,
+    "sha256": "f5b7a3502d6583b14e9bee1f2d6e1741579d1a1ecc7c4293acff53a5b1f25d95",
+    "shape": [
+      "acquisitionKind",
+      "kind",
+      "receipt",
+      "schemaVersion"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-conformance-hello-world-timing.json",
+    "bytes": 294,
+    "sha256": "02aa092955f788c900e8cdae6b5d2190c0772582efa1a5a21bf1ad19cc37942a",
+    "shape": [
+      "elapsedMs",
+      "processFailure",
+      "terminal",
+      "stage",
+      "budgetMs",
+      "capture"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-failure-final-physical.json",
+    "bytes": 1240,
+    "sha256": "7e24a238d3d5b0e3cd36a2c36cb9ac7b9f86dc07f390498298ee49afe01aafcc",
+    "shape": [
+      "label",
+      "path",
+      "bytes",
+      "sha256",
+      "device",
+      "inode",
+      "stable",
+      "lockPath",
+      "lockPresent",
+      "prefix"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-command.json",
+    "bytes": 1922,
+    "sha256": "c702fb519701030e90bb091b555266cd791855704b52763418e59a92b23c4469",
+    "shape": [
+      "command",
+      "cwd",
+      "environment",
+      "budgetMs",
+      "driverRemainingMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-handoff.json",
+    "bytes": 2594,
+    "sha256": "a080c96aaa74c52f8dc7eeef442ca26332069b7952252424f2f4cd6487501025",
+    "shape": [
+      "closeHandoff",
+      "calls"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-native-process.json",
+    "bytes": 682,
+    "sha256": "16572fc808d90245fbafb145a8e71ddeda2207e019eed9ce6fb7fab2e305b024",
+    "shape": [
+      "pid",
+      "command",
+      "elapsedMs",
+      "exitCode",
+      "signal",
+      "peakRSSBytes",
+      "userSeconds",
+      "systemSeconds",
+      "observation"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-physical.json",
+    "bytes": 1237,
+    "sha256": "3ce282445148c51aaec044e121ffe32f5eae21ea2db8e61370adca499823c2f7",
+    "shape": [
+      "label",
+      "path",
+      "bytes",
+      "sha256",
+      "device",
+      "inode",
+      "stable",
+      "lockPath",
+      "lockPresent",
+      "prefix"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-process-start.json",
+    "bytes": 594,
+    "sha256": "ff11362c194e7d1669e0dc848790a0e5975464dcdd7c0d60bab1b6964d5a42b0",
+    "shape": [
+      "pid",
+      "processGroup",
+      "command",
+      "startedAt",
+      "mode",
+      "label",
+      "capMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-command.json",
+    "bytes": 1933,
+    "sha256": "a2324d66b1261f96df61ebf59feadc5f5487c4c9508e46a4afdb509c841361b2",
+    "shape": [
+      "command",
+      "cwd",
+      "environment",
+      "budgetMs",
+      "driverRemainingMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-handoff.json",
+    "bytes": 3370,
+    "sha256": "85e3875481f9d876ba6c579ae36fa855d01ca959893d98746d0cdf34065d3571",
+    "shape": [
+      "closeHandoff",
+      "calls"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-native-process.json",
+    "bytes": 692,
+    "sha256": "b7fdbaee419ce76950e76b1d0c5c5b8a971f4a0a72b698cf6807dfaa34bd547d",
+    "shape": [
+      "pid",
+      "command",
+      "elapsedMs",
+      "exitCode",
+      "signal",
+      "peakRSSBytes",
+      "userSeconds",
+      "systemSeconds",
+      "observation"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-physical.json",
+    "bytes": 1248,
+    "sha256": "32c62b86d315ac15bef0c66fe8143445d2a3329d32e822d9eecdd83282024d78",
+    "shape": [
+      "label",
+      "path",
+      "bytes",
+      "sha256",
+      "device",
+      "inode",
+      "stable",
+      "lockPath",
+      "lockPresent",
+      "prefix"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-process-start.json",
+    "bytes": 616,
+    "sha256": "7a5d138877e5cbb054b29a45be9a8bfe2f64fcb58c130a0d6bd68530f8bdcdea",
+    "shape": [
+      "pid",
+      "processGroup",
+      "command",
+      "startedAt",
+      "mode",
+      "label",
+      "capMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-stdout.json",
+    "bytes": 5879,
+    "sha256": "d01d863dc8f957e4a37bd12260c125fb0778cc007d290576f345eefb559af8de",
+    "shape": [
+      "acquisitionKind",
+      "kind",
+      "receipt",
+      "schemaVersion"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_replay-timing.json",
+    "bytes": 286,
+    "sha256": "73c0bd75d2d87368c31cc42c30a96ff29068b6600a621ba0ddfd112629601080",
+    "shape": [
+      "elapsedMs",
+      "processFailure",
+      "terminal",
+      "stage",
+      "budgetMs",
+      "capture"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-command.json",
+    "bytes": 1937,
+    "sha256": "4b769512b1e4ee1d436a515b62fced26385fcf07a2a86cd9252aa06162fbc52a",
+    "shape": [
+      "command",
+      "cwd",
+      "environment",
+      "budgetMs",
+      "driverRemainingMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-handoff.json",
+    "bytes": 2982,
+    "sha256": "46aa7ac865c6b6dee72db6675e5fca384b19d709bcc788f0d7f7dff52798c857",
+    "shape": [
+      "closeHandoff",
+      "calls"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-native-process.json",
+    "bytes": 692,
+    "sha256": "fd3d34804161931e381cca6d6e303486e54e4e916a9a39a8ae7996c1f9a026aa",
+    "shape": [
+      "pid",
+      "command",
+      "elapsedMs",
+      "exitCode",
+      "signal",
+      "peakRSSBytes",
+      "userSeconds",
+      "systemSeconds",
+      "observation"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-physical.json",
+    "bytes": 1248,
+    "sha256": "1808d15ed84a03a148cb1b27ada9c1bc4be5af97fb55548911de9903235c3459",
+    "shape": [
+      "label",
+      "path",
+      "bytes",
+      "sha256",
+      "device",
+      "inode",
+      "stable",
+      "lockPath",
+      "lockPresent",
+      "prefix"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-process-start.json",
+    "bytes": 616,
+    "sha256": "fa22ff70730631a901dc2f3e5792cc20b65c9536915322cf187b8d2c7d5929b9",
+    "shape": [
+      "pid",
+      "processGroup",
+      "command",
+      "startedAt",
+      "mode",
+      "label",
+      "capMs"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-stdout.json",
+    "bytes": 6224,
+    "sha256": "eb5400936e51e9b29dabec625a7d50447b142e329e4ba401cc3a822ff45c0015",
+    "shape": [
+      "acquisitionKind",
+      "kind",
+      "receipt",
+      "schemaVersion"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-run_result-timing.json",
+    "bytes": 286,
+    "sha256": "ccfb53ebcca639e8c7bd61324af42ada2437a3bcfe5d381d6d4f42ab0748cfc3",
+    "shape": [
+      "elapsedMs",
+      "processFailure",
+      "terminal",
+      "stage",
+      "budgetMs",
+      "capture"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-stdout.json",
+    "bytes": 12121,
+    "sha256": "c51ec0731788c55d78728e383c31425550adf289b319a4a85371256d13dbbbe3",
+    "shape": [
+      "acquisitionKind",
+      "kind",
+      "receipt",
+      "schemaVersion"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-timing.json",
+    "bytes": 288,
+    "sha256": "fb7b7355b314fbc3cf1e476d657eae96d30a3572cda0ff37bec6f57fa9f333cb",
+    "shape": [
+      "elapsedMs",
+      "processFailure",
+      "terminal",
+      "stage",
+      "budgetMs",
+      "capture"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-initial-physical.json",
+    "bytes": 1234,
+    "sha256": "9e507a1c3e60780e401a5064e2b24337c6785d43e9bc6abf99c36eed365deba4",
+    "shape": [
+      "label",
+      "path",
+      "bytes",
+      "sha256",
+      "device",
+      "inode",
+      "stable",
+      "lockPath",
+      "lockPresent",
+      "prefix"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/cost-and-quiescence.json",
+    "bytes": 6709,
+    "sha256": "a1d9d2ee8983a277d0de223cc4550e6293f3a501a9ef4f3b18b2bab80dc61960",
+    "shape": [
+      "driver",
+      "preflightElapsedMs",
+      "budget",
+      "nativeProcesses",
+      "nativeElapsedSumMs",
+      "successCount",
+      "originalSevenSuccessesReexecuted",
+      "HelloRuns",
+      "providerCalls",
+      "C2Calls",
+      "qualificationCalls",
+      "quiescence"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/donor-preimages.json",
+    "bytes": 2045,
+    "sha256": "30ba4af10eb48efde472fe519309aac9a74bcbc5724e7ff5032e10fae70a1f96",
+    "shape": {
+      "type": "list",
+      "length": 4
+    }
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver-process-start.json",
+    "bytes": 273,
+    "sha256": "30de566ee021e98b8e64ca999afd8e13828901c8391d435df951ac51d1f6cef9",
+    "shape": [
+      "pid",
+      "processGroup",
+      "supervisorPid",
+      "command"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver-process.json",
+    "bytes": 221,
+    "sha256": "9e41ddc6249ac7977e4045e5658658f3a537974a1e3ba6e78bd06c1b28809309",
+    "shape": [
+      "pid",
+      "exitCode",
+      "signal",
+      "exitObserved",
+      "timedOut",
+      "elapsedMs",
+      "ownedGroupsSignalled",
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver-start.json",
+    "bytes": 846,
+    "sha256": "7a99c299c8096fa797acc06c01de65e4f0522a9c36e0d8166ed8c51d6263470c",
+    "shape": [
+      "pid",
+      "startedAt",
+      "budgets",
+      "exactCalls"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/failure.json",
+    "bytes": 5070,
+    "sha256": "59412c513a16f98c262000a6a51769afc3fe9cd4719424b6a28e625026972485",
+    "shape": [
+      "phase",
+      "message",
+      "stack",
+      "finalPhysical",
+      "closeHandoff",
+      "calls",
+      "elapsedMs",
+      "driverPid"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/final-handoff.json",
+    "bytes": 1328,
+    "sha256": "dd3ed5aea2647785b60d62648bee956a57d1f22b4ff648abfad08925aeb1acfa",
+    "shape": [
+      "prefix",
+      "reopenAuthority"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/initial-identity-joins.json",
+    "bytes": 1360,
+    "sha256": "477e7e6fb3503ae66e44cd9dde3812fc08a976705b94b98491f6efd9b3828464",
+    "shape": {
+      "type": "list",
+      "length": 6
+    }
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/launch-command.json",
+    "bytes": 1718,
+    "sha256": "2685c391d1f81ed021589c12b7e2ea72b9518fdb36fe5390d1e41abfaf37502f",
+    "shape": [
+      "command",
+      "cwd",
+      "environmentOverlay",
+      "maximumIncludingPreflightAndGraceMs",
+      "purePreflightAllowanceMs",
+      "terminationGraceMs",
+      "HOMEUnchanged"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/native-start.json",
+    "bytes": 254,
+    "sha256": "4bcdd76e00253864c910ce78dcd8166b8655651055bfd2117346177dcb5a9a24",
+    "shape": [
+      "pid",
+      "startedAt",
+      "budgetMs",
+      "operationPlan"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/owner-source-relations.json",
+    "bytes": 49546,
+    "sha256": "854afbac18e195127aa540b226611a01ef682bb774c4ca25ddbc329d2ede65ac",
+    "shape": {
+      "type": "list",
+      "length": 7
+    }
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/pre-effect-conservation.json",
+    "bytes": 1176,
+    "sha256": "3b586b2065b48819bf8453a6d0c389fbf670b4ad9678879261dba30ccbb8d380",
+    "shape": [
+      "status",
+      "cuts",
+      "syntax",
+      "originalPrefixSHA256",
+      "nativeCalls"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/pre-effect-input-freeze.json",
+    "bytes": 5538,
+    "sha256": "1da22eeb62549752cc35197d6a65daf7160f5a6dcdff48af66ab738425880d5a",
+    "shape": [
+      "status",
+      "records",
+      "nativeCalls",
+      "proof"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/prospective-cases.json",
+    "bytes": 1044,
+    "sha256": "2d80decbac0065250e8d75413d2e9999a55712641ebcd927ce55daada1cd0408",
+    "shape": [
+      "core",
+      "cases",
+      "claim"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/resource-plan.json",
+    "bytes": 1250,
+    "sha256": "d21017169c869fc1127b6c5c96f619e6844bfcb7886adc68310384b93542a84f",
+    "shape": [
+      "workspaceRoot",
+      "installRoot",
+      "eventLogPath",
+      "lockNamespace",
+      "lockFileRule",
+      "history",
+      "HOME",
+      "permittedWrites",
+      "nativeCalls",
+      "actualActorRef",
+      "device",
+      "inode",
+      "initialPrefixSHA256"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/retained-public-observations.json",
+    "bytes": 28161,
+    "sha256": "42beecfdb85f67322c520c39d31d041b8049a45a5269d71cd6b9e4e7887e29af",
+    "shape": [
+      "status",
+      "sourceFiles",
+      "fullRootOwnerValue",
+      "fullResultOwnerValue",
+      "fullReplayOwnerValue",
+      "actualProducer",
+      "actualTerminalTopLevelKeys",
+      "absentField",
+      "initialHandoff",
+      "helloCloseHandoff",
+      "resultCloseHandoff",
+      "replayCloseHandoff",
+      "projectionBasis",
+      "interpretationLimit"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/runtime-environment.json",
+    "bytes": 1193,
+    "sha256": "b3255cb48914dfd5d8a6dcea6102c81f6d0fcbd98474156c3fc615921d919702",
+    "shape": [
+      "TMPDIR",
+      "npm_config_cache",
+      "npm_config_prefix",
+      "npm_config_userconfig",
+      "npm_config_globalconfig",
+      "GIT_CONFIG_GLOBAL",
+      "GIT_CONFIG_SYSTEM",
+      "GIT_CONFIG_NOSYSTEM",
+      "GIT_OPTIONAL_LOCKS",
+      "NODE_OPTIONS"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/selected-core.json",
+    "bytes": 1261,
+    "sha256": "fc659ef56d13a53b7e127e4fdac184f72dca97af4700f76b0567b7d5b765a1f1",
+    "shape": [
+      "installedRoot",
+      "packageRoot",
+      "artifactPath",
+      "artifactRef",
+      "basis"
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/terminal-source-relations.json",
+    "bytes": 14998,
+    "sha256": "a5065daec08a9a440b24566d3dc6fc613990944eec1b0f77822edf382086b035",
+    "shape": {
+      "type": "list",
+      "length": 6
+    }
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/worker-activation.json",
+    "bytes": 2129,
+    "sha256": "21fc844a0e7db621978427e6cc3cdce027ae4e498002d05e00fc874ea7ccf7f2",
+    "shape": [
+      "role",
+      "activation",
+      "actualActor",
+      "profile",
+      "sessionId",
+      "sessionCorrespondence",
+      "sessionScope",
+      "activatedAt",
+      "grant",
+      "a_cJoinSHA256",
+      "method",
+      "frame",
+      "localFrame",
+      "changeClass",
+      "newTerritory",
+      "ownerEffectException",
+      "operation",
+      "actorRef",
+      "limits"
+    ]
+  }
+]

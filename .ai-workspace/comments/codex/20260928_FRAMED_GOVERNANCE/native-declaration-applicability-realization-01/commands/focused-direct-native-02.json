@@ -1,0 +1,43 @@
+{
+  "label": "focused-direct-native-02",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^S06 native external meaning",
+    "test_env/tests/m5-s06-prime.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/copied-tenant",
+  "deadlineSeconds": 600.0,
+  "startedAt": "2026-10-02T00:08:09.504509+00:00",
+  "environmentOverrides": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/task-tmp",
+    "TMP": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/task-tmp",
+    "TEMP": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/task-tmp",
+    "ABI5_DECLARATION_BASELINE_MODULE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/declaration_exports.js",
+    "ABI5_DECLARATION_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/proof"
+  },
+  "defaultHeapUnchanged": true,
+  "removedNodeOverrides": [
+    "NODE_OPTIONS",
+    "NODE_PATH",
+    "NODE_EXTRA_CA_CERTS",
+    "V8_OPTIONS"
+  ],
+  "outputs": {
+    "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/commands/focused-direct-native-02.stdout.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/commands/focused-direct-native-02.stderr.txt"
+  },
+  "pid": 75654,
+  "processGroup": 75654,
+  "finishedAt": "2026-10-02T00:08:14.727513+00:00",
+  "elapsedSeconds": 5.222953999880701,
+  "exitCode": 0,
+  "timedOut": false,
+  "reaped": true,
+  "childUserCPUSeconds": 9.009874,
+  "childSystemCPUSeconds": 0.344259,
+  "childMaxResidentSetSizePlatformBytes": 1144946688,
+  "passed": true
+}

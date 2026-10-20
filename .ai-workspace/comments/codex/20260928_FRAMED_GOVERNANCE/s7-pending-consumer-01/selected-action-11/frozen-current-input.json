@@ -1,0 +1,73 @@
+{
+  "kind": "fixture_request",
+  "schemaVersion": "5.0.0",
+  "workspaceBinding": {
+    "workspaceBindingId": "workspace-binding://abiogenesis/8ceaf4a41b26629a9cf6c0c544e6bbc228fd02fd5aba0417623b377230571505",
+    "workspaceBindingDigest": "sha256:8ceaf4a41b26629a9cf6c0c544e6bbc228fd02fd5aba0417623b377230571505"
+  },
+  "actionCatalog": {
+    "catalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+    "catalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+    "kind": "action_catalog",
+    "rows": [
+      {
+        "actionKind": "invoke_graph_function",
+        "actionRef": "action://selected-action/consumer@5",
+        "expectedDeltaRef": "delta://selected-action/echo@5",
+        "graphFunctionRef": "graph-function://selected-action/child@5",
+        "inputAssetRefs": [
+          "asset://selected-action/input@5"
+        ],
+        "kind": "action_catalog_row",
+        "outputAssetRefs": [
+          "asset://selected-action/output@5"
+        ],
+        "programRef": "program://selected-action/root@5",
+        "progressConditionRef": "condition://selected-action/progress@5",
+        "stopConditionRef": "condition://selected-action/stop@5",
+        "targetObligationRefs": [
+          "obligation://selected-action/echo@5"
+        ],
+        "targetProgramLocusRef": "graph-function://selected-action/child@5"
+      },
+      {
+        "actionKind": "invoke_graph_function",
+        "actionRef": "action://selected-action/initial@5",
+        "expectedDeltaRef": "delta://selected-action/echo@5",
+        "graphFunctionRef": "graph-function://selected-action/child@5",
+        "inputAssetRefs": [
+          "asset://selected-action/input@5"
+        ],
+        "kind": "action_catalog_row",
+        "outputAssetRefs": [
+          "asset://selected-action/output@5"
+        ],
+        "programRef": "program://selected-action/root@5",
+        "progressConditionRef": "condition://selected-action/progress@5",
+        "stopConditionRef": "condition://selected-action/stop@5",
+        "targetObligationRefs": [
+          "obligation://selected-action/echo@5"
+        ],
+        "targetProgramLocusRef": "graph-function://selected-action/child@5"
+      }
+    ],
+    "schemaVersion": "5.0.0"
+  },
+  "constructionPolicy": {
+    "kind": "construction_policy",
+    "policyRef": "policy://selected-action/closure@5",
+    "requireCompleteEvidence": true,
+    "requirePostEvidenceRefresh": true
+  },
+  "phase": 1,
+  "task": {
+    "kind": "fixture_task",
+    "schemaVersion": "5.0.0",
+    "payload": "selected second action",
+    "currentAuthorityMarker": "workspace-binding://abiogenesis/8ceaf4a41b26629a9cf6c0c544e6bbc228fd02fd5aba0417623b377230571505"
+  },
+  "coveredSelectionRefs": [
+    "continuation://abiogenesis/538e9fb310afbb94b0849f8822badd11e75510a6cfc59f842d37c69c772151a2",
+    "witnessed-act://abiogenesis/d15c004b1e6caf14b0bbd065789cce6551a9714182f98ff9c9e661f5d6c00a8b"
+  ]
+}

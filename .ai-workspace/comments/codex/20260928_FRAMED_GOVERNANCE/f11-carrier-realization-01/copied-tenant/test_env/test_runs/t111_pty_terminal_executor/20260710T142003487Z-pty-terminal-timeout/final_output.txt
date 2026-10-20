@@ -1,0 +1,3 @@
+
+__ABG_PTY_AGENT_SUPERVISOR_HARD_TIMEOUT:{"timeoutMs":300,"elapsedMs":308,"elapsedSinceLastOutputMs":308}
+

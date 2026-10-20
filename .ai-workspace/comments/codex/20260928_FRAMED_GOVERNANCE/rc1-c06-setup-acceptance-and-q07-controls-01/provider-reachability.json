@@ -1,0 +1,11 @@
+{
+  "observedAtUTC": "2026-10-02 06:25:24 UTC",
+  "probe": "unauthenticated HEAD https://api.anthropic.com/; unchanged network environment;8smax",
+  "curlExit": 6,
+  "httpStatus": 0,
+  "error": "Could not resolve host: api.anthropic.com",
+  "CODEX_SANDBOX_NETWORK_DISABLED": "1",
+  "elapsedSeconds": 0.009,
+  "authPaidInferenceCalls": 0,
+  "conclusion": "Current direct provider reachability unavailable in this execution environment; no underlying DNS cause or login failure established; no bypass/escalation"
+}

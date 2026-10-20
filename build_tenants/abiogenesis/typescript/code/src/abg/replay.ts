@@ -1,14 +1,19 @@
+import { createHash } from "node:crypto";
+import { writeCanonicalJson, compareUnicodeCodeUnits } from "../shared/canonical_json.js";
+import type { RuntimeEventScan, RuntimeHistorySelection } from "./runtime_history.js";
+import { isOwnedRuntimeEventPrefix } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { projectConstructionIntentContinuations, projectSelectedActionContinuations, type SelectedActionContinuation, type ConstructionIntentContinuation } from "./construction_continuation.js";
 import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_provenance.js";
 import { isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
-import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion } from "./registered_selection_provenance.js";
+import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion, registeredSelectionInputDependencyKeys } from "./registered_selection_provenance.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
 import { isOptionalJsonRecord as isRecord, hasExactJsonKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import { projectExactExecutionBasisAtPrefix } from "./invocation_execution_truth.js";
 import { projectNativeLivenessRead, projectFrameLivenessContext, projectRuntimeLivenessAtPrefix } from "./runtime_liveness.js";
 import type { RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";
 import { isWorksiteExecutionTask } from "../product/worksite_revision.js";
-import { projectRetainedWorksiteInputAtPrefix, retainedWorksiteInputRelationVersion } from "./worksite_input_provenance.js";
+import { projectRetainedWorksiteInputAtPrefix, retainedWorksiteInputRelationVersion, retainedWorksiteInputDependencyKeys } from "./worksite_input_provenance.js";
 import type { RawAdmittedValue } from "../validator/raw_admission.js";
 import { isWorksitePreparationBoundInput } from "../product/worksite_preparation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -24,14 +29,25 @@ import {
   constructRunActiveFluent,
   constructRunClosedFluent,
   constructRunTerminalFluent,
+  deriveRuntimeHeldFluentProjection,
   deriveRuntimeEventCalculusProjection,
-  type RuntimeEventCalculusProjection,
+  type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
   holdsAt,
   projectWorksiteTransitionForResult,
   runtimeFluentKey,
+  eventCalculusDependencies,
 } from "./event_calculus.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
+  runtimeEventPrefixesHaveSameOwnedCut,
+  projectOwnedRuntimeEventPrefixAtDurablePrefix,
+  selectOwnedRuntimeEventPrefix,
+  runtimeEventAtPrefix,
+  runtimeEventPrefixLastEnvelope,
+  runtimeEventEnvelopesAtPrefix,
+  indexedRuntimeEventEnvelopes,
+  runtimeEventSelectorExtent,
+  runtimeEventPrefixExtent,
   runtimePrefixComputation,
   runtimeEventPrefixDigest,
   indexedRuntimeEvents,
@@ -51,6 +67,7 @@ import {
 } from "./invocation_admission.js";
 import {
   readActiveRuntimeTransactionAtDurablePrefix,
+  selectActiveRuntimeTransactionHistoryAtDurablePrefix,
   projectRuntimeEventsAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
@@ -148,6 +165,67 @@ export function projectActiveRuntimeTransaction(
       priorDerivation,
     ),
   });
+}
+
+/** @internal The ordinary handoff retains guard/current coordinates, never a
+ * complete historical ReplayState or a counterfeit of that Public output. */
+export type RuntimeReplayGuard = Pick<ReplayState,
+  "replayRef" | "replayDigest" | "eventStoreDigest" | "eventCount" | "lastAdmissionOrdinal" |
+  "runId" | "graphCallId" | "frameId" | "traversalCursorRef" | "traversalCursorDigest" |
+  "traversalCursorEventRef" | "activeFluents" | "terminalReachedEventRef" | "frameClosedEventRef" |
+  "graphCallClosedEventRef" | "runClosedEventRef" | "runStoppedEventRef" | "runStoppedDisposition" |
+  "invocationRefusalEventRef" | "runtimeFailureEventRef" | "runtimeStatus">;
+const REPLAY_GUARD_PREFIXES = new WeakMap<RuntimeReplayGuard, { prefix: RuntimeEventPrefix; authority: RuntimeEventPrefix }>();
+/** @internal Full logical digest remains the existing replay owner's meaning.
+ * Historical values stream through its canonical writer without a full vector. */
+export function projectRuntimeReplayGuard(prefix: RuntimeEventPrefix, authority: RuntimeEventPrefix = prefix): RuntimeReplayGuard {
+  const value = deriveReplayPrefixFacts(prefix, authority, undefined, undefined, true) as RuntimeReplayGuard;
+  REPLAY_GUARD_PREFIXES.set(value, { prefix, authority }); return value;
+}
+/** @internal Compare only authentic guards of the same complete owner cut. */
+export function runtimeReplayGuardsHaveSameOwnedCut(left: RuntimeReplayGuard, right: RuntimeReplayGuard): boolean {
+  const a = REPLAY_GUARD_PREFIXES.get(left), b = REPLAY_GUARD_PREFIXES.get(right);
+  return a !== undefined && b !== undefined && runtimeEventPrefixesHaveSameOwnedCut(a.prefix, b.prefix) &&
+    runtimeEventPrefixesHaveSameOwnedCut(a.authority, b.authority) &&
+    sha256Canonical(left as unknown as JsonValue) === sha256Canonical(right as unknown as JsonValue);
+}
+/** @internal Explicit complete-output boundary, with exact prefix/digest proof. */
+export function materializeRuntimeReplayGuard(guard: RuntimeReplayGuard): ReplayState {
+  const receipt = REPLAY_GUARD_PREFIXES.get(guard);
+  if (receipt === undefined) {
+    if ("kind" in guard && guard.kind === "replay_state") return guard as ReplayState;
+    throw new TypeError("complete replay output requires its original owner receipt");
+  }
+  const full = replayValidatedRuntimeEventPrefix(receipt.prefix, receipt.authority);
+  if (full.replayDigest !== guard.replayDigest) throw new TypeError("replay guard differs from its complete owner output");
+  return full;
+}
+/** @internal Canonical complete output for the existing pure plan digest. The
+ * original owner receipt selects values transiently, without a replay vector. */
+export function writeRuntimeReplayGuardValue(guard: RuntimeReplayGuard, write: (part: string) => void): void {
+  const receipt = REPLAY_GUARD_PREFIXES.get(guard);
+  if (receipt === undefined) {
+    if ("kind" in guard && guard.kind === "replay_state") { writeCanonicalJson(guard as unknown as JsonValue, write); return; }
+    throw new TypeError("replay canonical output requires its original owner receipt");
+  }
+  deriveReplayPrefixFacts(receipt.prefix, receipt.authority, undefined, undefined, true, { guard, write });
+}
+/** @internal Exact ordinary prefix projections share the existing durable owner. */
+export interface OwnedActiveRuntimeTransactionProjection {
+  readonly authorityPrefix: RuntimeEventPrefix; readonly runtimePrefix: RuntimeEventPrefix;
+  readonly replayState: RuntimeReplayGuard;
+}
+/** @internal */
+export function projectOwnedRuntimeTruthAtDurablePrefix(predecessor: DurablePrefixCoordinate, runId: string): OwnedActiveRuntimeTransactionProjection {
+  const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(predecessor);
+  const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId });
+  return Object.freeze({ authorityPrefix, runtimePrefix, replayState: projectRuntimeReplayGuard(runtimePrefix, authorityPrefix) });
+}
+/** @internal Same transaction correspondence, no complete retained body vector. */
+export function projectOwnedActiveRuntimeTransaction(store: AbgEventStore, predecessor: DurablePrefixCoordinate, runId: string): OwnedActiveRuntimeTransactionProjection {
+  const authorityPrefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(store, predecessor));
+  const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId });
+  return Object.freeze({ authorityPrefix, runtimePrefix, replayState: projectRuntimeReplayGuard(runtimePrefix, authorityPrefix) });
 }
 
 export interface ReplayRouteState {
@@ -292,15 +370,20 @@ const RUN_QUIESCENCE_RUN_INDEPENDENT_FLUENTS = new Set([
 
 export function projectRunQuiescence(
   prefix: ValidatedRuntimeEventPrefix,
+): RunQuiescenceProjection;
+/** @internal */
+export function projectRunQuiescence(
+  prefix: RuntimeEventPrefix,
+): RunQuiescenceProjection;
+export function projectRunQuiescence(
+  prefix: RuntimeEventPrefix,
 ): RunQuiescenceProjection {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const runIds = [...new Set(events.flatMap((event) =>
-    event.runId === undefined ? [] : [event.runId]
-  ))];
+  const runIds = [...new Set(Array.from(runtimeEventEnvelopesAtPrefix(prefix), event => event.runId)
+    .filter((runId): runId is string => runId !== undefined))];
   if (runIds.length !== 1) {
     throw new TypeError("Run quiescence requires one exact Run-scoped prefix");
   }
-  const projection = deriveRuntimeEventCalculusProjection(prefix);
+  const projection = deriveRuntimeHeldFluentProjection(prefix);
   const runId = runIds[0]!;
   const activeRun = projection.holds.filter((fluent) =>
     fluent.name === "run_active" && fluent.identity === runId
@@ -325,7 +408,7 @@ export function projectRunQuiescence(
     : null;
   const terminalRouteEvent = terminalRouteRef === null
     ? undefined
-    : events.find((event) =>
+    : indexedRuntimeEvents(prefix, "payload:routeRef:" + terminalRouteRef).find((event) =>
       event.kind === "traversal_route_admitted" &&
       isRecord(event.payload) && event.payload.routeRef === terminalRouteRef
     );
@@ -502,43 +585,43 @@ const REPLAY_DERIVATION_KEY = Symbol("owner_runtime_replay_derivation_constructi
  * caller digest, or process-local object is required to reconstruct truth. */
 class ReplayDerivation {
   readonly #state: ReplayState;
-  readonly #runtime: readonly RuntimeEvent[];
-  readonly #authority: readonly RuntimeEvent[];
-  readonly #runtimeSource: readonly RuntimeEvent[];
-  readonly #authoritySource: readonly RuntimeEvent[];
-  constructor(
-    key: typeof REPLAY_DERIVATION_KEY,
-    state: ReplayState,
-    runtime: readonly RuntimeEvent[],
-    authority: readonly RuntimeEvent[],
-    runtimeSource: readonly RuntimeEvent[],
-    authoritySource: readonly RuntimeEvent[],
-  ) {
+  readonly #runtimeDigest: Sha256Digest;
+  readonly #authorityDigest: Sha256Digest;
+  readonly #runtimeProfile: Sha256Digest;
+  readonly #authorityProfile: Sha256Digest;
+  constructor(key: typeof REPLAY_DERIVATION_KEY, state: ReplayState,
+    prefix: RuntimeEventPrefix, authorityPrefix: RuntimeEventPrefix) {
     if (key !== REPLAY_DERIVATION_KEY) throw new TypeError("replay derivation is owner constructed");
     this.#state = state;
-    this.#runtime = runtime;
-    this.#authority = authority;
-    this.#runtimeSource = runtimeSource;
-    this.#authoritySource = authoritySource;
+    this.#runtimeDigest = runtimeEventPrefixDigest(prefix);
+    this.#authorityDigest = runtimeEventPrefixDigest(authorityPrefix);
+    this.#runtimeProfile = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix) as unknown as JsonValue);
+    this.#authorityProfile = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix) as unknown as JsonValue);
     Object.freeze(this);
   }
-  static matches(state: ReplayState, prefix: ValidatedRuntimeEventPrefix, authorityPrefix: ValidatedRuntimeEventPrefix): boolean {
+  static matches(state: ReplayState, prefix: RuntimeEventPrefix, authorityPrefix: RuntimeEventPrefix): boolean {
     const proof: unknown = Object.getOwnPropertyDescriptor(state, REPLAY_DERIVATION)?.value;
     if (typeof proof !== "object" || proof === null || !(#state in proof) || proof.#state !== state) return false;
-    const equal = (left: readonly RuntimeEvent[], right: readonly RuntimeEvent[]) =>
-      left === right || left.length === right.length && left.every((event, i) =>
-        event === right[i] || sha256Canonical(event as unknown as JsonValue) === sha256Canonical(right[i] as unknown as JsonValue));
-    return equal(proof.#runtime, runtimeEventsFromValidatedPrefix(prefix)) &&
-      equal(proof.#authority, runtimeEventsFromValidatedPrefix(authorityPrefix)) &&
-      equal(proof.#runtimeSource, runtimeEventProfileSourceFromValidatedPrefix(prefix)) &&
-      equal(proof.#authoritySource, runtimeEventProfileSourceFromValidatedPrefix(authorityPrefix));
+    return proof.#runtimeDigest === runtimeEventPrefixDigest(prefix) &&
+      proof.#authorityDigest === runtimeEventPrefixDigest(authorityPrefix) &&
+      proof.#runtimeProfile === sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix) as unknown as JsonValue) &&
+      proof.#authorityProfile === sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix) as unknown as JsonValue);
   }
 }
 
 /** The route's existing replay relation, independently consumable by historical authentication. */
 export function projectReplayRouteAtPrefix(
   prefix: ValidatedRuntimeEventPrefix, event: RuntimeEvent,
-  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+  authorityPrefix?: ValidatedRuntimeEventPrefix ,
+): ReplayRouteState;
+/** @internal */
+export function projectReplayRouteAtPrefix(
+  prefix: RuntimeEventPrefix, event: RuntimeEvent,
+  authorityPrefix?: RuntimeEventPrefix ,
+): ReplayRouteState;
+export function projectReplayRouteAtPrefix(
+  prefix: RuntimeEventPrefix, event: RuntimeEvent,
+  authorityPrefix: RuntimeEventPrefix = prefix,
 ): ReplayRouteState {
       const routeKind = stringField(event, "routeKind");
       if (
@@ -749,20 +832,60 @@ export function projectReplayRouteAtPrefix(
 const REPLAY_FACTS = Symbol("runtime_replay_facts");
 const AUTHORITY_ID = Symbol("runtime_replay_authority");
 class RuntimeReplayFacts {
+  constructor(private readonly retain = true) {}
   private readonly facts = new Map<string, { version: string; context: object | undefined; value: unknown }>();
-  last?: { runtimeEnd: RuntimeEvent | undefined; authorityEnd: RuntimeEvent | undefined; profileEnd: RuntimeEvent | undefined; authority: object; state: ReplayState };
-  fact<T>(key: string, version: string, project: () => T, context?: object): T {
+  readonly routes = new Map<string, Readonly<{ keys: readonly string[]; wholePrefix: boolean }>>();
+  last?: { runtimeEnd: Omit<RuntimeEvent, "payload"> | undefined; authorityEnd: Omit<RuntimeEvent, "payload"> | undefined; profileEnd: Sha256Digest; authority: object; state: ReplayState };
+  lastGuard?: { runtimeEnd: Omit<RuntimeEvent, "payload"> | undefined; authorityEnd: Omit<RuntimeEvent, "payload"> | undefined; profileEnd: Sha256Digest; authority: object; value: RuntimeReplayGuard };
+  lastRouteValidation?: Readonly<{
+    runtime: RuntimeHistorySelection; authoritySelection: RuntimeHistorySelection;
+    runtimeEnd: string | undefined; authorityEnd: string | undefined;
+    profileEnd: Sha256Digest; authorityProfileEnd: Sha256Digest; authority: object;
+  }>;
+  fact<T>(key: string, version: string, project: () => T, context?: object, needValue?: true): T;
+  fact<T>(key: string, version: string, project: () => T, context: object | undefined, needValue: boolean): T | undefined;
+  fact<T>(key: string, version: string, project: () => T, context?: object, needValue = true): T | undefined {
     const previous = this.facts.get(key);
-    if (previous?.version === version && previous.context === context) return previous.value as T;
+    if (previous?.version === version && previous.context === context) {
+      if (this.retain) return previous.value as T;
+      if (!needValue) return undefined;
+    }
     const value = deepFreeze(project());
-    this.facts.set(key, { version, context, value });
+    this.facts.set(key, { version, context, value: this.retain ? value : undefined });
     return value;
   }
+  /** Only scalar current facts and admitted identifiers use this retained path. */
+  scalarFact<T>(key: string, version: string, project: () => T): T {
+    const previous = this.facts.get(key);
+    if (previous?.version === version) return previous.value as T;
+    const value = deepFreeze(project()); this.facts.set(key, { version, context: undefined, value }); return value;
+  }
+}
+function sameReplaySelection(current: RuntimeHistorySelection, checked: RuntimeHistorySelection): boolean {
+  // The actual ordered owner relation checks generation and membership, not
+  // merely the number or last identifier of caller-supplied rows.
+  return current.through === checked.through && current.length === checked.length && current.extends(checked);
+}
+function replayDependencyVersion(prefix: RuntimeEventPrefix, keys: readonly string[], wholePrefix = false): string {
+  return keys.map(key => { const extent = runtimeEventSelectorExtent(prefix, key);
+    return key + ":" + extent.count + ":" + extent.lastOrdinal;
+  }).join("|") + (wholePrefix ? ";all:" + runtimeEventPrefixExtent(prefix).lastOrdinal : "");
 }
 
 export function replayValidatedRuntimeEventPrefix(
   prefix: ValidatedRuntimeEventPrefix,
-  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+  authorityPrefix?: ValidatedRuntimeEventPrefix ,
+  priorDerivation?: ReplayState,
+): ReplayState;
+/** @internal */
+export function replayValidatedRuntimeEventPrefix(
+  prefix: RuntimeEventPrefix,
+  authorityPrefix?: RuntimeEventPrefix ,
+  priorDerivation?: ReplayState,
+): ReplayState;
+export function replayValidatedRuntimeEventPrefix(
+  prefix: RuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix = prefix,
   priorDerivation?: ReplayState,
 ): ReplayState {
   return deriveReplayPrefixFacts(prefix, authorityPrefix, priorDerivation) as ReplayState;
@@ -772,121 +895,83 @@ export function replayValidatedRuntimeEventPrefix(
  * complete ReplayState when only one authenticated historical route is consumed. */
 export function projectValidatedReplayRouteAtPrefix(
   prefix: ValidatedRuntimeEventPrefix, admissionEventRef: string,
-  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+  authorityPrefix?: ValidatedRuntimeEventPrefix ,
+): ReplayRouteState | undefined;
+/** @internal */
+export function projectValidatedReplayRouteAtPrefix(
+  prefix: RuntimeEventPrefix, admissionEventRef: string,
+  authorityPrefix?: RuntimeEventPrefix ,
+): ReplayRouteState | undefined;
+export function projectValidatedReplayRouteAtPrefix(
+  prefix: RuntimeEventPrefix, admissionEventRef: string,
+  authorityPrefix: RuntimeEventPrefix = prefix,
 ): ReplayRouteState | undefined {
   return deriveReplayPrefixFacts(prefix, authorityPrefix, undefined, admissionEventRef) as ReplayRouteState | undefined;
 }
 
 function deriveReplayPrefixFacts(
-  prefix: ValidatedRuntimeEventPrefix,
-  authorityPrefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix,
   priorDerivation?: ReplayState,
   routeOnly?: string,
-): ReplayState | ReplayRouteState | undefined {
-  if (priorDerivation !== undefined && ReplayDerivation.matches(priorDerivation, prefix, authorityPrefix)) return priorDerivation;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const facts = runtimePrefixComputation(prefix, REPLAY_FACTS, () => new RuntimeReplayFacts());
+  guardOnly = false,
+  output?: Readonly<{ guard: RuntimeReplayGuard; write: (part: string) => void }>,
+): ReplayState | ReplayRouteState | RuntimeReplayGuard | undefined {
+  if (!guardOnly && priorDerivation !== undefined && ReplayDerivation.matches(priorDerivation, prefix, authorityPrefix)) return priorDerivation;
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const owned = prefix.kind !== "validated_runtime_event_prefix";
+  const facts = runtimePrefixComputation(prefix, REPLAY_FACTS, () => new RuntimeReplayFacts(!owned));
   const authority = runtimePrefixComputation(authorityPrefix, AUTHORITY_ID, () => ({}));
-  const authorityEnd = runtimeEventsFromValidatedPrefix(authorityPrefix).at(-1);
-  const profileEnd = runtimeEventProfileSourceFromValidatedPrefix(prefix).at(-1);
-  if (facts.last !== undefined && facts.last.runtimeEnd === events.at(-1) && facts.last.authority === authority && facts.last.authorityEnd === authorityEnd && facts.last.profileEnd === profileEnd) return routeOnly === undefined ? facts.last.state : facts.last.state.routes.find(route => route.admissionEventRef === routeOnly);
-  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
+  const authorityEnd = runtimeEventPrefixLastEnvelope(authorityPrefix);
+  const profileEnd = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix) as unknown as JsonValue);
+  const ownedRouteCut = routeOnly !== undefined && isOwnedRuntimeEventPrefix(prefix) && isOwnedRuntimeEventPrefix(authorityPrefix)
+    ? { runtime: prefix.selection, authoritySelection: authorityPrefix.selection,
+        runtimeEnd: runtimeEventPrefixLastEnvelope(prefix)?.eventId, authorityEnd: authorityEnd?.eventId,
+        profileEnd, authorityProfileEnd: sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix) as unknown as JsonValue), authority }
+    : undefined;
+  const checkedRouteCut = facts.lastRouteValidation;
+  if (ownedRouteCut !== undefined && checkedRouteCut !== undefined &&
+      ownedRouteCut.authority === checkedRouteCut.authority &&
+      ownedRouteCut.runtimeEnd === checkedRouteCut.runtimeEnd && ownedRouteCut.authorityEnd === checkedRouteCut.authorityEnd &&
+      ownedRouteCut.profileEnd === checkedRouteCut.profileEnd && ownedRouteCut.authorityProfileEnd === checkedRouteCut.authorityProfileEnd &&
+      sameReplaySelection(ownedRouteCut.runtime, checkedRouteCut.runtime) &&
+      sameReplaySelection(ownedRouteCut.authoritySelection, checkedRouteCut.authoritySelection)) {
+    const event = runtimeEventAtPrefix(prefix, routeOnly!);
+    return event?.kind === "traversal_route_admitted" ? projectReplayRouteAtPrefix(prefix, event, authorityPrefix) : undefined;
+  }
+  if (guardOnly && output === undefined && facts.lastGuard !== undefined &&
+      facts.lastGuard.runtimeEnd === runtimeEventPrefixLastEnvelope(prefix) &&
+      facts.lastGuard.authority === authority && facts.lastGuard.authorityEnd === authorityEnd &&
+      facts.lastGuard.profileEnd === profileEnd) return facts.lastGuard.value;
+  if (!guardOnly && !owned && facts.last !== undefined && facts.last.runtimeEnd === runtimeEventPrefixLastEnvelope(prefix) && facts.last.authority === authority && facts.last.authorityEnd === authorityEnd && facts.last.profileEnd === profileEnd) return routeOnly === undefined ? facts.last.state : facts.last.state.routes.find(route => route.admissionEventRef === routeOnly);
+  const eventCalculus = deriveRuntimeHeldFluentProjection(prefix);
+  const runStoppedRows = indexedRuntimeEvents(prefix, "kind:run_stopped").filter(
+    event => stringField(event, "disposition") !== null);
+  const runStoppedRouteRefs = new Set(runStoppedRows.map(event => stringField(event, "routeRef")));
 
-  const cCallIds = [...new Set(indexedRuntimeEvents(prefix, "type:c_call").map(event => event.aggregateId))];
-  const cCalls = cCallIds.map((cCallRef): ReplayCCallState => {
-    const rows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef);
-    return facts.fact("c_call:" + cCallRef, String(rows.at(-1)?.admissionOrdinal), () => {
-    const phase = projectCCallPhase(prefix, cCallRef);
-    const evidenceRows = rows.filter((event) => event.kind === "c_call_evidenced");
-    const openedEvent = rows.find((event) => event.kind === "c_call_opened");
-    const resultEvent = rows.find((event) => event.kind === "c_call_result_admitted");
-    const judgmentEvent = rows.find((event) => event.kind === "c_call_judged");
-    const attempt = openedEvent === undefined
-      ? null
-      : positiveIntegerField(openedEvent, "attempt");
-    const openedPayload = openedEvent === undefined || !isRecord(openedEvent.payload)
-      ? null
-      : openedEvent.payload;
-    const batchRef = openedPayload?.batchRef;
-    const taskOrdinal = openedPayload?.taskOrdinal;
-    const programLocusRef = openedEvent === undefined
-      ? null
-      : stringField(openedEvent, "programLocusRef");
-    const retryPath = openedEvent === undefined
-      ? null
-      : positiveIntegerArrayField(openedEvent, "retryPath");
-    if (
-      openedEvent === undefined ||
-      openedPayload === null ||
-      !Object.hasOwn(openedPayload, "batchRef") ||
-      !Object.hasOwn(openedPayload, "taskOrdinal") ||
-      (batchRef !== null && typeof batchRef !== "string") ||
-      (taskOrdinal !== null &&
-        (!Number.isSafeInteger(taskOrdinal) || (taskOrdinal as number) < 0)) ||
-      attempt === null ||
-      programLocusRef === null ||
-      retryPath === null
-    ) {
-      throw new TypeError(`incomplete CCall identity payload at ${cCallRef}`);
-    }
-    const status: ReplayCCallState["status"] = phase.phase === "judged"
-      ? "judged"
-      : phase.phase === "result_admitted"
-        ? "result_admitted"
-        : "fibre_selected";
-    return {
-      cCallRef,
-      batchRef: batchRef as string | null,
-      taskOrdinal: taskOrdinal as number | null,
-      attempt,
-      programLocusRef,
-      retryPath,
-      eventKinds: rows.map((event) => event.kind),
-      evidenceRefs: evidenceRows
-        .map((event) => stringField(event, "evidenceRef"))
-        .filter((value): value is string => value !== null),
-      resultRef: resultEvent === undefined ? null : stringField(resultEvent, "resultRef"),
-      resultDigest: resultEvent === undefined
-        ? null
-        : stringField(resultEvent, "resultDigest") as Sha256Digest | null,
-      resultClass: resultEvent === undefined ? null : stringField(resultEvent, "resultClass"),
-      resultContractRef: resultEvent === undefined ? null : stringField(resultEvent, "contractRef"),
-      resultValueKind: resultEvent === undefined ? null : stringField(resultEvent, "valueKind"),
-      resultValue: resultEvent !== undefined && isRecord(resultEvent.payload)
-        ? (resultEvent.payload.value ?? null)
-        : null,
-      judgmentRef: judgmentEvent === undefined ? null : stringField(judgmentEvent, "judgmentRef"),
-      judgment: judgmentEvent === undefined ? null : stringField(judgmentEvent, "judgment"),
-      status,
-    };
-    });
-  });
+  
 
-  const routes = indexedRuntimeEvents(prefix, "kind:traversal_route_admitted")
-    .map(event => facts.fact("route:" + event.eventId,
-      String(indexedRuntimeEvents(prefix, "payload:routeRef:" + stringField(event, "routeRef")).filter(candidate => candidate.kind === "construction_intent_selected").at(-1)?.admissionOrdinal ?? 0) + ":" +
-      (isRecord(event.payload) && event.payload.boundInput !== undefined ? retainedWorksiteInputRelationVersion(authorityPrefix, event) + registeredSelectionInputRelationVersion(authorityPrefix, event) : ""),
-      () => projectReplayRouteAtPrefix(prefix, event, authorityPrefix),
-      isRecord(event.payload) && event.payload.boundInput !== undefined ? authority : undefined));
-
-  const fanOutCompletions = indexedRuntimeEvents(prefix, "kind:fan_out_completion_admitted")
-    .map((event): FanOutCompletionAdmission => {
+  function projectReplayFanOut(envelope: Omit<RuntimeEvent, "payload">): FanOutCompletionAdmission {
+    
       const projected = projectExactFanOutCompletion(prefix, {
         mode: "event_canonical",
-        admissionEventRef: event.eventId,
+        admissionEventRef: envelope.eventId,
       });
       if (
         projected === null ||
         projected.kind !== "fan_out_completion_admission"
       ) {
         throw new TypeError(
-          `invalid fan-out completion truth at ${event.eventId}`,
+          `invalid fan-out completion truth at ${envelope.eventId}`,
         );
       }
       return projected;
-    });
-  const constructionDeltas = indexedRuntimeEvents(prefix, "kind:construction_delta_observed")
-    .map((event): ReplayConstructionDeltaState => facts.fact("delta:" + event.eventId, event.eventId, () => {
+    
+  }
+
+  function projectReplayDelta(envelope: Omit<RuntimeEvent, "payload">): ReplayConstructionDeltaState {
+    
+      const event = runtimeEventAtPrefix(prefix, envelope.eventId)!;
       const required = [
         "deltaRef",
         "deltaDigest",
@@ -1015,77 +1100,86 @@ function deriveReplayPrefixFacts(
         runtimeEvidenceEventRefs,
         admissionEventRef: event.eventId,
       };
-    }));
+    
+  }
 
-  const actorInvocationIds = [...new Set(indexedRuntimeEvents(prefix, "type:actor_invocation").map(event => event.aggregateId))];
-  const actorProcesses = actorInvocationIds.map(
-    (actorInvocationRef): ReplayActorProcessState => {
-      const actorRows = indexedRuntimeEvents(prefix, "related:" + actorInvocationRef);
-      return facts.fact("actor:" + actorInvocationRef, String(actorRows.at(-1)?.admissionOrdinal), () => {
-      const opened = actorRows.find((event) => event.kind === "actor_invocation_started");
-      const processStarted = actorRows.find((event) => event.kind === "actor_process_started");
-      const processExited = actorRows.find((event) => event.kind === "actor_process_exited");
-      const artifact = actorRows.find(
-        (event) => event.kind === "actor_result_artifact_observed",
-      );
-      const timeout = actorRows.find(
-        (event) => event.kind === "actor_process_timeout_observed",
-      );
-      const closed = actorRows.find((event) => event.kind === "actor_invocation_closed");
-      const failed = actorRows.find((event) => event.kind === "actor_invocation_failed");
-      const exitStatus = processExited === undefined || !isRecord(processExited.payload)
-        ? null
-        : processExited.payload.status;
-      return {
-        actorInvocationRef,
-        actorRef: opened === undefined ? null : stringField(opened, "actorRef"),
-        transportBindingRef: opened === undefined
-          ? null
-          : stringField(opened, "transportBindingRef"),
-        transportBindingDigest: opened === undefined
-          ? null
-          : stringField(opened, "transportBindingDigest") as Sha256Digest | null,
-        processRef: processStarted === undefined
-          ? actorRows.find((event) => event.aggregateType === "process")?.aggregateId ?? null
-          : stringField(processStarted, "processRef"),
-        streamEventRefs: actorRows
-          .filter((event) =>
-            event.kind === "actor_process_stdout_observed" ||
-            event.kind === "actor_process_stderr_observed")
-          .map((event) => event.eventId),
-        timeoutClass: timeout === undefined
-          ? null
-          : stringField(timeout, "timeoutClass") as
-            | "absolute"
-            | "inactivity",
-        timedOut: timeout !== undefined,
-        signalSequence: actorRows
-          .filter((event) => event.kind === "actor_process_signal_requested")
-          .map((event) => stringField(event, "signal"))
-          .filter((value): value is string => value !== null),
-        exitStatus: Number.isSafeInteger(exitStatus) ? exitStatus as number : null,
-        exitSignal: processExited === undefined ? null : stringField(processExited, "signal"),
-        terminationConfirmed:
-          processExited !== undefined &&
-          !actorRows.some(
-            (event) => event.kind === "actor_process_termination_unconfirmed",
-          ),
-        transportDigest: artifact === undefined
-          ? null
-          : stringField(artifact, "transportDigest") as Sha256Digest | null,
-        status: failed !== undefined
-          ? "failed"
-          : closed !== undefined
-            ? "closed"
-            : "active",
-      };
-      });
-    },
-  );
+  const cCallIds = new Set<string>();
+  for (const event of indexedRuntimeEventEnvelopes(prefix, "type:c_call")) cCallIds.add(event.aggregateId);
+  const cCalls: ReplayCCallState[] = [];
+  for (const cCallRef of cCallIds) {
+    const key = "aggregate:c_call:" + cCallRef;
+    const projected = projectReplayCCallGuardAtPrefix(prefix, cCallRef);
+    if (!guardOnly && routeOnly === undefined) {
+      const { resultEventRef, ...fields } = projected;
+      const result = resultEventRef === null ? undefined : runtimeEventAtPrefix(prefix, resultEventRef);
+      cCalls.push({ ...fields, resultValue: result !== undefined && isRecord(result.payload) ? result.payload.value ?? null : null });
+    }
+  }
 
-  const worksiteObservationCandidates = [...indexedRuntimeEvents(prefix, "kind:basis_admitted"), ...indexedRuntimeEvents(prefix, "kind:c_call_result_admitted")]
-    .sort((a, b) => a.admissionOrdinal - b.admissionOrdinal).flatMap(
-    (event): readonly ReplayCurrentWorksiteObservation[] => facts.fact("worksite:" + event.eventId, event.eventId, () => {
+  const routes: ReplayRouteState[] = [];
+  let selectedRoute: ReplayRouteState | undefined;
+  const stoppedRouteEvents = new Set<string>();
+  for (const ref of runStoppedRouteRefs) if (ref !== null)
+    for (const row of indexedRuntimeEventEnvelopes(prefix, "payload:routeRef:" + ref))
+      if (row.kind === "traversal_route_admitted") stoppedRouteEvents.add(row.eventId);
+  for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:traversal_route_admitted")) {
+    const needValue = (!guardOnly && routeOnly === undefined) || envelope.eventId === routeOnly || stoppedRouteEvents.has(envelope.eventId);
+    let projected: ReplayRouteState | undefined;
+    if (!owned) {
+      const event = runtimeEventAtPrefix(prefix, envelope.eventId)!;
+      projected = facts.fact("route:" + event.eventId,
+        String(indexedRuntimeEvents(prefix, "payload:routeRef:" + stringField(event, "routeRef")).filter(candidate => candidate.kind === "construction_intent_selected").at(-1)?.admissionOrdinal ?? 0) + ":" +
+        (isRecord(event.payload) && event.payload.boundInput !== undefined ? retainedWorksiteInputRelationVersion(authorityPrefix, event) + registeredSelectionInputRelationVersion(authorityPrefix, event) : ""),
+        () => projectReplayRouteAtPrefix(prefix, event, authorityPrefix),
+        isRecord(event.payload) && event.payload.boundInput !== undefined ? authority : undefined);
+    } else {
+      let dependencies = facts.routes.get(envelope.eventId);
+      let event: RuntimeEvent | undefined;
+      if (dependencies === undefined) {
+        event = runtimeEventAtPrefix(prefix, envelope.eventId)!;
+        const retained = isRecord(event.payload) && event.payload.boundInput !== undefined
+          ? retainedWorksiteInputDependencyKeys(authorityPrefix, event) : { keys: [], wholePrefix: false };
+        dependencies = { keys: [...new Set(["id:" + event.eventId, "payload:routeRef:" + stringField(event, "routeRef"),
+          ...retained.keys, ...registeredSelectionInputDependencyKeys(event)])], wholePrefix: retained.wholePrefix };
+        facts.routes.set(envelope.eventId, dependencies);
+      }
+      const version = replayDependencyVersion(authorityPrefix, dependencies.keys, dependencies.wholePrefix);
+      // A changed named population reopens all canonical route/provenance
+      // checks. The retained stamp owns neither the body nor admission truth.
+      projected = facts.fact("route:" + envelope.eventId, version, () => {
+        event ??= runtimeEventAtPrefix(prefix, envelope.eventId)!;
+        const retained = isRecord(event.payload) && event.payload.boundInput !== undefined
+          ? retainedWorksiteInputDependencyKeys(authorityPrefix, event) : { keys: [], wholePrefix: false };
+        facts.routes.set(envelope.eventId, { keys: [...new Set(["id:" + event.eventId, "payload:routeRef:" + stringField(event, "routeRef"),
+          ...retained.keys, ...registeredSelectionInputDependencyKeys(event)])], wholePrefix: retained.wholePrefix });
+        return projectReplayRouteAtPrefix(prefix, event, authorityPrefix);
+      }, authority, needValue);
+    }
+    if (projected !== undefined) {
+      if ((!guardOnly && routeOnly === undefined) || runStoppedRouteRefs.has(projected.routeRef)) routes.push(projected);
+      if (selectedRoute === undefined && projected.admissionEventRef === routeOnly) selectedRoute = projected;
+    }
+  }
+
+  const fanOutCompletions: FanOutCompletionAdmission[] = [];
+  for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:fan_out_completion_admitted")) {
+    const projected = facts.fact("fan-out:" + envelope.eventId, String(envelope.admissionOrdinal), () => projectReplayFanOut(envelope), undefined, !guardOnly && routeOnly === undefined);
+    if (!guardOnly && routeOnly === undefined && projected !== undefined) fanOutCompletions.push(projected);
+  }
+  const constructionDeltas: ReplayConstructionDeltaState[] = [];
+  for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:construction_delta_observed")) {
+    const projected = facts.fact("delta:" + envelope.eventId, envelope.eventId, () => projectReplayDelta(envelope), undefined, !guardOnly && routeOnly === undefined);
+    if (!guardOnly && routeOnly === undefined && projected !== undefined) constructionDeltas.push(projected);
+  }
+
+  const actorFacts = projectRuntimeActorProcessFactsAtPrefix(prefix);
+  const actorProcesses = routeOnly === undefined ? actorFacts : [];
+
+  const worksiteObservationCandidates: ReplayCurrentWorksiteObservation[] = [];
+  for (const envelope of [...indexedRuntimeEventEnvelopes(prefix, "kind:basis_admitted"), ...indexedRuntimeEventEnvelopes(prefix, "kind:c_call_result_admitted")]
+    .sort((a, b) => a.admissionOrdinal - b.admissionOrdinal)) {
+    const project = (): readonly ReplayCurrentWorksiteObservation[] => {
+      const event = runtimeEventAtPrefix(prefix, envelope.eventId)!;
       const payload = event.payload;
       if (!isRecord(payload)) return [];
       if (event.kind === "basis_admitted") {
@@ -1098,9 +1192,12 @@ function deriveReplayPrefixFacts(
           : [];
       }
       if (event.kind !== "c_call_result_admitted") return [];
+      // This is the same Event Calculus dependency relation, including C0's
+      // exact failure basis/authority and native currentness observations.
+      const priorRows = owned ? eventCalculusDependencies(prefix, event, []) : events;
       const transition = projectWorksiteTransitionForResult(
         event,
-        events.filter(candidate => candidate.admissionOrdinal < event.admissionOrdinal),
+        priorRows.filter(candidate => candidate.admissionOrdinal < event.admissionOrdinal),
       );
       return transition === null || transition.successorObservation === null
         ? []
@@ -1108,9 +1205,18 @@ function deriveReplayPrefixFacts(
             observation: transition.successorObservation,
             sourceEventRef: event.eventId,
           }]
-    }),
-  );
-  const currentWorksiteObservations = [...new Map(
+    };
+    const references = owned ? facts.scalarFact("worksite-refs:" + envelope.eventId, envelope.eventId,
+      () => project().map(row => ({ observationRef: row.observation.observationRef, sourceEventRef: row.sourceEventRef }))) : null;
+    const needed = references?.some(row => holdsAt(eventCalculus, constructRuntimeFluent({
+      name: "worksite_observation_current", identity: row.observationRef,
+    }))) ?? true;
+    const projected = owned
+      ? routeOnly === undefined && needed ? project() : undefined
+      : facts.fact("worksite:" + envelope.eventId, envelope.eventId, project, undefined, routeOnly === undefined);
+    if (routeOnly === undefined && projected !== undefined) worksiteObservationCandidates.push(...projected);
+  }
+  const currentWorksiteObservations = routeOnly === undefined ? [...new Map(
     worksiteObservationCandidates
       .filter(({ observation }) =>
         holdsAt(
@@ -1122,12 +1228,14 @@ function deriveReplayPrefixFacts(
         )
       )
       .map((row) => [row.observation.observationRef, row] as const),
-  ).values()];
+  ).values()] : [];
 
   const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
-  const continuations = [...projectFhContinuations(prefix, eventCalculus, authorityPrefix),
-    ...projectConstructionIntentContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? ""),
-    ...projectSelectedActionContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? "")];
+  const fhContinuations = projectFhContinuations(prefix, eventCalculus, authorityPrefix);
+  const intentContinuations = projectConstructionIntentContinuations(authorityPrefix, runOpen?.runId ?? "");
+  const selectedContinuations = projectSelectedActionContinuations(authorityPrefix, runOpen?.runId ?? "");
+  const continuations = routeOnly === undefined
+    ? [...fhContinuations, ...intentContinuations, ...selectedContinuations] : [];
   const graphCallOpen = indexedRuntimeEvents(prefix, "kind:graph_call_opened").find(
     (event) =>
       event.kind === "graph_call_opened" &&
@@ -1163,11 +1271,6 @@ function deriveReplayPrefixFacts(
           event.graphCallId === graphCallOpen.graphCallId,
       );
   const runClosed = indexedRuntimeEvents(prefix, "kind:run_closed")[0];
-  const runStoppedRows = indexedRuntimeEvents(prefix, "kind:run_stopped").filter(
-    (event) =>
-      event.kind === "run_stopped" &&
-      stringField(event, "disposition") !== null,
-  );
   const invocationRefused = indexedRuntimeEvents(prefix, "kind:invocation_refused")[0];
   const runtimeFailure = indexedRuntimeEvents(prefix, "kind:runtime_failure_observed")[0];
   if (runStoppedRows.length > 1) {
@@ -1237,14 +1340,19 @@ function deriveReplayPrefixFacts(
       "replay run_stopped history has contradictory route, causation, disposition, or terminal truth",
     );
   }
+  if (routeOnly !== undefined) {
+    // Only a completed global validation lends unchanged-cut reuse. Failed or
+    // prospective reads never stamp an admitted-history cut.
+    if (ownedRouteCut !== undefined) facts.lastRouteValidation = ownedRouteCut;
+    return selectedRoute;
+  }
   const eventStoreDigest = runtimeEventPrefixDigest(prefix);
-  if (routeOnly !== undefined) return routes.find(route => route.admissionEventRef === routeOnly);
   const nativeLiveness = projectNativeLivenessRead(prefix, runOpen?.runId ?? null, graphCallOpen?.graphCallId);
   const body = {
     ...(nativeLiveness === null ? {} : { nativeLiveness }),
     eventStoreDigest,
     eventCount: events.length,
-    lastAdmissionOrdinal: events.at(-1)?.admissionOrdinal ?? 0,
+    lastAdmissionOrdinal: runtimeEventPrefixLastEnvelope(prefix)?.admissionOrdinal ?? 0,
     runId: runOpen?.runId ?? null,
     graphCallId: graphCallOpen?.graphCallId ?? null,
     frameId: frameOpen?.frameId ?? null,
@@ -1300,7 +1408,37 @@ function deriveReplayPrefixFacts(
               ? "active" as const
               : "workspace" as const,
   };
-  const replayDigest = sha256Canonical(body as unknown as JsonValue);
+  const selected = !guardOnly ? undefined : {
+    cCalls: function* () {
+      for (const cCallRef of cCallIds) {
+        const key = "aggregate:c_call:" + cCallRef;
+        const projected = projectReplayCCallGuardAtPrefix(prefix, cCallRef);
+        const { resultEventRef, ...fields } = projected;
+        const result = resultEventRef === null ? undefined : runtimeEventAtPrefix(prefix, resultEventRef);
+        yield { ...fields, resultValue: result !== undefined && isRecord(result.payload) ? result.payload.value ?? null : null } as unknown as JsonValue;
+      }
+    },
+    routes: function* () {
+      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:traversal_route_admitted"))
+        yield projectReplayRouteAtPrefix(prefix, runtimeEventAtPrefix(prefix, envelope.eventId)!, authorityPrefix) as unknown as JsonValue;
+    },
+    fanOutCompletions: function* () {
+      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:fan_out_completion_admitted")) yield projectReplayFanOut(envelope) as unknown as JsonValue;
+    },
+    constructionDeltas: function* () {
+      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:construction_delta_observed")) yield projectReplayDelta(envelope) as unknown as JsonValue;
+    },
+  };
+  const replayDigest = output?.guard.replayDigest ?? digestReplayBody(body as unknown as Readonly<Record<string, JsonValue>>, selected);
+  if (output !== undefined) writeReplayBody({ kind: "replay_state", schemaVersion: "5.0.0",
+    replayRef: output.guard.replayRef, replayDigest, ...body } as unknown as Readonly<Record<string, JsonValue>>, selected, output.write);
+  if (guardOnly) {
+    const { cCalls: _calls, routes: _routes, constructionDeltas: _deltas, fanOutCompletions: _fanout,
+      continuations: _continuations, actorProcesses: _actors, currentWorksiteObservations: _worksite, nativeLiveness: _liveness, ...current } = body;
+    const value = deepFreeze({ replayRef: `replay://abiogenesis/${replayDigest.slice("sha256:".length)}`, replayDigest, ...current });
+    facts.lastGuard = { runtimeEnd: runtimeEventPrefixLastEnvelope(prefix), authorityEnd, profileEnd, authority, value };
+    return value;
+  }
   const state = {
     kind: "replay_state" as const,
     schemaVersion: "5.0.0" as const,
@@ -1309,11 +1447,10 @@ function deriveReplayPrefixFacts(
     ...body,
   } as ReplayState;
   Object.defineProperty(state, REPLAY_DERIVATION, { value: new ReplayDerivation(
-    REPLAY_DERIVATION_KEY, state, events, runtimeEventsFromValidatedPrefix(authorityPrefix),
-    runtimeEventProfileSourceFromValidatedPrefix(prefix), runtimeEventProfileSourceFromValidatedPrefix(authorityPrefix),
+    REPLAY_DERIVATION_KEY, state, prefix, authorityPrefix,
   ) });
   const frozen = deepFreeze(state);
-  facts.last = { runtimeEnd: events.at(-1), authorityEnd, profileEnd, authority, state: frozen };
+  if (!owned) facts.last = { runtimeEnd: runtimeEventPrefixLastEnvelope(prefix), authorityEnd, profileEnd, authority, state: frozen };
   return frozen;
 }
 
@@ -1537,7 +1674,7 @@ function locateClosedTypedReferences(
 }
 
 function relationEdges(
-  events: readonly RuntimeEvent[],
+  events: RuntimeEventScan,
   correspondence: ReadonlyMap<string, string>,
   fullEventIds: ReadonlySet<string>,
   continuations: ReplayState["continuations"],
@@ -1709,7 +1846,25 @@ function semanticPayloadDigest(
 /** Route-grade identity only. Reuse the live prefix index and the same semantic
  * payload owner as Public reads; no traversal, raw-input or Run reconstruction.
  * Native Run identity is an admitted opening field, never parsed from a URI. */
-export function projectRunIdentityAtPrefix(prefix: ValidatedRuntimeEventPrefix, runId: string) {
+export function projectRunIdentityAtPrefix(prefix: ValidatedRuntimeEventPrefix, runId: string): Readonly<{
+  run: { ref: string; digest: Sha256Digest };
+  nativeRun: { ref: string; digest: Sha256Digest };
+  executionBasis: { ref: string; digest: Sha256Digest };
+  runOpenEventRef: string;
+}> | null;
+/** @internal */
+export function projectRunIdentityAtPrefix(prefix: RuntimeEventPrefix, runId: string): Readonly<{
+  run: { ref: string; digest: Sha256Digest };
+  nativeRun: { ref: string; digest: Sha256Digest };
+  executionBasis: { ref: string; digest: Sha256Digest };
+  runOpenEventRef: string;
+}> | null;
+export function projectRunIdentityAtPrefix(prefix: RuntimeEventPrefix, runId: string): Readonly<{
+  run: { ref: string; digest: Sha256Digest };
+  nativeRun: { ref: string; digest: Sha256Digest };
+  executionBasis: { ref: string; digest: Sha256Digest };
+  runOpenEventRef: string;
+}> | null {
   const openings = indexedRuntimeEvents(prefix, `aggregate:run:${runId}`)
     .filter(event => event.kind === "run_segment_opened" && event.runId === runId);
   if (openings.length !== 1) return null;
@@ -1747,8 +1902,8 @@ function requiredAtom(
 }
 
 function projectOwnerFacts(
-  prefix: ValidatedRuntimeEventPrefix,
-  authorityPrefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix,
   replayState: ReplayState,
   continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation | SelectedActionContinuation)[],
   correspondence: ReadonlyMap<string, string>,
@@ -1757,7 +1912,7 @@ function projectOwnerFacts(
   // A source-result basis belongs to an earlier Run. Rehydrate the exact
   // admitted relation as an owner fact; it is not a local causal edge and does
   // not import the source Run's events, fluents, or lifecycle into this Run.
-  const sourceResults = runtimeEventsFromValidatedPrefix(prefix).flatMap((event) => {
+  const sourceResults = runtimeEventBodiesAtPrefix(prefix).flatMap((event) => {
     if (event.kind !== "invocation_admitted" || !isSemanticRecord(event.payload) ||
       event.payload.sourceResultBasis === null ||
       event.payload.sourceResultBasis === undefined) return [];
@@ -1796,7 +1951,7 @@ function projectOwnerFacts(
       sourceResultBasis: derived as unknown as JsonValue,
     } as Readonly<Record<string, JsonValue>>];
   });
-  const runEnvironments = runtimeEventsFromValidatedPrefix(prefix).flatMap((event) => {
+  const runEnvironments = runtimeEventBodiesAtPrefix(prefix).flatMap((event) => {
     if (event.kind !== "invocation_admitted" || !isSemanticRecord(event.payload) || event.payload.runEnvironment === undefined) return [];
     const invocation = typeof event.payload.invocationAdmissionRef === "string"
       ? rehydrateInvocationAdmissionAtPrefix(validatedRuntimeEventPrefixThroughEvent(authorityPrefix, event.eventId), event.payload.invocationAdmissionRef) : null;
@@ -1804,7 +1959,7 @@ function projectOwnerFacts(
     return [{ owner: "invocation_run_environment", ownerAtom: requiredAtom(event.eventId, correspondence, "stdo_environment"),
       invocationAdmissionRef: invocation.invocationAdmissionRef, runEnvironment: invocation.runEnvironment as unknown as JsonValue } as Readonly<Record<string, JsonValue>>];
   });
-  const runEnvironmentAssemblies = runtimeEventsFromValidatedPrefix(prefix).flatMap((event) => {
+  const runEnvironmentAssemblies = runtimeEventBodiesAtPrefix(prefix).flatMap((event) => {
     if (event.kind !== "actor_transport_binding_admitted" || !isSemanticRecord(event.payload) ||
       !isSemanticRecord(event.payload.instructionAssembly) || !isSemanticRecord(event.payload.instructionAssembly.manifest) ||
       !isSemanticRecord(event.payload.instructionAssembly.manifest.runEnvironment)) return [];
@@ -1815,7 +1970,7 @@ function projectOwnerFacts(
     return [{ owner: "run_environment_instruction_assembly", ownerAtom: requiredAtom(event.eventId, correspondence, "stdo_assembly"),
       instructionAssembly: event.payload.instructionAssembly } as Readonly<Record<string, JsonValue>>];
   });
-  const sameRunSources = runtimeEventsFromValidatedPrefix(prefix).flatMap((event) => {
+  const sameRunSources = runtimeEventBodiesAtPrefix(prefix).flatMap((event) => {
     if (event.kind !== "basis_admitted" || !isSemanticRecord(event.payload) || event.payload.basisClass !== "child" ||
       !isWorksiteExecutionTask(event.payload.rawInputValue)) return [];
     const basis = typeof event.basisId === "string" ? projectExactExecutionBasisAtPrefix(authorityPrefix, event.basisId) : null;
@@ -1962,6 +2117,17 @@ export function projectRunSemanticReplayProjection(
   fullPrefix: ValidatedRuntimeEventPrefix,
   runId: string,
   currentOwnerPrefix?: DurablePrefixCoordinate,
+): RunSemanticRelationView;
+/** @internal */
+export function projectRunSemanticReplayProjection(
+  fullPrefix: RuntimeEventPrefix,
+  runId: string,
+  currentOwnerPrefix?: DurablePrefixCoordinate,
+): RunSemanticRelationView;
+export function projectRunSemanticReplayProjection(
+  fullPrefix: RuntimeEventPrefix,
+  runId: string,
+  currentOwnerPrefix?: DurablePrefixCoordinate,
 ): RunSemanticRelationView {
   return projectRunSemanticReplay(fullPrefix, runId, undefined, currentOwnerPrefix);
 }
@@ -1972,32 +2138,42 @@ export function projectRunReplayContext(
   runId: string,
   currentOwnerPrefix?: DurablePrefixCoordinate,
 ) {
-  const prefix = selectValidatedRuntimeEventPrefix(runtimeEventsFromValidatedPrefix(fullPrefix), { runId });
+  const prefix = selectRuntimeEventPrefixFromAuthority(fullPrefix, { runId });
   const replay = replayValidatedRuntimeEventPrefix(prefix, fullPrefix);
   if (replay.runId !== runId) return null;
   const context = { prefix, replay, calculus: deriveRuntimeEventCalculusProjection(prefix) };
   return deepFreeze({ ...context, semanticReplay: projectRunSemanticReplay(fullPrefix, runId, context, currentOwnerPrefix) });
 }
 
+/** @internal Explicit joined historical output for the read owner; its private prefix is not a Public array. */
+export function projectOwnedRunReplayContext(fullPrefix: RuntimeEventPrefix, runId: string,
+  currentOwnerPrefix?: DurablePrefixCoordinate) {
+  const prefix = selectRuntimeEventPrefixFromAuthority(fullPrefix, { runId });
+  const replay = replayValidatedRuntimeEventPrefix(prefix, fullPrefix);
+  if (replay.runId !== runId) return null;
+  const context = { prefix, replay, calculus: deriveRuntimeHeldFluentProjection(prefix) };
+  return deepFreeze({ ...context, semanticReplay: projectRunSemanticReplay(fullPrefix, runId, context, currentOwnerPrefix) });
+}
+
 function projectRunSemanticReplay(
-  fullPrefix: ValidatedRuntimeEventPrefix,
+  fullPrefix: RuntimeEventPrefix,
   runId: string,
   context?: Readonly<{
-    prefix: ValidatedRuntimeEventPrefix;
+    prefix: RuntimeEventPrefix;
     replay: ReplayState;
-    calculus: RuntimeEventCalculusProjection;
+    calculus: RuntimeHeldFluentProjection;
   }>,
   currentOwnerPrefix?: DurablePrefixCoordinate,
 ): RunSemanticRelationView {
   if (runId.length === 0) {
     throw new TypeError("run semantic relation requires one non-empty Run id");
   }
-  const fullEvents = runtimeEventsFromValidatedPrefix(fullPrefix);
+  const fullEvents = runtimeEventBodiesAtPrefix(fullPrefix);
   const runPrefix = context?.prefix ?? selectValidatedRuntimeEventPrefix(fullEvents, { runId });
-  const events = runtimeEventsFromValidatedPrefix(runPrefix);
+  const events = runtimeEventBodiesAtPrefix(runPrefix);
   if (
     events.length === 0 ||
-    !events.some((event) => event.runId === runId) ||
+    !indexedRuntimeEvents(runPrefix, "run:" + runId).some((event) => event.runId === runId) ||
     events.some((event) => event.runId !== undefined && event.runId !== runId)
   ) {
     throw new TypeError(
@@ -2110,3 +2286,166 @@ function projectRunSemanticReplay(
     physicalCoordinates,
   }) as RunSemanticRelationView;
 }
+
+function digestReplayBody(body: Readonly<Record<string, JsonValue>>,
+  selected?: Readonly<Record<string, () => Iterable<JsonValue>>>): Sha256Digest {
+  const hash = createHash("sha256"); const write = (part: string) => { hash.update(part); };
+  writeReplayBody(body, selected, write); return `sha256:${hash.digest("hex")}`;
+}
+function writeReplayBody(body: Readonly<Record<string, JsonValue>>,
+  selected: Readonly<Record<string, () => Iterable<JsonValue>>> | undefined, write: (part: string) => void): void {
+  write("{"); let comma = false;
+  for (const key of Object.keys(body).sort(compareUnicodeCodeUnits)) {
+    if (comma) write(","); comma = true; writeCanonicalJson(key, write); write(":");
+    const rows = selected?.[key];
+    if (rows === undefined) writeCanonicalJson(body[key]!, write);
+    else { write("["); let rowComma = false; for (const row of rows()) {
+      if (rowComma) write(","); rowComma = true; writeCanonicalJson(row, write);
+    } write("]"); }
+  }
+  write("}");
+}
+
+/** @internal The same canonical selected C_Call fields without its historical value. */
+export function projectReplayCCallGuardAtPrefix(prefix: RuntimeEventPrefix, cCallRef: string) {
+  const key="aggregate:c_call:"+cCallRef;
+  const facts=runtimePrefixComputation(prefix, REPLAY_FACTS, () => new RuntimeReplayFacts(prefix.kind === "validated_runtime_event_prefix"));
+  return facts.scalarFact("c_call:"+cCallRef, replayDependencyVersion(prefix,[key]), () => projectReplayCCallFieldsAtPrefix(prefix,cCallRef));
+}
+
+function projectReplayCCallFieldsAtPrefix(prefix: RuntimeEventPrefix, cCallRef: string) {
+    const key = "aggregate:c_call:" + cCallRef;
+
+    const rows = indexedRuntimeEvents(prefix, key);
+    const phase = projectCCallPhase(prefix, cCallRef);
+    const evidenceRows = rows.filter((event) => event.kind === "c_call_evidenced");
+    const openedEvent = rows.find((event) => event.kind === "c_call_opened");
+    const resultEvent = rows.find((event) => event.kind === "c_call_result_admitted");
+    const judgmentEvent = rows.find((event) => event.kind === "c_call_judged");
+    const attempt = openedEvent === undefined
+      ? null
+      : positiveIntegerField(openedEvent, "attempt");
+    const openedPayload = openedEvent === undefined || !isRecord(openedEvent.payload)
+      ? null
+      : openedEvent.payload;
+    const batchRef = openedPayload?.batchRef;
+    const taskOrdinal = openedPayload?.taskOrdinal;
+    const programLocusRef = openedEvent === undefined
+      ? null
+      : stringField(openedEvent, "programLocusRef");
+    const retryPath = openedEvent === undefined
+      ? null
+      : positiveIntegerArrayField(openedEvent, "retryPath");
+    if (
+      openedEvent === undefined ||
+      openedPayload === null ||
+      !Object.hasOwn(openedPayload, "batchRef") ||
+      !Object.hasOwn(openedPayload, "taskOrdinal") ||
+      (batchRef !== null && typeof batchRef !== "string") ||
+      (taskOrdinal !== null &&
+        (!Number.isSafeInteger(taskOrdinal) || (taskOrdinal as number) < 0)) ||
+      attempt === null ||
+      programLocusRef === null ||
+      retryPath === null
+    ) {
+      throw new TypeError(`incomplete CCall identity payload at ${cCallRef}`);
+    }
+    const status: ReplayCCallState["status"] = phase.phase === "judged"
+      ? "judged"
+      : phase.phase === "result_admitted"
+        ? "result_admitted"
+        : "fibre_selected";
+    return {
+      cCallRef,
+      batchRef: batchRef as string | null,
+      taskOrdinal: taskOrdinal as number | null,
+      attempt,
+      programLocusRef,
+      retryPath,
+      eventKinds: rows.map((event) => event.kind),
+      evidenceRefs: evidenceRows
+        .map((event) => stringField(event, "evidenceRef"))
+        .filter((value): value is string => value !== null),
+      resultRef: resultEvent === undefined ? null : stringField(resultEvent, "resultRef"),
+      resultDigest: resultEvent === undefined
+        ? null
+        : stringField(resultEvent, "resultDigest") as Sha256Digest | null,
+      resultClass: resultEvent === undefined ? null : stringField(resultEvent, "resultClass"),
+      resultContractRef: resultEvent === undefined ? null : stringField(resultEvent, "contractRef"),
+      resultValueKind: resultEvent === undefined ? null : stringField(resultEvent, "valueKind"),
+      resultEventRef: resultEvent?.eventId ?? null,
+      judgmentRef: judgmentEvent === undefined ? null : stringField(judgmentEvent, "judgmentRef"),
+      judgment: judgmentEvent === undefined ? null : stringField(judgmentEvent, "judgment"),
+      status,
+    };
+    
+  }
+
+/** @internal Same canonical process fold, without transport/body retention. */
+export function projectRuntimeActorProcessFactsAtPrefix(prefix: RuntimeEventPrefix): readonly ReplayActorProcessState[] {
+  const facts=runtimePrefixComputation(prefix,REPLAY_FACTS,()=>new RuntimeReplayFacts(prefix.kind === "validated_runtime_event_prefix"));
+  const ids=new Set(indexedRuntimeEventEnvelopes(prefix,"type:actor_invocation").map(event=>event.aggregateId));
+  return Object.freeze(Array.from(ids, actorInvocationRef => facts.scalarFact("actor:"+actorInvocationRef,
+    replayDependencyVersion(prefix,["related:"+actorInvocationRef]),()=>projectRuntimeActorProcessFields(prefix,actorInvocationRef))));
+}
+function projectRuntimeActorProcessFields(prefix: RuntimeEventPrefix,actorInvocationRef:string): ReplayActorProcessState {
+      const actorRows = indexedRuntimeEventEnvelopes(prefix, "related:" + actorInvocationRef);
+      const body = (event: Omit<RuntimeEvent, "payload"> | undefined) => event === undefined ? undefined : runtimeEventAtPrefix(prefix, event.eventId);
+      const opened = body(actorRows.find((event) => event.kind === "actor_invocation_started"));
+      const processStarted = body(actorRows.find((event) => event.kind === "actor_process_started"));
+      const processExited = body(actorRows.find((event) => event.kind === "actor_process_exited"));
+      const artifact = body(actorRows.find(
+        (event) => event.kind === "actor_result_artifact_observed",
+      ));
+      const timeout = body(actorRows.find(
+        (event) => event.kind === "actor_process_timeout_observed",
+      ));
+      const closed = actorRows.find((event) => event.kind === "actor_invocation_closed");
+      const failed = actorRows.find((event) => event.kind === "actor_invocation_failed");
+      const exitStatus = processExited === undefined || !isRecord(processExited.payload)
+        ? null
+        : processExited.payload.status;
+      return {
+        actorInvocationRef,
+        actorRef: opened === undefined ? null : stringField(opened, "actorRef"),
+        transportBindingRef: opened === undefined
+          ? null
+          : stringField(opened, "transportBindingRef"),
+        transportBindingDigest: opened === undefined
+          ? null
+          : stringField(opened, "transportBindingDigest") as Sha256Digest | null,
+        processRef: processStarted === undefined
+          ? actorRows.find((event) => event.aggregateType === "process")?.aggregateId ?? null
+          : stringField(processStarted, "processRef"),
+        streamEventRefs: actorRows
+          .filter((event) =>
+            event.kind === "actor_process_stdout_observed" ||
+            event.kind === "actor_process_stderr_observed")
+          .map((event) => event.eventId),
+        timeoutClass: timeout === undefined
+          ? null
+          : stringField(timeout, "timeoutClass") as
+            | "absolute"
+            | "inactivity",
+        timedOut: timeout !== undefined,
+        signalSequence: actorRows
+          .filter((event) => event.kind === "actor_process_signal_requested")
+          .map((event) => stringField(body(event)!, "signal"))
+          .filter((value): value is string => value !== null),
+        exitStatus: Number.isSafeInteger(exitStatus) ? exitStatus as number : null,
+        exitSignal: processExited === undefined ? null : stringField(processExited, "signal"),
+        terminationConfirmed:
+          processExited !== undefined &&
+          !actorRows.some(
+            (event) => event.kind === "actor_process_termination_unconfirmed",
+          ),
+        transportDigest: artifact === undefined
+          ? null
+          : stringField(artifact, "transportDigest") as Sha256Digest | null,
+        status: failed !== undefined
+          ? "failed"
+          : closed !== undefined
+            ? "closed"
+            : "active",
+      };
+      }

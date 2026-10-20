@@ -1,0 +1,39 @@
+{
+  "events": {
+    "206160": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/event-206160.json",
+      "sha256": "124875963c1d2caaff97aa0a60c55a609d13519c6c05241aa31aab33e4fc768f",
+      "bytes": 2081796
+    },
+    "206200": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/event-206200.json",
+      "sha256": "e2e330745122d5186ccd5311f6cda076a5b060a534de34ce3243cd7414a8fe30",
+      "bytes": 3041056
+    },
+    "206223": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/event-206223.json",
+      "sha256": "8a9a276bc8b00baaa38aaa48528b34849a7afc1c487ce97a7bdc64265977da06",
+      "bytes": 8251531
+    }
+  },
+  "controlled": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/controlled16-task.json",
+    "sha256": "fd47673da391c6e851dabededcf8f48ba7a16ce0832413501b16e02986a0b0b1",
+    "bytes": 3249661
+  },
+  "oldProduct": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/preimages/code/src/product/default_library.ts",
+    "sha256": "d30b3de24a8615a5e0aefe3f025f4a4ab9b8539148eaae801eb1a150263d73ce",
+    "bytes": 33507
+  },
+  "oldAbg": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/preimages/code/src/abg/default_library.ts",
+    "sha256": "c07c875fffb72e9c5f1659917e4e860ab6e88934a59590ede1bd031c2da85a33",
+    "bytes": 31896
+  },
+  "recordedPrompt": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-prompt.txt",
+    "sha256": "da443ccd9c2a4941cc33e0200423e41801b7fad58419d0983d6e68b655f46b9c",
+    "bytes": 2033265
+  }
+}

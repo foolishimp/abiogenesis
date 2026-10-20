@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-09T06:37:18.543665+00:00",
+  "environment": {
+    "ABG_GOVERNANCE_COVERED_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/isolated/build/code/src",
+    "ABG_GOVERNANCE_COVERED_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/controlled-owner-fixtures.json",
+    "ABG_GOVERNANCE_COVERED_DECLARATION_PAIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/inputs/actual176-selected-publications.json"
+  },
+  "NODE_OPTIONS": "unset",
+  "scope": "Source179 bounded pure comparator, strict isolated compilation or affected owner units; no campaign runtime"
+}

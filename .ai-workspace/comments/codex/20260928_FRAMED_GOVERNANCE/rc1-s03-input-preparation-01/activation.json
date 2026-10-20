@@ -1,0 +1,33 @@
+{
+  "kind": "worker_activation",
+  "activationRef": "T287_RC1_S03_INPUT_PREPARATION_01",
+  "actor": "/root/f11_binding_plan",
+  "priorRole": "CLOSED independent design Reviewer",
+  "role": "Worker external input preparation",
+  "changeClass": "realization_refactor",
+  "state": "active",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-controls-01/request.txt",
+    "bytes": 4052,
+    "sha256": "241f54bd8cd31994b998088098a64ba9c46ce9c31b12075f700b99dd272ae261"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01",
+  "effects": [
+    "New report-only donor/caller/input/oracle preparation and exact pins"
+  ],
+  "prohibitions": [
+    "Source edits",
+    "Build/pack/install/dependency realization",
+    "Runtime/event/worksite resources",
+    "Native/provider/model/network/auth effects",
+    "Git effects",
+    "Old evidence edits",
+    "Reviewer activation"
+  ],
+  "law": "stdo://releases/v2.5.1-rc.2/",
+  "pending": [
+    "Accepted frozen C03 exact identities",
+    "Separate runtime execution grant"
+  ],
+  "ProductFrame": "Fixed fifteen families; F07/S03a four-authority GTL/HoG bounded correction and truthful no_action; ABG admission/replay owners preserved; preparation carries no qualification claim"
+}

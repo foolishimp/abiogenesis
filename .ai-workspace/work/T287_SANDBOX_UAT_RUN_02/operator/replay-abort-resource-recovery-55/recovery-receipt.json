@@ -1,0 +1,89 @@
+{
+  "kind": "abg_event_resource_recovery_receipt",
+  "schemaVersion": "5.0.0",
+  "requestDigest": "sha256:c5d25f5667b1658f98cd9bfad944e29ef1d09ad173d27ecb45f082cf20cb9bb6",
+  "actorRef": "actor://abiogenesis/T287/executive-root",
+  "authorityRef": "authority://abiogenesis/T287/executive-root/maintenance55",
+  "authorityDigest": "sha256:a0e0996baf8812a09b557b042cf9d0245c2824493006cf075744d848ff6e5a64",
+  "approvalRef": "approval://abiogenesis/T287/replay-abort-resource-recovery-55",
+  "approvalDigest": "sha256:d42a7b794af0d42df7fe6f241b9f94fcaae1ec46a9f139c9d356d18d3e3ee7fa",
+  "scopeDigest": "sha256:e7c043aa03dd8ccdf6f6c27e8b28be91bda212374ee79159e6068941c6f252ce",
+  "executingOwner": {
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:29ba81c26cbf22857d4be6150cd20386f0e843b18f7754bd5f738e298fc8e63e",
+    "manifestDigest": "sha256:d312a6b1a6f885969f754e34468f16599e9466b41d338b0cc8ec4b63c3f9310f",
+    "packageExport": "./abg",
+    "namedSymbol": "recoverInterruptedAbgEventResource"
+  },
+  "selection": {
+    "lastCloseHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+        "prefixLength": 1182449986,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 467374253
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:9cc02dd70a4e69a0d2c88eb9b7a18135b89348367e93e26f366ab41af514f08c",
+        "device": 16777231,
+        "durableByteLength": 1182449986,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+        "inode": 467374253,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    "expectedCurrent": {
+      "byteLength": 1182449986,
+      "digest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6"
+    },
+    "ownerPid": 89743,
+    "abandonedLock": {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-467374253.lock",
+      "device": 16777231,
+      "inode": 467605823,
+      "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY3Mzc0MjUzLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6ODk3NDMsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+      "digest": "sha256:684ceddbc1f4d96f3c0913fb0a0cedf80640a1589e1ad793f0a9038e7ea2d23d"
+    }
+  },
+  "outcome": {
+    "kind": "recovered",
+    "closeHandoff": {
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+        "prefixLength": 1182449986,
+        "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 467374253,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23"
+      },
+      "reopenAuthority": {
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+        "device": 16777231,
+        "inode": 467374253,
+        "eventLogDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+        "durableByteLength": 1182449986,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "authorityDigest": "sha256:9cc02dd70a4e69a0d2c88eb9b7a18135b89348367e93e26f366ab41af514f08c"
+      }
+    },
+    "validatedEventCount": 165617
+  },
+  "receiptDigest": "sha256:68e91cae91a556c80fc0dae8c3e06a73cc26f82c29a5c6ed35090b974e10e39a"
+}

@@ -1,0 +1,3 @@
+Produce a lifecycle candidate with an explicitly unresolved verification gap.
+The candidate may be admitted as evidence, but it shall not close.
+The evaluator shall preserve residual pressure and require continuation.

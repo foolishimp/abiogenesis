@@ -1,0 +1,969 @@
+[
+  {
+    "name": "C03",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+    "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "C03",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+      "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "C03",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+        "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "C03",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+          "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "C03",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+            "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "C03",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+              "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+              "recordsVerified": 92,
+              "bodyBytesVerified": 21451377
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Source",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/freeze.json",
+    "sha256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Source",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/freeze.json",
+      "sha256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "Source",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/freeze.json",
+        "sha256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "Source",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/freeze.json",
+          "sha256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "Source",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/freeze.json",
+            "sha256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "Source",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/freeze.json",
+              "sha256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+              "recordsVerified": 8663,
+              "bodyBytesVerified": 206153025
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "CallerPrep",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+    "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "CallerPrep",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+      "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "CallerPrep",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+        "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "CallerPrep",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+          "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "CallerPrep",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+            "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "CallerPrep",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+              "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+              "recordsVerified": 3308,
+              "bodyBytesVerified": 349030200
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Runtime03",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+    "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Runtime03",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+      "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "Runtime03",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+        "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "Runtime03",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+          "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "Runtime03",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+            "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "Runtime03",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+              "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+              "recordsVerified": 69,
+              "bodyBytesVerified": 108462557
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "C04",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+    "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "C04",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+      "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "C04",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+        "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "C04",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+          "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "C04",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+            "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "C04",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+              "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+              "recordsVerified": 461,
+              "bodyBytesVerified": 43746497
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "InstallerSource",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/freeze.json",
+    "sha256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "InstallerSource",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/freeze.json",
+      "sha256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "InstallerSource",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/freeze.json",
+        "sha256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "InstallerSource",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/freeze.json",
+          "sha256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "InstallerSource",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/freeze.json",
+            "sha256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "InstallerSource",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/freeze.json",
+              "sha256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+              "recordsVerified": 12415,
+              "bodyBytesVerified": 258922251
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Setup04",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/freeze.json",
+    "sha256": "856c39d500b5e9a2c14a366bd39da2a31d2811469d2c4f8e2f2997d6e3a5ff80",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Setup04",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/freeze.json",
+      "sha256": "856c39d500b5e9a2c14a366bd39da2a31d2811469d2c4f8e2f2997d6e3a5ff80",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "Setup04",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/freeze.json",
+        "sha256": "856c39d500b5e9a2c14a366bd39da2a31d2811469d2c4f8e2f2997d6e3a5ff80",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "Setup04",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/freeze.json",
+          "sha256": "856c39d500b5e9a2c14a366bd39da2a31d2811469d2c4f8e2f2997d6e3a5ff80",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "Setup04",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/freeze.json",
+            "sha256": "856c39d500b5e9a2c14a366bd39da2a31d2811469d2c4f8e2f2997d6e3a5ff80",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "Setup04",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/freeze.json",
+              "sha256": "856c39d500b5e9a2c14a366bd39da2a31d2811469d2c4f8e2f2997d6e3a5ff80",
+              "recordsVerified": 11231,
+              "bodyBytesVerified": 440658117
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "final-f11-current-resource-caller-02",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json",
+    "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "final-f11-current-resource-caller-02",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json",
+      "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "final-f11-current-resource-caller-02",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json",
+        "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "final-f11-current-resource-caller-02",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json",
+          "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "final-f11-current-resource-caller-02",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json",
+            "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "final-f11-current-resource-caller-02",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json",
+              "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+              "recordsVerified": 58
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "rc1-c03-conformance-caller-repair-01",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/freeze.json",
+    "sha256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "rc1-c03-conformance-caller-repair-01",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/freeze.json",
+      "sha256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "rc1-c03-conformance-caller-repair-01",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/freeze.json",
+        "sha256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "rc1-c03-conformance-caller-repair-01",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/freeze.json",
+          "sha256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "rc1-c03-conformance-caller-repair-01",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/freeze.json",
+            "sha256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+            "priorAcceptedPhysicalAssurance": {
+              "name": "rc1-c03-conformance-caller-repair-01",
+              "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/freeze.json",
+              "sha256": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+              "recordsVerified": 4
+            },
+            "currentVerification": "immutable metadata pin only; prior C05 physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "C05",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-freeze.json",
+    "sha256": "ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "C05",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-freeze.json",
+      "sha256": "ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "C05",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-freeze.json",
+        "sha256": "ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "C05",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-freeze.json",
+          "sha256": "ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "C05",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-freeze.json",
+            "sha256": "ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e",
+            "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Q06",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+    "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Q06",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+      "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "Q06",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+        "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "Q06",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+          "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "Q06",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+            "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+            "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Runtime06",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+    "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Runtime06",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+      "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "Runtime06",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+        "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "Runtime06",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+          "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "Runtime06",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+            "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+            "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "sourceFreeze",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/freeze.json",
+    "sha256": "f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "sourceFreeze",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/freeze.json",
+      "sha256": "f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "sourceFreeze",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/freeze.json",
+        "sha256": "f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "sourceFreeze",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/freeze.json",
+          "sha256": "f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "sourceFreeze",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/freeze.json",
+            "sha256": "f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1",
+            "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "sourceAssurance",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/source-review/freeze.json",
+    "sha256": "91250f733643b19296692e286c659f5f7dd42d4267de7d600ed7fb81fa8f89f5",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "sourceAssurance",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/source-review/freeze.json",
+      "sha256": "91250f733643b19296692e286c659f5f7dd42d4267de7d600ed7fb81fa8f89f5",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "sourceAssurance",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/source-review/freeze.json",
+        "sha256": "91250f733643b19296692e286c659f5f7dd42d4267de7d600ed7fb81fa8f89f5",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "sourceAssurance",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/source-review/freeze.json",
+          "sha256": "91250f733643b19296692e286c659f5f7dd42d4267de7d600ed7fb81fa8f89f5",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "sourceAssurance",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/source-review/freeze.json",
+            "sha256": "91250f733643b19296692e286c659f5f7dd42d4267de7d600ed7fb81fa8f89f5",
+            "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "callerFreeze",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/final-caller-freeze.json",
+    "sha256": "828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "callerFreeze",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/final-caller-freeze.json",
+      "sha256": "828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "callerFreeze",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/final-caller-freeze.json",
+        "sha256": "828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "callerFreeze",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/final-caller-freeze.json",
+          "sha256": "828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "callerFreeze",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/final-caller-freeze.json",
+            "sha256": "828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e",
+            "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "callerAssurance",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/root-caller-review/freeze.json",
+    "sha256": "a6311f9a5808861127f361af86530eec09f87202f61999b45bedd96801755854",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "callerAssurance",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/root-caller-review/freeze.json",
+      "sha256": "a6311f9a5808861127f361af86530eec09f87202f61999b45bedd96801755854",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "callerAssurance",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/root-caller-review/freeze.json",
+        "sha256": "a6311f9a5808861127f361af86530eec09f87202f61999b45bedd96801755854",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "callerAssurance",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/root-caller-review/freeze.json",
+          "sha256": "a6311f9a5808861127f361af86530eec09f87202f61999b45bedd96801755854",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "callerAssurance",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/root-caller-review/freeze.json",
+            "sha256": "a6311f9a5808861127f361af86530eec09f87202f61999b45bedd96801755854",
+            "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "sourceAuthorship",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/source-authorship.json",
+    "sha256": "ae26809e1e453316a9084b0fc24abafd092d26ef6b790d7e58cdeb5cadf77a16",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "sourceAuthorship",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/source-authorship.json",
+      "sha256": "ae26809e1e453316a9084b0fc24abafd092d26ef6b790d7e58cdeb5cadf77a16",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "sourceAuthorship",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/source-authorship.json",
+        "sha256": "ae26809e1e453316a9084b0fc24abafd092d26ef6b790d7e58cdeb5cadf77a16",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "sourceAuthorship",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/source-authorship.json",
+          "sha256": "ae26809e1e453316a9084b0fc24abafd092d26ef6b790d7e58cdeb5cadf77a16",
+          "priorAcceptedPhysicalAssurance": {
+            "name": "sourceAuthorship",
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/source-authorship.json",
+            "sha256": "ae26809e1e453316a9084b0fc24abafd092d26ef6b790d7e58cdeb5cadf77a16",
+            "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+          },
+          "currentVerification": "immutable metadata pin only; prior C06 physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "C06",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "C06",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+      "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "C06",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+        "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "C06",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+          "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+          "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Q08",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+    "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Q08",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+      "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "Q08",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+        "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "Q08",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+          "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+          "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Runtime07",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/final-runtime-freeze.json",
+    "sha256": "227997c8c1d4307151af57109efce0dcaeab4b1a288c0d83a44c56e414b147f2",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Runtime07",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/final-runtime-freeze.json",
+      "sha256": "227997c8c1d4307151af57109efce0dcaeab4b1a288c0d83a44c56e414b147f2",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "Runtime07",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/final-runtime-freeze.json",
+        "sha256": "227997c8c1d4307151af57109efce0dcaeab4b1a288c0d83a44c56e414b147f2",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "Runtime07",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/final-runtime-freeze.json",
+          "sha256": "227997c8c1d4307151af57109efce0dcaeab4b1a288c0d83a44c56e414b147f2",
+          "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "sourceFreeze",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/freeze.json",
+    "sha256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "sourceFreeze",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/freeze.json",
+      "sha256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "sourceFreeze",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/freeze.json",
+        "sha256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "sourceFreeze",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/freeze.json",
+          "sha256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+          "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "independentSourceReview",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/review/freeze.json",
+    "sha256": "5067d27eb138681222bd8a0a63d1cc369aabe4ff6abb901c018a4d536b1b5e93",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "independentSourceReview",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/review/freeze.json",
+      "sha256": "5067d27eb138681222bd8a0a63d1cc369aabe4ff6abb901c018a4d536b1b5e93",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "independentSourceReview",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/review/freeze.json",
+        "sha256": "5067d27eb138681222bd8a0a63d1cc369aabe4ff6abb901c018a4d536b1b5e93",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "independentSourceReview",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/review/freeze.json",
+          "sha256": "5067d27eb138681222bd8a0a63d1cc369aabe4ff6abb901c018a4d536b1b5e93",
+          "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "sourceAuthorship",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/source-authorship.json",
+    "sha256": "81d6fc7b1d701f619b1b85f95256a11c662dcd03d177d5b795ef7a8a6c461e6e",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "sourceAuthorship",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/source-authorship.json",
+      "sha256": "81d6fc7b1d701f619b1b85f95256a11c662dcd03d177d5b795ef7a8a6c461e6e",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "sourceAuthorship",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/source-authorship.json",
+        "sha256": "81d6fc7b1d701f619b1b85f95256a11c662dcd03d177d5b795ef7a8a6c461e6e",
+        "priorAcceptedPhysicalAssurance": {
+          "name": "sourceAuthorship",
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/source-authorship.json",
+          "sha256": "81d6fc7b1d701f619b1b85f95256a11c662dcd03d177d5b795ef7a8a6c461e6e",
+          "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+        },
+        "currentVerification": "immutable metadata pin only; prior C07 physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency0",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+    "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceDependency0",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+      "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "acceptedSourceDependency0",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+        "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+        "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency1",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/freeze.json",
+    "sha256": "cc036b4c49f75ecafdff98adff6900ad48445923f8f7118c53336ab6b9e82d33",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceDependency1",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/freeze.json",
+      "sha256": "cc036b4c49f75ecafdff98adff6900ad48445923f8f7118c53336ab6b9e82d33",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "acceptedSourceDependency1",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/freeze.json",
+        "sha256": "cc036b4c49f75ecafdff98adff6900ad48445923f8f7118c53336ab6b9e82d33",
+        "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency2",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/review/freeze.json",
+    "sha256": "3d90e4db617f1c3f0892c8377145aa76f1b3864433e97efbdc2419348548c9c0",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceDependency2",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/review/freeze.json",
+      "sha256": "3d90e4db617f1c3f0892c8377145aa76f1b3864433e97efbdc2419348548c9c0",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "acceptedSourceDependency2",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/review/freeze.json",
+        "sha256": "3d90e4db617f1c3f0892c8377145aa76f1b3864433e97efbdc2419348548c9c0",
+        "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency3",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+    "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceDependency3",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+      "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "acceptedSourceDependency3",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+        "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+        "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Runtime08",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+    "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Runtime08",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+      "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "Runtime08",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+        "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708",
+        "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceAuthorship",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+    "sha256": "68e2fb7240b051aa172f5cdc2785951a7b1f968fad019e9ef044845873ad6719",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceAuthorship",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+      "sha256": "68e2fb7240b051aa172f5cdc2785951a7b1f968fad019e9ef044845873ad6719",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "acceptedSourceAuthorship",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+        "sha256": "68e2fb7240b051aa172f5cdc2785951a7b1f968fad019e9ef044845873ad6719",
+        "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedTestFixtureAuthorship",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+    "sha256": "d7f981087f6e67ca89d8b34a1e7c5909fb8a9e4d6b101f28632c89abaa649651",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedTestFixtureAuthorship",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+      "sha256": "d7f981087f6e67ca89d8b34a1e7c5909fb8a9e4d6b101f28632c89abaa649651",
+      "priorAcceptedPhysicalAssurance": {
+        "name": "acceptedTestFixtureAuthorship",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+        "sha256": "d7f981087f6e67ca89d8b34a1e7c5909fb8a9e4d6b101f28632c89abaa649651",
+        "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+      },
+      "currentVerification": "immutable metadata pin only; prior accepted C08 physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency0",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/freeze.json",
+    "sha256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceDependency0",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/freeze.json",
+      "sha256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+      "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency1",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/freeze.json",
+    "sha256": "5715b514ff7502e91c2f72410f03a62f284ca39ea19f32d72b8d3aebc38016b7",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceDependency1",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/freeze.json",
+      "sha256": "5715b514ff7502e91c2f72410f03a62f284ca39ea19f32d72b8d3aebc38016b7",
+      "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency2",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/freeze.json",
+    "sha256": "c2668c0fb0295173652ebeeceecee6157e3ed40237a870541449fec092a3a6bb",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceDependency2",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/freeze.json",
+      "sha256": "c2668c0fb0295173652ebeeceecee6157e3ed40237a870541449fec092a3a6bb",
+      "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency3",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+    "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceDependency3",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+      "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+      "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "Runtime08",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+    "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "Runtime08",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+      "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708",
+      "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceAuthorship",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+    "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedSourceAuthorship",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+      "sha256": "9d1b7cbe6b4793e6064f89a8577a3520a32be2223597ae8e332c819426ccb13f",
+      "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedTestFixtureAuthorship",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/source-authorship.json",
+    "sha256": "e5e36fc04f82071b643e5b1426afe77f784dbefd1af5bc04f672eb08f0f8c0bc",
+    "priorAcceptedPhysicalAssurance": {
+      "name": "acceptedTestFixtureAuthorship",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/source-authorship.json",
+      "sha256": "e5e36fc04f82071b643e5b1426afe77f784dbefd1af5bc04f672eb08f0f8c0bc",
+      "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+    },
+    "currentVerification": "immutable metadata pin only; prior accepted C09 physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency0",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/freeze.json",
+    "sha256": "8dd2269955829b3e5d2b62f6f3540896c31bb074bf570019e80b75b6957da730",
+    "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency1",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-parent-alias-owner-repair-01/freeze.json",
+    "sha256": "6d5ab742d9ebf2a730e7d776aa2911c58503d0dc40c2928f18fa72eb3a305d2e",
+    "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency2",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/freeze.json",
+    "sha256": "153a3eced2061acbb7b32c96904ad791d667186dcd4e3121fb4a9dbc80262e2c",
+    "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceDependency3",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+    "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+    "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+  },
+  {
+    "name": "Runtime08",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/final-runtime-freeze.json",
+    "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708",
+    "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+  },
+  {
+    "name": "acceptedSourceAuthorship",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/freeze.json",
+    "sha256": "8dd2269955829b3e5d2b62f6f3540896c31bb074bf570019e80b75b6957da730",
+    "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+  },
+  {
+    "name": "acceptedTestFixtureAuthorship",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/freeze.json",
+    "sha256": "153a3eced2061acbb7b32c96904ad791d667186dcd4e3121fb4a9dbc80262e2c",
+    "currentVerification": "immutable metadata pin; closed independent physical assurance reused"
+  }
+]

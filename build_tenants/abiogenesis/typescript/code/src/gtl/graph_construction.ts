@@ -4,6 +4,7 @@ import {
   type JsonValue,
 } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
+import { isDeeplyFrozen } from "../shared/immutable.js";
 import { requireRef } from "../shared/references.js";
 import {
   cCarrier,
@@ -113,11 +114,14 @@ export interface GraphTemplateDiagnostic {
   readonly message: string;
 }
 
+const validImmutableTemplates = new WeakSet<object>();
+
 /** Local structure only; evaluator, policy and callable law remain whole checks. */
 export function graphTemplateDiagnostics(
   template: Readonly<GraphTemplate>,
   path = "$.template",
 ): readonly GraphTemplateDiagnostic[] {
+  if (validImmutableTemplates.has(template)) return [];
   const diagnostics: GraphTemplateDiagnostic[] = [];
   const duplicateNodes = graphNodeIdentityFailure(template);
   if (duplicateNodes !== null) {
@@ -162,6 +166,7 @@ export function graphTemplateDiagnostics(
     if (failure !== null) diagnostics.push({ code: "topology_mismatch",
       path: `${path}/edges`, message: failure });
   }
+  if (diagnostics.length === 0 && isDeeplyFrozen(template)) validImmutableTemplates.add(template);
   return diagnostics;
 }
 

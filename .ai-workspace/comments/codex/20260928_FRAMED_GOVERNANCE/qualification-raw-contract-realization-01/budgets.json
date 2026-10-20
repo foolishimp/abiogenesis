@@ -1,0 +1,6 @@
+{
+  "compileMs": 180000,
+  "regressionMs": 180000,
+  "totalMs": 420000,
+  "nominalPreflightMs": 180000
+}

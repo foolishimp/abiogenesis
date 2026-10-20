@@ -1,0 +1,59 @@
+{
+  "status": "STOPPED_NO_RETRY",
+  "diagnostic": {
+    "type": "test:fail",
+    "data": {
+      "name": "actual native C10 consumer and current-bound canonical successor preparation",
+      "nesting": 0,
+      "testNumber": 1,
+      "details": {
+        "duration_ms": 12779.796958,
+        "type": "test",
+        "error": {
+          "name": "Error",
+          "message": "abg.completeAbgEventResource is not a function",
+          "stack": "Error [ERR_TEST_FAILURE]: abg.completeAbgEventResource is not a function",
+          "cause": {
+            "name": "TypeError",
+            "message": "abg.completeAbgEventResource is not a function",
+            "stack": "TypeError: abg.completeAbgEventResource is not a function\n    at Object.completeBorrowed (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs:149:30)\n    at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs:66:65)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)"
+          },
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure"
+        }
+      },
+      "line": 22,
+      "column": 26,
+      "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+    }
+  },
+  "actualInstalledAbgIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/index.js",
+    "bytes": 10630,
+    "sha256": "a9a689551f6984814f071ace20cbb509fb8146343badeb32f044e088403f1b38",
+    "mode": 420
+  },
+  "relevantExportLines": [
+    {
+      "line": 49,
+      "text": "export { recoverInterruptedAbgEventResource, abgEventRecoveryScope, ABG_EVENT_RESOURCE_RECOVERY, ABG_EVENT_RESOURCE_RECOVERY_DIGEST, } from \"./definition_event_resource.js\";"
+    },
+    {
+      "line": 50,
+      "text": "export { acquireAbgEventResource, closeAbgEventResource, abandonAbgEventResource, selectAcquiredAbgEventResource, isAcquiredAbgEventResourceSelection, assertAcquiredAbgEventResourceSelectionCurrent, abgEventResourceInputPrefix, abgEventResourceOutcomePrefix, } from \"./definition_event_resource.js\";"
+    }
+  ],
+  "originatingRelation": "new caller assumed current Source/internal completion function was a direct published C10 ABG namespace function",
+  "ownerBoundary": "helper completeBorrowed at line149, after borrowed resource acquisition, before any positive catalog dispatch",
+  "actualPublishedGroups": [
+    ".",
+    "./product",
+    "./abg",
+    "./gtl",
+    "./hog",
+    "./public",
+    "./validator"
+  ],
+  "firstMaterialPayloadFailure": true,
+  "noFrameworkDefectEstablished": true
+}

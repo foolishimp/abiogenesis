@@ -206,27 +206,12 @@ function planningStream(observation: GovernanceObservation, fieldPath: (string |
     rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: true },
     displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 }, excerpts, displayedByteCount, omittedCandidates };
 }
-/** Presentation over the already-bound task; canonical proof stays in its owner. */
-export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
-  const { state, context } = task, original = state.original;
+/** Parent-context presentation; full admitted bodies and authority stay in their owners. */
+export function projectGovernanceObservationFacts(state: GovernanceWorkState, context: WorksiteContextObservation) {
+  const original = state.original;
   const record = (value: JsonValue | undefined): value is Readonly<Record<string, JsonValue>> =>
     value !== null && typeof value === "object" && !Array.isArray(value);
-  const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
-    ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
-  const sourceTextsInTask = new Set<string>();
-  const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
-    const bytes = Buffer.from(entry.bytes, "base64");
-    let text: string;
-    try { text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes); }
-    catch { return { encoding: "base64", content: entry.bytes }; }
-    // Exact containment only. The actor receives the complete text in this
-    // same prompt, not a locator that would require a forbidden file read.
-    const start = text.length === 0 ? -1 : original.task.indexOf(text);
-    if (start >= 0) sourceTextsInTask.add(text);
-    return start < 0 ? { encoding: "utf8", content: text } :
-      { contentIn: "originalTask", startCharacter: start, endCharacter: start + text.length };
-  };
-  const evidence = state.observations.map(observation => {
+  return deepFreeze(state.observations.map(observation => {
     const value = observation.value;
     const observed = observation.purpose === "testing" && Array.isArray(value.commandResults)
       ? { commandResults: value.commandResults.map((row, index) => record(row) ? { ...row,
@@ -253,7 +238,27 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
           e.relativePath === file.path && e.digest === file.digest)).map(file => file.path),
         assessmentContractRef: fact.assessmentContractRef, producerResultRef: fact.producerResultRef,
         producerActorRef: fact.producerActorRef } }) };
-  });
+  }));
+}
+/** Presentation over the already-bound task; canonical proof stays in its owner. */
+export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
+  const { state, context } = task, original = state.original;
+  const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
+    ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
+  const sourceTextsInTask = new Set<string>();
+  const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
+    const bytes = Buffer.from(entry.bytes, "base64");
+    let text: string;
+    try { text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes); }
+    catch { return { encoding: "base64", content: entry.bytes }; }
+    // Exact containment only. The actor receives the complete text in this
+    // same prompt, not a locator that would require a forbidden file read.
+    const start = text.length === 0 ? -1 : original.task.indexOf(text);
+    if (start >= 0) sourceTextsInTask.add(text);
+    return start < 0 ? { encoding: "utf8", content: text } :
+      { contentIn: "originalTask", startCharacter: start, endCharacter: start + text.length };
+  };
+  const evidence = projectGovernanceObservationFacts(state, context);
   const declaration = original.fulfillment;
   const fulfillment = declaration === undefined ? null : {
     obligations: governanceFulfillmentActive(declaration, state.fulfillment!).map(active => ({

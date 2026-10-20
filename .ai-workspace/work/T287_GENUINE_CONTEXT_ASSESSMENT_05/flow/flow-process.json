@@ -1,0 +1,42 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_05",
+  "phase": "phase2_flow",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/consumer/genuine-pilot.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/consumer",
+  "capSeconds": 600,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/tmp",
+    "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/tmp/node-compile-cache",
+    "ABI5_GENUINE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow",
+    "ABI5_GENUINE_INPUT_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+    "ABI5_GENUINE_MODE": "flow",
+    "ABG_TS_CLAUDE_COMMAND": "/Users/jim/.local/bin/claude",
+    "ABG_TS_CLAUDE_APPEND_ARGS": "[\"--system-prompt\",\".\"]",
+    "ABG_TS_FP_TIMEOUT_MS": "120000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "360000",
+    "ABG_TS_FP_TERMINATION_GRACE_MS": "1000"
+  },
+  "pid": 22518,
+  "pgid": 22518,
+  "exitCode": 1,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "groupAbsent": true,
+  "elapsedMs": 306389.77349999914,
+  "maxRSSPlatformBytes": 2632630272,
+  "userCPUSeconds": 47.690255,
+  "systemCPUSeconds": 5.92219,
+  "controlledTransport": false,
+  "realHttpRequestCount": "unknown unless observed in actual CLI transport",
+  "frozenPhase1InputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "stdoutBytes": 1124,
+  "stdoutSHA256": "846224f0d33ecdae2c316a509c795dfa7137b85d024fc93af0d643db59bfe070",
+  "stderrBytes": 67814,
+  "stderrSHA256": "7f6364c9ed7034f40e7560f752f2c4c5cdf436cb8218b7fd1cc1a698e5934bce"
+}

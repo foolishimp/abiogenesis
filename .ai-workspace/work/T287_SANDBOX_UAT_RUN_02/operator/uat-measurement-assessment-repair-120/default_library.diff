@@ -1,0 +1,14 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts b/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts
+index cba51e0b..d0e72221 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts
+@@ -169,7 +169,8 @@ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePur
+   const dependencies = isNativeWorkspaceWorkObservation(p.value)
+     ? p.value.after.entries.flatMap(e => e.state === "file" ? [{ path: e.relativePath, digest: e.digest }] : [])
+     : p.value.task.protectedObservations.map(e => ({ path: e.subject.relativePath, digest: e.observation.fileDigest }));
+-  if (!dependencies.some(e => e.path === candidate.relativePath && e.digest === candidate.digest) ||
++  if ((isNativeWorkspaceWorkObservation(p.value) &&
++      !dependencies.some(e => e.path === candidate.relativePath && e.digest === candidate.digest)) ||
+     !dependencies.every(e => context.entries.some(c => c.relativePath === e.path && c.state === "file" && c.digest === e.digest)) ||
+     worksiteCommandSourcesInvalidatedAfter(o.prefix, p.event.admissionOrdinal,
+       o.environment.workspaceAuthorityBasis.canonicalRoot, dependencies.map(e => e.path))) return null;

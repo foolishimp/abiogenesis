@@ -1,0 +1,15 @@
+{
+  "repairRecordsVerified": 5470,
+  "canonicalPostimagesVerified": 3,
+  "mismatches": [],
+  "index": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/index",
+    "bytes": 2814720,
+    "sha256": "2b0e5154a5b9145385b027bc82b54bb9da07ba740c86e01d5816dd261f38ae88"
+  },
+  "nativeResourceReads": 0,
+  "providerCalls": 0,
+  "subjectEdits": 0,
+  "movingAttributionOutputReads": 0,
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-review-01"
+}

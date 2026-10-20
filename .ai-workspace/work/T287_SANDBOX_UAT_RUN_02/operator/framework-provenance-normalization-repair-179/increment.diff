@@ -1,0 +1,104 @@
+--- preimage/code/src/product/semantics.ts
++++ postimage/code/src/product/semantics.ts
+@@ -6,7 +6,7 @@
+   ModulePublication,
+   ProductSemanticsBinding,
+ } from "../gtl/contracts.js";
+-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
++import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
+ import {
+   sha256Canonical,
+   type Sha256Digest,
+@@ -108,7 +108,7 @@
+         const other = p === old ? next : old;
+         return { ...meaning, descriptorOwner: identityRef(descriptorRef, other.descriptorRef), contributionOwner: identityRef(contributionManifestRef, other.contributionManifestRef),
+           contributions: contributions.map(row => ({ ...row, provenanceRefs: row.provenanceRefs.map(ref =>
+-            ref === artifactDigest ? "publication:artifact" : ref === productManifestDigest ? "publication:manifest" : ref) })) } as unknown as JsonValue;
++            ref === artifactDigest ? "publication:artifact" : ref === productManifestDigest ? "publication:manifest" : ref).sort(compareUnicodeCodeUnits) })) } as unknown as JsonValue;
+       };
+       const a = normalized(old), b = normalized(next);
+       if (canonicalJson(a) !== canonicalJson(b)) return null;
+--- preimage/test_env/tests/t287-governance-covered-source-use.test.mjs
++++ postimage/test_env/tests/t287-governance-covered-source-use.test.mjs
+@@ -12,6 +12,7 @@
+ const terminal=await load('abg/terminal_result_contracts'),decl=await load('product/declaration_closure');
+ const freeze=(await load('shared/immutable')).deepFreeze,hash=p.sha256Canonical;
+ const fixturePath=process.env.ABG_GOVERNANCE_COVERED_FIXTURE;
++const declarationPairPath=process.env.ABG_GOVERNANCE_COVERED_DECLARATION_PAIR;
+ const clone=value=>JSON.parse(JSON.stringify(value));
+ async function moduleAt(name,replacements={},names=[]) {
+   const file=path.join(root,name+'.js'),m=new SourceTextModule(fs.readFileSync(file,'utf8')+(names.length?'\nexport { '+names.join(',')+' };':''),{identifier:file});
+@@ -38,6 +39,57 @@
+   assert.equal(semantics.compareGovernanceDeclarationPublications([...old,old[0]],next),null);
+   assert.equal(semantics.compareGovernanceDeclarationPublications(old,[...next.slice(0,2),next[0]]),null);
+   assert.equal(semantics.compareGovernanceDeclarationPublications(old,next.slice(0,2)),null);
++});
++
++test('frozen176 selected declarations compare across artifact and manifest hash-order reversal',
++  {skip:!declarationPairPath},t=>{
++  const pair=JSON.parse(fs.readFileSync(declarationPairPath,'utf8'));
++  assert.equal(pair.kind,'frozen_selected_declaration_pair');
++  assert.equal(pair.historical.length,4);assert.equal(pair.current.length,4);
++  const before=JSON.stringify(pair),forward=semantics.compareGovernanceDeclarationPublications(pair.historical,pair.current);
++  const reverse=semantics.compareGovernanceDeclarationPublications(pair.current,pair.historical);
++  assert.ok(forward);assert.ok(reverse);assert.equal(forward.meaningDigest,reverse.meaningDigest);
++  assert.equal(forward.owners.length,4);
++  for(const row of forward.owners){
++    assert.equal(row.historicalPublicationDigest,hash(pair.historical.find(x=>x.moduleRef===row.moduleRef&&x.owningProductId===row.productId)));
++    assert.equal(row.currentPublicationDigest,hash(pair.current.find(x=>x.moduleRef===row.moduleRef&&x.owningProductId===row.productId)));
++  }
++  assert.equal(JSON.stringify(pair),before,'private ordering never mutates the actual owned publication values');
++  t.diagnostic(JSON.stringify({selectedCapturedPublications:4,meaningDigest:forward.meaningDigest,
++    scope:'pure comparison of frozen176 selected declaration values; no whole Catalog reconstruction, admission or installed current-use credit'}));
++});
++
++test('only the substituted provenance inventory is ordered and every reference remains material',()=>{
++  const old=publications({...oldIdentity,artifactDigest:'sha256:'+'f'.repeat(64),productManifestDigest:'sha256:'+'1'.repeat(64)});
++  const next=publications({...newIdentity,artifactDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'e'.repeat(64)});
++  assert.deepEqual(old[0].contributions[0].provenanceRefs,['sha256:'+'1'.repeat(64),'sha256:'+'f'.repeat(64)]);
++  assert.deepEqual(next[0].contributions[0].provenanceRefs,['sha256:'+'2'.repeat(64),'sha256:'+'e'.repeat(64)]);
++  assert.ok(semantics.compareGovernanceDeclarationPublications(old,next));
++  assert.ok(semantics.compareGovernanceDeclarationPublications(next,old));
++  const bad=[
++    ['missing provenance',x=>x[0].contributions[0].provenanceRefs.pop()],
++    ['duplicate provenance',x=>x[0].contributions[0].provenanceRefs.push(x[0].artifactDigest)],
++    ['arbitrary provenance',x=>x[0].contributions[0].provenanceRefs.push('event://unowned')],
++    ['foreign provenance',x=>x[0].contributions[0].provenanceRefs[0]='sha256:'+'3'.repeat(64)],
++    ['contract',x=>x[0].contracts[0].valueKind='different_value'],
++    ['rule',x=>x[0].rules[0].config={changedRuleMeaning:true}],
++    ['policy',x=>x[0].runEnvironments[0].roles[0].policy.text+=' changed'],
++    ['permission prerequisite',x=>x[0].contributions[0].readinessPrerequisiteRefs.push('program://foreign')],
++    ['other declared vector',x=>{
++      const evaluator=x[0].evaluators.find(row=>row.name===p.governanceRef('evaluator','select'));
++      assert.ok(evaluator);assert.deepEqual(evaluator.consumedFieldRefs,['$.context','$.state']);
++      const before=JSON.stringify(evaluator.consumedFieldRefs);evaluator.consumedFieldRefs.reverse();
++      assert.notEqual(JSON.stringify(evaluator.consumedFieldRefs),before,'the negative must change the actual declared vector');
++    }],
++  ];
++  for(const [name,alter]of bad){const changed=clone(next);alter(changed);assert.equal(semantics.compareGovernanceDeclarationPublications(old,changed),null,name);}
++  // Unknown references and repeated occurrences are preserved, not discarded
++  // by the private comparison. Their actual ownership is a separate guard.
++  const left=clone(old),right=clone(next),unknown=['event://opaque/\u{1f600}','event://opaque/\uffff'];
++  for(const population of [left,right])population[0].contributions[0].provenanceRefs.push(...unknown,unknown[0]);
++  assert.ok(semantics.compareGovernanceDeclarationPublications(left,right));
++  right[0].contributions[0].provenanceRefs.pop();
++  assert.equal(semantics.compareGovernanceDeclarationPublications(left,right),null,'arbitrary reference multiplicity is not deduplicated');
+ });
+ 
+ // Complete original declaration/verified asset values are retained inputs.
+--- preimage/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ postimage/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -141,7 +141,12 @@
+ contracts, closures, rules, evaluators, policies, memberships and contribution
+ permissions. Only the declared artifact/content/manifest/descriptor/contribution
+ identity consequences may differ, and each is reconstructed under its actual
+-installed owner. No general digest-stripping comparison or compatible flag is
++installed owner. For the already canonical contribution provenance inventory,
++the private comparison substitutes only the exact artifact and manifest
++identities with their roles, then orders those resulting references by the
++existing canonical string order. It preserves all other references and their
++multiplicity; no other declaration array is reordered. No general
++digest-stripping comparison or compatible flag is
+ admitted. Changed declaration meaning refuses this arm. Changed implementation
+ behavior requires the separately selected Source acceptance; binding cover is
+ not a behavior-equivalence judgment.

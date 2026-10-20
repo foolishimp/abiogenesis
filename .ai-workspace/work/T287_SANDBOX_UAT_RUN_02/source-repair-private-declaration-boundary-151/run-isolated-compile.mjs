@@ -1,0 +1,18 @@
+import { readFileSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+const phase=dirname(fileURLToPath(import.meta.url));
+const compiler="/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js";
+const args=[compiler,"-p",join(phase,"tsconfig.isolated.json")];
+const started=new Date().toISOString();const begin=performance.now();
+const execution=spawnSync(process.execPath,args,{cwd:"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",encoding:"buffer",maxBuffer:16*1024*1024});
+const wallMs=performance.now()-begin;
+writeFileSync(join(phase,"commands/isolated-compile.stdout.log"),execution.stdout??Buffer.alloc(0));
+writeFileSync(join(phase,"commands/isolated-compile.stderr.log"),execution.stderr??Buffer.alloc(0));
+const sha=p=>createHash("sha256").update(readFileSync(p)).digest("hex");
+const receipt={kind:"isolated_strict_strip_declaration_compile",started,finished:new Date().toISOString(),executable:process.execPath,executableSha256:sha(process.execPath),args,compilerSha256:sha(compiler),status:execution.status,signal:execution.signal,error:execution.error?.message??null,wallMs,stdoutBytes:execution.stdout?.byteLength??0,stderrBytes:execution.stderr?.byteLength??0,normalBuild:false,canonicalGeneratedWrites:false,nativeModelEffects:false};
+writeFileSync(join(phase,"commands/isolated-compile.result.json"),JSON.stringify(receipt,null,2)+"\n");
+console.log(JSON.stringify(receipt));
+if(execution.error||execution.status!==0)process.exit(1);

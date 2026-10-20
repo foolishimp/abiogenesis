@@ -1,0 +1,79 @@
+--- captured-c84
++++ native-source-postimages-02
+@@ -1,4 +1,4 @@
+-import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, isValidationRuntimeEventPrefix, runtimeEventAtPrefix } from "./event_prefix.js";
++import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, isValidationRuntimeEventPrefix, runtimeEventAtPrefix, runtimeEventSelectorExtent } from "./event_prefix.js";
+ import type { RuntimeEventPrefix } from "./event_prefix.js";
+ import { isDeepStrictEqual } from "node:util";
+ import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_reacquisition.js";
+@@ -35,7 +35,8 @@
+   sourceJudgment: RuntimeEvent; sourceClosedEvent: RuntimeEvent }>;
+ type NativeTaskFact = Readonly<{ eventRef: string; payloadDigest: string; admissionOrdinal: number;
+   field: "rawInputValue" | "value"; taskDigest: string }>;
+-type NativeSourceFact = Readonly<{ workspaceId: string; sourceDigest: string; membershipDigest: string;
++type NativeSourceFact = Readonly<{ workspaceId: string; sourceDigest: string; sourceResultRef: string; sourceBasisRef: string;
++  relatedCount: number; relatedLastOrdinal: number; basisCount: number; basisLastOrdinal: number;
+   sourceJudgmentRef: string; sourceClosedEventRef: string }>;
+ /** @internal Product validation is retained once for the owned immutable task. Copies
+  * must match the whole established value, never merely its claimed digest. */
+@@ -80,27 +81,29 @@
+   const graphFunctionRef = source.task.assessment === undefined ? native.graphFunctionRef : native.assessmentGraphFunctionRef;
+   const implementationRef = native.implementationRef;
+   const implementationBindingRef = native.implementationBindingRef;
+-  const result = one(bodies(prefix, "related:" + source.provenance.cCallRef, "c_call_result_admitted"), e => e.aggregateId === source.provenance.cCallRef);
++  const facts = isOwnedRuntimeEventPrefix(prefix)
++    ? runtimePrefixComputation(prefix, NATIVE_SOURCE_PROOF, () => new Map<string, NativeSourceFact>()) : null;
++  const known = facts?.get(source.provenance.cCallRef);
++  const related = facts === null ? null : runtimeEventSelectorExtent(prefix, "related:" + source.provenance.cCallRef);
++  const knownBasis = known === undefined ? null : runtimeEventSelectorExtent(prefix, "basis:" + known.sourceBasisRef);
++  // This memo belongs to the authentic physical owner/generation. Exact append
++  // bucket versions establish unchanged membership without copying or hashing
++  // completed stdout/liveness rows. Changed versions rederive every predicate.
++  const unchanged = known !== undefined && related !== null && knownBasis !== null &&
++    known.relatedCount === related.count && known.relatedLastOrdinal === related.lastOrdinal &&
++    known.basisCount === knownBasis.count && known.basisLastOrdinal === knownBasis.lastOrdinal;
++  const result = unchanged ? runtimeEventAtPrefix(prefix, known.sourceResultRef) ?? null :
++    one(bodies(prefix, "related:" + source.provenance.cCallRef, "c_call_result_admitted"), e => e.aggregateId === source.provenance.cCallRef);
+   if (result === null || typeof result.basisId !== "string" || !record(result.payload) ||
+     result.graphFunctionRef !== graphFunctionRef || result.payload.contractRef !== native.observationContractRef ||
+     result.payload.resultClass !== "success" || !same(result.payload.value, source) ||
+     result.payload.valueDigest !== sha256Canonical(source as unknown as JsonValue) || !Array.isArray(result.payload.evidenceRefs)) return null;
+-  const facts = isOwnedRuntimeEventPrefix(prefix)
+-    ? runtimePrefixComputation(prefix, NATIVE_SOURCE_PROOF, () => new Map<string, NativeSourceFact>()) : null;
+-  // Immutable producer facts may survive unrelated append activity. Any change
+-  // in this producer's admitted evidence/closure membership forces derivation.
+-  const membership = new Map<string, EventEnvelope>();
+-  for (const row of [...envelopes(prefix, "related:" + result.aggregateId), ...envelopes(prefix, "basis:" + result.basisId)])
+-    if (row.aggregateId === result.aggregateId || row.basisId === result.basisId) membership.set(row.eventId, row);
+-  const membershipDigest = sha256Canonical([...membership.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal)
+-    .map(row => ({ eventRef: row.eventId, payloadDigest: row.payloadDigest, admissionOrdinal: row.admissionOrdinal })));
+-  const known = facts?.get(result.eventId);
+   const payload = result.payload;
+   const basis = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
+   if (basis === null || basis.graphFunctionRef !== graphFunctionRef || !same(basis.rawInputValue, source.task) ||
+     basis.workspaceBindingId !== source.task.workspaceBinding.bindingId || basis.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest) return null;
+-  if (known !== undefined && known.workspaceId === source.task.workspaceAuthorityBasis.workspaceId &&
+-      known.sourceDigest === payload.valueDigest && known.membershipDigest === membershipDigest) {
++  if (unchanged && known.workspaceId === source.task.workspaceAuthorityBasis.workspaceId &&
++      known.sourceDigest === payload.valueDigest && known.sourceBasisRef === result.basisId) {
+     const judgment = runtimeEventAtPrefix(prefix, known.sourceJudgmentRef), closed = runtimeEventAtPrefix(prefix, known.sourceClosedEventRef);
+     if (judgment !== undefined && closed !== undefined)
+       return Object.freeze({ sourceBasis: basis, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
+@@ -127,9 +130,14 @@
+     fibre.admissionOrdinal >= evidence.admissionOrdinal || evidence.admissionOrdinal >= result.admissionOrdinal ||
+     closed.admissionOrdinal <= judgment.admissionOrdinal) return null;
+   const value = Object.freeze({ sourceBasis: basis, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
+-  facts?.set(result.eventId, { workspaceId: source.task.workspaceAuthorityBasis.workspaceId,
+-    sourceDigest: payload.valueDigest as string, membershipDigest,
+-    sourceJudgmentRef: judgment.eventId, sourceClosedEventRef: closed.eventId });
++  if (facts !== null && related !== null) {
++    const basisExtent = runtimeEventSelectorExtent(prefix, "basis:" + result.basisId);
++    facts.set(source.provenance.cCallRef, { workspaceId: source.task.workspaceAuthorityBasis.workspaceId,
++      sourceDigest: payload.valueDigest as string, sourceResultRef: result.eventId, sourceBasisRef: result.basisId,
++      relatedCount: related.count, relatedLastOrdinal: related.lastOrdinal,
++      basisCount: basisExtent.count, basisLastOrdinal: basisExtent.lastOrdinal,
++      sourceJudgmentRef: judgment.eventId, sourceClosedEventRef: closed.eventId });
++  }
+   return value;
+ }
+ 

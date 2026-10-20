@@ -1,0 +1,17 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:46
+		default: throw new Error(message);
+		               ^
+
+Error: RegExp flags are not supported by JSON Schema.
+    at handleError (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:46:18)
+    at convertAction (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:302:44)
+    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:373:24)
+    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)
+    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)
+    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:394:23)
+    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:460:17)
+    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)
+    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)
+    at toJsonSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:580:21)
+
+Node.js v24.7.0

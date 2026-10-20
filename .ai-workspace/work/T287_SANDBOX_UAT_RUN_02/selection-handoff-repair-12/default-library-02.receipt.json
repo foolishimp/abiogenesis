@@ -1,0 +1,18 @@
+{
+  "command": "/opt/homebrew/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-default-library.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "environmentOverlay": {
+    "ABI5_DEFAULT_LIBRARY_LIVE": "0"
+  },
+  "startedAt": "2026-10-06T14:07:08.637Z",
+  "finishedAt": "2026-10-06T14:07:10.019Z",
+  "wallMs": 1381.973041,
+  "exit": 1,
+  "signal": null,
+  "streamsClosed": true
+}

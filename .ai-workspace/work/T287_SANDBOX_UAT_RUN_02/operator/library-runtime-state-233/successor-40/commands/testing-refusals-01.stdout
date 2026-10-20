@@ -1,0 +1,15 @@
+(node:99231) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ library prepare-testing reuses the invoking private operation and its actual F_D origin (112.665833ms)
+ℹ Canonical GTL leaf/descriptor binding with actual library preparation/matcher and cold F_D Result/J/evidence relations; physical constructors are real. Source/environment/cover/CCall and implementation-set lookups are controlled lower premises, not new native or installed admission.
+✔ library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards (50.103209ms)
+ℹ Actual library/task/native occurrence/declaration/closed-source code and physical context checks. Synthetic invocation-root plus source/environment/cover/CCall/set/terminal premises are controlled; the entered-refused callback case tests only its handoff contract. No installed Testing/C2, actual first-null or no-effects claim.
+✔ reacquisition publishes one ordinary F_D with existing C2 output and native owner semantics (5.763708ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 522.406459

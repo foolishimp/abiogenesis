@@ -1,0 +1,12 @@
+{
+  "stage": "catalog-admit27-grant-complete",
+  "rss": 4360601600,
+  "heapTotal": 4014080000,
+  "heapUsed": 3799764576,
+  "external": 2464560,
+  "arrayBuffers": 52253,
+  "at": "2026-10-09T07:42:32.269Z",
+  "elapsedMs": 218891.64125,
+  "ownerArtifactReceiptRetained": true,
+  "capabilities": 1
+}

@@ -1,0 +1,55 @@
+{
+  "checks": [
+    {
+      "name": "installed_inventory_identity",
+      "status": "not_established",
+      "error": "TypeError: qual.isQualificationInventory is not a function"
+    },
+    {
+      "name": "canonical_manifest_and_native_preview",
+      "status": "pass",
+      "detail": {
+        "canonical": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+        "file": "sha256:ccae3c530199a813bc943f8d07a0cf90ee89e3201839082c2df6744ae57e9518",
+        "auxiliaryConfiguration": "sha256:c8a694ddb749b3f8e2aa7c76afacf2e074b9b15ab12411b0dca8eb877037f8b1"
+      }
+    },
+    {
+      "name": "unknown_native_slots_remain_unready",
+      "status": "pass",
+      "detail": {
+        "nativeSlots": null,
+        "executionSelectionRefPresent": false,
+        "isQualificationBasisReady": false,
+        "limit": "Template has no ready basis identity; null-native guard is also visible directly in owner source. No future task or fabricated native tuple constructed."
+      }
+    },
+    {
+      "name": "recipe_shape_and_identity",
+      "status": "not_established",
+      "error": "Error: Recipe schema export not selected automatically; owner exports: "
+    },
+    {
+      "name": "selectedFiles_pure_input_population",
+      "status": "pass",
+      "detail": {
+        "files": 716,
+        "uniqueTargets": true,
+        "allBodiesVerified": true,
+        "protectedOwnerMetadata": true,
+        "physicalStagingPerformed": false,
+        "sample": {
+          "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "target": "subject/code/src/abg/actor_process.ts",
+          "bytes": 59021,
+          "digest": "sha256:904103fed326cfbbf6fdbb2e9cbf5bcc7e171a4558cad5b5403e66609619fbc3"
+        }
+      }
+    },
+    {
+      "name": "current_publication_constructors",
+      "status": "not_established",
+      "error": "TypeError: Cannot read properties of undefined (reading 'trim')"
+    }
+  ]
+}

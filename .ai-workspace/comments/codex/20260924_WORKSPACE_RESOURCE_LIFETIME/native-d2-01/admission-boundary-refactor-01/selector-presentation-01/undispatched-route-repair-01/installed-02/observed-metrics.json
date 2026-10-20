@@ -1,0 +1,180 @@
+{
+  "scope": "observations from existing process/owner/provider outputs; no causal performance benchmark",
+  "processes": {
+    "setup": {
+      "exitCode": 0,
+      "elapsedSeconds": 69.49730362510309,
+      "maximumRss": 3561422848,
+      "resultPath": "preparation/process-result.json",
+      "stderrPath": "preparation/process.stderr"
+    },
+    "witness": {
+      "exitCode": 0,
+      "elapsedSeconds": 41.81060112500563,
+      "maximumRss": 1954414592,
+      "resultPath": "witness-01/process-02-result.json",
+      "stderrPath": "witness-01/process-02.stderr"
+    },
+    "intake": {
+      "exitCode": 0,
+      "elapsedSeconds": 87.52431720774621,
+      "maximumRss": 2616311808,
+      "resultPath": "intake-01/process-result.json",
+      "stderrPath": "intake-01/process.stderr"
+    },
+    "intakeReadback": {
+      "exitCode": 0,
+      "elapsedSeconds": 74.18958841683343,
+      "maximumRss": 1289289728,
+      "resultPath": "intake-01/readback-02-process-result.json",
+      "stderrPath": "intake-01/readback-02.stderr"
+    },
+    "suffixPreparation": {
+      "exitCode": 0,
+      "elapsedSeconds": 54.9776207911782,
+      "maximumRss": 3508207616,
+      "resultPath": "suffix-01/prepare-process-result.json",
+      "stderrPath": "suffix-01/prepare.stderr"
+    },
+    "suffix": {
+      "exitCode": 0,
+      "elapsedSeconds": 54.347715582698584,
+      "maximumRss": 2499051520,
+      "resultPath": "suffix-01/process-result.json",
+      "stderrPath": "suffix-01/process.stderr"
+    },
+    "suffixReadback": {
+      "exitCode": 0,
+      "elapsedSeconds": 78.09632658399642,
+      "maximumRss": 1299775488,
+      "resultPath": "suffix-01/readback-process-result.json",
+      "stderrPath": "suffix-01/readback.stderr"
+    },
+    "suffixEvidenceRead": {
+      "exitCode": 0,
+      "elapsedSeconds": 38.3282556659542,
+      "maximumRss": 1277247488,
+      "resultPath": "suffix-01/evidence-process-result.json",
+      "stderrPath": "suffix-01/evidence.stderr"
+    }
+  },
+  "receipts": {
+    "intake": {
+      "run": {
+        "digest": "sha256:dea7276802cf397491674f8f6976bdd2dc36cbc7a83c91ecd53c31705f4ff52c",
+        "ref": "run://abiogenesis/60e3adcffd3f7567366326b67b70067a569d184eab2c7e812d4473adc6fe9783"
+      },
+      "disposition": "completed",
+      "close": {
+        "coordinateDigest": "sha256:2ee4b82a8ac0bbbf0ba2f0e9f9fd23a809401834bd56e719d8d2aacde5ec6df0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:47a7b0324ee6d81657fe886f69d6129ce9eccf943f4c2f9184fa51fd1e8bfa57",
+        "prefixLength": 140376671,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+          "inode": 459405010
+        }
+      },
+      "terminalResult": {
+        "result": {
+          "digest": "sha256:0d7dd220fdbfdbc8e3e77f3e678d03ce8c3f140816ada6feffeabb497102e0ba",
+          "ref": "result://abiogenesis/0d7dd220fdbfdbc8e3e77f3e678d03ce8c3f140816ada6feffeabb497102e0ba"
+        },
+        "valueDigest": "sha256:f3e43b6f531e4c6bc886b5eebff29e6feced9770e6eb3438227eae38f0cb0a4a",
+        "valueKind": "semantic_revision_request",
+        "selectionChoice": {
+          "mode": "stage_revision",
+          "selectedStageRef": "stage://odd-glc/generic-lifecycle/requirements@5"
+        }
+      },
+      "receiptPath": "intake-01/live-receipt.json",
+      "receiptSha256": "0c6b453d0582b7d1603575f227d5de9bf113820aba02566cc6e888f47b795f52"
+    },
+    "suffix": {
+      "run": {
+        "digest": "sha256:195d468d18a1b9a4f532920c669608a37a4e4b5d987120a439575689699f1584",
+        "ref": "run://abiogenesis/b76fe903f83521c53861db4529d8f8308dbef08ac275eeea5af22c17c1618b27"
+      },
+      "disposition": "runtime_failed",
+      "close": {
+        "coordinateDigest": "sha256:f2a057e92243947d6f1b50bf08dff487c678e7b73a4df8ea7a118dcf319705db",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:06f7e38e20b0ae99bfaf5e0c0608172e4466ab834b742b9050d4e29f5d006eaa",
+        "prefixLength": 142924635,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+          "inode": 459405010
+        }
+      },
+      "terminalResult": null,
+      "receiptPath": "suffix-01/live-receipt.json",
+      "receiptSha256": "58a314e73ec110dd71f4ff62e8997e7c396b45422f868b1276ab3452e82e3ee5"
+    }
+  },
+  "provider": {
+    "model": "claude-opus-5-5",
+    "provider": "firstParty",
+    "effortSelection": "xhigh",
+    "actorOccurrences": 1,
+    "suffixActorOccurrences": 0,
+    "promptBytes": 433455,
+    "durationMs": 31502,
+    "apiMs": 22092,
+    "reportedListCostUsd": 1.5064104,
+    "billingClaim": false,
+    "providerTurns": 2,
+    "inputTokens": 2,
+    "cacheCreationInputTokens": 183717,
+    "cacheReadInputTokens": 2532,
+    "outputTokens": 1808
+  },
+  "firstCause": {
+    "class": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+    "stage": "preparation",
+    "reason": "thrown",
+    "message": {
+      "cause": "unavailable_required_content",
+      "kind": "native_instruction_assembly_refusal",
+      "policy": "policy://odd-glc/fresh-native-lifecycle/author/selection@5",
+      "role": "author",
+      "unresolvedRefs": [
+        "full_source",
+        "declared_predecessor_semantics",
+        "active_binding_semantics",
+        "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+        "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md"
+      ]
+    },
+    "cCallRef": "c-call:sha256:f22b7fb779f6d37c90c5923821f31f1057048edede66621a043c9c3f2754ff58",
+    "evidenceRef": "evidence://abiogenesis/7c374b8074da5bc3c55bfb250cd3d5ad9efe404e2e5c07097f6b57c24080ade6",
+    "admissionEventRef": "event://abiogenesis/d6925c8480bf720faed16eee9c688ee456acca6e92ce5c8ed68c2339044d4ec2",
+    "subjectDigest": "sha256:a932e46619de88cc4d414635e620950a16d1f764b903e8388aa30a435c9ff469"
+  },
+  "controls": {
+    "command": [
+      "/usr/bin/time",
+      "-l",
+      "node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/suffix-01/run.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/suffix-01/native-prepared.json"
+    ],
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maximumActorOccurrences": 12,
+    "usdPerOccurrence": 5,
+    "idleMs": 300000,
+    "absoluteMs": 900000,
+    "graceMs": 1000,
+    "nativeMs": 5400000,
+    "readbackMs": 600000,
+    "defaultHeap": true,
+    "automaticRetry": false,
+    "boundScope": "unchanged selected upper ceiling, not an observed or resolved actor count"
+  }
+}

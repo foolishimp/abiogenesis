@@ -1,0 +1,29 @@
+{
+  "status": "STOPPED_before_build",
+  "at": "2026-10-08T09:04:58.549190+00:00",
+  "origin": "Proof-local preimage pin helper, Python stdin line5 called relative_to(repo) for an external build control.",
+  "failure": {
+    "type": "ValueError",
+    "message": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' is not in the subpath of '/Users/jim/src/apps/abiogenesis'",
+    "processExitCode": 1
+  },
+  "actualControl": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "byteCount": 86104016
+  },
+  "ownerInventory": "operator/crosscut-command-budget-build-75/pre-build.json buildControlPins",
+  "beforeFailure": "Accepted89 and source263/one declared change were inspected; generated934 rows read.",
+  "effects": [
+    "New empty94 phase directory only."
+  ],
+  "notExecuted": [
+    "Normal build",
+    "Generator",
+    "Pack",
+    "Install",
+    "Runtime/model"
+  ],
+  "recommendation": "Report local labels may use absolute literal paths for existing external controls; preserve absolute authoritative path/hash/size unchanged. Root selects procedure correction.",
+  "activeCommand": null
+}

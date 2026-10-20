@@ -1,0 +1,11 @@
+{
+  "RootSelection": "Root selected167 second test-only correction: existing ProductEnvironmentPort.resolve on same complete frozen verified artifacts, then exact164 lock coordinate equality; no manual closure digest construction or guard weakening.",
+  "scope": "Pure canonical resolution over recorded typed artifact values; no live nominal verifier receipt or physical currentness/admission credit. No verifyProduct/resource/transport.",
+  "preservedFailure": [
+    "commands/canonical-preflight-02.result.json",
+    "commands/canonical-preflight-02.stderr",
+    "failed-preflight/preflight-02.mjs",
+    "second-preflight-cause.json"
+  ],
+  "nextRecorderSuffix": "canonical-preflight-03"
+}

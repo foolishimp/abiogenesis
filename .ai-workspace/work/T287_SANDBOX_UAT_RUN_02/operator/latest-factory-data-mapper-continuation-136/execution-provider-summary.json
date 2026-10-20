@@ -1,0 +1,596 @@
+{
+  "observedAt": "2026-10-09T00:00:13.125751+00:00",
+  "closedActors": [
+    {
+      "actorOrdinalIn136": 1,
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "bindingEvent": {
+        "ordinal": 179598,
+        "offset": 1421132103,
+        "byteCount": 1526608,
+        "sha256": "10111049aefed634144c12333915e85ff553646434183bac8b4fb8b8f6b3224a"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-66b175cd1c5f1766-prompt.txt",
+        "byteCount": 722105,
+        "sha256": "b75699fd92274cee14608eca90e1a427dfee8df78068f97044ec725247c7c03b"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-66b175cd1c5f1766-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-66b175cd1c5f1766-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 0
+      },
+      "provider": {
+        "duration_ms": 237141,
+        "duration_api_ms": 226976,
+        "num_turns": 2,
+        "total_cost_usd": 3.1902999999999997,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 360309,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 15391,
+          "output_tokens_details": {
+            "thinking_tokens": 5160
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 360309,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 2,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "bindingEvent": {
+        "ordinal": 180618,
+        "offset": 1436033481,
+        "byteCount": 7516982,
+        "sha256": "40c7913164a998843fe3e7c404834afc5a9ee4e64147732602cc13ed2157db06"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-22c3efcb2e96ae00-prompt.txt",
+        "byteCount": 1795689,
+        "sha256": "c465164b8de9cb6d0e8a3a57169ba6ff97ac83bf584411248d90d46b976690cf"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-22c3efcb2e96ae00-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-22c3efcb2e96ae00-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 18
+      },
+      "provider": {
+        "duration_ms": 337221,
+        "duration_api_ms": 276020,
+        "num_turns": 21,
+        "total_cost_usd": 11.300892200000003,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 34,
+          "cache_creation_input_tokens": 989658,
+          "cache_read_input_tokens": 13197266,
+          "output_tokens": 19803,
+          "output_tokens_details": {
+            "thinking_tokens": 10997
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 989658,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 3,
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "bindingEvent": {
+        "ordinal": 183943,
+        "offset": 1470086082,
+        "byteCount": 1549878,
+        "sha256": "7009506c5bce149917227e784114370e29f75b7600d6934ac2c9bf82d00181d0"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-640b8887cf0186dc-prompt.txt",
+        "byteCount": 733175,
+        "sha256": "190d2e26716293253023febb586b20cdbf461de8c92c8fbb20f59786e066b696"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-640b8887cf0186dc-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-640b8887cf0186dc-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 0
+      },
+      "provider": {
+        "duration_ms": 140523,
+        "duration_api_ms": 130176,
+        "num_turns": 2,
+        "total_cost_usd": 3.165884,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 364877,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 12343,
+          "output_tokens_details": {
+            "thinking_tokens": 2305
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 364877,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 4,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "bindingEvent": {
+        "ordinal": 188267,
+        "offset": 1497536375,
+        "byteCount": 4918670,
+        "sha256": "105dcebde7430e17326cf865795725f888f5135108460c6e08cca281c7102e4e"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-d3251939670f4910-prompt.txt",
+        "byteCount": 34054,
+        "sha256": "5773d57732920a8e3f8544c9100db3ddf1cf2d01251bcb74d5fe1711e9ce9cec"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-d3251939670f4910-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-d3251939670f4910-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 1
+      },
+      "provider": {
+        "duration_ms": 77431,
+        "duration_api_ms": 10158,
+        "num_turns": 3,
+        "total_cost_usd": 0.3435556,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 4,
+          "cache_creation_input_tokens": 39555,
+          "cache_read_input_tokens": 38598,
+          "output_tokens": 969,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 39555,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 5,
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "bindingEvent": {
+        "ordinal": 188608,
+        "offset": 1523310606,
+        "byteCount": 1604352,
+        "sha256": "cb8d44166a72cc759d80d15f113c57d55f1b5fac7bc74b43f3323133e4b4e481"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c4a63dc113b700b1-prompt.txt",
+        "byteCount": 759327,
+        "sha256": "6e2c3eb36b8021393f6e88f4ad8363e49c5a472f383c848002101cbf6435efc5"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c4a63dc113b700b1-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c4a63dc113b700b1-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 0
+      },
+      "provider": {
+        "duration_ms": 149692,
+        "duration_api_ms": 139354,
+        "num_turns": 2,
+        "total_cost_usd": 3.28614,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 379234,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 12613,
+          "output_tokens_details": {
+            "thinking_tokens": 2133
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 379234,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 6,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "bindingEvent": {
+        "ordinal": 193342,
+        "offset": 1550737524,
+        "byteCount": 7904307,
+        "sha256": "2fe747dd9afaa2e52709054184cf7dd48ec870ad775d17d889bf7147f047fbec"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-acd9278710993e32-prompt.txt",
+        "byteCount": 1920987,
+        "sha256": "a24645baa0e6b0e3361c81186ea63cebcefd989abaad9718cae7efda8235957f"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-acd9278710993e32-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-acd9278710993e32-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 16
+      },
+      "provider": {
+        "duration_ms": 277054,
+        "duration_api_ms": 216953,
+        "num_turns": 19,
+        "total_cost_usd": 8.8874506,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 30,
+          "cache_creation_input_tokens": 1016515,
+          "cache_read_input_tokens": 480653,
+          "output_tokens": 15808,
+          "output_tokens_details": {
+            "thinking_tokens": 5173
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 1016515,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 7,
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "bindingEvent": {
+        "ordinal": 196164,
+        "offset": 1584214351,
+        "byteCount": 1625517,
+        "sha256": "544d7c64552117e4051a6877ffe2901ff1355a5206e5d4f5043a57c708f8261f"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-8ef3495ef163ca4e-prompt.txt",
+        "byteCount": 769350,
+        "sha256": "f372b6e253730065486f22864e2e33dec525c0c3a421b3532e7d51321075731c"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-8ef3495ef163ca4e-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-8ef3495ef163ca4e-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 0
+      },
+      "provider": {
+        "duration_ms": 138954,
+        "duration_api_ms": 128716,
+        "num_turns": 2,
+        "total_cost_usd": 3.311968,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 383970,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 12010,
+          "output_tokens_details": {
+            "thinking_tokens": 1413
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 383970,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 8,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "bindingEvent": {
+        "ordinal": 200746,
+        "offset": 1613208544,
+        "byteCount": 5049644,
+        "sha256": "4770c8efe1e8f164aa935b2e7ab8387737820e7c86e9351895d5a4ea078df772"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b2e80ead28ec511d-prompt.txt",
+        "byteCount": 34054,
+        "sha256": "cbad625f34bd23883ab4c3190ff57a7b3ad66f830cfddc4bca81eb0af630c900"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b2e80ead28ec511d-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-b2e80ead28ec511d-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 1
+      },
+      "provider": {
+        "duration_ms": 72432,
+        "duration_api_ms": 10214,
+        "num_turns": 3,
+        "total_cost_usd": 0.34363520000000003,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 4,
+          "cache_creation_input_tokens": 39479,
+          "cache_read_input_tokens": 38536,
+          "output_tokens": 1004,
+          "output_tokens_details": {
+            "thinking_tokens": 43
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 39479,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 9,
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "bindingEvent": {
+        "ordinal": 201065,
+        "offset": 1639610766,
+        "byteCount": 1679811,
+        "sha256": "565608cb9d649b9e6028d56a8ae5f949e0fa589348600576ba9fdedb9cfa4575"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-092c6f8b62df5e1f-prompt.txt",
+        "byteCount": 795411,
+        "sha256": "9254dbba433e6b3e7f40143601c449816ff36a085bb3d7d6d9efa8ec27162127"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-092c6f8b62df5e1f-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-092c6f8b62df5e1f-transport.json",
+      "transport": {
+        "disposition": "success",
+        "status": 0,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": null,
+        "toolCallCount": 0
+      },
+      "provider": {
+        "duration_ms": 159693,
+        "duration_api_ms": 149488,
+        "num_turns": 2,
+        "total_cost_usd": 3.459352,
+        "is_error": false,
+        "terminal_reason": "completed",
+        "api_error_status": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 397938,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 13792,
+          "output_tokens_details": {
+            "thinking_tokens": 2060
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 397938,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "not_available",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    },
+    {
+      "actorOrdinalIn136": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "bindingEvent": {
+        "ordinal": 206223,
+        "offset": 1669036148,
+        "byteCount": 8251531,
+        "sha256": "8a9a276bc8b00baaa38aaa48528b34849a7afc1c487ce97a7bdc64265977da06"
+      },
+      "prompt": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-prompt.txt",
+        "byteCount": 2033265,
+        "sha256": "da443ccd9c2a4941cc33e0200423e41801b7fad58419d0983d6e68b655f46b9c"
+      },
+      "stdoutPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-stdout.log",
+      "transportPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-transport.json",
+      "transport": {
+        "disposition": "failure",
+        "status": 1,
+        "signal": null,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "exitObserved": true,
+        "failureClass": "transport_failure",
+        "toolCallCount": 0
+      },
+      "provider": {
+        "duration_ms": 10393,
+        "duration_api_ms": 0,
+        "num_turns": 1,
+        "total_cost_usd": 0,
+        "is_error": true,
+        "terminal_reason": "prompt_too_long",
+        "api_error_status": 400,
+        "usage": {
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "input_tokens": 0,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 0,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard",
+          "fallback_credit": null
+        }
+      }
+    }
+  ],
+  "totals": {
+    "actors": 10,
+    "successfulTransports": 9,
+    "failedTransports": 1,
+    "reportedProviderWallMs": 1600534,
+    "reportedAPIWallMs": 1288055,
+    "reportedTurns": 57,
+    "reportedCostUSD": 37.2891776
+  },
+  "failedProviderStreamEvents": [],
+  "limits": "Actual provider-reported timings/usage/cost; cumulative provider wall is not CLI elapsed or command CPU. Actor10 API400 has no tokens/tools; no retry. Prompt sizes are lane observations, not new caps or semantic adequacy."
+}

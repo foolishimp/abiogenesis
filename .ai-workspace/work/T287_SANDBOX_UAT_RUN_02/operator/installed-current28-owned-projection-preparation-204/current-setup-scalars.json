@@ -1,0 +1,32 @@
+{
+  "installations": [
+    {
+      "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54/6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3",
+      "digest": "sha256:c6597bb0748938b3ccce6666b74c7a2a24469c7efadf302089826d227656b3d5"
+    },
+    {
+      "ref": "product-install://@abi5-tests/sandbox-uat/5.0.0/98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c/6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3",
+      "digest": "sha256:33352cb5469f935a192f75a2a3d8dda7af96420815fc45680f1ba322f23c936c"
+    }
+  ],
+  "resolvedLock": {
+    "ref": "product-lock://abiogenesis/6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3",
+    "digest": "sha256:6e8897386c3d5168ca717e2d0f6a5114b63807ba424cd42dcbf6a46e9803eac3"
+  },
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/6879bb901b634fc2ca8f7ff45e75cb1af3ef3b29356f65b57af01f68d9f6fcf7",
+    "digest": "sha256:6879bb901b634fc2ca8f7ff45e75cb1af3ef3b29356f65b57af01f68d9f6fcf7"
+  },
+  "catalog": {
+    "ref": "graph-function-catalog://abiogenesis/04fd3bc35441e1c06191fb8251926bde99f8a44e6bf880c297dd3d47297dd236",
+    "digest": "sha256:04fd3bc35441e1c06191fb8251926bde99f8a44e6bf880c297dd3d47297dd236"
+  },
+  "view": {
+    "ref": "graph-function-catalog-view://abiogenesis/de0c9b5aa7f83b02c63bcac2bb176940fb5b790ce38b5e4ecdc88547cfd83c28",
+    "digest": "sha256:de0c9b5aa7f83b02c63bcac2bb176940fb5b790ce38b5e4ecdc88547cfd83c28"
+  },
+  "program": "program://abi5-tests/sandbox-uat/lifecycle@5",
+  "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+  "currentNativeOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current28-owned-projection-preparation-204/installed-current28/node_modules/@abiogenesis/typescript-tenant",
+  "meaning": "Documentary coordinates only; complete declarations remain actual owner-created and admitted, not reconstructed from this recording"
+}

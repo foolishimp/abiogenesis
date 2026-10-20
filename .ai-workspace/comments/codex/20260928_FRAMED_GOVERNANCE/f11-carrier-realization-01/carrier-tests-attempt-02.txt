@@ -1,0 +1,33 @@
+✔ closed resource forms retain nonempty group arrays and actual old embedded identities (1181.425791ms)
+ℹ {"members":1950,"rules":2137,"domains":187,"domainGroups":777,"distinctPartitions":54,"referenceSets":517}
+✔ full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired (1692.83175ms)
+✔ missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used (2014.424292ms)
+✔ Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies (590.025917ms)
+✔ selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates (1901.298208ms)
+ℹ {"semanticInputBytes":42779,"oldInputBytes":67784040,"assertionBytes":27312606,"normalizedScopeBytes":2051550,"inventoryBytes":870019,"promptBytes":1021244,"judgmentBytes":45279,"baselineMs":1193.3273330000002,"preparedMs":248.49254099999962,"normalizationAcquisitionMs":629.4765420000001,"measurement":"pure fixture process only; no installed admission, memory or speed claim","semanticQualification":"open"}
+✔ fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints (830.265708ms)
+✖ full F11 input and scope output keep compact identities and whole-scope blocked findings (248.636417ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8755.424416
+
+✖ failing tests:
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-carrier-resource.test.mjs:132:1
+✖ full F11 input and scope output keep compact identities and whole-scope blocked findings (248.636417ms)
+  TypeError [Error]: qualification_tenant_identity
+      at QualificationResources.validateEntry (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification_resources.js:97:27)
+      at new QualificationResources (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification_resources.js:45:22)
+      at acquireQualificationResources (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification_resources.js:203:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-carrier-resource.test.mjs:135:18)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

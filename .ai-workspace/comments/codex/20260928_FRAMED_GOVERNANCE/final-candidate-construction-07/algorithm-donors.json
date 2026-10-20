@@ -1,0 +1,102 @@
+[
+  {
+    "path": "final-controls/prepare.py",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/prepare.py",
+    "donorBytes": 11711,
+    "donorSHA256": "22c1dd24551d0d8a898b8cee90573518aecc1fb887e90d6e234f626aff77ead5",
+    "postimageBytes": 11785,
+    "postimageSHA256": "9207ba28c33d33c643ad6592bbd826ab23a77da0d367fdf8e4d3ed4a2a085cf4",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/execute.py",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/execute.py",
+    "donorBytes": 6182,
+    "donorSHA256": "ecadf948bc92a760571d680a4960e577fc64d9b6800ccb578a33bcba70d2b0d3",
+    "postimageBytes": 6182,
+    "postimageSHA256": "3ba9b195da050ad57a7dc31c6ee942b4180df98a812f11e6e1b58486060b7959",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/run-build.py",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/run-build.py",
+    "donorBytes": 1236,
+    "donorSHA256": "bdec6da11043bcafbc2511861977c39d260b157a07be9661f48edde199d3ccb8",
+    "postimageBytes": 1236,
+    "postimageSHA256": "bdec6da11043bcafbc2511861977c39d260b157a07be9661f48edde199d3ccb8",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/run-package.py",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/run-package.py",
+    "donorBytes": 1203,
+    "donorSHA256": "6db24cceccb593640e4be4ad7312fc8ba54d8c7594568a556c330095c1313f0d",
+    "postimageBytes": 1203,
+    "postimageSHA256": "6db24cceccb593640e4be4ad7312fc8ba54d8c7594568a556c330095c1313f0d",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/correspondence.py",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/correspondence.py",
+    "donorBytes": 8067,
+    "donorSHA256": "3caedc22a90de05d2c95b962ef5a6c1285e4c3e823bd8c0a5deafb2bc95374b4",
+    "postimageBytes": 8067,
+    "postimageSHA256": "e2cb1734b818593eb2b4bad59742c2a2ea2c49912ff23d4fe3b95834b81917cd",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/verify-installed.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/verify-installed.mjs",
+    "donorBytes": 5911,
+    "donorSHA256": "725e788eae980dac0bc31844b58924fe7299b88abcb8fd3f9b6b0e15bf5e2ed9",
+    "postimageBytes": 5911,
+    "postimageSHA256": "5f96c8e763357289157911c185c57123145912e4d062dacd142552e15e3a9749",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/validate-installed-publications.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/validate-installed-publications.mjs",
+    "donorBytes": 4520,
+    "donorSHA256": "02ba42494e649374d0de62cf2bc9b600a3f2bf6ed85f17e42e605b45f8b9d736",
+    "postimageBytes": 4520,
+    "postimageSHA256": "1b19e3fd6bfe9b0b60fc58e3c6ee09d014e32a28b656520bbe357f7e89b8a0a7",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/prepare-wrapper-comparison.py",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/prepare-wrapper-comparison.py",
+    "donorBytes": 4463,
+    "donorSHA256": "34fdfb0925f737398871503ca7c0119ff0fcc2648c19fb0d57d0ac44bf6369bd",
+    "postimageBytes": 4463,
+    "postimageSHA256": "bc2a81f60d7482f82d9b7ed2e196b0ab6b6b029c0c9644fa1541a7ccc6a6f737",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/compare-wrapper.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/compare-wrapper.mjs",
+    "donorBytes": 6426,
+    "donorSHA256": "5484b6f0938990592af3becfbba321464f90d35c4c6fa90d2a5a23fd5546fc52",
+    "postimageBytes": 6426,
+    "postimageSHA256": "59bbad115f16d6483363510c7541d00dd0db30b17ebb2a7fa23669eee4686179",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  },
+  {
+    "path": "final-controls/finalize.py",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/finalize.py",
+    "donorBytes": 16266,
+    "donorSHA256": "3f01583ed3467a5874ccaa57476c8818a4c5e782962582e451a3ee0907796631",
+    "postimageBytes": 16266,
+    "postimageSHA256": "96492347aa814953a7ca32a013577e5aaa42c3adf370cdfd0c843635e893bf5e",
+    "sourceAuthor": "Original accepted C06 construction/correspondence algorithms; not implementation source",
+    "currentCopyBuildActor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07"
+  }
+]

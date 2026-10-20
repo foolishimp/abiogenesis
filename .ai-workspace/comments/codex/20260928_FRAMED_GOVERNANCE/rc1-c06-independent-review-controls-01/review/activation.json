@@ -1,0 +1,22 @@
+{
+  "operation": "T287_RC1_C06_CONSTRUCTION_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent nonauthor construction Reviewer",
+  "previousRole": "T287_F11_FP_REPAIRED_SOURCE_ASSURANCE_01 CLOSED; no carried mutation grant",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-independent-review-controls-01/request.txt",
+  "grantBytes": 3091,
+  "grantSHA256": "f766947855616acfb7b9a3d88fd1e0e735c34f146e6c3dcf61a78b52a5fcac9f",
+  "subjectFreeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+  "subjectFreezeSHA256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+  "selectedFrame": "f-end-to-end-interface-integration + Identity/NativeDefinition/Proof/Effects/Reuse/Cost",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-independent-review-controls-01/review only",
+  "literalAC": {
+    "path": "a_c.literal.txt",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "exactBytesNoAppendedNewline": true
+  },
+  "readOnlySourceCandidateRuntime": true,
+  "reportOnlyWrites": true,
+  "activatedAt": "2026-10-02T06:10:44.505306+00:00"
+}

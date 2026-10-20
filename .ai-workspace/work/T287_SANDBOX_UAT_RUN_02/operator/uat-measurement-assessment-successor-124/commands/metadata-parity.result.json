@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/metadata-parity.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T17:06:26.792Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 19288.865334000002,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"nativeClosures\":15,\"nativeLocatorRows\":50,\"nativeTypedContractDigestsRecomputed\":23,\"publicCatalogOwnerBindingComplete\":true,\"publicProposalRows\":21,\"capabilityDifferenceCount\":310,\"capabilityDifferenceKeyCounts\":{\"graphDigest\":1,\"capabilityDefinitionDigest\":34,\"capabilityDefinitionRef\":34,\"productContentDigest\":241},\"allDeclarationBytesUnchanged\":true,\"noSourceSemanticOrRuntimeClaim\":true}\n",
+  "stderr": ""
+}

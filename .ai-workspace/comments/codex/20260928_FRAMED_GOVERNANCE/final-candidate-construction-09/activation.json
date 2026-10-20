@@ -1,0 +1,46 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+  "phase": "exact_typed_source_successor",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T15:10:51.562545+00:00",
+  "allSevenSectionsReadAndJoined": true,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/request.txt",
+    "bytes": 3288,
+    "sha256": "b9829067cf0a9ad2dc8a030abee74dfb99cf215c599ad36a565f3eaf17e12b59"
+  },
+  "operationBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/operation-basis.json",
+    "bytes": 2008,
+    "sha256": "adc8cb93426b08877e44ea6484acf5e532ba73f182b54365d1ab308b20a2206b"
+  },
+  "operativeSourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-source-acceptance-c09-release-01/acceptance.json",
+    "bytes": 3845,
+    "sha256": "b2da513f06c07e2c8606c61488bf27e6a63689ab47a17419382c76cbdd96b275"
+  },
+  "operativeSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+    "bytes": 1436,
+    "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+    "mode": 420
+  },
+  "preparedPendingFieldIsHistoricalNotOperative": true,
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-cut.json",
+    "bytes": 26506590,
+    "sha256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+    "mode": 420
+  },
+  "acceptedBuilder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-freeze.json",
+    "bytes": 384148,
+    "sha256": "5e9fd780078b081d83ae598a9e05ac84c58648b90e84324209305cbf8058f14b",
+    "mode": 420
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09",
+  "priorRolesClosed": true,
+  "constructionOnlyNoSourceRuntimeProviderGitNetwork": true
+}

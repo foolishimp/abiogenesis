@@ -1,0 +1,51 @@
+[
+  {
+    "id": "@abi5-tests/sandbox-uat@5.0.0",
+    "name": "@abi5-tests/sandbox-uat",
+    "version": "5.0.0",
+    "size": 6201,
+    "unpackedSize": 34490,
+    "shasum": "0ccee1259da4980a0f0cc34f12075c06eb95c7d8",
+    "integrity": "sha512-89ApJsr4hD6ceVh7HRs8IR/2yMW6sj1r+NxBgT2XcJBEXueneuHztV0WeDmxxDYGk5xmgYjBOJmyBGisH6Pg8Q==",
+    "filename": "abi5-tests-sandbox-uat-5.0.0.tgz",
+    "files": [
+      {
+        "path": "build/publication.json",
+        "size": 27497,
+        "mode": 420
+      },
+      {
+        "path": "build/semantics.mjs",
+        "size": 757,
+        "mode": 420
+      },
+      {
+        "path": "contracts/assessment.schema.json",
+        "size": 462,
+        "mode": 420
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "size": 247,
+        "mode": 420
+      },
+      {
+        "path": "contracts/public-contract-catalog.schema.json",
+        "size": 75,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 588,
+        "mode": 420
+      },
+      {
+        "path": "product-toolchain-manifest.json",
+        "size": 4864,
+        "mode": 420
+      }
+    ],
+    "entryCount": 7,
+    "bundled": []
+  }
+]

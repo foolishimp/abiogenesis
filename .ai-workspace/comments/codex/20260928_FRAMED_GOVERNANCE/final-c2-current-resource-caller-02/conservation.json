@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "closedDonorCuts": [
+    {
+      "directory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01",
+      "freezeSHA256": "9949f56817f7f1f4bfca2a564e6de81146b9afedfde5698f573519500227efb8",
+      "recordsVerified": 86
+    },
+    {
+      "directory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02",
+      "freezeSHA256": "a4c2b5afd94fd7402b6bbfc732e691eb345dbcf4334a0300de490f607b9aad79",
+      "recordsVerified": 82
+    },
+    {
+      "directory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01",
+      "freezeSHA256": "5b705555a5ebd9a58e0402667a0f31f9256e3e3ce643930f065d33bee34650f6",
+      "recordsVerified": 44
+    },
+    {
+      "directory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-review-01",
+      "freezeSHA256": "dcc50dcc635d9ac4184945afe74bffabfd9db59d4b4fa01b651a5b4487e803b5",
+      "recordsVerified": 8
+    }
+  ],
+  "N04RetainedDonors": [
+    {
+      "path": "final-native-continuation-04/retained-environment.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 39264325,
+      "sha256": "6bfd866bd6575620d76c15f3a5eb268131ffec72ca17d66c55ef023595681518"
+    },
+    {
+      "path": "final-native-continuation-04/runtime-slots.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3566147,
+      "sha256": "103d930c8f33f793a23db63e0c3cd70a8d736d5ddd0f56b85d46b62efe6c2f7c"
+    }
+  ],
+  "C02": "Accepted frozen16774-member candidate reused; freeze hash and ten exact causal source members freshly verified, no broad requalification",
+  "preimagesAndPatches": "Exact donor bytes and all five unified patches verified",
+  "actualResource": {
+    "device": 16777230,
+    "inode": 464012478,
+    "bytes": 5577377,
+    "sha256": "e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+    "events": 84,
+    "lockAbsent": true,
+    "futureContextAbsent": true
+  },
+  "original716Files": "all lengths/digests/canonical regular identities checked again after offline work",
+  "selectedGroups": 5,
+  "writesOutsideTerritory": 0,
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "driverImportsOrExecutions": 0
+}

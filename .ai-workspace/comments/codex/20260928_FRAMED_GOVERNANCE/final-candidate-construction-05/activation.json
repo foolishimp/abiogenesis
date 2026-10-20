@@ -1,0 +1,16 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_05",
+  "role": "Worker",
+  "actor": "/root/native_applicability_design",
+  "priorRoles": "Source / C04 / setup04 CLOSED",
+  "activatedAt": "2026-10-02T02:10:57.033447+00:00",
+  "requestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-05/request.txt",
+  "requestBytes": 6825,
+  "requestSHA256": "79ebcf584e8695357b9aff7ecfee138b18870f7ad4a185cf26b742b8ed1c05ef",
+  "sourceCutSHA256": "bbad7056fdc7a4ed844dcecf419cedc1be88831ebe162cb5e00a8dfbc4126bf5",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05",
+  "sourceRepair": false,
+  "runtimeProviderGitNetwork": false,
+  "qualifiedPublishedABGInstalled": false,
+  "stop": "first discrepancy returns Root; no retry"
+}

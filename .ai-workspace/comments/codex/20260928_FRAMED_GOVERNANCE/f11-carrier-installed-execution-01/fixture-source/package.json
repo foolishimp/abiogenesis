@@ -1,0 +1,20 @@
+{
+  "name": "@abiogenesis-fixtures/f11-carrier-child",
+  "version": "5.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./build/index.js",
+    "./publication": "./build/publication.json"
+  },
+  "files": [
+    "build",
+    "contracts",
+    "product-toolchain-manifest.json"
+  ],
+  "dependencies": {
+    "@abiogenesis/typescript-tenant": "5.0.0-rc.1"
+  },
+  "bundledDependencies": [
+    "@abiogenesis/typescript-tenant"
+  ]
+}

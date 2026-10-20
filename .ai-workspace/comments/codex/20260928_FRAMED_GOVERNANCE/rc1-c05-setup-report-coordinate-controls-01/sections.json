@@ -1,0 +1,30 @@
+[
+  {
+    "label": "Activation Product",
+    "text": "Separately activate Report Writer T287_C05_SETUP_REPORT_COORDINATE_CLOSURE_01 after actual Runtime T287_F11_C05_INSTALLED_SETUP_05 completed14result/exit0 and supervisedprocess closure. F01/F05 exactbinding/install/catalog, STDO2.5.1RC2. No further Runtime effect."
+  },
+  {
+    "label": "Exact subject",
+    "text": "Only existing new f11-carrier-installed-setup-05 closed actual runtime state/receipts/failed-close-report-attempt-01.json/close-setup-failed-attempt-01.py SHA2f815ab92d1e9acf0bd0212b67e9ea5fdad3a0b9dd31b1df237557e1e830d0bd, actual installed C05/unchangedwrapper. Preserve original failure byteexact."
+  },
+  {
+    "label": "Triangulated cause",
+    "text": "Product/Identity: Publicbind returns {ref,digest} coordinate; ABG projection returns full workspace_binding with bindingId/bindingDigest plusactualroots/actor/lock/productSet/admission. Lifecycle/effects: all14actualcalls passed, eventresourceauthenticclosed. Integration/Proof: close-report consumer asserted fullvalue==coordinate instead of exact producer coordinate join. Root independently readactualstate and verified both65dc434be1a1fe0d953ed24d31a79d03bd93272ecd4c877e78e9c11b45525996 IDs match. Callerreport realization_refactor; no implementationdefect or redo justified."
+  },
+  {
+    "label": "Exact effect territory",
+    "text": "ONLY f11-carrier-installed-setup-05 report/control/receipt/readback/closure/freeze files alreadygranted. Existing resources/events/installed/worksite/runtime/catalog/state actualbytes READONLY; no newcalls/eventappend/helper/provider/source/design/candidate/Git/network effect. Originalfailedscript/report and all oldreports unchanged."
+  },
+  {
+    "label": "Selected operation",
+    "text": "Preserve failed fullvalue comparison; use {ref:projected.bindingId,digest:projected.bindingDigest} == actual Publicbindingcoordinate; separately conserve fullprojection fields/actualroots/lock/productSet/actor/admission. Finish only remaining authenticauthority/resource/handoff/cost/closure/freeze reports. Fullcore5258/wrapper5264bodies/nodups/nolinks androle-specificmode facts already checked; do not repeat Runtime or expensiveguards."
+  },
+  {
+    "label": "Stops costs",
+    "text": "Read/hash/compare and smallreportwrites only. Firstnewexact mismatch stopsRoot. All actualRuntimecost234.821s/supervisorexit0/noTimeout/known14CLIgroupswaitedabsent preserved; reportingcostseparate. No arbitraryactivePIDguess or recoveredfakeevent."
+  },
+  {
+    "label": "CLOSED return",
+    "text": "Return CLOSED actualauthority/handoff/prefix/catalog/view/installs/lock/AW/Rootactor/conformance/scriptdiscriminator/freeze/body/sourceeffects/cost/processfacts and unknowns. Stopallwrites; no Revieweractivation. Rootaloneconjoins, no F11Task orqualReleasecredit."
+  }
+]

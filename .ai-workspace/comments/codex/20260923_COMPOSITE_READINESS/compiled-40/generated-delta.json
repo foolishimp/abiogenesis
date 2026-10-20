@@ -1,0 +1,301 @@
+[
+  {
+    "path": "build/code/src/abg/event_prefix.js",
+    "before": {
+      "path": "build/code/src/abg/event_prefix.js",
+      "bytes": 23041,
+      "sha256": "0d17b41ea89f96dffa6c284099fae3a52117f243bfd71cc7d3c2fdd4484f5fcf"
+    },
+    "after": {
+      "path": "build/code/src/abg/event_prefix.js",
+      "bytes": 24539,
+      "sha256": "78f36725d36ef4cd795f1836a8ac7d82d2a77ba17566d4372ce14831db986157"
+    }
+  },
+  {
+    "path": "build/code/src/abg/execution_basis.js",
+    "before": {
+      "path": "build/code/src/abg/execution_basis.js",
+      "bytes": 107821,
+      "sha256": "6afee3c1868f2d9c225234a26823b35b7327b89aee3313a358b9084263d8a9bd"
+    },
+    "after": {
+      "path": "build/code/src/abg/execution_basis.js",
+      "bytes": 107098,
+      "sha256": "ba7f74555a30872b87e2c47fb709b59d853318979cc63f5f46fca0741a1964d9"
+    }
+  },
+  {
+    "path": "build/code/src/abg/instruction_assembly.js",
+    "before": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 82423,
+      "sha256": "3566c0e639b5c348f3e420acad64f8c93f809e616b0b4a160947bca231a55aa3"
+    },
+    "after": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 86688,
+      "sha256": "bdd73d3561181a55b5436222abd2eee1223651ebc93eb02a7173570ad907cbf5"
+    }
+  },
+  {
+    "path": "build/code/src/abg/retry.js",
+    "before": {
+      "path": "build/code/src/abg/retry.js",
+      "bytes": 209136,
+      "sha256": "061ac041d2dae5e9371f7d6f638614d51268c814c563a46c999465ec584ccc27"
+    },
+    "after": {
+      "path": "build/code/src/abg/retry.js",
+      "bytes": 208587,
+      "sha256": "7fadb4b6c06201d50cb77fb4a32c2c19bb2961c2751719157a5d5f629ad808c9"
+    }
+  },
+  {
+    "path": "build/code/src/abg/semantic_revision.js",
+    "before": {
+      "path": "build/code/src/abg/semantic_revision.js",
+      "bytes": 87551,
+      "sha256": "6eb8993b0ae0ee69bf5f1a3f9d8bd83624a15fb296f4c575dd8ce74df9831ee7"
+    },
+    "after": {
+      "path": "build/code/src/abg/semantic_revision.js",
+      "bytes": 88857,
+      "sha256": "3b8482fe2d854f21ee0a9c3ae0b065f3e3e04d203cce0c94332e8037cc8b06d9"
+    }
+  },
+  {
+    "path": "build/code/src/abg/traversal_cursor.d.ts",
+    "before": {
+      "path": "build/code/src/abg/traversal_cursor.d.ts",
+      "bytes": 4049,
+      "sha256": "43346d17f3a496d95ec089e948838cebb5896a26cfaea8c772533f43415cef0e"
+    },
+    "after": {
+      "path": "build/code/src/abg/traversal_cursor.d.ts",
+      "bytes": 5853,
+      "sha256": "ff1ac1cfe1d73e2c93183f94e275d1253d85d8131b693477fd5a74292b0c4297"
+    }
+  },
+  {
+    "path": "build/code/src/abg/traversal_cursor.js",
+    "before": {
+      "path": "build/code/src/abg/traversal_cursor.js",
+      "bytes": 13616,
+      "sha256": "c1ea16c23b6a2bc205e87bcfad3598cc054981b3f93e780e3e73ae701da7999e"
+    },
+    "after": {
+      "path": "build/code/src/abg/traversal_cursor.js",
+      "bytes": 32813,
+      "sha256": "f801599dc7aca83c7a7ad1e1ab546bb20ece43c1094ba3e5b11dc86918f7a5cd"
+    }
+  },
+  {
+    "path": "build/code/src/abg/traversal_route.js",
+    "before": {
+      "path": "build/code/src/abg/traversal_route.js",
+      "bytes": 178024,
+      "sha256": "3f24b76282fe4cfcbbc51b141bf1ce7c2714847981060a24c3963c20ec3436ea"
+    },
+    "after": {
+      "path": "build/code/src/abg/traversal_route.js",
+      "bytes": 177704,
+      "sha256": "2be66852fa3467bc882521be5fc6643f9e14fb7f9e09710616f07373798a9262"
+    }
+  },
+  {
+    "path": "build/code/src/gtl/source_path.d.ts",
+    "before": {
+      "path": "build/code/src/gtl/source_path.d.ts",
+      "bytes": 6231,
+      "sha256": "6363039594113086b9800866356c5be8d2b8c1b0667e9cf0466bca5e1cddc750"
+    },
+    "after": {
+      "path": "build/code/src/gtl/source_path.d.ts",
+      "bytes": 7088,
+      "sha256": "741e8c2f4cdbfc330b4927e42cc011a2fef48948d49573ec64fa5f9b26d85374"
+    }
+  },
+  {
+    "path": "build/code/src/gtl/source_path.js",
+    "before": {
+      "path": "build/code/src/gtl/source_path.js",
+      "bytes": 28495,
+      "sha256": "73c116b130c8dc00d4c568cfd4dc928341e3f627351b5ff43823f5fdd878d2ea"
+    },
+    "after": {
+      "path": "build/code/src/gtl/source_path.js",
+      "bytes": 29578,
+      "sha256": "40ad14ca9619ca94541f0d1cf33a4a546cb1f45ef1381d09ce626289c7fdd89c"
+    }
+  },
+  {
+    "path": "build/code/src/hog/ccall_lifecycle.js",
+    "before": {
+      "path": "build/code/src/hog/ccall_lifecycle.js",
+      "bytes": 32731,
+      "sha256": "d353e45746eb92eed424e2ac45fe6b97783d2443e077fff724da0317f388a9bd"
+    },
+    "after": {
+      "path": "build/code/src/hog/ccall_lifecycle.js",
+      "bytes": 32841,
+      "sha256": "cbee07c9e77bfc65eb72bfff40d792dd7153c582a4275fc8a075d9db41253107"
+    }
+  },
+  {
+    "path": "build/code/src/hog/graph_execute.js",
+    "before": {
+      "path": "build/code/src/hog/graph_execute.js",
+      "bytes": 41294,
+      "sha256": "84810e41f754fa28e3531d2aab17b3e95aaabfcadee88f86b4b327ec765ede8d"
+    },
+    "after": {
+      "path": "build/code/src/hog/graph_execute.js",
+      "bytes": 41998,
+      "sha256": "1c0b8e88e48094440b49a3117af706e683e596264719eca4e0c98a491b1f863b"
+    }
+  },
+  {
+    "path": "build/code/src/hog/interaction_resume.js",
+    "before": {
+      "path": "build/code/src/hog/interaction_resume.js",
+      "bytes": 6739,
+      "sha256": "a40a1b97b2f57b6960167a71fe15f322fa10128ea0d33d0228c5997451315e8f"
+    },
+    "after": {
+      "path": "build/code/src/hog/interaction_resume.js",
+      "bytes": 6852,
+      "sha256": "93fcb757ce5be9dd163c985e8f2c79ffe27be1cd92805b669e2b72ec11ec110a"
+    }
+  },
+  {
+    "path": "build/code/src/hog/recursion_lifecycle.js",
+    "before": {
+      "path": "build/code/src/hog/recursion_lifecycle.js",
+      "bytes": 25978,
+      "sha256": "11d23c62948dc34a4c9d3d476c99ae151ff3698f6d6213e680c27af13ffd3ae7"
+    },
+    "after": {
+      "path": "build/code/src/hog/recursion_lifecycle.js",
+      "bytes": 26104,
+      "sha256": "84951b4e0d08a74227d4488948b8d93d10f02a46493f752292a0aa5524c0f646"
+    }
+  },
+  {
+    "path": "build/code/src/hog/route_proposal.js",
+    "before": {
+      "path": "build/code/src/hog/route_proposal.js",
+      "bytes": 29924,
+      "sha256": "d6fe43d8a09a0be19a323af9853600572fdc285cc6382184223658a76f2a4165"
+    },
+    "after": {
+      "path": "build/code/src/hog/route_proposal.js",
+      "bytes": 30110,
+      "sha256": "f6ef5c85f15fc4d589bfef24a003485d64e6272aade63da604e31fbad9636502"
+    }
+  },
+  {
+    "path": "build/code/src/hog/structural_transition.js",
+    "before": {
+      "path": "build/code/src/hog/structural_transition.js",
+      "bytes": 7306,
+      "sha256": "9ef70acc59649c4d4a4db8a3a0a29f6b13ff321067b4db7f14e364cdec03608f"
+    },
+    "after": {
+      "path": "build/code/src/hog/structural_transition.js",
+      "bytes": 7410,
+      "sha256": "22705db043f4fd342282906817517d8cab3dcd62b0a20388c2b77e98d70ae951"
+    }
+  },
+  {
+    "path": "build/code/src/hog/traversal.d.ts",
+    "before": {
+      "path": "build/code/src/hog/traversal.d.ts",
+      "bytes": 3933,
+      "sha256": "53121e7a7baa75c845911cb7c1be25b01882d48e457242ccb8285bb058ea3882"
+    },
+    "after": {
+      "path": "build/code/src/hog/traversal.d.ts",
+      "bytes": 4009,
+      "sha256": "3a7961f4746eda5285edb2c930e4bcce9275344a7a9a1ea28df3765600fe822c"
+    }
+  },
+  {
+    "path": "build/code/src/hog/traversal.js",
+    "before": {
+      "path": "build/code/src/hog/traversal.js",
+      "bytes": 23056,
+      "sha256": "e090d0f74b493b7700e128eb34e34afacfb758fa355c0c2cbb678f84c887f3b8"
+    },
+    "after": {
+      "path": "build/code/src/hog/traversal.js",
+      "bytes": 23122,
+      "sha256": "69fc31b460c3fb1650e002e7a4a5f87debe62e383e780f0976bcf404e485f70a"
+    }
+  },
+  {
+    "path": "build/code/src/hog/workflow_lifecycle.js",
+    "before": {
+      "path": "build/code/src/hog/workflow_lifecycle.js",
+      "bytes": 33803,
+      "sha256": "b3c808d258a32becfd9285b5d4aae693b97df517d766076a3300af2b7059ed86"
+    },
+    "after": {
+      "path": "build/code/src/hog/workflow_lifecycle.js",
+      "bytes": 34008,
+      "sha256": "19153356557cf3658f9b4b6e8671e5d605cae4ff67ae24965b47b467e1fde709"
+    }
+  },
+  {
+    "path": "build/code/src/product/semantic_job.d.ts",
+    "before": {
+      "path": "build/code/src/product/semantic_job.d.ts",
+      "bytes": 32976,
+      "sha256": "6cd62b9d4978127328ce3614fc4ce8276f06213fa0bbd8c33ae4042e39d0cc92"
+    },
+    "after": {
+      "path": "build/code/src/product/semantic_job.d.ts",
+      "bytes": 37774,
+      "sha256": "6d9ecf2ca7fa8503e0946ccc00ce92ae8bdb451335ef755db0ef9d97cc5cdbd5"
+    }
+  },
+  {
+    "path": "build/code/src/product/semantic_job.js",
+    "before": {
+      "path": "build/code/src/product/semantic_job.js",
+      "bytes": 85855,
+      "sha256": "0fb18d4662143abd28dc15acd43f2e3e3c9be0233b4fbab0ebf20e827f67cae7"
+    },
+    "after": {
+      "path": "build/code/src/product/semantic_job.js",
+      "bytes": 87034,
+      "sha256": "488b6e6cf76c0e50ed7844b329a2974fae491b848a459d0e7b5d8aa8ffbc41eb"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "55773e7d3877cebb06b259029802085fdbe4e7d1d396142ae73142af3bd10f09"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "ac29ced518c45223174415bf4daca254a95d90532fc8250c4bff1651b02bed47"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "b732121c1cdc43d123ccb68e0f3687d247fb437bb08a310056acda20522939c8"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "3b292f9ef1272b6705a1ad9e634f1ffc9145396354d1c297d9259dcb4185fdf4"
+    }
+  }
+]

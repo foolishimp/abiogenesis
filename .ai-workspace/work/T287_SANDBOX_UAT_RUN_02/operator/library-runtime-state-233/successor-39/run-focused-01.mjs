@@ -1,0 +1,13 @@
+import {spawnSync} from 'node:child_process';
+import {writeFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('.',import.meta.url));
+const args=['--experimental-vm-modules','--test','--test-name-pattern=^(library prepare-testing|reacquisition publishes)',root+'input-01/test_env/tests/t287-native-work-reacquisition.test.mjs'];
+const env={...process.env,ABG_GOVERNANCE_COVERED_BUILD_ROOT:root+'build-01/code/src',ABG_WORKSITE_BUILD_ROOT:root+'build-01/code/src'};
+delete env.ABG_NATIVE_REACQUISITION_RETAINED_ROOT;
+const start=performance.now();
+const r=spawnSync(process.execPath,args,{cwd:root,env,encoding:'utf8',maxBuffer:16*1024*1024});
+writeFileSync(root+'commands/focused-01.stdout',r.stdout??'');writeFileSync(root+'commands/focused-01.stderr',r.stderr??'');
+const result={kind:'canonical_native_testing_binding_component_check',sourceCut:39,command:[process.execPath,...args],exitCode:r.status,signal:r.signal,elapsedMs:performance.now()-start,source:root+'inputs-01.json',limits:['Actual preparation/matcher/cold-source code with canonical GTL-derived binding, physical constructors, and controlled prefix/native/environment/source/cover/C_Call/set premises; no installed/native/C2 credit. Actual retained-resource tests are not activated.']};
+writeFileSync(root+'commands/focused-01.result.json',JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result));if(r.stdout)console.log(r.stdout);if(r.stderr)console.error(r.stderr);process.exitCode=r.status??1;

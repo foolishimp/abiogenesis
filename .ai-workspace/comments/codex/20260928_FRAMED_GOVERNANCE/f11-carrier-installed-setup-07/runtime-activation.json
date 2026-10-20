@@ -1,0 +1,52 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_C07_INSTALLED_SETUP_07",
+  "role": "Runtime Worker",
+  "actor": "/root/native_applicability_design",
+  "activatedAt": "2026-10-02T10:21:14.363399+00:00",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-install-and-input-controls-01/setup-request.txt",
+    "bytes": 3421,
+    "sha256": "2a8ee74f40f2be30476c39a49cd954b7eb5e9d91f41680c84ff27b3258d57e6c",
+    "mode": 420
+  },
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-acceptance-and-runtime-selection-01/acceptance.json",
+    "bytes": 4167,
+    "sha256": "85017f5b8ca8b321ddade38c561639881f37922ea24cb34d018528493615780c",
+    "mode": 420
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+    "bytes": 381272,
+    "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+    "mode": 420
+  },
+  "independentReviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-independent-review-controls-01/review/freeze.json",
+    "bytes": 1852,
+    "sha256": "6cc20b383db37ce1d082defca182167fc8567abcfb66d6fcd8db139081f48645",
+    "mode": 420
+  },
+  "sourceDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/freeze.json",
+    "bytes": 3900408,
+    "sha256": "b44c8a054b19f7eeb84473ada9ba677d51001317d2dac5d213cb92e7469a0cd7",
+    "mode": 420
+  },
+  "priorFailedRuntimeCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/final-runtime-freeze.json",
+    "bytes": 49360,
+    "sha256": "227997c8c1d4307151af57109efce0dcaeab4b1a288c0d83a44c56e414b147f2",
+    "mode": 420
+  },
+  "changeClass": "realization_refactor; accepted construction actual installed setup",
+  "firstDiscrepancy": "STOP and freeze for Root triangulation; no repair or retry",
+  "realProviderCalls": 0,
+  "TaskRunHelperQualificationEffects": 0,
+  "heap": "unchanged",
+  "HOME": "/Users/jim",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07",
+  "RootAloneAccepts": true
+}

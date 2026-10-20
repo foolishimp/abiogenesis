@@ -1,0 +1,38 @@
+[
+  {
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/fulfillment-records/default-library-witness/seed/source/original-basic-cli.txt",
+    "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+    "byteCount": 4325
+  },
+  {
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/fulfillment-records/default-library-witness/seed/source/basic-cli.oracle.json",
+    "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+    "byteCount": 1112
+  },
+  {
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/fulfillment-records/default-library-witness/seed/generated/hello-world.mjs",
+    "sha256": "647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993",
+    "byteCount": 29
+  },
+  {
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/fulfillment-records/default-library-witness/seed/test/component/hello-cli.test.mjs",
+    "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+    "byteCount": 369
+  },
+  {
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/fulfillment-records/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+    "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+    "byteCount": 371
+  },
+  {
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-witness-contract.md",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/fulfillment-records/s6-witness-contract.md",
+    "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+    "byteCount": 5656
+  }
+]

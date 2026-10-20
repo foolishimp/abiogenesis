@@ -1,0 +1,81 @@
+{
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-controls-01/request.txt",
+      "bytes": 11128,
+      "sha256": "aa3a20f90bd834ced79ec054e852bbbb4cafa715335fb9c3d7d81701eef94e85"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-controls-01/request-sections.json",
+      "bytes": 11409,
+      "sha256": "e1d8e22afd72eebc8cf9ec054f126602f58a1fa68a2401816f0bb2dfd6cc1930"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/freeze.json",
+      "bytes": 4534351,
+      "sha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze-manifest.json",
+      "bytes": 1043938,
+      "sha256": "3bbc0f064e8f00c2860081d1fa475abbe3604a25b627178d6792875ef5f23a1e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/reader-binding.json",
+      "bytes": 230296,
+      "sha256": "60940ab57b7dbb5e4dd58e6ae698f663f51abad7a2eac26ca166e85fe4117484"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/selected-core.json",
+      "bytes": 1067,
+      "sha256": "7cfd69468ec8cf31ca6d2c0c721065f4c507339ccb2ab4b2add9cb88233a269b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/freeze.json",
+      "bytes": 17162,
+      "sha256": "0a1dadc1ebc013d6078d7934cfc34c64a87fd82c8a4ec31ef8e9da79ad1373ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/final-handoff.json",
+      "bytes": 1348,
+      "sha256": "23542ae5af5054dda2d0f68ebd478524919fd3c69f9af596cabfdde15dbbc857"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/final-native-prefix.jsonl",
+      "bytes": 4689421,
+      "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/no-action/oracle-result.json",
+      "bytes": 402791,
+      "sha256": "f79962a4912470dc943fa6272bbd1125fcb13cccf531ba5b2e71ecb8c6544f05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/positive/oracle-result.json",
+      "bytes": 734409,
+      "sha256": "eae0199a24ad4e5b0cb314ca0cb930ddd9093becf3fa6065e4b393e59d049e3d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/environment.json",
+      "bytes": 42336734,
+      "sha256": "307dbbf164ffbe0f3eafe42b110c13efc09bf950d9e528e7a42b4bb877a437bc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/oracle.json",
+      "bytes": 1509,
+      "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 21971,
+      "sha256": "a9ea368be43d6b6d93dff8b1084f653997408185956f0f8a26b422520186d16d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "bytes": 32193,
+      "sha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465"
+    }
+  ],
+  "closed02RecordsVerifiedUnchanged": 71,
+  "candidateRecordsVerifiedUnchanged": 16732
+}

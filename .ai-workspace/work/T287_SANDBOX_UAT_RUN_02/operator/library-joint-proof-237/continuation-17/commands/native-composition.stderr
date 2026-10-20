@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+BoundaryFailure [Error]: product-install-0: {"outcomeKind":"refusal","value":{"code":"target_failure","issuePaths":["/targetRoot"],"evidenceRefs":[]}}
+    at invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/helpers/continuation.mjs:157:68)
+    at async Module.prepareInstalledContinuation (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/helpers/continuation.mjs:263:24)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/run-17.mjs:199:14 {
+  stage: 'product-install-0',
+  observation: {
+    outcomeKind: 'refusal',
+    value: {
+      code: 'target_failure',
+      issuePaths: [ '/targetRoot' ],
+      evidenceRefs: []
+    }
+  }
+}
+
+Node.js v24.7.0

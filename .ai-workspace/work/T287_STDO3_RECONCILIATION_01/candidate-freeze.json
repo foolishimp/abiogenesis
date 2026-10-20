@@ -1,0 +1,99 @@
+{
+  "subject": "T287_STDO3_RECONCILIATION_01_DOCUMENTS",
+  "created_utc": "2026-10-20T16:43:52.610447+00:00",
+  "basis_sha256": "c4de12d3995bf4631fcaab6ed61697ab2690cda39c7a4e5174f29afb84283ebf",
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20261021_STDO3_ABG5_RECONCILIATION.md",
+      "sha256": "cb43d4eb9ce9b15439f98db4de410c5d2987b5f4eb75ec24a1d70b52f0b1016c",
+      "bytes": 15784
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "85c7407e2e057049c0e3ea4238520074e362fdc45b51d153b442732d5a382b76",
+      "bytes": 524806
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "sha256": "4ac054f0718abe5fe1d1346a9ae9f3cfe9d726c35ff39922e198e4db6c7aca84",
+      "bytes": 54101
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "sha256": "c131a472c0fb76907ff0100911ed556ea034d87e0503cc49c8f7123311b9ca73",
+      "bytes": 96586
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/README.md",
+      "sha256": "34b1eb4020afef810c309b9a20bead6bff4593648f6464a9581717615eef11d6",
+      "bytes": 35113
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "sha256": "8b395f108d7e52229709c60a2108ac565359d8bb8e84bd8f1386c374674dd652",
+      "bytes": 78451
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "0c832adf283cf17f14444b8d9660df4b51f4493dad0c31ed43cc65a881bd58d8",
+      "bytes": 74953
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "27e79e8336b7988121814a49a1d77976cba4b139a04e4b3bd39e250821992fd3",
+      "bytes": 96170
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "sha256": "741cbaf8d7ea1b82006718d8fa84ccd62c01c59bff93885e75a26d16f8944169",
+      "bytes": 8706
+    },
+    {
+      "path": "specification/requirements/abg/README.md",
+      "sha256": "c3eeb69701836792e0c1f0c355272c968c93400c33555a383de1084a1b92461b",
+      "bytes": 3144
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "sha256": "2a0fc5559673a860c2b7ff16091ba2ba37da3b1fe1337141c2faa639d6ca1e64",
+      "bytes": 7870
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "sha256": "baf81ffdc9948f96a903b2f4af98b4975445d1a9f24f89a657a35b5b95743f9e",
+      "bytes": 8976
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "sha256": "0ed4ec30606484c9430354b4676f4166ca0e19fe338830a3b71bf9947e70222d",
+      "bytes": 12282
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "sha256": "c58539026886596543c3ec6c2e6fd010f1220c6031bb68df8fff22e1e6ed50c6",
+      "bytes": 2952
+    },
+    {
+      "path": "specification/requirements/gtl/README.md",
+      "sha256": "be6365c9fd06027f3144ba5fbf18ffaa62ed016474d2a4377c31314af38c7786",
+      "bytes": 3104
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "sha256": "bdc3f6b3a30813c85eb48603ada692cff34222e67debd2413560aaa39a1af8c4",
+      "bytes": 4522
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "sha256": "f5494e90c534f17280357e03cf5755cf8c78627fd642887d226cb959da138ec0",
+      "bytes": 5929
+    }
+  ],
+  "mechanical_checks_sha256": "3bd118ab6745f41f898b90bde01125e9e6df2b870f2d935004e6d788fd06eecf",
+  "claim": "Product/requirement/design/plan reconciliation only; no implementation conformance, universal exhaustiveness, runtime qualification or release"
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "checks": 5,
+  "workspace": {
+    "digest": "sha256:e3705f52673af8bfbb7a4f26e7964f8737c448c78ec26c0a9db3481d4a557df3",
+    "ref": "workspace://abiogenesis/e3705f52673af8bfbb7a4f26e7964f8737c448c78ec26c0a9db3481d4a557df3"
+  },
+  "binding": {
+    "digest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+    "ref": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8"
+  },
+  "installedProduct": {
+    "digest": "sha256:af3bce94667637bb901110cc3d93288960c2dd0d9eb8a198bdbe29efbb541ee7",
+    "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695"
+  },
+  "catalog": {
+    "digest": "sha256:1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907",
+    "ref": "graph-function-catalog://abiogenesis/1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907"
+  },
+  "view": {
+    "digest": "sha256:2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723",
+    "ref": "graph-function-catalog-view://abiogenesis/2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723"
+  }
+}

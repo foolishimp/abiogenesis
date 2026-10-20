@@ -1,0 +1,13 @@
+{
+  "activation": "T287_Q10_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "CLOSED",
+  "verdict": "NO_GO_INPUT_PREPARATION_ONLY",
+  "closedAt": "2026-10-02T17:31:45.096376+00:00",
+  "effects": "Pure reads/hash/source/metadata sizing; only new review reports; no imports/tests/owner/build/Run/provider/network/Git",
+  "qualificationCredit": false,
+  "sourceOrCandidateDefectInferred": false,
+  "smallestReentry": "external metadata realization_refactor; preserve500MB/defaultheap; postprojection envelope unmeasured",
+  "stop": "No further writes; Root alone selects repair"
+}

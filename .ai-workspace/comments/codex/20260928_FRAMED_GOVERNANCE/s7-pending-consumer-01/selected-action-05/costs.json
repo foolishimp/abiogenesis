@@ -1,0 +1,49 @@
+{
+  "totalMs": 31667.634375,
+  "currentPreparationMs": 2116.147417,
+  "currentSelectionTraversalMs": 182.8960830000001,
+  "calls": [
+    {
+      "name": "cover",
+      "wallMs": 9888.186083
+    },
+    {
+      "name": "missing-cover",
+      "wallMs": 647.3798749999987
+    },
+    {
+      "name": "stale-cover-digest",
+      "wallMs": 650.0661250000012
+    },
+    {
+      "name": "mismatched-cover",
+      "wallMs": 659.9717920000003
+    },
+    {
+      "name": "crossed-selection",
+      "wallMs": 665.5737919999992
+    },
+    {
+      "name": "crossed-run",
+      "wallMs": 643.9715410000026
+    },
+    {
+      "name": "crossed-basis",
+      "wallMs": 1285.77275
+    },
+    {
+      "name": "continue",
+      "wallMs": 1293.9244580000013
+    }
+  ],
+  "otherMs": 13633.744458999998,
+  "coreBuildCount": 0,
+  "packageCount": 0,
+  "installCount": 0,
+  "oldHostRerunCount": 0,
+  "sameBasisRerunCount": 0,
+  "providerCalls": 0,
+  "currentChildMs": null,
+  "coldReadMs": null,
+  "limits": "Other includes complete grant construction/owner verification, recovery and caller bookkeeping; current preparation includes actual invocation/basis admission. Traversal includes fsync test hook overhead."
+}

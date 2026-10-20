@@ -1,0 +1,39 @@
+{
+  "stage": "run-stopped-public-invoke-returned",
+  "at": "2026-10-09T18:44:58.602Z",
+  "wallMs": 243006.33462500002,
+  "pid": 17206,
+  "memory": {
+    "rss": 4156145664,
+    "heapTotal": 3744530432,
+    "heapUsed": 3617027920,
+    "external": 5683367,
+    "arrayBuffers": 3271060
+  },
+  "maxRSSKiB": 8026512,
+  "kind": "installed_definition_call_transport_result",
+  "ownerOutput": {
+    "outcomeKind": "result",
+    "value": {
+      "act": "run-stopped",
+      "witnessedAct": {
+        "ref": "witnessed-act://abiogenesis/cbdad19a93f07aaa8fb07b258181a1088229b6faf2d283e247d276ed9018c6f4",
+        "digest": "sha256:cbdad19a93f07aaa8fb07b258181a1088229b6faf2d283e247d276ed9018c6f4"
+      },
+      "admittedEvent": {
+        "ref": "event://abiogenesis/59efecdd286fc5581d664921db01585c0edb2a9dd441dc2085df5ae66a03eddc",
+        "digest": "sha256:59efecdd286fc5581d664921db01585c0edb2a9dd441dc2085df5ae66a03eddc"
+      },
+      "evidence": [
+        {
+          "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/commands/recovery-stop-source.result.json",
+          "digest": "sha256:1e7d55f30d2049eda694ce15543d06ec242eb9d372ff517d9b58051f1d119ea5"
+        },
+        {
+          "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/quiescence.json",
+          "digest": "sha256:9fc7d4698bfebb92f15a8bde33e215d12763e7f120cf231a101129316cea0ba2"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "failuresPreserved": [
+    {
+      "toolChunk": "7aea3a",
+      "failure": "KeyError admissionOrdinal",
+      "correction": "Physical body-reference wrappers put the ordinal inside event; not a profile header."
+    },
+    {
+      "toolChunk": "c11d29",
+      "failure": "Wrong outer receipt location",
+      "correction": "Consume actual phase commands/data-mapper-full.result.json."
+    },
+    {
+      "toolChunk": "c378b7",
+      "failure": "Physical-row ordinal count",
+      "correction": "Read exact wrapper event envelope for document selectors; normal Public owner prefix is authoritative."
+    },
+    {
+      "toolChunk": "a46dc3",
+      "failure": "Wrong generated module path build/product/default_library.js",
+      "correction": "Actual generator-owned path is build/code/src/product/default_library.js."
+    }
+  ],
+  "sourceOrRuntimeChanges": false,
+  "nativeRetry": false
+}

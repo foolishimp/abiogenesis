@@ -1,0 +1,50 @@
+{
+  "subjectKind": "run",
+  "subject": {
+    "ref": "run://abiogenesis/6ea5bad308dc191a2e84cb887b3555ce26c5d2f20e33ed6b142b6b505c83d43c",
+    "digest": "sha256:aa0af6e1aedbd6e45e9fd0f0b392e1b768dcb5d904a4aa120873112805bd3fbc"
+  },
+  "act": "run-stopped",
+  "content": {
+    "kind": "typed_reason",
+    "contentContract": {
+      "ref": "contract://abiogenesis/witness/run-stopped@5",
+      "digest": "sha256:875d96f956aace57f44b50855da1cf95a7a5d5c0afa6d73884049e03df783795"
+    },
+    "value": {
+      "reasonKind": "external_interruption",
+      "reasonDetail": "Root-authorized preserving stop after actual219 native process73363 SIGABRT/heap exhaustion and subsequent223 resource worker75903 SIGABRT; unchanged authenticated history and completed work are conserved. Fresh scoped process/group quiescence and canonical recovery authenticate interruption; valid completed work is retained. No success or application-failure judgment is asserted."
+    }
+  },
+  "context": {
+    "kind": "run",
+    "run": {
+      "ref": "run://abiogenesis/6ea5bad308dc191a2e84cb887b3555ce26c5d2f20e33ed6b142b6b505c83d43c",
+      "digest": "sha256:aa0af6e1aedbd6e45e9fd0f0b392e1b768dcb5d904a4aa120873112805bd3fbc"
+    },
+    "basis": {
+      "ref": "execution-basis://abiogenesis/275802b288623214debd9ab2c937a1d2e63b22e69452242e5924a2d42c16f815",
+      "digest": "sha256:275802b288623214debd9ab2c937a1d2e63b22e69452242e5924a2d42c16f815"
+    }
+  },
+  "evidence": [
+    {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/commands/recovery-stop-source.result.json",
+      "digest": "sha256:1e7d55f30d2049eda694ce15543d06ec242eb9d372ff517d9b58051f1d119ea5"
+    },
+    {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/quiescence.json",
+      "digest": "sha256:9fc7d4698bfebb92f15a8bde33e215d12763e7f120cf231a101129316cea0ba2"
+    }
+  ],
+  "provenance": [
+    {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/activation.json",
+      "digest": "sha256:154357f8450083bd1956b81979368f7e9a792578515ddd896bd23cab0d2ac841"
+    },
+    {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/freeze.json",
+      "digest": "sha256:baf196fde8704193f059389ae402a5a06cd2fbf8b8f2486546be00d84e74a0ad"
+    }
+  ]
+}

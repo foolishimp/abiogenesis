@@ -1,0 +1,14 @@
+{
+  "activation": "T287_F11_MATERIAL_SCOPE_REVIEW_01",
+  "actor": "/root/current_authority_review",
+  "roleTransition": "Independent Reviewer to report-only Writer for check controls, observations, report and one freeze; substantive judgment remains independent review",
+  "request": "../final-f11-material-scope-review-controls-01/request.txt",
+  "requestSha256": "312bd739c6066c9c6beb81f45190ad29a3f1e878cc2123933cf2c5f62d7ca8ef",
+  "independence": "I did not author final-f11-scope-inputs-01; its author is /root/s03_independent_review.",
+  "writeTerritory": "this directory only",
+  "effects": "pure deterministic checks and existing exported constructors only; no native/provider/source/build/install/Git effects or repairs",
+  "bounds": {"maximumCheckGroups": 5, "perGroupMs": 120000, "terminationGraceMs": 1000, "aggregateMs": 605000},
+  "diagnosticObservationErrors": [
+    {"operation": "source acquisition", "error": "First authority read used specification/requirements/REQ-P-QUAL.md, which is absent. The process stopped at FileNotFoundError before later reads.", "correction": "Resolved actual frozen paths specification/requirements/product/REQ-P-QUAL.md and specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md; no candidate failure or native retry.", "retained": "This record and tool output; no candidate bytes changed."}
+  ]
+}

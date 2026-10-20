@@ -1,0 +1,20 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "c6a8e51bdcfba28324b3158e5805510631548ea80af2374c41c19c2f03870ea0",
+    "byteCount": 10623969
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3444.587583,
+    "timedOut": false,
+    "truncated": false
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/freeze.json",
+    "sha256": "bd671ad49267e494eeeb649deab8a2aeb8c9e014a4ef12e4349d174486c59dc1",
+    "byteCount": 272159
+  },
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "noBuildOrNative": true
+}

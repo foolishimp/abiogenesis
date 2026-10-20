@@ -1,0 +1,20 @@
+{
+  "started_at": "2026-09-30T02:53:23.459678+00:00",
+  "pid": 64652,
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "command": [
+    "node",
+    "--test",
+    "--test-name-pattern=S03 Phase B ordinary installed",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs"
+  ],
+  "selected_environment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-b-npm-cache",
+    "ABI5_S03_EVIDENCE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01",
+    "ABI5_S03_PHASE_B_RELEASE": "ROOT_RELEASED_PHASE_B",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "retry_allowed": false
+}

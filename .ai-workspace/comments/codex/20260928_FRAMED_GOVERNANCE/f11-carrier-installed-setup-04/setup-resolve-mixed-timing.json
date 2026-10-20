@@ -1,0 +1,14 @@
+{
+  "elapsedMs": 15145.648499999996,
+  "processFailure": null,
+  "terminal": {
+    "pid": 19103,
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "spawnError": null
+  },
+  "stage": "setup",
+  "budgetMs": 180000,
+  "capture": "stdout/stderr descriptors opened before spawn"
+}

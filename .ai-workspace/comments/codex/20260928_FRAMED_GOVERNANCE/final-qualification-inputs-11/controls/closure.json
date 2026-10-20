@@ -1,0 +1,34 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_Q10_PROJECTION_TRIAGE_AND_Q11_GRANTS_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T17:36:11.636026+00:00",
+  "executionBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 541709,
+    "sha256": "4487b4cb5df740aaac618494c09f08760c45c4f224ccd93f915dc47482300230",
+    "mode": 420
+  },
+  "executionAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 542672,
+    "sha256": "3236df8d9ac33f5f99fbc4139150a324cf4be2f7c2d3ef86b2cab03089044be8",
+    "mode": 420
+  },
+  "appendOnlyConserved": true,
+  "planBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "bytes": 6827,
+    "sha256": "a8f80f9cbf5e1cba20b3bdbc5d097bb2ca1c9609ebc79336d59a3951a5eb704c",
+    "mode": 420
+  },
+  "planAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "bytes": 7431,
+    "sha256": "4124ca6d354842e9c972dab4fc0402e289955cdc22c59abcfb1e6486aea63b9c",
+    "mode": 420
+  },
+  "writesStopped": true
+}

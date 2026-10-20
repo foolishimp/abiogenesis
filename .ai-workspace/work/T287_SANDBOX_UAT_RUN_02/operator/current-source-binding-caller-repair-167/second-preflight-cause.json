@@ -1,0 +1,12 @@
+{
+  "failure": "canonical-preflight-02 exit1/467.59770798962563ms; preflight26 full lock guard; no subsequent ProductSet/root checks",
+  "originatingRelation": "I assigned ProductResolutionResourceReceipt.nativeContractClosureDigest to ResolvedProductLock.nativeContractClosureDigest. They are different owner values: environment_definition_bindings.ts324 hashes resources.nativeContractClosure, while environment.ts487 takes linked.nativeContractClosureDigest.",
+  "capturedWrongValue": "sha256:f8e81a74de4f41f7d9eb86e60386b0f466f48fc570f1172c604e1ae643be6d3c",
+  "scope": "Controlled preflight fixture only; intended caller already calls existing live ProductEnvironmentPort.resolve and compares current164 lock coordinate. No Resource/Public/app or verifier effects.",
+  "sourcePin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/failed-preflight/preflight-02.mjs",
+    "sha256": "5795e37c6705d2e770ba4a074b222bd4d3e716cc5b608d9857b3f1d0c556309b",
+    "byteCount": 8628
+  },
+  "status": "STOP pending Root bounded action; do not weaken lock guard or guess link digest."
+}

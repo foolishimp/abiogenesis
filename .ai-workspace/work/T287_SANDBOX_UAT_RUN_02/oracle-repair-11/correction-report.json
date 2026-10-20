@@ -1,0 +1,251 @@
+{
+  "kind": "same_sealed_native_evidence_successor_oracle_reevaluation",
+  "recordedAt": "2026-10-06T12:11:06.796Z",
+  "sourceAnchor": "main@0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "oldSubject": {
+    "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5",
+    "summary": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/summary.json",
+      "sha256": "c56b292de9206ceaa272391f997eeedb510201abdbf3cf25c509a12d78043c44",
+      "bytes": 541
+    },
+    "seal": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/SEALED.json",
+      "sha256": "976d31d652634f28e3e6e66892104b320704f93d68529ac961f404a8052193ed",
+      "bytes": 282
+    },
+    "oracleResult": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/independent-oracle.json",
+      "sha256": "894c7b29276da99f667fa523bc7f0c4d492cca3024f501b3c594f159d88701ed",
+      "bytes": 5181
+    },
+    "evaluator": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/oracle-inputs/independent-oracle.mjs",
+      "sha256": "2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "bytes": 24414
+    },
+    "manifest": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/oracle-inputs/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "bytes": 34763
+    },
+    "preparedOriginalRequest": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/prepared-definition-call.json",
+      "sha256": "e16b559a0a3b7195ee356bc4ec57651f1b2740929be02fcccd1fc198ffbb2918",
+      "bytes": 28914300
+    },
+    "requestSelection": "invocation.request.input.value.original.testing joined with unchanged archived original request",
+    "unchangedPinnedFiles": 88
+  },
+  "successor": {
+    "evaluator": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "bytes": 23452
+    },
+    "manifest": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "bbc1dd8ee7cbcd4a2f1332a2f3509ce17fad836d6d578b4afede999852e61fcf",
+      "bytes": 34763
+    }
+  },
+  "nativeEvidenceReuse": {
+    "newRun": false,
+    "newActors": 0,
+    "newWorkloadCommands": 0,
+    "runRef": "run://abiogenesis/b4f0f568f5a3f9e7c5c103694ee3020c0786a36c21e88736e327e599ba246789",
+    "closePrefix": {
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/events/runtime.events.jsonl",
+      "prefixLength": 41657849,
+      "prefixDigest": "sha256:ee794dab071301d42457e8e3af762d786216e1999301b03a10e146700c99ed50",
+      "coordinateDigest": "sha256:83b6399ddfd72d7d96002b32fb1432a746857e210d9aeba7aa70b35692debc32"
+    },
+    "installedCanonicalC2": {
+      "judgmentPredicateRef": "predicate://abiogenesis/worksite/command-execution-observation@5",
+      "owner": {
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+        "resultClass": "success",
+        "runId": "run://abiogenesis/b4f0f568f5a3f9e7c5c103694ee3020c0786a36c21e88736e327e599ba246789"
+      },
+      "validatedObservations": [
+        {
+          "ordinal": 8398,
+          "eventRef": "event://abiogenesis/c10086348ccd5b20b85bca72548fbeeb68c350af180563eaf5e9b0f7138516f4",
+          "cCallRef": "c-call:sha256:35182e8a7b880520034352b70d3f19e293fa16e019817dfe98cfc3045f4c6d6d",
+          "resultRef": "result://abiogenesis/6e66d760c7e4ad6a84855f71e9bdc7d1faf4324f2b92756b1adbbeb04b3bc815",
+          "observationRef": "worksite-command-execution-observation://abiogenesis/478eb7234d1e7d15de9a629175eb75a42b009ce2a0b573ceb85e817bf40606e8",
+          "observationDigest": "sha256:478eb7234d1e7d15de9a629175eb75a42b009ce2a0b573ceb85e817bf40606e8",
+          "valid": true
+        }
+      ]
+    },
+    "nativeIndependentAssessment": {
+      "ordinal": 10819,
+      "eventRef": "event://abiogenesis/b10b2a9b1587df91ecbded1c168086a0a23be7a0114f58b5b9e5f018d191ec2e",
+      "resultRef": "result://abiogenesis/aead15f59652cdd2f9feaf2b708a6da7fa8ed777dee9e6aacabaafe23e102074",
+      "actorInvocationRef": "actor-invocation://abiogenesis/574591e4f739f80d479d7cac5d07b3319bc9a0f992e7601b24c602fbfc377c82",
+      "disposition": "satisfied",
+      "unresolvedCriteria": [],
+      "unchangedBeforeAfter": true,
+      "changedPaths": []
+    },
+    "fresh": {
+      "artifact": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/fresh-readback.json",
+        "sha256": "0796524df4080d4cafb118f44e74fe0a4eb4895b17f88d54ed7138dc203c15b7",
+        "bytes": 246079
+      },
+      "exactBothTerminalAgreement": true,
+      "replayStatus": "closed",
+      "terminalResult": {
+        "digest": "sha256:2aa31eb3b9da5e5cf256e2b384a005982281a55e288763ee1327a6da39dde324",
+        "ref": "result://abiogenesis/2aa31eb3b9da5e5cf256e2b384a005982281a55e288763ee1327a6da39dde324"
+      },
+      "valueDigest": "sha256:9257360d40829b090fbc03390412cd1e1f4e64a5be776ac9e44e3caeb70be627",
+      "producerC_Call": "c-call:sha256:20af1dbe4a13763b326330a9365250b1aa709cf7996398c15c06a0b3bf9d218e",
+      "producerResultAdmissionEventRef": "event://abiogenesis/e8817d572748ba24f90069fae7c5645a20d2d00bec1ce1509842c34ccadbac04",
+      "nativeTerminal": true,
+      "unresolvedSupportRefs": [],
+      "freshCommandExitCodes": [
+        0,
+        0
+      ]
+    },
+    "bothInstalledBarriersReused": {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/installed-content-before-run.json",
+        "sha256": "fda31f40046c400fb4736be4ce33de7c1c50b4ff6bba69dcabc154b8715d4c9e",
+        "bytes": 2158
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/installed-content-after-run.json",
+        "sha256": "b5e1b4315a07df9654d2b5147fa86e0c5dc39512b37ba8bdf201efdf1f5f2959",
+        "bytes": 2157
+      },
+      "contentDigests": [
+        "sha256:403dd393cd35f306764070c4861c799464373bc736bd348c7f9b64ce157f9310",
+        "sha256:29cd2557fbab5e021f2f3d44c944620b745f805a9b38600911e3352f916104a7"
+      ],
+      "sameAndMatching": true
+    },
+    "originalSources": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/source-conservation.json",
+      "sha256": "cd9fe3c675e9a395b7916ea759d172d493077404226d71e92b785ffd94d04f98",
+      "bytes": 727
+    }
+  },
+  "result": {
+    "oldDisposition": "unmet",
+    "oldUnresolvedCriteria": [
+      "service-test-contract:test/uat/rust-service.uat.test.mjs"
+    ],
+    "correctedDisposition": "satisfied",
+    "correctedUnresolvedCriteria": [],
+    "allRemainingCriteriaExactlyPreserved": true,
+    "criteria": [
+      {
+        "id": "original-source:source/rust-service/source.original.txt",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "source/rust-service/source.original.txt",
+          "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d"
+        ],
+        "reason": "The immutable acquired source/oracle must retain its exact bytes."
+      },
+      {
+        "id": "original-source:source/rust-service/obligations.json",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "source/rust-service/obligations.json",
+          "sha256:13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91"
+        ],
+        "reason": "The immutable acquired source/oracle must retain its exact bytes."
+      },
+      {
+        "id": "original-source:source/rust-service/oracle.json",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "source/rust-service/oracle.json",
+          "sha256:eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c"
+        ],
+        "reason": "The immutable acquired source/oracle must retain its exact bytes."
+      },
+      {
+        "id": "execution:command://abiogenesis-sandbox-uat/rust-service/tests",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "worksite-command-observation://abiogenesis/93846498dc1916e4a940111940cb931f005a82cc19bd83135ba4555624dde3ea",
+          "sha256:93846498dc1916e4a940111940cb931f005a82cc19bd83135ba4555624dde3ea"
+        ],
+        "reason": "Actual exact original executable/argv/cwd/limits/reports and full owner-bound environment must terminate and exit zero."
+      },
+      {
+        "id": "artifact:specification/project-conformance.md",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "specification/project-conformance.md"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:design/implementation-design.md",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "design/implementation-design.md"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:src/service.rs",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "src/service.rs"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:design/test-design.md",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "design/test-design.md"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:test/component/rust-service.test.mjs",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "test/component/rust-service.test.mjs"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:test/uat/rust-service.uat.test.mjs",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "test/uat/rust-service.uat.test.mjs"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "artifact:test-execution-plan.json",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "test-execution-plan.json"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      {
+        "id": "original-test-floor",
+        "disposition": "satisfied",
+        "evidenceRefs": [
+          "worksite-command-observation://abiogenesis/93846498dc1916e4a940111940cb931f005a82cc19bd83135ba4555624dde3ea"
+        ],
+        "reason": "The real admitted original node:test plan must meet its unchanged pass floor."
+      }
+    ]
+  },
+  "effectiveNativeMechanicalFreshConjunction": true,
+  "adjudication": "Root and independent review pending; old failed archive/result/seal remain unchanged, no new native execution"
+}

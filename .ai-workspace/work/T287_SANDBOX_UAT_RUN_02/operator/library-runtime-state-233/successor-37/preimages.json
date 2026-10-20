@@ -1,0 +1,34 @@
+{
+  "kind": "successor37_exact_live_preimages",
+  "basis": "CLOSED36 and actual08 failure",
+  "files": [
+    {
+      "relativePath": "code/src/abg/deferred_application.ts",
+      "livePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts",
+      "sha256": "224728a63bb03d3cf6788fd0573da93f50e6a07b3ff87e9852cef59dd25b570a",
+      "bytes": 4120,
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/preimages/code/src/abg/deferred_application.ts"
+    },
+    {
+      "relativePath": "code/src/hog/recursion_lifecycle.ts",
+      "livePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "98496bae7626f04350fc61fac88e0a4ab962707bdc5ffa1755745601836d1f34",
+      "bytes": 39120,
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/preimages/code/src/hog/recursion_lifecycle.ts"
+    },
+    {
+      "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "livePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "504e138797e4f8a71b0d47cb8ae185869e7ae05464e15c2bb6cd56cd691d555d",
+      "bytes": 44234,
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/preimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+    },
+    {
+      "relativePath": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "livePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+      "sha256": "a8a825521d83a7c94d4979e076f6e34ff22eb1ca2c656d73c4dbd38286880f11",
+      "bytes": 43601,
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/preimages/test_env/tests/t287-route-reconstruction.test.mjs"
+    }
+  ]
+}

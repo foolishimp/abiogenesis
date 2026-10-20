@@ -1,0 +1,58 @@
+{
+  "status": "unbound_preparation_only_incomplete_inventory_no_basis_identity_minted",
+  "body": {
+    "kind": "exact_candidate_qualification",
+    "projection": "basis",
+    "schemaVersion": "5.0.0",
+    "subjectKind": "pre_rc_candidate",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "productVersion": "5.0.0-rc.1",
+    "sourceInventory": {
+      "ref": "qualification-inventory://abiogenesis/882a76142df87597e8b66f3f6d97071defdbcb18a26ba4cc58847bb8ff72f810",
+      "digest": "sha256:882a76142df87597e8b66f3f6d97071defdbcb18a26ba4cc58847bb8ff72f810"
+    },
+    "artifact": {
+      "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "digest": "sha256:758321d64dcbac39855f1bb95bafce90fb49148c202c7f60adb62d3af9cbf009"
+    },
+    "productManifest": {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "digest": "sha256:36bf7a6ad3beec53bf904fc5a654566d1598b15eb06bc86f6550475144d3ad22"
+    },
+    "productContentDigest": "sha256:2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f",
+    "toolchain": {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/toolchain.json",
+      "digest": "sha256:280717ffa7a67ee694613b1c6fcb52b73e72c0b80309d7fe1ba0cd55f156f64e"
+    },
+    "installedProduct": null,
+    "workspaceBinding": null,
+    "prospectiveRelease": {
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "namespace": "abiogenesis",
+      "profile": "one_project_unqualified",
+      "projectSubtree": ".",
+      "versionLine": "5.0.0",
+      "ordinal": 1,
+      "version": "5.0.0-rc.1",
+      "releaseClaim": {
+        "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/release-claims.json",
+        "digest": "sha256:d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+      }
+    },
+    "tenantManifest": null,
+    "coverageCatalog": {
+      "ref": "qualification-coverage://abiogenesis/482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513",
+      "digest": "sha256:482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513"
+    },
+    "lawBasis": {
+      "ref": "qualification-law://abiogenesis/ef42ec32f28b3e81a63841624bfdc89a0fdd0996c9154a422527c039350b85eb",
+      "digest": "sha256:ef42ec32f28b3e81a63841624bfdc89a0fdd0996c9154a422527c039350b85eb"
+    }
+  },
+  "requiredNativeBindings": [
+    "installedProduct",
+    "workspaceBinding",
+    "tenantManifest"
+  ],
+  "construction": "Supply genuine current admitted install/workspace and exact tenant manifest, then existing constructQualificationIdentity(body, basisRef, basisDigest, qualification-basis://abiogenesis/). No ready basis or verdict is minted here."
+}

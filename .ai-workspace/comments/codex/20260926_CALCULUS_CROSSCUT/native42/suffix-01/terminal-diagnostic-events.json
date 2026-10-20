@@ -1,0 +1,257 @@
+{
+  "scope": "forensic complete rows within last3MiB of exact closed native42 suffix; no replay authority",
+  "offset": 528647055,
+  "end": 531792783,
+  "events": [
+    {
+      "admissionOrdinal": 109422,
+      "aggregateId": "c-call:sha256:7da05bcc8cf2b1b4d52cca19019b584f115f617b18780c9fd70f656d5b97e27b",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/95cdd8e8b0f75b9d9335011346409a848f27d2c575575f96c668a9ed96339071",
+      "causationEventRefs": [
+        "event://abiogenesis/e5f97d08223d9e815894f261b9750d39e2bdd2e4feaed9bcffa5a16973b0a0c4"
+      ],
+      "correlationId": "correlation://abiogenesis/odd-glc/generic-workflow/hog/workflow/2/child/leaf/4/judgment/judgment",
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "eventId": "event://abiogenesis/102a2ecf3588f8b9f527582919d4e9cd44ecf4106abe33b027161173e9a2ffc7",
+      "eventTime": "2026-09-26T08:18:44.075Z",
+      "frameId": "frame://abiogenesis/9d571815582456619167e18620bb95f9b5bba9c1cedef51df2e96c868022fa7e",
+      "graphCallId": "graph-call://abiogenesis/63ec75db7fbea6719e6e2311e99b44d5926914504fa09f67bb15dd4ee682a7bf",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/construction@5",
+      "kind": "c_call_judged",
+      "parentAggregateId": "frame://abiogenesis/9d571815582456619167e18620bb95f9b5bba9c1cedef51df2e96c868022fa7e",
+      "payload": {
+        "cCallRef": "c-call:sha256:7da05bcc8cf2b1b4d52cca19019b584f115f617b18780c9fd70f656d5b97e27b",
+        "contractRef": "contract://abiogenesis/semantic-stage/judgment@5",
+        "judgment": "advance",
+        "judgmentDigest": "sha256:2d40c9f4e6163cd829daf3339283a10bcf6bfa7de6ae59ace4b68c60a7d559fb",
+        "judgmentRef": "judgment://abiogenesis/2d40c9f4e6163cd829daf3339283a10bcf6bfa7de6ae59ace4b68c60a7d559fb",
+        "predicateRef": "predicate://abiogenesis/semantic-revision/native-evidence@5",
+        "reasonRef": "reason://abiogenesis/semantic-revision/native-source-satisfied@5",
+        "replayStateDigest": "sha256:a2175e98a5c798eef5736e9d161d7eb75d2901570985bc0ec0d28f60351093a6",
+        "resultDigest": "sha256:528aa9a5bc315cd088b822a5284a7e27bcbfc5866bb2b1dc7cc6f7054e70652d",
+        "resultRef": "result://abiogenesis/528aa9a5bc315cd088b822a5284a7e27bcbfc5866bb2b1dc7cc6f7054e70652d",
+        "retryAttemptRef": null
+      },
+      "payloadDigest": "sha256:42ffbbe590fea53c762c70742f1a4ab89a97613c3985c0abfe75215e8a3a3453",
+      "runId": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 109439,
+      "aggregateId": "c-call:sha256:9d0781532c67c0d9b633d85bd94303c8f791f3d2dbb17c03b7a1da8bbc9dc49c",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/393d4a32f850f21f37e9cdb6ba6b5c38412f686270ae34236a99a6cdaf171406",
+      "causationEventRefs": [
+        "event://abiogenesis/e17f620c0213046edda5f81e5ad846359db38cae05530dc444e905e627d063c3"
+      ],
+      "correlationId": "correlation://abiogenesis/odd-glc/generic-workflow/hog/workflow/2/judgment/judgment",
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "eventId": "event://abiogenesis/83091844e079ea2996e8982282bcf6b5c877784173c420998500708a4a2f5c10",
+      "eventTime": "2026-09-26T08:18:46.701Z",
+      "frameId": "frame://abiogenesis/f6ee1647b5da5b6e6f532edb887d26eeb9b272d70d6fbdaed0f09aabacc93248",
+      "graphCallId": "graph-call://abiogenesis/0a282d7b805a086b0d64ab754e26394454eaa0f253be6e2223dbc270ce97a7bc",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5",
+      "kind": "c_call_judged",
+      "parentAggregateId": "frame://abiogenesis/f6ee1647b5da5b6e6f532edb887d26eeb9b272d70d6fbdaed0f09aabacc93248",
+      "payload": {
+        "cCallRef": "c-call:sha256:9d0781532c67c0d9b633d85bd94303c8f791f3d2dbb17c03b7a1da8bbc9dc49c",
+        "contractRef": "contract://abiogenesis/semantic-stage/judgment@5",
+        "judgment": "advance",
+        "judgmentDigest": "sha256:a7075c8d6918c6830863d5e52f73cdaced88f7186a572aded64baf44974535f7",
+        "judgmentRef": "judgment://abiogenesis/a7075c8d6918c6830863d5e52f73cdaced88f7186a572aded64baf44974535f7",
+        "predicateRef": "predicate://abiogenesis/semantic-revision/step@5",
+        "reasonRef": "reason://abiogenesis/semantic-revision/step-satisfied@5",
+        "replayStateDigest": "sha256:5675b345d1a990b299bf1eb367076e49a0e09dd1d28393c9b2e2eff8fb3f3428",
+        "resultDigest": "sha256:37e5cad0d00b7cc451761fc74b2927aef7c325e655d2e69df3ec5496fdbe8c44",
+        "resultRef": "result://abiogenesis/37e5cad0d00b7cc451761fc74b2927aef7c325e655d2e69df3ec5496fdbe8c44",
+        "retryAttemptRef": null
+      },
+      "payloadDigest": "sha256:82bfcc9a983faa7fe06b7088d3bdbb54ca6663645444b84c237933750f64bf98",
+      "runId": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 109462,
+      "aggregateId": "c-call:sha256:4d3a73addcbfd0327a8b0b6efd2c06fe24b87ddf1ba895019353e4cfc8361c62",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/04cd1e9e6927ad7c599e97687f5f7be143c5ad62824a971e0545985221cc7d1c",
+      "causationEventRefs": [
+        "event://abiogenesis/366a5ef1d1a2ccc9975b8b60f136243090e608e7d43d59f11ca910ad65850b22"
+      ],
+      "correlationId": "correlation://abiogenesis/odd-glc/generic-workflow/hog/workflow/3/child/leaf/0/outcome/result",
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "eventId": "event://abiogenesis/e53a5fb5de27c5218b540d6917ba4e3375cc37f2443f4fd2b212a5b29aa80b18",
+      "eventTime": "2026-09-26T08:18:58.858Z",
+      "frameId": "frame://abiogenesis/a4b2a120890dcbaf3fa1e8dc8b48005eb7238c5fb675b01017fef791f6b8a950",
+      "graphCallId": "graph-call://abiogenesis/b08631f07581d1c44bc8a892e07d07f203b25a6ad63012d3869123d760acaa11",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/a4b2a120890dcbaf3fa1e8dc8b48005eb7238c5fb675b01017fef791f6b8a950",
+      "payload": {
+        "cCallRef": "c-call:sha256:4d3a73addcbfd0327a8b0b6efd2c06fe24b87ddf1ba895019353e4cfc8361c62",
+        "contractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/b6284ba38a3b5fefc3fbc19853d17c28e5442b7e1b0275786d445ac4acc8213f"
+        ],
+        "resultClass": "failure",
+        "resultDigest": "sha256:0cc86f61e508dfbc0187b8e23497833cff7a0300c54a7d947b9bc849f9de3517",
+        "resultRef": "result://abiogenesis/0cc86f61e508dfbc0187b8e23497833cff7a0300c54a7d947b9bc849f9de3517",
+        "value": {
+          "diagnosticRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%5Cn%20%20%20%20at%20requireNativeInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Finstruction_assembly.js%3A556%3A15)%5Cn%20%20%20%20at%20prepareInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Factor_process.js%3A404%3A19)%5Cn%20%20%20%20at%20actor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A43%3A133)%5Cn%20%20%20%20at%20realizeSemanticRevisionAuthor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A70%3A92)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A461%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+          "failureClass": "implementation_exception",
+          "kind": "semantic_stage_failure",
+          "schemaVersion": "5.0.0"
+        },
+        "valueDigest": "sha256:d52f0c23c5f890e19d558d12031e86422682dd195fc6909f6669e6d29c3c60d8",
+        "valueKind": "semantic_stage_failure"
+      },
+      "payloadDigest": "sha256:ec0b3fe79d10884b7774d5ed13026a40def8416ace83b8a59a9ee5d090117837",
+      "runId": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 109464,
+      "aggregateId": "c-call:sha256:4d3a73addcbfd0327a8b0b6efd2c06fe24b87ddf1ba895019353e4cfc8361c62",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/04cd1e9e6927ad7c599e97687f5f7be143c5ad62824a971e0545985221cc7d1c",
+      "causationEventRefs": [
+        "event://abiogenesis/e53a5fb5de27c5218b540d6917ba4e3375cc37f2443f4fd2b212a5b29aa80b18"
+      ],
+      "correlationId": "correlation://abiogenesis/odd-glc/generic-workflow/hog/workflow/3/child/leaf/0/judgment/judgment",
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "eventId": "event://abiogenesis/96afbf24bbaafd4db274a792e21dff4f3b11d413214c0129367acf2ceadf45cc",
+      "eventTime": "2026-09-26T08:18:59.687Z",
+      "frameId": "frame://abiogenesis/a4b2a120890dcbaf3fa1e8dc8b48005eb7238c5fb675b01017fef791f6b8a950",
+      "graphCallId": "graph-call://abiogenesis/b08631f07581d1c44bc8a892e07d07f203b25a6ad63012d3869123d760acaa11",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+      "kind": "c_call_judged",
+      "parentAggregateId": "frame://abiogenesis/a4b2a120890dcbaf3fa1e8dc8b48005eb7238c5fb675b01017fef791f6b8a950",
+      "payload": {
+        "cCallRef": "c-call:sha256:4d3a73addcbfd0327a8b0b6efd2c06fe24b87ddf1ba895019353e4cfc8361c62",
+        "contractRef": "contract://abiogenesis/semantic-stage/judgment@5",
+        "judgment": "blocked",
+        "judgmentDigest": "sha256:f2bff26a2ec62ccb4e81014fba85fe0888e00f0902f19e4c0355029543a27f76",
+        "judgmentRef": "judgment://abiogenesis/f2bff26a2ec62ccb4e81014fba85fe0888e00f0902f19e4c0355029543a27f76",
+        "predicateRef": "predicate://abiogenesis/semantic-revision/authored@5",
+        "reasonRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%5Cn%20%20%20%20at%20requireNativeInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Finstruction_assembly.js%3A556%3A15)%5Cn%20%20%20%20at%20prepareInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Factor_process.js%3A404%3A19)%5Cn%20%20%20%20at%20actor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A43%3A133)%5Cn%20%20%20%20at%20realizeSemanticRevisionAuthor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A70%3A92)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A461%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+        "replayStateDigest": "sha256:1625cb84191a2a72de2159255047ee7b1ec9ebfcbb37788d995c6227ade936d3",
+        "resultDigest": "sha256:0cc86f61e508dfbc0187b8e23497833cff7a0300c54a7d947b9bc849f9de3517",
+        "resultRef": "result://abiogenesis/0cc86f61e508dfbc0187b8e23497833cff7a0300c54a7d947b9bc849f9de3517",
+        "retryAttemptRef": null
+      },
+      "payloadDigest": "sha256:b33784b012fa7494bc5233927dab3ccc3f0dd4887dacc4e25848ccf204976a1a",
+      "runId": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 109471,
+      "aggregateId": "c-call:sha256:3f05d3bc7ac1eff76d0d2942d41f7d8c843db6fb05ba9da70e0e9fdc1c19ced7",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/393d4a32f850f21f37e9cdb6ba6b5c38412f686270ae34236a99a6cdaf171406",
+      "causationEventRefs": [
+        "event://abiogenesis/06d1d17324ad78cf54e01b4fb743b56d429948430b60f4d986638be7ab903979"
+      ],
+      "correlationId": "correlation://abiogenesis/odd-glc/generic-workflow/hog/workflow/3/result/result",
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "eventId": "event://abiogenesis/c9f082a91f34b749ad78af83c60d3add7d96e17384f58d9a35bbc66d8675a643",
+      "eventTime": "2026-09-26T08:19:00.496Z",
+      "frameId": "frame://abiogenesis/f6ee1647b5da5b6e6f532edb887d26eeb9b272d70d6fbdaed0f09aabacc93248",
+      "graphCallId": "graph-call://abiogenesis/0a282d7b805a086b0d64ab754e26394454eaa0f253be6e2223dbc270ce97a7bc",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/f6ee1647b5da5b6e6f532edb887d26eeb9b272d70d6fbdaed0f09aabacc93248",
+      "payload": {
+        "cCallRef": "c-call:sha256:3f05d3bc7ac1eff76d0d2942d41f7d8c843db6fb05ba9da70e0e9fdc1c19ced7",
+        "contractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/04194d1822095923b61b39455824c9885f81504ca41d97c24b7240e3bbe26ade"
+        ],
+        "resultClass": "failure",
+        "resultDigest": "sha256:c618a67cb98288d685b064d81cdda0207150e8435c7b319d6cc29f8821159b1a",
+        "resultRef": "result://abiogenesis/c618a67cb98288d685b064d81cdda0207150e8435c7b319d6cc29f8821159b1a",
+        "value": {
+          "diagnosticRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%5Cn%20%20%20%20at%20requireNativeInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Finstruction_assembly.js%3A556%3A15)%5Cn%20%20%20%20at%20prepareInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Factor_process.js%3A404%3A19)%5Cn%20%20%20%20at%20actor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A43%3A133)%5Cn%20%20%20%20at%20realizeSemanticRevisionAuthor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A70%3A92)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A461%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+          "failureClass": "child_traversal_failed",
+          "kind": "semantic_stage_failure",
+          "schemaVersion": "5.0.0"
+        },
+        "valueDigest": "sha256:cd257bfb98387b052cb68ef3a2cd8e8cd059832912d81511af8996e7e28370e5",
+        "valueKind": "semantic_stage_failure"
+      },
+      "payloadDigest": "sha256:ebae156153bb564088f256acb7afbcd28e7e5d7a0546da945d2d20ea7e5efeb5",
+      "runId": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 109475,
+      "aggregateId": "c-call:sha256:3f05d3bc7ac1eff76d0d2942d41f7d8c843db6fb05ba9da70e0e9fdc1c19ced7",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/393d4a32f850f21f37e9cdb6ba6b5c38412f686270ae34236a99a6cdaf171406",
+      "causationEventRefs": [
+        "event://abiogenesis/c9f082a91f34b749ad78af83c60d3add7d96e17384f58d9a35bbc66d8675a643"
+      ],
+      "correlationId": "correlation://abiogenesis/odd-glc/generic-workflow/hog/workflow/3/judgment/judgment",
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "eventId": "event://abiogenesis/df7d8cd6f6d5ab28a8a161b5fcb1c509ce19009e9a96f5853a849fb2e32e5fe3",
+      "eventTime": "2026-09-26T08:19:00.745Z",
+      "frameId": "frame://abiogenesis/f6ee1647b5da5b6e6f532edb887d26eeb9b272d70d6fbdaed0f09aabacc93248",
+      "graphCallId": "graph-call://abiogenesis/0a282d7b805a086b0d64ab754e26394454eaa0f253be6e2223dbc270ce97a7bc",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5",
+      "kind": "c_call_judged",
+      "parentAggregateId": "frame://abiogenesis/f6ee1647b5da5b6e6f532edb887d26eeb9b272d70d6fbdaed0f09aabacc93248",
+      "payload": {
+        "cCallRef": "c-call:sha256:3f05d3bc7ac1eff76d0d2942d41f7d8c843db6fb05ba9da70e0e9fdc1c19ced7",
+        "contractRef": "contract://abiogenesis/semantic-stage/judgment@5",
+        "judgment": "blocked",
+        "judgmentDigest": "sha256:634be5499668ce7ab8a6dbf6d4c64b9ca0006387efc2a354a4914cbcce7f7e7c",
+        "judgmentRef": "judgment://abiogenesis/634be5499668ce7ab8a6dbf6d4c64b9ca0006387efc2a354a4914cbcce7f7e7c",
+        "predicateRef": "predicate://abiogenesis/semantic-revision/step@5",
+        "reasonRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%5Cn%20%20%20%20at%20requireNativeInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Finstruction_assembly.js%3A556%3A15)%5Cn%20%20%20%20at%20prepareInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Factor_process.js%3A404%3A19)%5Cn%20%20%20%20at%20actor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A43%3A133)%5Cn%20%20%20%20at%20realizeSemanticRevisionAuthor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A70%3A92)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A461%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+        "replayStateDigest": "sha256:0c77f8190469f42beba07516135955e6747fe269222ae03c52e0ca68c42fe4a0",
+        "resultDigest": "sha256:c618a67cb98288d685b064d81cdda0207150e8435c7b319d6cc29f8821159b1a",
+        "resultRef": "result://abiogenesis/c618a67cb98288d685b064d81cdda0207150e8435c7b319d6cc29f8821159b1a",
+        "retryAttemptRef": null
+      },
+      "payloadDigest": "sha256:52622d8c8e54f9436d5fb1e498cf09da602fb87726e50c31cdfe9ae397897ee7",
+      "runId": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    {
+      "admissionOrdinal": 109481,
+      "aggregateId": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989",
+      "aggregateType": "run",
+      "basisId": "execution-basis://abiogenesis/393d4a32f850f21f37e9cdb6ba6b5c38412f686270ae34236a99a6cdaf171406",
+      "causationEventRefs": [
+        "event://abiogenesis/36cdefcc9c694b0e1cb2c022487f4ba23c1febadd6eebacf173771d1590149cc"
+      ],
+      "correlationId": "correlation://abiogenesis/odd-glc/generic-workflow/hog/workflow/3/completion/transition/route/run-stopped",
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "eventId": "event://abiogenesis/4a5c6488c7589bb89d6a12942d68ac3819f7956d6dcb853a66e49937dc271113",
+      "eventTime": "2026-09-26T08:19:01.013Z",
+      "frameId": "frame://abiogenesis/f6ee1647b5da5b6e6f532edb887d26eeb9b272d70d6fbdaed0f09aabacc93248",
+      "graphCallId": "graph-call://abiogenesis/0a282d7b805a086b0d64ab754e26394454eaa0f253be6e2223dbc270ce97a7bc",
+      "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5",
+      "kind": "run_stopped",
+      "materializationRef": "graph-materialization://abiogenesis/64cc21f28d862aefe5901f3f1dbcf3486d3e77dff464ae7acf7de42dda1ec623",
+      "parentAggregateId": null,
+      "payload": {
+        "cCallRef": "c-call:sha256:3f05d3bc7ac1eff76d0d2942d41f7d8c843db6fb05ba9da70e0e9fdc1c19ced7",
+        "disposition": "failed",
+        "judgmentRef": "judgment://abiogenesis/634be5499668ce7ab8a6dbf6d4c64b9ca0006387efc2a354a4914cbcce7f7e7c",
+        "reasonRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20%7B%5C%22cause%5C%22%3A%5C%22declared_bound_overflow%5C%22%2C%5C%22kind%5C%22%3A%5C%22native_instruction_assembly_refusal%5C%22%2C%5C%22policy%5C%22%3A%5C%22assembly%3A%2F%2Fodd-glc%2Fgeneric-lifecycle%2Fevidence%405%5C%22%2C%5C%22role%5C%22%3A%5C%22author%5C%22%2C%5C%22unresolvedRefs%5C%22%3A%5B%5C%22maxPromptBytes%5C%22%5D%7D%5Cn%20%20%20%20at%20requireNativeInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Finstruction_assembly.js%3A556%3A15)%5Cn%20%20%20%20at%20prepareInstructionAssembly%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fabg%2Factor_process.js%3A404%3A19)%5Cn%20%20%20%20at%20actor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A43%3A133)%5Cn%20%20%20%20at%20realizeSemanticRevisionAuthor%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fsemantic_revision.js%3A70%3A92)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260926_CALCULUS_CROSSCUT%2Fnative42%2Fpreparation%2Fproducts%2Fcore42%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A461%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+        "routeRef": "traversal-route://abiogenesis/17b66c85551bcb5085cc77d9412a9e053d99e560fb1e7e69a686fc2c13bb4618"
+      },
+      "payloadDigest": "sha256:a846738e8532c144fe667a4d08b1f9226a249fbd5e01b7f015bfcb27a3fd8032",
+      "runId": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    }
+  ]
+}

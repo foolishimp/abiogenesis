@@ -1,0 +1,24 @@
+{
+  "status": "STOPPED_RECORD_READER_MISMATCH",
+  "operation": "T287_SETUP09_ACCEPTANCE_AND_Q10_RELEASE_WRITER_01",
+  "role": "Writer",
+  "actor": "/root",
+  "stoppedAt": "2026-10-02T16:41:25.191533+00:00",
+  "failedAssertion": "h['status']=='CLOSED'",
+  "actualProducerStatus": "CLOSED_REOPENABLE_COMPLETE_SETUP",
+  "producer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/closed-event-resource-handoff.json",
+    "bytes": 3591718,
+    "sha256": "9179dbc1b6908d34682d1d79d9036fb01def1a1eb3988dd3e466b497dfe4d4e6",
+    "mode": 420
+  },
+  "effectsBeforeStop": [
+    "newactivation",
+    "sevenjoinedgrantsections"
+  ],
+  "acceptanceWritten": false,
+  "Q10Released": false,
+  "executionAppend": false,
+  "runtimeEffects": 0,
+  "returnRole": "Executive"
+}

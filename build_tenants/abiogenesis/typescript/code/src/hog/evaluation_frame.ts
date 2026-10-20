@@ -179,3 +179,15 @@ export function projectParentSuspensions(
     return suspension;
   }));
 }
+
+/** @internal Ordinary evaluation keeps only the current completion's replay guard. */
+export type OwnedMachineRecursionReturnFrame = Omit<MachineRecursionReturnFrame, "recursion"> & {
+  readonly recursion: import("./recursion_lifecycle.js").OwnedRecursionChildFoldFrame;
+};
+/** @internal */
+export type OwnedMachineReturnFrame = MachineWorkflowReturnFrame | OwnedMachineRecursionReturnFrame;
+/** @internal */
+export type OwnedTraversalMachineState =
+  | Readonly<{ stateKind: "evaluate"; frame: MachineEvaluationFrame; returns: readonly OwnedMachineReturnFrame[] }>
+  | Readonly<{ stateKind: "return"; completion: import("./traversal_completion.js").OwnedExecutableTraversalCompletion; returns: readonly OwnedMachineReturnFrame[] }>
+  | Readonly<{ stateKind: "done"; completion: import("./traversal_completion.js").OwnedExecutableTraversalCompletion }>;

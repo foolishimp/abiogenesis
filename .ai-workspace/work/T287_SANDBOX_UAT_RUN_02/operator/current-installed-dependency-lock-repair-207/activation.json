@@ -1,0 +1,25 @@
+{
+  "status": "ACTIVE Worker207",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": "fixed15 ABI5/GOAL035/T287/STDO2.5.1rc2; Product unchanged; CATALOG011/012/014 and INSTALL044/051/055",
+  "cause": "Closed205+206; immutable consumer physical file24 dependency differs from admitted28 logical lock",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "sha256": "2a59298ed1f74398d3b469030439a31bf9e5a5ef1cc999a6c8489f962d96bd01",
+      "byteCount": 15108,
+      "capturedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/preimages/install_product.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
+      "sha256": "30dcaa9647c17d582e12579c27393f69ecb912e68959604d1f8c8aa63d9c1a55",
+      "byteCount": 37146,
+      "capturedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/preimages/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md"
+    }
+  ],
+  "newTest": "test_env/tests/t287-installed-dependency-lock.test.mjs (absent)",
+  "territory": "HOW, install_product.ts, new focused test and207-owned isolated resources only",
+  "invariants": "Exact artifact inputs/old installs/204 effects/A/raw34/Program/criteria unchanged; do not substitute dependencies or bypass validators",
+  "exit": "HOW-first Source guard; strict263 isolated emission; real physical packed install positive and stale/missing/crossed negatives; frozen handoff then STOP",
+  "prohibited": "No current campaign history/provider/model/app/Git/candidate/global generated effects"
+}

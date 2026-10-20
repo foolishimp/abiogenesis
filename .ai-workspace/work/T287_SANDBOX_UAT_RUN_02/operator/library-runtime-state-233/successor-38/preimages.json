@@ -1,0 +1,27 @@
+{
+  "kind": "frozen_deterministic_diagnostic_preimages",
+  "basis": "Exact Root grant + accepted Source37",
+  "files": [
+    {
+      "relativePath": "code/src/implementation/leaf_invocation_port.ts",
+      "livePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "3a178c71c6dfadbfe39162d98e87ec326ed87788ab556ea13f22678125962e89",
+      "bytes": 77337,
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/code/src/implementation/leaf_invocation_port.ts"
+    },
+    {
+      "relativePath": "design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "livePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "sha256": "e5c49d966aa60873d75c02cc6623f70b1f100e9b0fd05fe2bdb6fc105d951b1a",
+      "bytes": 13803,
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md"
+    },
+    {
+      "relativePath": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+      "livePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+      "sha256": "bdf51ea41a63aef761512b4c7218a1d2863a4028c89a08f53bbe93b58af72c76",
+      "bytes": 15084,
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/preimages/test_env/tests/t287-runtime-failure-diagnostic.test.mjs"
+    }
+  ]
+}

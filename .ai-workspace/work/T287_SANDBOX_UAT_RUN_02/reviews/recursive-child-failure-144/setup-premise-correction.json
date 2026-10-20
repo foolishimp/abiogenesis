@@ -1,0 +1,6 @@
+{
+  "firstCause": "Reviewer directory creation used parents=False while campaign/reviews did not exist. Script and Node module were never created/entered.",
+  "firstDiagnostic": "FileNotFoundError reviews/recursive-child-failure-144; downstream MODULE_NOT_FOUND diagnostic-correspondence.mjs",
+  "action": "Create only the authorized new review directory and necessary parent container, then perform the one pure check.",
+  "ownerOrTestRetry": false
+}

@@ -1,0 +1,5 @@
+{
+  "command": "node --test test_env/tests/t287-continuation-causation.test.mjs",
+  "exitCode": 1,
+  "wallMs": 320.3671253286302
+}

@@ -1,0 +1,12 @@
+{
+  "label": "canonical-preflight-02",
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/preflight.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167",
+  "started": "2026-10-09T04:59:12.934500+00:00",
+  "RootSelection": "167 native authority six-field fixture correction; same bounded preflight",
+  "NODE_OPTIONS": "unset",
+  "effects": "Only167 receipts; no resource/transport"
+}

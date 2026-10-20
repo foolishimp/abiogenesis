@@ -1,0 +1,20 @@
+Conditional Reviewer and Product Frame
+Activate independent /root/rc1_c03_install_review Reviewer T287_RESULT_LINEAGE_SOURCE_ASSURANCE_01 only after Root supplies exact CLOSED source Worker freeze/changed-source/new-test pins. STDO2.5.1RC2/fixed15/GOAL035/T287/F04/F11/F15. Product native result retains source/native/actor/request/evidence lineage; Code/Events/Projection are distinct. Selected frame repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration plus Product/Design, ABG, identity/lifecycle/effect/Proof/reuse/cost.
+
+Exact Source and Cause
+Bounded realization in /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01 under T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01, exact c_call_outcome.ts and new t287-result-evidence-lineage-projection.test.mjs only. Prior Runtime08 raw admission passed then strict Product guard refused missing delivery fields. Root accepted author/independent diagnosis at /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/acceptance.json. Current schema already supports embedded/reference tasks; no schema widening. Scope is source assurance, not installed success.
+
+Authority and Classification
+Begin Product Frame; reacquire exact REQ-P-QUAL-064A/B/C, REQ-P-SELF-CONFORMANCE-007A, ratified T287_F11_CARRIER_RESOURCE_DESIGN.md section5 and local AGENTS. Projection is pure delivery of admitted observation/evidence, never authority creation. Preserve cCallRef/cCallAttempt/evidenceClass/output/transportDigest and existing consumers; actual metadata cannot come from result candidate. Check smallest realization_refactor against existing authority.
+
+Permitted Effects
+WRITE ONLY NEW /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/review activation/pins/analysis/report/closure/freeze and necessary owned bounded read-only probe receipts. All source/test/law/candidate/install/resources/oldreports/otherworktrees/Git readonly. No repair, source build/installation, helper/Run, qualification, native/provider/auth/network effects. Worker closed subject and actual regression receipts are independently reacquired; do not review moving intermediate source.
+
+Changed Cone and Proof
+Inspect exact pre/post projection and real qualification result lineage guard/producer and native-work/Consensus callers. Validate actual regression exercises callback/guards rather than duplicated mapping: positive embedded/reference, omitted metadata refusal, nearest relevant corruption/failure retains strictness and consumer subset. State supplied lower admission/prepared-request/native-basis premises; semantic adequacy and installed whole path stay open. Preserve unknown optional/future semantics; no sweeping generic hardening or unrelated investigations.
+
+Cost and Stops
+Prefer read-only frozen source/receipt inspection. Only if concrete uncertainty requires pure independent discriminator, pre-import supervise frozen Node/defaultheap/HOME<=180s with PID/PGID/wait4/RSS/knownclosure in new review territory. No broad suite or repeated accepted regressions. First actual blocker returns exact relation/cost/reentry; Reviewer proposes only, Root decides. One complete concise frozen return.
+
+CLOSED Return
+Return CLOSED GO/NO_GO bounded source assurance, body/mode/census pins, concrete counterexamples/conflicts/supplied premises, remaining installed/release claims and cost/process closure. Stop edits at freeze. Root alone selects candidate construction/install/current inputs and actual whole carrier. No Runtime08 retry or release/semantic F11 credit authorized.

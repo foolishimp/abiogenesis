@@ -1,0 +1,14 @@
+{
+  "kind": "pure_structural_diagnostic_not_native_J",
+  "actual": {
+    "status": "insufficient",
+    "authors": [
+      "/root/s03_phase_b",
+      "/root/f11_attribution_inputs"
+    ]
+  },
+  "rawAttributionAssertions": 0,
+  "wholeJudgmentConstructed": false,
+  "expected": "insufficient",
+  "limits": "No attribution sufficiency, source authority or native independence is supplied by this diagnostic."
+}

@@ -1,0 +1,10 @@
+{
+  "worker": "T287_FINAL_CANDIDATE_CONSTRUCTION_01",
+  "role": "Worker",
+  "changeClass": "realization_refactor",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01",
+  "requestSha256": "0bc97876f7e06e3655d92baa413924a46fb6ba17a28d6e4a4eeb4a4cd98f20ef",
+  "prospectiveVersion": "5.0.0-rc.1",
+  "nativeEffects": "not authorized",
+  "startedAt": "2026-09-30T04:50:12.710143+00:00"
+}

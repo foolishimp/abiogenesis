@@ -1,0 +1,68 @@
+{
+  "recordedAt": "2026-10-06T12:42:50.084Z",
+  "case": "parallel-js",
+  "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d",
+  "status": "passed",
+  "outerWallMs": 729308.261709,
+  "nativeUat": {
+    "ordinal": 7139,
+    "eventRef": "event://abiogenesis/2960109a7a933d4bc1a28d2bbf0dbfccb8a4ed38628c568b4a84833a20742dfa",
+    "resultRef": "result://abiogenesis/fa0e4e3dc26128ee746dd9ecc99b6e9597f8154b15bb4b2cbff28a3235d45e0f",
+    "disposition": "satisfied",
+    "unresolvedCriteria": [],
+    "changedPaths": []
+  },
+  "run": {
+    "ref": "run://abiogenesis/67335b2421ec06f69bcd966f9ea00702c06fc25337b48c49e1ac5c6a4e463d7d",
+    "closedOrdinal": 7224,
+    "closedEventRef": "event://abiogenesis/b840c703d1c34e7ebd249d485cc614fe6edd31321fcce67d0622c39480eec8e9"
+  },
+  "fresh": {
+    "exactBothTypedTerminalAgreement": true,
+    "replayClosed": true,
+    "parentTerminal": true,
+    "unresolvedSupportRefs": [],
+    "producerC_Call": "c-call:sha256:bd469da1723d40c7c137f81b50628ee4ffe75b30b38e8e3d1e8003ccb06e7893",
+    "resultRef": "result://abiogenesis/60736620ee3a36887b1398e45959b59fbf254cad25c0c73405712b4f874cc982",
+    "valueDigest": "sha256:4dd3b77ab7cda1697c4ecab036f159c624e3aca15d513bad3d4738fc4e40fc56"
+  },
+  "installedAndOriginalsConserved": true,
+  "oracleDisposition": "satisfied",
+  "pins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/summary.json",
+      "sha256": "eeb327cd2c6d65d07f1027b8bd13bb3148427e29666814e3339c8f150d22d86b",
+      "bytes": 535
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/SEALED.json",
+      "sha256": "ade5bf096fcba58402ba8151e6b381339c4560feaec50a72286c294767ae35f7",
+      "bytes": 281
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/independent-oracle.json",
+      "sha256": "325ecb262b982f2e71a0005c07b5ef334cc711e22479a5bc968e2b1c88cd7bd5",
+      "bytes": 6246
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/fresh-readback.json",
+      "sha256": "46a4a926ab726221dc70f7351c881ab7b07b3a95196d8d5b70c9eb3d8ef9029d",
+      "bytes": 250633
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/installed-content-before-run.json",
+      "sha256": "cf2f0b413ebc5bdbdd76cbadb32d513dd3171e3a3dbfd0624286a0a15ac81f69",
+      "bytes": 2156
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/installed-content-after-run.json",
+      "sha256": "5d834cb00b64fa62e62d677981fa9ac028701731c88013ea246c1a340eccb636",
+      "bytes": 2155
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/source-conservation.json",
+      "sha256": "87fc84ee3610291742123135755f28a26fedfb74e5823155947504c4baaf7652",
+      "bytes": 724
+    }
+  ]
+}

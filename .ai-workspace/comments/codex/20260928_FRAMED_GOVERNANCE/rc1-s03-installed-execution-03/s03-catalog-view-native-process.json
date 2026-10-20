@@ -1,0 +1,16 @@
+{
+  "pid": 70491,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/s03-catalog-view.jsonl"
+  ],
+  "elapsedMs": 12419.759,
+  "exitCode": 0,
+  "signal": null,
+  "peakRSSBytes": 2220523520,
+  "userSeconds": 16.097459,
+  "systemSeconds": 0.44930299999999995,
+  "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+}

@@ -1,0 +1,58 @@
+{
+  "status": "superseded-before-native-dispatch",
+  "reason": "Worker external AssetSurface used guessed raw-assessment publication name; actual installed qualification owner publishes assessment-raw@5.",
+  "records": [
+    {
+      "path": "preimages/render-03/assessment-input.json",
+      "bytes": 82175295,
+      "sha256": "390632af3c0904ba74e2d6a7e6603cf027f080295ba01ee6ae368faea2ac771a"
+    },
+    {
+      "path": "preimages/render-03/bind-and-render.mjs",
+      "bytes": 12503,
+      "sha256": "3c4aae358d87578c003ce330d4c07d2d38dcb88addf6ea412df058bdd29a5736"
+    },
+    {
+      "path": "preimages/render-03/native-dependency-inputs.json",
+      "bytes": 2252,
+      "sha256": "a64086b00a20345582217c4e2e001d45fe206eb37efaf0c6ee4bdd9bad60fe7e"
+    },
+    {
+      "path": "preimages/render-03/owner-checks.json",
+      "bytes": 683,
+      "sha256": "cf9e31946f879152505336a664b57a120cebe58a8da7f25a8403f58296c33d9d"
+    },
+    {
+      "path": "preimages/render-03/plan.json",
+      "bytes": 3803,
+      "sha256": "74c19fee343eb63133f34a165718a4fc7e707f2a15bf843d8426e2f4dd12455b"
+    },
+    {
+      "path": "preimages/render-03/prompt-measurement.json",
+      "bytes": 5914,
+      "sha256": "624e1ac31450dba4bc95e69353bf69e92d556b04a850c06209472a491afe6f85"
+    },
+    {
+      "path": "preimages/render-03/prompt.txt",
+      "bytes": 1021244,
+      "sha256": "93bb5559023dee0b69e24bab361f9cdeb455492cc41e1de6a2cc39412f01567f"
+    },
+    {
+      "path": "preimages/render-03/structural-attribution-diagnostic.json",
+      "bytes": 407,
+      "sha256": "6a334f2556721cdb1461f57ea205497532303108189f4a0a07deda241ecd7fcf"
+    },
+    {
+      "path": "preimages/render-03/task.json",
+      "bytes": 80757937,
+      "sha256": "39fd4e6d83dafa046638282bfd21b0f3af8895a3804bf5278175fd8b0e96055d"
+    },
+    {
+      "path": "preimages/render-03/worker-request.json",
+      "bytes": 1062803,
+      "sha256": "c2beb851a0afb1c2a4ffb3581d1711c9f687632c61d38101d8bdecd563a28aaf"
+    }
+  ],
+  "sourceMutation": false,
+  "nativeCalls": 0
+}

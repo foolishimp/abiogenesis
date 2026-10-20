@@ -1,0 +1,15 @@
+{
+  "stage": "run-stopped-grant-start",
+  "at": "2026-10-09T18:44:49.675Z",
+  "wallMs": 234078.45475,
+  "pid": 17206,
+  "memory": {
+    "rss": 4252631040,
+    "heapTotal": 3921313792,
+    "heapUsed": 3835782240,
+    "external": 2566615,
+    "arrayBuffers": 154308
+  },
+  "maxRSSKiB": 8026512,
+  "requestDigest": "sha256:6b85cdc86135922c7bd8fb9233971e449f2e088d8139ced1993c5ab28bb6b936"
+}

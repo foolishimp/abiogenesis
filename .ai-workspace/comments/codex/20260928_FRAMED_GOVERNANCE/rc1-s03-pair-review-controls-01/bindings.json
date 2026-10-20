@@ -1,0 +1,10 @@
+{
+  "Writer": "T287_RC1_S03_PAIR_REVIEW_CONTROLS_01",
+  "executionPreimage": "a6c7e5220d5446104427c1a120537fe9bbc001544299cb18706cb93de4fb3c12",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-pair-review-controls-01/request.txt",
+    "bytes": 3630,
+    "sha256": "91e94daad9d1ebd769410d4f8fba24d85cb3db5cd1236e898cd4f5a3c195e995"
+  },
+  "runtime05freezeSHA256": "d656b719ad77444b774ea39f5db4e6327a86777d3d04952f6a57a99098eb1c04"
+}

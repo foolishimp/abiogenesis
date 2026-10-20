@@ -1,0 +1,11 @@
+Checkpoint accepted STDO 3 library design and retained project work
+
+Preserve the full visible project state, including generated artifacts,
+retained evidence, and commentary and analysis from all repository sessions.
+
+Record accepted L1/L2 common-library design and its exact independent review.
+L3 implementation, L4 execution, L5 delivery acceptance and release remain open.
+Retain bounded baseline build/manifest/package readiness and existing diagnostics.
+
+Use exact-path Git LFS for the 35 oversized evidence files while preserving
+their original checkout paths and bytes.

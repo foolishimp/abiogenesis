@@ -1,0 +1,98 @@
+{
+  "package": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:a6e9ed7a905ed36d5575ce3a394f8d2a30a418718f6eb5f7cff86461480fb673"
+  },
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "archiveRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat",
+  "nodePath": "/opt/homebrew/bin/node",
+  "recursionBound": 1000,
+  "processTimeoutMs": 18060000,
+  "maxProcessOutputBytes": 268435456,
+  "inheritEnvironment": [
+    "HOME",
+    "PATH",
+    "TMPDIR",
+    "LANG",
+    "LC_ALL"
+  ],
+  "toolchainEnvironment": {
+    "JAVA_HOME": "/opt/homebrew/opt/openjdk@11"
+  },
+  "toolchains": {
+    "node": {
+      "executable": "/opt/homebrew/bin/node",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "npm": {
+      "executable": "/opt/homebrew/bin/npm",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "rustc": {
+      "executable": "/Users/jim/.cargo/bin/rustc",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "cargo": {
+      "executable": "/Users/jim/.cargo/bin/cargo",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "sbt": {
+      "executable": "/opt/homebrew/bin/sbt",
+      "versionArgs": [
+        "--script-version"
+      ],
+      "environment": {
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@11",
+        "PATH_PREFIX": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin"
+      }
+    },
+    "java": {
+      "executable": "/opt/homebrew/opt/openjdk@11/bin/java",
+      "versionArgs": [
+        "-version"
+      ],
+      "environment": {
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@11"
+      }
+    }
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "versionArgs": [
+      "--version"
+    ],
+    "model": "claude-opus-5-5",
+    "inactivityTimeoutMs": 18030000,
+    "absoluteTimeoutMs": 18040000,
+    "appendArgs": [],
+    "inheritEnvironment": [
+      "ANTHROPIC_API_KEY",
+      "CLAUDE_CONFIG_DIR",
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "fixtureRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+  "resumeEvidence": {
+    "observation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/material-observation.json",
+      "digest": "sha256:9da5a3b5075b7f9e2840e115bd3fd20bad40754d7a71937cc1765d06df6d1e52"
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/material-freeze.json",
+      "digest": "sha256:17ec7b3385847b45dfd8c6798bcd48398a1a498ce47da879714ab800aee8c5ee"
+    }
+  },
+  "commandTimeoutOverrides": {
+    "command://abiogenesis-sandbox-uat/data-mapper-full/tests": 18000000
+  }
+}

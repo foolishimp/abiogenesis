@@ -1,0 +1,117 @@
+{
+  "status": "passed",
+  "fullPublicationCount": 11,
+  "publicationBindings": [
+    {
+      "constructor": "constructDefaultGovernanceLibraryModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:10f051df60335dfdcf6a6b49ad9d0af68ce64ebcee7e546e3efc5622520412e9"
+    },
+    {
+      "constructor": "constructHelloWorldModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:101b231116fdc94b941384c54fd9d8c54483502f3473ddb9e1a6545206716f9b"
+    },
+    {
+      "constructor": "constructConsensusModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abg/consensus@5",
+      "publicationDigest": "sha256:73ef63f358f247a3465fd0e3383bedfd968579befbd3d488afaa2398b7c655d9"
+    },
+    {
+      "constructor": "constructWorksiteConstructionModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/worksite/construction@5",
+      "publicationDigest": "sha256:e02ee1a944a439386dbc8f9fcfb0c71e0b09f3f1878a68cec45dfd35f5a15a5d"
+    },
+    {
+      "constructor": "constructWorksiteCommandExecutionModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "publicationDigest": "sha256:a94f200e187221c7d1dd4b65f567cb4e675def4a7021769229abec977e557839"
+    },
+    {
+      "constructor": "constructWorksiteCommandForwardModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+      "publicationDigest": "sha256:583947d074adf2e5d7715ccd3c92bdeb30959fd0f673af3caedb29b73576262a"
+    },
+    {
+      "constructor": "constructRequirementHandoffModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/requirement-handoff@5",
+      "publicationDigest": "sha256:76301dcaef716c03d3a0c97ca75f033db203a1ed363d2a81ee3a54d79a41ccb5"
+    },
+    {
+      "constructor": "constructSemanticStageModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/semantic-stage@5",
+      "publicationDigest": "sha256:9a63a4691f72610e180f2cd7f216ddda139332a21a1244c226374e1b9772ef2b"
+    },
+    {
+      "constructor": "constructSemanticRevisionModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "publicationDigest": "sha256:53597f53c8e6bb3ea976394b3b5303a1f4d7da0fe82f16407527ee2861200011"
+    },
+    {
+      "constructor": "constructSelfConformanceModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "publicationDigest": "sha256:cc0b55209d484e643ab7fe887756fc30c794ad0f01cd951d035ac2d5ebe548a5"
+    },
+    {
+      "constructor": "constructNativeWorkspaceWorkModulePublication",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "publicationDigest": "sha256:a6203af985e323f6cb8a4420f4831da14c1fa3c680f4439f160dd7227f62c806"
+    }
+  ],
+  "contextChecks": [
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "declarationRef": "environment://abiogenesis/default-library/default@5",
+      "recordRef": "record://abiogenesis/default-library/selected-stdo-member-inventory@5",
+      "path": "contracts/default-library/stdo/context.inventory.json",
+      "digest": "sha256:cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b"
+    },
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "declarationRef": "environment://abiogenesis/default-library/default@5",
+      "memberRef": "member://abiogenesis/default-library/stdo-frames@5",
+      "digest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "packagedEqualContentPaths": [
+        "contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+        "contracts/qualification/sources/STDO_REFERENCE_FRAME_BASELINE.md"
+      ],
+      "roleSpansChecked": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "declarationRef": "environment://abiogenesis/worksite/command-execution@5",
+      "recordRef": "record://abiogenesis/worksite/command-execution/context-inventory@5",
+      "path": "contracts/worksite/command-execution-context.inventory.json",
+      "digest": "sha256:33ea28a9d3522472acc47d9c97bcdc876a0533831072b2ee5bf29db1d1b17564"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "declarationRef": "environment://abiogenesis/worksite/command-execution@5",
+      "memberRef": "source-member://abiogenesis/worksite/command-execution/renderer@5",
+      "digest": "sha256:cf38a00bb92cf5debbd4627d7f91b7f30497c3c91134f6d2ed40b31e52a7200a",
+      "packagedEqualContentPaths": [
+        "build/code/src/product/worksite_command_execution.js"
+      ],
+      "roleSpansChecked": true
+    }
+  ],
+  "actualVerification": {
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "productContentDigest": "sha256:2c7bab8f7425a2a675fd7c8666349391fefae76150823f5cc3050eb57cd9176a",
+    "manifestDigest": "sha256:11e22a986898a4d91a75162f12f45452d6a1dc631b08bdad975dea657c72db1f",
+    "catalogDigest": "sha256:82d5e747b6ac658a4c2e73e2df474d1cb53be68932275b9201d3b67fb47fb0c1"
+  },
+  "declarations": "Complete semantic publication bindings authenticate full declarations/run environments; package inventory and source spans checked before effects",
+  "nativeEffects": 0
+}

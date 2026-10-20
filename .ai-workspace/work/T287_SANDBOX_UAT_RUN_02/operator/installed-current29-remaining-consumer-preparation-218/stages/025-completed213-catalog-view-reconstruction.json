@@ -1,0 +1,19 @@
+{
+  "stage": "completed213-catalog-view-reconstruction",
+  "rss": 4306960384,
+  "heapTotal": 3861233664,
+  "heapUsed": 3736605120,
+  "external": 2466388,
+  "arrayBuffers": 54081,
+  "at": "2026-10-09T14:37:06.504Z",
+  "elapsedMs": 207390.54745800002,
+  "catalog": {
+    "ref": "graph-function-catalog://abiogenesis/e6d9147a0eb8d7ed819ddf53d05c0d0fc47a761313eeb8e55a41d9e5143b802e",
+    "digest": "sha256:e6d9147a0eb8d7ed819ddf53d05c0d0fc47a761313eeb8e55a41d9e5143b802e"
+  },
+  "view": {
+    "ref": "graph-function-catalog-view://abiogenesis/7bf98b48985136f423664b29f16c18d509aa7ded38812225ab71de4e0543e815",
+    "digest": "sha256:7bf98b48985136f423664b29f16c18d509aa7ded38812225ab71de4e0543e815"
+  },
+  "noPublicAdmissionReplay": true
+}

@@ -1,0 +1,284 @@
+{
+  "status": "STOPPED_NO_REPAIR",
+  "earliestActualFailure": {
+    "boundary": "actual core child qualification F_P preparation",
+    "source": "installed ./implementation/qualification.js:32 via leaf_invocation_port.js:478",
+    "diagnostic": {
+      "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+      "errorClass": "TypeError",
+      "errorCode": null,
+      "message": "qualification assessment lacks an exact current owner and admitted task",
+      "messageTruncated": false,
+      "reason": "thrown",
+      "stack": "TypeError: qualification assessment lacks an exact current owner and admitted task\n    at realizeQualificationAssessment (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/qualification.js:32:15)\n    at invokeLeafOwnerBoundary (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:478:32)",
+      "stackTruncated": false,
+      "stage": "preparation"
+    },
+    "actualChildFailureEvent": {
+      "admissionOrdinal": 28,
+      "aggregateId": "c-call:sha256:47adfd10b1814a41bcdc091064d588ef40931e88c2fa3859306f0c6b5da020a4",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/acad596a1a49a0916a8db0dac5eae611698bdfda0c18267c3cedc9782b7385d5",
+      "causationEventRefs": [
+        "event://abiogenesis/d2ab3da63de973eb0cb73cb4fe672befd6aad47b4ff0334e7899feec9e4d6bb8"
+      ],
+      "correlationId": "correlation://abiogenesis/t287/q06-selected-runtime/hog/workflow/0/child/leaf/0/outcome/result",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/1082b8fba7f894aa6f238e2fad15a39dd99dadf0b7ed21580071b3902cced827",
+      "eventTime": "2026-10-02T04:08:04.244Z",
+      "frameId": "frame://abiogenesis/f68c6e2a55471c537b203627acbb9823b3d618a5cbdd6b48d57431b8e8476ac1",
+      "graphCallId": "graph-call://abiogenesis/a2205f0f75f9ac270eb7a8a80c82b14e929054449441230cbbc67933de7ec6cc",
+      "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/f68c6e2a55471c537b203627acbb9823b3d618a5cbdd6b48d57431b8e8476ac1",
+      "payload": {
+        "cCallRef": "c-call:sha256:47adfd10b1814a41bcdc091064d588ef40931e88c2fa3859306f0c6b5da020a4",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/00eeb0351c4a4c42d175275866a7f87475089ad14c21bd5ec2e7dbdfaa44826d"
+        ],
+        "resultClass": "failure",
+        "resultDigest": "sha256:65463294c62be87c890a06c977e40b7bf879d3ef514bfcfd84977d6f4c51477c",
+        "resultRef": "result://abiogenesis/65463294c62be87c890a06c977e40b7bf879d3ef514bfcfd84977d6f4c51477c",
+        "value": {
+          "diagnosticRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%5Cn%20%20%20%20at%20realizeQualificationAssessment%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fqualification.js%3A32%3A15)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A478%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+          "failureClass": "implementation_exception",
+          "kind": "self_conformance_failure",
+          "schemaVersion": "5.0.0"
+        },
+        "valueDigest": "sha256:453690387d40ab5043c235e0bd90311bd4e26d14f42573cda84c4e4dbfbe5816",
+        "valueKind": "self_conformance_failure"
+      },
+      "payloadDigest": "sha256:f588aa7ba3c47fb82c0bd8c29713dfa58e53f08e2603b4b307cf92cab92408af",
+      "runId": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    "actualFailureFoldbackEvent": {
+      "admissionOrdinal": 34,
+      "aggregateId": "frame://abiogenesis/3a5ea3ade837ccbb5e6470c0429674c107c77451e6b2e8098398d34ce3591e34",
+      "aggregateType": "frame",
+      "basisId": "execution-basis://abiogenesis/9e3c11e947d81546350d9fd60fba99df1716ba9be4bc4dbf231f8fe3df363db1",
+      "causationEventRefs": [
+        "event://abiogenesis/fb58d41cf2f95faaf5a42de76e5327bfd7a5295dfca0755e1cf5ecaa04933b32",
+        "event://abiogenesis/e329473a785b8d1672c885ba16dfbfbe6b6fbdd1271b8c50f0488e1e5abba775"
+      ],
+      "correlationId": "correlation://abiogenesis/t287/q06-selected-runtime/hog/workflow/0/child-foldback",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/580a5d5549cc45127bec1064b7c443c9948f375ac5881aff4a3d1de3635e9791",
+      "eventTime": "2026-10-02T04:08:04.272Z",
+      "frameId": "frame://abiogenesis/3a5ea3ade837ccbb5e6470c0429674c107c77451e6b2e8098398d34ce3591e34",
+      "graphCallId": "graph-call://abiogenesis/ead75c2139c8008bc28cd95771c56ef38bc80ac0ec3cbb49cf9ede23cf89e513",
+      "graphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+      "kind": "child_foldback_admitted",
+      "parentAggregateId": "graph-call://abiogenesis/ead75c2139c8008bc28cd95771c56ef38bc80ac0ec3cbb49cf9ede23cf89e513",
+      "payload": {
+        "childClosureRef": null,
+        "childDisposition": "failed",
+        "childExecutionBasisDigest": "sha256:acad596a1a49a0916a8db0dac5eae611698bdfda0c18267c3cedc9782b7385d5",
+        "childExecutionBasisRef": "execution-basis://abiogenesis/acad596a1a49a0916a8db0dac5eae611698bdfda0c18267c3cedc9782b7385d5",
+        "childFrameId": "frame://abiogenesis/f68c6e2a55471c537b203627acbb9823b3d618a5cbdd6b48d57431b8e8476ac1",
+        "childGraphCallId": "graph-call://abiogenesis/a2205f0f75f9ac270eb7a8a80c82b14e929054449441230cbbc67933de7ec6cc",
+        "childJudgmentRef": "judgment://abiogenesis/2d2318d5e939e71be07d353c2f57cc106e64356b5cea89e2d114cee5f1381295",
+        "childReasonRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%5Cn%20%20%20%20at%20realizeQualificationAssessment%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fqualification.js%3A32%3A15)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A478%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+        "childResultDigest": "sha256:65463294c62be87c890a06c977e40b7bf879d3ef514bfcfd84977d6f4c51477c",
+        "childResultRef": "result://abiogenesis/65463294c62be87c890a06c977e40b7bf879d3ef514bfcfd84977d6f4c51477c",
+        "childTerminalEventRef": "event://abiogenesis/fb58d41cf2f95faaf5a42de76e5327bfd7a5295dfca0755e1cf5ecaa04933b32",
+        "foldbackDigest": "sha256:0a68198c34d0970aa10c33dd45a9d7f1da607f7712bb3515a8b034e69c7fae27",
+        "foldbackRef": "child-foldback://abiogenesis/0a68198c34d0970aa10c33dd45a9d7f1da607f7712bb3515a8b034e69c7fae27",
+        "outputDigest": "sha256:453690387d40ab5043c235e0bd90311bd4e26d14f42573cda84c4e4dbfbe5816",
+        "parentCCallRef": "c-call:sha256:a080b17eb92e74b18625ba7e0356ea52c95c446d734ae30c6a568331127120c6"
+      },
+      "payloadDigest": "sha256:c4103519c7b71cb7280cd7c4a5af889765a42b515525a17824e49c35410c8f34",
+      "runId": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    "actualParentFailureEvent": {
+      "admissionOrdinal": 37,
+      "aggregateId": "c-call:sha256:a080b17eb92e74b18625ba7e0356ea52c95c446d734ae30c6a568331127120c6",
+      "aggregateType": "c_call",
+      "basisId": "execution-basis://abiogenesis/9e3c11e947d81546350d9fd60fba99df1716ba9be4bc4dbf231f8fe3df363db1",
+      "causationEventRefs": [
+        "event://abiogenesis/76006c7e3618f2551947802eb7704632d47815259d655f7d1cf0e8083f265424"
+      ],
+      "correlationId": "correlation://abiogenesis/t287/q06-selected-runtime/hog/workflow/0/result/result",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/6ff974bb04d68332d182690665f499d02c228c84a2cd7e827b6c1d9b3b1e08ba",
+      "eventTime": "2026-10-02T04:08:04.277Z",
+      "frameId": "frame://abiogenesis/3a5ea3ade837ccbb5e6470c0429674c107c77451e6b2e8098398d34ce3591e34",
+      "graphCallId": "graph-call://abiogenesis/ead75c2139c8008bc28cd95771c56ef38bc80ac0ec3cbb49cf9ede23cf89e513",
+      "graphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+      "kind": "c_call_result_admitted",
+      "parentAggregateId": "frame://abiogenesis/3a5ea3ade837ccbb5e6470c0429674c107c77451e6b2e8098398d34ce3591e34",
+      "payload": {
+        "cCallRef": "c-call:sha256:a080b17eb92e74b18625ba7e0356ea52c95c446d734ae30c6a568331127120c6",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+        "evidenceRefs": [
+          "evidence://abiogenesis/b211c3f620b7f43f04e607bf629c86b139c7ad6e43ebad4afb96994807200c36"
+        ],
+        "resultClass": "failure",
+        "resultDigest": "sha256:de40fb08932de421ee00df4382c9358de9bc9d846f4d5f714b4c2e26d26bb183",
+        "resultRef": "result://abiogenesis/de40fb08932de421ee00df4382c9358de9bc9d846f4d5f714b4c2e26d26bb183",
+        "value": {
+          "diagnosticRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%5Cn%20%20%20%20at%20realizeQualificationAssessment%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fqualification.js%3A32%3A15)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A478%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+          "failureClass": "child_traversal_failed",
+          "kind": "self_conformance_failure",
+          "schemaVersion": "5.0.0"
+        },
+        "valueDigest": "sha256:9646e39534b42be71584f7259ce91f7f29a5133e94b22f07c9e5e8875de29df5",
+        "valueKind": "self_conformance_failure"
+      },
+      "payloadDigest": "sha256:7c69339def7755814450bd5999c038bc541cd0fd0aa9842de354d016ce2443bb",
+      "runId": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    "actualRunStopEvent": {
+      "admissionOrdinal": 47,
+      "aggregateId": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271",
+      "aggregateType": "run",
+      "basisId": "execution-basis://abiogenesis/9e3c11e947d81546350d9fd60fba99df1716ba9be4bc4dbf231f8fe3df363db1",
+      "causationEventRefs": [
+        "event://abiogenesis/0c1856b8b46104acf05899c1c92c59b00760b60eefd15a5a41932289348b2029"
+      ],
+      "correlationId": "correlation://abiogenesis/t287/q06-selected-runtime/hog/workflow/0/completion/transition/route/run-stopped",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/ba3ca8e10eb8707abfaba524358af4b4e5847f7a4f75b888e5b95771d04f3ab8",
+      "eventTime": "2026-10-02T04:08:04.292Z",
+      "frameId": "frame://abiogenesis/3a5ea3ade837ccbb5e6470c0429674c107c77451e6b2e8098398d34ce3591e34",
+      "graphCallId": "graph-call://abiogenesis/ead75c2139c8008bc28cd95771c56ef38bc80ac0ec3cbb49cf9ede23cf89e513",
+      "graphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+      "kind": "run_stopped",
+      "materializationRef": "graph-materialization://abiogenesis/59a15658387de5a29b5dfc7bd3bb0e1fac45b5c3286ae84f8e3dded23e90d2e7",
+      "parentAggregateId": null,
+      "payload": {
+        "cCallRef": "c-call:sha256:a080b17eb92e74b18625ba7e0356ea52c95c446d734ae30c6a568331127120c6",
+        "disposition": "failed",
+        "judgmentRef": "judgment://abiogenesis/064708e61208c68ddf74ef5318cf20118117490e36abb12431095eabd48a1549",
+        "reasonRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%5Cn%20%20%20%20at%20realizeQualificationAssessment%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fqualification.js%3A32%3A15)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A478%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+        "routeRef": "traversal-route://abiogenesis/00d888717188ea005676b66e96688c8e8ac9b6dd0bd3a8e43a55032f04fbe6f8"
+      },
+      "payloadDigest": "sha256:a40295f946eec39081b49c276852e8ecec24e43e6283bcc655e59d6a18238c1e",
+      "runId": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    },
+    "failureJudgments": [
+      {
+        "admissionOrdinal": 30,
+        "aggregateId": "c-call:sha256:47adfd10b1814a41bcdc091064d588ef40931e88c2fa3859306f0c6b5da020a4",
+        "aggregateType": "c_call",
+        "basisId": "execution-basis://abiogenesis/acad596a1a49a0916a8db0dac5eae611698bdfda0c18267c3cedc9782b7385d5",
+        "causationEventRefs": [
+          "event://abiogenesis/1082b8fba7f894aa6f238e2fad15a39dd99dadf0b7ed21580071b3902cced827"
+        ],
+        "correlationId": "correlation://abiogenesis/t287/q06-selected-runtime/hog/workflow/0/child/leaf/0/judgment/judgment",
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventId": "event://abiogenesis/bb5750051a350ba35e6a97f6bb60a3622e50ef9fd692641e622eb46bcee9e7f6",
+        "eventTime": "2026-10-02T04:08:04.255Z",
+        "frameId": "frame://abiogenesis/f68c6e2a55471c537b203627acbb9823b3d618a5cbdd6b48d57431b8e8476ac1",
+        "graphCallId": "graph-call://abiogenesis/a2205f0f75f9ac270eb7a8a80c82b14e929054449441230cbbc67933de7ec6cc",
+        "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+        "kind": "c_call_judged",
+        "parentAggregateId": "frame://abiogenesis/f68c6e2a55471c537b203627acbb9823b3d618a5cbdd6b48d57431b8e8476ac1",
+        "payload": {
+          "cCallRef": "c-call:sha256:47adfd10b1814a41bcdc091064d588ef40931e88c2fa3859306f0c6b5da020a4",
+          "contractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "judgment": "blocked",
+          "judgmentDigest": "sha256:2d2318d5e939e71be07d353c2f57cc106e64356b5cea89e2d114cee5f1381295",
+          "judgmentRef": "judgment://abiogenesis/2d2318d5e939e71be07d353c2f57cc106e64356b5cea89e2d114cee5f1381295",
+          "predicateRef": "predicate://abiogenesis/qualification/assessment@5",
+          "reasonRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%5Cn%20%20%20%20at%20realizeQualificationAssessment%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fqualification.js%3A32%3A15)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A478%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+          "replayStateDigest": "sha256:7de52e5ac2fb513ec798e44a6a045ca673683b555419415c2ca0efcaaaf67f88",
+          "resultDigest": "sha256:65463294c62be87c890a06c977e40b7bf879d3ef514bfcfd84977d6f4c51477c",
+          "resultRef": "result://abiogenesis/65463294c62be87c890a06c977e40b7bf879d3ef514bfcfd84977d6f4c51477c",
+          "retryAttemptRef": null
+        },
+        "payloadDigest": "sha256:1ac19116d47d5e13285d35cdbbc3b6bd05c5b546e5e94dc2f3ca5df651c5f250",
+        "runId": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271",
+        "scopeClass": "run",
+        "workflowVersion": "5.0.0"
+      },
+      {
+        "admissionOrdinal": 41,
+        "aggregateId": "c-call:sha256:a080b17eb92e74b18625ba7e0356ea52c95c446d734ae30c6a568331127120c6",
+        "aggregateType": "c_call",
+        "basisId": "execution-basis://abiogenesis/9e3c11e947d81546350d9fd60fba99df1716ba9be4bc4dbf231f8fe3df363db1",
+        "causationEventRefs": [
+          "event://abiogenesis/6ff974bb04d68332d182690665f499d02c228c84a2cd7e827b6c1d9b3b1e08ba"
+        ],
+        "correlationId": "correlation://abiogenesis/t287/q06-selected-runtime/hog/workflow/0/judgment/judgment",
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventId": "event://abiogenesis/9e7e17f9018bc31bb9a2a0e888af3c119bb322c47ddf294a668b9ec08b568b9a",
+        "eventTime": "2026-10-02T04:08:04.284Z",
+        "frameId": "frame://abiogenesis/3a5ea3ade837ccbb5e6470c0429674c107c77451e6b2e8098398d34ce3591e34",
+        "graphCallId": "graph-call://abiogenesis/ead75c2139c8008bc28cd95771c56ef38bc80ac0ec3cbb49cf9ede23cf89e513",
+        "graphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+        "kind": "c_call_judged",
+        "parentAggregateId": "frame://abiogenesis/3a5ea3ade837ccbb5e6470c0429674c107c77451e6b2e8098398d34ce3591e34",
+        "payload": {
+          "cCallRef": "c-call:sha256:a080b17eb92e74b18625ba7e0356ea52c95c446d734ae30c6a568331127120c6",
+          "contractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "judgment": "blocked",
+          "judgmentDigest": "sha256:064708e61208c68ddf74ef5318cf20118117490e36abb12431095eabd48a1549",
+          "judgmentRef": "judgment://abiogenesis/064708e61208c68ddf74ef5318cf20118117490e36abb12431095eabd48a1549",
+          "predicateRef": "predicate://abiogenesis-fixture/f11-carrier/typed-child-result@5",
+          "reasonRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20qualification%20assessment%20lacks%20an%20exact%20current%20owner%20and%20admitted%20task%5Cn%20%20%20%20at%20realizeQualificationAssessment%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fqualification.js%3A32%3A15)%5Cn%20%20%20%20at%20invokeLeafOwnerBoundary%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fcomments%2Fcodex%2F20260928_FRAMED_GOVERNANCE%2Ff11-carrier-installed-setup-05%2Fresources%2Finstalled%2Fcore%2Fnode_modules%2F%40abiogenesis%2Ftypescript-tenant%2Fbuild%2Fcode%2Fsrc%2Fimplementation%2Fleaf_invocation_port.js%3A478%3A32)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+          "replayStateDigest": "sha256:e744a0e2e96e3be644863472c3f1d8bb760ef36c35007f67838d9d1e229dfed4",
+          "resultDigest": "sha256:de40fb08932de421ee00df4382c9358de9bc9d846f4d5f714b4c2e26d26bb183",
+          "resultRef": "result://abiogenesis/de40fb08932de421ee00df4382c9358de9bc9d846f4d5f714b4c2e26d26bb183",
+          "retryAttemptRef": null
+        },
+        "payloadDigest": "sha256:53f4c0d3e579b46e02ab687aaa8146fa9bf502d9b62c8d49d027a14107834476",
+        "runId": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271",
+        "scopeClass": "run",
+        "workflowVersion": "5.0.0"
+      }
+    ],
+    "semanticQualificationJudgment": null,
+    "successfulChildResult": null,
+    "helperOrProviderDispatch": 0
+  },
+  "secondObservedFault": {
+    "boundary": "first attempted fresh Public run_result after returned runtime_failed parent",
+    "definitionKey": {
+      "memberKey": "run_result",
+      "operationId": "abg.operation.project.read"
+    },
+    "actualHostReceipt": {
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "exitCode": 70,
+      "failure": {
+        "cause": "Error: {\"kind\":\"definition_execution_fault\",\"schemaVersion\":\"5.0.0\",\"definitionKey\":{\"operationId\":\"abg.operation.project.read\",\"memberKey\":\"run_result\"},\"stage\":\"resource_admission\",\"code\":\"invalid_resource_assertion\",\"message\":\"definition resources differ from the owner-authored structural contract\",\"evidence\":{}}",
+        "failureKind": "typed_execution_fault",
+        "fault": {
+          "code": "invalid_resource_assertion",
+          "definitionKey": {
+            "memberKey": "run_result",
+            "operationId": "abg.operation.project.read"
+          },
+          "evidence": {},
+          "kind": "definition_execution_fault",
+          "message": "definition resources differ from the owner-authored structural contract",
+          "schemaVersion": "5.0.0",
+          "stage": "resource_admission"
+        }
+      },
+      "invocationRef": "invocation://abiogenesis/72aa8dcb5ddf11c8bfbaf97aabbc9bf4c4afa09ca8e18f7a5207d290918e5cc6",
+      "kind": "definition_host_receipt",
+      "ownerOutput": null,
+      "resources": null,
+      "schemaVersion": "5.0.0"
+    },
+    "predicate": "owner-authored resource structural contract differs; resource_admission/invalid_resource_assertion",
+    "actualExitCode": 70,
+    "newEventAppend": false
+  },
+  "copiedFlowBehavior": "Unchanged frozen Q06 flow classified Public result/exit0 then attempted cold read before checking Run terminal disposition; original source preserved. No further calls were made.",
+  "RootReadOnlySourceTrace": "Root reports F_D leaf invocation passes NativeLeafProofOperations argument5, F_P preparation passes4arguments although existing assessment realization requires the borrowed native preparation. This is Root candidate cause, not a Worker implementation change.",
+  "helperResponseEvidence": "controlled-raw-response.json is a prospective template; controlled-response-binding/request pin come from permitted pure owner renderer. They are not an actor exchange or admitted semantic assessment."
+}

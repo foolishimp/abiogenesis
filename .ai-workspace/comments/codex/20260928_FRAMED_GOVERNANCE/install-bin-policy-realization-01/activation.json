@@ -1,0 +1,21 @@
+{
+  "kind": "source_worker_activation",
+  "operation": "T287_INSTALL_BIN_POLICY_SOURCE_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Source Worker",
+  "previousStatus": "CLOSED Runtime setup04",
+  "activatedAt": "2026-10-02T01:32:30.535903+00:00",
+  "reentry": "realization_refactor",
+  "territory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01"
+  ],
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-install-bin-policy-source-controls-01/request.txt",
+    "bytes": 4361,
+    "sha256": "9598d7aed3367ea7dd37478d2bcfe0144cb44e607ecb85b38d9b9a6386323e85"
+  },
+  "noActualABGInstall": true,
+  "firstFailure": "stop; no repair/retry",
+  "providerCalls": 0
+}

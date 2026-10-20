@@ -1,0 +1,15 @@
+{
+  "stage": "retained-consumer-install-complete",
+  "rss": 4223680512,
+  "heapTotal": 3721232384,
+  "heapUsed": 3507579616,
+  "external": 2470608,
+  "arrayBuffers": 58301,
+  "at": "2026-10-09T06:05:24.908Z",
+  "elapsedMs": 200636.855334,
+  "invocationRef": "invocation://abiogenesis/c9e9bf7b0dc13d67f20c80e44cc5e64eb72cc338bc6c8ce7c555d54e13d9d7f4",
+  "install": {
+    "ref": "product-install://@abi5-tests/sandbox-uat/5.0.0/98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c/37c7f0e6fc338a3676b76b892ce2a4ca5d3a73fce74962596321d86522444a85",
+    "digest": "sha256:6944b364ebb6748e47644036c34028aa1dba2d159aea5c952b246972dc5c8da9"
+  }
+}

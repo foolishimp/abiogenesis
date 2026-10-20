@@ -1,0 +1,90 @@
+{
+  "kind": "bounded_source_component_subject",
+  "gitPreimage": "29e2b1621c41aa70d7e1d139c7e52b205d1e884c",
+  "scope": "CCall full-prefix / Run-scope refusal handoff",
+  "changed": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "byteCount": 273204,
+        "sha256": "c93d3ef3a1c2fa27c2a4ba630c7b504560ce980b6f237599f1efed092b48dd57"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "byteCount": 273186,
+        "sha256": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d"
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+        "byteCount": 65043,
+        "sha256": "efc4d9dd5818984c9f19ead8d41537521e139ab8f531041de827b109be13064a"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+        "byteCount": 65177,
+        "sha256": "0544ab335f1885f6f25b5aa3f157dc5300fc5ccd5f661c487122885dee69334d"
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs",
+        "byteCount": 20377,
+        "sha256": "eec646184ea291e632158ecd1183f01c6f4d4fdeb590b5480cd18a8f0e59c917"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs",
+        "byteCount": 28018,
+        "sha256": "7d02c2955b50ae11ba4df2db9109b55e3f666d7faae3f8c8b0776995350c65a1"
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+        "byteCount": 236560,
+        "sha256": "210621b9ebcc704048ac54ef0776c09807de2ba6330a80c1a4e1ba63cec58ad6"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+        "byteCount": 236538,
+        "sha256": "45af70afb17273a9f73f359eca63083dc32bcddff422a56b0291c1d82dec9e5f"
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+        "byteCount": 53013,
+        "sha256": "bcd8ea0227c1ae3411084ce766430af28d327b244be8b298ef2d40997233f1d1"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+        "byteCount": 53151,
+        "sha256": "43b24ecd56a45c4efda3527b59549177ae8e7ec761bd3551bcb0d2c68ac2c855"
+      }
+    }
+  ],
+  "preservedDeclarationOutputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.d.ts",
+      "byteCount": 39422,
+      "sha256": "568fe5861972584b4c168d0c28f1c73ea91440cbe2817ff3ebf4657715c6ce64"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.d.ts",
+      "byteCount": 9764,
+      "sha256": "533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c"
+    }
+  ],
+  "productSchemaHowChanges": false,
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/source.diff",
+    "byteCount": 11285,
+    "sha256": "eb3700ee406ea822749da48f893433a61c859ff3f2af66d367a0a23594523207"
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/checks.json",
+    "byteCount": 4369,
+    "sha256": "dd31dacc15312287c8f1aa33e28a89bf0b58d441d70b1301f71ddf55307e5598"
+  }
+}

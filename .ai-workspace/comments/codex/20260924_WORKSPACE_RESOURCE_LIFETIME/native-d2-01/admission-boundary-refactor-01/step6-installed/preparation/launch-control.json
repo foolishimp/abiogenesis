@@ -1,0 +1,34 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/prepare.mjs"
+  ],
+  "subject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/prepare.mjs",
+      "sha256": "53cc3238b5b07092e997f9acd610ef8024c706d7ffac0f28cd1641a228d76d8c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/selection.json",
+      "sha256": "0358f333c4c7afcab9dd5cf29c161fe5cc968c4ae0d085035de6f7e5ba31accb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/caller-subject.json",
+      "sha256": "8767131e965351140e488a5886425ba4d432941a0f70e5bd243a56cb6a39b7d6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/entry-close.json",
+      "sha256": "519b6d95445b8129205bfa02d1916d96b3540bd20c98f0393f8030ab22415b0e"
+    }
+  ],
+  "effect": "one shared-owner nine-call setup and execution resolution; no actor in this process",
+  "heap": "default",
+  "priorEntryBytes": 117436372,
+  "predecessorCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/prepare.mjs",
+    "sha256": "8f731c578a34b287a92f438d26a8741a8c5ebe2c2c71a783794a18929e99bafb"
+  },
+  "callerDelta": "core25 immutable artifact/clean install destination; genuine latest close; invocation ordinal only; same operation meanings and retained caller modules"
+}

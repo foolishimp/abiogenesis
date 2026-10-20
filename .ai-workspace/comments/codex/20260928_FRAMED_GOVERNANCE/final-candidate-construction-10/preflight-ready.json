@@ -1,0 +1,36 @@
+{
+  "status": "SOURCE_AND_CONSTRUCTOR_BOUND_BEFORE_FIRST_BUILD",
+  "sourceCutSHA256": "dfcbe13c1b667a9b16fb89caaf4afa59a1e911fa44b11e6508e847a2bd1c5aa8",
+  "operationBasisSHA256": "6bba20a790d7efc29393af130b95f2ba2570ee485740b17904100fb08325a7f4",
+  "builderInputsSHA256": "76d987051f2ac8781ab0d27ccecaf531fd59364a3e729362baf72802d2fc7068",
+  "declarationTriageSHA256": "dd6db4bfb095418f994bf8af4e63b73d6463c63f4483d2d187ebef80f60f43d4",
+  "dependencyPreimages": {
+    "C09": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+      "bytes": 388347,
+      "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+      "mode": 420
+    },
+    "G1": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/freeze.json",
+      "bytes": 171217,
+      "sha256": "8dd2269955829b3e5d2b62f6f3540896c31bb074bf570019e80b75b6957da730",
+      "mode": 420
+    },
+    "G3Original": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-parent-alias-owner-repair-01/freeze.json",
+      "bytes": 171411,
+      "sha256": "6d5ab742d9ebf2a730e7d776aa2911c58503d0dc40c2928f18fa72eb3a305d2e",
+      "mode": 292
+    },
+    "G3FinalFixture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/freeze.json",
+      "bytes": 170192,
+      "sha256": "153a3eced2061acbb7b32c96904ad791d667186dcd4e3121fb4a9dbc80262e2c",
+      "mode": 292
+    }
+  },
+  "processesStarted": 0,
+  "SourceTestsSelected": 0,
+  "onlyWriteRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10"
+}

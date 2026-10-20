@@ -1,0 +1,33 @@
+{
+  "role": "Writer45",
+  "selection": "call-local historical cuts and structural views; zero cross-call retained historical vectors",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "companionFrame": "f-worksite-causality",
+  "authority": "Root CLOSED Source44/Proof44 and owner transient-subfunction steering; fixed15 ABI5/T287/STDO2.5.1RC2",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "91ab5595acc630b8b2eea221a9466eb1273de1b9a10fd361b1a5c417bb5bcfed",
+      "byteCount": 76288
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "sha256": "31ba90f6477b9295fa3aacf9eddc8a6e6bf122fa5c6ab4c3c3074a86c95af564",
+      "byteCount": 27440
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "sha256": "17af38185e496810b5299b69c4a34e2130fe7d06578da26b60590d83663b5745",
+      "byteCount": 27790
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "sha256": "8e55aed6810f56bc557df87c10f7f4f8c98764eaa20add38fb312fbbbcad0403",
+      "byteCount": 74826
+    }
+  ],
+  "originalPhysicalTestBody": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/test_env/tests/t287-ordered-reconstruction.test.mjs",
+  "knownDiagnosticFailuresDoNotBlockSuccessor": true,
+  "normalGeneratedEffectsAuthorized": true,
+  "noRuntimePublicationOrApplicationEffects": true
+}

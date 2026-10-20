@@ -1,0 +1,41 @@
+{
+  "onlyCanonicalEffects": [
+    {
+      "relativePath": "build/code/src/abg/c_call.d.ts",
+      "kind": "replacement"
+    },
+    {
+      "relativePath": "build/code/src/abg/c_call.js",
+      "kind": "replacement"
+    },
+    {
+      "relativePath": "build/code/src/abg/c_call_outcome.js",
+      "kind": "replacement"
+    },
+    {
+      "relativePath": "build/code/src/abg/result_evidence_lineage_contracts.d.ts",
+      "kind": "addition"
+    },
+    {
+      "relativePath": "build/code/src/abg/result_evidence_lineage_contracts.js",
+      "kind": "addition"
+    },
+    {
+      "relativePath": "build/code/src/implementation/contracts.d.ts",
+      "kind": "replacement"
+    },
+    {
+      "relativePath": "build/code/src/product/semantics.d.ts",
+      "kind": "replacement"
+    },
+    {
+      "relativePath": "contracts/capabilities/capability-definition-graph.json",
+      "kind": "replacement"
+    },
+    {
+      "relativePath": "product-toolchain-manifest.json",
+      "kind": "replacement"
+    }
+  ],
+  "otherSourceCandidateInstalledProofRuntimeGitEffects": 0
+}

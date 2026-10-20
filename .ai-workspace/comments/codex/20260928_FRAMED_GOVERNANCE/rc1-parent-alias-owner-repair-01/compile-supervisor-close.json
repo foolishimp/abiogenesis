@@ -1,0 +1,27 @@
+{
+  "mode": "compile",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "-p",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-parent-alias-owner-repair-01/stage/tsconfig.json"
+  ],
+  "pid": 71652,
+  "processGroup": 71652,
+  "startedAt": "2026-10-03T16:37:02.513901+00:00",
+  "closedAt": "2026-10-03T16:37:08.597036+00:00",
+  "elapsedMs": 6083.438083063811,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 1086832640,
+  "userSeconds": 10.043319,
+  "systemSeconds": 0.25368999999999997,
+  "knownCLIProcessGroups": [],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

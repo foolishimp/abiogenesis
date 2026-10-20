@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/return.md",
+      "byteCount": 3514,
+      "sha256": "a16d007ba8fb753aa286da31f510aa3003806b4f0dcfe05593ecc462a71d6123"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/frozen-subject.json",
+      "byteCount": 4303,
+      "sha256": "71f591f0269f398c0f59e311b359b0fb3931c7febaf1fde896a46bc2d3e87b11"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/preimages.json",
+      "byteCount": 1774,
+      "sha256": "32d0838d420bdd97fca3713b6623bdf8ba25f270dd5bdafff62b65af95e9e9ba"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/checks.json",
+      "byteCount": 4369,
+      "sha256": "dd31dacc15312287c8f1aa33e28a89bf0b58d441d70b1301f71ddf55307e5598"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/source.diff",
+      "byteCount": 11285,
+      "sha256": "eb3700ee406ea822749da48f893433a61c859ff3f2af66d367a0a23594523207"
+    }
+  ],
+  "failureInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/causal-capsule.json",
+    "byteCount": 8101,
+    "sha256": "27b1247ae4efe630b068ac6d5a8da0ed62e42d7678238ebd06f784823ab38098"
+  },
+  "governingHow": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "byteCount": 9251,
+    "sha256": "e8fb271a5dca0243559859ca8204873a96936aeaaff0bde7b08fe152f4edee9b"
+  }
+}

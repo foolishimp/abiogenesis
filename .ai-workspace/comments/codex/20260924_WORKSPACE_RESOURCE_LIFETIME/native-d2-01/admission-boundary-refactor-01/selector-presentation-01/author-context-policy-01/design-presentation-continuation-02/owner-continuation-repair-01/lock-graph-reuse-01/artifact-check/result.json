@@ -1,0 +1,124 @@
+{
+  "retainedInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/fixture-history.jsonl",
+    "sha256": "efde33afd29f86be6ae4c50a172f45ab44b13306fda4c4febda9d660ff97b776"
+  },
+  "ownerEvents": 3,
+  "historicalPrefixBytes": 6741844,
+  "compactPrefixBytes": 2254910,
+  "compactSavingsBytes": 4486934,
+  "preAppendRefusalCases": [
+    "missing reference",
+    "malformed reference",
+    "wrong source event",
+    "forward source event",
+    "wrong source digest",
+    "wrong lock identity",
+    "wrong lock digest",
+    "mixed inline/reference",
+    "wrong product row",
+    "wrong candidate identity",
+    "wrong candidate content",
+    "extra compact field"
+  ],
+  "coldResult": {
+    "processId": 51622,
+    "outcomes": [
+      {
+        "name": "historical",
+        "disposition": "equal"
+      },
+      {
+        "name": "new owner-produced",
+        "disposition": "equal"
+      },
+      {
+        "name": "mixed historical/new projection probe",
+        "disposition": "equal"
+      },
+      {
+        "name": "reference chain",
+        "disposition": "refused"
+      },
+      {
+        "name": "missing reference",
+        "disposition": "refused"
+      },
+      {
+        "name": "malformed reference",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong source event",
+        "disposition": "refused"
+      },
+      {
+        "name": "forward source event",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong source digest",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong lock identity",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong lock digest",
+        "disposition": "refused"
+      },
+      {
+        "name": "mixed inline/reference",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong product row",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong candidate identity",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong candidate content",
+        "disposition": "refused"
+      },
+      {
+        "name": "extra compact field",
+        "disposition": "refused"
+      }
+    ]
+  },
+  "candidateWork": [
+    {
+      "artifactRowsPrepared": 1,
+      "coldPrefixSelections": 0,
+      "calculusEffects": 2,
+      "completeLockChecks": 1,
+      "graphConstructions": 2
+    },
+    {
+      "artifactRowsPrepared": 1,
+      "coldPrefixSelections": 0,
+      "calculusEffects": 2,
+      "completeLockChecks": 1,
+      "graphConstructions": 2
+    },
+    {
+      "artifactRowsPrepared": 1,
+      "coldPrefixSelections": 0,
+      "calculusEffects": 2,
+      "completeLockChecks": 0,
+      "graphConstructions": 0
+    }
+  ],
+  "refusedCandidateIsolation": true,
+  "immutablePriorPrefix": true,
+  "stalePredecessorRefused": true,
+  "completeLiveColdProjectionEqual": true,
+  "candidateDeltaColdCases": 5,
+  "physicalMutationRefused": true,
+  "retainedInputUnchanged": true,
+  "scope": "Owner and cold-reader regression; synthetic histories are explicitly projection/refusal probes, not installed qualification."
+}

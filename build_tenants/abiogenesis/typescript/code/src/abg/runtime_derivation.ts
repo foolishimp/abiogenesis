@@ -1,6 +1,6 @@
 import type { RuntimeEvent } from "./event_store.js";
+import type { RuntimeHistorySelection } from "./runtime_history.js";
 
-const SNAPSHOT = Symbol("owner_runtime_derivation_snapshot");
 const SNAPSHOT_PROOFS = new WeakMap<readonly RuntimeEvent[], SnapshotProof>();
 
 /** Disposable computation territory, never event or durable authority. Each
@@ -8,12 +8,27 @@ const SNAPSHOT_PROOFS = new WeakMap<readonly RuntimeEvent[], SnapshotProof>();
 export class RuntimeDerivationScope {
   readonly #owners = new Map<symbol, unknown>();
   #events: readonly RuntimeEvent[] = [];
+  #selection: RuntimeHistorySelection | undefined;
   accepts(events: readonly RuntimeEvent[]): boolean {
     if (!sharesRuntimeEventPrefix(events, this.#events)) return false;
     if (events.length > this.#events.length) this.#events = events;
     return true;
   }
-  invalidate(): void { this.#owners.clear(); this.#events = []; }
+  /** @internal Body-location computation; no full Event vector is retained. */
+  acceptsSelection(selection: RuntimeHistorySelection): boolean {
+    // Explicit array computations belong to that caller-retained output. They
+    // cannot lend their full body vector to an operational selection scope.
+    if (this.#events.length !== 0) return false;
+    const prior = this.#selection;
+    if (prior !== undefined) {
+      if (selection.extends(prior)) { this.#selection = selection; return true; }
+      // A historical read of this exact ordered owner does not roll the live
+      // derivation back or lend it authority from another selection.
+      return prior.extends(selection);
+    }
+    this.#selection = selection; return true;
+  }
+  invalidate(): void { this.#owners.clear(); this.#events = []; this.#selection = undefined; }
   owner<T>(key: symbol, construct: () => T): T {
     if (!this.#owners.has(key)) this.#owners.set(key, construct());
     return this.#owners.get(key) as T;
@@ -26,22 +41,20 @@ export class RuntimeDerivationSource {
   snapshot(events: readonly RuntimeEvent[]): readonly RuntimeEvent[] {
     if (SnapshotProof.source(events) === this) return events;
     const snapshot = [...events];
-    Object.defineProperty(snapshot, SNAPSHOT, { value: new SnapshotProof(snapshot, this) });
+    new SnapshotProof(snapshot, this);
     return Object.freeze(snapshot);
   }
   append(events: readonly RuntimeEvent[], suffix: readonly RuntimeEvent[]): readonly RuntimeEvent[] {
     if (suffix.length === 0) return this.snapshot(events);
     const snapshot = [...events, ...suffix];
-    Object.defineProperty(snapshot, SNAPSHOT, { value: new SnapshotProof(snapshot, this,
-      SnapshotProof.source(events) === this ? events : undefined, events.length) });
+    new SnapshotProof(snapshot, this, SnapshotProof.source(events) === this ? events : undefined, events.length);
     return Object.freeze(snapshot);
   }
   prefix(events: readonly RuntimeEvent[], length: number): readonly RuntimeEvent[] {
     if (!Number.isSafeInteger(length) || length < 0 || length > events.length) throw new TypeError("invalid snapshot prefix length");
     if (length === events.length) return this.snapshot(events);
     const snapshot = events.slice(0, length);
-    Object.defineProperty(snapshot, SNAPSHOT, { value: new SnapshotProof(snapshot, this,
-      SnapshotProof.source(events) === this ? events : undefined, length) });
+    new SnapshotProof(snapshot, this, SnapshotProof.source(events) === this ? events : undefined, length);
     return Object.freeze(snapshot);
   }
   hasPrefix(events: readonly RuntimeEvent[], prefix: readonly RuntimeEvent[]): boolean {
@@ -53,6 +66,14 @@ export class RuntimeDerivationSource {
       scope = new RuntimeDerivationScope();
       scope.accepts(events);
       this.#scopes.set(key, scope);
+    }
+    return scope;
+  }
+  /** @internal Same ordered owner computations over the store's private rows. */
+  selectionScope(key: string, selection: RuntimeHistorySelection): RuntimeDerivationScope {
+    let scope = this.#scopes.get(key);
+    if (scope === undefined || !scope.acceptsSelection(selection)) {
+      scope = new RuntimeDerivationScope(); scope.acceptsSelection(selection); this.#scopes.set(key, scope);
     }
     return scope;
   }
@@ -69,8 +90,8 @@ class SnapshotProof {
     this.#shared = shared; SNAPSHOT_PROOFS.set(snapshot, this); Object.freeze(this);
   }
   static for(events: readonly RuntimeEvent[]): SnapshotProof | undefined {
-    const proof: unknown = Object.getOwnPropertyDescriptor(events, SNAPSHOT)?.value;
-    return typeof proof === "object" && proof !== null && #source in proof && SNAPSHOT_PROOFS.get(events) === proof
+    const proof: unknown = SNAPSHOT_PROOFS.get(events);
+    return typeof proof === "object" && proof !== null && #source in proof
       ? proof : undefined;
   }
   static source(events: readonly RuntimeEvent[]): RuntimeDerivationSource | undefined {

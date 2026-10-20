@@ -1,0 +1,134 @@
+--- pre/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ post/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -150,6 +150,16 @@
+ admitted. Changed declaration meaning refuses this arm. Changed implementation
+ behavior requires the separately selected Source acceptance; binding cover is
+ not a behavior-equivalence judgment.
++
++An ordinary covered-source preparation handoff consumes the already authenticated
++nominal predecessor snapshot through `projectOwnedPrefixArtifactTruth`, and both
++bindings through `projectWorkspaceEnvironmentFromArtifactTruth` over that one
++ArtifactTruth. Normal append-owner close releases the mutable lease, not the
++immutable evidence receipt. The same exact prefix, source and complete current-use
++checks still qualify the comparison. Raw or copied coordinates without that
++receipt retain cold validation; explicit fresh/current reads and new effect
++admission keep their existing physical and mutable-worksite checks. A retained
++projection is neither a saved successful callback nor current physical authority.
+ 
+ ```mermaid
+ sequenceDiagram
+--- pre/code/src/abg/invocation_execution_truth.ts
++++ post/code/src/abg/invocation_execution_truth.ts
+@@ -21,7 +21,8 @@
+   type AbgHistoricalDeclarationReference } from "./terminal_result_contracts.js";
+ import { reconstructHistoricalDeclarationCatalog, resolveProgramDeclarationClosure,
+   resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
+-import { projectExactPrefixWorkspaceEnvironment, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
++import { projectWorkspaceEnvironmentFromArtifactTruth, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
++import { projectOwnedPrefixArtifactTruth } from "./artifact_truth.js";
+ import { projectAdmittedWorkspaceBindingAtCoordinate, projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
+ import { validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
+ import { runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
+@@ -53,9 +54,11 @@
+     const historical = input.historicalDeclarations.filter(p => p.catalog.basisDigest === invocation.catalogBasisDigest &&
+       p.catalogView.viewDigest === invocation.catalogViewDigest);
+     if (historical.length !== 1) return null;
+-    const oldEnvironment = projectExactPrefixWorkspaceEnvironment(predecessorPrefix,
++    const artifactTruth = projectOwnedPrefixArtifactTruth(predecessorPrefix);
++    if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
++    const oldEnvironment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
+       { ref: source.workspaceBindingId, digest: source.workspaceBindingDigest });
+-    const currentEnvironment = projectExactPrefixWorkspaceEnvironment(predecessorPrefix,
++    const currentEnvironment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
+       { ref: workspaceBinding.bindingId, digest: workspaceBinding.bindingDigest });
+     if (oldEnvironment.kind !== "exact_prefix_workspace_environment" || currentEnvironment.kind !== "exact_prefix_workspace_environment" ||
+         !same(currentEnvironment.workspaceBinding, workspaceBinding)) return null;
+--- pre/test_env/tests/t287-governance-covered-source-use.test.mjs
++++ post/test_env/tests/t287-governance-covered-source-use.test.mjs
+@@ -4,6 +4,7 @@
+ import path from 'node:path';
+ import {pathToFileURL} from 'node:url';
+ import {SourceTextModule,SyntheticModule} from 'node:vm';
++import {syncBuiltinESMExports} from 'node:module';
+ 
+ const root=process.env.ABG_GOVERNANCE_COVERED_BUILD_ROOT??path.resolve('build/code/src');
+ const load=name=>import(pathToFileURL(path.join(root,name+'.js')).href);
+@@ -13,6 +14,7 @@
+ const freeze=(await load('shared/immutable')).deepFreeze,hash=p.sha256Canonical;
+ const fixturePath=process.env.ABG_GOVERNANCE_COVERED_FIXTURE;
+ const declarationPairPath=process.env.ABG_GOVERNANCE_COVERED_DECLARATION_PAIR;
++const proofRoot=process.env.ABG_GOVERNANCE_COVERED_PROOF_ROOT;
+ const clone=value=>JSON.parse(JSON.stringify(value));
+ async function moduleAt(name,replacements={},names=[]) {
+   const file=path.join(root,name+'.js'),m=new SourceTextModule(fs.readFileSync(file,'utf8')+(names.length?'\nexport { '+names.join(',')+' };':''),{identifier:file});
+@@ -23,6 +25,52 @@
+ const oldIdentity={productId:p.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:hash('old archive'),productContentDigest:hash('old content'),productManifestDigest:hash('old manifest')};
+ const newIdentity={...oldIdentity,artifactDigest:hash('new archive'),productContentDigest:hash('new content'),productManifestDigest:hash('new manifest')};
+ const publications=identity=>['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'].map(n=>gtl[n](identity));
++
++test('normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes',{skip:!proofRoot},async t=>{
++  fs.mkdirSync(proofRoot,{recursive:true});const scratch=fs.mkdtempSync(path.join(proofRoot,'closed-owner-'));
++  t.after(()=>fs.rmSync(scratch,{recursive:true,force:true}));
++  const eventLogPath=path.join(scratch,'events.jsonl'),resourceOwner=await load('abg/definition_event_resource'),artifact=await load('abg/artifact_truth');
++  const opened=eventOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath});assert.ok(opened.store);
++  let handoff;
++  try {
++    const basisRef='basis://finite/owned-snapshot-fixture';
++    eventOwner.admitRuntimeEvent(opened.store,{kind:'basis_admitted',eventTime:'2026-09-23T00:00:00.000Z',aggregateType:'workspace',aggregateId:'workspace://owned-snapshot-fixture',
++      parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://finite/owned-snapshot',workflowVersion:'5.0.0',scopeClass:'workspace',basisId:basisRef,
++      payload:{basisRef,basisDigest:hash('finite owned snapshot'),basisClass:'root',rawInputValue:{kind:'component-premise'}}});
++    handoff=opened.store.projectReopenAuthorityAndClose();
++  } finally {opened.store.closeDurableLog();}
++  const acquired=resourceOwner.acquireAbgEventResource({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:hash(handoff)});
++  assert.equal(acquired.kind,'acquired_abg_event_resource');
++  const nominal=acquired.resource.entryPrefix,bytes=fs.readFileSync(eventLogPath);
++  let physicalOpens=0,closed=false;const originalOpen=fs.openSync;
++  fs.openSync=function(file,...args){if(String(file)===eventLogPath)physicalOpens++;return originalOpen.call(fs,file,...args);};syncBuiltinESMExports();
++  try {
++    const before=artifact.projectOwnedPrefixArtifactTruth(nominal);assert.equal(before.kind,'exact_prefix_artifact_truth_projection');
++    const meaning=JSON.stringify(before),digest=before.projectionDigest;
++    const receipt=resourceOwner.closeAbgEventResource(acquired.resource,nominal);closed=true;assert.deepEqual(receipt.closeHandoff.prefix,nominal);
++    const after=artifact.projectOwnedPrefixArtifactTruth(nominal);
++    assert.strictEqual(after,before,'the closed append lease leaves the actual snapshot-local receipt intact');
++    assert.equal(JSON.stringify(after),meaning);assert.equal(after.projectionDigest,digest);
++    assert.equal(physicalOpens,0,'owned internal projection performs no second physical acquisition after close');
++    const fresh=artifact.projectExactPrefixArtifactTruth(nominal);assert.equal(fresh.kind,'exact_prefix_artifact_truth_projection');assert.deepEqual(fresh,before);
++    const freshOpens=physicalOpens;assert.equal(freshOpens,1,'explicit fresh API still validates physical bytes');
++    const copied=artifact.projectOwnedPrefixArtifactTruth(structuredClone(nominal));assert.equal(copied.kind,'exact_prefix_artifact_truth_projection');assert.deepEqual(copied,before);
++    const copiedOpens=physicalOpens-freshOpens;assert.equal(copiedOpens,1,'a raw copy has no nominal receipt');
++    const resign=coordinate=>{const {coordinateDigest,...body}=coordinate;return {...body,coordinateDigest:hash(body)};};
++    const foreign=structuredClone(nominal);foreign.storeIdentity.inode+=1;
++    assert.equal(artifact.projectOwnedPrefixArtifactTruth(resign(foreign)).code,'file_identity_mismatch');
++    const changed=Buffer.from(bytes);changed[0]^=1;fs.writeFileSync(eventLogPath,changed);
++    assert.equal(artifact.projectExactPrefixArtifactTruth(nominal).code,'prefix_digest_mismatch');
++    assert.equal(artifact.projectOwnedPrefixArtifactTruth(structuredClone(nominal)).code,'prefix_digest_mismatch');
++    fs.writeFileSync(eventLogPath,Buffer.concat([bytes,Buffer.from(' ')]));
++    assert.throws(()=>eventOwner.readRuntimeEventsAtDurablePrefix(nominal,{requireCurrent:true}),e=>e.code==='prefix_length_mismatch');
++    fs.writeFileSync(eventLogPath,bytes);assert.deepEqual(fs.readFileSync(eventLogPath),bytes);
++    console.log(JSON.stringify({kind:'closed_owner_artifact_snapshot',ownedAdditionalPhysicalOpens:0,freshPhysicalOpens:freshOpens,copiedPhysicalOpens:copiedOpens,
++      projectionDigest:digest,prefixLength:nominal.prefixLength,scope:'one real contract-admitted fixture event/resource/ArtifactTruth; no installed environment, covered-source admission, campaign capacity or UAT credit'}));
++  } finally {
++    fs.openSync=originalOpen;syncBuiltinESMExports();if(!closed)resourceOwner.closeAbgEventResource(acquired.resource,nominal);fs.writeFileSync(eventLogPath,bytes);
++  }
++});
+ 
+ test('complete canonical declarations permit only publication identity consequences',()=>{
+   const old=publications(oldIdentity),next=publications(newIdentity),compared=semantics.compareGovernanceDeclarationPublications(old,next);
+@@ -167,11 +215,15 @@
+   const source={kind:sk,schemaVersion:sv,...sourceBody,basisDigest:hash(sourceBody),basisRef:'invocation-source-result://abiogenesis/'+hash(sourceBody).slice(7)};
+   const oldBasis={basisRef,basisDigest:hash('controlled source basis'),invocationAdmissionRef:oldInvocation.invocationAdmissionRef,invocationRef:oldInvocation.invocationRef,
+     workspaceBindingId:oldW.bindingId,workspaceBindingDigest:oldW.bindingDigest,catalogBasisDigest:old.catalog.basisDigest,catalogViewDigest:old.catalogView.viewDigest,graphFunctionRef:gf.name};
+-  const gates={cover:true,environment:true,install:true,reads:0};
++  const gates={cover:true,environment:true,install:true,artifact:true,reads:0};
++  // Both ArtifactTruth and environment authentication are controlled lower
++  // premises here; the actual closed-owner lifetime is proved separately.
++  const controlledArtifactTruth=freeze({kind:'exact_prefix_artifact_truth_projection'});
+   const environment=(w,proof)=>({kind:'exact_prefix_workspace_environment',workspaceBinding:w,workspaceBindingCandidate:proof.catalog.readinessBasis.workspaceBinding,resolvedProductLock:proof.catalog.readinessBasis.resolvedLock,
+     productInstalls:proof.catalog.readinessBasis.installedProducts.map((candidate,index)=>({admissionEventRef:'install:'+w.bindingId+':'+index,candidate})),artifactTruth:{}});
+   const oldEnv=environment(oldW,old),nextEnv=environment(newW,current);
+-  const overrides={'./environment_admission.js':{projectExactPrefixWorkspaceEnvironment:(_p,id)=>{gates.reads++;return gates.environment?(id.ref===oldW.bindingId?oldEnv:nextEnv):{kind:'unavailable'};},projectAdmittedProductInstallByAdmissionEventRef:(_a,id)=>gates.install?[...oldEnv.productInstalls,...nextEnv.productInstalls].find(p=>p.admissionEventRef===id):null},
++  const overrides={'./artifact_truth.js':{projectOwnedPrefixArtifactTruth:()=>gates.artifact?controlledArtifactTruth:{kind:'exact_prefix_artifact_truth_projection_refusal'}},
++    './environment_admission.js':{projectWorkspaceEnvironmentFromArtifactTruth:(artifact,id)=>{assert.strictEqual(artifact,controlledArtifactTruth);gates.reads++;return gates.environment?(id.ref===oldW.bindingId?oldEnv:nextEnv):{kind:'unavailable'};},projectAdmittedProductInstallByAdmissionEventRef:(_a,id)=>gates.install?[...oldEnv.productInstalls,...nextEnv.productInstalls].find(p=>p.admissionEventRef===id):null},
+     './worksite_revision.js':{projectAdmittedWorkspaceBindingAtCoordinate:(_p,id,d)=>[oldW,newW].find(w=>w.bindingId===id&&w.bindingDigest===d)??null,projectWorksiteRevisionBindingCover:(_p,a,b,bases)=>gates.cover&&a.bindingId===oldW.bindingId&&b.bindingId===newW.bindingId&&bases.every(x=>x.basisRef===oldBasis.basisRef)?['event://controlled-cover']:null},
+   };
+   // The exact source execution lookup is a lower premise; retain the owning

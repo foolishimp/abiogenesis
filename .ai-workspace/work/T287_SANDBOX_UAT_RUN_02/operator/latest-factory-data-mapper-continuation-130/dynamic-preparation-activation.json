@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-08T22:06:49.897485+00:00",
+  "role": "Operator130 dynamic source preparation only; no launch",
+  "release": "Root explicit dynamic-only grant after normal129 closure",
+  "frozen130SHA256": "d1d735680cdd4b857895ad8cfe5ca7d982436907385df0d0edebff7c38d58cd3",
+  "review131SHA256": "141f8a9987093145ff6828a3649c1976cbe27d9ef6191c724633e5d1036e0a4f",
+  "verifiedRows": 59,
+  "uniquePaths": 53,
+  "mismatches": 0,
+  "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+  "sourceEvent": {
+    "ordinal": 174956,
+    "offset": 1387241127,
+    "byteCount": 1813642,
+    "sha256": "46291356d40ed3b4dcfb040913fd51576a3dda2e3888f3780e4fd19d15d81178"
+  },
+  "closeHandoffPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/final-close-handoff.json",
+  "prefix": {
+    "coordinateDigest": "sha256:834bbe5f643c1e0db7453e8d013b9a9e613a4fba6165c55fb2c4640dfb01a07a",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:89c73404ba4550a5b1fa7ece8149b7e0de2f8a2d34ac02506e22239e06bc92f4",
+    "prefixLength": 1398511166,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 468327400
+    }
+  },
+  "quiescence": "  PID  PPID  PGID STAT COMM\n",
+  "noSignals": true,
+  "noLaunch": true,
+  "noPhysicalCopy": true,
+  "sourceApplicability": "Owner derivation pending"
+}

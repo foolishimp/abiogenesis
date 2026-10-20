@@ -1,0 +1,1 @@
+{"status":"stopped","phase":"canonical-original-J-proof-authentication","message":"TypeError: abg.projectQualificationConstructionAuthors is not a function","elapsedMs":24775.078209,"currentRssBytes":2614427648,"currentHeapUsedBytes":813023720,"cumulativePeakRssBytes":3111665664}

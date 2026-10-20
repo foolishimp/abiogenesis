@@ -1,0 +1,97 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+    "beforeSha256": "c7005416d267292deb017563884886ff33a14886ca6d9176684f31be4d9b003c",
+    "afterSha256": "42cae6dd4e42bac9763809634d6a5e0de7505357e00c6c5e0c8d12affac830da"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+    "beforeSha256": "0214dad40876f042a3bc59d84584bf863fb4a362b9e8c1c4542562d9336f778b",
+    "afterSha256": "abfb429689ddd5064d3a0ad032395e0931c9528d12d76bc1bc98b18a79a17bb4"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+    "beforeSha256": "e7141fe1fb853667a6d56f3847d113bb975e1326aadf5b3349527821a53086c3",
+    "afterSha256": "cbddee3694199e2fea205b9c2e426751243af62a4a15c665ee879a7854feb196"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.d.ts",
+    "beforeSha256": "2f5f595043ce298c64f45bc574d26c0fb0b6a5422a3b95227e4419e12f064b62",
+    "afterSha256": "2db611564d5fd50b0d5d840edf1cedffc063894d53532ffb2af90f3fd976f78d"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+    "beforeSha256": "9c8eca0ca5e9568e8b185ce1b517d31ee2db6bf9d28c5cf08de524d2640b9a08",
+    "afterSha256": "c1a59102de049eae0bfbcc55eb91605ec69c66148f084efe3af702d379d401a1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js",
+    "beforeSha256": "4ded3d50631c4739a49299d30da0af68ed403eebcbd6a9b7d5f4ef48b3bc74a6",
+    "afterSha256": "67afbb9700c68ed4f15cb2fd42524c60e640c34a4b2d4e3785f0d2577bb3a169"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_identity.d.ts",
+    "beforeSha256": "a0eacd1a31db7bd73958cf1f597c7f737041e853076a85bfe684a625ebf9bb5e",
+    "afterSha256": "2c3bb9ee18446fe4f832ebe7f3964476747477369ff53fa268bd852e68bfbd7e"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_identity.js",
+    "beforeSha256": "795b6574c5d796ed5011162a3584f2f9d55804d95a36cb49e29d11a95d8234ad",
+    "afterSha256": "f7d7b0c3e6498c7083de85b09e38dc4cfea3dbc61bd317f490884619a26e646c"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_publication.d.ts",
+    "beforeSha256": "3770f37cb59005b9d79b4f6f84b84dd28d5b3ba5de5b1264fd1037eac6badb10",
+    "afterSha256": "92d0623811ba3f29f1931789d6cc0e6ddefd9951740ea58649a8acdce453595a"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_publication.js",
+    "beforeSha256": "2628101c31f84e93c324efed42a8935fb027f78c5f16844a34528650d6148247",
+    "afterSha256": "6a4bb957a415e357f723a3e9943e6c3ef334e06f81e49fb2ab7b3f19fc5d1788"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/stdo_run_environment.js",
+    "beforeSha256": "da61b2d040561dfa85982332eda976a70dd5c40719382b0f673817a49ef6c86b",
+    "afterSha256": "28c6bb3af242c3eab2ad787010026b92bc235a57f8d6a362532acb7c8bd97bef"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.d.ts",
+    "beforeSha256": "f71a2f41d5b822d7be9d41123f2492a1dc6cb4090bc0545e7c0bb4a9718352cb",
+    "afterSha256": "04e68de843beb9d15d1ea89318bc634127e95a114fb6f556f4f0d13551160ec7"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+    "beforeSha256": "5ed97abbff9f5eae765b5eefe39bbe7849dc2fc5fcf36a05fada3e02650d2f98",
+    "afterSha256": "8cd39f61158ecf3280afb71e93768f89f953c6385561790d382c52d147397775"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/builtin_semantics.js",
+    "beforeSha256": "35631ad9c26b464fb1f083e4dc5301676381280a3299bca8c55866694e50baee",
+    "afterSha256": "63264f4c181867b56bb3e87b84383f8b3577cce0f782a480901ad5cd6e1f6e4c"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js",
+    "beforeSha256": "157746e0ff31de9463be39cb802f84766af7aa8a366e1e2cf48704c66178d77f",
+    "afterSha256": "1d765fd057a68fe12c0fcccc33e617ae397657b724a4b9a7c0eb220857de04d2"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+    "beforeSha256": "663a7135420edeab24ab3440ac50d56b32f308a12d2e771c8ebbb0dabeb23665",
+    "afterSha256": "291551278d6aeef1bd1804639429b7b8d85710f6fbc0feef95566e0c9802d89f"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+    "beforeSha256": "ace741fb60d2f448cad23c5d886203bf9564bf0388b94c7143dd9e3d77cb51d2",
+    "afterSha256": "483bd9e98e388110a71536b9026a87550c67bce2efa6d09be0be2fcd73d12435"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.d.ts",
+    "beforeSha256": "b0f398507a0107c6cb8d8951e744329045e4c61714369e82c2e2ae75042806f5",
+    "afterSha256": "c5b870927bcde450143e6f21a0b08080d5f2d3af470d0b15659c68efdbc2d82c"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+    "beforeSha256": "75e066b990f2b2faee95ba540899de2cbe621a64e5268613182a312272d5bace",
+    "afterSha256": "999995ac96dcfb723a4d3bc268c3d31cb44ba5cd8b273b5fd80d868e62d5f2a6"
+  }
+]

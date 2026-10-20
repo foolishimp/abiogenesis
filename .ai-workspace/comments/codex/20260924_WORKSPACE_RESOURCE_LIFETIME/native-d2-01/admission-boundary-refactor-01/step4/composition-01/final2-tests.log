@@ -1,0 +1,40 @@
+(node:9952) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ F04 same native contract proof is reused while raw and changed bases still check (271.928375ms)
+✔ CCall failure projection conserves the authenticated malformed-result assessment (2.621916ms)
+✔ CCall failure projection refuses foreign producer, assessment and artifact correspondence (1.506833ms)
+✔ historical absent-assessment classification and ordinary failure classes retain their meaning (0.069084ms)
+✔ actor transport authentication is available before candidate association and refuses crossed facts (0.997959ms)
+✔ assessment schema must match its unique declared installed owner and immutable schema asset (26.4895ms)
+✔ exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes (44.587541ms)
+ℹ {"ownerPreparationCount":1,"coldAndChangedCompiles":4,"coverage":"Exact installed-byte resolver -> response-schema projection -> result parser -> native completion -> observation/result predicates. Fixture supplies lower authority/assembly/exchange; no provider or native admission claim."}
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 335.138041
+
+✖ failing tests:
+
+test at test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs:939:1
+✖ F04 same native contract proof is reused while raw and changed bases still check (271.928375ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"probabilistic_result_admission_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"transport_basis_mismatch","message":"actor process observation differs from the owner-classified transport lifecycle"}
+  + actual - expected
+  
+  + 'transport_basis_mismatch'
+  - 'contract_identity_mismatch'
+  
+      at assertRefusal (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs:161:10)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs:999:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'transport_basis_mismatch',
+    expected: 'contract_identity_mismatch',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

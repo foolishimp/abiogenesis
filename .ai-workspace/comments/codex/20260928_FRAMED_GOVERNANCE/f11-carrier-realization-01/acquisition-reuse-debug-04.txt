@@ -1,0 +1,63 @@
+(node:15515) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ serialized producer uses one real acquisition and retained representation through environment, dispatch and realization (699.781375ms)
+✖ retained source currentness refuses advance truncation replacement and preserves historical material (683.052667ms)
+✖ copied and foreign ingress cannot supply the retained acquisition or skip cold authentication (696.932ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2391.766959
+
+✖ failing tests:
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:108:1
+✖ serialized producer uses one real acquisition and retained representation through environment, dispatch and realization (699.781375ms)
+  TypeError [Error]: TypeError: event stamp differs from the exact native profile schedule
+      at readRuntimeEventsAtDurablePrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/event_store.js:1156:15)
+      at deriveExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/artifact_truth.js:495:24)
+      at Object.projectExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/artifact_truth.js:483:12)
+      at projectExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:50:92)
+      at functions.<computed> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:193:58)
+      at acquireExecutionSource (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:113:27)
+      at executionSourceProofs (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:807:68)
+      at projectQualificationConsumer (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:286:38)
+      at resolveQualificationSelfConformanceOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:1045:23)
+      at resolveSelfConformanceOwner (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/self_conformance_basis.js:19:16) {
+    code: 'event_envelope_invalid'
+  }
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:128:1
+✖ retained source currentness refuses advance truncation replacement and preserves historical material (683.052667ms)
+  TypeError [Error]: TypeError: event stamp differs from the exact native profile schedule
+      at readRuntimeEventsAtDurablePrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/event_store.js:1156:15)
+      at deriveExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/artifact_truth.js:495:24)
+      at Object.projectExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/artifact_truth.js:483:12)
+      at projectExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:50:92)
+      at functions.<computed> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:193:58)
+      at acquireExecutionSource (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:113:27)
+      at executionSourceProofs (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:807:68)
+      at projectQualificationConsumer (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:286:38)
+      at resolveQualificationSelfConformanceOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:1045:23)
+      at resolveSelfConformanceOwner (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/self_conformance_basis.js:19:16) {
+    code: 'event_envelope_invalid'
+  }
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:135:1
+✖ copied and foreign ingress cannot supply the retained acquisition or skip cold authentication (696.932ms)
+  TypeError [Error]: TypeError: event stamp differs from the exact native profile schedule
+      at readRuntimeEventsAtDurablePrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/event_store.js:1156:15)
+      at deriveExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/artifact_truth.js:495:24)
+      at Object.projectExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/artifact_truth.js:483:12)
+      at projectExactPrefixArtifactTruth (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:50:92)
+      at functions.<computed> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:193:58)
+      at acquireExecutionSource (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:113:27)
+      at executionSourceProofs (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:807:68)
+      at projectQualificationConsumer (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:286:38)
+      at resolveQualificationSelfConformanceOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:1045:23)
+      at resolveSelfConformanceOwner (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/self_conformance_basis.js:19:16) {
+    code: 'event_envelope_invalid'
+  }

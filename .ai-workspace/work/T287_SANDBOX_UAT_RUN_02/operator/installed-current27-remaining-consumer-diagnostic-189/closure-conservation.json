@@ -1,0 +1,81 @@
+{
+  "at": "2026-10-09T08:49:55.072330Z",
+  "status": "FATAL_ABORT_WITH_UNCLOSED_ADOPTED_RESOURCE",
+  "entryHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "authenticatedEntryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1690085978,
+    "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a"
+  },
+  "logStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1690085978,
+    "mtimeNs": 1791531873723955484,
+    "manualLogReadHashOrReparse": false
+  },
+  "entryAfterStatExact": true,
+  "contentConservationLimit": "No manual log read/hash/reparse. Canonical entry acquisition authenticated the prefix; final stat identity/extent/mtime unchanged. No appended owner operation was invoked.",
+  "eventResourceEffects": "Canonical acquire adopted selected resource; normal close was not recorded after fatal abort. Existing185 handoff remains entry authority only.",
+  "newPublicAdmissions": 0,
+  "physicalConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/physical-conservation.json",
+    "sha256": "38eed72700c1f83f05438c0efc6c81e444faee8549db742ad43f503fc5578647",
+    "byteCount": 14215
+  },
+  "selectedLock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "present": true,
+    "device": 16777231,
+    "inode": 469292605,
+    "byteCount": 124,
+    "mtimeNs": 1791535284288271025,
+    "sha256": "1188aad4e0978faa4c3e7be595fb50a5afc3a4c0fbc59ebfa4c0d86c07b3eb08",
+    "base64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY4MzI3NDAwLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NDg0MDAsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "observedOwnedPreparationPid": 48400,
+    "ownedPreparationPidStatus": "ESRCH",
+    "operatorLockMutation": false
+  },
+  "ownedProcesses": [
+    {
+      "pid": 48398,
+      "status": "ESRCH"
+    },
+    {
+      "pid": 48400,
+      "status": "ESRCH"
+    }
+  ],
+  "ownedGroups": [
+    {
+      "pgid": 48398,
+      "status": "ESRCH"
+    },
+    {
+      "pgid": 48400,
+      "status": "ESRCH"
+    }
+  ],
+  "operatorSignals": [],
+  "operatorRecoveryOrLockMutation": false,
+  "futureOutputsAbsent": [
+    "product-preparation-result.json",
+    "prepared-setup.json",
+    "calls/continuation-start.request.jsonl",
+    "current-source-use.json"
+  ],
+  "noModelNativeRunAppEffects": true
+}

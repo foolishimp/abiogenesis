@@ -1,0 +1,42 @@
+{
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/input-manifest.json",
+    "sha256": "e2cd6d74db3c6650e259ab534aec2bc74788b9b76488947bbb61807935a3e9bf",
+    "bytes": 224587
+  },
+  "changed": [
+    {
+      "path": "code/src/abg/c_call.ts",
+      "beforeSha256": "c93d3ef3a1c2fa27c2a4ba630c7b504560ce980b6f237599f1efed092b48dd57",
+      "afterSha256": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d",
+      "bytes": 273186
+    },
+    {
+      "path": "code/src/abg/c_call_outcome.ts",
+      "beforeSha256": "efc4d9dd5818984c9f19ead8d41537521e139ab8f531041de827b109be13064a",
+      "afterSha256": "0544ab335f1885f6f25b5aa3f157dc5300fc5ccd5f661c487122885dee69334d",
+      "bytes": 65177
+    },
+    {
+      "path": "code/src/abg/execution_basis.ts",
+      "beforeSha256": "9843dca203feeaeb701f1640bd080d91ad3166670fe9c4217621b981ea1a6ace",
+      "afterSha256": "91aec3f47a4da8ed33f2d59e665eed76fe459500dea4c4c363525b1ae5652af4",
+      "bytes": 121977
+    },
+    {
+      "path": "code/src/abg/worksite_input_provenance.ts",
+      "beforeSha256": "37891cd219f67f33bfab0b61ae7430d8da079b51e532d1e1ca5b241cd07b6f7a",
+      "afterSha256": "6d27337d5b87d0fdf677ef3268e3d63b217169fd230c2f8b6a45dbc5e303cf3f",
+      "bytes": 37962
+    },
+    {
+      "path": "code/src/abg/worksite_revision.ts",
+      "beforeSha256": "947a882c9473ae5e4fd8cdc6d9dab021cf63bc6e00169984177859f939637e0e",
+      "afterSha256": "3847e67b06986ef493667af804017b19f028e15f607d118631a102ff3adc1d3e",
+      "bytes": 63490
+    }
+  ],
+  "reusedCount": 361,
+  "sourceCopies": 0,
+  "preservation": "Current origins are checked against exact selected core37 input/generated records; the existing staging helper checks extent and digest again before copying. Changed or missing origins refuse. No Git lookup or source-body copy was performed."
+}

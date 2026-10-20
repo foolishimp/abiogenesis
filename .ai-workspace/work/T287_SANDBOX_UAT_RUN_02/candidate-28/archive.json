@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "b60a23703273315ce244328096b1dab2e17376bdd9225cb181afb481cc78b9bd",
+    "byteCount": 10639806
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3526.668125,
+    "timedOut": false,
+    "truncated": false
+  },
+  "acceptedSourceFreezes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/freeze.json",
+      "sha256": "7315fe136f0a56ab5ddae5ae955ba0c625bcb0603c8640e449cf20c6584df5c8",
+      "byteCount": 17921
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-review-199/freeze.json",
+      "sha256": "c4160904dc861ceb2d1ce75cc600b544897a7f50486f3749d0485d69617eed8f",
+      "byteCount": 8917
+    }
+  ],
+  "source198Disposition": "Root conjoined frozen Source198 and independent199 bounded Source GO after actual195 callback OOM",
+  "sourceCommit": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "ordinaryBuildAlreadyRecorded": true,
+  "nativeEffects": false
+}

@@ -1,0 +1,31 @@
+{
+  "kind": "prospective_release_claim_input",
+  "namespace": "abiogenesis",
+  "profile": "one_project_unqualified",
+  "projectSubtree": ".",
+  "versionLine": "5.0.0",
+  "ordinal": 1,
+  "version": "5.0.0-rc.1",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "scope": "The fifteen-family ABIogenesis 5.0 Product selected by specification/PRODUCT.md under STDO v2.5.1-rc.1.",
+  "selectedCapabilities": [
+    "GTL.TypeScript declarations and validation; direct HoG traversal; ABG admitted runtime truth",
+    "Source-independent package and installed native Public path, including declared native LLM work",
+    "Generic admitted assessment, declared correction and selected downstream lifecycle witness",
+    "Existing F11 whole-subject assessment, sole AF22 exact-candidate verdict, output-only AF25 publication",
+    "Same unchanged RC owner-ruling evidence through tapped_release after green installed-RC qualification"
+  ],
+  "limits": [
+    "Supported trusted-developer-desktop boundary; no hostile-local attestation or hosted service claim",
+    "F12/S04, native human response/resume, marketplace-host and other explicit 5.1 capabilities remain reserved",
+    "Behavioral coverage means the current sixteen source-linked declaration groups and sixty-six behaviors, assessed through shared evidence; it is not one execution per declaration",
+    "These are selected capability and scope claims subject to exact qualification, not statements that qualification, publication, human acceptance or downstream Product release has occurred",
+    "Future actual acceptance is attributable original Product-owner response to the exact qualified installed RC request; broad delivery instructions, generated summaries and caller labels do not supply acceptance"
+  ],
+  "qualificationSemantics": "Exact current-subject admitted execution and independent applicability/sufficiency/source-fidelity judgment remain required; historical/component evidence retains its original bounds.",
+  "authority": [
+    "repo://abiogenesis/specification/PRODUCT.md",
+    "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+    "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md"
+  ]
+}

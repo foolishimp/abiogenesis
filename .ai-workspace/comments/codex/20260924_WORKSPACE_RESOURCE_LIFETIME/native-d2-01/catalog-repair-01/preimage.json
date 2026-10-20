@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+    "beforeSha256": "250c58315af818b6d06e866eb5088f81f3036c63251215f397e74b32d5c8663c",
+    "beforeBytes": 14740
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "beforeSha256": "7ad2d0cca70d82212a1f9ae0a2a9910b854cac0652aa107f31a9bad4bb1653e1",
+    "beforeBytes": 28444
+  }
+]

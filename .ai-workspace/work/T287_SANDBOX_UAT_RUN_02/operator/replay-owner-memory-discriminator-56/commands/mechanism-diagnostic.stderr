@@ -1,0 +1,54 @@
+
+<--- Last few GCs --->
+
+[5261:0xa7540c000]   111658 ms: Mark-Compact 4093.3 (4119.8) -> 4093.1 (4119.8) MB, pooled: 0 MB, 244.46 / 0.00 ms  (average mu = 0.172, current mu = 0.045) allocation failure; scavenge might not succeed
+
+FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 0x100663814 node::OOMErrorHandler(char const*, v8::OOMDetails const&) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+ 2: 0x1007a297c v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+ 3: 0x1007a2934 v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+ 4: 0x10097f550 v8::internal::Heap::stack() [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+ 5: 0x10097dc74 v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+ 6: 0x100975718 v8::internal::HeapAllocator::AllocateRawWithRetryOrFailSlowPath(int, v8::internal::AllocationType, v8::internal::AllocationOrigin, v8::internal::AllocationAlignment) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+ 7: 0x10094b888 v8::internal::FactoryBase<v8::internal::Factory>::AllocateRawArray(int, v8::internal::AllocationType) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+ 8: 0x10095b298 v8::internal::Handle<v8::internal::FixedArray> v8::internal::TaggedArrayBase<v8::internal::FixedArray, v8::internal::TaggedArrayShape, v8::internal::HeapObjectLayout>::Allocate<v8::internal::Isolate>(v8::internal::Isolate*, int, std::__1::optional<v8::internal::PerThreadAssertScopeEmpty<false, (v8::internal::PerThreadAssertType)1, (v8::internal::PerThreadAssertType)2>>*, v8::internal::AllocationType) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+ 9: 0x10094b348 v8::internal::FactoryBase<v8::internal::Factory>::NewFixedArray(int, v8::internal::AllocationType) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+10: 0x100adc6ec v8::internal::(anonymous namespace)::ElementsAccessorBase<v8::internal::(anonymous namespace)::FastHoleySmiElementsAccessor, v8::internal::(anonymous namespace)::ElementsKindTraits<(v8::internal::ElementsKind)1>>::ConvertElementsWithCapacity(v8::internal::DirectHandle<v8::internal::JSObject>, v8::internal::DirectHandle<v8::internal::FixedArrayBase>, v8::internal::ElementsKind, unsigned int, unsigned int, unsigned int) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+11: 0x100adc554 v8::internal::(anonymous namespace)::ElementsAccessorBase<v8::internal::(anonymous namespace)::FastHoleySmiElementsAccessor, v8::internal::(anonymous namespace)::ElementsKindTraits<(v8::internal::ElementsKind)1>>::GrowCapacityAndConvertImpl(v8::internal::DirectHandle<v8::internal::JSObject>, unsigned int) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+12: 0x100adc2f8 v8::internal::(anonymous namespace)::ElementsAccessorBase<v8::internal::(anonymous namespace)::FastHoleySmiElementsAccessor, v8::internal::(anonymous namespace)::ElementsKindTraits<(v8::internal::ElementsKind)1>>::SetLengthImpl(v8::internal::Isolate*, v8::internal::DirectHandle<v8::internal::JSArray>, unsigned int, v8::internal::DirectHandle<v8::internal::FixedArrayBase>) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+13: 0x100ac6640 v8::internal::ArrayConstructInitializeElements(v8::internal::DirectHandle<v8::internal::JSArray>, v8::internal::Arguments<(v8::internal::ArgumentsType)1>*) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+14: 0x100cc35f0 v8::internal::Runtime_NewArray(int, unsigned long*, v8::internal::Isolate*) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+15: 0x101199f74 Builtins_CEntry_Return1_ArgvOnStack_NoBuiltinExit [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+16: 0x1010f9b8c Builtins_JSBuiltinsConstructStub [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+17: 0x1011d0d80 Builtins_ArrayPrototypeSlice [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+18: 0x126a9028c 
+19: 0x126ac1e30 
+20: 0x126a9a8ac 
+21: 0x126a41798 
+22: 0x126a851d4 
+23: 0x126955e40 
+24: 0x126b37010 
+25: 0x1011b3540 Builtins_FlattenIntoArrayWithMapFn [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+26: 0x1011b4438 Builtins_ArrayPrototypeFlatMap [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+27: 0x1010fcbec Builtins_InterpreterEntryTrampoline [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+28: 0x1010fcbec Builtins_InterpreterEntryTrampoline [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+29: 0x1010fcbec Builtins_InterpreterEntryTrampoline [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+30: 0x10113b648 Builtins_AsyncFunctionAwaitResolveClosure [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+31: 0x1012105f8 Builtins_PromiseFulfillReactionJob [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+32: 0x10112aa50 Builtins_RunMicrotasks [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+33: 0x1010fa7b0 Builtins_JSRunMicrotasksEntry [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+34: 0x1008d77ac v8::internal::(anonymous namespace)::Invoke(v8::internal::Isolate*, v8::internal::(anonymous namespace)::InvokeParams const&) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+35: 0x1008d7e58 v8::internal::(anonymous namespace)::InvokeWithTryCatch(v8::internal::Isolate*, v8::internal::(anonymous namespace)::InvokeParams const&) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+36: 0x1008d7f48 v8::internal::Execution::TryRunMicrotasks(v8::internal::Isolate*, v8::internal::MicrotaskQueue*) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+37: 0x1008fcb44 v8::internal::MicrotaskQueue::RunMicrotasks(v8::internal::Isolate*) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+38: 0x1008fc960 v8::internal::MicrotaskQueue::PerformCheckpointInternal(v8::Isolate*) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+39: 0x1005b0898 node::InternalCallbackScope::Close() [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+40: 0x1005b072c node::InternalCallbackScope::~InternalCallbackScope() [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+41: 0x100635d68 node::StartExecution(node::Environment*, std::__1::function<v8::MaybeLocal<v8::Value> (node::StartExecutionCallbackInfo const&)>) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+42: 0x1005b493c node::LoadEnvironment(node::Environment*, std::__1::function<v8::MaybeLocal<v8::Value> (node::StartExecutionCallbackInfo const&)>, std::__1::function<void (node::Environment*, v8::Local<v8::Value>, v8::Local<v8::Value>)>) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+43: 0x100692ca0 node::NodeMainInstance::Run(node::ExitCode*, node::Environment*) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+44: 0x100692a90 node::NodeMainInstance::Run() [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+45: 0x10063903c node::Start(int, char**) [/opt/homebrew/Cellar/node/24.7.0/bin/node]
+46: 0x18f2604e4 start [/usr/lib/dyld]

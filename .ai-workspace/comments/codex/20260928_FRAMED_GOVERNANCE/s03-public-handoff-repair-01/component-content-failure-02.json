@@ -1,0 +1,183 @@
+{
+  "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'abg_project_read_refusal'\n- 'abg_project_read_projection'\n                    ^\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'abg_project_read_refusal'\n- 'abg_project_read_projection'\n                    ^\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-proof.mjs:76:46",
+  "redCompleted": [
+    {
+      "name": "missing_basis",
+      "syntheticCandidateOnly": true,
+      "candidateRowsDigest": "sha256:1701f3e969fe3f40de89e9e707e7db0f316f41a8896a26c5c8ef4b6f1d508a0c",
+      "coordinate": {
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:3b03e1e54474384dbd99cd348a44f8caa5755fdfed0dd1311f5aece999420e4d",
+        "prefixLength": 4689384,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463811526
+        },
+        "coordinateDigest": "sha256:a6e8b384d18b84a34adf523ba0964b7b0f271df0624489ddf913bfe989574790"
+      },
+      "outcome": {
+        "kind": "abg_project_read_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "refused",
+        "memberKey": "run_gaps",
+        "targetRef": "run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8",
+        "code": "invalid_history",
+        "message": "ABG project read owner projectors refused the durable event history"
+      },
+      "output": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "projection_basis_mismatch",
+          "issuePaths": [],
+          "evidenceRefs": []
+        }
+      }
+    },
+    {
+      "name": "crossed_positive_basis",
+      "syntheticCandidateOnly": true,
+      "candidateRowsDigest": "sha256:0f0ab8ca6b532c73308d711385a48739ab233b5539f8639fd2dac5584203af0c",
+      "coordinate": {
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:9955ad7e1804cd2cca754a29f541730f628f777026fb4ff0bc96aa6d635ef926",
+        "prefixLength": 4683637,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463811526
+        },
+        "coordinateDigest": "sha256:846a65ead65ed1b547d397dfa7307f6d5bcdb97219d4960b342fce0f348aa39c"
+      },
+      "outcome": {
+        "kind": "abg_project_read_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "refused",
+        "memberKey": "run_gaps",
+        "targetRef": "run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8",
+        "code": "invalid_history",
+        "message": "ABG project read owner projectors refused the durable event history"
+      },
+      "output": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "projection_basis_mismatch",
+          "issuePaths": [],
+          "evidenceRefs": []
+        }
+      }
+    },
+    {
+      "name": "crossed_selected_input_evidence",
+      "syntheticCandidateOnly": true,
+      "candidateRowsDigest": "sha256:b486e3d79e0e7cccd2ae823b462035d120b3c5be8ef7445e1df2b9051d79bc0f",
+      "coordinate": {
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:6d341486110e994ba356b72106b6ee4bde4ee366351c1eb8d1742fa8261330e8",
+        "prefixLength": 4689490,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463811526
+        },
+        "coordinateDigest": "sha256:8ca6f6a3a430f01c3455cbd096b760ee0028c9ca4ef50f26974a05a574afe8c6"
+      },
+      "outcome": {
+        "kind": "abg_project_read_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "refused",
+        "memberKey": "run_gaps",
+        "targetRef": "run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8",
+        "code": "invalid_history",
+        "message": "ABG project read owner projectors refused the durable event history"
+      },
+      "output": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "projection_basis_mismatch",
+          "issuePaths": [],
+          "evidenceRefs": []
+        }
+      }
+    },
+    {
+      "name": "content_digest_mismatch",
+      "syntheticCandidateOnly": true,
+      "candidateRowsDigest": "sha256:d8fd3cffd8a9bd64d97904807dd4322b343fcc132352d2f273b12e6710cfe5ea",
+      "coordinate": {
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:087501a53e79bb78bb237a9b7eeddb27d403c95adc4aa0b646728b02596e7183",
+        "prefixLength": 4689418,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463811526
+        },
+        "coordinateDigest": "sha256:628feac0f293c9a2c3aacd11a33c436ef9a0c08a09e8f17af6eaed08d54f3f50"
+      },
+      "outcome": {
+        "kind": "abg_project_read_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "refused",
+        "memberKey": "run_gaps",
+        "targetRef": "run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8",
+        "code": "invalid_history",
+        "message": "ABG project read owner projectors refused the durable event history"
+      },
+      "output": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "projection_basis_mismatch",
+          "issuePaths": [],
+          "evidenceRefs": []
+        }
+      }
+    },
+    {
+      "name": "missing_selected_input_evidence",
+      "syntheticCandidateOnly": true,
+      "candidateRowsDigest": "sha256:4d96f6b4a681571056c1138ad9311d1f214b1efb1cf1a6a3af3a12a719b18ede",
+      "coordinate": {
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:49d7656f7d3ac34a10779206f7de90bc509d5ef854309c8a0f000792deb3c06a",
+        "prefixLength": 4689420,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463811526
+        },
+        "coordinateDigest": "sha256:bce25c0ff353e71a8fb7838bdfc3fd2e2fe078b08f1eefe4efb0cd9914a67002"
+      },
+      "outcome": {
+        "kind": "abg_project_read_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "refused",
+        "memberKey": "run_gaps",
+        "targetRef": "run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8",
+        "code": "invalid_history",
+        "message": "ABG project read owner projectors refused the durable event history"
+      },
+      "output": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "projection_basis_mismatch",
+          "issuePaths": [],
+          "evidenceRefs": []
+        }
+      }
+    }
+  ],
+  "liveResourceAccesses": [],
+  "elapsedMs": 1028.65625
+}

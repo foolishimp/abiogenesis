@@ -1,4 +1,4 @@
-import { readFile, readdir, lstat, realpath } from 'node:fs/promises';
+import { readFile, lstat, realpath } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { dirname, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -29,16 +29,6 @@ async function bytesAt(root, path) {
 async function jsonAt(root, path) {
   const bytes = await bytesAt(root, path);
   return bytes === null ? null : JSON.parse(bytes.toString('utf8'));
-}
-async function xmlFiles(root, prefix = '') {
-  const result = [];
-  for (const entry of await readdir(child(root, prefix || '.')) ) {
-    const path = prefix ? prefix + '/' + entry : entry;
-    const metadata = await lstat(child(root, path));
-    if (metadata.isDirectory()) result.push(...await xmlFiles(root, path));
-    else if (metadata.isFile() && path.endsWith('.xml')) result.push(path);
-  }
-  return result;
 }
 function xmlText(value) {
   return value.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos);/giu, (match, entity) => {
@@ -130,6 +120,62 @@ function countNodePasses(command) {
   const matches = [...(stdout + '\n' + stderr).matchAll(/(?:^|\r?\n)(?:#|ℹ) pass (0|[1-9]\d*)(?=\r?\n|$)/gu)];
   return matches.length !== 1 ? null : Number(matches[0][1]);
 }
+async function commandReportPopulation(entry, requiredPaths, originalInventory) {
+  const reports = [], errors = new Map();
+  const failAll = reason => ({ reports, errors: new Map(requiredPaths.map(path => [path, reason])), complete: false });
+  if (!entry) return failAll('No owner-validated original command report population was supplied.');
+  const { observation, command } = entry;
+  const declared = observation.task.commands.find(row => row.commandId === command.commandId);
+  if (!Array.isArray(command.reports) || command.reports.length !== requiredPaths.length ||
+    new Set(command.reports.map(row => row.relativePath)).size !== requiredPaths.length ||
+    !equalSet(command.reports.map(row => row.relativePath), requiredPaths) ||
+    !Array.isArray(declared?.expectedReports) || declared.expectedReports.length !== requiredPaths.length ||
+    new Set(command.reports.map(row => row.expectedReportIdentity)).size !== requiredPaths.length) {
+    return failAll('The selected command does not declare the complete original report population.');
+  }
+  const expected = originalInventory?.declaration;
+  const declarations = observation.task.outcomePredicates?.filter(row => row.predicateId === originalInventory?.predicateId &&
+    row.predicateKind === 'test_report_set_exact') ?? [];
+  const measured = observation.predicateObservations?.filter(row => row.predicateId === originalInventory?.predicateId &&
+    row.predicateKind === 'test_report_set_exact') ?? [];
+  const exactPaths = paths => Array.isArray(paths) && paths.length === requiredPaths.length &&
+    paths.every(path => typeof path === 'string') && new Set(paths).size === paths.length && equalSet(paths, expected.equals);
+  const inventoryComplete = originalInventory?.predicateKind === 'test_report_set_exact' && expected &&
+    typeof expected.base === 'string' && exactPaths(expected.equals) &&
+    equalSet(expected.equals.map(path => expected.base + '/' + path), requiredPaths) && declarations.length === 1 &&
+    isDeepStrictEqual({ ...declarations[0].declaration, equals: null }, { ...expected, equals: null }) &&
+    exactPaths(declarations[0].declaration?.equals) && measured.length === 1 && exactPaths(measured[0].observedValue);
+  // This is the complete matching inventory measured by the same validated
+  // observation. Eight declared report rows cannot rule out a ninth matching
+  // file, and a truthful measurement need not satisfy its declared predicate.
+  // The caller's published C2 judgment authenticates this plan against the
+  // task/attempt. Here we acquire only its literal snapshot files, never an
+  // application-tree or archive-wide substitute with matching XML content.
+  const root = observation.provenance?.helperPlan?.sandboxRoot;
+  try {
+    if (typeof root !== 'string' || !isAbsolute(root) || resolve(root) !== root ||
+      await realpath(root) !== root || !(await lstat(root)).isDirectory()) {
+      throw new TypeError('The authenticated helper snapshot must be a literal directory.');
+    }
+  } catch (error) { return failAll(error.message); }
+  for (const path of requiredPaths) {
+    const report = command.reports.find(row => row.relativePath === path);
+    try {
+      if (!declared.expectedReports.some(row => row.relativePath === path && row.reportIdentity === report.expectedReportIdentity) ||
+        report.state !== 'file' || !Number.isSafeInteger(report.byteLength) || report.byteLength < 0 ||
+        !/^sha256:[a-f0-9]{64}$/u.test(report.digest ?? '')) throw new TypeError('The selected report identity or file observation is invalid.');
+      const absolute = child(root, path), metadata = await lstat(absolute);
+      if (!metadata.isFile() || metadata.isSymbolicLink() || await realpath(absolute) !== absolute) {
+        throw new TypeError('The selected report must be a literal confined regular file.');
+      }
+      const bytes = await readFile(absolute);
+      if (bytes.length !== report.byteLength || sha(bytes) !== report.digest) throw new TypeError('Selected report bytes differ from the admitted digest or length.');
+      reports.push({ path, digest: report.digest, parsed: parseScalaTestReport(bytes),
+        evidenceRefs: [observation.observationRef, command.observationRef, report.observationRef, report.digest] });
+    } catch (error) { errors.set(path, error.message); }
+  }
+  return { reports, errors, complete: inventoryComplete === true && reports.length === requiredPaths.length && errors.size === 0 };
+}
 
 /** Independent test-owned mechanical oracle. The caller separately conjoins
  * native semantic assessment, canonical installed admission and fresh closure.
@@ -145,14 +191,17 @@ export async function evaluate({ worksiteRoot, runArchive, commands = [], events
   const observations = admittedCommandObservations(events, observationOwner, validateObservation, validateSourceObservation);
   // Supplied command packets may help the caller locate artifacts; they do not
   // manufacture admission and cannot turn a worker report into execution truth.
-  void commands;
+  void commands; void runArchive;
   for (const member of request.sourceMembers) {
     const bytes = await bytesAt(root, member.path);
     add('original-source:' + member.path, bytes !== null && sha(bytes) === member.digest ? 'satisfied' : 'unmet',
       'The immutable acquired source/oracle must retain its exact bytes.', [member.path, member.digest]);
   }
-  const matched = request.testing.commands.map(expected => observations.flatMap(observation => observation.commandResults
-    .filter(actual => commandMatches(actual, expected, observation.task.commands.find(row => row.commandId === expected.commandId)))).at(-1));
+  const commandPopulations = request.testing.commands.map(expected => observations.flatMap((observation, index) => observation.commandResults
+    .filter(command => commandMatches(command, expected, observation.task.commands.find(row => row.commandId === expected.commandId)))
+    .map(command => ({ observation, command, index }))));
+  const matchedEntries = commandPopulations.map(rows => rows.at(-1));
+  const matched = matchedEntries.map(entry => entry?.command);
   for (let index = 0; index < matched.length; index++) {
     const command = matched[index], expected = request.testing.commands[index];
     add('execution:' + expected.commandId, command === undefined ? 'indeterminate' : command.exitStatus === 0 ? 'satisfied' : 'unmet',
@@ -183,19 +232,19 @@ export async function evaluate({ worksiteRoot, runArchive, commands = [], events
         'Exact exported behavior must be an actual admitted observation.', actual?.evidenceRefs ?? []);
     }
   } else {
-    const reports = [];
+    const inventories = request.testing.outcomePredicates.filter(row => row.predicateKind === 'test_report_set_exact');
+    const originalInventory = inventories.length === 1 ? inventories[0] : undefined;
+    const population = await commandReportPopulation(matchedEntries[0], oracle.requiredTestReportPaths, originalInventory);
+    const reports = population.reports;
     for (const path of oracle.requiredTestReportPaths) {
-      const bytes = await bytesAt(root, path);
-      if (bytes === null) { add('xml:' + path, 'unmet', 'Original named executed ScalaTest report is absent.', [path]); continue; }
-      try { reports.push({ path, bytes, digest: sha(bytes), parsed: parseScalaTestReport(bytes) }); }
-      catch (error) { add('xml:' + path, 'unmet', error.message, [path]); }
+      const report = reports.find(row => row.path === path);
+      add('xml:' + path, report ? 'satisfied' : 'unmet', report ?
+        'Original named report bytes match the selected admitted command snapshot, identity, digest and length.' : population.errors.get(path),
+        report ? report.evidenceRefs : [path]);
     }
     const base = 'build_tenants/scala_spark';
-    let reportPaths = [];
-    try { reportPaths = (await xmlFiles(root, base)).filter(path => /\/target\/test-reports\/TEST-[^/]+\.xml$/u.test(path)); }
-    catch (error) { if (error.code !== 'ENOENT') throw error; }
-    add('original-eight-xml-reports', equalSet(reportPaths, oracle.requiredTestReportPaths) ? 'satisfied' : 'unmet',
-      'Exactly the original eight module XML reports are required.', reportPaths);
+    add('original-eight-xml-reports', population.complete ? 'satisfied' : 'unmet',
+      'The same selected observation must measure the original complete matching report set and authenticate all eight snapshot report files.', reports.flatMap(row => row.evidenceRefs));
     const totals = reports.reduce((sum, row) => ({ passes: sum.passes + row.parsed.passes,
       failures: sum.failures + row.parsed.failures, errors: sum.errors + row.parsed.errors }), { passes: 0, failures: 0, errors: 0 });
     add('original-scala-test-floor', reports.length === 8 && totals.passes >= 20 && totals.failures === 0 && totals.errors === 0 ? 'satisfied' : 'unmet',
@@ -226,29 +275,14 @@ export async function evaluate({ worksiteRoot, runArchive, commands = [], events
     add('compiled-kills-and-declared-restoration', validMutation ? 'satisfied' : 'unmet',
       'Every negative/invariant row requires a distinct compiled semantic production mutant with observed nonzero full-suite failures and equal baseline/restore hashes. Declaration alone earns no kill.', [oracle.mutationProof.file]);
     if (validMutation && completeDepth) {
-      const archiveRoot = typeof runArchive === 'string' ? runArchive : runArchive?.root;
-      const retained = [...reports];
-      if (archiveRoot) {
-        const archive = await realpath(archiveRoot);
-        for (const path of await xmlFiles(archive)) {
-          const bytes = await bytesAt(archive, path);
-          if (bytes !== null) retained.push({ path, bytes, digest: sha(bytes) });
-        }
-      }
-      const reportEvidence = command => {
-        if (!Array.isArray(command.reports) || command.reports.length !== 8 || !equalSet(command.reports.map(row => row.relativePath), oracle.requiredTestReportPaths)) return null;
-        const parsed = [];
-        for (const report of command.reports) {
-          const file = retained.find(file => file.digest === report.digest && (file.path === report.relativePath || file.path.endsWith('/' + report.relativePath)));
-          if (report.state !== 'file' || !file || file.bytes.length !== report.byteLength) return null;
-          try { parsed.push(parseScalaTestReport(file.bytes)); } catch { return null; }
-        }
-        return { passes: parsed.reduce((n, report) => n + report.passes, 0), failures: parsed.reduce((n, report) => n + report.failures + report.errors, 0),
-          failedNames: parsed.flatMap(report => report.failedNames) };
-      };
-      const suiteEpisodes = observations.flatMap((observation, index) => observation.commandResults
-        .filter(command => commandMatches(command, request.testing.commands[0], observation.task.commands.find(row => row.commandId === request.testing.commands[0].commandId)))
-        .map(command => ({ index, observation, command, reports: reportEvidence(command) })));
+      const suiteEpisodes = await Promise.all(commandPopulations[0].map(async entry => {
+        const population = await commandReportPopulation(entry, oracle.requiredTestReportPaths, originalInventory);
+        const parsed = population.reports.map(row => row.parsed);
+        return { ...entry, reports: population.complete ? {
+          passes: parsed.reduce((n, report) => n + report.passes, 0),
+          failures: parsed.reduce((n, report) => n + report.failures + report.errors, 0),
+          failedNames: parsed.flatMap(report => report.failedNames) } : null };
+      }));
       const proven = [];
       for (const row of mutantRows) {
         const production = oracle.requiredArtifacts.filter(path => path.includes('/src/main/scala/') && row.mutantIdentity.includes(path));

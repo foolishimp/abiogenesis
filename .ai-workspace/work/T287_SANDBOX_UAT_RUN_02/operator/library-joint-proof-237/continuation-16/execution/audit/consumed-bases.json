@@ -1,0 +1,34 @@
+[
+  {
+    "basisRef": "execution-basis://abiogenesis/53a603b7c3b0d5d645c6fe6df681465186819943af532e26615cf700b377fb1b",
+    "basisDigest": "sha256:53a603b7c3b0d5d645c6fe6df681465186819943af532e26615cf700b377fb1b",
+    "admissionEventRef": "event://abiogenesis/2c45ac052fc9ba17e4b56802b0432fdc8cf87406678c422fe233b19e62b7a163",
+    "workspaceBindingId": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "workspaceBindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "parentExecutionBasisRef": null
+  },
+  {
+    "basisRef": "execution-basis://abiogenesis/2fccf5b25aed74e9ac08c7559dde73a7a215d7fd13f613e7a55079d9e702d750",
+    "basisDigest": "sha256:2fccf5b25aed74e9ac08c7559dde73a7a215d7fd13f613e7a55079d9e702d750",
+    "admissionEventRef": "event://abiogenesis/cc3ddc9d16f1c948322558ba471ee774f069a0e8bc57c32cc56780a4ad69c76c",
+    "workspaceBindingId": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "workspaceBindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "parentExecutionBasisRef": "execution-basis://abiogenesis/290509a4ab12f3c61365de102196a7126b2460870fa8c4613f5245dbb8a015c8"
+  },
+  {
+    "basisRef": "execution-basis://abiogenesis/290509a4ab12f3c61365de102196a7126b2460870fa8c4613f5245dbb8a015c8",
+    "basisDigest": "sha256:290509a4ab12f3c61365de102196a7126b2460870fa8c4613f5245dbb8a015c8",
+    "admissionEventRef": "event://abiogenesis/4b148403c8b9c8f456396866b707be426dad20a82a8dd86c3cf0ca883d046fab",
+    "workspaceBindingId": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "workspaceBindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "parentExecutionBasisRef": "execution-basis://abiogenesis/16ef1286f228263daafe7f75ba0419b78346cbe8bc14505c3bed5deeb3e788f3"
+  },
+  {
+    "basisRef": "execution-basis://abiogenesis/16ef1286f228263daafe7f75ba0419b78346cbe8bc14505c3bed5deeb3e788f3",
+    "basisDigest": "sha256:16ef1286f228263daafe7f75ba0419b78346cbe8bc14505c3bed5deeb3e788f3",
+    "admissionEventRef": "event://abiogenesis/1ae90825daf4cfa95519db7bffbcf76cfda67d6b8d27fc49f945f7125fbeaba2",
+    "workspaceBindingId": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "workspaceBindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "parentExecutionBasisRef": "execution-basis://abiogenesis/53a603b7c3b0d5d645c6fe6df681465186819943af532e26615cf700b377fb1b"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "continuationKind": "selected_action",
+  "runId": "run://abiogenesis/19158e92c9ddc9b46b8955cee045cfb8a2ac7e5645b619bd3a94b08307460568",
+  "graphCallId": "graph-call://abiogenesis/94359f25dd7311f6d5571bb571203121e4d0d8289d37edfe65aedcd44f40c5c1",
+  "frameId": "frame://abiogenesis/de129e834f983a563b6be0d33b2f63a95f71ef7ca0aa9fa16889638238f793fd",
+  "cCallRef": "c-call:sha256:3d913ba652976bcb91edeb83879ab26d4d9c4adbba1b6c86428b2376eae2276f",
+  "heldCursorRef": "traversal-cursor://abiogenesis/8fdc982176e785f5534ab59eeabe1e777bd1f9bd403530126c8ad5df87a50739",
+  "heldCursorDigest": "sha256:8fdc982176e785f5534ab59eeabe1e777bd1f9bd403530126c8ad5df87a50739",
+  "executionBasisRef": "execution-basis://abiogenesis/e178ae45978ff0f3b632a636c44498c09bf0cc8e27a9c18a9123234170d8d086",
+  "executionBasisDigest": "sha256:e178ae45978ff0f3b632a636c44498c09bf0cc8e27a9c18a9123234170d8d086",
+  "constructionIntentRef": "construction-intent://abiogenesis/3272df08a50cb51ccaf40c15dd43a2cb773c584ebf580d87a4fcf7bf55739ecc",
+  "constructionIntentDigest": "sha256:3272df08a50cb51ccaf40c15dd43a2cb773c584ebf580d87a4fcf7bf55739ecc",
+  "selectedActionRef": "next-action-projection://product/418c37d6ea38f30395943f9befffa855cb5a0647743bcff4056a1cc3312abaa0",
+  "selectedActionDigest": "sha256:418c37d6ea38f30395943f9befffa855cb5a0647743bcff4056a1cc3312abaa0",
+  "intentAdmissionEventRef": "event://abiogenesis/eec4c681abdcb6c86dd353307050a43deac056d4762cd36328086145aab29bd0",
+  "causedByEventRef": "event://abiogenesis/95cfa38107e51f65762a1a37237531b5db9f7efbeb52d9e5971100ee709d2fa2",
+  "continuationRef": "continuation://abiogenesis/0bfd14e57860d3f15d6ebaaf8f6de3bda576b3570020133d2e468e3a8b5f336c",
+  "continuationDigest": "sha256:0bfd14e57860d3f15d6ebaaf8f6de3bda576b3570020133d2e468e3a8b5f336c",
+  "openedEventRef": "event://abiogenesis/eec4c681abdcb6c86dd353307050a43deac056d4762cd36328086145aab29bd0",
+  "terminalEventRef": null,
+  "status": "open"
+}

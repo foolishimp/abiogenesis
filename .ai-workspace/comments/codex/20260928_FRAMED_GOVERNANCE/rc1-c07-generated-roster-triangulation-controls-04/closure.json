@@ -1,0 +1,11 @@
+{
+  "operation": "T287_GENERATED_ROSTER_TRIANGULATION_GRANT_04",
+  "status": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-roster-triangulation-controls-04/request.txt",
+    "bytes": 2719,
+    "sha256": "ad1862f14b459dba011e6d9bd2d8593a868d4d7e1bb0feb461bc1e074cfa469b"
+  },
+  "RootRole": "Executive",
+  "RootCanonicalEffects": 0
+}

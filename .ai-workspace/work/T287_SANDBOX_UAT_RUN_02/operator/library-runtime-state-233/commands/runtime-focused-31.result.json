@@ -1,0 +1,17 @@
+{
+  "kind": "runtime_selected_component_check",
+  "args": [
+    "--expose-gc",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=terminal route-only|selected replay guard|finite pure candidate|ordinary selected route|drop complete output",
+    "dependency-cut-31/test_env/tests/t287-route-reconstruction.test.mjs"
+  ],
+  "exitCode": 1,
+  "signal": null,
+  "elapsedMs": 2274.4357499999996,
+  "error": null,
+  "limits": [
+    "Controlled finite lower declaration/outcome premises; no installed native, Source41 or campaign capacity proof"
+  ]
+}

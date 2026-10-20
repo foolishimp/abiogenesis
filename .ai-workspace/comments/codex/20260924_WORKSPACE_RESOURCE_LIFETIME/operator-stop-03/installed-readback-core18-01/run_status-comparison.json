@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "transport": true,
+    "noFailure": true,
+    "genuineClose": true,
+    "physicalUnchanged": true,
+    "success": true,
+    "sameRun": true,
+    "currentPrefix": true,
+    "stopped": true,
+    "sameExecutionBasis": true,
+    "inactive": true,
+    "operatorStopped": true,
+    "heldFluentsConserved": true
+  },
+  "passed": true
+}

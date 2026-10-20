@@ -1,0 +1,14 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME08_CALLER_PREPARATION_01",
+  "role": "Writer",
+  "workResult": "CONTROL_PREPARATION_ONLY",
+  "futureRuntimeOperation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "RuntimeWorkerActivated": false,
+  "Q09Accepted": false,
+  "actualRuntimeOwnerHelperTaskRunProviderEffects": 0,
+  "sourceEffects": "new granted external controller/config/pins only",
+  "writesAfterFreeze": "STOPPED",
+  "RootAloneActivatesRuntime": true,
+  "independentReviewActivatedByWriter": false
+}

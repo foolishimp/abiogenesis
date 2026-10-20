@@ -1,0 +1,35 @@
+{
+  "role": "Writer_CLOSED_root_resumes_Executive",
+  "activation": "T287_F11_CARRIER_REPAIR_01",
+  "preimages": {
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": "c3ed1ac6bb4be1446974c7f4d2cb2e43b34c19cfc31714f6c63b9ea78e32ca64",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": "8deeae829de6c704e21f7793a8d5aaaf8c0d3aeb755877d8cb03d17228b1bfe2",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md": "8e594268b3199caf00b0d45121b88875298f46059caf2a529f7baf655b7bb9b9"
+  },
+  "postimages": {
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": {
+      "sha256": "51433193d542a604f268cc610e74d8ce2961805f68de173aa803f68516bce7ce",
+      "bytes": 428437
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "6296d358118545904dfa407425e82d2000b2c56a6a6969d35ab63490c5ce69ec",
+      "bytes": 468540
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md": {
+      "sha256": "695e668744f643c3e0a1e18c8d18126aa31446b89582ff74a8d8646fd1d1abd1",
+      "bytes": 7857
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-repair-controls-01/design-request.txt": {
+      "sha256": "9fb3306c37bfe4e2750adbda0143abc8c52a53eba1bc8b28494c5900e1e0d9d1",
+      "bytes": 4352
+    }
+  },
+  "network": {
+    "endpoint": "https://api.anthropic.com",
+    "observed": "curl exit6 Could not resolve host before TLS/auth",
+    "context": "current workspace-write restricted networking approval never",
+    "modelCalls": 0,
+    "noBypass": true
+  },
+  "limits": "controls only; no implementation/qualification acceptance"
+}

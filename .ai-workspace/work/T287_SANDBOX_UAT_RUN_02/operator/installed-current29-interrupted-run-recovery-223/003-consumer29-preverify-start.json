@@ -1,0 +1,15 @@
+{
+  "stage": "consumer29-preverify-start",
+  "at": "2026-10-09T17:32:08.117Z",
+  "wallMs": 20063.6305,
+  "pid": 74774,
+  "memory": {
+    "rss": 1518977024,
+    "heapTotal": 1194377216,
+    "heapUsed": 958483768,
+    "external": 97603586,
+    "arrayBuffers": 95186725
+  },
+  "maxRSSKiB": 1645232,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+}

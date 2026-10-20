@@ -1,0 +1,68 @@
+{
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "file": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/qualification-inventory.json",
+      "bytes": 1045681,
+      "sha256": "64393d5791617ad2b50ed6f43a9fcca87e2a59384918ed44e39c362055e85348"
+    },
+    "members": 1950
+  },
+  "ruleCatalog": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/rule-catalog.json",
+    "bytes": 1796651,
+    "sha256": "e9aa4d0a863050f17ca8ed89b1911ae237df08ce1727ee24e3016f2f7297f5c4",
+    "catalogRef": "catalog://abiogenesis/qualification/self-conformance@2",
+    "rules": 2137,
+    "sources": 95
+  },
+  "lawBasis": {
+    "ref": "qualification-law://abiogenesis/a9e6b29d55f8e5e8b90bca1297e232e01ea47b56d23909b3587e8c55c46d229a",
+    "digest": "sha256:a9e6b29d55f8e5e8b90bca1297e232e01ea47b56d23909b3587e8c55c46d229a",
+    "file": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/law-basis.json",
+      "bytes": 28470,
+      "sha256": "578fb695296f9939ba1dfdc6ac0c4ab17bd067845e657ec4b61615795244cc06"
+    }
+  },
+  "roleCounts": {
+    "qualification": 100,
+    "execution_contract": 19,
+    "manifest": 13,
+    "code": 993,
+    "public_contract": 92,
+    "design": 321,
+    "proof": 323,
+    "constitutional": 88,
+    "release_claim": 1
+  },
+  "existingOwners": {
+    "contracts": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 34377,
+      "sha256": "cf50d1120b7a73aa8f09554a06793c419576bdf6d030c27d8af03c7168dd7e9b"
+    },
+    "judgment": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 59810,
+      "sha256": "f8e92aa311cc56ce7ead7b6b51905791ace6502d4a7b5972a7671503ebe505d8"
+    },
+    "implementation": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "bytes": 8344,
+      "sha256": "33e8a5f9832c5d0989bc1c174545fcebfafbd65ac0ccf3235dadf41e2f5dbe95"
+    }
+  },
+  "next": "Use current inventory and 2137 rules for each rule group complete disjoint applicationDomains partition; source-grounded grouping and applicability need admitted independent assessment. Old108groups/348partitions/2106rules are not this subject. No partitions/tasks/J produced here.",
+  "schemas": [
+    "QUALIFICATION_SCOPE_SCHEMA",
+    "QUALIFICATION_ASSESSMENT_TASK_SCHEMA"
+  ],
+  "constructors": [
+    "constructQualificationIdentity",
+    "qualificationWorkerRequest",
+    "constructQualificationJudgment"
+  ],
+  "policy": "QUALIFICATION_ROLE_POLICY"
+}

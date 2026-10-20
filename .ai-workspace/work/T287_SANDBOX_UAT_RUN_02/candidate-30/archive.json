@@ -1,0 +1,31 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-30/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "5e76e48eaa2e72029f50a174485c62015d510c094fa93babc708235830c527fd",
+    "byteCount": 10640683
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3228.692916,
+    "timedOut": false,
+    "truncated": false
+  },
+  "acceptedSourceFreezes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/freeze.json",
+      "sha256": "d2f08b647bf4786bf058ceeb8a8efddbee760c3bd76eb98365ea3a09f229aa84",
+      "byteCount": 14186
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-review-221/freeze.json",
+      "sha256": "72099819c0bbc9066e147657f2c11418e4ca97988afffd9d6efba9a8c476bdde",
+      "byteCount": 995
+    }
+  ],
+  "source220Disposition": "Root conjoined Source220 and independent221 bounded single-route owner GO",
+  "sourceCommit": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "sourceCommitIsHistorical": true,
+  "sourceCommitContainsAcceptedSource": false,
+  "ordinaryBuildAlreadyRecorded": true,
+  "nativeEffects": false
+}

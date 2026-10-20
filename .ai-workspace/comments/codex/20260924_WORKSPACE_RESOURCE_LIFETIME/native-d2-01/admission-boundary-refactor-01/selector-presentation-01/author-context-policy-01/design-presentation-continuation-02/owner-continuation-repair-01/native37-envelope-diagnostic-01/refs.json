@@ -1,0 +1,70 @@
+{
+  "scope": "Retained files and installed pure owner modules only; no historical acquisition",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-envelope-diagnostic-01/return.md",
+      "sha256": "4df3e9cfba4b09b8f1b678aaab7f2bc63fbc3cde557ab1f2fa925c70b3d3c6ef",
+      "bytes": 3565
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-envelope-diagnostic-01/probe.mjs",
+      "sha256": "9d710b4303fb629c2b026aaae68236f7fa693c6c95f22fde2602c09fbeb2df36",
+      "bytes": 3043
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-envelope-diagnostic-01/probe.json",
+      "sha256": "517c6113e10059b0fa1130d0607654fd8ed6c00a7c5739dcd2ff4301c7625bcd",
+      "bytes": 1272
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/design-actor-summary.json",
+      "sha256": "37eb12bfcecf73c342345d616b4015380bcad5ebe72a8767fa9b96640179f0b7",
+      "bytes": 6549
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/intake-01/intake-terminal-request.json",
+      "sha256": "3494d102d3337c1b6dc68e9da55db7c86e2820ccba6da7674df4ff861973d3ac",
+      "bytes": 296449
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/invocation/archives/fp-899183623f72f486-output.txt",
+      "sha256": "df06aaa653a8011f8c00395004168329b2085308282595a7285f7aecbbdbc29a",
+      "bytes": 48096
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/invocation/archives/fp-899183623f72f486-prompt.txt",
+      "sha256": "7bf0809b64ec1428245a28340a083926e930e4eacbb5b7433fb9294ea31765fd",
+      "bytes": 986751
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/first-cause-suffix/80343-c_call_evidenced.jsonl",
+      "sha256": "ef6e3958fd0c7a61c00806a875795b55e76d674ca342d11b418b6b2d9537a039",
+      "bytes": 2032
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/design-input.json",
+      "sha256": "49b8be73c46368cecfe625779630a165177d10398ee539d9685ca0244aa25856",
+      "bytes": 1545750
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/products/core37/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+      "sha256": "de6d482fdcfd0951cbe728c50787826d569730fb68648de425974e4746734127",
+      "bytes": 81267
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/products/core37/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js",
+      "sha256": "93d7933e7f0f133a1bce7e6ead260e5b9170bd325ce4a111148ddc0f11052c50",
+      "bytes": 12261
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/products/core37/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/semantic_job.js",
+      "sha256": "0fb18d4662143abd28dc15acd43f2e3e3c9be0233b4fbab0ebf20e827f67cae7",
+      "bytes": 85855
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/products/core37/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/semantic_revision.js",
+      "sha256": "7d35da7fd7f9779c2837b252dcb1ebe29c30638b25efb9c937e221de2d45bacd",
+      "bytes": 30515
+    }
+  ]
+}

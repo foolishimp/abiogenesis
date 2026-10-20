@@ -1,0 +1,68 @@
+{
+  "kind": "native_semantic_revision_intake_readback",
+  "run": {
+    "digest": "sha256:5f39a7af0be84fbb483bcda510dccb30c2616af8dae0b2edb281da7d57acff2e",
+    "ref": "run://abiogenesis/a6e662e7de9dc335de653de143e978aa141f5f4c79dcf23db816f1e3daa07f4e"
+  },
+  "result": {
+    "digest": "sha256:6536b453f2cabdda613f00158f5facd84f24d0e00d7a5e197dfbe2f64bc21686",
+    "ref": "result://abiogenesis/6536b453f2cabdda613f00158f5facd84f24d0e00d7a5e197dfbe2f64bc21686"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:726c0e3bf21d62670f4c64f920e13a1695380b9898610b6cb4a355506a400a09",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:78b048a74fe12816f1a7fbf417df831b72a1d057bcdfea197d92d0329c4a2f29",
+    "prefixLength": 149839258,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 41500.375291,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/intake-01/read-run_result.json",
+      "resultDigest": "sha256:ffc5950b2d5b3548740dc45f10544584bddc5ffc6ad599e0422488d2a4c7d3c1"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 41861.709707999995,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/intake-01/read-run_replay.json",
+      "resultDigest": "sha256:eb0391ba2271fec5026311051f7d818d1cc43b4b3b88d2b2fe2931b30cdb0b32"
+    }
+  ],
+  "installedAfter": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/23773410b335c9d6db7d8a9cb71c79e4aacc3fd1efc4382c4681f42f6817c668/467ea1b4bbcebdd7fd3402443a79f902ab213bdf9b3b5816600ba0e19dca203f",
+      "productContentDigest": "sha256:23773410b335c9d6db7d8a9cb71c79e4aacc3fd1efc4382c4681f42f6817c668"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.15/33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e/467ea1b4bbcebdd7fd3402443a79f902ab213bdf9b3b5816600ba0e19dca203f",
+      "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e"
+    }
+  ],
+  "inputDigest": "sha256:7856723d108dcb984c8b0a0004d927a4a0a8d45a01f2e931bfbb09449d604694",
+  "duplicateSdkProjection": false,
+  "status": "returned_unique_declared_suffix",
+  "selectionChoice": {
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/requirements@5"
+  },
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-requirements@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-requirements@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-requirements@5"
+  },
+  "terminalResult": {
+    "digest": "sha256:6536b453f2cabdda613f00158f5facd84f24d0e00d7a5e197dfbe2f64bc21686",
+    "ref": "result://abiogenesis/6536b453f2cabdda613f00158f5facd84f24d0e00d7a5e197dfbe2f64bc21686"
+  },
+  "valueDigest": "sha256:eb74757c78c9d7e0c5a1331eb0206b89ef1f1435151f8380e89d282f2ccf48d7",
+  "boundary": "Only ordinary Public terminal Result/replay and installed pure declaration lookup; no private leaf extraction or inferred selection."
+}

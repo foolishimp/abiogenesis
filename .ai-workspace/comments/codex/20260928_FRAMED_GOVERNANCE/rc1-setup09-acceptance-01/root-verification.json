@@ -1,0 +1,184 @@
+{
+  "verifiedRecords": 11329,
+  "verifiedBytes": 935275375,
+  "verifiedDirectories": 1213,
+  "errors": [],
+  "seconds": 1.239,
+  "pins": {
+    "freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/freeze.json",
+      "bytes": 3912075,
+      "sha256": "cab9d9636723b8fa48719de8c6a664c384747c115901d621dbc861a0d6182c53",
+      "mode": 420
+    },
+    "installed-authority-handoff.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/installed-authority-handoff.json",
+      "bytes": 7357822,
+      "sha256": "2c0f55d3bee916a58920a1b97e4df3b951276397e369ad8e80b7626b981d1212",
+      "mode": 420
+    },
+    "closed-event-resource-handoff.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/closed-event-resource-handoff.json",
+      "bytes": 3591718,
+      "sha256": "9179dbc1b6908d34682d1d79d9036fb01def1a1eb3988dd3e466b497dfe4d4e6",
+      "mode": 420
+    },
+    "setup-state.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/setup-state.json",
+      "bytes": 81363931,
+      "sha256": "aa3058c03cf66163315f9c02a1ad6b3622a8057cfdd36d897e95fc9bd0b1bba1",
+      "mode": 420
+    },
+    "setup-closed-environment.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/setup-closed-environment.json",
+      "bytes": 57715713,
+      "sha256": "f33f484e035688824e24f0ef35d7abae52984a8a1e3588290e4f2e229db86acd",
+      "mode": 420
+    },
+    "installed-physical-population.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/installed-physical-population.json",
+      "bytes": 3155747,
+      "sha256": "cf4766bf39486d01f4fa4cac8e3db4bc3d15f06e498f2f5a70bce1277b7e0122",
+      "mode": 420
+    },
+    "accounting.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/accounting.json",
+      "bytes": 33140,
+      "sha256": "177bdd304c863f8ab44664973344c7377480c32a521323ed87f552cad2a48cba",
+      "mode": 420
+    },
+    "closure.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/closure.json",
+      "bytes": 2938,
+      "sha256": "91a6dd921f76690d820959fa757cf601a878b03c44972c4bf353c8164299ba40",
+      "mode": 420
+    },
+    "runtime-activation.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/runtime-activation.json",
+      "bytes": 3096,
+      "sha256": "6569fa1913969519f71a90cb6a763a9f515534d9ce81ce127b13b8fe2d2275d6",
+      "mode": 420
+    }
+  },
+  "eventPhysical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+    "bytes": 2498379,
+    "sha256": "7b579e0dfb1bf3f99c16687c641b09480433ec7eea127d1238e4e0e1796e5048",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464941019
+  },
+  "topSchema": {
+    "installed-authority-handoff.json": [
+      "kind",
+      "currentActor",
+      "workspaceAuthority",
+      "workspaceManifest",
+      "workspaceBindingCandidate",
+      "workspaceBinding",
+      "roots",
+      "productInstalls",
+      "productSet",
+      "resolvedLock",
+      "contractCatalog",
+      "completePublications",
+      "catalog",
+      "catalogCounts",
+      "catalogView",
+      "selectedPrograms",
+      "actualParentChildCallables",
+      "semanticExecution"
+    ],
+    "closed-event-resource-handoff.json": [
+      "status",
+      "closeHandoff",
+      "handoffDigest",
+      "physical",
+      "stableAfterSupervisorClose",
+      "eventLockPresent",
+      "productInstalls",
+      "workspaceBinding",
+      "workspaceBindingCandidate",
+      "resolvedLock",
+      "catalog",
+      "catalogView",
+      "futureReopen",
+      "F11TaskRun"
+    ],
+    "setup-state.json": [
+      "closeHandoff",
+      "environment",
+      "catalog",
+      "catalogView",
+      "binding",
+      "resolvedLock",
+      "calls",
+      "items",
+      "workspaceAuthority",
+      "workspaceManifest",
+      "roots",
+      "contractCatalog"
+    ],
+    "setup-closed-environment.json": [
+      "kind",
+      "schemaVersion",
+      "prefix",
+      "artifactTruth",
+      "workspaceAuthorityBasis",
+      "workspaceBindingCandidate",
+      "workspaceBinding",
+      "productInstalls",
+      "resolvedProductLock",
+      "productSet",
+      "catalog",
+      "catalogView",
+      "installedRoot",
+      "verified",
+      "closeHandoff"
+    ],
+    "installed-physical-population.json": [
+      "kind",
+      "filtering",
+      "products",
+      "sourcePolicy"
+    ],
+    "accounting.json": [
+      "status",
+      "supervisor",
+      "actualOrdinaryPublicCalls",
+      "calls",
+      "sumMeasuredCLIElapsedMs",
+      "nominalPreflight",
+      "heap",
+      "HOME",
+      "managedOuterGroupBeforeImports",
+      "wait4",
+      "unknowns",
+      "providerTaskRunHelperQualificationNetworkGitEffects",
+      "additionalRuntimeCallsAfterSetup"
+    ],
+    "closure.json": [
+      "status",
+      "operation",
+      "actor",
+      "workResult",
+      "rootAcceptedConstruction",
+      "candidateFreeze",
+      "locks",
+      "actualNativeEvidence",
+      "admittedInstalls",
+      "completePublications",
+      "selectedProgramConformance",
+      "firstDiscrepancy",
+      "sourceOwnedBinLinksFlag",
+      "strictReader",
+      "closeHandoffDigest",
+      "resourceHandoff",
+      "authorityHandoff",
+      "eventPhysical",
+      "writesAfterFreeze",
+      "Q10F11TaskRunHelperProviderQualification",
+      "independentReviewActivatedByWorker"
+    ]
+  }
+}

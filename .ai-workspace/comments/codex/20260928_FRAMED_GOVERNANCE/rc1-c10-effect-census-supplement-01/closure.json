@@ -1,0 +1,12 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C10_EFFECT_CENSUS_SUPPLEMENT_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Worker",
+  "onlyWriteTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c10-effect-census-supplement-01",
+  "C10OriginalFreezeUnchanged": true,
+  "writesAfterFreeze": "STOPPED",
+  "reviewerActivated": false,
+  "qualificationReleaseCredit": false,
+  "closedAt": "2026-10-04T04:51:40.635993+00:00"
+}

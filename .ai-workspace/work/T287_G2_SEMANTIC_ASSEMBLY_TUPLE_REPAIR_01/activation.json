@@ -1,0 +1,50 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAtUTC": "2026-10-04T16:31:27.383341+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/controls/worker-grant.md",
+    "bytes": 5085,
+    "sha256": "65ff6a91e9256b22ed56afef99b61cfbba99a93befe6e39615939c61275cfcf7"
+  },
+  "ProductFrame": "Fixed ABG5 fifteen families / GOAL035 / T287 F02/F03/F05/F13",
+  "reentry": "realization_refactor of canonical semantic assembly eight-tuple and complete composed proof",
+  "HOW": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+  "HOWSHA256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+  "basis": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "HOME": "/Users/jim",
+  "defaultHeap": true,
+  "budgetsSeconds": {
+    "preflight": 120,
+    "compile": 180,
+    "manifest": 120,
+    "pack": 120,
+    "extract": 120,
+    "focused": 240,
+    "terminationGrace": 5
+  },
+  "SourceTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts"
+  ],
+  "writeRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01"
+  ],
+  "immutableRootControlsExcluded": true,
+  "priorFailedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/freeze.json",
+    "bytes": 7810699,
+    "sha256": "10784258ecbb30175673eda17184c088589ba450b98b917adf7f4f7edeebbb10"
+  },
+  "priorAuthorshipProducer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/source-postimages.json",
+    "bytes": 19623,
+    "sha256": "e0da48797ab72989443473089adaa1d701cfa5ba73b8910ec915157d06958450"
+  }
+}

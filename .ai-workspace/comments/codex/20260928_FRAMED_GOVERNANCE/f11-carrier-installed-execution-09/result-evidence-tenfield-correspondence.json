@@ -1,0 +1,38 @@
+{
+  "requiredFields": [
+    "transportDigest",
+    "actorInvocationRef",
+    "actorRef",
+    "workerBindingRef",
+    "transportBindingRef",
+    "transportBindingDigest",
+    "requestDigest",
+    "promptDigest",
+    "transportDisposition",
+    "transportFailureClass"
+  ],
+  "actualAdmittedMetadata": [
+    {
+      "path": "$/0/payload",
+      "cCallRef": "c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c",
+      "evidenceRef": "evidence://abiogenesis/dc42c10f0f6c2a37ac4ba5edaa14863b0dffc985cb19dd8015151542cd62186e",
+      "metadata": {
+        "transportDigest": "sha256:0b63ddb0af83f1678092edbb6a832f94d72c3d2a35ed3a9dec22ae096a2e10e9",
+        "actorInvocationRef": "actor-invocation://abiogenesis/81c9ea638f448a248e39acdaca1a0cfabef38e7264012b48f1a3633d4ecc6919",
+        "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+        "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5",
+        "transportBindingRef": "transport-binding://abiogenesis/01944b03b3059e2883fe2f863e6fef3a29135f55c32b21eb9ce531c04e792980",
+        "transportBindingDigest": "sha256:01944b03b3059e2883fe2f863e6fef3a29135f55c32b21eb9ce531c04e792980",
+        "requestDigest": "sha256:035fe24ed43d193b42434e5e8433209dc3c4daf88391fd5220042bc4817ec73e",
+        "promptDigest": "sha256:c644d5a575f380198bcda3e5dfaa4b43cfcd3fe768762e35ff9b3cef51a9821c",
+        "transportDisposition": "success",
+        "transportFailureClass": null
+      }
+    }
+  ],
+  "actualJudgmentMetadata": [],
+  "equalActualPairs": [],
+  "actualColdF11Consumption": false,
+  "noSourceInference": true,
+  "completePath": false
+}

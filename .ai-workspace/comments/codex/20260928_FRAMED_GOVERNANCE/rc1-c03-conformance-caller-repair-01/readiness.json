@@ -1,0 +1,29 @@
+{
+  "activation": "T287_C03_CONFORMANCE_CALLER_REPAIR_01",
+  "status": "CLOSED",
+  "node": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "syntax": {
+    "argv": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-conformance-caller-repair-01/conformance-resources.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "priorRootRouteFailure": {
+    "attemptedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/toolchain/bin/node",
+    "observed": "AssertionError before process execution",
+    "cause": "Root omitted the source-freeze prefix from the actual pinned tool route",
+    "effects": "Three new files and activation append already written; no Node, owner or runtime process was started"
+  },
+  "runtimeCalls": 0,
+  "sourceEffects": 0,
+  "candidateEffects": 0,
+  "qualificationClaim": false
+}

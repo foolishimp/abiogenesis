@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "-p",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-repair-105/isolated/tsconfig.json"
+  ],
+  "exitCode": 0,
+  "wallMs": 5985.117250005715,
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "canonicalBuild": false
+}

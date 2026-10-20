@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';import {readFile,writeFile} from 'node:fs/promises';import {pathToFileURL} from 'node:url';
+import {commandRecorder} from '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs';
+import {installedModules,verifyArtifact} from '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs';
+const root=new URL('.',import.meta.url).pathname,pins=JSON.parse(await readFile(root+'input-pins.json','utf8'));
+const record=async(path,value)=>writeFile(root+path,JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+const command=commandRecorder(root,{environment:{PATH:'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin',npm_config_cache:root+'npm-cache'},timeoutMs:300000,maxOutputBytes:1048576});
+const result=await command('install-reader18','/opt/homebrew/bin/npm',['install','--ignore-scripts','--no-audit','--no-fund','--prefix',root+'reader-host',pins.readerArchive],{cwd:root});
+assert.equal(result.exitCode,0);assert.equal(result.timedOut,false);assert.equal(result.truncated,false);assert.equal(result.failure,null);
+console.log(JSON.stringify({stage:'reader18-installed',wallMs:result.wallMs,readerRoot:pins.readerHostRoot}));
+const runtime=await installedModules(pins.readerHostRoot),manifest=JSON.parse(await readFile(pins.readerManifestSource,'utf8')),t0=performance.now();
+const native=await verifyArtifact(runtime,{artifactPath:pins.readerArchive,manifest,expectedArtifactDigest:pins.readerArchiveDigest},record,'reader18');
+assert.equal(native.verified.productContentDigest,'sha256:e4c213aeb707937298c71056f36506f415f2202137fa1c6df253f7cb345bd3a9');
+await record('reader18-verification.json',{readerRoot:pins.readerHostRoot,verifiedDigest:native.verified.productContentDigest,manifestDigest:native.verified.manifestDigest,wallMs:performance.now()-t0,sourceBlindActualOwner:true,noNativeModelOrInstallOfHistoricalSource:true});
+console.log(JSON.stringify({stage:'reader18-verified',wallMs:performance.now()-t0,content:native.verified.productContentDigest}));

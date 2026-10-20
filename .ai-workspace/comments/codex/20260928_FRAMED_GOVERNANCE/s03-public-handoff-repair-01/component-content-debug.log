@@ -1,0 +1,83 @@
+TypeError: admitted no-action basis content is absent
+    at gapRows (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1021:15)
+    at projectRunGaps (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1065:42)
+    at projectValue (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1137:20)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:52
+    at projectPreparedRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1152:21)
+    at Module.projectGapReadAtValidatedPrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:16)
+    at candidateRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:50:33)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:61:40
+TypeError: admitted no-action basis content is absent
+    at gapRows (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1021:15)
+    at projectRunGaps (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1065:42)
+    at projectValue (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1137:20)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:52
+    at projectPreparedRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1152:21)
+    at Module.projectGapReadAtValidatedPrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:16)
+    at candidateRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:50:33)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:61:40
+TypeError: no-action input evidence differs from its admitted result
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1005:19
+    at Array.map (<anonymous>)
+    at gapRows (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:995:33)
+    at projectRunGaps (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1065:42)
+    at projectValue (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1137:20)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:52
+    at projectPreparedRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1152:21)
+    at Module.projectGapReadAtValidatedPrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:16)
+    at candidateRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:50:33)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:61:40
+TypeError: gap value has no admitted successful C-call outcome
+    at gapCall (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:933:15)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1023:23
+    at Array.map (<anonymous>)
+    at gapRows (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1022:30)
+    at projectRunGaps (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1065:42)
+    at projectValue (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1137:20)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:52
+    at projectPreparedRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1152:21)
+    at Module.projectGapReadAtValidatedPrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:16)
+    at candidateRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:50:33)
+TypeError: no-action input evidence differs from its admitted result
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1005:19
+    at Array.map (<anonymous>)
+    at gapRows (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:995:33)
+    at projectRunGaps (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1065:42)
+    at projectValue (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1137:20)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:52
+    at projectPreparedRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1152:21)
+    at Module.projectGapReadAtValidatedPrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1080:16)
+    at candidateRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:50:33)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:61:40
+TypeError: native liveness effect has no exact admitted source/threshold relation
+    at RuntimeEventCalculusDerivation.advance (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/event_calculus.js:1528:27)
+    at eventCalculusDerivation (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/event_calculus.js:1685:16)
+    at deriveRuntimeEventCalculusProjection (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/event_calculus.js:1689:12)
+    at deriveReplayPrefixFacts (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/replay.js:457:27)
+    at replayValidatedRuntimeEventPrefix (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/replay.js:440:12)
+    at projectRunReplayContext (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/replay.js:1321:20)
+    at runContext (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:484:12)
+    at canonicalRunContext (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:536:21)
+    at projectRunGaps (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1062:56)
+    at projectValue (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/compiled/abg/project_read_ports.content-debug.js:1137:20)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'abg_project_read_refusal'
+- 'abg_project_read_projection'
+                    ^
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-content-debug.mjs:76:46 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'abg_project_read_refusal',
+  expected: 'abg_project_read_projection',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

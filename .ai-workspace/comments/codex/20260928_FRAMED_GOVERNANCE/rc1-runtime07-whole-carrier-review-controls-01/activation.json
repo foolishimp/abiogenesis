@@ -1,0 +1,20 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RUNTIME07_ASSURANCE_GRANT_01",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T07:50:53.189555+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-whole-carrier-review-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 521236,
+      "sha256": "5f0c810d7d8410eda643ec687c0dacbd72ef9b58d02a35c2ce8d3130a4ac1610",
+      "mode": 420
+    }
+  ],
+  "exactGrant": "Compose conditional independent whole-carrier read-only review assignment and append tracking only; no runtime/source/candidate effects."
+}

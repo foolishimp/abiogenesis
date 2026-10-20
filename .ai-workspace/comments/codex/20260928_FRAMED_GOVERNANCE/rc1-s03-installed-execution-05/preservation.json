@@ -1,0 +1,56 @@
+{
+  "old03FailureFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/freeze.json",
+    "bytes": 1802489,
+    "sha256": "ba1fcefd7259d3641f187fcefb1e545f45dfecb321fb273b2ab5d1e04e7f59bd"
+  },
+  "old04ExecutionFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/freeze.json",
+    "bytes": 27019,
+    "sha256": "0a6d8fc532c846bc694c68da16d097ab16182247f4993e041a2dff93ce2f2b97"
+  },
+  "old03StaticRecordsConserved": 5998,
+  "old04FullRecordsConserved": 122,
+  "oldFilePopulationsConserved": true,
+  "oldPositiveProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/positive/oracle-result.json",
+    "bytes": 816087,
+    "sha256": "9dbaee23f4dbac60e37fc994ccf89163d5bbf479dd3f091bbd81edb75b33d69f"
+  },
+  "oldNegativeStartReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/s03-no-action-start-stdout.json",
+    "bytes": 42121,
+    "sha256": "81988979558054c08034abfe12ab7eb3badb67a6b667665111d4bf65c492997d"
+  },
+  "C03Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+    "bytes": 44443,
+    "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a"
+  },
+  "C03ConstructionRecordsVerified": 92,
+  "C03SourceMembersVerified": 1159,
+  "bootstrapPayloadMembersVerified": 5258,
+  "existingRuntimePayloadMembersVerified": 5258,
+  "S03PreparationRecordsVerified": 13,
+  "externalPinsVerified": 44,
+  "runtimeBoundInputRecordsVerified": 19,
+  "originalCopiesConserved": [
+    "selected-core.json",
+    "prospective-cases.json",
+    "caller-draft.mjs",
+    "original-consumers.mjs",
+    "sole-output-renderer.mjs",
+    "original-oracle.json",
+    "pair-inputs.json",
+    "readback-contract.json",
+    "public-support.mjs",
+    "observe-process.py"
+  ],
+  "fixtureArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+    "bytes": 9566,
+    "sha256": "c199ca3a2004d26ae26f1ef00b6f6b197a3bd01dc26a6d0d623333edfcc66088"
+  },
+  "sourceCoreFixturePackageRepairEffects": 0,
+  "oldHistoricalStoreAppendExceptionDuring05": false
+}

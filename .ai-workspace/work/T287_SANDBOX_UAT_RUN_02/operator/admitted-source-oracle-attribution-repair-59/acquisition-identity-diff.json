@@ -1,0 +1,107 @@
+[
+  {
+    "path": "/scenarios/0/acquisitionDigests/4/digest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/0/acquisitionDigests/4/byteCount",
+    "before": 23452,
+    "after": 23659
+  },
+  {
+    "path": "/scenarios/0/oracleModuleDigest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/1/acquisitionDigests/4/digest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/1/acquisitionDigests/4/byteCount",
+    "before": 23452,
+    "after": 23659
+  },
+  {
+    "path": "/scenarios/1/oracleModuleDigest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/2/acquisitionDigests/4/digest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/2/acquisitionDigests/4/byteCount",
+    "before": 23452,
+    "after": 23659
+  },
+  {
+    "path": "/scenarios/2/oracleModuleDigest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/3/acquisitionDigests/4/digest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/3/acquisitionDigests/4/byteCount",
+    "before": 23452,
+    "after": 23659
+  },
+  {
+    "path": "/scenarios/3/oracleModuleDigest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/4/acquisitionDigests/4/digest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/4/acquisitionDigests/4/byteCount",
+    "before": 23452,
+    "after": 23659
+  },
+  {
+    "path": "/scenarios/4/oracleModuleDigest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/5/acquisitionDigests/4/digest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/5/acquisitionDigests/4/byteCount",
+    "before": 23452,
+    "after": 23659
+  },
+  {
+    "path": "/scenarios/5/oracleModuleDigest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/6/acquisitionDigests/6/digest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  },
+  {
+    "path": "/scenarios/6/acquisitionDigests/6/byteCount",
+    "before": 23452,
+    "after": 23659
+  },
+  {
+    "path": "/scenarios/6/oracleModuleDigest",
+    "before": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+    "after": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+  }
+]

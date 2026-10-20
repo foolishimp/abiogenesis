@@ -1,3 +1,6 @@
+import { isOwnedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -5,12 +8,212 @@ import { deepFreeze } from "../shared/immutable.js";
 import { isExactOperationDefinitionCoordinate } from "../shared/operation_definition_coordinate.js";
 import type { ExecutionBasis } from "./execution_basis.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { InvocationAdmission } from "./invocation_admission.js";
+import { isInvocationSourceResultBasis } from "./invocation_admission.js";
 import type { RuntimeEvent } from "./event_store.js";
-import { governanceContract, type GovernanceWorkState } from "../product/default_library.js";
+import { governanceContract, governanceRef, isGovernanceWorkState, type GovernanceWorkState } from "../product/default_library.js";
+import { canonicalJson } from "../shared/canonical_json.js";
+import { compareGovernanceDeclarationPublications, type GovernanceCoveredSourceUse,
+  type ProductInvocationSourceResultBasis } from "../product/semantics.js";
+import type { WorkspaceBinding } from "../product/environment.js";
+import type { GtlProgram, GraphFunction } from "../gtl/contracts.js";
+import { constructAbgHistoricalDeclarationReference, type AbgHistoricalDeclarationProof,
+  type AbgHistoricalDeclarationReference } from "./terminal_result_contracts.js";
+import { reconstructHistoricalDeclarationCatalog, resolveProgramDeclarationClosure,
+  resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
+import { projectWorkspaceEnvironmentFromArtifactTruth, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
+import { projectOwnedPrefixArtifactTruth } from "./artifact_truth.js";
+import { projectAdmittedWorkspaceBindingAtCoordinate, projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
+import { validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
+import { runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
+
+const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
+
+/** @internal Existing Catalog reconstruction binds each complete preimage to
+ * its actual admitted install/lock/W. No copied Catalog grants applicability. */
+export function projectGovernanceCoveredSourceUse(prefix: ValidatedRuntimeEventPrefix, input: Readonly<{
+  predecessorPrefix: DurablePrefixCoordinate; source: ProductInvocationSourceResultBasis;
+  workspaceBinding: WorkspaceBinding; program: Readonly<GtlProgram>; graphFunction: Readonly<GraphFunction>;
+  currentDeclaration: AbgHistoricalDeclarationProof; historicalDeclarations: readonly AbgHistoricalDeclarationProof[];
+}>): GovernanceCoveredSourceUse | null;
+/** @internal */
+export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, input: Readonly<{
+  predecessorPrefix: DurablePrefixCoordinate; source: ProductInvocationSourceResultBasis;
+  workspaceBinding: WorkspaceBinding; program: Readonly<GtlProgram>; graphFunction: Readonly<GraphFunction>;
+  currentDeclaration: AbgHistoricalDeclarationProof; historicalDeclarations: readonly AbgHistoricalDeclarationProof[];
+}>): GovernanceCoveredSourceUse | null;
+export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, input: Readonly<{
+  predecessorPrefix: DurablePrefixCoordinate; source: ProductInvocationSourceResultBasis;
+  workspaceBinding: WorkspaceBinding; program: Readonly<GtlProgram>; graphFunction: Readonly<GraphFunction>;
+  currentDeclaration: AbgHistoricalDeclarationProof; historicalDeclarations: readonly AbgHistoricalDeclarationProof[];
+}>): GovernanceCoveredSourceUse | null {
+  try {
+    const { source, predecessorPrefix, workspaceBinding, program, graphFunction, currentDeclaration } = input;
+    if (prefix.kind === "runtime_validation_event_prefix") return null;
+    const events = runtimeEventBodiesAtPrefix(prefix), physical = runtimeEventPhysicalPrefix(isOwnedRuntimeEventPrefix(prefix) ? prefix.selection : runtimeEventsFromValidatedPrefix(prefix));
+    if (physical.byteLength !== predecessorPrefix.prefixLength || physical.digest !== predecessorPrefix.prefixDigest ||
+        source.sourceResultContractRef !== governanceContract("state")) return null;
+    const invocation = projectExactInvocationAdmissionAtPrefix(prefix, source.sourceInvocationAdmissionRef);
+    const result = indexedRuntimeEvents(prefix, "id:" + source.sourceResultAdmissionEventRef).filter(e => e.eventId === source.sourceResultAdmissionEventRef && e.kind === "c_call_result_admitted");
+    if (invocation === null || result.length !== 1 || !isRecord(result[0]!.payload) ||
+        result[0]!.payload.resultRef !== source.sourceResultRef || result[0]!.payload.resultDigest !== source.sourceResultDigest ||
+        result[0]!.payload.valueDigest !== source.sourceResultValueDigest || !same(result[0]!.payload.value, source.sourceResultValue) ||
+        result[0]!.aggregateId !== source.sourceCCallRef || result[0]!.runId !== source.sourceRunId ||
+        invocation.workspaceBindingId !== source.workspaceBindingId || invocation.workspaceBindingDigest !== source.workspaceBindingDigest ||
+        invocation.workspaceId !== workspaceBinding.workspaceId || invocation.actorRef !== workspaceBinding.authorizedActorRef ||
+        invocation.programRef !== program.programRef || invocation.programDigest !== sha256Canonical(program as unknown as JsonValue) ||
+        invocation.graphFunctionRef !== graphFunction.name || invocation.graphFunctionDigest !== sha256Canonical(graphFunction as unknown as JsonValue)) return null;
+    const historical = input.historicalDeclarations.filter(p => p.catalog.basisDigest === invocation.catalogBasisDigest &&
+      p.catalogView.viewDigest === invocation.catalogViewDigest);
+    if (historical.length !== 1) return null;
+    const artifactTruth = projectOwnedPrefixArtifactTruth(predecessorPrefix);
+    if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
+    const oldEnvironment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
+      { ref: source.workspaceBindingId, digest: source.workspaceBindingDigest });
+    const currentEnvironment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
+      { ref: workspaceBinding.bindingId, digest: workspaceBinding.bindingDigest });
+    if (oldEnvironment.kind !== "exact_prefix_workspace_environment" || currentEnvironment.kind !== "exact_prefix_workspace_environment" ||
+        !same(currentEnvironment.workspaceBinding, workspaceBinding)) return null;
+    const reconstruct = (proof: AbgHistoricalDeclarationProof, env: typeof oldEnvironment) => reconstructHistoricalDeclarationCatalog(proof, {
+      workspaceBinding: env.workspaceBindingCandidate, resolvedLock: env.resolvedProductLock,
+      installedProducts: env.productInstalls.map(i => {
+        const actual = projectAdmittedProductInstallByAdmissionEventRef(env.artifactTruth, i.admissionEventRef);
+        if (actual === null) throw new TypeError("historical installed declaration owner missing");
+        return actual.candidate;
+      }),
+    });
+    const old = reconstruct(historical[0]!, oldEnvironment), current = reconstruct(currentDeclaration, currentEnvironment);
+    if (!same(old.catalogView.allowlist, current.catalogView.allowlist)) return null;
+    const oldClosure = resolveProgramDeclarationClosure(old.catalog, old.catalogView, program.programRef);
+    const newClosure = resolveProgramDeclarationClosure(current.catalog, current.catalogView, program.programRef);
+    const selected = resolveExecutionDeclarationClosure(old.catalog, old.catalogView, program.programRef, graphFunction.name);
+    if (oldClosure.kind !== "resolved_program_declaration_closure" || newClosure.kind !== "resolved_program_declaration_closure" ||
+        selected.kind !== "resolved_execution_declaration_closure" ||
+        oldClosure.programPublication.programs.filter(p => same(p, program)).length !== 1 ||
+        newClosure.programPublication.programs.filter(p => same(p, program)).length !== 1) return null;
+    const inputContract = selectExactClosureContract(selected, invocation.inputContractRef);
+    const outputContract = selectExactClosureContract(selected, invocation.outputContractRef);
+    if (inputContract === null || outputContract === null ||
+        sha256Canonical(inputContract.contract as unknown as JsonValue) !== invocation.inputContractDigest || !same(inputContract.owner, invocation.inputContractOwner) ||
+        sha256Canonical(outputContract.contract as unknown as JsonValue) !== invocation.outputContractDigest || !same(outputContract.owner, invocation.outputContractOwner)) return null;
+    const compared = compareGovernanceDeclarationPublications(oldClosure.publications, newClosure.publications,
+      { historical: oldEnvironment.productInstalls, current: currentEnvironment.productInstalls });
+    const basis = result[0]!.basisId === null ? null : projectExactExecutionBasisAtPrefix(prefix, result[0]!.basisId);
+    const covers = basis === null ? null : projectWorksiteRevisionBindingCover(prefix, oldEnvironment.workspaceBinding, workspaceBinding, [basis]);
+    if (compared === null || covers === null) return null;
+    const body = { kind: "governance_covered_source_use" as const, schemaVersion: "5.0.0" as const,
+      predecessorPrefix, sourceBasisRef: source.basisRef, sourceBasisDigest: source.basisDigest,
+      currentWorkspaceBindingId: workspaceBinding.bindingId, currentWorkspaceBindingDigest: workspaceBinding.bindingDigest,
+      currentCatalogBasisDigest: current.catalog.basisDigest, currentCatalogViewDigest: current.catalogView.viewDigest,
+      programRef: program.programRef, programDigest: invocation.programDigest,
+      graphFunctionRef: graphFunction.name, graphFunctionDigest: invocation.graphFunctionDigest,
+      historicalClosureDigest: oldClosure.closureDigest, currentClosureDigest: newClosure.closureDigest,
+      historicalDeclaration: constructAbgHistoricalDeclarationReference(historical[0]!),
+      currentDeclaration: constructAbgHistoricalDeclarationReference(currentDeclaration),
+      declarationMeaningDigest: compared.meaningDigest, declarationOwners: compared.owners, bindingCoverEventRefs: covers };
+    return deepFreeze({ ...body, useDigest: sha256Canonical(body as unknown as JsonValue) });
+  } catch { return null; }
+}
+
+/** The ordinary invocation admission attests the complete pre-effect installed
+ * declaration comparison. Reconstruct its exact source and witnessed crossing;
+ * a cover or copied comparison result cannot replace that admitted record. */
+function coveredGovernancePredecessor(prefix: RuntimeEventPrefix,
+  invocation: InvocationAdmission): InvocationAdmission | null {
+  const actual = projectExactInvocationAdmissionAtPrefix(prefix, invocation.invocationAdmissionRef);
+  const source = actual?.sourceResultBasis;
+  if (actual === null || !same(actual, invocation) || source === null || source === undefined ||
+      !isInvocationSourceResultBasis(source) || source.sourceResultContractRef !== governanceContract("state") ||
+      !isGovernanceWorkState(source.sourceResultValue) || source.sourceResultValue.terminal ||
+      actual.rawInputDigest !== source.sourceResultValueDigest) return null;
+  const before = validatedRuntimeEventPrefixBeforeEvent(prefix, actual.publicOperationEventRef);
+  const events = runtimeEventBodiesAtPrefix(before);
+  const predecessor = projectExactInvocationAdmissionAtPrefix(before, source.sourceInvocationAdmissionRef);
+  const result = indexedRuntimeEvents(before, "id:" + source.sourceResultAdmissionEventRef).find(e => e.eventId === source.sourceResultAdmissionEventRef && e.kind === "c_call_result_admitted");
+  const judgment = indexedRuntimeEvents(before, "id:" + source.sourceResultJudgmentEventRef).find(e => e.eventId === source.sourceResultJudgmentEventRef && e.kind === "c_call_judged");
+  const basis = result?.basisId == null ? null : projectExactExecutionBasisAtPrefix(before, result.basisId);
+  const selected = indexedRuntimeEvents(before, "related:" + source.sourceCCallRef).filter(e => e.kind === "c_call_fibre_selected" && e.aggregateId === source.sourceCCallRef);
+  if (predecessor === null || basis === null || result === undefined || judgment === undefined ||
+      !isRecord(result.payload) || !isRecord(judgment.payload) || selected.length !== 1 || !isRecord(selected[0]!.payload) ||
+      selected[0]!.payload.regime !== "F_D" || ![governanceRef("implementation", "fold"), governanceRef("implementation", "evaluate-parent")]
+        .includes(selected[0]!.payload.implementationRef as string) ||
+      predecessor.invocationRef !== source.sourceInvocationRef || predecessor.workspaceId !== source.sourceWorkspaceId ||
+      predecessor.workspaceId !== actual.workspaceId || predecessor.actorRef !== actual.actorRef ||
+      predecessor.workspaceBindingId !== source.workspaceBindingId || predecessor.workspaceBindingDigest !== source.workspaceBindingDigest ||
+      predecessor.programRef !== actual.programRef || predecessor.programDigest !== actual.programDigest ||
+      predecessor.graphFunctionRef !== actual.graphFunctionRef || predecessor.graphFunctionDigest !== actual.graphFunctionDigest ||
+      basis.invocationAdmissionRef !== predecessor.invocationAdmissionRef || basis.workspaceBindingId !== predecessor.workspaceBindingId ||
+      basis.workspaceBindingDigest !== predecessor.workspaceBindingDigest || basis.graphFunctionRef !== source.sourceGraphFunctionRef ||
+      !hasExactInvocationRunBindingAtPrefix(before, predecessor, source.sourceRunId) ||
+      result.aggregateId !== source.sourceCCallRef || result.runId !== source.sourceRunId || result.graphCallId !== source.sourceGraphCallId ||
+      result.payload.resultClass !== "success" || result.payload.contractRef !== source.sourceResultContractRef ||
+      result.payload.resultRef !== source.sourceResultRef || result.payload.resultDigest !== source.sourceResultDigest ||
+      result.payload.valueDigest !== source.sourceResultValueDigest || !same(result.payload.value, source.sourceResultValue) ||
+      judgment.aggregateId !== result.aggregateId || judgment.basisId !== result.basisId || judgment.runId !== result.runId ||
+      judgment.graphCallId !== result.graphCallId || judgment.frameId !== result.frameId ||
+      judgment.payload.judgment !== "advance" || judgment.payload.resultRef !== source.sourceResultRef ||
+      judgment.payload.resultDigest !== source.sourceResultDigest || judgment.admissionOrdinal <= result.admissionOrdinal ||
+      !judgment.causationEventRefs.includes(result.eventId)) return null;
+  const old = projectAdmittedWorkspaceBindingAtCoordinate(before, predecessor.workspaceBindingId, predecessor.workspaceBindingDigest);
+  const current = projectAdmittedWorkspaceBindingAtCoordinate(before, actual.workspaceBindingId, actual.workspaceBindingDigest);
+  return old !== null && current !== null && old.workspaceId === current.workspaceId &&
+      old.authorizedActorRef === current.authorizedActorRef &&
+      projectWorksiteRevisionBindingCover(before, old, current, [basis]) !== null
+    ? predecessor : null;
+}
+
+/** Selector only: the historical resource/closed-child owner authenticates the
+ * complete matching Catalog. Catalog admission equates basis/readiness digests. */
+export function governanceHistoricalDeclarationReferenceAtPrefix(prefix: ValidatedRuntimeEventPrefix,
+  invocation: InvocationAdmission, sourceBasis: ExecutionBasis): AbgHistoricalDeclarationReference | null;
+/** @internal */
+export function governanceHistoricalDeclarationReferenceAtPrefix(prefix: RuntimeEventPrefix,
+  invocation: InvocationAdmission, sourceBasis: ExecutionBasis): AbgHistoricalDeclarationReference | null;
+export function governanceHistoricalDeclarationReferenceAtPrefix(prefix: RuntimeEventPrefix,
+  invocation: InvocationAdmission, sourceBasis: ExecutionBasis): AbgHistoricalDeclarationReference | null {
+  try {
+    const seen = new Set<string>();
+    let current: InvocationAdmission | null = invocation;
+    while (current !== null && !seen.has(current.invocationAdmissionRef)) {
+      seen.add(current.invocationAdmissionRef);
+      const actual = projectExactInvocationAdmissionAtPrefix(prefix, current.invocationAdmissionRef);
+      if (actual === null || !same(actual, current)) return null;
+      if (actual.invocationAdmissionRef === sourceBasis.invocationAdmissionRef) {
+        return actual.workspaceBindingId === sourceBasis.workspaceBindingId && actual.workspaceBindingDigest === sourceBasis.workspaceBindingDigest &&
+            actual.catalogBasisDigest === sourceBasis.catalogBasisDigest && actual.catalogViewDigest === sourceBasis.catalogViewDigest
+          ? deepFreeze({ kind: "abg_historical_declaration_reference" as const, schemaVersion: "5.0.0" as const,
+              catalogBasisDigest: actual.catalogBasisDigest, readinessBasisDigest: actual.catalogBasisDigest, viewDigest: actual.catalogViewDigest })
+          : null;
+      }
+      current = coveredGovernancePredecessor(prefix, actual);
+    }
+    return null;
+  } catch { return null; }
+}
+
+/** Current consumer applicability derives from existing admitted coordinates.
+ * Complete declaration meaning was validated before invocation admission;
+ * current source membership, ancestry and per-observation cover remain exact. */
+export function hasAdmittedGovernanceCoveredSourceUse(prefix: ValidatedRuntimeEventPrefix, invocation: InvocationAdmission,
+  sourceBasis?: ExecutionBasis): boolean;
+/** @internal */
+export function hasAdmittedGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, invocation: InvocationAdmission,
+  sourceBasis?: ExecutionBasis): boolean;
+export function hasAdmittedGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, invocation: InvocationAdmission,
+  sourceBasis?: ExecutionBasis): boolean {
+  try {
+    if (coveredGovernancePredecessor(prefix, invocation) === null) return false;
+    if (sourceBasis === undefined) return true;
+    if (governanceHistoricalDeclarationReferenceAtPrefix(prefix, invocation, sourceBasis) === null) return false;
+    const before = validatedRuntimeEventPrefixBeforeEvent(prefix, invocation.publicOperationEventRef);
+    const old = projectAdmittedWorkspaceBindingAtCoordinate(before, sourceBasis.workspaceBindingId, sourceBasis.workspaceBindingDigest);
+    const current = projectAdmittedWorkspaceBindingAtCoordinate(before, invocation.workspaceBindingId, invocation.workspaceBindingDigest);
+    return old !== null && current !== null && projectWorksiteRevisionBindingCover(before, old, current, [sourceBasis]) !== null;
+  } catch { return false; }
+}
 
 /** The invocation/source admission already checked this immutable relation.
  * Internal consumers transport exact Result identity, without cold derivation
@@ -50,9 +253,18 @@ function sameStringArray(
 export function projectExactInvocationAdmissionAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   invocationAdmissionRef: string,
+): InvocationAdmission | null;
+/** @internal */
+export function projectExactInvocationAdmissionAtPrefix(
+  prefix: RuntimeEventPrefix,
+  invocationAdmissionRef: string,
+): InvocationAdmission | null;
+export function projectExactInvocationAdmissionAtPrefix(
+  prefix: RuntimeEventPrefix,
+  invocationAdmissionRef: string,
 ): InvocationAdmission | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const matches = events.filter(
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const matches = indexedRuntimeEvents(prefix, "payload:invocationAdmissionRef:" + invocationAdmissionRef).filter(
     (event) =>
       event.kind === "invocation_admitted" &&
       isRecord(event.payload) &&
@@ -63,7 +275,7 @@ export function projectExactInvocationAdmissionAtPrefix(
   if (event.causationEventRefs.length !== 1 || !isRecord(event.payload)) {
     return null;
   }
-  const publicEvent = events.find((candidate) =>
+  const publicEvent = indexedRuntimeEvents(prefix, "id:" + event.causationEventRefs[0]).find((candidate) =>
     candidate.eventId === event.causationEventRefs[0] &&
     candidate.kind === "public_operation_admitted"
   );
@@ -245,9 +457,16 @@ export type ExactRunInvocationFacts =
 
 export function projectExactRunInvocationFactsAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+): ExactRunInvocationFacts;
+/** @internal */
+export function projectExactRunInvocationFactsAtPrefix(
+  prefix: RuntimeEventPrefix,
+): ExactRunInvocationFacts;
+export function projectExactRunInvocationFactsAtPrefix(
+  prefix: RuntimeEventPrefix,
 ): ExactRunInvocationFacts {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const ownerEvents = events.filter((event) =>
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const ownerEvents = indexedRuntimeEvents(prefix, "kind:" + "invocation_admitted").filter((event) =>
     event.kind === "invocation_admitted"
   );
   const facts: ExactRunInvocationFact[] = [];
@@ -284,7 +503,7 @@ export function projectExactRunInvocationFactsAtPrefix(
       admissionEventRef: admission.admissionEventRef,
     }));
   }
-  const publicRunEventRefs = events
+  const publicRunEventRefs = indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted")
     .filter((event) =>
       event.kind === "public_operation_admitted" &&
       isRecord(event.payload) &&
@@ -326,6 +545,15 @@ export function projectExactRunInvocationFactsAtPrefix(
 export function hasExactInvocationAdmissionAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   admission: InvocationAdmission,
+): boolean;
+/** @internal */
+export function hasExactInvocationAdmissionAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admission: InvocationAdmission,
+): boolean;
+export function hasExactInvocationAdmissionAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admission: InvocationAdmission,
 ): boolean {
   const projected = projectExactInvocationAdmissionAtPrefix(
     prefix,
@@ -340,9 +568,20 @@ export function hasExactInvocationRunBindingAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   admission: InvocationAdmission,
   runId: string,
+): boolean;
+/** @internal */
+export function hasExactInvocationRunBindingAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admission: InvocationAdmission,
+  runId: string,
+): boolean;
+export function hasExactInvocationRunBindingAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admission: InvocationAdmission,
+  runId: string,
 ): boolean {
   if (!hasExactInvocationAdmissionAtPrefix(prefix, admission)) return false;
-  const runOpenEvents = runtimeEventsFromValidatedPrefix(prefix).filter(
+  const runOpenEvents = indexedRuntimeEvents(prefix, "related:" + runId).filter(
     (event) =>
       event.kind === "run_segment_opened" &&
       event.aggregateType === "run" &&
@@ -366,8 +605,17 @@ export function hasExactInvocationRunBindingAtPrefix(
 export function projectExactExecutionBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   basisRef: string,
+): ExecutionBasis | null;
+/** @internal */
+export function projectExactExecutionBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
+  basisRef: string,
+): ExecutionBasis | null;
+export function projectExactExecutionBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
+  basisRef: string,
 ): ExecutionBasis | null {
-  const matches = runtimeEventsFromValidatedPrefix(prefix).filter(
+  const matches = indexedRuntimeEvents(prefix, "payload:basisRef:" + basisRef).filter(
     (event) =>
       event.kind === "basis_admitted" &&
       event.basisId === basisRef &&

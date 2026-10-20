@@ -1,0 +1,62 @@
+{
+  "status": "ACTIVE_PROPOSAL_ONLY",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "activation": "T287_NATIVE_DECLARATION_APPLICABILITY_HOW_01",
+  "activatedAt": "2026-10-01T23:13:26.425964+00:00",
+  "mutationDeclaration": "Worker activation declared before this exact report-only effect; actor does not act as Executive for any effect.",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/native-how-request.txt",
+    "bytes": 4105,
+    "sha256": "a9faa614aa21da5ad8a7e3a3f3277f7dda38ec7c20c8a4bf2cdeafe82d4a4d2c"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-how-01",
+  "permittedEffects": [
+    "create one proposed HOW subject",
+    "copy exact source and authority preimages into this directory",
+    "write pins, inspection, bounded affectedness/reproof, Worker return/closure and freeze"
+  ],
+  "prohibitedEffects": [
+    "ratified design mutation",
+    "code or test mutation/execution",
+    "source manifest mutation",
+    "candidate/build/pack/install",
+    "actual resolver or other Product owner calls",
+    "runtime/events",
+    "Git effects",
+    "network/provider",
+    "sibling effects",
+    "delegation",
+    "Reviewer activation"
+  ],
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "composedFrames": [
+    "Product",
+    "NativeDefinition",
+    "Design",
+    "Identity",
+    "Lifecycle",
+    "Effects",
+    "Proof",
+    "Cost"
+  ],
+  "productFrame": "Fixed fifteen-family ABIogenesis 5.0; GOAL-035/T-287; sole STDO 2.5.1 RC2. F01 exact source-independent composition, F05 one Public authority, F13 native operation, F11 exact self-conformance. Immutable definition/guard supplier and pure verification/resolution evidence do not own runtime authority.",
+  "changeClass": "design_reframe",
+  "owner": "existing NativeDefinition/NCC-F02",
+  "consumer": "Root Executive /root",
+  "requiredSections": [
+    "Activation and Product Frame",
+    "Selected frames and exact subject",
+    "Authority and source routes",
+    "Exact operation grant and territory",
+    "Required coherent HOW",
+    "Evidence and bounded reproof plan",
+    "Stops and CLOSED return"
+  ],
+  "stops": [
+    "new WHAT/requirement/Public shape",
+    "general package resolver",
+    "additional production owner",
+    "one frozen proposal returned"
+  ]
+}

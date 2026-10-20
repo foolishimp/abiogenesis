@@ -1,0 +1,8 @@
+{
+  "budgetMs": 120000,
+  "startedAt": "2026-09-30T05:05:50.807Z",
+  "driverPid": 64457,
+  "definition": "Starts after file/hash/syntax preflight; includes current installed verification and two sequential read/renderer pairs",
+  "cliTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable",
+  "parentTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-installed-handoff-01/tmp"
+}

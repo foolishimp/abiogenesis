@@ -1,0 +1,27 @@
+{
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "compile": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.json"
+  ],
+  "regression": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+  ],
+  "supervisorDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/supervise.py",
+    "bytes": 4766,
+    "sha256": "8a629b162f8ed1b3a7fcf0b4958952a534a73d3aa946e398bda5a5a02bb61ff2",
+    "mode": 420
+  },
+  "modifications": [
+    "Restrict modes to compile/regression",
+    "Restrict each budget to <=180 seconds"
+  ],
+  "heap": "default; no NODE_OPTIONS or heap flags",
+  "HOME": "inherited unchanged"
+}

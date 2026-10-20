@@ -1,0 +1,24 @@
+{
+  "role": "Independent RCA191",
+  "status": "CLOSED_HOLD_ACTUAL_CAPACITY",
+  "frozenAt": "2026-10-09T09:00:00.439797+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-memory-independent-triage-191/return.md",
+      "sha256": "e04b367e79c1c4c8a7c1dd73d7caffc53cfc5e86c8eaf89dfcff9817851eea65",
+      "byteCount": 4618
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-memory-independent-triage-191/pins.json",
+      "sha256": "ba493dbb6718c4bf3c5577394e457bef5cb9dcab88603c1714bb52842ff0f77c",
+      "byteCount": 20881
+    }
+  ],
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/freeze.json",
+    "sha256": "7e4fd01ebc7c87ff00236fff8efbfb565aefa8a92a256100c17c9eae445bc592",
+    "byteCount": 9625
+  },
+  "effects": "Only191 read-only RCA documents; all Source/runtime/campaign/app/Git bytes protected",
+  "stop": true
+}

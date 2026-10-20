@@ -1,0 +1,37 @@
+{
+  "kind": "independent-successor37-review-freeze",
+  "disposition": "BOUNDED_GO",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/freeze.json",
+    "sha256": "a4485d4f33ecce4c410c9b734a646cb59be87cb4b9fcc1a2be82e131eae3346e",
+    "bytes": 14823
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/review-235/review.md",
+      "sha256": "382dc04d9641004db7ab097f2579656c94d454146895f089a67d053104932ded",
+      "bytes": 5953
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/review-235/pins.json",
+      "sha256": "d27cdfd61ac87b5457aa4145368f7fdbb41fb750c186c7dae473be34800179a7",
+      "bytes": 11636
+    }
+  ],
+  "acquisition": {
+    "uniqueReferencedFiles": 987,
+    "bytes": 29280244,
+    "mismatches": 0,
+    "selectedReferencePins": 40
+  },
+  "scope": "Two-owner deferred/recursion delta from accepted36; immutable seven235 dependencies checked by identity only.",
+  "counterexampleFound": false,
+  "residuals": [
+    "Actual08 null-restoration versus inequality branch was not retained.",
+    "Controlled leaf/cursor/termination/child premises are not installed native proof.",
+    "Actual237 successful child foldback, Source41/currentness, capacity, full UAT and release remain open."
+  ],
+  "effects": "Only these three append-only review files; no Source/test/build/runtime/resource/worksite/Git effects.",
+  "status": "CLOSED_STOPPED"
+}
+

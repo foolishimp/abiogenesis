@@ -1,0 +1,36 @@
+{
+  "status": "ACTIVE",
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_08",
+  "priorRole": "Q07 CLOSED",
+  "allSevenSectionsRead": true,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q07-routing-triangulation-and-continuation-01/request.txt",
+    "bytes": 3292,
+    "sha256": "4c6703dcf01437859689d40f29a823dbeaad56306050de074c4c15fd066202d6",
+    "mode": 420
+  },
+  "triangulation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q07-routing-triangulation-and-continuation-01/triangulation.json",
+    "bytes": 2111,
+    "sha256": "179ec0d241ce676fd0d376dd338631dc8df04f65188bec3a859d3ee35cac4a5c",
+    "mode": 420
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08",
+  "ProductFrame": {
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "reentry": "realization_refactor",
+    "WHAT": "Complete observed qualification subject/recipe and sufficient per-responsibility evidence; semantics stay unknown",
+    "HOW": "Reuse actual external constructors, fix descriptor member routing and relocate physical output only",
+    "sourceOrCandidateChange": false
+  },
+  "CLOSEDQ07": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/freeze.json",
+    "bytes": 860629,
+    "sha256": "49228e206300c47340bf01e70cdcdd444621a4078e43937bcacfb8fa491331ce",
+    "mode": 292
+  },
+  "startedAt": "2026-10-02T07:17:29.755401+00:00",
+  "noRuntimeOrProviderEffects": true
+}

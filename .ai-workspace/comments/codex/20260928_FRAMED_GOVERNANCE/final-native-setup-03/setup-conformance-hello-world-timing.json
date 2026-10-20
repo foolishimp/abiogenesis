@@ -1,0 +1,20 @@
+{
+  "elapsedMs": 10188.010333999991,
+  "processFailure": {
+    "pid": 76197,
+    "code": 70,
+    "signal": null,
+    "timedOut": false,
+    "spawnError": null
+  },
+  "terminal": {
+    "pid": 76197,
+    "code": 70,
+    "signal": null,
+    "timedOut": false,
+    "spawnError": null
+  },
+  "stage": "conformance",
+  "budgetMs": 600000,
+  "capture": "stdout/stderr descriptors opened before spawn"
+}

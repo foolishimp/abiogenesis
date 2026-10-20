@@ -1,0 +1,181 @@
+{
+  "fixture": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/closed-opus04-prefix.jsonl",
+  "sha256": "sha256:1b5c9cd06f65197b150e14cb820495a7488a268bec142ddf15cc79d3b384614f",
+  "reports": [
+    {
+      "kind": "cold_suffix_historical_scoped_conservation",
+      "events": 3471,
+      "independentProbeScopes": 10,
+      "results": [
+        {
+          "count": 11,
+          "calculusDigest": "sha256:5237f501f9ee18aff01db091ca9d2c4dc38aa07596859a1f5da9bbeb26877900",
+          "livenessDigest": "sha256:5811c27f6ecb97930f1e4481c0b4524644b198ed6a04ffdd61c105c1b1ed0645"
+        },
+        {
+          "count": 34,
+          "calculusDigest": "sha256:1266dafede36a74fc04ef68ec33b61c7d462fd1c681fb2bafb8ff2df9ea2297f",
+          "livenessDigest": "sha256:7a2cb3b6c2ed4a5b48ff39440636a2392c18f0beb54843bdf9abd34440240970"
+        },
+        {
+          "count": 3470,
+          "calculusDigest": "sha256:b978f1292b589f02407aa2166fb1f6d148d99d2692eeb96e8bda0524a033e483",
+          "livenessDigest": "sha256:60f29ddb54bb686737f08b946d8f07e1cd7ae23ca8059ca3ad33823198b3cf9f"
+        },
+        {
+          "count": 3471,
+          "calculusDigest": "sha256:3469eed5b4b755e016dd9ce9f13e30f29cf1f9ebc45d9f0fab05c0ecd27ee064",
+          "livenessDigest": "sha256:d50f557c8f662954384dc0c878a4020fa0032e532a284b84bd944105d98f9dba"
+        },
+        {
+          "count": 3471,
+          "calculusDigest": "sha256:3469eed5b4b755e016dd9ce9f13e30f29cf1f9ebc45d9f0fab05c0ecd27ee064",
+          "livenessDigest": "sha256:d50f557c8f662954384dc0c878a4020fa0032e532a284b84bd944105d98f9dba"
+        },
+        {
+          "count": 3470,
+          "calculusDigest": "sha256:b978f1292b589f02407aa2166fb1f6d148d99d2692eeb96e8bda0524a033e483",
+          "livenessDigest": "sha256:60f29ddb54bb686737f08b946d8f07e1cd7ae23ca8059ca3ad33823198b3cf9f"
+        },
+        {
+          "count": 34,
+          "calculusDigest": "sha256:1266dafede36a74fc04ef68ec33b61c7d462fd1c681fb2bafb8ff2df9ea2297f",
+          "livenessDigest": "sha256:7a2cb3b6c2ed4a5b48ff39440636a2392c18f0beb54843bdf9abd34440240970"
+        },
+        {
+          "count": 11,
+          "calculusDigest": "sha256:5237f501f9ee18aff01db091ca9d2c4dc38aa07596859a1f5da9bbeb26877900",
+          "livenessDigest": "sha256:5811c27f6ecb97930f1e4481c0b4524644b198ed6a04ffdd61c105c1b1ed0645"
+        }
+      ]
+    },
+    {
+      "kind": "diagnostic_multiplicities_not_timing",
+      "measures": [
+        {
+          "name": "predecessor",
+          "kind": "c_call_judged",
+          "ordinal": 34,
+          "priorProbes": 12,
+          "unrelated": 8,
+          "probeGuards": 12
+        },
+        {
+          "name": "predecessor",
+          "kind": "frame_closed",
+          "ordinal": 41,
+          "priorProbes": 16,
+          "unrelated": 10,
+          "probeGuards": 16
+        },
+        {
+          "name": "predecessor",
+          "kind": "c_call_judged",
+          "ordinal": 51,
+          "priorProbes": 21,
+          "unrelated": 17,
+          "probeGuards": 21
+        },
+        {
+          "name": "predecessor",
+          "kind": "c_call_judged",
+          "ordinal": 78,
+          "priorProbes": 36,
+          "unrelated": 32,
+          "probeGuards": 36
+        },
+        {
+          "name": "predecessor",
+          "kind": "c_call_judged",
+          "ordinal": 3470,
+          "priorProbes": 1729,
+          "unrelated": 48,
+          "probeGuards": 1729
+        },
+        {
+          "name": "predecessor",
+          "totals": {
+            "ecProbeGuards": 3537,
+            "livenessProbeGuards": 17284,
+            "contextBindingGuards": 1738,
+            "fluentValidations": 1541045
+          },
+          "repeatedContextGuards": 24,
+          "contextProbeCount": 8
+        },
+        {
+          "name": "successor",
+          "kind": "c_call_judged",
+          "ordinal": 34,
+          "priorProbes": 12,
+          "unrelated": 8,
+          "probeGuards": 0
+        },
+        {
+          "name": "successor",
+          "kind": "frame_closed",
+          "ordinal": 41,
+          "priorProbes": 16,
+          "unrelated": 10,
+          "probeGuards": 0
+        },
+        {
+          "name": "successor",
+          "kind": "c_call_judged",
+          "ordinal": 51,
+          "priorProbes": 21,
+          "unrelated": 17,
+          "probeGuards": 0
+        },
+        {
+          "name": "successor",
+          "kind": "c_call_judged",
+          "ordinal": 78,
+          "priorProbes": 36,
+          "unrelated": 32,
+          "probeGuards": 0
+        },
+        {
+          "name": "successor",
+          "kind": "c_call_judged",
+          "ordinal": 3470,
+          "priorProbes": 1729,
+          "unrelated": 48,
+          "probeGuards": 0
+        },
+        {
+          "name": "successor",
+          "totals": {
+            "ecProbeGuards": 1723,
+            "livenessProbeGuards": 3538,
+            "contextBindingGuards": 13,
+            "fluentValidations": 0
+          },
+          "repeatedContextGuards": 0,
+          "contextProbeCount": 8
+        }
+      ]
+    },
+    {
+      "kind": "matched_raw_refusals",
+      "controls": [
+        "source",
+        "contract",
+        "scope",
+        "clock",
+        "future cause",
+        "elapsed",
+        "causation"
+      ],
+      "copiedContextGuarded": true,
+      "duplicateInvalidation": true,
+      "historicalDeclarationPreserved": true,
+      "exportedFluentGuardsPreserved": true
+    },
+    {
+      "kind": "isolated_owner_rollback",
+      "stagedFactsDiscarded": true,
+      "successorEqualsCold": true
+    }
+  ]
+}

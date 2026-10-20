@@ -1,0 +1,11 @@
+{
+  "kind": "finite_caller_budget_no_runtime_authority",
+  "nominalPreflightMs": 60000,
+  "totalFlowBudgetMs": 180000,
+  "driverBudgetMs": 177000,
+  "stages": {
+    "read": 60000
+  },
+  "heap": "default; unchanged",
+  "supervisorBeforeImports": true
+}

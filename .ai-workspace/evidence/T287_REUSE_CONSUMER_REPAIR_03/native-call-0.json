@@ -1,0 +1,34 @@
+{
+  "standing": "native_consumer_observation",
+  "originalPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/installed-authority-handoff.json",
+      "bytes": 7357822,
+      "sha256": "97b61ffc7d34d14ee18f4618192fcb7180728019e5e4911799f65af5fdbee56a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/closed-event-resource-handoff.json",
+      "bytes": 3591718,
+      "sha256": "d60035d70e3bd00ad157cdc64d59964b3d3fc01856f1729293b44de989739cd0",
+      "mode": 420
+    }
+  ],
+  "invocation": {
+    "ref": "invocation://abiogenesis/19a248b271fabdd8987d8b5687c975e564ac2019a30ff2fbfd17d3eeb62fb197",
+    "digest": "sha256:19a248b271fabdd8987d8b5687c975e564ac2019a30ff2fbfd17d3eeb62fb197"
+  },
+  "definitionKey": {
+    "operationId": "abg.operation.catalog.view",
+    "memberKey": "allowlist"
+  },
+  "requestDigest": "sha256:2594342eb67568b5ec89b3e91f1f6658a19851047ec830be6e194096f7b66f87",
+  "outcome": {
+    "kind": "installed_definition_call_transport_result",
+    "code": null,
+    "outcomeKind": "result",
+    "exitCode": 0,
+    "valueDigest": "sha256:b39770c88bb7586d4128c6a7e056c3bd60446b667a3288ced2348e6aab37048c"
+  },
+  "resourcePrefix": null
+}

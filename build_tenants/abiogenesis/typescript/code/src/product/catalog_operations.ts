@@ -1,4 +1,6 @@
 import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
+import { isDeeplyFrozen, deepFreeze } from "../shared/immutable.js";
+import type { RawSubjectKind } from "../validator/raw_admission.js";
 import type {
   CatalogContribution,
   ClosureContract,
@@ -30,7 +32,6 @@ import {
   type ReadyGraphFunctionCatalogResult,
 } from "./catalog.js";
 import {
-  isResolvedProgramDeclarationClosure,
   validateResolvedProgramDeclarationClosure,
   type ResolvedProgramDeclarationClosure,
 } from "./declaration_closure.js";
@@ -87,7 +88,6 @@ export function constructCatalogProgramValidationInput(
   program: Readonly<GtlProgram>,
 ): ProgramValidationInput | RawAdmissionRefusal {
   if (
-    !isResolvedProgramDeclarationClosure(declarationClosure) ||
     !validateResolvedProgramDeclarationClosure(
       declarationClosure,
       catalog,
@@ -105,6 +105,24 @@ export function constructCatalogProgramValidationInput(
   return constructProgramValidationInputFromResolvedClosure(declarationClosure, program);
 }
 
+const admittedDeclarations = new WeakMap<object, Map<string, RawAdmittedValue<unknown>>>();
+const programValidationInputs = new WeakMap<object, WeakMap<object, ProgramValidationInput>>();
+
+function admitDeclaration<S>(
+  value: object, kind: RawSubjectKind, contractRef: string,
+): RawAdmittedValue<S> | RawAdmissionRefusal {
+  const key = `${kind}\0${contractRef}`;
+  const retained = admittedDeclarations.get(value)?.get(key);
+  if (retained !== undefined) return retained as RawAdmittedValue<S>;
+  const admitted = rawAdmitValue<S>(value, kind, contractRef);
+  if (admitted.kind === "raw_admitted_value" && isDeeplyFrozen(value)) {
+    let admissions = admittedDeclarations.get(value);
+    if (admissions === undefined) { admissions = new Map(); admittedDeclarations.set(value, admissions); }
+    admissions.set(key, admitted);
+  }
+  return admitted;
+}
+
 /** Internal continuation of the Product closure owner. Raw callers use the
  * catalog wrapper above; this consumes its actual resolved value and retains
  * declaration admission and subsequent Program validation. */
@@ -112,6 +130,8 @@ export function constructProgramValidationInputFromResolvedClosure(
   declarationClosure: ResolvedProgramDeclarationClosure,
   program: Readonly<GtlProgram>,
 ): ProgramValidationInput | RawAdmissionRefusal {
+  const retained = programValidationInputs.get(declarationClosure)?.get(program);
+  if (retained !== undefined) return retained;
   const declarationPublications = declarationClosure.publications;
   const graphFunctionRefs = new Set(
     declarationClosure.graphFunctionOwners.map((owner) => owner.declarationRef),
@@ -129,13 +149,13 @@ export function constructProgramValidationInputFromResolvedClosure(
       (owner) => owner.declarationRef,
     ),
   );
-  const programAdmission = rawAdmitValue<GtlProgram>(
+  const programAdmission = admitDeclaration<GtlProgram>(
     program,
     "gtl_program",
     "contract://abiogenesis/gtl/program@5",
   );
   if (programAdmission.kind !== "raw_admitted_value") return programAdmission;
-  const programPublicationAdmission = rawAdmitValue<ModulePublication>(
+  const programPublicationAdmission = admitDeclaration<ModulePublication>(
     declarationClosure.programPublication,
     "module_publication",
     "contract://abiogenesis/gtl/module-publication@5",
@@ -147,7 +167,7 @@ export function constructProgramValidationInputFromResolvedClosure(
   const graphFunctions = declarationPublications
     .flatMap((publication) => publication.graphFunctions)
     .filter((value) => graphFunctionRefs.has(value.name))
-    .map((value) => rawAdmitValue<GraphFunction>(
+    .map((value) => admitDeclaration<GraphFunction>(
       value,
       "graph_function",
       "contract://abiogenesis/gtl/graph-function@5",
@@ -156,7 +176,7 @@ export function constructProgramValidationInputFromResolvedClosure(
     publication.contracts.filter((value) =>
       contractRefs.has(value.contractRef)
     ).map((value) =>
-    rawAdmitValue<ContractDeclaration>(
+    admitDeclaration<ContractDeclaration>(
       value,
       "contract_declaration",
       "contract://abiogenesis/gtl/contract-declaration@5",
@@ -166,7 +186,7 @@ export function constructProgramValidationInputFromResolvedClosure(
     (publication) => publication.implementationBindings.filter((value) =>
       implementationBindingRefs.has(value.bindingRef)
     ).map(
-      (value) => rawAdmitValue<ImplementationBinding>(
+      (value) => admitDeclaration<ImplementationBinding>(
       value,
       "implementation_binding",
       "contract://abiogenesis/gtl/implementation-binding@5",
@@ -177,7 +197,7 @@ export function constructProgramValidationInputFromResolvedClosure(
     publication.closureContracts.filter((value) =>
       closureContractRefs.has(value.closureContractRef)
     ).map((value) =>
-    rawAdmitValue<ClosureContract>(
+    admitDeclaration<ClosureContract>(
       value,
       "closure_contract",
       "contract://abiogenesis/gtl/closure-contract@5",
@@ -193,17 +213,17 @@ export function constructProgramValidationInputFromResolvedClosure(
   if (refusal !== undefined) return refusal;
   const lifecycleRef = semanticLifecycleRefForProgram(declarationClosure.programPublication, programAdmission.value);
   const lifecycleOwners = lifecycleRef === undefined ? [] : declarationPublications.filter(p => (p.semanticLifecycle ?? p.semanticJobLifecycle)?.declarationRef === lifecycleRef);
-  const lifecycleAdmission = lifecycleOwners.length === 1 ? rawAdmitValue<ModulePublication>(lifecycleOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
+  const lifecycleAdmission = lifecycleOwners.length === 1 ? admitDeclaration<ModulePublication>(lifecycleOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
   if (lifecycleRef !== undefined && lifecycleAdmission?.kind !== "raw_admitted_value") {
     return { kind: "raw_admission_refusal", schemaVersion: "5.0.0", disposition: "refused", code: "invalid_kind", message: "semantic lifecycle has no unique raw admitted owner" } as RawAdmissionRefusal;
   }
   const sourceRef = lifecycleOwners[0]?.semanticLifecycle?.sourceDeclarationRef;
   const sourceOwners = lifecycleOwners[0]?.semanticJobLifecycle !== undefined ? lifecycleOwners : sourceRef === undefined ? [] : declarationPublications.filter(p => p.requirementHandoffs?.some(d => d.declarationRef === sourceRef));
-  const sourceAdmission = sourceOwners.length === 1 ? rawAdmitValue<ModulePublication>(sourceOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
+  const sourceAdmission = sourceOwners.length === 1 ? admitDeclaration<ModulePublication>(sourceOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
   if (sourceRef !== undefined && sourceAdmission?.kind !== "raw_admitted_value") {
     return { kind: "raw_admission_refusal", schemaVersion: "5.0.0", disposition: "refused", code: "invalid_kind", message: "semantic source has no unique raw admitted owner" } as RawAdmissionRefusal;
   }
-  return {
+  const input: ProgramValidationInput = {
     ...(lifecycleAdmission?.kind === "raw_admitted_value" ? { semanticLifecyclePublication: lifecycleAdmission } : {}),
     ...(sourceAdmission?.kind === "raw_admitted_value" ? { semanticSourcePublication: sourceAdmission } : {}),
     declarationBasisDigest: declarationClosure.closureDigest,
@@ -234,6 +254,13 @@ export function constructProgramValidationInputFromResolvedClosure(
     closureContracts:
       closureContracts as readonly RawAdmittedValue<ClosureContract>[],
   };
+  if (isDeeplyFrozen(declarationClosure) && isDeeplyFrozen(program)) {
+    deepFreeze(input);
+    let programs = programValidationInputs.get(declarationClosure);
+    if (programs === undefined) { programs = new WeakMap(); programValidationInputs.set(declarationClosure, programs); }
+    programs.set(program, input);
+  }
+  return input;
 }
 
 export function constructReadyCatalog(

@@ -1,0 +1,379 @@
+{
+  "scope": "one actual installed F_D port.invoke; no owner or module replacement",
+  "stages": [
+    {
+      "name": "authentic-owner-and-occurrence-ready",
+      "elapsedMs": 3715.3500830000003
+    },
+    {
+      "name": "actual-port-invoke-start",
+      "elapsedMs": 3857.8706660000003
+    },
+    {
+      "name": "actual-port-invoke-return",
+      "elapsedMs": 4291.2549579999995,
+      "kind": "closed_leaf_owner_receipt",
+      "receiptPresent": false
+    }
+  ],
+  "exceptions": [
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/events'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 1)\n    at async worksiteReadRoots (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:565:32)\n    at async observeWorksiteContext (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:712:22)\n    at async currentContext (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:58:21)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:232:21)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/projections'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 3)\n    at async worksiteReadRoots (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:565:32)\n    at async observeWorksiteContext (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:712:22)\n    at async currentContext (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:58:21)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:232:21)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/runtime'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 4)\n    at async worksiteReadRoots (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:565:32)\n    at async observeWorksiteContext (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:712:22)\n    at async currentContext (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:58:21)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:232:21)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/events'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 1)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/projections'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 3)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/runtime'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 4)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/events'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 1)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/projections'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 3)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/runtime'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 4)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/events'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 1)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/projections'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 3)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/runtime'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 4)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/events'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 1)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/projections'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 3)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abi5-root-env-6iTfW1/workspace/.ai-workspace/runtime'\n    at async lstat (node:internal/fs/promises:1031:18)\n    at async plannedCanonicalPath (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:52:28)\n    at async Promise.all (index 4)\n    at async resolveWorksiteTarget (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:94:32)\n    at async inspectCommitLocus (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:206:20)\n    at async observeWorksiteSubject (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js:278:19)\n    at async projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:248:29)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "handleErrorFromBinding",
+          "url": "node:internal/fs/promises",
+          "line": 154,
+          "column": 10
+        }
+      ]
+    },
+    {
+      "reason": "promiseRejection",
+      "description": "TypeError: worksite command configuration requires exact A/W, subjects and explicit arrays\n    at constructWorksiteCommandConfiguration (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:857:15)\n    at constructObservedWorksiteCommandExecutionTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:228:27)\n    at projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:253:12)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+      "frames": [
+        {
+          "functionName": "constructWorksiteCommandConfiguration",
+          "url": "file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+          "line": 857,
+          "column": 9
+        },
+        {
+          "functionName": "constructObservedWorksiteCommandExecutionTask",
+          "url": "file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+          "line": 228,
+          "column": 27
+        },
+        {
+          "functionName": "projectGovernanceTestingTask",
+          "url": "file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+          "line": 253,
+          "column": 12
+        }
+      ]
+    }
+  ],
+  "inputPins": [
+    {
+      "path": "/private/tmp/abi5-root-env-6iTfW1/st4-source-context82-request.jsonl",
+      "sha256": "7c71c83ef80f36f15c6ec66d3380b22735345e0916e1a4140c2ed90a70271402",
+      "byteCount": 21126281
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/execution-authority-root/handoff.json",
+      "sha256": "a2a6c5e5b02ad2b3ae0b29da26d65f76d5fd65f8c2cd46ca00f63f1e473f7524",
+      "byteCount": 1142
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/execution-authority-root/setup.json",
+      "sha256": "93b0c66efa9cd316e4b616fbcc9c4813ba828a728d50527d58818b582cfdeaeb",
+      "byteCount": 2910
+    }
+  ],
+  "authenticated": {
+    "basisLineage": [
+      "execution-basis://abiogenesis/946c19bdbf7af5e012d107d1750a980bdb34e57e1fe9978ca52c5923ab5c4304",
+      "execution-basis://abiogenesis/cd2646f0865b1e50358f0c00ff138d479aa124940f468dffb7adc3a5484a5668",
+      "execution-basis://abiogenesis/6ad2f151576c90558ea1589b07de8f8baf47c74cde2c7998d095833b79dffbf3"
+    ],
+    "rootBasisRef": "execution-basis://abiogenesis/6ad2f151576c90558ea1589b07de8f8baf47c74cde2c7998d095833b79dffbf3",
+    "rootImplementationSetRef": "implementation-set://abiogenesis/9f0a4a0e3aa6148a547e5df1347da9e5be6546ebc959aecb51d8662fbdd17df8",
+    "originalStartSelection": {
+      "scope": "program",
+      "target": {
+        "kind": "next"
+      },
+      "until": "converged",
+      "rootMode": "direct"
+    },
+    "childSemanticsRoute": "rootPort.forGraphFunction",
+    "historical": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abi5-root-env-6iTfW1/runtime/events.jsonl",
+      "prefixLength": 3947811,
+      "prefixDigest": "sha256:a5a9b90f894139c0ca0c2b1c04274df7370e1227ad92a710f1bfd25b756ab43e",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 467881160,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:e4e7b36c880e4072680c4078a9bdb2f39decb34fb17050ba9eaa0c2375c26757"
+    },
+    "originalFinalPrefix": {
+      "coordinateDigest": "sha256:40bf70bb032d48ae63db904de519ec85175040518e226c98eb6b70d55b8668c5",
+      "eventLogRef": "file:///private/tmp/abi5-root-env-6iTfW1/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:8843f5b2974616668b5ece1fe08d6fe30d18fae801c3df6711848e251dfbdda2",
+      "prefixLength": 4046316,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 467881160
+      }
+    },
+    "basisRef": "execution-basis://abiogenesis/946c19bdbf7af5e012d107d1750a980bdb34e57e1fe9978ca52c5923ab5c4304",
+    "cCallRef": "c-call:sha256:acc331ce3a7cf9328ec09ff760cae9ad700646d3a29d99bbf03bfb2d6907096f",
+    "inputDigest": "sha256:8ec4170e71c1ff2ac225537f0ea278258553ab2c23059d2401a6686e1a6d5ccc",
+    "nativeInputDigest": "sha256:8ec4170e71c1ff2ac225537f0ea278258553ab2c23059d2401a6686e1a6d5ccc",
+    "resolution": {
+      "catalogBasisDigest": "sha256:013e5fece421b9f07940fd2f91ff73eb4b655ca64f80e899e276209a63740dd9",
+      "catalogViewDigest": "sha256:af09e0c949daa06f299386a0fd47ddbcb73f9ebed520459c45a86ebfee73b6b7",
+      "computeRegime": "F_D",
+      "disposition": "admitted",
+      "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+      "graphFunctionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+      "graphFunctionOwnerProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "graphFunctionPublicationDigest": "sha256:49ebf9a1d3674085996e2b2b9cd927c726d02cd3a644e6a35733bb08bd32f2f2",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "implementationBindingDigest": "sha256:9133d2b8c67c7aeb1bd9b73894df89d96d26e96e97cfd9dde2ae90fed1b9fb2d",
+      "implementationBindingRef": "binding://abiogenesis/default-library/prepare-testing@5",
+      "implementationDescriptorDigest": "sha256:e3ffad5bc87c8a1bd9ea545ddb434c4bb8b977a08c9d2f8069f00b7e538094ca",
+      "implementationOwnerProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "implementationPublicationDigest": "sha256:49ebf9a1d3674085996e2b2b9cd927c726d02cd3a644e6a35733bb08bd32f2f2",
+      "implementationRef": "implementation://abiogenesis/default-library/prepare-testing@5",
+      "inputContractRef": "contract://abiogenesis/default-library/state@5",
+      "kind": "admitted_implementation_resolution_row",
+      "leafResolutionCandidateDigest": "sha256:90efdfcf7bbfcbe6df3de3cd733103348cf8f9506d2215be5a839b40e97af972",
+      "leafResolutionCandidateRef": "leaf-resolution-candidate://abiogenesis/90efdfcf7bbfcbe6df3de3cd733103348cf8f9506d2215be5a839b40e97af972",
+      "modulePath": "build/code/src/implementation/default_library.js",
+      "namedSymbol": "prepareObservedTestingTask",
+      "nodeRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+      "outputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1",
+      "programLocusRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+      "programValidationRef": "program-validation://abiogenesis/80791187c4c213522664e75927211c414be6cac260e9729782d08c85bab306e0",
+      "publicationDigest": "sha256:451044382026bb2fac35d2424b0784ff368e1b64c726ac328fb96e92260d47a7",
+      "refusalContractRef": "contract://abiogenesis/default-library/refusal@5",
+      "requirementKey": "executable-leaf://abiogenesis/c287c490a97c9b0bdf01cb33712d77e0c789f87d278a57d2bf9c773a04e9ab3e",
+      "requirementKeyDigest": "sha256:c287c490a97c9b0bdf01cb33712d77e0c789f87d278a57d2bf9c773a04e9ab3e",
+      "schemaVersion": "5.0.0"
+    },
+    "programRef": "program://default-library-witness/witness@5",
+    "publicationDigest": "sha256:451044382026bb2fac35d2424b0784ff368e1b64c726ac328fb96e92260d47a7",
+    "cursorRef": "traversal-cursor://abiogenesis/0b9c0f5bbb0c5a1fc5b65e993b24231bd130591bd8b0050b33f9bdc3bcdd7def",
+    "cursorDigest": "sha256:0b9c0f5bbb0c5a1fc5b65e993b24231bd130591bd8b0050b33f9bdc3bcdd7def",
+    "portIsAdmitted": true,
+    "callPhase": "selected_no_evidence",
+    "effectCone": "read context/read four selected file observations/finite task construction only; no actor or admission"
+  },
+  "actualOwnerResult": {
+    "kind": "closed_leaf_owner_receipt",
+    "schemaVersion": "5.0.0",
+    "computeRegime": "F_D",
+    "candidate": {
+      "kind": "leaf_realization_candidate",
+      "schemaVersion": "5.0.0",
+      "disposition": "failure",
+      "evidenceCandidates": [
+        {
+          "kind": "deterministic_evidence_candidate",
+          "schemaVersion": "5.0.0",
+          "implementationRef": "implementation://abiogenesis/default-library/prepare-testing@5",
+          "inputDigest": "sha256:8ec4170e71c1ff2ac225537f0ea278258553ab2c23059d2401a6686e1a6d5ccc",
+          "outputDigest": "sha256:07c6c50b77ad38a0729f6b2927c8f662e800397a32e13d38e3792d8e2e08c951"
+        }
+      ],
+      "resultCandidate": {
+        "kind": "governance_failure",
+        "schemaVersion": "5.0.0",
+        "failureClass": "implementation_exception",
+        "diagnosticRef": "diagnostic://abiogenesis/implementation/implementation-exception@5"
+      },
+      "diagnosticRef": "diagnostic://abiogenesis/implementation/implementation-exception@5"
+    },
+    "receipt": null,
+    "workerContracts": null
+  },
+  "closedReceipt": {
+    "kind": "closed_leaf_owner_receipt",
+    "computeRegime": "F_D",
+    "receiptPresent": false,
+    "resultCandidate": {
+      "kind": "governance_failure",
+      "schemaVersion": "5.0.0",
+      "failureClass": "implementation_exception",
+      "diagnosticRef": "diagnostic://abiogenesis/implementation/implementation-exception@5"
+    },
+    "diagnosticRef": "diagnostic://abiogenesis/implementation/implementation-exception@5"
+  },
+  "conservation": {
+    "allSelectedFilesUnchanged": true,
+    "eventFileDevice": 16777231,
+    "eventFileInode": 467881160,
+    "eventFileByteCount": 4046316
+  },
+  "status": "completed-one-read-only-invoke",
+  "elapsedMs": 4294.182
+}

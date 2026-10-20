@@ -1,0 +1,25 @@
+{
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/source-baseline.json",
+    "sha256": "7b04d74948a83aa7ad143f3c0a8f7c98cc1e0e993bd2571affcaec4cc712940e",
+    "byteCount": 81527
+  },
+  "count": 263,
+  "unchanged": 262,
+  "changed": [
+    {
+      "before": {
+        "relativePath": "code/src/abg/invocation_execution_truth.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+        "sha256": "f2d6e47cdc23e3df095024982d0f13b99b4a014e2c03c581ee51c4c9cfec31dd",
+        "byteCount": 33130
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+        "sha256": "4bb5199b3793528e1eaef9d8c5ce24ca16772c1deac4e547e0f452088bedff53",
+        "byteCount": 33375,
+        "relativePath": "code/src/abg/invocation_execution_truth.ts"
+      }
+    }
+  ]
+}

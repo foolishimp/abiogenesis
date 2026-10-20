@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "allJsonParsed": true,
+  "localReturnLinksExist": true,
+  "nativeBindingsRemainNull": true,
+  "basisIdentityAbsent": true,
+  "executionSelectionAbsent": true,
+  "inventoryIncomplete": true,
+  "runtimeOperationsPerformed": 0,
+  "independentJudgmentsAuthored": 0
+}

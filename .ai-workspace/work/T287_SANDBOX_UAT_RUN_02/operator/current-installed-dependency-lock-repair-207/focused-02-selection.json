@@ -1,0 +1,15 @@
+{
+  "executiveAction": "Test-only population correction: one genuine verified immutable ABI artifact; Source/HOW unchanged; same seven-case suite",
+  "nativeIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/identity.json",
+    "sha256": "d42bf07f9e831e7633cc2c0fcf6ec16eb7745732ababbea680f6be117bf41bee",
+    "byteCount": 7804
+  },
+  "environment": {
+    "ABI207_NATIVE_IDENTITY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/identity.json",
+    "ABI207_COMPILED_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/isolated/build/code/src",
+    "ABI207_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures"
+  },
+  "preservedFailure": "focused-01-test.mjs and commands/focused-01.*",
+  "verification": "Actual canonical verification within affected test process; serialized identity supplies expected data only"
+}

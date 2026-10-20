@@ -1,0 +1,42 @@
+{
+  "node": {
+    "invokedPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "selectedLink": "/opt/homebrew/bin/node",
+    "version": "v24.7.0",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "bytes": 86104016,
+    "frozenPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/toolchain/bin/node"
+  },
+  "npm": {
+    "invokedPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "selectedLink": "/opt/homebrew/bin/npm",
+    "version": "11.5.1",
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+    "packageMetadataSha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484",
+    "inventory": "npm-toolchain-inventory.json",
+    "inventorySha256": "54140b1ad3786cc658e0a04584fad6996685591b768e4ea0cb2274713ca00e03",
+    "frozenRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/toolchain/npm",
+    "bytes": 54
+  },
+  "path": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "typescript": "5.9.2",
+  "nodeTypes": "24.3.0",
+  "cache": "Only 16 frozen dependency archives; future protected recipe seeds its own cache and installs offline.",
+  "git": {
+    "invokedPath": "/usr/bin/git",
+    "resolvedDeveloperTool": "/Applications/Xcode.app/Contents/Developer/usr/bin/git",
+    "version": "git version 2.50.1 (Apple Git-155)",
+    "sha256": "e64103dcf6e7686a5dc58e44d380d65eb298a94210c1a00558558890da355750",
+    "scope": "disposable component fixtures only; operating-system tool selection remains an external readiness premise"
+  },
+  "hostLibraryBasis": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/toolchain-host.json",
+    "bytes": 6358,
+    "sha256": "e9da3d0e520783b7e38c517de7d76c9f4585941e00a6fa619d401e601a7de48f"
+  },
+  "dependencies": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/dependency-archives.json",
+    "bytes": 10215,
+    "sha256": "e6deef0b1e55fee03c90a0c146cf439fd847461362884dd4c48b8b3b2938b3bb"
+  }
+}

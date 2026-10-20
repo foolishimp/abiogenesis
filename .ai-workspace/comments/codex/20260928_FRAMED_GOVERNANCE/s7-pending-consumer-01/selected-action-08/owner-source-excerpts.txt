@@ -1,0 +1,233 @@
+code/src/gtl/public_start.ts SHA256 a4d41d413a08e0a14296d9768c4b335ea030ed711d414a0ec1523bdb8e3c86a7
+41: export function resolveProgramStart(
+42:   program: Readonly<GtlProgram>,
+43:   request: ProgramStartRequest,
+44: ): ResolvedProgramStart | ProgramStartRefusal {
+45:   if (request.scope !== "program") {
+46:     return refusal(
+47:       "unsupported_control",
+48:       "public start scope must name the admitted Program",
+49:     );
+50:   }
+51:   if (
+52:     request.until === "converged" &&
+53:     request.rootMode === "supervised" &&
+54:     request.startRef !== undefined &&
+55:     request.target === request.startRef &&
+56:     program.policies["abg.root_mode"] === "supervised"
+57:   ) {
+58:     const matches = program.starts.filter(
+59:       (start) => start.startRef === request.startRef,
+60:     );
+61:     return matches.length === 1
+62:       ? {
+63:           kind: "resolved_program_start",
+64:           targetKind: "declared_start",
+65:           start: matches[0]!,
+66:           assetRef: null,
+67:         }
+68:       : refusal(
+69:           matches.length === 0 ? "missing_target" : "ambiguous_target",
+70:           "supervised start must resolve one exact declared Program start",
+71:         );
+72:   }
+73:   if (
+74:     request.until !== "converged" ||
+75:     request.rootMode !== "direct" ||
+76:     request.startRef !== undefined ||
+77:     program.policies["abg.root_mode"] !== "direct"
+78:   ) {
+79:     return refusal(
+80:       "unsupported_control",
+81:       "direct public control requires next or asset target with until converged and no caller-selected start",
+82:     );
+83:   }
+84:   if (request.target === "next") {
+85:     const defaultStartRef = program.policies["abg.default_start_ref"];
+86:     const matches = program.starts.filter(
+87:       (start) => start.startRef === defaultStartRef,
+88:     );
+89:     return matches.length === 1
+90:       ? {
+91:           kind: "resolved_program_start",
+92:           targetKind: "next",
+93:           start: matches[0]!,
+94:           assetRef: null,
+95:         }
+96:       : refusal(
+97:           matches.length === 0 ? "missing_target" : "ambiguous_target",
+98:           "next requires one Product-declared default Program start",
+99:         );
+100:   }
+101:   if (request.target.startsWith("asset:")) {
+code/src/product/execution_resolution.ts SHA256 73d296ac7dbcab675c5a1f9a1399459356d81f9cd34772a0d037a6daf0a1e920
+489:   ) {
+490:     return refusal(
+491:       "incompatible_or_unproven",
+492:       "dependency",
+493:       "execution resolution requires one ABG-admitted install per exact Catalog readiness candidate",
+494:     );
+495:   }
+496: 
+497:   const programDeclarationClosure = resolveProgramDeclarationClosure(
+498:     reconstructedCatalog,
+499:     reconstructedView,
+500:     input.programRef,
+501:   );
+502:   if (programDeclarationClosure.kind !== "resolved_program_declaration_closure") {
+503:     return closureRefusal(programDeclarationClosure);
+504:   }
+505:   const programPublication = programDeclarationClosure.programPublication;
+506:   const programMatches = programPublication.programs.filter((candidate) =>
+507:     candidate.programRef === programDeclarationClosure.programRef
+508:   );
+547:     selectedCatalogEntry = selected;
+548:   } else if (input.selection.kind === "start") {
+549:     const resolved = resolveProgramStart(program, {
+550:       scope: input.selection.scope,
+551:       target: input.selection.target,
+552:       until: input.selection.until,
+553:       rootMode: input.selection.rootMode,
+554:       ...(input.selection.startRef === undefined
+555:         ? {}
+556:         : { startRef: input.selection.startRef }),
+557:     });
+558:     if (resolved.kind !== "resolved_program_start") {
+559:       return refusal(
+560:         resolved.code === "ambiguous_target"
+561:           ? "ambiguous"
+562:           : resolved.code === "missing_target"
+563:           ? "absent"
+564:           : "incompatible_or_unproven",
+565:         "catalog",
+566:         resolved.message,
+567:       );
+568:     }
+569:     const selected = lookupGraphFunctionDefinition(
+570:       reconstructedView,
+571:       resolved.start.graphFunctionRef,
+code/src/product/run_invocation_operation.ts SHA256 683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100
+217: function startSelection(
+218:   request: ExactStartRunInvocation["request"],
+219: ): ProductExecutionSelection | null {
+220:   if (
+221:     request.scope !== "program" || request.until !== "converged" ||
+222:     (request.rootMode !== "direct" && request.rootMode !== "supervised") ||
+223:     !isRecord(request.target)
+224:   ) return null;
+225:   if (request.target.kind === "next") {
+226:     return {
+227:       kind: "start",
+228:       scope: "program",
+229:       target: "next",
+230:       until: "converged",
+231:       rootMode: request.rootMode,
+232:     };
+233:   }
+234:   if (
+235:     request.target.kind === "graph_function" &&
+236:     typeof request.target.handle === "string"
+237:   ) {
+238:     return {
+239:       kind: "start",
+240:       scope: "program",
+241:       target: "graph_function",
+242:       graphFunctionHandle: request.target.handle,
+243:       until: "converged",
+244:       rootMode: request.rootMode,
+245:     };
+246:   }
+247:   if (
+248:     request.target.kind === "asset" &&
+249:     typeof request.target.handle === "string"
+250:   ) {
+251:     return {
+252:       kind: "start",
+253:       scope: "program",
+254:       target: `asset:${request.target.handle}`,
+255:       until: "converged",
+256:       rootMode: request.rootMode,
+257:     };
+258:   }
+259:   if (
+260:     request.target.kind === "declared_start" &&
+261:     isRecord(request.target.start) &&
+262:     typeof request.target.start.ref === "string"
+263:   ) {
+264:     return {
+265:       kind: "start",
+266:       scope: "program",
+267:       target: request.target.start.ref,
+268:       startRef: request.target.start.ref,
+269:       until: "converged",
+270:       rootMode: request.rootMode,
+271:     };
+272:   }
+273:   return null;
+274: }
+275: 
+test_env/support/registered-graph-selection.mjs SHA256 39af28751dbd3d0b84506e1a4e67a415eef1f7b1d4c1e945be62b837f7a50be5
+227: export async function constructInstalledStartCall({
+228:   environment,
+229:   publicApi,
+230:   eventResource,
+231:   input,
+232:   identity = "st-1",
+233:   runEnvironmentResourceFactory,
+234:   programRef,
+235:   rootMode = "direct",
+236:   inputFactory,
+237: }) {
+238:   const {
+239:     product,
+240:     abg,
+241:     catalog,
+242:     catalogView,
+243:     admittedInstalls,
+244:     workspaceBinding,
+245:     additionalProducts: [fixture] = [],
+246:   } = environment;
+247:   const resolution = await product.ProductExecutionResolutionPort.resolve({
+248:     catalog,
+249:     catalogView,
+250:     admittedInstalls,
+251:     verifyInstallAdmission: (install) =>
+252:       abg.hasAdmittedProductInstall(environment.artifactTruth, install),
+253:     programRef: programRef ?? fixture.ids.programRef,
+254:     selection: Object.freeze({
+255:       kind: "start",
+256:       scope: "program",
+257:       target: "next",
+258:       until: "converged",
+259:       rootMode,
+260:     }),
+261:   });
+262:   assert.equal(
+263:     resolution.kind,
+264:     "loaded_product_execution_resolution",
+265:     JSON.stringify(resolution),
+266:   );
+267:   if (inputFactory !== undefined) input = await inputFactory({ resolution, program: resolution.program, workspaceBinding });
+268:   const admittedInput = product.admitInstalledProductInput(
+269:     resolution.productSemantics,
+270:     resolution.resolution.inputContract.contractRef,
+271:     input,
+design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md SHA256 0a12ddc740a549308cd5e905538f835087df7e031f829b4eefff7c4419e19ad7
+334: Current acquisition is one composed relation:
+335: 
+336: 1. Existing owners project the admitted current binding/Install capability
+337:    environment at the exact prefix. Catalog construction consumes the exact
+338:    candidate preimages, resolved lock, verified installed Products and supplied
+339:    GTL publications; view construction and execution resolution use that catalog.
+340: 2. The caller derives phase-one semantic input from the resolved installed
+341:    Program and current binding, with current task/authority meaning and the
+342:    actual source-continuation/cover references. Both current starts consume this
+343:    same semantic input, catalog and binding. The fixture's declared start is
+344:    program-next, supervised, until converged.
+345: 3. Existing Product owners derive the current policy, actor/work attribution,
+346:    required operation grants and complete authority slots. Actual Product
+347:    preparation and the separate invocation-observation predicate establish the
+348:    prospective Public call's conjunction. An old environment's attribution or
+349:    catalog cannot supply missing current members.
+350: 4. The installed Public owner admits the invocation, materializes and validates
+351:    its graph, admits the current basis and enters HoG. The fixture host observes

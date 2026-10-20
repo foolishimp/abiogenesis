@@ -1,0 +1,250 @@
+{
+  "classification": "fixture result-contract and carrier-placement failure; no runtime defect established",
+  "firstFailedRelation": {
+    "owner": "abg/c_call.ts::admitResult",
+    "line": 6588,
+    "predicate": "candidate.kind === valueKind",
+    "candidateKind": "graph_span_selection",
+    "declaredContract": {
+      "contractKind": "output",
+      "contractRef": "contract://selected-action/final@5",
+      "contractVersion": "5.0.0",
+      "valueKind": "fixture_value"
+    },
+    "originalCandidateDigest": "sha256:5e864ddc2dad983ab5413e4bf1b30a8dee52e249ecd6eaeb1276cb8a353bea12",
+    "reconstructionDigest": "sha256:5e864ddc2dad983ab5413e4bf1b30a8dee52e249ecd6eaeb1276cb8a353bea12",
+    "semanticCallbackReturns": true,
+    "rejectionEvent": "event://abiogenesis/15bd4d9128b30f9a1d9b5f16f71b241173d68c93f7e41db16486a4ac9f35d1da",
+    "resultEvent": "event://abiogenesis/ca06206fbd5fc88b0e12220c031765e91f5c75a32e1687e271937c9685952541",
+    "blockedRunEvent": "event://abiogenesis/f92e8afc6678495e38008e0cb38fa23c0968c320188baf53752e7e29e19147c9"
+  },
+  "candidateReconstruction": {
+    "scope": "pure installed fixture function applied to exact retained Result 172 after failure; no runtime event injection, traversal or retry",
+    "inputEvent": "event://abiogenesis/f93547c0dfe8cd0794fa268d42a5cf5b28e80c06af255b3701cbc4f063d4e60d",
+    "candidate": {
+      "kind": "graph_span_selection",
+      "schemaVersion": "5.0.0",
+      "disposition": "re_enter",
+      "applicationRef": "graph-function-application://abiogenesis/0b9b8d743d8a8583eb9af84be9d4c8a00fcfb719839d92916d77827b886d18b7",
+      "graphFunctionRef": "graph-function://selected-action/root@5",
+      "sourceProgramLocusRef": "locus://selected-action/finish@5",
+      "targetProgramLocusRef": "locus://selected-action/model@5",
+      "targetInputRef": "graph-span-input://product/06cba84ad36df568d3988e992e901d2842f9f7ba38775b79c75be30904257ff7",
+      "targetInputDigest": "sha256:06cba84ad36df568d3988e992e901d2842f9f7ba38775b79c75be30904257ff7",
+      "targetInput": {
+        "actionCatalog": {
+          "catalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+          "catalogRef": "action-catalog://product/e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+          "kind": "action_catalog",
+          "rows": [
+            {
+              "actionKind": "invoke_graph_function",
+              "actionRef": "action://selected-action/consumer@5",
+              "expectedDeltaRef": "delta://selected-action/echo@5",
+              "graphFunctionRef": "graph-function://selected-action/child@5",
+              "inputAssetRefs": [
+                "asset://selected-action/input@5"
+              ],
+              "kind": "action_catalog_row",
+              "outputAssetRefs": [
+                "asset://selected-action/output@5"
+              ],
+              "programRef": "program://selected-action/root@5",
+              "progressConditionRef": "condition://selected-action/progress@5",
+              "stopConditionRef": "condition://selected-action/stop@5",
+              "targetObligationRefs": [
+                "obligation://selected-action/echo@5"
+              ],
+              "targetProgramLocusRef": "graph-function://selected-action/child@5"
+            },
+            {
+              "actionKind": "invoke_graph_function",
+              "actionRef": "action://selected-action/initial@5",
+              "expectedDeltaRef": "delta://selected-action/echo@5",
+              "graphFunctionRef": "graph-function://selected-action/child@5",
+              "inputAssetRefs": [
+                "asset://selected-action/input@5"
+              ],
+              "kind": "action_catalog_row",
+              "outputAssetRefs": [
+                "asset://selected-action/output@5"
+              ],
+              "programRef": "program://selected-action/root@5",
+              "progressConditionRef": "condition://selected-action/progress@5",
+              "stopConditionRef": "condition://selected-action/stop@5",
+              "targetObligationRefs": [
+                "obligation://selected-action/echo@5"
+              ],
+              "targetProgramLocusRef": "graph-function://selected-action/child@5"
+            }
+          ],
+          "schemaVersion": "5.0.0"
+        },
+        "constructionPolicy": {
+          "kind": "construction_policy",
+          "policyRef": "policy://selected-action/closure@5",
+          "requireCompleteEvidence": true,
+          "requirePostEvidenceRefresh": true
+        },
+        "kind": "fixture_request",
+        "phase": 1,
+        "schemaVersion": "5.0.0",
+        "task": {
+          "kind": "fixture_task",
+          "payload": "selected second action",
+          "schemaVersion": "5.0.0"
+        },
+        "workspaceBinding": {
+          "workspaceBindingDigest": "sha256:a3b2644d2ee59778309b01aa9582a3630c0e5af23bf3fadba78a39e0d721f492",
+          "workspaceBindingId": "workspace-binding://abiogenesis/a3b2644d2ee59778309b01aa9582a3630c0e5af23bf3fadba78a39e0d721f492"
+        }
+      },
+      "projectionRef": "graph-span-reentry-projection://product/04692f3a0a4f311a30918fad79de128b352286e8933a603859268905dfe3e976",
+      "projectionDigest": "sha256:04692f3a0a4f311a30918fad79de128b352286e8933a603859268905dfe3e976"
+    }
+  },
+  "topology": {
+    "currentWrongSlot": "finish is refresh evaluateNext at term 7 and both emits graph_span_selection for reentry and intends next_action_projection for terminal convergence under one output contract; fixture_value is not a union kind",
+    "terminalOwner": "abg/traversal_route.ts::hasGovernedConstructionClosure requires convergedNextActionProjection (kind next_action_projection) at refresh evaluateNext for terminal admission; lines 2736-2781 and terminal routing 4330-4385",
+    "fixedEightTermOwner": "validator/validation.ts:1588-1601 binds exactly eight terms and their authority order",
+    "existingDonor": {
+      "declaration": "test_env/fixtures/developer-mini-product/src/index.ts:1818-1836,3942-4048",
+      "implementation": "test_env/fixtures/developer-mini-product/src/index.ts:2241-2304",
+      "contract": "test_env/fixtures/developer-mini-product/src/index.ts:3646-3650",
+      "test": "test_env/tests/m5-installed-external-product.test.mjs:1703-1787",
+      "relation": "dedicated selector before finalizer; graph_span_selection is the single carrier for re_enter and continue; exact declared bounded graph_function_application selects target input"
+    },
+    "mechanics": "hog/route_proposal.ts:560-616 follows admitted graph_span_selection/re_enter; abg/traversal_route.ts:3790-3890 validates same-node declared source/target contracts, actual judged result and maxApplications",
+    "conclusion": "Observed rejection is fixture carrier mismatch. Current two-kind terminal slot cannot close under unchanged owners; generic declared graph-span reentry exists and is not falsified by this attempt.",
+    "boundedCandidate": "Inspect using a nonterminal refresh-model locus to emit graph_span_selection for both dispositions, with declared current observation/target input and refresh-gap consumption of continue state; keep terminal refresh evaluateNext next_action_projection and eight terms. This candidate needs semantic correspondence and owning preconditions checked before selection; not implemented or proven."
+  },
+  "priorOccurrence": "selected-action-02 failure was earlier authored/admitted catalog identity, now passed both pure and actual installed prechecks and actual AF-14 admission",
+  "changedPremiseRequired": "one exact result kind per declared output contract; place graph-span route in a compatible nonterminal declared locus with downstream consumption; preserve terminal convergence contract and original oracle",
+  "actualChain": [
+    {
+      "ordinal": 22,
+      "eventId": "event://abiogenesis/88d0e98ab751a25729cc434d83b40d4d5264425b1793dd721622ad4db315f247",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:d7dd418b9e3f03e4d31243eaa05a65c7b9c1fb8de58dbf677f2bdd0b2088cb3b",
+      "valueKind": "fixture_model",
+      "resultRef": "result://abiogenesis/8527412ba7f2666f1167371b637df64bd6af98962edbdb19a975c326570560f2"
+    },
+    {
+      "ordinal": 39,
+      "eventId": "event://abiogenesis/6aa1c6c53ba301be4852f7bd79c32cf9fea1c68e3853e99e99bda5430ec75d8b",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:2119eb9f7dc5811d366798b9dc368a7df79bcda8861647717480c1052011d0e6",
+      "valueKind": "next_action_basis",
+      "resultRef": "result://abiogenesis/196fbed95768259b9ca80568493a7894eb0271410c59cc5fb8ec1f4d394c3c00"
+    },
+    {
+      "ordinal": 56,
+      "eventId": "event://abiogenesis/e5ed8b65f8b1abcfbad913723e4977cd405dd9852c561854e23874eb89902adb",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:d2692e602278653e5c1095e53e091e3d700a9322994b2231aed68aee3de93499",
+      "valueKind": "next_action_projection",
+      "resultRef": "result://abiogenesis/f463b1b82bf134f6c401d0b117187be4d9563912d9ab28a57d2fa2b9603a351a"
+    },
+    {
+      "ordinal": 66,
+      "eventId": "event://abiogenesis/12bf57b49529bca9a416fee487ac7d20cc0afc2dfa5d66665e61f9f55fac72bc",
+      "kind": "construction_intent_selected",
+      "aggregateId": "frame://abiogenesis/91291e875e18ba8488c76a11e74b4cc1d2e7be9571c504e93a3c64d9cff5968b",
+      "constructionIntentRef": "construction-intent://abiogenesis/bbadb94a34aaa93ef5b0cce663fb259943ea2b5354ff69d3f54e1bd609f4d121",
+      "action": "action://selected-action/initial@5"
+    },
+    {
+      "ordinal": 86,
+      "eventId": "event://abiogenesis/e81e14ff595a9b890813447020de03764e7e9429310ef138b9f21a74853cd60c",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:7367a961753e39a1664ca3754dce82b27d63fd234b92fb79f9b20bcef3d3c2f7",
+      "valueKind": "fixture_produced",
+      "resultRef": "result://abiogenesis/297b5babfc07621b10fbc9a48ac8cf246550925be98f23ed9c1742f1ad98dfe7"
+    },
+    {
+      "ordinal": 103,
+      "eventId": "event://abiogenesis/36e463e39d005b534c045dc9d6be0ef09c3f0cadb3b987240e92722c2ae7618e",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:7b4d10d417e9d84cdeeb84f0e0ba9f2822bc5ecc2f0972e7ba1476c9abeb8eea",
+      "valueKind": "fixture_consumed",
+      "resultRef": "result://abiogenesis/8e7f76192e5770aa5ebe4e3e786c1396aae9cdf0ca71cda77c262741fa20c16b"
+    },
+    {
+      "ordinal": 116,
+      "eventId": "event://abiogenesis/9f782564886ef09ce11fcf92be4635df7918a3e7451d4476a2317b65bc9dedd2",
+      "kind": "graph_call_closed",
+      "aggregateId": "graph-call://abiogenesis/e7129f9cf380848d50c7d7e658b7310ff9bba89ca2c9469314bb7216bc94b128"
+    },
+    {
+      "ordinal": 117,
+      "eventId": "event://abiogenesis/7a7b29d8ef3bff5480064c8b7548fb1a3b88448acef13b3b31abd7b6bdf33c64",
+      "kind": "child_foldback_admitted",
+      "aggregateId": "frame://abiogenesis/91291e875e18ba8488c76a11e74b4cc1d2e7be9571c504e93a3c64d9cff5968b"
+    },
+    {
+      "ordinal": 120,
+      "eventId": "event://abiogenesis/fa52131ae2cc766bd1a312865d4dfb1b84ae47b4cde07983ab750c73d26b10ec",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:3d60e6675ecfae53b957b73d4b3934a6f8bacd12912dbe91bc2c648f38d6250a",
+      "valueKind": "action_evaluation_basis",
+      "resultRef": "result://abiogenesis/93f3280cc4d7ef676c2949cfdebaf1f9ec3cf79a2089dcbd83463440e7ce2f94"
+    },
+    {
+      "ordinal": 137,
+      "eventId": "event://abiogenesis/4cb18289dd785158b637364be59175db94af9bb62a774350d68222ea4f462853",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:16799d770bd5651740de13fc9f239b4fc76225a8f20b40f109498dbf23b60700",
+      "valueKind": "action_evaluation_projection",
+      "resultRef": "result://abiogenesis/35d5f9d2c1a5fb3f008a1c8f5631095b3a170199ca605bb578e318b5a414c883"
+    },
+    {
+      "ordinal": 145,
+      "eventId": "event://abiogenesis/5cc4bb8addfc0c20e919563ba9660eee0e0c83b7512904336ce57e17340eea53",
+      "kind": "construction_delta_observed",
+      "aggregateId": "frame://abiogenesis/91291e875e18ba8488c76a11e74b4cc1d2e7be9571c504e93a3c64d9cff5968b",
+      "constructionIntentRef": "construction-intent://abiogenesis/bbadb94a34aaa93ef5b0cce663fb259943ea2b5354ff69d3f54e1bd609f4d121"
+    },
+    {
+      "ordinal": 155,
+      "eventId": "event://abiogenesis/37aa0c232126ea7f3dc478e306e97e3f922119c06c61367c9edaab6adf6068aa",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:4b3236d7027c2f79b49972c718567acd4523c16137a8d111be36f8e51e5d38e7",
+      "valueKind": "fixture_refreshed_model",
+      "resultRef": "result://abiogenesis/784e2b6f1816d22b48f6aa5573c6ad04d1459c8279d489d49d23d6814ad4d05c"
+    },
+    {
+      "ordinal": 172,
+      "eventId": "event://abiogenesis/f93547c0dfe8cd0794fa268d42a5cf5b28e80c06af255b3701cbc4f063d4e60d",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:16211a0620b6bc27f269450cd3b0b086f355adca10337f617869308d24de2ec4",
+      "valueKind": "next_action_basis",
+      "resultRef": "result://abiogenesis/abc957ea4e1b94796caebbdc59d79ef9676b3d0b82cc5b4f841ee023b255d19c"
+    },
+    {
+      "ordinal": 191,
+      "eventId": "event://abiogenesis/ca06206fbd5fc88b0e12220c031765e91f5c75a32e1687e271937c9685952541",
+      "kind": "c_call_result_admitted",
+      "aggregateId": "c-call:sha256:4ff24e0679bffd126d1aef1383edb6bc413d5d395383c4239a7836263c11f28d",
+      "valueKind": "fixture_refusal",
+      "resultRef": "result://abiogenesis/3f73324cbec5bd80edc43f83056c8e36227c61463d2ad6f9c804a8384ad49bf9"
+    },
+    {
+      "ordinal": 197,
+      "eventId": "event://abiogenesis/f92e8afc6678495e38008e0cb38fa23c0968c320188baf53752e7e29e19147c9",
+      "kind": "run_stopped",
+      "aggregateId": "run://abiogenesis/dc305bf6f4be22dadd4dd952ecc7eff6e976076939c70dd58069d7dbe7a73383",
+      "disposition": "blocked"
+    }
+  ],
+  "unexecuted": [
+    "second action selection",
+    "graph-span route admission",
+    "SIGKILL",
+    "resource recovery",
+    "Public selected_action",
+    "covered-current selection",
+    "duplicate/crossed/cover refusals",
+    "parent/Run closure",
+    "two cold Public reads"
+  ]
+}

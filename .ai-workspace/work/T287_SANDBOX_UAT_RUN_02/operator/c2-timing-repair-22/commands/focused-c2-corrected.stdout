@@ -1,0 +1,12 @@
+✔ extended original C2 plan preserves all 26 sources through native and observed owners (151.0565ms)
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (7.741208ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (3.930209ms)
+✔ C2 finite host timer schema and constructor share bounds without changing grace (31.586833ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 695.205291

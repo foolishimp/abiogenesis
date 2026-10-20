@@ -1,0 +1,92 @@
+[
+  {
+    "path": "owner_bindings/run_invocation.ts",
+    "line": 1237,
+    "text": "function runInvocationOwner<TPacket extends InvocationPacket>("
+  },
+  {
+    "path": "owner_bindings/run_invocation.ts",
+    "line": 1949,
+    "text": "export const RUN_DEFINITION_BINDINGS = Object.freeze({"
+  },
+  {
+    "path": "shared/owner_contract_source_set.ts",
+    "line": 178,
+    "text": "    definitionBindingExportName: \"RUN_DEFINITION_BINDINGS\","
+  },
+  {
+    "path": "product/index.ts",
+    "line": 391,
+    "text": "  RUN_DEFINITION_BINDINGS,"
+  },
+  {
+    "path": "public/installed_definition_call_transport.ts",
+    "line": 366,
+    "text": "async function invokeInstalledDefinitionCall("
+  },
+  {
+    "path": "hog/graph_execute.ts",
+    "line": 1349,
+    "text": "export function executeGraphTraversalEffect("
+  },
+  {
+    "path": "implementation/hello_compose.ts",
+    "line": 88,
+    "text": "    kind: \"hello_world_output\" as const,"
+  },
+  {
+    "path": "implementation/leaf_invocation_port.ts",
+    "line": 848,
+    "text": "export async function constructAdmittedLeafInvocationPort(authority: {"
+  },
+  {
+    "path": "implementation/hello_gate.ts",
+    "line": 73,
+    "text": "    kind: \"hello_world_output\" as const,"
+  },
+  {
+    "path": "implementation/hello_world.ts",
+    "line": 38,
+    "text": "    kind: \"hello_world_output\" as const,"
+  },
+  {
+    "path": "gtl/contracts.ts",
+    "line": 32,
+    "text": "  readonly kind: \"hello_world_output\";"
+  },
+  {
+    "path": "gtl/hello_world.ts",
+    "line": 63,
+    "text": "    \"implementation-binding://abiogenesis/conformance/hello-world-fd@5\","
+  },
+  {
+    "path": "gtl/hello_world.ts",
+    "line": 64,
+    "text": "  implementationRef: \"implementation://abiogenesis/conformance/hello-world-fd@5\","
+  },
+  {
+    "path": "gtl/hello_world.ts",
+    "line": 313,
+    "text": "  return output.kind === \"hello_world_output\" &&"
+  },
+  {
+    "path": "gtl/hello_world.ts",
+    "line": 332,
+    "text": "  return output.kind === \"hello_world_output\" &&"
+  },
+  {
+    "path": "gtl/hello_world.ts",
+    "line": 440,
+    "text": "    (value as Readonly<Record<string, unknown>>).kind === \"hello_world_output\" &&"
+  },
+  {
+    "path": "gtl/hello_world.ts",
+    "line": 483,
+    "text": "    case \"hello_world_output\":"
+  },
+  {
+    "path": "gtl/hello_world.ts",
+    "line": 595,
+    "text": "    { contractRef: HELLO_WORLD_IDS.outputContractRef, contractVersion: \"5.0.0\", contractKind: \"output\", valueKind: \"hello_world_output\" },"
+  }
+]

@@ -1,0 +1,105 @@
+{
+  "ProductDefinitionSHA256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+  "HOWSHA256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+  "spans": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "bytes": 32200,
+        "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+        "mode": "0o644"
+      },
+      "lineStart": 106,
+      "lineEnd": 111,
+      "spanSHA256": "3a2fe931cf87ddb9194981a6fd98186338e0a78881510217117c224c350b0a48",
+      "text": "const PROJECT_READ_RESOURCE_ASSERTION_SCHEMA = v.strictObject({\n  kind: v.literal(\"abg_project_read_resource_assertion\"),\n  schemaVersion: v.literal(\"5.0.0\"),\n  eventResource: EVENT_RESOURCE_ASSERTION_SCHEMA,\n}) as v.GenericSchema<\n  AbgProjectReadResourceAssertion,\n",
+      "claim": "Strict ordinary root read resource assertion has only kind/schemaVersion/eventResource.",
+      "role": "existing governing/implementation correspondence; actual outcome is independently recorded by the two C05 installed CLI receipts"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "bytes": 32200,
+        "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+        "mode": "0o644"
+      },
+      "lineStart": 403,
+      "lineEnd": 423,
+      "spanSHA256": "7f94549841b5dece5e040d236d2cba60e892d3bfabf0dc755eddbc1952aeeeb1",
+      "text": "function replayProjection(\n  memberKey: AbgProjectReadMemberKey,\n  request: Readonly<Record<string, JsonValue>>,\n  value: Readonly<Record<string, JsonValue>>,\n  replay = replayCoordinate(value),\n): JsonValue {\n  const selector = asRecord(request.selector)!;\n  if (replay === null) throw new TypeError(\"replay projection lacks replay identity\");\n  if (\n    typeof selector.fromOrdinal !== \"number\" ||\n    typeof selector.limit !== \"number\"\n  ) throw new TypeError(\"replay projection lacks its exact ordinal page\");\n  return {\n    kind: `${memberKey}_projection`,\n    subject: sourceCoordinate(request),\n    replay,\n    fromOrdinal: selector.fromOrdinal,\n    limit: selector.limit,\n    ...(memberKey === \"run_replay\" || memberKey === \"graph_call_replay\"\n      ? { status: value.runtimeStatus!, terminalResult: value.terminalResult! } : {}),\n  };\n",
+      "claim": "Root replay projects runtime status and terminal Result coordinates.",
+      "role": "existing governing/implementation correspondence; actual outcome is independently recorded by the two C05 installed CLI receipts"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "bytes": 32200,
+        "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+        "mode": "0o644"
+      },
+      "lineStart": 522,
+      "lineEnd": 528,
+      "spanSHA256": "33f77a4fb9b431de5d6be8782a50e652f8b079125dc23457a8c17db4d538ebd9",
+      "text": "function nativeRefusalCode(\n  result: AbgProjectReadRefusal,\n): \"projection_basis_mismatch\" | \"not_found\" | \"not_ready\" {\n  return result.code === \"target_absent\"\n    ? \"not_found\"\n    : result.code === \"target_not_ready\" ? \"not_ready\"\n    : \"projection_basis_mismatch\";\n",
+      "claim": "Target absent maps to native not_found refusal.",
+      "role": "existing governing/implementation correspondence; actual outcome is independently recorded by the two C05 installed CLI receipts"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "bytes": 32200,
+        "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+        "mode": "0o644"
+      },
+      "lineStart": 875,
+      "lineEnd": 885,
+      "spanSHA256": "52f32b4cdbea75fe73e381315dc9e58da46b33f55dd27add6c8e9e087e5a40cb",
+      "text": "  run_result: bindExactPrefixRead(\n    ABG_PROJECT_READ_CONTRACTS.run_result,\n    runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_result),\n    PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,\n    PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,\n  ),\n  run_replay: bindExactPrefixRead(\n    ABG_PROJECT_READ_CONTRACTS.run_replay,\n    runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_replay),\n    PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,\n    PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,\n",
+      "claim": "Published root run_result/run_replay bindings use the existing structural read owner.",
+      "role": "existing governing/implementation correspondence; actual outcome is independently recorded by the two C05 installed CLI receipts"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "bytes": 84829,
+        "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+        "mode": "0o644"
+      },
+      "lineStart": 1019,
+      "lineEnd": 1035,
+      "spanSHA256": "1d89c12484db9cf458f0511b42b1506ebfe72ec5f1fc7962e4036aa642e478c3",
+      "text": "function projectRunResult(\n  prepared: PreparedRead<AbgProjectReadMemberKey>,\n  targetRef: string,\n  context: CanonicalRunReadContext | null = canonicalRunContext(prepared, targetRef),\n): ProjectedValue {\n  if (context === null) return ABSENT;\n  return context.truth.terminalResult === null\n    ? [\"active\", \"held\", \"gap_stopped\"].includes(context.truth.runtimeStatus) ? NOT_READY : ABSENT\n    : {\n        runId: targetRef,\n        runtimeStatus: context.truth.runtimeStatus,\n        terminalRoute: context.terminal!.route,\n        admittedResult: context.terminal!.result,\n        terminalResult: context.truth.terminalResult,\n        replayRef: context.truth.replay.ref,\n        replayDigest: context.truth.replay.digest,\n      } as unknown as JsonValue;\n",
+      "claim": "Failed Run without terminal Result is ABSENT; no active/held/gap not_ready relabel.",
+      "role": "existing governing/implementation correspondence; actual outcome is independently recorded by the two C05 installed CLI receipts"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/static_definition_bindings.ts",
+        "bytes": 10421,
+        "sha256": "ca1f0b489ab6563f49c0b17a222b2472d6c085d6840293cb2bf3ec96d66c2a01",
+        "mode": "0o644"
+      },
+      "lineStart": 134,
+      "lineEnd": 143,
+      "spanSHA256": "89ece29dbcafb77e8e0850e8f4bf4f17b70862e74087f43efd2c9069b12e387b",
+      "text": "    const admittedResources = v.safeParse(\n      resourceAssertionSchema,\n      call.resources,\n    );\n    if (!admittedResources.success) {\n      return Effect.fail(definitionFault(\n        packet.definitionKey,\n        \"resource_admission\",\n        \"invalid_resource_assertion\",\n        \"definition resources differ from the owner-authored structural contract\",\n",
+      "claim": "Native structural owner rejects undeclared assertion fields before read admission.",
+      "role": "existing governing/implementation correspondence; actual outcome is independently recorded by the two C05 installed CLI receipts"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "bytes": 24123,
+        "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+        "mode": "0o644"
+      },
+      "lineStart": 453,
+      "lineEnd": 468,
+      "spanSHA256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "text": "\n",
+      "claim": "Accepted HOW root compact reads avoid expanding qualification bodies.",
+      "role": "existing governing/implementation correspondence; actual outcome is independently recorded by the two C05 installed CLI receipts"
+    }
+  ],
+  "ProductAPIChange": false
+}

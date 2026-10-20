@@ -1,0 +1,58 @@
+{
+  "operation": "T287_G3_PARENT_ALIAS_FIXTURE_CONTINUATION_01",
+  "role": "Worker",
+  "status": "ACTIVATED",
+  "time": "2026-10-04T03:30:21.967560+00:00",
+  "changeClass": "realization_refactor",
+  "ProductFrame": "Fixed ABI5 fifteen-family Product F11/F15, REQ-P-SELF-CONFORMANCE005/007A/009 and affected PUBLIC005/006A; existing native qualification HOW and reusable library target own exact parent/direct original-producer recovery. This increment repairs only three immutable counterfactual fixtures. No Product, Design, source, schema or Runtime authority change.",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/g3-grant.txt",
+    "bytes": 4375,
+    "sha256": "e41a0a7d7e256f504446e948e32da3cef0759ba3c8a14ece1a93a3531854250c",
+    "mode": 420
+  },
+  "basisPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/activation.md",
+      "bytes": 3056,
+      "sha256": "86fff96f32ba220660f3482e017d4177377d29a19696bd7682eb53855c7c82c3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/subject-pins.json",
+      "bytes": 2167,
+      "sha256": "fc9d97ca9a34779e642c3d8582f0f52b0323e757dfcee8da0d187b54018ef9c9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-parent-alias-owner-repair-01/freeze.json",
+      "bytes": 171411,
+      "sha256": "6d5ab742d9ebf2a730e7d776aa2911c58503d0dc40c2928f18fa72eb3a305d2e",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 82284,
+      "sha256": "b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs",
+      "bytes": 12541,
+      "sha256": "56e2528757735d212be455383d651f47e05bc29dff38b02d5365267e7090ff51",
+      "mode": 420
+    }
+  ],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01"
+  ],
+  "sourceReadOnly": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "bytes": 82284,
+    "sha256": "b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5",
+    "mode": 420
+  },
+  "stop": "First unexpected meaningful integration failure or source/design need freezes this cut without repair/retry.",
+  "assurance": "Authored fixture evidence only; Root selects independent assurance and any successor or installed proof."
+}

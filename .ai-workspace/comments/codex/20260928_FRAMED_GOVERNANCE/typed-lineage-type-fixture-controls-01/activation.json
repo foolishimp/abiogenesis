@@ -1,0 +1,11 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_TYPED_LINEAGE_TYPE_FIXTURE_GRANT_WRITER_01",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01"
+  ],
+  "grant": "Record bounded fixture triage and exact worker grant: actual exported hook ReturnType, legitimate TS2375, explicit source root; unchanged code/compile/callback reused.",
+  "returnsTo": "Executive"
+}

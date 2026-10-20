@@ -1,3 +1,8 @@
+import { selectRuntimeEventPrefixFromStore } from "./event_prefix.js";
+import { projectRuntimeReplayGuard, materializeRuntimeReplayGuard, type RuntimeReplayGuard } from "./replay.js";
+import type { OwnedEffectfulPublicInvocationTruth } from "./effectful_invocation_truth.js";
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
 import type {
   ClosureContract,
@@ -26,7 +31,7 @@ import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import {
   isAdmittedCCallJudgment,
   isAdmittedCCallResult,
-  admitPlannedPendingInteraction,
+  admitPlannedPendingInteraction, admitOwnedPlannedPendingInteraction, type OwnedPendingInteractionAdmissionPlan,
   projectPendingInteractionCarrier,
   rehydratePendingInteraction,
   type AdmittedCCallJudgment,
@@ -85,7 +90,7 @@ export function admitContinuationTerminal(
 ): RuntimeEvent {
   const snapshot = store.readAll();
   const prefix = selectValidatedRuntimeEventPrefix(snapshot);
-  const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   const current = projectFhContinuations(prefix, calculus).find((row) =>
     row.continuationRef === continuationRef
   );
@@ -134,12 +139,12 @@ export function admitContinuationTerminal(
 }
 import {
   constructRuntimeFluent,
-  deriveRuntimeEventCalculusProjection,
+  deriveRuntimeHeldFluentProjection,
   holdsAt,
   type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
 import { runtimeEventPrefixDigest,
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   selectRuntimeEventPrefixFromAuthority,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -262,6 +267,11 @@ export type UnavailableEffectfulPublicInvocationTruth = Exclude<
 export type PreparedContinuationPublicOperationResult =
   | PreparedContinuationPublicOperation
   | UnavailableEffectfulPublicInvocationTruth;
+/** @internal */
+type OwnedPreparedContinuationPublicOperation = Omit<PreparedContinuationPublicOperation, "projectedPrefix"> & { readonly projectedPrefix: RuntimeEventPrefix };
+/** @internal */
+type OwnedPreparedContinuationPublicOperationResult = OwnedPreparedContinuationPublicOperation | Exclude<OwnedEffectfulPublicInvocationTruth, { readonly disposition: "available" }>;
+
 
 export interface FhInteractionResponseAdmission {
   readonly kind: "fh_interaction_response_admission";
@@ -370,7 +380,7 @@ function executionBasisDescendsFromRootInvocation(
 }
 
 function executionBasisDescendsFromRootInvocationAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   leafBasis: ExecutionBasis,
   rootInvocation: InvocationAdmission,
 ): boolean {
@@ -412,6 +422,15 @@ function executionBasisDescendsFromRootInvocationAtPrefix(
  */
 export function projectHeldInteractionCCallOutcomeAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  input: HeldInteractionCCallProjectionInput,
+): RehydratedAdmittedCCallState | null;
+/** @internal */
+export function projectHeldInteractionCCallOutcomeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  input: HeldInteractionCCallProjectionInput,
+): RehydratedAdmittedCCallState | null;
+export function projectHeldInteractionCCallOutcomeAtPrefix(
+  prefix: RuntimeEventPrefix,
   input: HeldInteractionCCallProjectionInput,
 ): RehydratedAdmittedCCallState | null {
   const basis = input.executionBasis;
@@ -490,7 +509,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
   };
   const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
   const cCallRef = `c-call:${cCallDigest}`;
-  const cCallEvents = runtimeEventsFromValidatedPrefix(prefix).filter(
+  const cCallEvents = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter(
     (event) =>
       event.aggregateType === "c_call" && event.aggregateId === cCallRef,
   );
@@ -774,7 +793,7 @@ function resolveCurrentContinuationOperationCoordinate(
 }
 
 function resolveCurrentContinuationOperationCoordinateAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   continuationRef: string,
   operation: ContinuationPublicOperationAdmission,
   predecessor: Readonly<{
@@ -786,7 +805,7 @@ function resolveCurrentContinuationOperationCoordinateAtPrefix(
   readonly payload: Readonly<Record<string, JsonValue>>;
 }> | null {
   if (predecessor.eventRef === null) return null;
-  const applicable = runtimeEventsFromValidatedPrefix(prefix).filter(
+  const applicable = runtimeEventBodiesAtPrefix(prefix).filter(
     (event) =>
       (
         event.aggregateType === "continuation" &&
@@ -841,7 +860,7 @@ function resolveCurrentContinuationOperationCoordinateAtPrefix(
 }
 
 function resolvePreparedContinuationOperationCoordinateAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: RuntimeEventPrefix,
   continuationRef: string,
   prepared: PreparedContinuationPublicOperation,
   predecessor: Readonly<{
@@ -896,10 +915,31 @@ export function projectFhInteractionSemanticBasisAtPrefix(
   readonly requestValue: Readonly<Record<string, JsonValue>>;
   readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
   readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
+}> | null;
+/** @internal */
+export function projectFhInteractionSemanticBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+): Readonly<{
+  readonly requestContractRef: string;
+  readonly responseContractRef: string;
+  readonly requestValue: Readonly<Record<string, JsonValue>>;
+  readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
+  readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
+}> | null;
+export function projectFhInteractionSemanticBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+): Readonly<{
+  readonly requestContractRef: string;
+  readonly responseContractRef: string;
+  readonly requestValue: Readonly<Record<string, JsonValue>>;
+  readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
+  readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
 }> | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const continuationRef = continuation.continuationRef;
-  const opened = events.find(
+  const opened = indexedRuntimeEvents(prefix, "id:" + continuation.openedEventRef).find(
     (event) => event.eventId === continuation.openedEventRef,
   );
   if (
@@ -928,7 +968,7 @@ export function projectFhInteractionSemanticBasisAtPrefix(
       nextActionBasis: null,
     });
   }
-  const intentRows = events.filter(
+  const intentRows = indexedRuntimeEvents(prefix, "graph-call:" + continuation.graphCallId).filter(
     (event) =>
       event.kind === "construction_intent_selected" &&
       event.runId === continuation.runId &&
@@ -1018,8 +1058,21 @@ export function rehydrateFhContinuationAtPrefix(
   continuation: ReplayContinuationState,
   expected: FhContinuationRehydrationBasis,
   operation: ContinuationPublicOperationAdmission,
+): RehydratedFhContinuationScope | null;
+/** @internal */
+export function rehydrateFhContinuationAtPrefix(
+  prefix: RuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+  expected: FhContinuationRehydrationBasis,
+  operation: ContinuationPublicOperationAdmission,
+): RehydratedFhContinuationScope | null;
+export function rehydrateFhContinuationAtPrefix(
+  prefix: RuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+  expected: FhContinuationRehydrationBasis,
+  operation: ContinuationPublicOperationAdmission,
 ): RehydratedFhContinuationScope | null {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const continuationRef = continuation.continuationRef;
   const operationCoordinate = resolveCurrentContinuationOperationCoordinateAtPrefix(
     prefix,
@@ -1030,7 +1083,7 @@ export function rehydrateFhContinuationAtPrefix(
       kind: "fh_interaction_responded",
     },
   );
-  const opened = events.find(
+  const opened = indexedRuntimeEvents(prefix, "id:" + continuation.openedEventRef).find(
     (event) => event.eventId === continuation.openedEventRef,
   );
   if (
@@ -1235,14 +1288,39 @@ export function prepareContinuationPublicOperation(
   actorRef: string,
   capabilityRef: string,
   basis: PublicOperationAdmissionBasis,
-): PreparedContinuationPublicOperationResult {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+): PreparedContinuationPublicOperationResult;
+/** @internal */
+export function prepareContinuationPublicOperation(
+  prefix: RuntimeEventPrefix,
+  rootInvocation: InvocationAdmission,
+  operation:
+    | "abg.operation.interaction.respond"
+    | "abg.operation.run.continue",
+  continuation: ReplayContinuationState,
+  variant: string,
+  actorRef: string,
+  capabilityRef: string,
+  basis: PublicOperationAdmissionBasis,
+): OwnedPreparedContinuationPublicOperationResult;
+export function prepareContinuationPublicOperation(
+  prefix: RuntimeEventPrefix,
+  rootInvocation: InvocationAdmission,
+  operation:
+    | "abg.operation.interaction.respond"
+    | "abg.operation.run.continue",
+  continuation: ReplayContinuationState,
+  variant: string,
+  actorRef: string,
+  capabilityRef: string,
+  basis: PublicOperationAdmissionBasis,
+): OwnedPreparedContinuationPublicOperationResult {
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const runPrefix = selectValidatedRuntimeEventPrefix(events, {
     runId: continuation.runId,
   });
   const reconstructedContinuation = projectFhContinuations(
     runPrefix,
-    deriveRuntimeEventCalculusProjection(runPrefix),
+    deriveRuntimeHeldFluentProjection(runPrefix),
     prefix,
   ).find((candidate) =>
     candidate.continuationRef === continuation.continuationRef
@@ -1635,6 +1713,12 @@ export interface AdmitFhInteractionHoldInput {
   readonly continuationBasis: RuntimeAdmissionBasis;
 }
 
+/** @internal Same F_H owner, operational plan and staged guard without full output. */
+export type OwnedAdmitFhInteractionHoldInput = Omit<AdmitFhInteractionHoldInput,"pendingPlan"|"selectRouteCandidate"> & {
+  readonly pendingPlan: OwnedPendingInteractionAdmissionPlan | PendingInteractionAdmissionPlan;
+  readonly selectRouteCandidate?: (replay: RuntimeReplayGuard) => TraversalTransitionCandidate;
+};
+
 export interface FhInteractionHoldAdmission {
   readonly kind: "fh_interaction_hold_admission";
   readonly schemaVersion: "5.0.0";
@@ -1649,19 +1733,19 @@ export interface FhInteractionHoldAdmission {
  * HoG supplies the selected route candidate; ABG revalidates every event owner
  * relation and commits the conjunction at one exact durable predecessor.
  */
-export function admitFhInteractionHold(
-  input: Readonly<AdmitFhInteractionHoldInput>,
+/** @internal The existing owner transaction with selected private carriers. */
+export function admitOwnedFhInteractionHold(
+  input: Readonly<OwnedAdmitFhInteractionHoldInput>,
 ): FhInteractionHoldAdmission {
-  const predecessorEvents = readHeldRuntimeEventsAtDurablePrefix(
-    input.store, input.predecessorPrefix,
-  );
+  assertHeldEventStoreAtDurablePrefix(input.store,input.predecessorPrefix);
+  const predecessorPrefix = selectRuntimeEventPrefixFromStore(input.store);
   const cCall = input.pendingPlan.pending.cCall;
   const evidence = input.routeCandidate.transitionClass === "route"
     ? input.routeCandidate.evidence
     : null;
   if (
     input.pendingPlan.expectedPrefixDigest !==
-      runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(predecessorEvents)) ||
+      runtimeEventPrefixDigest(predecessorPrefix) ||
     evidence?.evidenceClass !== "hold" ||
     evidence.cCall.cCallRef !== cCall.cCallRef ||
     sha256Canonical(evidence.result as unknown as JsonValue) !==
@@ -1682,7 +1766,7 @@ export function admitFhInteractionHold(
     input.store,
     input.predecessorPrefix,
     () => {
-      const pending = admitPlannedPendingInteraction(
+      const pending = admitOwnedPlannedPendingInteraction(
         input.store,
         input.graph,
         input.graphFunction,
@@ -1693,12 +1777,9 @@ export function admitFhInteractionHold(
         input.pendingPlan,
         input.pendingBasis,
       );
-      const stagedPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+      const stagedPrefix = selectRuntimeEventPrefixFromStore(input.store);
       const routeCandidate = input.selectRouteCandidate?.(
-        replayValidatedRuntimeEventPrefix(
-          selectValidatedRuntimeEventPrefix(input.store.readAll(), { runId: input.cursor.runId }),
-          stagedPrefix,
-        ),
+        projectRuntimeReplayGuard(selectRuntimeEventPrefixFromAuthority(stagedPrefix,{runId:input.cursor.runId}),stagedPrefix),
       ) ?? input.routeCandidate;
       if (routeCandidate.transitionClass !== "route" ||
           sha256Canonical(routeCandidate.evidence as unknown as JsonValue) !==
@@ -1848,7 +1929,7 @@ export function prepareFhInteractionResponse(
 ): PreparedFhInteractionResponse {
   const operation = publicOperation.operation;
   const prefix = publicOperation.projectedPrefix;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const operationCoordinate = resolvePreparedContinuationOperationCoordinateAtPrefix(
     prefix,
     continuation.continuationRef,
@@ -2032,6 +2113,23 @@ export function deriveFhResumeSuccessorInputAtPrefix(
   executionBasis: ExecutionBasis,
   closureContract: Readonly<ClosureContract>,
   successorCarrier: FhResumeSuccessorCarrier,
+): FhResumeSuccessorInput;
+/** @internal */
+export function deriveFhResumeSuccessorInputAtPrefix(
+  prefix: RuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+  operation: ContinuationPublicOperationAdmission,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorCarrier: FhResumeSuccessorCarrier,
+): FhResumeSuccessorInput;
+export function deriveFhResumeSuccessorInputAtPrefix(
+  prefix: RuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+  operation: ContinuationPublicOperationAdmission,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorCarrier: FhResumeSuccessorCarrier,
 ): FhResumeSuccessorInput {
   return deriveOwnerFhResumeSuccessorInputAtPrefix(
     prefix,
@@ -2055,7 +2153,7 @@ export function prepareFhInteractionResume(
 ): PreparedFhInteractionResume {
   const operation = publicOperation.operation;
   const prefix = publicOperation.projectedPrefix;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const events = runtimeEventBodiesAtPrefix(prefix);
   const operationCoordinate = resolvePreparedContinuationOperationCoordinateAtPrefix(
     prefix,
     continuation.continuationRef,
@@ -2076,7 +2174,7 @@ export function prepareFhInteractionResume(
       inputValueKind: successorInput.inputValueKind,
     },
   );
-  const opened = events.find(
+  const opened = indexedRuntimeEvents(prefix, "id:" + continuation.openedEventRef).find(
     (event) => event.eventId === continuation.openedEventRef,
   );
   const heldCursorValue =
@@ -2280,4 +2378,10 @@ export function commitFhInteractionResumeAtExpectedPrefix(
     ...committed.value,
     successorPrefix: committed.successorPrefix,
   });
+}
+
+export function admitFhInteractionHold(input: Readonly<AdmitFhInteractionHoldInput>): FhInteractionHoldAdmission {
+  const {selectRouteCandidate,...rest}=input;
+  return admitOwnedFhInteractionHold({...rest,...(selectRouteCandidate === undefined ? {} : {
+    selectRouteCandidate: (guard: RuntimeReplayGuard)=>selectRouteCandidate(materializeRuntimeReplayGuard(guard))})});
 }

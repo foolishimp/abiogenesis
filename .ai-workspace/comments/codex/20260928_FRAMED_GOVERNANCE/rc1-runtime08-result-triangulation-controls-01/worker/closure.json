@@ -1,0 +1,39 @@
+{
+  "operationId": "T287_RUNTIME08_RESULT_CONTRACT_TRIANGULATION_01",
+  "status": "CLOSED",
+  "disposition": "bounded author technical diagnosis; no independent GO or implementation authority",
+  "cause": "existing admitted-evidence projection drops ten metadata fields required by qualification result lineage",
+  "decisiveRelation": "projected undefined inputDigest cannot equal schema-required J.source.inputDigest",
+  "canonicalRepairScope": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs (new targeted component regression proposed only)"
+  ],
+  "lawfulReentry": "realization_refactor proposed for separate Root grant",
+  "selectedReadPinCount": 29,
+  "selectedPinnedBytes": 1508679,
+  "installedProjectionOmissionConfirmed": true,
+  "installedQualificationLineageRelationConfirmed": true,
+  "probeCost": {
+    "imports": 0,
+    "componentExecutions": 0,
+    "builds": 0,
+    "tests": 0,
+    "ownerCalls": 0,
+    "resourceOpens": 0,
+    "runtimeEffects": 0,
+    "providerEffects": 0,
+    "sourceOrCandidateWrites": 0
+  },
+  "evidenceLimits": [
+    "original compact candidate body not reconstructed",
+    "earlier bool conjuncts not instrumented",
+    "other possible candidate faults not excluded",
+    "component/regression acceptance checks proposed, not executed",
+    "downstream original J/F11/AF22 and semantic qualification remain open"
+  ],
+  "immutableRuntimeFreeze": {
+    "bytes": 20126,
+    "sha256": "e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708"
+  },
+  "stop": "No further writes after this frozen return. Root selects any next operation."
+}

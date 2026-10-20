@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "frozenCuts": {
+    "final-candidate-construction-01": {
+      "freezeSHA256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f",
+      "verifiedRecords": 16732,
+      "mismatches": [],
+      "excluded": []
+    },
+    "final-qualification-inputs-01": {
+      "freezeSHA256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe",
+      "verifiedRecords": 46,
+      "mismatches": [],
+      "excluded": []
+    },
+    "final-native-setup-01": {
+      "freezeSHA256": "2696a00bda621be6aedca8fd32483e810d6e48d90f546ea75c66f082af4690bb",
+      "verifiedRecords": 5948,
+      "mismatches": [],
+      "excluded": [
+        {
+          "path": "resources/events/runtime.events.jsonl",
+          "reason": "original runtime resource not accessed in this source/component grant"
+        }
+      ]
+    },
+    "final-native-setup-02": {
+      "freezeSHA256": "098f847543752e5d69efa4bd86ce36490a79fd34c707bffa2237a5275d5d2fbf",
+      "verifiedRecords": 62,
+      "mismatches": [],
+      "excluded": []
+    }
+  },
+  "selectedAuthorityRecordsUnchanged": true,
+  "runtimeResourceOperations": 0,
+  "F11": "No read/write/qualification operation; parallel Root-owned review is separate",
+  "sourceWrites": "Only the three attributed grant paths; no canonical generated writes",
+  "privateCopies": "Component copies and emitted output remain wholly in this evidence territory"
+}

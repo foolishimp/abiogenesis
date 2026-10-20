@@ -1,0 +1,49 @@
+{
+  "actualActor": "/root/s03_phase_b",
+  "activation": "T287_FINAL_NATIVE_CONTINUATION_04",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "sessionRoute": "../final-f11-session-correspondence-03/s03_phase_b-session-metadata.json",
+  "profile": "Astra/xhigh as Root-selected; session metadata has no modelProfile assertion",
+  "grantSHA256": "2755f3746b50abe623dafe64c5273b854316a552a4a75e44c9dd6c5f557add7c",
+  "newControlBodies": [
+    {
+      "path": "prepare.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8074,
+      "sha256": "2f79ea9003074225126becb850d6256cdf880a158d4e1df9bda6c289fd236a88"
+    },
+    {
+      "path": "owner-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9469,
+      "sha256": "a0f54b19fc3fdb562b5f4e22f8dd93b94cd79efa1c9939ab271365a6e086a868"
+    },
+    {
+      "path": "driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10955,
+      "sha256": "c1b2aab1b26778086c9a8cfd20cf016f2dc247d716c57ae1b3c94c9299978409"
+    },
+    {
+      "path": "observe-retained.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1863,
+      "sha256": "d343e0150cf2b812d5079abae5dac1aec4717c88616e1e9a1379cd7674e7e316"
+    },
+    {
+      "path": "close.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15179,
+      "sha256": "d33a8130a9d5628f4e19a8d75e70b55aa124507dc013e1ce78665eaff447d2b7"
+    }
+  ],
+  "donorCorrection": "donor-preimages.json and donor-control-deltas.patch",
+  "noEditsAfterNativeLaunch": "pre-effect-input-freeze.json records remain exact",
+  "afterFailure": "Read-only extraction/current owner projection and immutable conservation; no corrected proof-consumer/native retry",
+  "qualificationAndIndependence": "No Product-owner qualification or independent assurance implied"
+}

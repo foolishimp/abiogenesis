@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-09T09:44:46.075453Z",
+  "status": "NORMAL_CLOSE_BEFORE_LATER_FATAL_PREPARATION_ABORT",
+  "entryHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "actualFinalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "actualOwnerCloseReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/final-resource-receipt.json",
+    "sha256": "48decc0d84290b6f2813814a8a5ca753db8a26394c0e4c251c5b73ca9658a85f",
+    "byteCount": 2488
+  },
+  "sameEntireEntryHandoff": true,
+  "logStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1690085978,
+    "mtimeNs": "1791531873723955484",
+    "manualLogReadHashOrReparse": false
+  },
+  "entryAfterLogStatExact": true,
+  "manualLogHashOrRead": false,
+  "newPublicAdmissions": 0,
+  "existing185CoverAuthenticationCount": 104,
+  "directCurrentUse": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/current-source-use.json",
+    "sha256": "8f7f28fb8bdba8ffd4a3e314706fe7b22a658274cf8a58639e2d7e05b072399d",
+    "byteCount": 4702
+  },
+  "callbackReturn": "NOT_OBSERVED_FATAL_ABORT",
+  "physicalConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/physical-conservation.json",
+    "sha256": "3192b90ac575b38d2d04b90c2789c09c5dd83b61c172acc6a6655a0923a13e2c",
+    "byteCount": 14199
+  },
+  "selectedLock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "absent": true
+  },
+  "ownedProcesses": [
+    {
+      "pid": 80440,
+      "status": "ESRCH"
+    },
+    {
+      "pid": 80442,
+      "status": "ESRCH"
+    }
+  ],
+  "ownedGroups": [
+    {
+      "pgid": 80440,
+      "status": "ESRCH"
+    },
+    {
+      "pgid": 80442,
+      "status": "ESRCH"
+    }
+  ],
+  "operatorSignals": [],
+  "recoveryOrRetry": false,
+  "nativeRunModelAppSourceGitEffects": false
+}

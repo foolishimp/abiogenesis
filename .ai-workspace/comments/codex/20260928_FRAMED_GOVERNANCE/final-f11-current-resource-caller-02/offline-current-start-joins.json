@@ -1,0 +1,287 @@
+{
+  "kind": "prepared_product_run_invocation",
+  "policy": {
+    "kind": "invocation_policy_basis",
+    "schemaVersion": "5.0.0",
+    "policyRef": "invocation-policy://abiogenesis/root/cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee",
+    "policyDigest": "sha256:cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee",
+    "authorityMode": "trusted_developer",
+    "authorityBasisId": "workspace-authority://abiogenesis/69c180969cdabaca5611691c974387bc742097fd825de00f91864f8ae0757999",
+    "authorityBasisDigest": "sha256:69c180969cdabaca5611691c974387bc742097fd825de00f91864f8ae0757999",
+    "authorizedActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+    "workspaceBindingId": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+    "workspaceBindingDigest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+    "programRef": "program://abiogenesis/qualification/assess@5",
+    "programDigest": "sha256:3f9084d8afd766feddab62677c25ba55be25ce1ee888f62ef145af70103ff730",
+    "allowedComputeRegimes": [
+      "F_P"
+    ],
+    "interactionCapabilities": [],
+    "catalogApplicationRefs": [],
+    "catalogApplicationDigests": [],
+    "graphMaterialization": "after_invocation_admission"
+  },
+  "grants": [
+    {
+      "kind": "capability_grant",
+      "schemaVersion": "5.0.0",
+      "grantRef": "capability-grant://abiogenesis/70433d6b74e0abf87599fba4b3734594a6da7542565af8b2855d88bbf4895a51",
+      "grantDigest": "sha256:70433d6b74e0abf87599fba4b3734594a6da7542565af8b2855d88bbf4895a51",
+      "definitionKey": {
+        "operationId": "abg.operation.run.invoke",
+        "memberKey": "start"
+      },
+      "definitionRef": "public-function://abiogenesis/run/invoke/start@5",
+      "definitionDigest": "sha256:6652d6863a66cf6934c907c20a02f1e2b45c44bf933ab902ec8c4ee7a223a8dc",
+      "capabilityDefinition": {
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0",
+        "graphDigest": "sha256:de101d5a7a5dfd12d8948e4764beb0a7a1152ff1a081de6c049e0b23b726eeeb",
+        "capabilityId": "abg.capability.catalog.invoke-graph-function@5",
+        "capabilityDefinitionRef": "capability-definition://abiogenesis/f9cec5f6f7e5d09e0130929c811ce3d9474a6d6bfd88240a7f7c16f0535d681b",
+        "capabilityDefinitionDigest": "sha256:f9cec5f6f7e5d09e0130929c811ce3d9474a6d6bfd88240a7f7c16f0535d681b"
+      },
+      "operationContract": {
+        "contractCatalog": {
+          "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+          "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+          "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:82d5e747b6ac658a4c2e73e2df474d1cb53be68932275b9201d3b67fb47fb0c1"
+        },
+        "flatRow": {
+          "contractId": "abg.operation.run.invoke",
+          "contractVersion": "5.0.0",
+          "contractDigest": "sha256:01570f4e80da5cd4db5b00b7bafe863240b9ffc390568ffe372160a0c78bc5ce"
+        },
+        "nestedSelector": {
+          "selectorKind": "flat_contract",
+          "definitionKey": null,
+          "slot": null,
+          "definitionRef": null
+        }
+      },
+      "operationId": "abg.operation.run.invoke",
+      "capabilityRef": "abg.capability.catalog.invoke-graph-function@5",
+      "actorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+      "approvalRef": "workspace-authority://abiogenesis/69c180969cdabaca5611691c974387bc742097fd825de00f91864f8ae0757999",
+      "approvalDigest": "sha256:69c180969cdabaca5611691c974387bc742097fd825de00f91864f8ae0757999",
+      "policyRef": "invocation-policy://abiogenesis/root/cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee",
+      "policyDigest": "sha256:cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee",
+      "scopeRef": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+      "scopeDigest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+      "authorityBasisRef": "workspace-authority://abiogenesis/69c180969cdabaca5611691c974387bc742097fd825de00f91864f8ae0757999",
+      "authorityBasisDigest": "sha256:69c180969cdabaca5611691c974387bc742097fd825de00f91864f8ae0757999"
+    }
+  ],
+  "authority": {
+    "kind": "invocation_authority",
+    "schemaVersion": "5.0.0",
+    "authorityRef": "invocation-authority://abiogenesis/2f18c80315a39b68de3c200cc7c269b03191bf352ed984bae9ee114169a7a7e0",
+    "authorityDigest": "sha256:2f18c80315a39b68de3c200cc7c269b03191bf352ed984bae9ee114169a7a7e0",
+    "actorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+    "operationId": "abg.operation.run.invoke",
+    "workspaceBindingId": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+    "workspaceBindingDigest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+    "catalogBasisDigest": "sha256:1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907",
+    "catalogViewDigest": "sha256:051d6da8ddcf2774553c17344358deac021b0ede4c6f8674d1c66cb7edabf273",
+    "programRef": "program://abiogenesis/qualification/assess@5",
+    "catalogHandle": "graph-function://abiogenesis/qualification/assess@5",
+    "selectedDefinitionRef": "graph-function://abiogenesis/qualification/assess@5",
+    "selectedDefinitionDigest": "sha256:e5148fd17ef65e688f6c1308032f00568a3be663dbd31e50a57744fbc7b6b8a8",
+    "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+    "policyRef": "invocation-policy://abiogenesis/root/cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee",
+    "policyDigest": "sha256:cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee",
+    "capabilityGrantRefs": [
+      "capability-grant://abiogenesis/70433d6b74e0abf87599fba4b3734594a6da7542565af8b2855d88bbf4895a51"
+    ]
+  },
+  "definitionKey": {
+    "operationId": "abg.operation.run.invoke",
+    "memberKey": "start"
+  },
+  "requestContract": {
+    "contractCatalog": {
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+      "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+      "catalogVersion": "5.0.0",
+      "catalogDigest": "sha256:82d5e747b6ac658a4c2e73e2df474d1cb53be68932275b9201d3b67fb47fb0c1"
+    },
+    "flatRow": {
+      "contractId": "abg.operation.run.invoke",
+      "contractVersion": "5.0.0",
+      "contractDigest": "sha256:01570f4e80da5cd4db5b00b7bafe863240b9ffc390568ffe372160a0c78bc5ce"
+    },
+    "nestedSelector": {
+      "selectorKind": "operation_definition_slot",
+      "definitionKey": {
+        "operationId": "abg.operation.run.invoke",
+        "memberKey": "start"
+      },
+      "slot": "request",
+      "definitionRef": "#/definitions/1/requestContract/identity"
+    }
+  },
+  "request": {
+    "program": {
+      "ref": "program://abiogenesis/qualification/assess@5",
+      "digest": "sha256:3f9084d8afd766feddab62677c25ba55be25ce1ee888f62ef145af70103ff730"
+    },
+    "scope": "program",
+    "target": {
+      "kind": "graph_function",
+      "handle": "graph-function://abiogenesis/qualification/assess@5"
+    },
+    "until": "converged",
+    "catalogView": {
+      "ref": "graph-function-catalog-view://abiogenesis/051d6da8ddcf2774553c17344358deac021b0ede4c6f8674d1c66cb7edabf273",
+      "digest": "sha256:051d6da8ddcf2774553c17344358deac021b0ede4c6f8674d1c66cb7edabf273"
+    },
+    "allowlist": [
+      "graph-function://abiogenesis/qualification/assess@5"
+    ],
+    "input": {
+      "contract": {
+        "ref": "contract://abiogenesis/qualification/assessment-input@5",
+        "digest": "sha256:832cdfce79ef97e3c66eec34d7b8e3e22d651f66338a690bd1a46a317eafffd1"
+      },
+      "valueRef": "input://abiogenesis/t287/final-f11-current-resource-caller-02/assess-rule",
+      "valueDigest": "sha256:a1bdf000af5f0857a1facc3f4d434a8452b0e094b0266ab81fb656eb94c19a7b"
+    },
+    "fhMode": "direct",
+    "rootMode": "direct",
+    "sourceBasis": {
+      "kind": "none"
+    }
+  },
+  "authoritySlots": {
+    "workspace_binding": {
+      "ref": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+      "digest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8"
+    },
+    "product_set": [
+      {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+        "digest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124"
+      }
+    ],
+    "dependency_lock": {
+      "ref": "product-lock://abiogenesis/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+      "digest": "sha256:669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695"
+    },
+    "catalog_scope": {
+      "catalog": {
+        "ref": "graph-function-catalog://abiogenesis/1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907",
+        "digest": "sha256:1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907"
+      },
+      "view": {
+        "ref": "graph-function-catalog-view://abiogenesis/051d6da8ddcf2774553c17344358deac021b0ede4c6f8674d1c66cb7edabf273",
+        "digest": "sha256:051d6da8ddcf2774553c17344358deac021b0ede4c6f8674d1c66cb7edabf273"
+      },
+      "allowlist": [
+        "graph-function://abiogenesis/qualification/assess@5"
+      ]
+    },
+    "execution_program": {
+      "ref": "program://abiogenesis/qualification/assess@5",
+      "digest": "sha256:3f9084d8afd766feddab62677c25ba55be25ce1ee888f62ef145af70103ff730"
+    },
+    "graph_function": {
+      "graphFunction": {
+        "ref": "graph-function://abiogenesis/qualification/assess@5",
+        "digest": "sha256:e5148fd17ef65e688f6c1308032f00568a3be663dbd31e50a57744fbc7b6b8a8"
+      },
+      "membership": {
+        "ref": "program-graph-function-membership://abiogenesis/98cdbe798efc7cd7e0ce35a000eed29667e6c78249452c4bf7455d49c45a89ee",
+        "digest": "sha256:98cdbe798efc7cd7e0ce35a000eed29667e6c78249452c4bf7455d49c45a89ee"
+      }
+    },
+    "input_contract": {
+      "contract": {
+        "ref": "contract://abiogenesis/qualification/assessment-input@5",
+        "digest": "sha256:832cdfce79ef97e3c66eec34d7b8e3e22d651f66338a690bd1a46a317eafffd1"
+      },
+      "valueRef": "input://abiogenesis/t287/final-f11-current-resource-caller-02/assess-rule",
+      "valueDigest": "sha256:a1bdf000af5f0857a1facc3f4d434a8452b0e094b0266ab81fb656eb94c19a7b"
+    },
+    "session_policy": {
+      "ref": "invocation-policy://abiogenesis/root/cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee",
+      "digest": "sha256:cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee"
+    },
+    "capability_grants": {
+      "requiredCapabilityRefs": [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.runtime.execute-seven-term-c@5"
+      ],
+      "grants": [
+        {
+          "ref": "capability-grant://abiogenesis/70433d6b74e0abf87599fba4b3734594a6da7542565af8b2855d88bbf4895a51",
+          "digest": "sha256:70433d6b74e0abf87599fba4b3734594a6da7542565af8b2855d88bbf4895a51"
+        }
+      ]
+    },
+    "actor": {
+      "actor": {
+        "ref": "actor://abiogenesis/t287/final-native-setup-03/operator",
+        "digest": "sha256:1c254ee99f1017108218655d41a84e93ce2f8f60a60436fd6b87f052e0dc7a70"
+      },
+      "attribution": {
+        "ref": "invocation-authority://abiogenesis/2f18c80315a39b68de3c200cc7c269b03191bf352ed984bae9ee114169a7a7e0",
+        "digest": "sha256:2f18c80315a39b68de3c200cc7c269b03191bf352ed984bae9ee114169a7a7e0"
+      }
+    },
+    "transport_steering": {
+      "ref": "transport-steering://abiogenesis/9447dd846dda74454058f57569bde8b836a4ccc4ed848cf53139769c12ca696a",
+      "digest": "sha256:9447dd846dda74454058f57569bde8b836a4ccc4ed848cf53139769c12ca696a"
+    },
+    "verification_references": null,
+    "execution_basis": null
+  },
+  "currentEventResource": {
+    "kind": "reopen_abg_event_resource",
+    "schemaVersion": "5.0.0",
+    "closeHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+        "prefixLength": 73530699,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464012478
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:9ddd349aa0ff342576ba5e35f4ef6bb607ff1be13ad3077e04631b7072779e4b",
+        "device": 16777230,
+        "durableByteLength": 73530699,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+        "inode": 464012478,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    "handoffDigest": "sha256:a9ac148380501c553916c468dfb17aa2ec2052efa043c567564f4fe35b9c1c89"
+  },
+  "invocationRef": "invocation://abiogenesis/42aa6657c767ef4761222020c06a7a7ee98a4a8fb69ab85eac979b0b6c5db9b3",
+  "inputDigest": "sha256:a1bdf000af5f0857a1facc3f4d434a8452b0e094b0266ab81fb656eb94c19a7b",
+  "task": {
+    "ref": "qualification-task://abiogenesis/acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85",
+    "digest": "sha256:acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85"
+  },
+  "plan": {
+    "ref": "qualification-plan://abiogenesis/c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98",
+    "digest": "sha256:c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98"
+  },
+  "programDigest": "sha256:3f9084d8afd766feddab62677c25ba55be25ce1ee888f62ef145af70103ff730",
+  "rootActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "inputPayload": "Unchanged frozen input; referenced without copying/restaging or rewriting full render",
+  "runEnvironment": "absent",
+  "verification": "Retained genuine verification coordinate; live same-process nominal verification remains a later effect."
+}

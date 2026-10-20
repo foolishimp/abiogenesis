@@ -1,0 +1,19 @@
+{
+  "evaluationActivation": "T287_F11_DESIGN_INDEPENDENT_REVIEW_01",
+  "evaluationActor": "/root/f11_binding_plan",
+  "evaluationRole": "Reviewer",
+  "reportActivation": "T287_F11_DESIGN_REVIEW_REPORT_01",
+  "reportRole": "Writer",
+  "timestamp": "2026-10-01T19:15:27.197918+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-and-law-review-controls-01/design-request.txt",
+    "bytes": 3708,
+    "sha256": "08de08cc4f06504a81506090ea66281c4526d925e7da8ee04e67638f7d23e640"
+  },
+  "effects": "Only new report metadata, review prose and freeze in this territory; all source/design/old cuts read-only",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-resource-design-review-01",
+  "independence": "Reviewer did not author this carrier HOW; own law repair source assurance explicitly excluded",
+  "nativeCalls": 0,
+  "tests": 0,
+  "repairEffects": 0
+}

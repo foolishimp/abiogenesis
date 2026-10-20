@@ -1,0 +1,867 @@
+--- a/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ b/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -210,6 +210,21 @@
+ presence nor successful child closure establish the outcome. Unknown required
+ inputs refuse before launch; original task/authority and unresolved support stay
+ conserved through every mapping, choice and fold.
++
++**Selected native material lifetime (library lifecycle increment235):** the
++existing `governance_work_state` and its full original, observations and current
++judgment keep their declared logical meaning and identities. Native preparation
++consumes the authenticated Event Store selection for its exact prefix, input,
++CCall and retained producer, not a receipt retaining every decoded historical
++Event. The same selected owner relation supplies the bounded task, required role
++material, assembly and admission checks. Indexed reads acquire the particular
++Result/actor bodies that those checks consume; unrelated history is not prompt
++material. Original criteria, current contribution, unresolved outcomes, failed
++command facts and literal byte-range citations remain available. This changes
++private realization only: no observation is relabeled, no independent judgment
++is supplied by a digest, and plain historical records retain their existing
++authentication and complete readback. Full source material is acquired when its
++actual consumer requires it and released after that operation.
+ 
+ ### DL-I02: selected subject evidence and supplied work
+ 
+--- a/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
++++ b/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
+@@ -204,6 +204,27 @@
+ graph-function selection. There is no product-local prompt-loader, file scan,
+ local registry, or parallel selection path.
+ 
++### Current native binding and material lifetime
++
++The existing native-basis owner may consume the Event Store's distinct private
++owned-prefix selection instead of retaining a complete decoded Event array.
++It authenticates the same execution, graph, CCall, cursor, input, implementation,
++environment and predecessor coordinate through their defining owners. Native
++assembly, declared-role projection, actor admission and liveness consume that
++actual relation and explicitly selected bodies. It is a disposable realization
++of the current cut, never a partial Public prefix or a new source of authority.
++Copied/plain historical bases keep their ordinary durable authentication path.
++
++One prepared attempt passes its actual bound material to dispatch and response
++admission; neither consumer reconstructs a second assembly merely to cross the
++internal boundary. The complete logical assembly remains inspectable, with
++unchanged prompt bytes, canonical/carrier schemas, plan/envelope/manifest
++digests, task scope, source qualification and native binder. Any shared physical
++body representation is owned by the existing Event Store codec and must recover
++those same plain logical values, including old admitted records. A location or
++digest alone cannot replace required content. No Proxy/getter body, alternate
++renderer, live-cache authority or new quota is introduced.
++
+ ## Candidate Design Surfaces
+ 
+ | Candidate | Prime status | Rationale |
+--- a/code/src/abg/default_library.ts
++++ b/code/src/abg/default_library.ts
+@@ -4,7 +4,7 @@
+ import { isDeepStrictEqual as same } from "node:util";
+ import { resolve } from "node:path";
+ import { pathToFileURL } from "node:url";
+-import { authenticateNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
++import { authenticateOwnedNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+ import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,
+   hasAdmittedGovernanceCoveredSourceUse } from "./invocation_execution_truth.js";
+ import { indexedRuntimeEvents } from "./event_prefix.js";
+@@ -29,7 +29,7 @@
+ const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
+ const asJson = (x: unknown) => x as Readonly<Record<string, JsonValue>>;
+ function owner(basis: NativeInstructionAssemblyBasis, input: unknown) {
+-  const owned = authenticateNativeInstructionAssemblyBasis(basis);
++  const owned = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+   if (owned === null || !same(owned.inputValue, input) || !GOVERNANCE_IMPLEMENTATION_REFS.includes(owned.call.implementationRef ?? "") || owned.environment.kind !== "exact_prefix_workspace_environment") return null;
+   const invocation = projectExactInvocationAdmissionAtPrefix(owned.prefix, owned.execution.invocationAdmissionRef);
+   if (invocation === null || invocation.capabilityGrants.length !== 1) return null;
+--- a/code/src/abg/instruction_assembly.ts
++++ b/code/src/abg/instruction_assembly.ts
+@@ -18,14 +18,15 @@
+ import { deepFreeze } from "../shared/immutable.js";
+ import { admitIJsonText } from "../shared/i_json.js";
+ import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
++import { indexedRuntimeEvents } from "./event_prefix.js";
+ import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+ import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
+ import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope, type SemanticEvidenceInput } from "../product/semantic_stage.js";
+ import { isWorksiteCommandExecutionObservation, isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
+ import { authenticateSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
+ import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
+-import { projectRunEnvironmentRoleEvidence } from "./stdo_environment.js";
+-import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
++import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
++import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+ import { nativeContextLeafFamily, registeredSelectionNativeRole, framedSynthesisAtLocus, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
+ import { registeredSelectionTargets } from "../gtl/registered_selection.js";
+ import { isNativeRegisteredSelectionTask, nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
+@@ -57,7 +58,7 @@
+ }
+ 
+ type AssemblyIdentity = Pick<NativeInstructionAssembly, "planRef" | "planDigest" | "plan" | "envelope" | "envelopeDigest">;
+-type AssemblyOwner = Pick<NonNullable<ReturnType<typeof authenticateNativeInstructionAssemblyBasis>>,
++type AssemblyOwner = Pick<NonNullable<ReturnType<typeof authenticateOwnedNativeInstructionAssemblyBasis>>,
+   "call" | "execution" | "inputRef" | "inputDigest">;
+ 
+ /** Pure bookkeeping after each branch establishes its own selection and content. */
+@@ -110,7 +111,7 @@
+ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis,
+   supplied: unknown): Readonly<NativeInstructionAssembly> | null {
+   try {
+-    const owner = authenticateNativeInstructionAssemblyBasis(basis);
++    const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+     if (owner === null || owner.call.regime !== "F_P" ||
+       sha256Canonical(supplied as JsonValue) !== owner.inputDigest ||
+       sha256Canonical(owner.inputValue as JsonValue) !== sha256Canonical(supplied as JsonValue)) return null;
+@@ -120,7 +121,7 @@
+         !basis.graphFunction.effects.includes(nativeIds.effectUri)) return null;
+       const assessment = supplied.assessment;
+       const selectedRole = assessment === undefined ? "constructor" : "assessor";
+-      const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef,
++      const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef,
+         basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, selectedRole);
+       if (stdo === false || (assessment !== undefined && stdo === null) ||
+         stdo !== null && !(stdo.contextPolicy.selectors as readonly string[]).includes("current_worksite")) return null;
+@@ -160,7 +161,7 @@
+     if (leaves.length !== 1) return null;
+     const role = nativeContextLeafFamily(basis.graphFunction, leaves[0]!);
+     if (role !== "constructor" && role !== "command_executor") return null;
+-    const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef,
++    const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef,
+       basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, role);
+     if (stdo === null || stdo === false) return null;
+     const requiredSelectors = role === "constructor" ? ["full_source", "declared_predecessor_semantics", "active_binding_semantics", "current_worksite"]
+@@ -222,7 +223,7 @@
+ }
+ 
+ /** Existing selector identity shared by preparation, persistence and cold replay. */
+-function selectorRunEnvironmentIdentity(role: Exclude<ReturnType<typeof projectRunEnvironmentRoleEvidence>, null | false>) {
++function selectorRunEnvironmentIdentity(role: Exclude<ReturnType<typeof projectRunEnvironmentRoleEvidenceAtPrefix>, null | false>) {
+   return { invocationAdmissionRef: role.invocationAdmissionRef, environmentRef: role.environmentRef,
+     environmentDigest: role.environmentDigest, evidenceDigest: role.evidenceDigest, frameRefs: role.frameRefs,
+     policyRef: role.policy.policyRef, policyDigest: role.policy.digest, contextPolicyDigest: role.contextPolicyDigest };
+@@ -237,12 +238,12 @@
+     const selected = registeredSelectionNativeRole(basis.publication, basis.executionBasis.programRef, basis.graphFunction, basis.cCall.programLocusRef);
+     if (selected === null) return refusal("unsupported_selection");
+     if (selected === false) return refusal("unknown_dependency", [basis.executionBasis.programRef]);
+-    const owner = authenticateNativeInstructionAssemblyBasis(basis);
++    const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+     if (owner === null || owner.call.regime !== "F_P" || sha256Canonical(supplied as JsonValue) !== owner.inputDigest) return refusal("stale_basis");
+     if (!isNativeRegisteredSelectionTask(supplied)) return refusal("unavailable_required_content", [owner.call.inputContractRef]);
+     const domain = registeredSelectionTargets(owner.graph.template, basis.cursor, owner.call.outputContractRef);
+     if (domain === null || domain.targets.length === 0 || supplied.childInput.contractRef !== domain.application.outputContractRef) return refusal("unsupported_selection");
+-    const role = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef,
++    const role = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef,
+       basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, "selector");
+     if (role === null || role === false) return refusal("unknown_dependency", [owner.execution.programRef]);
+     if (!["full_source", "active_binding_semantics"].every(s => (role.contextPolicy.selectors as readonly string[]).includes(s)) ||
+@@ -308,9 +309,9 @@
+   const selected = framedSynthesisNativeRole(basis.publication, basis.executionBasis.programRef, basis.graphFunction, basis.cCall.programLocusRef);
+   const profile = framedSynthesisAtLocus(basis.graphFunction, basis.cCall.programLocusRef);
+   if (!selected || !profile || !isFramedSynthesisTask(input)) return null;
+-  const owner = authenticateNativeInstructionAssemblyBasis(basis);
++  const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+   if (owner === null || !sameSynthesis(owner.inputValue, input)) return null;
+-  const role = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef,
++  const role = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef,
+     basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, "selector");
+   if (!role || !["full_source", "active_binding_semantics"].every(s => (role.contextPolicy.selectors as readonly string[]).includes(s)) ||
+     role.contextPolicy.selectors.some(s => !["full_source", "active_binding_semantics"].includes(s))) return null;
+@@ -427,13 +428,13 @@
+     if (selected === null) return true;
+     if (selected === false || candidate.publication === undefined) return false;
+     const basis = candidate as NativeInstructionAssemblyBasis;
+-    const owner = authenticateNativeInstructionAssemblyBasis(basis);
++    const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+     if (owner === null || !isNativeRegisteredSelectionTask(input)) return false;
+-    const observations = owner.events.filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
++    const observations = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
+     if (observations.length !== 1) return false;
+     const observed = observations[0]!.payload as Readonly<Record<string, JsonValue>>;
+-    const bindings = owner.events.filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observed.transportBindingRef);
+-    const closes = owner.events.filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === observed.actorInvocationRef);
++    const bindings = indexedRuntimeEvents(owner.prefix, "related:" + observed.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observed.transportBindingRef);
++    const closes = indexedRuntimeEvents(owner.prefix, "related:" + observed.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === observed.actorInvocationRef);
+     if (bindings.length !== 1 || closes.length !== 1 || observed.disposition !== "success" || observed.toolCallCount !== 0 ||
+       typeof observed.finalOutput !== "string" || (closes[0]!.payload as Readonly<Record<string, JsonValue>>).consumedArtifactEventRef !== observations[0]!.eventId) return false;
+     const stored = (bindings[0]!.payload as Readonly<Record<string, JsonValue>>).instructionAssembly as unknown as NativeInstructionAssembly;
+@@ -570,7 +571,7 @@
+       : current?.stageRef !== stage.declarationRef || current.assessment !== null)
+       return assemblyRefusal("unknown_dependency", policy, role, [stage.declarationRef]);
+     const schema = semanticWorkerResultSchema(owner.role, stage.bodyCapabilities);
+-    const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef,
++    const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef,
+       basis.publication, owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, owner.role);
+     if (stdo === false) return assemblyRefusal("unavailable_required_content", policy, role, [owner.execution.invocationAdmissionRef]);
+     if (stdo !== null && (selectedNativeContextRole(basis, owner.call.programLocusRef) !== owner.role ||
+@@ -702,7 +703,7 @@
+   // actual C2 snapshots are the current evidence, never re-labelled context.
+   if (revision === null && readPhysical && input.evidence === null && input.context !== null && content !== "not_required" && !semanticJobContextCurrent(basis, input))
+     return assemblyRefusal("stale_basis", stage.assembly.ruleRef, owner.role, [input.context.observationRef]);
+-  const stdo = projectRunEnvironmentRoleEvidence(owner.events, owner.execution.invocationAdmissionRef, basis.publication,
++  const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef, basis.publication,
+     owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, owner.role);
+   if (stdo === false || stdo !== null && selectedNativeContextRole(basis, owner.call.programLocusRef) !== owner.role)
+     return assemblyRefusal("unavailable_required_content", stage.assembly.ruleRef, owner.role, [owner.execution.invocationAdmissionRef]);
+@@ -1033,7 +1034,7 @@
+   const nativePhase = native === undefined ? undefined : native.construction === null ? "preconstruction" : "postconstruction";
+   const operationalFailure = "operationalFailure" in subject ? subject.operationalFailure : null;
+   const schema = semanticRevisionSelectionSchema(nativePhase);
+-  const stdo = projectRunEnvironmentRoleEvidence(owner.events,owner.execution.invocationAdmissionRef,basis.publication,owner.execution.programRef,owner.call.graphFunctionRef,owner.call.programLocusRef,"assessor");
++  const stdo = projectRunEnvironmentRoleEvidenceAtPrefix(owner.prefix,owner.execution.invocationAdmissionRef,basis.publication,owner.execution.programRef,owner.call.graphFunctionRef,owner.call.programLocusRef,"assessor");
+   if (stdo === false || stdo !== null && selectedNativeContextRole(basis,owner.call.programLocusRef) !== "assessor") return null;
+   const sectionOrder = ["role", "source", "obligations", "predecessors", "worksite", "evidence", "task", "response"];
+   const currentWorksite = subject.currentWorksite, currentWorksiteDigest = currentWorksite === null ? null : sha256Canonical(currentWorksite as unknown as JsonValue);
+@@ -1096,11 +1097,11 @@
+       ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+     if (owner?.call.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef) {
+       if (!isSemanticRevisionSelection(output)) return false;
+-      const rows = owner.events.filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
++      const rows = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
+       if (rows.length !== 1) return false;
+       const o = rows[0]!.payload as Readonly<Record<string, JsonValue>>;
+-      const bindings = owner.events.filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === o.transportBindingRef);
+-      const closes = owner.events.filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === o.actorInvocationRef);
++      const bindings = indexedRuntimeEvents(owner.prefix, "related:" + o.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === o.transportBindingRef);
++      const closes = indexedRuntimeEvents(owner.prefix, "related:" + o.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === o.actorInvocationRef);
+       if (bindings.length !== 1 || closes.length !== 1 || o.disposition !== "success" || o.toolCallCount !== 0 || typeof o.finalOutput !== "string" ||
+         sha256Canonical(JSON.parse(o.finalOutput)) !== sha256Canonical(output as unknown as JsonValue)) return false;
+       const stored = (bindings[0]!.payload as Readonly<Record<string, JsonValue>>).instructionAssembly as unknown as NativeInstructionAssembly;
+@@ -1116,11 +1117,11 @@
+     const source = owner.role === "author" ? asset?.source : asset?.assessment?.source;
+     const candidate = owner.role === "author" ? asset?.candidate : asset?.assessment?.candidate;
+     if (source === undefined) return false;
+-    const rows = owner.events.filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
++    const rows = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
+     if (rows.length !== 1) return false;
+     const observation = rows[0]!.payload as Readonly<Record<string, JsonValue>>;
+-    const bindings = owner.events.filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observation.transportBindingRef);
+-    const closes = owner.events.filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === source.actorInvocationRef);
++    const bindings = indexedRuntimeEvents(owner.prefix, "related:" + observation.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observation.transportBindingRef);
++    const closes = indexedRuntimeEvents(owner.prefix, "related:" + source.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === source.actorInvocationRef);
+     if (bindings.length !== 1 || closes.length !== 1 || observation.actorInvocationRef !== source.actorInvocationRef ||
+       observation.promptDigest !== source.promptDigest || observation.transportDigest !== source.transportDigest ||
+       observation.toolCallCount !== 0 || observation.disposition !== "success" || typeof observation.finalOutput !== "string") return false;
+--- a/code/src/abg/actor_process.ts
++++ b/code/src/abg/actor_process.ts
+@@ -1,7 +1,7 @@
+ import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+ import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+ import { constructNativeInstructionAssembly, constructDeclaredNativeInstructionAssembly, requireNativeInstructionAssembly, requireDeclaredNativeInstructionAssembly, type NativeInstructionAssembly } from "./instruction_assembly.js";
+-import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
++import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+ import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
+ import { isNativeWorkspaceWorkTask, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
+ import { semanticInputValueAtBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
+@@ -33,11 +33,12 @@
+   type AbgEventStore,
+   type DurablePrefixCoordinate,
+   type RootEventKind,
+-  readRuntimeEventsAtDurablePrefix,
+ } from "./event_store.js";
+ import {
+-  runtimeEventsFromValidatedPrefix,
+-  selectValidatedRuntimeEventPrefix,
++  indexedRuntimeEvents,
++  readOwnedRuntimeEventPrefixAtDurablePrefix,
++  selectRuntimeEventPrefixFromStore,
++  type RuntimeEventPrefix,
+   type ValidatedRuntimeEventPrefix,
+ } from "./event_prefix.js";
+ import type { OpenedTraversalScope } from "./open_call.js";
+@@ -582,9 +583,17 @@
+ export function projectActorProcessLifecycle(
+   prefix: ValidatedRuntimeEventPrefix,
+   actorInvocationRef: string,
++): ActorProcessLifecycleProjection;
++/** @internal */
++export function projectActorProcessLifecycle(
++  prefix: RuntimeEventPrefix,
++  actorInvocationRef: string,
++): ActorProcessLifecycleProjection;
++export function projectActorProcessLifecycle(
++  prefix: RuntimeEventPrefix,
++  actorInvocationRef: string,
+ ): ActorProcessLifecycleProjection {
+-  const events = runtimeEventsFromValidatedPrefix(prefix);
+-  const rows = events.filter((event) =>
++  const rows = indexedRuntimeEvents(prefix, "related:" + actorInvocationRef).filter((event) =>
+     event.aggregateId === actorInvocationRef ||
+     event.parentAggregateId === actorInvocationRef
+   );
+@@ -615,10 +624,8 @@
+     event.kind === "actor_process_termination_unconfirmed"
+   );
+   const processLive = started.length === 1 && processTerminal === undefined;
+-  const runTerminal = events.some((event) =>
+-    event.kind === "run_stopped" ||
+-    (event.kind === "runtime_failure_observed" && event.aggregateType === "run")
+-  );
++  const runTerminal = indexedRuntimeEvents(prefix, "kind:run_stopped").length !== 0 ||
++    indexedRuntimeEvents(prefix, "kind:runtime_failure_observed").some(event => event.aggregateType === "run");
+   const cleanupPending = actorTerminal === undefined &&
+     (processTerminal !== undefined || (runTerminal && started.length === 1));
+   return deepFreeze({
+@@ -797,13 +804,13 @@
+     input.request.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.authorImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.assessorImplementationRef;
+   const semanticBasis = input.occurrence.semanticStageBasis;
+   const worksiteBasis = input.occurrence.nativeInstructionAssemblyBasis;
+-  const worksiteOwner = worksiteBasis === undefined ? null : authenticateNativeInstructionAssemblyBasis(worksiteBasis);
++  const worksiteOwner = worksiteBasis === undefined ? null : authenticateOwnedNativeInstructionAssemblyBasis(worksiteBasis);
+   const instructionAssembly = preparedAssembly ?? (semanticCall && semanticBasis !== undefined
+     ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis))
+     : worksiteBasis !== undefined && worksiteOwner !== null
+       ? constructDeclaredNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue, contractByRef) : null);
+-  const invocation = rehydrateInvocationAdmissionAtPrefix(selectValidatedRuntimeEventPrefix(
+-    readRuntimeEventsAtDurablePrefix(predecessorPrefix)), input.executionBasis.invocationAdmissionRef);
++  const invocation = rehydrateInvocationAdmissionAtPrefix(readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix),
++    input.executionBasis.invocationAdmissionRef);
+   const assemblyRequired = semanticCall || invocation?.runEnvironment !== undefined || worksiteBasis !== undefined;
+   if (worksiteOwner !== null && (worksiteOwner.call.cCallRef !== input.cCall.cCallRef ||
+     worksiteOwner.execution.basisRef !== input.executionBasis.basisRef ||
+@@ -1050,7 +1057,7 @@
+   let observedProgressCount = 0;
+   let observedFinalOutput = "";
+   let supervisionInterrupted = false;
+-  const nativeContext = () => projectActorLivenessContext(selectValidatedRuntimeEventPrefix(input.store.readAll()), actorInvocationRef);
++  const nativeContext = () => projectActorLivenessContext(selectRuntimeEventPrefixFromStore(input.store), actorInvocationRef);
+   const probe = (source: RuntimeProbeSource, event: ReturnType<typeof append>, signal: RuntimeProbeObservation["signal"], elapsedMs: number,
+     coverage: RuntimeProbeObservation["coverage"] = "observed") => {
+     if (!currentProfile) return;
+@@ -1081,7 +1088,7 @@
+     if (bytes.length === 0) return;
+     const sourceDigest = sha256Bytes(bytes);
+     const underlyingObservationRef = `runtime-asset-observation://abiogenesis/${sha256Canonical({ probeRef: declaration.probeRef, sourceDigest, sourceRevisionDigest }).slice(7)}`;
+-    if (input.store.readAll().some(event => {
++    if (indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(input.store), "payload:underlyingObservationRef:" + underlyingObservationRef).some(event => {
+       const p = event.payload as Record<string, JsonValue>, observation = p.observation;
+       return typeof observation === "object" && observation !== null && !Array.isArray(observation) && (observation as Readonly<Record<string, JsonValue>>).underlyingObservationRef === underlyingObservationRef;
+     })) return;
+--- a/code/src/abg/stdo_environment.ts
++++ b/code/src/abg/stdo_environment.ts
+@@ -8,6 +8,7 @@
+ import { jsonValueSchema } from "../shared/public_function_contracts.js";
+ import { deepFreeze } from "../shared/immutable.js";
+ import { isAbsolute, resolve, relative } from "node:path";
++import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
+ 
+ const ref = v.pipe(v.string(), v.minLength(1));
+ const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/u));
+@@ -313,3 +314,19 @@
+         disposition: access.operation === "validate" ? "omitted_not_required" : "included_full", projection: access.operation === "validate" ? null : a.projection };
+     }) });
+ }
++
++/** @internal The existing role relation consumes only its actual invocation
++ * rows. The prefix owner authenticates selection; payload validation above
++ * retains the complete context, authority and declaration checks. */
++export function projectRunEnvironmentRoleEvidenceAtPrefix(prefix: RuntimeEventPrefix, invocationAdmissionRef: string,
++  publication: Readonly<ModulePublication>, programRef: string, graphFunctionRef: string, programLocusRef: string, role: string) {
++  const program = publication.programs.find(p => p.programRef === programRef);
++  if (!program) return false;
++  if (runEnvironmentForProgram(publication, program) === null) return null;
++  const key = "payload:invocationAdmissionRef:" + invocationAdmissionRef;
++  const events = isOwnedRuntimeEventPrefix(prefix)
++    ? prefix.selection.select("kind:invocation_admitted").select(key).materialize()
++    : indexedRuntimeEvents(prefix, key);
++  return projectRunEnvironmentRoleEvidence(events,
++    invocationAdmissionRef, publication, programRef, graphFunctionRef, programLocusRef, role);
++}
+--- a/test_env/uat/continuation.mjs
++++ b/test_env/uat/continuation.mjs
+@@ -97,6 +97,7 @@
+     await record('physical-preflight.json',physical);
+     runtime=await installedModules(instance.installedRoot);
+     const {product:p,abg:a,api,gtl:g,invocationTruth:truth}=runtime,hash=p.sha256Canonical;
++    const prefixes=await import(pathToFileURL(join(instance.installedRoot,'build/code/src/abg/event_prefix.js')).href);
+     const actorRef=instance.actorRef,namespace=instance.namespace;
+     assert.equal(typeof actorRef,'string');assert.equal(typeof namespace,'string');
+     const coordinate=(ref,value={ref})=>({ref,digest:hash(value)});
+@@ -123,8 +124,14 @@
+     await checkpoint('fixed-resolution-complete',{beforeAcquisition:true,lock:lockCoordinate(lock)});
+ 
+     const refreshSelection=()=>a.selectAcquiredAbgEventResource(resource,a.selectHeldEventStoreDurablePrefix(resource.store));
+-    const eventsAt=()=>a.readRuntimeEventsAtDurablePrefix(selection.prefix,{requireCurrent:true});
+-    const prefixAt=()=>a.selectValidatedRuntimeEventPrefix(eventsAt());
++    const prefixAt=()=>prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(selection.prefix,{requireCurrent:true});
++    const resultAt=reference=>{
++      const rows=prefixes.indexedRuntimeEvents(prefixAt(),'payload:resultRef:'+reference.resultRef)
++        .filter(event=>event.kind==='c_call_result_admitted'&&event.payload.resultRef===reference.resultRef);
++      assert.equal(rows.length,1,'Selected Result requires its exact admitted row');
++      assert.equal(rows[0].payload.resultDigest,reference.resultDigest);
++      return rows[0];
++    };
+     const artifactTruth=()=>requireKind(a.projectOwnedPrefixArtifactTruth(selection.prefix),'exact_prefix_artifact_truth_projection','owned-prefix');
+     async function invoke(label,packet,request,resources,supplied={}) {
+       await checkpoint(label+'-grant-start',{beforeAcquisition:resource===null});
+@@ -176,7 +183,7 @@
+     await checkpoint('acquisition-start',{prefixLength:physical.handoff.prefix.prefixLength});
+     resource=requireKind(a.acquireAbgEventResource({kind:'reopen_abg_event_resource',schemaVersion:version,
+       closeHandoff:physical.handoff,handoffDigest:hash(physical.handoff)}),'acquired_abg_event_resource','source-acquisition').resource;
+-    selection=refreshSelection();await checkpoint('acquisition-complete',{eventCount:eventsAt().length,prefix:selection.prefix});
++    selection=refreshSelection();await checkpoint('acquisition-complete',{eventCount:prefixes.runtimeEventPrefixExtent(prefixAt()).count,prefix:selection.prefix});
+     const sourceTransport=await selectedValue(instance.source.call);
+     const sourceCall=sourceTransport.kind==='abg_cli_transport_request'?sourceTransport.invocation:sourceTransport;
+     const setup=await selectedValue(instance.source.setup);
+@@ -201,8 +208,7 @@
+     const {deepFreeze}=await import(pathToFileURL(join(instance.installedRoot,'build/code/src/shared/immutable.js')).href);
+     const oldDeclaration=deepFreeze({kind:'abg_historical_declaration_proof',schemaVersion:version,
+       catalog:sourceCall.resources.catalog,catalogView:sourceCall.resources.catalogView});
+-    const last=input.observations.at(-1),observed=eventsAt().find(event=>event.kind==='c_call_result_admitted'&&event.payload.resultRef===last.resultRef);
+-    assert.ok(observed);assert.equal(observed.payload.resultDigest,last.resultDigest);
++    const last=input.observations.at(-1),observed=resultAt(last);
+     const terminal=a.projectClosedGraphCallTerminalAtDurablePrefix(selection.prefix,observed.graphCallId,oldDeclaration);
+     if(!terminal)throw new BoundaryFailure('closed-child-source-resource',null);
+     const {value:unusedValue,projectionBasis:unusedBasis,...terminalSelection}=terminal;
+@@ -276,8 +282,7 @@
+ 
+     const bases=new Map();
+     for(const reference of [{resultRef:source.sourceResultRef,resultDigest:source.sourceResultDigest},...input.observations,...(input.synthesis===null?[]:[input.synthesis])]) {
+-      const admitted=eventsAt().find(event=>event.kind==='c_call_result_admitted'&&event.payload.resultRef===reference.resultRef);
+-      assert.ok(admitted);assert.equal(admitted.payload.resultDigest,reference.resultDigest);
++      const admitted=resultAt(reference);
+       let basis=truth.projectExactExecutionBasisAtPrefix(prefixAt(),admitted.basisId);assert.ok(basis);
+       while(basis!==null&&!bases.has(basis.basisRef)) {
+         bases.set(basis.basisRef,basis);
+@@ -324,7 +329,7 @@
+     const runEnvironmentResources=p.constructRunEnvironmentResources({...previous,permission:{...previous.permission,
+       authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,
+       dependencies:previous.dependencies,pythonPath:previous.pythonPath,temporaryRoot:previous.temporaryRoot}});
+-    const finalPrefix=selection.prefix,finalValidatedPrefix=prefixAt();
++    const finalPrefix=selection.prefix,finalOwnedPrefix=prefixAt();
+     await checkpoint('resource-close-start');
+     close=a.closeAbgEventResource(resource,finalPrefix);resource=null;
+     await record('final-resource-receipt.json',close);await record('final-close-handoff.json',close.closeHandoff);
+@@ -355,7 +360,7 @@
+       admittedInstalls:installs,workspaceBinding:binding,verifyInstallAdmission:install=>a.hasAdmittedProductInstall(environment.artifactTruth,install),
+       transportResourceAssertion:eventResource,deriveCurrentSourceUse:(basis,resolved)=>{
+         callbackCheckpoint('covered-use-callback-start',{sourceBasisRef:basis.basisRef});
+-        const actual=truth.projectGovernanceCoveredSourceUse(finalValidatedPrefix,{predecessorPrefix:finalPrefix,source:basis,
++        const actual=truth.projectGovernanceCoveredSourceUse(finalOwnedPrefix,{predecessorPrefix:finalPrefix,source:basis,
+           workspaceBinding:binding,program:resolved.program,graphFunction:resolved.graphFunction,currentDeclaration,historicalDeclarations:[oldDeclaration]});
+         callbackCheckpoint('covered-use-callback-complete',{returned:actual===null?null:{useDigest:actual.useDigest,sourceBasisRef:actual.sourceBasisRef}});
+         return actual;
+--- a/test_env/README.md
++++ b/test_env/README.md
+@@ -45,6 +45,15 @@
+ runner are shared. Future executions use this helper instead of copying a new
+ phase-specific preparation algorithm; frozen historical scripts remain evidence.
+ 
++The shared helper consumes the installed Event Store's authenticated private
++prefix and indexed owner reads for source, retained Results, consumed bases and
++current use. It does not materialize all Events to find one producer or count
++the prefix. Its post-close callback retains only the defining immutable
++selection relation needed by that consumer; copied/foreign selections and
++changed material still enter the canonical owner checks. Preparation supplies
++no Run/model dispatch, and positive genuine continuation remains a separate
++installed composition proof.
++
+ ```mermaid
+ sequenceDiagram
+   participant F as UAT fixture instance
+--- a/test_env/tests/t287-default-library.test.mjs
++++ b/test_env/tests/t287-default-library.test.mjs
+@@ -216,7 +216,7 @@
+   // declaration/result owners are exercised here. Installed proof owns ingress.
+   const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+-    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owner}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidence:()=>({...role,invocationAdmissionRef:'invocation:unit',environmentRef:'environment:unit',environmentDigest:product.sha256Canonical('environment'),evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};
++    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:'invocation:unit',environmentRef:'environment:unit',environmentDigest:product.sha256Canonical('environment'),evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+   const lookup=ref=>library.contracts.find(c=>c.contractRef===ref)??null;
+   const assembly=m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+@@ -293,7 +293,7 @@
+   const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:'set:unit',rawInputValue:state}},opened={kind:'c_call_opened',runId:'run:unit',basisId:execution.basisRef,payload:{programLocusRef:node.nodeRef}};
+   const projectionFile=resolve(packageRoot,'build/code/src/abg/default_library.js'),projectionModule=new SourceTextModule(await readFile(projectionFile,'utf8'),{identifier:projectionFile});
+   await projectionModule.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(projectionFile),specifier)).href);
+-    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>projectionOwner}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:[opened]}:{};
++    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>projectionOwner}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:[opened]}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await projectionModule.evaluate();
+   const projectionBasis={graphFunction:graph,cursor:{currentNodeRef:projection.nodeRef,termPath:gtl.rootCSourcePath(projection.nodeRef)}};
+   const choice=projectionModule.namespace.projectGovernanceChoice(projectionBasis,bound);assert.ok(choice);assert.equal(choice.graphFunctionRef,raw.nextGraphFunctionRef);assert.equal(choice.reason,raw.nextReason);assert.deepEqual(choice.input.value.original,state.original);assert.deepEqual(choice.input.value.synthesis,current.resultRef==='result:unit'?current:{...current,resultRef:'result:unit'});
+@@ -394,8 +394,8 @@
+   }
+   const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+   await m.link(async s=>{const actual=await import(s.startsWith('node:')?s:pathToFileURL(resolve(dirname(file),s)).href);
+-    const replacements=s==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owner}:
+-      s==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidence:()=>({...role,invocationAdmissionRef:execution.invocationAdmissionRef,
++    const replacements=s==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner}:
++      s==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:execution.invocationAdmissionRef,
+         environmentRef:publication.runEnvironments[0].declarationRef,environmentDigest:product.sha256Canonical(publication.runEnvironments[0]),
+         evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent,accessContent:[]})}:
+       s==='../product/default_library.js'&&oldProjector?{projectFramedSynthesisPromptTask:oldProjector}:{};
+@@ -547,15 +547,15 @@
+     // Captured values are authentic retained evidence. Occurrence/index, role
+     // acquisition and current-context delivery below are controlled lower
+     // premises, not new admission, physical reads or actor execution.
+-    const replacements={'./execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>owned},
++    const replacements={'./execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>owned,authenticateOwnedNativeInstructionAssemblyBasis:()=>owned},
+       './invocation_execution_truth.js':{projectExactInvocationAdmissionAtPrefix:()=>invocation},
+       './event_prefix.js':{indexedRuntimeEvents:()=>[root]},'../product/worksite_operations.js':{observeWorksiteContext:async()=>previous.context}};
+     const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),current=await module(file,replacements),old=await module(file,replacements,(await pinned(fixture.oldAbg)).toString());
+     const oldProduct=await module(resolve(packageRoot,'build/code/src/product/default_library.js'),{},(await pinned(fixture.oldProduct)).toString());
+     let assemblyOwner;
+     const assembly=await module(resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),{
+-      './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>assemblyOwner},
+-      './stdo_environment.js':{projectRunEnvironmentRoleEvidence:()=>recorded.plan.role}});
++      './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>assemblyOwner},
++      './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>recorded.plan.role}});
+     const fullAssembly=task=>{
+       assemblyOwner={events:[],call:nativeBasis.cCall,execution:nativeBasis.executionBasis,program,environment,inputValue:task,inputDigest:product.sha256Canonical(task),inputRef:recorded.envelope.inputRef};
+       const output=assembly.constructWorksiteNativeInstructionAssembly(nativeBasis,task);assert.ok(output);return output;
+@@ -611,7 +611,7 @@
+   // Controlled admitted occurrence/index premises; all native/C2/assessment
+   // values and worksite observations are their actual typed owner constructors.
+   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+-    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
++    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Supplied work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Selected work',reason:'Actual evidence',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Chosen work',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current evidence',revisionEvidenceRefs:[]}}});
+   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
+@@ -772,7 +772,7 @@
+   // Only occurrence authentication, indexing and invalidation are controlled;
+   // physical contexts and typed task/artifact/observation/fold owners are real.
+   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+-    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
++    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Original DataMapper work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Independently assess the current declared dossier',reason:'Current measurement support',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Declared independent assessment',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current context',revisionEvidenceRefs:[]}}});
+   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
+@@ -846,7 +846,7 @@
+   const owned={program:{policies:{}},inputValue:state,call:{runId:'run:later-created',implementationRef:product.governanceRef('implementation','evaluate-parent')},execution:{invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:root'},environment:{kind:'exact_prefix_workspace_environment'},prefix:{}};
+   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+-    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?roots:[]}:{};
++    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?roots:[]}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+   assert.deepEqual(m.namespace.projectGovernanceParent({},state),state,'root basis has no Run coordinate yet');
+   root.payload.implementationSetRef='set:foreign';assert.equal(m.namespace.projectGovernanceParent({},state),null);root.payload.implementationSetRef='set:root';
+--- a/test_env/tests/t287-native-c2-instruction-assembly.test.mjs
++++ b/test_env/tests/t287-native-c2-instruction-assembly.test.mjs
+@@ -30,7 +30,7 @@
+   const observe = () => owner.observeWorksiteContext({ ...env, readRoots: ['changed.txt', 'unchanged.txt'], maxFiles: 2, maxBytes: 1000 });
+   const task = p.constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: env.workspaceAuthorityBasis, workspaceBinding: env.workspaceBinding, capabilityGrant: env.capabilityGrant, context: await observe(), outcome: 'local edit', instructions: ['Preserve retained source.'],
+     readFirst: ['changed.txt'], writeRoots: ['changed.txt'], checks: [] });
+-  await fs.writeFile(join(env.canonicalRoot, 'changed.txt'), 'after');
++  await fs.writeFile(join(env.canonicalRoot, 'changed.txt'), '\uFEFFafter Ω😀\n');
+   // Cold Product value only. The ABG absent-source check below refuses it.
+   const source = constructNativeWorkspaceWorkObservation(task, await observe(), { summary: 'edited', gaps: [] }, {
+     cCallRef: 'c-call://native-c2/component', executionAuthorityRef: 'authority://native-c2/component', executionAuthorityDigest: hash({ a: 1 }),
+@@ -68,8 +68,8 @@
+   await module.link(async specifier => {
+     const native = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(implementationPath), specifier)).href);
+     const values = { ...native,
+-      ...(specifier === './execution_basis.js' ? { authenticateNativeInstructionAssemblyBasis: () => ownerValue } : {}),
+-      ...(specifier === './stdo_environment.js' ? { projectRunEnvironmentRoleEvidence: () => context } : {}) };
++      ...(specifier === './execution_basis.js' ? { authenticateOwnedNativeInstructionAssemblyBasis: () => ownerValue } : {}),
++      ...(specifier === './stdo_environment.js' ? { projectRunEnvironmentRoleEvidenceAtPrefix: () => context } : {}) };
+     return new SyntheticModule(Object.keys(values), function () { for (const [k,v] of Object.entries(values)) this.setExport(k,v); });
+   });
+   await module.evaluate();
+@@ -81,6 +81,21 @@
+   assert.equal(assembly.request.inputDigest, hash(task));
+   assert.deepEqual(assembly.request.responseJsonSchema, worksiteCommandExecutionWorkerResultSchema(task,
+     worksiteCommandExecutionHelperPlan(task, worksiteCommandExecutionAttemptRef(call))));
++  if(process.env.ABI5_NATIVE_MATERIAL_PREIMAGE){
++    const {default:ts}=await import('typescript');
++    const previous=new SourceTextModule(ts.transpileModule(await fs.readFile(process.env.ABI5_NATIVE_MATERIAL_PREIMAGE,'utf8'),{
++      compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText,{identifier:implementationPath});
++    await previous.link(async specifier=>{
++      const native=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(implementationPath),specifier)).href);
++      const values={...native,
++        ...(specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>ownerValue}:{}),
++        ...(specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidence:()=>context}:{})};
++      return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});
++    });
++    await previous.evaluate();const oldAssembly=previous.namespace.constructWorksiteNativeInstructionAssembly(basis,task);
++    assert.ok(oldAssembly);assert.equal(hash(assembly),hash(oldAssembly),'exact legacy logical assembly/prompt/schema/plan bytes');
++    assert.equal(previous.namespace.constructWorksiteNativeInstructionAssembly(basis,{...task,taskDigest:hash('foreign-task')}),null);
++  }
+   assert.equal(construct(basis, { ...task, taskDigest: hash('foreign-task') }), null);
+   const originalOwner = ownerValue;
+   ownerValue = null; assert.equal(construct(basis, task), null, 'stale or absent admitted owner refuses');
+--- a/test_env/tests/t288-instruction-assembly-owner.test.mjs
++++ b/test_env/tests/t288-instruction-assembly-owner.test.mjs
+@@ -134,7 +134,7 @@
+   const assemblyOwner = await component('abg/instruction_assembly', {
+     './execution_basis.js': { constructNativeInstructionAssemblyBasis: value => value },
+     './semantic_revision.js': { projectJobRevisionSubject: () => subject },
+-    './stdo_environment.js': { projectRunEnvironmentRoleEvidence: () => old.task.runEnvironment },
++    './stdo_environment.js': { projectRunEnvironmentRoleEvidenceAtPrefix: () => old.task.runEnvironment },
+     '../gtl/c_algebra.js': { cLeafTerms: () => [{ programLocusRef: call.programLocusRef }] },
+     '../gtl/stdo_run_environment.js': { nativeContextLeafFamily: () => 'assessor' },
+   });
+@@ -284,10 +284,10 @@
+       constructWorksiteNativeInstructionAssembly: () => { cold++; return assembly; },
+     },
+     './execution_basis.js': { constructNativeInstructionAssemblyBasis: b => b === basis ? b : Object.freeze({ ...b }),
+-      authenticateNativeInstructionAssemblyBasis: () => ({ call: { cCallRef: 'call://one' }, execution: { basisRef: 'basis://one' }, inputDigest: request.inputDigest, inputValue: { input: 1 } }) },
++      authenticateOwnedNativeInstructionAssemblyBasis: () => ({ call: { cCallRef: 'call://one' }, execution: { basisRef: 'basis://one' }, inputDigest: request.inputDigest, inputValue: { input: 1 } }) },
+     './semantic_stage.js': { semanticInputValueAtBasis: () => ({ input: 1 }) },
+     './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true },
+-    './event_store.js': { readRuntimeEventsAtDurablePrefix: () => { reads++; if (!physicalCurrent) throw new TypeError('physical prefix changed'); return Object.freeze([]); } },
++    './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => { reads++; if (!physicalCurrent) throw new TypeError('physical prefix changed'); return Object.freeze({ fixture: 'supplied prefix' }); } },
+     './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
+     './worker_transport.js': { prepareWorkerTransport: () => { throw stopped; } },
+   });
+@@ -480,7 +480,7 @@
+   const commandStop = new TypeError('component command assembly refusal; before effects');
+   let commandCold = 0, commandSupplied = 0;
+   const command = await component('implementation/worksite_command_execution', {
+-    '../abg/execution_basis.js': { authenticateNativeInstructionAssemblyBasis: () => ({ call: commandOccurrence }) },
++    '../abg/execution_basis.js': { authenticateOwnedNativeInstructionAssemblyBasis: () => ({ call: commandOccurrence }) },
+     '../abg/instruction_assembly.js': { requireWorksiteNativeInstructionAssembly: () => { commandCold++; throw commandStop; } },
+   });
+   assert.throws(() => command.realizeWorksiteCommandExecution(commandResult.payload.value.task, commandOccurrence), e => e === commandStop);
+@@ -539,7 +539,7 @@
+     './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+     './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
+     './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>({currentWorksite:null,origins:[]})},
+-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
++    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:stdo},
+     '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
+     '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'author'},
+   });
+@@ -687,7 +687,7 @@
+     './event_store.js':{reidentifyHistoricalDurablePrefixCoordinate:(a,b)=>{assert.deepEqual(a,b);return a;}},
+     './semantic_job.js':{authenticateSemanticJobBasis:()=>owner,semanticJobInputMatchesBasis:matchedInput,semanticJobContextCurrent:()=>current},
+     './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:matchedInput,projectJobRevisionSubject:()=>current?{currentWorksite:null,origins:[]}:null},
+-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:()=>null},
++    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>null},
+   };
+   const instructions=await component('abg/instruction_assembly',overrides);
+   const implementationOverrides={'../abg/semantic_job.js':{authenticateSemanticJobBasis:()=>owner}};
+@@ -773,7 +773,7 @@
+     './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+     './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
+     './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>({currentWorksite:null,origins:[]})},
+-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
++    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:stdo},
+     '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
+     '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'assessor'},
+   });
+@@ -866,7 +866,7 @@
+   const renderer=await component('abg/instruction_assembly',{
+     './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+     './semantic_revision.js':{projectJobRevisionSubject:()=>subject},
+-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:()=>stdo},
++    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>stdo},
+     '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
+     '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'assessor'},
+   });
+@@ -958,7 +958,7 @@
+     './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+     './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
+     './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>revisionSubject},
+-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
++    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:stdo},
+     '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
+     '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=>owner.role},
+     '../shared/digests.js':{sha256Canonical:value=>{if(value?.sections?.worksite?.origins)projectedSections=value.sections;return hash(value);}},
+--- a/test_env/tests/t287-default-library-fulfillment.test.mjs
++++ b/test_env/tests/t287-default-library-fulfillment.test.mjs
+@@ -130,7 +130,7 @@
+   // task, observation, retained input and owner projectors run below. No live
+   // model, installed traversal or semantic adequacy is claimed by these tests.
+   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+-    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceExecution}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis:sourceExecution})}:{};
++    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceExecution}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis:sourceExecution})}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
+   return {m,owned,rows,execution,sourceExecution,invocation,root,library,at};
+@@ -179,7 +179,7 @@
+   Object.assign(o.owned.call,{regime:'F_P',cCallRef:'call:selector',cCallDigest:hash('call'),graphCallId:'graph-call:fulfillment',graphFunctionRef:graph.name,programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')});
+   const publication={...o.library,programs:[o.owned.program]},candidate={publication,graphFunction:graph,declarationGraphFunctions:o.library.graphFunctions,executionBasis:o.execution,cCall:o.owned.call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
+   const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js');
+-  const load=async()=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href),replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>o.owned}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidence:()=>({...role,invocationAdmissionRef:o.execution.invocationAdmissionRef,environmentRef:'environment:fulfillment',environmentDigest:hash('environment'),evidenceDigest:hash('evidence'),contextPolicyDigest:hash(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m;};
++  const load=async()=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href),replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>o.owned}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:o.execution.invocationAdmissionRef,environmentRef:'environment:fulfillment',environmentDigest:hash('environment'),evidenceDigest:hash('evidence'),contextPolicyDigest:hash(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m;};
+   const pubs=[publication,gtl.constructNativeWorkspaceWorkModulePublication(basis),gtl.constructWorksiteCommandExecutionModulePublication(basis)];
+   const lookup=ref=>pubs.flatMap(p=>p.contracts).find(c=>c.contractRef===ref)??(ref===f.state.original.assessment.resultContract.contractRef?f.state.original.assessment.resultContract:null);
+   const assemblyOwner=await load(),assembly=assemblyOwner.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+--- a/test_env/tests/t287-authenticated-owner-values.test.mjs
++++ b/test_env/tests/t287-authenticated-owner-values.test.mjs
+@@ -123,20 +123,20 @@
+  try{
+   const expected=old.authenticateNativeInstructionAssemblyBasis(sample);assert.ok(expected);
+   const value=native.constructNativeInstructionAssemblyBasis(sample);assert.ok(value);
+-  const before=counts();const selected=native.authenticateNativeInstructionAssemblyBasis(value);assert.ok(selected);
+-  for(let i=0;i<5;i++)assert.equal(native.authenticateNativeInstructionAssemblyBasis(value),selected);
++  const before=counts();const selected=native.authenticateOwnedNativeInstructionAssemblyBasis(value);assert.ok(selected);
++  for(let i=0;i<5;i++)assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected);
+   if(globalThis.p0Work)assert.equal(difference(before,counts(),'physicalReads'),0);
+-  const { environment,...actual }=selected;assert.equal(sha256Canonical(actual),sha256Canonical(expected),'exact serializable owner result across independent module brands');assert.equal(environment.kind,'exact_prefix_workspace_environment');
++  const { environment,...actual }=native.authenticateNativeInstructionAssemblyBasis(value);assert.equal(sha256Canonical(actual),sha256Canonical(expected),'exact explicit public owner result across independent module brands');assert.equal(environment.kind,'exact_prefix_workspace_environment');
+   assert.equal(native.constructNativeInstructionAssemblyBasis(value),value);
+-  const copied=structuredClone(value);const freshBefore=counts();assert.equal(sha256Canonical(native.authenticateNativeInstructionAssemblyBasis(copied)),sha256Canonical(selected));
++  const copied=structuredClone(value);const freshBefore=counts();assert.equal(sha256Canonical(native.authenticateNativeInstructionAssemblyBasis(copied)),sha256Canonical(native.authenticateNativeInstructionAssemblyBasis(value)));
+   if(globalThis.p0Work)assert.ok(difference(freshBefore,counts(),'physicalReads')>0);
+-  sample.cCall.cCallRef='c-call://read05/foreign';assert.equal(native.authenticateNativeInstructionAssemblyBasis(sample),null);assert.equal(native.authenticateNativeInstructionAssemblyBasis(value),selected);
++  sample.cCall.cCallRef='c-call://read05/foreign';assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(sample),null);assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected);
+   const stolen={...value,cCall:{...value.cCall,cCallRef:'c-call://read05/foreign'}};
+   for(const symbol of Object.getOwnPropertySymbols(value))Object.defineProperty(stolen,symbol,Object.getOwnPropertyDescriptor(value,symbol));deepFreeze(stolen);
+-  assert.equal(native.authenticateNativeInstructionAssemblyBasis(stolen),null);
++  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(stolen),null);
+   const changed=Buffer.from(bytes);changed[0]=91;await writeFile(path,changed);
+-  assert.equal(native.authenticateNativeInstructionAssemblyBasis(value),selected,'pure derivation does not assert current physical truth');
+-  assert.equal(native.authenticateNativeInstructionAssemblyBasis(copied),null,'cold input still authenticates physical bytes');
++  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected,'pure derivation does not assert current physical truth');
++  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(copied),null,'cold input still authenticates physical bytes');
+   assert.throws(()=>store.readRuntimeEventsAtDurablePrefix(value.predecessorPrefix),e=>e.code==='prefix_digest_mismatch');
+   console.log(JSON.stringify({kind:'native_basis_owner_controls',predecessorOutputConserved:true,repeatedPurePhysicalReads:0,coldChangedCopiedReceiptAndPhysicalRefusals:true}));
+  }finally{await rm(scratch,{recursive:true,force:true});}
+--- a/code/src/implementation/worksite_command_execution.ts
++++ b/code/src/implementation/worksite_command_execution.ts
+@@ -26,7 +26,7 @@
+ import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
+ 
+ import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
+-import { authenticateNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
++import { authenticateOwnedNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
+ import { requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly, worksiteCommandExecutionAttemptRef } from "../abg/instruction_assembly.js";
+ import {
+   ABI5_PACKAGE_NAME,
+@@ -142,7 +142,7 @@
+ ): AuthorityFreeWorksiteCommandExecutionOccurrence {
+   const { nativeInstructionAssemblyBasis, ...coordinates } = occurrence;
+   if (nativeInstructionAssemblyBasis !== undefined) {
+-    const owner = verifyNativeOccurrence === undefined ? authenticateNativeInstructionAssemblyBasis(nativeInstructionAssemblyBasis) : null;
++    const owner = verifyNativeOccurrence === undefined ? authenticateOwnedNativeInstructionAssemblyBasis(nativeInstructionAssemblyBasis) : null;
+     if (verifyNativeOccurrence !== undefined ? !verifyNativeOccurrence(occurrence) : owner === null ||
+       owner.call.cCallRef !== occurrence.cCallRef || owner.call.runId !== occurrence.runId ||
+       owner.call.graphCallId !== occurrence.graphCallId || owner.call.frameId !== occurrence.frameId ||
+--- a/test_env/tests/t287-native-workspace-work.test.mjs
++++ b/test_env/tests/t287-native-workspace-work.test.mjs
+@@ -104,7 +104,7 @@
+   let currentPrefix=prefixAt();
+   const overrides={
+     './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
+-    './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>({call,execution:basis,inputDigest:basis.rawInputDigest,inputValue:env.task})},
++    './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>({call,execution:basis,inputDigest:basis.rawInputDigest,inputValue:env.task})},
+     './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>null},
+     './runtime_liveness.js':{captureNativeFrameBoundary:()=>({}),observeNativeFrameLiveness:()=>{},
+       admitRuntimeActivityProbe:input=>({successorPrefix:currentPrefix,value:rows.find(row=>row.eventId===input.observation.underlyingEventRef)??rows.at(-1)})},
+@@ -811,12 +811,12 @@
+     await module.evaluate();return module.namespace;
+   }
+   const assembly=await component('abg/instruction_assembly',{
+-    './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>owner,constructNativeInstructionAssemblyBasis:value=>value},
+-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:(...args)=>{requestedRole=args.at(-1);return requestedRole===roleSelection?role:false;}},
++    './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner,constructNativeInstructionAssemblyBasis:value=>value},
++    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:(...args)=>{requestedRole=args.at(-1);return requestedRole===roleSelection?role:false;}},
+   });
+   const actor=await component('abg/actor_process',{
+     './instruction_assembly.js':assembly,'./execution_basis.js':{constructNativeInstructionAssemblyBasis:value=>value,
+-      authenticateNativeInstructionAssemblyBasis:()=>owner},
++      authenticateOwnedNativeInstructionAssemblyBasis:()=>owner},
+     // Admission is a supplied component fact; preparation below remains real.
+     './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
+     './worker_transport.js':{prepareWorkerTransport:async input=>{
+--- a/test_env/tests/t287-management-context.test.mjs
++++ b/test_env/tests/t287-management-context.test.mjs
+@@ -231,7 +231,7 @@
+     "./execution_basis.js": { constructNativeInstructionAssemblyBasis: value => value },
+     "./semantic_job.js": { authenticateSemanticJobBasis: () => owner,
+       semanticJobInputMatchesBasis: (_, value) => value === selected && product.isSemanticJobEnvelope(value), semanticJobContextCurrent: () => true },
+-    "./stdo_environment.js": { projectRunEnvironmentRoleEvidence: () => null },
++    "./stdo_environment.js": { projectRunEnvironmentRoleEvidenceAtPrefix: () => null },
+   });
+   const expected = { kind: "native_instruction_assembly_refusal", cause: "unavailable_required_content", policy: stage.assembly.ruleRef, role: "author", unresolvedRefs: missing };
+   assert.equal(hash(assembly.evaluateNativeInstructionAssembly(basis, input)), hash(expected));
+--- a/test_env/tests/m5-terminal-quiescence-owner.test.mjs
++++ b/test_env/tests/m5-terminal-quiescence-owner.test.mjs
+@@ -1,5 +1,8 @@
+ import assert from "node:assert/strict";
+ import test from "node:test";
++import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
++import { join } from 'node:path';
++import { tmpdir } from 'node:os';
+ 
+ import {
+   projectActorProcessLifecycle,
+@@ -14,7 +17,12 @@
+ } from "../../build/code/src/abg/event_calculus.js";
+ import {
+   selectValidatedRuntimeEventPrefix,
++  selectOwnedRuntimeEventPrefix,
++  readOwnedRuntimeEventPrefixAtDurablePrefix,
++  runtimeEventPrefixExtent,
+ } from "../../build/code/src/abg/event_prefix.js";
++import { createNewEmptyAppendSink, admitRuntimeEvent, admitNonEmptyRuntimeEventTransactionAtDurablePrefix } from '../../build/code/src/abg/event_store.js';
++import { sha256Canonical } from '../../build/code/src/shared/digests.js';
+ import { deepFreeze } from "../../build/code/src/shared/immutable.js";
+ 
+ function event(kind, ordinal, aggregateType, aggregateId, parentAggregateId, payload) {
+@@ -157,3 +165,38 @@
+       assert.equal(holdsAt(closed, constructRuntimeFluent({ name, identity: processRef })), false);
+   }
+ });
++
++test('owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes',async()=>{
++  // Genuine finite EventStore admissions, not a native process or Run proof.
++  const scratch=await mkdtemp(join(process.env.ABI5_NATIVE_MATERIAL_SCRATCH??tmpdir(),'native-selected-'));
++  const path=join(scratch,'events.jsonl'),acquired=createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});
++  assert.ok('store'in acquired);
++  try{
++    admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store,acquired.prefix,()=>{
++      const admit=(kind,aggregateId,parentAggregateId,payload)=>admitRuntimeEvent(acquired.store,{
++        kind,eventTime:'2026-10-10T00:00:00.000Z',aggregateType:'process',aggregateId,parentAggregateId,
++        causationEventRefs:[],correlationId:'correlation://native-selected',workflowVersion:'5.0.0',scopeClass:'run',
++        basisId:'basis://native-selected',runId:'run://t287/cleanup',graphCallId:'graph-call://t287/cleanup',frameId:'frame://t287/cleanup',payload});
++      admit('actor_process_started',processRef,actorRef,{actorInvocationRef:actorRef,processRef,processId:17});
++      admit('actor_process_started','process://foreign','actor-invocation://foreign',{actorInvocationRef:'actor-invocation://foreign',processRef:'process://foreign',processId:18});
++      for(let i=0;i<128;i++)admitRuntimeEvent(acquired.store,{kind:'public_operation_admitted',eventTime:'2026-10-10T00:00:00.000Z',
++        aggregateType:'workspace',aggregateId:'invocation://unrelated/'+i,parentAggregateId:null,causationEventRefs:[],
++        correlationId:'correlation://unrelated/'+i,workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://unrelated',
++        payload:{invocationRef:'invocation://unrelated/'+i,invocationDigest:sha256Canonical(i),operationId:'abg.operation.project.read',variant:'status'}});
++      admit('actor_process_exited',processRef,actorRef,{actorInvocationRef:actorRef,processRef,status:0,signal:null});
++      admit('actor_process_termination_unconfirmed',processRef,actorRef,{actorInvocationRef:actorRef,processRef});
++    });
++    const owned=selectOwnedRuntimeEventPrefix(acquired.store),complete=selectValidatedRuntimeEventPrefix(acquired.store.readAll());
++    const expected=projectActorProcessLifecycle(complete,actorRef);
++    assert.equal(expected.processLive,false);assert.equal(expected.cleanupDisposition,'termination_unconfirmed');
++    assert.deepEqual(projectActorProcessLifecycle(owned,actorRef),expected);
++    assert.equal(runtimeEventPrefixExtent(owned).count,132);assert.equal(Object.hasOwn(owned,'events'),false);
++    assert.throws(()=>projectActorProcessLifecycle({...owned},actorRef),'copied private selection has no nominal owner');
++    const coordinate=structuredClone(acquired.store.prefixAt());acquired.store.closeDurableLog();
++    const cold=readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true});
++    assert.deepEqual(projectActorProcessLifecycle(cold,actorRef),expected,'cold selected bodies preserve unknown cleanup');
++    const bytes=await readFile(path),changed=Buffer.from(bytes);changed[0]=91;await writeFile(path,changed);
++    assert.throws(()=>readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true}),e=>e.code==='prefix_digest_mismatch');
++    await writeFile(path,bytes);
++  }finally{acquired.store.closeDurableLog();await rm(scratch,{recursive:true,force:true});}
++});
+--- a/test_env/tests/t287-c2-core-environment.test.mjs
++++ b/test_env/tests/t287-c2-core-environment.test.mjs
+@@ -9,6 +9,8 @@
+ import * as gtl from '../../build/code/src/gtl/index.js';
+ import { validRunEnvironmentProgram, runEnvironmentForProgram } from '../../build/code/src/gtl/stdo_run_environment.js';
+ import { projectRunEnvironmentRoleEvidence } from '../../build/code/src/abg/stdo_environment.js';
++import { selectValidatedRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
++import { deepFreeze } from '../../build/code/src/shared/immutable.js';
+ import { worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt } from '../../build/code/src/product/worksite_command_execution.js';
+ import { worksiteCommandExecutionAttemptRef } from '../../build/code/src/abg/instruction_assembly.js';
+ import { privateOwner } from '../support/r10-private-owner-harness.mjs';
+@@ -83,12 +85,25 @@
+   implementationRef:ids.implementationRef,inputContractRef:ids.taskContractRef,outputContractRef:ids.observationContractRef};
+  const nativeOwner={events,inputRef:'input://component',inputDigest:hash(task),inputValue:task,call,
+   execution:{basisRef:'basis://component',basisDigest:hash('basis'),basisClass:'root',invocationAdmissionRef,programRef:program.programRef}};
+- const assemblyOwner=await privateOwner('abg/instruction_assembly.js',[],{'./execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>nativeOwner}});
++ // The lower invocation/Event premise is supplied, not admitted by this
++ // component test. Immutable prefix selection and indexed role projection
++ // use their actual owners.
++ const selectedOwner=()=>{
++  const admitted={
++   ...events[0],eventTime:'2026-10-10T00:00:00.000Z',aggregateType:'invocation',aggregateId:invocationAdmissionRef,
++   parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://c2-context/component',
++   workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://component',eventId:'event://c2-context/component',
++   admissionOrdinal:1,payloadDigest:hash(events[0].payload)};
++  const {events:unused,...facts}=nativeOwner;
++  return {...facts,prefix:selectValidatedRuntimeEventPrefix(deepFreeze([admitted]))};
++ };
++ const assemblyOwner=await privateOwner('abg/instruction_assembly.js',[],{'./execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:selectedOwner}});
+  const basis={publication,graphFunction:publication.graphFunctions.find(g=>g.name===ids.graphFunctionRef),predecessorPrefix:{coordinateDigest:hash('component-prefix')}};
+  const assembled=assemblyOwner.constructWorksiteNativeInstructionAssembly(basis,task);assert.ok(assembled);
+  const plan=worksiteCommandExecutionHelperPlan(task,worksiteCommandExecutionAttemptRef(call));
+  assert.equal(assembled.envelope.sections.task.ownerPrompt,renderWorksiteCommandExecutionPrompt(task,plan));
+  assert.equal(assembled.plan.runEnvironment.environmentDigest,hash(declaration));assert.equal(assembled.request.inputDigest,hash(task));
++ assert.deepEqual(assembled.envelope.sections.role.sourceContent,projected.sourceContent,'indexed projection retains the observed policy bytes');
+  assert.ok(Buffer.byteLength(assembled.request.prompt)<16000,'bounded mechanical relay context, no full qualification source prompt');
+  const original=events[0].payload.runEnvironment;delete events[0].payload.runEnvironment;
+  assert.equal(assemblyOwner.constructWorksiteNativeInstructionAssembly(basis,task),null,'missing admitted environment refuses');

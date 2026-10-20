@@ -1,0 +1,30 @@
+{"kind":"conformance_reuse_differential","predecessor":{"elapsedMs":1738.4499999999998,"physicalPrefixReads":2,"environmentDerivations":1,"warmEnvironmentRelations":0,"archiveChecks":1,"resourceSelfComparisons":1,"closureResolutions":1,"rawClosureValidations":0,"resolvedClosureContinuations":0},"successor":{"elapsedMs":1363.4386249999989,"physicalPrefixReads":1,"environmentDerivations":1,"warmEnvironmentRelations":0,"archiveChecks":1,"resourceSelfComparisons":0,"closureResolutions":1,"rawClosureValidations":0,"resolvedClosureContinuations":1},"ownerOutputDigest":"sha256:e4f0eadfb630ea2ec9c543ac7338735c4b7d27e6bad048b566e00394817391ed","resourceDigest":"sha256:21af2a3c7e5535905f80764a59baff85c3a1f2584f63e7c7db0d0138d2b92f1e","fixtureOnly":true}
+{"kind":"conformance_resource_scaling","scaling":[{"rows":1,"oldBytes":17413776,"newBytes":17412545,"removedBytes":1231},{"rows":8,"oldBytes":17428378,"newBytes":17412545,"removedBytes":15833},{"rows":64,"oldBytes":17545302,"newBytes":17412545,"removedBytes":132757}],"scope":"finite supplied size fixtures; no original history or allocation attribution"}
+(node:19906) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ same-subject conformance retains one real owner derivation and predecessor semantic result (31964.372458ms)
+✔ conformance resolved-closure continuation preserves raw readiness and complete validation outcomes (5054.066792ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37671.989291
+
+✖ failing tests:
+
+test at test_env/tests/t287-conformance-owner-reuse.test.mjs:177:1
+✖ same-subject conformance retains one real owner derivation and predecessor semantic result (31964.372458ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to: 0
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs:270:78)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 0,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }

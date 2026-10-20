@@ -1,0 +1,32 @@
+[
+  {
+    "relativePath": "package.json",
+    "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+    "byteCount": 9744
+  },
+  {
+    "relativePath": "package-lock.json",
+    "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+    "byteCount": 8001
+  },
+  {
+    "relativePath": "tsconfig.json",
+    "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+    "byteCount": 604
+  },
+  {
+    "relativePath": "scripts/clean.mjs",
+    "sha256": "985727874c235357cb0958067425efec7d5471f20afc4f27fb736ae5c4b359c4",
+    "byteCount": 847
+  },
+  {
+    "relativePath": "scripts/generate-product-manifest.mjs",
+    "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+    "byteCount": 48959
+  },
+  {
+    "relativePath": "node_modules/typescript/package.json",
+    "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3",
+    "byteCount": 3620
+  }
+]

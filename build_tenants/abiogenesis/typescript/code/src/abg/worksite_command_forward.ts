@@ -1,3 +1,4 @@
+import { indexedRuntimeEvents, type RuntimeEventPrefix } from "./event_prefix.js";
 /** One native forward relation. Historical coordinates never become current-Run causation. */
 import type { GraphFunction, GtlGraph, ModulePublication } from "../gtl/contracts.js";
 import { isWorksiteCommandForwardGraphFunction } from "../gtl/worksite_command_forward.js";
@@ -48,8 +49,8 @@ function graphFor(basis:ExecutionBasis,gf:GraphFunction) {
     admittedInputDigest:basis.rawInputDigest,admittedInput:basis.rawInputValue});
   return graph.materializationRef===basis.graphRef&&graph.materializationDigest===basis.graphDigest?graph:null;
 }
-function nativeLeaf(prefix:ValidatedRuntimeEventPrefix,ref:string,gf:GraphFunction) {
-  const events=runtimeEventsFromValidatedPrefix(prefix),open=one(events,e=>e.kind==="c_call_opened"&&e.aggregateId===ref);
+function nativeLeaf(prefix:RuntimeEventPrefix,ref:string,gf:GraphFunction) {
+  const events=indexedRuntimeEvents(prefix,"aggregate:c_call:"+ref),open=one(events,e=>e.kind==="c_call_opened"&&e.aggregateId===ref);
   const basis=open?.basisId===undefined?null:projectExactExecutionBasisAtPrefix(prefix,open.basisId);
   const graph=basis===null?null:graphFor(basis,gf),call=graph===null?null:projectOpenedCCallCarrierAtPrefix(prefix,graph,ref);
   const result=one(events,e=>e.kind==="c_call_result_admitted"&&e.aggregateId===ref),judged=one(events,e=>e.kind==="c_call_judged"&&e.aggregateId===ref);
@@ -247,15 +248,20 @@ export function constructWorksiteCommandForwardNativeBasis(basis:WorksiteCommand
   return authenticateWorksiteCommandForwardBasis(basis)===null?null:deepFreeze(basis);
 }
 export function worksiteCommandForwardChildSourceAtPrefix(prefix:ValidatedRuntimeEventPrefix,durable:DurablePrefixCoordinate,
+  parentRef:string|null,parentCCallRef:string|null,input:unknown,physical?:boolean):boolean;
+/** @internal Same exact Source guards on the owner-selected prefix. */
+export function worksiteCommandForwardChildSourceAtPrefix(prefix:RuntimeEventPrefix,durable:DurablePrefixCoordinate,
+  parentRef:string|null,parentCCallRef:string|null,input:unknown,physical?:boolean):boolean;
+export function worksiteCommandForwardChildSourceAtPrefix(prefix:RuntimeEventPrefix,durable:DurablePrefixCoordinate,
   parentRef:string|null,parentCCallRef:string|null,input:unknown,physical=true):boolean {
   try{
     if(parentRef===null||parentCCallRef===null||!isWorksiteCommandForwardTask(input))return false;
-    const parent=projectExactExecutionBasisAtPrefix(prefix,parentRef),events=runtimeEventsFromValidatedPrefix(prefix);
+    const parent=projectExactExecutionBasisAtPrefix(prefix,parentRef),events=indexedRuntimeEvents(prefix,"aggregate:c_call:"+parentCCallRef);
     if(parent===null||parent.graphFunctionRef!==F.graphFunctionRef||!same(parent.rawInputValue,input.request)||parent.basisClass!=="root")return false;
     const parentCall=one(events,e=>e.kind==="c_call_opened"&&e.aggregateId===parentCCallRef&&e.basisId===parentRef);
     if(parentCall===null||!record(parentCall.payload)||parentCall.payload.callClass!=="workflow"||parentCall.payload.childGraphFunctionRef!==F.childGraphFunctionRef)return false;
     const parentPayload=parentCall.payload;
-    const route=one(events,e=>e.kind==="traversal_route_admitted"&&e.basisId===parentRef&&record(e.payload)&&
+    const route=one(indexedRuntimeEvents(prefix,"payload:targetCursorRef:"+parentPayload.cursorRef),e=>e.kind==="traversal_route_admitted"&&e.basisId===parentRef&&record(e.payload)&&
       e.payload.targetCursorRef===parentPayload.cursorRef&&e.payload.targetCursorDigest===parentPayload.cursorDigest);
     if(route===null||!record(route.payload)||typeof route.payload.cCallRef!=="string"||route.payload.routeKind!=="advance")return false;
     const gf=(awaitFreeForwardRoot()),producer=nativeLeaf(prefix,route.payload.cCallRef,gf);

@@ -1,0 +1,50 @@
+{
+  "status": "PREPARATION_ONLY",
+  "syntaxImportOnly": true,
+  "sourceCorpus": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+    "bytes": 23189,
+    "digest": "sha256:76fdce484d14ec9d9fc743cded9e330db89f5b1fcdf96ed3607fb801071b96e1"
+  },
+  "original63InputControls": [
+    {
+      "id": "duplicate-node",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/duplicate-node.json",
+      "bytes": 10918,
+      "fileDigest": "sha256:f6db9b1740e800c4f66dda467c1fbbb2f85366635fe3ee0917926071f1c1bfa6",
+      "packetDigest": "sha256:878cef5eb6a23d44516a69cfec9b603b6fce7b5bc7b95f5d84a2f114cf29e201",
+      "program": {
+        "ref": "program://gtl-language-corpus/source-declarations@5",
+        "digest": "sha256:f265315e5ecf5a3e95e307b7ce38e1f64b64a1b7c6f272031ad0f4f21cdaa73d"
+      },
+      "classification": "supplied malformed static packet, not installed/admitted producer proof"
+    },
+    {
+      "id": "terminal-outgoing",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/terminal-outgoing.json",
+      "bytes": 12010,
+      "fileDigest": "sha256:9c75503d3c28808ac49c09e6779502ffb243724eee689559967cab269fb78b54",
+      "packetDigest": "sha256:b6abc5be6632bea965c8088ba0d85b37ed22ebb0497da347a910e1394e4c2541",
+      "program": {
+        "ref": "program://gtl-language-corpus/source-declarations@5",
+        "digest": "sha256:f265315e5ecf5a3e95e307b7ce38e1f64b64a1b7c6f272031ad0f4f21cdaa73d"
+      },
+      "classification": "supplied malformed static packet, not installed/admitted producer proof"
+    },
+    {
+      "id": "ordinary-double-edge",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/ordinary-double-edge.json",
+      "bytes": 14199,
+      "fileDigest": "sha256:cf4859ac8c12c0f8126d02facf270859b9d1bbb9d79eadcc835169eabe1c61d9",
+      "packetDigest": "sha256:69efac26da09659e4a0e018f0c960ad1cf16295dfe57925b92691285120ca308",
+      "program": {
+        "ref": "program://gtl-language-corpus/source-declarations@5",
+        "digest": "sha256:f265315e5ecf5a3e95e307b7ce38e1f64b64a1b7c6f272031ad0f4f21cdaa73d"
+      },
+      "classification": "supplied malformed static packet, not installed/admitted producer proof"
+    }
+  ],
+  "programValueUnchangedAcrossMutants": true,
+  "graphTemplatesDifferInPacketPublication": true,
+  "noSetupInstallCliRunProviderOrValidationExecuted": true
+}

@@ -1,0 +1,228 @@
+{
+  "operations": [
+    {
+      "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "originalAttributionSources": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+          "startByte": 0,
+          "endByte": 884,
+          "spanDigest": "sha256:55f1291ee3c2996c08f1082c35350f0271ba4b238268bf149b539157aa613638"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+          "startByte": 0,
+          "endByte": 477,
+          "spanDigest": "sha256:a0da27ad70876dce6e42e05e72a445a7b7ef5aa9122d9cb2606a531410c96d83"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+          "startByte": 0,
+          "endByte": 876,
+          "spanDigest": "sha256:e85fadca0f0a1c4fc512c581ed9e28e8065fd551d889d836ac07fa55cd5ff1b1"
+        }
+      ],
+      "currentAttributionSources": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+          "startByte": 0,
+          "endByte": 884,
+          "spanDigest": "sha256:55f1291ee3c2996c08f1082c35350f0271ba4b238268bf149b539157aa613638"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+          "startByte": 0,
+          "endByte": 477,
+          "spanDigest": "sha256:a0da27ad70876dce6e42e05e72a445a7b7ef5aa9122d9cb2606a531410c96d83"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+          "startByte": 0,
+          "endByte": 876,
+          "spanDigest": "sha256:e85fadca0f0a1c4fc512c581ed9e28e8065fd551d889d836ac07fa55cd5ff1b1"
+        },
+        {
+          "sourceRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/s03-closure-member-view.json",
+          "startByte": 0,
+          "endByte": 3546,
+          "spanDigest": "sha256:74df31c3d1b050c4817e9e1d3d2079fecb2c20b4a2c8857d9ccfd8fc118b2434"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+          "startByte": 0,
+          "endByte": 7917,
+          "spanDigest": "sha256:78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f"
+        }
+      ]
+    },
+    {
+      "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "originalAttributionSources": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "startByte": 0,
+          "endByte": 456,
+          "spanDigest": "sha256:b905d64148109bbe285a0d309a5fcd5a2e28a5296d1baa075c7585061b5037b0"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+          "startByte": 0,
+          "endByte": 433,
+          "spanDigest": "sha256:d55876c5c8b539acb9b68c6f456eb3b1d1ce52abce57f54718d83a90daa99c99"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+          "startByte": 0,
+          "endByte": 1368,
+          "spanDigest": "sha256:6922a30d72842443da26d82d1bf1d5734b24ecfcff5c5e9f47fab51be8190efa"
+        }
+      ],
+      "currentAttributionSources": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "startByte": 0,
+          "endByte": 456,
+          "spanDigest": "sha256:b905d64148109bbe285a0d309a5fcd5a2e28a5296d1baa075c7585061b5037b0"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+          "startByte": 0,
+          "endByte": 433,
+          "spanDigest": "sha256:d55876c5c8b539acb9b68c6f456eb3b1d1ce52abce57f54718d83a90daa99c99"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+          "startByte": 0,
+          "endByte": 1368,
+          "spanDigest": "sha256:6922a30d72842443da26d82d1bf1d5734b24ecfcff5c5e9f47fab51be8190efa"
+        },
+        {
+          "sourceRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/selected-action07-header-relation.json",
+          "startByte": 0,
+          "endByte": 5543,
+          "spanDigest": "sha256:0566c05831addaca860b42a6577009a40b39d5a12eebb033f8c6946af7ede332"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "startByte": 0,
+          "endByte": 8724,
+          "spanDigest": "sha256:b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f"
+        }
+      ]
+    },
+    {
+      "operation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "originalAttributionSources": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/activation.json",
+          "startByte": 0,
+          "endByte": 1310,
+          "spanDigest": "sha256:d348278214648378c6b9bbe70a85ca602985b0ddb9ebec321277e21a847a66d6"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+          "startByte": 0,
+          "endByte": 5335,
+          "spanDigest": "sha256:00a9829bbb08dde776ab92d5e005dc089efc0a6100abecb8c4ae25d2c555c66b"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source-attribution.json",
+          "startByte": 0,
+          "endByte": 3514,
+          "spanDigest": "sha256:7002ae5e6a739a7aed7cbf879ffe978d64aac43743695ae106f67cf0cf0ba6e3"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/return.md",
+          "startByte": 0,
+          "endByte": 5089,
+          "spanDigest": "sha256:c1a21723b9bb0d887e78c6dd251a7e1837c793c8ad3e1b18fc886bce49c5b739"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+          "startByte": 0,
+          "endByte": 7347,
+          "spanDigest": "sha256:4c48aa2fd7d4112bcc2a6fd9025ae9b82c64395134b517d28033dd2c7faf2cdd"
+        }
+      ],
+      "currentAttributionSources": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/activation.json",
+          "startByte": 0,
+          "endByte": 1310,
+          "spanDigest": "sha256:d348278214648378c6b9bbe70a85ca602985b0ddb9ebec321277e21a847a66d6"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+          "startByte": 0,
+          "endByte": 5335,
+          "spanDigest": "sha256:00a9829bbb08dde776ab92d5e005dc089efc0a6100abecb8c4ae25d2c555c66b"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source-attribution.json",
+          "startByte": 0,
+          "endByte": 3514,
+          "spanDigest": "sha256:7002ae5e6a739a7aed7cbf879ffe978d64aac43743695ae106f67cf0cf0ba6e3"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/return.md",
+          "startByte": 0,
+          "endByte": 5089,
+          "spanDigest": "sha256:c1a21723b9bb0d887e78c6dd251a7e1837c793c8ad3e1b18fc886bce49c5b739"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+          "startByte": 0,
+          "endByte": 7347,
+          "spanDigest": "sha256:4c48aa2fd7d4112bcc2a6fd9025ae9b82c64395134b517d28033dd2c7faf2cdd"
+        },
+        {
+          "sourceRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/publication-repair-closure-member-view.json",
+          "startByte": 0,
+          "endByte": 3943,
+          "spanDigest": "sha256:f92f5605f2754a0ce8440ac05527064de6e1d360592269ddc6b9d3ea23ab5318"
+        }
+      ]
+    }
+  ],
+  "rootSelectionObservations": [
+    {
+      "name": "selected-action07-selection",
+      "sourcePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "observedWholeFileBytes": 336248,
+      "observedWholeFileSha256": "8a86c6a902cdd820923243e482b1b70ad47c3e690e074911febbd21ce71a9543",
+      "startLine": 3748,
+      "endLine": 3767,
+      "startByte": 246448,
+      "endByte": 247580,
+      "spanDigest": "sha256:dc46269a3021314e41646fa95b4da4eb818e213e396c0db63aec3e3895aed512",
+      "acquiredPath": "acquired/selected-action07-selection.txt",
+      "establishes": "Original selection and bounded grant, not concrete dispatch recipient or Product authority-slot occupancy."
+    },
+    {
+      "name": "s03-handoff-selection",
+      "sourcePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "observedWholeFileBytes": 336248,
+      "observedWholeFileSha256": "8a86c6a902cdd820923243e482b1b70ad47c3e690e074911febbd21ce71a9543",
+      "startLine": 4324,
+      "endLine": 4378,
+      "startByte": 282910,
+      "endByte": 286530,
+      "spanDigest": "sha256:d14989b92db89ac804183207837535ba840df0a8824f2d97a0805984595d345d",
+      "acquiredPath": "acquired/s03-handoff-selection.txt",
+      "establishes": "Original selection and bounded grant, not concrete dispatch recipient or Product authority-slot occupancy."
+    },
+    {
+      "name": "publication-repair-selection",
+      "sourcePath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "observedWholeFileBytes": 336248,
+      "observedWholeFileSha256": "8a86c6a902cdd820923243e482b1b70ad47c3e690e074911febbd21ce71a9543",
+      "startLine": 4917,
+      "endLine": 4925,
+      "startByte": 320545,
+      "endByte": 321233,
+      "spanDigest": "sha256:a0c69a947750cf919e4abb8612ef74403aaf5917af7daf3819f15a56658309e3",
+      "acquiredPath": "acquired/publication-repair-selection.txt",
+      "establishes": "Original selection and bounded grant, not concrete dispatch recipient or Product authority-slot occupancy."
+    }
+  ]
+}

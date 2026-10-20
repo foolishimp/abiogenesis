@@ -1,0 +1,355 @@
+{
+  "rowCounts": [
+    75,
+    75
+  ],
+  "differenceCount": 69,
+  "differences": [
+    {
+      "path": "/catalogDigest",
+      "before": "sha256:23050185123590c94b3aba56cf4383d3ecda9fdc9b11cb0320fca310a0a2f3be",
+      "after": "sha256:00ebb9f5bdf944fb6e9a2b450a79ebe430dd1a108572e66809308cfe21cadbe4"
+    },
+    {
+      "path": "/rows/1/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/2/contractDigest",
+      "before": "sha256:ed6a6a28e93db74cdde79f1b1104b859c0c616e4370680ac0fa90ea290881b20",
+      "after": "sha256:d1f3b95986db0e31e112f5b1c870d74bbfa0ec669cd56ee5d3954a5aa3391488"
+    },
+    {
+      "path": "/rows/2/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/3/contractDigest",
+      "before": "sha256:ed6a6a28e93db74cdde79f1b1104b859c0c616e4370680ac0fa90ea290881b20",
+      "after": "sha256:d1f3b95986db0e31e112f5b1c870d74bbfa0ec669cd56ee5d3954a5aa3391488"
+    },
+    {
+      "path": "/rows/3/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/4/contractDigest",
+      "before": "sha256:ed6a6a28e93db74cdde79f1b1104b859c0c616e4370680ac0fa90ea290881b20",
+      "after": "sha256:d1f3b95986db0e31e112f5b1c870d74bbfa0ec669cd56ee5d3954a5aa3391488"
+    },
+    {
+      "path": "/rows/4/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/5/contractDigest",
+      "before": "sha256:ed6a6a28e93db74cdde79f1b1104b859c0c616e4370680ac0fa90ea290881b20",
+      "after": "sha256:d1f3b95986db0e31e112f5b1c870d74bbfa0ec669cd56ee5d3954a5aa3391488"
+    },
+    {
+      "path": "/rows/5/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/6/contractDigest",
+      "before": "sha256:98ba9fd5b513bf1d7bcee16eda23583a19d6257fc838701d79289567b9b8323c",
+      "after": "sha256:053b5f0c89a198e5070a8af847a39a8c6262f0d62fa519bf383a68abaa9fc898"
+    },
+    {
+      "path": "/rows/6/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/7/contractDigest",
+      "before": "sha256:ed6a6a28e93db74cdde79f1b1104b859c0c616e4370680ac0fa90ea290881b20",
+      "after": "sha256:d1f3b95986db0e31e112f5b1c870d74bbfa0ec669cd56ee5d3954a5aa3391488"
+    },
+    {
+      "path": "/rows/7/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/8/contractDigest",
+      "before": "sha256:ed6a6a28e93db74cdde79f1b1104b859c0c616e4370680ac0fa90ea290881b20",
+      "after": "sha256:d1f3b95986db0e31e112f5b1c870d74bbfa0ec669cd56ee5d3954a5aa3391488"
+    },
+    {
+      "path": "/rows/8/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/9/contractDigest",
+      "before": "sha256:f7f03ddd52356453208ccf2f4c3d9ff952f03ac317878fd48b57b2fd80c995de",
+      "after": "sha256:96035eb67d26641d5a89696d7a3cbec0134d61e6aa39240de56511841fa810af"
+    },
+    {
+      "path": "/rows/9/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/10/contractDigest",
+      "before": "sha256:49872b2ac55280e591d92cfae4c672dcfe531fb586b47c96efe06729132c24ff",
+      "after": "sha256:98fe3378f0fa52997b4689026ac5632332073d2174b629fc41b4197145693c6d"
+    },
+    {
+      "path": "/rows/10/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/11/contractDigest",
+      "before": "sha256:4a985f1132d7020478c519dfcc54d51082fc46a6adaadbd3be4e7e6be860669d",
+      "after": "sha256:ff88ccfe868cd42777fdc1dc81a52dca0aef3d6cd774dd83fd624fbbc89201f9"
+    },
+    {
+      "path": "/rows/11/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/12/contractDigest",
+      "before": "sha256:f7ecde6045179ab44fb4ab205328facb3da60ad2ffd17df3562107fbfa69286f",
+      "after": "sha256:56fd32905c221f829abff017cd196738ddb43d16b603ba604ca4e271875fc15f"
+    },
+    {
+      "path": "/rows/12/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/14/contractDigest",
+      "before": "sha256:cee26149c327ae443814de8241bd00579311e970bdc8f5d68fcf85f03794e532",
+      "after": "sha256:1a55d9c8eb0253f869fae7a13a5b18b4a4dae980375475634845514c32d0507b"
+    },
+    {
+      "path": "/rows/14/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/16/contractDigest",
+      "before": "sha256:cee26149c327ae443814de8241bd00579311e970bdc8f5d68fcf85f03794e532",
+      "after": "sha256:1a55d9c8eb0253f869fae7a13a5b18b4a4dae980375475634845514c32d0507b"
+    },
+    {
+      "path": "/rows/16/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/17/contractDigest",
+      "before": "sha256:e83c63518af91915a330012fcdf2f6ab8d10d814ee73af356417b633527c9bd9",
+      "after": "sha256:cdc261a199330617f760b3fd61e38e16bcac246b43769a25f982fdcc0403bd3a"
+    },
+    {
+      "path": "/rows/17/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/18/contractDigest",
+      "before": "sha256:a8d87130648fccdc5f279ef2d9871c1d2315e0a63650acd20433270ecc41ef87",
+      "after": "sha256:3c77503fb988941d2f1e850a086acea53302fb78e1127411bedf49df4cf49973"
+    },
+    {
+      "path": "/rows/18/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/19/contractDigest",
+      "before": "sha256:58711818211eedb906ef0842f96eed4cc9ff33995af99aaf2503914bb90eaccc",
+      "after": "sha256:b906b082ed4d3e8e9d6f52aaedce04181e54aa6a05a33c17980f9818feb6fdf7"
+    },
+    {
+      "path": "/rows/19/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/20/contractDigest",
+      "before": "sha256:58711818211eedb906ef0842f96eed4cc9ff33995af99aaf2503914bb90eaccc",
+      "after": "sha256:b906b082ed4d3e8e9d6f52aaedce04181e54aa6a05a33c17980f9818feb6fdf7"
+    },
+    {
+      "path": "/rows/20/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/21/contractDigest",
+      "before": "sha256:a8d87130648fccdc5f279ef2d9871c1d2315e0a63650acd20433270ecc41ef87",
+      "after": "sha256:3c77503fb988941d2f1e850a086acea53302fb78e1127411bedf49df4cf49973"
+    },
+    {
+      "path": "/rows/21/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/22/contractDigest",
+      "before": "sha256:a8d87130648fccdc5f279ef2d9871c1d2315e0a63650acd20433270ecc41ef87",
+      "after": "sha256:3c77503fb988941d2f1e850a086acea53302fb78e1127411bedf49df4cf49973"
+    },
+    {
+      "path": "/rows/22/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/23/contractDigest",
+      "before": "sha256:a8d87130648fccdc5f279ef2d9871c1d2315e0a63650acd20433270ecc41ef87",
+      "after": "sha256:3c77503fb988941d2f1e850a086acea53302fb78e1127411bedf49df4cf49973"
+    },
+    {
+      "path": "/rows/23/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/24/contractDigest",
+      "before": "sha256:a46424f7f40405b5d47a1b90d6f6c2303c3ff027a51cae2535c629511ac9251f",
+      "after": "sha256:e91108be37b68b9a098d5a50a3383b31726728110ba8523a78cd450f7d125571"
+    },
+    {
+      "path": "/rows/24/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/25/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/26/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/27/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/28/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/29/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/30/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/31/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/32/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/33/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/34/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/35/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/36/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/37/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/38/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/39/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/40/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/41/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/42/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/54/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/55/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/57/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/60/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/61/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/62/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    },
+    {
+      "path": "/rows/72/nativeTypedLocator/declarationInventory/15/declarationDigest",
+      "before": "sha256:e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "after": "sha256:5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877"
+    }
+  ],
+  "nonDigestMetadataUnchanged": true
+}

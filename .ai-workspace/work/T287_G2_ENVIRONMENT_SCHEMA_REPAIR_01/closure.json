@@ -1,0 +1,23 @@
+{
+  "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED_STOPPED_FIRST_MATERIAL_FAILURE",
+  "closedAtUTC": "2026-10-04T15:22:46.562210+00:00",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/source-subject-postimage.json",
+  "firstFailure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/first-failure.json",
+  "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/proof.json",
+  "cost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/cost.json",
+  "processesReapedAndGroupsAbsent": true,
+  "SourceEditsStopped": true,
+  "payloadsStopped": true,
+  "writeTerritories": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01"
+  ],
+  "sourceWritePaths": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts"
+  ],
+  "noReviewerActivation": true
+}

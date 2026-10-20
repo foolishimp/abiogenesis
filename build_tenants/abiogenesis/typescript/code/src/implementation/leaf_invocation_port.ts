@@ -5,7 +5,9 @@ import { graphFunctionSemanticsOwner } from "../product/execution_resolution.js"
 import { projectHistoricalGraphCallSourceAtDurablePrefix } from "../abg/project_read_ports.js";
 import type { AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
 import type { NativeLeafProofOperations, NativeJudgmentProofOperations } from "./contracts.js";
-import { authenticateNativeWorkReacquisition, nativeWorkReacquisitionResultMatches } from "../abg/native_work_reacquisition.js";
+import { authenticateOwnedNativeWorkReacquisition, nativeWorkReacquisitionResultMatches,
+  prepareGovernanceNativeWorkReacquisition } from "../abg/native_work_reacquisition.js";
+import { governanceRef } from "../product/default_library.js";
 import { QUALIFICATION_IDS as qualificationIds } from "../gtl/self_conformance.js";
 import type { QualificationNativeBasis } from "../validator/qualification_contracts.js";
 import { NATIVE_WORK_REACQUISITION_IDS as reacquireIds } from "../product/worksite_command_execution.js";
@@ -46,7 +48,7 @@ import {
   holdsAt,
 } from "../abg/event_calculus.js";
 import {
-  authenticateNativeInstructionAssemblyBasis,
+  authenticateOwnedNativeInstructionAssemblyBasis,
   hasAdmittedExecutionBasisAtPrefix,
   hasExactWorksiteCommandLeafSourceAtDurablePrefix,
   hasAdmittedImplementationSetAtPrefix,
@@ -82,6 +84,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { sanitizeUndispatchedOwnerError, undispatchedOwnerDiagnosticRef,
   type UndispatchedOwnerObservation, type UndispatchedOwnerStage, type UndispatchedOwnerReason } from "../abg/event_contract_profiles.js";
+import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import {
   validateActorProcessCarrierPair,
@@ -435,6 +438,14 @@ function nativeLeafProofOperations(
   };
   const basis = occurrence.qualificationOwnerBasis, native = occurrence.nativeWorkReacquisitionBasis;
   return Object.freeze({
+    ...(implementationRef === governanceRef("implementation", "prepare-testing") && occurrence.nativeInstructionAssemblyBasis !== undefined &&
+      occurrence.nativeInstructionAssemblyBasis.cCall.cCallRef === occurrence.cCallRef
+      ? { governanceTestingReacquisition: (input: unknown, supplied: LeafExecutionOccurrence,
+          context: import("../product/worksite_effect.js").WorksiteContextObservation,
+          refusal?: Parameters<NonNullable<NativeLeafProofOperations["governanceTestingReacquisition"]>>[3]) => {
+          exact(input, supplied);
+          return prepareGovernanceNativeWorkReacquisition(occurrence.nativeInstructionAssemblyBasis!, input, context, historicalSource, refusal);
+        } } : {}),
     ...(implementationRef === qualificationIds.assessImplementation && preparation !== undefined ? { qualificationPreparation: (input: unknown, supplied: LeafExecutionOccurrence) => { exact(input, supplied); return preparation; } } : {}),
     ...(implementationRef === SELF_CONFORMANCE_IDS.implementationRef && basis?.cCallRef === occurrence.cCallRef
       ? { qualificationSelfConformance: (input: unknown, supplied: LeafExecutionOccurrence) => {
@@ -452,8 +463,8 @@ function nativeLeafProofOperations(
           exact(input, supplied); return projectNativeRuntimeAssessment(basis, value, true, resources);
         } } : {}),
     ...(implementationRef === reacquireIds.implementationRef && native?.cCallRef === occurrence.cCallRef
-      ? { nativeWorkReacquisition: (input: unknown, supplied: LeafExecutionOccurrence) => {
-          exact(input, supplied); return authenticateNativeWorkReacquisition(native, value, true, historicalSource);
+      ? { nativeOwnedWorkReacquisition: (input: unknown, supplied: LeafExecutionOccurrence) => {
+          exact(input, supplied); return authenticateOwnedNativeWorkReacquisition(native, value, true, historicalSource);
         } } : {}),
   });
 }
@@ -461,7 +472,7 @@ function nativeOccurrenceVerifier(occurrence: Readonly<LeafExecutionOccurrence>)
   return (supplied: Readonly<LeafExecutionOccurrence>): boolean => {
     if (supplied !== occurrence) return false;
     const basis = occurrence.nativeInstructionAssemblyBasis;
-    const owner = basis === undefined ? null : authenticateNativeInstructionAssemblyBasis(basis);
+    const owner = basis === undefined ? null : authenticateOwnedNativeInstructionAssemblyBasis(basis);
     return owner !== null && (["cCallRef", "runId", "graphCallId", "frameId", "programLocusRef", "taskOrdinal", "attempt"] as const)
       .every(key => owner.call[key] === occurrence[key]);
   };
@@ -537,6 +548,44 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       failureValueKind,
       failureClass,
     }) as Readonly<LeafRealizationFailureCandidate>;
+  const deterministicFailure = (
+    stage: "authority_verification" | "implementation_load" | "implementation_invocation",
+    reason: "refused" | "thrown" | "missing_export",
+    error?: unknown,
+  ): Readonly<LeafRealizationFailureCandidate> => {
+    const original = totalizedFailure("implementation_exception");
+    const caught = reason === "thrown" && !types.isProxy(error) ? error : null;
+    const safe = sanitizeUndispatchedOwnerError(caught);
+    let message: string | null = null;
+    let messageTruncated = false;
+    if (types.isNativeError(caught)) {
+      const descriptor = Object.getOwnPropertyDescriptor(caught, "message");
+      if (descriptor !== undefined && "value" in descriptor &&
+          typeof descriptor.value === "string") {
+        message = descriptor.value.slice(0, 8192);
+        messageTruncated = descriptor.value.length > 8192;
+      }
+    }
+    const diagnosticRef = constructRuntimeFailureDiagnosticRef({
+      diagnosticClassRef: original.diagnosticRef,
+      computeRegime: "F_D",
+      implementationRef: resolution.implementationRef,
+      inputDigest,
+      stage,
+      reason,
+      cause: { ...safe, message, messageTruncated },
+    });
+    const resultCandidate = { ...original.resultCandidate, diagnosticRef };
+    return deepFreeze({
+      ...original,
+      diagnosticRef,
+      resultCandidate,
+      evidenceCandidates: original.evidenceCandidates.map(evidence => ({
+        ...evidence,
+        outputDigest: sha256Canonical(resultCandidate),
+      })),
+    });
+  };
   const undispatched = (
     failureClass: "implementation_exception" | "malformed_return",
     stage: UndispatchedOwnerStage,
@@ -593,7 +642,8 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   if (!authorityValid) {
     return resolution.computeRegime === "F_D"
       ? closedDeterministicOwnerReceipt(
-          totalizedFailure("implementation_exception"),
+          deterministicFailure("authority_verification",
+            authorityThrew ? "thrown" : "refused", authorityError),
           false,
         )
       : undispatched("implementation_exception", "authority_verification",
@@ -604,12 +654,15 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     let implementation: unknown;
     try {
       implementation = await input.loadImplementation();
-    } catch {
-      implementation = null;
+    } catch (error) {
+      return closedDeterministicOwnerReceipt(
+        deterministicFailure("implementation_load", "thrown", error),
+        false,
+      );
     }
     if (typeof implementation !== "function") {
       return closedDeterministicOwnerReceipt(
-        totalizedFailure("implementation_exception"),
+        deterministicFailure("implementation_load", "missing_export"),
         false,
       );
     }
@@ -622,9 +675,9 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
         inputDigest,
         nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource, input.qualificationResources, input.qualificationPreparation),
       );
-    } catch {
+    } catch (error) {
       return closedDeterministicOwnerReceipt(
-        totalizedFailure("implementation_exception"),
+        deterministicFailure("implementation_invocation", "thrown", error),
         false,
       );
     }

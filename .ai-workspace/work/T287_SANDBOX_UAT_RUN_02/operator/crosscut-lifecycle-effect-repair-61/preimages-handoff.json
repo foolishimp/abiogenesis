@@ -1,0 +1,17 @@
+{
+  "rootSelection": "R02 mutable cold-fold to immutable validated-prefix handoff; prior64 source/generated and all failures preserved",
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "copyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages-handoff/code/src/abg/event_calculus.ts",
+      "sha256": "25190216b6137d8dab57afc90251758ff424a68cefc11f9f198300c570aa3d2d",
+      "byteCount": 82763
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "copyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages-handoff/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "1b28a0e3bea9930930037bd664f6490a66e29029f717b337f76472bc99384525",
+      "byteCount": 21371
+    }
+  ]
+}

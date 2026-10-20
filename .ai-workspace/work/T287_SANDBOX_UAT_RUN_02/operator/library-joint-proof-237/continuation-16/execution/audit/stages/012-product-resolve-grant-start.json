@@ -1,0 +1,11 @@
+{
+  "stage": "product-resolve-grant-start",
+  "elapsedMs": 25462.88075,
+  "at": "2026-10-10T21:23:22.622Z",
+  "rss": 2703245312,
+  "heapTotal": 1332035584,
+  "heapUsed": 1238959368,
+  "external": 2492940,
+  "arrayBuffers": 80633,
+  "beforeAcquisition": true
+}

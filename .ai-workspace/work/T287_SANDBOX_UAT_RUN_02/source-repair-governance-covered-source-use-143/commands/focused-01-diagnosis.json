@@ -1,0 +1,9 @@
+{
+  "failure": "2PASS/5FAIL focused-01",
+  "causes": [
+    "new fixture null optional event envelope fields refused before owner projection",
+    "old-build nominal prefix passed to isolated new owner; nominal owner refusal"
+  ],
+  "selectedAction": "test-only canonical envelope omission and same-isolated-owner prefix construction; keep first receipt",
+  "effects": "none beyond granted test fixture"
+}

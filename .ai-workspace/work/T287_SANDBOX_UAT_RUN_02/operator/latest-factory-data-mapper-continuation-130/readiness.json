@@ -1,0 +1,64 @@
+{
+  "classification": "FROZEN preparation only; no source applicability/quiescence/native/continuation/UAT claim",
+  "methodManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "sameInstalledProductContentDigest": "sha256:0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+  "sameProgram": {
+    "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+  },
+  "sameWorkspaceBinding": {
+    "digest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "ref": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+  },
+  "checks": [
+    {
+      "label": "syntax-prepare",
+      "exitCode": 0,
+      "wallMs": 23.848540999999997
+    },
+    {
+      "label": "syntax-launch",
+      "exitCode": 0,
+      "wallMs": 19.834625000000003
+    },
+    {
+      "label": "mechanical-inspection",
+      "exitCode": 0,
+      "wallMs": 443.328541
+    }
+  ],
+  "selectedImmutableInputs": 23,
+  "dynamicSourceDerivationNotExecuted": true,
+  "launcherNotExecuted": true,
+  "controls": {
+    "originalNativeT0": "2026-10-08T17:45:46.407Z",
+    "originalQualityCheckpoint": "2026-10-08T22:45:46.407Z",
+    "oldDriverDeadline": "2026-10-08T22:46:46.407Z",
+    "timerExtension": false,
+    "futureLimits": {
+      "nativeMs": 18060000,
+      "nativeBytes": 268435456,
+      "outerMs": 19260000,
+      "outerBytes": 536870912
+    },
+    "newQualityClockOnlyAtFutureActualCliSpawn": true
+  },
+  "dynamicPrerequisites": [
+    "genuine normal129 CLI result/transport outcome/final-close-handoff",
+    "exact Root-selected latest successful judged parent ResultRef",
+    "owner-derived closed or inactive failed/stopped/blocked Run with all admitted actor processes terminated",
+    "same current Program/view/W and exact retained governance input"
+  ],
+  "futureEffectScope": "new130 requests/receipts; normal Public reopen of129 exact closeHandoff and same event resource append, same mutable W native effects only after separate release",
+  "firstRefusal": "Missing normal old outcome/handoff or non-quiescent/stale owner basis refuses; no reconstructed state/event or fallback to an older Result",
+  "limits": [
+    "Syntax and actual installed constructor/export inspection only; dynamic full-prefix owner source derivation, Public admission and capacity untested",
+    "No supported timer-extension relation; old CLI must close normally before22:46:46.407Z",
+    "Original all16 mutant/restoration/oracle/fresh-readback/terminal obligations remain; launcher receipt alone cannot establish PASS",
+    "Fresh Public reads and unchanged full original oracle must follow any future actual native closure through existing caller owners; no altered criteria or imported arbitrary credit"
+  ]
+}

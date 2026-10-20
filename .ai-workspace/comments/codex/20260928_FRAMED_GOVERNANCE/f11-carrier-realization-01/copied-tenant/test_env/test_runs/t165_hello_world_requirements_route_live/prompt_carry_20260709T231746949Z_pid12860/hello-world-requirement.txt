@@ -1,0 +1,5 @@
+Construct a minimal JavaScript program artifact.
+When executed with Node.js, the program shall write exactly one line to stdout.
+The stdout line shall contain exactly: Hello, world!
+The stdout line shall end with one newline.
+The program shall not write to stderr.

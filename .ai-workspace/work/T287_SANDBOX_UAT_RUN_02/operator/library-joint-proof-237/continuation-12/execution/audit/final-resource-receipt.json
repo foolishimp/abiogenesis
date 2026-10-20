@@ -1,0 +1,45 @@
+{
+  "kind": "abg_event_resource_receipt",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "reopen",
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "prefixLength": 17131527,
+    "prefixDigest": "sha256:5e9e52e98b9acdd61f4f52c463c7992f6b61354da6b8b77850f4f458aa7fcd4a",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 469917053,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:2c302161f365f230e815beac170465932ba835480a498bd1cd9c1ed77bc5cecb"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+      "prefixLength": 20273296,
+      "prefixDigest": "sha256:8371939cadce5fe058b819b9804edc6e5ad14f278b6deda5d8796d6a0a6b9277",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 469917053,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:b03453c72fd36228ebb6ecbf586fbd0e550a689ae32f40e5f02006da14a9d4d1"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+      "device": 16777231,
+      "inode": 469917053,
+      "eventLogDigest": "sha256:8371939cadce5fe058b819b9804edc6e5ad14f278b6deda5d8796d6a0a6b9277",
+      "durableByteLength": 20273296,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "authorityDigest": "sha256:f8941acb8ab1bff1ae1fd5039ab5a6188881a97b9a836ea8bfc6d929e20bf2b8"
+    }
+  },
+  "receiptDigest": "sha256:534a8b88381c24b8dc7f93ea7578a46a7a46c34ca670736d54089b5e2a057a76"
+}

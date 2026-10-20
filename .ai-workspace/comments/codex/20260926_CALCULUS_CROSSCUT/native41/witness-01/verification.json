@@ -1,0 +1,22 @@
+{
+  "kind": "product_verification_success",
+  "elapsedMs": 9124.973666,
+  "coordinates": {
+    "verifiedArtifact": {
+      "ref": "product-verification://abiogenesis/4fd67f43e29609db1fc2f6d0852d2b15f3a6b2c98dd870d7273c3eac68b8e93f",
+      "digest": "sha256:4fd67f43e29609db1fc2f6d0852d2b15f3a6b2c98dd870d7273c3eac68b8e93f"
+    },
+    "descriptor": {
+      "ref": "descriptor://abiogenesis/typescript-tenant/6d743377a274ac59c8b730ba6c1de7a3327a457d15bb2ba6f3fe4ec594806076",
+      "digest": "sha256:8d7f1ba5bb3e8df713196d0150fb67a248b2e0568dd6092200726c5fa7ef5f3f"
+    },
+    "localNativeEvidence": {
+      "ref": "local-native-evidence://abiogenesis/product-verification/d5d735c6424ee1485af883c4fae5efd943a9447f42137ebac524c50c708de912",
+      "digest": "sha256:d5d735c6424ee1485af883c4fae5efd943a9447f42137ebac524c50c708de912"
+    },
+    "provenance": {
+      "ref": "provenance://abiogenesis/product-verification/1345d4774b7999e335137f23d8ccb6995472d00183f8741418f20bfb2044ee3c",
+      "digest": "sha256:1345d4774b7999e335137f23d8ccb6995472d00183f8741418f20bfb2044ee3c"
+    }
+  }
+}

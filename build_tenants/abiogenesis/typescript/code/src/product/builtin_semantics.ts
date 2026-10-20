@@ -1036,9 +1036,13 @@ export const ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS: ProductSemanticsProvider = 
     if (!isGovernanceWorkState(basis.input))
       return ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS.validateInvocationBasis?.(basis) ?? basis.sourceResultBasis === null;
     const source = basis.sourceResultBasis;
+    const currentUse = typeof basis.currentSourceUse === "function" ? basis.currentSourceUse() : null;
     return source === null ? governanceSame(basis.input, constructGovernanceWorkState(basis.input.original)) :
-      source.sourceResultContractRef === governanceContract("state") && source.workspaceBindingId === basis.workspaceBindingId &&
-      source.workspaceBindingDigest === basis.workspaceBindingDigest && source.sourceWorkspaceId === basis.workspaceId &&
+      source.sourceResultContractRef === governanceContract("state") && source.sourceWorkspaceId === basis.workspaceId &&
+      (source.workspaceBindingId === basis.workspaceBindingId && source.workspaceBindingDigest === basis.workspaceBindingDigest ||
+        currentUse !== null && currentUse.sourceBasisRef === source.basisRef &&
+        currentUse.sourceBasisDigest === source.basisDigest && currentUse.currentWorkspaceBindingId === basis.workspaceBindingId &&
+        currentUse.currentWorkspaceBindingDigest === basis.workspaceBindingDigest) &&
       governanceSame(basis.input, retainedGovernanceWorkInput(source.sourceResultValue));
   },
   admitInput(contractRef: string, value: unknown) {

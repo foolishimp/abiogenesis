@@ -1,9 +1,10 @@
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isUndispatchedOwnerObservation } from "./event_contract_profiles.js";
-import { indexedRuntimeEvents, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { runtimeEventBodiesAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { admitRuntimeEvent, admitRuntimeEventTransactionAtDurablePrefix, readRuntimeEventsAtDurablePrefix, type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 
@@ -41,7 +42,7 @@ const one = (rows: readonly RuntimeEvent[]) => rows.length === 1 ? rows[0]! : nu
 
 /** Indexed cold projection; arbitrary failure text and F_D failure do not apply. */
 function deriveConstructionIntentContinuations(
-  prefix: ValidatedRuntimeEventPrefix, runId: string,
+  prefix: RuntimeEventPrefix, runId: string,
 ): readonly ConstructionIntentContinuation[] {
   const rows = indexedRuntimeEvents(prefix, "run:" + runId);
   const openedRun = one(rows.filter(e => e.kind === "run_segment_opened"));
@@ -140,6 +141,11 @@ export function admitPendingConstructionIntentContinuation(store: AbgEventStore,
 }
 
 export function projectConstructionIntentContinuations(prefix: ValidatedRuntimeEventPrefix,
+  runId: string): readonly ConstructionIntentContinuation[];
+/** @internal */
+export function projectConstructionIntentContinuations(prefix: RuntimeEventPrefix,
+  runId: string): readonly ConstructionIntentContinuation[];
+export function projectConstructionIntentContinuations(prefix: RuntimeEventPrefix,
   runId: string): readonly ConstructionIntentContinuation[] {
   return Object.freeze(indexedRuntimeEvents(prefix, "kind:construction_continuation_opened")
     .filter(e => e.runId === runId).map(event => {
@@ -202,7 +208,565 @@ const preparedRelations = new WeakSet<object>();
 export function prepareConstructionIntentContinuation(
   prefix: ValidatedRuntimeEventPrefix, selected: ConstructionIntentContinuation,
   resolution: LoadedProductExecutionResolution,
-) {
+): Readonly<{
+    continuation: ConstructionIntentContinuation;
+    root: ExecutionBasis;
+    child: ExecutionBasis;
+    rootGraph: Readonly<import("../index.js").GtlGraph>;
+    childGraph: Readonly<import("../index.js").GtlGraph>;
+    rootValidation: import("../validator/graph.js").GraphValidation;
+    childValidation: import("../validator/graph.js").GraphValidation;
+    childFunction: {
+        readonly kind: "graph_function";
+        readonly name: string;
+        readonly version: "5.0.0";
+        readonly environment: {
+            readonly requires: readonly string[];
+            readonly provides: readonly string[];
+            readonly carries: readonly string[];
+        };
+        readonly inputs: readonly string[];
+        readonly outputs: readonly string[];
+        readonly template: {
+            readonly kind: "inline_graph";
+            readonly graphRef: string;
+            readonly startNodeRef: string;
+            readonly terminalNodeRefs: readonly string[];
+            readonly nodes: readonly {
+                readonly nodeRef: string;
+                readonly nodeKind: "c_locus";
+                readonly term: import("../index.js").CProgramNode;
+            }[];
+            readonly edges: readonly {
+                readonly edgeRef: string;
+                readonly fromNodeRef: string;
+                readonly toNodeRef: string;
+                readonly inputBinding?: {
+                    readonly kind: "retain_graph_input";
+                    readonly entryContractRef: string;
+                    readonly sourceContractRef: string;
+                    readonly targetContractRef: string;
+                };
+            }[];
+            readonly applications: readonly ({
+                readonly relationKind: "compose";
+                readonly leftGraphFunctionRef: string;
+                readonly rightGraphFunctionRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "substitute";
+                readonly outerGraphFunctionRef: string;
+                readonly targetVectorRef: string;
+                readonly innerGraphFunctionRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "recurse";
+                readonly graphFunctionRef: string;
+                readonly terminationRuleRef: string;
+                readonly terminationEvaluatorRefs: readonly string[];
+                readonly terminationFieldRef: string;
+                readonly foldbackRef: string;
+                readonly foldback: {
+                    readonly mode: "rebind";
+                    readonly binding: string;
+                    readonly requiresParentEvaluation: true;
+                };
+                readonly bound: number;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "fan_out";
+                readonly batchRef: string;
+                readonly elementGraphFunctionRef: string;
+                readonly inputVectorRef: string;
+                readonly outputVectorRef: string;
+                readonly inputMemberContractRef: string;
+                readonly outputMemberContractRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "fan_in";
+                readonly reducerGraphFunctionRef: string;
+                readonly inputVectorRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "gate";
+                readonly targetRef: string;
+                readonly ruleRef: string;
+                readonly evaluatorRefs: readonly string[];
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "registered_selection";
+                readonly sourceProgramLocusRef: string;
+                readonly evaluatorRef: string;
+                readonly ruleRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "re_enter";
+                readonly graphFunctionRef: string;
+                readonly sourceProgramLocusRef: string;
+                readonly targetProgramLocusRef: string;
+                readonly maxApplications: number;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "promote";
+                readonly sourceRef: string;
+                readonly targetRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "identity";
+                readonly targetRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "same_object";
+                readonly leftRef: string;
+                readonly rightRef: string;
+                readonly witnessRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            })[];
+        };
+        readonly effects: readonly string[];
+        readonly declarations: {
+            readonly [x: string]: string;
+        };
+        readonly tags: readonly string[];
+    };
+    rootScope: OpenedTraversalScope;
+    childScope: OpenedTraversalScope;
+    parent: {
+        cursor: TraversalCursorCandidate;
+        input: import("./traversal_cursor.js").TraversalInputOrigin;
+        execution: ExecutionBasis;
+    };
+    pending: {
+        cursor: TraversalCursorCandidate;
+        input: import("./traversal_cursor.js").TraversalInputOrigin;
+        execution: ExecutionBasis;
+    };
+    parentTerm: import("../index.js").CWorkflowNode;
+    pendingTerm: import("../index.js").COfNode;
+    failedCall: CCall;
+    producerCall: CCall;
+    producer: RuntimeEvent;
+    intent: import("./traversal_route.js").ConstructionIntentAdmission;
+    invocation: import("./invocation_admission.js").InvocationAdmission;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+    parentCall: CCall;
+    parentInput: {
+        readonly [key: string]: JsonValue;
+    };
+    pendingInput: {
+        readonly [key: string]: JsonValue;
+    };
+}> | null;
+/** @internal */
+export function prepareConstructionIntentContinuation(
+  prefix: RuntimeEventPrefix, selected: ConstructionIntentContinuation,
+  resolution: LoadedProductExecutionResolution,
+): Readonly<{
+    continuation: ConstructionIntentContinuation;
+    root: ExecutionBasis;
+    child: ExecutionBasis;
+    rootGraph: Readonly<import("../index.js").GtlGraph>;
+    childGraph: Readonly<import("../index.js").GtlGraph>;
+    rootValidation: import("../validator/graph.js").GraphValidation;
+    childValidation: import("../validator/graph.js").GraphValidation;
+    childFunction: {
+        readonly kind: "graph_function";
+        readonly name: string;
+        readonly version: "5.0.0";
+        readonly environment: {
+            readonly requires: readonly string[];
+            readonly provides: readonly string[];
+            readonly carries: readonly string[];
+        };
+        readonly inputs: readonly string[];
+        readonly outputs: readonly string[];
+        readonly template: {
+            readonly kind: "inline_graph";
+            readonly graphRef: string;
+            readonly startNodeRef: string;
+            readonly terminalNodeRefs: readonly string[];
+            readonly nodes: readonly {
+                readonly nodeRef: string;
+                readonly nodeKind: "c_locus";
+                readonly term: import("../index.js").CProgramNode;
+            }[];
+            readonly edges: readonly {
+                readonly edgeRef: string;
+                readonly fromNodeRef: string;
+                readonly toNodeRef: string;
+                readonly inputBinding?: {
+                    readonly kind: "retain_graph_input";
+                    readonly entryContractRef: string;
+                    readonly sourceContractRef: string;
+                    readonly targetContractRef: string;
+                };
+            }[];
+            readonly applications: readonly ({
+                readonly relationKind: "compose";
+                readonly leftGraphFunctionRef: string;
+                readonly rightGraphFunctionRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "substitute";
+                readonly outerGraphFunctionRef: string;
+                readonly targetVectorRef: string;
+                readonly innerGraphFunctionRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "recurse";
+                readonly graphFunctionRef: string;
+                readonly terminationRuleRef: string;
+                readonly terminationEvaluatorRefs: readonly string[];
+                readonly terminationFieldRef: string;
+                readonly foldbackRef: string;
+                readonly foldback: {
+                    readonly mode: "rebind";
+                    readonly binding: string;
+                    readonly requiresParentEvaluation: true;
+                };
+                readonly bound: number;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "fan_out";
+                readonly batchRef: string;
+                readonly elementGraphFunctionRef: string;
+                readonly inputVectorRef: string;
+                readonly outputVectorRef: string;
+                readonly inputMemberContractRef: string;
+                readonly outputMemberContractRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "fan_in";
+                readonly reducerGraphFunctionRef: string;
+                readonly inputVectorRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "gate";
+                readonly targetRef: string;
+                readonly ruleRef: string;
+                readonly evaluatorRefs: readonly string[];
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "registered_selection";
+                readonly sourceProgramLocusRef: string;
+                readonly evaluatorRef: string;
+                readonly ruleRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "re_enter";
+                readonly graphFunctionRef: string;
+                readonly sourceProgramLocusRef: string;
+                readonly targetProgramLocusRef: string;
+                readonly maxApplications: number;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "promote";
+                readonly sourceRef: string;
+                readonly targetRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "identity";
+                readonly targetRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "same_object";
+                readonly leftRef: string;
+                readonly rightRef: string;
+                readonly witnessRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            })[];
+        };
+        readonly effects: readonly string[];
+        readonly declarations: {
+            readonly [x: string]: string;
+        };
+        readonly tags: readonly string[];
+    };
+    rootScope: OpenedTraversalScope;
+    childScope: OpenedTraversalScope;
+    parent: {
+        cursor: TraversalCursorCandidate;
+        input: import("./traversal_cursor.js").TraversalInputOrigin;
+        execution: ExecutionBasis;
+    };
+    pending: {
+        cursor: TraversalCursorCandidate;
+        input: import("./traversal_cursor.js").TraversalInputOrigin;
+        execution: ExecutionBasis;
+    };
+    parentTerm: import("../index.js").CWorkflowNode;
+    pendingTerm: import("../index.js").COfNode;
+    failedCall: CCall;
+    producerCall: CCall;
+    producer: RuntimeEvent;
+    intent: import("./traversal_route.js").ConstructionIntentAdmission;
+    invocation: import("./invocation_admission.js").InvocationAdmission;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+    parentCall: CCall;
+    parentInput: {
+        readonly [key: string]: JsonValue;
+    };
+    pendingInput: {
+        readonly [key: string]: JsonValue;
+    };
+}> | null;
+export function prepareConstructionIntentContinuation(
+  prefix: RuntimeEventPrefix, selected: ConstructionIntentContinuation,
+  resolution: LoadedProductExecutionResolution,
+): Readonly<{
+    continuation: ConstructionIntentContinuation;
+    root: ExecutionBasis;
+    child: ExecutionBasis;
+    rootGraph: Readonly<import("../index.js").GtlGraph>;
+    childGraph: Readonly<import("../index.js").GtlGraph>;
+    rootValidation: import("../validator/graph.js").GraphValidation;
+    childValidation: import("../validator/graph.js").GraphValidation;
+    childFunction: {
+        readonly kind: "graph_function";
+        readonly name: string;
+        readonly version: "5.0.0";
+        readonly environment: {
+            readonly requires: readonly string[];
+            readonly provides: readonly string[];
+            readonly carries: readonly string[];
+        };
+        readonly inputs: readonly string[];
+        readonly outputs: readonly string[];
+        readonly template: {
+            readonly kind: "inline_graph";
+            readonly graphRef: string;
+            readonly startNodeRef: string;
+            readonly terminalNodeRefs: readonly string[];
+            readonly nodes: readonly {
+                readonly nodeRef: string;
+                readonly nodeKind: "c_locus";
+                readonly term: import("../index.js").CProgramNode;
+            }[];
+            readonly edges: readonly {
+                readonly edgeRef: string;
+                readonly fromNodeRef: string;
+                readonly toNodeRef: string;
+                readonly inputBinding?: {
+                    readonly kind: "retain_graph_input";
+                    readonly entryContractRef: string;
+                    readonly sourceContractRef: string;
+                    readonly targetContractRef: string;
+                };
+            }[];
+            readonly applications: readonly ({
+                readonly relationKind: "compose";
+                readonly leftGraphFunctionRef: string;
+                readonly rightGraphFunctionRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "substitute";
+                readonly outerGraphFunctionRef: string;
+                readonly targetVectorRef: string;
+                readonly innerGraphFunctionRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "recurse";
+                readonly graphFunctionRef: string;
+                readonly terminationRuleRef: string;
+                readonly terminationEvaluatorRefs: readonly string[];
+                readonly terminationFieldRef: string;
+                readonly foldbackRef: string;
+                readonly foldback: {
+                    readonly mode: "rebind";
+                    readonly binding: string;
+                    readonly requiresParentEvaluation: true;
+                };
+                readonly bound: number;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "fan_out";
+                readonly batchRef: string;
+                readonly elementGraphFunctionRef: string;
+                readonly inputVectorRef: string;
+                readonly outputVectorRef: string;
+                readonly inputMemberContractRef: string;
+                readonly outputMemberContractRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "fan_in";
+                readonly reducerGraphFunctionRef: string;
+                readonly inputVectorRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "gate";
+                readonly targetRef: string;
+                readonly ruleRef: string;
+                readonly evaluatorRefs: readonly string[];
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "registered_selection";
+                readonly sourceProgramLocusRef: string;
+                readonly evaluatorRef: string;
+                readonly ruleRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "re_enter";
+                readonly graphFunctionRef: string;
+                readonly sourceProgramLocusRef: string;
+                readonly targetProgramLocusRef: string;
+                readonly maxApplications: number;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "promote";
+                readonly sourceRef: string;
+                readonly targetRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "identity";
+                readonly targetRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            } | {
+                readonly relationKind: "same_object";
+                readonly leftRef: string;
+                readonly rightRef: string;
+                readonly witnessRef: string;
+                readonly kind: "graph_function_application";
+                readonly applicationRef: string;
+                readonly inputContractRef: string;
+                readonly outputContractRef: string;
+            })[];
+        };
+        readonly effects: readonly string[];
+        readonly declarations: {
+            readonly [x: string]: string;
+        };
+        readonly tags: readonly string[];
+    };
+    rootScope: OpenedTraversalScope;
+    childScope: OpenedTraversalScope;
+    parent: {
+        cursor: TraversalCursorCandidate;
+        input: import("./traversal_cursor.js").TraversalInputOrigin;
+        execution: ExecutionBasis;
+    };
+    pending: {
+        cursor: TraversalCursorCandidate;
+        input: import("./traversal_cursor.js").TraversalInputOrigin;
+        execution: ExecutionBasis;
+    };
+    parentTerm: import("../index.js").CWorkflowNode;
+    pendingTerm: import("../index.js").COfNode;
+    failedCall: CCall;
+    producerCall: CCall;
+    producer: RuntimeEvent;
+    intent: import("./traversal_route.js").ConstructionIntentAdmission;
+    invocation: import("./invocation_admission.js").InvocationAdmission;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+    parentCall: CCall;
+    parentInput: {
+        readonly [key: string]: JsonValue;
+    };
+    pendingInput: {
+        readonly [key: string]: JsonValue;
+    };
+}> | null {
   const current = projectConstructionIntentContinuations(prefix, selected.runId)
     .find(c => c.continuationRef === selected.continuationRef && c.continuationDigest === selected.continuationDigest);
   if (current?.status !== "open" || hash(current) !== hash(selected)) return null;
@@ -327,7 +891,624 @@ export function continuationOperationWorkspaceCorresponds(operation: RuntimeEven
 
 const preparedOperations = new WeakSet<object>();
 export function prepareConstructionContinuationOperation(prefix: ValidatedRuntimeEventPrefix,
-  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis) {
+  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): Readonly<{
+    kind: "effectful_public_invocation_truth";
+    schemaVersion: "5.0.0";
+    disposition: "duplicate";
+    invocationRef: string;
+    prefix: ValidatedRuntimeEventPrefix | DurablePrefixCoordinate;
+    priorAdmission: import("./effectful_invocation_truth.js").EffectfulPublicInvocationPriorAdmission;
+}> | Readonly<{
+    kind: "effectful_public_invocation_truth_invalid_history";
+    schemaVersion: "5.0.0";
+    disposition: "invalid_history";
+    code: "artifact_truth_invalid" | "duplicate_outer_invocation" | "invocation_pair_invalid" | "prefix_invalid";
+    invocationRef: string;
+    prefix: ValidatedRuntimeEventPrefix | DurablePrefixCoordinate;
+    eventRefs: readonly string[];
+    artifactTruthCode: import("./artifact_truth.js").ExactPrefixArtifactTruthProjectionRefusalCode | null;
+}> | Readonly<{
+    kind: "prepared_construction_continuation_operation";
+    prepared: Readonly<{
+        continuation: ConstructionIntentContinuation;
+        root: ExecutionBasis;
+        child: ExecutionBasis;
+        rootGraph: Readonly<import("../index.js").GtlGraph>;
+        childGraph: Readonly<import("../index.js").GtlGraph>;
+        rootValidation: import("../validator/graph.js").GraphValidation;
+        childValidation: import("../validator/graph.js").GraphValidation;
+        childFunction: {
+            readonly kind: "graph_function";
+            readonly name: string;
+            readonly version: "5.0.0";
+            readonly environment: {
+                readonly requires: readonly string[];
+                readonly provides: readonly string[];
+                readonly carries: readonly string[];
+            };
+            readonly inputs: readonly string[];
+            readonly outputs: readonly string[];
+            readonly template: {
+                readonly kind: "inline_graph";
+                readonly graphRef: string;
+                readonly startNodeRef: string;
+                readonly terminalNodeRefs: readonly string[];
+                readonly nodes: readonly {
+                    readonly nodeRef: string;
+                    readonly nodeKind: "c_locus";
+                    readonly term: import("../index.js").CProgramNode;
+                }[];
+                readonly edges: readonly {
+                    readonly edgeRef: string;
+                    readonly fromNodeRef: string;
+                    readonly toNodeRef: string;
+                    readonly inputBinding?: {
+                        readonly kind: "retain_graph_input";
+                        readonly entryContractRef: string;
+                        readonly sourceContractRef: string;
+                        readonly targetContractRef: string;
+                    };
+                }[];
+                readonly applications: readonly ({
+                    readonly relationKind: "compose";
+                    readonly leftGraphFunctionRef: string;
+                    readonly rightGraphFunctionRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "substitute";
+                    readonly outerGraphFunctionRef: string;
+                    readonly targetVectorRef: string;
+                    readonly innerGraphFunctionRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "recurse";
+                    readonly graphFunctionRef: string;
+                    readonly terminationRuleRef: string;
+                    readonly terminationEvaluatorRefs: readonly string[];
+                    readonly terminationFieldRef: string;
+                    readonly foldbackRef: string;
+                    readonly foldback: {
+                        readonly mode: "rebind";
+                        readonly binding: string;
+                        readonly requiresParentEvaluation: true;
+                    };
+                    readonly bound: number;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "fan_out";
+                    readonly batchRef: string;
+                    readonly elementGraphFunctionRef: string;
+                    readonly inputVectorRef: string;
+                    readonly outputVectorRef: string;
+                    readonly inputMemberContractRef: string;
+                    readonly outputMemberContractRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "fan_in";
+                    readonly reducerGraphFunctionRef: string;
+                    readonly inputVectorRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "gate";
+                    readonly targetRef: string;
+                    readonly ruleRef: string;
+                    readonly evaluatorRefs: readonly string[];
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "registered_selection";
+                    readonly sourceProgramLocusRef: string;
+                    readonly evaluatorRef: string;
+                    readonly ruleRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "re_enter";
+                    readonly graphFunctionRef: string;
+                    readonly sourceProgramLocusRef: string;
+                    readonly targetProgramLocusRef: string;
+                    readonly maxApplications: number;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "promote";
+                    readonly sourceRef: string;
+                    readonly targetRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "identity";
+                    readonly targetRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "same_object";
+                    readonly leftRef: string;
+                    readonly rightRef: string;
+                    readonly witnessRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                })[];
+            };
+            readonly effects: readonly string[];
+            readonly declarations: {
+                readonly [x: string]: string;
+            };
+            readonly tags: readonly string[];
+        };
+        rootScope: OpenedTraversalScope;
+        childScope: OpenedTraversalScope;
+        parent: {
+            cursor: TraversalCursorCandidate;
+            input: import("./traversal_cursor.js").TraversalInputOrigin;
+            execution: ExecutionBasis;
+        };
+        pending: {
+            cursor: TraversalCursorCandidate;
+            input: import("./traversal_cursor.js").TraversalInputOrigin;
+            execution: ExecutionBasis;
+        };
+        parentTerm: import("../index.js").CWorkflowNode;
+        pendingTerm: import("../index.js").COfNode;
+        failedCall: CCall;
+        producerCall: CCall;
+        producer: RuntimeEvent;
+        intent: import("./traversal_route.js").ConstructionIntentAdmission;
+        invocation: import("./invocation_admission.js").InvocationAdmission;
+        implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+        interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+        resolution: LoadedProductExecutionResolution;
+        parentCall: CCall;
+        parentInput: {
+            readonly [key: string]: JsonValue;
+        };
+        pendingInput: {
+            readonly [key: string]: JsonValue;
+        };
+    }>;
+    candidate: RuntimeEventCandidate;
+    predecessorDigest: `sha256:${string}`;
+}>;
+/** @internal */
+export function prepareConstructionContinuationOperation(prefix: RuntimeEventPrefix,
+  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): Readonly<{
+    kind: "effectful_public_invocation_truth";
+    schemaVersion: "5.0.0";
+    disposition: "duplicate";
+    invocationRef: string;
+    prefix: RuntimeEventPrefix | DurablePrefixCoordinate;
+    priorAdmission: import("./effectful_invocation_truth.js").EffectfulPublicInvocationPriorAdmission;
+}> | Readonly<{
+    kind: "effectful_public_invocation_truth_invalid_history";
+    schemaVersion: "5.0.0";
+    disposition: "invalid_history";
+    code: "artifact_truth_invalid" | "duplicate_outer_invocation" | "invocation_pair_invalid" | "prefix_invalid";
+    invocationRef: string;
+    prefix: RuntimeEventPrefix | DurablePrefixCoordinate;
+    eventRefs: readonly string[];
+    artifactTruthCode: import("./artifact_truth.js").ExactPrefixArtifactTruthProjectionRefusalCode | null;
+}> | Readonly<{
+    kind: "prepared_construction_continuation_operation";
+    prepared: Readonly<{
+        continuation: ConstructionIntentContinuation;
+        root: ExecutionBasis;
+        child: ExecutionBasis;
+        rootGraph: Readonly<import("../index.js").GtlGraph>;
+        childGraph: Readonly<import("../index.js").GtlGraph>;
+        rootValidation: import("../validator/graph.js").GraphValidation;
+        childValidation: import("../validator/graph.js").GraphValidation;
+        childFunction: {
+            readonly kind: "graph_function";
+            readonly name: string;
+            readonly version: "5.0.0";
+            readonly environment: {
+                readonly requires: readonly string[];
+                readonly provides: readonly string[];
+                readonly carries: readonly string[];
+            };
+            readonly inputs: readonly string[];
+            readonly outputs: readonly string[];
+            readonly template: {
+                readonly kind: "inline_graph";
+                readonly graphRef: string;
+                readonly startNodeRef: string;
+                readonly terminalNodeRefs: readonly string[];
+                readonly nodes: readonly {
+                    readonly nodeRef: string;
+                    readonly nodeKind: "c_locus";
+                    readonly term: import("../index.js").CProgramNode;
+                }[];
+                readonly edges: readonly {
+                    readonly edgeRef: string;
+                    readonly fromNodeRef: string;
+                    readonly toNodeRef: string;
+                    readonly inputBinding?: {
+                        readonly kind: "retain_graph_input";
+                        readonly entryContractRef: string;
+                        readonly sourceContractRef: string;
+                        readonly targetContractRef: string;
+                    };
+                }[];
+                readonly applications: readonly ({
+                    readonly relationKind: "compose";
+                    readonly leftGraphFunctionRef: string;
+                    readonly rightGraphFunctionRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "substitute";
+                    readonly outerGraphFunctionRef: string;
+                    readonly targetVectorRef: string;
+                    readonly innerGraphFunctionRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "recurse";
+                    readonly graphFunctionRef: string;
+                    readonly terminationRuleRef: string;
+                    readonly terminationEvaluatorRefs: readonly string[];
+                    readonly terminationFieldRef: string;
+                    readonly foldbackRef: string;
+                    readonly foldback: {
+                        readonly mode: "rebind";
+                        readonly binding: string;
+                        readonly requiresParentEvaluation: true;
+                    };
+                    readonly bound: number;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "fan_out";
+                    readonly batchRef: string;
+                    readonly elementGraphFunctionRef: string;
+                    readonly inputVectorRef: string;
+                    readonly outputVectorRef: string;
+                    readonly inputMemberContractRef: string;
+                    readonly outputMemberContractRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "fan_in";
+                    readonly reducerGraphFunctionRef: string;
+                    readonly inputVectorRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "gate";
+                    readonly targetRef: string;
+                    readonly ruleRef: string;
+                    readonly evaluatorRefs: readonly string[];
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "registered_selection";
+                    readonly sourceProgramLocusRef: string;
+                    readonly evaluatorRef: string;
+                    readonly ruleRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "re_enter";
+                    readonly graphFunctionRef: string;
+                    readonly sourceProgramLocusRef: string;
+                    readonly targetProgramLocusRef: string;
+                    readonly maxApplications: number;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "promote";
+                    readonly sourceRef: string;
+                    readonly targetRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "identity";
+                    readonly targetRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "same_object";
+                    readonly leftRef: string;
+                    readonly rightRef: string;
+                    readonly witnessRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                })[];
+            };
+            readonly effects: readonly string[];
+            readonly declarations: {
+                readonly [x: string]: string;
+            };
+            readonly tags: readonly string[];
+        };
+        rootScope: OpenedTraversalScope;
+        childScope: OpenedTraversalScope;
+        parent: {
+            cursor: TraversalCursorCandidate;
+            input: import("./traversal_cursor.js").TraversalInputOrigin;
+            execution: ExecutionBasis;
+        };
+        pending: {
+            cursor: TraversalCursorCandidate;
+            input: import("./traversal_cursor.js").TraversalInputOrigin;
+            execution: ExecutionBasis;
+        };
+        parentTerm: import("../index.js").CWorkflowNode;
+        pendingTerm: import("../index.js").COfNode;
+        failedCall: CCall;
+        producerCall: CCall;
+        producer: RuntimeEvent;
+        intent: import("./traversal_route.js").ConstructionIntentAdmission;
+        invocation: import("./invocation_admission.js").InvocationAdmission;
+        implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+        interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+        resolution: LoadedProductExecutionResolution;
+        parentCall: CCall;
+        parentInput: {
+            readonly [key: string]: JsonValue;
+        };
+        pendingInput: {
+            readonly [key: string]: JsonValue;
+        };
+    }>;
+    candidate: RuntimeEventCandidate;
+    predecessorDigest: `sha256:${string}`;
+}>;
+export function prepareConstructionContinuationOperation(prefix: RuntimeEventPrefix,
+  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): Readonly<{
+    kind: "effectful_public_invocation_truth";
+    schemaVersion: "5.0.0";
+    disposition: "duplicate";
+    invocationRef: string;
+    prefix: RuntimeEventPrefix | DurablePrefixCoordinate;
+    priorAdmission: import("./effectful_invocation_truth.js").EffectfulPublicInvocationPriorAdmission;
+}> | Readonly<{
+    kind: "effectful_public_invocation_truth_invalid_history";
+    schemaVersion: "5.0.0";
+    disposition: "invalid_history";
+    code: "artifact_truth_invalid" | "duplicate_outer_invocation" | "invocation_pair_invalid" | "prefix_invalid";
+    invocationRef: string;
+    prefix: RuntimeEventPrefix | DurablePrefixCoordinate;
+    eventRefs: readonly string[];
+    artifactTruthCode: import("./artifact_truth.js").ExactPrefixArtifactTruthProjectionRefusalCode | null;
+}> | Readonly<{
+    kind: "prepared_construction_continuation_operation";
+    prepared: Readonly<{
+        continuation: ConstructionIntentContinuation;
+        root: ExecutionBasis;
+        child: ExecutionBasis;
+        rootGraph: Readonly<import("../index.js").GtlGraph>;
+        childGraph: Readonly<import("../index.js").GtlGraph>;
+        rootValidation: import("../validator/graph.js").GraphValidation;
+        childValidation: import("../validator/graph.js").GraphValidation;
+        childFunction: {
+            readonly kind: "graph_function";
+            readonly name: string;
+            readonly version: "5.0.0";
+            readonly environment: {
+                readonly requires: readonly string[];
+                readonly provides: readonly string[];
+                readonly carries: readonly string[];
+            };
+            readonly inputs: readonly string[];
+            readonly outputs: readonly string[];
+            readonly template: {
+                readonly kind: "inline_graph";
+                readonly graphRef: string;
+                readonly startNodeRef: string;
+                readonly terminalNodeRefs: readonly string[];
+                readonly nodes: readonly {
+                    readonly nodeRef: string;
+                    readonly nodeKind: "c_locus";
+                    readonly term: import("../index.js").CProgramNode;
+                }[];
+                readonly edges: readonly {
+                    readonly edgeRef: string;
+                    readonly fromNodeRef: string;
+                    readonly toNodeRef: string;
+                    readonly inputBinding?: {
+                        readonly kind: "retain_graph_input";
+                        readonly entryContractRef: string;
+                        readonly sourceContractRef: string;
+                        readonly targetContractRef: string;
+                    };
+                }[];
+                readonly applications: readonly ({
+                    readonly relationKind: "compose";
+                    readonly leftGraphFunctionRef: string;
+                    readonly rightGraphFunctionRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "substitute";
+                    readonly outerGraphFunctionRef: string;
+                    readonly targetVectorRef: string;
+                    readonly innerGraphFunctionRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "recurse";
+                    readonly graphFunctionRef: string;
+                    readonly terminationRuleRef: string;
+                    readonly terminationEvaluatorRefs: readonly string[];
+                    readonly terminationFieldRef: string;
+                    readonly foldbackRef: string;
+                    readonly foldback: {
+                        readonly mode: "rebind";
+                        readonly binding: string;
+                        readonly requiresParentEvaluation: true;
+                    };
+                    readonly bound: number;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "fan_out";
+                    readonly batchRef: string;
+                    readonly elementGraphFunctionRef: string;
+                    readonly inputVectorRef: string;
+                    readonly outputVectorRef: string;
+                    readonly inputMemberContractRef: string;
+                    readonly outputMemberContractRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "fan_in";
+                    readonly reducerGraphFunctionRef: string;
+                    readonly inputVectorRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "gate";
+                    readonly targetRef: string;
+                    readonly ruleRef: string;
+                    readonly evaluatorRefs: readonly string[];
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "registered_selection";
+                    readonly sourceProgramLocusRef: string;
+                    readonly evaluatorRef: string;
+                    readonly ruleRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "re_enter";
+                    readonly graphFunctionRef: string;
+                    readonly sourceProgramLocusRef: string;
+                    readonly targetProgramLocusRef: string;
+                    readonly maxApplications: number;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "promote";
+                    readonly sourceRef: string;
+                    readonly targetRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "identity";
+                    readonly targetRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                } | {
+                    readonly relationKind: "same_object";
+                    readonly leftRef: string;
+                    readonly rightRef: string;
+                    readonly witnessRef: string;
+                    readonly kind: "graph_function_application";
+                    readonly applicationRef: string;
+                    readonly inputContractRef: string;
+                    readonly outputContractRef: string;
+                })[];
+            };
+            readonly effects: readonly string[];
+            readonly declarations: {
+                readonly [x: string]: string;
+            };
+            readonly tags: readonly string[];
+        };
+        rootScope: OpenedTraversalScope;
+        childScope: OpenedTraversalScope;
+        parent: {
+            cursor: TraversalCursorCandidate;
+            input: import("./traversal_cursor.js").TraversalInputOrigin;
+            execution: ExecutionBasis;
+        };
+        pending: {
+            cursor: TraversalCursorCandidate;
+            input: import("./traversal_cursor.js").TraversalInputOrigin;
+            execution: ExecutionBasis;
+        };
+        parentTerm: import("../index.js").CWorkflowNode;
+        pendingTerm: import("../index.js").COfNode;
+        failedCall: CCall;
+        producerCall: CCall;
+        producer: RuntimeEvent;
+        intent: import("./traversal_route.js").ConstructionIntentAdmission;
+        invocation: import("./invocation_admission.js").InvocationAdmission;
+        implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+        interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+        resolution: LoadedProductExecutionResolution;
+        parentCall: CCall;
+        parentInput: {
+            readonly [key: string]: JsonValue;
+        };
+        pendingInput: {
+            readonly [key: string]: JsonValue;
+        };
+    }>;
+    candidate: RuntimeEventCandidate;
+    predecessorDigest: `sha256:${string}`;
+}> {
   const { invocation, continuation } = prepared;
   const truth = projectEffectfulPublicInvocationTruthAtPrefix(prefix, basis.invocationRef);
   if (truth.disposition !== "available") return truth;
@@ -444,8 +1625,24 @@ export interface SelectedActionContinuation {
 }
 
 export function projectSelectedActionContinuations(prefix: ValidatedRuntimeEventPrefix,
+  runId: string): readonly SelectedActionContinuation[];
+/** @internal */
+export function projectSelectedActionContinuations(prefix: RuntimeEventPrefix,
+  runId: string): readonly SelectedActionContinuation[];
+export function projectSelectedActionContinuations(prefix: RuntimeEventPrefix,
   runId: string): readonly SelectedActionContinuation[] {
-  const events = indexedRuntimeEvents(prefix, "run:" + runId);
+  const selected = indexedRuntimeEventEnvelopes(prefix, "kind:construction_intent_selected")
+    .filter(event => event.runId === runId);
+  if (selected.length === 0) return Object.freeze([]);
+  // Every later Run-local predicate consumes exactly this kind population.
+  // Keep its original order, cardinality and bodies; Run membership alone does
+  // not justify decoding other historical inputs or Results.
+  const events = ["construction_intent_selected", "traversal_route_admitted",
+    "construction_delta_observed", "c_call_opened", "run_closed", "run_stopped",
+    "runtime_failure_observed"].flatMap(kind => indexedRuntimeEventEnvelopes(prefix, "kind:" + kind))
+    .filter(event => event.runId === runId)
+    .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal)
+    .map(event => runtimeEventAtPrefix(prefix, event.eventId)!);
   const operations = indexedRuntimeEvents(prefix, "kind:public_operation_admitted").filter(e =>
     isRecord(e.payload) && e.payload.continuationKind === "selected_action");
   return Object.freeze(events.filter(e => e.kind === "construction_intent_selected").flatMap(selected => {
@@ -510,7 +1707,121 @@ function pendingSelectedOccurrence(candidates: readonly SelectedActionContinuati
 
 /** Same owner predicate for new admission and cold operation correspondence. A
  * covering witness never substitutes for a fresh current semantic selection. */
-export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined) {
+export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): Readonly<{
+    kind: "selected_action_use";
+    source: SelectedActionContinuation;
+    current: SelectedActionContinuation;
+    sourceBasis: ExecutionBasis;
+    currentBasis: ExecutionBasis;
+    invocation: import("./invocation_admission.js").InvocationAdmission;
+    coveringEventRef: string | null;
+    request: Readonly<{
+        run: SelectedCoordinate;
+        continuation: SelectedCoordinate;
+        selectedAction: SelectedCoordinate;
+        basisRelation: Readonly<{
+            kind: "same_basis";
+        }> | Readonly<{
+            kind: "authority_changed";
+            coveringReprice: SelectedCoordinate;
+        }>;
+    }>;
+}> | {
+    kind: "refused";
+    code: "missing_continuation";
+} | {
+    kind: "refused";
+    code: "resolved_continuation";
+} | {
+    kind: "refused";
+    code: "basis_mismatch";
+} | {
+    kind: "refused";
+    code: "stale_action";
+} | {
+    kind: "refused";
+    code: "action_mismatch";
+} | {
+    kind: "refused";
+    code: "reprice_mismatch";
+};
+/** @internal */
+export function selectPendingActionUse(prefix: RuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): Readonly<{
+    kind: "selected_action_use";
+    source: SelectedActionContinuation;
+    current: SelectedActionContinuation;
+    sourceBasis: ExecutionBasis;
+    currentBasis: ExecutionBasis;
+    invocation: import("./invocation_admission.js").InvocationAdmission;
+    coveringEventRef: string | null;
+    request: Readonly<{
+        run: SelectedCoordinate;
+        continuation: SelectedCoordinate;
+        selectedAction: SelectedCoordinate;
+        basisRelation: Readonly<{
+            kind: "same_basis";
+        }> | Readonly<{
+            kind: "authority_changed";
+            coveringReprice: SelectedCoordinate;
+        }>;
+    }>;
+}> | {
+    kind: "refused";
+    code: "missing_continuation";
+} | {
+    kind: "refused";
+    code: "resolved_continuation";
+} | {
+    kind: "refused";
+    code: "basis_mismatch";
+} | {
+    kind: "refused";
+    code: "stale_action";
+} | {
+    kind: "refused";
+    code: "action_mismatch";
+} | {
+    kind: "refused";
+    code: "reprice_mismatch";
+};
+export function selectPendingActionUse(prefix: RuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): Readonly<{
+    kind: "selected_action_use";
+    source: SelectedActionContinuation;
+    current: SelectedActionContinuation;
+    sourceBasis: ExecutionBasis;
+    currentBasis: ExecutionBasis;
+    invocation: import("./invocation_admission.js").InvocationAdmission;
+    coveringEventRef: string | null;
+    request: Readonly<{
+        run: SelectedCoordinate;
+        continuation: SelectedCoordinate;
+        selectedAction: SelectedCoordinate;
+        basisRelation: Readonly<{
+            kind: "same_basis";
+        }> | Readonly<{
+            kind: "authority_changed";
+            coveringReprice: SelectedCoordinate;
+        }>;
+    }>;
+}> | {
+    kind: "refused";
+    code: "missing_continuation";
+} | {
+    kind: "refused";
+    code: "resolved_continuation";
+} | {
+    kind: "refused";
+    code: "basis_mismatch";
+} | {
+    kind: "refused";
+    code: "stale_action";
+} | {
+    kind: "refused";
+    code: "action_mismatch";
+} | {
+    kind: "refused";
+    code: "reprice_mismatch";
+} {
   const source = projectSelectedActionContinuations(prefix, request.run.ref).find(c =>
     c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
   if (source === undefined) return { kind: "refused" as const, code: "missing_continuation" as const };
@@ -559,7 +1870,120 @@ export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, requ
 
 const selectedPreparations = new WeakSet<object>();
 export function prepareSelectedActionContinuation(prefix: ValidatedRuntimeEventPrefix,
-  use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution) {
+  use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution): Readonly<{
+    use: Readonly<{
+        kind: "selected_action_use";
+        source: SelectedActionContinuation;
+        current: SelectedActionContinuation;
+        sourceBasis: ExecutionBasis;
+        currentBasis: ExecutionBasis;
+        invocation: import("./invocation_admission.js").InvocationAdmission;
+        coveringEventRef: string | null;
+        request: Readonly<{
+            run: SelectedCoordinate;
+            continuation: SelectedCoordinate;
+            selectedAction: SelectedCoordinate;
+            basisRelation: Readonly<{
+                kind: "same_basis";
+            }> | Readonly<{
+                kind: "authority_changed";
+                coveringReprice: SelectedCoordinate;
+            }>;
+        }>;
+    }>;
+    root: ExecutionBasis;
+    graph: Readonly<import("../index.js").GtlGraph>;
+    graphValidation: import("../validator/graph.js").GraphValidation;
+    cursor: TraversalCursorCandidate;
+    input: import("./traversal_cursor.js").TraversalInputOrigin;
+    inputValue: {
+        readonly [key: string]: JsonValue;
+    };
+    intent: import("./traversal_route.js").ConstructionIntentAdmission;
+    term: import("../index.js").CWorkflowNode;
+    scope: OpenedTraversalScope;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+    predecessorDigest: `sha256:${string}`;
+}> | null;
+/** @internal */
+export function prepareSelectedActionContinuation(prefix: RuntimeEventPrefix,
+  use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution): Readonly<{
+    use: Readonly<{
+        kind: "selected_action_use";
+        source: SelectedActionContinuation;
+        current: SelectedActionContinuation;
+        sourceBasis: ExecutionBasis;
+        currentBasis: ExecutionBasis;
+        invocation: import("./invocation_admission.js").InvocationAdmission;
+        coveringEventRef: string | null;
+        request: Readonly<{
+            run: SelectedCoordinate;
+            continuation: SelectedCoordinate;
+            selectedAction: SelectedCoordinate;
+            basisRelation: Readonly<{
+                kind: "same_basis";
+            }> | Readonly<{
+                kind: "authority_changed";
+                coveringReprice: SelectedCoordinate;
+            }>;
+        }>;
+    }>;
+    root: ExecutionBasis;
+    graph: Readonly<import("../index.js").GtlGraph>;
+    graphValidation: import("../validator/graph.js").GraphValidation;
+    cursor: TraversalCursorCandidate;
+    input: import("./traversal_cursor.js").TraversalInputOrigin;
+    inputValue: {
+        readonly [key: string]: JsonValue;
+    };
+    intent: import("./traversal_route.js").ConstructionIntentAdmission;
+    term: import("../index.js").CWorkflowNode;
+    scope: OpenedTraversalScope;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+    predecessorDigest: `sha256:${string}`;
+}> | null;
+export function prepareSelectedActionContinuation(prefix: RuntimeEventPrefix,
+  use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution): Readonly<{
+    use: Readonly<{
+        kind: "selected_action_use";
+        source: SelectedActionContinuation;
+        current: SelectedActionContinuation;
+        sourceBasis: ExecutionBasis;
+        currentBasis: ExecutionBasis;
+        invocation: import("./invocation_admission.js").InvocationAdmission;
+        coveringEventRef: string | null;
+        request: Readonly<{
+            run: SelectedCoordinate;
+            continuation: SelectedCoordinate;
+            selectedAction: SelectedCoordinate;
+            basisRelation: Readonly<{
+                kind: "same_basis";
+            }> | Readonly<{
+                kind: "authority_changed";
+                coveringReprice: SelectedCoordinate;
+            }>;
+        }>;
+    }>;
+    root: ExecutionBasis;
+    graph: Readonly<import("../index.js").GtlGraph>;
+    graphValidation: import("../validator/graph.js").GraphValidation;
+    cursor: TraversalCursorCandidate;
+    input: import("./traversal_cursor.js").TraversalInputOrigin;
+    inputValue: {
+        readonly [key: string]: JsonValue;
+    };
+    intent: import("./traversal_route.js").ConstructionIntentAdmission;
+    term: import("../index.js").CWorkflowNode;
+    scope: OpenedTraversalScope;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+    predecessorDigest: `sha256:${string}`;
+}> | null {
   const root = rehydrateExecutionBasisAtPrefix(prefix, use.currentBasis.basisRef);
   if (root === null || root.basisClass !== "root" || root.constructionContinuationUse !== undefined ||
     root.programRef !== resolution.program.programRef || root.programDigest !== hash(resolution.program) ||
@@ -624,7 +2048,31 @@ export function admitSelectedActionContinuationOperation(store: AbgEventStore, p
 }
 
 /** Cold validation consumes the same admission relation at its actual predecessor. */
-export function projectSelectedActionOperation(prefix: ValidatedRuntimeEventPrefix, operation: RuntimeEvent) {
+export function projectSelectedActionOperation(prefix: ValidatedRuntimeEventPrefix, operation: RuntimeEvent): {
+    operationId: "abg.operation.run.continue";
+    publicInvocationRef: string;
+    ownerInvocationRef: string;
+    ownerInvocationDigest: Sha256Digest;
+    publicOperationEventRef: string;
+    admissionEventRef: string;
+} | null;
+/** @internal */
+export function projectSelectedActionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): {
+    operationId: "abg.operation.run.continue";
+    publicInvocationRef: string;
+    ownerInvocationRef: string;
+    ownerInvocationDigest: Sha256Digest;
+    publicOperationEventRef: string;
+    admissionEventRef: string;
+} | null;
+export function projectSelectedActionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): {
+    operationId: "abg.operation.run.continue";
+    publicInvocationRef: string;
+    ownerInvocationRef: string;
+    ownerInvocationDigest: Sha256Digest;
+    publicOperationEventRef: string;
+    admissionEventRef: string;
+} | null {
   const p = operation.payload;
   if (operation.kind !== "public_operation_admitted" || !isRecord(p) || p.continuationKind !== "selected_action" ||
     p.operationId !== "abg.operation.run.continue" || p.memberKey !== "selected_action" ||

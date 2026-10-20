@@ -1,0 +1,93 @@
+{
+  "role": "Writer81 external fixture terminal-contract successor",
+  "method": "STDO2.5.1RC2 fixed15 ABI5 GOAL035/T287",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "originalFixturePin": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+    "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+    "byteCount": 22919
+  },
+  "transformedSourcePin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/terminal-contract-fixture-successor/transformed-program.mjs",
+    "sha256": "c34bf7a02cf558b7293c900c8670901fd1ab2cf73ce54f36841c28b49760683e",
+    "byteCount": 23856
+  },
+  "sourceTransformPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/terminal-contract-fixture-successor/fixture-source-transform.mjs",
+    "sha256": "548be2717a96c26327f12b8ec0053e4f35a11eafe0766995e67c17f289861b20",
+    "byteCount": 1520
+  },
+  "driverPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/terminal-contract-fixture-successor/driver.mjs",
+    "sha256": "74bd266478e1ac571b4668be9fe7e4e26947ff98922055b0e4cdbc637543f47b",
+    "byteCount": 18579
+  },
+  "inputsPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/terminal-contract-fixture-successor/inputs.json",
+    "sha256": "bf609ed9510db2478ffe3b91631861ef239e59b9f6eefc5211a6e0bebaf7e67f",
+    "byteCount": 791
+  },
+  "controlPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "byteCount": 22919
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "byteCount": 10669
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "f840e413bf53b7cffec616e3147ba7d461c5858e2b6da4d248dc2d799e81decd",
+      "byteCount": 6369
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0",
+      "byteCount": 39995
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "byteCount": 21826
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/freeze.json",
+      "sha256": "5b03f457f85b206f7d404c8dce64f62ab578ea0cb78d8a6f18069121b54e5d9b",
+      "byteCount": 11964
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/return.md",
+      "sha256": "65ddb76b8ad1054cbd381138ea61f4aadd40c8d5f0a0fba777e4497cd8ab6916",
+      "byteCount": 2276
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/terminal-closure-field-vector.json",
+      "sha256": "5294f11d45c533054bf8942b833991d0e6963f33b13fbb5764da62a80ea5fb65",
+      "byteCount": 4372
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/identity.json",
+      "sha256": "3ad3cc4560388b037a8d2dfc1e035b6011f5c4396789380cdba9fff6f5b170a3",
+      "byteCount": 5787
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/freeze.json",
+      "sha256": "3dc8ae4a1a067d8eafb824437cf5401fbb72b6797c8e745c1a3d5d3fbb9674f4",
+      "byteCount": 11111
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/exacthost-identity.json",
+      "sha256": "242d3578a9eec3fb0bbaf7600a0877cb1884ffd8909583197c5855383722df75",
+      "byteCount": 3159
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/host21-acquisition.json",
+      "sha256": "de2c6ed5df0ff6a75cbfb7a31b44a310bb7fab014d1353c38a9b69b867e15e27",
+      "byteCount": 16369499
+    }
+  ],
+  "scope": "Four GraphEdge RUN closure evidence/judgment/refusal/rejection refs only; preserve all other declaration semantics; normal distinct fixture publication/manifest/archive/install, same21 factory; no Source/Program/GTL law/support changes/model/DataMapper"
+}

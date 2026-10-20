@@ -1,0 +1,6 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_05",
+  "disposition": "local_repair",
+  "classification": "fixture_operation_specific_install_coordinate",
+  "predecessor": "243b67d1956cd01c21a26d6725c0e7e66f0d16de3cb70bc0ef3e11feb02a80d9"
+}

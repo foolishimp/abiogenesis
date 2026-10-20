@@ -1,0 +1,63 @@
+{
+  "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01",
+  "subject": "core33 identity/install destination and genuine retained current close only; one separately selected diagnostic setup CLI profile",
+  "files": [
+    {
+      "path": "preparation/prepare.mjs",
+      "predecessorSha256": "b23f780c0eee2cd413034de3b0ca104ee1aa5b45843932754a5d48f46372dfb7",
+      "sha256": "e5acc1284af776984b1b20052f80b6b9c93cacf517b60973276acd7770462b9f",
+      "change": "identity labels/install destination only"
+    },
+    {
+      "path": "witness-01/execute.mjs",
+      "predecessorSha256": "7893f7e8071aeed7b2f3ee5f2d0c0f1f8bda056c57ee752348ca941892ed4701",
+      "sha256": "4bbc551a6ddc0083e73be77216e7f5bdd82a6ca8534f2dc2df889171e95e3915",
+      "change": "identity labels/install destination only"
+    },
+    {
+      "path": "intake-01/construct.mjs",
+      "predecessorSha256": "860e59780e6f11e84cf7e0107752a8aaf054fef27ea9acd3781db2e9e1203a45",
+      "sha256": "860e59780e6f11e84cf7e0107752a8aaf054fef27ea9acd3781db2e9e1203a45",
+      "change": "byte-identical"
+    },
+    {
+      "path": "intake-01/run.mjs",
+      "predecessorSha256": "45d73da54245993fb5acf2ab00e4c2f4986d4dccc9b7166350f95cb0f85d1fca",
+      "sha256": "45d73da54245993fb5acf2ab00e4c2f4986d4dccc9b7166350f95cb0f85d1fca",
+      "change": "byte-identical"
+    },
+    {
+      "path": "intake-01/read-intake.mjs",
+      "predecessorSha256": "2952fedfba80ab3891998cde8599c6bada1f93dfbab3ee81556b9d399dee40a5",
+      "sha256": "2952fedfba80ab3891998cde8599c6bada1f93dfbab3ee81556b9d399dee40a5",
+      "change": "byte-identical"
+    },
+    {
+      "path": "suffix-01/prepare.mjs",
+      "predecessorSha256": "d87fef9cb7e8aa6fbf22bcf975366c8fe0586c6980244b96964336578694fa54",
+      "sha256": "d87fef9cb7e8aa6fbf22bcf975366c8fe0586c6980244b96964336578694fa54",
+      "change": "byte-identical"
+    },
+    {
+      "path": "suffix-01/run.mjs",
+      "predecessorSha256": "729bb33d9c69fa7d320efdcc6e099ff1981f7976c3da62f5260b3b12d4bc1992",
+      "sha256": "729bb33d9c69fa7d320efdcc6e099ff1981f7976c3da62f5260b3b12d4bc1992",
+      "change": "byte-identical"
+    },
+    {
+      "path": "suffix-01/read-suffix.mjs",
+      "predecessorSha256": "a9787444b8ad212583868fbe76d7e34fa9929b7cd21867f9b25b136adeeb75ac",
+      "sha256": "a9787444b8ad212583868fbe76d7e34fa9929b7cd21867f9b25b136adeeb75ac",
+      "change": "byte-identical"
+    },
+    {
+      "path": "suffix-01/read-evidence.mjs",
+      "predecessorSha256": "d29327c1f940b47b01d0e486c899334bc7eaf708ce8276fb39bc3744fb65988a",
+      "sha256": "d29327c1f940b47b01d0e486c899334bc7eaf708ce8276fb39bc3744fb65988a",
+      "change": "byte-identical"
+    }
+  ],
+  "sourceInputByteIdentical": true,
+  "consumerUnchanged": true,
+  "noCallExecuted": true
+}

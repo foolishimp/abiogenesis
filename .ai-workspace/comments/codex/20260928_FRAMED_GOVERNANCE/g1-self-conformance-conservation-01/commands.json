@@ -1,0 +1,26 @@
+{
+  "node": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+  "stage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/stage",
+  "commands": {
+    "preimage": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=G1 multi-root assessment",
+      "test_env/tests/t287-qualification-scopes.test.mjs"
+    ],
+    "compile": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "focused": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=G1 multi-root assessment|small whole subject grouped|unknown and falsified|inapplicability",
+      "test_env/tests/t287-qualification-scopes.test.mjs"
+    ]
+  }
+}

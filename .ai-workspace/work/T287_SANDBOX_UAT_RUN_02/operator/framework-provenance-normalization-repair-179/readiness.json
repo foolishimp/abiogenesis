@@ -1,0 +1,144 @@
+{
+  "status": "CLOSED Worker179 Source readiness; pending independent180 acceptance",
+  "ProductFrame": {
+    "families": 15,
+    "version": "ABI5.0",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "externalApplication": "original Data Mapper; not an ABG Product",
+    "STDO": "2.5.1rc2",
+    "STDOManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "selectedFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "ProductBasis": [
+      "817\u2013837",
+      "860\u2013867",
+      "CONT014\u2013016"
+    ],
+    "authoritySplit": "immutable declarations/pure private comparison distinct from ABG admission/runtime/worksite/qualification"
+  },
+  "originatingDefect": "Canonical catalog provenance is hash-ordered. Exact artifact/manifest identity substitution preserved that old hash order, so unchanged selected declaration meaning compared unequal after the actual hashes exchanged order.",
+  "preFixEvidence": {
+    "counterexample": "counterexample-before.json",
+    "selectedClosurePublications": 4,
+    "orderOnlyCoordinates": 24,
+    "unchangedInstalled26ComparatorResult": null,
+    "pair": "inputs/actual176-selected-publications.json",
+    "innerProjectorFirstRefusal": "unknown; this is a reproduced sufficient blocker, not uniquely localized first inner refusal"
+  },
+  "selectedRepair": "HOW first; canonicalize only private normalized contribution.provenanceRefs with existing compareUnicodeCodeUnits after exact artifact/manifest substitution. No deduplication, further digest stripping, other declaration-array sorting or owned-byte mutation.",
+  "canonicalPreimages": [
+    {
+      "relativePath": "code/src/product/semantics.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "sha256": "716e047b6635553b98ead38618281aac9613ceb60c870af31c138840a0bb98e4",
+      "byteCount": 24269,
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/preimages/code/src/product/semantics.ts"
+    },
+    {
+      "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "1f671cb9f14ea84b989cf6edadd34b7b04a0600fa39a77afe426de1c690a589a",
+      "byteCount": 30925,
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/preimages/test_env/tests/t287-governance-covered-source-use.test.mjs"
+    },
+    {
+      "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "22bee59712ce1457d07437b2956ce7cf7bff129d1730ad60a96b739787c9c0a9",
+      "byteCount": 35596,
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/preimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+    }
+  ],
+  "canonicalPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "sha256": "dcb18429cc46007a1812ff80807e1fa7482daff05a14d7dce17d1566fc8685c4",
+      "byteCount": 24324,
+      "relativePath": "code/src/product/semantics.ts",
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/final-postimages/code/src/product/semantics.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "3a9384145f9c3700eae5a3d5572d952f9b4565847f988badc5eedc0548f0c30d",
+      "byteCount": 35115,
+      "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/final-postimages/test_env/tests/t287-governance-covered-source-use.test.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "60f5d2bb91378f66285c2ca3ac78f71a98b9032031a9c646cfd5fb86aec9c3e7",
+      "byteCount": 35936,
+      "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "preservedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/final-postimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+    }
+  ],
+  "checks": {
+    "strict263Source": {
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 6066.800333,
+      "timedOut": false,
+      "truncated": false,
+      "finished": "2026-10-09T06:34:32.657531+00:00"
+    },
+    "affectedSuite": {
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 6759.751042,
+      "timedOut": false,
+      "truncated": false,
+      "finished": "2026-10-09T06:37:25.303713+00:00",
+      "pass": 6,
+      "fail": 0,
+      "skip": 0
+    },
+    "counterexampleBefore": {
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 557.363709,
+      "timedOut": false,
+      "truncated": false,
+      "finished": "2026-10-09T06:32:30.007454+00:00"
+    }
+  },
+  "proved": [
+    "actual frozen176 selected four-publication comparison accepts forward/reverse with matching meaning digest and exact original publication owner digests; captured values unchanged",
+    "controlled reversed hash ordering accepts; missing/duplicate/arbitrary/foreign provenance and changed contract/rule/policy/prerequisite/other declaration vector refuse",
+    "unknown provenance references and multiplicity remain material; private comparison does not establish their ownership",
+    "existing controlled captured34 state/source/result and cold admitted-coordinate/ancestry/ingress refusals remain green; original independent assessment subject retained"
+  ],
+  "lowerPremises": [
+    "four selected publications are produced by unchanged canonical closure owner over frozen176 captured declarations; no new whole Catalog authentication",
+    "original existing34 component tests control physical environment/install membership, execution-source lookup, witnessed covers and semantic replay; no actual campaign producer/admission credit"
+  ],
+  "retainedFailures": [
+    {
+      "receipt": "commands/counterexample-before.result.json",
+      "cause": "proof-local repo-relative script path in tenant cwd; owner not entered",
+      "selectedAction": "same script absolute path; fresh counterexample-before-02"
+    },
+    {
+      "receipt": "commands/focused-01.result.json",
+      "counts": "5PASS/1FAIL",
+      "cause": "reverse of parent evaluator one-element inventory was a byte-identical fixture operation",
+      "selectedAction": "test-only canonical select evaluator lookup with cardinality and byte-change assertions; fresh focused-02"
+    }
+  ],
+  "conservation": {
+    "SourceCount": 263,
+    "unchangedOtherSources": 262,
+    "controls": "conservation.json",
+    "normalGeneratedTreeChanged": false,
+    "actual176ClosePreserved": true,
+    "actualLogReadOrHash": false,
+    "currentWorksiteEffects": false
+  },
+  "remainingProof": "Independent180 Source review, then fresh immutable normal successor publication and separately granted actual current-source projector/preparation/admission/consumer proof. Preserve176 catalog/View/104 witnesses/installs/binding/raw34/A; recheck only newly affected relations.",
+  "unearned": [
+    "complete source projector authentication/all refusal branches",
+    "current installed successor behavior",
+    "native Testing/C2/UAT",
+    "memory/capacity/P0/release/full Product qualification"
+  ],
+  "STOP": "No further source edits, checks, normal generation/publication/install, campaign resource acquisition or native/model effects under179."
+}

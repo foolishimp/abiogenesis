@@ -1,0 +1,20 @@
+{
+  "stage": "retained-current-binding-complete",
+  "rss": 4326965248,
+  "heapTotal": 3855974400,
+  "heapUsed": 3567854160,
+  "external": 2447338,
+  "arrayBuffers": 35031,
+  "at": "2026-10-09T06:05:25.159Z",
+  "elapsedMs": 200887.895834,
+  "invocationRef": "invocation://abiogenesis/e90058eca6c2b7fd7c5c492b2ed7d7d7c72f21facbcab7f21aca8bbe0f69446d",
+  "bindingCoordinate": {
+    "ref": "workspace-binding://abiogenesis/79628303eb01c99cd04ebcf8ce40ecd225e1660abf6035538288eaa4033e7e1f",
+    "digest": "sha256:79628303eb01c99cd04ebcf8ce40ecd225e1660abf6035538288eaa4033e7e1f"
+  },
+  "historicalBinding": {
+    "ref": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "digest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+  },
+  "workspaceId": "workspace://abiogenesis/64061dcb03cca2104110cc02e9d886b06e36b5cd0aed0ab5df781117806c14b5"
+}

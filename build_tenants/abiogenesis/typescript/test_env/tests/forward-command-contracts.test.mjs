@@ -39,6 +39,29 @@ test('closed Product carriers preserve all controlled supplied source observatio
   for(const row of task.snapshotSources)assert.equal(row.source.kind,'retained_construction');
 });
 
+test('explicit zero write territory survives C1 and forward cold carrier round-trip without adding rights',()=>{
+  // Existing component Source, binding and cover facts remain supplied lower premises.
+  const {request,originalTask}=componentSource();
+  const readonly=p.constructWorksiteCommandExecutionTask({...originalTask,allowedWriteTerritories:[]});
+  assert.equal(p.isWorksiteCommandExecutionTask(JSON.parse(p.canonicalJson(readonly))),true);
+  assert.deepEqual(readonly.allowedWriteTerritories,[]);
+  assert.deepEqual(readonly.sourceConstructionResult,originalTask.sourceConstructionResult);
+  assert.deepEqual(readonly.protectedObservations,originalTask.protectedObservations);
+  const supplied=carrierTask();
+  const task=p.constructWorksiteCommandForwardTask({request,originalTask:readonly,
+    snapshotSources:supplied.snapshotSources,bindingCoverEventRefs:supplied.bindingCoverEventRefs});
+  assert.equal(p.isWorksiteCommandForwardTask(JSON.parse(p.canonicalJson(task))),true);
+  assert.deepEqual(task.originalTask,readonly);
+  assert.deepEqual(task.allowedWriteTerritories,[]);
+  assert.deepEqual(task.commands,readonly.commands);
+  assert.deepEqual(task.outcomePredicates,readonly.outcomePredicates);
+  for(const allowedWriteTerritories of [undefined,null,{}]){
+    assert.throws(()=>p.constructWorksiteCommandExecutionTask({...originalTask,allowedWriteTerritories}),TypeError);
+  }
+  const changed=structuredClone(task);changed.allowedWriteTerritories=originalTask.allowedWriteTerritories;
+  assert.equal(p.isWorksiteCommandForwardTask(changed),false);
+});
+
 test('missing reordered duplicate changed or crossed retained members refuse at real Product constructor',()=>{
   const task=carrierTask();
   for(const mutate of [t=>{t.snapshotSources.pop();},t=>{t.snapshotSources.reverse();},

@@ -1,0 +1,19 @@
+{
+  "status": "PRESERVED_REVIEWER_LIMITATIONS",
+  "scope": "Descriptions of actual visible tool results, not recovered copies of omitted stdout",
+  "groups": [
+    {"group": 1, "toolChunk": "82c187", "exitCode": 0, "originalTokenCount": 33153, "truncated": true, "cause": "Overbroad discovery output"},
+    {"group": 2, "toolChunk": "4f5080", "exitCode": 0, "originalTokenCount": 666716, "truncated": true, "cause": "Printed a large snapshot record rather than a restricted field selection"},
+    {"group": 3, "toolChunk": "22335c", "exitCode": 0, "originalTokenCount": 17269, "truncated": true, "cause": "Initial discovery exceeded display budget; stdin EOF then closed the process before planned checks", "observedBoundary": ["READY_FOR_BOUNDED_CHECKS", "GROUP3_CLOSED"], "checkSegmentExecuted": false}
+  ],
+  "rootProbe": {
+    "evidenceKind": "Root current observation statement delivered to Reviewer",
+    "rawArtifactAvailable": false,
+    "reportedExitCode": 1,
+    "reportedFailure": "AssertionError: actual undefined versus actual Run ref at output.source.sourceRef after earlier terminal/oracle comparisons",
+    "reportedLaterCheck": "Source-guided tail check passed",
+    "reviewerIndependentReproduction": false,
+    "sessionAcquisition": false
+  },
+  "candidateRejectionDerivedFromTheseFailures": false
+}

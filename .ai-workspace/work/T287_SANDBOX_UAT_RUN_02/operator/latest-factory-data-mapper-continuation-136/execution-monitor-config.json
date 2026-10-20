@@ -1,0 +1,47 @@
+{
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+  "sourcePrefixLength": 1418896561,
+  "sourceLastOrdinal": 179548,
+  "operatorControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+    "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+    "byteCount": 1723
+  },
+  "nativeT0": "2026-10-08T23:21:18.548Z",
+  "processIds": "Only actual launched owner PIDs may populate execution-monitor-config.json; none during preparation",
+  "cliPID": 3104,
+  "recorderPID": 3100,
+  "launcherPID": 3102,
+  "qualityCheckpointUTC": "2026-10-09T04:21:18.548+00:00",
+  "qualityCheckpointAEDT": "2026-10-09T15:21:18.548+11:00",
+  "driverDeadlineUTC": "2026-10-09T04:22:18.548+00:00",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/72bfe68c52d0b7f24623dd8b8096c44815d474f68f8257180de01b815d276c1f",
+  "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+  "publicInvocationRef": "invocation://abiogenesis/cbf84ce05e2019602f03149ba5deb8dc541246900ba83c24cab409543ceec4f8",
+  "actualOwnedProcessSample": [
+    {
+      "pid": 3100,
+      "ppid": 5905,
+      "pgid": 3100,
+      "rssKiB": 51968,
+      "elapsed": "00:28",
+      "command": "/opt/homebrew/bin/node"
+    },
+    {
+      "pid": 3102,
+      "ppid": 3100,
+      "pgid": 3102,
+      "rssKiB": 52304,
+      "elapsed": "00:28",
+      "command": "/opt/homebrew/bin/node"
+    },
+    {
+      "pid": 3104,
+      "ppid": 3102,
+      "pgid": 3104,
+      "rssKiB": 3794688,
+      "elapsed": "00:28",
+      "command": "/opt/homebrew/bin/node"
+    }
+  ]
+}

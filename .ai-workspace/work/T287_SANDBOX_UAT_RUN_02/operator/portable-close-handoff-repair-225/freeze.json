@@ -1,0 +1,267 @@
+{
+  "state": "CLOSED / STOP",
+  "subject": "225 portable close handoff Source repair and bounded component proof",
+  "createdAt": "2026-10-09T18:00:47.001822+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/activation.md",
+      "sha256": "596bf17e7298a3a008aac29fd45415bbedebaa0dc9ce8b083ae21abfb7b5441d",
+      "byteCount": 548
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/changed.diff",
+      "sha256": "db30759bdee963a9fb391edecaa27814b9dbee87341c69c2ddd17533bb08b77b",
+      "byteCount": 8363
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-01.request.json",
+      "sha256": "b415348700e9cfeec3244da93508989a237cfe6e9a7f1668448300a5655e14fd",
+      "byteCount": 1719
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-01.result.json",
+      "sha256": "cf319c8493ec460ff22b76dd67da3ce2839c16554f618e903f7f09178530fd38",
+      "byteCount": 8809
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-01.stdout",
+      "sha256": "0f213618d2317bc9a3b978a6fada38a59f2f08614e5ed4495b63f95adf0ddae7",
+      "byteCount": 6804
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-02.request.json",
+      "sha256": "6a48846a0ff12f6514938d16820daba9ad4ee8a1ab616e4eb15b2256967f5f22",
+      "byteCount": 1804
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-02.result.json",
+      "sha256": "37651445069e45fb243bb9cab05d5ab191b446d2eaf559e12591141019d0ad8a",
+      "byteCount": 7208
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-02.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/focused-02.stdout",
+      "sha256": "119c700aaf8fd460e818a62c5c21bbc526d0dc08bb85c11beabd802148099264",
+      "byteCount": 5093
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/generator-01.request.json",
+      "sha256": "0362d770215f60b07c2253bfde874b13b853c977a8cc9f4424f2046ce805b4c6",
+      "byteCount": 1538
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/generator-01.result.json",
+      "sha256": "114900509387aa03deb75c7989b618974fa4de1cb1a363075c3bb8abdfdbfd76",
+      "byteCount": 1691
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/generator-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/generator-01.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/strict-01.request.json",
+      "sha256": "5e3d1fa8f3733433ebf997c464cbf62aa1a4e1850f00baeeb3aec0a54f9686b6",
+      "byteCount": 1789
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/strict-01.result.json",
+      "sha256": "e4c6e241f37206d2181c3dda3dda7bb295b30ae85ff8455f26193929061037f4",
+      "byteCount": 1943
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/strict-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/commands/strict-01.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/compile-parity.json",
+      "sha256": "13cfd35168c5f49424235b65d0bdce58fdc7a2b69d77c8b0bb8acc37b0ffb19a",
+      "byteCount": 1418
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/delta-recording-first-cause.json",
+      "sha256": "edfe848ef374901118d727f3542c6dcc4bed985183fe05da3caf6a78adf11272",
+      "byteCount": 436
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/delta.json",
+      "sha256": "2fa3834ae5bbd2f7a379faf5ed17e9a6454916608c64a2343a3523e0dad405b6",
+      "byteCount": 3657
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/event_store.d.ts.diff",
+      "sha256": "4540b17f4d515e7acbeaa388babfbc0d2d71c0bccfd513f7ce2600eb688a4988",
+      "byteCount": 900
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/event_store.js.diff",
+      "sha256": "c9a6716abc82a44e82a6f6921f7ad038b908ddeccdb57cc1f99cac25c7f9336f",
+      "byteCount": 1159
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/focused-01-cause-action.json",
+      "sha256": "67fc85d536da8387eca98b84fb1f118698007b4afa5987814d563dffd7af807c",
+      "byteCount": 1833
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/generated-baseline.json",
+      "sha256": "bd9ea4c82e7a6be355c9b47ec1035028ceed5b8fa7597e2078a4e556b21584a0",
+      "byteCount": 297119
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/generated-preimages/build/code/src/abg/event_store.d.ts",
+      "sha256": "e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+      "byteCount": 38591
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/generated-preimages/build/code/src/abg/event_store.js",
+      "sha256": "f24fd97ca5353636cb1c3f3fdeeb692cd008dcd627270d760905b1007aa1b34f",
+      "byteCount": 163300
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/postimages.json",
+      "sha256": "48fbb632c3630354b9eedcc96e5b2ef7fa1a407f72c9b519d7e0f744a8957db2",
+      "byteCount": 1633
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/preimages/code/src/abg/event_store.ts",
+      "sha256": "233c49f311d99bb0829cc2bb0105ef369c6d4635df9f24c682ce6fcd80da6af7",
+      "byteCount": 176844
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/preimages/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md",
+      "sha256": "5497e6e2b2512881b9fd8c0bee68d37be82071f2cbe2e971ee283cd92bac206e",
+      "byteCount": 11467
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/preimages/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "532b36e5217ad91a0ac3a22abdd72367f1389f6c7490997f125d4abe3be72bf7",
+      "byteCount": 40340
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/preimages/test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+      "sha256": "ad161a1ee306263f1d478a527a04e195bc2c20f8bfb0503af04f746b2c2ebfe2",
+      "byteCount": 24350
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/preimages.json",
+      "sha256": "1cbee192c5dc0fdd397835e7f48cc5b425622fbc8ecccd2030ae24e60c2fc962",
+      "byteCount": 1633
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/readiness.json",
+      "sha256": "82cd9a827197997223be14f30cfb53455999297acde48a4203cd88d5cbcf870e",
+      "byteCount": 30968
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/return.md",
+      "sha256": "d1f5215679a42ed540b472dce92dee761e471a25d01bf08c2a043a1c1b6c06bb",
+      "byteCount": 2324
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/run-command.mjs",
+      "sha256": "2e2358cf8be35d0a5592804c1dd43639eed5fff6a28b1ca8c89d02a572c00a9d",
+      "byteCount": 806
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/source-baseline.json",
+      "sha256": "2041b9e2c52682584b34264e6889a810ea7806cedec3c4aa4f4e41f3c2a7f53b",
+      "byteCount": 78250
+    }
+  ],
+  "canonicalAndReferencedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "5dcc0155ffa0b1abdb6a2691309bcf0d2c2cfc4f565156705b60614b790076f4",
+      "byteCount": 176982,
+      "relativePath": "code/src/abg/event_store.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md",
+      "sha256": "66396bf1fca6127a2586023b43a6697265f7c694c86f8b75654aae86e7e11ea3",
+      "byteCount": 12116,
+      "relativePath": "design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "52de5e4ed66ca62ea7247add4fcd232dda649d30aca3330412233419d1c15fa4",
+      "byteCount": 37264,
+      "relativePath": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+      "sha256": "8dada9badb8463078266d2ab32c6062d26c9be292c55408cd4e4189766376fd8",
+      "byteCount": 24557,
+      "relativePath": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "a7480bafbd62d968e8b9181510a5b685f6f2c92079b63d8bc3e7208086d458d0",
+      "byteCount": 41354,
+      "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.d.ts",
+      "sha256": "5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877",
+      "byteCount": 38655
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "sha256": "3f261f946b570611f2a37547970ad62c7327c211ed667db68499a339b1e2b533",
+      "byteCount": 163410
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "8b4e6039d4cd9ed5c9c71b9d8e2e2ea91512ccd692a091131594aa9e905b87ae",
+      "byteCount": 197474
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "475e2b7fec78a95884a4253585634076bd1343e3b8eb37c957b542c1e666b91b",
+      "byteCount": 3171685
+    },
+    {
+      "environmentVariable": "ABG_GOVERNANCE_COVERED_FIXTURE",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/controlled-owner-fixtures.json",
+      "sha256": "ce6acd2de8df3f5cbc08ef008cf57197a547eec37b656beba6b1d5f7a57908b1",
+      "byteCount": 39657765
+    },
+    {
+      "environmentVariable": "ABG_GOVERNANCE_COVERED_DECLARATION_PAIR",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/inputs/actual176-selected-publications.json",
+      "sha256": "fe1cd0342cdfc1682997a9b38709d6a18d3c1d1b67d5861818f2f1eb031b33f4",
+      "byteCount": 407665
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/freeze.json",
+      "sha256": "baf196fde8704193f059389ae402a5a06cd2fbf8b8f2486546be00d84e74a0ad",
+      "byteCount": 1920
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/freeze.json",
+      "sha256": "5c5a8a7bed3b31640c9cfe9d68af8c7b7da7111612431e728150bdeaf8de066e",
+      "byteCount": 1588
+    }
+  ],
+  "claimLimit": "Source/component readiness only; exact allocator/full-history installed capacity/native/UAT not earned."
+}

@@ -1,0 +1,24 @@
+{
+  "stage": "existing-environment-complete",
+  "elapsedMs": 33235.99637499999,
+  "at": "2026-10-10T13:31:41.633Z",
+  "rss": 3140829184,
+  "heapTotal": 821116928,
+  "heapUsed": 322725032,
+  "external": 2481984,
+  "arrayBuffers": 69677,
+  "workspaceBinding": {
+    "digest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "ref": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7"
+  },
+  "installs": [
+    {
+      "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/440444817bc0190a45a29c448fc607449e63e1491d8145320815ad7a2fa6ad27/75d23cc3cf2494168ac5ad2a4a0c827201436cd63f14b317e4c0050bdc509312",
+      "digest": "sha256:88fce0949d78562f6f2c98be957531db76512754e8f33c9ac3790e82ec129449"
+    },
+    {
+      "ref": "product-install://@abi5-tests/sandbox-uat/5.0.0/590a56c5da57148f1293f77de612813b1db4558201acfe98ba15f69f29f065f0/75d23cc3cf2494168ac5ad2a4a0c827201436cd63f14b317e4c0050bdc509312",
+      "digest": "sha256:bd0a72429c455c5ce81e631a9f82a288af22df4d7078524883f4434dd60e34ba"
+    }
+  ]
+}

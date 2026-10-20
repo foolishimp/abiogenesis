@@ -1,0 +1,32 @@
+{
+  "status": "PARTIAL_PASSED_FIRST_MATERIAL_SETUP_INPUT_MISMATCH",
+  "sourceCopyChecks": 1931,
+  "protectedFiles": 716,
+  "expectedComparePaths": 925,
+  "syntaxFiles": 331,
+  "recipeSchema": true,
+  "inventorySchema": true,
+  "structuralNullableBasisSchema": true,
+  "isQualificationBasisReady": false,
+  "acyclic": true,
+  "selectedTests": 5,
+  "selectedTitles": 30,
+  "currentPublicationClosure": {
+    "constructed": 10,
+    "expected": 11,
+    "status": "failed",
+    "missing": {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:10f051df60335dfdcf6a6b49ad9d0af68ce64ebcee7e546e3efc5622520412e9"
+    }
+  },
+  "ruleCount": 2137,
+  "ruleCatalogFinalSchemaAssertion": "not reached; count from selected current JSON",
+  "lawSourceCount": 95,
+  "failure": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/first-material-failure.json",
+    "bytes": 4263,
+    "sha256": "4fa9032cf846d856bf5c98c067627d190ebe9c116ada23d9db893125e3b85c84"
+  },
+  "runtime": "none; no recipe,test suite,native setup,provider or qualification execution"
+}

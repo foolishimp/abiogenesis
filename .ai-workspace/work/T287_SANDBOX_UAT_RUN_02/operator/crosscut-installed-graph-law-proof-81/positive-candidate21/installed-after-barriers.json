@@ -1,0 +1,20 @@
+{
+  "kind": "exact_admitted_install_preimage_physical_content_observation",
+  "rows": [
+    {
+      "installedRoot": "/private/tmp/abi5-root-env-nB6Rgx/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "productContentDigest": "sha256:571eec0a28bfdb1461aaab8d6bf641950c808fe0e06ef27bffe33b303b404146",
+      "matches": true
+    },
+    {
+      "installedRoot": "/private/tmp/abi5-root-env-nB6Rgx/consumer-additional-0/node_modules/@abi5-tests/structural-fixtures",
+      "productId": "product://abi5-tests/structural-fixtures@5.0.0",
+      "productContentDigest": "sha256:859f2b5162b2954d06f0b6566a9715a6b831d07a70111961fb4abc0aa19e455b",
+      "matches": true
+    }
+  ],
+  "allMatch": true,
+  "noAdmissionOrRuntimeEffects": true,
+  "construction": "Same canonical installed→candidate projection used by root-installed-environment.mjs513–519"
+}

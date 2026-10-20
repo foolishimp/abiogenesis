@@ -1,0 +1,2 @@
+ReferenceError: runInstalledCliRequest is not defined
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/postprocess.mjs:93:18

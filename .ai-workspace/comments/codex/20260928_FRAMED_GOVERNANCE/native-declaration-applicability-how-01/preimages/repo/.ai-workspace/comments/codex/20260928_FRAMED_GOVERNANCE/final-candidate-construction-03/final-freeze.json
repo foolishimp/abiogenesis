@@ -1,0 +1,1173 @@
+{
+  "status": "CLOSED",
+  "workResult": "construction_ready",
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_03",
+  "actor": "/root/rc1_successor_builder",
+  "role": "Worker",
+  "frozenAt": "2026-10-01T21:05:24.685118+00:00",
+  "return": "final-return.md",
+  "sourceFreeze": {
+    "path": "final-source-freeze-manifest.json",
+    "sha256": "7ecaaaef533131c3bccb42d81aba3cc133a34b53796c05a263e9edd44cac9a02"
+  },
+  "records": [
+    {
+      "path": "construction-execution-grant.json",
+      "kind": "file",
+      "bytes": 572,
+      "sha256": "2f3e497f9d539fa76315448c9d627fa441b830b60037a693ff2a8e5d66ce2279",
+      "mode": 420
+    },
+    {
+      "path": "final-archive-members.json",
+      "kind": "file",
+      "bytes": 1059222,
+      "sha256": "25e22c03bad6406cdb16bf0836bf954a6730773b7bce5c3a8b5a567bcf0a7c38",
+      "mode": 420
+    },
+    {
+      "path": "final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "kind": "file",
+      "bytes": 10426739,
+      "sha256": "f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+      "mode": 420
+    },
+    {
+      "path": "final-attribution.json",
+      "kind": "file",
+      "bytes": 1154,
+      "sha256": "4bb4da025fd16d4e4523b44ba993121fd876f627a7b55eed978cabee1cc4a5fa",
+      "mode": 420
+    },
+    {
+      "path": "final-authority-joins.json",
+      "kind": "file",
+      "bytes": 89263,
+      "sha256": "e588b10207fdcf9c7a1026b7489e1a2caed49c88dce601687c3857e0d3530dca",
+      "mode": 420
+    },
+    {
+      "path": "final-authority-stage.json",
+      "kind": "file",
+      "bytes": 2456,
+      "sha256": "626c2670d4524e9407ffdefe7022010e288df9858fd2e804bc1f151404a74728",
+      "mode": 420
+    },
+    {
+      "path": "final-authority-stage.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "e06b38251aeb5b7892f8ed7370802d3f7865b5e86fcdea29c9ed881393d430c1",
+      "mode": 420
+    },
+    {
+      "path": "final-authority-stage.started.json",
+      "kind": "file",
+      "bytes": 2148,
+      "sha256": "1ab56e39eb40cb9e038c58a1d86d95e29803251d6b5af1125618f1dc7de55764",
+      "mode": 420
+    },
+    {
+      "path": "final-authority-stage.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-authority-stage.stdout",
+      "kind": "file",
+      "bytes": 1141,
+      "sha256": "a5bf8948e93322a6d9ee4ff460fb55f9d0d94a054ebbbcdb3279a9c7cd0802e8",
+      "mode": 420
+    },
+    {
+      "path": "final-budgets.json",
+      "kind": "file",
+      "bytes": 504,
+      "sha256": "095630af049caa31b31654a1269241edf695f468b3875cd04072232d3aa3f145",
+      "mode": 420
+    },
+    {
+      "path": "final-clean.json",
+      "kind": "file",
+      "bytes": 2121,
+      "sha256": "a90be9b633fcbc94bf26a320356a957232c30bf77155eae6e115a8f11ea6894c",
+      "mode": 420
+    },
+    {
+      "path": "final-clean.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "7f4d2ef3d664d7f553570b75807cc3080a2fb41ce46289d0b814cf29e9978222",
+      "mode": 420
+    },
+    {
+      "path": "final-clean.started.json",
+      "kind": "file",
+      "bytes": 1814,
+      "sha256": "607c8734eaf24e8da100e7af7fc2cc1fabfe95e4ae6b0d3f18750ee857945038",
+      "mode": 420
+    },
+    {
+      "path": "final-clean.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-clean.stdout",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-comparison-triage.json",
+      "kind": "file",
+      "bytes": 1255,
+      "sha256": "a2802d6bbe104f797a2b16f73c5d4ab71c57a280dc6198c3eaafc2d79afcdd9d",
+      "mode": 420
+    },
+    {
+      "path": "final-compile.json",
+      "kind": "file",
+      "bytes": 2169,
+      "sha256": "4125659a238ff4cba36d7e05df5b705ee0ecf9dba10427d0da6c88c096023dab",
+      "mode": 420
+    },
+    {
+      "path": "final-compile.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "36bf367df93b5e69f5dc6fa03968921e7259ebdf2f503243fac06df1c2e81e3a",
+      "mode": 420
+    },
+    {
+      "path": "final-compile.started.json",
+      "kind": "file",
+      "bytes": 1861,
+      "sha256": "4202046c873abc1771280d10cf37b3bb812c5e47bed8078cc87c8f6f67c18cc9",
+      "mode": 420
+    },
+    {
+      "path": "final-compile.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-compile.stdout",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-construction-readiness.json",
+      "kind": "file",
+      "bytes": 2985,
+      "sha256": "a21b82d4f213b057325879391e1a22eb10c4b5904acf8d202fbe8630844b9255",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/correct-comparison.py",
+      "kind": "file",
+      "bytes": 2688,
+      "sha256": "a836c22d1a662d0e996044fda7ecf568fc99d1075a933b6444c09a269b0c5145",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/correspondence.py",
+      "kind": "file",
+      "bytes": 7932,
+      "sha256": "b1d0dde2f964c98e0a46a15081922aed0a9622cfdf8eb7a0ac0b6a94bb71df65",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/execute.py",
+      "kind": "file",
+      "bytes": 5768,
+      "sha256": "8ca6a482da2134bcaaf2f2819e473b21695565a05d33ba7f0cf7303e96d6fa64",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/finalize.py",
+      "kind": "file",
+      "bytes": 14585,
+      "sha256": "5dc29b6de46f4a6659060bd627753449806e46d41dcc26e2ad001ba4aa75e184",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/prepare.py",
+      "kind": "file",
+      "bytes": 11182,
+      "sha256": "610ac707bdc8ad35a628c62b3f987fe86a92d960c7d396a487dd3f859bc8cd09",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/validate-installed-publications.mjs",
+      "kind": "file",
+      "bytes": 4530,
+      "sha256": "c6208db0fd2db4a07368c1b564f15b74e5f59d85579e1edbdfdd9b8695b8eea2",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/verify-installed.mjs",
+      "kind": "file",
+      "bytes": 5921,
+      "sha256": "42d6d9dd15b5fca214eebb424a63a8b2830175f7e6e76c4e881163588af20db8",
+      "mode": 420
+    },
+    {
+      "path": "final-costs.json",
+      "kind": "file",
+      "bytes": 4528,
+      "sha256": "015db127d8d5a055ff72f1f73f0638634a44dd5bdf8c57a5c0f02ddcf0726956",
+      "mode": 420
+    },
+    {
+      "path": "final-dependencies.json",
+      "kind": "file",
+      "bytes": 2182,
+      "sha256": "e233e8c0b4e88925f17276d5eea90cbe97aa33c4e4f677da91372e376851ac93",
+      "mode": 420
+    },
+    {
+      "path": "final-dependencies.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "ce3a1d437f24d9b6fbc89c80377ea7c3b970b39dc6dfcb52ff3851abaa178520",
+      "mode": 420
+    },
+    {
+      "path": "final-dependencies.started.json",
+      "kind": "file",
+      "bytes": 1875,
+      "sha256": "20dc9c0cfbaa181143a13c640ba9bde4d9724cd7c5311d360adcc8d3e087f326",
+      "mode": 420
+    },
+    {
+      "path": "final-dependencies.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-dependencies.stdout",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "4c6f5490e016719189dfff56318cc4300dcbd2de47b98fa330c01f09fcca1c80",
+      "mode": 420
+    },
+    {
+      "path": "final-dependency-and-bin-links.json",
+      "kind": "file",
+      "bytes": 573,
+      "sha256": "36fdfb2ac95d1d9dc3338ea4ae0dc07c082c2f0ad2648ab87b438b727cb6e96c",
+      "mode": 420
+    },
+    {
+      "path": "final-derived-authority-input-delta.json",
+      "kind": "file",
+      "bytes": 4614,
+      "sha256": "24fd36d58cc30173b15c0d93ad6d201d3e4411ea37116ac85f9c6632f8f11f64",
+      "mode": 420
+    },
+    {
+      "path": "final-generated-after.json",
+      "kind": "file",
+      "bytes": 232766,
+      "sha256": "5ec5463e3a0d4ceb344471928534f03e0f6d4cc3fed62d35223ac4e9cdacd572",
+      "mode": 420
+    },
+    {
+      "path": "final-generated-delta-corrected.json",
+      "kind": "file",
+      "bytes": 14261,
+      "sha256": "b09d33a6a4bd37e32155888eed24d34d836019e02565fcbef4d8fa5e230c7e47",
+      "mode": 420
+    },
+    {
+      "path": "final-generated-delta.json",
+      "kind": "file",
+      "bytes": 35822,
+      "sha256": "7019809a02f7be429998385c9923c67143c3e85a1f4d43bf67677fcfb65b7ad1",
+      "mode": 420
+    },
+    {
+      "path": "final-generated-summary-corrected.json",
+      "kind": "file",
+      "bytes": 1256,
+      "sha256": "11fa03dee9bfa04f9aaa4fb74476697c467a154adf0802552fd4faac8b2ae176",
+      "mode": 420
+    },
+    {
+      "path": "final-generated-summary.json",
+      "kind": "file",
+      "bytes": 868,
+      "sha256": "e96b47bdad0994870cbd9bf0818e900c7e538eb968d80fd97810857cc011885d",
+      "mode": 420
+    },
+    {
+      "path": "final-globalnpmrc",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-install-population.json",
+      "kind": "file",
+      "bytes": 1433274,
+      "sha256": "c586539d9ad1d2bf09e8086526f9b4d6b8e54fda7774c8e10f1758e86480c944",
+      "mode": 420
+    },
+    {
+      "path": "final-install.json",
+      "kind": "file",
+      "bytes": 2369,
+      "sha256": "1d5198cec20c947fc2e1496c538ab5f11d6d3d621c3132f757cc293d36cf4640",
+      "mode": 420
+    },
+    {
+      "path": "final-install.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "e6b857813abfc0a07325a71d8091e63c6c6172650464ac6082be25d1c47bc883",
+      "mode": 420
+    },
+    {
+      "path": "final-install.started.json",
+      "kind": "file",
+      "bytes": 2061,
+      "sha256": "dd3bb137af3f501de027333b1fc0f3ae5b869bb3f8d7f8e855d988fa9f06a32a",
+      "mode": 420
+    },
+    {
+      "path": "final-install.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-install.stdout",
+      "kind": "file",
+      "bytes": 23,
+      "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "mode": 420
+    },
+    {
+      "path": "final-installed-publication-results.json",
+      "kind": "file",
+      "bytes": 31178,
+      "sha256": "3c38c5ddbb8ad9fdad057eb1f429713ba418fc9e79440b4076d78e81722eb91b",
+      "mode": 420
+    },
+    {
+      "path": "final-installed-publications.json",
+      "kind": "file",
+      "bytes": 2228,
+      "sha256": "d244f0d73d0387bee2e20c59cd8b732aefe6db9d0754156246fb1c6d117c8ab2",
+      "mode": 420
+    },
+    {
+      "path": "final-installed-publications.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "bf74787c808c091cb115783e7efa8bed6e379b72050e00f5365e27185a4c1d8a",
+      "mode": 420
+    },
+    {
+      "path": "final-installed-publications.started.json",
+      "kind": "file",
+      "bytes": 1920,
+      "sha256": "9b327d7fd6b8ee0af57a612fa6ad1cbcf917b67d40c02a4cdeca4414e12b4f60",
+      "mode": 420
+    },
+    {
+      "path": "final-installed-publications.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-installed-publications.stdout",
+      "kind": "file",
+      "bytes": 166,
+      "sha256": "1ddb3287068c2fa047cae8d4d83a0d1eff28ce411c51458f03fcc04ce9f9c8df",
+      "mode": 420
+    },
+    {
+      "path": "final-law-verification.json",
+      "kind": "file",
+      "bytes": 19936,
+      "sha256": "300ddee41cf505bda7027492800e8e565a7291ddb6e816f5f655bac8d8f08c5c",
+      "mode": 420
+    },
+    {
+      "path": "final-manifest.json",
+      "kind": "file",
+      "bytes": 2143,
+      "sha256": "e628e6cd6911cf4ee31232391a513389dc87ae2f45435c27813f3a3dcde9dbe2",
+      "mode": 420
+    },
+    {
+      "path": "final-manifest.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "eceaaed4213dcaab9825f1c5ca7c2ceb87e8251827e5fd7053954078e5e7ca4c",
+      "mode": 420
+    },
+    {
+      "path": "final-manifest.started.json",
+      "kind": "file",
+      "bytes": 1835,
+      "sha256": "40b07dbf3bcc8827c4670443f62cddc1177bbca36bdd8ea0965471c8ab185bf5",
+      "mode": 420
+    },
+    {
+      "path": "final-manifest.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-manifest.stdout",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-npmrc",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-pack.json",
+      "kind": "file",
+      "bytes": 2316,
+      "sha256": "96b14474f6bab141698cbb9241f621451708cf1e4895c7c2e55ca0df75a2aac7",
+      "mode": 420
+    },
+    {
+      "path": "final-pack.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "e7f206721e0fc3ef0e81b3cf40793ec1468b98e6ae22488820e368d08906e2c0",
+      "mode": 420
+    },
+    {
+      "path": "final-pack.started.json",
+      "kind": "file",
+      "bytes": 2008,
+      "sha256": "d0b2cb04584a6cba06e6d1a902704bc0299aeafcb13acca6f1b756b7ee6da015",
+      "mode": 420
+    },
+    {
+      "path": "final-pack.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-pack.stdout",
+      "kind": "file",
+      "bytes": 691952,
+      "sha256": "a025e288bbbcb68d15474ae5d28d837c75e02c34456df9d8f3fe1d1dbfa03819",
+      "mode": 420
+    },
+    {
+      "path": "final-package-correspondence.json",
+      "kind": "file",
+      "bytes": 1334,
+      "sha256": "e25d5cc9a90c1b1d68d0e022829c5a285b75b6a61f347777245d0e2f2bd1db2b",
+      "mode": 420
+    },
+    {
+      "path": "final-package-identity.json",
+      "kind": "file",
+      "bytes": 708,
+      "sha256": "43cb6aec4504c907eb576b7b1bf748bc3293512e719b033dae85f151c395f43c",
+      "mode": 420
+    },
+    {
+      "path": "final-package-readiness.json",
+      "kind": "file",
+      "bytes": 3500,
+      "sha256": "b9e0b95c2740786d02b56ee7c26620905f666148bbce4a090433b0dc718c7327",
+      "mode": 420
+    },
+    {
+      "path": "final-preparation-result.json",
+      "kind": "file",
+      "bytes": 408,
+      "sha256": "a7804d62f80186e3ea211441cc4751e99349aa2580f24b050f46f995c2f3c2d8",
+      "mode": 420
+    },
+    {
+      "path": "final-preservation-verification.json",
+      "kind": "file",
+      "bytes": 697,
+      "sha256": "1e3aeb6371c64735c77629c8756727d93b561e176a2693238ddd661d1b75fb1c",
+      "mode": 420
+    },
+    {
+      "path": "final-preserved-preparation.json",
+      "kind": "file",
+      "bytes": 2142712,
+      "sha256": "ae5d19cbbb0ee3dc200fbb75e613c3b09ee8bc327493b2c9772ee60de4195e13",
+      "mode": 420
+    },
+    {
+      "path": "final-product-verification-request.json",
+      "kind": "file",
+      "bytes": 1070,
+      "sha256": "f6af0edf603a293d84c86108bc5522737bc83bf4218afacc6990419784008d26",
+      "mode": 420
+    },
+    {
+      "path": "final-product-verification-summary.json",
+      "kind": "file",
+      "bytes": 4174,
+      "sha256": "0c2aab0c0682a6b55ed593f19b170613a7f603900875ce64be2ac556667e6de2",
+      "mode": 420
+    },
+    {
+      "path": "final-product-verification-timing.json",
+      "kind": "file",
+      "bytes": 228,
+      "sha256": "10a1171e90b11d2124eccc29cd1bc62a622d78ccbb41928acd7fd0c9b8fa4e7e",
+      "mode": 420
+    },
+    {
+      "path": "final-publication-bindings.json",
+      "kind": "file",
+      "bytes": 671563,
+      "sha256": "e5dc7f07a4b65bbe70f4a06d2ff58ebc03263df7ee607942961b9ccc48c9a560",
+      "mode": 420
+    },
+    {
+      "path": "final-reader-binding.json",
+      "kind": "file",
+      "bytes": 230311,
+      "sha256": "cc524d0c6b152d335dd0645c9227e7345756fd3af7ec07e69a799e26b7096cf7",
+      "mode": 420
+    },
+    {
+      "path": "final-return.md",
+      "kind": "file",
+      "bytes": 5908,
+      "sha256": "5cc281613fc90d7e5e7a198602ef14868d30549bc3220a5c41c0bebb073d8bc4",
+      "mode": 420
+    },
+    {
+      "path": "final-schema-seeds.json",
+      "kind": "file",
+      "bytes": 988,
+      "sha256": "ae52750fc800db441297dc7db1efe801ba29447a0bc48acf4255e1dc9e21c25d",
+      "mode": 420
+    },
+    {
+      "path": "final-selected-core.json",
+      "kind": "file",
+      "bytes": 1085,
+      "sha256": "473673749081323c397d5e80496437ed05d314d674b60c30862795ffb1a53b33",
+      "mode": 420
+    },
+    {
+      "path": "final-source-copy-correspondence.json",
+      "kind": "file",
+      "bytes": 1107977,
+      "sha256": "0f45335f2302922c73f88ac0b4985dde470c4b260635f22cd4f49578df575ed2",
+      "mode": 420
+    },
+    {
+      "path": "final-source-freeze-manifest.json",
+      "kind": "file",
+      "bytes": 588522,
+      "sha256": "7ecaaaef533131c3bccb42d81aba3cc133a34b53796c05a263e9edd44cac9a02",
+      "mode": 420
+    },
+    {
+      "path": "final-source-members.json",
+      "kind": "file",
+      "bytes": 1326760,
+      "sha256": "b0708e0cec5a7d1362c4923f274764eac8fb227666f8317ec1e4b400c5274f2e",
+      "mode": 420
+    },
+    {
+      "path": "final-stage-dependency-population.json",
+      "kind": "file",
+      "bytes": 1207454,
+      "sha256": "3f755bb0bb5ecc07dab22b53121152ec9e92067a144cc2ff4f3b5f8cbac1f5cd",
+      "mode": 420
+    },
+    {
+      "path": "final-staged-derived-input-paths.json",
+      "kind": "file",
+      "bytes": 9874,
+      "sha256": "8e91e62f2a7f3b66033011da87ef13231d99ce01996a5dad8eff0c4c568ed40e",
+      "mode": 420
+    },
+    {
+      "path": "final-verify.json",
+      "kind": "file",
+      "bytes": 2213,
+      "sha256": "8a2a79c46f5e4b4a34c6412550f3b1d11af172c7e4eb98d3051a943d8c0630f6",
+      "mode": 420
+    },
+    {
+      "path": "final-verify.process-start.json",
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "8a8157fb093ab29f260f5575ac31a07c22c9f7c652afb2e81f822a233578bf8c",
+      "mode": 420
+    },
+    {
+      "path": "final-verify.started.json",
+      "kind": "file",
+      "bytes": 1905,
+      "sha256": "a9c943441a5fd4bb9db9a93c5639020fa3924d304afa5e77a23f0eeaac475713",
+      "mode": 420
+    },
+    {
+      "path": "final-verify.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "final-verify.stdout",
+      "kind": "file",
+      "bytes": 1029,
+      "sha256": "821d96ae56dc6c8ee4897418ac0e89c37b2cb7dd68033027966c1dec098bbe3d",
+      "mode": 420
+    }
+  ],
+  "recordCount": 92,
+  "package": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+    "archiveBytes": 10426739,
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install",
+    "archiveMembers": 5258
+  },
+  "selected": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+      "productContentDigest": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+      "manifestDigest": "sha256:cb7b8045e769fa6c019e599e5aef932827d915ce9de11a91cfcb5946a9eb153d",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "completeSourceMembers": 1106,
+  "actualGenerated": {
+    "generatedMembers": 926,
+    "generatedChangedFromC02": 45,
+    "derivedAuthorityInputPreimages": 96,
+    "derivedAuthorityInputsChanged": 12,
+    "sourceInputsPreserved": 1106,
+    "actualAuthorityJoins": 95,
+    "rules": 2137,
+    "lawBasis": {
+      "ref": "qualification-law://abiogenesis/edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f",
+      "digest": "sha256:edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f"
+    },
+    "method": {
+      "releaseRef": "stdo://releases/v2.5.1-rc.2/",
+      "methodVersion": "2.5.1-rc.2",
+      "installedManifestDigest": "sha256:3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+      "memberSetDigest": "sha256:2f54671dfde54a6ad87347ac7190028af5e21021988247edf8068ab6248ef7e8"
+    },
+    "coverageClaims": 16,
+    "coverageBehaviors": 66,
+    "completeRuleSpanJoins": true,
+    "elapsedMs": 453.8252498023212,
+    "comparableC02StageMembers": 924,
+    "newDerivedMembers": 2,
+    "comparisonBasis": "actual C02 staged bytes for the complete C03 output population; includes96 derived authority preimages excluded from C02 generated-only inventory",
+    "supersedesComparisonCountsOnly": "final-generated-summary.json and final-generated-delta.json; all physical generation/source/authority joins unchanged"
+  },
+  "publicationCount": 11,
+  "sourceStagePackageInstallCorrespondence": "final-package-correspondence.json",
+  "installedPayloadInventory": "final-archive-members.json",
+  "completePhysicalInstallInventory": "final-install-population.json",
+  "completeStageDependencyInventory": "final-stage-dependency-population.json",
+  "preservedPreparationFreezeSHA256": "dad93850afa6ffc8268d46baeebedb439583fd3221a91208b92c25b6a29ad3ed",
+  "basis": {
+    "releaseRef": "stdo://releases/v2.5.1-rc.2/",
+    "manifestSHA256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "memberSetSHA256": "2f54671dfde54a6ad87347ac7190028af5e21021988247edf8068ab6248ef7e8",
+    "memberCount": 52,
+    "members": [
+      {
+        "path": "final-law/manifest.json",
+        "bytes": 12434,
+        "sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/manifest.json",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/AXIOMATIC_CALCULUS.md",
+        "bytes": 37849,
+        "sha256": "cbe2edb928d3e75e23446f6d525baea664966e8d5920e6fa389cbaa4af8f1f8d",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/AXIOMATIC_CALCULUS.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/DESIGN_MODULE_METHOD.md",
+        "bytes": 121432,
+        "sha256": "5cb69556bba1171ec347cac96811c50071f0648a367103aa215070239b93785e",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/DESIGN_MODULE_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/GLOSSARY_GUIDE.md",
+        "bytes": 18945,
+        "sha256": "da6d81df61d61e685bcf1ef69187839a52d72af7f1d61af050244f856efe0cd0",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/GLOSSARY_GUIDE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/IDENTITY_METHOD.md",
+        "bytes": 11350,
+        "sha256": "e65b875464cc93a3f9186d915ad88603755de34bac6f27072562ed34c13f64cd",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/IDENTITY_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/ODD_METHOD.md",
+        "bytes": 71327,
+        "sha256": "b33dd5b868e66e27c583b3237e93421ab12d502b38368bf075973c1bf7faef2d",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/ODD_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/POSTING_GUIDE.md",
+        "bytes": 4959,
+        "sha256": "63ee8b6fde9803e38970e85fb2c4e0aa398632720b6a5f1cff8fb1291398c59a",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/POSTING_GUIDE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/README.md",
+        "bytes": 2330,
+        "sha256": "7eb1ab99072963acf373af422cf698f1623dbd0628e7aff7a3ec5af4e72f8659",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/README.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/REFERENCE_FRAME_METHOD.md",
+        "bytes": 55118,
+        "sha256": "6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/REFERENCE_FRAME_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/RELEASE_METHOD.md",
+        "bytes": 26086,
+        "sha256": "582bc15451855670495e559db3ae6a89ba37edaa3656f33499d02220cbdb141c",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/RELEASE_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/SPEC_METHOD.md",
+        "bytes": 157952,
+        "sha256": "7f12d32ef4e5720d5d59ee5ace50de6c1a12cc56afa53dd67a8ee4c54f8fb8a4",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/SPEC_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+        "bytes": 133684,
+        "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/TICKET_METHOD.md",
+        "bytes": 60674,
+        "sha256": "f031ce7fb3b5b366ffaee5996ae76e861697ad86897cc04c06b67da249fe0eca",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/TICKET_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/TRAVERSAL_OCCURRENCE_PROFILE.md",
+        "bytes": 65332,
+        "sha256": "618bb7c8f9f1eab8283cf595ac9da3533f0f9cf80a684c6f42e09142da6590c1",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/TRAVERSAL_OCCURRENCE_PROFILE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/UX_METHOD.md",
+        "bytes": 27217,
+        "sha256": "a7cca45d6064d7fc864edd86e3913c9462cfe2a52ae3d1519c6a031713dccae7",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/UX_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/WORLD_MODEL_METHOD.md",
+        "bytes": 51197,
+        "sha256": "123ddcd05130aa95508c9fcfa194bf083caae3657baedaba0ce9214009453762",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/WORLD_MODEL_METHOD.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/WRITING_GUIDE.md",
+        "bytes": 3092,
+        "sha256": "29e50edc00997b76c20fad74724991b8cfffbe692ee6cabab208ad7a0c1b63fd",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/WRITING_GUIDE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/README.md",
+        "bytes": 2429,
+        "sha256": "ac695b50fbe503e65fd8cb50c69ebe14ec818cc19bdb24941f514cc3c403eb88",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/README.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/axiomatic_calculus.compressed.md",
+        "bytes": 12271,
+        "sha256": "30d8615f171298e8b40d112eff4fee56e302b63f9e5968272b7e7291f76c7bda",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/axiomatic_calculus.compressed.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/design_module_method.compressed.md",
+        "bytes": 22553,
+        "sha256": "a6edc3a5fdde1946e9e47f08841b34e1e0a6ea6b937a42e2a7d9b132f53692ee",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/design_module_method.compressed.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/odd_method.compressed.md",
+        "bytes": 6470,
+        "sha256": "49968bace86260d6ffa25433598245ec89a23646b3743872aaf40bc99dbc1c6b",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/odd_method.compressed.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/spec_method.compressed.md",
+        "bytes": 29584,
+        "sha256": "fe309ca1397ca7073ed9775bcb4da3c293678ce835fc26d4cd05bffd732091c0",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/spec_method.compressed.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/stdo_bootstrap.md",
+        "bytes": 5772,
+        "sha256": "f7bec3f86d9f24d1fb22acc553ade2eb0861105ec4cd2f1afa7290cc85c5b61a",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/stdo_bootstrap.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/stdo_compressed.md",
+        "bytes": 74836,
+        "sha256": "3dfe3bf0913925f5daac497cef7920fdfd0a4f3d4afea1bfc996b0715119819e",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/stdo_compressed.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/ticket_method.compressed.md",
+        "bytes": 11674,
+        "sha256": "d7ad2a08f71a0f4f4ac9478e2f9f3c08ca22d947b27e30f08476dbbb926745d8",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/ticket_method.compressed.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/traversal_occurrence_profile.compressed.md",
+        "bytes": 12574,
+        "sha256": "bfecda2c2e2f1c2f9e1ad97713d6a708227c2f47d4d95ce380d978b0df3877ce",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/traversal_occurrence_profile.compressed.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/authority_compressions/ux_method.compressed.md",
+        "bytes": 1674,
+        "sha256": "f3323f1f4704360f59fea6d7a8a7ba92be3e1c7d0bc921725da97fdeaf44ad54",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/authority_compressions/ux_method.compressed.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/schemas/installed-release-manifest.schema.json",
+        "bytes": 5903,
+        "sha256": "711a2eea44b995a043d4d9e02c8427723fc830de1a9f0f3c8c66e8ddb7aee4c2",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/schemas/installed-release-manifest.schema.json",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/schemas/product-definition.schema.json",
+        "bytes": 15346,
+        "sha256": "e0a3b544dae6c83bf941096b440700d02fa988fd2767f3b4ab297a1a03f67abf",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/schemas/product-definition.schema.json",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/AGENTS_TEMPLATE.md",
+        "bytes": 1508,
+        "sha256": "e27610545d3b9648ca8655052a067b64f93941dd096afd8e8b25c8722b1cb20e",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/AGENTS_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/CLAUDE_TEMPLATE.md",
+        "bytes": 1508,
+        "sha256": "e27610545d3b9648ca8655052a067b64f93941dd096afd8e8b25c8722b1cb20e",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/CLAUDE_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/GOALS_TEMPLATE.md",
+        "bytes": 521,
+        "sha256": "2dc711293f5e7129389efe0e5c3ea86e111c528569e6b72dad983cdbc2c71c3d",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/GOALS_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/INTENT_TEMPLATE.md",
+        "bytes": 371,
+        "sha256": "85b1e6c83b30d619e9f7f8018315022b6963edaa03f908e7aac38a16d5bdab26",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/INTENT_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/PRODUCT_DEFINITION_TEMPLATE.json",
+        "bytes": 3556,
+        "sha256": "e4189e5e51d525b7d7926ca88c9b9182b4686b8adf81108e72e24b847db94d34",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/PRODUCT_DEFINITION_TEMPLATE.json",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/PRODUCT_TEMPLATE.md",
+        "bytes": 1267,
+        "sha256": "0e5365e4c87faecbaccb20aa8a106364afcd07635ca52dffbbf4a223873256f9",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/PRODUCT_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/PROJECT_REFERENCE_FRAME_BASIS_TEMPLATE.md",
+        "bytes": 9076,
+        "sha256": "82ffcba100061fa4d63ef8b282815add4f85ae499530ea7f56b38befd5a68d8c",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/PROJECT_REFERENCE_FRAME_BASIS_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/README.md",
+        "bytes": 6598,
+        "sha256": "6e30d6e945a758bb4d34612c181a4ac694f9c19b8533b67d7ae0e73a57195a31",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/README.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/TENANT_REGISTRY_TEMPLATE.md",
+        "bytes": 1803,
+        "sha256": "8dd5d925a82f63683c9702a5fe8732eaa4afaead626ddfe49e270fb0a79e08a9",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/TENANT_REGISTRY_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/common/README_TEMPLATE.md",
+        "bytes": 220,
+        "sha256": "e88790f0521229ca41cadc82af434908e5d8782748ccc93eb287d0e2fb5efae8",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/common/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/common/design/README_TEMPLATE.md",
+        "bytes": 779,
+        "sha256": "7bfaf3873571c9d8a267aa8acc8e47522fc48cd90cfdef9d50216c9ae008e6bd",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/common/design/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/common/design/adrs/ADR_TEMPLATE.md",
+        "bytes": 2008,
+        "sha256": "07d28d93675b86b51953b84584aa7119cf80269354a76aa2356ff18397c7c4cd",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/common/design/adrs/ADR_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/common/design/adrs/README_TEMPLATE.md",
+        "bytes": 3190,
+        "sha256": "57fd95e135d36059611bca65bc091dafb94809ab521db834a4457513f91737e7",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/common/design/adrs/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/variant/README_TEMPLATE.md",
+        "bytes": 206,
+        "sha256": "0236d71e75b917f4b008474478eda7662e62fc7b11cc7409b8299b2e26f3ef96",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/variant/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/variant/design/README_TEMPLATE.md",
+        "bytes": 1265,
+        "sha256": "da70241069c9f98d09f6e179c2687966fca70a4546b9c52d2e8aee78644626e1",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/variant/design/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/variant/design/adrs/ADR_TEMPLATE.md",
+        "bytes": 1693,
+        "sha256": "d2f77e99fcbafb0b3a2603e4c5854333ae22b65d78ed82a418f7a3b9ecbd988b",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/variant/design/adrs/ADR_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/variant/design/adrs/README_TEMPLATE.md",
+        "bytes": 2830,
+        "sha256": "ae46291f42650da55c279b2aa09ac9ae1c91285b50ff73c0f4d2e538f68a3591",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/variant/design/adrs/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/variant/design/fp/INTENT_TEMPLATE.md",
+        "bytes": 432,
+        "sha256": "76e33d7a4a75d77644eec20f6d5d3611894320eab05e36580d29cf90c28a4490",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/variant/design/fp/INTENT_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/variant/design/fp/README_TEMPLATE.md",
+        "bytes": 353,
+        "sha256": "4542edc7e3a51bfba843530f1ee6b03fd3615f27a65d0f8815ae054225a5594c",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/variant/design/fp/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/variant/design/fp/edge-overrides/EDGE_OVERRIDE_TEMPLATE.json",
+        "bytes": 426,
+        "sha256": "996e1f2cd55090519e7c487ec46333afd2994a546c15190bb11d862e3a0683c4",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/variant/design/fp/edge-overrides/EDGE_OVERRIDE_TEMPLATE.json",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/build_tenants/variant/design/fp/edge-overrides/README_TEMPLATE.md",
+        "bytes": 220,
+        "sha256": "1432362afe35b5816259e6bef0163ffc38db6639557cd4541d2804ff04d02991",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/build_tenants/variant/design/fp/edge-overrides/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/docs/README_TEMPLATE.md",
+        "bytes": 188,
+        "sha256": "9c3425ff8b49c2b5573e9b8f0130b7a3e5f7d3ddcc01204aec363327e0872e7f",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/docs/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/requirements/README_TEMPLATE.md",
+        "bytes": 838,
+        "sha256": "4eacc1d3604e4859b60fc29c4bc6555fcd5de11d9ca1773258eedfb398e0f4a9",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/requirements/README_TEMPLATE.md",
+        "kind": "file"
+      },
+      {
+        "path": "final-law/standards/templates/requirements/STARTER_REQUIREMENTS_TEMPLATE.md",
+        "bytes": 367,
+        "sha256": "67e2061e7eb7757bdb71cff5775cfea90b33b5019ba31e1509e4d456cf66e5dd",
+        "mode": 292,
+        "origin": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/standards/templates/requirements/STARTER_REQUIREMENTS_TEMPLATE.md",
+        "kind": "file"
+      }
+    ],
+    "DefinitionSHA256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+    "defaultLibrarySubstrate": "unchanged selected RC1 asset; no runtime repin"
+  },
+  "readiness": {
+    "physicalInstalledOwnerVerification": true,
+    "sameProcessNominalSelection": true,
+    "complete11StaticPublications": true,
+    "manifestBindingEquality": true,
+    "ordinaryRuntime": false,
+    "qualification": false,
+    "publication": false
+  },
+  "effects": {
+    "sourceRepair": 0,
+    "ambientGenerated": 0,
+    "dependenciesOffline": 1,
+    "compile": 1,
+    "selectedAuthorityStage": 1,
+    "ProductManifestGeneration": 1,
+    "pack": 1,
+    "offlineInstall": 1,
+    "nativeModelProviderNetworkRuntimeStoreGit": 0
+  },
+  "costs": "final-costs.json",
+  "attribution": "final-attribution.json",
+  "limits": "final-return.md",
+  "stop": "All construction Worker writes closed. Executive independently conjoins before any new runtime activation."
+}

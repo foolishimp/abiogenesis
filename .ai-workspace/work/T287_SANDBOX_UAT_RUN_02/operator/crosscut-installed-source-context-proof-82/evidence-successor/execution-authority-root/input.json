@@ -1,0 +1,140 @@
+{
+  "kind": "governance_work_state",
+  "schemaVersion": "5.0.0",
+  "original": {
+    "taskRef": "task://default-library-witness/original@5",
+    "task": "﻿Local framework source/context composition witness Ω😀. Preserve native/C2 producer identity and exact BOM/Unicode stream bytes. Semantic adequacy is deliberately unmet.\n\n\nOperate only in the declared scope. The native fixture marker is partial work. Testing records its declared command without an application verdict. Independent assessment retains unmet adequacy.\n",
+    "sources": [
+      {
+        "path": "source/original-basic-cli.txt",
+        "digest": "sha256:c9e65b55dc5bd8654d8bb59ac4140de03e82fe30c2c9fe8e7044d9014afc6693"
+      },
+      {
+        "path": "source/witness-contract.md",
+        "digest": "sha256:82b6ad1e1b252779a9371634a43ef26e9f292f064fb503bdd8d62997c06e44dc"
+      },
+      {
+        "path": "source/basic-cli.oracle.json",
+        "digest": "sha256:7da6b9b8c2a083ad87ee51c5ac27ff30921bda2da064ba3f8bfbe2182a6cbdeb"
+      }
+    ],
+    "requiredSupportRefs": [
+      "support://default-library-witness/complete-source-outcome@5"
+    ],
+    "authorityRefs": [
+      "authority://default-library-witness/consumer-scope@5"
+    ],
+    "readRoots": [
+      "generated/hello-world.mjs",
+      "source/basic-cli.oracle.json",
+      "source/original-basic-cli.txt",
+      "source/witness-contract.md"
+    ],
+    "maxContextFiles": 128,
+    "maxContextBytes": 131072,
+    "maxPromptBytes": 131072,
+    "workOrders": {
+      "construction": {
+        "outcome": "Perform the selected construction work needed for the original task.",
+        "instructions": [
+          "Operate only in the declared scope. The native fixture marker is partial work. Testing records its declared command without an application verdict. Independent assessment retains unmet adequacy.\n"
+        ],
+        "readFirst": [
+          "source/original-basic-cli.txt",
+          "source/witness-contract.md",
+          "source/basic-cli.oracle.json",
+          "generated/hello-world.mjs"
+        ],
+        "writeRoots": [
+          "generated/hello-world.mjs"
+        ],
+        "checks": []
+      },
+      "testing": {
+        "outcome": "Perform the selected testing work needed for the original task.",
+        "instructions": [
+          "Operate only in the declared scope. The native fixture marker is partial work. Testing records its declared command without an application verdict. Independent assessment retains unmet adequacy.\n"
+        ],
+        "readFirst": [
+          "source/original-basic-cli.txt",
+          "source/witness-contract.md",
+          "source/basic-cli.oracle.json",
+          "generated/hello-world.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "uat": {
+        "outcome": "Perform the selected uat work needed for the original task.",
+        "instructions": [
+          "Operate only in the declared scope. The native fixture marker is partial work. Testing records its declared command without an application verdict. Independent assessment retains unmet adequacy.\n"
+        ],
+        "readFirst": [
+          "source/original-basic-cli.txt",
+          "source/witness-contract.md",
+          "source/basic-cli.oracle.json",
+          "generated/hello-world.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      }
+    },
+    "testing": {
+      "selectedPaths": [
+        "source/original-basic-cli.txt",
+        "source/witness-contract.md",
+        "source/basic-cli.oracle.json",
+        "generated/hello-world.mjs"
+      ],
+      "commands": [
+        {
+          "commandId": "command://default-library-witness/0@5",
+          "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "args": [
+            "--eval",
+            "const literal=\"﻿[error] *** exact Ω😀 diagnostic Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀Ω😀\\n\";const fs=require('node:fs');fs.mkdirSync('evidence',{recursive:true});fs.writeFileSync('evidence/literal.txt',literal);process.stdout.write(literal);process.exitCode=7;"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 20000,
+          "terminationGraceMs": 2000,
+          "expectedReports": []
+        }
+      ],
+      "outcomePredicates": [],
+      "allowedWriteTerritories": [
+        {
+          "pathKind": "subtree",
+          "relativePath": "evidence"
+        }
+      ]
+    },
+    "assessment": {
+      "sources": [
+        "source/original-basic-cli.txt",
+        "source/witness-contract.md"
+      ],
+      "candidatePath": "generated/hello-world.mjs",
+      "rubricPath": "source/basic-cli.oracle.json",
+      "resultContract": {
+        "contractRef": "contract://default-library-witness/assessment@5",
+        "contractVersion": "5.0.0",
+        "contractKind": "output",
+        "valueKind": "consumer_outcome_assessment"
+      },
+      "schemaAsset": {
+        "productId": "product://default-library-witness/consumer@5",
+        "contractId": "contract://default-library-witness/assessment@5",
+        "bytesBase64": "eyIkaWQiOiJjb250cmFjdDovL2RlZmF1bHQtbGlicmFyeS13aXRuZXNzL2Fzc2Vzc21lbnRANSIsInR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInJlcXVpcmVkIjpbImtpbmQiLCJkaXNwb3NpdGlvbiIsInJlYXNvbiIsInVucmVzb2x2ZWRDcml0ZXJpYSJdLCJwcm9wZXJ0aWVzIjp7ImtpbmQiOnsiY29uc3QiOiJjb25zdW1lcl9vdXRjb21lX2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyJ9LCJ1bnJlc29sdmVkQ3JpdGVyaWEiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6InN0cmluZyJ9fX19Cg=="
+      },
+      "verdictField": "disposition",
+      "satisfiedValue": "satisfied"
+    }
+  },
+  "synthesis": null,
+  "observations": [],
+  "unresolvedSupportRefs": [
+    "support://default-library-witness/complete-source-outcome@5"
+  ],
+  "terminal": false
+}

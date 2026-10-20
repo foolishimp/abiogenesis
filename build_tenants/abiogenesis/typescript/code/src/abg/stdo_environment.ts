@@ -8,6 +8,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { jsonValueSchema } from "../shared/public_function_contracts.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isAbsolute, resolve, relative } from "node:path";
+import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
 
 const ref = v.pipe(v.string(), v.minLength(1));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/u));
@@ -312,4 +313,20 @@ export function projectRunEnvironmentRoleEvidence(events: readonly { kind: strin
         claim: access.operation === "validate" ? "structural_corpus_access_not_frame_application" : "declared_index_access_not_application",
         disposition: access.operation === "validate" ? "omitted_not_required" : "included_full", projection: access.operation === "validate" ? null : a.projection };
     }) });
+}
+
+/** @internal The existing role relation consumes only its actual invocation
+ * rows. The prefix owner authenticates selection; payload validation above
+ * retains the complete context, authority and declaration checks. */
+export function projectRunEnvironmentRoleEvidenceAtPrefix(prefix: RuntimeEventPrefix, invocationAdmissionRef: string,
+  publication: Readonly<ModulePublication>, programRef: string, graphFunctionRef: string, programLocusRef: string, role: string) {
+  const program = publication.programs.find(p => p.programRef === programRef);
+  if (!program) return false;
+  if (runEnvironmentForProgram(publication, program) === null) return null;
+  const key = "payload:invocationAdmissionRef:" + invocationAdmissionRef;
+  const events = isOwnedRuntimeEventPrefix(prefix)
+    ? prefix.selection.select("kind:invocation_admitted").select(key).materialize()
+    : indexedRuntimeEvents(prefix, key);
+  return projectRunEnvironmentRoleEvidence(events,
+    invocationAdmissionRef, publication, programRef, graphFunctionRef, programLocusRef, role);
 }

@@ -1,0 +1,11 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 344652.629542,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdoutBytes": 3744,
+  "stderrBytes": 0,
+  "firstFailureStops": true
+}

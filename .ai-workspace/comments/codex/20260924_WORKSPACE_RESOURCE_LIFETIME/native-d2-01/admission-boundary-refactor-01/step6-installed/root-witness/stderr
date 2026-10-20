@@ -1,0 +1,40 @@
+{"phase":"original_public_root_and_genuine_reprice","pid":29450,"entryBytes":119770004}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: see receipts/00-original-public-run-status.json
++ actual - expected
+
++ 'installed_definition_call_transport_refusal'
+- 'installed_definition_call_transport_result'
+
+    at Object.invoke (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/full-sandbox-support.mjs:122:12)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/execute.mjs:35:41 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'installed_definition_call_transport_refusal',
+  expected: 'installed_definition_call_transport_result',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0
+       12.16 real        15.63 user         0.47 sys
+          1799094272  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              311814  page reclaims
+                  86  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5277  messages sent
+                3957  messages received
+                   0  signals received
+                   7  voluntary context switches
+               23233  involuntary context switches
+        290500053550  instructions retired
+         65366754673  cycles elapsed
+          1846854152  peak memory footprint

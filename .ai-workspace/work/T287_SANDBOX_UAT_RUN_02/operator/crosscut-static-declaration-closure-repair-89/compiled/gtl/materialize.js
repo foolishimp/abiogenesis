@@ -1,0 +1,217 @@
+import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { graphTemplateDiagnostics } from "./graph_construction.js";
+const materializedGraphs = new WeakSet();
+export function isMaterializedGtlGraph(value) {
+    return materializedGraphs.has(value);
+}
+export function rehydrateMaterializedGtlGraph(value) {
+    if (typeof value !== "object" ||
+        value === null ||
+        Array.isArray(value) ||
+        Object.keys(value).sort().join("\0") !== [
+            "admittedInputDigest",
+            "admittedInputRef",
+            "fanOutMaterializations",
+            "graphFunctionDigest",
+            "graphFunctionRef",
+            "invocationAdmissionRef",
+            "kind",
+            "materializationDigest",
+            "materializationRef",
+            "schemaVersion",
+            "template",
+        ].join("\0")) {
+        return null;
+    }
+    const graph = value;
+    if (graph.kind !== "gtl_graph" ||
+        graph.schemaVersion !== "5.0.0" ||
+        typeof graph.materializationRef !== "string" ||
+        typeof graph.materializationDigest !== "string" ||
+        typeof graph.graphFunctionRef !== "string" ||
+        typeof graph.graphFunctionDigest !== "string" ||
+        typeof graph.invocationAdmissionRef !== "string" ||
+        typeof graph.admittedInputRef !== "string" ||
+        typeof graph.admittedInputDigest !== "string" ||
+        !Array.isArray(graph.fanOutMaterializations) ||
+        typeof graph.template !== "object" ||
+        graph.template === null) {
+        return null;
+    }
+    const body = {
+        graphFunctionRef: graph.graphFunctionRef,
+        graphFunctionDigest: graph.graphFunctionDigest,
+        invocationAdmissionRef: graph.invocationAdmissionRef,
+        admittedInputRef: graph.admittedInputRef,
+        admittedInputDigest: graph.admittedInputDigest,
+        fanOutMaterializations: graph.fanOutMaterializations,
+        template: graph.template,
+    };
+    if (graph.materializationDigest !==
+        sha256Canonical(body) ||
+        graph.materializationRef !==
+            `graph-materialization://abiogenesis/${graph.materializationDigest.slice("sha256:".length)}`) {
+        return null;
+    }
+    try {
+        if (graphTemplateDiagnostics(graph.template).length > 0)
+            return null;
+    }
+    catch {
+        return null;
+    }
+    materializedGraphs.add(value);
+    return value;
+}
+function fanOutMembers(basis) {
+    const rows = basis.admittedInput.members;
+    if (!Array.isArray(rows) || rows.length === 0) {
+        throw new TypeError("fan_out materialization requires one admitted non-empty ordered member vector");
+    }
+    return deepFreeze(rows.map((row, ordinal) => {
+        if (!isRecord(row)) {
+            throw new TypeError("fan_out members require stable zero-based ordinals, refs, and record values");
+        }
+        const value = row.value;
+        if (row.ordinal !== ordinal ||
+            typeof row.memberRef !== "string" ||
+            row.memberRef.length === 0 ||
+            !isRecord(value)) {
+            throw new TypeError("fan_out members require stable zero-based ordinals, refs, and record values");
+        }
+        return {
+            ordinal,
+            memberRef: row.memberRef,
+            memberDigest: sha256Canonical(value),
+            value,
+        };
+    }));
+}
+function projectBatch(term, batchRef, elementGraphFunctionRef, taskCount) {
+    switch (term.kind) {
+        case "c_of":
+        case "c_identity":
+            return { term, matchCount: 0 };
+        case "c_workflow":
+            return { term, matchCount: 0 };
+        case "c_compose": {
+            const children = term.terms.map((child) => projectBatch(child, batchRef, elementGraphFunctionRef, taskCount));
+            return {
+                term: { ...term, terms: children.map((child) => child.term) },
+                matchCount: children.reduce((sum, child) => sum + child.matchCount, 0),
+            };
+        }
+        case "c_edge": {
+            const transform = projectBatch(term.transform, batchRef, elementGraphFunctionRef, taskCount);
+            const evaluate = projectBatch(term.evaluate, batchRef, elementGraphFunctionRef, taskCount);
+            const consequence = projectBatch(term.consequence, batchRef, elementGraphFunctionRef, taskCount);
+            return {
+                term: {
+                    ...term,
+                    transform: transform.term,
+                    evaluate: evaluate.term,
+                    consequence: consequence.term,
+                },
+                matchCount: transform.matchCount + evaluate.matchCount + consequence.matchCount,
+            };
+        }
+        case "c_batch": {
+            const children = term.tasks.map((child) => projectBatch(child, batchRef, elementGraphFunctionRef, taskCount));
+            if (term.batchRef !== batchRef) {
+                return {
+                    term: { ...term, tasks: children.map((child) => child.term) },
+                    matchCount: children.reduce((sum, child) => sum + child.matchCount, 0),
+                };
+            }
+            if (term.tasks.length !== 1 ||
+                term.tasks[0]?.kind !== "c_workflow" ||
+                term.tasks[0].graphFunctionRef !== elementGraphFunctionRef) {
+                throw new TypeError("fan_out batch requires one declared workflow.C element task seed");
+            }
+            return {
+                term: {
+                    ...term,
+                    tasks: Array.from({ length: taskCount }, () => term.tasks[0]),
+                },
+                matchCount: 1 + children.reduce((sum, child) => sum + child.matchCount, 0),
+            };
+        }
+        case "c_retry": {
+            const child = projectBatch(term.term, batchRef, elementGraphFunctionRef, taskCount);
+            return {
+                term: { ...term, term: child.term },
+                matchCount: child.matchCount,
+            };
+        }
+    }
+}
+export function deriveMaterializedGraphShape(graphFunction, basis) {
+    const issue = graphTemplateDiagnostics(graphFunction.template)[0];
+    if (issue !== undefined)
+        throw new TypeError(`${issue.path}: ${issue.message}`);
+    const fanOutApplications = graphFunction.template.applications.filter((application) => application.relationKind === "fan_out");
+    if (fanOutApplications.length === 0) {
+        return deepFreeze({
+            template: graphFunction.template,
+            fanOutMaterializations: [],
+        });
+    }
+    if (sha256Canonical(basis.admittedInput) !==
+        basis.admittedInputDigest) {
+        throw new TypeError("graph materialization input value differs from the admitted input digest");
+    }
+    const members = fanOutMembers(basis);
+    let nodes = [...graphFunction.template.nodes];
+    const fanOutMaterializations = fanOutApplications.map((application) => {
+        let matchCount = 0;
+        nodes = nodes.map((node) => {
+            const projected = projectBatch(node.term, application.batchRef, application.elementGraphFunctionRef, members.length);
+            matchCount += projected.matchCount;
+            return { ...node, term: projected.term };
+        });
+        if (matchCount !== 1) {
+            throw new TypeError("fan_out application must bind exactly one declared C.batch");
+        }
+        return {
+            applicationRef: application.applicationRef,
+            batchRef: application.batchRef,
+            inputVectorRef: application.inputVectorRef,
+            outputVectorRef: application.outputVectorRef,
+            inputMemberContractRef: application.inputMemberContractRef,
+            outputMemberContractRef: application.outputMemberContractRef,
+            members,
+        };
+    });
+    return deepFreeze({
+        template: {
+            ...graphFunction.template,
+            nodes,
+        },
+        fanOutMaterializations,
+    });
+}
+export function materializeGraph(graphFunction, basis) {
+    const graphFunctionDigest = sha256Canonical(graphFunction);
+    const shape = deriveMaterializedGraphShape(graphFunction, basis);
+    const body = {
+        graphFunctionRef: graphFunction.name,
+        graphFunctionDigest,
+        invocationAdmissionRef: basis.invocationAdmissionRef,
+        admittedInputRef: basis.admittedInputRef,
+        admittedInputDigest: basis.admittedInputDigest,
+        fanOutMaterializations: shape.fanOutMaterializations,
+        template: shape.template,
+    };
+    const materializationDigest = sha256Canonical(body);
+    const graph = deepFreeze({
+        kind: "gtl_graph",
+        schemaVersion: "5.0.0",
+        materializationRef: `graph-materialization://abiogenesis/${materializationDigest.slice("sha256:".length)}`,
+        materializationDigest,
+        ...body,
+    });
+    materializedGraphs.add(graph);
+    return graph;
+}

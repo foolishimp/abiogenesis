@@ -1,0 +1,31 @@
+{
+  "kind": "worker_activation",
+  "schemaVersion": "5.0.0",
+  "activationId": "T287_RC1_S02_CONTINUATION_02",
+  "role": "Worker",
+  "actor": "/root/rc1_s02_continuation",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-01T15:44:20.886642+00:00",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-controls-02/request.txt",
+    "bytes": 8513,
+    "sha256": "16fbea6f0821ebd99cc503d128d5101e76fc475f1e199fcac4d0362aeab19dd9"
+  },
+  "governance": {
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "manifestDigest": "sha256:3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "definitionDigest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "lawfulReentry": "realization_refactor",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02"
+  ],
+  "runtimeAppendException": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+  "originalPrefixBytes": 2701191,
+  "nativeOperationCount": 37,
+  "rootStartCount": 9,
+  "providerCalls": 0,
+  "modelCalls": 0,
+  "grant": "Exact control grants; preserve original device/inode/prefix and Runtime lock namespace, no setup, S01, substitution, private ingress, authority change or retry."
+}

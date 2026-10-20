@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-09-29T15:29:41.916836+00:00",
+  "case": "same_basis",
+  "expected": {
+    "firstAction": "action://selected-action/initial@5",
+    "secondAction": "action://selected-action/consumer@5",
+    "firstPayload": "first action",
+    "secondPayload": "selected second action",
+    "declaredGraphSpanReentryCount": 1,
+    "actualHostInterruption": "SIGKILL after second selection fsync before its workflow CCall",
+    "continueOperation": "abg.operation.run.continue/selected_action",
+    "sameRun": true,
+    "childExecutionCount": 2,
+    "intentCount": 2,
+    "constructionDeltaCount": 2,
+    "continueAdmissionCount": 1,
+    "closedRunCount": 1,
+    "coldReads": [
+      "run_result",
+      "run_replay"
+    ],
+    "refusals": [
+      "crossed-selection",
+      "crossed-run",
+      "crossed-basis",
+      "duplicate"
+    ]
+  },
+  "coveredAuthority": "A subsequent case still must establish actual admitted old/current binding cover, fresh model/gap/selection following cover, old obligation conservation, once-only current execution and applicable cover refusals; no credit inferred from same_basis."
+}

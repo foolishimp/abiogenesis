@@ -1,0 +1,24 @@
+{
+  "kind": "closed_bounded_RCA",
+  "reviewer": "186",
+  "disposition": "HOLD_remaining_preparation",
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/freeze.json",
+    "sha256": "bda39504c3d00660ca8e36cf40dc6c92ce70ef8980c008f1faf3058846fed2a2",
+    "byteCount": 18456
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-preparation-oom-triage-186/return.md",
+      "sha256": "7495e3f78fe55d5992f545b6d1ffdf38fb1af0ba354a8cba210523b3e79201b7",
+      "byteCount": 4764
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-preparation-oom-triage-186/pins.json",
+      "sha256": "e19db07a6e51a181a6979bb29ee90290a08c8029d18bdd9f2662862e9188538a",
+      "byteCount": 10224
+    }
+  ],
+  "RootSelectsDiagnosticActionBeforeAnyAttempt": true,
+  "stopped": true
+}

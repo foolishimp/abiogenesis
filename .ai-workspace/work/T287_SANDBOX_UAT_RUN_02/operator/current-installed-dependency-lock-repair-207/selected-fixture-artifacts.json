@@ -1,0 +1,71 @@
+{
+  "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT",
+  "nativeIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-28/identity.json",
+    "sha256": "d42bf07f9e831e7633cc2c0fcf6ec16eb7745732ababbea680f6be117bf41bee",
+    "byteCount": 7804
+  },
+  "packedFixtures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/correct/artifacts/abi207-correct-5.0.0.tgz",
+      "sha256": "7bb43c3648aac65e52f9b700e8a56cad71c4eb6811c45b9a511b9f35bd4cc0b8",
+      "byteCount": 1287
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/crossed/artifacts/abi207-dependency-5.0.0.tgz",
+      "sha256": "520bf11b96a24c3d941f8ec1b86f22a6a6fa4aafefa5b65823911497661bd097",
+      "byteCount": 1118
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/current/artifacts/abi207-dependency-5.0.0.tgz",
+      "sha256": "13eb09fcfe345c5966319f952cff7baedc106f36faeb90550368d84ba6d5afae",
+      "byteCount": 1118
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/foreign/artifacts/abi207-foreign-5.0.0.tgz",
+      "sha256": "a43ef1ae743a2d59d2418b25f9f6f1dc7c450ee22e354c5127339b11a007f7c4",
+      "byteCount": 1290
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/middle/artifacts/abi207-middle-5.0.0.tgz",
+      "sha256": "ccc70fc9070f432b052a83ad0c8318356b8034e1498271722319fd2bb3989d1c",
+      "byteCount": 1286
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/missing/artifacts/abi207-missing-5.0.0.tgz",
+      "sha256": "e1c9cf53175528a2ade6a6a267012a8651ffe95cf5bc9b6f16a94039a7107e0b",
+      "byteCount": 1155
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/old/artifacts/abi207-dependency-5.0.0.tgz",
+      "sha256": "b9cbbcc1942e99399211b332771ad1ac9a784200746153b983dca985b4c6a213",
+      "byteCount": 1113
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/stale/artifacts/abi207-stale-5.0.0.tgz",
+      "sha256": "db68e434ab3d7ec48b45736887c77bbffdaf07925fdc636229f9bfec61acb35a",
+      "byteCount": 1283
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/tampered/artifacts/abi207-dependency-5.0.0.tgz",
+      "sha256": "dd49b19ef53788a78b173fd46e5c1ac07f875f6da7e452d0a785578d4c92d302",
+      "byteCount": 1116
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/tampered/artifacts/abi207-tampered-5.0.0.tgz",
+      "sha256": "5e3c05520382617e201b7948513f62498bd659b6c8bab962026b6e399b64a55c",
+      "byteCount": 1286
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/transitive/artifacts/abi207-transitive-5.0.0.tgz",
+      "sha256": "b6979e81ece1e32ceaeb6616b30cf07af88374fecefa523a0cbc5c22dc238924",
+      "byteCount": 1289
+    }
+  ],
+  "actualMaterialChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-TkBtNT/observations.json",
+    "sha256": "80c60d7af84ae4dc08edd366e097e160f71d8cc28fbb7615ea5d106cefbdb946",
+    "byteCount": 6274
+  },
+  "basis": "Exact byte pins for retained successful physical fixture; author-owned Product definitions do not claim native callable meaning"
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "path": "code/src/abg/instruction_assembly.ts",
+    "sha256": "e45c1a74ad761d55c2fd4089cb38d7eb5bb1ff35e29e8c06011280ecc4711649",
+    "bytes": 83408
+  },
+  {
+    "path": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "sha256": "6fcb02789ec0d5d05a303ad16697db7d255706d80edd4f902d8250dac3645b76",
+    "bytes": 58327
+  },
+  {
+    "path": "build/code/src/abg/instruction_assembly.js",
+    "sha256": "de6d482fdcfd0951cbe728c50787826d569730fb68648de425974e4746734127",
+    "bytes": 81267
+  },
+  {
+    "path": "build/code/src/abg/instruction_assembly.d.ts",
+    "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+    "bytes": 14248
+  }
+]

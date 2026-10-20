@@ -130,6 +130,15 @@ export interface NativeLeafProofOperations {
     ReturnType<typeof import("../abg/qualification_proof.js").projectNativeRuntimeAssessment>;
   readonly nativeWorkReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
     ReturnType<typeof import("../abg/native_work_reacquisition.js").authenticateNativeWorkReacquisition>;
+  /** @internal Selected-body operation of the same invoking owner. */
+  readonly nativeOwnedWorkReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
+    ReturnType<typeof import("../abg/native_work_reacquisition.js").authenticateOwnedNativeWorkReacquisition>;
+  /** Exact prepare-testing input/occurrence; the invoking owner retains the
+   * historical resource. No serialized assertion grants this operation. */
+  readonly governanceTestingReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence,
+    context: import("../product/worksite_effect.js").WorksiteContextObservation,
+    refusal?: (stage: string, relation: string, selectors?: Readonly<Record<string, string | number | boolean | null>>, error?: unknown) => void) =>
+    import("../product/worksite_command_execution.js").NativeWorksiteCommandExecutionTask | null;
 }
 
 /** Bound to one declared relation evaluation by its invoking leaf port. */

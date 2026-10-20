@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-08T08:58:50.518497+00:00",
+  "exactAdmittedProviderPids": [
+    59464,
+    59512,
+    59545,
+    59594
+  ],
+  "psExitCode": 1,
+  "rows": "",
+  "stderr": "",
+  "limits": "Bounded OS observation only; actual exit0/exit1 remains admitted at68/155/281/365; no containment claim or signal"
+}

@@ -1,0 +1,52 @@
+(node:21898) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21898) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+✖ serialized producer uses one real acquisition and retained representation through environment, dispatch and realization (2514.412042ms)
+✖ retained source currentness refuses advance truncation replacement and preserves historical material (2253.143125ms)
+✔ copied and foreign ingress cannot supply the retained acquisition or skip cold authentication (4538.736584ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9701.367583
+
+✖ failing tests:
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:126:1
+✖ serialized producer uses one real acquisition and retained representation through environment, dispatch and realization (2514.412042ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(material)
+  
+      at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:130:32
+      at countPhysicalReads (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:123:26)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:128:23)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:146:1
+✖ retained source currentness refuses advance truncation replacement and preserves historical material (2253.143125ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(before)
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:147:86)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,24 @@
+{
+  "operation": "T287_Q14_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INPUT_PREPARATION_ONLY",
+  "closedAt": "2026-10-03T07:58:56.792320+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/freeze.json",
+    "bytes": 19395,
+    "sha256": "34d77be96e1b0af62f350db093a2dbc7cb73474d167b7452bf2ec5f319af9dcd",
+    "mode": 292
+  },
+  "cause": "reused existing f11 artifact supplied to fresh create-only producer",
+  "unchangedAliasAndActualSetupReuseSupported": true,
+  "newInventoryRecipeTaskResourceBindingsUnreached": true,
+  "smallestReEntry": "Root lifecycle/reuse triangulation then separate realization_refactor",
+  "newDesignFrameworkOrReleaseGate": false,
+  "allWritesStopped": true,
+  "reviewWritesOnly": true,
+  "importsTestsRepairsRuntimeProviderGitNetwork": 0,
+  "semanticOrQualificationAcceptance": false,
+  "rootAloneSelectsNextEffects": true
+}

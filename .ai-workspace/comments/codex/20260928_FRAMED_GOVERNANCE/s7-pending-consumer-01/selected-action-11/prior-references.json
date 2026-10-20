@@ -1,0 +1,62 @@
+[
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/archive-installed.json",
+    "bytes": 1143622,
+    "sha256": "e26f3453d17d4cf071ff740d32401287b073295a24785766b66aa7726e1183c9"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/same-basis/setup.json",
+    "bytes": 2088,
+    "sha256": "0d19cac9a59f05d15d8726b98ed990ed3908c2b56f4a28d1a3869a36bf653735"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/freeze.json",
+    "bytes": 28502,
+    "sha256": "63837aaa9c8df15366256a8d3f91af3688ce8c716698379c84bf27ea0f6e5a04"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-10/freeze.json",
+    "bytes": 21499,
+    "sha256": "240cf0963e5927b4bea7ff4e78232a11899b6599e5ea7b5994022593880a5e20"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-10/return.md",
+    "bytes": 14473,
+    "sha256": "c8535a494672e7e8ec132cdcb4842649681cd3cef187653baeb8d245991cc53e"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-10/same-basis/semantic-cold-oracle.json",
+    "bytes": 23985,
+    "sha256": "17a294998d56421c4a0c59397dc903fdf9ee12f9d9ade2950db2003fd931dc32"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-10/same-basis/result.json",
+    "bytes": 12781,
+    "sha256": "d16b648a7925af2dcb2f611293e18fa10f6882f9a68d6b3fe0d2dea573039d13"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-10/predecessor-328.jsonl",
+    "bytes": 3760917,
+    "sha256": "3c20f5806b6201ff462daf1285fbd390d4f75a87f7369d442213f3c341c6001b"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-10/failed-native-prefix.jsonl",
+    "bytes": 3786241,
+    "sha256": "1d21d5637b8dde280581697af9814af66e655cc6e316cbd71d193c657ff1af79"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+    "bytes": 19588,
+    "sha256": "0273a0192c51f369eed0f124f41fd796d99c8154d8dbd412a3a16651342788cb"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-design-disposition-04.md",
+    "bytes": 4179,
+    "sha256": "e0d4127a433c0020cc0c293e0f54fc3dc008c598f1f90ac2575dfa0539257064"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-owner-review-02.md",
+    "bytes": 12903,
+    "sha256": "67ce9fa59452eb0761caaf3a03e2466ace3db0825a651af33ca23774e0c2f144"
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "status": "VERIFIED",
+  "nativeFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/freeze.json",
+    "bytes": 20105,
+    "sha256": "31162ce8dadbcbb1572d1043c009fba71be4303875165ff562461b84b70c3feb"
+  },
+  "nativeRecords": 80,
+  "externalOccurrenceArchivePins": 5,
+  "callerPostverifiedRecords": 67,
+  "bindingPostverifiedRecords": 66,
+  "actualProviderStdoutIndependentlyRead": true,
+  "tokensAndCostReportedZero": true,
+  "oneActorOccurrence": true,
+  "exactNativeProducerFieldComparisonPassed": true,
+  "original84ByteConserved": true,
+  "currentStoreIdentity": {
+    "device": 16777230,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "inode": 464012478
+  },
+  "currentPrefix": {
+    "coordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+    "prefixLength": 73530699,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464012478
+    }
+  },
+  "bothColdReadPrefixesMatch": true,
+  "lockAbsent": true,
+  "diagnostics": {
+    "initialRead": "Root byte checks passed; subsequent guessed eventRef/ordinal mapping stopped (tool6b35f5).",
+    "affectedFollowup": "Actual eventId/admissionOrdinal mapping, original provider result and read-prefix joins passed (tooldab42d)."
+  },
+  "triangulation": {
+    "provider_failure": {
+      "ProductDesign": "Selected rule-assessment Program/strict input law/source context passed local/current owner joins; no upstream defect established.",
+      "Integration": "One complete frozen task/plan/full render traversed ordinary view/conformance/start and actual CCall/actor path.",
+      "IdentityAuthority": "Original root owner/W/policy/grant admitted; actual assessor fields retained. Historical semantic author/independence attribution remains unassessed without J.",
+      "LifecycleEffects": "Native process exit and transport termination confirmed; failed Run closed lawfully, exact returned handoff reopened for two fresh reads; no retry dispatch or manual repair.",
+      "Proof": "No semantic raw value/qualification J/terminal Result; generic CCall failure judgment is not qualification J. Result notfound and failed replay agree; no synthetic proof.",
+      "Cost": "Complete 67.8MB input admitted; unchanged 1.02MB prompt archived. Native test took 291.6s, driver peakRSS 5.25GB, assessment CLI peakRSS 3.86GB, event growth67.95MB. Provider reports zero tokens/cost; context acceptance unknown."
+    },
+    "provider_failure_scope": {
+      "firstBrokenRelation": "native Claude CLI to API provider, before raw assessment/J",
+      "observation": "Original native stdout is_error/terminal_reason api_error/ENOTFOUND; transport exitObserved and terminationConfirmed",
+      "underlyingCause": "Unresolved DNS/network cause. Restricted execution network is known context, not an independently established cause of this literal error.",
+      "escapeCause": "No false acceptance. Actual native dispatch exposed the operational failure; owners retained it and fresh reads reproduced it.",
+      "smallestScope": "Operational native provider access; no Product/requirement/design/runtime repair demonstrated.",
+      "reEntry": "External realization/execution-environment intake if a concrete environment change is selected; no source mutation authorized by this disposition."
+    },
+    "prep_prefix_coordinate_error": {
+      "ProductDesign": "Durable prefix declares distinct coordinateDigest and raw prefixDigest.",
+      "Integration": "External binder initially compared coordinate identity as byte digest.",
+      "IdentityAuthority": "Same prefix/store; different hash purposes.",
+      "LifecycleEffects": "Pure preparation refusal; no native effect.",
+      "Proof": "Root control abbreviated prefix81ce... ambiguously and contributed to field assumption; original failed check is retained.",
+      "Cost": "Bounded correction only; no accepted run repeated.",
+      "scope": "Correct external assertion using actual fields; existing native carrier unchanged."
+    },
+    "prep_raw_contract_error": {
+      "ProductDesign": "Published QUALIFICATION_IDS defines assessment-raw@5.",
+      "Integration": "External AssetSurface initially guessed raw-assessment@5.",
+      "IdentityAuthority": "Wrong coordinate was a different contract.",
+      "LifecycleEffects": "Affected derived AssetSurface/task/plan/input/render reconstructed before native dispatch; provisional failures retained.",
+      "Proof": "Schema success did not ground the guessed contract; actual producer IDs do.",
+      "Cost": "Bounded re-render/check only.",
+      "scope": "External binder repaired against actual published IDS; no upstream/runtime change."
+    },
+    "root_postverification_error": {
+      "ProductDesign": "Native event envelope uses eventId/admissionOrdinal.",
+      "Integration": "Root first nonmutating verifier guessed derived report eventRef/ordinal as source fields and stopped with StopIteration.",
+      "IdentityAuthority": "Report projection coordinates correctly refer to source envelope coordinates; Worker output was sound.",
+      "LifecycleEffects": "No mutation/native call; byte/dependency conservation loops had passed before the diagnostic stopped.",
+      "Proof": "Source shape inspected, actual mapping corrected; producer comparison then passed. The failure was not suppressed or treated as runtime evidence.",
+      "Cost": "One affected follow-up read; no repeat campaign.",
+      "scope": "Root diagnostic correction under existing source contract."
+    },
+    "executive_typo_pause": {
+      "ProductGoals": "Current task and recent governance choice were RC2; Owner clarifies the single mistyped2.3.1 means2.5.1RC2.",
+      "Integration": "Root over-weighted the isolated typo and stopped authorized work instead of carrying independent preparation forward.",
+      "IdentityAuthority": "No user authorization was missing for the intended validation. Current RC2 verified manifest and persistent context were available.",
+      "LifecycleEffects": "Unnecessary no-effect pause; Owner reports2h. No source/runtime failure caused it.",
+      "Proof": "A clarification dependency was incorrectly expanded to the whole task.",
+      "Cost": "Owner time lost; no fabricated measured wall-time attribution.",
+      "scope": "Executive intake/judgment correction. No STDO/runtime amendment or new approval flow."
+    }
+  }
+}

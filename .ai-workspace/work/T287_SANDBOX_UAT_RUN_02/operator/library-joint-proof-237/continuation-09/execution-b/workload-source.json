@@ -1,0 +1,105 @@
+{
+  "request": {
+    "taskRef": "task://abi5-tests/library-joint-proof-237/original",
+    "task": "# Mechanical lifecycle specimen\n\nThis is a scratch component workload. It does not implement Data Mapper or\nestablish application acceptance.\n\nThe only writable candidate is fixture/value.txt. First, the native\nConstruction actor deliberately writes the exact bytes \"broken\\n\". The\nindependent, unchanged fixture/checker.mjs must execute through the existing\nnative C2 owner and report FIXTURE_VALUE_BAD with exit status 1.\n\nAfter that actual diagnostic has been observed, the selected native repair\nchanges only fixture/value.txt to the exact bytes \"fixed\\n\". C2 then executes\nthe same command and reports FIXTURE_VALUE_FIXED with exit status 0. Preserve\nboth measurements, the original task, the failed producer and its literal\ndiagnostic citation. Never edit this source, the checker or the rubric.\n\nThe deterministic responder supplies fixture decisions, not semantic\nassessment. The support obligation remains unresolved, terminal stays false,\nand the selector explicitly gaps. A later supported invocation must reuse the\nrecorded work and actual files without rerunning their authors or measurements.\n",
+    "requiredSupportRefs": [
+      "support://abi5-tests/library-joint-proof-237/mechanical-lifecycle"
+    ],
+    "authorityRefs": [
+      "authority://abi5-tests/library-joint-proof-237/scratch-workload"
+    ],
+    "readRoots": [
+      "fixture/source.md",
+      "fixture/checker.mjs",
+      "fixture/rubric.md",
+      "fixture/value.txt"
+    ],
+    "maxContextFiles": 32,
+    "maxContextBytes": 262144,
+    "maxPromptBytes": 1048576,
+    "workOrders": {
+      "construction": {
+        "outcome": "Perform only the selected mechanical fixture contribution; keep the parent obligation unresolved.",
+        "instructions": [
+          "Read source, checker and rubric. Only the native Construction actor may write fixture/value.txt. First stage the deliberate defect; repair only after the actual C2 diagnostic. Do not execute the checker yourself or alter any immutable fixture file."
+        ],
+        "readFirst": [
+          "fixture/source.md",
+          "fixture/checker.mjs",
+          "fixture/rubric.md"
+        ],
+        "writeRoots": [
+          "fixture/value.txt"
+        ],
+        "checks": []
+      }
+    },
+    "testing": {
+      "selectedPaths": [
+        "fixture/source.md",
+        "fixture/checker.mjs",
+        "fixture/rubric.md",
+        "fixture/value.txt"
+      ],
+      "commands": [
+        {
+          "commandId": "command://abi5-tests/library-joint-proof-237/check",
+          "executable": "node",
+          "args": [
+            "fixture/checker.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 10000,
+          "terminationGraceMs": 1000,
+          "expectedReports": []
+        }
+      ],
+      "outcomePredicates": [
+        {
+          "predicateId": "predicate://abi5-tests/library-joint-proof-237/exit",
+          "predicateKind": "process_exit",
+          "declaration": {
+            "validationCommandId": "command://abi5-tests/library-joint-proof-237/check",
+            "equals": 0
+          }
+        },
+        {
+          "predicateId": "predicate://abi5-tests/library-joint-proof-237/stdout",
+          "predicateKind": "stdout_exact",
+          "declaration": {
+            "validationCommandId": "command://abi5-tests/library-joint-proof-237/check",
+            "equals": "FIXTURE_VALUE_FIXED\n"
+          }
+        }
+      ],
+      "allowedWriteTerritories": []
+    },
+    "assessment": {
+      "sources": [
+        "fixture/source.md",
+        "fixture/checker.mjs",
+        "fixture/rubric.md"
+      ],
+      "candidatePath": "fixture/value.txt",
+      "rubricPath": "fixture/rubric.md"
+    }
+  },
+  "sourceMembers": [
+    {
+      "path": "fixture/source.md",
+      "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+      "byteCount": 1107
+    },
+    {
+      "path": "fixture/checker.mjs",
+      "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+      "byteCount": 335
+    },
+    {
+      "path": "fixture/rubric.md",
+      "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+      "byteCount": 634
+    }
+  ]
+}

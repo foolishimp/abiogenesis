@@ -1,0 +1,41 @@
+{
+  "phase": "provider_reachability_probe",
+  "status": "blocked_probe_timeout",
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "packageSha256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+  "config": "operator/config-auth-02.json",
+  "authStatus": {
+    "exitCode": 0,
+    "loggedIn": true,
+    "authMethod": "oauth_token"
+  },
+  "process": {
+    "exitCode": 143,
+    "signal": null,
+    "wallMs": 120023.485625,
+    "timedOut": true,
+    "truncated": false,
+    "timeoutMs": 120000,
+    "failure": null
+  },
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "knownErrorMarkers": {
+    "ENOTFOUND": false,
+    "ECONNREFUSED": false,
+    "ETIMEDOUT": false,
+    "Not logged in": false,
+    "API Error": false,
+    "invalid API key": false,
+    "permission denied": false,
+    "authentication_error": false
+  },
+  "actualModel": null,
+  "reportedCostUSD": null,
+  "childCloseObserved": true,
+  "groupTerminationRequestedByCommandRecorder": true,
+  "separateProcessListingUnavailable": "ps EPERM, observed in original refusal",
+  "nativeLifecycleDispatches": 0,
+  "liveUATsRun": 0,
+  "nextDisposition": "Executive provider/environment triangulation; no retry or installation"
+}

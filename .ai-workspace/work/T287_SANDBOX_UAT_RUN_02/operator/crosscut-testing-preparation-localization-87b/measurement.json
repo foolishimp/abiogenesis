@@ -1,0 +1,29 @@
+{
+  "scope": "one actual installed F_D port.invoke; no owner or module replacement",
+  "stages": [],
+  "exceptions": [],
+  "inputPins": [
+    {
+      "path": "/private/tmp/abi5-root-env-6iTfW1/st4-source-context82-request.jsonl",
+      "sha256": "7c71c83ef80f36f15c6ec66d3380b22735345e0916e1a4140c2ed90a70271402",
+      "byteCount": 21126281
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/execution-authority-root/handoff.json",
+      "sha256": "a2a6c5e5b02ad2b3ae0b29da26d65f76d5fd65f8c2cd46ca00f63f1e473f7524",
+      "byteCount": 1142
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/execution-authority-root/setup.json",
+      "sha256": "93b0c66efa9cd316e4b616fbcc9c4813ba828a728d50527d58818b582cfdeaeb",
+      "byteCount": 2910
+    }
+  ],
+  "status": "STOP-first-error",
+  "error": {
+    "name": "AssertionError",
+    "message": "Expected values to be strictly equal:\n\n0 !== 1\n",
+    "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 1\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:48:10"
+  },
+  "elapsedMs": 1087.725333
+}

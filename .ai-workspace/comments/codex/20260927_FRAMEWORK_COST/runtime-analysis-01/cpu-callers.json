@@ -1,0 +1,100 @@
+{
+  "sha256Canonical": [
+    {
+      "caller": "projectRuntimeEventAtContract abg/event_store.js:1317",
+      "inclusiveSampledMs": 10851.712
+    },
+    {
+      "caller": "projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+      "inclusiveSampledMs": 1930.287
+    },
+    {
+      "caller": "canonicalRecordDigest abg/invocation_execution_truth.js:6",
+      "inclusiveSampledMs": 1908.543
+    },
+    {
+      "caller": "inlineEventBody abg/event_body_encoding.js:10",
+      "inclusiveSampledMs": 1483.166
+    },
+    {
+      "caller": "semanticPayloadDigest abg/replay.js:1042",
+      "inclusiveSampledMs": 1308.043
+    },
+    {
+      "caller": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+      "inclusiveSampledMs": 1028.547
+    },
+    {
+      "caller": "projectReplayRouteAtPrefix abg/replay.js:265",
+      "inclusiveSampledMs": 979.667
+    },
+    {
+      "caller": "deriveReplayPrefixFacts abg/replay.js:436",
+      "inclusiveSampledMs": 790.207
+    },
+    {
+      "caller": "rawAdmitValue validator/raw_admission.js:50",
+      "inclusiveSampledMs": 484.21
+    },
+    {
+      "caller": "projectRunSemanticReplay abg/replay.js:1282",
+      "inclusiveSampledMs": 273.917
+    },
+    {
+      "caller": "assertRuntimeEventContract abg/event_store.js:1570",
+      "inclusiveSampledMs": 270.868
+    },
+    {
+      "caller": "successfulResult abg/worksite_input_provenance.js:45",
+      "inclusiveSampledMs": 233.458
+    },
+    {
+      "caller": "projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+      "inclusiveSampledMs": 117.208
+    },
+    {
+      "caller": "hash abg/stdo_environment.js:30",
+      "inclusiveSampledMs": 57.917
+    },
+    {
+      "caller": "isNativeWorkerResultAssessment abg/transport_contracts.js:3",
+      "inclusiveSampledMs": 2.541
+    }
+  ],
+  "projectExactExecutionBasisAtPrefix": [
+    {
+      "caller": "rehydrateExecutionBasisAtPrefix abg/execution_basis.js:760",
+      "inclusiveSampledMs": 3480.789
+    },
+    {
+      "caller": "projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+      "inclusiveSampledMs": 456.833
+    }
+  ],
+  "rawAdmitValue": [
+    {
+      "caller": "projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+      "inclusiveSampledMs": 495.542
+    },
+    {
+      "caller": "projectReplayRouteAtPrefix abg/replay.js:265",
+      "inclusiveSampledMs": 491.419
+    }
+  ],
+  "runtimeEventPrefixDigest": [
+    {
+      "caller": "prefixDigest abg/runtime_liveness.js:998",
+      "inclusiveSampledMs": 6490.294
+    },
+    {
+      "caller": "deriveReplayPrefixFacts abg/replay.js:436",
+      "inclusiveSampledMs": 1327.333
+    }
+  ],
+  "decodeHistoricalEvents": [
+    {
+      "caller": "validateHistoricalEvents abg/event_store.js:2035",
+      "inclusiveSampledMs": 31638.704
+    }
+  ]
+}

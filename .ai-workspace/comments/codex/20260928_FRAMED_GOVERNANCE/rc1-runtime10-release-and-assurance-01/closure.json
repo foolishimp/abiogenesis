@@ -1,0 +1,20 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME10_RELEASE_WRITER_01",
+  "role": "Writer",
+  "restoredRole": "Executive",
+  "RuntimeEffects": 0,
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-release-and-assurance-01/acceptance.json",
+    "bytes": 5682,
+    "sha256": "639702909d96610c33f3cd8fbabe0e367039e83ace95eea0371de3d9c454ba83",
+    "mode": 420
+  },
+  "wholeReviewGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-release-and-assurance-01/whole-review-request.txt",
+    "bytes": 2915,
+    "sha256": "f4f643e9588a85c73b6e8946844e4dc2fab41b4541343e2a9dced3c434fff063",
+    "mode": 420
+  },
+  "closedAt": "2026-10-03T10:11:50.264871+00:00"
+}

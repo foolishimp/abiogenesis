@@ -1,0 +1,11 @@
+{
+  "kind": "phase_documentary_premise_failure",
+  "initialScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/close-freeze.initial.py",
+    "sha256": "eb4f7d85a70a062c439c5253579495632029eabe202fc4cea1e0c6bd5b4a73c6",
+    "byteCount": 12607
+  },
+  "firstCause": "FileNotFoundError: phase commands/pack.result.json does not exist; original publication owner records pack under candidate-25/commands. Failure occurred before freeze writes.",
+  "repairAction": "Correct only documentary receipt path to candidate-25/commands/pack.result.json and retain complete pack command carriers in freeze; no author repetition or source/metadata change.",
+  "ownerIntegrationFailure": false
+}

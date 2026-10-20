@@ -1,0 +1,11 @@
+--- install_product.ts preimage
++++ install_product.ts postimage
+@@ -52,6 +52,8 @@
+       "npm",
+       [
+         "install",
++        // Preserve the verified immutable payload even when ambient npm enables bin links.
++        "--bin-links=false",
+         "--ignore-scripts",
+         "--no-audit",
+         "--no-fund",

@@ -1,0 +1,45 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+  "bytes": 2490961,
+  "sha256": "3f4f443fe609b278d375e7667137e330fa25efcdc46c2297afc018bda4bc5298",
+  "device": 16777230,
+  "inode": 464429281,
+  "mtimeMs": 1790890495610.5955,
+  "stableDuringRead": true,
+  "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/tmp/abiogenesis-event-store-locks-v5/16777230-464429281.lock",
+  "lockPresent": false,
+  "prefix": {
+    "coordinateDigest": "sha256:6f015985dec8b70ff4b2e82568b96c3d8307b820c7fdb91f5eac21200337f388",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:3f4f443fe609b278d375e7667137e330fa25efcdc46c2297afc018bda4bc5298",
+    "prefixLength": 2490961,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464429281
+    }
+  },
+  "verifiedAtClose": "2026-10-01T21:47:34.963776+00:00",
+  "eventCount": 3,
+  "RunCount": 0,
+  "eventKinds": [
+    "public_operation_artifact_admitted",
+    "public_operation_artifact_admitted",
+    "public_operation_artifact_admitted"
+  ],
+  "eventRefs": [
+    "event://abiogenesis/2378fb129e77800e11660a76c4454029d6b1455f74b21e3a843c8dc6730f188d",
+    "event://abiogenesis/af3571403ae6bcfee749909bcb1d7b8eb872635c09fed2202b56f74d3ebdd566",
+    "event://abiogenesis/979dfada2a82ecd0f493b23d316531484fbb16548fbe27e79af9d8565cd90154"
+  ],
+  "noConformanceAppend": true,
+  "sameGenuineCatalogViewAndFailureHandoff": true,
+  "failurePrefixByteExact": true,
+  "emptyPairTerritories": {
+    "positive": true,
+    "no-action": true
+  },
+  "sourceAndCoreReadonly": true
+}

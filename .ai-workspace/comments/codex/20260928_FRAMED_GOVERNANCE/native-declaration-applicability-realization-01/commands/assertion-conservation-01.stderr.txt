@@ -1,0 +1,42 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: every original exact assertion survives in order: assert.equal(
+    linkNativeContractSet(
+      [{
+        ...source,
+        declaredDependencies: [
+          dependencyFor([
+            alpha.contractId,
+            duplicateAlpha.contractId,
+            beta.contractId,
+            hidden.contractId,
+            runtimeOnly.contractId,
+          ]),
+        ],
+      }, {
+        ...target,
+        publicContracts: [
+          alpha,
+          duplicateAlpha,
+          beta,
+          hidden,
+          runtimeOnly,
+        ],
+      }],
+      toolchain.productContentDigest,
+    ).code,
+    "ambiguous_dependency",
+    "two contracts cannot own the same crossing symbol",
+  )
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/assertion-conservation.mjs:21:89 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

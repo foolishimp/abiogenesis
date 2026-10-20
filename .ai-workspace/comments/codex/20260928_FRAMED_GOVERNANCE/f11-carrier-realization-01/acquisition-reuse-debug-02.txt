@@ -1,0 +1,55 @@
+(node:12487) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ serialized producer uses one real acquisition and retained representation through environment, dispatch and realization (723.341ms)
+✖ retained source currentness refuses advance truncation replacement and preserves historical material (716.359875ms)
+✖ copied and foreign ingress cannot supply the retained acquisition or skip cold authentication (729.501042ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2491.591583
+
+✖ failing tests:
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:108:1
+✖ serialized producer uses one real acquisition and retained representation through environment, dispatch and realization (723.341ms)
+  Error: debug executionSourceProofs rejection line 20
+      at executionSourceProofs (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:809:19)
+      at projectQualificationConsumer (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:286:38)
+      at resolveQualificationSelfConformanceOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:1045:23)
+      at resolveSelfConformanceOwner (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/self_conformance_basis.js:19:16)
+      at eval (eval at fixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:91:17), <anonymous>:3:8)
+      at Object.check (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:92:17)
+      at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:111:12
+      at countPhysicalReads (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:105:26)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:110:23)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:128:1
+✖ retained source currentness refuses advance truncation replacement and preserves historical material (716.359875ms)
+  Error: debug executionSourceProofs rejection line 20
+      at executionSourceProofs (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:809:19)
+      at projectQualificationConsumer (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:286:38)
+      at resolveQualificationSelfConformanceOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:1045:23)
+      at resolveSelfConformanceOwner (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/self_conformance_basis.js:19:16)
+      at eval (eval at fixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:91:17), <anonymous>:3:8)
+      at Object.check (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:92:17)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:129:49)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:135:1
+✖ copied and foreign ingress cannot supply the retained acquisition or skip cold authentication (729.501042ms)
+  Error: debug executionSourceProofs rejection line 20
+      at executionSourceProofs (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:809:19)
+      at projectQualificationConsumer (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:286:38)
+      at resolveQualificationSelfConformanceOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/abg/qualification_proof.js:1045:23)
+      at resolveSelfConformanceOwner (/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/self_conformance_basis.js:19:16)
+      at eval (eval at fixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:91:17), <anonymous>:3:8)
+      at Object.check (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:92:17)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs:136:36)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

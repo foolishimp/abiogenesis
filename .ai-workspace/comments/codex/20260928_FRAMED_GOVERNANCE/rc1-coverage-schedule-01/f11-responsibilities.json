@@ -1,0 +1,99 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/domain-responsibilities.json",
+    "bytes": 466245,
+    "sha256": "ecc805dfa3522a4ddadffb3150b5426f77a5d785168e5e048f9d36e20480e2cc",
+    "relation": "complete current015B partition, not all-rule assessment completion",
+    "role": "retained evidence or exact source",
+    "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+  },
+  "rule": {
+    "ruleRef": "rule://abiogenesis/self-conformance/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad@2",
+    "version": "2",
+    "sourceRef": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+    "sourceDigest": "sha256:d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
+    "startByte": 14079,
+    "endByte": 14647,
+    "spanDigest": "sha256:0c2a39aa7e6eb3fd25ef889b909f7eea0c22426b3025dedad5bb4d979a6f3260",
+    "governedClaim": "REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015B",
+    "applicability": "requires_admitted_judgment",
+    "requiredEvidenceRoles": [
+      "source_fidelity",
+      "applicability",
+      "evaluation_sufficiency"
+    ],
+    "computableRelation": "source_span_integrity",
+    "diagnostic": "semantic_assessment_required"
+  },
+  "responsibilities": [
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/construction-controls-and-claims",
+      "relation": "construction-controls-and-claims",
+      "memberCount": 34,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": false
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/other-runtime-hosts-unresolved",
+      "relation": "other-runtime-hosts-unresolved",
+      "memberCount": 253,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": false
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/abi-composition-frame-hosts",
+      "relation": "abi-composition-frame-hosts",
+      "memberCount": 10,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": true
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/published-law-contract-projections",
+      "relation": "published-law-contract-projections",
+      "memberCount": 188,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": false
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/law-and-design",
+      "relation": "law-and-design",
+      "memberCount": 409,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": false
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/proof-source",
+      "relation": "proof-source",
+      "memberCount": 316,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": false
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/historical-proof-records",
+      "relation": "historical-proof-records",
+      "memberCount": 7,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": false
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/emitted-abi-projections",
+      "relation": "emitted-abi-projections",
+      "memberCount": 520,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": false
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/supplier-toolchain",
+      "relation": "supplier-toolchain",
+      "memberCount": 213,
+      "status": "proposed; applicability and adequacy unknown",
+      "selectedForOneMaterialPreparation": false
+    }
+  ],
+  "totalMembers": 1950,
+  "selected": "abi-composition-frame-hosts",
+  "remainingResponsibilityCount": 8,
+  "otherRuleDomainSchemes": 186,
+  "actualSemanticJudgmentsProduced": 0,
+  "limit": "Each responsibility needs actual grounded applicability/material/grouping/sufficiency judgment; no nine-task fixed dispatch roster."
+}

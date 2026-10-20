@@ -1,0 +1,664 @@
+diff --git a/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md b/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+index bfaa6fe8..61184948 100644
+--- a/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ b/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -301,7 +301,7 @@ The seven passes and earlier nested-compose acceptance are preserved.
+ (`96dfe183…`) are accepted by Root for source readiness after [max independent review](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation-repair-review-01/return.md)
+ (`0ae3209b…`). [Combined compiled10/dev.6 package and caller readiness](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/disposition.md)
+ is CLOSED: archives `7b6791d3…` / `4f96ba95…`, exact offline install verification,
+-original caller03 and mixed-only continuation18. Root accepts [original03](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md) for repaired F_P/admission/foldback and its truthful construction-only `stage_revision_required` block; all 35 files remain unchanged and the genuine close is 1,285,520,237 B with fresh outcomes. [Mixed18](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/return.md) reached truthful human hold with accepted fresh-read scope; its result-only caller assertion defect remains retained. Seven prior S02 passes are preserved. [Accepted compiled13](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) and existing dev.7 completed the [Design-reentry attempt](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-launch-controls-01/return.md) (`51a0bd5a…`) with lawful independent Design-assessment refusal. All 35 original files are conserved; the rejected new Design remains preserved and was not promoted. No further Data Mapper attempt is selected. [Basic-cli's retained core13 execution](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md) used [two genuine Claude calls](../../../../odd_glc/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/actor-evidence.json): 19.490 s construction and 29.555 s execution. All four authored predicates and five tests pass with fresh installed [compiled14](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-14/return.md) Public result/replay. This is narrow C1→C2 supporting proof; prior caller refusals and the repaired replay defect remain preserved. The five remaining reduced cases were not launched. The [native Evidence repair](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-evidence-territory-01/return.md), its review and compiled17 retain their accepted scopes. Opus02 remains failed at Evidence after ten successful actors and C2. [Opus03](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-03/return.md) remains a pre-Run setup timeout; its old resource, lock and partial install are preserved. Opus04 used a distinct new journal and binding over preserved workspace data. Current accepted outcome and next work are stated above; measured costs and context debt remain open in [Current Management Debt](#current-management-debt). Operator stop was admitted once on retained S02-19. Its preserving-obligation [source repair](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) is accepted; fresh installed status/replay readback remains pending at the release boundary, with absent Result still expected as Public `not_found`. Q07 is prepared/incomplete and carries no qualification acceptance. Q07 completion, independent stop readback and this paired checkpoint are not launch prerequisites. Full S1–S5/oracle, qualification, QUAL056/F11/sole AF22 and RC1 remain open.
++original caller03 and mixed-only continuation18. Root accepts [original03](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md) for repaired F_P/admission/foldback and its truthful construction-only `stage_revision_required` block; all 35 files remain unchanged and the genuine close is 1,285,520,237 B with fresh outcomes. [Mixed18](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/return.md) reached truthful human hold with accepted fresh-read scope; its result-only caller assertion defect remains retained. Seven prior S02 passes are preserved. [Accepted compiled13](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) and existing dev.7 completed the [Design-reentry attempt](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-launch-controls-01/return.md) (`51a0bd5a…`) with lawful independent Design-assessment refusal. All 35 original files are conserved; the rejected new Design remains preserved and was not promoted. No further Data Mapper attempt is selected. [Basic-cli's retained core13 execution](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md) used [two genuine Claude calls](../../../../odd_glc/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/actor-evidence.json): 19.490 s construction and 29.555 s execution. All four authored predicates and five tests pass with fresh installed [compiled14](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-14/return.md) Public result/replay. This is narrow C1→C2 supporting proof; prior caller refusals and the repaired replay defect remain preserved. The five remaining reduced cases were not launched. The [native Evidence repair](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-evidence-territory-01/return.md), its review and compiled17 retain their accepted scopes. Opus02 remains failed at Evidence after ten successful actors and C2. [Opus03](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-03/return.md) remains a pre-Run setup timeout; its old resource, lock and partial install are preserved. Opus04 used a distinct new journal and binding over preserved workspace data. Current accepted outcome and next work are stated above; measured costs and context debt remain open in [Current Management Debt](#current-management-debt). Operator stop was admitted once on retained S02-19. Its preserving-obligation [source repair](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) is accepted; Root accepts [core18 installed readback](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/root-disposition.md): status/replay are stopped, the original open obligation is conserved, and absent Result is Public `not_found`. The retained S02-19 readback conjunction is closed; broader S02 and qualification remain open. Q07 is prepared/incomplete and carries no qualification acceptance. Q07 completion, independent stop readback and this paired checkpoint are not launch prerequisites. Full S1–S5/oracle, qualification, QUAL056/F11/sole AF22 and RC1 remain open.
+ No first-J stop, new producer campaign, heap/timer/model increase or automatic
+ retry is selected by this tracking update.
+ 
+@@ -320,7 +320,7 @@ Predecessor readiness ABI `2b9e540…` / GLC `8fd1de6…` and the paired success
+ 
+ ## Current Management Prerequisite Plan
+ 
+-The [current selection](#current-checkpoint-and-installed-continuation) owns immediate work: bounded source/HOW implementation and focused checks for a fresh full-source start through current native odd_glc for the actual live-LLM Hello sandbox, under T-043. The accepted C1→C2 basic-cli proof is supporting evidence only. New source acceptance, package, paid full-sandbox attempt, remaining reduced case and Data Mapper launch are unselected. Q07 and independent operator-stop readback remain release-boundary work. The earlier management selections below retain their historical scope.
++The [current selection](#current-checkpoint-and-installed-continuation) owns immediate work: bounded source/HOW implementation and focused checks for a fresh full-source start through current native odd_glc for the actual live-LLM Hello sandbox, under T-043. The accepted C1→C2 basic-cli proof is supporting evidence only. New source acceptance, package, paid full-sandbox attempt, remaining reduced case and Data Mapper launch are unselected. Q07 remains release-boundary work; [Root-accepted core18 readback](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/root-disposition.md) closes the retained S02-19 operator-stop readback condition only. The earlier management selections below retain their historical scope.
+ 
+ ### Current graph-context re-entry
+ 
+@@ -592,7 +592,7 @@ Current RC1 opportunities remain under Executive-owned T-287 disposition for one
+ | F11-PRODUCER-CONTEXT-01 | The implementation-01 acquisition/reuse finding is closed by [implementation-02 review](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/review.md), with source/component acceptance and emitted correspondence in compiled-01. | One finite real-reader component discriminator retains one authenticated representation through environment and both currentness consumers. Original provenance, cold fallback/currentness, independent local J/O and sole AF22 remain. No original-history/native qualification or general OOM cure is claimed. |
+ | F11-APPLICATION-DOMAIN-01 | Complete disjoint per-rule domains retain independent source review and compiled checks on e4e61fbe. Exact member/source unions and independent applicability/adequacy J are conserved. | Unknown/falsified J stays non-green. Source groups and regression counts do not establish applicability, native assessment or full qualification. |
+ | NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | Predecessor source/package readiness remains accepted. [Recovery02 and original execution](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation09-disposition/disposition.md) now establish genuine recovery/final binding/preparation, original first F_D/J/R10 and 35-file conservation; full continuation failed pre-dispatch and closed genuinely. Recovery owner68.156s / RSS6,218,432,512 B; original native44.767s / whole621.067s / fresh reads128.107+124.428s / RSS6,142,164,992 B. S02 driver135.176s / RSS3,820,978,176 B / request bodies900,172,086 B.  [Core13 Hello basic-cli baseline](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core13-02/return.md) now retains two pre-actor setup failures: first 53,469.388ms / 178,559,263B setup JSON; compact-selector correction rerun 73,189.571ms / 211,715,338B setup JSON. Each genuine journal close is 2,294,061B. These are distinct attempts, not a before/after performance comparison. | Observed complexity red flags, not isolated benchmarks, causal attribution or OOM cure. Source repairs96a89f0e…/96dfe183… Root-accepted after max review0ae3209b…. Compiled10/dev.6 package and caller readiness were Root-accepted and checkpointed. [Affected native verification](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md): mixed18 exact native hold plus fresh reads accepted by Root, preserving seven prior S02 passes; original03 completed native selection with one paid actor, then truthfully blocked on stage_revision_required; genuine close and fresh reads agree, with no terminal Result. Actor CLI reports $11.1008825; application author/execution/reassessment were not reached. Original03 native462.954s / whole1,062.225s / fresh reads137.969+137.961s / peakRSS6,322,388,992 B / appended43,624,090 B. Mixed18 held62.193s / peakRSS3,378,872,320 B; fresh27.081s / peakRSS1,013,579,776 B; frozen finite evidence357,400,239 B. Its result-only caller assertion is retained as a harness defect; no rerun. Mechanical core build18.571s/pack3.115s/install1.987s/verify8.864s; consumer pack0.141s/install0.143s. These are preparation observations, not runtime improvement claims. Existing original capacity/S1–S5/qualification obligations remain open; no heap/timer/model increase or new framework.  [Full native Opus02](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-02/return.md) observed native 3002.377s / RSS3,375,349,760B; terminal readback 433.384s / RSS3,342,319,616B and SDK projection122,634,623B. Journal grew13,266,385→227,614,608B; one retained suffix accounts214,348,223B/54,303records, with activity/stdout observation records166,631,057B (77.74%) versus separate actor stdout archives12,913,817B. These are footprint observations, not exact payload-overhead attribution or permission to remove required observations. Hello setup footprint remains OPEN for Root disposition under E2E/Owner/Conservation; byte volume does not attribute latency or core versus caller cost. No quota, new benchmark campaign, repair grant or extra launch prerequisite is created.  Accepted [Opus04 metrics](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/observed-metrics.json): setup104.652s; native4025.765s/RSS4,854,153,216B; actor-duration sum3634.761s/reported actor cost$24.7748172; two fresh reads424.436s/RSS4,503,912,448B; journal growth351,432,823B. Test-runner durations51–56ms. Costs remain OPEN despite case acceptance; no causal attribution, overlapping-phase overhead subtraction, billing claim, new budget or launch gate. [Bounded causation lookup source](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/return.md) now passes isolated compile and 10 focused owner checks; live/cold 128/256-event chains use 127/255 cause lookups and 128/256 index insertions. Source readiness only: immutable prefix reference copying, event/body amplification and end-to-end costs remain OPEN; the two fresh Public calls are separate cold acquisitions, not an established live-runtime defect. All five prepared cases remain HOLD. [Core18 cold Result read](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-01/return.md) acquired/closed O4's exact 353,742,824B prefix but refused projection_basis_mismatch at /contractCatalog after75.584s / RSS3,075,751,936B: caller retained core17 reader catalog. No Result or successful-read speedup; no retry/source repair; LIFE-01 and five-case HOLD remain. Authorized [current-catalog successor read](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/return.md) now passes exact O4 Result/value/producer/close comparison: read150.060s, preparation9.172s including verification8.847s, total159.454s, peakRSS3,984,031,744B. Historical read210.962s is observational comparison only (different caller timing boundaries); no isolated decoder attribution or whole-native claim. First refusal remains preserved; sequence copying and other LIFE-01 costs remain OPEN; five cases remain HOLD. Root now accepts source/review `3aa415ff…` / `4410aa5b…`, core18 correspondence and the successful read02 exact Result/producer/close comparison. This closes the selected lookup repair through installed cold readback, not LIFE-01. The 150.060s versus 210.962s observation has different caller timing boundaries and does not isolate decoder or whole-native improvement. Actor-duration sum is elapsed actor-window time, not measured pure model/provider compute; model/tool time and possible transport backpressure are not separated. Fixed twelve-call workflow remains accepted; broader role-context selection is an unquantified opportunity. Known mechanisms have incomplete latency attribution. Root selects new immutable core18/dev8 preparations for the five remaining cases; prior core17 setups remain preserved, core18 successor preparation and parallel execution remain selected under unchanged controls. All five successors reached core18/dev8 installation and stopped before binding on a caller raw-file/canonical-oracle hash-domain assertion; the existing helper confirms unchanged oracles. The selected correction resumes the existing setup tail from genuine install closes, without new journals/repeated installs. No Run, actor or workspace write occurred. |
+-| NW-OPERATOR-STOP-BINDING-01 | [Source stop01/02](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/return.md) completes the ordinary Public request/status/owner join. [Installed S02-19 stop](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/return.md) was admitted once with actor attribution; fresh readback exposed the preserving-obligation projection defect. [Stop03 repair and independent review](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) and [compiled13](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) are Root-accepted. | Source readiness CLOSED; truthful stopped status/replay readback remains pending at the release boundary. No terminal Result is expected (Public `not_found`). This check is not a GLC launch prerequisite. Preserve the already-stopped Run and earlier failures; no repeated stop, Run retargeting, or fabricated terminalization. |
++| NW-OPERATOR-STOP-BINDING-01 | [Source stop01/02](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/return.md) completes the ordinary Public request/status/owner join. [Installed S02-19 stop](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/return.md) was admitted once with actor attribution; fresh readback exposed the preserving-obligation projection defect. [Stop03 repair and independent review](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) and [compiled13](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) are Root-accepted. | Source readiness and the retained S02-19 installed readback conjunction CLOSED by [Root acceptance](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/root-disposition.md). Core18 status/replay report stopped with the original open obligation conserved; absent Result is Public `not_found`. Broader S02 and qualification remain open. This check is not a GLC launch prerequisite. Preserve the already-stopped Run and earlier failures; no repeated stop, Run retargeting, or fabricated terminalization. |
+ | NW-PRODUCT-VERIFICATION-REUSE-01 | Core03/compiled08 reuse remains independently reviewed and Executive-accepted: two initial archive-verifier entries in its tiny two-Product path, with genuine copied/changed/cold fallback and installed-tree checks. Original attempt establishes core8.677s/consumer0.015s, then nine Public setup calls before native OOM. The earlier core8.604675s/mini0.010442s and pair34.637s repeated-verification measurements retain their exact subjects. | Bounded verifier reuse is not original capacity closure. Exact allocating source remains unmeasured; the lifetime/capacity row owns the CLOSED diagnosis and active selected contractions. Preserve actual-object provenance, per-operation authorization/currentness and physical checks. No separate startup optimization, new controller, heap/timer increase or release claim. |
+ | NW-QUALIFICATION-CONTRACTION-01 | CLOSED accepted/applied after [independent review](../../comments/codex/20260922_QUALIFICATION_CONTRACTION/final-review.md). Executable roster/vector, two adapters and wrappers removed; all retained behavioral obligations conserved. 31 authored/60 generated changes, net −376/−2,299 lines. | [Executive disposition](../../comments/codex/20260922_QUALIFICATION_CONTRACTION/executive-disposition.md): compile and focused checks pass; installed F11 incomplete → AF22 blocked with fresh result/closed replay. Supersedes row-by-row D5 adapters. Full qualification, existing stale-harness debt and measured computational cost remain open; no new runtime or release selected. |
+ | ODD-DOM-01 / NW-RETENTION-01 | S1 consumer specialization confirmed by [independent audit](../../comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/domain-boundary-audit-01/odd-graph-review.md): consumer01–05 embed case admission/context/evaluation. Bounded core audit found no Data Mapper implementation. [Design intake](../../../../odd_glc/.ai-workspace/comments/codex/20260922_GENERIC_CONSUMER_CORRECTION/design-intake.md) identifies preparation-only retention as an existing generic-composition limitation; no historical motive is inferred. | Owner selects correction under T-043 with T-287 owning any generic retention seam. Restore one canonical job-parametric consumer and minimum existing-owner typed retention; same Product/Program/package across unrelated jobs. Original generated application/history stay preserved. [Final independent review](../../../../odd_glc/.ai-workspace/comments/codex/20260922_GENERIC_CONSUMER_CORRECTION/implementation-review.md) and Executive acceptance close the source/mechanical correction: one fixed ABG pair, existing parent judgment, installed owner join, finite two-job component evidence and actual deterministic traversal/cold reads. Canonical application is complete: 33 correction paths plus 253 accepted prerequisite paths; zero conflicts and exact subject/package identity. Generic execution04 now reaches actual C2 exit0/eight reports; assessment remains unqualified after Executive cancellation during the post-C2 retention interval. [Accepted retained-transition source](../../comments/codex/20260923_RETAINED_TRANSITION_REUSE/executive-disposition.json) is independently reviewed0cb3af86… and now composed with the accepted membership successor. [Closed recovery and actual-input localization](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/post-c2-localization-01/return.md) banks genuine recovery04 handoff at unchanged796,653,507B/12,281events, lock absent, preserving completed C2 and no Run terminal truth. Pre-route owner phases complete in seconds; actual47MB prospective post-route provenance remains CPU-active, with63.145s sampled under the projector and63.142s under its canonical-equality membership scan across12,282 events. Event-ID membership/body checks are accepted after review298b09a3…. Exact composed archive0adbb8e9… is installed. [Execution05](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-05/return.md) passed nine successor setup calls (736.224s process/1,103.918s setup wall) and exact conformance/input/preflight. One generic Runb9e516ef… under consumer833712…/unchanged policy completed C2exit0/eight reports/protected22 unchanged/product delta0, then admitted hog/traversal-defect70.149s after parent C2J before assessment. Native351.287s/peakRSS5.333GB returned runtime_failed with genuine close; Resultnot_found102.234s and replayfailed102.185s agree. Current916,771,980B handoff is valid, lock absent. [Closed RCA](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/post-c2-exception-01/return.md) identifies the pre-existing cold retention guard requiring an entered-event cursor although source cursoraaaefb22… is validly admitted by route12355. Reconstructed native TypeError/stack exactly matches subjectDigest9f307f4d…; one authenticated-cursor lookup intervention makes unchanged complete provenance accept. This predates both accepted contractions. Existing-owner correction is proposed, not applied; no further native action is selected. No timeout/OOM/operator cancellation or successful assessment is claimed. Initial current-reader counted one796.654MB history read; setup/start/terminal reads were not counter-instrumented, so no total reads inferred. Interrupted ordinary-advance reuse remains an existing route limitation; Root selected one additional C2, old C2 retains provenance, author was not repeated, no new controller/workstream or further retry/recovery is selected. [Disposition](../../../../odd_glc/.ai-workspace/comments/codex/20260922_GENERIC_CONSUMER_CORRECTION/executive-disposition.md). |
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+index 52851f42..2ab01859 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+@@ -3,7 +3,8 @@ import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.
+ import { isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
+ import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
+ import { constructNativeSemanticTask, constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask,
+-  deriveNativeSemanticAsset, deriveNativeSemanticAssessment, nativeSemanticContextMatches, nativeSemanticEvidenceArtifacts } from "../product/semantic_job.js";
++  deriveNativeSemanticAsset, deriveNativeSemanticAssessment, nativeSemanticContextMatches, nativeSemanticEvidenceArtifacts,
++  nativeSemanticCommandExecutionLimits } from "../product/semantic_job.js";
+ import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
+ import type { ModulePublication } from "../gtl/contracts.js";
+ import { SEMANTIC_STAGE_IDS as ids, SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
+@@ -11,14 +12,14 @@ import { validSemanticJobProgramOwners } from "../gtl/semantic_job.js";
+ import { modulePublicationSemanticDigest } from "../product/publication.js";
+ import { isSemanticJobInput, isSemanticJobEnvelope, constructSemanticJobEnvelope,
+   deriveSemanticJobAsset, deriveSemanticJobAssessment, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, semanticJobDesignMatches,
+-  semanticJobPathWithin, type SemanticJobEnvelope } from "../product/semantic_job.js";
++  semanticJobPathWithin, type SemanticJobEnvelope, type SemanticJobContractIssue } from "../product/semantic_job.js";
+ import { constructWorksiteSubject, constructWorksiteTerritory, constructWorksiteObservation,
+   constructWorksiteFileParentsRequest, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
+   isWorksiteContextObservation, type WorksiteFileParentsRequest, type WorksiteContextObservation } from "../product/worksite_effect.js";
+ import { observeWorksiteContext, observeWorksiteFileParents, observeWorksiteSubject } from "../product/worksite_operations.js";
+ import { constructWorksiteConstructionTask, WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
+ import { isWorksiteCommandExecutionObservation, constructWorksiteCommandConfiguration, isWorksiteReadDependencyBasis,
+-  type WorksiteReadDependencyBasis, WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
++  type WorksiteReadDependencyBasis, type WorksiteCommandExecutionLimits, WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
+ import { isWorksitePreparationInput, prepareWorksiteCommandTask } from "../product/worksite_preparation.js";
+ import { WORKSITE_FILE_PARENTS_IMPLEMENTATION } from "../implementation/worksite_file_replace.js";
+ import type { SemanticStageNativeBasis } from "./semantic_stage.js";
+@@ -463,9 +464,15 @@ function nativeStageSource(basis: SemanticStageNativeBasis, envelope: SemanticJo
+       source.task.workspaceAuthorityBasis.canonicalRoot, [], source.after.readRoots)) return null;
+   return { owner, native };
+ }
+-export async function projectNativeSemanticTask(basis: SemanticStageNativeBasis, input: unknown) {
++export async function projectNativeSemanticTask(basis: SemanticStageNativeBasis, input: unknown, selectedLimits?: WorksiteCommandExecutionLimits) {
+   const owner = authenticateSemanticJobBasis(basis);
+   if (owner === null || !semanticJobInputMatchesBasis(basis, input)) return null;
++  // Current preparation checks actual controls; source/fold reconstruction
++  // remains a pure relation over the selection retained by the admitted job.
++  try {
++    const retained = nativeSemanticCommandExecutionLimits(input);
++    if (retained !== null && (selectedLimits === undefined || !equal(retained, selectedLimits))) return null;
++  } catch { return null; }
+   const context = await observeWorksiteContext({ ...operating(owner), readRoots: input.job.worksiteScope.readRoots,
+     maxFiles: input.declaration.bounds.maxContextFiles, maxBytes: input.declaration.bounds.maxContextBytes });
+   if (!isWorksiteContextObservation(context)) return null;
+@@ -474,7 +481,8 @@ export async function projectNativeSemanticTask(basis: SemanticStageNativeBasis,
+     return owner.stage === undefined || owner.role === null ? null : constructNativeSemanticTask(input, owner.stage.declarationRef, owner.role, operating(owner), context);
+   } catch { return null; }
+ }
+-export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input: unknown) {
++export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input: unknown,
++  onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void) {
+   try {
+     if (!isRetainedGraphInput(input) || !isSemanticJobEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return null;
+     const source = nativeStageSource(basis, input.entry, input.source);
+@@ -483,7 +491,7 @@ export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input
+     const expected = constructNativeSemanticTask(input.entry, stageRef, owner.role!, operating(owner), input.source.before);
+     if (!equal(expected, input.source.task)) return null;
+     const adapter = { cCallRef: owner.call.cCallRef, inputDigest: owner.inputDigest };
+-    return owner.role === "author" ? deriveNativeSemanticAsset(input.entry, stageRef, input.source, adapter)
++    return owner.role === "author" ? deriveNativeSemanticAsset(input.entry, stageRef, input.source, adapter, onContractIssues)
+       : deriveNativeSemanticAssessment(input.entry, stageRef, input.source, adapter);
+   } catch { return null; }
+ }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts
+index 694524c6..8591a144 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts
+@@ -13,6 +13,7 @@ import { projectNativeSemanticTask, projectNativeSemanticFold, projectNativeSema
+   projectSemanticJobEvidence, semanticJobInputMatchesBasis } from "../abg/semantic_job.js";
+ import { isSemanticJobEnvelope, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobActorCandidate,
+   semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, type SemanticJobContractIssue } from "../product/semantic_job.js";
++import { selectedWorksiteCommandExecutionLimits } from "./worksite_command_execution.js";
+ 
+ const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+ const placeholder = `sha256:${"0".repeat(64)}` as const;
+@@ -120,19 +121,21 @@ export async function realizeSemanticJobBridge(input: Readonly<Record<string, Js
+ 
+ // Existing owner adapters; actors remain the native workspace child Calls.
+ export async function realizeNativeSemanticAuthorTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+-  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input);
++  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedWorksiteCommandExecutionLimits());
+   return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAuthorTaskImplementationRef })
+     : success(input, output, ids.nativeAuthorTaskImplementationRef, true);
+ }
+ export const NATIVE_SEMANTIC_AUTHOR_TASK_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAuthorTaskImplementationRef)!;
+ export function realizeNativeSemanticAuthorFold(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+-  const output = occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticFold(occurrence.semanticStageBasis, input);
+-  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAuthorFoldImplementationRef })
++  let contractIssues: readonly SemanticJobContractIssue[] = [];
++  const output = occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticFold(occurrence.semanticStageBasis, input,
++    issues => { contractIssues = issues; });
++  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAuthorFoldImplementationRef }, contractIssues)
+     : success(input, output, ids.nativeAuthorFoldImplementationRef, true);
+ }
+ export const NATIVE_SEMANTIC_AUTHOR_FOLD_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAuthorFoldImplementationRef)!;
+ export async function realizeNativeSemanticAssessorTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+-  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input);
++  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedWorksiteCommandExecutionLimits());
+   return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAssessorTaskImplementationRef })
+     : success(input, output, ids.nativeAssessorTaskImplementationRef, true);
+ }
+@@ -144,7 +147,7 @@ export function realizeNativeSemanticAssessorFold(input: Readonly<Record<string,
+ }
+ export const NATIVE_SEMANTIC_ASSESSOR_FOLD_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAssessorFoldImplementationRef)!;
+ export async function realizeNativeSemanticConstructionTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+-  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input);
++  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedWorksiteCommandExecutionLimits());
+   return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeConstructionTaskImplementationRef })
+     : success(input, output, ids.nativeConstructionTaskImplementationRef, true);
+ }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts
+index 49c8307a..50d07de6 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts
+@@ -43,6 +43,8 @@ import {
+   renderWorksiteCommandExecutionPrompt,
+   worksiteCommandExecutionHelperPlan,
+   worksiteCommandExecutionWorkerResultSchema,
++  projectWorksiteCommandExecutionBudget,
++  type WorksiteCommandExecutionLimits,
+   type WorksiteCommandExecutionHelperPlan,
+ } from "../product/worksite_command_execution.js";
+ import { observeWorksiteSubject } from "../product/worksite_operations.js";
+@@ -602,26 +604,9 @@ function manifestPairIsCurrent(
+   }
+ }
+ 
+-function requiredExecutionBudgetMs(task: WorksiteExecutionTask): number {
+-  const commandBudget = task.commands.reduce(
+-    (sum, command) => sum + command.timeoutMs + command.terminationGraceMs,
+-    0,
+-  );
+-  const probeBudget = task.outcomePredicates.reduce((sum, predicate) => {
+-    if (predicate.predicateKind !== "http_response_exact" ||
+-      typeof predicate.declaration !== "object" || predicate.declaration === null ||
+-      Array.isArray(predicate.declaration)) return sum;
+-    const declaration = predicate.declaration as Readonly<Record<string, JsonValue>>;
+-    const launch = declaration.launch;
+-    const request = declaration.request;
+-    if (typeof launch !== "object" || launch === null || Array.isArray(launch) ||
+-      typeof request !== "object" || request === null || Array.isArray(request)) return sum;
+-    const launchRecord = launch as Readonly<Record<string, JsonValue>>;
+-    const requestRecord = request as Readonly<Record<string, JsonValue>>;
+-    return sum + Number(launchRecord.timeoutMs) + Number(launchRecord.terminationGraceMs) +
+-      Number(requestRecord.timeoutMs);
+-  }, 0);
+-  return commandBudget + probeBudget + 5_000;
++export function selectedWorksiteCommandExecutionLimits(): WorksiteCommandExecutionLimits {
++  return { absoluteTimeoutMs: Number(process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000"),
++    inactivityTimeoutMs: Number(process.env.ABG_TS_FP_TIMEOUT_MS ?? "60000") };
+ }
+ 
+ export function realizeWorksiteCommandExecution(
+@@ -634,13 +619,8 @@ export function realizeWorksiteCommandExecution(
+     throw new TypeError("command execution requires one exact admitted task");
+   }
+   const c2Occurrence = exactAuthorityFreeOccurrence(occurrence, verifyNativeOccurrence);
+-  const configuredAbsoluteTimeout = Number(
+-    process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000",
+-  );
+-  const configuredInactivityTimeout = Number(
+-    process.env.ABG_TS_FP_TIMEOUT_MS ?? "60000",
+-  );
+-  const requiredBudget = requiredExecutionBudgetMs(input);
++  const { absoluteTimeoutMs: configuredAbsoluteTimeout, inactivityTimeoutMs: configuredInactivityTimeout } = selectedWorksiteCommandExecutionLimits();
++  const requiredBudget = projectWorksiteCommandExecutionBudget(input).requiredExecutionBudgetMs;
+   if (!Number.isSafeInteger(configuredInactivityTimeout) ||
+     configuredInactivityTimeout <= requiredBudget) {
+     throw new TypeError("actor inactivity timeout must exceed the task's closed helper execution budget");
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts b/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
+index 4ceeeb9d..241a628e 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
+@@ -17,7 +17,8 @@ import { isSemanticAssetCandidate, isSemanticAssessmentCandidate, isSemanticWork
+ import { constructWorksiteConstructionTask } from "./worksite_construction.js";
+ import { constructWorksiteCommandPreparationInput } from "./worksite_preparation.js";
+ import type { WorksiteCommandPreparationInput } from "./worksite_preparation_contracts.js";
+-import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput } from "./worksite_command_execution.js";
++import { projectWorksiteCommandExecutionBudget, worksiteCommandExecutionBudgetFits,
++  type WorksiteCommandExecutionLimits, type WorksiteDeclaredCommandInput, type WorksiteOutcomePredicateInput } from "./worksite_command_execution.js";
+ import { isWorksiteContextObservation, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
+   constructWorksiteSubject, constructWorksiteObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+ import { resolve } from "node:path";
+@@ -319,6 +320,9 @@ export function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, s
+   if (stage === undefined || active === null) throw new TypeError("unknown semantic actor contract");
+   const current = role === "assessor" ? envelope.assets.find(a => a.stageRef === stageRef) : undefined;
+   const incoming = envelope.assets.filter(a => a.stageRef !== stageRef);
++  const limits = nativeSemanticCommandExecutionLimits(envelope);
++  const currentDesign = current?.candidate.design;
++  const budget = limits === null ? null : projectWorksiteCommandExecutionBudget(currentDesign ?? { commands: [], outcomePredicates: [] });
+   const body = { kind: "semantic_job_actor_contract", schemaVersion: "5.0.0", stageRef, role,
+     sourceMemberRefs: envelope.job.members.map(m => m.memberRef), quoteRule: "exact_unique_original_source_substring",
+     requirementRefs: [...new Set([...retainedTerms, ...incoming.flatMap(a => a.groundedTerms)].map(t => t.requirementRef))],
+@@ -334,6 +338,9 @@ export function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, s
+       coverageRules: ["every_grounded_requirement_has_active_binding", "each_active_obligation_has_implementation_and_verifier_target",
+         "target_binding_versions_equal_active_versions_selected_by_its_obligations"],
+       pathRule: "relative_nontraversing_unique_within_declared_roots", commandRule: "top_level_and_nested_http_launch_within_exact_capabilities",
++      ...(limits === null || budget === null ? {} : { executionCapacity: { selectedLimits: limits, budgetRule: budget.rule,
++        currentCandidate: currentDesign == null ? null : { commandBudgetMs: budget.commandBudgetMs, httpProbeBudgetMs: budget.httpProbeBudgetMs,
++          requiredExecutionBudgetMs: budget.requiredExecutionBudgetMs, compatible: worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs, limits) } } }),
+       dependencyRule: "declared_read_paths_observed_before_construction", readinessRule: "readiness_is_not_fulfillment" } };
+   return deepFreeze({ ...body, contractDigest: hash(body) });
+ }
+@@ -424,14 +431,15 @@ export function evaluateSemanticJobActorCandidate(envelope: SemanticJobEnvelope,
+   return deepFreeze(issues);
+ }
+ export function deriveSemanticJobAsset(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource,
+-  retainedTerms: readonly RequirementTerm[] = []): Readonly<SemanticJobEnvelope> | null {
++  retainedTerms: readonly RequirementTerm[] = [], onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null {
+   try {
+     if (!isSemanticJobEnvelope(envelope) || !isSemanticJobAssetCandidate(raw) || !v.is(sourceSchema, source) || envelope.assets.some(a => a.stageRef === stageRef)) return null;
+     const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
+     if (stage === undefined || !stage.predecessorStageRefs.every(ref => envelope.assets.some(a => a.stageRef === ref && a.assessment?.disposition === "satisfied")) ||
+       ((raw.asset.requirementCandidates.length > 0 || raw.bindings.length > 0) && !stage.bodyCapabilities.includes("requirement_refinement")) ||
+       (raw.design !== null && !stage.bodyCapabilities.includes("worksite_design"))) return null;
+-    if (evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms).length > 0) return null;
++    const issues = evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms);
++    if (issues.length > 0) { onContractIssues?.(issues); return null; }
+     const priorTerms = [...retainedTerms, ...envelope.assets.flatMap(a => a.groundedTerms)];
+     const quoted = (quotes: readonly SemanticSourceQuote[]) => quotes.every(q => groundSemanticJobQuote(envelope, q) !== null);
+     const groundedTerms = raw.asset.requirementCandidates.map(candidate => {
+@@ -540,6 +548,13 @@ export function semanticJobDesignIssues(envelope: SemanticJobEnvelope, design: S
+         if (launch === null || typeof launch !== "object" || Array.isArray(launch) || !permittedLaunch(launch as unknown as WorksiteDeclaredCommandInput))
+           issue(`design.outcomePredicates[${i}].declaration.launch`, "exact_nested_executable_capability", scope.executableCapabilities, launch ?? null);
+     });
++    const limits = nativeSemanticCommandExecutionLimits(envelope);
++    if (limits !== null && design.dependencyDisposition === "sufficient") {
++      const budget = projectWorksiteCommandExecutionBudget(design);
++      if (!worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs, limits))
++        issue("design.commands", "enclosing_execution_capacity", { selectedLimits: limits, budgetRule: budget.rule },
++          { commandBudgetMs: budget.commandBudgetMs, httpProbeBudgetMs: budget.httpProbeBudgetMs, requiredExecutionBudgetMs: budget.requiredExecutionBudgetMs });
++    }
+   } catch { issue("design", "well_formed_design_relation", "declared_design", null); }
+   return deepFreeze(issues);
+ }
+@@ -716,9 +731,20 @@ export const NATIVE_SEMANTIC_ASSESSMENT_SCHEMA = deepFreeze({
+ });
+ export const NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT = JSON.stringify(NATIVE_SEMANTIC_ASSESSMENT_SCHEMA) + "\n";
+ export type NativeSemanticOperating = Pick<SemanticWorksiteBasis, "workspaceAuthorityBasis" | "workspaceBinding" | "capabilityGrant">;
++export function nativeSemanticCommandExecutionLimits(envelope: SemanticJobEnvelope): WorksiteCommandExecutionLimits | null {
++  const selection = envelope.job.taskData.nativeLifecycle;
++  if (!record(selection) || selection.commandExecutionLimits === undefined) return null;
++  const limits = selection.commandExecutionLimits;
++  if (!keys(limits, ["inactivityTimeoutMs", "absoluteTimeoutMs"]) ||
++    !Number.isSafeInteger(limits.inactivityTimeoutMs) || Number(limits.inactivityTimeoutMs) <= 0 ||
++    !Number.isSafeInteger(limits.absoluteTimeoutMs) || Number(limits.absoluteTimeoutMs) <= Number(limits.inactivityTimeoutMs))
++    throw new TypeError("exact selected command execution limits required");
++  return limits as unknown as WorksiteCommandExecutionLimits;
++}
+ export function nativeSemanticPaths(envelope: SemanticJobEnvelope) {
+   const selection = envelope.job.taskData.nativeLifecycle;
+-  if (!keys(selection, ["assets", "rubricPath"]) || !Array.isArray(selection.assets) || typeof selection.rubricPath !== "string" ||
++  const limits = nativeSemanticCommandExecutionLimits(envelope);
++  if (!keys(selection, ["assets", "rubricPath", ...(limits === null ? [] : ["commandExecutionLimits"])]) || !Array.isArray(selection.assets) || typeof selection.rubricPath !== "string" ||
+     !semanticJobRelativePath(selection.rubricPath) || selection.assets.length !== envelope.declaration.stages.length) throw new TypeError("exact native lifecycle asset selection required");
+   const assets = selection.assets.map((row, i) => {
+     if (!keys(row, ["stageRef", "path"]) || row.stageRef !== envelope.declaration.stages[i]!.declarationRef ||
+@@ -756,13 +782,14 @@ export function nativeSemanticAssetSource(envelope: SemanticJobEnvelope, stageRe
+       observationRef: observation.observationRef, observationDigest: observation.observationDigest, assetPath: selected.path, assetDigest: asset.digest } };
+ }
+ export function deriveNativeSemanticAsset(envelope: SemanticJobEnvelope, stageRef: string, observation: NativeWorkspaceWorkObservation,
+-  adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest }): Readonly<SemanticJobEnvelope> | null {
++  adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest },
++  onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null {
+   try {
+     if (!isNativeWorkspaceWorkObservation(observation) || observation.task.assessment !== undefined || !nativeSemanticContextMatches(envelope, observation.after)) return null;
+     const source = nativeSemanticAssetSource(envelope, stageRef, observation, adapter);
+     if (!equal(observation.task.writeRoots, [source.nativeWork!.assetPath])) return null;
+     const raw = JSON.parse(Buffer.from(nativeSemanticFile(observation.after, source.nativeWork!.assetPath).bytes, "base64").toString("utf8"));
+-    const derived = deriveSemanticJobAsset(envelope, stageRef, raw, source);
++    const derived = deriveSemanticJobAsset(envelope, stageRef, raw, source, [], onContractIssues);
+     return derived === null ? null : deepFreeze({ ...derived, context: observation.after });
+   } catch { return null; }
+ }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts b/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts
+index b203f886..1d0f1f4f 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts
+@@ -132,6 +132,47 @@ export interface WorksiteOutcomePredicateInput {
+   readonly declaration: JsonValue;
+ }
+ 
++export interface WorksiteCommandExecutionLimits {
++  readonly inactivityTimeoutMs: number;
++  readonly absoluteTimeoutMs: number;
++}
++
++// The displayed terms also drive the calculation used by the C2 guard.
++const commandExecutionBudgetRule = deepFreeze({
++  aggregation: "sum" as const,
++  commandFields: ["timeoutMs", "terminationGraceMs"] as const,
++  httpResponseFields: { launch: ["timeoutMs", "terminationGraceMs"], request: ["timeoutMs"] } as const,
++  ownerAllowanceMs: 5_000,
++  limitComparison: "required_budget_strictly_less_than_each_limit" as const,
++  limitOrdering: "absolute_strictly_greater_than_inactivity" as const,
++});
++export function projectWorksiteCommandExecutionBudget(task: Readonly<{
++  commands: readonly Pick<WorksiteDeclaredCommandInput, "timeoutMs" | "terminationGraceMs">[];
++  outcomePredicates: readonly Pick<WorksiteOutcomePredicateInput, "predicateKind" | "declaration">[];
++}>) {
++  const commandBudgetMs = task.commands.reduce((sum, command) =>
++    commandExecutionBudgetRule.commandFields.reduce((subtotal, field) => subtotal + command[field], sum), 0);
++  const httpProbeBudgetMs = task.outcomePredicates.reduce((sum, predicate) => {
++    if (predicate.predicateKind !== "http_response_exact" ||
++      typeof predicate.declaration !== "object" || predicate.declaration === null ||
++      Array.isArray(predicate.declaration)) return sum;
++    const declaration = predicate.declaration as Readonly<Record<string, JsonValue>>;
++    const launch = declaration.launch, request = declaration.request;
++    if (typeof launch !== "object" || launch === null || Array.isArray(launch) ||
++      typeof request !== "object" || request === null || Array.isArray(request)) return sum;
++    const parts = { launch: launch as Readonly<Record<string, JsonValue>>, request: request as Readonly<Record<string, JsonValue>> };
++    return (Object.keys(commandExecutionBudgetRule.httpResponseFields) as (keyof typeof parts)[]).reduce((subtotal, part) =>
++      commandExecutionBudgetRule.httpResponseFields[part].reduce((total, field) => total + Number(parts[part][field]), subtotal), sum);
++  }, 0);
++  return deepFreeze({ rule: commandExecutionBudgetRule, commandBudgetMs, httpProbeBudgetMs,
++    requiredExecutionBudgetMs: commandBudgetMs + httpProbeBudgetMs + commandExecutionBudgetRule.ownerAllowanceMs });
++}
++export function worksiteCommandExecutionBudgetFits(requiredBudget: number, limits: WorksiteCommandExecutionLimits): boolean {
++  return Number.isSafeInteger(limits.inactivityTimeoutMs) && limits.inactivityTimeoutMs > requiredBudget &&
++    Number.isSafeInteger(limits.absoluteTimeoutMs) && limits.absoluteTimeoutMs > requiredBudget &&
++    limits.absoluteTimeoutMs > limits.inactivityTimeoutMs;
++}
++
+ export interface WorksiteProtectedObservation {
+   readonly kind: "worksite_protected_observation";
+   readonly schemaVersion: "5.0.0";
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+index fab15ff8..c923bdb7 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+@@ -77,6 +77,24 @@ original failure remain explicit; no successor observation is manufactured.
+ 
+ ## Consumer judgment and qualification
+ 
++The native semantic job may retain exact selected command-executor inactivity
++and absolute limits in `taskData.nativeLifecycle.commandExecutionLimits`.
++The caller binds its frozen transport selection there without changing those
++controls. Current native task preparation compares the retained selection with
++the existing C2 implementation selector. Product projections remain pure and
++historical task/fold correspondence uses retained limits, never a later host
++environment. Missing limits on a legacy job are unknown, not a fabricated
++selection, and retain that job's existing task bytes and behavior.
++
++The Product C2 budget owner computes the existing command, HTTP-probe and
++owner-allowance sum; the displayed terms drive that same calculation. Design
++author and assessor context receives the retained limits and rule, plus the
++candidate's computed compatibility when present. A Design claiming sufficient
++dependencies must fit before executable readiness; unknown capacity may remain
++explicit pressure without weakening source obligations. Actors judge warranted
++commands and bounds. C2 retains its existing strict guards and error messages.
++This bounded design reframe changes neither dispatch policy nor timers.
++
+ The leaf's mechanical judgment means only that the declared native work
+ boundary returned an admissible observation. Neither an empty `gaps` array
+ nor a successful process proves domain correctness. A consumer declares its
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
+index 61e75057..bfdb7d78 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
+@@ -1,7 +1,7 @@
+ import assert from 'node:assert/strict';
+ import test from 'node:test';
+ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+-import { join, resolve } from 'node:path';
++import { dirname, join, resolve } from 'node:path';
+ import { pathToFileURL } from 'node:url';
+ import { genericLifecyclePublicationData } from '../support/t287-generic-job-lifecycle.mjs';
+ import { ordinaryJob } from '../support/t287-generic-job-intake.mjs';
+@@ -18,15 +18,18 @@ const declaration=g.constructSemanticJobLifecycleDeclaration({...old,proofTempla
+ const provenance = key => ({ cCallRef:'component:c-call:'+key,executionAuthorityRef:'component:authority:'+key,executionAuthorityDigest:hash(key),
+  actorInvocationRef:'component:actor:'+key,transportBindingRef:'component:transport',transportBindingDigest:hash('transport'),promptDigest:hash(key),transportDigest:hash('transport:'+key) });
+ const adapter=(key,input)=>({cCallRef:'component:adapter:'+key,inputDigest:hash(input)});
+-async function fixture(t) {
++async function fixture(t,commandExecutionLimits) {
+  const env=await worksiteFixture({...p,...effects,...ops});t.after(()=>rm(env.scratch,{recursive:true,force:true}));
++ const selectedDeclaration=commandExecutionLimits===undefined?declaration:g.constructSemanticJobLifecycleDeclaration({...declaration,bounds:{...declaration.bounds,maxCommands:32}});
+  const initial=ordinaryJob(p,g,'Build an application and an independent verifier. Preserve complete source and all unresolved obligations.');
+- const job=p.constructSemanticJobInput({...initial,evaluationData:{independentSentinel:'evaluator-only-9bff'},taskData:{...initial.taskData,nativeLifecycle:{assets:declaration.stages.map((s,i)=>({stageRef:s.declarationRef,path:`assets/${i}.json`})),rubricPath:'assets/rubric.json'}},
+- worksiteScope:{...initial.worksiteScope,readRoots:['.'],writeRoots:['.'],parentWriteRoots:['.'],evidenceWriteRoots:['evidence']}});
++ const job=p.constructSemanticJobInput({...initial,evaluationData:{independentSentinel:'evaluator-only-9bff'},taskData:{...initial.taskData,nativeLifecycle:{assets:declaration.stages.map((s,i)=>({stageRef:s.declarationRef,path:`assets/${i}.json`})),rubricPath:'assets/rubric.json',
++ ...(commandExecutionLimits===undefined?{}:{commandExecutionLimits})}},
++ worksiteScope:{...initial.worksiteScope,readRoots:['.'],writeRoots:['.'],parentWriteRoots:['.'],evidenceWriteRoots:['evidence'],
++ ...(commandExecutionLimits===undefined?{}:{executableCapabilities:initial.worksiteScope.executableCapabilities.map(c=>({...c,maxTimeoutMs:120000}))})}});
+  await mkdir(join(env.canonicalRoot,'assets'));for(const member of job.members){await mkdir(join(env.canonicalRoot,member.path,'..'),{recursive:true});await writeFile(join(env.canonicalRoot,member.path),Buffer.from(member.base64,'base64'));}
+- await writeFile(join(env.canonicalRoot,'assets/rubric.json'),p.canonicalJson(declaration)+'\n');
++ await writeFile(join(env.canonicalRoot,'assets/rubric.json'),p.canonicalJson(selectedDeclaration)+'\n');
+  const observe=()=>ops.observeWorksiteContext({...env,readRoots:job.worksiteScope.readRoots,maxFiles:declaration.bounds.maxContextFiles,maxBytes:declaration.bounds.maxContextBytes});
+- const envelope=p.constructSemanticJobEnvelope(job,declaration,{invocationAdmissionRef:'component:invocation',rootExecutionBasisRef:'component:root',rootInputRef:'component:input',rootInputDigest:hash(job),
++ const envelope=p.constructSemanticJobEnvelope(job,selectedDeclaration,{invocationAdmissionRef:'component:invocation',rootExecutionBasisRef:'component:root',rootInputRef:'component:input',rootInputDigest:hash(job),
+  intakeCCallRef:'component:intake',intakeCCallDigest:hash('intake'),intakeExecutionBasisRef:'component:intake-basis'});
+  return {...env,job,observe,envelope};
+ }
+@@ -45,6 +48,129 @@ function assess(env,authored,i,disposition='satisfied'){const task=m.constructNa
+  const observation=n.constructNativeWorkspaceWorkObservation(task,authored.context,null,provenance('assessor-'+i),verdict(authored,i,disposition));
+  const assessed=m.deriveNativeSemanticAssessment(authored,declaration.stages[i].declarationRef,observation,adapter('assessor-'+i,p.constructRetainedGraphInput(authored,observation)));assert(assessed);return {task,observation,assessed};}
+ 
++test('native Design command budget retains exact capacity through both roles, readiness and historical correspondence',async t=>{
++ const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000},env=await fixture(t,limits);
++ const c2=await load('product/worksite_command_execution'),implementation=await load('implementation/worksite_command_execution');
++ const traces=[];let current=env.envelope;
++ for(let i=0;i<3;i++){const a=await author(env,current,i),v=assess(env,a.authored,i);traces.push(a.authored,v.assessed);current=v.assessed;}
++ const stage=declaration.stages[3],base=candidate(current,3),over=structuredClone(base);
++ over.design.commands=Array.from({length:7},(_,i)=>({...base.design.commands[0],commandId:'component:budget-'+i,timeoutMs:60000,terminationGraceMs:1000}));
++ const budget=c2.projectWorksiteCommandExecutionBudget(over.design);
++ assert.equal(budget.commandBudgetMs,427000);assert.equal(budget.httpProbeBudgetMs,0);assert.equal(budget.requiredExecutionBudgetMs,432000);
++ assert.equal(c2.worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs,limits),false);
++ assert.equal(m.semanticJobDesignIssues(current,over.design).at(-1).rule,'enclosing_execution_capacity');
++ const boundary=structuredClone(over);boundary.design.commands=boundary.design.commands.slice(0,5).map(c=>({...c,timeoutMs:58000}));
++ assert.equal(c2.projectWorksiteCommandExecutionBudget(boundary.design).requiredExecutionBudgetMs,300000);
++ assert.equal(m.semanticJobDesignMatches(current,boundary.design),false,'equality fails the existing strict guard');
++ boundary.design.commands[0].timeoutMs--;
++ assert.equal(c2.projectWorksiteCommandExecutionBudget(boundary.design).requiredExecutionBudgetMs,299999);
++ assert.equal(m.semanticJobDesignMatches(current,boundary.design),true,'the adjacent aggregate is within the same limits');
++ const task=m.constructNativeSemanticTask(current,stage.declarationRef,'author',env,await env.observe());
++ await writeFile(join(env.canonicalRoot,'assets/3.json'),JSON.stringify(over)+'\n');
++ const observation=n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'over-budget component candidate',gaps:[]},provenance('author-3'));
++ let issues;assert.equal(m.deriveNativeSemanticAsset(current,stage.declarationRef,observation,adapter('author-3',{}),value=>{issues=value;}),null);
++ assert.equal(issues.at(-1).actual.requiredExecutionBudgetMs,432000);
++ const unknown=structuredClone(over);unknown.design.dependencyDisposition='unknown';
++ assert.equal(m.semanticJobDesignMatches(current,unknown.design),true,'insufficient capacity can remain non-executable pressure');
++ await rm(join(env.canonicalRoot,'assets/3.json'));
++ const a=await author(env,current,3,boundary),v=assess(env,a.authored,3);
++ traces.push(a.authored,v.assessed);
++ const authorContract=m.projectSemanticJobActorContract(current,stage.declarationRef,'author');
++ const assessorContract=m.projectSemanticJobActorContract(a.authored,stage.declarationRef,'assessor');
++ assert.deepEqual(authorContract.design.executionCapacity.selectedLimits,limits);
++ assert.deepEqual(assessorContract.design.executionCapacity.selectedLimits,limits);
++ assert.deepEqual(authorContract.design.executionCapacity.budgetRule,budget.rule);
++ assert.equal(authorContract.design.executionCapacity.currentCandidate,null);
++ assert.equal(assessorContract.design.executionCapacity.currentCandidate.requiredExecutionBudgetMs,299999);
++ assert.equal(assessorContract.design.executionCapacity.currentCandidate.compatible,true);
++ for(const [nativeTask,contract]of [[a.task,authorContract],[v.task,assessorContract]])
++  assert(n.renderNativeWorkspaceWorkOrder(nativeTask).includes(p.canonicalJson(contract)),'the exact retained limits reach the rendered role task');
++ assert(m.constructNativeSemanticConstructionTask(v.assessed,env,await env.observe()));
++ const previousIdle=process.env.ABG_TS_FP_TIMEOUT_MS,previousAbsolute=process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS;
++ t.after(()=>{for(const [key,value]of [['ABG_TS_FP_TIMEOUT_MS',previousIdle],['ABG_TS_FP_ABSOLUTE_TIMEOUT_MS',previousAbsolute]])
++  if(value===undefined)delete process.env[key];else process.env[key]=value;});
++ process.env.ABG_TS_FP_TIMEOUT_MS='300000';process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS='900000';
++ assert.deepEqual(implementation.selectedWorksiteCommandExecutionLimits(),limits);
++ process.env.ABG_TS_FP_TIMEOUT_MS='60000';
++ assert.equal(m.evaluateNativeSemanticRelation(g.SEMANTIC_STAGE_IDS.nativeAuthorTaskPredicateRef,current,a.task),true);
++ assert.equal(m.evaluateNativeSemanticRelation(g.SEMANTIC_STAGE_IDS.nativeAssessorTaskPredicateRef,a.authored,v.task),true);
++ assert.equal(m.evaluateNativeSemanticRelation(g.SEMANTIC_STAGE_IDS.nativeAuthorFoldPredicateRef,p.constructRetainedGraphInput(current,a.observation),a.authored),true);
++ assert.equal(m.evaluateNativeSemanticRelation(g.SEMANTIC_STAGE_IDS.nativeAssessorFoldPredicateRef,p.constructRetainedGraphInput(a.authored,v.observation),v.assessed),true);
++ const legacy=await fixture(t);
++ assert.equal(m.nativeSemanticCommandExecutionLimits(legacy.envelope),null);
++ assert.equal('executionCapacity' in m.projectSemanticJobActorContract(legacy.envelope,declaration.stages[0].declarationRef,'author').design,false);
++
++ // Component upstream facts only. Actual task preparation and result/fold
++ // correspondence execute; no journal, admission or actor is manufactured.
++ const {SourceTextModule,SyntheticModule}=await import('node:vm');
++ async function component(name,overrides){const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
++  await module.link(async spec=>{const native=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(file),spec)).href),values={...native,...overrides[spec]};
++   return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});});
++  await module.evaluate();return module.namespace;}
++ const ids=g.SEMANTIC_STAGE_IDS,selectedPublication={...publication,semanticJobLifecycle:current.declaration},pub=await load('product/publication');
++ const execution={...env.executionBasis,basisRef:current.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,
++  rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:current.basis.rootInputRef,invocationAdmissionRef:current.basis.invocationAdmissionRef};
++ const previous=(value,implementationRef)=>({cCall:{implementationRef,basisId:execution.basisRef},result:{resultClass:'success',value},judgment:{judgment:'advance'}});
++ const predecessors=new Map([[current.basis.intakeCCallRef,previous(env.envelope,ids.jobIntakeImplementationRef)]]);
++ for(const value of traces){const asset=value.assets.at(-1),source=asset.assessment?.source??asset.source;
++  predecessors.set(source.nativeWork.adapterCCallRef,previous(value,asset.assessment?ids.nativeAssessorFoldImplementationRef:ids.nativeAuthorFoldImplementationRef));}
++ const native={execution,inputValue:a.authored,inputDigest:hash(a.authored),program:{},prefix:{component:'supplied'},
++  call:{...env.cCall,regime:'F_D',implementationRef:ids.nativeAssessorTaskImplementationRef,programLocusRef:stage.assessorLocusRef+'/prepare'},
++  events:[{kind:'c_call_result_admitted',aggregateId:'component:current',payload:{value:a.authored}}],
++  environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,
++   productInstalls:[{productId:selectedPublication.owningProductId,artifactDigest:selectedPublication.artifactDigest,
++    productContentDigest:selectedPublication.productContentDigest,manifestDigest:selectedPublication.productManifestDigest,installedRoot:env.workspaceBinding.roots.productRoot,
++    contributionManifest:{publicationBindings:[{moduleRef:selectedPublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(selectedPublication)}]}}]}};
++ predecessors.set('component:current',previous(a.authored,ids.nativeAuthorFoldImplementationRef));
++ const basis={publication:selectedPublication,graphFunction:{declarations:{'abg.semantic_native_stage':stage.declarationRef}}};
++ const abg=await component('abg/semantic_job',{
++  './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
++  './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})},
++  '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
++  './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_pub,ref)=>predecessors.get(ref)??null},
++ });
++ const seam=await component('implementation/semantic_stage',{'../abg/semantic_job.js':abg});
++ const occurrence={semanticStageBasis:basis};
++ assert.equal((await seam.realizeNativeSemanticAssessorTask(a.authored,occurrence)).disposition,'failure','changed current controls refuse preparation');
++ process.env.ABG_TS_FP_TIMEOUT_MS='300000';
++ const prepared=await seam.realizeNativeSemanticAssessorTask(a.authored,occurrence);assert.equal(prepared.disposition,'success');
++ assert.deepEqual(prepared.resultCandidate,v.task);
++ process.env.ABG_TS_FP_TIMEOUT_MS='60000';
++ assert.equal(abg.semanticJobResultMatchesBasis(basis,a.authored,prepared.resultCandidate),true,'historical result correspondence uses retained limits');
++ const construction=m.constructNativeSemanticConstructionTask(v.assessed,env,await env.observe());
++ await mkdir(join(env.canonicalRoot,'app'));await writeFile(join(env.canonicalRoot,'app/main.mjs'),'component implementation');
++ await writeFile(join(env.canonicalRoot,'app/check.mjs'),'component verifier');
++ const built=n.constructNativeWorkspaceWorkObservation(construction,await env.observe(),{summary:'component files',gaps:[]},provenance('budget-construction'));
++ const executionTask=m.constructNativeSemanticExecutionTask(v.assessed,built);
++ const c2Occurrence={cCallRef:'component:budget-c2',runId:'component:run',graphCallId:'component:graph',frameId:'component:frame',
++  programLocusRef:p.WORKSITE_COMMAND_EXECUTION_IDS.nodeRef,taskOrdinal:null,attempt:1,executionAuthority:null};
++ process.env.ABG_TS_FP_TIMEOUT_MS='299999';
++ assert.throws(()=>implementation.realizeWorksiteCommandExecution(executionTask,c2Occurrence),/actor inactivity timeout must exceed/);
++ process.env.ABG_TS_FP_TIMEOUT_MS='300000';process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS='300000';
++ assert.throws(()=>implementation.realizeWorksiteCommandExecution(executionTask,c2Occurrence),/actor absolute timeout must exceed/);
++ process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS='900000';
++ for(const path of Object.values(env.workspaceBinding.roots))await mkdir(path,{recursive:true});
++ assert.equal(implementation.realizeWorksiteCommandExecution(executionTask,c2Occurrence).kind,'prepared_probabilistic_leaf_invocation');
++ t.diagnostic('Component Design/C2 budget and native preparation proof; upstream authentication supplied, no actor or installed execution.');
++});
++
++test('command budget shares HTTP terms and exact existing C2 selector behavior',async()=>{
++ const c2=await load('product/worksite_command_execution'),implementation=await load('implementation/worksite_command_execution');
++ const budget=c2.projectWorksiteCommandExecutionBudget({commands:[{timeoutMs:1000,terminationGraceMs:100}],outcomePredicates:[
++  {predicateKind:'http_response_exact',declaration:{launch:{timeoutMs:40000,terminationGraceMs:1000},request:{timeoutMs:20000}}},
++  {predicateKind:'process_exit',declaration:{equals:0}}]});
++ assert.equal(budget.commandBudgetMs,1100);assert.equal(budget.httpProbeBudgetMs,61000);assert.equal(budget.requiredExecutionBudgetMs,67100);
++ assert.equal(c2.worksiteCommandExecutionBudgetFits(67100,{inactivityTimeoutMs:67100,absoluteTimeoutMs:900000}),false);
++ assert.equal(c2.worksiteCommandExecutionBudgetFits(67100,{inactivityTimeoutMs:67101,absoluteTimeoutMs:67102}),true);
++ assert.equal(c2.worksiteCommandExecutionBudgetFits(67100,{inactivityTimeoutMs:67101,absoluteTimeoutMs:67101}),false);
++ const before=[process.env.ABG_TS_FP_TIMEOUT_MS,process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS];
++ try{delete process.env.ABG_TS_FP_TIMEOUT_MS;delete process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS;
++  assert.deepEqual(implementation.selectedWorksiteCommandExecutionLimits(),{inactivityTimeoutMs:60000,absoluteTimeoutMs:3600000});
++  process.env.ABG_TS_FP_TIMEOUT_MS='';process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS='invalid';
++  const invalid=implementation.selectedWorksiteCommandExecutionLimits();assert.equal(invalid.inactivityTimeoutMs,0);assert(Number.isNaN(invalid.absoluteTimeoutMs));
++ }finally{for(const [i,key]of ['ABG_TS_FP_TIMEOUT_MS','ABG_TS_FP_ABSOLUTE_TIMEOUT_MS'].entries())if(before[i]===undefined)delete process.env[key];else process.env[key]=before[i];}
++});
++
+ test('native workspace candidate derives through the Product algebra; provenance never becomes cold admission',async t=>{
+  const env=await fixture(t),a=await author(env,env.envelope,0),v=assess(env,a.authored,0),asset=v.assessed.assets[0];
+  assert.equal(p.isSemanticJobEnvelope(v.assessed),true);assert.equal(asset.source.cCallRef,a.observation.provenance.cCallRef);
+@@ -67,6 +193,93 @@ test('independent rejection is retained and cannot advance; changed candidate or
+  await writeFile(join(env.canonicalRoot,'assets/0.json'),'{}');const changed=await env.observe();assert.throws(()=>m.constructNativeSemanticTask(a.authored,declaration.stages[0].declarationRef,'assessor',env,changed));
+  await writeFile(join(env.canonicalRoot,env.job.members[0].path),'changed governing input');assert.equal(m.nativeSemanticContextMatches(env.envelope,await env.observe()),false);
+ });
++test('native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain',async t=>{
++ const env=await fixture(t), ids=g.SEMANTIC_STAGE_IDS, predecessors=new Map();let current=env.envelope;
++ const previous=(value,implementationRef)=>({cCall:{implementationRef,basisId:env.envelope.basis.rootExecutionBasisRef},
++  result:{resultClass:'success',value},judgment:{judgment:'advance'}});
++ predecessors.set(current.basis.intakeCCallRef,previous(current,ids.jobIntakeImplementationRef));
++ for(let i=0;i<2;i++){
++  const a=await author(env,current,i),v=assess(env,a.authored,i);
++  predecessors.set(a.authored.assets.at(-1).source.nativeWork.adapterCCallRef,previous(a.authored,ids.nativeAuthorFoldImplementationRef));
++  predecessors.set(v.assessed.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,previous(v.assessed,ids.nativeAssessorFoldImplementationRef));
++  current=v.assessed;
++ }
++ const stage=declaration.stages[2],valid=candidate(current,2),invalid=structuredClone(valid);
++ invalid.asset.statements[0].requirementRefs=[invalid.asset.requirementCandidates[0].candidateRef];
++ assert.deepEqual(m.projectSemanticJobActorContract(current,stage.declarationRef,'author').requirementRefs,[]);
++ const expected=[{path:'asset.statements[0].requirementRefs',rule:'eligible_reference_domain',expected:[],actual:['component:requirement']}];
++ const task=m.constructNativeSemanticTask(current,stage.declarationRef,'author',env,await env.observe());
++ async function observed(value){
++  await writeFile(join(env.canonicalRoot,'assets/2.json'),JSON.stringify(value)+'\n');
++  return n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'component reference-domain candidate',gaps:[]},provenance('author-2'));
++ }
++ const badObservation=await observed(invalid), goodObservation=await observed(valid);
++ const bad=p.constructRetainedGraphInput(current,badObservation), good=p.constructRetainedGraphInput(current,goodObservation);
++ const coordinate=adapter('author-2',good);
++ assert.equal(m.deriveNativeSemanticAsset(current,stage.declarationRef,badObservation,adapter('author-2',bad)),null);
++ const accepted=m.deriveNativeSemanticAsset(current,stage.declarationRef,goodObservation,coordinate);assert(accepted);
++
++ // Component seam: existing upstream authentication/producer facts are supplied.
++ // Product candidate validation, native fold joins and implementation refusal run
++ // unchanged; this fixture grants no runtime admission or installed-path proof.
++ const {SourceTextModule,SyntheticModule}=await import('node:vm');
++ async function component(name,overrides){
++  const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
++  await module.link(async spec=>{
++   const imported=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(file),spec)).href);
++   const values={...imported,...overrides[spec]};
++   return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
++  });await module.evaluate();return module.namespace;
++ }
++ const selectedPublication={...publication,semanticJobLifecycle:declaration};
++ const publicationOwner=await load('product/publication');
++ const execution={...env.executionBasis,basisRef:current.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,
++  rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:current.basis.rootInputRef,
++  invocationAdmissionRef:current.basis.invocationAdmissionRef};
++ const native={execution,inputValue:bad,inputDigest:hash(bad),program:{},prefix:{component:'supplied-owner-facts'},
++  call:{...env.cCall,cCallRef:coordinate.cCallRef,runId:'component:run',regime:'F_D',implementationRef:ids.nativeAuthorFoldImplementationRef,
++   programLocusRef:stage.authorLocusRef},
++  events:[{eventId:env.cCall.openedEventRef,admissionOrdinal:3},
++   {kind:'c_call_result_admitted',aggregateId:'component:current',payload:{value:current}}],
++  environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,
++   productInstalls:[{productId:selectedPublication.owningProductId,artifactDigest:selectedPublication.artifactDigest,
++    productContentDigest:selectedPublication.productContentDigest,manifestDigest:selectedPublication.productManifestDigest,installedRoot:env.scratch,
++    contributionManifest:{publicationBindings:[{moduleRef:selectedPublication.moduleRef,publicationDigest:publicationOwner.modulePublicationSemanticDigest(selectedPublication)}]}}]}};
++ predecessors.set('component:current',previous(current,ids.nativeAssessorFoldImplementationRef));
++ const basis={publication:selectedPublication,graphFunction:{declarations:{'abg.semantic_native_stage':stage.declarationRef}}};
++ let nativeSourceAvailable=true,productDerivations=0,computedIssues;
++ const fold=await component('abg/semantic_job',{
++  './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
++  './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})},
++  '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
++  './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>predecessors.get(ref)??null},
++  './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:()=>nativeSourceAvailable?{
++   sourceResult:{runId:native.call.runId,admissionOrdinal:1},sourceBasis:execution,sourceClosedEvent:{admissionOrdinal:2}}:null,
++   worksiteCommandSourcesInvalidatedAfter:()=>false},
++  '../product/semantic_job.js':{deriveNativeSemanticAsset:(...args)=>{productDerivations++;const observe=args[4];
++   return m.deriveNativeSemanticAsset(...args.slice(0,4),issues=>{computedIssues=issues;observe?.(issues);});}},
++ });
++ const implementation=await component('implementation/semantic_stage',{'../abg/semantic_job.js':fold});
++ const occurrence={semanticStageBasis:basis};
++ const rejected=implementation.realizeNativeSemanticAuthorFold(bad,occurrence);
++ assert.equal(productDerivations,1,'native failure reuses the original derivation');
++ assert.equal(rejected.disposition,'failure');
++ assert.equal(rejected.resultCandidate.failureClass,'native_semantic_source_relation_mismatch');
++ assert.equal(rejected.diagnosticRef,'diagnostic://abiogenesis/semantic-stage/native_semantic_source_relation_mismatch@5');
++ assert.deepEqual(rejected.resultCandidate.contractIssues,expected);
++ assert.equal(rejected.resultCandidate.contractIssues,computedIssues,'the computed issue array survives every adapter');
++ assert.equal(rejected.evidenceCandidates[0].inputDigest,hash(bad));
++ assert.equal(rejected.evidenceCandidates[0].outputDigest,hash(rejected.resultCandidate));
++ native.inputValue=good;native.inputDigest=hash(good);
++ const succeeded=implementation.realizeNativeSemanticAuthorFold(good,occurrence);
++ assert.equal(succeeded.disposition,'success');assert.deepEqual(succeeded.resultCandidate,accepted);
++ assert.equal(productDerivations,2);
++ nativeSourceAvailable=false;
++ const unauthenticated=implementation.realizeNativeSemanticAuthorFold(bad,occurrence);
++ assert.equal(unauthenticated.disposition,'failure');assert.equal('contractIssues' in unauthenticated.resultCandidate,false);
++ assert.equal(productDerivations,2,'source refusal does not inspect or diagnose the candidate');
++ t.diagnostic('Product/ABG/implementation component path only; supplied authentication facts, no actor, journal or installed execution.');
++});
+ test('four assessed stages conserve requirement bindings and restrict construction/C2 to current Design',async t=>{
+  const env=await fixture(t);let current=env.envelope;
+  for(let i=0;i<4;i++){const a=await author(env,current,i);current=assess(env,a.authored,i).assessed;}
+diff --git a/specification/GOALS.md b/specification/GOALS.md
+index e919b7e6..5ceb17bb 100644
+--- a/specification/GOALS.md
++++ b/specification/GOALS.md
+@@ -48,7 +48,7 @@ The seven passes and earlier nested-compose acceptance are preserved.
+ (`96dfe183…`) are accepted by Root for source readiness after [max independent review](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation-repair-review-01/return.md)
+ (`0ae3209b…`). [Combined compiled10/dev.6 package and caller readiness](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/disposition.md)
+ is CLOSED: archives `7b6791d3…` / `4f96ba95…`, exact offline install verification,
+-original caller03 and mixed-only continuation18. Root accepts [original03](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md) for repaired F_P/admission/foldback and its truthful construction-only `stage_revision_required` block; all 35 files remain unchanged and the genuine close is 1,285,520,237 B with fresh outcomes. [Mixed18](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/return.md) reached truthful human hold with accepted fresh-read scope; its result-only caller assertion defect remains retained. Seven prior S02 passes are preserved. [Accepted compiled13](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) and existing dev.7 completed the [Design-reentry attempt](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-launch-controls-01/return.md) (`51a0bd5a…`) with lawful independent Design-assessment refusal. All 35 original files are conserved; the rejected new Design remains preserved and was not promoted. No further Data Mapper attempt is selected. [Basic-cli's retained core13 execution](../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md) used [two genuine Claude calls](../../odd_glc/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/actor-evidence.json): 19.490 s construction and 29.555 s execution. All four authored predicates and five tests pass with fresh installed [compiled14](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-14/return.md) Public result/replay. This is narrow C1→C2 supporting proof; prior caller refusals and the repaired replay defect remain preserved. The five remaining reduced cases were not launched. The accepted complete Opus04 basic-cli outcome and remaining-five setup success and current paid-launch hold are owned by [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation) and [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#current-bounded-selection). Native non-closing fields and prior failed attempts remain preserved. Suite, Data Mapper, fifteen-family delivery, qualification and RC1 remain open. Operator stop was admitted once on retained S02-19. Its preserving-obligation [source repair](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) is accepted; fresh installed status/replay readback remains pending at the release boundary, with absent Result still expected as Public `not_found`. Q07 is prepared/incomplete and carries no qualification acceptance. Q07 completion, independent stop readback and this paired checkpoint are not launch prerequisites. Full S1–S5/oracle, qualification, QUAL056/F11/sole AF22 and RC1 remain open.
++original caller03 and mixed-only continuation18. Root accepts [original03](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md) for repaired F_P/admission/foldback and its truthful construction-only `stage_revision_required` block; all 35 files remain unchanged and the genuine close is 1,285,520,237 B with fresh outcomes. [Mixed18](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/return.md) reached truthful human hold with accepted fresh-read scope; its result-only caller assertion defect remains retained. Seven prior S02 passes are preserved. [Accepted compiled13](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) and existing dev.7 completed the [Design-reentry attempt](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-launch-controls-01/return.md) (`51a0bd5a…`) with lawful independent Design-assessment refusal. All 35 original files are conserved; the rejected new Design remains preserved and was not promoted. No further Data Mapper attempt is selected. [Basic-cli's retained core13 execution](../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md) used [two genuine Claude calls](../../odd_glc/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/actor-evidence.json): 19.490 s construction and 29.555 s execution. All four authored predicates and five tests pass with fresh installed [compiled14](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-14/return.md) Public result/replay. This is narrow C1→C2 supporting proof; prior caller refusals and the repaired replay defect remain preserved. The five remaining reduced cases were not launched. The accepted complete Opus04 basic-cli outcome and remaining-five setup success and current paid-launch hold are owned by [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation) and [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#current-bounded-selection). Native non-closing fields and prior failed attempts remain preserved. Suite, Data Mapper, fifteen-family delivery, qualification and RC1 remain open. Operator stop was admitted once on retained S02-19. Its preserving-obligation [source repair](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) is accepted; Root accepts [core18 installed readback](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/root-disposition.md): status/replay are stopped, the original open obligation is conserved, and absent Result is Public `not_found`. The retained S02-19 readback conjunction is closed; broader S02 and qualification remain open. Q07 is prepared/incomplete and carries no qualification acceptance. Q07 completion, independent stop readback and this paired checkpoint are not launch prerequisites. Full S1–S5/oracle, qualification, QUAL056/F11/sole AF22 and RC1 remain open.
+ No first-J stop, new producer campaign, heap/timer/model increase or automatic
+ retry is selected by this tracking update.
+ 

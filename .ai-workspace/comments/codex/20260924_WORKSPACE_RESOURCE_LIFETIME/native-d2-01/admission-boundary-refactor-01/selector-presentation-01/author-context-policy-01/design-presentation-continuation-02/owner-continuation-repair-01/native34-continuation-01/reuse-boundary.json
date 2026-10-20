@@ -1,0 +1,57 @@
+{
+  "status": "SUPPORTED_CALLER_ROUTE_IDENTIFIED_NOT_EXECUTED",
+  "currentPrepared": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01/native-prepared.json",
+  "currentReadbackBasis": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01/readback-basis.json",
+  "currentSetup": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/prepared.json",
+  "currentWitness": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/witness-01/result.json",
+  "newAfterReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01/live-receipt.json",
+  "newClose": {
+    "coordinateDigest": "sha256:7c7e80d791372ef31f52b4cb0076cdab9ab5a5818ffc7f50943d29f8c189a83f",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:f0efec3976558776ce3149ae4f69ffe1f55426a51bc32674429e2bd0a7c3b477",
+    "prefixLength": 324503143,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "sameSourceRun": {
+    "digest": "sha256:63a3f3048de463796332f89c159b15262a321719239895574d3046605d22feee",
+    "ref": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116"
+  },
+  "sameSourcePrefix": {
+    "coordinateDigest": "sha256:6a3e7700cfe9e1badc79166753a3a1646f2ce3d143c8eea58a8a6bcef64e189b",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:fa48db8aba07673ebdb3cde85006e5c98a6574c134819bf8f83864b19dd3229c",
+    "prefixLength": 216334690,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/full-sandbox-support.mjs",
+    "bytes": 82912,
+    "sha256": "63a10082c83899da949384d0c0ee796218d11093cd5cd26832e862ae84d112b8"
+  },
+  "route": "executeFullSandbox(recordPath, environment, {afterReceiptPath}) already consumes an actual successor receipt close; checks store/prefix ordering, and uses definitionCall to reconstruct resource steering and dependent invocation identity for a new ordinary start. A distinct scratch/record preserves all old receipts. Current budget change, if selected, must use prepareFullSandboxTransport; never edit a transport digest.",
+  "reusableRelations": [
+    "exact core34/dev15 installed pair and resolved lock",
+    "current admitted workspace binding and catalog/conformance/resolution",
+    "unchanged sourceRun74ac input and successful Public source-root receipt",
+    "genuine W0->current binding witness already in current resource history"
+  ],
+  "limitations": [
+    "No new intake is selected or prepared by this diagnostic return.",
+    "New actual prefix must come from current terminal receipt, not the earlier witness close.",
+    "Existing owners still check actual currentness/permissions/environment; reuse is not automatic admission.",
+    "No admitted selection/request exists in this failed intake, so it cannot authorize any suffix.",
+    "No source/WHAT/API change or repeated setup/witness is required by the traced existing caller route."
+  ]
+}

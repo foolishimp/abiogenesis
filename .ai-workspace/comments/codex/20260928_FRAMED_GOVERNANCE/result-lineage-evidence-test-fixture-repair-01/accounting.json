@@ -1,0 +1,24 @@
+{
+  "executedCommands": 1,
+  "compileCommands": 0,
+  "testCommands": 1,
+  "preparationMs": 1335.663499776274,
+  "supervisedElapsedMs": 745.8937088958919,
+  "peakRSSBytes": 348438528,
+  "userSeconds": 0.8115589999999999,
+  "systemSeconds": 0.102362,
+  "budgetSeconds": 180,
+  "HOME": "/Users/jim",
+  "heap": "default",
+  "PID": 43362,
+  "PGID": 43362,
+  "groupBeforeImports": true,
+  "wait4Reaped": true,
+  "knownGroupAbsentAfterWaitAndClosure": true,
+  "knownCLIProcessGroups": [],
+  "noProviderRuntimeResourceHelperActorGitNetworkCandidateInstallEffects": true,
+  "priorCompileCostNotReexecuted": {
+    "elapsedMs": 6256.7114578559995,
+    "rssBytes": 1103904768
+  }
+}

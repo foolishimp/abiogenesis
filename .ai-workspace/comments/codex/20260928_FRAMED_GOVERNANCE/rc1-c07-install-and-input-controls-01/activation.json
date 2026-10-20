@@ -1,0 +1,11 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C07_INSTALL_AND_Q09_CONDITIONAL_GRANTS_01",
+  "status": "ACTIVE",
+  "exactGrant": "Prepare conditional Setup07 and Q09 Worker grants only. Root exact closed dependency pins/acceptance must precede any Worker activation/effect.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-install-and-input-controls-01"
+  ],
+  "at": "2026-10-02T09:40:54.894591+00:00"
+}

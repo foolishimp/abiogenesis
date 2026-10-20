@@ -1,0 +1,71 @@
+{
+  "kind": "actual15_native_failure_summary",
+  "runtimeFailureEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/runtime-failure-evidence.json",
+    "sha256": "34a4c8d8d3dce4867cbfab88d6020e2ab96308c1eb5efe6b65c52e01b65b55db",
+    "byteCount": 7642,
+    "mode": 420
+  },
+  "diagnostic": {
+    "admissionEventDigest": "sha256:94397bf6df90d746c98990a89e8f9f6b5c5d4e2d7c130d041a42005668a8dac1",
+    "admissionEventRef": "event://abiogenesis/4ded5421acfaa82414854ed31a2384c4a958789c6788e9fbe4f35d45f88bc472",
+    "availability": "retained",
+    "basisId": "execution-basis://abiogenesis/0d3f6266eb44dad3afac46074a4c1d58f9c6bc6f9c61e0fd54bb85e696a47689",
+    "causationEventRefs": [
+      "event://abiogenesis/9d02e1e48ffdc00c94029dd53524f69395308aa5cc17a6685acc1a1494834355"
+    ],
+    "diagnosticClassRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-testing@5",
+    "failureDigest": "sha256:f2a745e6946cdbd40ae9484971a8bd72a639f5c1dc1df1be44d671a5df188862",
+    "failureRef": "runtime-failure://abiogenesis/f2a745e6946cdbd40ae9484971a8bd72a639f5c1dc1df1be44d671a5df188862",
+    "frameId": "frame://abiogenesis/edcbac10ff7f8bdcf1da0e78eab643b1ba7588d3312bf296fea609d901fa843a",
+    "graphCallId": "graph-call://abiogenesis/0501ac6c05ff5a1c7d6d286e16266d52ba448a2217c11f278c54174c0edd85d4",
+    "kind": "runtime_failure_evidence",
+    "runId": "run://abiogenesis/2dbe5cc3c8777dc3b835278c207e299c31a99869d0f2b46d00afac93f7843933",
+    "schemaVersion": "5.0.0",
+    "stage": "route",
+    "subject": {
+      "cause": null,
+      "computeRegime": "F_D",
+      "diagnosticClassRef": "diagnostic://abiogenesis/default-library/missing-owned-prepare-testing@5",
+      "implementationRef": "implementation://abiogenesis/default-library/prepare-testing@5",
+      "inputDigest": "sha256:dd555d5ada8ebcf502b3ff1b8bc97565b86a4812fc5b08fcd118fd4417522e6e",
+      "occurrence": {
+        "attempt": 1,
+        "cCallRef": "c-call:sha256:2e2c30f1d864ede10abb0bc9e8ab8aa457afa464bfa8f414f6eccad32053e0e7",
+        "frameId": "frame://abiogenesis/9b076bb0694ed4cf3b3870943d3a919a5416a509df123a78c6030cea2ef51b46",
+        "graphCallId": "graph-call://abiogenesis/ba25ad56d25714f99aeae605b3d87eff55bb6a309cc399da915bc43edfaf0406",
+        "programLocusRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+        "runId": "run://abiogenesis/2dbe5cc3c8777dc3b835278c207e299c31a99869d0f2b46d00afac93f7843933",
+        "taskOrdinal": null
+      },
+      "relation": "definition_input_binding",
+      "selectors": {
+        "cCallRef": "c-call:sha256:2e2c30f1d864ede10abb0bc9e8ab8aa457afa464bfa8f414f6eccad32053e0e7"
+      },
+      "stage": "native_occurrence_basis"
+    },
+    "subjectDigest": "sha256:fe5bbc246bc2ccc2f38ea9820ebe006d0d2827f945be1a03d6111023739e29f0"
+  },
+  "nativeOwnerOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/lifecycle-start.outcome.json",
+    "sha256": "a7c3ff989e564742c04f2d861d7d69322cc43baab1fbc56877cffa057c767081",
+    "byteCount": 36146,
+    "mode": 420
+  },
+  "disposition": {
+    "outcomeKind": "result",
+    "disposition": "runtime_failed",
+    "run": {
+      "digest": "sha256:cb9039ce3e96daeecdeb7299843fd44912ca3a8556498450bde143eafc6223c8",
+      "ref": "run://abiogenesis/2dbe5cc3c8777dc3b835278c207e299c31a99869d0f2b46d00afac93f7843933"
+    },
+    "receiptExitCode": 0
+  },
+  "genuineClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/lifecycle-start.close.json",
+    "sha256": "4ec94d0a1e14010d4834a9bdb0d831f711a41850b92b6632b08ac673e340931c",
+    "byteCount": 1368,
+    "mode": 420
+  },
+  "claimLimit": "Decoded already-returned Public diagnostic only; no new acquisition, projector, constructor or native attempt. Route is downstream of the retained prepare-testing occurrence diagnostic; no exclusive inner cause is invented."
+}

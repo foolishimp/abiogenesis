@@ -1,0 +1,54 @@
+{
+  "basis": "CLOSED successor35",
+  "files": [
+    {
+      "path": "design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/preimages/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "f59299cbf55b9fa292f2a3ca962fbf2b404bbb03056795c67cfe906ece87e900",
+      "bytes": 43530
+    },
+    {
+      "path": "code/src/hog/graph_execute.ts",
+      "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/preimages/code/src/hog/graph_execute.ts",
+      "sha256": "5f26749477e711dcb213d34eec984f591d694c02a7fd9b2ef08c36d06ab41b29",
+      "bytes": 48937
+    },
+    {
+      "path": "code/src/hog/structural_transition.ts",
+      "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/structural_transition.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/preimages/code/src/hog/structural_transition.ts",
+      "sha256": "f2ceff97005901dd7ce4e69e130d7bc3f61efa402620cd9761647836d06cb967",
+      "bytes": 9213
+    },
+    {
+      "path": "code/src/abg/traversal_route.ts",
+      "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/preimages/code/src/abg/traversal_route.ts",
+      "sha256": "28fe1733c8f34a51320a6bdd61affde9ca7a4901120d8feae2de718aae5c98a8",
+      "bytes": 219990
+    },
+    {
+      "path": "code/src/abg/retry.ts",
+      "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/preimages/code/src/abg/retry.ts",
+      "sha256": "2fe88ef23307b78de22bb744ee9d58c9450e74d5766be4ce391947593a953567",
+      "bytes": 258288
+    },
+    {
+      "path": "code/src/hog/retry_lifecycle.ts",
+      "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/retry_lifecycle.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/preimages/code/src/hog/retry_lifecycle.ts",
+      "sha256": "9c96a0620df9ff04d535ecf0c49333c0aee254af276e235b74d76383635a65b7",
+      "bytes": 25063
+    },
+    {
+      "path": "code/src/hog/workflow_lifecycle.ts",
+      "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/preimages/code/src/hog/workflow_lifecycle.ts",
+      "sha256": "ef9dab9ada1a6dc730fce0e1060f821372111e540946bbb8718af1e0d0c974a0",
+      "bytes": 40325
+    }
+  ]
+}

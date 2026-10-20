@@ -1,0 +1,13 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "activation": "T287_QUALIFICATION_COMMAND_PREPARATION_CONTROL_WRITER_01",
+  "activatedAt": "2026-10-01T23:57:14.649353+00:00",
+  "grant": "Record exact separate external preparation Worker, Q04 triangulation extension and tracking; no implementation/runtime effects",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "status": "ACTIVE_BEFORE_CONTROL_EFFECTS"
+}

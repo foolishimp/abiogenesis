@@ -1,3 +1,5 @@
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromStore, runtimeEventBodiesAtPrefix, indexedRuntimeEvents, selectRuntimeEventPrefixFromAuthority } from "./event_prefix.js";
+import { projectRuntimeReplayGuard, type RuntimeReplayGuard } from "./replay.js";
 import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type {
   FanOutApplication,
@@ -163,9 +165,10 @@ function refusal(
 
 class FanOutCompletionProjectionError extends TypeError {}
 
-export function admitFanOutCompletion(
-  input: AdmitFanOutCompletionInput,
-): FanOutCompletionResult {
+export function admitFanOutCompletion(input: AdmitFanOutCompletionInput): FanOutCompletionResult;
+/** @internal Same exact admission checks from the ordinary guard receipt. */
+export function admitFanOutCompletion(input: Omit<AdmitFanOutCompletionInput, "replayState"> & { readonly replayState: RuntimeReplayGuard }): FanOutCompletionResult;
+export function admitFanOutCompletion(input: Omit<AdmitFanOutCompletionInput, "replayState"> & { readonly replayState: RuntimeReplayGuard }): FanOutCompletionResult {
   try {
     assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
   } catch {
@@ -174,10 +177,7 @@ export function admitFanOutCompletion(
       "fan-out completion requires its exact durable predecessor",
     );
   }
-  const predecessorEvents = readRuntimeEventsAtDurablePrefix(
-    input.predecessorPrefix,
-  );
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
+  const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(input.predecessorPrefix);
   if (
     !hasAdmittedExecutionBasisAtPrefix(
       authorityPrefix,
@@ -216,14 +216,9 @@ export function admitFanOutCompletion(
       input.store,
       input.predecessorPrefix,
       () => {
-        const snapshot = input.store.readAll();
-        const prefix = selectValidatedRuntimeEventPrefix(snapshot);
-        const currentReplay = replayValidatedRuntimeEventPrefix(
-          selectValidatedRuntimeEventPrefix(snapshot, {
-          runId: input.sourceCursor.runId,
-          }),
-          selectValidatedRuntimeEventPrefix(snapshot),
-        );
+        const prefix = selectRuntimeEventPrefixFromStore(input.store);
+        const currentReplay = projectRuntimeReplayGuard(
+          selectRuntimeEventPrefixFromAuthority(prefix, { runId: input.sourceCursor.runId }), prefix);
         if (currentReplay.replayDigest !== input.replayState.replayDigest) {
           return refusal(
             "replay_mismatch",
@@ -237,7 +232,7 @@ export function admitFanOutCompletion(
           currentReplay.activeFluents.includes(
             `fan_out_partial_stop_available(${input.application.applicationRef})`,
           ) ||
-          snapshot.some(
+          indexedRuntimeEvents(prefix, "kind:fan_out_completion_admitted").some(
             (event) =>
               event.kind === "fan_out_completion_admitted" &&
               event.frameId === input.sourceCursor.frameId &&
@@ -267,9 +262,7 @@ export function admitFanOutCompletion(
           );
         }
         const event = admitProjectedFanOutCompletion(input, candidate);
-        const postPrefix = selectValidatedRuntimeEventPrefix(
-          input.store.readAll(),
-        );
+        const postPrefix = selectRuntimeEventPrefixFromStore(input.store);
         const projected = projectExactFanOutCompletion(postPrefix, {
           mode: "graph_bound",
           admissionEventRef: event.eventId,
@@ -320,7 +313,7 @@ export function admitFanOutCompletion(
 }
 
 function admitProjectedFanOutCompletion(
-  input: AdmitFanOutCompletionInput,
+  input: Omit<AdmitFanOutCompletionInput, "replayState"> & { readonly replayState: RuntimeReplayGuard },
   projection: FanOutCompletionCandidateProjection,
 ) {
   return admitRuntimeEvent(input.store, {

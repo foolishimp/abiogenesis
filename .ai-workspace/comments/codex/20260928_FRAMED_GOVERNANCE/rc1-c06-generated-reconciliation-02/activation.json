@@ -1,0 +1,55 @@
+{
+  "ProductFrame": "Fixed15/F01/F05 source-generated agreement under STDO2.5.1RC2; no WHAT/HOW change; generated is build output, not Runtime truth.",
+  "status": "CLOSED",
+  "operation": "T287_C06_GENERATED_RECONCILIATION_02",
+  "actor": "/root/q03_input_review Worker",
+  "previous01": "CLOSED; immutable stopped consumer/overclaim retained",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/generated-resume-request.txt",
+    "bytes": 2042,
+    "sha256": "6d149dfc5a54a487af80b39d7d6197fcfab7c3b092474ba423d9b12dd13d3b4a",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464735387,
+    "mtimeNs": 1790923054188231142
+  },
+  "allSevenSectionsRead": true,
+  "oldFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-01/freeze.json",
+    "bytes": 3790,
+    "sha256": "5ebbc2f177b45f69f90a5db23fe8cfe64b90289f024cecdc2c745d7828daa76f",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464734840,
+    "mtimeNs": 1790922484822284171
+  },
+  "acceptedC06": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "bytes": 140347,
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464697483,
+    "mtimeNs": 1790920403960122467
+  },
+  "RootActualSetup06Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/acceptance.json",
+    "bytes": 4695,
+    "sha256": "809698c1a88fa94c26d47d99744a0afe5148f0ec2efbe36fbeb8c1b366409358",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464735383,
+    "mtimeNs": 1790923054152167722
+  },
+  "reentry": "realization_refactor consumer comparison only",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-02",
+  "ambientOnly": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+  ],
+  "independentAssurance": false,
+  "startedAt": "2026-10-02T06:41:46.218636+00:00",
+  "workResult": "COMPLETED_EXACT_THREE_GENERATED_RECONCILIATION",
+  "closedAt": "2026-10-02T06:41:47.769054+00:00"
+}

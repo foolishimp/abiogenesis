@@ -1,0 +1,410 @@
+{
+  "class": "read-only closeout; no resource acquisition/recovery or retry",
+  "logicalHistoryValidated": true,
+  "logicalEventCount": 330,
+  "submittedInvocation": "invocation://abiogenesis/c996aa2ee629db54bccb192eea0f37474af627d59f95a4f4ee181b86dc9edbf6",
+  "inputDigest": "sha256:6b7be2eb705b9464d60d07ec9d8b3ea71ebe98dd3478175b7cb9463987c3423d",
+  "actualInvocationAdmission": {
+    "aggregateId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+    "aggregateType": "workspace",
+    "basisId": "invocation-admission://abiogenesis/12aade08fbfa25942dee351e5e0e614a8bb7b83e64a55c7da87caf877c1ecf28",
+    "causationEventRefs": [
+      "event://abiogenesis/a86469b6536a4c65dd628759aa806049861a31af3ab253f1eddf656b9fecf23c"
+    ],
+    "correlationId": "correlation://odd-glc/covered-source/run-start",
+    "eventTime": "2026-09-29T18:26:38.136Z",
+    "kind": "invocation_admitted",
+    "parentAggregateId": "invocation://abiogenesis/ba4cab1ed7dda921f2408add3df11bb79b519fc57fa322b9934cbf0ebab18dc6",
+    "payload": {
+      "actorRef": "actor://abiogenesis/t286/trusted-developer",
+      "authorityDigest": "sha256:c44588f20fed3e88d3be453fde27a9aac2a94c772272ac31f0abefeee72cbf9b",
+      "authorityRef": "invocation-authority://abiogenesis/c44588f20fed3e88d3be453fde27a9aac2a94c772272ac31f0abefeee72cbf9b",
+      "capabilityGrantRefs": [
+        "capability-grant://abiogenesis/71eac0548ee10746d26e1c718021239acd7234ccde4488614334c8a6ece04dd4"
+      ],
+      "capabilityGrants": [
+        {
+          "actorRef": "actor://abiogenesis/t286/trusted-developer",
+          "approvalDigest": "sha256:3cf494e2dc89bc910f77fa57940891164e06052763f1cb507ef47c7122d60d1c",
+          "approvalRef": "workspace-authority://abiogenesis/3cf494e2dc89bc910f77fa57940891164e06052763f1cb507ef47c7122d60d1c",
+          "authorityBasisDigest": "sha256:3cf494e2dc89bc910f77fa57940891164e06052763f1cb507ef47c7122d60d1c",
+          "authorityBasisRef": "workspace-authority://abiogenesis/3cf494e2dc89bc910f77fa57940891164e06052763f1cb507ef47c7122d60d1c",
+          "capabilityDefinition": {
+            "capabilityDefinitionDigest": "sha256:451436841a41fbd0716e4355c80b746991571e7301dce5a3240f39a6c1e50da0",
+            "capabilityDefinitionRef": "capability-definition://abiogenesis/451436841a41fbd0716e4355c80b746991571e7301dce5a3240f39a6c1e50da0",
+            "capabilityId": "abg.capability.catalog.invoke-graph-function@5",
+            "graphDigest": "sha256:34e6ff81a5596cf0456f7aa9759b30c146605687312a7ba536b5eb8a3f1d047a",
+            "graphId": "capability-definition-graph://abiogenesis/abg-5",
+            "graphVersion": "5.0.0"
+          },
+          "capabilityRef": "abg.capability.catalog.invoke-graph-function@5",
+          "definitionDigest": "sha256:6652d6863a66cf6934c907c20a02f1e2b45c44bf933ab902ec8c4ee7a223a8dc",
+          "definitionKey": {
+            "memberKey": "start",
+            "operationId": "abg.operation.run.invoke"
+          },
+          "definitionRef": "public-function://abiogenesis/run/invoke/start@5",
+          "grantDigest": "sha256:71eac0548ee10746d26e1c718021239acd7234ccde4488614334c8a6ece04dd4",
+          "grantRef": "capability-grant://abiogenesis/71eac0548ee10746d26e1c718021239acd7234ccde4488614334c8a6ece04dd4",
+          "kind": "capability_grant",
+          "operationContract": {
+            "contractCatalog": {
+              "catalogDigest": "sha256:8d14ec1a548a670930a419afb2a9865df4f75056d747c109cb6efbb2486bc847",
+              "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+              "catalogVersion": "5.0.0",
+              "productContentDigest": "sha256:6bb4ff556cd1368da8abca5a436b69a44370a39ae734043d8f699d202c5fbb9c",
+              "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1"
+            },
+            "flatRow": {
+              "contractDigest": "sha256:094af8f940b5a9712a9526df3f0a1c0f633204b556753c6e67a0e199b7ecf13b",
+              "contractId": "abg.operation.run.invoke",
+              "contractVersion": "5.0.0"
+            },
+            "nestedSelector": {
+              "definitionKey": null,
+              "definitionRef": null,
+              "selectorKind": "flat_contract",
+              "slot": null
+            }
+          },
+          "operationId": "abg.operation.run.invoke",
+          "policyDigest": "sha256:a3f8625c8a22046af9246e8d660269532bb31402a748b6af359ef45dffe214f4",
+          "policyRef": "invocation-policy://abiogenesis/root/a3f8625c8a22046af9246e8d660269532bb31402a748b6af359ef45dffe214f4",
+          "schemaVersion": "5.0.0",
+          "scopeDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+          "scopeRef": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab"
+        }
+      ],
+      "catalogApplicationDigests": [],
+      "catalogApplicationRefs": [],
+      "catalogBasisDigest": "sha256:f51ed09d3ddf9345fde1abc2785444bd13713c2a9fb0c4038c4c860c9809b89d",
+      "catalogBasisRef": "graph-function-catalog://abiogenesis/f51ed09d3ddf9345fde1abc2785444bd13713c2a9fb0c4038c4c860c9809b89d",
+      "catalogHandle": "graph-function://selected-action/root@5",
+      "catalogViewDigest": "sha256:7f810a07f3f13e5006dd14b859cd400fbeb8a2acf195ddba2324884ef6c87227",
+      "catalogViewId": "graph-function-catalog-view://abiogenesis/7f810a07f3f13e5006dd14b859cd400fbeb8a2acf195ddba2324884ef6c87227",
+      "graphFunctionDigest": "sha256:492497c253379819ff4d7ebffa9b0a7be2ddb438921d2615ad3ca9fe5f6a6d81",
+      "graphFunctionRef": "graph-function://selected-action/root@5",
+      "gtlEntryCoordinate": {
+        "attempt": 1,
+        "nodeRef": "node://selected-action/root@5",
+        "retryPath": [],
+        "taskOrdinal": null,
+        "termPath": [
+          "node",
+          "node://selected-action/root@5",
+          "c"
+        ]
+      },
+      "gtlEntryTerm": {
+        "inputCarrierRef": "contract://selected-action/request@5",
+        "kind": "c_compose",
+        "outputCarrierRef": "contract://selected-action/final@5",
+        "terms": [
+          {
+            "armId": "arm://selected-action/model@5",
+            "compositionRef": "composition://selected-action/root@5",
+            "fibre": "F_D",
+            "inputCarrierRef": "contract://selected-action/request@5",
+            "judgmentPredicateRef": "predicate://selected-action/valid@5",
+            "kind": "c_of",
+            "outputCarrierRef": "contract://selected-action/model@5",
+            "programLocusRef": "locus://selected-action/model@5",
+            "requirement": {
+              "evidenceContractRef": "contract://selected-action/evidence@5",
+              "failureContractRef": "contract://selected-action/failure@5",
+              "implementationBindingRef": "binding://selected-action/model@5",
+              "inputContractRef": "contract://selected-action/request@5",
+              "judgmentContractRef": "contract://selected-action/judgment@5",
+              "kind": "executable_leaf_requirement",
+              "outputContractRef": "contract://selected-action/model@5",
+              "refusalContractRef": "contract://selected-action/refusal@5"
+            },
+            "resultBearing": false,
+            "stageRole": "evaluate",
+            "vectorIndex": 0
+          },
+          {
+            "armId": "arm://selected-action/gap@5",
+            "compositionRef": "composition://selected-action/root@5",
+            "fibre": "F_D",
+            "inputCarrierRef": "contract://selected-action/model@5",
+            "judgmentPredicateRef": "predicate://selected-action/valid@5",
+            "kind": "c_of",
+            "outputCarrierRef": "contract://selected-action/basis@5",
+            "programLocusRef": "locus://selected-action/gap@5",
+            "requirement": {
+              "evidenceContractRef": "contract://selected-action/evidence@5",
+              "failureContractRef": "contract://selected-action/failure@5",
+              "implementationBindingRef": "binding://selected-action/gap@5",
+              "inputContractRef": "contract://selected-action/model@5",
+              "judgmentContractRef": "contract://selected-action/judgment@5",
+              "kind": "executable_leaf_requirement",
+              "outputContractRef": "contract://selected-action/basis@5",
+              "refusalContractRef": "contract://selected-action/refusal@5"
+            },
+            "resultBearing": false,
+            "stageRole": "evaluate",
+            "vectorIndex": 1
+          },
+          {
+            "armId": "arm://selected-action/next@5",
+            "compositionRef": "composition://selected-action/root@5",
+            "fibre": "F_D",
+            "inputCarrierRef": "contract://selected-action/basis@5",
+            "judgmentPredicateRef": "predicate://selected-action/valid@5",
+            "kind": "c_of",
+            "outputCarrierRef": "contract://selected-action/next@5",
+            "programLocusRef": "locus://selected-action/next@5",
+            "requirement": {
+              "evidenceContractRef": "contract://selected-action/evidence@5",
+              "failureContractRef": "contract://selected-action/failure@5",
+              "implementationBindingRef": "binding://selected-action/next@5",
+              "inputContractRef": "contract://selected-action/basis@5",
+              "judgmentContractRef": "contract://selected-action/judgment@5",
+              "kind": "executable_leaf_requirement",
+              "outputContractRef": "contract://selected-action/next@5",
+              "refusalContractRef": "contract://selected-action/refusal@5"
+            },
+            "resultBearing": false,
+            "stageRole": "evaluate",
+            "vectorIndex": 2
+          },
+          {
+            "graphFunctionRef": "graph-function://selected-action/child@5",
+            "inputCarrierRef": "contract://selected-action/next@5",
+            "kind": "c_workflow",
+            "outputCarrierRef": "contract://selected-action/evaluation-basis@5"
+          },
+          {
+            "armId": "arm://selected-action/evaluate@5",
+            "compositionRef": "composition://selected-action/root@5",
+            "fibre": "F_D",
+            "inputCarrierRef": "contract://selected-action/evaluation-basis@5",
+            "judgmentPredicateRef": "predicate://selected-action/valid@5",
+            "kind": "c_of",
+            "outputCarrierRef": "contract://selected-action/evaluation@5",
+            "programLocusRef": "locus://selected-action/evaluate@5",
+            "requirement": {
+              "evidenceContractRef": "contract://selected-action/evidence@5",
+              "failureContractRef": "contract://selected-action/failure@5",
+              "implementationBindingRef": "binding://selected-action/evaluate@5",
+              "inputContractRef": "contract://selected-action/evaluation-basis@5",
+              "judgmentContractRef": "contract://selected-action/judgment@5",
+              "kind": "executable_leaf_requirement",
+              "outputContractRef": "contract://selected-action/evaluation@5",
+              "refusalContractRef": "contract://selected-action/refusal@5"
+            },
+            "resultBearing": false,
+            "stageRole": "evaluate",
+            "vectorIndex": 4
+          },
+          {
+            "armId": "arm://selected-action/refreshModel@5",
+            "compositionRef": "composition://selected-action/root@5",
+            "fibre": "F_D",
+            "inputCarrierRef": "contract://selected-action/evaluation@5",
+            "judgmentPredicateRef": "predicate://selected-action/valid@5",
+            "kind": "c_of",
+            "outputCarrierRef": "contract://selected-action/refresh-model@5",
+            "programLocusRef": "locus://selected-action/refreshModel@5",
+            "requirement": {
+              "evidenceContractRef": "contract://selected-action/evidence@5",
+              "failureContractRef": "contract://selected-action/failure@5",
+              "implementationBindingRef": "binding://selected-action/refreshModel@5",
+              "inputContractRef": "contract://selected-action/evaluation@5",
+              "judgmentContractRef": "contract://selected-action/judgment@5",
+              "kind": "executable_leaf_requirement",
+              "outputContractRef": "contract://selected-action/refresh-model@5",
+              "refusalContractRef": "contract://selected-action/refusal@5"
+            },
+            "resultBearing": false,
+            "stageRole": "evaluate",
+            "vectorIndex": 5
+          },
+          {
+            "armId": "arm://selected-action/refreshGap@5",
+            "compositionRef": "composition://selected-action/root@5",
+            "fibre": "F_D",
+            "inputCarrierRef": "contract://selected-action/refresh-model@5",
+            "judgmentPredicateRef": "predicate://selected-action/valid@5",
+            "kind": "c_of",
+            "outputCarrierRef": "contract://selected-action/refresh-basis@5",
+            "programLocusRef": "locus://selected-action/refreshGap@5",
+            "requirement": {
+              "evidenceContractRef": "contract://selected-action/evidence@5",
+              "failureContractRef": "contract://selected-action/failure@5",
+              "implementationBindingRef": "binding://selected-action/refreshGap@5",
+              "inputContractRef": "contract://selected-action/refresh-model@5",
+              "judgmentContractRef": "contract://selected-action/judgment@5",
+              "kind": "executable_leaf_requirement",
+              "outputContractRef": "contract://selected-action/refresh-basis@5",
+              "refusalContractRef": "contract://selected-action/refusal@5"
+            },
+            "resultBearing": false,
+            "stageRole": "evaluate",
+            "vectorIndex": 6
+          },
+          {
+            "armId": "arm://selected-action/finish@5",
+            "compositionRef": "composition://selected-action/root@5",
+            "fibre": "F_D",
+            "inputCarrierRef": "contract://selected-action/refresh-basis@5",
+            "judgmentPredicateRef": "predicate://selected-action/valid@5",
+            "kind": "c_of",
+            "outputCarrierRef": "contract://selected-action/final@5",
+            "programLocusRef": "locus://selected-action/finish@5",
+            "requirement": {
+              "evidenceContractRef": "contract://selected-action/evidence@5",
+              "failureContractRef": "contract://selected-action/failure@5",
+              "implementationBindingRef": "binding://selected-action/finish@5",
+              "inputContractRef": "contract://selected-action/refresh-basis@5",
+              "judgmentContractRef": "contract://selected-action/judgment@5",
+              "kind": "executable_leaf_requirement",
+              "outputContractRef": "contract://selected-action/final@5",
+              "refusalContractRef": "contract://selected-action/refusal@5"
+            },
+            "resultBearing": false,
+            "stageRole": "result",
+            "vectorIndex": 7
+          }
+        ]
+      },
+      "inputContractDigest": "sha256:8c9b84560d5d2b046a2f78425843a60c54b52c0583580bb6cbef15da5928151f",
+      "inputContractOwner": {
+        "declarationKind": "contract",
+        "declarationRef": "contract://selected-action/request@5",
+        "installId": "product-install://@abiogenesis-fixtures/registered-selection/5.0.0/f8f9804af33c8833cac613b2e75efd49b4e2cc11a418b66e955dcccdb66bec3c/71778b533eb9d59f4af986ce27372cb63d05b0ddc61ce551382e52dfbe0ab476",
+        "moduleRef": "module://selected-action/product@5",
+        "productId": "product://selected-action/product@5",
+        "publicationDigest": "sha256:b1c37f8dc3d9f3713c8e5fab3ffff003ca9aa26fee5249d9d8ea83ba4ef5f1ec"
+      },
+      "inputContractRef": "contract://selected-action/request@5",
+      "invocationAdmissionDigest": "sha256:12aade08fbfa25942dee351e5e0e614a8bb7b83e64a55c7da87caf877c1ecf28",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/12aade08fbfa25942dee351e5e0e614a8bb7b83e64a55c7da87caf877c1ecf28",
+      "invocationDigest": "sha256:ba4cab1ed7dda921f2408add3df11bb79b519fc57fa322b9934cbf0ebab18dc6",
+      "invocationRef": "invocation://abiogenesis/ba4cab1ed7dda921f2408add3df11bb79b519fc57fa322b9934cbf0ebab18dc6",
+      "invocationVariant": "start",
+      "outputContractDigest": "sha256:7812a78e9b68c4663d85ade759da8658081d2bcf9a4a79cf40fbbbe77ea5f775",
+      "outputContractOwner": {
+        "declarationKind": "contract",
+        "declarationRef": "contract://selected-action/final@5",
+        "installId": "product-install://@abiogenesis-fixtures/registered-selection/5.0.0/f8f9804af33c8833cac613b2e75efd49b4e2cc11a418b66e955dcccdb66bec3c/71778b533eb9d59f4af986ce27372cb63d05b0ddc61ce551382e52dfbe0ab476",
+        "moduleRef": "module://selected-action/product@5",
+        "productId": "product://selected-action/product@5",
+        "publicationDigest": "sha256:b1c37f8dc3d9f3713c8e5fab3ffff003ca9aa26fee5249d9d8ea83ba4ef5f1ec"
+      },
+      "outputContractRef": "contract://selected-action/final@5",
+      "policyDigest": "sha256:a3f8625c8a22046af9246e8d660269532bb31402a748b6af359ef45dffe214f4",
+      "policyRef": "invocation-policy://abiogenesis/root/a3f8625c8a22046af9246e8d660269532bb31402a748b6af359ef45dffe214f4",
+      "productExecutionResolutionDigest": "sha256:711bfcb06eb8e9e3327a11d24e20804505902a6de3b9776600505fd36649bcd5",
+      "productExecutionResolutionRef": "product-execution-resolution://abiogenesis/711bfcb06eb8e9e3327a11d24e20804505902a6de3b9776600505fd36649bcd5",
+      "programDigest": "sha256:0f90deaea87ed5a56670566e0fdf881785f4b25deb190978307278bced1b6cb7",
+      "programRef": "program://selected-action/root@5",
+      "programValidationDigest": "sha256:c6ceea17b4139b78dca40f36c3ddacbc7c7560840529a4ea3c4f133be033b7ff",
+      "programValidationRef": "program-validation://abiogenesis/d754ebf914c8b90ddcc6402556e71f3bc91a5a14c50d96fa1c399b6323fd082c",
+      "publicRequestAdmissionRef": "public-request://odd-glc/covered-source/run-start",
+      "publicRequestDigest": "sha256:8114752a9fbd3d1b9eb7743a0eaccd5e6d7de8aac8e471e40d9e5e5453e01446",
+      "publicRequestInvocationRef": "invocation://abiogenesis/c996aa2ee629db54bccb192eea0f37474af627d59f95a4f4ee181b86dc9edbf6",
+      "publicStart": {
+        "graphFunctionRef": "graph-function://selected-action/root@5",
+        "kind": "public_start_identity",
+        "programRef": "program://selected-action/root@5",
+        "rootMode": "supervised",
+        "schemaVersion": "5.0.0",
+        "scope": "program",
+        "startRef": "start://selected-action/root@5",
+        "target": "start://selected-action/root@5",
+        "until": "converged"
+      },
+      "rawInputAdmissionRef": "raw-admission://abiogenesis/a82a40b22a02c38174badd1caee567b095644297ed77b65aaf1bc0dfd1704e7d",
+      "rawInputDigest": "sha256:6b7be2eb705b9464d60d07ec9d8b3ea71ebe98dd3478175b7cb9463987c3423d",
+      "reentryBasis": null,
+      "selectedDefinitionDigest": "sha256:492497c253379819ff4d7ebffa9b0a7be2ddb438921d2615ad3ca9fe5f6a6d81",
+      "selectedDefinitionRef": "graph-function://selected-action/root@5",
+      "sourceResultBasis": null,
+      "workspaceBindingDigest": "sha256:66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+      "workspaceBindingId": "workspace-binding://abiogenesis/66f9dfcf35d7f58e041120ff7d8b2f2c3fa5f5b36a0de157a6e3ebbd1c5feaab",
+      "workspaceId": "workspace://t286/abi5-root"
+    },
+    "scopeClass": "workspace",
+    "workflowVersion": "5.0.0",
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventId": "event://abiogenesis/e56ebb8a3f01cb267cd540e03646fdf23d4729e9fd9903afea35e8c162ad1b63",
+    "admissionOrdinal": 330,
+    "payloadDigest": "sha256:0ed499b1f88003ac9b9b88762ac617c76e1e368f26eabfe583ba21c43e2875b7"
+  },
+  "basisRows": [],
+  "runRows": [],
+  "encoderDemonstration": {
+    "class": "pure existing-owner encoding of already admitted source event; not a recovered failed batch or second installed attempt",
+    "sameBodySource": {
+      "eventRef": "event://abiogenesis/dd36015766c8b9e4c380f2f857b4e6265ec6a99ef6d5c0e25942d7709ba6baaf",
+      "kind": "basis_admitted",
+      "ordinal": 7,
+      "slot": "basis_input",
+      "bodyDigest": "sha256:6b7be2eb705b9464d60d07ec9d8b3ea71ebe98dd3478175b7cb9463987c3423d",
+      "payloadDigest": "sha256:964131ad27615cfa33df0a8d7ae073949eb2bf6aa072dfeb65460b8e42718921"
+    },
+    "encodedKind": "abg_admitted_body_reference_record",
+    "topLevelAdmissionOrdinal": null,
+    "nestedAdmissionOrdinal": 7,
+    "bodyReference": {
+      "bodyDigest": "sha256:6b7be2eb705b9464d60d07ec9d8b3ea71ebe98dd3478175b7cb9463987c3423d",
+      "sourceEventRef": "event://abiogenesis/dd36015766c8b9e4c380f2f857b4e6265ec6a99ef6d5c0e25942d7709ba6baaf",
+      "sourcePayloadDigest": "sha256:964131ad27615cfa33df0a8d7ae073949eb2bf6aa072dfeb65460b8e42718921",
+      "sourceSlot": "basis_input"
+    },
+    "sourceInputMatchesEarlierBody": true
+  },
+  "fault": {
+    "exitCode": 70,
+    "failureKind": "typed_execution_fault",
+    "stage": "execution_basis",
+    "code": "execution_basis_failure",
+    "message": "runtime event-prefix selection requires a total, gap-free admission-ordinal order",
+    "ownerOutput": null,
+    "resources": null
+  },
+  "failureBasisPhysicalBytesCaptured": false,
+  "inference": "The new basis uses the same large input as an earlier inline body. The existing encoder wraps that repeated basis body in a physical reference record. The host passes raw physical JSON records directly to the logical prefix selector, whose earliest ordinal check sees no top-level ordinal on that wrapper. The failed staged batch was rolled back and was not captured, so its exact event identity is not asserted.",
+  "safeReentryRoute": {
+    "owner": "event_store.recoverInterruptedEventStore",
+    "selection": {
+      "lastCloseHandoff": {
+        "prefix": {
+          "coordinateDigest": "sha256:432c6bbdb38b3d5564be4530fbc1ad16408159675e4b836feeb66334eb5a4dad",
+          "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+          "kind": "durable_prefix_coordinate",
+          "prefixDigest": "sha256:3c20f5806b6201ff462daf1285fbd390d4f75a87f7369d442213f3c341c6001b",
+          "prefixLength": 3760917,
+          "schemaVersion": "5.0.0",
+          "storeIdentity": {
+            "device": 16777230,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+            "inode": 463748325
+          }
+        },
+        "reopenAuthority": {
+          "authorityDigest": "sha256:0054015ef1f947998c5139a24951dee39b0e766495806003e8a867794494b2cd",
+          "device": 16777230,
+          "durableByteLength": 3760917,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "eventLogDigest": "sha256:3c20f5806b6201ff462daf1285fbd390d4f75a87f7369d442213f3c341c6001b",
+          "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+          "inode": 463748325,
+          "kind": "event_store_reopen_authority",
+          "schemaVersion": "5.0.0"
+        }
+      },
+      "expectedCurrent": {
+        "byteLength": 3786241,
+        "digest": "sha256:1d21d5637b8dde280581697af9814af66e655cc6e316cbd71d193c657ff1af79"
+      },
+      "ownerPid": 52471,
+      "recoveryCase": "lock_absent",
+      "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abiogenesis-event-store-locks-v5/16777230-463748325.lock"
+    },
+    "status": "constructible selection only; not executed or a current handoff",
+    "constraint": "External quiescence/exclusive recovery approval, exact former prefix/current bytes, native device/inode and actual absent lock must be verified at execution."
+  }
+}

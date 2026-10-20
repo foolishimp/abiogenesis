@@ -1,0 +1,3 @@
+
+__ABG_PTY_AGENT_SUPERVISOR_INACTIVITY_TIMEOUT:{"inactivityTimeoutMs":300,"elapsedMs":302,"elapsedSinceLastOutputMs":302}
+

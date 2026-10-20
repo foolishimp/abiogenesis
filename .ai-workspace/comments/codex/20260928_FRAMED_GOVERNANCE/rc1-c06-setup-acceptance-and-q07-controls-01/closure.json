@@ -1,0 +1,57 @@
+{
+  "operation": "T287_SETUP06_ACCEPTANCE_AND_Q07_GRANTS_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T06:37:34.224079+00:00",
+  "outputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/acceptance.json",
+      "bytes": 4695,
+      "sha256": "809698c1a88fa94c26d47d99744a0afe5148f0ec2efbe36fbeb8c1b366409358",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/provider-reachability.json",
+      "bytes": 513,
+      "sha256": "45f47235b102fb426529197d8c9e7506634f4fb556d30f695c722e03e0df869b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/generated-consumer-triangulation.json",
+      "bytes": 1829,
+      "sha256": "ad81895d89a696049991a6b0382bfab75de108c5b5ac669b52983877281c2289",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/generated-resume-request.txt",
+      "bytes": 2042,
+      "sha256": "6d149dfc5a54a487af80b39d7d6197fcfab7c3b092474ba423d9b12dd13d3b4a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/q07-request.txt",
+      "bytes": 4610,
+      "sha256": "0a0c4e83af028d96eb5be469f83886992f9607eb8f173f2e00d07caa0e87a0ad",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 517945,
+      "sha256": "9f096870668780e6fd34ec59c71d4c59374327200468d90350f8200444def2c0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 477423,
+      "sha256": "d2e58de1ee8ad1c14691517722ee888ac00fa2cc837c644ad467eade1f105016",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 10386,
+      "sha256": "2f564dd3631b40e7b94053447fb674a15a19755efc6f0c4cccb27b84ddb81abd",
+      "mode": 420
+    }
+  ],
+  "RootSourceCandidateRuntimeGitEffects": 0
+}

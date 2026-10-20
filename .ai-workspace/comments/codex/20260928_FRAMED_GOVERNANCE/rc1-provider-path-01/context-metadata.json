@@ -1,0 +1,144 @@
+{
+  "observedAt": "2026-10-01T14:24:45.126519+00:00",
+  "subjectPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/provider-request.txt",
+      "bytes": 4911,
+      "sha256": "408f3893fffa6f86b1a4bf52fd8cc3a63221785e820b015f464766cdc9ef76db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/freeze.json",
+      "bytes": 14545,
+      "sha256": "f1937dec28204ef6790f9650edb27c031ee62f1abb7960b80119517339d570a6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+      "bytes": 13795,
+      "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/freeze.json",
+      "bytes": 20105,
+      "sha256": "31162ce8dadbcbb1572d1043c009fba71be4303875165ff562461b84b70c3feb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+      "bytes": 1330,
+      "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a"
+    }
+  ],
+  "executable": {
+    "path": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "bytes": 217254576,
+    "mode": "0o755",
+    "executable": true,
+    "sha256": "387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d"
+  },
+  "currentCwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+  "inheritedEndpointEnvironment": {},
+  "authEnvironmentPresence": {
+    "ANTHROPIC_API_KEY": false,
+    "ANTHROPIC_AUTH_TOKEN": false,
+    "CLAUDE_CODE_OAUTH_TOKEN": true,
+    "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR": false,
+    "AWS_ACCESS_KEY_ID": false,
+    "GOOGLE_APPLICATION_CREDENTIALS": false
+  },
+  "providerSwitchEnvironment": {},
+  "claudeConfigDirPresent": false,
+  "noProxyPresent": false,
+  "settings": [
+    {
+      "path": "/Users/jim/.claude/settings.json",
+      "exists": true,
+      "bytes": 2179,
+      "sha256": "b5181c702b30cd4aea7ef1f5d24191844561e3da95dffa777876a1cf833a69bc",
+      "topLevelKeyNames": [
+        "advisorModel",
+        "agentPushNotifEnabled",
+        "editorMode",
+        "effortLevel",
+        "enabledPlugins",
+        "extraKnownMarketplaces",
+        "model",
+        "permissions",
+        "remoteControlAtStartup",
+        "skipDangerousModePermissionPrompt",
+        "statusLine",
+        "theme"
+      ],
+      "endpointEnvironment": {},
+      "authEnvironmentPresence": {
+        "ANTHROPIC_API_KEY": false,
+        "ANTHROPIC_AUTH_TOKEN": false,
+        "CLAUDE_CODE_OAUTH_TOKEN": false,
+        "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR": false,
+        "AWS_ACCESS_KEY_ID": false,
+        "GOOGLE_APPLICATION_CREDENTIALS": false
+      },
+      "providerSwitchEnvironment": {}
+    },
+    {
+      "path": "/Users/jim/.claude/settings.local.json",
+      "exists": true,
+      "bytes": 925,
+      "sha256": "bf6aa12ed9d87d486c0280fa556c2dbe334a2d996b6f7358fb6f1a91b2fd04b8",
+      "topLevelKeyNames": [
+        "permissions"
+      ],
+      "endpointEnvironment": {},
+      "authEnvironmentPresence": {
+        "ANTHROPIC_API_KEY": false,
+        "ANTHROPIC_AUTH_TOKEN": false,
+        "CLAUDE_CODE_OAUTH_TOKEN": false,
+        "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR": false,
+        "AWS_ACCESS_KEY_ID": false,
+        "GOOGLE_APPLICATION_CREDENTIALS": false
+      },
+      "providerSwitchEnvironment": {}
+    },
+    {
+      "path": "/Library/Application Support/ClaudeCode/managed-settings.json",
+      "exists": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.claude/settings.json",
+      "exists": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.claude/settings.local.json",
+      "exists": true,
+      "bytes": 1153,
+      "sha256": "c89c1f7ce6963867ccb2a74ab0d26c58e1763b9f527395eee79433116cc9ec5d",
+      "topLevelKeyNames": [
+        "permissions"
+      ],
+      "endpointEnvironment": {},
+      "authEnvironmentPresence": {
+        "ANTHROPIC_API_KEY": false,
+        "ANTHROPIC_AUTH_TOKEN": false,
+        "CLAUDE_CODE_OAUTH_TOKEN": false,
+        "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR": false,
+        "AWS_ACCESS_KEY_ID": false,
+        "GOOGLE_APPLICATION_CREDENTIALS": false
+      },
+      "providerSwitchEnvironment": {}
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/.claude/settings.json",
+      "exists": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/.claude/settings.local.json",
+      "exists": false
+    }
+  ],
+  "authFilePresence": {
+    "/Users/jim/.claude/.credentials.json": false,
+    "/Users/jim/.claude.json": true
+  },
+  "binaryPublicEndpointMarkers": {
+    "api.anthropic.com": true,
+    "console.anthropic.com": false
+  }
+}

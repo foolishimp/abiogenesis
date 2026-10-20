@@ -1,0 +1,9 @@
+Create parcels/report.mjs as the parcel-summary CLI.
+Its declared predecessor parcels/calculate.mjs exports summarizeParcels(entries), a pure synchronous function returning the summary specified below. This fixed module interface is user-authored before generation.
+Use a static named import of summarizeParcels from ./calculate.mjs and call it with JSON.parse(process.argv[2]); do not copy the calculation into the CLI.
+Write JSON.stringify(the returned summary) followed by exactly one newline to stdout; emit no other stdout or stderr and exit 0 for valid input.
+The valid input is an array of entries with label (nonempty string), count (nonnegative safe integer), and gramsEach (nonnegative safe integer). All products and sums in the supported domain are safe integers.
+Compute lineCount as array length, totalParcels as the sum of count, and totalGrams as the sum of count * gramsEach. Empty input produces three zeroes; zero-count entries still count toward lineCount.
+The summary has exactly these properties in this order: lineCount, totalParcels, totalGrams. Compute from supplied values, with no fixture-identity checks or constant sample answers.
+Use dependency-free Node.js ES modules and Node built-ins only. Do not install packages, use a network, launch child processes, or write files from the generated modules.
+Return complete candidate bytes for only the declared target. Construction is tool-free: do not read files or execute commands or generated code.

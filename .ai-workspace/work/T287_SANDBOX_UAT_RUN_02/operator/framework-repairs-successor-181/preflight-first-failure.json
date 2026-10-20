@@ -1,0 +1,18 @@
+{
+  "stage": "documentary180 selector lookup",
+  "error": "AssertionError: {'review180': []}",
+  "cause": "Caller searched camp/reviews/*180, while literal frozen review is camp/operator/framework-provenance-normalization-review-180.",
+  "effectsBeforeFailure": [],
+  "alreadyMatched": {
+    "source": 263,
+    "generated": 934,
+    "postimages": 3,
+    "candidate26Archive": true
+  },
+  "selectedBoundedAction": "Resolve existing literal freeze path only; no owner/source/guard changes.",
+  "correctedReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-review-180/freeze.json",
+    "sha256": "2ead0a27c48b3aca4454f72ddef9502ca7c37e253fdb662b69d736879d37f285",
+    "byteCount": 1031
+  }
+}

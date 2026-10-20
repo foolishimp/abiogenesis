@@ -1,0 +1,30 @@
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+index c3073552..ef71ebf9 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -231,8 +231,7 @@ observation. Testing with null subject evidence observes existing files; a
+ selected missing or invalid native source refuses without fallback.
+ 
+ UAT also accepts an actual C2 measurement Result for supplied work. Require its
+-exact Result/digest/CCall/actor, same invocation/root implementation set/workspace,
+-and the candidate at its current digest among protected task observations. The
++exact Result/digest/CCall/actor and same invocation/root implementation set/workspace. The
+ admitted C2 observation already proves unchanged protected before/after files.
+ The assessment producer coordinate then denotes measurement provenance, never
+ file authorship. No dummy author or fabricated source Result is introduced.
+@@ -240,8 +239,13 @@ Existing native-work HOW's typed assessment already permits existing assets and
+ consumer-selected historical evidence. Producer support is scoped to its own
+ admitted files: native work uses file entries in its exact after-observation
+ (the existing folded native dependency projection), and either C2 source arm
+-uses its protected task observations. The candidate must be among those files
+-at its current digest. Every producer dependency must still match the freshly
++uses its protected task observations. For a native source, the candidate must
++be among those files at its current digest. C2 measurement support preserves
++its exact protected dependency set; an independently selected current assessment
++candidate may be outside that set. Its separate context/digest/read-first
++binding does not claim that C2 measured or authored it, widen the measured
++source set or retroactively enrich the admitted Result. Every producer
++dependency must still match the freshly
+ observed context; later intersecting writes or uncertain residue refuse through
+ the existing currentness owner. Absent future outputs and assessment inputs
+ first authored afterward do not retroactively become producer dependencies.

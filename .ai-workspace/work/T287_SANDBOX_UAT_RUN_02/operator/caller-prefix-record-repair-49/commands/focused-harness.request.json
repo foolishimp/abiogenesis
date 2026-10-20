@@ -1,0 +1,18 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--test",
+    "--test-name-pattern",
+    "Oracle event acquisition|Both retained install roots|Native refusal without|Admitted failed and blocked|Seven exact original workloads",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T00:58:44.173Z",
+  "environmentKeys": [
+    "ABI5_UAT_UNIT_ROOT",
+    "HOME",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 60000
+}

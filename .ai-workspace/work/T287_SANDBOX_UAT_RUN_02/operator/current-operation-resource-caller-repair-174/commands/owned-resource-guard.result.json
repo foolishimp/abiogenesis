@@ -1,0 +1,17 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 1548.1474170228466,
+  "timedOut": false,
+  "truncated": false,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/commands/owned-resource-guard.stdout",
+    "sha256": "807b1d705d7c436fddf066762e34a5f3d73befe8b47f4b3e4f8146d32a2d2e9d",
+    "byteCount": 292
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/commands/owned-resource-guard.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteCount": 0
+  }
+}

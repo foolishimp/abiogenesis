@@ -1,0 +1,315 @@
+{
+  "operation": "T287_REUSE_CONSUMER_REPAIR_04",
+  "actor": "/root/native_applicability_design",
+  "status": "CLOSED",
+  "closedAt": "2026-10-04T19:59:59.875551+00:00",
+  "currentAuthenticOuterReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_04/current-outer-close.json",
+    "bytes": 2299,
+    "sha256": "91badbaa319f0146acd7d21e899b251dfe013f72a546cea9c2cd19ccf826202f",
+    "mode": 420
+  },
+  "currentCloseHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+      "prefixLength": 2498379,
+      "prefixDigest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 465155422,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:9a1faba999522ed2e7813e7d4c7cbff960c665a8b9c1700d890d4d0fffd6f2dd"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+      "device": 16777230,
+      "inode": 465155422,
+      "eventLogDigest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+      "durableByteLength": 2498379,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "authorityDigest": "sha256:d4b0700233e44b29d3c714b0f713ac75f4d846e5cbf3246c5c6dda7a894906f3"
+    }
+  },
+  "currentConservation": {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+      "bytes": 2498379,
+      "digest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+      "device": 16777230,
+      "inode": 465155422,
+      "mode": 420
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+      "bytes": 2498379,
+      "digest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+      "device": 16777230,
+      "inode": 465155422,
+      "mode": 420
+    },
+    "eventAppends": 0,
+    "outerCloses": 1,
+    "nativeCalls": 2,
+    "originalPins": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/installed-authority-handoff.json",
+        "bytes": 7357822,
+        "sha256": "97b61ffc7d34d14ee18f4618192fcb7180728019e5e4911799f65af5fdbee56a",
+        "mode": 420
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/closed-event-resource-handoff.json",
+        "bytes": 3591718,
+        "sha256": "d60035d70e3bd00ad157cdc64d59964b3d3fc01856f1729293b44de989739cd0",
+        "mode": 420
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-closed-environment.json",
+        "bytes": 57715713,
+        "sha256": "58d22ec5859cc199416e6bd3666915ff059f1995e6e0d427fa9de72fc67f64a3",
+        "mode": 420
+      }
+    ],
+    "status": "passed"
+  },
+  "historicalPhysicalAndPrefix": {
+    "physical": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+      "bytes": 9183691,
+      "digest": "sha256:5bc13122df7769559794a695e381e818477b8a88c07305adb65029df2b86240e",
+      "device": 16777230,
+      "inode": 464941019,
+      "mode": 420
+    },
+    "prefix": {
+      "coordinateDigest": "sha256:6401e191df54f79722146909ce510801542b5a4b024abc396da19815d7c32843",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:5bc13122df7769559794a695e381e818477b8a88c07305adb65029df2b86240e",
+      "prefixLength": 9183691,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464941019
+      }
+    },
+    "conservation": "actual pre/post physical equality assertion passed in the fresh phase"
+  },
+  "processReceipts": [
+    {
+      "operation": "T287_REUSE_CONSUMER_REPAIR_04",
+      "phase": "syntax",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "capSeconds": 30,
+      "defaultHeap": true,
+      "HOME": "/Users/jim",
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_04/tmp",
+      "reporterPin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+        "bytes": 441,
+        "sha256": "0315807160de062b8dd9433f7db79bf05a0178d26eee587dbf7711c3800eb3d2",
+        "mode": 420
+      },
+      "SourcePins": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+          "bytes": 10687,
+          "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+          "mode": 420
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+          "bytes": 8505,
+          "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+          "mode": 420
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+          "bytes": 17022,
+          "sha256": "54eab951cd96e5dfd82ace948b79c39e3ba98ea7e2e8d83e6323158fecc1e6b1",
+          "mode": 420
+        }
+      ],
+      "streamsOpenedBeforeSpawn": true,
+      "pid": 89135,
+      "pgid": 89135,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 33.524957951158285,
+      "userCPUSeconds": 0.01503,
+      "systemCPUSeconds": 0.004632,
+      "maxRSSPlatformBytes": 44564480,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "operation": "T287_REUSE_CONSUMER_REPAIR_04",
+      "phase": "current",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "capSeconds": 180,
+      "defaultHeap": true,
+      "HOME": "/Users/jim",
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_04/tmp",
+      "reporterPin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+        "bytes": 441,
+        "sha256": "0315807160de062b8dd9433f7db79bf05a0178d26eee587dbf7711c3800eb3d2",
+        "mode": 420
+      },
+      "SourcePins": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+          "bytes": 10687,
+          "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+          "mode": 420
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+          "bytes": 8505,
+          "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+          "mode": 420
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+          "bytes": 17022,
+          "sha256": "54eab951cd96e5dfd82ace948b79c39e3ba98ea7e2e8d83e6323158fecc1e6b1",
+          "mode": 420
+        }
+      ],
+      "streamsOpenedBeforeSpawn": true,
+      "pid": 89138,
+      "pgid": 89138,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 17128.99629212916,
+      "userCPUSeconds": 20.500992,
+      "systemCPUSeconds": 1.152386,
+      "maxRSSPlatformBytes": 3942105088,
+      "stdoutSHA256": "85dc95ad09c7258c72f3bc71b8aff004e2d7aa977984c72f7351819d7060bfd0",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "operation": "T287_REUSE_CONSUMER_REPAIR_04",
+      "phase": "historical",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "capSeconds": 60,
+      "defaultHeap": true,
+      "HOME": "/Users/jim",
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_04/tmp",
+      "reporterPin": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+        "bytes": 441,
+        "sha256": "0315807160de062b8dd9433f7db79bf05a0178d26eee587dbf7711c3800eb3d2",
+        "mode": 420
+      },
+      "SourcePins": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+          "bytes": 10687,
+          "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+          "mode": 420
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+          "bytes": 8505,
+          "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+          "mode": 420
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+          "bytes": 17022,
+          "sha256": "54eab951cd96e5dfd82ace948b79c39e3ba98ea7e2e8d83e6323158fecc1e6b1",
+          "mode": 420
+        }
+      ],
+      "streamsOpenedBeforeSpawn": true,
+      "pid": 91647,
+      "pgid": 91647,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 5208.644917234778,
+      "userCPUSeconds": 5.261181,
+      "systemCPUSeconds": 0.38891899999999996,
+      "maxRSSPlatformBytes": 1068859392,
+      "stdoutSHA256": "8787d98c0b19496692dcc14af63c2fbf3265270dc6ec5e4ce89d447f31d443f3",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "knownGroupsAbsentAtClosure": [
+    89135,
+    89138,
+    91647
+  ],
+  "cost": {
+    "supervisedWallMs": 22371.166167315096,
+    "userCPUSeconds": 25.777203,
+    "systemCPUSeconds": 1.545937,
+    "peakRSSPlatformBytes": 3942105088,
+    "defaultHeap": true,
+    "HOME": "/Users/jim",
+    "retries": 0
+  },
+  "zeroEffects": [
+    "original work producer replay",
+    "Task or Run dispatch",
+    "event append",
+    "setup/install/build replay",
+    "provider/network/Git/release",
+    "framework Source changes"
+  ],
+  "priorFailedCutsPreserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01/final-freeze.json",
+      "bytes": 129263,
+      "sha256": "ec869d41cddedb92e3d116b2e89a62558ce3c604b24b30979032cb575efd3bda",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_02/final-freeze.json",
+      "bytes": 131980,
+      "sha256": "c0731292e89cddf918faac3701ecf14a3fc32e7c2d90bb9f47eb3e4ab0cb6955",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_03/final-freeze.json",
+      "bytes": 127688,
+      "sha256": "255c784914e8592c31a76a4aa79b066b512eefa0c18cdf6aba67d01d707db265",
+      "mode": 420
+    }
+  ],
+  "noReviewerActivation": true
+}

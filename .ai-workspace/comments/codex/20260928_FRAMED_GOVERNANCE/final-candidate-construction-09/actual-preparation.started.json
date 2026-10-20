@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-controls/prepare.py"
+  ],
+  "pid": 47683,
+  "pgid": 47683,
+  "capMs": 240000,
+  "HOMEUnchanged": true,
+  "ownerImports": 0,
+  "streamsOpenedBeforeSpawn": true
+}

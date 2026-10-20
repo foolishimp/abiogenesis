@@ -1,0 +1,9 @@
+{
+  "operation": "T287_F11_REPAIRED_CALLER_ASSURANCE_01",
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_CALLER_REPAIR_AND_FAILED_READBACK",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T05:11:17.098658+00:00",
+  "furtherWrites": "STOPPED",
+  "executionAndRepairEffects": 0
+}

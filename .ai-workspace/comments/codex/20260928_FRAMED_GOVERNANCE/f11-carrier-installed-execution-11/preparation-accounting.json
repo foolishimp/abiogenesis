@@ -1,0 +1,15 @@
+{
+  "operation": "T287_F11_C09_NATIVE_CHILD_SELECTION_PREPARATION_11",
+  "elapsedMs": 32.49020781368017,
+  "maxRSSBytesMacOS": 38928384,
+  "HOME": "/Users/jim",
+  "heap": "default unchanged",
+  "ProductImports": 0,
+  "ownerCalls": 0,
+  "resourceReopens": 0,
+  "RuntimeEffects": 0,
+  "providerCalls": 0,
+  "syntaxAndDiagnostic": "accepted Preparation10 evidence reused; no affected module body",
+  "inputManifestBorrowed": true,
+  "fullOwnerPreparationRepeated": false
+}

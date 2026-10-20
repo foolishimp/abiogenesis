@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 
 import {
   projectActorProcessLifecycle,
@@ -14,7 +17,13 @@ import {
 } from "../../build/code/src/abg/event_calculus.js";
 import {
   selectValidatedRuntimeEventPrefix,
+  selectOwnedRuntimeEventPrefix,
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
+  runtimeEventPrefixExtent,
 } from "../../build/code/src/abg/event_prefix.js";
+import { createNewEmptyAppendSink, admitRuntimeEvent, admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';
+import { sha256Canonical } from '../../build/code/src/shared/digests.js';
 import { deepFreeze } from "../../build/code/src/shared/immutable.js";
 
 function event(kind, ordinal, aggregateType, aggregateId, parentAggregateId, payload) {
@@ -156,4 +165,39 @@ test('cold leader exit preserves unknown group cleanup across ordinary Run failu
     for (const name of ['actor_cleanup_live', 'actor_cleanup_pending'])
       assert.equal(holdsAt(closed, constructRuntimeFluent({ name, identity: processRef })), false);
   }
+});
+
+test('owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes',async()=>{
+  // Genuine finite EventStore admissions, not a native process or Run proof.
+  const scratch=await mkdtemp(join(process.env.ABI5_NATIVE_MATERIAL_SCRATCH??tmpdir(),'native-selected-'));
+  const path=join(scratch,'events.jsonl'),acquired=createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});
+  assert.ok('store'in acquired);
+  try{
+    admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store,acquired.prefix,()=>{
+      const admit=(kind,aggregateId,parentAggregateId,payload)=>admitRuntimeEvent(acquired.store,{
+        kind,eventTime:'2026-10-10T00:00:00.000Z',aggregateType:'process',aggregateId,parentAggregateId,
+        causationEventRefs:[],correlationId:'correlation://native-selected',workflowVersion:'5.0.0',scopeClass:'run',
+        basisId:'basis://native-selected',runId:'run://t287/cleanup',graphCallId:'graph-call://t287/cleanup',frameId:'frame://t287/cleanup',payload});
+      admit('actor_process_started',processRef,actorRef,{actorInvocationRef:actorRef,processRef,processId:17});
+      admit('actor_process_started','process://foreign','actor-invocation://foreign',{actorInvocationRef:'actor-invocation://foreign',processRef:'process://foreign',processId:18});
+      for(let i=0;i<128;i++)admitRuntimeEvent(acquired.store,{kind:'public_operation_admitted',eventTime:'2026-10-10T00:00:00.000Z',
+        aggregateType:'workspace',aggregateId:'invocation://unrelated/'+i,parentAggregateId:null,causationEventRefs:[],
+        correlationId:'correlation://unrelated/'+i,workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://unrelated',
+        payload:{invocationRef:'invocation://unrelated/'+i,invocationDigest:sha256Canonical(i),operationId:'abg.operation.project.read',variant:'status'}});
+      admit('actor_process_exited',processRef,actorRef,{actorInvocationRef:actorRef,processRef,status:0,signal:null});
+      admit('actor_process_termination_unconfirmed',processRef,actorRef,{actorInvocationRef:actorRef,processRef});
+    });
+    const owned=selectOwnedRuntimeEventPrefix(acquired.store),complete=selectValidatedRuntimeEventPrefix(acquired.store.readAll());
+    const expected=projectActorProcessLifecycle(complete,actorRef);
+    assert.equal(expected.processLive,false);assert.equal(expected.cleanupDisposition,'termination_unconfirmed');
+    assert.deepEqual(projectActorProcessLifecycle(owned,actorRef),expected);
+    assert.equal(runtimeEventPrefixExtent(owned).count,132);assert.equal(Object.hasOwn(owned,'events'),false);
+    assert.throws(()=>projectActorProcessLifecycle({...owned},actorRef),'copied private selection has no nominal owner');
+    const coordinate=structuredClone(selectHeldEventStoreDurablePrefix(acquired.store));acquired.store.closeDurableLog();
+    const cold=readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true});
+    assert.deepEqual(projectActorProcessLifecycle(cold,actorRef),expected,'cold selected bodies preserve unknown cleanup');
+    const bytes=await readFile(path),changed=Buffer.from(bytes);changed[0]=91;await writeFile(path,changed);
+    assert.throws(()=>readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true}),e=>e.code==='prefix_digest_mismatch');
+    await writeFile(path,bytes);
+  }finally{acquired.store.closeDurableLog();await rm(scratch,{recursive:true,force:true});}
 });

@@ -1,0 +1,34 @@
+{
+  "checks": {
+    "normalTransport": true,
+    "publicReplay": true,
+    "historicalClose": true,
+    "physicalFileUnchanged": true,
+    "run": true,
+    "status": true,
+    "terminalResult": true,
+    "entireProjection": true,
+    "entireSemanticPublicOutput": true
+  },
+  "passed": true,
+  "baselineResultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/suffix-01/read-run_replay.json",
+  "baselineResultDigest": "sha256:f31001562118bbc50deab74c71a521a0596103574ca6381e687481c3766e0841",
+  "freshResultDigest": "sha256:d662fcc582fc8bce58fa8ee6e771214f0298eb56a49d51aab9290f195835efe0",
+  "baselineSemanticDigest": "sha256:15c36ab1326ab82a5fb2b3f6bc4b8344faaa93197294b51d3e755160752f5a09",
+  "freshSemanticDigest": "sha256:15c36ab1326ab82a5fb2b3f6bc4b8344faaa93197294b51d3e755160752f5a09",
+  "journalAfter": {
+    "device": 16777230,
+    "inode": 459405010,
+    "bytes": 316064006,
+    "mtimeMs": 1790356415234.3523
+  },
+  "readElapsedMs": 20281.23725,
+  "baselineReadElapsedMs": 104482.58850000001,
+  "currentReaderMetadata": {
+    "oldInvocationRef": "invocation://abiogenesis/5fe17e1281fae79d590427da1b82cda9c9abed168b627c8afba9582339fbd357",
+    "newInvocationRef": "invocation://abiogenesis/04db9649ee8ee6783ff362f9ec0560b7ef6cec2c6a63deb5623b2162f8ced337",
+    "catalogReconstructed": true,
+    "historicalAuthorityUnchanged": true
+  },
+  "timingLimit": "Separate observed calls, not a controlled benchmark or isolated EC timing. Baseline constructor/CLI window differs from same-lifetime timed Public transport; actual total process is separately retained."
+}

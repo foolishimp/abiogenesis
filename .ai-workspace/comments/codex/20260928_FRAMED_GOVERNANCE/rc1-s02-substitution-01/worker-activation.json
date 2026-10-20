@@ -1,0 +1,51 @@
+{
+  "kind": "worker_activation",
+  "schemaVersion": "5.0.0",
+  "activationId": "T287_RC1_S02_SUBSTITUTION_01",
+  "role": "Worker",
+  "actor": "/root/rc1_s02_substitution",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-01T14:33:46.708477+00:00",
+  "inheritedAuthority": {
+    "assigner": "/root Executive",
+    "controlPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-controls-01/request.txt",
+    "bytes": 7494,
+    "sha256": "e5ab41b889571ca9c8a4925c94f1adb670fcf9134863535d54cc073bc4fb8802"
+  },
+  "governance": {
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "manifestDigest": "sha256:3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "definitionDigest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "lawfulReentry": "realization_refactor",
+  "subject": {
+    "candidate": "C02",
+    "freeze": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+    "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+    "programRef": "program://abiogenesis/conformance/hello-substitute@5",
+    "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-substitute@5",
+    "input": {
+      "kind": "hello_world_input",
+      "schemaVersion": "5.0.0",
+      "subject": "World"
+    },
+    "outputOracle": "Hello World",
+    "allSelectedLeaves": "F_D"
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01"
+  ],
+  "grant": "Construct finite external caller and isolated ordinary Product setup; exactly seven setup, selected conformance, one selected native start, two fresh supported native reads; runtime alone appends events and owns lock; Product owners alone install/bind. Retain real evidence and freeze once.",
+  "exclusions": [
+    "source/build/specification/git mutation",
+    "C02 or accepted evidence mutation",
+    "N03 header/prefix/lock writes",
+    "private runtime ingress or event authoring",
+    "provider/model/network calls",
+    "other Program scenarios",
+    "retry to green",
+    "qualification or Reviewer activation"
+  ],
+  "stop": "First actual call/proof failure or undeclared territory/material carrier; after lawful Run close acquire two fresh reads and freeze CLOSED; no repair native iteration."
+}

@@ -1,0 +1,30 @@
+{
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01",
+  "freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+    "bytes": 13795,
+    "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+  },
+  "assessmentInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/assessment-input.json",
+    "bytes": 82175295,
+    "sha256": "10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901"
+  },
+  "workerRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/worker-request.json",
+    "bytes": 1062803,
+    "sha256": "0d21b292dc1944eac9c8fbf01475a68e72ca27e17c083af2929c4402818e7401"
+  },
+  "prompt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/prompt.txt",
+    "bytes": 1021244,
+    "sha256": "35d718313300c7feb1ebc64d699c373c58dd9de868bc68c9c14a83e7d7ee4264"
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/prompt-measurement.json",
+    "bytes": 5914,
+    "sha256": "693b7858ea8381f279afa80560633e178f2380d922cca44df5690414472e96d4"
+  },
+  "candidateLaw": "Immutable C02/Q02 RC1",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/"
+}

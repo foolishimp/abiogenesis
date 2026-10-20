@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/select-failure.mjs"
+  ],
+  "scriptSha256": "e1e41e7ff89254a70c018c2f921bd4564158d9b9d2f5cadf168edd4d5dff32b8",
+  "exitCode": 1,
+  "code": "ERR_MODULE_NOT_FOUND",
+  "message": "Cannot find module selected installed-native/build/code/src/abg.js",
+  "boundary": "Before resource acquisition; no diagnostic bodies written",
+  "correction": "Use the unchanged canonical installedModules helper; correct unused JSON newline literal before owner entry",
+  "successor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/select-failure-02.mjs"
+}

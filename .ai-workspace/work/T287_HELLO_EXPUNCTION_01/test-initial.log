@@ -1,0 +1,148 @@
+✔ the minimal language test has no production authority or package entry (785.08925ms)
+✔ R4 catalog construction is permutation and cache-loss deterministic (10.138375ms)
+✔ R4 refresh adds and replaces exact publication sets (3.34475ms)
+✔ R4 keeps canonical handles distinct from GraphFunction definitions (1.551708ms)
+✔ R4 equal duplicates are idempotent and unequal collisions refuse (6.951ms)
+✔ R4 view and declaration application are pure and non-callable separated (2.941083ms)
+✔ R4 pure catalog operations admit zero registry or catalog events (21.742833ms)
+✖ W2-03 request selection is owned only by ProductExecutionResolutionPort (1.148959ms)
+✖ non-root alias selection admits a distinct catalogHandle for one exact definition (29577.8775ms)
+✖ R5 start admission resolves one exact Product start before its catalog definition (29567.565708ms)
+✖ R6 resolves one exact packaged leaf and all declared contracts (30160.828375ms)
+✖ R9 admits the uniform CCall spine, terminal route, and exact closure chain (30169.221375ms)
+✖ R9 totalizes a real result-admission rejection on the same CCall spine (30064.917ms)
+✖ ST-4 transport refuses inherited selectors and owner traversal (2.980709ms)
+✖ ST-1 executes an independently authored minimal GTL test through installed Public owners (32588.815416ms)
+✖ test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs (5875.132416ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 7
+ℹ fail 8
+ℹ cancelled 1
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 189656.970042
+
+✖ failing tests:
+
+test at test_env/tests/r5-invocation-admission.test.mjs:15:1
+✖ W2-03 request selection is owned only by ProductExecutionResolutionPort (1.148959ms)
+  Error: ENOENT: no such file or directory, open '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/operations.ts'
+      at async open (node:internal/fs/promises:642:25)
+      at async readFile (node:internal/fs/promises:1279:14)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs:16:24)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/public/operations.ts'
+  }
+
+test at test_env/tests/r5-invocation-admission.test.mjs:100:1
+✖ non-root alias selection admits a distinct catalogHandle for one exact definition (29577.8775ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'verified_product_mismatch'
+  - 'duplicate_contribution_reference'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs:143:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'verified_product_mismatch',
+    expected: 'duplicate_contribution_reference',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/r5-invocation-admission.test.mjs:598:1
+✖ R5 start admission resolves one exact Product start before its catalog definition (29567.565708ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"catalog_construction_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"verified_product_mismatch","message":"catalog readiness verified Products differ from the exact resolved lock"}
+  + actual - expected
+  
+  + 'catalog_construction_refusal'
+  - 'graph_function_catalog'
+  
+      at readinessCatalogView (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs:83:10)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs:630:42)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'catalog_construction_refusal',
+    expected: 'graph_function_catalog',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/r6-implementation-resolution.test.mjs:14:1
+✖ R6 resolves one exact packaged leaf and all declared contracts (30160.828375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'invalid_program_validation'
+  - 'implementation_absent'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r6-implementation-resolution.test.mjs:94:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'invalid_program_validation',
+    expected: 'implementation_absent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/r9-causal-result-closure.test.mjs:53:1
+✖ R9 admits the uniform CCall spine, terminal route, and exact closure chain (30169.221375ms)
+  TypeError [Error]: abg.openCall is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r9-causal-result-closure.test.mjs:87:22)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+
+test at test_env/tests/r9-causal-result-closure.test.mjs:721:1
+✖ R9 totalizes a real result-admission rejection on the same CCall spine (30064.917ms)
+  TypeError [Error]: abg.openCall is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/r9-causal-result-closure.test.mjs:740:22)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs:116:1
+✖ ST-4 transport refuses inherited selectors and owner traversal (2.980709ms)
+  AssertionError [ERR_ASSERTION]: inherited eventResource
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs:209:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs:743:1
+✖ ST-1 executes an independently authored minimal GTL test through installed Public owners (32588.815416ms)
+  Error: ENOENT: no such file or directory, open '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O7TPY1/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/build/publication.json'
+      at async open (node:internal/fs/promises:642:25)
+      at async readFile (node:internal/fs/promises:1279:14)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs:1110:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O7TPY1/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/build/publication.json'
+  }
+
+test at test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs:1:1
+✖ test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs (5875.132416ms)
+  'Promise resolution is still pending but the event loop has already resolved'

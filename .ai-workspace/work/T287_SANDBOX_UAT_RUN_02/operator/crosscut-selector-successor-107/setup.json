@@ -1,0 +1,46 @@
+{
+  "status": "PREPARED; Root native release required",
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/resume-config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/resume-config.json",
+    "sha256": "8220ea387b1aee6eb52f2bd61f55592caf3a23fb87c569de8880fca7355a952c",
+    "byteCount": 2991
+  },
+  "candidateArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "515f208b27cffc784c006692726b7a81ac6717f6665a1400c4b55e583dcad6a9",
+    "byteCount": 10629913
+  },
+  "retainedMaterial": "Exact accepted98/100 observation+freeze; same old48 physical4+44, verified unchanged by101, no app work in101. No rematerialization or replay in107.",
+  "initialState": "source:none, observations:[], synthesis:null, terminal:false; no old11 producer credit",
+  "rootQualityWindow": "NEW commands/lifecycle-start.request.json.started +18000000ms after actual Root release; all old clocks retained historically.",
+  "limits": {
+    "commandTimeoutMs": 18000000,
+    "terminationGraceMs": 10000,
+    "currentCommandBudgetMs": 18025000,
+    "providerInactivityMs": 18030000,
+    "providerAbsoluteMs": 18040000,
+    "driverMs": 18060000,
+    "recursionBound": 1000,
+    "nativeCaptureBytes": 268435456,
+    "outerRecorderMs": 19260000,
+    "outerRecorderBytes": 536870912,
+    "model": "claude-opus-5-5",
+    "maxTurnsOrUsdSupplied": false
+  },
+  "stop": "Resolve exact admitted C2 task/attempt/helper argv and live ownership; stop owned helper/command first, then admitted provider group while CLI can admit actual exits; bounded TERM/KILL confirmation and truthful missing artifact/exit. No guessed/global signals/private events.",
+  "originalDemand": "All67 original oracle criteria and16 distinct compiled production mutants/exact restorations/full independent UAT; no app/proof credit from material or publication."
+}

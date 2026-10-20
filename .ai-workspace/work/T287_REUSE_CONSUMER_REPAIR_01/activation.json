@@ -1,0 +1,34 @@
+{
+  "operation": "T287_REUSE_CONSUMER_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAtUTC": "2026-10-04T18:51:45.644672+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+    "bytes": 39176,
+    "sha256": "a4e99be9b4d4ed18a0934ae0689234a4432dc63e56a6fed565e429ff7785025c",
+    "section": "Existing-evidence consumer repair selected, 2026-10-05"
+  },
+  "reentry": "realization_refactor of existing-evidence caller/report/preparation consumers",
+  "SourceTerritory": [
+    "test_env/support/retained-installed-consumer.mjs",
+    "scripts/prepare-retained-setup-binding.mjs",
+    "test_env/tests/t287-retained-installed-consumer.test.mjs"
+  ],
+  "SourceEntries": "all three absent before activation",
+  "writeRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_01"
+  ],
+  "defaultHeap": true,
+  "HOME": "/Users/jim",
+  "budgetsSeconds": {
+    "current": 180,
+    "historical": 60,
+    "overall": 600,
+    "terminationGrace": 5
+  },
+  "noBuildInstallRunProducerReplay": true,
+  "historicalBodiesReadOnly": true
+}

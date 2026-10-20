@@ -1,0 +1,26 @@
+{
+  "kind": "resolved_admission_authority",
+  "schemaVersion": "5.0.0",
+  "actorRef": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+  "authorityMode": "trusted_developer",
+  "authority": {
+    "ref": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/229/authority",
+    "digest": "sha256:701969f89202f32666dd681800734b9b1e2ad5d8709e4eb3b35fe0a50daacc90",
+    "value": {
+      "actorRef": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+      "authorityMode": "trusted_developer"
+    }
+  },
+  "approval": {
+    "ref": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/229/approval",
+    "digest": "sha256:a93da6fb86e05f4c16df03daf1408e7d212de604e8d2d456c2c0f790ac14003e",
+    "value": {
+      "decision": "allow",
+      "actorRef": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+      "definitionRef": "public-function://abiogenesis/witness/admit/run-stopped@5",
+      "definitionDigest": "sha256:2db17e2075decf2cd35511f7c71b828a28a1040c4d886c1141f654db74efacf8",
+      "requestDigest": "sha256:6b85cdc86135922c7bd8fb9233971e449f2e088d8139ced1993c5ab28bb6b936",
+      "scopeDigest": "sha256:41e2b5abdd84b77437c0d00326be589045704758e3e1d58a2e0d7a7b71395a66"
+    }
+  }
+}

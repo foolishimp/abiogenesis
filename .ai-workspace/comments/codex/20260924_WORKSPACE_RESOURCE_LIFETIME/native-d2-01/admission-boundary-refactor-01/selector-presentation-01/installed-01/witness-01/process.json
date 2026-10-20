@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/witness-01/execute.mjs"
+  ],
+  "pid": 76937,
+  "startedEpoch": 1790305395.31469,
+  "effects": "genuine current binding witness; successful original Public root receipt reused"
+}

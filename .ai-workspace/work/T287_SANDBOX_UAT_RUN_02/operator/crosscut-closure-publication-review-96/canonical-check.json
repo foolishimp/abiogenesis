@@ -1,0 +1,41 @@
+{
+  "status": "PASS read-only complete canonical reconstruction",
+  "reports": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/scratch/successor/package",
+      "productContentDigest": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+      "canonicalManifestDigest": "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+      "catalogDigest": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7",
+      "contributionManifestDigest": "sha256:4f2b080203cea7fcf688a13257ced6b695f8df8a64f676cfb5bdbec03b0d94da",
+      "capabilityGraphDigest": "sha256:a9af40ebcaa5261eb37a085f92a194adab1ff646b3aef55d58fbfc4e77d4eeb5",
+      "publicRows": 75,
+      "publicAssets": 53,
+      "nativeClosures": 15,
+      "nativeLocatorRows": 50,
+      "publications": 10,
+      "contributions": 47,
+      "payloadMembers": 5263
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host/node_modules/@abiogenesis/typescript-tenant",
+      "productContentDigest": "sha256:571eec0a28bfdb1461aaab8d6bf641950c808fe0e06ef27bffe33b303b404146",
+      "canonicalManifestDigest": "sha256:7fd686312577b6c7d32db894dc80bebc05eb89c8496b8c3a8fd1de39b773dcba",
+      "catalogDigest": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7",
+      "contributionManifestDigest": "sha256:0ef7675c7aa653af560153394aa537f351101cac431540e5b3d5f9a82b4587f3",
+      "capabilityGraphDigest": "sha256:78c9d41e7feb9eb72bc11b735a8a4b93738071687586ec1076d2ad5ba4c2ae0a",
+      "publicRows": 75,
+      "publicAssets": 53,
+      "nativeClosures": 15,
+      "nativeLocatorRows": 50,
+      "publications": 10,
+      "contributions": 47,
+      "payloadMembers": 5263
+    }
+  ],
+  "contributionIdentityDifferences": 61,
+  "capabilityIdentityDifferences": 310,
+  "publicCatalogWholeEqual": true,
+  "publicationDefinitionsWholeEqual": true,
+  "noVerifyProductOrInstallInvoked": true,
+  "wallMs": 39807.516833999995
+}

@@ -1,0 +1,13 @@
+{
+  "stage": "product-install-consumer26-complete",
+  "rss": 4333125632,
+  "heapTotal": 3768713216,
+  "heapUsed": 3530762400,
+  "external": 5618395,
+  "arrayBuffers": 3206088,
+  "at": "2026-10-09T05:33:56.099Z",
+  "elapsedMs": 200969.014375,
+  "wallMs": 2036.405666000006,
+  "invocationRef": "invocation://abiogenesis/c9e9bf7b0dc13d67f20c80e44cc5e64eb72cc338bc6c8ce7c555d54e13d9d7f4",
+  "prefixLength": 1685522395
+}

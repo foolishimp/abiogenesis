@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-08T22:34:35.604680+00:00",
+  "classification": "Recorder-only physical codec-envelope lookup premise; no new runtime call or owner refusal",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-130/freeze-execution.py",
+    "sha256": "26711aeca85c29d34ce95cb232e179e043c359f185b16148654d27e652489721",
+    "byteCount": 13484
+  },
+  "failure": {
+    "name": "KeyError",
+    "message": "admissionOrdinal",
+    "line": 78
+  },
+  "explanation": "Some physical rows are abg_admitted_body_reference_record with coordinate envelope at row.event. Scalar slice coordinates must consume that exact envelope; no body rehydration or authority reconstruction.",
+  "effects": "No execution readiness/return/freeze output was written before failure; native/outer remain closed."
+}

@@ -1,0 +1,42 @@
+{
+  "scratch": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI",
+  "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "workspaceAuthority": {
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://t286/abi5-root",
+    "canonicalRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/workspace",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://abiogenesis/t286/trusted-developer",
+    "authorityManifestRef": "manifest://t286/root/workspace-authority",
+    "authorityManifestDigest": "sha256:322ba6bce2408f603b8dd9a7353ce9316744c17d0f198f6b5f9ccaab31d31dd1",
+    "authorityBasisId": "workspace-authority://abiogenesis/e18cd517c28ad7f7c3cfe1154d2c47e34f0264a570f8b8ae18b9cd316ca74af9",
+    "authorityBasisDigest": "sha256:e18cd517c28ad7f7c3cfe1154d2c47e34f0264a570f8b8ae18b9cd316ca74af9"
+  },
+  "workspaceBinding": {
+    "kind": "workspace_binding",
+    "schemaVersion": "5.0.0",
+    "bindingId": "workspace-binding://abiogenesis/bf194109cc525a82a5aea0d26231b07db2a36b6bb26d60035d8aba67850f559f",
+    "bindingDigest": "sha256:bf194109cc525a82a5aea0d26231b07db2a36b6bb26d60035d8aba67850f559f",
+    "workspaceId": "workspace://t286/abi5-root",
+    "authorityBasisId": "workspace-authority://abiogenesis/e18cd517c28ad7f7c3cfe1154d2c47e34f0264a570f8b8ae18b9cd316ca74af9",
+    "authorityBasisDigest": "sha256:e18cd517c28ad7f7c3cfe1154d2c47e34f0264a570f8b8ae18b9cd316ca74af9",
+    "authorizedActorRef": "actor://abiogenesis/t286/trusted-developer",
+    "productSetId": "product-set://abiogenesis/eaed225c1b19e5c3aa044ddc8daabbbd0f6393410ec17be45fa03950b9433c32",
+    "productSetDigest": "sha256:eaed225c1b19e5c3aa044ddc8daabbbd0f6393410ec17be45fa03950b9433c32",
+    "lockId": "product-lock://abiogenesis/f28e65ae4e3cd21cd8e3dc0dafb6eaf34083363a153df3ce52c29f7919abebb9",
+    "lockDigest": "sha256:f28e65ae4e3cd21cd8e3dc0dafb6eaf34083363a153df3ce52c29f7919abebb9",
+    "roots": {
+      "toolchainRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/consumer",
+      "productRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+      "eventLogRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/workspace/.ai-workspace/events",
+      "runtimeStateRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/workspace/.ai-workspace/runtime",
+      "projectionRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/workspace/.ai-workspace/projections",
+      "archiveRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/workspace/.ai-workspace/archive"
+    },
+    "admissionEventRef": "event://abiogenesis/1917c5e2d511f05a418a4adad0b6efa11921cbcae2db0ee1574c23ad002fe588"
+  },
+  "setupProgram": "program://abiogenesis/worksite/file-replace@5",
+  "actualExternalProgram": "program://default-library-witness/witness@5",
+  "content": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c"
+}

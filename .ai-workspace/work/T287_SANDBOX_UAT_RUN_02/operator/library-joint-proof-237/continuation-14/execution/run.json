@@ -1,0 +1,7 @@
+{
+  "runId": "library-joint-proof-237-14",
+  "scope": "Actual Testing retry from the completed37 construction parent; no initial Construction or old setup replay",
+  "sourceResultRef": "result://abiogenesis/069031ccb3f2f154aa95a00e2ff5a9b4904ceec0806a27ff4d5a1715744ba3bd",
+  "semanticPremise": "Local controlled responder; no Claude/semantic UAT assessment",
+  "stockNodeHeap": true
+}

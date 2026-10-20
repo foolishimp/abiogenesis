@@ -1,0 +1,66 @@
+{
+  "counts": {
+    "changed_selected_source_without_complete_routed_chain": 18,
+    "inherited_selected_source": 1077,
+    "retained_actual_source_transition": 8,
+    "deterministic_generated_output": 828,
+    "new_or_modified_external_control": 11,
+    "inherited_unchanged_external_control_copy": 4,
+    "supplied_archive_dependency_or_toolchain_manifest": 4
+  },
+  "members": 1950,
+  "actualRoutedCurrentTransitions": 8,
+  "generatedChanged": 30,
+  "generatedUnchanged": 798,
+  "git": {
+    "different_at_frozen_head": 17,
+    "unchanged_at_frozen_head": 1077,
+    "absent_at_frozen_head": 9
+  },
+  "copyRelations": {
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/recipe.mjs": {
+      "donorPath": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/recipe.mjs",
+      "donorBytes": 3442,
+      "donorSha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68",
+      "sameBytes": true,
+      "operationSource": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-inputs.py"
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/compare-generated.mjs": {
+      "donorPath": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/compare-generated.mjs",
+      "donorBytes": 1988,
+      "donorSha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945",
+      "sameBytes": true,
+      "operationSource": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-inputs.py"
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-selection.json": {
+      "donorPath": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/test-selection.json",
+      "donorBytes": 8553,
+      "donorSha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f",
+      "sameBytes": true,
+      "operationSource": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-inputs.py"
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/recipe-stage.mjs": {
+      "donorPath": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/recipe-stage.mjs",
+      "donorBytes": 1449,
+      "donorSha256": "de17486b1af297a006a7667bfc12f00add60134b3144e9be523d7fee8c50d075",
+      "sameBytes": false,
+      "operationSource": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-inputs.py"
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-environment.mjs": {
+      "donorPath": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/test-environment.mjs",
+      "donorBytes": 533,
+      "donorSha256": "93913ad5f1574d7d38c7b2435e2e7d9b5c3e492518adb616ece83485c7d65208",
+      "sameBytes": false,
+      "operationSource": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-inputs.py"
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/release-claims.json": {
+      "donorPath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/release-claims.json",
+      "donorBytes": 2228,
+      "donorSha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0",
+      "sameBytes": true,
+      "operationSource": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-inputs.py"
+    }
+  },
+  "semanticAuthorshipFromGitCommit": false,
+  "allMemberSnapshotAuthorClaim": false
+}

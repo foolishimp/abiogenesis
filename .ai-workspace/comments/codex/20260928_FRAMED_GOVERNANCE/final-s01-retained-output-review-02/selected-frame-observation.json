@@ -1,0 +1,143 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "bytes": 24123,
+  "sha256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a",
+  "lines": [
+    {
+      "line": 141,
+      "text": "## Local Extension: End-To-End Interface Integration"
+    },
+    {
+      "line": 142,
+      "text": ""
+    },
+    {
+      "line": 143,
+      "text": "### F-END-TO-END-INTERFACE-INTEGRATION"
+    },
+    {
+      "line": 144,
+      "text": ""
+    },
+    {
+      "line": 145,
+      "text": "**Identity and authority.** Revision 1; stable source URI"
+    },
+    {
+      "line": 146,
+      "text": "`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`."
+    },
+    {
+      "line": 147,
+      "text": "This development/review frame specializes the selected STDO evaluations below with"
+    },
+    {
+      "line": 148,
+      "text": "the ABI [frame atlas](./ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas)"
+    },
+    {
+      "line": 149,
+      "text": "and [SP-01..09 seam/proof law](./ABI5_REALIZATION_CONSTITUTION.md#532-compounded-frame-scenario-proof-law)."
+    },
+    {
+      "line": 150,
+      "text": "It is a local extension under"
+    },
+    {
+      "line": 151,
+      "text": "`stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#extension-versus-replacement`,"
+    },
+    {
+      "line": 152,
+      "text": "not adoption of mutable methodology source, a replacement engagement profile,"
+    },
+    {
+      "line": 153,
+      "text": "a runtime environment declaration, or a change to the fifteen-family Product."
+    },
+    {
+      "line": 154,
+      "text": ""
+    },
+    {
+      "line": 155,
+      "text": "**Evaluation family.** Can one selected ABI outcome pass through its declared"
+    },
+    {
+      "line": 156,
+      "text": "interfaces with sufficient participant context and conserved meaning, and"
+    },
+    {
+      "line": 157,
+      "text": "what has actually been demonstrated? Keep four claims distinct:"
+    },
+    {
+      "line": 378,
+      "text": "| runtime admission, events, currentness, and replay | ABG |"
+    },
+    {
+      "line": 379,
+      "text": "| mutable physical change and successor observation | `F-WORKSITE-CAUSALITY` |"
+    },
+    {
+      "line": 380,
+      "text": "| selected entry-to-outcome interface/context seam and its four distinct claims | [`F-END-TO-END-INTERFACE-INTEGRATION`](#f-end-to-end-interface-integration), with applicable existing specialist/testing results |"
+    },
+    {
+      "line": 381,
+      "text": "| independent claim evaluation | Reviewer plus applicable Proof/testing frames |"
+    },
+    {
+      "line": 382,
+      "text": ""
+    },
+    {
+      "line": 383,
+      "text": "The STDO specialist families acquire their ABI subjects from the corresponding"
+    },
+    {
+      "line": 384,
+      "text": "Product, Design, Design Component, Public, Entity, Operator, Owner, Effect,"
+    },
+    {
+      "line": 385,
+      "text": "Reuse, Install, and Proof rows in the local constitution Sections 5.3 through"
+    },
+    {
+      "line": 386,
+      "text": "5.3.2. This is an acquisition mapping, not a second definition of those"
+    },
+    {
+      "line": 387,
+      "text": "families."
+    },
+    {
+      "line": 388,
+      "text": ""
+    },
+    {
+      "line": 389,
+      "text": "A task is covered only when every material evaluation and crossed seam maps to"
+    },
+    {
+      "line": 390,
+      "text": "an activated frame or remains an explicit residual. One undifferentiated"
+    },
+    {
+      "line": 391,
+      "text": "project prompt, hidden frame selection, omitted source routes, self-review as"
+    },
+    {
+      "line": 392,
+      "text": "independent assurance, runtime authority inferred from a frame label, or an"
+    },
+    {
+      "line": 393,
+      "text": "unadmitted mutation treated as truth falsifies the configuration."
+    },
+    {
+      "line": 394,
+      "text": ""
+    }
+  ]
+}

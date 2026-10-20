@@ -1,0 +1,19 @@
+{
+  "status": "exact_tested_source_cut",
+  "records": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "bytes": 13284,
+      "sha256": "0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435",
+      "snapshot": "postimages/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "preimageSHA256": "65ce8a6ea4c052be321a38acbf24fec3104d8e312faf1cbf498905c128745778"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "bytes": 10651,
+      "sha256": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6",
+      "snapshot": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "preimageSHA256": "88ca3d46997a1a92defa65525686f4bbd7db8dee249f79a2970e5be728ac6553"
+    }
+  ]
+}

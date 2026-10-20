@@ -1,0 +1,687 @@
+{
+  "timingScope": "Baseline helper bypasses prepareRead; repaired Public Run truth covers it. Held semantic identity is additional verification, not a repeated cold read. No full CLI comparison.",
+  "baselinePhasesMs": {
+    "prefix_authenticated_and_selected": 36883.714458,
+    "semantic_projection_complete": 21907.244874999997
+  },
+  "repairedPhasesMs": {
+    "history_reopened": 24433.456709,
+    "prepared_run_truth_complete": 20457.155040999998,
+    "held_semantic_identity_complete": 1788.8951670000024
+  },
+  "identicalProjectionDigest": true,
+  "projectionDigest": "sha256:dc7123652132ba8002776ef46f9ea438f2fa2f2f40a0ca21077fd7c6bf759be0",
+  "identicalEventCounts": true,
+  "identicalSelectedLogicalBytes": true,
+  "journalMetadataUnchanged": true,
+  "ownerClosePrefixUnchanged": true,
+  "sourceProvedRemovedWholeLogicalEventSerializationsPerColdRead": 257442,
+  "canonicalWorkComparisonMs": {
+    "baselineColdDecodeInclusive": 31638.704,
+    "repairedColdDecodeInclusive": 21974.629,
+    "baselineColdPhaseCanonicalInclusive": 22196.391,
+    "repairedColdPhaseCanonicalInclusive": 13021.001,
+    "baselineColdPhaseDecoderDirectCanonical": 11631.336,
+    "repairedColdPhaseDecoderDirectCanonical": 2793.372
+  },
+  "samplingLimit": "Inclusive CPU samples are approximate wall-time attribution, not invocation counts. Phase cut assignment may straddle the sampling/profile-start offset by approximately 25 ms.",
+  "actors": 0,
+  "eventWrites": 0
+}
+history_reopened {
+  "inclusive": [
+    {
+      "function": "(root) :0",
+      "sampledMs": 24432.333,
+      "percent": 100.0
+    },
+    {
+      "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+      "sampledMs": 22364.21,
+      "percent": 91.535
+    },
+    {
+      "function": "reopenEventStore abg/event_store.js:2473",
+      "sampledMs": 22338.544,
+      "percent": 91.43
+    },
+    {
+      "function": "decodeHistoricalEvents abg/event_store.js:2038",
+      "sampledMs": 21951.545,
+      "percent": 89.846
+    },
+    {
+      "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+      "sampledMs": 14263.141,
+      "percent": 58.378
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10",
+      "sampledMs": 13448.384,
+      "percent": 55.043
+    },
+    {
+      "function": "canonicalJson shared/canonical_json.js:4",
+      "sampledMs": 13021.001,
+      "percent": 53.294
+    },
+    {
+      "function": "<anonymous> shared/canonical_json.js:19",
+      "sampledMs": 12104.504,
+      "percent": 49.543
+    },
+    {
+      "function": "<anonymous> shared/canonical_json.js:15",
+      "sampledMs": 6622.222,
+      "percent": 27.104
+    },
+    {
+      "function": "update node:internal/crypto/hash:134",
+      "sampledMs": 5721.755,
+      "percent": 23.419
+    },
+    {
+      "function": "sha256Bytes shared/digests.js:4",
+      "sampledMs": 4077.632,
+      "percent": 16.689
+    },
+    {
+      "function": "update :0",
+      "sampledMs": 2225.0,
+      "percent": 9.107
+    },
+    {
+      "function": "assertRuntimeEventContract abg/event_store.js:1570",
+      "sampledMs": 2059.165,
+      "percent": 8.428
+    },
+    {
+      "function": "(garbage collector) :0",
+      "sampledMs": 1960.498,
+      "percent": 8.024
+    },
+    {
+      "function": "inlineEventBody abg/event_body_encoding.js:10",
+      "sampledMs": 1472.248,
+      "percent": 6.026
+    }
+  ],
+  "canonicalCaller": [
+    {
+      "function": "sha256Canonical shared/digests.js:10",
+      "sampledMs": 9362.961,
+      "percent": 38.322
+    },
+    {
+      "function": "decodeHistoricalEvents abg/event_store.js:2038",
+      "sampledMs": 2793.372,
+      "percent": 11.433
+    },
+    {
+      "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+      "sampledMs": 707.791,
+      "percent": 2.897
+    },
+    {
+      "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+      "sampledMs": 60.457,
+      "percent": 0.247
+    },
+    {
+      "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+      "sampledMs": 54.295,
+      "percent": 0.222
+    },
+    {
+      "function": "hash abg/stdo_environment.js:30",
+      "sampledMs": 36.125,
+      "percent": 0.148
+    },
+    {
+      "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+      "sampledMs": 6.0,
+      "percent": 0.025
+    }
+  ],
+  "selectedCallers": [
+    {
+      "function": "decodeHistoricalEvents abg/event_store.js:2038 <- reopenEventStore abg/event_store.js:2473",
+      "sampledMs": 21951.545,
+      "percent": 89.846
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectRuntimeEventAtContract abg/event_store.js:1317",
+      "sampledMs": 10659.601,
+      "percent": 43.629
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- inlineEventBody abg/event_body_encoding.js:10",
+      "sampledMs": 1471.082,
+      "percent": 6.021
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+      "sampledMs": 1005.661,
+      "percent": 4.116
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- assertRuntimeEventContract abg/event_store.js:1570",
+      "sampledMs": 250.707,
+      "percent": 1.026
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- hash abg/stdo_environment.js:30",
+      "sampledMs": 59.833,
+      "percent": 0.245
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- hash gtl/stdo_run_environment.js:41",
+      "sampledMs": 1.5,
+      "percent": 0.006
+    }
+  ]
+}
+prepared_run_truth_complete {
+  "inclusive": [
+    {
+      "function": "(root) :0",
+      "sampledMs": 20457.583,
+      "percent": 100.0
+    },
+    {
+      "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+      "sampledMs": 18663.293,
+      "percent": 91.229
+    },
+    {
+      "function": "projectRunTruthAtDurablePrefix abg/project_read_ports.js:614",
+      "sampledMs": 18637.709,
+      "percent": 91.104
+    },
+    {
+      "function": "canonicalRunContext abg/project_read_ports.js:533",
+      "sampledMs": 17317.747,
+      "percent": 84.652
+    },
+    {
+      "function": "runContext abg/project_read_ports.js:481",
+      "sampledMs": 17107.914,
+      "percent": 83.626
+    },
+    {
+      "function": "projectRunReplayContext abg/replay.js:1271",
+      "sampledMs": 17107.914,
+      "percent": 83.626
+    },
+    {
+      "function": "deriveReplayPrefixFacts abg/replay.js:433",
+      "sampledMs": 15494.827,
+      "percent": 75.741
+    },
+    {
+      "function": "replayValidatedRuntimeEventPrefix abg/replay.js:425",
+      "sampledMs": 15494.827,
+      "percent": 75.741
+    },
+    {
+      "function": "canonicalJson shared/canonical_json.js:4",
+      "sampledMs": 12162.285,
+      "percent": 59.451
+    },
+    {
+      "function": "<anonymous> shared/canonical_json.js:19",
+      "sampledMs": 11595.914,
+      "percent": 56.683
+    },
+    {
+      "function": "<anonymous> shared/canonical_json.js:15",
+      "sampledMs": 7862.466,
+      "percent": 38.433
+    },
+    {
+      "function": "advance abg/event_prefix.js:438",
+      "sampledMs": 7795.376,
+      "percent": 38.105
+    },
+    {
+      "function": "runtimeEventPrefixDigest abg/event_prefix.js:451",
+      "sampledMs": 7795.376,
+      "percent": 38.105
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10",
+      "sampledMs": 6899.079,
+      "percent": 33.724
+    },
+    {
+      "function": "projectRuntimeLivenessForScope abg/runtime_liveness.js:994",
+      "sampledMs": 6483.917,
+      "percent": 31.694
+    }
+  ],
+  "canonicalCaller": [
+    {
+      "function": "advance abg/event_prefix.js:438",
+      "sampledMs": 5502.376,
+      "percent": 26.897
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10",
+      "sampledMs": 4893.037,
+      "percent": 23.918
+    },
+    {
+      "function": "same abg/worksite_input_provenance.js:26",
+      "sampledMs": 1586.08,
+      "percent": 7.753
+    },
+    {
+      "function": "<anonymous> validator/raw_admission.js:70",
+      "sampledMs": 167.167,
+      "percent": 0.817
+    },
+    {
+      "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+      "sampledMs": 7.583,
+      "percent": 0.037
+    },
+    {
+      "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+      "sampledMs": 6.042,
+      "percent": 0.03
+    }
+  ],
+  "selectedCallers": [
+    {
+      "function": "runtimeEventPrefixDigest abg/event_prefix.js:451 <- prefixDigest abg/runtime_liveness.js:998",
+      "sampledMs": 6458.083,
+      "percent": 31.568
+    },
+    {
+      "function": "deriveRuntimeEventCalculusProjection abg/event_calculus.js:1676 <- deriveReplayPrefixFacts abg/replay.js:433",
+      "sampledMs": 3879.291,
+      "percent": 18.963
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+      "sampledMs": 1995.207,
+      "percent": 9.753
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- canonicalRecordDigest abg/invocation_execution_truth.js:6",
+      "sampledMs": 1967.164,
+      "percent": 9.616
+    },
+    {
+      "function": "runtimeEventPrefixDigest abg/event_prefix.js:451 <- deriveReplayPrefixFacts abg/replay.js:433",
+      "sampledMs": 1337.293,
+      "percent": 6.537
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- semanticPayloadDigest abg/replay.js:1039",
+      "sampledMs": 1311.545,
+      "percent": 6.411
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- deriveReplayPrefixFacts abg/replay.js:433",
+      "sampledMs": 760.664,
+      "percent": 3.718
+    },
+    {
+      "function": "rawAdmitValue validator/raw_admission.js:50 <- projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+      "sampledMs": 465.708,
+      "percent": 2.276
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectRunSemanticReplay abg/replay.js:1279",
+      "sampledMs": 265.625,
+      "percent": 1.298
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- successfulResult abg/worksite_input_provenance.js:45",
+      "sampledMs": 238.583,
+      "percent": 1.166
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- rawAdmitValue validator/raw_admission.js:50",
+      "sampledMs": 230.833,
+      "percent": 1.128
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+      "sampledMs": 126.208,
+      "percent": 0.617
+    },
+    {
+      "function": "decodeHistoricalEvents abg/event_store.js:2038 <- reopenEventStore abg/event_store.js:2473",
+      "sampledMs": 23.084,
+      "percent": 0.113
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+      "sampledMs": 1.75,
+      "percent": 0.009
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- assertRuntimeEventContract abg/event_store.js:1570",
+      "sampledMs": 1.5,
+      "percent": 0.007
+    }
+  ]
+}
+held_semantic_identity_complete {
+  "inclusive": [
+    {
+      "function": "(root) :0",
+      "sampledMs": 1789.375,
+      "percent": 100.0
+    },
+    {
+      "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+      "sampledMs": 1660.832,
+      "percent": 92.816
+    },
+    {
+      "function": "projectRunSemanticReplay abg/replay.js:1279",
+      "sampledMs": 1635.207,
+      "percent": 91.384
+    },
+    {
+      "function": "projectRunSemanticReplayProjection abg/replay.js:1267",
+      "sampledMs": 1635.207,
+      "percent": 91.384
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10",
+      "sampledMs": 1628.832,
+      "percent": 91.028
+    },
+    {
+      "function": "semanticPayloadDigest abg/replay.js:1039",
+      "sampledMs": 1349.331,
+      "percent": 75.408
+    },
+    {
+      "function": "<anonymous> abg/replay.js:1301",
+      "sampledMs": 1349.331,
+      "percent": 75.408
+    },
+    {
+      "function": "canonicalJson shared/canonical_json.js:4",
+      "sampledMs": 1164.081,
+      "percent": 65.055
+    },
+    {
+      "function": "<anonymous> shared/canonical_json.js:19",
+      "sampledMs": 1122.456,
+      "percent": 62.729
+    },
+    {
+      "function": "<anonymous> shared/canonical_json.js:15",
+      "sampledMs": 853.544,
+      "percent": 47.701
+    },
+    {
+      "function": "sha256Bytes shared/digests.js:4",
+      "sampledMs": 464.751,
+      "percent": 25.973
+    },
+    {
+      "function": "update node:internal/crypto/hash:134",
+      "sampledMs": 464.751,
+      "percent": 25.973
+    },
+    {
+      "function": "update :0",
+      "sampledMs": 138.126,
+      "percent": 7.719
+    },
+    {
+      "function": "(garbage collector) :0",
+      "sampledMs": 125.543,
+      "percent": 7.016
+    },
+    {
+      "function": "canonicalRunContext abg/project_read_ports.js:533",
+      "sampledMs": 25.625,
+      "percent": 1.432
+    }
+  ],
+  "canonicalCaller": [
+    {
+      "function": "sha256Canonical shared/digests.js:10",
+      "sampledMs": 1164.081,
+      "percent": 65.055
+    }
+  ],
+  "selectedCallers": [
+    {
+      "function": "projectRunSemanticReplayProjection abg/replay.js:1267 <- <anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+      "sampledMs": 1635.207,
+      "percent": 91.384
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- semanticPayloadDigest abg/replay.js:1039",
+      "sampledMs": 1349.331,
+      "percent": 75.408
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectRunSemanticReplay abg/replay.js:1279",
+      "sampledMs": 250.917,
+      "percent": 14.023
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+      "sampledMs": 25.625,
+      "percent": 1.432
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+      "sampledMs": 2.959,
+      "percent": 0.165
+    }
+  ]
+}
+whole_profile {
+  "inclusive": [
+    {
+      "function": "(root) :0",
+      "sampledMs": 46706.625,
+      "percent": 100.0
+    },
+    {
+      "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+      "sampledMs": 42715.669,
+      "percent": 91.455
+    },
+    {
+      "function": "canonicalJson shared/canonical_json.js:4",
+      "sampledMs": 26347.367,
+      "percent": 56.41
+    },
+    {
+      "function": "<anonymous> shared/canonical_json.js:19",
+      "sampledMs": 24822.874,
+      "percent": 53.146
+    },
+    {
+      "function": "reopenEventStore abg/event_store.js:2473",
+      "sampledMs": 22363.128,
+      "percent": 47.88
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10",
+      "sampledMs": 22001.879,
+      "percent": 47.107
+    },
+    {
+      "function": "decodeHistoricalEvents abg/event_store.js:2038",
+      "sampledMs": 21974.629,
+      "percent": 47.048
+    },
+    {
+      "function": "projectRunTruthAtDurablePrefix abg/project_read_ports.js:614",
+      "sampledMs": 18663.334,
+      "percent": 39.959
+    },
+    {
+      "function": "canonicalRunContext abg/project_read_ports.js:533",
+      "sampledMs": 17343.372,
+      "percent": 37.133
+    },
+    {
+      "function": "runContext abg/project_read_ports.js:481",
+      "sampledMs": 17107.914,
+      "percent": 36.628
+    },
+    {
+      "function": "projectRunReplayContext abg/replay.js:1271",
+      "sampledMs": 17107.914,
+      "percent": 36.628
+    },
+    {
+      "function": "deriveReplayPrefixFacts abg/replay.js:433",
+      "sampledMs": 15496.369,
+      "percent": 33.178
+    },
+    {
+      "function": "replayValidatedRuntimeEventPrefix abg/replay.js:425",
+      "sampledMs": 15496.369,
+      "percent": 33.178
+    },
+    {
+      "function": "<anonymous> shared/canonical_json.js:15",
+      "sampledMs": 15338.232,
+      "percent": 32.84
+    },
+    {
+      "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+      "sampledMs": 14264.641,
+      "percent": 30.541
+    }
+  ],
+  "canonicalCaller": [
+    {
+      "function": "sha256Canonical shared/digests.js:10",
+      "sampledMs": 15420.079,
+      "percent": 33.015
+    },
+    {
+      "function": "advance abg/event_prefix.js:438",
+      "sampledMs": 5502.376,
+      "percent": 11.781
+    },
+    {
+      "function": "decodeHistoricalEvents abg/event_store.js:2038",
+      "sampledMs": 2793.372,
+      "percent": 5.981
+    },
+    {
+      "function": "same abg/worksite_input_provenance.js:26",
+      "sampledMs": 1586.08,
+      "percent": 3.396
+    },
+    {
+      "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+      "sampledMs": 707.791,
+      "percent": 1.515
+    },
+    {
+      "function": "<anonymous> validator/raw_admission.js:70",
+      "sampledMs": 167.167,
+      "percent": 0.358
+    },
+    {
+      "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+      "sampledMs": 60.457,
+      "percent": 0.129
+    },
+    {
+      "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+      "sampledMs": 60.337,
+      "percent": 0.129
+    }
+  ],
+  "selectedCallers": [
+    {
+      "function": "decodeHistoricalEvents abg/event_store.js:2038 <- reopenEventStore abg/event_store.js:2473",
+      "sampledMs": 21974.629,
+      "percent": 47.048
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectRuntimeEventAtContract abg/event_store.js:1317",
+      "sampledMs": 10659.601,
+      "percent": 22.822
+    },
+    {
+      "function": "runtimeEventPrefixDigest abg/event_prefix.js:451 <- prefixDigest abg/runtime_liveness.js:998",
+      "sampledMs": 6458.083,
+      "percent": 13.827
+    },
+    {
+      "function": "deriveRuntimeEventCalculusProjection abg/event_calculus.js:1676 <- deriveReplayPrefixFacts abg/replay.js:433",
+      "sampledMs": 3879.291,
+      "percent": 8.306
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- semanticPayloadDigest abg/replay.js:1039",
+      "sampledMs": 2660.876,
+      "percent": 5.697
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+      "sampledMs": 2020.832,
+      "percent": 4.327
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- canonicalRecordDigest abg/invocation_execution_truth.js:6",
+      "sampledMs": 1967.164,
+      "percent": 4.212
+    },
+    {
+      "function": "projectRunSemanticReplayProjection abg/replay.js:1267 <- <anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+      "sampledMs": 1660.791,
+      "percent": 3.556
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- inlineEventBody abg/event_body_encoding.js:10",
+      "sampledMs": 1471.082,
+      "percent": 3.15
+    },
+    {
+      "function": "runtimeEventPrefixDigest abg/event_prefix.js:451 <- deriveReplayPrefixFacts abg/replay.js:433",
+      "sampledMs": 1337.293,
+      "percent": 2.863
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+      "sampledMs": 1005.661,
+      "percent": 2.153
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- deriveReplayPrefixFacts abg/replay.js:433",
+      "sampledMs": 760.664,
+      "percent": 1.629
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- projectRunSemanticReplay abg/replay.js:1279",
+      "sampledMs": 542.126,
+      "percent": 1.161
+    },
+    {
+      "function": "rawAdmitValue validator/raw_admission.js:50 <- projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+      "sampledMs": 465.708,
+      "percent": 0.997
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- assertRuntimeEventContract abg/event_store.js:1570",
+      "sampledMs": 252.207,
+      "percent": 0.54
+    },
+    {
+      "function": "sha256Canonical shared/digests.js:10 <- successfulResult abg/worksite_input_provenance.js:45",
+      "sampledMs": 238.583,
+      "percent": 0.511
+    }
+  ]
+}

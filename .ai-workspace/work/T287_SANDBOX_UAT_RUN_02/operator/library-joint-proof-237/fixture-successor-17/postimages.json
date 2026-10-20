@@ -1,0 +1,40 @@
+{
+  "kind": "fixture17_postimages",
+  "changedFiles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/responder.mjs",
+      "sha256": "953b3ffe07d71b23dba5f69d8f1dbb316944ac656c9d040e4daf80ca1e22c67f",
+      "byteCount": 11540,
+      "mode": 493
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/workload.mjs",
+      "sha256": "4af014a78b695171918ba613e60d240244c60f4833067bcafd513e30cdee7e9b",
+      "byteCount": 492,
+      "mode": 420
+    }
+  ],
+  "original09Preserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/responder.mjs",
+      "sha256": "bedefd30e2b67b7c3277c7bfe03c7ebe7051f14d7103c3caf18bed7255a367bd",
+      "byteCount": 9155,
+      "mode": 493
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/workload.mjs",
+      "sha256": "6073c05c0f6ab85c7b4fb4fcacdfbd49e55c4473238bb5f785ce2de42f2e19f1",
+      "byteCount": 3888,
+      "mode": 420
+    }
+  ],
+  "unchangedResponderRegion": {
+    "from": "function section",
+    "through": "nativeWork",
+    "sha256": "e468129c6ad57ff32b34613de81a89e4c86e8edcf2fc888781e834e9b1c5020c",
+    "byteCount": 7577,
+    "byteEqual": true
+  },
+  "workloadRelation": "All original exports and fixtureSelection reused at continuation-09/workload.mjs; only responderEnvironment command locator is overridden",
+  "canonicalSourceHelpersChanged": false
+}

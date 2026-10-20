@@ -1,0 +1,47 @@
+{
+  "all263SourceBytesPreserved": true,
+  "selectedAcceptedPostimagesPreserved": 19,
+  "allProtectedPinsPreserved": true,
+  "packageLockVersionPreserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "byteCount": 9744
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package-lock.json",
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+      "byteCount": 8001
+    }
+  ],
+  "immutable25Preserved": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/identity.json",
+      "sha256": "295dd60aec382e6d31829b13e2fa7760cd3202a0d319872bc8ada9bbfeb38c39",
+      "byteCount": 5498
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/freeze.json",
+      "sha256": "4b29ced64b5ef232d7b7ba928dd79ba40624388a2dad1fa59c2bd83b09a8a0f9",
+      "byteCount": 5831
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "fb4ba337d8f70db2f1f7df26f4a23bdf581646126186decd1bae80583e2f00fd",
+      "byteCount": 10630872
+    }
+  ],
+  "candidate24AndInstalled129Untouched": "No write/install/resource/app operation targeted earlier candidates or stopped workspace",
+  "sourcePostimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/source-postimages.json",
+    "sha256": "ede8d251f5bd42978d7fd660b14ceefc66f70b217a0adaba829bd27fd9007461",
+    "byteCount": 78250
+  },
+  "partialGenerated": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-148/generated-failed-build-delta.json",
+    "sha256": "8a6169b54c676ec3d150a7cef9c4664b4ab9ff740bb3dc4496222ebab9907350",
+    "byteCount": 323725
+  },
+  "candidate26Absent": true,
+  "noRuntimeProviderModelAppGitEffects": true
+}

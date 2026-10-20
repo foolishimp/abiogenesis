@@ -1,0 +1,11 @@
+✔ equal historical projection values do not mask the exact open current basis (0.440583ms)
+✔ occurrence selection refuses genuine ambiguity and crossed basis (0.052583ms)
+✔ retained catalog and view authority reject a coherent same-binding alternative (2412.222375ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2975.99725

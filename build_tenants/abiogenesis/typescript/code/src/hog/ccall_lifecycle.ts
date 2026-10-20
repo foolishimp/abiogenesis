@@ -11,6 +11,8 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_exec
 import * as Effect from "effect/Effect";
 
 import * as Abg from "../abg/index.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
+import { deriveRuntimeHeldFluentProjection } from "../abg/event_calculus.js";
 import { hasNoCompletedRetryExit } from "../abg/retry.js";
 import type {
   AbgEventStore,
@@ -55,7 +57,7 @@ import {
   type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
+import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import {
   applyAdmittedRoute,
   deriveCompletedTraversalCursor,
@@ -63,7 +65,7 @@ import {
 } from "./traversal.js";
 import { failTraversal } from "./traversal_failure.js";
 import {
-  projectExecutableTraversalCompletion,
+  projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion,
   type ExecutableTraversalCompletion,
 } from "./traversal_completion.js";
 
@@ -108,6 +110,24 @@ export type CCallLifecycleStep =
   | CCallLifecycleEvaluation
   | CCallRetryRequest;
 
+
+import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
+import type { RuntimeReplayGuard } from "../abg/replay.js";
+import * as OwnedOutcome from "../abg/c_call_outcome.js";
+import * as OwnedReplay from "../abg/replay.js";
+
+/** @internal */
+export type OwnedCCallLifecycleEvaluation = OwnedOutcomeValue<CCallLifecycleEvaluation>;
+/** @internal */
+export type OwnedCCallLifecycleStep = OwnedOutcomeValue<CCallLifecycleStep>;
+/** @internal */
+export type OwnedExecutableTraversalCompletion = OwnedOutcomeValue<ExecutableTraversalCompletion>;
+/** @internal */
+export type OwnedBlockedCCallOutcomeReceipt = OwnedOutcomeValue<BlockedCCallOutcomeReceipt>;
+/** @internal */
+export type OwnedJudgedCCallOutcomeReceipt = OwnedOutcomeValue<JudgedCCallOutcomeReceipt>;
+/** @internal */
+export type OwnedRetryCCallOutcomeReceipt = OwnedOutcomeValue<RetryCCallOutcomeReceipt>;
 function worksiteLeafAuthority(
   input: ExecutableCCallContext,
   resolution: Abg.AdmittedImplementationResolutionRow,
@@ -143,12 +163,9 @@ function worksiteLeafAuthority(
     input.input.capabilityGrant.scopeDigest !== input.executionBasis.workspaceBindingDigest
   ) return null;
   Abg.assertHeldEventStoreAtDurablePrefix(input.store, openedPrefix);
-  const current = Abg.projectRuntimePrefixesAtDurablePrefix(
-    openedPrefix,
-    cCall.runId,
-  );
-  const calculus = Abg.deriveRuntimeEventCalculusProjection(
-    current.runtimePrefix,
+  const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(openedPrefix);
+  const calculus = deriveRuntimeHeldFluentProjection(
+    selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: cCall.runId }),
   );
   if (!parents && isWorksiteFileReplaceRequest(input.input) &&
     !Abg.holdsAt(
@@ -216,14 +233,14 @@ function failCCall(
 }
 
 function projectBlockedCCallCompletion(
-  replayState: Abg.ReplayState,
+  replayState: RuntimeReplayGuard,
   successorPrefix: DurablePrefixCoordinate,
   cCall: Abg.CCall,
   resultRef: string,
   judgmentRef: string,
   reasonRef: string,
   resultValue: JsonValue,
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   return projectExecutableTraversalCompletion(
     "blocked",
     replayState,
@@ -238,11 +255,12 @@ function projectBlockedCCallCompletion(
   );
 }
 
-export function projectCCallCompletion(
+/** @internal Same owner computation with a selected guard receipt. */
+export function projectOwnedCCallCompletion(
   source: TraversalCursor,
-  admitted: Abg.CCallCompletionAdmission,
+  admitted: OwnedOutcome.OwnedCCallCompletionAdmission,
   target: TraversalCursor | null,
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   if (admitted.disposition === "blocked") {
     const outcome = admitted.outcome;
     const cCall = outcome.disposition === "blocked"
@@ -316,11 +334,8 @@ export function projectCCallCompletion(
         },
       );
     }
-    const { runtimePrefix, authorityPrefix } =
-      Abg.projectRuntimePrefixesAtDurablePrefix(
-        admitted.transition.successorPrefix,
-        source.runId,
-      );
+    const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.transition.successorPrefix);
+    const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: source.runId });
     const route = admitted.transition.route;
     const continuationKind = route.routeKind === "re_enter" ? "re_enter" : "advance";
     const nextCursor = applyAdmittedRoute(
@@ -378,9 +393,10 @@ export function projectCCallCompletion(
   );
 }
 
-export function evaluateExecutableCCall(
+/** @internal Same owner computation with a selected guard receipt. */
+export function evaluateOwnedExecutableCCall(
   input: ExecutableCCallContext,
-): Effect.Effect<CCallLifecycleStep> {
+): Effect.Effect<OwnedCCallLifecycleStep> {
   return Effect.gen(function* () {
     const resolution = Abg.selectAdmittedImplementationResolution(
       input.implementationSet,
@@ -578,15 +594,15 @@ export function evaluateExecutableCCall(
       failureValueKind,
       basis: admissionBasis(input.clock, "outcome"),
     } as const;
-    let resultOutcome: ReturnType<typeof Abg.admitCCallResult>;
+    let resultOutcome: ReturnType<typeof OwnedOutcome.admitOwnedCCallResult>;
     try {
       resultOutcome = input.stop.computeRegime === "F_P"
-        ? Abg.admitCCallResult({
+        ? OwnedOutcome.admitOwnedCCallResult({
             ...outcomeInput,
             regime: "F_P",
             actorRuntimeBinding: input.actorRuntimeBinding,
           })
-        : Abg.admitCCallResult({ ...outcomeInput, regime: "F_D" });
+        : OwnedOutcome.admitOwnedCCallResult({ ...outcomeInput, regime: "F_D" });
     } catch (error) {
       const residue = unadmittedPhysicalCommit(
         opened.cCall.cCallRef,
@@ -594,7 +610,7 @@ export function evaluateExecutableCCall(
         outcomePredecessor,
       );
       if (residue === null) throw error;
-      const replayState = Abg.projectRuntimeTruthAtDurablePrefix(
+      const replayState = OwnedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
         outcomePredecessor,
         opened.cCall.runId,
       ).replayState;
@@ -643,7 +659,7 @@ export function evaluateExecutableCCall(
                   reasonRef: completedOwner.candidate.diagnosticRef,
                 },
           });
-          return Abg.admitCCallJudgment({
+          return OwnedOutcome.admitOwnedCCallJudgment({
             store: input.store,
             graph: input.graph,
             graphFunction: input.graphFunction,
@@ -666,8 +682,8 @@ export function evaluateExecutableCCall(
     if (admitted.disposition === "judged" && admitted.admitted.result.resultClass === "success" &&
       admitted.admitted.judgment.judgment === "advance" && input.deferToApplication !== true) {
       try {
-        const truth = Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId);
-        retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, input.executionBasis,
+        const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.successorPrefix);
+        retained = Abg.deriveRetainedCCallInputAtPrefix(authorityPrefix, input.executionBasis,
           input.graph, input.stop.cursor, admitted.admitted.cCall, admitted.admitted.result, admitted.admitted.judgment);
       } catch (error) {
         return failCCall(input, admitted.successorPrefix, `leaf-retention-${input.ordinal}`,
@@ -696,7 +712,7 @@ export function evaluateExecutableCCall(
           inputRef: retained?.input.admissionRef ?? admitted.admitted.result.resultRef,
           inputDigest: retained?.input.subjectDigest ?? admitted.admitted.result.valueDigest,
         },
-        Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId).authorityPrefix,
+        projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.successorPrefix),
       );
       if (derived?.kind === "traversal_refusal") {
         return failCCall(
@@ -775,7 +791,7 @@ export function evaluateExecutableCCall(
         proposedTransition as unknown as JsonValue,
       );
     }
-    const completionAdmission = Abg.admitCCallCompletion({
+    const completionAdmission = OwnedOutcome.admitOwnedCCallCompletion({
       store: input.store,
       predecessorPrefix: admitted.successorPrefix,
       executionBasis: input.executionBasis,
@@ -783,7 +799,7 @@ export function evaluateExecutableCCall(
       graphFunction: input.graphFunction,
       source: input.stop.cursor,
       target: admitted.disposition === "blocked" ? null : target,
-      outcome: admitted as JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+      outcome: admitted as OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt,
       candidate: proposedTransition,
       openedTraversalScope: input.openedTraversalScope,
       closureContract: input.closureContract,
@@ -806,7 +822,7 @@ export function evaluateExecutableCCall(
     }
     return {
       kind: "c_call_evaluation" as const,
-      completion: projectCCallCompletion(
+      completion: projectOwnedCCallCompletion(
         input.stop.cursor,
         completionAdmission,
         target,
@@ -815,4 +831,18 @@ export function evaluateExecutableCCall(
       outputContractRef: input.stop.outputContractRef,
     };
   });
+}
+
+export function projectCCallCompletion(
+  source: TraversalCursor,
+  admitted: Abg.CCallCompletionAdmission,
+  target: TraversalCursor | null
+): ExecutableTraversalCompletion {
+  return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedCCallCompletion(source, admitted, target));
+}
+
+export function evaluateExecutableCCall(
+  input: ExecutableCCallContext
+): Effect.Effect<CCallLifecycleStep> {
+  return Effect.map(evaluateOwnedExecutableCCall(input), value => completePublicOutcome<CCallLifecycleStep>(value));
 }

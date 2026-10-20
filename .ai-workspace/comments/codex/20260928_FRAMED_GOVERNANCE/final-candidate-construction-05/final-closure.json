@@ -1,0 +1,17 @@
+{
+  "status": "CLOSED",
+  "workResult": "construction_ready_for_independent_review",
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_05",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "closedAt": "2026-10-02T02:18:44.376528+00:00",
+  "onlyWriteTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05",
+  "sourceRepair": false,
+  "pack": 1,
+  "physicalOfflineInstall": 1,
+  "ordinaryProductInstall": false,
+  "runtime": false,
+  "qualification": false,
+  "reviewerActivated": false,
+  "noFurtherWrites": true
+}

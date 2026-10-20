@@ -15,9 +15,82 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Installed native scenarios and the default library supply ABG diagnostic and lifecycle evidence; odd_glc is deselected from ABG delivery. | Active under STDO2.5.1RC2. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, external application-lifecycle proof and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits. S6's complete installed Hello lifecycle is independently accepted, including consequential correction, actual authorship, assessment, coverage and fresh Public closure. Ordinary stopped-Run evidence reuse is independently accepted: a fresh invocation preserves the producer and completes independent assessment and current parent/Run closure. T-287 owns remaining exact execution resumption and exact release qualification. Preserve accepted bounded outcomes and original sources/oracles. odd_glc/T-043/Data Mapper are deselected from ABG delivery; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The [common computational library deliverable](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable) must be implemented, evidenced and accepted before remaining 5.0 release work resumes. L1 and exact L2 design are accepted; L3–L5 remain pending and library delivery is open. The user selects a full-tree checkpoint before implementation; no L3 activation is current. Existing accepted evidence retains its original subjects. Current-candidate lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
 
 ## Current Selection
+
+Owner selection, 2026-10-21: ABG's
+[library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
+is a prerequisite deliverable before returning to the 5.0 release. The
+deliverable comprises accepted design, usable common implementations, actual
+consumer adoption, removal or justified retention of duplicate computational
+responsibilities, executed obligations and independent acceptance. Remaining
+release integration, lifecycle, qualification and publication work waits for
+that acceptance. Bounded integration and installed proof needed to deliver
+the library belong to the library work package.
+
+The [L1 design baseline](../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md)
+and [exact L2 delivery design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
+are accepted. L2 binds D02–D04 contraction, K11 standalone STDO3 context,
+E03 shared physical lifetime/timing, U1 scoped unknown-effect currentness,
+E01/E02/E04 retained domains, and frozen P1–P5 proof. Independent review 02
+closed the bounded timer-domain design finding; implementation and execution
+remain pending. The isolated baseline built and packed, which establishes
+mechanical readiness only.
+
+The user now selects a [full-tree commit/push checkpoint](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md),
+including other-session commentary and analysis, before implementation.
+No L3 source or runtime activation is current. After that checkpoint, a
+separate bounded activation may realize the accepted scope, execute its
+obligations and seek L5 independent delivery acceptance under
+[T-287's library milestones](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable).
+Design acceptance does not establish observed contraction, delivery or
+release readiness; the release-resumption gate remains closed.
+
+The intended asset is a reusable computational basis from which feature
+behaviour is composed. The calculus identifies common structure, contracts
+and lawful compositions so independent computational solutions do not
+proliferate. Explicit obligations state what execution must establish;
+execution and assessment determine actual outcomes and discharge.
+[Product's prerequisite boundary](PRODUCT.md#common-computational-library-prerequisite)
+selects this bounded deliverable while preserving the fifteen families,
+semantic owners and release qualification. Optional compression outside the
+deliverable retains its existing allocation.
+
+Owner selection, 2026-10-21: apply STDO 3.0 thoroughly to ABIogenesis 5.0.
+Reconcile the requirements calculus with the TypeScript tenant's declared
+computational calculus and execution environment. Use the existing GTL, HoG,
+ABG, Event Calculus and Effect relations; expose missing material decisions,
+failure cases, effect boundaries and computational obligations through their
+owning design. The [reconciliation](../.ai-workspace/comments/codex/20261021_STDO3_ABG5_RECONCILIATION.md)
+records applicability, changes, evidence limits and the remaining work.
+
+The [accepted reconciliation](../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/disposition.md)
+establishes the preceding Product/requirement binding, computational design
+basis and delivery plan under the exact method. The library design refines
+that basis and supersedes its next-work ordering.
+Product re-entry removes the mandatory legacy companion-cohort assumption
+from the STDO runtime template while preserving explicitly declared source,
+access, context and admission obligations. This changes the current destination;
+implementation and affected installed proof remain open. Historical Runs keep
+their admitted method and dependencies.
+
+After library acceptance, the release path resumes toward one complete
+installed application lifecycle with consequential correction and preserved
+work across restart. T-287 admits only its named, bounded prerequisites.
+A design claim of exhaustive coverage
+states its domain, legal compositions and independent evidence; a document,
+matrix or test count cannot establish whole-Product completion. Existing
+materially correct relations and applicable evidence are retained. Older
+routing below preserves history and cannot reactivate a superseded attempt.
+
+Owner selection, 2026-10-21: pin ABIogenesis source development to the published
+STDO 3.0.0 line, exact immutable `v3.0.0-rc.1` and manifest selected by
+[`stdo_abiogenesis.json`](../stdo_abiogenesis.json). The
+[adoption record](../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md)
+binds the standalone method, V3 source routes and empty companion composition.
+This method selection preserves the current Product outcomes and T-287 work;
+prior Runs and qualification evidence retain their original exact bases.
 
 Owner correction, 2026-10-06: Hello World is the minimal language test, never
 an ABG Product or feature. T-287 removes its built-in code, contracts,
@@ -54,10 +127,11 @@ Harness setup, actual live UAT success, qualification and release acceptance
 remain distinct claims. [T-287 sandbox UAT plan](../.ai-workspace/work/T287_SANDBOX_UAT_01/plan.md)
 owns this increment; it creates no additional seven-case RC1 prerequisite.
 
-Setup is accepted, 2026-10-06: 20 obsolete test files and 21 exclusive helpers
+Historical setup acceptance, 2026-10-06: 20 obsolete test files and 21 exclusive helpers
 are removed; seven original workloads and independent oracles resolve locally;
 the ABG-owned harness and actual clean Public `basic-cli` preparation are
-independently accepted. Live application UAT results remain 0/7, unexecuted.
+independently accepted. At that setup cut, live application UAT results were
+0/7, unexecuted. T-287's current plan owns later execution status.
 [Bounded setup acceptance](../.ai-workspace/work/T287_SANDBOX_UAT_01/acceptance.md)
 records exact subjects, readiness, proof and limits. Qualification, RC1 and
 human acceptance remain open.
@@ -127,6 +201,16 @@ qualification or release readiness.
 
 ### Current delivery objective
 
+First design the [common computational capability library](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md),
+using the [computational binding](../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md)
+for its laws, obligations and execution boundary. Common capabilities and
+their compositions are the reusable asset; actual outcomes require execution
+evidence under the owning obligations.
+The current T-287 plan supersedes historical work ordering while retaining
+still-applicable accepted semantics. Its design, implementation, controlled
+integration, genuine lifecycle, qualification and release exits remain
+distinct.
+
 Deliver the fixed fifteen-family ABG5 runtime through the existing GTL/HoG/ABG
 owners. Preserve the accepted execution/context calculus, generic core repairs,
 original task/oracle and still-valid evidence. The withdrawn consumer extension
@@ -159,7 +243,7 @@ bounded grant owns execution.
 Historical paired-campaign record: GOAL-035/T-287 and T-043 retain their recorded
 fixed fifteen-family ABG5 outcome, original
 job/S1–S5/oracle, five selected/four outside residuals and protected worksite.
-ABG uses STDO 2.5.1 RC2; GLC remains on RC4. Earlier bounded acceptances remain
+That campaign used STDO 2.5.1 RC2 for ABG and RC4 for GLC. Earlier bounded acceptances remain
 historical evidence. [Root disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation09-disposition/disposition.md) retains the predecessor conjunction.
 
 Predecessor core04/consumer01/caller02 source readiness and compiled09/dev.5
@@ -203,8 +287,8 @@ Predecessor readiness ABI `2b9e540…` / GLC `8fd1de6…` and the paired success
 
 ### Historical delivery and repair dispositions
 
-The [method adoption](../.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md)
-updates this consumer's exact STDO basis and matched Development Products.
+The [historical method adoption](../.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md)
+updated this consumer's then-selected STDO basis and matched Development Products.
 [T-287's owner re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-rc1-owner-re-entry)
 records the trusted-desktop scope and next removal of unsupported repeated
 event-log authentication before paid Design/Hello continuation. Method adoption
@@ -399,7 +483,7 @@ D1's [first full-source/paired-open-obligation checkpoint](../.ai-workspace/comm
 - Wave 1's functional substrate and [Wave 2's four threads/B06 closure](../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-04-acceptance/disposition.md) remain accepted for their exact subjects.
 - [C1 text output](../.ai-workspace/comments/codex/20260909_C1_TEXT_OUTPUT/acceptance/disposition.json) and [C2 compact acknowledgment](../.ai-workspace/comments/codex/20260909_C2_HELPER_ACK/acceptance/disposition.json) remain accepted; their completed grants and stated C0/C2 limits are unchanged.
 - The [seven-scenario campaign](../../odd_glc/.ai-workspace/comments/codex/20260909_FULL_LIVE_SUITE/execution.md#executive-acceptance-of-the-seven-scenario-campaign) remains accepted construction/execution evidence: six Hello outcomes on artifact8a, Data Mapper construction on artifact9a and final repair/C2 on artifact4863, with 58 passes and nine predicates. It is not full original-specification Data Mapper, all-seven-on-one-artifact, repeatability or release qualification.
-- The [current method adoption](../.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md) selects the Definition basis and companion composition. The [RC7 installation](../.ai-workspace/comments/codex/20260915_STDO_RC7_INSTALL/README.md) and [RC6 migration](../.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md) remain historical evidence; they do not select current development routes. No downstream Product migration is selected.
+- The [current V3 method adoption](../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md) selects the Definition basis and standalone source routes. The [2.5.1 RC1 adoption](../.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md) retains its historical cohort evidence. The [RC7 installation](../.ai-workspace/comments/codex/20260915_STDO_RC7_INSTALL/README.md) and [RC6 migration](../.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md) remain historical evidence; they do not select current development routes. No downstream Product migration is selected.
 - [S01 Execution06/root Review06A](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_08/root-reviews.md#s01-installed-review06a) is accepted for R1–R9 only on its exact cut. D2 Source05/Review20, HOW21/Review22, R10 HOW07/Review08 and HOW10/Review11, and D1 source/readiness/partial setup retain distinct bounded scopes in [Checkpoint08](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_08/checkpoint.md); none closes native continuation, typed R10, an integrated candidate or release.
 
 ### Retained Baseline-Repair Planning
@@ -811,13 +895,13 @@ review; a Reviewer performs no repair.
   that every earlier requirement or public-operation roster remains selected.
 - [`stdo_abiogenesis.json`](../stdo_abiogenesis.json),
   `constitution.stdo.basis`, is the sole exact operative STDO selection. The
-  direct owner ruling adopts the immutable RC7 cohort for all resumed work;
-  its exact install evidence is retained by the linked RC7 installation record.
-- The Definition's composition selects exact release-matched Axiom Indexer and
-  STDO Representation Development Products. Older installs and their maps are
-  historical, non-operative context. Only a freshness-verified map over the
-  selected exact source may route attention. Maps and prompts grant no ABI
-  authority.
+  direct owner ruling adopts the immutable standalone V3 cut for resumed
+  source work; its install and route evidence is retained by the linked V3
+  adoption record.
+- The Definition's composition is empty. Source development uses the native
+  installed method. Older companion installs and maps retain their original
+  evidence scope. A supplemental map requires explicit selection and exact
+  source verification before use. Maps and prompts grant no ABI authority.
 - The project extension
   `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis`
   is adopted for T-287 context only. It creates no runtime entity or executor.

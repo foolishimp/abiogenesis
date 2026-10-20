@@ -1,0 +1,14 @@
+{
+  "pid": 98541,
+  "processGroup": 98541,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/setup-bind.jsonl"
+  ],
+  "startedAt": "2026-09-30T06:01:12.921Z",
+  "mode": "setup",
+  "label": "bind",
+  "capMs": 600000
+}

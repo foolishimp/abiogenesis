@@ -1,0 +1,55 @@
+{
+  "actor": "/root",
+  "observation": "read-only exact turn_context metadata only",
+  "records": [
+    {
+      "source": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-14-42-01a0edbb-7c4f-7493-bf06-2a600644bbb6.jsonl",
+      "line": 8,
+      "offset": 167364,
+      "bytes": 2070,
+      "recordSha256": "23777f5206cd8fbd99098592cabfcc3efde0a9ba81a16d1625daddd3595b275d",
+      "timestampUTC": "2026-09-29T15:15:10.569Z",
+      "cwd": "/Users/jim/src/apps",
+      "approvalPolicy": "never",
+      "sandboxPolicy": {
+        "type": "danger-full-access"
+      }
+    },
+    {
+      "source": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T01-14-42-01a0edbb-7c4f-7493-bf06-2a600644bbb6.jsonl",
+      "line": 2935,
+      "offset": 13661139,
+      "bytes": 3757,
+      "recordSha256": "1f6c06494ec0b164da9d6a14c3621717f8b079c20750e416533af0b16e01afdd",
+      "timestampUTC": "2026-09-30T02:34:19.308Z",
+      "cwd": "/Users/jim/src/apps",
+      "approvalPolicy": "never",
+      "sandboxPolicy": {
+        "type": "workspace-write",
+        "network_access": false,
+        "exclude_tmpdir_env_var": false,
+        "exclude_slash_tmp": false
+      }
+    },
+    {
+      "source": "/Users/jim/.codex/sessions/2026/09/30/rollout-2026-09-30T12-48-37-01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4.jsonl",
+      "line": 8,
+      "offset": 172430,
+      "bytes": 2453,
+      "recordSha256": "d26d8eb09de5b0cf4d17ec08ae340a137e55dcfa7f61c66c2938bcafabf5f980",
+      "timestampUTC": "2026-09-30T02:48:39.307Z",
+      "cwd": "/Users/jim/src/apps",
+      "approvalPolicy": "never",
+      "sandboxPolicy": {
+        "type": "workspace-write",
+        "network_access": false,
+        "exclude_tmpdir_env_var": false,
+        "exclude_slash_tmp": false
+      }
+    }
+  ],
+  "limitations": [
+    "No complete transcript or credentials copied.",
+    "The metadata does not identify who or what changed the profile."
+  ]
+}

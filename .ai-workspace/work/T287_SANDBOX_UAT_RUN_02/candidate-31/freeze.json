@@ -1,0 +1,41 @@
+{
+  "state": "CLOSED immutable unreleased candidate31",
+  "identity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/identity.json",
+    "sha256": "f78e30080bdf23d43ed2ab4fe4f2e59ebcb8a2eeea72a145e7e0cf041f5adcae",
+    "byteCount": 18321
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "18e1eac0d22a12f1d041947bb0e60a3f568ab10be7ce1ad604b3e6b5af610475",
+    "byteCount": 10640868
+  },
+  "sourceAccepted": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/freeze.json",
+      "sha256": "b54637462ab026a30c8065cb1baf1c9912898b07337710d222ec91eac0674803",
+      "byteCount": 14912
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-review-226/freeze.json",
+      "sha256": "5cb0a6a846929761270546a2a79e51c93eb4b89ede95b7c0beeb95244c3fe949",
+      "byteCount": 6105
+    }
+  ],
+  "memberDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/member-delta.json",
+    "sha256": "aad35d8f544b3f78ec82d43fe64e4fd8ab5b8ac7ef4539617c040ba5fbc55ff6",
+    "byteCount": 46632
+  },
+  "tarInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/tar-inventory.json",
+    "sha256": "8cc438553a8a4ada6ec29a3823f26b300201d2d51d6a320051ac61a78245b594",
+    "byteCount": 1250157
+  },
+  "publicationPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-successor-227/pins.json",
+    "sha256": "a29b0ddd3b87f5c38d3da54b4dd121966ca5d5509d34733e7d1689be4c70a3cc",
+    "byteCount": 36203
+  },
+  "scope": "Immutable publication, clean installed payload, flat consumer ESM/dependency/whole-Program and pure29\u219431 value-contract correspondence only. No current ABG install/binding/catalog/cover/source-use, Source41, private preparation, Run/native/model/UAT/capacity/P0/release claim. Exact223 allocator and full-history composition remain unproved; no actual log read/hash/stat/acquisition/recovery or app/runtime effects."
+}

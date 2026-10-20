@@ -1,0 +1,114 @@
+{
+  "status": "CLOSED",
+  "disposition": "source_ready_for_separate_assurance",
+  "activation": "T287_F11_LAW_STAGE_REPAIR_01",
+  "changeClass": "realization_refactor",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "sources": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "bytes": 13284,
+      "sha256": "0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435",
+      "snapshot": "postimages/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "preimageSHA256": "65ce8a6ea4c052be321a38acbf24fec3104d8e312faf1cbf498905c128745778"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "bytes": 10651,
+      "sha256": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6",
+      "snapshot": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "preimageSHA256": "88ca3d46997a1a92defa65525686f4bbd7db8dee249f79a2970e5be728ac6553"
+    }
+  ],
+  "testedDependencySourcePin": "tested-dependency-source-pin.json",
+  "generatedLawIdentities": "generated-law-identities.json",
+  "tests": {
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "finalProcess": {
+      "command": [
+        "node",
+        "--test",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant/test_env/tests/t287-qualification-law.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant",
+      "taskTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/tmp",
+      "pid": 67560,
+      "elapsedMs": 2674.800916109234,
+      "exitCode": 0,
+      "timedOut": false,
+      "nativeCalls": 0,
+      "providerCalls": 0,
+      "scope": "Only focused copied-tenant qualification law tests; no build or live generator writes"
+    },
+    "allAttempts": [
+      {
+        "command": [
+          "node",
+          "--test",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant/test_env/tests/t287-qualification-law.test.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant",
+        "taskTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/tmp",
+        "pid": 65815,
+        "elapsedMs": 144.49554216116667,
+        "exitCode": 1,
+        "timedOut": false,
+        "nativeCalls": 0,
+        "providerCalls": 0,
+        "scope": "Only focused copied-tenant qualification law tests; no build or live generator writes"
+      },
+      {
+        "command": [
+          "node",
+          "--test",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant/test_env/tests/t287-qualification-law.test.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant",
+        "taskTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/tmp",
+        "pid": 66416,
+        "elapsedMs": 155.58895794674754,
+        "exitCode": 1,
+        "timedOut": false,
+        "nativeCalls": 0,
+        "providerCalls": 0,
+        "scope": "Only focused copied-tenant qualification law tests; no build or live generator writes"
+      },
+      {
+        "command": [
+          "node",
+          "--test",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant/test_env/tests/t287-qualification-law.test.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/copied-tenant",
+        "taskTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/tmp",
+        "pid": 67560,
+        "elapsedMs": 2674.800916109234,
+        "exitCode": 0,
+        "timedOut": false,
+        "nativeCalls": 0,
+        "providerCalls": 0,
+        "scope": "Only focused copied-tenant qualification law tests; no build or live generator writes"
+      }
+    ],
+    "scope": "Only exact focused file in report copied tenant; successful staging/generated outputs confined to report/tmp"
+  },
+  "rootCause": "stageQualificationAuthorities hardcoded RC1 URI/manifest and methodVersion, rejecting the current selected Definition and preserving old law on a new candidate. Immutable historical C02/Q02 RC1 cuts were coherent and are unchanged.",
+  "repair": "Derive method version from the exact manifest release.cut; join it to the Definition immutable URI and manifest byte digest, reproduce the member-set identity and retain selected member byte joins before writing. Ordinary generation reads only already frozen authority inputs.",
+  "dependencyFixtureFailures": "Two initial imports failed before test execution due to incomplete copied dependencies. They are retained as fixture failures; the final tested source used the complete frozen C02 dependency tree.",
+  "preservation": "conservation.json",
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "movingResourceReads": 0,
+  "builds": 0,
+  "GitEffects": 0,
+  "runtimeSubstrateRepin": false,
+  "ambientRestage": false,
+  "qualifiedAcceptance": false,
+  "limits": [
+    "New candidate construction must separately stage the current selected law and generate outputs under its own grant",
+    "Separate carrier design/source readiness, actual native assessment, full F11/AF22 and 5.0 qualification/publication/owner acceptance remain outside this closure",
+    "Tests establish exact mechanical selection, spans and reproduction, not semantic law fidelity or independent judgment"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "Runtime10": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/final-runtime-freeze.json",
+    "bytes": 20699,
+    "sha256": "47a9953d8f3e66cf7dffd4bd1b740915df6da9b19e8eb4e97d95fa748a427329",
+    "mode": 420
+  },
+  "review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-release-and-assurance-01/whole-review/freeze.json",
+    "bytes": 1715,
+    "sha256": "08f5d3c7179b73b6c7fcee6fc2411af930f7c2a5e4af99246e17c1b49107efc8",
+    "mode": 292
+  },
+  "Runtime09Positive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-positive-acceptance-01/acceptance.json",
+    "bytes": 15036,
+    "sha256": "9348c2a734d959d45c006a1cadab1346322d93976226e394971d794ad4cd4498",
+    "mode": 420
+  },
+  "unchangedQ15Inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q15-input-acceptance-runtime09-01/acceptance.json",
+    "bytes": 19506,
+    "sha256": "d3007ae8f613d412c71d92e7397c238878ab8d15eea20d0cffdfc877770d680b",
+    "mode": 420
+  },
+  "C10PreparedController": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/preparation-freeze.json",
+    "bytes": 14546,
+    "sha256": "04c42137e3ac1f054f9c383a39e8c13c70654e610a8e591779d9d9e5572184fd",
+    "mode": 420
+  },
+  "actualFrameworkSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/qualification_proof.js",
+    "bytes": 77572,
+    "sha256": "29721c3f766dd3b20ea705d07298c13317c3489b4774ce51758d03940c0b368e",
+    "mode": 420
+  },
+  "parentAliasHOWGap": "tracked; RC applicability unresolved; not waived"
+}

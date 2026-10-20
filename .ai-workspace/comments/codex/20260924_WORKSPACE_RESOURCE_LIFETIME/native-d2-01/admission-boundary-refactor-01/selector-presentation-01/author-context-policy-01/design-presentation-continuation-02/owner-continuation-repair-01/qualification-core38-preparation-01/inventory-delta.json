@@ -1,0 +1,87 @@
+{
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core37-preparation-01/source-inventory.json",
+    "sha256": "d5fa175cf481a704150f768b62ea50af579e2c9d911578ca92a5490a907942b1",
+    "bytes": 299656
+  },
+  "acceptedBuildInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-38/build-inputs.json",
+    "sha256": "b50a86a879b003b17a2023712b9ec56c12d642763ce5057f176df536bc7691d6",
+    "bytes": 42177
+  },
+  "acceptedGenerated": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-38/generated-after.json",
+    "sha256": "ab1e477f729a73486f9e7b274ee4b00e633cefe0f6e3a7cd5521b83f4232fc03",
+    "bytes": 156347
+  },
+  "currentCandidateRoots": [
+    "design/",
+    "test_env/tests/",
+    "test_env/support/"
+  ],
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "before": {
+        "path": "build/code/src/abg/instruction_assembly.js",
+        "bytes": 81267,
+        "sha256": "de6d482fdcfd0951cbe728c50787826d569730fb68648de425974e4746734127"
+      },
+      "after": {
+        "path": "build/code/src/abg/instruction_assembly.js",
+        "bytes": 81885,
+        "sha256": "60a2f44aba88642c9bbdeabf888cd1ca4870bf1b5b7596a0702ad96afc4fd6cb"
+      }
+    },
+    {
+      "before": {
+        "path": "code/src/abg/instruction_assembly.ts",
+        "bytes": 83408,
+        "sha256": "e45c1a74ad761d55c2fd4089cb38d7eb5bb1ff35e29e8c06011280ecc4711649"
+      },
+      "after": {
+        "path": "code/src/abg/instruction_assembly.ts",
+        "bytes": 84012,
+        "sha256": "2f445d8d7b8090ac11d89bbb3187e71c663220840558b21e0370bfca90665fa9"
+      }
+    },
+    {
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0952fb9f3b5078f2f86fc0a6e23caaca1ce8d12bb5f6015c16c42b03ae984aca"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "cbe59eae06605bde73ba4c66206fe79599bf8338bd801f385e7dde642ec79a4d"
+      }
+    },
+    {
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "57f1c0bb24d3fbf656e7270912414edde2c0de68e54d4b5bcb03f69bf2a17351"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "6ce4643b67f359d6e9479d70e252a9fb1c9bbb5775343dc6d8048c4d10d1dbc9"
+      }
+    },
+    {
+      "before": {
+        "path": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "bytes": 58327,
+        "sha256": "6fcb02789ec0d5d05a303ad16697db7d255706d80edd4f902d8250dac3645b76"
+      },
+      "after": {
+        "path": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "bytes": 67585,
+        "sha256": "510646f94640eaee0fc04976b1d2584f3321e7cd667cf3742f4ca90f786b8336"
+      }
+    }
+  ],
+  "completeness": "candidate_population_only_independent_whole_subject_selection_pending"
+}

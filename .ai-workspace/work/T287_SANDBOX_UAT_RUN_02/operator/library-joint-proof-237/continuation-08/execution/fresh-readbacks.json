@@ -1,0 +1,64 @@
+[
+  {
+    "memberKey": "run_result",
+    "ownerOutput": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "not_found",
+        "evidenceRefs": [],
+        "issuePaths": []
+      }
+    }
+  },
+  {
+    "memberKey": "run_replay",
+    "projection": {
+      "fromOrdinal": 0,
+      "kind": "run_replay_projection",
+      "limit": 4096,
+      "replay": {
+        "digest": "sha256:dc29cb70ce4c8c6a66fb2e2af6b6355cd77c972d0d3086577971b1245c48171f",
+        "ref": "replay://abiogenesis/dc29cb70ce4c8c6a66fb2e2af6b6355cd77c972d0d3086577971b1245c48171f"
+      },
+      "status": "failed",
+      "subject": {
+        "digest": "sha256:6ff70d0ca058f08c5331cce9c19f197b4d71a58eadbd270d2a7a7177f2c4592b",
+        "ref": "run://abiogenesis/cf8c086c9ee49e2ebaf391a376d299c967019e868f0c6b0732b9ad9d51306140"
+      },
+      "terminalResult": null
+    },
+    "source": {
+      "digest": "sha256:6ff70d0ca058f08c5331cce9c19f197b4d71a58eadbd270d2a7a7177f2c4592b",
+      "ref": "run://abiogenesis/cf8c086c9ee49e2ebaf391a376d299c967019e868f0c6b0732b9ad9d51306140"
+    },
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "caseKey": "run_replay",
+        "projection": {
+          "fromOrdinal": 0,
+          "kind": "run_replay_projection",
+          "limit": 4096,
+          "replay": {
+            "digest": "sha256:dc29cb70ce4c8c6a66fb2e2af6b6355cd77c972d0d3086577971b1245c48171f",
+            "ref": "replay://abiogenesis/dc29cb70ce4c8c6a66fb2e2af6b6355cd77c972d0d3086577971b1245c48171f"
+          },
+          "status": "failed",
+          "subject": {
+            "digest": "sha256:6ff70d0ca058f08c5331cce9c19f197b4d71a58eadbd270d2a7a7177f2c4592b",
+            "ref": "run://abiogenesis/cf8c086c9ee49e2ebaf391a376d299c967019e868f0c6b0732b9ad9d51306140"
+          },
+          "terminalResult": null
+        },
+        "projectionBasis": {
+          "digest": "sha256:0aabc75790f57edbf53b903dfc5be1e1f5d59cbb0af0566007830c469983f8c9",
+          "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl"
+        },
+        "source": {
+          "digest": "sha256:6ff70d0ca058f08c5331cce9c19f197b4d71a58eadbd270d2a7a7177f2c4592b",
+          "ref": "run://abiogenesis/cf8c086c9ee49e2ebaf391a376d299c967019e868f0c6b0732b9ad9d51306140"
+        }
+      }
+    }
+  }
+]

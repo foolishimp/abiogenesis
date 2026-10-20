@@ -12,7 +12,7 @@ import {
   type JsonValue,
 } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
+import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import type {
   CatalogContribution,
   ClosureContract,
@@ -520,6 +520,42 @@ export type ProgramValidationResult = ProgramValidation | StaticValidationRefusa
 
 const publicationValidations = new WeakSet<object>();
 const programValidations = new WeakSet<object>();
+const programDefinitionFacts = new WeakMap<object, Readonly<{
+  input: ProgramValidationInput;
+  validation: ProgramValidation;
+}>>();
+
+function sameProgramDefinitions(left: ProgramValidationInput, right: ProgramValidationInput): boolean {
+  const same = (a: readonly object[], b: readonly object[]) =>
+    a.length === b.length && a.every((value, index) => value === b[index]);
+  return left.programPublication === right.programPublication &&
+    left.program === right.program &&
+    left.semanticLifecyclePublication === right.semanticLifecyclePublication &&
+    left.semanticSourcePublication === right.semanticSourcePublication &&
+    same(left.graphFunctions, right.graphFunctions) && same(left.contracts, right.contracts) &&
+    same(left.evaluators, right.evaluators) && same(left.rules, right.rules) &&
+    same(left.implementationBindings, right.implementationBindings) &&
+    same(left.closureContracts, right.closureContracts);
+}
+
+function validationAtBasis(facts: ProgramValidation, declarationBasisDigest: Sha256Digest): ProgramValidation {
+  const sourceDigest = sha256Canonical({
+    publicationDigest: facts.publicationDigest,
+    declarationBasisDigest,
+    programDigest: facts.programDigest,
+    graphFunctionDigests: facts.graphFunctionDigests,
+    contractDigests: facts.contractDigests,
+    implementationBindingDigests: facts.implementationBindingDigests,
+    closureContractDigests: facts.closureContractDigests,
+    executableLeafRows: facts.executableLeafRows,
+    interactionLeafRows: facts.interactionLeafRows,
+  } as unknown as JsonValue);
+  if (sourceDigest === facts.sourceDigest) return facts;
+  const validation = deepFreeze({ ...facts, sourceDigest,
+    validationRef: `program-validation://abiogenesis/${sourceDigest.slice("sha256:".length)}` });
+  programValidations.add(validation);
+  return validation;
+}
 
 export function isPublicationValidation(value: object): boolean {
   return publicationValidations.has(value);
@@ -717,6 +753,11 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   ) {
     diagnostics.push({ code: "raw_subject_mismatch", path: "$", message: "Program validation accepts package-admitted raw values only" });
     return invalid("program", input.program.subjectDigest, diagnostics);
+  }
+  const retained = programDefinitionFacts.get(input.program);
+  if (retained !== undefined && sameProgramDefinitions(retained.input, input)) {
+    if (retained.input.declarationBasisDigest === input.declarationBasisDigest) return retained.validation;
+    return validationAtBasis(retained.validation, input.declarationBasisDigest);
   }
   const publication = input.programPublication.value;
   if (!validRunEnvironmentPublication(publication) || !validRunEnvironmentProgram(publication, input.program.value, input.graphFunctions.map(g => g.value))) {
@@ -1883,6 +1924,21 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     diagnostics: [],
   }) as ProgramValidation;
   programValidations.add(validation);
+  if (isDeeplyFrozen(input.evaluators) && isDeeplyFrozen(input.rules)) {
+    // Hold only the existing immutable declaration admissions, not a second
+    // serialized definition or a caller-addressed certificate.
+    programDefinitionFacts.set(input.program, {
+      input: Object.freeze({ ...input,
+        graphFunctions: Object.freeze([...input.graphFunctions]),
+        contracts: Object.freeze([...input.contracts]),
+        evaluators: Object.freeze([...input.evaluators]),
+        rules: Object.freeze([...input.rules]),
+        implementationBindings: Object.freeze([...input.implementationBindings]),
+        closureContracts: Object.freeze([...input.closureContracts]),
+      }),
+      validation,
+    });
+  }
   return validation;
 }
 

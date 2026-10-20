@@ -1,0 +1,36 @@
+{
+  "status": "BOUNDED_SELECTED_CLOSURE_INSPECTED",
+  "sites": [
+    {
+      "path": "f11/proof-oracles.mjs:8",
+      "class": "bounded scalar diagnostic; no full owner serialization"
+    },
+    {
+      "path": "f11/public-support.mjs:55",
+      "class": "retained execution-resolution diagnostic; receives catalog/Program/install resolution, not full qualification resource; F11 instance passed in Runtime09, AF22 instance unexecuted"
+    },
+    {
+      "path": "f11/ordinary-caller.mjs:58",
+      "class": "required versioned Public invocation transport serialization; full semantic resource retained"
+    },
+    {
+      "path": "f11/ordinary-caller.mjs:75,83",
+      "class": "bounded process failure record"
+    },
+    {
+      "path": "f11/ordinary-caller.mjs:88",
+      "class": "conformance receipt diagnostic; conformance route is not selected"
+    },
+    {
+      "path": "f11/flow-driver.mjs:26,34",
+      "class": "old parent route kept as exact donor; not selected; only positiveRunRoute consumed"
+    },
+    {
+      "path": "run-continuation.mjs:10",
+      "class": "owned saved scalar/state/outcome reports; never writes operation-local owner"
+    }
+  ],
+  "onlySelectedOracleDiagnosticChanged": true,
+  "requiredPublicSerializationUnchanged": true,
+  "noPayloadExecuted": true
+}

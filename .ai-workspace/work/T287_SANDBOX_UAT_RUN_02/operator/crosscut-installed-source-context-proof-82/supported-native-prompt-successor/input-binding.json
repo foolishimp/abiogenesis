@@ -1,0 +1,38 @@
+{
+  "candidate": {
+    "identity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/identity.json",
+      "sha256": "cc33dc1f37ba071b043d7e295350dfc0cf9c7606810e6bee89d5f96a748c3c7b",
+      "byteCount": 4344
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4",
+      "byteCount": 10629708
+    },
+    "productContentDigest": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+    "canonicalManifestDigest": "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+    "catalogDigest": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7"
+  },
+  "freshReadHelper": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+    "byteCount": 21826
+  },
+  "method": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/method.mjs",
+    "sha256": "303bed8f5dcefcc780c26e6b93a0e771b9c3ff403a8c38ba215871041e75eaa2",
+    "byteCount": 4378
+  },
+  "acceptedSources": "Root closed Source61/62/63/73 plus final75 generation; candidate20 frozen, publication72 review pending at preparation. Root83 supplies a separate host and execution release.",
+  "referenceDomains": {
+    "schema": "Product.framedSynthesisResponseSchema(actual FramedSynthesisTask, actual registered targets)",
+    "binder": "Product.bindFramedSynthesisResult(same task/targets/basis/raw)",
+    "planning": "Product governanceSubjectEvidenceRefs via actual task.subjectEvidenceDomains",
+    "invalidTesting": "Unadmitted C2 source candidate only; schema/binder refusal and no invalid dispatch."
+  },
+  "installedExecutionHeld": true,
+  "modelCredit": false,
+  "semanticAdequacy": "unmet",
+  "specializedStdoAcceptance": false
+}

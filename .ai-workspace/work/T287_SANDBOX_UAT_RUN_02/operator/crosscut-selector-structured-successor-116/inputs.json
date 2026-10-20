@@ -1,0 +1,83 @@
+{
+  "fixedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/return.md",
+      "sha256": "e2300a6233b6040f8e0616e7fb73e43b54e677d8c6283772337871296dab56c2",
+      "byteCount": 2873
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/readiness.json",
+      "sha256": "a55beaedc5baee702c3d5a0a8a0a97c6fd7f40a371d729440e9cce30fad7dbf8",
+      "byteCount": 7548
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/freeze.json",
+      "sha256": "587b8470f6fec434085d58cd9e1600c2dca00aeb363698e608c2ece34fb6dbec",
+      "byteCount": 8079
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/request.json",
+      "sha256": "42b822573ed7924b0e6270ef1215c06ba8254a814d265aaae9de7d0b128e2653",
+      "byteCount": 13344
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/result.json",
+      "sha256": "11222f07299da348484618357c0e688c4acf9379f79dc69bbfee032998c5ff03",
+      "byteCount": 3413
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/return.md",
+      "sha256": "ea31f843010a5eb5fe663b3895fb955f41812568c1d7b9a5586e3e6a226882ad",
+      "byteCount": 1815
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/readiness.json",
+      "sha256": "8e00e0ec3676552c6b55d6bc1445c425d6431a7a8d3c2a25ae9db87fd5a2d423",
+      "byteCount": 2895
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/freeze.json",
+      "sha256": "24445d5c7c80bb0714442dfe8656e46ab509ee456337b38edb0147266452ee01",
+      "byteCount": 9788
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/return.md",
+      "sha256": "6ec9fbb2568b6bf15b719d648b9c3d5108b2f700d0e271e19f9ca806773b32c9",
+      "byteCount": 3156
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/freeze.json",
+      "sha256": "1e60e3d9e14fb63783673941807dfb8fc96185a78a928af4c2098a9b0e098c79",
+      "byteCount": 15779
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-successor-107/resume-config.json",
+      "sha256": "8220ea387b1aee6eb52f2bd61f55592caf3a23fb87c569de8880fca7355a952c",
+      "byteCount": 2991
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/identity.json",
+      "sha256": "a6518089e1d262acd28af52f74f32034cb01b24c6d8c3c4e9295e29972026811",
+      "byteCount": 3958
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/freeze.json",
+      "sha256": "dfc6cf3346f913fe2b120cdb0f4387cbae440d7e2e34686a3f1a9dc27e0cee46",
+      "byteCount": 7777
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "515f208b27cffc784c006692726b7a81ac6717f6665a1400c4b55e583dcad6a9",
+      "byteCount": 10629913
+    }
+  ],
+  "sourceInventoryPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/pre-build.json",
+  "generatedInventoryPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/generated-delta.json",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/freeze.json",
+    "sha256": "587b8470f6fec434085d58cd9e1600c2dca00aeb363698e608c2ece34fb6dbec",
+    "byteCount": 8079
+  },
+  "sourceConjunction": "Root accepted113/114 and actual115 host/carrier/binder pilot",
+  "scope": "One build/pack/clean offline host; no native/provider/UAT; source109 reuse not assumed"
+}

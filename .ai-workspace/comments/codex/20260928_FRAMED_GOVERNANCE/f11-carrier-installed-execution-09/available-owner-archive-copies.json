@@ -1,0 +1,56 @@
+{
+  "copiedNewSmallOwnerFiles": [
+    {
+      "original": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/archives/fp-631061b6040f4b2e-output.txt",
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/owner-evidence/resources/archives/fp-631061b6040f4b2e-output.txt",
+        "bytes": 32529,
+        "sha256": "caee3684318977505db8af80af3b00a2c096264f9927b879e2c65dd72ceb34c1",
+        "mode": "0o644"
+      },
+      "bodyExact": true
+    },
+    {
+      "original": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/archives/fp-631061b6040f4b2e-prompt.txt",
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/owner-evidence/resources/archives/fp-631061b6040f4b2e-prompt.txt",
+        "bytes": 653999,
+        "sha256": "dce932bc225cce2e4ff348c93d801eff027bd062625ab881be60fcc0d1f36f1f",
+        "mode": "0o644"
+      },
+      "bodyExact": true
+    },
+    {
+      "original": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/archives/fp-631061b6040f4b2e-stderr.log",
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/owner-evidence/resources/archives/fp-631061b6040f4b2e-stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mode": "0o644"
+      },
+      "bodyExact": true
+    },
+    {
+      "original": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/archives/fp-631061b6040f4b2e-stdout.log",
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/owner-evidence/resources/archives/fp-631061b6040f4b2e-stdout.log",
+        "bytes": 66165,
+        "sha256": "6c52da2521750a9e23162ef9ac6469b614e6d2a41176bfda09cd3674c3916201",
+        "mode": "0o644"
+      },
+      "bodyExact": true
+    },
+    {
+      "original": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/archives/fp-631061b6040f4b2e-transport.json",
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/owner-evidence/resources/archives/fp-631061b6040f4b2e-transport.json",
+        "bytes": 108919,
+        "sha256": "0b63ddb0af83f1678092edbb6a832f94d72c3d2a35ed3a9dec22ae096a2e10e9",
+        "mode": "0o644"
+      },
+      "bodyExact": true
+    }
+  ],
+  "allNewOwnerFilesPinned": "owner-resource-census.json",
+  "largeBodies": "actual pinned owner files retained; no reconstruction"
+}

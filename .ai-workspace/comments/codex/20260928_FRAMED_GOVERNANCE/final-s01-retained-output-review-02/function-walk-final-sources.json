@@ -1,0 +1,1106 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "bytes": 16133,
+    "sha256": "a5e908e5da7a9d1059ae8dbc4446a5a407c10d43c8218c9f1c99fd1a9d77087b",
+    "lines": [
+      {
+        "line": 171,
+        "text": "}"
+      },
+      {
+        "line": 172,
+        "text": ""
+      },
+      {
+        "line": 173,
+        "text": "function selectedCallable("
+      },
+      {
+        "line": 174,
+        "text": "  call: AnyDefinitionCall,"
+      },
+      {
+        "line": 175,
+        "text": "  acquisitionKind: InstalledDefinitionCallTransportResult[\"acquisitionKind\"],"
+      },
+      {
+        "line": 176,
+        "text": "): Readonly<{"
+      },
+      {
+        "line": 322,
+        "text": "    );"
+      },
+      {
+        "line": 323,
+        "text": "  }"
+      },
+      {
+        "line": 324,
+        "text": "  return invokeInstalledDefinitionCall(detachedAcquisition.kind, detachedCandidate);"
+      },
+      {
+        "line": 325,
+        "text": "}"
+      },
+      {
+        "line": 326,
+        "text": ""
+      },
+      {
+        "line": 327,
+        "text": "/** Thin native carrier: semantic data is detached, while the exact owner-issued"
+      },
+      {
+        "line": 361,
+        "text": "      resources: hasEventResource ? { ...data.resources as Record<string, unknown>, eventResource: resource } : data.resources };"
+      },
+      {
+        "line": 362,
+        "text": "  } catch { return refusal(\"invalid_definition_call\", \"native call semantic data is not one canonical DefinitionCall\"); }"
+      },
+      {
+        "line": 363,
+        "text": "  return invokeInstalledDefinitionCall(\"acquired\", detached);"
+      },
+      {
+        "line": 364,
+        "text": "}"
+      },
+      {
+        "line": 365,
+        "text": ""
+      },
+      {
+        "line": 366,
+        "text": "async function invokeInstalledDefinitionCall("
+      },
+      {
+        "line": 367,
+        "text": "  acquisitionKind: InstalledDefinitionCallTransportResult[\"acquisitionKind\"],"
+      },
+      {
+        "line": 368,
+        "text": "  call: AnyDefinitionCall,"
+      },
+      {
+        "line": 369,
+        "text": "): Promise<InstalledDefinitionCallTransportOutcome> {"
+      },
+      {
+        "line": 372,
+        "text": "  const receipt = await runExactDefinition("
+      },
+      {
+        "line": 373,
+        "text": "    call,"
+      },
+      {
+        "line": 374,
+        "text": "    selected.callable(call),"
+      },
+      {
+        "line": 375,
+        "text": "  );"
+      },
+      {
+        "line": 376,
+        "text": "  // The native fixed owner admits the complete call before its effects. Some"
+      },
+      {
+        "line": 377,
+        "text": "  // direct owners first reject resource structure, while Product's authority"
+      }
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "bytes": 81875,
+    "sha256": "83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550",
+    "lines": [
+      {
+        "line": 59,
+        "text": "import { openTraversalScope } from \"../abg/open_call.js\";"
+      },
+      {
+        "line": 60,
+        "text": "import {"
+      },
+      {
+        "line": 61,
+        "text": "  projectRunTruthAtDurablePrefix,"
+      },
+      {
+        "line": 62,
+        "text": "  type AbgRunTruthCoordinate,"
+      },
+      {
+        "line": 63,
+        "text": "  type AbgRunTruthProjection,"
+      },
+      {
+        "line": 64,
+        "text": "} from \"../abg/project_read_ports.js\";"
+      },
+      {
+        "line": 65,
+        "text": "import { projectRuntimePrefixesAtDurablePrefix } from \"../abg/replay.js\";"
+      },
+      {
+        "line": 66,
+        "text": "import { materializeGraph } from \"../gtl/materialize.js\";"
+      },
+      {
+        "line": 67,
+        "text": "import type {"
+      },
+      {
+        "line": 68,
+        "text": "  GraphFunction,"
+      },
+      {
+        "line": 69,
+        "text": "  ModulePublication,"
+      },
+      {
+        "line": 70,
+        "text": "} from \"../gtl/contracts.js\";"
+      },
+      {
+        "line": 71,
+        "text": "import { executeGraphTraversalEffect } from \"../hog/graph_execute.js\";"
+      },
+      {
+        "line": 72,
+        "text": "import { constructAdmittedLeafInvocationPort } from"
+      },
+      {
+        "line": 73,
+        "text": "  \"../implementation/leaf_invocation_port.js\";"
+      },
+      {
+        "line": 74,
+        "text": "import {"
+      },
+      {
+        "line": 124,
+        "text": "  type OwnerSemanticOutput,"
+      },
+      {
+        "line": 125,
+        "text": "} from \"../shared/public_function_contracts.js\";"
+      },
+      {
+        "line": 126,
+        "text": "import { validateGraph } from \"../validator/graph.js\";"
+      },
+      {
+        "line": 127,
+        "text": "import { RUN_ENVIRONMENT_SCHEMA } from \"../gtl/stdo_run_environment.js\";"
+      },
+      {
+        "line": 128,
+        "text": "import { RUN_ENVIRONMENT_RESOURCES_SCHEMA } from \"../product/stdo_environment.js\";"
+      },
+      {
+        "line": 129,
+        "text": ""
+      },
+      {
+        "line": 891,
+        "text": "  kind: v.literal(\"product_install_candidate\"),"
+      },
+      {
+        "line": 892,
+        "text": "  schemaVersion: v.literal(\"5.0.0\"),"
+      },
+      {
+        "line": 893,
+        "text": "  disposition: v.literal(\"materialized\"),"
+      },
+      {
+        "line": 894,
+        "text": "  installId: nonblankSchema,"
+      },
+      {
+        "line": 895,
+        "text": "  installedRoot: absolutePathSchema,"
+      },
+      {
+        "line": 896,
+        "text": "  productId: nonblankSchema,"
+      },
+      {
+        "line": 1235,
+        "text": "}"
+      },
+      {
+        "line": 1236,
+        "text": ""
+      },
+      {
+        "line": 1237,
+        "text": "function runInvocationOwner<TPacket extends InvocationPacket>("
+      },
+      {
+        "line": 1238,
+        "text": "  call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,"
+      },
+      {
+        "line": 1239,
+        "text": "): ReturnType<RunCallable<TPacket>> {"
+      },
+      {
+        "line": 1240,
+        "text": "  return Effect.scoped(Effect.gen(function* () {"
+      },
+      {
+        "line": 1312,
+        "text": "      call,"
+      },
+      {
+        "line": 1313,
+        "text": "      \"product_prepare\","
+      },
+      {
+        "line": 1314,
+        "text": "      () => ProductRunInvocationPort.prepare({"
+      },
+      {
+        "line": 1315,
+        "text": "        memberKey: call.invocation.definitionKey.memberKey,"
+      },
+      {
+        "line": 1316,
+        "text": "        invocation: call.invocation as never,"
+      },
+      {
+        "line": 1317,
+        "text": "        resources: productResources,"
+      },
+      {
+        "line": 1410,
+        "text": "    const admission = admitted.admission;"
+      },
+      {
+        "line": 1411,
+        "text": "    const graph = yield* syncStage(call, \"graph_materialization\", () =>"
+      },
+      {
+        "line": 1412,
+        "text": "      materializeGraph(prepared.resolution.graphFunction, {"
+      },
+      {
+        "line": 1413,
+        "text": "        invocationAdmissionRef: admission.invocationAdmissionRef,"
+      },
+      {
+        "line": 1414,
+        "text": "        admittedInputRef: prepared.rawInput.admissionRef,"
+      },
+      {
+        "line": 1415,
+        "text": "        admittedInputDigest: prepared.rawInput.subjectDigest,"
+      },
+      {
+        "line": 1418,
+        "text": "    );"
+      },
+      {
+        "line": 1419,
+        "text": "    const graphValidation = yield* syncStage(call, \"graph_validation\", () =>"
+      },
+      {
+        "line": 1420,
+        "text": "      validateGraph("
+      },
+      {
+        "line": 1421,
+        "text": "        graph,"
+      },
+      {
+        "line": 1422,
+        "text": "        prepared.resolution.programValidation,"
+      },
+      {
+        "line": 1423,
+        "text": "        prepared.resolution.graphFunction,"
+      },
+      {
+        "line": 1577,
+        "text": "        }))"
+      },
+      {
+        "line": 1578,
+        "text": "      );"
+      },
+      {
+        "line": 1579,
+        "text": "      const traversal = yield* executeGraphTraversalEffect({"
+      },
+      {
+        "line": 1580,
+        "text": "        store: resource.store,"
+      },
+      {
+        "line": 1581,
+        "text": "        predecessorPrefix: opened.successorPrefix,"
+      },
+      {
+        "line": 1582,
+        "text": "        executionBasis: execution.executionBasis,"
+      },
+      {
+        "line": 1634,
+        "text": "      const finalPrefix = traversal.successorPrefix;"
+      },
+      {
+        "line": 1635,
+        "text": "      const truth = yield* syncStage(call, \"run_truth\", () =>"
+      },
+      {
+        "line": 1636,
+        "text": "        projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId)"
+      },
+      {
+        "line": 1637,
+        "text": "      );"
+      },
+      {
+        "line": 1638,
+        "text": "      const ownerOutput = yield* syncStage("
+      },
+      {
+        "line": 1639,
+        "text": "        call,"
+      },
+      {
+        "line": 1690,
+        "text": "            );"
+      },
+      {
+        "line": 1691,
+        "text": "            let finalPrefix = predecessorPrefix;"
+      },
+      {
+        "line": 1692,
+        "text": "            let truth = projectRunTruthAtDurablePrefix("
+      },
+      {
+        "line": 1693,
+        "text": "              finalPrefix,"
+      },
+      {
+        "line": 1694,
+        "text": "              opened.scope.runId,"
+      },
+      {
+        "line": 1695,
+        "text": "            );"
+      },
+      {
+        "line": 1714,
+        "text": "              });"
+      },
+      {
+        "line": 1715,
+        "text": "              finalPrefix = failureReceipt.successorPrefix;"
+      },
+      {
+        "line": 1716,
+        "text": "              truth = projectRunTruthAtDurablePrefix("
+      },
+      {
+        "line": 1717,
+        "text": "                finalPrefix,"
+      },
+      {
+        "line": 1718,
+        "text": "                opened.scope.runId,"
+      },
+      {
+        "line": 1719,
+        "text": "              );"
+      },
+      {
+        "line": 1831,
+        "text": "      eventTime: sampleNativeEventTime(), correlationId: `${call.invocation.correlationRef}/current-intent`,"
+      },
+      {
+        "line": 1832,
+        "text": "    }));"
+      },
+      {
+        "line": 1833,
+        "text": "    const traversal = yield* executeGraphTraversalEffect(continued);"
+      },
+      {
+        "line": 1834,
+        "text": "    const finalPrefix = \"successorPrefix\" in traversal ? traversal.successorPrefix : continued.current.predecessorPrefix;"
+      },
+      {
+        "line": 1835,
+        "text": "    const truth = yield* syncStage(call, \"run_truth\", () => projectRunTruthAtDurablePrefix(finalPrefix, continued.rootScope.runId));"
+      },
+      {
+        "line": 1836,
+        "text": "    if (truth.kind !== \"abg_run_truth_projection\")"
+      },
+      {
+        "line": 1837,
+        "text": "      return yield* finish(call, resource, finalPrefix, { outcomeKind: \"refusal\", value: { code: \"replay_mismatch\", issuePaths: [\"/run\"], evidenceRefs: [] } } as OwnerSemanticOutput<ContinuePacket>, null, prepared.invocation, null);"
+      },
+      {
+        "line": 1838,
+        "text": "    const successor = { ref: continued.continuation.continuationRef, digest: continued.continuation.continuationDigest };"
+      },
+      {
+        "line": 1899,
+        "text": "    const admitted = yield* syncStage(call, \"open_call\", () => admitSelectedActionContinuationOperation(resource.store, entryPrefix,"
+      },
+      {
+        "line": 1900,
+        "text": "      prepared, grant, operationBasis(call, setup.workspaceBinding)));"
+      },
+      {
+        "line": 1901,
+        "text": "    const traversal = yield* executeGraphTraversalEffect({"
+      },
+      {
+        "line": 1902,
+        "text": "      store: resource.store, predecessorPrefix: admitted.successorPrefix!, executionBasis: prepared.root,"
+      },
+      {
+        "line": 1903,
+        "text": "      openedTraversalScope: prepared.scope, program: resolution.program, programPublication: resolution.programPublication,"
+      },
+      {
+        "line": 1904,
+        "text": "      graphFunction: resolution.graphFunction, graph: prepared.graph, graphValidation: prepared.graphValidation,"
+      },
+      {
+        "line": 1912,
+        "text": "    });"
+      },
+      {
+        "line": 1913,
+        "text": "    const finalPrefix = \"successorPrefix\" in traversal ? traversal.successorPrefix : admitted.successorPrefix!;"
+      },
+      {
+        "line": 1914,
+        "text": "    const truth = yield* syncStage(call, \"run_truth\", () => projectRunTruthAtDurablePrefix(finalPrefix, prepared.scope.runId));"
+      },
+      {
+        "line": 1915,
+        "text": "    if (truth.kind !== \"abg_run_truth_projection\") return yield* finish(call, resource, finalPrefix,"
+      },
+      {
+        "line": 1916,
+        "text": "      { outcomeKind: \"refusal\", value: { code: \"replay_mismatch\", issuePaths: [\"/run\"], evidenceRefs: [] } } as OwnerSemanticOutput<SelectedActionPacket>, null, use.invocation, null);"
+      },
+      {
+        "line": 1917,
+        "text": "    const successor = { ref: use.current.continuationRef, digest: use.current.continuationDigest };"
+      }
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+    "bytes": 47589,
+    "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6",
+    "lines": [
+      {
+        "line": 170,
+        "text": "): ChildTraversalBasis {"
+      },
+      {
+        "line": 171,
+        "text": "  return constructChildTraversalBasis({"
+      },
+      {
+        "line": 172,
+        "text": "    graphFunctionByRef: runtime.leafPort.graphFunctionByRef,"
+      },
+      {
+        "line": 173,
+        "text": "    closureContractByRef: runtime.leafPort.closureContractByRef,"
+      },
+      {
+        "line": 174,
+        "text": "    program: runtime.program,"
+      },
+      {
+        "line": 175,
+        "text": "    ...(runtime.programPublication === undefined ? {} : { programPublication: runtime.programPublication }),"
+      },
+      {
+        "line": 176,
+        "text": "    programValidation: runtime.programValidation,"
+      },
+      {
+        "line": 214,
+        "text": "    graph: runtime.graph,"
+      },
+      {
+        "line": 215,
+        "text": "    implementationSet: runtime.implementationSet,"
+      },
+      {
+        "line": 216,
+        "text": "    leafPort: runtime.leafPort,"
+      },
+      {
+        "line": 217,
+        "text": "    childTraversalBasis: childTraversalBasis(runtime),"
+      },
+      {
+        "line": 218,
+        "text": "    closureContract: runtime.closureContract,"
+      },
+      {
+        "line": 219,
+        "text": "    ...(runtime.deferFailedRunStop === undefined"
+      },
+      {
+        "line": 260,
+        "text": "    stop,"
+      },
+      {
+        "line": 261,
+        "text": "    implementationSet: runtime.implementationSet,"
+      },
+      {
+        "line": 262,
+        "text": "    leafPort: runtime.leafPort,"
+      },
+      {
+        "line": 263,
+        "text": "    input: frame.input,"
+      },
+      {
+        "line": 264,
+        "text": "    closureContract: runtime.closureContract,"
+      },
+      {
+        "line": 265,
+        "text": "    actorRuntimeBinding: runtime.actorRuntimeBinding,"
+      },
+      {
+        "line": 308,
+        "text": "    implementationSet: context.implementationSet,"
+      },
+      {
+        "line": 309,
+        "text": "    implementationResolution: resolution,"
+      },
+      {
+        "line": 310,
+        "text": "    leafPort: context.leafPort,"
+      },
+      {
+        "line": 311,
+        "text": "    input: context.input,"
+      },
+      {
+        "line": 312,
+        "text": "    inputDigest: context.stop.cursor.inputDigest,"
+      },
+      {
+        "line": 313,
+        "text": "    closureContract: context.closureContract,"
+      },
+      {
+        "line": 514,
+        "text": "    selected === null || typeof selected.value !== \"object\" || selected.value === null || Array.isArray(selected.value) ||"
+      },
+      {
+        "line": 515,
+        "text": "    targetTerm === null || targetTerm.kind === \"c_source_path_refusal\" ||"
+      },
+      {
+        "line": 516,
+        "text": "    !runtime.leafPort.validateContractValueByRef(targetTerm.inputCarrierRef, selected.value)"
+      },
+      {
+        "line": 517,
+        "text": "  ) {"
+      },
+      {
+        "line": 518,
+        "text": "    return failFrame("
+      },
+      {
+        "line": 519,
+        "text": "      frame,"
+      },
+      {
+        "line": 628,
+        "text": "          graph: frame.runtime.graph,"
+      },
+      {
+        "line": 629,
+        "text": "          graphFunction: frame.runtime.graphFunction,"
+      },
+      {
+        "line": 630,
+        "text": "          leafPort: frame.runtime.leafPort,"
+      },
+      {
+        "line": 631,
+        "text": "          cursor: frame.cursor,"
+      },
+      {
+        "line": 632,
+        "text": "          input: frame.input,"
+      },
+      {
+        "line": 633,
+        "text": "          term,"
+      },
+      {
+        "line": 678,
+        "text": "              ? owner.deferFailedRunStop"
+      },
+      {
+        "line": 679,
+        "text": "              : frame.runtime.deferFailedRunStop === true;"
+      },
+      {
+        "line": 680,
+        "text": "          const childLeafPort = await frame.runtime.leafPort.forGraphFunction(prepared.graphFunction.name);"
+      },
+      {
+        "line": 681,
+        "text": "          if (childLeafPort === null) return failFrame(frame, prepared.successorPrefix,"
+      },
+      {
+        "line": 682,
+        "text": "            \"child-semantics\", \"diagnostic://abiogenesis/hog/child-semantics-owner-absent@5\","
+      },
+      {
+        "line": 683,
+        "text": "            { graphFunctionRef: prepared.graphFunction.name });"
+      },
+      {
+        "line": 685,
+        "text": "            ...frame.runtime,"
+      },
+      {
+        "line": 686,
+        "text": "            ...prepared,"
+      },
+      {
+        "line": 687,
+        "text": "            leafPort: childLeafPort,"
+      },
+      {
+        "line": 688,
+        "text": "            predecessorPrefix: prepared.successorPrefix,"
+      },
+      {
+        "line": 689,
+        "text": "            ...(frame.runtime.continuationProductBasis === undefined"
+      },
+      {
+        "line": 690,
+        "text": "              ? {}"
+      },
+      {
+        "line": 761,
+        "text": "          },"
+      },
+      {
+        "line": 762,
+        "text": "        }),"
+      },
+      {
+        "line": 763,
+        "text": "    leafPort: frame.leafPort,"
+      },
+      {
+        "line": 764,
+        "text": "    closureContract: frame.closureContract,"
+      },
+      {
+        "line": 765,
+        "text": "    actorRuntimeBinding: base.actorRuntimeBinding,"
+      },
+      {
+        "line": 766,
+        "text": "    ...(base.deferFailedRunStop === true"
+      },
+      {
+        "line": 896,
+        "text": "    },"
+      },
+      {
+        "line": 897,
+        "text": "  );"
+      },
+      {
+        "line": 898,
+        "text": "  const outputValueKind = frame.parent.leafPort.contractValueKind("
+      },
+      {
+        "line": 899,
+        "text": "    stop.outputContractRef,"
+      },
+      {
+        "line": 900,
+        "text": "    \"output\","
+      },
+      {
+        "line": 901,
+        "text": "  );"
+      },
+      {
+        "line": 922,
+        "text": "    implementationSet: parent.runtime.implementationSet,"
+      },
+      {
+        "line": 923,
+        "text": "    implementationResolution: resolution,"
+      },
+      {
+        "line": 924,
+        "text": "    leafPort: parent.runtime.leafPort,"
+      },
+      {
+        "line": 925,
+        "text": "    input: parent.input,"
+      },
+      {
+        "line": 926,
+        "text": "    inputDigest: parent.cursor.inputDigest,"
+      },
+      {
+        "line": 927,
+        "text": "    closureContract: parent.runtime.closureContract,"
+      },
+      {
+        "line": 1012,
+        "text": "    programValidation: current.programValidation,"
+      },
+      {
+        "line": 1013,
+        "text": "    implementationSet: current.implementationSet,"
+      },
+      {
+        "line": 1014,
+        "text": "    leafPort: current.leafPort,"
+      },
+      {
+        "line": 1015,
+        "text": "    currentChildExecutionBasis: current.executionBasis,"
+      },
+      {
+        "line": 1016,
+        "text": "    currentChildTraversalScope: current.openedTraversalScope,"
+      },
+      {
+        "line": 1017,
+        "text": "    suspensions: input.parentSuspensions,"
+      },
+      {
+        "line": 1099,
+        "text": "  const successorInputValueKind = successorInputContractRef === null"
+      },
+      {
+        "line": 1100,
+        "text": "    ? null"
+      },
+      {
+        "line": 1101,
+        "text": "    : held.leafPort.contractValueKindByRef(successorInputContractRef);"
+      },
+      {
+        "line": 1102,
+        "text": "  const continuation = authority.continuation;"
+      },
+      {
+        "line": 1103,
+        "text": "  if ("
+      },
+      {
+        "line": 1104,
+        "text": "    (successorInputContractRef === null) !=="
+      },
+      {
+        "line": 1113,
+        "text": "        continuation.responseValue === null ||"
+      },
+      {
+        "line": 1114,
+        "text": "        Array.isArray(continuation.responseValue) ||"
+      },
+      {
+        "line": 1115,
+        "text": "        !held.leafPort.validateContractValueByRef("
+      },
+      {
+        "line": 1116,
+        "text": "          successorInputContractRef,"
+      },
+      {
+        "line": 1117,
+        "text": "          continuation.responseValue,"
+      },
+      {
+        "line": 1118,
+        "text": "        )))"
+      },
+      {
+        "line": 1151,
+        "text": "  if ("
+      },
+      {
+        "line": 1152,
+        "text": "    successorInputContractRef !== null &&"
+      },
+      {
+        "line": 1153,
+        "text": "    !held.leafPort.validateContractValueByRef("
+      },
+      {
+        "line": 1154,
+        "text": "      successorInputContractRef,"
+      },
+      {
+        "line": 1155,
+        "text": "      successorInput.inputValue,"
+      },
+      {
+        "line": 1156,
+        "text": "    )"
+      },
+      {
+        "line": 1308,
+        "text": "}"
+      },
+      {
+        "line": 1309,
+        "text": ""
+      },
+      {
+        "line": 1310,
+        "text": "function traversalProgram("
+      },
+      {
+        "line": 1311,
+        "text": "  input: ExecuteGraphTraversalRequest,"
+      },
+      {
+        "line": 1312,
+        "text": "): Effect.Effect<ExecuteGraphTraversalResult, GraphTraversalFailure> {"
+      },
+      {
+        "line": 1313,
+        "text": "  return liftGraphTraversalFailure(Effect.suspend((): Effect.Effect<"
+      },
+      {
+        "line": 1347,
+        "text": ""
+      },
+      {
+        "line": 1348,
+        "text": "/** Effect-native HoG entry used by definition programs before the host membrane. */"
+      },
+      {
+        "line": 1349,
+        "text": "export function executeGraphTraversalEffect("
+      },
+      {
+        "line": 1350,
+        "text": "  input: ExecuteGraphTraversalRequest,"
+      },
+      {
+        "line": 1351,
+        "text": "): Effect.Effect<ExecuteGraphTraversalResult, never> {"
+      },
+      {
+        "line": 1352,
+        "text": "  return Effect.catchAll("
+      }
+    ]
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "bytes": 73115,
+    "sha256": "9256376a949855528be4b53c4835230ab3b6ddda87c844b0377fa10600130e9d",
+    "lines": [
+      {
+        "line": 590,
+        "text": "      implementation = null;"
+      },
+      {
+        "line": 591,
+        "text": "    }"
+      },
+      {
+        "line": 592,
+        "text": "    if (typeof implementation !== \"function\") {"
+      },
+      {
+        "line": 593,
+        "text": "      return closedDeterministicOwnerReceipt("
+      },
+      {
+        "line": 594,
+        "text": "        totalizedFailure(\"implementation_exception\"),"
+      },
+      {
+        "line": 595,
+        "text": "        false,"
+      },
+      {
+        "line": 598,
+        "text": "    let implementationOutput: unknown;"
+      },
+      {
+        "line": 599,
+        "text": "    try {"
+      },
+      {
+        "line": 600,
+        "text": "      implementationOutput = await implementation("
+      },
+      {
+        "line": 601,
+        "text": "        input.value,"
+      },
+      {
+        "line": 602,
+        "text": "        input.occurrence,"
+      },
+      {
+        "line": 603,
+        "text": "        resolution,"
+      },
+      {
+        "line": 654,
+        "text": "    return undispatched(\"implementation_exception\", \"implementation_load\", \"thrown\", error);"
+      },
+      {
+        "line": 655,
+        "text": "  }"
+      },
+      {
+        "line": 656,
+        "text": "  if (typeof implementation !== \"function\") {"
+      },
+      {
+        "line": 657,
+        "text": "    return undispatched(\"implementation_exception\", \"implementation_load\", \"missing_export\");"
+      },
+      {
+        "line": 658,
+        "text": "  }"
+      },
+      {
+        "line": 659,
+        "text": "  const actorPreparation = prepareActorProcessInvocation(input.value, input.occurrence, input.contractByRef);"
+      },
+      {
+        "line": 660,
+        "text": "  let preparedOutput: unknown;"
+      },
+      {
+        "line": 661,
+        "text": "  try {"
+      },
+      {
+        "line": 662,
+        "text": "    preparedOutput = await implementation("
+      },
+      {
+        "line": 663,
+        "text": "      input.value,"
+      },
+      {
+        "line": 664,
+        "text": "      input.occurrence,"
+      },
+      {
+        "line": 665,
+        "text": "      actorPreparation.prepareInstructionAssembly,"
+      },
+      {
+        "line": 990,
+        "text": "        candidate.packageName === resolution.packageName &&"
+      },
+      {
+        "line": 991,
+        "text": "        candidate.packageVersion === resolution.packageVersion &&"
+      },
+      {
+        "line": 992,
+        "text": "        candidate.modulePath === resolution.modulePath &&"
+      },
+      {
+        "line": 993,
+        "text": "        candidate.namedSymbol === resolution.namedSymbol,"
+      },
+      {
+        "line": 994,
+        "text": "    );"
+      },
+      {
+        "line": 995,
+        "text": "    return publishedBindings.length === 1 &&"
+      },
+      {
+        "line": 996,
+        "text": "        binding.install.packageName === resolution.packageName &&"
+      },
+      {
+        "line": 1007,
+        "text": "      throw new TypeError(\"leaf implementation lacks its selected owner\");"
+      },
+      {
+        "line": 1008,
+        "text": "    }"
+      },
+      {
+        "line": 1009,
+        "text": "    const exactPath = resolve(owner.install.installedRoot, resolution.modulePath);"
+      },
+      {
+        "line": 1010,
+        "text": "    const relation = relative(owner.install.installedRoot, exactPath);"
+      },
+      {
+        "line": 1011,
+        "text": "    if (relation.length === 0 || relation.startsWith(\"..\") || isAbsolute(relation)) {"
+      },
+      {
+        "line": 1012,
+        "text": "      throw new TypeError(\"leaf implementation module escapes the admitted Product install\");"
+      },
+      {
+        "line": 1550,
+        "text": "          loadImplementation: async () => {"
+      },
+      {
+        "line": 1551,
+        "text": "            const module = await loadModule(admittedResolution);"
+      },
+      {
+        "line": 1552,
+        "text": "            return module[admittedResolution.namedSymbol];"
+      },
+      {
+        "line": 1553,
+        "text": "          },"
+      },
+      {
+        "line": 1554,
+        "text": "        });"
+      },
+      {
+        "line": 1555,
+        "text": "      } catch {"
+      }
+    ]
+  }
+]

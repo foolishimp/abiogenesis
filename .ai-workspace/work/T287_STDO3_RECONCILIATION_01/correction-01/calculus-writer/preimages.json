@@ -1,0 +1,14 @@
+{
+  "source": {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "sha256": "4ac054f0718abe5fe1d1346a9ae9f3cfe9d726c35ff39922e198e4db6c7aca84",
+    "bytes": 54101
+  },
+  "preserve_work_records": {
+    "candidate-freeze.json": "51cc0151cdfc922867766448687c5ebf3f2cb0ca2108dcdee8052af5e860b9ef",
+    "review.md": "715414533ce6a387ebb0899e5bc17b7989f3af810adb42be67d917273b08c299",
+    "review-checks.json": "ea9c77cc500abb427be1491bb131d1e406448b3c9472437ef32022cc95f21f49",
+    "document-checks.json": "3bd118ab6745f41f898b90bde01125e9e6df2b870f2d935004e6d788fd06eecf"
+  },
+  "preserved_document_checks": "document-checks.initial.json"
+}

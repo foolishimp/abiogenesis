@@ -1,0 +1,59 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_05",
+  "workerIdentity": "/root/public_preparation_worker",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/grant.md",
+    "bytes": 7033,
+    "sha256": "39d62042c67a46565bb65d570f3ad41ebd043feb4bf3b1df2c7d72fb42ea1570"
+  },
+  "acceptedInputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "acceptedRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/prepared-request.json",
+    "bytes": 766415,
+    "sha256": "88f338dd707e8a49a5c891b7903e4ff9b756837e1d9ddef8dc9b1ebc8df0de35"
+  },
+  "acceptedInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/assessment-input.json",
+    "bytes": 40026,
+    "sha256": "fea8a1a879e9c2d22015ece337f6b5637c32b07341eb86d80633f1998bc39869"
+  },
+  "acceptedPhase1": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-acceptance.json",
+    "bytes": 4868,
+    "sha256": "97a3089f14bdb5c2f72e96bba450b4b8624731018566a31fe9ab5dd8427eb131"
+  },
+  "previousCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/genuine-pilot.mjs",
+    "bytes": 39329,
+    "sha256": "db6c28138150218709c96a3bddecdae359e4a24cebac4213b1a160b174772271"
+  },
+  "newThinCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/consumer/genuine-pilot.mjs",
+    "bytes": 39326,
+    "sha256": "a50e6ef9f7359551dfefeecbc42e3c8098f936e3b305e39b94edae84b89d9646"
+  },
+  "callerDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/caller-delta.patch",
+    "bytes": 2751,
+    "sha256": "c040fa82cbd347940d80059963e4ee9f0eae63157c8530c00844762c9bd4e63d"
+  },
+  "onlyCallerDifferences": "Actual current handoff150, expected150 prefix length/digest, new-event offset. All semantic task/slot/context/request/canonical Source/package unchanged.",
+  "entry": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2/assessment-handoff.json",
+    "bytes": 1235,
+    "sha256": "da5fd9d164f6d945b2977d7d70d7c21df8963630de6f71e4de002b8f3a41e171"
+  },
+  "originalLiveLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/events/runtime.events.jsonl",
+    "bytes": 5489354,
+    "sha256": "0fb336ea0a4f2c69ae3f2c629a8fa39bd8a96d12fecd551cc93728d94cf41811",
+    "device": 16777231,
+    "inode": 465654884
+  },
+  "carrierAppendArgs": [
+    "--system-prompt",
+    "."
+  ],
+  "singleActualNativeCliAttempt": true,
+  "firstMaterialFailureStops": true
+}

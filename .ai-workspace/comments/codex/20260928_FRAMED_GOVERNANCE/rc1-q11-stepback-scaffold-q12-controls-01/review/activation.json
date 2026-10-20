@@ -1,0 +1,14 @@
+{
+  "operation": "T287_Q12_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T02:59:33.286099+00:00",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/review-request.txt",
+  "grantBytes": 2453,
+  "grantSHA256": "2d306211d6bd026488b07ac4d10a8fb801c8cdf8b7900d8d5173f89fe6748a7a",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/freeze.json",
+  "subjectBytes": 17038,
+  "subjectSHA256": "9f04f0a6d097a0cc511e745153334691595bbf6a112a6942e1709d574c394f1c",
+  "effects": "read/hash/report only in this directory; no imports/reruns/repair/native effects"
+}

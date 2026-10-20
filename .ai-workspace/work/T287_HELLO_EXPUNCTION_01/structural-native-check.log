@@ -1,0 +1,19 @@
+(node:71804) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ atomic_call: actual assessment owner remains evidence; no duplicate result leaf (62.002208ms)
+✔ flat_composition: actual assessment owner remains evidence; no duplicate result leaf (83.505875ms)
+✔ edge_program: actual assessment owner remains evidence; no duplicate result leaf (113.604708ms)
+✔ flat_composition: finite declaration passes actual raw/Program validation (22.965917ms)
+✔ edge_program: finite declaration passes actual raw/Program validation (19.82525ms)
+✔ same final value does not hide a missing first step, wrong composition or foreign Result (185.225542ms)
+✔ order, value chain, declared coverage and intermediate expectations remain material (231.658083ms)
+✔ edge: the same final value cannot replace declared kind, role order or intermediate provenance (582.907791ms)
+✔ edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red (343.069458ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1923.065083

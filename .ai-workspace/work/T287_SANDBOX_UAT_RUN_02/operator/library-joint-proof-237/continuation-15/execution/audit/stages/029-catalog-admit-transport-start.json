@@ -1,0 +1,11 @@
+{
+  "stage": "catalog-admit-transport-start",
+  "elapsedMs": 74939.72904099998,
+  "at": "2026-10-10T20:18:50.636Z",
+  "rss": 2677129216,
+  "heapTotal": 631586816,
+  "heapUsed": 534071928,
+  "external": 2533859,
+  "arrayBuffers": 121552,
+  "beforeAcquisition": false
+}

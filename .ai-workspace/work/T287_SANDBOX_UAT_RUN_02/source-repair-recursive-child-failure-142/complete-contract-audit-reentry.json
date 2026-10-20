@@ -1,0 +1,14 @@
+{
+  "fifthCause": "Historical runtime_failure_admitted event name in test; current actual owner emits runtime_failure_observed",
+  "actualLog": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-LRlFuV/runtime/events.jsonl",
+  "shapeAudit": [
+    "openTraversalScope current input and receipt",
+    "Leaf realization failure resultCandidate/diagnostic/evidence contract",
+    "RuntimeFailure event name and causation",
+    "Project read disposition/value/refusal shapes",
+    "Reopen prefix owner shape"
+  ],
+  "action": "Test event selector corrected; Source142 authenticator also binds exact parent C_Call/traversal scope and source input Result/valueDigest, with genuine prior-parent crossed control",
+  "singleFixturePackReused": true,
+  "productionOwnerChangeOutsideGrant": false
+}

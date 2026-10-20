@@ -1,0 +1,74 @@
+{
+  "role": "Writer37 supplied-material preparation",
+  "executionAuthorized": false,
+  "publicationAcceptance": "ACCEPTED Root CLOSED Source36+Proof36 exact identity/freeze",
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T00-36-16-801Z-aba03409-467d-452b-a547-b87a81db6f45",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912,
+    "basis": "setup/recording drainage only; never native execution authority extension"
+  },
+  "executionAuthority": {
+    "overallT0": "2026-10-06T20:52:43.725Z",
+    "firstFiveHourQualityCheckpointUTC": "2026-10-07T01:52:43.725Z",
+    "rootContinuedAtUTC": "2026-10-07T01:51:28Z",
+    "operatorAcknowledgedAtUTC": "2026-10-07T01:52:06.903Z",
+    "currentExternalQualityCheckpointUTC": "2026-10-07T06:52:43.725Z",
+    "currentExternalQualityCheckpointSydney": "2026-10-07T17:52:43.725+11:00",
+    "clockReset": false,
+    "newNativeStartObservation": "NEW commands/lifecycle-start.request.json.started immediately before CLI spawn, reported without resetting originalT0",
+    "rootExternalExecutiveDecidesContinueOrStop": true
+  },
+  "stop": {
+    "owner": "existing native C2/helper/provider process supervision",
+    "order": [
+      "While CLI lives resolve exact admitted C2 occurrence/task/attempt to launch.json/helper argv; match live helper and detached command PID/PGID via ancestry.",
+      "At Root stop/checkpoint disposition stop only exact owned helper/command first: TERM, bounded confirmation/grace, KILL only if still exact-owned; preserve real missing artifact/exit.",
+      "Resolve exact current admitted provider PID/PGID, verify identity immediately, then stop only that owned group while CLI remains alive.",
+      "Allow real exit/failure admission/drain; retain fresh-read presence/absence and raw truncation/exit truth."
+    ],
+    "noGuessedPidsOrPrivateEvents": true
+  },
+  "resume": {
+    "fromArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T00-36-16-801Z-aba03409-467d-452b-a547-b87a81db6f45",
+    "originalFiles": 4,
+    "retainedAuthorFiles": 41,
+    "materialRows": 49,
+    "source": "none",
+    "observations": [],
+    "synthesis": null,
+    "terminal": false,
+    "oldProducerParentCredit": false,
+    "oldEightMutationCredit": false,
+    "operatorAppEditsOrRestoration": false,
+    "oldSetupManifestCopied": false
+  },
+  "limits": {
+    "effectiveCommandTimeoutMs": 18000000,
+    "terminationGraceMs": 10000,
+    "canonicalRequiredBudgetMs": 18015000,
+    "inactivityMs": 18030000,
+    "absoluteMs": 18040000,
+    "driverMs": 18060000,
+    "recorderMs": 19260000,
+    "nativeMaxOutputBytes": 268435456,
+    "recorderMaxOutputBytes": 536870912,
+    "recursionBound": 1000,
+    "optionalTurnAndUsdCapsOmitted": true
+  },
+  "originalFullCriteriaAndOracleUnchanged": true
+}

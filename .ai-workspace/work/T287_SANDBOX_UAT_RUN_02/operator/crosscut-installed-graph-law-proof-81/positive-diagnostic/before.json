@@ -1,0 +1,27 @@
+{
+  "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/st4-81-declared-positive-request.jsonl",
+  "requestSha256": "dff32deb5a29c855fe50cf1b6ca942e08a2b220ad82f813e118fa5f441873d5f",
+  "requestBytes": 35510031,
+  "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/runtime/events.jsonl",
+    "prefixLength": 3103057,
+    "prefixDigest": "sha256:40e084c88409267a895b01c93553edbb8fead9c5c7e4a8ba4358b72fb934b700",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 467821102,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:0cb0ffcaecc35320e1105a3678af951f760f260f24559cf9cd95b26168591ad9"
+  },
+  "physical": {
+    "device": 16777231,
+    "inode": 467821102,
+    "byteCount": 3103057,
+    "digest": "sha256:40e084c88409267a895b01c93553edbb8fead9c5c7e4a8ba4358b72fb934b700"
+  },
+  "nodeOptions": null,
+  "authorization": "Root single positive-only eventless raw diagnostic; no HoG/new Run/provider dispatch"
+}

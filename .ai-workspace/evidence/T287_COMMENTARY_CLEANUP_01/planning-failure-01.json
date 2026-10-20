@@ -1,0 +1,25 @@
+{
+  "operation": "T287_COMMENTARY_CLEANUP_PLAN_01",
+  "observedUTC": "2026-10-04T06:23:19.020260+00:00",
+  "status": "STOPPED_PLANNING_ORIGINAL_WITNESS_SYMLINK",
+  "actualCommand": "PYTHONDONTWRITEBYTECODE=1 python3 .ai-workspace/work/T287_COMMENTARY_CLEANUP_01/build_plan.py",
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "execSession": 31800,
+  "exitCode": 1,
+  "sourceScriptSHA256": "c282d92e749f9aa2d77eca9d6bc81b239d34096fe4fd89315ce9c7102470ee48",
+  "sourceScriptBytes": 16209,
+  "sourceScriptPreimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_01/build_plan.failed-original-symlink.py",
+  "origin": "build_plan.py:238 -> guard():40",
+  "diagnostic": "AssertionError: symlink path component: /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/toolchain/products/abiogenesis/4.6.0-rc.3/bin/abg.install",
+  "originalWitnessRoute": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260711T033113388Z_pid15724/toolchain/products/abiogenesis/4.6.0-rc.3/bin/abg.install",
+  "originalLinkTarget": "../lib/node_modules/@abiogenesis/typescript-tenant/build/semantic/code/src/bin/abg.install.js",
+  "manifestWritten": false,
+  "hashAccounting": "not emitted before assertion; no exact partial count claimed",
+  "effects": {
+    "commentsWrites": 0,
+    "deletion": 0,
+    "moves": 0,
+    "nativeRuntime": 0
+  },
+  "proposedReentry": "planning-helper realization_refactor; ineligible original witness becomes exclusion, no symlink following; Root selection required before correction or rerun"
+}

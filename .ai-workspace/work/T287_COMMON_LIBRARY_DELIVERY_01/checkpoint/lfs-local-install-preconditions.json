@@ -1,0 +1,24 @@
+{
+  "hooks_path": {
+    "exit_code": 1,
+    "stdout": ""
+  },
+  "git_dir": {
+    "exit_code": 0,
+    "stdout": ".git"
+  },
+  "architecture": {
+    "exit_code": 0,
+    "stdout": "arm64"
+  },
+  "macos": {
+    "exit_code": 0,
+    "stdout": "26.7.1"
+  },
+  "pre_push_hook": {
+    "path": "/Users/jim/src/apps/abiogenesis/.git/hooks/pre-push",
+    "exists": false,
+    "sha256": null
+  },
+  "known_git_lfs_cache_paths_present": []
+}

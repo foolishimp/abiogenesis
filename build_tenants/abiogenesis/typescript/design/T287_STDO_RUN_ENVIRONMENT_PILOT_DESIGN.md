@@ -1,6 +1,80 @@
 # T-287 Governed Run Environment And Role Context Design
 
-## Current MGMT03 Design Candidate
+## Current STDO 3 Binding Delta
+
+2026-10-21, bounded Product/requirement and design reconciliation under
+[the owner-directed activation](../../../../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/activation.md).
+Implementation and installed qualification remain open. This section
+supersedes the mandatory old-cohort premise in the retained MGMT03 design
+below. It preserves the generic declaration, owner, context, admission and
+replay responsibilities; it does not relabel any earlier candidate, Run,
+acceptance or proof as STDO 3 evidence.
+
+**Implements:** Product [STDO-Governed Run Environment](../../../../specification/PRODUCT.md#stdo-governed-run-environment);
+GTL CONTEXT-008; ABG BINDING-019, RUN-010 and INSTRUCTION-ASSEMBLY-019/020.
+The [computational binding](ABI5_STDO3_COMPUTATIONAL_BINDING.md) supplies the
+selected design-profile and tenant relation. F02/F04/F07/F10/F17 and their
+current release allocation remain unchanged.
+
+The exact native STDO source release is the primary environment dependency.
+An STDO template identifies that release and manifest, the required native
+source members or spans, their exact content identities, role/frame/policy
+bindings, the permitted acquisition relation and the evidence required before
+dependent dispatch. Native exact-byte acquisition requires no representation,
+index or corpus-access tool unless that environment explicitly selects one.
+An empty supplementary tool selection does not mean empty required content,
+ambient access, unchecked context or an evidence exemption.
+
+When the environment selects a supplementary representation, index or access
+implementation, its exact released identity, inventory, relationship to the
+selected source, declared operations, inputs/outputs, capabilities and required
+evidence are additional mandatory bindings. A supplement cannot replace its
+source's semantic authority. Availability beside an STDO release, a local
+installation or development composition does not select it for a Run.
+
+Retain the existing owner route:
+
+```text
+GTL environment/Context declaration
+  -> Product exact dependency and permitted acquisition preparation
+  -> ABG observation, binding and access-evidence admission
+  -> role-specific instruction envelope and manifest
+  -> declared native computation and result admission
+  -> existing event history and fresh replay
+```
+
+The existing GTL, Product and ABG environment owners implement this change;
+there is no parallel source loader, provider registry, frame interpreter or
+runtime. Required native bytes and selected supplementary inputs must be
+authentic, complete, available and permitted at their declared boundary.
+Missing or invalid required access blocks before dependent work. Retrieval,
+structural validation, semantic interpretation and acceptance retain their
+different owners. Shared source bodies are reusable only through the existing
+exact identity, scope, access and currentness relations.
+
+The historical cohort-only template must not be silently accepted as the new
+binding or automatically upgraded. Existing declarations and Runs retain their
+original exact basis. A changed environment follows declared re-entry,
+preserves the previous identity and cause, and re-proves affected context,
+admission and replay claims. General non-STDO Programs acquire no STDO
+dependency.
+
+Before an installed V3 runtime claim, the affected implementation must show:
+exact native-source declaration and access through the actual owners; refusal
+for a missing or mismatched required member or selected supplement; correct
+role/context delivery; conservation of the admitted environment through fresh
+replay; and refusal of an ambient or silent basis upgrade. These are affected
+existing F02/F04/F07/F10/F17 obligations, not a new scenario family or a claim
+that this document has executed them. Original tests, Runs and evidence keep
+their recorded basis and scope.
+
+## Retained MGMT03 Design And Exact Historical Evidence
+
+The generic owner and context design below remains input where compatible with
+the current Product and the V3 delta above. Its RC7-specific dependency,
+cohort-tool and pilot claims describe their original exact subjects. They do
+not select a current cohort, override V3 native access or activate the former
+odd_glc campaign.
 
 `T287-MGMT-03-DESIGN-01`, 2026-09-19: one `design_reframe` for the first full
 ordinary odd_glc Hello lifecycle. Status: **candidate_ready for one independent
@@ -746,6 +820,19 @@ The installed `run.invoke` owner composition performs this dependency cone:
    ABI checks the output contract, internal byte/ref joins and the authenticated
    tool/input/selection relation; it does not reimplement `a_c` validation,
    map instantiation or closure construction as a parallel algorithm.
+
+   The covered-source comparison reuses this material owner for the specifically
+   canonical C2 renderer Context. ABG supplies the actual causal old/current
+   ProductInstalls; Product binds the complete publication to each exact installed
+   manifest publication binding and reads its existing declared Context inventory
+   path and renderer member. Canonical confined paths, complete record inventory,
+   member digests/lengths and source-span bounds authenticate material before
+   byte-for-byte consumed-span comparison. These are transient reads with no
+   tool launch, new observation, retained Context cache or receipt authority.
+   Proven member/span location changes and derived inventory identities may
+   differ in private consumed meaning; every other declared field/order remains
+   exact. This does not apply to whole-member, corpus/tool-access or unknown
+   Context consumption, and does not change complete public evidence or policy.
 5. ABG validates the observation/declaration/capability joins and admits the
    complete `stdoEnvironment` evidence in the existing `invocation_admitted`
    payload and digest under the exact successor current-profile variants below,

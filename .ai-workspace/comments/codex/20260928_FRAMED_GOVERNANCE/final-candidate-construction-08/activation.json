@@ -1,0 +1,80 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "operation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T13:09:59.299581+00:00",
+  "priorRoles": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/request.txt",
+    "bytes": 4710,
+    "sha256": "032cf6072adb9e2350f8e5207e3c5a9e59d43603b7af3b36c31c94ecac174661",
+    "mode": 420
+  },
+  "sevenLiteralSectionsReadAndJoined": true,
+  "installedAC": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "RootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08/acceptance.json",
+    "bytes": 3828,
+    "sha256": "cbf7b233abb96b0957f6df749f372c6b78fa47d57730b5158a2f7b50a5649b32",
+    "mode": 420
+  },
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08/source-cut.json",
+    "bytes": 13018234,
+    "sha256": "f131c687fbae3be7cf0cbb4ee340def5d4a328de0716e883d4be08d471b5c18c",
+    "mode": 420
+  },
+  "dependencies": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+      "bytes": 1920828,
+      "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/freeze.json",
+      "bytes": 1918499,
+      "sha256": "cc036b4c49f75ecafdff98adff6900ad48445923f8f7118c53336ab6b9e82d33",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/review/freeze.json",
+      "bytes": 1329,
+      "sha256": "3d90e4db617f1c3f0892c8377145aa76f1b3864433e97efbdc2419348548c9c0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+      "bytes": 381272,
+      "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+      "mode": 420
+    }
+  ],
+  "authorityReacquiredUnchanged": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "mode": 420
+    }
+  ],
+  "onlyWriteTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08",
+  "reentry": "prospective construction under accepted WHAT/HOW",
+  "sourceRepair": false,
+  "RuntimeProviderGitEffects": false,
+  "defaultHeap": true,
+  "HOME": "ordinary inherited"
+}

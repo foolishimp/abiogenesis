@@ -1,0 +1,170 @@
+{
+  "status": "STOPPED",
+  "predicate": "recipe-correspondence.mjs:21 every actual selected body must join current descriptor, owner observation and inventory",
+  "badTuples": [
+    {
+      "target": "recipe/input-manifest.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/input-manifest.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/input-manifest.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/input-manifest.json"
+      ]
+    },
+    {
+      "target": "recipe/expected-output-inventory.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/expected-output-inventory.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/expected-output-inventory.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/expected-output-inventory.json"
+      ]
+    },
+    {
+      "target": "recipe/recipe-stage.mjs",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/recipe-stage.mjs",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/recipe-stage.mjs",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/recipe-stage.mjs"
+      ]
+    },
+    {
+      "target": "recipe/compare-generated.mjs",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/compare-generated.mjs",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/compare-generated.mjs",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/compare-generated.mjs"
+      ]
+    },
+    {
+      "target": "recipe/config.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/config.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/config.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/config.json"
+      ]
+    },
+    {
+      "target": "recipe/toolchain.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/toolchain.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/toolchain.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/toolchain.json"
+      ]
+    },
+    {
+      "target": "recipe/npm-toolchain-inventory.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/npm-toolchain-inventory.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/npm-toolchain-inventory.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/npm-toolchain-inventory.json"
+      ]
+    },
+    {
+      "target": "recipe/toolchain-links.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/toolchain-links.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/toolchain-links.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/toolchain-links.json"
+      ]
+    },
+    {
+      "target": "recipe/test-environment.mjs",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/test-environment.mjs",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/test-environment.mjs",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/test-environment.mjs"
+      ]
+    },
+    {
+      "target": "recipe/staging-fixtures.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/staging-fixtures.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/staging-fixtures.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/staging-fixtures.json"
+      ]
+    },
+    {
+      "target": "recipe/component-stage.mjs",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/component-stage.mjs",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/component-stage.mjs",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/component-stage.mjs"
+      ]
+    },
+    {
+      "target": "recipe/component-stage-plan.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/component-stage-plan.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/component-stage-plan.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/component-stage-plan.json"
+      ]
+    },
+    {
+      "target": "recipe/verification-recipe.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/verification-recipe.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/verification-recipe.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/verification-recipe.json"
+      ]
+    },
+    {
+      "target": "recipe/raw-config.json",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/raw-config.json",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/raw-config.json",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/raw-config.json"
+      ]
+    },
+    {
+      "target": "recipe/command-environment.mjs",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/command-environment.mjs",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/command-environment.mjs",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/command-environment.mjs"
+      ]
+    },
+    {
+      "target": "recipe/recipe-correspondence.mjs",
+      "selectedMemberRef": "recipe-input://abiogenesis/q06/recipe-correspondence.mjs",
+      "declaredMemberRef": "recipe-input://abiogenesis/q07/recipe-correspondence.mjs",
+      "observationExists": true,
+      "inventoryMemberExists": false,
+      "matchingBodyInventoryRefs": [
+        "recipe-input://abiogenesis/q07/recipe-correspondence.mjs"
+      ]
+    }
+  ],
+  "actualCompleteTaskConstructed": true,
+  "sourceCopies": 3284,
+  "newTaskRunAdmission": false,
+  "noRepairOrRetry": true
+}

@@ -1,0 +1,12 @@
+{
+  "stage": "product-resolve-grant-complete",
+  "rss": 4510334976,
+  "heapTotal": 3998892032,
+  "heapUsed": 3880223664,
+  "external": 2465946,
+  "arrayBuffers": 51839,
+  "at": "2026-10-09T11:29:04.095Z",
+  "elapsedMs": 199229.815875,
+  "ownerArtifactReceiptRetained": true,
+  "capabilities": 1
+}

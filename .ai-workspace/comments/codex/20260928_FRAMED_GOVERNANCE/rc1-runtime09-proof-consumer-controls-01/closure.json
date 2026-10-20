@@ -1,0 +1,28 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME09_PROOF_CONSUMER_GRANTS_WRITER_01",
+  "role": "Writer",
+  "workResult": "TRIAGE_AND_CONDITIONAL_PROOF_CONSUMER_GRANTS_ONLY",
+  "restoredRole": "Executive",
+  "RuntimeRelease": false,
+  "sourceEffects": 0,
+  "trackingEffects": 0,
+  "closedAt": "2026-10-03T09:24:36.675615+00:00",
+  "grants": {
+    "worker": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/worker-request.txt",
+      "bytes": 3930,
+      "sha256": "684d02b0ad016fe1601e103405d7f673c99723dd977a6f37162b7874a21deb4f"
+    },
+    "preparation-review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/preparation-review-request.txt",
+      "bytes": 2369,
+      "sha256": "fd49fd827bfffc6b623764ed5014c1a935392cdcfe6d6c8c0a39c0566d50cbd1"
+    },
+    "runtime": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01/runtime-request.txt",
+      "bytes": 3020,
+      "sha256": "7068a31a7cbb2e8b1c01a474d1c7958aef85c1f94274401e00bd93e22fc597ee"
+    }
+  }
+}

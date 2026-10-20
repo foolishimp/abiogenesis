@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "record": "protected-preimages.json",
+      "status": "passed",
+      "records": 196
+    },
+    {
+      "record": "copied-inputs.json",
+      "status": "passed",
+      "records": 5234
+    }
+  ],
+  "ambientGeneratedOutputsUnchanged": true,
+  "C02Q02AndPriorFrozenReturnsUnchanged": true,
+  "unrelatedWorkPreservation": "No writes outside the exact two source files and this new report territory were performed. No Git effects or broad worktree census."
+}

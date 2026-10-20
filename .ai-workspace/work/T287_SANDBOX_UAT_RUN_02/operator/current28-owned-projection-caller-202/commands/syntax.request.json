@@ -1,0 +1,19 @@
+{
+  "kind": "command_request",
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/prepare.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202",
+  "started": "2026-10-09T11:13:04.091031+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/prepare.mjs",
+    "sha256": "cfd41fa089311a5ccdf22dcf73db07fa45b1e4a90abbca74c129daea5a38d13c",
+    "byteCount": 43876
+  },
+  "scope": "Syntax only; no caller execution/import/resource or runtime effect",
+  "environment": {
+    "NODE_OPTIONS": null
+  }
+}

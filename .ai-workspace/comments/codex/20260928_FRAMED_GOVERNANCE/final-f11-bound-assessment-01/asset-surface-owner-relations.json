@@ -1,0 +1,22 @@
+{
+  "constructorRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts#constructQualificationJudgment",
+  "constructorSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/staged-repo/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "bytes": 59810,
+    "sha256": "f8e92aa311cc56ce7ead7b6b51905791ace6502d4a7b5972a7671503ebe505d8"
+  },
+  "rendererRef": "renderer://abiogenesis/qualification/assessment@5",
+  "outputContractRefs": [
+    "contract://abiogenesis/qualification/assessment-raw@5",
+    "contract://abiogenesis/qualification/judgment@5"
+  ],
+  "outputPublicationOwner": "QUALIFICATION_IDS + retained native catalog.boundPublications.contracts",
+  "proofObligationRefs": [
+    "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md#REQ-P-SELF-CONFORMANCE-008",
+    "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064A"
+  ],
+  "proofSourceOwner": "exact immutable C02 rule catalog governedClaim/sourceRef",
+  "standardsRefs": [
+    "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md#REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015B"
+  ]
+}

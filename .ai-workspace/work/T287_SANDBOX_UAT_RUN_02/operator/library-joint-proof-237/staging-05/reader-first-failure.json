@@ -1,0 +1,9 @@
+{
+  "stage": "read-only overlay address comparison",
+  "exitCode": 1,
+  "wallTimeSeconds": 0.034922875,
+  "error": "KeyError: 'input-03/code/src/abg/actor_process.ts'",
+  "completed": "All264 Source and528 emission body hashes matched before the address comparison. No copies or owner calls occurred.",
+  "cause": "Checker assumed Source and emissions shared a single snapshot root.35 declares independent input-03/code/src and build-03/code/src roots.",
+  "rootSelectedAction": "Map those exact declared roots to ordinary code/src and build/code/src. Freeze metadata only; copying35 is held by the independent review finding."
+}

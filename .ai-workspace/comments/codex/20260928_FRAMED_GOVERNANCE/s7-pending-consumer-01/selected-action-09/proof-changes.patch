@@ -1,0 +1,67 @@
+--- preimage/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs
++++ current/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs
+@@ -66,10 +66,11 @@
+ 
+ 
+ // Observation only: correlate the submitted Public invocation through actual I/B/Run.
++const freezeSnapshot=value=>{if(value&&typeof value==='object'){Object.values(value).forEach(freezeSnapshot);Object.freeze(value);}return value;};
+ export function observePublicSelection({rows,call,environment,selectionCount,abg,scopeOwner,truth}) {
+  const admissions=rows.filter(row=>row.kind==='invocation_admitted'&&row.payload.publicRequestInvocationRef===call.invocation.invocationRef);
+  if(admissions.length===0)return null;assert.equal(admissions.length,1,'one actual admission for submitted invocation');
+- const prefix=abg.selectValidatedRuntimeEventPrefix(rows),admission=truth.projectExactInvocationAdmissionAtPrefix(prefix,admissions[0].payload.invocationAdmissionRef);assert.ok(admission);
++ const prefix=abg.selectValidatedRuntimeEventPrefix(freezeSnapshot(rows)),admission=truth.projectExactInvocationAdmissionAtPrefix(prefix,admissions[0].payload.invocationAdmissionRef);assert.ok(admission);
+  const selected=rows.filter(row=>row.kind==='construction_intent_selected').filter(row=>truth.projectExactExecutionBasisAtPrefix(prefix,row.basisId)?.invocationAdmissionRef===admission.invocationAdmissionRef);
+  if(selected.length!==selectionCount)return null;
+  const event=selected.at(-1),executionBasis=truth.projectExactExecutionBasisAtPrefix(prefix,event.basisId),scope=scopeOwner.projectOpenedTraversalScopeForFrameAtPrefix(prefix,event.frameId);assert.ok(scope);
+--- preimage/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs
++++ current/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs
+@@ -57,13 +57,13 @@
+ }
+ async function prepareStart(c,e,identity,inputFactoryOrValue,dir){
+  const started=performance.now(),eventResource=resource(c),artifactTruth=c.abg.projectExactPrefixArtifactTruth(c.handoff.prefix);
+- const made=await constructInstalledStartCall({environment:{...e,product:c.product,abg:c.abg,artifactTruth},publicApi:c.publicApi,eventResource,identity,programRef:ref('program','root'),rootMode:'supervised',...(typeof inputFactoryOrValue==='function'?{inputFactory:inputFactoryOrValue}:{input:inputFactoryOrValue})});
++ const made=await constructInstalledStartCall({environment:{...e,product:c.product,abg:c.abg,artifactTruth},publicApi:c.publicApi,eventResource,identity,programRef:ref('program','root'),rootMode:'supervised',declaredStartRef:ref('start','root'),...(typeof inputFactoryOrValue==='function'?{inputFactory:inputFactoryOrValue}:{input:inputFactoryOrValue})});
+  const input=made.call.invocation.request.input.value;
+  const prepared=await c.product.ProductRunInvocationPort.prepare({memberKey:'start',invocation:made.call.invocation,resources:made.call.resources,admittedInstalls:e.admittedInstalls,workspaceBinding:e.workspaceBinding,verifyInstallAdmission:i=>c.abg.hasAdmittedProductInstall(artifactTruth,i),transportResourceAssertion:eventResource});
+  assert.equal(prepared.kind,'prepared_product_run_invocation',JSON.stringify(prepared));const basis=await c.load('abg/execution_basis');assert.equal(basis.hasExactInvocationObservationBasis(prepared.admittedInput,e.workspaceBinding.bindingId,e.workspaceBinding.bindingDigest,prepared.resolution.program),true);
+  assert.deepEqual(input.workspaceBinding,{workspaceBindingId:e.workspaceBinding.bindingId,workspaceBindingDigest:e.workspaceBinding.bindingDigest});assert.deepEqual(input.actionCatalog,prepared.resolution.program.actionCatalog);assert.deepEqual(input.constructionPolicy,prepared.resolution.program.constructionComposition.closurePolicy);
+  assert.deepEqual(made.workAuthority,prepared.authority);assert.deepEqual(made.capabilityBasis.policy,prepared.policy);assert.deepEqual(made.capabilityBasis.capabilityGrants,prepared.grants);
+- assert.equal(made.call.invocation.request.rootMode,'supervised');assert.equal(made.call.invocation.request.scope,'program');assert.equal(made.call.invocation.request.target.kind,'next');assert.equal(made.call.invocation.request.until,'converged');
++ assert.equal(made.call.invocation.request.rootMode,'supervised');assert.equal(made.call.invocation.request.scope,'program');assert.equal(made.call.invocation.request.target.kind,'declared_start');assert.equal(made.call.invocation.request.target.start.ref,ref('start','root'));assert.equal(made.call.invocation.request.target.start.digest,c.product.sha256Canonical(prepared.resolution.resolvedProgramStart.start));assert.equal(made.call.invocation.request.until,'converged');
+  const environment={...e,input,inputDigest:c.product.sha256Canonical(input),policy:prepared.policy,actorRef:prepared.authority.actorRef,invocationAuthority:prepared.authority,publication:prepared.resolution.programPublication};
+  assert.deepEqual(made.call.invocation.invocationAuthority.slots.actor.attribution,{ref:environment.invocationAuthority.authorityRef,digest:environment.invocationAuthority.authorityDigest});
+  await save(dir,'prospective-start.json',{status:'passed',wallMs:performance.now()-started,call:made.call,workAuthority:prepared.authority,policy:prepared.policy,grants:prepared.grants,input,resolution:prepared.resolution.resolution,observationPredicate:true,exactCandidatePreimages:true});
+--- preimage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs
++++ current/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs
+@@ -233,6 +233,7 @@
+   runEnvironmentResourceFactory,
+   programRef,
+   rootMode = "direct",
++  declaredStartRef,
+   inputFactory,
+ }) {
+   const {
+@@ -254,7 +255,8 @@
+     selection: Object.freeze({
+       kind: "start",
+       scope: "program",
+-      target: "next",
++      target: declaredStartRef ?? "next",
++      ...(declaredStartRef === undefined ? {} : { startRef: declaredStartRef }),
+       until: "converged",
+       rootMode,
+     }),
+@@ -336,7 +338,12 @@
+   const request = Object.freeze({
+     program,
+     scope: "program",
+-    target: Object.freeze({ kind: "next" }),
++    target: declaredStartRef === undefined ? Object.freeze({ kind: "next" }) : Object.freeze({
++      kind: "declared_start", start: Object.freeze({
++        ref: resolution.resolvedProgramStart.start.startRef,
++        digest: product.sha256Canonical(resolution.resolvedProgramStart.start),
++      }),
++    }),
+     until: "converged",
+     catalogView: view,
+     allowlist: Object.freeze([...catalogView.allowlist]),

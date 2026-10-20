@@ -1,0 +1,17 @@
+{
+  "kind": "runtime_selected_component_check",
+  "command": [
+    "node",
+    "--expose-gc",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=terminal route-only|selected replay guard|finite pure candidate|ordinary selected route|drop complete output",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/input-03/test_env/tests/t287-route-reconstruction.test.mjs"
+  ],
+  "source": "inputs-03.json",
+  "exitCode": 1,
+  "elapsedMs": 2310.308417014312,
+  "limits": [
+    "Six existing finite components with exact full Public plan hash and private cut/finite-field correspondence/refusals/body-acquisition assertions. Controlled lower declaration/outcome premises, no genuine HoG/native/source41 installed proof."
+  ]
+}

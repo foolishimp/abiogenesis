@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/metadata-parity.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "at": "2026-10-08T06:58:21.464912+00:00",
+  "correction": "phase classifier records complete graph consequences; no digest stripping or source/build changes"
+}

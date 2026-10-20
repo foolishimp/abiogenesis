@@ -1,0 +1,9 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RESULT_LINEAGE_SOURCE_ASSURANCE_GRANT_WRITER_01",
+  "returnsTo": "Executive",
+  "conditionalReviewerNotActivated": true,
+  "sourceRuntimeGitEffects": 0
+}

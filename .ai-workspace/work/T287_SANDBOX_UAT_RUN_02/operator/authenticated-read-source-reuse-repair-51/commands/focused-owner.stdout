@@ -1,0 +1,13 @@
+✔ cold acquisition receipt detaches caller input and preserves pure, copied, explicit-fresh and current-prefix distinctions (38.722584ms)
+{"kind":"historical_cut_derivation_controls","exactOutput":true,"ordinalAloneRejected":true,"physicalDriftRefused":true}
+✔ historical durable cuts reidentify only exact owner history after physical authentication (31.785959ms)
+{"kind":"held_suffix_rollback_conservation","work":{},"physicalDriftRefused":true,"copiedProofCold":true}
+✔ held derivation preserves physical authentication and discards staged facts on rollback (21.633333ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 541.750542

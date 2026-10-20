@@ -1,0 +1,34 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C05_SETUP_ACCEPTANCE_RECORDING_01",
+  "activatedAt": "2026-10-02T03:08:05.582642+00:00",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "grant": "Owner-authorized close-5.0 delivery; Root Executive has independently verified the CLOSED actual Setup05 freeze and selects bounded acceptance recording.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-installed-setup-acceptance-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "effects": "Record exact actual setup acceptance and refresh existing work tracking/commentary only. No source, design, Product, candidate, installed payload, event, Runtime, model, network or Git mutation.",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 505802,
+      "sha256": "7f3bb0cd32ba7da122d0fcc966ea4ff7765ab9623a3b4f21bd0e59fed3d63c0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 470092,
+      "sha256": "fdc04cb1aee3f3dfd61abdd2c871b5af5cd2aa7471809718490c7bf0e75ec739"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 8220,
+      "sha256": "00c8064458be1bb0ebf08d06bd2603959240c0c7373be15a3dae3d79d67a3b67"
+    }
+  ],
+  "return": "CLOSED Writer then Executive"
+}

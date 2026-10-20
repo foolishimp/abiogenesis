@@ -1,0 +1,8 @@
+{
+  "stage": "pre-owner ordinary dependency population selector",
+  "request": "Compared canonical node_modules physical files against continuation09.preflight.payloadFiles filtered node_modules.",
+  "stderr": "Traceback (most recent call last):\n  File \"<stdin>\", line 23, in <module>\nKeyError: 'node_modules/typescript/README.md'\n",
+  "effect": "Only create continuation15 directory; no build/owner/resource/native effect.",
+  "cause": "Documentary checker selected publication payloadFiles rather than full ordinary dependency population.",
+  "selectedCorrection": "Use the existing frozen ordinary dependency population; preserve Source/helper/driver/guard meaning; one pre-owner correction within grant."
+}

@@ -1,0 +1,234 @@
+{
+  "status": "CLOSED exact installed namespace discovery",
+  "core": {
+    "artifactDigest": "sha256:b1f6a7c3743975553c9ac44a629bb2b313e1a97a504d1fe63114a6ad424a7572",
+    "productContentDigest": "sha256:81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3",
+    "manifestDigest": "sha256:06ddd3003d698cb0c8d0a87b50df9d989debe2b8ba451cce96a86fdb338864e6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "installedModule": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js",
+    "digest": "sha256:af6d25986a512e7244353ad2dd6917d382a5a1af49907ff30ef07f72a83a3a3b"
+  },
+  "rows": [
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/assessor@5",
+        "computeRegime": "F_P",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/assessor@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionAssessor",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR",
+      "descriptorDigest": "sha256:35b1620e08567ac2e61318eb54faac69301930188a7555f4e7942246d2ccbce4"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/author@5",
+        "computeRegime": "F_P",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/author@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionAuthor",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_AUTHOR_DESCRIPTOR",
+      "descriptorDigest": "sha256:eda6ecf77981ee786ee3586f7bdd235da2cccbabf1a231a4505e4d311b8d2524"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/evidence-input@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/evidence-input@5",
+        "inputContractRef": "contract://abiogenesis/worksite/revision-command-execution-observation@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionEvidenceInput",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR",
+      "descriptorDigest": "sha256:6f99537006d9d9a670ceacea6e427238aec7eb3b9340dc9ae4b172466f9b5df1"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-construction@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-construction@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeConstruction",
+        "outputContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_NATIVE_CONSTRUCTION_DESCRIPTOR",
+      "descriptorDigest": "sha256:e8ed49afee8a07cd3519fa97d0ca9d57056321fac88da39c673d630ef4ebdf14"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-evidence@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-evidence@5",
+        "inputContractRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeEvidence",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_NATIVE_EVIDENCE_DESCRIPTOR",
+      "descriptorDigest": "sha256:9c847fa58b0148648fdcdb68e6999f7c0d8b21ce75009e102f5b99202e58ac66"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-execution@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-execution@5",
+        "inputContractRef": "contract://abiogenesis/worksite/retained-graph-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeExecution",
+        "outputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_NATIVE_EXECUTION_DESCRIPTOR",
+      "descriptorDigest": "sha256:c938d4bad5e58ece76c29433aba4f4f67843c5152bc0095aa908b4e5bed19c71"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-intake@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-intake@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/native-intake@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeIntake",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/selection-input@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_NATIVE_INTAKE_DESCRIPTOR",
+      "descriptorDigest": "sha256:e0549bd545cbb868958a2824701f9a38b524905473c6dac4231de7eb24e99214"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/native-request@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/native-request@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/selection@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionNativeRequest",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/request@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_NATIVE_REQUEST_DESCRIPTOR",
+      "descriptorDigest": "sha256:4c6b4de6c4c0d1c2157a37777ba6a1d0fd4ae0176b39caf6c0a28d7bde71aa76"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/output@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/output@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionTerminal",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/output@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_TERMINAL_DESCRIPTOR",
+      "descriptorDigest": "sha256:ee4fc3ba6dbdecd65795ed1a4e64db444d5bdcf6832df873d197f3357c340df0"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/projection@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/projection@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/request@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionProjection",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_PROJECTION_DESCRIPTOR",
+      "descriptorDigest": "sha256:1a4644a1df35a97e6eed55b82ccd39f531bac28da3e6cbbb1a6993b70ff92aa6"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/selection@5",
+        "computeRegime": "F_P",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/selection@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/selection-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionSelection",
+        "outputContractRef": "contract://abiogenesis/semantic-revision/selection@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_SELECTION_DESCRIPTOR",
+      "descriptorDigest": "sha256:34b9e3c9184e31b2d033f06c2d8fb70b5a2aca2c481e00fddb92b101a0c6619d"
+    },
+    {
+      "binding": {
+        "bindingRef": "implementation-binding://abiogenesis/semantic-revision/worksite@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/semantic-stage/failure@5",
+        "implementationRef": "implementation://abiogenesis/semantic-revision/worksite@5",
+        "inputContractRef": "contract://abiogenesis/semantic-revision/envelope@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/semantic_revision.js",
+        "namedSymbol": "realizeSemanticRevisionBridge",
+        "outputContractRef": "contract://abiogenesis/worksite/revision-command-execution-preparation-input@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/semantic-stage/refusal@5"
+      },
+      "exportName": "SEMANTIC_REVISION_BRIDGE_DESCRIPTOR",
+      "descriptorDigest": "sha256:7cf8b951dacd17775f35d46245fbe6ac2a786894dd83f6afb6617d452e190ff6"
+    }
+  ],
+  "scope": "Verified immutable package/member correspondence plus exact existing-loader top-level export predicate. No fabricated ProductInstall, runtime admission, resolver or event acquisition."
+}

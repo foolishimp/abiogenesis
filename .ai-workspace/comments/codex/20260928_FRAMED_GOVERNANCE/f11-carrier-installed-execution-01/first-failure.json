@@ -1,0 +1,15 @@
+{
+  "status": "FIRST_FAILURE_STOPPED",
+  "phase": "ordinary_wrapper_setup",
+  "startedAt": "2026-10-01T21:33:20.984Z",
+  "closedAt": "2026-10-01T21:33:32.474Z",
+  "error": {
+    "name": "AssertionError",
+    "message": "{\"kind\":\"product_verification_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"payload_inventory_mismatch\",\"message\":\"archive file set differs from the manifest\",\"artifactRef\":\"file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz\"}\n+ actual - expected\n\n+ 'product_verification_refusal'\n- 'product_verification_success'\n                        ^\n",
+    "stack": "AssertionError [ERR_ASSERTION]: {\"kind\":\"product_verification_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"payload_inventory_mismatch\",\"message\":\"archive file set differs from the manifest\",\"artifactRef\":\"file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz\"}\n+ actual - expected\n\n+ 'product_verification_refusal'\n- 'product_verification_success'\n                        ^\n\n    at setup (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/setup-driver.mjs:18:264)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/run-setup.mjs:7:7"
+  },
+  "latestHandoff": null,
+  "physical": null,
+  "realProviderCalls": 0,
+  "newCallsAfterFailure": 0
+}

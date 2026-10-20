@@ -1,0 +1,74 @@
+{
+  "oldArchiveReference": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/publication/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:21a5702dbb59ceec2ba79eebeb4f69fa29d6984cdc7068231de3c5bb946079fa",
+    "byteCount": 10672945,
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1",
+    "productContentDigest": "sha256:5351b0d0dbb7e6e01dcd270ae2e42d5d0553e0eb3a6723fc56186fb138735505"
+  },
+  "newManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "6423b492666f1aa7c6cad516dbb70c19ff2c535f58c62f0fbea7d27d9ebbfa19",
+    "byteCount": 3189430,
+    "mode": 420
+  },
+  "bodyDeltas": [
+    {
+      "path": "build/code/src/abg/native_work_reacquisition.js",
+      "before": {
+        "path": "build/code/src/abg/native_work_reacquisition.js",
+        "type": "file",
+        "mode": 420,
+        "byteCount": 28559,
+        "sha256": "084e61ee49d47a965f3eb1bc32b9f382674bfd0fa069d9fa2d27ea5482a44dc8"
+      },
+      "after": {
+        "relativePath": "build/code/src/abg/native_work_reacquisition.js",
+        "type": "file",
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/native_work_reacquisition.js",
+        "sha256": "a02acb3a4b9572a5fb05c76334b346c9774b699f96c0978ae6ba9ccbdc286af1",
+        "byteCount": 28544,
+        "mode": 420
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "type": "file",
+        "mode": 420,
+        "byteCount": 3189430,
+        "sha256": "e9277c1f73120dca9ee12e5296866b567489dfeb47800411a12d3533e51a02a4"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "sha256": "6423b492666f1aa7c6cad516dbb70c19ff2c535f58c62f0fbea7d27d9ebbfa19",
+        "byteCount": 3189430,
+        "mode": 420
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "type": "file",
+        "mode": 420,
+        "byteCount": 197474,
+        "sha256": "ad57e848fe381efb408fd97a7840d827a80f2d4ccdb9fae9df64eb1ad85bd3d3"
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "5e41aee5a3d623219b64fc40e4267d298168988ca7dbef761b44b6bca64512ef",
+        "byteCount": 197474,
+        "mode": 420
+      }
+    }
+  ],
+  "newPaths": [],
+  "missingPaths": [],
+  "allDtsExact39": true,
+  "allSourceExact39": true,
+  "generatedPreimageCountNote": "10 count937 included artifacts/type:absent;11 captures936 actual file bodies, with all exact10 archive homes."
+}

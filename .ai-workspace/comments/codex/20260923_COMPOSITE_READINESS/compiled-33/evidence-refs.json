@@ -1,0 +1,180 @@
+{
+  "status": "CLOSED",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/accepted-source.json",
+      "byteCount": 16013,
+      "sha256": "574c128465d94fc280bcc5121b16870657df96345bbaac16e0e90bcc45c1ff38"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/archive-members.json",
+      "byteCount": 928685,
+      "sha256": "b19abfa356ba04bbc7d30ea267e560da65aa2465002567eb1b824c2564dc9804"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/bootstrap-install.json",
+      "byteCount": 640,
+      "sha256": "3695994e1661be68c54cd9ca10c9a603c662c43224db2db3473ead2e257760e3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/bootstrap-install.stderr",
+      "byteCount": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/bootstrap-install.stdout",
+      "byteCount": 23,
+      "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/build-inputs.json",
+      "byteCount": 42177,
+      "sha256": "6e4bbb059beefb529a77ffe114b100f27d291731c3b60e8c5704c1cb1a991966"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/build-once.py",
+      "byteCount": 4523,
+      "sha256": "98cf4fd7cbb4fe5a4e30558083f1f455f1935c1e96db2ffa55730d8198470ea0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/build.json",
+      "byteCount": 389,
+      "sha256": "30a90ebbcafc50885319fc200656e30183d16a45e01c2208cb391c964015ce5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/build.stderr",
+      "byteCount": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/build.stdout",
+      "byteCount": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/conservation.json",
+      "byteCount": 4642,
+      "sha256": "1ae04e31fe665d6c6a20b439a36118d723a03afe7de48f50921250f064c62b3c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/generated-after.json",
+      "byteCount": 156347,
+      "sha256": "fa55e271eb0399027e68ecf8cd246be46cab19e82fea648a515ee77049c3a8f9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/generated-before.json",
+      "byteCount": 156347,
+      "sha256": "831e3aac1a5e6fa5765a876f823541f22e7b501ad20a4bae344574c1d11b8935"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/generated-delta.json",
+      "byteCount": 897,
+      "sha256": "e14846045c68da7c65ebd2f44b9c50154ac9514fee051e89895b85ddbdad81e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/governing-inputs.json",
+      "byteCount": 17392,
+      "sha256": "843f32e08ea6657383dbcf577d2756a61b1dfa7f45dfb74af286a0fe3f8db660"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/pack.json",
+      "byteCount": 538,
+      "sha256": "b0ec418ee6dbad5851bc24161fe8f9b8109b200368ce2ee50d4330ce7c6873c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/pack.stderr",
+      "byteCount": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/pack.stdout",
+      "byteCount": 688757,
+      "sha256": "6786541afd247942a643353ba4e58a2bde79e4d4dc94ad00b1ff42b00e84b664"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/package-correspondence.json",
+      "byteCount": 833,
+      "sha256": "7f1d9a0baea185dc0fabd4d895fe3b99015709143c123332d1f16016249bda1a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/package-identity.json",
+      "byteCount": 582,
+      "sha256": "ca0099ec5db28a5883419d5334777aee53ea92b551424eeecfcec6bcbbf1140f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/package-once.py",
+      "byteCount": 3075,
+      "sha256": "6423301b0497b9ad4a6c3f5ef686e0346481e09422038978d75d8502b8d5da03"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/package-readiness.json",
+      "byteCount": 2653,
+      "sha256": "06d67d0097dbe3fd69157e81aa306d8c5b49d93df425d4c0448815295583c1f4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/product-verification-request.json",
+      "byteCount": 1022,
+      "sha256": "e6d419f2a953a53e59bf4dfafa01b94812004767a3796fbf7bbd6e90e07b47b8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/product-verification-summary.json",
+      "byteCount": 3942,
+      "sha256": "e932c1fb71da5aadbcf253f489c04fd8559318e7585bf696c0b5b8d46728c59f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/product-verification-timing.json",
+      "byteCount": 226,
+      "sha256": "adceb4dc35366dabfb905bd78c80a6d8fd3a0d4217b3af5a36cd9806103a607a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/retained-consumer.json",
+      "byteCount": 2202,
+      "sha256": "7ea7b685505a680a1a885cd414c6eebc86d1c01bce57c33d85379be307dc52b8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/return.md",
+      "byteCount": 2723,
+      "sha256": "332a8d8cf79aea9b76754d64eb27b57c258e724a85f8301b43c1053902a17e98"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/selected-core.json",
+      "byteCount": 986,
+      "sha256": "816d216864abe416c775e1439fc1d05e5298625181f23f8afa78be06bd73242b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/source-delta.json",
+      "byteCount": 1124,
+      "sha256": "0c9ed1f1f0fa1e92f4e939b980afb89bab171604ea52b40da63ff18d3171682e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/source-freeze-before-build.json",
+      "byteCount": 156533,
+      "sha256": "2dde1246ec45b0d87021954db26c9e8a59c579074b6b8c859242f0a3dcda7c0d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/verify-installed.mjs",
+      "byteCount": 3647,
+      "sha256": "66cbdca229108a9623996f16ab00569622eb2aa9bd5d7d2ee797724408da9dc2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/verify-process.json",
+      "byteCount": 404,
+      "sha256": "a931859fa4ecf62ecbe51c7af8c758979be3a8ed302e868fbbf3551e58c1fba4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/verify.stderr",
+      "byteCount": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/verify.stdout",
+      "byteCount": 930,
+      "sha256": "f938445a263d90a4c2c9c22526d0bb286d8057b4eb8c76e0e79a28be62f2f88a"
+    }
+  ],
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:f9fc2c4aade3e87db326f6e20bd3af5c4da2170ba205a14e2eaca1b9555a2222",
+    "byteCount": 10170260
+  }
+}

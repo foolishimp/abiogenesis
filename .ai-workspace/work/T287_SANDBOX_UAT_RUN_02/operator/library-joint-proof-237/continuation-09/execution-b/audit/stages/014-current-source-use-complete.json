@@ -1,0 +1,12 @@
+{
+  "stage": "current-source-use-complete",
+  "elapsedMs": 35789.338624999975,
+  "at": "2026-10-10T13:31:44.187Z",
+  "rss": 3329458176,
+  "heapTotal": 1010040832,
+  "heapUsed": 661939728,
+  "external": 2579517,
+  "arrayBuffers": 167210,
+  "useDigest": "sha256:17207e766528c5aae5643fe24b9a3ae9678efaa2a8ab9864506669cd09165780",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/bd77c39fa2948fb61b957d55c1e52492ed199516b2cdf224b8c14366f80fddf1"
+}

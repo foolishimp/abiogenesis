@@ -1,0 +1,21 @@
+{
+  "label": "isolated-strict-compile-stable62",
+  "args": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "-p",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+    "--outDir",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/scratch/current/build/code/src"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T05:43:43.491545+00:00",
+  "timeoutMs": 120000,
+  "noGenerator": true,
+  "retryBasis": "Root stable62 acknowledgment after out-of-scope TS2554 caller correction",
+  "exitCode": 1,
+  "wallMs": 5074.577790976036,
+  "stdoutBytes": 359,
+  "stderrBytes": 0,
+  "timedOut": false
+}

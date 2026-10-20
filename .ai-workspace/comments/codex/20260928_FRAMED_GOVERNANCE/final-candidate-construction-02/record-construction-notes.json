@@ -1,0 +1,17 @@
+{
+  "ProductOrNativeFailure": false,
+  "preservedMechanicalObservations": [
+    {
+      "boundary": "dependency inventory equality",
+      "symptom": "record equality assertion differed on new mode field absent from C inventory",
+      "resolution": "All4576 shared fields equal and actual frozen C file modes equal; no dependency retry",
+      "evidence": "dependency-correspondence.json"
+    },
+    {
+      "boundary": "control attribution report construction after conservation/cost files completed",
+      "symptom": "Path.relative_to rejected a relative donor path against absolute repository root",
+      "resolution": "Resolved report-only donor roots before computing logical paths; no input, output, owner operation or immutable freeze changed. Finished only previously unwritten attribution records."
+    }
+  ],
+  "ownerAttempts": "Each of six owner commands once; no build/pack/install/verification retry"
+}

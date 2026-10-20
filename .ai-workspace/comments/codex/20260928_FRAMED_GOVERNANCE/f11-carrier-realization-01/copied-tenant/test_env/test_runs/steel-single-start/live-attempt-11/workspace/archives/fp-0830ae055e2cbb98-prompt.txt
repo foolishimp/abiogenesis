@@ -1,0 +1,10 @@
+Create the complete dependency-free Node.js ES module orders/summarize.mjs.
+It is an order-summary CLI. Read exactly one JSON array from process.argv[2].
+Each valid item has name (nonempty string), quantity (nonnegative safe integer), and unitPriceCents (nonnegative safe integer).
+For the bounded valid domain, all products and sums are safe integers.
+Compute itemCount as the number of array entries, totalUnits as the sum of quantity, and totalCents as the sum of quantity * unitPriceCents.
+Print one compact JSON object in exactly this property order: itemCount, totalUnits, totalCents; append exactly one newline, emit no other stdout, and exit zero.
+An empty order must produce itemCount=0, totalUnits=0, totalCents=0.
+Compute from the supplied items; do not hardcode sample totals or branch on fixture identities.
+Use only Node.js built-ins, no package installation, network access, child processes, or filesystem writes from the generated CLI.
+Return candidate bytes for the one declared target under the existing construction result contract. Do not execute the generated code or tools.

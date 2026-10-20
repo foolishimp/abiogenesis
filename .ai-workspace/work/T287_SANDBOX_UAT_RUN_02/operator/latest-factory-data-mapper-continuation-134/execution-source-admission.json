@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-08T22:54:40.812553+00:00",
+  "classification": "Actual canonical admitted source ingress; no newly earned mutation/UAT truth",
+  "event": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "ordinal": 176071,
+    "offset": 1402371322,
+    "byteCount": 2016881,
+    "sha256": "d67c60df57487214e2ab4ee80e70d7a8af927109ee9515d0c44b68a4c7bea934"
+  },
+  "runRef": "run://abiogenesis/e54b41dc07ec52302c13457b3189bcd09b203452671cb9cc2edadd6a870e553a",
+  "publicInvocationRef": "invocation://abiogenesis/e4a74d7a27f58a86e17476169de47749a2e551a928e85fab776cf9fdeb264a10",
+  "runtimeInvocationRef": "invocation://abiogenesis/236737d8d5d67828011079c8c155db36472c2074fa7aa48b0b8cba14327b3103",
+  "invocationAdmissionRef": "invocation-admission://abiogenesis/de98ab984c0a991676356c772c267ab26cf12fb4775179abbcbfa80d99b2d314",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/31216013b284d1b6370701cd8287b534323ae0018dba83814be2927231d20f8e",
+  "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+  "sourceRunRef": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+  "sourceResultValueDigest": "sha256:d0c6b56492ae4b379e438471e9053dd3845ac8cd0b9c4d8ab6988a24554ec3a8",
+  "completePreparedSourceDeepEqual": true,
+  "observations": 30,
+  "terminal": false,
+  "sameProgramViewWorkspace": true,
+  "priorActualDetections": 12,
+  "priorExactRestorations": 12,
+  "priorRestoredGreenTests": 44,
+  "remainingDistinctINV": 4,
+  "providerAuthenticationProof": "Pending actual model/native result, not inferred from invocation ingress"
+}

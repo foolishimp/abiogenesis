@@ -123,20 +123,20 @@ test('native basis retains one immutable derivation; copied, changed and physica
  try{
   const expected=old.authenticateNativeInstructionAssemblyBasis(sample);assert.ok(expected);
   const value=native.constructNativeInstructionAssemblyBasis(sample);assert.ok(value);
-  const before=counts();const selected=native.authenticateNativeInstructionAssemblyBasis(value);assert.ok(selected);
-  for(let i=0;i<5;i++)assert.equal(native.authenticateNativeInstructionAssemblyBasis(value),selected);
+  const before=counts();const selected=native.authenticateOwnedNativeInstructionAssemblyBasis(value);assert.ok(selected);
+  for(let i=0;i<5;i++)assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected);
   if(globalThis.p0Work)assert.equal(difference(before,counts(),'physicalReads'),0);
-  const { environment,...actual }=selected;assert.equal(sha256Canonical(actual),sha256Canonical(expected),'exact serializable owner result across independent module brands');assert.equal(environment.kind,'exact_prefix_workspace_environment');
+  const { environment,...actual }=native.authenticateNativeInstructionAssemblyBasis(value);assert.equal(sha256Canonical(actual),sha256Canonical(expected),'exact explicit public owner result across independent module brands');assert.equal(environment.kind,'exact_prefix_workspace_environment');
   assert.equal(native.constructNativeInstructionAssemblyBasis(value),value);
-  const copied=structuredClone(value);const freshBefore=counts();assert.equal(sha256Canonical(native.authenticateNativeInstructionAssemblyBasis(copied)),sha256Canonical(selected));
+  const copied=structuredClone(value);const freshBefore=counts();assert.equal(sha256Canonical(native.authenticateNativeInstructionAssemblyBasis(copied)),sha256Canonical(native.authenticateNativeInstructionAssemblyBasis(value)));
   if(globalThis.p0Work)assert.ok(difference(freshBefore,counts(),'physicalReads')>0);
-  sample.cCall.cCallRef='c-call://read05/foreign';assert.equal(native.authenticateNativeInstructionAssemblyBasis(sample),null);assert.equal(native.authenticateNativeInstructionAssemblyBasis(value),selected);
+  sample.cCall.cCallRef='c-call://read05/foreign';assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(sample),null);assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected);
   const stolen={...value,cCall:{...value.cCall,cCallRef:'c-call://read05/foreign'}};
   for(const symbol of Object.getOwnPropertySymbols(value))Object.defineProperty(stolen,symbol,Object.getOwnPropertyDescriptor(value,symbol));deepFreeze(stolen);
-  assert.equal(native.authenticateNativeInstructionAssemblyBasis(stolen),null);
+  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(stolen),null);
   const changed=Buffer.from(bytes);changed[0]=91;await writeFile(path,changed);
-  assert.equal(native.authenticateNativeInstructionAssemblyBasis(value),selected,'pure derivation does not assert current physical truth');
-  assert.equal(native.authenticateNativeInstructionAssemblyBasis(copied),null,'cold input still authenticates physical bytes');
+  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected,'pure derivation does not assert current physical truth');
+  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(copied),null,'cold input still authenticates physical bytes');
   assert.throws(()=>store.readRuntimeEventsAtDurablePrefix(value.predecessorPrefix),e=>e.code==='prefix_digest_mismatch');
   console.log(JSON.stringify({kind:'native_basis_owner_controls',predecessorOutputConserved:true,repeatedPurePhysicalReads:0,coldChangedCopiedReceiptAndPhysicalRefusals:true}));
  }finally{await rm(scratch,{recursive:true,force:true});}

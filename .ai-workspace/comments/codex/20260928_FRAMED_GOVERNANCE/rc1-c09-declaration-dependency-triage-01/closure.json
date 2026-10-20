@@ -1,0 +1,8 @@
+{
+  "status": "CLOSED",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_C09_PREPAYLOAD_DEPENDENCY_DISPOSITION_WRITER_01",
+  "returnsTo": "Executive",
+  "sourceCandidatePayloadWrapperRuntimeGitEffects": 0
+}

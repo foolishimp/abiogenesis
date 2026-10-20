@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "frozenConstructionRecordsVerified": 16732,
+  "candidateFreezeSha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f",
+  "readerBindingSha256": "60940ab57b7dbb5e4dd58e6ae698f663f51abad7a2eac26ca166e85fe4117484",
+  "historicalHandoffSha256": "23542ae5af5054dda2d0f68ebd478524919fd3c69f9af596cabfdde15dbbc857",
+  "liveTicketException": "No comparison of deliberately advanced live operating ticket; frozen candidate ticket verified in construction records",
+  "resourceAcquisitions": 0,
+  "nativeCalls": 0,
+  "preparedAt": "2026-09-30T05:03:12.908330+00:00"
+}

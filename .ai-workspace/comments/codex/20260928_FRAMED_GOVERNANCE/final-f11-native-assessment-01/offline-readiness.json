@@ -1,0 +1,53 @@
+{
+  "status": "PASSED",
+  "actualOwners": [
+    "qualificationWorkerRequest",
+    "constructStart ordinary installed owner chain",
+    "ProductRunInvocationPort.prepare"
+  ],
+  "cli": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "strictInputKeys": [
+    "kind",
+    "plan",
+    "schemaVersion",
+    "task"
+  ],
+  "promptUtf8Bytes": 1021244,
+  "rawContract": "contract://abiogenesis/qualification/assessment-raw@5",
+  "actualOwnerKind": "prepared_product_run_invocation",
+  "program": "program://abiogenesis/qualification/assess@5",
+  "rootActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "finalInputFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+    "bytes": 13795,
+    "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+  },
+  "operationDefinitions": [
+    {
+      "operation": "abg.operation.catalog.view",
+      "member": "allowlist"
+    },
+    {
+      "operation": "abg.operation.conformance.evaluate",
+      "member": "gtl_program"
+    },
+    {
+      "operation": "abg.operation.run.invoke",
+      "member": "start"
+    },
+    {
+      "operation": "abg.operation.project.read",
+      "member": "run_result"
+    },
+    {
+      "operation": "abg.operation.project.read",
+      "member": "run_replay"
+    }
+  ],
+  "nativeCalls": 0,
+  "modelCalls": 0,
+  "movingResourceReads": 0,
+  "negativeCheck": "Reuse CLOSED binding crossed Product-content/installed-Product basis refusal; no duplicate campaign",
+  "independence": "Declared source construction identities and historical grant adequacy remain explicit residuals; actual native assessor/transport and raw attribution are observed later.",
+  "limit": "Offline preparation does not prove native transport acceptance, event admission, semantic J, readback or complete F11."
+}

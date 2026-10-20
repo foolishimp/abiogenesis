@@ -1,0 +1,10 @@
+{
+  "fetch_prune_exit_code": 0,
+  "branch": "main",
+  "head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "tracking_ahead_behind": "0\t0",
+  "direct_remote": "727f1dbcab3c198f7704735fdf91b994b7aac243\trefs/heads/main",
+  "normal_untracked_logical_bytes_after_selected_lfs": 30620844980,
+  "unique_lfs_gib": 6.362818426452577,
+  "observed_utc": "2026-10-20T19:03:30.564237+00:00"
+}

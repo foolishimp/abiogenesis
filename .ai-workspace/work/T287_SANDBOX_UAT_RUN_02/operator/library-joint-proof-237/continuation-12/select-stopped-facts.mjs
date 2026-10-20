@@ -1,0 +1,74 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {dirname,join,resolve} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+const root=dirname(fileURLToPath(import.meta.url)),directory=join(root,'execution/audit');
+const setup=JSON.parse(await readFile(join(directory,'prepared-setup.json'),'utf8'));
+const closed=JSON.parse(await readFile(join(directory,'calls/lifecycle-start.close.json'),'utf8'));
+const receipt=JSON.parse(await readFile(join(directory,'calls/lifecycle-start.outcome.json'),'utf8')).receipt;
+const {installedModules}=await import('../continuation-09/helpers/public-setup.mjs');
+const runtimeRoot=setup.installedRoot,runtime=await installedModules(runtimeRoot),a=runtime.abg,p=runtime.product;
+const loadModule=name=>import(pathToFileURL(join(runtimeRoot,'build/code/src',name+'.js')).href);
+const prefixes=await loadModule('abg/event_prefix'),truth=await loadModule('abg/invocation_execution_truth');
+const nativeSource=await loadModule('abg/native_worksite_execution');
+const commandOwner=await loadModule('product/worksite_command_execution');
+const worksiteOwner=await loadModule('product/worksite_effect');
+const library=await loadModule('product/default_library');
+const record=async(name,value)=>writeFile(join(root,name),JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+const hash=value=>p.sha256Canonical(value);
+const pin=async path=>{const bytes=await readFile(path);return {path,sha256:createHash('sha256').update(bytes).digest('hex'),byteCount:bytes.length};};
+assert.equal(closed.prefix.prefixLength,21139392);
+assert.equal(closed.prefix.coordinateDigest,'sha256:2244a05e24868bfe68ab639d0f151c5c89e352b4d0b73bcd22e4881cdd1e0110');
+assert.equal(receipt.ownerOutput.value.disposition,'runtime_failed');
+const acquired=a.acquireAbgEventResource({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:closed,handoffDigest:hash(closed)});
+if(acquired.kind!=='acquired_abg_event_resource'){await record('selected-owner-refusal.json',acquired);throw new Error('Stopped-facts resource owner refused');}
+const resource=acquired.resource;
+try {
+ const durable=a.selectHeldEventStoreDurablePrefix(resource.store),authority=prefixes.projectOwnedRuntimeEventPrefixAtDurablePrefix(durable);assert.deepEqual(durable,closed.prefix);
+ const all=[...prefixes.runtimeEventEnvelopesAtPrefix(authority)],rows=all.filter(x=>x.runId===receipt.resources.run.ref);
+ const load=row=>{const event=prefixes.runtimeEventAtPrefix(authority,row.eventId);assert(event);assert.equal(hash(event.payload),event.payloadDigest);return event;};
+ const fibres=rows.filter(x=>x.kind==='c_call_fibre_selected').map(load);
+ const leaf=fibres.filter(x=>x.payload.implementationRef==='implementation://abiogenesis/default-library/prepare-testing@5');assert.equal(leaf.length,1);
+ const cCallRef=leaf[0].payload.cCallRef;assert.equal(cCallRef,'c-call:sha256:d8afa56691b588cc2e3e1ac8db4d560b395e7190cdfa20761f365546c711b3e9');
+ const basis=truth.projectExactExecutionBasisAtPrefix(authority,leaf[0].basisId);assert(basis);
+ const basisRows=prefixes.indexedRuntimeEvents(authority,'payload:basisRef:'+basis.basisRef).filter(x=>x.kind==='basis_admitted');assert.equal(basisRows.length,1);
+ const basisEvent=basisRows[0],input=basis.rawInputValue;
+ assert.equal(hash(input),'sha256:bebf1dbd71b57a38d5dd159bda73562ac04a0c4024c4e1732ddef0a085a0409d');
+ assert(library.isGovernanceWorkState(input));
+ await record('selected-testing-basis.json',{installedOwnerRoot:runtimeRoot,prefix:closed.prefix,event:basisEvent});
+ const leafEvents=rows.filter(x=>x.aggregateId===cCallRef&&x.kind!=='activity_probe').map(load);
+ await record('selected-leaf-events.json',{installedOwnerRoot:runtimeRoot,prefix:closed.prefix,run:receipt.resources.run,cCallRef,events:leafEvents,runtimeFailures:rows.filter(x=>x.kind==='runtime_failure_observed').map(load)});
+ const invocation=truth.projectExactInvocationAdmissionAtPrefix(authority,receipt.resources.invocationAdmission.ref);assert(invocation);assert.equal(invocation.invocationAdmissionRef,basis.invocationAdmissionRef);assert.equal(invocation.capabilityGrants.length,1);
+ const artifactTruth=a.projectOwnedPrefixArtifactTruth(durable),environment=a.projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,{ref:basis.workspaceBindingId,digest:basis.workspaceBindingDigest});
+ assert.equal(environment.kind,'exact_prefix_workspace_environment');assert.deepEqual(environment.workspaceBinding,setup.workspaceBinding);assert.deepEqual(environment.workspaceAuthorityBasis,setup.workspaceAuthority);
+ await record('selected-invocation-source-relation.json',{installedOwnerRoot:runtimeRoot,prefix:closed.prefix,invocation,testingBasisRef:basis.basisRef,testingImplementationSetRef:basis.implementationSetRef,rootImplementationSetRef:basis.rootImplementationSetRef});
+ const selected=input.synthesis.judgment.subjectEvidenceRef;
+ assert.equal(selected,'result://abiogenesis/4f184872023163f5570f57a4d3bec2719451020a98017cf4261f17d5a5aecc80');
+ const producerRows=prefixes.indexedRuntimeEvents(authority,'payload:resultRef:'+selected).filter(x=>x.kind==='c_call_result_admitted'&&x.payload.resultRef===selected&&x.payload.resultClass==='success');assert.equal(producerRows.length,1);
+ const producer=producerRows[0],value=producer.payload.value;
+ const producerPin=await pin(join(root,'../continuation-10/selected-native-producer.json'));
+ const oldProducer=JSON.parse(await readFile(producerPin.path,'utf8')).event;
+ assert.deepEqual(producer,oldProducer);
+ const source=nativeSource.projectNativeWorkspaceWorkSourceAtPrefix(authority,value);assert(source);
+ const declarationReference=truth.governanceHistoricalDeclarationReferenceAtPrefix(authority,invocation,source.sourceBasis);assert(declarationReference);
+ const taskRows=prefixes.indexedRuntimeEvents(authority,'payload:resultRef:'+input.synthesis.basis.inputRef).filter(x=>x.kind==='c_call_result_admitted'&&x.payload.resultRef===input.synthesis.basis.inputRef);assert.equal(taskRows.length,1);
+ const taskEvent=taskRows[0],context=taskEvent.payload.value.context;assert(worksiteOwner.isWorksiteContextObservation(context));assert.equal(context.observationRef,input.synthesis.basis.contextRef);
+ await record('selected-current-context.json',{installedOwnerRoot:runtimeRoot,prefix:closed.prefix,run:receipt.resources.run,contextOrigin:{eventRef:taskEvent.eventId,payloadDigest:taskEvent.payloadDigest,resultRef:taskEvent.payload.resultRef,field:'payload.value.context',contextDigest:hash(context)},observationRef:context.observationRef,observationDigest:context.observationDigest,workspaceBindingIdentity:context.workspaceBindingIdentity,workspaceBindingDigest:context.workspaceBindingDigest,workspaceAuthorityBasisRef:context.workspaceAuthorityBasisRef,workspaceAuthorityBasisDigest:context.workspaceAuthorityBasisDigest,readRoots:context.readRoots,maxFiles:context.maxFiles,maxBytes:context.maxBytes,entries:context.entries.map(({bytes,...entry})=>entry),originalNativeProducer:producerPin,limitation:'This is the admitted selector input context. The subsequent fresh Testing context observation is not separately retained; this record does not assert identical actual constructor context.'});
+ const selectedSources=input.original.testing.selectedPaths.map(relativePath=>({relativePath,subjectUri:pathToFileURL(resolve(environment.workspaceAuthorityBasis.canonicalRoot,relativePath)).href}));
+ const protectedSubjects=selectedSources.map(row=>worksiteOwner.constructWorksiteSubject({...environment,workspaceAuthorityBasis:environment.workspaceAuthorityBasis,workspaceBinding:environment.workspaceBinding,...row}));
+ const configuration=library.governanceTestingConfiguration(input);
+ const actualConfigurationInput={workspaceAuthorityBasis:environment.workspaceAuthorityBasis,workspaceBinding:environment.workspaceBinding,...configuration,protectedSubjects};
+ const subjectChecks=protectedSubjects.map((subject,index)=>({relativePath:selectedSources[index].relativePath,kind:subject.kind,valid:worksiteOwner.isWorksiteSubject(subject),subjectRef:subject.subjectRef??null,subjectDigest:subject.subjectDigest??null}));
+ assert(subjectChecks.every(x=>x.valid));
+ let result;
+ try { const output=commandOwner.constructWorksiteCommandConfiguration(actualConfigurationInput); result={kind:'returned',digest:hash(output)}; }
+ catch(error){ result={kind:'threw',errorClass:error.constructor.name,message:error.message,stack:String(error.stack).split('\n').slice(0,3)}; }
+ await record('selected-constructor-discriminator.json',{installedOwnerRoot:runtimeRoot,prefix:closed.prefix,call:'constructWorksiteCommandConfiguration',effect:'pure; no native reacquisition/worksite observation/command execution',input:{workspaceAuthorityBasis:environment.workspaceAuthorityBasis,workspaceBinding:environment.workspaceBinding,commands:configuration.commands,outcomePredicates:configuration.outcomePredicates,allowedWriteTerritories:configuration.allowedWriteTerritories,protectedSubjects},inputDigest:hash(actualConfigurationInput),origin:{inputEventRef:basisEvent.eventId,inputField:'payload.rawInputValue.original.testing',inputDigest:hash(input),invocationAdmissionRef:invocation.invocationAdmissionRef,environmentBindingRef:basis.workspaceBindingId,environmentBindingDigest:basis.workspaceBindingDigest},subjectChecks,result,supportedConjunct:{source:'product/worksite_command_execution.ts1396',required:'Array.isArray(input.allowedWriteTerritories) && input.allowedWriteTerritories.length > 0',actualArray:Array.isArray(configuration.allowedWriteTerritories),actualLength:configuration.allowedWriteTerritories.length},limits:['Exact preserved command-configuration subcall only; fresh Testing context and complete native request tuple are not separately retained.','This sufficient downstream configuration blocker does not establish which earlier nativeReacquisitionBody conjunct was first false.','No full native constructor/callback/effect was retried.']});
+ const ownerPaths=['abg/native_work_reacquisition','abg/default_library','product/worksite_command_execution','product/worksite_effect','product/default_library'];
+ await record('selected-owner-code.json',{installedOwnerRoot:runtimeRoot,files:await Promise.all(ownerPaths.map(x=>pin(join(runtimeRoot,'build/code/src',x+'.js')))),source40:'Exact accepted40 installed payload, authenticated by publication correspondence'});
+ await record('selected-run-index.json',{installedOwnerRoot:runtimeRoot,prefix:closed.prefix,run:receipt.resources.run,metadata:rows.map(x=>({eventId:x.eventId,admissionOrdinal:x.admissionOrdinal,kind:x.kind,aggregateId:x.aggregateId,payloadDigest:x.payloadDigest})),originalNativeProducer:producerPin,sourceCoordinates:{sourceBasisRef:source.sourceBasis.basisRef,sourceResultEventRef:source.sourceResult.eventId,sourceJudgmentEventRef:source.sourceJudgment.eventId,sourceClosedEventRef:source.sourceClosedEvent.eventId,declarationReference}});
+ console.log(JSON.stringify({testingBasisRef:basis.basisRef,testingBasisEvent:basisEvent.eventId,leaf:cCallRef,result,allowedWriteTerritories:configuration.allowedWriteTerritories.length,subjectChecks,sourceResultRef:selected,selectorContextRef:context.observationRef,missingPremise:'fresh Testing currentContext not retained separately'}));
+} finally {
+ const final=a.selectHeldEventStoreDurablePrefix(resource.store),closing=a.closeAbgEventResource(resource,final);await record('selected-facts-close.json',closing);assert.deepEqual(closing.closeHandoff,closed,'Closing facts must leave actual native cut unchanged');
+}

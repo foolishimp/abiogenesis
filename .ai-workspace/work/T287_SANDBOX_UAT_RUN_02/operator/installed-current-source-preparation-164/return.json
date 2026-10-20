@@ -1,0 +1,63 @@
+{
+  "role": "Worker164; CLOSED/HOLD",
+  "disposition": "First caller error preserved; current26 installation committed and resource closed normally",
+  "cause": "I used the archived WorkspaceBinding coordinate as a full record in the copied caller. roots is absent; five undefined declared-root paths cause canonical hashing to throw before binding grant/dispatch. The canonical owner and setup producer correctly preserve their declared shapes.",
+  "action": "STOP. Recommend separate exact-owner full-binding projection/record-coordinate handoff repair, preserving the newly admitted install and latest close prefix; no Product/Source guard change.",
+  "command": {
+    "started": "2026-10-09T04:28:39.159Z",
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 214275.97058300002,
+    "timedOut": false,
+    "truncated": false
+  },
+  "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+  "observations": 34,
+  "sourceTerminal": false,
+  "currentPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1685518956,
+    "prefixDigest": "sha256:601e0ec7019cf3edbbc748f6f70b237dc988bc8b14297458d33a4e5dc0194bc6",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:8115cae7de81799414e6d405a0647c5b1477f83ad2337bb0493d99772e7ea48a"
+  },
+  "committedInstall": {
+    "invocationRef": "invocation://abiogenesis/f33c5db0a6fa6bfb7220fecf4e90c248b6e007c95f96c4907e33ebaab68851f9",
+    "outcomePin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/calls/product-install26.outcome.json",
+      "sha256": "6db86058f6afed40b6c85b8a6dd6ae2bdee6c6fdd1beb2af0941bdbe00f9bb46",
+      "byteCount": 6258
+    },
+    "receiptExitCode": 0,
+    "actualSDKScalarUnmodified": true
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/readiness.json",
+    "sha256": "729cd42b490a13dc3e2ef7f3561fdb584766991c54d58a659ea76165a03cd693",
+    "byteCount": 5712
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/first-cause.json",
+    "sha256": "65cafda40a8e23819ba6a72ad7b2f06320c4e1c0cb8b7e959dea90993df86e09",
+    "byteCount": 2278
+  },
+  "closeHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/final-close-handoff.json",
+    "sha256": "bd61944faffbe1e8ab5417a4a8f1ace3ad70e7b64b363856c92a62b19348d860",
+    "byteCount": 1472
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/closure-conservation.json",
+    "sha256": "c3946a0bc256c03b48b17579ac78aaf68139e463e1ab9f3bc02f4e2639d9ea3f",
+    "byteCount": 18557
+  },
+  "proofScope": "Actual preverify/owned historical source and supported Public install passed. No bind/current-use preparation/admission/model/app/UAT proof. Stock heap stage observations are not global capacity closure.",
+  "preserved": "48 files+1absence, original Program/34 input/producers, Accounting mutant and all previous frozen phases/packages. Genuine newprefix retained; no136 reset.",
+  "stopped": true
+}

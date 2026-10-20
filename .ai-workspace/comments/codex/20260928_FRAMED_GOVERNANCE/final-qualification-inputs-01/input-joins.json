@@ -1,0 +1,32 @@
+[
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-controls-01/request.txt",
+    "bytes": 7405,
+    "sha256": "0b4d06a9bbec27291ffef4aa9c8fab83baae3f006ef6a4903a79d0db83acdc5e"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-controls-01/request-sections.json",
+    "bytes": 7681,
+    "sha256": "c73a7b31369d60c224b7268ae3c1e80e55c9b909ee36a42ddb38a191eea0d5a4"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+    "bytes": 23029,
+    "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/freeze.json",
+    "bytes": 4534351,
+    "sha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze-manifest.json",
+    "bytes": 1043938,
+    "sha256": "3bbc0f064e8f00c2860081d1fa475abbe3604a25b627178d6792875ef5f23a1e"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/freeze.json",
+    "bytes": 15673,
+    "sha256": "77743564c0760922f598942eedb37aade98f45fc195bc2376a4c80d771b24371"
+  }
+]

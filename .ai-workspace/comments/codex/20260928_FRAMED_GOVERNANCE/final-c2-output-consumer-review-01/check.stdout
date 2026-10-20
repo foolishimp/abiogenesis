@@ -1,0 +1,10 @@
+{
+  "status": "passed bounded independent delta review",
+  "records": 44,
+  "fileCount": 43,
+  "symlinkCount": 1,
+  "unchangedCallerObligations": true,
+  "recordedChecks": 10,
+  "actualFailedRefusal": true,
+  "nativeCalls": 0
+}

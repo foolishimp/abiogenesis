@@ -1,0 +1,15 @@
+{
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "argv": [
+    "node",
+    "--test",
+    "test_env/tests/t287-static-declaration-closure.test.mjs",
+    "test_env/tests/t287-gtl-graph-law.test.mjs"
+  ],
+  "environment": {
+    "ABI5_STATIC_CLOSURE_OWNER_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/compiler/build/code/src",
+    "ABI5_GTL_GRAPH_OWNER_CORE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/compiler/build/code/src",
+    "ABI5_GTL_GRAPH_BASELINE_CORE": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src"
+  },
+  "changedEmittedBytes": true
+}

@@ -1,0 +1,18 @@
+{
+  "accounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 556.730417,
+      "provisioning_verify_artifact": 12736.323125,
+      "provisioning_install": 3018.241832999998,
+      "provisioning_installed_content_check": 609.494292000003,
+      "provisioning_additional_products": 237.67558400000053,
+      "installed_owner_loading": 290.98533300000054,
+      "environment_install_and_workspace_admission": 612.7548749999987,
+      "execution_preparation_publication_program_and_catalog": 362.125082999999
+    }
+  },
+  "artifactDigests": [
+    "sha256:c061fca61bc180e45b717527dc45f44dbeedcff69d67916d3801b85edb0c8c23",
+    "sha256:c199ca3a2004d26ae26f1ef00b6f6b197a3bd01dc26a6d0d623333edfcc66088"
+  ]
+}

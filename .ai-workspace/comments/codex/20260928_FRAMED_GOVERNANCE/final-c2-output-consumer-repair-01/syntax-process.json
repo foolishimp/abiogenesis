@@ -1,0 +1,15 @@
+{
+  "label": "syntax",
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/output-checks.mjs"
+  ],
+  "pid": 51487,
+  "exitCode": 0,
+  "elapsedMs": 45.39433307945728,
+  "capMs": 120000,
+  "timedOut": false,
+  "signals": [],
+  "exitObserved": true
+}

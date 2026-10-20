@@ -1,0 +1,9 @@
+{
+  "outcomeKind": "result",
+  "disposition": "runtime_failed",
+  "run": {
+    "digest": "sha256:ca57873ef801f3425ccd3c08715e706d7612503aaee286622cb6523324a543b6",
+    "ref": "run://abiogenesis/bf2ba342c901bf26ab7f327c8f5d0f53cbeb96701592ec7856743fa765a17d1c"
+  },
+  "receiptExitCode": 0
+}

@@ -1,0 +1,5 @@
+{"stage":"static_program_validation_start","at":"2026-10-07T13:46:52.648Z"}
+{"stage":"static_program_validation_rehydrated","at":"2026-10-07T13:46:52.894Z","validationRef":"program-validation://abiogenesis/562f9755c3fe676c56f26c9b4c393caa45ed9947e3c3ffcb0b619bcc690b9cdc"}
+{"stage":"cold_acquisition_returned","at":"2026-10-07T13:47:15.283Z","eventCount":200571,"acquisitionWallMs":22379.151292000002,"memory":{"label":"cold_acquisition_returned","elapsedMs":22640.613624999998,"rss":3155902464,"heapTotal":1772617728,"heapUsed":1642637544,"external":1170126269,"arrayBuffers":1167716630,"heapSizeLimit":4496293888}}
+{"stage":"prefix_authentication_start","at":"2026-10-07T13:47:15.393Z"}
+{"stage":"stopped","at":"2026-10-07T13:47:16.948Z","failedStage":"prefix_authentication_start","name":"AssertionError","message":"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 1\n"}

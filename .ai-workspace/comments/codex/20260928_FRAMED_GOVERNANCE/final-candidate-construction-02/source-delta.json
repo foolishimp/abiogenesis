@@ -1,0 +1,41 @@
+[
+  {
+    "logicalPath": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+    "preimageSHA256": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35",
+    "postimageSHA256": "f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d",
+    "sourceAuthor": {
+      "agent": "/root/s03_phase_b",
+      "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "sessionId": "not separately available",
+      "origin": "external Worker source edit",
+      "nativeABGAuthorship": false
+    },
+    "copyBuildAuthor": "/root/s03_phase_b; copy/build does not replace actual source authorship"
+  },
+  {
+    "logicalPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "preimageSHA256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17",
+    "postimageSHA256": "d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128",
+    "sourceAuthor": {
+      "agent": "/root/s03_phase_b",
+      "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "sessionId": "not separately available",
+      "origin": "external Worker source edit",
+      "nativeABGAuthorship": false
+    },
+    "copyBuildAuthor": "/root/s03_phase_b; copy/build does not replace actual source authorship"
+  },
+  {
+    "logicalPath": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "preimageSHA256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4",
+    "postimageSHA256": "4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4",
+    "sourceAuthor": {
+      "agent": "/root/s03_phase_b",
+      "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "sessionId": "not separately available",
+      "origin": "external Worker source edit",
+      "nativeABGAuthorship": false
+    },
+    "copyBuildAuthor": "/root/s03_phase_b; copy/build does not replace actual source authorship"
+  }
+]

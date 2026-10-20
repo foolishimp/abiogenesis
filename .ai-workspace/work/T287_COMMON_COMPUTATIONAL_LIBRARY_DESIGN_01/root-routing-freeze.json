@@ -1,0 +1,26 @@
+{
+  "files": [
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "626c12c2fc28090f64463d4829c2aafe54377986c55d80a10a3f575999f08890",
+      "bytes": 76737
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "cff436cd67161703d3b3faa9d2a2d8d7360f48a5284836b406f215de8774e6be",
+      "bytes": 527145
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/README.md",
+      "sha256": "68f4f0ef12ab4a25f42c66e2be11dfa7083292a926a2ee0d4644876fe62213b7",
+      "bytes": 36087
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "sha256": "9a84ef16c1524abf56e4ab3dafa8f894d697fb34cb4ed37eb5ca5acbf1a9af31",
+      "bytes": 57165
+    }
+  ],
+  "historical_ticket_tail": "byte-identical",
+  "new_library_route": "awaits separately assigned Writer return"
+}

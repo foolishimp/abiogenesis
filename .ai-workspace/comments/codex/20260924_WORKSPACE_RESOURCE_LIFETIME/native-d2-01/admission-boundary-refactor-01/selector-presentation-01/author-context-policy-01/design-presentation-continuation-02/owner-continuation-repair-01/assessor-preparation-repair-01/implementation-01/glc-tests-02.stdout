@@ -1,0 +1,13 @@
+✔ native D2 declares public intake and every selected whole suffix with exact GTL and role owners (404.287375ms)
+(node:14041) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 stage role policies reach assembly and preserve required-content refusals (49.870458ms)
+ℹ All 14 D2 semantic stage/role assemblies checked with explicit upstream authentication/currentness and C2 observation premises. Actual Product actor/context projections, declared role discovery, required-content and evaluator withholding execute; no runtime admission or paid actor.
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 710.0765

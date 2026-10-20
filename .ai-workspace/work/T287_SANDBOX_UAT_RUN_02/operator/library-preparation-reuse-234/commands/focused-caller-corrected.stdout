@@ -1,0 +1,11 @@
+✔ CLI request framing preserves literal bodies, authority and producer coordinates in one line (0.655208ms)
+✔ Actual eventless owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged (27246.836458ms)
+✔ Physical input tampering refuses before verifier, acquisition or dispatch (1.185458ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27612.345

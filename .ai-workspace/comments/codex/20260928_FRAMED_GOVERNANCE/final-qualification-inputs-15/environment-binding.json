@@ -1,0 +1,182 @@
+{
+  "kind": "external_command_environment_binding",
+  "schemaVersion": "1",
+  "sourceConfigurationDigest": "sha256:969f0029bbd81f4e67e345ed71d9cf7d6a0ed08375dd4cc77b96859a5f65580d",
+  "configurationDigest": "sha256:0b8a9bfe01e2e0de5cda4306e4ad45e544c0625b026de318b68031726f8e11d2",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "tool": {
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "mode": 365,
+    "canonical": true,
+    "regularFile": true
+  },
+  "separation": {
+    "toolOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "toolDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin",
+    "checkedRoots": [
+      {
+        "role": "worksite",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/mechanical-worksite"
+      },
+      {
+        "role": "toolchainRoot",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/unit-protected-roots/toolchain"
+      },
+      {
+        "role": "productRoot",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/unit-protected-roots/product"
+      },
+      {
+        "role": "eventLogRoot",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/unit-protected-roots/eventLog"
+      },
+      {
+        "role": "runtimeStateRoot",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/unit-protected-roots/runtimeState"
+      },
+      {
+        "role": "projectionRoot",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/unit-protected-roots/projection"
+      },
+      {
+        "role": "archiveRoot",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/unit-protected-roots/archive"
+      }
+    ],
+    "outsideOriginalAndEveryProtectedRoot": true,
+    "runtimeAdmission": false
+  },
+  "changedFields": [
+    {
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/rc1-qual056/stage",
+      "field": "environment.PATH",
+      "before": "toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+      "field": "environment.PATH",
+      "before": "toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/rc1-qual056/clean",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/rc1-qual056/compile",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/rc1-qual056/stage-current-authorities",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/rc1-qual056/generate",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 7,
+      "commandId": "command://abiogenesis/rc1-qual056/stage-historical-component",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 8,
+      "commandId": "command://abiogenesis/rc1-qual056/lint",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 9,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 10,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 11,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 12,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 13,
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 14,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-carrier-resource",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 15,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-law",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 16,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-producer-context",
+      "field": "environment.PATH",
+      "before": ".toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "ordinal": 17,
+      "commandId": "command://abiogenesis/rc1-qual056/compare",
+      "field": "environment.PATH",
+      "before": "toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  ],
+  "ambientEnvironmentCaptured": false,
+  "commandExecution": false,
+  "runtimeAdmission": false
+}

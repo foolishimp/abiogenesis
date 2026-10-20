@@ -1,0 +1,13 @@
+{
+  "status": "PREPARATION_ROUTE_MISS",
+  "at": "2026-10-02T01:34:43.226180+00:00",
+  "failedLookup": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/source-freeze/toolchain/lib/node_modules/npm/package.json",
+  "error": "FileNotFoundError: no such file",
+  "origin": "guessed caller preparation pin route; no actual tool was invoked",
+  "sourcePostimageApplied": true,
+  "copiedStageCreated": false,
+  "compileInvocations": 0,
+  "installerPortInvocations": 0,
+  "providerCalls": 0,
+  "selection": "reported to Root before further dependent effect"
+}

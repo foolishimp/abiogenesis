@@ -1,0 +1,585 @@
+{
+  "at": "2026-10-09T07:50:57.022320+00:00",
+  "status": "Genuine normal close already completed before post-close SIGABRT; STOPPED",
+  "entryPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1686258635,
+    "prefixDigest": "sha256:8acaa9862be4a108bac3946fe09f4403a08bff344f21ac34ad813add5679c858",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:ff5594c3372286b496c953a58086b20f1c30a38e593c8848eb8ac5cbdbe641ca"
+  },
+  "actualClosePrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1690085978,
+    "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a"
+  },
+  "ownerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/final-resource-receipt.json",
+    "sha256": "bdb18e4ec3dbccf5bdfb782b9bce02d45d93d2f227fdd5b003eefe0585787bfc",
+    "byteCount": 2488
+  },
+  "closeHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/final-close-handoff.json",
+    "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+    "byteCount": 1472
+  },
+  "logStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/witness-104-99.request-projection.json",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1690085978,
+    "mtimeNs": 1791531873723955484,
+    "manualLogHashScanOrReplay": false
+  },
+  "committedGrowthBytes": 3827343,
+  "admissions": {
+    "product-install27": {
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/product-install27.request-projection.json",
+        "sha256": "80b290c931de30a9a80568e7f08e229a04d6db3b5c6193df2d300fb9b0c09cf3",
+        "byteCount": 15248
+      },
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/product-install27.outcome.json",
+        "sha256": "3e65b55bf9f4970e79dd1e423dd00658264b39dc6b3067de739f0fa26f8c9509",
+        "byteCount": 6264
+      },
+      "coordinate": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1/331f63297398472199b32eec9ea77fb87399c975d06217c566e68439007230f7",
+        "digest": "sha256:d285f251b2d5f3891c99d1c7331975af42359b754535706eac0fedb55be469e0"
+      },
+      "invocationRef": "invocation://abiogenesis/b0f8790cdaf872a531a7906544c3a51f0034ebaf2d4b4edaa507bdecc90bdbae",
+      "completedAt": "2026-10-09T07:42:28.600Z"
+    },
+    "product-install-consumer27": {
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/product-install-consumer27.request-projection.json",
+        "sha256": "d3b760bcb5956cc2e16c26acee58c5de2a24f3210c39980eaf6c604fbb774d08",
+        "byteCount": 15141
+      },
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/product-install-consumer27.outcome.json",
+        "sha256": "3870356de4d2c4b24b2a7223cc9443281ed880af2e8dbb5a41f320655b3437e1",
+        "byteCount": 6339
+      },
+      "coordinate": {
+        "ref": "product-install://@abi5-tests/sandbox-uat/5.0.0/98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c/331f63297398472199b32eec9ea77fb87399c975d06217c566e68439007230f7",
+        "digest": "sha256:b38bd373f97761f1007651cf4d48c3447389f02b9565a30f608c409147400850"
+      },
+      "invocationRef": "invocation://abiogenesis/49e632526cdf7fe16a098ee83166aaa54e89590fd8ad4cbe8b94ae645f3e6ff0",
+      "completedAt": "2026-10-09T07:42:30.819Z"
+    },
+    "workspace-bind27": {
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/workspace-bind27.request-projection.json",
+        "sha256": "683de4de365ccedf3d0a0de592059c31544e5d41b1617ec4d666d907bb64dd91",
+        "byteCount": 16908
+      },
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/workspace-bind27.outcome.json",
+        "sha256": "551d3dd2075895e0ae33170dd2cb2c9c08b26c7d0ecc8e0a2b621174369e145c",
+        "byteCount": 7255
+      },
+      "coordinate": {
+        "ref": "workspace-binding://abiogenesis/2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8",
+        "digest": "sha256:2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8"
+      },
+      "invocationRef": "invocation://abiogenesis/3044eaf5fada51ccc25262ebcf5b335d2ba2e0ddf051918d80936beff53ea59c",
+      "completedAt": "2026-10-09T07:42:31.937Z"
+    },
+    "catalog-admit27": {
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/catalog-admit27.request-projection.json",
+        "sha256": "c61967db320ebdba2d874e9e0d8f5b534d93a4c5218c44715b5d65aedea35c39",
+        "byteCount": 15746
+      },
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/catalog-admit27.outcome.json",
+        "sha256": "6233b93bc8303571163fa807a00c6240bba2abc28c893422a7d722d67d389036",
+        "byteCount": 173665
+      },
+      "coordinate": {
+        "ref": "graph-function-catalog://abiogenesis/4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9",
+        "digest": "sha256:4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9"
+      },
+      "invocationRef": "invocation://abiogenesis/2003d3b726319def5c3360b22375de11785f9fad3e755cf0a1dbbd1b91884562",
+      "completedAt": "2026-10-09T07:42:37.145Z"
+    },
+    "catalog-view27": {
+      "requestProjection": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/catalog-view27.request-projection.json",
+        "sha256": "0e950ec75d7daff9e87ded1d477314a49913fd2e1fff57b323e798d6a5b26b7c",
+        "byteCount": 15374
+      },
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/calls/catalog-view27.outcome.json",
+        "sha256": "f1d923ad5c8cd2ea47b8497fb2acbceda4bfb8ab5687f7fd8680ebbde168d89c",
+        "byteCount": 2265
+      },
+      "coordinate": {
+        "ref": "graph-function-catalog-view://abiogenesis/5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367",
+        "digest": "sha256:5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367"
+      },
+      "invocationRef": "invocation://abiogenesis/60f7f07528688bf728281e61cf08740fb8fe098a178f359fbde8fa1c20f04597",
+      "completedAt": "2026-10-09T07:42:38.887Z"
+    }
+  },
+  "witnessOperations": 104,
+  "witnessLedger": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/completed-witnesses.json",
+    "sha256": "2691d7393817f9a60cff60deb20d5790c009862974ecb085b0bd3e08955acaeb",
+    "byteCount": 290753
+  },
+  "source": {
+    "basisRef": "invocation-source-result://abiogenesis/8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+    "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+    "sourceResultValueDigest": "sha256:38a236b7e8d1e4e219f4d9c4b3c45d0728b1596294832ebcb44c0d24ecdfe4b7",
+    "initialAndCurrentValueDigestEqual": true,
+    "rawObservations": 34,
+    "terminal": false,
+    "originalInputPreservation": "Reviewed caller asserted exact original and unchanged retained input before current-use; source receipts preserved."
+  },
+  "currentSourceUse": {
+    "useDigest": "sha256:f17b484fa3c4a24e6f24d3670e725705f69b3da7c67f54861cd1d8e5846386ba",
+    "sourceBasisRef": "invocation-source-result://abiogenesis/8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+    "sourceBasisDigest": "sha256:8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb"
+  },
+  "physicalConservation": {
+    "workspaceRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/worksite",
+    "rows": [
+      {
+        "relativePath": "archive/test-run-archive.md",
+        "state": "file",
+        "byteCount": 7490,
+        "sha256": "977f6cbe980b7f793918daf5dd4abddebf5a8d379cd2e1c6d6784752447ed1c2",
+        "device": 16777231,
+        "inode": 468649254
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/build.sbt",
+        "state": "file",
+        "byteCount": 3888,
+        "sha256": "33b03ed3eca834a001dac69ad9d630d2de1f2a329af6d256e90e519281f35bdd",
+        "device": 16777231,
+        "inode": 468361210
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "state": "file",
+        "byteCount": 2042,
+        "sha256": "29bc765f08e95ed4e7084f8a4c7bcd9a69e8b854e81fab30be8cebaa2aa7bcb2",
+        "device": 16777231,
+        "inode": 468699937
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "state": "file",
+        "byteCount": 7883,
+        "sha256": "335a671babc5f35e0317f1930b3e156c48ae19a821ff8a6fff5964d9866ffcf5",
+        "device": 16777231,
+        "inode": 468361224
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "state": "file",
+        "byteCount": 2679,
+        "sha256": "64c56f8068c92e3814c42a8830250d8211872d0f6b3b5fee8343cc007d3d63b5",
+        "device": 16777231,
+        "inode": 468516480
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "state": "file",
+        "byteCount": 8298,
+        "sha256": "f5befbb66afb82942d8fafacb0c87e9eaa6b24b4c58dc48ecd043ba1da749d4c",
+        "device": 16777231,
+        "inode": 468361238
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "state": "file",
+        "byteCount": 3257,
+        "sha256": "7cacd34af5f3713fc4b385f5017f31c131f9278605584abf45f72307c8af4d45",
+        "device": 16777231,
+        "inode": 468496768
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "state": "file",
+        "byteCount": 9265,
+        "sha256": "0b7158920e4722f6311abf65d348b656fd991b2a9e60024899f20ec24ac6bd98",
+        "device": 16777231,
+        "inode": 468361252
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "state": "file",
+        "byteCount": 2541,
+        "sha256": "5c5b5ac5578a5e3d168c7b65b755e462cda8752f21fbd58086d49211c50ee0ba",
+        "device": 16777231,
+        "inode": 468609854
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "state": "file",
+        "byteCount": 2068,
+        "sha256": "1aad7e1835c3ed6a122ae27f4530775964c50cec4e622f490b98e9cac5056ea1",
+        "device": 16777231,
+        "inode": 468361261
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "state": "file",
+        "byteCount": 8409,
+        "sha256": "9fd32e33f06fcde521e9f1c11acefa2d5b6150a1515a67674176d8ebd533b5f1",
+        "device": 16777231,
+        "inode": 468361267
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "state": "file",
+        "byteCount": 9131,
+        "sha256": "ae7cdbbe8ba65a4812f8870877ef28c31d01000577f24255dd3fc299c88f0712",
+        "device": 16777231,
+        "inode": 468594376
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "state": "file",
+        "byteCount": 14528,
+        "sha256": "3576287f477dd5e7199b9b20f13e3b887d0993f62dcf99aae6bb963dc5d991c6",
+        "device": 16777231,
+        "inode": 468361281
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "state": "file",
+        "byteCount": 9581,
+        "sha256": "280197b60fa5ba8873aa4becdf599a326f579c90994557d9722baa5ac2e88adc",
+        "device": 16777231,
+        "inode": 468555396
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+        "state": "file",
+        "byteCount": 2538,
+        "sha256": "7fbdb982f699226ad94e9f384eec66c2c2e26478b6840453852c95341d6639d2",
+        "device": 16777231,
+        "inode": 468361290
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+        "state": "file",
+        "byteCount": 11564,
+        "sha256": "65aa50f7085030a3fd78db688f1be3e873c0ca6e8002d180567d72eae162cd33",
+        "device": 16777231,
+        "inode": 468361296
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "state": "file",
+        "byteCount": 5293,
+        "sha256": "2f046f268ceea5e4a118ca79ff9d20d07d647dbf4dd2af9e513fcecad7df48e1",
+        "device": 16777231,
+        "inode": 468699876
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "state": "file",
+        "byteCount": 2495,
+        "sha256": "c8893d4301b285ff206d7196cde3bbed841897155125cab82f0915d59bb230e9",
+        "device": 16777231,
+        "inode": 468361305
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "state": "file",
+        "byteCount": 8755,
+        "sha256": "caaed0211140e65031c223a6bda4a2e7f8031d11a0f9a67a45ceeb53242dd6b9",
+        "device": 16777231,
+        "inode": 468361311
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "state": "file",
+        "byteCount": 3500,
+        "sha256": "2e6e2c6a94573443ee4f3d280eb3ef5adb73d89dda8cd02ff4250f6a25226192",
+        "device": 16777231,
+        "inode": 468574699
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "state": "file",
+        "byteCount": 7982,
+        "sha256": "ebebc4df3ad50a44a0909bdc3323cd23ce6d1916c6fdbe0999581a079b322b3c",
+        "device": 16777231,
+        "inode": 468361325
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/project/build.properties",
+        "state": "file",
+        "byteCount": 19,
+        "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+        "device": 16777231,
+        "inode": 468361327
+      },
+      {
+        "relativePath": "build_tenants/scala_spark/project/plugins.sbt",
+        "state": "file",
+        "byteCount": 56,
+        "sha256": "ddedf9c8bfa3e51dc2cc5e95ea7395b42dfe10430ae30891d1a92ac04493244c",
+        "device": 16777231,
+        "inode": 468361328
+      },
+      {
+        "relativePath": "depth-proof-map.json",
+        "state": "file",
+        "byteCount": 20510,
+        "sha256": "4285b857860f6e3c64d7f97e29fa9becccbdc145786086da273c0a49e0b6222e",
+        "device": 16777231,
+        "inode": 468361329
+      },
+      {
+        "relativePath": "design/component-code-surface.md",
+        "state": "file",
+        "byteCount": 25088,
+        "sha256": "0ff9863dcadd6579849779821705d7c625a366d9b375bcd5814200077e8f58a7",
+        "device": 16777231,
+        "inode": 468361331
+      },
+      {
+        "relativePath": "design/feature-decomposition.md",
+        "state": "file",
+        "byteCount": 16215,
+        "sha256": "cf28c59c49816d0a6494ddd50e8c10587dc6555f532b4fbd12c2f3671e17282e",
+        "device": 16777231,
+        "inode": 468361332
+      },
+      {
+        "relativePath": "design/implementation-design.md",
+        "state": "file",
+        "byteCount": 56240,
+        "sha256": "794e3e0d05589b6d15fb780dbb082f6a4a99a888d70e2f4c7b0b574efed2f5e6",
+        "device": 16777231,
+        "inode": 468361333
+      },
+      {
+        "relativePath": "design/module-design.md",
+        "state": "file",
+        "byteCount": 41481,
+        "sha256": "8090a190405539a1cd030840eef6c9d524b1a4f1bdf5a5de77a87611d38eb899",
+        "device": 16777231,
+        "inode": 468361334
+      },
+      {
+        "relativePath": "design/test-design.md",
+        "state": "file",
+        "byteCount": 69010,
+        "sha256": "158fa5e75c65cfbe010b1e889185ddb8698065f017be80ef7052cc65b56c38fe",
+        "device": 16777231,
+        "inode": 468361335
+      },
+      {
+        "relativePath": "mutation-outcomes.json",
+        "state": "file",
+        "byteCount": 27183,
+        "sha256": "d292cbf9555fdeb288deaf0473e5b16bfccb793460af79807e786942f2de2a11",
+        "device": 16777231,
+        "inode": 468574821
+      },
+      {
+        "relativePath": "proof/component-realization-qualification.md",
+        "state": "file",
+        "byteCount": 17575,
+        "sha256": "ccdd08d68742b8de2a2c6edd4ac87a2968b286a3b44870f0d3ccce4ef1e047ed",
+        "device": 16777231,
+        "inode": 468361338
+      },
+      {
+        "relativePath": "proof/component-test-execution-qualification.md",
+        "state": "file",
+        "byteCount": 7761,
+        "sha256": "94d971266a4a154ca867b7cd75e22d255bcf8368495c406e5247796f61af5745",
+        "device": 16777231,
+        "inode": 468648998
+      },
+      {
+        "relativePath": "proof/repaired-component-test-execution-qualification.md",
+        "state": "file",
+        "byteCount": 5152,
+        "sha256": "8ac49091a8d28ae55c590afa9cb8826afc419003084aea367543086c38ab8fd2",
+        "device": 16777231,
+        "inode": 468649217
+      },
+      {
+        "relativePath": "release/release-depth-parity.md",
+        "state": "file",
+        "byteCount": 6600,
+        "sha256": "bb7d571fb14bc870eed96d81041358cb2ca1d3b600583d2c3f6adec331b0942e",
+        "device": 16777231,
+        "inode": 468649339
+      },
+      {
+        "relativePath": "release/release-preparation.md",
+        "state": "file",
+        "byteCount": 5646,
+        "sha256": "933b9cedee5cb7ea7c59f5d4bfd4d201cb224b4dc7d4c5de45a0b26d61198130",
+        "device": 16777231,
+        "inode": 468654669
+      },
+      {
+        "relativePath": "repair/component-repair-application.md",
+        "state": "file",
+        "byteCount": 5592,
+        "sha256": "b4c1fed3dc54aeaa2b33c411ed1e56401f9956f8928e3437bbf799629868e08a",
+        "device": 16777231,
+        "inode": 468649174
+      },
+      {
+        "relativePath": "repair/component-repair-schedule.md",
+        "state": "file",
+        "byteCount": 16690,
+        "sha256": "5f7cd238a785c932cd07a03878001769f3281615aab7f8dd0eb6f2e5e5c1ae2e",
+        "device": 16777231,
+        "inode": 468634671
+      },
+      {
+        "relativePath": "source/data-mapper-full/obligations.json",
+        "state": "file",
+        "byteCount": 50978,
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "device": 16777231,
+        "inode": 468361204
+      },
+      {
+        "relativePath": "source/data-mapper-full/oracle.json",
+        "state": "file",
+        "byteCount": 16774,
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "device": 16777231,
+        "inode": 468361205
+      },
+      {
+        "relativePath": "source/data-mapper-full/source.original.txt",
+        "state": "file",
+        "byteCount": 41158,
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "device": 16777231,
+        "inode": 468361202
+      },
+      {
+        "relativePath": "source/data-mapper-full/supporting-constants.original.txt",
+        "state": "file",
+        "byteCount": 3713,
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "device": 16777231,
+        "inode": 468361203
+      },
+      {
+        "relativePath": "specification/goals.md",
+        "state": "file",
+        "byteCount": 4907,
+        "sha256": "5f7620a73a65e6d7622159df7317ccf3b51421695a1816b390975fa31df1f917",
+        "device": 16777231,
+        "inode": 468361348
+      },
+      {
+        "relativePath": "specification/intent.md",
+        "state": "file",
+        "byteCount": 23615,
+        "sha256": "7ff3a9a8b6b2e2bab86ad68ded0e4374d5ab630f79414d48741a25c2a75564b0",
+        "device": 16777231,
+        "inode": 468361349
+      },
+      {
+        "relativePath": "specification/product.md",
+        "state": "file",
+        "byteCount": 12262,
+        "sha256": "83c75a9fae1b5e155c66e69a0e0edf8223033bebada569f9bb00dd065e269429",
+        "device": 16777231,
+        "inode": 468361350
+      },
+      {
+        "relativePath": "specification/requirements.md",
+        "state": "file",
+        "byteCount": 30618,
+        "sha256": "a2a3c6f2467b4233481e67c23e162c3d20dfc0cf8dfd9f1cf1d2c562af759122",
+        "device": 16777231,
+        "inode": 468361351
+      },
+      {
+        "relativePath": "specification/scenario.md",
+        "state": "file",
+        "byteCount": 39351,
+        "sha256": "cfe919b34398210e330e0725dfaf7d33ede070c1f4c81e8b6ea3b210a7bf0780",
+        "device": 16777231,
+        "inode": 468361352
+      },
+      {
+        "relativePath": "specification/testcase-authority.md",
+        "state": "file",
+        "byteCount": 10468,
+        "sha256": "56a08542d4b9e3db0861684df26be16f63ee7d6f15f72b189bd6a492a56cb194",
+        "device": 16777231,
+        "inode": 468361353
+      },
+      {
+        "relativePath": "specification/uat-testcases.md",
+        "state": "file",
+        "byteCount": 18808,
+        "sha256": "89f447fb00a64231ca35df0ea57c8e1df3c997f1832a30d9efd1a384f16a58fa",
+        "device": 16777231,
+        "inode": 468361354
+      },
+      {
+        "relativePath": "test-execution-result.json",
+        "state": "absent"
+      }
+    ],
+    "all49Unchanged": true
+  },
+  "selectedLock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "absent": true
+  },
+  "ownedProcesses": [
+    {
+      "pid": 11223,
+      "absent": true,
+      "evidence": "kill(pid,0) ESRCH"
+    },
+    {
+      "pid": 11225,
+      "absent": true,
+      "evidence": "kill(pid,0) ESRCH"
+    }
+  ],
+  "ownedGroups": [
+    {
+      "pgid": 11223,
+      "absent": true,
+      "evidence": "killpg(pgid,0) ESRCH"
+    },
+    {
+      "pgid": 11225,
+      "absent": true,
+      "evidence": "killpg(pgid,0) ESRCH"
+    }
+  ],
+  "noModelNativeRunAppEffects": true,
+  "noRetryRepairRecovery": true
+}

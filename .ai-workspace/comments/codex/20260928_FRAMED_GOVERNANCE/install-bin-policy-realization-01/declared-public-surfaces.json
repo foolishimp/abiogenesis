@@ -1,0 +1,32 @@
+{
+  "exports": [
+    {
+      "name": ".",
+      "locator": "./build/index.js",
+      "exists": true
+    },
+    {
+      "name": "./publication",
+      "locator": "./build/publication.json",
+      "exists": true
+    }
+  ],
+  "fixtureModuleImported": true,
+  "pureHistoricalGuardValidatorImported": true,
+  "cliFiles": [
+    {
+      "name": "abg.cli",
+      "locator": "./build/code/src/public/cli.js",
+      "mode": 493,
+      "sha256": "94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25"
+    },
+    {
+      "name": "abg.codex",
+      "locator": "./build/code/src/public/codex_cli.js",
+      "mode": 493,
+      "sha256": "4fa6e68b171e9858ee0665a535238554ee3fe849b5e48869089f48051126b039"
+    }
+  ],
+  "binSymlinksRequired": false,
+  "executedCLIPrograms": 0
+}

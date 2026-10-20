@@ -1,0 +1,11 @@
+{
+  "activation": "T287_RC1_C03_INSTALL_REVIEW_CONTROLS_01",
+  "role": "Writer",
+  "status": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-install-review-controls-01/request.txt",
+    "bytes": 4163,
+    "sha256": "cdff0d1211fcae4ebfd3aed8226ef4028f95ef6ee2b001654d84c16673019dee"
+  },
+  "freeze": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a"
+}

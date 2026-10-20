@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-08T05:59:29.735972+00:00",
+  "cause": "FileNotFoundError while enumerating ledger: Product/requirements authority is repo/specification, not tenant/specification",
+  "selectedWrongPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/specification/PRODUCT.md",
+  "correctProduct": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+  "correctRequirements": "/Users/jim/src/apps/abiogenesis/specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+  "scope": "phase-local pin selection only; no source/HOW/test/build/receipt rerun; return/readiness already written before first freeze attempt; freeze not yet existed"
+}

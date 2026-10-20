@@ -1,0 +1,23 @@
+{
+  "status": "CLOSED",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_Q10_FIRST_REFUSAL_RECORDING_WRITER_01",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T17:12:36.122590+00:00",
+  "executionBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 540894,
+    "sha256": "6990dbdb806106560a35a20477dd0da41e8db04419ccaefa43cd2d4a710e566f",
+    "mode": 420
+  },
+  "executionAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 541709,
+    "sha256": "4487b4cb5df740aaac618494c09f08760c45c4f224ccd93f915dc47482300230",
+    "mode": 420
+  },
+  "appendOnlyConserved": true,
+  "repairOrRetryGranted": false,
+  "writesStopped": true
+}

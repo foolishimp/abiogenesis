@@ -1,0 +1,28 @@
+{
+  "receipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/commands/focused-02.result.json",
+    "sha256": "0e4730c9deca8d1adb97a6402134bfd5836513b0051823c201c55255234f3e11"
+  },
+  "disposition": "6PASS/1FAIL; no retry before carrier owner decision",
+  "firstObservedCause": {
+    "type": "test carrier premise",
+    "origin": "t287-governance-covered-source-use.test.mjs invokeRow public_operation_admitted payload",
+    "guard": "event_store.ts assertRuntimeEventContract",
+    "relation": "whole invocation body was spread into closed Public operation coordinate payload; refusal occurs before current-use projection",
+    "selectedAction": "project only canonical invocation_admission.ts Public operation fields and use the selected Public definition coordinate; audit complete envelope/import/result shapes first"
+  },
+  "additionalStaticOwnerConflict": {
+    "type": "production producer/persisted consumer mismatch",
+    "producer": "invocation_admission.ts admissionBody.currentSourceUse",
+    "consumer": "event_store.ts invocation_admitted payloadVariants exclude currentSourceUse",
+    "impact": "changed-binding admission would fail payload contract, and a bare allowlist change would change ROOT digest and invalidate retained current-profile reads",
+    "action": "Root owning carrier/profile realization decision required; no event-store edits or guard bypass"
+  },
+  "preservedClaims": [
+    "complete canonical publication comparison",
+    "captured34 raw state/testing/UAT subject conservation",
+    "reference and inline standalone reacquisition regressions",
+    "private library prepare-testing operation and cold F_D origin under disclosed lower premises"
+  ],
+  "effects": "test fixture and isolated resources only; no current-app/native/installed admission"
+}

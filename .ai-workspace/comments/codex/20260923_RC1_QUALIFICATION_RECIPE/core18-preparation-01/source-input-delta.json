@@ -1,0 +1,216 @@
+{
+  "changed": [
+    {
+      "path": "code/src/abg/event_store.ts",
+      "beforeSha256": "ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf",
+      "afterSha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts"
+      },
+      "bytes": 169755
+    },
+    {
+      "path": "code/src/abg/execution_basis.ts",
+      "beforeSha256": "520ef1ba1acaf32a0b7263b78242d41a609a9e12820a4ebce27fd2b5229b14f1",
+      "afterSha256": "9843dca203feeaeb701f1640bd080d91ad3166670fe9c4217621b981ea1a6ace",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts"
+      },
+      "bytes": 121970
+    },
+    {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "beforeSha256": "4c8ada5f8ff4875bb5364f83654053cfd152a6fd0deaad5cf3790cffa6d43cee",
+      "afterSha256": "8a8fca9010e33222feaae6bb67d37ea6281be1fb2baeffc1a02ca97b66dd57ed",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts"
+      },
+      "bytes": 69004
+    },
+    {
+      "path": "code/src/abg/native_worksite_execution.ts",
+      "beforeSha256": "7a54d53a118cc7026ef33b42d897db95f428e1d87ea871ac2f4aa040299d7650",
+      "afterSha256": "a5e70f315b6f95599d71e59117735edac425dbc11939ec8eee77ece5b776c466",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts"
+      },
+      "bytes": 12998
+    },
+    {
+      "path": "code/src/abg/replay.ts",
+      "beforeSha256": "25b23363037bc72eea5ec6859bf329ed3afd7c3eaec946240381ba011289ca05",
+      "afterSha256": "e930116a94cffdb4ca50e6081c9712264106f98b1b30b0dcad7045389c377ca1",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts"
+      },
+      "bytes": 86502
+    },
+    {
+      "path": "code/src/abg/semantic_job.ts",
+      "beforeSha256": "1d26ceff592b7f638ec24fb3d8e3359a6330c0f89075d02c7f5aabda0a818ba3",
+      "afterSha256": "afe6844bff1433d04c245d2ccc1af640b3301c14144fd80030ee3627e8210c68",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts"
+      },
+      "bytes": 47674
+    },
+    {
+      "path": "code/src/gtl/index.ts",
+      "beforeSha256": "147b93c69a765b9ffd076dc4ee855348de6f50db4c5a55cbd0ccb48d12da28a0",
+      "afterSha256": "604ebe624a8380a06cc2cc45211593c6cc5246ff827a2ac908946ac6062521f8",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts"
+      },
+      "bytes": 12741
+    },
+    {
+      "path": "code/src/gtl/semantic_job.ts",
+      "beforeSha256": "6a59596c38543aa1552e9269a92f3c97dedb62f40ec3f70229d8d0d413afa542",
+      "afterSha256": "53f14ccfb7837abcaec76543deb816ca9989daaa7aabcc8599788173706c792e",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_job.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_job.ts"
+      },
+      "bytes": 6433
+    },
+    {
+      "path": "code/src/gtl/semantic_stage_identity.ts",
+      "beforeSha256": "740924c9ba1f783c2af67ca32ce69838fffe1c787e9f744769e75dcde7b3b838",
+      "afterSha256": "6608a84eb99ff485507ed0f84118903af1f1b3354b00491581071a3d5dc75455",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_identity.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_identity.ts"
+      },
+      "bytes": 6330
+    },
+    {
+      "path": "code/src/gtl/semantic_stage_publication.ts",
+      "beforeSha256": "4d14c495d19b4839fa629ba2215f1c7d5e465ac2cdee86d84d74a2c9400f0767",
+      "afterSha256": "999de04fdf1990878a323633a9c06b1301a7fea9bc13ff1f41e1f38edfcbe45f",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts"
+      },
+      "bytes": 21573
+    },
+    {
+      "path": "code/src/hog/ccall_lifecycle.ts",
+      "beforeSha256": "716c381389279a1def613d5e6742a7e6434f7f70d8c71039e6d87a54e57c9e6e",
+      "afterSha256": "b5952eb5ba9c82c1c0310a79218c430e17bcf7e3cbf96dc973d8631c31963c85",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts"
+      },
+      "bytes": 35045
+    },
+    {
+      "path": "code/src/implementation/contracts.ts",
+      "beforeSha256": "be0b3ff8ad97cdb7f2edcaf12a4418ee006438a4d26226e4f77f34b63aeaa4f5",
+      "afterSha256": "323aa38b6b3782e7b93517964c82ab52352270c119ac5b6937ecdc6fe21d7d63",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts"
+      },
+      "bytes": 17721
+    },
+    {
+      "path": "code/src/implementation/leaf_invocation_port.ts",
+      "beforeSha256": "226a7af8a7ed8ebaa895786f899e9a06adfded6535e540b0c90506193a998b85",
+      "afterSha256": "362d42d96ffcf90e825f0a70efa0e07e3bd1685d69ec77128b155a930e8d8581",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts"
+      },
+      "bytes": 73932
+    },
+    {
+      "path": "code/src/implementation/semantic_stage.ts",
+      "beforeSha256": "c2c36f1b8b7c8cde1aaedb02388390040fbb7641a8e284946fe29adacca8d840",
+      "afterSha256": "fb50fc45dba166c0c16427b01eb560c9d6149534a6d4cdca192f3b7cfc5e0a47",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts"
+      },
+      "bytes": 16336
+    },
+    {
+      "path": "code/src/product/builtin_semantics.ts",
+      "beforeSha256": "0289e92a11cd026a93c47ca37f79d151554283d5f786aed3f46567c816e34fbd",
+      "afterSha256": "ed6cb3b0da7e3b96340fdec6637b9771a48ab40f4cb40ba61b0aa86699eb9266",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts"
+      },
+      "bytes": 60266
+    },
+    {
+      "path": "code/src/product/execution_resolution.ts",
+      "beforeSha256": "01b935cca710828828df0887c030706080279fb1773960592a69c73903e93852",
+      "afterSha256": "632b6a943231fb566d87d2a171663ef3665422a2a3cb914611e2a0a1a838f5f3",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts"
+      },
+      "bytes": 41401
+    },
+    {
+      "path": "code/src/product/semantic_job.ts",
+      "beforeSha256": "6623bf01763ed3693aadfa0a8198a982770af9489b804303018d533135985b85",
+      "afterSha256": "e60893ce71f9325679f0d2005d35b20837d6847eb54a3e185716d844d5a674a2",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts"
+      },
+      "bytes": 87240
+    },
+    {
+      "path": "code/src/product/semantic_stage.ts",
+      "beforeSha256": "fac4430d4e6bd84ff0dc7c7dd53a15b745cf333ef457df8f85d7a9b013e794bb",
+      "afterSha256": "975eb6a2fa031e789aa34b87c21a5abe7597d66a88eaf821a62209f11e3b24c5",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts"
+      },
+      "bytes": 36130
+    },
+    {
+      "path": "scripts/generate-product-manifest.mjs",
+      "beforeSha256": "227b520cd20278ccc9156628612cf325ba943bb8d8df033a7df9afef55885ee4",
+      "afterSha256": "2963cabc8531ae0e1d5688706e4d4af9d46fcad14a0e1d4c5931bfdb606bfd7a",
+      "origin": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "immutableSource": {
+        "commit": "701026970da59538e6dcc203ada4538b80e3d6de",
+        "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs"
+      },
+      "bytes": 41833
+    }
+  ],
+  "reusedCount": 347,
+  "sourceCopies": 0,
+  "preservation": "Changed inputs are exact current files matched to the immutable Git checkpoint. Existing recipe verifies extent and digest before staging. If moved or changed, stop; a later selected staging activation may restore these exact Git blobs to its own destination. No mutable path is trusted by name."
+}

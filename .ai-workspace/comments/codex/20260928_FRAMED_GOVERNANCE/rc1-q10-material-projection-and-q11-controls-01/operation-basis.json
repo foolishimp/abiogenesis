@@ -1,0 +1,32 @@
+{
+  "rootOperation": "T287_Q10_PROJECTION_TRIAGE_AND_Q11_GRANTS_WRITER_01",
+  "rootTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/triage.json",
+    "bytes": 3847,
+    "sha256": "a8422a98c62b6a79cb4bdd7318bc0f57414db5f6ad7a162160f93c4437023b88",
+    "mode": 420
+  },
+  "workerOperation": "T287_FINAL_QUALIFICATION_INPUTS_11",
+  "workerGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/worker-request.txt",
+    "bytes": 4159,
+    "sha256": "34e4517bcc5d24819f17b40bbe154308bb73550c29c5e8af5c4c9c718a5166b1",
+    "mode": 420
+  },
+  "reviewOperation": "T287_Q11_INPUT_ASSURANCE_01",
+  "reviewGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/review-request.txt",
+    "bytes": 2903,
+    "sha256": "838d60708f8167b2cf366d641f4f57f60c1a389753b149aac65808e03eef6e26",
+    "mode": 420
+  },
+  "runtimeOperation": "T287_F11_C09_CARRIER_EXECUTION_09",
+  "runtimeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/runtime-request.txt",
+    "bytes": 4740,
+    "sha256": "0843d938f9c5afdf5e9a715fcc8c6ff3a83f42d4929a457cb45b1178aeb7450f",
+    "mode": 420
+  },
+  "runtimeStatus": "CONDITIONAL_UNACTIVATED currentQ11 pins not yet exist",
+  "formerQ10RuntimeGrant": "superseded dependency only; noSource/runtime changes"
+}

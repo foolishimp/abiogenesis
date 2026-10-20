@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11/packet-readiness.mjs"
+  ],
+  "pid": 63733,
+  "processGroup": 63733,
+  "wait4Reaped": true,
+  "groupAfterWait": "absent",
+  "exitCode": 0,
+  "timedOut": false,
+  "elapsedMs": 26927.957457955927,
+  "maxRSSBytesMacOS": 6304202752,
+  "userSeconds": 29.2327,
+  "systemSeconds": 2.826915,
+  "RuntimeEffects": 0
+}

@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/inputs.mjs"
+  ],
+  "at": "2026-10-08T07:16:45.126343+00:00",
+  "scope": "Root81 syntax/import + supplied input construction only; no setup/install/CLI/native"
+}

@@ -1,0 +1,1 @@
+Local framework source/context composition witness. Preserve native/C2 producer identity and exact BOM/Unicode stream bytes. Semantic adequacy is deliberately unmet.

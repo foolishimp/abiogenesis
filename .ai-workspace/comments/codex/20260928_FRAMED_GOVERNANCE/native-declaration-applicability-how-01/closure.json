@@ -1,0 +1,19 @@
+{
+  "status": "CLOSED",
+  "closedAt": "2026-10-01T23:19:01.275499+00:00",
+  "activation": "T287_NATIVE_DECLARATION_APPLICABILITY_HOW_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "frameResult": "satisfied",
+  "workResult": "candidate_ready",
+  "scope": "design proposal only",
+  "proposedHowSha256": "819bb622475071d5ae7a48e2c62ceb198b563968263f9a1ec28e9553fb3e6db6",
+  "returnConsumer": "Root Executive /root",
+  "sectionsAddressed": 7,
+  "testsRun": 0,
+  "ownerCalls": 0,
+  "runtimeEffects": 0,
+  "sourceEdits": 0,
+  "reviewerActivated": false,
+  "furtherEffectsAuthorized": false
+}

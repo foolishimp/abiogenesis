@@ -1,0 +1,7 @@
+{
+  "message": "coordinate is not defined",
+  "stack": "ReferenceError: coordinate is not defined\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/component-proof.mjs:55:96",
+  "redCompleted": [],
+  "liveResourceAccesses": [],
+  "elapsedMs": 413.61512500000003
+}

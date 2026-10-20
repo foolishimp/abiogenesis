@@ -1,0 +1,22 @@
+{
+  "status": "CLOSED_READ_ONLY",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-covered-source-callback-independent-triage-197/return.md",
+      "sha256": "c9ac2c356600dfa8112869e107c790c6f0faa17ba00633890339d05cd83c2cd5",
+      "byteCount": 4532
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-covered-source-callback-independent-triage-197/pins.json",
+      "sha256": "a1c9f7c6c368f148c3785abdf98bcff2c5738d54a8cd4bcb2ca1329df8fe2c19",
+      "byteCount": 15838
+    }
+  ],
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/freeze.json",
+    "sha256": "9c93f05f0ea7cf58849921d267f656acf2c4a1835286821a0b795faa99b36435",
+    "byteCount": 12280
+  },
+  "effects": "Only this new197 return/pins/freeze; no canonical or campaign runtime effects.",
+  "stop": true
+}

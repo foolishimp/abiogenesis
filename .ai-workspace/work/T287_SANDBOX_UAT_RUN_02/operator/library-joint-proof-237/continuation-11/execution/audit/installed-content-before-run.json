@@ -1,0 +1,27 @@
+{
+  "phase": "before-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/25d1db35353df91db54b2e58b5e05ca96697afc189498a2f8f7a45bb40c911b3/e78572845f8d547982003a1fc7bfb64e1bc7ecc4be14fb9cd5b2efd1027d7e8f",
+      "admissionEventRef": "event://abiogenesis/8d9169aacb91254884b3ececb4fbb2833a6eb605c2a38c1581b4c8497f7bfce6",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-11/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:1cd67ea8d74b9a3266a963a1f5b5baec27e32b8475b31beb373a6c1d6de7497f",
+      "productContentDigest": "sha256:25d1db35353df91db54b2e58b5e05ca96697afc189498a2f8f7a45bb40c911b3",
+      "manifestDigest": "sha256:ef1d7f7c40f0c4d89bf4d174a50ae0ac774386ff9d1ccd6d326a7eed000ec9ab",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/a75724bc9ee3b91cba98dce881927211a16a091de1de588afa16209420044a24/e78572845f8d547982003a1fc7bfb64e1bc7ecc4be14fb9cd5b2efd1027d7e8f",
+      "admissionEventRef": "event://abiogenesis/2c5fbcc1ecc805ad5483b76e2ca5b4d0e25b4106155171810f54c810d8deb323",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-11/execution/audit/installed-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:964edf673be782a8d53b6043e14e9e2c1f621e94509579aa622acd9e8225b7e0",
+      "productContentDigest": "sha256:a75724bc9ee3b91cba98dce881927211a16a091de1de588afa16209420044a24",
+      "manifestDigest": "sha256:e9dd290bda08123b41445bf38b77d907c4bbeab47ae723c0769efafae9112106",
+      "contentMatches": true
+    }
+  ]
+}

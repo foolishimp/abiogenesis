@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "transport": true,
+    "noFailure": true,
+    "genuineClose": true,
+    "physicalUnchanged": true,
+    "success": true,
+    "sameRun": true,
+    "currentPrefix": true,
+    "stopped": true,
+    "noTerminalResult": true
+  },
+  "passed": true
+}

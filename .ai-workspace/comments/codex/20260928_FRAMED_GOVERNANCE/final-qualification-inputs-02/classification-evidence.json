@@ -1,0 +1,20 @@
+{
+  "ref": "selection://abiogenesis/rc1/final-qualification-inputs-02/source-and-material",
+  "selectedAuthority": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+    "bytes": 23029,
+    "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+  },
+  "population": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/population-binding.json",
+    "bytes": 1981,
+    "sha256": "7b13164b0f18efb3bd3a5f4b57f30078925d35b1d769dc839b318b6825831c0b"
+  },
+  "donor": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/classification-evidence.json",
+    "bytes": 938,
+    "sha256": "dcc806aeb77b73382efef1fcd830a7f5f8805e4e56f7aa3a5b2c3ea0044812b5"
+  },
+  "roleRule": "source paths classify constitutional/design/code/proof/execution_contract/public_contract/qualification/manifest/release_claim; generated outputs separately marked in source-inventory; supplier full membership retained as manifest inputs. Classification is a complete finite candidate claim requiring independent native applicability J.",
+  "limit": "Unchanged finite classification claim rebound to exact bytes; no F11 applicability or scope-material adequacy assessment."
+}

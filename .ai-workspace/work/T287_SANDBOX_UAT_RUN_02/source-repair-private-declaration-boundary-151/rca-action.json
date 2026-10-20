@@ -1,0 +1,33 @@
+{
+  "origin": "GovernanceCoveredSourceUse private type is erased by stripInternal, while two unmarked private preparation properties retain dangling imports in public-reachable declarations",
+  "actual150OwnedDiagnostics": [
+    {
+      "code": 2305,
+      "file": "/package/build/code/src/abg/invocation_admission.d.ts",
+      "line": 15,
+      "position": 1455,
+      "message": "Module '\"../product/semantics.js\"' has no exported member 'GovernanceCoveredSourceUse'."
+    },
+    {
+      "code": 2305,
+      "file": "/package/build/code/src/product/run_invocation_operation.d.ts",
+      "line": 15,
+      "position": 1344,
+      "message": "Module '\"./semantics.js\"' has no exported member 'GovernanceCoveredSourceUse'."
+    }
+  ],
+  "ownedResolutionInvalid": false,
+  "diagnosticScope": "actual current selected1457 declarations+197metadata; closed-host diagnostics before later closure guards",
+  "nativeLeafProofOperationExtraOwnedDiagnostic": false,
+  "oldBuildOwnerRefusal": "generate-product-manifest.mjs511 -> unchanged resolveNativeDeclarationClosures -> null -> throw524",
+  "priorProofGap": "Source strict compiler sees the private type before stripping;143 behavioralJS checks do not consume the post-strip declaration graph",
+  "selectedAction": "existing HOW private boundary + @internal on both currentSourceUse fields and already-private sourceUseDeclarations; no algorithm/event/profile/Public source arm/type change",
+  "sourceUseDeclarationsFirstCause": false,
+  "newProofScope": "one isolated strict compile; all263 executableJS equal; unchanged complete typed closure owner succeeds for15roots",
+  "initial151HarnessFailure": "isolated config inherited no original node automatic type roots; exact original typeRoots restored in scratch only; initial failed receipt preserved",
+  "limits": [
+    "typed declaration boundary only",
+    "no ordinary build/package/installed verification claim",
+    "no new native/current-covered-use/C2/UAT/app/P0/release credit"
+  ]
+}

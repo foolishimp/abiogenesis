@@ -1,0 +1,12 @@
+{
+  "inputConstructionBudgetMs": 600000,
+  "driverBudgetMs": 1200000,
+  "stages": {
+    "setup": 180000,
+    "conformance": 180000,
+    "read": 180000,
+    "assessment": 600000,
+    "selfConformance": 600000,
+    "verdict": 600000
+  }
+}

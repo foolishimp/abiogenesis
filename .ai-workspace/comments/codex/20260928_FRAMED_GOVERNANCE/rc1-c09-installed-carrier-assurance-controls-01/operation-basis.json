@@ -1,0 +1,26 @@
+{
+  "kind": "conditional_assurance_and_commentary_plan_update",
+  "rootOperation": "T287_C09_PLAN_AND_INSTALLED_ASSURANCE_GRANT_WRITER_01",
+  "planBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "bytes": 6569,
+    "sha256": "e8824ea00687fc3fc2c981eb74ec6a18a102b4a99fc7b76b069f45a8fb2486b6",
+    "mode": 420
+  },
+  "planAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "bytes": 6827,
+    "sha256": "a8f80f9cbf5e1cba20b3bdbc5d097bb2ca1c9609ebc79336d59a3951a5eb704c",
+    "mode": 420
+  },
+  "reviewGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-controls-01/request.txt",
+    "bytes": 3754,
+    "sha256": "9277bca32c411e3f4abf0677305bfc37906a3e0410388c485c85f84bd634885e",
+    "mode": 420
+  },
+  "reviewer": "/root/rc1_c03_install_review",
+  "reviewOperation": "T287_C09_INSTALLED_CARRIER_ASSURANCE_01",
+  "condition": "Actual CLOSED Runtime09 plus Root exact C09/Setup09/Q10/input pins. No activation yet.",
+  "qualificationOrReleaseCredit": false
+}

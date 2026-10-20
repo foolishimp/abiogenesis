@@ -1,0 +1,17 @@
+{
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "argv": [
+    "node",
+    "--test",
+    "--test-name-pattern=fixed definition resolution",
+    "test_env/tests/t287-installed-dependency-lock.test.mjs"
+  ],
+  "environment": {
+    "ABI207_COMPILED_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/compiler/build/code/src",
+    "ABI232_NATIVE_IDENTITY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/identity.json",
+    "ABI232_ISOLATED_MANIFEST": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/compiler/product-toolchain-manifest.json",
+    "ABI207_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/fixtures"
+  },
+  "changedEmittedBytes": true,
+  "controlledLowerPremise": "Product admission only; real verifier/link/install/catalog owners, no Run"
+}

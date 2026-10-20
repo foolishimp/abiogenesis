@@ -1,0 +1,18 @@
+{
+  "callbackMs": 799.0594999864697,
+  "callbackRssBytes": 353370112,
+  "typeCheckMs": 5531.526207923889,
+  "typeCheckRssBytes": 1086586880,
+  "checksExecuted": 2,
+  "sourceCompiles": 0,
+  "copies": 0,
+  "knownGroupsAbsent": true,
+  "defaultHeap": true,
+  "HOME": "unchanged",
+  "typeFixtures": 32,
+  "compilerDiagnostics": 62,
+  "sourceOrExistingStageWrites": 0,
+  "RuntimeRuns": 0,
+  "helpers": 0,
+  "providers": 0
+}

@@ -1,0 +1,5 @@
+{
+  "cause": "wrong owner import, closure narrowing, normalized configuration type domain",
+  "action": "actual environment_admission export; narrowed locals; canonical constructWorksiteCommandConfiguration for bound vector; explicit payload type guard",
+  "scope": "same granted production owners; no schema relaxation"
+}

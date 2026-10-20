@@ -1,0 +1,11 @@
+{
+  "cliPID": 73363,
+  "sourcePrefixLength": 1697740744,
+  "sourceLastOrdinal": null,
+  "operatorControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+    "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+    "byteCount": 1723
+  },
+  "nativeRequest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/commands/lifecycle-continuation-219b.request.json"
+}

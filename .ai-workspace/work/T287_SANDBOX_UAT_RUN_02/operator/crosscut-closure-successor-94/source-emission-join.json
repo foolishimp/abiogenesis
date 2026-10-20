@@ -1,0 +1,12 @@
+{
+  "compiledClosureEqualsAccepted89Isolated": true,
+  "acceptedIsolatedPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/compiled/product/declaration_closure.js",
+    "sha256": "f703be04cdd9af9ee704266de57463342fd8f4fe80dbcc111283fd66e5934777",
+    "bytes": 35547
+  },
+  "normalGeneratedPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_closure.js",
+  "sha256": "f703be04cdd9af9ee704266de57463342fd8f4fe80dbcc111283fd66e5934777",
+  "byteCount": 35547,
+  "probeOnlyFailedCoordinate": "initial guessed isolated/build path did not exist; no owner execution or byte change; corrected using exact frozen89 compiled-output-pins row"
+}

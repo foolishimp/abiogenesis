@@ -1,0 +1,23 @@
+{
+  "activation": "T287_C2_CURRENT_RESOURCE_CALLER_02",
+  "role": "Worker",
+  "actor": "/root/s03_phase_b",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "profile": "Astra/xhigh selected by Root; not independently attested by session metadata",
+  "time": "2026-09-30T12:02:22.407724+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-controls-02/request.txt",
+    "bytes": 5855,
+    "sha256": "83002217d1414bf754c2fc069f157b61cedd7ce40baebbb5934a38ae385ce331"
+  },
+  "a_cJoin": "exact seven-section installed join",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02",
+  "operation": "External future caller construction and bounded offline checks only",
+  "prohibited": "No execution/import of future driver, native/provider/network/helper/runtime preparation, Product verification, restaging, resource mutation, source/Product/recipe/Git or qualification effects",
+  "budget": {
+    "aggregateOfflineMs": 180000,
+    "perProcessMs": 60000,
+    "graceMs": 1000
+  },
+  "attribution": "Present actor authors only this external caller delta and evidence. Donor authorship, Product-owner authority, native attribution and independent assessment are separate."
+}

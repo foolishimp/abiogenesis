@@ -1,0 +1,19 @@
+{
+  "scope": "pure installed canonical declaration check, no Product install/admission/native effect",
+  "actualExternalProgram": "program://default-library-witness/witness@5",
+  "setupProgram": "program://abiogenesis/worksite/file-replace@5",
+  "setupGraphFunction": "graph-function://abiogenesis/worksite/file-replace@5",
+  "setup": {
+    "kind": "program_validation",
+    "programRef": "program://abiogenesis/worksite/file-replace@5",
+    "digest": "sha256:d5e8cb428c42f045e405d43104eaa16569486eceb88e86b37317932a624048b1"
+  },
+  "completeCrossOwnerProgram": {
+    "kind": "program_validation",
+    "programRef": "program://default-library-witness/witness@5",
+    "digest": "sha256:4f33f6ef5801aba9f07d73bef861ff5ac1e7c2b39985a3ec2c1f5760814f89df"
+  },
+  "runEnvironmentMatchesFrozen": true,
+  "genericSourceOnly": true,
+  "physicalRoleAdmissionPending": true
+}

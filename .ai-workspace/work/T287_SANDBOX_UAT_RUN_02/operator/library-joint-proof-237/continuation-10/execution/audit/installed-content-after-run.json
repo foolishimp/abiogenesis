@@ -1,0 +1,27 @@
+{
+  "phase": "after-run",
+  "observations": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5351b0d0dbb7e6e01dcd270ae2e42d5d0553e0eb3a6723fc56186fb138735505/98c7f829b34f8266a09fb3625901a3766021669917394d09863ff2ae103ab71f",
+      "admissionEventRef": "event://abiogenesis/91453232eacb49500595e63d77d7a1150294e6bf77c86a2d355c51ebe6f5e8b7",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+      "artifactDigest": "sha256:21a5702dbb59ceec2ba79eebeb4f69fa29d6984cdc7068231de3c5bb946079fa",
+      "productContentDigest": "sha256:5351b0d0dbb7e6e01dcd270ae2e42d5d0553e0eb3a6723fc56186fb138735505",
+      "manifestDigest": "sha256:c79595a004d6eae5d9367fdf1b1cdfd5f54816a05d1480f698c988a1b6aac7ae",
+      "contentMatches": true
+    },
+    {
+      "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/df009e64504ec3d64875d988ca5e303266fd0763a122a9aa0fdb1d6033ef7e1a/98c7f829b34f8266a09fb3625901a3766021669917394d09863ff2ae103ab71f",
+      "admissionEventRef": "event://abiogenesis/32702a6fd43498677aacebd66d0fabb4947f36b8c85d87d61285cfff9b20245d",
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "packageName": "@abi5-tests/sandbox-uat",
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/execution/audit/installed-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "artifactDigest": "sha256:2de4bcc465c21d86ea5ed81d6683658d086958a5c7868c4c99fc3dd92ec2edef",
+      "productContentDigest": "sha256:df009e64504ec3d64875d988ca5e303266fd0763a122a9aa0fdb1d6033ef7e1a",
+      "manifestDigest": "sha256:35681f0ff2250844ed1e1ff5eb35934b025b5de3f54fdb0c74188f4793fcedf2",
+      "contentMatches": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "actualExitCode": 1,
+  "cause": "emit constructs elapsedSeconds and receives another elapsedSeconds in the completed result; dict raises duplicate-key TypeError after result.json was saved.",
+  "errorPreservedIn": {
+    "bytes": 395,
+    "mode": 420,
+    "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/stop.json",
+    "sha256": "520718a8a25db23ce637d264fb3ed8cfc5028fd48d0d7f5690a779a2e14bbdbb"
+  },
+  "exactSource": {
+    "emitterLine": 28,
+    "finalCallLine": 321,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/delete_exact_alias_plan.py",
+    "sha256": "aa33fdd4a84b94e96721880c70490dce194d1d0a7166c9e86c1a558a85f7c72c"
+  },
+  "finding": "Terminal console reporting defect after completed saved effect-conservation result",
+  "limits": [
+    "Root/nonauthor disposal postcheck remains distinct.",
+    "st_blocks sums are allocation observations, not measured diskspace reclaimed.",
+    "No new Product/native/qualification/release claim."
+  ],
+  "materialBound": "Actual unlink and every saved post-conservation join reached completion; this defect adds no demonstrated payload/copy/original mismatch.",
+  "oldHelperResultStopLedgerPreflightPreparationPlanUnchanged": true,
+  "operation": "T287_COMMENTARY_CLEANUP_DELETE_03_REPORT_ONLY_CLOSURE",
+  "rerunOrRepair": 0,
+  "smallestReentry": "realization_refactor of report finalization only",
+  "status": "CLOSED",
+  "suppliedEvidenceCredit": {
+    "aliasAndOwnerIdentities": true,
+    "allCopyMembership": true,
+    "contexts": 8,
+    "orderedLedgerVerifiedByPayload": true,
+    "originals": 104688,
+    "protectedCopies": 16338,
+    "savedResult": {
+      "bytes": 1201,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/result.json",
+      "sha256": "a3e4d8d9c4cfda9fee02cc52976269b5d13349dce4f963266320e365a9159a6c"
+    },
+    "unprovedCopies": 8492
+  }
+}

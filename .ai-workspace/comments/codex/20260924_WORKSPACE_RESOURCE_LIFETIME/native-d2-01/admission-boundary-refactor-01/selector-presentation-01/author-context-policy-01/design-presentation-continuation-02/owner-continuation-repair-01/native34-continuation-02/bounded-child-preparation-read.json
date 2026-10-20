@@ -1,0 +1,46 @@
+{
+  "scope": "Direct bounded retained-journal forensic observation; not runtime admission or Public projection",
+  "runId": "run://abiogenesis/b03597ae79756303688e03f268ad1e0b2cc97cfd7385fe70a300a6842dafc2b1",
+  "file": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+  "startByte": 324503143,
+  "endByte": 325856830,
+  "readBytes": 1353687,
+  "elapsedSeconds": 0.0018413751386106014,
+  "before": {
+    "device": 16777230,
+    "inode": 459405010,
+    "size": 325856830,
+    "mtimeNs": 1790364275507592404
+  },
+  "afterUnchanged": true,
+  "counts": {
+    "public_operation_admitted": 1,
+    "invocation_admitted": 1,
+    "implementation_admitted": 1,
+    "abg_admitted_body_reference_record": 4,
+    "run_segment_opened": 1,
+    "graph_call_opened": 2,
+    "frame_opened": 2,
+    "runtime_activity_probe_observed": 28,
+    "traversal_cursor_entered": 2,
+    "c_call_opened": 3,
+    "c_call_fibre_selected": 3,
+    "c_call_evidenced": 2,
+    "c_call_judged": 2,
+    "traversal_route_admitted": 2,
+    "terminal_reached": 1,
+    "frame_closed": 1,
+    "graph_call_closed": 1,
+    "child_foldback_admitted": 1,
+    "child_preparation_refused": 1,
+    "runtime_failure_observed": 1
+  },
+  "selected": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/child-preparation-refused-72849.jsonl",
+      "startByte": 325841444,
+      "endByte": 325843519,
+      "sha256": "839eacd32bca9612c951ee1c8d4ec81b85f1af7cca0138b393c8589c1ddf2be1"
+    }
+  ]
+}

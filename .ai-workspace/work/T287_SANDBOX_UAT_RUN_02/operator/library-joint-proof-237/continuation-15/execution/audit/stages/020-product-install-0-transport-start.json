@@ -1,0 +1,11 @@
+{
+  "stage": "product-install-0-transport-start",
+  "elapsedMs": 50969.520832999995,
+  "at": "2026-10-10T20:18:26.665Z",
+  "rss": 2686746624,
+  "heapTotal": 496680960,
+  "heapUsed": 211305728,
+  "external": 2495414,
+  "arrayBuffers": 83107,
+  "beforeAcquisition": false
+}

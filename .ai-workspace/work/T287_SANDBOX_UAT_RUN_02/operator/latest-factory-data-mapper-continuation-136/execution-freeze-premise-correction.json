@@ -1,0 +1,8 @@
+{
+  "observedAt": "2026-10-09T00:05:52.455543+00:00",
+  "failedLocalOperation": "First documentary freeze writer attempted a guessed -output.json filename before writing any execution return/readiness/freeze.",
+  "actualDiagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-output.json'",
+  "correction": "Consume literal actorArtifacts paths from existing pinned first-cause-material receipt; actual empty output file is -output.txt.",
+  "nativeEffects": false,
+  "newValidationOrRetry": false
+}

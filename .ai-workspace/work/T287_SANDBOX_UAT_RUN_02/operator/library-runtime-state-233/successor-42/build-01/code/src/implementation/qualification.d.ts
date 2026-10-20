@@ -1,0 +1,13 @@
+import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
+export declare const QUALIFICATION_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const QUALIFICATION_VERDICT_IMPLEMENTATION_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const QUALIFICATION_RULING_IMPLEMENTATION_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const MALFORMED_GTL_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare function realizeQualificationAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence, _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>>;
+export declare function realizeExactCandidateQualification(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence, _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations): Readonly<LeafRealizationCandidate>;
+export declare function realizeQualificationRuling(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence): Readonly<LeafRealizationCandidate>;
+export declare function realizeMalformedGtlAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence): Readonly<LeafRealizationCandidate>;
+export declare const NATIVE_RUNTIME_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare function realizeNativeRuntimeAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence, _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations): Readonly<LeafRealizationCandidate>;

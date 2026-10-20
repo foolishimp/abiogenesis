@@ -1,0 +1,20 @@
+{
+  "role": "Worker",
+  "worker": "T287_FINAL_NATIVE_SETUP_02",
+  "author": "/root/s03_phase_b",
+  "request": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-controls-02/request.txt",
+    "bytes": 7901,
+    "sha256": "f459f4f9a19a0d01f85c7f92b1d7284e4a180cc7bdf7e65649381a64cd890adc"
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02",
+  "additionalRuntimeGrant": {
+    "eventLog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp",
+    "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5",
+    "effect": "ordinary owner append/reopen/close and owned transient verification only"
+  },
+  "changeClass": "realization_refactor of shared external caller",
+  "selected": "seven remaining ordinary calls on same environment; no repeat of5 successes",
+  "prohibited": "source/package/install/recipe/test/C2/staging/provider/Git/F11/AF22; no retry"
+}

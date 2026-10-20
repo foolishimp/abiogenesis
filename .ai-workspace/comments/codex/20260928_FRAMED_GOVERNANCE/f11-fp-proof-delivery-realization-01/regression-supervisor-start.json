@@ -1,0 +1,36 @@
+{
+  "mode": "regression",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "pid": 48741,
+  "processGroup": 48741,
+  "groupEstablishedBeforeImports": true,
+  "startedAt": "2026-10-02T04:44:11.217569+00:00",
+  "monotonicStart": 3804461.117195958,
+  "preflightDeadlineMonotonic": 3804641.117195958,
+  "totalDeadlineMonotonic": 3804641.117195958,
+  "preflightSeconds": 180,
+  "totalSeconds": 180,
+  "heap": "unchanged",
+  "HOME": "/Users/jim",
+  "taskEnvironment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/tmp",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/npm-cache",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/npm-prefix",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/globalnpmrc",
+    "npm_config_offline": "true",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "ABI5_F11_FP_ASSESSMENT_PACKET": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-packet.json",
+    "ABI5_F11_FP_BASELINE_TENANT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript",
+    "ABI5_F11_FP_PROOF_REPORT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/dispatcher-regression-outcome.json"
+  },
+  "phaseCompletionReceipt": null
+}

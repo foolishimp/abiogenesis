@@ -1,0 +1,1720 @@
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
+@@ -1,3 +1,4 @@
++import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
+ import { modulePublicationSemanticDigest } from "../product/publication.js";
+ import { resolveNativeWorkspaceAssessmentSchema } from "../product/native_workspace_assessment.js";
+ import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+@@ -241,7 +242,7 @@
+ export function renderSemanticEvidenceTextView(evidence: SemanticEvidenceInput | null) {
+   if (evidence === null) return null;
+   const observation = evidence.executionObservation;
+-  if (!isWorksiteCommandExecutionObservation(observation) && !isWorksiteRevisionCommandExecutionObservation(observation))
++  if (!isWorksiteCommandExecutionObservation(observation) && !isWorksiteRevisionCommandExecutionObservation(observation) && !isNativeWorksiteCommandExecutionObservation(observation))
+     throw new TypeError("invalid admitted evidence observation");
+   const stream = ({ payload, ...identity }: typeof observation.commandResults[number]["stdout"]) =>
+     ({ ...identity, textView: exactEvidenceText(payload, identity.digest, identity.byteLength) });
+@@ -425,7 +426,7 @@
+     owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, owner.role);
+   if (stdo === false || stdo !== null && selectedNativeContextRole(basis, owner.call.programLocusRef) !== owner.role)
+     return assemblyRefusal("unavailable_required_content", stage.assembly.ruleRef, owner.role, [owner.execution.invocationAdmissionRef]);
+-  const contract = projectSemanticJobActorContract(input, stage.declarationRef, owner.role, revision?.revisionBasis.retainedTerms ?? []);
++  const contract = projectSemanticJobActorContract(input, stage.declarationRef, owner.role, revision?.revisionBasis.retainedTerms ?? [], revision?.revisionBasis.request.nativeWorksite?.commandExecutionLimits);
+   const designResponse = revision === null && semanticJobUsesDesignResponse(owner.role, stage.bodyCapabilities);
+   const schema = semanticJobWorkerResultSchema(owner.role, stage.bodyCapabilities, designResponse ? contract : undefined);
+   const context = projectSemanticJobActorContext(input, stage.declarationRef, owner.role);
+@@ -467,7 +468,7 @@
+     // Preserve the existing section's array carrier. Its last assessor entry
+     // is explicitly identified as the current candidate, not a predecessor domain.
+     predecessors: [...promptContext.predecessors, ...(context.currentCandidate === null ? [] : [context.currentCandidate])], worksite: { scope: input.job.worksiteScope, observationRole: input.evidence === null ? "pre_construction_context" : "historical_pre_construction_context",
+-      ...(revisionSubject === null ? {} : { currentRevisionTargets: worksiteContentRows(revisionSubject.currentWorksite), origins: revisionSubject.origins }),
++      ...(revisionSubject === null ? {} : { currentRevisionTargets: revisionSubject.currentWorksite === null ? [] : worksiteContentRows(revisionSubject.currentWorksite), origins: revisionSubject.origins }),
+       observation: content === "not_required" ? input.context === null ? null : { observationRef: input.context.observationRef, observationDigest: input.context.observationDigest, bodyDisposition: "omitted_not_required" } :
+         input.context === null ? null : { ...input.context, entries: input.context.entries.map(e => e.state === "file" ? { ...e, textView: exactEvidenceText(e.bytes, e.digest, e.byteLength) } : e) } },
+     evidence: { observed: renderSemanticEvidenceTextView(input.evidence), evaluationData: applicationAssessment ? input.job.evaluationData : null,
+@@ -533,7 +534,12 @@
+   const job = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined;
+   const subject = job ? projectJobRevisionSubject(basis, input, readPhysical) : projectRevisionSelectionSubject(basis, input, readPhysical);
+   if (subject === null) return null;
+-  const { owner, envelope } = subject, schema = semanticRevisionSelectionSchema();
++  const { owner, envelope } = subject;
++  const native = "nativeWorksite" in subject ? subject.nativeWorksite : undefined;
++  const nativePhase = native === undefined ? undefined : native.construction === null ? "preconstruction" : "postconstruction";
++  const schema = semanticRevisionSelectionSchema(nativePhase);
++  const stdo = projectRunEnvironmentRoleEvidence(owner.events,owner.execution.invocationAdmissionRef,basis.publication,owner.execution.programRef,owner.call.graphFunctionRef,owner.call.programLocusRef,"assessor");
++  if (stdo === false || stdo !== null && selectedNativeContextRole(basis,owner.call.programLocusRef) !== "assessor") return null;
+   const sectionOrder = ["role", "source", "obligations", "predecessors", "worksite", "evidence", "task", "response"];
+   const currentWorksite = subject.currentWorksite, currentWorksiteDigest = currentWorksite === null ? null : sha256Canonical(currentWorksite as unknown as JsonValue);
+   const selectionInput = input as import("../product/semantic_revision.js").SemanticRevisionSelectionInput;
+@@ -544,15 +550,16 @@
+       { source: envelope.sourceHandoff.declaration.fulfillmentBindings, discovered: envelope.assets.flatMap(a => a.discoveredBindings), remainingGaps: envelope.remainingGaps,
+       retained: isSemanticRevisionEnvelope(subject.parent.result.value) ? subject.parent.result.value.revisionBasis.retainedBindings : [] },
+     predecessors: envelope.assets,
+-    worksite: currentWorksite === null ? null : { inventoryDigest: currentWorksiteDigest,
++    worksite: native !== undefined ? {context:native.context,construction:"construction" in subject ? subject.construction : null,
++      commandExecutionLimits:native.commandExecutionLimits} : currentWorksite === null ? null : { inventoryDigest: currentWorksiteDigest,
+       workspaceBinding: currentWorksite.workspaceBinding, targets: worksiteContentRows(currentWorksite),
+       origins: subject.origins, commands: currentWorksite.commands, outcomePredicates: currentWorksite.outcomePredicates,
+       allowedWriteTerritories: currentWorksite.allowedWriteTerritories },
+     evidence: subject.causes.map(c => ({ cCall: c.cCall, result: c.result, judgment: c.judgment })),
+-    task: { input: { kind: selectionInput.kind, schemaVersion: selectionInput.schemaVersion, parent: selectionInput.parent,
+-        causes: selectionInput.causes, currentWorksiteDigest }, selectedTargetReferenceSpace: "historical_parent_target_refs",
+-      stages: owner.lifecycle.stages.map(stage => ({ declarationRef: stage.declarationRef, predecessorStageRefs: stage.predecessorStageRefs, purpose: stage.purpose, rubric: stage.rubric })),
+-      targets: ("priorWorksite" in subject ? subject.priorWorksite : envelope.worksite)?.targets.map(row => ({ target: row.target, role: row.role,
++    task: { ...(stdo === null ? {} : { runEnvironment: stdo }), input: { kind: selectionInput.kind, schemaVersion: selectionInput.schemaVersion, parent: selectionInput.parent,
++        causes: selectionInput.causes, currentWorksiteDigest, ...(nativePhase === undefined ? {} : {nativePhase}) }, selectedTargetReferenceSpace: native === undefined ? "historical_parent_target_refs" : "declared_native_design_relative_paths",
++      stages: owner.lifecycle.stages.filter((_,i)=>native === undefined || i <= envelope.assets.length).map(stage => ({ declarationRef: stage.declarationRef, predecessorStageRefs: stage.predecessorStageRefs, purpose: stage.purpose, rubric: stage.rubric })),
++      targets: native !== undefined && isSemanticJobEnvelope(envelope) ? envelope.assets.flatMap(a=>a.candidate.design?.targets ?? []) : ("priorWorksite" in subject ? subject.priorWorksite : envelope.worksite)?.targets.map(row => ({ target: row.target, role: row.role,
+         currentTargetRef: currentWorksite?.targets.find(current => current.target.subject.relativePath === row.target.subject.relativePath)?.target.targetRef ?? null })) ?? [] }, response: schema,
+   } as unknown as Readonly<Record<string, JsonValue>>;
+   const rendererRef = "renderer://abiogenesis/semantic-revision/selection@5";
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+@@ -36,7 +36,7 @@
+ import type { SemanticWorksiteBasis } from "../product/semantic_stage.js";
+ import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
+ import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
+-import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
++import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticJobRevisionEnvelope, isNativeSemanticRevisionIntake } from "../product/semantic_revision.js";
+ 
+ const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+ const equal = (a: unknown, b: unknown) => hash(a) === hash(b);
+@@ -70,8 +70,11 @@
+     const invocationRoot = rootOf(native.prefix, native.execution);
+     if (invocationRoot === null) return null;
+     let root = invocationRoot;
+-    if (!isSemanticJobInput(root.rawInputValue)) {
+-      const request = root.rawInputValue;
++    const acquiring = native.call.implementationRef === revisionIds.nativeIntakeImplementationRef && isNativeSemanticRevisionIntake(root.rawInputValue);
++    if (!isSemanticJobInput(root.rawInputValue) && !acquiring) {
++      // Intake's admitted child input carries the acquired original parent.
++      // The revision owner authenticates that child against the intake Result.
++      const request = isNativeSemanticRevisionIntake(root.rawInputValue) ? native.execution.rawInputValue : root.rawInputValue;
+       if (!isSemanticRevisionRequest(request) && !isSemanticRevisionSelectionInput(request)) return null;
+       const parent = projectWorksiteRevisionNativeResult(native.prefix, request.parent);
+       const envelope = parent === null ? null : isSemanticJobRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
+@@ -82,7 +85,7 @@
+         initial.invocationAdmissionRef !== envelope.basis.invocationAdmissionRef) return null;
+       root = initial;
+     }
+-    if (!isSemanticJobInput(root.rawInputValue) || root.rawInputValue.lifecycleRef !== lifecycle.declarationRef ||
++    if ((!acquiring && (!isSemanticJobInput(root.rawInputValue) || root.rawInputValue.lifecycleRef !== lifecycle.declarationRef)) ||
+       hash(root.rawInputValue) !== root.rawInputDigest) return null;
+     const environment = native.environment;
+     const invocation = rehydrateInvocationAdmissionAtPrefix(native.prefix, invocationRoot.invocationAdmissionRef);
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
+@@ -33,11 +33,194 @@
+ import { isSemanticJobEnvelope, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, projectSemanticJobBindings } from "../product/semantic_job.js";
+ import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, deriveJobRevisionAsset, deriveJobRevisionAssessment,
+   type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
++import { isNativeSemanticRevisionIntake, type NativeSemanticRevisionIntake, type SemanticRevisionSelectionInput, type SemanticRevisionRequest,
++  constructNativeRevisionConstructionTask, constructNativeRevisionExecutionTask, deriveNativeRevisionEvidence,
++  semanticJobRevisionNativeTargets } from "../product/semantic_revision.js";
++import { authenticateNativeInstructionAssemblyBasis } from "./execution_basis.js";
++import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate, readRuntimeEventsAtDurablePrefix } from "./event_store.js";
++import { runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
++import { projectRunIdentityAtPrefix } from "./replay.js";
++import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
++import { projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
++import { isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
++import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
++import { isSemanticJobInput, constructNativeSemanticConstructionTask, nativeSemanticContextMatches } from "../product/semantic_job.js";
++import { semanticJobContextMatches, semanticJobContextCurrent } from "./semantic_job.js";
++import { isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
++import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
++import { observeWorksiteContext } from "../product/worksite_operations.js";
+ 
+ const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+ const recordJob = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
++const same = (a: unknown, b: unknown) => hash(a) === hash(b);
++function resultCoordinate(state: NonNullable<ReturnType<typeof projectWorksiteRevisionNativeResult>>): SemanticRevisionCoordinate {
++  return { cCallRef: state.cCall.cCallRef, resultRef: state.result.resultRef, resultDigest: state.result.resultDigest,
++    resultAdmissionEventRef: state.result.admissionEventRef, judgmentEventRef: state.judgment.admissionEventRef };
++}
++function admittedLeaves(prefix: ValidatedRuntimeEventPrefix) {
++  const events = runtimeEventsFromValidatedPrefix(prefix);
++  return events.flatMap(event => {
++    if (event.kind !== "c_call_result_admitted" || !recordJob(event.payload)) return [];
++    const judgment = events.find(row => row.kind === "c_call_judged" && row.aggregateId === event.aggregateId);
++    if (judgment === undefined) return [];
++    const state = projectWorksiteRevisionNativeResult(prefix, { cCallRef: event.aggregateId,
++      resultRef: event.payload.resultRef as string, resultDigest: event.payload.resultDigest as `sha256:${string}`,
++      resultAdmissionEventRef: event.eventId, judgmentEventRef: judgment.eventId });
++    return state === null ? [] : [{ state, event }];
++  });
++}
++function jobEnvelope(value: unknown) { return isSemanticJobRevisionEnvelope(value) ? value.current : isSemanticJobEnvelope(value) ? value : null; }
++function nativeCause(value: unknown): boolean {
++  return isNativeWorksiteCommandExecutionObservation(value) && value.commandResults.some(row => row.exitStatus !== 0 || row.timedOut || row.processSignal !== null);
++}
++function contextCorresponds(a: WorksiteContextObservation, b: WorksiteContextObservation) {
++  const { observationRef: _ar, observationDigest: _ad, workspaceBindingIdentity: _aw, workspaceBindingDigest: _awd, ...left } = a;
++  const { observationRef: _br, observationDigest: _bd, workspaceBindingIdentity: _bw, workspaceBindingDigest: _bwd, ...right } = b;
++  return same(left, right);
++}
++/** Discovery occurs only at the declared intake. Consumers use its admitted
++ * result and exact references; they never choose a later or similar failure. */
++function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanticRevisionIntake, onRefusal?: (reason:string)=>void) {
++  try {
++    const owner = authenticateNativeInstructionAssemblyBasis(basis);
++    if (owner === null || owner.call.implementationRef !== ids.nativeIntakeImplementationRef ||
++      !same(owner.inputValue, input) || !authenticateRuntimePrefixAncestry(input.sourcePrefix, basis.predecessorPrefix)) return null;
++    const historical = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, input.sourcePrefix);
++    const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(historical));
++    const run = projectRunIdentityAtPrefix(prefix, input.sourceRun.ref);
++    const sourceRoot = run === null ? null : rehydrateExecutionBasisAtPrefix(prefix, run.executionBasis.ref);
++    if (run === null || !same(run.run, input.sourceRun) || sourceRoot === null) return null;
++    const leaves = admittedLeaves(prefix).filter(row => row.state.cCall.runId === input.sourceRun.ref);
++    const causes = leaves.filter(({ state }) => {
++      const envelope = jobEnvelope(state.result.value);
++      return [SEMANTIC_STAGE_IDS.nativeAssessorFoldImplementationRef, ids.assessorImplementationRef].some(ref => ref === state.cCall.implementationRef)
++        ? envelope !== null && envelope.assets.at(-1)?.assessment != null && envelope.assets.at(-1)!.assessment!.disposition !== "satisfied" && state.judgment.judgment !== "advance"
++        : state.cCall.implementationRef === WORKSITE_COMMAND_EXECUTION_IDS.implementationRef &&
++          (state.result.resultClass === "failure" || state.judgment.judgment !== "advance" || nativeCause(state.result.value));
++    });
++    if (causes.length !== 1) { onRefusal?.(causes.length === 0 ? "native_revision_cause_absent" : "native_revision_cause_ambiguous"); return null; }
++    const cause = causes[0]!, rejected = jobEnvelope(cause.state.result.value);
++    const causeBasis = rehydrateExecutionBasisAtPrefix(prefix, cause.state.cCall.basisId);
++    const command = isNativeWorksiteCommandExecutionObservation(cause.state.result.value) ? cause.state.result.value.task : causeBasis?.rawInputValue;
++    const construction = rejected?.evidence?.constructionResult ?? (isNativeWorksiteCommandExecutionTask(command) ? command.sourceNativeWork : null);
++    const native = isNativeWorkspaceWorkObservation(construction) ? projectNativeWorkspaceWorkSourceAtPrefix(prefix, construction) : null;
++    if (construction !== null && native === null) return null;
++    const parents = leaves.filter(({ state, event }) => {
++      const envelope = jobEnvelope(state.result.value);
++      if (event.admissionOrdinal >= cause.event.admissionOrdinal || state.result.resultClass !== "success" || state.judgment.judgment !== "advance" ||
++        envelope === null || !envelope.assets.every(asset => asset.assessment?.disposition === "satisfied")) return false;
++      const last = envelope.assets.at(-1), exactProducer = last === undefined ? state.cCall.implementationRef === SEMANTIC_STAGE_IDS.jobIntakeImplementationRef :
++        state.cCall.cCallRef === (last.assessment!.source.nativeWork?.adapterCCallRef ?? last.assessment!.source.cCallRef) || state.cCall.implementationRef === ids.projectionImplementationRef;
++      if (!exactProducer) return false;
++      if (rejected !== null) return same(envelope.basis, rejected.basis) && same(envelope.assets, rejected.assets.slice(0, -1));
++      if (native === null || !isNativeWorkspaceWorkObservation(construction)) return false;
++      try { return same(construction.task, isSemanticJobRevisionEnvelope(state.result.value)
++        ? constructNativeRevisionConstructionTask(state.result.value, {...state.result.value.revisionBasis.request.nativeWorksite!, ...construction.task}) : constructNativeSemanticConstructionTask(envelope, construction.task, construction.before)); }
++      catch { return false; }
++    });
++    if (parents.length !== 1) { onRefusal?.(parents.length === 0 ? "native_revision_parent_absent" : "native_revision_parent_ambiguous"); return null; }
++    const parent = parents[0]!, envelope = jobEnvelope(parent.state.result.value)!;
++    const original = rehydrateExecutionBasisAtPrefix(prefix, envelope.basis.rootExecutionBasisRef);
++    if (original === null || !isSemanticJobInput(original.rawInputValue) || !same(original.rawInputValue, envelope.job) ||
++      original.rawInputAdmissionRef !== envelope.basis.rootInputRef || original.invocationAdmissionRef !== envelope.basis.invocationAdmissionRef ||
++      !(basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle ||
++      !same(envelope.declaration, (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle)) return null;
++    const expectedContext = rejected?.context ?? (isNativeWorkspaceWorkObservation(construction) ? construction.after : envelope.context);
++    const parentBasis = rehydrateExecutionBasisAtPrefix(prefix, parent.state.cCall.basisId);
++    const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
++    if (expectedContext === null || parentBasis === null || causeBasis === null || invocation?.capabilityGrants.length !== 1 ||
++      causeBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef || parentBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef ||
++      owner.environment.kind !== "exact_prefix_workspace_environment") return null;
++    const priorBinding = native === null ? { bindingId: parentBasis.workspaceBindingId, bindingDigest: parentBasis.workspaceBindingDigest } : (construction as import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation).task.workspaceBinding;
++    const oldEnvironment = projectExactPrefixWorkspaceEnvironment(historical, { ref: priorBinding.bindingId, digest: priorBinding.bindingDigest });
++    if (oldEnvironment.kind !== "exact_prefix_workspace_environment" ||
++      !same(oldEnvironment.workspaceAuthorityBasis, owner.environment.workspaceAuthorityBasis) ||
++      projectWorksiteRevisionBindingCover(owner.prefix, oldEnvironment.workspaceBinding, owner.environment.workspaceBinding, [parentBasis, causeBasis, ...(native === null ? [] : [native.sourceBasis])]) === null ||
++      worksiteCommandSourcesInvalidatedAfter(owner.prefix, cause.event.admissionOrdinal, owner.environment.workspaceAuthorityBasis.canonicalRoot, [], expectedContext.readRoots)) return null;
++    const constructionState = native === null ? null : leaves.find(row => row.event.eventId === native.sourceResult.eventId)?.state;
++    if (native !== null && constructionState === undefined) return null;
++    return { owner: {...owner, environment:owner.environment}, input, parent: parent.state, cause: cause.state, envelope, expectedContext, grant: invocation.capabilityGrants[0]!,
++      construction: constructionState === null || constructionState === undefined ? null : resultCoordinate(constructionState) };
++  } catch { return null; }
++}
++function intakeValue(facts: NonNullable<ReturnType<typeof nativeIntakeFacts>>, context: WorksiteContextObservation, commandExecutionLimits: import("../product/worksite_command_execution.js").WorksiteCommandExecutionLimits): SemanticRevisionSelectionInput | null {
++  const { owner } = facts;
++  if (!contextCorresponds(context, facts.expectedContext) || context.workspaceBindingIdentity !== owner.environment.workspaceBinding.bindingId ||
++    context.workspaceBindingDigest !== owner.environment.workspaceBinding.bindingDigest) return null;
++  return deepFreeze({ kind: "semantic_revision_selection_input", schemaVersion: "5.0.0", parent: resultCoordinate(facts.parent),
++    causes: [resultCoordinate(facts.cause)], currentWorksite: null,
++    nativeWorksite: { kind: "native_semantic_revision_worksite", workspaceAuthorityBasis: owner.environment.workspaceAuthorityBasis,
++      workspaceBinding: owner.environment.workspaceBinding, capabilityGrant: facts.grant, context, commandExecutionLimits, construction: facts.construction, source: facts.input } });
++}
++export async function prepareNativeSemanticRevisionIntake(basis: SemanticStageNativeBasis, input: unknown, commandExecutionLimits: import("../product/worksite_command_execution.js").WorksiteCommandExecutionLimits, onRefusal?: (reason:string)=>void) {
++  if (!isNativeSemanticRevisionIntake(input)) return null;
++  const facts = nativeIntakeFacts(basis, input, onRefusal);
++  if (facts === null) return null;
++  const context = await observeWorksiteContext({ workspaceAuthorityBasis: facts.owner.environment.workspaceAuthorityBasis,
++    workspaceBinding: facts.owner.environment.workspaceBinding,
++    readRoots: facts.envelope.job.worksiteScope.readRoots, maxFiles: facts.envelope.declaration.bounds.maxContextFiles, maxBytes: facts.envelope.declaration.bounds.maxContextBytes });
++  return isWorksiteContextObservation(context) ? intakeValue(facts, context, commandExecutionLimits) : null;
++}
++export function nativeSemanticRevisionIntakeMatches(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
++  if (!isNativeSemanticRevisionIntake(input) || !isSemanticRevisionSelectionInput(output) || output.nativeWorksite === undefined) return false;
++  const facts = nativeIntakeFacts(basis, input);
++  return facts !== null && same(intakeValue(facts, output.nativeWorksite.context, output.nativeWorksite.commandExecutionLimits), output);
++}
++/** The admitted intake is the acquisition proof. Its historical facts are not
++ * rediscovered at selection, correction or Evidence leaves. */
++function nativeJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical: boolean) {
++  try {
++    const owner = authenticateSemanticJobBasis(basis);
++    const request = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
++    if (owner === null || (!isSemanticRevisionSelectionInput(request) && !isSemanticRevisionRequest(request)) || request.nativeWorksite === undefined) return null;
++    const actual = owner.call.implementationRef === ids.nativeRequestImplementationRef ? owner.execution.rawInputValue :
++      isRetainedGraphInput(owner.inputValue) ? owner.inputValue.entry : owner.inputValue;
++    if (!same(actual, input)) return null;
++    const nativeWorksite = request.nativeWorksite;
++    const acquired = nativeWorksite.acquisition === undefined
++      ? selectedSemanticPredecessor(basis, ids.nativeIntakeImplementationRef, request)?.previous ?? null
++      : projectWorksiteRevisionNativeResult(owner.prefix, nativeWorksite.acquisition);
++    if (acquired === null || acquired.result.resultClass !== "success" || acquired.judgment.judgment !== "advance" ||
++      acquired.cCall.implementationRef !== ids.nativeIntakeImplementationRef || !isSemanticRevisionSelectionInput(acquired.result.value)) return null;
++    const acquisitionBasis = rehydrateExecutionBasisAtPrefix(owner.prefix, acquired.cCall.basisId);
++    const { acquisition: _acquisition, ...retained } = nativeWorksite;
++    if (acquisitionBasis === null || !same(acquisitionBasis.rawInputValue, nativeWorksite.source) ||
++      !same(acquired.result.value, {kind:"semantic_revision_selection_input", schemaVersion:"5.0.0", parent:request.parent, causes:request.causes, currentWorksite:null, nativeWorksite:retained}) ||
++      !same(owner.environment.workspaceAuthorityBasis, nativeWorksite.workspaceAuthorityBasis) ||
++      !same(owner.environment.workspaceBinding, nativeWorksite.workspaceBinding)) return null;
++    const parent = projectWorksiteRevisionNativeResult(owner.prefix, request.parent), envelope = parent === null ? null : jobEnvelope(parent.result.value);
++    const causes = request.causes.map(c => projectWorksiteRevisionNativeResult(owner.prefix, c));
++    const construction = nativeWorksite.construction === null ? null : projectWorksiteRevisionNativeResult(owner.prefix, nativeWorksite.construction);
++    if (parent === null || envelope === null || causes.some(c => c === null) ||
++      nativeWorksite.construction !== null && (construction === null || !isNativeWorkspaceWorkObservation(construction.result.value)) ||
++      !same(envelope.job, owner.root.rawInputValue) || envelope.basis.rootExecutionBasisRef !== owner.root.basisRef || !same(envelope.declaration, owner.lifecycle)) return null;
++    const current = isSemanticJobRevisionEnvelope(input) ? input.current : { ...envelope, context: nativeWorksite.context };
++    if (current.context === null || !semanticJobContextMatches(basis, current, current.context) ||
++      readPhysical && current.evidence === null && !semanticJobContextCurrent(basis, current)) return null;
++    return { owner, request, parent, envelope, nativeWorksite, acquisition: acquired, construction,
++      priorWorksite: null, currentWorksite: null, origins: construction === null ? [] : [construction],
++      causes: causes.filter((c): c is NonNullable<typeof c> => c !== null),
++      counterevidenceAssets: causes.flatMap(c => jobEnvelope(c!.result.value)?.assets ?? []) };
++  } catch { return null; }
++}
++/** The output is an ordinary terminal-readable request, derived from the one
++ * admitted selection and the one admitted intake in this invocation. */
++export function projectNativeSemanticRevisionRequest(basis: SemanticStageNativeBasis, input: unknown): SemanticRevisionRequest | null {
++  const owner = authenticateSemanticJobBasis(basis);
++  if (owner?.call.implementationRef !== ids.nativeRequestImplementationRef || !isSemanticRevisionSelection(input)) return null;
++  const prepared = owner.execution.rawInputValue;
++  const subject = nativeJobRevisionSubject(basis, prepared, true);
++  const decision = selectedSemanticPredecessor(basis, ids.selectionImplementationRef, input);
++  if (subject === null || decision === null || !same(decision.execution.rawInputValue, prepared)) return null;
++  return deepFreeze({ kind:"semantic_revision_request", schemaVersion:"5.0.0", parent:subject.request.parent,
++    causes:subject.request.causes, selection:resultCoordinate(decision.previous), currentWorksite:null,
++    nativeWorksite:{...subject.nativeWorksite, acquisition:resultCoordinate(subject.acquisition)} });
++}
+ /** D2's job arm reuses this owner's parent/cause and physical-origin relations. */
+ export function projectJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical = false) {
++  const request = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
++  if ((isSemanticRevisionSelectionInput(request) || isSemanticRevisionRequest(request)) && request.nativeWorksite !== undefined)
++    return nativeJobRevisionSubject(basis, input, readPhysical);
+   return isSemanticJobRevisionEnvelope(input) && input.current.evidence !== null
+     ? jobRevisionEvidenceSubjectAtBasis(basis, input, readPhysical)
+     : jobRevisionSubjectAtBasis(basis, input, readPhysical);
+@@ -158,7 +341,17 @@
+     subject.owner.call.implementationRef !== ids.selectionImplementationRef || basis.graphFunction.declarations["abg.semantic_revision_selection"] !== subject.owner.lifecycle.declarationRef ||
+     hash(input.parent) !== hash(output.parent) || hash(input.causes) !== hash(output.causes)) return false;
+   const active = projectSemanticJobBindings(subject.envelope);
+-  return active !== null && output.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) &&
++  if ("nativeWorksite" in subject) {
++    const phase = subject.nativeWorksite.construction === null ? "preconstruction" : "postconstruction";
++    const selectedStage = subject.owner.lifecycle.stages.findIndex(s => s.declarationRef === output.selectedStageRef);
++    return active !== null && output.nativePhase === phase &&
++      (active.length === 0 || output.selectedObligationRefs.length > 0) &&
++      output.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) &&
++      (phase === "preconstruction" ? output.mode === "stage_revision" && output.selectedTargetRefs.length === 0 && selectedStage >= 0 && selectedStage <= subject.envelope.assets.length :
++        output.selectedTargetRefs.every(r => semanticJobRevisionNativeTargets(subject.envelope).some(t => t.relativePath === r))) &&
++      (output.mode === "construction_repair" ? output.selectedStageRef === null && output.selectedTargetRefs.length > 0 : selectedStage >= 0 && selectedStage <= subject.envelope.assets.length);
++  }
++  return output.nativePhase === undefined && active !== null && output.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) &&
+     output.selectedTargetRefs.every(r => subject.priorWorksite.targets.some(t => t.target.targetRef === r)) &&
+     (output.selectedStageRef === null || subject.owner.lifecycle.stages.some(s => s.declarationRef === output.selectedStageRef));
+ }
+@@ -172,13 +365,20 @@
+     !semanticRevisionSelectionInputMatchesRequest(execution.rawInputValue,input) ||
+     !basis.declarationGraphFunctions.some(g => g.name === decision.cCall.graphFunctionRef && g.declarations["abg.semantic_revision_selection"] === subject.owner.lifecycle.declarationRef)) return null;
+   const parent = subject.parent.result.value;
++  if ("nativeWorksite" in subject) {
++    const selection = decision.result.value;
++    const entry = selection.mode === "construction_repair" ? "construction_repair" : selection.selectedStageRef;
++    if (basis.graphFunction.declarations["abg.semantic_native_revision_entry"] !== entry) return null;
++    return isSemanticJobEnvelope(parent) || isSemanticJobRevisionEnvelope(parent)
++      ? deriveSemanticJobRevision(parent,input,selection,null,null,subject.counterevidenceAssets,jobEnvelope(subject.causes[0]?.result.value) ?? undefined) : null;
++  }
+   return isSemanticJobEnvelope(parent) || isSemanticJobRevisionEnvelope(parent)
+     ? deriveSemanticJobRevision(parent,input,decision.result.value,subject.currentWorksite,subject.priorWorksite) : null;
+ }
+ export function semanticJobRevisionInputMatchesBasis(basis: SemanticStageNativeBasis,input: unknown): input is SemanticJobRevisionEnvelope {
+   try {
+     const owner = authenticateSemanticJobBasis(basis);
+-    if (owner === null || !isSemanticJobRevisionEnvelope(input) || hash(input) !== owner.inputDigest || hash(owner.inputValue) !== hash(input) ||
++    if (owner === null || !isSemanticJobRevisionEnvelope(input) || !(same(owner.inputValue,input) || [ids.nativeExecutionImplementationRef,ids.nativeEvidenceImplementationRef].some(r=>r===owner.call.implementationRef) && isRetainedGraphInput(owner.inputValue) && same(owner.inputValue.entry,input)) ||
+       hash(input.current.job) !== hash(owner.root.rawInputValue) || hash(input.current.declaration) !== hash(owner.lifecycle)) return false;
+     const sources = owner.events.filter(e => e.kind === "c_call_result_admitted" && recordJob(e.payload) && hash(e.payload.value) === hash(input)).flatMap(event => {
+       const judgment = owner.events.find(e => e.kind === "c_call_judged" && e.aggregateId === event.aggregateId);
+@@ -187,7 +387,7 @@
+         resultDigest:event.payload.resultDigest as `sha256:${string}`,resultAdmissionEventRef:event.eventId,judgmentEventRef:judgment.eventId});
+       const execution = result === null ? null : rehydrateExecutionBasisAtPrefix(owner.prefix,result.cCall.basisId);
+       return result?.result.resultClass === "success" && result.judgment.judgment === "advance" &&
+-        [ids.projectionImplementationRef,ids.authorImplementationRef,ids.assessorImplementationRef,ids.evidenceInputImplementationRef].some(r => r === result.cCall.implementationRef) &&
++        [ids.projectionImplementationRef,ids.authorImplementationRef,ids.assessorImplementationRef,ids.evidenceInputImplementationRef,ids.nativeEvidenceImplementationRef].some(r => r === result.cCall.implementationRef) &&
+         execution?.invocationAdmissionRef === owner.execution.invocationAdmissionRef ? [result] : [];
+     });
+     return sources.length === 1;
+@@ -197,10 +397,10 @@
+   try {
+     if (!semanticJobRevisionInputMatchesBasis(basis,input)) return null;
+     const subject = projectJobRevisionSubject(basis,input,readPhysical);
+-    return subject === null ? null : jobRevisionPreparationFromSubject(subject, input);
+-  } catch { return null; }
+-}
+-function jobRevisionPreparationFromSubject(subject: NonNullable<ReturnType<typeof projectJobRevisionSubject>>, input: SemanticJobRevisionEnvelope) {
++    return subject === null || "nativeWorksite" in subject ? null : jobRevisionPreparationFromSubject(subject, input);
++  } catch { return null; }
++}
++function jobRevisionPreparationFromSubject(subject: NonNullable<ReturnType<typeof jobRevisionSubjectAtBasis>>, input: SemanticJobRevisionEnvelope) {
+   try {
+     const current = subject.currentWorksite, prior = subject.priorWorksite;
+     const selectedPaths = input.revisionBasis.selection.selectedTargetRefs.map(ref => prior.targets.find(t => t.target.targetRef === ref)?.target.subject.relativePath);
+@@ -233,9 +433,54 @@
+       revisionBasisDigest:input.revisionBasis.basisDigest,snapshotTargetRefs,dependencyObservations});
+   } catch { return null; }
+ }
++export function projectNativeRevisionConstructionTask(basis: SemanticStageNativeBasis, input: unknown) {
++  try {
++    const owner = authenticateSemanticJobBasis(basis);
++    if (owner?.call.implementationRef !== ids.nativeConstructionImplementationRef || !semanticJobRevisionInputMatchesBasis(basis,input) ||
++      nativeJobRevisionSubject(basis,input,true) === null) return null;
++    return constructNativeRevisionConstructionTask(input, {...input.revisionBasis.request.nativeWorksite!, workspaceAuthorityBasis:owner.environment.workspaceAuthorityBasis, workspaceBinding:owner.environment.workspaceBinding, capabilityGrant:owner.grant});
++  } catch { return null; }
++}
++export function projectNativeRevisionExecutionTask(basis: SemanticStageNativeBasis, input: unknown) {
++  try {
++    const owner = authenticateSemanticJobBasis(basis);
++    if (owner?.call.implementationRef !== ids.nativeExecutionImplementationRef || !isRetainedGraphInput(input) ||
++      !semanticJobRevisionInputMatchesBasis(basis,input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return null;
++    const construction = projectNativeWorkspaceWorkSourceAtPrefix(owner.prefix,input.source);
++    if (construction === null || construction.sourceBasis.invocationAdmissionRef !== owner.execution.invocationAdmissionRef ||
++      construction.sourceResult.runId !== owner.call.runId) return null;
++    const prepared = selectedSemanticPredecessor(basis,ids.nativeConstructionImplementationRef,input.source.task);
++    if (prepared === null || !same(prepared.execution.rawInputValue,input.entry)) return null;
++    return constructNativeRevisionExecutionTask(input.entry,input.source);
++  } catch { return null; }
++}
++export function projectNativeRevisionEvidence(basis: SemanticStageNativeBasis, input: unknown) {
++  try {
++    const owner = authenticateSemanticJobBasis(basis);
++    if (owner?.call.implementationRef !== ids.nativeEvidenceImplementationRef || !isRetainedGraphInput(input) ||
++      !semanticJobRevisionInputMatchesBasis(basis,input.entry) || !isNativeWorksiteCommandExecutionObservation(input.source)) return null;
++    const execution = selectedSemanticPredecessor(basis,WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,input.source);
++    const construction = projectNativeWorkspaceWorkSourceAtPrefix(owner.prefix,input.source.task.sourceNativeWork);
++    const preparation = selectedSemanticPredecessor(basis,ids.nativeExecutionImplementationRef,input.source.task);
++    if (execution === null || construction === null || preparation === null ||
++      !same(preparation.execution.rawInputValue,input.entry) ||
++      construction.sourceResult.runId !== owner.call.runId || construction.sourceBasis.invocationAdmissionRef !== owner.execution.invocationAdmissionRef ||
++      construction.sourceClosedEvent.admissionOrdinal >= execution.event.admissionOrdinal) return null;
++    const payload = construction.sourceResult.payload;
++    if (!recordJob(payload) || typeof payload.resultRef !== "string" || typeof payload.resultDigest !== "string") return null;
++    return deriveNativeRevisionEvidence(input.entry,input.source,{resultRef:payload.resultRef,resultDigest:payload.resultDigest as `sha256:${string}`},resultCoordinate(execution.previous));
++  } catch { return null; }
++}
+ export function semanticJobRevisionResultMatchesBasis(basis: SemanticStageNativeBasis,input: unknown,output: unknown): boolean {
++  const native = authenticateNativeInstructionAssemblyBasis(basis);
++  if (native?.call.implementationRef === ids.nativeIntakeImplementationRef) return nativeSemanticRevisionIntakeMatches(basis,input,output);
+   const owner = authenticateSemanticJobBasis(basis);
+   if (owner === null) return false;
++  const nativeProjection = owner.call.implementationRef === ids.nativeRequestImplementationRef ? projectNativeSemanticRevisionRequest :
++    owner.call.implementationRef === ids.nativeConstructionImplementationRef ? projectNativeRevisionConstructionTask :
++    owner.call.implementationRef === ids.nativeExecutionImplementationRef ? projectNativeRevisionExecutionTask :
++    owner.call.implementationRef === ids.nativeEvidenceImplementationRef ? projectNativeRevisionEvidence : null;
++  if (nativeProjection !== null) { const value = nativeProjection(basis,input); return value !== null && same(value,output); }
+   if (owner.call.implementationRef === ids.selectionImplementationRef) return jobRevisionSelectionMatchesBasis(basis,input,output);
+   if (owner.call.implementationRef === ids.projectionImplementationRef) { const value=projectSemanticJobRevision(basis,input);return value!==null&&hash(value)===hash(output); }
+   if (owner.call.implementationRef === ids.bridgeImplementationRef) { const value=projectJobRevisionPreparation(basis,input);return value!==null&&hash(value)===hash(output); }
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
+@@ -412,6 +412,20 @@
+   input:unknown,currentBinding:WorkspaceBinding):"not_applicable"|"covered"|"basis_fork_detected" {
+   if(graphFunction.declarations["abg.semantic_revision_history"]!==SEMANTIC_REVISION_IDS.historicalOwnerDependencyRef)return "not_applicable";
+   try {
++    const nativeRequest = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
++    if ((isSemanticRevisionSelectionInput(nativeRequest) || isSemanticRevisionRequest(nativeRequest)) && nativeRequest.nativeWorksite !== undefined) {
++      const native = nativeRequest.nativeWorksite;
++      if (!same(native.workspaceBinding,currentBinding)) return "basis_fork_detected";
++      const {acquisition:_acquisition,...retained} = native;
++      const prepared = {kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:nativeRequest.parent,causes:nativeRequest.causes,currentWorksite:null,nativeWorksite:retained};
++      const sources = native.acquisition === undefined ? runtimeEventsFromValidatedPrefix(prefix).flatMap(event=>{
++        if(event.kind!=="c_call_result_admitted"||!record(event.payload)||!same(event.payload.value,prepared))return [];
++        const c=coordinateFor(runtimeEventsFromValidatedPrefix(prefix),event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
++        return state===null?[]:[state];
++      }) : [projectWorksiteRevisionNativeResult(prefix,native.acquisition)];
++      return sources.length===1 && sources[0]?.cCall.implementationRef===SEMANTIC_REVISION_IDS.nativeIntakeImplementationRef &&
++        sources[0].result.resultClass==="success" && sources[0].judgment.judgment==="advance" && same(sources[0].result.value,prepared) ? "covered" : "basis_fork_detected";
++    }
+     if(isWorksiteRevisionCommandExecutionObservation(input)){
+       // Evidence-input consumes the actual C2 producer, not a request. Resolve
+       // its earlier preparation revision; the existing evidence owner still
+--- before/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_identity.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_identity.ts
+@@ -1,6 +1,12 @@
+ // Dependency-free coordinates. D1 identities are unchanged.
+ const scope = "abiogenesis/semantic-revision";
+ export const SEMANTIC_REVISION_IDS = Object.freeze({
++  nativeIntakeContractRef: `contract://${scope}/native-intake@5`,
++  nativeIntakeImplementationRef: `implementation://${scope}/native-intake@5`, nativeIntakeBindingRef: `implementation-binding://${scope}/native-intake@5`, nativeIntakePredicateRef: `predicate://${scope}/native-intake@5`,
++  nativeRequestImplementationRef: `implementation://${scope}/native-request@5`, nativeRequestBindingRef: `implementation-binding://${scope}/native-request@5`, nativeRequestPredicateRef: `predicate://${scope}/native-request@5`,
++  nativeConstructionImplementationRef: `implementation://${scope}/native-construction@5`, nativeConstructionBindingRef: `implementation-binding://${scope}/native-construction@5`, nativeConstructionPredicateRef: `predicate://${scope}/native-construction@5`,
++  nativeExecutionImplementationRef: `implementation://${scope}/native-execution@5`, nativeExecutionBindingRef: `implementation-binding://${scope}/native-execution@5`, nativeExecutionPredicateRef: `predicate://${scope}/native-execution@5`,
++  nativeEvidenceImplementationRef: `implementation://${scope}/native-evidence@5`, nativeEvidenceBindingRef: `implementation-binding://${scope}/native-evidence@5`, nativeEvidencePredicateRef: `predicate://${scope}/native-evidence@5`,
+   semanticsBindingRef: `product-semantics://${scope}@5`, moduleRef: `module://${scope}@5`, programRef: `program://${scope}@5`, graphFunctionRef: `graph-function://${scope}@5`,
+   selectionInputContractRef: `contract://${scope}/selection-input@5`, selectionImplementationRef: `implementation://${scope}/selection@5`, selectionBindingRef: `implementation-binding://${scope}/selection@5`, selectionPredicateRef: `predicate://${scope}/selection@5`,
+   requestContractRef: `contract://${scope}/request@5`, envelopeContractRef: `contract://${scope}/envelope@5`,
+@@ -20,6 +26,8 @@
+   closureContractRef: `contract://${scope}/closure@5`,
+ });
+ export const SEMANTIC_REVISION_IMPLEMENTATION_REFS: readonly string[] = Object.freeze([
++  SEMANTIC_REVISION_IDS.nativeIntakeImplementationRef, SEMANTIC_REVISION_IDS.nativeRequestImplementationRef,
++  SEMANTIC_REVISION_IDS.nativeConstructionImplementationRef, SEMANTIC_REVISION_IDS.nativeExecutionImplementationRef, SEMANTIC_REVISION_IDS.nativeEvidenceImplementationRef,
+   SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.projectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef,
+   SEMANTIC_REVISION_IDS.assessorImplementationRef, SEMANTIC_REVISION_IDS.bridgeImplementationRef,
+   SEMANTIC_REVISION_IDS.evidenceInputImplementationRef, SEMANTIC_REVISION_IDS.terminalImplementationRef,
+--- before/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts
+@@ -1,28 +1,38 @@
+-import type { ContractDeclaration, ModulePublication, GraphFunction, RootModuleArtifactBasis, ImplementationBinding } from "./contracts.js";
++import type { ContractDeclaration, ModulePublication, GraphFunction, RootModuleArtifactBasis, ImplementationBinding, GtlNode } from "./contracts.js";
+ import type { SemanticStageDeclaration } from "./semantic_stage.js";
+ import { SEMANTIC_REVISION_IDS as ids } from "./semantic_revision_identity.js";
+ import { SEMANTIC_STAGE_IDS as old } from "./semantic_stage_identity.js";
+ import { constructSemanticClosureContract } from "./semantic_stage_publication.js";
+-import { C, cCarrier } from "./c_algebra.js";
++import { C, cCarrier, cGraphFunctionRef, workflow } from "./c_algebra.js";
+ import { modulePublication } from "./declarations.js";
++import { graphEdge } from "./graph_applications.js";
+ import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
+ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
+ import { deepFreeze } from "../shared/immutable.js";
+-export type SemanticRevisionRole = "selection" | "projection" | "author" | "assessor" | "bridge" | "evidenceInput" | "terminal";
++import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
++import { RETAINED_GRAPH_INPUT_CONTRACT, graphInputRetentionBinding } from "../product/worksite_preparation_contracts.js";
++import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
++import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
++export type SemanticRevisionRole = "selection" | "projection" | "author" | "assessor" | "bridge" | "evidenceInput" | "terminal" | "nativeIntake" | "nativeRequest" | "nativeConstruction" | "nativeExecution" | "nativeEvidence";
++const inputs = (role: SemanticRevisionRole) => role === "selection" ? ids.selectionInputContractRef : role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef :
++  role === "nativeIntake" ? ids.nativeIntakeContractRef : role === "nativeRequest" ? ids.selectionContractRef :
++  role === "nativeExecution" || role === "nativeEvidence" ? RETAINED_GRAPH_INPUT_CONTRACT.contractRef : ids.envelopeContractRef;
++const outputs = (role: SemanticRevisionRole) => role === "selection" ? ids.selectionContractRef : role === "bridge" ? WORKSITE_REVISION_IDS.inputContractRef : role === "terminal" ? ids.outputContractRef :
++  role === "nativeIntake" ? ids.selectionInputContractRef : role === "nativeRequest" ? ids.requestContractRef :
++  role === "nativeConstruction" ? native.taskContractRef : role === "nativeExecution" ? WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef : ids.envelopeContractRef;
+ export function semanticRevisionImplementationBindings(artifact: RootModuleArtifactBasis): readonly ImplementationBinding[] {
+-  return ( ["selection", "projection", "author", "assessor", "bridge", "evidenceInput", "terminal"] as const).map(role => ({
++  return ( ["selection", "projection", "author", "assessor", "bridge", "evidenceInput", "terminal", "nativeIntake", "nativeRequest", "nativeConstruction", "nativeExecution", "nativeEvidence"] as const).map(role => ({
+     kind: "implementation_binding", bindingRef: ids[`${role}BindingRef`], implementationRef: ids[`${role}ImplementationRef`],
+     namedSymbol: `realizeSemanticRevision${role[0]!.toUpperCase()}${role.slice(1)}`,
+     computeRegime: role === "selection" || role === "author" || role === "assessor" ? "F_P" : "F_D",
+-    inputContractRef: role === "selection" ? ids.selectionInputContractRef : role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef : ids.envelopeContractRef,
+-    outputContractRef: role === "selection" ? ids.selectionContractRef : role === "bridge" ? WORKSITE_REVISION_IDS.inputContractRef : role === "terminal" ? ids.outputContractRef : ids.envelopeContractRef,
++    inputContractRef: inputs(role),
++    outputContractRef: outputs(role),
+     packageName: artifact.packageName, packageVersion: artifact.packageVersion,
+     modulePath: "build/code/src/implementation/semantic_revision.js", failureContractRef: old.failureContractRef, refusalContractRef: old.refusalContractRef,
+   }));
+ }
+ function leaf(locus: string, role: SemanticRevisionRole) {
+-  const inputRef = role === "selection" ? ids.selectionInputContractRef : role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef : ids.envelopeContractRef;
+-  const outputRef = role === "selection" ? ids.selectionContractRef : role === "bridge" ? WORKSITE_REVISION_IDS.inputContractRef : role === "terminal" ? ids.outputContractRef : ids.envelopeContractRef;
++  const inputRef = inputs(role), outputRef = outputs(role);
+   return C.of({ input: cCarrier(inputRef), output: cCarrier(outputRef), programLocusRef: locus, stageRole: `semantic-revision-${role}`,
+     fibre: role === "selection" || role === "author" || role === "assessor" ? "F_P" : "F_D", armId: `${locus}/arm`, compositionRef: null, vectorIndex: 0,
+     judgmentPredicateRef: ids[`${role}PredicateRef`], resultBearing: role !== "author",
+@@ -31,15 +41,16 @@
+       refusalContractRef: old.refusalContractRef, judgmentContractRef: old.judgmentContractRef } });
+ }
+ export function constructSemanticRevisionGraphFunction(input: { readonly graphFunctionRef: string; readonly closureContractRef: string;
+-  readonly childClosureContractRef?: string; readonly role: "projection" | "bridge" | "evidenceInput" | "terminal"; readonly stage?: SemanticStageDeclaration; readonly rootOutput?: boolean }): Readonly<GraphFunction> {
++  readonly childClosureContractRef?: string; readonly role: "projection" | "bridge" | "evidenceInput" | "terminal" | "nativeIntake" | "nativeRequest" | "nativeConstruction" | "nativeExecution" | "nativeEvidence"; readonly nativeEntry?: string; readonly stage?: SemanticStageDeclaration; readonly rootOutput?: boolean }): Readonly<GraphFunction> {
++  if (input.role === "nativeConstruction") return nativeConstructionGraph(input);
+   const stage = input.stage, nodeRef = `${input.graphFunctionRef}/node`, role = stage === undefined ? input.role : "assessor";
+-  const inputRef = role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef : ids.envelopeContractRef;
+-  const outputRef = input.rootOutput === true ? ids.outputContractRef : role === "bridge" ? WORKSITE_REVISION_IDS.inputContractRef : role === "terminal" ? ids.outputContractRef : ids.envelopeContractRef;
++  const inputRef = inputs(role), outputRef = input.rootOutput === true ? ids.outputContractRef : outputs(role);
+   const computation = stage === undefined ? leaf(nodeRef, input.role) : C.compose(leaf(stage.authorLocusRef, "author"), leaf(stage.assessorLocusRef, "assessor"));
+   return deepFreeze({ kind: "graph_function", name: input.graphFunctionRef, version: "5.0.0", effects: [], tags: ["semantic-revision"],
+     environment: { requires: [inputRef], provides: [outputRef], carries: stage === undefined ? [] : [old.workerContractRef] }, inputs: [inputRef], outputs: [outputRef],
+     declarations: { "abg.compute_regime": stage === undefined ? "F_D" : "F_P", "abg.closure_contract": input.closureContractRef,
+-      "abg.semantic_revision_history": ids.historicalOwnerDependencyRef,
++      ...(role === "nativeIntake" ? {} : { "abg.semantic_revision_history": ids.historicalOwnerDependencyRef }),
++      ...(input.nativeEntry === undefined ? {} : { "abg.semantic_native_revision_entry": input.nativeEntry }),
+       ...(input.childClosureContractRef === undefined ? {} : { "abg.child_closure_contract": input.childClosureContractRef }), "abg.failure_contract": old.failureContractRef,
+       "abg.evidence_contract": old.evidenceContractRef, "abg.judgment_contract": old.judgmentContractRef,
+       "abg.judgment_predicate": ids[`${role}PredicateRef`], "abg.transition_contract": old.transitionContractRef,
+@@ -61,7 +72,7 @@
+     contributionManifestRef: `contribution-manifest://abiogenesis/conformance/${artifact.productContentDigest.slice(7)}`,
+     productSemanticsBinding: { kind: "product_semantics_binding", bindingRef: ids.semanticsBindingRef, packageName: artifact.packageName,
+       packageVersion: artifact.packageVersion, modulePath: "build/code/src/product/builtin_semantics.js", namedSymbol: "ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS" },
+-    contracts: [contract(ids.selectionInputContractRef, "input", "semantic_revision_selection_input"), contract(ids.requestContractRef, "input", "semantic_revision_request"), contract(ids.envelopeContractRef, "input", "semantic_revision_envelope"),
++    contracts: [contract(ids.nativeIntakeContractRef, "input", "native_semantic_revision_intake"), contract(ids.selectionInputContractRef, "input", "semantic_revision_selection_input"), contract(ids.requestContractRef, "input", "semantic_revision_request"), contract(ids.envelopeContractRef, "input", "semantic_revision_envelope"),
+       contract(ids.outputContractRef, "output", "semantic_revision_envelope"), contract(ids.selectionContractRef, "output", "semantic_revision_selection"),
+       contract(ids.selectionRawContractRef, "output", "semantic_revision_selection")],
+     graphFunctions: [graph], implementationBindings: semanticRevisionImplementationBindings(artifact), evaluators: [], rules: [],
+@@ -75,12 +86,35 @@
+       compatibilityRefs: ["compatibility://abiogenesis/major/5"], provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest] }] });
+ }
+ 
+-export function constructSemanticRevisionSelectionGraphFunction(input: { readonly graphFunctionRef: string; readonly closureContractRef: string; readonly childClosureContractRef?: string; readonly lifecycleRef: string }): Readonly<GraphFunction> {
++export function constructSemanticRevisionSelectionGraphFunction(input: { readonly graphFunctionRef: string; readonly closureContractRef: string; readonly childClosureContractRef?: string; readonly lifecycleRef: string; readonly sealRequest?: boolean }): Readonly<GraphFunction> {
+   const base = constructSemanticRevisionGraphFunction({ ...input, role: "projection" }), nodeRef = `${input.graphFunctionRef}/node`;
+-  return deepFreeze({ ...base, inputs: [ids.selectionInputContractRef], outputs: [ids.selectionContractRef],
+-    environment: { requires: [ids.selectionInputContractRef], provides: [ids.selectionContractRef], carries: [ids.selectionRawContractRef] },
+-    declarations: { ...base.declarations, "abg.compute_regime": "F_P", "abg.raw_result_contract": ids.selectionRawContractRef,
+-      "abg.semantic_revision_selection": input.lifecycleRef, "abg.judgment_predicate": ids.selectionPredicateRef },
+-    template: { kind: "inline_graph", graphRef: `${input.graphFunctionRef}/graph`, startNodeRef: nodeRef, terminalNodeRefs: [nodeRef], edges: [], applications: [],
+-      nodes: [{ nodeRef, nodeKind: "c_locus", term: leaf(nodeRef, "selection") }] } });
++  return deepFreeze({ ...base, inputs: [ids.selectionInputContractRef], outputs: [input.sealRequest ? ids.requestContractRef : ids.selectionContractRef],
++    environment: { requires: [ids.selectionInputContractRef], provides: [input.sealRequest ? ids.requestContractRef : ids.selectionContractRef], carries: [ids.selectionRawContractRef] },
++    declarations: { ...base.declarations, "abg.compute_regime": input.sealRequest ? "mixed" : "F_P", "abg.raw_result_contract": ids.selectionRawContractRef,
++      "abg.semantic_revision_selection": input.lifecycleRef, "abg.judgment_predicate": input.sealRequest ? ids.stepPredicateRef : ids.selectionPredicateRef },
++    template: { kind: "inline_graph", graphRef: `${input.graphFunctionRef}/graph`, startNodeRef: nodeRef, terminalNodeRefs: [input.sealRequest ? nodeRef + "/request" : nodeRef],
++      edges: input.sealRequest ? [graphEdge({fromNodeRef:nodeRef,toNodeRef:nodeRef+"/request"})] : [], applications: [],
++      nodes: [{nodeRef,nodeKind:"c_locus",term:leaf(nodeRef,"selection")},...(input.sealRequest ? [{nodeRef:nodeRef+"/request",nodeKind:"c_locus" as const,term:leaf(nodeRef+"/request","nativeRequest")}] : [])] } });
+ }
++
++function nativeConstructionGraph(input: {readonly graphFunctionRef:string; readonly closureContractRef:string}): Readonly<GraphFunction> {
++  const n = input.graphFunctionRef, bound = RETAINED_GRAPH_INPUT_CONTRACT.contractRef, c2 = WORKSITE_COMMAND_EXECUTION_IDS;
++  const node = (suffix:string,role:SemanticRevisionRole):GtlNode => ({nodeRef:n+suffix,nodeKind:"c_locus",term:leaf(n+suffix,role)});
++  const call = (suffix:string,ref:string,i:string,o:string):GtlNode => ({nodeRef:n+suffix,nodeKind:"c_locus",term:workflow.C(cGraphFunctionRef({graphFunctionRef:ref,input:cCarrier(i),output:cCarrier(o)}))});
++  const nodes = [node("/prepare","nativeConstruction"),call("/construct",native.graphFunctionRef,native.taskContractRef,native.observationContractRef),
++    node("/prepare-execution","nativeExecution"),call("/execute",c2.graphFunctionRef,c2.taskContractRef,c2.observationContractRef),node("/evidence","nativeEvidence")];
++  return deepFreeze({kind:"graph_function",name:n,version:"5.0.0",inputs:[ids.envelopeContractRef],outputs:[ids.envelopeContractRef],
++    environment:{requires:[ids.envelopeContractRef],provides:[ids.envelopeContractRef],carries:[ids.envelopeContractRef,bound,...nodes.map(node=>node.term.outputCarrierRef)]},
++    effects:[native.effectUri],tags:["semantic-revision","native-work"],declarations:{"abg.compute_regime":"mixed","abg.closure_contract":input.closureContractRef,
++      "abg.child_closure_contract":input.closureContractRef,"abg.evidence_contract":old.evidenceContractRef,"abg.judgment_contract":old.judgmentContractRef,
++      "abg.judgment_predicate":ids.stepPredicateRef,"abg.transition_contract":old.transitionContractRef,"abg.semantic_native_revision_construction":"5.0.0"},
++    template:{kind:"inline_graph",graphRef:n+"/graph",startNodeRef:nodes[0]!.nodeRef,terminalNodeRefs:[nodes.at(-1)!.nodeRef],nodes,applications:[],
++      edges:nodes.slice(1).map((node,i)=>graphEdge({fromNodeRef:nodes[i]!.nodeRef,toNodeRef:node.nodeRef,
++        ...([n+"/construct",n+"/execute"].includes(nodes[i]!.nodeRef)?{inputBinding:graphInputRetentionBinding(ids.envelopeContractRef,nodes[i]!.term.outputCarrierRef)}:{})}))}});
++}
++/** Retention has this exact factory as owner, never a free-form marker. */
++export function isNativeSemanticRevisionGraphFunction(publication: Readonly<ModulePublication>, graph: Readonly<GraphFunction>): boolean {
++  try { return publication.semanticJobLifecycle !== undefined && graph.declarations["abg.semantic_native_revision_construction"] === "5.0.0" &&
++    canonicalJson(canonicalizeAuthoredGtlCarrier(nativeConstructionGraph({graphFunctionRef:graph.name,closureContractRef:graph.declarations["abg.closure_contract"]!}),"graph_function") as unknown as JsonValue) === canonicalJson(graph as unknown as JsonValue);
++  } catch { return false; }
++}
+--- before/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts
+@@ -1,3 +1,4 @@
++import { SEMANTIC_REVISION_IDS as revision } from "./semantic_revision_identity.js";
+ import * as v from "valibot";
+ import { NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work_identity.js";
+ import type { ModulePublication, GtlProgram, GraphFunction } from "./contracts.js";
+@@ -107,6 +108,14 @@
+     requirement.implementationBindingRef === (leaf.stageRole === "semantic-author" ? SEMANTIC_STAGE_IDS.authorBindingRef : SEMANTIC_STAGE_IDS.assessorBindingRef) &&
+     requirement.inputContractRef === SEMANTIC_STAGE_IDS.envelopeContractRef && requirement.outputContractRef === SEMANTIC_STAGE_IDS.envelopeContractRef)
+     return leaf.stageRole === "semantic-author" ? "author" : "assessor";
++  if (graph.declarations["abg.semantic_revision_selection"] !== undefined && leaf.stageRole === "semantic-revision-selection" &&
++    requirement.implementationBindingRef === revision.selectionBindingRef && requirement.inputContractRef === revision.selectionInputContractRef &&
++    requirement.outputContractRef === revision.selectionContractRef) return "assessor";
++  if (graph.declarations["abg.semantic_revision_stage"] !== undefined &&
++    (leaf.stageRole === "semantic-revision-author" || leaf.stageRole === "semantic-revision-assessor") &&
++    requirement.implementationBindingRef === (leaf.stageRole === "semantic-revision-author" ? revision.authorBindingRef : revision.assessorBindingRef) &&
++    requirement.inputContractRef === revision.envelopeContractRef && requirement.outputContractRef === revision.envelopeContractRef)
++    return leaf.stageRole === "semantic-revision-author" ? "author" : "assessor";
+   if (graph.name === nativeIds.assessmentGraphFunctionRef && leaf.stageRole === "native-assessment" &&
+     requirement.implementationBindingRef === nativeIds.implementationBindingRef &&
+     requirement.inputContractRef === nativeIds.taskContractRef && requirement.outputContractRef === nativeIds.observationContractRef) return "assessor";
+--- before/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts
+@@ -1,3 +1,4 @@
++import { selectedWorksiteCommandExecutionLimits } from "./worksite_command_execution.js";
+ import { SEMANTIC_REVISION_IDS as ids } from "../gtl/semantic_revision_identity.js";
+ import { SEMANTIC_STAGE_IDS as old } from "../gtl/semantic_stage_identity.js";
+ import { semanticRevisionImplementationBindings } from "../gtl/semantic_revision_publication.js";
+@@ -5,6 +6,7 @@
+ import { authenticateSemanticStageBasis } from "../abg/semantic_stage.js";
+ import { authenticateSemanticJobBasis } from "../abg/semantic_job.js";
+ import { projectSemanticRevision, semanticRevisionInputMatchesBasis, projectRevisionWorksitePreparation, projectRevisionEvidenceInput, semanticRevisionSelectionMatchesBasis,
++  prepareNativeSemanticRevisionIntake, projectNativeSemanticRevisionRequest, projectNativeRevisionConstructionTask, projectNativeRevisionExecutionTask, projectNativeRevisionEvidence,
+   projectSemanticJobRevision, semanticJobRevisionInputMatchesBasis, projectJobRevisionPreparation, jobRevisionSelectionMatchesBasis } from "../abg/semantic_revision.js";
+ import { deriveRevisionAsset, deriveRevisionAssessment, isSemanticRevisionEnvelope,
+   isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "../product/semantic_revision.js";
+@@ -23,12 +25,12 @@
+ export const [SEMANTIC_REVISION_SELECTION_DESCRIPTOR, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR,
+   SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR,
+   SEMANTIC_REVISION_TERMINAL_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
+-function result(input: Readonly<Record<string, JsonValue>>, output: unknown, implementationRef: string, deterministic: boolean): Readonly<LeafRealizationCandidate> {
++function result(input: Readonly<Record<string, JsonValue>>, output: unknown, implementationRef: string, deterministic: boolean, failureClass = "revision_basis_or_evidence_unavailable"): Readonly<LeafRealizationCandidate> {
+   const failure = output === null;
+-  const value = failure ? { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass: "revision_basis_or_evidence_unavailable",
+-    diagnosticRef: "diagnostic://abiogenesis/semantic-revision/basis-or-evidence-unavailable@5" } : output;
++  const value = failure ? { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass,
++    diagnosticRef: failureClass === "revision_basis_or_evidence_unavailable" ? "diagnostic://abiogenesis/semantic-revision/basis-or-evidence-unavailable@5" : `diagnostic://abiogenesis/semantic-revision/${failureClass}@5` } : output;
+   const evidenceCandidates = deterministic ? [{ kind: "deterministic_evidence_candidate" as const, schemaVersion: "5.0.0" as const, implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] : [];
+-  if (failure) return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate: value as Readonly<Record<string, JsonValue>>, evidenceCandidates, diagnosticRef: "diagnostic://abiogenesis/semantic-revision/basis-or-evidence-unavailable@5" });
++  if (failure) return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate: value as Readonly<Record<string, JsonValue>>, evidenceCandidates, diagnosticRef: (value as {diagnosticRef:string}).diagnosticRef });
+   return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
+     resultCandidate: value as Readonly<Record<string, JsonValue>>, evidenceCandidates: deterministic ? [{
+       kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] : [],
+@@ -93,3 +95,22 @@
+       catch { return result(input, null, ids.selectionImplementationRef, false); }
+     } });
+ }
++
++export async function realizeSemanticRevisionNativeIntake(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
++  let failureClass = "native_revision_basis_unavailable";
++  const output = occurrence.semanticStageBasis === undefined ? null : await prepareNativeSemanticRevisionIntake(occurrence.semanticStageBasis,input,selectedWorksiteCommandExecutionLimits(),reason=>{failureClass=reason;});
++  return result(input,output,ids.nativeIntakeImplementationRef,true,failureClass);
++}
++export function realizeSemanticRevisionNativeRequest(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
++  return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticRevisionRequest(occurrence.semanticStageBasis,input), ids.nativeRequestImplementationRef, true);
++}
++export function realizeSemanticRevisionNativeConstruction(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
++  if (!isSemanticJobRevisionEnvelope(input) || hash(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits) !== hash(selectedWorksiteCommandExecutionLimits())) return result(input,null,ids.nativeConstructionImplementationRef,true);
++  return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeRevisionConstructionTask(occurrence.semanticStageBasis,input), ids.nativeConstructionImplementationRef, true);
++}
++export function realizeSemanticRevisionNativeExecution(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
++  return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeRevisionExecutionTask(occurrence.semanticStageBasis,input), ids.nativeExecutionImplementationRef, true);
++}
++export function realizeSemanticRevisionNativeEvidence(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
++  return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeRevisionEvidence(occurrence.semanticStageBasis,input), ids.nativeEvidenceImplementationRef, true);
++}
+--- before/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts
+@@ -13,7 +13,7 @@
+ import { isWorksiteRevisionCommandExecutionObservation, isWorksiteRevisionCommandExecutionWorkerResult } from "./worksite_command_execution.js";
+ import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
+ import { isSemanticRevisionRequest, isSemanticRevisionEnvelope, isSemanticRevisionSelection, isSemanticRevisionSelectionInput, deriveRevisionAsset, deriveRevisionAssessment,
+-  isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "./semantic_revision.js";
++  isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment, isNativeSemanticRevisionIntake, evaluateNativeSemanticRevisionRelation } from "./semantic_revision.js";
+ import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+ import { evaluateNativeSemanticRelation, isSemanticJobInput, isSemanticJobEnvelope, isSemanticJobAssetCandidate, isSemanticJobDesignResponse, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobRelation } from "./semantic_job.js";
+ import { isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess, isWorksiteFileParentsFailure } from "./worksite_effect.js";
+@@ -864,7 +864,7 @@
+   ...ABI5_PRODUCT_SEMANTICS,
+   bindingRef: SEMANTIC_STAGE_IDS.semanticsBindingRef,
+   admitInput(contractRef: string, value: unknown) {
+-    if ((contractRef === revisionIds.selectionInputContractRef && isSemanticRevisionSelectionInput(value)) || (contractRef === revisionIds.requestContractRef && isSemanticRevisionRequest(value)) ||
++    if ((contractRef === revisionIds.nativeIntakeContractRef && isNativeSemanticRevisionIntake(value)) || (contractRef === revisionIds.selectionContractRef && isSemanticRevisionSelection(value)) || (contractRef === revisionIds.selectionInputContractRef && isSemanticRevisionSelectionInput(value)) || (contractRef === revisionIds.requestContractRef && isSemanticRevisionRequest(value)) ||
+       (contractRef === revisionIds.envelopeContractRef && (isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value)))) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+     if (contractRef === SEMANTIC_STAGE_IDS.jobInputContractRef && isSemanticJobInput(value)) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+     return contractRef === SEMANTIC_STAGE_IDS.envelopeContractRef && (isSemanticStageEnvelope(value) || isSemanticJobEnvelope(value))
+@@ -872,7 +872,7 @@
+       : ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS.admitInput(contractRef, value) ?? ABI5_PRODUCT_SEMANTICS.admitInput(contractRef, value);
+   },
+   validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
+-    return (valueKind === "semantic_revision_selection_input" && isSemanticRevisionSelectionInput(value)) || (valueKind === "semantic_revision_request" && isSemanticRevisionRequest(value)) ||
++    return (valueKind === "native_semantic_revision_intake" && isNativeSemanticRevisionIntake(value)) || (valueKind === "semantic_revision_selection_input" && isSemanticRevisionSelectionInput(value)) || (valueKind === "semantic_revision_request" && isSemanticRevisionRequest(value)) ||
+       (valueKind === "semantic_revision_envelope" && (isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value))) ||
+       (valueKind === "semantic_revision_selection" && isSemanticRevisionSelection(value)) ||
+       (valueKind === "semantic_stage_assessment_candidate" && isSemanticAssessmentCandidate(value)) ||
+@@ -892,6 +892,9 @@
+       : ABI5_PRODUCT_SEMANTICS.resolveProbabilisticWorkerContracts(basis);
+   },
+   resolveJudgmentRelation(predicateRef: string) {
++    if ([revisionIds.nativeIntakePredicateRef,revisionIds.nativeRequestPredicateRef,revisionIds.nativeConstructionPredicateRef,revisionIds.nativeExecutionPredicateRef,revisionIds.nativeEvidencePredicateRef].some(ref=>ref===predicateRef))
++      return {predicateRef,advanceReasonRef:"reason://abiogenesis/semantic-revision/native-source-satisfied@5",rejectionReasonRef:"reason://abiogenesis/semantic-revision/native-source-refused@5",
++        evaluate:(input:unknown,output:unknown)=>evaluateNativeSemanticRevisionRelation(predicateRef,input,output) === true};
+     if (predicateRef === revisionIds.stepPredicateRef) {
+       return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-revision/step-satisfied@5",
+         rejectionReasonRef: "reason://abiogenesis/semantic-revision/step-refused@5",
+@@ -900,6 +903,8 @@
+             const equal = (a: unknown, b: unknown) => sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue);
+             const matches = (ref: string, before: unknown, after: unknown) =>
+               ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS.resolveJudgmentRelation(ref)?.evaluate(before, after) === true;
++            const native = evaluateNativeSemanticRevisionRelation(predicateRef,input,output);
++            if (native !== null) return native;
+             // These are typed carrier relations. The existing native owners
+             // authenticate the request, historical bridge and C2 predecessors.
+             const evidenceMatches = (envelope: unknown, observation: unknown) => {
+--- before/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts
+@@ -1,3 +1,5 @@
++import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
++import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+ import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
+ import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+ import { RETAINED_GRAPH_INPUT_CONTRACT, isGraphInputRetentionContractRelation } from "./worksite_preparation_contracts.js";
+@@ -740,12 +742,12 @@
+         : targetTerm?.kind === "c_of" && targetTerm.requirement.kind === "executable_leaf_requirement"
+           ? exactOwner(programDeclarationClosure.implementationBindingOwners, targetTerm.requirement.implementationBindingRef) : null;
+       const declaredGraphOwner = graphOwner === null ? null : publicationForCoordinate(programDeclarationClosure.publications, graphOwner);
+-      const nativeSemantic = declaredGraphOwner?.kind === "one" && entry !== null && exactAbiOwner(entry, SEMANTIC_STAGE_IDS.moduleRef) &&
++      const nativeSemantic = declaredGraphOwner?.kind === "one" && entry !== null && [SEMANTIC_STAGE_IDS.moduleRef,SEMANTIC_REVISION_IDS.moduleRef].some(ref=>exactAbiOwner(entry,ref)) &&
+         nativeSemanticRetentionOwnersMatch(declaredGraphOwner.value, graph, graphOwner, entry, targetOwner, programDeclarationClosure.semanticsOwner);
+       if (!isGraphInputRetentionContractRelation(binding, contracts) || source === null ||
+         target === null || !exactAbiOwner(target, WORKSITE_COMMAND_EXECUTION_IDS.moduleRef) ||
+         (!sameOwner(entry, graphOwner) && !nativeSemantic) || !sameOwner(entry, targetOwner) ||
+-        !sameOwner(entry, programDeclarationClosure.semanticsOwner)) {
++        (!sameOwner(entry, programDeclarationClosure.semanticsOwner) && !nativeSemantic)) {
+         return refusal("wrong_owner", "declaration_closure", "retained input requires the fixed ABI pair and exact entry, source and consumer semantics owners");
+       }
+       continue;
+@@ -1054,6 +1056,8 @@
+     a.productId === b.productId && a.installId === b.installId && a.moduleRef === b.moduleRef && a.publicationDigest === b.publicationDigest;
+   return graphOwner !== null && graphOwner.productId === publication.owningProductId && graphOwner.moduleRef === publication.moduleRef &&
+     graphOwner.publicationDigest === modulePublicationSemanticDigest(publication) &&
+-    entry !== null && entry.productId === ABI5_PRODUCT_ID && entry.moduleRef === SEMANTIC_STAGE_IDS.moduleRef &&
+-    same(entry, target) && same(entry, semantics) && isNativeSemanticGraphFunction(publication, graph);
+-}
++    entry !== null && entry.productId === ABI5_PRODUCT_ID && same(entry,target) &&
++    (entry.moduleRef === SEMANTIC_STAGE_IDS.moduleRef ? same(entry,semantics) && isNativeSemanticGraphFunction(publication,graph) :
++      entry.moduleRef === SEMANTIC_REVISION_IDS.moduleRef && semantics !== null && semantics.productId === entry.productId && semantics.installId === entry.installId &&
++      [SEMANTIC_STAGE_IDS.moduleRef,SEMANTIC_REVISION_IDS.moduleRef].some(ref=>ref===semantics.moduleRef) && isNativeSemanticRevisionGraphFunction(publication,graph));
++}
+--- before/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
+@@ -315,12 +315,12 @@
+ /** One Product-owned reference and coverage relation. Assembly renders this
+  * projection; native validators consume the same domains, not prompt copies. */
+ export function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, stageRef: string,
+-  role: "author" | "assessor", retainedTerms: readonly RequirementTerm[] = []) {
++  role: "author" | "assessor", retainedTerms: readonly RequirementTerm[] = [], executionLimits?: WorksiteCommandExecutionLimits) {
+   const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef), active = projectSemanticJobBindings(envelope);
+   if (stage === undefined || active === null) throw new TypeError("unknown semantic actor contract");
+   const current = role === "assessor" ? envelope.assets.find(a => a.stageRef === stageRef) : undefined;
+   const incoming = envelope.assets.filter(a => a.stageRef !== stageRef);
+-  const limits = nativeSemanticCommandExecutionLimits(envelope);
++  const limits = executionLimits ?? nativeSemanticCommandExecutionLimits(envelope);
+   const currentDesign = current?.candidate.design;
+   const budget = limits === null ? null : projectWorksiteCommandExecutionBudget(currentDesign ?? { commands: [], outcomePredicates: [] });
+   const body = { kind: "semantic_job_actor_contract", schemaVersion: "5.0.0", stageRef, role,
+@@ -394,8 +394,8 @@
+   return deepFreeze({ ...context, predecessors, activeBindings });
+ }
+ export function evaluateSemanticJobActorCandidate(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor",
+-  raw: unknown, retainedTerms: readonly RequirementTerm[] = []): readonly SemanticJobContractIssue[] {
+-  const contract = projectSemanticJobActorContract(envelope, stageRef, role, retainedTerms), issues: SemanticJobContractIssue[] = [];
++  raw: unknown, retainedTerms: readonly RequirementTerm[] = [], executionLimits?: WorksiteCommandExecutionLimits): readonly SemanticJobContractIssue[] {
++  const contract = projectSemanticJobActorContract(envelope, stageRef, role, retainedTerms, executionLimits), issues: SemanticJobContractIssue[] = [];
+   const issue = (path: string, rule: string, expected: unknown, actual: unknown) => issues.push({ path, rule, expected: expected as JsonValue, actual: actual as JsonValue });
+   const refs = (path: string, values: readonly string[], allowed: readonly string[]) => {
+     if (!values.every(r => allowed.includes(r))) issue(path, "eligible_reference_domain", allowed, values);
+@@ -426,19 +426,19 @@
+     raw.asset.requirementCandidates.forEach((c, i) => { refs(`asset.requirementCandidates[${i}].parentRequirementRefs`, c.parentRequirementRefs, contract.requirementRefs); quotes(`asset.requirementCandidates[${i}].sourceQuotes`, c.sourceQuotes); });
+     raw.bindings.forEach((b, i) => { refs(`bindings[${i}].templateRef`, [b.templateRef], contract.templateRefs);
+       refs(`bindings[${i}].requirement.ref`, [b.requirement.ref], b.requirement.kind === "candidate" ? raw.asset.requirementCandidates.map(c => c.candidateRef) : contract.requirementRefs); });
+-    if (raw.design !== null) issues.push(...semanticJobDesignIssues(envelope, raw.design));
++    if (raw.design !== null) issues.push(...semanticJobDesignIssues(envelope, raw.design, executionLimits));
+   }
+   return deepFreeze(issues);
+ }
+ export function deriveSemanticJobAsset(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource,
+-  retainedTerms: readonly RequirementTerm[] = [], onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null {
++  retainedTerms: readonly RequirementTerm[] = [], onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void, executionLimits?: WorksiteCommandExecutionLimits): Readonly<SemanticJobEnvelope> | null {
+   try {
+     if (!isSemanticJobEnvelope(envelope) || !isSemanticJobAssetCandidate(raw) || !v.is(sourceSchema, source) || envelope.assets.some(a => a.stageRef === stageRef)) return null;
+     const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
+     if (stage === undefined || !stage.predecessorStageRefs.every(ref => envelope.assets.some(a => a.stageRef === ref && a.assessment?.disposition === "satisfied")) ||
+       ((raw.asset.requirementCandidates.length > 0 || raw.bindings.length > 0) && !stage.bodyCapabilities.includes("requirement_refinement")) ||
+       (raw.design !== null && !stage.bodyCapabilities.includes("worksite_design"))) return null;
+-    const issues = evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms);
++    const issues = evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms, executionLimits);
+     if (issues.length > 0) { onContractIssues?.(issues); return null; }
+     const priorTerms = [...retainedTerms, ...envelope.assets.flatMap(a => a.groundedTerms)];
+     const quoted = (quotes: readonly SemanticSourceQuote[]) => quotes.every(q => groundSemanticJobQuote(envelope, q) !== null);
+@@ -451,16 +451,16 @@
+     const assetDigest = hash(body);
+     const next = deepFreeze({ ...envelope, assets: [...envelope.assets, { ...body, assetDigest,
+       assetRef: "semantic-job-asset://abiogenesis/" + assetDigest.slice(7), assessment: null }] });
+-    return raw.design === null || semanticJobDesignMatches(next, raw.design) ? next : null;
++    return raw.design === null || semanticJobDesignMatches(next, raw.design, executionLimits) ? next : null;
+   } catch { return null; }
+ }
+ export function deriveSemanticJobAssessment(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource,
+-  retainedTerms: readonly RequirementTerm[] = []): Readonly<SemanticJobEnvelope> | null {
++  retainedTerms: readonly RequirementTerm[] = [], executionLimits?: WorksiteCommandExecutionLimits): Readonly<SemanticJobEnvelope> | null {
+   try {
+     if (!isSemanticJobEnvelope(envelope) || !isSemanticAssessmentCandidate(raw) || !v.is(sourceSchema, source)) return null;
+     const asset = envelope.assets.at(-1), stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
+     if (asset?.stageRef !== stageRef || asset.assessment !== null || stage === undefined || source.actorInvocationRef === asset.source.actorInvocationRef ||
+-      evaluateSemanticJobActorCandidate(envelope, stageRef, "assessor", raw, retainedTerms).length > 0) return null;
++      evaluateSemanticJobActorCandidate(envelope, stageRef, "assessor", raw, retainedTerms, executionLimits).length > 0) return null;
+     const disposition = raw.criteria.some(c => c.disposition === "falsified") ? "falsified" as const
+       : raw.criteria.some(c => c.disposition === "indeterminate") ? "indeterminate" as const : "satisfied" as const;
+     const assessment = { candidate: raw, source, disposition };
+@@ -505,7 +505,7 @@
+     .filter(term => !active.some(b => b.binding.requirementRef === term.requirementRef))
+     .map(term => term.requirementRef));
+ }
+-export function semanticJobDesignIssues(envelope: SemanticJobEnvelope, design: SemanticJobDesign): readonly SemanticJobContractIssue[] {
++export function semanticJobDesignIssues(envelope: SemanticJobEnvelope, design: SemanticJobDesign, executionLimits?: WorksiteCommandExecutionLimits): readonly SemanticJobContractIssue[] {
+   const issues: SemanticJobContractIssue[] = [];
+   const issue = (path: string, rule: string, expected: unknown, actual: unknown) => issues.push({ path, rule, expected: expected as JsonValue, actual: actual as JsonValue });
+   try {
+@@ -548,7 +548,7 @@
+         if (launch === null || typeof launch !== "object" || Array.isArray(launch) || !permittedLaunch(launch as unknown as WorksiteDeclaredCommandInput))
+           issue(`design.outcomePredicates[${i}].declaration.launch`, "exact_nested_executable_capability", scope.executableCapabilities, launch ?? null);
+     });
+-    const limits = nativeSemanticCommandExecutionLimits(envelope);
++    const limits = executionLimits ?? nativeSemanticCommandExecutionLimits(envelope);
+     if (limits !== null && design.dependencyDisposition === "sufficient") {
+       const budget = projectWorksiteCommandExecutionBudget(design);
+       if (!worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs, limits))
+@@ -558,8 +558,8 @@
+   } catch { issue("design", "well_formed_design_relation", "declared_design", null); }
+   return deepFreeze(issues);
+ }
+-export function semanticJobDesignMatches(envelope: SemanticJobEnvelope, design: SemanticJobDesign): boolean {
+-  return semanticJobDesignIssues(envelope, design).length === 0;
++export function semanticJobDesignMatches(envelope: SemanticJobEnvelope, design: SemanticJobDesign, executionLimits?: WorksiteCommandExecutionLimits): boolean {
++  return semanticJobDesignIssues(envelope, design, executionLimits).length === 0;
+ }
+ export function semanticJobAssessmentDomain(envelope: SemanticJobEnvelope) {
+   const current = envelope.assets.at(-1);
+@@ -762,12 +762,12 @@
+   if (rows.length !== 1 || rows[0]!.state !== "file") throw new TypeError("one observed native semantic file required: " + path);
+   return rows[0]!;
+ }
+-export function nativeSemanticContextMatches(envelope: SemanticJobEnvelope, context: WorksiteContextObservation): boolean {
++export function nativeSemanticContextMatches(envelope: SemanticJobEnvelope, context: WorksiteContextObservation, admittedRevision = false): boolean {
+   try {
+     const paths = nativeSemanticPaths(envelope);
+     return envelope.job.members.every(member => nativeSemanticFile(context, member.path).bytes === member.base64) &&
+       nativeSemanticFile(context, paths.rubricPath).bytes === Buffer.from(canonicalJson(envelope.declaration as unknown as JsonValue) + "\n").toString("base64") &&
+-      envelope.assets.every(asset => asset.source.nativeWork !== undefined &&
++      envelope.assets.every(asset => asset.source.nativeWork === undefined ? admittedRevision :
+         nativeSemanticFile(context, asset.source.nativeWork.assetPath).digest === asset.source.nativeWork.assetDigest);
+   } catch { return false; }
+ }
+@@ -815,10 +815,10 @@
+ }
+ /** Value projection only. ABG separately authenticates the native producers and
+  * same-Run predecessor before admitting these observed artifact bytes. */
+-export function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, value: unknown): SemanticEvidenceInput["artifacts"] | null {
++export function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, value: unknown, revision?: NativeSemanticRevisionConstruction): SemanticEvidenceInput["artifacts"] | null {
+   try {
+     if (!isNativeWorksiteCommandExecutionObservation(value) ||
+-      !equal(value.task, constructNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork))) return null;
++      !equal(value.task, constructNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork, revision))) return null;
+     const source = value.task.sourceNativeWork, design = envelope.assets.at(-1)!.candidate.design!;
+     return deepFreeze(design.targets.map(selected => {
+       const rows = value.task.protectedObservations.filter(row => row.subject.relativePath === selected.relativePath);
+@@ -878,24 +878,35 @@
+       producer: { resultRef: asset.source.nativeWork.observationRef, resultDigest: asset.source.nativeWork.observationDigest,
+         cCallRef: asset.source.cCallRef, actorInvocationRef: asset.source.actorInvocationRef } } });
+ }
++export interface NativeSemanticRevisionConstruction {
++  readonly selectedPaths: readonly string[];
++  readonly feedback: JsonValue;
++  readonly executionLimits: WorksiteCommandExecutionLimits;
++}
+ export function constructNativeSemanticConstructionTask(envelope: SemanticJobEnvelope, operating: NativeSemanticOperating,
+-  context: WorksiteContextObservation): Readonly<NativeWorkspaceWorkTask> {
++  context: WorksiteContextObservation, revision?: NativeSemanticRevisionConstruction): Readonly<NativeWorkspaceWorkTask> {
+   const asset = envelope.assets.at(-1), design = asset?.candidate.design;
+-  if (asset?.assessment?.disposition !== "satisfied" || !design || !semanticJobDesignMatches(envelope, design) ||
+-    design.dependencyDisposition !== "sufficient" || !nativeSemanticContextMatches(envelope, context)) throw new TypeError("one current assessed complete Design required");
++  if (asset?.assessment?.disposition !== "satisfied" || !design || !semanticJobDesignMatches(envelope, design, revision?.executionLimits) ||
++    design.dependencyDisposition !== "sufficient" || !nativeSemanticContextMatches(envelope, context, revision !== undefined)) throw new TypeError("one current assessed complete Design required");
++  if (revision !== undefined && (revision.selectedPaths.length === 0 || !unique(revision.selectedPaths) ||
++    !revision.selectedPaths.every(path => design.targets.some(target => target.relativePath === path)))) throw new TypeError("exact selected revision targets required");
+   const protectedPaths = [...envelope.job.members.map(m => m.path), nativeSemanticPaths(envelope).rubricPath, ...nativeSemanticPaths(envelope).assets.map(a => a.path)];
+   if (design.targets.some(t => protectedPaths.some(p => t.relativePath === p || t.relativePath.startsWith(p + "/") || p.startsWith(t.relativePath + "/")))) throw new TypeError("construction cannot replace governing inputs or semantic assets");
+   return constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: operating.workspaceAuthorityBasis, workspaceBinding: operating.workspaceBinding, capabilityGrant: operating.capabilityGrant, context, outcome: "Construct the complete selected outcome from its independently assessed Design.",
+-    instructions: ["Read complete selected source and current assessed semantic assets. Construct all declared targets and verifiers faithfully. Preserve every governing source, rubric, semantic asset and unrelated file. Do not execute commands, manufacture evidence or inspect evaluator-only data.",
++    instructions: [revision === undefined ? "Read complete selected source and current assessed semantic assets. Construct all declared targets and verifiers faithfully. Preserve every governing source, rubric, semantic asset and unrelated file. Do not execute commands, manufacture evidence or inspect evaluator-only data." : "Read complete selected source and the current admitted semantic assets below. Correct only the selected targets and verifiers faithfully. Preserve governing source, rubric, historical semantic files and every unaffected file. Do not execute commands, manufacture evidence or inspect evaluator-only data.",
+       `Ordinary task: ${canonicalJson(envelope.job.taskData)}`, `Current Design: ${canonicalJson(design as unknown as JsonValue)}`,
+-      `Active paired realization/proof obligations: ${canonicalJson(projectSemanticJobBindings(envelope) as unknown as JsonValue)}`],
++      `Active paired realization/proof obligations: ${canonicalJson(projectSemanticJobBindings(envelope) as unknown as JsonValue)}`,
++      ...(revision === undefined ? [] : ["Only the selected target paths are writable. Preserve every other file. Historical asset files remain historical where superseded by the following admitted semantic assets.",
++        `Current admitted semantic assets: ${canonicalJson(envelope.assets as unknown as JsonValue)}`,
++        `Revision feedback: ${canonicalJson(revision.feedback)}`])],
+     readFirst: [...new Set([...protectedPaths.filter(path => context.entries.some(e => e.relativePath === path && e.state === "file")), ...design.dependencyPaths])],
+-    writeRoots: design.targets.map(t => t.relativePath), checks: [] });
+-}
+-export function constructNativeSemanticExecutionTask(envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation): Readonly<NativeWorksiteCommandExecutionTask> {
++    writeRoots: design.targets.filter(t => revision === undefined || revision.selectedPaths.includes(t.relativePath)).map(t => t.relativePath), checks: [] });
++}
++export function constructNativeSemanticExecutionTask(envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation,
++  revision?: NativeSemanticRevisionConstruction): Readonly<NativeWorksiteCommandExecutionTask> {
+   const design = envelope.assets.at(-1)?.candidate.design;
+-  if (!design || !isNativeWorkspaceWorkObservation(source) || !nativeSemanticContextMatches(envelope, source.after) ||
+-    !equal(source.task, constructNativeSemanticConstructionTask(envelope, source.task, source.before))) throw new TypeError("exact current native construction required");
++  if (!design || !isNativeWorkspaceWorkObservation(source) || !nativeSemanticContextMatches(envelope, source.after, revision !== undefined) ||
++    !equal(source.task, constructNativeSemanticConstructionTask(envelope, source.task, source.before, revision))) throw new TypeError("exact current native construction required");
+   const paths = nativeSemanticPaths(envelope), protectedPaths = [...envelope.job.members.map(m => m.path), paths.rubricPath, ...paths.assets.map(a => a.path)];
+   if (envelope.job.worksiteScope.evidenceWriteRoots.some(root => protectedPaths.some(path => root === "." || path === root || path.startsWith(root + "/") || root.startsWith(path + "/"))))
+     throw new TypeError("execution evidence cannot write governing source or semantic assets");
+--- before/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts
+@@ -1,3 +1,5 @@
++import { SEMANTIC_REVISION_IDS as ids } from "../gtl/semantic_revision_identity.js";
++import { isRetainedGraphInput, constructRetainedGraphInput } from "./worksite_preparation_contracts.js";
+ import * as v from "valibot";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+@@ -6,7 +8,14 @@
+ import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope, isSemanticWorksiteBasis, projectSemanticWorksiteCoordinates,
+   type SemanticStageEnvelope, type SemanticActorSource, type SemanticWorksiteBasis } from "./semantic_stage.js";
+ import { isSemanticJobEnvelope, projectSemanticJobBindings, deriveSemanticJobAsset, deriveSemanticJobAssessment,
+-  type SemanticJobEnvelope, type SemanticJobAsset } from "./semantic_job.js";
++  constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask, nativeSemanticEvidenceArtifacts,
++  type SemanticJobEnvelope, type SemanticJobAsset, type NativeSemanticOperating, type NativeSemanticRevisionConstruction } from "./semantic_job.js";
++import { isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkTask, resolveNativeWorkspaceWorkJudgmentRelation, NATIVE_WORKSPACE_WORK_IDS, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
++import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask, resolveWorksiteCommandExecutionJudgmentRelation, WORKSITE_COMMAND_EXECUTION_IDS, type WorksiteCommandExecutionLimits } from "./worksite_command_execution.js";
++import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
++import { exactWorkspaceBinding, isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
++import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
++import { isCapabilityGrantValue, type CapabilityGrant } from "./invocation.js";
+ 
+ const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+ const ref = v.pipe(v.string(), v.minLength(1));
+@@ -18,32 +27,74 @@
+ }
+ const coordinate = v.strictObject({ cCallRef: ref, resultRef: ref, resultDigest: digest,
+   resultAdmissionEventRef: ref, judgmentEventRef: ref });
++export interface NativeSemanticRevisionIntake {
++  readonly kind: "native_semantic_revision_intake";
++  readonly schemaVersion: "5.0.0";
++  readonly sourceRun: { readonly ref: string; readonly digest: Sha256Digest };
++  readonly sourcePrefix: DurablePrefixCoordinate;
++}
++export function isNativeSemanticRevisionIntake(value: unknown): value is NativeSemanticRevisionIntake {
++  return v.is(v.strictObject({ kind: v.literal("native_semantic_revision_intake"), schemaVersion: v.literal("5.0.0"),
++    sourceRun: v.strictObject({ ref, digest }), sourcePrefix: v.custom(validateDurablePrefixCoordinate) }), value);
++}
+ export interface SemanticRevisionSelection {
+   readonly kind: "semantic_revision_selection"; readonly schemaVersion: "5.0.0";
+   readonly parent: SemanticRevisionCoordinate; readonly causes: readonly SemanticRevisionCoordinate[];
+   readonly mode: "construction_repair" | "stage_revision";
+   readonly selectedStageRef: string | null; readonly selectedObligationRefs: readonly string[];
+   readonly selectedTargetRefs: readonly string[]; readonly reasonRef: string;
++  readonly nativePhase?: "preconstruction" | "postconstruction";
+ }
+ const selectionSchema = v.strictObject({ kind: v.literal("semantic_revision_selection"), schemaVersion: v.literal("5.0.0"),
+   parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), mode: v.picklist(["construction_repair", "stage_revision"]),
+-  selectedStageRef: v.nullable(ref), selectedObligationRefs: v.pipe(refs, v.minLength(1)), selectedTargetRefs: refs, reasonRef: ref });
++  selectedStageRef: v.nullable(ref), selectedObligationRefs: refs, selectedTargetRefs: refs, reasonRef: ref,
++  nativePhase: v.optional(v.picklist(["preconstruction", "postconstruction"])) });
++/** Native observation evidence stays native. This is an input to authenticate,
++ * not a synthetic C0/C1 worksite or a new currentness owner. */
++export interface NativeSemanticRevisionWorksite {
++  readonly kind: "native_semantic_revision_worksite";
++  readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
++  readonly workspaceBinding: WorkspaceBinding;
++  readonly capabilityGrant: CapabilityGrant;
++  readonly context: WorksiteContextObservation;
++  readonly commandExecutionLimits: WorksiteCommandExecutionLimits;
++  readonly construction: SemanticRevisionCoordinate | null;
++  readonly source: NativeSemanticRevisionIntake;
++  readonly acquisition?: SemanticRevisionCoordinate;
++}
++export function isNativeSemanticRevisionWorksite(value: unknown): value is NativeSemanticRevisionWorksite {
++  if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
++  const x = value as NativeSemanticRevisionWorksite;
++  return Object.keys(x).sort().join() === ["kind", "workspaceAuthorityBasis", "workspaceBinding", "capabilityGrant", "context", "commandExecutionLimits", "construction", "source", ...(x.acquisition === undefined ? [] : ["acquisition"])].sort().join() &&
++    x.kind === "native_semantic_revision_worksite" && isWorkspaceAuthorityBasis(x.workspaceAuthorityBasis) &&
++    x.workspaceBinding !== null && typeof x.workspaceBinding === "object" && exactWorkspaceBinding(x.workspaceBinding) && isCapabilityGrantValue(x.capabilityGrant) &&
++    v.is(v.strictObject({ inactivityTimeoutMs:v.pipe(v.number(),v.integer(),v.minValue(1)), absoluteTimeoutMs:v.pipe(v.number(),v.integer(),v.minValue(1)) }), x.commandExecutionLimits) &&
++    x.commandExecutionLimits.absoluteTimeoutMs > x.commandExecutionLimits.inactivityTimeoutMs &&
++    isWorksiteContextObservation(x.context) && (x.construction === null || v.is(coordinate, x.construction)) &&
++    isNativeSemanticRevisionIntake(x.source) && (x.acquisition === undefined || v.is(coordinate, x.acquisition)) &&
++    x.context.workspaceAuthorityBasisRef === x.workspaceAuthorityBasis.authorityBasisId &&
++    x.context.workspaceAuthorityBasisDigest === x.workspaceAuthorityBasis.authorityBasisDigest &&
++    x.context.workspaceBindingIdentity === x.workspaceBinding.bindingId && x.context.workspaceBindingDigest === x.workspaceBinding.bindingDigest;
++}
+ export interface SemanticRevisionRequest {
+   readonly kind: "semantic_revision_request"; readonly schemaVersion: "5.0.0";
+   readonly parent: SemanticRevisionCoordinate; readonly causes: readonly SemanticRevisionCoordinate[];
+   readonly selection: SemanticRevisionCoordinate;
+   readonly currentWorksite: SemanticWorksiteBasis | null;
++  readonly nativeWorksite?: NativeSemanticRevisionWorksite;
+ }
+ export interface SemanticRevisionSelectionInput {
+   readonly kind: "semantic_revision_selection_input"; readonly schemaVersion: "5.0.0";
+   readonly parent: SemanticRevisionCoordinate; readonly causes: readonly SemanticRevisionCoordinate[];
+   readonly currentWorksite: SemanticWorksiteBasis | null;
++  readonly nativeWorksite?: NativeSemanticRevisionWorksite;
+ }
+ const selectionInputSchema = v.strictObject({ kind: v.literal("semantic_revision_selection_input"), schemaVersion: v.literal("5.0.0"),
+-  parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), currentWorksite: v.unknown() });
++  parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), currentWorksite: v.unknown(), nativeWorksite: v.optional(v.unknown()) });
+ export function isSemanticRevisionSelectionInput(x: unknown): x is SemanticRevisionSelectionInput {
+   return v.is(selectionInputSchema, x) && unique(x.causes.map(c => c.resultRef)) &&
+-    (x.currentWorksite === null || isSemanticWorksiteBasis(x.currentWorksite));
++    (x.currentWorksite === null || isSemanticWorksiteBasis(x.currentWorksite)) &&
++    (x.nativeWorksite === undefined || x.currentWorksite === null && isNativeSemanticRevisionWorksite(x.nativeWorksite));
+ }
+ /** Compare the selected observation, not two Programs' different permissions.
+  * ABG authenticates each invocation's own operating basis separately. */
+@@ -51,21 +102,28 @@
+   try {
+     if (!isSemanticRevisionSelectionInput(input) || !isSemanticRevisionRequest(request) ||
+       hash(input.parent) !== hash(request.parent) || hash(input.causes) !== hash(request.causes)) return false;
++    if (input.nativeWorksite !== undefined || request.nativeWorksite !== undefined) {
++      if (input.nativeWorksite === undefined || request.nativeWorksite === undefined) return false;
++      const { capabilityGrant: _selectedGrant, acquisition: _selectedAcquisition, ...selected } = input.nativeWorksite;
++      const { capabilityGrant: _currentGrant, acquisition: _currentAcquisition, ...current } = request.nativeWorksite;
++      return hash(selected) === hash(current);
++    }
+     if (input.currentWorksite === null || request.currentWorksite === null) return input.currentWorksite === request.currentWorksite;
+     const projected = projectSemanticWorksiteCoordinates(input.currentWorksite, request.currentWorksite);
+     return projected !== null && hash(projected) === hash(request.currentWorksite);
+   } catch { return false; }
+ }
+-export function semanticRevisionSelectionSchema(): Readonly<Record<string, JsonValue>> {
++export function semanticRevisionSelectionSchema(nativePhase?: "preconstruction" | "postconstruction"): Readonly<Record<string, JsonValue>> {
+   const coordinateSchema = { type: "object", additionalProperties: false, required: ["cCallRef", "resultRef", "resultDigest", "resultAdmissionEventRef", "judgmentEventRef"], properties: {
+     cCallRef: {type:"string"}, resultRef: {type:"string"}, resultDigest:{type:"string",pattern:"^sha256:[a-f0-9]{64}$"}, resultAdmissionEventRef:{type:"string"},judgmentEventRef:{type:"string"} } };
+   return { type: "object", additionalProperties: false,
+-    required: ["kind", "schemaVersion", "parent", "causes", "mode", "selectedStageRef", "selectedObligationRefs", "selectedTargetRefs", "reasonRef"],
++    required: ["kind", "schemaVersion", "parent", "causes", "mode", "selectedStageRef", "selectedObligationRefs", "selectedTargetRefs", "reasonRef", ...(nativePhase === undefined ? [] : ["nativePhase"])],
+     properties: { kind:{const:"semantic_revision_selection"},schemaVersion:{const:"5.0.0"},parent:coordinateSchema,causes:{type:"array",minItems:1,items:coordinateSchema},
+-      mode:{enum:["construction_repair","stage_revision"]},selectedStageRef:{type:["string","null"]}, selectedObligationRefs:{type:"array",minItems:1,items:{type:"string"}},selectedTargetRefs:{type:"array",items:{type:"string"}},reasonRef:{type:"string"} } };
++      mode:{enum:nativePhase === "preconstruction" ? ["stage_revision"] : ["construction_repair","stage_revision"]},selectedStageRef:{type:["string","null"]}, selectedObligationRefs:{type:"array",minItems:nativePhase === "preconstruction" ? 0 : 1,items:{type:"string"}},selectedTargetRefs:{type:"array",items:{type:"string"}},reasonRef:{type:"string"},
++      ...(nativePhase === undefined ? {} : { nativePhase: { const: nativePhase } }) } };
+ }
+ const requestSchema = v.strictObject({ kind: v.literal("semantic_revision_request"), schemaVersion: v.literal("5.0.0"),
+-  parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), selection: coordinate, currentWorksite: v.unknown() });
++  parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), selection: coordinate, currentWorksite: v.unknown(), nativeWorksite: v.optional(v.unknown()) });
+ export interface SemanticRevisionBasis {
+   readonly basisRef: string; readonly basisDigest: Sha256Digest;
+   readonly request: SemanticRevisionRequest; readonly selection: SemanticRevisionSelection;
+@@ -81,11 +139,14 @@
+ const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
+ export function isSemanticRevisionSelection(x: unknown): x is SemanticRevisionSelection {
+   return v.is(selectionSchema, x) && unique(x.causes.map(c => c.resultRef)) && unique(x.selectedObligationRefs) &&
++    (x.selectedObligationRefs.length > 0 || x.nativePhase === "preconstruction") &&
++    (x.nativePhase !== "preconstruction" || x.mode === "stage_revision" && x.selectedTargetRefs.length === 0) &&
+     unique(x.selectedTargetRefs) && (x.mode === "construction_repair" ? x.selectedStageRef === null : x.selectedStageRef !== null);
+ }
+ export function isSemanticRevisionRequest(x: unknown): x is SemanticRevisionRequest {
+   return v.is(requestSchema, x) && unique(x.causes.map(c => c.resultRef)) &&
+-    (x.currentWorksite === null || isSemanticWorksiteBasis(x.currentWorksite));
++    (x.currentWorksite === null || isSemanticWorksiteBasis(x.currentWorksite)) &&
++    (x.nativeWorksite === undefined || x.currentWorksite === null && isNativeSemanticRevisionWorksite(x.nativeWorksite));
+ }
+ export function isSemanticRevisionEnvelope(x: unknown): x is SemanticRevisionEnvelope {
+   try {
+@@ -112,7 +173,7 @@
+ /** Pure projection only. ABG must authenticate every input and regenerate this value before admission. */
+ export function deriveSemanticRevision(parent: SemanticStageEnvelope | SemanticRevisionEnvelope,
+   request: SemanticRevisionRequest, selection: SemanticRevisionSelection): Readonly<SemanticRevisionEnvelope> | null {
+-  if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) ||
++  if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || request.nativeWorksite !== undefined || selection.nativePhase !== undefined ||
+     hash(request.parent) !== hash(selection.parent) || hash(request.causes) !== hash(selection.causes)) return null;
+   const priorRevision = isSemanticRevisionEnvelope(parent) ? parent : null;
+   const prior = priorRevision?.current ?? parent as SemanticStageEnvelope;
+@@ -177,18 +238,26 @@
+   } catch { return false; }
+ }
+ export function deriveSemanticJobRevision(parent: SemanticJobEnvelope | SemanticJobRevisionEnvelope,
+-  request: SemanticRevisionRequest, selection: SemanticRevisionSelection, worksite: SemanticWorksiteBasis,
+-  historicalWorksite: SemanticWorksiteBasis = worksite): Readonly<SemanticJobRevisionEnvelope> | null {
+-  try {
+-    if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || !isSemanticWorksiteBasis(worksite) ||
++  request: SemanticRevisionRequest, selection: SemanticRevisionSelection, worksite: SemanticWorksiteBasis | null,
++  historicalWorksite: SemanticWorksiteBasis | null = worksite,
++  counterevidenceAssets: readonly SemanticJobAsset[] = [], counterevidence?: SemanticJobEnvelope): Readonly<SemanticJobRevisionEnvelope> | null {
++  try {
++    const native = request.nativeWorksite;
++    if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) ||
++      (native === undefined ? !isSemanticWorksiteBasis(worksite) || historicalWorksite === null || selection.nativePhase !== undefined :
++        worksite !== null || selection.nativePhase !== (native.construction === null ? "preconstruction" : "postconstruction")) ||
+       hash(request.parent) !== hash(selection.parent) || hash(request.causes) !== hash(selection.causes)) return null;
+     const priorRevision = isSemanticJobRevisionEnvelope(parent) ? parent : null;
+     const prior = priorRevision?.current ?? parent as SemanticJobEnvelope;
+     if (!isSemanticJobEnvelope(prior)) return null;
+-    const history = merge([...(priorRevision?.revisionBasis.historicalAssets ?? []), ...prior.assets], a => a.assetRef);
++    const history = merge([...(priorRevision?.revisionBasis.historicalAssets ?? []), ...prior.assets,
++      ...(native === undefined ? [] : counterevidenceAssets)], a => a.assetRef);
+     const active = projectSemanticJobBindings(prior), terms = history === null ? null : merge(history.flatMap(a => a.groundedTerms), t => t.requirementRef);
+     if (history === null || terms === null || active === null || !selection.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) ||
+-      !selection.selectedTargetRefs.every(r => historicalWorksite.targets.some(t => t.target.targetRef === r))) return null;
++      !selection.selectedTargetRefs.every(r => native === undefined ? historicalWorksite!.targets.some(t => t.target.targetRef === r) :
++        semanticJobRevisionNativeTargets(prior).some(t => t.relativePath === r)) ||
++      native !== undefined && (active.length > 0 && selection.selectedObligationRefs.length === 0 ||
++        native.construction === null && (selection.mode !== "stage_revision" || selection.selectedTargetRefs.length !== 0))) return null;
+     const affected = new Set<string>();
+     if (selection.mode === "stage_revision") {
+       if (!prior.declaration.stages.some(s => s.declarationRef === selection.selectedStageRef)) return null;
+@@ -198,25 +267,111 @@
+     const preserved = prior.assets.filter(a => !affected.has(a.stageRef) && !(selection.mode === "construction_repair" &&
+       prior.declaration.stages.find(s => s.declarationRef === a.stageRef)?.bodyCapabilities.includes("application_assessment")));
+     if (preserved.some(a => a.assessment?.disposition !== "satisfied")) return null;
++    const evidenceOnly = native !== undefined && selection.mode === "stage_revision" && prior.declaration.stages.find(s=>s.declarationRef === selection.selectedStageRef)?.bodyCapabilities.includes("application_assessment") === true;
++    if (evidenceOnly && (native.construction === null || counterevidence?.evidence == null)) return null;
+     const body = { request, selection, affectedStageRefs: [...affected], preservedAssetRefs: preserved.map(a => a.assetRef),
+       retainedTerms: terms, retainedBindings: active.map(v => v.binding), historicalAssets: history,
+       parentRevisionRef: priorRevision?.revisionBasis.basisRef ?? null };
+     const basisDigest = hash(body);
+     const result: SemanticJobRevisionEnvelope = { kind: "semantic_revision_envelope", schemaVersion: "5.0.0",
+       revisionBasis: { ...body, basisDigest, basisRef: `semantic-revision://abiogenesis/${basisDigest.slice(7)}` },
+-      current: { ...prior, assets: preserved, worksite, evidence: null } };
++      current: { ...prior, assets: preserved, worksite, evidence: evidenceOnly ? counterevidence!.evidence : null, ...(native === undefined ? {} : { context: native.context }) } };
+     return isSemanticJobRevisionEnvelope(result) ? deepFreeze(result) : null;
+   } catch { return null; }
+ }
++export function semanticJobRevisionNativeTargets(envelope: SemanticJobEnvelope) {
++  return [...envelope.assets].reverse().find(asset => asset.candidate.design !== null)?.candidate.design?.targets ?? [];
++}
++/** Affected writes derive from admitted selection and the newly assessed
++ * Design. Unchanged targets stay read-only members of the native snapshot. */
++export function nativeSemanticRevisionConstruction(input: SemanticJobRevisionEnvelope): NativeSemanticRevisionConstruction {
++  if (!isSemanticJobRevisionEnvelope(input) || input.revisionBasis.request.nativeWorksite === undefined)
++    throw new TypeError("native semantic revision required");
++  const selection = input.revisionBasis.selection, targets = semanticJobRevisionNativeTargets(input.current);
++  const previous = [...input.revisionBasis.historicalAssets].reverse().find(a => a.candidate.design !== null)?.candidate.design?.targets ?? [];
++  const selectedPaths = targets.filter(target => selection.nativePhase === "preconstruction" ||
++    selection.selectedTargetRefs.includes(target.relativePath) || selection.mode === "stage_revision" &&
++    (target.obligationRefs.some(ref => selection.selectedObligationRefs.includes(ref)) ||
++      !previous.some(old => old.relativePath === target.relativePath && hash(old) === hash(target)))).map(t => t.relativePath);
++  return { selectedPaths, executionLimits: input.revisionBasis.request.nativeWorksite!.commandExecutionLimits, feedback: { selection: selection as unknown as JsonValue,
++    historicalAssets: input.revisionBasis.historicalAssets as unknown as JsonValue,
++    retainedTerms: input.revisionBasis.retainedTerms as unknown as JsonValue } };
++}
++export function constructNativeRevisionConstructionTask(input: SemanticJobRevisionEnvelope, operating: NativeSemanticOperating | undefined = input.revisionBasis.request.nativeWorksite) {
++  const native = input.revisionBasis.request.nativeWorksite;
++  if (native === undefined || operating === undefined || input.current.context === null || input.current.evidence !== null) throw new TypeError("native revision construction basis required");
++  return constructNativeSemanticConstructionTask(input.current, operating, input.current.context, nativeSemanticRevisionConstruction(input));
++}
++export function constructNativeRevisionExecutionTask(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation) {
++  if (!isNativeWorkspaceWorkObservation(source) || hash(source.task) !== hash(constructNativeRevisionConstructionTask(input, {...input.revisionBasis.request.nativeWorksite!, ...source.task})))
++    throw new TypeError("actual selected native revision construction required");
++  return constructNativeSemanticExecutionTask(input.current, source, nativeSemanticRevisionConstruction(input));
++}
++/** Coordinates supplied here are admitted by the ABG source join, never by this pure constructor. */
++export function deriveNativeRevisionEvidence(input: SemanticJobRevisionEnvelope, execution: unknown,
++  construction: Pick<SemanticRevisionCoordinate, "resultRef" | "resultDigest">,
++  command: Pick<SemanticRevisionCoordinate, "resultRef" | "resultDigest">): SemanticJobRevisionEnvelope | null {
++  try {
++    if (!isSemanticJobRevisionEnvelope(input) || !isNativeWorksiteCommandExecutionObservation(execution) ||
++      hash(execution.task) !== hash(constructNativeRevisionExecutionTask(input, execution.task.sourceNativeWork))) return null;
++    const artifacts = nativeSemanticEvidenceArtifacts(input.current, execution, nativeSemanticRevisionConstruction(input));
++    if (artifacts === null) return null;
++    return deepFreeze({ ...input, current: { ...input.current, context: execution.task.sourceNativeWork.after, worksite: null,
++      evidence: { kind: "semantic_worksite_evidence", constructionResultRef: construction.resultRef, constructionResultDigest: construction.resultDigest,
++        executionResultRef: command.resultRef, executionResultDigest: command.resultDigest,
++        constructionResult: execution.task.sourceNativeWork as unknown as Readonly<Record<string, JsonValue>>,
++        executionObservation: execution as unknown as Readonly<Record<string, JsonValue>>, artifacts } } });
++  } catch { return null; }
++}
+ export function deriveJobRevisionAsset(input: SemanticJobRevisionEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource) {
+   if (!isSemanticJobRevisionEnvelope(input)) return null;
+-  const current = deriveSemanticJobAsset(input.current, stageRef, raw, source, input.revisionBasis.retainedTerms);
++  const current = deriveSemanticJobAsset(input.current, stageRef, raw, source, input.revisionBasis.retainedTerms, undefined, input.revisionBasis.request.nativeWorksite?.commandExecutionLimits);
+   return current === null ? null : deepFreeze({ ...input, current });
+ }
+ export function deriveJobRevisionAssessment(input: SemanticJobRevisionEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource) {
+   if (!isSemanticJobRevisionEnvelope(input)) return null;
+-  const current = deriveSemanticJobAssessment(input.current, stageRef, raw, source, input.revisionBasis.retainedTerms);
++  const current = deriveSemanticJobAssessment(input.current, stageRef, raw, source, input.revisionBasis.retainedTerms, input.revisionBasis.request.nativeWorksite?.commandExecutionLimits);
+   if (current === null) return null;
+   // Current binding projection changes; admitted revision/old versions do not.
+   return deepFreeze({ ...input, current });
+ }
++
++/** Pure carrier consequence; ABG authenticates intake, selection and native
++ * producers before any of these leaves can supply advancing authority. */
++export function evaluateNativeSemanticRevisionRelation(predicate: string, input: unknown, output: unknown): boolean | null {
++  const roles = [ids.nativeIntakePredicateRef,ids.nativeRequestPredicateRef,ids.nativeConstructionPredicateRef,ids.nativeExecutionPredicateRef,ids.nativeEvidencePredicateRef];
++  const step = predicate === ids.stepPredicateRef;
++  if (!step && !roles.some(ref=>ref===predicate)) return null;
++  const same = (a:unknown,b:unknown)=>hash(a)===hash(b);
++  try {
++    if (predicate === ids.nativeIntakePredicateRef || step && isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output))
++      return isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output) && output.nativeWorksite !== undefined && same(input,output.nativeWorksite.source);
++    if (predicate === ids.nativeRequestPredicateRef || step && (isSemanticRevisionSelectionInput(input) || isSemanticRevisionSelection(input)) && isSemanticRevisionRequest(output))
++      return isSemanticRevisionRequest(output) && output.nativeWorksite?.acquisition !== undefined &&
++        (isSemanticRevisionSelection(input) ? same(input.parent,output.parent) && same(input.causes,output.causes) :
++          isSemanticRevisionSelectionInput(input) ? semanticRevisionSelectionInputMatchesRequest(input,output) :
++            isNativeSemanticRevisionIntake(input) && same(input,output.nativeWorksite.source));
++    if (step && isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output))
++      return same(input.parent,output.parent) && same(input.causes,output.causes);
++    if (predicate === ids.nativeConstructionPredicateRef || step && isSemanticJobRevisionEnvelope(input) && isNativeWorkspaceWorkTask(output))
++      return isSemanticJobRevisionEnvelope(input) && isNativeWorkspaceWorkTask(output) &&
++        same(constructNativeRevisionConstructionTask(input,{...input.revisionBasis.request.nativeWorksite!,...output}),output);
++    if (predicate === ids.nativeExecutionPredicateRef || step && isRetainedGraphInput(input) && isNativeWorksiteCommandExecutionTask(output))
++      return isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(input.entry) && isNativeWorkspaceWorkObservation(input.source) &&
++        same(constructNativeRevisionExecutionTask(input.entry,input.source),output);
++    if (predicate === ids.nativeEvidencePredicateRef || step && isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(output)) {
++      if (isSemanticJobRevisionEnvelope(input) && isSemanticJobRevisionEnvelope(output) && output.current.evidence !== null)
++        input = constructRetainedGraphInput(input,output.current.evidence.executionObservation);
++      if (!isRetainedGraphInput(input) || !isSemanticJobRevisionEnvelope(input.entry) || !isSemanticJobRevisionEnvelope(output) || output.current.evidence === null) return false;
++      const evidence = output.current.evidence;
++      return same(deriveNativeRevisionEvidence(input.entry,input.source,
++        {resultRef:evidence.constructionResultRef,resultDigest:evidence.constructionResultDigest},
++        {resultRef:evidence.executionResultRef,resultDigest:evidence.executionResultDigest}),output);
++    }
++    if (step && isNativeWorkspaceWorkTask(input)) return resolveNativeWorkspaceWorkJudgmentRelation(NATIVE_WORKSPACE_WORK_IDS.judgmentPredicateRef)?.evaluate(input,output) === true;
++    if (step && isNativeWorksiteCommandExecutionTask(input)) return resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef)?.evaluate(input,output) === true;
++    if (step && isSemanticJobRevisionEnvelope(input) && input.current.evidence === null && isSemanticJobRevisionEnvelope(output) && output.current.evidence !== null)
++      return evaluateNativeSemanticRevisionRelation(ids.nativeEvidencePredicateRef,constructRetainedGraphInput(input,output.current.evidence.executionObservation),output);
++    return step ? null : false;
++  } catch { return false; }
++}
+--- before/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md
++++ after/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md
+@@ -1,4 +1,74 @@
+ # T-287 D2: Evidence-Bound Affected Lifecycle Successor
++
++## Native phase-qualified intake and correction (NATIVE-D2-01)
++
++Executive selection under T287/GOAL035 and T043 is a bounded design reframe of
++this existing D2 relation. ABI's selected method is exact STDO 2.5.1 RC1; GLC
++retains RC4. The historical design dispositions below remain historical. This
++increment changes no Product family or Public operation and does not establish
++installed qualification.
++
++An ordinary caller supplies only the original public Run `{ref,digest}` and
++its durable prefix to `program://odd-glc/native-semantic-revision/intake@5`.
++The declared F_D intake uses existing ABG prefix, Run, execution-basis,
++Result/J, workspace and native-observation owners to authenticate one eligible
++cause and one successful advancing semantic predecessor from that Run. An
++absent or ambiguous cause/parent refuses; chronological latest is not a
++selector. The original admitted job, source, oracle and root remain exact.
++Rejected candidate/assessment bytes are counterevidence, never the advancing
++parent. Lifecycle declaration bytes must equal the selected publication's
++lifecycle, even when its declaration reference has the same spelling.
++
++Before construction, a refused native assessment supplies the actual rejected
++candidate and assessment; no future worksite, construction origin or target
++selection is invented. After construction, an eligible failed command or
++assessment must additionally resolve its real native construction source and
++current observed context through the existing owners. A native observation
++never becomes a fabricated C0/C1 result. Intake checks the current workspace
++and admitted binding correspondence and observes current context; later
++consumers use that one admitted acquisition and exact referenced leaves within
++its basis, without repeating failure discovery.
++
++The existing F_P selection receives authenticated alternatives, complete
++source, current context, obligations and counterevidence. Its preconstruction
++arm selects only an existing stage at or before the refused stage, with no
++target references; postconstruction also admits construction repair and exact
++historical Design paths. F_D request construction binds the admitted selection
++and intake Results into the existing terminal-readable SemanticRevisionRequest.
++No caller extracts private leaf ids or writes a proof packet. Selection and
++execution are two ordinary invocations: the second starts a declared whole
++suffix. Its projection refuses a start whose entry differs from the admitted
++mode/stage. HoG traverses the suffix; no caller stage loop is introduced.
++
++D2 retains unaffected accepted assets, original source and oracle, historical
++counterevidence, grounded terms, outstanding obligations and binding versions.
++The selected semantic stages use the existing D2 author/assessor owners.
++Application correction uses native construction restricted to affected paths,
++existing C2 over all declared target/dependency snapshots, then fresh Evidence.
++An Evidence-only semantic re-entry retains its authenticated prior native
++observation and re-evaluates that evidence without granting construction writes.
++Old workspace semantic files remain historical when superseded by current
++admitted D2 semantic assets; the native constructor receives that distinction.
++
++Current execution limits are selected at the implementation intake boundary
++and retained in its operating context. They are passed explicitly to the one
++existing Product budget calculation for new revision author/assessor contracts
++and construction readiness. Original job bytes and historical folds are not
++enriched or reinterpreted; this also covers an old job lacking the optional
++limits field. Changed selected controls refuse new construction preparation.
++
++The exact native D2 graph factory owns its two retained-input edges. Existing
++ABI contract, implementation and semantics owners authenticate that relation;
++a marker alone is insufficient. STDO role admission recognizes only the exact
++existing D2 selection/author/assessor bindings, using the existing assessor role
++for selection and Program-scoped context declarations.
++
++Source/component readiness is separate from a real correction. Successful
++cases supply no invented failure. A budget-only retry is not consequential
++application correction. The prospective bootstrap source additionally needs
++its exact historical lifecycle selected unchanged; this increment neither
++migrates old carriers nor admits a lifecycle-definition successor.
++
+ 
+ ## Proposed generic-job binding conservation
+ 
+--- before/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
++++ after/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+@@ -1,4 +1,31 @@
+ # T-287 Native Workspace Work
++
++## Native D2 source relation (NATIVE-D2-01)
++
++The existing D2 HOW owns the phase-qualified correction loop. Public Run and
++durable-prefix coordinates enter a declared ABG F_D intake; existing owners
++acquire the unique failed leaf, advancing semantic parent, original root and
++current workspace relation. The admitted intake supplies selection and request
++construction. It is a derived carrier, not a store or new runtime authority.
++
++A preconstruction assessment refusal has no native construction source. It
++re-enters the selected semantic stage and later reaches the ordinary native
++construction owner. A postconstruction correction retains its real native
++observation origin. Affected paths derive from the admitted selection and
++current assessed Design; unaffected paths stay protected snapshot dependencies.
++C2 and fresh Evidence retain their actual Result/J coordinates and native
++observations. No copied target list is substituted for provenance and no C0/C1
++parent is fabricated. The existing retained-input mechanism is admitted only
++for the exact reconstructed D2 factory and ABI owners.
++
++The native task carries current admitted semantic meaning alongside explicitly
++historical asset files. Existing source/oracle and protected-file constraints
++remain. Current command capacity enters as explicit immutable operating data
++from the implementation selector and uses the existing budget owner; old job
++bytes and historical task correspondence remain unchanged. Qualification still
++requires real eligible evidence, a lawful unchanged lifecycle selection, and a
++fresh installed execution; component receipts do not establish S06.
++
+ 
+ This bounded design reframe realizes Product's native F_P and current-workspace
+ Worker → Evaluator → Consequence grants (PRODUCT.md 516–565, 640–659, 850–858)
+--- before/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md
++++ after/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md
+@@ -1,4 +1,47 @@
+ # Bounded native source-to-IntentAsset binding
++
++## Native semantic-job D2 entry (NATIVE-D2-01)
++
++The generic native semantic-job lifecycle declares an ordinary two-invocation
++D2 route. `program://odd-glc/native-semantic-revision/intake@5` accepts the
++public original Run `{ref,digest}` plus durable prefix. Existing ABG owners
++acquire one eligible failure, one advancing semantic predecessor, original
++job/root and current workspace context; absent or ambiguous joins refuse.
++F_P assesses affectedness only among those admitted alternatives. F_D seals
++the existing SemanticRevisionRequest, which ordinary terminal read returns.
++
++The caller then invokes the declared `construction-repair`, `from-intent`,
++`from-product`, `from-requirements`, `from-design` or `from-evidence` Program
++under `program://odd-glc/native-semantic-revision/<name>@5`. The projection
++requires its entry to match the actual admitted selection. Each Program
++contains the complete suffix; GLC adds no caller traversal or runtime.
++
++Before construction, the actual rejected native candidate/assessment is cause
++and the accepted semantic predecessor remains parent. There is no constructed
++worksite or target selection to manufacture. After construction, actual native
++origins and affected/unaffected targets are conserved. Existing D2 semantic
++actors correct the selected meaning; native construction/C2 and fresh Evidence
++carry application effects and proof. Evidence-only re-entry uses the retained
++native evidence. Original source, evaluator-only oracle, job/root, historical
++assets and outstanding obligations remain exact. Current execution capacity
++is retained separately from the original job and supplied through the existing
++ABG/Product budget owner for new work, including old jobs without that field.
++
++Each Program selects only its exact existing STDO role bindings and context
++rows. Selection uses the existing assessor role. The fresh lifecycle retains
++its original three native families. Existing native-continuation carriers and
++Programs remain a separate supported route; they are not promoted into a
++SemanticJobEnvelope or migrated by this relation.
++
++Historical lifecycle byte equality is retained. The fresh convenience factory
++constructs its current lifecycle declaration, so an older Run whose lifecycle
++bytes differ is not automatically launchable. An exact retained lifecycle
++must be explicitly selected in the authored publication through existing GTL
++declaration/factory owners and validated with the new suffix; no definition
++successor or reinterpretation of historical assessment is implied. Source
++readiness and synthetic component checks are not installed correction or S06
++qualification.
++
+ 
+ Status: accepted bounded source-to-Intent design under T-043 / T-287 NW5. The odd_glc source basis remains STDO `v2.5.0-rc.4`, manifest `4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e`, and `live-llm-mvp:2`. The external ABI qualification activation uses RC1 without migrating odd_glc's method, default dependency or entry.
+ 
+--- before/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs
++++ after/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs
+@@ -220,28 +220,37 @@
+     policies: { "abg.root_mode": "direct", "abg.compute_regime": "mixed", "abg.default_start_ref": ids.startRef,
+       "abg.semantic_lifecycle": lifecycle.declarationRef,
+       ...(runEnvironment === undefined ? {} : { [gtl.RUN_ENVIRONMENT_POLICY]: runEnvironment.declarationRef }) } };
++  const revision = nativeRevisionDeclarations({gtl,product,lifecycle,close,program});
++  graphs.push(...revision.graphs);
++  const programs = [program,...revision.programs];
++  const environments = runEnvironment === undefined ? [] : programs.map((p,i) => {
++    const declarationRef = i === 0 ? runEnvironment.declarationRef : runEnvironment.declarationRef + "/native-revision-" + i;
++    p.policies = {...p.policies,[gtl.RUN_ENVIRONMENT_POLICY]:declarationRef};
++    return gtl.constructRunEnvironmentDeclaration({...structuredClone(runEnvironment),declarationRef,
++      roles:runEnvironment.roles.filter(role=>p.callableMembership.includes(role.graphFunctionRef))});
++  });
+   const template = exactlyOne(semanticPublication.contracts.filter(c => c.contractRef === n.closureContractRef), "semantic closure contract");
+   return gtl.modulePublication({ kind: "module_publication", moduleVersion: "5.0.0", moduleRef: ids.moduleRef, owningProductId: ids.productId,
+     descriptorRef: ids.descriptorRef, contributionManifestRef: ids.contributionManifestRef,
+     artifactDigest: zero, productContentDigest: zero, productManifestDigest: zero,
+     productSemanticsBinding: structuredClone(semanticPublication.productSemanticsBinding), semanticJobLifecycle: lifecycle,
+-    ...(runEnvironment === undefined ? {} : { runEnvironments: [gtl.constructRunEnvironmentDeclaration(runEnvironment)] }),
++    ...(environments.length === 0 ? {} : { runEnvironments: environments }),
+     contracts: closures.map(c => ({ ...template, contractRef: c.closureContractRef })), closureContracts: closures,
+-    implementationBindings: [], evaluators: [], rules: [], graphFunctions: graphs, programs: [program],
++    implementationBindings: [], evaluators: [], rules: [], graphFunctions: graphs, programs,
+     contributions: graphs.map(g => ({ handle: g.name, kind: "graph_function", declarationOrContractRef: g.name, owningProductId: ids.productId,
+-      programMembershipRefs: [ids.programRef], readinessPrerequisiteRefs: [ids.programRef], compatibilityRefs: ["compatibility://abiogenesis/major/5"], provenanceRefs: [zero, zero] })) });
++      programMembershipRefs: programs.filter(p=>p.callableMembership.includes(g.name)).map(p=>p.programRef), readinessPrerequisiteRefs: programs.filter(p=>p.callableMembership.includes(g.name)).map(p=>p.programRef), compatibilityRefs: ["compatibility://abiogenesis/major/5"], provenanceRefs: [zero, zero] })) });
+ }
+ 
+ /** Three reusable native actor families; twelve sequential actor occurrences.
+  * The admitted task supplies the current stage and exact candidate contract. */
+ export function constructFreshNativeLifecycleEnvironmentRoles({ gtl, product, publication, nativePublications, sourceSelections, accessRefs, sourceBasisRef }) {
+-  const program = exactlyOne(publication.programs, "fresh native Program");
+-  const functions = [...publication.graphFunctions, ...nativePublications.flatMap(p => p.graphFunctions)].filter(g => program.callableMembership.includes(g.name));
++  const membership = new Set(publication.programs.flatMap(p=>p.callableMembership));
++  const functions = [...publication.graphFunctions, ...nativePublications.flatMap(p => p.graphFunctions)].filter(g => membership.has(g.name));
+   const rows = functions.flatMap(graph => graph.template.nodes.flatMap(node => gtl.cLeafTerms(node.term).filter(leaf => leaf.fibre === "F_P").map(leaf => {
+     const role = gtl.nativeContextLeafFamily(graph, leaf), posture = role === "assessor" ? "reviewer" : "worker";
+-    if (!["constructor", "assessor", "command_executor"].includes(role)) throw new TypeError("unsupported fresh native actor family");
++    if (!["author", "constructor", "assessor", "command_executor"].includes(role)) throw new TypeError("unsupported fresh native actor family");
+     const selected = role === "command_executor" ? ["execution"] : ["intent", "product", "requirements", "design", "evidence", ...(role === "constructor" ? ["construction"] : [])];
+-    const text = role === "assessor" ? "Independently assess the admitted current candidate against the complete source, exact stage rubric and observed evidence. Remain read-only; report rejection and gaps honestly."
++    const text = role === "author" ? "Derive only the declared affected semantic asset from authenticated current context and preserved source obligations. Return the closed candidate JSON; use no tools or file writes." : role === "assessor" ? "Independently assess the admitted current candidate against the complete source, exact stage rubric and observed evidence. Remain read-only; report rejection and gaps honestly."
+       : role === "constructor" ? "Carry out the admitted stage task in the native workspace. Write only its declared asset or construction paths, preserving higher source and every unaffected obligation. Return only the native report, never accumulated semantic envelopes."
+         : "Execute only the admitted same-Run command task and probes. Retain actual failures and observations; never infer semantic completion from an exit code.";
+     return { graphFunctionRef: graph.name, programLocusRef: leaf.programLocusRef, role,
+@@ -250,6 +259,50 @@
+       accessRefs: [...accessRefs], sourceBindings: [...sourceSelections.common, ...sourceSelections[posture], ...selected.flatMap(key => sourceSelections[key])],
+       contextPolicy: { policyRef: `policy://odd-glc/fresh-native-lifecycle/${role}/selection@5`, selectors: role === "command_executor" ? ["current_worksite", "admitted_execution_evidence"] : ["current_worksite"] } };
+   })));
+-  if (rows.length !== 3 || new Set(rows.map(r => r.role)).size !== 3) throw new TypeError("one native author, assessor and executor family required");
++  if (rows.filter(r=>r.role === "constructor").length !== 1 || rows.filter(r=>r.role === "command_executor").length !== 1) throw new TypeError("one native constructor and executor family required");
+   return rows;
+ }
++
++/** Whole declared suffixes. The caller chooses one ordinary start after reading
++ * the admitted request; ABG's projection requires its exact selected entry. */
++function nativeRevisionDeclarations({gtl,product,lifecycle,close,program}) {
++  const r=gtl.SEMANTIC_REVISION_IDS,n=gtl.SEMANTIC_STAGE_IDS,w=gtl.NATIVE_WORKSPACE_WORK_IDS;
++  const ref=name=>`graph-function://odd-glc/native-semantic-revision/${name}@5`;
++  const graphs=[],programs=[];
++  const leaf=(name,role,predicate,result,extra={})=>{
++    const closureContractRef=close("revision-"+name,predicate,result);
++    const graph=gtl.constructSemanticRevisionGraphFunction({graphFunctionRef:ref(name),role,closureContractRef,childClosureContractRef:closureContractRef,...extra});
++    graphs.push(graph);return graph;
++  };
++  const root=(name,chain,predicate,result)=>{
++    const graphFunctionRef=ref(name),closureContractRef=close("revision-"+name+"-root",predicate,result,"run");
++    const nodes=chain.map((g,i)=>({nodeRef:graphFunctionRef+"/step-"+i,nodeKind:"c_locus",term:gtl.workflow.C(gtl.cGraphFunctionRef({graphFunctionRef:g.name,input:gtl.cCarrier(g.inputs[0]),output:gtl.cCarrier(g.outputs[0])}))}));
++    const carriers=[...new Set(chain.flatMap(g=>[...g.inputs,...g.outputs]))];
++    const graph={kind:"graph_function",name:graphFunctionRef,version:"5.0.0",inputs:[chain[0].inputs[0]],outputs:[result],
++      environment:{requires:[chain[0].inputs[0]],provides:carriers,carries:carriers},effects:[...new Set(chain.flatMap(g=>g.effects))],tags:["odd-glc","native-semantic-revision"],
++      declarations:{"abg.compute_regime":"mixed","abg.closure_contract":closureContractRef,"abg.evidence_contract":n.evidenceContractRef,
++        "abg.judgment_contract":n.judgmentContractRef,"abg.judgment_predicate":r.stepPredicateRef,"abg.transition_contract":n.transitionContractRef},
++      template:{kind:"inline_graph",graphRef:graphFunctionRef+"/graph",startNodeRef:nodes[0].nodeRef,terminalNodeRefs:[nodes.at(-1).nodeRef],nodes,applications:[],
++        edges:nodes.slice(1).map((node,i)=>gtl.graphEdge({fromNodeRef:nodes[i].nodeRef,toNodeRef:node.nodeRef}))}};
++    graphs.push(graph);
++    const programRef=`program://odd-glc/native-semantic-revision/${name}@5`;
++    programs.push({...program,programRef,starts:[{startRef:programRef+"/start",graphFunctionRef}],closureContractRef,
++      callableMembership:[graphFunctionRef,...chain.map(g=>g.name),...(chain.some(g=>g.effects.includes(w.effectUri))?[w.graphFunctionRef,product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef]:[])],
++      policies:{...program.policies,"abg.default_start_ref":programRef+"/start"}});
++  };
++  const intake=leaf("acquire","nativeIntake",r.nativeIntakePredicateRef,r.selectionInputContractRef);
++  const selection=gtl.constructSemanticRevisionSelectionGraphFunction({graphFunctionRef:ref("select"),lifecycleRef:lifecycle.declarationRef,sealRequest:true,
++    closureContractRef:close("revision-select",r.nativeRequestPredicateRef,r.requestContractRef),childClosureContractRef:close("revision-seal",r.nativeRequestPredicateRef,r.requestContractRef)});
++  graphs.push(selection);root("intake",[intake,selection],r.nativeRequestPredicateRef,r.requestContractRef);
++  const stages=lifecycle.stages.map((stage,i)=>leaf("stage-"+i,"projection",r.assessorPredicateRef,r.envelopeContractRef,{stage}));
++  const construction=leaf("construction","nativeConstruction",r.nativeEvidencePredicateRef,r.envelopeContractRef);
++  const terminal=leaf("terminal","terminal",r.terminalPredicateRef,r.outputContractRef);
++  const evidence=lifecycle.stages.findIndex(stage=>stage.bodyCapabilities.includes("application_assessment"));
++  if(evidence<0)throw new TypeError("native revision requires the declared Evidence stage");
++  for(const [name,index,entry]of [["construction-repair",evidence,"construction_repair"],...lifecycle.stages.map((stage,i)=>["from-"+stage.declarationRef.split("/").at(-1).replace("@5",""),i,stage.declarationRef])]) {
++    const projection=leaf(name+"-projection","projection",r.projectionPredicateRef,r.envelopeContractRef,{nativeEntry:entry});
++    const before=index<evidence?stages.slice(index,evidence):[];
++    root(name,[projection,...before,...(entry===lifecycle.stages[evidence].declarationRef?[]:[construction]),...stages.slice(evidence),terminal],r.projectionPredicateRef,r.outputContractRef);
++  }
++  return {graphs,programs};
++}
+--- before/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs
++++ after/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs
+@@ -35,9 +35,9 @@
+ const native = { skip: candidatePath ? false : "PENDING: exact frozen successor ABI package not selected; current default pin is not used" };
+ const managedNative = { skip: candidatePath && managementConfigurationPath ? false : "PENDING: exact candidate and frozen management configuration both required" };
+ 
+-function validateDeclaredProgram(publication, freshNative = false) {
++function validateDeclaredProgram(publication, freshNative = false, selectedProgram = publication.programs[0]) {
+   const nativePublications = nativeFullSandboxPublications(gtl, artifact, freshNative), publications = [...nativePublications, publication];
+-  const program = publication.programs[0], admit = (value, kind, contract) => {
++  const program = selectedProgram, admit = (value, kind, contract) => {
+     const row = validator.rawAdmitValue(value, kind, "contract://abiogenesis/gtl/" + contract + "@5");
+     assert.equal(row.kind, "raw_admitted_value", JSON.stringify(row)); return row;
+   };
+@@ -414,3 +414,43 @@
+   assert.equal(check(changed), false);
+   assert.equal(check({ ...graph, declarations: {} }), false);
+ });
++
++// The governance Context below is declared component data, not STDO admission.
++// GTL, exact factory retention, and Program/role admission run their real owners.
++test("native D2 declares public intake and every selected whole suffix with exact GTL and role owners", {skip:!sourceRoot}, async()=>{
++ const {constructFreshNativeLifecyclePublication,constructFreshNativeLifecycleEnvironmentRoles}=await import('../src/native-lifecycle-declarations.mjs');
++ const rolesOwner=await import(pathToFileURL(join(sourceRoot,'build/code/src/gtl/stdo_run_environment.js')).href);
++ const retention=await import(pathToFileURL(join(sourceRoot,'build/code/src/product/execution_resolution.js')).href);
++ const nativePublications=nativeFullSandboxPublications(gtl,artifact,true),semantic=nativePublications.find(p=>p.moduleRef===gtl.SEMANTIC_STAGE_IDS.moduleRef),revision=nativePublications.find(p=>p.moduleRef===gtl.SEMANTIC_REVISION_IDS.moduleRef);
++ const original=constructFreshNativeLifecyclePublication({gtl,product,ids:FULL_SANDBOX_IDS,semanticPublication:semantic});
++ const bytes=Buffer.from('Generic component governance; no live authority claim.\n'),digest=product.sha256Bytes(bytes);
++ const member={path:'policy.txt',type:'file',digest,target:null},contextMember={memberRef:'member:component',path:member.path,byteCount:bytes.length,digest};
++ const binding={contextRef:'context:component',memberRef:contextMember.memberRef,memberDigest:digest,startByte:0,endByte:bytes.length,spanDigest:digest};
++ const sourceSelections=Object.fromEntries(['common','worker','reviewer','intent','product','requirements','design','construction','evidence','execution'].map(name=>[name,[binding]]));
++ const roles=constructFreshNativeLifecycleEnvironmentRoles({gtl,product,publication:original,nativePublications,sourceSelections,accessRefs:[],sourceBasisRef:'generic://component/'});
++ const environment=gtl.constructRunEnvironmentDeclaration({kind:'run_environment_declaration',schemaVersion:'5.0.0',declarationRef:'environment:component',
++  dependencies:[{dependencyRef:'dependency:component',basisRef:'generic://component/',recordRef:'record:component',recordDigest:digest,recordFormat:'member_inventory@1',inventoryDigest:gtl.stdoInventoryDigest([member]),members:[member]}],
++  contexts:[{contextRef:binding.contextRef,sourceLocator:'generic://component/',inventoryDigest:product.sha256Canonical([contextMember]),members:[contextMember]}],corpusAccess:null,accesses:[],roles});
++ const publication=constructFreshNativeLifecyclePublication({gtl,product,ids:FULL_SANDBOX_IDS,semanticPublication:semantic,runEnvironment:environment});
++ assert.equal(publication.programs.length,8,'fresh, intake, five declared stages and construction repair');
++ const allGraphs=[...publication.graphFunctions,...nativePublications.flatMap(p=>p.graphFunctions)];
++ for(const program of publication.programs){const checked=validateDeclaredProgram(publication,true,program);
++  assert.equal(checked.kind,'program_validation',JSON.stringify(checked.diagnostics));assert.equal(checked.disposition,'valid',program.programRef+JSON.stringify(checked.diagnostics));
++  assert.equal(rolesOwner.validRunEnvironmentProgram(publication,program,allGraphs),true,program.programRef);
++  const selected=rolesOwner.runEnvironmentForProgram(publication,program);assert(selected && selected.roles.every(r=>program.callableMembership.includes(r.graphFunctionRef)));
++ }
++ const intake=publication.programs.find(p=>p.programRef==='program://odd-glc/native-semantic-revision/intake@5');assert(intake);
++ const selection=publication.graphFunctions.find(g=>g.declarations['abg.semantic_revision_selection']);
++ const selectedLeaf=gtl.cLeafTerms(selection.template.nodes[0].term).find(l=>l.fibre==='F_P');assert.equal(gtl.nativeContextLeafFamily(selection,selectedLeaf),'assessor');
++ const unknown=structuredClone(selectedLeaf);unknown.requirement.implementationBindingRef='implementation-binding://foreign';assert.equal(gtl.nativeContextLeafFamily(selection,unknown),null);
++ const wrong=structuredClone(publication);wrong.runEnvironments.find(e=>e.declarationRef===intake.policies[gtl.RUN_ENVIRONMENT_POLICY]).roles[0].role='author';assert.equal(rolesOwner.validRunEnvironmentProgram(wrong,intake,allGraphs),false);
++ for(const stage of publication.semanticJobLifecycle.stages){const projection=publication.graphFunctions.find(g=>g.declarations['abg.semantic_native_revision_entry']===stage.declarationRef);assert(projection);}
++ const graph=publication.graphFunctions.find(g=>g.declarations['abg.semantic_native_revision_construction']);assert(graph);
++ const graphOwner={productId:publication.owningProductId,moduleRef:publication.moduleRef,publicationDigest:product.modulePublicationSemanticDigest(publication),installId:'component:glc'};
++ const entry={productId:product.ABI5_PRODUCT_ID,moduleRef:revision.moduleRef,publicationDigest:product.modulePublicationSemanticDigest(revision),installId:'component:abi'};
++ const semantics={...entry,moduleRef:semantic.moduleRef,publicationDigest:product.modulePublicationSemanticDigest(semantic)};
++ assert.equal(retention.nativeSemanticRetentionOwnersMatch(publication,graph,graphOwner,entry,entry,semantics),true);
++ assert.equal(retention.nativeSemanticRetentionOwnersMatch(publication,graph,graphOwner,entry,{...entry,installId:'component:foreign'},semantics),false);
++ const changed=structuredClone(graph);changed.template.nodes[0].term.requirement.implementationBindingRef='implementation-binding://foreign';assert.equal(retention.nativeSemanticRetentionOwnersMatch(publication,changed,graphOwner,entry,entry,semantics),false);
++ assert.equal(retention.nativeSemanticRetentionOwnersMatch(publication,graph,graphOwner,entry,entry,{...semantics,installId:'component:other'}),false);
++});
+--- /dev/null
++++ after/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
+@@ -0,0 +1,167 @@
++// Component composition: real Product/ABG joins with explicitly supplied upstream admission facts.
++// Temporary files only; no native actor, command, journal, installed execution or qualification.
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
++import { dirname, join, resolve } from 'node:path';
++import { pathToFileURL } from 'node:url';
++import { genericLifecyclePublicationData } from '../support/t287-generic-job-lifecycle.mjs';
++import { ordinaryJob } from '../support/t287-generic-job-intake.mjs';
++import { worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
++const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirname, '../..');
++const load = name => import(pathToFileURL(join(root, 'build/code/src', name + '.js')).href);
++const [p,g,m,n,ops,effects,owners,prefixes,immutable] = await Promise.all(['product/index','gtl/index','product/semantic_job',
++ 'product/native_workspace_work','product/worksite_operations','product/worksite_effect','abg/native_worksite_execution','abg/event_prefix','shared/immutable'].map(load));
++const hash=p.sha256Canonical, zero='sha256:'+'0'.repeat(64);
++const publication=g.constructSemanticStageModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
++ artifactDigest:zero,productContentDigest:zero,productManifestDigest:zero});
++const old=genericLifecyclePublicationData({product:p,gtl:g,abiPublication:publication}).semanticJobLifecycle;
++const declaration=g.constructSemanticJobLifecycleDeclaration({...old,proofTemplates:old.proofTemplates.map(t=>({...t,realizationContractRef:g.NATIVE_WORKSPACE_WORK_IDS.observationContractRef}))});
++const provenance = key => ({ cCallRef:'component:c-call:'+key,executionAuthorityRef:'component:authority:'+key,executionAuthorityDigest:hash(key),
++ actorInvocationRef:'component:actor:'+key,transportBindingRef:'component:transport',transportBindingDigest:hash('transport'),promptDigest:hash(key),transportDigest:hash('transport:'+key) });
++const adapter=(key,input)=>({cCallRef:'component:adapter:'+key,inputDigest:hash(input)});
++async function fixture(t,commandExecutionLimits) {
++ const env=await worksiteFixture({...p,...effects,...ops});t.after(()=>rm(env.scratch,{recursive:true,force:true}));
++ const selectedDeclaration=commandExecutionLimits===undefined?declaration:g.constructSemanticJobLifecycleDeclaration({...declaration,bounds:{...declaration.bounds,maxCommands:32}});
++ const initial=ordinaryJob(p,g,'Build an application and an independent verifier. Preserve complete source and all unresolved obligations.');
++ const job=p.constructSemanticJobInput({...initial,evaluationData:{independentSentinel:'evaluator-only-9bff'},taskData:{...initial.taskData,nativeLifecycle:{assets:declaration.stages.map((s,i)=>({stageRef:s.declarationRef,path:`assets/${i}.json`})),rubricPath:'assets/rubric.json',
++ ...(commandExecutionLimits===undefined?{}:{commandExecutionLimits})}},
++ worksiteScope:{...initial.worksiteScope,readRoots:['.'],writeRoots:['.'],parentWriteRoots:['.'],evidenceWriteRoots:['evidence'],
++ ...(commandExecutionLimits===undefined?{}:{executableCapabilities:initial.worksiteScope.executableCapabilities.map(c=>({...c,maxTimeoutMs:120000}))})}});
++ await mkdir(join(env.canonicalRoot,'assets'));for(const member of job.members){await mkdir(join(env.canonicalRoot,member.path,'..'),{recursive:true});await writeFile(join(env.canonicalRoot,member.path),Buffer.from(member.base64,'base64'));}
++ await writeFile(join(env.canonicalRoot,'assets/rubric.json'),p.canonicalJson(selectedDeclaration)+'\n');
++ const observe=()=>ops.observeWorksiteContext({...env,readRoots:job.worksiteScope.readRoots,maxFiles:declaration.bounds.maxContextFiles,maxBytes:declaration.bounds.maxContextBytes});
++ const envelope=p.constructSemanticJobEnvelope(job,selectedDeclaration,{invocationAdmissionRef:'component:invocation',rootExecutionBasisRef:'component:root',rootInputRef:'component:input',rootInputDigest:hash(job),
++ intakeCCallRef:'component:intake',intakeCCallDigest:hash('intake'),intakeExecutionBasisRef:'component:intake-basis'});
++ return {...env,job,observe,envelope};
++}
++function candidate(envelope,i){const stage=declaration.stages[i],member=envelope.job.members[0],q={memberRef:member.memberRef,quote:Buffer.from(member.base64,'base64').toString()};
++ const active=p.projectSemanticJobBindings(envelope);
++ return {kind:'semantic_job_asset_candidate',schemaVersion:'5.0.0',asset:{kind:'semantic_stage_asset_candidate',schemaVersion:'5.0.0',
++ statements:[{statementRef:stage.declarationRef+'/s',text:q.quote,modality:'supporting',sourceQuotes:[q],requirementRefs:[],obligationRefs:[],predecessorStatementRefs:envelope.assets.flatMap(a=>a.candidate.asset.statements.map(s=>s.statementRef))}],
++ requirementCandidates:i===2?[{candidateRef:'component:requirement',meaning:q.quote,parentRequirementRefs:[],sourceQuotes:[q]}]:[],worksiteDesign:null,pressure:[]},
++ bindings:i===2?[{requirement:{kind:'candidate',ref:'component:requirement'},previousVersionRef:null,templateRef:declaration.proofTemplates[0].templateRef,scope:'Complete component input',realizationMeaning:['All requested behavior'],proofMeaning:['Independent verifier and observed execution'],unprovedScope:['Semantic adequacy'],closureRule:'Non-closing',requiredContent:[]}]:[],
++ design:i===3?{targets:[['app/main.mjs','implementation'],['app/check.mjs','verifier']].map(([relativePath,role])=>({relativePath,role,obligationRefs:active.map(b=>b.binding.obligationRef),bindingVersionRefs:active.map(b=>b.versionRef),changeInstruction:'Implement the selected role'})),dependencyPaths:[],dependencyDisposition:'sufficient',commands:[{commandId:'component:check',executable:process.execPath,args:['app/check.mjs'],relativeCwd:'.',environment:{},timeoutMs:1000,terminationGraceMs:100,expectedReports:[]}],outcomePredicates:[]}:null};}
++function verdict(authored,i,disposition='satisfied'){const member=authored.job.members[0];return {kind:'semantic_stage_assessment_candidate',schemaVersion:'5.0.0',criteria:declaration.stages[i].rubric.map(r=>({criterionRef:r.criterionRef,disposition,explanation:'Mechanical component value only; no semantic acceptance claim',sourceQuotes:[{memberRef:member.memberRef,quote:Buffer.from(member.base64,'base64').toString()}],statementRefs:authored.assets.at(-1).candidate.asset.statements.map(s=>s.statementRef)})),pressure:[]};}
++async function author(env,envelope,i,value=candidate(envelope,i)){const stage=declaration.stages[i],task=m.constructNativeSemanticTask(envelope,stage.declarationRef,'author',env,await env.observe());
++ await writeFile(join(env.canonicalRoot,`assets/${i}.json`),JSON.stringify(value)+'\n');const observation=n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'component candidate',gaps:[]},provenance('author-'+i));
++ const authored=m.deriveNativeSemanticAsset(envelope,stage.declarationRef,observation,adapter('author-'+i,p.constructRetainedGraphInput(envelope,observation)));assert(authored);return {task,observation,authored};}
++function assess(env,authored,i,disposition='satisfied'){const task=m.constructNativeSemanticTask(authored,declaration.stages[i].declarationRef,'assessor',env,authored.context);
++ const observation=n.constructNativeWorkspaceWorkObservation(task,authored.context,null,provenance('assessor-'+i),verdict(authored,i,disposition));
++ const assessed=m.deriveNativeSemanticAssessment(authored,declaration.stages[i].declarationRef,observation,adapter('assessor-'+i,p.constructRetainedGraphInput(authored,observation)));assert(assessed);return {task,observation,assessed};}
++
++
++import {SourceTextModule,SyntheticModule} from 'node:vm';
++import {observationFor} from '../support/forward-observation-carrier.mjs';
++const [revision,revisionIds,commands,semantics]=await Promise.all(['product/semantic_revision','gtl/semantic_revision_identity','product/worksite_command_execution','product/builtin_semantics'].map(load));
++const R=revisionIds.SEMANTIC_REVISION_IDS,D=g.SEMANTIC_STAGE_IDS;
++async function component(name,overrides){const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
++ await module.link(async spec=>{const imported=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(file),spec)).href),values={...imported,...overrides[spec]};
++  return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});});await module.evaluate();return module.namespace;}
++function coordinate(state){return {cCallRef:state.cCall.cCallRef,resultRef:state.result.resultRef,resultDigest:state.result.resultDigest,resultAdmissionEventRef:state.result.admissionEventRef,judgmentEventRef:state.judgment.admissionEventRef};}
++async function harness(env){
++ const events=[],states=new Map(),bases=new Map(),nativeSources=new Map();
++ const prefix={events},publicRun={ref:'component:source-run',digest:hash('public-run')},original={...env.executionBasis,basisRef:env.envelope.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,
++  rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:env.envelope.basis.rootInputRef,invocationAdmissionRef:env.envelope.basis.invocationAdmissionRef};
++ bases.set(original.basisRef,original);
++ const environment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
++ const lifecyclePublication={...publication,semanticJobLifecycle:declaration};
++ const pub=await load('product/publication');environment.productInstalls.push({productId:lifecyclePublication.owningProductId,artifactDigest:lifecyclePublication.artifactDigest,productContentDigest:lifecyclePublication.productContentDigest,
++  manifestDigest:lifecyclePublication.productManifestDigest,installedRoot:env.scratch,contributionManifest:{publicationBindings:[{moduleRef:lifecyclePublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(lifecyclePublication)}]}});
++ const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:(await load('abg/event_store')).ROOT_EVENT_CONTRACT_DIGEST}};
++ const intake={kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun:publicRun,sourcePrefix:{...prefixBody,coordinateDigest:hash(prefixBody)}};
++ let current,ordinal=0,rootBasis,runId,ancestry=true;const basis={publication:lifecyclePublication,lifecyclePublication,sourcePublication:lifecyclePublication,predecessorPrefix:intake.sourcePrefix,declarationGraphFunctions:[],graphFunction:{declarations:{}}};
++ function invocation(name,input){runId='component:run:'+name;rootBasis={...original,basisRef:'component:root:'+name,rawInputValue:input,rawInputDigest:hash(input),rawInputAdmissionRef:'component:input:'+name,invocationAdmissionRef:'component:invocation:'+name};bases.set(rootBasis.basisRef,rootBasis);}
++ function call(impl,input,raw=input,extra={}){const execution={...rootBasis,basisRef:'component:basis:'+(++ordinal),parentExecutionBasisRef:rootBasis.basisRef,rawInputValue:raw,rawInputDigest:hash(raw)};
++  bases.set(execution.basisRef,execution);const cCall={...env.cCall,cCallRef:'component:call:'+ordinal,basisId:execution.basisRef,runId,implementationRef:impl,regime:[R.selectionImplementationRef,R.authorImplementationRef,R.assessorImplementationRef].includes(impl)?'F_P':'F_D',...extra};
++  current={execution,call:cCall,inputValue:input,inputDigest:hash(input),inputRef:'component:input:'+ordinal,prefix,events,environment,program:{}};basis.cCall=cCall;basis.executionBasis=execution;return current;}
++ function admit(value,impl,execution=current?.execution??original,judgment='advance',cCallRef=current?.call.cCallRef??'component:call:'+(++ordinal),run=runId,resultClass='success'){
++  const resultDigest=hash({value,cCallRef}),resultRef='result://abiogenesis/'+resultDigest.slice(7),admissionEventRef='component:event:'+(++ordinal),judgmentEventRef='component:event:'+(++ordinal);
++  const state={cCall:{...env.cCall,cCallRef,basisId:execution.basisRef,runId:run,implementationRef:impl,graphFunctionRef:current?.call.graphFunctionRef??'component:graph',regime:impl===R.selectionImplementationRef?'F_P':'F_D'},
++   result:{resultClass,resultRef,resultDigest,value,admissionEventRef},judgment:{judgment,admissionEventRef:judgmentEventRef}};
++  states.set(cCallRef,state);events.push({kind:'c_call_result_admitted',aggregateId:cCallRef,eventId:admissionEventRef,admissionOrdinal:ordinal,payload:{resultRef,resultDigest,value}},{kind:'c_call_judged',aggregateId:cCallRef,eventId:judgmentEventRef,admissionOrdinal:++ordinal,payload:{}});return state;}
++ const lookup=(_prefix,c)=>{const state=states.get(c.cCallRef);return state&&hash(coordinate(state))===hash(c)?state:null;};
++ const selected=(_basis,impl,value)=>{const rows=[...states.values()].filter(s=>s.result.resultClass==='success'&&s.judgment.judgment==='advance'&&s.cCall.implementationRef===impl&&hash(s.result.value)===hash(value)&&bases.get(s.cCall.basisId)?.invocationAdmissionRef===current.execution.invocationAdmissionRef);
++  return rows.length===1?{previous:rows[0],execution:bases.get(rows[0].cCall.basisId),event:events.find(e=>e.eventId===rows[0].result.admissionEventRef)}:null;};
++ const executionOverrides={authenticateNativeInstructionAssemblyBasis:()=>current,rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>bases.get(ref)??null};
++ const invocationOverrides={rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})};
++ const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,
++  '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
++ const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':jobOwner,
++  './semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h,readRuntimeEventsAtDurablePrefix:()=>events},
++  './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>ref===publicRun.ref?{run:publicRun,executionBasis:{ref:original.basisRef}}:null},
++  './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>environment},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:()=>[]},
++  './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:()=>false}});
++ const implementation=await component('implementation/semantic_revision',{'../abg/semantic_revision.js':owner,'../implementation/worksite_command_execution.js':{}});
++ function source(value,state){nativeSources.set(value.observationRef,{sourceBasis:bases.get(state.cCall.basisId),sourceResult:{...events.find(e=>e.eventId===state.result.admissionEventRef),runId:state.cCall.runId},sourceClosedEvent:{admissionOrdinal:++ordinal}});}
++ return {events,states,bases,original,intake,publicRun,prefix,basis,owner,implementation,jobOwner,invocation,call,admit,source,coordinate,get current(){return current;},set ancestry(v){ancestry=v;}};
++}
++function actorSource(name,input){return {cCallRef:'component:revision:'+name,inputDigest:hash(input),actorInvocationRef:'component:actor:'+name,promptDigest:hash(name),transportDigest:hash('transport:'+name)};}
++
++test('native D2 public intake keeps an old job, rejects absent/ambiguous causes, and composes Requirements correction through native C2 and fresh Evidence',async t=>{
++ const env=await fixture(t);let parent=env.envelope;for(let i=0;i<2;i++){const a=await author(env,parent,i);parent=assess(env,a.authored,i).assessed;}
++ const rejectedAuthor=await author(env,parent,2),rejected=assess(env,rejectedAuthor.authored,2,'falsified').assessed;
++ assert.equal(m.nativeSemanticCommandExecutionLimits(parent),null,'historical old job has no selected limits');
++ const h=await harness(env);h.admit(parent,D.nativeAssessorFoldImplementationRef,h.original,'advance',parent.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
++ assert(revision.isNativeSemanticRevisionIntake(h.intake));h.invocation('intake',h.intake);h.call(R.nativeIntakeImplementationRef,h.intake);
++ let reason;const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};
++ assert.equal(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r),null);assert.equal(reason,'native_revision_cause_absent');
++ const cause=h.admit(rejected,D.nativeAssessorFoldImplementationRef,h.original,'stop',rejected.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
++ const duplicate=h.admit(rejected,D.nativeAssessorFoldImplementationRef,h.original,'stop','component:duplicate-cause',h.publicRun.ref);
++ assert.equal(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r),null);assert.equal(reason,'native_revision_cause_ambiguous');
++ h.states.delete(duplicate.cCall.cCallRef);h.events.splice(h.events.findIndex(e=>e.aggregateId===duplicate.cCall.cCallRef),2);
++ h.ancestry=false;assert.equal(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits),null);h.ancestry=true;
++ const prepared=await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits);assert(prepared);assert.equal(prepared.nativeWorksite.construction,null);
++ assert.deepEqual(prepared.nativeWorksite.commandExecutionLimits,limits);assert.equal(h.owner.nativeSemanticRevisionIntakeMatches(h.basis,h.intake,prepared),true);
++ h.admit(prepared,R.nativeIntakeImplementationRef);
++ h.basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};
++ h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:selection-graph'});
++ assert.equal(h.jobOwner.authenticateSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'selection recovers the actual original root');
++ const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:declaration.stages[2].declarationRef,
++  selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:requirements-falsified',nativePhase:'preconstruction'};
++ assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);
++ assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,mode:'construction_repair',selectedStageRef:null}),false);
++ assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,selectedStageRef:declaration.stages[3].declarationRef}),false,'no future stage authority');
++ h.admit(selection,R.selectionImplementationRef);h.basis.declarationGraphFunctions=[h.basis.graphFunction];
++ h.call(R.nativeRequestImplementationRef,selection,prepared);
++ const request=h.implementation.realizeSemanticRevisionNativeRequest(selection,{semanticStageBasis:h.basis});assert.equal(request.disposition,'success');
++ assert.deepEqual(request.resultCandidate.causes,[coordinate(cause)]);assert(request.resultCandidate.nativeWorksite.acquisition);
++ h.invocation('correction',request.resultCandidate);h.basis.graphFunction={declarations:{'abg.semantic_native_revision_entry':selection.selectedStageRef}};h.call(R.projectionImplementationRef,request.resultCandidate);
++ assert.equal(h.jobOwner.authenticateSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'successor Run does not replace original root');
++ let current=h.owner.projectSemanticJobRevision(h.basis,request.resultCandidate);assert(current);assert.deepEqual(current.current.job,env.job);assert.deepEqual(current.current.assets,parent.assets);
++ assert(current.revisionBasis.historicalAssets.some(a=>a.assetRef===rejected.assets.at(-1).assetRef));assert(!current.current.assets.some(a=>a.assessment?.disposition==='falsified'));
++ h.basis.graphFunction.declarations['abg.semantic_native_revision_entry']=declaration.stages[3].declarationRef;assert.equal(h.owner.projectSemanticJobRevision(h.basis,request.resultCandidate),null);h.basis.graphFunction.declarations['abg.semantic_native_revision_entry']=selection.selectedStageRef;
++ h.admit(current,R.projectionImplementationRef);
++ for(let i=2;i<4;i++){
++  const source=actorSource('author-'+i,current),authored=revision.deriveJobRevisionAsset(current,declaration.stages[i].declarationRef,candidate(current.current,i),source);assert(authored);
++  const contract=m.projectSemanticJobActorContract(current.current,declaration.stages[i].declarationRef,'author',current.revisionBasis.retainedTerms,limits);
++  assert.deepEqual(contract.design.executionCapacity.selectedLimits,limits);
++  const assessmentContract=m.projectSemanticJobActorContract(authored.current,declaration.stages[i].declarationRef,'assessor',authored.revisionBasis.retainedTerms,limits);assert.deepEqual(assessmentContract.design.executionCapacity.selectedLimits,limits);
++  if(i===3){const tooLarge=candidate(current.current,i);tooLarge.design.commands[0].timeoutMs=300000;assert.equal(revision.deriveJobRevisionAsset(current,declaration.stages[i].declarationRef,tooLarge,source),null);}
++  h.call(R.authorImplementationRef,current,current,{programLocusRef:declaration.stages[i].authorLocusRef});h.admit(authored,R.authorImplementationRef);
++  const assessed=revision.deriveJobRevisionAssessment(authored,declaration.stages[i].declarationRef,verdict(authored.current,i),actorSource('assessor-'+i,authored));assert(assessed);
++  h.call(R.assessorImplementationRef,authored,authored,{programLocusRef:declaration.stages[i].assessorLocusRef});h.admit(assessed,R.assessorImplementationRef);current=assessed;
++ }
++ h.basis.graphFunction={declarations:{}};h.call(R.nativeConstructionImplementationRef,current);
++ const task=h.owner.projectNativeRevisionConstructionTask(h.basis,current);assert(task);h.admit(task,R.nativeConstructionImplementationRef);
++ assert.deepEqual(task.writeRoots,['app/main.mjs','app/check.mjs']);
++ await mkdir(join(env.canonicalRoot,'app'));await writeFile(join(env.canonicalRoot,'app/main.mjs'),'corrected component application');await writeFile(join(env.canonicalRoot,'app/check.mjs'),'component verifier');
++ const constructed=n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'component-only construction',gaps:[]},provenance('revision-construction'));
++ h.call(g.NATIVE_WORKSPACE_WORK_IDS.implementationRef,task);const nativeState=h.admit(constructed,g.NATIVE_WORKSPACE_WORK_IDS.implementationRef);h.source(constructed,nativeState);
++ const executionInput=p.constructRetainedGraphInput(current,constructed);h.call(R.nativeExecutionImplementationRef,executionInput, current);
++ const commandTask=h.owner.projectNativeRevisionExecutionTask(h.basis,executionInput);assert(commandTask);h.admit(commandTask,R.nativeExecutionImplementationRef);
++ const observed=observationFor(commandTask,0).observation;assert(commands.isNativeWorksiteCommandExecutionObservation(observed));
++ h.call(p.WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,commandTask);h.admit(observed,p.WORKSITE_COMMAND_EXECUTION_IDS.implementationRef);
++ const evidenceInput=p.constructRetainedGraphInput(current,observed);h.call(R.nativeEvidenceImplementationRef,evidenceInput,current);
++ const evidence=h.implementation.realizeSemanticRevisionNativeEvidence(evidenceInput,{semanticStageBasis:h.basis});assert.equal(evidence.disposition,'success');
++ assert.deepEqual(evidence.resultCandidate.current.evidence.constructionResult,constructed);assert.equal(evidence.resultCandidate.current.worksite,null);
++ assert.equal(revision.evaluateNativeSemanticRevisionRelation(R.nativeEvidencePredicateRef,current,evidence.resultCandidate),true);
++ h.admit(evidence.resultCandidate,R.nativeEvidenceImplementationRef);
++ const authored=revision.deriveJobRevisionAsset(evidence.resultCandidate,declaration.stages[4].declarationRef,candidate(evidence.resultCandidate.current,4),actorSource('evidence-author',evidence.resultCandidate));assert(authored);
++ const finished=revision.deriveJobRevisionAssessment(authored,declaration.stages[4].declarationRef,verdict(authored.current,4),actorSource('evidence-assessor',authored));assert(finished);
++ assert.equal(semantics.ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS.resolveJudgmentRelation(R.stepPredicateRef).evaluate(finished,finished),true);
++ assert.deepEqual(finished.current.job,env.job);assert.deepEqual(finished.current.assets.slice(0,2),parent.assets);
++ assert.equal(m.nativeSemanticCommandExecutionLimits(finished.current),null,'new limits did not rewrite the old job');
++ const crossed=structuredClone(observed);crossed.snapshotMembers.pop();assert.equal(revision.deriveNativeRevisionEvidence(current,crossed,coordinate(nativeState),coordinate(nativeState)),null);
++ t.diagnostic('Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.');
++});

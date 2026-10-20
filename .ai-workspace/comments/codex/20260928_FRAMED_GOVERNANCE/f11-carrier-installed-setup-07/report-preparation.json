@@ -1,0 +1,15 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/close-setup.py",
+    "bytes": 20551,
+    "sha256": "a6496e061f907fbc83e80721e9c97e37c3cb810b9acf0da2340b934927c4d441"
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/close-setup.py",
+    "bytes": 20731,
+    "sha256": "902d25ae6a68b316ba63b39f6880242dc8ab1fae988a18c9b2cde35064dd2822"
+  },
+  "adaptation": "current C07 operation/accepted exact coordinates/report labels; both saved old event records conserved; full projection-to-Public binding coordinate join retained; measured complete physical correspondence and modes unchanged",
+  "RuntimeCallsImportsDuringReportPreparation": 0,
+  "originalDonorRetained": "controls/donor-close-setup.py"
+}

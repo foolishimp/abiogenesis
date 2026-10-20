@@ -1,0 +1,29 @@
+{
+  "executable": "/usr/bin/tar",
+  "args": [
+    "-xzf",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_HELLO_EXPUNCTION_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "--strip-components=1",
+    "-C",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/bootstrap/node_modules/@abiogenesis/typescript-tenant"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a",
+  "started": "2026-10-06T00:44:53.275Z",
+  "environmentKeys": [
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 3600000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 470.929709,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "",
+  "stderr": ""
+}

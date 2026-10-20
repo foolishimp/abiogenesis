@@ -1,0 +1,10 @@
+{
+  "owner": "projectGovernanceCoveredSourceUse",
+  "inputRecord": "source-use-input-scalars.json",
+  "returned": {
+    "useDigest": "sha256:f17b484fa3c4a24e6f24d3670e725705f69b3da7c67f54861cd1d8e5846386ba",
+    "sourceBasisRef": "invocation-source-result://abiogenesis/8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+    "sourceBasisDigest": "sha256:8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb"
+  },
+  "meaning": "Null preserved before assert; no fabricated inner cause."
+}

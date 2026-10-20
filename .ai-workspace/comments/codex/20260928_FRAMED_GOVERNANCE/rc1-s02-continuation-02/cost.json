@@ -1,0 +1,25 @@
+{
+  "driverElapsedMs": 338105.609,
+  "driverPeakRSSBytes": 5381554176,
+  "driverUserSeconds": 275.422144,
+  "driverSystemSeconds": 47.473016,
+  "maxNativeCliPeakRSSBytes": 2058878976,
+  "maxNativeCliPeakRSSRecord": "s02-view-hello-gate-native-process.json",
+  "sumNativeCliElapsedMs": 182130.54799999998,
+  "sumNativeCliUserSeconds": 197.963448,
+  "sumNativeCliSystemSeconds": 33.080225,
+  "nativeCliExitCounts": {
+    "0": 33,
+    "1": 4
+  },
+  "nodeOldSpaceMiB": 4096,
+  "osRSSCap": null,
+  "providerCapacityClaim": false,
+  "modelCalls": 0,
+  "paidTokens": 0,
+  "paidCost": 0,
+  "eventGrowthBytes": 3436314,
+  "eventGrowthEvents": 1000,
+  "preEffectRetainedMaterialBytes": 550525214,
+  "materialVolumeMeaning": "Retained mechanically authenticated caller/control/owner preflight bodies and receipts; repeated report context is not model traffic or event growth. No optimization campaign selected."
+}

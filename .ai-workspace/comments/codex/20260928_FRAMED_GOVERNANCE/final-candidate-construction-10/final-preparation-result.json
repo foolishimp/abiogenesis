@@ -1,0 +1,15 @@
+{
+  "status": "exact_source_selection_ready",
+  "elapsedMs": 2953.8589157164097,
+  "sourceMembers": 1113,
+  "changedFromBaseline": 4,
+  "addedFromBaseline": 2,
+  "frozenSourceSHA256": "75200ef06e648629d68e2ddb75946a04930a2132e4ce58ff9d6081841a87a351",
+  "toolsReverified": 2328,
+  "lockedArchives": 16,
+  "schemaSeeds": 2,
+  "completeRC2MembersVerified": 52,
+  "preservedFreezesVerified": 44,
+  "HOMEUnchanged": true,
+  "ambientEffects": false
+}

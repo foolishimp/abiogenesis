@@ -1,0 +1,43 @@
+✔ owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence (37.466042ms)
+✔ held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback (40.706208ms)
+{"kind":"trusted_desktop_owned_history","events":5,"liveHistoricalReadBytes":0,"coldReadBytes":4315,"eventLogBytes":4315}
+✔ trusted owned history conserves currentness, callback publication, rollback and cold reconstruction (320.389375ms)
+✔ owned append I/O failures restore committed bytes and hash or poison admission (102.41025ms)
+✖ logical prefix hashes conserve cold, copied, foreign, scoped and reverse values without re-encoding an owned history (0.474583ms)
+✖ store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal (9.745875ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 4
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1058.837125
+
+✖ failing tests:
+
+test at test_env/tests/t288-logical-prefix-digest.test.mjs:16:1
+✖ logical prefix hashes conserve cold, copied, foreign, scoped and reverse values without re-encoding an owned history (0.474583ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at open (node:internal/fs/promises:639:10)
+      at readFile (node:internal/fs/promises:1279:20)
+      at history (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-logical-prefix-digest.test.mjs:13:42)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-logical-prefix-digest.test.mjs:17:21)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at test_env/tests/t288-logical-prefix-digest.test.mjs:35:1
+✖ store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal (9.745875ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at open (node:internal/fs/promises:639:10)
+      at readFile (node:internal/fs/promises:1279:20)
+      at history (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-logical-prefix-digest.test.mjs:13:42)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-logical-prefix-digest.test.mjs:39:25)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }

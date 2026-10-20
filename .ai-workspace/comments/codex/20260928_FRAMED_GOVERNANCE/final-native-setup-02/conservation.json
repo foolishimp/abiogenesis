@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "checks": {
+    "final-native-setup-01": {
+      "freezeSHA256": "2696a00bda621be6aedca8fd32483e810d6e48d90f546ea75c66f082af4690bb",
+      "records": 5949,
+      "mismatches": [],
+      "status": "passed"
+    },
+    "final-qualification-inputs-01": {
+      "freezeSHA256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe",
+      "records": 46,
+      "mismatches": [],
+      "status": "passed"
+    },
+    "final-candidate-construction-01": {
+      "freezeSHA256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f",
+      "records": 16732,
+      "mismatches": [],
+      "status": "passed"
+    },
+    "preEffectInputs": {
+      "records": 26,
+      "mismatches": [],
+      "status": "passed"
+    },
+    "originalResource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+      "device": 16777230,
+      "inode": 463939156,
+      "bytes": 2475382,
+      "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+      "initialPrefixConserved": true,
+      "initialSnapshotUnchanged": true,
+      "appendedBytes": 0,
+      "eventCount": 2,
+      "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5/16777230-463939156.lock",
+      "lockPresent": false
+    }
+  },
+  "scope": "Existing closed inventories conserved, including all N1 immutable receipts/snapshot/installed payload/workspace metadata; live log allowed append but unchanged. No new broad source inventory."
+}

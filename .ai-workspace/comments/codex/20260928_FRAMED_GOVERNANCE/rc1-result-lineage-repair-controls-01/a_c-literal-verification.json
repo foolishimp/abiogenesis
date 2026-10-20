@@ -1,0 +1,19 @@
+{
+  "tool": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  },
+  "sectionCount": 7,
+  "literalJoinMatched": true,
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt",
+    "bytes": 5080,
+    "sha256": "50ac2c08ec4f50f974706c207f6a19e87f5b002a71901dfd8389a6b03f1ac8b7",
+    "mode": 420
+  }
+}

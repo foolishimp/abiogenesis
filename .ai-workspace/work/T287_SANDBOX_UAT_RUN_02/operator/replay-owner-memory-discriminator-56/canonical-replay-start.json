@@ -1,0 +1,14 @@
+{
+  "stage": "canonical-replay-start",
+  "at": "2026-10-08T04:45:33.341Z",
+  "elapsedMs": 23823.565833,
+  "memory": {
+    "rss": 3496116224,
+    "heapTotal": 2117058560,
+    "heapUsed": 2023271736,
+    "external": 1184891950,
+    "arrayBuffers": 1182476825
+  },
+  "maxRSSKiB": 3414176,
+  "pid": 5261
+}

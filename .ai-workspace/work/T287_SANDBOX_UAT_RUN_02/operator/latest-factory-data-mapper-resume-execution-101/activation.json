@@ -1,0 +1,91 @@
+{
+  "role": "Writer101 recorder preparation ONLY",
+  "at": "2026-10-08T09:58:11.239261+00:00",
+  "productFrame": "fixed15 ABI5 5.0 GOAL035/T287/STDO2.5.1RC2",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "executionAuthorized": false,
+  "pending": "Root100 material-review freeze and explicit runtime release;99 accepted",
+  "preparation": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/return.md",
+      "sha256": "895bc3b1722cb490f986409c6271d77187e5d9ae1a96d44a8695bef1e530e75d",
+      "byteCount": 2807
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/readiness.json",
+      "sha256": "26a5e7c6922e8818be896206738d6626412a053b7db43c6168d4220c16d8a63b",
+      "byteCount": 10804505
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/freeze.json",
+      "sha256": "42595bba8d7a9b161b6dad613111213ae3b8d1f3f8cd23f2abaf557486623a97",
+      "byteCount": 4000
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/config.json",
+      "sha256": "4f53ac591c692f542ab4057c63f95433f97aebfcf3d5b32b96d30e298b9651a9",
+      "byteCount": 2991
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/setup.json",
+      "sha256": "54e698910b0cf1a05db5d36d5e8c1a1644a1466cddaacd9ab1e6d5ca2e9fb286",
+      "byteCount": 3614
+    }
+  ],
+  "reusedOuterRecorderProcedure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-call-local-successor-execution-48/launch.mjs",
+    "sha256": "0bfb54f0aae2b3fd4e34969fac9404b3f6262a50c4c1b040547e421d15adce3a",
+    "byteCount": 3664
+  },
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 19260000,
+    "maxOutputBytes": 536870912,
+    "basis": "setup/recording drainage only; never native execution authority extension"
+  },
+  "executionAuthority": {
+    "history": {
+      "old48NativeT0": "2026-10-07T16:38:18.053Z",
+      "old48ExternalQualityCheckpoint": "2026-10-07T21:38:18.053Z",
+      "old48DriverDeadline": "2026-10-07T21:39:18.053Z",
+      "oldRunDisposition": "blocked",
+      "oldOriginalAssessment": "unmet",
+      "clocksNotRelabeled": true
+    },
+    "nextInvocation": {
+      "nativeT0Owner": "NEW commands/lifecycle-start.request.json.started at actual CLI spawn",
+      "externalQualityWindowMs": 18000000,
+      "qualityCheckpoint": "actual NEW CLI T0+5h; Root external Executive evaluates continue/stop; no automatic continuation",
+      "nativeTimeOrRecordingLimitsUnchanged": true
+    },
+    "oldRunRestored": false,
+    "rootExternalExecutiveDecidesContinueOrStop": true
+  },
+  "stop": {
+    "owner": "existing native C2/helper/provider process supervision",
+    "order": [
+      "While CLI lives resolve exact admitted C2 occurrence/task/attempt to launch.json/helper argv; match live helper and detached command PID/PGID via ancestry.",
+      "At Root stop/checkpoint disposition stop only exact owned helper/command first: TERM, bounded confirmation/grace, KILL only if still exact-owned; preserve real missing artifact/exit.",
+      "Resolve exact current admitted provider PID/PGID, verify identity immediately, then stop only that owned group while CLI remains alive.",
+      "Allow real exit/failure admission/drain; retain fresh-read presence/absence and raw truncation/exit truth."
+    ],
+    "noGuessedPidsOrPrivateEvents": true
+  },
+  "controlsUnchanged": true,
+  "rawAssetBuffersEmbedded": false,
+  "effects": "new phase101 documents/script only; no script invocation/install/provider/native/Run/app/source effects"
+}

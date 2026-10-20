@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "exitCode": 0,
+  "elapsedSeconds": 0.9313494577072561
+}

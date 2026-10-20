@@ -1,0 +1,26 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/run-15.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/run-16.mjs
+@@ -1,4 +1,4 @@
+-// Root-selected exact43 installed Testing/restart discriminator; original DataMapper excluded.
++// Root-selected exact44 installed Testing/restart discriminator; original DataMapper excluded.
+ // Existing Public/setup/continuation owners do all admission and preparation.
+ import assert from 'node:assert/strict';
+ import {createHash} from 'node:crypto';
+@@ -24,7 +24,7 @@
+ const runtime=await installedModules(host.installedRoot),p=runtime.product,a=runtime.abg,hash=p.sha256Canonical;
+ const executionRoot=selected.fixtureRoot,outputRoot=join(root,'execution');await mkdir(outputRoot);
+ const environment={...Object.fromEntries(['HOME','PATH','TMPDIR','LANG','LC_ALL'].filter(key=>process.env[key]!==undefined).map(key=>[key,process.env[key]])),npm_config_cache:join(selected.publicationRoot,'npm-cache'),npm_config_offline:'true'};
+-const configuration={runId:'library-joint-proof-237-15',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
++const configuration={runId:'library-joint-proof-237-16',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
+   nodePath:process.execPath,setupEnvironment:environment,toolchains:{npm:{executable:selected.npm},node:{executable:process.execPath}},
+   recursionBound:1000,processTimeoutMs:300000,maxProcessOutputBytes:16777216};
+ const recordAt=directory=>async(name,value,raw=false)=>{const path=join(directory,name);assert(path.startsWith(directory+'/'));await mkdir(dirname(path),{recursive:true});await writeFile(path,raw?value:JSON.stringify(value,null,2)+'\n',{flag:'wx'});};
+@@ -181,7 +181,7 @@
+   const instance={root:directory,installedRoot:host.installedRoot,actorRef:selected.actorRef,namespace:'request://abi5-tests/library-joint-proof-237/'+configuration.runId+'/audit',
+     artifacts:[{label:'native',acquisition:{request:native.request,verification:native.verification}},{label:'consumer',acquisition:{request:consumer.request,verification:consumer.verification}}],
+     record:phaseRecord,command:phaseCommand,configuration:{...configuration,runId:configuration.runId+'-audit'},
+-    resource:{closeHandoff:selected.resource.closeHandoff,mtimeNs:selected.resource.mtimeNs},
++    resource:{closeHandoff:JSON.parse(await readFile(selected.resource.closeHandoff.path,'utf8')).closeHandoff,mtimeNs:selected.resource.mtimeNs},
+     source:{...selected.source,expected:{...selected.source.expected,originalDigest}},
+     current:{reuseInstalledPair:false,lock:{ref:resolvedLock.lockId,digest:resolvedLock.lockDigest},workspaceManifest:selected.workspaceManifest,
+       consumerPublication:{publication:fixture.publication},programDigest:expectedProgramDigest,ticketRef:selected.ticketRef,repriceReason:selected.repriceReason},

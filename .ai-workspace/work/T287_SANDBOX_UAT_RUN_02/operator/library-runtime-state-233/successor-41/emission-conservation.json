@@ -1,0 +1,13 @@
+{
+  "kind": "source40_emission_conservation",
+  "source40": "bd930ac8bb585b7b0a0bdfcd3fd3068ff4015c7f69d7ea3b79d1a31cf522dba0",
+  "source41Files": 528,
+  "same": 527,
+  "changed": [
+    "product/worksite_command_execution.js"
+  ],
+  "declarations": {
+    "count": 264,
+    "changed": 0
+  }
+}

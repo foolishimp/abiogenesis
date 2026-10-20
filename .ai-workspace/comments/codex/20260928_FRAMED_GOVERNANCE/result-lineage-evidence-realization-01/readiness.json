@@ -1,0 +1,83 @@
+{
+  "status": "COMPILE_PASSED_TARGETED_REGRESSION_STOPPED",
+  "compile": {
+    "mode": "compile",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "pid": 37514,
+    "processGroup": 37514,
+    "startedAt": "2026-10-02T12:44:44.658260+00:00",
+    "closedAt": "2026-10-02T12:44:50.914925+00:00",
+    "elapsedMs": 6256.7114578559995,
+    "exitCode": 0,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": null,
+    "rssBytes": 1103904768,
+    "userSeconds": 10.309745,
+    "systemSeconds": 0.247023,
+    "knownCLIProcessGroups": [],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "targetedRegression": {
+    "mode": "regression",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+    ],
+    "pid": 37786,
+    "processGroup": 37786,
+    "startedAt": "2026-10-02T12:45:10.603785+00:00",
+    "closedAt": "2026-10-02T12:45:11.362725+00:00",
+    "elapsedMs": 758.9724999852479,
+    "exitCode": 1,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": null,
+    "rssBytes": 348733440,
+    "userSeconds": 0.831127,
+    "systemSeconds": 0.110164,
+    "knownCLIProcessGroups": [],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/first-readiness-failure.json",
+    "bytes": 4806,
+    "sha256": "379c514dfc768cbd7f7b9d855fd151994ec307264d0f29e5bb45a092cfdffa1a",
+    "mode": 420
+  },
+  "actualDiagnostic": "TypeError: Cannot read properties of undefined (reading 'includes')",
+  "callbackRoute": "Real emitted admitCCallResult -> stageCCallResult success callback -> actual qualification Product lineage guard/producer; real pure projectCCallOutcomeReceiptAtPrefix under lower prefix premise.",
+  "qualificationForms": "Both valid embedded/reference forms and selected preimage/corruption assertions precede the failing final deterministic call in actual control flow; final test pass/outcome absent.",
+  "suppliedPremises": [
+    "Lower ABG transaction/evidence/result/prefix facts in process memory",
+    "Admitted native raw-result preimage",
+    "Current prepared request/nonserialized native-proof operation",
+    "Finite synthetic native-construction attribution data; no genuine Runtime producer"
+  ],
+  "guards": "Actual qualification schema, producer, Product lineage guard and owner applicability logic retained. Corrupted rows intentionally bypass lower admission only to discriminate the selected Product guard.",
+  "crossConsumers": "Existing native-work/Consensus cCallRef/cCallAttempt/evidence identity/class/outputDigest/transportDigest fields retained; final deterministic absence/null conservation arrangement failed before its callback.",
+  "requirementTrace": [
+    "REQ-P-QUAL-064A",
+    "REQ-P-QUAL-064B",
+    "REQ-P-QUAL-064C",
+    "REQ-P-SELF-CONFORMANCE-007A",
+    "T287_F11_CARRIER_RESOURCE_DESIGN.md section 5"
+  ],
+  "semanticF11OrInstalledSuccessorProof": false,
+  "Runtime08": "Still failed; zero completed Runs/cold reads/F11/AF22; no retry."
+}

@@ -1,0 +1,14 @@
+(node:83748) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ small whole subject grouped and singleton semantics agree under explicit independent/native premises (31.947583ms)
+✔ unknown and falsified grouping/applicability are conserved; incomplete context and foreign J cannot discharge scope (78.974958ms)
+✔ G1 multi-root assessment conserves failure and citations beside missing judgment (110.704584ms)
+✔ explicit justified inapplicability conserves singleton meaning and cannot erase a falsified obligation (18.357541ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 529.5605

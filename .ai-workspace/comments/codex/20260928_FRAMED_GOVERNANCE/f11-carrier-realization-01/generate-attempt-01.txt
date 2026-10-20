@@ -1,0 +1,8 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/scripts/generate-product-manifest.mjs:489
+  throw new Error("packed native declaration closure is invalid");
+        ^
+
+Error: packed native declaration closure is invalid
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/scripts/generate-product-manifest.mjs:489:9
+
+Node.js v24.7.0

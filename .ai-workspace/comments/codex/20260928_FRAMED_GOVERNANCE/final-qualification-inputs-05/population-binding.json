@@ -1,0 +1,41 @@
+{
+  "kind": "same_C04_Q05_population_bindings",
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+    "bytes": 140595,
+    "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+    "mode": 420
+  },
+  "qualificationInventory": {
+    "ref": "qualification-inventory://abiogenesis/3af377fd6965e792fddb0573725879faff18b9f140144f8d0af6ba9669abd566",
+    "digest": "sha256:3af377fd6965e792fddb0573725879faff18b9f140144f8d0af6ba9669abd566"
+  },
+  "inventoryMembers": 4604,
+  "sourcePreimages": 1106,
+  "effectiveSourceAndGenerated": 1936,
+  "generated": 926,
+  "generatedCode": 830,
+  "derivedAliases": 96,
+  "changedDerivedAliases": 12,
+  "expectedCurrentOutputs": 927,
+  "historicalComponentOutputs": 835,
+  "historicalSixCaseResult": "Q04 only; not rerun on C04",
+  "protectedInputs": 3281,
+  "protectedBytes": 251610704,
+  "sourceInputs": 780,
+  "auxiliaryInputs": 2500,
+  "recipeInputsIncludingSelf": 16,
+  "commands": 18,
+  "predicates": 19,
+  "selectedGroups": 8,
+  "selectedTitles": 46,
+  "lintFiles": 332,
+  "currentRecipeDigestsProposedFromPriorActualOwner": {
+    "commandConfigurationDigest": "sha256:dcf83a4353ec72d654e3059866d79f68a0bcaba9ce01550fd2bd1f9b95c9b5ee",
+    "predicateConfigurationDigest": "sha256:77c818483c281fc249f19dae307b8f717377661b3105daba8a089d0d8269987d",
+    "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0"
+  },
+  "completeCurrentOwnerDiscriminator": "readiness-result.json passed; exact task/config/protected inputs unchanged; final complete inventory correspondence revalidated separately",
+  "actualNativeTask": null,
+  "qualificationMaterial": null
+}

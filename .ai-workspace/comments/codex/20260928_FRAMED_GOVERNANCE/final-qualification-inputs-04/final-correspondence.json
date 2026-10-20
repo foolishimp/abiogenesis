@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "check": "exact operation grant, independent NO_GO and explicit role transition",
+      "passed": true,
+      "detail": {
+        "grant": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/request.txt",
+          "bytes": 4493,
+          "sha256": "bc5f065d7e82e04296ba258dad8c7a51f45d8951843ce196661980da06549dcd"
+        },
+        "receivedNO_GO": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-and-native-scope-controls-01/received-q03-review.md",
+          "bytes": 668,
+          "sha256": "aa8129dd0d38c157d8dec2f4827c7f78149b9061fe23bc65bd4cd1003e3cd43b"
+        }
+      }
+    },
+    {
+      "check": "all preparation JSON/Python syntax, 31 correspondences, six syntax-only checks and one existing six-case pass",
+      "passed": true,
+      "detail": {
+        "nativeQualificationCommands": 0,
+        "actualExistingReadinessCommands": 1
+      }
+    },
+    {
+      "check": "all4554 inventory origins and canonical inventory identity exact",
+      "passed": true,
+      "detail": {
+        "candidate": 1936,
+        "donorAliases": 96,
+        "additionalControlSuppliers": 20
+      }
+    },
+    {
+      "check": "all3277 current protected origins still exact",
+      "passed": true,
+      "detail": {
+        "bytes": 251384737,
+        "recipeFilesIncludingSelf": 13
+      }
+    },
+    {
+      "check": "all3275 prior protected bodies/modes, all42 Q03 records, Q02 freeze and all1106 C03 source preimages preserved",
+      "passed": true,
+      "detail": {
+        "writesOutsideNewQ04": 0
+      }
+    },
+    {
+      "check": "complete927 current C03 and ambient output populations unchanged",
+      "passed": true,
+      "detail": {
+        "stagedRC2CatalogSHA256": "bd58d739d6efddf466d2bee99c95bc0e49ca9ff3de820ec5aab217557f9afa16"
+      }
+    },
+    {
+      "check": "all835 component outputs and all5168 copied bodies/modes exact; both URL joins isolated",
+      "passed": true,
+      "detail": {
+        "current_C03_compiled_implementation": 735,
+        "historical_RC1_contract_not_current_qualification_law": 4,
+        "historical_RC1_source_projection": 95,
+        "unchanged_existing_source_case": 1
+      }
+    },
+    {
+      "check": "final responsibility/snapshot bindings agree; all actual native/material/J/tenant slots stay unknown",
+      "passed": true,
+      "detail": {
+        "noQualificationCredit": true
+      }
+    },
+    {
+      "check": "exact accepted C03 freeze and archive unchanged; original qualification subjects retained",
+      "passed": true,
+      "detail": {
+        "candidateFreeze": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+          "bytes": 44443,
+          "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a"
+        },
+        "archive": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+          "bytes": 10426739,
+          "sha256": "f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6"
+        },
+        "successorSourceOrTrackingIncorporated": false
+      }
+    }
+  ],
+  "checksCount": 9,
+  "allKnownProcessesStopped": true,
+  "writesOnlyNewQ04": true,
+  "actualReadinessCommands": 1,
+  "prospectiveObservedQualificationCommands": 0,
+  "nativeModelProviderNetworkGitCalls": 0
+}

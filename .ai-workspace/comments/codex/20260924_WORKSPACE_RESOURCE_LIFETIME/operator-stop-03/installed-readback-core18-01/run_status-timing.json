@@ -1,0 +1,31 @@
+{
+  "memberKey": "run_status",
+  "elapsedMs": 1497.0726670000004,
+  "kind": "installed_definition_call_transport_result",
+  "exitCode": 0,
+  "memory": {
+    "rss": 1451294720,
+    "heapTotal": 1167523840,
+    "heapUsed": 1027784416,
+    "external": 82799774,
+    "arrayBuffers": 80381828
+  },
+  "resourceUsage": {
+    "userCPUTime": 14225502,
+    "systemCPUTime": 363250,
+    "maxRSS": 1435136,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 195313,
+    "majorPageFault": 82,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 0,
+    "ipcReceived": 4348,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 965,
+    "involuntaryContextSwitches": 21693
+  }
+}

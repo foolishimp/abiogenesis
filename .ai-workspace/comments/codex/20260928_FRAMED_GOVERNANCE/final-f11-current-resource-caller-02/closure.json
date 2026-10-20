@@ -1,0 +1,12 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_F11_CURRENT_RESOURCE_CALLER_02",
+  "actor": "/root/f11_current_resource_caller",
+  "disposition": "candidate_ready_requires_native_prerequisite_and_separate_grant",
+  "remainingProcesses": [],
+  "nativeCalls": 0,
+  "modelCalls": 0,
+  "probeCalls": 0,
+  "protectedEffects": false,
+  "rootReturn": "readiness.json, effect-plan.json, return.md and this exact CLOSED freeze"
+}

@@ -1,0 +1,199 @@
+--- frozen18/caller.mjs
++++ new19/caller.mjs
+@@ -29,7 +29,7 @@
+  const core=prospect.core,verification=ownedVerification,verified=verification.verifiedArtifact;
+  const ownerRequest=verificationRequest(core),contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,catalogId:verified.catalogId,catalogVersion:schemaVersion,catalogDigest:verified.catalogDigest};
+  const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/s02/'+config.configDigest.slice(7),actorRef=config.actorRef;
+- assert.equal(typeof actorRef,'string','retained workspace operator identity required');
++ assert.equal(typeof actorRef,'string','explicit new workspace operator identity required');
+  const op={actorRef,attributionRef:'attribution://'+base,authorityRef:'authority://'+base,approvalRef:'approval://'+base,requestBaseRef:'request://'+base,correlationRef:'correlation://'+base,provenanceRefs:[pathToFileURL(join(fixtureRoot,'activation.json')).href,pathToFileURL(config.configPath).href,pathToFileURL(config.operatorDecisionRecord.path).href]};
+  op.provenanceRefs=[...new Set(op.provenanceRefs)];
+  const state={closeHandoff:null,physical:null,selection:null,environment:null,catalog:null,catalogView:null,binding:null,resolvedLock:null,calls:[]};
+@@ -44,7 +44,7 @@
+   await writeFile(join(here,'active-operation.json'),JSON.stringify({label,stage,startedAtMs,limitMs})+'\n');
+   try{return await fn();}finally{await writeFile(join(here,'active-operation.json'),JSON.stringify({label,stage,completed:true})+'\n');await write(mode+'-'+label+'-cost.json',{elapsedMs:performance.now()-begin,memory:process.memoryUsage(),resourceUsage:process.resourceUsage(),stage,limitMs});}
+  };
+- const acquire=async closeHandoff=>{assert.equal(state.physical,null);state.closeHandoff=closeHandoff;state.physical=await phase('resource-acquisition','setup',()=>acquired({kind:'reopen_abg_event_resource',schemaVersion,closeHandoff,handoffDigest:hash(closeHandoff)}));state.selection=abg.selectAcquiredAbgEventResource(state.physical,state.physical.entryPrefix);assert.deepEqual(state.selection.prefix,closeHandoff.prefix);};
++ const acquire=async assertion=>{assert.equal(state.physical,null);assert.equal(assertion.kind,'new_abg_event_resource','this isolated case acquires only its newly selected resource');assert.equal(assertion.eventLogPath,join(here,'resources/events/runtime.events.jsonl'));state.physical=await phase('resource-acquisition','setup',()=>acquired(assertion));state.selection=abg.selectAcquiredAbgEventResource(state.physical,state.physical.entryPrefix);assert.equal(state.selection.prefix.prefixLength,0);};
+  const close=async()=>{if(state.physical){const terminal=abg.selectHeldEventStoreDurablePrefix(state.physical.store);const closed=abg.closeAbgEventResource(state.physical,terminal);state.closeHandoff=closed.closeHandoff;abg.abandonAbgEventResource(state.physical);state.physical=null;state.selection=null;return closed;}return null;};
+  async function authorized(packet,request,resources,supplied={}){
+   const definition=installedPublic.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId===packet.definitionKey.operationId&&d.definitionKey.memberKey===packet.definitionKey.memberKey);assert.ok(definition);
+--- frozen18/campaign.mjs
++++ new19/campaign.mjs
+@@ -1,4 +1,4 @@
+-// Finite prospective continuation; no import-time effects. Root must bind accepted core and execution.
++// Root-selected new isolated mixed hold -> Public operator stop; no import-time effects.
+ import assert from 'node:assert/strict';
+ import {readFile,writeFile,mkdir} from 'node:fs/promises';
+ import {join,resolve} from 'node:path';
+@@ -55,7 +55,8 @@
+ export function assertRunReturn(row,started,events){
+  const output=started.receipt.ownerOutput;
+  if(row.expected==='pre_run_refusal'){assert.equal(output.outcomeKind,'refusal');assert.ok(['invalid_program','invalid_graph_function','invalid_view','invalid_target'].includes(output.value.code));assert.equal(events.filter(e=>['run_segment_opened','c_call_opened','child_foldback_admitted'].includes(e.kind)).length,0);return;}
+- assert.equal(output.outcomeKind,'result');const value=output.value;assert.ok(value.run?.ref);
++ assert.equal(output.outcomeKind,row.expected==='human_required'?'nonterminal':'result');const value=output.value;assert.ok(value.run?.ref);
++ if(row.expected==='human_required'){assert.equal(started.receipt.exitCode,3);assert.equal(value.disposition,'held');assert.ok(value.interaction);}
+  for(const e of events)if(e.runId)assert.equal(e.runId,value.run.ref);
+  assert.equal(events.filter(e=>e.kind==='run_segment_opened').length,1);
+  if(row.expected==='completed'){assert.equal(value.disposition,'completed');assert.ok(value.terminalResult);assert.equal(events.filter(e=>e.kind==='run_closed').length,1);assert.equal(events.at(-1).kind,'run_closed');}
+@@ -66,7 +67,7 @@
+  await c.beginAction(caseStem,row);c.refresh();const before=c.state.selection.prefix;
+  const beforeCount=c.abg.readRuntimeEventsAtDurablePrefix(before).length;
+  const completeView=c.product.narrowGraphFunctionCatalog(c.state.catalog,[...c.state.catalog.entries,...c.state.catalog.declarationEntries].map(e=>e.handle).sort());
+- let started,reads={},events=[],input=null;
++ let started,reads={},events=[],input=null,operatorStop=null,heldAfter=null;
+  await c.write(caseStem+'-selection.json',{row,configDigest:config.configDigest,outerLimitMs:outerLimit('case',row),before});
+  try{
+   if(row.case==='malformed-GTL')started=await malformedCase(c,publications);
+@@ -92,14 +93,37 @@
+    if(row.simulatedFp)assert.equal(Number(await readFile(c.actorEnvironment.ABG_S02_FP_COUNTER,'utf8')),events.filter(e=>e.kind==='actor_invocation_started').length);
+   }
+   await writeFile(join(config.runRoot,caseStem+'-events.jsonl'),events.map(e=>JSON.stringify(e)).join('\n')+(events.length?'\n':''),{flag:'wx'});
++  heldAfter=c.state.selection.prefix;
++  // Coordinates come from this actual Public invocation and its admitted Run
++  // opening. The existing witness owner decides whether that Run is active.
++  assert.equal(row.case,'mixed-human-boundary');const value=started.receipt.ownerOutput.value;
++  const openings=events.filter(e=>e.kind==='run_segment_opened');assert.equal(openings.length,1);
++  const opening=openings[0];assert.equal(opening.runId,value.run.ref);assert.equal(opening.payload.runDigest,value.run.digest);
++  const basis={ref:opening.payload.executionBasisRef,digest:opening.payload.executionBasisDigest};
++  const source=c.abg.readRuntimeEventsAtDurablePrefix(heldAfter);assert.deepEqual(source.filter(e=>e.kind==='run_segment_opened').map(e=>e.runId),[value.run.ref]);
++  const content=c.abg.WITNESS_CONTENT_CONTRACTS['run-stopped'];
++  const request={subjectKind:'run',subject:value.run,act:'run-stopped',content:{kind:'typed_reason',contentContract:{ref:content.ref,digest:content.digest},value:{reasonKind:'operator_stop',reasonDetail:'Root-selected isolated Public operator-stop steel thread after the declared mixed human hold.'}},context:{kind:'run',run:value.run,basis},evidence:[value.run,value.replay],provenance:[basis]};
++  const stopped=await c.invoke('operator-stop',await c.authorized(c.abg.WITNESS_OPERATION_CONTRACTS.admit['run-stopped'],request,{kind:'witness_run_stopped_resource_assertion',schemaVersion,eventResource:c.reopen()},{...c.boundSlots(),execution_basis:basis}),'read');
++  const afterStop=c.state.selection.prefix,all=c.abg.readRuntimeEventsAtDurablePrefix(afterStop),delta=all.slice(source.length);
++  assert.deepEqual(all.slice(0,source.length),source);assert.deepEqual(delta.map(e=>e.kind),['public_operation_admitted','run_stopped']);
++  const stop=delta[1],{eventId,...body}=stop;assert.equal(stop.runId,value.run.ref);assert.equal(stop.basisId,basis.ref);
++  assert.equal(stop.payload.actorRef,c.op.actorRef);assert.equal(stop.payload.operatorActorRef,c.op.actorRef);assert.equal(stop.payload.actorDigest,c.actor.actor.digest);
++  assert.deepEqual(stop.payload.contentValue,request.content.value);assert.deepEqual(stop.payload.context,request.context);
++  assert.equal(delta[0].payload.invocationRef,stopped.call.invocation.invocationRef);assert.equal(delta[0].payload.executionBasisRef,basis.ref);assert.equal(delta[0].payload.executionBasisDigest,basis.digest);
++  assert.ok(stop.causationEventRefs.includes(delta[0].eventId));assert.deepEqual(stopped.receipt.ownerOutput.value.admittedEvent,{ref:eventId,digest:c.hash(body)});
++  assert.deepEqual(stopped.receipt.ownerOutput.value.witnessedAct,{ref:stop.payload.witnessedActRef,digest:stop.payload.witnessedActDigest});
++  operatorStop={status:'actual_installed_public_operator_stop_admitted',run:value.run,executionBasis:basis,actor:c.actor.actor,reason:request.content.value,
++   invocationRef:stopped.call.invocation.invocationRef,witnessedAct:stopped.receipt.ownerOutput.value.witnessedAct,admittedEvent:stopped.receipt.ownerOutput.value.admittedEvent,
++   before:heldAfter,after:afterStop,eventRefs:delta.map(e=>e.eventId),eventKinds:delta.map(e=>e.kind),otherRunCount:0,providerCalls:0};
++  await c.write('operator-stop-summary.json',operatorStop);
+  }catch(error){error.case=caseId;if(started){events=c.abg.readRuntimeEventsAtDurablePrefix(c.state.selection.prefix).slice(beforeCount);error.observation={row,started,reads,events,before,after:c.state.selection.prefix};}throw error;}
+- return {row,started,reads,events,before,after:c.state.selection.prefix};
++ return {row,started,reads,events,before,after:heldAfter,operatorStop};
+ }
+ export async function main(configPath){
+  const bytes=await readFile(configPath),config={...JSON.parse(bytes),configPath,configDigest:digest(bytes)};requireSelection(config);
+- for(const key of ['acceptedCandidateRecord','operatorDecisionRecord','callerFreeze','retainedSelection','cases','oracleBasis'])await checkFile(config[key]);
++ for(const key of ['acceptedCandidateRecord','operatorDecisionRecord','callerFreeze','cases','oracleBasis'])await checkFile(config[key]);
+  const freeze=JSON.parse(await checkFile(config.callerFreeze));for(const member of freeze.members)await checkFile({path:join(import.meta.dirname,member.path),sha256:member.sha256});
+- const selected=await read(config.cases.path),retained=await read(config.retainedSelection.path);assert.deepEqual(config.core.basis,config.dependencyRebind.afterCore,'explicit compiled10 rebind required');assert.deepEqual(retained.core.basis,config.dependencyRebind.beforeCore);assert.equal(config.dependencyRebind.kind,'executive_selected_dependency_rebind');assert.deepEqual(config.mini.basis,retained.mini.basis);
++ const selected=await read(config.cases.path);assert.deepEqual(selected.scenarios.map(r=>r.case),['mixed-human-boundary']);assert.equal(config.newIsolatedResource,true);
+  await mkdir(config.runRoot,{recursive:false});const write=(name,value)=>writeFile(join(config.runRoot,name),JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+  await write('configuration.json',config);await writeFile(join(config.runRoot,'active-action.json'),JSON.stringify({name:'setup',startedAtMs:Date.now(),limitMs:config.policies.setupOuterMs})+'\n');const runtime=await loadRuntime(config.core.installedRoot),items=[{name:'core',...config.core},{name:'mini',...config.mini}];
+  let c,last=null,closed=null,firstCause=null;const results=[],readback=[],initial=performance.now();
+@@ -111,14 +135,14 @@
+    await writeFile(join(config.runRoot,'active-operation.json'),JSON.stringify({label:'bootstrap-'+item.name,stage:'setup',startedAtMs:Date.now(),limitMs:limits.setup})+'\n');
+    const begin=performance.now();item.verification=await runtime.product.ProductVerificationPort.verify(packet);await write('bootstrap-'+item.name+'.json',item.verification);await write('bootstrap-'+item.name+'-cost.json',{elapsedMs:performance.now()-begin,memory:process.memoryUsage(),resourceUsage:process.resourceUsage()});assert.equal(item.verification.kind,'product_verification_success');item.verified=item.verification.verifiedArtifact;
+   }
+-  c=await caller(config,'setup',null,items[0].verification);await c.beginAction('setup');const publications=await setup(c,config,retained,items);
+-  for(const row of selected.scenarios){const out=await execute(c,config,row,publications);last=out;if(row.case!=='malformed-GTL')readback.push({row,started:{call:{invocation:{invocationAuthority:{slots:out.started.call.invocation.invocationAuthority.slots}}},receipt:out.started.receipt},events:out.events,before:out.before,after:out.after});
+-   const summary={case:row.case,status:'run_return_and_event_predicates_satisfied_fresh_projection_pending',before:out.before,after:out.after,run:out.started.receipt.ownerOutput?.value?.run??null,eventCount:out.events.length,actorCount:out.events.filter(e=>e.kind==='actor_invocation_started').length,readScope:'no held Public read; complete per-Run final-close Public projection obligation retained'};
++  c=await caller(config,'setup',null,items[0].verification);await c.beginAction('setup');const publications=await setup(c,config,items);
++  for(const row of selected.scenarios){const out=await execute(c,config,row,publications);last=out;if(row.case!=='malformed-GTL')readback.push({row,started:{call:{invocation:{invocationAuthority:{slots:out.started.call.invocation.invocationAuthority.slots}}},receipt:out.started.receipt},events:out.events,before:out.before,after:out.after,operatorStop:out.operatorStop});
++   const summary={case:row.case,status:'run_return_and_event_predicates_satisfied_fresh_projection_pending',before:out.before,after:out.after,run:out.started.receipt.ownerOutput?.value?.run??null,operatorStop:out.operatorStop,eventCount:out.events.length,actorCount:out.events.filter(e=>e.kind==='actor_invocation_started').length,readScope:'no held Public read; complete per-Run final-close Public projection obligation retained'};
+    await write('continued-'+row.case+'-result.json',summary);results.push(summary);await writeFile(join(config.runRoot,'case-index.json'),JSON.stringify(results,null,2)+'\n');
+   }
+  }catch(error){last=error.observation??last;firstCause={case:error.case??null,message:String(error),stack:error.stack};process.exitCode=1;}
+  finally{
+-  if(c?.state.physical){try{const prefix=c.abg.selectHeldEventStoreDurablePrefix(c.state.physical.store);const all=c.abg.readRuntimeEventsAtDurablePrefix(prefix);const suffix=all.filter(e=>e.admissionOrdinal>2035);await writeFile(join(config.runRoot,'appended-events.jsonl'),suffix.map(e=>JSON.stringify(e)).join('\n')+(suffix.length?'\n':''),{flag:'wx'});closed=await c.close();await write('final-close.json',closed);}catch(error){firstCause??={message:'final close failed: '+String(error)};process.exitCode=1;}}
++  if(c?.state.physical){try{const prefix=c.abg.selectHeldEventStoreDurablePrefix(c.state.physical.store);const all=c.abg.readRuntimeEventsAtDurablePrefix(prefix);const suffix=all.filter(e=>e.admissionOrdinal>=0);await writeFile(join(config.runRoot,'appended-events.jsonl'),suffix.map(e=>JSON.stringify(e)).join('\n')+(suffix.length?'\n':''),{flag:'wx'});closed=await c.close();await write('final-close.json',closed);}catch(error){firstCause??={message:'final close failed: '+String(error)};process.exitCode=1;}}
+   for(const[k,v]of Object.entries(previousEnv)){if(v===undefined)delete process.env[k];else process.env[k]=v;}
+  }
+  if(closed&&last)await write('fresh-read-input.json',{config,closeHandoff:closed.closeHandoff,binding:c.state.binding,runs:readback,firstCause});
+--- frozen18/setup.mjs
++++ new19/setup.mjs
+@@ -1,17 +1,16 @@
+-// Same Public setup as accepted17; explicit compiled10 rebind with unchanged mini.
++// Existing Public create/install/bind/catalog setup in a new isolated resource.
++// Published mixed mini and the frozen18 owner/caller flow are unchanged.
+ import assert from 'node:assert/strict';
+-import {join,dirname} from 'node:path';
++import {join,dirname,resolve} from 'node:path';
++import {mkdir} from 'node:fs/promises';
+ import {read} from '../s02-carrier-02/config.mjs';
+ import {schemaVersion} from './caller.mjs';
+ import {loadPackageExport} from '../s02-carrier-02/public-support.mjs';
+-export async function setup(c,config,retained,items){
++export async function setup(c,config,items){
+  const here=config.runRoot,{write,product,abg,gtl,hash,actor,state,authorized,invoke}=c;
+- state.closeHandoff=retained.closeHandoff;
+- const workspaceManifest=await read(join(retained.workspaceAuthority.canonicalRoot,'.abiogenesis/workspace-manifest.json'));
+- assert.equal(workspaceManifest.workspaceRef,retained.workspaceAuthority.workspaceId);
+- assert.equal(workspaceManifest.canonicalRoot,retained.workspaceAuthority.canonicalRoot);
+- assert.equal(c.op.actorRef,retained.workspaceAuthority.authorizedActorRef);
+- await write('retained-context.json',{closeHandoff:state.closeHandoff,workspaceAuthority:retained.workspaceAuthority,workspaceManifest,priorBinding:retained.oldBinding});
++ const workspaceRoot=join(here,'resources/worksite');await mkdir(join(here,'resources/events'),{recursive:true});
++ const created=await invoke('workspace',await authorized(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean,{targetRoot:workspaceRoot,createPolicy:'clean',scaffoldPolicy:'none'},{kind:'workspace_resource_assertion',schemaVersion,targetRoot:workspaceRoot,targetRootDigest:hash({kind:'workspace_target',targetRoot:workspaceRoot})},{actor}));
++ const workspaceManifest=await read(created.receipt.resources.manifest.locator);
+  for(const item of items){
+   const v=item.verified;item.packed={kind:'product_verification_artifact_resource',schemaVersion,artifactPath:item.artifactPath,artifact:{ref:v.artifactRef,digest:v.artifactDigest},productContent:{ref:'product-content://abiogenesis/'+v.productContentDigest.slice(7),digest:v.productContentDigest},descriptor:item.verification.coordinates.descriptor,contributionManifest:{ref:v.contributionManifestRef,digest:v.contributionManifestDigest},manifestDigest:v.manifestDigest,productId:v.productId,packageName:v.packageName,packageVersion:v.packageVersion};
+   const result=await invoke('verify-'+item.name,await authorized(product.PRODUCT_VERIFICATION_SOURCE_DECLARATIONS.verify,{targetKind:'packed_artifact',artifact:item.packed.artifact,productContent:item.packed.productContent,descriptor:item.packed.descriptor,contributionManifest:item.packed.contributionManifest,declaredDependencies:v.declaredDependencies,compatibilityInputs:v.compatibilityRefs.map(compatibilityRef=>({compatibilityRef,subjectRef:item.packed.productContent.ref}))},{kind:'product_verification_resources',schemaVersion,targetKind:'packed_artifact',packedArtifact:item.packed,verifiedArtifact:item.verified}));
+@@ -20,29 +19,21 @@
+  const resolvedLock=product.ProductEnvironmentPort.resolve({kind:'product_resolution_packet',schemaVersion,memberKey:'resolve',verifiedArtifacts:items.map(x=>x.verified)});assert.equal(resolvedLock.kind,'resolved_product_lock',JSON.stringify(resolvedLock));state.resolvedLock=resolvedLock;
+  const lock={ref:resolvedLock.lockId,digest:resolvedLock.lockDigest};
+  await invoke('resolve',await authorized(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.resolve,{requirements:items.map(i=>({productId:i.verified.productId,packageVersion:i.verified.packageVersion,requiredContractRefs:[],requiredCapabilityRefs:[]})),verifiedCandidates:items.map(i=>i.verificationRef)},{kind:'product_resolution_resource_assertion',schemaVersion,verifiedPreimages:items.map(i=>({verification:i.verificationRef,verifiedArtifact:i.verified,verificationOutput:i.verificationOutput})),nativeContractClosure:{selectorDispositions:[],occurrences:[],nativeBindings:[]}},{verification_references:items.map(i=>i.verificationRef)}));
+- await c.acquire(retained.closeHandoff);state.binding=retained.oldBinding;c.refresh();
+- const retainedRoots=state.environment.workspaceBindingCandidate.roots;
+- assert.deepEqual(state.environment.workspaceAuthorityBasis,retained.workspaceAuthority);
+- const resourcesRoot=join(here,'resources'),eventLogPath=retained.closeHandoff.reopenAuthority.eventLogPath,installRoot=join(resourcesRoot,'installed');
++ const resourcesRoot=join(here,'resources'),eventLogPath=join(resourcesRoot,'events/runtime.events.jsonl'),installRoot=join(resourcesRoot,'installed');
++ await c.acquire({kind:'new_abg_event_resource',schemaVersion,eventLogPath,locatorDigest:hash({kind:'abg_event_log_locator',eventLogPath:resolve(eventLogPath)})});
+  for(const item of items){
+   const eventResource=c.reopen();
+   const installed=await invoke('install-'+item.name,await authorized(product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,{verifiedArtifact:item.verification.coordinates.verifiedArtifact,descriptor:item.packed.descriptor,contributionManifest:item.packed.contributionManifest,resolvedLock:lock,targetRoot:join(installRoot,item.name),installPolicy:'clean'},{kind:'product_install_resource_assertion',schemaVersion,eventResource,packedArtifact:item.packed,verifiedArtifact:item.verified,resolvedLock},{dependency_lock:lock,verification_references:[item.verificationRef],actor}));
+   const row=abg.projectAdmittedProductInstallByInvocationRef(abg.projectExactPrefixArtifactTruth(state.selection.prefix),installed.call.invocation.invocationRef);assert.ok(row);item.install=row.install;
+  }
+- const workspaceAuthority=retained.workspaceAuthority;
+- const roots={...retainedRoots,toolchainRoot:installRoot,productRoot:items[0].install.installedRoot};
++ const authorityManifest={workspaceId:workspaceManifest.workspaceRef,canonicalRoot:workspaceManifest.canonicalRoot,authorityMode:'trusted_developer',authorizedActorRef:c.op.actorRef};
++ const workspaceAuthority=product.constructWorkspaceAuthorityBasis({...authorityManifest,authorityManifestRef:c.op.authorityRef+'/workspace-manifest',authorityManifestDigest:hash(authorityManifest)});
++ const roots={toolchainRoot:installRoot,productRoot:items[0].install.installedRoot,eventLogRoot:dirname(eventLogPath),runtimeStateRoot:join(resourcesRoot,'runtime'),projectionRoot:join(resourcesRoot,'projections'),archiveRoot:join(resourcesRoot,'archives')};
+  assert.equal(roots.eventLogRoot,dirname(eventLogPath));
+  const rootFields={toolchain:'toolchainRoot',product:'productRoot',event_log:'eventLogRoot',runtime_state:'runtimeStateRoot',projection:'projectionRoot',archive:'archiveRoot'},coordinates=items.map(i=>product.productInstallCoordinate(i.install));
+  const bound=await invoke('bind',await authorized(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,{workspaceAuthority:{ref:workspaceAuthority.authorityBasisId,digest:workspaceAuthority.authorityBasisDigest},installedSet:coordinates,resolvedLock:lock,declaredRoots:Object.entries(rootFields).map(([rootKind,field])=>({rootKind,path:roots[field]}))},{kind:'product_workspace_binding_resource_assertion',schemaVersion,eventResource:c.reopen(),workspaceAuthority,workspaceManifest,admittedInstalls:items.map(i=>i.install),resolvedLock,declaredRoots:roots},{product_set:coordinates,dependency_lock:lock,actor}));
+  state.binding=bound.receipt.ownerOutput.value.binding;c.refresh();
+ 
+- const evidenceBasis=retained.oldBasis,oldEvents=abg.readRuntimeEventsAtDurablePrefix(state.selection.prefix);
+- assert.ok(oldEvents.some(e=>e.kind==='basis_admitted'&&e.payload.basisRef===evidenceBasis.ref&&e.payload.basisDigest===evidenceBasis.digest),'reprice must use genuine prior admitted basis');
+- const content=abg.WITNESS_CONTENT_CONTRACTS.reprice;
+- const before={core:retained.oldCore,mini:retained.oldMini},after={core:config.core.basis,mini:config.mini.basis};
+- const reprice={subjectKind:'authority_basis',subject:evidenceBasis,act:'reprice',content:{kind:'typed_payload',contentContract:{ref:content.ref,digest:content.digest},value:{declarationRef:'declaration://abiogenesis/t287/s02/continuation-18',beforeDigest:hash(before),afterDigest:hash(after),changeClass:'realization_refactor',owningTicketRef:'ticket://T-287',reason:'Accepted compiled10 core replaces compiled09 under the existing realization contract; corrected mini remains identical and all prior Runs remain historical.'}},context:{kind:'basis',basis:evidenceBasis},evidence:[retained.oldProgram],provenance:[{ref:new URL('file://'+retained.retainedBasisSource.path).href,digest:'sha256:'+retained.retainedBasisSource.sha256}]};
+- await invoke('reprice',await authorized(abg.WITNESS_OPERATION_CONTRACTS.admit.reprice,reprice,{kind:'witness_reprice_resource_assertion',schemaVersion,eventResource:c.reopen()},c.boundSlots()));
+- c.refresh();
+  const coreBasis={...items[0].verified,productManifestDigest:items[0].verified.manifestDigest};
+  const publications=[gtl.constructHelloWorldModulePublication,gtl.constructConsensusModulePublication,gtl.constructWorksiteConstructionModulePublication,gtl.constructWorksiteCommandExecutionModulePublication,gtl.constructWorksiteCommandForwardModulePublication,gtl.constructRequirementHandoffModulePublication,gtl.constructSemanticStageModulePublication,gtl.constructSemanticRevisionModulePublication,gtl.constructSelfConformanceModulePublication,gtl.constructNativeWorkspaceWorkModulePublication].map(f=>f(coreBasis));
+  const miniModule=await loadPackageExport(items[1].install.installedRoot,items[1].basis.packageName,'.');
+@@ -55,6 +46,6 @@
+ 
+  const allowlist=[...new Set([...state.catalog.entries,...state.catalog.declarationEntries].map(e=>e.handle))].sort();
+  await c.selectView('catalog-view',allowlist);
+- await write('setup-coordinates.json',{binding:state.binding,resolvedLock:{ref:resolvedLock.lockId,digest:resolvedLock.lockDigest},installs:items.map(i=>({name:i.name,install:i.install})),workspaceAuthority,roots,entry:retained.closeHandoff.prefix,successor:state.selection.prefix});
++ await write('setup-coordinates.json',{binding:state.binding,resolvedLock:{ref:resolvedLock.lockId,digest:resolvedLock.lockDigest},installs:items.map(i=>({name:i.name,install:i.install})),workspaceAuthority,roots,entry:c.state.physical.entryPrefix,successor:state.selection.prefix});
+  return publicationInputs;
+ }
+--- frozen18/fresh-read.mjs
++++ new19/fresh-read.mjs
+@@ -20,7 +20,7 @@
+   const grants=packet.metadata.capabilityRefs.map(cap=>product.constructCapabilityGrant(environment.workspaceAuthorityBasis,config.actorRef,packet.definitionKey.operationId,cap,{admittedInstalls:environment.productInstalls,workspaceBinding:environment.workspaceBinding,fixedPacket:packet}));
+   const slots=Object.fromEntries(Object.keys(originalSlots).map(k=>[k,null]));Object.assign(slots,{workspace_binding:originalSlots.workspace_binding,product_set:originalSlots.product_set,dependency_lock:originalSlots.dependency_lock,capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}});
+   const request={caseKey:memberKey,source:{sourceKind:run?'run':'workspace_binding',sourceRef:run?.ref??binding.ref,sourceDigest:run?.digest??binding.digest},projectionBasis:{projectionBasisRef:closed.prefix.eventLogRef,projectionBasisDigest:closed.prefix.coordinateDigest},selector:memberKey.endsWith('_replay')?{kind:'ordinal_page',fromOrdinal:0,limit:1000}:{kind:'none'}};
+-  const call=installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots,resources:{kind:'abg_project_read_resource_assertion',schemaVersion,eventResource:{kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:closed,handoffDigest:hash(closed)}},requestRef:'request://abiogenesis/t287/s02/continuation-18/fresh/'+row.case+'/'+memberKey,correlationRef:'correlation://abiogenesis/t287/s02/continuation-18/fresh',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(config.operatorDecisionRecord.path).href]});
++  const call=installedPublic.constructInstalledPublicDefinitionCall({product,installedPublic,definitionContractCoordinates:verified.definitionContractCoordinates,contractCatalog,...packet.definitionKey,request,slots,resources:{kind:'abg_project_read_resource_assertion',schemaVersion,eventResource:{kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:closed,handoffDigest:hash(closed)}},requestRef:'request://abiogenesis/t287/s02/continuation-19/fresh/'+row.case+'/'+memberKey,correlationRef:'correlation://abiogenesis/t287/s02/continuation-19/fresh',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(config.operatorDecisionRecord.path).href]});
+   await write('fresh-'+row.case+'-'+memberKey+'-request.json',call);const begin=performance.now();
+   await writeFile(join(config.runRoot,'active-operation.json'),JSON.stringify({label:'fresh-'+row.case+'-'+memberKey,stage:'read',startedAtMs:Date.now(),limitMs:600000})+'\n');
+   const outcome=await installedPublic.runInstalledDefinitionCallTransport({kind:'reopen',closeHandoff:closed},call);await write('fresh-'+row.case+'-'+memberKey+'-receipt.json',outcome);
+@@ -32,7 +32,8 @@
+  if(run){const status=reads.run_status.ownerOutput.value,replay=reads.run_replay.ownerOutput.value;assert.deepEqual(status.source,run);assert.deepEqual(replay.source,run);assert.equal(status.projection.status,replay.projection.status);if(after.coordinateDigest===closed.prefix.coordinateDigest)assert.deepEqual(replay.projection.replay,started.receipt.ownerOutput.value.replay);
+   if(row.expected==='completed'){assert.equal(status.projection.status,'closed');assert.equal(reads.run_result.ownerOutput.outcomeKind,'result');assert.deepEqual(reads.run_result.ownerOutput.value.source,run);const finalBasis={ref:closed.prefix.eventLogRef,digest:closed.prefix.coordinateDigest};for(const v of [reads.run_result.ownerOutput.value.projection.terminalResult,replay.projection.terminalResult])assert.deepEqual(v.projectionBasis,finalBasis);const meaning=v=>{const {projectionBasis,...rest}=v;return rest;};assert.deepEqual(meaning(reads.run_result.ownerOutput.value.projection.terminalResult),meaning(started.receipt.ownerOutput.value.terminalResult));assert.deepEqual(meaning(replay.projection.terminalResult),meaning(started.receipt.ownerOutput.value.terminalResult));}
+   if(row.expected==='stopped'){assert.equal(replay.projection.status,'blocked');assert.equal(reads.run_result.ownerOutput.outcomeKind,'refusal');assert.equal(reads.run_result.ownerOutput.value.code,'not_found');assert.equal(replay.projection.terminalResult,null);}
+-  if(row.expected==='human_required'){assert.ok(['blocked','held','gap_stopped'].includes(replay.projection.status));assert.equal(reads.run_result.ownerOutput.outcomeKind,'refusal');assert.equal(reads.run_result.ownerOutput.value.code,['held','gap_stopped'].includes(replay.projection.status)?'not_ready':'not_found');assert.equal(replay.projection.terminalResult,null);}
++  if(record.operatorStop){assert.equal(replay.projection.status,'stopped');assert.equal(status.projection.status,'stopped');assert.equal(reads.run_result.ownerOutput.outcomeKind,'refusal');assert.equal(reads.run_result.ownerOutput.value.code,'not_found');assert.equal(replay.projection.terminalResult,null);assert.ok(status.projection.activeFluents.some(f=>f.ref==='operator_run_stopped('+run.ref+')'));}
++  if(row.expected==='human_required'&&!record.operatorStop){assert.ok(['blocked','held','gap_stopped'].includes(replay.projection.status));assert.equal(reads.run_result.ownerOutput.outcomeKind,'refusal');assert.equal(reads.run_result.ownerOutput.value.code,['held','gap_stopped'].includes(replay.projection.status)?'not_ready':'not_found');assert.equal(replay.projection.terminalResult,null);}
+  }
+  outcomes.push({case:row.case,run,status:'actual_fresh_public_readback_agrees',rootReturnPrefix:after,freshProjectionPrefix:closed.prefix,replayComparedAtIdenticalCut:after.coordinateDigest===closed.prefix.coordinateDigest,meaning:'Exact admitted Result/producer/value conserved; current projectionBasis and authority-prefix profile schedule may differ at a later requested cut, as accepted implementation03 established.'});
+  }

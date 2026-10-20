@@ -1,0 +1,12 @@
+{
+  "phase": "read-only entry preflight",
+  "error": "AttributeError: 'dict' object has no attribute 'find'",
+  "failedExpression": "constitution.stdo.basis.find('v2.5.1-rc.2')",
+  "actualProducerFields": [
+    "uri",
+    "manifest_sha256"
+  ],
+  "effectsBeforeRefusal": 0,
+  "payloadsBeforeRefusal": 0,
+  "disposition": "bounded preparation lookup corrected from actual Definition fields; no owner/schema change"
+}

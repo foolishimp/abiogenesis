@@ -1,0 +1,96 @@
+{
+  "operation": "T287_QUALIFICATION_RAW_CONTRACT_PUBLICATION_REALIZATION_01",
+  "originalSourceRecord": {
+    "path": "build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "bytes": 18649,
+    "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+    "mode": 420,
+    "sourceAuthor": "/root/f11_carrier_design_worker",
+    "selectedRelation": "immutable_C05_input_preimage",
+    "originalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "originalAuthorship": "/root/f11_carrier_design_worker",
+    "C04InputSHA256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+    "C04SourceProvenance": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18649,
+      "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+      "mode": 420,
+      "sourceAuthor": "/root/f11_carrier_design_worker",
+      "selectedRelation": "immutable_C03_input_preimage",
+      "originalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "originalAuthorship": "/root/f11_carrier_design_worker",
+      "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_04",
+      "C03InputSHA256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+      "changedFromC03": false,
+      "gitBlobOfSelectedBody": "4f933ce77247ef596dda175f5dcf4ffb0f519f39"
+    },
+    "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+    "changedFromC04": false,
+    "gitBlobOfSelectedBody": "4f933ce77247ef596dda175f5dcf4ffb0f519f39",
+    "C05InputSHA256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+    "C05SourceProvenance": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18649,
+      "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+      "mode": 420,
+      "sourceAuthor": "/root/f11_carrier_design_worker",
+      "selectedRelation": "immutable_C04_input_preimage",
+      "originalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "originalAuthorship": "/root/f11_carrier_design_worker",
+      "C04InputSHA256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+      "C04SourceProvenance": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+        "bytes": 18649,
+        "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+        "mode": 420,
+        "sourceAuthor": "/root/f11_carrier_design_worker",
+        "selectedRelation": "immutable_C03_input_preimage",
+        "originalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+        "originalAuthorship": "/root/f11_carrier_design_worker",
+        "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_04",
+        "C03InputSHA256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+        "changedFromC03": false,
+        "gitBlobOfSelectedBody": "4f933ce77247ef596dda175f5dcf4ffb0f519f39"
+      },
+      "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_05",
+      "changedFromC04": false,
+      "gitBlobOfSelectedBody": "4f933ce77247ef596dda175f5dcf4ffb0f519f39"
+    },
+    "changedFromC05": false,
+    "addedFromC05": false
+  },
+  "incrementAuthor": "/root/q03_input_review under exact separate Worker grant",
+  "SourceScope": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs"
+  ],
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/preimages/self_conformance.ts",
+    "bytes": 18649,
+    "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+    "mode": 420
+  },
+  "testPreimage": "ABSENT",
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18733,
+      "sha256": "8396aee64c5d800861c97b9a5ce0ccdde06d5ba507539da7216f62080238614f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+      "bytes": 14115,
+      "sha256": "f57e520c9a7ce2ca5ee61044bc70293b93618f4649a816b52d1fc4393d29334e",
+      "mode": 420
+    }
+  ],
+  "copyOrBuildAuthorIsOriginalSourceAuthor": false,
+  "semanticIndependence": "unknown"
+}

@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/graph-owner.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19",
+  "started": "2026-10-08T05:15:55.052Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 30000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 416.765917,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "[{\"candidate\":18,\"graphDigest\":\"sha256:b424d08fd66a6c1258202715e23642a8b06bc304d2bd13e53b3faf1523ec6f3a\",\"flatCount\":75,\"nestedCount\":178,\"graphRows\":16,\"exactCanonicalValueAndBytes\":true},{\"candidate\":19,\"graphDigest\":\"sha256:ed66f021170abc976fcfaeadad9348533776236097a2475723513c5fc4955ab4\",\"flatCount\":75,\"nestedCount\":178,\"graphRows\":16,\"exactCanonicalValueAndBytes\":true}]\n",
+  "stderr": ""
+}

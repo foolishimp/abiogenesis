@@ -1,0 +1,8 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/physical-process-checks.mjs:21
+ for(const label of labels4.slice(0,2)){const {raw,transport}=receipts[label],value=raw.receipt.ownerOutput.value,resource=raw.receipt.resources.eventResource;check(label+':actual conformance and no append',()=>{assert.equal(value.disposition,'passed');assert.deepEqual(value.program,transport.invocation.invocation.request.program);assert.deepEqual(value.diagnostics,[]);assert.deepEqual(value.violatedAuthorities,[]);assert.deepEqual(resource.entryPrefix,initial.prefix);assert.deepEqual(resource.closeHandoff,initial);},{program:value.program,assessment:value.assessment,entryPrefix:resource.entryPrefix,closeHandoff:resource.closeHandoff});}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+
+TypeError: Cannot read properties of undefined (reading 'entryPrefix')
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/physical-process-checks.mjs:21:596
+
+Node.js v24.7.0

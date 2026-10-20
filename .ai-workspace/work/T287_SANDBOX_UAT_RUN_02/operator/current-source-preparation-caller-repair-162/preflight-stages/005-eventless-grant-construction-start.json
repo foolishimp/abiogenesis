@@ -1,0 +1,10 @@
+{
+  "stage": "eventless-grant-construction-start",
+  "elapsedMs": 20069.482417,
+  "rss": 1732526080,
+  "heapTotal": 1371979776,
+  "heapUsed": 1178762200,
+  "external": 97839984,
+  "arrayBuffers": 95205592,
+  "eventResource": null
+}

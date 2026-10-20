@@ -1,0 +1,309 @@
+{
+  "status": "PASS_COMPONENT_READINESS",
+  "testPostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+    "bytes": 7008,
+    "sha256": "c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b",
+    "mode": 420
+  },
+  "check": {
+    "mode": "types",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+      "--test",
+      "corrected-type-contract.test.mjs"
+    ],
+    "pid": 8925,
+    "processGroup": 8925,
+    "startedAt": "2026-10-02T14:39:07.643424+00:00",
+    "closedAt": "2026-10-02T14:39:13.042326+00:00",
+    "elapsedMs": 5398.948749992996,
+    "exitCode": 0,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": null,
+    "rssBytes": 1112064000,
+    "userSeconds": 9.197918,
+    "systemSeconds": 0.197686,
+    "knownCLIProcessGroups": [],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "compilerVersion": "5.9.2",
+  "caseCount": 32,
+  "caseResults": [
+    {
+      "name": "valid-probabilistic-and-nonprobabilistic",
+      "expectedErrors": 0,
+      "actualErrors": 0,
+      "diagnosticCodes": []
+    },
+    {
+      "name": "destination-omits-cCallRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-cCallAttempt",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-evidenceRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-evidenceDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-evidenceClass",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-inputDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-outputDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-transportDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-actorInvocationRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-actorRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-workerBindingRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-transportBindingRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-transportBindingDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-requestDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-promptDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-transportDisposition",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "destination-omits-transportFailureClass",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "admitted-source-omits-inputDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-actorInvocationRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-actorRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-workerBindingRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-transportBindingRef",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-transportBindingDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-requestDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-promptDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-transportDisposition",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "admitted-source-omits-transportFailureClass",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2375
+      ]
+    },
+    {
+      "name": "source-invalid-class",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "hook-LeafRows-requires-inputDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "hook-ProductRows-requires-inputDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    },
+    {
+      "name": "hook-InstalledRows-requires-inputDigest",
+      "expectedErrors": 1,
+      "actualErrors": 1,
+      "diagnosticCodes": [
+        2322
+      ]
+    }
+  ],
+  "diagnosticCounts": {
+    "2322": 21,
+    "2375": 10
+  },
+  "unrelatedSourceDiagnostics": [],
+  "completeCompilerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/compiler-receipt.json",
+    "bytes": 54899,
+    "sha256": "f66f58f69052436ac9c38c736b30e5d12a6fce57694cdcc65be26bb882f2282e",
+    "mode": 420
+  },
+  "sourceCompile": "reused original successful tsc; no recompile",
+  "callback": "reused successful continuation callback; no rerun",
+  "unchangedProductionSources": 6,
+  "unchangedEmittedMembers": 524,
+  "noInstalledOrSemanticQualification": true
+}

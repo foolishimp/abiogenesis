@@ -1,0 +1,39 @@
+{
+  "kind": "future_actual_bindings_required",
+  "currentCandidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/candidate-binding.json",
+    "bytes": 3874,
+    "sha256": "b219ccf6fb01ad172dfffdffadaa10c7dfc0e2b2c39b25666aeb56f3ec6caada",
+    "mode": 420
+  },
+  "contexts": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/f11-context-selection-plan.json",
+    "bytes": 55581,
+    "sha256": "febe90748d86a7e0bd1c9ce944f14a1dbb7f41c00877b9f12112543655d40bab",
+    "mode": 420
+  },
+  "recipeRef": "recipe-input://abiogenesis/q05/verification-recipe.json",
+  "A": null,
+  "W": null,
+  "installedProduct": null,
+  "capabilityGrant": null,
+  "Task": null,
+  "Result": null,
+  "producerCCall": null,
+  "sourceAuthentication": null,
+  "verificationMaterial": null,
+  "scope": null,
+  "domains": null,
+  "tenantManifest": null,
+  "resourceAssertion": null,
+  "declarationProofs": null,
+  "parentSelection": null,
+  "actorAttribution": null,
+  "independence": null,
+  "J": null,
+  "childFoldback": null,
+  "F11": null,
+  "AF22": null,
+  "humanOwnerRuling": null,
+  "selectionRule": "Root must bind actual same C04/Q05 coordinates once; no historical1950/Q04 carrier relabel and no invented material to manufacture acceptance"
+}

@@ -1,0 +1,11 @@
+{
+  "stage": "product-resolve-transport-start",
+  "elapsedMs": 23710.2005,
+  "at": "2026-10-10T05:55:24.071Z",
+  "rss": 2364194816,
+  "heapTotal": 2021588992,
+  "heapUsed": 1874586784,
+  "external": 20767519,
+  "arrayBuffers": 18098712,
+  "beforeAcquisition": true
+}

@@ -1,0 +1,79 @@
+{
+  "startUtc": "2026-09-25T21:30:15.906001+00:00",
+  "operationSelectionSha256": "dbfdaf693dbb16720437f9b6b61fc7e8bea9c76130ff9754a798635491f66fa2",
+  "grant": "Root native38 exact execution; source/package/review/caller conjoined",
+  "steps": [
+    {
+      "phase": "setup",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation",
+      "command": "/usr/bin/time -l node prepare.mjs > setup.stdout 2> setup.stderr",
+      "status": "closed_success",
+      "endUtc": "2026-09-25T21:31:39.390401+00:00"
+    },
+    {
+      "phase": "witness",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/witness-01",
+      "command": "/usr/bin/time -l node execute.mjs > witness.stdout 2> witness.stderr",
+      "startUtc": "2026-09-25T21:31:39.390534+00:00",
+      "status": "closed_success",
+      "endUtc": "2026-09-25T21:32:28.848478+00:00"
+    },
+    {
+      "phase": "intake_construct",
+      "command": "/usr/bin/time -l node construct.mjs > construct.stdout 2> construct.stderr",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/intake-01",
+      "startUtc": "2026-09-25T21:32:28.848625+00:00",
+      "status": "closed_success",
+      "endUtc": "2026-09-25T21:32:44.457279+00:00"
+    },
+    {
+      "phase": "intake_native",
+      "command": "ODD_GLC_ALLOW_FULL_SANDBOX_LIVE=1 /usr/bin/time -l node run.mjs native-prepared.json > native.stdout 2> native.stderr",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/intake-01",
+      "startUtc": "2026-09-25T21:32:44.457422+00:00",
+      "status": "process_closed",
+      "endUtc": "2026-09-25T21:34:42.848610+00:00"
+    },
+    {
+      "phase": "intake_readback",
+      "command": "/usr/bin/time -l node read-intake.mjs native-prepared.json > readback.stdout 2> readback.stderr",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/intake-01",
+      "status": "closed_success",
+      "note": "Already started; summary-only caller access initially used incorrect receipt.outcome field; no runtime retry.",
+      "endUtc": "2026-09-25T21:35:37.360109+00:00"
+    },
+    {
+      "phase": "suffix_prepare",
+      "command": "/usr/bin/time -l node prepare.mjs > prepare.stdout 2> prepare.stderr",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01",
+      "startUtc": "2026-09-25T21:35:37.360236+00:00",
+      "status": "closed_success",
+      "endUtc": "2026-09-25T21:36:44.737918+00:00"
+    },
+    {
+      "phase": "suffix_native",
+      "command": "ODD_GLC_ALLOW_FULL_SANDBOX_LIVE=1 /usr/bin/time -l node run.mjs native-prepared.json > native.stdout 2> native.stderr",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01",
+      "startUtc": "2026-09-25T21:36:44.738035+00:00",
+      "status": "process_closed",
+      "endUtc": "2026-09-25T21:49:38.072037+00:00"
+    },
+    {
+      "phase": "suffix_readback",
+      "command": "/usr/bin/time -l node read-suffix.mjs native-prepared.json > readback.stdout 2> readback.stderr",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01",
+      "startUtc": "2026-09-25T21:49:38.072163+00:00",
+      "status": "closed_actual_failure_readback",
+      "endUtc": "2026-09-25T21:50:43.798072+00:00"
+    },
+    {
+      "phase": "suffix_evidence",
+      "command": "/usr/bin/time -l node read-evidence.mjs native-prepared.json > evidence.stdout 2> evidence.stderr",
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01",
+      "startUtc": "2026-09-25T21:50:43.798200+00:00",
+      "status": "closed_success_public_diagnostic_retained",
+      "closureObservedUtc": "2026-09-25T22:00:07.583036+00:00"
+    }
+  ],
+  "timestampLimit": "Recorded command start/closure-observation timestamps include caller observation intervals; /usr/bin/time supplies process duration."
+}

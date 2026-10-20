@@ -1,0 +1,180 @@
+{
+  "status": "FROZEN_MAINTENANCE_ONLY_PASS",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/activation.json",
+      "sha256": "fe9da7424b53e5bd881a4dad63970b67747356902f51c59d3951a88ef7378727",
+      "byteCount": 2627
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/entry-preflight.json",
+      "sha256": "7c07e0719af7cd3f7c840ab1815f54a3d22e66bde88a37fae9fd377301f86f13",
+      "byteCount": 16405
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/inputs.json",
+      "sha256": "3874f6559d0b197050ffd81838907f0c584205f3fb7337eecde72236caaacae5",
+      "byteCount": 2567
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/selected-residue.json",
+      "sha256": "355debcc577be896b2be7c75d57055176e86c02d688ffc1ef21d899c4a2e5072",
+      "byteCount": 616
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/recover.mjs",
+      "sha256": "5455442ad1151f713d4bbebd7b08e4315e01fbd9069cf77af141a90e961b1d34",
+      "byteCount": 7917
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/recover-vs160.diff",
+      "sha256": "63798db86fcf9c58e2f4cd7582962dc8e9abff51d5baeeb259c0bee9fceecdd2",
+      "byteCount": 9593
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/launch.mjs",
+      "sha256": "871cccfae39e0f1e3cf7a1c54adce9d1766fa607df74659bee2cd79068201af8",
+      "byteCount": 905
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/recorder-pid.json",
+      "sha256": "5586ef1837b2dff1dea7c91ed1d74c8bbf7380fe6b2702fba89bd6d6e757da54",
+      "byteCount": 1299
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/commands/sdk-recovery.request.json",
+      "sha256": "40d229cfdef922e305caa4344c13db0e46c83114956cc5f3022c8b53c511ed81",
+      "byteCount": 1617
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/commands/sdk-recovery.result.json",
+      "sha256": "1b6362bc1f531db0cd256c15f158045bfa0bf47d76520afec1400cd664b3d3e6",
+      "byteCount": 4018
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/commands/sdk-recovery.stdout",
+      "sha256": "50002181b5583b8d6db4243d9e97fdccfb84650563f60a46a74053d001cdb844",
+      "byteCount": 2097
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/commands/sdk-recovery.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/quiescence.json",
+      "sha256": "f8144de539ae143aef89b6b181e418559d1573906b060476347ab8deb9eb3574",
+      "byteCount": 1067
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/request.json",
+      "sha256": "1811a4a27f3c6429a2d059927fc69df7b2f8c47227b4f7cae473247a25da5883",
+      "byteCount": 16138105
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/scope.json",
+      "sha256": "5fdf388ae6d950507fc20c8830634807913cd3c6740327ee70e04fa8f911c829",
+      "byteCount": 213
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/approval.json",
+      "sha256": "017aeb93ebbe1afbb50c1907fa3c0f5e98b7a84f882caa8e8233f19c4bb72b40",
+      "byteCount": 1154
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/sdk-recovery-start.json",
+      "sha256": "3282ad13fa51beb14db5218e270a688e3a66361470f73a746318e55fe577f8f4",
+      "byteCount": 824
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/recovery-receipt.json",
+      "sha256": "ed0f0700367d5b0fd5716ffa87cb79944859047339fa3ccc03a44fd2eefd08df",
+      "byteCount": 5202
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/sdk-recovery-return.json",
+      "sha256": "52cfb7c9c86e6da030c96ee9e8d7f4b8bae3fc6a1027f26e1e33c9c4dae030b4",
+      "byteCount": 376
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/conservation.json",
+      "sha256": "cd76a98e94ecdc9c302752b794eea87e353fbced55a255cebef8484bb0af4191",
+      "byteCount": 14340
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/complete.json",
+      "sha256": "53d92c72f7df118c62f3a55372dc010a8165d20ce24b52a88e3d66ecf52bc93c",
+      "byteCount": 1189
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/operator-monitor.jsonl",
+      "sha256": "1d0cbde79716e0e4eb8114b944b352d0f819ea6502b424cfc21c1ecfe1bf7c11",
+      "byteCount": 280
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/final-close-handoff.json",
+      "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+      "byteCount": 1472
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/owned-process-exit.json",
+      "sha256": "ea2f03d6f27f779372e8b459ae3f64b886242f491677e579ea7743c74027ebbe",
+      "byteCount": 1406
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/readiness.json",
+      "sha256": "035bdc29c8bf399378b0875c14c7b50f722441e864278a51eb67fb315877444b",
+      "byteCount": 1253
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-diagnostic-recovery-192/return.json",
+      "sha256": "86909f75b0e299011e4469a5cca3a57d0d762541aa762380cb580cb1bbc12cd0",
+      "byteCount": 3974
+    }
+  ],
+  "protectedInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/freeze.json",
+      "sha256": "7e4fd01ebc7c87ff00236fff8efbfb565aefa8a92a256100c17c9eae445bc592",
+      "byteCount": 9625
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-source-preparation-185/final-close-handoff.json",
+      "sha256": "05009838975d3c1de30e0c23158fbf66d179b8e5453bee045cb9b7a0efa147f6",
+      "byteCount": 1472
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/host-preparation/exacthost-identity.json",
+      "sha256": "c6a43b22c312930437b4aaef5ee260e70fe4907a11373aea74d5437731384a74",
+      "byteCount": 3217
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/host-preparation/host27-acquisition.json",
+      "sha256": "4238831abc75b1c79b35e29a284540fcd18add80e9ace78322f0e19eb17473a4",
+      "byteCount": 16373466
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-remaining-consumer-diagnostic-189/physical-conservation.json",
+      "sha256": "38eed72700c1f83f05438c0efc6c81e444faee8549db742ad43f503fc5578647",
+      "byteCount": 14215
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/freeze.json",
+      "sha256": "e5fa44a8522669696251aa35d400de73bfc62cec4a5ebf5d91cbc9c418886fe4",
+      "byteCount": 10223
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-memory-root-cause-190/freeze.json",
+      "sha256": "4e24bf0c5d4ea2e850645ebbc32f4c3a1bbf76f8eeb323e5dea50c095cc9a711",
+      "byteCount": 10495
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-memory-independent-triage-191/freeze.json",
+      "sha256": "9ea64260a2b67fe6a4e25308d6e188461734d9d2407f4248b04b651bc1a75625",
+      "byteCount": 1096
+    }
+  ],
+  "logConservation": "Exact SDK validation/full normalclose equality + stat/mtime. Actual large event log never independently pinned/hashed/reparsed.",
+  "effectLimit": "One supported SDK recovery and ordinaryclose; selected lock absent; zero append/Public setup/witness/install/preparation/Run/model/app/Source/Git effects.",
+  "stop": true
+}

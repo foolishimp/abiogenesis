@@ -1,0 +1,12 @@
+node:internal/modules/cjs/loader:1413
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-run-17/test_env/uat/harness.test.mjs'
+    at node:internal/modules/cjs/loader:1410:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v24.7.0

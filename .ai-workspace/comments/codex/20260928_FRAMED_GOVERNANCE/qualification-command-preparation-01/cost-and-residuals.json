@@ -1,0 +1,37 @@
+{
+  "kind": "caller_readiness_cost_and_residuals",
+  "mechanicalCommandsExecuted": 2,
+  "mechanicalCommands": [
+    "pinned Node --version",
+    "one Node readiness driver"
+  ],
+  "qualificationCommandsExecuted": 0,
+  "historicalTestsExecuted": 0,
+  "qualificationRecipeStatus": "Eighteen declared commands remain unexecuted. Q04 one earlier isolated six-case readiness passed and was not repeated.",
+  "driverWallMs": 9054.808042012155,
+  "copyWallMs": 1469.929,
+  "completeTaskConstructionWallMs": 3782.2468329999997,
+  "childrenMaxRSSBytesMacOS": 632061952,
+  "heapOverride": null,
+  "NODE_OPTIONS": null,
+  "qualificationBudgetSelected": false,
+  "runtimeAndSuccessorUnknowns": {
+    "actualAdmittedA": null,
+    "actualAdmittedW": null,
+    "actualGrant": null,
+    "C04": null,
+    "actualTask": null,
+    "CCall": null,
+    "Result": null,
+    "currentness": null,
+    "successorSelectedRecipeObservation": null,
+    "actualSnapshot": null,
+    "verificationMaterial": null,
+    "independentJ": null,
+    "wholeF11": null,
+    "soleAF22": null,
+    "releaseHumanAcceptance": null
+  },
+  "neededSuccessorRebinding": "Actual C04 Product/law/source/proof/recipe/configuration/input/inventory bodies and admitted A/W/grant/current file observations, once under a separately granted Q05. Retain the exact algorithm and valid historical isolation; complete native producer/material/snapshot joins remain required.",
+  "noQualificationCredit": true
+}

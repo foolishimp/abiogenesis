@@ -1,0 +1,21 @@
+✔ native D2 declares public intake and every selected whole suffix with exact GTL and role owners (225.639667ms)
+✖ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (5.650541ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 479.298125
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:112:1
+✖ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (5.650541ms)
+  TypeError [Error]: invalid native semantic job envelope
+      at Module.constructSemanticJobEnvelope (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js:255:15)
+      at fixture (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:45:19)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:113:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

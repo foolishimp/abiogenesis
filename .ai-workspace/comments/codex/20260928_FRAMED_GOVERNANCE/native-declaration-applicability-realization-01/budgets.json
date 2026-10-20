@@ -1,0 +1,10 @@
+{
+  "defaultHeapUnchanged": true,
+  "compileDeadlineSeconds": 180,
+  "focusedNativeDeadlineSeconds": 600,
+  "conservationDeadlineSeconds": 180,
+  "declarationComparisonDeadlineSeconds": 120,
+  "nodeCheckDeadlineSeconds": 30,
+  "processManagement": "separate process groups, supervised deadlines, terminate/reap on failure; stdout/stderr and all temp outputs confined here",
+  "testsSelected": "five existing native tests plus new applicability tests and all eleven conservation cases; no broad suite"
+}

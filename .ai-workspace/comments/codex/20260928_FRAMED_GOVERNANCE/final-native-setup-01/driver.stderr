@@ -1,0 +1,299 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+ValiError: Invalid type: Expected "admission_environment_selection" but received "exact_prefix_workspace_environment"
+    at Module.parse (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/node_modules/valibot/dist/index.mjs:7385:28)
+    at Module.admissionAuthorityScope (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/admission_authority.js:118:42)
+    at authorized (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/ordinary-caller.mjs:31:242)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/driver.mjs:38:51 {
+  issues: [
+    {
+      kind: 'schema',
+      type: 'literal',
+      input: 'exact_prefix_workspace_environment',
+      expected: '"admission_environment_selection"',
+      received: '"exact_prefix_workspace_environment"',
+      message: 'Invalid type: Expected "admission_environment_selection" but received "exact_prefix_workspace_environment"',
+      requirement: undefined,
+      path: [
+        {
+          type: 'object',
+          origin: 'value',
+          input: {
+            kind: 'exact_prefix_workspace_environment',
+            schemaVersion: '5.0.0',
+            prefix: [Object],
+            artifactTruth: [Object],
+            workspaceAuthorityBasis: [Object],
+            workspaceBindingCandidate: [Object],
+            workspaceBinding: [Object],
+            productInstalls: [Array],
+            resolvedProductLock: [Object],
+            productSet: [Object]
+          },
+          key: 'kind',
+          value: 'exact_prefix_workspace_environment'
+        }
+      ],
+      issues: undefined,
+      lang: undefined,
+      abortEarly: undefined,
+      abortPipeEarly: undefined
+    },
+    {
+      kind: 'schema',
+      type: 'strict_object',
+      input: undefined,
+      expected: '"ref"',
+      received: 'undefined',
+      message: 'Invalid key: Expected "ref" but received undefined',
+      requirement: undefined,
+      path: [
+        {
+          type: 'object',
+          origin: 'value',
+          input: {
+            kind: 'exact_prefix_workspace_environment',
+            schemaVersion: '5.0.0',
+            prefix: [Object],
+            artifactTruth: [Object],
+            workspaceAuthorityBasis: [Object],
+            workspaceBindingCandidate: [Object],
+            workspaceBinding: [Object],
+            productInstalls: [Array],
+            resolvedProductLock: [Object],
+            productSet: [Object]
+          },
+          key: 'workspaceBinding',
+          value: {
+            kind: 'workspace_binding',
+            authorityBasisDigest: 'sha256:d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorityBasisId: 'workspace-authority://abiogenesis/d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorizedActorRef: 'actor://abiogenesis/t287/final-native-setup-01/operator',
+            bindingDigest: 'sha256:6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            bindingId: 'workspace-binding://abiogenesis/6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            lockDigest: 'sha256:3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            lockId: 'product-lock://abiogenesis/3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            productSetDigest: 'sha256:dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            productSetId: 'product-set://abiogenesis/dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            roots: [Object],
+            schemaVersion: '5.0.0',
+            workspaceId: 'workspace://abiogenesis/f18cba8af4c4013663267d0e0c88100afac56b9a5e435dad1d9ac09cb28e8951',
+            admissionEventRef: 'event://abiogenesis/5625bfcc7afe5c53764fb110bab6665eb8bef96b00b9b19edc2bed6fd56f9b00'
+          }
+        },
+        {
+          type: 'object',
+          origin: 'key',
+          input: {
+            kind: 'workspace_binding',
+            authorityBasisDigest: 'sha256:d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorityBasisId: 'workspace-authority://abiogenesis/d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorizedActorRef: 'actor://abiogenesis/t287/final-native-setup-01/operator',
+            bindingDigest: 'sha256:6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            bindingId: 'workspace-binding://abiogenesis/6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            lockDigest: 'sha256:3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            lockId: 'product-lock://abiogenesis/3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            productSetDigest: 'sha256:dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            productSetId: 'product-set://abiogenesis/dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            roots: [Object],
+            schemaVersion: '5.0.0',
+            workspaceId: 'workspace://abiogenesis/f18cba8af4c4013663267d0e0c88100afac56b9a5e435dad1d9ac09cb28e8951',
+            admissionEventRef: 'event://abiogenesis/5625bfcc7afe5c53764fb110bab6665eb8bef96b00b9b19edc2bed6fd56f9b00'
+          },
+          key: 'ref',
+          value: undefined
+        }
+      ],
+      issues: undefined,
+      lang: undefined,
+      abortEarly: undefined,
+      abortPipeEarly: undefined
+    },
+    {
+      kind: 'schema',
+      type: 'strict_object',
+      input: undefined,
+      expected: '"digest"',
+      received: 'undefined',
+      message: 'Invalid key: Expected "digest" but received undefined',
+      requirement: undefined,
+      path: [
+        {
+          type: 'object',
+          origin: 'value',
+          input: {
+            kind: 'exact_prefix_workspace_environment',
+            schemaVersion: '5.0.0',
+            prefix: [Object],
+            artifactTruth: [Object],
+            workspaceAuthorityBasis: [Object],
+            workspaceBindingCandidate: [Object],
+            workspaceBinding: [Object],
+            productInstalls: [Array],
+            resolvedProductLock: [Object],
+            productSet: [Object]
+          },
+          key: 'workspaceBinding',
+          value: {
+            kind: 'workspace_binding',
+            authorityBasisDigest: 'sha256:d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorityBasisId: 'workspace-authority://abiogenesis/d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorizedActorRef: 'actor://abiogenesis/t287/final-native-setup-01/operator',
+            bindingDigest: 'sha256:6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            bindingId: 'workspace-binding://abiogenesis/6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            lockDigest: 'sha256:3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            lockId: 'product-lock://abiogenesis/3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            productSetDigest: 'sha256:dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            productSetId: 'product-set://abiogenesis/dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            roots: [Object],
+            schemaVersion: '5.0.0',
+            workspaceId: 'workspace://abiogenesis/f18cba8af4c4013663267d0e0c88100afac56b9a5e435dad1d9ac09cb28e8951',
+            admissionEventRef: 'event://abiogenesis/5625bfcc7afe5c53764fb110bab6665eb8bef96b00b9b19edc2bed6fd56f9b00'
+          }
+        },
+        {
+          type: 'object',
+          origin: 'key',
+          input: {
+            kind: 'workspace_binding',
+            authorityBasisDigest: 'sha256:d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorityBasisId: 'workspace-authority://abiogenesis/d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorizedActorRef: 'actor://abiogenesis/t287/final-native-setup-01/operator',
+            bindingDigest: 'sha256:6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            bindingId: 'workspace-binding://abiogenesis/6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            lockDigest: 'sha256:3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            lockId: 'product-lock://abiogenesis/3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            productSetDigest: 'sha256:dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            productSetId: 'product-set://abiogenesis/dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            roots: [Object],
+            schemaVersion: '5.0.0',
+            workspaceId: 'workspace://abiogenesis/f18cba8af4c4013663267d0e0c88100afac56b9a5e435dad1d9ac09cb28e8951',
+            admissionEventRef: 'event://abiogenesis/5625bfcc7afe5c53764fb110bab6665eb8bef96b00b9b19edc2bed6fd56f9b00'
+          },
+          key: 'digest',
+          value: undefined
+        }
+      ],
+      issues: undefined,
+      lang: undefined,
+      abortEarly: undefined,
+      abortPipeEarly: undefined
+    },
+    {
+      kind: 'schema',
+      type: 'strict_object',
+      input: 'kind',
+      expected: 'never',
+      received: '"kind"',
+      message: 'Invalid key: Expected never but received "kind"',
+      requirement: undefined,
+      path: [
+        {
+          type: 'object',
+          origin: 'value',
+          input: {
+            kind: 'exact_prefix_workspace_environment',
+            schemaVersion: '5.0.0',
+            prefix: [Object],
+            artifactTruth: [Object],
+            workspaceAuthorityBasis: [Object],
+            workspaceBindingCandidate: [Object],
+            workspaceBinding: [Object],
+            productInstalls: [Array],
+            resolvedProductLock: [Object],
+            productSet: [Object]
+          },
+          key: 'workspaceBinding',
+          value: {
+            kind: 'workspace_binding',
+            authorityBasisDigest: 'sha256:d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorityBasisId: 'workspace-authority://abiogenesis/d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorizedActorRef: 'actor://abiogenesis/t287/final-native-setup-01/operator',
+            bindingDigest: 'sha256:6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            bindingId: 'workspace-binding://abiogenesis/6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            lockDigest: 'sha256:3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            lockId: 'product-lock://abiogenesis/3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            productSetDigest: 'sha256:dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            productSetId: 'product-set://abiogenesis/dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            roots: [Object],
+            schemaVersion: '5.0.0',
+            workspaceId: 'workspace://abiogenesis/f18cba8af4c4013663267d0e0c88100afac56b9a5e435dad1d9ac09cb28e8951',
+            admissionEventRef: 'event://abiogenesis/5625bfcc7afe5c53764fb110bab6665eb8bef96b00b9b19edc2bed6fd56f9b00'
+          }
+        },
+        {
+          type: 'object',
+          origin: 'key',
+          input: {
+            kind: 'workspace_binding',
+            authorityBasisDigest: 'sha256:d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorityBasisId: 'workspace-authority://abiogenesis/d0d23b61ae9e91ad8b17bb60ed73a17a5f660d8b76cedd7df82580cfe10c09e4',
+            authorizedActorRef: 'actor://abiogenesis/t287/final-native-setup-01/operator',
+            bindingDigest: 'sha256:6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            bindingId: 'workspace-binding://abiogenesis/6770e9e318cb25e85d9d00378b8e9b6f094c44ceb6fbdeb3b35f9eab28da0fc0',
+            lockDigest: 'sha256:3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            lockId: 'product-lock://abiogenesis/3be03e96798ec37a10dd85303a4421f53e7735068e1365d9459b69f48d43e023',
+            productSetDigest: 'sha256:dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            productSetId: 'product-set://abiogenesis/dbad7d7de6d805bc8382a851defbe22adb1be703d6438e356c8349ce0af24659',
+            roots: [Object],
+            schemaVersion: '5.0.0',
+            workspaceId: 'workspace://abiogenesis/f18cba8af4c4013663267d0e0c88100afac56b9a5e435dad1d9ac09cb28e8951',
+            admissionEventRef: 'event://abiogenesis/5625bfcc7afe5c53764fb110bab6665eb8bef96b00b9b19edc2bed6fd56f9b00'
+          },
+          key: 'kind',
+          value: 'workspace_binding'
+        }
+      ],
+      issues: undefined,
+      lang: undefined,
+      abortEarly: undefined,
+      abortPipeEarly: undefined
+    },
+    {
+      kind: 'schema',
+      type: 'strict_object',
+      input: 'artifactTruth',
+      expected: 'never',
+      received: '"artifactTruth"',
+      message: 'Invalid key: Expected never but received "artifactTruth"',
+      requirement: undefined,
+      path: [
+        {
+          type: 'object',
+          origin: 'key',
+          input: {
+            kind: 'exact_prefix_workspace_environment',
+            schemaVersion: '5.0.0',
+            prefix: [Object],
+            artifactTruth: [Object],
+            workspaceAuthorityBasis: [Object],
+            workspaceBindingCandidate: [Object],
+            workspaceBinding: [Object],
+            productInstalls: [Array],
+            resolvedProductLock: [Object],
+            productSet: [Object]
+          },
+          key: 'artifactTruth',
+          value: {
+            kind: 'exact_prefix_artifact_truth_projection',
+            schemaVersion: '5.0.0',
+            prefix: [Object],
+            prefixEventCount: 2,
+            lastAdmissionOrdinal: 2,
+            rows: [Array],
+            projectionRef: 'artifact-truth-projection://abiogenesis/ac0deaa92e9b141473ee2b6870519be9bcf61a294dd91ff52ef3a586d28c0e32',
+            projectionDigest: 'sha256:ac0deaa92e9b141473ee2b6870519be9bcf61a294dd91ff52ef3a586d28c0e32'
+          }
+        }
+      ],
+      issues: undefined,
+      lang: undefined,
+      abortEarly: undefined,
+      abortPipeEarly: undefined
+    }
+  ]
+}
+
+Node.js v24.7.0

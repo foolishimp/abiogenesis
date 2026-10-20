@@ -1,0 +1,32 @@
+{
+  "stage": "owner-read-start",
+  "at": "2026-10-08T01:42:33.834Z",
+  "elapsedMs": 1530.131625,
+  "memory": {
+    "rss": 473530368,
+    "heapTotal": 266584064,
+    "heapUsed": 183499208,
+    "external": 32105992,
+    "arrayBuffers": 29690907,
+    "maxRSSKiB": 602864
+  },
+  "run": {
+    "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+    "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+    "prefixLength": 1182449986,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467374253
+    }
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "ownedPid": 91315
+}

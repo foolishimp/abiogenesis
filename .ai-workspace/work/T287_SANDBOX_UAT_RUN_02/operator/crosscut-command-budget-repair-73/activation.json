@@ -1,0 +1,27 @@
+{
+  "role": "Writer73 bounded canonical C2 budget correction",
+  "authority": "Root conjoined Source67 counterexample and existing R01/helper/semantic owner relations;71 PAUSED",
+  "productFrame": "fixed15 ABI5 GOAL035/T287/STDO2.5.1RC2",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "typedHandoff": "Declared command -> projectWorksiteCommandExecutionBudget -> semantic Design issues/actor contract and C2 implementation preparation; same canonical owner applies strict B<I<A",
+  "cause": "R01 helper permits TERM grace then KILL confirmation grace; prior commandFields charges one. Required timeout+2*grace+5000.",
+  "counterexample": {
+    "timeoutMs": 60000,
+    "terminationGraceMs": 30000,
+    "oldRequired": 95000,
+    "correctRequired": 125000,
+    "oldAdmittedLimits": {
+      "inactivityTimeoutMs": 95001,
+      "absoluteTimeoutMs": 95002
+    }
+  },
+  "fiveHour": {
+    "timeoutMs": 18000000,
+    "terminationGraceMs": 10000,
+    "requiredBudgetMs": 18025000,
+    "inactivityTimeoutMs": 18030000,
+    "absoluteTimeoutMs": 18040000
+  },
+  "preservation": "HTTP probe path unchanged; allowance contains<=250ms drain; no cap/Public/wire/profile changes;62 literal/61/64/68 immutable",
+  "claims": "Isolated compile/focused owner readiness only, no generation/package/install/native proof"
+}

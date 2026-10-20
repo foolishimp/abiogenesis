@@ -1,0 +1,7 @@
+{
+  "path": "final-controls/finalize.py",
+  "donorSHA256": "615a82d01537d3e1c7d51c44f95e6717f5b4ff0945f5bf1918cf6c07dd0c15c8",
+  "postimageSHA256": "844c71576fb05800e6fddc8e21260e4c903e5b2744bb1cdff44142cc1f3b7f56",
+  "adaptations": "Exact1107/2replacement/1addition schema, complete original provenance including absent newtest, C05 baseline, measured actual emission cone, metadata/store-stat conservation instead of old payload reproof, current C06 return/freeze fields",
+  "SourceEffects": 0
+}

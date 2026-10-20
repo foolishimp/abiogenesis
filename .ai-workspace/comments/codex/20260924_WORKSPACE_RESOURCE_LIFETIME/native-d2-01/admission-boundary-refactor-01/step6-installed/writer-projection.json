@@ -1,0 +1,15 @@
+{
+  "scope": "Root STEP6 bounded current tracker projection; goals already delegate to tickets, no goals rewrite",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeSha256": "832c5ab47d094a4a489f3018186379f14f4424737f31520087d3171b28d2e57b",
+      "afterSha256": "e9c3a718aef3e7ecb91d11c445f6a7146c9ae9fa7ee5f3929cd0f4d29932f06e"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "beforeSha256": "5ecb9d746b13df4863ddf6365c12f91eb2b5132953299e9cc6a98163bf027ff3",
+      "afterSha256": "6d71c9efbd24f8ba16df75d8962d63b753ae39a0b473986154539f1d9346d89c"
+    }
+  ]
+}

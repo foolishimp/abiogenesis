@@ -1,0 +1,12 @@
+{
+  "stage": "workspace-bind-complete",
+  "elapsedMs": 72068.265416,
+  "at": "2026-10-10T19:25:11.280Z",
+  "rss": 2779889664,
+  "heapTotal": 725647360,
+  "heapUsed": 585649072,
+  "external": 5668354,
+  "arrayBuffers": 3256047,
+  "beforeAcquisition": false,
+  "prefixLength": 24253293
+}

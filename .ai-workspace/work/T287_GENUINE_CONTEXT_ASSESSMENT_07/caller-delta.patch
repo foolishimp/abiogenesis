@@ -1,0 +1,72 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_06/consumer/genuine-pilot.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/consumer/genuine-pilot.mjs
+@@ -32,14 +32,14 @@
+ const started = performance.now();
+ const metrics = () => ({elapsedMs: performance.now() - started, currentRssBytes: process.memoryUsage().rss,
+   currentHeapUsedBytes: process.memoryUsage().heapUsed, cumulativePeakRssBytes: process.resourceUsage().maxRSS * 1024});
+-const deadline = () => assert(performance.now() - started < 180000, '06 flow/fresh exceeds180s');
++const deadline = () => assert(performance.now() - started < 180000, '07 flow/fresh exceeds180s');
+ const pin = async path => {const bytes = await readFile(path); return {path, bytes: bytes.length, digest: digest(bytes)};};
+ let phase = 'prerequisites';
+ assert.equal(process.execPath, pinnedNode);
+ assert.equal(process.env.HOME, '/Users/jim');
+ assert.equal(process.env.NODE_OPTIONS, undefined);
+ assert.equal(process.env.TMPDIR, join(originalRoot, 'tmp'));
+-assert.equal(process.env.ABG_TS_CLAUDE_COMMAND, undefined, '06 dispatches no CLI or native actor');
++assert.equal(process.env.ABG_TS_CLAUDE_COMMAND, undefined, '07 dispatches no CLI or native actor');
+ 
+ async function restore(caller) {
+   const old = await readJson(join(originalRoot, 'setup-observation.json'));
+@@ -293,6 +293,17 @@
+ 
+ async function main() {
+   phase = 'immutable-verification-and-current-boundary';
++  const callables = [[abg, 'isAbgTypedTerminalResult'], [abg, 'projectQualificationJudgment'],
++    [abg, 'projectRunTruthAtDurablePrefix'], [abg, 'projectExactPrefixWorkspaceEnvironment'],
++    [abg, 'projectAdmittedProductInstallByAdmissionEventRef'], [abg, 'hasAdmittedProductInstall'],
++    [validator, 'isQualificationProofResource'], [validator, 'isSelfConformanceInput'], [validator, 'isSelfConformanceResult'],
++    [preparation, 'acquireQualificationResources'], [product.ProductVerificationPort, 'verify'],
++    [product.ProductExecutionResolutionPort, 'resolve'], [product.ProductRunInvocationPort, 'prepare'],
++    [product.CatalogOperationPort, 'admit'], [product, 'modulePublicationSemanticDigest'],
++    [product, 'narrowGraphFunctionCatalog'], [product, 'constructRootInvocationPolicy'],
++    [product, 'constructCapabilityGrant'], [product, 'constructInvocationAuthority'], [product, 'admitInstalledProductInput'],
++    [runtime.installedPublic, 'constructInstalledPublicDefinitionCall'], [runtime.installedPublic, 'runInstalledDefinitionCallTransport']];
++  for (const [namespace, name] of callables) assert.equal(typeof namespace[name], 'function', 'required published callable ' + name);
+   const native = await nativeVerification(packageRoot, archivePath, archiveDigest);
+   const selected = await readJson(join(originalRoot, 'read-selection.json'));
+   const handoff = await readJson(historicalHandoff);
+@@ -329,22 +340,20 @@
+   await writeJson(join(root, 'original-assessment-truth.json'), {run: originalTruth.run, workspaceBinding: originalTruth.workspaceBinding,
+     runtimeStatus: originalTruth.runtimeStatus, result: originalTruth.result, originalProducer: judgment.producer,
+     originalTerminalDigest: hash(judgment), originalHandoff: await pin(historicalHandoff)});
+-  const authors = abg.projectQualificationConstructionAuthors(proof, packet.assessmentInput.plan, judgment.value,
+-    resources);
+   await writeJson(join(root, 'assessment-authentication.json'), {status: 'authentic', result: judgment.result,
+-    valueDigest: judgment.valueDigest, producer: judgment.producer, source: judgment.value.source, constructionAuthors: authors,
++    valueDigest: judgment.valueDigest, producer: judgment.producer, source: judgment.value.source,
+     genuineNativeModelRoute: true, controlledTransport: false, ...metrics()});
+-  assert.deepEqual(authors, [actualAuthor], 'actual native construction attribution must be grounded without fabricated acknowledgment');
+   const raw = judgment.value.raw, criterion = raw.criteria[0];
+   assert.notEqual(criterion.disposition, 'indeterminate', 'genuine indeterminate: route retained, context sufficiency remains open');
+   assert.notEqual(criterion.applicability, 'unknown', 'genuine applicability unresolved');
+   assert(raw.attributions.every(a => a.disposition === 'established'), 'genuine attribution uncertainty');
+   console.log(JSON.stringify({phase: 'genuine-J-authenticated', disposition: criterion.disposition,
+-    applicability: criterion.applicability, constructionAuthors: authors, result: judgment.result, ...metrics()}));
++    applicability: criterion.applicability, result: judgment.result, ...metrics()}));
+   deadline(); phase = 'native-F11-preparation';
+   const selfInput = {...packet.selfBase, applications: [{ruleRef: criterion.ruleRef, surfaceRef: criterion.surfaceRef,
+     applicability: criterion.applicability, premiseEvidenceRefs: criterion.sourceRefs, evaluationEvidenceRefs: [judgment.result.ref], rulingEvidenceRefs: []}],
+     qualification: {...packet.selfBase.qualification, proof}};
++  assert(validator.isSelfConformanceInput(selfInput), 'published strict F11 input guard accepts actual retained-J input');
+   await writeJson(join(root, 'f11-input.json'), selfInput);
+   const selfCall = await constructStart(caller, gtl.SELF_CONFORMANCE_IDS.programRef, gtl.SELF_CONFORMANCE_IDS.graphFunctionRef,
+     selfInput, packet.assertion);
+@@ -375,7 +384,7 @@
+   const newEvents = (await readFile(eventLogPath)).subarray(13473583).toString('utf8').trim().split('\n').map(JSON.parse);
+   const closures = newEvents.filter(e => e.kind === 'run_closed');
+   assert.equal(closures.length, 1);
+-  assert.equal(newEvents.filter(e => e.kind === 'actor_transport_binding_admitted').length, 0, '06 cannot dispatch an actor');
++  assert.equal(newEvents.filter(e => e.kind === 'actor_transport_binding_admitted').length, 0, '07 cannot dispatch an actor');
+   await writeJson(join(root, 'flow-observation.json'), {status: 'passed_original_genuine_J_conservation', criterion: packet.criterion,
+     actualDisposition: criterion.disposition, actualApplicability: criterion.applicability, actualSource: judgment.value.source,
+     judgmentResult: judgment.result, f11Result: selfResult.result, f11Finding: finding, f11Disposition: selfResult.value.disposition,

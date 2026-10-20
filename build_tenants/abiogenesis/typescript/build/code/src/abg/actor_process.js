@@ -1,7 +1,7 @@
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { constructNativeInstructionAssembly, constructDeclaredNativeInstructionAssembly, requireNativeInstructionAssembly, requireDeclaredNativeInstructionAssembly } from "./instruction_assembly.js";
-import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { isNativeWorkspaceWorkTask, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
 import { semanticInputValueAtBasis } from "./semantic_stage.js";
@@ -15,8 +15,8 @@ import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isNonBlankRef } from "../shared/references.js";
 import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
-import { admitNonEmptyRuntimeEventTransactionAtDurablePrefix, assertHeldEventStoreAtDurablePrefix, admitRuntimeEvent, ROOT_EVENT_CONTRACT_DIGEST, readRuntimeEventsAtDurablePrefix, } from "./event_store.js";
-import { runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, } from "./event_prefix.js";
+import { admitNonEmptyRuntimeEventTransactionAtDurablePrefix, assertHeldEventStoreAtDurablePrefix, admitRuntimeEvent, ROOT_EVENT_CONTRACT_DIGEST, } from "./event_store.js";
+import { indexedRuntimeEvents, readOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromStore, } from "./event_prefix.js";
 import { classifyWorkerTransportFailure, constructKnownWorkerTransportContract, isNativeWorkerResultAssessment, } from "./transport_contracts.js";
 import { prepareWorkerTransport, runPreparedWorkerTransport, createWorkerTransportOutputObserver, } from "./worker_transport.js";
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from "./runtime_liveness_contracts.js";
@@ -314,8 +314,7 @@ export function validateActorProcessCarrierPair(requestCandidate, observationCan
     });
 }
 export function projectActorProcessLifecycle(prefix, actorInvocationRef) {
-    const events = runtimeEventsFromValidatedPrefix(prefix);
-    const rows = events.filter((event) => event.aggregateId === actorInvocationRef ||
+    const rows = indexedRuntimeEvents(prefix, "related:" + actorInvocationRef).filter((event) => event.aggregateId === actorInvocationRef ||
         event.parentAggregateId === actorInvocationRef);
     const started = rows.filter((event) => event.kind === "actor_process_started");
     const processTerminals = rows.filter((event) => event.kind === "actor_process_exited" ||
@@ -338,8 +337,8 @@ export function projectActorProcessLifecycle(prefix, actorInvocationRef) {
     }
     const terminationUnconfirmed = rows.some((event) => event.kind === "actor_process_termination_unconfirmed");
     const processLive = started.length === 1 && processTerminal === undefined;
-    const runTerminal = events.some((event) => event.kind === "run_stopped" ||
-        (event.kind === "runtime_failure_observed" && event.aggregateType === "run"));
+    const runTerminal = indexedRuntimeEvents(prefix, "kind:run_stopped").length !== 0 ||
+        indexedRuntimeEvents(prefix, "kind:runtime_failure_observed").some(event => event.aggregateType === "run");
     const cleanupPending = actorTerminal === undefined &&
         (processTerminal !== undefined || (runTerminal && started.length === 1));
     return deepFreeze({
@@ -463,12 +462,12 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             input.request.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.authorImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.assessorImplementationRef;
         const semanticBasis = input.occurrence.semanticStageBasis;
         const worksiteBasis = input.occurrence.nativeInstructionAssemblyBasis;
-        const worksiteOwner = worksiteBasis === undefined ? null : authenticateNativeInstructionAssemblyBasis(worksiteBasis);
+        const worksiteOwner = worksiteBasis === undefined ? null : authenticateOwnedNativeInstructionAssemblyBasis(worksiteBasis);
         const instructionAssembly = preparedAssembly ?? (semanticCall && semanticBasis !== undefined
             ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis))
             : worksiteBasis !== undefined && worksiteOwner !== null
                 ? constructDeclaredNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue, contractByRef) : null);
-        const invocation = rehydrateInvocationAdmissionAtPrefix(selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix)), input.executionBasis.invocationAdmissionRef);
+        const invocation = rehydrateInvocationAdmissionAtPrefix(readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix), input.executionBasis.invocationAdmissionRef);
         const assemblyRequired = semanticCall || invocation?.runEnvironment !== undefined || worksiteBasis !== undefined;
         if (worksiteOwner !== null && (worksiteOwner.call.cCallRef !== input.cCall.cCallRef ||
             worksiteOwner.execution.basisRef !== input.executionBasis.basisRef ||
@@ -687,7 +686,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
         let observedProgressCount = 0;
         let observedFinalOutput = "";
         let supervisionInterrupted = false;
-        const nativeContext = () => projectActorLivenessContext(selectValidatedRuntimeEventPrefix(input.store.readAll()), actorInvocationRef);
+        const nativeContext = () => projectActorLivenessContext(selectRuntimeEventPrefixFromStore(input.store), actorInvocationRef);
         const probe = (source, event, signal, elapsedMs, coverage = "observed") => {
             if (!currentProfile)
                 return;
@@ -729,7 +728,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
                 return;
             const sourceDigest = sha256Bytes(bytes);
             const underlyingObservationRef = `runtime-asset-observation://abiogenesis/${sha256Canonical({ probeRef: declaration.probeRef, sourceDigest, sourceRevisionDigest }).slice(7)}`;
-            if (input.store.readAll().some(event => {
+            if (indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(input.store), "payload:underlyingObservationRef:" + underlyingObservationRef).some(event => {
                 const p = event.payload, observation = p.observation;
                 return typeof observation === "object" && observation !== null && !Array.isArray(observation) && observation.underlyingObservationRef === underlyingObservationRef;
             }))

@@ -1,0 +1,12 @@
+{
+  "stage": "product-install-consumer26-grant-complete",
+  "rss": 4290396160,
+  "heapTotal": 3726114816,
+  "heapUsed": 3523773440,
+  "external": 5610831,
+  "arrayBuffers": 3198524,
+  "at": "2026-10-09T05:33:53.990Z",
+  "elapsedMs": 198860.508917,
+  "ownerArtifactReceiptRetained": true,
+  "capabilities": 1
+}

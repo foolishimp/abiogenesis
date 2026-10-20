@@ -1,0 +1,118 @@
+{
+  "retainedInput": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/candidates/T288-workflow-scope-rm55auw0/tmp/abi5-root-env-sia11F/runtime/events.jsonl",
+    "sha256": "c8f43ff2d79850800ef85b537c055bf3a7dc0bff38509b02c803b4669bea7073"
+  },
+  "ownerEvents": 3,
+  "historicalPrefixBytes": 6741844,
+  "compactPrefixBytes": 2254910,
+  "compactSavingsBytes": 4486934,
+  "preAppendRefusalCases": [
+    "missing reference",
+    "malformed reference",
+    "wrong source event",
+    "forward source event",
+    "wrong source digest",
+    "wrong lock identity",
+    "wrong lock digest",
+    "mixed inline/reference",
+    "wrong product row",
+    "wrong candidate identity",
+    "wrong candidate content",
+    "extra compact field"
+  ],
+  "coldResult": {
+    "processId": 22589,
+    "outcomes": [
+      {
+        "name": "historical",
+        "disposition": "equal"
+      },
+      {
+        "name": "new owner-produced",
+        "disposition": "equal"
+      },
+      {
+        "name": "mixed historical/new projection probe",
+        "disposition": "equal"
+      },
+      {
+        "name": "reference chain",
+        "disposition": "refused"
+      },
+      {
+        "name": "missing reference",
+        "disposition": "refused"
+      },
+      {
+        "name": "malformed reference",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong source event",
+        "disposition": "refused"
+      },
+      {
+        "name": "forward source event",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong source digest",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong lock identity",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong lock digest",
+        "disposition": "refused"
+      },
+      {
+        "name": "mixed inline/reference",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong product row",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong candidate identity",
+        "disposition": "refused"
+      },
+      {
+        "name": "wrong candidate content",
+        "disposition": "refused"
+      },
+      {
+        "name": "extra compact field",
+        "disposition": "refused"
+      }
+    ]
+  },
+  "candidateWork": [
+    {
+      "artifactRowsPrepared": 2,
+      "coldPrefixSelections": 0,
+      "calculusEffects": 2
+    },
+    {
+      "artifactRowsPrepared": 2,
+      "coldPrefixSelections": 0,
+      "calculusEffects": 2
+    },
+    {
+      "artifactRowsPrepared": 2,
+      "coldPrefixSelections": 0,
+      "calculusEffects": 2
+    }
+  ],
+  "refusedCandidateIsolation": true,
+  "immutablePriorPrefix": true,
+  "stalePredecessorRefused": true,
+  "completeLiveColdProjectionEqual": true,
+  "candidateDeltaColdCases": 5,
+  "physicalMutationRefused": true,
+  "retainedInputUnchanged": true,
+  "scope": "Owner and cold-reader regression; synthetic histories are explicitly projection/refusal probes, not installed qualification."
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "source43_affected_test_cut",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/test-inputs/t287-governance-covered-source-use.test.mjs",
+      "relativePath": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "6b9f860ae2ef71702aa7235581d2ebe8096ed2f49e67723137d3114e6e178b8e",
+      "bytes": 50886
+    }
+  ],
+  "materialSelectors": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/material-test-selectors.json",
+  "lowerPremises": "Actual installed material reads; causal admitted-install availability controlled, no actual Source/currentness/runtime credit"
+}

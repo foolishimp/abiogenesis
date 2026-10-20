@@ -1,0 +1,135 @@
+{
+  "kind": "exact_installed_authority_predicate_probe",
+  "scope": "Pure retained-data diagnostic; supplied setup facts reused, no runtime admission or history acquisition",
+  "installedFile": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.js",
+  "installedFileSha256": "d21acf27dc63657d2a8f3698eb981405b3230b62f4102c80e70ef9d58acc7e5c",
+  "predicateTextSha256": "405d8ec622f34e7ca89423701714d172223057702661143513ecb3fd66cc735e",
+  "preparedAndActualJsonEqual": true,
+  "recordInputDigestMatches": true,
+  "programValidation": {
+    "kind": "program_validation",
+    "sourceDigest": "sha256:ceb42b2c7e4a0bb04b195703b4907a59293215e9707c8571284611b62023164a",
+    "equalsClosedResolution": true,
+    "regimes": [
+      "F_D",
+      "F_P"
+    ],
+    "executableLeafCount": 3,
+    "probabilisticLeafCount": 1,
+    "interactionLeafCount": 0
+  },
+  "authority": {
+    "kind": "invocation_authority",
+    "actualPredicate": false,
+    "onlyProductSetDigestSubstitution": true,
+    "changedLocators": [
+      {
+        "path": "/invocation/invocation/invocationAuthority/slots/product_set/0/digest",
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3/dd5e6f32b683b54550d5d57a5b4636c392312d8668e66fe7f5ff7e7ca5cb9f34",
+        "actual": "sha256:34ceb434a63e09339e70f7d50a149487041b4bb2101a955f3e1361e30f39431b",
+        "expected": "sha256:81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3",
+        "matchesProductInstallCoordinate": true
+      },
+      {
+        "path": "/invocation/invocation/invocationAuthority/slots/product_set/1/digest",
+        "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.12/2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b/dd5e6f32b683b54550d5d57a5b4636c392312d8668e66fe7f5ff7e7ca5cb9f34",
+        "actual": "sha256:ba8f03f4958445f0e85673bb9d78cf975bda8446055bced37d7abbda18789ea5",
+        "expected": "sha256:2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b",
+        "matchesProductInstallCoordinate": true
+      }
+    ],
+    "policy": {
+      "expectedRef": "invocation-policy://abiogenesis/root/b9bd01a817f2031a20238f2c0462bdad0a234d1b7a72c52271a17ede311e37c6",
+      "expectedDigest": "sha256:b9bd01a817f2031a20238f2c0462bdad0a234d1b7a72c52271a17ede311e37c6",
+      "actual": {
+        "ref": "invocation-policy://abiogenesis/root/b9bd01a817f2031a20238f2c0462bdad0a234d1b7a72c52271a17ede311e37c6",
+        "digest": "sha256:b9bd01a817f2031a20238f2c0462bdad0a234d1b7a72c52271a17ede311e37c6"
+      }
+    },
+    "grants": {
+      "expected": [
+        {
+          "ref": "capability-grant://abiogenesis/367980f5d6ec3266c8af75c3083e3a93ab0da31a492d239d0c8d10e5f9977529",
+          "digest": "sha256:367980f5d6ec3266c8af75c3083e3a93ab0da31a492d239d0c8d10e5f9977529"
+        }
+      ],
+      "actual": [
+        {
+          "ref": "capability-grant://abiogenesis/367980f5d6ec3266c8af75c3083e3a93ab0da31a492d239d0c8d10e5f9977529",
+          "digest": "sha256:367980f5d6ec3266c8af75c3083e3a93ab0da31a492d239d0c8d10e5f9977529"
+        }
+      ],
+      "requiredCapabilityRefs": [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.runtime.execute-seven-term-c@5"
+      ]
+    },
+    "attribution": {
+      "expectedRef": "invocation-authority://abiogenesis/f39785472b624761c1b9c9d09356f743e67f699c2e23339a08fb18a2463f0ed9",
+      "expectedDigest": "sha256:f39785472b624761c1b9c9d09356f743e67f699c2e23339a08fb18a2463f0ed9",
+      "actual": {
+        "ref": "invocation-authority://abiogenesis/f39785472b624761c1b9c9d09356f743e67f699c2e23339a08fb18a2463f0ed9",
+        "digest": "sha256:f39785472b624761c1b9c9d09356f743e67f699c2e23339a08fb18a2463f0ed9"
+      }
+    }
+  },
+  "route": {
+    "programRef": "program://odd-glc/native-semantic-revision/intake@5",
+    "programDigestMatches": true,
+    "startRows": [
+      {
+        "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/intake@5",
+        "startRef": "program://odd-glc/native-semantic-revision/intake@5/start"
+      }
+    ],
+    "actualTarget": {
+      "kind": "next"
+    },
+    "resolvedGraph": "graph-function://odd-glc/native-semantic-revision/intake@5",
+    "inputContract": {
+      "ref": "contract://abiogenesis/semantic-revision/native-intake@5",
+      "digest": "sha256:bf6ddc3916e949d931dcc822ad23436a52abb806bbec101f30093a6410406b66"
+    },
+    "sourceKind": "none",
+    "inputKind": "native_semantic_revision_intake",
+    "historicalRunUnchanged": true,
+    "historicalPrefixUnchanged": true,
+    "historicalPrefixLength": 104482827,
+    "currentPrefixLength": 111462891,
+    "currentPrefixMatchesPrepared": true,
+    "lifecycleDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267"
+  },
+  "environmentPermission": {
+    "authorityRefMatches": true,
+    "authorityDigestMatches": true,
+    "actorMatches": true,
+    "programMatches": true,
+    "environmentRef": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-intake",
+    "environmentDigestMatches": true,
+    "corpusAccess": {
+      "axiomDependencyRef": "dependency://odd-glc/application/rc4-axiom@5",
+      "executablePath": "build_tenants/core/code/ac.py",
+      "kind": "axiom_indexer",
+      "map": {
+        "byteDigest": "sha256:5237339d919d352944c42ea201ae49c48b885db02255f5ca1a67173c2b0c1c3f",
+        "canonicalDigest": "sha256:bdfe3c09fe196a7c1f1634d0441c616e96049961356d41f85bdead2d3a0fa8ce",
+        "path": "build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.4/logical-constraint-map.json",
+        "uri": "stdo-representation://releases/v2.5.0-rc.4/build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.4/logical-constraint-map.json"
+      },
+      "outputContractPath": "skills/axiomatize-corpus/references/output-contract.md",
+      "program": {
+        "byteDigest": "sha256:90400806e79cd09f350f285000c8579af81f621cdbe3753125ed9d74bcb6b466",
+        "canonicalDigest": "sha256:5b6a5df2e2429f7b1d463e2b9107ca58f5c482e9565e98e792650f41b222a4cf",
+        "path": "build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.4/axiomatic-program.json",
+        "uri": "urn:stdo-representation:program:a-c-text:stdo-v2.5.0-rc.4:run-001"
+      },
+      "pythonExecutableDigest": "sha256:a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539",
+      "pythonVersion": "Python 3.12.8",
+      "representationDependencyRef": "dependency://odd-glc/application/rc4-representation@5",
+      "sourceDependencyRef": "dependency://odd-glc/application/rc4-source@5"
+    },
+    "dependencyCount": 5,
+    "contextCount": 3
+  },
+  "counterexampleLimit": "The substituted object is an in-memory predicate input with intentionally unreminted outer digests, not a repaired Public request or admitted invocation. No candidate or Run was constructed."
+}

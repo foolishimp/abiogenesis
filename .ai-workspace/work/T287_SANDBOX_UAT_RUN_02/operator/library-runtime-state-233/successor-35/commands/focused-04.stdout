@@ -1,0 +1,12 @@
+(node:1076) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ finite pure candidate plan equals complete-array construction without advancing the accepted base (216.475625ms)
+ℹ {"acceptedEvents":14,"prospectiveEvents":3,"acceptedDigest":"sha256:bc5c0143dc8dd7153ab79f57b90f814f484459226151454eab8129614b4e83c3","pure":true,"comparisonWork":{"bodyRows":0,"scopeRows":0,"membershipComparisons":0,"selectorRows":0},"limit":"Finite carrier/cut authentication only; basis candidates do not claim completed retry admission or genuine HoG execution."}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 516.278292

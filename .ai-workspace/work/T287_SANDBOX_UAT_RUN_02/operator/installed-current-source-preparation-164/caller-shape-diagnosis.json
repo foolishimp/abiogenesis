@@ -1,0 +1,56 @@
+{
+  "classification": "caller coordinate-as-record error; canonical JSON guard preserved",
+  "sourceSetup": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/setup-identity.json",
+    "sha256": "f8a8888b4ea11fd923feb148493d361a22d0cff6fef2c1a162bde79494fd7b2e",
+    "byteCount": 9226082
+  },
+  "actualWorkspaceBindingCoordinate": {
+    "digest": "sha256:8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f",
+    "ref": "workspace-binding://abiogenesis/8f000b8a138b3db36b53d33049f9fae6ea15eacf104071a1416865442714818f"
+  },
+  "actualBindingKeys": [
+    "digest",
+    "ref"
+  ],
+  "rootsPropertyPresent": false,
+  "sourceCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/prepare.mjs",
+    "sha256": "f50fb725f38f64de1426b30f11622551ffa3669ac3f907be1f77a15814d476d4",
+    "byteCount": 33934
+  },
+  "callSites": {
+    "102": "spreads setup.workspaceBinding.roots which is absent, so roots retains only toolchainRoot",
+    "103": "five other declaredRoots[].path values are undefined",
+    "73:208": "sha256Canonical(request) rejects undefined before grant construction and transport"
+  },
+  "undefinedRootKinds": [
+    "product",
+    "event_log",
+    "runtime_state",
+    "projection",
+    "archive"
+  ],
+  "owningFullRecordContract": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/environment.d.ts",
+    "sha256": "00128d7282ea9202f8f08f8da4a64a08314a889afeef18089504baa9e15c4a63",
+    "byteCount": 7229
+  },
+  "adjacentSameMisuse": "binding initialized from setup coordinate; later bindingId/bindingDigest/workspaceId access requires a separately authenticated full WorkspaceBinding, not a coordinate.",
+  "earliestCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/first-cause.json",
+    "sha256": "65cafda40a8e23819ba6a72ad7b2f06320c4e1c0cb8b7e959dea90993df86e09",
+    "byteCount": 2278
+  },
+  "bindingRequestPublished": false,
+  "bindingGrantConstructed": false,
+  "bindingDispatched": false,
+  "recommendedBoundedActionForRoot": "A separate successor caller should obtain the actual full WorkspaceBinding through its existing owner projection at the genuine latest prefix and keep that record distinct from Public coordinates; preserve committed current26 install and current closeHandoff. No Source/Product/guard repair indicated.",
+  "executedRepair": false,
+  "newOwnerRead": false,
+  "actualSDKOutcomePreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-164/calls/product-install26.outcome.json",
+    "sha256": "6db86058f6afed40b6c85b8a6dd6ae2bdee6c6fdd1beb2af0941bdbe00f9bb46",
+    "byteCount": 6258
+  }
+}

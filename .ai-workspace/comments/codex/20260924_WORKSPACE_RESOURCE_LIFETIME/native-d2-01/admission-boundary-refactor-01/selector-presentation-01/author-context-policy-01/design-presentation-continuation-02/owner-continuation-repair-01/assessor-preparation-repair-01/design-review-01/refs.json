@@ -1,0 +1,194 @@
+{
+  "status": "CLOSED_NO_SUPPORTED_DESIGN_BLOCKER",
+  "scope": "Proposal only; Root disposition and implementation remain separate",
+  "proposal": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/return.md",
+      "sha256": "61bd9c69d58c1b0e461b2be8dbc7cb36eb0c6e7e9388c23ed4af850ee97edb70",
+      "bytes": 2170,
+      "role": "exact_proposal_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/model-proposal.md",
+      "sha256": "6e6546b5f01f2654d81379f07de02210f33ee535ab7172d3f558290271b13dc9",
+      "bytes": 11522,
+      "role": "exact_proposal_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/refs.json",
+      "sha256": "df4f0bd57a15d3495c69854e58c121da3b58a079527aff1b9f5285c3abf99dcc",
+      "bytes": 4432,
+      "role": "exact_proposal_input"
+    }
+  ],
+  "frozenMemberCheck": {
+    "count": 9,
+    "mismatches": []
+  },
+  "measurement": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/reproduction.json",
+      "sha256": "622cc724fd64a1dff2d26a67cb1abc2b1a9e592925c9b3321906aa2abf09e893",
+      "bytes": 12698,
+      "role": "retained_component_measurement_not_native_assessor_draft"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/measure-proposal.mjs",
+      "sha256": "c6a4893f4fc08c2e2721def1f9a77ccc74098e273c70b1d3fc6df2f6f69a494c",
+      "bytes": 3287,
+      "role": "retained_component_measurement_not_native_assessor_draft"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/presentation-proposal-measurement.json",
+      "sha256": "cb47c4ab9900ef42168adbb4cdd64a0dd5a80af32d0610fdeb7f64403e6d3052",
+      "bytes": 1845,
+      "role": "retained_component_measurement_not_native_assessor_draft"
+    }
+  ],
+  "nativeBoundary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/execution-return.md",
+    "sha256": "1ac59f89abc4d87cb6273599f76700876957c2d786ace7cc550c1df5cddae76b",
+    "bytes": 5586,
+    "role": "closed_installed_outcome_author_admitted_assessor_undispatched"
+  },
+  "reusedSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/review-01/review.md",
+    "sha256": "e6d7e9bd88eead7786f4f83cdcd491ef4744cb1feac166ea1cb788e305c2b39b",
+    "bytes": 3789,
+    "role": "accepted_core38_materializer_source_scope"
+  },
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631",
+      "bytes": 71660,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        937,
+        950,
+        982,
+        1017
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "sha256": "0525b68ef606855193419cee6f638808129f7a445a461810e96440ee51eaeda5",
+      "bytes": 5154,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        26,
+        32,
+        40,
+        56
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "sha256": "ae4dbcff40f4784a648d98a1faaf0b139ca40610062eb4787fe25e16c1415794",
+      "bytes": 64544,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        51,
+        64,
+        89,
+        116
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "sha256": "ac240bfe34dc6a344f79415fa8da65f23d1c6596d27263d3995fb1a39fae6d02",
+      "bytes": 84342,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        88,
+        176,
+        261,
+        285,
+        420,
+        449
+      ],
+      "matchesCore38BuildInput": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "sha256": "b1028e1dc2aaf06c8b2f46e96de7eddde7a97c9ef2799559b454d06ce537a9a7",
+      "bytes": 35383,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        84,
+        130,
+        136,
+        251,
+        301,
+        347,
+        359
+      ],
+      "matchesCore38BuildInput": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+      "sha256": "9d7b75fdbb0eaa94df55c0cdfea3db9da3e0e94e806313b325fd27d394942597",
+      "bytes": 14754,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        35,
+        60
+      ],
+      "matchesCore38BuildInput": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "2f445d8d7b8090ac11d89bbb3187e71c663220840558b21e0370bfca90665fa9",
+      "bytes": 84012,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        213,
+        224,
+        433,
+        500
+      ],
+      "matchesCore38BuildInput": true
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "sha256": "1ec7d08e68e45b9c55a86b4a9366c48d8afbbc3e6ce248b6ad227ac38c8daa0d",
+      "bytes": 36431,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        129,
+        136,
+        268,
+        308,
+        311,
+        352
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "sha256": "527df1459b8589af3224d8115f607c78d9cf744fd29c63b13b661bef59a7b933",
+      "bytes": 39342,
+      "role": "existing_owning_relation",
+      "lineAnchors": [
+        489,
+        525
+      ]
+    }
+  ],
+  "openImplementationCondition": "Actual newly derived assessment-first successor complete assembly must fit unchanged 1048576-byte policy; old-input 994474-byte transform is not proof.",
+  "nonclaims": [
+    "No implemented entryRole or assessment-first publication yet",
+    "No recovered historical assessor prompt",
+    "No new currentness/authentication premise proved",
+    "No installed assessment or whole suffix completion",
+    "No native qualification or release credit"
+  ],
+  "effects": [
+    "Only bounded retained-file/source reads, hashes and selected review files"
+  ],
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/design-review-01/return.md",
+    "sha256": "48174e0366428399ebacdcae7df542723d22cc8f289bc0da0e1d172293883500",
+    "bytes": 5658,
+    "role": "closed_design_review"
+  }
+}

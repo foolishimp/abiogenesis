@@ -1,0 +1,44 @@
+{
+  "operation": "T287_EXECUTION06_TRIAGE_ASSIGNMENT_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T04:16:43.169178+00:00",
+  "outputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/activation.json",
+      "bytes": 568,
+      "sha256": "e44db3b3f7f57827257816d7456d4ff4b7725e91893ac15924ed815a32baf2fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/caller-request.txt",
+      "bytes": 3157,
+      "sha256": "cadd10839e832d665fcceba7a88657ab64bb1b4df5316679e3711b2d21eb594a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/caller-sections.json",
+      "bytes": 3429,
+      "sha256": "f3a98ee49ea32224f26c9846ad76b9195dd4081080d4000c6b3daef7e877a7ab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/source-request.txt",
+      "bytes": 3256,
+      "sha256": "ac7ccc23fcd61dc99693c56496d878e51b798d79e9c0b4d2f0a4085e9f845fe6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/source-sections.json",
+      "bytes": 3528,
+      "sha256": "f9046b807441c64a40bf24d61015c6f7cc3b62cd035d28101af50198792e5c5b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/subject-pins.json",
+      "bytes": 2859,
+      "sha256": "8c401b6fb4e7265feed6082539941f27cc29b012a566587377f98230adddef10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/triangulation.json",
+      "bytes": 5290,
+      "sha256": "f89299257f00305031a3309a4d761586995e12cc7900eda113e0b569bbd36f14"
+    }
+  ],
+  "sourceCandidateRuntimeNetworkGitEffects": 0
+}

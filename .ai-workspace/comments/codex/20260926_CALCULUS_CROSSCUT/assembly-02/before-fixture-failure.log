@@ -1,0 +1,68 @@
+(node:23569) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data (313.891792ms)
+✔ native revision decision view leaves all opaque C2 and application JSON verbatim (1.304834ms)
+✖ actual derived revision successor shares complete typed assets under the unchanged Design bound (126.341083ms)
+✔ assessment-first actual successor preserves typed retained terms and full pending candidate under the unchanged bound (282.185583ms)
+ℹ {"scope":"actual composed assessment-first successor; disclosed component authentication/role/currentness premises","retainedInputDigest":"sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566","successorDigest":"sha256:6b4917a497fbb0de0b1b75817feb4ab99adb109186b72fb2f0f49ac7fdc616c4","promptBytes":712820,"maxPromptBytes":1048576,"headroomBytes":335756,"historicalAssets":5,"retainedTerms":29,"retainedTermsBytes":57151,"pendingAssetRef":"semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df","sections":{"role":116023,"source":6709,"obligations":126795,"predecessors":1584,"worksite":30107,"evidence":349,"task":429534,"response":1612}}
+✖ stage assembly common mechanics preserve author and assessor wire values (4.721625ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 2
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 780.244834
+
+✖ failing tests:
+
+test at ../../../.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/component-regression.mjs:39:1
+✖ native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data (313.891792ms)
+  TypeError [Error]: Cannot convert undefined or null to object
+      at Object.entries (<anonymous>)
+      at canonicalJson (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:17:28)
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:19:58
+      at Array.map (<anonymous>)
+      at canonicalJson (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:19:10)
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:19:58
+      at Array.map (<anonymous>)
+      at canonicalJson (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js:19:10)
+      at sha256Canonical (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/digests.js:11:24)
+      at Object.evaluateNativeInstructionAssembly (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/component-regression.mjs:265:58)
+
+test at ../../../.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/component-regression.mjs:510:1
+✖ actual derived revision successor shares complete typed assets under the unchanged Design bound (126.341083ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ajv' imported from /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/component-regression.mjs
+      at Object.getPackageJSONURL (node:internal/modules/package_json_reader:268:9)
+      at packageResolve (node:internal/modules/esm/resolve:768:81)
+      at moduleResolve (node:internal/modules/esm/resolve:858:18)
+      at defaultResolve (node:internal/modules/esm/resolve:990:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:749:20)
+      at ModuleLoader.resolve (node:internal/modules/esm/loader:726:38)
+      at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:312:38)
+      at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:677:36)
+      at TracingChannel.tracePromise (node:diagnostics_channel:344:14)
+      at ModuleLoader.import (node:internal/modules/esm/loader:676:21) {
+    code: 'ERR_MODULE_NOT_FOUND'
+  }
+
+test at ../../../.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/component-regression.mjs:869:1
+✖ stage assembly common mechanics preserve author and assessor wire values (4.721625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'native_instruction_assembly_refusal'
+  - 'native_instruction_assembly'
+                                ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/component-regression.mjs:881:83)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'native_instruction_assembly_refusal',
+    expected: 'native_instruction_assembly',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

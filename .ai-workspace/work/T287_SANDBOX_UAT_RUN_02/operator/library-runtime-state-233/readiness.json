@@ -1,0 +1,203 @@
+{
+  "kind": "runtime_state_library_source_readiness",
+  "status": "CLOSED_SOURCE_ONLY",
+  "sourceCut": 34,
+  "authority": {
+    "family": "ABI5.0 fixed fifteen families",
+    "goal": "GOAL035",
+    "ticket": "T287",
+    "stdo": "2.5.1rc2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  },
+  "scope": {
+    "changedFiles233": 65,
+    "modifiedProduction233": 60,
+    "newPrivateOwner": "abg/runtime_history.ts",
+    "owningHow": 3,
+    "affectedExistingTest": 1,
+    "sourcePopulation": {
+      "same232": 196,
+      "owned233": 60,
+      "accepted235": 7,
+      "newPrivateOwner": 1
+    },
+    "fullSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-34-inputs.json",
+      "sha256": "d708f16312826e65d0a1e8697d15f479f1592ec41a235df181616d270f3e6858",
+      "bytes": 79543
+    },
+    "fullEmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-34-emission.json",
+      "sha256": "ae7db24406e0b00c3d727720b57a59fc37614359d548a54a60a7ccc429ac54cf",
+      "bytes": 162551
+    },
+    "sourceAndHowPostimages": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/postimages.json",
+      "sha256": "0c59e21cdf072e65ba9e04b920f20b59ae797009f51bf162a56b9692156ecc35",
+      "bytes": 59311
+    },
+    "incrementDiff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/increment.diff",
+      "sha256": "aa9ae83ad823420172bd4f41ee3fa3097d809fff5dc308077c7a27c072f24b45",
+      "bytes": 941663
+    },
+    "dependencyConjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-conjunction.json",
+      "sha256": "fafc424370cff9a5dab3b2baba6372dc7b8767519e0548bf9fa45c99647c7a13",
+      "bytes": 13329
+    }
+  },
+  "proof": {
+    "strict264": {
+      "kind": "isolated_strict_runtime_dependency_compile",
+      "cut": 34,
+      "exitCode": 0,
+      "elapsedMs": 6764.082667,
+      "scope": "264-source frozen overlay; no normal generation or installed readiness"
+    },
+    "strippedDeclarations264": {
+      "kind": "stripped_declaration_component_check",
+      "declarations": 264,
+      "skipLibCheck": false,
+      "elapsedMs": 3254.64275,
+      "diagnostics": [],
+      "limits": [
+        "Type linkage only; no normal publication or runtime readiness"
+      ]
+    },
+    "affectedSix": {
+      "kind": "runtime_selected_component_check",
+      "args": [
+        "--expose-gc",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-name-pattern=terminal route-only|selected replay guard|finite pure candidate|ordinary selected route|drop complete output",
+        "dependency-cut-34/test_env/tests/t287-route-reconstruction.test.mjs"
+      ],
+      "sourceCut": 34,
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 2434.08375,
+      "limits": [
+        "Genuine disposable EventStore resources with controlled lower declaration/outcome premises; no installed native/Source41/campaign capacity proof"
+      ]
+    },
+    "finiteRoute": {
+      "physicalBytes": [
+        25578,
+        4302816
+      ],
+      "eventRows": [
+        14,
+        78
+      ],
+      "warmBodyReads": [
+        1,
+        1
+      ],
+      "warmSelectedBytes": [
+        2389,
+        2389
+      ],
+      "warmMembershipComparisons": [
+        4,
+        5
+      ],
+      "warmScopeRows": [
+        0,
+        0
+      ],
+      "warmSelectorRows": [
+        0,
+        0
+      ],
+      "scopedExtent16Repeats": {
+        "bodyRows": 0,
+        "scopeRows": 0,
+        "selectorRows": 0,
+        "membershipComparisons": 0
+      },
+      "noPriorBasisEnumeration": true,
+      "namedRouteProjector": true,
+      "changedAuthorityReopensGuards": true,
+      "genuineAppendedContradictoryRunRefused": true,
+      "copiedPrefixRefused": true,
+      "fullReadReturnToSelectedSameCost": true
+    },
+    "fullReplay": {
+      "logicalBytes": 4622,
+      "digest": "sha256:808ec2fe21730774c15d498eb26f49d3082da52c0eba7036644a6b8f3d1a0b48",
+      "streamEqualsCanonicalCompleteReplay": true,
+      "copiedGuardRefused": true,
+      "nativeAndContinuationFields": "Actual237 owner specimen remains required; finite terminal fixture has no native/continuation instance."
+    },
+    "purePlan": {
+      "candidates": 3,
+      "acceptedRows": 14,
+      "exactRawArrayCorrespondence": true,
+      "acceptedBaseUnchanged": true,
+      "noDurableOrSourceAuthority": true
+    },
+    "lifetime": {
+      "droppedTargetCollected": true,
+      "ownerStillOpen": true,
+      "collector": "One V8 full heap snapshot stream discarded without inspector target handle or persisted raw snapshot",
+      "collectionBytes": 29676225,
+      "selectedValueStillRetained": false,
+      "postCollectionHeapUsed": 42016696,
+      "coldFirstRouteAfterDrop": {
+        "bodyRows": 104,
+        "physicalSelectedBytes": 4362729
+      },
+      "limits": "Collection of the selected dropped output target is proved. The first complete validation has a distinct transient cost; no campaign-scale retained-heap or fatal-retainer claim."
+    }
+  },
+  "preservedFailureRca": [
+    {
+      "cut": 11,
+      "cause": "Cold decoder compared one canonical row against complete multirow bytes; reused-body output lacked deep immutable admission; private preview also took raw full-history calculus path.",
+      "action": "Exact byte-row equality/deep freezing and shared body-free accepted-fold candidate delta; failed receipts and independent HOLD retained."
+    },
+    {
+      "cut": 24,
+      "cause": "Private completion type escaped into established published signature.",
+      "action": "Restore exact Public CCallCompletionAdmission parameter; private core retained; all stripped declarations revalidated."
+    },
+    {
+      "cut": 30,
+      "cause": "Continuation owner decoded Run rows before selecting the complete seven consumed kinds.",
+      "action": "Select exact indexed envelope kinds before body acquisition; all original continuation/global guards retained."
+    },
+    {
+      "cut": 31,
+      "cause": "Test assumed unchanged physical widths despite ordinal1..14 to65..78; one-GC weak collection premise failed.",
+      "action": "Exact named-row/ordinal/physical-byte accounting; diagnostic33 showed target collectible without production purge."
+    },
+    {
+      "cut": 32,
+      "cause": "Single-GC lifetime assertion still did not prove complete weak processing; selector accounting exposed364 redundant basis comparisons.",
+      "action": "Completed collector observation test plus same-owner scalar checked-cut reuse after all global replay route checks. Fixed-population logarithmic comparisons remain explicit."
+    }
+  ],
+  "applicability": {
+    "cut15": "Accepted unchanged core representation/cold/rollback/raw-v1/component proofs reused where Source unchanged; final delta compiled and linked as a whole.",
+    "source235": "Seven exact independently accepted native/codec owners conjoined; genuine native/source downstream applicability remains237.",
+    "source198": "Complete explicit immutable snapshots retain full logical meaning and post-close owned read semantics; body-free private receipt is distinct.",
+    "source220": "Existing single-route global guard/refusal law retained; fresh/changed cuts still perform complete required validation.",
+    "source225": "Portable close detachment and canonical physical reopen/corruption checks retained; no original resource acquired.",
+    "review212": "Earlier candidate29 caller readiness earns no final runtime/installed/native credit."
+  },
+  "limits": [
+    "No normal shared build, Product manifest generation, package, installed TypeScript consumer, original event-log/worksite/lock or native/provider/model/app/Git effects.",
+    "Private internal representation is never an admitted Source/Result or replacement public prefix. Complete Public outputs and digest law are preserved; explicit full output still has full acquisition/traversal cost.",
+    "Cold validation requires complete authenticated extent; discarded decoded bodies and derived indexes do not replace physical authority.",
+    "Controlled lower declaration/outcome/closure premises remain disclosed in the finite fixture; no fabricated Source41/native admission.",
+    "Genuine native/continuation streaming fields, Source41, actual installed callback/HoG/restore/currentness, long campaign capacity/UAT/release remain open and selected for237."
+  ],
+  "documentaryFinalizer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/commands/documentary-finalizer-34.json",
+    "sha256": "0b0bdde67e686e6b3d80849b6a69acf6c2bc28d55e6d3d93493219a7c77162fd",
+    "bytes": 367
+  }
+}

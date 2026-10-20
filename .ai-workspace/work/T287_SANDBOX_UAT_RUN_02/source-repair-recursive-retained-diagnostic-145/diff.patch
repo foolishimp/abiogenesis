@@ -1,0 +1,202 @@
+--- preimage/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md
++++ postimage/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md
+@@ -235,10 +235,15 @@
+ truthful failure, not a malformed completed-child foldback.
+ 
+ HoG stops the active enclosing Run through the existing ABG runtime-failure
+-owner. Its cause is the admitted failed child route; its retained subject names
+-the original child C_Call, Result and Judgment and the parent evaluator/input
+-coordinates. The returned failed completion preserves the child value and
+-diagnostic. Prior admitted parent work and unresolved input remain unchanged.
++owner. Its cause is the admitted failed child route. For an opaque diagnostic,
++the failure subject names the original child C_Call, Result and Judgment and
++the parent evaluator/input coordinates. For a canonical retained-JSON
++diagnostic, HoG uses the existing diagnostic owner to preserve its exact
++decoded subject, including JSON `null`; replacing that subject would violate
++the diagnostic's digest relation. The admitted parent scope and failed-child
++route causation retain the enclosing and child coordinates in either case.
++The returned failed completion preserves the child value and diagnostic.
++Prior admitted parent work and unresolved input remain unchanged.
+ No successful child foldback, termination evaluation, rebind or retry follows.
+ An already-failed Run propagates its existing failure without a second failure
+ admission. Missing, crossed or stale child truth retains the existing refusal.
+@@ -251,7 +256,7 @@
+     Child->>HoG: Failed completion with exact child refs
+     HoG->>ABG: Project admitted child basis, scope and failed route
+     ABG-->>HoG: Exact Result/Judgment/value/diagnostic correspondence
+-    HoG->>ABG: Admit enclosing runtime failure caused by child route
++    HoG->>ABG: Admit failure with exact diagnostic subject and child route cause
+     ABG-->>HoG: Non-green successor prefix and replay
+     HoG->>HoG: Return failed; no foldback or retry
+ ```
+--- preimage/code/src/hog/recursion_lifecycle.ts
++++ postimage/code/src/hog/recursion_lifecycle.ts
+@@ -1,6 +1,10 @@
+ import * as Abg from "../abg/index.js";
+ import { projectChildFoldbackTruth } from "../abg/child_lifecycle.js";
+ import { indexedRuntimeEvents } from "../abg/event_prefix.js";
++import {
++  constructRuntimeFailureDiagnosticRef,
++  readRuntimeFailureDiagnosticSubject,
++} from "../abg/runtime_failure.js";
+ import type {
+   AbgEventStore,
+   ActorRuntimeBinding,
+@@ -786,13 +790,16 @@
+     const childBasis = frame.childExecutionBasis;
+     const childScope = frame.childTraversalScope;
+     if (truth !== null) {
++      const retainedSubject = readRuntimeFailureDiagnosticSubject(child.diagnosticRef);
++      const retainsSubject = retainedSubject !== null ||
++        child.diagnosticRef === constructRuntimeFailureDiagnosticRef(null);
+       const admitted = Abg.admitRuntimeFailure({
+         store: state.input.store,
+         predecessorPrefix: child.successorPrefix,
+         executionBasis: state.input.executionBasis,
+         scope: state.input.openedTraversalScope,
+         stage: "route",
+-        subject: {
++        subject: retainsSubject ? retainedSubject : {
+           stage: "child-failure",
+           parentCCallRef: state.cCall.cCallRef,
+           parentResultRef: state.result.resultRef,
+--- preimage/test_env/tests/t287-recursive-registered-selection.test.mjs
++++ postimage/test_env/tests/t287-recursive-registered-selection.test.mjs
+@@ -93,13 +93,45 @@
+   });
+   await module.evaluate();return module.namespace;
+ }
++// The frozen external fixture remains F_D. This control supplies diagnostic
++// bytes through the actual leaf owner boundary; it does not claim that the
++// installed fixture implements an F_P preparation exception or these bytes.
++async function retainedDiagnosticCCallOwner(env,load,diagnosticRef){
++  const leafOwner=await load('implementation/leaf_invocation_port'),storeOwner=await load('abg/event_store');
++  const controlledDeterministicRealizer=async(port,call)=>{
++    const original=await port.invoke(call);
++    if(call.resolution.implementationRef!==ref('implementation','A')||call.input.measurements.length===0)return original;
++    assert.equal(call.resolution.computeRegime,'F_D');assert.equal(original.kind,'closed_leaf_owner_receipt');
++    assert.equal(original.computeRegime,'F_D');assert.notEqual(original.receipt,null);assert.equal(original.candidate.disposition,'failure');
++    const failureValueKind=port.contractValueKind(call.failureContractRef,'failure');
++    assert.equal(failureValueKind,'selection_failure');
++    const resultCandidate={...original.candidate.resultCandidate,diagnosticRef};
++    const candidate={...original.candidate,diagnosticRef,resultCandidate,
++      evidenceCandidates:original.candidate.evidenceCandidates.map(e=>({...e,outputDigest:hash(resultCandidate)}))};
++    return leafOwner.invokeLeafOwnerBoundary({resolution:call.resolution,value:call.input,inputDigest:call.inputDigest,
++      failureValueKind,occurrence:call.occurrence,
++      verifyAuthority:()=>{
++        storeOwner.assertHeldEventStoreAtDurablePrefix(env.store,call.predecessorPrefix);
++        return port.isExactLoadedCapability()&&port.isAdmittedResolution(call.resolution)&&original.receipt!==null;
++      },
++      validateSuccess:value=>port.validateContractValue(call.resolution.outputContractRef,'output',value),
++      resolveWorkerContracts:()=>null,
++      loadImplementation:async()=>value=>{assert.equal(value,call.input);return candidate;}});
++  };
++  const code=await readFile(join(env.installedRoot,'build/code/src/hog/ccall_lifecycle.js'),'utf8');
++  const callSite='input.leafPort.invoke({';assert.equal(code.split(callSite).length,2);
++  return linkedOwner(env,'hog/ccall_lifecycle',
++    'import {controlledDeterministicRealizer} from "../implementation/leaf_invocation_port.js";\n'+
++    code.replace(callSite,'controlledDeterministicRealizer(input.leafPort,{'),
++    {'../implementation/leaf_invocation_port.js':{...leafOwner,controlledDeterministicRealizer}});
++}
+ test('authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth',async t=>{
+   let prepared;const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-recursive-failure-source-'));
+   const fixturePath=join(fixtureRoot,'failure.mjs');await writeFile(fixturePath,failureFixtureSource);
+   const sourceCode=await readFile(join(packageRoot,'build/code/src/hog/recursion_lifecycle.js'),'utf8');
+-  const diagnostic='diagnostic://registered-selection/original-child-failure@5',mismatch='diagnostic://abiogenesis/hog/application-foldback-mismatch@5';
++  const opaqueDiagnostic='diagnostic://registered-selection/original-child-failure@5',mismatch='diagnostic://abiogenesis/hog/application-foldback-mismatch@5';
+   const cases=[];
+-  for(const scenario of ['old-failure','failure','success']){
++  for(const scenario of ['old-failure','failure','retained-diagnostic','retained-null','success']){
+     const input=initialState();input.task={...input.task,scenario:scenario==='success'?'success':'failure'};input.taskDigest=hash(input.task);
+     const env=await setupInstalledRootExecutionBasis({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
+       programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input,
+@@ -113,12 +145,17 @@
+       }});
+     const load=relative=>import(pathToFileURL(join(env.installedRoot,'build/code/src',relative+'.js')).href);
+     const actualRecursion=await load('hog/recursion_lifecycle');
++    const diagnosticOwner=await load('abg/runtime_failure'),profiles=await load('abg/event_contract_profiles');
++    const retained=scenario.startsWith('retained-');
++    const diagnostic=scenario==='retained-null'?diagnosticOwner.constructRuntimeFailureDiagnosticRef(null):
++      scenario==='retained-diagnostic'?profiles.undispatchedOwnerDiagnosticRef('preparation','thrown',new TypeError('controlled F_D diagnostic bytes é𝄞')):opaqueDiagnostic;
++    const retainedSubject=diagnosticOwner.readRuntimeFailureDiagnosticSubject(diagnostic);
+     const owner=await linkedOwner(env,'hog/recursion_lifecycle',sourceCode,{},['projectFailedRecursionChildTruth','requireDeferredApplication']);
+     const captures=[];
+     const selected=scenario==='old-failure'?actualRecursion:owner;
+     const recursion={...selected,completeRecursionChild(frame,child){
+       captures.push({frame,child});
+-      if(scenario==='failure'&&child.disposition==='failed'){
++      if((scenario==='failure'||retained)&&child.disposition==='failed'){
+         assert.equal(child.replayState.runtimeStatus,'active','valid child-local failure leaves its enclosing Run live');
+         const state=owner.requireDeferredApplication(frame.restored,frame.restoration),project=c=>owner.projectFailedRecursionChildTruth(frame,state,c);
+         const count=env.store.readAll().length;assert.ok(project(child));
+@@ -128,13 +165,24 @@
+           {...child,resultValue:{...child.resultValue,diagnosticRef:'diagnostic://crossed'}},{...child,diagnosticRef:'diagnostic://crossed'},{...child,closureRef:'closure://unadmitted'},
+           {...child,successorPrefix:frame.restored.successorPrefix},{...child,resultRef:null}])assert.equal(project(changed),null);
+         assert.equal(owner.projectFailedRecursionChildTruth({...frame,childExecutionBasis:{...frame.childExecutionBasis,parentExecutionBasisRef:'basis://crossed'}},state,child),null);
++        for(const changed of [{parentCCallRef:'c-call://crossed'},{rawInputAdmissionRef:'result://crossed'},{rawInputDigest:hash('crossed')}])
++          assert.equal(owner.projectFailedRecursionChildTruth({...frame,childExecutionBasis:{...frame.childExecutionBasis,...changed}},state,child),null);
+         assert.equal(owner.projectFailedRecursionChildTruth({...frame,childTraversalScope:{...frame.childTraversalScope,runId:'run://crossed'}},state,child),null);
+         assert.throws(()=>owner.completeRecursionChild(frame,{...child,disposition:'held',continuationRef:null}),/inconsistent lineage/);
++        if(retained){
++          assert.throws(()=>env.abg.admitRuntimeFailure({store:env.store,predecessorPrefix:child.successorPrefix,
++            executionBasis:state.input.executionBasis,scope:state.input.openedTraversalScope,stage:'route',
++            subject:{stage:'replacement-child-failure-subject'},diagnosticRef:diagnostic,
++            basis:{eventTime:'2026-07-21T00:00:00.000Z',correlationId:'correlation://retained-subject-refusal',causationEventRefs:[]}}),
++            /diagnostic does not match its retained subject digest/,'unchanged failure owner rejects subject replacement');
++        }
+         assert.equal(env.store.readAll().length,count,'pure crossed/stale/held refusals admit no events');
+       }
+       return selected.completeRecursionChild(frame,child);
+     }};
+-    const graph=await linkedOwner(env,'hog/graph_execute',await readFile(join(env.installedRoot,'build/code/src/hog/graph_execute.js'),'utf8'),{'./recursion_lifecycle.js':recursion});
++    const graphOverrides={'./recursion_lifecycle.js':recursion};
++    if(retained)graphOverrides['./ccall_lifecycle.js']=await retainedDiagnosticCCallOwner(env,load,diagnostic);
++    const graph=await linkedOwner(env,'hog/graph_execute',await readFile(join(env.installedRoot,'build/code/src/hog/graph_execute.js'),'utf8'),graphOverrides);
+     const opened=env.abg.openTraversalScope(env.store,env.durablePrefix,{kind:'root',executionBasis:env.executionBasis},{eventTime:'2026-07-21T00:00:00.000Z',correlationId:'correlation://recursive-failure/'+scenario+'/open',causationEventRefs:[]});
+     assert.equal(opened.kind,'traversal_scope_open_admission');
+     const result=await graph.executeGraphTraversal({store:env.store,predecessorPrefix:opened.successorPrefix,executionBasis:env.executionBasis,
+@@ -148,11 +196,20 @@
+     assert.equal(runEvents.filter(e=>e.kind==='child_foldback_admitted'&&e.payload.applicationRef!==undefined).length,scenario==='success'?2:1);
+     if(scenario==='success'){assert.equal(result.disposition,'closed');assert.equal(result.resultValue.terminal,true);assert.equal(failures.length,0);}
+     else{
+-      assert.equal(result.disposition,'failed');assert.equal(result.diagnosticRef,scenario==='failure'?diagnostic:mismatch);assert.equal(failures.length,1);
+-      if(scenario==='failure'){
++      assert.equal(result.disposition,'failed');assert.equal(result.diagnosticRef,scenario==='old-failure'?mismatch:diagnostic);assert.equal(failures.length,1);
++      if(scenario!=='old-failure'){
+         const {frame,child}=captures.at(-1),truth=owner.projectFailedRecursionChildTruth(frame,owner.requireDeferredApplication(frame.restored,frame.restoration),child);
+         assert.equal(result.resultRef,child.resultRef);assert.equal(result.judgmentRef,child.judgmentRef);assert.deepEqual(result.resultValue,child.resultValue);
+         assert.equal(failures[0].payload.diagnosticRef,diagnostic);assert.deepEqual(failures[0].causationEventRefs,[truth.routeEventRef]);
++        if(retained){
++          assert.equal(failures[0].payload.subjectDigest,hash(retainedSubject));
++          const evidence=diagnosticOwner.projectRuntimeFailureEvidenceAtPrefix(env.abg.selectValidatedRuntimeEventPrefix(events));
++          assert.equal(evidence.length,1);assert.equal(evidence[0].availability,'retained');assert.deepEqual(evidence[0].subject,retainedSubject);
++          const childResult=runEvents.find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===child.resultRef);
++          assert.equal(childResult.payload.value.diagnosticRef,diagnostic);
++          assert.equal(runEvents.some(e=>e.kind==='c_call_evidenced'&&e.payload.evidenceClass==='undispatched_owner_refusal'),false,
++            'controlled F_D diagnostic proof claims no F_P owner observation');
++        }
+         assert.equal(runEvents.some(e=>e.kind==='runtime_failure_observed'&&e.payload.diagnosticRef===mismatch),false);
+         const count=events.length,globallyFailed={...child,replayState:result.replayState};assert.equal(owner.completeRecursionChild(frame,globallyFailed),globallyFailed);
+         assert.equal(env.store.readAll().length,count);
+@@ -162,13 +219,20 @@
+     assert.equal(cold.kind,'reopened_event_store_context');
+     const reads=await load('abg/project_read_ports'),runReplay=reads.prepareRunReadAtDurablePrefix(cold.prefix,'run_replay',opened.run.runId).project(),runResult=reads.prepareRunReadAtDurablePrefix(cold.prefix,'run_result',opened.run.runId).project();
+     assert.equal(runReplay.disposition,'projected');assert.equal(runReplay.value.runtimeStatus,scenario==='success'?'closed':'failed');
++    if(retained){const coldEvents=env.abg.readRuntimeEventsAtDurablePrefix(cold.prefix),coldEvidence=diagnosticOwner.projectRuntimeFailureEvidenceAtPrefix(env.abg.selectValidatedRuntimeEventPrefix(coldEvents));
++      assert.equal(coldEvidence.length,1);const evidence=coldEvidence[0],coldFailure=coldEvents.find(e=>e.eventId===evidence.admissionEventRef);
++      assert.equal(coldFailure.kind,'runtime_failure_observed');assert.equal(coldFailure.runId,opened.run.runId);
++      assert.equal(evidence.failureRef,coldFailure.payload.failureRef);assert.equal(evidence.failureDigest,coldFailure.payload.failureDigest);
++      assert.equal(evidence.admissionEventDigest,coldFailure.payloadDigest);assert.equal(evidence.subjectDigest,hash(retainedSubject));
++      assert.equal(evidence.availability,'retained');assert.deepEqual(evidence.subject,retainedSubject);
++      assert.equal(coldFailure.payload.diagnosticRef,diagnostic);assert.deepEqual(coldFailure.causationEventRefs,failures[0].causationEventRefs);}
+     if(scenario==='success')assert.equal(runResult.disposition,'projected');else{assert.equal(runResult.code,'target_absent');assert.equal(runReplay.value.terminalResult,null);}
+     assert.deepEqual(cold.store.projectReopenAuthorityAndClose().prefix,handoff.prefix);
+     cases.push({scenario,eventCount:events.length,runId:opened.run.runId,disposition:result.disposition,diagnosticRef:result.diagnosticRef,
+       priorParentResult:parentResults[1].payload.resultRef,childResultRef:result.resultRef,coldRuntimeStatus:runReplay.value.runtimeStatus,prefixDigest:handoff.prefix.coordinateDigest});
+   }
+   t.diagnostic(JSON.stringify({cases,fixtureArtifact:{...prepared.basis,artifactPath:prepared.artifactPath,sourceRoot:prepared.sourceRoot},fixtureRoot,sourceUnderTestDigest:product.sha256Bytes(Buffer.from(sourceCode)),
+-    proofLimit:'Genuine installed lower owners with in-memory HoG source linkage and one controlled external deterministic Product; no installed142, provider, DataMapper, UAT or semantic adequacy claim.'}));
++    proofLimit:'Genuine installed lower admission/storage/read owners with in-memory HoG linkage; retained lanes use a disclosed controlled F_D realizer through invokeLeafOwnerBoundary and unchanged declared fibre/contracts. Installed F_P exception reachability is source-proven separately; no installed145/F_P-to-HoG join, provider, DataMapper, UAT or semantic adequacy claim.'}));
+ });
+ 
+ test('one installed Public start revises native choice from child evidence and reevaluates its parent',{skip:process.env.ABI5_RECURSIVE_SELECTION_LIVE!=='1'},async()=>{

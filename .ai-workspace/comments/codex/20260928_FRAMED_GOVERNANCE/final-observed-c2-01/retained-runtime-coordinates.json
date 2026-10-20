@@ -1,0 +1,65 @@
+{
+  "subject": {
+    "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+    "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+    "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "workspaceBinding": {
+    "digest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+    "ref": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8"
+  },
+  "actualRun": {
+    "digest": "sha256:4072b5cc75b27bf22993a430cf6b007c70731cd0da0ddee8f623c88232690a64",
+    "ref": "run://abiogenesis/4a99520b11141d45c3b358cdd08a8f6689f56e4a29dfd1de5f6e78fe97fbb462"
+  },
+  "actualGraphCall": {
+    "digest": "sha256:a291db889fd9c24343484db67f21589a63a5b66589e96002ba12441146d2fa84",
+    "ref": "graph-call://abiogenesis/011d4fd4e994a29b6d485a1265602402aefd2ea91063c32e01d3618ace08c0be"
+  },
+  "actualStop": {
+    "digest": "sha256:5051ea5ceee7272da8dcd4dff089b0f4035e971586732f87f650fba65fabd385",
+    "ref": "event://abiogenesis/c1d4b37c2123359cc778b8de60644b4b3846a56ddea995aefb8cc25a38c5160d"
+  },
+  "actualReplay": {
+    "digest": "sha256:936a7e7a46cc53ecab834654e7a2e593222b21f6296857433406b7258f5e6684",
+    "ref": "replay://abiogenesis/936a7e7a46cc53ecab834654e7a2e593222b21f6296857433406b7258f5e6684"
+  },
+  "terminalResult": null,
+  "cCallRef": "c-call:sha256:78be8b7b2c0d6fa2075b606771d947f77f8ce110e4b9a4f64fc6054d4b953a8b",
+  "actorInvocationRef": "actor-invocation://abiogenesis/dc14e98c17b9f0117095bcd88aee77b2078f6dd48de7abc3df4ac9952c86ba17",
+  "transportBindingRef": "transport-binding://abiogenesis/d0361edc15e1ec0166ac7dccd534ce06537804c1f574a27fc91d89fa417aef81",
+  "finalHandoff": {
+    "path": "final-handoff.json",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 1328,
+    "sha256": "452d82338db55b5ae53406516df6186fe7a39018adbbcccd33b6ff3269c0f7ff"
+  },
+  "physical": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "device": 16777230,
+    "inode": 464012478,
+    "bytes": 5577377,
+    "sha256": "e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+    "eventCount": 84,
+    "initialBytes": 2582298,
+    "initialSHA256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+    "prefixConserved": true,
+    "snapshotIdentical": true,
+    "stable": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock",
+    "lockPresent": false,
+    "coordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c"
+  },
+  "task": {
+    "ref": "worksite-command-execution-task://abiogenesis/b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa",
+    "digest": "sha256:b093bf328f4e9fa00123ac6d3d9e17b3c13ce39f5010cbf9107da040c2e301fa"
+  },
+  "executionSelectionRef": null,
+  "tenantManifest": null,
+  "qualificationBasis": null,
+  "nextAuthority": "Root selects any recovery/new execution. Present genuine resource and staged current inputs are retained; any subsequent call must use current owner projection, actual last handoff and applicable lifecycle/source law, not replay the original absence-stage or reuse old prefix authority."
+}

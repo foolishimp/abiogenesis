@@ -1,0 +1,7 @@
+{
+  "error": "ENOENT",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/readiness.json",
+  "phase": "read-only setup lookup before any owner entry",
+  "cause": "216a is a two-deletion successor; readiness is inherited from frozen216 rather than a newly present216a/readiness.json. My optional diagnostic assumed the file existed.",
+  "action": "Use the actual216a freeze/baseFreeze and exact six-file selectors; no caller, owner or runtime effects/retry occurred."
+}

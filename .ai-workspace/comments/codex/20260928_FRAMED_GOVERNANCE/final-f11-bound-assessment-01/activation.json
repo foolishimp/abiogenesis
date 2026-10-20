@@ -1,0 +1,18 @@
+{
+  "activation": "T287_F11_BOUND_INPUTS_01",
+  "actor": "/root/f11_binding_plan",
+  "role": "Worker",
+  "timestamp": "2026-10-01T11:55:27.618606+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-controls-01/request.txt",
+    "bytes": 7151,
+    "sha256": "a29dd3612468ea851904f9744f06b3a1afd75bac91642d4942219fb18b341ac6"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "candidateLaw": "C02/Q02 exact RC1 preserved",
+  "effects": "External source-data acquisition, construction, pure installed validation/rendering and evidence files only",
+  "nativeCalls": false,
+  "providerCalls": false,
+  "canonicalSourceMutation": false
+}

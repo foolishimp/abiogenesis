@@ -1,0 +1,39 @@
+{
+  "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    actionCatalogDigest: 'sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4',\n    actionCatalogRef: 'action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4',\n    actionCatalogRowDigest: 'sha256:f3769b8dcb31f9e493eef67891596307b8f02fa39c4ffa1669c30eb4277243eb',\n    actionKind: 'invoke_graph_function',\n+   admissionEventRef: 'event://abiogenesis/d573a87999d96132c9864d94bc0e2eea42d348474d12c32443839cac1b52484f',\n    constructionCompositionDigest: 'sha256:df3e2f24be6d81ea4398e5fd781c844dccbfafadadba790e22f4b2f362f2bf32',\n    constructionCompositionRef: 'composition://s03-automatic/root@5',\n    constructionIntentDigest: 'sha256:272c5a73c57b28eca89700fb8407a865a303182f000640998085b6e6b6404776',\n    constructionIntentRef: 'construction-intent://abiogenesis/272c5a73c57b28eca89700fb8407a865a303182f000640998085b6e6b6404776',\n    disposition: 'admitted',\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    actionCatalogDigest: 'sha256:b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4',\n    actionCatalogRef: 'action-catalog://product/b82e04b943ebb604291845af5069caff713c4045dda2de48155a928d63be11c4',\n    actionCatalogRowDigest: 'sha256:f3769b8dcb31f9e493eef67891596307b8f02fa39c4ffa1669c30eb4277243eb',\n    actionKind: 'invoke_graph_function',\n+   admissionEventRef: 'event://abiogenesis/d573a87999d96132c9864d94bc0e2eea42d348474d12c32443839cac1b52484f',\n    constructionCompositionDigest: 'sha256:df3e2f24be6d81ea4398e5fd781c844dccbfafadadba790e22f4b2f362f2bf32',\n    constructionCompositionRef: 'composition://s03-automatic/root@5',\n    constructionIntentDigest: 'sha256:272c5a73c57b28eca89700fb8407a865a303182f000640998085b6e6b6404776',\n    constructionIntentRef: 'construction-intent://abiogenesis/272c5a73c57b28eca89700fb8407a865a303182f000640998085b6e6b6404776',\n    disposition: 'admitted',\n\n    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:76:274\n    at Array.map (<anonymous>)\n    at assertNativeDomain (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:65:22)\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/consumer-proof.mjs:47:17",
+  "lastGenuineHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:704eb98c676910e535daed71413ebdc5838121bac72afc9d12eaba937018d122",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:c00b129cb95ec9d89d8f73e3f40fe85eeb646001616bfe100a7fee75f4b7d564",
+      "prefixLength": 3863401,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 463811526
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:80c662341d1eb3ce7c9c741f70496aeae99c71803e877e5474ccb685851c5818",
+      "device": 16777230,
+      "durableByteLength": 3863401,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:c00b129cb95ec9d89d8f73e3f40fe85eeb646001616bfe100a7fee75f4b7d564",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+      "inode": 463811526,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "completedCallOrdinal": 0,
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+    "bytes": 3863401,
+    "sha256": "c00b129cb95ec9d89d8f73e3f40fe85eeb646001616bfe100a7fee75f4b7d564",
+    "device": 16777230,
+    "inode": 463811526
+  },
+  "elapsedMs": 1043.374417
+}

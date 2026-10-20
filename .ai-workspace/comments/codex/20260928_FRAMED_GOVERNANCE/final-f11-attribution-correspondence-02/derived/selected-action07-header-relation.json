@@ -1,0 +1,109 @@
+{
+  "kind": "derived_original_delta_representation",
+  "original": {
+    "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+    "digest": "sha256:02e124abb177e4ca530ee8f1f249affd2e41279fedecb90d9330e37f9d7df315",
+    "byteCount": 34089
+  },
+  "originalSpan": {
+    "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+    "startByte": 0,
+    "endByte": 34089,
+    "spanDigest": "sha256:02e124abb177e4ca530ee8f1f249affd2e41279fedecb90d9330e37f9d7df315"
+  },
+  "derived": {
+    "ref": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/selected-action07-header-view.patch",
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/selected-action07-header-view.patch",
+    "digest": "sha256:bf8d522c75b6890ff85ec5eb30401dab96791db0f42b3ddd0a670f7a623cbaea",
+    "byteCount": 34035
+  },
+  "rule": "Only --- before/ and +++ after/ header prefixes become a/ and b/. All other bytes, hunk contents and endpoints remain identical.",
+  "changedHeaderLines": [
+    {
+      "line": 1,
+      "originalStartByte": 0,
+      "originalEndByte": 90,
+      "originalLine": "--- before/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts\n",
+      "derivedLine": "--- a/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts\n"
+    },
+    {
+      "line": 2,
+      "originalStartByte": 90,
+      "originalEndByte": 179,
+      "originalLine": "+++ after/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts\n",
+      "derivedLine": "+++ b/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts\n"
+    },
+    {
+      "line": 59,
+      "originalStartByte": 5276,
+      "originalEndByte": 5366,
+      "originalLine": "--- before/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts\n",
+      "derivedLine": "--- a/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts\n"
+    },
+    {
+      "line": 60,
+      "originalStartByte": 5366,
+      "originalEndByte": 5455,
+      "originalLine": "+++ after/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts\n",
+      "derivedLine": "+++ b/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts\n"
+    },
+    {
+      "line": 70,
+      "originalStartByte": 6454,
+      "originalEndByte": 6549,
+      "originalLine": "--- before/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs\n",
+      "derivedLine": "--- a/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs\n"
+    },
+    {
+      "line": 71,
+      "originalStartByte": 6549,
+      "originalEndByte": 6643,
+      "originalLine": "+++ after/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs\n",
+      "derivedLine": "+++ b/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs\n"
+    },
+    {
+      "line": 383,
+      "originalStartByte": 28246,
+      "originalEndByte": 28346,
+      "originalLine": "--- before/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs\n",
+      "derivedLine": "--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs\n"
+    },
+    {
+      "line": 384,
+      "originalStartByte": 28346,
+      "originalEndByte": 28445,
+      "originalLine": "+++ after/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs\n",
+      "derivedLine": "+++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs\n"
+    },
+    {
+      "line": 403,
+      "originalStartByte": 31034,
+      "originalEndByte": 31134,
+      "originalLine": "--- before/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md\n",
+      "derivedLine": "--- a/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md\n"
+    },
+    {
+      "line": 404,
+      "originalStartByte": 31134,
+      "originalEndByte": 31233,
+      "originalLine": "+++ after/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md\n",
+      "derivedLine": "+++ b/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md\n"
+    },
+    {
+      "line": 419,
+      "originalStartByte": 32203,
+      "originalEndByte": 32306,
+      "originalLine": "--- before/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs\n",
+      "derivedLine": "--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs\n"
+    },
+    {
+      "line": 420,
+      "originalStartByte": 32306,
+      "originalEndByte": 32408,
+      "originalLine": "+++ after/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs\n",
+      "derivedLine": "+++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs\n"
+    }
+  ],
+  "limit": "This is a derived view, not the original patch or a newly performed source edit."
+}

@@ -1,0 +1,276 @@
+{
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "prefixLength": 32758262,
+    "prefixDigest": "sha256:4350f5f17e39e115c0dcd5f8fee43df9902e42d2556449c98ffeaf711e230f9e",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 469917053,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:782900f814ac04f8623000ba058356e2f10a5b0ce8e27fccff92bc9cb6984b5e"
+  },
+  "basisRef": "execution-basis://abiogenesis/9ecae427d9aaf7299ef0afc7076c730f63d4a260793cfc22630d0d4fc3575506",
+  "cCallRef": "c-call:sha256:a07ecccb182bf837774b0f9591b4a6d3751f1882cb7b403f426d644d3c7b8b40",
+  "openedEventRef": "event://abiogenesis/1dbfbbe29e169e4a6cd25b15512005523175f901ee75f247427e0adcd7298de7",
+  "fibreEventRef": "event://abiogenesis/a862ce4cb505ce369209175cab7b6fa3e90cb44e1fe48b7213bf1b1f696eb24c",
+  "execution": {
+    "basisRef": "execution-basis://abiogenesis/9ecae427d9aaf7299ef0afc7076c730f63d4a260793cfc22630d0d4fc3575506",
+    "basisDigest": "sha256:9ecae427d9aaf7299ef0afc7076c730f63d4a260793cfc22630d0d4fc3575506",
+    "inputDigest": "sha256:74a1848f813bd00e481dcd1e34915699820050403a2846031c1c862e7a49fa1e",
+    "admissionEventRef": "event://abiogenesis/28007a73a46e8e2b9eb2f6e9e74f042892af3e2fd99a5d2aaebb82b9b685001a"
+  },
+  "task": {
+    "kind": "worksite_command_execution_task",
+    "taskRef": "worksite-command-execution-task://abiogenesis/29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9",
+    "taskDigest": "sha256:29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9",
+    "workspaceBindingRef": "workspace-binding://abiogenesis/5bde13de46f2f041e0d77192b2d249f260d5fe82348b2b5eee95f4719e40abaa",
+    "materializationPlanRef": "prompt-plan://abiogenesis/worksite/command-execution@5",
+    "rendererRef": "renderer://abiogenesis/worksite/command-execution@5"
+  },
+  "request": {
+    "requestRef": "probabilistic-request://abiogenesis/03401b36d999bdf9ba4c8e3f56cc08f603b7cdfea192c5ac7c7d25842ef4d079",
+    "requestDigest": "sha256:03401b36d999bdf9ba4c8e3f56cc08f603b7cdfea192c5ac7c7d25842ef4d079",
+    "actorRef": "actor://abiogenesis/worksite/command-execution-worker@5",
+    "workerBindingRef": "worker-binding://abiogenesis/worksite/command-execution-worker@5",
+    "implementationRef": "implementation://abiogenesis/worksite/command-execution-fp@5",
+    "inputDigest": "sha256:74a1848f813bd00e481dcd1e34915699820050403a2846031c1c862e7a49fa1e",
+    "materializationPlanRef": "prompt-plan://abiogenesis/worksite-native/9b12b7b11b7d01c57cd857a5e0f8d3dd4c37992dce7cab56d84adb9f13c932ac",
+    "rendererRef": "renderer://abiogenesis/worksite/command-execution@5",
+    "instructionContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+    "resultContractRef": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+    "transportLane": "worker_executes",
+    "promptDigest": "sha256:9a69a822bfa15516ef8bde0aa4321f0a86d91dd5291fc013d3b817d1fc7681db",
+    "promptByteCount": 32935,
+    "responseJsonSchemaDigest": "sha256:d12a12dd55e1339f1e38d8ed56b515166bb17d162e730f2b3dd5dde1e58c63f4",
+    "responseJsonSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "attemptRef": {
+          "const": "worksite-command-attempt://abiogenesis/8fb67360488cd5e1bd606fd6bca830fbb19369682c04c6e0ffe19c99ab50b667"
+        },
+        "helperArtifactDigest": {
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "helperArtifactRef": {
+          "pattern": "^worksite-command-helper-artifact://abiogenesis/[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "worksite_command_execution_worker_result"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "taskDigest": {
+          "const": "sha256:29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9"
+        },
+        "taskRef": {
+          "const": "worksite-command-execution-task://abiogenesis/29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9"
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "taskRef",
+        "taskDigest",
+        "attemptRef",
+        "helperArtifactRef",
+        "helperArtifactDigest"
+      ],
+      "type": "object"
+    }
+  },
+  "assembly": {
+    "planRef": "prompt-plan://abiogenesis/worksite-native/9b12b7b11b7d01c57cd857a5e0f8d3dd4c37992dce7cab56d84adb9f13c932ac",
+    "planDigest": "sha256:9b12b7b11b7d01c57cd857a5e0f8d3dd4c37992dce7cab56d84adb9f13c932ac",
+    "envelopeDigest": "sha256:f80bfd0674b7bd55b12a5ddb95f89d40aeae116c1974e652ea8a31a51660c6f0",
+    "manifestDigest": "sha256:2afb05cf2cc4b60ce313a9a8d0d160c5444a5d4d0b6335439786400f95829d28"
+  },
+  "helperPlan": {
+    "kind": "worksite_command_execution_helper_plan",
+    "schemaVersion": "5.0.0",
+    "attemptRef": "worksite-command-attempt://abiogenesis/8fb67360488cd5e1bd606fd6bca830fbb19369682c04c6e0ffe19c99ab50b667",
+    "helperModulePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js",
+    "taskManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/worksite-command-execution/29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9/c3af041dc517f92ecc76f19282c528b6f5eee116dda36bc811f27a8c8a8e52cf/task.json",
+    "taskManifestDigest": "sha256:c5b5e9a9c2ec6e5f58f006712b83f346d426064e907b5df09ba9521afed27ac9",
+    "taskManifestByteLength": 81406,
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/worksite-command-execution/29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9/c3af041dc517f92ecc76f19282c528b6f5eee116dda36bc811f27a8c8a8e52cf/result.json",
+    "sandboxRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/worksite-command-execution/29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9/c3af041dc517f92ecc76f19282c528b6f5eee116dda36bc811f27a8c8a8e52cf/sandbox",
+    "toolCommand": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/worksite-command-execution/29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9/c3af041dc517f92ecc76f19282c528b6f5eee116dda36bc811f27a8c8a8e52cf/launch.json'",
+    "toolInputDigest": "sha256:aea739ebca64340a0e4bbd5db9b48a441aeb0552e729844b48f0ed614fffc281",
+    "toolInputByteLength": 643
+  },
+  "helperInput": {
+    "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives/worksite-command-execution/29caa1e023762aab33f8a75d1f952f336282a199cc1cab1a8160c2861c5d4db9/c3af041dc517f92ecc76f19282c528b6f5eee116dda36bc811f27a8c8a8e52cf/launch.json'",
+    "digest": "sha256:aea739ebca64340a0e4bbd5db9b48a441aeb0552e729844b48f0ed614fffc281",
+    "byteCount": 643
+  },
+  "observation": {
+    "eventRef": "event://abiogenesis/c45cd5294fa138ae77a31a57dae26197eb8d51776726766069cf47876b493f80",
+    "actorInvocationRef": "actor-invocation://abiogenesis/2d150017d496434538d4ad536c69eb02e9a5e83c60c000ece79afdd3270aa929",
+    "processRef": "process://abiogenesis/fd220021fe3969f849ee5757e85d2f5ef26483784b1546b3d3684209b8a4eb1e",
+    "transportBindingRef": "transport-binding://abiogenesis/9a58a6dc2f4934d106c9b931213326bd8aa6bc60b652845b32a5030fbfaae09c",
+    "transportBindingDigest": "sha256:9a58a6dc2f4934d106c9b931213326bd8aa6bc60b652845b32a5030fbfaae09c",
+    "disposition": "failure",
+    "failureClass": "transport_failure",
+    "transportLane": "worker_executes",
+    "processStatus": 1,
+    "processSignal": null,
+    "timeoutClass": null,
+    "timedOut": false,
+    "exitObserved": true,
+    "terminationConfirmed": true,
+    "structuredEventCount": 0,
+    "toolCallCount": 0,
+    "toolInvocations": [],
+    "stdoutByteLength": 0,
+    "stderrByteLength": 482,
+    "artifactDigests": {
+      "output": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "prompt": "sha256:709b7b8dc5190abe4e62df3cb0cfaf672b140123d635def972dde4678e09f444",
+      "stderr": "sha256:a1e256ece69c2337be26b230efbf6aeb116e43d8f9ec780f9b353ad9e0c51728",
+      "stdout": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transport": "sha256:e28275e4e9c5a116087d42c231ccb8389aa8294fc3b7a2b280710e6d13fc8a16"
+    },
+    "finalOutput": {
+      "byteCount": 0,
+      "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text": ""
+    }
+  },
+  "comparisons": [
+    {
+      "relation": "exchange.request == prepared request",
+      "expected": "sha256:03401b36d999bdf9ba4c8e3f56cc08f603b7cdfea192c5ac7c7d25842ef4d079",
+      "observed": "sha256:03401b36d999bdf9ba4c8e3f56cc08f603b7cdfea192c5ac7c7d25842ef4d079",
+      "equal": true,
+      "source": "actor_process persists exactly instructionAssembly.request after dependent dispatch equality"
+    },
+    {
+      "relation": "actorRef",
+      "expected": "actor://abiogenesis/worksite/command-execution-worker@5",
+      "observed": "actor://abiogenesis/worksite/command-execution-worker@5",
+      "equal": true
+    },
+    {
+      "relation": "workerBindingRef",
+      "expected": "worker-binding://abiogenesis/worksite/command-execution-worker@5",
+      "observed": "worker-binding://abiogenesis/worksite/command-execution-worker@5",
+      "equal": true
+    },
+    {
+      "relation": "implementationRef",
+      "expected": "implementation://abiogenesis/worksite/command-execution-fp@5",
+      "observed": "implementation://abiogenesis/worksite/command-execution-fp@5",
+      "equal": true
+    },
+    {
+      "relation": "inputDigest",
+      "expected": "sha256:74a1848f813bd00e481dcd1e34915699820050403a2846031c1c862e7a49fa1e",
+      "observed": "sha256:74a1848f813bd00e481dcd1e34915699820050403a2846031c1c862e7a49fa1e",
+      "equal": true
+    },
+    {
+      "relation": "materializationPlanRef",
+      "expected": "prompt-plan://abiogenesis/worksite-native/9b12b7b11b7d01c57cd857a5e0f8d3dd4c37992dce7cab56d84adb9f13c932ac",
+      "observed": "prompt-plan://abiogenesis/worksite-native/9b12b7b11b7d01c57cd857a5e0f8d3dd4c37992dce7cab56d84adb9f13c932ac",
+      "equal": true
+    },
+    {
+      "relation": "rendererRef",
+      "expected": "renderer://abiogenesis/worksite/command-execution@5",
+      "observed": "renderer://abiogenesis/worksite/command-execution@5",
+      "equal": true
+    },
+    {
+      "relation": "request.prompt is string",
+      "equal": true
+    },
+    {
+      "relation": "promptDigest",
+      "expected": "sha256:9a69a822bfa15516ef8bde0aa4321f0a86d91dd5291fc013d3b817d1fc7681db",
+      "observed": "sha256:9a69a822bfa15516ef8bde0aa4321f0a86d91dd5291fc013d3b817d1fc7681db",
+      "equal": true
+    },
+    {
+      "relation": "instructionContractRef",
+      "expected": "contract://abiogenesis/worksite/command-execution-task@5",
+      "observed": "contract://abiogenesis/worksite/command-execution-task@5",
+      "equal": true
+    },
+    {
+      "relation": "resultContractRef",
+      "expected": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+      "observed": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+      "equal": true
+    },
+    {
+      "relation": "transportLane",
+      "expected": "worker_executes",
+      "observed": "worker_executes",
+      "equal": true
+    },
+    {
+      "relation": "disposition",
+      "expected": "success",
+      "observed": "failure",
+      "equal": false
+    },
+    {
+      "relation": "failureClass",
+      "expected": null,
+      "observed": "transport_failure",
+      "equal": false
+    },
+    {
+      "relation": "toolCallCount",
+      "expected": 1,
+      "observed": 0,
+      "equal": false
+    },
+    {
+      "relation": "toolInvocations.length",
+      "expected": 1,
+      "observed": 0,
+      "equal": false
+    },
+    {
+      "relation": "first tool present",
+      "equal": false
+    },
+    {
+      "relation": "tool.ordinal",
+      "expected": 0,
+      "observed": null,
+      "equal": false
+    },
+    {
+      "relation": "tool.toolName",
+      "expected": "Bash",
+      "observed": null,
+      "equal": false
+    },
+    {
+      "relation": "tool.inputDigest",
+      "expected": "sha256:aea739ebca64340a0e4bbd5db9b48a441aeb0552e729844b48f0ed614fffc281",
+      "observed": null,
+      "equal": false
+    },
+    {
+      "relation": "tool.inputByteLength",
+      "expected": 643,
+      "observed": null,
+      "equal": false
+    }
+  ],
+  "firstFalse": {
+    "relation": "disposition",
+    "expected": "success",
+    "observed": "failure",
+    "equal": false
+  }
+}

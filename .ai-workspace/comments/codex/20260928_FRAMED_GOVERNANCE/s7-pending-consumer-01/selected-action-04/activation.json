@@ -1,0 +1,6 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_04",
+  "disposition": "local_repair",
+  "classification": "fixture_result_carrier_placement",
+  "predecessor": "dcc802dc4e8b7828951b96e297fda6b7b77cb524ccafbac2b1f54ea201233bbd"
+}

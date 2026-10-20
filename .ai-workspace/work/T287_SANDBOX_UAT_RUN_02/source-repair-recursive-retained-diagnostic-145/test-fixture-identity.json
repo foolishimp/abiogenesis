@@ -1,0 +1,66 @@
+{
+  "artifactPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+  "artifactDigest": "sha256:ee0c2c5598650d14274418d4deb84dc8a3fd173606ed57dbcda4231c8a84ba76",
+  "manifestDigest": "sha256:67662ee568908a3e322a962e5f0a8d80a53dd492aed59444172d740db7e852b3",
+  "productContentDigest": "sha256:bcaf6c2c04f5298db1e2ed36a30a447572c2a93efb51b66b98d564cb0f7fed8a",
+  "productId": "product://registered-selection/product@5",
+  "packageName": "@abiogenesis-fixtures/registered-selection",
+  "packageVersion": "5.0.0",
+  "sourceRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source",
+  "memberPins": [
+    {
+      "path": "package/contracts/capabilities/capability-definition-graph.json",
+      "mode": 420,
+      "byteCount": 247,
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+    },
+    {
+      "path": "package/package.json",
+      "mode": 420,
+      "byteCount": 464,
+      "sha256": "aff6f945bb6b252e15ea0b09da26bac979a861e557eced92a87dd7f757142ddf"
+    },
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "mode": 420,
+      "byteCount": 4765,
+      "sha256": "8975ac0e1c6cb326f8ac18adef96d59723cd2f63b0d46993c13b6192b9fa7433"
+    },
+    {
+      "path": "package/contracts/public-contract-catalog.schema.json",
+      "mode": 420,
+      "byteCount": 75,
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+    },
+    {
+      "path": "package/build/publication.json",
+      "mode": 420,
+      "byteCount": 15726,
+      "sha256": "659ab03c0df057c5e4030f6132bb1a86943417d668abd7a66aefebecd3455442"
+    },
+    {
+      "path": "package/build/failure.mjs",
+      "mode": 420,
+      "byteCount": 1917,
+      "sha256": "1d28e64f8b95b4368d4b722a108c0b009fcb8d712e5e7710a79429c875f9ee3f"
+    },
+    {
+      "path": "package/build/index.mjs",
+      "mode": 420,
+      "byteCount": 10076,
+      "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8"
+    },
+    {
+      "path": "package/build/native.mjs",
+      "mode": 420,
+      "byteCount": 6294,
+      "sha256": "963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6"
+    },
+    {
+      "path": "package/build/recursive.mjs",
+      "mode": 420,
+      "byteCount": 13148,
+      "sha256": "3ba21b94902f1d39f42784c30d959b083ac8bd7a9b902915389071495bb90557"
+    }
+  ]
+}

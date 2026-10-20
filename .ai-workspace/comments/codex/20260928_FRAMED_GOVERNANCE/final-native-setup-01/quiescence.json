@@ -1,0 +1,67 @@
+{
+  "status": "owned_processes_exited_original_lock_absent",
+  "driver": {
+    "pid": 97616,
+    "exitCode": 1,
+    "signal": null,
+    "exitObserved": true,
+    "timedOut": false,
+    "elapsedMs": 87663.92904194072,
+    "stdout": "driver.stdout",
+    "stderr": "driver.stderr"
+  },
+  "processRows": [
+    {
+      "label": "workspace",
+      "wrapperPid": 97730,
+      "nativePid": 97731,
+      "nativeExitCode": 0,
+      "nativeSignal": null,
+      "elapsedMs": 9657.535582999999
+    },
+    {
+      "label": "verify-core",
+      "wrapperPid": 97845,
+      "nativePid": 97846,
+      "nativeExitCode": 0,
+      "nativeSignal": null,
+      "elapsedMs": 18640.285541
+    },
+    {
+      "label": "resolve",
+      "wrapperPid": 98076,
+      "nativePid": 98077,
+      "nativeExitCode": 0,
+      "nativeSignal": null,
+      "elapsedMs": 13047.971250000002
+    },
+    {
+      "label": "install-core",
+      "wrapperPid": 98246,
+      "nativePid": 98247,
+      "nativeExitCode": 0,
+      "nativeSignal": null,
+      "elapsedMs": 22502.655999999995
+    },
+    {
+      "label": "bind",
+      "wrapperPid": 98541,
+      "nativePid": 98542,
+      "nativeExitCode": 0,
+      "nativeSignal": null,
+      "elapsedMs": 10625.377957999997
+    }
+  ],
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+    "bytes": 2475382,
+    "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+    "device": 16777230,
+    "inode": 463939156,
+    "stableDuringRead": true,
+    "eventRows": 2,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5/16777230-463939156.lock",
+    "lockAbsent": true
+  },
+  "claimLimit": "No hostwide process knowledge; actual owned wait/exit records, stable exact current bytes and original lock absence only."
+}

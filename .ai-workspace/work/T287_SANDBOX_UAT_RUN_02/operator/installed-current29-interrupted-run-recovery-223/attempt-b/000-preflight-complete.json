@@ -1,0 +1,24 @@
+{
+  "stage": "preflight-complete",
+  "at": "2026-10-09T17:33:41.228Z",
+  "wallMs": 27.507417000000004,
+  "pid": 75903,
+  "memory": {
+    "rss": 59310080,
+    "heapTotal": 10846208,
+    "heapUsed": 5684184,
+    "external": 2274123,
+    "arrayBuffers": 33841
+  },
+  "maxRSSKiB": 57920,
+  "logStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 2142089296,
+    "mtimeNs": "1791561048097567434"
+  },
+  "physicalRows": 49,
+  "ownedProcessesAbsent": true,
+  "deadOwner": 73363
+}

@@ -1,0 +1,72 @@
+{
+  "operation": "T287_RC1_COMMON_LIBRARY_OWNERSHIP_REVIEW_01",
+  "role": "independent Reviewer of framework Source/contract owners",
+  "actor": "/root/native_applicability_design",
+  "status": "ACTIVE_REVIEW_ONLY",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/library-request.txt",
+    "bytes": 3390,
+    "sha256": "7e0a7790542f1eb40d24429aa13296b01172fcae08de61933c47b04aa5ed0011",
+    "mode": 420
+  },
+  "allSevenLiteralSectionsRead": true,
+  "subjectPins": {
+    "mechanicalAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-mechanical-conjunction-acceptance-01/acceptance.json",
+      "bytes": 3439,
+      "sha256": "4ad623a7a0926134664e00c5be839cec24145c3355af36d05bedf1ab22148f17",
+      "mode": 420
+    },
+    "generatedAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-acceptance-06/acceptance.json",
+      "bytes": 2651,
+      "sha256": "b1eb4373e8c563fe4c61bb2d50bd207aad71e2717cad83bbc3aa7c10db1a868b",
+      "mode": 420
+    },
+    "C09ConstructionAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+      "bytes": 7019,
+      "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+      "mode": 420
+    },
+    "C09SourceManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source-freeze-manifest.json",
+      "bytes": 599463,
+      "sha256": "530fbfab19a7db238c1f24b5c80074f745f3c7a8fae31124955b3ac0c1528cbc",
+      "mode": 420
+    },
+    "frameworkOwnershipConstraint": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/subject-pins.json",
+      "bytes": 1267,
+      "sha256": "eb6beb4610a4381545ed8f390ed942052c0b1aae2dbe87f38654ae691e29da7d",
+      "mode": 420
+    },
+    "methodInstall": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "mode": 420
+    }
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/common-library-review",
+  "activatedAt": "2026-10-03T14:19:37.273951+00:00",
+  "ProductFrame": "fixed15 ABIogenesis5; GTL owns Programs/GraphFunction contracts; HoG direct traversal; ABG event and lineage truth; Product catalog/readiness and domain predicates; F11 exact-candidate evaluation; AF22 qualification; mechanical acceptance does not establish genuine qualification or release",
+  "selectedFrames": [
+    "Product/law",
+    "Design/typed transformations",
+    "GTL/HoG/ABG integration",
+    "identity/lifecycle",
+    "effects",
+    "proof/reuse",
+    "cost"
+  ],
+  "limitations": "own external scripts are design input; existing independent mechanical review supplies their assurance",
+  "prohibitedEffects": [
+    "Product imports",
+    "Runs",
+    "resource reopen",
+    "helper/build/tests/qualification/provider/network/auth/Hello/Git/release",
+    "Source or authority mutation"
+  ]
+}

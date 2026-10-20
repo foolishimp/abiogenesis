@@ -1,0 +1,195 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+index 52851f42..829c3aa3 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts
+@@ -11,7 +11,7 @@ import { validSemanticJobProgramOwners } from "../gtl/semantic_job.js";
+ import { modulePublicationSemanticDigest } from "../product/publication.js";
+ import { isSemanticJobInput, isSemanticJobEnvelope, constructSemanticJobEnvelope,
+   deriveSemanticJobAsset, deriveSemanticJobAssessment, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, semanticJobDesignMatches,
+-  semanticJobPathWithin, type SemanticJobEnvelope } from "../product/semantic_job.js";
++  semanticJobPathWithin, type SemanticJobEnvelope, type SemanticJobContractIssue } from "../product/semantic_job.js";
+ import { constructWorksiteSubject, constructWorksiteTerritory, constructWorksiteObservation,
+   constructWorksiteFileParentsRequest, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
+   isWorksiteContextObservation, type WorksiteFileParentsRequest, type WorksiteContextObservation } from "../product/worksite_effect.js";
+@@ -474,7 +474,8 @@ export async function projectNativeSemanticTask(basis: SemanticStageNativeBasis,
+     return owner.stage === undefined || owner.role === null ? null : constructNativeSemanticTask(input, owner.stage.declarationRef, owner.role, operating(owner), context);
+   } catch { return null; }
+ }
+-export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input: unknown) {
++export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input: unknown,
++  onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void) {
+   try {
+     if (!isRetainedGraphInput(input) || !isSemanticJobEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return null;
+     const source = nativeStageSource(basis, input.entry, input.source);
+@@ -483,7 +484,7 @@ export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input
+     const expected = constructNativeSemanticTask(input.entry, stageRef, owner.role!, operating(owner), input.source.before);
+     if (!equal(expected, input.source.task)) return null;
+     const adapter = { cCallRef: owner.call.cCallRef, inputDigest: owner.inputDigest };
+-    return owner.role === "author" ? deriveNativeSemanticAsset(input.entry, stageRef, input.source, adapter)
++    return owner.role === "author" ? deriveNativeSemanticAsset(input.entry, stageRef, input.source, adapter, onContractIssues)
+       : deriveNativeSemanticAssessment(input.entry, stageRef, input.source, adapter);
+   } catch { return null; }
+ }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts
+index 694524c6..8a1a4864 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts
+@@ -126,8 +126,10 @@ export async function realizeNativeSemanticAuthorTask(input: Readonly<Record<str
+ }
+ export const NATIVE_SEMANTIC_AUTHOR_TASK_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAuthorTaskImplementationRef)!;
+ export function realizeNativeSemanticAuthorFold(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+-  const output = occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticFold(occurrence.semanticStageBasis, input);
+-  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAuthorFoldImplementationRef })
++  let contractIssues: readonly SemanticJobContractIssue[] = [];
++  const output = occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticFold(occurrence.semanticStageBasis, input,
++    issues => { contractIssues = issues; });
++  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAuthorFoldImplementationRef }, contractIssues)
+     : success(input, output, ids.nativeAuthorFoldImplementationRef, true);
+ }
+ export const NATIVE_SEMANTIC_AUTHOR_FOLD_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAuthorFoldImplementationRef)!;
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts b/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
+index 4ceeeb9d..feb19966 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts
+@@ -424,14 +424,15 @@ export function evaluateSemanticJobActorCandidate(envelope: SemanticJobEnvelope,
+   return deepFreeze(issues);
+ }
+ export function deriveSemanticJobAsset(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource,
+-  retainedTerms: readonly RequirementTerm[] = []): Readonly<SemanticJobEnvelope> | null {
++  retainedTerms: readonly RequirementTerm[] = [], onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null {
+   try {
+     if (!isSemanticJobEnvelope(envelope) || !isSemanticJobAssetCandidate(raw) || !v.is(sourceSchema, source) || envelope.assets.some(a => a.stageRef === stageRef)) return null;
+     const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
+     if (stage === undefined || !stage.predecessorStageRefs.every(ref => envelope.assets.some(a => a.stageRef === ref && a.assessment?.disposition === "satisfied")) ||
+       ((raw.asset.requirementCandidates.length > 0 || raw.bindings.length > 0) && !stage.bodyCapabilities.includes("requirement_refinement")) ||
+       (raw.design !== null && !stage.bodyCapabilities.includes("worksite_design"))) return null;
+-    if (evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms).length > 0) return null;
++    const issues = evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms);
++    if (issues.length > 0) { onContractIssues?.(issues); return null; }
+     const priorTerms = [...retainedTerms, ...envelope.assets.flatMap(a => a.groundedTerms)];
+     const quoted = (quotes: readonly SemanticSourceQuote[]) => quotes.every(q => groundSemanticJobQuote(envelope, q) !== null);
+     const groundedTerms = raw.asset.requirementCandidates.map(candidate => {
+@@ -756,13 +757,14 @@ export function nativeSemanticAssetSource(envelope: SemanticJobEnvelope, stageRe
+       observationRef: observation.observationRef, observationDigest: observation.observationDigest, assetPath: selected.path, assetDigest: asset.digest } };
+ }
+ export function deriveNativeSemanticAsset(envelope: SemanticJobEnvelope, stageRef: string, observation: NativeWorkspaceWorkObservation,
+-  adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest }): Readonly<SemanticJobEnvelope> | null {
++  adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest },
++  onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null {
+   try {
+     if (!isNativeWorkspaceWorkObservation(observation) || observation.task.assessment !== undefined || !nativeSemanticContextMatches(envelope, observation.after)) return null;
+     const source = nativeSemanticAssetSource(envelope, stageRef, observation, adapter);
+     if (!equal(observation.task.writeRoots, [source.nativeWork!.assetPath])) return null;
+     const raw = JSON.parse(Buffer.from(nativeSemanticFile(observation.after, source.nativeWork!.assetPath).bytes, "base64").toString("utf8"));
+-    const derived = deriveSemanticJobAsset(envelope, stageRef, raw, source);
++    const derived = deriveSemanticJobAsset(envelope, stageRef, raw, source, [], onContractIssues);
+     return derived === null ? null : deepFreeze({ ...derived, context: observation.after });
+   } catch { return null; }
+ }
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
+index 61e75057..f8d29e7c 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
+@@ -1,7 +1,7 @@
+ import assert from 'node:assert/strict';
+ import test from 'node:test';
+ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+-import { join, resolve } from 'node:path';
++import { dirname, join, resolve } from 'node:path';
+ import { pathToFileURL } from 'node:url';
+ import { genericLifecyclePublicationData } from '../support/t287-generic-job-lifecycle.mjs';
+ import { ordinaryJob } from '../support/t287-generic-job-intake.mjs';
+@@ -67,6 +67,93 @@ test('independent rejection is retained and cannot advance; changed candidate or
+  await writeFile(join(env.canonicalRoot,'assets/0.json'),'{}');const changed=await env.observe();assert.throws(()=>m.constructNativeSemanticTask(a.authored,declaration.stages[0].declarationRef,'assessor',env,changed));
+  await writeFile(join(env.canonicalRoot,env.job.members[0].path),'changed governing input');assert.equal(m.nativeSemanticContextMatches(env.envelope,await env.observe()),false);
+ });
++test('native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain',async t=>{
++ const env=await fixture(t), ids=g.SEMANTIC_STAGE_IDS, predecessors=new Map();let current=env.envelope;
++ const previous=(value,implementationRef)=>({cCall:{implementationRef,basisId:env.envelope.basis.rootExecutionBasisRef},
++  result:{resultClass:'success',value},judgment:{judgment:'advance'}});
++ predecessors.set(current.basis.intakeCCallRef,previous(current,ids.jobIntakeImplementationRef));
++ for(let i=0;i<2;i++){
++  const a=await author(env,current,i),v=assess(env,a.authored,i);
++  predecessors.set(a.authored.assets.at(-1).source.nativeWork.adapterCCallRef,previous(a.authored,ids.nativeAuthorFoldImplementationRef));
++  predecessors.set(v.assessed.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,previous(v.assessed,ids.nativeAssessorFoldImplementationRef));
++  current=v.assessed;
++ }
++ const stage=declaration.stages[2],valid=candidate(current,2),invalid=structuredClone(valid);
++ invalid.asset.statements[0].requirementRefs=[invalid.asset.requirementCandidates[0].candidateRef];
++ assert.deepEqual(m.projectSemanticJobActorContract(current,stage.declarationRef,'author').requirementRefs,[]);
++ const expected=[{path:'asset.statements[0].requirementRefs',rule:'eligible_reference_domain',expected:[],actual:['component:requirement']}];
++ const task=m.constructNativeSemanticTask(current,stage.declarationRef,'author',env,await env.observe());
++ async function observed(value){
++  await writeFile(join(env.canonicalRoot,'assets/2.json'),JSON.stringify(value)+'\n');
++  return n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'component reference-domain candidate',gaps:[]},provenance('author-2'));
++ }
++ const badObservation=await observed(invalid), goodObservation=await observed(valid);
++ const bad=p.constructRetainedGraphInput(current,badObservation), good=p.constructRetainedGraphInput(current,goodObservation);
++ const coordinate=adapter('author-2',good);
++ assert.equal(m.deriveNativeSemanticAsset(current,stage.declarationRef,badObservation,adapter('author-2',bad)),null);
++ const accepted=m.deriveNativeSemanticAsset(current,stage.declarationRef,goodObservation,coordinate);assert(accepted);
++
++ // Component seam: existing upstream authentication/producer facts are supplied.
++ // Product candidate validation, native fold joins and implementation refusal run
++ // unchanged; this fixture grants no runtime admission or installed-path proof.
++ const {SourceTextModule,SyntheticModule}=await import('node:vm');
++ async function component(name,overrides){
++  const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
++  await module.link(async spec=>{
++   const imported=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(file),spec)).href);
++   const values={...imported,...overrides[spec]};
++   return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
++  });await module.evaluate();return module.namespace;
++ }
++ const selectedPublication={...publication,semanticJobLifecycle:declaration};
++ const publicationOwner=await load('product/publication');
++ const execution={...env.executionBasis,basisRef:current.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,
++  rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:current.basis.rootInputRef,
++  invocationAdmissionRef:current.basis.invocationAdmissionRef};
++ const native={execution,inputValue:bad,inputDigest:hash(bad),program:{},prefix:{component:'supplied-owner-facts'},
++  call:{...env.cCall,cCallRef:coordinate.cCallRef,runId:'component:run',regime:'F_D',implementationRef:ids.nativeAuthorFoldImplementationRef,
++   programLocusRef:stage.authorLocusRef},
++  events:[{eventId:env.cCall.openedEventRef,admissionOrdinal:3},
++   {kind:'c_call_result_admitted',aggregateId:'component:current',payload:{value:current}}],
++  environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,
++   productInstalls:[{productId:selectedPublication.owningProductId,artifactDigest:selectedPublication.artifactDigest,
++    productContentDigest:selectedPublication.productContentDigest,manifestDigest:selectedPublication.productManifestDigest,installedRoot:env.scratch,
++    contributionManifest:{publicationBindings:[{moduleRef:selectedPublication.moduleRef,publicationDigest:publicationOwner.modulePublicationSemanticDigest(selectedPublication)}]}}]}};
++ predecessors.set('component:current',previous(current,ids.nativeAssessorFoldImplementationRef));
++ const basis={publication:selectedPublication,graphFunction:{declarations:{'abg.semantic_native_stage':stage.declarationRef}}};
++ let nativeSourceAvailable=true,productDerivations=0,computedIssues;
++ const fold=await component('abg/semantic_job',{
++  './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
++  './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})},
++  '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
++  './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>predecessors.get(ref)??null},
++  './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:()=>nativeSourceAvailable?{
++   sourceResult:{runId:native.call.runId,admissionOrdinal:1},sourceBasis:execution,sourceClosedEvent:{admissionOrdinal:2}}:null,
++   worksiteCommandSourcesInvalidatedAfter:()=>false},
++  '../product/semantic_job.js':{deriveNativeSemanticAsset:(...args)=>{productDerivations++;const observe=args[4];
++   return m.deriveNativeSemanticAsset(...args.slice(0,4),issues=>{computedIssues=issues;observe?.(issues);});}},
++ });
++ const implementation=await component('implementation/semantic_stage',{'../abg/semantic_job.js':fold});
++ const occurrence={semanticStageBasis:basis};
++ const rejected=implementation.realizeNativeSemanticAuthorFold(bad,occurrence);
++ assert.equal(productDerivations,1,'native failure reuses the original derivation');
++ assert.equal(rejected.disposition,'failure');
++ assert.equal(rejected.resultCandidate.failureClass,'native_semantic_source_relation_mismatch');
++ assert.equal(rejected.diagnosticRef,'diagnostic://abiogenesis/semantic-stage/native_semantic_source_relation_mismatch@5');
++ assert.deepEqual(rejected.resultCandidate.contractIssues,expected);
++ assert.equal(rejected.resultCandidate.contractIssues,computedIssues,'the computed issue array survives every adapter');
++ assert.equal(rejected.evidenceCandidates[0].inputDigest,hash(bad));
++ assert.equal(rejected.evidenceCandidates[0].outputDigest,hash(rejected.resultCandidate));
++ native.inputValue=good;native.inputDigest=hash(good);
++ const succeeded=implementation.realizeNativeSemanticAuthorFold(good,occurrence);
++ assert.equal(succeeded.disposition,'success');assert.deepEqual(succeeded.resultCandidate,accepted);
++ assert.equal(productDerivations,2);
++ nativeSourceAvailable=false;
++ const unauthenticated=implementation.realizeNativeSemanticAuthorFold(bad,occurrence);
++ assert.equal(unauthenticated.disposition,'failure');assert.equal('contractIssues' in unauthenticated.resultCandidate,false);
++ assert.equal(productDerivations,2,'source refusal does not inspect or diagnose the candidate');
++ t.diagnostic('Product/ABG/implementation component path only; supplied authentication facts, no actor, journal or installed execution.');
++});
+ test('four assessed stages conserve requirement bindings and restrict construction/C2 to current Design',async t=>{
+  const env=await fixture(t);let current=env.envelope;
+  for(let i=0;i<4;i++){const a=await author(env,current,i);current=assess(env,a.authored,i).assessed;}

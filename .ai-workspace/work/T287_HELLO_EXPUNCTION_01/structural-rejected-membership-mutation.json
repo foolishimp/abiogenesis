@@ -1,0 +1,57 @@
+{
+  "scope": "Mechanical test-fixture observation; no runtime admission or release qualification",
+  "publicationDigest": "sha256:162e70f74e2b883c9856b03ff47b182600c991eae3d06ddb1833707407d2744c",
+  "programRef": "program://abi5-tests/structural/graph-edge@5",
+  "unchangedRuntimeCallableMembership": [
+    "graph-function://abi5-tests/structural/graph-edge@5"
+  ],
+  "originalProjectionRefusal": {
+    "kind": "static_validation_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "invalid",
+    "stage": "program",
+    "subjectDigest": "sha256:0ec7f2810f7ef39dca8b8341ea95bbe047c000e91c4bc3c6b8804abaf6b6541d",
+    "diagnostics": [
+      {
+        "code": "invalid_application",
+        "path": "$.graphFunctions[graph-function://abi5-tests/structural/graph-edge@5].template.applications[graph-function-application://abiogenesis/fb29b0f8f093eae28e9be22592dcb752ab7e6203a98191afa03250b98dbd8c03]",
+        "message": "statically resolved GraphFunction application references an unpublished function"
+      },
+      {
+        "code": "carrier_mismatch",
+        "path": "$.graphFunctions[graph-function://abi5-tests/structural/graph-edge@5].template.applications[graph-function-application://abiogenesis/fb29b0f8f093eae28e9be22592dcb752ab7e6203a98191afa03250b98dbd8c03]",
+        "message": "compose application requires one typed left-to-right interface join"
+      }
+    ]
+  },
+  "rejectedMutation": {
+    "operation": "append composition source definitions to runtime callableMembership",
+    "addedMembers": [
+      "graph-function://abi5-tests/structural/graph-edge/normalize@5",
+      "graph-function://abi5-tests/structural/graph-edge/render@5"
+    ],
+    "result": {
+      "kind": "static_validation_refusal",
+      "schemaVersion": "5.0.0",
+      "disposition": "invalid",
+      "stage": "program",
+      "subjectDigest": "sha256:23197af668aa444e806e8d73d85889b41254c7e3664f83cd082726e633a0d01f",
+      "diagnostics": [
+        {
+          "code": "duplicate_identity",
+          "path": "$.graphFunctions[*].template.nodes[*].term",
+          "message": "duplicate C leaf program locus locus://abi5-tests/structural/graph-edge/normalize@5"
+        },
+        {
+          "code": "duplicate_identity",
+          "path": "$.graphFunctions[*].template.nodes[*].term",
+          "message": "duplicate C leaf program locus locus://abi5-tests/structural/graph-edge/render@5"
+        }
+      ]
+    }
+  },
+  "lawfulProjection": {
+    "publishedSourceDefinitionCount": 20,
+    "resultKind": "program_validation"
+  }
+}

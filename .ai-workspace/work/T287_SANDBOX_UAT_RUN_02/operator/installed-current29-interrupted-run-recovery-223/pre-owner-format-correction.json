@@ -1,0 +1,10 @@
+{
+  "cause": "The actual abg_cli_transport_request has outer invocation = {invocation: fixed Public header, resources}; first attempt read the outer invocation as the header. Actual saved keys confirmed this before any history/hash/maintenance/Witness effect.",
+  "selectedAction": "One exact pre-resource envelope selection correction: append .invocation to the decoded SDK envelope. Preserve original command/script/first-cause; successor attempt-b uses same owner imports/inputs/physical controls. Fresh live nominal verification is required in this successor process.",
+  "originalFirstCause": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/first-cause.json",
+  "onlySourceDelta": {
+    "before": "let sourceCall=await read(inputs.sourceCallPath);",
+    "after": "let sourceCall=(await read(inputs.sourceCallPath)).invocation;"
+  },
+  "noProductSourceGuardSchemaAppEffectChange": true
+}

@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "scope": "construction preflight only; controlled cursor/evaluation candidates, no runtime event or traversal admission",
+  "coreArchiveSha256": "sha256:b798e20edd4ae1d8649499ad0ccd822d893968fad3a5498948346df45211e043",
+  "programDigest": "sha256:0f90deaea87ed5a56670566e0fdf881785f4b25deb190978307278bced1b6cb7",
+  "validation": {
+    "kind": "program_validation",
+    "diagnostics": []
+  },
+  "graphValidation": {
+    "kind": "graph_validation",
+    "diagnostics": []
+  },
+  "termCount": 8,
+  "authorityOrder": [
+    "model",
+    "gap",
+    "next",
+    "child",
+    "evaluate",
+    "refreshModel",
+    "refreshGap",
+    "finish"
+  ],
+  "compositionRef": "composition://selected-action/root@5",
+  "application": {
+    "applicationRef": "graph-function-application://abiogenesis/8021582affee0c7d1216ae7a294369cc1e97f62e34fbee25dfb7d5231b70a1ff",
+    "graphFunctionRef": "graph-function://selected-action/root@5",
+    "inputContractRef": "contract://selected-action/refresh-model@5",
+    "kind": "graph_function_application",
+    "maxApplications": 1,
+    "outputContractRef": "contract://selected-action/request@5",
+    "relationKind": "re_enter",
+    "sourceProgramLocusRef": "locus://selected-action/refreshModel@5",
+    "targetProgramLocusRef": "locus://selected-action/model@5"
+  },
+  "checks": [
+    {
+      "phase": 0,
+      "refreshContract": {
+        "contractRef": "contract://selected-action/refresh-model@5",
+        "valueKind": "graph_span_selection"
+      },
+      "disposition": "re_enter",
+      "targetCursor": {
+        "kind": "traversal_cursor",
+        "schemaVersion": "5.0.0",
+        "cursorRef": "traversal-cursor://abiogenesis/4b27ffb3b4391f78455c93408328ad9196b465db3fed6ad801956393bb75a847",
+        "cursorDigest": "sha256:4b27ffb3b4391f78455c93408328ad9196b465db3fed6ad801956393bb75a847",
+        "programRef": "program://selected-action/root@5",
+        "executionBasisRef": "execution-basis://preflight/structural",
+        "traversalScopeRef": "scope://preflight/structural",
+        "runId": "run://preflight/structural",
+        "graphCallId": "graph-call://preflight/structural",
+        "frameId": "frame://preflight/structural",
+        "graphRef": "graph-materialization://abiogenesis/c58d8f5926b9ff6918b4148b32b6a510f9644c09daba67ae08bbe2aa72c0127f",
+        "inputRef": "graph-span-input://product/627afe2a863e8f64b45e7dbf46b2f1490b881bf4012e57b00b3a4197f8e65949",
+        "inputDigest": "sha256:627afe2a863e8f64b45e7dbf46b2f1490b881bf4012e57b00b3a4197f8e65949",
+        "currentNodeRef": "node://selected-action/root@5",
+        "position": "at_term",
+        "termPath": [
+          "node",
+          "node://selected-action/root@5",
+          "c",
+          "terms",
+          "0"
+        ],
+        "taskOrdinal": null,
+        "attempt": 2,
+        "retryPath": []
+      },
+      "targetInputDigest": "sha256:627afe2a863e8f64b45e7dbf46b2f1490b881bf4012e57b00b3a4197f8e65949"
+    },
+    {
+      "phase": 1,
+      "refreshContract": {
+        "contractRef": "contract://selected-action/refresh-model@5",
+        "valueKind": "graph_span_selection"
+      },
+      "disposition": "continue",
+      "terminalContract": {
+        "contractRef": "contract://selected-action/final@5",
+        "valueKind": "next_action_projection"
+      },
+      "terminal": {
+        "kind": "next_action_projection",
+        "schemaVersion": "5.0.0",
+        "disposition": "converged",
+        "constructionIntentRef": "construction-intent://preflight/structural",
+        "targetOutcomeRef": "outcome://selected-action/echo@5",
+        "gapRef": "gap://selected-action/echo@5",
+        "edgeClosureDecisionRef": "edge-closure-decision://preflight/structural",
+        "nextActionBasisRef": "next-action-basis://product/e35c3f83dc3794466df36bd357a5d77de6b41ba950c5d1a451369b383d1f1117",
+        "nextActionBasisDigest": "sha256:e35c3f83dc3794466df36bd357a5d77de6b41ba950c5d1a451369b383d1f1117",
+        "targetObligationBindings": [
+          {
+            "kind": "target_obligation_binding",
+            "disposition": "fulfilled",
+            "obligationRef": "obligation://selected-action/echo@5",
+            "eligibleActionRefs": []
+          }
+        ],
+        "priorityProjection": {
+          "kind": "deterministic_priority_projection",
+          "schemeRef": "priority://selected-action/fixed@5",
+          "orderedActionRefs": []
+        },
+        "lawfulBasisRefs": [
+          "construction-intent://preflight/structural",
+          "edge-closure-decision://preflight/structural",
+          "gap://selected-action/echo@5"
+        ],
+        "projectionRef": "next-action-projection://product/dff1bd2d2469ffe80582b4f812af3b629f09556bc248d0c34477bcf6412a464a",
+        "projectionDigest": "sha256:dff1bd2d2469ffe80582b4f812af3b629f09556bc248d0c34477bcf6412a464a"
+      }
+    }
+  ],
+  "terminalRuntimeLimit": "Actual current intent/delta lineage and parent closure require installed execution; structural/candidate preflight cannot establish them"
+}

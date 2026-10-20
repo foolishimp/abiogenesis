@@ -1,0 +1,79 @@
+{
+  "source": {
+    "baselineCount": 263,
+    "currentCount": 263,
+    "changed": [
+      {
+        "path": "code/src/abg/replay.ts",
+        "before": {
+          "path": "code/src/abg/replay.ts",
+          "sha256": "02a549dc4598d125ac69b42ebc10193a7854694b80fe5291ab800aff015102ec",
+          "byteCount": 90575
+        },
+        "after": {
+          "path": "code/src/abg/replay.ts",
+          "sha256": "1f80f69acf96284f503fe7feb47d93362450f3367c97689f0b5f8e370d26888d",
+          "byteCount": 92034
+        }
+      }
+    ],
+    "added": [],
+    "unchangedCount": 262
+  },
+  "build": {
+    "baselineCount": 739,
+    "currentCount": 739,
+    "changed": [
+      {
+        "path": "build/code/src/abg/replay.js",
+        "before": {
+          "path": "build/code/src/abg/replay.js",
+          "sha256": "aa85a6d65edcbe19bbcf561f1dea8a4d4fbb1693c28049cc41a4cbdea53c9b36",
+          "byteCount": 78197
+        },
+        "after": {
+          "path": "build/code/src/abg/replay.js",
+          "sha256": "6fe16034261213fbbc245bc960836e34a5f4c8be6e219a431a8f542e9e2f890e",
+          "byteCount": 80185
+        }
+      }
+    ],
+    "added": [],
+    "unchangedCount": 738
+  },
+  "assets": {
+    "baselineCount": 195,
+    "currentCount": 195,
+    "changed": [
+      {
+        "path": "product-toolchain-manifest.json",
+        "before": {
+          "path": "product-toolchain-manifest.json",
+          "sha256": "d063432ca67d0f01bb94d6991f37fcab33e41a12748e529bf18a8615aed9e893",
+          "byteCount": 3171685
+        },
+        "after": {
+          "path": "product-toolchain-manifest.json",
+          "sha256": "0ff04b481dab6ed876919bcef2e191f3f8774aee97560d79495fd68804fe7db6",
+          "byteCount": 3171685
+        }
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "before": {
+          "path": "contracts/capabilities/capability-definition-graph.json",
+          "sha256": "0c8590144ca07bd578ed876b947e0b03c7e938885f94b7422cd71bb8b5ac2767",
+          "byteCount": 197474
+        },
+        "after": {
+          "path": "contracts/capabilities/capability-definition-graph.json",
+          "sha256": "ee95fcdd479665d55c4a3ef0a92a67c9749ada90e901eaa8187b85e2706bc5d9",
+          "byteCount": 197474
+        }
+      }
+    ],
+    "added": [],
+    "unchangedCount": 193
+  },
+  "emission": "526 outputs compared earlier; one replay.js delta, all declarations unchanged. Ordinary generator exit0."
+}

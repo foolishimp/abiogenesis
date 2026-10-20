@@ -1,0 +1,45 @@
+{
+  "kind": "writer_activation",
+  "activation": "T287_F11_NATIVE_EXECUTION_CONTROLS_01",
+  "status": "CLOSED",
+  "beforeEffectsRecordedIn": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 398864,
+      "sha256": "4e04fdbcad302595415b6b9b465ed86c1ef3c06d928f909f4a06dff89edc2198"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 465511,
+      "sha256": "f3060f92ebbc08d39189827162bd6244340af1fa289e59d17af4f4faf2527381"
+    }
+  ],
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-execution-controls-01/request.txt",
+    "bytes": 5742,
+    "sha256": "54828efe64d68774fa28987c24e9cd09901afcfcd2d4ceae687a1d955023d6ec"
+  },
+  "callerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/freeze.json",
+    "bytes": 14545,
+    "sha256": "f1937dec28204ef6790f9650edb27c031ee62f1abb7960b80119517339d570a6"
+  },
+  "boundFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+    "bytes": 13795,
+    "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+  },
+  "nativeActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/native-activation.json",
+    "bytes": 2683,
+    "sha256": "b21cac8a2ae85706353d542d2bb6d7905a8f7f417ec0c43ae2dbd2af198dd535"
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-execution-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/native-activation.json"
+  ],
+  "nativeEffects": 0
+}

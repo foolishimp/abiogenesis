@@ -1,0 +1,30 @@
+{
+  "executable": "/opt/homebrew/bin/npm",
+  "args": [
+    "pack",
+    "--ignore-scripts",
+    "--json",
+    "--pack-destination",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/setup/consumer-artifacts"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/setup/consumer-source",
+  "started": "2026-10-10T21:22:53.398Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR",
+    "npm_config_cache",
+    "npm_config_offline"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 147.00558300000193,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "[\n  {\n    \"id\": \"@abi5-tests/sandbox-uat@5.0.0\",\n    \"name\": \"@abi5-tests/sandbox-uat\",\n    \"version\": \"5.0.0\",\n    \"size\": 6198,\n    \"unpackedSize\": 34490,\n    \"shasum\": \"1d21ee8f22612853a170f6da8953e958eb933d94\",\n    \"integrity\": \"sha512-a06QUQGhxiU+U3I+l7LuYX3tv/iiejPEm0xPAelIm+D8ybaHDA01+4fwq3Zes1Fpo6h4Q/KXsQQAqpS5h/drMg==\",\n    \"filename\": \"abi5-tests-sandbox-uat-5.0.0.tgz\",\n    \"files\": [\n      {\n        \"path\": \"build/publication.json\",\n        \"size\": 27497,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"build/semantics.mjs\",\n        \"size\": 757,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"contracts/assessment.schema.json\",\n        \"size\": 462,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"contracts/capabilities/capability-definition-graph.json\",\n        \"size\": 247,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"contracts/public-contract-catalog.schema.json\",\n        \"size\": 75,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"package.json\",\n        \"size\": 588,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"product-toolchain-manifest.json\",\n        \"size\": 4864,\n        \"mode\": 420\n      }\n    ],\n    \"entryCount\": 7,\n    \"bundled\": []\n  }\n]\n",
+  "stderr": ""
+}

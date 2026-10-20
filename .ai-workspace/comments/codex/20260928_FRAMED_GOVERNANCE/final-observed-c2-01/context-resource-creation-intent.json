@@ -1,0 +1,30 @@
+{
+  "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives",
+  "archiveAbsent": true,
+  "temporaryRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/observed-c2-01-context",
+  "temporaryAbsent": true,
+  "operation": "exclusive directory creation, installed constructor, read_context observation",
+  "authority": {
+    "kind": "invocation_authority",
+    "schemaVersion": "5.0.0",
+    "authorityRef": "invocation-authority://abiogenesis/997a75254a79763a66df3ab41d3aa5f2e5218cbdbaf306c8b0627328638daf4a",
+    "authorityDigest": "sha256:997a75254a79763a66df3ab41d3aa5f2e5218cbdbaf306c8b0627328638daf4a",
+    "actorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+    "operationId": "abg.operation.run.invoke",
+    "workspaceBindingId": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+    "workspaceBindingDigest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+    "catalogBasisDigest": "sha256:1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907",
+    "catalogViewDigest": "sha256:2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723",
+    "programRef": "program://abiogenesis/worksite/command-execution@5",
+    "catalogHandle": "graph-function://abiogenesis/worksite/command-execution@5",
+    "selectedDefinitionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "selectedDefinitionDigest": "sha256:5b33817eb4d092aea5179405fc21049dd3540a3845ecdb74f1c4f4c1de10c112",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "policyRef": "invocation-policy://abiogenesis/root/4fce62aa5ce2c142f8022a273528f5cef2eab13daf93d396ff2ba96a4e96decc",
+    "policyDigest": "sha256:4fce62aa5ce2c142f8022a273528f5cef2eab13daf93d396ff2ba96a4e96decc",
+    "capabilityGrantRefs": [
+      "capability-grant://abiogenesis/25418e5dfc8ab3bf73d0a6703f224bf2a06bbb030048c9af730997444894a808"
+    ]
+  },
+  "rootClarification": "Root explicitly confirmed bounded archive/context preparation within current C2 resource territory"
+}

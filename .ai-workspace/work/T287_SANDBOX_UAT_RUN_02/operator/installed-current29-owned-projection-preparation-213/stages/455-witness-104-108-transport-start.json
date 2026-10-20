@@ -1,0 +1,10 @@
+{
+  "stage": "witness-104-108-transport-start",
+  "rss": 4378591232,
+  "heapTotal": 3920625664,
+  "heapUsed": 3869559640,
+  "external": 2465560,
+  "arrayBuffers": 53253,
+  "at": "2026-10-09T13:48:30.754Z",
+  "elapsedMs": 404164.071959
+}

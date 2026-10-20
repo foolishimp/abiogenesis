@@ -1,0 +1,9 @@
+{
+  "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-installed-236/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactDigest": "sha256:2a2be57869dc108ffa4a43d939734b845f5a43c8685925e9db38c6745750b89c",
+  "byteCount": 10624837,
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "productContentDigest": "sha256:a0bf2032d314226cbe52c92b15b267d7c8f5fcc264028836913a76ba297fe80b"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "exact",
+  "sourceFreezeConserved": true,
+  "canonicalSelectedSourceConserved": 1103,
+  "canonicalGeneratedPreimagesConserved": 828,
+  "archiveStageInstallMembersConserved": 5256,
+  "hostExecutablesAndDeclaredNodeDynamicLibrariesConserved": true,
+  "tenantGitStatusUnchanged": true,
+  "gitEffects": 0,
+  "nativeCalls": 0,
+  "liveResourceOperations": 0
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "actual_complete_preparation_correspondence",
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/fc6aa5dd2953748b27f31158b74c618c61e48f0668a8c90f3a2d5d855d8dcca2",
+    "digest": "sha256:fc6aa5dd2953748b27f31158b74c618c61e48f0668a8c90f3a2d5d855d8dcca2"
+  },
+  "protectedFiles": 3284,
+  "sourceInputs": 781,
+  "auxiliaryInputs": 2502,
+  "recipeSelfObservedOnce": true,
+  "recipeBodyDigest": "sha256:b5c5ec9ec0da9b861ef4929545574bbceab785c43542ecb14f74a774854448f1",
+  "actualTaskDigests": {
+    "commandConfigurationDigest": "sha256:145fe846d85f09116c01ce268e5b17e25764e85d7ffcd94e7746f543345a532f",
+    "predicateConfigurationDigest": "sha256:77c818483c281fc249f19dae307b8f717377661b3105daba8a089d0d8269987d",
+    "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0"
+  },
+  "currentInventoryBodyCorrespondence": true,
+  "configurationCorrespondence": true,
+  "qualificationMaterialProduced": false,
+  "RuntimeAdmission": false
+}

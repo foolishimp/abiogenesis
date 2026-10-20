@@ -1,0 +1,12 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+  "bytes": 73530699,
+  "sha256": "146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+  "events": 136,
+  "device": 16777230,
+  "inode": 464012478,
+  "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock",
+  "lockPresent": false,
+  "original84BytesConserved": true,
+  "observedAt": "2026-10-01T14:56:08.066888+00:00"
+}

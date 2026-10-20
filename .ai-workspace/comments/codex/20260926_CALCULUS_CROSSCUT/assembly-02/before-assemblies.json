@@ -1,0 +1,86 @@
+[
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly",
+    "digest": "sha256:1ccdc8c24502c2ce92823c3bb38fd8293d3d92a701265757eaaaacbe172d28e4",
+    "promptBytes": 436216
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly",
+    "digest": "sha256:e5beb3ea4162b8b71b5d88fcb3ab555202321c9fc991ba931939e109396761fb",
+    "promptBytes": 650393
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly",
+    "digest": "sha256:feb863693bfc5c1ec8b29adfd88680b4353f537e135111a3f33de55bf481ad91",
+    "promptBytes": 667524
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly_refusal",
+    "digest": "sha256:f354fa4f1a81c87765c4d6547546fabd7c63381a4c9cca19974e8f018d39ddbe",
+    "promptBytes": null
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly_refusal",
+    "digest": "sha256:ccd1801517dfaba37e67e5e72e130dc5c84c06d9465f3b90d20ef8259662a583",
+    "promptBytes": null
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly_refusal",
+    "digest": "sha256:7512072ff31e986bc1cb280601c0a94c4b154cc1aa618b92ef926b2e71dd265a",
+    "promptBytes": null
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly",
+    "digest": "sha256:cc1e7acb2b54cab5e0d8e09a401a83b134d7c039c2e7fb929889814354832b4d",
+    "promptBytes": 712820
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly",
+    "digest": "sha256:e6a45ffde29a9b5ef20e92f2aacb8e6dac19b981c679af8796657746ada5a6f4",
+    "promptBytes": 741367
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly",
+    "digest": "sha256:2472023d2257317876ab53a97b09a2d984deb1749cb156158783040067961371",
+    "promptBytes": 741366
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly_refusal",
+    "digest": "sha256:c067b050922ba6df6eeffdf009e81b9cd8c8d629e60bc759ff15017621b91986",
+    "promptBytes": null
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly_refusal",
+    "digest": "sha256:1d4214d6adb8031bf2bca5571e2c45d7081824477d5bd5eb34fe134f7ef66811",
+    "promptBytes": null
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly_refusal",
+    "digest": "sha256:2c5ede3bcf12751b4fc11928d6e8f6cd06f627d9c3d3a358e0c05afbcda7f21f",
+    "promptBytes": null
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly",
+    "digest": "sha256:1e12594f0a902718664327ec6ae1e7152dea96dfed81a3cc2b8ca8570ce67078",
+    "promptBytes": 6226
+  },
+  {
+    "name": "evaluateNativeInstructionAssembly",
+    "kind": "native_instruction_assembly",
+    "digest": "sha256:65a37cdeaf1e0a25cf99ed018835d46e18580ed553cea7a7c1399acb0200dc4f",
+    "promptBytes": 5844
+  }
+]

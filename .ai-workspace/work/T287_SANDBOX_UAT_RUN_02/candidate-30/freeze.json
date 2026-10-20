@@ -1,0 +1,67 @@
+{
+  "status": "immutable_unreleased_pair_pending_independent_review",
+  "candidate": 30,
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-30/identity.json",
+      "sha256": "9e649df7d0ccbfcdd870c203ff8de4a9fa826d7dab8343a2037c27f632588188",
+      "byteCount": 17105
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-30/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "5e76e48eaa2e72029f50a174485c62015d510c094fa93babc708235830c527fd",
+      "byteCount": 10640683
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-30/member-delta.json",
+      "sha256": "723c89892e1338b95e3c5436a2423d6a390f2b9473c3c1bf628e65c5045405ae",
+      "byteCount": 23449
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-30/tar-inventory.json",
+      "sha256": "ba00bf101444adae082c9231e12ce98d1892bfde8d6fc313e82384bc3e6f2560",
+      "byteCount": 1250157
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/host-preparation/exacthost-identity.json",
+      "sha256": "481e997abcc68e8ce5448b3e562fef0ffaec495edb6c9cf06f0dee18e30babd9",
+      "byteCount": 3248
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/host-preparation/host30-acquisition.json",
+      "sha256": "ea703dd23ef4874e6ad71f3fd23c9c2f4fbea2fd819b724635c3d83b5c786077",
+      "byteCount": 16373466
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+      "sha256": "0b356a5a266a30c045f83e9347e2bf9f4e190f8547e94383daa7937e397259af",
+      "byteCount": 6173
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/consumer.json",
+      "sha256": "5f928787a95b75d073d7f9766c24cbe4eac1ec04fd2d613555fab5b49203cca0",
+      "byteCount": 44823
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/consumer30-acquisition.json",
+      "sha256": "04bf39c29c043f587e445e3c364e591779af218211d378cd5812a52c1769bed4",
+      "byteCount": 10221
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/physical-import-program-proof.json",
+      "sha256": "51c4c197b2cfa6295f2d1aa9f75b05ca3d1ac3f602a4471231d1b57df4814c46",
+      "byteCount": 11375
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/consumer-proof/archive-inventory.json",
+      "sha256": "f119484e935e44c8e6151cd224c876ee2b8f83a85c67dfa32ab59420bc4651db",
+      "byteCount": 2207
+    }
+  ],
+  "publicationProofPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/pins.json",
+    "sha256": "dcc3825fea9629e2ec3a99782f0affabdbb84ca47e6e134c6a2d2027032442f1",
+    "byteCount": 34109
+  },
+  "limits": "Immutable publication, clean installed payload and flat consumer ESM/dependency/whole-Program correspondence only. No current ABG installation/binding/catalog/cover/source-use/terminal/private-preparation/Run/native/model/UAT/capacity/P0/release acceptance. Exact219 allocator and installed continuation capacity remain unproved. No event-log read/hash/stat/acquisition/recovery or app/runtime effects."
+}

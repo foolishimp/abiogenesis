@@ -1,0 +1,68 @@
+{
+  "kind": "pure_producer_relation_and_single_field_counterexample",
+  "runtimeCalls": 0,
+  "subjectEdits": 0,
+  "graphRef": "graph-function://odd-glc/native-semantic-revision/construction@5",
+  "installedPublicationFileSha256": "ad8fc12b0472333ba4e85ef450df376b7dd4478b62061ad92f87ac13b257d78b",
+  "producer": {
+    "factoryCanonicalGraphEqualsFrozenGraph": true,
+    "installedPayloadGraphEqualsFrozenGraph": true,
+    "preparedPublicationGraphEqualsFrozenGraph": true,
+    "materializedInstalledPublicationEqualsFrozenPublication": true,
+    "factoryCarries": [
+      "contract://abiogenesis/semantic-revision/envelope@5",
+      "contract://abiogenesis/worksite/retained-graph-input@5",
+      "contract://abiogenesis/worksite/native-work/task@5",
+      "contract://abiogenesis/worksite/native-work/observation@5",
+      "contract://abiogenesis/worksite/command-execution-task@5",
+      "contract://abiogenesis/worksite/command-execution-observation@5",
+      "contract://abiogenesis/semantic-revision/envelope@5"
+    ],
+    "nodeOutputCarriers": [
+      {
+        "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/prepare",
+        "output": "contract://abiogenesis/worksite/native-work/task@5"
+      },
+      {
+        "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/construct",
+        "output": "contract://abiogenesis/worksite/native-work/observation@5"
+      },
+      {
+        "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/prepare-execution",
+        "output": "contract://abiogenesis/worksite/command-execution-task@5"
+      },
+      {
+        "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/execute",
+        "output": "contract://abiogenesis/worksite/command-execution-observation@5"
+      },
+      {
+        "nodeRef": "graph-function://odd-glc/native-semantic-revision/construction@5/evidence",
+        "output": "contract://abiogenesis/semantic-revision/envelope@5"
+      }
+    ],
+    "rawCarriesCount": 7,
+    "uniqueCarriesCount": 6,
+    "exactFactoryRetentionPredicate": true
+  },
+  "manifest": {
+    "binding": {
+      "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+      "publicationDigest": "sha256:4551c58efa1c82e9fd36792dc4698476ee086bf9cda3d2c02c8f8e26e94f9e21"
+    },
+    "actualPublicationSemanticDigest": "sha256:4551c58efa1c82e9fd36792dc4698476ee086bf9cda3d2c02c8f8e26e94f9e21"
+  },
+  "lifecycle": {
+    "requestDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+    "installedPayloadDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+    "preparedPublicationDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+    "counterexampleDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267"
+  },
+  "counterexample": {
+    "changedField": "one duplicate occurrence removed from target graph environment.carries in memory only",
+    "publicationValidationKind": "publication_validation",
+    "publicationValidationDisposition": "valid",
+    "diagnostics": [],
+    "exactOldFactoryRetentionPredicate": false,
+    "interpretation": "Single duplicate removal clears this publication validator. The old exact factory rejects caller-only cleanup; repair belongs to the shared producer, then successor declarations. No readiness/catalog/runtime continuation was attempted."
+  }
+}

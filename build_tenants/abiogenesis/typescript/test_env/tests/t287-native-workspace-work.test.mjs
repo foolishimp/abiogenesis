@@ -104,7 +104,7 @@ test('post-effect channel conflict retains admitted native failure scope without
   let currentPrefix=prefixAt();
   const overrides={
     './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
-    './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>({call,execution:basis,inputDigest:basis.rawInputDigest,inputValue:env.task})},
+    './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>({call,execution:basis,inputDigest:basis.rawInputDigest,inputValue:env.task})},
     './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>null},
     './runtime_liveness.js':{captureNativeFrameBoundary:()=>({}),observeNativeFrameLiveness:()=>{},
       admitRuntimeActivityProbe:input=>({successorPrefix:currentPrefix,value:rows.find(row=>row.eventId===input.observation.underlyingEventRef)??rows.at(-1)})},
@@ -811,12 +811,12 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
     await module.evaluate();return module.namespace;
   }
   const assembly=await component('abg/instruction_assembly',{
-    './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>owner,constructNativeInstructionAssemblyBasis:value=>value},
-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:(...args)=>{requestedRole=args.at(-1);return requestedRole===roleSelection?role:false;}},
+    './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner,constructNativeInstructionAssemblyBasis:value=>value},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:(...args)=>{requestedRole=args.at(-1);return requestedRole===roleSelection?role:false;}},
   });
   const actor=await component('abg/actor_process',{
     './instruction_assembly.js':assembly,'./execution_basis.js':{constructNativeInstructionAssemblyBasis:value=>value,
-      authenticateNativeInstructionAssemblyBasis:()=>owner},
+      authenticateOwnedNativeInstructionAssemblyBasis:()=>owner},
     // Admission is a supplied component fact; preparation below remains real.
     './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
     './worker_transport.js':{prepareWorkerTransport:async input=>{

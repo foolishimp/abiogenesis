@@ -1,0 +1,53 @@
+node:path:1339
+      validateString(arg, 'path');
+      ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at Object.join (node:path:1339:7)
+    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs:11:46
+    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+
+Node.js v24.7.0
+✖ test_env/tests/t287-gtl-language-corpus.test.mjs (276.357542ms)
+(node:65340) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ small whole subject grouped and singleton semantics agree under explicit independent/native premises (34.096916ms)
+✔ required group/member/root/domain omissions, duplicate and crossed basis never receive a complete assessment (33.703333ms)
+✔ unknown and falsified grouping/applicability are conserved; incomplete context and foreign J cannot discharge scope (81.569375ms)
+✔ G1 multi-root assessment conserves failure and citations beside missing judgment (121.235709ms)
+✔ grouped representation grows by explicit members/rules, not Cartesian semantic rows or findings (350.580083ms)
+ℹ {"representation":[{"members":3,"rules":3,"applications":1,"findings":10,"serializedBytes":10055,"avoidedCartesianRows":9},{"members":100,"rules":100,"applications":1,"findings":10,"serializedBytes":36508,"avoidedCartesianRows":10000}],"claim":"component representation only; independent/native facts supplied"}
+✔ reference-form attribution consumes canonical resolved provenance and preserves original judgment bytes (7.614542ms)
+✔ reference attribution retains missing crossed record scope and independence refusals (4.519292ms)
+✔ actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records (6.820708ms)
+ℹ {"scopedPromptBytes":57205,"singletonWholeMaterialPromptBytes":52555,"providedBodies":3,"assessedMembers":3,"attributionSpans":2,"retainedRecordBodies":7,"rawSchemaBytes":1972,"claim":"actual constructor/renderer sizes on finite synthetic scope; no token quota or semantic sufficiency inference"}
+✔ scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence (7.743ms)
+✔ fresh process conserves grouped result identities and refuses changed grouped bytes (61.046959ms)
+✔ explicit justified inapplicability conserves singleton meaning and cannot erase a falsified obligation (20.254792ms)
+✔ catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations (7.10425ms)
+ℹ {"catalogTaskPromptBytes":56353,"selectedCriterionRules":1,"providedCatalogRows":2,"totalCatalogRows":3,"fullCatalogBodies":0,"scope":"actual renderer; source-completeness union under explicit catalog component premise"}
+✔ catalog and rule prompts expose changed governed claims, evidence duties and source-span mappings; stale catalog refuses (9.577833ms)
+✔ inventory renderer exposes per-member role and classification-evidence swaps despite identical bytes and group-role union (6.238291ms)
+✔ per-rule complete member domains preserve flat semantics and do not split unrelated rule work (90.642917ms)
+ℹ {"perRuleDomains":[{"splits":2,"criteria":3,"promptBytes":57600,"memberBodies":3,"assessedMembers":4},{"splits":3,"criteria":4,"promptBytes":57600,"memberBodies":3,"assessedMembers":4}],"globalSplitRows":[4,6],"claim":"actual owner/renderer; J/native premises supplied"}
+✔ domain omission overlap foreign members and incomplete rule domains refuse; scoped J uncertainty survives (46.10025ms)
+✔ six-member discriminator keeps four rule domains when unrelated classification refinement would grow six global pairs to eight (67.861ms)
+ℹ {"actualOwnerDiscriminator":[{"globalClassifications":3,"globalPairs":6,"actualRuleCriteria":4,"coveredMemberRelations":12,"selectedPromptBytes":58067},{"globalClassifications":4,"globalPairs":8,"actualRuleCriteria":4,"coveredMemberRelations":12,"selectedPromptBytes":58067}],"claim":"C conservation and representation; supplied J/native premises"}
+ℹ tests 18
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1522.669584
+
+✖ failing tests:
+
+test at test_env/tests/t287-gtl-language-corpus.test.mjs:1:1
+✖ test_env/tests/t287-gtl-language-corpus.test.mjs (276.357542ms)
+  'test failed'

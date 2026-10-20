@@ -1,0 +1,38 @@
+# RC1 sunny-day steel thread
+
+Status: active owner-authorized 5.0 delivery, STDO 2.5.1 RC2. This is commentary; current Product and requirements govern. Executive decides and conjoins, separately activated Workers implement and independently activated Reviewers assess frozen subjects. Preserve the dirty worktree and accepted evidence.
+
+The selected path is one exact candidate -> installed native execution and qualification -> sufficient authenticated independent judgments -> sole AF22 green -> unchanged immutable RC -> installed-RC qualification -> actual human acceptance -> terminal remote installation. Multiple Runs and conserved handoffs are lawful. Preserve the accepted original Hello lifecycle.
+
+## Current subject and completed work
+
+C05 construction is independently GO and Root ACCEPTED: freeze `ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e`, archive `060f129747a51f29c07765fa802437f1b651d0109a79299d66de35f7a8cbe6f8`, Product `27fa7db21c6987976afdcaac1ac092ed5ff1b8af5e10fed51b72658390ca429a`, manifest `d0da31f911c6ff7cdf5e22361d22c0ff75b878a040484f79328a8ceb1e96355e`. The 1,106 frozen source inputs, exact RC2 law, 926 generated outputs and 5,258 package bodies are bound. The ambient generated reconciliation is independently accepted; C03/C04 and earlier accepted runs remain immutable evidence at their actual subjects.
+
+Completed source increments are the accepted qualification resource carrier, exact RC2 law staging, bounded no-direct-native applicability repair and source-owned installer `--bin-links=false` policy. The installer preserves all strict payload checks and executable CLI files. C05 has only the accepted installer postimage and selected tracking delta relative to C04; no additional source hardening is selected.
+
+Actual installed Setup05 is CLOSED and Root accepts its bounded evidence at freeze `3aa1948357cbce79b8c029f0be610fda129e325d6b0a267501e9e690cdd92f82`: 14 successful Public calls, two admitted installs, 12 publications and four passing Program conformance evaluations. Complete core and wrapper bodies agree with their respective archives: 5,258 and 5,264 regular files, zero links/nonregular entries. Runtime took 234.821s without timeout; default heap; all 15 known process groups closed. The full projected binding and Public coordinate join agree. The genuine handoff and original report-only failed attempt are preserved. No Task, Run, helper or model was launched by setup.
+
+Q05 is CLOSED reusable preparation for C04 only. Q06 is CLOSED and independently GO; Root ACCEPTED its exact C05-bound preparation at freeze `4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c`. The complete published command constructor/guard passes all 3,282 protected inputs; all 18 qualification commands and 19 predicates remain unexecuted. The complete 4,627-member body inventory, 95 explicit physical-member aliases and canonical law tuples, original 98 records/eight chains/spans and ordered partitions agree. The embedded material/scope owner and renderer and reference Task/plan shape pass over actual admitted Setup05. Resource 489,526,432B; model prompt 318,333B; packet 9.313s/default-heap peak 3,455,254,528B. Actual resource consumption and semantic adequacy remain unproved.
+
+Root releases `T287_F11_C05_CARRIER_EXECUTION_06` through the exact conditional grant and input acceptance. The Worker prepares only a thin ordinary driver/caller/config and then runs the mandatory wrapper child/J/foldback/parent/cold/F11/sole non-green AF22 path over the authentic existing Setup05 resource. No setup or Hello rerun. Original prefix/inode and all other accepted cuts remain conserved. The controlled helper returns indeterminate criteria and creates no semantic qualification.
+
+Retained accepted evidence includes C02 S01 and bounded S02/continuation, selected-action continuation, C03 S03a correction/truthful-stop pair, and the original S6 real failure/native correction/independent lifecycle assessment with fresh closure. Each acceptance retains its named subject and scope. Reuse onto C05 requires authenticated applicability; it is not a restamp or a new Hello campaign.
+
+## Dependency-ordered remaining work
+
+| Stage | Selected work | Exit evidence |
+|---|---|---|
+| 1 (closed) | Q06 current input construction and independent review are Root accepted. | Exact candidate/law/inventory/recipe/material identities; actual complete constructor and resource/renderer checks; body/provenance conservation and bounded costs. |
+| 2 | Reopen the authentic current Setup05 resource under a separate grant. Exercise wrapper parent -> installed assessment child -> compact Result/J -> ordinary foldback -> parent/Run closure -> two cold reads -> fresh F11 consumption -> sole AF22 non-green proof. | Actual ordinary owners/events/lineage, resource availability and compact consumers; no fabricated semantic acceptance or root-only dispatch fallback. Whole-path independent review follows. |
+| 3 | In a permitted provider-capable execution context, perform the first genuinely bound independent F11 judgment and the actual observed QUAL056 recipe. Close applicable remaining S01/S02/S03/S06 conjunction. | Authentic Task/attempt/actor/Result/J, sufficient selected context, current-source applicability, protected-input conservation and all three output populations from the actual snapshot. Fresh reads agree. |
+| 4 | Complete whole-subject F11 and its seven semantic defect cases with valid positive companions; use sole AF22. | Complete authenticated coverage, independence and typed applicability/sufficiency; discriminating non-green seed results; actual green sole verdict. |
+| 5 | Publish the unchanged qualified RC from a separately granted clean Git source carrier. | Committed inventory, HEAD/tree and qualified bytes agree; immutable package/manifest/release/ref evidence; output-only snapshot without publication rebuild. |
+| 6 | Fresh-install and qualify that exact RC, obtain actual human acceptance, then verify terminal remote installation. | Distinct installed_rc qualification and actual ruling on the same unchanged RC, with complete remote identity/lineage/checksum evidence. |
+
+Fixed scope is fifteen families F01-F07/F09-F11/F13-F17; pre-RC S01/S02/S03/S06 and release S07. General recovery expansion, native human resume, extra host parity, Consensus, observer/tuner and held Data Mapper are outside the selected increment. The original basic CLI remains the selected lifecycle witness; other Hello/Rust evidence retains its bounded scope.
+
+## Current blockers and failure disposition
+
+RC1 remains unqualified and unpublished. Q06 preparation/assurance is accepted. The installed F11 end-to-end discriminator is now selected and released; its actual execution-to-proof relation remains open. Genuine model and observed native qualification require permitted command networking. Configured Claude firstParty OAuth does not establish provider reachability; this task profile remains network-restricted with approval-never. No auth/network bypass is selected, and local readiness cannot substitute for the declared observed route.
+
+Every failure receives triangulation over actual Product/Design/Integration/Identity/Lifecycle/Effects/Proof/Cost variables. Root records the originating relation, supported cause, prior escape, complete affected cone, owner, smallest lawful re-entry and required reproof. Once a path is lawful, its end-to-end discriminator takes precedence over further local hardening. Exact grants and evidence remain in T-287 and execution.md. Existing runs are reused within supported bounds.

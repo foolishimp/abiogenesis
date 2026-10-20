@@ -1,0 +1,452 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_C09_CARRIER_EXECUTION_09",
+  "supervisorStart": {
+    "mode": "flow",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/run-flow.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09",
+    "pid": 89714,
+    "processGroup": 89714,
+    "groupEstablishedBeforeImports": true,
+    "startedAt": "2026-10-03T09:05:17.842210+00:00",
+    "monotonicStart": 3905584.482523208,
+    "preflightDeadlineMonotonic": 3906184.482523208,
+    "totalDeadlineMonotonic": 3906184.482523208,
+    "preflightSeconds": 600,
+    "totalSeconds": 600,
+    "heap": "unchanged",
+    "HOME": "/Users/jim",
+    "taskEnvironment": {
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/task-tmp",
+      "NPM_CONFIG_USERCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/task-config/npmrc",
+      "NPM_CONFIG_GLOBALCONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/task-config/globalnpmrc",
+      "NPM_CONFIG_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/task-cache",
+      "NPM_CONFIG_PREFIX": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/task-config/prefix",
+      "NPM_CONFIG_OFFLINE": "true",
+      "NPM_CONFIG_IGNORE_SCRIPTS": "true",
+      "NPM_CONFIG_AUDIT": "false",
+      "NPM_CONFIG_FUND": "false",
+      "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/Users/jim/.pyenv/versions/3.11.5/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "npm_config_bin_links": "true",
+      "ABG_TS_CLAUDE_COMMAND": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/controlled-helper.mjs"
+    },
+    "phaseCompletionReceipt": null
+  },
+  "supervisorClose": {
+    "mode": "flow",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/run-flow.mjs"
+    ],
+    "pid": 89714,
+    "processGroup": 89714,
+    "startedAt": "2026-10-03T09:05:17.842210+00:00",
+    "closedAt": "2026-10-03T09:05:55.330787+00:00",
+    "elapsedMs": 37488.773291930556,
+    "exitCode": 1,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "phaseCompletion": null,
+    "rssBytes": 7376666624,
+    "userSeconds": 37.88813,
+    "systemSeconds": 5.954972,
+    "knownCLIProcessGroups": [
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-process-start.json",
+        "processGroup": 90057,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-process-start.json",
+        "processGroup": 90031,
+        "before": "absent",
+        "afterTERM": "absent"
+      },
+      {
+        "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-process-start.json",
+        "processGroup": 89941,
+        "before": "absent",
+        "afterTERM": "absent"
+      }
+    ],
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  },
+  "HOME": "/Users/jim",
+  "heap": "default unchanged",
+  "nominal": {
+    "status": "passed",
+    "elapsedMs": 10919.749291,
+    "completedAt": "2026-10-03T09:05:28.806Z",
+    "sameProcessOwnedObject": true,
+    "selectedActualAdmittedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+    "productContentDigest": "sha256:b2db269866932b17aa7766425cfed84ba2ce74ee24e8d79f469b205b0afc0a1f"
+  },
+  "actualPublicCalls": 3,
+  "calls": [
+    {
+      "label": "parent",
+      "definitionKey": {
+        "operationId": "abg.operation.run.invoke",
+        "memberKey": "start"
+      },
+      "invocationRef": "invocation://abiogenesis/9bd4889f122a7bf62ece3d826a7b58ba3f69f6eb7f7a9e4f79dd620a73178343",
+      "outcomeKind": "result",
+      "elapsedMs": 9160.169125,
+      "processFailure": null
+    },
+    {
+      "label": "assess-run_result",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_result"
+      },
+      "invocationRef": "invocation://abiogenesis/c36161f848ab7b3e199124a660c5435290667273ac1530181645893eca381eb9",
+      "outcomeKind": "result",
+      "elapsedMs": 650.1106660000005,
+      "processFailure": null
+    },
+    {
+      "label": "assess-run_replay",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_replay"
+      },
+      "invocationRef": "invocation://abiogenesis/bc81a1b258ec4d343cdcb9f0f08446573316d0a97be9fac79aa32334106387fe",
+      "outcomeKind": "result",
+      "elapsedMs": 669.4992920000004,
+      "processFailure": null
+    }
+  ],
+  "completedRuns": 1,
+  "freshCLIReads": 2,
+  "controlledActorStarts": 1,
+  "helperPidAfterClose": [
+    {
+      "pid": 90030,
+      "afterActorExit": "absent"
+    }
+  ],
+  "actorExitEvents": [
+    {
+      "admissionOrdinal": 42,
+      "aggregateId": "process://abiogenesis/56729b8bc09b7d285233229987af5e33f242015a5054553e6bb444a0c2aca4f1",
+      "aggregateType": "process",
+      "basisId": "execution-basis://abiogenesis/0f821e09dd43fe9af9b8258f25c2a3a69ebc13f5644deb96532712e62a221d2c",
+      "causationEventRefs": [
+        "event://abiogenesis/994f2e0b123245335c52cc4d5268a7ce0323f48d8e413f1861bc48a1d328fdf1"
+      ],
+      "correlationId": "correlation://abiogenesis/t287/q06-selected-runtime/hog/workflow/0/child/leaf/0/actor-process",
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventId": "event://abiogenesis/486b04d6ae23fbe31fb575ae82b1fff684596def0f277aad1ebaec2c839e67dc",
+      "eventTime": "2026-10-03T09:05:47.682Z",
+      "frameId": "frame://abiogenesis/b587d177510f0dd37696625a592bf3569e64e379e0f211823f9865d612d02da9",
+      "graphCallId": "graph-call://abiogenesis/59eec0f5583145ae1d79bcf302f40ac7e3231df97c778257b8e83f64d3cbfac6",
+      "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+      "kind": "actor_process_exited",
+      "materializationRef": "graph-materialization://abiogenesis/2497fefec1c69e35f924405b32c9101f7ab7723281380893276c63bf44edfcaa",
+      "parentAggregateId": "actor-invocation://abiogenesis/81c9ea638f448a248e39acdaca1a0cfabef38e7264012b48f1a3633d4ecc6919",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/81c9ea638f448a248e39acdaca1a0cfabef38e7264012b48f1a3633d4ecc6919",
+        "processRef": "process://abiogenesis/56729b8bc09b7d285233229987af5e33f242015a5054553e6bb444a0c2aca4f1",
+        "signal": null,
+        "status": 0
+      },
+      "payloadDigest": "sha256:665742f0ee3596f502a1f63e296e4614bea85b5302d08e4c5b80aa3135c836ae",
+      "runId": "run://abiogenesis/06b733f76d8f9b5318185ed785f5ed130b3d7b6499ff431e230d44ea1b2d1964",
+      "scopeClass": "run",
+      "workflowVersion": "5.0.0"
+    }
+  ],
+  "actualAppendedRecords": 73,
+  "actualAppendedEvents": 71,
+  "appendBytes": 346428,
+  "volumes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/actor-final-output.raw.json",
+      "bytes": 32529,
+      "sha256": "caee3684318977505db8af80af3b00a2c096264f9927b879e2c65dd72ceb34c1",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/controlled-raw-response.json",
+      "bytes": 32530,
+      "sha256": "fb822959ac847bfa3d062cb7352bf6a30b5e7e4957bc9a6466bcb7b952812cbc",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11-bound-packet.json",
+      "bytes": 29410022,
+      "sha256": "c50b50b153a69104b7f54c6420368b786d6225c7394cd49923235e1a7ecae548",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/f11-bound-resource-manifest.json",
+      "bytes": 504760365,
+      "sha256": "a920b4842b7cb779282ed7417deadd3361f75f2dfce79dc36324976d8c0e890b",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-after-physical.json",
+      "bytes": 1286,
+      "sha256": "677f5abfb7afda80addce74b996ec752e71e87081eceaa59e158ec792cae7f6d",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-command.json",
+      "bytes": 2833,
+      "sha256": "25f0bb3317d5ffbb157f62ffbe765732030460841425d52fc349be10daaad733",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-handoff.json",
+      "bytes": 2563,
+      "sha256": "e190423e22a292d5803414ab98ff4c2eb039811066848330bbcf160a96c75f0b",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-host-receipt.json",
+      "bytes": 67789,
+      "sha256": "d264d38f5d541fa40ef8e95eadddbea205ce8e4070c72252f6d59150e4bbd33c",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-native-process.json",
+      "bytes": 818,
+      "sha256": "ba279a9efb25b4ff2bad9accf5b16586d632e80a1e941f4f8074c6b6b242cf8f",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-owner-outcome.json",
+      "bytes": 63179,
+      "sha256": "b4677d5652a8769304c9e7ea1592f38b1c137a43f6bbf83936d3c56d5df39700",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-process-start.json",
+      "bytes": 732,
+      "sha256": "52bdd8f0f8cce07d78f1f64c5bcf2247447042534f7caeb64f0d917dc2f270a0",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-public-disposition.json",
+      "bytes": 59,
+      "sha256": "544563218f004e82f8b7e7f22abd445f02fd9640c5c9338aa1e4c0766ee75722",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-stdout.json",
+      "bytes": 51745,
+      "sha256": "d18f7cb2eece6964cfbf2c52523fea503d56e5e1a6b5147e3ea58b91949ae4b1",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay-timing.json",
+      "bytes": 285,
+      "sha256": "f104cd1059ed34ba9e4af7e051b7caa177fdcabda0e68048d13e385ed8b25e81",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_replay.jsonl",
+      "bytes": 9859,
+      "sha256": "d8860adde7415901bec71d43579fe5034e7e2915c89ab6e3c142fc3aa39d24c0",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-after-physical.json",
+      "bytes": 1286,
+      "sha256": "ffdbd0fe0da29596398405ed6d1b05453c63d7265bb49e29366736b0ebc493ce",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-command.json",
+      "bytes": 2834,
+      "sha256": "bb71e0ec6f22090429167b50c21ff4aa5619b264f72db4abef64bed65c25cea2",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-handoff.json",
+      "bytes": 2179,
+      "sha256": "968353a79a231ede9ad3ec25d93b5a34474286ea1c9f7fea5e2eec9cc5dcba09",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-host-receipt.json",
+      "bytes": 68190,
+      "sha256": "fc1b378d7be568f29db153295e7e0f4d4fc3096a93835c227a8cdd5cdf7470b9",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-native-process.json",
+      "bytes": 805,
+      "sha256": "6d2cdf6358e0f67d7718f1fb8ff6bb31280ece750b267be9aa271d2e55dab15c",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-owner-outcome.json",
+      "bytes": 63570,
+      "sha256": "3c3d48b4e68085865aac6019355529fd0e6a7cf0b44e83f24381e0d5285c0df9",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-process-start.json",
+      "bytes": 732,
+      "sha256": "50dd99e14183c6e709c1da7c9cb35bafb47a603290a4b496b113e6325575e13a",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-public-disposition.json",
+      "bytes": 59,
+      "sha256": "544563218f004e82f8b7e7f22abd445f02fd9640c5c9338aa1e4c0766ee75722",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-stdout.json",
+      "bytes": 52090,
+      "sha256": "d05a14263963170cb1ab17ac5c02e5c30555cadd0e6a16eddc16f8657bf9ca6d",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result-timing.json",
+      "bytes": 285,
+      "sha256": "af519fc7781e8392634405884d0b1c8bf5fd731bcfe6b1451a4d632c5ccc649c",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-assess-run_result.jsonl",
+      "bytes": 9822,
+      "sha256": "9d2d2d77e7c554da8d64b89a317007701b93749d4f5294054979b6a67ce6398e",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-after-physical.json",
+      "bytes": 1275,
+      "sha256": "b6856abfce4623162be85e3a1d9daf2f98e0674467a2de09a19c3cebb1decb26",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-command.json",
+      "bytes": 2807,
+      "sha256": "b386a52c04c99da2ec439a51f29e71bb0764baf6414361932ae77e652226da0e",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-handoff.json",
+      "bytes": 1795,
+      "sha256": "15c33c2809eb6a3d2602ff71385aad6058bf3ac57db3d5ea3fe062790cef9f65",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-host-receipt.json",
+      "bytes": 83028,
+      "sha256": "387b32ca4a40bc05db26f0a646b329a90a355933007bacff0524aece28207751",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-native-process.json",
+      "bytes": 798,
+      "sha256": "641e1350bf929dde68fc78bdb80728c7a0e40f4135579ba9313b4bb865279f9a",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-owner-outcome.json",
+      "bytes": 76920,
+      "sha256": "6bf07afbdfe83569f8fc918d2ebff7e0d123b17bd36f66df6c5db20e411280db",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-process-start.json",
+      "bytes": 711,
+      "sha256": "018a72e0bf932045e101e38b066060a191a75fed9f0749c69b60e2fda42e5a0d",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-public-disposition.json",
+      "bytes": 59,
+      "sha256": "544563218f004e82f8b7e7f22abd445f02fd9640c5c9338aa1e4c0766ee75722",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-stdout.json",
+      "bytes": 65454,
+      "sha256": "4ceda96569ae0d07408cd574de3f8eb874e76590255beaecdbe8586426a0e1c2",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent-timing.json",
+      "bytes": 286,
+      "sha256": "e3ca3df139b826266fcad6b0befaa3290d29c053565834b1da0ee4fe4cef9f08",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-parent.jsonl",
+      "bytes": 523912444,
+      "sha256": "0196ac5e12d1922f85403d1946cb5b077d57a9321d64350185ed30ec9bdc7826",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-progress.jsonl",
+      "bytes": 919,
+      "sha256": "2a89ff1cf3ee682c83e3ce6f6a15db5e08802faca2ad410211570d64ecd6be0f",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-supervised-stderr.log",
+      "bytes": 614,
+      "sha256": "8fea8df059648c95fd7ea749cbead39246f15e87049d40fed998ef597f1e2885",
+      "mode": "0o600"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-supervised-stdout.log",
+      "bytes": 873,
+      "sha256": "0d328a1a56603ff0545c19c2e434ea2ba28e9c6a10e55a3c1c4d97f995ab3c18",
+      "mode": "0o600"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-supervisor-close.json",
+      "bytes": 1788,
+      "sha256": "a3b16bc0d166536f44c6bef585350727dddaaf6d1d09a5fb50c24fba47560a67",
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/flow-supervisor-start.json",
+      "bytes": 2324,
+      "sha256": "554463b81772b476cfdce582f16c01fd2138f61088ef4d490822dc209a2891ae",
+      "mode": "0o644"
+    }
+  ],
+  "realProviderCalls": 0,
+  "qualificationCommands": 0,
+  "sourceGitNetworkEffects": 0,
+  "RuntimeCallsAfterFirstFailure": 0,
+  "unknowns": {
+    "helperPGID": "not independently recorded; actor exit and PID absence retained",
+    "ambientProcesses": "not enumerated",
+    "genuineQualification": "not executed"
+  }
+}

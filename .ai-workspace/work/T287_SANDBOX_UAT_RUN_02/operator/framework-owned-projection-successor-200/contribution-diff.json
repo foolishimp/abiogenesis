@@ -1,0 +1,313 @@
+{
+  "publicationCount": 10,
+  "contributionCount": 47,
+  "differenceCount": 61,
+  "differences": [
+    {
+      "path": "/capabilityDefinitionGraph/graphDigest",
+      "before": "sha256:b1bf967dfb634a8e73bd2845e2da9f1f97482eeddae4be9d7aa84f8f39cbd87a",
+      "after": "sha256:f625b4aeac009904b52db981c23872de6bd905ea5d65a891a16549fcc9580dc7"
+    },
+    {
+      "path": "/contributionManifestRef",
+      "before": "contribution-manifest://abiogenesis/conformance/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "contribution-manifest://abiogenesis/conformance/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/descriptorRef",
+      "before": "descriptor://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "descriptor://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/productContentDigest",
+      "before": "sha256:156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "sha256:3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/publicationBindings/0/publicationDigest",
+      "before": "sha256:ca49e599b078799a90f2326ea8c11f2ff14f2fac3a0bb53bb9945c63fd36a4cd",
+      "after": "sha256:c401ff3351804fe68650f9f3a646738420968d52b1fbf0fe5894f7eaa1f3c710"
+    },
+    {
+      "path": "/publicationBindings/1/publicationDigest",
+      "before": "sha256:4c927c0127f8e83338fab164dc71e21a02b60447ce61f1a71aef49ede1ac4fe1",
+      "after": "sha256:0ff0dd1b16e0656a872d998e853a74b937cda5f985af2210b4df7c94d0df2f7d"
+    },
+    {
+      "path": "/publicationBindings/2/publicationDigest",
+      "before": "sha256:84370fe1ff77cefc8b3c3cc43b084c6d9c3bff643b0fef1a477e940fbaec73c9",
+      "after": "sha256:b90242975cb81f380d1f48e806f78b7e2fcaa4d30d2e6b628e1b677fa79877f8"
+    },
+    {
+      "path": "/publicationBindings/3/publicationDigest",
+      "before": "sha256:ff501286880a431e78cd51828954752730b51a61c5a8e793259c337dc917539d",
+      "after": "sha256:e370fe9d927ddd269f9c66696a3871d7f27c2dd1fccb19332a85e538ce7ffc39"
+    },
+    {
+      "path": "/publicationBindings/4/publicationDigest",
+      "before": "sha256:c9ba23eca7df6d0a22c3f2fa85ea08ea35415120f18df36654821c6a4f3db3fa",
+      "after": "sha256:0297e11b300ee024086605a4189b3bdc826b838c655c44053a1970d59cb5e1f9"
+    },
+    {
+      "path": "/publicationBindings/5/publicationDigest",
+      "before": "sha256:6d9a78b63e7e7e25023b28f7041fc409e8736e7e04eecf26dc61499bb2e6cd3e",
+      "after": "sha256:1973785271b065e33defb83f3726afa5d6b8df5d87259ee180194c0849b12f43"
+    },
+    {
+      "path": "/publicationBindings/6/publicationDigest",
+      "before": "sha256:14e7844cae9983ad11c4cb3535f7d5d7573c4ad31ae0d215bd5724b75d1a9ca2",
+      "after": "sha256:84d2b71ca674d520f2418daf371218accb220b6c33869fa84f3435831e54c82c"
+    },
+    {
+      "path": "/publicationBindings/7/publicationDigest",
+      "before": "sha256:f89c527b8d59e2c2bd92cb125fec92a7ac9f691d4bca663bc3a5e10e93ac7d7f",
+      "after": "sha256:75ed4d1ffb23df517501598a6fe9ffd97ba3680fea239f33415a3a692516fdcb"
+    },
+    {
+      "path": "/publicationBindings/8/publicationDigest",
+      "before": "sha256:a882074a9d65ebe32d3c21d4aa01c6940b429ec1877a7b62b633e3890f071ef7",
+      "after": "sha256:b5cb5b6c40004ae854dfa046e7abc9d4a56ee0956f0a82f6e594956b57427e31"
+    },
+    {
+      "path": "/publicationBindings/9/publicationDigest",
+      "before": "sha256:52d91ebecd1db29cc653d16e5ed4b028b0c90ef370e4bcd83e3f3301641acd0c",
+      "after": "sha256:2bd53bac2d20863d6e50061db989c7afe5ad38899bb042f256270aaae3ca02b0"
+    },
+    {
+      "path": "/rows/0/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/1/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/2/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/3/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/4/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/5/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/6/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/7/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/8/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/9/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/10/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/11/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/12/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/13/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/14/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/15/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/16/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/17/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/18/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/19/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/20/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/21/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/22/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/23/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/24/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/25/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/26/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/27/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/28/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/29/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/30/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/31/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/32/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/33/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/34/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/35/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/36/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/37/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/38/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/39/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/40/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/41/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/42/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/43/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/44/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/45/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    },
+    {
+      "path": "/rows/46/provenanceRef",
+      "before": "provenance://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "after": "provenance://abiogenesis/typescript-tenant/3bb7f0534bd558d82fe2b72b39c35f60d66ec8b797e8ddf37f1029a033eafb54"
+    }
+  ],
+  "completeValueCanonicallyReconstructed": true
+}

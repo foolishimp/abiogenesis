@@ -1,0 +1,29 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
++   message: 'product.constructWorksiteCommandConfiguration is not a function',
+-   message: 'worksite command configuration requires exact A/W, subjects and explicit arrays',
+    name: 'TypeError'
+  }
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/predicate-classification.mjs:28:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    name: 'TypeError',
+    message: 'product.constructWorksiteCommandConfiguration is not a function'
+  },
+  expected: {
+    name: 'TypeError',
+    message: 'worksite command configuration requires exact A/W, subjects and explicit arrays'
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

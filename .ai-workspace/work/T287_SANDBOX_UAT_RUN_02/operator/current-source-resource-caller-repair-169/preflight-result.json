@@ -1,0 +1,115 @@
+{
+  "kind": "selected_packed_resource_correspondence",
+  "status": "PASS",
+  "wallMs": 279.910709,
+  "results": [
+    {
+      "label": "native26",
+      "packed": {
+        "kind": "product_verification_artifact_resource",
+        "schemaVersion": "5.0.0",
+        "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-26/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "artifact": {
+          "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-26/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+          "digest": "sha256:95d1e5a7e98ab47ed762c2d1c5cb3224632910b0baf7363d9ad03e62d62ebf1e"
+        },
+        "productContent": {
+          "ref": "product-content://abi5-tests/c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463",
+          "digest": "sha256:c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463"
+        },
+        "descriptor": {
+          "ref": "descriptor://abiogenesis/typescript-tenant/c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463",
+          "digest": "sha256:d98c11f0ce8b67e83703818e12b4f36da3f5e5dc99e5694fab3d610f33f52476"
+        },
+        "contributionManifest": {
+          "ref": "contribution-manifest://abiogenesis/conformance/c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463",
+          "digest": "sha256:9622bdf161af0447509d3e98b5d2deb9550f2417f18bce4c9270698046b968c6"
+        },
+        "manifestDigest": "sha256:9e7bf0ea5a77ca4367794d07744ee46c92a884023b5b94081b9928987acaf2fc",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1"
+      },
+      "recordedRequestRef": "invocation://abiogenesis/2e6bb2b4df0943e933530fc58a8c6db898b47650c4ee204d85e593d51ed19928",
+      "recordedRequestDigest": "sha256:334a792d4064500b0c20f26f2f646acace8a9e37994abbd02da771c3336d2d5c",
+      "positiveSchema": "admitted",
+      "positiveTuple": true,
+      "original167": {
+        "kind": "packed_product_artifact",
+        "productContent": {
+          "ref": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+          "digest": "sha256:c995f5671a2f628702b3ffa7461aefb104db6f49f942ff6e4d51e874cce05463"
+        },
+        "artifactPathPresent": false,
+        "schemaAdmitted": false,
+        "tupleMatches": false
+      },
+      "isolatedNegatives": {
+        "wrongContentSchemaAdmitted": true,
+        "wrongContentTupleMatches": false,
+        "wrongKindSchemaAdmitted": false,
+        "missingPathSchemaAdmitted": false
+      }
+    },
+    {
+      "label": "unchanged_consumer",
+      "packed": {
+        "kind": "product_verification_artifact_resource",
+        "schemaVersion": "5.0.0",
+        "artifactPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "artifact": {
+          "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+          "digest": "sha256:23e50f93533be202b3faaf499631471a5876a278de3dfeaa761439ab496ce6d6"
+        },
+        "productContent": {
+          "ref": "product-content://abi5-tests/98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c",
+          "digest": "sha256:98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c"
+        },
+        "descriptor": {
+          "ref": "descriptor://abi5-tests/sandbox-uat/consumer@5",
+          "digest": "sha256:703490cd7a8639f9fcfa52302ba4e1ae5def9e36d29525132038f6a2ea6047d1"
+        },
+        "contributionManifest": {
+          "ref": "contribution-manifest://abi5-tests/sandbox-uat/consumer@5",
+          "digest": "sha256:e0b38e89be4512ec819c1f30d85fd07541e18c592058a5db8fa1235653afeec6"
+        },
+        "manifestDigest": "sha256:1a9e17b7c47b0d2b0904a7cd017df5e888acdbf57186656641e434054dde9bea",
+        "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+        "packageName": "@abi5-tests/sandbox-uat",
+        "packageVersion": "5.0.0"
+      },
+      "recordedRequestRef": "invocation://abiogenesis/225366fb67eee7e120dc6e081992d6a40e71dec9c786d70bb289829efc926286",
+      "recordedRequestDigest": "sha256:4becd7c50575390d0ed0fdfad1f5d9ddfe6cf8d0b01a1c92e51422f80e3e2924",
+      "positiveSchema": "admitted",
+      "positiveTuple": true,
+      "original167": {
+        "kind": "packed_product_artifact",
+        "productContent": {
+          "ref": "product://abi5-tests/sandbox-uat@5.0.0",
+          "digest": "sha256:98fa62fa9a643d42ca87472ae872ee70a1412c678a2372bde089ee0f2840953c"
+        },
+        "artifactPathPresent": false,
+        "schemaAdmitted": false,
+        "tupleMatches": false
+      },
+      "isolatedNegatives": {
+        "wrongContentSchemaAdmitted": true,
+        "wrongContentTupleMatches": false,
+        "wrongKindSchemaAdmitted": false,
+        "missingPathSchemaAdmitted": false
+      }
+    }
+  ],
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/verification_definition_bindings.js",
+    "sha256": "cb7423a83cc2d672ece3a1fbcfe627b0c8223882438bd2ecdcb362a8893aa46f",
+    "byteCount": 15139,
+    "schemaExcerptSha256": "c952ab6f4d803abae773ce1e1b9b36494cc5639a9baa05e95d92c28ce8a73cc4",
+    "matcherExcerptSha256": "86d8f38cb244938ace6efb617c02e52bfe390b264366e4f78b3e7ab4ca3d9421"
+  },
+  "positivePremise": "Exact frozen164 native/consumer request and acquisition values; authentic origin is retained/pinned, not newly verified or admitted here.",
+  "schemaPremise": "Unchanged installed private schema/matcher bytes evaluated in memory with the installed Valibot and canonical schema leaves. This is pure contract instrumentation, not complete owner-operation execution or nominal authentication.",
+  "staticOrder": "Correspondence before acquisition; actual stage execution remains unproved.",
+  "unchangedHelpers": true,
+  "limits": "No archive verification, event/resource acquisition or read/hash, Public verification/resolution/install/bind, new nominal receipt/admission/currentness, stockheap large-history, native/model/app or UAT proof. Actual future execution must preserve live verified object identity and use genuine held-prefix owner projections."
+}

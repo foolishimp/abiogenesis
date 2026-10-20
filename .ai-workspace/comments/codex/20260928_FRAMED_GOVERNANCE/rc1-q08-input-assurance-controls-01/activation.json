@@ -1,0 +1,13 @@
+{
+  "operation": "T287_Q08_INPUT_ASSURANCE_GRANT_01",
+  "actor": "/root",
+  "role": "Writer",
+  "previousRole": "Executive",
+  "activatedAt": "2026-10-02T07:25:30.470055+00:00",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-assurance-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "grant": "Record exact CLOSED current input delivery/read-only completeness and separately activate focused independent Reviewer; no input selfacceptance or Runtime/candidate effect"
+}

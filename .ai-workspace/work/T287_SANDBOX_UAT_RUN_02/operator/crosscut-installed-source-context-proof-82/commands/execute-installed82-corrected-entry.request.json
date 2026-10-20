@@ -1,0 +1,16 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--input-type=module",
+    "--eval",
+    "import {pathToFileURL} from 'node:url'; const {execute}=await import(pathToFileURL(process.argv[2])); console.log(JSON.stringify(await execute(process.argv[1])));",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82",
+  "started": "2026-10-08T07:43:55.070Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000
+}

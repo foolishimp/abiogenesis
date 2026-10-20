@@ -1,0 +1,364 @@
+{
+  "status": "CLOSED_READ_ONLY",
+  "modelEffort": "astra/xhigh",
+  "subject": "js-sdlc-bootstrap only, core18/dev8 historical closed Run",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/requirements-failure-review-01/review.md",
+      "sha256": "203b726b134f626fc6dae2115657b1cc9b86c1bde95caa6150a611c6aa72b514",
+      "bytes": 7702
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/closed-outcome.json",
+      "sha256": "f82b401b94697bb48b02cacdea356115b2bce6bcc5de0ba5f401a11f42b92a11",
+      "bytes": 9685
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/prepared.json",
+      "sha256": "8a8dc8d3bdc2be4e88e013e9eda8d3d0a897e50149e7b10e854225e005e09159",
+      "bytes": 8231
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/ordinary-input.json",
+      "sha256": "cf67b040b7e8b56e1b33cde65ba3f7435ac8f459ebb960d8d4fb820e9b87bc08",
+      "bytes": 12834
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/full-result-proof.json",
+      "sha256": "86fa2e1c44182a9a85ada2731819a8de513bad80a9cee5e81af0c64a9e996fed",
+      "bytes": 3360
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/public-readback.json",
+      "sha256": "a5d7c6b0720681154b8be3877102b14ebca289fe86ac35c12aaf04afde6814ad",
+      "bytes": 1737
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/live-receipt.json",
+      "sha256": "06e63cc4ec5ff7e385fcc0df8812301239e5dc7238a38c0f62ca197a446f1dba",
+      "bytes": 4941736
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/read-run_result.json",
+      "sha256": "64910995081e4c34f2edd9ffa9e4b345c95cb14f5c45025215bb349b8fe17eb9",
+      "bytes": 2744
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/read-run_replay.json",
+      "sha256": "225856776ce4c957d78aebf250d51727f37e2bf0f58bc2cb2b71765070b0c362",
+      "bytes": 3709
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/archives/fp-139ecec43a6105a1-prompt.txt",
+      "sha256": "e2df428cf14539a1b2a23a8f38da25e09147c5d8ce05062d5283c06bd52f2222",
+      "bytes": 104648
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/archives/fp-139ecec43a6105a1-transport.json",
+      "sha256": "8b379a4fe4be26f1f75a0d00b1e20224a371a1b6f086bdb254c188b959927691",
+      "bytes": 1313630
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/archives/fp-3e6cd7ba47a0a5f2-prompt.txt",
+      "sha256": "f9d0078fdf7b2f606aab71ce4c8337ea638144a268e1dd14b3f50e11619874fb",
+      "bytes": 107927
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/archives/fp-3e6cd7ba47a0a5f2-transport.json",
+      "sha256": "1188c4bc55540b5e7b5d25328d25a4bf967de55badae1ea7f2e8119389ae8df5",
+      "bytes": 1696296
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/archives/fp-fa71974e9d9722cc-prompt.txt",
+      "sha256": "c26aa345100716afeba0b6226844d9363dc499562166909ec583e792eb7340d5",
+      "bytes": 101844
+    }
+  ],
+  "run": {
+    "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad",
+    "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e"
+  },
+  "invocation": "invocation://abiogenesis/c7ebc84de644092774e5cac000c1dcddd389d982d3ee932b240c9ff4ac96eb8b",
+  "invocationAdmission": {
+    "digest": "sha256:77ce7846d226fcbc6210d4f512ac34bcd1f73eace60718adb00d5461dd50769b",
+    "ref": "invocation-admission://abiogenesis/77ce7846d226fcbc6210d4f512ac34bcd1f73eace60718adb00d5461dd50769b"
+  },
+  "rootGraphCall": {
+    "digest": "sha256:bd00c09d90617c2419a45fc0b8c2fcccbb25945cf15ad4c498909644eea75ec6",
+    "ref": "graph-call://abiogenesis/bce558418ba305454ce297ef0d9528849591bf5b02c38b61fe40dda11dbeb9de"
+  },
+  "productExecutionResolution": {
+    "digest": "sha256:81a982ca76e318034c558059cd501404355d0f0e19624a651fca61c95fea4620",
+    "ref": "product-execution-resolution://abiogenesis/81a982ca76e318034c558059cd501404355d0f0e19624a651fca61c95fea4620"
+  },
+  "job": {
+    "kind": "semantic_job_input",
+    "lifecycleRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+    "recordedInputDigest": "sha256:5b642eaceb26413bef4f6abe7121a17f7d6d1da5488a26ab9856a8e1f8ac40c6",
+    "originalInput": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/ordinary-input.json",
+      "sha256": "cf67b040b7e8b56e1b33cde65ba3f7435ac8f459ebb960d8d4fb820e9b87bc08",
+      "bytes": 12834
+    },
+    "originalSource": {
+      "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+      "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+      "startByte": 15571,
+      "endByte": 21691,
+      "selectedDigest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4"
+    },
+    "sourceMembers": [
+      {
+        "memberRef": "urn:sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "path": "original-js-sdlc-bootstrap-declaration.txt",
+        "sourceLocator": "repo://odd_glc/build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs#bytes=15571-21691"
+      }
+    ],
+    "protectedSourceRubricOracle": [
+      {
+        "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/original-js-sdlc-bootstrap-declaration.txt",
+        "sha256": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "currentSha256": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "unchanged": true
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/semantic-assets/lifecycle-rubric.json",
+        "sha256": "sha256:c77a38d684dde09c38197415796c9594c900278dcc047abf8744c07f382a0edf",
+        "currentSha256": "sha256:c77a38d684dde09c38197415796c9594c900278dcc047abf8744c07f382a0edf",
+        "unchanged": true
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-sdlc-bootstrap.oracle.json",
+        "sha256": "sha256:a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+        "unchanged": true
+      }
+    ],
+    "lifecycle": {
+      "declarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+      "declarationDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+      "stageRefs": [
+        "stage://odd-glc/generic-lifecycle/intent@5",
+        "stage://odd-glc/generic-lifecycle/product@5",
+        "stage://odd-glc/generic-lifecycle/requirements@5",
+        "stage://odd-glc/generic-lifecycle/design@5",
+        "stage://odd-glc/generic-lifecycle/evidence@5"
+      ],
+      "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+      "programDigest": "sha256:dbd93bf34f8ce3ffd9332cb0a436bf31a7e465437a2fae20b9c13b7b2021909c",
+      "actorLeafCount": 3
+    },
+    "semanticJobRef": null,
+    "rootExecutionBasisRef": null,
+    "identityLimit": "Exact semantic-job/root execution coordinates are not supplied by these compact retained records; no formula or borrowed root used."
+  },
+  "advancingProduct": {
+    "stageRef": "stage://odd-glc/generic-lifecycle/product@5",
+    "asset": {
+      "assetRef": "semantic-job-asset://abiogenesis/0f5e3bf0a1e555a1b418b15cc3236ff76dffedbf8c5378b6cf01c39caaa16560",
+      "digest": "sha256:37cd402698f52fd722a6f00b20566e03c8037daeef7ce10fb5f53744c26fec9a",
+      "path": "semantic-assets/stage-1.json"
+    },
+    "nativeAuthor": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/6fe99dd7be844ebb1116231176c02aee260c55806aa0d6ce6d4d0d1ad9da2a00",
+      "cCallRef": "c-call:sha256:01234bbf90c7de9d580e9760c299eebe552bd70a545676057d127ab9488f02ca",
+      "resultDigest": "sha256:7a0fc650b839da9ab1fa89252514f64637674e1732dd661afc4f58be11a93d88",
+      "resultRef": "native-work-observation://abiogenesis/7a0fc650b839da9ab1fa89252514f64637674e1732dd661afc4f58be11a93d88"
+    },
+    "assessmentSource": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/archives/fp-139ecec43a6105a1-transport.json",
+      "sha256": "8b379a4fe4be26f1f75a0d00b1e20224a371a1b6f086bdb254c188b959927691",
+      "bytes": 1313630
+    },
+    "assessmentFinalOutputUtf8Sha256": "99f2e447c351dcea923a93fd7cec89cfe3601e21710a67e06207246b7bcb2f1d",
+    "criteria": [
+      {
+        "criterionRef": "criterion://odd-glc/generic-lifecycle/product/source-faithfulness@5",
+        "disposition": "satisfied"
+      },
+      {
+        "criterionRef": "criterion://odd-glc/generic-lifecycle/product/modality-and-conflicts@5",
+        "disposition": "satisfied"
+      },
+      {
+        "criterionRef": "criterion://odd-glc/generic-lifecycle/product/obligation-conservation@5",
+        "disposition": "satisfied"
+      },
+      {
+        "criterionRef": "criterion://odd-glc/generic-lifecycle/product/bounded-claim@5",
+        "disposition": "satisfied"
+      }
+    ],
+    "nativeContractVerification": {
+      "disposition": "admitted",
+      "inputDigest": "sha256:441ef5d4f5d906cd662558becb3706806eba7852579a44b2b630375ad6003469",
+      "kind": "native_worker_result_assessment",
+      "rawOutputDigest": "sha256:99f2e447c351dcea923a93fd7cec89cfe3601e21710a67e06207246b7bcb2f1d",
+      "resultContractRef": "contract://abiogenesis/semantic-stage/native-assessment@5",
+      "schemaVersion": "5.0.0",
+      "verification": {
+        "contractCapabilityBasis": {
+          "implementationSetDigest": "sha256:c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+          "implementationSetRef": "implementation-set://abiogenesis/c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+          "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e/b884445d603cb1da8235fb86abf094830f98e1f4d2148e3a9484e2186b5dc688",
+          "publicationDigest": "sha256:4494f6d87acee18d5d090ca1d064b3c0748de78ca97cb380326b591d8696987a"
+        },
+        "implementationRef": "implementation://abiogenesis/worksite/native-work-fp@5",
+        "implementationResolutionDigest": "sha256:ffe2268d82b3ff0f7a9dd53ee52108fca8ad3d334e0444ae6af23d0eed556d56",
+        "inputContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+        "inputDigest": "sha256:441ef5d4f5d906cd662558becb3706806eba7852579a44b2b630375ad6003469",
+        "instructionContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+        "kind": "verified_probabilistic_result_contract_preimage",
+        "rawResultContractRef": "contract://abiogenesis/semantic-stage/native-assessment@5",
+        "rawResultDigest": "sha256:f744d278a12d191c98b34af55507949d855cb185e3afe900203a33271b2d1515",
+        "schemaVersion": "5.0.0",
+        "targetOutputContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+        "verificationDigest": "sha256:0f7d33e8a63b8b1b0537446540de339cfb3caa92a27db01349449e1dab5daafd",
+        "verificationRef": "probabilistic-result-contract-preimage://abiogenesis/0f7d33e8a63b8b1b0537446540de339cfb3caa92a27db01349449e1dab5daafd"
+      }
+    },
+    "evidenceScope": "Product is carried as a current predecessor in the later actual Requirements task; these prompt/actor records are not the complete semantic parent Result/admission/J packet.",
+    "semanticParentLeafCoordinate": null
+  },
+  "rejectedRequirements": {
+    "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5",
+    "candidate": {
+      "digest": "sha256:bb93b54aed07ea9c68a91d1aa152b80f972d08ee4523ffc0421cc68b0d7d5fc1",
+      "path": "semantic-assets/stage-2.json"
+    },
+    "semanticAssetRef": "semantic-job-asset://abiogenesis/cef9896fada84d3af037487b939add61a1baa9f8a624e1d0f1d33ff890792cf7",
+    "nativeAuthor": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/1b9142afee8272265a03b97ff92419d4874fbff86b6cd50d54a8cf4ba9a525a0",
+      "cCallRef": "c-call:sha256:cc25406267142b36bb4ad9f26808404fb5a7ecbfc3509ff76e0c77d8da4e75cb",
+      "resultDigest": "sha256:0ac32f8bc2703a34f98e574de8a23c0824919184f7198af823f4e8ae25a3a7fa",
+      "resultRef": "native-work-observation://abiogenesis/0ac32f8bc2703a34f98e574de8a23c0824919184f7198af823f4e8ae25a3a7fa"
+    },
+    "assessmentContract": {
+      "contractKind": "output",
+      "contractRef": "contract://abiogenesis/semantic-stage/native-assessment@5",
+      "contractVersion": "5.0.0",
+      "valueKind": "semantic_stage_assessment_candidate"
+    },
+    "assessmentSource": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/archives/fp-3e6cd7ba47a0a5f2-transport.json",
+      "sha256": "1188c4bc55540b5e7b5d25328d25a4bf967de55badae1ea7f2e8119389ae8df5",
+      "bytes": 1696296
+    },
+    "assessmentFinalOutputUtf8Sha256": "71385914230cfe6265897d59654f96a6355ff53f297d9f76db10cac2c2c7eb02",
+    "criteria": [
+      {
+        "criterionRef": "criterion://odd-glc/generic-lifecycle/requirements/source-faithfulness@5",
+        "disposition": "falsified"
+      },
+      {
+        "criterionRef": "criterion://odd-glc/generic-lifecycle/requirements/modality-and-conflicts@5",
+        "disposition": "satisfied"
+      },
+      {
+        "criterionRef": "criterion://odd-glc/generic-lifecycle/requirements/obligation-conservation@5",
+        "disposition": "falsified"
+      },
+      {
+        "criterionRef": "criterion://odd-glc/generic-lifecycle/requirements/bounded-claim@5",
+        "disposition": "satisfied"
+      }
+    ],
+    "nativeContractVerification": {
+      "disposition": "admitted",
+      "inputDigest": "sha256:366738e361b36987f8cef7f228aea12f88a534b2a434fa0ab1fdd624630db10d",
+      "kind": "native_worker_result_assessment",
+      "rawOutputDigest": "sha256:71385914230cfe6265897d59654f96a6355ff53f297d9f76db10cac2c2c7eb02",
+      "resultContractRef": "contract://abiogenesis/semantic-stage/native-assessment@5",
+      "schemaVersion": "5.0.0",
+      "verification": {
+        "contractCapabilityBasis": {
+          "implementationSetDigest": "sha256:c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+          "implementationSetRef": "implementation-set://abiogenesis/c8dc11c67b38649d0968add70c7d14f3825847035218e568e37586a2aa05a6c5",
+          "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e/b884445d603cb1da8235fb86abf094830f98e1f4d2148e3a9484e2186b5dc688",
+          "publicationDigest": "sha256:4494f6d87acee18d5d090ca1d064b3c0748de78ca97cb380326b591d8696987a"
+        },
+        "implementationRef": "implementation://abiogenesis/worksite/native-work-fp@5",
+        "implementationResolutionDigest": "sha256:ffe2268d82b3ff0f7a9dd53ee52108fca8ad3d334e0444ae6af23d0eed556d56",
+        "inputContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+        "inputDigest": "sha256:366738e361b36987f8cef7f228aea12f88a534b2a434fa0ab1fdd624630db10d",
+        "instructionContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+        "kind": "verified_probabilistic_result_contract_preimage",
+        "rawResultContractRef": "contract://abiogenesis/semantic-stage/native-assessment@5",
+        "rawResultDigest": "sha256:b613f3b9c94ef56bbcfa5feaafe29b2797beff7b5d754503d6133f5deb1c354c",
+        "schemaVersion": "5.0.0",
+        "targetOutputContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+        "verificationDigest": "sha256:7ac224ee193c6072391178bd5db163516241caeec245625a95b98e71cf76727b",
+        "verificationRef": "probabilistic-result-contract-preimage://abiogenesis/7ac224ee193c6072391178bd5db163516241caeec245625a95b98e71cf76727b"
+      }
+    },
+    "semanticAssessorLeafCoordinate": null,
+    "acceptedReviewDisposition": {
+      "valid": [
+        "typed per-outcome return observation weakened to passing assertions",
+        "directed source-to-design-to-construction authority weakened to mutual consistency"
+      ],
+      "unsupported": "shared run identity alone violates evidence-role independence"
+    },
+    "neverPromotedAsSatisfied": true
+  },
+  "terminal": {
+    "stop": {
+      "digest": "sha256:35062961e3693a56027519524c532e1d5ff82edeee7d6bd07ef85f91cd76ae02",
+      "ref": "event://abiogenesis/4a5a68b3022525e6cb33f7d03b04ed51834b0f8f5253488db7482306abdead63"
+    },
+    "close": {
+      "coordinateDigest": "sha256:0db32d448006dbd43d3a303eea9648002798fa1bca8e5e1c4bec5a733433a7d1",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:0bf8b684c95e256f9daa40c25abaa0a9d945a974b12d6a93d572b8a9bcc7e2e9",
+      "prefixLength": 104482827,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    },
+    "freshResult": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "not_found",
+        "evidenceRefs": [],
+        "issuePaths": []
+      }
+    },
+    "freshReplay": {
+      "caseKey": "run_replay",
+      "projection": {
+        "fromOrdinal": 0,
+        "kind": "run_replay_projection",
+        "limit": 100000,
+        "replay": {
+          "digest": "sha256:4ea63c4b53889d010c731d8d5bb57dc379d3bde2bbd2f320befff2186b526ed0",
+          "ref": "replay://abiogenesis/4ea63c4b53889d010c731d8d5bb57dc379d3bde2bbd2f320befff2186b526ed0"
+        },
+        "status": "blocked",
+        "subject": {
+          "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad",
+          "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e"
+        },
+        "terminalResult": null
+      },
+      "projectionBasis": {
+        "digest": "sha256:0db32d448006dbd43d3a303eea9648002798fa1bca8e5e1c4bec5a733433a7d1",
+        "ref": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl"
+      },
+      "source": {
+        "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad",
+        "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e"
+      }
+    },
+    "applicationFiles": [],
+    "commandResults": []
+  },
+  "missingOwnerAcquisition": [
+    "Original semantic-job root execution basis and exact advancing Product semantic-envelope leaf CCall/result/result-admission/J packet.",
+    "Exact rejected Requirements assessment/fold leaf CCall/result/result-admission/J packet, including its explicit link to the same original job/root and Product parent.",
+    "Current physical source/asset observations and the eventual declared preconstruction correction selection."
+  ],
+  "limits": "No journal, request-envelope expansion, runtime owner read, new admission, tests, implementation, package, Git or actor. No failed workflow terminal Result was treated as a leaf."
+}

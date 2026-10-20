@@ -1,0 +1,15 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
+const base='file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/';
+const [p,contracts]=await Promise.all([import(base+'product/invocation.js'),import(base+'abg/project_read_operation_contracts.js')]);
+const selected=JSON.parse(readFileSync(new URL('../../bootstrap-preparation-03/selection.json',import.meta.url),'utf8'));
+const bytes=readFileSync(selected.producerReadbackBasis), old=JSON.parse(bytes).environment;
+const packet=contracts.ABG_PROJECT_READ_CONTRACTS.run_status;
+const basis={admittedInstalls:old.productInstalls,workspaceBinding:old.workspaceBinding,fixedPacket:packet};
+const grants=packet.metadata.capabilityRefs.map(capability=>p.constructCapabilityGrant(old.workspaceAuthorityBasis,old.workspaceBinding.authorizedActorRef,packet.definitionKey.operationId,capability,basis));
+const valid=grants.map((grant,i)=>p.validateCapabilityGrantForProductBasis(grant,old.workspaceAuthorityBasis,old.workspaceBinding.authorizedActorRef,packet.metadata.capabilityRefs[i],basis));
+const result={scope:'One pure read-permission constructor check over retained ordinary W0 environment; no event acquisition, Public invocation, witness construction or actor.',packet:packet.definitionKey,sourceReadback:{path:selected.producerReadbackBasis,sha256:createHash('sha256').update(bytes).digest('hex')},permissionBinding:{ref:old.workspaceBinding.bindingId,digest:old.workspaceBinding.bindingDigest},actorSlot:null,grantCount:grants.length,allGrantValidationPassed:valid.every(Boolean),validation:valid,readAuthorityProductSet:old.productInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})),dependencyLock:{ref:old.resolvedProductLock.lockId,digest:old.resolvedProductLock.lockDigest},limit:'Constructibility only. The unchanged read owner separately authenticates these retained facts against its selected prefix and source Run. W1 cannot substitute for W0 read permission.'};
+if(!result.allGrantValidationPassed)throw new Error('historical W0 read grant construction failed');
+writeFileSync(new URL('./read-permission-probe.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result,null,2));

@@ -1,0 +1,68 @@
+{
+  "scope": "Pure Product successor plus exact frozen component renderer; not installed or admitted authority",
+  "assumptions": "Existing retained request/acquisition/selection-coordinate and worksite premises; authentication/currentness/role evidence supplied exactly as the frozen component test. Future runtime coordinates are not claimed.",
+  "instrumentation": "Single observation immediately before unchanged prompt bound guard",
+  "parentInputDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185",
+  "componentSuccessorDigest": "sha256:41ce3d8a3ae590078ba813071868a56cfc23611043c8109129b88769f9e2aacf",
+  "oldPromptBytes": 937078,
+  "successorPromptBytes": 1162088,
+  "boundBytes": 1048576,
+  "overBoundBytes": 113512,
+  "priorHistoryBytes": 239391,
+  "successorHistoryBytes": 393905,
+  "newlyRetainedHistory": [
+    {
+      "assetRef": "semantic-job-asset://abiogenesis/7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+      "assetDigest": "sha256:7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+      "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5",
+      "bytes": 154513,
+      "assessment": "satisfied"
+    }
+  ],
+  "sections": {
+    "role": {
+      "oldBytes": 113242,
+      "successorBytes": 113242
+    },
+    "source": {
+      "oldBytes": 6709,
+      "successorBytes": 6709
+    },
+    "obligations": {
+      "oldBytes": 126599,
+      "successorBytes": 156072
+    },
+    "predecessors": {
+      "oldBytes": 176985,
+      "successorBytes": 176985
+    },
+    "worksite": {
+      "oldBytes": 225506,
+      "successorBytes": 225506
+    },
+    "evidence": {
+      "oldBytes": 349,
+      "successorBytes": 349
+    },
+    "task": {
+      "oldBytes": 274656,
+      "successorBytes": 470193
+    },
+    "response": {
+      "oldBytes": 12925,
+      "successorBytes": 12925
+    }
+  },
+  "result": {
+    "kind": "native_instruction_assembly_refusal",
+    "cause": "declared_bound_overflow",
+    "policy": "assembly://odd-glc/generic-lifecycle/design@5",
+    "role": "author",
+    "unresolvedRefs": [
+      "maxPromptBytes"
+    ]
+  },
+  "acceptedAssetsUnchanged": true,
+  "allHistoricalAssetsRetained": true,
+  "sourceJobUnchanged": true
+}

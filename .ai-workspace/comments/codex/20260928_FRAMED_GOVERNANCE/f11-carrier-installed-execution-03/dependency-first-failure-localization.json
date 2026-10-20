@@ -1,0 +1,102 @@
+{
+  "kind": "readonly_first_dependency_metadata_relation_localization",
+  "firstFailure": {
+    "owner": "ProductEnvironmentPort.resolve",
+    "resultKind": "environment_refusal",
+    "code": "incompatible_dependency",
+    "message": "invalid package-owned declaration metadata evidence"
+  },
+  "fixtureIdentity": {
+    "artifactDigest": "sha256:943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+    "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+    "manifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f",
+    "productId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+    "packageName": "@abiogenesis-fixtures/f11-carrier-child",
+    "packageVersion": "5.0.0"
+  },
+  "nativeMetadataChecks": {
+    "allMetadataPathsNormalized": true,
+    "allMetadataPathsUnique": true,
+    "allMetadataByteDigestsValid": true,
+    "allMetadataJSONTypeValid": true,
+    "rootNameTypeMatchesEvidence": true,
+    "rootBundledCoreMetadataPresent": true,
+    "fixtureNativeTypedSources": 0,
+    "fixtureNativeContractClosures": 0
+  },
+  "firstMissingRelation": {
+    "ownerPackage": "@abiogenesis-fixtures/f11-carrier-child",
+    "declaredBundledPackage": "@abiogenesis/typescript-tenant",
+    "bundledPackageMetadataPath": "node_modules/@abiogenesis/typescript-tenant/package.json",
+    "bundledPackageMetadataDigest": "sha256:b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396",
+    "requiredDependency": "@valibot/to-json-schema",
+    "metadataPathRequiredByLinker": "node_modules/@valibot/to-json-schema/package.json",
+    "requiredMetadataPresent": false,
+    "actualNestedMetadataPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/@valibot/to-json-schema/package.json",
+    "actualNestedMetadataPresent": true,
+    "actualNestedMetadataDigest": "sha256:5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+    "exactRelation": "packageDeclarationBasis requires each bundled package dependency at containing Product root/node_modules; complete nested C03 pure-guard supplier retains its own node_modules subtree",
+    "missingFlatRequiredDependencies": [
+      {
+        "dependency": "@valibot/to-json-schema",
+        "requiredPath": "node_modules/@valibot/to-json-schema/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/@valibot/to-json-schema/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "effect",
+        "requiredPath": "node_modules/effect/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "jsonc-parser",
+        "requiredPath": "node_modules/jsonc-parser/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/jsonc-parser/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "valibot",
+        "requiredPath": "node_modules/valibot/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/valibot/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "ajv",
+        "requiredPath": "node_modules/ajv/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/ajv/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "ajv-formats",
+        "requiredPath": "node_modules/ajv-formats/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/ajv-formats/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      }
+    ]
+  },
+  "ownerSources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "bytes": 112700,
+      "sha256": "f52f076cdb5594f900cec37ad68aeef87bbdccc710c0e2c9ec21fff66886dba9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/declaration_exports.js",
+      "bytes": 102102,
+      "sha256": "e904eacfb1a433a8989127623baebe8e7ab13c1b661d86212d3ed421d7253074"
+    }
+  ],
+  "notEstablished": [
+    "whether selected Product law requires nested guard packaging shape",
+    "whether smallest lawful fix is supplier packaging or native metadata resolver",
+    "any defect in admitted native carrier/J/consumer behavior"
+  ],
+  "newRuntimeCallsForLocalization": 0
+}

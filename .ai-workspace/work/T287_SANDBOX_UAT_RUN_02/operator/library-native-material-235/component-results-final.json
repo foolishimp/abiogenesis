@@ -1,0 +1,91 @@
+{
+  "checks": [
+    {
+      "label": "components-material-02",
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/commands/components-material-02.result.json",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 2242.6870839999997,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "counts": [
+        "# tests 21",
+        "# pass 14",
+        "# fail 0",
+        "# skipped 7",
+        "# duration_ms 2216.797875"
+      ],
+      "metrics": []
+    },
+    {
+      "label": "components-core-15",
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/commands/components-core-15.result.json",
+      "exitCode": 1,
+      "signal": null,
+      "wallMs": 17291.509875,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "counts": [
+        "# tests 48",
+        "# pass 36",
+        "# fail 3",
+        "# skipped 9",
+        "# duration_ms 17264.394875"
+      ],
+      "metrics": [
+        "# {\"kind\":\"native_c2_material_correspondence_component\",\"correspondence\":{\"assembly\":{\"old\":{\"digest\":\"sha256:bcbd1a3591fca043aafe2e7ff95ba9f80d57497781e7a890c2a87e76d6621161\",\"canonicalBytes\":54952},\"current\":{\"digest\":\"sha256:bcbd1a3591fca043aafe2e7ff95ba9f80d57497781e7a890c2a87e76d6621161\",\"canonicalBytes\":54952}},\"request\":{\"old\":{\"digest\":\"sha256:023e8634a2862be45e0a9fd0cfda908239b6dd35dca16380a1004afe26c94e2d\",\"canonicalBytes\":5625},\"current\":{\"digest\":\"sha256:023e8634a2862be45e0a9fd0cfda908239b6dd35dca16380a1004afe26c94e2d\",\"canonicalBytes\":5625}},\"prompt\":{\"old\":{\"digest\":\"sha256:5305bb2895c3122634686e079fa99df9231e107d5825af60df8c883345aae048\",\"canonicalBytes\":4042},\"current\":{\"digest\":\"sha256:5305bb2895c3122634686e079fa99df9231e107d5825af60df8c883345aae048\",\"canonicalBytes\":4042}},\"schema\":{\"old\":{\"digest\":\"sha256:73749a1c0718159976d6953e86573dff6941bbadb96b57d4c982edb742ba1c23\",\"canonicalBytes\":816},\"current\":{\"digest\":\"sha256:73749a1c0718159976d6953e86573dff6941bbadb96b57d4c982edb742ba1c23\",\"canonicalBytes\":816}},\"plan\":{\"old\":{\"digest\":\"sha256:edbfdc72c5dea435b0be8a99fc109bceabfcfc150f28828e38d8ca97cc62d32e\",\"canonicalBytes\":1529},\"current\":{\"digest\":\"sha256:edbfdc72c5dea435b0be8a99fc109bceabfcfc150f28828e38d8ca97cc62d32e\",\"canonicalBytes\":1529}}},\"renderedPrompt\":{\"utf8Bytes\":3800,\"sha256\":\"1c0b9a5e7c0c0ae5f23d7cf50e02d20a4a22186149427d6f66f0b1d847cec810\"},\"nativeAdmission\":false,\"lowerAuthentication\":\"controlled; Product task/context/prompt/schema owners execute\"}"
+      ]
+    },
+    {
+      "label": "components-affected-15-06",
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/commands/components-affected-15-06.result.json",
+      "exitCode": 1,
+      "signal": null,
+      "wallMs": 12136.816583,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "counts": [
+        "# tests 20",
+        "# pass 16",
+        "# fail 2",
+        "# skipped 2",
+        "# duration_ms 12107.902"
+      ],
+      "metrics": []
+    },
+    {
+      "label": "components-affected-15-07",
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/commands/components-affected-15-07.result.json",
+      "exitCode": 1,
+      "signal": null,
+      "wallMs": 4060.464292,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "counts": [
+        "# tests 2",
+        "# pass 1",
+        "# fail 1",
+        "# skipped 0",
+        "# duration_ms 4031.305459"
+      ],
+      "metrics": [
+        "# {\"kind\":\"native_definition_storage_component\",\"logicalEventCount\":6,\"definitionBytes\":145292,\"encodedBytes\":340434,\"rawBytes\":667388,\"savedBytes\":326954,\"rawV1V2AndExactLogicalDigests\":true,\"nativeAdmission\":false}"
+      ]
+    }
+  ],
+  "remainingCause": {
+    "receipt": "commands/components-affected-15-07.result.json",
+    "capturedTest": "test-postimages-07/test_env/tests/t287-native-worksite-execution.test.mjs",
+    "line": 190,
+    "aggregateType": "frame",
+    "aggregateId": "frame://selected-task",
+    "scopeFrameId": "frame://selected-native",
+    "basisId": "execution-basis://selected-task",
+    "diagnostic": "runtime event aggregate identity differs from its scope identity",
+    "meaning": "Controlled event-fixture construction failure before Source projection. Actual finite237 native Source and scoped selector-work proof required; no further guessed setup or retries."
+  }
+}

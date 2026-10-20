@@ -1,0 +1,5 @@
+{
+  "code": 1,
+  "signal": null,
+  "message": "Command failed: /opt/homebrew/Cellar/node/24.7.0/bin/node /var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js --jsonl /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_result.jsonl\n"
+}

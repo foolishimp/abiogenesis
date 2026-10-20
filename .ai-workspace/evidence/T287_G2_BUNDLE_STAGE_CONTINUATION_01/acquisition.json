@@ -1,0 +1,18 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "elapsedMs": 1917.455917224288,
+  "userCPUSeconds": 0.555804,
+  "systemCPUSeconds": 1.18874,
+  "peakRSSPlatformBytes": 156663808,
+  "dependencyPhysicalFiles": 4576,
+  "dependencyBytes": 58291040,
+  "inputFiles": 272,
+  "emittedFiles": 544,
+  "borrowedNode": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "HOMEUnchanged": true,
+  "defaultHeap": true
+}

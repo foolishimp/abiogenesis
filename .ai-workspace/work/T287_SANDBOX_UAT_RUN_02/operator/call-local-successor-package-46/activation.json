@@ -1,0 +1,22 @@
+{
+  "role": "Worker46 immutable unpublished candidate17 construction",
+  "rootClosedSource45GO": true,
+  "rootClosedProof45GO": true,
+  "method": "STDO2.5.1RC2/fixed15 ABI5 GOAL035/T287",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "classification": "deterministic immutable package construction",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-transient-views-repair-45/freeze.json",
+    "sha256": "4f7d07843a1605397c8f626264d9c0a39498ad032f74de5bdda2c5b7847758f8",
+    "byteCount": 16445
+  },
+  "effectTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-package-46"
+  ],
+  "inputs": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-package-46/inputs.json",
+  "allInputCount": 944,
+  "path": "accepted45 build -> one npm pack --ignore-scripts -> exact3 member delta -> source-blind packaged verifyProduct -> immutable freeze",
+  "retainedP0": "Installed long-run memory P0 OPEN;83 selected vectors removed and48.57MB heap reduction are bounded evidence only; no RSS/UAT/recovery/qualification claim",
+  "nativeCredit": false
+}

@@ -1,0 +1,568 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:stdo:schema:product-definition:3",
+  "title": "STDO Product Definition Overlay",
+  "description": "Layout-neutral exact STDO basis, identity, authority-location, bounded-context disambiguation, collective reference-frame basis, realization, work-carrier, bootstrap, and composition bindings for one STDO-defined product WHAT.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "kind",
+    "product",
+    "constitution",
+    "local_constitution",
+    "reference_frame_bases",
+    "what",
+    "how",
+    "ticketing",
+    "composition"
+  ],
+  "properties": {
+    "$schema": {
+      "$ref": "#/$defs/referenceUri"
+    },
+    "kind": {
+      "const": "stdo.product-definition"
+    },
+    "product": {
+      "type": "object",
+      "required": [
+        "definition_id",
+        "name",
+        "source_project",
+        "bounded_context"
+      ],
+      "properties": {
+        "definition_id": {
+          "$ref": "#/$defs/identityUri"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_project": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "bounded_context": {
+          "description": "Optional enclosing bounded context for this product WHAT. It is not an exhaustive registry of subordinate, peer, composed, tenant, user, or runtime contexts.",
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "id",
+                "definition"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/identityUri"
+                },
+                "definition": {
+                  "$ref": "#/$defs/referenceUri"
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "constitution": {
+      "type": "object",
+      "required": [
+        "stdo",
+        "additional_authorities",
+        "entrypoints",
+        "agent_bootstrap"
+      ],
+      "properties": {
+        "stdo": {
+          "$ref": "#/$defs/stdoBinding"
+        },
+        "additional_authorities": {
+          "$ref": "#/$defs/references"
+        },
+        "entrypoints": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/constitutionalEntrypoint"
+          },
+          "uniqueItems": true
+        },
+        "agent_bootstrap": {
+          "$ref": "#/$defs/agentBootstrap"
+        }
+      },
+      "additionalProperties": false
+    },
+    "local_constitution": {
+      "type": "object",
+      "required": [
+        "axioms",
+        "overrides",
+        "disambiguations"
+      ],
+      "properties": {
+        "axioms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/localAxiom"
+          },
+          "uniqueItems": true
+        },
+        "overrides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/localOverride"
+          },
+          "uniqueItems": true
+        },
+        "disambiguations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/localDisambiguation"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "reference_frame_bases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/referenceFrameBasis"
+      },
+      "uniqueItems": true
+    },
+    "what": {
+      "type": "object",
+      "required": [
+        "intent",
+        "product",
+        "specification"
+      ],
+      "properties": {
+        "intent": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "product": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "specification": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        }
+      },
+      "additionalProperties": false
+    },
+    "how": {
+      "type": "object",
+      "required": [
+        "common",
+        "build_tenants"
+      ],
+      "properties": {
+        "common": {
+          "$ref": "#/$defs/references"
+        },
+        "build_tenants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/buildTenant"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "ticketing": {
+      "type": "object",
+      "required": [
+        "goals",
+        "tickets",
+        "comments"
+      ],
+      "properties": {
+        "goals": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "tickets": {
+          "type": "object",
+          "required": [
+            "root",
+            "lanes"
+          ],
+          "properties": {
+            "root": {
+              "$ref": "#/$defs/referenceUri"
+            },
+            "lanes": {
+              "type": "object",
+              "required": [
+                "backlog",
+                "active",
+                "completed"
+              ],
+              "properties": {
+                "backlog": {
+                  "$ref": "#/$defs/referenceUri"
+                },
+                "active": {
+                  "$ref": "#/$defs/referenceUri"
+                },
+                "completed": {
+                  "$ref": "#/$defs/referenceUri"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "comments": {
+          "$ref": "#/$defs/carrierRoot"
+        },
+        "sprints": {
+          "$ref": "#/$defs/carrierRoot"
+        }
+      },
+      "additionalProperties": false
+    },
+    "composition": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/compositionEdge"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "identityUri": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1,
+      "description": "URI syntax annotation. Conformance requires an assertion-capable URI validator in addition to portable Draft 2020-12 structural validation."
+    },
+    "referenceUri": {
+      "type": "string",
+      "format": "uri-reference",
+      "minLength": 1,
+      "description": "URI-reference syntax annotation. Conformance requires an assertion-capable URI-reference validator in addition to portable Draft 2020-12 structural validation."
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/referenceUri"
+      },
+      "uniqueItems": true
+    },
+    "nonEmptyReferences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/referenceUri"
+      },
+      "uniqueItems": true
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stdoChannelUri": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/identityUri"
+        },
+        {
+          "pattern": "^stdo://channels/(?![^/]*-rc\\.)[0-9A-Za-z][0-9A-Za-z._+-]*/?$"
+        }
+      ]
+    },
+    "stdoReleaseUri": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/identityUri"
+        },
+        {
+          "pattern": "^stdo://releases/v[0-9A-Za-z][0-9A-Za-z._+-]*-rc\\.[1-9][0-9]*/?$"
+        }
+      ]
+    },
+    "stdoBinding": {
+      "type": "object",
+      "required": [
+        "source",
+        "selector",
+        "basis"
+      ],
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "repository"
+          ],
+          "properties": {
+            "repository": {
+              "$ref": "#/$defs/referenceUri",
+              "description": "Git repository carrying the selected STDO release line and immutable RC cuts."
+            }
+          },
+          "additionalProperties": false
+        },
+        "selector": {
+          "$ref": "#/$defs/stdoChannelUri",
+          "description": "Mutable version-line discovery selector carried by an annotated Git tag. It is never operative constitutional authority without digest-bound explicit resolution and adoption."
+        },
+        "basis": {
+          "type": "object",
+          "required": [
+            "uri",
+            "manifest_sha256"
+          ],
+          "properties": {
+            "uri": {
+              "$ref": "#/$defs/stdoReleaseUri",
+              "description": "Exact immutable installed STDO cut selected by this Product Definition."
+            },
+            "manifest_sha256": {
+              "$ref": "#/$defs/sha256",
+              "description": "Digest of the deterministic installed-release manifest carrying tag, commit, tree, and complete distribution identity."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "constitutionalEntrypoint": {
+      "type": "object",
+      "required": [
+        "basis",
+        "uri"
+      ],
+      "properties": {
+        "basis": {
+          "$ref": "#/$defs/referenceUri",
+          "description": "Reference to the constitutional basis against which the entrypoint URI resolves."
+        },
+        "uri": {
+          "$ref": "#/$defs/referenceUri",
+          "description": "Reading route relative to the referenced constitutional basis."
+        }
+      },
+      "additionalProperties": false
+    },
+    "agentBootstrap": {
+      "type": "object",
+      "required": [
+        "entrypoint",
+        "targets"
+      ],
+      "properties": {
+        "entrypoint": {
+          "$ref": "#/$defs/referenceUri",
+          "description": "Reference to the constitutional entrypoint loaded by the stable agent bootstrap."
+        },
+        "targets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/bootstrapTarget"
+          },
+          "uniqueItems": true,
+          "description": "Instruction files, resolved relative to product.source_project, whose marker-bounded STDO bootstrap projection is managed by the toolchain manager."
+        }
+      },
+      "additionalProperties": false
+    },
+    "bootstrapTarget": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/referenceUri"
+        },
+        {
+          "pattern": "^(?![A-Za-z][A-Za-z0-9+.-]*:)(?!//)(?!/)(?!\\.\\.(?:/|$))(?!.*\\/\\.\\.(?:\\/|$))[^?#\\\\]+$"
+        }
+      ],
+      "description": "Portable relative file reference confined to the resolved product.source_project. Absolute paths, authorities, parent traversal, queries, fragments, backslashes, symlinks, and reparse points are refused by manager conformance."
+    },
+    "carrierRoot": {
+      "type": "object",
+      "required": [
+        "root"
+      ],
+      "properties": {
+        "root": {
+          "$ref": "#/$defs/referenceUri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "localAxiom": {
+      "type": "object",
+      "required": [
+        "uri",
+        "authority",
+        "applies_to"
+      ],
+      "properties": {
+        "uri": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "authority": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        }
+      },
+      "additionalProperties": false
+    },
+    "localOverride": {
+      "type": "object",
+      "required": [
+        "uri",
+        "overrides",
+        "authority",
+        "applies_to"
+      ],
+      "properties": {
+        "uri": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "overrides": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        },
+        "authority": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        }
+      },
+      "additionalProperties": false
+    },
+    "localDisambiguation": {
+      "type": "object",
+      "required": [
+        "uri",
+        "term",
+        "context",
+        "disambiguates",
+        "resolves_to",
+        "authority",
+        "basis",
+        "applies_to"
+      ],
+      "properties": {
+        "uri": {
+          "$ref": "#/$defs/referenceUri",
+          "description": "Resolution-carrier locator. For cross-context resolution, the carrier declares the complete authorized import, translation, equivalence, or disambiguation relation."
+        },
+        "term": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Exact lexical label being resolved; the label is not a context-free concept identity."
+        },
+        "context": {
+          "$ref": "#/$defs/identityUri",
+          "description": "Bounded-context identity in which the resolution applies."
+        },
+        "disambiguates": {
+          "$ref": "#/$defs/nonEmptyReferences",
+          "description": "Complete material candidate concept or clause references for the declared term, context, basis, and scope."
+        },
+        "resolves_to": {
+          "$ref": "#/$defs/referenceUri",
+          "description": "Exact concept reference selected by the owning resolution carrier. Conformance separately verifies that it is a member of disambiguates."
+        },
+        "authority": {
+          "$ref": "#/$defs/nonEmptyReferences",
+          "description": "Existing lawful authorities owning the resolution and any cross-context relation."
+        },
+        "basis": {
+          "$ref": "#/$defs/nonEmptyReferences",
+          "description": "Selected semantic bases needed to interpret the candidate concepts and resolution."
+        },
+        "applies_to": {
+          "$ref": "#/$defs/nonEmptyReferences",
+          "description": "Exact governed scopes in which the resolution applies."
+        }
+      },
+      "additionalProperties": false
+    },
+    "referenceFrameBasis": {
+      "type": "object",
+      "required": [
+        "uri",
+        "authority",
+        "applies_to"
+      ],
+      "properties": {
+        "uri": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "authority": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        }
+      },
+      "additionalProperties": false
+    },
+    "buildTenant": {
+      "type": "object",
+      "required": [
+        "id",
+        "root",
+        "design",
+        "implementation"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identityUri"
+        },
+        "root": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "design": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        },
+        "implementation": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        }
+      },
+      "additionalProperties": false
+    },
+    "compositionEdge": {
+      "type": "object",
+      "required": [
+        "product_definition",
+        "target_definition_id",
+        "relation",
+        "contracts"
+      ],
+      "properties": {
+        "product_definition": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "target_definition_id": {
+          "$ref": "#/$defs/identityUri"
+        },
+        "relation": {
+          "$ref": "#/$defs/referenceUri"
+        },
+        "contracts": {
+          "$ref": "#/$defs/nonEmptyReferences"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

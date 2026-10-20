@@ -1,0 +1,16 @@
+{
+  "emittedCount": 526,
+  "deltas": [
+    {
+      "path": "build/code/src/abg/replay.js",
+      "before": {
+        "sha256": "aa85a6d65edcbe19bbcf561f1dea8a4d4fbb1693c28049cc41a4cbdea53c9b36",
+        "byteCount": 78197
+      },
+      "after": {
+        "sha256": "6fe16034261213fbbc245bc960836e34a5f4c8be6e219a431a8f542e9e2f890e",
+        "byteCount": 80185
+      }
+    }
+  ]
+}

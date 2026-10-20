@@ -1,0 +1,30 @@
+{
+  "kind": "independent_fixture17_review_freeze",
+  "status": "CLOSED_STOP",
+  "disposition": "BOUNDED_GO",
+  "createdAt": "2026-10-11T02:29:49.644386+00:00",
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/freeze.json",
+    "sha256": "b62d540b54a931114cb68e414511647094fc952d35432c0bd81a627600909be0",
+    "byteCount": 1493
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/review-235/review.md",
+      "sha256": "9377cbd2a6c9ecffbc7e84e1c3e0b50fd8f67ac7d3a756abb57732ea5b311043",
+      "byteCount": 5744
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/fixture-successor-17/review-235/pins.json",
+      "sha256": "b79dc1dd54843df5204c1052dcb3f6e7b9a2cf8df37ec8fe8130c88b35cf4e45",
+      "byteCount": 8694
+    }
+  ],
+  "verifiedInputs": {
+    "count": 28,
+    "byteCount": 854060,
+    "mismatches": 0
+  },
+  "claim": "Finite responder constructability only; actual installed17 helper/C2/native repair/restart/readback, capacity and UAT remain open.",
+  "performedEffects": "Create only three granted review carriers; no tests/imports/helper/resource/native/worksite effects."
+}

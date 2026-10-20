@@ -1,0 +1,26 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/calls/continuation-start.request.jsonl"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-134/",
+  "started": "2026-10-08T22:51:12.996Z",
+  "environmentKeys": [
+    "ABG_TS_CLAUDE_APPEND_ARGS",
+    "ABG_TS_CLAUDE_COMMAND",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+    "ABG_TS_FP_TERMINATION_GRACE_MS",
+    "ABG_TS_FP_TIMEOUT_MS",
+    "ABG_TS_WORKER_SANDBOX",
+    "CLAUDE_CODE_OAUTH_TOKEN",
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 18060000
+}

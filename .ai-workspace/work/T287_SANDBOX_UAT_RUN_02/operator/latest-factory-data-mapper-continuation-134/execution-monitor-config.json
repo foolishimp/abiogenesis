@@ -1,0 +1,15 @@
+{
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+  "cliPID": 83858,
+  "recorderPID": 83855,
+  "launcherPID": 83857,
+  "sourcePrefixLength": 1402366875,
+  "sourceLastOrdinal": 176069,
+  "nativeT0": "2026-10-08T22:51:12.996Z",
+  "qualityCheckpointUTC": "2026-10-09T03:51:12.996000+00:00",
+  "qualityCheckpointAEDT": "2026-10-09T14:51:12.996000+11:00",
+  "driverDeadlineUTC": "2026-10-09T03:52:12.996000+00:00",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/31216013b284d1b6370701cd8287b534323ae0018dba83814be2927231d20f8e",
+  "sourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+  "publicInvocationRef": "invocation://abiogenesis/e4a74d7a27f58a86e17476169de47749a2e551a928e85fab776cf9fdeb264a10"
+}

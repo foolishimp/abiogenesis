@@ -1,0 +1,9 @@
+{
+  "stage": "actual-new-pair-setup",
+  "name": "ReferenceError",
+  "message": "prepareConsumer is not defined",
+  "stack": "ReferenceError: prepareConsumer is not defined\n    at setupChangedPair (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/run-09.mjs:124:17)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/run-09.mjs:248:45",
+  "completedPhases": [],
+  "normalClose": null,
+  "disposition": "STOP; Root RCA/action before retry"
+}

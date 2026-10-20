@@ -13,14 +13,16 @@
 
 ## Worker And Reviewer Separation
 
-### Map-First Reference Frames
+### Reference Frames
 
-- Resolve the exact STDO basis and companion Product composition from
+- Resolve the exact STDO basis and any explicit companion Product composition from
   `stdo_abiogenesis.json`, then the selected
-  `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`. Use the corresponding exact
-  installs under `.genesis/development-products/` and their released tools.
-  A source-linked `a_c` map may route attention only when its represented STDO
-  cut and every selected source byte verify fresh under those tools.
+  `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`. Resolve native method documents
+  through the STDO toolchain manager. Use companion installs under
+  `.genesis/development-products/` only when the Definition selects them.
+  A source-linked `a_c` map may route attention only when its exact source
+  basis and every selected source byte verify fresh under its declared tools.
+  An empty composition selects no companion or map.
 - Treat the map as a source-linked read model. Re-enter exact `stdo://` or
   `repo://abiogenesis/` sources when a relation is missing, stale, conflicting,
   or material to the decision. The map never outranks those sources.
@@ -153,7 +155,7 @@ process-local runtime authority is prohibited.
 ## Method
 
 Use the immutable STDO release selected by `stdo_abiogenesis.json`; resolve its
-installed standards through the STDO toolchain manager. Use exact installed
+installed standards through the STDO toolchain manager. Use explicitly selected
 Development Products through `.genesis/development-products/`; do not copy or
 reinterpret their Product bytes. Mutable methodology source and historical
 installed copies do not independently govern this consumer.

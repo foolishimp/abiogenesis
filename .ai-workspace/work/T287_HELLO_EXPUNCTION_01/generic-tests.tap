@@ -1,0 +1,64 @@
+✔ M5 B-001 preserves lane-owned Claude execution posture (0.566709ms)
+✔ M5 native report keeps its original host schema presentation (0.078708ms)
+✔ M5 schema literal placeholders remain opaque while ordinary templates and append positions expand (0.375667ms)
+✔ M5 requested structured output uses only the final carrier and preserves raw/schema refusal (28.42175ms)
+✔ M5 B-001 bounds append arguments for all four transport contracts (0.351ms)
+✔ M5 B-001 gives agent-specific sandbox binding precedence (0.121042ms)
+✔ M5 transport identity changes with parser and prompt-delivery semantics (3.161208ms)
+✔ M5 B-001 crosses a real worker process, parser, tool event, and archive (30.439625ms)
+✔ M5 Bash tool identity ignores only optional string description metadata (372.953917ms)
+✔ M5 B-001 rejects tool activity only in the closed-prompt lane (27.025ms)
+✔ M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool (106.887958ms)
+✔ M5 ABG transport force-terminates a worker that ignores SIGTERM (430.598875ms)
+✔ M5 ABG transport renews its inactivity lease only from observed progress (272.747833ms)
+✔ M5 ABG transport does not renew from unacknowledged output (153.81725ms)
+✔ M5 ABG transport excludes semantic output emitted after its timeout boundary (157.115042ms)
+✔ M5 ABG transport excludes descendant output emitted after direct-process exit (273.965ms)
+✔ C2A F_P effect handoff is one direct exact-prefix ABG invocation (2.347542ms)
+✔ C2A F_P receipt rejects missing and forged carrier pairs (264.860958ms)
+✔ C2A implementation owner preserves exact exception and malformed-return failures (4.736166ms)
+✔ C2A owner boundary preserves structural F_P proposals and totalizes exceptions (8.216834ms)
+node:path:1339
+      validateString(arg, 'path');
+      ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at Object.join (node:path:1339:7)
+    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs:11:46
+    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+
+Node.js v24.7.0
+✖ test_env/tests/t287-gtl-language-corpus.test.mjs (274.446667ms)
+file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs:4
+import {SourceTextModule,SyntheticModule} from 'node:vm';
+        ^^^^^^^^^^^^^^^^
+SyntaxError: The requested module 'node:vm' does not provide an export named 'SourceTextModule'
+    at #_instantiate (node:internal/modules/esm/module_job:254:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:363:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0
+✖ test_env/tests/t287-qualification-scopes.test.mjs (171.64425ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 20
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2909.005417
+
+✖ failing tests:
+
+test at test_env/tests/t287-gtl-language-corpus.test.mjs:1:1
+✖ test_env/tests/t287-gtl-language-corpus.test.mjs (274.446667ms)
+  'test failed'
+
+test at test_env/tests/t287-qualification-scopes.test.mjs:1:1
+✖ test_env/tests/t287-qualification-scopes.test.mjs (171.64425ms)
+  'test failed'

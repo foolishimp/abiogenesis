@@ -1,0 +1,30 @@
+import type { JsonValue } from "../shared/canonical_json.js";
+import type { ComposeApplication, FanInApplication, FanOutApplication, FoldbackDeclaration, GateApplication, RegisteredSelectionApplication, GtlEdge, GtlEdgeInputBinding, GraphFunctionApplication, IdentityApplication, PromoteApplication, ReenterApplication, RecurseApplication, SameObjectApplication, SubstituteApplication } from "./contracts.js";
+type ApplicationInput<T extends GraphFunctionApplication> = Omit<T, "applicationRef" | "kind" | "relationKind">;
+export type RecurseApplicationInput = Omit<ApplicationInput<RecurseApplication>, "foldbackRef">;
+export declare function graphEdge(input: {
+    readonly fromNodeRef: string;
+    readonly toNodeRef: string;
+    readonly inputBinding?: GtlEdgeInputBinding;
+}): GtlEdge;
+export declare function graphEdgeRef(input: {
+    readonly fromNodeRef: string;
+    readonly toNodeRef: string;
+    readonly inputBinding?: GtlEdgeInputBinding;
+}): string;
+export declare function graphFunctionApplicationRef(application: Readonly<GraphFunctionApplication>): string;
+export declare function foldbackRef(foldback: Readonly<FoldbackDeclaration>): string;
+export declare function composeApplication(input: ApplicationInput<ComposeApplication>): ComposeApplication;
+export declare function substituteApplication(input: ApplicationInput<SubstituteApplication>): SubstituteApplication;
+export declare function recurseApplication(input: RecurseApplicationInput): RecurseApplication;
+export declare function recursionTerminationDecision(application: Readonly<RecurseApplication>, value: JsonValue): boolean | null;
+export declare function fanOutApplication(input: ApplicationInput<FanOutApplication>): FanOutApplication;
+export declare function fanInApplication(input: ApplicationInput<FanInApplication>): FanInApplication;
+export declare function gateApplication(input: ApplicationInput<GateApplication>): GateApplication;
+export declare function reenterApplication(input: ApplicationInput<ReenterApplication>): ReenterApplication;
+export declare function promoteApplication(input: ApplicationInput<PromoteApplication>): PromoteApplication;
+export declare function identityApplication(input: ApplicationInput<IdentityApplication>): IdentityApplication;
+export declare function sameObjectApplication(input: Omit<ApplicationInput<SameObjectApplication>, "witnessRef">): SameObjectApplication;
+export declare function sameObjectWitnessRef(objectRef: string): string;
+export declare function registeredSelectionApplication(input: ApplicationInput<RegisteredSelectionApplication>): RegisteredSelectionApplication;
+export {};

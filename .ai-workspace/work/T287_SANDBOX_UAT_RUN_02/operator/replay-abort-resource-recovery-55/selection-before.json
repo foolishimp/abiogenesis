@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-08T04:35:18.775Z",
+  "ownerPid": 89743,
+  "processProbe": "ESRCH",
+  "exclusiveMaintenance": true,
+  "lock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-467374253.lock",
+    "device": 16777231,
+    "inode": 467605823,
+    "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY3Mzc0MjUzLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6ODk3NDMsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "digest": "sha256:684ceddbc1f4d96f3c0913fb0a0cedf80640a1589e1ad793f0a9038e7ea2d23d",
+    "byteCount": 124
+  },
+  "interruption": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/commands/run_replay.result.json",
+    "digest": "sha256:03fea6e687ea44bb7b117b34b2a61932291c330a9af73e1f5966a8b0fa763abc"
+  },
+  "quiescence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/owned-process-exit.json",
+    "digest": "sha256:65b9b72e88952d7681e338c39a2624fb4430ca94f4043a98b180c6d7480c7a38"
+  },
+  "log": {
+    "device": 16777231,
+    "inode": 467374253,
+    "byteCount": 1182449986,
+    "mtimeNs": "1791404494476866055",
+    "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6"
+  }
+}

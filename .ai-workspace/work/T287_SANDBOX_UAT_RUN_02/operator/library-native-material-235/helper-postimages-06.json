@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+      "postimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/helper-postimages-06/test_env/uat/continuation.mjs",
+      "sha256": "bd9a2d784d1fde69f6aef09152c22e0d9de477fd643e33bd57aea61b3d6c6474",
+      "byteCount": 40237
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.test.mjs",
+      "postimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/helper-postimages-06/test_env/uat/continuation.test.mjs",
+      "sha256": "d44fd9b5fd31836f7653c5e8d480712e76175c416f47dd1c59571f5c62c9734e",
+      "byteCount": 7691
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/README.md",
+      "postimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/helper-postimages-06/test_env/README.md",
+      "sha256": "dcc23c69e257305141b9ef857eca163c23ab914b9986de3fdaf5d498457513cc",
+      "byteCount": 6326
+    }
+  ],
+  "change": "One helper gains unchanged-pair owner projection and existing-cover branch; Program selection is canonical source request; optional redundant Result/J expectations preserve mandatory actual source derivation.",
+  "runtimeProof": "Pending genuine finite237 chain; no actual restart by235."
+}

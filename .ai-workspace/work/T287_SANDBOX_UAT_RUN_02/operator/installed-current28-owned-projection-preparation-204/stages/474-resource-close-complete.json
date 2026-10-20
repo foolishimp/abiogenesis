@@ -1,0 +1,12 @@
+{
+  "stage": "resource-close-complete",
+  "rss": 4481695744,
+  "heapTotal": 4009377792,
+  "heapUsed": 3934624904,
+  "external": 2458354,
+  "arrayBuffers": 46047,
+  "at": "2026-10-09T11:32:24.641Z",
+  "elapsedMs": 399782.477,
+  "prefixLength": 1693913361,
+  "coordinateDigest": "sha256:0185d3c8487ae274b737f4c818b36aa5c5a5ab40c026482781f112071c435484"
+}

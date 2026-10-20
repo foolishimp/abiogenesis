@@ -1,0 +1,24 @@
+{
+  "status": "CLOSED_STOPPED",
+  "disposition": "BOUNDED_GO",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-211/freeze.json",
+    "sha256": "104f85281e555a491b881830ac8a8f28d6444c399688787855f2872d88f6a888",
+    "byteCount": 11980
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-review-212/return.md",
+      "sha256": "71d8efae6db7c1c73a6beff4eeccaaeed8a61714108425656f1c79e345e96ed5",
+      "byteCount": 3204
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-owned-projection-caller-review-212/pins.json",
+      "sha256": "bbab22a496c33a10f04ddc2c7c1d2955ec10adfa7a44f2aaaa0aa678fb5e1714",
+      "byteCount": 7001
+    }
+  ],
+  "fileCount": 2,
+  "effects": "Documentary review only; no execution permission",
+  "limits": "No actual current-source/preparation/Run/native/UAT/capacity/release credit"
+}

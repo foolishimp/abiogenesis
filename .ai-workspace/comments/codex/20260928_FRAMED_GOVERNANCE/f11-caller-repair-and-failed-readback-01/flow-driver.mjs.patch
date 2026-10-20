@@ -1,0 +1,58 @@
+--- preimages/flow-driver.mjs
++++ f11/flow-driver.mjs
+@@ -7,6 +7,14 @@
+ import {requirePublicResult} from './public-outcomes.mjs';
+ import {assertionForInvokingView,selfConformanceWithActualProof} from './prepare-resources.mjs';
+ import {actualOwnerContext,parentAssessmentProof,admittedAssessmentAgreement,compactF11Observation,actualVerdictInput,nonGreenAF22,freshReadAgreement} from './proof-oracles.mjs';
++// A Public operation result may report a stopped Run. Only its actual completed
++// disposition and published typed terminal Result permit positive advancement.
++export function positiveRunRoute(c,returned){
++ if(returned.disposition.kind!=='result')return {status:'stopped',disposition:returned.disposition.kind,publicOutcome:returned.disposition.kind,exitCode:returned.receipt?.exitCode??2,qualification:false,noFallback:true};
++ const value=requirePublicResult(returned);
++ if(value.disposition!=='completed'||!c.abg.isAbgTypedTerminalResult(value.terminalResult))return {status:'stopped',disposition:value.disposition,publicOutcome:'result',exitCode:returned.receipt.exitCode,run:value.run,terminalResult:value.terminalResult,stop:value.stop,qualification:false,noFallback:true};
++ return {status:'continue',value};
++}
+ export async function runBoundExistingPrograms(c,packet,executionRoot,{parentSelection}){
+  assert.ok(parentSelection,'actual selected wrapper Program/GraphFunction required');
+  assert.notEqual(parentSelection.programRef,'program://abiogenesis/qualification/assess@5','no root-only assessment fallback');
+@@ -16,6 +24,7 @@
+  assert.deepEqual(packet.selfConformanceBase.basis.workspaceBinding,{ref:state.environment.workspaceBinding.bindingId,digest:state.environment.workspaceBinding.bindingDigest});
+  const archive=assertionForInvokingView(packet.assertion,state.catalog,state.catalogView,hash);
+  const write=(n,x)=>writeFile(join(executionRoot,n),JSON.stringify(x)+'\n',{flag:'wx'});
++ const route=async(boundary,returned)=>{const selected=positiveRunRoute(c,returned);if(selected.status==='stopped')await write('selected-flow-stop.json',{boundary,...selected});return selected;};
+  // Only prepare the published core view for its exported renderer; never dispatch this root.
+  const promptPreparation=await c.prepareStart('program://abiogenesis/qualification/assess@5',gtl.QUALIFICATION_IDS.assessGraph,packet.assessmentInput,'child-prompt-preparation-only',archive);
+  const assessment=await c.prepareStart(parentSelection.programRef,parentSelection.graphFunctionRef,packet.assessmentInput,'parent',archive);
+@@ -27,8 +36,8 @@
+  await writeFile(join(executionRoot,'controlled-raw-response.json'),rawBytes,{flag:'wx'});
+  await write('assessment-owner-request-pin.json',{requestDigest:hash(request),promptDigest:hash(request.prompt),promptUtf8Bytes:promptBytes.length,inputDigest:hash(packet.assessmentInput)});
+  const started=await c.invoke('parent',assessment.call,'assessment');
+- if(started.disposition.kind!=='result'){await write('selected-flow-stop.json',{boundary:'wrapper_parent',disposition:started.disposition.kind,exitCode:started.receipt?.exitCode??2,qualification:false,noFallback:true});return {status:'stopped',disposition:started.disposition.kind};}
+- const value=requirePublicResult(started);
++ const parentRoute=await route('wrapper_parent',started);if(parentRoute.status==='stopped')return parentRoute;
++ const value=parentRoute.value;
+  const reads=await c.freshReads('assess',started);freshReadAgreement(c,value,reads);
+  const observation=parentAssessmentProof(c,value,packet.assessmentInput,parentSelection);
+  await write('actual-assessment-proof.json',observation);
+@@ -39,8 +48,8 @@
+  await write('assessment-consumption-checks.json',projectionChecks);
+  // Fresh installed CLI is the actual cold semantic consumer, not this warm observation check.
+  const selfStarted=await c.invoke('f11',self.call,'selfConformance');
+- if(selfStarted.disposition.kind!=='result'){await write('selected-flow-stop.json',{boundary:'F11',disposition:selfStarted.disposition.kind,qualification:false,noFallback:true});return {status:'stopped',disposition:selfStarted.disposition.kind};}
+- const selfValue=requirePublicResult(selfStarted);
++ const selfRoute=await route('F11',selfStarted);if(selfRoute.status==='stopped')return selfRoute;
++ const selfValue=selfRoute.value;
+  const selfReads=await c.freshReads('f11',selfStarted);freshReadAgreement(c,selfValue,selfReads);
+  const selfObservation=compactF11Observation(c,selfValue,f11Input);
+  const verdictInput=actualVerdictInput(c,packet,selfObservation,selfOwner);
+@@ -48,8 +57,8 @@
+  const verdictOwner=await actualOwnerContext(c,verdict);
+  assert.ok(verdictOwner.qualificationResources);
+  const verdictStarted=await c.invoke('af22',verdict.call,'verdict');
+- if(verdictStarted.disposition.kind!=='result'){await write('selected-flow-stop.json',{boundary:'AF22',disposition:verdictStarted.disposition.kind,qualification:false,noFallback:true});return {status:'stopped',disposition:verdictStarted.disposition.kind};}
+- const verdictValue=requirePublicResult(verdictStarted);
++ const verdictRoute=await route('AF22',verdictStarted);if(verdictRoute.status==='stopped')return verdictRoute;
++ const verdictValue=verdictRoute.value;
+  const verdictReads=await c.freshReads('af22',verdictStarted);freshReadAgreement(c,verdictValue,verdictReads);
+  const final=nonGreenAF22(c,verdictValue,verdictInput);
+  await write('existing-program-flow-result.json',{mechanicalPath:'completed',assessmentRun:value.run,selfConformanceRun:selfValue.run,verdictRun:verdictValue.run,controlledExchanges:1,realProviderCalls:0,freshCLIReads:6,projectionChecks,final,childGraphFoldback:observation.childFoldback,fullQualification:false});

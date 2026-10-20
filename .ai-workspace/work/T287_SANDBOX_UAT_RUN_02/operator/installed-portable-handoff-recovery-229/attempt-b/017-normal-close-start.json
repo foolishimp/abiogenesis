@@ -1,0 +1,14 @@
+{
+  "stage": "normal-close-start",
+  "at": "2026-10-09T18:45:23.479Z",
+  "wallMs": 267884.69587500003,
+  "pid": 17206,
+  "memory": {
+    "rss": 4376117248,
+    "heapTotal": 3957374976,
+    "heapUsed": 3826183752,
+    "external": 2440494,
+    "arrayBuffers": 28187
+  },
+  "maxRSSKiB": 8026512
+}

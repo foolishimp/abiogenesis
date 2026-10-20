@@ -1,0 +1,28 @@
+{
+  "worker": 204,
+  "role": "Installed candidate28 preparation composition",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": "fixed15 ABI5.0 GOAL035/T287 STDO2.5.1rc2; Product817\u2013867/CONT014\u2013016",
+  "rootConjunction": "Accepted198/199 +200/201 +exact202 andindependent203 GO; one actual preparation, no native/model dispatch",
+  "callerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-202/freeze.json",
+    "sha256": "34fb2b07051607e0ee315348a12095ac270315b619d22353b63e82e504401d5c",
+    "byteCount": 11105
+  },
+  "reviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current28-owned-projection-caller-review-203/freeze.json",
+    "sha256": "488c3857708d0d70cf53577519391e3d51906c678f3e90aedd104bf6f3dc8942",
+    "byteCount": 1187
+  },
+  "literalIntentNamespace": "202 labels preserved byte-for-byte; dynamic dirname owns actual204 outputs",
+  "effects": "Only204/current28 clean native+consumer installs, existing canonical owner acquisition/close and reviewed Public setup/104 target-cover admissions in SAME originalA/resource",
+  "noManualSourceAppHistoryEffects": true,
+  "stop": "First unexpected failure HOLD; preserve firstcause/effects/close/residue; no retry/recovery/repair",
+  "qualityClock": "Not started; only a separately granted future nativeCLI launch starts5h",
+  "limits": {
+    "outerMs": 19260000,
+    "outerBytes": 536870912,
+    "stockHeap": true,
+    "environment": "Allouter process.env; no credential values persisted"
+  }
+}

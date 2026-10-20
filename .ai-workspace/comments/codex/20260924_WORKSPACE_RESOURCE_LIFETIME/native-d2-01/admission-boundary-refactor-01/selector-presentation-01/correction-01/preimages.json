@@ -1,0 +1,42 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "preimageSha256": "9ce7221a2425c26a5fe914633c91a5a547981690a0ef81a01ee04b832102d07e",
+    "preimageBytes": 61322,
+    "sha256": "f49db7e19b2a4850a583d3d70ca38db98bddb518d9bc2826763801571926f346",
+    "bytes": 62543,
+    "retained": "preimage-0"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "preimageSha256": "44a17142cc66db21a0c992ff8565e1bfc17479f6604aa81304a21fd273aa0d44",
+    "preimageBytes": 70401,
+    "sha256": "f38fe67524000ed82e26735d5c764817d95702ebf919ce654518892e280b9121",
+    "bytes": 78884,
+    "retained": "preimage-1"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "preimageSha256": "9a65aac6020503301307ea7e23e1f2f065c2e6d7817d66ef973bd476f1270d51",
+    "preimageBytes": 21185,
+    "sha256": "9c7a8c7572926ba61d2fbbb5dc798082a7baae106d2d28a3b2f7e3c165ac65ad",
+    "bytes": 34367,
+    "retained": "preimage-2"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+    "preimageSha256": "abfb429689ddd5064d3a0ad032395e0931c9528d12d76bc1bc98b18a79a17bb4",
+    "preimageBytes": 68409,
+    "sha256": "4fa6635144c038544bafb6eade658371a874c74d466ef93bdc459ebf6640117f",
+    "bytes": 77009,
+    "retained": "preimage-3"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+    "preimageSha256": "42cae6dd4e42bac9763809634d6a5e0de7505357e00c6c5e0c8d12affac830da",
+    "preimageBytes": 13796,
+    "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+    "bytes": 14248,
+    "retained": "preimage-4"
+  }
+]

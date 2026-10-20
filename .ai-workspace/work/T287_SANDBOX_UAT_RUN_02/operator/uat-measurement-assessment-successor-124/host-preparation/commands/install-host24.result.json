@@ -1,0 +1,28 @@
+{
+  "executable": "/opt/homebrew/bin/npm",
+  "args": [
+    "install",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund",
+    "--prefix",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-24/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host-preparation",
+  "started": "2026-10-08T17:08:02.032Z",
+  "environmentKeys": [
+    "PATH",
+    "npm_config_cache",
+    "npm_config_offline"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 2344.119584,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "\nadded 1 package in 2s\n",
+  "stderr": "npm notice\nnpm notice New minor version of npm available! 11.5.1 -> 11.21.0\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.0\nnpm notice To update run: npm install -g npm@11.21.0\nnpm notice\n"
+}

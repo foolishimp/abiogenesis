@@ -1,0 +1,62 @@
+[
+  {
+    "path": "ordinary-caller.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/ordinary-caller.mjs",
+    "sha256": "d691f1c3057ec47eaaec938ce7e5a3f3f533b37ba25e36baa03effc7a3090b59"
+  },
+  {
+    "path": "public-support.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/public-support.mjs",
+    "sha256": "23aea016a2f7c179c86525708887a3c1ebee062f4ff813a735152833716bdbb7"
+  },
+  {
+    "path": "setup-driver.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/setup-driver.mjs",
+    "sha256": "2c5c5713e98c14cdfe8bcfd6b63248b22524d63e0e3e5f5b09a9f18614dc5627"
+  },
+  {
+    "path": "flow-driver.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/flow-driver.mjs",
+    "sha256": "d1207307ea693f7f6822dbc54cd5e1fce41a34d866436db29ffd780e910ba4d0"
+  },
+  {
+    "path": "controlled-helper.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/controlled-helper.mjs",
+    "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08"
+  },
+  {
+    "path": "prepare-resources.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/prepare-resources.mjs",
+    "sha256": "748f3137fe53c19fb489ea3c18adc491abbc775fc835b2de4f613f61f751a6d2"
+  },
+  {
+    "path": "proof-oracles.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/proof-oracles.mjs",
+    "sha256": "f247d0255ab165ed3a671eda0892ce118ef3f5334fae70b50f3bce9b9e4a7465"
+  },
+  {
+    "path": "child-wrapper-parts.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/child-wrapper-parts.mjs",
+    "sha256": "81a005baa4facb6b28f21f62c3c7e88f8d308c23f12ef3b769e1e7ef2c701abd"
+  },
+  {
+    "path": "observe-process.py",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/observe-process.py",
+    "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+  },
+  {
+    "path": "companion-negatives.json",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/companion-negatives.json",
+    "sha256": "c9e5e416fe6e79c52682c6109889d5bcf75c38c3a0870945c4fc85bf5d52bab3"
+  },
+  {
+    "path": "accounting-plan.json",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/accounting-plan.json",
+    "sha256": "81759c0fa22b0fd8dfc9f30338f4113a84dc0048bdad3895e0ba10c5b87dfa4f"
+  },
+  {
+    "path": "input-construction-plan.md",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-preparation-01/input-construction-plan.md",
+    "sha256": "ff71f486d8859d56440329721bdc6ce6abed3c7c9d1405baa3f94df8f4476f6d"
+  }
+]

@@ -1,0 +1,220 @@
+{
+  "status": "CLOSED",
+  "disposition": "candidate_ready_for_actual_native_assessment",
+  "activation": "T287_F11_BOUND_INPUTS_01",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "candidateQualificationLaw": "Immutable C02/Q02 original RC1 law; no repin/rebuild",
+  "basis": {
+    "ref": "qualification-basis://abiogenesis/3e08dd04e20653b3d3dbcfe9c2ace15578944d00bb0fa512009a62af363a8d56",
+    "digest": "sha256:3e08dd04e20653b3d3dbcfe9c2ace15578944d00bb0fa512009a62af363a8d56"
+  },
+  "task": {
+    "ref": "qualification-task://abiogenesis/acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85",
+    "digest": "sha256:acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85"
+  },
+  "plan": {
+    "ref": "qualification-plan://abiogenesis/c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98",
+    "digest": "sha256:c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98"
+  },
+  "ownerActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "publishedAssessmentRole": {
+    "roleRef": "qualification-role://abiogenesis/rule@5",
+    "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+    "sourceBindings": [
+      {
+        "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+        "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+        "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+        "byteCount": 6687
+      },
+      {
+        "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+        "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+        "digest": "sha256:2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2",
+        "byteCount": 35509
+      }
+    ],
+    "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+    "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5",
+    "rendererRef": "renderer://abiogenesis/qualification/assessment@5",
+    "materializationPlanRef": "materialization-plan://abiogenesis/qualification/assessment@5",
+    "independence": "author_distinct"
+  },
+  "tenantManifest": {
+    "ref": "tenant-conformance://abiogenesis/54f1594928a91d74ad8caca1e9ac441367bd0da36407ca254e1e92b26d87f647",
+    "digest": "sha256:54f1594928a91d74ad8caca1e9ac441367bd0da36407ca254e1e92b26d87f647"
+  },
+  "primaryRecords": [
+    {
+      "path": "basis.json",
+      "bytes": 3281,
+      "sha256": "e7ebf84b961b4b9dcf9b90dbe3860da4c351b6f3b30c00367641b368e9552706"
+    },
+    {
+      "path": "tenant-manifest.json",
+      "bytes": 11643,
+      "sha256": "b01981498411baf10001f6bb114c92b1af9bc180999291e7376de16a5d34dcee"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 5336678,
+      "sha256": "1ab7eacb08664e4bb151e919d74dbeeb676c7e2654c0eb7939d215cb5c3f19c8"
+    },
+    {
+      "path": "role.json",
+      "bytes": 1091,
+      "sha256": "6a1e8b4b24b94f69a6fbd81088e32d02c68a269b0fb46dc6d73df1f4b28ed236"
+    },
+    {
+      "path": "task.json",
+      "bytes": 80757937,
+      "sha256": "99b2b490c8ff6fd041bb456285fea52ec0a845263dd814c4192e9ba33b1f3133"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 3803,
+      "sha256": "94cffbb25fec6967c98e0f9f917dabc8feae30d6afee88f26d42f5169ed82cbc"
+    },
+    {
+      "path": "assessment-input.json",
+      "bytes": 82175295,
+      "sha256": "10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901"
+    },
+    {
+      "path": "worker-request.json",
+      "bytes": 1062803,
+      "sha256": "0d21b292dc1944eac9c8fbf01475a68e72ca27e17c083af2929c4402818e7401"
+    },
+    {
+      "path": "prompt.txt",
+      "bytes": 1021244,
+      "sha256": "35d718313300c7feb1ebc64d699c373c58dd9de868bc68c9c14a83e7d7ee4264"
+    },
+    {
+      "path": "prompt-measurement.json",
+      "bytes": 5914,
+      "sha256": "693b7858ea8381f279afa80560633e178f2380d922cca44df5690414472e96d4"
+    },
+    {
+      "path": "response-schema.json",
+      "bytes": 3972,
+      "sha256": "6d6121a2895e6e3d9e806446544092913b6b4edebd4d8710a1ffab1f914765a1"
+    },
+    {
+      "path": "owner-checks.json",
+      "bytes": 821,
+      "sha256": "36e16810f1b2f1cac30b17d608a739a59c41410e5be7f1f57034d7e772cf6b21"
+    }
+  ],
+  "completePromptUTF8Bytes": 1021244,
+  "inputBytes": 82175295,
+  "verification": {
+    "status": "passed",
+    "basisShapeIdentityAndExactInstalledCorrespondence": true,
+    "tenantExactOwnedCoordinates": true,
+    "roleMaterialScopeAssetCorrespondence": true,
+    "actualTaskPlanInput": true,
+    "fullTypedRetainedHandoff": true,
+    "actualAssetOutputPublicationRelation": true,
+    "actualConstructorSourceRelation": true,
+    "actualPublishedProofSourceRelations": true,
+    "exactCoordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c",
+    "exactPrefixDigest": "sha256:e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+    "crossedBasis": {
+      "refused": true,
+      "boundary": "basis differs from C02/Q02: productContentDigest"
+    },
+    "structuralAttribution": "insufficient",
+    "independentAttributionAssessment": false,
+    "nativeCalls": 0,
+    "providerCalls": 0
+  },
+  "pureStructuralDiagnostic": {
+    "kind": "pure_structural_diagnostic_not_native_J",
+    "actual": {
+      "status": "insufficient",
+      "authors": [
+        "/root/s03_phase_b",
+        "/root/f11_attribution_inputs"
+      ]
+    },
+    "rawAttributionAssertions": 0,
+    "wholeJudgmentConstructed": false,
+    "expected": "insufficient",
+    "limits": "No attribution sufficiency, source authority or native independence is supplied by this diagnostic."
+  },
+  "processes": [
+    {
+      "name": "01-acquisition",
+      "command": [
+        "python3",
+        "prepare-inputs.py"
+      ],
+      "pid": 6573,
+      "elapsedMs": 137.49304180964828,
+      "exitCode": 1,
+      "timedOut": false,
+      "scope": "Pure external construction/validation/rendering; no native/provider dispatch"
+    },
+    {
+      "name": "02-acquisition",
+      "command": [
+        "python3",
+        "prepare-inputs.py"
+      ],
+      "pid": 7054,
+      "elapsedMs": 137.41745799779892,
+      "exitCode": 0,
+      "timedOut": false,
+      "scope": "Pure external construction/validation/rendering; no native/provider dispatch"
+    },
+    {
+      "name": "03-binding",
+      "command": [
+        "node",
+        "bind-and-render.mjs"
+      ],
+      "pid": 9267,
+      "elapsedMs": 4605.5410001426935,
+      "exitCode": 0,
+      "timedOut": false,
+      "scope": "Pure external construction/validation/rendering; no native/provider dispatch"
+    },
+    {
+      "name": "04-binding",
+      "command": [
+        "node",
+        ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/bind-and-render.mjs"
+      ],
+      "pid": 13774,
+      "elapsedMs": 25.498708244413137,
+      "exitCode": 1,
+      "timedOut": false,
+      "scope": "Pure external construction/validation/rendering; no native/provider dispatch"
+    },
+    {
+      "name": "05-binding",
+      "command": [
+        "node",
+        "bind-and-render.mjs"
+      ],
+      "pid": 13860,
+      "elapsedMs": 4545.286625158042,
+      "exitCode": 0,
+      "timedOut": false,
+      "scope": "Pure external construction/validation/rendering; no native/provider dispatch"
+    }
+  ],
+  "aggregateProcessElapsedMs": 9451.236833352596,
+  "aggregateProcessCapMs": 300000,
+  "processCapMs": 120000,
+  "escalationGraceMs": 1000,
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "movingResourceReads": 0,
+  "canonicalSourceMutation": false,
+  "independentJudgment": false,
+  "providerCapacityAcceptance": false,
+  "qualifiedAcceptance": false,
+  "nextConsumer": "Actual published native assessment GF/leaf, using these exact frozen inputs and caller-owned view/declaration/program; actual raw attributions and proof consumer judge remaining insufficiency/independence."
+}

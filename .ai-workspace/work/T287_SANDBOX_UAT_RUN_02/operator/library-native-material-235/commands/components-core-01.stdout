@@ -1,0 +1,265 @@
+✔ CCall opening is one atomic open-and-fibre transition (1.030542ms)
+✔ timeout and termination-unconfirmed never prove a started process absent (1.317875ms)
+✔ preterminal Process exit is the single cleanup confirmation (0.107625ms)
+✔ duplicate Process terminality and Actor terminal before confirmation fail closed (0.143625ms)
+✔ cold leader exit preserves unknown group cleanup across ordinary Run failure (0.784583ms)
+✖ owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes (28.174667ms)
+✔ shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays (0.400958ms)
+✔ shared canonical traversal preserves captured entries, array length and refusal precedence (4.415958ms)
+✔ incremental canonical hashes preserve independently declared golden bytes and refusal behavior (4.671625ms)
+✖ typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact (24.169875ms)
+✖ native definition references refuse missing, forward, foreign-slot, changed and injected material (20.471667ms)
+✖ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (47.057666ms)
+✖ physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences (45.732334ms)
+✖ nearest malformed body references refuse before logical history is exposed (44.072333ms)
+✖ reused cold bodies still require each new envelope identity, stamp, cause and logical digest (42.075375ms)
+✔ independently supplied mutable raw input remains detached at event admission (12.061708ms)
+✖ live body reuse preserves caller isolation, owned prefix and transaction rollback (55.393291ms)
+✖ literal marker-shaped Product data and small duplicate values remain unambiguous (24.858ms)
+✔ failed durable batch discards new inline sources; committed same-batch references survive reopen (24.831ms)
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257
+            throw new TypeError("durable ABG event log contains a noncanonical event");
+                  ^
+
+TypeError: durable ABG event log contains a noncanonical event
+    at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)
+    at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/[eval1]:56:55
+    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:273:26)
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:270:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0
+✖ large duplicate Result bodies and complete replay hashing fit a constrained heap (7621.117709ms)
+(node:88681) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"kind":"native_c2_material_correspondence_component","correspondence":{"assembly":{"old":{"digest":"sha256:d5a99c670b8339b4f4868a3b2aa50eff7957b0110dc9d37f82f70c4f1ebffce8","canonicalBytes":54952},"current":{"digest":"sha256:d5a99c670b8339b4f4868a3b2aa50eff7957b0110dc9d37f82f70c4f1ebffce8","canonicalBytes":54952}},"request":{"old":{"digest":"sha256:25081f335378ed1c4e9e177ba1bdfc88e02c7e0fbd74144e32984419b291ab56","canonicalBytes":5625},"current":{"digest":"sha256:25081f335378ed1c4e9e177ba1bdfc88e02c7e0fbd74144e32984419b291ab56","canonicalBytes":5625}},"prompt":{"old":{"digest":"sha256:840e9bc05942d05474a83d6e5162bef35d29713ed6238d2b2959f61ef9444834","canonicalBytes":4042},"current":{"digest":"sha256:840e9bc05942d05474a83d6e5162bef35d29713ed6238d2b2959f61ef9444834","canonicalBytes":4042}},"schema":{"old":{"digest":"sha256:7342c8121f921d8759047bc94fd6cc213aca2f8a821b045bf61c9b4099c89c22","canonicalBytes":816},"current":{"digest":"sha256:7342c8121f921d8759047bc94fd6cc213aca2f8a821b045bf61c9b4099c89c22","canonicalBytes":816}},"plan":{"old":{"digest":"sha256:1ffdea0de9a1e39595cd82015c675d1ca274d6c0ea81bb489ceba275e5126e58","canonicalBytes":1529},"current":{"digest":"sha256:1ffdea0de9a1e39595cd82015c675d1ca274d6c0ea81bb489ceba275e5126e58","canonicalBytes":1529}}},"renderedPrompt":{"utf8Bytes":3800,"sha256":"e5eb75f5fe566aec0834e230a3247b374953416549a6e5dfeb79a2826c3ceb96"},"nativeAdmission":false,"lowerAuthentication":"controlled; Product task/context/prompt/schema owners execute"}
+✔ declared command-executor assembly accepts native C2 and keeps exact task, owner and context refusals (247.765333ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 11
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9080.338875
+
+✖ failing tests:
+
+test at test_env/tests/m5-terminal-quiescence-owner.test.mjs:169:1
+✖ owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes (28.174667ms)
+  TypeError [Error]: acquired.store.prefixAt is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/m5-terminal-quiescence-owner.test.mjs:195:53)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:165:1
+✖ typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact (24.169875ms)
+  TypeError [Error]: runtime event payload matches no admitted event-contract variant
+      at assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:1806:15)
+      at projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:1501:5)
+      at admitRuntimeEventInternal (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2982:36)
+      at Module.admitRuntimeEvent (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2955:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:168:55)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:197:1
+✖ native definition references refuse missing, forward, foreign-slot, changed and injected material (20.471667ms)
+  TypeError [Error]: runtime event payload matches no admitted event-contract variant
+      at assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:1806:15)
+      at projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:1501:5)
+      at admitRuntimeEventInternal (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2982:36)
+      at Module.admitRuntimeEvent (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2955:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:200:14)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:247:1
+✖ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (47.057666ms)
+  AssertionError [ERR_ASSERTION]: new envelopes and reused nested bodies remain deeply immutable
+      at assertSharedColdBodies (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:232:10)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:250:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:301:1
+✖ physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences (45.732334ms)
+  TypeError [Error]: durable ABG event log contains a noncanonical event
+      at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)
+      at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:312:27)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:325:1
+✖ nearest malformed body references refuse before logical history is exposed (44.072333ms)
+  AssertionError [ERR_ASSERTION]: deletedSource
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:346:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: durable ABG event log contains a noncanonical event
+        at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)
+        at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)
+        at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:346:36
+        at getActual (node:assert:609:5)
+        at strict.throws (node:assert:757:24)
+        at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:346:12)
+        at async Test.run (node:internal/test_runner/test:1113:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:788:7),
+    expected: /body reference/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:356:1
+✖ reused cold bodies still require each new envelope identity, stamp, cause and logical digest (42.075375ms)
+  AssertionError [ERR_ASSERTION]: eventId
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:371:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: durable ABG event log contains a noncanonical event
+        at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)
+        at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)
+        at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:371:36
+        at getActual (node:assert:609:5)
+        at strict.throws (node:assert:757:24)
+        at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:371:12)
+        at async Test.run (node:internal/test_runner/test:1113:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:788:7),
+    expected: /inconsistent history/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:388:1
+✖ live body reuse preserves caller isolation, owned prefix and transaction rollback (55.393291ms)
+  TypeError [Error]: durable ABG event log contains a noncanonical event
+      at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)
+      at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:419:31)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:422:1
+✖ literal marker-shaped Product data and small duplicate values remain unambiguous (24.858ms)
+  TypeError [Error]: durable ABG event log contains a noncanonical event
+      at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)
+      at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:433:31)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-event-body-encoding.test.mjs:457:1
+✖ large duplicate Result bodies and complete replay hashing fit a constrained heap (7621.117709ms)
+  Error: Command failed: /opt/homebrew/Cellar/node/24.7.0/bin/node --max-old-space-size=128 --input-type=module -e 
+      import assert from 'node:assert/strict';
+      import {readFileSync} from 'node:fs';
+      import * as storeOwner from './build/code/src/abg/event_store.js';
+      import {selectValidatedRuntimeEventPrefix} from './build/code/src/abg/event_prefix.js';
+      import {replayValidatedRuntimeEventPrefix} from './build/code/src/abg/replay.js';
+      import {canonicalJson} from './build/code/src/shared/canonical_json.js';
+      import {sha256Canonical,sha256Bytes} from './build/code/src/shared/digests.js';
+      import {isDeeplyFrozen} from './build/code/src/shared/immutable.js';
+      const time="2026-09-22T00:00:00.000Z";
+      const envelope=(kind, payload, overrides = {}) => ({ kind, payload, eventTime: time,
+    aggregateType: "workspace", aggregateId: "workspace://body-fixture", parentAggregateId: null,
+    causationEventRefs: [], correlationId: "correlation://body-fixture", workflowVersion: "5.0.0",
+    scopeClass: "workspace", basisId: "basis://body-fixture", ...overrides });
+      const result=function result(store, label, value) {
+    const cCallRef = "c-call://body-fixture/" + label;
+    const extra = { aggregateType: "c_call", aggregateId: cCallRef, parentAggregateId: "frame://" + label,
+      scopeClass: "run", runId: "run://body-fixture", graphCallId: "graph-call://" + label, frameId: "frame://" + label };
+    const pair = storeOwner.admitRuntimeEventBatch(store, [
+      () => envelope("c_call_opened", { cCallRef, cCallDigest: sha256Canonical(label), callClass: "leaf",
+        batchRef: null, taskOrdinal: null, attempt: 1, programLocusRef: "locus://" + label, retryPath: [] }, extra),
+      prior => envelope("c_call_fibre_selected", { cCallRef, callClass: "leaf", armId: "arm://fixture", regime: "F_D" },
+        { ...extra, causationEventRefs: [prior.at(-1).eventId] }),
+    ]);
+    const body = { cCallRef, resultClass: "success", contractRef: "contract://body-output", valueKind: value.kind,
+      evidenceRefs: [], value, valueDigest: sha256Canonical(value) };
+    const resultDigest = sha256Canonical(body), resultRef = "result://body-fixture/" + resultDigest.slice(7);
+    return storeOwner.admitRuntimeEvent(store, envelope("c_call_result_admitted", { ...body, resultRef, resultDigest },
+      { ...extra, causationEventRefs: [pair.at(-1).eventId] }));
+  };
+      const [path,seedPath]=process.argv.slice(1);
+      const value=seedPath ? JSON.parse(readFileSync(seedPath,'utf8')) : {
+        kind:'body_fixture_output', original:{outcome:'full original remains unresolved'},
+        observations:Array.from({length:21},(_,i)=>({producer:'producer://fixture/'+i,
+          text:('exact retained diagnostic '+i+' é𝄞; ').repeat(1800)})), gaps:['unresolved original'],
+      };
+      const valueBytes=Buffer.byteLength(canonicalJson(value)), valueDigest=sha256Canonical(value);
+      assert.equal(valueDigest,sha256Bytes(canonicalJson(value)),'historic text/hash byte compatibility');
+      assert.ok(valueBytes>1000000);
+      const acquired=storeOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});
+      assert.ok(acquired.store);
+      try {
+        const copies=96;
+        result(acquired.store,'first-inline',value);
+        for(let i=0;i<copies;i++) {
+          const supplied=structuredClone(value);
+          const admitted=result(acquired.store,'alias-'+i,supplied);
+          supplied.kind='changed caller value';
+          assert.equal(admitted.payload.valueDigest,valueDigest);
+          assert.equal(admitted.payload.value.kind,value.kind);
+          assert.ok(isDeeplyFrozen(admitted));
+        }
+        const events=acquired.store.readAll(), values=events.filter(e=>e.kind==='c_call_result_admitted');
+        assert.equal(values.length,copies+1);
+        assert.equal(new Set(values.map(e=>e.payload.resultRef)).size,copies+1);
+        const bytes=readFileSync(path), cold=storeOwner.validateHistoricalEvents(bytes);
+        assert.deepEqual(cold.map(e=>[e.eventId,e.payloadDigest]),events.map(e=>[e.eventId,e.payloadDigest]));
+        const state=replayValidatedRuntimeEventPrefix(selectValidatedRuntimeEventPrefix(events));
+        const reconstructed=replayValidatedRuntimeEventPrefix(selectValidatedRuntimeEventPrefix(cold));
+        assert.equal(state.cCalls.length,copies+1);
+        assert.equal(sha256Canonical(state),sha256Canonical(reconstructed));
+        assert.equal(storeOwner.runtimeEventPhysicalPrefix(events).digest,sha256Bytes(bytes));
+        const memory=process.memoryUsage();
+        console.log(JSON.stringify({seed:seedPath?'pinned-authentic-parent-value':'portable-synthetic',
+          copies,valueBytes,logicalBodyBytes:valueBytes*(copies+1),physicalBytes:bytes.length,
+          valueDigest,replayDigest:state.replayDigest,completeStateDigest:sha256Canonical(state),
+          heapUsed:memory.heapUsed,rss:memory.rss,maxRSSKiB:process.resourceUsage().maxRSS,
+          heapLimitMiB:128,allDistinctAdmissions:true,callerIsolation:true,coldReplayEqual:true,noNativeCredit:true}));
+      } finally {acquired.store.closeDurableLog();}
+     /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/disposable/abi5-body-V1yByb/memory-events.jsonl 
+  file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257
+              throw new TypeError("durable ABG event log contains a noncanonical event");
+                    ^
+  
+  TypeError: durable ABG event log contains a noncanonical event
+      at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)
+      at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)
+      at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/[eval1]:56:55
+      at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:273:26)
+      at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:270:20)
+      at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+  
+  Node.js v24.7.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:925:11)
+      at execFileSync (node:child_process:961:15)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs:513:31)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    status: 1,
+    signal: null,
+    output: [ null, '', 'file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257\n            throw new TypeError("durable ABG event log contains a noncanonical event");\n                  ^\n\nTypeError: durable ABG event log contains a noncanonical event\n    at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)\n    at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/[eval1]:56:55\n    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:273:26)\n    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:270:20)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\n\nNode.js v24.7.0\n' ],
+    pid: 88606,
+    stdout: '',
+    stderr: 'file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257\n            throw new TypeError("durable ABG event log contains a noncanonical event");\n                  ^\n\nTypeError: durable ABG event log contains a noncanonical event\n    at decodeHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2257:19)\n    at Module.validateHistoricalEvents (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/build/code/src/abg/event_store.js:2226:12)\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/[eval1]:56:55\n    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:273:26)\n    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:270:20)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\n\nNode.js v24.7.0\n'
+  }

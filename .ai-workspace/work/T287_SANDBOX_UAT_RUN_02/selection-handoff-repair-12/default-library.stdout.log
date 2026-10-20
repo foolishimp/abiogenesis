@@ -1,0 +1,530 @@
+✔ default library preserves cumulative wrapper bindings and rejects duplicate carried refs (9.860709ms)
+✔ installed root publication precondition rejects a bad non-selected publication (5.829125ms)
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (12.562792ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (27.42275ms)
+✔ retention and execution share root, imported and exact external semantics owner selection (7.4785ms)
+✔ declared wrapper judgments advance actual observations, including red C2, without satisfying parent state (24.328375ms)
+✔ default role content is the selected STDO source with capability instructions separate (0.69675ms)
+(node:20469) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (44.986959ms)
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (151.156125ms)
+✔ parent conservation joins the pre-Run root basis through exact invocation and root implementation set (1.52425ms)
+✖ DataMapper caller separates author territories and baseline inputs from future final proof (4.881ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (0.698875ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (33.145375ms)
+✔ observed command correspondence conserves explicit input across empty and different process environments (794.340375ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.061083ms) # SKIP
+ℹ tests 15
+ℹ suites 0
+ℹ pass 12
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 1379.46575
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:142:1
+✖ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (44.986959ms)
+  AssertionError [ERR_ASSERTION]: partial work returns for parent reassessment
+  + actual - expected
+  
+  + null
+  - {
+  -   kind: 'governance_work_state',
+  -   observations: [
+  -     {
+  -       actorInvocationRef: 'actor:unit',
+  -       cCallRef: 'call:partial',
+  -       purpose: 'construction',
+  -       resultDigest: 'sha256:f345a45f305a8df17fdbe550bfe775a1110b09fa7bdd4ef8f709b87c6a4a61f0',
+  -       resultRef: 'result:partial',
+  -       selectedGraphFunctionRef: 'graph-function://abiogenesis/default-library/construction@5',
+  -       synthesisResultRef: 'result:unit',
+  -       value: {
+  -         changedPaths: [],
+  -         report: {
+  -           gaps: [
+  -             'Parent testing and independent acceptance remain.'
+  -           ],
+  -           summary: 'Controlled bounded inspection report.'
+  -         }
+  -       }
+  -     }
+  -   ],
+  -   original: {
+  -     assessment: {
+  -       candidatePath: 'generated/hello-world.mjs',
+  -       resultContract: {
+  -         contractKind: 'output',
+  -         contractRef: 'contract://default-library-witness/assessment@5',
+  -         contractVersion: '5.0.0',
+  -         valueKind: 'consumer_outcome_assessment'
+  -       },
+  -       rubricPath: 'source/basic-cli.oracle.json',
+  -       satisfiedValue: 'satisfied',
+  -       schemaAsset: {
+  -         bytesBase64: 'eyIkaWQiOiJjb250cmFjdDovL2RlZmF1bHQtbGlicmFyeS13aXRuZXNzL2Fzc2Vzc21lbnRANSIsInR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInJlcXVpcmVkIjpbImtpbmQiLCJkaXNwb3NpdGlvbiIsInJlYXNvbiIsInVucmVzb2x2ZWRDcml0ZXJpYSJdLCJwcm9wZXJ0aWVzIjp7ImtpbmQiOnsiY29uc3QiOiJjb25zdW1lcl9vdXRjb21lX2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyJ9LCJ1bnJlc29sdmVkQ3JpdGVyaWEiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6InN0cmluZyJ9fX19Cg==',
+  -         contractId: 'contract://default-library-witness/assessment@5',
+  -         productId: 'product://default-library-witness/consumer@5'
+  -       },
+  -       sources: [
+  -         'design/implementation-design.md',
+  -         'design/test-design.md',
+  -         'source/original-basic-cli.txt',
+  -         'source/witness-contract.md',
+  -         'specification/project-conformance.md',
+  -         'test/component/hello-cli.test.mjs',
+  -         'test/uat/hello-cli.uat.test.mjs',
+  -         'test-execution-plan.json'
+  -       ],
+  -       verdictField: 'disposition'
+  -     },
+  -     authorityRefs: [
+  -       'authority://default-library-witness/consumer-scope@5'
+  -     ],
+  -     maxContextBytes: 131072,
+  -     maxContextFiles: 128,
+  -     maxPromptBytes: 131072,
+  -     readRoots: [
+  -       'design/implementation-design.md',
+  -       'design/test-design.md',
+  -       'generated/hello-world.mjs',
+  -       'source/basic-cli.oracle.json',
+  -       'source/original-basic-cli.txt',
+  -       'source/witness-contract.md',
+  -       'specification/project-conformance.md',
+  -       'test-execution-plan.json',
+  -       'test/component/hello-cli.test.mjs',
+  -       'test/uat/hello-cli.uat.test.mjs'
+  -     ],
+  -     requiredSupportRefs: [
+  -       'support://default-library-witness/complete-source-outcome@5'
+  -     ],
+  -     sources: [
+  -       {
+  -         digest: 'sha256:b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145',
+  -         path: 'design/implementation-design.md'
+  -       },
+  -       {
+  -         digest: 'sha256:617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406',
+  -         path: 'design/test-design.md'
+  -       },
+  -       {
+  -         digest: 'sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585',
+  -         path: 'source/basic-cli.oracle.json'
+  -       },
+  -       {
+  -         digest: 'sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f',
+  -         path: 'source/original-basic-cli.txt'
+  -       },
+  -       {
+  -         digest: 'sha256:29e669318aa0c9dc2fceca23f8caf22b01e475cd3f918070f980c70ac00355b3',
+  -         path: 'source/witness-contract.md'
+  -       },
+  -       {
+  -         digest: 'sha256:9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81',
+  -         path: 'specification/project-conformance.md'
+  -       },
+  -       {
+  -         digest: 'sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613',
+  -         path: 'test/component/hello-cli.test.mjs'
+  -       },
+  -       {
+  -         digest: 'sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4',
+  -         path: 'test/uat/hello-cli.uat.test.mjs'
+  -       },
+  -       {
+  -         digest: 'sha256:e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350',
+  -         path: 'test-execution-plan.json'
+  -       }
+  -     ],
+  -     task: '  sdlcComplianceScenario({\n' +
+  -       '    key: "basic-cli",\n' +
+  -       '    scenarioId: "SCN-GLC-HELLO-WORLD-CLI-BASIC",\n' +
+  -       '    kind: "node_cli",\n' +
+  -       '    stagePlan: [\n' +
+  -       '      {\n' +
+  -       '        stage: "conformance_project",\n' +
+  -       '        filesToProduce: ["specification/project-conformance.md"],\n' +
+  -       '        instructions: [\n' +
+  -       '          "Write only specification/project-conformance.md.",\n' +
+  -       '          "Declare a minimal CLI Hello World software-build traversal.",\n' +
+  -       '          "The source surface must be generated/hello-world.mjs.",\n' +
+  -       '          "The execution proof must run the CLI and observe stdout exactly \\"Hello, world!\\\\n\\".",\n' +
+  -       '          "Do not write source, tests, package files, or execution plans in this vector."\n' +
+  -       '        ]\n' +
+  -       '      },\n' +
+  -       '      {\n' +
+  -       '        stage: "implementation_design",\n' +
+  -       '        filesToProduce: ["design/implementation-design.md"],\n' +
+  -       '        instructions: [\n' +
+  -       '          "Write only design/implementation-design.md.",\n' +
+  -       '          "Use the prior conformance_project artifact as authority.",\n' +
+  -       '          "Define a minimal Node CLI script at generated/hello-world.mjs.",\n' +
+  -       '          "The script must print exactly \\"Hello, world!\\" followed by one newline.",\n' +
+  -       '          "Name component and UAT test source surfaces that execute the CLI and assert stdout."\n' +
+  -       '        ]\n' +
+  -       '      },\n' +
+  -       '      {\n' +
+  -       '        stage: "source",\n' +
+  -       '        filesToProduce: ["generated/hello-world.mjs"],\n' +
+  -       '        instructions: [\n' +
+  -       '          "Write only generated/hello-world.mjs.",\n' +
+  -       '          "The script must execute under node without package installation.",\n' +
+  -       '          "It must write exactly \\"Hello, world!\\\\n\\" to stdout."\n' +
+  -       '        ]\n' +
+  -       '      },\n' +
+  -       '      {\n' +
+  -       '        stage: "test_design",\n' +
+  -       '        filesToProduce: ["design/test-design.md"],\n' +
+  -       '        instructions: [\n' +
+  -       '          "Write only design/test-design.md.",\n' +
+  -       '          "Specify component and UAT validation of the CLI stdout contract.",\n' +
+  -       '          "Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \\"Hello, world!\\\\n\\"."\n' +
+  -       '        ]\n' +
+  -       '      },\n' +
+  -       '      {\n' +
+  -       '        stage: "component_test_source",\n' +
+  -       '        filesToProduce: ["test/component/hello-cli.test.mjs"],\n' +
+  -       '        instructions: [\n' +
+  -       '          "Write only test/component/hello-cli.test.mjs.",\n' +
+  -       '          "Use node:test, node:assert/strict, and node:child_process spawnSync.",\n' +
+  -       '          "Run process.execPath with [\\"generated/hello-world.mjs\\"] from the project root.",\n' +
+  -       '          "Assert status 0 and stdout exactly \\"Hello, world!\\\\n\\"."\n' +
+  -       '        ]\n' +
+  -       '      },\n' +
+  -       '      {\n' +
+  -       '        stage: "uat_test_source",\n' +
+  -       '        filesToProduce: ["test/uat/hello-cli.uat.test.mjs"],\n' +
+  -       '        instructions: [\n' +
+  -       '          "Write only test/uat/hello-cli.uat.test.mjs.",\n' +
+  -       '          "Use node:test, node:assert/strict, and node:child_process spawnSync.",\n' +
+  -       '          "Run process.execPath with [\\"generated/hello-world.mjs\\"] from the project root.",\n' +
+  -       '          "Assert the user-visible CLI output is exactly \\"Hello, world!\\\\n\\"."\n' +
+  -       '        ]\n' +
+  -       '      },\n' +
+  -       '      {\n' +
+  -       '        stage: "test_execution_plan",\n' +
+  -       '        workerExecutes: true,\n' +
+  -       '        filesToProduce: ["test-execution-plan.json", "test-execution-result.json"],\n' +
+  -       '        instructions: [\n' +
+  -       '          "Write test-execution-plan.json and test-execution-result.json only.",\n' +
+  -       '          "The JSON command must be node.",\n' +
+  -       '          "The args must be [\\"--test\\", \\"test/component/hello-cli.test.mjs\\", \\"test/uat/hello-cli.uat.test.mjs\\"].",\n' +
+  -       '          "expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.",\n' +
+  -       '          "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",\n' +
+  -       '          "assertedReturnValue must be \\"Hello, world!\\".",\n' +
+  -       '          "EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.",\n' +
+  -       '          "Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json."\n' +
+  -       '        ]\n' +
+  -       '      },\n' +
+  -       '      {\n' +
+  -       '        stage: "test_execution_result",\n' +
+  -       '        instructions: [\n' +
+  -       '          "Produce no files.",\n' +
+  -       '          "Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true."\n' +
+  -       '        ]\n' +
+  -       '      }\n' +
+  -       '    ]\n' +
+  -       '  }),\n' +
+  -       '\n' +
+  -       '# Independent consumer witness\n' +
+  -       '\n' +
+  -       'Complete the original basic-cli outcome using the supplied existing candidate,\n' +
+  -       'design, verification artifacts and plan. These files are supplied work, not\n' +
+  -       'admitted evidence of success and not the output of a native author in this Run.\n' +
+  -       'Their actual behavior has not yet been established in this Run. Evaluate the\n' +
+  -       'candidate before deciding what needs changing. Preserve valid work and repair\n' +
+  -       'only a materially established implementation defect.\n' +
+  -       '\n' +
+  -       'Keep the original source, independent oracle, this contract, design/conformance\n' +
+  -       'documents, test sources and test plan unchanged. Application edits are confined\n' +
+  -       'to generated/hello-world.mjs. Declared execution evidence may be written under\n' +
+  -       'execution-evidence. Other policy/schema assets added by installation are\n' +
+  -       'protected. No package installation or network access is needed for this app.\n' +
+  -       '\n' +
+  -       'The complete original source and independent basic-cli oracle govern the\n' +
+  -       'application outcome. The added framework discriminator requires an actual\n' +
+  -       'command observation of the supplied candidate, with no native author prerequisite;\n' +
+  -       'its material failure must remain evidence for a subsequent, different registered\n' +
+  -       'work choice. Required independent user-outcome assessment and parent reevaluation\n' +
+  -       'must consume current evidence. A child completing an observation does not\n' +
+  -       'complete the application.\n' +
+  -       '\n' +
+  -       'This fixture intentionally supplies an unverified candidate. Do not import\n' +
+  -       'historical successful runtime events or invent author lineage. Do not force an\n' +
+  -       'expected graph sequence. An unexpected choice or failure remains the result of\n' +
+  -       'the first attempt; preserve it for disposition rather than changing this oracle.\n',
+  -     taskRef: 'task://default-library-witness/original@5',
+  -     testing: {
+  -       allowedWriteTerritories: [
+  -         {
+  -           pathKind: 'subtree',
+  -           relativePath: 'execution-evidence'
+  -         }
+  -       ],
+  -       commands: [
+  -         {
+  -           args: [
+  -             'generated/hello-world.mjs'
+  -           ],
+  -           commandId: 'command://default-library-witness/0@5',
+  -           environment: {},
+  -           executable: 'node',
+  -           expectedReports: [],
+  -           relativeCwd: '.',
+  -           terminationGraceMs: 2000,
+  -           timeoutMs: 20000
+  -         },
+  -         {
+  -           args: [
+  -             '--test',
+  -             'test/component/hello-cli.test.mjs',
+  -             'test/uat/hello-cli.uat.test.mjs'
+  -           ],
+  -           commandId: 'command://default-library-witness/1@5',
+  -           environment: {},
+  -           executable: 'node',
+  -           expectedReports: [],
+  -           relativeCwd: '.',
+  -           terminationGraceMs: 2000,
+  -           timeoutMs: 20000
+  -         }
+  -       ],
+  -       outcomePredicates: [],
+  -       selectedPaths: [
+  -         'design/implementation-design.md',
+  -         'design/test-design.md',
+  -         'generated/hello-world.mjs',
+  -         'source/basic-cli.oracle.json',
+  -         'source/original-basic-cli.txt',
+  -         'source/witness-contract.md',
+  -         'specification/project-conformance.md',
+  -         'test/component/hello-cli.test.mjs',
+  -         'test/uat/hello-cli.uat.test.mjs',
+  -         'test-execution-plan.json'
+  -       ]
+  -     },
+  -     workOrders: {
+  -       construction: {
+  -         checks: [],
+  -         instructions: [
+  -           '# Independent consumer witness\n' +
+  -             '\n' +
+  -             'Complete the original basic-cli outcome using the supplied existing candidate,\n' +
+  -             'design, verification artifacts and plan. These files are supplied work, not\n' +
+  -             'admitted evidence of success and not the output of a native author in this Run.\n' +
+  -             'Their actual behavior has not yet been established in this Run. Evaluate the\n' +
+  -             'candidate before deciding what needs changing. Preserve valid work and repair\n' +
+  -             'only a materially established implementation defect.\n' +
+  -             '\n' +
+  -             'Keep the original source, independent oracle, this contract, design/conformance\n' +
+  -             'documents, test sources and test plan unchanged. Application edits are confined\n' +
+  -             'to generated/hello-world.mjs. Declared execution evidence may be written under\n' +
+  -             'execution-evidence. Other policy/schema assets added by installation are\n' +
+  -             'protected. No package installation or network access is needed for this app.\n' +
+  -             '\n' +
+  -             'The complete original source and independent basic-cli oracle govern the\n' +
+  -             'application outcome. The added framework discriminator requires an actual\n' +
+  -             'command observation of the supplied candidate, with no native author prerequisite;\n' +
+  -             'its material failure must remain evidence for a subsequent, different registered\n' +
+  -             'work choice. Required independent user-outcome assessment and parent reevaluation\n' +
+  -             'must consume current evidence. A child completing an observation does not\n' +
+  -             'complete the application.\n' +
+  -             '\n' +
+  -             'This fixture intentionally supplies an unverified candidate. Do not import\n' +
+  -             'historical successful runtime events or invent author lineage. Do not force an\n' +
+  -             'expected graph sequence. An unexpected choice or failure remains the result of\n' +
+  -             'the first attempt; preserve it for disposition rather than changing this oracle.\n'
+  -         ],
+  -         outcome: 'Perform the selected construction work needed for the original task.',
+  -         readFirst: [
+  -           'design/implementation-design.md',
+  -           'design/test-design.md',
+  -           'source/basic-cli.oracle.json',
+  -           'source/original-basic-cli.txt',
+  -           'source/witness-contract.md',
+  -           'specification/project-conformance.md',
+  -           'test/component/hello-cli.test.mjs',
+  -           'test/uat/hello-cli.uat.test.mjs',
+  -           'test-execution-plan.json',
+  -           'generated/hello-world.mjs'
+  -         ],
+  -         writeRoots: [
+  -           'generated/hello-world.mjs'
+  -         ]
+  -       },
+  -       testing: {
+  -         checks: [],
+  -         instructions: [
+  -           '# Independent consumer witness\n' +
+  -             '\n' +
+  -             'Complete the original basic-cli outcome using the supplied existing candidate,\n' +
+  -             'design, verification artifacts and plan. These files are supplied work, not\n' +
+  -             'admitted evidence of success and not the output of a native author in this Run.\n' +
+  -             'Their actual behavior has not yet been established in this Run. Evaluate the\n' +
+  -             'candidate before deciding what needs changing. Preserve valid work and repair\n' +
+  -             'only a materially established implementation defect.\n' +
+  -             '\n' +
+  -             'Keep the original source, independent oracle, this contract, design/conformance\n' +
+  -             'documents, test sources and test plan unchanged. Application edits are confined\n' +
+  -             'to generated/hello-world.mjs. Declared execution evidence may be written under\n' +
+  -             'execution-evidence. Other policy/schema assets added by installation are\n' +
+  -             'protected. No package installation or network access is needed for this app.\n' +
+  -             '\n' +
+  -             'The complete original source and independent basic-cli oracle govern the\n' +
+  -             'application outcome. The added framework discriminator requires an actual\n' +
+  -             'command observation of the supplied candidate, with no native author prerequisite;\n' +
+  -             'its material failure must remain evidence for a subsequent, different registered\n' +
+  -             'work choice. Required independent user-outcome assessment and parent reevaluation\n' +
+  -             'must consume current evidence. A child completing an observation does not\n' +
+  -             'complete the application.\n' +
+  -             '\n' +
+  -             'This fixture intentionally supplies an unverified candidate. Do not import\n' +
+  -             'historical successful runtime events or invent author lineage. Do not force an\n' +
+  -             'expected graph sequence. An unexpected choice or failure remains the result of\n' +
+  -             'the first attempt; preserve it for disposition rather than changing this oracle.\n'
+  -         ],
+  -         outcome: 'Perform the selected testing work needed for the original task.',
+  -         readFirst: [
+  -           'design/implementation-design.md',
+  -           'design/test-design.md',
+  -           'source/basic-cli.oracle.json',
+  -           'source/original-basic-cli.txt',
+  -           'source/witness-contract.md',
+  -           'specification/project-conformance.md',
+  -           'test/component/hello-cli.test.mjs',
+  -           'test/uat/hello-cli.uat.test.mjs',
+  -           'test-execution-plan.json',
+  -           'generated/hello-world.mjs'
+  -         ],
+  -         writeRoots: []
+  -       },
+  -       uat: {
+  -         checks: [],
+  -         instructions: [
+  -           '# Independent consumer witness\n' +
+  -             '\n' +
+  -             'Complete the original basic-cli outcome using the supplied existing candidate,\n' +
+  -             'design, verification artifacts and plan. These files are supplied work, not\n' +
+  -             'admitted evidence of success and not the output of a native author in this Run.\n' +
+  -             'Their actual behavior has not yet been established in this Run. Evaluate the\n' +
+  -             'candidate before deciding what needs changing. Preserve valid work and repair\n' +
+  -             'only a materially established implementation defect.\n' +
+  -             '\n' +
+  -             'Keep the original source, independent oracle, this contract, design/conformance\n' +
+  -             'documents, test sources and test plan unchanged. Application edits are confined\n' +
+  -             'to generated/hello-world.mjs. Declared execution evidence may be written under\n' +
+  -             'execution-evidence. Other policy/schema assets added by installation are\n' +
+  -             'protected. No package installation or network access is needed for this app.\n' +
+  -             '\n' +
+  -             'The complete original source and independent basic-cli oracle govern the\n' +
+  -             'application outcome. The added framework discriminator requires an actual\n' +
+  -             'command observation of the supplied candidate, with no native author prerequisite;\n' +
+  -             'its material failure must remain evidence for a subsequent, different registered\n' +
+  -             'work choice. Required independent user-outcome assessment and parent reevaluation\n' +
+  -             'must consume current evidence. A child completing an observation does not\n' +
+  -             'complete the application.\n' +
+  -             '\n' +
+  -             'This fixture intentionally supplies an unverified candidate. Do not import\n' +
+  -             'historical successful runtime events or invent author lineage. Do not force an\n' +
+  -             'expected graph sequence. An unexpected choice or failure remains the result of\n' +
+  -             'the first attempt; preserve it for disposition rather than changing this oracle.\n'
+  -         ],
+  -         outcome: 'Perform the selected uat work needed for the original task.',
+  -         readFirst: [
+  -           'design/implementation-design.md',
+  -           'design/test-design.md',
+  -           'source/basic-cli.oracle.json',
+  -           'source/original-basic-cli.txt',
+  -           'source/witness-contract.md',
+  -           'specification/project-conformance.md',
+  -           'test/component/hello-cli.test.mjs',
+  -           'test/uat/hello-cli.uat.test.mjs',
+  -           'test-execution-plan.json',
+  -           'generated/hello-world.mjs'
+  -         ],
+  -         writeRoots: []
+  -       }
+  -     }
+  -   },
+  -   schemaVersion: '5.0.0',
+  -   synthesis: {
+  -     basis: {
+  -       contextRef: 'worksite-context-observation://abiogenesis/0f9532bfa5ccfd43c2a311133c2993af3253a9e4747743de005c990b6af2452f',
+  -       environmentDigest: 'sha256:77c14283c58bbf3de1ec75e1c4d5544522fe0438c0869f4ffd6a7ef091da4838',
+  -       environmentRef: 'environment:unit',
+  -       frameEvidenceDigest: 'sha256:edecec53ab11f560816e75a17681eb83886beace01d7fb927d99707d3d031aac',
+  -       frameRefs: [
+  -         'stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame'
+  -       ],
+  -       inputDigest: 'sha256:0455e070932fd62627ab37e8d9260bff7e018889885c7fb093d932ec2e2554b4',
+  -       inputRef: 'input:unit',
+  -       previousResultRef: null,
+  -       taskRef: 'task://default-library-witness/original@5'
+  -     },
+  -     judgment: {
+  -       contributions: [
+  -         {
+  -           contribution: 'Inspect only the current candidate and report its remaining gaps.',
+  -           dependsOn: [],
+  -           evidenceRefs: [
+  -             'worksite-context-observation://abiogenesis/0f9532bfa5ccfd43c2a311133c2993af3253a9e4747743de005c990b6af2452f'
+  -           ],
+  -           graphFunctionRef: 'graph-function://abiogenesis/default-library/construction@5',
+  -           reason: 'Full testing and independent acceptance remain parent obligations.',
+  -           supportRefs: [
+  -             'support://default-library-witness/complete-source-outcome@5'
+  -           ]
+  -         }
+  -       ],
+  -       gaps: [],
+  -       interpretation: 'The original task requires several iterations.',
+  -       nextEvidenceRefs: [
+  -         'worksite-context-observation://abiogenesis/0f9532bfa5ccfd43c2a311133c2993af3253a9e4747743de005c990b6af2452f'
+  -       ],
+  -       nextGraphFunctionRef: 'graph-function://abiogenesis/default-library/construction@5',
+  -       nextReason: 'One bounded inspection before reassessment.',
+  -       revisionEvidenceRefs: [],
+  -       revisionReason: 'Initial judgment',
+  -       subjectEvidenceRef: null
+  -     },
+  -     resultDigest: 'sha256:0f1e4b7f4fdcc3784b744456da64fd29707329d9f6e3926498096b0981b7da07',
+  -     resultRef: 'result:unit'
+  -   },
+  -   terminal: false,
+  -   unresolvedSupportRefs: [
+  -     'support://default-library-witness/complete-source-outcome@5'
+  -   ]
+  - }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:267:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: { kind: 'governance_work_state', schemaVersion: '5.0.0', original: { taskRef: 'task://default-library-witness/original@5', task: '  sdlcComplianceScenario({\n    key: "basic-cli",\n    scenarioId: "SCN-GLC-HELLO-WORLD-CLI-BASIC",\n    kind: "node_cli",\n    stagePlan: [\n      {\n        stage: "conformance_project",\n        filesToProduce: ["specification/project-conformance.md"],\n        instructions: [\n          "Write only specification/project-conformance.md.",\n          "Declare a minimal CLI Hello World software-build traversal.",\n          "The source surface must be generated/hello-world.mjs.",\n          "The execution proof must run the CLI and observe stdout exactly \\"Hello, world!\\\\n\\".",\n          "Do not write source, tests, package files, or execution plans in this vector."\n        ]\n      },\n      {\n        stage: "implementation_design",\n        filesToProduce: ["design/implementation-design.md"],\n        instructions: [\n          "Write only design/implementation-design.md.",\n          "Use the prior conformance_project artifact as authority.",\n          "Define a minimal Node CLI script at generated/hello-world.mjs.",\n          "The script must print exactly \\"Hello, world!\\" followed by one newline.",\n          "Name component and UAT test source surfaces that execute the CLI and assert stdout."\n        ]\n      },\n      {\n        stage: "source",\n        filesToProduce: ["generated/hello-world.mjs"],\n        instructions: [\n          "Write only generated/hello-world.mjs.",\n          "The script must execute under node without package installation.",\n          "It must write exactly \\"Hello, world!\\\\n\\" to stdout."\n        ]\n      },\n      {\n        stage: "test_design",\n        filesToProduce: ["design/test-design.md"],\n        instructions: [\n          "Write only design/test-design.md.",\n          "Specify component and UAT validation of the CLI stdout contract.",\n          "Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \\"Hello, world!\\\\n\\"."\n        ]\n      },\n      {\n        stage: "component_test_source",\n        filesToProduce: ["test/component/hello-cli.test.mjs"],\n        instructions: [\n          "Write only test/component/hello-cli.test.mjs.",\n          "Use node:test, node:assert/strict, and node:child_process spawnSync.",\n          "Run process.execPath with [\\"generated/hello-world.mjs\\"] from the project root.",\n          "Assert status 0 and stdout exactly \\"Hello, world!\\\\n\\"."\n        ]\n      },\n      {\n        stage: "uat_test_source",\n        filesToProduce: ["test/uat/hello-cli.uat.test.mjs"],\n        instructions: [\n          "Write only test/uat/hello-cli.uat.test.mjs.",\n          "Use node:test, node:assert/strict, and node:child_process spawnSync.",\n          "Run process.execPath with [\\"generated/hello-world.mjs\\"] from the project root.",\n          "Assert the user-visible CLI output is exactly \\"Hello, world!\\\\n\\"."\n        ]\n      },\n      {\n        stage: "test_execution_plan",\n        workerExecutes: true,\n        filesToProduce: ["test-execution-plan.json", "test-execution-result.json"],\n        instructions: [\n          "Write test-execution-plan.json and test-execution-result.json only.",\n          "The JSON command must be node.",\n          "The args must be [\\"--test\\", \\"test/component/hello-cli.test.mjs\\", \\"test/uat/hello-cli.uat.test.mjs\\"].",\n          "expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.",\n          "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",\n          "assertedReturnValue must be \\"Hello, world!\\".",\n          "EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.",\n          "Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json."\n        ]\n      },\n      {\n        stage: "test_execution_result",\n        instructions: [\n          "Produce no files.",\n          "Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true."\n        ]\n      }\n    ]\n  }),\n\n# Independent consumer witness\n\nComplete the original basic-cli outcome using the supplied existing candidate,\ndesign, verification artifacts and plan. These files are supplied work, not\nadmitted evidence of success and not the output of a native author in this Run.\nTheir actual behavior has not yet been established in this Run. Evaluate the\ncandidate before deciding what needs changing. Preserve valid work and repair\nonly a materially established implementation defect.\n\nKeep the original source, independent oracle, this contract, design/conformance\ndocuments, test sources and test plan unchanged. Application edits are confined\nto generated/hello-world.mjs. Declared execution evidence may be written under\nexecution-evidence. Other policy/schema assets added by installation are\nprotected. No package installation or network access is needed for this app.\n\nThe complete original source and independent basic-cli oracle govern the\napplication outcome. The added framework discriminator requires an actual\ncommand observation of the supplied candidate, with no native author prerequisite;\nits material failure must remain evidence for a subsequent, different registered\nwork choice. Required independent user-outcome assessment and parent reevaluation\nmust consume current evidence. A child completing an observation does not\ncomplete the application.\n\nThis fixture intentionally supplies an unverified candidate. Do not import\nhistorical successful runtime events or invent author lineage. Do not force an\nexpected graph sequence. An unexpected choice or failure remains the result of\nthe first attempt; preserve it for disposition rather than changing this oracle.\n', sources: [Array], requiredSupportRefs: [Array], authorityRefs: [Array], readRoots: [Array], maxContextFiles: 128, maxContextBytes: 131072, maxPromptBytes: 131072, workOrders: [Object], testing: [Object], assessment: [Object] }, synthesis: { resultRef: 'result:unit', resultDigest: 'sha256:0f1e4b7f4fdcc3784b744456da64fd29707329d9f6e3926498096b0981b7da07', basis: [Object], judgment: [Object] }, observations: [ [Object] ], unresolvedSupportRefs: [ 'support://default-library-witness/complete-source-outcome@5' ], terminal: false },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-default-library.test.mjs:379:1
+✖ DataMapper caller separates author territories and baseline inputs from future final proof (4.881ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  45 !== 44
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:394:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 45,
+    expected: 44,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

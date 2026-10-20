@@ -1,0 +1,15 @@
+{
+  "sourceTscMs": 6472.036832943559,
+  "sourceTscRssBytes": 1099907072,
+  "callbackRegressionMs": 864.1932504251599,
+  "callbackRegressionRssBytes": 355368960,
+  "bothKnownGroupsAbsent": true,
+  "defaultHeap": true,
+  "ordinaryHOME": "unchanged",
+  "sourceChecks": 1,
+  "actualCallbackTests": 1,
+  "compilerNegativeTests": 0,
+  "generatedMemberCount": 524,
+  "donorRecordsVerified": 6515,
+  "protectedHistoricalTargetUnchanged": true
+}

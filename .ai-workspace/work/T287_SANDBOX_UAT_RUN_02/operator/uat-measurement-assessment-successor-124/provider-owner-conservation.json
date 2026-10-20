@@ -1,0 +1,85 @@
+{
+  "reused116Host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host-preparation/exacthost-identity.json",
+    "sha256": "46db847a404d42735bafe0138a1ea91a7c61cbc075f4370076e3ff801c0457a3",
+    "byteCount": 3205
+  },
+  "ownerPairs": [
+    {
+      "relativePath": "build/code/src/abg/instruction_assembly.js",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+        "sha256": "9da942081715df5ebec90bccc5da567eb444996671a5a14999f2cad36c95956a",
+        "byteCount": 113893
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+        "sha256": "9da942081715df5ebec90bccc5da567eb444996671a5a14999f2cad36c95956a",
+        "byteCount": 113893
+      },
+      "unchanged": true
+    },
+    {
+      "relativePath": "build/code/src/abg/actor_process.js",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js",
+        "sha256": "11b7c6e08173f47034598d3ebf8472c0d330e3325e7d0910cfd6b7783713901d",
+        "byteCount": 55462
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js",
+        "sha256": "11b7c6e08173f47034598d3ebf8472c0d330e3325e7d0910cfd6b7783713901d",
+        "byteCount": 55462
+      },
+      "unchanged": true
+    },
+    {
+      "relativePath": "build/code/src/abg/worker_transport.js",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+        "sha256": "1430a4c58de864d33d0897da5eb0660d8438b0cebddfd2a46680b66e51ea9385",
+        "byteCount": 36984
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+        "sha256": "1430a4c58de864d33d0897da5eb0660d8438b0cebddfd2a46680b66e51ea9385",
+        "byteCount": 36984
+      },
+      "unchanged": true
+    },
+    {
+      "relativePath": "build/code/src/abg/transport_contracts.js",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/transport_contracts.js",
+        "sha256": "8982b031d637c4ed12b0abfff6a60a38cb9c0b0f939144ba03a03438e43affd7",
+        "byteCount": 11527
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/transport_contracts.js",
+        "sha256": "8982b031d637c4ed12b0abfff6a60a38cb9c0b0f939144ba03a03438e43affd7",
+        "byteCount": 11527
+      },
+      "unchanged": true
+    },
+    {
+      "relativePath": "build/code/src/product/default_library.js",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+        "sha256": "13d5efeab4c0aea6043469cd6005e05635d4202cd00ac2ac1e57b485f13bb7b7",
+        "byteCount": 31335
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+        "sha256": "13d5efeab4c0aea6043469cd6005e05635d4202cd00ac2ac1e57b485f13bb7b7",
+        "byteCount": 31335
+      },
+      "unchanged": true
+    }
+  ],
+  "source120InstalledOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+    "sha256": "633fc8610abb16c0df64c50674cbbd1e5f9d3998c4661aa96d45996614b8a5aa",
+    "byteCount": 31678
+  },
+  "scope": "Exact unchanged provider assembly/transport/canonical selector binder owners; no fresh provider qualification or actual model dispatch"
+}

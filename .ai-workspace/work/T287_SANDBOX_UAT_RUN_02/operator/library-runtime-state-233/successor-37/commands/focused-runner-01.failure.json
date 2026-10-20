@@ -1,0 +1,7 @@
+{
+  "kind": "focused_runner_creation_premise",
+  "stage": "before test entry",
+  "error": "Path(\".\").parent.resolve() selected successor37 rather than the enclosing phase directory; frozen36 runner not found, runner37 was not created, subsequent Node loader reported MODULE_NOT_FOUND.",
+  "selectedAction": "Use the literal frozen36 run-focused-02.mjs selector. No Source/test semantic change.",
+  "runtimeTestVerdict": "none"
+}

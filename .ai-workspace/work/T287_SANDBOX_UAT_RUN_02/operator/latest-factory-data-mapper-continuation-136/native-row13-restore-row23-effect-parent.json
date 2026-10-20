@@ -1,0 +1,97 @@
+{
+  "observedAt": "2026-10-08T23:47:37.512909+00:00",
+  "eventStore": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+  "events": {
+    "196060": {
+      "ordinal": 196060,
+      "offset": 1567369590,
+      "byteCount": 4851723,
+      "sha256": "096be0fd1ae10905601ca1b2dcdb3e5b5ab20d5945910933ce1d04409c16f872",
+      "resultRef": "result://abiogenesis/e39717d2cb868d91b5416d51dfca4a89cf27a679a846151007c642948064def5"
+    },
+    "196090": {
+      "ordinal": 196090,
+      "offset": 1579108313,
+      "byteCount": 1951684,
+      "sha256": "fdfe702a7e3d23cf286a275089ac85fabaa4cb77a38b319ef3dc8d43a0111c64",
+      "resultRef": "result://abiogenesis/87debfe6694cfd332e8c71eeb8ee6ae45df376426030c88da6bb13bfcc904aff"
+    },
+    "188534": {
+      "ordinal": 188534,
+      "offset": 1518223015,
+      "byteCount": 1942451,
+      "sha256": "921564b33d7235b90d3df131ac86d23b4fa3ca61735eb62a2c2370a3caf0d913",
+      "resultRef": "result://abiogenesis/4b926ded7b3ae15f6bf05b7230afed0cacfdce6a04ce305b24ecc98a3cf90ee7"
+    },
+    "193319": {
+      "ordinal": 193319,
+      "offset": 1547732436,
+      "byteCount": 2925356,
+      "sha256": "4b9ad3334559fdf488b107a97595b23366fd6f856c174cd54d98bea89dda8cd3",
+      "resultRef": "result://abiogenesis/98c0f84892dbff2536bd529a68d8443b97a57718b1ca1c6df219b0a0630f990e"
+    },
+    "183839": {
+      "ordinal": 183839,
+      "offset": 1453884494,
+      "byteCount": 4720749,
+      "sha256": "c51d68d23f85deba481f2a3268bcabb17a8f30c02276d999fbef7d024b87781d",
+      "resultRef": "result://abiogenesis/38c363d2d304d5385288d11c4e9e23e62646b4a1e98558fc8b46dc28920884cd"
+    }
+  },
+  "deltas": [
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "before": {
+        "digest": "sha256:56c2c1a1df362be1ecc81366321bed60d51f215b3d86e5740e620a70007a470b",
+        "byteLength": 2083,
+        "fileIdentity": "16777231:468472908"
+      },
+      "after": {
+        "digest": "sha256:29bc765f08e95ed4e7084f8a4c7bcd9a69e8b854e81fab30be8cebaa2aa7bcb2",
+        "byteLength": 2042,
+        "fileIdentity": "16777231:468699937"
+      },
+      "diff": "--- \n\n+++ \n\n@@ -30,7 +30,7 @@\n\n     ledger.entries.foldLeft(PartitionTotals(0L, 0L, 0L)) { (sum, entry) =>\n       entry.partition match {\n-        case LedgerPartition.InputRows     => sum.copy(input = sum.input + entry.rowCount)\n-        case LedgerPartition.OutputRows    => sum.copy(output = sum.output + entry.rowCount)\n-        case LedgerPartition.ErrorSinkRows => sum.copy(errorSink = sum.errorSink + entry.rowCount)\n+        case LedgerPartition.InputRows     => sum.copy(input = entry.rowCount)\n+        case LedgerPartition.OutputRows    => sum.copy(output = entry.rowCount)\n+        case LedgerPartition.ErrorSinkRows => sum.copy(errorSink = entry.rowCount)\n       }\n     }"
+    },
+    {
+      "relativePath": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "before": {
+        "digest": "sha256:fc325c934a3efffc3cd39d02651959485523085e62841c95d8db063b84f6041b",
+        "byteLength": 5346,
+        "fileIdentity": "16777231:468414878"
+      },
+      "after": {
+        "digest": "sha256:2f046f268ceea5e4a118ca79ff9d20d07d647dbf4dd2af9e513fcecad7df48e1",
+        "byteLength": 5293,
+        "fileIdentity": "16777231:468699876"
+      },
+      "diff": "--- \n\n+++ \n\n@@ -51,5 +51,5 @@\n\n \n     val output = staged\n-      .filter(col(StagedCause).isNull || col(StagedCause) === ErrorCause.NullRequired.code)\n+      .filter(col(StagedCause).isNull)\n       .select(compiled.target.fields.map { field =>\n         val i = compiled.edges.indexWhere(_.targetField.name == field.name)"
+    }
+  ],
+  "other47ObservationEntriesUnchanged": true,
+  "executorRestoredBytesEqualOriginalMutantBefore": true,
+  "nativeOutcomeEqualsSelected193319Contribution": true,
+  "parent": {
+    "originalDeepEqual": true,
+    "allPrior32DeepEqual": true,
+    "exactActorCallResultSynthesisJoin": true,
+    "observationCount": 33,
+    "terminal": false
+  },
+  "nativeReport": {
+    "gaps": [
+      "The row-13 restore (2f046f26…/5293) has not been observed by any Testing/C2 snapshot. Row 13 is not projected into mutation-outcomes.json and must wait for the next Testing snapshot to confirm the restored baseline.",
+      "The row-23 mutant (29bc765f…/2042) has not been compiled or run. Compiled status, suite exit, the exact red <testcase> names and test_pass_count are all predictions only. A registered Testing/C2 full `sbt test` run on this mutant is needed, then a restore to 56c2c1a1…/2083 and an observed restored baseline, before a row-23 entry can be written.",
+      "Rows 28 and 38 still have no mutant or run. depth-proof-map.json has not been updated for rows 13 and 23.",
+      "test-execution-result.json is absent. Carried forward and not re-verified in this increment: planSatisfied/assertedReturnValue unbound, sbt clean assembly/offline unobserved, the predicate id mismatch, the stale repair schedule, the basis-object shape, and UAT not green.",
+      "Known test_pass_count defect: on any red run it counts 0 passes for a report that has failures. The row-23 run will likely undercount (about 39 instead of 43).",
+      "The row-23 mutant changes three case arms (lines 32-34) with one mechanism, following §7's 'and likewise'. Changing only the input arm would also flip ACCT-04. Whether a three-line edit meets 'one minimal semantic edit' is left for Assurance.",
+      "Out-of-scope reads, all read-only and hashed or parsed in memory with python3 -I: archive snapshots d43b9187 (f2156d3f…/1832082d…) and b5b5cad3 (2154d73d…/ea939b52…) under ../../resources/archives/worksite-command-execution/.",
+      "Partial reads of mandatory inputs:\n- supporting-constants.original.txt: read in full.\n- source.original.txt: only grep hits for mutation/restore (around lines 101 and 499-522).\n- obligations.json: only top-level keys and the REQ-CDME-ACCOUNTING entry.\n- oracle.json: only top-level keys, mutationProof and depthProof.\n- test-design.md: only §5.5 and §7.",
+      "Possible incidental writes:\n- The Edit tool wrote the two in-scope Scala files; its exact mechanism (in place or temp-and-rename) is unknown.\n- A read-only `git status --porcelain` run from the worksite may have refreshed the outer abiogenesis repo's .git/index stat cache. That would be outside the declared scope.\n- No temp files, redirections or probe fixtures were created.",
+      "No acceptance, kill or graph-continuation claim is made."
+    ],
+    "summary": "Construction increment for rows 13 and 23 is done as a partial result. Nothing was compiled, sbt was not run, and no kill is claimed.\n\n(1) Read-only check of the d43b9187 archive (f2156d3f…/1832082d…/sandbox), parsed in memory with python3 -I. No discrepancies.\n- All 8 XML reports match the recorded digest and length:\n  - core 7f396d16…/6409\n  - compiler fd32b63a…/6192\n  - executor d0ec3b65…c359/18303 (5 tests, 3 failures)\n  - adjoint 61fe95cd…/6238\n  - accounting d9b95f7e…/6191\n  - assurance a3896c5d…/6170\n  - fidelity cac27624…/6177\n  - engine 2093192c…2074/15117 (8 tests, 2 failures)\n- There are 5 <failure> elements and no <error> or <skipped>. Exact testcase names:\n  - \"UAT-EXEC-NEG: unparseable and null-required bad rows reach the error sink with their edge and cause\"\n  - \"UAT-EXEC-BND: empty input gives empty partitions and all-bad input sends every row to the error sink\" (\"2 did not equal 0\")\n  - \"UAT-EXEC-INV: input rows equal output rows plus error-sink rows with no row in both partitions\" (\"3 did not equal 2 degraded\"). This confirms UAT-EXEC-INV is among the failures.\n  - \"UAT-ENG-NEG: a type-mismatched topology halts at compile and degraded rows halt at assure\"\n  - \"U8 runner negative: run on the degraded request returns a Left naming assure\" (got Left(\"account: unbalanced by -1: input 4, output 3, error sink 2\"))\n- Collateral failures are the 4 names other than UAT-EXEC-INV.\n- Counts reconcile: 44 = 39 passed + 5 failures + 0 errors + 0 skipped.\n- The tracked file set is identical across the d43b9187 snapshot, the b5b5cad3 snapshot and the worksite: 22 files (11 main, 8 test, 3 build). Only DataFrameExecutor.scala differs, and it is sha256:fc325c934a3efffc3cd39d02651959485523085e62841c95d8db063b84f6041b at 5346 B.\n\n(2) Row 13 restored. DataFrameExecutor.scala line 53 is now exactly \"      .filter(col(StagedCause).isNull)\". The file hashes to sha256:2f046f268ceea5e4a118ca79ff9d20d07d647dbf4dd2af9e513fcecad7df48e1 at 5293 B, and cmp shows it is byte-identical to the b5b5cad3 snapshot copy. Row 13 is not written to mutation-outcomes.json.\n\n(3) Row-23 mutant applied (REQ-CDME-ACCOUNTING × depth-class://invariant).\n- Before the edit, AccountingVerifier.scala was at baseline 56c2c1a1df362be1ecc81366321bed60d51f215b3d86e5740e620a70007a470b, 2083 B.\n- Locus: lines 29-36, the per-partition foldLeft in `totals`. This is the locus test-design §7 plans for ACCOUNTING × INV, with the planned mechanism \"the last entry per partition wins\".\n- Edit, in lines 32-34:\n  - `sum.copy(input = sum.input + entry.rowCount)` → `sum.copy(input = entry.rowCount)`\n  - the same change for `output` and `errorSink`.\n- The mutant is sha256:29bc765f08e95ed4e7084f8a4c7bcd9a69e8b854e81fab30be8cebaa2aa7bcb2 at 2042 B (41 bytes removed).\n- It differs from row 21 in both locus and mechanism. Row 21 changed the line-40 verdict comparator (`== → >=`). This edit changes the fold accumulator from summing to overwriting, and line 40 is untouched.\n- Restore obligation: put lines 32-34 back to `sum.copy(input = sum.input + entry.rowCount)`, `sum.copy(output = sum.output + entry.rowCount)` and `sum.copy(errorSink = sum.errorSink + entry.rowCount)`. The restored file must hash to sha256:56c2c1a1df362be1ecc81366321bed60d51f215b3d86e5740e620a70007a470b at 2083 B and be byte-identical to the b5b5cad3 snapshot copy.\n- Compile-safety reasoning (not compiled):\n  - `entry.rowCount` is a Long (core package.scala:138), the same type as the PartitionTotals fields.\n  - Each arm still uses `sum` through `sum.copy`, so no unused-parameter warning is introduced.\n  - The match over the sealed LedgerPartition is still exhaustive, and the foldLeft result type is still PartitionTotals.\n  - scalacOptions are -deprecation -feature -unchecked -encoding utf8, with no fatal-warnings flag.\n- Predicted red tests (UNOBSERVED): only \"UAT-ACCT-INV: the verdict is Balanced exactly when summed input equals summed output plus error sink in any entry order\".\n  - Line 138 should fail on the first ordering: the mutant gives totals (2,2,1) against the expected (5,4,1). Reversed and rotated orderings give (3,2,1).\n  - Every other ledger in the suite has at most one entry per partition: ledgerOfCounts, ledgerOf, the empty ledger, and the engine path through ledgerOf. Summing and last-wins agree on those, so §7's \"none predicted\" collateral holds.\n  - Predicted suite result: exit 1 with 43 passed and 1 failure.\n  - Because of the known test_pass_count defect, that predicate would likely report 39 instead of 43.\n- The locus is suitable: the mutant is not equivalent, because ACCT-04 uses several entries per partition.\n\nPost-state:\n- Of the 22 tracked files, only AccountingVerifier.scala differs from b5b5cad3.\n- No target/ directories exist.\n- mutation-outcomes.json is unchanged at d292cbf9…/27183 and depth-proof-map.json at 4285b857…/20510.\n- test-execution-result.json is absent.\n- No test, comment, build, XML or proof file was touched. The line-28 comment (\"Sums every entry…\") is not true while the mutant is in place."
+  },
+  "proofLimits": "Admitted native byte-exact Executor restoration; the next authenticated C2 snapshot and later full green remain pending. Accounting is one new production mutant, not yet compiled/tested. The native report contains unverified capability/authority/eligibility and incidental-effect allegations; retain them without treating them as Product verdicts, new authority or effect containment."
+}

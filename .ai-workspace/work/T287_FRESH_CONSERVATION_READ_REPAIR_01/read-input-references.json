@@ -1,0 +1,65 @@
+{
+  "inputOwner": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01",
+  "inputPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/read-selection.json",
+      "bytes": 10511,
+      "sha256": "fed44b462e73410675866205651e96bc5f1b9159bb5ef150245d94118b147142"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/assessment-handoff.json",
+      "bytes": 1259,
+      "sha256": "4f1d8de15c547ea62ecb4ee14614ead26ebfc31e619753a6a24d4354ad088406"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/f11-handoff.json",
+      "bytes": 1259,
+      "sha256": "0e8aa3f548847527f68a35cdd8e3999df7f96967e72a466fb64440c96e4b66fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/af22-handoff.json",
+      "bytes": 1259,
+      "sha256": "dfd99cf9eb4e1aa57582e67e0da00306f5caea03ecf3e0dfc85f51fe1af06416"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/read-assessment-run_result-handoff.json",
+      "bytes": 1259,
+      "sha256": "dfd99cf9eb4e1aa57582e67e0da00306f5caea03ecf3e0dfc85f51fe1af06416"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/actor-exchanges.jsonl",
+      "bytes": 304,
+      "sha256": "e1f3ecdbb51ac7ae775829412676b6317dd917a22537a01b48405aa43048ceec"
+    }
+  ],
+  "initialLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/resources/events/runtime.events.jsonl",
+    "bytes": 5302352,
+    "sha256": "f421f60d58bb6b9993180494fb230fff40a9733290b52d03bea6ab65c086011a"
+  },
+  "currentAcquisitionHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/read-assessment-run_result-handoff.json",
+    "bytes": 1259,
+    "sha256": "dfd99cf9eb4e1aa57582e67e0da00306f5caea03ecf3e0dfc85f51fe1af06416"
+  },
+  "historicalBasisHandoffsOnly": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/assessment-handoff.json",
+      "bytes": 1259,
+      "sha256": "4f1d8de15c547ea62ecb4ee14614ead26ebfc31e619753a6a24d4354ad088406"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/f11-handoff.json",
+      "bytes": 1259,
+      "sha256": "0e8aa3f548847527f68a35cdd8e3999df7f96967e72a466fb64440c96e4b66fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/af22-handoff.json",
+      "bytes": 1259,
+      "sha256": "dfd99cf9eb4e1aa57582e67e0da00306f5caea03ecf3e0dfc85f51fe1af06416"
+    }
+  ],
+  "originalLockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/tmp",
+  "noCopiedRuntimeBodies": true,
+  "zeroSetupActorOrEvents": true
+}

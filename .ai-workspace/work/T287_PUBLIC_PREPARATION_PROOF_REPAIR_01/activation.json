@@ -1,0 +1,15 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_PROOF_REPAIR_01",
+  "actor": "/root/public_preparation_worker",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/grant.md",
+    "bytes": 5046,
+    "sha256": "d50446db0b197450d7b992b474fd0cf121bb7c4d54620310235c6788664c57fd"
+  },
+  "sourceWrite": "build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs",
+  "productFrame": "Fixed15-family ABI5, GOAL035/T287 F05/F11/F15; deterministic supplied-input preparation through existing immutable owners and derived Public publication. The bounded proof repair creates no Runtime or qualification authority.",
+  "HOME": "/Users/jim",
+  "startedAtUTC": "2026-10-05T09:26:10.184362+00:00"
+}

@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-09T13:53:40.957265+00:00",
+  "ownedProcesses": [
+    {
+      "pid": 33369,
+      "absent": true
+    },
+    {
+      "pid": 33371,
+      "absent": true
+    }
+  ],
+  "ownedGroups": [
+    {
+      "pgid": 33369,
+      "absent": true
+    },
+    {
+      "pgid": 33371,
+      "absent": true
+    }
+  ],
+  "selectedLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+  "lockAbsent": true,
+  "noSignalWasSent": true,
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/commands/current-source-preparation.result.json",
+    "sha256": "c6229a18eb34a1d786357747e118dce1df9d9cf9674b418c2c6d8952c06555e6",
+    "byteCount": 145976
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "mode": "types",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "--test",
+    "corrected-type-contract.test.mjs"
+  ],
+  "pid": 8925,
+  "processGroup": 8925,
+  "startedAt": "2026-10-02T14:39:07.643424+00:00",
+  "closedAt": "2026-10-02T14:39:13.042326+00:00",
+  "elapsedMs": 5398.948749992996,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 1112064000,
+  "userSeconds": 9.197918,
+  "systemSeconds": 0.197686,
+  "knownCLIProcessGroups": [],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

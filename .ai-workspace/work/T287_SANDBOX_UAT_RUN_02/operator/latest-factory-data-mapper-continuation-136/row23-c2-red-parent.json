@@ -1,0 +1,261 @@
+{
+  "observedAt": "2026-10-08T23:51:28.355460+00:00",
+  "eventStore": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+  "events": {
+    "200961": {
+      "ordinal": 200961,
+      "offset": 1618962052,
+      "byteCount": 6647244,
+      "sha256": "1fc01c7c0deccfd0fe0bc1adb780ae73f7a5d31bb6033f771a61f8f2213b9ab5",
+      "resultRef": "result://abiogenesis/072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16"
+    },
+    "200991": {
+      "ordinal": 200991,
+      "offset": 1634300414,
+      "byteCount": 2053887,
+      "sha256": "316e7a11b4bb2033c3836c9e6b260df5d1c8f65e5fbd599d2ad9b4dcca80e16c",
+      "resultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455"
+    },
+    "196060": {
+      "ordinal": 196060,
+      "offset": 1567369590,
+      "byteCount": 4851723,
+      "sha256": "096be0fd1ae10905601ca1b2dcdb3e5b5ab20d5945910933ce1d04409c16f872",
+      "resultRef": "result://abiogenesis/e39717d2cb868d91b5416d51dfca4a89cf27a679a846151007c642948064def5"
+    },
+    "196090": {
+      "ordinal": 196090,
+      "offset": 1579108313,
+      "byteCount": 1951684,
+      "sha256": "fdfe702a7e3d23cf286a275089ac85fabaa4cb77a38b319ef3dc8d43a0111c64",
+      "resultRef": "result://abiogenesis/87debfe6694cfd332e8c71eeb8ee6ae45df376426030c88da6bb13bfcc904aff"
+    },
+    "188504": {
+      "ordinal": 188504,
+      "offset": 1503229945,
+      "byteCount": 6538961,
+      "sha256": "abff6ecafeed0a0e2ab6da01a7bc45a968abbd61fa05139c6e7c234f618c9545",
+      "resultRef": "result://abiogenesis/d43b9187a43ef29e5d3cd161b291bd7c81de4085bffc6c89ce1b26b071eb2cdb"
+    }
+  },
+  "commandsAndPredicatesEqualPreviousCanonicalTask": true,
+  "all26SnapshotDigestsBytesEqualNative196060After": true,
+  "completeOriginalReportInventorySet": true,
+  "helperSandboxRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/sandbox",
+  "helperArtifactPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/worksite-command-execution/eaea06209682e3a1896f9e397762994909922fd19189caa4fb0944eea0d5e039/0f3085f1d0a6377b7a6d7f686c06123e5e3386d0dfebe4f17e4ee31629f36c7f/result.json",
+  "command": {
+    "exitStatus": 1,
+    "timedOut": false,
+    "processSignal": null,
+    "terminationConfirmed": true,
+    "signalSequence": [],
+    "timeoutMs": 18000000,
+    "terminationGraceMs": 10000
+  },
+  "productDeltaCount": 0,
+  "reports": [
+    {
+      "identity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-core",
+      "relativePath": "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+      "digest": "sha256:63c761aafa3bc3195bbb3e9ef8d79f71c64a0369c06cfc6f2daffdaf29873b56",
+      "byteCount": 6408,
+      "counts": {
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "identity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-compiler",
+      "relativePath": "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+      "digest": "sha256:473f24092af05c89d5749b053c4af69de82086bf183b2bb663e48b163eaf4b23",
+      "byteCount": 6190,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "identity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-executor",
+      "relativePath": "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+      "digest": "sha256:a856d95347281b5801fd8f38340608f63e9732bbc939a78659992ad27a3a2831",
+      "byteCount": 6180,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "identity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-adjoint",
+      "relativePath": "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+      "digest": "sha256:a22422d31a91b3cbe70e7455a0481e7130d9156dd8221954f0d901a1256daa62",
+      "byteCount": 6236,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "identity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-accounting",
+      "relativePath": "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+      "digest": "sha256:60e39860d1ca86bf675965db435c049c3d36ff980f9cb5e98ea1056bccc6d680",
+      "byteCount": 10437,
+      "counts": {
+        "tests": 5,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": [
+        {
+          "name": "UAT-ACCT-INV: the verdict is Balanced exactly when summed input equals summed output plus error sink in any entry order",
+          "diagnostics": [
+            "org.scalatest.exceptions.TestFailedException: PartitionTotals(2, 2, 1) did not equal PartitionTotals(5, 4, 1) Vector(InputRows, OutputRows, ErrorSinkRows, InputRows, OutputRows)"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-assurance",
+      "relativePath": "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+      "digest": "sha256:b2f4ddf922ea3c0d28052ac48578bbc4dae4732980a0d46f282155fd7ae5f67f",
+      "byteCount": 6171,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "identity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-fidelity",
+      "relativePath": "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+      "digest": "sha256:557e02dde6bbe0519df001fe615865a4964a6560220084d41da1841134bdfc80",
+      "byteCount": 6177,
+      "counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    },
+    {
+      "identity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-engine",
+      "relativePath": "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+      "digest": "sha256:eec77ce3350447478539789d9e7f251999de22bc63d4ea08b68b53c6759886f2",
+      "byteCount": 6908,
+      "counts": {
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failures": []
+    }
+  ],
+  "xmlTotals": {
+    "tests": 44,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "stdout": {
+    "digest": "sha256:a296ca6b67e05a43d89091630e99aa8ebd6d4909cd61ff964c54fe27ba987973",
+    "byteCount": 22767,
+    "compileCompletions": 16,
+    "failedNameLines": [
+      "[info] - UAT-ACCT-INV: the verdict is Balanced exactly when summed input equals summed output plus error sink in any entry order *** FAILED *** (10 milliseconds)"
+    ],
+    "totalTimeLines": [
+      "[error] Total time: 25 s, completed 9 Oct. 2026, 10:49:55 am"
+    ]
+  },
+  "predicateValues": [
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-exit",
+      "predicateKind": "process_exit",
+      "observedValue": 1
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/module-set",
+      "predicateKind": "module_set_exact",
+      "observedValue": [
+        "cdme-core",
+        "cdme-compiler",
+        "cdme-executor",
+        "cdme-adjoint",
+        "cdme-accounting",
+        "cdme-assurance",
+        "cdme-fidelity",
+        "cdme-engine"
+      ]
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/config-count",
+      "predicateKind": "file_count",
+      "observedValue": 3
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/main-count",
+      "predicateKind": "file_count",
+      "observedValue": 11
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-source-count",
+      "predicateKind": "file_count",
+      "observedValue": 8
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-reports",
+      "predicateKind": "test_report_set_exact",
+      "observedValue": [
+        "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml",
+        "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml"
+      ]
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/test-count",
+      "predicateKind": "test_pass_count",
+      "observedValue": 39
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/report-failures",
+      "predicateKind": "test_report_failure_count",
+      "observedValue": 1
+    },
+    {
+      "predicateId": "predicate://abiogenesis-sandbox-uat/data-mapper-full/report-errors",
+      "predicateKind": "test_report_error_count",
+      "observedValue": 0
+    }
+  ],
+  "parent": {
+    "originalDeepEqual": true,
+    "allPrior33DeepEqual": true,
+    "exactProducerJoin": true,
+    "observations": 34,
+    "terminal": false
+  },
+  "causalReadback": "The only new source mutant is AccountingVerifier totals fold overwriting each partition with its last entry instead of adding. Named invariant XML and actual values are retained above; native next RCA/restoration decision is still awaited. Executor restored baseline appears in this authenticated C2 snapshot.",
+  "determinedRepairUnderExistingProduct": "Restore AccountingVerifier.scala exactly to56c2c1a1df362be1ecc81366321bed60d51f215b3d86e5740e620a70007a470b/2083B, retaining tests/requirements, and obtain admitted retest; no operator app write authorized.",
+  "proofLimits": "One additional actual compiled isolated mutant red, not full UAT. Accounting restoration/later restored-green corroboration remain pending; old evidence is conserved through same-W admitted source."
+}

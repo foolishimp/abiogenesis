@@ -1,0 +1,24 @@
+{
+  "status": "CLOSED_STOPPED",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/freeze.json",
+    "sha256": "631f6554014e5310b6ba2b715656ebfe97957b50dfd77734c4a161a0ee16412f",
+    "byteCount": 18402
+  },
+  "disposition": "BOUNDED_GO",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-review-208/return.md",
+      "sha256": "8a7a1d5a27d431a3e41201293158d821dfb8219c9f66d24fbc0075833b6af41e",
+      "byteCount": 3210
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-review-208/pins.json",
+      "sha256": "60a655d8a860b58962f4cb5fe8c8d206cc0e0f7bac714d8bea2a17f09e0c811c",
+      "byteCount": 5591
+    }
+  ],
+  "fileCount": 2,
+  "canonicalEffects": false,
+  "runtimeEffects": false
+}

@@ -1,0 +1,31 @@
+{
+  "kind": "conditional_c10_to_installed_g1_g3_path_basis",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "currentCandidateOperation": "T287_G1_G3_C10_CONSTRUCTION_01",
+  "constructionTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10",
+  "setupTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10",
+  "inputTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-g3-installed-inputs-01",
+  "runtimeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-g3-installed-execution-01",
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-acceptance.json",
+    "bytes": 7352,
+    "sha256": "0d0ec69f94ad780f11f1f4ac22120689b9066df4ea3c578a83b550a28a059c07",
+    "mode": 420
+  },
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/controls/source-cut.json",
+    "bytes": 27451027,
+    "sha256": "dfcbe13c1b667a9b16fb89caaf4afa59a1e911fa44b11e6508e847a2bd1c5aa8",
+    "mode": 420
+  },
+  "completeEffectSupplement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c10-effect-census-supplement-01/freeze.json",
+    "bytes": 4018,
+    "sha256": "185f249369d39fdc139f07b72e90d4019c56bfc75ff8c8ef31af874dcea2288f",
+    "mode": 420
+  },
+  "actualDependencies": "Only actual Root CLOSED acceptance/release grants operative; future file name neverapproval. Setup only; input/runtime separately granted.",
+  "providerEffectsGranted": false,
+  "noCopiedCurrentPopulationAssumptions": true
+}

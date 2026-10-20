@@ -1,0 +1,14 @@
+{
+  "pid": 57775,
+  "processGroup": 57775,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/s02-conformance-hello-workflow.jsonl"
+  ],
+  "startedAt": "2026-10-01T15:58:28.157Z",
+  "mode": "s02",
+  "label": "conformance-hello-workflow",
+  "capMs": 360000
+}

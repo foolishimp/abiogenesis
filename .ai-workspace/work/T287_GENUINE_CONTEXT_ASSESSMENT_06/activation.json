@@ -1,0 +1,38 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_06",
+  "workerIdentity": "/root/public_preparation_worker",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_06/grant.md",
+    "bytes": 4281,
+    "sha256": "4ef54cd9df371eb2fd4ba41e7fe3bec1b1717e21fdb0a62a2b3179449a39c9e7"
+  },
+  "previousCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/consumer/genuine-pilot.mjs",
+    "bytes": 39326,
+    "sha256": "a50e6ef9f7359551dfefeecbc42e3c8098f936e3b305e39b94edae84b89d9646"
+  },
+  "continuationCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_06/consumer/genuine-pilot.mjs",
+    "bytes": 37541,
+    "sha256": "97b0b45870112c4f216412cf680772798c13c95d454c0331139a49f650955c03"
+  },
+  "callerDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_06/caller-delta.patch",
+    "bytes": 14737,
+    "sha256": "758d333efad5a810b3015a08e25e7f74792243cbd38ef454dddeb79f3adfcda3"
+  },
+  "originalJudgment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/assessment-terminal.json",
+    "bytes": 58258,
+    "sha256": "e991816b92f5b137a56e3520385570ca628ccecfdbd7beaa81649f9d24592d8c"
+  },
+  "currentEntry": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/assessment-handoff.json",
+    "bytes": 1237,
+    "sha256": "2641a60ac7e15c938b5960da86cdf9e2e7d8f2e25207548ed3df07a6eb15d4e3"
+  },
+  "acceptedInputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "repair": "Remove unsupported executionSelections at both proof builders; published strict proof validation. Original native J\u2192canonical authentication\u2192one F11\u2192four fresh reads.",
+  "nativeModelCliActorDispatches": 0,
+  "firstMaterialFailureStops": true
+}

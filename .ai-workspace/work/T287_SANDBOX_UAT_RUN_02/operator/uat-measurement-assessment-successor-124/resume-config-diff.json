@@ -1,0 +1,38 @@
+{
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/resume-config.json",
+    "sha256": "6243d33d39a08647cc3db9b277632c377b886452fa19448a58fd70de0c904fe6",
+    "byteCount": 2991
+  },
+  "differences": [
+    {
+      "path": [
+        "package",
+        "archivePath"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-24/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    },
+    {
+      "path": [
+        "package",
+        "sha256"
+      ],
+      "before": "sha256:e1deb8a3d000566ccc550055e333c422b759cb63b8b412820f147046685e2dcb",
+      "after": "sha256:b04a563cb4dd81c6f27dde620e54a6dffde5bdc05d8d190d04b00dfdc7ad74df"
+    },
+    {
+      "path": [
+        "sourceCommit"
+      ],
+      "before": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+      "after": "727f1dbcab3c198f7704735fdf91b994b7aac243"
+    }
+  ],
+  "onlyTwoPackageFieldsPlusFactualCheckpointSourceCommit": true,
+  "sourceCommitMeaning": "Checkpoint ancestor; actual Source120 postimages independently pinned, not a claim that committed tree contains120.",
+  "resumeEvidenceUnchanged": true,
+  "retainedMaterial": "Exact accepted98/100 old48 physical4 originals+44 native-authored files; no old producer credit or cross-successor bridge.",
+  "concurrent122": "External oracle/scenarios are outside Productpack. This is configuration/publication readiness only; Root must accept122 before native dispatch.",
+  "runtimeExecutionHeld": true
+}

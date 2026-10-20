@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "candidateFreezeRecords": 16774,
+  "consumedFileRecords": 18737,
+  "allBytesAndRecordedModesAndSymlinksConserved": true,
+  "candidateAbsentExtra": true,
+  "elapsedMs": 2086.5641250275075,
+  "nativeResources": "not acquired",
+  "effects": "read-only conservation; review evidence only"
+}

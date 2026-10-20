@@ -1,0 +1,25 @@
+{
+  "status": "CLOSED_STOPPED_REPORT_NAMESPACE_MISS",
+  "operation": "T287_RUNTIME07_REPORT_FINALIZATION_01",
+  "role": "Writer, report-only",
+  "recordedBy": "T287_RUNTIME07_SAVED_REPORT_FINALIZATION_02",
+  "exactFailedAttempt": "failed-saved-tail-attempt.json",
+  "savedAccountingUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/accounting.json",
+    "bytes": 47017,
+    "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+    "mode": 420
+  },
+  "runtimeWorkerOperation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "runtimeWorkerStatus": "CLOSED_FIRST_NATIVE_RAW_RESULT_FAILURE",
+  "originalRuntimeEffects": {
+    "PublicCalls": 1,
+    "controlledHelperLaunches": 1,
+    "realProviderCalls": 0,
+    "coldReads": 0,
+    "completedRuns": 0,
+    "F11Runs": 0,
+    "AF22Runs": 0
+  },
+  "furtherRuntimeAuthority": false
+}

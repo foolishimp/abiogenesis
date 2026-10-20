@@ -1,0 +1,26 @@
+{
+  "status": "closed_bounded_publication_stop",
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-30/freeze.json",
+    "sha256": "933d1f07a1b9a6c04d961efa528cf9901929a1f1048122374f17ea97cd7c1748",
+    "byteCount": 3976
+  },
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/return.md",
+    "sha256": "c7b0d2e9d6ed8c9e6beaba2b487948e8c4f62c34d336e1e5fc1a8e7565dfe33f",
+    "byteCount": 2563
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/readiness.json",
+    "sha256": "9f6635e5bb34054fad8d6ce16e399336f24fa4f6b468b277e38226d5080bbcd3",
+    "byteCount": 11280
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-successor-222/pins.json",
+    "sha256": "dcc3825fea9629e2ec3a99782f0affabdbb84ca47e6e134c6a2d2027032442f1",
+    "byteCount": 34109
+  },
+  "localPinCount": 95,
+  "externalPinCount": 23,
+  "limits": "Immutable publication, clean installed payload and flat consumer ESM/dependency/whole-Program correspondence only. No current ABG installation/binding/catalog/cover/source-use/terminal/private-preparation/Run/native/model/UAT/capacity/P0/release acceptance. Exact219 allocator and installed continuation capacity remain unproved. No event-log read/hash/stat/acquisition/recovery or app/runtime effects."
+}

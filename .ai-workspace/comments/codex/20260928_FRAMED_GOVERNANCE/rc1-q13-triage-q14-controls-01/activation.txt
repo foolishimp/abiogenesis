@@ -1,0 +1,10 @@
+Status ACTIVE
+Actor /root
+Prior role Executive; role Writer
+Operation T287_Q13_TRIAGE_Q14_GRANTS_WRITER_01
+Basis STDO2.5.1RC2
+Time 2026-10-03T07:28:55.089004+00:00
+Exact grant: conjoin verified CLOSED Q13 and independent review, record Root multi-frame triangulation, prepare bounded Q14 Worker/Reviewer and unactivated amended Runtime09 grants using installed a_c, preserve plan/ticket preimages, update only current selections, append execution. Record owner's canonical framework-contract instruction; no new architecture/schema/framework implementation.
+Write territory: /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q13-triage-q14-controls-01; /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md; /Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md; append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md
+Excluded: Source Design/code/AGENTS/generated/candidates/Setup/stores/law/library/auth/network/Git/runtime/build/release.
+Recorded before any other effect; all prior frozen subjects preserved.

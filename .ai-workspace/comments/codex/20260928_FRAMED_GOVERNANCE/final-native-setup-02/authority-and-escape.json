@@ -1,0 +1,121 @@
+{
+  "status": "bounded_authority_and_escape_join",
+  "rows": [
+    {
+      "current": {
+        "path": "specification/PRODUCT.md",
+        "bytes": 93561,
+        "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+      },
+      "lines": "183-220",
+      "meaning": "typed constructors plus GTL semantic validation; GraphFunction named callable contract",
+      "frozenCandidate": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/PRODUCT.md",
+        "bytes": 93561,
+        "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+      }
+    },
+    {
+      "current": {
+        "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+        "bytes": 6880,
+        "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373"
+      },
+      "lines": "3,50-54,88-96",
+      "meaning": "active cumulative binding semantics and validator-accepted template",
+      "frozenCandidate": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+        "bytes": 6880,
+        "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373"
+      }
+    },
+    {
+      "current": {
+        "path": "specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md",
+        "bytes": 2702,
+        "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c"
+      },
+      "lines": "16,28-32",
+      "meaning": "preservation and structural-conflict fail closed",
+      "frozenCandidate": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md",
+        "bytes": 2702,
+        "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c"
+      }
+    },
+    {
+      "current": {
+        "path": "specification/requirements/product/REQ-P-CATALOG.md",
+        "bytes": 13757,
+        "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+      },
+      "lines": "118-139",
+      "meaning": "different Product bytes require explicit new lock; coherent catalog identity",
+      "frozenCandidate": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/product/REQ-P-CATALOG.md",
+        "bytes": 13757,
+        "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+      }
+    },
+    {
+      "current": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 42946,
+        "sha256": "8f87b9d6c476ed27650c1904bbfdaa3059d7e0c1b8912a74bf9e92b922a88c2b"
+      },
+      "lines": "3-13,17-24,115-124,337-343",
+      "meaning": "accepted ordinary wrappers conserve state; publication/closure check required",
+      "frozenCandidate": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 42946,
+        "sha256": "8f87b9d6c476ed27650c1904bbfdaa3059d7e0c1b8912a74bf9e92b922a88c2b"
+      }
+    },
+    {
+      "current": {
+        "path": "build_tenants/abiogenesis/typescript/design/GTL_3_INTERFACE_CONTRACTS.md",
+        "bytes": 14284,
+        "sha256": "f07f16b7aba3f751e7ff9bf8a7c31552bb5ad3b4f2e5dab7cc0a1b4c4e4400d6"
+      },
+      "lines": "3,266-270",
+      "meaning": "active EnvRef contract separates requires/provides/carries arrays",
+      "frozenCandidate": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/GTL_3_INTERFACE_CONTRACTS.md",
+        "bytes": 14284,
+        "sha256": "f07f16b7aba3f751e7ff9bf8a7c31552bb5ad3b4f2e5dab7cc0a1b4c4e4400d6"
+      }
+    },
+    {
+      "current": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 75599,
+        "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17"
+      },
+      "lines": "26-43,342-360",
+      "meaning": "component validates Program only; live test includes library as additional core publication",
+      "frozenCandidate": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 75599,
+        "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17"
+      }
+    },
+    {
+      "current": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 38681,
+        "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+      },
+      "lines": "443-462,517-524",
+      "meaning": "selected root publication validation, then lower readiness construction over all publications",
+      "frozenCandidate": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 38681,
+        "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+      }
+    }
+  ],
+  "meaning": "carries denotes cumulative available typed bindings, not runtime occurrence count or two historical versions of state. The wrapper state/fold law already fixes preservation and result flow. Listing the same contract ref twice adds no distinct binding identity or declared multiplicity. The exact duplicate refusal is current HOW validation; WHAT does not separately say all carries arrays must be duplicate-free.",
+  "classification": "Producer/HOW incongruence under unchanged cumulative-binding and ordinary-valid-GraphFunction outcome is the supported smallest repair proposal. No contrary accepted multiplicity meaning was found, so there is no evidence that validator rejection is over-strict or that a new design decision is required. Root owns final selection; no dedup algorithm is applied here.",
+  "precedentLimit": "Accepted historical T253 HOF design lines388/655 specifies stable union but is scoped accepted_for_t253_only; it is supporting context, not cited as a universal default-library rule.",
+  "escape": "t287-default-library.test.mjs helper validates Program with raw-admitted publication, not static publication validation; its installed setup uses root-installed-environment with additionalCorePublicationConstructors. That helper statically validates only selected root publication, then calls lower product.admitGraphFunctionCatalog on all publications. This differs from Public CatalogOperationPort, which statically validates every publication. Source/package correspondence and successful narrower native execution therefore cannot close full Public catalog admission."
+}

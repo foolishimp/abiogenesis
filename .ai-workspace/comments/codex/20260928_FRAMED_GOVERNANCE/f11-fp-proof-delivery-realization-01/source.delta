@@ -1,0 +1,10 @@
+--- build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts (C05 preimage)
++++ build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts (Worker postimage)
+@@ -681,6 +681,7 @@
+       actorPreparation.prepareInstructionAssembly,
+       [WORKSITE_COMMAND_EXECUTION_IDS.implementationRef as string, WORKSITE_REVISION_IDS.implementationRef].includes(resolution.implementationRef)
+         ? nativeOccurrenceVerifier(input.occurrence) : undefined,
++      nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource, input.qualificationResources, input.qualificationPreparation),
+     );
+   } catch (error) {
+     return undispatched("implementation_exception", "preparation", "thrown", error);

@@ -1,0 +1,394 @@
+--- a/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ b/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -227,9 +227,27 @@
+ The current Program value must remain exactly equal. The historical and current
+ installed declaration owners authenticate complete selected GraphFunctions,
+ contracts, closures, rules, evaluators, policies, memberships and contribution
+-permissions. Only the declared artifact/content/manifest/descriptor/contribution
++permissions. The declared artifact/content/manifest/descriptor/contribution
+ identity consequences may differ, and each is reconstructed under its actual
+-installed owner. For the already canonical contribution provenance inventory,
++installed owner. The canonical C2 renderer Context additionally distinguishes
++authenticated material location from its complete declared consumed source
++span through the following existing-owner call-through:
++
++| Source | Owner transformation | Destination and refusal |
++| --- | --- | --- |
++| Exact historical/current ArtifactTruth environments and reconstructed declaration closures | ABG passes each actual causal ProductInstall set to the private declaration comparison; Program, producer, source and occurrence guards remain exact | Raw two-argument comparison retains exact Context equality; no install or claimed span digest grants correspondence |
++| Each canonical C2 publication, actual installed manifest and declared inventory/member | Product's run-environment material owner binds the complete publication to its exact install and manifest publication binding, reads the confined declared inventory/member, and checks complete inventory, digest, byte count and span bounds | Missing, foreign, copied-but-unvalidated or changed material refuses; no separate observation, cache, proof packet or authority is created |
++| Both authenticated C2 source spans and complete declarations | Compare the actual consumed bytes byte-for-byte; distinguish only the member location/digest/length, span offsets and their derived inventory identities | All role/policy/Context/source refs, paths, access/effect/permission declarations, memberships, contracts, ordering and other semantic fields remain exact |
++
++This arm is limited to the canonical command-execution renderer Context with no
++corpus/tool accesses and an exact declared source span for its role. Whole-member
++consumption, unbound material, unknown consumption or any other Context retains
++exact equality/refusal. Equal policy/span digest claims or D2 covers alone are
++insufficient. A material location change does not establish changed implementation
++behavior equivalence. Complete public declarations and their physical identities
++remain unchanged; only the private consumed-meaning comparison uses this relation.
++
++For the already canonical contribution provenance inventory,
+ the private comparison substitutes only the exact artifact and manifest
+ identities with their roles, then orders those resulting references by the
+ existing canonical string order. It preserves all other references and their
+--- a/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ b/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -308,6 +308,16 @@
+ yield exactly one complete matching declaration proof, and the existing closed
+ child owner authenticates it against the original W/lock/installs and root
+ coordinates. A copied reference or cover alone does not establish that relation.
++
++For the canonical C2 renderer Context, that same private comparison receives
++the actual old/current causal installs and authenticates their complete installed
++manifest publication bindings, inventory records, members and declared bounds
++through Product's run-environment material owner. Only byte-equal complete
++consumed spans permit the bounded material-coordinate correspondence defined in
++the pending-consumer HOW. All policy, role, access, effect, permission, source and
++occurrence semantics remain exact. Raw declarations, copied receipts or covers
++are not material validation; other or unknown Context consumption still refuses.
++This adds no persisted comparison/observation and preserves the original producer.
+ 
+ For selected historical native work, the Testing branch uses the existing
+ `NativeWorksiteCommandReacquisitionRequest` and C2 task/proof contracts. The
+--- a/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md
++++ b/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md
+@@ -746,6 +746,19 @@
+    ABI checks the output contract, internal byte/ref joins and the authenticated
+    tool/input/selection relation; it does not reimplement `a_c` validation,
+    map instantiation or closure construction as a parallel algorithm.
++
++   The covered-source comparison reuses this material owner for the specifically
++   canonical C2 renderer Context. ABG supplies the actual causal old/current
++   ProductInstalls; Product binds the complete publication to each exact installed
++   manifest publication binding and reads its existing declared Context inventory
++   path and renderer member. Canonical confined paths, complete record inventory,
++   member digests/lengths and source-span bounds authenticate material before
++   byte-for-byte consumed-span comparison. These are transient reads with no
++   tool launch, new observation, retained Context cache or receipt authority.
++   Proven member/span location changes and derived inventory identities may
++   differ in private consumed meaning; every other declared field/order remains
++   exact. This does not apply to whole-member, corpus/tool-access or unknown
++   Context consumption, and does not change complete public evidence or policy.
+ 5. ABG validates the observation/declaration/capability joins and admits the
+    complete `stdoEnvironment` evidence in the existing `invocation_admitted`
+    payload and digest under the exact successor current-profile variants below,
+--- a/code/src/product/semantics.ts
++++ b/code/src/product/semantics.ts
+@@ -16,6 +16,7 @@
+   ProductInstall,
+ } from "./environment.js";
+ import { installedProductContentMatches } from "./install_product.js";
++import { compareInstalledC2ContextMaterial } from "./stdo_environment.js";
+ import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
+ import type {
+   DeclarationApplication,
+@@ -80,11 +81,13 @@
+ }
+ 
+ /** @internal Total comparison of the selected declaration closure. Only the
+- * canonical publication identity coordinates may change. Every other field,
+- * including contracts, rules, policies, bindings and permission declarations,
+- * remains in the comparison. Installed ownership is checked by ABG separately. */
++ * canonical publication identities may change. A specifically authenticated
++ * C2 renderer Context may also use its actual consumed material meaning; raw
++ * callers retain exact declaration comparison. ABG supplies actual causal
++ * installs, and the existing material owner independently checks their bytes. */
+ export function compareGovernanceDeclarationPublications(
+   historical: readonly Readonly<ModulePublication>[], current: readonly Readonly<ModulePublication>[],
++  materialOwners?: Readonly<{ historical: readonly ProductInstall[]; current: readonly ProductInstall[] }>,
+ ): Readonly<{ meaningDigest: Sha256Digest; owners: GovernanceCoveredSourceUse["declarationOwners"] }> | null {
+   try {
+     const key = (p: Readonly<ModulePublication>) => canonicalJson([p.moduleRef, p.owningProductId]);
+@@ -95,6 +98,16 @@
+       const next = current.find(p => key(p) === key(old));
+       if (next === undefined) return null;
+       const hash = (p: unknown) => sha256Canonical(p as JsonValue);
++      let contextMeaning: JsonValue | null = null;
++      if (canonicalJson((old.runEnvironments ?? []) as unknown as JsonValue) !== canonicalJson((next.runEnvironments ?? []) as unknown as JsonValue)) {
++        const installed = (p: Readonly<ModulePublication>, owners: readonly ProductInstall[]) => owners.filter(i =>
++          i.productId === p.owningProductId && i.artifactDigest === p.artifactDigest &&
++          i.productContentDigest === p.productContentDigest && i.manifestDigest === p.productManifestDigest);
++        const previous = installed(old, materialOwners?.historical ?? []), current = installed(next, materialOwners?.current ?? []);
++        if (previous.length !== 1 || current.length !== 1) return null;
++        contextMeaning = compareInstalledC2ContextMaterial(old, next, previous[0]!, current[0]!);
++        if (contextMeaning === null) return null;
++      }
+       const normalized = (p: Readonly<ModulePublication>): JsonValue => {
+         const { artifactDigest, productContentDigest, productManifestDigest, descriptorRef, contributionManifestRef,
+           contributions, ...meaning } = p;
+@@ -106,7 +119,8 @@
+           return ref.slice(0, -suffix.length);
+         };
+         const other = p === old ? next : old;
+-        return { ...meaning, descriptorOwner: identityRef(descriptorRef, other.descriptorRef), contributionOwner: identityRef(contributionManifestRef, other.contributionManifestRef),
++        return { ...meaning, ...(contextMeaning === null ? {} : { runEnvironments: [contextMeaning] }),
++          descriptorOwner: identityRef(descriptorRef, other.descriptorRef), contributionOwner: identityRef(contributionManifestRef, other.contributionManifestRef),
+           contributions: contributions.map(row => ({ ...row, provenanceRefs: row.provenanceRefs.map(ref =>
+             ref === artifactDigest ? "publication:artifact" : ref === productManifestDigest ? "publication:manifest" : ref).sort(compareUnicodeCodeUnits) })) } as unknown as JsonValue;
+       };
+--- a/code/src/abg/invocation_execution_truth.ts
++++ b/code/src/abg/invocation_execution_truth.ts
+@@ -99,7 +99,8 @@
+     if (inputContract === null || outputContract === null ||
+         sha256Canonical(inputContract.contract as unknown as JsonValue) !== invocation.inputContractDigest || !same(inputContract.owner, invocation.inputContractOwner) ||
+         sha256Canonical(outputContract.contract as unknown as JsonValue) !== invocation.outputContractDigest || !same(outputContract.owner, invocation.outputContractOwner)) return null;
+-    const compared = compareGovernanceDeclarationPublications(oldClosure.publications, newClosure.publications);
++    const compared = compareGovernanceDeclarationPublications(oldClosure.publications, newClosure.publications,
++      { historical: oldEnvironment.productInstalls, current: currentEnvironment.productInstalls });
+     const basis = result[0]!.basisId === null ? null : projectExactExecutionBasisAtPrefix(prefix, result[0]!.basisId);
+     const covers = basis === null ? null : projectWorksiteRevisionBindingCover(prefix, oldEnvironment.workspaceBinding, workspaceBinding, [basis]);
+     if (compared === null || covers === null) return null;
+--- a/code/src/product/stdo_environment.ts
++++ b/code/src/product/stdo_environment.ts
+@@ -12,6 +12,13 @@
+ import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import { deepFreeze } from "../shared/immutable.js";
++import { lstatSync, readFileSync, realpathSync } from "node:fs";
++import { isRunEnvironmentDeclaration } from "../gtl/stdo_run_environment.js";
++import { WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY } from "../gtl/worksite_command_execution.js";
++import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
++import type { ProductInstall } from "./environment.js";
++import { parseProductManifest } from "./verify_product.js";
++import { modulePublicationSemanticDigest } from "./publication.js";
+ 
+ const ref = v.pipe(v.string(), v.minLength(1));
+ const path = v.pipe(ref, v.check(isAbsolute));
+@@ -213,6 +220,94 @@
+     throw new TypeError("invalid generic member inventory");
+   return record.members;
+ }
++
++function checkRunEnvironmentRecord(dependency: RunEnvironmentDeclaration["dependencies"][number], bytes: Buffer): void {
++  if (sha256Bytes(bytes) !== dependency.recordDigest ||
++      hash(runEnvironmentRecordMembers(dependency.recordFormat, bytes)) !== hash(dependency.members))
++    throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/dependencies/" + dependency.dependencyRef + "/record");
++}
++function checkRunEnvironmentMember(member: RunEnvironmentDeclaration["contexts"][number]["members"][number], bytes: Buffer): void {
++  if (bytes.length !== member.byteCount || sha256Bytes(bytes) !== member.digest)
++    throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/context/" + member.memberRef);
++}
++function checkedRunEnvironmentSpan(binding: RunEnvironmentDeclaration["roles"][number]["sourceBindings"][number], bytes: Buffer): Buffer {
++  if (binding.startByte < 0 || binding.startByte >= binding.endByte || binding.endByte > bytes.length ||
++      sha256Bytes(bytes.subarray(binding.startByte, binding.endByte)) !== binding.spanDigest)
++    throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/sourceBinding/" + binding.memberRef);
++  return bytes.subarray(binding.startByte, binding.endByte);
++}
++
++/** @internal Existing C2 material relation, consumed only by the private
++ * declaration comparison. Actual admitted installs are supplied by ABG; this
++ * function independently reads both installed materials and returns only a
++ * transient consumed meaning. It grants no install, source or receipt authority. */
++export function compareInstalledC2ContextMaterial(
++  historical: Readonly<ModulePublication>, current: Readonly<ModulePublication>,
++  historicalInstall: ProductInstall, currentInstall: ProductInstall,
++): JsonValue | null {
++  try {
++    const acquire = (publication: Readonly<ModulePublication>, install: ProductInstall) => {
++      if (publication.moduleRef !== "module://abiogenesis/worksite/command-execution@5" ||
++          install.kind !== "product_install" || install.disposition !== "admitted" || !install.admissionEventRef ||
++          install.productId !== publication.owningProductId || install.artifactDigest !== publication.artifactDigest ||
++          install.productContentDigest !== publication.productContentDigest || install.manifestDigest !== publication.productManifestDigest ||
++          !isAbsolute(install.installedRoot) || realpathSync(install.installedRoot) !== install.installedRoot)
++        throw new TypeError("C2 Context lacks its exact actual installed owner");
++      const file = (memberPath: string): Buffer => {
++        const absolute = resolve(install.installedRoot, memberPath), stat = lstatSync(absolute);
++        if (!inside(install.installedRoot, absolute) || !stat.isFile() || stat.isSymbolicLink() || realpathSync(absolute) !== absolute)
++          throw new TypeError("C2 Context material is not its canonical installed file");
++        return readFileSync(absolute);
++      };
++      const manifestBytes = file("product-toolchain-manifest.json");
++      const manifest = parseProductManifest(JSON.parse(new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(manifestBytes)));
++      if (manifest === null || hash(manifest) !== install.manifestDigest || manifest.productId !== install.productId ||
++          manifest.packageName !== install.packageName || manifest.packageVersion !== install.packageVersion ||
++          manifest.productContentDigest !== install.productContentDigest || manifest.descriptorRef !== install.descriptorRef ||
++          manifest.contributionManifestRef !== install.contributionManifestRef ||
++          manifest.contributionManifestDigest !== install.contributionManifestDigest)
++        throw new TypeError("C2 Context installed manifest differs from its admitted identity");
++      const bindings = manifest.contributionManifest.publicationBindings.filter(row => row.moduleRef === publication.moduleRef);
++      if (bindings.length !== 1 || bindings[0]!.publicationDigest !== modulePublicationSemanticDigest(publication))
++        throw new TypeError("C2 Context declaration differs from its installed publication");
++      const environments = publication.runEnvironments ?? [];
++      if (environments.length !== 1 || !isRunEnvironmentDeclaration(environments[0]))
++        throw new TypeError("C2 Context has no unique complete declaration");
++      const environment = environments[0];
++      if (environment.corpusAccess !== null || environment.accesses.length !== 0 || environment.dependencies.length !== 1 ||
++          environment.contexts.length !== 1 || environment.roles.length !== 1)
++        throw new TypeError("C2 Context has unproved consumption");
++      const dependency = environment.dependencies[0]!, context = environment.contexts[0]!, role = environment.roles[0]!;
++      if (dependency.recordFormat !== "member_inventory@1" || dependency.members.length !== 1 || context.members.length !== 1 ||
++          role.graphFunctionRef !== WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef || role.programLocusRef !== WORKSITE_COMMAND_EXECUTION_IDS.nodeRef ||
++          role.role !== "command_executor" || role.accessRefs.length !== 0 || role.sourceBindings.length !== 1 ||
++          role.contextPolicy.selectors.includes("full_source"))
++        throw new TypeError("C2 Context is not the declared renderer-only consumption");
++      const member = context.members[0]!, binding = role.sourceBindings[0]!, recordPath = WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.path;
++      if (manifest.productRelativeLocators.filter(path => path === recordPath).length !== 1 ||
++          manifest.productRelativeLocators.filter(path => path === member.path).length !== 1)
++        throw new TypeError("C2 Context material is outside its installed inventory");
++      checkRunEnvironmentRecord(dependency, file(recordPath));
++      const memberBytes = file(member.path);
++      checkRunEnvironmentMember(member, memberBytes);
++      const span = checkedRunEnvironmentSpan(binding, memberBytes);
++      if (span.length === memberBytes.length || !span.equals(Buffer.from(role.policy.text, "utf8")))
++        throw new TypeError("C2 Context consumption is not its complete identified renderer span");
++      // The value is private comparison meaning, never a rewritten declaration.
++      const { recordDigest: _recordDigest, inventoryDigest: _dependencyInventory, members, ...dependencyMeaning } = dependency;
++      const { inventoryDigest: _contextInventory, members: contextMembers, ...contextMeaning } = context;
++      const { memberDigest: _memberDigest, startByte: _startByte, endByte: _endByte, ...bindingMeaning } = binding;
++      const meaning = { ...environment,
++        dependencies: [{ ...dependencyMeaning, members: members.map(({ digest: _digest, ...member }) => member) }],
++        contexts: [{ ...contextMeaning, members: contextMembers.map(({ digest: _digest, byteCount: _byteCount, ...member }) => member) }],
++        roles: [{ ...role, sourceBindings: [{ ...bindingMeaning, consumedByteCount: span.length, consumedSource: span.toString("base64") }] }],
++      };
++      return { span, meaning };
++    };
++    const old = acquire(historical, historicalInstall), next = acquire(current, currentInstall);
++    return old.span.equals(next.span) && hash(old.meaning) === hash(next.meaning) ? old.meaning as unknown as JsonValue : null;
++  } catch { return null; }
++}
+ export type RunEnvironmentObservation = Readonly<{ kind: "run_environment_observed"; evidence: RunEnvironmentEvidence | null }> |
+   Readonly<{ kind: "run_environment_refusal"; cause: StdoEnvironmentRefusalCause; issuePath: string }>;
+ export async function observeRunEnvironment(input: {
+@@ -251,8 +346,7 @@
+     for (const dep of d.dependencies) {
+       const physical = r.dependencies.find(x => x.dependencyRef === dep.dependencyRef)!;
+       const recordBytes = await readFile(physical.recordPath);
+-      if (sha256Bytes(recordBytes) !== dep.recordDigest || hash(runEnvironmentRecordMembers(dep.recordFormat, recordBytes)) !== hash(dep.members))
+-        throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/dependencies/" + dep.dependencyRef + "/record");
++      checkRunEnvironmentRecord(dep, recordBytes);
+       // The published record owns membership. Co-located external Definitions,
+       // release evidence or other unselected files are not dependency members.
+       for (const m of dep.members) {
+@@ -270,14 +364,13 @@
+       const dep = d.dependencies.find(x => x.basisRef === c.sourceLocator)!;
+       return { contextRef: c.contextRef, members: c.members.map(m => {
+         const b = observedBytes.get(dep.dependencyRef + "\0" + m.path)!;
+-        if (b.length !== m.byteCount || sha256Bytes(b) !== m.digest) throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/context/" + m.memberRef);
++        checkRunEnvironmentMember(m, b);
+         return { memberRef: m.memberRef, path: m.path, ...encoded(b) };
+       }) };
+     });
+     for (const role of d.roles) for (const binding of role.sourceBindings) {
+       const row = contexts.find(c => c.contextRef === binding.contextRef)!.members.find(m => m.memberRef === binding.memberRef)!;
+-      if (sha256Bytes(Buffer.from(row.base64, "base64").subarray(binding.startByte, binding.endByte)) !== binding.spanDigest)
+-        throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/sourceBinding/" + binding.memberRef);
++      checkedRunEnvironmentSpan(binding, Buffer.from(row.base64, "base64"));
+     }
+     let corpusDocuments: RunEnvironmentEvidence["corpusDocuments"] = null;
+     const accesses: RunEnvironmentEvidence["accesses"] = [], corpus = d.corpusAccess;
+--- a/test_env/tests/t287-governance-covered-source-use.test.mjs
++++ b/test_env/tests/t287-governance-covered-source-use.test.mjs
+@@ -14,6 +14,7 @@
+ const freeze=(await load('shared/immutable')).deepFreeze,hash=p.sha256Canonical;
+ const fixturePath=process.env.ABG_GOVERNANCE_COVERED_FIXTURE;
+ const declarationPairPath=process.env.ABG_GOVERNANCE_COVERED_DECLARATION_PAIR;
++const c2MaterialPath=process.env.ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS;
+ const proofRoot=process.env.ABG_GOVERNANCE_COVERED_PROOF_ROOT;
+ const clone=value=>JSON.parse(JSON.stringify(value));
+ async function moduleAt(name,replacements={},names=[]) {
+@@ -146,6 +147,106 @@
+   assert.ok(semantics.compareGovernanceDeclarationPublications(left,right));
+   right[0].contributions[0].provenanceRefs.pop();
+   assert.equal(semantics.compareGovernanceDeclarationPublications(left,right),null,'arbitrary reference multiplicity is not deduplicated');
++});
++
++test('actual installed C2 material correspondence preserves consumed content and strict refusals',
++  {skip:!c2MaterialPath},async t=>{
++  const selected=JSON.parse(fs.readFileSync(c2MaterialPath,'utf8'));
++  const material=await load('product/stdo_environment'),verification=await load('product/verify_product');
++  const publicationOwner=await load('product/publication');
++  const memberPath='build/code/src/product/worksite_command_execution.js';
++  const recordPath='contracts/worksite/command-execution-context.inventory.json';
++  const manifestPath='product-toolchain-manifest.json';
++  const acquire=async selection=>{
++    for(const pin of selection.materialFiles){const bytes=fs.readFileSync(pin.path);
++      assert.equal(bytes.length,pin.bytes);assert.equal(p.sha256Bytes(bytes),'sha256:'+pin.sha256);}
++    const manifest=verification.parseProductManifest(JSON.parse(fs.readFileSync(path.join(selection.installedRoot,manifestPath),'utf8')));
++    assert.ok(manifest);
++    const declared=await import(pathToFileURL(path.join(selection.installedRoot,'build/code/src/gtl/worksite_command_execution.js')).href);
++    const publication=declared.constructWorksiteCommandExecutionModulePublication({productId:manifest.productId,
++      packageName:manifest.packageName,packageVersion:manifest.packageVersion,artifactDigest:selection.artifactDigest,
++      productContentDigest:manifest.productContentDigest,productManifestDigest:hash(manifest)});
++    assert.equal(manifest.contributionManifest.publicationBindings.find(row=>row.moduleRef===publication.moduleRef).publicationDigest,
++      publicationOwner.modulePublicationSemanticDigest(publication));
++    // ABG's causal admission/lock availability is a controlled lower premise
++    // here. The actual installed publication, record/member bytes and spans
++    // are independently read by the production material owner, without an
++    // invented Source, event admission or copied runtime receipt.
++    const install={kind:'product_install',disposition:'admitted',admissionEventRef:'event://controlled/material/'+manifest.productContentDigest,
++      installedRoot:selection.installedRoot,productId:manifest.productId,packageName:manifest.packageName,packageVersion:manifest.packageVersion,
++      artifactDigest:selection.artifactDigest,productContentDigest:manifest.productContentDigest,manifestDigest:hash(manifest),
++      descriptorRef:manifest.descriptorRef,contributionManifestRef:manifest.contributionManifestRef,contributionManifestDigest:manifest.contributionManifestDigest};
++    return {publication,install};
++  };
++  const old=await acquire(selected.historical),next=await acquire(selected.current);
++  const owners={historical:[old.install],current:[next.install]};
++  const compare=(a=old.publication,b=next.publication,scope=owners)=>semantics.compareGovernanceDeclarationPublications([a],[b],scope);
++  const before=[JSON.stringify(old.publication),JSON.stringify(next.publication)];
++  assert.equal(semantics.compareGovernanceDeclarationPublications([old.publication],[next.publication]),null,'raw declarations keep exact Context equality');
++  const forward=compare(),reverse=semantics.compareGovernanceDeclarationPublications([next.publication],[old.publication],
++    {historical:[next.install],current:[old.install]});
++  assert.ok(forward);assert.ok(reverse);assert.equal(forward.meaningDigest,reverse.meaningDigest);
++  assert.ok(compare(clone(old.publication),clone(next.publication)),'cold actual material checks can authenticate copied metadata');
++  assert.deepEqual(old.publication.programs,next.publication.programs);
++  assert.deepEqual(old.publication.graphFunctions,next.publication.graphFunctions);
++  assert.equal(forward.owners[0].historicalPublicationDigest,hash(old.publication));
++  assert.equal(forward.owners[0].currentPublicationDigest,hash(next.publication));
++  const oldEnvironment=old.publication.runEnvironments[0],currentEnvironment=next.publication.runEnvironments[0];
++  const oldBinding=oldEnvironment.roles[0].sourceBindings[0],currentBinding=currentEnvironment.roles[0].sourceBindings[0];
++  const oldBytes=fs.readFileSync(path.join(old.install.installedRoot,memberPath));
++  const currentBytes=fs.readFileSync(path.join(next.install.installedRoot,memberPath));
++  const oldSpan=oldBytes.subarray(oldBinding.startByte,oldBinding.endByte),currentSpan=currentBytes.subarray(currentBinding.startByte,currentBinding.endByte);
++  assert.equal(oldSpan.length,2308);assert.ok(oldSpan.equals(currentSpan));
++  assert.equal(p.sha256Bytes(oldSpan),oldBinding.spanDigest);assert.equal(p.sha256Bytes(currentSpan),currentBinding.spanDigest);
++  const missing=[
++    ['absent material owners',{}],['claimed span with no current owner',{historical:[old.install],current:[]}],
++    ['crossed owners',{historical:[next.install],current:[old.install]}],
++    ['duplicate owners',{historical:[old.install],current:[next.install,next.install]}],
++    ['unadmitted install',{historical:[old.install],current:[{...next.install,kind:'product_install_candidate',disposition:'materialized'}]}],
++    ['missing admission selector',{historical:[old.install],current:[{...next.install,admissionEventRef:''}]}],
++    ['foreign actual owner',{historical:[old.install],current:[{...next.install,installedRoot:old.install.installedRoot}]}],
++    ['false manifest coordinate',{historical:[old.install],current:[{...next.install,manifestDigest:hash('foreign manifest')}]}],
++  ];
++  for(const [name,scope]of missing)assert.equal(compare(old.publication,next.publication,scope),null,name);
++  const declarationMutations=[
++    ['changed policy',e=>{e.roles[0].policy.text+=' changed';e.roles[0].policy.digest=p.sha256Bytes(Buffer.from(e.roles[0].policy.text));}],
++    ['changed role',e=>e.roles[0].role='constructor'],
++    ['changed selector order',e=>e.roles[0].contextPolicy.selectors.reverse()],
++    ['whole member consumption',e=>{e.roles[0].sourceBindings[0].startByte=0;e.roles[0].sourceBindings[0].endByte=currentBytes.length;e.roles[0].sourceBindings[0].spanDigest=p.sha256Bytes(currentBytes);}],
++    ['changed span',e=>{e.roles[0].sourceBindings[0].startByte++;e.roles[0].sourceBindings[0].endByte++;}],
++    ['out of bounds',e=>e.roles[0].sourceBindings[0].endByte=currentBytes.length+1],
++    ['changed member identity',e=>e.contexts[0].members[0].digest=hash('foreign member')],
++    ['changed inventory',e=>e.dependencies[0].inventoryDigest=hash('foreign inventory')],
++    ['changed source locator',e=>e.contexts[0].sourceLocator='source://foreign'],
++    ['unproved tool dependency',e=>e.accesses.push({accessRef:'access://foreign',operation:'validate',mode:'validation',frameIndexRefs:[],maxOutputBytes:4096,timeoutMs:1})],
++  ];
++  for(const [name,mutate]of declarationMutations){const changed=clone(next.publication);mutate(changed.runEnvironments[0]);
++    assert.equal(compare(old.publication,changed),null,name);}
++  for(const [name,mutate]of [
++    ['contract meaning',x=>x.contracts[0].valueKind='foreign_value'],
++    ['graph meaning',x=>x.graphFunctions[0].tags.push('foreign')],
++    ['contribution permission',x=>x.contributions[0].readinessPrerequisiteRefs.push('program://foreign')],
++  ]){const changed=clone(next.publication);mutate(changed);assert.equal(compare(old.publication,changed),null,name);}
++  assert.ok(proofRoot);fs.mkdirSync(proofRoot,{recursive:true});const scratch=fs.mkdtempSync(path.join(proofRoot,'material-'));
++  t.after(()=>fs.rmSync(scratch,{recursive:true,force:true}));
++  // Three required material files only; these scratch mutations never touch
++  // either immutable installed owner. All install/admission availability here
++  // retains the controlled lower premise above.
++  for(const relative of [manifestPath,recordPath,memberPath]){const target=path.join(scratch,relative);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(next.install.installedRoot,relative),target);}
++  const scratchInstall={...next.install,installedRoot:fs.realpathSync(scratch)},scratchOwners={historical:[old.install],current:[scratchInstall]};
++  assert.ok(compare(old.publication,next.publication,scratchOwners),'actual cold validation, never a copied receipt, authenticates material');
++  for(const [name,relative,mutate]of [
++    ['changed consumed bytes',memberPath,b=>{b[currentBinding.startByte]^=1;return b;}],
++    ['changed unconsumed member bytes',memberPath,b=>{b[0]^=1;return b;}],
++    ['changed record bytes',recordPath,b=>Buffer.concat([b,Buffer.from(' ')])],
++    ['changed manifest bytes',manifestPath,b=>Buffer.from(b.toString('utf8').replace('command-execution@5','command-execution@4'))],
++  ]){const target=path.join(scratch,relative),original=fs.readFileSync(target);fs.writeFileSync(target,mutate(Buffer.from(original)));
++    assert.equal(compare(old.publication,next.publication,scratchOwners),null,name);fs.writeFileSync(target,original);}
++  assert.ok(compare());assert.deepEqual([JSON.stringify(old.publication),JSON.stringify(next.publication)],before);
++  t.diagnostic(JSON.stringify({historicalMemberBytes:oldBytes.length,currentMemberBytes:currentBytes.length,
++    consumedBytes:oldSpan.length,spanDigest:p.sha256Bytes(oldSpan),meaningDigest:forward.meaningDigest,
++    lowerPremises:'ABG causal install/lock availability controlled; actual09/14 manifest publication/inventory/member/span reads genuine',
++    exclusions:'No actual covered Source admission, current-use first-null attribution, installed continuation/native or behavior-equivalence credit'}));
+ });
+ 
+ // Complete original declaration/verified asset values are retained inputs.

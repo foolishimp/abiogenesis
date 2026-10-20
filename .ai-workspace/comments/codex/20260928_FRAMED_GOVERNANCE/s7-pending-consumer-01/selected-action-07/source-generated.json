@@ -1,0 +1,64 @@
+{
+  "priorInventory": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/archive-installed.json",
+    "bytes": 1092925,
+    "sha256": "2d07a246559d2c83a0089c5870007ba967ec696ce240621e5cc7f29effa480f5"
+  },
+  "priorArchiveSha256": "b798e20edd4ae1d8649499ad0ccd822d893968fad3a5498948346df45211e043",
+  "unchangedCount": 920,
+  "changedOrAdded": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.d.ts",
+      "bytes": 15259,
+      "sha256": "852608263015800f45625d9b9ebd439c5108044e173f8eefb710c34c8b7b8b05",
+      "priorArchiveMember": {
+        "path": "build/code/src/abg/construction_continuation.d.ts",
+        "bytes": 15197,
+        "sha256": "d52656ca48bb2d3b7aee841648b7521d208349eb66ffdd4c6e0f854bd614d332"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+      "bytes": 51696,
+      "sha256": "d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f",
+      "priorArchiveMember": {
+        "path": "build/code/src/abg/construction_continuation.js",
+        "bytes": 51069,
+        "sha256": "896dc26c81671ff33e35b41a128d121cca0078ca73e97871840b12a089a07e6c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/owner_bindings/run_invocation.js",
+      "bytes": 77093,
+      "sha256": "ae5b54f63ea2ca165e7f91e5ccba84eebf6996f886801387342da3c7a5c58429",
+      "priorArchiveMember": {
+        "path": "build/code/src/owner_bindings/run_invocation.js",
+        "bytes": 77034,
+        "sha256": "8bef203682138c3293901c22d66dcfe01c5a172e7acbadb71aaa619b4d57f6d6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "7d667c25e039dbdf7f3793f0ac3e9f053faadc35c342e922b0cab794cd2cf211",
+      "priorArchiveMember": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0c0550535dfd2143518178d6505162b8e6574351674bbd8e11fcdb61f63ea792"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "6b3bb3055fbdfbc1c7430987a5d13ca101fb6955fe915596760844babfd03e9e",
+      "priorArchiveMember": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2559987,
+        "sha256": "79fd5431dedf123ef49b8905be2638cf85da373d71e6a9c4483cf7e83545ba12"
+      }
+    }
+  ],
+  "removed": [],
+  "newPackageOrInstall": false,
+  "comparisonScope": "all existing directly regenerated build/ and contracts/ files plus manifest, against preserved exact02 package inventory; runtime Product content differs after07 occurrence repair"
+}

@@ -1,0 +1,14 @@
+{
+  "existing": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "sha256": "2e78eda04a01b97208839d656cacfb64063bd2606af947b17de118c338ac5091",
+      "bytes": 94493,
+      "preimage": "M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.preimage.md"
+    }
+  ],
+  "new": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md"
+  ],
+  "assessment_sha256": "b8a9a79d5ee961b855b1d9574c9106d7e0bb5eff477057d81100e9ea4ccaf935"
+}

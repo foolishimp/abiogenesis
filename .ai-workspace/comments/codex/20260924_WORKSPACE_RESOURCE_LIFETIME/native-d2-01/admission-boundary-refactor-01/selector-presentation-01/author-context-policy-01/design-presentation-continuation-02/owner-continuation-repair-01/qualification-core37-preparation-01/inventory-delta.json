@@ -1,0 +1,231 @@
+{
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/qualification-core34-preparation-01/source-inventory.json",
+    "sha256": "f80259cd8476b78fb4eebe9cabce14c313397bc0250e94ecde49ec06bf23417f",
+    "bytes": 299656
+  },
+  "acceptedBuildInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/build-inputs.json",
+    "sha256": "a252c30c3bc715eb30ccc0e70eb71dabdff582da4a3f10e970ac17f24b08f57d",
+    "bytes": 42177
+  },
+  "acceptedGenerated": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-37/generated-after.json",
+    "sha256": "7ab3889f7b2fb9d4da5f30e9b86bcb9d10cc3ed9f050cee54a302a1274b35652",
+    "bytes": 156347
+  },
+  "currentCandidateRoots": [
+    "design/",
+    "test_env/tests/",
+    "test_env/support/"
+  ],
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "before": {
+        "path": "build/code/src/abg/c_call_outcome.js",
+        "bytes": 53013,
+        "sha256": "bcd8ea0227c1ae3411084ce766430af28d327b244be8b298ef2d40997233f1d1"
+      },
+      "after": {
+        "path": "build/code/src/abg/c_call_outcome.js",
+        "bytes": 53151,
+        "sha256": "43b24ecd56a45c4efda3527b59549177ae8e7ec761bd3551bcb0d2c68ac2c855"
+      }
+    },
+    {
+      "before": {
+        "path": "build/code/src/abg/c_call.js",
+        "bytes": 236560,
+        "sha256": "210621b9ebcc704048ac54ef0776c09807de2ba6330a80c1a4e1ba63cec58ad6"
+      },
+      "after": {
+        "path": "build/code/src/abg/c_call.js",
+        "bytes": 236538,
+        "sha256": "45af70afb17273a9f73f359eca63083dc32bcddff422a56b0291c1d82dec9e5f"
+      }
+    },
+    {
+      "before": {
+        "path": "build/code/src/abg/execution_basis.js",
+        "bytes": 107814,
+        "sha256": "268204a36c71c4a573bc3738b53f8d606f02245647d392e95c93ab418aca7c6d"
+      },
+      "after": {
+        "path": "build/code/src/abg/execution_basis.js",
+        "bytes": 107821,
+        "sha256": "6afee3c1868f2d9c225234a26823b35b7327b89aee3313a358b9084263d8a9bd"
+      }
+    },
+    {
+      "before": {
+        "path": "build/code/src/abg/worksite_input_provenance.d.ts",
+        "bytes": 2757,
+        "sha256": "a72c029f34f91150f18979e36057d8619b1375ede7eed8cc42f0b9c2f30ca4aa"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_input_provenance.d.ts",
+        "bytes": 3227,
+        "sha256": "14f1978919c2581b78103bbfddca5fb4a089e3058e27951012db67fc20051bd6"
+      }
+    },
+    {
+      "before": {
+        "path": "build/code/src/abg/worksite_input_provenance.js",
+        "bytes": 34518,
+        "sha256": "706a2455c410fc8f677ad0654a75ada2100a772fa85c4cd7369d6d173ed6114a"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_input_provenance.js",
+        "bytes": 37016,
+        "sha256": "1c0538f1a990a9e4e7feaa8cccb4dddbf1603a75cf6c8cb106ca1b3b1213c354"
+      }
+    },
+    {
+      "before": {
+        "path": "build/code/src/abg/worksite_revision.d.ts",
+        "bytes": 5067,
+        "sha256": "21e8b263df041fcf76abf72b960e3bf9d11333a092bb18b50d3dbb862da43697"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_revision.d.ts",
+        "bytes": 5185,
+        "sha256": "00b7388875a2280a441eb1cfcdf9f49bfe1ef71b94f6dcc30a352a6388567562"
+      }
+    },
+    {
+      "before": {
+        "path": "build/code/src/abg/worksite_revision.js",
+        "bytes": 64076,
+        "sha256": "67afbb9700c68ed4f15cb2fd42524c60e640c34a4b2d4e3785f0d2577bb3a169"
+      },
+      "after": {
+        "path": "build/code/src/abg/worksite_revision.js",
+        "bytes": 64482,
+        "sha256": "b73fb5b20cccac2a17e3bf58586c7c4ba025ea72d364d96d85af7b3b87b925be"
+      }
+    },
+    {
+      "before": {
+        "path": "code/src/abg/c_call_outcome.ts",
+        "bytes": 65043,
+        "sha256": "efc4d9dd5818984c9f19ead8d41537521e139ab8f531041de827b109be13064a"
+      },
+      "after": {
+        "path": "code/src/abg/c_call_outcome.ts",
+        "bytes": 65177,
+        "sha256": "0544ab335f1885f6f25b5aa3f157dc5300fc5ccd5f661c487122885dee69334d"
+      }
+    },
+    {
+      "before": {
+        "path": "code/src/abg/c_call.ts",
+        "bytes": 273204,
+        "sha256": "c93d3ef3a1c2fa27c2a4ba630c7b504560ce980b6f237599f1efed092b48dd57"
+      },
+      "after": {
+        "path": "code/src/abg/c_call.ts",
+        "bytes": 273186,
+        "sha256": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d"
+      }
+    },
+    {
+      "before": {
+        "path": "code/src/abg/execution_basis.ts",
+        "bytes": 121970,
+        "sha256": "9843dca203feeaeb701f1640bd080d91ad3166670fe9c4217621b981ea1a6ace"
+      },
+      "after": {
+        "path": "code/src/abg/execution_basis.ts",
+        "bytes": 121977,
+        "sha256": "91aec3f47a4da8ed33f2d59e665eed76fe459500dea4c4c363525b1ae5652af4"
+      }
+    },
+    {
+      "before": {
+        "path": "code/src/abg/worksite_input_provenance.ts",
+        "bytes": 35550,
+        "sha256": "37891cd219f67f33bfab0b61ae7430d8da079b51e532d1e1ca5b241cd07b6f7a"
+      },
+      "after": {
+        "path": "code/src/abg/worksite_input_provenance.ts",
+        "bytes": 37962,
+        "sha256": "6d27337d5b87d0fdf677ef3268e3d63b217169fd230c2f8b6a45dbc5e303cf3f"
+      }
+    },
+    {
+      "before": {
+        "path": "code/src/abg/worksite_revision.ts",
+        "bytes": 62993,
+        "sha256": "947a882c9473ae5e4fd8cdc6d9dab021cf63bc6e00169984177859f939637e0e"
+      },
+      "after": {
+        "path": "code/src/abg/worksite_revision.ts",
+        "bytes": 63490,
+        "sha256": "3847e67b06986ef493667af804017b19f028e15f607d118631a102ff3adc1d3e"
+      }
+    },
+    {
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "ebcaf42b861959854a099fbe7edd95c660c9532eefd1b95b54bd35718f6b2bab"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0952fb9f3b5078f2f86fc0a6e23caaca1ce8d12bb5f6015c16c42b03ae984aca"
+      }
+    },
+    {
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "0eac7090ace5601396d857be0b18401478ef473c4085152092e855c1a4317f5f"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "57f1c0bb24d3fbf656e7270912414edde2c0de68e54d4b5bcb03f69bf2a17351"
+      }
+    },
+    {
+      "before": {
+        "path": "test_env/support/d2-binding-harness.mjs",
+        "bytes": 22163,
+        "sha256": "fd7559d1befb6e73c4a10d16902ce742d6a0d3290e15de70c0dccda2cf65cade"
+      },
+      "after": {
+        "path": "test_env/support/d2-binding-harness.mjs",
+        "bytes": 23001,
+        "sha256": "b4e3642a9f7963e1fdeb51f22b0df7b7b563eb933c519e1576a3e34ed12ad4df"
+      }
+    },
+    {
+      "before": {
+        "path": "test_env/tests/d2-binding-transition.test.mjs",
+        "bytes": 19388,
+        "sha256": "2a6612e57578ebd36e378a74cd89422ed4b4d696d4bf6021feb8500a0531488e"
+      },
+      "after": {
+        "path": "test_env/tests/d2-binding-transition.test.mjs",
+        "bytes": 33032,
+        "sha256": "1cc10451210f10f421263dfa427372b61e8550fcb47a76269ac5294d905e3c66"
+      }
+    },
+    {
+      "before": {
+        "path": "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+        "bytes": 20377,
+        "sha256": "eec646184ea291e632158ecd1183f01c6f4d4fdeb590b5480cd18a8f0e59c917"
+      },
+      "after": {
+        "path": "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+        "bytes": 28018,
+        "sha256": "7d02c2955b50ae11ba4df2db9109b55e3f666d7faae3f8c8b0776995350c65a1"
+      }
+    }
+  ],
+  "completeness": "candidate_population_only_independent_whole_subject_selection_pending"
+}

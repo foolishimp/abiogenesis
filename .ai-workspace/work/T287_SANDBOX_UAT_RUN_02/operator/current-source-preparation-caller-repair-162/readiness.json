@@ -1,0 +1,139 @@
+{
+  "disposition": "CLOSED bounded caller/preflight readiness; actual composition unproved",
+  "productFrame": "Fixed fifteen-family ABI5.0/GOAL035/T287; original external full Data Mapper UAT; STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782; Product817-867",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-157/prepare.mjs",
+    "sha256": "5012e676dc816937130517a001ba4cd2d0fb9c2c6a8dd0ca796a19d078c6ac22",
+    "byteCount": 33186
+  },
+  "caller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/prepare.mjs",
+    "sha256": "f50fb725f38f64de1426b30f11622551ffa3669ac3f907be1f77a15814d476d4",
+    "byteCount": 33934
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/verify-artifacts.mjs",
+    "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+    "byteCount": 2071
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/inputs.json",
+    "sha256": "6a6193e436629d4cbcb1e6ea334d08a058551588bc9cdce161fe812272589407",
+    "byteCount": 4238
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/prepare.diff",
+    "sha256": "ffc0c197d0aba4cad2d9dfd75e2b168b8a26c6117b70220e6a678422dcba52ec",
+    "byteCount": 19850
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/binding-preflight.json",
+    "sha256": "8783527cd4bce9d3995374c34b7de921bba657340ae40ab67b4267235a984883",
+    "byteCount": 14385
+  },
+  "command": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 20171.549625,
+    "timedOut": false,
+    "truncated": false
+  },
+  "syntaxChecks": 4,
+  "canonicalBindings": 54,
+  "artifactIdentityChecks": [
+    {
+      "label": "native26",
+      "exactOwnedIdentity": true,
+      "copiedBodyRefusesNominalReceipt": true,
+      "mismatchedRequestRefusesNominalReceipt": true,
+      "canonicalVerifierConsumerRetainsIdentity": true
+    },
+    {
+      "label": "consumer",
+      "exactOwnedIdentity": true,
+      "copiedBodyRefusesNominalReceipt": true,
+      "mismatchedRequestRefusesNominalReceipt": true,
+      "canonicalVerifierConsumerRetainsIdentity": true
+    }
+  ],
+  "canonicalSharedGrantAndSDKIdentity": true,
+  "controlledPremise": "Only eventless Product attestation construction; no authority/currentness/admission for the actual app or source use",
+  "measuredStages": [
+    {
+      "stage": "binding-preflight-complete",
+      "elapsedMs": 322.107292,
+      "heapUsed": 66537776,
+      "rss": 196345856
+    },
+    {
+      "stage": "native26-preverify-start",
+      "elapsedMs": 355.760959,
+      "heapUsed": 84973008,
+      "rss": 236929024
+    },
+    {
+      "stage": "native26-preverify-complete",
+      "elapsedMs": 19942.84825,
+      "wallMs": 19586.731083,
+      "heapUsed": 1185572888,
+      "rss": 1696366592
+    },
+    {
+      "stage": "consumer-preverify-start",
+      "elapsedMs": 19943.487167,
+      "heapUsed": 1185643248,
+      "rss": 1696366592
+    },
+    {
+      "stage": "consumer-preverify-complete",
+      "elapsedMs": 19956.102791999998,
+      "wallMs": 12.429374999999709,
+      "heapUsed": 1186482040,
+      "rss": 1696366592
+    },
+    {
+      "stage": "eventless-grant-construction-start",
+      "elapsedMs": 20069.482417,
+      "heapUsed": 1178762200,
+      "rss": 1732526080
+    },
+    {
+      "stage": "eventless-grant-construction-complete",
+      "elapsedMs": 20109.645875,
+      "heapUsed": 1171323768,
+      "rss": 1726513152,
+      "capabilities": 1
+    }
+  ],
+  "recovery": {
+    "ownerReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/recovery-receipt.json",
+      "sha256": "ca25c648b11a0e552288361f9e9f83a72732a07948c4a6854a249029d93e9c82",
+      "byteCount": 5203
+    },
+    "ownerFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/freeze.json",
+      "sha256": "e5fa44a8522669696251aa35d400de73bfc62cec4a5ebf5d91cbc9c418886fe4",
+      "byteCount": 10223
+    },
+    "handoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/final-close-handoff.json",
+      "sha256": "23dc9953d46f3234bb08c78011306a3ad35d88d02e089f7007b993c844302683",
+      "byteCount": 1472
+    },
+    "rootDisposition": "Root conjoined independent161 GO and33 matched160pins; recovery/conservation only. Current-use/native/preparation/capacity remain open."
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-preparation-caller-repair-162/conservation.json",
+    "sha256": "4808cb48c422544a380a11285b55bf75bd0f631918c236f72612c234ecf7d5cf",
+    "byteCount": 14961
+  },
+  "limitations": [
+    "No actual1.68GB event-resource acquisition or current-source preparation, Public transport, binding/D2, source admission, native/C2/UAT or model evidence in162.",
+    "Preverify-complete1,185,572,888B heap is a sampled value; no exact retainer/peak or full composition capacity claim.",
+    "Nominal receipts are process-local: future actual preparation must repeat both live verifications and keep exact returned objects;162 JSON cannot restore authority.",
+    "Original34 observations/nonterminal source and closed-child/D2/Program/currentness code remains unchanged; actual applicability is still required.",
+    "Root separately reviews162 and grants execution in a successor proof territory; frozen162 is not overwritten."
+  ],
+  "effectsStopped": true
+}

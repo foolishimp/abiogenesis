@@ -1,0 +1,47 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+    "bytes": 7917,
+    "sha256": "78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/final-native-prefix.jsonl",
+    "bytes": 4689421,
+    "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/freeze.json",
+    "bytes": 17162,
+    "sha256": "0a1dadc1ebc013d6078d7934cfc34c64a87fd82c8a4ec31ef8e9da79ad1373ca"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/return.md",
+    "bytes": 11727,
+    "sha256": "55bce182d498fda25b54a1bb5600a1df78169bbc75fb2b81f51ecb563a06c20b"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/environment.json",
+    "bytes": 42336734,
+    "sha256": "307dbbf164ffbe0f3eafe42b110c13efc09bf950d9e528e7a42b4bb877a437bc"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/oracle.json",
+    "bytes": 1509,
+    "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-review-01.md",
+    "bytes": 12250,
+    "sha256": "acd80a8782adb5055f2170a248c5e6c64abd435993e06ecf010be0fdf185a155"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-intake-01.md",
+    "bytes": 18544,
+    "sha256": "d73cabe239e15ba2dc2fbea596625622c6c237b5cd07cc57144c389e22db8c34"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+    "bytes": 21635,
+    "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+  }
+]

@@ -1,0 +1,32 @@
+import { type DurablePrefixCoordinate, type EventStoreCloseHandoff, type EventStoreReopenAuthority } from "../abg/event_store.js";
+import type { ModulePublication } from "../gtl/index.js";
+import type { CatalogReadinessBasis, ProductInstall } from "../product/index.js";
+import { type Sha256Digest } from "../shared/digests.js";
+export interface PublicRunProjectionAuthority {
+    readonly kind: "public_run_projection_authority";
+    readonly schemaVersion: "5.0.0";
+    readonly prefix: DurablePrefixCoordinate;
+    readonly reopenAuthority: EventStoreReopenAuthority;
+    readonly runtimeInvocationRef: string;
+    readonly invocationAdmissionRef: string;
+    readonly runId: string;
+    readonly graphCallId: string | null;
+    readonly resultRef: string | null;
+    readonly outputContractRef: string;
+    readonly install: ProductInstall;
+    readonly workspaceId: string;
+    readonly workspaceBindingId: string;
+    readonly workspaceBindingDigest: Sha256Digest;
+    readonly catalogBasisDigest: Sha256Digest;
+    readonly catalogReadinessBasis: CatalogReadinessBasis;
+    readonly catalogViewAllowlist: readonly string[];
+    readonly catalogViewDigest: Sha256Digest;
+    readonly publicationDigests: readonly Sha256Digest[];
+    readonly publications: readonly Readonly<ModulePublication>[];
+    readonly authorityDigest: Sha256Digest;
+}
+type PublicRunProjectionAuthorityInput = Omit<PublicRunProjectionAuthority, "authorityDigest" | "kind" | "schemaVersion">;
+export declare function constructPublicRunProjectionAuthority(input: PublicRunProjectionAuthorityInput): PublicRunProjectionAuthority;
+export declare function updatePublicRunProjectionAuthority(authority: PublicRunProjectionAuthority, handoff: EventStoreCloseHandoff): PublicRunProjectionAuthority;
+export declare function parsePublicRunProjectionAuthority(value: unknown): PublicRunProjectionAuthority | null;
+export {};

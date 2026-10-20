@@ -1,0 +1,7 @@
+{
+  "originalPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+  "originalSHA256": "8e645ede5708216e7f5c11f1000a19fbeb6f06047d004e37251e124ccafd2195",
+  "rebasedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73/isolated/t287-observed-worksite-command.test.mjs",
+  "rebasedSHA256": "ad512689c9a4bc80d71fe3e2f7bc6f167d29887159f88f7c6cd33fece7070465",
+  "changes": "Only build/support/uat import roots and original import.meta.dirname; no assertion/body change. Native semantic test uses existing ABI5_GENERIC_JOB_BUILD_ROOT; support uses existing ABG_WORKSITE_BUILD_ROOT."
+}

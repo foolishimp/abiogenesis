@@ -1,0 +1,20 @@
+Activation
+T287_F11_CARRIER_REALIZATION_01 bounded source readiness continues; same exact write paths. One finite historical lower-owner source hook is selected, not a new Product/candidate or compatibility mechanism.
+
+Basis and Product
+STDO2.5.1RC2 Definition eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c, unchanged F10/F11/F15 outcomes. Current consumer remains current and exact candidate remains forthcoming C03. Component historical producer owner is separately identified input, not current installed authority.
+
+Frames and first missing relation
+The old installed native4196 owner lacks assertDurableRuntimePrefixCurrent. Original accepted acquisition check used actual authored source currentness owner via source-loader, not that earlier installed export. Integration fixture must reproduce the actual source component, Identity pins source postimage ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf and CLOSED freeze4b47285b95656c83dd07f0d6cbcf794738b8328404aacc35cb9e0111e62559a3. Product forbids substituting invented currentness authority; Proof failure does not establish current F11 or unchanged event_store defect.
+
+Exact grant
+Readonly pinned source in pins.json and complete prior 12 source pins. Within existing copied readiness/test/report territory only, exact-URL Node source hook may supply that one frozen event_store.ts body at the selected old package event_store.js URL using frozen Node stripTypeScriptTypes and original accepted source-loader technique. All relative imports resolve the same pinned historical package closure. No old Product/source/store mutation, new archive, semantic compiler, profile/schema widening or fake currentness substitute.
+
+Evidence and effects
+Pin the hook source/body/dependency module routes, record explicit component premise. Current consumer owner and its imports remain current; old producer profile4196 and unchanged history authenticate through real lower owners. Preserve failures and assert one actual physical read/acquisition/currentness checks as original tests require. Necessary narrow rerun only, zero native/provider/network/Git effects.
+
+Stops
+One bounded route only. Return any new first violated relation immediately, without an open-ended historical compatibility investigation or source/profile repair. Do not claim installed candidate qualification from this source test.
+
+Frozen return
+Freeze complete source/readiness once bounded check settles; preserve actual missing prerequisite if still unresolved, then stop writes. Independent review will adjudicate exact source claim and complete installed proof; Root owns disposition.

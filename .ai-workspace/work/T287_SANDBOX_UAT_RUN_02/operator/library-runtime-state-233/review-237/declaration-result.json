@@ -1,0 +1,87 @@
+{
+  "kind": "frozen_cut_stripped_declaration_check",
+  "sourceCount": 264,
+  "declarationCount": 264,
+  "skipLibCheck": false,
+  "stripInternal": true,
+  "elapsedMs": 10592.771042,
+  "sourceDiagnostics": [],
+  "emissionDiagnostics": [],
+  "emitSkipped": false,
+  "declarationDiagnostics": [
+    {
+      "code": 2552,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/effectful_invocation_truth.d.ts",
+      "start": 1984,
+      "message": "Cannot find name 'OwnedExplicitInvocationTruthPrefix'. Did you mean 'ExplicitInvocationTruthPrefix'?"
+    },
+    {
+      "code": 2724,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/native_work_reacquisition.d.ts",
+      "start": 14,
+      "message": "'\"./event_prefix.js\"' has no exported member named 'RuntimeEventPrefix'. Did you mean 'runtimeEventPrefixDigest'?"
+    },
+    {
+      "code": 2305,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/qualification_proof.d.ts",
+      "start": 14,
+      "message": "Module '\"./runtime_history.js\"' has no exported member 'RuntimeEventScan'."
+    },
+    {
+      "code": 2694,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/qualification_proof.d.ts",
+      "start": 1291,
+      "message": "Namespace '\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/event_prefix\"' has no exported member 'RuntimeEventPrefix'."
+    },
+    {
+      "code": 2724,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/replay.d.ts",
+      "start": 14,
+      "message": "'\"./event_prefix.js\"' has no exported member named 'RuntimeEventPrefix'. Did you mean 'runtimeEventPrefixDigest'?"
+    },
+    {
+      "code": 2305,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/replay.d.ts",
+      "start": 545,
+      "message": "Module '\"./event_calculus.js\"' has no exported member 'RuntimeHeldFluentProjection'."
+    },
+    {
+      "code": 2724,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/semantic_revision.d.ts",
+      "start": 14,
+      "message": "'\"./event_prefix.js\"' has no exported member named 'RuntimeEventPrefix'. Did you mean 'runtimeEventPrefixDigest'?"
+    },
+    {
+      "code": 2694,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/semantic_revision.d.ts",
+      "start": 2249,
+      "message": "Namespace '\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/runtime_history\"' has no exported member 'RuntimeEventBodyView'."
+    },
+    {
+      "code": 2694,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/semantic_revision.d.ts",
+      "start": 8460,
+      "message": "Namespace '\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/runtime_history\"' has no exported member 'RuntimeEventBodyView'."
+    },
+    {
+      "code": 2694,
+      "category": "Error",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/semantic_revision.d.ts",
+      "start": 17221,
+      "message": "Namespace '\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/emitted/abg/runtime_history\"' has no exported member 'RuntimeEventBodyView'."
+    }
+  ],
+  "limits": [
+    "TypeScript declaration linkage only; not canonical packed publication closure or runtime acceptance",
+    "Unfinished replay and consumer retention excluded"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "frozen_independent_runtime_state_source_review",
+  "status": "CLOSED_STOPPED",
+  "verdict": "CHANGES",
+  "subject": {
+    "sourceCut": 34,
+    "freezeSha256": "4ae653dac80bff28be020f57b9cc77d7e3fe6d60338766fb4848fb69189bf4eb",
+    "freezeBytes": 11110
+  },
+  "finding": "Ordinary owned HoG next-input and recursion handoffs call the complete Public prefix materializer instead of the existing private owned selection.",
+  "checks": {
+    "literalSubjectPins": 33,
+    "sourceFiles": 264,
+    "emittedFiles": 528,
+    "ownPrePostPairs": 65,
+    "accepted235Dependencies": 7,
+    "mismatches": 0,
+    "reviewerTestsRun": 0,
+    "originalResourceEffects": 0
+  },
+  "scope": "Independent Source/owner review only. Storage/checked-cut/plan/component evidence remains bounded; actual installed/native/Source41/currentness/capacity/UAT/release remains open.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-235/review.md",
+      "sha256": "58a870c8979f35cb8da3afe962099b3b0536f0922d03a81398520698ddbbf5fe",
+      "bytes": 8647
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-235/pins.json",
+      "sha256": "1ffde6b08167e19a8e0c0c6db79227853fcdcd40b997ff43d965b95b555a59a5",
+      "bytes": 9345
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "kind": "bounded_original_s03a_pair_conjunction",
+  "status": "evidence_ready_for_independent_assurance",
+  "candidate": {
+    "artifactDigest": "sha256:f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+    "productContentDigest": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+    "manifestDigest": "sha256:cb7b8045e769fa6c019e599e5aef932827d915ce9de11a91cfcb5946a9eb153d",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "C03Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+    "bytes": 44443,
+    "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a"
+  },
+  "originalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/original-oracle.json",
+    "bytes": 1509,
+    "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+  },
+  "originalConsumers": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/original-consumers.mjs",
+    "bytes": 16042,
+    "sha256": "69038fa5837745e3e57e3ec8cbf82808997d8cc68660138f01e4d666ff4992c6"
+  },
+  "positive": {
+    "originalFullOracleProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/positive/oracle-result.json",
+      "bytes": 816087,
+      "sha256": "9dbaee23f4dbac60e37fc994ccf89163d5bbf479dd3f091bbd81edb75b33d69f"
+    },
+    "run": {
+      "ref": "run://abiogenesis/aa52a15d1e29110ba83b65f77c9364f881167382ab2f100a25b78a45a4bfdcaa",
+      "digest": "sha256:17943562008a45d9067170e72d51c618f3ac93b3044ba6e959a37005e508b096"
+    },
+    "executionBasis": {
+      "ref": "execution-basis://abiogenesis/a987c6ffbac65ec938174bda1c9f427468af54673c66b9c0e87f56260152e26e",
+      "digest": "sha256:a987c6ffbac65ec938174bda1c9f427468af54673c66b9c0e87f56260152e26e"
+    },
+    "runtimeStatus": "closed",
+    "actual": 10,
+    "desired": 10,
+    "unaffected": {
+      "evidenceRef": "evidence://s03-automatic/unaffected-initial@5",
+      "itemRef": "item://s03-automatic/unaffected@5",
+      "value": 7
+    },
+    "coldReads": 4,
+    "coldAppendBytes": 0,
+    "terminalProducer": {
+      "cCallRef": "c-call:sha256:cd1733332dac4bb5a978dbf93ea98bd0702631f57cfb9f8d6c07bad3d9523d36",
+      "executionBasis": {
+        "digest": "sha256:a987c6ffbac65ec938174bda1c9f427468af54673c66b9c0e87f56260152e26e",
+        "ref": "execution-basis://abiogenesis/a987c6ffbac65ec938174bda1c9f427468af54673c66b9c0e87f56260152e26e"
+      },
+      "graphCallRef": "graph-call://abiogenesis/87ac4ecb74b94cf728665ed5237c5ba7fa60f78e94248fe729da7d333d5cd532",
+      "graphFunction": {
+        "digest": "sha256:1b6bf8799138e8d14f496cca21fb1fc8c5a020da9e07215413b34ba27ec94755",
+        "ref": "graph-function://s03-automatic/root@5"
+      },
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/bf1bbf20ed95b978e2a82aa6fa09bacdf2484502d030ba91b5fecc18a41e9eb3",
+      "judgmentAdmissionEventRef": "event://abiogenesis/ecf0bcae46f1579afe89b701f453036c0591f86749254aa9693d10cbf13493c9",
+      "judgmentRef": "judgment://abiogenesis/f6d29f48be5fc376c03e1970f0b6efb7d186a4dded3d9b249cfdda62ef81c27f",
+      "program": {
+        "digest": "sha256:8c84c435f17a554ae52b4ebb714a90871acc4baa7a454bcee7d9c6a866dff190",
+        "ref": "program://s03-automatic/root@5"
+      },
+      "resultAdmissionEventRef": "event://abiogenesis/e50b66c72092b1482247428080befba95f314835b655e43936b397a0322089bd",
+      "runRef": "run://abiogenesis/aa52a15d1e29110ba83b65f77c9364f881167382ab2f100a25b78a45a4bfdcaa",
+      "terminalRoute": {
+        "digest": "sha256:4b31dbeb1a6a7791bc4f2a11ef96918c82638d9a1ba49794885eddc0237bfbde",
+        "ref": "traversal-route://abiogenesis/4b31dbeb1a6a7791bc4f2a11ef96918c82638d9a1ba49794885eddc0237bfbde"
+      }
+    }
+  },
+  "negative": {
+    "originalFullOracleProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/no-action/oracle-result.json",
+      "bytes": 686008,
+      "sha256": "d205154de8d2d676768f376a3eac4bd4be11a25850202f601060c278870e6667"
+    },
+    "causalProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05/negative-causal-oracle.json",
+      "bytes": 251551,
+      "sha256": "0c4cb35c757409420e2274dc74187d59d1c9ee5421abb74d3f6aa97910b5f030"
+    },
+    "run": {
+      "ref": "run://abiogenesis/9e885b342e6014e08a7f7ed33f4420ecf780bc337290b680b9640306fd91cf39",
+      "digest": "sha256:7cdb69577138ff92c0be23766e625be171efdaf95be6a6d47b204c7af4380ebd"
+    },
+    "executionBasis": {
+      "ref": "execution-basis://abiogenesis/38a5c558bc53e8c7cf2b4daa575cf65b02de6c58c8b9a75fb78b7ce7225fb564",
+      "digest": "sha256:38a5c558bc53e8c7cf2b4daa575cf65b02de6c58c8b9a75fb78b7ce7225fb564"
+    },
+    "runtimeStatus": "gap_stopped",
+    "actual": 3,
+    "desired": 10,
+    "unaffected": {
+      "evidenceRef": "evidence://s03-automatic/unaffected-initial@5",
+      "itemRef": "item://s03-automatic/unaffected@5",
+      "value": 7
+    },
+    "freshReads": 4,
+    "resultOutcome": "refusal/not_ready",
+    "nativeStartOutcomePreserved": "nonterminal/gap_stop/acceptedNonTerminal3",
+    "terminalResult": null,
+    "frontierSource": "Only actual Public run_gaps owner output; event rows verify lineage and never supply missing projection data.",
+    "publicHandoff": "Run run://abiogenesis/9e885b342e6014e08a7f7ed33f4420ecf780bc337290b680b9640306fd91cf39: Target remains 3; required value is 10. The declared correction capability is unavailable.\nUnfulfilled obligation: obligation://s03-automatic/target-value@5\nAdmitted gap: next-action-projection://product/8808d8550ea3d97cc56a3e431b090ccc193303b887af41c9606b21d66739afa0\n",
+    "missingAssetRefs": [
+      "asset://s03-automatic/correction-capability@5"
+    ],
+    "unfulfilledObligationRefs": [
+      "obligation://s03-automatic/target-value@5"
+    ],
+    "coldAppendBytes": 0
+  },
+  "pairRelations": {
+    "sameC03": true,
+    "sameProgramResolution": true,
+    "sameRootPolicy": true,
+    "sameWorkspaceBinding": true,
+    "inputDiffOnlyCorrectionAvailable": true,
+    "twoExistingActualRuns": true,
+    "newStarts": 0,
+    "newSetupConformanceCalls": 0,
+    "combinedFreshReads": 8,
+    "originalOraclesUnchanged": true
+  },
+  "actual08FreshCLIProofCount": 8,
+  "originalPositiveProofRetained": true,
+  "sameSelectionMeaning": "Same exact C03/ProductSet/lock/WorkspaceBinding/Program/start/resolution/root policy; fresh root execution bases remain distinct and source-bound because semantic inputs differ by correctionAvailable.",
+  "sourceAndStoreConserved": true,
+  "wholeS03Claim": false,
+  "qualificationClaim": false,
+  "acceptanceClaim": false,
+  "limits": [
+    "Original bounded S03a automatic correction/truthful stop pair only",
+    "No arbitrary native software correction credit",
+    "Remaining fullS03 control/disposition/consequence, wholeF11/seven seeds/qualification/AF22/release stay open",
+    "Root separately assigns independent Product-first assurance and conjoins"
+  ]
+}

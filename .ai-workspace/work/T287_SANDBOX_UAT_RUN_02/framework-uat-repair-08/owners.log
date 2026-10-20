@@ -1,0 +1,23 @@
+(node:1248) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage (186.374958ms)
+(node:1269) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (192.819334ms)
+✔ parent conservation joins the pre-Run root basis through exact invocation and root implementation set (2.087834ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (37.118541ms)
+✔ native task conserves read-only scope and refuses malformed or wider input (8.893167ms)
+✔ assessment task refuses mutable scope and mismatched source/rubric coordinates before work (19.630584ms)
+(node:1273) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch (62.730375ms)
+✔ complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch with generated fulfillment (47.575625ms)
+ℹ Generated support anyOf bytes conserved through exact schema asset resolution, actual owned assembly/render, leaf preparation and --json-schema transport input. Controlled lower occurrence/role admission only; dispatch prohibited.
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1389.038458

@@ -1,0 +1,33 @@
+{
+  "preimageReproduction": {
+    "command": "node --experimental-vm-modules --test --test-name-pattern='native acquisition child' test_env/tests/d2-binding-transition.test.mjs",
+    "exitCode": 1,
+    "assertion": "actual enclosing Result resolves through its admitted closed child to the native leaf",
+    "actual": "basis_fork_detected",
+    "expected": "covered",
+    "testDurationMs": 300.26025,
+    "processDurationMs": 337.4355,
+    "evidenceLimit": "Original terminal output retained in tool response; compact exact failure relation recorded here, no repeat."
+  },
+  "compile": {
+    "command": "/usr/bin/time -l ./node_modules/.bin/tsc -p tsconfig.json",
+    "exitCode": 0,
+    "wallSeconds": 5.51,
+    "userSeconds": 9.32,
+    "systemSeconds": 0.19,
+    "maximumResidentSetBytes": 1013727232
+  },
+  "focused": {
+    "command": "/usr/bin/time -l node --experimental-vm-modules --test test_env/tests/d2-binding-transition.test.mjs",
+    "exitCode": 0,
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "wallSeconds": 29.48,
+    "userSeconds": 26.83,
+    "systemSeconds": 3.27,
+    "maximumResidentSetBytes": 634191872,
+    "newRegressionMs": 307.365917
+  },
+  "limits": "Existing VM harness substitutes prefix, basis/install and final CCall outcome lookups. Actual Product guards, native leaf projection, successfulResult and completedC3Child run. Synthetic complete foldback/terminal events follow retained core36 relationship and owner shape; no event admission/runtime/history/physical/provider action."
+}

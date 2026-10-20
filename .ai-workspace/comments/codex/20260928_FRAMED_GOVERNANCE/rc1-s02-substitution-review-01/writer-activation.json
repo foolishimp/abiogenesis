@@ -1,0 +1,28 @@
+{
+  "kind": "report_only_writer_activation",
+  "activationId": "T287_RC1_S02_SUBSTITUTION_REVIEW_REPORT_01",
+  "evaluationActivation": "T287_RC1_S02_SUBSTITUTION_REVIEW_01",
+  "actor": "/root/rc1_s02_review",
+  "role": "Writer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-01T15:03:11.672125+00:00",
+  "assigner": "/root Executive",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-review-controls-01/request.txt",
+    "bytes": 5414,
+    "sha256": "7c44944647cf4681692be61a038278e088c94a3eb6ffc9dfc40bdc478df8095b"
+  },
+  "governance": "stdo://releases/v2.5.1-rc.2/",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "lawfulReentry": "realization_refactor",
+  "grant": "Create review activation, independently acquired evidence, findings, return and CLOSED freeze only. No candidate, inspected execution, runtime, source/build, tracking or Git mutation.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-review-01"
+  ],
+  "independence": "This Reviewer did not author, execute or repair the frozen caller, Product, Run or proof. Report writing confers no runtime authority.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01",
+    "freezeSha256": "563a3db9354aac6616a42ce8350defb1fa9a27da1acd6c8bcae4adc149e74012"
+  },
+  "stop": "Write and freeze one bounded CLOSED evaluation; return to Executive; no further activation."
+}

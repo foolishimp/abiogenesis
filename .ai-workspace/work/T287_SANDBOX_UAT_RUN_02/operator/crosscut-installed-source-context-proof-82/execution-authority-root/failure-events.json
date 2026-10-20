@@ -1,0 +1,130 @@
+[
+  {
+    "ordinal": 20,
+    "eventId": "event://abiogenesis/6463273fc18de70df40970e49248687478e7d308a8e8793a0bc3a3629edcb4a4",
+    "kind": "c_call_result_admitted",
+    "graph": "graph-function://default-library-witness/executive@5",
+    "cCall": "c-call:sha256:d1f2ddee10cca14f072ebc474baf0d27bfbf5dcd8266ccf28ed12535c023b263",
+    "payload": {
+      "resultRef": "result://abiogenesis/1f636e2d2dab3b33f4ff4ba236c07faa83007103cb3a1d0a336e31bf27c1b5f3",
+      "resultClass": "success",
+      "contractRef": "contract://abiogenesis/default-library/state@5",
+      "kind": "governance_work_state"
+    }
+  },
+  {
+    "ordinal": 40,
+    "eventId": "event://abiogenesis/987a09f8fb9e5ebc6690eeb1294e75269c7aa1a801455e26e82fb6b11d265d6e",
+    "kind": "c_call_result_admitted",
+    "graph": "graph-function://default-library-witness/executive-step@5",
+    "cCall": "c-call:sha256:f439c5536b4fcad6720d432696ff6783159215394e5eba4f464b4d1aabf20c3c",
+    "payload": {
+      "resultRef": "result://abiogenesis/0da30fdbaef8eb7ddc94e6e174c8698e0738da30cd5ce9a80708de75f9111e22",
+      "resultClass": "success",
+      "contractRef": "contract://abiogenesis/default-library/selection-task@5",
+      "kind": "framed_synthesis_task"
+    }
+  },
+  {
+    "ordinal": 75,
+    "eventId": "event://abiogenesis/c38a3e9ade2ac9a25ad55ec525e99acd95bd2d34f2d0c29120e9637f4a459547",
+    "kind": "c_call_result_admitted",
+    "graph": "graph-function://default-library-witness/executive-step@5",
+    "cCall": "c-call:sha256:14388b6f928a6cf287242761558a85294d96c0094cf0289e04ce662c50678f4e",
+    "payload": {
+      "resultRef": "result://abiogenesis/e425dc11151ee8043110d96360779fc778d6eb3105ab2fec65796e85b81f24a8",
+      "resultClass": "success",
+      "contractRef": "contract://abiogenesis/default-library/synthesis@5",
+      "kind": "framed_synthesis_result",
+      "judgment": {
+        "contributions": [
+          {
+            "contribution": "Execute the full declared fixture command and retain its actual nonzero observation.",
+            "dependsOn": [],
+            "evidenceRefs": [
+              "task://default-library-witness/original@5",
+              "worksite-context-observation://abiogenesis/edd395b7ca4448a07ef7c6efb2b642a22ea72a1539dadc223b43f1aaeb4b5ea0"
+            ],
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+            "reason": "Disclosed finite local protocol witness; original semantic adequacy remains unmet.",
+            "supportRefs": [
+              "support://default-library-witness/complete-source-outcome@5"
+            ]
+          }
+        ],
+        "gaps": [],
+        "interpretation": "Disclosed finite local protocol witness; original semantic adequacy remains unmet.",
+        "nextEvidenceRefs": [
+          "task://default-library-witness/original@5",
+          "worksite-context-observation://abiogenesis/edd395b7ca4448a07ef7c6efb2b642a22ea72a1539dadc223b43f1aaeb4b5ea0"
+        ],
+        "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "nextReason": "Disclosed finite local protocol witness; original semantic adequacy remains unmet.",
+        "revisionEvidenceRefs": [
+          "task://default-library-witness/original@5",
+          "worksite-context-observation://abiogenesis/edd395b7ca4448a07ef7c6efb2b642a22ea72a1539dadc223b43f1aaeb4b5ea0"
+        ],
+        "revisionReason": "Disclosed finite local protocol witness; original semantic adequacy remains unmet.",
+        "subjectEvidenceRef": null
+      }
+    }
+  },
+  {
+    "ordinal": 88,
+    "eventId": "event://abiogenesis/230238c8d59498298ca94e660bb839277ac5dea27553c52fc9ba0ef2aa5620ca",
+    "kind": "c_call_result_admitted",
+    "graph": "graph-function://default-library-witness/executive-step@5",
+    "cCall": "c-call:sha256:545a889ac5a75e1e03767591b40b35ffc3beb2d6416390f17da5733e54d07664",
+    "payload": {
+      "resultRef": "result://abiogenesis/0f9a6ec7bec81a9a0bb06afd3c8b605a4af733085d3448e5e272034f4f7c1752",
+      "resultClass": "success",
+      "contractRef": "contract://abiogenesis/default-library/choice@5",
+      "kind": "registered_graph_choice",
+      "reason": "Disclosed finite local protocol witness; original semantic adequacy remains unmet."
+    }
+  },
+  {
+    "ordinal": 115,
+    "eventId": "event://abiogenesis/17670dd4be73eb778dd305514955dd415bccc9c0d5b5d3bea85b8921af27fe77",
+    "kind": "c_call_result_admitted",
+    "graph": "graph-function://abiogenesis/default-library/testing@5",
+    "cCall": "c-call:sha256:acc331ce3a7cf9328ec09ff760cae9ad700646d3a29d99bbf03bfb2d6907096f",
+    "payload": {
+      "resultRef": "result://abiogenesis/1fd353510b58be00c3143906bc67716cf33a7c96c6a25fac4ddf7f39d147b096",
+      "resultClass": "failure",
+      "contractRef": "contract://abiogenesis/default-library/failure@5",
+      "kind": "governance_failure"
+    }
+  },
+  {
+    "ordinal": 128,
+    "eventId": "event://abiogenesis/6a11dcbc6eba97ec29e9222c097f57815e1920bda549e4ff677f5632ef732e30",
+    "kind": "c_call_result_admitted",
+    "graph": "graph-function://default-library-witness/executive-step@5",
+    "cCall": "c-call:sha256:e9900802780d2a99ea4a0aa9c8b17cee827ca9d0e9b517c027fcf9cbc7bfd480",
+    "payload": {
+      "resultRef": "result://abiogenesis/33527d30483ca736a48ae28813e95cac5256bcac30671462959a5a1d31d69c55",
+      "resultClass": "failure",
+      "contractRef": "contract://abiogenesis/default-library/failure@5",
+      "kind": "governance_failure"
+    }
+  },
+  {
+    "ordinal": 138,
+    "eventId": "event://abiogenesis/004c1af005a05848a7dbd2f2f48c094bf667a606b925e6fc01ed56217656f6fd",
+    "kind": "runtime_failure_observed",
+    "graph": "graph-function://default-library-witness/executive@5",
+    "cCall": "run://abiogenesis/5a478235e7daac42ed76ee7c251a897faa706faf5e47abb38e064a25cc5c57cc",
+    "payload": {
+      "basisId": "execution-basis://abiogenesis/6ad2f151576c90558ea1589b07de8f8baf47c74cde2c7998d095833b79dffbf3",
+      "diagnosticRef": "diagnostic://abiogenesis/hog/application-foldback-mismatch@5",
+      "failureDigest": "sha256:402f58c9c0029f7c86b527ae4d7a6c3ef057532117633fe8f1a78c1cf1de5c2d",
+      "failureRef": "runtime-failure://abiogenesis/402f58c9c0029f7c86b527ae4d7a6c3ef057532117633fe8f1a78c1cf1de5c2d",
+      "frameId": "frame://abiogenesis/b3c34394080f803a1c4ac5f70a16aeba7817a0382229fa40a5d2d1ea65beb82b",
+      "graphCallId": "graph-call://abiogenesis/62ec8ef0c71183bd2c724e38e91819bfed6aaa4a48ba27975b7911660641592d",
+      "runId": "run://abiogenesis/5a478235e7daac42ed76ee7c251a897faa706faf5e47abb38e064a25cc5c57cc",
+      "stage": "route",
+      "subjectDigest": "sha256:8299414a9d0c488d6eb84ef4596f7c1fb8402c22e23ed81ddcb396274607a420"
+    }
+  }
+]

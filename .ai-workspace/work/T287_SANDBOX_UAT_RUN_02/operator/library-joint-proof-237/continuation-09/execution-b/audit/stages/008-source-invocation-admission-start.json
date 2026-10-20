@@ -1,0 +1,11 @@
+{
+  "stage": "source-invocation-admission-start",
+  "elapsedMs": 25140.538833,
+  "at": "2026-10-10T13:31:33.538Z",
+  "rss": 2942058496,
+  "heapTotal": 2353332224,
+  "heapUsed": 2192221784,
+  "external": 26838405,
+  "arrayBuffers": 24426098,
+  "invocationAdmissionRef": "invocation-admission://abiogenesis/ec92c8864cb8ce0749aeb2406604c91493fb3afa06c99bb12766080dc897e3c6"
+}

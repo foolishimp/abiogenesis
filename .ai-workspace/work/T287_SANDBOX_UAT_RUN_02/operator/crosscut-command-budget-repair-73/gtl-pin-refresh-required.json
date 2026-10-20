@@ -1,0 +1,24 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+  "currentSourceSHA256": "df147522d09c2117aaa2ea15edd2c8400cbca8d57c4377defe8e2f9541a6aa93",
+  "memberPath": "build/code/src/product/worksite_command_execution.js",
+  "compiledIsolatedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73/isolated/build/code/src/product/worksite_command_execution.js",
+  "requiredFutureFields": {
+    "commandSourceMember.digest": "sha256:0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa",
+    "commandSource.byteCount": 109703,
+    "sourceBinding.startByte": 99758,
+    "sourceBinding.endByte": 102066
+  },
+  "beforeFields": {
+    "commandSourceMember.digest": "sha256:13f2811ce19bc6d9923e36dae3850adaced0132ebb822566a24a82d322ba95ae",
+    "commandSource.byteCount": 109681,
+    "sourceBinding.startByte": 99736,
+    "sourceBinding.endByte": 102044
+  },
+  "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+  "spanByteLength": 2308,
+  "rendererUnchanged": true,
+  "owner": "scripts/generate-product-manifest.mjs asserts exact compiled member/span correspondence before package generation",
+  "edited": false,
+  "separateRootInstructionRequired": true
+}

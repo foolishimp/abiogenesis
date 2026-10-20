@@ -1,0 +1,20 @@
+{
+  "classification": "phase-only accessor premise error before configuration/acquireResumeMaterial; no owner refusal or runtime effects",
+  "failure": {
+    "type": "TypeError",
+    "message": "Cannot read properties of undefined (reading 'prefix')",
+    "origin": "Writer98 inline receipt script line22 used hh.closeHandoff.prefix although frozen owner file is the close handoff itself"
+  },
+  "receipt": {
+    "exitCode": 1,
+    "signal": null,
+    "wallSeconds": 0.2478355
+  },
+  "frozenHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/final-close-handoff.json",
+    "sha256": "544bd0a03f7b68d0758cf8d1fea67496997953f3b84c996258dd48c3f169e35d",
+    "byteCount": 1472
+  },
+  "correction": "consume authentic hh.prefix; all original bytes and owned prefix value preserved",
+  "effects": "new empty98 directory only; no full log acquisition/install/native/model/app/archive writes"
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "local_carrier_check_error",
+  "failure": "prepare-inputs.py expected donor npm.bytes, which donor does not contain",
+  "actual": {
+    "bytes": 54,
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+  },
+  "donorExpectedSha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+  "cause": "new local helper required an optional descriptive size, not a source/tool mismatch",
+  "effects": "new input carriers only, no recipe or native work",
+  "classification": "routine carrier correction within grant; use actual observed size; no semantic or authority repair"
+}

@@ -1,0 +1,15 @@
+{
+  "pid": 78420,
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/campaign-03.mjs",
+    "configuration-03.json"
+  ],
+  "elapsedMs": 22913.346,
+  "exitCode": 0,
+  "signal": null,
+  "peakRSSBytes": 2997911552,
+  "userSeconds": 27.691304,
+  "systemSeconds": 3.389469,
+  "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+}

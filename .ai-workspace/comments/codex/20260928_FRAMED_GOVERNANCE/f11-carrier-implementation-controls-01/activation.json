@@ -1,0 +1,10 @@
+{
+  "activation": "T287_F11_CARRIER_IMPLEMENTATION_CONTROLS_01",
+  "role": "Writer_controls_only",
+  "preimages": {
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": "52080e371f5495c0ba596dd6e040ed03240adb268c623fae6347f92038cf487f",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": "6296d358118545904dfa407425e82d2000b2c56a6a6969d35ab63490c5ce69ec"
+  },
+  "acceptedHOW": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+  "acceptedDesignReviewFreeze": "8f684ef4564c2cf679d642ad7096edbe217f3c8ebd914100257e3acae6b7ccc3"
+}

@@ -1,0 +1,32 @@
+{
+  "status": "sole-configuration-precondition-localized",
+  "inputDigest": "sha256:8ec4170e71c1ff2ac225537f0ea278258553ab2c23059d2401a6686e1a6d5ccc",
+  "originalError": {
+    "name": "TypeError",
+    "message": "worksite command configuration requires exact A/W, subjects and explicit arrays"
+  },
+  "commandsArray": true,
+  "commandCount": 1,
+  "outcomePredicatesArray": true,
+  "predicateCount": 0,
+  "allFourSubjectsCanonical": true,
+  "exactAuthorityBindingJoin": "canonical configuration owner accepted unchanged A/W with only one declared evidence territory",
+  "allowedWriteTerritories": [],
+  "soleRejectedInitialPredicate": "allowedWriteTerritories.length === 0",
+  "unchangedConfigurationOtherwiseConstructible": true,
+  "newPureTerritory": {
+    "kind": "worksite_command_write_territory",
+    "schemaVersion": "5.0.0",
+    "territoryRef": "worksite-command-write-territory://abiogenesis/90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14",
+    "territoryDigest": "sha256:90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14",
+    "ordinal": 0,
+    "pathKind": "subtree",
+    "relativePath": "evidence",
+    "purpose": "execution_evidence"
+  },
+  "genericStateDomain": "original testing arrays are accepted generically; delegated C2 retains its stricter command/evidence declaration precondition",
+  "owningHow": "T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md observed-source arm preserves unchanged command/predicate/write-territory declarations",
+  "disposition": "fixture omitted C2 precondition; no source repair inferred",
+  "nextSelectedFixture": "declare evidence subtree and have the original literal command actually write evidence/literal.txt, preserving stdout and exit7",
+  "limits": "No second port.invoke, actor, event admission, assessment, or file effect. Positive pure configuration is not execution credit."
+}

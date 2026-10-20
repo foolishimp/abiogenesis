@@ -1,0 +1,36 @@
+✔ framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe (113.617792ms)
+(node:40066) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (67.739375ms)
+✔ selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges (30.092667ms)
+✔ native observation facts preserve captured history through preparation admission and complete assembly (755.168167ms)
+ℹ {"metrics":[{"name":"actual34","observations":34,"oldCompletePromptBytes":2033265,"newCompletePromptBytes":652208,"factsBytes":569828,"namedFailureLines":52},{"name":"controlled51","observations":51,"oldCompletePromptBytes":2282212,"newCompletePromptBytes":715098,"factsBytes":632718,"namedFailureLines":64}],"controlled51":"distinct synthetic observation fixture; no authenticated producer or mutant credit","scope":"pure owners under disclosed lower premises; no provider/token-limit or UAT guarantee"}
+✖ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (129.9105ms)
+✔ C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources (708.663334ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2334.493084
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:593:1
+✖ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (129.9105ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(displayedNativeStream.excerpts.some(e=>e.startByte===0&&e.text.startsWith('\uFEFF')))
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:693:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

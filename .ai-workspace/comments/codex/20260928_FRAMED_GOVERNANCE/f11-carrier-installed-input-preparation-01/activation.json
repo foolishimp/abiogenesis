@@ -1,0 +1,15 @@
+{
+  "kind": "input_preparation_activation",
+  "activation": "T287_F11_CARRIER_INSTALLED_INPUT_PREPARATION_01",
+  "actor": "/root/f11_installed_caller_preparation",
+  "role": "Worker",
+  "resumedBy": "Root explicit recovery assignment supersedes removed actor named in exact control",
+  "governingBasis": "stdo://releases/v2.5.1-rc.2/",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-input-controls-01/request.txt",
+    "bytes": 3763,
+    "sha256": "b77631676ebfaeb13c3964843c83948962219dddd80cbe5b4a05e441098c0b0a"
+  },
+  "startedAt": "2026-10-01T20:56:41.271483+00:00",
+  "effects": "Only new preparation report files and syntax checks. No imports, owner calls, runtime resources/stores, source/build/candidate/Git/network/model effects."
+}

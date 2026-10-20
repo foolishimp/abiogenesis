@@ -1,0 +1,14 @@
+{
+  "process": "setup-shapes",
+  "command": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/setup-shapes.py"
+  ],
+  "elapsedMs": 83.81104189902544,
+  "exitCode": 0,
+  "timedOut": false,
+  "ownedGroupSignals": [],
+  "stdout": "setup-shapes.stdout",
+  "stderr": "setup-shapes.stderr",
+  "nativeCalls": 0
+}

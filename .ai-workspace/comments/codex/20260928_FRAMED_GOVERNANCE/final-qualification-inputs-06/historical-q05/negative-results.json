@@ -1,0 +1,101 @@
+{
+  "kind": "mechanical_nearest_negatives",
+  "count": 11,
+  "allRefused": true,
+  "rows": [
+    {
+      "label": "original relative PATH through complete published owner",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "worksite command PATH requires only non-empty absolute entries"
+      }
+    },
+    {
+      "label": "original worksite absolute root exposure through complete published owner",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "worksite command and predicate identities must be unique"
+      }
+    },
+    {
+      "label": "protected absolute root exposure through complete published owner",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "worksite command and predicate identities must be unique"
+      }
+    },
+    {
+      "label": "changed environment against exact external binding",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "changed prepared configuration/environment/tool binding"
+      }
+    },
+    {
+      "label": "changed serialized task environment with stale identity",
+      "outcome": "refused",
+      "owner": "./product.isObservedWorksiteCommandExecutionTask",
+      "returned": false,
+      "error": null
+    },
+    {
+      "label": "changed valid declared environment against exact proposed recipe",
+      "outcome": "refused",
+      "owner": "validator/qualification.ts:134-141 producer-defined canonical digest relation",
+      "changedTaskDigest": "sha256:ca710e8cae7fac410a0ead12e6435b0d8432032b5dfd209b9f2f6a8c974e8d95",
+      "changedCommandDigest": "sha256:2d88e234e6a8678fa068d6d72585d7870738835825893d092bdd7f0e4842e1b8",
+      "returned": false,
+      "error": null
+    },
+    {
+      "label": "stale Q04 recipe configuration against complete repaired task",
+      "outcome": "refused",
+      "owner": "validator/qualification.ts:134-141 producer-defined canonical digest relation",
+      "returned": false,
+      "error": null
+    },
+    {
+      "label": "stale Q04 recipe body against actual current selected recipe and inventory",
+      "outcome": "refused",
+      "error": {
+        "name": "AssertionError",
+        "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'sha256:4b218a642f2b25bf46fbc50b54de637f83806ebb64a465049057094201c432e6'\n- 'sha256:651ee00b92c259998ac7ba72d52f6064da0797a73cbfeb30ab263c628a5b63eb'\n"
+      }
+    },
+    {
+      "label": "changed inventory body with stale identity",
+      "outcome": "refused",
+      "error": {
+        "name": "AssertionError",
+        "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'sha256:332eb38307464880f693a0a6c64a9ea416665b1e9c1dd4448bfd5a38ac4517b1'\n- 'sha256:50504a8dd6c69bb20fa0ce7c1289658f9ae601911081ecc2f3e27b0d6cf8a384'\n"
+      }
+    },
+    {
+      "label": "changed current configuration body versus complete actual task observation",
+      "outcome": "refused",
+      "error": {
+        "name": "AssertionError",
+        "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '57c62d03018400af0a9e8b5f72f3c2be13bcd19663ced8b47e6568500b0d7c27'\n- '60d8385244071c5edb8c4692d037b307bbc4c37e09633ccea237cf4452f2b812'\n"
+      }
+    },
+    {
+      "label": "changed Node body with same length/mode and pinned digest",
+      "outcome": "refused",
+      "error": {
+        "name": "TypeError",
+        "message": "pinned Node body/bytes/mode/canonical-origin mismatch"
+      }
+    }
+  ],
+  "changedNode": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/negative-inputs/changed-node-body",
+    "bytes": 86104016,
+    "sha256": "609824d030f2d3c47776cc5caa834d990178365fea0f545e7289fd32b5ce3073",
+    "mode": 365
+  },
+  "qualificationExecuted": false
+}

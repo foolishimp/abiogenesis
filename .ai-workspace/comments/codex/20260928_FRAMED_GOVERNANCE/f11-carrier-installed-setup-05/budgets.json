@@ -1,0 +1,10 @@
+{
+  "nominalPreflightMs": 180000,
+  "totalSetupBudgetMs": 600000,
+  "driverBudgetMs": 600000,
+  "stages": {
+    "setup": 180000,
+    "conformance": 180000
+  },
+  "heap": "unchanged"
+}

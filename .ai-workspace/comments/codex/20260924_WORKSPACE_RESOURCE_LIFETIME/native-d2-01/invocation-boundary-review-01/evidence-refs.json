@@ -1,0 +1,686 @@
+{
+  "kind": "closed_finite_invocation_boundary_diagnosis",
+  "reviewId": "NATIVE-D2-INVOCATION-R01",
+  "frozenAtUtc": "2026-09-24T15:13:13.762537+00:00",
+  "reviewer": "/root/native_d2_review",
+  "consumer": "/root",
+  "result": "falsified_actual_caller_authority_congruence",
+  "findingCount": 1,
+  "severity": "S1 selected-path blocker; Root owns disposition",
+  "reviewSha256": "df32ff8a0edf58cfe2c90c65f9c3e854362cc58b1b79bcc4daa66cafe267ca89",
+  "subject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/return.md",
+      "sha256": "8bf23e6e7ece102d6f57eaf3add0587fb26a3fd04a14c265ce43c3866e9c22f6",
+      "bytes": 1936,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-22/return.md",
+      "sha256": "ff47186ddd4a8e53a5c23c7b8ecac95e3ae0d4e99d9148c7b559ddb4ef5bc7e1",
+      "bytes": 1683,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/intake-start.jsonl",
+      "sha256": "6d150f94bb0216fbb251bc60c6fd22f7ab5a9c13cd99a44403086871cf2cc6b7",
+      "bytes": 26393298,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/live-start.jsonl",
+      "sha256": "75a05a63e2fe3fe1042d456bfcb512445ec399f33677081032d207f22c6718d1",
+      "bytes": 19197250,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/live-receipt.json",
+      "sha256": "8935f59531a7847803aa78a78b2190e18fdb5756f48f52e19d2694a37923242b",
+      "bytes": 2852,
+      "verified": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/selection.json",
+      "sha256": "4e91a1c535d4b082ec0352f5bc91b1cd8031699faa2babf69560af32ffd2922e",
+      "bytes": 3993
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/prepared.json",
+      "sha256": "20c07991c7be69f296637a0e9184c2932ac9b4626a91b3c9e5127eea0824adc3",
+      "bytes": 12071
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/native-prepared.json",
+      "sha256": "c11c40fe9841ce1f71928d3a3044435ed1dcd8207a87c010cb33afdf91baedea",
+      "bytes": 6395
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/readback-basis.json",
+      "sha256": "a2a1b0b73e6d0e4d15e356b0c9040d90b56a622bc718cf94897b41aa18638ee8",
+      "bytes": 66951759
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/execution-resolution.json",
+      "sha256": "e7e3c4d24247e0df62594a194b4986046076609229a5a8a0cdce42db3aa59015",
+      "bytes": 84268
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/live-attempt.json",
+      "sha256": "0d2ea418a31dcf28a05305760a5233edc37bc175d9913f3b746b7d253d2d9e39",
+      "bytes": 1910
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/intake-process.json",
+      "sha256": "c6d288a03aa6213979a36e7cea35147c3c4f665b3278cfc73f0e91ed4e01a053",
+      "bytes": 459
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/caller-subject.json",
+      "sha256": "9e137aaed24e200e6d9e8b59b087838fdb021951cff73788015ee6e139557310",
+      "bytes": 2550
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/native-final-close.json",
+      "sha256": "17c7692a6f384033b181de2858970631f965df194ee6c43e6d7cba647d5354bc",
+      "bytes": 1438
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/worksite-conservation.json",
+      "sha256": "60694607428dcf9b733f45fee685b39f6950284be53cac0a900ef6cc6b00a82f",
+      "bytes": 2079
+    }
+  ],
+  "method": {
+    "abi": {
+      "basis": "stdo://releases/v2.5.1-rc.1/",
+      "manifestSha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+      "definitionSha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051",
+      "statusVerify": "installed=true, valid=true, failures=[]"
+    },
+    "glc": {
+      "basis": "stdo://releases/v2.5.0-rc.4/",
+      "manifestSha256": "4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e",
+      "definitionSha256": "eb80c28381236b9d7ec7d4e7a694adbb4cddb0678231aebcb02e7a21623153ed",
+      "statusVerify": "installed=true, valid=true, failures=[]"
+    },
+    "mapUsed": false,
+    "companions": "Definition composition resolved as authority route; no companion map/tool was used or credited as runtime evidence.",
+    "definitionHashesRechecked": true,
+    "priorExactVerificationReused": true
+  },
+  "actualCall": {
+    "definitionKey": {
+      "operationId": "abg.operation.run.invoke",
+      "memberKey": "start"
+    },
+    "invocationRef": "invocation://abiogenesis/37e983bc03b6173f5a017a7257a4455d55bf30b88c9e53f992a9aa45bb2f47da",
+    "requestRef": "public-request://abiogenesis/odd-glc/generic-workflow/2210-start",
+    "requestDigest": "sha256:de0770a5308c77bc8e0b9cbdc4ecf0a9082d0dbdbc94f007e49b4a4fbf646d34",
+    "ownerOutput": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "invalid_capability",
+        "evidenceRefs": [],
+        "issuePaths": [
+          "/invocationAuthority"
+        ]
+      }
+    },
+    "failure": null,
+    "nullResources": [
+      "invocationAdmission",
+      "productExecutionResolution",
+      "replay",
+      "run"
+    ],
+    "closedPrefixLength": 111462891,
+    "closedPrefixCoordinateDigest": "sha256:9b81f93d8d5ad8bc0e362508a50a02bb970d9d1f110d039fc6c6acf77857723d",
+    "preparedActualJsonEquality": true
+  },
+  "firstCause": {
+    "function": "authorityMatches",
+    "installedFile": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.js",
+    "line": 195,
+    "predicate": "admittedInstalls.every(install => productSet.some(row => row.ref === install.installId && row.digest === install.productContentDigest))",
+    "producer": {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/prepare.mjs",
+      "setupCoordinateLine": 82,
+      "runCopyLine": 116
+    },
+    "actualExpected": [
+      {
+        "path": "/invocation/invocation/invocationAuthority/slots/product_set/0/digest",
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3/dd5e6f32b683b54550d5d57a5b4636c392312d8668e66fe7f5ff7e7ca5cb9f34",
+        "actual": "sha256:34ceb434a63e09339e70f7d50a149487041b4bb2101a955f3e1361e30f39431b",
+        "expected": "sha256:81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3",
+        "matchesProductInstallCoordinate": true
+      },
+      {
+        "path": "/invocation/invocation/invocationAuthority/slots/product_set/1/digest",
+        "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.12/2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b/dd5e6f32b683b54550d5d57a5b4636c392312d8668e66fe7f5ff7e7ca5cb9f34",
+        "actual": "sha256:ba8f03f4958445f0e85673bb9d78cf975bda8446055bced37d7abbda18789ea5",
+        "expected": "sha256:2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b",
+        "matchesProductInstallCoordinate": true
+      }
+    ],
+    "falsifier": {
+      "actualPredicate": false,
+      "substituteOnlyTwoProductSetDigests": true,
+      "outerDigestsReminted": false,
+      "counterfactualInvoked": false
+    }
+  },
+  "finiteRelatedJoinResults": {
+    "authority": {
+      "kind": "invocation_authority",
+      "actualPredicate": false,
+      "onlyProductSetDigestSubstitution": true,
+      "changedLocators": [
+        {
+          "path": "/invocation/invocation/invocationAuthority/slots/product_set/0/digest",
+          "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3/dd5e6f32b683b54550d5d57a5b4636c392312d8668e66fe7f5ff7e7ca5cb9f34",
+          "actual": "sha256:34ceb434a63e09339e70f7d50a149487041b4bb2101a955f3e1361e30f39431b",
+          "expected": "sha256:81dd28106ded30a5f3173df5c1129f51571862d637f3d8060152b674689561e3",
+          "matchesProductInstallCoordinate": true
+        },
+        {
+          "path": "/invocation/invocation/invocationAuthority/slots/product_set/1/digest",
+          "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.12/2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b/dd5e6f32b683b54550d5d57a5b4636c392312d8668e66fe7f5ff7e7ca5cb9f34",
+          "actual": "sha256:ba8f03f4958445f0e85673bb9d78cf975bda8446055bced37d7abbda18789ea5",
+          "expected": "sha256:2f91648811aa43f28e45f4420afa0e891abbf571719a648dd495a289a6281b2b",
+          "matchesProductInstallCoordinate": true
+        }
+      ],
+      "policy": {
+        "expectedRef": "invocation-policy://abiogenesis/root/b9bd01a817f2031a20238f2c0462bdad0a234d1b7a72c52271a17ede311e37c6",
+        "expectedDigest": "sha256:b9bd01a817f2031a20238f2c0462bdad0a234d1b7a72c52271a17ede311e37c6",
+        "actual": {
+          "ref": "invocation-policy://abiogenesis/root/b9bd01a817f2031a20238f2c0462bdad0a234d1b7a72c52271a17ede311e37c6",
+          "digest": "sha256:b9bd01a817f2031a20238f2c0462bdad0a234d1b7a72c52271a17ede311e37c6"
+        }
+      },
+      "grants": {
+        "expected": [
+          {
+            "ref": "capability-grant://abiogenesis/367980f5d6ec3266c8af75c3083e3a93ab0da31a492d239d0c8d10e5f9977529",
+            "digest": "sha256:367980f5d6ec3266c8af75c3083e3a93ab0da31a492d239d0c8d10e5f9977529"
+          }
+        ],
+        "actual": [
+          {
+            "ref": "capability-grant://abiogenesis/367980f5d6ec3266c8af75c3083e3a93ab0da31a492d239d0c8d10e5f9977529",
+            "digest": "sha256:367980f5d6ec3266c8af75c3083e3a93ab0da31a492d239d0c8d10e5f9977529"
+          }
+        ],
+        "requiredCapabilityRefs": [
+          "abg.capability.catalog.invoke-graph-function@5",
+          "abg.capability.runtime.execute-seven-term-c@5"
+        ]
+      },
+      "attribution": {
+        "expectedRef": "invocation-authority://abiogenesis/f39785472b624761c1b9c9d09356f743e67f699c2e23339a08fb18a2463f0ed9",
+        "expectedDigest": "sha256:f39785472b624761c1b9c9d09356f743e67f699c2e23339a08fb18a2463f0ed9",
+        "actual": {
+          "ref": "invocation-authority://abiogenesis/f39785472b624761c1b9c9d09356f743e67f699c2e23339a08fb18a2463f0ed9",
+          "digest": "sha256:f39785472b624761c1b9c9d09356f743e67f699c2e23339a08fb18a2463f0ed9"
+        }
+      }
+    },
+    "programValidation": {
+      "kind": "program_validation",
+      "sourceDigest": "sha256:ceb42b2c7e4a0bb04b195703b4907a59293215e9707c8571284611b62023164a",
+      "equalsClosedResolution": true,
+      "regimes": [
+        "F_D",
+        "F_P"
+      ],
+      "executableLeafCount": 3,
+      "probabilisticLeafCount": 1,
+      "interactionLeafCount": 0
+    },
+    "route": {
+      "programRef": "program://odd-glc/native-semantic-revision/intake@5",
+      "programDigestMatches": true,
+      "startRows": [
+        {
+          "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/intake@5",
+          "startRef": "program://odd-glc/native-semantic-revision/intake@5/start"
+        }
+      ],
+      "actualTarget": {
+        "kind": "next"
+      },
+      "resolvedGraph": "graph-function://odd-glc/native-semantic-revision/intake@5",
+      "inputContract": {
+        "ref": "contract://abiogenesis/semantic-revision/native-intake@5",
+        "digest": "sha256:bf6ddc3916e949d931dcc822ad23436a52abb806bbec101f30093a6410406b66"
+      },
+      "sourceKind": "none",
+      "inputKind": "native_semantic_revision_intake",
+      "historicalRunUnchanged": true,
+      "historicalPrefixUnchanged": true,
+      "historicalPrefixLength": 104482827,
+      "currentPrefixLength": 111462891,
+      "currentPrefixMatchesPrepared": true,
+      "lifecycleDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267"
+    },
+    "environmentPermission": {
+      "exactInstalledGuardRejects": false,
+      "guardSha256": "6e304f44d694b5efaeac426a0fc5ba6c960fe7d7548aaef0e0bd56ecd79140b9",
+      "schemaValid": true,
+      "declaredOperations": [
+        "read_context",
+        "validate"
+      ],
+      "expectedOperations": [
+        "read_context",
+        "validate"
+      ],
+      "scope": "Complete pre-physical-read guard only; no dependency, tool or corpus observation performed."
+    },
+    "candidateConstruction": {
+      "kind": "public_invocation_candidate",
+      "code": null,
+      "limit": "Pure constructor only; current authority predicate is still false and no candidate was admitted."
+    },
+    "controls": {
+      "selectionToPrepared": true,
+      "preparedToRecord": true,
+      "recordToAttempt": true,
+      "transportDigestValid": true,
+      "actualLauncherEnvironmentProjection": {
+        "NODE_OPTIONS": "",
+        "ABG_TS_CLAUDE_COMMAND": "/Users/jim/.local/share/claude/versions/2.1.280",
+        "ABG_TS_CLAUDE_APPEND_ARGS": "[\"--model\",\"claude-opus-5-5\",\"--max-budget-usd\",\"5\"]",
+        "CLAUDE_CODE_EFFORT_LEVEL": "xhigh",
+        "ABG_TS_FP_TIMEOUT_MS": "300000",
+        "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "900000",
+        "ABG_TS_FP_TERMINATION_GRACE_MS": "1000"
+      },
+      "wholeRunTimeoutMs": 5400000,
+      "readbackBudgetMs": 600000,
+      "declaredMaximumActorOccurrences": 1,
+      "actualProgramProbabilisticLeafCount": 1,
+      "afterReceiptPath": null,
+      "processWasRefusedBeforeActor": true
+    },
+    "currentIdentities": {
+      "currentBuilderSourceRoots": [
+        "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/products/core22/node_modules/@abiogenesis/typescript-tenant"
+      ],
+      "ownerModuleBytesEqual": [
+        {
+          "path": "product/run_invocation_operation.js",
+          "equal": true
+        },
+        {
+          "path": "product/invocation.js",
+          "equal": true
+        }
+      ],
+      "historicalInputDigest": "sha256:7856723d108dcb984c8b0a0004d927a4a0a8d45a01f2e931bfbb09449d604694",
+      "originalLifecycleDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267"
+    },
+    "additionalSupportedDefects": []
+  },
+  "minimumCorrection": {
+    "class": "realization_refactor",
+    "target": "selected ordinary caller Run request assembly",
+    "change": "Use current installId + productContentDigest for Run product_set and regenerate public authority/invocation digests through existing definitionCall. Preserve setup-coordinate usage and all other verified joins.",
+    "releaseScope": "No core/dev12 behavior change is indicated by this finding. Root selects implementation and any later release action."
+  },
+  "preflightLimit": {
+    "purePublicOperationExposingPredicate": false,
+    "existingOwnerEntry": "ProductRunInvocationPort.prepare",
+    "existingEntryIsPure": false,
+    "reason": "It resolves installed execution and then performs physical STDO dependency/corpus-tool observation with temporary files.",
+    "diagnosticOnly": "Extracted unchanged owner predicates and existing pure constructors were evaluated on retained inputs; they are not a new validator or admission authority.",
+    "smallestNextDiscriminator": "One direct installed start after corrected ordinary authority construction, reusing successful setup and the genuine current close. No nine-call setup replay or extra validation gate is selected."
+  },
+  "readRefs": [
+    {
+      "id": "frame",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "ff10c44e9efe12757e0babf5c5c19c0acf7cf699afd92f96bba08dac2c5230b8",
+      "lines": [
+        [
+          39,
+          133
+        ],
+        [
+          139,
+          253
+        ],
+        [
+          305,
+          338
+        ]
+      ],
+      "purpose": "Selected frame, worksite causality and S1 severity",
+      "priorOwningReadReused": true,
+      "identityRechecked": true
+    },
+    {
+      "id": "product",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631",
+      "lines": [
+        [
+          830,
+          907
+        ],
+        [
+          982,
+          1024
+        ],
+        [
+          1119,
+          1209
+        ]
+      ],
+      "purpose": "Fifteen-family scope, F17/S06 ordinary installed path, ownership and prohibitions",
+      "priorOwningReadReused": true,
+      "identityRechecked": true
+    },
+    {
+      "id": "qual",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sha256": "ee198c089c4f0344ed04605a902d186c750805a78ef67cac2940957d8aabec33",
+      "lines": [
+        [
+          307,
+          324
+        ],
+        [
+          367,
+          367
+        ],
+        [
+          463,
+          490
+        ]
+      ],
+      "purpose": "QUAL062 and proportional evidence order",
+      "priorOwningReadReused": true,
+      "identityRechecked": true
+    },
+    {
+      "id": "scenarios",
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "sha256": "e84443f27e54e533a907565b84db7422657dd8b748d5753157649826a8f0d747",
+      "lines": [
+        [
+          169,
+          208
+        ]
+      ],
+      "purpose": "SCENARIOS013 obligation conservation and installed public witness",
+      "priorOwningReadReused": true,
+      "identityRechecked": true
+    },
+    {
+      "id": "caller-preparation",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/prepare.mjs",
+      "sha256": "f207bc3c21af229ca97b3ef61e759116610e38473dfa323dabd3b9604260b6b6",
+      "lines": [
+        [
+          80,
+          89
+        ],
+        [
+          95,
+          124
+        ]
+      ],
+      "purpose": "Install coordinates prepared for setup are reused in Run product_set at line 116"
+    },
+    {
+      "id": "record-selection",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/select-intake-record.mjs",
+      "sha256": "f0c223232649418ec9af75a95f2c043d47c18603bc35311082204e8ae6213673",
+      "lines": [
+        [
+          1,
+          27
+        ]
+      ],
+      "purpose": "Prepared launch and historical input are retained in native record"
+    },
+    {
+      "id": "caller-entry",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/run-intake.mjs",
+      "sha256": "5dc47a31301d9e06c6394c42fd79ec7fed3be0890f56c0a531f58825038335e1",
+      "lines": [
+        [
+          1,
+          3
+        ]
+      ],
+      "purpose": "Exact record goes to existing executeFullSandbox"
+    },
+    {
+      "id": "caller-run-and-controls",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/caller/test/full-sandbox-support.mjs",
+      "sha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+      "lines": [
+        [
+          104,
+          133
+        ],
+        [
+          174,
+          220
+        ],
+        [
+          634,
+          685
+        ]
+      ],
+      "purpose": "Existing Run content-digest convention, controls and unchanged serialized launch"
+    },
+    {
+      "id": "public-envelope-construction",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-03/caller/test/generic-live-workflow-support.mjs",
+      "sha256": "8216dd9411235657d98206449611f38673e51323ef1ee2b692afc450e30281d7",
+      "lines": [
+        [
+          426,
+          488
+        ]
+      ],
+      "purpose": "Existing definitionCall binds supplied slots into authority and invocation identities"
+    },
+    {
+      "id": "installed-product-coordinate",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/environment.js",
+      "sha256": "c596d5a510ef6fbe2122956ae0fb757eefb9bb95504e9f22b827a79adab3b740",
+      "lines": [
+        [
+          542,
+          548
+        ]
+      ],
+      "purpose": "productInstallCoordinate hashes install candidate rather than Product content"
+    },
+    {
+      "id": "installed-run-owner",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.js",
+      "sha256": "d21acf27dc63657d2a8f3698eb981405b3230b62f4102c80e70ef9d58acc7e5c",
+      "lines": [
+        [
+          151,
+          219
+        ],
+        [
+          221,
+          346
+        ],
+        [
+          441,
+          447
+        ]
+      ],
+      "purpose": "Exact authority conjunction; first false clause line 195; real prepare sequence and limits"
+    },
+    {
+      "id": "source-run-owner",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "sha256": "b1ab9412f844e294e82b7d3e0e683ad36611b23abe2dd5b0293d061519792c8f",
+      "lines": [
+        [
+          308,
+          403
+        ],
+        [
+          535,
+          571
+        ]
+      ],
+      "purpose": "Owning source correspondence; expected digest at line 365"
+    },
+    {
+      "id": "installed-authority-construction",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/invocation.js",
+      "sha256": "87d9d39bbf41e2569c2a0af9e1291ff13c5cdc13e5b3a94fe77f32259ddad4b6",
+      "lines": [
+        [
+          241,
+          287
+        ],
+        [
+          544,
+          660
+        ],
+        [
+          829,
+          853
+        ]
+      ],
+      "purpose": "Owned policy/grant/authority and exact-start construction used in finite pure probes"
+    },
+    {
+      "id": "installed-run-boundary",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/owner_bindings/run_invocation.js",
+      "sha256": "aa598f639bd0decfe93e1957b111de225d3d1c4ac8c2d3a9e520d47358340eec",
+      "lines": [
+        [
+          893,
+          908
+        ],
+        [
+          960,
+          1013
+        ]
+      ],
+      "purpose": "Real exact-prefix setup fact projection, prepare handoff and subsequent ABG admission boundary"
+    },
+    {
+      "id": "installed-environment-permission",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/stdo_environment.js",
+      "sha256": "408161cb1e9bbbf492977aec7a3a70b2ab55527faf8113100e33e066fc9a9d92",
+      "lines": [
+        [
+          204,
+          214
+        ],
+        [
+          228,
+          258
+        ],
+        [
+          299,
+          323
+        ]
+      ],
+      "purpose": "Complete pre-physical-read predicate; later dependency/tool/temp effects make prepare non-pure"
+    },
+    {
+      "id": "installed-product-prepare-export",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "sha256": "9fae2c7adbe2b321ed71c97d00c2cf9b3f04125d7edbb04383b3e4f4ebae2014",
+      "lines": [
+        [
+          31,
+          31
+        ]
+      ],
+      "purpose": "Existing Product prepare export is not a separate pure Public preflight operation"
+    },
+    {
+      "id": "installed-actor-controls",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js",
+      "sha256": "b66fc27444184c979dac85fff6871197e4bffe8f6d233e611285553f7416da6c",
+      "lines": [
+        [
+          498,
+          525
+        ]
+      ],
+      "purpose": "Idle, absolute and grace environment variables reach existing actor owner; actor unexecuted"
+    },
+    {
+      "id": "installed-run-contract",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite22-install-8cgqclin/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_operation_contracts.js",
+      "sha256": "39f30b93b5e39cc0d736be039190f63dba0675884d5a956d1d53b2d165d1c30b",
+      "lines": [
+        [
+          108,
+          125
+        ]
+      ],
+      "purpose": "Exact public start request and owner contract"
+    }
+  ],
+  "diagnosticArtifacts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/authority-probe.mjs",
+      "sha256": "df2d90ce58c716599a64a7d663e7446d67e73ee4d17e5eb649f41f5d34ffd384",
+      "bytes": 7993
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/authority-probe.json",
+      "sha256": "c9aaaead06812b737486399941016528a89f41a7d5ef6b03a57c2ca4c66802a4",
+      "bytes": 6991
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/remaining-joins-probe.mjs",
+      "sha256": "af4c617e52aa1f7af07b9661d8d9a774a6d66605689121a00c51aa29715076a6",
+      "bytes": 6129
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/remaining-joins-probe.json",
+      "sha256": "ed3a5aeca56bbd3b0e121cab947b3cfba5c18e22244a6fd47d699e124a98f998",
+      "bytes": 2948
+    }
+  ],
+  "preservedObligations": [
+    "Original Run and historical source prefix",
+    "Current closed resource and core22/dev12 setup",
+    "Original source, oracle and lifecycle identity",
+    "Exact selected intake Program and native input contract",
+    "Selected model, effort, budget and timing controls",
+    "No suffix selection before ordinary admitted request selectionChoice"
+  ],
+  "evidenceLimits": [
+    "Original Public receipt is the observed counterexample. Other joins are bounded retained-input source/pure observations, not later runtime qualification.",
+    "Program-validation digest reproduced the recorded resolution; installed descriptor discovery was not repeated.",
+    "One private owner predicate was read/extracted unchanged for diagnosis. No ProductRunInvocationPort.prepare or ABG admission was called.",
+    "Physical STDO observation, source acquisition/eligibility, affectedness, native correction and actor control enforcement remain unexecuted after the observed refusal.",
+    "The preflight note in the remaining-joins diagnostic was clarified after Root stop steering; predicate and outcome values were unchanged."
+  ],
+  "notPerformed": [
+    "Runtime acquisition or history/replay read",
+    "Owner/ABG admission",
+    "Actor, native call or retry",
+    "Source/design/package/install/Git mutation",
+    "Broad suite or earlier factory/descriptor re-review"
+  ],
+  "memoryUse": {
+    "refs": [
+      "MEMORY.md:544",
+      "MEMORY.md:551-552"
+    ],
+    "purpose": "Bounded review and proportionality guidance only; subject facts came from exact retained inputs and installed owners"
+  }
+}

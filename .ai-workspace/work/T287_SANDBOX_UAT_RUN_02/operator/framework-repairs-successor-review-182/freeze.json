@@ -1,0 +1,24 @@
+{
+  "kind": "independent_review_closed",
+  "reviewer": "182",
+  "verdict": "bounded_GO",
+  "subjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-181/freeze.json",
+    "sha256": "134b3b836c99bc8b9fceb0c8d0bf4611311adacd44b4a8d82be32302e150b031",
+    "byteCount": 31330
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-review-182/return.md",
+      "sha256": "5c3e66a33786dba62076fffd5a6d1fc5df1cda6c44ee7b734791886dce3d8c22",
+      "byteCount": 3395
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-review-182/pins.json",
+      "sha256": "06298ff68f6a277ac27f45db1502458fb3fa0ec2b94ad669ed42f0dd1ad13d20",
+      "byteCount": 9886
+    }
+  ],
+  "noRuntimeOrQualificationClaim": true,
+  "stopped": true
+}

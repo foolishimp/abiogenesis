@@ -1,0 +1,14 @@
+✔ Oracle event acquisition records the authentic prefix without serializing or changing complete owner events (23.587125ms)
+✔ Oracle event acquisition preserves owner refusals and archive errors without writing alternate event evidence (16.335042ms)
+✔ Seven exact original workloads authenticate source, request and independent oracle before use (7.886125ms)
+✔ Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse (0.479791ms)
+✔ Native refusal without an admitted Run is preserved before any refresh, reopen or read (0.206875ms)
+✔ Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes (2.358667ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 431.712958

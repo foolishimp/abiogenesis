@@ -1,0 +1,270 @@
+{
+  "scope": "Separate bounded structural Test Worker grant; no production/source/package/Git/provider edits",
+  "basis": {
+    "gitHead": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+    "method": "STDO 2.5.1 RC2",
+    "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "installedRetryPackageSha256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52"
+  },
+  "changes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/native-runtime-structural-cases.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 2668,
+        "sha256": "fcc61f06871cdeb1ebd6edb8feb48da770b7ffc34ade3f9f6c74d15a885e413d"
+      },
+      "successor": {
+        "bytes": 2626,
+        "sha256": "c5d861e7a829cc78e81814b4db91f679bd961ee95cbffad0845f8e67565dbca4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 54577,
+        "sha256": "664950098eaa72b737b54b5879ca7eacce984ffe6b01ed450dac5190c6f95968"
+      },
+      "successor": {
+        "bytes": 54648,
+        "sha256": "729625109b9f6160c80b933618fd67ffe407aa3b8808a94e9f54de8c7ebf76bc"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 31851,
+        "sha256": "6727bab19246e8f9994edeabcfca0d1dedb46f518128da7b7c89069ebd920561"
+      },
+      "successor": {
+        "bytes": 32237,
+        "sha256": "d3c4880fa021338f3e212301c2abe3972ed7e52cb109de49fa9e8152ead93ffb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-compose.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 6196,
+        "sha256": "c1609914d7db49791458ecf57e29569eff678a5f9b3573151c4f3e82f976b3b2"
+      },
+      "successor": {
+        "bytes": 6662,
+        "sha256": "28cd215651d26a4786eb264a3229111d688d2d6523b3d96dba47cfea57bd4240"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 2824,
+        "sha256": "9a7e75b3ce7a83b4f1a266b0d0e44c39ef272e32e4188d3eca762db0aa6c1632"
+      },
+      "successor": {
+        "bytes": 3009,
+        "sha256": "d2ba205117086793291aa82f63d9b3305682a49bc0bcf8dabd576aaa7f30dc17"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-substitute.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 3153,
+        "sha256": "3b1e2f150f48654d649f22c9ca098c3f4dcffd0c1970515e40e74fa1f8961f5d"
+      },
+      "successor": {
+        "bytes": 3634,
+        "sha256": "e452f737942e930a613ec42aae301968db13954fa5388799689c5f486b7c5692"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-workflow.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 3981,
+        "sha256": "69382820988d99e9954ee230def004062cff5e7e3c54b02db9eba5a7ca4116ea"
+      },
+      "successor": {
+        "bytes": 4592,
+        "sha256": "16bce02b750a35f4bd83b31ea7d1ccff5784fe548a9e8ebe7d6fbc4f2ae994d3"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-gate.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 5747,
+        "sha256": "2faaf6c443510ac0137238576c637bc3bbcb8e81c37ff22cdf0592f799773234"
+      },
+      "successor": {
+        "bytes": 6239,
+        "sha256": "fb4326658288213f0a27289e5cd47895b4bbe5c4854414d0632f10e0c35d794f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 21515,
+        "sha256": "c36cfc0e0eaa08c9678cf4c3728bf4f803d1e471e91abfdd8a3135e568a82cbf"
+      },
+      "successor": {
+        "bytes": 21878,
+        "sha256": "96da04d1368f24609ca39dfc73299687087b3b9b7948d08e815158bc0debc413"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fan-out.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 8214,
+        "sha256": "2e4a00603c3bd1dc148938c4f1f4c355f82438a1a149e89ccb63876eda3f6474"
+      },
+      "successor": {
+        "bytes": 8519,
+        "sha256": "c86b72507a2586473ab11a230b4a4a1c967f214731605abea5f620d39eacc413"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-fibre-substitution.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 7651,
+        "sha256": "165eb9359caf672c657183168fe968a402fbcfa1529482bf3d1cbbff0cb3e3f8"
+      },
+      "successor": {
+        "bytes": 8082,
+        "sha256": "4f4e22d0e158354a5486fb9e4467fba5fac9824f4d662b1ba4296f2dfd2ec00c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 25970,
+        "sha256": "208711a54da7b4c75242446085e221a4fcfd242f868b135e6f68006af307985b"
+      },
+      "successor": {
+        "bytes": 26770,
+        "sha256": "ee7045aa731a1273c0853584a64be00704b831c4d5cc801b91a64b8aeeb3ecc8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp-fd-compose.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 5576,
+        "sha256": "df5952795f2e404892f45dcef17a84821fe018ea1ba62c30f144313423eb93e9"
+      },
+      "successor": {
+        "bytes": 5942,
+        "sha256": "96b1af530f10fc7cdd953db110ecff75ba604f892a6769f8e44603385dd80b37"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-retry.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 38073,
+        "sha256": "aaa6ec5b6e947db7f03c113997f15e868c0392cf31299a9c9de584f484bf9357"
+      },
+      "successor": {
+        "bytes": 38531,
+        "sha256": "ff15c2399b5d3d8af3ed2716246a5c48df1e9ce3aeaf4b2fe4026097adaa7d4d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs",
+      "operation": "edit",
+      "preimage": {
+        "bytes": 12370,
+        "sha256": "78dd93a50310c3fa0f7bd8922399f310b343e496e88ef63123401315b70b8464"
+      },
+      "successor": {
+        "bytes": 12341,
+        "sha256": "29a6cf4a73ff6c5ae0c744bd5f914f03d8dd815d0252d10fcb41223a35d5cffe"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+      "operation": "new",
+      "preimage": null,
+      "successor": {
+        "bytes": 22919,
+        "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "operation": "new",
+      "preimage": null,
+      "successor": {
+        "bytes": 10669,
+        "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-structural-gtl.mjs",
+      "operation": "new",
+      "preimage": null,
+      "successor": {
+        "bytes": 443,
+        "sha256": "ae6ade95ce1e4ac1923fe00c81077982aa924ed3a8a7c6b6f3aba8d898ff04a7"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "operation": "new",
+      "preimage": null,
+      "successor": {
+        "bytes": 5875,
+        "sha256": "925ddcc5933b61425e1f709b322334c2ea2181507ab61a0c3c49d62392a4f8bc"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/structural-pure-check.log",
+      "result": "25 passed;0 failed;3 unchanged retained-proof-dependent skips",
+      "bytes": 2850,
+      "sha256": "1f0ab59c363232e220f3e45c2e827d7f383157501c78053043beaff5417e76cb"
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/structural-native-check.log",
+      "result": "9 passed;0 failed;synthetic lower-owner premises, not installed runtime qualification",
+      "bytes": 1232,
+      "sha256": "4cedcda50dec3fc91be6462e885e7eac3f5e191ccacc3e72ad0756c53c5a112e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/structural-installed-composition-check.log",
+      "result": "Prior setup refusal retained; no native execution",
+      "bytes": 1121,
+      "sha256": "751a443e32821ae7955b63c0095b34ce007277981d29e0bb0180701cf9e05e80"
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/structural-installed-composition-successor.log",
+      "result": "One post-projection retry refused at Catalog/View declaration closure; no native execution or fresh reads",
+      "bytes": 1681,
+      "sha256": "f19d9f8ca1fc16ad406c50e359bb697f5666ed668d75c9486eb6f5929d63bf7e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/structural-rejected-membership-mutation.json",
+      "result": "Retained unpublished-source/carrier and duplicate-locus refusals; lawful projection validates unchanged membership",
+      "bytes": 2526,
+      "sha256": "987212fdd1d9eed978d89696feacb5f1d4e58055877870f26bb5c5658e57d28a"
+    }
+  ],
+  "residuals": [
+    "Ten legacy Public-setup suites received independent-fixture/reference cleanup only; unexecuted and outside selected current assurance. No blanket skips added.",
+    "Three existing pure whole-root cases require retained compatible Thread2 installed-consumer evidence; no current credit.",
+    "Selected installed composed fixture lacks static source GraphFunction Catalog/View owner rows. This is an incomplete fixture publication/view, not demonstrated generic engine defect. No installed composition pass claimed."
+  ],
+  "checks": {
+    "scopedCallerSyntaxChecks": 14,
+    "scopedCaseInsensitiveHelloMatches": 0
+  },
+  "qualification": "none claimed",
+  "status": "frozen_return"
+}

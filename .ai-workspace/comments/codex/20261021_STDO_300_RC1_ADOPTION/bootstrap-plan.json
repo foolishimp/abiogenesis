@@ -1,0 +1,14 @@
+{
+  "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+  "dry_run": true,
+  "targets": [
+    {
+      "action": "unchanged",
+      "target": "/Users/jim/src/apps/abiogenesis/AGENTS.md"
+    },
+    {
+      "action": "unchanged",
+      "target": "/Users/jim/src/apps/abiogenesis/CLAUDE.md"
+    }
+  ]
+}

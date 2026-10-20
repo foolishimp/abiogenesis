@@ -1,0 +1,20 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/uat-measurement-assessment-successor-124/host-preparation/host-preparation.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T17:08:02.006Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 300000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 24283.462042,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"stage\":\"host24-verified\",\"verifyWallMs\":20308.558041,\"installWallMs\":2344.119584,\"content\":\"sha256:0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d\",\"manifest\":\"sha256:656dd1c49614336e87a6b859537a771e136d6efba8faa894f9498fa941a7df25\",\"members\":5265,\"modeDifferences\":[{\"path\":\"build/code/src/public/cli.js\",\"archiveMode\":420,\"installedMode\":493},{\"path\":\"build/code/src/public/codex_cli.js\",\"archiveMode\":420,\"installedMode\":493}]}\n",
+  "stderr": ""
+}

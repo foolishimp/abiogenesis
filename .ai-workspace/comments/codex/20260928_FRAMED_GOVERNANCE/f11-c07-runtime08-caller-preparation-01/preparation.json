@@ -1,0 +1,48 @@
+{
+  "status": "CONTROL_PREPARATION_ONLY",
+  "operation": "T287_RUNTIME08_CALLER_PREPARATION_01",
+  "futureRuntimeOperation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "preparedAt": "2026-10-02T10:43:12.011231+00:00",
+  "elapsedMs": 8.731542155146599,
+  "strictCallerSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01/f11/ordinary-caller.mjs",
+    "bytes": 18118,
+    "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+    "mode": 420
+  },
+  "strictDriverSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01/f11/flow-driver.mjs",
+    "bytes": 6502,
+    "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+    "mode": 420
+  },
+  "controllerSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01/run-flow.mjs",
+    "bytes": 10803,
+    "sha256": "e27c5c8d5dff6b218a749e39a6166961b88cc65b4cb70a0e0626466b2cda03d1",
+    "mode": 420
+  },
+  "actualSetupAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup07-generated04-acceptance-q09-selection-01/acceptance.json",
+    "bytes": 7276,
+    "sha256": "c4007c52781d9aaf3ee98f177a421d7b6e25e2712820c5cf523d02a256ecaab8",
+    "mode": 420
+  },
+  "sourceScriptsAreOnlyDonors": true,
+  "intendedFutureTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08",
+  "futureTerritoryCreated": false,
+  "Q09Accepted": false,
+  "rootReleaseCopiedOrFabricated": false,
+  "allOwnerProductImportResourceOpenNominalVerificationCLIHelperTaskRunModelProviderEffects": 0,
+  "supervisionDeclarations": {
+    "PIDPGIDBeforeImports": true,
+    "nominalSeconds": 180,
+    "flowSeconds": 600,
+    "stageSeconds": 180,
+    "readSeconds": 60,
+    "heap": "default unchanged",
+    "HOME": "/Users/jim",
+    "wait4AndKnownGroupClosures": "required only under later Runtime activation"
+  },
+  "remainingBindings": "exact accepted Q09/independent GO and Root final input-acceptance byte/hash message; future source copies retain original actors and schema"
+}

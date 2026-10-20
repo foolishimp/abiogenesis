@@ -1,0 +1,130 @@
+[
+  {
+    "path": "commands/generate.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 23870.9345,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "commands/install-host.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 2197.417833000003,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "commands/old-peer-negative-02.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 25857.692875,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "commands/pack.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 3194.8178329999973,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "commands/stage-01.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 424.46675000246614,
+    "timedOut": null,
+    "truncated": null
+  },
+  {
+    "path": "public-fixture/commands/catalog-admit.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 26069.450125000003,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/catalog-view.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 22188.528625000006,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/pack-consumer.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 253.85841600000276,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/product-install-0.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 46040.38441700002,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/product-install-1.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 23687.091249999998,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/product-resolve.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 25183.203540999995,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/product-verify-0.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 41731.093958,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/product-verify-1.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 20693.867375,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/program-conformance.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 22395.729374999995,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/workspace-bind.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 22105.017124999984,
+    "timedOut": false,
+    "truncated": false
+  },
+  {
+    "path": "public-fixture/commands/workspace-create.result.json",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 21019.518624999997,
+    "timedOut": false,
+    "truncated": false
+  }
+]

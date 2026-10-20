@@ -1,0 +1,275 @@
+{
+  "activation": "T287_F11_CARRIER_REALIZATION_01",
+  "status": "source_readiness_closed",
+  "subject": {
+    "kind": "source_postimage_cut",
+    "activation": "T287_F11_CARRIER_REALIZATION_01",
+    "sourceIndexSHA256": "99a89da21aa6e6f9f0296ca55c388ab12cac319692a4dec9a944242a723afe90",
+    "sourceCutDigest": "sha256:8c8c1e2cd8cf4a79a0a59b92edd1299362c10ab315e95cd998ef80e27314194d",
+    "serialization": "UTF8 JSON sorted object keys, compact separators, source grant row order; fields path/bytes/sha256/changed/preimage",
+    "changed": 17,
+    "unchanged": 8,
+    "sourceDeltaSHA256": "871cb9eb02e4c52ccfdc3c5e9a8111ba348de2b68b587adb80debb6de9d3c872"
+  },
+  "controls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-implementation-controls-01/request.txt",
+      "bytes": 5660,
+      "sha256": "4426248f90e1741ba69e7e3f88a23819dc3d887aee4ea9bb4822fe4a55c1d18d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-implementation-controls-01/source-preimages.json",
+      "bytes": 5584,
+      "sha256": "7122574eb48c4f82007c8df87732ba1fecc7de4610f1e5cdbd51a2255a482b33"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-history-fixture-owner-join-01/request.txt",
+      "bytes": 3365,
+      "sha256": "d0d9e856b48f3fc27bd5271d05de0944804fcbcafbdf7bef3def3117687ac285"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-history-fixture-owner-join-01/pins.json",
+      "bytes": 4750,
+      "sha256": "e586b617c3a219b4d7c79ca2564276558822b58052d816562d49a1fd74c2a6cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-history-fixture-source-hook-01/request.txt",
+      "bytes": 2649,
+      "sha256": "a251943e8e6342e5eeaf87428140801e6f2513ff89d82ad7f663dfd54f30a323"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-history-fixture-source-hook-01/pins.json",
+      "bytes": 680,
+      "sha256": "9ab9e7737bc70c9980a614d3cfdb8e08728f3b298a622d78b128d4d4a641ceda"
+    }
+  ],
+  "basis": {
+    "currentGoverningLaw": "stdo://releases/v2.5.1-rc.2/",
+    "definitionSHA256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+    "historicalMechanicalFixture": "C02/Q02 exact RC1 embedded task is conserved as old evidence; source generation RC2 selection is proved separately, current qualification remains C03 work"
+  },
+  "tools": {
+    "node": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "24.7.0"
+    },
+    "runtimeClosure": "dependency-closure.json",
+    "compilerClosure": "compile-tools.json",
+    "runtimeFiles": 4330,
+    "compilerFiles": 243,
+    "ambientBuildOrDependencyResolution": false
+  },
+  "checks": [
+    {
+      "name": "strict source compile and emit",
+      "log": "compile-settled.txt",
+      "exitCode": 0,
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/node_modules/typescript/bin/tsc",
+        "-p",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/tsconfig.json"
+      ]
+    },
+    {
+      "name": "ordinary generated schema, native closure and Product manifest file projection",
+      "log": "generate-settled-02.txt",
+      "exitCode": 0,
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "effects": "copied tenant only; existing generator npm pack --dry-run file projection, no candidate archive or install"
+    },
+    {
+      "name": "complete carrier fixture and nearest guards",
+      "log": "carrier-tests-settled.txt",
+      "exitCode": 0,
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "skip": 0,
+      "files": [
+        "t287-qualification-carrier-resource.test.mjs"
+      ],
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-carrier-resource.test.mjs"
+      ]
+    },
+    {
+      "name": "affected embedded scope/producer/contraction",
+      "log": "affected-tests-settled.txt",
+      "exitCode": 0,
+      "tests": 22,
+      "pass": 22,
+      "fail": 0,
+      "skip": 0,
+      "files": [
+        "t287-qualification-scopes.test.mjs",
+        "t287-qualification-producer-context.test.mjs",
+        "t287-qualification-contraction.test.mjs"
+      ],
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-scopes.test.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-contraction.test.mjs"
+      ]
+    },
+    {
+      "name": "selected historical real producer acquisition composition",
+      "log": "acquisition-reuse-historical-02.txt",
+      "exitCode": 0,
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "skip": 0,
+      "files": [
+        "t287-qualification-producer-acquisition-reuse.test.mjs"
+      ],
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+      ]
+    },
+    {
+      "name": "separate accepted law-selection repair conserved with carrier schema generation",
+      "log": "law-tests-settled.txt",
+      "exitCode": 0,
+      "tests": 6,
+      "pass": 6,
+      "fail": 0,
+      "skip": 0,
+      "files": [
+        "t287-qualification-law.test.mjs"
+      ],
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-law.test.mjs"
+      ]
+    }
+  ],
+  "testSummary": {
+    "tests": 38,
+    "pass": 38,
+    "fail": 0,
+    "skip": 0
+  },
+  "testEnvironment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/tmp",
+    "ABI5_F11_CARRIER_FULL_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/assessment-input.json",
+    "ABI5_F11_CARRIER_REPORT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/fixture-proof",
+    "ABI5_PRODUCER_HISTORY_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/runtime-stop/event-prefix.jsonl",
+    "ABI5_PRODUCER_CONTEXT_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/retained-source-context.json",
+    "ABI5_PRODUCER_OWNER_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-history-fixture-owner-join-01/pins.json",
+    "ABI5_PRODUCER_OWNER_SOURCE_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-history-fixture-source-hook-01/pins.json",
+    "ABG_QUALIFICATION_STAGE_FIXTURES": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/staging-fixtures.json",
+    "ABG_QUALIFICATION_SOURCE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/source-fixtures/retainedRC1",
+    "ABG_QUALIFICATION_RELEASE_ROOT": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1"
+  },
+  "fullFixture": {
+    "rawFileSHA256": "10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901",
+    "members": 1950,
+    "rules": 2137,
+    "ruleDomains": 187,
+    "surfaceGroups": 777,
+    "internedReferenceSets": 517,
+    "distinctEffectivePartitions": 54,
+    "validNonemptyGroupRelationsPreserved": true,
+    "conservationReceipt": "conservation.json"
+  },
+  "mechanicalAccounting": {
+    "assertionBytes": 27312606,
+    "baselineMs": 1067.8108339999999,
+    "inventoryBytes": 870019,
+    "judgmentBytes": 45279,
+    "measurement": "pure fixture process only; no installed admission, memory or speed claim",
+    "normalizationAcquisitionMs": 734.0750840000001,
+    "normalizedScopeBytes": 2051550,
+    "oldInputBytes": 67784040,
+    "preparedMs": 27.56354199999987,
+    "promptBytes": 1021244,
+    "semanticInputBytes": 42779,
+    "semanticQualification": "open"
+  },
+  "compactF11": {
+    "semanticInputCanonicalBytes": 302500,
+    "resultCanonicalBytes": 1312354,
+    "scopeOutputCanonicalBytes": 489,
+    "ruleApplications": 777,
+    "disposition": "failed",
+    "qualificationVerdict": false,
+    "reason": "complete deterministic checks with unresolved semantic assessment; no native admission manufactured"
+  },
+  "freshProcess": {
+    "members": 1950,
+    "coldAcquisition": true,
+    "missingResourceRefused": true,
+    "beforeResultJRefused": true
+  },
+  "historicalComponent": {
+    "pass": 3,
+    "fail": 0,
+    "skip": 0,
+    "physicalReads": 1,
+    "physicalReadBytes": 2757757,
+    "decodedRepresentations": 1,
+    "artifactAcquisitions": 1,
+    "workspaceProjections": 1,
+    "currentnessChecks": 2,
+    "nativeMaterialBytes": 6741
+  },
+  "lawAttribution": {
+    "separateFreezeSHA256": "a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872",
+    "generatorPreimageSHA256": "0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435",
+    "testUnchangedSHA256": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6",
+    "carrierOnlyGeneratorDelta": "new closed resource-form definitions projected through existing schema generator",
+    "retainedRC1AuthorityCatalogLawCoverageByteReproduction": true,
+    "reproductionRootMeaning": "current copied carrier tenant for schema reproducibility; four law assets independently equal accepted law Worker outputs"
+  },
+  "preservedFailures": {
+    "compiler": "attempt01 lacked separate frozen dev compiler closure; compile-tools.json joins all243 exact existing files",
+    "generator": "first native d.ts alias failure repaired in source; settled tool path typo retained in generate-settled.txt; final generator passes",
+    "testRunner": "missing experimental VM option first attempt preserved",
+    "affected": "two prior error-message checks corrected without changing acceptance",
+    "carrier": "fixture ownership errors preserved; final complete fixture passes",
+    "historical": "stale exact dispatch extraction, old/current profile mismatch, missing old installed currentness export, and current/historical nominal graph seam localized and resolved by explicit exact source/owner fixture controls; all logs retained"
+  },
+  "residuals": [
+    "sole successor C03 build/pack/install and independent installed whole-path discriminator",
+    "actual admitted compact native assessment/J, complete independent F11 and sole AF22; no qualification/release success claimed",
+    "fresh-process positive admitted compact Result/replay and semantic-consumer agreement with exact archive, plus before-Result/before-J/forged/crossed resource nearest negatives",
+    "valid admitted warm native-result/verdict fast paths missing/crossed resource discrimination; source dependency guards and prepared-helper/before-Result consumer refusal are exercised, but no warmed admitted compact verdict exists in this readiness fixture",
+    "native whole-path memory/time/basis/result/cold-read composition accounting; pure byte/timing receipts alone are not memory/speed or semantic proof"
+  ],
+  "effects": {
+    "authorizedPaths": 25,
+    "changed": 17,
+    "unchanged": 8,
+    "newSourceFiles": 2,
+    "copiedReadinessOnly": true,
+    "realProviderCalls": 0,
+    "networkCalls": 0,
+    "GitEffects": 0,
+    "originalStoreEffects": 0,
+    "ambientGeneratedEffects": 0,
+    "newCandidatePackOrInstall": false
+  },
+  "stop": "source/readiness writes stop after exact freeze; Executive selects independent assurance and C03 effects"
+}

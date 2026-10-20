@@ -216,3 +216,151 @@ test('historical route projection stays nullable while staged projection conserv
   assert.equal(owner.projectHistoricalTraversalRouteAtPrefix(prefix, row.eventId, prefix), null);
   assert.throws(() => owner.projectHistoricalTraversalRoute(prefix, row.eventId, prefix, true), error => error === original);
 });
+
+// The actual deterministic boundary is called with finite caller callbacks.
+// These are not an installed authority/implementation or native Testing proof.
+function deterministicBoundaryInput(overrides = {}) {
+  const value = { kind: 'diagnostic_input', privateBody: 'input-body-not-diagnostic' };
+  return {
+    resolution: { computeRegime: 'F_D', implementationRef: 'implementation://diagnostic/deterministic',
+      inputContractRef: 'contract://diagnostic/input', outputContractRef: 'contract://diagnostic/output',
+      modulePath: 'controlled-fixture-module', namedSymbol: 'controlledDeterministic' },
+    value, inputDigest: hash(value), failureValueKind: 'diagnostic_failure', verifyAuthority: () => true,
+    validateSuccess: value => value.kind === 'diagnostic_success', resolveWorkerContracts: () => null,
+    occurrence: { executionAuthority: null, cCallRef: 'c-call://diagnostic/deterministic', runId: 'run://diagnostic',
+      graphCallId: 'graph-call://diagnostic', frameId: 'frame://diagnostic', programLocusRef: 'node://diagnostic', taskOrdinal: null, attempt: 1 },
+    loadImplementation: async () => () => null, ...overrides,
+  };
+}
+function deterministicSubject(owner, failureOwner, closed, input, stage, reason) {
+  assert.equal(closed.computeRegime, 'F_D');assert.equal(closed.kind, 'closed_leaf_owner_receipt');
+  assert.equal(closed.receipt, null);assert.equal(closed.workerContracts, null);
+  assert.equal(Object.hasOwn(closed, 'ownerObservation'), false);assert.equal(Object.hasOwn(closed, 'effectDisposition'), false);
+  const candidate = closed.candidate;
+  assert.equal(candidate.disposition, 'failure');assert.equal(candidate.resultCandidate.failureClass, 'implementation_exception');
+  assert.deepEqual(Object.keys(candidate.resultCandidate).sort(), ['diagnosticRef', 'failureClass', 'kind', 'schemaVersion']);
+  assert.equal(candidate.resultCandidate.diagnosticRef, candidate.diagnosticRef);
+  assert.equal(owner.isLeafRealizationCandidate(candidate, 'F_D', () => false, input.failureValueKind), true);
+  assert.deepEqual(candidate.evidenceCandidates, [{ kind: 'deterministic_evidence_candidate', schemaVersion: '5.0.0',
+    implementationRef: input.resolution.implementationRef, inputDigest: input.inputDigest, outputDigest: hash(candidate.resultCandidate) }]);
+  const subject = failureOwner.readRuntimeFailureDiagnosticSubject(candidate.diagnosticRef);
+  assert.equal(subject.diagnosticClassRef, 'diagnostic://abiogenesis/implementation/implementation-exception@5');
+  assert.equal(subject.computeRegime, 'F_D');assert.equal(subject.implementationRef, input.resolution.implementationRef);
+  assert.equal(subject.inputDigest, input.inputDigest);assert.equal(subject.stage, stage);assert.equal(subject.reason, reason);
+  assert.equal(candidate.diagnosticRef, failureOwner.constructRuntimeFailureDiagnosticRef(subject));
+  assert.equal(JSON.stringify(subject).includes(input.value.privateBody), false);
+  assert.equal(Object.hasOwn(subject.cause, 'stack'), false);
+  return subject;
+}
+
+test('deterministic boundary retains authority, loading, export and invocation first causes with exact evidence', async () => {
+  const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']), failureOwner = await sourceOwner('abg/runtime_failure');
+  const errors = [new TypeError('authority rejected the current input'), Object.assign(new Error('declared implementation unavailable'), { code: 'ERR_MODULE_NOT_FOUND' }),
+    new RangeError('deterministic invocation failed'), new SyntaxError('async deterministic invocation failed')];
+  const cases = [
+    { stage: 'authority_verification', reason: 'refused', verify: () => false, loads: 0, calls: 0, error: null },
+    { stage: 'authority_verification', reason: 'thrown', verify: () => { throw errors[0]; }, loads: 0, calls: 0, error: errors[0] },
+    { stage: 'implementation_load', reason: 'thrown', load: () => { throw errors[1]; }, loads: 1, calls: 0, error: errors[1] },
+    { stage: 'implementation_load', reason: 'missing_export', load: () => ({ missing: true }), loads: 1, calls: 0, error: null },
+    { stage: 'implementation_invocation', reason: 'thrown', invoke: () => { throw errors[2]; }, loads: 1, calls: 1, error: errors[2] },
+    { stage: 'implementation_invocation', reason: 'thrown', invoke: async () => { throw errors[3]; }, loads: 1, calls: 1, error: errors[3] },
+  ];
+  const refs = [];
+  for (const c of cases) {
+    let loads = 0, calls = 0;
+    const input = deterministicBoundaryInput({ verifyAuthority: c.verify ?? (() => true), loadImplementation: async () => {
+      loads++;if (c.load) return c.load();return (...args) => { calls++;return c.invoke?.(...args); };
+    } });
+    const closed = await owner.invokeLeafOwnerBoundary(input), subject = deterministicSubject(owner, failureOwner, closed, input, c.stage, c.reason);
+    assert.equal(loads, c.loads);assert.equal(calls, c.calls);
+    assert.equal(subject.cause.message, c.error?.message ?? null);assert.equal(subject.cause.messageTruncated, false);
+    if (c.error) assert.equal(subject.cause.errorClass, c.error.constructor.name);
+    else assert.deepEqual(subject.cause, { errorClass: null, errorCode: null, message: null, messageTruncated: false });
+    if (c.stage === 'implementation_load' && c.reason === 'thrown') assert.equal(subject.cause.errorCode, 'ERR_MODULE_NOT_FOUND');
+    refs.push(closed.candidate.diagnosticRef);
+  }
+  assert.equal(new Set(refs).size, cases.length);
+});
+
+test('deterministic caught-cause retention never evaluates arbitrary getters or proxies and bounds native messages', async () => {
+  const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']), failureOwner = await sourceOwner('abg/runtime_failure');
+  let reads = 0;
+  const accessor = new TypeError();
+  for (const name of ['message', 'stack']) Object.defineProperty(accessor, name, { get() { reads++;throw new Error('must not read ' + name); } });
+  const unknown = { get message() { reads++;return 'must not capture'; }, get code() { reads++;return 'ENOENT'; } };
+  const proxy = new Proxy({}, { get() { reads++;throw new Error('proxy get'); }, getPrototypeOf() { reads++;throw new Error('proxy prototype'); },
+    getOwnPropertyDescriptor() { reads++;throw new Error('proxy descriptor'); } });
+  for (const error of [accessor, unknown, proxy]) {
+    const input = deterministicBoundaryInput({ loadImplementation: async () => () => { throw error; } });
+    const subject = deterministicSubject(owner, failureOwner, await owner.invokeLeafOwnerBoundary(input), input, 'implementation_invocation', 'thrown');
+    assert.equal(subject.cause.message, null);assert.equal(subject.cause.messageTruncated, false);assert.equal(reads, 0);
+  }
+  const long = new TypeError('x'.repeat(9000)), input = deterministicBoundaryInput({ loadImplementation: async () => () => { throw long; } });
+  const subject = deterministicSubject(owner, failureOwner, await owner.invokeLeafOwnerBoundary(input), input, 'implementation_invocation', 'thrown');
+  assert.equal(subject.cause.message, 'x'.repeat(8192));assert.equal(subject.cause.messageTruncated, true);
+});
+
+test('deterministic retained cause survives actual failure admission and cold/Public projection; tampering refuses', async t => {
+  const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']), failureOwner = await sourceOwner('abg/runtime_failure');
+  const input = deterministicBoundaryInput({ loadImplementation: async () => () => { throw new TypeError('selected deterministic cause'); } });
+  const closed = await owner.invokeLeafOwnerBoundary(input), subject = deterministicSubject(owner, failureOwner, closed, input, 'implementation_invocation', 'thrown');
+  const f = await fixture(t), admittedInput = { ...f.input(), subject, diagnosticRef: closed.candidate.diagnosticRef };
+  const count = f.store.readAll().length;
+  assert.throws(() => f.owner.admitRuntimeFailure({ ...admittedInput, subject: { ...subject, reason: 'refused' } }), /retained subject digest/);
+  assert.equal(f.store.readAll().length, count);
+  const admitted = f.owner.admitRuntimeFailure(admittedInput), handoff = f.store.projectReopenAuthorityAndClose();
+  const cold = prefixes.selectValidatedRuntimeEventPrefix(events.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(handoff.prefix))), { runId: f.scope.runId });
+  const evidence = failureOwner.projectRuntimeFailureEvidenceAtPrefix(cold);
+  assert.equal(evidence[0].availability, 'retained');assert.deepEqual(evidence[0].subject, subject);
+  assert.equal(evidence[0].subjectDigest, hash(subject));assert.equal(evidence[0].failureRef, admitted.admission.failureRef);
+  const adapter = await sourceOwner('abg/project_read_definition_bindings', {}, ['evidenceProjection']);
+  const projected = adapter.evidenceProjection('run_evidence', { source: { sourceRef: f.scope.runId, sourceDigest: hash('run') } }, {
+    replayRef: 'replay://diagnostic', replayDigest: hash('replay'), evidenceRefs: [], eventAtoms: [], runtimeFailures: evidence,
+  });
+  const decoded = JSON.parse(decodeURIComponent(projected.evidence[0].ref.split(',').slice(1).join(',')));
+  assert.deepEqual(decoded.subject, subject);assert.equal(projected.evidence[0].digest, hash(decoded));
+  t.diagnostic('Controlled basis/frame/replay premises; actual F_D boundary, durable failure admission and cold/Public diagnostic projection. No installed Testing/effect/currentness credit.');
+});
+
+test('normal nullable Testing diagnostic agrees with its evidence and survives admitted cold/Public failure readback', async t => {
+  const library=await sourceOwner('implementation/default_library'),failureOwner=await sourceOwner('abg/runtime_failure');
+  const value={taskRef:'task://missing-testing-basis'},occurrence={cCallRef:'c-call://missing-testing-basis',runId:'run://diagnostic',graphCallId:'graph-call://diagnostic',frameId:'frame://diagnostic',programLocusRef:'locus://prepare-testing',taskOrdinal:null,attempt:1};
+  const candidate=await library.prepareObservedTestingTask(value,occurrence),subject=failureOwner.readRuntimeFailureDiagnosticSubject(candidate.diagnosticRef);
+  assert.equal(candidate.disposition,'failure');assert.equal(candidate.resultCandidate.kind,'governance_failure');
+  assert.equal(candidate.resultCandidate.diagnosticRef,candidate.diagnosticRef);
+  assert.equal(candidate.evidenceCandidates[0].outputDigest,hash(candidate.resultCandidate));
+  assert.equal(candidate.evidenceCandidates[0].inputDigest,hash(value));
+  assert.equal(subject.stage,'testing_basis');assert.equal(subject.relation,'assembly_basis_absent');
+  assert.equal(subject.inputDigest,hash(value));assert.equal(subject.occurrence.cCallRef,occurrence.cCallRef);
+  const f=await fixture(t),admittedInput={...f.input(),subject,diagnosticRef:candidate.diagnosticRef},count=f.store.readAll().length;
+  assert.throws(()=>f.owner.admitRuntimeFailure({...admittedInput,subject:{...subject,relation:'assembly_authentication'}}),/retained subject digest/);
+  assert.equal(f.store.readAll().length,count);
+  const admitted=f.owner.admitRuntimeFailure(admittedInput),handoff=f.store.projectReopenAuthorityAndClose();
+  const cold=prefixes.selectValidatedRuntimeEventPrefix(events.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(handoff.prefix))),{runId:f.scope.runId});
+  const evidence=failureOwner.projectRuntimeFailureEvidenceAtPrefix(cold);
+  assert.equal(evidence[0].availability,'retained');assert.deepEqual(evidence[0].subject,subject);assert.equal(evidence[0].subjectDigest,hash(subject));
+  assert.equal(evidence[0].failureRef,admitted.admission.failureRef);
+  const adapter=await sourceOwner('abg/project_read_definition_bindings',{},['evidenceProjection']);
+  const projected=adapter.evidenceProjection('run_evidence',{source:{sourceRef:f.scope.runId,sourceDigest:hash('run')}},{replayRef:'replay://diagnostic',replayDigest:hash('replay'),evidenceRefs:[],eventAtoms:[],runtimeFailures:evidence});
+  const decoded=JSON.parse(decodeURIComponent(projected.evidence[0].ref.split(',').slice(1).join(',')));
+  assert.deepEqual(decoded.subject,subject);assert.equal(projected.evidence[0].digest,hash(decoded));
+  t.diagnostic('Actual normal governance-failure diagnostic, evidence digest, durable failure admission and cold/Public readback; controlled basis/frame/replay lower premises. No installed Testing/functional-first-cause or no-effects claim.');
+});
+
+test('successful deterministic returns and legacy opaque failure totalization remain unchanged', async () => {
+  const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']), failureOwner = await sourceOwner('abg/runtime_failure');
+  const input = deterministicBoundaryInput(), resultCandidate = { kind: 'diagnostic_success', schemaVersion: '5.0.0', answer: 42 };
+  const success = { kind: 'leaf_realization_candidate', schemaVersion: '5.0.0', disposition: 'success', resultCandidate,
+    evidenceCandidates: [{ kind: 'deterministic_evidence_candidate', schemaVersion: '5.0.0', implementationRef: input.resolution.implementationRef,
+      inputDigest: input.inputDigest, outputDigest: hash(resultCandidate) }] };
+  const good = await owner.invokeLeafOwnerBoundary({ ...input, loadImplementation: async () => () => success });
+  assert.deepEqual(good.candidate, success);assert.deepEqual(good.receipt.candidate, success);assert.equal(good.receipt.computeRegime, 'F_D');
+  const legacy = owner.totalizeLeafImplementationFailure({ resolution: input.resolution, inputDigest: input.inputDigest,
+    failureValueKind: input.failureValueKind, failureClass: 'implementation_exception' });
+  assert.equal(failureOwner.readRuntimeFailureDiagnosticSubject(legacy.diagnosticRef), null);
+  const old = await owner.invokeLeafOwnerBoundary({ ...input, loadImplementation: async () => () => legacy });
+  assert.deepEqual(old.candidate, legacy);assert.ok(old.receipt);
+  const malformed = await owner.invokeLeafOwnerBoundary({ ...input, loadImplementation: async () => () => null });
+  assert.equal(malformed.candidate.resultCandidate.failureClass, 'malformed_return');
+  assert.equal(malformed.candidate.diagnosticRef, 'diagnostic://abiogenesis/implementation/malformed-return@5');assert.ok(malformed.receipt);
+});

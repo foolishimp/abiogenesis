@@ -1,0 +1,19 @@
+{
+  "kind": "runtime_selected_component_check",
+  "sourceCut": 37,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--expose-gc",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=terminal route-only|owned deferred recursion|selected replay guard|finite pure candidate|ordinary selected route|drop complete output",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/input-01/test_env/tests/t287-route-reconstruction.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 2726.103958,
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-37/inputs-01.json",
+  "limits": [
+    "Six unchanged conservation checks plus bounded deferred restore/begin/held foldback and Public compatibility; controlled leaf/cursor/child-preparation lower premises. No actual08 inner-branch exclusivity, genuine GTL/native/Source41 installed join or capacity proof."
+  ]
+}

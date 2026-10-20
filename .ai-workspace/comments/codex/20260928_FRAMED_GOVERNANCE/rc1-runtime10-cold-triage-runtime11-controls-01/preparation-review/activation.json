@@ -1,0 +1,14 @@
+{
+  "operation": "T287_F11_C09_NATIVE_CHILD_SELECTION_REVIEW_11",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T10:58:28.391398+00:00",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01/review-request.txt",
+  "grantBytes": 3062,
+  "grantSHA256": "ce030dbd78d08149667dcf5b702c89dc863e73530ec43d366279703c90ce9fa5",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/preparation-freeze.json",
+  "subjectBytes": 11853,
+  "subjectSHA256": "d73805291ac9d5498e1e5bf41314ad950856a68dbd60ecccb0f5d5138c848003",
+  "effects": "pure reads/hash/compare and NEW report only; no imports/Run/probes/owner/repair"
+}

@@ -1,0 +1,14 @@
+(node:86200) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations (228.454958ms)
+✔ native revision decision view leaves all opaque C2 and application JSON verbatim (1.193959ms)
+✔ actual derived revision successor shares complete typed assets under the unchanged Design bound (223.370709ms)
+ℹ {"scope":"actual pure Product successor; upstream authentication/currentness/role evidence and future coordinates supplied","parentInputDigest":"sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185","componentSuccessorDigest":"sha256:41ce3d8a3ae590078ba813071868a56cfc23611043c8109129b88769f9e2aacf","promptBytes":986679,"maxPromptBytes":1048576,"headroomBytes":61897,"historyAssets":4,"sharedPredecessors":3,"sections":{"role":113628,"source":6709,"obligations":156072,"predecessors":1190,"worksite":225506,"evidence":349,"task":470193,"response":12925},"roleSourceSpans":13}
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 497.448834

@@ -1,0 +1,17 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C09_MECHANICAL_ACCEPTANCE_GENERATED_CENSUS_WRITER_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "grant": "Record Root bounded actual mechanical conjunction; triage stopped census consumer and grant exact new generated06 correction plus conditional independent review; update current tracking.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-mechanical-conjunction-acceptance-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "SourceGeneratedRuntimeGitEffects": 0,
+  "activatedAt": "2026-10-03T11:33:53.148839+00:00"
+}

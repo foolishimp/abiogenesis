@@ -1,0 +1,28 @@
+{
+  "mode": "conservation-diagnostic",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^first preparation exception remains retrievable through the unchanged typed refusal and cold JSON$",
+    "test_env/tests/t287-undispatched-diagnostic.test.mjs"
+  ],
+  "pid": 49561,
+  "processGroup": 49561,
+  "startedAt": "2026-10-02T04:45:34.120814+00:00",
+  "closedAt": "2026-10-02T04:45:34.688427+00:00",
+  "elapsedMs": 567.6245000213385,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 279085056,
+  "userSeconds": 0.7035089999999999,
+  "systemSeconds": 0.06625,
+  "knownCLIProcessGroups": [],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

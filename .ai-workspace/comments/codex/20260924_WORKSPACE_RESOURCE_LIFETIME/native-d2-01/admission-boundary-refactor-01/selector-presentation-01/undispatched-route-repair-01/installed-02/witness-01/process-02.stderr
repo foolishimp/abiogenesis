@@ -1,0 +1,20 @@
+{"phase":"original_public_root_and_genuine_reprice","pid":99105,"entryBytes":136527967}
+{"phase":"full_sandbox_public_setup","ordinal":1,"label":"original-root-binding-reprice"}
+       41.80 real        45.82 user         0.73 sys
+          1954414592  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              578512  page reclaims
+                  86  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5276  messages sent
+                3967  messages received
+                   0  signals received
+                  23  voluntary context switches
+               31904  involuntary context switches
+        965790967424  instructions retired
+        190618983741  cycles elapsed
+          1996572656  peak memory footprint

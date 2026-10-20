@@ -1,0 +1,98 @@
+{
+  "kind": "continuation15_existing_owner_diagnostic_selection",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "grant": "Root single model-free acquisition; no Run/setup/preparation/native/worksite effects; normal close and STOP",
+  "references": {
+    "close": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/lifecycle-start.close.json",
+      "sha256": "4ec94d0a1e14010d4834a9bdb0d831f711a41850b92b6632b08ac673e340931c",
+      "byteCount": 1368,
+      "mode": 420
+    },
+    "setup": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/prepared-setup.json",
+      "sha256": "c902c24c4eeefb84956a6ec35c671205533b3afb435780744f8548977089848c",
+      "byteCount": 6121,
+      "mode": 420
+    },
+    "nativeOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/lifecycle-start.outcome.json",
+      "sha256": "a7c3ff989e564742c04f2d861d7d69322cc43baab1fbc56877cffa057c767081",
+      "byteCount": 36146,
+      "mode": 420
+    },
+    "catalogOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/catalog-admit.outcome.json",
+      "sha256": "fbcc2c4ba6f3464299ea34352ac1ae37028b18a642bce40606466249452ba944",
+      "byteCount": 173561,
+      "mode": 420
+    },
+    "sdkRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/calls/lifecycle-start.request.jsonl",
+      "sha256": "c03001449f77569d0dcaee98be82c8050cc9d8558099e5ab35437c6c509952a5",
+      "byteCount": 43484586,
+      "mode": 420
+    },
+    "conservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/stopped-conservation.json",
+      "sha256": "268fe409c8a61a87975f5500b94d0cb53395d412b4c184644520e9e764cbffe8",
+      "byteCount": 2792,
+      "mode": 420
+    },
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/execution/audit/product-preparation-result.json",
+      "sha256": "ba8cc116803e81aa98e80f50c9d0495fe00813e7571f402ee6e3f0763dbe9af4",
+      "byteCount": 242585,
+      "mode": 420
+    },
+    "installedModulesHelper": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/helpers/public-setup.mjs",
+      "sha256": "29abada25c16efff12bbd7bf995645e3aa68bb043eb59d67c988311a705aac18",
+      "byteCount": 27984
+    },
+    "frozen15": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15/freeze.json",
+      "sha256": "ef50b3f7ff7e7804fe7b4f61d16499967280a1e27a2dede6d58e41feca5866c3",
+      "byteCount": 61587
+    },
+    "source43": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/dependency-cut-43-inputs.json",
+      "sha256": "b5016ceab01d5a4e8fce19193dc1ae9671058639531e7e45cf3a6ed6b92a81c1",
+      "byteCount": 95280
+    },
+    "emission43": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-43/dependency-cut-43-emission.json",
+      "sha256": "1f229fa13f092781437503f0df5c0c6043ac0b4a34b6b86f709a7594cae7ec0b",
+      "byteCount": 190943
+    },
+    "rca": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/freeze.json",
+      "sha256": "895b00bffc03a0fdc8fe1f433f4280ef2368d33a09cc68f95562fe49be593104",
+      "byteCount": 13464
+    },
+    "definitionComparison": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-15-triage/calculation-result-02.json",
+      "sha256": "5ee7ce83041faa36ad0ebc6ab5f31bedbefa4429794147022265a29cc7ed0eda",
+      "byteCount": 5075
+    }
+  },
+  "target": {
+    "cCallRef": "c-call:sha256:2e2c30f1d864ede10abb0bc9e8ab8aa457afa464bfa8f414f6eccad32053e0e7",
+    "inputDigest": "sha256:dd555d5ada8ebcf502b3ff1b8bc97565b86a4812fc5b08fcd118fd4417522e6e",
+    "graphCallId": "graph-call://abiogenesis/ba25ad56d25714f99aeae605b3d87eff55bb6a309cc399da915bc43edfaf0406",
+    "runId": "run://abiogenesis/2dbe5cc3c8777dc3b835278c207e299c31a99869d0f2b46d00afac93f7843933",
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+    "nativeContentDigest": "sha256:0f9cd1998227c3d2ce02282d7f98640b37a2623e0febb96cf35f9d0e8b0fb1f0"
+  },
+  "expectedPhysical": {
+    "device": "16777231",
+    "inode": "469917053",
+    "byteCount": "28289480",
+    "mtimeNs": "1791663682517305854"
+  },
+  "limits": [
+    "Read models only, not new authority.",
+    "One transient frozen SDK request/Catalog read; persist selected GF and scalar joins only.",
+    "Fresh native reacquisition request/current-context tuple was not recorded and will not be recreated."
+  ]
+}

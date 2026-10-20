@@ -1,0 +1,11 @@
+--- Worker03-retained-test
++++ Worker04-test
+@@ -129,7 +129,7 @@
+     assert.throws(() => prepared.resources.manifest({ref: 'qualification-resource://abiogenesis/' + '0'.repeat(64),
+       digest: 'sha256:' + '0'.repeat(64)}), /qualification_resource_missing_or_crossed/);
+     assert.throws(() => prepared.resources.declarations(prepared.input.task.resource,
+-      [{...prepared.input.task.declarations.at(-1), proofDigest: 'sha256:' + '0'.repeat(64)}]), /preimage_missing_or_crossed/);
++      [{...prepared.input.task.declarations.at(-1), proofDigest: 'sha256:' + '0'.repeat(64)}]), /qualification_declaration_selection_unbound/);
+     const missingEntry = prepared.resources.assertion.manifests[0].entries.find(e => e.entryKind === 'material');
+     assert.throws(() => prepared.resources.value({kind: 'qualification_resource_selection', schemaVersion: '1',
+       resource: prepared.input.task.resource, entryKind: 'material', entry: {...missingEntry.coordinate,

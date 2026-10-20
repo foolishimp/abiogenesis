@@ -1,0 +1,91 @@
+{
+  "row": "S02a",
+  "selection": "graph-substitution",
+  "subject": {
+    "archiveSha256": "766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+    "productContentSha256": "5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124"
+  },
+  "programRef": "program://abiogenesis/conformance/hello-substitute@5",
+  "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-substitute@5",
+  "inputConstructor": "installed gtl.constructHelloWorldInput(\"World\")",
+  "input": {
+    "kind": "hello_world_input",
+    "schemaVersion": "5.0.0",
+    "subject": "World"
+  },
+  "allowlist": [
+    "graph-function://abiogenesis/conformance/hello-substitute@5"
+  ],
+  "regime": "F_D",
+  "oracles": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/cases.json",
+      "bytes": 5413,
+      "sha256": "df772a1691c9b53a167f4ade6a6f12b3d79b367b0435ab6ed5d1a03526fb1eb3",
+      "relation": "selected case row and original public-target boundary",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-13/assertions.mjs",
+      "bytes": 19538,
+      "sha256": "99aa99208be2a005504d523a9c9f0ec86f8398da38a106480c3f31807fb36d28",
+      "relation": "caseInput5-12/assertScenario graph-substitution102-105",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-substitute.test.mjs",
+      "bytes": 3153,
+      "sha256": "3b1e2f150f48654d649f22c9ca098c3f4dcffd0c1970515e40e74fa1f8961f5d",
+      "relation": "original independent native substitute oracle25-78",
+      "role": "retained evidence or exact source",
+      "limit": "Read this file; no complete enclosing freeze audit or native sufficiency inferred."
+    }
+  ],
+  "expectedValue": {
+    "kind": "hello_world_output",
+    "schemaVersion": "5.0.0",
+    "message": "Hello World"
+  },
+  "expectedLoci": [
+    "locus://abiogenesis/conformance/hello-graph-edge/normalize@5",
+    "locus://abiogenesis/conformance/hello-substitute/normalized-pass@5",
+    "locus://abiogenesis/conformance/hello-graph-edge/render@5"
+  ],
+  "expectedRoutes": [
+    "advance",
+    "advance",
+    "terminal"
+  ],
+  "expectedCompositionIdentities": 2,
+  "coldReads": [
+    "run_result",
+    "run_replay"
+  ],
+  "resourceDecision": "C02 read-only physical bootstrap available; N03 is shared current 136; old S02 runtime resources are foreign. Selected no-shared-write effect needs new isolated ordinary installed setup.",
+  "proposedWriteTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01",
+  "operationOrder": [
+    "workspace.create(clean)",
+    "product.verify(packed C02)",
+    "product.resolve(exact C02)",
+    "product.install(clean/new event resource)",
+    "product.bind(workspace/exact installs/roots)",
+    "catalog.admit(exact full declared publications)",
+    "catalog.view(only substitute)",
+    "conformance.evaluate(substitute Program)",
+    "run.invoke(start exact substitute)",
+    "project.read(run_result)",
+    "project.read(run_replay)"
+  ],
+  "donorAdaptionRequired": [
+    "N03 driver stop before Hello; select substitute view/conformance only",
+    "use current exact six-key conformance and three-key read carriers",
+    "general constructStart donor, current native-wrapper run environment/application resources",
+    "current terminalResult.producer contract, not obsolete provenance",
+    "new role/operation/provenance and all paths confined to new effect territory"
+  ],
+  "executionByThisWorker": false,
+  "providerCallsRequired": 0,
+  "independenceLimit": "Root owns execution grant and separate assurance; no wholeS02 or F11 claim."
+}

@@ -1,0 +1,17 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-14/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "e5731dcebb3b01b0179816b3319c170a9f63ae4d79acab7e8e9e32d514b3c4e6",
+    "byteCount": 10622015
+  },
+  "packCount": 1,
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "packReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-14/commands/pack.result.json",
+    "sha256": "9db07fa6e99497a7a8f4f91d7dc71bd2bc4898d04206d78840f3b14b45301fb4",
+    "byteCount": 763228
+  },
+  "runtimeDeployment": false
+}

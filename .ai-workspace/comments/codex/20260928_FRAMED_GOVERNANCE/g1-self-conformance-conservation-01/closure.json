@@ -1,0 +1,39 @@
+{
+  "operation": "T287_G1_FINDING_CONSERVATION_REALIZATION_01",
+  "role": "Worker",
+  "status": "CLOSED_SOURCE_COMPONENT_ONLY",
+  "at": "2026-10-04T03:35:24.234933+00:00",
+  "processes": [
+    {
+      "label": "preimage",
+      "pid": 82753,
+      "pgid": 82753,
+      "wait4Reaped": true,
+      "groupAbsent": true,
+      "timedOut": false
+    },
+    {
+      "label": "compile",
+      "pid": 83565,
+      "pgid": 83565,
+      "wait4Reaped": true,
+      "groupAbsent": true,
+      "timedOut": false
+    },
+    {
+      "label": "focused",
+      "pid": 83747,
+      "pgid": 83747,
+      "wait4Reaped": true,
+      "groupAbsent": true,
+      "timedOut": false
+    }
+  ],
+  "mutationTerritory": "two granted canonical files and owned new evidence/stage only",
+  "SourceContractPosition": "existing fold repaired; schema/filter/AF22 authority unchanged",
+  "ComponentProofPosition": "expected preimage counterexample reproduced, one isolated TypeScript compile and four focused tests passed",
+  "InstalledGenuineProofPosition": "OPEN; no F11/AF22 Runtime or fresh installed read executed",
+  "preparationOnlyRefusal": "recorded; Root disposed actual saved compiler subtree caller correction before first source effect",
+  "writesAfterFreeze": "STOPPED",
+  "nextAuthority": "Executive selects independent assurance and successor-bound proof"
+}

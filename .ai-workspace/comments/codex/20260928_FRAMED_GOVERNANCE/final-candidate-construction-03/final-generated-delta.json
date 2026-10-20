@@ -1,0 +1,905 @@
+[
+  {
+    "path": "build/code/src/abg/qualification_proof.d.ts",
+    "C02GeneratedSHA256": "648ab02f1ea6ad9ba1a3b2c3408bb4e1cfaeb2c9fc1d62d4cdfe3fa8c588eaf5",
+    "C03GeneratedSHA256": "13e35c3b4b6b5dd69fa01c0ac0572507b8539a9451e109947a537285efdae2ae",
+    "C03Bytes": 7888,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/abg/qualification_proof.js",
+    "C02GeneratedSHA256": "83e793bb52288df3289ca2c7566a5e74229f444bc83f12f8a8e9f765a9348573",
+    "C03GeneratedSHA256": "29721c3f766dd3b20ea705d07298c13317c3489b4774ce51758d03940c0b368e",
+    "C03Bytes": 77572,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/implementation/contracts.d.ts",
+    "C02GeneratedSHA256": "3615402f5ab76cf1237b8fc1ccfe3170644ca834282a6bb3ee238366336a6b72",
+    "C03GeneratedSHA256": "6be11e0df9568836359bc0efecfbf6de33cb0265a43f0ca7b703ffb598b6adda",
+    "C03Bytes": 19102,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/implementation/leaf_invocation_port.d.ts",
+    "C02GeneratedSHA256": "5a821a49e5dce3794c8f8707f6f52e1bb9d2c670e3b34960c121cd697a9f538f",
+    "C03GeneratedSHA256": "70b218cda051677e238710e00d589fc06b2e4e263e12136c4a544ff67002aa71",
+    "C03Bytes": 3711,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/implementation/leaf_invocation_port.js",
+    "C02GeneratedSHA256": "bfebce226300957c9724dce5a87a00251a740baaf881168cf2cc62e7622ea191",
+    "C03GeneratedSHA256": "7d583452a6692ad06d66e4a997f1148f0999380a050d091ad2394c45c72b6d7b",
+    "C03Bytes": 69953,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/implementation/qualification.d.ts",
+    "C02GeneratedSHA256": "42412fe6dea2b0a9630142fb02fcf1b726a049320e669020c32d4b80246c3870",
+    "C03GeneratedSHA256": "f77642e68be8acae69dd5fa440e1e9b8a4ebe7c99705593fd05f0de618aca0d6",
+    "C03Bytes": 2040,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/implementation/qualification.js",
+    "C02GeneratedSHA256": "5dbd072673e4179ba18593b1394d61a3ab0f7226ea6d5dcc5fd4c0ebcd20a5ad",
+    "C03GeneratedSHA256": "1b082310a15cfd6144a8d7b7311567ca9d7190ced3baa2740ed334baccddc535",
+    "C03Bytes": 7461,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/implementation/release_publication.d.ts",
+    "C02GeneratedSHA256": "9387c4c42ef1958ba92f0d0b0217d9c61e853872b75911a852b37fb7f05fbc56",
+    "C03GeneratedSHA256": "e64d89e343f6d52764600ea36afaed9f1dffb63669a25357faf36efa833168f1",
+    "C03Bytes": 72711,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/owner_bindings/run_invocation.js",
+    "C02GeneratedSHA256": "ae5b54f63ea2ca165e7f91e5ccba84eebf6996f886801387342da3c7a5c58429",
+    "C03GeneratedSHA256": "87c478e198a6f24027d435c5371dc8e7ccca65d4eac13d2f26a2b83b54108e1e",
+    "C03Bytes": 78618,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/product/release_snapshot_definition_bindings.d.ts",
+    "C02GeneratedSHA256": "c971473acdcc0f7b7484b1a8eebeca9166eac530c08c330e4c74c04ba195442e",
+    "C03GeneratedSHA256": "4f46178ae53b0a1d8b308c7f7797ed019dafd3e83ddd6c368ce1c0936780c49a",
+    "C03Bytes": 243402,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/product/release_snapshot_operations.d.ts",
+    "C02GeneratedSHA256": "00b7a594f34a02d5ce13e113926cbf58b9a015b211710be9bc3630659d737404",
+    "C03GeneratedSHA256": "2249baf6e09a437c5e873d34ba31c0073d7a532cf1f59b4de3e1f03a709ac739",
+    "C03Bytes": 249140,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/product/run_invocation_operation.d.ts",
+    "C02GeneratedSHA256": "8fcb4ae4517df7525c3b814a8a3676108599378e4722a068a54d6742ecea8c60",
+    "C03GeneratedSHA256": "1a0080aba44dfea28e38412989a518548fd91d089f4dbae89dfc638fb2b3241f",
+    "C03Bytes": 6011,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/product/run_invocation_operation.js",
+    "C02GeneratedSHA256": "5d2d6c6237b6530823d0f5bb1c40dca3e458489036a32770e77befdb578b0d0c",
+    "C03GeneratedSHA256": "b7b5dfa2a49ae39a7721033401ec393edadd0f91b1262fea5d1b6420c4b5cbc5",
+    "C03Bytes": 26675,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/product/semantics.d.ts",
+    "C02GeneratedSHA256": "e3e0db0c020f09014c22244f4e2455637f469c854e96d0bbefa49ccef4b1078e",
+    "C03GeneratedSHA256": "fff2c2e277edf4271af7a4dbbfbdf0c6521ef3600defe72db63aa9f5670ed05c",
+    "C03Bytes": 9304,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/qualification.d.ts",
+    "C02GeneratedSHA256": "affd9fd3a5c36d5e6ac0f54c60b07e8709a7eede2fe50e6a677ec5376a71ba5b",
+    "C03GeneratedSHA256": "98156b6121cce43b6e17a4fec6b57b72bb2709c6a7732397cd0733f1c50fb425",
+    "C03Bytes": 6875,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/qualification.js",
+    "C02GeneratedSHA256": "ebd5a1eab534adaf55a4e5c987156dec2ddc00dcc5a5aa608e6a566251d0b7ec",
+    "C03GeneratedSHA256": "41a3ab04f071c10c39e4d713f4ca2f4e2dfc744bb81e44ae19e23e0840199033",
+    "C03Bytes": 61459,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/qualification_contracts.d.ts",
+    "C02GeneratedSHA256": "b9110ed2d154c276b2dab8da6bcf90efc18df678fb867d5b9c6a137a1b0237ef",
+    "C03GeneratedSHA256": "7f954c90108933f0d7520b5034c2c31abe43548d2b2017aaa3ed213f78cce5ba",
+    "C03Bytes": 537527,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/qualification_contracts.js",
+    "C02GeneratedSHA256": "e65d0cb476fd22ba4c0bf66cad9f3de52717e28c324a88d323461aade1b31daa",
+    "C03GeneratedSHA256": "c56c2cc8e22c2edc238e22935fcf73490270e4cd0f5df1630badf26fca7751a9",
+    "C03Bytes": 36688,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/qualification_resources.d.ts",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e2339ce6a6114321bbad42475043193adcb5c771a5f1450b88754ff27bcbe2bb",
+    "C03Bytes": 3613,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/qualification_resources.js",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "6be11c82e80e718ab3cebfd829e6d31baf1e661e1e9418278312dd0e906a3ff4",
+    "C03Bytes": 20061,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/self_conformance.d.ts",
+    "C02GeneratedSHA256": "9666ed10ecf061e6dd78a05f2f51777cb2f1c086b9a0318302263d339ece4136",
+    "C03GeneratedSHA256": "277fe68903d000ddb1164dc51813c07d618dac208bd8049811a4fccf2aa8a654",
+    "C03Bytes": 919,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/self_conformance.js",
+    "C02GeneratedSHA256": "f4fafd0ab7b58f5b9fe0010d6684e0321fb5c19f1225470639e47359890507c1",
+    "C03GeneratedSHA256": "ac8ab2bf107f0cb1db564976264cf6c343f3c40507c0c8608bf253ecbbaef455",
+    "C03Bytes": 29347,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/self_conformance_basis.d.ts",
+    "C02GeneratedSHA256": "224fd0bbd4f0b3237f6b846aef5d511f3709b1ec7903c9537d9880856a8bdae7",
+    "C03GeneratedSHA256": "9f6182944754158702dc82726430617df86e68ed75be8ac48cc87bf2e52ab54b",
+    "C03Bytes": 648,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/self_conformance_basis.js",
+    "C02GeneratedSHA256": "7f3d5adad0da9757b57f4cd07c062314231c2e568ee41b7b4e4cf836c1ec6af1",
+    "C03GeneratedSHA256": "8d6cadcf3766af656a37638c78a0616af64bb072301cdf5dbf9ad17a68875e81",
+    "C03Bytes": 6946,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/self_conformance_contracts.d.ts",
+    "C02GeneratedSHA256": "2c4c9437688ab78648d368282734bc7a61ca0c9a4123781d04daa5dc7f1278ae",
+    "C03GeneratedSHA256": "9406ee728c19ea26fca5de871d00f6ccffe6e5822b06f21d6d16ed28e52221b9",
+    "C03Bytes": 386197,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/self_conformance_contracts.js",
+    "C02GeneratedSHA256": "76164e1080ac1ec870218b7c4cfd25241ee87b7cc149f9dfc301ceac3bb6e7c4",
+    "C03GeneratedSHA256": "d0420e21d84e66ea9ea59321d9744a0a52467f5e634c5e244723711c247861f7",
+    "C03Bytes": 6899,
+    "role": "generated_output"
+  },
+  {
+    "path": "build/code/src/validator/self_conformance_semantics.js",
+    "C02GeneratedSHA256": "c1452d23d0f054c1844f296752339be25649f7c6a1376fdfc2ea29ffc23bc593",
+    "C03GeneratedSHA256": "8b886a795d42ed050a59da59352daf725d7276d04df0f638dec521bd3886707e",
+    "C03Bytes": 12097,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "C02GeneratedSHA256": "f5b45d8c96570f0856f5b6dd5e6ea7380817a7bbb157eaf76ccca3bb9cf0405a",
+    "C03GeneratedSHA256": "415e432bf18929b9e7ff34ed2edb89ba5bcfe578bc0a3b2ed953f3cd0326ab88",
+    "C03Bytes": 197474,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/qualification/authority-inputs.json",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "ca3e45e501fd0ea8c24d2c79df7896b6a747608899cd22e32677111d5111c596",
+    "C03Bytes": 28062,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/coverage.json",
+    "C02GeneratedSHA256": "c7c45a998036c1cf1858701f00a5ed62ef7b3b957194dedfb18caedfaba5be4b",
+    "C03GeneratedSHA256": "4482b3fc4c534976c3abc4fea77f170128ef5d0fe1ea8582e525238d44ed27d0",
+    "C03Bytes": 11476,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/qualification/law-basis.json",
+    "C02GeneratedSHA256": "578fb695296f9939ba1dfdc6ac0c4ab17bd067845e657ec4b61615795244cc06",
+    "C03GeneratedSHA256": "05cd2d9660659c824ad8178962f62631860df80ffe81af01d1338f4420b6194d",
+    "C03Bytes": 28470,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/qualification/rule-catalog.json",
+    "C02GeneratedSHA256": "e9aa4d0a863050f17ca8ed89b1911ae237df08ce1727ee24e3016f2f7297f5c4",
+    "C03GeneratedSHA256": "bd58d739d6efddf466d2bee99c95bc0e49ca9ff3de820ec5aab217557f9afa16",
+    "C03Bytes": 1796651,
+    "role": "generated_output"
+  },
+  {
+    "path": "contracts/qualification/sources/00-starter.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "bc6fae43aa6fdaf0fd56a6245eefa83b233ed2cac3f9177efe3873b1e5ac7e84",
+    "C03Bytes": 306,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/AXIOMATIC_CALCULUS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "cbe2edb928d3e75e23446f6d525baea664966e8d5920e6fa389cbaa4af8f1f8d",
+    "C03Bytes": 37849,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/IDENTITY_METHOD.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e65b875464cc93a3f9186d915ad88603755de34bac6f27072562ed34c13f64cd",
+    "C03Bytes": 11350,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/INTENT.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+    "C03Bytes": 16326,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/ODD_METHOD.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "b33dd5b868e66e27c583b3237e93421ab12d502b38368bf075973c1bf7faef2d",
+    "C03Bytes": 71327,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/PRODUCT.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+    "C03Bytes": 93561,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REFERENCE_FRAME_METHOD.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+    "C03Bytes": 55118,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/RELEASE_METHOD.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "582bc15451855670495e559db3ae6a89ba37edaa3656f33499d02220cbdb141c",
+    "C03Bytes": 26086,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-ASSET-SURFACE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "eeef3aa0369f7eefb18f79e79e66a727365520800c0c194bfba7fb2ae7db5c25",
+    "C03Bytes": 4068,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-ATTRS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "9204569254a620bb78974512df974e16edfece2ea72dff47a07c14e1bd396807",
+    "C03Bytes": 1391,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+    "C03Bytes": 14789,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-COMPOSE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c",
+    "C03Bytes": 2702,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-COMPUTE-NOTATION.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "0c0f325ca423cbec7d7fc97a362f330e7dfb2d90e7024519cc0389c89dac2fcd",
+    "C03Bytes": 12477,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "068a34859896cc5ec8bda0a34a9b8a4571f924cc243abf21a22a320410b35c1d",
+    "C03Bytes": 4137,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
+    "C03Bytes": 7701,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
+    "C03Bytes": 3326,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPH.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "bd45b6b6d8ccb0b0c349d93427404344c04459c3ac1068877b3779a2c4917f93",
+    "C03Bytes": 2507,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "212283db05bab5ecf94f5bd92eb2ff81c478476a62228c07771b3eb865ba4606",
+    "C03Bytes": 3525,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+    "C03Bytes": 6880,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPHVECTOR.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "a8ae2a4496762081396ec42a514f6d3c422fd7fb0f8227cb6fab0eed4bde0da4",
+    "C03Bytes": 7386,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-HOF.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
+    "C03Bytes": 5096,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-HOOKS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "fc31e5211472bf6e929fba23288605a5e74af57fac8f469c07dc3c1586c2adc0",
+    "C03Bytes": 6742,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-IDENTITY.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "7235fc6d099971608994cabc98bcd4c5016f8f8b959904ace2e05a5564913249",
+    "C03Bytes": 1605,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-INTERFACE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e69bcd76af46eca21ee161f9f0128dd7e4cc531debbdbd9c6a346b43fbc4fe2f",
+    "C03Bytes": 1379,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-JOB.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "9e4efc269a0b856810116c70e6b9ed26ed2b61e4ebc4c3f309aaf5a74e5ca40b",
+    "C03Bytes": 2019,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
+    "C03Bytes": 19343,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "fdf36c5ed1a8272e8a253237c96719f5555d3fe84e38c3086e925815221e4412",
+    "C03Bytes": 2862,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-LAWS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
+    "C03Bytes": 9060,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-MODULE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "c1b1f7644f59776854103b3f0bfab515e88ed444363b6f81f9bfc4cb83e0d27c",
+    "C03Bytes": 1531,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-NODE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "d2e7d99595799498120a0a5b68a06067ed7269c387c4383310e3b59880885054",
+    "C03Bytes": 4053,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-OPERATOR.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e327338bf8b9a49f1184e838b604eee6e7ff34811685bb609524fec3f9807549",
+    "C03Bytes": 1287,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-RECURSE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c",
+    "C03Bytes": 1677,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "9bf74b1fc99629e8f8b2499bf3f7954ee5077df0c0a76cc7cb372c5e2696c4e1",
+    "C03Bytes": 6346,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-ROLE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "6ef4b749ba5fa87f0ffabb4d0345b4f4a0c6e81517fb18608309e3d5ec89eb75",
+    "C03Bytes": 1429,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-RULE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
+    "C03Bytes": 1722,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "6d9ed61cbb2042ab58c9d0ec04eafd862af422d5fe4c28164921c69325a2a24c",
+    "C03Bytes": 3930,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-SUBSTITUTE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "33519b9b578a792a72b9f059f8dc28b385497d28825e150a566e613b8909703a",
+    "C03Bytes": 1531,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-SUBWORK.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "ed4bc476d481b3406d9049087440e7ddd6926c249284a48a51e16fa60d5469de",
+    "C03Bytes": 1398,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-SYNTHESIS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "a421c652fa49f71177ebac25b17e9a31a4b1b362ce81fc14f5f44322b24b6000",
+    "C03Bytes": 2053,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "810a1d30eaba36232919e2a88360d6bce87040b5da22e2cb1ec5a460fe0899cf",
+    "C03Bytes": 5892,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-M-GTL3-CAPABILITY.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+    "C03Bytes": 5954,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-M-GTL3-MAPPING.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "1060b39e83a2ceee5dd74fb403bd45a7f8d3f1ea071a74f2fa1ba2b81b680822",
+    "C03Bytes": 2212,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "a19da2e0ab2d7b5aa705bbd7fd84b8fc858a411d6c023dd4deba6b316959ec0b",
+    "C03Bytes": 5307,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-M-GTL3-PROVENANCE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "f6015a9a4eb0c34ec8b376de4ad2ccf18c698c1e73f50c81da25f6e8ad8a57c9",
+    "C03Bytes": 1888,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-P-CATALOG.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+    "C03Bytes": 13757,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-P-CONSENSUS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "9e16808a05ca078fded2854073d6280c1ae7f3ff173be7354ecb20d76123a52d",
+    "C03Bytes": 16255,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-P-INSTALL.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f",
+    "C03Bytes": 21741,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-P-POLICY.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e13953bc84a5a41d9d54f7fac4ab3b53142e12a9a35ee8b3fbefb210a6104d98",
+    "C03Bytes": 34046,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+    "C03Bytes": 19406,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+    "C03Bytes": 35509,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-P-SCENARIOS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "33939c54db28a76cee08841731258cfdebcd870975a749d84a5d957466b7469d",
+    "C03Bytes": 16531,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+    "C03Bytes": 6687,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-ASSURANCE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "fe8b38aa68686d3a14dd53db2e9cebc36163a99b16b6ccf76d4c8052a9cbb361",
+    "C03Bytes": 10341,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-BINDING.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "af6538e5bf717feeefc90a8becedac9f3556fc77ea4c149443fa2a9c4d5f3175",
+    "C03Bytes": 7543,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "3db608b13aa61e13d68ecef484561d90aa3e1dfee3cba4b36fce1d913cd87502",
+    "C03Bytes": 8926,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+    "C03Bytes": 6297,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-CONVERGENCE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "03aa87426b46e9d58f81cadd926d98973a5c113a603195b0a73eb0586b57f902",
+    "C03Bytes": 2695,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-CORRECTION.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "d1d663f3011c127d85ac73440edb6d9c133c6e88f5f2291ebded68439b8c3edb",
+    "C03Bytes": 1164,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-EVENTS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+    "C03Bytes": 16630,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
+    "C03Bytes": 13365,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "3bbde7990ad1d5e779b75d2f592598f12471e93fed66ba487070c1d4d85aaeb6",
+    "C03Bytes": 20151,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-FRAME.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51",
+    "C03Bytes": 1422,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-GRAPHCALL.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "7dfcdf946e649d846a42e640438598e13f119bfbfec3c2ab0ccf836a7dd9a045",
+    "C03Bytes": 1546,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-HANDLERS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+    "C03Bytes": 6120,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e09939e63164131f8dd8ea9a0a0030755897cce769d20cd719391b5d4140c32d",
+    "C03Bytes": 12093,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-INTERPRET.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "5c2a1cf2de4686deac3ba97863d88483bfa8aab5cd9141cda2f1f7b9dfecf7de",
+    "C03Bytes": 7680,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-ITERATION.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "39259a007bbe83cf57b16f042dd83018146d47831e45a767d4c22cb85e810e84",
+    "C03Bytes": 6335,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-JOB-WORKER.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "0b2c2105ea5b1808214f282672b2974d0faf43b0872022e0d9a64844bb716f15",
+    "C03Bytes": 1207,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-LEAFTASK.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "d54227e3c548004f8b80d76efd5d0283f52e5ce2d411c2addc4dce691adb08ce",
+    "C03Bytes": 1588,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-LINEAGE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "968f97fd609aee04fed41160c65991683f0b113a1a3cb0b13898bc0017407fdc",
+    "C03Bytes": 1437,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-PAYLOAD.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "a10a8edcd84e1e15115b1c66110ab0d66a5a34e61d0e849d4a375752675bf63e",
+    "C03Bytes": 11203,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-PLUGIN-SEAMS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "ad3b105c013f74d60bc32a2e4a56ec65e91d25a011ce0722f84a9f7e22947381",
+    "C03Bytes": 6517,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-POLICY.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "c6e41fb43aaede4a1e28e229bb93e8b8ccbddc48d84372390a1bbdbad5f480f6",
+    "C03Bytes": 2343,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+    "C03Bytes": 10959,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-PROVENANCE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "ef0caf7118426de7fcae3cdb1073e721cd770a85a7d7c58dec257f02f011efcb",
+    "C03Bytes": 1542,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "372c99dc400cb5f6206ff4e1f9e3b47cc3ce0cf786700e6b2817cb82f97ddf22",
+    "C03Bytes": 21645,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+    "C03Bytes": 15697,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-RETRY.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "4fd1f4798487eb072d8afbe3e9aa8f70fedf425d681ae244eaba9c8874434307",
+    "C03Bytes": 3157,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-RUN.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "b7e548eebae47b078b5d54a7838692f736a2956321673bc62b58bd9608d03bd8",
+    "C03Bytes": 2917,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
+    "C03Bytes": 7453,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-SELECTION-APPLICATION.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "70b1e781d2e91bfaa08785cb4f39d21a3ab588a49ec3150943c18968c7f113b4",
+    "C03Bytes": 2201,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-SELFHOSTING.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "edcac76a57069c7d5b0aa2776546c3f404eb6774260f818ddfb99dc715fdfaae",
+    "C03Bytes": 4840,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71",
+    "C03Bytes": 9837,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-TRANSPORT.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+    "C03Bytes": 9354,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-TUNER.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "fadea8385f24f9f4576406eff83c70eead0586f247661fab57f7dfb602012088",
+    "C03Bytes": 7626,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-WORKER.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "a4c1646e81e1f831cdd663d25347f07280b4602be577e9e0d594a499de4499ea",
+    "C03Bytes": 2386,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/SPEC_METHOD.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "7f12d32ef4e5720d5d59ee5ace50de6c1a12cc56afa53dd67a8ee4c54f8fb8a4",
+    "C03Bytes": 157952,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/STDO_REFERENCE_FRAME_BASELINE.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+    "C03Bytes": 133684,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/specification__requirements__README.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "4f364154780bd3b084e9af57e8d031cb021225ae46995837d719e560bf7c71a0",
+    "C03Bytes": 7676,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/specification__requirements__abg__README.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "421300265888d2332b80fefcd7931006fcb38d1be9cb4cae710348f3da98a44d",
+    "C03Bytes": 3069,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/specification__requirements__gtl__README.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "3738823cf9e27c5dd6bec9cb0f400f52f9339b38b5aa1324ee93b19e7fa7333b",
+    "C03Bytes": 3023,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/specification__requirements__mapping__README.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "f51ebafa63c9e49d64ef212851e99879c770d85436a5717b10644993a889b47f",
+    "C03Bytes": 515,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/specification__requirements__product__README.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "e777272a024d69540fec847591ab3f9132a5ab01e456f566adb4ff76be1a43b3",
+    "C03Bytes": 1141,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/stdo_abiogenesis.json",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+    "C03Bytes": 4277,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/qualification/sources/stdo_bootstrap.md",
+    "C02GeneratedSHA256": null,
+    "C03GeneratedSHA256": "f7bec3f86d9f24d1fb22acc553ade2eb0861105ec4cd2f1afa7290cc85c5b61a",
+    "C03Bytes": 5772,
+    "role": "derived_authority_copy"
+  },
+  {
+    "path": "contracts/schemas/self-conformance.schema.json",
+    "C02GeneratedSHA256": "916a087f4b3c6490c9f5ea649cb91012be7769c18f05cf306c1c04409afcd48a",
+    "C03GeneratedSHA256": "6fa7d1bb49617bcb7cf44d9f207d9d2609658c52f00c510f15a238850da016c9",
+    "C03Bytes": 1049918,
+    "role": "generated_output"
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "C02GeneratedSHA256": "ccae3c530199a813bc943f8d07a0cf90ee89e3201839082c2df6744ae57e9518",
+    "C03GeneratedSHA256": "b4a859c9790c6b790c8126b8fc5965713530fc9210afa4ba1033a807c19a789c",
+    "C03Bytes": 2567514,
+    "role": "generated_output"
+  }
+]

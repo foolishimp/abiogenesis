@@ -1,0 +1,72 @@
+{
+  "status": "CLOSED/FROZEN/STOP Writer209a documentary only",
+  "stableId": "T287-ASSURANCE-MODULE-ORIGIN-01",
+  "capsuleWords": 162,
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/selected-module-origin-assurance-debt-209a/ticket-preimage.md",
+    "sha256": "7dc3eba79d35ec597481aaf2f655c6f13b151ffb8e6c477ff6481aec46068b71",
+    "byteCount": 510369
+  },
+  "postimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "052f1b0f4bbb20af8e447748bbe6a4a5dbe4899acb3b092fba99c2f03b99de22",
+    "byteCount": 512325
+  },
+  "appendOnly": true,
+  "originalPrefixBytes": 510369,
+  "appendBytes": 1956,
+  "evidenceScope": "Accepted flat-consumer route; deeper actual-module managed-shadow assurance deferred, no executed counterexample",
+  "authority": "Executive-selected durable capsule under AGENTS91\u2013127; no repair/retry authority",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/selected-module-origin-assurance-debt-209a/return.md",
+    "sha256": "d609cbffccb766cb05b435b905ac86892974ecf6926170d9f952bb5e816d30ac",
+    "byteCount": 727
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "052f1b0f4bbb20af8e447748bbe6a4a5dbe4899acb3b092fba99c2f03b99de22",
+      "byteCount": 512325
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/selected-module-origin-assurance-debt-209a/ticket-preimage.md",
+      "sha256": "7dc3eba79d35ec597481aaf2f655c6f13b151ffb8e6c477ff6481aec46068b71",
+      "byteCount": 510369
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/selected-module-origin-assurance-debt-209a/ticket-postimage.md",
+      "sha256": "052f1b0f4bbb20af8e447748bbe6a4a5dbe4899acb3b092fba99c2f03b99de22",
+      "byteCount": 512325
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/selected-module-origin-assurance-debt-209a/capsule.md",
+      "sha256": "e9f6514aa3e18b1d8972b47e8f3bd0ced15aa3d4b011344e46af679feca518e7",
+      "byteCount": 1955
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/selected-module-origin-assurance-debt-209a/append.diff",
+      "sha256": "ed5dc2db39ddd863f4a35c29163987f4b4c89c9c5fb88456aa203537efdfabca",
+      "byteCount": 3237
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/selected-module-origin-assurance-debt-209a/return.md",
+      "sha256": "d609cbffccb766cb05b435b905ac86892974ecf6926170d9f952bb5e816d30ac",
+      "byteCount": 727
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/freeze.json",
+      "sha256": "631f6554014e5310b6ba2b715656ebfe97957b50dfd77734c4a161a0ee16412f",
+      "byteCount": 18402
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-review-208/freeze.json",
+      "sha256": "034b8284b726e799ce18f6eb005c93e7e95d968d129968a0e5386fc2374cd43a",
+      "byteCount": 990
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-review-208/return.md",
+      "sha256": "8a7a1d5a27d431a3e41201293158d821dfb8219c9f66d24fbc0075833b6af41e",
+      "byteCount": 3210
+    }
+  ]
+}

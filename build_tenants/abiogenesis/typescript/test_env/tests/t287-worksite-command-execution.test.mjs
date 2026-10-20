@@ -34,6 +34,38 @@ const SOURCE_BYTES = Buffer.from([
   "",
 ].join("\n"), "utf8");
 
+test("C2 explicit zero write territory preserves array, report and HTTP port authorization", async (t) => {
+  const c2 = await import("../../build/code/src/product/worksite_command_execution.js");
+  const { loadWorksiteOwner, worksiteFixture } = await import("../support/t287-generic-job-worksite.mjs");
+  const env = await worksiteFixture(await loadWorksiteOwner());
+  t.after(() => rm(env.scratch, { recursive: true, force: true }));
+  const command = { commandId: "command://c2/readonly", executable: process.execPath, args: ["--version"],
+    relativeCwd: ".", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };
+  const input = { ...env, commands: [command], outcomePredicates: [], protectedSubjects: [], allowedWriteTerritories: [] };
+  const configuration = c2.constructWorksiteCommandConfiguration(input);
+  assert.deepEqual(configuration.allowedWriteTerritories, []);
+  assert.equal(c2.worksiteCommandConfigurationMatches(input, JSON.parse(JSON.stringify(configuration))), true);
+  const { allowedWriteTerritories: _territories, ...absent } = input;
+  assert.throws(() => c2.constructWorksiteCommandConfiguration(absent), TypeError);
+  for (const allowedWriteTerritories of [undefined, null, {}, "", false]) {
+    assert.throws(() => c2.constructWorksiteCommandConfiguration({ ...input, allowedWriteTerritories }), TypeError);
+  }
+  const report = { reportIdentity: "report://c2/readonly", relativePath: "evidence/report.txt" };
+  const reportInput = { ...input, commands: [{ ...command, expectedReports: [report] }] };
+  assert.throws(() => c2.constructWorksiteCommandConfiguration(reportInput), TypeError);
+  assert.doesNotThrow(() => c2.constructWorksiteCommandConfiguration({ ...reportInput,
+    allowedWriteTerritories: [{ pathKind: "file", relativePath: report.relativePath }] }));
+  const http = { predicateId: "predicate://c2/readonly/http", predicateKind: "http_response_exact",
+    declaration: { validationCommandId: command.commandId, body: "ok", status: 200,
+      launch: { executable: process.execPath, args: [c2.WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder],
+        environment: {}, relativeCwd: ".", portFile: { relativePath: "evidence/port.txt" }, timeoutMs: 1000, terminationGraceMs: 100 },
+      request: { hostname: "127.0.0.1", method: "GET", path: "/", timeoutMs: 100 } } };
+  const httpInput = { ...input, outcomePredicates: [http] };
+  assert.doesNotThrow(() => c2.constructWorksiteCommandConfiguration({ ...httpInput,
+    allowedWriteTerritories: [{ pathKind: "file", relativePath: "evidence/port.txt" }] }));
+  assert.throws(() => c2.constructWorksiteCommandConfiguration(httpInput), TypeError);
+});
+
 test("C2 finite host timer schema and constructor share bounds without changing grace", async (t) => {
   const c2 = await import("../../build/code/src/product/worksite_command_execution.js");
   const { loadWorksiteOwner, worksiteFixture } = await import("../support/t287-generic-job-worksite.mjs");

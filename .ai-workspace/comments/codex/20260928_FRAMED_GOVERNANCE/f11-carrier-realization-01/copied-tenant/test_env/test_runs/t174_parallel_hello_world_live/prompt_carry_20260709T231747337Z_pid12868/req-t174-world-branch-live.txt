@@ -1,0 +1,3 @@
+Produce one branch artifact for the world segment.
+The branch artifact shall be executable CommonJS source.
+When imported by the verifier, the branch artifact shall yield exactly: world

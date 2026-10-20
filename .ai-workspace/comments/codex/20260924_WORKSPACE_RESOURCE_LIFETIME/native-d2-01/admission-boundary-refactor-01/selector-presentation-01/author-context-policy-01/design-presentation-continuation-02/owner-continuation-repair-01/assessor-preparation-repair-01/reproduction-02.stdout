@@ -1,0 +1,214 @@
+{
+  "authorControl": {
+    "promptBytes": 986751,
+    "retainedPromptBytes": 986751,
+    "sectionsEqual": true,
+    "resultKind": "native_instruction_assembly"
+  },
+  "assessor": {
+    "promptBytes": 1051303,
+    "maxPromptBytes": 1048576,
+    "overflowBytes": 2727,
+    "result": {
+      "kind": "native_instruction_assembly_refusal",
+      "cause": "declared_bound_overflow",
+      "policy": "assembly://odd-glc/generic-lifecycle/design@5",
+      "role": "assessor",
+      "unresolvedRefs": [
+        "maxPromptBytes"
+      ]
+    },
+    "promptDigest": "sha256:dbda1460205a94bf96a1cced7e3318da821ee8544ab130848fdd5f1bb03bb813",
+    "sectionFramingBytes": 107
+  },
+  "inventory": {
+    "role": {
+      "bytes": 115596,
+      "members": [
+        {
+          "name": "native",
+          "bytes": 3421
+        },
+        {
+          "name": "actorContract",
+          "bytes": 21298
+        },
+        {
+          "name": "environment",
+          "bytes": 90834
+        }
+      ]
+    },
+    "source": {
+      "bytes": 6709,
+      "members": [
+        {
+          "index": 0,
+          "bytes": 6707
+        }
+      ]
+    },
+    "obligations": {
+      "bytes": 156072,
+      "members": [
+        {
+          "name": "jobRef",
+          "bytes": 93
+        },
+        {
+          "name": "installedTemplates",
+          "bytes": 620
+        },
+        {
+          "name": "activeBindings",
+          "bytes": 68465
+        },
+        {
+          "name": "groundedRequirements",
+          "bytes": 29474
+        },
+        {
+          "name": "applicationCoverage",
+          "bytes": 13
+        },
+        {
+          "name": "remainingGaps",
+          "bytes": 124
+        },
+        {
+          "name": "retainedTerms",
+          "bytes": 57151
+        }
+      ]
+    },
+    "predecessors": {
+      "bytes": 76638,
+      "members": [
+        {
+          "index": 0,
+          "bytes": 393
+        },
+        {
+          "index": 1,
+          "bytes": 394
+        },
+        {
+          "index": 2,
+          "bytes": 399
+        },
+        {
+          "index": 3,
+          "bytes": 75447
+        }
+      ]
+    },
+    "worksite": {
+      "bytes": 225506,
+      "members": [
+        {
+          "name": "scope",
+          "bytes": 286
+        },
+        {
+          "name": "observationRole",
+          "bytes": 26
+        },
+        {
+          "name": "currentRevisionTargets",
+          "bytes": 2
+        },
+        {
+          "name": "origins",
+          "bytes": 2
+        },
+        {
+          "name": "observation",
+          "bytes": 225109
+        }
+      ]
+    },
+    "evidence": {
+      "bytes": 349,
+      "members": [
+        {
+          "name": "observed",
+          "bytes": 4
+        },
+        {
+          "name": "evaluationData",
+          "bytes": 4
+        },
+        {
+          "name": "environmentAccess",
+          "bytes": 289
+        }
+      ]
+    },
+    "task": {
+      "bytes": 468714,
+      "members": [
+        {
+          "name": "stageRef",
+          "bytes": 44
+        },
+        {
+          "name": "assetKind",
+          "bytes": 26
+        },
+        {
+          "name": "purpose",
+          "bytes": 109
+        },
+        {
+          "name": "requiredContent",
+          "bytes": 675
+        },
+        {
+          "name": "rubric",
+          "bytes": 1248
+        },
+        {
+          "name": "bodyCapabilities",
+          "bytes": 19
+        },
+        {
+          "name": "taskData",
+          "bytes": 1305
+        },
+        {
+          "name": "currentCandidateRef",
+          "bytes": 99
+        },
+        {
+          "name": "revisionContext",
+          "bytes": 71124
+        },
+        {
+          "name": "historicalAssets",
+          "bytes": 393905
+        }
+      ]
+    },
+    "response": {
+      "bytes": 1612,
+      "members": [
+        {
+          "name": "type",
+          "bytes": 8
+        },
+        {
+          "name": "additionalProperties",
+          "bytes": 5
+        },
+        {
+          "name": "properties",
+          "bytes": 1494
+        },
+        {
+          "name": "required",
+          "bytes": 46
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "origin": "Frozen25 event_contract_profiles.ts59\u201377 creates canonical JSON diagnostic from caught native Error via existing constructRuntimeFailureDiagnosticRef.",
+  "leaf": "Captured142 baseline leaf_invocation_port.ts540\u2013560/663\u2013691 returns typed F_P not_dispatched candidate and exact ownerObservation on authority/contracts/load/preparation throw. Original diagnostic is present in candidate, failureValue and observation.",
+  "admission": "Frozen25 c_call_outcome.ts873\u2013879 and c_call.ts6060\u20136113 authenticate undispatched_owner_refusal against exact occurrence/input/cursor/regime/no actor. c_call_outcome.ts1106\u20131120 admits the declared failure Result.",
+  "judgment": "HoG ccall_lifecycle.ts639\u2013644 uses candidate diagnostic as reason; traversal_route.ts4721\u20134735 requires admitted failure Result/Judgment.",
+  "liveChild": "HoG ccall_lifecycle.ts765/route_proposal.ts748\u2013749 set terminalizeRun=false for child scope, so traversal_route.ts4931\u20134935 admits no run_stopped. projectCCallCompletion retains failed refs/value/reason. Thus142 whole-Run failed shortcut is inapplicable.",
+  "newSubjectMismatch": "Source142 recursion_lifecycle.ts784\u2013811 passes original child diagnostic with unconditional stage child-failure coordinate subject. runtime_failure.ts109\u2013114/230\u2013233 requires retained JSON decoded subject digest equal supplied subject digest before admission. Fixed key/stage shapes differ.",
+  "proofLimit": "Source-proven supported route plus one pure exact installed25 diagnostic round-trip, not a new nested execution or observed end-to-end thrown failure in144."
+}

@@ -1,0 +1,1 @@
+/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/code/src/product/worksite_command_execution_identity.ts

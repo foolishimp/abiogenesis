@@ -1,0 +1,9 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_Q10_INPUT_ASSURANCE_GRANT_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "returnsTo": "Executive",
+  "reviewerActivated": false,
+  "sourceCandidateRunGitEffects": 0
+}

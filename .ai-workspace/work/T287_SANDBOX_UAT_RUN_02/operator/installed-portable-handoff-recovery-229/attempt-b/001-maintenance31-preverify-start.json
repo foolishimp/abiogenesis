@@ -1,0 +1,15 @@
+{
+  "stage": "maintenance31-preverify-start",
+  "at": "2026-10-09T18:40:56.146Z",
+  "wallMs": 535.523458,
+  "pid": 17206,
+  "memory": {
+    "rss": 349470720,
+    "heapTotal": 251461632,
+    "heapUsed": 132078472,
+    "external": 23607378,
+    "arrayBuffers": 21192253
+  },
+  "maxRSSKiB": 341280,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-31/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+}

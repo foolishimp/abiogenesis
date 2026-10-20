@@ -1,0 +1,67 @@
+[
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-controls-02/request.txt",
+    "bytes": 7901,
+    "sha256": "f459f4f9a19a0d01f85c7f92b1d7284e4a180cc7bdf7e65649381a64cd890adc"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-controls-02/request-sections.json",
+    "bytes": 8175,
+    "sha256": "ce1110d00abfd48bbaf9a864ab1d8b46fcc1b13b1d9d78742cc863a87deb7d3e"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/freeze.json",
+    "bytes": 1723910,
+    "sha256": "2696a00bda621be6aedca8fd32483e810d6e48d90f546ea75c66f082af4690bb"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/return.md",
+    "bytes": 5334,
+    "sha256": "e0fd8055a3048d1ad32159a83f6a7d940a8a8ad8036780df2920c5eaec544d8f"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/causal-triage.json",
+    "bytes": 8073,
+    "sha256": "16a503967611127c405dce453433b809c7ca6d42f61d4d887036201421fc1c08"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/runtime-slots.json",
+    "bytes": 4692,
+    "sha256": "8193c41bd20b4ba0cd8d4dad7864701e5652f46e89694b46873d59a05257426f"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/last-successful-bind-environment.json",
+    "bytes": 15682336,
+    "sha256": "1e7fd5c6c73bfc62cdc19e066ba796fb55d28864697af32aa59f44f7022d0a1f"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/final-handoff.json",
+    "bytes": 1328,
+    "sha256": "f5f94c87a2d7cb174f8423c63ca370317966fabd9fafc4af25b1dc3bdf104fbf"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/failure-native-prefix.jsonl",
+    "bytes": 2475382,
+    "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/publication-inputs.json",
+    "bytes": 13862032,
+    "sha256": "0e3f915885bcc42a4dd6a97d235867e5bc3d97feb91e50e07f1ec0ee75452736"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/prepared-publications.json",
+    "bytes": 641721,
+    "sha256": "275a2b6c4e537d9ae1636dc1be7b61cbf13150edeb94d2dbf3b5cca4da75d78e"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/freeze.json",
+    "bytes": 4534351,
+    "sha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/freeze.json",
+    "bytes": 8013,
+    "sha256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe"
+  }
+]

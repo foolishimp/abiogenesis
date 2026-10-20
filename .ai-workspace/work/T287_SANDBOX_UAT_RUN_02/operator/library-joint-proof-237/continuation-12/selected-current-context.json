@@ -1,0 +1,81 @@
+{
+  "installedOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-12/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+  "prefix": {
+    "coordinateDigest": "sha256:2244a05e24868bfe68ab639d0f151c5c89e352b4d0b73bcd22e4881cdd1e0110",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:79d92efdfb63f810b849659eb7a38e79b3ca0505234f82b37d2e346cb608c5b9",
+    "prefixLength": 21139392,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 469917053
+    }
+  },
+  "run": {
+    "digest": "sha256:8c124a04258fe6fde46f5cfbd97847b8802cd0408d7be37e18e8e3c2ca3dbc4b",
+    "ref": "run://abiogenesis/c691a9207d76e8767d414fe9c8661b4c332f515ed868c73eccc5d54d1a1b2efa"
+  },
+  "contextOrigin": {
+    "eventRef": "event://abiogenesis/71e273dbbf02d9ea7419afe67e61ed76d41b97e47d54175fe9479c6b482d9296",
+    "payloadDigest": "sha256:2be55688593b220f10facaf2db47ce0c0c03d60ce33ca538d1da79cf0ba3fb0c",
+    "resultRef": "result://abiogenesis/db1ab316b5f89e9cc28a79b7c913ba28608dfd6368b1cd0e08e77c300fea7317",
+    "field": "payload.value.context",
+    "contextDigest": "sha256:0b11dc2875121a48e2c12a9d5811e2719ecc6c61e5369a77c8aa1f6d2950e506"
+  },
+  "observationRef": "worksite-context-observation://abiogenesis/1ee0f1a0ca694cd42f56d665ff08f1216ab36a7bd21bfaadf1e00421f020da40",
+  "observationDigest": "sha256:1ee0f1a0ca694cd42f56d665ff08f1216ab36a7bd21bfaadf1e00421f020da40",
+  "workspaceBindingIdentity": "workspace-binding://abiogenesis/9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+  "workspaceBindingDigest": "sha256:9a59b4373bb83d847ce93fd07c12baa27bdc7ac756683e88045a1a4b154b2867",
+  "workspaceAuthorityBasisRef": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+  "workspaceAuthorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+  "readRoots": [
+    "fixture/source.md",
+    "fixture/checker.mjs",
+    "fixture/rubric.md",
+    "fixture/value.txt"
+  ],
+  "maxFiles": 32,
+  "maxBytes": 262144,
+  "entries": [
+    {
+      "byteLength": 335,
+      "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+      "encoding": "base64",
+      "fileIdentity": "16777231:469947492",
+      "relativePath": "fixture/checker.mjs",
+      "state": "file"
+    },
+    {
+      "byteLength": 634,
+      "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+      "encoding": "base64",
+      "fileIdentity": "16777231:469947493",
+      "relativePath": "fixture/rubric.md",
+      "state": "file"
+    },
+    {
+      "byteLength": 1107,
+      "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+      "encoding": "base64",
+      "fileIdentity": "16777231:469947491",
+      "relativePath": "fixture/source.md",
+      "state": "file"
+    },
+    {
+      "byteLength": 7,
+      "digest": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048",
+      "encoding": "base64",
+      "fileIdentity": "16777231:470001681",
+      "relativePath": "fixture/value.txt",
+      "state": "file"
+    }
+  ],
+  "originalNativeProducer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-10/selected-native-producer.json",
+    "sha256": "2c11612133dc07f9c12a80157445c91a1e35aac1b26a93d49383bad20701c365",
+    "byteCount": 32095
+  },
+  "limitation": "This is the admitted selector input context. The subsequent fresh Testing context observation is not separately retained; this record does not assert identical actual constructor context."
+}

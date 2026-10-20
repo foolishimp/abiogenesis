@@ -1,0 +1,66 @@
+{
+  "recordedAt": "2026-10-06T08:52:04.794Z",
+  "role": "Configuration Writer then UAT Operator",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "companionFrame": "#f-worksite-causality",
+  "scope": "Root conjoined routine operational correction of digest prefix only; candidate08 Source+identity GO unchanged; release immediate upon supported configuration acceptance",
+  "configPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08b.json",
+  "configSha256": "432cef9a19355e88700183500f9f322533be32287090d8e0ed1d3810be2c2a82",
+  "configBytes": 2328,
+  "supportedConfigurationAccepted": true,
+  "changedFromFrozenConfig08": [
+    "package.sha256 prefix"
+  ],
+  "candidateArchiveSha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4",
+  "candidateProductContentDigest": "sha256:0e301e512dcabe91dcd68ceeaf3348badd71bff469bba2af6a6d1d58dd56ad2f",
+  "canonicalManifestDigest": "sha256:5954328711ef9130b62df89608372eb5502429a34dcddd30d90f771dbde9ac38",
+  "candidateIdentityReturnSha256": "ab5cf75db9ae4a4b193a141e2c78ece78ec2818a5b4d638974a1740ea1bf36dc",
+  "candidateIdentityPinsSha256": "d59e87a014a062c66bc0d76877c701b58061ee6c76f2840d6fd1a5ce008bef57",
+  "sourceReviewReturnSha256": "549799b7d34dc810ec676097489879c5549cf3427d915645505aae8e5d345bef",
+  "selectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json",
+      "sha256": "eeaca4aa9543a34039c90e22c137231ffe502bb55f2b065b10dc82fb9c3a1ef3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab"
+    }
+  ],
+  "orderedCases": [
+    "basic-cli",
+    "js-tenant-test",
+    "js-sdlc-bootstrap",
+    "rust-cli",
+    "rust-service",
+    "parallel-js",
+    "data-mapper-full"
+  ],
+  "stopOnAnyNonpass": true,
+  "outerTimeoutMs": 4200000,
+  "maxOutputBytes": 1048576,
+  "nativeTimeoutMs": 3600000,
+  "model": "claude-opus-5-5",
+  "maxTurns": 24,
+  "maxBudgetUsd": 5,
+  "inactivityTimeoutMs": 900000,
+  "absoluteTimeoutMs": 1200000,
+  "nativeExecutionReleased": true,
+  "sourceProductStdoHowAuthority": "Reused accepted executive05/06, closed G07 and G08/P08, retest07/08 preparation; fixed Product15families/GOAL035/STDO2.5.1RC2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+}

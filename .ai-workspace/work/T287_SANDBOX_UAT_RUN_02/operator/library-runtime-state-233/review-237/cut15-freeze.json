@@ -1,0 +1,16 @@
+{
+  "scope": "Independent cut15 core Source-only review; unfinished successor cones excluded",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/cut15-review.md",
+      "sha256": "9b57f93ac034161d184014f5d750350c9f10d42bae1b954b3619f40d3a5c3e3f",
+      "byteCount": 5284
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/review-237/cut15-pins.json",
+      "sha256": "b560105a21940a7a1ebd9d95a004f0b1a010d501866027c7313ed8c7d79c19ec",
+      "byteCount": 7280
+    }
+  ],
+  "disposition": "bounded GO; no native/installed/capacity acceptance"
+}

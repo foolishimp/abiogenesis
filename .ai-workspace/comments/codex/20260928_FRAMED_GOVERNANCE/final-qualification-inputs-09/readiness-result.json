@@ -1,0 +1,167 @@
+{
+  "kind": "qualification_command_preparation_readiness",
+  "status": "CLOSED",
+  "workResult": "GO_MECHANICAL_ONLY",
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_09",
+  "frontier": "original-input-conservation",
+  "completeTaskConstructed": true,
+  "taskRef": "worksite-command-execution-task://abiogenesis/89209027a712aa18c1df4c0d78524f5e120b93f9df4666e604793c99f4c7f4d6",
+  "taskDigest": "sha256:89209027a712aa18c1df4c0d78524f5e120b93f9df4666e604793c99f4c7f4d6",
+  "publishedTaskGuard": true,
+  "sourceSetRef": "observed-worksite-execution-source-set://abiogenesis/1a2427fd43fde17b7c66ab37a31dba19d033084566c83403c2cf6b5078fb1812",
+  "sourceSetDigest": "sha256:1a2427fd43fde17b7c66ab37a31dba19d033084566c83403c2cf6b5078fb1812",
+  "protectedInputs": 3286,
+  "protectedBytes": 251757244,
+  "commands": 18,
+  "predicates": 19,
+  "territories": 1,
+  "actualTaskDigests": {
+    "commandConfigurationDigest": "sha256:6b8aa7ad1f409817cb3dacbb546d6cbe056e33273ccfe093374e25d41e572772",
+    "predicateConfigurationDigest": "sha256:77c818483c281fc249f19dae307b8f717377661b3105daba8a089d0d8269987d",
+    "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0"
+  },
+  "currentRecipeDigestsMatch": true,
+  "currentRecipeBodyInventoryCorrespondence": {
+    "kind": "actual_complete_preparation_correspondence",
+    "inventory": {
+      "ref": "qualification-inventory://abiogenesis/51729af29043b29e0052db2a50d376fc285f0da26562b21d7d7202335b67c5e9",
+      "digest": "sha256:51729af29043b29e0052db2a50d376fc285f0da26562b21d7d7202335b67c5e9"
+    },
+    "protectedFiles": 3286,
+    "sourceInputs": 782,
+    "auxiliaryInputs": 2503,
+    "recipeSelfObservedOnce": true,
+    "recipeBodyDigest": "sha256:e916365a16c5e8dba68dad339222d3f7880555879e55deaf517fc5af3c4d4029",
+    "actualTaskDigests": {
+      "commandConfigurationDigest": "sha256:6b8aa7ad1f409817cb3dacbb546d6cbe056e33273ccfe093374e25d41e572772",
+      "predicateConfigurationDigest": "sha256:77c818483c281fc249f19dae307b8f717377661b3105daba8a089d0d8269987d",
+      "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0"
+    },
+    "currentInventoryBodyCorrespondence": true,
+    "configurationCorrespondence": true,
+    "qualificationMaterialProduced": false,
+    "RuntimeAdmission": false
+  },
+  "staleQ04RecipeMatches": false,
+  "negatives": 13,
+  "allNearestNegativesRefused": true,
+  "earliestOwnerCall": {
+    "ordinal": 1,
+    "operation": "constructWorkspaceAuthorityBasis"
+  },
+  "firstCalls": [
+    {
+      "ordinal": 1,
+      "operation": "constructWorkspaceAuthorityBasis"
+    },
+    {
+      "ordinal": 2,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 3,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 4,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 5,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 6,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 7,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 8,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 9,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 10,
+      "operation": "constructWorksiteSubject"
+    },
+    {
+      "ordinal": 11,
+      "operation": "observeWorksiteSubject"
+    },
+    {
+      "ordinal": 12,
+      "operation": "constructWorksiteSubject"
+    }
+  ],
+  "observedPublicCallCounts": {
+    "constructWorkspaceAuthorityBasis": 1,
+    "constructWorksiteSubject": 3286,
+    "observeWorksiteSubject": 3286,
+    "constructObservedWorksiteCommandExecutionTask": 1,
+    "isObservedWorksiteCommandExecutionTask": 2
+  },
+  "effects": {
+    "qualificationCommandsExecuted": 0,
+    "historicalTestsExecuted": 0,
+    "nativeProviderCalls": 0,
+    "ProductEnvironmentOwnerCalls": 0,
+    "resolverInstallBindCatalogRunJAF22Calls": 0,
+    "ABGAdmissionCalls": 0,
+    "newlyAdmittedEvents": 0,
+    "networkCalls": 0,
+    "privateImports": 0,
+    "filesystemWrites": "new report territory only",
+    "actualFileObservations": 3286
+  },
+  "cost": {
+    "copyElapsedMs": 1402.479708,
+    "completeConstructionElapsedMs": 3787.3619579999995,
+    "totalElapsedMs": 6298.3673340000005,
+    "processResourceUsage": {
+      "userCPUTime": 6930275,
+      "systemCPUTime": 3793022,
+      "maxRSS": 596224,
+      "sharedMemorySize": 0,
+      "unsharedDataSize": 0,
+      "unsharedStackSize": 0,
+      "minorPageFault": 54994,
+      "majorPageFault": 84,
+      "swappedOut": 0,
+      "fsRead": 0,
+      "fsWrite": 0,
+      "ipcSent": 0,
+      "ipcReceived": 0,
+      "signalsCount": 0,
+      "voluntaryContextSwitches": 177,
+      "involuntaryContextSwitches": 425989
+    },
+    "heap": "default; no NODE_OPTIONS or max-old-space-size override",
+    "qualificationRecipe": "eighteen declared commands unexecuted; Q04 earlier six-case readiness passed and is not repeated"
+  },
+  "currentRuntimeBindings": null,
+  "successorC07Binding": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+      "bytes": 381272,
+      "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+      "mode": 420
+    },
+    "inventory": {
+      "ref": "qualification-inventory://abiogenesis/51729af29043b29e0052db2a50d376fc285f0da26562b21d7d7202335b67c5e9",
+      "digest": "sha256:51729af29043b29e0052db2a50d376fc285f0da26562b21d7d7202335b67c5e9"
+    }
+  },
+  "actualSnapshot": null,
+  "observedQUAL056": null,
+  "wholeF11": null,
+  "independentJ": null,
+  "soleAF22": null,
+  "releaseAcceptance": null,
+  "limit": "Exact C07/Q07 caller constructability only. Mechanical unit A/W/grant and actual copied Q07 file observations are not ABG-admitted Runtime coordinates or qualification material. C07 construction is Root-accepted and bound. Actual Runtime admission and qualification remain unknown."
+}

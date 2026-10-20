@@ -1,0 +1,106 @@
+[
+  {
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "postimagePath": "authority-postimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 468620,
+    "sha256": "89498a38d86813c2fecac6d202a1c733480494b917976f1ff47d0ce13b489f35",
+    "C02PreimageSHA256": "de8b1cca640cbe220c5d53108cc21602f8579ca0361eb3cb39df8876bbea1b5f",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "postimagePath": "authority-postimages/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "bytes": 24123,
+    "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+    "C02PreimageSHA256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+    "postimagePath": "authority-postimages/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+    "bytes": 13748,
+    "sha256": "5e4a67b1c108df56ef4dede2d6ae6995d7420b9f1a5f5a70e125728a534e1cc8",
+    "C02PreimageSHA256": "c3bbe783ecb50d08328eec1d861e1586b54332399ac9ddbb93e0b3c7a3cceef8",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/GOALS.md",
+    "postimagePath": "authority-postimages/specification/GOALS.md",
+    "bytes": 66413,
+    "sha256": "108207726681c787bae7a63271f1eff2834bbba83e65ca94396063c9ccab1363",
+    "C02PreimageSHA256": "9e8fbf4e6df444bba9153dd3a7e4100fe3afe0ca9e163cbf7fc27c0084619ded",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/PRODUCT.md",
+    "postimagePath": "authority-postimages/specification/PRODUCT.md",
+    "bytes": 93561,
+    "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+    "C02PreimageSHA256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+    "postimagePath": "authority-postimages/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+    "bytes": 6297,
+    "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+    "C02PreimageSHA256": "c062ea26440b23e71101ae8f1161634972b67ad1324d90cd295e2bc302773b97",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "postimagePath": "authority-postimages/specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "bytes": 12093,
+    "sha256": "e09939e63164131f8dd8ea9a0a0030755897cce769d20cd719391b5d4140c32d",
+    "C02PreimageSHA256": "4dca668bf7c11987cf9a79e320d828e783e99b43591b0e408bc325e178d65f15",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+    "postimagePath": "authority-postimages/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+    "bytes": 10959,
+    "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+    "C02PreimageSHA256": "697531863470181bbacc2b64abc6ee1508c3681c48173c781ad8effe07ea59cf",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+    "postimagePath": "authority-postimages/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+    "bytes": 4137,
+    "sha256": "068a34859896cc5ec8bda0a34a9b8a4571f924cc243abf21a22a320410b35c1d",
+    "C02PreimageSHA256": "bb5b2bc9a0e0be1153457ca6a85950c57fa5877a5cd9128239d92e266f9322f9",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+    "postimagePath": "authority-postimages/specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+    "bytes": 3930,
+    "sha256": "6d9ed61cbb2042ab58c9d0ec04eafd862af422d5fe4c28164921c69325a2a24c",
+    "C02PreimageSHA256": "1ea14838adfe1dfa999dcc31c30156fb810d810ad6600936c695d721469f8061",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/requirements/product/REQ-P-QUAL.md",
+    "postimagePath": "authority-postimages/specification/requirements/product/REQ-P-QUAL.md",
+    "bytes": 35509,
+    "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+    "C02PreimageSHA256": "2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "postimagePath": "authority-postimages/specification/requirements/product/REQ-P-SCENARIOS.md",
+    "bytes": 16531,
+    "sha256": "33939c54db28a76cee08841731258cfdebcd870975a749d84a5d957466b7469d",
+    "C02PreimageSHA256": "aa6f0c878253541b50469ca5f04540f3007755272382d284e3a3234efffb99e5",
+    "classification": "authorized_current_authority_tracking_method"
+  },
+  {
+    "path": "stdo_abiogenesis.json",
+    "postimagePath": "authority-postimages/stdo_abiogenesis.json",
+    "bytes": 4277,
+    "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+    "C02PreimageSHA256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051",
+    "classification": "authorized_current_authority_tracking_method"
+  }
+]

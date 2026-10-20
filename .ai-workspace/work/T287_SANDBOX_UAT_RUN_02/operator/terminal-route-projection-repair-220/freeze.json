@@ -1,0 +1,254 @@
+{
+  "kind": "worker220_frozen_source_increment",
+  "status": "CLOSED_STOPPED",
+  "sourcePreimage": "02a549dc4598d125ac69b42ebc10193a7854694b80fe5291ab800aff015102ec",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/activation.md",
+      "sha256": "7b60105b70d73fceffd4ebe0b5d3263881b694a0a8e3eec9b66e6dd15a2bb50d",
+      "byteCount": 712
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/asset-baseline.json",
+      "sha256": "839e62d540eddf18b400418bf800342c4c433189ccaca425079fca017281a248",
+      "byteCount": 36572
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/focused-01.request.json",
+      "sha256": "839f9ce3ec5861e56a0741448ece7a85e683727808c31242147f6547c17995e0",
+      "byteCount": 907
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/focused-01.result.json",
+      "sha256": "fd9c161c4f83c0f85e2526b5a9be4d80b62858d40890295368981b54fa924f26",
+      "byteCount": 54
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/focused-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/focused-01.stdout",
+      "sha256": "63c6f3a881451ad1529718def7b26feef9557aebe4f5c39cbe4c949cb40d9481",
+      "byteCount": 3970
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/focused-02.request.json",
+      "sha256": "7cfc7a1251b06bf96f1bdf87f858b774933aeee371b61d198b0c2eb4af6355de",
+      "byteCount": 765
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/focused-02.result.json",
+      "sha256": "8a490ff242575b474158e071cd5c62b894b4e87d04fd158f96fd20d26bf75baf",
+      "byteCount": 98
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/focused-02.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/focused-02.stdout",
+      "sha256": "5b6d99b730c019209bad375bffb23f7613d500557e5ef9a2089a925b2e987836",
+      "byteCount": 1880
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/generate-01.request.json",
+      "sha256": "a02ffca675e902b2ce069fcb8f1a64c870ba1f28d418e2efa8739392fbbb5e5b",
+      "byteCount": 272
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/generate-01.result.json",
+      "sha256": "dd62e92d02038f8180c2feb66c6b6672cec4cfc2b5dd67fc1840f899f5ce0612",
+      "byteCount": 97
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/generate-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/generate-01.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/reopen-diagnostic-01.request.json",
+      "sha256": "dbfdc0bfd7b331ecde40b8966ace07533fe92e49afe6e16cdd3141c63317b9b2",
+      "byteCount": 957
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/reopen-diagnostic-01.result.json",
+      "sha256": "7f8909cac20000a870a1c7cef60a9bd86dbd0ef829d1196adeec8651723e32ad",
+      "byteCount": 55
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/reopen-diagnostic-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/reopen-diagnostic-01.stdout",
+      "sha256": "5a74a6de33322981202ae3c0eae330c5f3cfb906be9211648e506b164dcf7275",
+      "byteCount": 1422
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/strict-01.request.json",
+      "sha256": "f0ee918a9451f02b96d508bca4f38abc5ba643c5dcf7bc9dc68b71d5dde3889b",
+      "byteCount": 338
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/strict-01.result.json",
+      "sha256": "b14733c06e20047eb717a189666b06d55a38b2851c85a089fbd438520364fcb3",
+      "byteCount": 54
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/strict-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/commands/strict-01.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/compiler-parity.json",
+      "sha256": "de19eb19430b0537f8cbbfd3f1d21ea37fcfd52e96a587ec5b9f904729616297",
+      "byteCount": 381
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/delta.patch",
+      "sha256": "2ac32954706f06ae0f4de20bbadd7d9a7362fbb234259f4f98f632617438ba62",
+      "byteCount": 51668
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/final-parity.json",
+      "sha256": "6f4e31fc17f3e5277a010f9917ed3127ba7e3843cc5c3022dafcc447f8ac89c6",
+      "byteCount": 2446
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/first-cause.json",
+      "sha256": "ea13f13e30e5c1f65b451091b4868ba609449a42201b6bbbbd42305e761e5a1b",
+      "byteCount": 2425
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/generated-baseline.json",
+      "sha256": "bd5b1e904809886e1276649b578a4dd0bb4b1eed0ad835070bfc6cf927aa8741",
+      "byteCount": 128929
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/posts.json",
+      "sha256": "d5331a9513df47eabf8570dd7c30f86147a588b1ec7be30c9e049a1ecd69dd52",
+      "byteCount": 843
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "a14e1621c138680168ab397f176548039e413eda46f043f0799d39d119348086",
+      "byteCount": 36651
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/capability-definition-graph.json",
+      "sha256": "0c8590144ca07bd578ed876b947e0b03c7e938885f94b7422cd71bb8b5ac2767",
+      "byteCount": 197474
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/product-toolchain-manifest.json",
+      "sha256": "d063432ca67d0f01bb94d6991f37fcab33e41a12748e529bf18a8615aed9e893",
+      "byteCount": 3171685
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/replay.js",
+      "sha256": "aa85a6d65edcbe19bbcf561f1dea8a4d4fbb1693c28049cc41a4cbdea53c9b36",
+      "byteCount": 78197
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/replay.ts",
+      "sha256": "02a549dc4598d125ac69b42ebc10193a7854694b80fe5291ab800aff015102ec",
+      "byteCount": 90575
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/route-test-focused-01.mjs",
+      "sha256": "178692a0cc5be168f334eca54e1a6b80543f4fac3cdc00e3dcc8ce74c0e2713d",
+      "byteCount": 19510
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/t287-held-prefix.test.mjs",
+      "sha256": "671a9bfc87b1b1b2e833a32a626afedd4a5566157918a04049b773f012294422",
+      "byteCount": 22777
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages/t287-route-reconstruction.test.mjs",
+      "sha256": "6e8a73516979dc42e6d476c1180ed3a2f9c7083c31e17339290eb1e7bb32b738",
+      "byteCount": 10253
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/preimages.json",
+      "sha256": "df2a9c89712ec1caad424d981f0f0a85cdb05fa8a50abfbcb8a1ba803ab69d3e",
+      "byteCount": 961
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/readiness.json",
+      "sha256": "8fadbed197f2e70ba5d4386816156b6bbacba9f0d1eb50ec9e7db3babc3e2ffb",
+      "byteCount": 4600
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/return.md",
+      "sha256": "07418599414c3f70bfa061a3d205cfc52c752025b3b70a12fdf66cc8be7a97c6",
+      "byteCount": 2065
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/terminal-route-projection-repair-220/source-baseline.json",
+      "sha256": "76a29a2934ccf4343584621b08f0f7cdc5609c208904f2a9c914515d4aa85915",
+      "byteCount": 43937
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "sha256": "1f80f69acf96284f503fe7feb47d93362450f3367c97689f0b5f8e370d26888d",
+      "byteCount": 92034
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "52de5e4ed66ca62ea7247add4fcd232dda649d30aca3330412233419d1c15fa4",
+      "byteCount": 37264
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+      "sha256": "6f197771aff6be121c5c5f5dcf8034005e12e58711b1c5e27195341f20f16dd0",
+      "byteCount": 25283
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+      "sha256": "6fe16034261213fbbc245bc960836e34a5f4c8be6e219a431a8f542e9e2f890e",
+      "byteCount": 80185
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+      "sha256": "671a9bfc87b1b1b2e833a32a626afedd4a5566157918a04049b773f012294422",
+      "byteCount": 22777
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "0ff04b481dab6ed876919bcef2e191f3f8774aee97560d79495fd68804fe7db6",
+      "byteCount": 3171685
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "ee95fcdd479665d55c4a3ef0a92a67c9749ada90e901eaa8187b85e2706bc5d9",
+      "byteCount": 197474
+    }
+  ],
+  "protectedByReference": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/freeze.json",
+      "sha256": "d508c7659593fd622210e0cd4ec262338abf665390e688d622262c51b8dda0df",
+      "byteCount": 1549
+    }
+  ],
+  "limits": [
+    "219 fatal JavaScript allocator/dominant retainer remains unproved; this removes independently demonstrated unnecessary route-reader work, not an established OOM cure.",
+    "No new release candidate/archive/install, original UAT workspace/log acquisition/hash, provider/native execution or recovery.",
+    "Full installed judgment\u2192completion\u2192terminal authentication and actual stock-heap capacity remain required on a reviewed immutable successor."
+  ]
+}

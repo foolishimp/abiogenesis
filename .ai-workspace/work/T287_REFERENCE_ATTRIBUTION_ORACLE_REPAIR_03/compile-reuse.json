@@ -1,0 +1,18 @@
+{
+  "status": "verified_reuse",
+  "receipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_REPAIR_01/compile.json",
+    "sha256": "8cf0dfd777cc9ec75fc436e485fe79f7960e6047d1ede4455c12909ca258c9fc"
+  },
+  "frozenStageInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_FIXTURE_REPAIR_02/stage-inventory.json",
+    "sha256": "919165eaa56e402a75b278596060c1ac91102ca0b649f0d4e43d97582787ca97"
+  },
+  "verifiedFiles": 5812,
+  "verifiedLogicalBytes": 104147687,
+  "filesystemCopyOnWrite": true,
+  "noHardLinks": true,
+  "recompiled": false,
+  "onlyChangedClonedFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+  "elapsedMs": 796.3900830000057
+}

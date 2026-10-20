@@ -1,0 +1,8 @@
+{
+  "baseline": "64 exact generated catalog",
+  "rowCount": 75,
+  "differenceCount": 0,
+  "onlySha256Consequences": true,
+  "differences": [],
+  "ownerRecompute": "essential-parity.mjs independently recomputes canonical catalog and assets/declarations"
+}

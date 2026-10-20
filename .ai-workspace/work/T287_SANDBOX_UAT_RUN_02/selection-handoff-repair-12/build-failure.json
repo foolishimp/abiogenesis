@@ -1,0 +1,65 @@
+{
+  "disposition": "stopped_build_failure",
+  "command": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "actualCompilerCodes": [
+    "TS2304",
+    "TS18048"
+  ],
+  "compilerLocations": [
+    146,
+    147,
+    149,
+    152,
+    153
+  ],
+  "recordingWrapperExit": 13,
+  "npmExitStatus": "not_preserved",
+  "recordingFailure": "finish listeners registered after streams had finished; no exact npm exit receipt",
+  "sourcePins": [
+    {
+      "path": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "04a785cac2b771d2cbc557b4467853bc51309b3220dde7847201bb83527b3cc2",
+      "byteLength": 45084
+    },
+    {
+      "path": "code/src/abg/default_library.ts",
+      "sha256": "5456f5019766006f8a01ae2b5ac5b957f20ebcf18b4ec1d560b26d5e7ae41fc1",
+      "byteLength": 31065
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "sha256": "733d812faf4022317be800f7c84a8fc12502766b45c0d032b7f87dc691b3114a",
+      "byteLength": 92153
+    },
+    {
+      "path": "test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteLength": 77648
+    },
+    {
+      "path": "test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "byteLength": 34763
+    }
+  ],
+  "logs": [
+    {
+      "path": "build.stdout.log",
+      "sha256": "613bfaf79b8dc0e1441dd8691a43d925a8476d2c292c3d96365291b2b3e67ed4",
+      "byteLength": 1037
+    },
+    {
+      "path": "build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    }
+  ],
+  "testsExecuted": false,
+  "candidatePackExecuted": false,
+  "nativeExecution": false,
+  "nextStepOwnedBy": "Executive"
+}

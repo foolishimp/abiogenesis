@@ -1,0 +1,22 @@
+{
+  "ownerRoute": "generator1030–1117 / product.constructCapabilityDefinitionGraph / public_function_family original projections",
+  "results": [
+    {
+      "candidate": 18,
+      "graphDigest": "sha256:b424d08fd66a6c1258202715e23642a8b06bc304d2bd13e53b3faf1523ec6f3a",
+      "flatCount": 75,
+      "nestedCount": 178,
+      "graphRows": 16,
+      "exactCanonicalValueAndBytes": true
+    },
+    {
+      "candidate": 19,
+      "graphDigest": "sha256:ed66f021170abc976fcfaeadad9348533776236097a2475723513c5fc4955ab4",
+      "flatCount": 75,
+      "nestedCount": 178,
+      "graphRows": 16,
+      "exactCanonicalValueAndBytes": true
+    }
+  ],
+  "noFieldOmission": true
+}

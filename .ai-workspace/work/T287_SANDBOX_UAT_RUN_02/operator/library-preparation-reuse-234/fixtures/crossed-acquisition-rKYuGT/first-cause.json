@@ -1,0 +1,9 @@
+{
+  "stage": "preflight",
+  "elapsedMs": 7.999040999999124,
+  "name": "AssertionError",
+  "message": "Selected fixture input digest changed\n+ actual - expected\n\n+ '798ef7dbbc84d4193d507f2b3bb186b815f1d2e3d6e26964d7aeba18adb4ab07'\n- '0000000000000000000000000000000000000000000000000000000000000000'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Selected fixture input digest changed\n+ actual - expected\n\n+ '798ef7dbbc84d4193d507f2b3bb186b815f1d2e3d6e26964d7aeba18adb4ab07'\n- '0000000000000000000000000000000000000000000000000000000000000000'\n\n    at selectedValue (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs:20:10)\n    at async prepareInstalledContinuation (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs:106:22)\n    at async waitForActual (node:assert:644:5)\n    at async strict.rejects (node:assert:767:25)\n    at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.test.mjs:71:3)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+  "observation": null,
+  "disposition": "HOLD; retain completed owner effects; Executive root-cause/action before retry"
+}

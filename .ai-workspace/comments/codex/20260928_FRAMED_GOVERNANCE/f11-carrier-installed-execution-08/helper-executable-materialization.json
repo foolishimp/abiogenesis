@@ -1,0 +1,22 @@
+{
+  "kind": "actual_closed_controller_donor_tool_mode_materialization",
+  "Q09SourceBodyMode": "0o644",
+  "exactQ09BodyPreserved": true,
+  "actualClosedDonor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01/controlled-helper.mjs",
+  "actualClosedDonorMode": "0o755",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/controlled-helper.mjs",
+    "mode": "0o644",
+    "bytes": 1448,
+    "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/controlled-helper.mjs",
+    "mode": "0o755",
+    "bytes": 1448,
+    "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08"
+  },
+  "reason": "Q09 preserves source as readonly input; actual unchanged controlled transport executable uses the CLOSED Runtime07/preparation donor execute mode",
+  "helperLaunchesBeforeMaterialization": 0,
+  "ownerRuntimeCallsBeforeMaterialization": 0
+}

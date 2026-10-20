@@ -1,0 +1,16 @@
+{
+  "stage": "native26-preverify-complete",
+  "elapsedMs": 19942.84825,
+  "rss": 1696366592,
+  "heapTotal": 1371979776,
+  "heapUsed": 1185572888,
+  "external": 97587347,
+  "arrayBuffers": 95170486,
+  "wallMs": 19586.731083,
+  "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-26/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactDigest": "sha256:95d1e5a7e98ab47ed762c2d1c5cb3224632910b0baf7363d9ad03e62d62ebf1e",
+  "verificationRef": "product-verification://abiogenesis/c832a117d8d364941bf52e7ac5041c80bedc7a990c3fea0a674b9583b8c7d856",
+  "verificationDigest": "sha256:c832a117d8d364941bf52e7ac5041c80bedc7a990c3fea0a674b9583b8c7d856",
+  "checkedPayloadFiles": 5263,
+  "nominalReceipt": true
+}

@@ -1,0 +1,39 @@
+{
+  "originalAuthor": "T287_TYPED_LINEAGE_TYPE_FIXTURE_REPAIR_01",
+  "role": "Worker",
+  "authorAgent": "/root/q03_input_review",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/request.txt",
+    "bytes": 3321,
+    "sha256": "0acb571a6da74e3b05c862116c2bb9eff4cc6703ed48d8e097f5ccde620e646c",
+    "mode": 420
+  },
+  "lawfulReentry": "realization_refactor test fixture only",
+  "testPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+    "bytes": 6838,
+    "sha256": "0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7",
+    "mode": 420
+  },
+  "savedPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/preimage.test.mjs",
+    "bytes": 6838,
+    "sha256": "0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7",
+    "mode": 420
+  },
+  "testPostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+    "bytes": 7008,
+    "sha256": "c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b",
+    "mode": 420
+  },
+  "actualHookTypeRoute": "NonNullable<ReturnType<typeof inspectProductLeafSemanticsProjection>>['runtime']",
+  "productionSourceAuthorship": "six unchanged bodies retain earlier authors; no reauthorship",
+  "interimPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/prepared-before-routing-correction.test.mjs",
+    "bytes": 6981,
+    "sha256": "b2bebfe670f980d002837b382364d294f3dca32f8b98e819e76c9204948ddcf0",
+    "mode": 420
+  },
+  "suppliedPremiseLimit": "Source author record only, no native admission or independence"
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-directory-successor.mjs",
+    "--execute",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json"
+  ],
+  "startedAt": "2026-10-08T07:53:21.495487+00:00",
+  "driverPid": 23086,
+  "grant": "Root fixture-only directory-territory successor; one compact rerun permitted"
+}

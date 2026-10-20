@@ -1,0 +1,12 @@
+{
+  "operation": "T287_EXEC06_CALLER_REVIEW_ROUTING_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/independent-caller-request.txt",
+    "bytes": 3476,
+    "sha256": "e24f8465a974cddd3d177ffb07c2abad0f672be274efad8a4a187aba27c2be5b"
+  },
+  "reason": "Prior designated caller reviewer authored inherited Q06 caller; author diagnostic is preserved without independent assurance credit",
+  "effects": "Commentary/grant routing only"
+}

@@ -8,9 +8,9 @@ import {
   commitFhInteractionResumeAtExpectedPrefix,
   deriveFhResumeSuccessorInputAtPrefix,
   projectOpenedTraversalScopeClassAtDurablePrefix,
-  projectRuntimePrefixesAtDurablePrefix,
   selectAdmittedImplementationResolution,
 } from "../abg/index.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
 import { projectTraversalInputAtPrefix } from "../abg/traversal_cursor.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
 import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
@@ -22,7 +22,7 @@ import {
   type ChildTraversalBasis,
 } from "./child_traversal.js";
 import {
-  evaluateExecutableCCall,
+  evaluateOwnedExecutableCCall as evaluateExecutableCCall,
   type CCallLifecycleEvaluation,
   type ExecutableCCallContext,
 } from "./ccall_lifecycle.js";
@@ -39,9 +39,9 @@ import type {
   MachineWorkflowReturnFrame,
   TraversalMachineState,
 } from "./evaluation_frame.js";
-import { holdInteraction } from "./interaction_lifecycle.js";
+import { holdOwnedInteraction as holdInteraction } from "./interaction_lifecycle.js";
 import {
-  completeInteractionResume as resumeInteractionOwner,
+  completeOwnedInteractionResume as resumeInteractionOwner,
   type CompleteInteractionResumeInput,
 } from "./interaction_resume.js";
 import {
@@ -52,16 +52,16 @@ import {
   rehydrateParentReturnFrames,
 } from "./parent_rehydration.js";
 import {
-  beginRecursionApplication,
-  completeRecursionChild,
+  beginOwnedRecursionApplication as beginRecursionApplication,
+  completeOwnedRecursionChild as completeRecursionChild,
   recursionApplication,
-  restoreDeferredRecursion,
+  restoreOwnedDeferredRecursion as restoreDeferredRecursion,
   type CompleteExecutableTraversalInput,
   type RecursionChildFoldFrame,
   type RestoreDeferredRecursionInput,
 } from "./recursion_lifecycle.js";
 import {
-  advanceRetryLifecycle,
+  advanceOwnedRetryLifecycle as advanceRetryLifecycle,
   resumeProjectedRetry,
   type ProjectedRetryResumeRefusal,
   type ProjectedRetryResumeRefusalCode,
@@ -69,7 +69,7 @@ import {
   type ResumeProjectedRetryRequest,
   type ResumeProjectedRetryRuntime,
 } from "./retry_lifecycle.js";
-import { advanceStructuralTransition } from "./structural_transition.js";
+import { advanceOwnedStructuralTransition as advanceStructuralTransition } from "./structural_transition.js";
 import {
   failTraversal,
   GraphTraversalFailure,
@@ -103,8 +103,8 @@ import {
   type HeldWorkflowSuspension,
 } from "./traversal_completion.js";
 import {
-  beginWorkflowLocus,
-  completeWorkflowLocus,
+  beginOwnedWorkflowLocus as beginWorkflowLocus,
+  completeOwnedWorkflowLocus as completeWorkflowLocus,
   type TraversalLocusEvaluation,
   type WorkflowChildFoldFrame,
   type WorkflowLocusAuthority,
@@ -142,7 +142,7 @@ export type ExecuteGraphTraversalResult =
 type MachineLocusStep =
   | Readonly<{
       kind: "locus_evaluation";
-      evaluation: TraversalLocusEvaluation;
+      evaluation: OwnedTraversalLocusEvaluation;
     }>
   | Readonly<{
       kind: "retry_request";
@@ -158,13 +158,22 @@ type MachineLocusStep =
     }>
   | Readonly<{
       kind: "recursion_child_request";
-      frame: RecursionChildFoldFrame;
+      frame: OwnedRecursionChildFoldFrame;
       prepared: import("./child_traversal.js").PreparedChildTraversal;
       correlationId: string;
       outputValueKind: string;
       outputContractRef: string;
     }>;
 
+
+import { completePublicOutcome } from "../abg/c_call_outcome.js";
+import type { OwnedExecutableTraversalCompletion } from "./traversal_completion.js";
+import type { OwnedTraversalMachineState, OwnedMachineReturnFrame, OwnedMachineRecursionReturnFrame } from "./evaluation_frame.js";
+import type { OwnedRecursionChildFoldFrame } from "./recursion_lifecycle.js";
+import type { OwnedTraversalLocusEvaluation } from "./workflow_lifecycle.js";
+import type { OwnedCCallLifecycleEvaluation } from "./ccall_lifecycle.js";
+/** @internal */
+export type ExecuteOwnedGraphTraversalResult = OwnedExecutableTraversalCompletion | GraphTraversalEntryRefusal | GraphTraversalFailureResult;
 function childTraversalBasis(
   runtime: ExecuteGraphTraversalCommonInput,
 ): ChildTraversalBasis {
@@ -276,7 +285,7 @@ function executableContext(
 function recursionTraversalInput(
   frame: MachineEvaluationFrame,
   context: ExecutableCCallContext,
-  completion: ExecutableTraversalCompletion,
+  completion: OwnedExecutableTraversalCompletion,
 ): CompleteExecutableTraversalInput<Readonly<Record<string, JsonValue>>> {
   const resolution = selectAdmittedImplementationResolution(
     context.implementationSet,
@@ -488,9 +497,9 @@ function evaluateLocus(
 
 function nextFromEvaluation(
   frame: MachineEvaluationFrame,
-  evaluation: TraversalLocusEvaluation,
-  returns: readonly MachineReturnFrame[],
-): TraversalMachineState {
+  evaluation: OwnedTraversalLocusEvaluation,
+  returns: readonly OwnedMachineReturnFrame[],
+): OwnedTraversalMachineState {
   const runtime = frame.runtime;
   const completion = evaluation.completion;
   if (completion.disposition !== "advanced") {
@@ -501,7 +510,7 @@ function nextFromEvaluation(
     });
   }
   const selected = completion.nextCursor === null ? null : projectTraversalInputAtPrefix(
-    projectRuntimePrefixesAtDurablePrefix(completion.successorPrefix, completion.nextCursor.runId).authorityPrefix,
+    projectOwnedRuntimeEventPrefixAtDurablePrefix(completion.successorPrefix),
     runtime.graph, runtime.executionBasis, completion.nextCursor);
   const targetTerm = completion.nextCursor === null ? null : resolveCProgramTermAtSourcePath(
     runtime.graph.template, completion.nextCursor.currentNodeRef, completion.nextCursor.termPath);
@@ -544,7 +553,7 @@ function nextFromEvaluation(
 }
 
 type ActiveTraversalMachineState = Extract<
-  TraversalMachineState,
+  OwnedTraversalMachineState,
   Readonly<{ stateKind: "evaluate" | "return" }>
 >;
 
@@ -571,9 +580,9 @@ function liftGraphTraversalFailure<A, E>(
 
 function evaluateTraversalProgram(
   initial: ActiveTraversalMachineState,
-): Effect.Effect<ExecutableTraversalCompletion, GraphTraversalFailure> {
+): Effect.Effect<OwnedExecutableTraversalCompletion, GraphTraversalFailure> {
   const program = Effect.iterate<
-    TraversalMachineState,
+    OwnedTraversalMachineState,
     ActiveTraversalMachineState,
     never,
     GraphTraversalFailure
@@ -594,7 +603,7 @@ function evaluateTraversalProgram(
       return liftGraphTraversalFailure(Effect.suspend(() => {
       if (state.stateKind === "return") {
         const owner = returnOwner!;
-        const evaluation: TraversalLocusEvaluation =
+        const evaluation: OwnedTraversalLocusEvaluation =
           owner.kind === "workflow_return"
             ? completeWorkflowLocus(owner.workflow, state.completion)
             : {
@@ -637,7 +646,7 @@ function evaluateTraversalProgram(
           correlationId: frame.runtime.correlationId,
         });
         const selected = projectTraversalInputAtPrefix(
-          projectRuntimePrefixesAtDurablePrefix(advanced.successorPrefix, advanced.cursor.runId).authorityPrefix,
+          projectOwnedRuntimeEventPrefixAtDurablePrefix(advanced.successorPrefix),
           frame.runtime.graph, frame.runtime.executionBasis, advanced.cursor);
         if (selected === null || selected.value === null || typeof selected.value !== "object" || Array.isArray(selected.value))
           return Effect.sync(() => failFrame(frame, advanced.successorPrefix, `structural-input-${frame.ordinal}`,
@@ -698,7 +707,7 @@ function evaluateTraversalProgram(
             ...(deferFailedRunStop ? { deferFailedRunStop: true } : {}),
             correlationId: owner.correlationId,
           });
-          const returnFrame: MachineReturnFrame =
+          const returnFrame: OwnedMachineReturnFrame =
             owner.kind === "workflow_child_request"
               ? {
                   kind: "workflow_return",
@@ -865,7 +874,7 @@ function machineRecursionReturn(
   frame: Extract<HogReturnFrame, Readonly<{ relation: "recursion" }>>,
   predecessorPrefix: ExecuteGraphTraversalCommonInput["predecessorPrefix"],
   ordinal: number,
-): MachineRecursionReturnFrame {
+): OwnedMachineRecursionReturnFrame {
   const parent = machineFrameFromRehydrated(
     base,
     frame.parent,
@@ -1037,7 +1046,7 @@ function exactParentReturns(
   current: InitialOrNonRetryExecuteGraphTraversalInput,
   frames: readonly HogReturnFrame[],
   successorPrefix: ExecuteGraphTraversalCommonInput["predecessorPrefix"],
-): readonly MachineReturnFrame[] {
+): readonly OwnedMachineReturnFrame[] {
   return Object.freeze(frames.map((frame, ordinal) =>
     frame.relation === "workflow"
       ? machineWorkflowReturn(
@@ -1247,8 +1256,8 @@ function prepareHeldInteractionResume(
 
 function seedParentContinuation(
   parent: InitialOrNonRetryExecuteGraphTraversalInput,
-  completion: ExecutableTraversalCompletion,
-  returns: readonly MachineReturnFrame[],
+  completion: OwnedExecutableTraversalCompletion,
+  returns: readonly OwnedMachineReturnFrame[],
 ): ActiveTraversalMachineState {
   if (completion.disposition !== "advanced") {
     return Object.freeze({
@@ -1309,9 +1318,9 @@ function seedParentContinuation(
 
 function traversalProgram(
   input: ExecuteGraphTraversalRequest,
-): Effect.Effect<ExecuteGraphTraversalResult, GraphTraversalFailure> {
+): Effect.Effect<ExecuteOwnedGraphTraversalResult, GraphTraversalFailure> {
   return liftGraphTraversalFailure(Effect.suspend((): Effect.Effect<
-    ExecuteGraphTraversalResult,
+    ExecuteOwnedGraphTraversalResult,
     GraphTraversalFailure
   > => {
     if ("constructionResume" in input) {
@@ -1346,9 +1355,10 @@ function traversalProgram(
 }
 
 /** Effect-native HoG entry used by definition programs before the host membrane. */
-export function executeGraphTraversalEffect(
+/** @internal Ordinary Run execution retains no complete historical replay vector. */
+export function executeOwnedGraphTraversalEffect(
   input: ExecuteGraphTraversalRequest,
-): Effect.Effect<ExecuteGraphTraversalResult, never> {
+): Effect.Effect<ExecuteOwnedGraphTraversalResult, never> {
   return Effect.catchAll(
     traversalProgram(input),
     (failure) => Effect.succeed(projectGraphTraversalFailure(failure)),
@@ -1361,6 +1371,10 @@ export function executeGraphTraversalEffect(
   }));
 }
 
+
+export function executeGraphTraversalEffect(input: ExecuteGraphTraversalRequest): Effect.Effect<ExecuteGraphTraversalResult, never> {
+ return Effect.map(executeOwnedGraphTraversalEffect(input), result => completePublicOutcome<ExecuteGraphTraversalResult>(result));
+}
 export async function executeGraphTraversal(
   input: ExecuteGraphTraversalRequest,
 ): Promise<ExecuteGraphTraversalResult> {

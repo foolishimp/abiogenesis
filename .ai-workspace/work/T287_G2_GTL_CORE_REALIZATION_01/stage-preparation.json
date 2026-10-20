@@ -1,0 +1,29 @@
+{
+  "donorRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage",
+  "unselectedCurrentCodeDifferences": [],
+  "exactSourceSelectedPaths": [
+    "code/src/abg/m03.ts",
+    "code/src/gtl/c_algebra.ts",
+    "code/src/gtl/contracts.ts",
+    "code/src/gtl/m01.ts",
+    "code/src/gtl/m02.ts",
+    "code/src/gtl/serialization.ts",
+    "code/src/gtl/serialization_contracts.ts",
+    "code/src/validator/conformance_operation.ts",
+    "code/src/validator/conformance_operation_contracts.ts",
+    "code/src/validator/raw_admission.ts",
+    "code/src/validator/validation.ts",
+    "contracts/conformance/gtl-language-conformance-corpus.json",
+    "scripts/generate-product-manifest.mjs",
+    "test_env/tests/t287-gtl-language-corpus.test.mjs",
+    "test_env/tests/t287-gtl-serialization-publication.test.mjs"
+  ],
+  "stage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript",
+  "copiedFrozenToolchain": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain",
+  "nodeBytes": 86104016,
+  "nodeSHA256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+  "npmLink": "../npm/bin/npm-cli.js",
+  "elapsedMs": 2173.72391698882,
+  "commentsEffects": 0,
+  "generatedEffects": "owned stage only"
+}

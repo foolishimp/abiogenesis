@@ -1,0 +1,332 @@
+{
+  "kind": "exact_oversized_file_manifest",
+  "file_threshold_bytes": 104857600,
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/preparation/readback-basis.json",
+      "bytes": 148456456,
+      "sha256": "cc386d778eae538c4821d2f0d0c180b51b3decca06316b379ac72c36d21c3183",
+      "mtime_ns": 1790346284394176329,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/readback-basis.json",
+      "bytes": 160099361,
+      "sha256": "6ccaff0082b6303c3645c2d0811362ec1d4d639a13f506c39fa0cc007b4cf50f",
+      "mtime_ns": 1790349621743476476,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/suffix-01/readback-basis.json",
+      "bytes": 160099361,
+      "sha256": "79caa14d141154f446ebc9bd0df9500c024a7451871f5e8b287634e0c8e755f8",
+      "mtime_ns": 1790350197167021158,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/readback-basis.json",
+      "bytes": 183384799,
+      "sha256": "01eec7082b607c2a63545b27f8488b689562a33db465741aca37ed511ac1fca1",
+      "mtime_ns": 1790363252589420068,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/readback-basis.json",
+      "bytes": 183384799,
+      "sha256": "01eec7082b607c2a63545b27f8488b689562a33db465741aca37ed511ac1fca1",
+      "mtime_ns": 1790364032474249588,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/preparation/readback-basis.json",
+      "bytes": 195027387,
+      "sha256": "01ecbe3749ef75d609df141c172ffb89460b2d036fb677aa0db9a97005db8c46",
+      "mtime_ns": 1790367297502303122,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/preparation/readback-basis.json",
+      "bytes": 206669853,
+      "sha256": "e765195863ee013bcffd0b02169cd813508c7c1f0dead5c4e519df50531fd6af",
+      "mtime_ns": 1790368975198814817,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native37-continuation-01/suffix-01/readback-basis.json",
+      "bytes": 206669853,
+      "sha256": "429561cb5c8cfb83b1fdfb4425385c094f0ed3dbb1a88835dfd467449b34ba36",
+      "mtime_ns": 1790369273052757564,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/preparation/readback-basis.json",
+      "bytes": 218312319,
+      "sha256": "0bd0a4c348c1697abae681f7151a3cc8554e1203416842b87d89db939634d12d",
+      "mtime_ns": 1790371873624873636,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/suffix-01/readback-basis.json",
+      "bytes": 218312319,
+      "sha256": "ab98c3c3d3a05e0fc684492b96202e02ead3fbb71c5986850c33cc287062af57",
+      "mtime_ns": 1790372178348335593,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native39-continuation-01/preparation/readback-basis.json",
+      "bytes": 230628241,
+      "sha256": "8b654b3263f168228c729ab6b0edb3f7c3b8daa254c4da9ef84336530b4c5b88",
+      "mtime_ns": 1790385270643782065,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/preparation/readback-basis.json",
+      "bytes": 171742658,
+      "sha256": "f410199ff6a533b772014e70a6b84ed81b8045d6ea921da56d8b5b85c600beee",
+      "mtime_ns": 1790354820064969951,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/suffix-01/readback-basis.json",
+      "bytes": 171742658,
+      "sha256": "368d23ae3ac311183b403e437c9e2e590f4cfba7b6c75f7f6fdcb935ecc98e65",
+      "mtime_ns": 1790355486941269248,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/readback-basis.json",
+      "bytes": 136813315,
+      "sha256": "43f4fe6ed9e56e905756980294eb310a2dd53a5b0f84e308089a2b115a0af610",
+      "mtime_ns": 1790339932425234781,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/readback-basis.json",
+      "bytes": 136813315,
+      "sha256": "663fec5f86606df0ea500e72f249553b8839f3f6f18ee5a9dd26c64298433321",
+      "mtime_ns": 1790340334386332983,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/preparation/readback-basis.json",
+      "bytes": 113524040,
+      "sha256": "04727515d0d4ee9656f2e5b0a793b883c7bc81a9bfde2e149e5f0e1e81ea05ca",
+      "mtime_ns": 1790305374503494341,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/suffix-01/readback-basis.json",
+      "bytes": 113524040,
+      "sha256": "54684c133b3e81ef82c7798bc93d82fe24912d5371ebd76a3d1f88d7c14dfb73",
+      "mtime_ns": 1790335102067389149,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/preparation/readback-basis.json",
+      "bytes": 125166372,
+      "sha256": "f831bab233ff3c525ceb5607875589080102b17f0ef6df071c005fddfe19edd6",
+      "mtime_ns": 1790336863221857753,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/suffix-01/readback-basis.json",
+      "bytes": 125166372,
+      "sha256": "5cfcd15a55e4d062b621f85027b7457e187bbd8eb56252dd5351158a9306ece9",
+      "mtime_ns": 1790337288221918998,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/checkpoint-01/closed-repair-evidence.tar.gz",
+      "bytes": 151470062,
+      "sha256": "945990b588ec443bb7bae53f163a8ebdc1007ed49406fdd91017ae7a36d9d5cd",
+      "mtime_ns": 1790407005464141440,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/readback-basis.json",
+      "bytes": 242323417,
+      "sha256": "f9f7ad09288c637f5270d136224a98beb293f04e2d35bcf4077f595d9e8ca604",
+      "mtime_ns": 1790403716841798476,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/readback-basis.json",
+      "bytes": 242323417,
+      "sha256": "e77d9b588d62c92e3779a561f9c76f696723123a6b5a06d81432b2c8d7b6e649",
+      "mtime_ns": 1790405614778624919,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native41/preparation/readback-basis.json",
+      "bytes": 254013248,
+      "sha256": "f148f4016ae3206d4d49363e302a4a43ad9b247dfbe099a255794d016c4fd00c",
+      "mtime_ns": 1790406912069541910,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation/readback-basis.json",
+      "bytes": 265702878,
+      "sha256": "22caa43468947c3a7f1a1813c29d4eaf2a9f9ca36e3190da9f07e1ff65685dbf",
+      "mtime_ns": 1790408984217404698,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/suffix-01/readback-basis.json",
+      "bytes": 265702878,
+      "sha256": "0fe59851818eea35aefc882db87294ce98ba66defa4614c0eff7d83bbd6d4e20",
+      "mtime_ns": 1790409511811415951,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/preparation/readback-basis.json",
+      "bytes": 277419250,
+      "sha256": "95a34f25aad88b87dfdb45f92f61f922ab774db4038439054d1cb56e0b96bb6d",
+      "mtime_ns": 1790413916861382565,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/preparation/readback-basis.json",
+      "bytes": 289109084,
+      "sha256": "6ba8944cc51ea6114c95f2391ae0fac82397e28eaa3024cac891cfa96796ad7c",
+      "mtime_ns": 1790415053318863030,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/readback-basis.json",
+      "bytes": 289109084,
+      "sha256": "c6e82e342756c391321a696ebf84707bb36df17c7d98b368a1bfb52cb1e867e7",
+      "mtime_ns": 1790415894221737292,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/offline-start-call.json",
+      "bytes": 201183170,
+      "sha256": "7a6bf3fcaa4bf457588c2fe674fc61783d74b169a38b39d729c928af63e37149",
+      "mtime_ns": 1790857676161470663,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/assessment-owner-precondition.json",
+      "bytes": 288132609,
+      "sha256": "7b6596844e0fdce5b7c2003f0551305d565b87a1571665cf5be70da40625bbe7",
+      "mtime_ns": 1790858183536224602,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule.jsonl",
+      "bytes": 153737978,
+      "sha256": "159bec822d445384f3e72a13025a39254bd83f0dfa726b88a1db4a433f9de388",
+      "mtime_ns": 1790858184117002151,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/pure-preflight.json",
+      "bytes": 467524573,
+      "sha256": "69a5cc6ec76f522f5ada9ede1942e146b9162f07ee19055deb1752729340fce0",
+      "mtime_ns": 1790870187698820446,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/candidate-files.json",
+      "bytes": 147352629,
+      "sha256": "05052fc15161aac77dde27c577dcb27d18d5f2fb91657fcade0a37570c52cbc0",
+      "mtime_ns": 1791098361966214701,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/excluded-unproved-files.json",
+      "bytes": 110311987,
+      "sha256": "c8f0ae77a548977d4e9f5483165416d66caad6bce008e9fe8debd2f1c16e2435",
+      "mtime_ns": 1791097833706912113,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/unlink-ledger.jsonl",
+      "bytes": 164455280,
+      "sha256": "d3ba12bee903172a9c4845b033e6386100ee4cdb9e007eff7e8ce9d1ae0b111c",
+      "mtime_ns": 1791099310735714981,
+      "unchanged_during_hash": true,
+      "same_initial_stat": true,
+      "tracked_at_initial_inventory": false
+    }
+  ],
+  "path_count": 35,
+  "logical_bytes": 7015409062,
+  "unique_sha256_objects": 34,
+  "unique_object_bytes": 6832024263,
+  "wall_seconds": 2.679331124993041,
+  "all_stable": true,
+  "classification": {
+    ".json": 32,
+    "tar.gz": 1,
+    ".jsonl": 2
+  }
+}

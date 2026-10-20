@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 0.8596020834520459,
+  "priorFixtureFailure": "Unbound zero artifact+manifest placeholders repeat provenance; focused test now applies ordinary distinct component artifact coordinates, no implementation broadening."
+}

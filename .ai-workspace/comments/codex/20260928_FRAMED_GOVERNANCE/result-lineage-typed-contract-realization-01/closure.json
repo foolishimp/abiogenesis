@@ -1,0 +1,36 @@
+{
+  "operation": "T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01",
+  "status": "CLOSED",
+  "disposition": "STOPPED_NO_GO_READINESS",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+    "bytes": 5514,
+    "sha256": "d251e87d48e7becca466274623e3abb72e826106ec93fbebf728491a1540173d",
+    "mode": 420
+  },
+  "sourceCount": 7,
+  "sourcePreimageCount": 5,
+  "newSourceAndTestCount": 2,
+  "retainedRegressionUnchanged": true,
+  "sourceCompileExit": 0,
+  "callbackRegressionExit": 1,
+  "typeNegatives": "NOT_RUN",
+  "firstFailure": "EEXIST receipt coordinate inherited from CLOSED donor",
+  "sourceBoundaryContract": "shared required discriminated source/destination and checked body/mints; both Product hooks and Leaf bridge consume it",
+  "canonicalWritesOnly": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs"
+  ],
+  "priorCandidate08Mutated": false,
+  "RuntimeRuns": 0,
+  "helpers": 0,
+  "providers": 0,
+  "sourcePostimagesUnchangedSincePrecheck": true,
+  "independentAssurance": false,
+  "stop": "No further writes after freeze; Root selects any continuation."
+}

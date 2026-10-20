@@ -1,0 +1,16 @@
+{
+  "stage": "covers-complete",
+  "rss": 4625547264,
+  "heapTotal": 4004691968,
+  "heapUsed": 3909788200,
+  "external": 2447762,
+  "arrayBuffers": 35455,
+  "at": "2026-10-09T06:07:31.802Z",
+  "elapsedMs": 327535.188292,
+  "name": "AssertionError",
+  "message": "Actual current26→historical24 covered source use refused",
+  "stack": "AssertionError [ERR_ASSERTION]: Actual current26→historical24 covered source use refused\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-176/prepare.mjs:175:9",
+  "actualOutcome": null,
+  "disposition": "HOLD; first actual failure preserved; no retry or model dispatch",
+  "action": "Root multi-frame owner triage and selected Product-bounded action required before any retry"
+}

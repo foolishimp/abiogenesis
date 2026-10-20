@@ -1,0 +1,12 @@
+{
+  "operation": "T287_C06_Q08_CONDITIONAL_RUNTIME_GRANT_01",
+  "actor": "/root",
+  "role": "Writer",
+  "previousRole": "Executive",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07"
+  ],
+  "activatedAt": "2026-10-02T07:33:55.083309+00:00",
+  "grant": "Record exact dependency-ready external-driver preparation and conditional current Runtime authority; actual effects await independent input GO and exact Root input-acceptance pin",
+  "sourceCandidateRuntimeGitEffects": 0
+}

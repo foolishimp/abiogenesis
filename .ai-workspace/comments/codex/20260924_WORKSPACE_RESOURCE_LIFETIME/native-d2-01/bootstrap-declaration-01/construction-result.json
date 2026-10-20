@@ -1,0 +1,114 @@
+{
+  "status": "CLOSED_public_GTL_declaration_constructed_not_installed",
+  "publicEntry": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/index.js",
+    "sha256": "058c931db7e9c18a88a64f79c92ca2200acc77059383ba37d799e4f570f73a0e",
+    "byteCount": 7986
+  },
+  "publicInterfaces": [
+    "constructSemanticJobLifecycleDeclaration",
+    "constructSemanticRevisionGraphFunction",
+    "constructSemanticRevisionSelectionGraphFunction",
+    "constructSemanticClosureContract",
+    "constructRunEnvironmentDeclaration",
+    "modulePublication",
+    "constructNativeWorkspaceWorkModulePublication",
+    "constructWorksiteCommandExecutionModulePublication",
+    "constructSemanticRevisionModulePublication",
+    "nativeContextLeafFamily",
+    "graphEdge",
+    "cGraphFunctionRef",
+    "cCarrier"
+  ],
+  "prospectivePublication": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-declaration-01/prospective-publication.json",
+    "sha256": "c3fe8b00d3b07006c49ae33465df746b3671b990ccadf651fafea3ea5c070731",
+    "byteCount": 1084145
+  },
+  "originalLifecycleUnchanged": true,
+  "originalEnvironmentUnchanged": true,
+  "originalGraphsAndProgramUnchanged": true,
+  "declaredPrograms": [
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/intake@5",
+      "start": {
+        "startRef": "program://odd-glc/native-semantic-revision/intake@5/start",
+        "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/intake@5"
+      },
+      "environment": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-intake",
+      "actorLoci": 1
+    },
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/construction-repair@5",
+      "start": {
+        "startRef": "program://odd-glc/native-semantic-revision/construction-repair@5/start",
+        "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/construction-repair@5"
+      },
+      "environment": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-construction-repair",
+      "actorLoci": 4
+    },
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/from-intent@5",
+      "start": {
+        "startRef": "program://odd-glc/native-semantic-revision/from-intent@5/start",
+        "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-intent@5"
+      },
+      "environment": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-from-intent",
+      "actorLoci": 12
+    },
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/from-product@5",
+      "start": {
+        "startRef": "program://odd-glc/native-semantic-revision/from-product@5/start",
+        "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-product@5"
+      },
+      "environment": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-from-product",
+      "actorLoci": 10
+    },
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/from-requirements@5",
+      "start": {
+        "startRef": "program://odd-glc/native-semantic-revision/from-requirements@5/start",
+        "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-requirements@5"
+      },
+      "environment": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-from-requirements",
+      "actorLoci": 8
+    },
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/from-design@5",
+      "start": {
+        "startRef": "program://odd-glc/native-semantic-revision/from-design@5/start",
+        "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5"
+      },
+      "environment": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-from-design",
+      "actorLoci": 6
+    },
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/from-evidence@5",
+      "start": {
+        "startRef": "program://odd-glc/native-semantic-revision/from-evidence@5/start",
+        "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-evidence@5"
+      },
+      "environment": "environment://odd-glc/full-sandbox/fresh-native-rc4@5/native-revision-from-evidence",
+      "actorLoci": 2
+    }
+  ],
+  "checks": [
+    "frozen source/generated postimages",
+    "exact archive lifecycle/stage equality",
+    "exact original role environment",
+    "all original graphs/Program unchanged",
+    "public lifecycle publication contract relation",
+    "public environment construction",
+    "exact per-Program actor bindings",
+    "unique callable closure"
+  ],
+  "dependencyPublicationScope": "Public factory values with zero artifact coordinates for authoring checks only; later installed core validation still required.",
+  "suffixSelection": "NONE: all six alternatives are declared; source review is evaluating whether ordinary terminal request exposes sufficient selection fields. No stage is inferred or hardcoded.",
+  "limitations": [
+    "No installed Product/Program validation or native acquisition/eligibility",
+    "No package identity accepted: dev.10 is prospective authoring input only",
+    "Existing original environment/resources remain historical input; new per-Program role bindings require later installed admission",
+    "No runtime owner, private leaf extraction, Run, journal, workspace or paid effect"
+  ]
+}

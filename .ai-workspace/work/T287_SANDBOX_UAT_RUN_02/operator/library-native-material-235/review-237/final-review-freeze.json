@@ -1,0 +1,25 @@
+{
+  "kind": "independent_worker235_final_source_review",
+  "state": "CLOSED",
+  "verdict": "bounded_Source_GO",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/freeze.json",
+    "sha256": "3e09d0308e550ae7ef240feb68fcb4b1b71de539a7c997a421c421e59f208036",
+    "byteCount": 31600
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/review-237/final-review.md",
+      "sha256": "c10161db9b06cedea599d841338bb171b0751bc552e5f5087d83f53a6e4c287c",
+      "byteCount": 7019
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/review-237/final-pins.json",
+      "sha256": "bf706697d7d49dd42abe8962353050e5cd6b798690b8b1b23fadfbce133b84f5",
+      "byteCount": 7923
+    }
+  ],
+  "limits": [
+    "No final233/native/installed/original capacity/UAT/release acceptance."
+  ]
+}

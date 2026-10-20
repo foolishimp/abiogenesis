@@ -1,0 +1,50 @@
+{
+  "records": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "bytes": 6880,
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "bytes": 42946,
+      "sha256": "8f87b9d6c476ed27650c1904bbfdaa3059d7e0c1b8912a74bf9e92b922a88c2b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a"
+    }
+  ],
+  "N2Return": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/return.md",
+    "bytes": 7436,
+    "sha256": "5eaa0dfade59df62cfedbb3665cb5b814a90bcd3389712fbb1fe93dd156f3575"
+  },
+  "N2Freeze": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/freeze.json",
+    "bytes": 14907,
+    "sha256": "098f847543752e5d69efa4bd86ce36490a79fd34c707bffa2237a5275d5d2fbf"
+  },
+  "N2Triage": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/causal-triage.json",
+    "bytes": 16307,
+    "sha256": "c6bdcb27453fe96005e04d23df63a316985fe2d89933afd4469ea7a0522c726d"
+  },
+  "meaning": "Cumulative available typed bindings with valid ordinary wrappers; static duplicate refusal is existing HOW. Whole-publication validation must precede lower catalog readiness. No upstream change."
+}

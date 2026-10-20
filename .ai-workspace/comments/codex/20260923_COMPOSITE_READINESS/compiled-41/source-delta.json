@@ -1,0 +1,12 @@
+[
+  {
+    "path": "code/src/abg/event_store.ts",
+    "before": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6",
+    "after": "5aa0d80acb0623aaeaf2aa63f55739e1f4469af5807be98beb3c3a32eb65e7be"
+  },
+  {
+    "path": "code/src/abg/instruction_assembly.ts",
+    "before": "a491c4912b30651b563de1788fb57d7e6d99dbf838fb1eaac768f0335d15cff0",
+    "after": "3055fb2f4bbbd8f0d7706780a778780b9fb4e14a95d895cd730a6df7c9d07bd7"
+  }
+]

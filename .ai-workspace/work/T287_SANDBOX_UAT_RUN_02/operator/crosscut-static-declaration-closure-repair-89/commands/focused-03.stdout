@@ -1,0 +1,18 @@
+✔ compose sources retain exact published owners without callable rows in both closure modes (434.662708ms)
+✔ substitute source provenance resolves without widening its Program (268.157958ms)
+✔ unpublished or ambiguous static sources still refuse at their exact declaration owner (17.106375ms)
+✔ static sources remain dependency-bound and require an exact installed owner (93.729ms)
+✔ static sources conserve required contracts and implementation bindings (34.693583ms)
+✔ runtime use of a private static source refuses before or after static discovery (41.5425ms)
+✔ existing named workflow, gate, recursion and fan-out owner rows remain required (831.693292ms)
+✔ registered selection retains strict named-child ownership and whole validation (37.031292ms)
+✔ borrowed implementation declarations retain dependency, uniqueness and installed-owner guards (200.271542ms)
+✔ frozen81 unchanged ready basis resolves where its predecessor refused (949.48325ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3181.86025

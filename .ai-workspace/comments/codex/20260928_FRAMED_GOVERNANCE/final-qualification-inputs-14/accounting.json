@@ -1,0 +1,67 @@
+{
+  "cheapActualHelper": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/delta-preflight.mjs"
+    ],
+    "pid": 35039,
+    "processGroup": 35039,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "exitCode": 0,
+    "timedOut": false,
+    "elapsedMs": 71.85483304783702,
+    "maxRSSBytesMacOS": 115359744,
+    "userSeconds": 0.03872,
+    "systemSeconds": 0.013658,
+    "RuntimeEffects": 0
+  },
+  "cheapActualHelperPositiveChanges": 9,
+  "cheapActualHelperNegativeRefusals": 9,
+  "syntaxChecks": [
+    {
+      "argv": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/source-delta-contract.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "ProductImports": 0
+    },
+    {
+      "argv": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/delta-preflight.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "ProductImports": 0
+    }
+  ],
+  "syntaxChecksProductImports": 0,
+  "purePreparationFirstFailureExitCode": 1,
+  "purePreparationProcessClosure": "exec_command completed, no child/owner payload launched",
+  "completeTaskPayloads": 0,
+  "packetPayloads": 0,
+  "ProductImports": 0,
+  "resourceSerializationBytes": null,
+  "assertionSerializationBytes": null,
+  "canonicalEnvelopeBytes": null,
+  "requestOrPromptBytes": null,
+  "qualificationCommandsExecuted": 0,
+  "nativeTaskRunJHelperProviderCalls": 0,
+  "SourceChanges": 0,
+  "builds": 0,
+  "candidateChanges": 0,
+  "GitEffects": 0,
+  "networkEffects": 0,
+  "retries": 0,
+  "defaultHeap": true,
+  "ordinaryHOME": true
+}

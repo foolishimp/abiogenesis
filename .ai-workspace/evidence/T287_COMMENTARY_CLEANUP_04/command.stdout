@@ -1,0 +1,5 @@
+{"stage": "preflight_complete", "elapsedSeconds": 146.36411062488332, "descendantDirectories": 11877, "membership": {"directory": 12052, "file": 23977}}
+{"stage": "rmdir_progress", "elapsedSeconds": 149.71124220872298, "removed": 1000}
+{"stage": "rmdir_progress", "elapsedSeconds": 152.7811682918109, "removed": 2000}
+{"stage": "rmdir_progress", "elapsedSeconds": 154.38109354209155, "removed": 3000}
+{"stage": "CLOSED_GO_EMPTY_DESCENDANT_CONSERVATION", "elapsedSeconds": 215.88417225005105, "operation": "T287_COMMENTARY_CLEANUP_EMPTY_DIRS_04", "status": "CLOSED_GO_EMPTY_DESCENDANT_CONSERVATION", "removedDirectories": 3550, "namedRootsPreserved": 140, "wholeExclusionsAndPrunedRoutesPreserved": true, "beforeMembership": {"directory": 12052, "file": 23977}, "afterMembership": {"directory": 8502, "file": 23977}, "allRemainingFilesNonregularsAndDirectoryMetadataUnchanged": true, "membershipEqualsBeforeMinusOnlyRmdirLedger": true, "fileBodyHashes": 0, "unlinks": 0, "rmtree": 0, "nonemptyDirectoriesPreserved": 8327, "workerPid": 29270, "synchronousNoChildren": true, "CodeGitRuntimeNetworkBuildEffects": 0}

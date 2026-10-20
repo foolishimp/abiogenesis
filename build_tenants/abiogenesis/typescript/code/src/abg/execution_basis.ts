@@ -1,3 +1,5 @@
+import { selectRuntimeEventPrefixFromStore, projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "./event_prefix.js";
+import { indexedRuntimeEvents } from "./event_prefix.js";
 import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_provenance.js";
 import type { WorksiteExecutionTask } from "../product/worksite_revision.js";
 import { admittedNativeTask } from "./native_worksite_execution.js";
@@ -8,7 +10,7 @@ import { hasOwnedDeclarationLookups } from "../implementation/leaf_invocation_po
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
 import { admitIJsonValue } from "../shared/i_json.js";
-import { projectOwnedPrefixArtifactTruth, runtimePrefixFromArtifactTruth } from "./artifact_truth.js";
+import { projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth } from "./artifact_truth.js";
 import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionImplementationRef } from "../product/worksite_revision.js";
 import { runtimeEventPrefixDigest, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { worksiteExecutionSourcesCurrent, worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
@@ -125,7 +127,10 @@ import {
   type RuntimeEvent,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventsFromValidatedPrefix, runtimeEventBodiesAtPrefix,
+  runtimeEventAtPrefix,
+  isOwnedRuntimeEventPrefix,
+  type RuntimeEventPrefix,
   selectValidatedRuntimeEventPrefix,
   validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
@@ -158,16 +163,15 @@ export interface NativeInstructionAssemblyBasis {
 
 /** Shared by semantic and worksite assembly; specialized owners add their
  * own source/lifecycle/task law after this one exact authentication relation. */
-function deriveNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
+function deriveOwnedNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
   try {
     const hash = (value: unknown) => sha256Canonical(value as JsonValue);
     const isRecord = (value: unknown): value is Readonly<Record<string, JsonValue>> =>
       value !== null && typeof value === "object" && !Array.isArray(value);
     const artifactTruth = projectOwnedPrefixArtifactTruth(basis.predecessorPrefix);
     if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
-    const prefix = runtimePrefixFromArtifactTruth(artifactTruth);
+    const prefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);
     if (prefix === null) return null;
-    const events = runtimeEventsFromValidatedPrefix(prefix);
     const execution = rehydrateExecutionBasisAtPrefix(prefix, basis.executionBasis.basisRef);
     if (execution === null || hash(execution) !== hash(basis.executionBasis)) return null;
     const program = basis.publication.programs.find(p => p.programRef === execution.programRef);
@@ -181,7 +185,7 @@ function deriveNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBa
     if (graph.materializationRef !== execution.graphRef || graph.materializationDigest !== execution.graphDigest ||
       hash(graph) !== hash(basis.graph)) return null;
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCall.cCallRef);
-    const opened = events.find(event => event.eventId === call?.openedEventRef);
+    const opened = call === null ? undefined : runtimeEventAtPrefix(prefix, call.openedEventRef);
     if (call === null || hash(call) !== hash(basis.cCall) || call.callClass !== "leaf" ||
       !hasAdmittedTraversalCursorAtPrefix(prefix, basis.cursor) || !isRecord(opened?.payload) ||
       opened.payload.cursorRef !== basis.cursor.cursorRef || opened.payload.cursorDigest !== basis.cursor.cursorDigest ||
@@ -206,13 +210,13 @@ function deriveNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBa
     const inputValue = input.value;
     const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
       { ref: execution.workspaceBindingId, digest: execution.workspaceBindingDigest });
-    return { events, prefix, execution, graph, call, resolution: resolutions[0]!, program,
+    return { prefix, execution, graph, call, resolution: resolutions[0]!, program,
       environment, inputRef, inputDigest, inputValue, inputOrigin: input };
   } catch { return null; }
 }
 
 const NATIVE_ASSEMBLY_DERIVATION = Symbol("native_assembly_basis_derivation");
-type NativeAssemblyDerivation = NonNullable<ReturnType<typeof deriveNativeInstructionAssemblyBasis>>;
+type NativeAssemblyDerivation = NonNullable<ReturnType<typeof deriveOwnedNativeInstructionAssemblyBasis>>;
 class NativeAssemblyBasisDerivation {
   readonly #basis: NativeInstructionAssemblyBasis;
   readonly #value: NativeAssemblyDerivation;
@@ -227,7 +231,16 @@ class NativeAssemblyBasisDerivation {
 /** Pure helpers consume the constructed immutable basis. Raw/copy inputs retain
  * fresh durable acquisition; this value never grants an effect or current worksite. */
 export function authenticateNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
-  try { return NativeAssemblyBasisDerivation.value(basis) ?? deriveNativeInstructionAssemblyBasis(basis); }
+  const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
+  if (owner === null || owner.prefix.kind === "runtime_validation_event_prefix") return null;
+  const events = isOwnedRuntimeEventPrefix(owner.prefix) ? owner.prefix.selection.materialize() :
+    runtimeEventsFromValidatedPrefix(owner.prefix);
+  return { ...owner, events, prefix: isOwnedRuntimeEventPrefix(owner.prefix)
+    ? selectValidatedRuntimeEventPrefix(events) : owner.prefix };
+}
+/** @internal Ordinary consumers borrow the same authenticated facts without a full-history output. */
+export function authenticateOwnedNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
+  try { return NativeAssemblyBasisDerivation.value(basis) ?? deriveOwnedNativeInstructionAssemblyBasis(basis); }
   catch { return null; }
 }
 export function constructNativeInstructionAssemblyBasis<T extends NativeInstructionAssemblyBasis>(basis: T): Readonly<T> | null {
@@ -235,7 +248,7 @@ export function constructNativeInstructionAssemblyBasis<T extends NativeInstruct
     if (NativeAssemblyBasisDerivation.value(basis) !== undefined) return basis;
     const captured = { ...(admitIJsonValue(basis) as unknown as T),
       predecessorPrefix: captureDurablePrefixCoordinate(basis.predecessorPrefix) };
-    const value = deriveNativeInstructionAssemblyBasis(captured);
+    const value = deriveOwnedNativeInstructionAssemblyBasis(captured);
     if (value === null) return null;
     Object.defineProperty(captured, NATIVE_ASSEMBLY_DERIVATION, { value: new NativeAssemblyBasisDerivation(captured, value) });
     return deepFreeze(captured);
@@ -716,13 +729,13 @@ function exactChildOwnerInstallations(
 
 function exactC2SourceEnvironment(
   durablePrefix: DurablePrefixCoordinate,
-  authorityPrefix: ValidatedRuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix,
   invocation: InvocationAdmission,
   task: ReturnType<typeof worksiteCommandTask>,
 ): boolean {
   if (task === null) return true;
   if (isObservedWorksiteCommandExecutionTask(task)) {
-    const admitted = runtimeEventsFromValidatedPrefix(authorityPrefix).find(event => event.eventId === invocation.admissionEventRef);
+    const admitted = indexedRuntimeEvents(authorityPrefix, "id:" + invocation.admissionEventRef).find(event => event.eventId === invocation.admissionEventRef);
     return invocation.sourceResultBasis === null && invocation.programRef === WORKSITE_COMMAND_EXECUTION_IDS.programRef &&
       invocation.graphFunctionRef === WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef &&
       invocation.inputContractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
@@ -772,19 +785,19 @@ function exactC2SourceEnvironment(
     !sameCanonical(basis.sourceResultValue, task.sourceConstructionResult)) {
     return false;
   }
-  const sourceRunClosures = runtimeEventsFromValidatedPrefix(authorityPrefix)
+  const sourceRunClosures = indexedRuntimeEvents(authorityPrefix, "run:" + basis.sourceRunId)
     .filter((event) =>
       event.kind === "run_closed" && event.runId === basis.sourceRunId
     );
   if (sourceRunClosures.length !== 1) return false;
-  let sourcePrefix: ValidatedRuntimeEventPrefix;
+  let sourcePrefix: RuntimeEventPrefix;
   let sourceDurablePrefix: DurablePrefixCoordinate;
   try {
     sourcePrefix = validatedRuntimeEventPrefixThroughEvent(
       authorityPrefix,
       sourceRunClosures[0]!.eventId,
     );
-    const sourceEvents = runtimeEventsFromValidatedPrefix(sourcePrefix);
+    const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix);
     sourceDurablePrefix = durableRuntimeEventPrefixThroughEvent(
       durablePrefix, sourceRunClosures[0]!.eventId,
     );
@@ -811,7 +824,7 @@ function exactC2SourceEnvironment(
     sourceInvocation.workspaceBindingDigest !== basis.workspaceBindingDigest) {
     return false;
   }
-  const basisEvents = runtimeEventsFromValidatedPrefix(sourcePrefix).filter((event) =>
+  const basisEvents = indexedRuntimeEvents(sourcePrefix, "payload:invocationAdmissionRef:" + basis.sourceInvocationAdmissionRef).filter((event) =>
     event.kind === "basis_admitted" &&
     isJsonRecord(event.payload) &&
     event.payload.basisClass === "root" &&
@@ -1097,13 +1110,22 @@ export function hasAdmittedImplementationSet(
   set: AdmittedImplementationSet,
 ): boolean {
   return hasAdmittedImplementationSetAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     set,
   );
 }
 
 export function hasAdmittedImplementationSetAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  set: AdmittedImplementationSet,
+): boolean;
+/** @internal */
+export function hasAdmittedImplementationSetAtPrefix(
+  prefix: RuntimeEventPrefix,
+  set: AdmittedImplementationSet,
+): boolean;
+export function hasAdmittedImplementationSetAtPrefix(
+  prefix: RuntimeEventPrefix,
   set: AdmittedImplementationSet,
 ): boolean {
   if (!isAdmittedImplementationSet(set)) return false;
@@ -1116,7 +1138,7 @@ export function hasAdmittedImplementationSetAtPrefix(
     admissionEventRef: _admissionEventRef,
     ...body
   } = set;
-  const event = runtimeEventsFromValidatedPrefix(prefix).find(
+  const event = indexedRuntimeEvents(prefix, "id:" + set.admissionEventRef).find(
     (candidate) => candidate.eventId === set.admissionEventRef,
   );
   return (
@@ -1193,6 +1215,15 @@ export function selectAdmittedInteractionContract(
 export function hasAdmittedInteractionSetAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   set: AdmittedInteractionSet,
+): boolean;
+/** @internal */
+export function hasAdmittedInteractionSetAtPrefix(
+  prefix: RuntimeEventPrefix,
+  set: AdmittedInteractionSet,
+): boolean;
+export function hasAdmittedInteractionSetAtPrefix(
+  prefix: RuntimeEventPrefix,
+  set: AdmittedInteractionSet,
 ): boolean {
   if (!isAdmittedInteractionSet(set)) return false;
   const {
@@ -1204,7 +1235,7 @@ export function hasAdmittedInteractionSetAtPrefix(
     admissionEventRef: _admissionEventRef,
     ...body
   } = set;
-  const event = runtimeEventsFromValidatedPrefix(prefix).find(
+  const event = indexedRuntimeEvents(prefix, "id:" + set.admissionEventRef).find(
     (candidate) => candidate.eventId === set.admissionEventRef,
   );
   return (
@@ -1230,7 +1261,7 @@ export function rehydrateAdmittedImplementationSet(
   implementationSetRef: string,
 ): AdmittedImplementationSet | null {
   return rehydrateAdmittedImplementationSetAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     implementationSetRef,
   );
 }
@@ -1238,8 +1269,17 @@ export function rehydrateAdmittedImplementationSet(
 export function rehydrateAdmittedImplementationSetAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   implementationSetRef: string,
+): AdmittedImplementationSet | null;
+/** @internal */
+export function rehydrateAdmittedImplementationSetAtPrefix(
+  prefix: RuntimeEventPrefix,
+  implementationSetRef: string,
+): AdmittedImplementationSet | null;
+export function rehydrateAdmittedImplementationSetAtPrefix(
+  prefix: RuntimeEventPrefix,
+  implementationSetRef: string,
 ): AdmittedImplementationSet | null {
-  const matches = runtimeEventsFromValidatedPrefix(prefix).filter(
+  const matches = indexedRuntimeEvents(prefix, "payload:implementationSetRef:" + implementationSetRef).filter(
     (event) =>
       event.kind === "implementation_admitted" &&
       isJsonRecord(event.payload) &&
@@ -1272,7 +1312,7 @@ export function rehydrateAdmittedInteractionSet(
   interactionSetRef: string,
 ): AdmittedInteractionSet | null {
   return rehydrateAdmittedInteractionSetAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     interactionSetRef,
   );
 }
@@ -1280,8 +1320,17 @@ export function rehydrateAdmittedInteractionSet(
 export function rehydrateAdmittedInteractionSetAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   interactionSetRef: string,
+): AdmittedInteractionSet | null;
+/** @internal */
+export function rehydrateAdmittedInteractionSetAtPrefix(
+  prefix: RuntimeEventPrefix,
+  interactionSetRef: string,
+): AdmittedInteractionSet | null;
+export function rehydrateAdmittedInteractionSetAtPrefix(
+  prefix: RuntimeEventPrefix,
+  interactionSetRef: string,
 ): AdmittedInteractionSet | null {
-  const matches = runtimeEventsFromValidatedPrefix(prefix).filter(
+  const matches = indexedRuntimeEvents(prefix, "payload:interactionSetRef:" + interactionSetRef).filter(
     (event) =>
       event.kind === "implementation_admitted" &&
       isJsonRecord(event.payload) &&
@@ -1323,9 +1372,7 @@ export function hasAdmittedImplementationResolution(
     admissionEventRef: _admissionEventRef,
     ...body
   } = resolution;
-  const event = store.readAll().find(
-    (candidate) => candidate.eventId === resolution.admissionEventRef,
-  );
+  const event = runtimeEventAtPrefix(selectRuntimeEventPrefixFromStore(store), resolution.admissionEventRef);
   return (
     sha256Canonical(body as unknown as JsonValue) === resolution.resolutionDigest &&
     resolution.resolutionRef ===
@@ -1340,6 +1387,15 @@ export function hasAdmittedImplementationResolution(
 
 export function hasAdmittedExecutionBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  basis: ExecutionBasis,
+): boolean;
+/** @internal */
+export function hasAdmittedExecutionBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
+  basis: ExecutionBasis,
+): boolean;
+export function hasAdmittedExecutionBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
   basis: ExecutionBasis,
 ): boolean {
   if (!isExecutionBasis(basis)) return false;
@@ -1357,13 +1413,22 @@ export function rehydrateExecutionBasis(
   basisRef: string,
 ): ExecutionBasis | null {
   return rehydrateExecutionBasisAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     basisRef,
   );
 }
 
 export function rehydrateExecutionBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  basisRef: string,
+): ExecutionBasis | null;
+/** @internal */
+export function rehydrateExecutionBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
+  basisRef: string,
+): ExecutionBasis | null;
+export function rehydrateExecutionBasisAtPrefix(
+  prefix: RuntimeEventPrefix,
   basisRef: string,
 ): ExecutionBasis | null {
   const basis = projectExactExecutionBasisAtPrefix(prefix, basisRef);
@@ -1381,9 +1446,8 @@ export function admitInvocationRefusal(
   contractOrDiagnosticRefs: readonly string[],
   basis: RuntimeAdmissionBasis,
 ): InvocationRefusalAdmissionReceipt {
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(
-    readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
-  );
+  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+  const authorityPrefix = selectRuntimeEventPrefixFromStore(store);
   if (!hasAdmittedInvocationAtPrefix(authorityPrefix, invocationAdmission)) {
     throw new TypeError("invocation refusal requires one exact admitted InvocationAdmission");
   }
@@ -1441,9 +1505,8 @@ export function admitExecutionBasis(
   input: ExecutionBasisInput,
   basis: RuntimeAdmissionBasis,
 ): ExecutionBasisAdmissionResult {
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(
-    readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
-  );
+  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+  const authorityPrefix = selectRuntimeEventPrefixFromStore(store);
   const reject = (
     subjectDigest: Sha256Digest,
     diagnosticRef: string,
@@ -2115,7 +2178,7 @@ export function admitChildExecutionBasis(
   basis: RuntimeAdmissionBasis,
 ): ChildExecutionBasisResult {
   return admitChildExecutionBasisUsing(
-    () => readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
+    () => { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); return selectRuntimeEventPrefixFromStore(store); },
     store, predecessorPrefix, input, basis,
   );
 }
@@ -2127,7 +2190,7 @@ export function prepareWorkflowChildExecutionBasis(
   cursor: TraversalCursorCandidate,
   lookups: Pick<LeafInvocationPort, "graphFunctionByRef" | "closureContractByRef">,
 ) {
-  const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  const prefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
   const intent = rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
   const proxyLookups = types.isProxy(lookups);
   const graphLookup = proxyLookups ? undefined : Object.getOwnPropertyDescriptor(lookups, "graphFunctionByRef");
@@ -2143,7 +2206,7 @@ export function prepareWorkflowChildExecutionBasis(
     let result: ChildExecutionBasisResult;
     try {
       result = admitChildExecutionBasisUsing(
-        () => projectHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
+        () => { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); return selectRuntimeEventPrefixFromStore(store); },
         store, predecessorPrefix, input, basis,
       );
     } catch (error) {
@@ -2162,7 +2225,7 @@ export function prepareWorkflowChildExecutionBasis(
 }
 
 function admitChildExecutionBasisUsing(
-  readCurrent: () => ReturnType<typeof readHeldRuntimeEventsAtDurablePrefix>,
+  readCurrent: () => RuntimeEventPrefix,
 
   store: AbgEventStore,
   predecessorPrefix: DurablePrefixCoordinate,
@@ -2172,14 +2235,10 @@ function admitChildExecutionBasisUsing(
   const rawInputValue = detachJsonRecord(input.rawInputValue);
   const current = (() => {
     try {
-      const snapshot = readCurrent();
-      const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+      const authorityPrefix = readCurrent();
       const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
       if (store.digest() !== expectedStorePrefixDigest) return null;
-      const runPrefix = selectValidatedRuntimeEventPrefix(
-        runtimeEventsFromValidatedPrefix(authorityPrefix),
-        { runId: input.parentTraversalScope.runId },
-      );
+      const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: input.parentTraversalScope.runId });
       const parent = rehydrateExecutionBasisAtPrefix(
         authorityPrefix,
         input.parentExecutionBasis.basisRef,

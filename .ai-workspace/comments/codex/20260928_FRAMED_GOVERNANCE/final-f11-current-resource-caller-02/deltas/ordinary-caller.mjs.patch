@@ -1,0 +1,18 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/ordinary-caller.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/ordinary-caller.mjs
+@@ -10,13 +10,13 @@
+ export const here=import.meta.dirname,schemaVersion='5.0.0';
+ export const read=async p=>JSON.parse(await readFile(p,'utf8'));
+ export async function caller(mode, nominalVerification, driverDeadline, outputRoot){
+- assert.equal(outputRoot,join(dirname(here),'final-f11-native-assessment-execution-01'));
++ assert.equal(outputRoot,join(dirname(here),'final-f11-native-assessment-execution-02'));
+  const write=(n,v)=>writeFile(join(outputRoot,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
+  const packageIdentity=await read(join(here,'selected-core.json')),prospect=await read(join(here,'prospective-cases.json'));
+  const r=await loadRuntime(packageIdentity.installedRoot),{product,abg,public:installedPublic}=r,hash=product.sha256Canonical,cli=await declaredCli(packageIdentity.installedRoot);
+  const core=prospect.core,verification=nominalVerification,verified=verification.verifiedArtifact;
+  const ownerRequest=verificationRequest(core),contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,catalogId:verified.catalogId,catalogVersion:schemaVersion,catalogDigest:verified.catalogDigest};
+- const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-f11-native-assessment-01',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';
++ const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-f11-current-resource-caller-02',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';
+  const op={actorRef,attributionRef:'attribution://'+base,authorityRef:'authority://'+base,approvalRef:'approval://'+base,requestBaseRef:'request://'+base,correlationRef:'correlation://'+base,provenanceRefs:[pathToFileURL(join(here,'worker-activation.json')).href,pathToFileURL(join(here,'prospective-cases.json')).href]};
+  const state={closeHandoff:null,environment:null,catalog:null,catalogView:null,binding:null,resolvedLock:null,calls:[]};
+  const budgets=await read(join(here,'budgets.json')),taskEnvironment=await read(join(here,'runtime-environment.json'));

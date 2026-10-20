@@ -1,0 +1,91 @@
+{
+  "role": "Operator136 execution",
+  "selectedAt": "2026-10-08T23:21:14.689958+00:00",
+  "grant": "Root RELEASE136 conjoins137 CLOSEDGO/current152pins/current authority triage",
+  "basis": "ABI5 fixed15 GOAL035/T287 STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frames": [
+    "f-end-to-end-interface-integration",
+    "f-worksite-causality"
+  ],
+  "exactFrozenInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/freeze.json",
+      "sha256": "869ae75f43aecbc4ffd6fe04a9b43fc77ce06f1de20b8b92464452bb4efd3008",
+      "byteCount": 53843
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/return.md",
+      "sha256": "8512c018732c885b70da69a74516f3d482c4a18142587622db769fbc31d1a2b3",
+      "byteCount": 2251
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/readiness.json",
+      "sha256": "613694989f36beab5e04cbc169f50c305fa3fdfb32824b84cdb8d5eff60535be",
+      "byteCount": 17288
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+      "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+      "byteCount": 1723
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/continuation-setup.json",
+      "sha256": "0910583ac87e0d806bce2ebc3cadc704937beb58928be9244175ad206d509c57",
+      "byteCount": 3826
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/calls/continuation-start.request.jsonl",
+      "sha256": "1100007c52a381d87844a90e0fb503ee4d3d759b5e281c2903445c7e8b3291ec",
+      "byteCount": 27109064
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/execute-continuation.mjs",
+      "sha256": "8f4e8231075110d2750efd2a5d93a241638ba8268fec1efa32033932a09c4012",
+      "byteCount": 856
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/launch.mjs",
+      "sha256": "06b2b806792bfb4121225461231550d813801c7e131fd8c8ad19daec5d3bec38",
+      "byteCount": 2475
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.mjs",
+      "sha256": "7c9143ba307fdba50c8d4ee9be74b2ad338c4f9f1b6c8943ec5d727e7d79903f",
+      "byteCount": 1529
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/observe-execution.py",
+      "sha256": "717316f62cfdf25dd466ca5fa96d3fb9a65b7c9425cff938628131985b7f741b",
+      "byteCount": 5715
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/monitor-preparation.json",
+      "sha256": "46c699f5b6a74f950f3828083cd5f827d7e08d0e23fd3bf8fd10768a83fee4cb",
+      "byteCount": 759
+    }
+  ],
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:e4cd1ef797871a47bcdb232cd1b563a064aaeeb4e8ccc5f6870114525e7db703",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:4fa628228c369f789970e43946ea428219710b4eb8f5f30b9529e0b93e168a7f",
+    "prefixLength": 1418896561,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 468327400
+    }
+  },
+  "same48FilesPlusAbsence": true,
+  "sameW": true,
+  "sourceNone": false,
+  "physicalCopy": false,
+  "originalSource": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+  "freshNativeT0": null,
+  "qualityClock": "Only actual native command.request.started + operator-control.durationMs",
+  "newLimits": false,
+  "operatorAppEffects": false,
+  "firstDiscriminator": "Actual actor binding contains exactly one literal Root control; preserve prompt/schema/tools/guard; actual selector useful next work or exact lawful gap",
+  "stop": "First actual framework/integration failure or repeated obsolete-clock yield, preserve true closure; no retry/app repair/CLI kill"
+}

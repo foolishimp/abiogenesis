@@ -48,14 +48,14 @@ do not redeclare its shape or meaning. Type/check transformations against the
 owner-defined source and destination; Product extensions add domain meaning
 through declared extension points.
 
-### Map-First Reference Frames
+### Reference Frames
 
-- Resolve the exact STDO basis and companion Product composition from
-  `stdo_abiogenesis.json`. Load the corresponding STDO Representation map and
-  released Axiom Indexer from `.genesis/development-products/`, the current
-  source-linked `a_c.ABI` map, and `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`
-  before broad source acquisition. Verify source freshness with the released
-  tools before using either map.
+- Resolve the exact STDO basis and any explicit companion Product composition
+  from `stdo_abiogenesis.json`, then
+  `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`. Resolve native method documents
+  through the STDO toolchain manager. An empty composition selects no companion
+  or map. Use a source-linked map only when its exact source basis, selected
+  bytes and declared tools verify fresh; otherwise acquire the owning sources.
 - Show each selected frame URI, purpose, subject, source routes, effects,
   evidence, stops, and return relation.
 - Use separate bounded Worker and Reviewer contexts for materially distinct

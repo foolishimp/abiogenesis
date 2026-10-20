@@ -1,0 +1,6 @@
+{
+  "supersededReceipt": "commands/focused.result.json",
+  "failure": "Regression compared canonical payload.value against Core Result resultDigest",
+  "owningContract": "code/src/abg/c_call.ts:1523-1534,3324-3340",
+  "correction": "Verify canonical value against payload.valueDigest and entire resultBody against resultDigest plus resultRef; preserve source coordinates. No Production change."
+}

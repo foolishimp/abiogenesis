@@ -1,0 +1,12 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_02",
+  "runtimeOrHowChanges": [],
+  "generatedChanges": [],
+  "newFixturePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs"
+  ],
+  "evidenceTerritory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02",
+  "scope": "No pre-existing path edited; new evidence and disposable instance only. Scope excludes Root-created activation/request control files."
+}

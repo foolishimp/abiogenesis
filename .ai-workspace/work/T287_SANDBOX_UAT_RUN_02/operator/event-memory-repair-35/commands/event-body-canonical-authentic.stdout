@@ -1,0 +1,22 @@
+✔ shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays (0.353666ms)
+✔ shared canonical traversal preserves captured entries, array length and refusal precedence (4.338625ms)
+✔ incremental canonical hashes preserve independently declared golden bytes and refusal behavior (4.715625ms)
+✔ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (411.200417ms)
+ℹ {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+✔ physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences (55.247042ms)
+✔ nearest malformed body references refuse before logical history is exposed (66.028959ms)
+✔ reused cold bodies still require each new envelope identity, stamp, cause and logical digest (48.469375ms)
+✔ independently supplied mutable raw input remains detached at event admission (12.923041ms)
+✔ live body reuse preserves caller isolation, owned prefix and transaction rollback (55.54875ms)
+✔ literal marker-shaped Product data and small duplicate values remain unambiguous (28.724583ms)
+✔ failed durable batch discards new inline sources; committed same-batch references survive reopen (26.478125ms)
+✔ large duplicate Result bodies and complete replay hashing fit a constrained heap (11012.0915ms)
+ℹ {"seed":"pinned-authentic-parent-value","copies":96,"valueBytes":1397628,"logicalBodyBytes":135569916,"physicalBytes":1746125,"valueDigest":"sha256:689d44368f7bac09207970e91940ea2347a77a360cd7d1b8cfff50200ec8ea38","replayDigest":"sha256:5b305d824b4dfad9071dbda4240b5b3e00591cb56efd49733541766d47088864","completeStateDigest":"sha256:cc3a7fe0ea89a11fdccf2609e8ac77afc82541f4071b730cdfa2585b94a69bc4","heapUsed":76851608,"rss":258539520,"maxRSSKiB":319792,"heapLimitMiB":128,"allDistinctAdmissions":true,"callerIsolation":true,"coldReplayEqual":true,"noNativeCredit":true}
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11999.450875

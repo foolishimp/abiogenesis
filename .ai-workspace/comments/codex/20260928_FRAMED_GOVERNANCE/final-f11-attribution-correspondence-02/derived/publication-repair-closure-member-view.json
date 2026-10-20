@@ -1,0 +1,58 @@
+{
+  "kind": "derived_original_logical_member_view",
+  "originalClosure": {
+    "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+    "digest": "sha256:00a9829bbb08dde776ab92d5e005dc089efc0a6100abecb8c4ae25d2c555c66b",
+    "byteCount": 5335
+  },
+  "originalClosureSpan": {
+    "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+    "startByte": 0,
+    "endByte": 5335,
+    "spanDigest": "sha256:00a9829bbb08dde776ab92d5e005dc089efc0a6100abecb8c4ae25d2c555c66b"
+  },
+  "originalSourceAttribution": {
+    "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source-attribution.json",
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source-attribution.json",
+    "digest": "sha256:7002ae5e6a739a7aed7cbf879ffe978d64aac43743695ae106f67cf0cf0ba6e3",
+    "byteCount": 3514
+  },
+  "originalSourceAttributionSpan": {
+    "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source-attribution.json",
+    "startByte": 0,
+    "endByte": 3514,
+    "spanDigest": "sha256:7002ae5e6a739a7aed7cbf879ffe978d64aac43743695ae106f67cf0cf0ba6e3"
+  },
+  "originalFreeze": {
+    "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/freeze.json",
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/freeze.json",
+    "digest": "sha256:19f97fe0758b204829d4f4695c83f49cc641d1c4affdd7defd46022c36eaa01d",
+    "byteCount": 1299934
+  },
+  "rule": "Each original sources[i].logicalPath denotes the repository-relative member path; sources[i].postimage denotes its exact retained body. Bind path to logicalPath and digest/bytes to that postimage without changing either original.",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "digest": "sha256:f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d",
+      "byteCount": 18915,
+      "originalSourceIndex": 0,
+      "originalPostimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "digest": "sha256:d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128",
+      "byteCount": 77554,
+      "originalSourceIndex": 1,
+      "originalPostimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "digest": "sha256:4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4",
+      "byteCount": 39208,
+      "originalSourceIndex": 2,
+      "originalPostimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+    }
+  ],
+  "limit": "An explicitly derived coordinate view of the CLOSED three-file operation. Not original closure bytes, new source edits, authority or a successor inventory."
+}

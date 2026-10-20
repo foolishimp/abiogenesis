@@ -1,0 +1,15 @@
+{
+  "stage": "run-stopped-public-invoke-start",
+  "at": "2026-10-09T18:44:49.831Z",
+  "wallMs": 234234.52791600002,
+  "pid": 17206,
+  "memory": {
+    "rss": 4091199488,
+    "heapTotal": 3619848192,
+    "heapUsed": 3445663256,
+    "external": 5658362,
+    "arrayBuffers": 3246055
+  },
+  "maxRSSKiB": 8026512,
+  "invocationRef": "invocation://abiogenesis/773ff196b0bd2ae5bd7db014be2735faaa6209c1c72d042d639ed8aae2252e71"
+}

@@ -211,6 +211,21 @@ presence nor successful child closure establish the outcome. Unknown required
 inputs refuse before launch; original task/authority and unresolved support stay
 conserved through every mapping, choice and fold.
 
+**Selected native material lifetime (library lifecycle increment235):** the
+existing `governance_work_state` and its full original, observations and current
+judgment keep their declared logical meaning and identities. Native preparation
+consumes the authenticated Event Store selection for its exact prefix, input,
+CCall and retained producer, not a receipt retaining every decoded historical
+Event. The same selected owner relation supplies the bounded task, required role
+material, assembly and admission checks. Indexed reads acquire the particular
+Result/actor bodies that those checks consume; unrelated history is not prompt
+material. Original criteria, current contribution, unresolved outcomes, failed
+command facts and literal byte-range citations remain available. This changes
+private realization only: no observation is relabeled, no independent judgment
+is supplied by a digest, and plain historical records retain their existing
+authentication and complete readback. Full source material is acquired when its
+actual consumer requires it and released after that operation.
+
 ### DL-I02: selected subject evidence and supplied work
 
 The Product owner projects one target-specific subject domain from the existing
@@ -231,8 +246,7 @@ observation. Testing with null subject evidence observes existing files; a
 selected missing or invalid native source refuses without fallback.
 
 UAT also accepts an actual C2 measurement Result for supplied work. Require its
-exact Result/digest/CCall/actor, same invocation/root implementation set/workspace,
-and the candidate at its current digest among protected task observations. The
+exact Result/digest/CCall/actor and same invocation/root implementation set/workspace. The
 admitted C2 observation already proves unchanged protected before/after files.
 The assessment producer coordinate then denotes measurement provenance, never
 file authorship. No dummy author or fabricated source Result is introduced.
@@ -240,8 +254,13 @@ Existing native-work HOW's typed assessment already permits existing assets and
 consumer-selected historical evidence. Producer support is scoped to its own
 admitted files: native work uses file entries in its exact after-observation
 (the existing folded native dependency projection), and either C2 source arm
-uses its protected task observations. The candidate must be among those files
-at its current digest. Every producer dependency must still match the freshly
+uses its protected task observations. For a native source, the candidate must
+be among those files at its current digest. C2 measurement support preserves
+its exact protected dependency set; an independently selected current assessment
+candidate may be outside that set. Its separate context/digest/read-first
+binding does not claim that C2 measured or authored it, widen the measured
+source set or retroactively enrich the admitted Result. Every producer
+dependency must still match the freshly
 observed context; later intersecting writes or uncertain residue refuse through
 the existing currentness owner. Absent future outputs and assessment inputs
 first authored afterward do not retroactively become producer dependencies.
@@ -264,6 +283,111 @@ only companion using the actually corrected supplied candidate and no author
 invocation. Both use the same core archive and fresh Public result/replay. Event
 citations connect frame/context, synthesis/revision, projected choice, child
 Result/fold and parent evaluation; no caller loop or prescribed schedule exists.
+
+### Covered current-use correspondence and native Testing reacquisition
+
+The invoking leaf owner supplies the existing private proof-operation handoff only to the exact declared library `prepare-testing` implementation. It binds the admitted input object, occurrence object and native owner prefix, and resolves the already declared historical source resource. This is a nonserialized owner operation; a copied input/occurrence or a foreign implementation receives no such operation. Handler argument order and all other namespaces remain unchanged. Preparation runs at `selected_no_evidence`; result matching checks the same prepared task before admission; subsequent C2 consumption reconstructs the actual deterministic evidence, Result and advancing judgment. No pre-result operation can substitute for that later admitted lineage.
+
+The ordinary retained-work arm in
+`T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md` owns source ingress. Its same-app
+covered correspondence is shared by Product preparation, ABG invocation
+admission/replay, library `owner`/`result`/`subjectEvidence`, native preparation,
+Testing, independent UAT and preparation/result/fold matching. The raw state and
+historical producer coordinates remain unchanged. `currentContext` always uses
+the actual current W and original roots/limits; cover never relabels an old
+context as current. Exact source membership and current consumer applicability
+are different checks.
+
+The complete installed-declaration comparison remains a private preparation and
+pre-effect invocation-admission result. Cold consumers derive its applicability
+from the existing authenticated invocation/source coordinates and witnessed
+pre-invocation covers; no comparison packet is added to the event profile or
+historical source basis. A historical C2 declaration reference selects the
+original execution basis's exact Catalog/View (the Catalog owner binds its
+readiness digest to the basis digest). The explicit historical resource must
+yield exactly one complete matching declaration proof, and the existing closed
+child owner authenticates it against the original W/lock/installs and root
+coordinates. A copied reference or cover alone does not establish that relation.
+
+For the canonical C2 renderer Context, that same private comparison receives
+the actual old/current causal installs and authenticates their complete installed
+manifest publication bindings, inventory records, members and declared bounds
+through Product's run-environment material owner. Only byte-equal complete
+consumed spans permit the bounded material-coordinate correspondence defined in
+the pending-consumer HOW. All policy, role, access, effect, permission, source and
+occurrence semantics remain exact. Raw declarations, copied receipts or covers
+are not material validation; other or unknown Context consumption still refuses.
+This adds no persisted comparison/observation and preserves the original producer.
+
+For selected historical native work, the Testing branch uses the existing
+`NativeWorksiteCommandReacquisitionRequest` and C2 task/proof contracts. The
+library's actual `prepare-testing` F_D call is an additional exact preparation
+origin of the native reacquisition owner. It retains its own admitted input,
+implementation, task Result, deterministic evidence and advancing judgment;
+the standalone reacquisition GraphFunction remains exact. This adds no GTL node,
+Public operation, task schema or fabricated preparation event.
+
+The library occurrence joins the exact GTL leaf's declared
+`binding://abiogenesis/default-library/prepare-testing@5` through its C_Call and
+implementation-set row. A consumer must not substitute an
+`implementation-binding://` coordinate for that declaration. The standalone
+reacquisition binding remains its own declared identity. This is the existing
+`prepare-testing -> native reacquisition occurrence -> current C2 task` relation;
+the phase, historical declaration/closed-source, current-use and D2 cover guards
+remain unchanged. The earlier controlled C_Call fixture mirrored the wrong
+namespace and missed this constructability violation. Its binding premise now
+comes from the canonical GTL leaf and descriptor, with the former namespace
+tested as a refusal. This sufficient counterexample does not establish the first
+null in the actual installed failure; installed continuation remains the exit
+proof.
+
+The same occurrence joins the complete published Testing GraphFunction, not
+the authored wrapper before GTL canonicalization. The existing
+`canonicalizeAuthoredGtlCarrier(..., "graph_function")` owner supplies the
+publication representation for both definition hashing and graph
+materialization. The actual execution basis must match that complete definition
+and materialized graph before its unchanged input/request, C_Call, binding,
+implementation-set, grant, source/current-use and cover checks can establish
+preparation. The fixture derives its expected definition from the module
+publication owner; raw, foreign or changed definition/materialization identities
+refuse. Catalog entry identity is distinct from GraphFunction definition identity.
+Standalone reacquisition and complete successful outputs remain unchanged; the
+installed Testing/C2 continuation remains the required joint exit proof.
+
+The owner joins the selected native Result/call/actor/closed child to the
+historical declaration resource, actual source-use ancestry and current D2
+binding cover. It acquires the complete current context, preserving entry
+path/role/state/device/inode/size/digest correspondence, selected source order,
+all original commands/reports/predicates/budgets and current grants. The returned
+C2 task carries the existing `sourceReacquisition` proof. C2 consumption requires
+the actual earlier F_D task Result/judgment and rechecks current invalidators;
+constructing or copying that carrier cannot authenticate itself.
+
+The selected-native branch never falls back to observed files when its source
+or reacquisition refuses. The explicit null-source observed-files arm is
+unchanged. Missing/foreign preparation, changed context, uncovered authority,
+later writes/failure residue and crossed Result/digest/call identities refuse.
+
+The nullable Testing preparation retains its first refusing owner relation in
+the existing `missing-owned-prepare-testing` diagnostic class. A call-local,
+nonserialized callback follows the same owner/context/subject and native
+historical-declaration/closed-source/current-use/occurrence/task checks. It
+distinguishes an absent assembly basis or proof operation, an entered operation
+that refused, and an error caught by an already nullable native owner. It grants
+no operation and changes no guard or successful task. The existing diagnostic
+owner retains only stage/relation, implementation/input digest, occurrence and
+relevant scalar source/context/declaration selectors, plus safely classified
+caught class/code; bodies, Errors, stacks and arbitrary getters are excluded.
+The first specific refusal wins over an enclosing null. The normal
+`governance_failure` value and its deterministic output digest use that exact
+diagnostic ref. Opaque historical diagnostics remain readable. This evidence
+does not identify an earlier unobserved inner guard, establish no physical
+effects, or authorize a retry.
+
+UAT retains separate current candidate/rubric/schema acquisition, unchanged full
+criteria and independent assessor identity. Historical measurement is neither
+authorship nor current success. Historical observations/UNMET judgments and
+unresolved obligations survive the current parent state without granting closure.
 
 ## Concrete missing relation and smallest implementation boundary
 
@@ -683,6 +807,40 @@ observation/sixteen-mutant history discriminate fact correspondence and complete
 prompt fit. They are mechanical readiness, not native mutation detection or UAT.
 Writer29's lossless-sharing counterexample remains frozen; genuine excess still
 refuses.
+
+### Native parent-context observation correspondence (Run02 repair138)
+
+Native author and independent-assessment preparation use the same Product-owned
+factual observation view as the selector. The canonical retained state and its
+input digest keep every complete admitted observation; native preparation,
+preparation admission and child-fold correspondence compute the same task from
+that state and the exact current context. No planner task or new evidence is
+constructed to obtain the view.
+
+The native instructions retain each observation's Result/digest/call, actor,
+selected-function and synthesis coordinates, native report, assessment finding,
+command status, report facts, predicate values, adverse and unknown facts, and
+currentness/dependency correspondence. Full C2 stream and detailed predicate
+bodies remain in the authenticated owning Results. Their exact existing owner
+references and field paths, plus the literal diagnostic byte-range excerpts
+specified above, replace repeated inline execution envelopes; these citations
+neither grant external access nor substitute for mandatory selected material.
+
+The complete original task, selected bounded contribution and its admitted
+provenance, mandatory source reads, effect scope and currentness guards remain
+unchanged. UAT still reacquires the complete independent subject, sources and
+rubric and consumes its full authenticated producer; the parent-context view
+cannot establish assessment adequacy or satisfaction. Preparation and admission
+must agree on this presentation, and later child-fold validation must use the
+same relation. Raw state, response schemas, evidence admission and parent
+consequence remain unchanged.
+
+The actual thirty-four-observation failed author history and the realistic
+controlled fifty-one-observation history discriminate causal-fact and literal
+citation conservation through native preparation and complete owned assembly.
+The retained pre-fix prompt is a capacity counterexample, not a new Product
+bound. Reduced presentation and controlled checks establish bounded source
+readiness; actual installed provider acceptance and full UAT remain separate.
 
 ### Declared source roles in selector context (S6 live-02 correction)
 

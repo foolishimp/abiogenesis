@@ -1,0 +1,58 @@
+{
+  "kind": "canonical_publication_member_correspondence_failure",
+  "stage": "ordinary_build/generator_before_publication",
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-13/commands/canonical-build.result.json",
+    "sha256": "4c513feb466b4ec28a2f190e12565bce61acb52f180290e309c17c8db708e68b",
+    "byteCount": 2347,
+    "mode": 420
+  },
+  "message": "C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js",
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+    "line": 100
+  },
+  "declarationOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "memberLines": "36\u201339",
+    "spanLine": 62,
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "714a80823899e03cef43726917f6be852923f424c26638f1c4afe188e14e19ef",
+      "byteCount": 24180,
+      "mode": 420
+    }
+  },
+  "declaredMember": {
+    "path": "build/code/src/product/worksite_command_execution.js",
+    "sha256": "0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa",
+    "byteCount": 109703,
+    "startByte": 99758,
+    "endByte": 102066,
+    "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345"
+  },
+  "actualAccepted41Emission": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+    "sha256": "5bdc29e4ccad5c2d33d4ce309e9eab2d70a70c7843bf289b75a087f027f82322",
+    "byteCount": 109611,
+    "mode": 420
+  },
+  "completedEffects": [
+    "ordinary clean",
+    "strict tsc emitted528 current Source41 outputs"
+  ],
+  "notEntered": [
+    "generator outputs after first member guard",
+    "pack",
+    "install",
+    "consumer successor",
+    "Public setup",
+    "ABG resource acquisition",
+    "native Testing",
+    "C2",
+    "repair",
+    "restart"
+  ],
+  "disposition": "STOP; Root must select owning declaration/member/span repair and reproof before another build/publication attempt",
+  "uncertainty": "The later actual native context/unique first throw remains unobserved; this failure precedes every runtime operation."
+}

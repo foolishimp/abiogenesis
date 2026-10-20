@@ -1,0 +1,11 @@
+{
+  "sourceFreezeSHA256": "51bfa2ad75ab9d2c0858998c7e4a82a6e7a4269a4c277c842af07ae1c7f6da1c",
+  "sourceIndexSHA256": "99a89da21aa6e6f9f0296ca55c388ab12cac319692a4dec9a944242a723afe90",
+  "sourceCutDigest": "sha256:8c8c1e2cd8cf4a79a0a59b92edd1299362c10ab315e95cd998ef80e27314194d",
+  "acceptedHOWSHA256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+  "acceptedLawFreezeSHA256": "a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872",
+  "authorityPostimages": 13,
+  "sourceAcceptance": "execution.md#carrier-source-accepted-and-exact-c03-construction-selected",
+  "sourceReview": "received-independent-source-review.md",
+  "sourceCounts": "derive actual C03 population; retain source25 chain and new acceptedHOW"
+}

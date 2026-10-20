@@ -1,0 +1,395 @@
+{
+  "kind": "frozen_runtime_state_dependency_conjunction",
+  "sourceCut": 36,
+  "baseline232": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/source/code/src",
+  "counts": {
+    "same232": 195,
+    "owned233": 61,
+    "accepted235": 7,
+    "newPrivateOwner": 1
+  },
+  "unchanged232Paths": [
+    "abg/definition_event_resource.ts",
+    "abg/event_contract_profiles.ts",
+    "abg/event_log.ts",
+    "abg/index.ts",
+    "abg/m03/transport.ts",
+    "abg/m03.ts",
+    "abg/native_event_time.ts",
+    "abg/project_read_definition_bindings.ts",
+    "abg/project_read_operation_contracts.ts",
+    "abg/requirement_handoff.ts",
+    "abg/requirements.ts",
+    "abg/result_evidence_lineage_contracts.ts",
+    "abg/runtime_liveness_contracts.ts",
+    "abg/terminal_result_contracts.ts",
+    "abg/transport_contracts.ts",
+    "abg/traversal_transition.ts",
+    "abg/witness_definition_bindings.ts",
+    "abg/witness_operation_contracts.ts",
+    "abg/worker_transport.ts",
+    "app/m04.ts",
+    "gtl/c_algebra.ts",
+    "gtl/canonicalization.ts",
+    "gtl/consensus.ts",
+    "gtl/consensus_schema.ts",
+    "gtl/contracts.ts",
+    "gtl/declaration_references.ts",
+    "gtl/declarations.ts",
+    "gtl/default_library.ts",
+    "gtl/graph_applications.ts",
+    "gtl/graph_construction.ts",
+    "gtl/index.ts",
+    "gtl/m01.ts",
+    "gtl/m02.ts",
+    "gtl/materialize.ts",
+    "gtl/native_workspace_work.ts",
+    "gtl/public_start.ts",
+    "gtl/registered_selection.ts",
+    "gtl/requirement_handoff.ts",
+    "gtl/requirements.ts",
+    "gtl/self_conformance.ts",
+    "gtl/semantic_job.ts",
+    "gtl/semantic_revision_identity.ts",
+    "gtl/semantic_revision_publication.ts",
+    "gtl/semantic_stage.ts",
+    "gtl/semantic_stage_identity.ts",
+    "gtl/semantic_stage_publication.ts",
+    "gtl/serialization.ts",
+    "gtl/serialization_contracts.ts",
+    "gtl/source_path.ts",
+    "gtl/stdo_run_environment.ts",
+    "gtl/worksite_branch_construction.ts",
+    "gtl/worksite_c0.ts",
+    "gtl/worksite_command_execution.ts",
+    "gtl/worksite_command_forward.ts",
+    "gtl/worksite_construction.ts",
+    "gtl/worksite_construction_recovery.ts",
+    "hog/child_traversal.ts",
+    "hog/entry.ts",
+    "hog/index.ts",
+    "hog/parent_rehydration.ts",
+    "hog/traversal_contract.ts",
+    "hog/traversal_failure.ts",
+    "implementation/consensus.ts",
+    "implementation/default_library.ts",
+    "implementation/index.ts",
+    "implementation/leaf_execution_authority.ts",
+    "implementation/native_workspace_work.ts",
+    "implementation/qualification.ts",
+    "implementation/release_publication.ts",
+    "implementation/requirement_handoff.ts",
+    "implementation/self_conformance.ts",
+    "implementation/semantic_revision.ts",
+    "implementation/semantic_stage.ts",
+    "implementation/worksite_branch_construction.ts",
+    "implementation/worksite_command_forward.ts",
+    "implementation/worksite_command_helper.ts",
+    "implementation/worksite_construction.ts",
+    "implementation/worksite_file_replace.ts",
+    "index.ts",
+    "product/admission_authority.ts",
+    "product/builtin_semantics.ts",
+    "product/catalog.ts",
+    "product/catalog_definition_bindings.ts",
+    "product/catalog_operation_contracts.ts",
+    "product/catalog_operations.ts",
+    "product/contracts.ts",
+    "product/declaration_application.ts",
+    "product/declaration_closure.ts",
+    "product/declaration_exports.ts",
+    "product/default_library.ts",
+    "product/default_library_fulfillment.ts",
+    "product/default_library_identity.ts",
+    "product/environment.ts",
+    "product/environment_definition_bindings.ts",
+    "product/environment_operation_contracts.ts",
+    "product/environment_operations.ts",
+    "product/exact_match.ts",
+    "product/execution_resolution.ts",
+    "product/implementation_resolution.ts",
+    "product/index.ts",
+    "product/install_definition_bindings.ts",
+    "product/install_operation.ts",
+    "product/install_operation_contracts.ts",
+    "product/install_product.ts",
+    "product/installed_module.ts",
+    "product/interaction_operation_contracts.ts",
+    "product/invocation.ts",
+    "product/materialization_operation_contracts.ts",
+    "product/materialization_operations.ts",
+    "product/native_workspace_assessment.ts",
+    "product/native_workspace_work.ts",
+    "product/native_workspace_work_identity.ts",
+    "product/project_read_definition_bindings.ts",
+    "product/project_read_operation_contracts.ts",
+    "product/project_read_ports.ts",
+    "product/public_contract_publication.ts",
+    "product/publication.ts",
+    "product/registered_selection_native.ts",
+    "product/release_acceptance.ts",
+    "product/release_snapshot_definition_bindings.ts",
+    "product/release_snapshot_operations.ts",
+    "product/requirement_handoff.ts",
+    "product/result_assessment_operation.ts",
+    "product/run_invocation_operation.ts",
+    "product/run_operation_contracts.ts",
+    "product/semantic_job.ts",
+    "product/semantic_revision.ts",
+    "product/semantic_stage.ts",
+    "product/semantics.ts",
+    "product/stdo_environment.ts",
+    "product/verification_definition_bindings.ts",
+    "product/verification_operation.ts",
+    "product/verification_operation_contracts.ts",
+    "product/verify_product.ts",
+    "product/worksite_branch_construction.ts",
+    "product/worksite_command_execution.ts",
+    "product/worksite_command_execution_identity.ts",
+    "product/worksite_command_forward.ts",
+    "product/worksite_command_forward_identity.ts",
+    "product/worksite_construction.ts",
+    "product/worksite_construction_identity.ts",
+    "product/worksite_construction_recovery.ts",
+    "product/worksite_effect.ts",
+    "product/worksite_operations.ts",
+    "product/worksite_preparation.ts",
+    "product/worksite_preparation_contracts.ts",
+    "product/worksite_revision.ts",
+    "product/worksite_revision_identity.ts",
+    "product/workspace_definition_bindings.ts",
+    "product/workspace_operation_contracts.ts",
+    "product/workspace_operations.ts",
+    "public/cli.ts",
+    "public/codex_cli.ts",
+    "public/continuation_authority.ts",
+    "public/gap_authority.ts",
+    "public/index.ts",
+    "public/installed_definition_call_transport.ts",
+    "public/installed_public_definition_call.ts",
+    "public/run_projection_authority.ts",
+    "qualification/m05.ts",
+    "shared/admission_predicates.ts",
+    "shared/canonical_json.ts",
+    "shared/capability_contracts.ts",
+    "shared/definition_binding_mechanics.ts",
+    "shared/digests.ts",
+    "shared/effect_definition.ts",
+    "shared/i_json.ts",
+    "shared/immutable.ts",
+    "shared/index.ts",
+    "shared/operation_definition_coordinate.ts",
+    "shared/owner_contract_source_set.ts",
+    "shared/public_function_contracts.ts",
+    "shared/public_function_family.ts",
+    "shared/public_function_projections.ts",
+    "shared/public_invocation.ts",
+    "shared/references.ts",
+    "shared/rooted_topology_partition.ts",
+    "shared/static_definition_bindings.ts",
+    "validator/c_algebra.ts",
+    "validator/conformance_definition_bindings.ts",
+    "validator/conformance_operation.ts",
+    "validator/conformance_operation_contracts.ts",
+    "validator/graph.ts",
+    "validator/implementation_resolution.ts",
+    "validator/index.ts",
+    "validator/qualification.ts",
+    "validator/qualification_contracts.ts",
+    "validator/qualification_resources.ts",
+    "validator/raw_admission.ts",
+    "validator/self_conformance.ts",
+    "validator/self_conformance_basis.ts",
+    "validator/self_conformance_contracts.ts",
+    "validator/self_conformance_publication.ts",
+    "validator/self_conformance_semantics.ts",
+    "validator/validation.ts"
+  ],
+  "dependencies235": [
+    {
+      "relativePath": "abg/default_library.ts",
+      "accepted235": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/postimages-03/code/src/abg/default_library.ts",
+        "sha256": "66945c9a2a5bf76dcba752b9191d264777a8db5622ea9d8a9846dd802f0c22db",
+        "bytes": 33028
+      },
+      "finalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/code/src/abg/default_library.ts",
+        "sha256": "66945c9a2a5bf76dcba752b9191d264777a8db5622ea9d8a9846dd802f0c22db",
+        "bytes": 33028
+      }
+    },
+    {
+      "relativePath": "abg/instruction_assembly.ts",
+      "accepted235": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/instruction-postimage-06.ts",
+        "sha256": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+        "bytes": 118854
+      },
+      "finalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/code/src/abg/instruction_assembly.ts",
+        "sha256": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+        "bytes": 118854
+      }
+    },
+    {
+      "relativePath": "abg/actor_process.ts",
+      "accepted235": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/postimages-03/code/src/abg/actor_process.ts",
+        "sha256": "d7b779a0cbb86059135682ecc63b36ae3f5bd6fdba748bec43d258d8fcd44126",
+        "bytes": 60131
+      },
+      "finalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/code/src/abg/actor_process.ts",
+        "sha256": "d7b779a0cbb86059135682ecc63b36ae3f5bd6fdba748bec43d258d8fcd44126",
+        "bytes": 60131
+      }
+    },
+    {
+      "relativePath": "abg/stdo_environment.ts",
+      "accepted235": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/postimages-03/code/src/abg/stdo_environment.ts",
+        "sha256": "517ea5ea869d876ec6c91b3f1d1e43c79d538dade9af7ce8ac2b4e4a574ccdd8",
+        "bytes": 27743
+      },
+      "finalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/code/src/abg/stdo_environment.ts",
+        "sha256": "517ea5ea869d876ec6c91b3f1d1e43c79d538dade9af7ce8ac2b4e4a574ccdd8",
+        "bytes": 27743
+      }
+    },
+    {
+      "relativePath": "implementation/worksite_command_execution.ts",
+      "accepted235": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/postimages-03/code/src/implementation/worksite_command_execution.ts",
+        "sha256": "ec709a3b74b4d5ff6a522083f779a7971739167d30f132dd87d8bcbb2ad4fce3",
+        "bytes": 39519
+      },
+      "finalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/code/src/implementation/worksite_command_execution.ts",
+        "sha256": "ec709a3b74b4d5ff6a522083f779a7971739167d30f132dd87d8bcbb2ad4fce3",
+        "bytes": 39519
+      }
+    },
+    {
+      "relativePath": "abg/event_body_encoding.ts",
+      "accepted235": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/codec-postimage-05.ts",
+        "sha256": "c9d5bdfb2581115724d48b995a8cc734ae58dd8a1baa7663db99a9428e6f6e49",
+        "bytes": 10804
+      },
+      "finalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/code/src/abg/event_body_encoding.ts",
+        "sha256": "c9d5bdfb2581115724d48b995a8cc734ae58dd8a1baa7663db99a9428e6f6e49",
+        "bytes": 10804
+      }
+    },
+    {
+      "relativePath": "abg/native_worksite_execution.ts",
+      "accepted235": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/native-source-postimages-02/code/src/abg/native_worksite_execution.ts",
+        "sha256": "8cad8924a3820bc572f13f740f48049a7d5b62e8ec01b923c19ab16363832046",
+        "bytes": 19152
+      },
+      "finalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/code/src/abg/native_worksite_execution.ts",
+        "sha256": "8cad8924a3820bc572f13f740f48049a7d5b62e8ec01b923c19ab16363832046",
+        "bytes": 19152
+      }
+    }
+  ],
+  "fullSourceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/dependency-cut-36-inputs.json",
+    "sha256": "cef6c312aed0dddf1e97800f78222327f235af5aa00562fa35bef6ab6dd4fa77",
+    "bytes": 80618
+  },
+  "fullEmissionManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/dependency-cut-36-emission.json",
+    "sha256": "10ce20f0501e41b65741ee127e5d06b91243897ff4883451cc115dceaddccbe7",
+    "bytes": 161514
+  },
+  "protectedCut34": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/freeze.json",
+      "sha256": "4ae653dac80bff28be020f57b9cc77d7e3fe6d60338766fb4848fb69189bf4eb",
+      "bytes": 11110
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/return.md",
+      "sha256": "e498f208cd76f9b01283513f2a832ab7dd89469996c1a4db816a8091487074a3",
+      "bytes": 3501
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/readiness.json",
+      "sha256": "49a4dc268270e73c1ead16f349294c2e0335f719b3f0755d72f5ea013856a7ff",
+      "bytes": 9203
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/postimages.json",
+      "sha256": "0c59e21cdf072e65ba9e04b920f20b59ae797009f51bf162a56b9692156ecc35",
+      "bytes": 59311
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-conjunction.json",
+      "sha256": "fafc424370cff9a5dab3b2baba6372dc7b8767519e0548bf9fa45c99647c7a13",
+      "bytes": 13329
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-34-inputs.json",
+      "sha256": "d708f16312826e65d0a1e8697d15f479f1592ec41a235df181616d270f3e6858",
+      "bytes": 79543
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-34-emission.json",
+      "sha256": "ae7db24406e0b00c3d727720b57a59fc37614359d548a54a60a7ccc429ac54cf",
+      "bytes": 162551
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/increment.diff",
+      "sha256": "aa9ae83ad823420172bd4f41ee3fa3097d809fff5dc308077c7a27c072f24b45",
+      "bytes": 941663
+    }
+  ],
+  "protectedSuccessor35": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/freeze.json",
+      "sha256": "fc292e5252d86be0e9460f3ac3ce29cb0a22fcc7dcfa28e906272d16ef782a0d",
+      "bytes": 15374
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/return.md",
+      "sha256": "aea030f7365c05ccf459e91b6c352285e359d85cb3de1fac00288a472fdf190e",
+      "bytes": 3518
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/readiness.json",
+      "sha256": "0f1d66eeb6748400299abdd4f1d0dd07491ae134120293866ebee1dfb3c4ae47",
+      "bytes": 11077
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/postimages.json",
+      "sha256": "6c03e716cf304926bc999065ba6ad1a581b3f44a271c4c93c524ddc51675479f",
+      "bytes": 74156
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/increment-from-34.diff",
+      "sha256": "5191e243a049726ba4a169b0ad363189002071ceb93b562551f511e61f803951",
+      "bytes": 46897
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/dependency-conjunction.json",
+      "sha256": "d950c12c4df3a5d60d0536f4d2224a0985f80194e8b2edbb3a5e18542222cd34",
+      "bytes": 15491
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/dependency-cut-35-inputs.json",
+      "sha256": "8a8265aad43b0046e96dfe95e573b2875c2ee8cad5ef1e66183edf7dd8844a21",
+      "bytes": 80618
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-35/dependency-cut-35-emission.json",
+      "sha256": "61e54d3db74dd28966e38e637c08c20486342ba30c24d78e4a3072e0b746884a",
+      "bytes": 161514
+    }
+  ]
+}

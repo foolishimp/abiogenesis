@@ -1,0 +1,7 @@
+{
+  "superseded": "commands/focused.result.json",
+  "cause": "Generic executableCapabilities maxTerminationGraceMs1000 rejected legal-enclosing-envelope test command grace30000 at semantic owner; budget branch itself correct.",
+  "correction": "Only new test supplies30000 grace capability via optional fixture argument; existing default1000 unchanged.",
+  "productionChange": false,
+  "compileRepeated": false
+}

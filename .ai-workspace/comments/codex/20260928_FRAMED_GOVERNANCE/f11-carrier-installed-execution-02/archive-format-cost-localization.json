@@ -1,0 +1,45 @@
+{
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-02/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+  "archiveDigest": "sha256:7188ee7c86398f25db5cf71cee1657eb374df519a818b82dd13a55836310d520",
+  "memberCount": 5264,
+  "regularMembers": 5264,
+  "extendedPathMemberCount": 3027,
+  "maxMemberPathBytes": 159,
+  "firstExtendedMembers": [
+    {
+      "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/construction_continuation.d.ts",
+      "pax": {
+        "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/construction_continuation.d.ts"
+      }
+    },
+    {
+      "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/definition_event_resource.d.ts",
+      "pax": {
+        "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/definition_event_resource.d.ts"
+      }
+    },
+    {
+      "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/effectful_invocation_truth.d.ts",
+      "pax": {
+        "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/effectful_invocation_truth.d.ts"
+      }
+    },
+    {
+      "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/fh_continuation_projection.d.ts",
+      "pax": {
+        "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/fh_continuation_projection.d.ts"
+      }
+    },
+    {
+      "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_execution_truth.d.ts",
+      "pax": {
+        "path": "package/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_execution_truth.d.ts"
+      }
+    }
+  ],
+  "fastOwnerReader": "bufferValidatedArchiveEntries requires unique regular USTAR; a PAX extension causes fallback to memoized external tar entry reads",
+  "readRoute": "frozen installed ProductVerificationPort; no private owner invocation",
+  "completedNativeEntryReads": "unobserved",
+  "lastExternalTarPID": "unobserved; OS process enumeration denied",
+  "formatClaim": "standard PAX integrity verified; optimized-reader compatibility not established by that check"
+}

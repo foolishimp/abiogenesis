@@ -1,0 +1,73 @@
+--- test_env/tests/t287-gtl-serialization-publication.test.mjs (preimage)
++++ test_env/tests/t287-gtl-serialization-publication.test.mjs (postimage)
+@@ -29,6 +29,18 @@
+ const schemaCheck=name=>ajv.getSchema(schema.$id+'#/$defs/'+name);
+ const admitted=(result,label)=>{assert.equal(result.kind,'raw_admitted_value',label+': '+JSON.stringify(result));return result;};
+ 
++test('strict published definitions and the complete composed tuple census are ready before carrier cases',t=>{
++ const names=['GraphFunction','ModulePublication','CProgramSyntax','GtlProgramConformanceInput','GtlLanguageConformanceCorpus'];
++ for(const name of names)assert.equal(typeof schemaCheck(name),'function',name+' actual strict Ajv2020 compilation');
++ const tuples=[];const visit=(node,pointer)=>{if(node===null||typeof node!=='object')return;
++  if(Array.isArray(node.prefixItems)){assert.equal(node.minItems,node.prefixItems.length,pointer+' exact minimum');assert.equal(node.items,false,pointer+' closed tail');tuples.push(pointer);}
++  for(const [key,value]of Object.entries(node))visit(value,pointer+'/'+key);};
++ for(const name of names)visit(schema.$defs[name],'#/$defs/'+name);
++ assert.equal(tuples.length,23,'complete imported-owner tuple population');
++ assert.equal(schemaCheck('GtlLanguageConformanceCorpus')(corpus),true,'actual emitted fixed corpus');
++ t.diagnostic(JSON.stringify({strictAjv2020:true,compiledDefinitions:names,closedComposedTuples:tuples.length,publishedSchema:corpus.schema.path}));
++});
++
+ // Resolve the actual packaged schema; no independently authored equivalent.
+ function resolveSchemaNode(node){
+  while(node.$ref){assert(node.$ref.startsWith('#/'),'local published schema reference');
+@@ -121,7 +133,7 @@
+  t.diagnostic(JSON.stringify({pathCases:cases.size,pathOwners:2,originalSplitOracle:true,publishedSchema:corpus.schema.path,nonemptyReferencePreserved:true}));
+ });
+ 
+-test('complete optional declarations roundtrip while native relational guards remain distinct',t=>{
++test('complete optional declarations roundtrip while native relational guards remain distinct',async t=>{
+  const base=clone(corpus.programs[0].packet.publication),zero='sha256:'+'0'.repeat(64);
+  const member={memberRef:'member://supplied',path:'source/input.md',byteCount:4,digest:zero};
+  const context={contextRef:'context://supplied',sourceLocator:'source://supplied',inventoryDigest:sha256Canonical([member]),members:[member]};
+@@ -151,6 +163,31 @@
+  const fixtures=[['semanticLifecycle',lifecycle],['semanticJobLifecycle',job],['requirementHandoffs',[handoff]],['stdoRunEnvironments',[historical]],['runEnvironments',[run]]];
+  const roundtrip=(publication,label)=>{const first=admitted(m02.admitModule(publication),label),text=m02.serializeModule(first.value),second=admitted(m02.admitModule(admitIJsonText(text)),label+' roundtrip');
+   assert.deepEqual(second.value,first.value);assert.equal(second.subjectDigest,first.subjectDigest);assert.equal(schemaCheck('ModulePublication')(second.value),true,label);return first;};
++ const stageOwner=await import(pathToFileURL(path.join(root,'build/code/src/gtl/semantic_stage.js')));
++ const jobOwner=await import(pathToFileURL(path.join(root,'build/code/src/gtl/semantic_job.js')));
++ let assemblyNegatives=0,assemblyRestorations=0,assemblyPositives=0;
++ for(const [field,value,predicate,construct]of [
++  ['semanticLifecycle',lifecycle,stageOwner.isSemanticLifecycleDeclaration,stageOwner.constructSemanticLifecycleDeclaration],
++  ['semanticJobLifecycle',job,jobOwner.isSemanticJobLifecycleDeclaration,jobOwner.constructSemanticJobLifecycleDeclaration],
++ ])for(const policy of ['full_source_and_predecessors','role_scoped_worksite']){
++  const declaration=clone(value),assembly=declaration.stages[0].assembly;assembly.contentPolicy=policy;
++  if(policy==='full_source_and_predecessors')delete assembly.worksiteContentByRole;
++  assert(stageOwner.isSemanticStageDeclaration(declaration.stages[0]));assert(predicate(declaration));
++  assert.deepEqual(construct(clone(declaration)),declaration);const publication={...clone(base),[field]:clone(declaration)};
++  roundtrip(publication,field+' '+policy+' exact8');assemblyPositives++;
++  const exact=assembly.sectionOrder;
++  for(const [label,items]of [['short',exact.slice(0,-1)],['surplus',[...exact,exact.at(-1)]],
++   ['reordered',[exact[1],exact[0],...exact.slice(2)]],['wrong element',[...exact.slice(0,2),'invented',...exact.slice(3)]]]){
++   const changed=clone(declaration);changed.stages[0].assembly.sectionOrder=items;
++   assert.equal(stageOwner.isSemanticStageDeclaration(changed.stages[0]),false,field+' '+policy+' '+label+' stage');
++   assert.equal(predicate(changed),false,field+' '+policy+' '+label+' lifecycle');assert.throws(()=>construct(changed),TypeError);
++   const invalid={...clone(base),[field]:changed};assert.equal(schemaCheck('ModulePublication')(invalid),false,label+' published');
++   const refused=m02.admitModule(invalid);assert.equal(refused.code,'invalid_kind');assert(refused.message.includes('$/'+field),refused.message);
++   assert.throws(()=>m02.serializeModule(invalid),TypeError);assemblyNegatives++;
++   assert(predicate(declaration));assert.deepEqual(construct(clone(declaration)),declaration);
++   roundtrip(publication,label+' exact8 restoration');assemblyRestorations++;
++  }
++ }
+  let guardNegatives=0;
+  for(const [field,value]of fixtures){const publication={...clone(base),[field]:clone(value)};roundtrip(publication,field);
+   const unknown=clone(publication);const declaration=Array.isArray(unknown[field])?unknown[field][0]:unknown[field];declaration.extra=true;
+@@ -172,7 +209,9 @@
+   assert.equal(schemaCheck('ModulePublication')(changed),true,field+' local relation remains separate');
+   const refused=m02.admitModule(changed);assert.equal(refused.code,'invalid_kind');assert(refused.message.includes('$/'+field),refused.message);guardNegatives++;roundtrip(publication,field+' restored');
+  }
+- t.diagnostic(JSON.stringify({optionalOwners:fixtures.map(([field])=>field),guardNegatives,originalRestorations:guardNegatives,suppliedLocalDeclarations:true,wholeProgramClaims:0,RuntimeCalls:0}));
++ t.diagnostic(JSON.stringify({optionalOwners:fixtures.map(([field])=>field),guardNegatives,originalRestorations:guardNegatives,
++  assemblyPolicies:2,assemblyLifecycleFamilies:2,assemblyPositives,assemblyNegatives,assemblyRestorations,
++  suppliedLocalDeclarations:true,wholeProgramClaims:0,RuntimeCalls:0}));
+ });
+ 
+ test('exact extracted package binds all current schema/API/native declarations and preserves prior addresses',async t=>{

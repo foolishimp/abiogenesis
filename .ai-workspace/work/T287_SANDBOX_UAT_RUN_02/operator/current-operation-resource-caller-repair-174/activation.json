@@ -1,0 +1,40 @@
+{
+  "role": "Worker174 caller repair/preflight only",
+  "product": "ABI5 fifteen families / GOAL035 T287 original external Data Mapper",
+  "method": "STDO2.5.1rc2",
+  "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "rootGrant": "Root Worker174 conjoins172/173; syntax and one compact owned-resource advancing-cut environment guard discriminator; no campaign execution",
+  "baseCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/prepare.mjs",
+    "sha256": "c89f5c98a6f3b5ee536396681877a67b9559ee7c9b365c926fd50d1938dd09fd",
+    "byteCount": 36300
+  },
+  "baseFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/freeze.json",
+    "sha256": "be4211fb9f0335a1fdf9c3229b3886409bbb586a342627663e446e88afbf1832",
+    "byteCount": 16073
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/first-cause.json",
+    "sha256": "e63fe87787ac75de694a73a9c780cff17b653c01b5c6908797c7fa4e06874951",
+    "byteCount": 2630
+  },
+  "currentHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-171/final-close-handoff.json",
+    "sha256": "1e5de97f11460a5cf41e97b4133fef7477bd1d576a5e685800423242de1f3f1c",
+    "byteCount": 1472
+  },
+  "repair": "Borrow current nominal operation selection for shared grant; keep enclosing acquisition for normal close; reuse exact171 completed consumer and binding via canonical prefix projections",
+  "permittedEffects": [
+    "new174 documents/caller/fixture/command receipts",
+    "disposable canonical owned-resource fixture append/completion/normalclose"
+  ],
+  "excludedEffects": [
+    "campaign resource read/hash/acquire",
+    "archive verification",
+    "actual Public consumer/install/bind/catalog/native/model/app dispatch",
+    "Source/Product/HOW/schema/guard/cap/Git changes"
+  ],
+  "proofLimit": "Local admitCapabilityEnvironment stage only; full installed nominal grant and current-prefix retained admission projections require separate176 grant"
+}

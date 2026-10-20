@@ -1,0 +1,10 @@
+{
+  "pid": 97616,
+  "exitCode": 1,
+  "signal": null,
+  "exitObserved": true,
+  "timedOut": false,
+  "elapsedMs": 87663.92904194072,
+  "stdout": "driver.stdout",
+  "stderr": "driver.stderr"
+}

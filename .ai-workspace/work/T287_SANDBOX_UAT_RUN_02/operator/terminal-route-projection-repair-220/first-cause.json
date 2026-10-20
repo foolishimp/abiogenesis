@@ -1,0 +1,51 @@
+{
+  "status": "STOP_PENDING_SELECTED_FIXTURE_ACTION",
+  "strict": {
+    "exitCode": 0,
+    "elapsedMs": 7269.357792043593,
+    "emission": "1 replay.js byte delta; other525 JS/d.ts equal"
+  },
+  "focused01": {
+    "exitCode": 1,
+    "elapsedMs": 795.3215420129709,
+    "tests": 3,
+    "passed": 0,
+    "entry": "fixture reopen; no replay entry"
+  },
+  "boundedDiagnostic": {
+    "exitCode": 1,
+    "elapsedMs": 296.82670801412314,
+    "code": "contract_mismatch",
+    "message": "event-store reopen authority names another event contract"
+  },
+  "cause": "Fixture profile sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0 is not a currently supported exact profile. Existing guard rejects before ownership/read/decode; manifest is not consulted.",
+  "selectedActionPending": "Retain old fixture and failed receipts. Use current-profile component owner/test inputs with explicit lower premises, not a changed profile label or validator exemption. Root selects the affected reproof before retry.",
+  "workingPosts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "sha256": "1f80f69acf96284f503fe7feb47d93362450f3367c97689f0b5f8e370d26888d",
+      "byteCount": 92034
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "52de5e4ed66ca62ea7247add4fcd232dda649d30aca3330412233419d1c15fa4",
+      "byteCount": 37264
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+      "sha256": "c6c5ce569cd145942659cc22047dc300aa8e1944d28625aed0eff7922ea901e0",
+      "byteCount": 19595
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+      "sha256": "671a9bfc87b1b1b2e833a32a626afedd4a5566157918a04049b773f012294422",
+      "byteCount": 22777
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+      "sha256": "6fe16034261213fbbc245bc960836e34a5f4c8be6e219a431a8f542e9e2f890e",
+      "byteCount": 80185
+    }
+  ],
+  "generatedState": "Only compiler-produced replay.js copied so far. Normal manifest generation pending; no package/install/current UAT effects."
+}

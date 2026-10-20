@@ -1,0 +1,7 @@
+{
+  "failedValidationChunk": "2ecfd9",
+  "cause": "Phase code incorrectly treated async configuration(path) as a synchronous raw-object constructor; owner receives an exact file path and must be awaited.",
+  "dependentFinalizerChunk": "6f36c7",
+  "causeOfFinalizerStop": "Validation receipt absent; candidate identity/freeze already closed and preserved.",
+  "correction": "await configuration(exact resume-config.json path); no build/pack/install/verification repeated, no Source change."
+}

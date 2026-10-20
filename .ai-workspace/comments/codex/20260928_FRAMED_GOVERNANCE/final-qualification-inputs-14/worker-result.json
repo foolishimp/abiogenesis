@@ -1,0 +1,300 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_14",
+  "workResult": "NO_GO_EXTERNAL_EXISTING_BIJECTION_OUTPUT_PRECONDITION",
+  "ProductFrame": "F-EndToEndInterfaceIntegration; fixed15/GOAL035/T287/F11/F15, STDO2.5.1RC2, unchanged Product/runtime/accepted C09/Setup09; local realization_refactor only",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/request.txt",
+    "bytes": 4673,
+    "sha256": "3249f5ca482c6d676572ebc6832543c860cd88023fbaff3de576e64af6a8928b",
+    "mode": 420
+  },
+  "currentC09Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+    "bytes": 7019,
+    "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+    "mode": 420
+  },
+  "actualSetup09Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+    "bytes": 9596,
+    "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74",
+    "mode": 420
+  },
+  "donorQ13Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/freeze.json",
+    "bytes": 18843,
+    "sha256": "2e41cc8d59d0741a663846058c5788c0d5c1e857992aa90b93ff48ffdf866684",
+    "mode": 292
+  },
+  "donorQ11Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/freeze.json",
+    "bytes": 867975,
+    "sha256": "827d5cbb98b5d68acb9af7da791f2173cb4f086f2fbd9a50bb3d047c051c76e5",
+    "mode": 292
+  },
+  "actualOwnedModuleCreationAndLaunch": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/owned-module-launch-binding.json",
+    "bytes": 4481,
+    "sha256": "84e46f8155acde57c053f6234a08c3c63e0d4d907dda9531e3cfd6ce0f8872ed",
+    "mode": 420
+  },
+  "actualCheapHelper": {
+    "status": "CLOSED",
+    "workResult": "GO_CHEAP_ROLE_AWARE_DELTA_PREFLIGHT",
+    "operation": "T287_FINAL_QUALIFICATION_INPUTS_14",
+    "sourceChanges": 9,
+    "replacements": 7,
+    "additions": 2,
+    "deltaRef": "qualification-derivation://abiogenesis/q07/current-source-delta/ecca5dac22b0daff63c911395308ed6a9dd677ede4377875b0e058c85b466b66",
+    "deltaDigest": "sha256:ecca5dac22b0daff63c911395308ed6a9dd677ede4377875b0e058c85b466b66",
+    "completeUniqueSourceAndOwnCopyRoleCorrespondence": true,
+    "legitimateAdditionsRetainHistoricalAbsence": true,
+    "inheritedCallbackExcluded": true,
+    "negatives": [
+      {
+        "name": "missing",
+        "outcome": "refused",
+        "message": "selected_delta_complete\n\n8 !== 9\n"
+      },
+      {
+        "name": "extra-inherited-callback",
+        "outcome": "refused",
+        "message": "selected_delta_complete\n\n10 !== 9\n"
+      },
+      {
+        "name": "duplicate",
+        "outcome": "refused",
+        "message": "selected_delta_unique\n\n8 !== 9\n"
+      },
+      {
+        "name": "wrong-cut",
+        "outcome": "refused",
+        "message": "selected_delta_cut\n+ actual - expected\n\n  {\n    bytes: 26506590,\n    mode: 420,\n    path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/controls/source-cut.json',\n+   sha256: '0000000000000000000000000000000000000000000000000000000000000000'\n-   sha256: 'dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242'\n  }\n"
+      },
+      {
+        "name": "wrong-postimage",
+        "outcome": "refused",
+        "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 275535,\n    changeKind: 'replacement',\n    copyRoles: {\n      currentSupplier: {\n...\n      path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts',\n+     sha256: '0000000000000000000000000000000000000000000000000000000000000000'\n-     sha256: '1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7'\n    },\n    preimage: {\n      bytes: 275717,\n      mode: 420,\n      path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts',\n"
+      },
+      {
+        "name": "wrong-source-author",
+        "outcome": "refused",
+        "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 275535,\n    changeKind: 'replacement',\n    copyRoles: {\n      currentSupplier: {\n...\n    sha256: '1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7',\n+   sourceAuthor: 'source-author://counterfeit'\n-   sourceAuthor: '/root/q03_input_review under T287_RESULT_LINEAGE_TYPED_CONTRACT_REALIZATION_01'\n  }\n"
+      },
+      {
+        "name": "falsely-anchored-historical-copy",
+        "outcome": "refused",
+        "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 275535,\n    changeKind: 'replacement',\n    copyRoles: {\n      currentSupplier: {\n...\n        fields: {\n+         copyBuildAuthor: '/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09',\n-         copyBuildAuthor: '/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07',\n          copyOrigin: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts'\n        },\n        producer: {\n          canonicalRowDigest: 'sha256:7dc1370e7896bb16f19a1b02fbc369f628d0270abb9476335f9f738926562434',\n          manifest: {\n"
+      },
+      {
+        "name": "falsely-anchored-current-copy",
+        "outcome": "refused",
+        "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 275535,\n    changeKind: 'replacement',\n    copyRoles: {\n      currentSupplier: {\n...\n          path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/activation.json',\n+         sha256: '0000000000000000000000000000000000000000000000000000000000000000'\n-         sha256: '8a1d31a044ed8d3e4182fe8c05831c85386a0f633a79b927aa4d95c706470f3d'\n        },\n        fields: {\n          copyBuildAuthor: '/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09',\n          copyOrigin: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts'\n        },\n"
+      },
+      {
+        "name": "invented-addition-history",
+        "outcome": "refused",
+        "message": "selected_delta_source_postimage_author_row_and_copy_roles\n+ actual - expected\n... Skipped lines\n\n  {\n    bytes: 1976,\n    changeKind: 'addition',\n    copyRoles: {\n      currentSupplier: {\n...\n      selectedOrigin: {\n+       fields: {\n+         copyBuildAuthor: 'historical-copy://invented'\n+       },\n-       fields: {},\n        producer: {\n          canonicalRowDigest: 'sha256:5d30ca56ddb10f939e9e3a8ebae2ec84de532e2ef482dce33db07f435dcefa7a',\n          manifest: {\n            bytes: 26506590,\n            mode: 420,\n"
+      }
+    ],
+    "allNegativesRefused": true,
+    "ProductImports": 0,
+    "materialBodiesMaterialized": 0,
+    "RuntimeEffects": 0
+  },
+  "actualCheapHelperReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/delta-preflight-readiness.json",
+    "bytes": 5688,
+    "sha256": "ec4e0cb5d2ed417a144b0c3d750a23643e19359b951d74e8d38fa068964b8939",
+    "mode": 420
+  },
+  "actualSourceDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/current-source-delta.json",
+    "bytes": 60497,
+    "sha256": "7dc90f69cc03b39fae2a0860803f301aab67931a8e4de28d24580e7d2ce0faaa",
+    "mode": 420
+  },
+  "retainedNineProducerJoin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/current-source-delta-correspondence.json",
+    "bytes": 2278,
+    "sha256": "37893c65309888ad24c86c0e37df5492a4b4e6a88bc6e6228dde31fbecd9b520",
+    "mode": 420
+  },
+  "firstActualRefusal": {
+    "status": "CLOSED_FIRST_ACTUAL_PREPARATION_REFUSAL",
+    "operation": "T287_FINAL_QUALIFICATION_INPUTS_14",
+    "workResult": "NO_GO_EXTERNAL_EXISTING_BIJECTION_OUTPUT_PRECONDITION",
+    "frontier": "pure owned bijection preparation after actual helper GO, before complete binding/Product imports",
+    "owner": "prepare-bijection.py:17",
+    "predicate": "assert not (Q/f11/member-alias-trace.json).exists()",
+    "actual": "The exact reused C09 alias trace already exists in Q14; an unnecessary create-only regeneration was selected by the local preparation harness.",
+    "existingOutput": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/member-alias-trace.json",
+      "bytes": 205250,
+      "sha256": "ef9157f67d6695d6d50b7e880e3a6f0bf9bfa30c244112ba72ecfa541efcc89f",
+      "mode": 420
+    },
+    "copiedDonor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/member-alias-trace.json",
+      "bytes": 205250,
+      "sha256": "ef9157f67d6695d6d50b7e880e3a6f0bf9bfa30c244112ba72ecfa541efcc89f",
+      "mode": 420
+    },
+    "existingBytesUnchanged": true,
+    "sourceRoleAndProductDefectInferred": false,
+    "command": [
+      "python3",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/prepare-bijection.py"
+    ],
+    "exitCode": 1,
+    "actualStderr": "Traceback (most recent call last):\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/prepare-bijection.py\", line 17, in <module>\n    p=Q/'f11/member-alias-trace.json';assert not p.exists();p.write_text(json.dumps(a,indent=2,ensure_ascii=False)+'\\n')\nAssertionError\n",
+    "ProductImports": 0,
+    "RuntimeEffects": 0,
+    "noRepairOrRetry": true
+  },
+  "retainedOriginalSourceAuth": {
+    "body": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/source-authorship-records.json",
+      "bytes": 16092667,
+      "sha256": "29ebe3117d78c30892eadcbaeb0f08002a77c1c871d24ce5e78f63ab8ba494fd",
+      "mode": 420
+    },
+    "originalQ11BodyUnchanged": true,
+    "records": 174,
+    "chains": 23,
+    "spans": 90,
+    "retainedQ09": [
+      121,
+      12,
+      46
+    ],
+    "sourceAuthorshipTransfer": false,
+    "sufficiency": "unknown",
+    "independence": "unknown"
+  },
+  "originalNonRecipeInputConservation": [
+    {
+      "role": "sourceFiles",
+      "members": 698
+    },
+    {
+      "role": "authoritySources",
+      "members": 87
+    },
+    {
+      "role": "lawMembers",
+      "members": 53
+    },
+    {
+      "role": "toolFiles",
+      "members": 2313
+    },
+    {
+      "role": "fixtureFiles",
+      "members": 111
+    },
+    {
+      "role": "dependencies",
+      "members": 16
+    }
+  ],
+  "completeActualInputIdentityCone": "NOT_REBOUND before first failure; no GO claim",
+  "retainedStrictCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/ordinary-caller.mjs",
+    "bytes": 18118,
+    "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+    "mode": 420
+  },
+  "retainedParentChildDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/flow-driver.mjs",
+    "bytes": 6502,
+    "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+    "mode": 420
+  },
+  "accounting": {
+    "cheapActualHelper": {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/delta-preflight.mjs"
+      ],
+      "pid": 35039,
+      "processGroup": 35039,
+      "wait4Reaped": true,
+      "groupAfterWait": "absent",
+      "exitCode": 0,
+      "timedOut": false,
+      "elapsedMs": 71.85483304783702,
+      "maxRSSBytesMacOS": 115359744,
+      "userSeconds": 0.03872,
+      "systemSeconds": 0.013658,
+      "RuntimeEffects": 0
+    },
+    "cheapActualHelperPositiveChanges": 9,
+    "cheapActualHelperNegativeRefusals": 9,
+    "syntaxChecks": [
+      {
+        "argv": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+          "--check",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/source-delta-contract.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "ProductImports": 0
+      },
+      {
+        "argv": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+          "--check",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/delta-preflight.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "ProductImports": 0
+      }
+    ],
+    "syntaxChecksProductImports": 0,
+    "purePreparationFirstFailureExitCode": 1,
+    "purePreparationProcessClosure": "exec_command completed, no child/owner payload launched",
+    "completeTaskPayloads": 0,
+    "packetPayloads": 0,
+    "ProductImports": 0,
+    "resourceSerializationBytes": null,
+    "assertionSerializationBytes": null,
+    "canonicalEnvelopeBytes": null,
+    "requestOrPromptBytes": null,
+    "qualificationCommandsExecuted": 0,
+    "nativeTaskRunJHelperProviderCalls": 0,
+    "SourceChanges": 0,
+    "builds": 0,
+    "candidateChanges": 0,
+    "GitEffects": 0,
+    "networkEffects": 0,
+    "retries": 0,
+    "defaultHeap": true,
+    "ordinaryHOME": true
+  },
+  "notReached": [
+    "Complete current inventory/protected/recipe/self/Task identity binding",
+    "Current prepayload envelope accounting",
+    "Actual complete published command Task",
+    "Full actual resource/reference-owner preparation and current request/prompt rendering"
+  ],
+  "outsideCurrentCandidate": "Root current AGENTS/CLAUDE/integration-frame/HOW notes are external current constraints, outside immutable C09 source bodies; no retroqualification",
+  "proofScope": "Absolute helper entry/dependency/argv/cwd/output joins, two syntax checks, actual nine source/copy-role positives and nine nearest negatives passed. Later local output precondition stopped preparation. No owner preparation, semantic assessment or Runtime qualification.",
+  "unknowns": [
+    "Current complete input/resource/task/request/prompt/envelope readiness",
+    "Material/context/applicability/grouping/source attribution/independence",
+    "Installed Result/J/foldback/F11/cold/QUAL056/scenarios/AF22/release"
+  ],
+  "independentAssuranceClaim": false,
+  "allWritesStopAfterFreeze": true,
+  "consumer": "Root Executive"
+}

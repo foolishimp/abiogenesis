@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-10-20T19:04:15.652375+00:00",
+  "exit_code": 2,
+  "diagnostics": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace."
+  ],
+  "stderr": "",
+  "full_stdout_lines": 12,
+  "disposition": "Preserve pre-existing six whitespace diagnostics; checkpoint does not repair or claim all-tree qualification."
+}

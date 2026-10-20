@@ -1,0 +1,12 @@
+{
+  "status": "superseded_local_receipt_import_premise",
+  "exception": "TypeError: product.projectWorksiteCommandExecutionBudget is not a function at eval1:19",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/readiness.failed-eval-source.txt",
+    "sha256": "ce3df64ce6ba8b7df160552f0e91e7f0b12f453b01f713faf67e21c0f25d72f6",
+    "byteCount": 26083
+  },
+  "cause": "The canonical pure budget functions are exported by their owning worksite_command_execution module, not by the Product facade.",
+  "correction": "Use the same packaged canonical owner module directly; no Source/interface or budget semantics change.",
+  "nativeEffects": false
+}

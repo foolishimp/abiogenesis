@@ -1,0 +1,30 @@
+{
+  "kind": "recovered",
+  "closeHandoff": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+      "prefixLength": 4902504,
+      "prefixDigest": "sha256:b70bc491aa66cdc3eab72415787df57454bc6d2bda86936f4dc4e3d27c680ed5",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 463748325,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:7b62300ad2cfd9c1431f88bd29aee49e3856218639b78b60217e1779e8393d85"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+      "device": 16777230,
+      "inode": 463748325,
+      "eventLogDigest": "sha256:b70bc491aa66cdc3eab72415787df57454bc6d2bda86936f4dc4e3d27c680ed5",
+      "durableByteLength": 4902504,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "authorityDigest": "sha256:f6e0b1d109c0db14cc5f698b6fc7e4318b46e9983fb8d5a963c52f1ed0a17209"
+    }
+  },
+  "validatedEventCount": 609
+}

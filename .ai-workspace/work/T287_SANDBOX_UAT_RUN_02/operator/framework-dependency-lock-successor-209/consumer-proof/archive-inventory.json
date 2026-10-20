@@ -1,0 +1,60 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+    "sha256": "70f2fa9bd8e9206672b88f18f80b2db7817e7892413a0bc39ea23e144c3f6761",
+    "byteCount": 6176
+  },
+  "memberCount": 7,
+  "members": [
+    {
+      "path": "build/publication.json",
+      "type": "file",
+      "mode": 420,
+      "sha256": "589f6b44872b5aefb0155837308e0c941150dae816547bc8d50998de33ce6307",
+      "byteCount": 27497
+    },
+    {
+      "path": "build/semantics.mjs",
+      "type": "file",
+      "mode": 420,
+      "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3",
+      "byteCount": 757
+    },
+    {
+      "path": "contracts/assessment.schema.json",
+      "type": "file",
+      "mode": 420,
+      "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7",
+      "byteCount": 462
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "type": "file",
+      "mode": 420,
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "byteCount": 247
+    },
+    {
+      "path": "contracts/public-contract-catalog.schema.json",
+      "type": "file",
+      "mode": 420,
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "byteCount": 75
+    },
+    {
+      "path": "package.json",
+      "type": "file",
+      "mode": 420,
+      "sha256": "9224fa7e5092ed550a61ee33e58badd69ee1b3ce7d9c96cd3341fefe102c27c1",
+      "byteCount": 540
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "type": "file",
+      "mode": 420,
+      "sha256": "0bb8b1907bd68123e871f853c95b684c3815eb2db4f82931f91a911c57090151",
+      "byteCount": 4864
+    }
+  ],
+  "sourceAndInstalledBodiesModesEqual": true
+}

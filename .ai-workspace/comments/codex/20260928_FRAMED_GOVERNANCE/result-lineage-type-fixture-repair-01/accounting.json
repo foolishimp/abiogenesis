@@ -1,0 +1,20 @@
+{
+  "typeCheckMs": 5398.948749992996,
+  "typeCheckRssBytes": 1112064000,
+  "compilerChecks": 1,
+  "fixtureCases": 32,
+  "expectedDiagnosticCount": 31,
+  "sourceCompiles": 0,
+  "callbackReruns": 0,
+  "stageCopies": 0,
+  "defaultHeap": true,
+  "HOME": "unchanged",
+  "wait4Reaped": true,
+  "knownProcessGroupAbsent": true,
+  "canonicalPathsChanged": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs"
+  ],
+  "RuntimeRuns": 0,
+  "helpers": 0,
+  "providers": 0
+}

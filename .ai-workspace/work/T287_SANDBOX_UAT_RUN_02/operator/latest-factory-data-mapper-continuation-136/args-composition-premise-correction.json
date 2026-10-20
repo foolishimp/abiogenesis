@@ -1,0 +1,25 @@
+{
+  "classification": "Static proof premise correction only; no installed owner refusal or native dispatch",
+  "firstCause": "Literal JSON argument comparison used event-canonicalized object key insertion order; full carrier value is unchanged, but JSON.stringify byte ordering differs from original authenticated transport argument",
+  "preservedScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/initial-args-composition-proof.mjs",
+    "sha256": "053bca2ff9c161bb136cb6c98c700a2d355c4764964ef4b18e8ee3ed9031331f",
+    "byteCount": 6602
+  },
+  "failedCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/commands/args-composition.result.json",
+    "sha256": "c5473de5dee45b5f48a15a332bb11f231421671ece20c4acd3d522f936dca0ef",
+    "byteCount": 45019
+  },
+  "failedStderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/commands/args-composition.stderr",
+    "sha256": "f5770f2630dbed963e35f3bb9a9bf7cd45d5044e27a90d67a8ac90747d31f382",
+    "byteCount": 41501
+  },
+  "correction": "Use actual archived schema argument parsed in its original object order; verify complete deep equality to canonical assembly response and exact roundtrip to archived argument before owner composition",
+  "correctedScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/args-composition-proof.mjs",
+    "sha256": "07272f6684b6fc144e74970044888e581952a36efed2f80eb7710500d326c58e",
+    "byteCount": 7053
+  }
+}

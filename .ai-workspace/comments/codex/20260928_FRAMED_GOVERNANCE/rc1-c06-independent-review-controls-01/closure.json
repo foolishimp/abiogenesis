@@ -1,0 +1,11 @@
+{
+  "operation": "T287_C06_ASSURANCE_GRANT_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-independent-review-controls-01/request.txt",
+    "bytes": 3091,
+    "sha256": "f766947855616acfb7b9a3d88fd1e0e735c34f146e6c3dcf61a78b52a5fcac9f"
+  },
+  "subjectEffects": 0
+}

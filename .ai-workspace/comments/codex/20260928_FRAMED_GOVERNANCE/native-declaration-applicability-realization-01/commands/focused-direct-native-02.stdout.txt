@@ -1,0 +1,9 @@
+✔ S06 native external meaning requires one direct named-symbol contract (4823.49475ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5113.753292

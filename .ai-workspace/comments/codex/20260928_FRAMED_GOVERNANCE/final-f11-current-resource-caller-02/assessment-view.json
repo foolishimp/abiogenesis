@@ -1,0 +1,208 @@
+{
+  "kind": "graph_function_catalog_view",
+  "catalogBasisDigest": "sha256:1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907",
+  "allowlist": [
+    "graph-function://abiogenesis/qualification/assess@5"
+  ],
+  "entries": [
+    {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/qualification/assess@5",
+      "definitionRef": "graph-function://abiogenesis/qualification/assess@5",
+      "definitionDigest": "sha256:e5148fd17ef65e688f6c1308032f00568a3be663dbd31e50a57744fbc7b6b8a8",
+      "definition": {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/assess-child@5",
+          "abg.closure_contract": "closure://abiogenesis/qualification/assess-run@5",
+          "abg.compute_regime": "F_P",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/qualification/self-conformance/failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/assessment@5",
+          "abg.qualification_role_policy": "sha256:6ac218f804d96cf21181fbaeba56bc4b19e3c281074332353c63861abaef737e",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/qualification/assessment-raw@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/qualification/judgment@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/assessment-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/assessment-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/assess@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/judgment@5"
+        ],
+        "tags": [
+          "assess",
+          "qualification"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/assess@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/assess@5",
+              "term": {
+                "armId": "arm://abiogenesis/qualification/assess@5",
+                "compositionRef": null,
+                "fibre": "F_P",
+                "inputCarrierRef": "contract://abiogenesis/qualification/assessment-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/qualification/assessment@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/qualification/judgment@5",
+                "programLocusRef": "node://abiogenesis/qualification/assess@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/qualification/assess-fp@5",
+                  "inputContractRef": "contract://abiogenesis/qualification/assessment-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/qualification/judgment@5",
+                  "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "assess",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/assess@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/assess@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "publicationDigest": "sha256:7eed4385964678e90cad098dc7e44076c34d9b5e3f25660663a4f527dec42c88",
+      "programMembershipRefs": [
+        "program://abiogenesis/qualification/assess@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:52bad68b5f2e3763a0339afb6714d2fe0a489f90ad233f1e269cecd7423db024"
+    }
+  ],
+  "byHandle": {
+    "graph-function://abiogenesis/qualification/assess@5": {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/qualification/assess@5",
+      "definitionRef": "graph-function://abiogenesis/qualification/assess@5",
+      "definitionDigest": "sha256:e5148fd17ef65e688f6c1308032f00568a3be663dbd31e50a57744fbc7b6b8a8",
+      "definition": {
+        "declarations": {
+          "abg.child_closure_contract": "closure://abiogenesis/qualification/assess-child@5",
+          "abg.closure_contract": "closure://abiogenesis/qualification/assess-run@5",
+          "abg.compute_regime": "F_P",
+          "abg.evidence_contract": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/qualification/self-conformance/failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/qualification/assessment@5",
+          "abg.qualification_role_policy": "sha256:6ac218f804d96cf21181fbaeba56bc4b19e3c281074332353c63861abaef737e",
+          "abg.transition_contract": "contract://abiogenesis/qualification/self-conformance/transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/qualification/assessment-raw@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/qualification/judgment@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/qualification/assessment-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/qualification/assessment-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/qualification/assess@5",
+        "outputs": [
+          "contract://abiogenesis/qualification/judgment@5"
+        ],
+        "tags": [
+          "assess",
+          "qualification"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/qualification/assess@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/qualification/assess@5",
+              "term": {
+                "armId": "arm://abiogenesis/qualification/assess@5",
+                "compositionRef": null,
+                "fibre": "F_P",
+                "inputCarrierRef": "contract://abiogenesis/qualification/assessment-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/qualification/assessment@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/qualification/judgment@5",
+                "programLocusRef": "node://abiogenesis/qualification/assess@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/qualification/self-conformance/evidence@5",
+                  "failureContractRef": "contract://abiogenesis/qualification/self-conformance/failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/qualification/assess-fp@5",
+                  "inputContractRef": "contract://abiogenesis/qualification/assessment-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/qualification/judgment@5",
+                  "refusalContractRef": "contract://abiogenesis/qualification/self-conformance/refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "assess",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/qualification/assess@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/qualification/assess@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "publicationDigest": "sha256:7eed4385964678e90cad098dc7e44076c34d9b5e3f25660663a4f527dec42c88",
+      "programMembershipRefs": [
+        "program://abiogenesis/qualification/assess@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:52bad68b5f2e3763a0339afb6714d2fe0a489f90ad233f1e269cecd7423db024"
+    }
+  },
+  "declarationEntries": [],
+  "declarationsByHandle": {},
+  "viewDigest": "sha256:051d6da8ddcf2774553c17344358deac021b0ede4c6f8674d1c66cb7edabf273"
+}

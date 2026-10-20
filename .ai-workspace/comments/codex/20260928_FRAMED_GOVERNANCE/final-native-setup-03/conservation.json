@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "C02FrozenRecords": 16774,
+  "C02Freeze": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 4543994,
+    "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+  },
+  "preEffectInputRecords": 31,
+  "donorPreimagesAndOriginals": 7,
+  "exactNewNativeInstalledPayloadMembers": 5256,
+  "nativeInstalledRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+  "archiveMembersIndex": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/archive-members.json",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 1058817,
+    "sha256": "653e605d051ddfafd4649af53c0911572f997069232caf2baca1a644a0c1c68e"
+  },
+  "extraNativePayloadMembers": 0,
+  "modes": "All native payload modes equal accepted C02 verification install; two declared bin entries0755 in both installs versus0644 archive metadata; see closure-observer-note.json",
+  "archive": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 10375084,
+    "sha256": "766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747"
+  },
+  "oldNativeResourcesTouched": false
+}

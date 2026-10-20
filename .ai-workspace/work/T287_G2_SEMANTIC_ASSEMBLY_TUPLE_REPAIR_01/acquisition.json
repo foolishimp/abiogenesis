@@ -1,0 +1,13 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "elapsedMs": 1531.495667,
+  "userCPUSeconds": 0.28959399999999996,
+  "systemCPUSeconds": 1.224754,
+  "maxRSSPlatformBytes": 39731200,
+  "dependencyFiles": 4576,
+  "dependencyLogicalBytes": 58291040,
+  "SourceChanges": 2,
+  "unchangedSource": 15,
+  "HOME": "/Users/jim",
+  "defaultHeap": true
+}

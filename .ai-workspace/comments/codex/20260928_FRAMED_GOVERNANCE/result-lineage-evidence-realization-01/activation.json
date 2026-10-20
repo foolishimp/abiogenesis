@@ -1,0 +1,41 @@
+{
+  "operation": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T12:34:15.281728+00:00",
+  "priorRoles": "CLOSED",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt",
+    "bytes": 5080,
+    "sha256": "50ac2c08ec4f50f974706c207f6a19e87f5b002a71901dfd8389a6b03f1ac8b7",
+    "mode": "0644"
+  },
+  "sevenLiteralSectionsReadAndJoined": true,
+  "reentry": "realization_refactor",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01"
+  ],
+  "premises": "The actual callback is stageCCallResult through exported admitCCallResult. The named prefix projector is pure receipt rehydration; Root explicitly accepts the actual callback route. Lower admission, prepared request and native proof will be supplied component premises; Product guard/producer remain real.",
+  "budgetsSeconds": {
+    "compile": 180,
+    "targetedTest": 180,
+    "totalSupervisedReadiness": 360
+  },
+  "heap": "default",
+  "HOME": "ordinary inherited",
+  "forbiddenEffects": [
+    "Runtime",
+    "resource-open",
+    "helper",
+    "Run",
+    "provider",
+    "Git",
+    "network",
+    "candidate",
+    "install",
+    "canonical generated output"
+  ]
+}

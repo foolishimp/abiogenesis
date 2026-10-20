@@ -1,0 +1,21 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_RC1_S03_INSTALLED_PAIR_04",
+  "role": "Runtime Worker",
+  "actor": "/root/rc1_successor_builder",
+  "workResult": "partial_first_failure_stopped",
+  "correctedConformance": "passed",
+  "positiveFullOriginalOracle": "passed",
+  "negativeOwner": "accepted nonterminal/gap_stop",
+  "negativeFreshReads": 0,
+  "newNativeCalls": 7,
+  "qualificationClaim": false,
+  "acceptanceClaim": false,
+  "repairRetryAfterFailure": 0,
+  "allOwnedPIDsExited": true,
+  "sourceCoreFixtureReadonly": true,
+  "soleHistoricalStoreOwnerAppendException": true,
+  "oldStaticRecordsConserved": 5998,
+  "initialPhysicalPrefixConserved": true,
+  "writeStop": "After freeze creation, no further effects or writes by this activation."
+}

@@ -1,0 +1,32 @@
+--- run-09.mjs failed
++++ run-09-b.mjs
+@@ -22,9 +22,9 @@
+ const {installedModules,verifyArtifact,publicCaller,constructLifecycleCall,requireKind,corePublications,BoundaryFailure}=setupOwner;
+ const host=JSON.parse(await readFile(selected.publicationHost,'utf8'));
+ const runtime=await installedModules(host.installedRoot),p=runtime.product,a=runtime.abg,hash=p.sha256Canonical;
+-const executionRoot=selected.fixtureRoot,outputRoot=join(root,'execution');await mkdir(outputRoot);
++const executionRoot=selected.fixtureRoot,outputRoot=join(root,'execution-b');await mkdir(outputRoot);
+ const environment={...Object.fromEntries(['HOME','PATH','TMPDIR','LANG','LC_ALL'].filter(key=>process.env[key]!==undefined).map(key=>[key,process.env[key]])),npm_config_cache:join(selected.publicationRoot,'npm-cache'),npm_config_offline:'true'};
+-const configuration={runId:'library-joint-proof-237-09',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
++const configuration={runId:'library-joint-proof-237-09-b',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
+   nodePath:process.execPath,setupEnvironment:environment,toolchains:{npm:{executable:selected.npm},node:{executable:process.execPath}},
+   recursionBound:1000,processTimeoutMs:300000,maxProcessOutputBytes:16777216};
+ const recordAt=directory=>async(name,value,raw=false)=>{const path=join(directory,name);assert(path.startsWith(directory+'/'));await mkdir(dirname(path),{recursive:true});await writeFile(path,raw?value:JSON.stringify(value,null,2)+'\n',{flag:'wx'});};
+@@ -121,7 +121,7 @@
+   const version='5.0.0';
+   const workspaceManifest=JSON.parse(await readFile(join(executionRoot,'workspace-manifest.json'),'utf8'));
+   await record('workspace-manifest.json',workspaceManifest);
+-  const fixture=await prepareConsumer({root:join(root,'setup'),product,gtl,verified:native.verified,archivePath:native.request.artifactPath,
++  const fixture=await consumerOwner.prepareConsumer({root:join(root,'setup'),product,gtl,verified:native.verified,archivePath:native.request.artifactPath,
+     npm:config.toolchains.npm.executable,recursionBound:config.recursionBound,command:caller.command});
+   const consumer=await verifyArtifact(runtime,{artifactPath:fixture.artifactPath,manifest:fixture.manifest,expectedArtifactDigest:fixture.basis.artifactDigest},record,'consumer');
+   const natives=[native,consumer], verificationRefs=[], packedArtifacts=[], verificationOutputs=[];
+@@ -304,7 +304,7 @@
+     stage=phase+'-same-pair-preparation';const directory=join(outputRoot,phase);await mkdir(directory);
+     const phaseRecord=recordAt(directory),phaseCommand=runner.commandRecorder(directory,{environment,timeoutMs:configuration.processTimeoutMs,maxOutputBytes:configuration.maxProcessOutputBytes});
+     const handoff=caller.state.closeHandoff,facts=await stat(fileURLToPath(handoff.prefix.eventLogRef),{bigint:true});
+-    const instance={root:directory,installedRoot:caller.installedRoot,actorRef:caller.actorRef,namespace:'request://abi5-tests/library-joint-proof-237/'+phase,
++    const instance={root:directory,installedRoot:caller.installedRoot,actorRef:caller.actorRef,namespace:'request://abi5-tests/library-joint-proof-237/'+configuration.runId+'/'+phase,
+       artifacts,record:phaseRecord,command:phaseCommand,configuration:{...configuration,runId:configuration.runId+'-'+phase},
+       resource:{closeHandoff:handoff,mtimeNs:facts.mtimeNs.toString()},
+       source:{call:execution.call,setup:setupIdentity,publicAuthorityDigest:execution.call.invocation.invocationDigest,

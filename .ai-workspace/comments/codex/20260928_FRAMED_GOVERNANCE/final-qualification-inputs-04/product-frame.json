@@ -1,0 +1,28 @@
+{
+  "authority": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61"
+    }
+  ],
+  "outcome": "prepare an exact current observed QUAL056 recipe and input cut for accepted C03, preserving actual-source conservation and current RC2 generated-output agreement",
+  "unchangedProduct": "the fifteen 5.0 families; F11 whole independent conformance feeds sole AF22, F15 distinguishes pre_rc_candidate and installed_rc, F16 publication and actual human owner acceptance remain separate",
+  "authoritySplit": "Specification owns WHAT; accepted source/HOW and GTL publications own realization; HoG traverses, owners effect, ABG admits, replay projects. This input Worker owns only future recipe/input bytes.",
+  "prohibitions": [
+    "no private controller, runtime or event writer",
+    "no structural/mechanical check interpreted as semantic adequacy",
+    "no Product/Run/CCall/Result/J/admission or green qualification manufactured",
+    "no fixture or pre-RC evidence relabeled as installed-RC qualification"
+  ]
+}

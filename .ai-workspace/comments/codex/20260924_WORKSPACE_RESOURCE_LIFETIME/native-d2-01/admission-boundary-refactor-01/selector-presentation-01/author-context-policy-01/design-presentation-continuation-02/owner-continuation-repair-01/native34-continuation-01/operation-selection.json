@@ -1,0 +1,226 @@
+{
+  "status": "PREPARED_NOT_EXECUTED_RUNTIME_HOLD",
+  "sourceRun": {
+    "digest": "sha256:63a3f3048de463796332f89c159b15262a321719239895574d3046605d22feee",
+    "ref": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:6a3e7700cfe9e1badc79166753a3a1646f2ce3d143c8eea58a8a6bcef64e189b",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:fa48db8aba07673ebdb3cde85006e5c98a6574c134819bf8f83864b19dd3229c",
+    "prefixLength": 216334690,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "predecessorCaller": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01",
+  "newCore": "compiled-34",
+  "retainedConsumer": "consumer-dev15",
+  "setup": [
+    "nominal Product verify core34 and dev15 in caller lifetime",
+    "reuse exact dev15 Public verification only after nominal coordinate equality",
+    "Public verify core34",
+    "Public resolve pair",
+    "Public install core34 under new resolved lock",
+    "Public install same dev15 archive under new resolved lock",
+    "Public bind preserved worksite to current pair",
+    "Public catalog admission",
+    "Public catalog view",
+    "Public intake conformance",
+    "Product execution resolution",
+    "genuine close"
+  ],
+  "afterSetup": [
+    "reuse exact authentic ordinary Public source-root receipt for unchanged source Run74ac/cut, with recorded file digests; do not read again",
+    "genuine witness.admit reprice from actual source-root binding to current binding",
+    "one installed native intake from public Run/prefix only",
+    "fresh Public Result and replay",
+    "only admitted returned choice + installed public declaration lookup may select one complete suffix",
+    "HoG owns actual suffix progression/effects/terminal readback/recovery"
+  ],
+  "actorControls": {
+    "intake": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "5"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "suffix": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "8"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    }
+  },
+  "readbackMs": 600000,
+  "liveEnvironment": {
+    "ODD_GLC_ALLOW_FULL_SANDBOX_LIVE": "1"
+  },
+  "noCurrentWitnessOrRootClaim": "Retained valid source-root only; no current-binding witness constructed or claimed",
+  "preparedCommands": [
+    {
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation",
+      "argv": [
+        "/usr/bin/time",
+        "-l",
+        "node",
+        "prepare.mjs"
+      ],
+      "environment": {},
+      "status": "NOT EXECUTED; depends on genuine predecessor success; suffix only from actual admitted returned choice"
+    },
+    {
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/witness-01",
+      "argv": [
+        "/usr/bin/time",
+        "-l",
+        "node",
+        "execute.mjs"
+      ],
+      "environment": {},
+      "status": "NOT EXECUTED; depends on genuine predecessor success; suffix only from actual admitted returned choice"
+    },
+    {
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01",
+      "argv": [
+        "/usr/bin/time",
+        "-l",
+        "node",
+        "construct.mjs"
+      ],
+      "environment": {},
+      "status": "NOT EXECUTED; depends on genuine predecessor success; suffix only from actual admitted returned choice"
+    },
+    {
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01",
+      "argv": [
+        "/usr/bin/time",
+        "-l",
+        "node",
+        "run.mjs",
+        "native-prepared.json"
+      ],
+      "environment": {
+        "ODD_GLC_ALLOW_FULL_SANDBOX_LIVE": "1"
+      },
+      "status": "NOT EXECUTED; depends on genuine predecessor success; suffix only from actual admitted returned choice"
+    },
+    {
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01",
+      "argv": [
+        "/usr/bin/time",
+        "-l",
+        "node",
+        "read-intake.mjs",
+        "native-prepared.json"
+      ],
+      "environment": {},
+      "status": "NOT EXECUTED; depends on genuine predecessor success; suffix only from actual admitted returned choice"
+    },
+    {
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/suffix-01",
+      "argv": [
+        "/usr/bin/time",
+        "-l",
+        "node",
+        "prepare.mjs"
+      ],
+      "environment": {},
+      "status": "NOT EXECUTED; depends on genuine predecessor success; suffix only from actual admitted returned choice"
+    },
+    {
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/suffix-01",
+      "argv": [
+        "/usr/bin/time",
+        "-l",
+        "node",
+        "run.mjs",
+        "native-prepared.json"
+      ],
+      "environment": {
+        "ODD_GLC_ALLOW_FULL_SANDBOX_LIVE": "1"
+      },
+      "status": "NOT EXECUTED; depends on genuine predecessor success; suffix only from actual admitted returned choice"
+    },
+    {
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/suffix-01",
+      "argv": [
+        "/usr/bin/time",
+        "-l",
+        "node",
+        "read-suffix.mjs",
+        "native-prepared.json"
+      ],
+      "environment": {},
+      "status": "NOT EXECUTED; depends on genuine predecessor success; suffix only from actual admitted returned choice"
+    }
+  ],
+  "currentPhysicalEntry": {
+    "coordinateDigest": "sha256:158f2797ef17d8d84e1311b989db109966ecb367de10caeb786523e69e0997dd",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9f311db837d306c352dd8467e8aa06b8d8d2e671586a5b8e3f4347132169c1d5",
+    "prefixLength": 316064006,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "sourceRootReuse": {
+    "call": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/witness-01/calls/00-original-public-run-status.json",
+      "sha256": "896a92b3f415b9283ee621bdf4364dcc0707d710f2aa1cb8fdd744608a82cb30"
+    },
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/witness-01/receipts/00-original-public-run-status.json",
+      "sha256": "911c45096d621a1c0373de59e40847da09403e121ff88f6784940946b5a6b6ac"
+    }
+  },
+  "measurement": {
+    "selection": "Routine existing wall/user/system/RSS observations only; no CPU profile, extra benchmark or production instrumentation",
+    "profile": false
+  },
+  "controls": {
+    "actorOccurrenceUpperBoundIntake": 1,
+    "actorOccurrenceUpperBoundSuffix": 12,
+    "automaticRetries": 0,
+    "fallback": false,
+    "heap": "default",
+    "nativeMs": 5400000,
+    "readbackMs": 600000,
+    "perOccurrenceUsd": {
+      "intake": 5,
+      "suffix": 8
+    }
+  },
+  "failedPriorIntake": {
+    "preservedPriorRuns": "All predecessors remain historical; no old selector/request authority is reused"
+  },
+  "preservedLastSuffix": {
+    "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/suffix-01/live-receipt.json",
+    "sha256": "75909f2712ba6eda6ec84610ea280dce8d8e4303873a4d43331885253477e20b",
+    "status": "runtime_failed; Design budget boundary; raw compact StructuredOutput remains unadmitted"
+  }
+}

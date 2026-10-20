@@ -1,0 +1,15 @@
+{
+  "status": "exact",
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-36/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactDigest": "sha256:e8751bfaa71d2969d95a30a278e2c69c6f5e4c815db7fbf4552aa19172827868",
+  "archiveBytes": 10171450,
+  "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite36-install-j3tj2x00/node_modules/@abiogenesis/typescript-tenant",
+  "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite36-install-j3tj2x00",
+  "archiveMembers": 5233,
+  "sourceMatches": 5233,
+  "installedMatches": 5233,
+  "extraInstalledMembers": 0,
+  "scripts": "disabled",
+  "network": "npm offline",
+  "archiveMembersSha256": "d9fa193528acf8b7bfb69f8d7b6befb90913511a822eee7f5d5fd20d30fa6c29"
+}

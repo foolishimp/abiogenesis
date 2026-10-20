@@ -1,0 +1,230 @@
+{
+  "recordedAt": "2026-10-06T06:49:16.435815+00:00",
+  "actor": "/root/uat_failure_proof_triage",
+  "activation": "T287_SANDBOX_UAT_CANDIDATE_IDENTITY_REVIEW_05",
+  "role": "Independent incoming Candidate Identity Reviewer",
+  "effectGrant": "Read-only imports/hash/tar-in-memory; report-only writes within proof-review-05; no build/extract/install/model/Run/event/source/config/Git/tag effects",
+  "method": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "verification": "Root fresh released-tool valid:true; unchanged selected local Product/frame bytes"
+  },
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "result": "GO mechanical exact successor identity plus previously closed bounded caller GO",
+  "sourceHead": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "closedCoordinateFreezeSha256": "a380e7a38b2545e8bf78673a28b19221b14513e608c83686d4b9698d3dc518a7",
+  "subjectPackage": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09",
+    "byteCount": 10620458,
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "productContentDigest": "sha256:2556f8f8e967bbc8da9cc66f17275fe1adc9d5bea6a60f27f03471a8a7c3562e",
+    "canonicalManifestDigest": "sha256:fb62f57861143963aca250bbe4e55474fd39f035c4a232863490e387077f8a16",
+    "packedManifestByteSha256": "5203137e454785089ba2acb5ef2a4be0cda23adab5d72888f3dda59768fd9ade",
+    "archiveFileCount": 5265,
+    "payloadCount": 5263,
+    "sourcePackageCorrespondence": true,
+    "runtimePackageFieldsEqualBaseline": true
+  },
+  "report": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/proof-review-05/candidate-identity-return.md",
+    "sha256": "66bf280c623fec34a2ea7b0393c0fa4c81f069054a9ff9b85022bd83604be2cb",
+    "byteCount": 5108
+  },
+  "originalEvidenceReferences": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/return.md",
+      "sha256": "a80d5eead3a7346d308ba052d90ef0302145e4f01f6028939911b39b13dacd9c",
+      "byteCount": 4275
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/freeze.json",
+      "sha256": "9cdbb2b45c71b94608dae4eff3cc76a59553079c183314b8bda6084bbba6868c",
+      "byteCount": 139373
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/source-preimage.json",
+      "sha256": "9971bfd5be887c46608e37dc81c4775468106c2704faeb69783f5803d61fee3e",
+      "byteCount": 75470
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/pack.json",
+      "sha256": "ec4dbb5efb67bb0b573e1aae5944a0feded9ba42ab021aa09d4f4b94da6af920",
+      "byteCount": 692700
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/pack.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/coordinate-repair-05/freeze.json",
+      "sha256": "a380e7a38b2545e8bf78673a28b19221b14513e608c83686d4b9698d3dc518a7",
+      "byteCount": 9996
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/coordinate-repair-05/return.md",
+      "sha256": "26a5064eec4f2d56bed16595acf4be97c75a540705921fec6991b8d80cbfc7bb",
+      "byteCount": 7304
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/freeze.json",
+      "sha256": "e27449502725b675ff3922c38495daac1f1c7f797bc6c53d6d72fd9b1e4dfa58",
+      "byteCount": 4702
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/proof-review-05/caller-return.md",
+      "sha256": "1c167164a23d368f5ed2d35f1941a7dfa7d3bb369f60bf713e12cbbba5c7314a",
+      "byteCount": 5969
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/proof-review-05/caller-manifest.json",
+      "sha256": "51b5dd295f2a006eaf4427f258420cedf77550fa84351f6f3b270d174c790b02",
+      "byteCount": 8121
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review/return.md",
+      "sha256": "9d23771de43f77bf179464dd3472dc6ba5800211a699b0319e18c0fd1d6844d3",
+      "byteCount": 3046
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review/identity.json",
+      "sha256": "0d792e00eb4fbbf78971e3057cd542deba978dd040e785278d4690a9e8513b20",
+      "byteCount": 3460
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/preimages.json",
+      "sha256": "403b1aab9d84d0d05196d7dcff98e106ea080ad858c5eba7f992d48c78e91923",
+      "byteCount": 223820
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/code-changes.json",
+      "sha256": "cf6b4b64802f361179685694cdce407b4e923b96477281b8c6b4ac9dc0674278",
+      "byteCount": 6872
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/successor-freeze.json",
+      "sha256": "825d77eabb3a7ea554a71dd1111cf75cc51c42fc4e87e920295fde34a1980777",
+      "byteCount": 8818
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/spec-core-freeze.json",
+      "sha256": "08af299c4f9743c8c62d470f8f59e62407a95bd5df8604474678b6606cc0672e",
+      "byteCount": 1418
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/spec-design-freeze.json",
+      "sha256": "8617887b7d20a680cd456617a81cd9f9eeb149f812135ea5f039b6dd75c23b72",
+      "byteCount": 3247
+    },
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+      "byteCount": 10620479
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/permission-resume-04/freeze.json",
+      "sha256": "953b85232005a478e71e4ff1c297440384543699e748392f21e393a83c9eb39f",
+      "byteCount": 41671
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/permission-resume-04/return.md",
+      "sha256": "f57385126c9b0783783db7ab1832adc94558e336d83601018b196ab2bca52122",
+      "byteCount": 3653
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-auth-02.json",
+      "sha256": "413824692abe66b374973af16446fa28a1b0d8626f79aaf5ce2b34a3ee31588b",
+      "byteCount": 2315
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "byteCount": 34763
+    }
+  ],
+  "independentChecks": {
+    "originalSourceInventoryReconstituted": true,
+    "productionSourceCount": 263,
+    "productionSourceDriftExactly": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts"
+    ],
+    "sourceAddedOrRemoved": 0,
+    "governingAuthorityCount": 86,
+    "governingAuthorityDrift": 0,
+    "mechanicalInputsPinned": 6,
+    "closedCoordinatePinsVerified": 30,
+    "archivePathPopulation": 5265,
+    "compiledContractFilesExact": 720,
+    "uniquePayloadRows": 5263,
+    "contentDigestThroughExistingOwner": "sha256:2556f8f8e967bbc8da9cc66f17275fe1adc9d5bea6a60f27f03471a8a7c3562e",
+    "manifestDigestThroughExistingOwner": "sha256:fb62f57861143963aca250bbe4e55474fd39f035c4a232863490e387077f8a16",
+    "catalogDigestMatches": true,
+    "contributionDigestMatches": true,
+    "capabilityGraphValid": true,
+    "changedPackedFiles": [
+      "build/code/src/abg/artifact_truth.js",
+      "build/code/src/abg/project_read_definition_bindings.js",
+      "build/code/src/product/run_invocation_operation.d.ts",
+      "build/code/src/product/run_invocation_operation.js",
+      "contracts/capabilities/capability-definition-graph.json",
+      "package.json",
+      "product-toolchain-manifest.json"
+    ],
+    "onlyDeclarationDifference": "One type-import syntax change; complete normalized declaration identical",
+    "runtimePackageFieldDrift": 0,
+    "packedMetadataEqualsSource": true,
+    "packageChangedFields": [
+      "scripts"
+    ],
+    "testScriptDifferences": 44,
+    "dependencyFixturesUnchanged": [
+      {
+        "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+        "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+        "byteCount": 5544,
+        "equalToAcceptedBaseline": true
+      },
+      {
+        "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+        "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+        "byteCount": 9888,
+        "equalToAcceptedBaseline": true
+      },
+      {
+        "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+        "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+        "byteCount": 1688,
+        "equalToAcceptedBaseline": true
+      }
+    ],
+    "abgOwnedExternalTestOrBuiltinImplementationLeak": false,
+    "oldPackageConfigScenarioUnchanged": true,
+    "oldFailureDiagnosticNativePinsUnchanged": 136,
+    "closedCallerSourcePinsUnchanged": 3
+  },
+  "claims": {
+    "exactCandidateSourceArtifactManifestIdentity": "satisfied",
+    "boundedCallerRepair": "satisfied_per_separate_closed_return",
+    "actualInstalledProducerConsumerCongruence": "indeterminate",
+    "exactNativeApplicationPath": "indeterminate",
+    "ordinaryUserUsability": "indeterminate",
+    "runtimeWorksiteEffectAdmissionReplay": "indeterminate"
+  },
+  "exclusions": [
+    "No native install or Public dispatch/replay retest",
+    "No actor/provider/model or independent application judgment",
+    "No full Product qualification/release/capacity claim",
+    "Framework repair semantics owned by separate independent Authority Reviewer",
+    "Raw tar files and logs retained only at original locators"
+  ],
+  "consumingConjunction": "Root alone conjoins Framework/caller/candidate results and authorizes clean basic-cli; this return creates no deployment or further effect grant",
+  "invalidation": "Changed source/package/manifest/canonical contract/caller/config/resources/originals/oracle/frame/evidence population requires affected reevaluation"
+}

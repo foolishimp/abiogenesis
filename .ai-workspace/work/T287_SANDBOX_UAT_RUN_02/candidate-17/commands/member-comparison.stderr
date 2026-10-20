@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-package-46/member-comparison.py", line 52, in <module>
+    assert old_manifest['contributionManifest'] == new_manifest['contributionManifest'], 'Contribution/role publication drift'
+AssertionError: Contribution/role publication drift

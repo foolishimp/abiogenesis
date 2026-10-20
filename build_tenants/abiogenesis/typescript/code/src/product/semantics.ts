@@ -6,7 +6,7 @@ import type {
   ModulePublication,
   ProductSemanticsBinding,
 } from "../gtl/contracts.js";
-import type { JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import {
   sha256Canonical,
   type Sha256Digest,
@@ -16,6 +16,7 @@ import type {
   ProductInstall,
 } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
+import { compareInstalledC2ContextMaterial } from "./stdo_environment.js";
 import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
 import type {
   DeclarationApplication,
@@ -46,6 +47,91 @@ export interface ProductInvocationSourceResultBasis {
   readonly sourceWorkspaceId: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
+}
+
+/** @internal Private pre-admission comparison result, not a persisted entity,
+ * replacement source basis or implementation-equivalence judgment. The
+ * existing invocation admission attests the complete owner validation.
+ * Declaration preimages stay with the existing Catalog resource owners. */
+export interface GovernanceCoveredSourceUse {
+  readonly kind: "governance_covered_source_use";
+  readonly schemaVersion: "5.0.0";
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly sourceBasisRef: string;
+  readonly sourceBasisDigest: Sha256Digest;
+  readonly currentWorkspaceBindingId: string;
+  readonly currentWorkspaceBindingDigest: Sha256Digest;
+  readonly currentCatalogBasisDigest: Sha256Digest;
+  readonly currentCatalogViewDigest: Sha256Digest;
+  readonly programRef: string;
+  readonly programDigest: Sha256Digest;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: Sha256Digest;
+  readonly historicalClosureDigest: Sha256Digest;
+  readonly currentClosureDigest: Sha256Digest;
+  readonly historicalDeclaration: import("../abg/terminal_result_contracts.js").AbgHistoricalDeclarationReference;
+  readonly currentDeclaration: import("../abg/terminal_result_contracts.js").AbgHistoricalDeclarationReference;
+  readonly declarationMeaningDigest: Sha256Digest;
+  readonly declarationOwners: readonly Readonly<{
+    moduleRef: string; productId: string;
+    historicalPublicationDigest: Sha256Digest; currentPublicationDigest: Sha256Digest;
+  }>[];
+  readonly bindingCoverEventRefs: readonly string[];
+  readonly useDigest: Sha256Digest;
+}
+
+/** @internal Total comparison of the selected declaration closure. Only the
+ * canonical publication identities may change. A specifically authenticated
+ * C2 renderer Context may also use its actual consumed material meaning; raw
+ * callers retain exact declaration comparison. ABG supplies actual causal
+ * installs, and the existing material owner independently checks their bytes. */
+export function compareGovernanceDeclarationPublications(
+  historical: readonly Readonly<ModulePublication>[], current: readonly Readonly<ModulePublication>[],
+  materialOwners?: Readonly<{ historical: readonly ProductInstall[]; current: readonly ProductInstall[] }>,
+): Readonly<{ meaningDigest: Sha256Digest; owners: GovernanceCoveredSourceUse["declarationOwners"] }> | null {
+  try {
+    const key = (p: Readonly<ModulePublication>) => canonicalJson([p.moduleRef, p.owningProductId]);
+    if (historical.length !== current.length || new Set(historical.map(key)).size !== historical.length ||
+        new Set(current.map(key)).size !== current.length) return null;
+    const meanings: JsonValue[] = [], owners: GovernanceCoveredSourceUse["declarationOwners"][number][] = [];
+    for (const old of [...historical].sort((a, b) => key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0)) {
+      const next = current.find(p => key(p) === key(old));
+      if (next === undefined) return null;
+      const hash = (p: unknown) => sha256Canonical(p as JsonValue);
+      let contextMeaning: JsonValue | null = null;
+      if (canonicalJson((old.runEnvironments ?? []) as unknown as JsonValue) !== canonicalJson((next.runEnvironments ?? []) as unknown as JsonValue)) {
+        const installed = (p: Readonly<ModulePublication>, owners: readonly ProductInstall[]) => owners.filter(i =>
+          i.productId === p.owningProductId && i.artifactDigest === p.artifactDigest &&
+          i.productContentDigest === p.productContentDigest && i.manifestDigest === p.productManifestDigest);
+        const previous = installed(old, materialOwners?.historical ?? []), current = installed(next, materialOwners?.current ?? []);
+        if (previous.length !== 1 || current.length !== 1) return null;
+        contextMeaning = compareInstalledC2ContextMaterial(old, next, previous[0]!, current[0]!);
+        if (contextMeaning === null) return null;
+      }
+      const normalized = (p: Readonly<ModulePublication>): JsonValue => {
+        const { artifactDigest, productContentDigest, productManifestDigest, descriptorRef, contributionManifestRef,
+          contributions, ...meaning } = p;
+        const identityRef = (ref: string | undefined, other: string | undefined): string | null => {
+          if (ref === other) return ref ?? null;
+          if (ref === undefined) return null;
+          const suffix = productContentDigest.slice(7);
+          if (!ref.endsWith(suffix)) throw new TypeError("publication reference is not its canonical content identity");
+          return ref.slice(0, -suffix.length);
+        };
+        const other = p === old ? next : old;
+        return { ...meaning, ...(contextMeaning === null ? {} : { runEnvironments: [contextMeaning] }),
+          descriptorOwner: identityRef(descriptorRef, other.descriptorRef), contributionOwner: identityRef(contributionManifestRef, other.contributionManifestRef),
+          contributions: contributions.map(row => ({ ...row, provenanceRefs: row.provenanceRefs.map(ref =>
+            ref === artifactDigest ? "publication:artifact" : ref === productManifestDigest ? "publication:manifest" : ref).sort(compareUnicodeCodeUnits) })) } as unknown as JsonValue;
+      };
+      const a = normalized(old), b = normalized(next);
+      if (canonicalJson(a) !== canonicalJson(b)) return null;
+      meanings.push(a);
+      owners.push({ moduleRef: old.moduleRef, productId: old.owningProductId,
+        historicalPublicationDigest: hash(old), currentPublicationDigest: hash(next) });
+    }
+    return deepFreeze({ meaningDigest: sha256Canonical(meanings), owners });
+  } catch { return null; }
 }
 
 export interface ProductPublicResultProjection {
@@ -130,6 +216,9 @@ export interface ProductSemanticsProvider {
       readonly catalogView: GraphFunctionCatalogView;
       readonly catalogApplications: readonly DeclarationApplication[];
       readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
+      /** @internal Supplied only by the invoking owner's preparation closure.
+       * ABG independently derives the same relation before admission. */
+      readonly currentSourceUse?: () => GovernanceCoveredSourceUse | null;
     }>,
   ) => boolean;
   readonly projectPublicResult?: (

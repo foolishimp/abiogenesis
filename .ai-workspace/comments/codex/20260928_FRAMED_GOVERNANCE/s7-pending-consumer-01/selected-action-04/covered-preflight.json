@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "scope": "pure construction only; synthetic current marker and coverage refs are not runtime facts",
+  "fixtureUnchanged": true,
+  "archiveDigests": [
+    "sha256:b798e20edd4ae1d8649499ad0ccd822d893968fad3a5498948346df45211e043",
+    "sha256:8b9a2a5c2323cb15132d37850309e976bc4470f6e609a527aef3c46261260205"
+  ],
+  "coverDefinition": {
+    "operationId": "abg.operation.witness.admit",
+    "memberKey": "reprice"
+  },
+  "currentSelection": "action://selected-action/consumer@5",
+  "lawfulBasisTransport": [
+    "continuation://preflight/old",
+    "witnessed-act://preflight/cover"
+  ],
+  "targetInput": {
+    "kind": "fixture_task",
+    "schemaVersion": "5.0.0",
+    "payload": "selected second action",
+    "currentAuthorityMarker": "workspace-binding://preflight/current"
+  }
+}

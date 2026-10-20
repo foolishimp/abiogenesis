@@ -1,0 +1,17 @@
+{
+  "role": "Reviewer",
+  "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REVIEW_01",
+  "actorTask": "/root/f11_attribution_inputs",
+  "transitionFrom": "CLOSED Worker T287_FINAL_F11_ATTRIBUTION_INPUTS_01; different subject authored by /root/s03_phase_b",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-review-01",
+  "startedAt": "2026-09-30T07:04:32.957409+00:00",
+  "requestSha256": "b102d05c4f58ef5cb9a6fde8f8c97a7ca0448f8e0df8e16134216d6b4746d721",
+  "grant": "Independent source/component review and isolated pure-check scratch only",
+  "prohibitions": [
+    "subject repairs",
+    "source/Git/build-package/install/native/provider/resource effects",
+    "own attribution input review",
+    "moving attribution outputs"
+  ],
+  "productFrame": "Fixed fifteen-family ABIogenesis 5.0, GOAL-035/T287. GTL owns immutable Program and GraphFunction declarations, cumulative environment bindings and callable templates; HoG traverses admitted GTL; ABG alone admits runtime facts. Current default library composes six named purposes over existing native/C2 children and preserves foldback and parent judgment. Tests/helpers are derived tooling. Review covers only publication production and its static consumer relation; no controller, new runtime, altered native authority, revised Product or qualification claim is permitted."
+}

@@ -1,0 +1,11 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_11",
+  "workResult": "NO_GO_EXTERNAL_SUCCESSOR_DELTA_SELECTOR",
+  "closedAt": "2026-10-02T18:09:27.292933+00:00",
+  "writesStopAfterFreeze": true,
+  "returnsTo": "Root Executive",
+  "noRetryOrRepair": true,
+  "independentAssuranceClaim": false
+}

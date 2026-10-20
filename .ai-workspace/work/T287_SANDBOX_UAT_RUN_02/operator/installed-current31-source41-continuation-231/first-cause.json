@@ -1,0 +1,16 @@
+{
+  "stage": "early-fixed-product-resolve-returned",
+  "rss": 2439823360,
+  "heapTotal": 2100494336,
+  "heapUsed": 1977156984,
+  "external": 20513671,
+  "arrayBuffers": 18096810,
+  "at": "2026-10-09T19:02:10.072Z",
+  "elapsedMs": 25725.780709000002,
+  "name": "AssertionError",
+  "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   digest: 'sha256:b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09',\n+   ref: 'product-lock://abiogenesis/b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09'\n-   lockDigest: 'sha256:b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09',\n-   lockId: 'product-lock://abiogenesis/b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09'\n  }\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   digest: 'sha256:b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09',\n+   ref: 'product-lock://abiogenesis/b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09'\n-   lockDigest: 'sha256:b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09',\n-   lockId: 'product-lock://abiogenesis/b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09'\n  }\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/prepare.mjs:48:64",
+  "actualOutcome": null,
+  "disposition": "HOLD; first actual failure preserved; no retry or model dispatch",
+  "action": "Root multi-frame owner triage and selected Product-bounded action required before any retry"
+}

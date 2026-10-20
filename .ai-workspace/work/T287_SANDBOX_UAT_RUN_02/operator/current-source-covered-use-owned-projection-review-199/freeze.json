@@ -1,0 +1,166 @@
+{
+  "status": "CLOSED_BOUNDED_SOURCE_UNIT_GO",
+  "reviewer": 199,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-review-199/return.md",
+      "sha256": "9894bf335ef64976e27e6f88a7c83389a0922d1277b26c2edcf50ba6fe09e684",
+      "byteCount": 4654
+    }
+  ],
+  "exactSubjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/freeze.json",
+    "sha256": "7315fe136f0a56ab5ddae5ae955ba0c625bcb0603c8640e449cf20c6584df5c8",
+    "byteCount": 17921
+  },
+  "selectedEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/return.md",
+      "sha256": "4efc1e7e69eac56c1d5bad4149e9b8b26b0f06b16f458a9417ff1f117bc26128",
+      "byteCount": 4689
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/readiness.json",
+      "sha256": "b2b2fb8f6c0bfd8597badb8379a7720ae5288a6d67b9caacc47729d7ee22b84d",
+      "byteCount": 3239
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/conservation.json",
+      "sha256": "03b079a463c113679cf26d217fd517edc396f3db19be430bd0343a3d44e8dc6b",
+      "byteCount": 6344
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/commands/strict-01.result.json",
+      "sha256": "d200627201d292c1d505d1ae2fa0d5931e06b7dd107386cee130b9f88cc9d93a",
+      "byteCount": 748
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/commands/focused-01.result.json",
+      "sha256": "bf32c806241da80b1d11b331c078cd6921361a331c0a2270721d9e8e95e602d8",
+      "byteCount": 1525
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/commands/focused-01.stdout",
+      "sha256": "2dfa1eb6cd82d1a7481b95ab68a7b5925476d1775735ef31dddd67d8d6faae70",
+      "byteCount": 3326
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/proof-scope-reprice.md",
+      "sha256": "a841f4df091161c9f652e903de7dbbd7c359cfbebf7af66b6007e0029de97c28",
+      "byteCount": 536
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/freeze-recording-first-cause.json",
+      "sha256": "258b3477b93740098c99c248a7fb180e521ed27a352efd83c3372d0ed7856978",
+      "byteCount": 5844
+    }
+  ],
+  "canonicalLivePostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "a14e1621c138680168ab397f176548039e413eda46f043f0799d39d119348086",
+      "byteCount": 36651
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "sha256": "4bb5199b3793528e1eaef9d8c5ce24ca16772c1deac4e547e0f452088bedff53",
+      "byteCount": 33375
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "532b36e5217ad91a0ac3a22abdd72367f1389f6c7490997f125d4abe3be72bf7",
+      "byteCount": 40340
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+      "byteCount": 39274
+    }
+  ],
+  "independentAcquisition": {
+    "smallFrozenFilesMatched": 41,
+    "canonicalSelections": 4,
+    "fiveDeclarationPairsReadAndMatched": true,
+    "unreadInheritedControlledFixtureBytes": 39657765
+  },
+  "sourcePinsViaSubject": "All selected pre/postimage and receipt identities remain the exact198 frozen files; no copy of large proof values was made.",
+  "declarationObservations": [
+    {
+      "relativePath": "abg/instruction_assembly.d.ts",
+      "isolated": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/abg/instruction_assembly.d.ts",
+        "sha256": "97f655f33fbdc0570ae4cb0325e35188cb815c8a4cbcbf5de5b01511d8febdd9",
+        "byteCount": 43002
+      },
+      "existingGenerated": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+        "sha256": "07d59aa31a2eac3ffb3bbad4a6f1b7d25a4a573444d4592f44f48ad39d68c4de",
+        "byteCount": 43002
+      },
+      "meaning": "finite field display order only"
+    },
+    {
+      "relativePath": "implementation/release_publication.d.ts",
+      "isolated": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/implementation/release_publication.d.ts",
+        "sha256": "713bd7dc32f69edd8157fc03eb5a0c2d8bb9dced5e02eef946af844cca512d75",
+        "byteCount": 72711
+      },
+      "existingGenerated": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/release_publication.d.ts",
+        "sha256": "ee6622674db70586edda2c7c1bb1d2aee0f079a77b29a5dd362725eb752e28e0",
+        "byteCount": 72711
+      },
+      "meaning": "same union alternatives in different display order; exact Picklist tuple retained"
+    },
+    {
+      "relativePath": "product/release_snapshot_definition_bindings.d.ts",
+      "isolated": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/product/release_snapshot_definition_bindings.d.ts",
+        "sha256": "4bee5f72322ed42207864e46c5ff04c6b11f6b34e5480db8a310058f64e26215",
+        "byteCount": 243402
+      },
+      "existingGenerated": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/release_snapshot_definition_bindings.d.ts",
+        "sha256": "73525fcd86b117763f61553ff8f1203682cd30dd2d62f1099b17752ca5048c5b",
+        "byteCount": 243402
+      },
+      "meaning": "same union alternatives in different display order; exact Picklist tuple retained"
+    },
+    {
+      "relativePath": "validator/qualification_contracts.d.ts",
+      "isolated": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/validator/qualification_contracts.d.ts",
+        "sha256": "a430b9408aa940fbd92cf6721a9855dd9613cd1aa0f7369536d50a3092fcaf41",
+        "byteCount": 537684
+      },
+      "existingGenerated": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/qualification_contracts.d.ts",
+        "sha256": "7af44d9c294deecd70cff6d52431c89d2f12c0e332ea8e0370442f05a4db5be2",
+        "byteCount": 537684
+      },
+      "meaning": "same union alternatives in different display order; exact Picklist tuple retained"
+    },
+    {
+      "relativePath": "validator/self_conformance_contracts.d.ts",
+      "isolated": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/isolated/build/code/src/validator/self_conformance_contracts.d.ts",
+        "sha256": "42c6be87c9bf79318146819f8b563d79baffb01d094e61edf666d1907b39fee8",
+        "byteCount": 386197
+      },
+      "existingGenerated": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/self_conformance_contracts.d.ts",
+        "sha256": "e4319bbcb621e1872386e22e80650db6ee0e9ead80340b9407588b5ff26fce16",
+        "byteCount": 386197
+      },
+      "meaning": "same union alternatives in different display order; exact Picklist tuple retained"
+    }
+  ],
+  "limits": [
+    "No normal publication parity",
+    "No exact fatal allocator or composed capacity proof",
+    "Controlled complete covered-source lower premises; no new campaign admission/native/UAT/release credit",
+    "No runtime/Source/campaign acquisition or retry effects"
+  ],
+  "stop": true
+}

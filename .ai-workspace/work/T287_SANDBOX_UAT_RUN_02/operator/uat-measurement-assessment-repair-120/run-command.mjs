@@ -1,0 +1,14 @@
+import {spawn} from 'node:child_process';
+import {writeFile,open} from 'node:fs/promises';
+import {dirname,join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+const phase=dirname(fileURLToPath(import.meta.url)),[stem,executable,...args]=process.argv.slice(2);
+const cwd='/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript';
+const startedAt=new Date().toISOString(),start=process.hrtime.bigint();
+const stdout=await open(join(phase,stem+'.stdout.log'),'wx'),stderr=await open(join(phase,stem+'.stderr.log'),'wx');
+const child=spawn(executable,args,{cwd,stdio:['ignore',stdout.fd,stderr.fd]});
+const result=await new Promise(resolve=>{child.once('error',error=>resolve({exitCode:null,signal:null,error:String(error)}));child.once('close',(exitCode,signal)=>resolve({exitCode,signal}));});
+await stdout.close();await stderr.close();
+const receipt={executable,args,cwd,startedAt,endedAt:new Date().toISOString(),wallMs:Number(process.hrtime.bigint()-start)/1e6,...result};
+await writeFile(join(phase,stem+'.result.json'),JSON.stringify(receipt,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify(receipt));
+process.exitCode=result.exitCode===0?0:1;

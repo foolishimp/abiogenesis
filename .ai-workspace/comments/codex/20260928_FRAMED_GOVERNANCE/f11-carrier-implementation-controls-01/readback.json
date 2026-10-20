@@ -1,0 +1,8 @@
+{
+  "role": "Writer_CLOSED_root_resumes_Executive",
+  "requestSHA256": "4426248f90e1741ba69e7e3f88a23819dc3d887aee4ea9bb4822fe4a55c1d18d",
+  "requestBytes": 5660,
+  "sourcePreimagesSHA256": "7122574eb48c4f82007c8df87732ba1fecc7de4610f1e5cdbd51a2255a482b33",
+  "executionPostimageSHA256": "d1fb8ef1102c5cd08e5901f9e5f9e0f09cb1d8304471ee9157df7c4ff0d92bbf",
+  "ticketPostimageSHA256": "f89b0e18225247962a0cb8f7d9d9517dd0c109815dfbb2547b01446ed36dd84a"
+}

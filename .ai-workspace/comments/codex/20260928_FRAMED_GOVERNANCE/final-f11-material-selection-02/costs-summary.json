@@ -1,0 +1,48 @@
+{
+  "pureCheckProcesses": 3,
+  "elapsedMs": 2481.174001470208,
+  "aggregateCapMs": 300000,
+  "perProcessCapMs": 120000,
+  "ownedGraceMs": 1000,
+  "processes": [
+    {
+      "label": "01-construction",
+      "command": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/construct-selection.py"
+      ],
+      "pid": 33194,
+      "elapsedMs": 662.6596669666469,
+      "exitCode": 1,
+      "signals": [],
+      "nativeCalls": 0
+    },
+    {
+      "label": "02-construction",
+      "command": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/construct-selection.py"
+      ],
+      "pid": 33801,
+      "elapsedMs": 545.3514172695577,
+      "exitCode": 0,
+      "signals": [],
+      "nativeCalls": 0
+    },
+    {
+      "label": "03-owner-checks",
+      "command": [
+        "node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/check-selection.mjs"
+      ],
+      "pid": 35760,
+      "elapsedMs": 1273.1629172340035,
+      "exitCode": 0,
+      "signals": [],
+      "nativeCalls": 0
+    }
+  ],
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "scope": "Recorded construction/check subprocesses. Acquisition reads and model reasoning are not presented as measured process cost. Final report/hash work is separate."
+}

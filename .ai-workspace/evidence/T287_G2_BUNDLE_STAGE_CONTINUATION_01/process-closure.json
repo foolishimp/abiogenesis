@@ -1,0 +1,87 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "groups": [
+    {
+      "label": "preflight",
+      "pid": 33705,
+      "pgid": 33705,
+      "reaped": true,
+      "absenceAtClose": true
+    },
+    {
+      "label": "manifest",
+      "pid": 34018,
+      "pgid": 34018,
+      "reaped": true,
+      "absenceAtClose": true
+    },
+    {
+      "label": "pack",
+      "pid": 34465,
+      "pgid": 34465,
+      "reaped": true,
+      "absenceAtClose": true
+    },
+    {
+      "label": "extract",
+      "pid": 35043,
+      "pgid": 35043,
+      "reaped": true,
+      "absenceAtClose": true
+    },
+    {
+      "label": "focused",
+      "pid": 35235,
+      "pgid": 35235,
+      "reaped": true,
+      "absenceAtClose": true
+    }
+  ],
+  "allKnownGroupsReapedAndAbsent": true,
+  "extractDiagnosticObservedChildPID": 35045,
+  "childProof": "extract parent/group reaped and absent; shim child diagnostic retained; no separate invocation",
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "borrowedTools": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "mode": 365,
+      "device": 16777230,
+      "inode": 465216490
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "mode": 493,
+      "device": 16777230,
+      "inode": 465216585
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/package.json",
+      "bytes": 6603,
+      "sha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 465219272
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/package.json",
+      "bytes": 3620,
+      "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 465251895
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/valibot/package.json",
+      "bytes": 1914,
+      "sha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 465255157
+    }
+  ]
+}

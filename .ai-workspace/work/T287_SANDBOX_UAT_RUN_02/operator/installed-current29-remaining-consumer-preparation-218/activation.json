@@ -1,0 +1,121 @@
+{
+  "operator": 218,
+  "role": "One actual remaining-consumer preparation; conditional219 dispatch only after canonical success",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2; originalDataMapper/source/integration/identity/effects/Proof unchanged",
+  "rootConjunction": "Accepted216/216a exact2dumpdeletions plus independent217; one canonical acquisition/private preparation, noPublicsetup/covers replay",
+  "callerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/freeze.json",
+    "sha256": "3a229f3516dad39049735e4c028de8f03b0b917b608c2de4e21d12180c8ce715",
+    "byteCount": 7316
+  },
+  "baseFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216/freeze.json",
+    "sha256": "a5fa40a96cffb3e08615e32e7731fbb606e2477760d9864a2638b36a8bab638a",
+    "byteCount": 11009
+  },
+  "reviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-review-217/freeze.json",
+    "sha256": "356910f4fd18bbfe6296047a157999d5b8442f0bc8efd9032886af6327f5678e",
+    "byteCount": 627
+  },
+  "exactCopies": [
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/prepare.mjs",
+        "sha256": "abb66c0f1da4d3c835c06edadec99f3512a9f0a6505dd8c5027f97dd2f59fce5",
+        "byteCount": 39024
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/prepare.mjs",
+        "sha256": "abb66c0f1da4d3c835c06edadec99f3512a9f0a6505dd8c5027f97dd2f59fce5",
+        "byteCount": 39024
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/inputs.json",
+        "sha256": "01ec9aac99ee8b5804c032192bd699f359cfccdda943d1ef46278be3d17f72e4",
+        "byteCount": 15266
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/inputs.json",
+        "sha256": "01ec9aac99ee8b5804c032192bd699f359cfccdda943d1ef46278be3d17f72e4",
+        "byteCount": 15266
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/verify-artifacts.mjs",
+        "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+        "byteCount": 2071
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/packed-resources.mjs",
+        "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+        "byteCount": 2167
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/binding-inputs.mjs",
+        "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+        "byteCount": 1942
+      },
+      "byteExact": true
+    },
+    {
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-remaining-consumer-caller-216a/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/operation-resource.mjs",
+        "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+        "byteCount": 695
+      },
+      "byteExact": true
+    }
+  ],
+  "launcherOriginal": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-owned-projection-preparation-213/launch.mjs",
+    "sha256": "dee0dea2c2c876eb0ef987c1a4ba550cfc32b17375ccb9752baaa52da7c26e31",
+    "byteCount": 960
+  },
+  "launcher": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/launch.mjs",
+    "sha256": "dee0dea2c2c876eb0ef987c1a4ba550cfc32b17375ccb9752baaa52da7c26e31",
+    "byteCount": 960
+  },
+  "logicalNamespace": "Frozen216 labels retained; dynamicdirname owns actual218 outputs",
+  "limits": {
+    "stockHeap": true,
+    "outerMs": 19260000,
+    "outerBytes": 536870912,
+    "environment": "process.env; no credentials persisted"
+  },
+  "qualityClock": "Not started during preparation; only actual later nativeCLI command.request.started+18000000",
+  "stop": "First genuine owner/refusal/allocation/integration failure HOLD and RootRCA before retry; preserve completed213 owners/current close/49A."
+}

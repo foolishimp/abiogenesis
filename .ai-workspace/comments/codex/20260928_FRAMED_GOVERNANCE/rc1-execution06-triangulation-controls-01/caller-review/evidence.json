@@ -1,0 +1,169 @@
+{
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+    "bytes": 20017,
+    "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+    "mode": 420
+  },
+  "subjectPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/subject-pins.json",
+    "bytes": 2859,
+    "sha256": "8c401b6fb4e7265feed6082539941f27cc29b012a566587377f98230adddef10",
+    "mode": 420
+  },
+  "verifiedSubjectPins": 11,
+  "runtimeRecordsVerified": 77,
+  "runtimeDirectoriesVerified": 5,
+  "runtimeSymlinks": 0,
+  "runtimeRecordBytes": 1004894047,
+  "exactRuntimeRosterVerified": true,
+  "sourcePinCorrespondence": "four granted C05 source/HOW bodies match exact frozen final-source bodies; extra structural/port routes below also match frozen C05",
+  "extraFrozenSourceRoutes": [
+    {
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/shared/static_definition_bindings.ts",
+        "bytes": 10421,
+        "sha256": "ca1f0b489ab6563f49c0b17a222b2472d6c085d6840293cb2bf3ec96d66c2a01",
+        "mode": 420
+      },
+      "liveSameBytes": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/static_definition_bindings.ts",
+        "bytes": 10421,
+        "sha256": "ca1f0b489ab6563f49c0b17a222b2472d6c085d6840293cb2bf3ec96d66c2a01",
+        "mode": 420
+      }
+    },
+    {
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "bytes": 84829,
+        "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+        "mode": 420
+      },
+      "liveSameBytes": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "bytes": 84829,
+        "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+        "mode": 420
+      }
+    },
+    {
+      "frozen": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+        "bytes": 15165,
+        "sha256": "a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+        "mode": 420
+      },
+      "liveSameBytes": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+        "bytes": 15165,
+        "sha256": "a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+        "mode": 420
+      }
+    }
+  ],
+  "authorityPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 66413,
+      "sha256": "108207726681c787bae7a63271f1eff2834bbba83e65ca94396063c9ccab1363",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "mode": 420
+    }
+  ],
+  "actualWire": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/flow-assess-run_result.jsonl",
+    "bytes": 489536380,
+    "sha256": "acc3a3dc84b45eb5005cc665a947c9cb1b1b54932239782af95e4a39999f6d98",
+    "inspectedPrefixAndTailOnly": true,
+    "resourcePrefix": "resources: kind=abg_project_read_resource_assertion, schemaVersion=5.0.0, qualificationResources=qualification_resource_assertion",
+    "rootEventResourceTailPresent": true
+  },
+  "actualParent": {
+    "PublicOutcomeKind": "result",
+    "exitCode": 0,
+    "RunDisposition": "runtime_failed",
+    "terminalResult": null,
+    "runRef": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271"
+  },
+  "earliestChild": "qualification assessment lacks an exact current owner and admitted task; undispatched preparation TypeError",
+  "secondRead": {
+    "definition": "abg.operation.project.read/run_result",
+    "exitCode": 70,
+    "stage": "resource_admission",
+    "code": "invalid_resource_assertion",
+    "ownerOutput": null,
+    "newEvents": 0
+  },
+  "durablePrefix": {
+    "bytes": 2668364,
+    "sha256": "2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+    "device": 16777230,
+    "inode": 464611665,
+    "originalPrefixBytes": 2490814,
+    "appendedBytes": 177550,
+    "appendedRecords": 44,
+    "runtimeEvents": 43,
+    "bodyReferenceRecords": 1,
+    "originalPrefixPlusAppendEqualsClosedSnapshot": true,
+    "actualExternalResourceSameBytesAndInode": true
+  },
+  "knownRuntimeCost": {
+    "elapsedMs": 31266.38525025919,
+    "supervisorRSSBytes": 7771881472,
+    "parentCallMs": 8152.908833000001,
+    "failedColdCallMs": 740.0995000000003,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "knownCLIGroupsClosed": 2,
+    "notTimeoutOrProviderFailure": true
+  },
+  "newRuntimeEffects": 0
+}

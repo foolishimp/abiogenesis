@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/diagnostic-trap-probe.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10",
+  "pid": 17625,
+  "processGroup": 17625,
+  "groupEstablishedBeforeImports": true,
+  "budgetSeconds": 30,
+  "HOME": "/Users/jim",
+  "heap": "default",
+  "ProductImports": 0,
+  "RunOrResourceEffects": 0,
+  "startedAt": "2026-10-03T09:48:47.385354+00:00"
+}

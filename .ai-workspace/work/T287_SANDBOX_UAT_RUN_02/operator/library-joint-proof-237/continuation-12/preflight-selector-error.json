@@ -1,0 +1,9 @@
+{
+  "kind": "documentary_preflight_selector_failure",
+  "stage": "after exact264 source/528 emission comparison, before publication effects",
+  "error": "TypeError: unsupported operand type(s) for /: 'PosixPath' and 'dict'",
+  "failedPremise": "capabilityDefinitionGraph.assetLocator was addressed as a string rather than the actual canonical AssetLocator object",
+  "downstream": "canonical-publication receipt records ENOENT/preflight.json before creation of its publication directory, pack or installer",
+  "effects": "Ordinary canonical build already passed; no package/install/owner/resource/native/model/worksite effects from this attempt",
+  "selectedCorrection": "Use actual AssetLocator location field; preserve failed receipts and execute publication with fresh label only after successful checker result"
+}

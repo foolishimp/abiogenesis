@@ -1,0 +1,12 @@
+{
+  "name": "01-acquisition",
+  "command": [
+    "python3",
+    "prepare-inputs.py"
+  ],
+  "pid": 6573,
+  "elapsedMs": 137.49304180964828,
+  "exitCode": 1,
+  "timedOut": false,
+  "scope": "Pure external construction/validation/rendering; no native/provider dispatch"
+}

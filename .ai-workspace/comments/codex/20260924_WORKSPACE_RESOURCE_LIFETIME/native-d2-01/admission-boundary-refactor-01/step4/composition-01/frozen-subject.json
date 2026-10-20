@@ -1,0 +1,126 @@
+{
+  "kind": "step4_fp_owner_composition_source_candidate",
+  "status": "CLOSED",
+  "worker": "astra/xhigh",
+  "sourceSubjectSha256": "257f2a90b8ec598e600312a7b44fccf081c3dda8b280cc7fdfad4d674ff20c13",
+  "sourceHashDefinition": "SHA256 of ordered path/sha256 rows with sorted keys and compact JSON separators",
+  "sourceAndTest": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "preimageSha256": "81df9b254be28818201cbb6c56924ee06b1003fba4813a3852f27a8ef6838008",
+      "sha256": "1c56e84f05905979f3f731cebadf12a4e2834d2aa5d03caf755d6c7d61179745",
+      "addedLines": 109,
+      "removedLines": 21
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "preimageSha256": "2c39789ac41c12d71c4da68c85b2f0a8d809ba6473b725bd5d1c1395535962fb",
+      "sha256": "efc4d9dd5818984c9f19ead8d41537521e139ab8f531041de827b109be13064a",
+      "addedLines": 26,
+      "removedLines": 4
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+      "preimageSha256": "9b1c8746133406d0288d068763a9966a7d7cf19d9887988a3ce23bf6461bba36",
+      "sha256": "28f80500127345bab3f6a4dad35d4e68093f50ba93cac749811e58ba3d5e06e0",
+      "addedLines": 30,
+      "removedLines": 9
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "preimageSha256": "362d42d96ffcf90e825f0a70efa0e07e3bd1685d69ec77128b155a930e8d8581",
+      "sha256": "c581646dfcee5d8441674a04eddc91e413a09739aca20e7e1e5834dc0e677fd8",
+      "addedLines": 103,
+      "removedLines": 91
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "preimageSha256": "323aa38b6b3782e7b93517964c82ab52352270c119ac5b6937ecdc6fe21d7d63",
+      "sha256": "cd5fe443046b94751d13a2625fa8d8b50fc0deaa34ccd7a0355c896e5ab6e0dd",
+      "addedLines": 7,
+      "removedLines": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "preimageSha256": "4625b7437f366bd05f1cb5212328a6294950b22b18bea0bd5b9c68bcd2603b3e",
+      "sha256": "d6fe18e05094a68e9a759091b386afda031316e2f8a911f29ae95faba0c78965",
+      "addedLines": 69,
+      "removedLines": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "preimageSha256": "6d0a1a0bc5af05898765677cffbcf9bf440eb0df74a3885130067a44eff8a8a7",
+      "sha256": "90ea82096607879dfcf8a00369612fae1b58bab3b6630e97d7bc6555dfe5af62",
+      "addedLines": 27,
+      "removedLines": 0
+    }
+  ],
+  "ordinaryCompilerProjections": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+      "sha256": "46cbceb3f9a2148cfdc28e941d863cf647d03880f7db25ae5842eb1b4df560b4",
+      "bytes": 235168
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.d.ts",
+      "sha256": "568fe5861972584b4c168d0c28f1c73ea91440cbe2817ff3ebf4657715c6ce64",
+      "bytes": 39422
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "sha256": "bcd8ea0227c1ae3411084ce766430af28d327b244be8b298ef2d40997233f1d1",
+      "bytes": 53013
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.d.ts",
+      "sha256": "533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c",
+      "bytes": 9764
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/probabilistic_result.js",
+      "sha256": "2dec338a7c885b4b13669f1fe687aedd68133daf8d971f20b069acc62e03afe1",
+      "bytes": 18439
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/probabilistic_result.d.ts",
+      "sha256": "d0551c5c173a3b1f96ef5fa550b9567b58f76406ca1e5d4f286a61e4d927ffe4",
+      "bytes": 4196
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+      "sha256": "924b3a18f1ccefb778209f4b192f14dd4942b3610379cddb7e1c9e2f944f95e1",
+      "bytes": 68647
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.d.ts",
+      "sha256": "99e784d37af8cabd10fa4b04722251f8c1b2856e7ed37588e60ed4b45fafd286",
+      "bytes": 3228
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/contracts.js",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "bytes": 11
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/contracts.d.ts",
+      "sha256": "bc694d9c022c87a18479d4c17b397571e1e8e5d0798fd6ea60c8fe01fcff5cd3",
+      "bytes": 18426
+    }
+  ],
+  "predecessorPreservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/predecessor-preservation.json",
+    "sha256": "64438d370fb5dcecb075917b85712d4c9e0dc64e14af42ea36fd97e648c54678",
+    "bytes": 2561
+  },
+  "checks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/checks.json",
+    "sha256": "962127f4465369f6041d874a8e9f0330dd442084482b89ca3fc5c97e0f65a0e4",
+    "bytes": 2845
+  },
+  "sourceDiff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/source.diff",
+    "sha256": "ec6585d23311fe107c0d15ccd164fa455ac16e2d746c50ad26cb3f7595d2bb49",
+    "bytes": 39531
+  },
+  "unchangedPublicCarriers": "No Public operation/schema, actor observation, native assessment, event or result carrier changed. The existing internal LeafInvocationPort adds current-basis revalidation of its existing VerifiedProbabilisticResultContractPreimage; it does not admit raw proof or authorize an effect."
+}

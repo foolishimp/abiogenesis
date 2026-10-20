@@ -1,0 +1,10 @@
+file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:500
+  assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'kind')
+    at setupInstalledRootCatalog (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:500:34)
+    at async execute (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver.mjs:60:13)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/[eval1]:1:130
+
+Node.js v24.7.0

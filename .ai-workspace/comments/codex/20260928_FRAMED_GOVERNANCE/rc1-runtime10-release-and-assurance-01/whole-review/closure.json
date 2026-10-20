@@ -1,0 +1,24 @@
+{
+  "operation": "T287_C09_INSTALLED_CARRIER_ASSURANCE_02",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INSTALLED_MECHANICAL_CARRIER_ONLY",
+  "closedAt": "2026-10-03T10:34:43.778437+00:00",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-release-and-assurance-01/whole-review",
+  "ProductImports": 0,
+  "ownerCalls": 0,
+  "RunOrResourceEffects": 0,
+  "providerCalls": 0,
+  "repair": false,
+  "workloadCommands": 0,
+  "processesStarted": 0,
+  "writesAfterFreeze": "STOPPED",
+  "originalPositiveCompanionConserved": true,
+  "correctedChildProjectionAndContinuation": "UNKNOWN",
+  "rootAloneSelectsEffects": true,
+  "readerCorrections": [
+    "actual freeze mode values are octal strings, not integer mode pins",
+    "raw storage body-reference envelopes must be read through canonical native decoding relation"
+  ]
+}

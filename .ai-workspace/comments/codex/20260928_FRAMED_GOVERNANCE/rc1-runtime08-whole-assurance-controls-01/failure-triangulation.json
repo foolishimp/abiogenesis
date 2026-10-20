@@ -1,0 +1,15 @@
+{
+  "observed": "a_c join exit2 invalid_sections; request absent",
+  "inputBytes": 3775,
+  "inputSHA256": "3e25f19eb12be3f7a95a1de009b6abaf1d29b67f5d6072d9900337a2e324ef17",
+  "frames": {
+    "Producer": "a_c join_sections requires a top-level list",
+    "Integration": "Root Writer supplied an items wrapper without reading exact saved donor shape",
+    "Identity": "Section content and seven-section identities are unchanged",
+    "Effects": "Only new control files; no Product/Runtime effect"
+  },
+  "scope": "Root external request composition",
+  "reentry": "realization_refactor",
+  "decision": "Preserve failed preimage, pass the actual declared top-level list, render once and close",
+  "at": "2026-10-02T10:46:43.597519+00:00"
+}

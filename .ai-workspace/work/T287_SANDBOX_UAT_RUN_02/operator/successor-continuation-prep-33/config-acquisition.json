@@ -1,0 +1,148 @@
+{
+  "configurationAccepted": true,
+  "existingAcquireResumeMaterialAccepted": true,
+  "material": {
+    "originals": 4,
+    "authors": 40,
+    "fromArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e"
+  },
+  "onlySevenAuthorizedConfigChanges": [
+    {
+      "path": [
+        "package",
+        "archivePath"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-14/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    },
+    {
+      "path": [
+        "package",
+        "sha256"
+      ],
+      "before": "sha256:e5731dcebb3b01b0179816b3319c170a9f63ae4d79acab7e8e9e32d514b3c4e6",
+      "after": "sha256:1fe497924a215c4215865c36e50230ebf96e81aefc1ba81705ee59150065267d"
+    },
+    {
+      "path": [
+        "maxProcessOutputBytes"
+      ],
+      "before": 16777216,
+      "after": 268435456
+    },
+    {
+      "path": [
+        "resumeEvidence",
+        "observation",
+        "path"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/material-observation.json",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/material-observation.json"
+    },
+    {
+      "path": [
+        "resumeEvidence",
+        "observation",
+        "digest"
+      ],
+      "before": "sha256:c39eb529b3341a23bb2ed51bfc6055a4aeca7e9e10c9b88c8a5dcbda20549f98",
+      "after": "sha256:0be2f10108ad502cf13fdc41cfcddc7fee859a75bb4dcac0cfc86719ce4d9f80"
+    },
+    {
+      "path": [
+        "resumeEvidence",
+        "freeze",
+        "path"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24/material-freeze.json",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-33/material-freeze.json"
+    },
+    {
+      "path": [
+        "resumeEvidence",
+        "freeze",
+        "digest"
+      ],
+      "before": "sha256:6c1f973da0925fd0687f71b6323a8f7627598cdf2076e989ffdee7c84a3d266f",
+      "after": "sha256:967394e0d4144086ab7edb2a4a9f5bae91ee4283f3eadad2b3964e71b31b2497"
+    }
+  ],
+  "allOtherConfigFieldsDeepEqual": true,
+  "originalWholeWorkloadValueExact": true,
+  "acquisitionManifest": {
+    "digest": "sha256:fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+    "byteCount": 34763
+  },
+  "originalSelectedAcquisition": [
+    {
+      "path": "data-mapper-full/source.original.txt",
+      "digest": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+      "byteCount": 41158
+    },
+    {
+      "path": "data-mapper-full/supporting-constants.original.txt",
+      "digest": "sha256:5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+      "byteCount": 3713
+    },
+    {
+      "path": "data-mapper-full/observable-contract.original.json",
+      "digest": "sha256:2c268e449c296e74ef4abf0ea309b65a0b7303f017b4c05692dc5d86e6a7a0e1",
+      "byteCount": 21201
+    },
+    {
+      "path": "data-mapper-full/obligations.json",
+      "digest": "sha256:7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+      "byteCount": 50978
+    },
+    {
+      "path": "data-mapper-full/oracle.json",
+      "digest": "sha256:99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+      "byteCount": 16774
+    },
+    {
+      "path": "data-mapper-full/request.json",
+      "digest": "sha256:d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    },
+    {
+      "path": "independent-oracle.mjs",
+      "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "byteCount": 23452
+    }
+  ],
+  "freshInput": {
+    "observations": 0,
+    "synthesis": null,
+    "terminal": false,
+    "originalCanonicalDigest": "sha256:2ffa07372d1ca52fbd465a79a4394f58c9567a5cf8dff3e898f66335cb47ee83"
+  },
+  "sourceNoneOwner": "Existing constructLifecycleCall public-setup.mjs:228/249; existing resume runner, no semantic re-entry.",
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 18010000,
+    "httpProbeBudgetMs": 0,
+    "requiredExecutionBudgetMs": 18015000
+  },
+  "canonicalBudgetOwner": "Packaged product/worksite_command_execution.js projectWorksiteCommandExecutionBudget/worksiteCommandExecutionBudgetFits",
+  "canonicalBudgetFits": true,
+  "nativeExecution": false,
+  "transferExecuted": false
+}

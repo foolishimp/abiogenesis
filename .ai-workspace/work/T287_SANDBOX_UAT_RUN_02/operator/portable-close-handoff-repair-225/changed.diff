@@ -1,0 +1,86 @@
+--- before/code/src/abg/event_store.ts
++++ after/code/src/abg/event_store.ts
+@@ -2396,8 +2396,9 @@
+   }
+ }
+ 
+-/** Bind the owner's committed history to its unchanged reopen carrier, then
+- * release ownership. A later reopen independently validates persisted bytes. */
++/** Return the owner's unchanged close coordinate as portable data, then release
++ * ownership. Separately retained nominal snapshots remain immutable evidence;
++ * a later reopen independently validates persisted bytes. */
+ export function closeHeldEventStoreAtDurablePrefix(
+   store: AbgEventStore,
+   expectedPrefix: DurablePrefixCoordinate,
+@@ -2427,7 +2428,10 @@
+     ...authorityBody,
+     authorityDigest: sha256Canonical(authorityBody),
+   });
+-  const handoff = Object.freeze({ prefix, reopenAuthority });
++  const handoff = Object.freeze({
++    prefix: admitIJsonValue(prefix) as unknown as DurablePrefixCoordinate,
++    reopenAuthority,
++  });
+   if (!validateEventStoreCloseHandoff(handoff)) {
+     throw new TypeError("ABG durable close handoff failed validation");
+   }
+--- before/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md
++++ after/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md
+@@ -57,6 +57,8 @@
+ 4. Recheck ordinary descriptor/path identities and extents. Seed the same private durable-history correspondence used by reopen from these validated bytes/events and the selected ownership. Do not reacquire/redecode or author a caller reopen authority.
+ 5. Immediately invoke existing held-store close. Exact-prefix release produces the genuine current `EventStoreCloseHandoff`; only successful close returns `recovered`. Delivery may itself fail again, leaving a state governed by this same relation. No log byte, Run result or application fact changes.
+ 
++The returned close handoff is portable data. Its complete prefix is detached through the existing canonical I-JSON value owner, preserving every field, digest and reopen authority without retaining the nominal decoded-history receipt. A caller that separately retains the authenticated owner prefix or validated snapshot keeps its existing immutable post-close reads and preparation callbacks; close does not purge that evidence. Ordinary reopen still independently validates physical identity, bytes, profile and complete history. A retained portable handoff alone must not keep the previous decoded population alive during that cold acquisition.
++
+ ## Refusal, residue and proof
+ 
+ Before adoption, refusal closes temporary descriptors and leaves an abandoned lock untouched; for ordinary acquisition it releases only this operation's acquired lock. Primary validation cause and cleanup errors remain truthful. After seeding, failed close returns `recovery_fault` with original cause and observed descriptor/lock residue. Cleanup never overwrites/restores another lock, manufactures a handoff or retries. A later action requires exact current residue and authority selection.
+--- before/test_env/tests/t287-interrupted-event-resource-recovery.test.mjs
++++ after/test_env/tests/t287-interrupted-event-resource-recovery.test.mjs
+@@ -83,6 +83,8 @@
+  finally{fs.readSync=before;syncBuiltinESMExports();}
+  assert.equal(result.kind,'abg_event_resource_recovery_receipt');assert.equal(result.outcome.kind,'recovered',JSON.stringify(result));
+  assert.equal(logReads,1);assert.equal(readBytes,f.bytes.length);assert.equal(result.outcome.validatedEventCount,3);
++ assert.notStrictEqual(store.captureDurablePrefixCoordinate(result.outcome.closeHandoff.prefix),result.outcome.closeHandoff.prefix,
++  'portable recovery handoff has no nominal runtime-history association');
+  assert(!fs.existsSync(f.lockPath));assert.deepEqual(fs.readFileSync(f.path),f.bytes);
+  assert.equal(fs.statSync(f.path).ino,f.selection.lastCloseHandoff.reopenAuthority.inode);
+  assert.equal(store.reopenEventStore(f.selection.lastCloseHandoff.reopenAuthority).kind,'event_store_reopen_refusal','old handoff stays stale');
+--- before/test_env/tests/t287-governance-covered-source-use.test.mjs
++++ after/test_env/tests/t287-governance-covered-source-use.test.mjs
+@@ -48,24 +48,32 @@
+     const before=artifact.projectOwnedPrefixArtifactTruth(nominal);assert.equal(before.kind,'exact_prefix_artifact_truth_projection');
+     const meaning=JSON.stringify(before),digest=before.projectionDigest;
+     const receipt=resourceOwner.closeAbgEventResource(acquired.resource,nominal);closed=true;assert.deepEqual(receipt.closeHandoff.prefix,nominal);
++    assert.notStrictEqual(receipt.closeHandoff.prefix,nominal,'portable close metadata is detached from the retained owner prefix');
++    assert.strictEqual(eventOwner.captureDurablePrefixCoordinate(nominal),nominal);
++    assert.notStrictEqual(eventOwner.captureDurablePrefixCoordinate(receipt.closeHandoff.prefix),receipt.closeHandoff.prefix,
++      'portable close metadata has no nominal runtime-history association');
++    assert.throws(()=>resourceOwner.selectAcquiredAbgEventResource(acquired.resource,nominal),TypeError,'closed owner grants no acquired selection');
+     const after=artifact.projectOwnedPrefixArtifactTruth(nominal);
+     assert.strictEqual(after,before,'the closed append lease leaves the actual snapshot-local receipt intact');
+     assert.equal(JSON.stringify(after),meaning);assert.equal(after.projectionDigest,digest);
+     assert.equal(physicalOpens,0,'owned internal projection performs no second physical acquisition after close');
++    const portable=artifact.projectOwnedPrefixArtifactTruth(receipt.closeHandoff.prefix);assert.deepEqual(portable,before);
++    const portableOpens=physicalOpens;assert.equal(portableOpens,1,'portable close metadata undergoes ordinary cold validation');
+     const fresh=artifact.projectExactPrefixArtifactTruth(nominal);assert.equal(fresh.kind,'exact_prefix_artifact_truth_projection');assert.deepEqual(fresh,before);
+-    const freshOpens=physicalOpens;assert.equal(freshOpens,1,'explicit fresh API still validates physical bytes');
++    const freshOpens=physicalOpens-portableOpens;assert.equal(freshOpens,1,'explicit fresh API still validates physical bytes');
+     const copied=artifact.projectOwnedPrefixArtifactTruth(structuredClone(nominal));assert.equal(copied.kind,'exact_prefix_artifact_truth_projection');assert.deepEqual(copied,before);
+-    const copiedOpens=physicalOpens-freshOpens;assert.equal(copiedOpens,1,'a raw copy has no nominal receipt');
++    const copiedOpens=physicalOpens-portableOpens-freshOpens;assert.equal(copiedOpens,1,'a raw copy has no nominal receipt');
+     const resign=coordinate=>{const {coordinateDigest,...body}=coordinate;return {...body,coordinateDigest:hash(body)};};
+     const foreign=structuredClone(nominal);foreign.storeIdentity.inode+=1;
+     assert.equal(artifact.projectOwnedPrefixArtifactTruth(resign(foreign)).code,'file_identity_mismatch');
+     const changed=Buffer.from(bytes);changed[0]^=1;fs.writeFileSync(eventLogPath,changed);
+     assert.equal(artifact.projectExactPrefixArtifactTruth(nominal).code,'prefix_digest_mismatch');
++    assert.equal(artifact.projectOwnedPrefixArtifactTruth(receipt.closeHandoff.prefix).code,'prefix_digest_mismatch');
+     assert.equal(artifact.projectOwnedPrefixArtifactTruth(structuredClone(nominal)).code,'prefix_digest_mismatch');
+     fs.writeFileSync(eventLogPath,Buffer.concat([bytes,Buffer.from(' ')]));
+     assert.throws(()=>eventOwner.readRuntimeEventsAtDurablePrefix(nominal,{requireCurrent:true}),e=>e.code==='prefix_length_mismatch');
+     fs.writeFileSync(eventLogPath,bytes);assert.deepEqual(fs.readFileSync(eventLogPath),bytes);
+-    console.log(JSON.stringify({kind:'closed_owner_artifact_snapshot',ownedAdditionalPhysicalOpens:0,freshPhysicalOpens:freshOpens,copiedPhysicalOpens:copiedOpens,
++    console.log(JSON.stringify({kind:'closed_owner_artifact_snapshot',ownedAdditionalPhysicalOpens:0,portableHandoffPhysicalOpens:portableOpens,freshPhysicalOpens:freshOpens,copiedPhysicalOpens:copiedOpens,
+       projectionDigest:digest,prefixLength:nominal.prefixLength,scope:'one real contract-admitted fixture event/resource/ArtifactTruth; no installed environment, covered-source admission, campaign capacity or UAT credit'}));
+   } finally {
+     fs.openSync=originalOpen;syncBuiltinESMExports();if(!closed)resourceOwner.closeAbgEventResource(acquired.resource,nominal);fs.writeFileSync(eventLogPath,bytes);

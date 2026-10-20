@@ -1,0 +1,35 @@
+{
+  "status": "CLOSED",
+  "role": "Reviewer read scope; author diagnostic/advice only for inherited caller",
+  "operation": "T287_EXEC06_CALLER_PROOF_REVIEW_01",
+  "actor": "/root/q03_input_review",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/caller-request.txt",
+    "bytes": 3157,
+    "sha256": "cadd10839e832d665fcceba7a88657ab64bb1b4df5316679e3711b2d21eb594a",
+    "mode": 420
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/caller-review",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+    "bytes": 20017,
+    "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+    "mode": 420
+  },
+  "authorshipResidual": "Actor authored byte-identical Q06 ordinary-caller.mjs and flow-driver.mjs inherited by Runtime06. Not independent assurance of those implementation bytes. Independently reacquired Runtime06 execution evidence; its execution/report author differs.",
+  "RootDisposition": "CLOSED author diagnostic/advice only; no caller acceptance or repair/retry authorization; Root obtains independent confirmation separately.",
+  "permittedEffects": "new caller-review report bytes only",
+  "prohibitedEffects": [
+    "repair",
+    "owner import",
+    "test",
+    "Runtime",
+    "provider",
+    "source",
+    "candidate",
+    "oldstore",
+    "Git",
+    "network"
+  ]
+}

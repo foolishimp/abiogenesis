@@ -1,0 +1,29 @@
+{
+  "kind": "current_owner_s03a_readback_relations",
+  "positive": {
+    "runtime": "Actual observed+corrected child input/output, admitted evaluation/ledger/delta, one declared re-entry, four-authority refresh, unaffected item/value/evidence conserved, target10 and parent+Run closure",
+    "result": "OwnerOutput.value.projection.terminalResult equals replay terminalResult, disposition converged, original outcome/closure decision and actual new producer",
+    "terminalProducerFields": [
+      "runRef",
+      "graphCallRef",
+      "invocationAdmissionRef",
+      "program",
+      "graphFunction",
+      "executionBasis",
+      "cCallRef",
+      "resultAdmissionEventRef",
+      "judgmentRef",
+      "judgmentAdmissionEventRef",
+      "terminalRoute"
+    ],
+    "terminalOwner": "Actual installed C03 abg/project_read_ports.js terminalOutcome selects exactly one root terminal CCall, joins its admitted input/basis/result/advance J/terminal route/frame+graph+Run closure and constructs producer under abg/terminal_result_contracts.js strict schema. Do not read projection.provenance or infer authority from a result label.",
+    "cold": "run_result/run_replay/run_status agree on actual Run/basis/closed result and authenticated prefix; run_gaps has no frontiers"
+  },
+  "noAction": {
+    "runtime": "Observation then one declared re-entry; correction unavailable, target3, unbound target, empty eligible/priority action refs, missing correction capability; actual gap_stop/run_stopped with no corrective child or Run completion",
+    "result": "Ordinary run_result refusal not_ready; replay terminalResult null; replay/status gap_stopped with live frontier",
+    "handoff": "run_gaps supplied basis actual3/desired10/handoff, next result and advance judgment, route+stop and input evidence point to actual new admitted rows; renderer only consumes supported OwnerOutput. Original expected sentence remains unchanged."
+  },
+  "everyColdCall": "Use actual fresh owner receipt closeHandoff for next call; request projectionBasis uses prefix.eventLogRef and coordinateDigest. Byte prefixDigest is a distinct physical hash. Compare before/after prefix and event bytes: cold reads append nothing. Preserve every refusal/failure and stop at first material failure.",
+  "independence": "Original independent fixed domain/oracle and full consumer assertion bodies are retained. Future independent Reviewer judges adequacy of actual C03 pair; this Worker cannot accept its own inputs or qualification."
+}

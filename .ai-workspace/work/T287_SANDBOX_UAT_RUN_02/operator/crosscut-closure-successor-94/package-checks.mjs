@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {mkdir} from 'node:fs/promises';
+import {commandRecorder} from '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs';
+const phase='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94',candidate='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21';
+const command=commandRecorder(candidate,{environment:{PATH:'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin'},timeoutMs:300000,maxOutputBytes:1048576});
+const success=(r)=>{console.log(JSON.stringify({label:r.label,exitCode:r.exitCode,signal:r.signal,wallMs:r.wallMs,timedOut:r.timedOut,truncated:r.truncated,stdout:r.stdout,stderr:r.stderr}));assert.equal(r.exitCode,0);assert.equal(r.signal,null);assert.equal(r.timedOut,false);assert.equal(r.truncated,false);assert.equal(r.failure,null);};
+success(await command('member-comparison','/usr/bin/python3',[phase+'/member-comparison.py'],{cwd:phase}));
+await mkdir(candidate+'/scratch/successor',{recursive:true});
+success(await command('extract-successor','/usr/bin/tar',['-xzf',candidate+'/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz','-C',candidate+'/scratch/successor'],{cwd:phase}));
+success(await command('extracted-joins','/usr/bin/python3',[phase+'/extracted-joins.py'],{cwd:phase}));
+success(await command('packaged-owner','/opt/homebrew/bin/node',[phase+'/packaged-owner.mjs'],{cwd:phase}));

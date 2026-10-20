@@ -1,0 +1,19 @@
+{
+  "matchingProcesses": [],
+  "newNativeEventLogsLocksOrArchives": [],
+  "observedAt": "2026-09-29T17:09:33Z",
+  "ownedExecSessions": [
+    {
+      "id": 46486,
+      "operation": "build",
+      "exitCode": 0
+    },
+    {
+      "id": 8918,
+      "operation": "focused tests",
+      "exitCode": 0
+    }
+  ],
+  "publicOrInstalledOperationStarted": false,
+  "focusedCausationResource": "Test closed/reopened/closed its newly created controlled native scratch and removed it in finally; retained result is evidence only."
+}

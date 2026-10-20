@@ -1,0 +1,61 @@
+{
+  "kind": "continuation14_first_cause",
+  "stage": "covered-source-use after successful changed-pair setup/covers",
+  "actualOwnerFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/first-cause.json",
+    "sha256": "dd0619bcdca1a698aa8b2406f35228c3d310e2de4ab0364f93be6a44712cc44b",
+    "byteCount": 668,
+    "mode": 420
+  },
+  "actualNull": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/current-source-use.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+    "byteCount": 5,
+    "mode": 420
+  },
+  "observedValue": null,
+  "callPath": [
+    "run-14.mjs:190 prepareInstalledContinuation",
+    "unchanged helper07 continuation.mjs:350\u2013354 derives authenticated current source and current/historical declaration inputs",
+    "truth.projectGovernanceCoveredSourceUse at continuation.mjs:354 returned null",
+    "continuation.mjs:356 rejects; existing finally closes current resource"
+  ],
+  "installedOwnerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/publication/host/node_modules/@abiogenesis/typescript-tenant",
+  "source": {
+    "basisRef": "invocation-source-result://abiogenesis/7b25d23823a6f5da94adeb33d46c38c919b9edd3108c690910b781f93fa1d445",
+    "basisDigest": "sha256:7b25d23823a6f5da94adeb33d46c38c919b9edd3108c690910b781f93fa1d445",
+    "inputDigest": "sha256:8ea15aebe7d1157d29f141b84bcaefeefd77705e2a61240443a10c3e42a72ee2",
+    "resultRef": "result://abiogenesis/069031ccb3f2f154aa95a00e2ff5a9b4904ceec0806a27ff4d5a1715744ba3bd",
+    "sourceResultAdmissionEventRef": "event://abiogenesis/d7a3a91da83426236a823066537ba05d7227706de73a964878eab4538e1c889f",
+    "sourceResultJudgmentEventRef": "event://abiogenesis/46046797a52f5c346c5b81c3b8690dd22e0b6d3b62898fdfc291f24317e138e1"
+  },
+  "completed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/completed-effects-index.json",
+    "sha256": "b660a3e0d04dffb85d5cb9821b1b08193c1f55730cec1a9f322f1edf689e7ddd",
+    "byteCount": 14429,
+    "mode": 420
+  },
+  "newTargetBinding": {
+    "ref": "workspace-binding://abiogenesis/c2c00a21408342cbb09251fcc23a19b30df4010e32edca018be772327ff0351c",
+    "digest": "sha256:c2c00a21408342cbb09251fcc23a19b30df4010e32edca018be772327ff0351c"
+  },
+  "consumedBases": 4,
+  "ownerFailureElapsedMs": 108770.58445799998,
+  "command": {
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 134063.81962499997,
+    "timedOut": false,
+    "truncated": false
+  },
+  "actualNativeEntry": false,
+  "nativeTestingOrC2Effects": false,
+  "normalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/final-close-handoff.json",
+    "sha256": "025c56c5e836a39efcaccf1fe8b91f1ce654e4187ac9d0154416c32bd3bb778a",
+    "byteCount": 1368,
+    "mode": 420
+  },
+  "innerRefusingRelation": "Unobserved; null does not identify an individual projector branch. No diagnostic owner call, retry or Source repair performed.",
+  "disposition": "CLOSED/HOLD; Root RCA before next effect"
+}

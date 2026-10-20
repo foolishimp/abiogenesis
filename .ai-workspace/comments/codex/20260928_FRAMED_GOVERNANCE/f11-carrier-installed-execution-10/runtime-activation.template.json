@@ -1,0 +1,13 @@
+{
+  "kind": "root_runtime_execution_activation",
+  "operation": "T287_F11_C09_CARRIER_EXECUTION_10",
+  "actor": "/root/native_applicability_design",
+  "actorRef": "actor://abiogenesis/t287/f11-c09-installed-setup-09/operator",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10",
+  "preparationFreezeSHA256": "dd6f2a9ab5fd93cb8a8f1364ba8aed04d7687cba47b86866f1c04c5b6f8fa25a",
+  "consumerPreparationFreeze": null,
+  "inputAcceptance": null,
+  "RootSeparateMessageRelease": false,
+  "realProviderCalls": 0,
+  "runtimeActivated": false
+}

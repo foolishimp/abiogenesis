@@ -1,0 +1,81 @@
+{
+  "kind": "product_verification_success",
+  "coordinates": {
+    "verifiedArtifact": {
+      "ref": "product-verification://abiogenesis/62449a86cd94a675f2faab9e3125be226e075be473e777346c84b4598a6044d2",
+      "digest": "sha256:62449a86cd94a675f2faab9e3125be226e075be473e777346c84b4598a6044d2"
+    },
+    "descriptor": {
+      "ref": "descriptor://abiogenesis/typescript-tenant/7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace",
+      "digest": "sha256:d02f3045e3b1264fa93ced83dd5cb808417b9bee204752c7669071aeb8a7306e"
+    },
+    "localNativeEvidence": {
+      "ref": "local-native-evidence://abiogenesis/product-verification/5815ebcda877dfeb9e9357df65d59e3e24a364919d4b2b13d9a22472c025f03d",
+      "digest": "sha256:5815ebcda877dfeb9e9357df65d59e3e24a364919d4b2b13d9a22472c025f03d"
+    },
+    "provenance": {
+      "ref": "provenance://abiogenesis/product-verification/4d11ae3acc78a0a307739c0ad041b66d57f82429f37c2cdb7fefb5d5d3a4d987",
+      "digest": "sha256:4d11ae3acc78a0a307739c0ad041b66d57f82429f37c2cdb7fefb5d5d3a4d987"
+    }
+  },
+  "verificationRef": "product-verification://abiogenesis/62449a86cd94a675f2faab9e3125be226e075be473e777346c84b4598a6044d2",
+  "verificationDigest": "sha256:62449a86cd94a675f2faab9e3125be226e075be473e777346c84b4598a6044d2",
+  "basis": {
+    "artifactDigest": "sha256:9ac4ca5a40940cc98de8080d9c119788f75596890dde3aae4050a058fe383ced",
+    "productContentDigest": "sha256:7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace",
+    "manifestDigest": "sha256:42e82d4942736d5b97087cfdba143dda5cca0690ae05402b05066d2c518326f6",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "contributionManifestDigest": "sha256:95d5ca6cd6cefced39014691904164fac217bcc818bc45ce0f6658686f0d0e2b",
+  "catalogDigest": "sha256:b7478dd735a8f74088c2423e59b66182a165376abcf220811a54b19a2254d1ae",
+  "publicationBindings": [
+    {
+      "moduleRef": "module://abg/consensus@5",
+      "publicationDigest": "sha256:53112eecb4c7157fd683163ef8cc8e1fcd22b38dcfab5beb36fa429f10cb98a6"
+    },
+    {
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:cbc41c48f9e1724d3f1adb3eca7aab5cffa47e59bc29299422ac48c6aaebd4de"
+    },
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:41231fee9d03665ee2224b66ab7a01baf5db6a2bb743d7a64bf3cd3b260f9b58"
+    },
+    {
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "publicationDigest": "sha256:f084f1ecd8db54b134822170461e16f7c86005b1e85cde96426971dac1f5a24e"
+    },
+    {
+      "moduleRef": "module://abiogenesis/requirement-handoff@5",
+      "publicationDigest": "sha256:fe6b5a62d786ecf58eae6a6d69ee6cf603559ed999ffc080aceaea4e3a744281"
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "publicationDigest": "sha256:f407449ea1036b0887c3f95039fb75641f859534fdbb7e5ed4d4d02df035079f"
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-stage@5",
+      "publicationDigest": "sha256:73cf9bcdf37ce594ccbb3e966b5088c1566eccbd8f78c60089412b7f4f0bf62b"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "publicationDigest": "sha256:9b3c1a95a029b141f4a1bae6d734b0c3cc733468f7ab0ce330be275b1e12e3d3"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+      "publicationDigest": "sha256:07feda3123a05ccec5e0c533ae03b274727a9da3f43aa2bb7ae4c6ae946cf6a1"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/construction@5",
+      "publicationDigest": "sha256:947d57ffee38103ad81b6f0e1ddf615cb62b545f26900b31ed148a3efe6fce69"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "publicationDigest": "sha256:06043c08c75f2723fc2969eddbacf39973ab00e63f23b5fc232aac5d052b4d47"
+    }
+  ],
+  "ownerSelection": "same nominal verified artifact in process",
+  "limit": "Physical archive verification by installed owner; retained JSON is not nominal authority, admitted ProductInstall or qualification."
+}

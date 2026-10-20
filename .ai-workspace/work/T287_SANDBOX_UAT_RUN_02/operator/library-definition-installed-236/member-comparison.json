@@ -1,0 +1,268 @@
+{
+  "scope": "exact immutable31-to-frozen232 publication and clean installed payload comparison; no ABI/runtime qualification",
+  "elapsedMs": 695.8701250259764,
+  "beforeMembers": 5265,
+  "afterMembers": 5263,
+  "unchangedCommonMembers": 5250,
+  "changedMembers": [
+    {
+      "path": "build/code/src/gtl/graph_construction.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 22752,
+        "sha256": "6513d7417371a12cf71d76c390cdd097b8d7189ebf2ce9f49ed72004f859b5c7",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 23031,
+        "sha256": "651b0d252781bc2289f0c14cd93cabfe71120f4f9f6087286e18da77375c797d",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/gtl/materialize.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 8922,
+        "sha256": "90b500aa59ece6a294f6115a36c5c496eff583e33e92dd68f1ede1f9a3e45fcb",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 10102,
+        "sha256": "693f962584538c47ee9ebae31b14b016b53a693cd759d0ebda3d62145d394cfb",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/product/catalog.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 26720,
+        "sha256": "be43625ca325855297a70e22707f951e4773b0594fbb4b4e0d021527758605a1",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 27967,
+        "sha256": "363512b225fe9158256239e07c8824dfce66f41a2780aa41c8f2be907acc3fce",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/product/catalog_operations.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 8842,
+        "sha256": "93ad4404f1ef8d6dd63dfba103d9449acde1dfb81128fcd42b9afcef1dbcc576",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 10084,
+        "sha256": "6763c00025e111248312b3fc29aa1dfb4a109adc080344b1b62bd79f9144e50e",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/product/declaration_closure.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 35547,
+        "sha256": "f703be04cdd9af9ee704266de57463342fd8f4fe80dbcc111283fd66e5934777",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 37064,
+        "sha256": "a645e7582dadc451f756e47e81648c89b9b62376c3e63f8422a6f66d0835cdae",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/product/declaration_exports.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 108445,
+        "sha256": "38c1bee63429bd808f62a8564c13b83ce32a84a3c1f2e2b8502bee5c80b670b2",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 108529,
+        "sha256": "1b86274f36c7983619b2b2bd41aa765a6108d6aa17e2675f874213da8e8106c4",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/product/environment.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 35210,
+        "sha256": "0b7d64479fd2fcfabb7a90b5f6acaefb51dfe5c8b61a7289d5d1561e7e5dcf64",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 36222,
+        "sha256": "347263c8cd6b007b96aa82d15d848a267aeef5f285cc0234e478c354d62f1b37",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/product/execution_resolution.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 38571,
+        "sha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 38675,
+        "sha256": "bef3fe755fb8ab2756ceaf19fcd55042b8a12259e682e65eb543f4b5195d8818",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/shared/immutable.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 608,
+        "sha256": "b8cc59aa2f8a8ccf6cdfbc9e5ac85c344f0e97604c55fb3f75cb9446daf2d2e7",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 962,
+        "sha256": "147bc7a25a76babf73ee75b77e128f39445cafeb7759135da450689f8208dbaa",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/validator/graph.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 3553,
+        "sha256": "bfa9e03fbc21bc7697a5658d9b489944478015c547b9b0ce337edfc51667e36a",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 4288,
+        "sha256": "3dce36f85e8408e322767f9989b86be8f1f7e230abc78736ed29e098910359be",
+        "linkname": null
+      }
+    },
+    {
+      "path": "build/code/src/validator/validation.js",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 81815,
+        "sha256": "4bd10fe875d4a3211f21e78ce4d185a474743914e8e0eecbd39d09dcfe4fb398",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 84670,
+        "sha256": "1cc7b4ab720f31a3a1f67faac2075616853252d318fc1c54ec21816842e8e0a2",
+        "linkname": null
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 197474,
+        "sha256": "8b4e6039d4cd9ed5c9c71b9d8e2e2ea91512ccd692a091131594aa9e905b87ae",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 197474,
+        "sha256": "b38ec86da58d4d8231bd14fbb138693eb455f71a3cc5e0523e90264f0674bc2a",
+        "linkname": null
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 3171685,
+        "sha256": "475e2b7fec78a95884a4253585634076bd1343e3b8eb37c957b542c1e666b91b",
+        "linkname": null
+      },
+      "after": {
+        "kind": "file",
+        "mode": "0o644",
+        "size": 3171608,
+        "sha256": "f57bd5a6e65ba7e9a99c7198a6288e4f764e3bea26efe51d4481b87b64b1955b",
+        "linkname": null
+      }
+    }
+  ],
+  "addedPaths": [],
+  "removedMembers": [
+    {
+      "path": "node_modules/fast-check/CHANGELOG.md",
+      "kind": "file",
+      "mode": "0o644",
+      "size": 68677,
+      "sha256": "1928e49c090a706a61c20fc620e97f22e83e0d154e758f869ccd6cdbcd634f34",
+      "linkname": null
+    },
+    {
+      "path": "node_modules/pure-rand/CHANGELOG.md",
+      "kind": "file",
+      "mode": "0o644",
+      "size": 6039,
+      "sha256": "f6e1f6802a0205dcc17d5d117a9af83a63947ac722dd7de32e1d98b070c02c87",
+      "linkname": null
+    }
+  ],
+  "commonPathsKindsModesConserved": true,
+  "installedExpectedMemberBodiesAllMatch": true,
+  "installedModeConsequences": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "issue": "mode",
+      "expected": "0o644",
+      "actual": "0o755"
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "issue": "mode",
+      "expected": "0o644",
+      "actual": "0o755"
+    }
+  ],
+  "unexplainedInstalledMismatches": [],
+  "packingDifference": "unchanged dependency files allowlists exclude two changelogs on ordinary repack; they remain byte-correct in stage",
+  "earlierFailedEqualityPremise": "member-comparison-first-cause.json"
+}

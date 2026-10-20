@@ -1,0 +1,96 @@
+{
+  "status": "CLOSED",
+  "disposition": "candidate_ready",
+  "activation": "T287_F11_NATIVE_CALLER_PREP_01",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "candidateLaw": "Immutable C02/Q02 RC1",
+  "actualInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/assessment-input.json",
+    "bytes": 82175295,
+    "sha256": "10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901"
+  },
+  "boundFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+    "bytes": 13795,
+    "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+  },
+  "promptBytes": 1021244,
+  "inputCanonicalBytes": 67784040,
+  "actualOfflineOwnerKind": "prepared_product_run_invocation",
+  "rootActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "policy": "invocation-policy://abiogenesis/root/cb296322e2372684c90a16fddb45d4c8dca51352f562b3026c04c332c26654ee",
+  "grant": "capability-grant://abiogenesis/70433d6b74e0abf87599fba4b3734594a6da7542565af8b2855d88bbf4895a51",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01",
+  "futureExecutionTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01",
+  "nativeCalls": 0,
+  "movingResourceReads": 0,
+  "providerCalls": 0,
+  "driverImported": false,
+  "sourceWrites": false,
+  "checks": "Actual strict input/render equality, ordinary installed start construction, ProductRunInvocationPort.prepare, producer operation constants and final syntax pass. Reuse crossed binding refusal from CLOSED bound-input Worker.",
+  "next": "Root verifies this freeze and records exact separate native execution activation/grant; driver requires five ordinary calls/one assessment, actual handoff and two fresh reads.",
+  "hardStops": [
+    "absent exact later native activation/grant",
+    "changed frozen input/caller/declarations or changed original current resource identity/prefix",
+    "ordinary setup or actual owner refusal",
+    "absent lawful process closure/returned handoff for fresh reads"
+  ],
+  "unknowns": [
+    "actual provider/account/context acceptance",
+    "native admission/JSON/event growth and memory cost",
+    "actual J raw semantic/attribution findings and assessment-author independence adequacy",
+    "full F11/AF22 qualification"
+  ],
+  "notPrerequisites": [
+    "green tenant-result claim",
+    "successful C2",
+    "executionSelectionRef for this rule role",
+    "shell DNS success"
+  ],
+  "budgets": {
+    "selection": "prospective finite workload envelope; Root grant required",
+    "actualPromptUtf8Bytes": 1021244,
+    "actualInputFileBytes": 82175295,
+    "actualInputCanonicalBytes": 67784040,
+    "sourceBodies": 39,
+    "hosts": 10,
+    "nodeOldSpaceMiB": 4096,
+    "purePreflightAllowanceMs": 180000,
+    "actorInactivityMs": 900000,
+    "actorAbsoluteMs": 1200000,
+    "terminationGraceMs": 1000,
+    "stages": {
+      "setup": 180000,
+      "assessment": 1440000,
+      "read": 180000
+    },
+    "totalCeilingMs": 2400000,
+    "outerTerminationGraceMs": 1000,
+    "operationPlan": [
+      "assessment-view",
+      "conformance-assess",
+      "assess-rule",
+      "assess-rule-run_result",
+      "assess-rule-run_replay"
+    ],
+    "rationale": "Accommodates complete 67,784,040-byte admission input, two catalog-bearing setup calls, one unchanged 1,021,244-byte prompt, native result/event JSON and two cold reads. A finite envelope is not a prediction or capacity acceptance.",
+    "memory": "Existing Node old-space setting bounds driver and CLI managed heaps to 4096 MiB each. No installed OS RSS or Claude resident-memory cap; wait4 actual peakRSS retained.",
+    "capacity": "Actual provider token/context capacity and account access remain unknown. No clipping, partitioning, model substitution, automatic retry or second assessment."
+  },
+  "observedOfflineCost": {
+    "pid": 22538,
+    "command": [
+      "node",
+      "--max-old-space-size=4096",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/offline-readiness.mjs"
+    ],
+    "elapsedMs": 12345.584,
+    "exitCode": 0,
+    "signal": null,
+    "peakRSSBytes": 4072046592,
+    "userSeconds": 11.747952,
+    "systemSeconds": 1.332988,
+    "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+  },
+  "remainingPrepFields": []
+}

@@ -1,0 +1,33 @@
+{
+  "route": "serialized standalone Public read with genuine owner close, then separate witness acquisition",
+  "resourceKeys": [
+    "kind",
+    "schemaVersion",
+    "eventResource"
+  ],
+  "historicalReadBinding": {
+    "ref": "workspace-binding://abiogenesis/4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826",
+    "digest": "sha256:4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826"
+  },
+  "request": {
+    "caseKey": "run_status",
+    "source": {
+      "sourceKind": "run",
+      "sourceRef": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e",
+      "sourceDigest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad"
+    },
+    "projectionBasis": {
+      "projectionBasisRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "projectionBasisDigest": "sha256:d18b2d6f6f5b7a70853616153c67f4f9deecce9d327bcfdc433c6aab9a575c40"
+    },
+    "selector": {
+      "kind": "none"
+    }
+  },
+  "producerRun": {
+    "digest": "sha256:e338bb18f7d07f6f2e417873b65ebdd5ec1a20192eb689ad88a0c910bcbcacad",
+    "ref": "run://abiogenesis/3b04b7d2ca1e969fd8f6591d8ac013f1cec7338c7291d5807b45884b9af5df9e"
+  },
+  "privateLeafPackets": false,
+  "liveQueryReuse": "not implemented by this read owner; no borrowed read claimed"
+}

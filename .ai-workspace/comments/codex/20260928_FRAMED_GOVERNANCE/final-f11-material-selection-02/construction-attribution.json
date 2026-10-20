@@ -1,0 +1,75 @@
+{
+  "actor": "/root/f11_attribution_inputs",
+  "role": "Worker T287_F11_MATERIAL_SELECTION_02",
+  "separateSessionId": null,
+  "unknownSessionIdentityPreserved": true,
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/request.txt",
+    "bytes": 6982,
+    "sha256": "224e58b4ceb130b2065673d2da9e18fbf4b8dcf2198dc72bf6f8b447a62b0da6"
+  },
+  "actualNewEffects": "Files in this sole granted directory; construction/check process records retain actual commands and results.",
+  "sourceTransitions": [
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/preimages/bind-assessment-input.mjs",
+        "bytes": 11251,
+        "sha256": "ea69689db2e8ee0437907a7d173986ae272de28652f3c748613e41d05a7182b9"
+      },
+      "originalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-scope-inputs-01/bind-assessment-input.mjs",
+      "delta": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/bind-assessment-input.mjs.patch",
+        "bytes": 21466,
+        "sha256": "136bf3fe67737e33e237a0ada4cf46d2854c226316ab81bee45ca7638fb77281"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/bind-assessment-input.mjs",
+        "bytes": 9949,
+        "sha256": "97f54860537dddaa65e3fa3ae1e5c45cd74633618779c8875ee1802d63c9679c"
+      },
+      "relation": "Bounded successor external implementation; no full-campaign equivalence or original-author replacement claimed."
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/preimages/construct-inputs.py",
+        "bytes": 28759,
+        "sha256": "d5af5514c6bd8447c89ae93760305e30cc909314ad52639f3c9791c6dc190f30"
+      },
+      "originalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-scope-inputs-01/construct-inputs.py",
+      "delta": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/construct-selection.py.patch",
+        "bytes": 49681,
+        "sha256": "6c0ed2e1505fff37621e8dda40adfb035bd4245ec990db89f3e612e65d3de7ce"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/construct-selection.py",
+        "bytes": 20337,
+        "sha256": "eaa7f8fac13a2b13b2cedc5c73e2b4f17862f176692853b0ab139eb9497fc011"
+      },
+      "relation": "Bounded successor external implementation; no full-campaign equivalence or original-author replacement claimed."
+    }
+  ],
+  "scopeTransition": {
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-scope-inputs-01/scope-body.json",
+      "bytes": 43132825,
+      "sha256": "040337d28252dc39b995124c1213fe966230d319304007e2b29a3855bef5423a"
+    },
+    "delta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/scope-transform.json",
+      "bytes": 267280,
+      "sha256": "6199cb37a230b8b30e1dd1697fbd0dc1acd64727061cb12ccfad7ba7cfddff83"
+    },
+    "postimageCanonicalDigest": "sha256:8f874944f16c181c75d7944da3836ae76d2c7e1233a47ae7d02022e1faffd9a9",
+    "construction": "Deterministic in-memory reconstruction through loadScopeBody; original scope stays frozen."
+  },
+  "newExternalDerivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/selection-rationale.json",
+    "bytes": 45378,
+    "sha256": "d9a15ca4cc92fa342a6ec3796441ba25d1c9678cfd09ca43aec5cd83b236989e"
+  },
+  "independence": "Author of this external successor; supplies no independent qualification J.",
+  "authority": "Root external construction grant only; no Product-owner capability or historical candidate authorship inferred.",
+  "originalConstructionRecords": "Whole originals remain under frozen Scope01/C02/Q02 records and exact current-material-bank origins; they are neither normalized nor replaced by this statement.",
+  "bindingLimit": "This authentic current author/operation statement is not a complete native provenance/authority/independence binding."
+}

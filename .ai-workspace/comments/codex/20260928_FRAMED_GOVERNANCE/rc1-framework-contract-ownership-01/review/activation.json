@@ -1,0 +1,15 @@
+{
+  "operation": "T287_FRAMEWORK_CONTRACT_OWNERSHIP_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T07:39:27.392940+00:00",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/review-request.txt",
+  "grantBytes": 2175,
+  "grantSHA256": "0ab80cd06fff7faa1adcc949430f2b9dc9ea03f36ccb37d9361d71a237272006",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/subject-pins.json",
+  "subjectBytes": 1267,
+  "subjectSHA256": "eb6beb4610a4381545ed8f390ed942052c0b1aae2dbe87f38654ae691e29da7d",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/review",
+  "effects": "new report only; no Product imports/payload/repair/build/Runtime"
+}

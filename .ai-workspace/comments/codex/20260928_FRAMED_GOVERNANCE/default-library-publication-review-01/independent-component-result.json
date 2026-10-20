@@ -1,0 +1,9 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-review-01/independent-component.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 0.6673914999701083,
+  "HOMEUnchanged": true
+}

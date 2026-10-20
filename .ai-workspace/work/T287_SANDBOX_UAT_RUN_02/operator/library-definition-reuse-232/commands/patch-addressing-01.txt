@@ -1,0 +1,1 @@
+apply_patch verification failed atomically: expected ").map((value) => rawAdmitValue<ClosureContract>(" but actual Source separates the map callback and rawAdmitValue on two lines. No closure/catalog_operations edits applied. Action: address the exact reacquired line; unchanged intended owner transformation.

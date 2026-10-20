@@ -1,0 +1,92 @@
+[
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+    "source": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14887,
+      "sha256": "d38f46fae38fa8239532b853eb962bb6a1defb99d59ae2edc7931561faa9e0fb"
+    },
+    "ranges": [
+      {
+        "lines": [
+          64,
+          89
+        ],
+        "excerpt": "64: export function classifyWorkerTransportFailure(\n65:   observation: WorkerTransportFailureObservation,\n66: ): WorkerTransportFailureClass | null {\n67:   if (observation.nativeResultDisposition !== undefined) {\n68:     // Preserve process/safety facts. Only the actual exact raw-contract owner\n69:     // can make a complete artifact available despite a later ordinary exit.\n70:     if (observation.lane === \"closed_prompt_proof\" && observation.toolCallCount > 0) return \"contract_failure\";\n71:     if (observation.nativeResultDisposition === \"admitted\" && observation.terminationConfirmed &&\n72:         !observation.processSpawnFailed && !observation.timedOut) return null;\n73:     if (observation.nativeResultDisposition === \"rejected\") return \"contract_failure\";\n74:   }\n75:   if (\n76:     observation.timedOut || !observation.terminationConfirmed ||\n77:     observation.processSpawnFailed || observation.processStatus !== 0 ||\n78:     observation.apiRetryCount > 0 ||\n79:     (observation.parser === \"claude_stream_json\" &&\n80:       observation.structuredEventCount === 0)\n81:   ) return \"transport_failure\";\n82:   if (\n83:     observation.lane === \"closed_prompt_proof\" &&\n84:     observation.toolCallCount > 0\n85:   ) return \"contract_failure\";\n86:   return observation.finalOutput.trim().length === 0 ? \"no_output\" : null;\n87: }\n88: \n89: export interface WorkerTransportContract {"
+      },
+      {
+        "lines": [
+          240,
+          270
+        ],
+        "excerpt": "240: export function constructKnownWorkerTransportContract(\n241:   agentKey: KnownTransportAgentKey,\n242:   options: WorkerTransportContractOptions = {},\n243: ): WorkerTransportContract {\n244:   const environment = options.environment ?? process.env;\n245:   const prefixArgs = options.prefixArgs ?? [];\n246:   switch (agentKey) {\n247:     case \"claude\":\n248:       return contract(\n249:         agentKey,\n250:         options.command ?? \"claude\",\n251:         prefixArgs,\n252:         [\n253:           \"-p\",\n254:           \"--disable-slash-commands\",\n255:           \"--no-session-persistence\",\n256:           \"--output-format\",\n257:           \"stream-json\",\n258:           \"--include-partial-messages\",\n259:           \"--verbose\",\n260:           \"--permission-mode\",\n261:           \"bypassPermissions\",\n262:         ],\n263:         \"claude_stream_json\",\n264:         \"stdin\",\n265:         [\n266:           \"CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL\",\n267:           \"CLAUDE_CODE_SSE_\",\n268:           \"CLAUDE_CODE_ENTRYPOINT\",\n269:           \"CLAUDE_CODE_EXECPATH\",\n270:         ],"
+      }
+    ]
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "source": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 38651,
+      "sha256": "7d4a1fa3d03481703012bf9ab54e090eb45d95a55d2bf8498680b2132ba715d9"
+    },
+    "ranges": [
+      {
+        "lines": [
+          748,
+          777
+        ],
+        "excerpt": "748:   const failureClass = classifyWorkerTransportFailure({\n749:     parser: input.contract.parser,\n750:     lane: input.lane,\n751:     processStatus: processObservation.status,\n752:     timedOut: processObservation.timedOut,\n753:     terminationConfirmed: processObservation.terminationConfirmed,\n754:     processSpawnFailed: processObservation.launchError !== null,\n755:     structuredEventCount: observation.structuredEventCount,\n756:     toolCallCount: observation.toolCallCount,\n757:     apiRetryCount: observation.apiRetryCount,\n758:     finalOutput,\n759:     ...(nativeResultAssessment === undefined ? {} : { nativeResultDisposition: nativeResultAssessment.disposition }),\n760:   });\n761:   const outputBytes = Buffer.from(finalOutput, \"utf8\");\n762:   const stdoutBytes = Buffer.from(processObservation.stdout, \"utf8\");\n763:   const stderrBytes = Buffer.from(processObservation.stderr, \"utf8\");\n764:   await writeFile(paths.output, outputBytes);\n765:   if (sha256Bytes(await readFile(paths.stdout)) !== sha256Bytes(stdoutBytes) ||\n766:       sha256Bytes(await readFile(paths.stderr)) !== sha256Bytes(stderrBytes)) {\n767:     throw new TypeError(\"worker stream archive differs from observed bytes\");\n768:   }\n769:   const body = {\n770:     ...(nativeResultAssessment === undefined ? {} : { nativeResultAssessment }),\n771:     kind: \"worker_transport_result_candidate\" as const,\n772:     schemaVersion: \"5.0.0\" as const,\n773:     disposition: failureClass === null ? \"success\" as const : \"failure\" as const,\n774:     agentKey: input.contract.agentKey,\n775:     lane: input.lane,\n776:     command: input.contract.command,\n777:     args,"
+      }
+    ]
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "source": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 59021,
+      "sha256": "904103fed326cfbbf6fdbb2e9cbf5bcc7e171a4558cad5b5403e66609619fbc3"
+    },
+    "ranges": [
+      {
+        "lines": [
+          1286,
+          1340
+        ],
+        "excerpt": "1286:       exitObserved: transport.exitObserved,\n1287:       terminationConfirmed: transport.terminationConfirmed,\n1288:       signalSequence: Object.freeze([...signalSequence]),\n1289:       structuredEventCount: transport.structuredEventCount,\n1290:       progressEventCount: transport.progressEventCount,\n1291:       toolCallCount: transport.toolCallCount,\n1292:       toolInvocations: transport.toolInvocations,\n1293:       apiRetryCount: transport.apiRetryCount,\n1294:       stdoutByteLength,\n1295:       stderrByteLength,\n1296:       artifactDigests,\n1297:     };\n1298:     const artifactEvent = append(\n1299:       \"actor_result_artifact_observed\",\n1300:       \"actor_invocation\",\n1301:       actorInvocationRef,\n1302:       input.cCall.cCallRef,\n1303:       {\n1304:         cCallRef: input.cCall.cCallRef,\n1305:         requestRef,\n1306:         requestDigest,\n1307:         ...observationBody,\n1308:       } as unknown as Readonly<Record<string, JsonValue>>,\n1309:     );\n1310:     if (currentProfile && transport.nativeResultAssessment?.disposition !== \"absent\") probe(\"result_artifact\", artifactEvent,\n1311:       transport.nativeResultAssessment?.disposition === \"admitted\" ? \"artifact_admitted\" : \"artifact_rejected\", elapsed());\n1312:     if (processTerminalConfirmed) {\n1313:       // The terminal owner consumes the actual artifact producer. A liveness\n1314:       // observation between them is not a replacement artifact cause.\n1315:       previousEventRef = artifactEvent.eventId;\n1316:       append(\n1317:         transport.disposition === \"success\"\n1318:           ? \"actor_invocation_closed\"\n1319:           : \"actor_invocation_failed\",\n1320:         \"actor_invocation\",\n1321:         actorInvocationRef,\n1322:         input.cCall.cCallRef,\n1323:         {\n1324:           actorInvocationRef,\n1325:           processRef,\n1326:           cCallRef: input.cCall.cCallRef,\n1327:           disposition: transport.disposition,\n1328:           failureClass: transport.failureClass,\n1329:           transportBindingRef,\n1330:           transportBindingDigest,\n1331:           transportDigest: transport.artifacts.transport.digest,\n1332:           consumedTransportBindingRef: transportBindingRef,\n1333:           consumedStdoutEventRefs: Object.freeze([...stdoutEventRefs]),\n1334:           consumedStderrEventRefs: Object.freeze([...stderrEventRefs]),\n1335:           consumedArtifactEventRef: artifactEvent.eventId,\n1336:         },\n1337:       );\n1338:       actorTerminalAdmitted = true;\n1339:     }\n1340:     const observation = deepFreeze(observationBody) as ActorProcessObservation;"
+      }
+    ]
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+    "source": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 39509,
+      "sha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f"
+    },
+    "ranges": [
+      {
+        "lines": [
+          250,
+          275
+        ],
+        "excerpt": "250: function exactExchange(\n251:   task: WorksiteExecutionTask,\n252:   inputDigest: `sha256:${string}`,\n253:   request: Readonly<Record<string, JsonValue>>,\n254:   plan: WorksiteCommandExecutionHelperPlan,\n255:   exchange: ActorProcessCarrierValidation,\n256: ): boolean {\n257:   const observation = exchange.observation;\n258:   const tool = observation.toolInvocations[0];\n259:   return canonicalJson(exchange.request as unknown as JsonValue) === canonicalJson(request as unknown as JsonValue) &&\n260:     observation.actorRef === task.workerActorRef &&\n261:     observation.workerBindingRef === task.workerBindingRef &&\n262:     observation.implementationRef === worksiteExecutionImplementationRef(task) &&\n263:     observation.inputDigest === inputDigest &&\n264:     observation.materializationPlanRef === request.materializationPlanRef &&\n265:     observation.rendererRef === request.rendererRef &&\n266:     typeof request.prompt === \"string\" && observation.promptDigest === sha256Canonical(request.prompt) &&\n267:     observation.instructionContractRef === task.instructionContractRef &&\n268:     observation.resultContractRef === task.resultContractRef &&\n269:     observation.transportLane === \"worker_executes\" &&\n270:     observation.disposition === \"success\" && observation.failureClass === null &&\n271:     observation.toolCallCount === 1 && observation.toolInvocations.length === 1 &&\n272:     tool !== undefined && tool.ordinal === 0 && tool.toolName === \"Bash\" &&\n273:     tool.inputDigest === plan.toolInputDigest &&\n274:     tool.inputByteLength === plan.toolInputByteLength;\n275: }"
+      },
+      {
+        "lines": [
+          699,
+          706
+        ],
+        "excerpt": "699:       if (!exactExchange(\n700:         input,\n701:         inputDigest,\n702:         workerRequest as unknown as Readonly<Record<string, JsonValue>>,\n703:         helperPlan,\n704:         exchange,\n705:       )) return failure(\"transport_identity_mismatch\");\n706:       if (!manifestPairIsCurrent(input, c2Occurrence, launchPlan)) {"
+      }
+    ]
+  }
+]

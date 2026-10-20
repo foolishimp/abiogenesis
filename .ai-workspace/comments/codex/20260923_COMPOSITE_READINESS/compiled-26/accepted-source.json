@@ -1,0 +1,30 @@
+{
+  "sourceSubject": "ca431d6a79e0fc9ee354bb5c1b60cae4073e17fbc7953cfbaf8491dc79e07597",
+  "sourceReturn": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/return.md",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/frozen-subject.json",
+    "sha256": "3ce8150ebec3efe07451f9621f0ef5aa4e159beb5ef2b18db30f8cf0082c268b"
+  },
+  "disposition": "Root selects one reversible package/install preparation; exact selector presentation source under independent review; no runtime grant",
+  "files": {
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md": {
+      "afterSha256": "f49db7e19b2a4850a583d3d70ca38db98bddb518d9bc2826763801571926f346"
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts": {
+      "afterSha256": "f38fe67524000ed82e26735d5c764817d95702ebf919ce654518892e280b9121"
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs": {
+      "afterSha256": "9c7a8c7572926ba61d2fbbb5dc798082a7baae106d2d28a3b2f7e3c165ac65ad"
+    }
+  },
+  "generatedChanges": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "afterSha256": "4fa6635144c038544bafb6eade658371a874c74d466ef93bdc459ebf6640117f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "afterSha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763"
+    }
+  ]
+}

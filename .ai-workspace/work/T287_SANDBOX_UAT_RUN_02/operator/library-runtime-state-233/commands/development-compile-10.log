@@ -1,0 +1,13 @@
+code/src/abg/semantic_revision.ts(184,79): error TS2304: Cannot find name 'runtimeEventBodiesAtPrefix'.
+code/src/abg/semantic_revision.ts(338,56): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_revision.ts(354,84): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_revision.ts(646,78): error TS2304: Cannot find name 'runtimeEventBodiesAtPrefix'.
+code/src/abg/semantic_stage.ts(180,80): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(prefix: ValidatedRuntimeEventPrefix, events: readonly RuntimeEvent[], publication: Readonly<ModulePublication>, graphFunctions: readonly Readonly<...>[], input: SemanticStageEnvelope): boolean', gave the following error.
+    Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+      Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+  Overload 2 of 2, '(prefix: ValidatedRuntimeEventPrefix, events: RuntimeEventScan, publication: Readonly<ModulePublication>, graphFunctions: readonly Readonly<...>[], input: SemanticStageEnvelope): boolean', gave the following error.
+    Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+      Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]

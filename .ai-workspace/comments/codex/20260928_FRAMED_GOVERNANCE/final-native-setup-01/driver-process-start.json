@@ -1,0 +1,9 @@
+{
+  "pid": 97616,
+  "processGroup": 97616,
+  "supervisorPid": 97613,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/driver.mjs"
+  ]
+}

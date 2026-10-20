@@ -1,0 +1,23 @@
+{
+  "status": "READY_HELD_FOR_EXACT_ROOT_INPUT_ACCEPTANCE",
+  "operation": "T287_F11_C05_CARRIER_EXECUTION_06",
+  "preparedAt": "2026-10-02T04:04:04.906510+00:00",
+  "exactCopiedQ06Scripts": 12,
+  "driver": "run-flow.mjs",
+  "driverSHA256": "ac5343052de03f5c86f8524ea11f0de47394e3318357bc64fa41ce1d9127980d",
+  "layout": "f11/ unchanged caller paired with parent freeze.json byte-exact Q06 control replica; final Runtime freeze is distinct final-runtime-freeze.json",
+  "gate": "requires runtime-release.json written only after Root message pins actual input-acceptance.json; driver verifies exact byte/hash before all Product imports",
+  "currentInstalledRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+  "nominal": {
+    "sameProcessOwnedCoreVerification": "once after actual release",
+    "budgetMs": 180000
+  },
+  "actualSetupCalls": "none; exact closed state only",
+  "ownerImportsOrPreparation": 0,
+  "resourceReopens": 0,
+  "helperLaunches": 0,
+  "RuntimeCalls": 0,
+  "realProviderCalls": 0,
+  "boundPacketResourceFiles": "original frozen Q06; separate manifest joined once after Root release",
+  "heldRemaining": "conditional execution requires Root input acceptance; requested nearest supported negatives follow complete positive only"
+}

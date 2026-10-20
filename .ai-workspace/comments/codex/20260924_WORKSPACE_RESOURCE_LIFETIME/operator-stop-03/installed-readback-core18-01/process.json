@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/read.mjs"
+  ],
+  "observerCommand": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-carrier-02/observe-process.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/process-usage.json",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/read.mjs"
+  ],
+  "startedAt": "2026-09-24T10:26:32.564966+00:00",
+  "processGroupId": 37483,
+  "readCeilingMs": 600000,
+  "outerCeilingMs": 1800000,
+  "defaultHeap": true
+}

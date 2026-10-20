@@ -1,0 +1,45 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts b/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts
+index 4a4114fa..0bc9d61d 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts
+@@ -104,7 +104,7 @@ function nativeConstructionGraph(input: {readonly graphFunctionRef:string; reado
+   const nodes = [node("/prepare","nativeConstruction"),call("/construct",native.graphFunctionRef,native.taskContractRef,native.observationContractRef),
+     node("/prepare-execution","nativeExecution"),call("/execute",c2.graphFunctionRef,c2.taskContractRef,c2.observationContractRef),node("/evidence","nativeEvidence")];
+   return deepFreeze({kind:"graph_function",name:n,version:"5.0.0",inputs:[ids.envelopeContractRef],outputs:[ids.envelopeContractRef],
+-    environment:{requires:[ids.envelopeContractRef],provides:[ids.envelopeContractRef],carries:[ids.envelopeContractRef,bound,...nodes.map(node=>node.term.outputCarrierRef)]},
++    environment:{requires:[ids.envelopeContractRef],provides:[ids.envelopeContractRef],carries:[...new Set([ids.envelopeContractRef,bound,...nodes.map(node=>node.term.outputCarrierRef)])]},
+     effects:[native.effectUri],tags:["semantic-revision","native-work"],declarations:{"abg.compute_regime":"mixed","abg.closure_contract":input.closureContractRef,
+       "abg.child_closure_contract":input.closureContractRef,"abg.evidence_contract":old.evidenceContractRef,"abg.judgment_contract":old.judgmentContractRef,
+       "abg.judgment_predicate":ids.stepPredicateRef,"abg.transition_contract":old.transitionContractRef,"abg.semantic_native_revision_construction":"5.0.0"},
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
+index 9792b597..46381a72 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
+@@ -189,3 +189,27 @@ test('native D2 serialized public request chooses among eligible stages and comp
+  const crossed=structuredClone(observed);crossed.snapshotMembers.pop();assert.equal(revision.deriveNativeRevisionEvidence(current,crossed,coordinate(nativeState),coordinate(nativeState)),null);
+  t.diagnostic('Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.');
+ });
++
++
++test('native revision complete publication admits unique carriers and retains the exact factory graph', async () => {
++ const [{rawAdmitValue},{validatePublication},{isNativeSemanticRevisionGraphFunction}]=await Promise.all(['validator/raw_admission','validator/validation','gtl/semantic_revision_publication'].map(load));
++ const validate=value=>validatePublication(rawAdmitValue(value,'module_publication','contract://abiogenesis/gtl/module-publication@5'),
++   value.contributions.map(c=>rawAdmitValue(c,'catalog_contribution','contract://abiogenesis/gtl/catalog-contribution@5')));
++ // Bind distinct component artifact coordinates as normal publication materialization does.
++ const complete=g.modulePublication({...declaredPublication,artifactDigest:hash('component:archive'),
++   productContentDigest:hash('component:content'),productManifestDigest:hash('component:manifest'),
++   contributions:declaredPublication.contributions.map(row=>({...row,provenanceRefs:[hash('component:archive'),hash('component:manifest')]}))});
++ const graph=complete.graphFunctions.find(row=>row.declarations['abg.semantic_native_revision_construction']==='5.0.0');
++ assert.ok(graph);
++ const expected=[g.SEMANTIC_REVISION_IDS.envelopeContractRef,'contract://abiogenesis/worksite/retained-graph-input@5',
++   ...graph.template.nodes.map(node=>node.term.outputCarrierRef)];
++ assert.equal(graph.environment.carries.length,6);
++ assert.deepEqual(new Set(graph.environment.carries),new Set(expected));
++ assert.equal(isNativeSemanticRevisionGraphFunction(complete,graph),true);
++ const validated=validate(complete);
++ assert.equal(validated.kind,'publication_validation',JSON.stringify(validated.diagnostics));
++ const duplicate=structuredClone(complete),changed=duplicate.graphFunctions.find(row=>row.name===graph.name);
++ changed.environment.carries.push(g.SEMANTIC_REVISION_IDS.envelopeContractRef);
++ assert.equal(isNativeSemanticRevisionGraphFunction(duplicate,changed),false);
++ assert.equal(validate(duplicate).kind,'static_validation_refusal');
++});

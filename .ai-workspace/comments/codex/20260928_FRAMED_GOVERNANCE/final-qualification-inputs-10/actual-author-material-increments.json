@@ -1,0 +1,477 @@
+{
+  "originalQ09": {
+    "records": 121,
+    "chains": 12,
+    "spans": 46,
+    "recordBytes": 8466891
+  },
+  "acceptedSuccessors": {
+    "records": 53,
+    "chains": 11,
+    "spans": 44,
+    "recordBytes": 2292413
+  },
+  "newChainScopes": [
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/activation.json",
+      "authorRef": "/root/native_applicability_design",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt",
+      "scopeRefs": [
+        "external-authored-postimage://abiogenesis/dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+        "external-authored-postimage://abiogenesis/1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "external-authored-postimage://abiogenesis/dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+          "digest": "sha256:dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+          "byteCount": 68281
+        },
+        {
+          "ref": "external-authored-postimage://abiogenesis/1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+          "digest": "sha256:1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e",
+          "byteCount": 22555
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/activation.json",
+      "authorRef": "/root/native_applicability_design",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+          "digest": "sha256:d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4",
+          "byteCount": 22568
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "authorRef": "/root/q03_input_review",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+          "digest": "sha256:1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7",
+          "byteCount": 275535
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "authorRef": "/root/q03_input_review",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+          "digest": "sha256:97774ea7ad08052a4031f8388577fa558cbbd4a294178731711a70ba119fdb58",
+          "byteCount": 69320
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "authorRef": "/root/q03_input_review",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+          "digest": "sha256:051e9238332705c0131ae6161c1dfca8a41ca01336b6aeacaf21a8cbfef0fd31",
+          "byteCount": 18999
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "authorRef": "/root/q03_input_review",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+          "digest": "sha256:539186740c0fc386b9f76e23fd96fc6c7ff128f89851f1a3f57b77704f296340",
+          "byteCount": 76606
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "authorRef": "/root/q03_input_review",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "digest": "sha256:b6919041f617814eae22d48b2b6e646fe1b2f9edc889708134f911472398f581",
+          "byteCount": 19603
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "authorRef": "/root/q03_input_review",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+          "digest": "sha256:9797da8e09246f70f111eb1a7866da8f73db1b1aaecc0eda6685fed4d0417114",
+          "byteCount": 1976
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "authorRef": "/root/q03_input_review",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "scopeRefs": [
+        "external-authored-postimage://abiogenesis/0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "external-authored-postimage://abiogenesis/0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+          "digest": "sha256:0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7",
+          "byteCount": 6838
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/activation.json",
+      "authorRef": "/root/q03_input_review",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+          "digest": "sha256:c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b",
+          "byteCount": 7008
+        }
+      ]
+    },
+    {
+      "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/activation.json",
+      "authorRef": "/root",
+      "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+      ],
+      "postimageMembers": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+          "path": "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+          "digest": "sha256:6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c",
+          "byteCount": 39730
+        },
+        {
+          "ref": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+          "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+          "digest": "sha256:f4e116ee4be0ff9605e2d0758521e31958056d0a7196dc1342758fdefdcdf036",
+          "byteCount": 491566
+        }
+      ]
+    }
+  ],
+  "newRecordPopulation": [
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/activation.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/activation.json",
+      "bodyBytes": 1702
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/closure.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/closure.json",
+      "bodyBytes": 1000
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt",
+      "bodyBytes": 5080
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+      "bodyBytes": 1374
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source.delta",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source.delta",
+      "bodyBytes": 1604
+    },
+    {
+      "ref": "external-source-body://abiogenesis/dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/postimages/c_call_outcome.ts",
+      "bodyBytes": 68281
+    },
+    {
+      "ref": "external-preimage://abiogenesis/e5c6fda5b10689d0df9f4c8c4c20a6ca6c557a9d861563fd5528adf88050047d/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/c_call_outcome.ts.preimage",
+      "bodyBytes": 67237
+    },
+    {
+      "ref": "external-source-body://abiogenesis/1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/postimages/t287-result-evidence-lineage-projection.test.mjs",
+      "bodyBytes": 22555
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/activation.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/activation.json",
+      "bodyBytes": 2595
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/closure.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/closure.json",
+      "bodyBytes": 1133
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/request.txt",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/request.txt",
+      "bodyBytes": 3959
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+      "bodyBytes": 2604
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/test.delta",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/test.delta",
+      "bodyBytes": 1110
+    },
+    {
+      "ref": "external-source-body://abiogenesis/d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/postimage.test.mjs",
+      "bodyBytes": 22568
+    },
+    {
+      "ref": "external-preimage://abiogenesis/1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/preimage.test.mjs",
+      "bodyBytes": 22555
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+      "bodyBytes": 4510
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+      "bodyBytes": 1959
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "bodyBytes": 5514
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+      "bodyBytes": 9375
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts.diff",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts.diff",
+      "bodyBytes": 4100
+    },
+    {
+      "ref": "external-source-body://abiogenesis/1694bb14e60efaf4e1687fd92361da567d303f795d8e8f955bd675eb1f5929e7/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bodyBytes": 275535
+    },
+    {
+      "ref": "external-preimage://abiogenesis/72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bodyBytes": 275717
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts.diff",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts.diff",
+      "bodyBytes": 3832
+    },
+    {
+      "ref": "external-source-body://abiogenesis/97774ea7ad08052a4031f8388577fa558cbbd4a294178731711a70ba119fdb58/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/postimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bodyBytes": 69320
+    },
+    {
+      "ref": "external-preimage://abiogenesis/dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bodyBytes": 68281
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts.diff",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts.diff",
+      "bodyBytes": 1071
+    },
+    {
+      "ref": "external-source-body://abiogenesis/051e9238332705c0131ae6161c1dfca8a41ca01336b6aeacaf21a8cbfef0fd31/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/postimages/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bodyBytes": 18999
+    },
+    {
+      "ref": "external-preimage://abiogenesis/74c055f0126a6dc3f2e403d8fb58f03073244e20a798c9b7be85f281f4da0ef1/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bodyBytes": 18923
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts.diff",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts.diff",
+      "bodyBytes": 1155
+    },
+    {
+      "ref": "external-source-body://abiogenesis/539186740c0fc386b9f76e23fd96fc6c7ff128f89851f1a3f57b77704f296340/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/postimages/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bodyBytes": 76606
+    },
+    {
+      "ref": "external-preimage://abiogenesis/c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bodyBytes": 76530
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts.diff",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts.diff",
+      "bodyBytes": 1517
+    },
+    {
+      "ref": "external-source-body://abiogenesis/b6919041f617814eae22d48b2b6e646fe1b2f9edc889708134f911472398f581/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/postimages/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "bodyBytes": 19603
+    },
+    {
+      "ref": "external-preimage://abiogenesis/5da1cf726fe749056d81ac69ef60188e38977bd1df3b9b59df68fab9228f3140/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "bodyBytes": 19573
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts.diff",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts.diff",
+      "bodyBytes": 2309
+    },
+    {
+      "ref": "external-source-body://abiogenesis/9797da8e09246f70f111eb1a7866da8f73db1b1aaecc0eda6685fed4d0417114/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/postimages/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+      "bodyBytes": 1976
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs.diff",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs.diff",
+      "bodyBytes": 7264
+    },
+    {
+      "ref": "external-source-body://abiogenesis/0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "bodyBytes": 6838
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/activation.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/activation.json",
+      "bodyBytes": 3901
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/closure.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/closure.json",
+      "bodyBytes": 1682
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/request.txt",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/request.txt",
+      "bodyBytes": 3321
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/source-authorship.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/source-authorship.json",
+      "bodyBytes": 2000
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/test.delta",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/test.delta",
+      "bodyBytes": 2733
+    },
+    {
+      "ref": "external-source-body://abiogenesis/c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/postimage.test.mjs",
+      "bodyBytes": 7008
+    },
+    {
+      "ref": "external-preimage://abiogenesis/0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/preimage.test.mjs",
+      "bodyBytes": 6838
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/activation.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/activation.json",
+      "bodyBytes": 1080
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/closure.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/closure.json",
+      "bodyBytes": 260
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/design-acceptance.json",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/design-acceptance.json",
+      "bodyBytes": 3001
+    },
+    {
+      "ref": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/root-tracking-derivation.patch",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/root-tracking-derivation.patch",
+      "bodyBytes": 6514
+    },
+    {
+      "ref": "external-source-body://abiogenesis/6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bodyBytes": 39730
+    },
+    {
+      "ref": "external-preimage://abiogenesis/744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/preimage-0-T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bodyBytes": 36658
+    },
+    {
+      "ref": "external-source-body://abiogenesis/f4e116ee4be0ff9605e2d0758521e31958056d0a7196dc1342758fdefdcdf036/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bodyBytes": 491566
+    },
+    {
+      "ref": "external-preimage://abiogenesis/47b182a0404708219c0b01a726b542108ac2bd307b12c783d94fb88032533288/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/preimage-1-T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bodyBytes": 490257
+    }
+  ],
+  "allPriorRecordBytesChainsSpansPreserved": true,
+  "newSourceAuthorshipByCopyOrPreparation": false,
+  "sourceAuthSufficiency": "unknown",
+  "independence": "unknown"
+}

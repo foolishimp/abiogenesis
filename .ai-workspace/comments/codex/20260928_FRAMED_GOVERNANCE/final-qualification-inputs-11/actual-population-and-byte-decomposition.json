@@ -1,0 +1,198 @@
+{
+  "inventoryMembers": 4643,
+  "effectiveSourceGeneratedMembers": 1943,
+  "selectedSourceMembers": 1111,
+  "generatedRosterRows": 928,
+  "expectedPhysicalOutputMembers": 929,
+  "derivedAuthorityPreimages": 96,
+  "historicalComponentMembers": 835,
+  "protectedInputs": 3294,
+  "protectedBytes": 252164602,
+  "inventoryRawBodyBytes": 358765630,
+  "inventoryBase64BodyBytes": 478360272,
+  "bySourceRole": {
+    "conserved_construction_authority_preimage": {
+      "members": 96,
+      "rawBytes": 1233396,
+      "base64Bytes": 1644640
+    },
+    "current_derived_authority": {
+      "members": 96,
+      "rawBytes": 1234448,
+      "base64Bytes": 1646044
+    },
+    "declared_recipe": {
+      "members": 16,
+      "rawBytes": 5248185,
+      "base64Bytes": 6997596
+    },
+    "derived_current_source_supplier_control_view": {
+      "members": 1,
+      "rawBytes": 1584963,
+      "base64Bytes": 2113284
+    },
+    "emitted_generated_output": {
+      "members": 832,
+      "rawBytes": 35568649,
+      "base64Bytes": 47425920
+    },
+    "frozen_execution_tool": {
+      "members": 2313,
+      "rawBytes": 99458178,
+      "base64Bytes": 132614024
+    },
+    "immutable_control_or_supplier_manifest": {
+      "members": 26,
+      "rawBytes": 10694038,
+      "base64Bytes": 14258740
+    },
+    "immutable_current_RC2_law": {
+      "members": 53,
+      "rawBytes": 1103287,
+      "base64Bytes": 1471144
+    },
+    "locked_dependency_archive": {
+      "members": 16,
+      "rawBytes": 9892099,
+      "base64Bytes": 13189492
+    },
+    "ordinary_caller_or_context_or_selection_control": {
+      "members": 50,
+      "rawBytes": 44923345,
+      "base64Bytes": 59897872
+    },
+    "retained_1950_member_carrier_component_fixture": {
+      "members": 1,
+      "rawBytes": 82175295,
+      "base64Bytes": 109567060
+    },
+    "retained_C03_component_compiled_delta": {
+      "members": 1,
+      "rawBytes": 102102,
+      "base64Bytes": 136136
+    },
+    "retained_C04_component_compiled_delta": {
+      "members": 1,
+      "rawBytes": 14359,
+      "base64Bytes": 19148
+    },
+    "retained_C05_component_compiled_delta": {
+      "members": 1,
+      "rawBytes": 69953,
+      "base64Bytes": 93272
+    },
+    "retained_C06_component_compiled_delta": {
+      "members": 1,
+      "rawBytes": 18937,
+      "base64Bytes": 25252
+    },
+    "retained_C07_component_compiled_delta": {
+      "members": 5,
+      "rawBytes": 362427,
+      "base64Bytes": 483244
+    },
+    "retained_RC1_component_law": {
+      "members": 9,
+      "rawBytes": 510520,
+      "base64Bytes": 680708
+    },
+    "retained_RC1_component_reproduction": {
+      "members": 5,
+      "rawBytes": 2914577,
+      "base64Bytes": 3886108
+    },
+    "retained_RC1_component_source": {
+      "members": 87,
+      "rawBytes": 707248,
+      "base64Bytes": 943096
+    },
+    "retained_historical_supplier_or_control": {
+      "members": 18,
+      "rawBytes": 6506196,
+      "base64Bytes": 8674952
+    },
+    "selected_source": {
+      "members": 1015,
+      "rawBytes": 54443428,
+      "base64Bytes": 72592540
+    }
+  },
+  "largestCurrentInventoryBodies": [
+    {
+      "ref": "toolchain-input://abiogenesis/c03/bin/node",
+      "path": ".qualification-material/toolchain/bin/node",
+      "bytes": 86104016,
+      "digest": "sha256:fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "ref": "fixture-input://abiogenesis/q07/carrier/assessment-input.json",
+      "path": ".qualification-material/fixture-inputs/carrier/assessment-input.json",
+      "bytes": 82175295,
+      "digest": "sha256:10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901"
+    },
+    {
+      "ref": "recipe-input://abiogenesis/q07/f11/actual-setup-coordinates.json",
+      "path": ".qualification-material/recipe/f11/actual-setup-coordinates.json",
+      "bytes": 21604917,
+      "digest": "sha256:b2033aea3f5df08baea66f88fb063c40311196728857490fc54b79267525702c"
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.json",
+      "path": "build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.json",
+      "bytes": 18642450,
+      "digest": "sha256:f80d6ce54997b2b2f5acdd57cdc8363f5215a600119a2abab79fa00fc2a79097"
+    },
+    {
+      "ref": "recipe-input://abiogenesis/q07/f11/source-authorship-records.json",
+      "path": ".qualification-material/recipe/f11/source-authorship-records.json",
+      "bytes": 16092667,
+      "digest": "sha256:29ebe3117d78c30892eadcbaeb0f08002a77c1c871d24ce5e78f63ab8ba494fd"
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.transcript.json",
+      "path": "build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.transcript.json",
+      "bytes": 9801195,
+      "digest": "sha256:2e05b430b42a4646ac7efd116c44502cc77b0ce2f8e660d8bd5b982d5bb63d35"
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/build/toolchain/typescript.cjs",
+      "path": "build_tenants/abiogenesis/typescript/build/toolchain/typescript.cjs",
+      "bytes": 9111680,
+      "digest": "sha256:e5f1f6b3e82228a89873cc7b941b2465185e839c0692860f83e3e63e53f94c2b"
+    },
+    {
+      "ref": "dependency-input://abiogenesis/c03/node_modules/typescript",
+      "path": ".qualification-material/dependency-inputs/13.tgz",
+      "bytes": 4376902,
+      "digest": "sha256:67a3bc82e822b8f45f653a80fc3a9730d23214d36c83ba85dd7f5abebee82062"
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.outcomes.json",
+      "path": "build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.outcomes.json",
+      "bytes": 4259486,
+      "digest": "sha256:d913a2f5d0fa5d00edbf3090106a4dac3098df537dd8946d06693e8474f26bc5"
+    },
+    {
+      "ref": "dependency-input://abiogenesis/c03/node_modules/effect",
+      "path": ".qualification-material/dependency-inputs/05.tgz",
+      "bytes": 4215337,
+      "digest": "sha256:94d00b7672f53dcb7482c3eea269ae0ce704ff138d07e9103a26433b2bb3d986"
+    },
+    {
+      "ref": "recipe-input://abiogenesis/q07/candidate-binding.json",
+      "path": ".qualification-material/recipe/candidate-binding.json",
+      "bytes": 3456306,
+      "digest": "sha256:af14338cd0157363243adf3c74d506333c071ac4e22725d8802ba40f2f2f1a9b"
+    },
+    {
+      "ref": "recipe-input://abiogenesis/q07/f11/historical-partition-preimage.json.gz",
+      "path": ".qualification-material/recipe/f11/historical-partition-preimage.json.gz",
+      "bytes": 3232033,
+      "digest": "sha256:bffb678d369ecb61714fa5e0652c3c645278f33c4e761b36d8a89cd5fcdc66cb"
+    }
+  ],
+  "actualFullResourceSerializationBytes": null,
+  "actualAssertionSerializationBytes": null,
+  "actualPromptBytes": null,
+  "resourceVolumeStatus": "Later reference resource/assertion serialization was not reached; pre-payload bounds are forecasts only."
+}

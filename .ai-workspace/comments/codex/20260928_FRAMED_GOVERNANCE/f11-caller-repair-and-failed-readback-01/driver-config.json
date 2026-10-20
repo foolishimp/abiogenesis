@@ -1,0 +1,24 @@
+{
+  "operation": "T287_F11_CALLER_REPAIR_AND_FAILED_READBACK_01",
+  "actualSetupStateFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/setup-state.json",
+  "setupStatePin": {
+    "bytes": 81212382,
+    "sha256": "c945e74a41e153f07d36bff471d3b16384c1f01240fb410f7cc0cce696dcf581"
+  },
+  "authenticHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/closed-event-resource-handoff.json",
+    "bytes": 2586,
+    "sha256": "cdb9831d20cdf0de22e0b9a12bcdd93eeb03283ed6113aa2d4bd6113ab24fd37"
+  },
+  "node": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "HOME": "/Users/jim",
+  "expectedRun": {
+    "digest": "sha256:b9855e8ce73c18fc5f2d94bea62b101dcc076f850e1f9d7e7fbbf98e664a5924",
+    "ref": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271"
+  },
+  "resourceManifestLoaded": false
+}

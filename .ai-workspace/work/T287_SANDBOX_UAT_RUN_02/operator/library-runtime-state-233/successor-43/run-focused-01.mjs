@@ -1,0 +1,10 @@
+import {spawnSync} from 'node:child_process';
+import {writeFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+const phase=fileURLToPath(new URL('.',import.meta.url));
+const args=['--experimental-vm-modules','--test','--test-concurrency=1','--test-name-pattern=complete canonical declarations|only the substituted provenance|actual installed C2 material',phase+'test-inputs/t287-governance-covered-source-use.test.mjs'];
+const env={...process.env,ABG_GOVERNANCE_COVERED_BUILD_ROOT:phase+'build-01/code/src',ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS:phase+'material-test-selectors.json',ABG_GOVERNANCE_COVERED_PROOF_ROOT:phase+'test-scratch'};
+const start=performance.now(),r=spawnSync(process.execPath,args,{cwd:phase,env,encoding:'utf8',maxBuffer:16*1024*1024});
+writeFileSync(phase+'commands/focused-01.stdout',r.stdout??'');writeFileSync(phase+'commands/focused-01.stderr',r.stderr??'');
+const result={kind:'source43_affected_declaration_material_proof',sourceCut:43,command:[process.execPath,...args],exitCode:r.status,signal:r.signal,elapsedMs:performance.now()-start,input:phase+'dependency-cut-43-inputs.json',tests:phase+'test-inputs.json',selectedMaterial:phase+'material-test-selectors.json',limits:['Causal ProductInstall availability is controlled; actual installed material bytes are read','No whole Catalog reconstruction, admission/currentness/native/UAT qualification']};
+writeFileSync(phase+'commands/focused-01.result.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));if(r.stdout)console.log(r.stdout);if(r.stderr)console.error(r.stderr);process.exitCode=r.status??1;

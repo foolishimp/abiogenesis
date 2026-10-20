@@ -1,0 +1,184 @@
+{
+  "closedAtUtc": "2026-09-25T15:32:44.140777+00:00",
+  "scope": "COST32 core31 core-install enclosing window; read-only source/data attribution, no CPU attribution or functional reopening",
+  "findings": {
+    "acceptedProjectionHandoffConsumed": true,
+    "currentLockGuardLowerBound": 10,
+    "historicalLockGuardLowerBound": 66,
+    "combinedCoreGraphConstructionLowerBound": 228,
+    "countsKind": "source-derived successful-path lower bounds, not measured call counts",
+    "priorRows": 33,
+    "coreSuccessorRows": 34,
+    "priorEmbeddedSources": 11,
+    "newLockSourceMatches": 0,
+    "sourceSearchCanonicalB": 51033740,
+    "predecessorRowsCanonicalB": 76564029,
+    "coreSuccessorRowsCanonicalB": 81181313,
+    "currentLockCanonicalB": 2321994,
+    "currentCoreGraphRows": 16,
+    "currentCoreGraphOwnerOccurrences": 241,
+    "currentCoreGraphUniqueOwners": 196,
+    "currentCoreGraphUniqueNestedOwners": 178
+  },
+  "measurements": {
+    "setupElapsedSeconds": 101.76,
+    "setupUserCpuSeconds": 108.14,
+    "setupSystemCpuSeconds": 5.72,
+    "setupPeakRssBytes": 4619304960,
+    "coreInstallHelperMs": 63404.31837499999,
+    "initialAcquisitionMs": 5825.574041,
+    "cpuProfileAvailable": false
+  },
+  "evidence": [
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/environment.js",
+      "sha256": "898f64a0ae2684429ff54404fffc0a25e04e00f07c946e698adb00500542e0d3",
+      "inspectedLines": "262-528,539-617,682-788"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/capability_contracts.js",
+      "sha256": "9a0f140f4e0c0c81f747d742c3dcb2f0398ff1ca967eec22cb1e4eddb77e72eb",
+      "inspectedLines": "110-313"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/verify_product.js",
+      "sha256": "f1998352ac6e08919246a9b3c8b6af59a018e4936e43576b283c4525f6e6de18",
+      "inspectedLines": "514-516,960-1012"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/install_product.js",
+      "sha256": "e5c1b2838cec7357e9c40fc1deaabc64a0b8ee9629342b6fac6343fd89bde96e",
+      "inspectedLines": "53-107,137-218"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/install_definition_bindings.js",
+      "sha256": "dc74909680b9b167c38f2450f61daa76b82f0320eb5e44ac73144284c812763e",
+      "inspectedLines": "27-61,124-202"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/admission_authority.js",
+      "sha256": "ad6f6c768369fdeaf6f2aa4e16f0c27e6eaf0f0ea170c9889a06a948eedd0580",
+      "inspectedLines": "201-271"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/artifact_truth.js",
+      "sha256": "4ba0663f7bacc6bc0457573ea5ba0aa33e2ef4ba034b61987c9501457fa90ba7",
+      "inspectedLines": "59-285,341-465"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/environment_admission.js",
+      "sha256": "99eced7ac66159ab8062be1482b5169ce3cf9f303f480b995d55dc7ddad2c992",
+      "inspectedLines": "400-488,525-570,595-634"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "sha256": "5dfab78f7d976a94df3e6f61f6447a4f7ecb09011d5a2a68eea4a82ae35c8131",
+      "inspectedLines": "reused unchanged owner from accepted nine-path review"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+      "sha256": "0d17b41ea89f96dffa6c284099fae3a52117f243bfd71cc7d3c2fdd4484f5fcf",
+      "inspectedLines": "reused unchanged owner from accepted nine-path review"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/definition_event_resource.js",
+      "sha256": "5df2c4e61a7875fb1adc1e2325bb2072409c9a2cd28b0c4ad50aefbeae98cc2f",
+      "inspectedLines": "165-251"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite31-install-yv0cikek/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_definition_call_transport.js",
+      "sha256": "53e5a134be93be8b662595b07a228aeac1ff5e53fb25a231498d76686a336ba5",
+      "inspectedLines": "129-176,204-249"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-31/selected-core.json",
+      "sha256": "6a9b8c982b3d0c50effc7ea82bf8b4c84878e498ef00ce0694ba88c947e35f28",
+      "byteCount": 986
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-31/return.md",
+      "sha256": "e11dfe7522756db56a06e6f1ac6a0afa2e64b6bb9f1d59f8cf4ffc3b7467ecdf",
+      "byteCount": 2611
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/prepare.mjs",
+      "sha256": "b23f780c0eee2cd413034de3b0ca104ee1aa5b45843932754a5d48f46372dfb7",
+      "byteCount": 20184
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/selection.json",
+      "sha256": "7cf6962e7c75a309b373463dd7938ad331c1600c4967fdd83d770abfe7e61af2",
+      "byteCount": 8725
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/prepare.stderr",
+      "sha256": "dbdf81470b064285b1331d3111f537dc02d4e340a1ad7300a75c4b2fd8d6d6be",
+      "byteCount": 1513
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/timings/install-core31.json",
+      "sha256": "759c51120e39d83fef2749d9a1bb99e63904a9d529b5df4eec12028a47b9a0ae",
+      "byteCount": 291
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/timings/install-dev15.json",
+      "sha256": "31a84e345334f611990cec07cfdf834d933bdbb787cfd30a6a6bfcd5d46d8e11",
+      "byteCount": 291
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/timings/execution-resolution.json",
+      "sha256": "8ea2b60d70840c0930f12feb7780585384ae96fb5e635a90c60691bb44d2534d",
+      "byteCount": 86
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/setup-resource-entry.json",
+      "sha256": "d772b7b38cd81a3a851ff171f06cdb5d9d097eb1e4c5233bd7b26328ed2f5586",
+      "byteCount": 886
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/setup-resource-close.json",
+      "sha256": "aefb03512b04f595395483e559013d6da937d17d95f1dde8d20369f852f5442f",
+      "byteCount": 2577
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/calls/02-install-core31.json",
+      "sha256": "b0278691c3d72e8403c9d52132f4e74a739c6a80b0dc23b63ed87536f41819c8",
+      "byteCount": 29288119
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/receipts/02-install-core31.json",
+      "sha256": "b3702b3cd45ca77d523790c5fce71f750c6b5e8e2bfa622061c11fac02351773",
+      "byteCount": 6609
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/readback-basis.json",
+      "sha256": "6ccaff0082b6303c3645c2d0811362ec1d4d639a13f506c39fa0cc007b4cf50f",
+      "byteCount": 160099361
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/setup-cost-review-01/return.md",
+      "sha256": "3dd06d7b3f1be13b9638f0008ae7e8b98eb60b44c8d14ace15c3fd10e89e86e5",
+      "byteCount": 9720
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/review-01/review.md",
+      "sha256": "62aa799be216926eddedd3e222444302cbb73ec544fb48a9ada25814b49c819a",
+      "byteCount": 5428
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/frozen-subject.json",
+      "sha256": "ecf77aed12be1a10d75210a346e3bf6f5ce0fe4d099b4db45b21e248dea1cb3b",
+      "byteCount": 6310
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/full-sandbox-support.mjs",
+      "sha256": "63a10082c83899da949384d0c0ee796218d11093cd5cd26832e862ae84d112b8",
+      "inspectedLines": "89-134"
+    }
+  ],
+  "activityLimits": "No mutable journal read/acquisition/replay; no tests, runtime/provider, source/install/Git effects or further agents. Only this return and references written.",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/setup-cost-review-02/return.md",
+    "sha256": "e10e4877ffc243a8f0df93ab66a9be0fa4e71799e18085c7ef9e863277e8bfd1"
+  }
+}

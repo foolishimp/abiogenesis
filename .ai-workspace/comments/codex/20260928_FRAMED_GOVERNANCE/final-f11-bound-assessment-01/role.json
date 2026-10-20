@@ -1,0 +1,23 @@
+{
+  "roleRef": "qualification-role://abiogenesis/rule@5",
+  "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+  "sourceBindings": [
+    {
+      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "byteCount": 6687
+    },
+    {
+      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+      "digest": "sha256:2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2",
+      "byteCount": 35509
+    }
+  ],
+  "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+  "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5",
+  "rendererRef": "renderer://abiogenesis/qualification/assessment@5",
+  "materializationPlanRef": "materialization-plan://abiogenesis/qualification/assessment@5",
+  "independence": "author_distinct"
+}

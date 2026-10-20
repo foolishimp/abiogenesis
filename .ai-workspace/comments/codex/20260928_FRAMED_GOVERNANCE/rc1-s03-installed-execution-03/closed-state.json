@@ -1,0 +1,19 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_RC1_S03_INSTALLED_PAIR_03",
+  "workResult": "first_failure_stopped",
+  "actor": "/root/rc1_successor_builder",
+  "role": "Runtime-only Worker",
+  "qualificationClaim": false,
+  "acceptanceClaim": false,
+  "actualNativeCalls": 10,
+  "ProgramStarts": 0,
+  "freshReadbacks": 0,
+  "providerModelCalls": 0,
+  "repairsRetries": 0,
+  "allOwnedExitsObserved": true,
+  "candidateSourceFixtureReadonly": true,
+  "physicalEventCount": 3,
+  "lastGenuineHandoff": "failure-final-handoff.json",
+  "writeStop": "After freeze.json creation; no further writes by this activation."
+}

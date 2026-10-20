@@ -1,0 +1,27 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+  "sha256": "bc3b4983edb755ae5bd3ab059e8a0198a1ce0c81411ef81d8449a79306f8047b",
+  "byteCount": 24180,
+  "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/c2-timing-repair-22/preimages/code/src/gtl/worksite_command_execution.ts",
+  "selectedBy": "Executive CLOSED Source22-build and Proof22-build conjunction",
+  "fields": [
+    {
+      "before": "sha256:cf38a00bb92cf5debbd4627d7f91b7f30497c3c91134f6d2ed40b31e52a7200a",
+      "after": "sha256:13f2811ce19bc6d9923e36dae3850adaced0132ebb822566a24a82d322ba95ae"
+    },
+    {
+      "before": "byteCount: 109541",
+      "after": "byteCount: 109681"
+    },
+    {
+      "before": "startByte: 99596",
+      "after": "startByte: 99736"
+    },
+    {
+      "before": "endByte: 101904",
+      "after": "endByte: 102044"
+    }
+  ],
+  "policySpanUnchanged": true,
+  "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345"
+}

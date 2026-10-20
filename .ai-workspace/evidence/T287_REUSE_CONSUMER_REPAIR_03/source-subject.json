@@ -1,0 +1,37 @@
+{
+  "status": "UNACCEPTED_FAILED_COMPLETE_READINESS",
+  "Source": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10687,
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+      "mode": 420,
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_02",
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_02/retained-installed-consumer.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 8505,
+      "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+      "mode": 420,
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_02",
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_02/prepare-retained-setup-binding.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 17006,
+      "sha256": "f383324b64602f0419bc0cd17ad5fdde2dbb82ff3c80ee857c27a5323b646c22",
+      "mode": 420,
+      "authoredBy": "/root/native_applicability_design T287_REUSE_CONSUMER_REPAIR_03",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+        "bytes": 17051,
+        "sha256": "36de7b9dd32e5c34f43b65daaa53ab51cbfac563a1f24abe6a9c2e848c5341d9",
+        "mode": 420
+      },
+      "retainedPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_03/t287-retained-installed-consumer.test.mjs"
+    }
+  ],
+  "helperAndPreparationUnchanged": true,
+  "testChangeScope": "only corrupt archive and direct missing-manifest oracles"
+}

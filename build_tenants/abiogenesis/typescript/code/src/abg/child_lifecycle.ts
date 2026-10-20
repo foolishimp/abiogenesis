@@ -1,3 +1,5 @@
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, type Sha256Digest } from "../shared/digests.js";
@@ -10,7 +12,7 @@ import {
   type RuntimeEventCandidate,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
+  runtimeEventBodiesAtPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import { hasExactPartialFanOutStopRouteBridge } from "./fan_out_projection.js";
@@ -39,16 +41,39 @@ export function projectChildFoldbackTruth(input: Readonly<{
   allowedDispositions: readonly ChildFoldbackTruth["childDisposition"][];
   directCausation: "includes" | "terminal_first";
   allowRetryBridges: boolean;
+}>): ChildFoldbackTruth | null;
+/** @internal */
+export function projectChildFoldbackTruth(input: Readonly<{
+  prefix: RuntimeEventPrefix;
+  childScope: OpenedTraversalScope;
+  childResultRef: string;
+  childJudgmentRef: string;
+  childClosureRef: string | null;
+  selectedRouteEventRef: string | null;
+  allowedDispositions: readonly ChildFoldbackTruth["childDisposition"][];
+  directCausation: "includes" | "terminal_first";
+  allowRetryBridges: boolean;
+}>): ChildFoldbackTruth | null;
+export function projectChildFoldbackTruth(input: Readonly<{
+  prefix: RuntimeEventPrefix;
+  childScope: OpenedTraversalScope;
+  childResultRef: string;
+  childJudgmentRef: string;
+  childClosureRef: string | null;
+  selectedRouteEventRef: string | null;
+  allowedDispositions: readonly ChildFoldbackTruth["childDisposition"][];
+  directCausation: "includes" | "terminal_first";
+  allowRetryBridges: boolean;
 }>): ChildFoldbackTruth | null {
-  const events = runtimeEventsFromValidatedPrefix(input.prefix);
-  const resultEvent = events.find(
+  const events = runtimeEventBodiesAtPrefix(input.prefix);
+  const resultEvent = indexedRuntimeEvents(input.prefix, "payload:resultRef:" + input.childResultRef).find(
     (event) => event.kind === "c_call_result_admitted" &&
       event.runId === input.childScope.runId &&
       event.frameId === input.childScope.frameId &&
       isRecord(event.payload) &&
       event.payload.resultRef === input.childResultRef,
   );
-  const judgmentEvent = events.find(
+  const judgmentEvent = indexedRuntimeEvents(input.prefix, "payload:resultRef:" + input.childResultRef).find(
     (event) => event.kind === "c_call_judged" &&
       event.runId === input.childScope.runId &&
       event.frameId === input.childScope.frameId &&
@@ -84,7 +109,7 @@ export function projectChildFoldbackTruth(input: Readonly<{
         ? "failed" as const
         : null;
   const terminalReachedEvent = childDisposition === "closed"
-    ? events.find(
+    ? indexedRuntimeEvents(input.prefix, "kind:" + "terminal_reached").find(
         (event) => event.kind === "terminal_reached" &&
           event.runId === input.childScope.runId &&
           event.frameId === input.childScope.frameId &&
@@ -95,7 +120,7 @@ export function projectChildFoldbackTruth(input: Readonly<{
     : undefined;
   const frameClosedEvent = terminalReachedEvent === undefined
     ? undefined
-    : events.find(
+    : indexedRuntimeEvents(input.prefix, "kind:" + "frame_closed").find(
         (event) => event.kind === "frame_closed" &&
           event.runId === input.childScope.runId &&
           event.frameId === input.childScope.frameId &&
@@ -103,7 +128,7 @@ export function projectChildFoldbackTruth(input: Readonly<{
       );
   const graphCallClosedEvent = frameClosedEvent === undefined
     ? undefined
-    : events.find(
+    : indexedRuntimeEvents(input.prefix, "graph-call:" + input.childScope.graphCallId).find(
         (event) => event.kind === "graph_call_closed" &&
           event.runId === input.childScope.runId &&
           event.graphCallId === input.childScope.graphCallId &&

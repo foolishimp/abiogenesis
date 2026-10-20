@@ -1,0 +1,82 @@
+{
+  "newMaterialMismatch": "D closed-state.sources uses logicalPath plus a nested postimage.path prefixed postimages/. The unchanged consumer searches an exact member.path paired with a digest. Original D returns invalid at that structural join.",
+  "originAndSymptom": {
+    "origin": "External closure representation and downstream selected-member coordinate convention were not explicitly joined in the original source repair record. Original bytes and logical source paths are internally coherent.",
+    "symptom": "F11 pure external-attribution projection cannot match the source member in the original closed-state carrier; it returns invalid before attribution sufficiency."
+  },
+  "frames": {
+    "ProductRequirementDesign": {
+      "variables": [
+        "exact source inventory/candidate",
+        "external construction/grant evidence",
+        "actual attribution",
+        "no historical ABG event invention"
+      ],
+      "sources": "Accepted D4/D5 Section3 and QUAL057/064; separately authored CLOSED attribution review",
+      "finding": "Existing law permits source-grounded external construction and truthful derived carrier correspondence. The mismatch does not establish a missing Product outcome or need for owner repair."
+    },
+    "Integration": {
+      "variables": [
+        "D.sources[i].logicalPath",
+        "D.sources[i].postimage path/digest/bytes",
+        "qualification manifestHasMember path/digest",
+        "chain postimageMembers and changes",
+        "selected material"
+      ],
+      "finding": "The missing relation is the explicit logicalPath-to-selected-member path binding across original producer records and this consumer. a/b patch headers and the preimage path manifest already correspond."
+    },
+    "IdentityAuthority": {
+      "variables": [
+        "operation activation",
+        "actual /root/s03_phase_b",
+        "unknown separate session",
+        "Root source grant",
+        "published Product capability slot",
+        "exact source record spans"
+      ],
+      "finding": "The view adds no actor or grant claim. D has a concrete external source author record; published authority correspondence remains null. S03 gains only a present retrospective performance statement; selected-action gains assignment only."
+    },
+    "LifecycleEffect": {
+      "variables": [
+        "immutable original preimages/delta/closure",
+        "derived present correspondence",
+        "old C01/Q01",
+        "independent D source cut",
+        "excluded successor",
+        "admitted runtime events"
+      ],
+      "finding": "Derivation is a present input-construction effect in this Worker territory. It neither re-performs the old operation nor mutates source/candidate/history nor rebinds the successor."
+    },
+    "Proof": {
+      "variables": [
+        "original carrier branch",
+        "derived branch",
+        "eleven endpoint reconstructions",
+        "required-member union",
+        "source/material guards",
+        "empty raw attributions"
+      ],
+      "finding": "Original invalid -> derived insufficient with exact endpoints and eighteen meaningful rejections. This proves representability only; attribution, authority, assessment and independence remain separate."
+    }
+  },
+  "escapeAndRecurrence": "The original publication repair and its independent review proved source/component behavior, not F11 attribution-input readiness. That bounded acceptance remains valid. The same class of integration obligation recurs when historical source records are fed to a consumer without a retained exact coordinate correspondence: S03 absolute paths, selected-action before/after headers, and D logicalPath are distinct concrete instances. Treating the source repair as qualification-ready would repeat the Executive proof-conjunction failure; no such broad closure is claimed here.",
+  "alternativesAndUncertainty": [
+    "Teach the Product consumer another historical carrier layout: not necessary for this exact task because truthful derived views work under unchanged owners. No current Product defect is inferred.",
+    "Rewrite old closures or call a derived carrier original: rejected because it would destroy the evidence relation.",
+    "Use a newly rendered record to assign author/authority: rejected; source-grounded identity and current native independence require their own evidence.",
+    "Source data alone may be sufficient for a later actual semantic attribution judgment, but this Worker performs no such judgment."
+  ],
+  "completeAffectedCone": [
+    "D three exact pre/post endpoints",
+    "unchanged original a/b patch",
+    "original closed-state and source-attribution records",
+    "derived logical member view",
+    "chain member/ref/path mapping",
+    "attribution spans and record-set identities",
+    "pure owner checks and meaningful negative boundaries",
+    "later separate scope/authority/independence/native binding"
+  ],
+  "smallestReentry": "realization_refactor of external input correspondence under the current exact grant; no Product, requirements, design, code or installed-owner mutation",
+  "boundedAction": "Retain original closed-state/source-attribution/freeze bytes and expose explicit logicalPath -> member.path with exact digest/bytes. It is labeled derived, separate from all original bodies.",
+  "reproof": "Eleven independent original/view endpoint reconstructions; all three original carriers invalid and derived carriers insufficient; six negative checks per operation fail, including actual uncovered member and crossed postimage; eight-only original Q union remains insufficient."
+}

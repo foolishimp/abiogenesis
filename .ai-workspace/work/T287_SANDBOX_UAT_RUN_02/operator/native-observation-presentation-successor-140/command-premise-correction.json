@@ -1,0 +1,20 @@
+{
+  "failedReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/extracted-joins.result.json",
+    "sha256": "93e04b99f017bc4dbee6e6bf9ea07f70c38c7434cb6b516ca7212a091ee82cff",
+    "byteCount": 2005
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/extracted-joins.stderr",
+    "sha256": "0377caa1f52fa32a32d867fe952c3f101b7b08cb588ddbb05cc7b5cb0ab6c42b",
+    "byteCount": 301
+  },
+  "firstCause": "My relative phase script argument was resolved under the existing recorder tenant cwd; Python could not open that script, before any extraction assertions entered.",
+  "boundedRepairAction": "Reinvoke only the phase-owned extraction comparator with its absolute path; preserve failure receipt. No Source, metadata, owner, archive or pack change.",
+  "correctedReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/native-observation-presentation-successor-140/commands/extracted-joins-absolute.result.json",
+    "sha256": "b0c2f8e36e1da05ac92646abd48e71f2bf9848023c0dcd51e32f9ac466771c06",
+    "byteCount": 1802
+  },
+  "ownerOrIntegrationFailure": false
+}

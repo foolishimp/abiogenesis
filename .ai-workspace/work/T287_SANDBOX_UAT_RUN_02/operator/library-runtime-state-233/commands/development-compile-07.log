@@ -1,0 +1,64 @@
+code/src/abg/artifact_truth.ts(722,75): error TS2322: Type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix | null' is not assignable to type 'ValidatedRuntimeEventPrefix | null'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/effectful_invocation_truth.ts(142,44): error TS2345: Argument of type 'ValidationRuntimeEventPrefix | DurablePrefixCoordinate' is not assignable to parameter of type 'DurablePrefixCoordinate'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'DurablePrefixCoordinate': schemaVersion, eventLogRef, prefixLength, prefixDigest, and 2 more.
+code/src/abg/effectful_invocation_truth.ts(148,59): error TS2345: Argument of type 'ValidationRuntimeEventPrefix | DurablePrefixCoordinate' is not assignable to parameter of type 'DurablePrefixCoordinate'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'DurablePrefixCoordinate': schemaVersion, eventLogRef, prefixLength, prefixDigest, and 2 more.
+code/src/abg/event_body_encoding.ts(170,23): error TS2345: Argument of type 'Readonly<Record<string, unknown>>' is not assignable to parameter of type 'Record<string, JsonValue>'.
+  'string' index signatures are incompatible.
+    Type 'unknown' is not assignable to type 'JsonValue'.
+code/src/abg/event_body_encoding.ts(177,53): error TS2345: Argument of type 'Readonly<Record<string, unknown>>' is not assignable to parameter of type 'Record<string, JsonValue>'.
+  'string' index signatures are incompatible.
+    Type 'unknown' is not assignable to type 'JsonValue'.
+code/src/abg/event_calculus.ts(1898,121): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/event_prefix.ts(104,52): error TS1361: 'RuntimeDerivationSource' cannot be used as a value because it was imported using 'import type'.
+code/src/abg/execution_basis.ts(236,38): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/invocation_execution_truth.ts(55,182): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/retry.ts(6195,5): error TS2322: Type 'Readonly<{ kind: "completed_retry_progress_plan"; schemaVersion: "5.0.0"; predecessorEventDigest: `sha256:${string}`; eventCandidates: readonly RuntimeEventCandidate[]; projectedEvents: readonly RuntimeEvent[]; progresses: readonly RetryCompletedProgressAdmission[]; projectedPrefix: RuntimeEventPrefix; replayState: ...' is not assignable to type 'RetryAdmissionRefusal | CompletedRetryProgressPlan'.
+  Type 'Readonly<{ kind: "completed_retry_progress_plan"; schemaVersion: "5.0.0"; predecessorEventDigest: `sha256:${string}`; eventCandidates: readonly RuntimeEventCandidate[]; projectedEvents: readonly RuntimeEvent[]; progresses: readonly RetryCompletedProgressAdmission[]; projectedPrefix: RuntimeEventPrefix; replayState: ...' is not assignable to type 'CompletedRetryProgressPlan'.
+    Types of property 'projectedPrefix' are incompatible.
+      Type 'RuntimeEventPrefix' is not assignable to type 'ValidatedRuntimeEventPrefix'.
+        Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/runtime_history.ts(75,28): error TS2322: Type 'Readonly<{ base: RuntimeHistorySelection; event: RuntimeEvent; row: RuntimeEventHistoryRow; hash: Hash; }> | undefined' is not assignable to type 'Readonly<{ base: RuntimeHistorySelection; event: RuntimeEvent; row: RuntimeEventHistoryRow; hash: Hash; }>'.
+  Type 'undefined' is not assignable to type 'Readonly<{ base: RuntimeHistorySelection; event: RuntimeEvent; row: RuntimeEventHistoryRow; hash: Hash; }>'.
+code/src/abg/semantic_job.ts(119,57): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(136,55): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(141,57): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(147,61): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(256,42): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_job.ts(262,55): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_revision.ts(337,56): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_revision.ts(353,84): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_revision.ts(671,53): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_revision.ts(776,57): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_revision.ts(833,55): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_stage.ts(156,56): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_stage.ts(161,80): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_stage.ts(166,59): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_stage.ts(176,57): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_stage.ts(182,63): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_stage.ts(294,59): error TS2345: Argument of type 'ValidatedRuntimeEventPrefix | ValidationRuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'ValidationRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/traversal_route.ts(5293,7): error TS2322: Type 'RuntimeEventPrefix' is not assignable to type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/traversal_route.ts(5293,24): error TS2322: Type 'RuntimeEventPrefix' is not assignable to type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]

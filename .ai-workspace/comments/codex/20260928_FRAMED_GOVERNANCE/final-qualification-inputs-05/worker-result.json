@@ -1,0 +1,45 @@
+{
+  "status": "CLOSED",
+  "workResult": "GO_PREPARATION_C04_ONLY",
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_05",
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+    "bytes": 140595,
+    "sha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+    "mode": 420
+  },
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/3af377fd6965e792fddb0573725879faff18b9f140144f8d0af6ba9669abd566",
+    "digest": "sha256:3af377fd6965e792fddb0573725879faff18b9f140144f8d0af6ba9669abd566"
+  },
+  "inventoryMembers": 4604,
+  "protectedInputs": 3281,
+  "protectedBytes": 251610704,
+  "task": {
+    "ref": "worksite-command-execution-task://abiogenesis/ada18fdc224e0ed58fdecec70bf76d1569bfc562088a05a2a4bdc761b9832771",
+    "digest": "sha256:ada18fdc224e0ed58fdecec70bf76d1569bfc562088a05a2a4bdc761b9832771"
+  },
+  "currentRecipeBodyInventoryConfigurationCorrespondence": true,
+  "taskConfigurationGuardPassed": true,
+  "nearestNegativesRefused": 13,
+  "externalScopeAuthorer": "exact historical fixture normalization preserves complete domains; actual current owned validation unknown",
+  "RuntimeAdmission": false,
+  "qualificationMaterial": null,
+  "semanticAssessment": null,
+  "C05Binding": null,
+  "finalJoin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/final-current-recipe-correspondence.json",
+    "bytes": 1620,
+    "sha256": "59f85edeb63dd7e55a141c98b128c4a15ab6754dfb9973d046a6fbc87e1122b5",
+    "mode": 420
+  },
+  "costAndResiduals": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/cost-and-residuals.json",
+    "bytes": 17004,
+    "sha256": "ace8b2343684e575ae9a40b7b9d6997eabeed4edc8de22bea634730a40539933",
+    "mode": 420
+  },
+  "stop": "one exact CLOSED subject; Root alone selects independent assurance or separately bound successor preparation; no Worker Reviewer loop"
+}

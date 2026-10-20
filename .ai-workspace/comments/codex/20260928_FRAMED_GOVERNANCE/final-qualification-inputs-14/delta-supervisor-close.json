@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/f11/delta-preflight.mjs"
+  ],
+  "pid": 35039,
+  "processGroup": 35039,
+  "wait4Reaped": true,
+  "groupAfterWait": "absent",
+  "exitCode": 0,
+  "timedOut": false,
+  "elapsedMs": 71.85483304783702,
+  "maxRSSBytesMacOS": 115359744,
+  "userSeconds": 0.03872,
+  "systemSeconds": 0.013658,
+  "RuntimeEffects": 0
+}

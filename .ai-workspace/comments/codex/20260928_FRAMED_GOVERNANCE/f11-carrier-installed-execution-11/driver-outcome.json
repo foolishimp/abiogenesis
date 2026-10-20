@@ -1,0 +1,61 @@
+{
+  "status": "positive_path_completed",
+  "frontier": "sole AF22 follows actual F11; truthful controlled non-green",
+  "elapsedMs": 69046.67475,
+  "actualPublicCalls": 6,
+  "newCompletedRuns": 2,
+  "newFreshReads": 4,
+  "reusedCompletedRuns": 1,
+  "reusedFreshReads": 2,
+  "newActorExchanges": 0,
+  "realProviderCalls": 0,
+  "final": {
+    "soleAF22": "c-call:sha256:727aeefe1835de9b410305a067535d61c83478e63279a32567773368e94637da",
+    "disposition": "red",
+    "releaseAuthorization": false
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:6401e191df54f79722146909ce510801542b5a4b024abc396da19815d7c32843",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:5bc13122df7769559794a695e381e818477b8a88c07305adb65029df2b86240e",
+      "prefixLength": 9183691,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464941019
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:4b9f9ec446c07ac2dc0d191057c7c19417268e16ba77a2fe6bfbcf22704f3629",
+      "device": 16777230,
+      "durableByteLength": 9183691,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:5bc13122df7769559794a695e381e818477b8a88c07305adb65029df2b86240e",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+      "inode": 464941019,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "processUsage": {
+    "userCPUTime": 35002333,
+    "systemCPUTime": 3164177,
+    "maxRSS": 7532208,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 1693298,
+    "majorPageFault": 84,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 0,
+    "ipcReceived": 3576,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 6122,
+    "involuntaryContextSwitches": 287741
+  }
+}

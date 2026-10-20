@@ -1,0 +1,264 @@
+{
+  "receipts": [
+    {
+      "mode": "compile",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "pid": 48353,
+      "processGroup": 48353,
+      "startedAt": "2026-10-02T04:43:34.345395+00:00",
+      "closedAt": "2026-10-02T04:43:40.430363+00:00",
+      "elapsedMs": 6084.965916816145,
+      "exitCode": 0,
+      "timedOut": false,
+      "deadlineReason": null,
+      "termMonotonic": null,
+      "killMonotonic": null,
+      "wait4ReapedMain": true,
+      "processGroupAfterWait": "absent",
+      "phaseCompletion": null,
+      "rssBytes": 1102725120,
+      "userSeconds": 10.082031,
+      "systemSeconds": 0.21484899999999998,
+      "knownCLIProcessGroups": [],
+      "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+    },
+    {
+      "mode": "regression",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs"
+      ],
+      "pid": 48741,
+      "processGroup": 48741,
+      "startedAt": "2026-10-02T04:44:11.217569+00:00",
+      "closedAt": "2026-10-02T04:44:14.720325+00:00",
+      "elapsedMs": 3502.7910000644624,
+      "exitCode": 0,
+      "timedOut": false,
+      "deadlineReason": null,
+      "termMonotonic": null,
+      "killMonotonic": null,
+      "wait4ReapedMain": true,
+      "processGroupAfterWait": "absent",
+      "phaseCompletion": null,
+      "rssBytes": 5877514240,
+      "userSeconds": 3.5050149999999998,
+      "systemSeconds": 0.447052,
+      "knownCLIProcessGroups": [],
+      "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+    },
+    {
+      "mode": "conservation-fp",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-name-pattern=^C2A owner boundary preserves structural F_P proposals and totalizes exceptions$",
+        "test_env/tests/t287-c2a-fp-source-contract.test.mjs"
+      ],
+      "pid": 49558,
+      "processGroup": 49558,
+      "startedAt": "2026-10-02T04:45:33.741949+00:00",
+      "closedAt": "2026-10-02T04:45:34.100458+00:00",
+      "elapsedMs": 358.5389996878803,
+      "exitCode": 0,
+      "timedOut": false,
+      "deadlineReason": null,
+      "termMonotonic": null,
+      "killMonotonic": null,
+      "wait4ReapedMain": true,
+      "processGroupAfterWait": "absent",
+      "phaseCompletion": null,
+      "rssBytes": 201834496,
+      "userSeconds": 0.35761,
+      "systemSeconds": 0.057368999999999996,
+      "knownCLIProcessGroups": [],
+      "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+    },
+    {
+      "mode": "conservation-diagnostic",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-name-pattern=^first preparation exception remains retrievable through the unchanged typed refusal and cold JSON$",
+        "test_env/tests/t287-undispatched-diagnostic.test.mjs"
+      ],
+      "pid": 49561,
+      "processGroup": 49561,
+      "startedAt": "2026-10-02T04:45:34.120814+00:00",
+      "closedAt": "2026-10-02T04:45:34.688427+00:00",
+      "elapsedMs": 567.6245000213385,
+      "exitCode": 0,
+      "timedOut": false,
+      "deadlineReason": null,
+      "termMonotonic": null,
+      "killMonotonic": null,
+      "wait4ReapedMain": true,
+      "processGroupAfterWait": "absent",
+      "phaseCompletion": null,
+      "rssBytes": 279085056,
+      "userSeconds": 0.7035089999999999,
+      "systemSeconds": 0.06625,
+      "knownCLIProcessGroups": [],
+      "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+    },
+    {
+      "mode": "conservation-assembly",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-name-pattern=^semantic stage, revision and selection implementations preserve the complete owner request$",
+        "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+      ],
+      "pid": 49578,
+      "processGroup": 49578,
+      "startedAt": "2026-10-02T04:45:34.708670+00:00",
+      "closedAt": "2026-10-02T04:45:35.102440+00:00",
+      "elapsedMs": 393.78970908001065,
+      "exitCode": 0,
+      "timedOut": false,
+      "deadlineReason": null,
+      "termMonotonic": null,
+      "killMonotonic": null,
+      "wait4ReapedMain": true,
+      "processGroupAfterWait": "absent",
+      "phaseCompletion": null,
+      "rssBytes": 212074496,
+      "userSeconds": 0.39694999999999997,
+      "systemSeconds": 0.057645999999999996,
+      "knownCLIProcessGroups": [],
+      "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+    }
+  ],
+  "preparation": {
+    "status": "READY_FOR_ONE_COMPILE_AND_FOCUSED_CHECKS",
+    "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage",
+    "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/readiness-stage",
+    "sourceReplacements": [
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-fp-proof-delivery.test.mjs"
+    ],
+    "elapsedMs": 1991.2776253186166,
+    "exactExternalDonors": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-packet.json",
+        "bytes": 29331587,
+        "sha256": "b4803006d68b12a6dc139dc85d07af0a574f954afbc041f338ae1ddab9da466d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-resource-manifest.json",
+        "bytes": 489526432,
+        "sha256": "5dbd80bc15d1a47a0d8ee8bef678454b8bf46a3816d254638438a4409bb37290"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+        "bytes": 866138,
+        "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+        "bytes": 86104016,
+        "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/npm/package.json",
+        "bytes": 6603,
+        "sha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/node_modules/typescript/package.json",
+        "bytes": 3620,
+        "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage-population.json",
+        "bytes": 1706393,
+        "sha256": "0bda1275840dc9f7552a47bd40063e76d1a750d241c6f1ac112f179b536960ed"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/supervise.py",
+        "bytes": 4750,
+        "sha256": "f6dc0dfa5a6bcfd509fc88474390eb143c43d5c51aec448df5a9c8e5960653be"
+      }
+    ],
+    "environment": {
+      "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/tmp",
+      "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/npm-cache",
+      "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/npm-prefix",
+      "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/npmrc",
+      "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/globalnpmrc",
+      "npm_config_offline": "true",
+      "GIT_OPTIONAL_LOCKS": "0",
+      "ABI5_F11_FP_ASSESSMENT_PACKET": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-packet.json",
+      "ABI5_F11_FP_BASELINE_TENANT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript",
+      "ABI5_F11_FP_PROOF_REPORT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/dispatcher-regression-outcome.json"
+    },
+    "HOME": "/Users/jim",
+    "defaultHeap": "unchanged",
+    "compileCount": 0,
+    "semanticQualification": "unknown"
+  },
+  "supervisedCommands": 5,
+  "compileCommands": 1,
+  "newRegressionTests": 1,
+  "selectedExistingOwnerTests": 3,
+  "commandElapsedMs": 10907.710125669837,
+  "maximumObservedWait4RSSBytes": 5877514240,
+  "userSeconds": 15.045115000000001,
+  "systemSeconds": 0.843166,
+  "defaultHeapHOME": "unchanged",
+  "processObservation": "pre-import owned groups, wait4 native receipts, every known main group absent; no PID enumeration",
+  "helperActorProviderRuntimeCalls": 0,
+  "compileEmissionChangedBodies": 1,
+  "effectiveSourceChanges": 2,
+  "exactPreparedRequest": {
+    "baseline": "exact C05 preparation implementation_exception reproduced",
+    "repaired": "actual F_P dispatcher and actual qualification realization return the same prepared request",
+    "inputRepresentation": "resource_refs_v1",
+    "inputDigest": "sha256:de0b3cd5a1d3c2acef2cbdf0c89a4d20ee7614e0ec29731c9e88617834fe1c73",
+    "resource": {
+      "ref": "qualification-resource://abiogenesis/169e85bb7fde966b544e75e2b289e5047b383f9bf4bd260ec0571ce84d4fb10f",
+      "digest": "sha256:169e85bb7fde966b544e75e2b289e5047b383f9bf4bd260ec0571ce84d4fb10f"
+    },
+    "requestDigest": "sha256:06e55c6b2e28ddfd2c1f58af1415b298ea46b5374afc4d3e76d063e63cb7e49b",
+    "promptDigest": "sha256:41b304d1ebf450651cfe935de43ff60a5286bb3720d4078b2bd5ef334bb8d103",
+    "promptBytes": 318333,
+    "negatives": [
+      "copied input",
+      "copied occurrence",
+      "missing current owner",
+      "missing borrowed preparation",
+      "missing resources",
+      "crossed resource coordinate"
+    ],
+    "positionalConservation": [
+      "argument3 assembly callback",
+      "qualification argument4 undefined",
+      "command/revision argument4 exact occurrence and native coordinates"
+    ],
+    "qualificationPreparationAcquisitions": 1,
+    "helperActorProviderCalls": 0,
+    "RuntimeAdmissions": 0,
+    "premise": "current lower owner admission and command/revision native lookup explicitly supplied; no whole installed proof",
+    "elapsedMs": 3105.517459,
+    "semanticQualification": "unknown; not exercised"
+  },
+  "unknowns": [
+    "unobserved internal body transformation counts and arbitrary child PID population",
+    "actual successor Product/Install/Q input correspondence",
+    "whole installed wrapper child/J/foldback/parent/RunClosed/cold/F11/AF22 proof",
+    "semantic qualification and release acceptance"
+  ],
+  "noOOMCauseInferred": true
+}

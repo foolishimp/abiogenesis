@@ -1,0 +1,3 @@
+code/src/abg/event_calculus.ts(618,86): error TS18047: 'event.payload' is possibly 'null'.
+code/src/abg/event_calculus.ts(618,100): error TS2339: Property 'transportBindingRef' does not exist on type 'string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'transportBindingRef' does not exist on type 'string'.

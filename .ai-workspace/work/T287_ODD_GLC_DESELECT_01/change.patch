@@ -1,0 +1,115 @@
+--- before/specification/GOALS.md
++++ after/specification/GOALS.md
+@@ -15,9 +15,20 @@
+ 
+ | Goal ID | Goal | Success signal | Status |
+ |---|---|---|---|
+-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC2. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits. S6's complete installed Hello lifecycle is independently accepted, including consequential correction, actual authorship, assessment, coverage and fresh Public closure. Ordinary stopped-Run evidence reuse is independently accepted: a fresh invocation preserves the producer and completes independent assessment and current parent/Run closure. T-287 owns remaining exact execution resumption and exact release qualification. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
++| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Installed native scenarios and the default library supply ABG diagnostic and lifecycle evidence; odd_glc is deselected from ABG delivery. | Active under STDO2.5.1RC2. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits. S6's complete installed Hello lifecycle is independently accepted, including consequential correction, actual authorship, assessment, coverage and fresh Public closure. Ordinary stopped-Run evidence reuse is independently accepted: a fresh invocation preserves the producer and completes independent assessment and current parent/Run closure. T-287 owns remaining exact execution resumption and exact release qualification. Preserve accepted bounded outcomes and original sources/oracles. odd_glc/T-043/Data Mapper are deselected from ABG delivery; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
+ 
+ ## Current Selection
++
++Owner selection, 2026-10-06: odd_glc, its T-043 campaign and Data Mapper work
++are deselected from ABG delivery. T-287 owns the native runtime, default
++library, lifecycle proof and RC1 candidate work. The fifteen Product families,
++including the generic F17/S06 specification-driven lifecycle, remain selected.
++Use the installed ABG default library and accepted Hello witness for applicable
++lifecycle evidence and prove affected joins on the exact candidate. Preserve
++original paired-campaign sources, producers and evidence within their recorded
++claims. New odd_glc implementation, qualification, publication, retirement or
++Data Mapper execution is not a delivery dependency. This selection supersedes
++older paired-campaign routing below; it does not declare that work completed.
+ 
+ ### Recursive Executive and default graph library
+ 
+@@ -67,8 +78,8 @@
+ qualification remain open.
+ Security containment remains outside the owner's selected scope; observed
+ violations remain recorded without making contrary assessment claims true.
+-[T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
+-owns consumer asset reuse and retirement tracking. The rejected planner and its
++T-287 owns selected native default-library work. Earlier T-043 consumer-asset
++and retirement records retain historical evidence only. The rejected planner and its
+ dedicated tests are removed; valid graph assets and native continuation remain.
+ The [execution record](../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md)
+ owns exact grants and evidence. Partial proofs do not establish whole-Product
+@@ -97,12 +108,14 @@
+ 
+ The [Public preparation bridge](../.ai-workspace/evidence/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/acceptance.json) is independently accepted for Source/component/package use. The qualification/m05 facade directly exports the existing resource/preparation owners and canonical types. Two distinct responsibility bindings and embedded/reference forms pass all seven source-blind checks; generated declaration/catalog/capability views preserve their owner relation. The exact successor archive is c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5. Next prove an authentic controlled failure A plus required uncovered B through native F11, sole AF22 and fresh reads on a fresh installation/log, then obtain one genuine independent assessment. All declared slots remain authenticated; the bounded inventory declares incomplete coverage. No runtime or qualification closure follows from the bridge.
+ 
+-T-287 owns remaining runtime and release work; T-043 owns the paired lifecycle
+-work. Data Mapper remains held. The records below preserve earlier bounded
+-results and selections; they do not override the current selection or activate
+-recovery of the retired planner. T-287's current bounded grant owns execution.
+-
+-GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
++T-287 owns the selected native lifecycle, runtime and release work. No odd_glc,
++T-043 or Data Mapper work is selected. The records below preserve earlier bounded
++results and selections; they do not override the current selection, supply new
++work authority or activate recovery of the retired planner. T-287's current
++bounded grant owns execution.
++
++Historical paired-campaign record: GOAL-035/T-287 and T-043 retain their recorded
++fixed fifteen-family ABG5 outcome, original
+ job/S1–S5/oracle, five selected/four outside residuals and protected worksite.
+ ABG uses STDO 2.5.1 RC2; GLC remains on RC4. Earlier bounded acceptances remain
+ historical evidence. [Root disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation09-disposition/disposition.md) retains the predecessor conjunction.
+--- before/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ after/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -1,4 +1,4 @@
+-# T-287 - Deliver ABIogenesis 5.0 Through the odd_glc Lifecycle
++# T-287 - Deliver ABIogenesis 5.0 Native Runtime and Default Library
+ 
+ - id: T-287
+ - type: feature
+@@ -23,6 +23,9 @@
+ - current_activation: T287_GENUINE_CONTEXT_ASSESSMENT_07
+ - current_activation_status: CLOSED_ACCEPT_genuine07_original_J_native_F11_one_closed_Run_four_fresh_reads
+ - current_rc1_owner_gate: one_genuine_installed_steel_thread_no_unresolved_P0_P1_owner_triage_broader_qualification_separate
++- current_scope_selection: OWNER_2026_10_06_odd_glc_T043_DataMapper_DESELECTED_from_ABG_delivery
++- current_lifecycle_delivery_owner: ABIogenesis_native_default_library_SDK_CLI_Hello_F17_S06
++- prior_downstream_evidence_disposition: preserve_original_sources_producers_and_scope_no_new_odd_glc_work
+ - current_consumer_reuse_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md#existing-evidence-consumer-repair-accepted-2026-10-05
+ - current_consumer_reuse_freeze: .ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_04/final-freeze.json
+ - current_consumer_reuse_freeze_sha256: 256669866cef46f82ec6df1935d01e42ccb3da3356fcf2d00637901e2db62d2c
+@@ -405,8 +408,9 @@
+ [Requirement routes](../../../specification/requirements/README.md#framed-governance)
+ decompose those relations. The original
+ [strategy](../../comments/codex/20260920T025416Z_STRATEGY_abg5_first_problem_fitted_gtl_preprocessor.md)
+-remains rationale, not competing authority. T-043 owns reusable consumer assets
+-and retirement tracking; it supplies no replacement planner.
++remains rationale, not competing authority. Earlier T-043 consumer assets and
++retirement records retain historical evidence; no new odd_glc work is selected.
++T-287 owns the native default-library increment, with no replacement planner.
+ 
+ ## Framed-governance definition re-entry
+ 
+@@ -1317,14 +1321,20 @@
+ 
+ ## Current Management Prerequisite Plan
+ 
+-The [current framework-cost correction](#current-framework-cost-correction)
+-owns immediate work: finish T-043 PC05 over the preserved paid constructor,
+-then reconcile the original task in PC06 and resume the remaining T-287 release
+-obligations. The fixed fifteen-family scope, S06/QUAL056/F11/sole AF22 and
+-human acceptance retain their distinct conditions. Data Mapper is held. The
+-earlier selections below are historical; they do not reapply superseded launch
+-holds to the current explicitly selected suffix. Q07 remains release-boundary
+-work; accepted retained S02-19 stop readback does not claim wider qualification.
++Owner selection, 2026-10-06: "i dont need odd glc anymore". This is a goal_reprice
++of execution selection under the existing Product boundary. No new odd_glc,
++T-043 PC05/PC06, Data Mapper, downstream publication or retirement work gates
++ABG delivery. The native default library and installed Hello witness carry
++applicable F17/S06 proof; original paired-campaign claims remain unchanged.
++
++The independently accepted genuine installed thread preserves the original
++assessment through native F11 and four fresh Public reads. The selected next
++milestone is the RC1 candidate with no unresolved P0s and owner triage of P1s;
++broader qualification remains separately tracked. The fifteen-family Product,
++S06/QUAL056/F11/sole AF22 and actual release acceptance retain their applicable
++conditions. Earlier selections below are historical and create no new odd_glc
++work authority. Frozen candidates and evidence retain their original identities;
++this selection neither retargets them nor claims wider qualification.
+ 
+ ### Current graph-context re-entry
+ 

@@ -1,0 +1,38 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "phase": "phase1_preparation_only",
+  "workerIdentity": "/root/public_preparation_worker",
+  "ProductFrame": "ABG5 fixed15; F05/F10/F11/F15 bounded007A Source/context assessment. Product owns immutable definition, HoG traverses GTL, ABG alone admits runtime truth. Supplied two-chain domain construction and pure Public m05 preparation create no runtime judgment or controller.",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/grant.md",
+    "bytes": 9251,
+    "sha256": "2740da3e83f1318613e9aae1f6db915202112a52c16f8ed012aa97e018db5c24"
+  },
+  "acceptedControlledNativeAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_CONTEXT_CONSERVATION_02/acceptance.json",
+    "bytes": 4515,
+    "sha256": "5bfbdf4847f2879dd8e1384510d0600fb7c66875c06098f1e25e82bf97682665"
+  },
+  "acceptedPackageAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_CONTEXT_PROJECTION_PACKAGE_02/acceptance.json",
+    "bytes": 3318,
+    "sha256": "1ca80e8ae393b8cd01ff136bb5f79bbeb2fe836672b08c09a10bdd5b4ed5c306"
+  },
+  "callerInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_03/consumer/genuine-pilot.mjs",
+    "bytes": 34826,
+    "sha256": "202a2640a452c24ca8de2ee68f42c13a9d8cac0fa4325cf2e9cd9346bfe2cab1"
+  },
+  "currentCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/genuine-pilot.mjs",
+    "bytes": 39329,
+    "sha256": "db6c28138150218709c96a3bddecdae359e4a24cebac4213b1a160b174772271"
+  },
+  "support": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/support/installed-qualification-conservation.mjs",
+    "bytes": 43181,
+    "sha256": "0de5d16c8058cd0fc79b59a6f04d0fed6eff7d260f8db8363b24fbb1b9ab6d1d"
+  },
+  "phase1Effects": "Own new supplied caller/input/request/observations only. Existing controlled02 log/current handoff/archive/TMP namespace read-only. No native owner dispatch, CLI, model, provider, install or recovery.",
+  "phase2RequiresExplicitRootFollowup": true
+}

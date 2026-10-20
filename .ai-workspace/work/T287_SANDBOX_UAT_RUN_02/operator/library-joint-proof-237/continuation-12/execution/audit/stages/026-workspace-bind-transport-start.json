@@ -1,0 +1,11 @@
+{
+  "stage": "workspace-bind-transport-start",
+  "elapsedMs": 57464.213625000004,
+  "at": "2026-10-10T16:30:02.710Z",
+  "rss": 3170189312,
+  "heapTotal": 884178944,
+  "heapUsed": 795638792,
+  "external": 2781660,
+  "arrayBuffers": 369353,
+  "beforeAcquisition": false
+}

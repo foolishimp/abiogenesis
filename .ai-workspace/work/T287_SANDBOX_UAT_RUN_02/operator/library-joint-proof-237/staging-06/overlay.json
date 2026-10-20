@@ -1,0 +1,224 @@
+{
+  "deltaFrom04": [
+    {
+      "relativePath": "code/src/abg/c_call.ts",
+      "preimageSha256": "c189d13a2cec3ce2ea208fe6c47953f19b1b4db00bc3aea6a33a13889216863d",
+      "preimageBytes": 291999,
+      "postimageSha256": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55",
+      "postimageBytes": 292659
+    },
+    {
+      "relativePath": "code/src/abg/c_call_outcome.ts",
+      "preimageSha256": "ef4dcd86fde7efa85a7fd09e8b3863b4fd76443719460019b3f8c391e823a33a",
+      "preimageBytes": 75325,
+      "postimageSha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "postimageBytes": 75589
+    },
+    {
+      "relativePath": "code/src/abg/event_prefix.ts",
+      "preimageSha256": "c4fde2de3e272968b49ebd3a17727d17b4ea0ae9f10bddc4fb94ddfafcf4aea3",
+      "preimageBytes": 42319,
+      "postimageSha256": "683adaea9685ab094fd80559230fe1ee7a13cc235f6bc41490869a66c89a47d0",
+      "postimageBytes": 44013
+    },
+    {
+      "relativePath": "code/src/abg/replay.ts",
+      "preimageSha256": "f3452441aecd3bd1b8f7f91cd156ba1208f4b6dee0927ea52edee319bdc44a80",
+      "preimageBytes": 112132,
+      "postimageSha256": "1b44e6d82963bcc8f7fc43f5ac68edae4e1cdf0f76ff473d483fbef4b5cf3ef4",
+      "postimageBytes": 112731
+    },
+    {
+      "relativePath": "code/src/abg/retry.ts",
+      "preimageSha256": "bc41f0aab985a2e5bf8295ce77a26211f23bd5de09ff161c3fd018ea800b66d4",
+      "preimageBytes": 253376,
+      "postimageSha256": "76ce4bc7f8a2c0550020afd3d538b5e8ee3e5ac5e8ac5206ac9a5d28979d31ab",
+      "postimageBytes": 260192
+    },
+    {
+      "relativePath": "code/src/abg/traversal_route.ts",
+      "preimageSha256": "28fe1733c8f34a51320a6bdd61affde9ca7a4901120d8feae2de718aae5c98a8",
+      "preimageBytes": 219990,
+      "postimageSha256": "050b8e8870a62432180857e726905425a2f6d0186a19fac886fb037d480ad872",
+      "postimageBytes": 224638
+    },
+    {
+      "relativePath": "code/src/hog/ccall_lifecycle.ts",
+      "preimageSha256": "659bfe81bacc7eca01e023154e3727c3a7705ba92202e7751809c5c723fa037e",
+      "preimageBytes": 37679,
+      "postimageSha256": "a897af022c737d5058f6446960719547edb73467917777178a6891f86717f85d",
+      "postimageBytes": 37945
+    },
+    {
+      "relativePath": "code/src/hog/graph_execute.ts",
+      "preimageSha256": "c8b5b3f64f3903ba3ff8c9324f48f8f0f55d863b3c7bf77c98edc30dcc355281",
+      "preimageBytes": 48958,
+      "postimageSha256": "b3016337108b4ef7c9708568164988c44f5f8ab0c86b35973d45ddcbb56eafe3",
+      "postimageBytes": 48973
+    },
+    {
+      "relativePath": "code/src/hog/interaction_resume.ts",
+      "preimageSha256": "e9d630f22be2320e9ff2d9dce8c2d4c2b380d7fa250554ada5ebe66cd655960d",
+      "preimageBytes": 9033,
+      "postimageSha256": "8f4c0c62e8f40a17c5bda4b2ade050ea67495f4e0c7349f75c3f5a8fcf83a9a2",
+      "postimageBytes": 9126
+    },
+    {
+      "relativePath": "code/src/hog/recursion_lifecycle.ts",
+      "preimageSha256": "d7adc0b38b527a3034bd8f4074fd0b2ed34d53e3ed78bbdac571e71ff054ecd5",
+      "preimageBytes": 38862,
+      "postimageSha256": "98496bae7626f04350fc61fac88e0a4ab962707bdc5ffa1755745601836d1f34",
+      "postimageBytes": 39120
+    },
+    {
+      "relativePath": "code/src/hog/retry_lifecycle.ts",
+      "preimageSha256": "3b0713e173e03c43683e954f9cd3244fbd53690bfcbbc18654003d088db92677",
+      "preimageBytes": 23763,
+      "postimageSha256": "b2861e2f1275e40f791505d33c2b7f54f1136ae7db39f5946bdce16c4dc8f20d",
+      "postimageBytes": 25157
+    },
+    {
+      "relativePath": "code/src/hog/route_proposal.ts",
+      "preimageSha256": "b56ba5fe3e62f849796536dc7868edc78592f449bc2120f5cdd04438be28eecd",
+      "preimageBytes": 50785,
+      "postimageSha256": "d11a0f5368a8fa905a013c46b216c807938fa8057048c8d1ed3a5e367ad18030",
+      "postimageBytes": 50830
+    },
+    {
+      "relativePath": "code/src/hog/structural_transition.ts",
+      "preimageSha256": "0abc442957d7ec506b97390b403a38111b62f654bea9424cf98d6f7b849acf37",
+      "preimageBytes": 9157,
+      "postimageSha256": "bfc9bf97951c4e0064e7e4e8bf94b8828956433a43e17c3cd54ecdf0a0c006de",
+      "postimageBytes": 9794
+    },
+    {
+      "relativePath": "code/src/hog/traversal.ts",
+      "preimageSha256": "7b74af362dfa601e88b5d284096fdf55a3f72fee875f7d36026c45fabf1988d1",
+      "preimageBytes": 28150,
+      "postimageSha256": "9ba116a475a2880f466468a56fc6edd75b1fe89c7aa8d6bdc73ed3e7ba246050",
+      "postimageBytes": 29177
+    },
+    {
+      "relativePath": "code/src/hog/workflow_lifecycle.ts",
+      "preimageSha256": "345b0b31f702cb8f2df16012e367d388ea7b92b0662ec17693a967b9c50f2867",
+      "preimageBytes": 40289,
+      "postimageSha256": "bf0cfb0b8f94721625846619f141f3e72910fc0425bcc4cdc954b2633a5b2b3e",
+      "postimageBytes": 40761
+    },
+    {
+      "relativePath": "build/code/src/abg/c_call.js",
+      "preimageSha256": "8613cde2be4036223d27e7838b01111c79edb84fe6663e707bac2d62b19c9dc9",
+      "preimageBytes": 241714,
+      "postimageSha256": "ea8ff540de9a3ffac032823673985c12a6428a69c1386b24be57a961aacd716a",
+      "postimageBytes": 242159
+    },
+    {
+      "relativePath": "build/code/src/abg/c_call_outcome.js",
+      "preimageSha256": "0237027b371e7e3cad447945acbb3537876d81f8f5f653e1b98c706d3ea54f79",
+      "preimageBytes": 60014,
+      "postimageSha256": "48d938c86d9a27538dcdaf5a6cea82acc48808ad1fb6b6847c6a58adbe91182e",
+      "postimageBytes": 60024
+    },
+    {
+      "relativePath": "build/code/src/abg/event_prefix.d.ts",
+      "preimageSha256": "e0aa0959968112c08dfd7a1a1d4c84046932303abc46c4cb26d754cd6708b6e2",
+      "preimageBytes": 3066,
+      "postimageSha256": "86fdfa815a6efa1bec1307c9181874658401856e4aa99da2a8663e3ed9d6dad2",
+      "postimageBytes": 3066
+    },
+    {
+      "relativePath": "build/code/src/abg/event_prefix.js",
+      "preimageSha256": "8472fd9027b768a785b15405040858eebaf9e56564b8c78d64c81ae956e9eda1",
+      "preimageBytes": 34477,
+      "postimageSha256": "b1c9b5239df3b20308415a2f24b3ae1c77587a88c208d0b399369abd783f5a43",
+      "postimageBytes": 36139
+    },
+    {
+      "relativePath": "build/code/src/abg/replay.js",
+      "preimageSha256": "7274562b47586693f12acfbb315b9297d2759da23a106de6a7ef43302c38c79c",
+      "preimageBytes": 93450,
+      "postimageSha256": "53bea469c92f709d3a5943ce335c23d8ccd885b919e53ee326fc28eb4987528e",
+      "postimageBytes": 93962
+    },
+    {
+      "relativePath": "build/code/src/abg/retry.js",
+      "preimageSha256": "5a896ff4d95f41a8128a393f16f6e17b456980dac80a9250f49a72451be0b9f3",
+      "preimageBytes": 208872,
+      "postimageSha256": "0b9e380789059fc8c73f57676ef75165c665d6c386a07d9278bd39fed9fa9830",
+      "postimageBytes": 214214
+    },
+    {
+      "relativePath": "build/code/src/abg/traversal_route.js",
+      "preimageSha256": "f5fd90f34cf50b4fde544324e01ff0adbc97cc309631c4e62342797fc6472c3f",
+      "preimageBytes": 186446,
+      "postimageSha256": "eea82bfdfb80ba0f614dbc84da648282f2ad24169915d27e90ccf4ac87bf8c47",
+      "postimageBytes": 187699
+    },
+    {
+      "relativePath": "build/code/src/hog/ccall_lifecycle.js",
+      "preimageSha256": "458ae8551bdccdbcec053f3d333bc6088caaa8558fb64da356e3336e675a0dcc",
+      "preimageBytes": 34381,
+      "postimageSha256": "b4253ea39a746ceaa1ffbb055910975d7db52697ec56bf6fe621b142f4c305f9",
+      "postimageBytes": 34695
+    },
+    {
+      "relativePath": "build/code/src/hog/graph_execute.js",
+      "preimageSha256": "8a8686486fd549724063d544454f3a2dc6d98a66784776f8aef0c4bc2fa93fd4",
+      "preimageBytes": 43662,
+      "postimageSha256": "06ec1bd258b3e06486e728006acf298ad0fd3b5f67e41192fe44dbb0343f1a30",
+      "postimageBytes": 43679
+    },
+    {
+      "relativePath": "build/code/src/hog/interaction_resume.js",
+      "preimageSha256": "ff2142fdd6be920484d6f590b51eb755392d7f3ada4e9789d48b827e764d7bc7",
+      "preimageBytes": 7296,
+      "postimageSha256": "2cc4146bdd4bb48455fe89d227a4712e82a69d26c4ddd6375e0e3ad578da44bd",
+      "postimageBytes": 7389
+    },
+    {
+      "relativePath": "build/code/src/hog/recursion_lifecycle.js",
+      "preimageSha256": "6594cf20bd509a10e2e94151cb1c1434de30e0ee1b3d2607592de450a2c139cd",
+      "preimageBytes": 31887,
+      "postimageSha256": "a7dff40f40d5559b0a76ad85409686bd751496e91407f67f5e19ec8cbb87defc",
+      "postimageBytes": 32156
+    },
+    {
+      "relativePath": "build/code/src/hog/retry_lifecycle.js",
+      "preimageSha256": "605889dd1160ab44111175ca716b612e0b8b69db0acf5f0db3944a41a3016b0d",
+      "preimageBytes": 19939,
+      "postimageSha256": "da5b1c00bfb74c9159b024d7b3a3dc4c4831a92cae66fcfcf5152801b631d455",
+      "postimageBytes": 20366
+    },
+    {
+      "relativePath": "build/code/src/hog/structural_transition.js",
+      "preimageSha256": "22705db043f4fd342282906817517d8cab3dcd62b0a20388c2b77e98d70ae951",
+      "preimageBytes": 7410,
+      "postimageSha256": "bea05d9f2b0ace8e5627f1bd21da63b1180e53558030e965d9276119fb19fc56",
+      "postimageBytes": 7927
+    },
+    {
+      "relativePath": "build/code/src/hog/workflow_lifecycle.js",
+      "preimageSha256": "3c71d1bd1d1f6ee89b175362730de5b7856eb9107bcf2f180eaed909da275f59",
+      "preimageBytes": 34977,
+      "postimageSha256": "b9ad918b742fa0907e69ee34b33f687e2608e199e97040ef4fdeb53e0e0fbeba",
+      "postimageBytes": 35359
+    }
+  ],
+  "sourceCount": 264,
+  "emitCount": 528,
+  "same232": 195,
+  "same235": 7,
+  "fullStageFiles": 5778,
+  "fullStageBytes": 104218395,
+  "helpers": 5,
+  "bodyBlock": {
+    "sha256": "1e3ebe98a6ee3a2fe1c2a07acb9afbfc93c875c5c2834487b0eebbbfd56c5b3c",
+    "bytes": 2526,
+    "lines": [
+      1350,
+      1409
+    ]
+  },
+  "elapsedMs": 1788.447,
+  "previous04Unchanged": true
+}

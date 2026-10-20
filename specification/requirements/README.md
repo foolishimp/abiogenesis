@@ -11,6 +11,20 @@ The active requirement families are grouped by constitutional domain:
 
 Use SPEC_METHOD.md from the immutable STDO basis selected by the
 [Product Definition](../../stdo_abiogenesis.json) when revising these files.
+Earlier exact method links in requirement derivation fields preserve their
+original provenance. They do not select the governing method for new work.
+The current source-development adoption is recorded in
+[STDO 3.0.0 RC1 adoption](../../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md);
+historical runtime and qualification evidence retains its original basis.
+
+The [STDO 3 computational binding](../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md)
+projects the existing Product and requirement owners into the TypeScript
+realization. It supplies no new Product outcome or runtime authority.
+[Product's STDO-governed environment](../PRODUCT.md#stdo-governed-run-environment)
+binds exact native source material and only explicitly selected supplementary
+representations, indexes or access tools. Every required declared dependency
+and access check remains mandatory. Source adoption does not upgrade an
+existing Run or establish implementation or qualification conformance.
 
 ## Rules
 

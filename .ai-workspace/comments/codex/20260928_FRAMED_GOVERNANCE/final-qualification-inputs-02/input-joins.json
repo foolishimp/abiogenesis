@@ -1,0 +1,42 @@
+[
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-controls-02/request.txt",
+    "bytes": 8021,
+    "sha256": "2f44595315f6ffa264b0414b6230cff96ebb03fe50c64b23cca648927bc62d6d"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-controls-02/request-sections.json",
+    "bytes": 8292,
+    "sha256": "f9c7f52e973b536b5d20f090e1c4192c544e1a8635d18cf55236709042ada5fe"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+    "bytes": 23029,
+    "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+    "bytes": 4543994,
+    "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze-manifest.json",
+    "bytes": 1045999,
+    "sha256": "98316a687a3ef45aa2e3fd1b6c94429c30c3feddd119b4f15600d3f771e11cc6"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/freeze.json",
+    "bytes": 8013,
+    "sha256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02/freeze.json",
+    "bytes": 8972,
+    "sha256": "27143ee34bfab83267ad804ae5eaae76fa3e0f89981a796215c6ae6ea4893328"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-review-01.md",
+    "bytes": 13107,
+    "sha256": "613c0dacf611a31a5253716a60b2801d2fb1ba949d554cfadc54e9263a37a3d6"
+  }
+]

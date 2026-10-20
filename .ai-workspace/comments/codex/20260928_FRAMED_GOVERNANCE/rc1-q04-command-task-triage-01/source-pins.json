@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/config.json",
+    "bytes": 47538,
+    "sha256": "eb1b025b408bb784bfe5e27ada8326e7891eb715289d8d381caa09bf687eaaed"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/recipe.mjs",
+    "bytes": 4017,
+    "sha256": "d5041f790a089b53dc09ae60af585bcbed0d59e11d231804c0833c62c4ef2747"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "bytes": 132250,
+    "sha256": "bb1b24e30d8c4668444481085530aca5f5ab3ce935677cbc882faa83208004bf"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "bytes": 63360,
+    "sha256": "b8bb644121845e25567280642b6474d5a32d452119af5ad1812b02360c1249b6"
+  }
+]

@@ -1,0 +1,5 @@
+ M build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md
+ M build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs
+ M build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs
+ M build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs
+ M build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs

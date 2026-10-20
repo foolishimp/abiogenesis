@@ -1,0 +1,30 @@
+{
+  "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01_GRANT_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "activatedAtUTC": "2026-10-04T15:07:57.373206+00:00",
+  "operationGrant": "Documentary activation/recording only; exact new controls plus three named tracking/commentary edits; no Source, Runtime or Git effects",
+  "SourceWriteActor": "/root/native_applicability_design",
+  "SourceOperation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "sourcePreimages": {
+    "code/src/gtl/stdo_run_environment.ts": "c4d683191cdf1fd8e035488c44fe1ad6fa4f38cd878e6d77dfbe5b89f6e16932",
+    "test_env/tests/t287-gtl-serialization-publication.test.mjs": "bc9ab45ea3d76bed154458dccba2c8ee398275c70c9bad5dc729fc811ed4a08c"
+  },
+  "documentPreimages": {
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": "9e6e81c0cf3ea3b2ea1127c34ba646ae97edb30f5a3a1703f56a056fdcbba10a",
+    "specification/GOALS.md": "78cdd89392f5b4b6304d2b328b1c12e447c7673ed3c3583a2ce786a4ad00c607",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md": "feeba6a16707597b7ecb0bb737caee91b10d59dac4ecae33e9b305ca1705acc6"
+  },
+  "methodBasis": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifestSHA256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "managerVerified": true
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/controls",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/controls",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "activation": "T287_F11_CARRIER_REALIZATION_01",
+  "actor": "/root/f11_carrier_design_worker",
+  "role": "source Worker",
+  "controlSHA256": "4426248f90e1741ba69e7e3f88a23819dc3d887aee4ea9bb4822fe4a55c1d18d",
+  "acceptedDesignSHA256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+  "preimagesVerified": 25,
+  "effects": "exact 25 source/test paths and this new report only",
+  "realProviderCalls": 0
+}

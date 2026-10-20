@@ -1,0 +1,10 @@
+{
+  "stage": "pre-close-authority-build-complete",
+  "rss": 4481695744,
+  "heapTotal": 4009377792,
+  "heapUsed": 3934489888,
+  "external": 2447762,
+  "arrayBuffers": 35455,
+  "at": "2026-10-09T11:32:24.640Z",
+  "elapsedMs": 399781.281459
+}

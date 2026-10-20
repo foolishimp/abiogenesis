@@ -1,0 +1,14 @@
+{
+  "status": "exact_source_selection_ready",
+  "elapsedMs": 5171.032582875341,
+  "sourceMembers": 1106,
+  "changedFromC04": 2,
+  "frozenSourceSHA256": "e19851a1f9dd0e3d92495301d65dbaa86aa78d432511d0db2222ba7327b0630a",
+  "toolsReverified": 2328,
+  "lockedArchives": 16,
+  "schemaSeeds": 2,
+  "completeRC2MembersVerified": 52,
+  "preservedFreezesVerified": 9,
+  "HOMEUnchanged": true,
+  "ambientEffects": false
+}

@@ -1,0 +1,33 @@
+{
+  "node": {
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "target": "toolchain/bin/node",
+    "classification": "frozen_execution_tool",
+    "mode": 365,
+    "path": "bin/node",
+    "memberRef": "toolchain-input://abiogenesis/c03/bin/node"
+  },
+  "nodeVersion": "24.7.0",
+  "npmVersion": "11.5.1",
+  "regularFiles": 2313,
+  "recordedLinks": 15,
+  "executables": "snapshot original toolchain/bin/node then verification/.toolchain/bin/node; mode preserved",
+  "npm": "same protected frozen npm bodies; future isolated offline cache and ci use existing sixteen exact archives",
+  "PATH": "absolute immutable C07 frozen Node origin, outside original/protected workspace roots, followed by exact system directories",
+  "hostLibraryBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/toolchain-host.json",
+    "bytes": 6543,
+    "sha256": "1b68a9991d68ffa4624a58826169cd7d2f2f29e105acf9aaaa3e797dfcf9e296"
+  },
+  "hostLibrariesReacquired": false,
+  "dependencyCampaign": false,
+  "newNodeModulesOrToolEffects": false,
+  "originalRecords": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/toolchain-pins.json",
+    "bytes": 1076202,
+    "sha256": "1b3542cfc14c74792526b9832600878d29303cf941bef577d1d57368a95668ec",
+    "mode": 420
+  }
+}

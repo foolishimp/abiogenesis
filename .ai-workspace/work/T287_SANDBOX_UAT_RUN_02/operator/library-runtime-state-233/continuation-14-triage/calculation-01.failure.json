@@ -1,0 +1,11 @@
+{
+  "kind": "documentary_calculation_failure",
+  "exitCode": 1,
+  "wallTimeSeconds": 0.616438167,
+  "error": "TypeError: Cannot read properties of undefined (reading 'program')",
+  "selector": "source.value.invocation.authority.program.digest",
+  "stage": "scalar receipt finalization after current12/current14 manifest and publication-binding checks",
+  "cause": "Prepared definition call has no invocation.authority object; incorrect metadata selector",
+  "action": "Root-approved select unique canonical Program from actual source Catalog and verify804754 digest; preserve original calculation",
+  "effects": "Pure read-only definition/manifest comparison only; no runtime/resource/admission/native/Source effects"
+}

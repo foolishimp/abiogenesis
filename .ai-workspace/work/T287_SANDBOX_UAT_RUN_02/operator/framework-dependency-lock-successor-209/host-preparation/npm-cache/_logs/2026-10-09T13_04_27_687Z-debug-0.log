@@ -1,0 +1,19 @@
+0 verbose cli /opt/homebrew/Cellar/node/24.7.0/bin/node /opt/homebrew/bin/npm
+1 info using npm@11.5.1
+2 info using node@v24.7.0
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-source/.npmrc
+5 silly config load:file:/Users/jim/.npmrc
+6 silly config load:file:/opt/homebrew/etc/npmrc
+7 verbose title npm pack
+8 verbose argv "pack" "--ignore-scripts" "--json" "--pack-destination" "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-artifacts"
+9 verbose logfile logs-max:10 dir:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/host-preparation/npm-cache/_logs/2026-10-09T13_04_27_687Z-
+10 verbose logfile /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/host-preparation/npm-cache/_logs/2026-10-09T13_04_27_687Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 verbose cwd /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/consumer-source
+14 verbose os Darwin 25.6.0
+15 verbose node v24.7.0
+16 verbose npm  v11.5.1
+17 verbose exit 0
+18 info ok

@@ -1,0 +1,17 @@
+{
+  "actualOwnedPrompt": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-771593173949aad5-prompt.txt",
+    "sha256": "da443ccd9c2a4941cc33e0200423e41801b7fad58419d0983d6e68b655f46b9c",
+    "bytes": 2033265
+  },
+  "observations": 34,
+  "observationInstructionBytes": 1951351,
+  "responseSchemaBytes": 169,
+  "providerReported": {
+    "requestedTokens": 1034744,
+    "limitTokens": 1000000,
+    "conversationTokens": 512951
+  },
+  "unlocalizedHostExtraTokens": 521793,
+  "classification": "actual provider refusal; opaque extra token categories unresolved; no new Product bound"
+}

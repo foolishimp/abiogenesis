@@ -1,0 +1,13 @@
+✔ assessment schema must match its unique declared installed owner and immutable schema asset (26.635667ms)
+✔ assessment schema defaults to fixed 2020 without changing declared validation or accepting conflicting markers (17.399333ms)
+✔ exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes (43.371791ms)
+ℹ {"ownerPreparationCount":1,"coldAndChangedCompiles":4,"coverage":"Exact installed-byte resolver -> response-schema projection -> result parser -> native completion -> observation/result predicates. Fixture supplies lower authority/assembly/exchange; no provider or native admission claim."}
+✔ typed read-only assessment retains F_P source and exact observed basis, not a work report (28.026333ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 389.303542

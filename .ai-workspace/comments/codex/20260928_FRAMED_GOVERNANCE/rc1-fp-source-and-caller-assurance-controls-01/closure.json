@@ -1,0 +1,19 @@
+{
+  "operation": "T287_F11_REPAIR_ASSURANCE_GRANTS_01",
+  "status": "CLOSED",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-02T05:04:23.779799+00:00",
+  "requests": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/source-request.txt",
+      "bytes": 4085,
+      "sha256": "10ccc6c88f4defc6192f3b027b1302c800f57a5183d28d5fab139c189d17b04f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/caller-request.txt",
+      "bytes": 4096,
+      "sha256": "7b377793b60c44dc16743ebcc0318e02c1894cf8117a071df9a43dfbb3057fa8"
+    }
+  ],
+  "effects": "New assurance controls only; no Product/Source/Runtime effects"
+}

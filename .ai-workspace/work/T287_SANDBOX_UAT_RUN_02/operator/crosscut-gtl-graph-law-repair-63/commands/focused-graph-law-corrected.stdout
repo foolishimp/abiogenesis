@@ -1,0 +1,45 @@
+✔ released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values (10.642667ms)
+✔ nearest static and materialization refusal: duplicate node identities with distinct C loci (3.465708ms)
+✔ nearest static and materialization refusal: terminal node with outgoing edge (2.988958ms)
+✔ nearest static and materialization refusal: two ordinary edges without registered selection (3.311583ms)
+✔ existing constructor and source-path guards retain their earlier refusal precedence (0.333042ms)
+✖ authored composition, substitution, recursion and fan-out retain full static and materialized owner results (18.475125ms)
+✖ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (0.50175ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 534.766792
+
+✖ failing tests:
+
+test at test_env/tests/t287-gtl-graph-law.test.mjs:116:1
+✖ authored composition, substitution, recursion and fan-out retain full static and materialized owner results (18.475125ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'graphFunctionRef')
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:45:76
+      at Array.find (<anonymous>)
+      at validate (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:45:42)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:120:18)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-gtl-graph-law.test.mjs:135:1
+✖ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (0.50175ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'some')
+      at freezeStrings (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/scratch/current/build/code/src/gtl/declarations.js:17:16)
+      at catalogContribution (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/scratch/current/build/code/src/gtl/declarations.js:121:25)
+      at Array.map (<anonymous>)
+      at Module.modulePublication (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/scratch/current/build/code/src/gtl/declarations.js:143:44)
+      at selectionModule (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:132:42)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:136:13)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)

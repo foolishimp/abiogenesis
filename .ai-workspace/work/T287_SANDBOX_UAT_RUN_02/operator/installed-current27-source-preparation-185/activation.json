@@ -1,0 +1,31 @@
+{
+  "role": "Operator185 installed-current-source preparation",
+  "at": "2026-10-09T07:38:53.295636+00:00",
+  "ExecutiveConjunction": "Root conjoined frozen183 and independent184 GO; accepted181/182 candidate27 publication; one actual preparation composition only.",
+  "basis": "Fixed15 ABI5.0 GOAL035/T287 original DataMapper STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "reviewedCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/prepare.mjs",
+    "sha256": "b9233b2a94ff0be71b11dcab0abbd72ad05c569e54ac99b48661c7b3f10721ee",
+    "byteCount": 40353
+  },
+  "reviewedInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/inputs.json",
+    "sha256": "451712aa054df59f379c419ba62cdd6148a1c99ada1d1e3f869a684b9689fedb",
+    "byteCount": 16705
+  },
+  "reviewedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-caller-183/freeze.json",
+    "sha256": "79a311f1c7c70bb9cf0930c3a2498591a0bf0355848ccd79aec04f9a4bff4a8a",
+    "byteCount": 25914
+  },
+  "review184": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current27-source-preparation-review-184/freeze.json",
+    "sha256": "aacf052eb67603c7c760c103a3668730fca5b7404d3682119bf9e17291603c0e",
+    "byteCount": 1012
+  },
+  "namespaceMapping": "Original183 request/input/correlation labels remain byte-exact. Dynamic dirname routes actual files/install roots/provenance into185; no retagging of historic admissions.",
+  "effects": "185 plus reviewed supported Public install/bind/catalog/view/D2/private Product preparation on same resource/A; no native Run/model/app dispatch",
+  "stop": "First unexpected failure STOP, preserve admissions/normal close if supported, Root RCA/action before retry.",
+  "futureClock": "No five-hour clock until separately selected actual nativeCLI start."
+}

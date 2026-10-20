@@ -1,0 +1,41 @@
+{
+  "candidateReviewGroups": [
+    {
+      "group": 1,
+      "status": "authority and frozen-shape discovery",
+      "elapsedSeconds": 0.1324754161760211,
+      "nativeCalls": 0,
+      "movingResourceReads": 0,
+      "processes": {
+        "a_cJoin": 0
+      }
+    },
+    {
+      "group": 2,
+      "elapsedSeconds": 0.20921533275395632,
+      "nativeCalls": 0,
+      "movingResourceReads": 0,
+      "status": "exact N04 file verification, actual contract and raw receipt discovery"
+    },
+    {
+      "group": 3,
+      "elapsedSeconds": 0.007442041300237179,
+      "nativeCalls": 0,
+      "movingResourceReads": 0,
+      "mode": "single bounded pure read/check process with explicit staged stdin",
+      "capMs": 120000,
+      "graceMs": 1000
+    }
+  ],
+  "reviewGroupCount": 3,
+  "reviewElapsedSecondsSum": 0.3491327902302146,
+  "reportWriterFinalization": {
+    "scope": "own report territory only; no additional subject evidence or proof checks",
+    "nativeCalls": 0,
+    "movingResourceReads": 0,
+    "sourceReads": 0,
+    "elapsedSecondsBeforeFreeze": 0.00012041674926877022
+  },
+  "nativeCallsTotal": 0,
+  "movingResourceReadsTotal": 0
+}

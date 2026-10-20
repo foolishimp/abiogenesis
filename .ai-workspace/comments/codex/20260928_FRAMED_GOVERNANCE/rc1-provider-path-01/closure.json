@@ -1,0 +1,21 @@
+{
+  "kind": "worker_closed_return",
+  "activation": "T287_RC1_PROVIDER_PATH_01",
+  "actor": "/root/rc1_provider_path",
+  "status": "CLOSED",
+  "disposition": "current_permitted_resolution_unavailable_underlying_cause_unknown",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-provider-path-01",
+  "ordinaryExternalProbes": 2,
+  "externalProbeElapsedMs": 36.363,
+  "nativeVersionInvocations": 1,
+  "modelDispatches": 0,
+  "nativeResourceEffects": 0,
+  "authSettingChanges": 0,
+  "networkSettingChanges": 0,
+  "alternateRoutes": 0,
+  "liveProcesses": 0,
+  "sourceOrGitEffects": false,
+  "qualificationClaim": false,
+  "safeNextAction": "continue provider-independent work; obtain usable permitted native provider context, then separately grant successor assessment caller on exact genuine 136-event handoff"
+}

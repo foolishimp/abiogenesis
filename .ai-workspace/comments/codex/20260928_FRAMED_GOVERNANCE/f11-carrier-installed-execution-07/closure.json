@@ -1,0 +1,135 @@
+{
+  "status": "CLOSED",
+  "role": "Runtime Worker, stopped",
+  "operation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "actor": "/root/native_applicability_design",
+  "actualRootActor": "actor://abiogenesis/t287/f11-c06-installed-setup-06/operator",
+  "returnTo": "/root Executive",
+  "workResult": "NO_GO_FIRST_NATIVE_ASSESSMENT_RAW_RESULT_CONTRACT_FAILURE",
+  "resourceHandoff": "closed-event-resource-handoff.json",
+  "resourceHandoffDigest": "sha256:dd19e8beaebd802804788cdd179cbffe6ba2b39bc7e76117878d5e8e5fb3693a",
+  "firstFailure": "first-violated-relations.json",
+  "firstObservedOwnerPredicate": "native_worker_result_assessment disposition rejected / verification null; transport contract_failure",
+  "nativeEvidenceEvent": "event://abiogenesis/78ca0363b63927242e39afb79b186b47c957bcc89c42fdf4b606dae622f0a7ff",
+  "firstChildDiagnostic": "diagnostic://abiogenesis/qualification/assessment_transport_mismatch@5",
+  "childResultEvent": "event://abiogenesis/efafccefa5286640f6b69697e81cf9ec2b1e0f55974b21f1fd1261a12025ec99",
+  "foldbackEvent": "event://abiogenesis/d7eea932152580ab2be30f992f31df153f29efe07f6ee260a75f44694e1c4638",
+  "runStoppedEvent": "event://abiogenesis/7dccac38e88206bcd6a349099c15745df9311deec593085bc882ec18aa6b3ceb",
+  "exactUnderlyingNativePreimageRefusal": "Unknown in this reporting cut; independent Root localization is separate",
+  "effects": {
+    "actualPublicCalls": 1,
+    "ABGAppendedRecords": 64,
+    "ABGAppendedBytes": 259948,
+    "controlledHelperLaunches": 1,
+    "realProviderCalls": 0,
+    "completedRuns": 0,
+    "successfulQualificationJ": 0,
+    "failedChildResult": "result://abiogenesis/011af2adc5c70b794b8f56e527895de1464a4b89e5be8a3b5e7aca9c15e0889c",
+    "failedParentResult": "result://abiogenesis/e2ff38b9942b8d067a2a288d1bfb2414ec5f9bd05ad50022de3804996aed43d7",
+    "failedFoldback": "child-foldback://abiogenesis/7e75c4bd6161d56b42b667ec8f4ad5ca440151417ce48d4ea14b3f93147d3b6f",
+    "run": {
+      "digest": "sha256:eb58179223d2ae7a43ca2829ac4ffbe46ddfe93569d0504056b5393ad6ac7de0",
+      "ref": "run://abiogenesis/292d603a097a7d2549330fa3105837534329c572b8052e81c31d289dae9a270e"
+    },
+    "runDisposition": "runtime_failed",
+    "coldReads": 0,
+    "F11Runs": 0,
+    "AF22Runs": 0,
+    "additionalRuntimeSourceSetupInstallGitNetworkQualificationCommands": 0
+  },
+  "processClosure": "main and native CLI wait4 receipts, recorded groups absent; helper exit/termination evidence and absent PID probe retained",
+  "processUnknowns": [
+    "actor wait4 and PGID not separately published",
+    "internal canonicalization/hash/body transformation counts not fully instrumented",
+    "ambient process population not enumerated",
+    "all downstream carrier and genuine semantic/release obligations remain unproved"
+  ],
+  "remaining": [
+    "successful qualification J",
+    "child and parent graph closures",
+    "RunClosed",
+    "six fresh CLI reads",
+    "fresh F11 consuming the original J",
+    "sole truthful non-green AF22",
+    "nearest supported negatives"
+  ],
+  "afterResultBeforeJ": "unsupported authoritative cut remains unknown",
+  "sourceConservation": "conservation.json",
+  "reportFinalization": {
+    "operation": "T287_RUNTIME07_SAVED_REPORT_FINALIZATION_02",
+    "role": "Writer, report-only",
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-saved-report-finalization-controls-02/request.txt",
+      "bytes": 3149,
+      "sha256": "d8ffaf440f9ef844292f61d273ae5be970294f5b46cd710ef0a2a9e14707e284",
+      "mode": 420
+    },
+    "selfContainedFinalizer": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/finalize-saved-reports.py",
+      "bytes": 17209,
+      "sha256": "173e37e5c4cbd25ed60de91a5290bb6b97efb6be56605b369a8f3667a10c9982",
+      "mode": 420
+    },
+    "savedRecordsProducer": "appended-runtime-records.json",
+    "protectedTenSavedReports": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/actual-actor-transport-evidence.json",
+        "bytes": 105559,
+        "sha256": "2e417d452e72cd007bea4f27add6bb4cf2ea228a0776b5fa9f29078be838103f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/available-native-verification-preimages.json",
+        "bytes": 3228,
+        "sha256": "0c9bf2a282e38260884a31f4e90e971178aa58353322be47565add3bcc2b4c96"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/appended-runtime-records.json",
+        "bytes": 305336,
+        "sha256": "d9d895d04e507d66bc549e24ee99e65c991831ff470d4f47131a007ea7f10645"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/first-violated-relations.json",
+        "bytes": 20550,
+        "sha256": "047d03737ad283172f14ec938e6e5c3f1dbe441a035f4b32407adfccec6666cc"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/closed-event-resource-handoff.json",
+        "bytes": 2612,
+        "sha256": "448bdb6a900500522a46e54f19b170629494b95d5257392c55071090ca34e21e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/closed-runtime-events.jsonl",
+        "bytes": 2750762,
+        "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/appended-durable-records.bin",
+        "bytes": 259948,
+        "sha256": "c473ec4f2c586b4b9d9148cfababec0476c3fc3382bd2b546a34138696585fa2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/owner-resource-census.json",
+        "bytes": 6837926,
+        "sha256": "c1f7b2e59a1001bf14411e88d7ce43b6f477ef20f3d563690637f0df0d50e437"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/conservation.json",
+        "bytes": 7929,
+        "sha256": "4e9c296728ba50edc2bd3fa24476bba005ddd0e703302d8e40682ed12895efe8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/accounting.json",
+        "bytes": 47017,
+        "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+        "mode": 420
+      }
+    ],
+    "previousWriter": "CLOSED_STOPPED_REPORT_NAMESPACE_MISS",
+    "previousWriterEvidence": "report-finalization-02/failed-saved-tail-attempt.json",
+    "elapsedMsBeforeFinalReports": 17.176750116050243,
+    "RuntimeOwnerImportsReopensReadbacksHelpersProvidersPayloadReproof": 0
+  },
+  "ReporterCompletionConfersFunctionalityOrReleasePass": false,
+  "ReviewerActivation": false,
+  "allWritesAfterFinalFreeze": "STOPPED"
+}

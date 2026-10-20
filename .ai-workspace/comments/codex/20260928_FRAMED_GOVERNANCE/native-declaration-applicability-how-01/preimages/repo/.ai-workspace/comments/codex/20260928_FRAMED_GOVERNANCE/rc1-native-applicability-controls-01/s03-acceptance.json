@@ -1,0 +1,15 @@
+{
+  "status": "ACCEPTED_BOUNDED_S03a_PAIR",
+  "rootRole": "Executive adjudication recorded by separate Writer",
+  "candidateArchiveSha256": "f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+  "subject05": "d656b719ad77444b774ea39f5db4e6327a86777d3d04952f6a57a99098eb1c04",
+  "subject04": "0a6d8fc532c846bc694c68da16d097ab16182247f4993e041a2dff93ce2f2b97",
+  "independentReviewer": "/root/s03_pair_review",
+  "twoRuns": true,
+  "freshCLIReads": 8,
+  "originalPositiveAndNegativeOracles": "pass",
+  "fullS03": false,
+  "genuineAssessment": false,
+  "qualified": false,
+  "published": false
+}

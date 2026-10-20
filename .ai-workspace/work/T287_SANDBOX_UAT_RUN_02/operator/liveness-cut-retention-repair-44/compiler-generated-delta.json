@@ -1,0 +1,14 @@
+[
+  {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09",
+      "byteCount": 74635
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "sha256": "8e55aed6810f56bc557df87c10f7f4f8c98764eaa20add38fb312fbbbcad0403",
+      "byteCount": 74826
+    }
+  }
+]

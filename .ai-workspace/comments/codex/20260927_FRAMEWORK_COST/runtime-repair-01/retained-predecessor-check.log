@@ -1,0 +1,27 @@
+(node:25648) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ route-origin workflow cursor stages, replays, commits and cold-projects exact retained input (109.764917ms)
+ℹ {"unexpectedRefusalProbeReturn":{"kind":"traversal_route_admission_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"judgment_mismatch","message":"post-judgment route is not the exact declared GTL continuation"}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 346.538417
+
+✖ failing tests:
+
+test at test_env/tests/retained-route-cursor-transition.test.mjs:26:1
+✖ route-origin workflow cursor stages, replays, commits and cold-projects exact retained input (109.764917ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs:118:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

@@ -1,0 +1,36 @@
+{
+  "disposition": "CLOSED_FAILED/HOLD",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/return.md",
+    "sha256": "b358ab56ab5d49eb201dc9d195efe86426befa85e93f3d4294659a110ff7222e",
+    "byteCount": 2094
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/readiness.json",
+    "sha256": "b35d1b24a6b86af5073f1635d5514bf391b49179f293f10d1ad05aa2ccb8c964",
+    "byteCount": 4776
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/pins.json",
+    "sha256": "9566d4ca833de2021c9a44aee2be6ba9a8fe9cb0adaf08c1228af52304d51fea",
+    "byteCount": 15590
+  },
+  "pinCount": 51,
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/actual-first-cause.json",
+    "sha256": "45f66f018a5bab1bb033ecd778380a83bdf21bf8ea45b678b9f9d1c3a6ac2437",
+    "byteCount": 5164
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/stopped-conservation.json",
+    "sha256": "e20741e577103ce5c6aff86faff41b59b7a5ce3ed96a1d9c5ab4b4464e7008bd",
+    "byteCount": 16966
+  },
+  "successfulRecoveryHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recovered-close-handoff.json",
+    "sha256": "10a1f7047255f068840dd33f8d01763941287ed913e4fad55705e82b3325ce05",
+    "byteCount": 1472
+  },
+  "runtimeEffectsStopped": true,
+  "noRetryOrNewOwnerReadAfterFailure": true
+}

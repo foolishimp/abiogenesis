@@ -1,0 +1,8 @@
+{
+  "scope": "Retained physical records through actual current leaf fibre; no owner acquisition",
+  "prefixByteLength": 112678133,
+  "prefixDigest": "sha256:edfc1d5ca4dae575c9ec666c9812b68efb5a1e6f350e5aed5d16bf073aaa8a84",
+  "matchesProjectedPrefix": true,
+  "recordCount": 27771,
+  "repriceOrWitnessEvents": []
+}

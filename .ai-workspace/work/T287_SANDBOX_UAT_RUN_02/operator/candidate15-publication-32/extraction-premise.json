@@ -1,0 +1,13 @@
+{
+  "status": "superseded_local_command_premise",
+  "exception": "TypeError: extractall() got an unexpected keyword argument 'filter'",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/candidate15-publication-32/member-comparison.corrected.py",
+    "sha256": "caa47190ac99cbe2df6e7fa06cf6abfed2e2eb1877e5a0b87907c2010246f675",
+    "byteCount": 4919
+  },
+  "line": 56,
+  "memberComparisonComplete": true,
+  "memberDelta": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/member-delta.json",
+  "correction": "Use existing system tar after full regular/path/mode archive verification; no archive change, no repack."
+}

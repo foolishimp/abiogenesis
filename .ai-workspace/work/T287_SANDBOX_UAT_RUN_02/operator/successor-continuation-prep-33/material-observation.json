@@ -1,0 +1,248 @@
+{
+  "role": "Writer33 physical supplied-material receipt",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e",
+  "retainedAuthorFiles": [
+    {
+      "path": "build_tenants/scala_spark/build.sbt",
+      "byteCount": 3888
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "byteCount": 2083
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+      "byteCount": 7883
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+      "byteCount": 2679
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+      "byteCount": 8298
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "byteCount": 3257
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+      "byteCount": 9265
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+      "byteCount": 2068
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+      "byteCount": 2541
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+      "byteCount": 8409
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+      "byteCount": 9131
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+      "byteCount": 14528
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "byteCount": 9581
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+      "byteCount": 2538
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+      "byteCount": 11564
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "byteCount": 5293
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+      "byteCount": 2495
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+      "byteCount": 8755
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+      "byteCount": 3500
+    },
+    {
+      "path": "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+      "byteCount": 7982
+    },
+    {
+      "path": "build_tenants/scala_spark/project/build.properties",
+      "byteCount": 19
+    },
+    {
+      "path": "build_tenants/scala_spark/project/plugins.sbt",
+      "byteCount": 56
+    },
+    {
+      "path": "depth-proof-map.json",
+      "byteCount": 10615
+    },
+    {
+      "path": "design/component-code-surface.md",
+      "byteCount": 25088
+    },
+    {
+      "path": "design/feature-decomposition.md",
+      "byteCount": 16215
+    },
+    {
+      "path": "design/implementation-design.md",
+      "byteCount": 56240
+    },
+    {
+      "path": "design/module-design.md",
+      "byteCount": 41481
+    },
+    {
+      "path": "design/test-design.md",
+      "byteCount": 69010
+    },
+    {
+      "path": "proof/component-realization-qualification.md",
+      "byteCount": 17575
+    },
+    {
+      "path": "proof/component-test-execution-qualification.md",
+      "byteCount": 24851
+    },
+    {
+      "path": "proof/repaired-component-test-execution-qualification.md",
+      "byteCount": 24975
+    },
+    {
+      "path": "repair/component-repair-application.md",
+      "byteCount": 17206
+    },
+    {
+      "path": "repair/component-repair-schedule.md",
+      "byteCount": 17550
+    },
+    {
+      "path": "specification/goals.md",
+      "byteCount": 4907
+    },
+    {
+      "path": "specification/intent.md",
+      "byteCount": 23615
+    },
+    {
+      "path": "specification/product.md",
+      "byteCount": 12262
+    },
+    {
+      "path": "specification/requirements.md",
+      "byteCount": 30618
+    },
+    {
+      "path": "specification/scenario.md",
+      "byteCount": 39351
+    },
+    {
+      "path": "specification/testcase-authority.md",
+      "byteCount": 10468
+    },
+    {
+      "path": "specification/uat-testcases.md",
+      "byteCount": 18808
+    }
+  ],
+  "provenance": {
+    "operator28Observation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-28/observations.json",
+      "sha256": "3ef204421113aeb32b9c3380a84f1ff26c16a356eaf3ed317824a41aa238224d",
+      "byteCount": 65877
+    },
+    "operator28Freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-28/execution-freeze.json",
+      "sha256": "4b1be1344e6b0dddc90193d17f1e7f12e9daed5de270051aeab5fde4ff29776e",
+      "byteCount": 58497
+    },
+    "currentSnapshotField": "currentSnapshotFiles",
+    "workloadSourceCurrentAcquisition": {
+      "pin": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e/workload-source.json",
+        "sha256": "a9ae13e3e16a90f4c83f4fa62e254ca5b62f8e9c46877de2181f834dc7be6d30",
+        "byteCount": 80945
+      },
+      "historicalLedgerRowPresent": false,
+      "wholeValueMatchesExistingAcquisition": true,
+      "historicalConservationClaim": false
+    },
+    "originalRequestAndOraclePins": [
+      {
+        "path": "data-mapper-full/source.original.txt",
+        "digest": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "byteCount": 41158
+      },
+      {
+        "path": "data-mapper-full/supporting-constants.original.txt",
+        "digest": "sha256:5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "byteCount": 3713
+      },
+      {
+        "path": "data-mapper-full/observable-contract.original.json",
+        "digest": "sha256:2c268e449c296e74ef4abf0ea309b65a0b7303f017b4c05692dc5d86e6a7a0e1",
+        "byteCount": 21201
+      },
+      {
+        "path": "data-mapper-full/obligations.json",
+        "digest": "sha256:7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "byteCount": 50978
+      },
+      {
+        "path": "data-mapper-full/oracle.json",
+        "digest": "sha256:99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "byteCount": 16774
+      },
+      {
+        "path": "data-mapper-full/request.json",
+        "digest": "sha256:d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+        "byteCount": 77648
+      },
+      {
+        "path": "independent-oracle.mjs",
+        "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+        "byteCount": 23452
+      }
+    ]
+  },
+  "counts": {
+    "original": 4,
+    "retainedAuthor": 40,
+    "currentFiles": 44
+  },
+  "accountingCurrentBytes": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e/sandbox/worksite/build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+    "sha256": "7ff8d8b73d7acd7138f69007463b4dea869837292c78dfbf1aa91935b3e8ee9c",
+    "byteCount": 2083
+  },
+  "setupManifestExcluded": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e/sandbox/worksite/.abiogenesis/workspace-manifest.json",
+      "sha256": "62dcfe5be2ff557bbd95217a5e1a10aa3d71946a6881be369a9f96858ace6261",
+      "byteCount": 1532
+    },
+    "copied": false
+  },
+  "suppliedMaterialOnly": true,
+  "oldObservationsImported": false,
+  "oldSynthesisImported": false,
+  "oldProducerCreditImported": false
+}

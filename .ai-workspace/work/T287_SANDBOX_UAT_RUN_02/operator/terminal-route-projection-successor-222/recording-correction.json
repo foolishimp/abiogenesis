@@ -1,0 +1,8 @@
+{
+  "stage": "preflight-builder-01",
+  "exitCode": 1,
+  "error": "TypeError: string indices must be integers, not str",
+  "origin": "source-conservation.acceptedPopulation is a file coordinate, not a row list",
+  "beforeOwnerEntry": true,
+  "selectedOrdinaryCorrection": "Resolve the existing pinned path, match digest/size and consume its row population. Existing222 grant permits one ordinary framing/accessor correction; no source/owner/contract repair."
+}

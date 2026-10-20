@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "byteLength": 3786241,
+  "digest": "sha256:1d21d5637b8dde280581697af9814af66e655cc6e316cbd71d193c657ff1af79",
+  "eventCount": 330,
+  "device": 16777230,
+  "inode": 463748325,
+  "predecessorDigest": "sha256:3c20f5806b6201ff462daf1285fbd390d4f75a87f7369d442213f3c341c6001b",
+  "formerHostDead": true,
+  "lockAbsent": true,
+  "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abiogenesis-event-store-locks-v5/16777230-463748325.lock",
+  "immutablePackageReference": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/archive-installed.json"
+}

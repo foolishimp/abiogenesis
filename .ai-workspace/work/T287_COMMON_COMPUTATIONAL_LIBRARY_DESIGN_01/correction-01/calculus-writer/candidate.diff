@@ -1,0 +1,71 @@
+--- frozen/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md
++++ corrected/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md
+@@ -276,14 +276,20 @@
+ 
+ ```mermaid
+ sequenceDiagram
++  participant R as Installed run owner
++  participant P as Product preparation and resolution
++  participant A as ABG owners
+   participant H as HoG
+-  participant P as Product resolution
+-  participant A as ABG owners
+   participant L as Common mechanics
+   participant N as Native effect owner
+-  H->>P: Resolve exact Program and dependencies
++  R->>P: ProductRunInvocationPort.prepare
+   P->>L: Canonical identity and finite selection
+-  P-->>H: Exact closure or typed refusal
++  P-->>R: Prepared exact Program and execution resolution
++  R->>A: admitExactInvocation using prepared resolution
++  A-->>R: Admitted invocation and successor
++  R->>A: Admit execution basis and open traversal
++  A-->>R: Admitted basis and opened scope
++  R->>H: executeGraphTraversalEffect with prepared basis
+   H->>A: Prepare current call at explicit prefix
+   A->>L: Select supported history and encode selected context
+   A->>N: Exact prepared request and permitted effects
+@@ -298,7 +304,9 @@
+   H->>A: Read derived next state from admitted history
+ ```
+ 
+-The “common mechanics” participant groups static calls, not a service. A semantic assessment may be required before admission; no library return substitutes for it. If output/effect evidence cannot be admitted, known physical residue and the last lawful prefix remain distinct. Required unavailable evaluation is a missing result, not a completed negative or indeterminate assessment.
++The entry shown is the admitted path: [Product preparation](../code/src/product/run_invocation_operation.ts) resolves the execution selection; the [installed run owner](../code/src/owner_bindings/run_invocation.ts) handles its refusal, calls `admitExactInvocation`, establishes the execution/opened-traversal basis and only then enters HoG. A preparation, admission or opening refusal returns through that owner before traversal, preserving the actual prefix. HoG's later GTL term/source-path resolution is a different operation.
++
++The “common mechanics” participant groups static calls, not a service. A semantic assessment may be required before admission; no library return substitutes for it. Known physical residue and the actual admitted prefix remain distinct even when later output/receipt validation fails. Required unavailable evaluation is a missing result, not a completed negative or indeterminate assessment.
+ 
+ ### State view: physical resource and admitted truth
+ 
+@@ -310,18 +318,25 @@
+   Acquired --> Observed: owner performs and observes
+   Acquired --> Uncertain: interrupted or unknown completion
+   Observed --> Admitted: expected-prefix admission succeeds
+-  Observed --> UnadmittedResidue: admission or receipt fails
+-  Uncertain --> RecoveryRequired
+-  UnadmittedResidue --> RecoveryRequired
++  Observed --> UnadmittedResidue: admission refuses with no new successor
++  Observed --> Uncertain: admission outcome unknown
++  Uncertain --> RecoveryRequired: preserve known prefix and effect evidence
++  UnadmittedResidue --> RecoveryRequired: preserve unchanged prefix and physical residue
++  Admitted --> PostAdmissionFailure: receipt or output validation fails
+   Admitted --> HeldCompletion: enclosing owner retains resource
+-  Admitted --> ClosedHandoff: physical finalizer succeeds
++  Admitted --> ClosedHandoff: direct physical finalizer succeeds
++  Admitted --> PostAdmissionFailure: direct physical finalizer fails
+   HeldCompletion --> ClosedHandoff: enclosing finalizer succeeds
+-  HeldCompletion --> RecoveryRequired: abandonment or close failure
++  HeldCompletion --> PostAdmissionFailure: receipt or output fails, abandonment or close failure
++  ClosedHandoff --> PostAdmissionFailure: later receipt or output validation fails
++  PostAdmissionFailure --> RecoveryRequired: conserve admitted successor and physical facts
+   ClosedHandoff --> FreshRead: exact reopen and reconstruction
+-  RecoveryRequired --> Prepared: lawful owner re-entry on new evidence
++  RecoveryRequired --> Prepared: lawful re-entry on authenticated actual prefix and new evidence
+ ```
+ 
+-This is the combined relation, not a new persisted state machine. Read-only acquisition may complete unchanged without performing a semantic transition. Pure K01–K07 operations do not require ABG lifecycle events. `RefusedBeforeEffect` is valid only when no relevant effect occurred; failure after execution follows the residue/uncertainty route. Recovery does not assume rollback, repeat the native work automatically or mint a successful observation.
++This is the combined relation, not a new persisted state machine. Read-only acquisition may complete unchanged without performing a semantic transition. Pure K01–K07 operations do not require ABG lifecycle events. `RefusedBeforeEffect` is valid only when no relevant effect occurred. `UnadmittedResidue` applies only when the attempted admission established no successor; a refusal accompanied by admitted diagnostic events preserves that actual successor.
++
++[Static binders](../code/src/shared/static_definition_bindings.ts) execute the owner before validating receipts and owner output. The run owner's `finish` passes its computed final prefix to [`completeAbgEventResource`](../code/src/abg/definition_event_resource.ts), which either completes a borrowed held resource or calls `closeAbgEventResource`. Receipt/output failure after admission, direct-finalizer failure and later held-finalizer failure therefore preserve the admitted successor. Physical close may itself have occurred before a receipt becomes unavailable or invalid. Recovery conserves those known facts and any unresolved physical state, reacquires the actual admitted prefix when needed, and never infers rollback, successful handoff or permission to repeat native work from a missing receipt.
+ 
+ Cross-view checks bind the same identities, typed handoffs, authority, effect order, current/historical support and resource owner. Whole-family Prime review considers identity, topology, lifecycle, admission, effects and closure as well as functions/carriers. This candidate proposes no new semantic atom; retained common mechanics and owner relations still require review against their declared domains. No global minimality or completed Prime contraction claim follows from the catalog.
+ 

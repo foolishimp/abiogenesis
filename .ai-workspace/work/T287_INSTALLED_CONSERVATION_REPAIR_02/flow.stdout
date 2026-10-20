@@ -1,0 +1,23 @@
+✖ native controlled A failure survives uncovered B through F11 and sole AF22 (39718.500458ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 40118.091709
+
+✖ failing tests:
+
+test at test_env/tests/t287-installed-qualification-conservation.test.mjs:329:1
+✖ native controlled A failure survives uncovered B through F11 and sole AF22 (39718.500458ms)
+  TypeError [Error]: qualification_resource_entry_identity
+      at QualificationResources.validateEntry (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_resources.js:118:19)
+      at new QualificationResources (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_resources.js:49:22)
+      at Module.acquireQualificationResources (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_resources.js:220:12)
+      at fixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_02/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs:179:92)
+      at async main (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_02/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs:236:18)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_REPAIR_02/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs:332:93)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

@@ -1,0 +1,6 @@
+{
+  "status": "pre-freeze input check identified expected repaired test overlay",
+  "cause": "initial preparation pins test at 65022B/9ea6f8d3...; Root-selected zero-owner fixture propagation creates final 66344B/aec911e9... postimage",
+  "disposition": "source test overlay is an authorized effect captured in postimages and retained failed-test snapshot; all immutable prepared inputs still require exact equality",
+  "sourceFailure": false
+}

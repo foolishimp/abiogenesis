@@ -1,0 +1,240 @@
+{
+  "basis": "stdo://releases/v2.5.0-rc.4/",
+  "cut": "v2.5.0-rc.4",
+  "definition": "/Users/jim/src/apps/odd_glc/stdo_odd_glc.json",
+  "definition_id": "urn:stdo:product-definition:odd-glc",
+  "failures": [],
+  "installed": true,
+  "manifest_sha256": "4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e",
+  "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.0-rc.4",
+  "release": {
+    "commit": "7a25668a8fecfd26f895759af3bec4708727964a",
+    "cut": "v2.5.0-rc.4",
+    "project_release_namespace": "specification_methodology",
+    "project_subtree_root": "specification_methodology",
+    "project_subtree_tree": "a9565f923213759984f936d087cd7cebd0f44a74",
+    "qualified_ref": "refs/tags/specification_methodology/v2.5.0-rc.4",
+    "standards_tree": "d6642edac9fb509a68b2ffc81d3404f2360b34e4",
+    "tag_object": "032dac0c833111547f7dd4b290c5316ed9b70f97",
+    "tree": "737af9a7a2779dbf59e7c81232e7efd4dd98692a"
+  },
+  "schema": "/Users/jim/Library/Application Support/STDO/releases/v2.5.0-rc.4/standards/schemas/product-definition.schema.json",
+  "selector": "stdo://channels/2.5.0",
+  "standards": {
+    "installed_root": "standards",
+    "member_count": 52,
+    "member_set_sha256": "504db879867f60e46ed4dea60509d12056d10cdd8c3460dc94abf7bc56542656",
+    "members": [
+      {
+        "path": "AXIOMATIC_CALCULUS.md",
+        "sha256": "cbe2edb928d3e75e23446f6d525baea664966e8d5920e6fa389cbaa4af8f1f8d"
+      },
+      {
+        "path": "DESIGN_MODULE_METHOD.md",
+        "sha256": "6fb49e186c15a3ebd48dec6b2728a397f1cd5199c4c0d112a0d0c70a2d6346fc"
+      },
+      {
+        "path": "GLOSSARY_GUIDE.md",
+        "sha256": "da6d81df61d61e685bcf1ef69187839a52d72af7f1d61af050244f856efe0cd0"
+      },
+      {
+        "path": "IDENTITY_METHOD.md",
+        "sha256": "e65b875464cc93a3f9186d915ad88603755de34bac6f27072562ed34c13f64cd"
+      },
+      {
+        "path": "ODD_METHOD.md",
+        "sha256": "b33dd5b868e66e27c583b3237e93421ab12d502b38368bf075973c1bf7faef2d"
+      },
+      {
+        "path": "POSTING_GUIDE.md",
+        "sha256": "63ee8b6fde9803e38970e85fb2c4e0aa398632720b6a5f1cff8fb1291398c59a"
+      },
+      {
+        "path": "README.md",
+        "sha256": "7eb1ab99072963acf373af422cf698f1623dbd0628e7aff7a3ec5af4e72f8659"
+      },
+      {
+        "path": "REFERENCE_FRAME_METHOD.md",
+        "sha256": "c7f7abfa620d73e209463605517075ac375d8e79e0273d3f435c4e36155de5d8"
+      },
+      {
+        "path": "RELEASE_METHOD.md",
+        "sha256": "582bc15451855670495e559db3ae6a89ba37edaa3656f33499d02220cbdb141c"
+      },
+      {
+        "path": "SPEC_METHOD.md",
+        "sha256": "80a66946d4767b1ff857aad4bbaba696b591cd7e7529324c2ece8ced9754ced5"
+      },
+      {
+        "path": "STDO_REFERENCE_FRAME_BASELINE.md",
+        "sha256": "6013e42693066127d729580ac3d01d31c2a82f00adea9d0fb1af3494b4ad9c3e"
+      },
+      {
+        "path": "TICKET_METHOD.md",
+        "sha256": "6924e3284be3375af3514cdf0f810b53e8ac282cb96116ea2d721e9b84b75ba3"
+      },
+      {
+        "path": "TRAVERSAL_OCCURRENCE_PROFILE.md",
+        "sha256": "618bb7c8f9f1eab8283cf595ac9da3533f0f9cf80a684c6f42e09142da6590c1"
+      },
+      {
+        "path": "UX_METHOD.md",
+        "sha256": "a7cca45d6064d7fc864edd86e3913c9462cfe2a52ae3d1519c6a031713dccae7"
+      },
+      {
+        "path": "WORLD_MODEL_METHOD.md",
+        "sha256": "123ddcd05130aa95508c9fcfa194bf083caae3657baedaba0ce9214009453762"
+      },
+      {
+        "path": "WRITING_GUIDE.md",
+        "sha256": "29e50edc00997b76c20fad74724991b8cfffbe692ee6cabab208ad7a0c1b63fd"
+      },
+      {
+        "path": "authority_compressions/README.md",
+        "sha256": "ac695b50fbe503e65fd8cb50c69ebe14ec818cc19bdb24941f514cc3c403eb88"
+      },
+      {
+        "path": "authority_compressions/axiomatic_calculus.compressed.md",
+        "sha256": "30d8615f171298e8b40d112eff4fee56e302b63f9e5968272b7e7291f76c7bda"
+      },
+      {
+        "path": "authority_compressions/design_module_method.compressed.md",
+        "sha256": "384740484d37bffbd6fe2e0e7b9bb9c231b1b297b1dd4f5fd744b3dbba78d7de"
+      },
+      {
+        "path": "authority_compressions/odd_method.compressed.md",
+        "sha256": "49968bace86260d6ffa25433598245ec89a23646b3743872aaf40bc99dbc1c6b"
+      },
+      {
+        "path": "authority_compressions/spec_method.compressed.md",
+        "sha256": "38f15316e99777c866f50e6ddbc47a101e2d5541ccf84fbcd3b280acc0a695d9"
+      },
+      {
+        "path": "authority_compressions/stdo_bootstrap.md",
+        "sha256": "f75e2cda82d1c2b0166b89e6006c0818e3d9a4a3f43e3e6d20a648005bed91f6"
+      },
+      {
+        "path": "authority_compressions/stdo_compressed.md",
+        "sha256": "c40d1b264bbc752928b03d3460079dd5bc26bdf0e5cfca80dd1c163e4bf4ecbc"
+      },
+      {
+        "path": "authority_compressions/ticket_method.compressed.md",
+        "sha256": "c551c3fd8851c2a1a2f885eb41b5694886c3ade38948d6caf5fdf895351d91ff"
+      },
+      {
+        "path": "authority_compressions/traversal_occurrence_profile.compressed.md",
+        "sha256": "bfecda2c2e2f1c2f9e1ad97713d6a708227c2f47d4d95ce380d978b0df3877ce"
+      },
+      {
+        "path": "authority_compressions/ux_method.compressed.md",
+        "sha256": "f3323f1f4704360f59fea6d7a8a7ba92be3e1c7d0bc921725da97fdeaf44ad54"
+      },
+      {
+        "path": "schemas/installed-release-manifest.schema.json",
+        "sha256": "711a2eea44b995a043d4d9e02c8427723fc830de1a9f0f3c8c66e8ddb7aee4c2"
+      },
+      {
+        "path": "schemas/product-definition.schema.json",
+        "sha256": "e0a3b544dae6c83bf941096b440700d02fa988fd2767f3b4ab297a1a03f67abf"
+      },
+      {
+        "path": "templates/AGENTS_TEMPLATE.md",
+        "sha256": "717205bfed56ae6e4c496b7b5dc6ab5779fbc599ed02d929fbd064750f7ba32f"
+      },
+      {
+        "path": "templates/CLAUDE_TEMPLATE.md",
+        "sha256": "717205bfed56ae6e4c496b7b5dc6ab5779fbc599ed02d929fbd064750f7ba32f"
+      },
+      {
+        "path": "templates/GOALS_TEMPLATE.md",
+        "sha256": "2dc711293f5e7129389efe0e5c3ea86e111c528569e6b72dad983cdbc2c71c3d"
+      },
+      {
+        "path": "templates/INTENT_TEMPLATE.md",
+        "sha256": "85b1e6c83b30d619e9f7f8018315022b6963edaa03f908e7aac38a16d5bdab26"
+      },
+      {
+        "path": "templates/PRODUCT_DEFINITION_TEMPLATE.json",
+        "sha256": "e4189e5e51d525b7d7926ca88c9b9182b4686b8adf81108e72e24b847db94d34"
+      },
+      {
+        "path": "templates/PRODUCT_TEMPLATE.md",
+        "sha256": "0e5365e4c87faecbaccb20aa8a106364afcd07635ca52dffbbf4a223873256f9"
+      },
+      {
+        "path": "templates/PROJECT_REFERENCE_FRAME_BASIS_TEMPLATE.md",
+        "sha256": "33770a4f0b5d7ad61db09e3b1079633c110df44f69d595379cf10fa76e0d1b21"
+      },
+      {
+        "path": "templates/README.md",
+        "sha256": "6e30d6e945a758bb4d34612c181a4ac694f9c19b8533b67d7ae0e73a57195a31"
+      },
+      {
+        "path": "templates/build_tenants/TENANT_REGISTRY_TEMPLATE.md",
+        "sha256": "8dd5d925a82f63683c9702a5fe8732eaa4afaead626ddfe49e270fb0a79e08a9"
+      },
+      {
+        "path": "templates/build_tenants/common/README_TEMPLATE.md",
+        "sha256": "e88790f0521229ca41cadc82af434908e5d8782748ccc93eb287d0e2fb5efae8"
+      },
+      {
+        "path": "templates/build_tenants/common/design/README_TEMPLATE.md",
+        "sha256": "7bfaf3873571c9d8a267aa8acc8e47522fc48cd90cfdef9d50216c9ae008e6bd"
+      },
+      {
+        "path": "templates/build_tenants/common/design/adrs/ADR_TEMPLATE.md",
+        "sha256": "07d28d93675b86b51953b84584aa7119cf80269354a76aa2356ff18397c7c4cd"
+      },
+      {
+        "path": "templates/build_tenants/common/design/adrs/README_TEMPLATE.md",
+        "sha256": "57fd95e135d36059611bca65bc091dafb94809ab521db834a4457513f91737e7"
+      },
+      {
+        "path": "templates/build_tenants/variant/README_TEMPLATE.md",
+        "sha256": "0236d71e75b917f4b008474478eda7662e62fc7b11cc7409b8299b2e26f3ef96"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/README_TEMPLATE.md",
+        "sha256": "da70241069c9f98d09f6e179c2687966fca70a4546b9c52d2e8aee78644626e1"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/adrs/ADR_TEMPLATE.md",
+        "sha256": "d2f77e99fcbafb0b3a2603e4c5854333ae22b65d78ed82a418f7a3b9ecbd988b"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/adrs/README_TEMPLATE.md",
+        "sha256": "ae46291f42650da55c279b2aa09ac9ae1c91285b50ff73c0f4d2e538f68a3591"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/fp/INTENT_TEMPLATE.md",
+        "sha256": "76e33d7a4a75d77644eec20f6d5d3611894320eab05e36580d29cf90c28a4490"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/fp/README_TEMPLATE.md",
+        "sha256": "4542edc7e3a51bfba843530f1ee6b03fd3615f27a65d0f8815ae054225a5594c"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/fp/edge-overrides/EDGE_OVERRIDE_TEMPLATE.json",
+        "sha256": "996e1f2cd55090519e7c487ec46333afd2994a546c15190bb11d862e3a0683c4"
+      },
+      {
+        "path": "templates/build_tenants/variant/design/fp/edge-overrides/README_TEMPLATE.md",
+        "sha256": "1432362afe35b5816259e6bef0163ffc38db6639557cd4541d2804ff04d02991"
+      },
+      {
+        "path": "templates/docs/README_TEMPLATE.md",
+        "sha256": "9c3425ff8b49c2b5573e9b8f0130b7a3e5f7d3ddcc01204aec363327e0872e7f"
+      },
+      {
+        "path": "templates/requirements/README_TEMPLATE.md",
+        "sha256": "4eacc1d3604e4859b60fc29c4bc6555fcd5de11d9ca1773258eedfb398e0f4a9"
+      },
+      {
+        "path": "templates/requirements/STARTER_REQUIREMENTS_TEMPLATE.md",
+        "sha256": "67e2061e7eb7757bdb71cff5775cfea90b33b5019ba31e1509e4d456cf66e5dd"
+      }
+    ],
+    "source_root": "specification/standards"
+  },
+  "valid": true
+}

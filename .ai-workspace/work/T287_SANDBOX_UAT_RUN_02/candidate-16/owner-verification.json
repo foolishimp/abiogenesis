@@ -1,0 +1,27 @@
+{
+  "request": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "expectedArtifactDigest": "sha256:c6a8e51bdcfba28324b3158e5805510631548ea80af2374c41c19c2f03870ea0",
+    "expectedProductContentDigest": "sha256:639b89e5c5c380bedd33ec4561cefba0c6a2144ee3739277deaae1775b294785",
+    "expectedManifestDigest": "sha256:50373d79efb28c2646a18e806fced0c14a89612a5c1a4afc6bd12af4f02220dd",
+    "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "expectedPackageName": "@abiogenesis/typescript-tenant",
+    "expectedPackageVersion": "5.0.0-rc.1"
+  },
+  "projection": {
+    "kind": "verified_product_artifact",
+    "disposition": "verified",
+    "artifactDigest": "sha256:c6a8e51bdcfba28324b3158e5805510631548ea80af2374c41c19c2f03870ea0",
+    "productContentDigest": "sha256:639b89e5c5c380bedd33ec4561cefba0c6a2144ee3739277deaae1775b294785",
+    "manifestDigest": "sha256:50373d79efb28c2646a18e806fced0c14a89612a5c1a4afc6bd12af4f02220dd",
+    "catalogDigest": "sha256:8822b9829aea1688df113032c662988c4ab084dc32a5e4930ec659a039cf22ee",
+    "contributionManifestDigest": "sha256:2511a7df875a4fd22eddfca7351e2f93d01d1b94b50341db516780eea11cef66",
+    "checkedPayloadFiles": 5263
+  },
+  "startedAt": "2026-10-07T04:04:55.975Z",
+  "finishedAt": "2026-10-07T04:05:15.589Z",
+  "wallMs": 19614.481375,
+  "sourceBlindPackagedOwner": true,
+  "noInstallOrRun": true
+}

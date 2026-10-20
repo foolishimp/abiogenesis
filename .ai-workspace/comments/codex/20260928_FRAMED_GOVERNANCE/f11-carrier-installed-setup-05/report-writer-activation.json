@@ -1,0 +1,101 @@
+{
+  "kind": "separately_declared_report_writer_activation",
+  "operation": "T287_C05_SETUP_REPORT_COORDINATE_CLOSURE_01",
+  "role": "Report Writer",
+  "actor": "/root/native_applicability_design",
+  "activatedAt": "2026-10-02T03:03:13.781702+00:00",
+  "previousRole": "actual Runtime Worker stopped after all14passes; no subsequent Runtime effects",
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-setup-report-coordinate-controls-01/request.txt",
+    "bytes": 2560,
+    "sha256": "22d46a8389f9a663c6c679f129b6ee2c2765a19247275fa76f0720ff07ba6ca0"
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05",
+  "selectedChangeClass": "realization_refactor; report consumer coordinate join",
+  "resourcesInstalledEventsStateCatalog": "READONLY",
+  "effect": "remaining report/control/handoff/accounting/closure/freeze only",
+  "runtimePayloadComparisonSourceEffects": 0,
+  "protectedPreimages": [
+    {
+      "path": "close-setup-failed-attempt-01.py",
+      "bytes": 19539,
+      "sha256": "2f815ab92d1e9acf0bd0212b67e9ea5fdad3a0b9dd31b1df237557e1e830d0bd",
+      "device": 16777230,
+      "inode": 464647835,
+      "mtimeNs": 1790909415265816068
+    },
+    {
+      "path": "failed-close-report-attempt-01.json",
+      "bytes": 3479,
+      "sha256": "d44f316a3b2a9c406bdcd3fc9116953d456098c4c4052bbadcb293c509b55da3",
+      "device": 16777230,
+      "inode": 464647836,
+      "mtimeNs": 1790909415266071523
+    },
+    {
+      "path": "close-setup.py",
+      "bytes": 19539,
+      "sha256": "2f815ab92d1e9acf0bd0212b67e9ea5fdad3a0b9dd31b1df237557e1e830d0bd",
+      "device": 16777230,
+      "inode": 464647765,
+      "mtimeNs": 1790909355779718146
+    },
+    {
+      "path": "conservation.json",
+      "bytes": 14801,
+      "sha256": "8a212a6a9f14009d43334e414889c7356f8a62bdbca0728286a997139294dbd9",
+      "device": 16777230,
+      "inode": 464647772,
+      "mtimeNs": 1790909362509413701
+    },
+    {
+      "path": "installed-physical-population.json",
+      "bytes": 3155190,
+      "sha256": "19b6b333628b2ab4aed66d6bf6f0e7c4cc57b63a85e957750e8b99fb74b455b8",
+      "device": 16777230,
+      "inode": 464647773,
+      "mtimeNs": 1790909363393261991
+    },
+    {
+      "path": "installer-policy-receipts.json",
+      "bytes": 2873,
+      "sha256": "cf0ace157f74528d30ded95fb09117b9d60236ac9bffa2db150b1ed2cf1acd06",
+      "device": 16777230,
+      "inode": 464647774,
+      "mtimeNs": 1790909363393912731
+    },
+    {
+      "path": "setup-state.json",
+      "bytes": 81212382,
+      "sha256": "c945e74a41e153f07d36bff471d3b16384c1f01240fb410f7cc0cce696dcf581",
+      "device": 16777230,
+      "inode": 464647531,
+      "mtimeNs": 1790909042853708591
+    },
+    {
+      "path": "setup-closed-environment.json",
+      "bytes": 57604644,
+      "sha256": "98f49edb17f5fd86aaaf32e43cb8ec9741aabef524a32eef9e06bd722d899d69",
+      "device": 16777230,
+      "inode": 464647532,
+      "mtimeNs": 1790909043058380926
+    },
+    {
+      "path": "setup-supervisor-close.json",
+      "bytes": 5513,
+      "sha256": "d5ea48594e9463fb496d93a8012a8b0c52c911d16029a74b311639d2d3a9726b",
+      "device": 16777230,
+      "inode": 464647533,
+      "mtimeNs": 1790909043124908940
+    },
+    {
+      "path": "resources/events/runtime.events.jsonl",
+      "bytes": 2490814,
+      "sha256": "7f568a9f3136b274c77730e152097bb47bf655145041dbbc1d92b21a4b74389d",
+      "device": 16777230,
+      "inode": 464611665,
+      "mtimeNs": 1790908957448058459
+    }
+  ],
+  "afterClosure": "return to Executive; all writes stop"
+}

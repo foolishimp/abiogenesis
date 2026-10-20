@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED_CONSTRUCTION_ONLY_RUNTIME_NOT_SELECTED",
+  "identity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-35/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:5dcf9269ef302443c4a3a1aae0638c24e482d22a6a16a24bf36bcb1af6bae199",
+    "archiveBytes": 10171449,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite35-install-1nmcfph8/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite35-install-1nmcfph8",
+    "archiveMembers": 5233
+  },
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite35-install-1nmcfph8/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-35/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-35/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:5dcf9269ef302443c4a3a1aae0638c24e482d22a6a16a24bf36bcb1af6bae199",
+      "productContentDigest": "sha256:75086b0ee41ef560ed47c079a5d0fd58417ab155e7a8655e602424ae5437d294",
+      "manifestDigest": "sha256:0e241ee765520bd6d3e218239018f2a9871ce58856b5b4048e0eb3111be36350",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/frozen-subject.json",
+    "sha256": "71f591f0269f398c0f59e311b359b0fb3931c7febaf1fde896a46bc2d3e87b11"
+  },
+  "sourceReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/return.md",
+    "sha256": "a16d007ba8fb753aa286da31f510aa3003806b4f0dcfe05593ecc462a71d6123"
+  },
+  "buildInputsPreserved": 259,
+  "generatedChanged": 2,
+  "memberCorrespondence": 5233,
+  "testsReused": "Run-scope refusal compile 5.61 s and affected 7+1 passing checks reused; all preceding owner/renderer/DR01/EC/lock-graph members conserved; no rerun",
+  "nativeExecution": false
+}

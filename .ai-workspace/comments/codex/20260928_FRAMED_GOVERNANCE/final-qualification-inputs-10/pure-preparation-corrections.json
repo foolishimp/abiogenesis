@@ -1,0 +1,22 @@
+{
+  "status": "PRE_PAYLOAD",
+  "publishedOwnerCalls": 0,
+  "RuntimeEffects": 0,
+  "corrections": [
+    {
+      "kind": "actual producer physical roster",
+      "priorIncorrectMirror": "build/code/src/default_library/standards/abg_core_codex_actor_executor.mjs",
+      "actualMirror": "contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "predicate": "physical generated output union minus actual declared generated roster equals exactly pinned mirror",
+      "rationale": "owned Q10 harness path realization; no Product/law/source changes"
+    },
+    {
+      "kind": "actual frozen donor roster",
+      "correction": "ten-field postimages are basename files; typed postimages retain complete paths"
+    },
+    {
+      "kind": "complete declared recipe assets",
+      "correction": "copy all five previously omitted declared donor recipe modules before input binding"
+    }
+  ]
+}

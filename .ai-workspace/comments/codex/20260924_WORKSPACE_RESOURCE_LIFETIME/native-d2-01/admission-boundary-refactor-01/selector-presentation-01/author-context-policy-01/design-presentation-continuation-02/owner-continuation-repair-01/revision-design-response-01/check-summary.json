@@ -1,0 +1,63 @@
+{
+  "compile": {
+    "command": [
+      "./node_modules/.bin/tsc",
+      "-p",
+      "tsconfig.json",
+      "--pretty",
+      "false"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "elapsedSeconds": 5.593403708655387,
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ordinaryDesign": {
+    "passed": 2,
+    "failed": 0,
+    "source": "checks-initial.stdout",
+    "reuseAfterFixtureCorrection": "Only the new revision predicate fixture changed; these two passed results remain valid"
+  },
+  "revisionDesign": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^actual derived revision successor shares complete typed assets under the unchanged Design bound$",
+      "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "ABI5_NATIVE_D2_DESIGN_DIRECTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01",
+      "ABI5_NATIVE_D2_DESIGN_RESPONSE_PROMPT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/preparation/invocation/archives/fp-bcaafa22b0c6c1b4-prompt.txt"
+    },
+    "exitCode": 0,
+    "elapsedSeconds": 1.4513713750056922,
+    "stdoutSha256": "bd7bc77188ce6a318cbb4d11a189911a75cb9d6ed10b0e34b6c1aa5dad5fd141",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "initialFailure": {
+    "source": "checks-initial.json",
+    "cause": "New test used opaque-component-witness, which the actual emitted worker schema refuses. Corrected only the fixture to the supported module_export_return_exact with opaque equals value; no production change or schema weakening."
+  },
+  "counterexample": {
+    "revisionRequirementDomain": 29,
+    "ordinaryRequirementDomain": 15,
+    "revisionIndex14": "requirement://abiogenesis/semantic-job/6cec93b453f2df9b331e5908febb36e581998805218c49fab406ce4e9370a287",
+    "ordinaryIndex14": "requirement://abiogenesis/semantic-job/db07c18d91f1dcee127290132e58619874224e0edc21af9af0b29245818242ff",
+    "retainedPromptContractEqual": true,
+    "fullDraftBytes": 988325,
+    "maxPromptBytes": 1048576,
+    "headroomBytes": 60251,
+    "componentTypedResponseBytes": 8606,
+    "componentCanonicalResponseBytes": 24713
+  },
+  "limits": [
+    "Upstream prefix authentication, currentness and admitted role evidence are explicit component premises.",
+    "The actual existing assembly and revision completion owners execute; the full rendered actor contract equals retained core31 prompt contract.",
+    "Complete response is a new component witness, never recovered partial provider output.",
+    "No native/result admission or independent semantic adequacy inferred.",
+    "No package, runtime, provider, source-limit or Git effect."
+  ]
+}

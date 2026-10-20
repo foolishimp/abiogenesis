@@ -1,0 +1,13 @@
+{
+  "stage": "workspace-bind29-complete",
+  "rss": 4007215104,
+  "heapTotal": 3604414464,
+  "heapUsed": 3501230840,
+  "external": 2455637,
+  "arrayBuffers": 43330,
+  "at": "2026-10-09T13:45:27.886Z",
+  "elapsedMs": 221295.442459,
+  "wallMs": 1203.3975840000203,
+  "invocationRef": "invocation://abiogenesis/41e69403ff028cb44d988052ba960ac1960472dfd49ad425f26de867ae4d197d",
+  "prefixLength": 1697010144
+}

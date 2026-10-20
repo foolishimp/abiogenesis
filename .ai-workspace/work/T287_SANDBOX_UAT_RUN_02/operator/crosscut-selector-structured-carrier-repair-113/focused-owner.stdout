@@ -1,0 +1,13 @@
+✔ framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe (91.623083ms)
+(node:61626) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (50.646459ms)
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (248.3595ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 909.351042

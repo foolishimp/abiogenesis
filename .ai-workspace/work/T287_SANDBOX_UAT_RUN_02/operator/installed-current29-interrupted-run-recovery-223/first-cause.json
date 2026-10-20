@@ -1,0 +1,17 @@
+{
+  "stage": "consumer29-preverify-complete",
+  "name": "TypeError",
+  "message": "Cannot read properties of undefined (reading 'input')",
+  "stack": "TypeError: Cannot read properties of undefined (reading 'input')\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/recover-stop-source.mjs:55:168",
+  "at": "2026-10-09T17:32:08.212Z",
+  "wallMs": 20159.411165999998,
+  "memory": {
+    "rss": 1691860992,
+    "heapTotal": 1367228416,
+    "heapUsed": 1145394128,
+    "external": 97627271,
+    "arrayBuffers": 95210410
+  },
+  "actualOwnerReceipt": null,
+  "stop": "First failure; no retry, fallback34, private writer, direct unlink, model or application effects"
+}

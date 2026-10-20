@@ -1,0 +1,156 @@
+{
+  "status": "passed",
+  "cases": 18,
+  "rows": [
+    {
+      "route": "singleton",
+      "baseline": "result_contract_refused",
+      "postimage": "verified_probabilistic_result_contract_preimage",
+      "rawOwner": {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/qualification/assessment-raw@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace/37d64b65964a8bb221672d97858173cc3b46c7e82f1bc2a08012852f0bbc785c",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "publicationDigest": "sha256:aaa88e80437111006c01893986097a499e9b224c7cdb66f3656f18763409bfd7"
+      },
+      "publicationDigest": "sha256:aaa88e80437111006c01893986097a499e9b224c7cdb66f3656f18763409bfd7"
+    },
+    {
+      "route": "singleton",
+      "label": "malformed raw body",
+      "refused": "result_contract_refused"
+    },
+    {
+      "route": "singleton",
+      "label": "crossed input digest",
+      "refused": "input_contract_refused"
+    },
+    {
+      "route": "singleton",
+      "label": "crossed instruction contract",
+      "refused": "contract_identity_mismatch"
+    },
+    {
+      "route": "singleton",
+      "label": "crossed raw contract",
+      "refused": "contract_identity_mismatch"
+    },
+    {
+      "route": "singleton",
+      "label": "missing owner",
+      "refused": "absent"
+    },
+    {
+      "route": "singleton",
+      "label": "nonunique owner",
+      "refused": "ambiguous"
+    },
+    {
+      "route": "singleton",
+      "label": "incompatible owner",
+      "refused": "wrong_owner"
+    },
+    {
+      "route": "singleton",
+      "label": "unrelated ambient graph",
+      "outcome": "selected owner roster conserved; each owner binds its actual publication digest"
+    },
+    {
+      "route": "mixed",
+      "baseline": "result_contract_refused",
+      "postimage": "verified_probabilistic_result_contract_preimage",
+      "rawOwner": {
+        "declarationKind": "contract",
+        "declarationRef": "contract://abiogenesis/qualification/assessment-raw@5",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace/37d64b65964a8bb221672d97858173cc3b46c7e82f1bc2a08012852f0bbc785c",
+        "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+        "publicationDigest": "sha256:aaa88e80437111006c01893986097a499e9b224c7cdb66f3656f18763409bfd7"
+      },
+      "publicationDigest": "sha256:aaa88e80437111006c01893986097a499e9b224c7cdb66f3656f18763409bfd7"
+    },
+    {
+      "route": "mixed",
+      "label": "malformed raw body",
+      "refused": "result_contract_refused"
+    },
+    {
+      "route": "mixed",
+      "label": "crossed input digest",
+      "refused": "input_contract_refused"
+    },
+    {
+      "route": "mixed",
+      "label": "crossed instruction contract",
+      "refused": "contract_identity_mismatch"
+    },
+    {
+      "route": "mixed",
+      "label": "crossed raw contract",
+      "refused": "contract_identity_mismatch"
+    },
+    {
+      "route": "mixed",
+      "label": "missing owner",
+      "refused": "absent"
+    },
+    {
+      "route": "mixed",
+      "label": "nonunique owner",
+      "refused": "ambiguous"
+    },
+    {
+      "route": "mixed",
+      "label": "incompatible owner",
+      "refused": "wrong_owner"
+    },
+    {
+      "route": "mixed",
+      "label": "unrelated ambient graph",
+      "outcome": "selected owner roster conserved; each owner binds its actual publication digest"
+    }
+  ],
+  "inputDigest": "sha256:910738abe7190207d20bc5c0abec05de4d35f65bb82a90638264f73741f63ce0",
+  "rawDigest": "sha256:bdf89722291e6b97769931cba2c2cfac0e002e682054714b4e1ac9f2e02be042",
+  "requestDigest": "sha256:c5d12e83e7c1fd10e0bb18b3035cd3e48bf39ed4aa7fb586cdcccf38c1bf0062",
+  "rawBytes": 15860,
+  "rawDisposition": "indeterminate/unknown preserved",
+  "realOwners": [
+    "buildGraphFunctionCatalog",
+    "narrowGraphFunctionCatalog",
+    "resolveExecutionDeclarationClosure",
+    "LeafInvocationPort exact unique owner lookup",
+    "verifyProbabilisticResultContractPreimage",
+    "qualification raw schema and worker-contract selector"
+  ],
+  "suppliedLowerPremises": [
+    "Catalog readiness/workspace/install/lock record fields reused as source-component premises, not newly admitted",
+    "product/implementation-set admission booleans supplied by existing F04 VM scaffold",
+    "loaded semantics projection and installed-content authentication supplied; actual qualification validators and worker-contract selection remain unchanged"
+  ],
+  "ownerLookupOrVerifierMocked": false,
+  "verificationPreimageSupplied": false,
+  "actualInstallOrAdmission": false,
+  "helperProviderOrRuntimeCalls": 0,
+  "requiredNext": "Root accepted successor construction/install and actual whole child-J-foldback/F11/AF22 proof",
+  "elapsedMs": 347.32883300000003,
+  "processUsage": {
+    "userCPUTime": 675657,
+    "systemCPUTime": 70778,
+    "maxRSS": 388704,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 30732,
+    "majorPageFault": 82,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 3,
+    "ipcReceived": 0,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 0,
+    "involuntaryContextSwitches": 1237
+  }
+}

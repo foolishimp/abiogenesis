@@ -1,0 +1,10 @@
+✔ Seven exact original workloads authenticate source, request and independent oracle before use (10.277292ms)
+✔ Resolved toolchain identity and configured environment flow into the canonical owner carrier (1.75975ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 271.729917

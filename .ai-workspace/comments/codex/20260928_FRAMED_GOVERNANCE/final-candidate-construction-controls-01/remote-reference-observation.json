@@ -1,0 +1,819 @@
+{
+  "kind": "prospective_release_reference_observation",
+  "observedDate": "2026-09-30",
+  "route": "connected GitHub read-only GET",
+  "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/matching-refs/tags",
+  "rows": [
+    {
+      "ref": "refs/tags/v0.1.6",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjAuMS42",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v0.1.6",
+      "object": {
+        "sha": "36b11b81380d6d904726024c5c2ef1c912130c25",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/36b11b81380d6d904726024c5c2ef1c912130c25"
+      }
+    },
+    {
+      "ref": "refs/tags/v0.1.7",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjAuMS43",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v0.1.7",
+      "object": {
+        "sha": "7c9c8c670e9398d07d0b23838b53a59b014beff3",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/7c9c8c670e9398d07d0b23838b53a59b014beff3"
+      }
+    },
+    {
+      "ref": "refs/tags/v0.2.0",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjAuMi4w",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v0.2.0",
+      "object": {
+        "sha": "a5fae29ce24ece71fbdcdadda914fd65d0b2cd00",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/a5fae29ce24ece71fbdcdadda914fd65d0b2cd00"
+      }
+    },
+    {
+      "ref": "refs/tags/v0.2.1",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjAuMi4x",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v0.2.1",
+      "object": {
+        "sha": "4312681fd6ed7259efcc563cb7f2dc3b4b918f92",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/4312681fd6ed7259efcc563cb7f2dc3b4b918f92"
+      }
+    },
+    {
+      "ref": "refs/tags/v0.4.0",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjAuNC4w",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v0.4.0",
+      "object": {
+        "sha": "a2906af228d94390d691cc7c295e4822f0f15854",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/a2906af228d94390d691cc7c295e4822f0f15854"
+      }
+    },
+    {
+      "ref": "refs/tags/v0.5.0",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjAuNS4w",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v0.5.0",
+      "object": {
+        "sha": "9509ed5a6cc65f26e0243acc1ffbd7fa68646d60",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/9509ed5a6cc65f26e0243acc1ffbd7fa68646d60"
+      }
+    },
+    {
+      "ref": "refs/tags/v0.5.1",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjAuNS4x",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v0.5.1",
+      "object": {
+        "sha": "8c793d3554de2d39d3c5a696d1868130f8a77688",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/8c793d3554de2d39d3c5a696d1868130f8a77688"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.0.0",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjEuMC4w",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.0.0",
+      "object": {
+        "sha": "7adb30d93c5d7e9829334108686e0fb893f5ca76",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/7adb30d93c5d7e9829334108686e0fb893f5ca76"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.0.0-beta",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjEuMC4wLWJldGE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.0.0-beta",
+      "object": {
+        "sha": "76d056e81ea6e7a9096e25094c1e32a389f7c16d",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/76d056e81ea6e7a9096e25094c1e32a389f7c16d"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.0.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjEuMC4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.0.0-rc.1",
+      "object": {
+        "sha": "fb77fc52ff5ee0a55b9d0d225750a728045d1b92",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/fb77fc52ff5ee0a55b9d0d225750a728045d1b92"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.0.3",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjEuMC4z",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.0.3",
+      "object": {
+        "sha": "575596282dbb8e0c15e8e2a94643073904a10544",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/575596282dbb8e0c15e8e2a94643073904a10544"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjEuMS4w",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0",
+      "object": {
+        "sha": "0dbd0a9b38250e042db0a4d6b03ca28465e53781",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/0dbd0a9b38250e042db0a4d6b03ca28465e53781"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.1",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi4x",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.1",
+      "object": {
+        "sha": "36e0d397909c1032bee180516212b9b701aef78f",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/36e0d397909c1032bee180516212b9b701aef78f"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.10",
+      "node_id": "REF_kwDORnb2AbdyZWZzL3RhZ3MvdjEuMS4wLWRldi4xMA",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.10",
+      "object": {
+        "sha": "9d02101cf85ad3905f26ca7d2a119eddaef86f3e",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/9d02101cf85ad3905f26ca7d2a119eddaef86f3e"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.11",
+      "node_id": "REF_kwDORnb2AbdyZWZzL3RhZ3MvdjEuMS4wLWRldi4xMQ",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.11",
+      "object": {
+        "sha": "6ca952f8a621799fc331d3d512e36d1570cdd137",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/6ca952f8a621799fc331d3d512e36d1570cdd137"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.12",
+      "node_id": "REF_kwDORnb2AbdyZWZzL3RhZ3MvdjEuMS4wLWRldi4xMg",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.12",
+      "object": {
+        "sha": "c0460b8cbb966a3f897b35b9068349b3e9fe4f0c",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/c0460b8cbb966a3f897b35b9068349b3e9fe4f0c"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.2",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi4y",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.2",
+      "object": {
+        "sha": "4820c392247c5902052a2b7f465d2fbe5844b6d9",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/4820c392247c5902052a2b7f465d2fbe5844b6d9"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.3",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi4z",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.3",
+      "object": {
+        "sha": "989201f83c496a7dadd390a4394777a4e42808ea",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/989201f83c496a7dadd390a4394777a4e42808ea"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.4",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi40",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.4",
+      "object": {
+        "sha": "cdaba450dd2aebaa4058eae3c830ef38df140c36",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/cdaba450dd2aebaa4058eae3c830ef38df140c36"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.5",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi41",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.5",
+      "object": {
+        "sha": "815c456f20a015b1e0f319a65f3422b18312af11",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/815c456f20a015b1e0f319a65f3422b18312af11"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.6",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi42",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.6",
+      "object": {
+        "sha": "8fee22603dd37b0631ec8f74cbd527793cd8b7dd",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/8fee22603dd37b0631ec8f74cbd527793cd8b7dd"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.7",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi43",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.7",
+      "object": {
+        "sha": "7ab4405dd2596b36b6b5552916e4457e166b8cf1",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/7ab4405dd2596b36b6b5552916e4457e166b8cf1"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.8",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi44",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.8",
+      "object": {
+        "sha": "70a56f4bea09bf24419f08dd8e42fd178f80963f",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/70a56f4bea09bf24419f08dd8e42fd178f80963f"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.0-dev.9",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjEuMS4wLWRldi45",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.0-dev.9",
+      "object": {
+        "sha": "a8fce61efd7c0176232f2372e66f7fe6b4132d25",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/a8fce61efd7c0176232f2372e66f7fe6b4132d25"
+      }
+    },
+    {
+      "ref": "refs/tags/v1.1.1",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjEuMS4x",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v1.1.1",
+      "object": {
+        "sha": "a6b2928dd5c2a255058f70bc859ffeb443379b1f",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/a6b2928dd5c2a255058f70bc859ffeb443379b1f"
+      }
+    },
+    {
+      "ref": "refs/tags/v2.0.0",
+      "node_id": "REF_kwDORnb2AbByZWZzL3RhZ3MvdjIuMC4w",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v2.0.0",
+      "object": {
+        "sha": "493b7f9d6199d0d773b4951fb5dca50dd3d613ce",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/493b7f9d6199d0d773b4951fb5dca50dd3d613ce"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.1.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuMS4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.1.0-rc.1",
+      "object": {
+        "sha": "eef4cd6717108f89ae41c2b50a233b9befa06252",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/eef4cd6717108f89ae41c2b50a233b9befa06252"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.2.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuMi4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.2.0-rc.1",
+      "object": {
+        "sha": "e63620bda608efbbe7ba30754ca2dae78452b4ed",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/e63620bda608efbbe7ba30754ca2dae78452b4ed"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.3.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuMy4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.3.0-rc.1",
+      "object": {
+        "sha": "cf761b7fac28d67968a56c4a158e86b2921199b9",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/cf761b7fac28d67968a56c4a158e86b2921199b9"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.3.0-rc.2",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuMy4wLXJjLjI",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.3.0-rc.2",
+      "object": {
+        "sha": "025398514ff0ea5da929c6d2851d7f86772966d4",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/025398514ff0ea5da929c6d2851d7f86772966d4"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.4.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNC4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.4.0-rc.1",
+      "object": {
+        "sha": "a3295525d362038556dc8181e543a949eef69686",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/a3295525d362038556dc8181e543a949eef69686"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.4.0-rc.2",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNC4wLXJjLjI",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.4.0-rc.2",
+      "object": {
+        "sha": "be6de2a0d2069903b0291c15b064ff370097650e",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/be6de2a0d2069903b0291c15b064ff370097650e"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.4.0-rc.3",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNC4wLXJjLjM",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.4.0-rc.3",
+      "object": {
+        "sha": "e85f6d8dd50722a92309d394f0fa9793603bae91",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/e85f6d8dd50722a92309d394f0fa9793603bae91"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.4.0-rc.4",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNC4wLXJjLjQ",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.4.0-rc.4",
+      "object": {
+        "sha": "63f88f12e0d6431cfc0c9b135581b0dcfcda2029",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/63f88f12e0d6431cfc0c9b135581b0dcfcda2029"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.4.0-rc.5",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNC4wLXJjLjU",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.4.0-rc.5",
+      "object": {
+        "sha": "c19b4114e11fd97bec2248335b2c5cb24145890d",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/c19b4114e11fd97bec2248335b2c5cb24145890d"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.4.0-rc.6",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNC4wLXJjLjY",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.4.0-rc.6",
+      "object": {
+        "sha": "e6d763cedb9b2cf9eb1c7502afb90692355e7999",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/e6d763cedb9b2cf9eb1c7502afb90692355e7999"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.4.0-rc.6+build.20260503.1",
+      "node_id": "REF_kwDORnb2AdoAJnJlZnMvdGFncy92My40LjAtcmMuNitidWlsZC4yMDI2MDUwMy4x",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.4.0-rc.6+build.20260503.1",
+      "object": {
+        "sha": "f3230bb257176e98aa25d218bc429c021b49f0b2",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/f3230bb257176e98aa25d218bc429c021b49f0b2"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.4.0-rc.7",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNC4wLXJjLjc",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.4.0-rc.7",
+      "object": {
+        "sha": "75a736de42e3f74af994cce84900d40d24449e05",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/75a736de42e3f74af994cce84900d40d24449e05"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.5.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNS4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.5.0-rc.1",
+      "object": {
+        "sha": "d741ce7324a3f85ddffe7a047a47534e336c58ab",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/d741ce7324a3f85ddffe7a047a47534e336c58ab"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.5.0-rc.2",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNS4wLXJjLjI",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.5.0-rc.2",
+      "object": {
+        "sha": "e70c69e0f46ed935a688e3d3091ff5868c11e3eb",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/e70c69e0f46ed935a688e3d3091ff5868c11e3eb"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.6.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNi4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.6.0-rc.1",
+      "object": {
+        "sha": "96db79dec605c2a5cf74bbddeaccdd082202622c",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/96db79dec605c2a5cf74bbddeaccdd082202622c"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.7.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNy4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.7.0-rc.1",
+      "object": {
+        "sha": "4cfedff46aaf08ec537fbc6c0fb78c2ab6dd394b",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/4cfedff46aaf08ec537fbc6c0fb78c2ab6dd394b"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.7.1-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNy4xLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.7.1-rc.1",
+      "object": {
+        "sha": "d82e25471ff7534511c52a60b5f6b3f22bab6909",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/d82e25471ff7534511c52a60b5f6b3f22bab6909"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.7.1-rc.2",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNy4xLXJjLjI",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.7.1-rc.2",
+      "object": {
+        "sha": "b29cc0182f1816c21bc057c7c61ae02a9c8406c6",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/b29cc0182f1816c21bc057c7c61ae02a9c8406c6"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.7.1-rc.3",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNy4xLXJjLjM",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.7.1-rc.3",
+      "object": {
+        "sha": "6190d84b389b3d6f0016e85e3e84cb07bc789383",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/6190d84b389b3d6f0016e85e3e84cb07bc789383"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.7.1-rc.4",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuNy4xLXJjLjQ",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.7.1-rc.4",
+      "object": {
+        "sha": "44eaebddbae9c43d5d6a4f4de146e16d8db6ed0b",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/44eaebddbae9c43d5d6a4f4de146e16d8db6ed0b"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.8.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOC4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.8.0-rc.1",
+      "object": {
+        "sha": "99d0d0ed6f9dea335f7ec8f989a57a4ac71cfa5e",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/99d0d0ed6f9dea335f7ec8f989a57a4ac71cfa5e"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.8.0-rc.2",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOC4wLXJjLjI",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.8.0-rc.2",
+      "object": {
+        "sha": "24a2c4e09d5eca08a0ff6d385bdd5eaa02cc82e0",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/24a2c4e09d5eca08a0ff6d385bdd5eaa02cc82e0"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.8.0-rc.3",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOC4wLXJjLjM",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.8.0-rc.3",
+      "object": {
+        "sha": "7d709332442ce7a7be8bc568b8180de0a4532041",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/7d709332442ce7a7be8bc568b8180de0a4532041"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.8.0-rc.5",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOC4wLXJjLjU",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.8.0-rc.5",
+      "object": {
+        "sha": "be70cdf1443c083510bfd14a0a3fac7cf43e3f2e",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/be70cdf1443c083510bfd14a0a3fac7cf43e3f2e"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.1",
+      "object": {
+        "sha": "f4248cf0116b6dbfe4180052ecc34e8c9de0e8ff",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/f4248cf0116b6dbfe4180052ecc34e8c9de0e8ff"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.10",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjMuOS4wLXJjLjEw",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.10",
+      "object": {
+        "sha": "276f942b780adc0590b1acc128ea82a9b7a57f26",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/276f942b780adc0590b1acc128ea82a9b7a57f26"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.11",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjMuOS4wLXJjLjEx",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.11",
+      "object": {
+        "sha": "13d4f856e5ae1eebe93e324058cf7d817522ed0f",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/13d4f856e5ae1eebe93e324058cf7d817522ed0f"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.12",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjMuOS4wLXJjLjEy",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.12",
+      "object": {
+        "sha": "b54c9e7bbb23d26cbe2a91a53b1bc19ea5b2563e",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/b54c9e7bbb23d26cbe2a91a53b1bc19ea5b2563e"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.2",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjI",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.2",
+      "object": {
+        "sha": "51e7e0f92b17632c6b5d4cc6319b46a45edf0f42",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/51e7e0f92b17632c6b5d4cc6319b46a45edf0f42"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.3",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjM",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.3",
+      "object": {
+        "sha": "bf5b1072b1445cddd55722927cec89e61f85baa5",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/bf5b1072b1445cddd55722927cec89e61f85baa5"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.4",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjQ",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.4",
+      "object": {
+        "sha": "2495ce10ba5d08796172abcc65eadcde36ff171f",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/2495ce10ba5d08796172abcc65eadcde36ff171f"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.5",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjU",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.5",
+      "object": {
+        "sha": "db53de9daa62cdbb75597b0fc4b5d35c6e97e267",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/db53de9daa62cdbb75597b0fc4b5d35c6e97e267"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.6",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjY",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.6",
+      "object": {
+        "sha": "4f9b484c58094e07ec115109a2b40d9ca3bb8d64",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/4f9b484c58094e07ec115109a2b40d9ca3bb8d64"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.7",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjc",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.7",
+      "object": {
+        "sha": "0e697c0d1b02fc36a560dfa29f6884900d12e77a",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/0e697c0d1b02fc36a560dfa29f6884900d12e77a"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.8",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjg",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.8",
+      "object": {
+        "sha": "08acad8c2b0911cca33e522aaabb857c14a94219",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/08acad8c2b0911cca33e522aaabb857c14a94219"
+      }
+    },
+    {
+      "ref": "refs/tags/v3.9.0-rc.9",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjMuOS4wLXJjLjk",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v3.9.0-rc.9",
+      "object": {
+        "sha": "471d2b50fc51a1ce70b1b5799ca8b4acfc0ca472",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/471d2b50fc51a1ce70b1b5799ca8b4acfc0ca472"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.0.0-rc.1",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuMC4wLXJjLjE",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.0.0-rc.1",
+      "object": {
+        "sha": "1721da354dfd40eb4708b6d3e06da75edfa542bb",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/1721da354dfd40eb4708b6d3e06da75edfa542bb"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.0.0-rc.19",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjQuMC4wLXJjLjE5",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.0.0-rc.19",
+      "object": {
+        "sha": "343368bd5b3251da4b2ba9c0b1606f8d68dbbc11",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/343368bd5b3251da4b2ba9c0b1606f8d68dbbc11"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.0.0-rc.20",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjQuMC4wLXJjLjIw",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.0.0-rc.20",
+      "object": {
+        "sha": "ebb1a6aa0b4f6940728621678150b752af11ea6b",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/ebb1a6aa0b4f6940728621678150b752af11ea6b"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.0.0-rc.21",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjQuMC4wLXJjLjIx",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.0.0-rc.21",
+      "object": {
+        "sha": "67a9bdd165f956bb713c9e290270d99e56badf30",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/67a9bdd165f956bb713c9e290270d99e56badf30"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.0.0-rc.3",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuMC4wLXJjLjM",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.0.0-rc.3",
+      "object": {
+        "sha": "c63b300d915a8b85fc8536690ec304c3ac4b197a",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/c63b300d915a8b85fc8536690ec304c3ac4b197a"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.0.0-rc.4",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuMC4wLXJjLjQ",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.0.0-rc.4",
+      "object": {
+        "sha": "d6642f0a6ab4531b6f113041e40530a0d32e75ed",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/d6642f0a6ab4531b6f113041e40530a0d32e75ed"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.1.0-rc.12",
+      "node_id": "REF_kwDORnb2AbZyZWZzL3RhZ3MvdjQuMS4wLXJjLjEy",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.1.0-rc.12",
+      "object": {
+        "sha": "eba2615622d0826815f8f70d501a4ed8123a8834",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/eba2615622d0826815f8f70d501a4ed8123a8834"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.1.0-rc.2",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuMS4wLXJjLjI",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.1.0-rc.2",
+      "object": {
+        "sha": "ade5245f0808d2a56ea8253602c86ce392ef175c",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/ade5245f0808d2a56ea8253602c86ce392ef175c"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.1.0-rc.3",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuMS4wLXJjLjM",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.1.0-rc.3",
+      "object": {
+        "sha": "0fb2b78c2a19218b8a84b5b1eca80ba70c40942d",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/0fb2b78c2a19218b8a84b5b1eca80ba70c40942d"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.1.0-rc.7",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuMS4wLXJjLjc",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.1.0-rc.7",
+      "object": {
+        "sha": "a2f3ee30ec593672761ec63fd7c6d5537898a259",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/a2f3ee30ec593672761ec63fd7c6d5537898a259"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.2.0-rc.4",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuMi4wLXJjLjQ",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.2.0-rc.4",
+      "object": {
+        "sha": "bcf880aab498bded443346783b9c5da62f637b55",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/bcf880aab498bded443346783b9c5da62f637b55"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.2.0-rc.6",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuMi4wLXJjLjY",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.2.0-rc.6",
+      "object": {
+        "sha": "cd486e8129515b1017d8f0d2d9a81ceddf643678",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/cd486e8129515b1017d8f0d2d9a81ceddf643678"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.5.0-rc.4",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuNS4wLXJjLjQ",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.5.0-rc.4",
+      "object": {
+        "sha": "8d80d63ac674dd78bf58ef9edc9bdc9434b4378e",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/8d80d63ac674dd78bf58ef9edc9bdc9434b4378e"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.5.0-rc.5",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuNS4wLXJjLjU",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.5.0-rc.5",
+      "object": {
+        "sha": "446abe149643dcb78239aae6855b634ebb27260a",
+        "type": "commit",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/commits/446abe149643dcb78239aae6855b634ebb27260a"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.6.0-rc.3",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuNi4wLXJjLjM",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.6.0-rc.3",
+      "object": {
+        "sha": "2f546972b69e14a023baac10ca59bfa05687b955",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/2f546972b69e14a023baac10ca59bfa05687b955"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.6.0-rc.4",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuNi4wLXJjLjQ",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.6.0-rc.4",
+      "object": {
+        "sha": "f83015a3b04502d4bb76ac23691daa65470b10bf",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/f83015a3b04502d4bb76ac23691daa65470b10bf"
+      }
+    },
+    {
+      "ref": "refs/tags/v4.6.0-rc.5",
+      "node_id": "REF_kwDORnb2AbVyZWZzL3RhZ3MvdjQuNi4wLXJjLjU",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v4.6.0-rc.5",
+      "object": {
+        "sha": "2eb388449626a846982ec95982e6dd82b849ec9b",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/2eb388449626a846982ec95982e6dd82b849ec9b"
+      }
+    },
+    {
+      "ref": "refs/tags/v5.0.0-dev.286",
+      "node_id": "REF_kwDORnb2AbhyZWZzL3RhZ3MvdjUuMC4wLWRldi4yODY",
+      "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/refs/tags/v5.0.0-dev.286",
+      "object": {
+        "sha": "4bb13754c262cb6af7ef61f59b339320add34fa4",
+        "type": "tag",
+        "url": "https://api.github.com/repos/foolishimp/abiogenesis/git/tags/4bb13754c262cb6af7ef61f59b339320add34fa4"
+      }
+    }
+  ],
+  "localObservation": {
+    "tagCount": 80,
+    "relevant": [
+      {
+        "ref": "refs/tags/v5.0.0-dev.286",
+        "object": "4bb13754c262cb6af7ef61f59b339320add34fa4"
+      }
+    ]
+  },
+  "shellGitObservation": "ls-remote failed DNS resolution; no native Git network success inferred",
+  "disposition": "Prospective ordinal 1 selected; publication must reacquire exact refs at its own effect boundary."
+}

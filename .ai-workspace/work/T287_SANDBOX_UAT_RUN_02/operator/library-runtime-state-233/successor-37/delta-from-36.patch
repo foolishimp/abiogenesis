@@ -1,0 +1,326 @@
+--- a/code/src/abg/deferred_application.ts
++++ b/code/src/abg/deferred_application.ts
+@@ -12,12 +12,16 @@
+   type DurablePrefixCoordinate,
+ } from "./event_store.js";
+ import {
+-  runtimeEventBodiesAtPrefix,
++  projectOwnedRuntimeEventPrefixAtDurablePrefix,
++  selectRuntimeEventPrefixFromAuthority,
+   selectValidatedRuntimeEventPrefix,
++  type RuntimeEventPrefix,
+ } from "./event_prefix.js";
+ import {
+-  replayValidatedRuntimeEventPrefix,
++  materializeRuntimeReplayGuard,
++  projectRuntimeReplayGuard,
+   type ReplayState,
++  type RuntimeReplayGuard,
+ } from "./replay.js";
+ 
+ export interface DeferredApplicationProjection {
+@@ -50,7 +54,44 @@
+   const currentPrefix = selectValidatedRuntimeEventPrefix(snapshot, {
+     runId: coordinates.runId,
+   });
+-  const events = runtimeEventBodiesAtPrefix(currentPrefix);
++  const projected = projectDeferredApplication(currentPrefix, fullPrefix, coordinates);
++  return projected === null ? null : deepFreeze({
++    ...projected,
++    replayState: materializeRuntimeReplayGuard(projected.replayState),
++  });
++}
++
++/** @internal Same canonical deferred truth at the genuine selected owner cut. */
++export type OwnedDeferredApplicationProjection =
++  Omit<DeferredApplicationProjection, "replayState"> & {
++    readonly replayState: RuntimeReplayGuard;
++  };
++
++/** @internal */
++type DeferredApplicationCoordinates = Readonly<{
++  runId: string;
++  frameId: string;
++  sourceCursorRef: string;
++  cCallRef: string;
++  resultRef: string;
++  judgmentRef: string;
++}>;
++
++/** @internal Ordinary restoration does not request a complete historical output. */
++export function projectOwnedDeferredApplicationAtPrefix(
++  predecessorPrefix: DurablePrefixCoordinate,
++  coordinates: DeferredApplicationCoordinates,
++): OwnedDeferredApplicationProjection | null {
++  const authority = projectOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
++  const current = selectRuntimeEventPrefixFromAuthority(authority, { runId: coordinates.runId });
++  return projectDeferredApplication(current, authority, coordinates);
++}
++
++function projectDeferredApplication(
++  currentPrefix: RuntimeEventPrefix,
++  fullPrefix: RuntimeEventPrefix,
++  coordinates: DeferredApplicationCoordinates,
++): OwnedDeferredApplicationProjection | null {
+   const judgmentEvent = indexedRuntimeEvents(currentPrefix, "related:" + coordinates.cCallRef).find(
+     (event) =>
+       event.kind === "c_call_judged" &&
+@@ -101,7 +142,7 @@
+     // The producer remains the original judgment, while restoration must bind
+     // the exact supplied completion prefix, including later probe facts. The
+     // live Run/frame/locus/judgment checks above still govern that prefix.
+-    replayState: replayValidatedRuntimeEventPrefix(
++    replayState: projectRuntimeReplayGuard(
+       currentPrefix,
+       fullPrefix,
+     ),
+--- a/code/src/hog/recursion_lifecycle.ts
++++ b/code/src/hog/recursion_lifecycle.ts
+@@ -1,6 +1,7 @@
+ import * as Abg from "../abg/index.js";
+ import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
+ import { projectOwnedAdmittedLeafCCallOutcomeAtPrefix } from "../abg/c_call.js";
++import { projectOwnedDeferredApplicationAtPrefix } from "../abg/deferred_application.js";
+ import { projectChildFoldbackTruth } from "../abg/child_lifecycle.js";
+ import { indexedRuntimeEvents } from "../abg/event_prefix.js";
+ import {
+@@ -265,7 +266,7 @@
+ ): OwnedExecutableTraversalCompletion | null {
+   const state = deferredApplicationState(input);
+   if (state === null) return null;
+-  const projected = Abg.projectDeferredApplicationAtPrefix(
++  const projected = projectOwnedDeferredApplicationAtPrefix(
+     state.input.predecessorPrefix,
+     {
+     runId: state.cCall.runId,
+@@ -322,14 +323,30 @@
+ function requireDeferredApplication(
+   completionValue: OwnedExecutableTraversalCompletion,
+   restoration: RestoreDeferredRecursionInput,
++  complete = false,
+ ): DeferredApplicationState {
+   const state = deferredApplicationState(restoration);
+   const projected = restoreOwnedDeferredRecursion(restoration);
+   if (state === null || projected === null ||
+-      !sameCanonical(completionValue, projected)) {
++      !deferredRecursionCompletionsMatch(completionValue, projected, complete)) {
+     throw new TypeError("deferred application differs from admitted truth");
+   }
+   return state;
++}
++
++function deferredRecursionCompletionsMatch(
++  actual: OwnedExecutableTraversalCompletion,
++  projected: OwnedExecutableTraversalCompletion,
++  complete: boolean,
++): boolean {
++  if (complete) {
++    return sameCanonical(actual,
++      completePublicOutcome<ExecutableTraversalCompletion>(projected));
++  }
++  const { replayState: actualReplay, ...actualFields } = actual;
++  const { replayState: projectedReplay, ...projectedFields } = projected;
++  return OwnedReplay.runtimeReplayGuardsHaveSameOwnedCut(actualReplay, projectedReplay) &&
++    sameCanonical(actualFields, projectedFields);
+ }
+ 
+ function finishRecursionTerminal(
+@@ -586,6 +603,13 @@
+       prepared: PreparedChildTraversal;
+       correlationId: string;
+     }> {
++  return beginRecursionApplicationUsing(input, false);
++}
++
++function beginRecursionApplicationUsing(
++  input: Parameters<typeof beginOwnedRecursionApplication>[0],
++  complete: boolean,
++): ReturnType<typeof beginOwnedRecursionApplication> {
+     const { application, traversalInput, leafOrdinal } = input;
+     const coordinates = input.completion;
+     if (coordinates.cCallRef === null || coordinates.resultRef === null ||
+@@ -605,7 +629,7 @@
+       judgmentRef: coordinates.judgmentRef,
+     };
+     const restored = restoreOwnedDeferredRecursion(restoration);
+-    if (restored === null || !sameCanonical(restored, coordinates)) {
++    if (restored === null || !deferredRecursionCompletionsMatch(coordinates, restored, complete)) {
+       return failRecursionInput(input,
+         coordinates.successorPrefix,
+         `recursion-restoration-${leafOrdinal}`,
+@@ -752,7 +776,15 @@
+   frame: OwnedRecursionChildFoldFrame,
+   child: OwnedExecutableTraversalCompletion,
+ ): OwnedExecutableTraversalCompletion {
+-  const state = requireDeferredApplication(frame.restored, frame.restoration);
++  return completeRecursionChildUsing(frame, child, false);
++}
++
++function completeRecursionChildUsing(
++  frame: OwnedRecursionChildFoldFrame,
++  child: OwnedExecutableTraversalCompletion,
++  complete: boolean,
++): OwnedExecutableTraversalCompletion {
++  const state = requireDeferredApplication(frame.restored, frame.restoration, complete);
+   const clock: ExecutionClock = {
+     eventTime: frame.parentClock.eventTime,
+     correlationId:
+@@ -1086,12 +1118,12 @@
+       frame: RecursionChildFoldFrame;
+       prepared: PreparedChildTraversal;
+       correlationId: string;
+-    }>>(beginOwnedRecursionApplication(input));
++    }>>(beginRecursionApplicationUsing(input, true));
+ }
+ 
+ export function completeRecursionChild(
+   frame: RecursionChildFoldFrame,
+   child: ExecutableTraversalCompletion
+ ): ExecutableTraversalCompletion {
+-  return completePublicOutcome<ExecutableTraversalCompletion>(completeOwnedRecursionChild(frame, child));
+-}
++  return completePublicOutcome<ExecutableTraversalCompletion>(completeRecursionChildUsing(frame, child, true));
++}
+--- a/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ b/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -130,6 +130,19 @@
+ planning similarly carries its finite checked suffix and replay guard internally;
+ its explicit Public plan and admission outputs keep their complete meanings.
+ Raw, copied and cold prefixes retain the original checks at those owners.
++
++Deferred recursion uses one canonical projection of the original admitted
++Result/Judgment and the supplied Run/frame/locus prefix, including later probe
++facts. Its ordinary restoration carries that owner's replay guard. Begin and
++child-foldback comparisons require the genuine same selected runtime/authority
++cut and every remaining completion field; a complete Public ReplayState is not
++the private carrier merely because its replay digest agrees. The explicit Public
++restore, begin and child-completion boundaries retain complete replay inputs,
++outputs and full canonical equality against that same projection. Null,
++copied/foreign guards, changed cuts, producer coordinates and currentness retain
++their original refusal meaning; no comparison manufactures admission or Source
++authority. The installed08 refusal did not capture which restoration disjunct
++failed, so the representation repair does not claim that branch was observed.
+ 
+ That ordinary path includes the structural operator's route commit and declared
+ retry failure/resume callees, even where an existing exported operator has a
+--- a/test_env/tests/t287-route-reconstruction.test.mjs
++++ b/test_env/tests/t287-route-reconstruction.test.mjs
+@@ -107,7 +107,7 @@
+  const rows=acquired.store.readAll(),close=acquired.store.projectReopenAuthorityAndClose();
+  assert.equal(close.prefix.storeIdentity.eventContractDigest,store.ROOT_EVENT_CONTRACT_DIGEST);
+  const authority=prefix.selectValidatedRuntimeEventPrefix(rows);
+- return {...acquired,close,prefix:close.prefix,rows,route,authority,run:prefix.selectRuntimeEventPrefixFromAuthority(authority,{runId})};
++ return {...acquired,close,prefix:close.prefix,rows,route,cursor,authority,run:prefix.selectRuntimeEventPrefixFromAuthority(authority,{runId})};
+ }
+ async function observedReplay(file){
+  const built=resolve(import.meta.dirname,'../../build/code/src/abg/replay.js');
+@@ -313,6 +313,109 @@
+  const authority=prefix.selectRuntimeEventPrefixFromStore(reopened.store),run=prefix.selectRuntimeEventPrefixFromAuthority(authority,{runId:f.route.runId});
+  return {...reopened,authority,run};
+ }
++// Actual deferred/cut/replay and recursion computations. The finite fixture
++// controls only leaf selection, cursor decision and child preparation; it does
++// not claim installed GTL/native/child admission or the actual08 inner branch.
++async function deferredRecursionOwner(leaf,prepare) {
++ const built=resolve(import.meta.dirname,'../../build/code/src/hog/recursion_lifecycle.js');
++ const module=new SourceTextModule(fs.readFileSync(built,'utf8')+'\nexport {deferredRecursionCompletionsMatch};',{identifier:built});
++ await module.link(async spec=>{
++  const values={...await import(spec.startsWith('.')?pathToFileURL(resolve(dirname(built),spec)).href:spec)};
++  if(spec==='../abg/c_call.js')values.projectOwnedAdmittedLeafCCallOutcomeAtPrefix=leaf;
++  if(spec==='./traversal.js')values.deriveCompletedTraversalCursor=()=>null;
++  if(spec==='../gtl/graph_applications.js')values.recursionTerminationDecision=()=>false;
++  if(spec==='./child_traversal.js')values.prepareChildTraversal=prepare;
++  return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});
++ });await module.evaluate();return module.namespace;
++}
++test('owned deferred recursion restores and begins at the exact cut while Public wrappers keep complete values',async t=>{
++ const f=terminalOwner(t),o=ownedTerminal(t,f);
++ const deferred=await import('../../build/code/src/abg/deferred_application.js');
++ const completion=await import('../../build/code/src/hog/traversal_completion.js');
++ const outcomes=await import('../../build/code/src/abg/c_call_outcome.js');
++ const ccall=await import('../../build/code/src/hog/ccall_lifecycle.js');
++ const opened=f.rows.find(e=>e.kind==='c_call_opened'),resultEvent=f.rows.find(e=>e.kind==='c_call_result_admitted'),
++  judgmentEvent=f.rows.find(e=>e.kind==='c_call_judged');
++ const cut=store.durableRuntimeEventPrefixThroughEvent(o.prefix,judgmentEvent.eventId);
++ const beforeJudgment=store.durableRuntimeEventPrefixThroughEvent(o.prefix,resultEvent.eventId);
++ const coordinates={runId:opened.runId,frameId:opened.frameId,sourceCursorRef:f.cursor.cursorRef,
++  cCallRef:opened.payload.cCallRef,resultRef:resultEvent.payload.resultRef,judgmentRef:judgmentEvent.payload.judgmentRef};
++ const selected=deferred.projectOwnedDeferredApplicationAtPrefix(cut,coordinates),full=deferred.projectDeferredApplicationAtPrefix(cut,coordinates);
++ assert.ok(selected);assert.ok(full);
++ const explicitAuthority=cold(f.rows.filter(e=>e.admissionOrdinal<=judgmentEvent.admissionOrdinal));
++ const explicitRun=prefix.selectRuntimeEventPrefixFromAuthority(explicitAuthority,{runId:coordinates.runId});
++ const explicitReplay=replay.replayValidatedRuntimeEventPrefix(explicitRun,explicitAuthority);
++ assert.deepEqual(full,{...selected,replayState:explicitReplay});assert.equal(sha256Canonical(full),sha256Canonical({...selected,replayState:explicitReplay}));
++ assert.deepEqual(replay.materializeRuntimeReplayGuard(selected.replayState),explicitReplay);
++ assert.equal(Object.hasOwn(selected.replayState,'cCalls'),false);
++ const application=deepFreeze({applicationRef:'application://component/recursion',relationKind:'recurse',graphFunctionRef:'graph-function://component/child',
++  inputContractRef:'contract://component/child-input',outputContractRef:'contract://component/child-output',bound:3});
++ const cCall={...opened.payload,runId:opened.runId,compositionRef:application.applicationRef,admissionEventRef:opened.eventId};
++ const result={...resultEvent.payload,admissionEventRef:resultEvent.eventId},judgment={...judgmentEvent.payload,admissionEventRef:judgmentEvent.eventId};
++ const graph=deepFreeze({template:{applications:[application]}}),scope=deepFreeze({scopeRef:'scope://component',runId:opened.runId,
++  graphCallId:opened.graphCallId,frameId:opened.frameId,executionBasisRef:opened.basisId});
++ const input=deepFreeze({kind:'component_input'}),clock=deepFreeze({eventTime:'2026-10-10T00:00:00.000Z',correlationId:'correlation://component/recursion'});
++ const traversalInput={store:o.store,predecessorPrefix:cut,executionBasis:{basisRef:opened.basisId},openedTraversalScope:scope,
++  program:{},graphFunction:{},graph,traversalStop:{cursor:f.cursor,programLocusRef:opened.payload.programLocusRef},
++  implementationSet:{},implementationResolution:{},leafPort:{},input,inputDigest:sha256Canonical(input),closureContract:{},
++  deferToApplication:true,completionScopeClass:'root',clock};
++ const restoration={traversalInput,application,cCallRef:coordinates.cCallRef,resultRef:coordinates.resultRef,judgmentRef:coordinates.judgmentRef};
++ let selectedLeaf=0,preparedChild=0;
++ const recursion=await deferredRecursionOwner((predecessor,request)=>{
++  selectedLeaf++;assert.equal(predecessor,cut);
++  return request.cCallRef===cCall.cCallRef&&request.resultRef===result.resultRef&&request.judgmentRef===judgment.judgmentRef
++   ?{cCall,result,judgment}:null;
++ },(owner,basis,request)=>{
++  preparedChild++;assert.equal(owner,o.store);assert.equal(request.predecessorPrefix,cut);
++  assert.equal(request.parentCCallRef,cCall.cCallRef);assert.equal(request.inputRef,result.resultRef);assert.deepEqual(request.input,result.value);
++  return {kind:'prepared_child_traversal',schemaVersion:'5.0.0',disposition:'prepared',
++   executionBasis:{basisRef:'basis://component/controlled-child',parentExecutionBasisRef:opened.basisId},
++   openedTraversalScope:{scopeRef:'scope://component/controlled-child',executionBasisRef:'basis://component/controlled-child'},
++   input:request.input,inputDigest:request.inputDigest,successorPrefix:cut};
++ });
++ const retained=ccall.projectOwnedCCallCompletion(f.cursor,{kind:'c_call_completion_admission',disposition:'application_ready',
++  replayState:selected.replayState,outcome:{successorPrefix:cut,admitted:{cCall,result,judgment}}},null);
++ const restored=recursion.restoreOwnedDeferredRecursion(restoration);assert.ok(restored);
++ assert.equal(recursion.deferredRecursionCompletionsMatch(retained,restored,false),true);
++ const publicRetained=outcomes.completePublicOutcome(retained),publicRestored=recursion.restoreDeferredRecursion(restoration);
++ assert.deepEqual(publicRestored,publicRetained);assert.equal(sha256Canonical(publicRestored),sha256Canonical(publicRetained));
++ assert.equal(recursion.deferredRecursionCompletionsMatch(publicRetained,restored,true),true);
++ assert.equal(recursion.deferredRecursionCompletionsMatch(publicRetained,restored,false),false,'complete Public replay is not a private guard receipt');
++ const begin={traversalInput,childTraversalBasis:{},parentClock:clock,application,completion:retained,
++  graphEntryInput:input,graphEntryInputDigest:sha256Canonical(input),leafOrdinal:0};
++ const ownedStep=recursion.beginOwnedRecursionApplication(begin);assert.equal(ownedStep.kind,'recursion_child_request');
++ const publicStep=recursion.beginRecursionApplication({...begin,completion:publicRetained});
++ assert.deepEqual(publicStep,outcomes.completePublicOutcome(ownedStep));assert.equal(preparedChild,2);
++ const held=completion.projectOwnedExecutableTraversalCompletion('held',restored.replayState,cut,{continuationRef:'continuation://component/held',
++  heldInteraction:{cCall,result,judgment,cursor:f.cursor},heldGraph:graph,heldClosureContract:{}});
++ const ownedFold=recursion.completeOwnedRecursionChild(ownedStep.frame,held);
++ const publicFold=recursion.completeRecursionChild(publicStep.frame,outcomes.completePublicOutcome(held));
++ assert.equal(ownedFold.disposition,'held');assert.equal(ownedFold.parentSuspensions.length,1);
++ assert.deepEqual(publicFold,outcomes.completePublicOutcome(ownedFold));assert.equal(sha256Canonical(publicFold),sha256Canonical(outcomes.completePublicOutcome(ownedFold)));
++ const foreign=ownedTerminal(t,terminalOwner(t));
++ const foreignCut=store.durableRuntimeEventPrefixThroughEvent(foreign.prefix,judgmentEvent.eventId);
++ const foreignGuard=deferred.projectOwnedDeferredApplicationAtPrefix(foreignCut,coordinates).replayState;
++ assert.equal(foreignGuard.replayDigest,restored.replayState.replayDigest,'equal logical history does not replace actual owner provenance');
++ const changed=replay.projectRuntimeReplayGuard(o.run,o.authority);
++ for(const crossed of [{...restored,replayState:{...restored.replayState}},{...restored,replayState:foreignGuard},
++  {...restored,replayState:changed},{...restored,resultRef:'result://crossed'},{...restored,resultValue:{answer:0}},
++  {...restored,successorPrefix:foreignCut}])assert.equal(recursion.deferredRecursionCompletionsMatch(crossed,restored,false),false);
++ assert.equal(deferred.projectOwnedDeferredApplicationAtPrefix(beforeJudgment,coordinates),null);
++ assert.equal(deferred.projectDeferredApplicationAtPrefix(beforeJudgment,coordinates),null);
++ assert.equal(deferred.projectOwnedDeferredApplicationAtPrefix(o.prefix,coordinates),null,'closed Run/frame/locus is not a current deferred application');
++ for(const field of Object.keys(coordinates)){
++  const crossed={...coordinates,[field]:'crossed://component'};
++  assert.equal(deferred.projectOwnedDeferredApplicationAtPrefix(cut,crossed),null,field);
++  assert.equal(deferred.projectDeferredApplicationAtPrefix(cut,crossed),null,field);
++ }
++ assert.equal(recursion.restoreOwnedDeferredRecursion({...restoration,resultRef:'result://crossed'}),null);
++ assert.equal(o.store.readAll().length,f.rows.length,'restore/begin/held comparison admitted no new runtime event under controlled preparation');
++ t.diagnostic(JSON.stringify({events:f.rows.length,cutOrdinal:judgmentEvent.admissionOrdinal,originalResultRef:result.resultRef,
++  originalJudgmentRef:judgment.judgmentRef,replayDigest:restored.replayState.replayDigest,selectedLeaf,preparedChild,
++  controlledPremises:['leaf/installed selection','cursor decision','termination decision','child preparation/held child'],
++  proved:'genuine deferred cut/current fluent checks; owned restore/begin/held fold comparison; complete Public values/digests; copied/foreign/changed producer/cut refusals',
++  excluded:'actual08 null-versus-inequality branch; genuine GTL/native/child admission, Source41, capacity and UAT'}));
++});
+ test('selected replay guard streams the exact complete Result, route and replay digest',async t=>{
+  const f=terminalOwner(t),o=ownedTerminal(t,f),full=replay.replayValidatedRuntimeEventPrefix(f.run,f.authority);
+  const guard=replay.projectRuntimeReplayGuard(o.run,o.authority);assert.equal(guard.replayDigest,full.replayDigest);

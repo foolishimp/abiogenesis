@@ -1,0 +1,10 @@
+{
+  "cause": "member-inventory equality assertion did not hold; no Product owner call or package mutation in this diagnostic",
+  "beforeCount": 5265,
+  "afterCount": 5263,
+  "added": [],
+  "removed": [
+    "package/node_modules/fast-check/CHANGELOG.md",
+    "package/node_modules/pure-rand/CHANGELOG.md"
+  ]
+}

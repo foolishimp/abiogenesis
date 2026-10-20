@@ -1,0 +1,2 @@
+source/code/src/abg/project_read_ports.ts(546,11): error TS2451: Cannot redeclare block-scoped variable 'terminal'.
+source/code/src/abg/project_read_ports.ts(553,56): error TS2451: Cannot redeclare block-scoped variable 'terminal'.

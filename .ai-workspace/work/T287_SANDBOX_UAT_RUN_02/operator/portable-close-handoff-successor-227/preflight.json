@@ -1,0 +1,26 @@
+{
+  "anchors": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/freeze.json",
+      "sha256": "b54637462ab026a30c8065cb1baf1c9912898b07337710d222ec91eac0674803",
+      "byteCount": 14912
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-review-226/return.md",
+      "sha256": "8cb866d075aa80158f72cc37317e19e5e39b9fd67362d012e6e2d2f89c04867b",
+      "byteCount": 3132
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-review-226/freeze.json",
+      "sha256": "5cb0a6a846929761270546a2a79e51c93eb4b89ede95b7c0beeb95244c3fe949",
+      "byteCount": 6105
+    }
+  ],
+  "sourceCount": 263,
+  "selectedPostsVerified": 10,
+  "protectedPinsVerified": 19,
+  "baseline": "exact immutable30",
+  "normalCurrentVs30": "225 already generated; build must conserve expected4 outputs",
+  "root": "actual installed29 selected by213 owner recording, pure value correspondence only",
+  "noHistoryReadHashStatAcquisition": true
+}

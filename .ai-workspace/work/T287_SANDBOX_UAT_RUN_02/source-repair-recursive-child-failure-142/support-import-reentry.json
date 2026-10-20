@@ -1,0 +1,18 @@
+{
+  "firstCause": "Existing support static import absent from isolated test baseline; no owner execution occurred",
+  "repairScope": "Unchanged language-smoke fixture inputs in isolated baseline only",
+  "sourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "relativePath": "test_env/fixtures/language-smoke/leaf.mjs",
+      "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "byteCount": 3059
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "relativePath": "test_env/fixtures/language-smoke/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "byteCount": 8359
+    }
+  ]
+}

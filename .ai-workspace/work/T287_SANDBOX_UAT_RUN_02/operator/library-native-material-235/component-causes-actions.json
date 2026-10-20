@@ -1,0 +1,13 @@
+{
+  "failedCommand": "commands/components-core-01.result.json",
+  "frozenDependency": "component-cut-11-inputs.json",
+  "firstFailure": "m5 fixture used nonexistent acquired.store.prefixAt()",
+  "fixtureActions": [
+    "Use unchanged canonical selectHeldEventStoreDurablePrefix(store) in finite lifecycle/source fixtures.",
+    "Include the current event-contract livenessBinding field in controlled native definition storage envelopes."
+  ],
+  "ownerFailure": "cut11 explicit full cold decoder compared each canonical row to whole bytes; repeated cold-body immutability boundary also failed",
+  "owner": "Worker233 EventStore",
+  "retry": "No affected retry until corrected frozen successor; original receipts and cut11 preserved.",
+  "boundedPass": "C2 old/current complete assembly/request/prompt/schema/plan digests equal; controlled lower authentication, no genuine native credit."
+}

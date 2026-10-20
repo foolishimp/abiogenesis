@@ -1,0 +1,23 @@
+export declare const WORKSITE_REVISION_IDS: Readonly<{
+    graphFunctionRef: "graph-function://abiogenesis/worksite/revision-command-execution@5";
+    graphRef: "graph://abiogenesis/worksite/revision-command-execution@5";
+    nodeRef: "node://abiogenesis/worksite/revision-command-execution/fp@5";
+    armId: "arm://abiogenesis/worksite/revision-command-execution/fp@5";
+    taskContractRef: "contract://abiogenesis/worksite/revision-command-execution-task@5";
+    observationContractRef: "contract://abiogenesis/worksite/revision-command-execution-observation@5";
+    workerResultContractRef: "contract://abiogenesis/worksite/revision-command-execution-worker-result@5";
+    implementationRef: "implementation://abiogenesis/worksite/revision-command-execution-fp@5";
+    implementationBindingRef: "implementation-binding://abiogenesis/worksite/revision-command-execution-fp@5";
+    judgmentPredicateRef: "predicate://abiogenesis/worksite/revision-command-execution-observation@5";
+    childClosureContractRef: "contract://abiogenesis/worksite/revision-command-execution-child-closure@5";
+    materializationPlanRef: "prompt-plan://abiogenesis/worksite/revision-command-execution@5";
+    rendererRef: "renderer://abiogenesis/worksite/revision-command-execution@5";
+    inputContractRef: "contract://abiogenesis/worksite/revision-command-execution-preparation-input@5";
+    boundInputContractRef: "contract://abiogenesis/worksite/revision-command-execution-preparation-bound-input@5";
+    selectImplementationRef: "implementation://abiogenesis/worksite/revision-command-execution/select-construction-fd@5";
+    selectBindingRef: "implementation-binding://abiogenesis/worksite/revision-command-execution/select-construction-fd@5";
+    selectPredicateRef: "predicate://abiogenesis/worksite/revision-command-execution/select-construction@5";
+    prepareImplementationRef: "implementation://abiogenesis/worksite/revision-command-execution/prepare-task-fd@5";
+    prepareBindingRef: "implementation-binding://abiogenesis/worksite/revision-command-execution/prepare-task-fd@5";
+    preparePredicateRef: "predicate://abiogenesis/worksite/revision-command-execution/prepare-task@5";
+}>;

@@ -1,0 +1,72 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/preimages.json",
+    "sha256": "2fdd081b4793dba614e870e36ce28e5a16aeb1c2e44ca95c9d5ca4702f027714",
+    "byteCount": 1662
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/source.diff",
+    "sha256": "e66ca4f7d35970684116f9443e4a231c694f0a4ee5058211cb18980a58176087",
+    "byteCount": 10565
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/checks.json",
+    "sha256": "c20ab09ac826e3410c1ce4d334f5b551370df5ac274d3fe751e5c42a7362ad0d",
+    "byteCount": 1365
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/frozen-subject.json",
+    "sha256": "d634bf916ee1d15c0de0147f0570d58d4762bde25d22be351566d594df113d0c",
+    "byteCount": 6713
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/reproduction.stdout",
+    "sha256": "099e1ccfd1435e5b4204234ddbd14873de0e028933bd2e520d72ce6702e2ba79",
+    "byteCount": 1249
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/reproduction.stderr",
+    "sha256": "f2f3383720a8e192d4df11400e0898471d643f39ed9233d754e58764a9fc3ce7",
+    "byteCount": 777
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/compile.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteCount": 0
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/compile.stderr",
+    "sha256": "6927082fd5ffc3335d62311a229057e579129c3cfe49e13132c0c1d5d22ad4eb",
+    "byteCount": 777
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/focused.stdout",
+    "sha256": "cced280ade038fafe4f3850976cb1c0cd75d3ce04d6c113c9266acb692db6091",
+    "byteCount": 1660
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/acquisition-provenance-repair-01/focused.stderr",
+    "sha256": "07a321468a3b71416b7f023a08de2317e482751a28ad0f36a348f8d29c6f66a5",
+    "byteCount": 777
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/child-preparation-journal-addendum.md",
+    "sha256": "df19747ae52a6abc08bf8e64e3931112c78c62e680c8044da8c2cf054f8b534c",
+    "byteCount": 2750
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/child-preparation-refused-72849.jsonl",
+    "sha256": "839eacd32bca9612c951ee1c8d4ec81b85f1af7cca0138b393c8589c1ddf2be1",
+    "byteCount": 2075
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/native-binding-predicate-addendum.md",
+    "sha256": "8f47e089cfc4996b2a8d3dbfd3bc9b77f4aef78555202703f5af13f5f6cb7f9c",
+    "byteCount": 3413
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/native-binding-comparison.json",
+    "sha256": "e79843a34c115395bacf1af23ab6554886d410edd0d36a45921adbf8f77ef64f",
+    "byteCount": 5121
+  }
+]

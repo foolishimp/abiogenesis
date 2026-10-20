@@ -1,0 +1,13 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--check",
+    "test_env/tests/t287-ordered-reconstruction.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T05:03:56.254Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 180000
+}

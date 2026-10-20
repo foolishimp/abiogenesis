@@ -1,0 +1,70 @@
+{
+  "syntax": {
+    "command": [
+      "node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/run-03.mjs"
+    ],
+    "exitCode": 0,
+    "importsExecuted": false
+  },
+  "pureFraming": {
+    "disposition": "PASS",
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-30/code/src/abg/replay.ts",
+      "sha256": "812f390f98b82506f32d732b52c31ab33a36cbd26021db4d23254df962fc9e80",
+      "byteCount": 109914
+    },
+    "bodyFields": [
+      "eventStoreDigest",
+      "eventCount",
+      "lastAdmissionOrdinal",
+      "runId",
+      "graphCallId",
+      "frameId",
+      "traversalCursorRef",
+      "traversalCursorDigest",
+      "traversalCursorEventRef",
+      "cCalls",
+      "routes",
+      "constructionDeltas",
+      "fanOutCompletions",
+      "continuations",
+      "actorProcesses",
+      "currentWorksiteObservations",
+      "activeFluents",
+      "terminalReachedEventRef",
+      "frameClosedEventRef",
+      "graphCallClosedEventRef",
+      "runClosedEventRef",
+      "runStoppedEventRef",
+      "runStoppedDisposition",
+      "invocationRefusalEventRef",
+      "runtimeFailureEventRef",
+      "runtimeStatus"
+    ],
+    "conditionalInsideBody": "nativeLiveness when present",
+    "outsideBody": [
+      "kind",
+      "schemaVersion",
+      "replayRef",
+      "replayDigest",
+      "nonenumerable derivation"
+    ],
+    "wholeStreamComparedTo": "Ordinary canonicalJson of actual complete raw logical owner ReplayState",
+    "digestComparedTo": "Independent sha256Canonical of explicitly selected owner-defined body",
+    "rawRunAndFullAuthorityScopesSeparate": true,
+    "run02Conserved": true
+  },
+  "documentaryCorrections": [
+    {
+      "cause": "Emission address was guessed inside dependency-cut-30; the literal frozen file is at phase root.",
+      "action": "Read and verify dependency-cut-30-emission.json; no regeneration or owner invocation."
+    },
+    {
+      "cause": "Optional liveness/native_liveness filenames did not exist; the selected runtime_liveness.ts import was correct.",
+      "action": "Inspect that existing known owner only; no production change."
+    }
+  ],
+  "effects": "Preparation scripts and mechanical syntax/framing only; no runtime, artifact verifier, compiler, resource, native, model or application invocation."
+}

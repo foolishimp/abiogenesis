@@ -1,0 +1,34 @@
+✔ compose sources retain exact published owners without callable rows in both closure modes (419.96025ms)
+✔ substitute source provenance resolves without widening its Program (263.82425ms)
+✔ unpublished or ambiguous static sources still refuse at their exact declaration owner (16.785375ms)
+✔ static sources remain dependency-bound and require an exact installed owner (92.354459ms)
+✔ static sources conserve required contracts and implementation bindings (33.848958ms)
+✔ runtime use of a private static source refuses before or after static discovery (41.326417ms)
+✔ existing named workflow, gate, recursion and fan-out owner rows remain required (832.149875ms)
+✖ registered selection retains strict named-child ownership and whole validation (0.582083ms)
+✔ borrowed implementation declarations retain dependency, uniqueness and installed-owner guards (196.668584ms)
+✔ frozen81 unchanged ready basis resolves where its predecessor refused (943.524708ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3105.865917
+
+✖ failing tests:
+
+test at test_env/tests/t287-static-declaration-closure.test.mjs:171:1
+✖ registered selection retains strict named-child ownership and whole validation (0.582083ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'some')
+      at freezeStrings (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/compiled/gtl/declarations.js:17:16)
+      at catalogContribution (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/compiled/gtl/declarations.js:121:25)
+      at Array.map (<anonymous>)
+      at Module.modulePublication (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/compiled/gtl/declarations.js:143:44)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs:173:19)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)

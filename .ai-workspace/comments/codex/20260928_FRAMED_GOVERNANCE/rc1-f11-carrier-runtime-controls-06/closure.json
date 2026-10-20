@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_C05_WHOLE_PATH_ASSIGNMENT_06",
+  "role": "Writer",
+  "returnRole": "Executive",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-06/request.txt",
+    "bytes": 8142,
+    "sha256": "2ada3d46c4d74e3083f24f967493518835242db2d3963f14c7376549c592a763"
+  },
+  "runtimeDependency": "Root exact input acceptance required; no current permission to launch",
+  "effects": "Assignment/commentary only"
+}

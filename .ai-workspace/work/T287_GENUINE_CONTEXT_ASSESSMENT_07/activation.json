@@ -1,0 +1,43 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_07",
+  "workerIdentity": "/root/public_preparation_worker",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/grant.md",
+    "bytes": 5775,
+    "sha256": "d1ea9a3459feb035166cc0f597db95cea9a0709fc560a81f775c84caec4f4b26"
+  },
+  "previousCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_06/consumer/genuine-pilot.mjs",
+    "bytes": 37541,
+    "sha256": "97b0b45870112c4f216412cf680772798c13c95d454c0331139a49f650955c03"
+  },
+  "continuationCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/consumer/genuine-pilot.mjs",
+    "bytes": 38534,
+    "sha256": "92b0d1a7db3158ecbfdf3c3aa3101226b3aad2807e0562a9830afc4990e88f2a"
+  },
+  "unchangedSupport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_06/consumer/support/installed-qualification-conservation.mjs",
+    "bytes": 43181,
+    "sha256": "0de5d16c8058cd0fc79b59a6f04d0fed6eff7d260f8db8363b24fbb1b9ab6d1d"
+  },
+  "callerDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/caller-delta.patch",
+    "bytes": 6346,
+    "sha256": "1b1674cfedc825ba8649987d4024ebe32f8998daa49a053094d2a5dcf5ddb964"
+  },
+  "originalJudgment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/assessment-terminal.json",
+    "bytes": 58258,
+    "sha256": "e991816b92f5b137a56e3520385570ca628ccecfdbd7beaa81649f9d24592d8c"
+  },
+  "currentEntry": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/assessment-handoff.json",
+    "bytes": 1237,
+    "sha256": "2641a60ac7e15c938b5960da86cdf9e2e7d8f2e25207548ed3df07a6eb15d4e3"
+  },
+  "acceptedInputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "repair": "Remove private author helper and all authors-dependent fields/assertions. Native F11 owns construction authentication and independence. Preflight published callables and strict proof/input. Original genuine J retained.",
+  "nativeModelCliActorDispatches": 0,
+  "firstMaterialFailureStops": true
+}

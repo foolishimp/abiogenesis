@@ -1,0 +1,9 @@
+{
+  "status": "CLOSED",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_C08_CONSTRUCTION_CONDITIONAL_GRANT_WRITER_01",
+  "returnsTo": "Executive",
+  "constructionWorkerNotActivated": true,
+  "sourceRuntimeGitEffects": 0
+}

@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.json",
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "wallSeconds": 5.61,
+      "userSeconds": 9.52,
+      "systemSeconds": 0.2,
+      "peakRssBytes": 1011073024,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/compile.stdout",
+        "byteCount": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/compile.stderr",
+        "byteCount": 777,
+        "sha256": "061b220f7468c4180ae4889698b21e66eea4368272294f7352b2546bb04f42ca"
+      }
+    },
+    {
+      "command": "node --experimental-vm-modules --test test_env/tests/t287-undispatched-diagnostic.test.mjs",
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "wallSeconds": 0.7,
+      "userSeconds": 1.26,
+      "systemSeconds": 0.06,
+      "peakRssBytes": 363495424,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/focused.stdout",
+        "byteCount": 1088,
+        "sha256": "b8f05cb3a9ee6af0239ed04f8663fc2be482d056191351212b8bdaee0b0a682b"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/focused.stderr",
+        "byteCount": 777,
+        "sha256": "211148ea8921ba55a7cef3291ad58748c9c17ba9e3149f5a587120f4f02083c9"
+      }
+    },
+    {
+      "command": "node --test --test-name-pattern='validated event-prefix selection is immutable, ordered, and causally run-local' test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "wallSeconds": 0.28,
+      "userSeconds": 0.3,
+      "systemSeconds": 0.04,
+      "peakRssBytes": 171278336,
+      "stdout": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/raw-prefix.stdout",
+        "byteCount": 211,
+        "sha256": "6751b75086e0d55dc110e11891342f54c094d5b677ddd100d6b171d993c3990d"
+      },
+      "stderr": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/run-scope-refusal-repair-01/raw-prefix.stderr",
+        "byteCount": 777,
+        "sha256": "b4dbf562480c38ed6471df7bf4e4a3432df0d0955f8e62e5acb8e3f13a266e8e"
+      }
+    }
+  ],
+  "focusedCounts": {
+    "diagnosticAndSparseRefusal": {
+      "pass": 7,
+      "fail": 0,
+      "skip": 0
+    },
+    "existingRawPrefix": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "diffCheck": "passed",
+  "premises": "Component test substitutes physical transaction/append custody and replay digest. Actual prefix selection, CCall identity/phase, generated rejection/evidence/refusal Result/blocked J and final receipt association run. No physical resource, installed qualification, provider or native Run."
+}

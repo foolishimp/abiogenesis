@@ -1,0 +1,1464 @@
+import { prepareRunQualificationResources } from "../product/run_invocation_operation.js";
+import { projectGovernanceCoveredSourceUse } from "../abg/invocation_execution_truth.js";
+import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import { readRuntimeEventsAtDurablePrefix } from "../abg/event_store.js";
+import { QUALIFICATION_RESOURCE_ASSERTION_SCHEMA } from "../validator/qualification_contracts.js";
+import { ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA } from "../abg/terminal_result_contracts.js";
+import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
+import { SEMANTIC_LIFECYCLE_SCHEMA } from "../gtl/semantic_stage.js";
+import { SEMANTIC_JOB_LIFECYCLE_SCHEMA } from "../gtl/semantic_job.js";
+import * as Cause from "effect/Cause";
+import * as Effect from "effect/Effect";
+import * as Option from "effect/Option";
+import * as v from "valibot";
+import { sampleNativeEventTime } from "../abg/native_event_time.js";
+import { CAPABILITY_DEFINITION_GRAPH_ID, CAPABILITY_DEFINITION_GRAPH_VERSION, capabilityDefinitionGraphSchema, } from "../shared/capability_contracts.js";
+import { projectExactPrefixArtifactTruth, } from "../abg/artifact_truth.js";
+import { acquireAbgEventResource, abandonAbgEventResource, completeAbgEventResource, validateAbgEventResourceInput, validateAbgEventResourceOutcome, } from "../abg/definition_event_resource.js";
+import { hasAdmittedProductInstall, projectAdmittedProductInstall, projectAdmittedWorkspaceBinding, } from "../abg/environment_admission.js";
+import { admitExecutionBasis, admitInvocationRefusal, hasExactInvocationObservationBasis, } from "../abg/execution_basis.js";
+import { admitRuntimeFailure, constructRuntimeFailureDiagnosticRef, } from "../abg/runtime_failure.js";
+import { selectHeldEventStoreDurablePrefix, validateDurablePrefixCoordinate, validateEventStoreCloseHandoff, } from "../abg/event_store.js";
+import { admitExactInvocation, rehydrateInvocationSourceResultBasisAtDurablePrefix, } from "../abg/invocation_admission.js";
+import { openTraversalScope } from "../abg/open_call.js";
+import { projectRunTruthAtDurablePrefix, } from "../abg/project_read_ports.js";
+import { projectRuntimePrefixesAtDurablePrefix } from "../abg/replay.js";
+import { materializeGraph } from "../gtl/materialize.js";
+import { executeGraphTraversalEffect } from "../hog/graph_execute.js";
+import { constructAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
+import {} from "../product/catalog.js";
+import {} from "../product/environment.js";
+import { ProductRunInvocationPort, } from "../product/run_invocation_operation.js";
+import { RUN_OPERATION_CONTRACTS } from "../product/run_operation_contracts.js";
+import { projectInstalledLeafSemantics, } from "../product/semantics.js";
+import { isRecord, } from "../shared/definition_binding_mechanics.js";
+import { bindExactPrefixTransition } from "../shared/static_definition_bindings.js";
+import {} from "../shared/effect_definition.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { constructExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
+import { absolutePathSchema, digestSchema, jsonValueSchema, nonblankSchema, refDigestSchema, } from "../shared/public_function_contracts.js";
+import { validateGraph } from "../validator/graph.js";
+import { RUN_ENVIRONMENT_SCHEMA } from "../gtl/stdo_run_environment.js";
+import { RUN_ENVIRONMENT_RESOURCES_SCHEMA } from "../product/stdo_environment.js";
+function exceptionDiagnostic(error, seen = new Set()) {
+    if (!(error instanceof Error))
+        return String(error);
+    if (seen.has(error))
+        return "[circular Error cause]";
+    seen.add(error);
+    const own = error.stack ?? `${error.name}: ${error.message}`;
+    const cause = error.cause === undefined ? "" : `\nCaused by: ${exceptionDiagnostic(error.cause, seen)}`;
+    const members = error instanceof AggregateError
+        ? error.errors.map(member => `\nAggregate cause: ${exceptionDiagnostic(member, seen)}`).join("")
+        : "";
+    return own + cause + members;
+}
+function causeDiagnostic(cause) {
+    const defects = Array.from(Cause.defects(cause));
+    return defects.length === 0 ? Cause.pretty(cause)
+        : defects.length === 1 ? exceptionDiagnostic(defects[0])
+            : `${Cause.pretty(cause)}\n${defects.map(error => exceptionDiagnostic(error)).join("\n")}`;
+}
+function fault(call, stage, code, message, evidence = {}) {
+    return deepFreeze({
+        kind: "definition_execution_fault",
+        schemaVersion: "5.0.0",
+        definitionKey: call.invocation.definitionKey,
+        stage,
+        code,
+        message,
+        evidence,
+    });
+}
+function syncStage(call, stage, action) {
+    return Effect.try({
+        try: action,
+        catch: (cause) => fault(call, stage, `${stage}_failure`, cause instanceof Error ? cause.message : String(cause), { cause: exceptionDiagnostic(cause) }),
+    });
+}
+function asyncStage(call, stage, action) {
+    return Effect.tryPromise({
+        try: action,
+        catch: (cause) => fault(call, stage, `${stage}_failure`, cause instanceof Error ? cause.message : String(cause), { cause: exceptionDiagnostic(cause) }),
+    });
+}
+const REF_ARRAY_SCHEMA = v.array(nonblankSchema);
+const EXECUTABLE_LEAF_REQUIREMENT_SCHEMA = v.strictObject({
+    kind: v.literal("executable_leaf_requirement"),
+    implementationBindingRef: nonblankSchema,
+    inputContractRef: nonblankSchema,
+    outputContractRef: nonblankSchema,
+    evidenceContractRef: nonblankSchema,
+    failureContractRef: nonblankSchema,
+    refusalContractRef: nonblankSchema,
+    judgmentContractRef: nonblankSchema,
+});
+const INTERACTION_LEAF_REQUIREMENT_SCHEMA = v.strictObject({
+    kind: v.literal("interaction_leaf_requirement"),
+    interactionKind: nonblankSchema,
+    actorCapabilityRef: nonblankSchema,
+    requestContractRef: nonblankSchema,
+    responseContractRef: nonblankSchema,
+    continuationContractRef: nonblankSchema,
+});
+const C_OF_SCHEMA = v.strictObject({
+    kind: v.literal("c_of"),
+    inputCarrierRef: nonblankSchema,
+    outputCarrierRef: nonblankSchema,
+    programLocusRef: nonblankSchema,
+    stageRole: nonblankSchema,
+    fibre: v.picklist(["F_D", "F_P", "F_H"]),
+    armId: nonblankSchema,
+    compositionRef: v.nullable(nonblankSchema),
+    vectorIndex: v.pipe(v.number(), v.safeInteger(), v.minValue(0)),
+    judgmentPredicateRef: nonblankSchema,
+    resultBearing: v.boolean(),
+    requirement: v.union([
+        EXECUTABLE_LEAF_REQUIREMENT_SCHEMA,
+        INTERACTION_LEAF_REQUIREMENT_SCHEMA,
+    ]),
+});
+const C_PROGRAM_TERM_SCHEMA = v.lazy(() => v.union([
+    C_OF_SCHEMA,
+    v.strictObject({
+        kind: v.literal("c_identity"),
+        inputCarrierRef: nonblankSchema,
+        outputCarrierRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("c_compose"),
+        inputCarrierRef: nonblankSchema,
+        outputCarrierRef: nonblankSchema,
+        terms: v.array(C_PROGRAM_TERM_SCHEMA),
+    }),
+    v.strictObject({
+        kind: v.literal("c_edge"),
+        inputCarrierRef: nonblankSchema,
+        outputCarrierRef: nonblankSchema,
+        transform: C_OF_SCHEMA,
+        evaluate: C_OF_SCHEMA,
+        consequence: C_OF_SCHEMA,
+    }),
+    v.strictObject({
+        kind: v.literal("c_workflow"),
+        inputCarrierRef: nonblankSchema,
+        outputCarrierRef: nonblankSchema,
+        graphFunctionRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("c_batch"),
+        inputCarrierRef: nonblankSchema,
+        outputCarrierRef: nonblankSchema,
+        taskInputCarrierRef: nonblankSchema,
+        taskOutputCarrierRef: nonblankSchema,
+        batchRef: nonblankSchema,
+        tasks: v.array(C_PROGRAM_TERM_SCHEMA),
+    }),
+    v.strictObject({
+        kind: v.literal("c_retry"),
+        inputCarrierRef: nonblankSchema,
+        outputCarrierRef: nonblankSchema,
+        budget: v.pipe(v.number(), v.safeInteger(), v.minValue(1)),
+        term: C_PROGRAM_TERM_SCHEMA,
+    }),
+]));
+const GRAPH_FUNCTION_APPLICATION_SCHEMA = v.union([
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("compose"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        leftGraphFunctionRef: nonblankSchema,
+        rightGraphFunctionRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("substitute"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        outerGraphFunctionRef: nonblankSchema,
+        targetVectorRef: nonblankSchema,
+        innerGraphFunctionRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("recurse"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        graphFunctionRef: nonblankSchema,
+        terminationRuleRef: nonblankSchema,
+        terminationEvaluatorRefs: REF_ARRAY_SCHEMA,
+        terminationFieldRef: nonblankSchema,
+        foldbackRef: nonblankSchema,
+        foldback: v.strictObject({
+            mode: v.literal("rebind"),
+            binding: nonblankSchema,
+            requiresParentEvaluation: v.literal(true),
+        }),
+        bound: v.pipe(v.number(), v.safeInteger(), v.minValue(1)),
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("fan_out"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        batchRef: nonblankSchema,
+        elementGraphFunctionRef: nonblankSchema,
+        inputVectorRef: nonblankSchema,
+        outputVectorRef: nonblankSchema,
+        inputMemberContractRef: nonblankSchema,
+        outputMemberContractRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("fan_in"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        reducerGraphFunctionRef: nonblankSchema,
+        inputVectorRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("gate"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        targetRef: nonblankSchema,
+        ruleRef: nonblankSchema,
+        evaluatorRefs: REF_ARRAY_SCHEMA,
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("registered_selection"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        sourceProgramLocusRef: nonblankSchema,
+        evaluatorRef: nonblankSchema,
+        ruleRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("re_enter"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        graphFunctionRef: nonblankSchema,
+        sourceProgramLocusRef: nonblankSchema,
+        targetProgramLocusRef: nonblankSchema,
+        maxApplications: v.pipe(v.number(), v.safeInteger(), v.minValue(1)),
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("promote"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        sourceRef: nonblankSchema,
+        targetRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("identity"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        targetRef: nonblankSchema,
+    }),
+    v.strictObject({
+        kind: v.literal("graph_function_application"),
+        relationKind: v.literal("same_object"),
+        applicationRef: nonblankSchema,
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        leftRef: nonblankSchema,
+        rightRef: nonblankSchema,
+        witnessRef: nonblankSchema,
+    }),
+]);
+const GRAPH_TEMPLATE_SCHEMA = v.strictObject({
+    kind: v.literal("inline_graph"),
+    graphRef: nonblankSchema,
+    startNodeRef: nonblankSchema,
+    terminalNodeRefs: REF_ARRAY_SCHEMA,
+    nodes: v.array(v.strictObject({
+        nodeRef: nonblankSchema,
+        nodeKind: v.literal("c_locus"),
+        term: C_PROGRAM_TERM_SCHEMA,
+    })),
+    edges: v.array(v.strictObject({
+        edgeRef: nonblankSchema,
+        fromNodeRef: nonblankSchema,
+        toNodeRef: nonblankSchema,
+        inputBinding: v.optional(v.strictObject({
+            kind: v.literal("retain_graph_input"),
+            entryContractRef: nonblankSchema,
+            sourceContractRef: nonblankSchema,
+            targetContractRef: nonblankSchema,
+        })),
+    })),
+    applications: v.array(GRAPH_FUNCTION_APPLICATION_SCHEMA),
+});
+const GRAPH_FUNCTION_SCHEMA = v.strictObject({
+    kind: v.literal("graph_function"),
+    name: nonblankSchema,
+    version: v.literal("5.0.0"),
+    environment: v.strictObject({
+        requires: REF_ARRAY_SCHEMA,
+        provides: REF_ARRAY_SCHEMA,
+        carries: REF_ARRAY_SCHEMA,
+    }),
+    inputs: REF_ARRAY_SCHEMA,
+    outputs: REF_ARRAY_SCHEMA,
+    template: GRAPH_TEMPLATE_SCHEMA,
+    effects: REF_ARRAY_SCHEMA,
+    declarations: v.record(v.string(), nonblankSchema),
+    tags: REF_ARRAY_SCHEMA,
+});
+const CONTRACT_DECLARATION_SCHEMA = v.strictObject({
+    contractRef: nonblankSchema,
+    contractVersion: v.literal("5.0.0"),
+    contractKind: v.picklist([
+        "closure",
+        "evidence",
+        "failure",
+        "input",
+        "judgment",
+        "output",
+        "refusal",
+        "transition",
+    ]),
+    valueKind: nonblankSchema,
+});
+const GTL_PROGRAM_SCHEMA = v.strictObject({
+    kind: v.literal("gtl_program"),
+    programRef: nonblankSchema,
+    version: v.literal("5.0.0"),
+    moduleRef: nonblankSchema,
+    starts: v.array(v.strictObject({
+        startRef: nonblankSchema,
+        graphFunctionRef: nonblankSchema,
+    })),
+    callableMembership: REF_ARRAY_SCHEMA,
+    closureContractRef: nonblankSchema,
+    policies: v.record(v.string(), nonblankSchema),
+    publicAssetTargets: v.optional(v.array(v.strictObject({
+        kind: v.literal("program_public_asset_target"),
+        handle: nonblankSchema,
+        assetRef: nonblankSchema,
+        startRef: nonblankSchema,
+    }))),
+    actionCatalog: v.optional(v.strictObject({
+        kind: v.literal("action_catalog"),
+        schemaVersion: v.literal("5.0.0"),
+        catalogRef: nonblankSchema,
+        catalogDigest: digestSchema,
+        rows: v.array(v.strictObject({
+            kind: v.literal("action_catalog_row"),
+            actionRef: nonblankSchema,
+            actionKind: nonblankSchema,
+            programRef: nonblankSchema,
+            graphFunctionRef: nonblankSchema,
+            targetProgramLocusRef: nonblankSchema,
+            targetObligationRefs: REF_ARRAY_SCHEMA,
+            inputAssetRefs: REF_ARRAY_SCHEMA,
+            outputAssetRefs: REF_ARRAY_SCHEMA,
+            expectedDeltaRef: nonblankSchema,
+            progressConditionRef: nonblankSchema,
+            stopConditionRef: nonblankSchema,
+        })),
+    })),
+    constructionComposition: v.optional(v.strictObject({
+        kind: v.literal("construction_composition"),
+        schemaVersion: v.literal("5.0.0"),
+        compositionRef: nonblankSchema,
+        compositionDigest: digestSchema,
+        graphFunctionRef: nonblankSchema,
+        authorities: v.tuple([
+            v.strictObject({
+                kind: v.literal("construction_authority_binding"),
+                semanticAuthority: v.picklist([
+                    "synthesizeModel",
+                    "evalGap",
+                    "evaluateNext",
+                    "evaluateAction",
+                ]),
+                authorityRef: nonblankSchema,
+                initialProgramLocusRef: nonblankSchema,
+                refreshProgramLocusRef: v.nullable(nonblankSchema),
+            }),
+            v.strictObject({
+                kind: v.literal("construction_authority_binding"),
+                semanticAuthority: v.picklist([
+                    "synthesizeModel",
+                    "evalGap",
+                    "evaluateNext",
+                    "evaluateAction",
+                ]),
+                authorityRef: nonblankSchema,
+                initialProgramLocusRef: nonblankSchema,
+                refreshProgramLocusRef: v.nullable(nonblankSchema),
+            }),
+            v.strictObject({
+                kind: v.literal("construction_authority_binding"),
+                semanticAuthority: v.picklist([
+                    "synthesizeModel",
+                    "evalGap",
+                    "evaluateNext",
+                    "evaluateAction",
+                ]),
+                authorityRef: nonblankSchema,
+                initialProgramLocusRef: nonblankSchema,
+                refreshProgramLocusRef: v.nullable(nonblankSchema),
+            }),
+            v.strictObject({
+                kind: v.literal("construction_authority_binding"),
+                semanticAuthority: v.picklist([
+                    "synthesizeModel",
+                    "evalGap",
+                    "evaluateNext",
+                    "evaluateAction",
+                ]),
+                authorityRef: nonblankSchema,
+                initialProgramLocusRef: nonblankSchema,
+                refreshProgramLocusRef: v.nullable(nonblankSchema),
+            }),
+        ]),
+        interactionProgramLocusRef: nonblankSchema,
+        closurePolicy: v.strictObject({
+            kind: v.literal("construction_policy"),
+            policyRef: nonblankSchema,
+            requireCompleteEvidence: v.boolean(),
+            requirePostEvidenceRefresh: v.boolean(),
+        }),
+    })),
+});
+const CATALOG_CONTRIBUTION_SCHEMA = v.strictObject({
+    handle: nonblankSchema,
+    kind: v.picklist(["graph_function", "node_type", "overlay"]),
+    declarationOrContractRef: nonblankSchema,
+    owningProductId: nonblankSchema,
+    programMembershipRefs: REF_ARRAY_SCHEMA,
+    readinessPrerequisiteRefs: REF_ARRAY_SCHEMA,
+    compatibilityRefs: REF_ARRAY_SCHEMA,
+    provenanceRefs: REF_ARRAY_SCHEMA,
+});
+const MODULE_PUBLICATION_SCHEMA = v.strictObject({
+    requirementHandoffs: v.optional(v.array(REQUIREMENT_HANDOFF_DECLARATION_SCHEMA)),
+    runEnvironments: v.optional(v.array(RUN_ENVIRONMENT_SCHEMA)),
+    semanticLifecycle: v.optional(SEMANTIC_LIFECYCLE_SCHEMA),
+    semanticJobLifecycle: v.optional(SEMANTIC_JOB_LIFECYCLE_SCHEMA),
+    kind: v.literal("module_publication"),
+    moduleRef: nonblankSchema,
+    moduleVersion: v.literal("5.0.0"),
+    owningProductId: nonblankSchema,
+    artifactDigest: digestSchema,
+    productContentDigest: digestSchema,
+    productManifestDigest: digestSchema,
+    descriptorRef: nonblankSchema,
+    contributionManifestRef: nonblankSchema,
+    productSemanticsBinding: v.strictObject({
+        kind: v.literal("product_semantics_binding"),
+        bindingRef: nonblankSchema,
+        packageName: nonblankSchema,
+        packageVersion: nonblankSchema,
+        modulePath: nonblankSchema,
+        namedSymbol: nonblankSchema,
+    }),
+    contracts: v.array(CONTRACT_DECLARATION_SCHEMA),
+    evaluators: v.array(v.strictObject({
+        name: nonblankSchema,
+        regime: v.picklist(["F_D", "F_P", "F_H"]),
+        description: v.string(),
+        binding: nonblankSchema,
+        consumedFieldRefs: REF_ARRAY_SCHEMA,
+        tags: REF_ARRAY_SCHEMA,
+    })),
+    rules: v.array(v.strictObject({
+        name: nonblankSchema,
+        kind: nonblankSchema,
+        config: v.record(v.string(), jsonValueSchema),
+        tags: REF_ARRAY_SCHEMA,
+    })),
+    implementationBindings: v.array(v.strictObject({
+        kind: v.literal("implementation_binding"),
+        bindingRef: nonblankSchema,
+        implementationRef: nonblankSchema,
+        packageName: nonblankSchema,
+        packageVersion: nonblankSchema,
+        modulePath: nonblankSchema,
+        namedSymbol: nonblankSchema,
+        computeRegime: v.picklist(["F_D", "F_P"]),
+        inputContractRef: nonblankSchema,
+        outputContractRef: nonblankSchema,
+        failureContractRef: nonblankSchema,
+        refusalContractRef: nonblankSchema,
+    })),
+    closureContracts: v.array(v.union([
+        v.strictObject({
+            kind: v.literal("closure_contract"),
+            closureContractRef: nonblankSchema,
+            predicateRef: nonblankSchema,
+            evidenceContractRef: nonblankSchema,
+            resultContractRef: nonblankSchema,
+            refusalContractRef: nonblankSchema,
+            refusalValueKind: nonblankSchema,
+            judgmentContractRef: nonblankSchema,
+            rejectionContractRef: nonblankSchema,
+            transitionContractRef: nonblankSchema,
+            replayProjectionRef: nonblankSchema,
+            terminalKind: v.literal("completed"),
+            closureScope: v.literal("run"),
+            eventKindRefs: v.tuple([
+                v.literal("terminal_reached"),
+                v.literal("frame_closed"),
+                v.literal("graph_call_closed"),
+                v.literal("run_closed"),
+            ]),
+        }),
+        v.strictObject({
+            kind: v.literal("closure_contract"),
+            closureContractRef: nonblankSchema,
+            predicateRef: nonblankSchema,
+            evidenceContractRef: nonblankSchema,
+            resultContractRef: nonblankSchema,
+            refusalContractRef: nonblankSchema,
+            refusalValueKind: nonblankSchema,
+            judgmentContractRef: nonblankSchema,
+            rejectionContractRef: nonblankSchema,
+            transitionContractRef: nonblankSchema,
+            replayProjectionRef: nonblankSchema,
+            terminalKind: v.literal("completed"),
+            closureScope: v.literal("graph_call"),
+            eventKindRefs: v.tuple([
+                v.literal("terminal_reached"),
+                v.literal("frame_closed"),
+                v.literal("graph_call_closed"),
+            ]),
+        }),
+    ])),
+    programs: v.array(GTL_PROGRAM_SCHEMA),
+    graphFunctions: v.array(GRAPH_FUNCTION_SCHEMA),
+    contributions: v.array(CATALOG_CONTRIBUTION_SCHEMA),
+});
+const PRODUCT_DECLARED_DEPENDENCY_SCHEMA = v.strictObject({
+    kind: v.literal("requires"),
+    productId: nonblankSchema,
+    packageVersion: nonblankSchema,
+    compatibilityRef: nonblankSchema,
+    requiredContractRefs: REF_ARRAY_SCHEMA,
+    requiredCapabilityRefs: REF_ARRAY_SCHEMA,
+});
+const CAPABILITY_DEFINITION_GRAPH_COORDINATE_SCHEMA = v.strictObject({
+    graphId: v.literal(CAPABILITY_DEFINITION_GRAPH_ID),
+    graphVersion: v.literal(CAPABILITY_DEFINITION_GRAPH_VERSION),
+    graphDigest: digestSchema,
+});
+const CAPABILITY_DEFINITION_GRAPH_SCHEMA = capabilityDefinitionGraphSchema;
+const PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA = v.strictObject({
+    kind: v.literal("product_contribution_manifest"),
+    schemaVersion: v.literal("5.0.0"),
+    contributionManifestRef: nonblankSchema,
+    productId: nonblankSchema,
+    productVersion: nonblankSchema,
+    descriptorRef: nonblankSchema,
+    productContentDigest: digestSchema,
+    publicContractCatalogId: nonblankSchema,
+    publicContractCatalogDigest: digestSchema,
+    capabilityDefinitionGraph: CAPABILITY_DEFINITION_GRAPH_COORDINATE_SCHEMA,
+    publicationBindings: v.array(v.strictObject({
+        moduleRef: nonblankSchema,
+        publicationDigest: digestSchema,
+    })),
+    rows: v.array(v.strictObject({
+        moduleRef: nonblankSchema,
+        handle: nonblankSchema,
+        kind: v.picklist(["graph_function", "node_type", "overlay"]),
+        declarationOrContractRef: nonblankSchema,
+        owningProductId: nonblankSchema,
+        programMembershipRefs: REF_ARRAY_SCHEMA,
+        compatibilityRefs: REF_ARRAY_SCHEMA,
+        provenanceRef: nonblankSchema,
+        readinessPrerequisiteRefs: REF_ARRAY_SCHEMA,
+    })),
+});
+const PRODUCT_NATIVE_TYPED_LOCATOR_SCHEMA = v.strictObject({
+    packageName: nonblankSchema,
+    packageExportPath: nonblankSchema,
+    namedSymbol: nonblankSchema,
+    declarationPath: nonblankSchema,
+    declarationInventory: v.array(v.strictObject({
+        packageExportPath: nonblankSchema,
+        declarationPath: nonblankSchema,
+        declarationDigest: digestSchema,
+    })),
+});
+const PRODUCT_ASSET_LOCATOR_SCHEMA = v.strictObject({
+    path: nonblankSchema,
+    mediaType: nonblankSchema,
+    schemaVersion: nonblankSchema,
+    contentDigest: digestSchema,
+    definitionRef: v.optional(nonblankSchema),
+});
+const PRODUCT_PUBLIC_CONTRACT_SCHEMA = v.strictObject({
+    contractId: nonblankSchema,
+    contractVersion: v.literal("5.0.0"),
+    contractDigest: digestSchema,
+    contractKind: v.picklist([
+        "native_typed_group",
+        "schema_asset",
+        "serialized_native_contract",
+        "vocabulary_asset",
+    ]),
+    owningProduct: nonblankSchema,
+    requirementAuthorityRefs: REF_ARRAY_SCHEMA,
+    capabilityIdentities: REF_ARRAY_SCHEMA,
+    nativeTypedLocator: v.optional(PRODUCT_NATIVE_TYPED_LOCATOR_SCHEMA),
+    assetLocator: v.optional(PRODUCT_ASSET_LOCATOR_SCHEMA),
+});
+const RESOLVED_PRODUCT_LOCK_ROW_SCHEMA = v.strictObject({
+    productId: nonblankSchema,
+    packageName: nonblankSchema,
+    packageVersion: nonblankSchema,
+    artifactDigest: digestSchema,
+    productContentDigest: digestSchema,
+    manifestDigest: digestSchema,
+    descriptorRef: nonblankSchema,
+    publisherNamespace: nonblankSchema,
+    catalogId: nonblankSchema,
+    catalogDigest: digestSchema,
+    capabilityDefinitionGraph: CAPABILITY_DEFINITION_GRAPH_SCHEMA,
+    capabilityDefinitionGraphAsset: PRODUCT_ASSET_LOCATOR_SCHEMA,
+    contributionManifestRef: nonblankSchema,
+    contributionManifestDigest: digestSchema,
+    contributionManifest: PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA,
+    compatibilityRefs: REF_ARRAY_SCHEMA,
+    declaredDependencies: v.array(PRODUCT_DECLARED_DEPENDENCY_SCHEMA),
+    provenanceRef: nonblankSchema,
+    declaredCapabilityRefs: REF_ARRAY_SCHEMA,
+    publicContracts: v.array(PRODUCT_PUBLIC_CONTRACT_SCHEMA),
+    publicContractRefs: REF_ARRAY_SCHEMA,
+    publicCapabilityRefs: REF_ARRAY_SCHEMA,
+});
+const RESOLVED_PRODUCT_LOCK_SCHEMA = v.strictObject({
+    kind: v.literal("resolved_product_lock"),
+    schemaVersion: v.literal("5.0.0"),
+    lockId: nonblankSchema,
+    lockDigest: digestSchema,
+    nativeContractClosureDigest: digestSchema,
+    rows: v.array(RESOLVED_PRODUCT_LOCK_ROW_SCHEMA),
+    dependencyEdges: v.array(v.strictObject({
+        kind: v.literal("requires"),
+        fromProductId: nonblankSchema,
+        toProductId: nonblankSchema,
+        packageVersion: nonblankSchema,
+        compatibilityRef: nonblankSchema,
+        compatibilityDisposition: v.literal("compatible"),
+        requiredContractRefs: REF_ARRAY_SCHEMA,
+        requiredCapabilityRefs: REF_ARRAY_SCHEMA,
+    })),
+});
+const VERIFIED_PRODUCT_SCHEMA = v.strictObject({
+    kind: v.literal("verified_product_artifact"),
+    schemaVersion: v.literal("5.0.0"),
+    disposition: v.literal("verified"),
+    verificationRef: nonblankSchema,
+    verificationDigest: digestSchema,
+    artifactRef: nonblankSchema,
+    artifactDigest: digestSchema,
+    artifactByteLength: v.pipe(v.number(), v.safeInteger(), v.minValue(0)),
+    productId: nonblankSchema,
+    packageName: nonblankSchema,
+    packageVersion: nonblankSchema,
+    productContentDigest: digestSchema,
+    manifestDigest: digestSchema,
+    descriptorRef: nonblankSchema,
+    publisherNamespace: nonblankSchema,
+    contributionManifestRef: nonblankSchema,
+    contributionManifestDigest: digestSchema,
+    contributionManifest: PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA,
+    compatibilityRefs: REF_ARRAY_SCHEMA,
+    declaredDependencies: v.array(PRODUCT_DECLARED_DEPENDENCY_SCHEMA),
+    provenanceRef: nonblankSchema,
+    declaredCapabilityRefs: REF_ARRAY_SCHEMA,
+    catalogId: nonblankSchema,
+    catalogDigest: digestSchema,
+    capabilityDefinitionGraph: CAPABILITY_DEFINITION_GRAPH_SCHEMA,
+    capabilityDefinitionGraphAsset: PRODUCT_ASSET_LOCATOR_SCHEMA,
+    publicContracts: v.array(PRODUCT_PUBLIC_CONTRACT_SCHEMA),
+    publicContractRefs: REF_ARRAY_SCHEMA,
+    publicCapabilityRefs: REF_ARRAY_SCHEMA,
+    definitionContractCoordinates: v.nullable(v.record(v.string(), jsonValueSchema)),
+    checkedPayloadFiles: v.pipe(v.number(), v.safeInteger(), v.minValue(0)),
+    nativeDeclarationEvidence: v.record(v.string(), jsonValueSchema),
+});
+const PRODUCT_INSTALL_CANDIDATE_SCHEMA = v.strictObject({
+    kind: v.literal("product_install_candidate"),
+    schemaVersion: v.literal("5.0.0"),
+    disposition: v.literal("materialized"),
+    installId: nonblankSchema,
+    installedRoot: absolutePathSchema,
+    productId: nonblankSchema,
+    packageName: nonblankSchema,
+    packageVersion: nonblankSchema,
+    artifactDigest: digestSchema,
+    productContentDigest: digestSchema,
+    manifestDigest: digestSchema,
+    descriptorRef: nonblankSchema,
+    publisherNamespace: nonblankSchema,
+    contributionManifestRef: nonblankSchema,
+    contributionManifestDigest: digestSchema,
+    contributionManifest: PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA,
+    compatibilityRefs: REF_ARRAY_SCHEMA,
+    declaredDependencies: v.array(PRODUCT_DECLARED_DEPENDENCY_SCHEMA),
+    provenanceRef: nonblankSchema,
+    declaredCapabilityRefs: REF_ARRAY_SCHEMA,
+    catalogId: nonblankSchema,
+    catalogDigest: digestSchema,
+    capabilityDefinitionGraph: CAPABILITY_DEFINITION_GRAPH_SCHEMA,
+    capabilityDefinitionGraphAsset: PRODUCT_ASSET_LOCATOR_SCHEMA,
+    publicContracts: v.array(PRODUCT_PUBLIC_CONTRACT_SCHEMA),
+    publicContractRefs: REF_ARRAY_SCHEMA,
+    publicCapabilityRefs: REF_ARRAY_SCHEMA,
+    resolvedLockId: nonblankSchema,
+    resolvedLockDigest: digestSchema,
+});
+const GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA = v.strictObject({
+    kind: v.literal("graph_function_catalog_entry"),
+    handle: nonblankSchema,
+    definitionRef: nonblankSchema,
+    definitionDigest: digestSchema,
+    definition: GRAPH_FUNCTION_SCHEMA,
+    owningProductId: nonblankSchema,
+    moduleRef: nonblankSchema,
+    publicationDigest: digestSchema,
+    programMembershipRefs: v.array(nonblankSchema),
+    compatibilityRefs: v.array(nonblankSchema),
+    provenanceRefs: v.array(nonblankSchema),
+    entryDigest: digestSchema,
+});
+const DECLARATION_CATALOG_ENTRY_SCHEMA = v.strictObject({
+    kind: v.literal("declaration_catalog_entry"),
+    handle: nonblankSchema,
+    declarationKind: v.union([v.literal("node_type"), v.literal("overlay")]),
+    declarationOrContractRef: nonblankSchema,
+    owningProductId: nonblankSchema,
+    moduleRef: nonblankSchema,
+    publicationDigest: digestSchema,
+    programMembershipRefs: v.array(nonblankSchema),
+    compatibilityRefs: v.array(nonblankSchema),
+    provenanceRefs: v.array(nonblankSchema),
+    entryDigest: digestSchema,
+});
+const WORKSPACE_BINDING_CANDIDATE_SCHEMA = v.strictObject({
+    kind: v.literal("workspace_binding_candidate"),
+    schemaVersion: v.literal("5.0.0"),
+    bindingId: nonblankSchema,
+    bindingDigest: digestSchema,
+    workspaceId: nonblankSchema,
+    authorityBasisId: nonblankSchema,
+    authorityBasisDigest: digestSchema,
+    authorizedActorRef: nonblankSchema,
+    productSetId: nonblankSchema,
+    productSetDigest: digestSchema,
+    lockId: nonblankSchema,
+    lockDigest: digestSchema,
+    roots: v.strictObject({
+        toolchainRoot: absolutePathSchema,
+        productRoot: absolutePathSchema,
+        eventLogRoot: absolutePathSchema,
+        runtimeStateRoot: absolutePathSchema,
+        projectionRoot: absolutePathSchema,
+        archiveRoot: absolutePathSchema,
+    }),
+});
+const CATALOG_READINESS_ROW_SCHEMA = v.strictObject({
+    handle: nonblankSchema,
+    owningProductId: nonblankSchema,
+    moduleRef: nonblankSchema,
+    disposition: v.picklist([
+        "admitted",
+        "rejected",
+        "incompatible",
+        "conflicting",
+        "unready",
+        "unresolved",
+    ]),
+    readiness: v.picklist(["ready", "not_ready"]),
+    reason: v.nullable(v.string()),
+    readinessPrerequisiteRefs: v.array(nonblankSchema),
+    rowDigest: digestSchema,
+});
+const READY_GRAPH_FUNCTION_CATALOG_SCHEMA = v.strictObject({
+    kind: v.literal("graph_function_catalog"),
+    schemaVersion: v.literal("5.0.0"),
+    basisDigest: digestSchema,
+    publicationDigests: v.array(digestSchema),
+    entries: v.array(GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+    byHandle: v.record(v.string(), GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+    declarationEntries: v.array(DECLARATION_CATALOG_ENTRY_SCHEMA),
+    declarationsByHandle: v.record(v.string(), DECLARATION_CATALOG_ENTRY_SCHEMA),
+    readinessBasisDigest: digestSchema,
+    workspaceBindingId: nonblankSchema,
+    workspaceBindingDigest: digestSchema,
+    lockId: nonblankSchema,
+    lockDigest: digestSchema,
+    productSetId: nonblankSchema,
+    productSetDigest: digestSchema,
+    readinessBasis: v.strictObject({
+        workspaceBinding: WORKSPACE_BINDING_CANDIDATE_SCHEMA,
+        resolvedLock: RESOLVED_PRODUCT_LOCK_SCHEMA,
+        verifiedProducts: v.array(VERIFIED_PRODUCT_SCHEMA),
+        installedProducts: v.array(PRODUCT_INSTALL_CANDIDATE_SCHEMA),
+        publications: v.array(MODULE_PUBLICATION_SCHEMA),
+    }),
+    boundPublications: v.array(MODULE_PUBLICATION_SCHEMA),
+    rowDispositions: v.array(CATALOG_READINESS_ROW_SCHEMA),
+});
+const GRAPH_FUNCTION_CATALOG_VIEW_SCHEMA = v.strictObject({
+    kind: v.literal("graph_function_catalog_view"),
+    catalogBasisDigest: digestSchema,
+    allowlist: v.array(nonblankSchema),
+    entries: v.array(GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+    byHandle: v.record(v.string(), GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+    declarationEntries: v.array(DECLARATION_CATALOG_ENTRY_SCHEMA),
+    declarationsByHandle: v.record(v.string(), DECLARATION_CATALOG_ENTRY_SCHEMA),
+    viewDigest: digestSchema,
+});
+const DECLARATION_APPLICATION_SCHEMA = v.strictObject({
+    kind: v.literal("declaration_application"),
+    catalogBasisDigest: digestSchema,
+    viewDigest: digestSchema,
+    declaration: DECLARATION_CATALOG_ENTRY_SCHEMA,
+    targetRef: nonblankSchema,
+    targetDigest: digestSchema,
+    appliedValueRef: nonblankSchema,
+    appliedValueDigest: digestSchema,
+    applicationRef: nonblankSchema,
+    applicationDigest: digestSchema,
+});
+const EVENT_RESOURCE_ASSERTION_SCHEMA = v.custom(validateAbgEventResourceInput, "exact ABG acquisition or acquired native selection");
+const EVENT_RESOURCE_RECEIPT_SCHEMA = v.custom(validateAbgEventResourceOutcome, "owner-issued ABG completion or physical close");
+const RUN_TRUTH_COORDINATE_SCHEMA = v.strictObject({
+    ref: nonblankSchema,
+    digest: digestSchema,
+});
+const RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA = v.union([
+    v.strictObject({ kind: v.literal("none") }),
+    v.strictObject({
+        kind: v.literal("admitted_source_result"),
+        basis: v.strictObject({
+            kind: v.literal("invocation_source_result_basis"),
+            schemaVersion: v.literal("5.0.0"),
+            basisRef: nonblankSchema,
+            basisDigest: digestSchema,
+            publicAuthorityDigest: digestSchema,
+            sourceInvocationAdmissionRef: nonblankSchema,
+            sourceInvocationRef: nonblankSchema,
+            sourceRunId: nonblankSchema,
+            sourceGraphCallId: nonblankSchema,
+            sourceGraphFunctionRef: nonblankSchema,
+            sourceCCallRef: nonblankSchema,
+            sourceResultAdmissionEventRef: nonblankSchema,
+            sourceResultJudgmentEventRef: nonblankSchema,
+            sourceResultRef: nonblankSchema,
+            sourceResultDigest: digestSchema,
+            sourceResultValueDigest: digestSchema,
+            sourceResultContractRef: nonblankSchema,
+            sourceResultValue: jsonValueSchema,
+            sourceReplayRef: nonblankSchema,
+            sourceReplayDigest: digestSchema,
+            sourceWorkspaceId: nonblankSchema,
+            workspaceBindingId: nonblankSchema,
+            workspaceBindingDigest: digestSchema,
+        }),
+    }),
+]);
+const RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
+    kind: v.literal("run_invocation_resource_assertion"),
+    schemaVersion: v.literal("5.0.0"),
+    eventResource: EVENT_RESOURCE_ASSERTION_SCHEMA,
+    catalog: READY_GRAPH_FUNCTION_CATALOG_SCHEMA,
+    catalogView: GRAPH_FUNCTION_CATALOG_VIEW_SCHEMA,
+    applications: v.array(DECLARATION_APPLICATION_SCHEMA),
+    applicationResources: v.optional(v.array(jsonValueSchema)),
+    runEnvironmentResources: v.optional(RUN_ENVIRONMENT_RESOURCES_SCHEMA),
+    source: RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA,
+    historicalSource: v.optional(ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA),
+    qualificationResources: v.optional(QUALIFICATION_RESOURCE_ASSERTION_SCHEMA),
+});
+/** Structural validation only; exact owner, prefix and tuple admission remains separate. */
+export function isRunInvocationResourceAssertion(value) {
+    return v.safeParse(RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, value).success;
+}
+const RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+    kind: v.literal("run_invocation_resource_receipt"),
+    schemaVersion: v.literal("5.0.0"),
+    eventResource: EVENT_RESOURCE_RECEIPT_SCHEMA,
+    productExecutionResolution: v.nullable(refDigestSchema),
+    invocationAdmission: v.nullable(refDigestSchema),
+    run: v.nullable(RUN_TRUTH_COORDINATE_SCHEMA),
+    replay: v.nullable(RUN_TRUTH_COORDINATE_SCHEMA),
+});
+function projectSetupTruth(prefix, catalog) {
+    try {
+        const artifactTruth = projectExactPrefixArtifactTruth(prefix);
+        if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
+            return null;
+        }
+        const admittedInstalls = catalog.readinessBasis.installedProducts.map((candidate) => projectAdmittedProductInstall(artifactTruth, candidate));
+        const workspaceBinding = projectAdmittedWorkspaceBinding(artifactTruth, catalog.readinessBasis.workspaceBinding);
+        return admittedInstalls.some((install) => install === null) ||
+            workspaceBinding === null
+            ? null
+            : deepFreeze({
+                artifactTruth,
+                admittedInstalls: admittedInstalls,
+                workspaceBinding,
+            });
+    }
+    catch {
+        return null;
+    }
+}
+function operationBasis(call, binding) {
+    const invocationCoordinate = constructExactOperationInvocationCoordinate({
+        operationId: call.invocation.definitionKey.operationId,
+        memberKey: call.invocation.definitionKey.memberKey,
+        definitionDigest: call.invocation.definitionDigest,
+    }, call.invocation.invocationRef, call.invocation.requestDigest);
+    return deepFreeze({
+        ...invocationCoordinate,
+        operationId: call.invocation.definitionKey.operationId,
+        authorityScopeRef: binding.bindingId,
+        authorityScopeDigest: binding.bindingDigest,
+        correlationId: call.invocation.correlationRef,
+        eventTime: sampleNativeEventTime(),
+        causationEventRefs: [],
+    });
+}
+function resourceReceipt(eventResource, prepared, admission, truth) {
+    return deepFreeze({
+        kind: "run_invocation_resource_receipt",
+        schemaVersion: "5.0.0",
+        eventResource,
+        productExecutionResolution: prepared === null
+            ? null
+            : {
+                ref: prepared.resolution.resolution.resolutionRef,
+                digest: prepared.resolution.resolution.resolutionDigest,
+            },
+        invocationAdmission: admission === null
+            ? null
+            : {
+                ref: admission.invocationAdmissionRef,
+                digest: admission.invocationAdmissionDigest,
+            },
+        run: truth?.run ?? null,
+        replay: truth?.replay ?? null,
+    });
+}
+function finish(call, resource, finalPrefix, ownerOutput, prepared, admission, truth) {
+    return syncStage(call, "resource_completion", () => {
+        const eventResource = completeAbgEventResource(resource, finalPrefix);
+        return deepFreeze({
+            ownerOutput,
+            resources: resourceReceipt(eventResource, prepared, admission, truth),
+        });
+    });
+}
+function runInvocationOwner(call) {
+    return Effect.scoped(Effect.gen(function* () {
+        const resource = yield* Effect.acquireRelease(Effect.suspend(() => {
+            const acquired = acquireAbgEventResource(call.resources.eventResource);
+            return acquired.kind === "acquired_abg_event_resource"
+                ? Effect.succeed(acquired.resource)
+                : Effect.fail(fault(call, "resource_acquisition", acquired.code, acquired.message));
+        }), (held) => Effect.sync(() => abandonAbgEventResource(held)));
+        const entryPrefix = resource.entryPrefix;
+        const setup = yield* syncStage(call, "setup_truth", () => projectSetupTruth(entryPrefix, call.resources.catalog));
+        if (setup === null) {
+            return yield* finish(call, resource, entryPrefix, ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey, { stage: "setup", code: "admitted_setup_absent" }), null, null, null);
+        }
+        const source = call.resources.source.kind === "none"
+            ? call.resources.source
+            : (() => {
+                const basis = rehydrateInvocationSourceResultBasisAtDurablePrefix(entryPrefix, call.resources.source.basis);
+                return basis === null
+                    ? null
+                    : deepFreeze({
+                        kind: "admitted_source_result",
+                        basis,
+                    });
+            })();
+        if (source === null) {
+            return yield* finish(call, resource, entryPrefix, ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey, { stage: "observation", code: "source_result_absent" }), null, null, null);
+        }
+        const productResources = deepFreeze({
+            catalog: call.resources.catalog,
+            catalogView: call.resources.catalogView,
+            applications: call.resources.applications,
+            source,
+            ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
+            ...(call.resources.qualificationResources === undefined ? {} : { qualificationResources: call.resources.qualificationResources }),
+            ...(call.resources.runEnvironmentResources === undefined ? {} : { runEnvironmentResources: call.resources.runEnvironmentResources }),
+        });
+        const preparedResult = yield* asyncStage(call, "product_prepare", () => ProductRunInvocationPort.prepare({
+            memberKey: call.invocation.definitionKey.memberKey,
+            invocation: call.invocation,
+            resources: productResources,
+            admittedInstalls: setup.admittedInstalls,
+            workspaceBinding: setup.workspaceBinding,
+            verifyInstallAdmission: (install) => hasAdmittedProductInstall(setup.artifactTruth, install),
+            transportResourceAssertion: call.resources.eventResource,
+            deriveCurrentSourceUse: (basis, resolution) => projectGovernanceCoveredSourceUse(selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(entryPrefix)), {
+                predecessorPrefix: entryPrefix, source: basis, workspaceBinding: setup.workspaceBinding,
+                program: resolution.program, graphFunction: resolution.graphFunction,
+                currentDeclaration: { kind: "abg_historical_declaration_proof", schemaVersion: "5.0.0", catalog: call.resources.catalog, catalogView: call.resources.catalogView },
+                historicalDeclarations: call.resources.historicalSource === undefined ? [] : [call.resources.historicalSource.declarationProof,
+                    ...(call.resources.historicalSource.declarationDependencies ?? [])],
+            }),
+        }));
+        if (preparedResult.kind === "product_run_invocation_preparation_refusal") {
+            return yield* finish(call, resource, entryPrefix, preparedResult.ownerOutput, null, null, null);
+        }
+        const prepared = preparedResult;
+        if (!hasExactInvocationObservationBasis(prepared.admittedInput, setup.workspaceBinding.bindingId, setup.workspaceBinding.bindingDigest, prepared.resolution.program)) {
+            return yield* finish(call, resource, entryPrefix, ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey, { stage: "observation", code: "observation_basis_mismatch" }), prepared, null, null);
+        }
+        const admitted = yield* syncStage(call, "invocation_admission", () => admitExactInvocation(resource.store, {
+            invocation: prepared.candidate,
+            publicInvocation: prepared.invocation,
+            rawInput: prepared.rawInput,
+            programPublication: prepared.resolution.programPublication,
+            executionResolution: prepared.resolution.resolution,
+            program: prepared.resolution.program,
+            graphFunction: prepared.resolution.graphFunction,
+            programValidation: prepared.resolution.programValidation,
+            workspaceBinding: setup.workspaceBinding,
+            artifactTruth: setup.artifactTruth,
+            catalogView: productResources.catalogView,
+            catalogApplications: productResources.applications,
+            ...(call.resources.applicationResources === undefined ? {} : {
+                catalogApplicationResources: call.resources.applicationResources,
+            }),
+            policy: prepared.policy,
+            capabilityGrants: prepared.grants,
+            authority: prepared.authority,
+            ...(prepared.runEnvironment === null ? {} : { runEnvironment: prepared.runEnvironment }),
+            ...(prepared.sourceResultBasis === null
+                ? {}
+                : { sourceResultBasis: prepared.sourceResultBasis }),
+            ...(prepared.currentSourceUse === undefined ? {} : { currentSourceUse: prepared.currentSourceUse,
+                sourceUseDeclarations: { current: { kind: "abg_historical_declaration_proof", schemaVersion: "5.0.0",
+                        catalog: call.resources.catalog, catalogView: call.resources.catalogView }, historical: call.resources.historicalSource === undefined ? [] :
+                        [call.resources.historicalSource.declarationProof, ...(call.resources.historicalSource.declarationDependencies ?? [])] } }),
+        }, operationBasis(call, setup.workspaceBinding)));
+        if (admitted.kind !== "invocation_admission_receipt") {
+            return yield* finish(call, resource, entryPrefix, ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey, {
+                stage: "invocation_admission",
+                code: admitted.code,
+                ...(admitted.kind === "invocation_admission_refusal" &&
+                    "priorAdmission" in admitted && admitted.priorAdmission !== null
+                    ? { evidenceRefs: [admitted.priorAdmission.admissionEventRef] }
+                    : {}),
+            }), prepared, null, null);
+        }
+        const admission = admitted.admission;
+        const graph = yield* syncStage(call, "graph_materialization", () => materializeGraph(prepared.resolution.graphFunction, {
+            invocationAdmissionRef: admission.invocationAdmissionRef,
+            admittedInputRef: prepared.rawInput.admissionRef,
+            admittedInputDigest: prepared.rawInput.subjectDigest,
+            admittedInput: prepared.rawInput.value,
+        }));
+        const graphValidation = yield* syncStage(call, "graph_validation", () => validateGraph(graph, prepared.resolution.programValidation, prepared.resolution.graphFunction, {
+            invocationAdmissionRef: admission.invocationAdmissionRef,
+            admittedInputRef: prepared.rawInput.admissionRef,
+            admittedInputDigest: prepared.rawInput.subjectDigest,
+            admittedInput: prepared.rawInput.value,
+        }));
+        if (graphValidation.kind !== "graph_validation") {
+            const diagnosticRefs = graphValidation.diagnostics.map((row) => `diagnostic://abiogenesis/validator/${row.code}@5`);
+            const refused = yield* syncStage(call, "graph_refusal_admission", () => admitInvocationRefusal(resource.store, admitted.successorPrefix, admission, "graph_validation", graphValidation.subjectDigest, diagnosticRefs, {
+                eventTime: sampleNativeEventTime(),
+                correlationId: `${call.invocation.correlationRef}/graph-validation`,
+                causationEventRefs: [],
+            }));
+            return yield* finish(call, resource, refused.successorPrefix, ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey, {
+                stage: "graph_validation",
+                code: "validation_refused",
+                evidenceRefs: [refused.admission.admissionEventRef],
+            }), prepared, admission, null);
+        }
+        const execution = yield* syncStage(call, "execution_basis", () => admitExecutionBasis(resource.store, admitted.successorPrefix, {
+            invocationAdmission: admission,
+            executionResolution: prepared.resolution.resolution,
+            rawInputValue: prepared.admittedInput,
+            program: prepared.resolution.program,
+            programPublication: prepared.resolution.programPublication,
+            programValidation: prepared.resolution.programValidation,
+            graph,
+            graphValidation,
+            resolutionSetCandidate: prepared.resolution.implementationSetCandidate,
+            resolutionSetValidation: prepared.resolution.implementationSetValidation,
+            closureContract: prepared.resolution.closureContract,
+        }, {
+            eventTime: sampleNativeEventTime(),
+            correlationId: `${call.invocation.correlationRef}/execution-basis`,
+            causationEventRefs: [],
+        }));
+        if (execution.kind !== "execution_basis_admission") {
+            return yield* finish(call, resource, execution.successorPrefix, ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey, {
+                stage: "execution_basis",
+                code: execution.admission.stage,
+                evidenceRefs: [
+                    execution.admission.admissionEventRef,
+                    ...execution.admission.contractOrDiagnosticRefs,
+                ],
+            }), prepared, admission, null);
+        }
+        const opened = yield* syncStage(call, "open_call", () => openTraversalScope(resource.store, execution.successorPrefix, { kind: "root", executionBasis: execution.executionBasis }, {
+            eventTime: sampleNativeEventTime(),
+            correlationId: `${call.invocation.correlationRef}/open`,
+            causationEventRefs: [],
+        }));
+        if (opened.kind !== "traversal_scope_open_admission") {
+            const refused = yield* syncStage(call, "open_refusal_admission", () => admitInvocationRefusal(resource.store, execution.successorPrefix, admission, "open_call", sha256Canonical(opened), [`diagnostic://abiogenesis/open-call/${opened.code}@5`], {
+                eventTime: sampleNativeEventTime(),
+                correlationId: `${call.invocation.correlationRef}/open-refusal`,
+                causationEventRefs: [],
+            }));
+            return yield* finish(call, resource, refused.successorPrefix, ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey, {
+                stage: "open_call",
+                code: opened.code,
+                evidenceRefs: [refused.admission.admissionEventRef],
+            }), prepared, admission, null);
+        }
+        const completePostOpen = Effect.gen(function* () {
+            const authorityPrefix = yield* syncStage(call, "runtime_truth", () => projectRuntimePrefixesAtDurablePrefix(opened.successorPrefix, opened.scope.runId).authorityPrefix);
+            const leafPort = yield* asyncStage(call, "leaf_port", () => constructAdmittedLeafInvocationPort(Object.freeze({
+                prefix: authorityPrefix,
+                ...(prepared.qualificationResources === undefined ? {} : { qualificationResources: prepared.qualificationResources }),
+                ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
+                artifactTruth: setup.artifactTruth,
+                implementationSet: execution.implementationSet,
+                executionResolution: prepared.resolution,
+                semanticsProjection: projectInstalledLeafSemantics(prepared.resolution.productSemantics),
+            })));
+            const traversal = yield* executeGraphTraversalEffect({
+                store: resource.store,
+                predecessorPrefix: opened.successorPrefix,
+                executionBasis: execution.executionBasis,
+                openedTraversalScope: opened.scope,
+                program: prepared.resolution.program,
+                graphFunction: prepared.resolution.graphFunction,
+                programPublication: prepared.resolution.programPublication,
+                graph,
+                graphValidation,
+                programValidation: prepared.resolution.programValidation,
+                implementationSet: execution.implementationSet,
+                interactionSet: execution.interactionSet,
+                continuationProductBasis: {
+                    install: prepared.resolution.programInstall,
+                    workspaceBinding: setup.workspaceBinding,
+                    artifactTruth: setup.artifactTruth,
+                    catalogView: productResources.catalogView,
+                    programValidation: prepared.resolution.programValidation,
+                    graphValidation,
+                },
+                leafPort,
+                closureContract: prepared.resolution.closureContract,
+                actorRuntimeBinding: {
+                    workspaceBinding: setup.workspaceBinding,
+                    artifactTruth: setup.artifactTruth,
+                },
+                input: prepared.admittedInput,
+                inputDigest: prepared.rawInput.subjectDigest,
+                eventTime: sampleNativeEventTime(),
+                correlationId: `${call.invocation.correlationRef}/hog`,
+            });
+            if (traversal.kind === "graph_traversal_entry_refusal") {
+                const ownerOutput = yield* syncStage(call, "output_contract", () => ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey, {
+                    stage: "traversal",
+                    code: traversal.code,
+                    evidenceRefs: [traversal.diagnosticRef],
+                }));
+                return yield* finish(call, resource, opened.successorPrefix, ownerOutput, prepared, admission, null);
+            }
+            const finalPrefix = traversal.successorPrefix;
+            const truth = yield* syncStage(call, "run_truth", () => projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId));
+            const ownerOutput = yield* syncStage(call, "output_contract", () => ProductRunInvocationPort.projectOutcome(call.invocation.definitionKey.memberKey, truth));
+            return yield* finish(call, resource, finalPrefix, ownerOutput, prepared, admission, truth.kind === "abg_run_truth_projection" ? truth : null);
+        }).pipe(Effect.catchAllCause((cause) => (() => {
+            const failureOption = Cause.failureOption(cause);
+            const executionFault = Option.isSome(failureOption)
+                ? failureOption.value
+                : null;
+            const interrupted = Cause.isInterrupted(cause);
+            const stage = executionFault?.stage === "leaf_port"
+                ? "implementation_load"
+                : executionFault?.stage === "output_contract"
+                    ? "output_contract"
+                    : executionFault !== null || interrupted
+                        ? "operation_application"
+                        : "hog_traversal";
+            const diagnosticClassRef = stage === "implementation_load"
+                ? "diagnostic://abiogenesis/implementation/admitted-leaf-port-construction-failure@5"
+                : stage === "hog_traversal"
+                    ? "diagnostic://abiogenesis/hog/traversal-defect@5"
+                    : stage === "output_contract"
+                        ? "diagnostic://abiogenesis/run/output-contract@5"
+                        : interrupted
+                            ? "diagnostic://abiogenesis/run/post-open-interruption@5"
+                            : "diagnostic://abiogenesis/run/post-open-operation@5";
+            const diagnosticSubject = {
+                definitionKey: call.invocation.definitionKey,
+                diagnosticClassRef,
+                stage: executionFault?.stage ?? (interrupted ? "interruption" : "hog_traversal"),
+                code: executionFault?.code ?? (interrupted ? "interrupted" : "defect"),
+                message: executionFault?.message ?? Cause.pretty(cause),
+                cause: executionFault?.evidence.cause ?? causeDiagnostic(cause),
+            };
+            const recoverAndFinish = () => syncStage(call, "post_open_runtime_failure", () => {
+                const predecessorPrefix = selectHeldEventStoreDurablePrefix(resource.store);
+                let finalPrefix = predecessorPrefix;
+                let truth = projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId);
+                if (truth.kind !== "abg_run_truth_projection" ||
+                    truth.runtimeStatus === "active") {
+                    const failureReceipt = admitRuntimeFailure({
+                        store: resource.store,
+                        predecessorPrefix,
+                        executionBasis: execution.executionBasis,
+                        scope: opened.scope,
+                        stage,
+                        subject: diagnosticSubject,
+                        diagnosticRef: constructRuntimeFailureDiagnosticRef(diagnosticSubject),
+                        basis: {
+                            eventTime: sampleNativeEventTime(),
+                            correlationId: `${call.invocation.correlationRef}/post-open-runtime-failure`,
+                            causationEventRefs: [],
+                        },
+                    });
+                    finalPrefix = failureReceipt.successorPrefix;
+                    truth = projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId);
+                }
+                return {
+                    finalPrefix,
+                    ownerOutput: ProductRunInvocationPort.projectOutcome(call.invocation.definitionKey.memberKey, truth),
+                    truth: truth.kind === "abg_run_truth_projection" ? truth : null,
+                };
+            }).pipe(Effect.flatMap((recovered) => finish(call, resource, recovered.finalPrefix, recovered.ownerOutput, prepared, admission, recovered.truth)));
+            return recoverAndFinish().pipe(Effect.catchAllCause((recoveryCause) => recoverAndFinish().pipe(Effect.catchAllCause((retryCause) => Effect.failCause(Cause.sequential(cause, Cause.sequential(recoveryCause, retryCause)))))));
+        })()));
+        return yield* completePostOpen;
+    }));
+}
+import { projectConstructionIntentContinuations, prepareConstructionIntentContinuation, prepareConstructionContinuationOperation, selectPendingActionUse, prepareSelectedActionContinuation, admitSelectedActionContinuationOperation } from "../abg/construction_continuation.js";
+import { projectExactExecutionBasisAtPrefix } from "../abg/invocation_execution_truth.js";
+import { projectEffectfulPublicInvocationTruthAtPrefix } from "../abg/effectful_invocation_truth.js";
+import { prepareConstructionContinuationTraversal } from "../hog/entry.js";
+import { ProductExecutionResolutionPort } from "../product/execution_resolution.js";
+import { constructRootInvocationPolicy, constructCapabilityGrant } from "../product/invocation.js";
+import { runOperationAuthorityMatches } from "../product/run_invocation_operation.js";
+function runCurrentIntentOwner(call) {
+    return Effect.scoped(Effect.gen(function* () {
+        const resource = yield* Effect.acquireRelease(Effect.suspend(() => {
+            const acquired = acquireAbgEventResource(call.resources.eventResource);
+            return acquired.kind === "acquired_abg_event_resource" ? Effect.succeed(acquired.resource)
+                : Effect.fail(fault(call, "resource_acquisition", acquired.code, acquired.message));
+        }), held => Effect.sync(() => abandonAbgEventResource(held)));
+        const entryPrefix = resource.entryPrefix;
+        const refuse = (code, field) => finish(call, resource, entryPrefix, { outcomeKind: "refusal", value: { code, issuePaths: [field], evidenceRefs: [] } }, null, null, null);
+        const request = call.invocation.request;
+        if (!("currentIntent" in request) || !isRecord(request.currentIntent) || !isRecord(request.expectedBasis) ||
+            !isRecord(request.continuationInput) || call.resources.source.kind !== "none")
+            return yield* refuse("intent_mismatch", "/request");
+        const setup = yield* syncStage(call, "setup_truth", () => projectSetupTruth(entryPrefix, call.resources.catalog));
+        if (setup === null)
+            return yield* refuse("basis_mismatch", "/workspace");
+        const prefixes = yield* syncStage(call, "runtime_truth", () => projectRuntimePrefixesAtDurablePrefix(entryPrefix, request.run.ref));
+        const prefix = prefixes.authorityPrefix;
+        const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
+        if (duplicate.disposition !== "available")
+            return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
+        const continuations = yield* syncStage(call, "runtime_truth", () => projectConstructionIntentContinuations(prefix, request.run.ref));
+        const selected = continuations.find(c => c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
+        if (selected === undefined)
+            return yield* refuse("missing_continuation", "/continuation");
+        if (selected.status !== "open")
+            return yield* refuse("resolved_continuation", "/continuation");
+        const sourceRoot = projectExactExecutionBasisAtPrefix(prefix, selected.parentExecutionBasisRef);
+        if (sourceRoot === null)
+            return yield* refuse("basis_mismatch", "/expectedBasis");
+        const resolution = yield* asyncStage(call, "product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
+            catalog: call.resources.catalog, catalogView: call.resources.catalogView, admittedInstalls: setup.admittedInstalls,
+            verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
+            programRef: sourceRoot.programRef, selection: { kind: "admitted", graphFunctionRef: sourceRoot.graphFunctionRef },
+        }));
+        if (resolution.kind !== "loaded_product_execution_resolution")
+            return yield* refuse("basis_mismatch", "/program");
+        const prepared = yield* syncStage(call, "runtime_truth", () => prepareConstructionIntentContinuation(prefix, selected, resolution));
+        if (prepared === null)
+            return yield* refuse("basis_mismatch", "/continuation");
+        if (request.run.digest !== prepared.rootScope.runDigest ||
+            request.expectedBasis.ref !== prepared.child.basisRef || request.expectedBasis.digest !== prepared.child.basisDigest)
+            return yield* refuse("basis_mismatch", "/expectedBasis");
+        if (request.currentIntent.ref !== prepared.intent.constructionIntentRef || request.currentIntent.digest !== prepared.intent.constructionIntentDigest)
+            return yield* refuse("intent_mismatch", "/currentIntent");
+        if (request.continuationInput.ref !== prepared.pending.input.inputRef || request.continuationInput.digest !== prepared.pending.input.inputDigest)
+            return yield* refuse("response_mismatch", "/continuationInput");
+        const regimes = new Set([...resolution.programValidation.executableLeafRows, ...resolution.programValidation.interactionLeafRows].map(row => row.fibre));
+        const policy = constructRootInvocationPolicy(setup.workspaceBinding, resolution.program, resolution.programValidation.interactionLeafRows.map(row => ({ requirementKey: row.requirementKey,
+            requirementKeyDigest: row.requirementKeyDigest, actorCapabilityRef: row.requirement.actorCapabilityRef })), ["F_D", "F_P", "F_H"].filter(regime => regimes.has(regime)), call.resources.applications);
+        const fixedPacket = RUN_OPERATION_CONTRACTS.continue.current_intent;
+        const grant = constructCapabilityGrant(policy, prepared.invocation.actorRef, "abg.operation.run.continue", fixedPacket.metadata.capabilityRefs[0], { admittedInstalls: setup.admittedInstalls, workspaceBinding: setup.workspaceBinding, fixedPacket });
+        const slot = call.invocation.invocationAuthority.slots.input_contract;
+        const basisSlot = call.invocation.invocationAuthority.slots.execution_basis;
+        const inputContracts = resolution.declarationPublications.flatMap(p => p.contracts).filter(c => c.contractRef === prepared.failedCall.inputContractRef);
+        if (policy.policyRef !== prepared.invocation.policyRef || policy.policyDigest !== prepared.invocation.policyDigest ||
+            !runOperationAuthorityMatches(call.invocation, call.resources, resolution, setup.workspaceBinding, setup.admittedInstalls, policy, [grant], prepared.invocation, call.resources.eventResource) ||
+            basisSlot?.ref !== prepared.child.basisRef || basisSlot.digest !== prepared.child.basisDigest ||
+            slot === null || inputContracts.length !== 1 || slot.contract.ref !== prepared.failedCall.inputContractRef ||
+            slot.contract.digest !== sha256Canonical(inputContracts[0]) ||
+            slot.valueDigest !== prepared.pending.input.inputDigest || sha256Canonical(slot.value) !== sha256Canonical(prepared.pendingInput))
+            return yield* refuse("basis_mismatch", "/invocationAuthority");
+        let qualificationResources;
+        try {
+            qualificationResources = prepareRunQualificationResources(call.resources, prepared.pendingInput);
+        }
+        catch {
+            return yield* refuse("basis_mismatch", "/qualificationResources");
+        }
+        const operation = yield* syncStage(call, "runtime_truth", () => prepareConstructionContinuationOperation(prefix, prepared, grant, operationBasis(call, setup.workspaceBinding)));
+        if (operation.kind !== "prepared_construction_continuation_operation")
+            return yield* refuse("resolved_continuation", "/invocation");
+        const leafPort = yield* asyncStage(call, "leaf_port", () => constructAdmittedLeafInvocationPort(Object.freeze({
+            prefix, ...(qualificationResources === undefined ? {} : { qualificationResources }),
+            ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
+            artifactTruth: setup.artifactTruth, implementationSet: prepared.implementationSet, executionResolution: resolution,
+            semanticsProjection: projectInstalledLeafSemantics(resolution.productSemantics),
+        })));
+        const continued = yield* syncStage(call, "open_call", () => prepareConstructionContinuationTraversal({
+            store: resource.store, predecessorPrefix: entryPrefix, operation, leafPort,
+            continuationProductBasis: { install: resolution.programInstall, workspaceBinding: setup.workspaceBinding,
+                artifactTruth: setup.artifactTruth, catalogView: call.resources.catalogView },
+            actorRuntimeBinding: { workspaceBinding: setup.workspaceBinding, artifactTruth: setup.artifactTruth },
+            eventTime: sampleNativeEventTime(), correlationId: `${call.invocation.correlationRef}/current-intent`,
+        }));
+        const traversal = yield* executeGraphTraversalEffect(continued);
+        const finalPrefix = "successorPrefix" in traversal ? traversal.successorPrefix : continued.current.predecessorPrefix;
+        const truth = yield* syncStage(call, "run_truth", () => projectRunTruthAtDurablePrefix(finalPrefix, continued.rootScope.runId));
+        if (truth.kind !== "abg_run_truth_projection")
+            return yield* finish(call, resource, finalPrefix, { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } }, null, prepared.invocation, null);
+        const successor = { ref: continued.continuation.continuationRef, digest: continued.continuation.continuationDigest };
+        const ownerOutput = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
+            ? { outcomeKind: "nonterminal", value: { continuationKind: "current_intent", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
+                    run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
+            : { outcomeKind: "result", value: { continuationKind: "current_intent", run: truth.run, graphCall: truth.graphCall,
+                    admittedIntent: null, successor, disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
+                    evidence: [...truth.evidence], replay: truth.replay } };
+        return yield* finish(call, resource, finalPrefix, ownerOutput, null, prepared.invocation, truth);
+    }));
+}
+function runSelectedActionOwner(call) {
+    return Effect.scoped(Effect.gen(function* () {
+        const resource = yield* Effect.acquireRelease(Effect.suspend(() => {
+            const acquired = acquireAbgEventResource(call.resources.eventResource);
+            return acquired.kind === "acquired_abg_event_resource" ? Effect.succeed(acquired.resource)
+                : Effect.fail(fault(call, "resource_acquisition", acquired.code, acquired.message));
+        }), held => Effect.sync(() => abandonAbgEventResource(held)));
+        const entryPrefix = resource.entryPrefix;
+        const refuse = (code, field) => finish(call, resource, entryPrefix, { outcomeKind: "refusal", value: { code, issuePaths: [field], evidenceRefs: [] } }, null, null, null);
+        const request = call.invocation.request;
+        if (!("selectedAction" in request) || call.resources.source.kind !== "none")
+            return yield* refuse("action_mismatch", "/request");
+        const setup = yield* syncStage(call, "setup_truth", () => projectSetupTruth(entryPrefix, call.resources.catalog));
+        if (setup === null)
+            return yield* refuse("basis_mismatch", "/workspace");
+        const prefixes = yield* syncStage(call, "runtime_truth", () => projectRuntimePrefixesAtDurablePrefix(entryPrefix, request.run.ref));
+        const prefix = prefixes.authorityPrefix;
+        const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
+        if (duplicate.disposition !== "available")
+            return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
+        const use = yield* syncStage(call, "runtime_truth", () => selectPendingActionUse(prefix, request, call.invocation.invocationAuthority.slots.execution_basis));
+        if (use.kind === "refused")
+            return yield* refuse(use.code, "/request");
+        const resolution = yield* asyncStage(call, "product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
+            catalog: call.resources.catalog, catalogView: call.resources.catalogView, admittedInstalls: setup.admittedInstalls,
+            verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
+            programRef: use.currentBasis.programRef, selection: { kind: "admitted", graphFunctionRef: use.currentBasis.graphFunctionRef },
+        }));
+        if (resolution.kind !== "loaded_product_execution_resolution")
+            return yield* refuse("basis_mismatch", "/program");
+        const prepared = yield* syncStage(call, "runtime_truth", () => prepareSelectedActionContinuation(prefix, use, resolution));
+        if (prepared === null)
+            return yield* refuse("basis_mismatch", "/continuation");
+        const regimes = new Set([...resolution.programValidation.executableLeafRows, ...resolution.programValidation.interactionLeafRows].map(row => row.fibre));
+        const policy = constructRootInvocationPolicy(setup.workspaceBinding, resolution.program, resolution.programValidation.interactionLeafRows.map(row => ({ requirementKey: row.requirementKey,
+            requirementKeyDigest: row.requirementKeyDigest, actorCapabilityRef: row.requirement.actorCapabilityRef })), ["F_D", "F_P", "F_H"].filter(regime => regimes.has(regime)), call.resources.applications);
+        const packet = RUN_OPERATION_CONTRACTS.continue.selected_action;
+        const grant = constructCapabilityGrant(policy, use.invocation.actorRef, "abg.operation.run.continue", packet.metadata.capabilityRefs[0], { admittedInstalls: setup.admittedInstalls, workspaceBinding: setup.workspaceBinding, fixedPacket: packet });
+        const slot = call.invocation.invocationAuthority.slots.input_contract;
+        const basisSlot = call.invocation.invocationAuthority.slots.execution_basis;
+        const inputContracts = resolution.declarationPublications.flatMap(p => p.contracts).filter(c => c.contractRef === prepared.term.inputCarrierRef);
+        if (policy.policyRef !== use.invocation.policyRef || policy.policyDigest !== use.invocation.policyDigest ||
+            !runOperationAuthorityMatches(call.invocation, call.resources, resolution, setup.workspaceBinding, setup.admittedInstalls, policy, [grant], use.invocation, call.resources.eventResource) ||
+            basisSlot?.ref !== prepared.root.basisRef || basisSlot.digest !== prepared.root.basisDigest || slot === null || inputContracts.length !== 1 ||
+            slot.contract.ref !== prepared.term.inputCarrierRef || slot.contract.digest !== sha256Canonical(inputContracts[0]) ||
+            slot.valueRef !== prepared.input.inputRef || slot.valueDigest !== prepared.input.inputDigest || sha256Canonical(slot.value) !== sha256Canonical(prepared.input.value))
+            return yield* refuse("basis_mismatch", "/invocationAuthority");
+        let qualificationResources;
+        try {
+            qualificationResources = prepareRunQualificationResources(call.resources, prepared.inputValue);
+        }
+        catch {
+            return yield* refuse("basis_mismatch", "/qualificationResources");
+        }
+        const leafPort = yield* asyncStage(call, "leaf_port", () => constructAdmittedLeafInvocationPort(Object.freeze({
+            prefix, ...(qualificationResources === undefined ? {} : { qualificationResources }),
+            ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
+            artifactTruth: setup.artifactTruth, implementationSet: prepared.implementationSet, executionResolution: resolution,
+            semanticsProjection: projectInstalledLeafSemantics(resolution.productSemantics),
+        })));
+        const admitted = yield* syncStage(call, "open_call", () => admitSelectedActionContinuationOperation(resource.store, entryPrefix, prepared, grant, operationBasis(call, setup.workspaceBinding)));
+        const traversal = yield* executeGraphTraversalEffect({
+            store: resource.store, predecessorPrefix: admitted.successorPrefix, executionBasis: prepared.root,
+            openedTraversalScope: prepared.scope, program: resolution.program, programPublication: resolution.programPublication,
+            graphFunction: resolution.graphFunction, graph: prepared.graph, graphValidation: prepared.graphValidation,
+            programValidation: resolution.programValidation, implementationSet: prepared.implementationSet, interactionSet: prepared.interactionSet,
+            continuationProductBasis: { install: resolution.programInstall, workspaceBinding: setup.workspaceBinding,
+                artifactTruth: setup.artifactTruth, catalogView: call.resources.catalogView, programValidation: resolution.programValidation, graphValidation: prepared.graphValidation },
+            leafPort, closureContract: resolution.closureContract, actorRuntimeBinding: { workspaceBinding: setup.workspaceBinding, artifactTruth: setup.artifactTruth },
+            input: prepared.root.rawInputValue, inputDigest: prepared.root.rawInputDigest,
+            resume: { cursor: prepared.cursor, input: prepared.inputValue, inputDigest: prepared.input.inputDigest },
+            eventTime: sampleNativeEventTime(), correlationId: `${call.invocation.correlationRef}/selected-action`,
+        });
+        const finalPrefix = "successorPrefix" in traversal ? traversal.successorPrefix : admitted.successorPrefix;
+        const truth = yield* syncStage(call, "run_truth", () => projectRunTruthAtDurablePrefix(finalPrefix, prepared.scope.runId));
+        if (truth.kind !== "abg_run_truth_projection")
+            return yield* finish(call, resource, finalPrefix, { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } }, null, use.invocation, null);
+        const successor = { ref: use.current.continuationRef, digest: use.current.continuationDigest };
+        const ownerOutput = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
+            ? { outcomeKind: "nonterminal", value: { continuationKind: "selected_action", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
+                    run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
+            : { outcomeKind: "result", value: { continuationKind: "selected_action", run: truth.run, graphCall: truth.graphCall,
+                    admittedIntent: { ref: prepared.intent.constructionIntentRef, digest: prepared.intent.constructionIntentDigest }, successor,
+                    disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
+                    evidence: [...truth.evidence], replay: truth.replay } };
+        return yield* finish(call, resource, finalPrefix, ownerOutput, null, use.invocation, truth);
+    }));
+}
+const invoke = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.invoke.invoke, (runInvocationOwner), RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
+const start = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.invoke.start, (runInvocationOwner), RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
+const current_intent = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.continue.current_intent, runCurrentIntentOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
+const selected_action = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.continue.selected_action, runSelectedActionOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
+export const RUN_DEFINITION_BINDINGS = Object.freeze({
+    invoke: Object.freeze({ invoke, start }),
+    continue: Object.freeze({ current_intent, selected_action }),
+});

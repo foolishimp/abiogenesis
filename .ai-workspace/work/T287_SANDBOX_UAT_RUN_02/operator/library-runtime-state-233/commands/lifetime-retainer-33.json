@@ -1,0 +1,6 @@
+{
+  "kind": "finite_drop_retainer_diagnostic",
+  "targetId": "7059",
+  "collectedAfterDebuggerHandleReleased": true,
+  "heap": 123171480
+}

@@ -1,0 +1,51 @@
+{
+  "operation": "T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01",
+  "groups": [
+    {
+      "label": "preflight",
+      "pid": 49004,
+      "pgid": 49004,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "compile",
+      "pid": 49211,
+      "pgid": 49211,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "manifest",
+      "pid": 49790,
+      "pgid": 49790,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "pack",
+      "pid": 50846,
+      "pgid": 50846,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "extract",
+      "pid": 51939,
+      "pgid": 51939,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "focused",
+      "pid": 52464,
+      "pgid": 52464,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    }
+  ],
+  "allKnownGroupsReapedAndAbsent": true,
+  "extractShimDiagnostic": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/proofs/extract.stderr",
+  "defaultHeap": true,
+  "HOMEUnchanged": true
+}

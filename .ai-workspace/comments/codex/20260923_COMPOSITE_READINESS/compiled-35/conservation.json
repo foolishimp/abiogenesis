@@ -1,0 +1,97 @@
+{
+  "frozenMembersConserved": 7,
+  "completeSourceFreezeMemberCount": 832,
+  "archiveMembers": 5233,
+  "unchangedArchiveMembers": 5229,
+  "archiveDelta": [
+    {
+      "path": "build/code/src/abg/c_call.js",
+      "before": {
+        "path": "build/code/src/abg/c_call.js",
+        "bytes": 236560,
+        "sha256": "210621b9ebcc704048ac54ef0776c09807de2ba6330a80c1a4e1ba63cec58ad6"
+      },
+      "after": {
+        "path": "build/code/src/abg/c_call.js",
+        "bytes": 236538,
+        "sha256": "45af70afb17273a9f73f359eca63083dc32bcddff422a56b0291c1d82dec9e5f"
+      }
+    },
+    {
+      "path": "build/code/src/abg/c_call_outcome.js",
+      "before": {
+        "path": "build/code/src/abg/c_call_outcome.js",
+        "bytes": 53013,
+        "sha256": "bcd8ea0227c1ae3411084ce766430af28d327b244be8b298ef2d40997233f1d1"
+      },
+      "after": {
+        "path": "build/code/src/abg/c_call_outcome.js",
+        "bytes": 53151,
+        "sha256": "43b24ecd56a45c4efda3527b59549177ae8e7ec761bd3551bcb0d2c68ac2c855"
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "ebcaf42b861959854a099fbe7edd95c660c9532eefd1b95b54bd35718f6b2bab"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "cee67cf9e6b0bd2be7f2d8487a4d22a4ff463b8c2db7f4dc7cf7892bc622f5a7"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "0eac7090ace5601396d857be0b18401478ef473c4085152092e855c1a4317f5f"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "f57429001c53ba509b5f46b14fe446635eaab3b56539b3538a302355ee606c9d"
+      }
+    }
+  ],
+  "generatedMetadataDelta": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "ebcaf42b861959854a099fbe7edd95c660c9532eefd1b95b54bd35718f6b2bab"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "cee67cf9e6b0bd2be7f2d8487a4d22a4ff463b8c2db7f4dc7cf7892bc622f5a7"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "0eac7090ace5601396d857be0b18401478ef473c4085152092e855c1a4317f5f"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "f57429001c53ba509b5f46b14fe446635eaab3b56539b3538a302355ee606c9d"
+      }
+    }
+  ],
+  "retainedConsumer": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev15/installed-consumer.json",
+    "artifactDigest": "sha256:0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+    "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e",
+    "manifestDigest": "sha256:0327ef3c929aecdd282342f93304ed45e1ae2fdeb71a528b4d113984cfdaf6ee"
+  },
+  "goalsTracking": "Root GOALS changes are outside source/build/governing/archive inventories; no generation repeated.",
+  "compileAndTests": "Reused closed 5.61 s compile and 7+1 passing focused checks; no rerun.",
+  "closeoutCorrection": "Initial metadata-path comparison omitted capabilities/ in the expected path and failed before writing closure; corrected against the retained actual member inventory. No build, pack, install or verify was repeated."
+}

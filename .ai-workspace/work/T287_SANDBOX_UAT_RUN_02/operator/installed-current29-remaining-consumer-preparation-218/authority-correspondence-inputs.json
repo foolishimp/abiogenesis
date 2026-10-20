@@ -1,0 +1,44 @@
+{
+  "actor": {
+    "actor": {
+      "ref": "actor://abi5-tests/sandbox-uat/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+      "digest": "sha256:f5bd9bfad3c6d0b81ba69de2ec15ec06e03396d7d72532712913d8fa6a51a280"
+    },
+    "attribution": {
+      "ref": "invocation-authority://abiogenesis/a1566010b0728f0dd4c561e3e2bcdbc9cc6541f821dc7832584bee8d86721471",
+      "digest": "sha256:a1566010b0728f0dd4c561e3e2bcdbc9cc6541f821dc7832584bee8d86721471"
+    }
+  },
+  "requestTarget": {
+    "kind": "next"
+  },
+  "graphFunction": null,
+  "policy": {
+    "ref": "invocation-policy://abiogenesis/root/76f978aad64585a1cc44d4995f3d64caea56321af7f8a738c1947ea20d1df11d",
+    "digest": "sha256:76f978aad64585a1cc44d4995f3d64caea56321af7f8a738c1947ea20d1df11d"
+  },
+  "interactionLeafCount": 0,
+  "executableLeafCount": 19,
+  "applicationCount": 0,
+  "declaredRegimes": [
+    "F_D",
+    "F_P"
+  ],
+  "grantCoordinates": {
+    "requiredCapabilityRefs": [
+      "abg.capability.catalog.invoke-graph-function@5",
+      "abg.capability.runtime.execute-seven-term-c@5"
+    ],
+    "grants": [
+      {
+        "ref": "capability-grant://abiogenesis/0167b58f26d0fd687bf3a27b36639fd0935d4d6708814c63138ab1bcb34c97d8",
+        "digest": "sha256:0167b58f26d0fd687bf3a27b36639fd0935d4d6708814c63138ab1bcb34c97d8"
+      }
+    ]
+  },
+  "transportSteering": {
+    "ref": "transport-steering://abiogenesis/0261f1fb49358db78c92221c50c8ae02bb62ab6c0ccd995a29dd279ec0f4b455",
+    "digest": "sha256:0261f1fb49358db78c92221c50c8ae02bb62ab6c0ccd995a29dd279ec0f4b455"
+  },
+  "meaning": "Actual finite selected context before private Product preparation; no dynamic matcher PASS is inferred."
+}

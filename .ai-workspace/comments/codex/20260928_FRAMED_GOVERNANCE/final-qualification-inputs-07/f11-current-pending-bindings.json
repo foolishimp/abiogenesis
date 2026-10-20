@@ -1,0 +1,26 @@
+{
+  "kind": "actual_runtime_coordinates_pending_concrete_authorer_available",
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/candidate-binding.json",
+    "bytes": 3446022,
+    "sha256": "07b9477a64b7c77ac0c17e7a8deb18aae72a824195214a6b9c34e982bc044988",
+    "mode": 420
+  },
+  "authorer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/f11/current-resources.mjs",
+    "bytes": 22080,
+    "sha256": "f824d55b32967aa8981503d010d7dd799b903b97f153036b0c2e1d25dd3bc3c6",
+    "mode": 420
+  },
+  "actualRuntimeBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/f11/actual-setup-coordinates.json",
+    "bytes": 21570647,
+    "sha256": "6feb7f1a0d2ef8d1e2b18a835f724ef08fad07e77242be3b23d050dcabfeb1c7",
+    "mode": 420
+  },
+  "independentJ": null,
+  "qualification": null,
+  "release": null,
+  "missingConstructorOrNormalizer": false,
+  "historicalScopeRelabel": false
+}

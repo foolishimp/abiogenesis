@@ -1,0 +1,1809 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts
+@@ -139,8 +139,56 @@
+     })), v.minLength(1)),
+     acknowledgmentSelectionRef: v.nullable(ref) }),
+ ]);
++/** Closed immutable dependencies. These schemas admit data, never runtime authority. */
++export const QUALIFICATION_DECLARATION_SELECTION_SCHEMA = v.strictObject({
++  catalogBasisDigest: digest, readinessBasisDigest: digest, viewDigest: digest, proofDigest: digest,
++});
++export const QUALIFICATION_RESOURCE_ENTRY_KINDS = ["inventory", "scope", "material", "provenance", "law", "tenant_manifest", "coverage_catalog", "verification_recipe"] as const;
++export const QUALIFICATION_LOCAL_ENTRY_SELECTION_SCHEMA = v.strictObject({ entryKind: v.picklist(QUALIFICATION_RESOURCE_ENTRY_KINDS), entry: QUALIFICATION_COORDINATE_SCHEMA });
++export const QUALIFICATION_RESOURCE_SELECTION_SCHEMA = v.strictObject({ kind: v.literal("qualification_resource_selection"), schemaVersion: v.literal("1"),
++  resource: QUALIFICATION_COORDINATE_SCHEMA, ...QUALIFICATION_LOCAL_ENTRY_SELECTION_SCHEMA.entries });
++const selected = <K extends typeof QUALIFICATION_RESOURCE_ENTRY_KINDS[number]>(kind: K) => v.strictObject({
++  ...QUALIFICATION_RESOURCE_SELECTION_SCHEMA.entries, entryKind: v.literal(kind) });
++export const QUALIFICATION_REFERENCE_SET_SCHEMA = v.union([
++  v.strictObject({ kind: v.literal("qualification_reference_set"), schemaVersion: v.literal("1"), setRef: ref, setDigest: digest,
++    elementKind: v.literal("memberRefs"), encoding: v.literal("member_ordinals"), inventory: QUALIFICATION_COORDINATE_SCHEMA,
++    values: v.pipe(v.array(ordinal), v.minLength(1)) }),
++  v.strictObject({ kind: v.literal("qualification_reference_set"), schemaVersion: v.literal("1"), setRef: ref, setDigest: digest,
++    elementKind: v.picklist(["rootRefs", "surfaceRoles", "ownerRefs", "sourceRefs"]), encoding: v.literal("refs"),
++    values: v.pipe(v.array(ref), v.minLength(1)) }),
++]);
++const internedGroup = v.strictObject({ groupRef: ref, memberSet: QUALIFICATION_COORDINATE_SCHEMA, rootSet: QUALIFICATION_COORDINATE_SCHEMA,
++  roleSet: QUALIFICATION_COORDINATE_SCHEMA, ownerSet: QUALIFICATION_COORDINATE_SCHEMA, sourceSet: QUALIFICATION_COORDINATE_SCHEMA });
++const internedScopeFields = { kind: v.literal("qualification_scope_interned"), schemaVersion: v.literal("1"), scopeRef: ref, scopeDigest: digest,
++  subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA, catalog: QUALIFICATION_COORDINATE_SCHEMA,
++  inventory: QUALIFICATION_COORDINATE_SCHEMA, ruleGroups: qualificationScopeSchema.entries.ruleGroups,
++  surfaceGroups: v.pipe(v.array(internedGroup), v.minLength(1)), referenceSets: v.pipe(v.array(QUALIFICATION_REFERENCE_SET_SCHEMA), v.minLength(1)) };
++export const QUALIFICATION_INTERNED_SCOPE_SCHEMA = v.union([
++  v.strictObject({ ...internedScopeFields, domainMode: v.literal("global") }),
++  v.strictObject({ ...internedScopeFields, domainMode: v.literal("per_rule"), applicationDomains: v.pipe(v.array(v.strictObject({
++    ruleGroupRef: ref, surfaceGroups: v.pipe(v.array(internedGroup), v.minLength(1)) })), v.minLength(1)) }),
++]);
++export const QUALIFICATION_RESOURCE_MANIFEST_SCHEMA = v.strictObject({ kind: v.literal("qualification_resource_manifest"), schemaVersion: v.literal("1"),
++  resourceRef: ref, resourceDigest: digest, subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
++  catalog: QUALIFICATION_COORDINATE_SCHEMA, inventory: QUALIFICATION_COORDINATE_SCHEMA,
++  entries: v.pipe(v.array(v.strictObject({ entryKind: v.picklist(QUALIFICATION_RESOURCE_ENTRY_KINDS), coordinate: QUALIFICATION_COORDINATE_SCHEMA, value: jsonValueSchema })), v.minLength(1)),
++  declarationSelections: v.array(QUALIFICATION_DECLARATION_SELECTION_SCHEMA) });
++export const QUALIFICATION_RESOURCE_ASSERTION_SCHEMA = v.strictObject({ kind: v.literal("qualification_resource_assertion"), schemaVersion: v.literal("1"),
++  manifests: v.pipe(v.array(QUALIFICATION_RESOURCE_MANIFEST_SCHEMA), v.minLength(1)), declarationProofs: v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA) });
++export const QUALIFICATION_RESOURCE_PROVENANCE_SCHEMA = v.union([
++  QUALIFICATION_CONSTRUCTION_PROVENANCE_SCHEMA.options[0],
++  v.strictObject({ ...QUALIFICATION_CONSTRUCTION_PROVENANCE_SCHEMA.options[1].entries,
++    records: v.pipe(v.array(v.strictObject({ ...QUALIFICATION_LOCAL_ENTRY_SELECTION_SCHEMA.entries, entryKind: v.literal("material") })), v.minLength(1)) }),
++]);
++export type QualificationResourceAssertion = v.InferOutput<typeof QUALIFICATION_RESOURCE_ASSERTION_SCHEMA>;
++export type QualificationResourceManifest = v.InferOutput<typeof QUALIFICATION_RESOURCE_MANIFEST_SCHEMA>;
++export type QualificationResourceSelection = v.InferOutput<typeof QUALIFICATION_RESOURCE_SELECTION_SCHEMA>;
++export type QualificationDeclarationSelection = v.InferOutput<typeof QUALIFICATION_DECLARATION_SELECTION_SCHEMA>;
++export type QualificationInternedScope = v.InferOutput<typeof QUALIFICATION_INTERNED_SCOPE_SCHEMA>;
++export type QualificationReferenceSet = v.InferOutput<typeof QUALIFICATION_REFERENCE_SET_SCHEMA>;
++
+ /** Slot keys predate the producing occurrence. CCall/result identity is never a slot. */
+-export const QUALIFICATION_ASSESSMENT_TASK_SCHEMA = v.strictObject({
++export const QUALIFICATION_EMBEDDED_TASK_SCHEMA = v.strictObject({
+   kind: v.literal("qualification_assessment_task"), schemaVersion: v.literal("5.0.0"),
+   taskRef: ref, taskDigest: digest, slotRef: ref, taskOrdinal: ordinal,
+   subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
+@@ -153,6 +201,13 @@
+   coverage: v.pipe(v.array(QUALIFICATION_COVERAGE_SCHEMA), v.minLength(1)),
+   provenance: QUALIFICATION_CONSTRUCTION_PROVENANCE_SCHEMA, priorEvidenceRefs: v.array(ref), residuals: v.array(ref),
+ });
++export const QUALIFICATION_REFERENCE_TASK_SCHEMA = v.strictObject({ ...QUALIFICATION_EMBEDDED_TASK_SCHEMA.entries,
++  representation: v.literal("resource_refs_v1"), resource: QUALIFICATION_COORDINATE_SCHEMA,
++  scope: v.optional(selected("scope")), declarations: v.array(QUALIFICATION_DECLARATION_SELECTION_SCHEMA),
++  material: v.array(selected("material")), provenance: selected("provenance") });
++export const QUALIFICATION_ASSESSMENT_TASK_SCHEMA = v.union([QUALIFICATION_EMBEDDED_TASK_SCHEMA, QUALIFICATION_REFERENCE_TASK_SCHEMA]);
++export type QualificationEmbeddedTask = v.InferOutput<typeof QUALIFICATION_EMBEDDED_TASK_SCHEMA>;
++export type QualificationReferenceTask = v.InferOutput<typeof QUALIFICATION_REFERENCE_TASK_SCHEMA>;
+ export const QUALIFICATION_ASSESSMENT_PLAN_SCHEMA = v.strictObject({
+   kind: v.literal("qualification_assessment_plan"), planRef: ref, planDigest: digest,
+   subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
+@@ -220,7 +275,7 @@
+   v.strictObject({ kind: v.literal("verdict_selection"), selectionRef: ref,
+     slotRef: ref, programRef: ref, invocationAdmissionRef: ref, result: QUALIFICATION_COORDINATE_SCHEMA }),
+ ]);
+-export const QUALIFICATION_PROOF_RESOURCE_SCHEMA = v.strictObject({
++export const QUALIFICATION_EMBEDDED_PROOF_RESOURCE_SCHEMA = v.strictObject({
+   kind: v.literal("qualification_proof_resource"), schemaVersion: v.literal("5.0.0"),
+   prefix: QUALIFICATION_PREFIX_SCHEMA,
+   declarations: v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA),
+@@ -231,6 +286,14 @@
+     basis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, prefix: QUALIFICATION_PREFIX_SCHEMA,
+     declarations: v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA) }))),
+ });
++export const QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA = v.strictObject({ ...QUALIFICATION_EMBEDDED_PROOF_RESOURCE_SCHEMA.entries,
++  representation: v.literal("resource_refs_v1"), resource: QUALIFICATION_COORDINATE_SCHEMA,
++  declarations: v.array(QUALIFICATION_DECLARATION_SELECTION_SCHEMA),
++  executionSources: v.optional(v.array(v.strictObject({ sourceRef: ref, basis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA,
++    prefix: QUALIFICATION_PREFIX_SCHEMA, declarations: v.array(QUALIFICATION_DECLARATION_SELECTION_SCHEMA) }))) });
++export const QUALIFICATION_PROOF_RESOURCE_SCHEMA = v.union([QUALIFICATION_EMBEDDED_PROOF_RESOURCE_SCHEMA, QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA]);
++export type QualificationEmbeddedProofResource = v.InferOutput<typeof QUALIFICATION_EMBEDDED_PROOF_RESOURCE_SCHEMA>;
++export type QualificationReferenceProofResource = v.InferOutput<typeof QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA>;
+ /** Coverage is source-linked claim data, never an executable roster. One
+  * authenticated execution may support several independently assessed claims. */
+ export const QUALIFICATION_COVERAGE_CATALOG_SCHEMA = v.strictObject({
+--- /dev/null
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts
+@@ -0,0 +1,250 @@
++import * as v from "valibot";
++import { sha256Bytes } from "../shared/digests.js";
++import { deepFreeze } from "../shared/immutable.js";
++import type { JsonValue } from "../shared/canonical_json.js";
++import type { AbgHistoricalDeclarationProof } from "../abg/terminal_result_contracts.js";
++import {
++  QUALIFICATION_RESOURCE_ASSERTION_SCHEMA, QUALIFICATION_INTERNED_SCOPE_SCHEMA, QUALIFICATION_INVENTORY_SCHEMA,
++  QUALIFICATION_MATERIAL_SCHEMA, QUALIFICATION_RESOURCE_PROVENANCE_SCHEMA, QUALIFICATION_LAW_BASIS_SCHEMA,
++  TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_COVERAGE_CATALOG_SCHEMA, QUALIFICATION_VERIFICATION_RECIPE_SCHEMA,
++  qualificationHash as hash, sameQualificationValue as same, qualificationIdentity as identity, qualificationIdentityDigest, constructQualificationIdentity,
++  type QualificationResourceAssertion, type QualificationResourceManifest, type QualificationResourceSelection,
++  type QualificationDeclarationSelection, type QualificationInternedScope, type QualificationReferenceSet,
++  type QualificationCoordinate, type QualificationScope, type QualificationSubjectInventory, type QualificationMaterial,
++  type QualificationAssessmentInput, type QualificationEmbeddedTask, type QualificationProofResource,
++  type QualificationEmbeddedProofResource, type QualificationConstructionProvenance,
++} from "./qualification_contracts.js";
++import { SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA, type SelfConformanceInput, type SelfConformanceEmbeddedInput } from "./self_conformance_contracts.js";
++const coord = (ref: string, digest: string): QualificationCoordinate => ({ ref, digest });
++const unique = (xs: readonly unknown[]) => new Set(xs).size === xs.length;
++export function isQualificationReferenceForm(value: unknown): value is { representation: "resource_refs_v1" } {
++  return value !== null && typeof value === "object" && "representation" in value && value.representation === "resource_refs_v1";
++}
++function material(value: unknown): QualificationMaterial {
++  if (!v.is(QUALIFICATION_MATERIAL_SCHEMA, value)) throw new TypeError("qualification_resource_material_shape");
++  const bytes = Buffer.from(value.contentBase64, "base64");
++  if (bytes.toString("base64") !== value.contentBase64 || bytes.length !== value.byteCount || sha256Bytes(bytes) !== value.digest)
++    throw new TypeError("qualification_resource_material_bytes");
++  return value;
++}
++/** Immutable operation dependency, acquired once at raw/cold ingress. Its maps
++ * are private; neither this object nor a selected body supplies ABG authority. */
++export class QualificationResources {
++  readonly assertion: QualificationResourceAssertion;
++  private readonly manifests = new Map<string, QualificationResourceManifest>();
++  private readonly tables = new Map<string, Map<string, JsonValue>>();
++  private readonly scopeViews = new Map<string, { scope: QualificationScope; normalized: QualificationInternedScope }>();
++  private readonly assessmentViews = new Map<string, ResolvedQualificationAssessment>();
++  private readonly provenanceViews = new Map<string, QualificationConstructionProvenance>();
++  private readonly proofs: readonly AbgHistoricalDeclarationProof[];
++  private readonly proofDigests = new Map<AbgHistoricalDeclarationProof, string>();
++  constructor(assertion: unknown, additionalProofs: readonly AbgHistoricalDeclarationProof[] = []) {
++    if (!v.is(QUALIFICATION_RESOURCE_ASSERTION_SCHEMA, assertion)) throw new TypeError("qualification_resource_assertion_shape");
++    // Detach once. Subsequent handoffs borrow the resulting immutable bytes.
++    this.assertion = deepFreeze(JSON.parse(JSON.stringify(assertion))) as QualificationResourceAssertion;
++    this.proofs = Object.freeze([...this.assertion.declarationProofs, ...additionalProofs]);
++    const proofKeys = this.proofs.map(p => [p.catalog.basisDigest, p.catalog.readinessBasisDigest, p.catalogView.viewDigest].join(":"));
++    if (!unique(proofKeys)) throw new TypeError("qualification_declaration_ambiguous");
++    for (const proof of this.proofs) this.proofDigests.set(proof, hash(proof));
++    for (const m of this.assertion.manifests) {
++      if (!identity(m, "resourceRef", "resourceDigest", "qualification-resource://abiogenesis/") || this.manifests.has(m.resourceRef))
++        throw new TypeError("qualification_resource_identity_or_duplicate");
++      const table = new Map<string, JsonValue>();
++      for (const e of m.entries) {
++        const key = e.entryKind + ":" + e.coordinate.ref;
++        if (table.has(key)) throw new TypeError("qualification_resource_entry_ambiguous");
++        this.validateEntry(e.entryKind, e.coordinate, e.value);
++        table.set(key, e.value);
++      }
++      if (!unique(m.declarationSelections.map(hash))) throw new TypeError("qualification_declaration_selection_ambiguous");
++      this.manifests.set(m.resourceRef, m); this.tables.set(m.resourceRef, table);
++    }
++    // Validate local references and inventories only after the complete finite table exists.
++    for (const m of this.assertion.manifests) for (const e of m.entries) {
++      if (e.entryKind === "scope") this.scope(this.selection(m, e.entryKind, e.coordinate));
++      if (e.entryKind === "provenance") this.provenance(this.selection(m, e.entryKind, e.coordinate));
++    }
++  }
++  private validateEntry(kind: QualificationResourceSelection["entryKind"], c: QualificationCoordinate, value: JsonValue): void {
++    let id: QualificationCoordinate;
++    switch (kind) {
++      case "material": case "verification_recipe": {
++        const m = material(value); id = coord(m.ref, m.digest);
++        if (kind === "verification_recipe") v.parse(QUALIFICATION_VERIFICATION_RECIPE_SCHEMA, JSON.parse(Buffer.from(m.contentBase64, "base64").toString("utf8")));
++        break;
++      }
++      case "inventory": {
++        const i = v.parse(QUALIFICATION_INVENTORY_SCHEMA, value);
++        if (!identity(i, "inventoryRef", "inventoryDigest", "qualification-inventory://abiogenesis/") || !unique(i.members.map(x => x.ref)) || !unique(i.members.map(x => x.path)) || !unique(i.selectedRoots) || i.selectedRoots.length === 0)
++          throw new TypeError("qualification_inventory_identity_or_ambiguity");
++        id = coord(i.inventoryRef, i.inventoryDigest); break;
++      }
++      case "scope": {
++        const s = v.parse(QUALIFICATION_INTERNED_SCOPE_SCHEMA, value);
++        if (!identity(s, "scopeRef", "scopeDigest", "qualification-scope://abiogenesis/")) throw new TypeError("qualification_scope_identity");
++        id = coord(s.scopeRef, s.scopeDigest); break;
++      }
++      case "law": {
++        const law = v.parse(QUALIFICATION_LAW_BASIS_SCHEMA, value);
++        if (!identity(law, "lawBasisRef", "lawBasisDigest", "qualification-law://abiogenesis/")) throw new TypeError("qualification_law_identity");
++        id = coord(law.lawBasisRef, law.lawBasisDigest); break;
++      }
++      case "tenant_manifest": {
++        const t = v.parse(TENANT_CONFORMANCE_MANIFEST_SCHEMA, value);
++        if (qualificationIdentityDigest(t, "manifestRef", "manifestDigest") !== t.manifestDigest) throw new TypeError("qualification_tenant_identity");
++        id = coord(t.manifestRef, t.manifestDigest); break;
++      }
++      case "coverage_catalog": {
++        const c = v.parse(QUALIFICATION_COVERAGE_CATALOG_SCHEMA, value);
++        if (!identity(c, "catalogRef", "catalogDigest", "qualification-coverage://abiogenesis/")) throw new TypeError("qualification_coverage_identity");
++        id = coord(c.catalogRef, c.catalogDigest); break;
++      }
++      case "provenance":
++        v.parse(QUALIFICATION_RESOURCE_PROVENANCE_SCHEMA, value);
++        id = coord("qualification-provenance://abiogenesis/" + hash(value).slice(7), hash(value)); break;
++    }
++    if (!same(id, c)) throw new TypeError("qualification_resource_entry_identity");
++  }
++  /** Complete views belong only to this explicit immutable acquisition. Raw
++   * identity is rechecked by the calling owner; full dependencies are borrowed
++   * across preparation/completion, never inferred from another invocation. */
++  assessment(input: QualificationAssessmentInput, validate: (view: ResolvedQualificationAssessment) => void): ResolvedQualificationAssessment {
++    const key = hash(input), known = this.assessmentViews.get(key);
++    if (known !== undefined) return { ...known, input };
++    const view = resolveQualificationAssessment(input, this);
++    validate(view); deepFreeze(view.task);
++    this.assessmentViews.set(key, Object.freeze(view)); return view;
++  }
++  selection(m: QualificationResourceManifest, entryKind: QualificationResourceSelection["entryKind"], entry: QualificationCoordinate): QualificationResourceSelection {
++    return { kind: "qualification_resource_selection", schemaVersion: "1", resource: coord(m.resourceRef, m.resourceDigest), entryKind, entry };
++  }
++  manifest(c: QualificationCoordinate): QualificationResourceManifest {
++    const m = this.manifests.get(c.ref);
++    if (m === undefined || m.resourceDigest !== c.digest) throw new TypeError("qualification_resource_missing_or_crossed");
++    return m;
++  }
++  value<T>(selection: QualificationResourceSelection, kind: QualificationResourceSelection["entryKind"]): T {
++    const m = this.manifest(selection.resource);
++    if (selection.entryKind !== kind) throw new TypeError("qualification_resource_wrong_kind");
++    const e = m.entries.find(e => e.entryKind === kind && e.coordinate.ref === selection.entry.ref);
++    if (e === undefined || e.coordinate.digest !== selection.entry.digest) throw new TypeError("qualification_resource_entry_missing_or_crossed");
++    return this.tables.get(m.resourceRef)!.get(kind + ":" + selection.entry.ref) as T;
++  }
++  declarations(resource: QualificationCoordinate, selections: readonly QualificationDeclarationSelection[]): readonly AbgHistoricalDeclarationProof[] {
++    const m = this.manifest(resource);
++    if (!unique(selections.map(hash))) throw new TypeError("qualification_declaration_selection_ambiguous");
++    return selections.map(s => {
++      if (m.declarationSelections.filter(d => same(d, s)).length !== 1) throw new TypeError("qualification_declaration_selection_unbound");
++      const matched = this.proofs.filter(p => p.catalog.basisDigest === s.catalogBasisDigest && p.catalog.readinessBasisDigest === s.readinessBasisDigest &&
++        p.catalogView.viewDigest === s.viewDigest && p.catalogView.catalogBasisDigest === s.catalogBasisDigest && this.proofDigests.get(p) === s.proofDigest);
++      if (matched.length !== 1) throw new TypeError("qualification_declaration_preimage_missing_or_crossed");
++      return matched[0]!;
++    });
++  }
++  scope(selection: QualificationResourceSelection): { scope: QualificationScope; normalized: QualificationInternedScope } {
++    const normalized = this.value<QualificationInternedScope>(selection, "scope"), manifest = this.manifest(selection.resource);
++    const key = manifest.resourceRef + ":" + selection.entry.ref, prior = this.scopeViews.get(key);
++    if (prior !== undefined) return prior;
++    if (!same(normalized.subjectBasis, manifest.subjectBasis) || !same(normalized.lawBasis, manifest.lawBasis) ||
++        !same(normalized.catalog, manifest.catalog) || !same(normalized.inventory, manifest.inventory)) throw new TypeError("qualification_scope_resource_basis");
++    const inventory = this.value<QualificationSubjectInventory>(this.selection(manifest, "inventory", normalized.inventory), "inventory");
++    const sets = new Map<string, { set: QualificationReferenceSet; values: string[] }>();
++    for (const set of normalized.referenceSets) {
++      if (!identity(set, "setRef", "setDigest", "qualification-set://abiogenesis/") || sets.has(set.setRef) || !unique(set.values))
++        throw new TypeError("qualification_scope_set_identity_or_ambiguity");
++      if (set.encoding === "member_ordinals" && (!same(set.inventory, normalized.inventory) || set.values.some(n => !Number.isSafeInteger(n) || n < 0 || n >= inventory.members.length)))
++        throw new TypeError("qualification_scope_set_inventory_or_ordinal");
++      const values = set.encoding === "member_ordinals" ? set.values.map(n => inventory.members[n]!.ref) : set.values;
++      if (set.elementKind === "surfaceRoles" && values.some(x => !["constitutional", "design", "code", "proof", "execution_contract", "public_contract", "manifest", "qualification", "release_claim"].includes(x)))
++        throw new TypeError("qualification_scope_role_set");
++      sets.set(set.setRef, { set, values });
++    }
++    const lookup = (c: QualificationCoordinate, kind: QualificationReferenceSet["elementKind"]) => {
++      const s = sets.get(c.ref);
++      if (s === undefined || s.set.setDigest !== c.digest || s.set.elementKind !== kind) throw new TypeError("qualification_scope_set_missing_or_crossed");
++      return s.values;
++    };
++    const groups = (gs: QualificationInternedScope["surfaceGroups"]): QualificationScope["surfaceGroups"] => gs.map(g => ({ groupRef: g.groupRef,
++      memberRefs: lookup(g.memberSet, "memberRefs"), rootRefs: lookup(g.rootSet, "rootRefs"),
++      surfaceRoles: lookup(g.roleSet, "surfaceRoles") as QualificationScope["surfaceGroups"][number]["surfaceRoles"],
++      ownerRefs: lookup(g.ownerSet, "ownerRefs"), sourceRefs: lookup(g.sourceSet, "sourceRefs") }));
++    // Only small group views are allocated; repeated sets and inventory bodies are borrowed.
++    const scope: QualificationScope = { kind: "qualification_scope", scopeRef: normalized.scopeRef, scopeDigest: normalized.scopeDigest,
++      subjectBasis: normalized.subjectBasis, lawBasis: normalized.lawBasis, catalog: normalized.catalog, inventory,
++      ruleGroups: normalized.ruleGroups, surfaceGroups: groups(normalized.surfaceGroups),
++      ...(normalized.domainMode === "global" ? {} : { applicationDomains: normalized.applicationDomains.map(d => ({ ruleGroupRef: d.ruleGroupRef, surfaceGroups: groups(d.surfaceGroups) })) }) };
++    const view = deepFreeze({ scope, normalized }); this.scopeViews.set(key, view); return view;
++  }
++  provenance(selection: QualificationResourceSelection): QualificationConstructionProvenance {
++    const p = this.value<v.InferOutput<typeof QUALIFICATION_RESOURCE_PROVENANCE_SCHEMA>>(selection, "provenance");
++    if (p.kind === "native_construction") return p;
++    const key = selection.resource.ref + ":" + selection.entry.ref, prior = this.provenanceViews.get(key);
++    if (prior !== undefined) return prior;
++    const m = this.manifest(selection.resource), records = p.records.map(s => this.value<QualificationMaterial>(this.selection(m, s.entryKind, s.entry), "material"));
++    if (!unique(records.map(x => x.ref)) || hash(records) !== p.recordSet.digest) throw new TypeError("qualification_provenance_record_set");
++    const view = deepFreeze({ ...p, records }); this.provenanceViews.set(key, view); return view;
++  }
++}
++export function acquireQualificationResources(assertion: unknown, additionalProofs: readonly AbgHistoricalDeclarationProof[] = []): QualificationResources {
++  return new QualificationResources(assertion, additionalProofs);
++}
++export function resolveQualificationProof(proof: QualificationProofResource, resources?: QualificationResources): QualificationEmbeddedProofResource {
++  if (!isQualificationReferenceForm(proof)) return proof;
++  if (resources === undefined) throw new TypeError("qualification_resource_dependency_missing");
++  const { representation: _representation, resource, executionSources: _sources, ...p } = proof;
++  return { ...p, declarations: [...resources.declarations(resource, proof.declarations)],
++    ...(proof.executionSources === undefined ? {} : { executionSources: proof.executionSources.map(s => ({ ...s, declarations: [...resources.declarations(resource, s.declarations)] })) }) };
++}
++export type ResolvedQualificationAssessment = { input: QualificationAssessmentInput; task: QualificationEmbeddedTask; normalizedScope?: QualificationInternedScope };
++export function resolveQualificationAssessment(input: QualificationAssessmentInput, resources?: QualificationResources): ResolvedQualificationAssessment {
++  if (!isQualificationReferenceForm(input.task)) return { input, task: input.task };
++  if (resources === undefined) throw new TypeError("qualification_resource_dependency_missing");
++  const task = input.task, m = resources.manifest(task.resource);
++  if (!same(m.subjectBasis, task.subjectBasis) || !same(m.lawBasis, task.lawBasis) || !same(m.catalog, task.catalog) || !same(m.inventory, task.inventory))
++    throw new TypeError("qualification_task_resource_basis");
++  const selections = [...task.material, task.provenance, ...(task.scope === undefined ? [] : [task.scope])];
++  if (selections.some(s => !same(s.resource, task.resource))) throw new TypeError("qualification_task_resource_crossed");
++  const scoped = task.scope === undefined ? undefined : resources.scope(task.scope);
++  const { representation: _representation, resource: _resource, ...rest } = task;
++  const resolved: QualificationEmbeddedTask = { ...rest, declarations: [...resources.declarations(task.resource, task.declarations)],
++    material: task.material.map(s => resources.value<QualificationMaterial>(s, "material")), provenance: resources.provenance(task.provenance),
++    ...(scoped === undefined ? {} : { scope: scoped.scope }) } as QualificationEmbeddedTask;
++  return { input, task: resolved, ...(scoped === undefined ? {} : { normalizedScope: scoped.normalized }) };
++}
++export function resolveSelfConformanceInput(raw: SelfConformanceInput, resources?: QualificationResources): { input: SelfConformanceEmbeddedInput; normalizedScope?: QualificationInternedScope } {
++  if (!isQualificationReferenceForm(raw)) return { input: raw };
++  if (resources === undefined || !v.is(SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA, raw)) throw new TypeError("qualification_resource_dependency_missing");
++  const m = resources.manifest(raw.resource);
++  if (!same(m.subjectBasis, coord(raw.basis.basisRef, raw.basis.basisDigest)) || !same(m.lawBasis, raw.basis.lawBasis) || !same(m.inventory, raw.basis.sourceInventory))
++    throw new TypeError("self_conformance_resource_basis");
++  const selections = [raw.law, raw.inventory, raw.tenantManifest, raw.scope, ...raw.authorityMembers,
++    ...(raw.qualification === undefined ? [] : [...raw.qualification.sourceMembers, raw.qualification.coverageCatalog, raw.qualification.verification?.recipe])].filter(s => s !== null && s !== undefined);
++  if (selections.some(s => s !== null && s !== undefined && !same(s.resource, raw.resource)) || raw.qualification !== undefined && !isQualificationReferenceForm(raw.qualification.proof)) throw new TypeError("self_conformance_resource_crossed_or_mixed");
++  const scope = raw.scope === undefined ? undefined : resources.scope(raw.scope), { representation: _representation, resource: _resource, ...rest } = raw;
++  return { input: { ...rest, law: raw.law === null ? null : resources.value(raw.law, "law"),
++    inventory: raw.inventory === null ? null : resources.value(raw.inventory, "inventory"), tenantManifest: raw.tenantManifest === null ? null : resources.value(raw.tenantManifest, "tenant_manifest"),
++    authorityMembers: raw.authorityMembers.map(s => resources.value<QualificationMaterial>(s, "material")), ...(scope === undefined ? {} : { scope: scope.scope }),
++    ...(raw.qualification === undefined ? {} : { qualification: { ...raw.qualification,
++      sourceMembers: raw.qualification.sourceMembers.map(s => resources.value<QualificationMaterial>(s, "material")), coverageCatalog: resources.value(raw.qualification.coverageCatalog, "coverage_catalog"),
++      ...(raw.qualification.verification === undefined ? {} : { verification: { ...raw.qualification.verification, recipe: resources.value(raw.qualification.verification.recipe, "verification_recipe") } }) } }) } as SelfConformanceEmbeddedInput,
++    ...(scope === undefined ? {} : { normalizedScope: scope.normalized }) };
++}
++/** Deterministic authoring helpers; new identities cover normalized bytes. */
++export function normalizeQualificationScope(scope: QualificationScope): QualificationInternedScope {
++  const inventory = coord(scope.inventory.inventoryRef, scope.inventory.inventoryDigest), ordinals = new Map(scope.inventory.members.map((m, n) => [m.ref, n]));
++  const sets = new Map<string, QualificationReferenceSet>();
++  const set = (elementKind: QualificationReferenceSet["elementKind"], values: string[]) => {
++    if (values.length === 0) throw new TypeError("qualification_scope_empty_relation");
++    const body = elementKind === "memberRefs" ? { kind: "qualification_reference_set", schemaVersion: "1", elementKind, encoding: "member_ordinals", inventory,
++      values: values.map(ref => { const n = ordinals.get(ref); if (n === undefined) throw new TypeError("qualification_scope_member_unbound"); return n; }) }
++      : { kind: "qualification_reference_set", schemaVersion: "1", elementKind, encoding: "refs", values };
++    const s = constructQualificationIdentity(body, "setRef", "setDigest", "qualification-set://abiogenesis/") as unknown as QualificationReferenceSet;
++    sets.set(s.setRef, s); return coord(s.setRef, s.setDigest);
++  };
++  const groups = (gs: QualificationScope["surfaceGroups"]) => gs.map(g => ({ groupRef: g.groupRef, memberSet: set("memberRefs", g.memberRefs), rootSet: set("rootRefs", g.rootRefs),
++    roleSet: set("surfaceRoles", g.surfaceRoles), ownerSet: set("ownerRefs", g.ownerRefs), sourceSet: set("sourceRefs", g.sourceRefs) }));
++  const surfaceGroups = groups(scope.surfaceGroups), domains = scope.applicationDomains?.map(d => ({ ruleGroupRef: d.ruleGroupRef, surfaceGroups: groups(d.surfaceGroups) }));
++  return constructQualificationIdentity({ kind: "qualification_scope_interned", schemaVersion: "1", subjectBasis: scope.subjectBasis, lawBasis: scope.lawBasis,
++    catalog: scope.catalog, inventory, ruleGroups: scope.ruleGroups, surfaceGroups, referenceSets: [...sets.values()].sort((a, b) => a.setRef.localeCompare(b.setRef)),
++    ...(domains === undefined ? { domainMode: "global" } : { domainMode: "per_rule", applicationDomains: domains }) }, "scopeRef", "scopeDigest", "qualification-scope://abiogenesis/") as unknown as QualificationInternedScope;
++}
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts
+@@ -1,3 +1,4 @@
++import { resolveQualificationAssessment, type QualificationResources, type ResolvedQualificationAssessment } from "./qualification_resources.js";
+ import * as v from "valibot";
+ import { sha256Bytes } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -25,7 +26,7 @@
+   type MalformedGtlAssessmentInput, type MalformedGtlAssessment,
+   qualificationHash as hash, sameQualificationValue as same, uniqueQualificationRefs as unique,
+   qualificationIdentity, constructQualificationIdentity, isQualificationAssessmentTask,
+-  type QualificationAssessmentInput, type QualificationAssessmentTask, type QualificationAssessmentPlan,
++  type QualificationAssessmentInput, type QualificationAssessmentTask, type QualificationEmbeddedTask, type QualificationInternedScope, type QualificationAssessmentPlan,
+   type QualificationJudgment, type QualificationNativeBasis, type QualificationRawJudgment,
+   type QualificationCoverageCatalog, type QualificationVerdictInput,
+   type ExactCandidateQualification, type QualificationOwnerRuling,
+@@ -310,13 +311,14 @@
+ /** C over declared sets only. Completeness of the candidate selection and the
+  * semantic justification for grouping remain independent scoped J. */
+ export function qualificationScopeCorrespondence(scope: QualificationScope, catalog: QualificationRuleCatalog,
+-  catalogDigest: string): readonly string[] {
++  catalogDigest: string, normalized?: QualificationInternedScope): readonly string[] {
+   const errors: string[] = [], check = (ok: boolean, code: string) => { if (!ok) errors.push(code); };
+   const inventory = scope.inventory, rules = new Map(catalog.rules.map(r => [r.ruleRef, r])),
+     members = new Map(inventory.members.map(m => [m.ref, m]));
+   const exactSet = (a: readonly string[], b: readonly string[]) => { const required = new Set(b);
+     return unique(a) && required.size === b.length && a.length === b.length && a.every(x => required.has(x)); };
+-  check(qualificationIdentity(scope, "scopeRef", "scopeDigest", "qualification-scope://abiogenesis/"), "scope_identity_mismatch");
++  check(normalized === undefined ? qualificationIdentity(scope, "scopeRef", "scopeDigest", "qualification-scope://abiogenesis/") :
++    qualificationIdentity(normalized, "scopeRef", "scopeDigest", "qualification-scope://abiogenesis/") && normalized.scopeRef === scope.scopeRef && normalized.scopeDigest === scope.scopeDigest, "scope_identity_mismatch");
+   check(same(scope.catalog, coordinate(catalog.catalogRef, catalogDigest)), "scope_catalog_mismatch");
+   check(qualificationIdentity(inventory, "inventoryRef", "inventoryDigest", "qualification-inventory://abiogenesis/"), "scope_inventory_identity_mismatch");
+   check(unique(inventory.members.map(m => m.ref)) && unique(inventory.members.map(m => m.path)) &&
+@@ -350,10 +352,10 @@
+   return scope.applicationDomains === undefined ? scope.surfaceGroups
+     : scope.applicationDomains.find(d => d.ruleGroupRef === ruleGroupRef)?.surfaceGroups ?? [];
+ }
+-function qualificationTaskScopeMatches(task: QualificationAssessmentTask, catalog: QualificationRuleCatalog, catalogDigest: string): boolean {
++function qualificationTaskScopeMatches(task: QualificationEmbeddedTask, catalog: QualificationRuleCatalog, catalogDigest: string, normalized?: QualificationInternedScope): boolean {
+   const scope = task.scope;
+   if (scope === undefined) return true;
+-  if (qualificationScopeCorrespondence(scope, catalog, catalogDigest).length > 0 ||
++  if (qualificationScopeCorrespondence(scope, catalog, catalogDigest, normalized).length > 0 ||
+       !same(scope.subjectBasis, task.subjectBasis) || !same(scope.lawBasis, task.lawBasis) || !same(scope.catalog, task.catalog) ||
+       !same(coordinate(scope.inventory.inventoryRef, scope.inventory.inventoryDigest), task.inventory)) return false;
+   const role = task.role.roleRef, surfaces = new Map(scope.surfaceGroups.map(g => [g.groupRef, g])),
+@@ -389,9 +391,9 @@
+ /** The assessment subject is projected from owner-validated declarations, never
+  * supplied as a caller summary. Catalog completeness includes all extracted
+  * rows of each selected governing source, including other declared groups. */
+-function qualificationSelectedSubject(task: QualificationAssessmentTask) {
++function qualificationSelectedSubject(task: QualificationEmbeddedTask, normalized?: QualificationInternedScope) {
+   const { catalog, digest } = readQualificationCatalog(), scope = task.scope;
+-  if (scope === undefined || !qualificationTaskScopeMatches(task, catalog, digest)) throw new TypeError("selected assessment subject differs");
++  if (scope === undefined) throw new TypeError("selected assessment subject differs");
+   const selectedGroups = new Set(task.coverage.map(c => c.ruleRef)),
+     groups = scope.ruleGroups.filter(g => selectedGroups.has(g.groupRef)),
+     selectedRules = new Set(groups.flatMap(g => g.ruleRefs)),
+@@ -411,7 +413,7 @@
+ }
+ /** Byte/span facts are computed from retained original records. This does not
+  * replace the existing patch/currentness/independence or attribution J joins. */
+-function qualificationConstructionContext(task: QualificationAssessmentTask) {
++function qualificationConstructionContext(task: QualificationEmbeddedTask) {
+   const provenance = task.provenance;
+   if (provenance.kind !== "external_construction") return provenance;
+   const records = new Map(provenance.records.map(m => [m.ref, m]));
+@@ -429,12 +431,12 @@
+   return { ...provenance, records: provenance.records.map(({ contentBase64: _body, ...coordinate }) => coordinate),
+     providedAttributionSpans: spans, recordBodies: "retained for C; only these spans and explicitly selected SOURCE DATA bodies are provided to J" };
+ }
+-export function qualificationMaterialMatches(task: QualificationAssessmentTask): boolean {
++export function qualificationMaterialMatches(task: QualificationEmbeddedTask, normalized?: QualificationInternedScope): boolean {
+   const members = task.context.members;
+   let roleSources: unknown;
+   try {
+     const { catalog, digest } = readQualificationCatalog();
+-    if (!qualificationTaskScopeMatches(task, catalog, digest)) return false;
++    if (!qualificationTaskScopeMatches(task, catalog, digest, normalized)) return false;
+     if (task.scope !== undefined) qualificationConstructionContext(task);
+     roleSources = QUALIFICATION_ROLE_POLICY.authoritySourceRefs.map(ref => catalog.sources.find(s => s.ref === ref));
+     if ((roleSources as unknown[]).some(s => s === undefined)) return false;
+@@ -480,30 +482,45 @@
+ }
+ export function isQualificationAssessmentInput(value: unknown): value is QualificationAssessmentInput {
+   if (!v.is(QUALIFICATION_ASSESSMENT_INPUT_SCHEMA, value) || !isQualificationAssessmentTask(value.task) ||
+-      !qualificationPlanMatches(value.plan) || !qualificationMaterialMatches(value.task)) return false;
++      !qualificationPlanMatches(value.plan) || (!("representation" in value.task) && !qualificationMaterialMatches(value.task))) return false;
+   const { task, plan } = value, slots = plan.slots.filter(s => s.slotRef === task.slotRef);
+   return slots.length === 1 && same(plan.subjectBasis, task.subjectBasis) && same(plan.lawBasis, task.lawBasis) &&
+     same(slots[0]!.task, coordinate(task.taskRef, task.taskDigest)) && slots[0]!.taskOrdinal === task.taskOrdinal &&
+     same(slots[0]!.coverage, task.coverage) && same(slots[0]!.role, task.role) &&
+-    same(task.provenance.subjectInventory, task.inventory);
+-}
+-export function qualificationRawMatches(input: QualificationAssessmentInput, raw: unknown): raw is QualificationRawJudgment {
++    ("representation" in task ? [...task.material, task.provenance, ...(task.scope === undefined ? [] : [task.scope])].every(s => same(s.resource, task.resource))
++      : same(task.provenance.subjectInventory, task.inventory));
++}
++export function establishQualificationAssessment(input: QualificationAssessmentInput, resources?: QualificationResources): ResolvedQualificationAssessment {
++  if (!isQualificationAssessmentInput(input)) throw new TypeError("invalid qualification assessment input (shape/identity)");
++  const validate = (view: ResolvedQualificationAssessment) => {
++    if (!qualificationMaterialMatches(view.task, view.normalizedScope) || !same(view.task.provenance.subjectInventory, input.task.inventory))
++      throw new TypeError("qualification resource material/scope correspondence differs");
++  };
++  if ("representation" in input.task) {
++    if (resources === undefined) throw new TypeError("qualification_resource_dependency_missing");
++    return resources.assessment(input, validate);
++  }
++  const view = resolveQualificationAssessment(input, resources); validate(view); return view;
++}
++export function qualificationRawMatches(input: QualificationAssessmentInput, raw: unknown, view?: ResolvedQualificationAssessment): raw is QualificationRawJudgment {
++  if (view === undefined && "representation" in input.task) return false;
++  const task = view?.task ?? input.task as QualificationEmbeddedTask;
+   return isQualificationAssessmentInput(input) && v.is(QUALIFICATION_RAW_JUDGMENT_SCHEMA, raw) &&
+     raw.criteria.length === input.task.coverage.length && unique(raw.criteria.map(c => c.criterionRef)) &&
+     raw.criteria.every((c, n) => {
+       const expected = input.task.coverage[n];
+       return expected !== undefined && c.criterionRef === expected.criterionRef && c.ruleRef === expected.ruleRef &&
+         c.surfaceRef === expected.surfaceRef && c.evidenceRole === expected.evidenceRole &&
+-        c.sourceRefs.every(ref => input.task.material.some(m => m.ref === ref)) &&
++        c.sourceRefs.every(ref => task.material.some(m => m.ref === ref)) &&
+         (input.task.scope === undefined ? c.grouping === undefined : c.grouping !== undefined) &&
+         (c.disposition !== "satisfied" || c.applicability !== "unknown" && c.grouping !== "unknown" && c.grouping !== "falsified" && c.residuals.length === 0);
+     });
+ }
+ /** Domain rendering is shared at preparation and replay. Required source bytes
+  * are quoted data; no caller prompt or desired disposition is interpolated. */
+-export function qualificationWorkerRequest(input: QualificationAssessmentInput): Readonly<ProbabilisticWorkerRequest> {
+-  if (!isQualificationAssessmentInput(input)) throw new TypeError("invalid qualification assessment input");
+-  const task = input.task;
++export function qualificationWorkerRequest(input: QualificationAssessmentInput, view = establishQualificationAssessment(input)): Readonly<ProbabilisticWorkerRequest> {
++  if (view.input !== input) throw new TypeError("qualification preparation differs from raw input");
++  const task = view.task;
+   const scope = task.scope, selectedSurfaces = new Set(task.coverage.map(c => c.surfaceRef)),
+     selectedRules = new Set(task.coverage.map(c => c.ruleRef));
+   const scopeContext = scope === undefined ? [] : ["SCOPE AND COMPUTED CORRESPONDENCE (C, not semantic satisfaction): " + canonicalJson({
+@@ -517,7 +534,7 @@
+       : scope.surfaceGroups.filter(g => selectedSurfaces.has(g.groupRef)),
+     ruleGroups: scope.ruleGroups.filter(g => selectedRules.has(g.groupRef)),
+     assessedMembers: task.subjectMembers,
+-    selectedSubject: qualificationSelectedSubject(task),
++    selectedSubject: qualificationSelectedSubject(task, view.normalizedScope),
+     providedWholeSourceBodies: task.material.map(({ contentBase64: _body, ...m }) => m),
+     unprovidedAssessedMemberRefs: task.subjectMembers.filter(m => !task.material.some(s => s.ref === m.ref)).map(m => m.ref),
+     limits: "C checked declared set membership and supplied material bytes. Whole-source correspondence is checked by F11. Selection completeness, common scope, applicability and adequacy require independent J; metadata is not unread source content.",
+@@ -544,8 +561,8 @@
+     responseJsonSchema: responseJsonSchema as unknown as Readonly<Record<string, JsonValue>> });
+ }
+ export function constructQualificationJudgment(input: QualificationAssessmentInput, raw: unknown,
+-  nativeBasis: QualificationNativeBasis, source: QualificationJudgment["source"]): Readonly<QualificationJudgment> {
+-  if (!qualificationRawMatches(input, raw) || source.cCallRef !== nativeBasis.cCallRef ||
++  nativeBasis: QualificationNativeBasis, source: QualificationJudgment["source"], view?: ResolvedQualificationAssessment): Readonly<QualificationJudgment> {
++  if (!qualificationRawMatches(input, raw, view) || source.cCallRef !== nativeBasis.cCallRef ||
+       source.inputDigest !== hash(input) || source.rawValueDigest !== hash(raw) ||
+       source.actorRef !== input.task.role.actorRef || source.workerBindingRef !== input.task.role.workerBindingRef) {
+     throw new TypeError("qualification assessment task/raw/native source mismatch");
+@@ -553,6 +570,25 @@
+   return constructQualificationIdentity({ kind: "qualification_judgment" as const, schemaVersion: "5.0.0" as const,
+     task: input.task, plan: input.plan, raw, nativeBasis, source }, "judgmentRef", "judgmentDigest",
+     "qualification-judgment://abiogenesis/") as unknown as Readonly<QualificationJudgment>;
++}
++/** One native preparation operation borrows the resolved dependency throughout completion and admission. */
++export interface PreparedQualificationAssessment {
++  readonly input: QualificationAssessmentInput;
++  readonly view: ResolvedQualificationAssessment;
++  readonly request: Readonly<ProbabilisticWorkerRequest>;
++  readonly complete: (raw: unknown, basis: QualificationNativeBasis, source: QualificationJudgment["source"]) => Readonly<QualificationJudgment>;
++  readonly matches: (input: unknown, output: unknown) => boolean;
++}
++export function prepareQualificationAssessment(input: QualificationAssessmentInput, resources?: QualificationResources): PreparedQualificationAssessment {
++  const view = establishQualificationAssessment(input, resources), request = qualificationWorkerRequest(input, view);
++  let completed: Readonly<QualificationJudgment> | undefined;
++  return Object.freeze({ input, view, request,
++    complete(raw: unknown, basis: QualificationNativeBasis, source: QualificationJudgment["source"]) {
++      if (source.requestDigest !== hash(request) || source.promptDigest !== hash(request.prompt)) throw new TypeError("qualification completion crosses owning request");
++      completed = constructQualificationJudgment(input, raw, basis, source, view); return completed;
++    },
++    matches(supplied: unknown, output: unknown) { return supplied === input && completed !== undefined && same(completed, output); },
++  });
+ }
+ /** F_H candidate relation; actual authority and response admission stay native. */
+ export function qualificationRulingMatches(request: unknown, response: unknown, actingActorRef: string): response is QualificationOwnerRuling {
+@@ -690,8 +726,9 @@
+         let original: unknown; try { original = JSON.parse(preimage.toString("utf8")); } catch { return invalid; }
+         if (!manifestHasMember(original, { path: m.path, digest: sha256Bytes(prior) })) return invalid;
+       }
+-      const selectedMaterial = judgment.task.material.find(s => s.ref === m.ref);
+-      if (selectedMaterial !== undefined && (selectedMaterial.digest !== m.digest || selectedMaterial.path !== m.path)) return invalid;
++      const selectedMaterial = judgment.task.material.find(s => ("ref" in s ? s.ref : s.entry.ref) === m.ref);
++      if (selectedMaterial !== undefined && ("ref" in selectedMaterial ? selectedMaterial.digest !== m.digest || selectedMaterial.path !== m.path
++        : selectedMaterial.entry.digest !== m.digest || judgment.task.context.members.find(c => c.memberRef === m.ref)?.path !== m.path)) return invalid;
+     }
+     const spans = chain.attributionSources.every(s => {
+       const b = bytes.get(s.sourceRef); return b !== undefined && s.startByte < s.endByte && s.endByte <= b.length &&
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_contracts.ts
+@@ -3,13 +3,13 @@
+   TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_SOURCE_SCHEMA, QUALIFICATION_EVIDENCE_CITATION_SCHEMA,
+   QUALIFICATION_COORDINATE_SCHEMA, QUALIFICATION_ASSESSMENT_PLAN_SCHEMA, QUALIFICATION_PROOF_RESOURCE_SCHEMA,
+   QUALIFICATION_COVERAGE_CATALOG_SCHEMA, QUALIFICATION_MATERIAL_SCHEMA, QUALIFICATION_NATIVE_BASIS_SCHEMA,
+-  QUALIFICATION_VERIFICATION_SELECTION_SCHEMA, QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA, QUALIFICATION_SCOPE_SCHEMA, qualificationIdentityDigest } from "./qualification_contracts.js";
++  QUALIFICATION_VERIFICATION_SELECTION_SCHEMA, QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA, QUALIFICATION_SCOPE_SCHEMA, qualificationIdentityDigest, QUALIFICATION_RESOURCE_SELECTION_SCHEMA, QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA } from "./qualification_contracts.js";
+ export * from "./qualification_contracts.js";
+ const ref = v.pipe(v.string(), v.minLength(1));
+ const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/));
+ const ordinal = v.pipe(v.number(), v.integer(), v.minValue(0));
+ /** @internal Runtime parser mechanics; serialized schemas and native data types are the published contract. */
+-export const SELF_CONFORMANCE_INPUT_SCHEMA = v.strictObject({
++export const SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA = v.strictObject({
+   kind: v.literal("self_conformance_input"), schemaVersion: v.literal("5.0.0"),
+   basis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, law: v.nullable(QUALIFICATION_LAW_BASIS_SCHEMA),
+   inventory: v.nullable(QUALIFICATION_INVENTORY_SCHEMA), tenantManifest: v.nullable(TENANT_CONFORMANCE_MANIFEST_SCHEMA),
+@@ -23,6 +23,18 @@
+     sourceMembers: v.array(QUALIFICATION_MATERIAL_SCHEMA), coverageCatalog: QUALIFICATION_COVERAGE_CATALOG_SCHEMA,
+     verification: v.optional(QUALIFICATION_VERIFICATION_SELECTION_SCHEMA) })),
+ });
++const selection = <K extends string>(kind: K) => v.strictObject({ ...QUALIFICATION_RESOURCE_SELECTION_SCHEMA.entries, entryKind: v.literal(kind) });
++export const SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA = v.strictObject({ ...SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA.entries,
++  representation: v.literal("resource_refs_v1"), resource: QUALIFICATION_COORDINATE_SCHEMA,
++  law: v.nullable(selection("law")), inventory: v.nullable(selection("inventory")), tenantManifest: v.nullable(selection("tenant_manifest")),
++  scope: v.optional(selection("scope")), authorityMembers: v.array(selection("material")),
++  qualification: v.optional(v.strictObject({ plan: QUALIFICATION_ASSESSMENT_PLAN_SCHEMA, proof: QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA,
++    sourceMembers: v.array(selection("material")), coverageCatalog: selection("coverage_catalog"),
++    verification: v.optional(v.strictObject({ ...QUALIFICATION_VERIFICATION_SELECTION_SCHEMA.entries, recipe: selection("verification_recipe") })) })) });
++export const SELF_CONFORMANCE_INPUT_SCHEMA = v.union([SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA, SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA]);
++const selfConformanceEmbeddedDataSchema = SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA;
++export type SelfConformanceEmbeddedInput = v.InferOutput<typeof selfConformanceEmbeddedDataSchema>;
++export type SelfConformanceReferenceInput = v.InferOutput<typeof SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA>;
+ /** @internal Runtime parser mechanics; serialized schemas and native data types are the published contract. */
+ export const QUALIFICATION_OWNER_BASIS_SCHEMA = QUALIFICATION_NATIVE_BASIS_SCHEMA;
+ /** @internal Runtime parser mechanics; serialized schemas and native data types are the published contract. */
+@@ -40,18 +52,21 @@
+   provenance: v.picklist(["C", "J", "O", "J_required", "O_required"]), evidenceRefs: v.array(ref), detail: ref,
+ });
+ /** @internal Runtime parser mechanics; serialized schemas and native data types are the published contract. */
+-export const SELF_CONFORMANCE_RESULT_SCHEMA = v.strictObject({
++export const SELF_CONFORMANCE_EMBEDDED_RESULT_SCHEMA = v.strictObject({
+   kind: v.literal("self_conformance_result"), schemaVersion: v.literal("5.0.0"), resultRef: ref, resultDigest: digest,
+   subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
+   inventoryDigest: v.nullable(digest), inputDigest: digest, owner: SELF_CONFORMANCE_OWNER_SCHEMA,
+-  ruleApplications: SELF_CONFORMANCE_INPUT_SCHEMA.entries.applications,
++  ruleApplications: SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA.entries.applications,
+   scope: v.optional(QUALIFICATION_SCOPE_SCHEMA),
+-  evidenceCitations: SELF_CONFORMANCE_INPUT_SCHEMA.entries.evidenceCitations,
++  evidenceCitations: SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA.entries.evidenceCitations,
+   findings: v.array(SELF_CONFORMANCE_FINDING_SCHEMA), disposition: v.picklist(["passed", "failed", "blocked_incomplete"]),
+   qualificationVerdict: v.literal(false),
+   verification: v.optional(v.nullable(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA)),
+ });
+ 
++export const SELF_CONFORMANCE_REFERENCE_RESULT_SCHEMA = v.strictObject({ ...SELF_CONFORMANCE_EMBEDDED_RESULT_SCHEMA.entries,
++  representation: v.literal("resource_refs_v1"), scope: v.optional(selection("scope")) });
++export const SELF_CONFORMANCE_RESULT_SCHEMA = v.union([SELF_CONFORMANCE_EMBEDDED_RESULT_SCHEMA, SELF_CONFORMANCE_REFERENCE_RESULT_SCHEMA]);
+ // Keep data inference portable without exposing the internal parser exports.
+ const selfConformanceDataSchemas = {
+   input: SELF_CONFORMANCE_INPUT_SCHEMA,
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts
+@@ -1,3 +1,5 @@
++import { resolveSelfConformanceInput, resolveQualificationAssessment, type QualificationResources } from "./qualification_resources.js";
++import type { SelfConformanceEmbeddedInput } from "./self_conformance_contracts.js";
+ import * as v from "valibot";
+ import { readFileSync } from "node:fs";
+ import { fileURLToPath } from "node:url";
+@@ -23,7 +25,8 @@
+ function same(a: unknown, b: unknown): boolean { return sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue); }
+ const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
+ /** Finite native relation. Citations remain unadmitted; no caller flag can establish J/O truth. */
+-export function evaluateSelfConformance(input: SelfConformanceInput, owner: SelfConformanceOwner): Readonly<SelfConformanceResult> {
++export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: SelfConformanceOwner, resources?: QualificationResources): Readonly<SelfConformanceResult> {
++  const resolvedInput = resolveSelfConformanceInput(rawInput, resources), input = resolvedInput.input;
+   const findings: SelfConformanceFinding[] = [];
+   const add = (diagnostic: string, disposition: SelfConformanceFinding["disposition"], detail: string,
+     surfaceRefs: string[] = [], ruleRef: string | null = null, sourceRef: string | null = null,
+@@ -39,12 +42,12 @@
+     rootRefs: input.inventory?.selectedRoots ?? [], surfaceRoles: m.surfaceRoles, ownerRefs: [], sourceRefs: [m.ref] }));
+   const ruleGroupByRef = new Map(ruleGroups.map(g => [g.groupRef, g])), surfaceGroupByRef = new Map(surfaceGroups.map(g => [g.groupRef, g]));
+   if (scope !== undefined) {
+-    for (const diagnostic of qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes)))
++    for (const diagnostic of qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes), resolvedInput.normalizedScope))
+       add(diagnostic, diagnostic.includes("incomplete") ? "blocked_incomplete" : "failed", "Explicit grouped scope does not conserve its exact declared domain.");
+     if (!same(scope.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) || !same(scope.lawBasis, basis.lawBasis) || !same(scope.inventory, input.inventory))
+       add("scope_subject_basis_mismatch", "failed", "Scope differs from the exact evaluated subject/law/inventory.");
+   }
+-  const applicationRows = new Map<string, SelfConformanceInput["applications"]>();
++  const applicationRows = new Map<string, SelfConformanceEmbeddedInput["applications"]>();
+   for (const application of input.applications) {
+     const rows = applicationRows.get(application.ruleRef) ?? [];
+     rows.push(application); applicationRows.set(application.ruleRef, rows);
+@@ -60,17 +63,17 @@
+     ...(input.law === null ? [] : [typedMaterial(input.law.lawBasisRef, input.law)]),
+   ];
+   const executionProof = input.qualification === undefined ? null : resolveQualificationExecutionMaterial(
+-    input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory);
++    input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory, resources);
+   const executionMaterial = executionProof?.evidence ?? null, verification = executionProof?.verification ?? null;
+   const coverage = input.qualification?.coverageCatalog;
+   const coverageBound = coverage !== undefined && qualificationCoverageIsPublished(coverage) &&
+     same(basis.coverageCatalog, { ref: coverage.catalogRef, digest: coverage.catalogDigest }) && same(basis.lawBasis, coverage.lawBasis);
+   if (coverageBound) declarationMaterials.push(typedMaterial(coverage!.catalogRef, coverage));
+   const resolved = input.qualification === undefined ? null : resolveQualificationAssessments(input.qualification.proof,
+-    input.qualification.plan, owner.nativeBasis);
++    input.qualification.plan, owner.nativeBasis, resources)?.map(j => ({ ...j, task: resolveQualificationAssessment({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: j.task, plan: j.plan }, resources).task }));
+   const assessment = input.qualification === undefined || !same(input.qualification.plan.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) ||
+     !same(input.qualification.plan.lawBasis, basis.lawBasis) || !coverageBound || executionMaterial === null ? null : resolved?.filter(j =>
+-      same(j.task.inventory, basis.sourceInventory) && same(j.task.scope ?? null, scope ?? null) && input.law !== null && same(j.task.catalog, { ref: input.law.catalog.ref, digest: input.law.catalog.digest }) &&
++      same(j.task.inventory, basis.sourceInventory) && (j.task.scope === undefined ? scope === undefined : scope !== undefined && j.task.scope.scopeRef === scope.scopeRef && j.task.scope.scopeDigest === scope.scopeDigest) && input.law !== null && same(j.task.catalog, { ref: input.law.catalog.ref, digest: input.law.catalog.digest }) &&
+       j.task.subjectMembers.every(m => input.inventory?.members.some(i => same(m, { ref: i.ref, path: i.path, digest: i.digest, byteCount: i.byteCount }))) &&
+       j.task.material.every(m => [...declarationMaterials, ...input.authorityMembers, ...input.qualification!.sourceMembers,
+         ...(executionMaterial ?? []),
+@@ -211,7 +214,7 @@
+     const manifest = input.tenantManifest;
+     if (!unique(manifest.claims.map(c => c.claimRef)) || manifest.claims.length === 0 || manifest.claims.some(c => c.publicContractRefs.length === 0 ||
+         c.evidenceRefs.length === 0 || !unique(c.publicContractRefs))) add("tenant_claim_roster_mismatch", "failed", "Tenant claims require unique owned capability/contract and evidence coverage.");
+-    if (!qualificationTenantClaimsMatch(owner.nativeBasis, input, manifest))
++    if (!qualificationTenantClaimsMatch(owner.nativeBasis, rawInput, manifest, resources))
+       add("tenant_owned_capability_contract_mismatch", "failed", "Tenant capability/Public coordinates or claim ownership differ from the exact native installed Product.");
+     assessed("tenant_realization_assessment_required", "Capability/catalog presence cannot establish realized conformance.", "tenant", "tenant_realization", [manifest.manifestRef]);
+   }
+@@ -254,8 +257,8 @@
+   }
+   const body = { kind: "self_conformance_result" as const, schemaVersion: "5.0.0" as const,
+     subjectBasis: { ref: basis.basisRef, digest: basis.basisDigest }, lawBasis: basis.lawBasis,
+-    inventoryDigest: inventory?.inventoryDigest ?? null, inputDigest: sha256Canonical(input as unknown as JsonValue), owner,
+-    ruleApplications: input.applications, ...(scope === undefined ? {} : { scope }), evidenceCitations: input.evidenceCitations, findings,
++    inventoryDigest: inventory?.inventoryDigest ?? null, inputDigest: sha256Canonical(rawInput as unknown as JsonValue), owner,
++    ruleApplications: input.applications, ...("representation" in rawInput ? { representation: "resource_refs_v1" as const, ...(rawInput.scope === undefined ? {} : { scope: rawInput.scope }) } : scope === undefined ? {} : { scope }), evidenceCitations: input.evidenceCitations, findings,
+     disposition: findings.some(x => x.disposition === "failed") ? "failed" as const
+       : findings.some(x => x.disposition === "blocked_incomplete" || x.disposition === "accepted_reentry") ? "blocked_incomplete" as const : "passed" as const,
+     qualificationVerdict: false as const, verification };
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts
+@@ -1,3 +1,4 @@
++import type { QualificationResources } from "./qualification_resources.js";
+ import { readFileSync } from "node:fs";
+ import { join } from "node:path";
+ import { readRuntimeEventsAtDurablePrefix } from "../abg/event_store.js";
+@@ -20,9 +21,9 @@
+ import type { QualificationNativeBasis as QualificationOwnerBasis } from "./qualification_contracts.js";
+ const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+ /** Rehydrates actual native owner truth. A consistent caller data tuple is insufficient. */
+-export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, input: unknown, requireCurrent = false): SelfConformanceOwner | null {
++export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): SelfConformanceOwner | null {
+   if (typeof input === "object" && input !== null && "qualification" in input) {
+-    return resolveQualificationSelfConformanceOwner(basis, input, requireCurrent);
++    return resolveQualificationSelfConformanceOwner(basis, input, requireCurrent, resources);
+   }
+   try {
+     const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts
+@@ -58,10 +58,12 @@
+       projectQualificationConsumer(output.nativeBasis, input) !== null && same(evaluateMalformedGtlAssessment(input, output.nativeBasis), output);
+     if (predicateRef === ids.judgmentPredicateRef) {
+       if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return false;
++      if (nativeProof?.qualificationSelfConformance !== undefined) return same(nativeProof.qualificationSelfConformance(), output);
+       const owner = resolveSelfConformanceOwner(output.owner.nativeBasis as QualificationOwnerBasis, input);
+       return owner !== null && same(owner, output.owner) && same(evaluateSelfConformance(input, owner), output);
+     }
+     if (predicateRef === q.assessPredicate) {
++      if (nativeProof?.qualificationJudgment !== undefined) return nativeProof.qualificationJudgment();
+       if (!isQualificationAssessmentInput(input) || !isQualificationJudgment(output) ||
+           projectQualificationConsumer(output.nativeBasis, input) === null || !qualificationRawMatches(input, output.raw)) return false;
+       return same(constructQualificationJudgment(input, output.raw, output.nativeBasis, output.source), output);
+@@ -105,7 +107,8 @@
+     if (!isQualificationJudgment(basis.value)) return false;
+     const value = basis.value, rows = basis.admittedEvidence.filter(e => e.evidenceClass === "probabilistic_transport");
+     const e = rows.length === 1 ? rows[0]! : null;
+-    const request = qualificationWorkerRequest({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: value.task, plan: value.plan });
++    const request = basis.nativeProof?.qualificationRequest?.() ?? ("representation" in value.task ? null : qualificationWorkerRequest({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: value.task, plan: value.plan }));
++    if (request === null) return false;
+     return e !== null && e.cCallRef === value.source.cCallRef && e.inputDigest === value.source.inputDigest &&
+       e.actorInvocationRef === value.source.actorInvocationRef && e.actorRef === value.source.actorRef &&
+       e.workerBindingRef === value.source.workerBindingRef && e.transportBindingRef === value.source.transportBindingRef &&
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts
+@@ -1,3 +1,4 @@
++import { isQualificationReferenceForm, resolveQualificationAssessment, resolveQualificationProof, resolveSelfConformanceInput, type QualificationResources } from "../validator/qualification_resources.js";
+ import { canonicalJson } from "../shared/canonical_json.js";
+ import { isDeepStrictEqual } from "node:util";
+ import { readFileSync } from "node:fs";
+@@ -29,7 +30,7 @@
+   isQualificationJudgment, isQualificationVerdict, isQualificationProofResource,
+   QUALIFICATION_ROLE_POLICY,
+   qualificationIdentity,
+-  type QualificationNativeBasis, type QualificationProofResource, type QualificationAssessmentPlan,
++  type QualificationNativeBasis, type QualificationProofResource, type QualificationEmbeddedProofResource, type QualificationAssessmentPlan,
+   type QualificationEvidenceSelection, type QualificationJudgment, type QualificationOwnerRuling,
+   type QualificationSelfConformanceSummary, type QualificationMaterial, type QualificationVerdictInput,
+   type TenantConformanceManifest, type MalformedGtlAssessment, type MalformedGtlAssessmentInput,
+@@ -42,7 +43,7 @@
+ import { qualificationCoverageIsPublished, isQualificationBasisReady, projectExternalConstructionAttribution,
+   isMalformedGtlAssessmentInput, isMalformedGtlAssessment,
+   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment, constructNativeRuntimeAssessment } from "../validator/qualification.js";
+-import { isSelfConformanceResult, type SelfConformanceOwner } from "../validator/self_conformance_contracts.js";
++import { isSelfConformanceInput, isSelfConformanceResult, type SelfConformanceOwner } from "../validator/self_conformance_contracts.js";
+ const ASSESS = "implementation://abiogenesis/qualification/assess-fp@5";
+ const VERDICT = "implementation://abiogenesis/qualification/exact-candidate-fd@5";
+ const SELF = "implementation://abiogenesis/qualification/self-conformance-fd@5";
+@@ -53,17 +54,37 @@
+ const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
+ const one = <T>(xs: readonly T[]): T | null => xs.length === 1 ? xs[0]! : null;
+ const coord = (ref: string, digest: string) => ({ ref, digest: digest as `sha256:${string}` });
+-function declarationsOf(input: unknown): readonly AbgHistoricalDeclarationProof[] {
++function declarationsOf(input: unknown, resources?: QualificationResources): readonly AbgHistoricalDeclarationProof[] {
+   if (!record(input)) return [];
+-  if (input.kind === "native_runtime_assessment" && record(input.input)) return declarationsOf(input.input);
++  if (input.kind === "native_runtime_assessment" && record(input.input)) return declarationsOf(input.input, resources);
+   if (input.kind === "malformed_gtl_assessment" && record(input.input) && Array.isArray(input.input.declarations))
+     return input.input.declarations as unknown as AbgHistoricalDeclarationProof[];
+-  if (isQualificationAssessmentInput(input)) return input.task.declarations;
++  if (isQualificationAssessmentInput(input)) return resolveQualificationAssessment(input, resources).task.declarations;
++  if (isQualificationProofResource(input.proof)) return resolveQualificationProof(input.proof, resources).declarations;
++  if (record(input.qualification) && isQualificationProofResource(input.qualification.proof)) return resolveQualificationProof(input.qualification.proof, resources).declarations;
+   if (Array.isArray(input.declarations)) return input.declarations as unknown as AbgHistoricalDeclarationProof[];
+   if (record(input.proof) && Array.isArray(input.proof.declarations)) return input.proof.declarations as unknown as AbgHistoricalDeclarationProof[];
+   if (record(input.qualification) && record(input.qualification.proof) && Array.isArray(input.qualification.proof.declarations))
+     return input.qualification.proof.declarations as unknown as AbgHistoricalDeclarationProof[];
+   return [];
++}
++function referenceDependencies(input: unknown, resources?: QualificationResources): boolean {
++  try {
++    if (!record(input)) return true;
++    if (isQualificationAssessmentInput(input) && isQualificationReferenceForm(input.task)) { resolveQualificationAssessment(input, resources); return true; }
++    if (isSelfConformanceInput(input) && isQualificationReferenceForm(input)) { resolveSelfConformanceInput(input, resources); return true; }
++    const proof = record(input.qualification) ? input.qualification.proof : input.proof;
++    if (isQualificationProofResource(proof) && isQualificationReferenceForm(proof)) { resolveQualificationProof(proof, resources); return true; }
++    if (isQualificationReferenceForm(input)) { if (resources === undefined || !("resource" in input) || !record(input.resource)) return false; resources.manifest(input.resource as unknown as QualificationCoordinate); }
++    return true;
++  } catch { return false; }
++}
++function ownedProof(proof: QualificationProofResource, resources?: QualificationResources): QualificationEmbeddedProofResource {
++  const facts = executionProofFacts.get(proof);
++  const selectedResources = resources ?? facts?.resources;
++  const resolved = resolveQualificationProof(proof, selectedResources);
++  if (facts !== undefined || resources !== undefined) executionProofFacts.set(resolved, { ...facts, events: facts?.events ?? readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate), environments: facts?.environments ?? new Map(), ...(selectedResources === undefined ? {} : { resources: selectedResources }) });
++  return resolved;
+ }
+ // Facts belong to the existing immutable-prefix derivation scope. They are
+ // discarded with its owner and never authorize a caller's claimed coordinate.
+@@ -92,7 +113,7 @@
+ // authority on copied coordinates. The existing cold owners still acquire it.
+ type ExecutionSourceFacts = { events: readonly RuntimeEvent[];
+   artifactTruth?: ExactPrefixArtifactTruthProjection;
+-  environments: Map<string, ReturnType<typeof projectExactPrefixWorkspaceEnvironment>> };
++  environments: Map<string, ReturnType<typeof projectExactPrefixWorkspaceEnvironment>>; resources?: QualificationResources | undefined };
+ const executionProofFacts = new WeakMap<QualificationProofResource, ExecutionSourceFacts>();
+ function acquireExecutionSource(coordinate: DurablePrefixCoordinate): ExecutionSourceFacts | null {
+   const artifactTruth = projectExactPrefixArtifactTruth(coordinate);
+@@ -109,6 +130,7 @@
+   const opened = one(events.filter(e => e.kind === "c_call_opened" && e.aggregateId === ref));
+   if (opened === null) return null;
+   const facts = nativeFacts(prefix), known = facts.graphs.get(ref);
++  if (known !== undefined && referenceDependencies(known.root.rawInputValue, source?.resources) === false) return null;
+   const selectedProofs = known === undefined ? [] : (declarations.length === 0 ? [known.proof] :
+     declarations.filter(d => d.catalog?.basisDigest === known.root.catalogBasisDigest && d.catalogView?.viewDigest === known.root.catalogViewDigest));
+   if (known !== undefined && known.opened === opened && selectedProofs.length === 1 && sameFact(selectedProofs[0], known.proof))
+@@ -146,7 +168,8 @@
+   const invocationEvent = one(events.filter(e => e.eventId === invocation.admissionEventRef));
+   if (invocationEvent === null || [...environment.productInstalls.map(i => i.admissionEventRef), environment.workspaceBinding.admissionEventRef].some(ref =>
+     events.filter(e => e.eventId === ref && e.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) return null;
+-  const supplied = declarations.length === 0 ? declarationsOf(root.rawInputValue) : declarations;
++  if (!referenceDependencies(root.rawInputValue, source?.resources)) return null;
++  const supplied = declarations.length === 0 ? declarationsOf(root.rawInputValue, source?.resources) : declarations;
+   const proofs = supplied.filter(d => d.catalog?.basisDigest === root.catalogBasisDigest && d.catalogView?.viewDigest === root.catalogViewDigest);
+   const proof = one(proofs); if (proof === null) return null;
+   const installs = environment.productInstalls.map(i => projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, i.admissionEventRef));
+@@ -230,16 +253,17 @@
+   };
+   return countGraph(owner.root.graphFunctionRef, []) === 1;
+ }
+-export function projectQualificationConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false) {
+-  try {
++export function projectQualificationConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources) {
++  try {
++    if (!referenceDependencies(input, resources)) return null;
+     const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
+-    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input),
+-      { events, environments: new Map() });
++    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources),
++      { events, environments: new Map(), ...(resources === undefined ? {} : { resources }) });
+     if (owner === null || !QUALIFICATION_IMPLEMENTATION_REFS.includes(owner.call.implementationRef ?? "") ||
+         !sameFact(owner.input, input) || projectCCallCarrierPhaseAtPrefix(owner.prefix, owner.call)?.phase !== "selected_no_evidence") return null;
+     if (requireCurrent && owner.call.implementationRef === SELF && record(input) && record(input.qualification) &&
+         isQualificationProofResource(input.qualification.proof) && input.qualification.proof.executionSources !== undefined &&
+-        (!record(input.basis) || executionSourceProofs(input.qualification.proof,
++        (!record(input.basis) || executionSourceProofs(ownedProof(input.qualification.proof, resources),
+           input.basis as unknown as ExactCandidateQualification<"basis">, basis, true) === null)) return null;
+     if (owner.call.implementationRef === VERDICT && (!record(input) || input.slotRef !== owner.call.programLocusRef || !soleDeclaredReducer(owner))) return null;
+     if (owner.call.implementationRef === MALFORMED_ASSESS &&
+@@ -268,8 +292,9 @@
+ }
+ /** Reuse the native producer relation; the cited assessment is its exact typed
+  * value, not a caller-authored assertion or an invented runtime Result ref. */
+-export function malformedGtlAssessmentHasNativeOwner(proof: QualificationProofResource, assessment: MalformedGtlAssessment): boolean {
+-  try {
++export function malformedGtlAssessmentHasNativeOwner(proof: QualificationProofResource, assessment: MalformedGtlAssessment, resources?: QualificationResources): boolean {
++  try {
++    proof = ownedProof(proof, resources);
+     if (!isMalformedGtlAssessment(assessment) || !isQualificationProofResource(proof) ||
+         !proofWithin({ ...proof, prefix: assessment.nativeBasis.predecessorPrefix }, { cCallRef: assessment.nativeBasis.cCallRef, predecessorPrefix: proof.prefix })) return false;
+     const source = nativeState(proof, assessment.nativeBasis.cCallRef);
+@@ -389,8 +414,9 @@
+   }
+   return cases;
+ }
+-export function projectNativeRuntimeAssessment(basis: QualificationNativeBasis, input: unknown, requireCurrent = false): Readonly<NativeRuntimeAssessment> | null {
+-  try {
++export function projectNativeRuntimeAssessment(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): Readonly<NativeRuntimeAssessment> | null {
++  try {
++    if (!referenceDependencies(input, resources)) return null;
+     const coordinate = basis.predecessorPrefix as DurablePrefixCoordinate;
+     const events = readRuntimeEventsAtDurablePrefix(coordinate, { requireCurrent });
+     const facts = nativeFacts(selectValidatedRuntimeEventPrefix(events)), key = coordinate.coordinateDigest + ":" + basis.cCallRef;
+@@ -398,7 +424,7 @@
+     if (known !== undefined && sameFact(known.input, input)) return known.value;
+     if (!isNativeRuntimeAssessmentInput(input) || !proofWithin(input.proof, basis)) return null;
+     readRuntimeEventsAtDurablePrefix(reidentifyHistoricalDurablePrefixCoordinate(coordinate, input.proof.prefix as DurablePrefixCoordinate));
+-    const owner = projectQualificationConsumer(basis, input, requireCurrent);
++    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
+     if (owner === null || owner.call.implementationRef !== RUNTIME_ASSESS) return null;
+     const cases = nativeRuntimeCases(input, { ...input.proof, prefix: basis.predecessorPrefix });
+     if (cases === null) return null;
+@@ -407,8 +433,9 @@
+     return value;
+   } catch { return null; }
+ }
+-export function nativeRuntimeAssessmentHasNativeOwner(proof: QualificationProofResource, assessment: NativeRuntimeAssessment): boolean {
+-  try {
++export function nativeRuntimeAssessmentHasNativeOwner(proof: QualificationProofResource, assessment: NativeRuntimeAssessment, resources?: QualificationResources): boolean {
++  try {
++    proof = ownedProof(proof, resources);
+     if (!isNativeRuntimeAssessment(assessment) || !isQualificationProofResource(proof) ||
+       !proofWithin({ ...proof, prefix: assessment.nativeBasis.predecessorPrefix }, { cCallRef: assessment.nativeBasis.cCallRef, predecessorPrefix: proof.prefix })) return false;
+     const source = nativeState(proof, assessment.nativeBasis.cCallRef);
+@@ -427,9 +454,10 @@
+       nativeRuntimeCases(assessment.input, proof) !== null;
+   } catch { return false; }
+ }
+-export function projectQualificationRulingForConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false): Readonly<QualificationOwnerRuling> | null {
+-  try {
+-    const owner = projectQualificationConsumer(basis, input, requireCurrent);
++export function projectQualificationRulingForConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): Readonly<QualificationOwnerRuling> | null {
++  try {
++    if (!referenceDependencies(input, resources)) return null;
++    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
+     if (owner === null || owner.call.implementationRef !== RULING) return null;
+     const rows = projectFhContinuations(owner.prefix, deriveRuntimeEventCalculusProjection(owner.prefix)).filter(c =>
+       c.runId === owner.call.runId && (c.status === "responded" || c.status === "resolved") && same(c.responseValue, input));
+@@ -449,7 +477,7 @@
+     proof.prefix.prefixLength <= consumer.predecessorPrefix.prefixLength;
+ }
+ function nativeState(proof: QualificationProofResource, ref: string) {
+-  const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, ref, proof.declarations, executionProofFacts.get(proof));
++  const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, ref, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof));
+   const state = owner === null ? null : stateAt(owner);
+   if (owner === null || state === null) return null;
+   // These rows are consumed only after the existing native outcome projector
+@@ -482,8 +510,9 @@
+ }
+ /** A selection cannot manufacture slots by assigning result IDs. */
+ export function projectQualificationJudgment(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
+-  selection: Extract<QualificationEvidenceSelection, { kind: "judgment_selection" }>): Readonly<QualificationJudgment> | null {
+-  try {
++  selection: Extract<QualificationEvidenceSelection, { kind: "judgment_selection" }>, resources?: QualificationResources): Readonly<QualificationJudgment> | null {
++  try {
++    proof = ownedProof(proof, resources);
+     if (!isQualificationProofResource(proof) || !qualificationPlanMatches(plan)) return null;
+     const slot = one(plan.slots.filter(s => s.slotRef === selection.slotRef));
+     if (slot === null || !same(slot.task, selection.task)) return null;
+@@ -501,15 +530,23 @@
+           candidate.state.cCall.graphFunctionRef !== slot.graphFunctionRef || candidate.state.cCall.programLocusRef !== slot.programLocusRef ||
+           !isQualificationJudgment(candidate.state.result.value)) continue;
+       const value = candidate.state.result.value, transport = one(candidate.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport"));
+-      const request = qualificationWorkerRequest(candidate.owner.input);
++      const view = resolveQualificationAssessment(candidate.owner.input, resources ?? executionProofFacts.get(proof)?.resources);
++      const preparation = graphOwner(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate, value.nativeBasis.cCallRef, view.task.declarations,
++        { events: readRuntimeEventsAtDurablePrefix(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources: resources ?? executionProofFacts.get(proof)?.resources });
++      const started = one(candidate.owner.events.filter(e => e.kind === "actor_invocation_started" && e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef));
+       if (!same(value.task, candidate.owner.input.task) || !same(value.plan, plan) ||
+-          !qualificationRawMatches(candidate.owner.input, value.raw) || projectQualificationConsumer(value.nativeBasis, candidate.owner.input) === null ||
++          !qualificationRawMatches(candidate.owner.input, value.raw, view) || preparation === null || started === null || !record(started.payload) ||
++          preparation.call.cCallRef !== candidate.state.cCall.cCallRef || preparation.execution.basisDigest !== candidate.owner.execution.basisDigest ||
++          !sameFact(preparation.input, candidate.owner.input) || projectCCallCarrierPhaseAtPrefix(preparation.prefix, preparation.call)?.phase !== "selected_no_evidence" ||
++          started.payload.inputDigest !== value.source.inputDigest || started.payload.requestDigest !== value.source.requestDigest ||
++          started.payload.promptDigest !== value.source.promptDigest || started.payload.actorRef !== value.source.actorRef ||
++          started.payload.workerBindingRef !== value.source.workerBindingRef || started.payload.transportBindingDigest !== value.source.transportBindingDigest ||
+           value.source.cCallRef !== candidate.state.cCall.cCallRef || transport === null ||
+           transport.transportDisposition !== "success" || transport.transportFailureClass !== null ||
+           transport.actorRef !== slot.role.actorRef || transport.workerBindingRef !== slot.role.workerBindingRef ||
+           transport.rendererRef !== slot.role.rendererRef || transport.materializationPlanRef !== slot.role.materializationPlanRef ||
+-          transport.instructionContractRef !== request.instructionContractRef || transport.resultContractRef !== request.resultContractRef ||
+-          transport.requestDigest !== hash(request) || transport.promptDigest !== hash(request.prompt) ||
++          transport.instructionContractRef !== "contract://abiogenesis/qualification/assessment-input@5" || transport.resultContractRef !== "contract://abiogenesis/qualification/assessment-raw@5" ||
++          transport.requestDigest !== started.payload.requestDigest || transport.promptDigest !== started.payload.promptDigest ||
+           value.source.requestDigest !== transport.requestDigest || value.source.actorInvocationRef !== transport.actorInvocationRef ||
+           value.source.transportBindingRef !== transport.transportBindingRef || value.source.transportBindingDigest !== transport.transportBindingDigest ||
+           value.source.rawValueDigest !== hash(value.raw)) continue;
+@@ -527,14 +564,15 @@
+   } catch { return null; }
+ }
+ export function projectQualificationOwnerRuling(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
+-  selection: Extract<QualificationEvidenceSelection, { kind: "ruling_selection" }>): Readonly<QualificationOwnerRuling> | null {
+-  try {
++  selection: Extract<QualificationEvidenceSelection, { kind: "ruling_selection" }>, resources?: QualificationResources): Readonly<QualificationOwnerRuling> | null {
++  try {
++    proof = ownedProof(proof, resources);
+     const events = readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate), prefix = selectValidatedRuntimeEventPrefix(events);
+     const rows = projectFhContinuations(prefix, deriveRuntimeEventCalculusProjection(prefix)).filter(c =>
+       c.continuationRef === selection.continuationRef && c.requestRef === selection.request.ref &&
+       c.requestDigest === selection.request.digest && (c.status === "responded" || c.status === "resolved"));
+     const row = one(rows); if (row === null) return null;
+-    const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, row.cCallRef, proof.declarations);
++    const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, row.cCallRef, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof));
+     const response = one(events.filter(e => e.eventId === row.respondedEventRef));
+     if (owner === null || owner.call.regime !== "F_H" || owner.call.actorCapabilityRef !== plan.ownerAuthorityRef ||
+         response === null || response.kind !== "fh_interaction_responded" || !record(response.payload) || response.payload.actorRef !== plan.ownerActorRef || response.payload.capabilityRef !== plan.ownerAuthorityRef ||
+@@ -547,9 +585,10 @@
+ /** Missing or conflicting attribution is blocked. This validates a concrete
+  * record chain under the declared trusted-desktop authority; labels alone fail. */
+ export function projectQualificationConstructionAuthors(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
+-  judgment: QualificationJudgment): readonly string[] | null {
+-  try {
+-    const provenance = judgment.task.provenance;
++  judgment: QualificationJudgment, resources?: QualificationResources): readonly string[] | null {
++  try {
++    proof = ownedProof(proof, resources);
++    const provenance = resolveQualificationAssessment({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: judgment.task, plan: judgment.plan }, resources ?? executionProofFacts.get(proof)?.resources).task.provenance;
+     if (!same(provenance.subjectInventory, judgment.task.inventory)) return null;
+     if (provenance.kind === "native_construction") {
+       const actors: string[] = [], covered = new Set<string>();
+@@ -591,20 +630,23 @@
+       const events = proofEvents(proof);
+       const continuation = projectFhContinuations(selectValidatedRuntimeEventPrefix(events), deriveRuntimeEventCalculusProjection(selectValidatedRuntimeEventPrefix(events)))
+         .find(c => c.continuationRef === selectedContinuationRef);
+-      const request = continuation === undefined ? null : graphOwner(proof.prefix as DurablePrefixCoordinate, continuation.cCallRef, proof.declarations)?.input;
++      const request = continuation === undefined ? null : graphOwner(proof.prefix as DurablePrefixCoordinate, continuation.cCallRef, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof))?.input;
+       if (!record(request) || !same(request.recordSet, provenance.recordSet) || !same(request.attributedIdentities, identityPairs)) return null;
+     }
+     return [...new Set(identityPairs.map(p => p.actorIdentityRef))];
+   } catch { return null; }
+ }
+ export function resolveQualificationAssessments(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
+-  consumer: QualificationNativeBasis): readonly Readonly<QualificationJudgment>[] | null {
+-  try {
++  consumer: QualificationNativeBasis, resources?: QualificationResources): readonly Readonly<QualificationJudgment>[] | null {
++  try {
++    proof = ownedProof(proof, resources);
+     if (!proofWithin(proof, consumer) || !qualificationPlanMatches(plan)) return null;
+     // Re-read the exact resource prefix: a declared earlier prefix cannot stand
+     // for bytes from another store, even when their values match.
+     readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+     const currentProof = { ...proof, prefix: consumer.predecessorPrefix };
++    const inherited = executionProofFacts.get(proof);
++    if (inherited !== undefined) executionProofFacts.set(currentProof, { ...inherited, events: readRuntimeEventsAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate) });
+     const out: QualificationJudgment[] = [];
+     for (const slot of plan.slots) {
+       const selections = proof.selections.filter((s): s is Extract<QualificationEvidenceSelection, { kind: "judgment_selection" }> =>
+@@ -622,9 +664,9 @@
+ }
+ /** Exact finite tenant/public/capability ownership is native install data;
+  * realization and evidence adequacy remain the declared assessment's task. */
+-export function qualificationTenantClaimsMatch(basis: QualificationNativeBasis, input: unknown, manifest: TenantConformanceManifest): boolean {
+-  try {
+-    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input));
++export function qualificationTenantClaimsMatch(basis: QualificationNativeBasis, input: unknown, manifest: TenantConformanceManifest, resources?: QualificationResources): boolean {
++  try {
++    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources), resources === undefined ? undefined : { events: readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources });
+     if (owner === null) return false;
+     const install = one(owner.environment.productInstalls.filter(i => i.productId === manifest.productId));
+     if (install === null || !same(manifest.publicContractCatalog, coord(install.catalogId, install.catalogDigest)) ||
+@@ -672,11 +714,13 @@
+     }
+     acquired.set(prefixKey, sourceFacts);
+     if (retained !== undefined && known !== undefined) {
+-      out.set(source.sourceRef, known.proof); continue;
++      const borrowed = { ...known.proof };
++      executionProofFacts.set(borrowed, { ...sourceFacts, resources: executionProofFacts.get(proof)?.resources });
++      out.set(source.sourceRef, borrowed); continue;
+     }
+     const sourceProof: QualificationProofResource = { kind: proof.kind, schemaVersion: proof.schemaVersion,
+-      prefix: sourceFacts.artifactTruth!.prefix, declarations: source.declarations, selections: [] };
+-    executionProofFacts.set(sourceProof, sourceFacts);
++      prefix: sourceFacts.artifactTruth!.prefix, declarations: [...source.declarations] as AbgHistoricalDeclarationProof[], selections: [] };
++    executionProofFacts.set(sourceProof, { ...sourceFacts, resources: executionProofFacts.get(proof)?.resources });
+     facts.executionSources.set(key, { declaration: deepFreeze(source), proof: sourceProof });
+     out.set(source.sourceRef, sourceProof);
+   }
+@@ -694,11 +738,14 @@
+ export function resolveQualificationExecutionMaterial(proof: QualificationProofResource,
+   basis: ExactCandidateQualification<"basis">, consumer: QualificationNativeBasis,
+   verificationSelection?: QualificationVerificationSelection,
+-  inventory?: QualificationSubjectInventory | null): { evidence: readonly QualificationMaterial[]; verification: QualificationVerificationMaterial | null } | null {
+-  try {
++  inventory?: QualificationSubjectInventory | null, resources?: QualificationResources): { evidence: readonly QualificationMaterial[]; verification: QualificationVerificationMaterial | null } | null {
++  try {
++    proof = ownedProof(proof, resources);
+     if (!isQualificationProofResource(proof) || !proofWithin(proof, consumer)) return null;
+     readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+     const current = { ...proof, prefix: consumer.predecessorPrefix };
++    const inherited = executionProofFacts.get(proof);
++    if (inherited !== undefined) executionProofFacts.set(current, { ...inherited, events: readRuntimeEventsAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate) });
+     const selections = proof.selections.filter(s => s.kind === "execution_selection"), sources = executionSourceProofs(proof, basis, consumer);
+     if (sources === null || !unique(selections.map(s => s.selectionRef)) || !unique(selections.map(s => s.result.ref))) return null;
+     const producers = new Set<string>();
+@@ -765,8 +812,9 @@
+  * the existing sub-traversal relation, never treated as independent evidence. */
+ export function projectQualificationSelfConformance(proof: QualificationProofResource,
+   selection: Extract<QualificationEvidenceSelection, { kind: "self_conformance_selection" }>,
+-  basis: ExactCandidateQualification<"basis">): Readonly<QualificationSelfConformanceSummary> | null {
+-  try {
++  basis: ExactCandidateQualification<"basis">, resources?: QualificationResources): Readonly<QualificationSelfConformanceSummary> | null {
++  try {
++    proof = ownedProof(proof, resources);
+     const selected = producerForResult(proof, selection.result);
+     if (selected === null || selected.state.cCall.implementationRef !== SELF ||
+         selected.state.cCall.programLocusRef !== selection.slotRef ||
+@@ -789,7 +837,7 @@
+       ...(value.verification === undefined ? {} : { verification: value.verification }) });
+   } catch { return null; }
+ }
+-export function qualificationHasNativeSelfConformance(input: QualificationVerdictInput, consumer: QualificationNativeBasis): boolean {
++export function qualificationHasNativeSelfConformance(input: QualificationVerdictInput, consumer: QualificationNativeBasis, resources?: QualificationResources): boolean {
+   try {
+     if (!isQualificationVerdictInput(input) || !proofWithin(input.proof, consumer)) return false;
+     readRuntimeEventsAtDurablePrefix(reidentifyHistoricalDurablePrefixCoordinate(
+@@ -797,23 +845,27 @@
+     const selections = input.proof.selections.filter((s): s is Extract<QualificationEvidenceSelection, { kind: "self_conformance_selection" }> =>
+       s.kind === "self_conformance_selection" && s.selectionRef === input.selectionRef);
+     if (selections.length !== 1) return false;
+-    const actual = projectQualificationSelfConformance({ ...input.proof, prefix: consumer.predecessorPrefix }, selections[0]!, input.basis);
++    const actual = projectQualificationSelfConformance({ ...input.proof, prefix: consumer.predecessorPrefix }, selections[0]!, input.basis, resources);
+     return actual !== null && same(actual, input.selfConformance);
+   } catch { return false; }
+ }
+ /** AF22 construction belongs to its authenticated immutable preparation cut.
+  * The retained input is the admitted owner's value, never a caller-editable
+  * wrapper. A new cut or changed input must establish the relation anew. */
+-export function projectExactCandidateQualification(basis: QualificationNativeBasis, input: unknown, requireCurrent = false): Readonly<ExactCandidateQualification<"verdict">> | null {
+-  try {
++export function projectExactCandidateQualification(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): Readonly<ExactCandidateQualification<"verdict">> | null {
++  try {
++    if (!referenceDependencies(input, resources)) return null;
+     const coordinate = basis.predecessorPrefix as DurablePrefixCoordinate;
+     const events = readRuntimeEventsAtDurablePrefix(coordinate, { requireCurrent });
+     const facts = nativeFacts(selectValidatedRuntimeEventPrefix(events)), key = coordinate.coordinateDigest + ":" + basis.cCallRef;
+     const known = facts.verdicts.get(key);
+-    if (known !== undefined && sameFact(known.input, input)) return known.value;
+-    const owner = projectQualificationConsumer(basis, input, requireCurrent);
++    if (known !== undefined && sameFact(known.input, input)) {
++      if (record(input) && isQualificationReferenceForm(input.proof) && !qualificationHasNativeSelfConformance(input as unknown as QualificationVerdictInput, basis, resources)) return null;
++      return known.value;
++    }
++    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
+     if (owner === null || owner.call.implementationRef !== VERDICT ||
+-        !qualificationHasNativeSelfConformance(input as QualificationVerdictInput, basis)) return null;
++        !qualificationHasNativeSelfConformance(input as QualificationVerdictInput, basis, resources)) return null;
+     const value = reduceExactCandidateQualification(input as QualificationVerdictInput, basis);
+     facts.verdicts.set(key, { input: owner.input as unknown as QualificationVerdictInput, value });
+     return value;
+@@ -823,9 +875,10 @@
+ export function projectQualificationVerdict(input: Readonly<{
+   proof: QualificationProofResource; selection: Extract<QualificationEvidenceSelection, { kind: "verdict_selection" }>;
+   subjectBasis: QualificationCoordinate; lawBasis: QualificationCoordinate;
+-}>): Readonly<ExactCandidateQualification<"verdict">> | null {
+-  try {
+-    const selected = producerForResult(input.proof, input.selection.result);
++}>, resources?: QualificationResources): Readonly<ExactCandidateQualification<"verdict">> | null {
++  try {
++    const proof = ownedProof(input.proof, resources);
++    const selected = producerForResult(proof, input.selection.result);
+     if (selected === null || selected.state.cCall.implementationRef !== VERDICT ||
+         selected.state.cCall.programLocusRef !== input.selection.slotRef ||
+         selected.owner.execution.programRef !== input.selection.programRef ||
+@@ -836,9 +889,9 @@
+     if (!same(value.subjectBasis, input.subjectBasis) || !same(value.lawBasis, input.lawBasis)) return null;
+     const originalInput = selected.owner.input as unknown as QualificationVerdictInput;
+     const nativeBasis = { ...value.nativeBasis, predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(
+-      input.proof.prefix as DurablePrefixCoordinate, value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) };
+-    if (!sameFact(projectExactCandidateQualification(nativeBasis, originalInput), value)) return null;
+-    const peers = eligibleCalls(selected.owner.events, selected.owner, VERDICT).map(e => nativeState(input.proof, e.aggregateId)).filter(s =>
++      proof.prefix as DurablePrefixCoordinate, value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) };
++    if (!sameFact(projectExactCandidateQualification(nativeBasis, originalInput, false, resources ?? executionProofFacts.get(proof)?.resources), value)) return null;
++    const peers = eligibleCalls(selected.owner.events, selected.owner, VERDICT).map(e => nativeState(proof, e.aggregateId)).filter(s =>
+       s !== null && s.state.cCall.callClass === "leaf" && s.state.cCall.implementationRef === VERDICT &&
+       s.owner.execution.invocationAdmissionRef === input.selection.invocationAdmissionRef &&
+       s.state.cCall.programLocusRef === input.selection.slotRef && s.state.result.resultClass === "success" && s.state.judgment.judgment === "advance");
+@@ -849,7 +902,7 @@
+     const retainedTerminal = knownTerminal !== undefined && runRows.length === knownTerminal.rows.length &&
+       runRows.every((e, i) => e === knownTerminal.rows[i]) ? knownTerminal : undefined;
+     const terminal = retainedTerminal?.terminal ?? GraphCallProjectionPort.graph_call_result({ kind: "abg_project_read_packet", schemaVersion: "5.0.0",
+-      memberKey: "graph_call_result", prefix: input.proof.prefix as DurablePrefixCoordinate,
++      memberKey: "graph_call_result", prefix: proof.prefix as DurablePrefixCoordinate,
+       targetRef: selected.state.cCall.graphCallId, declarationProof: selected.owner.proof });
+     if (terminal.kind !== "abg_project_read_projection" || !record(terminal.value) ||
+         !record(terminal.value.terminalResult) || !same(terminal.value.terminalResult.value, value)) return null;
+@@ -858,9 +911,10 @@
+ }
+ /** Exact current conformance owner, including child use. Catalog bytes remain
+  * the immutable installed asset; assessment resources never replace it. */
+-export function resolveQualificationSelfConformanceOwner(basis: QualificationNativeBasis, input: unknown, requireCurrent = false): SelfConformanceOwner | null {
+-  try {
+-    const owner = projectQualificationConsumer(basis, input, requireCurrent);
++export function resolveQualificationSelfConformanceOwner(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): SelfConformanceOwner | null {
++  try {
++    if (!referenceDependencies(input, resources)) return null;
++    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
+     if (owner === null || owner.call.implementationRef !== SELF || owner.resolution === null) return null;
+     const row = owner.resolution;
+     const install = one(owner.environment.productInstalls.filter(i => i.productId === row.implementationOwnerProductId &&
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts
+@@ -132,6 +132,7 @@
+ 
+ /** Internal operations of the invoking ABG owner, never serialized basis or evidence. */
+ export interface NativeLeafProofOperations {
++  readonly qualificationPreparation?: (input: unknown, occurrence: LeafExecutionOccurrence) => import("../validator/qualification.js").PreparedQualificationAssessment | null;
+   readonly qualificationSelfConformance?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
+     ReturnType<typeof import("../validator/self_conformance.js").evaluateSelfConformance> | null;
+   readonly qualificationVerdict?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
+@@ -144,6 +145,9 @@
+ 
+ /** Bound to one declared relation evaluation by its invoking leaf port. */
+ export interface NativeJudgmentProofOperations {
++  readonly qualificationJudgment?: () => boolean;
++  readonly qualificationRequest?: () => Readonly<ProbabilisticWorkerRequest> | null;
++  readonly qualificationSelfConformance?: () => ReturnType<typeof import("../validator/self_conformance.js").evaluateSelfConformance> | null;
+   readonly historicalGraphCallSource?: () => import("../abg/terminal_result_contracts.js").AbgHistoricalGraphCallSource | null;
+   readonly qualificationVerdict?: () => ReturnType<typeof import("../abg/qualification_proof.js").projectExactCandidateQualification>;
+   readonly qualificationAssessment?: () => ReturnType<typeof import("../abg/qualification_proof.js").projectNativeRuntimeAssessment>;
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts
+@@ -6,7 +6,7 @@
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import { deepFreeze } from "../shared/immutable.js";
+ import { qualificationHash as hash, sameQualificationValue as same, type QualificationJudgment } from "../validator/qualification_contracts.js";
+-import { isQualificationAssessmentInput, qualificationWorkerRequest, constructQualificationJudgment,
++import { isQualificationAssessmentInput, qualificationWorkerRequest, constructQualificationJudgment, prepareQualificationAssessment,
+   isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment, isMalformedGtlAssessment } from "../validator/qualification.js";
+ import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
+ function descriptor(implementationRef: string, namedSymbol: string, inputContractRef: string, outputContractRef: string, computeRegime: "F_D" | "F_P") {
+@@ -31,13 +31,14 @@
+     resultCandidate: value as Record<string, JsonValue>, evidenceCandidates: [{ kind: "deterministic_evidence_candidate",
+       schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] });
+ }
+-export function realizeQualificationAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence):
++export function realizeQualificationAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
++  _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations):
+   Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
+   if (!isQualificationAssessmentInput(input) || occurrence.qualificationOwnerBasis === undefined ||
+-      projectQualificationConsumer(occurrence.qualificationOwnerBasis, input, true) === null) {
++      (nativeProof?.qualificationPreparation === undefined && projectQualificationConsumer(occurrence.qualificationOwnerBasis, input, true) === null)) {
+     throw new TypeError("qualification assessment lacks an exact current owner and admitted task");
+   }
+-  const nativeBasis = occurrence.qualificationOwnerBasis, workerRequest = qualificationWorkerRequest(input);
++  const nativeBasis = occurrence.qualificationOwnerBasis, preparation = nativeProof?.qualificationPreparation?.(input, occurrence) ?? prepareQualificationAssessment(input), workerRequest = preparation.request;
+   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest,
+     complete(exchange: Readonly<ActorProcessCarrierValidation>) {
+       if (!same(exchange.request, workerRequest) || exchange.observation.disposition !== "success" ||
+@@ -51,7 +52,7 @@
+           actorInvocationRef: exchange.observation.actorInvocationRef, transportBindingRef: exchange.observation.transportBindingRef,
+           transportBindingDigest: exchange.observation.transportBindingDigest, requestDigest: hash(workerRequest),
+           observationDigest: hash(exchange.observation), promptDigest: hash(workerRequest.prompt), rawValueDigest: hash(raw) };
+-        const value = constructQualificationJudgment(input, raw, nativeBasis, source);
++        const value = preparation.complete(raw, nativeBasis, source);
+         return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
+           evidenceCandidates: [], resultCandidate: value as unknown as Record<string, JsonValue> });
+       } catch { return failure("assessment_contract_mismatch"); }
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+@@ -1,3 +1,5 @@
++import { isQualificationAssessmentInput, prepareQualificationAssessment, type PreparedQualificationAssessment } from "../validator/qualification.js";
++import type { QualificationResources } from "../validator/qualification_resources.js";
+ import { graphFunctionSemanticsOwner } from "../product/execution_resolution.js";
+ import { projectHistoricalGraphCallSourceAtDurablePrefix } from "../abg/project_read_ports.js";
+ import type { AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
+@@ -424,27 +426,28 @@
+ // declared realization/relation without acquiring a second copy of its history.
+ function nativeLeafProofOperations(
+   implementationRef: string, value: unknown, occurrence: LeafExecutionOccurrence,
+-  historicalSource?: AbgHistoricalGraphCallSourceResource,
++  historicalSource?: AbgHistoricalGraphCallSourceResource, resources?: QualificationResources, preparation?: PreparedQualificationAssessment,
+ ): Readonly<NativeLeafProofOperations> {
+   const exact = (input: unknown, supplied: LeafExecutionOccurrence) => {
+     if (input !== value || supplied !== occurrence) throw new TypeError("native proof operation differs from its exact admitted input/occurrence");
+   };
+   const basis = occurrence.qualificationOwnerBasis, native = occurrence.nativeWorkReacquisitionBasis;
+   return Object.freeze({
++    ...(implementationRef === qualificationIds.assessImplementation && preparation !== undefined ? { qualificationPreparation: (input: unknown, supplied: LeafExecutionOccurrence) => { exact(input, supplied); return preparation; } } : {}),
+     ...(implementationRef === SELF_CONFORMANCE_IDS.implementationRef && basis?.cCallRef === occurrence.cCallRef
+       ? { qualificationSelfConformance: (input: unknown, supplied: LeafExecutionOccurrence) => {
+           exact(input, supplied);
+           if (!isSelfConformanceInput(value)) return null;
+-          const owner = resolveSelfConformanceOwner(basis, value, true);
+-          return owner === null ? null : evaluateSelfConformance(value, owner);
++          const owner = resolveSelfConformanceOwner(basis, value, true, resources);
++          return owner === null ? null : evaluateSelfConformance(value, owner, resources);
+         } } : {}),
+     ...(implementationRef === qualificationIds.verdictImplementation && basis?.cCallRef === occurrence.cCallRef
+       ? { qualificationVerdict: (input: unknown, supplied: LeafExecutionOccurrence) => {
+-          exact(input, supplied); return projectExactCandidateQualification(basis, value, true);
++          exact(input, supplied); return projectExactCandidateQualification(basis, value, true, resources);
+         } } : {}),
+     ...(implementationRef === qualificationIds.runtimeAssessImplementation && basis?.cCallRef === occurrence.cCallRef
+       ? { qualificationAssessment: (input: unknown, supplied: LeafExecutionOccurrence) => {
+-          exact(input, supplied); return projectNativeRuntimeAssessment(basis, value, true);
++          exact(input, supplied); return projectNativeRuntimeAssessment(basis, value, true, resources);
+         } } : {}),
+     ...(implementationRef === reacquireIds.implementationRef && native?.cCallRef === occurrence.cCallRef
+       ? { nativeWorkReacquisition: (input: unknown, supplied: LeafExecutionOccurrence) => {
+@@ -463,10 +466,21 @@
+ }
+ function nativeJudgmentProofOperations(
+   predicateRef: string, input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate,
+-  historicalSource?: AbgHistoricalGraphCallSourceResource,
++  historicalSource?: AbgHistoricalGraphCallSourceResource, resources?: QualificationResources, preparation?: PreparedQualificationAssessment,
+ ): Readonly<NativeJudgmentProofOperations> {
+   const historical = historicalSource === undefined ? {} : { historicalGraphCallSource: () =>
+     currentOwnerPrefix === undefined ? null : projectHistoricalGraphCallSourceAtDurablePrefix(currentOwnerPrefix, historicalSource) };
++  if (predicateRef === qualificationIds.assessPredicate) return Object.freeze({ ...historical,
++    qualificationJudgment: () => preparation !== undefined && sha256Canonical(input as JsonValue) === preparation.request.inputDigest && preparation.matches(preparation.input, output),
++    qualificationRequest: () => preparation !== undefined && sha256Canonical(input as JsonValue) === preparation.request.inputDigest && preparation.matches(preparation.input, output) ? preparation.request : null,
++  });
++  if (predicateRef === SELF_CONFORMANCE_IDS.judgmentPredicateRef) return Object.freeze({ ...historical,
++    qualificationSelfConformance: () => {
++      if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return null;
++      const owner = resolveSelfConformanceOwner(output.owner.nativeBasis, input, false, resources);
++      return owner === null ? null : evaluateSelfConformance(input, owner, resources);
++    },
++  });
+   if (predicateRef === reacquireIds.predicateRef) return Object.freeze({ ...historical,
+     nativeWorkReacquisition: () => nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource),
+   });
+@@ -476,7 +490,7 @@
+       const original = output.nativeBasis as unknown as QualificationNativeBasis;
+       const basis = currentOwnerPrefix === undefined ? original : { ...original,
+         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, original.predecessorPrefix as DurablePrefixCoordinate) };
+-      return projectExactCandidateQualification(basis, input);
++      return projectExactCandidateQualification(basis, input, false, resources);
+     },
+   });
+   if (predicateRef !== qualificationIds.runtimeAssessPredicate) return Object.freeze(historical);
+@@ -488,7 +502,7 @@
+         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, original.predecessorPrefix as DurablePrefixCoordinate) };
+       const selected = currentOwnerPrefix === undefined || !isRecord(input) || !isRecord(input.proof) ? input : { ...input,
+         proof: { ...input.proof, prefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, input.proof.prefix as unknown as DurablePrefixCoordinate) } };
+-      return projectNativeRuntimeAssessment(basis, selected);
++      return projectNativeRuntimeAssessment(basis, selected, false, resources);
+     },
+   });
+ }
+@@ -506,6 +520,8 @@
+   ) => Readonly<WorkerContracts> | null;
+   occurrence: Readonly<LeafExecutionOccurrence>;
+   historicalSource?: AbgHistoricalGraphCallSourceResource;
++  qualificationResources?: QualificationResources;
++  qualificationPreparation?: PreparedQualificationAssessment;
+   contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>;
+   loadImplementation: () => Promise<unknown>;
+ }>): Promise<Readonly<LeafInvocationOwnerResult>> {
+@@ -602,7 +618,7 @@
+         input.occurrence,
+         resolution,
+         inputDigest,
+-        nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource),
++        nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource, input.qualificationResources, input.qualificationPreparation),
+       );
+     } catch {
+       return closedDeterministicOwnerReceipt(
+@@ -847,6 +863,7 @@
+ 
+ export async function constructAdmittedLeafInvocationPort(authority: {
+   readonly historicalSource?: AbgHistoricalGraphCallSourceResource;
++  readonly qualificationResources?: QualificationResources;
+   readonly prefix: ValidatedRuntimeEventPrefix;
+   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
+   readonly implementationSet: AdmittedImplementationSet;
+@@ -1330,6 +1347,8 @@
+       return preimageRefusal("owner_boundary_exception");
+     }
+   }
++  const qualificationPreparations = new Map<string, PreparedQualificationAssessment>();
++  const preparationOf = (value: unknown) => isRecord(value) && isRecord(value.source) && typeof value.source.cCallRef === "string" ? qualificationPreparations.get(value.source.cCallRef) : undefined;
+   const port = Object.freeze({
+     kind: "admitted_leaf_invocation_port" as const,
+     isExactLoadedCapability(): boolean {
+@@ -1453,7 +1472,7 @@
+       return Object.freeze({ ...relation,
+         evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate) =>
+           relation.evaluate(input, output, currentOwnerPrefix,
+-            nativeJudgmentProofOperations(predicateRef, input, output, currentOwnerPrefix, authority.historicalSource)),
++            nativeJudgmentProofOperations(predicateRef, input, output, currentOwnerPrefix, authority.historicalSource, authority.qualificationResources, preparationOf(output))),
+       });
+     },
+     validateResultEvidenceLineage(
+@@ -1465,6 +1484,7 @@
+         outputContractRef,
+         value,
+         admittedEvidence,
++        nativeProof: nativeJudgmentProofOperations(qualificationIds.assessPredicate, preparationOf(value)?.input, value, undefined, authority.historicalSource, authority.qualificationResources, preparationOf(value)),
+       });
+     },
+     verifyProbabilisticResultContractPreimage(input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0]) {
+@@ -1500,9 +1520,12 @@
+         const qualificationOwnerBasis = isQualification && call.predecessorPrefix !== undefined
+           ? { predecessorPrefix: call.predecessorPrefix, cCallRef: call.occurrence.cCallRef } : null;
+         const qualificationOwner = qualificationOwnerBasis === null ? null : isSelfQualification
+-          ? resolveSelfConformanceOwner(qualificationOwnerBasis, call.input, true)
+-          : projectQualificationConsumer(qualificationOwnerBasis, call.input, true);
++          ? resolveSelfConformanceOwner(qualificationOwnerBasis, call.input, true, authority.qualificationResources)
++          : projectQualificationConsumer(qualificationOwnerBasis, call.input, true, authority.qualificationResources);
+         if (isQualification && qualificationOwner === null) return ownerRefusal("owner_boundary_exception");
++        const qualificationPreparation = admittedResolution.implementationRef === qualificationIds.assessImplementation && isQualificationAssessmentInput(call.input)
++          ? prepareQualificationAssessment(call.input, authority.qualificationResources) : undefined;
++        if (qualificationPreparation !== undefined) qualificationPreparations.set(call.occurrence.cCallRef, qualificationPreparation);
+         const qualifiedOccurrence = qualificationOwnerBasis === null ? call.occurrence : deepFreeze({ ...call.occurrence, qualificationOwnerBasis });
+         const occurrence = admittedResolution.implementationRef !== reacquireIds.implementationRef || call.predecessorPrefix === undefined ? qualifiedOccurrence
+           : deepFreeze({ ...qualifiedOccurrence, nativeWorkReacquisitionBasis: { predecessorPrefix: call.predecessorPrefix, cCallRef: call.occurrence.cCallRef } });
+@@ -1512,6 +1535,8 @@
+           call.occurrence.executionAuthority !== null;
+         return invokeLeafOwnerBoundary({
+           ...(authority.historicalSource === undefined ? {} : { historicalSource: authority.historicalSource }),
++          ...(authority.qualificationResources === undefined ? {} : { qualificationResources: authority.qualificationResources }),
++          ...(qualificationPreparation === undefined ? {} : { qualificationPreparation }),
+           resolution: admittedResolution,
+           value: call.input,
+           inputDigest: call.inputDigest,
+@@ -1538,7 +1563,7 @@
+           validateSuccess: (value) => (!isQualification || (isSelfQualification ? isSelfConformanceResult(value) &&
+             sha256Canonical(value.owner as unknown as JsonValue) === sha256Canonical(qualificationOwner as unknown as JsonValue)
+             : qualificationOwner !== null && qualificationResultRelation((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix,
+-              nativeJudgmentProofOperations((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix)))) && port.validateContractValue(
++              nativeJudgmentProofOperations((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix, authority.historicalSource, authority.qualificationResources, qualificationPreparation)))) && port.validateContractValue(
+             admittedResolution.outputContractRef,
+             "output",
+             value,
+--- a/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts
+@@ -1,3 +1,10 @@
++import { acquireQualificationResources, type QualificationResources } from "../validator/qualification_resources.js";
++import { isQualificationAssessmentInput, establishQualificationAssessment } from "../validator/qualification.js";
++import { isSelfConformanceInput } from "../validator/self_conformance_contracts.js";
++import { resolveSelfConformanceInput, isQualificationReferenceForm, resolveQualificationProof } from "../validator/qualification_resources.js";
++import { readSelfConformanceCatalog } from "../validator/self_conformance.js";
++import { qualificationScopeCorrespondence } from "../validator/qualification.js";
++import type { QualificationResourceAssertion } from "../validator/qualification_contracts.js";
+ import { isRecord } from "../shared/admission_predicates.js";
+ import type { ComputeRegime } from "../gtl/contracts.js";
+ import { observeRunEnvironment, type RunEnvironmentResources } from "./stdo_environment.js";
+@@ -8,7 +15,7 @@
+   AbgRunTruthRefusal,
+ } from "../abg/project_read_ports.js";
+ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
++import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+ import {
+   admitRuntimeContract,
+@@ -67,6 +74,7 @@
+ 
+ export interface ProductRunInvocationResourceAssertion {
+   readonly historicalSource?: AbgHistoricalGraphCallSourceResource;
++  readonly qualificationResources?: QualificationResourceAssertion;
+   readonly runEnvironmentResources?: RunEnvironmentResources;
+   readonly catalog: ReadyGraphFunctionCatalog;
+   readonly catalogView: GraphFunctionCatalogView;
+@@ -76,6 +84,7 @@
+ 
+ export interface PreparedProductRunInvocation<M extends RunInvocationMemberKey> {
+   readonly runEnvironment: RunEnvironmentEvidence | null;
++  readonly qualificationResources?: QualificationResources;
+   readonly kind: "prepared_product_run_invocation";
+   readonly schemaVersion: "5.0.0";
+   readonly memberKey: M;
+@@ -397,6 +406,39 @@
+       `transport-steering://abiogenesis/${steeringDigest.slice("sha256:".length)}`;
+ }
+ 
++/** @internal Finite raw/cold acquisition before dependent invocation effects. */
++export function prepareRunQualificationResources(resources: ProductRunInvocationResourceAssertion, value: unknown): QualificationResources | undefined {
++  let qualificationResources: QualificationResources | undefined;
++    if (resources.qualificationResources !== undefined) {
++      const existing = [{ kind: "abg_historical_declaration_proof" as const, schemaVersion: "5.0.0" as const, catalog: resources.catalog, catalogView: resources.catalogView },
++        ...(resources.historicalSource === undefined ? [] : [resources.historicalSource.declarationProof, ...(resources.historicalSource.declarationDependencies ?? [])])];
++      // Current/historical proofs are explicit alternate sources. Duplicate exact dependencies refuse.
++      const selected = resources.qualificationResources.manifests.flatMap(m => m.declarationSelections);
++      const extras = existing.filter(p => selected.some(d => d.catalogBasisDigest === p.catalog.basisDigest && d.readinessBasisDigest === p.catalog.readinessBasisDigest && d.viewDigest === p.catalogView.viewDigest && d.proofDigest === sha256Canonical(p as unknown as JsonValue)));
++      qualificationResources = acquireQualificationResources(resources.qualificationResources, extras);
++    }
++    const establish = (value: unknown): void => {
++      if (isQualificationAssessmentInput(value)) {
++        const established = establishQualificationAssessment(value, qualificationResources);
++        if ("representation" in value.task && !established.task.declarations.some(p => p.catalog.basisDigest === resources.catalog.basisDigest && p.catalogView.viewDigest === resources.catalogView.viewDigest))
++          throw new TypeError("qualification invoking declaration dependency missing");
++        return;
++      }
++      if (isSelfConformanceInput(value)) {
++        const view = resolveSelfConformanceInput(value, qualificationResources), scope = view.input.scope;
++        if (scope !== undefined) { const { catalog, bytes } = readSelfConformanceCatalog(); if (qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes), view.normalizedScope).length > 0) throw new TypeError("qualification scope differs"); }
++        if (view.input.qualification !== undefined) resolveQualificationProof(view.input.qualification.proof, qualificationResources);
++        return;
++      }
++      if (isRecord(value)) {
++        if (isQualificationReferenceForm(value.proof)) resolveQualificationProof(value.proof as never, qualificationResources);
++        // Declared wrapper/child inputs are finite data; acquisition grants no new call rights.
++        for (const [key, child] of Object.entries(value)) if (key !== "task" && key !== "plan" && child !== null && typeof child === "object") establish(child);
++      } else if (Array.isArray(value)) for (const child of value) establish(child);
++    };
++    establish(value);
++    return qualificationResources;
++}
+ export async function prepareProductRunInvocation<
+   M extends RunInvocationMemberKey,
+ >(input: Readonly<{
+@@ -477,6 +519,9 @@
+   ) {
+     return preparationRefusal(memberKey, "invalid_input", ["/input"]);
+   }
++  let qualificationResources: QualificationResources | undefined;
++  try { qualificationResources = prepareRunQualificationResources(resources, inputCarrier.value); }
++  catch { return preparationRefusal(memberKey, "invalid_input", ["/qualificationResources"]); }
+   const admittedSource = sourceBasis(request, resources.source);
+   if (admittedSource === false) {
+     return preparationRefusal(memberKey, "invalid_input", ["/sourceBasis"]);
+@@ -624,6 +669,7 @@
+   return deepFreeze({
+     kind: "prepared_product_run_invocation" as const,
+     runEnvironment: environmentObservation.evidence,
++    ...(qualificationResources === undefined ? {} : { qualificationResources }),
+     schemaVersion: "5.0.0" as const,
+     memberKey,
+     invocation,
+--- a/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts
+@@ -105,6 +105,7 @@
+     basis: Readonly<{
+       readonly outputContractRef: string;
+       readonly value: Readonly<Record<string, JsonValue>>;
++      readonly nativeProof?: import("../implementation/contracts.js").NativeJudgmentProofOperations;
+       readonly admittedEvidence: readonly Readonly<
+         Record<string, JsonValue>
+       >[];
+@@ -193,6 +194,7 @@
+     basis: Readonly<{
+       readonly outputContractRef: string;
+       readonly value: Readonly<Record<string, JsonValue>>;
++      readonly nativeProof?: NativeJudgmentProofOperations;
+       readonly admittedEvidence: readonly Readonly<
+         Record<string, JsonValue>
+       >[];
+--- a/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+@@ -1,3 +1,5 @@
++import { prepareRunQualificationResources } from "../product/run_invocation_operation.js";
++import { QUALIFICATION_RESOURCE_ASSERTION_SCHEMA } from "../validator/qualification_contracts.js";
+ import { ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA } from "../abg/terminal_result_contracts.js";
+ import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
+ import { SEMANTIC_LIFECYCLE_SCHEMA } from "../gtl/semantic_stage.js";
+@@ -1108,6 +1110,7 @@
+   runEnvironmentResources: v.optional(RUN_ENVIRONMENT_RESOURCES_SCHEMA),
+   source: RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA,
+   historicalSource: v.optional(ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA),
++  qualificationResources: v.optional(QUALIFICATION_RESOURCE_ASSERTION_SCHEMA),
+ }) as unknown as v.GenericSchema<
+   RunInvocationResourceAssertion,
+   RunInvocationResourceAssertion
+@@ -1306,6 +1309,7 @@
+       applications: call.resources.applications,
+       source,
+       ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
++      ...(call.resources.qualificationResources === undefined ? {} : { qualificationResources: call.resources.qualificationResources }),
+       ...(call.resources.runEnvironmentResources === undefined ? {} : { runEnvironmentResources: call.resources.runEnvironmentResources }),
+     });
+     const preparedResult = yield* asyncStage(
+@@ -1567,6 +1571,7 @@
+       const leafPort = yield* asyncStage(call, "leaf_port", () =>
+         constructAdmittedLeafInvocationPort(Object.freeze({
+           prefix: authorityPrefix,
++          ...(prepared.qualificationResources === undefined ? {} : { qualificationResources: prepared.qualificationResources }),
+           ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
+           artifactTruth: setup.artifactTruth,
+           implementationSet: execution.implementationSet,
+@@ -1816,11 +1821,15 @@
+       slot.contract.digest !== sha256Canonical(inputContracts[0] as unknown as JsonValue) ||
+       slot.valueDigest !== prepared.pending.input.inputDigest || sha256Canonical(slot.value) !== sha256Canonical(prepared.pendingInput))
+       return yield* refuse("basis_mismatch", "/invocationAuthority");
++    let qualificationResources;
++    try { qualificationResources = prepareRunQualificationResources(call.resources, prepared.pendingInput); } catch { return yield* refuse("basis_mismatch", "/qualificationResources"); }
+     const operation = yield* syncStage(call, "runtime_truth", () => prepareConstructionContinuationOperation(prefix, prepared, grant,
+       operationBasis(call, setup.workspaceBinding)));
+     if (operation.kind !== "prepared_construction_continuation_operation") return yield* refuse("resolved_continuation", "/invocation");
+     const leafPort = yield* asyncStage(call, "leaf_port", () => constructAdmittedLeafInvocationPort(Object.freeze({
+-      prefix, artifactTruth: setup.artifactTruth, implementationSet: prepared.implementationSet, executionResolution: resolution,
++      prefix, ...(qualificationResources === undefined ? {} : { qualificationResources }),
++      ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
++      artifactTruth: setup.artifactTruth, implementationSet: prepared.implementationSet, executionResolution: resolution,
+       semanticsProjection: projectInstalledLeafSemantics(resolution.productSemantics),
+     })));
+     const continued = yield* syncStage(call, "open_call", () => prepareConstructionContinuationTraversal({
+@@ -1892,8 +1901,12 @@
+       slot.contract.ref !== prepared.term.inputCarrierRef || slot.contract.digest !== sha256Canonical(inputContracts[0] as unknown as JsonValue) ||
+       slot.valueRef !== prepared.input.inputRef || slot.valueDigest !== prepared.input.inputDigest || sha256Canonical(slot.value) !== sha256Canonical(prepared.input.value))
+       return yield* refuse("basis_mismatch", "/invocationAuthority");
++    let qualificationResources;
++    try { qualificationResources = prepareRunQualificationResources(call.resources, prepared.inputValue); } catch { return yield* refuse("basis_mismatch", "/qualificationResources"); }
+     const leafPort = yield* asyncStage(call, "leaf_port", () => constructAdmittedLeafInvocationPort(Object.freeze({
+-      prefix, artifactTruth: setup.artifactTruth, implementationSet: prepared.implementationSet, executionResolution: resolution,
++      prefix, ...(qualificationResources === undefined ? {} : { qualificationResources }),
++      ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
++      artifactTruth: setup.artifactTruth, implementationSet: prepared.implementationSet, executionResolution: resolution,
+       semanticsProjection: projectInstalledLeafSemantics(resolution.productSemantics),
+     })));
+     const admitted = yield* syncStage(call, "open_call", () => admitSelectedActionContinuationOperation(resource.store, entryPrefix,
+--- a/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs
++++ b/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs
+@@ -75,7 +75,10 @@
+     ['NativeRuntimeAssessmentInput', q.NATIVE_RUNTIME_ASSESSMENT_INPUT_SCHEMA], ['NativeRuntimeAssessment', q.NATIVE_RUNTIME_ASSESSMENT_SCHEMA],
+     ['QualificationAssessmentTask', q.QUALIFICATION_ASSESSMENT_TASK_SCHEMA], ['QualificationAssessmentPlan', q.QUALIFICATION_ASSESSMENT_PLAN_SCHEMA],
+     ['QualificationJudgment', q.QUALIFICATION_JUDGMENT_SCHEMA], ['QualificationOwnerRuling', q.QUALIFICATION_OWNER_RULING_SCHEMA],
+-    ['QualificationProofResource', q.QUALIFICATION_PROOF_RESOURCE_SCHEMA], ['QualificationConstructionProvenance', q.QUALIFICATION_CONSTRUCTION_PROVENANCE_SCHEMA],
++    ['QualificationProofResource', q.QUALIFICATION_PROOF_RESOURCE_SCHEMA],
++    ['QualificationResourceAssertion', q.QUALIFICATION_RESOURCE_ASSERTION_SCHEMA], ['QualificationResourceManifest', q.QUALIFICATION_RESOURCE_MANIFEST_SCHEMA],
++    ['QualificationResourceSelection', q.QUALIFICATION_RESOURCE_SELECTION_SCHEMA], ['QualificationInternedScope', q.QUALIFICATION_INTERNED_SCOPE_SCHEMA],
++    ['QualificationReferenceSet', q.QUALIFICATION_REFERENCE_SET_SCHEMA], ['QualificationConstructionProvenance', q.QUALIFICATION_CONSTRUCTION_PROVENANCE_SCHEMA],
+     ['QualificationLawBasis', q.QUALIFICATION_LAW_BASIS_SCHEMA], ['TenantConformanceManifest', q.TENANT_CONFORMANCE_MANIFEST_SCHEMA],
+     ['QualificationRuleCatalog', q.QUALIFICATION_RULE_CATALOG_SCHEMA],
+     ['MalformedGtlAssessmentInput', q.MALFORMED_GTL_ASSESSMENT_INPUT_SCHEMA],
+--- /dev/null
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-carrier-resource.test.mjs
+@@ -0,0 +1,143 @@
++// Mechanical carrier proof over the retained complete fixture. No actor,
++// admitted event, semantic qualification or release verdict is manufactured.
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs';
++import path from 'node:path';
++import {execFileSync} from 'node:child_process';
++import {createHash} from 'node:crypto';
++import {performance} from 'node:perf_hooks';
++import {qualificationHash as hash, constructQualificationIdentity as identity, isQualificationJudgment} from '../../build/code/src/validator/qualification_contracts.js';
++import {acquireQualificationResources, normalizeQualificationScope, resolveQualificationAssessment, resolveSelfConformanceInput} from '../../build/code/src/validator/qualification_resources.js';
++import {isQualificationAssessmentInput, establishQualificationAssessment, qualificationScopeCorrespondence, qualificationRuleSurfaces, qualificationWorkerRequest, prepareQualificationAssessment} from '../../build/code/src/validator/qualification.js';
++import {isSelfConformanceInput,isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
++import {evaluateSelfConformance} from '../../build/code/src/validator/self_conformance.js';
++import {ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS as semantics} from '../../build/code/src/validator/self_conformance_semantics.js';
++import {prepareRunQualificationResources} from '../../build/code/src/product/run_invocation_operation.js';
++import {projectExactCandidateQualification,projectQualificationJudgment,projectQualificationConsumer} from '../../build/code/src/abg/qualification_proof.js';
++import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
++const clone=x=>structuredClone(x),c=(ref,digest)=>({ref,digest}),bytes=x=>Buffer.byteLength(canonicalJson(x)),sha=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
++const resign=(x,r,d,p)=>identity(x,r,d,p);
++const fixturePath=process.env.ABI5_F11_CARRIER_FULL_FIXTURE, output=process.env.ABI5_F11_CARRIER_REPORT;
++let full;
++function fixture(){
++ if(full)return full;
++ assert(fixturePath,'full retained fixture path is required');const raw=fs.readFileSync(fixturePath);
++ assert.equal(sha(raw),'sha256:10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901');
++ const embedded=JSON.parse(raw),task=embedded.task,t0=performance.now(),normalized=normalizeQualificationScope(task.scope),entries=[];
++ const add=(entryKind,coordinate,value)=>{const old=entries.find(e=>e.entryKind===entryKind&&e.coordinate.ref===coordinate.ref);if(old){assert.deepEqual(old,{entryKind,coordinate,value});return;}entries.push({entryKind,coordinate,value});};
++ add('inventory',task.inventory,task.scope.inventory);add('scope',c(normalized.scopeRef,normalized.scopeDigest),normalized);
++ for(const m of [...task.material,...task.provenance.records])add('material',c(m.ref,m.digest),m);
++ const provenance={...task.provenance,records:task.provenance.records.map(m=>({entryKind:'material',entry:c(m.ref,m.digest)}))},pd=hash(provenance);
++ add('provenance',c('qualification-provenance://abiogenesis/'+pd.slice(7),pd),provenance);
++ const declarationSelections=task.declarations.map(p=>({catalogBasisDigest:p.catalog.basisDigest,readinessBasisDigest:p.catalog.readinessBasisDigest,viewDigest:p.catalogView.viewDigest,proofDigest:hash(p)}));
++ const manifest=identity({kind:'qualification_resource_manifest',schemaVersion:'1',subjectBasis:task.subjectBasis,lawBasis:task.lawBasis,catalog:task.catalog,inventory:task.inventory,entries,declarationSelections},'resourceRef','resourceDigest','qualification-resource://abiogenesis/');
++ const assertion={kind:'qualification_resource_assertion',schemaVersion:'1',manifests:[manifest],declarationProofs:task.declarations};
++ const input=compact(embedded,manifest),resources=acquireQualificationResources(assertion),view=establishQualificationAssessment(input,resources);
++ full={embedded,normalized,manifest,assertion,input,resources,view,normalizationMs:performance.now()-t0};return full;
++}
++function selection(m,entryKind,entry){return {kind:'qualification_resource_selection',schemaVersion:'1',resource:c(m.resourceRef,m.resourceDigest),entryKind,entry};}
++function compact(embedded,m){const old=embedded.task,scope=m.entries.find(e=>e.entryKind==='scope'),provenance=m.entries.find(e=>e.entryKind==='provenance');
++ const task=identity({...old,representation:'resource_refs_v1',resource:c(m.resourceRef,m.resourceDigest),scope:selection(m,'scope',scope.coordinate),declarations:m.declarationSelections,
++ material:old.material.map(x=>selection(m,'material',c(x.ref,x.digest))),provenance:selection(m,'provenance',provenance.coordinate)},'taskRef','taskDigest','qualification-task://abiogenesis/');
++ const plan=identity({...embedded.plan,slots:embedded.plan.slots.map(s=>({...s,task:s.slotRef===task.slotRef?c(task.taskRef,task.taskDigest):s.task}))},'planRef','planDigest','qualification-plan://abiogenesis/');
++ return {kind:'qualification_assessment_input',schemaVersion:'5.0.0',task,plan};
++}
++function alteredScope(mutate){const f=fixture(),scope=clone(f.normalized);mutate(scope);const n=resign(scope,'scopeRef','scopeDigest','qualification-scope://abiogenesis/');
++ const m=resign({...f.manifest,entries:f.manifest.entries.map(e=>e.entryKind==='scope'?{...e,coordinate:c(n.scopeRef,n.scopeDigest),value:n}:e)},'resourceRef','resourceDigest','qualification-resource://abiogenesis/');
++ return {input:compact(f.embedded,m),assertion:{...f.assertion,manifests:[m]}};
++}
++function replaceMemberSet(scope,group,mutate){const old=scope.referenceSets.find(s=>s.setRef===group.memberSet.ref),body=clone(old);mutate(body.values);
++ const set=resign(body,'setRef','setDigest','qualification-set://abiogenesis/');if(!scope.referenceSets.some(s=>s.setRef===set.setRef))scope.referenceSets.push(set);group.memberSet=c(set.setRef,set.setDigest);
++}
++const skip=!fixturePath;
++test('closed resource forms retain nonempty group arrays and actual old embedded identities',{skip},t=>{
++ const f=fixture();assert.equal(f.embedded.task.taskDigest,'sha256:acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85');
++ assert.equal(f.embedded.plan.planDigest,'sha256:c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98');
++ assert.equal(hash(f.embedded),'sha256:a1bdf000af5f0857a1facc3f4d434a8452b0e094b0266ab81fb656eb94c19a7b');
++ assert(isQualificationAssessmentInput(f.input));assert.notEqual(f.input.task.taskDigest,f.embedded.task.taskDigest);assert.notEqual(f.input.plan.planDigest,f.embedded.plan.planDigest);
++ assert.equal(f.view.task.scope.inventory.members.length,1950);assert.equal(f.view.task.scope.ruleGroups.flatMap(g=>g.ruleRefs).length,2137);
++ assert.equal(f.view.task.scope.applicationDomains.length,187);assert.equal(f.view.task.scope.applicationDomains.flatMap(d=>d.surfaceGroups).length,777);
++ const expected={...f.embedded.task.scope,scopeRef:f.normalized.scopeRef,scopeDigest:f.normalized.scopeDigest};assert.deepEqual(f.view.task.scope,expected);
++ for(const domain of f.view.task.scope.applicationDomains)assert.deepEqual(qualificationRuleSurfaces(f.view.task.scope,domain.ruleGroupRef),domain.surfaceGroups);
++ const partitions=new Set(f.view.task.scope.applicationDomains.map(d=>hash(d.surfaceGroups.map(({groupRef,...g})=>g))));assert(partitions.size>1);
++ const first=f.view.task.scope.applicationDomains[0].surfaceGroups[0];assert(first.memberRefs.length&&first.rootRefs.length&&first.surfaceRoles.length&&first.ownerRefs.length&&first.sourceRefs.length);
++ assert.throws(()=>normalizeQualificationScope({...f.embedded.task.scope,surfaceGroups:[{...f.embedded.task.scope.surfaceGroups[0],rootRefs:[]}]}),/empty_relation/);
++ assert.strictEqual(resolveQualificationAssessment(f.input,f.resources).task.scope,f.view.task.scope,'one acquired set view is borrowed');
++ t.diagnostic(JSON.stringify({members:1950,rules:2137,domains:187,domainGroups:777,distinctPartitions:partitions.size,referenceSets:f.normalized.referenceSets.length}));
++});
++test('full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired',{skip},()=>{
++ for(const [name,mutate] of [
++ ['omit member',s=>replaceMemberSet(s,s.applicationDomains[0].surfaceGroups[0],v=>v.pop())],
++ ['overlap',s=>{const d=s.applicationDomains.find(d=>d.surfaceGroups.length>1),other=s.referenceSets.find(x=>x.setRef===d.surfaceGroups[1].memberSet.ref);replaceMemberSet(s,d.surfaceGroups[0],v=>v.push(other.values[0]));}],
++ ['missing domain',s=>s.applicationDomains.pop()],
++ ]){const a=alteredScope(mutate),resources=acquireQualificationResources(a.assertion),view=resolveQualificationAssessment(a.input,resources),catalog=JSON.parse(fs.readFileSync(new URL('../../contracts/qualification/rule-catalog.json',import.meta.url)));
++ assert(qualificationScopeCorrespondence(view.task.scope,catalog,a.input.task.catalog.digest,view.normalizedScope).some(x=>x.includes('incomplete')),name);
++ assert.throws(()=>establishQualificationAssessment(a.input,resources),/correspondence/,name);assert(isQualificationAssessmentInput(a.input),name+' repaired compact raw form');}
++});
++function changeSet(scope, old, mutate){const oldRef=old.setRef;mutate(old);const set=resign(old,'setRef','setDigest','qualification-set://abiogenesis/');Object.assign(old,set);
++ for(const g of [...scope.surfaceGroups,...scope.applicationDomains.flatMap(d=>d.surfaceGroups)])for(const field of ['memberSet','rootSet','roleSet','ownerSet','sourceSet'])if(g[field].ref===oldRef)g[field]=c(set.setRef,set.setDigest);
++}
++test('missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used',{skip},()=>{
++ const f=fixture();assert.throws(()=>establishQualificationAssessment(f.input),/dependency_missing/);
++ for(const [name,mutate,guard]of[
++ ['crossed inventory',s=>{const x=s.referenceSets.find(x=>x.encoding==='member_ordinals');changeSet(s,x,x=>{x.inventory={...x.inventory,digest:hash('crossed')};});},/inventory_or_ordinal/],
++ ['ordinal range',s=>{const x=s.referenceSets.find(x=>x.encoding==='member_ordinals');changeSet(s,x,x=>{x.values=[1950];});},/inventory_or_ordinal/],
++ ['duplicate ordinal',s=>{const x=s.referenceSets.find(x=>x.encoding==='member_ordinals');changeSet(s,x,x=>{x.values=[x.values[0],x.values[0]];});},/identity_or_ambiguity/],
++ ['crossed set',s=>{s.applicationDomains[0].surfaceGroups[0].rootSet=s.applicationDomains[0].surfaceGroups[0].memberSet;},/set_missing_or_crossed/],
++ ]){const a=alteredScope(mutate);assert.throws(()=>acquireQualificationResources(a.assertion),guard,name);}
++ assert.throws(()=>acquireQualificationResources({...f.assertion,declarationProofs:[]}).declarations(f.input.task.resource,f.input.task.declarations),/preimage_missing_or_crossed/);
++ const wrong=clone(f.input);wrong.task.resource.digest=hash('crossed');wrong.task=resign(wrong.task,'taskRef','taskDigest','qualification-task://abiogenesis/');assert.throws(()=>resolveQualificationAssessment(wrong,f.resources),/missing_or_crossed/);
++ const assertion={...f.assertion,manifests:[f.manifest,f.manifest]};assert.throws(()=>acquireQualificationResources(assertion),/identity_or_duplicate/);
++ const body=f.manifest.entries.find(e=>e.entryKind==='material'),missing=resign({...f.manifest,entries:f.manifest.entries.filter(e=>e!==body)},'resourceRef','resourceDigest','qualification-resource://abiogenesis/');
++ const a={...f.assertion,manifests:[missing]};assert.throws(()=>establishQualificationAssessment(compact(f.embedded,missing),acquireQualificationResources(a)),/entry_missing_or_crossed/);
++ const wrongView=clone(f.assertion);wrongView.declarationProofs[0].catalogView.viewDigest=hash('crossed');assert.throws(()=>establishQualificationAssessment(f.input,acquireQualificationResources(wrongView)),/preimage_missing_or_crossed/);
++});
++test('Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies',{skip},()=>{
++ const f=fixture(),p=f.embedded.task.declarations[0],base={catalog:p.catalog,catalogView:p.catalogView,applications:[],source:{kind:'none'}};
++ const borrowed=prepareRunQualificationResources({...base,qualificationResources:{...f.assertion,declarationProofs:[]}},f.input);assert(borrowed);
++ assert.throws(()=>prepareRunQualificationResources({...base,qualificationResources:f.assertion},f.input),/declaration_ambiguous/);
++ assert.throws(()=>prepareRunQualificationResources(base,f.input),/dependency_missing/);
++});
++test('selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates',{skip},t=>{
++ const f=fixture(),t0=performance.now(),old=qualificationWorkerRequest(f.embedded),baselineMs=performance.now()-t0,t1=performance.now(),prepared=prepareQualificationAssessment(f.input,f.resources),request=prepared.request,preparedMs=performance.now()-t1;
++ const lines=request.prompt.split('\n\n'),original=old.prompt.split('\n\n');assert.equal(lines.length,original.length);
++ let differences=0;for(let n=0;n<lines.length;n++){if(lines[n]===original[n])continue;assert(lines[n].startsWith('SCOPE AND COMPUTED CORRESPONDENCE'));const label='SCOPE AND COMPUTED CORRESPONDENCE (C, not semantic satisfaction): ';
++ const a=JSON.parse(original[n].slice(label.length)),b=JSON.parse(lines[n].slice(label.length));assert.deepEqual(b.scope,c(f.normalized.scopeRef,f.normalized.scopeDigest));delete a.scope;delete b.scope;assert.deepEqual(a,b);differences++;}assert.equal(differences,1);
++ assert.equal(sha(Buffer.from(old.prompt)),'sha256:35d718313300c7feb1ebc64d699c373c58dd9de868bc68c9c14a83e7d7ee4264');assert.deepEqual(request.responseJsonSchema,old.responseJsonSchema);assert.equal(request.inputDigest,hash(f.input));
++ const raw={kind:'qualification_raw_judgment',schemaVersion:'5.0.0',criteria:f.input.task.coverage.map(c=>({...c,disposition:'indeterminate',applicability:'unknown',grouping:'unknown',reason:'Controlled carrier fixture retains all semantic obligations.',sourceRefs:[f.view.task.material[0].ref],evidenceRefs:[],residuals:['residual://semantic-assessment-open']})),residuals:['residual://full-F11-open'],attributions:[]};
++ const predecessorPrefix={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///not-an-authored-runtime-store',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:hash('contract')},coordinateDigest:hash('coordinate')},nativeBasis={cCallRef:'c-call://controlled-pure-fixture',predecessorPrefix};
++ const source={cCallRef:nativeBasis.cCallRef,inputDigest:hash(f.input),actorRef:request.actorRef,workerBindingRef:request.workerBindingRef,actorInvocationRef:'actor-invocation://controlled-fixture',transportBindingRef:'transport://controlled-fixture',transportBindingDigest:hash('binding'),requestDigest:hash(request),observationDigest:hash('observation'),promptDigest:hash(request.prompt),rawValueDigest:hash(raw)};
++ const judgment=prepared.complete(raw,nativeBasis,source);assert(isQualificationJudgment(judgment));assert(prepared.matches(f.input,judgment));assert(!prepared.matches(clone(f.input),judgment));assert(!prepared.matches(f.input,{...judgment,source:{...source,promptDigest:hash('crossed')}}));
++ const encoded=canonicalJson(judgment);assert(!encoded.includes('contentBase64'));assert(!encoded.includes('qualification_scope_interned'));assert(!encoded.includes('abg_historical_declaration_proof'));assert.equal(judgment.source.inputDigest,hash(f.input));
++ const evidence={evidenceClass:'probabilistic_transport',...source,transportDisposition:'success',transportFailureClass:null,outputDigest:hash(judgment)};
++ assert(!semantics.validateResultEvidenceLineage({outputContractRef:'contract://abiogenesis/qualification/judgment@5',value:judgment,admittedEvidence:[evidence]}));
++ assert(semantics.validateResultEvidenceLineage({outputContractRef:'contract://abiogenesis/qualification/judgment@5',value:judgment,admittedEvidence:[evidence],nativeProof:{qualificationRequest:()=>prepared.request}}));
++ assert(!semantics.validateResultEvidenceLineage({outputContractRef:'contract://abiogenesis/qualification/judgment@5',value:judgment,admittedEvidence:[{...evidence,requestDigest:hash('crossed')}],nativeProof:{qualificationRequest:()=>prepared.request}}));
++ const accounting={semanticInputBytes:bytes(f.input),oldInputBytes:bytes(f.embedded),assertionBytes:bytes(f.assertion),normalizedScopeBytes:bytes(f.normalized),inventoryBytes:bytes(f.view.task.scope.inventory),promptBytes:Buffer.byteLength(request.prompt),judgmentBytes:bytes(judgment),baselineMs,preparedMs,normalizationAcquisitionMs:f.normalizationMs,measurement:'pure fixture process only; no installed admission, memory or speed claim',semanticQualification:'open'};
++ assert(accounting.semanticInputBytes<150000);assert(accounting.judgmentBytes<160000);t.diagnostic(JSON.stringify(accounting));
++ if(output){fs.mkdirSync(output,{recursive:true});for(const[name,value]of Object.entries({'compact-input.json':f.input,'resource-assertion.json':f.assertion,'compact-judgment.json':judgment,'accounting.json':accounting}))fs.writeFileSync(path.join(output,name),canonicalJson(value)+'\n');}
++ full.prepared=prepared;full.judgment=judgment;full.nativeBasis=nativeBasis;
++});
++test('fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints',{skip},()=>{
++ const f=fixture(),proof={kind:'qualification_proof_resource',schemaVersion:'5.0.0',representation:'resource_refs_v1',resource:f.input.task.resource,prefix:f.nativeBasis.predecessorPrefix,declarations:f.input.task.declarations,selections:[]};
++ const selection={kind:'judgment_selection',selectionRef:'selection://fixture',slotRef:f.input.task.slotRef,task:c(f.input.task.taskRef,f.input.task.taskDigest),programRef:'program://fixture',invocationAdmissionRef:'invocation://fixture',result:c('result://fixture',hash(f.judgment))};
++ assert.equal(projectQualificationJudgment(proof,f.input.plan,selection,f.resources),null,'before Result/J has no admitted fact');assert.equal(projectQualificationJudgment(proof,f.input.plan,selection),null,'warm helper cannot supply resources');
++ assert.equal(projectQualificationConsumer(f.nativeBasis,f.input,false,f.resources),null,'no fabricated native owner');assert.equal(projectQualificationConsumer(f.nativeBasis,f.input),null);
++ assert.equal(projectExactCandidateQualification(f.nativeBasis,{proof}),null,'missing resources precede warmed verdict fast path');
++ if(output){const script=`import fs from 'node:fs';import assert from 'node:assert/strict';import {acquireQualificationResources,resolveQualificationAssessment} from ${JSON.stringify(new URL('../../build/code/src/validator/qualification_resources.js',import.meta.url).href)};import {projectQualificationJudgment} from ${JSON.stringify(new URL('../../build/code/src/abg/qualification_proof.js',import.meta.url).href)};const i=JSON.parse(fs.readFileSync(process.argv[1]+'/compact-input.json'));const a=JSON.parse(fs.readFileSync(process.argv[1]+'/resource-assertion.json'));const r=acquireQualificationResources(a);assert.equal(resolveQualificationAssessment(i,r).task.scope.inventory.members.length,1950);assert.throws(()=>resolveQualificationAssessment(i),/dependency_missing/);const proof=${JSON.stringify(proof)},selection=${JSON.stringify(selection)};assert.equal(projectQualificationJudgment(proof,i.plan,selection),null);assert.equal(projectQualificationJudgment(proof,i.plan,selection,r),null);console.log(JSON.stringify({members:1950,coldAcquisition:true,missingResourceRefused:true,beforeResultJRefused:true}));`;
++ const result=execFileSync(process.execPath,['--input-type=module','-e',script,output],{encoding:'utf8'});fs.writeFileSync(path.join(output,'fresh-process.json'),result);}
++});
++
++test('full F11 input and scope output keep compact identities and whole-scope blocked findings',{skip},t=>{
++ const f=fixture(),basis=JSON.parse(fs.readFileSync(path.join(path.dirname(fixturePath),'basis.json'))),law=JSON.parse(fs.readFileSync(new URL('../../contracts/qualification/law-basis.json',import.meta.url))),tenant=JSON.parse(fs.readFileSync(path.join(path.dirname(fixturePath),'tenant-manifest.json')));
++ const entries=[...f.manifest.entries,{entryKind:'law',coordinate:c(law.lawBasisRef,law.lawBasisDigest),value:law},{entryKind:'tenant_manifest',coordinate:c(tenant.manifestRef,tenant.manifestDigest),value:tenant}],manifest=resign({...f.manifest,entries},'resourceRef','resourceDigest','qualification-resource://abiogenesis/');
++ const resources=acquireQualificationResources({...f.assertion,manifests:[manifest]}),applications=f.normalized.applicationDomains.flatMap(d=>d.surfaceGroups.map(g=>({ruleRef:d.ruleGroupRef,surfaceRef:g.groupRef,applicability:'unknown',premiseEvidenceRefs:[],evaluationEvidenceRefs:[],rulingEvidenceRefs:[]})));
++ const input={kind:'self_conformance_input',schemaVersion:'5.0.0',representation:'resource_refs_v1',resource:c(manifest.resourceRef,manifest.resourceDigest),basis,law:selection(manifest,'law',c(law.lawBasisRef,law.lawBasisDigest)),inventory:selection(manifest,'inventory',basis.sourceInventory),tenantManifest:selection(manifest,'tenant_manifest',c(tenant.manifestRef,tenant.manifestDigest)),scope:selection(manifest,'scope',c(f.normalized.scopeRef,f.normalized.scopeDigest)),authorityMembers:f.view.task.material.filter(m=>law.sources.some(s=>s.ref===m.ref)).map(m=>selection(manifest,'material',c(m.ref,m.digest))),applications,evidenceCitations:[]};
++ assert(isSelfConformanceInput(input));assert.equal(resolveSelfConformanceInput(input,resources).input.scope.inventory.members.length,1950);assert.throws(()=>resolveSelfConformanceInput(input),/dependency_missing/);
++ const owner={installId:'install://pure-component',installDigest:hash('install'),artifactDigest:basis.artifact.digest,productId:basis.productId,productVersion:basis.productVersion,productContentDigest:basis.productContentDigest,manifestDigest:basis.productManifest.digest,publicationDigest:hash('publication'),workspaceBinding:basis.workspaceBinding,executionBasis:c('basis://pure-component',hash('basis')),cCallDigest:hash('c-call'),nativeBasis:f.nativeBasis,catalogDigest:law.catalog.digest,catalogRef:law.catalog.ref,catalogVersion:law.catalog.version,catalogAssetPath:law.catalog.assetPath};
++ const result=evaluateSelfConformance(input,owner,resources);assert(isSelfConformanceResult(result));assert.deepEqual(result.scope,input.scope);assert.equal(result.inputDigest,hash(input));assert.equal(result.ruleApplications.length,777);assert.notEqual(result.disposition,'passed');assert.equal(result.qualificationVerdict,false);assert(result.findings.some(x=>x.diagnostic==='semantic_assessment_required'));
++ const encoded=canonicalJson(result);assert(!encoded.includes('contentBase64'));assert(!encoded.includes('qualification_scope_interned'));assert(!encoded.includes('abg_historical_declaration_proof'));assert.equal(bytes(result.scope),bytes(input.scope));
++ t.diagnostic(JSON.stringify({selfConformanceInputBytes:bytes(input),selfConformanceResultBytes:bytes(result),scopeOutputBytes:bytes(result.scope),applications:result.ruleApplications.length,disposition:result.disposition,claim:'pure complete C plus truthful unresolved J; no native/F11 qualification'}));
++ if(output){fs.writeFileSync(path.join(output,'compact-f11-input.json'),canonicalJson(input)+'\n');fs.writeFileSync(path.join(output,'compact-f11-result.json'),encoded+'\n');}
++});
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs
+@@ -4,7 +4,7 @@
+ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import fs from 'node:fs';
+-import {syncBuiltinESMExports} from 'node:module';
++import {registerHooks,stripTypeScriptTypes,syncBuiltinESMExports} from 'node:module';
+ import {mkdtempSync} from 'node:fs';
+ import {tmpdir} from 'node:os';
+ import {join,resolve} from 'node:path';
+@@ -18,20 +18,41 @@
+ const root=resolve(import.meta.dirname,'../..'), c=(ref,digest=hash(ref))=>({ref,digest});
+ const digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
+ const evidence=process.env.ABI5_PRODUCER_HISTORY_FIXTURE,contextPath=process.env.ABI5_PRODUCER_CONTEXT_FIXTURE;
+-assert(evidence&&contextPath,'explicit finite copied-history and selected retained context required');
++const ownerFixture=process.env.ABI5_PRODUCER_OWNER_FIXTURE,ownerSourceFixture=process.env.ABI5_PRODUCER_OWNER_SOURCE_FIXTURE;
++assert(evidence&&contextPath&&ownerFixture&&ownerSourceFixture,'explicit finite copied-history, retained context and exact historical owner fixtures required');
+ const allBytes=fs.readFileSync(evidence);
+ assert.equal(digest(allBytes),'sha256:e8147dd35d207590170bea4f4f2018935c6a5c7fc9893cc3f56585e332692667');
+-const context=JSON.parse(fs.readFileSync(contextPath,'utf8')),bytes=allBytes.subarray(0,context.prefixLength);
++const contextBytes=fs.readFileSync(contextPath);assert.equal(digest(contextBytes),'sha256:831889537928213cf34909ae2e7d500d4fcbb521b790fa7b0d018e2b7f874058');
++const context=JSON.parse(contextBytes),bytes=allBytes.subarray(0,context.prefixLength);
++const ownerPins=JSON.parse(fs.readFileSync(ownerFixture)),sourcePins=JSON.parse(fs.readFileSync(ownerSourceFixture));
++assert.equal(ownerPins.ownerRoot,context.install.installedRoot);
++for(const pin of [...ownerPins.readOnlySources,sourcePins.source,sourcePins.freeze]){
++ const body=fs.readFileSync(pin.path);assert.equal(body.length,pin.bytes);assert.equal(digest(body),'sha256:'+pin.sha256);
++}
++assert.equal(sourcePins.source.sha256,'ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf');
++assert.equal(sourcePins.freeze.sha256,'4b47285b95656c83dd07f0d6cbcf794738b8328404aacc35cb9e0111e62559a3');
+ // Plain physical rows select a fixture target only; the tested reader must
+ // independently authenticate and decode them before they supply proof.
+ const rows=bytes.toString('utf8').trim().split('\n').map(JSON.parse);
+ const opened=rows.find(e=>e.kind==='c_call_opened'&&e.payload.callClass==='leaf');
+ const basisRow=rows.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===opened.basisId).payload;
+ const result=rows.find(e=>e.kind==='c_call_result_admitted'&&e.aggregateId===opened.aggregateId).payload;
+-const modules={};
+-for(const name of ['abg/event_store','abg/event_prefix','abg/artifact_truth','abg/environment_admission','abg/invocation_execution_truth','abg/execution_basis','abg/c_call','product/declaration_closure'])
+- modules[name+'.js']={...await import(pathToFileURL(join(root,'build/code/src',name+'.js')))};
++const modules={},historicalEventStoreUrl=pathToFileURL(join(ownerPins.ownerRoot,'build/code/src/abg/event_store.js')).href;
++// The original accepted component used this exact source owner for currentness.
++// Its one module URL preserves the historical package's ordinary import identity;
++// the consumer and realization below continue to load the current copied tenant.
++const historicalSource=fs.readFileSync(sourcePins.source.path,'utf8');
++const sourceHook=registerHooks({load(url,context,next){return url===historicalEventStoreUrl
++ ?{format:'module',source:stripTypeScriptTypes(historicalSource,{mode:'transform',sourceUrl:url}),shortCircuit:true}:next(url,context);}});
++try{
++ for(const name of ['abg/event_store','abg/event_prefix','abg/artifact_truth','abg/environment_admission','abg/invocation_execution_truth','abg/execution_basis','abg/c_call','product/declaration_closure'])
++  modules[name+'.js']={...await import(pathToFileURL(join(ownerPins.ownerRoot,'build/code/src',name+'.js')))};
++}finally{sourceHook.deregister();}
+ const events=modules['abg/event_store.js'],prefixes=modules['abg/event_prefix.js'],artifact=modules['abg/artifact_truth.js'];
++assert.equal(events.ROOT_EVENT_CONTRACT_DIGEST,'sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0');
++const historicalMaterializerPath=join(ownerPins.ownerRoot,'build/code/src/gtl/materialize.js');
++assert.equal(digest(fs.readFileSync(historicalMaterializerPath)),'sha256:82e4abcb65d7cb92d28683173916348331da995f5cda11d8a4af22f7528550ea');
++const historicalMaterializer=await import(pathToFileURL(historicalMaterializerPath));
+ const catalog=JSON.parse(fs.readFileSync(join(root,'contracts/qualification/rule-catalog.json'),'utf8'));
+ const law=JSON.parse(fs.readFileSync(join(root,'contracts/qualification/law-basis.json'),'utf8'));
+ const role={roleRef:policy.roleRefs[0],authorityRef:policy.authorityRef,sourceBindings:policy.authoritySourceRefs.map(ref=>catalog.sources.find(s=>s.ref===ref)),
+@@ -47,6 +68,13 @@
+  prefixDigest:digest(bytes),storeIdentity:{device:stat.dev,inode:stat.ino,eventContractDigest:events.ROOT_EVENT_CONTRACT_DIGEST}});
+  const acquisitions=[],representations=new Set(),environments=[];let currentness=0;
+  const nativeModules={...modules,
++  'abg/c_call.js':{...modules['abg/c_call.js'],projectOpenedCCallCarrierAtPrefix(prefix,graph,...args){
++    // This fixture composes two actual package owners. The historical CCall
++    // projector requires its own strict materialization receipt; equal JSON
++    // from the current materializer does not confer that nominal ownership.
++    const owned=historicalMaterializer.rehydrateMaterializedGtlGraph(graph);assert(owned,'exact historical materialization');
++    assert.deepEqual(owned,graph);assert.equal(owned.materializationDigest,graph.materializationDigest);
++    return modules['abg/c_call.js'].projectOpenedCCallCarrierAtPrefix(prefix,owned,...args);}},
+   'abg/artifact_truth.js':{...artifact,projectExactPrefixArtifactTruth(p){const a=artifact.projectExactPrefixArtifactTruth(p);acquisitions.push(a);return a;},
+     runtimePrefixFromArtifactTruth(a){const p=artifact.runtimePrefixFromArtifactTruth(a);if(p)representations.add(prefixes.runtimeEventsFromValidatedPrefix(p));return p;}},
+   'abg/event_store.js':{...events,assertDurableRuntimePrefixCurrent(p){currentness++;return events.assertDurableRuntimePrefixCurrent(p);}},
+@@ -87,9 +115,9 @@
+  // Execute the exact ordinary dispatch expression, retaining the actual owner
+  // resolver; the unrelated dispatch/loading shell is outside this component.
+  const dispatchSource=fs.readFileSync(join(root,'build/code/src/implementation/leaf_invocation_port.js'),'utf8');
+- const expression=dispatchSource.match(/resolveSelfConformanceOwner\(qualificationOwnerBasis, call\.input, true\)/g);assert.equal(expression.length,1);
+- const dispatch=Function('resolveSelfConformanceOwner','qualificationOwnerBasis','call','return '+expression[0]);
+- const check=p=>dispatch(resolver.resolveSelfConformanceOwner,p.call.basis,{input:p.input});
++ const expression=dispatchSource.match(/resolveSelfConformanceOwner\(qualificationOwnerBasis, call\.input, true, authority\.qualificationResources\)/g);assert.equal(expression.length,1);
++ const dispatch=Function('resolveSelfConformanceOwner','qualificationOwnerBasis','call','authority','return '+expression[0]);
++ const check=p=>dispatch(resolver.resolveSelfConformanceOwner,p.call.basis,{input:p.input},{qualificationResources:undefined});
+  const occurrence=p=>({...p.call.call,executionAuthority:null,qualificationOwnerBasis:p.call.basis});
+  const realize=(p,o=occurrence(p))=>port.invokeLeafOwnerBoundary({resolution:{implementationRef:self.implementationRef,computeRegime:'F_D',inputContractRef:self.inputContractRef,outputContractRef:self.outputContractRef},
+   value:p.input,inputDigest:hash(p.input),occurrence:o,failureValueKind:'self_conformance_failure',verifyAuthority:()=>true,

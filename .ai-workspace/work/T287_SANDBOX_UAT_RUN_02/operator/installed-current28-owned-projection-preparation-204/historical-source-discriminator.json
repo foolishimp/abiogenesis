@@ -1,0 +1,17 @@
+{
+  "operation": "projectHistoricalGraphCallSourceAtDurablePrefix",
+  "declarationReference": {
+    "catalogBasisDigest": "sha256:c66804e6f0d0ff619e0347defb06cbb5eceb8432fca052c74fd0f0627d62bbc4",
+    "catalogViewDigest": "sha256:6ce3526e5b0f7086b54c2ab8dafc8084bbbff0cd4b8b4d7f6f2dc6bc9fd2a76e"
+  },
+  "returned": {
+    "terminalResult": {
+      "ref": "result://abiogenesis/072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16",
+      "digest": "sha256:072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16"
+    },
+    "publicationRef": "module://abi5-tests/sandbox-uat/consumer@5",
+    "inputGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+    "inputContractRef": "contract://abiogenesis/default-library/state@5",
+    "inputDigest": "sha256:d0c6b56492ae4b379e438471e9053dd3845ac8cd0b9c4d8ab6988a24554ec3a8"
+  }
+}

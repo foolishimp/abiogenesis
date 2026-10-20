@@ -1,0 +1,45 @@
+{
+  "operation": "T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+  "actor": "/root",
+  "role": "Writer",
+  "status": "CLOSED_DOCUMENTARY_ONLY",
+  "closedAtUTC": "2026-10-04T17:10:41.750533+00:00",
+  "entryActivation": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/activation.json",
+  "exactNamedTrackingPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 493216,
+      "sha256": "42678bfa62fc29a0bd8b3263b6723dbd42a146a179b2831856a7c54ce7e6f2f6",
+      "preimageSHA256": "22b3c22904be7baa24bbe75d523b12a22e1d0aaa29342209448ecd8c70523058"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 67650,
+      "sha256": "7c36e9cd0b5fbc3eb09e2ba88c509f591b2c98e5ae3656651f13aaa0c7e3a09c",
+      "preimageSHA256": "89713269fa893225b5aa9d8deecccdb67542475fde69aec17cb914c0dd5d360d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "bytes": 34710,
+      "sha256": "0997b84065a12fca31fdc4c407a2b319e6e4a6e5053a05ef01be9ee539b3a705",
+      "preimageSHA256": "bd104d1c395dd9f3b30b12f4afd99f0593d548bc0185080eed1dfe36e2a8c405"
+    }
+  ],
+  "SourceRowsConserved": 17,
+  "SourceChanges": 0,
+  "commentaryPreimageBytesConserved": true,
+  "frozenAuthorCutUnchanged": true,
+  "acceptedDesignsUnchanged": true,
+  "RuntimeEffects": 0,
+  "GitEffects": 0,
+  "providerNetworkEffects": 0,
+  "qualificationReleaseEffects": 0,
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/acceptance.json",
+    "bytes": 8960,
+    "sha256": "97912eaf2050c8b88c12c35f00444e7743069a3b60ddb3c59b27c5bba43280fb"
+  },
+  "nextRole": "Executive",
+  "successorWorkersActivated": 0,
+  "evidenceInterpretation": "documentary record of existing CLOSED reviewed proof, not new Runtime or semantic qualification evidence"
+}

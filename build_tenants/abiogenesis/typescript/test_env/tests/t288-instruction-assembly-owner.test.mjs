@@ -134,7 +134,7 @@ test('native revision decision view conserves retained selector material without
   const assemblyOwner = await component('abg/instruction_assembly', {
     './execution_basis.js': { constructNativeInstructionAssemblyBasis: value => value },
     './semantic_revision.js': { projectJobRevisionSubject: () => subject },
-    './stdo_environment.js': { projectRunEnvironmentRoleEvidence: () => old.task.runEnvironment },
+    './stdo_environment.js': { projectRunEnvironmentRoleEvidenceAtPrefix: () => old.task.runEnvironment },
     '../gtl/c_algebra.js': { cLeafTerms: () => [{ programLocusRef: call.programLocusRef }] },
     '../gtl/stdo_run_environment.js': { nativeContextLeafFamily: () => 'assessor' },
   });
@@ -278,16 +278,19 @@ test('actor owner retains its own assembly, authenticates raw dispatch, and reje
     executionBasis: { basisRef: 'basis://one', basisDigest: hash('basis') }, cCall: { cCallDigest: hash('call') } });
   const actor = await component('abg/actor_process', {
     './instruction_assembly.js': {
+      // Supplied lower assembly premise, through the actual private owner call.
+      requireDeclaredNativeInstructionAssembly: () => { builds++; if (!requiredCurrent) throw new TypeError('stale_basis'); if (requiredFailure) throw requiredFailure; return assembly; },
+      constructDeclaredNativeInstructionAssembly: () => { cold++; return assembly; },
       requireNativeInstructionAssembly: () => { builds++; if (!requiredCurrent) throw new TypeError('stale_basis'); if (requiredFailure) throw requiredFailure; return assembly; },
       constructNativeInstructionAssembly: () => { cold++; return assembly; },
       requireWorksiteNativeInstructionAssembly: () => { builds++; return assembly; },
       constructWorksiteNativeInstructionAssembly: () => { cold++; return assembly; },
     },
     './execution_basis.js': { constructNativeInstructionAssemblyBasis: b => b === basis ? b : Object.freeze({ ...b }),
-      authenticateNativeInstructionAssemblyBasis: () => ({ call: { cCallRef: 'call://one' }, execution: { basisRef: 'basis://one' }, inputDigest: request.inputDigest, inputValue: { input: 1 } }) },
+      authenticateOwnedNativeInstructionAssemblyBasis: () => ({ call: { cCallRef: 'call://one' }, execution: { basisRef: 'basis://one' }, inputDigest: request.inputDigest, inputValue: { input: 1 } }) },
     './semantic_stage.js': { semanticInputValueAtBasis: () => ({ input: 1 }) },
     './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true },
-    './event_store.js': { readRuntimeEventsAtDurablePrefix: () => { reads++; if (!physicalCurrent) throw new TypeError('physical prefix changed'); return Object.freeze([]); } },
+    './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => { reads++; if (!physicalCurrent) throw new TypeError('physical prefix changed'); return Object.freeze({ fixture: 'supplied prefix' }); } },
     './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
     './worker_transport.js': { prepareWorkerTransport: () => { throw stopped; } },
   });
@@ -480,7 +483,7 @@ test('retained native assemblies conserve every canonical part and required-cont
   const commandStop = new TypeError('component command assembly refusal; before effects');
   let commandCold = 0, commandSupplied = 0;
   const command = await component('implementation/worksite_command_execution', {
-    '../abg/execution_basis.js': { authenticateNativeInstructionAssemblyBasis: () => ({ call: commandOccurrence }) },
+    '../abg/execution_basis.js': { authenticateOwnedNativeInstructionAssemblyBasis: () => ({ call: commandOccurrence }) },
     '../abg/instruction_assembly.js': { requireWorksiteNativeInstructionAssembly: () => { commandCold++; throw commandStop; } },
   });
   assert.throws(() => command.realizeWorksiteCommandExecution(commandResult.payload.value.task, commandOccurrence), e => e === commandStop);
@@ -539,7 +542,7 @@ test('actual derived revision successor shares complete typed assets under the u
     './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
     './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
     './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>({currentWorksite:null,origins:[]})},
-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:stdo},
     '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
     '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'author'},
   });
@@ -687,7 +690,7 @@ test('semantic result matcher follows the exact native compact Design materializ
     './event_store.js':{reidentifyHistoricalDurablePrefixCoordinate:(a,b)=>{assert.deepEqual(a,b);return a;}},
     './semantic_job.js':{authenticateSemanticJobBasis:()=>owner,semanticJobInputMatchesBasis:matchedInput,semanticJobContextCurrent:()=>current},
     './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:matchedInput,projectJobRevisionSubject:()=>current?{currentWorksite:null,origins:[]}:null},
-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:()=>null},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>null},
   };
   const instructions=await component('abg/instruction_assembly',overrides);
   const implementationOverrides={'../abg/semantic_job.js':{authenticateSemanticJobBasis:()=>owner}};
@@ -773,7 +776,7 @@ test('assessment-first actual successor preserves typed retained terms and full 
     './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
     './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
     './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>({currentWorksite:null,origins:[]})},
-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:stdo},
     '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
     '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'assessor'},
   });
@@ -866,7 +869,7 @@ test('native42 operational selector context preserves current inventory and qual
   const renderer=await component('abg/instruction_assembly',{
     './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
     './semantic_revision.js':{projectJobRevisionSubject:()=>subject},
-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:()=>stdo},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>stdo},
     '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
     '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'assessor'},
   });
@@ -958,7 +961,7 @@ test('native42 Evidence role context preserves selected observations under the u
     './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
     './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
     './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>revisionSubject},
-    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:stdo},
     '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
     '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=>owner.role},
     '../shared/digests.js':{sha256Canonical:value=>{if(value?.sections?.worksite?.origins)projectedSections=value.sections;return hash(value);}},

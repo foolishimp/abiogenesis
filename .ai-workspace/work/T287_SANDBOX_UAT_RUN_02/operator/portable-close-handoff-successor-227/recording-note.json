@@ -1,0 +1,5 @@
+{
+  "lookup": "root_public_descriptor.ts",
+  "error": "rg missing guessed optional filename; canonical ROOT_EVENT_CONTRACT_DESCRIPTOR already exported by event_store.ts",
+  "action": "Omit unnecessary guessed path; use the already identified canonical export. No command/test/owner retry or causal change."
+}

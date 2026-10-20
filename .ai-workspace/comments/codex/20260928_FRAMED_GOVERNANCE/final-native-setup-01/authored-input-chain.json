@@ -1,0 +1,66 @@
+{
+  "grant": "worker-activation.json",
+  "donorPreimages": "donor-preimages.json",
+  "changes": [
+    {
+      "file": "ordinary-caller.mjs",
+      "author": "Worker T287_FINAL_NATIVE_SETUP_01",
+      "preimage": {
+        "file": "preimages/ordinary-caller.mjs",
+        "sha256": "cac62d090b6cdb6f67f315072ca1d14dbeae775e4def233d2b1415a47fad3944"
+      },
+      "postimage": {
+        "sha256": "0c05f27de926a1b13885653e9d344df1c16e772ce2cf6e23b05420e9244eceea"
+      },
+      "patch": "ordinary-caller.mjs.patch",
+      "changed": true
+    },
+    {
+      "file": "public-support.mjs",
+      "author": "Worker T287_FINAL_NATIVE_SETUP_01",
+      "preimage": {
+        "file": "preimages/public-support.mjs",
+        "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+      },
+      "postimage": {
+        "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+      },
+      "patch": "public-support.mjs.patch",
+      "changed": false
+    },
+    {
+      "file": "observe-process.py",
+      "author": "Worker T287_FINAL_NATIVE_SETUP_01",
+      "preimage": {
+        "file": "preimages/observe-process.py",
+        "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+      },
+      "postimage": {
+        "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+      },
+      "patch": "observe-process.py.patch",
+      "changed": false
+    },
+    {
+      "file": "driver.mjs",
+      "author": "Worker T287_FINAL_NATIVE_SETUP_01",
+      "preimage": {
+        "file": "preimages/setup.mjs",
+        "sha256": "f0c661542082bd077dc2e2bbea8e197409891b4c837470e6e756fab4e51204a2"
+      },
+      "postimage": {
+        "sha256": "590ceb00294de7314e577c7828db8b0b34c87f8288f8a20d8a7f63f6258b594f"
+      },
+      "patch": "driver.mjs.patch",
+      "changed": true
+    }
+  ],
+  "newAuthoredInputs": [
+    "preflight.mjs",
+    "prepare.py",
+    "budgets.json",
+    "resource-plan.json",
+    "runtime-environment.json"
+  ],
+  "attributionLimit": "New external setup/control realization only; inherited Product/source/recipe authors unchanged."
+}

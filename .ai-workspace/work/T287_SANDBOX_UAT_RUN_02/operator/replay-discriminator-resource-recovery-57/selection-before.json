@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-08T04:52:19.667Z",
+  "ownerPid": 5261,
+  "processProbe": "ESRCH",
+  "exclusiveMaintenance": true,
+  "lock": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-467374253.lock",
+    "device": 16777231,
+    "inode": 467609449,
+    "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMxLCJpbm9kZSI6NDY3Mzc0MjUzLCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NTI2MSwic2NoZW1hVmVyc2lvbiI6IjUuMC4wIn0K",
+    "digest": "sha256:0cc6a2de08428f13d13f0f6124c686a68d37d440049f7cef57c9b9d94b4f41fa",
+    "byteCount": 123
+  },
+  "interruption": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/replay-owner-memory-discriminator-56/commands/mechanism-diagnostic.result.json",
+    "digest": "sha256:2d473b197eb5db32ad0ca0d6de691570ffba58ae6200623d215af0f3cc16b226"
+  },
+  "quiescence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/replay-owner-memory-discriminator-56/residue.json",
+    "digest": "sha256:df535c33b3c41ab874025784d2ae7a7c0d6c1a6ad48f552f3e86792ff588ab7a"
+  },
+  "log": {
+    "device": 16777231,
+    "inode": 467374253,
+    "byteCount": 1182449986,
+    "mtimeNs": "1791404494476866055",
+    "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6"
+  }
+}

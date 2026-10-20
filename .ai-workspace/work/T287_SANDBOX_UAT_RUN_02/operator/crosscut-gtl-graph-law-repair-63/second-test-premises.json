@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-08T05:49:12.229095+00:00",
+  "receipt": "commands/focused-graph-law.result.json",
+  "sourceRepair": false,
+  "corrections": [
+    {
+      "actual": "default test selected callableMembership[0], fan-out selected a child with no fanOutMaterializations",
+      "ownerRelation": "Program starts/default_start_ref select the GraphFunction, not catalogue array position",
+      "change": "test-only validate helper resolves declared start"
+    },
+    {
+      "actual": "registered-selection fixture declarations() intentionally returns a publication fragment with no kind/artifact identity",
+      "ownerRelation": "existing modulePublication constructor binds complete supplied Artifact metadata before raw/whole admission",
+      "change": "test-only selectionModule wrapper calls exact owner with explicit fixture identity"
+    }
+  ],
+  "fixturePremises": "supplied static metadata/invocation/input only; no Runtime/provider/installed/admission credit",
+  "followupReceipt": "commands/focused-graph-law-corrected.result.json",
+  "followupCorrections": [
+    "Some existing callable-only fixture Programs intentionally have no Public start; use an explicit callable premise in that case, with no entry credit. Fan-out check now names exact FAN_OUT_IDS.graphFunctionRef.",
+    "Existing registered-selection preparation adds Artifact-bound provenanceRefs per contribution before modulePublication; pure test now follows that exact preparation relation."
+  ]
+}

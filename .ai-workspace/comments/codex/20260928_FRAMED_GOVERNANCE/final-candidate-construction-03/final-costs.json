@@ -1,0 +1,110 @@
+{
+  "preparationMs": 2362.4391658231616,
+  "operationMs": 38908.361750189215,
+  "operations": [
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/npm",
+        "ci",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "elapsedMs": 751.6893753781915,
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "scripts/clean.mjs"
+      ],
+      "elapsedMs": 45.03391683101654,
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "elapsedMs": 6062.3386250808835,
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "scripts/generate-qualification-rule-catalog.mjs",
+        "--stage-authorities",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-stage",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-law"
+      ],
+      "elapsedMs": 150.54729161784053,
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "elapsedMs": 14353.775041177869,
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts"
+      ],
+      "elapsedMs": 3204.1024160571396,
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/npm",
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--package-lock=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "elapsedMs": 2241.2437088787556,
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-controls/verify-installed.mjs"
+      ],
+      "elapsedMs": 11781.476375181228,
+      "exitCode": 0,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-controls/validate-installed-publications.mjs"
+      ],
+      "elapsedMs": 318.15499998629093,
+      "exitCode": 0,
+      "timedOut": false
+    }
+  ],
+  "generatedCorrespondenceMs": 453.8252498023212,
+  "packageCorrespondenceMs": 991.1902500316501,
+  "nativeModelProviderNetworkGitEffects": 0,
+  "basis": "actual owned command intervals plus finite mechanical preparation/correspondence; reasoning/report assembly is separate"
+}

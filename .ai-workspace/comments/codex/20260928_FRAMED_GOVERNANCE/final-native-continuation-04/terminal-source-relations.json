@@ -1,0 +1,111 @@
+[
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6055,
+      "sha256": "576df199d0c3275358253884266385f34689cce21cc2ed9604b3238ab6e83498"
+    },
+    "ranges": [
+      {
+        "lines": [
+          7,
+          36
+        ],
+        "excerpt": "7: /** This is an output carrier, not an admission or an independent result ledger. */\n8: export const ABG_TYPED_TERMINAL_RESULT_SCHEMA = v.strictObject({\n9:   kind: v.literal(\"abg_typed_terminal_result\"),\n10:   schemaVersion: v.literal(\"5.0.0\"),\n11:   result: refDigestSchema,\n12:   contract: refDigestSchema,\n13:   valueKind: nonblankSchema,\n14:   valueDigest: refDigestSchema.entries.digest,\n15:   value: jsonValueSchema,\n16:   producer: v.strictObject({\n17:     runRef: nonblankSchema,\n18:     graphCallRef: nonblankSchema,\n19:     invocationAdmissionRef: nonblankSchema,\n20:     program: refDigestSchema,\n21:     graphFunction: refDigestSchema,\n22:     executionBasis: refDigestSchema,\n23:     cCallRef: nonblankSchema,\n24:     resultAdmissionEventRef: nonblankSchema,\n25:     judgmentRef: nonblankSchema,\n26:     judgmentAdmissionEventRef: nonblankSchema,\n27:     terminalRoute: refDigestSchema,\n28:   }),\n29:   projectionBasis: refDigestSchema,\n30: });\n31: \n32: export type AbgTypedTerminalResult = v.InferOutput<typeof ABG_TYPED_TERMINAL_RESULT_SCHEMA>;\n33: \n34: export function isAbgTypedTerminalResult(value: unknown): value is AbgTypedTerminalResult {\n35:   return v.safeParse(ABG_TYPED_TERMINAL_RESULT_SCHEMA, value).success;\n36: }"
+      }
+    ]
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 84829,
+      "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85"
+    },
+    "ranges": [
+      {
+        "lines": [
+          430,
+          497
+        ],
+        "excerpt": "430:   if (terminal === null) throw new TypeError(\"closed scope lacks one exact terminal producer\");\n431:   const route = projectHistoricalTraversalRouteAtPrefix(context.prefix, terminal.route.admissionEventRef, prepared.fullPrefix);\n432:   if (route === null || route.routeKind !== \"terminal\" || route.cCallRef === null || route.judgmentRef === null) {\n433:     throw new TypeError(\"terminal route has no authenticated native owner\");\n434:   }\n435:   const open = one(events.filter((event) => event.kind === \"c_call_opened\" && event.aggregateId === route.cCallRef), \"terminal CCall opening\");\n436:   const fibre = one(events.filter((event) => event.kind === \"c_call_fibre_selected\" && event.aggregateId === route.cCallRef), \"terminal CCall fibre\");\n437:   const resultEvent = one(events.filter((event) => event.kind === \"c_call_result_admitted\" && event.aggregateId === route.cCallRef), \"terminal result admission\");\n438:   const judgmentEvent = one(events.filter((event) => event.kind === \"c_call_judged\" && event.aggregateId === route.cCallRef), \"terminal judgment admission\");\n439:   const basis = open.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prepared.fullPrefix, open.basisId);\n440:   if (basis === null || open.graphCallId !== graphCallId || open.runId !== context.replay.runId) throw new TypeError(\"terminal producer crosses scope or basis\");\n441:   const scope = scopeForBasis(prepared.fullPrefix, basis);\n442:   if (scope.graphCallId !== graphCallId || scope.frameId !== open.frameId) throw new TypeError(\"terminal producer crosses native scope\");\n443:   const o = eventRecord(open), f = eventRecord(fibre);\n444:   if (o.graphFunctionRef !== basis.graphFunctionRef || f.implementationSetRef !== basis.implementationSetRef) {\n445:     throw new TypeError(\"terminal fibre differs from its admitted basis\");\n446:   }\n447:   const outcome = projectAdmittedCCallStateAtPrefix(context.prefix, {\n448:     ...o, ...f, kind: \"c_call\", schemaVersion: \"5.0.0\", runId: open.runId!,\n449:     childGraphFunctionRef: o.childGraphFunctionRef ?? null, failureContractRef: o.failureContractRef ?? \"\",\n450:     openedEventRef: open.eventId, fibreSelectedEventRef: fibre.eventId,\n451:   }, { ...eventRecord(resultEvent), kind: \"admitted_c_call_result\", schemaVersion: \"5.0.0\", disposition: \"admitted\", admissionEventRef: resultEvent.eventId },\n452:   { ...eventRecord(judgmentEvent), kind: \"admitted_c_call_judgment\", schemaVersion: \"5.0.0\", disposition: \"admitted\", admissionEventRef: judgmentEvent.eventId });\n453:   if (outcome === null || outcome.result.resultClass !== \"success\" || outcome.judgment.judgment !== \"advance\" ||\n454:       outcome.judgment.judgmentRef !== route.judgmentRef || outcome.result.contractRef !== basis.resultContractRef ||\n455:       route.declarationRef !== basis.graphRef || route.declarationDigest !== basis.graphDigest ||\n456:       route.sourceCursorRef !== o.cursorRef || route.sourceCursorDigest !== o.cursorDigest ||\n457:       route.contractRef !== basis.transitionContractRef) throw new TypeError(\"terminal result, judgment and route do not join\");\n458:   const reached = one(events.filter((event) => event.kind === \"terminal_reached\" && event.graphCallId === graphCallId), \"scope terminal fact\");\n459:   const routeEvent = one(events.filter((event) => event.eventId === route.admissionEventRef), \"terminal route event\");\n460:   const body = eventRecord(reached);\n461:   const { closureRef, closureDigest, ...closureBody } = body;\n462:   const frameClosed = one(events.filter((event) => event.kind === \"frame_closed\" && event.eventId === closeBody.frameClosedEventRef), \"terminal Frame close\");\n463:   if (sha256Canonical(closureBody) !== closureDigest || closureRef !== `closure://abiogenesis/${String(closureDigest).slice(7)}` ||\n464:       body.cCallRef !== route.cCallRef || body.resultRef !== outcome.result.resultRef || body.judgmentRef !== route.judgmentRef ||\n465:       body.routeRef !== route.routeRef || body.closureContractRef !== basis.closureContractRef ||\n466:       body.closureContractDigest !== basis.closureContractDigest || body.terminalKind !== \"completed\" ||\n467:       reached.basisId !== basis.basisRef || reached.frameId !== scope.frameId ||\n468:       routeEvent.basisId !== basis.basisRef || routeEvent.graphCallId !== graphCallId || routeEvent.frameId !== scope.frameId ||\n469:       !hasJudgedTerminalRouteCausation(context.prefix, routeEvent, judgmentEvent, prepared.fullPrefix) ||\n470:       !reached.causationEventRefs.includes(route.admissionEventRef) ||\n471:       frameClosed.basisId !== basis.basisRef || frameClosed.frameId !== scope.frameId || frameClosed.graphCallId !== graphCallId ||\n472:       eventRecord(frameClosed).closureContractRef !== basis.closureContractRef ||\n473:       eventRecord(frameClosed).terminalReachedEventRef !== reached.eventId || !frameClosed.causationEventRefs.includes(reached.eventId) ||\n474:       closed.basisId !== basis.basisRef || closeBody.closureContractRef !== basis.closureContractRef ||\n475:       !closed.causationEventRefs.includes(frameClosed.eventId)) throw new TypeError(\"terminal closure facts do not join the selected producer\");\n476:   if (requireRunClosed) {\n477:     const runClosed = one(events.filter((event) => event.kind === \"run_closed\"), \"Run close\");\n478:     if (runClosed.basisId !== basis.basisRef || eventRecord(runClosed).graphCallClosedEventRef !== closed.eventId ||\n479:         !runClosed.causationEventRefs.includes(closed.eventId)) throw new TypeError(\"Run close does not join its root terminal\");\n480:   }\n481:   const declaration = sourceInput === undefined\n482:     ? { contract: terminalContract(prepared, basis, scope) }\n483:     : terminalDeclaration(prepared, basis, scope, sourceInput);\n484:   const { contract } = declaration;\n485:   const value = deepFreeze({\n486:     kind: \"abg_typed_terminal_result\" as const, schemaVersion: \"5.0.0\" as const,\n487:     result: truthCoordinate(outcome.result.resultRef, outcome.result.resultDigest), contract,\n488:     valueKind: outcome.result.valueKind, valueDigest: outcome.result.valueDigest, value: outcome.result.value,\n489:     producer: { runRef: scope.runId, graphCallRef: scope.graphCallId, invocationAdmissionRef: basis.invocationAdmissionRef,\n490:       program: truthCoordinate(basis.programRef, basis.programDigest), graphFunction: truthCoordinate(basis.graphFunctionRef, basis.graphFunctionDigest),\n491:       executionBasis: truthCoordinate(basis.basisRef, basis.basisDigest), cCallRef: outcome.cCall.cCallRef,\n492:       resultAdmissionEventRef: resultEvent.eventId, judgmentRef: outcome.judgment.judgmentRef,\n493:       judgmentAdmissionEventRef: judgmentEvent.eventId, terminalRoute: truthCoordinate(route.routeRef, route.routeDigest) },\n494:     projectionBasis: truthCoordinate(prepared.packet.prefix.eventLogRef, prepared.packet.prefix.coordinateDigest),\n495:   });\n496:   if (!isAbgTypedTerminalResult(value)) throw new TypeError(\"native terminal carrier differs from its closed schema\");\n497:   return { terminalResult: value, ...(declaration.source === undefined ? {} : { source: declaration.source }) };"
+      }
+    ]
+  },
+  {
+    "logicalRepositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "frozenSource": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 32200,
+      "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc"
+    },
+    "ranges": [
+      {
+        "lines": [
+          332,
+          363
+        ],
+        "excerpt": "332: function resultProjection(\n333:   memberKey: \"run_result\" | \"graph_call_result\",\n334:   request: Readonly<Record<string, JsonValue>>,\n335:   value: Readonly<Record<string, JsonValue>>,\n336: ): JsonValue {\n337:   const replay = replayCoordinate(value);\n338:   const terminalRoute = coordinateFrom(\n339:     value.terminalRoute,\n340:     [\"routeRef\"],\n341:     [\"routeDigest\"],\n342:   );\n343:   const result = coordinateFrom(\n344:     value.admittedResult,\n345:     [\"resultRef\"],\n346:     [\"resultDigest\"],\n347:   );\n348:   const terminalResult = value.terminalResult;\n349:   if (replay === null || terminalRoute === null || result === null ||\n350:       !isAbgTypedTerminalResult(terminalResult) || !sameJson(result, terminalResult.result) ||\n351:       !sameJson(terminalRoute, terminalResult.producer.terminalRoute)) {\n352:     throw new TypeError(\"result projection lacks terminal owner coordinates\");\n353:   }\n354:   return {\n355:     kind: memberKey === \"run_result\"\n356:       ? \"run_result_projection\"\n357:       : \"graph_call_result_projection\",\n358:     subject: sourceCoordinate(request),\n359:     result,\n360:     terminalResult: terminalResult as unknown as JsonValue,\n361:     terminalRoute,\n362:     replay,\n363:   };"
+      },
+      {
+        "lines": [
+          405,
+          423
+        ],
+        "excerpt": "405:   request: Readonly<Record<string, JsonValue>>,\n406:   value: Readonly<Record<string, JsonValue>>,\n407:   replay = replayCoordinate(value),\n408: ): JsonValue {\n409:   const selector = asRecord(request.selector)!;\n410:   if (replay === null) throw new TypeError(\"replay projection lacks replay identity\");\n411:   if (\n412:     typeof selector.fromOrdinal !== \"number\" ||\n413:     typeof selector.limit !== \"number\"\n414:   ) throw new TypeError(\"replay projection lacks its exact ordinal page\");\n415:   return {\n416:     kind: `${memberKey}_projection`,\n417:     subject: sourceCoordinate(request),\n418:     replay,\n419:     fromOrdinal: selector.fromOrdinal,\n420:     limit: selector.limit,\n421:     ...(memberKey === \"run_replay\" || memberKey === \"graph_call_replay\"\n422:       ? { status: value.runtimeStatus!, terminalResult: value.terminalResult! } : {}),\n423:   };"
+      }
+    ]
+  },
+  {
+    "consumer": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14926,
+      "sha256": "6b133ac3285564a7f2e9c1ff9d27338cae341412b004e24bf78b3bdcdc803473"
+    },
+    "provenanceAssertions": [
+      {
+        "line": 56,
+        "text": " assert.deepEqual(reads.run_result.ownerOutput.value.source,value.run);assert.deepEqual(reads.run_replay.ownerOutput.value.source,value.run);assert.equal(value.terminalResult.provenance.runRef,value.run.ref);"
+      }
+    ]
+  },
+  {
+    "consumer": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/preimages/driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13936,
+      "sha256": "590ceb00294de7314e577c7828db8b0b34c87f8288f8a20d8a7f63f6258b594f"
+    },
+    "provenanceAssertions": [
+      {
+        "line": 53,
+        "text": " assert.deepEqual(reads.run_result.ownerOutput.value.source,value.run);assert.deepEqual(reads.run_replay.ownerOutput.value.source,value.run);assert.equal(value.terminalResult.provenance.runRef,value.run.ref);"
+      }
+    ]
+  },
+  {
+    "consumer": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10955,
+      "sha256": "c1b2aab1b26778086c9a8cfd20cf016f2dc247d716c57ae1b3c94c9299978409"
+    },
+    "provenanceAssertions": [
+      {
+        "line": 22,
+        "text": " phase='cold-reads';const reads=await c.freshReads('hello-root',started),rp=reads.run_result.ownerOutput.value.projection,replay=reads.run_replay.ownerOutput.value.projection;assert.deepEqual(value.terminalResult,rp.terminalResult);assert.deepEqual(rp.terminalResult,replay.terminalResult);assert.deepEqual(value.result,rp.result);assert.deepEqual(value.replay,rp.replay);assert.deepEqual(value.replay,replay.replay);assert.equal(replay.status,'closed');assert.deepEqual(reads.run_result.ownerOutput.value.source,value.run);assert.deepEqual(reads.run_replay.ownerOutput.value.source,value.run);assert.equal(value.terminalResult.provenance.runRef,value.run.ref);assert.equal(state.calls.length,5);assert.ok(performance.now()<window.deadline);"
+      }
+    ]
+  }
+]

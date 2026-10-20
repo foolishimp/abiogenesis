@@ -1,0 +1,33 @@
+{
+  "frozen_utc": "2026-10-20T16:43:07.269539+00:00",
+  "scope": "Two document paths only; no runtime/package/test effects. Candidate design for independent assessment.",
+  "assessment_sha256": "b8a9a79d5ee961b855b1d9574c9106d7e0bb5eff477057d81100e9ea4ccaf935",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "sha256": "4ac054f0718abe5fe1d1346a9ae9f3cfe9d726c35ff39922e198e4db6c7aca84",
+      "bytes": 54101
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "sha256": "c131a472c0fb76907ff0100911ed556ea034d87e0503cc49c8f7123311b9ca73",
+      "bytes": 96586
+    }
+  ],
+  "validation": {
+    "document_verifier": {
+      "checks": 970,
+      "passed": 970,
+      "links": 101,
+      "unrelated_source_files_preserved": 677,
+      "failures": []
+    },
+    "scoped_git_diff_check": 0,
+    "stale_catalog_assertions_remaining": false
+  },
+  "residuals": [
+    "Independent combined design review and Executive acceptance pending.",
+    "No runtime or installed qualification claim.",
+    "Source-wide exhaustive Prime/path/outcome proof remains explicitly open."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-08T06:47:20.891601+00:00",
+  "classification": "four existing mechanical GTL member/span literal coordinates only",
+  "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+  "beforeSha256": "df147522d09c2117aaa2ea15edd2c8400cbca8d57c4377defe8e2f9541a6aa93",
+  "afterSha256": "714a80823899e03cef43726917f6be852923f424c26638f1c4afe188e14e19ef",
+  "byteCount": 24180,
+  "replacements": [
+    {
+      "before": "digest: \"sha256:13f2811ce19bc6d9923e36dae3850adaced0132ebb822566a24a82d322ba95ae\"",
+      "after": "digest: \"sha256:0e86802dd0e59db0acb180c2977ddef23deba9f09379a1e1d64c7d5fe5a486fa\""
+    },
+    {
+      "before": "byteCount: 109681",
+      "after": "byteCount: 109703"
+    },
+    {
+      "before": "startByte: 99736",
+      "after": "startByte: 99758"
+    },
+    {
+      "before": "endByte: 102044",
+      "after": "endByte: 102066"
+    }
+  ],
+  "inverseByteExact": true,
+  "rendererChanged": false,
+  "meaningChanged": false
+}

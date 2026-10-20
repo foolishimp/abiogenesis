@@ -1,0 +1,99 @@
+{
+  "records": [
+    {
+      "path": "runtime-activation.json",
+      "bytes": 841,
+      "sha256": "0ab0c8abf4869c2dee95b14855c57b422bf4e1263d187f7e197fc81d4a16875e"
+    },
+    {
+      "path": "selected-core.json",
+      "bytes": 1285,
+      "sha256": "4f1335aea86d9c59ad6d575cda84159162f8b6a9852c1659f36bbdae770443f9"
+    },
+    {
+      "path": "prospective-cases.json",
+      "bytes": 2861,
+      "sha256": "c08f39b39bfc09256f5c98f4b4262179295aac2103a857e7a3a079141bcfcc5c"
+    },
+    {
+      "path": "runtime-environment.json",
+      "bytes": 983,
+      "sha256": "f91e6ec08369514cc78593acfbda133c842b2dd76842d1525b25ff7f998537f0"
+    },
+    {
+      "path": "resource-plan.json",
+      "bytes": 353,
+      "sha256": "da51afb2feb7bec72da69f70714900b0eede1dfa03925af4a62a640a003c1ebf"
+    },
+    {
+      "path": "budgets.json",
+      "bytes": 299,
+      "sha256": "2e3124e38147718b827d55e6b2eafad86188879ebb4adab7a804ca60b8012a5d"
+    },
+    {
+      "path": "driver.mjs",
+      "bytes": 20725,
+      "sha256": "6856c2a4ef6df335f3893e5e8a6d9a480e6e8daad199f8ba15648976216e9402"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "bytes": 12840,
+      "sha256": "8e7993a040222a817293af0e1f26a3cdb4eda3d07bc25caeb752e9f1b5e3d423"
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 1948,
+      "sha256": "fd94462ab478d3e4eeb6a42d80b2ee7fd1fea01c5ee126c8594623c1de0a4273"
+    },
+    {
+      "path": "caller-draft.mjs",
+      "bytes": 14519,
+      "sha256": "efe102a1bde1e84879ff539cf92c2216d6f0f79c534a6f775141d2a17d953139"
+    },
+    {
+      "path": "original-consumers.mjs",
+      "bytes": 16042,
+      "sha256": "69038fa5837745e3e57e3ec8cbf82808997d8cc68660138f01e4d666ff4992c6"
+    },
+    {
+      "path": "sole-output-renderer.mjs",
+      "bytes": 862,
+      "sha256": "a53044eca98cff334a9fbd87a1b21a8d6a6fe15220e83ab78db6bcc45a85901b"
+    },
+    {
+      "path": "original-oracle.json",
+      "bytes": 1509,
+      "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+    },
+    {
+      "path": "pair-inputs.json",
+      "bytes": 3730,
+      "sha256": "6d2d081557c9fa15ad6c354d2165e3838600e4eb4a68be7ec3d1a2edd2f4e4ad"
+    },
+    {
+      "path": "readback-contract.json",
+      "bytes": 2500,
+      "sha256": "ef3dfedf988ce011ba83d0c8c91c7ccdaf4f39500ddd5a1c49140afcc4dcd69c"
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "input-correspondence.json",
+      "bytes": 3785,
+      "sha256": "fd5dac8cd9d3d76286dac0134336fda84c502f8cb945e3dbd1b99cd1fe8b8069"
+    },
+    {
+      "path": "initialize.py",
+      "bytes": 7268,
+      "sha256": "481869d30c07c43bb128b3b7484c6324798ff532c537054755e0ac6b11fb9e2c"
+    },
+    {
+      "path": "launch.py",
+      "bytes": 3246,
+      "sha256": "c0379ec1340f74566ccb58e493268567c8511a319adc79f3ee4e8eacc6ed43d4"
+    }
+  ]
+}

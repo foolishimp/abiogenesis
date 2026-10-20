@@ -1,0 +1,9 @@
+{
+  "stage": "fixed-resolution-start",
+  "elapsedMs": 23151.946832999998,
+  "name": "AssertionError",
+  "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   digest: 'sha256:b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09',\n+   ref: 'product-lock://abiogenesis/b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09'\n-   digest: 'sha256:b95fabf236c4a9cf373511893f290079d00551542cfc7727b789a34db7295cc4',\n-   ref: 'product-lock://abiogenesis/b95fabf236c4a9cf373511893f290079d00551542cfc7727b789a34db7295cc4'\n  }\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   digest: 'sha256:b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09',\n+   ref: 'product-lock://abiogenesis/b95fabf29c14e09b22ad3f45af6292583a4cddc82c265e209a4b890fd295cc09'\n-   digest: 'sha256:b95fabf236c4a9cf373511893f290079d00551542cfc7727b789a34db7295cc4',\n-   ref: 'product-lock://abiogenesis/b95fabf236c4a9cf373511893f290079d00551542cfc7727b789a34db7295cc4'\n  }\n\n    at prepareInstalledContinuation (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs:122:12)\n    at async waitForActual (node:assert:644:5)\n    at async strict.rejects (node:assert:767:25)\n    at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.test.mjs:54:3)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+  "observation": null,
+  "disposition": "HOLD; retain completed owner effects; Executive root-cause/action before retry"
+}

@@ -1,0 +1,157 @@
+## section://odd_glc/glc-bootstrap/vector-0/task
+carriers: ["node:GlcBootstrapContext:node-type://odd_glc/GlcBootstrapContext:sha256:a2d08a58e0f343cbc0935d53116bcb8401f188bead56dfa9bc05a427f3970956","node:GeneratedHelloWorldProgram:node-type://odd_glc/GlcHelloWorldProgramArtifact:sha256:bdfb0d4c89dbf9dd8e7bbd88b438afacd8dbe2b3c894763d0c8208cd8f078123"]
+dependencies: ["glc_bootstrap_to_hello_world_program"]
+digest: sha256:odd-glc-glc-bootstrap-vector-0
+Return only one JSON object. Do not include markdown or commentary.
+You are the live F_P worker for an odd_glc generic lifecycle Hello World bootstrap.
+ABG owns registry startup, graph-function selection, traversal, instruction rendering, event truth, response admission, and closure.
+odd_glc supplies product GTL declarations, node types, graph overlay refs, and policy refs as data.
+Current stage: program
+
+Use the ABG-rendered runtime bound refs section below. Do not claim to emit ABG events, select graph functions, admit responses, or close traversal.
+
+Required JSON:
+{
+  "stage": "program" | "execution_evidence",
+  "source": string,
+  "expectedStdout": "Hello, world!\n",
+  "nodeTypesUsed": string[],
+  "causalInputPayloadRefsSeen": string[],
+  "causalInputContentDigestSeen": string | null,
+  "causalInputContentSummary": string | null,
+  "reason": string
+}
+
+For stage program, provide a minimal JavaScript ESM program in source.
+For stage program, nodeTypesUsed must include exactly node-type://odd_glc/GlcBootstrapContext and node-type://odd_glc/GlcHelloWorldProgramArtifact.
+For stage program, causalInputPayloadRefsSeen must be an empty list.
+For stage program, causalInputContentDigestSeen must be null.
+For stage program, causalInputContentSummary must be null.
+For stage execution_evidence, inspect only the ABG runtime bound_refs prior_artifact row.
+For stage execution_evidence, causalInputPayloadRefsSeen must echo exactly the prior_artifact ref values from bound_refs.
+For stage execution_evidence, causalInputContentDigestSeen must echo exactly the first prior_artifact contentDigest value.
+For stage execution_evidence, causalInputContentSummary must summarize the first prior_artifact contentExcerpt value and mention Hello, world.
+For stage execution_evidence, nodeTypesUsed must include exactly node-type://odd_glc/GlcHelloWorldProgramArtifact and node-type://odd_glc/GlcExecutionEvidence.
+
+## abg.declared_latitude
+
+Declared latitude grants PERMISSION within the named scope; it does not prescribe outcomes and does not weaken admitted prior truth.
+scope: scope://odd_glc/glc-bootstrap/program-shape | owner: F_P | latitude: worker may choose program structure and identifier naming provided stdout is exactly Hello, world!
+
+## abg.instruction_authority_precedence
+
+ABG-rendered dependency truth, proof-depth truth, runtime bound refs, and admitted prior artifacts are authoritative for this dispatch.
+Product section text, stage policy data, templates, and worker instructions may narrow or strengthen admitted prior obligations, but they shall not weaken, replace, or contradict them.
+If a product instruction conflicts with an admitted prior artifact, dependency/proof truth, or runtime binding, the admitted truth wins and the conflict is a dispatch/evaluation defect.
+The F_P worker must not use a weaker product instruction to satisfy an obligation carried by admitted prior truth.
+The F_P evaluator must reject a candidate that follows a weaker product instruction when admitted prior truth requires the stronger obligation.
+
+## abg.dependency_instruction_truth
+
+truthRef: dependency-instruction-truth://odd_glc/glc-bootstrap/vector-0
+truthDigest: sha256:7108083ce788ce3afe0d04a3b63b8306b3c658c5d91541a69bf5f54ddcf18997
+workKind: target_work
+dependencyGraphRef: none
+dependencyGraphDigest: none
+targetRefs: ["node:GeneratedHelloWorldProgram:node-type://odd_glc/GlcHelloWorldProgramArtifact:sha256:bdfb0d4c89dbf9dd8e7bbd88b438afacd8dbe2b3c894763d0c8208cd8f078123"]
+prerequisiteNodeRefs: []
+prerequisiteEdgeRefs: []
+dependencyClosed: true
+typedPrerequisiteGapRefs: []
+noDependencyPolicyRef: policy://odd_glc/glc-bootstrap/no-dependency-graph-required
+sourceProjectionRefs: ["projection://odd_glc/glc-bootstrap/no-dependency-policy"]
+
+## abg.proof_depth_instruction_truth
+
+truthRef: proof-depth-instruction-truth://odd_glc/glc-bootstrap/vector-0
+truthDigest: sha256:f7f59cefb9f3627b47c3b6d2516bf42883770b261cc68e177cabc0b106e1c4fd
+depthPolicyRef: proof-depth-policy://odd_glc/glc-bootstrap
+depthPolicyDigest: sha256:odd-glc-glc-bootstrap-proof-depth-policy
+targetRefs: ["node:GeneratedHelloWorldProgram:node-type://odd_glc/GlcHelloWorldProgramArtifact:sha256:bdfb0d4c89dbf9dd8e7bbd88b438afacd8dbe2b3c894763d0c8208cd8f078123"]
+requiredDepthClassRefs: ["depth-class://negative","depth-class://positive"]
+declaredDepthClassRefs: ["depth-class://negative","depth-class://positive"]
+declaredDepthObligationRefs: ["proof-obligation://odd_glc/glc-bootstrap/negative","proof-obligation://odd_glc/glc-bootstrap/positive"]
+notApplicableDepthClassRefs: []
+typedDepthGapRefs: []
+proofStrengthAdmissionRefs: ["proof-strength-admission://odd_glc/glc-bootstrap"]
+fdStrengthCriterionRefs: ["fd-strength-criterion://odd_glc/glc-bootstrap"]
+adversarialVerificationRefs: []
+adversarialCounterexampleRefs: []
+sourceProjectionRefs: ["proof-coverage-projection://odd_glc/glc-bootstrap"]
+depthComplete: true
+proofStrengthAdmitted: true
+
+## abg.runtime.bound_refs
+
+- slot: graph_call
+  ref: graph-call:execution_basis:{"moduleName":"odd_gl...sha256:1bd4497f71130c7e1d4cf4c9850c0a4828171b9549cabbcd0bb26c2bcc57acae
+  digest: sha256:97754bb10e154cfcccff8a5e5940f504fa127626d644b060d4e4c7bbf59da36c
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:5d79baa61f744bb6e2a0e356d2666e23fa38e7f9d670a258186942e229db7863"]
+- slot: frame
+  ref: frame:execution_basis:{"moduleName":"odd_glc_glc...sha256:479d27756abb23e77836c904a7cb70b1c7669d5dcda2d282885f87da8316c306
+  digest: sha256:de86b0c8d567891da67ded557dcd14a0806d1619a6d7f448a31acdfabb641744
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:5d79baa61f744bb6e2a0e356d2666e23fa38e7f9d670a258186942e229db7863"]
+- slot: vector
+  ref: glc_bootstrap_to_hello_world_program
+  digest: sha256:a3a2e77247460bcffc18e3a08778b0ba7c6e43377de784da9e2000439f723530
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["dispatch://odd_glc/glc-bootstrap-live"]
+- slot: event_log
+  ref: runtime_projection:execution_basis:{"moduleName"...sha256:5d79baa61f744bb6e2a0e356d2666e23fa38e7f9d670a258186942e229db7863
+  digest: sha256:93a12c3053cb6616cc3730484cc22f0d99ad28c0675fbd97bd139b74ec91cd72
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:5d79baa61f744bb6e2a0e356d2666e23fa38e7f9d670a258186942e229db7863"]
+- slot: worker_invocation
+  ref: actor-invocation:{"basisId":"execution_basis:{\"...sha256:b0add1b8093aad683aafb3b18ae684aafcf834014c0421c21da61c8227856b77
+  digest: sha256:296aef0cfa270c7ee9a1ebc63c73b58791a018ba65f57daf27eaa3d851906437
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["dispatch://odd_glc/glc-bootstrap-live"]
+- slot: selected_graph_function
+  ref: graph_function:{"name":"odd_glc.glc_bootstrap.pr...sha256:63d2c476be6c189d3a5e10e1cb1f3bd87c03f35b5434e9663eeeb4fb0628d07c
+  digest: sha256:697673307f3463f7fe2483a2db55bae2112017bb1f38f5b0e89abba41b5fb533
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["graph-function-selection:runner:sha256:36087a0bc782de74ff6b54219fc8fb562231079cf4047e812f22c51b56d8c572","registry-lookup-result:sha256:4f9a6337336fa5481174cdb9c1478bb7667c017c372db5847704bbd5601d07e8"]
+- slot: source_node
+  ref: node:GlcBootstrapContext:node-type://odd_glc/GlcBootstrapContext:sha256:a2d08a58e0f343cbc0935d53116bcb8401f188bead56dfa9bc05a427f3970956
+  digest: sha256:09b4978aed59eed3858ed02b6dac7bc47ea36ea465f34d315ff79778caccd02b
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:5d79baa61f744bb6e2a0e356d2666e23fa38e7f9d670a258186942e229db7863"]
+- slot: target_node
+  ref: node:GeneratedHelloWorldProgram:node-type://odd_glc/GlcHelloWorldProgramArtifact:sha256:bdfb0d4c89dbf9dd8e7bbd88b438afacd8dbe2b3c894763d0c8208cd8f078123
+  digest: sha256:8abe9380c279e0776108b9089703effa65504aae9342806c3d7b5ce97798e044
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:5d79baa61f744bb6e2a0e356d2666e23fa38e7f9d670a258186942e229db7863"]
+- slot: policy
+  ref: admitted_output_authority_projection:execution_b...sha256:ec6f0cc98774ef4737cf44c3c602d44fa80270054ea81be7b6af052fafc411a8
+  digest: sha256:724ded793293ec4009105f3bac1e4a0ca8f1f43ff0a4464ab3f7b611204b729f
+  payloadDigest: none
+  contentRef: none
+  contentDigest: none
+  contentExcerpt: null
+  sourceEventRefs: ["runtime_projection:execution_basis:{\"moduleName\"...sha256:5d79baa61f744bb6e2a0e356d2666e23fa38e7f9d670a258186942e229db7863"]

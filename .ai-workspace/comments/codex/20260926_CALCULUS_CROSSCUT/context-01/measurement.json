@@ -1,0 +1,22 @@
+{
+  "scope": "actual composed assessment-first successor; disclosed component authentication/role/currentness premises",
+  "retainedInputDigest": "sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566",
+  "successorDigest": "sha256:6b4917a497fbb0de0b1b75817feb4ab99adb109186b72fb2f0f49ac7fdc616c4",
+  "promptBytes": 712820,
+  "maxPromptBytes": 1048576,
+  "headroomBytes": 335756,
+  "historicalAssets": 5,
+  "retainedTerms": 29,
+  "retainedTermsBytes": 57151,
+  "pendingAssetRef": "semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df",
+  "sections": {
+    "role": 116023,
+    "source": 6709,
+    "obligations": 126795,
+    "predecessors": 1584,
+    "worksite": 30107,
+    "evidence": 349,
+    "task": 429534,
+    "response": 1612
+  }
+}

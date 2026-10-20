@@ -1,0 +1,22 @@
+{
+  "role": "Worker",
+  "worker": "T287_FINAL_F11_ATTRIBUTION_INPUTS_01",
+  "actorTask": "/root/f11_attribution_inputs",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-inputs-01",
+  "changeClass": "realization_refactor",
+  "startedAt": "2026-09-30T06:20:25.275536+00:00",
+  "request": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-controls-01/request.txt",
+    "bytes": 6222,
+    "sha256": "53bed891c2697db47e4694a9e8a268971794810d6ef7b3690710b5a3c7554d94"
+  },
+  "operationGrant": "Construct source-grounded external attribution inputs, pure installed schema/source correspondence and read-only Git only",
+  "exclusions": [
+    "native/provider/resource effects",
+    "source/build/package/recipe execution",
+    "Git mutation",
+    "moving scope/native outputs",
+    "invented author/native provenance"
+  ],
+  "status": "activated"
+}

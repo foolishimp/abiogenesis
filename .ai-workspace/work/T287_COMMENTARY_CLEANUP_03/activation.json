@@ -1,0 +1,36 @@
+{
+  "operation": "T287_COMMENTARY_CLEANUP_DOWNSTREAM_PLAN_03",
+  "role": "Worker",
+  "actor": "/root/rc1_c03_install_review",
+  "activatedUTC": "2026-10-04T07:04:47.487543+00:00",
+  "grant": "Root Executive explicit downstream planning message; no deletion authority",
+  "reentry": "realization_refactor",
+  "productFrame": "fixed ABG5/GOAL035/T287/STDO2.5.1RC2; workspace storage only",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "readCandidateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-implementation/build-input/test_env/downstream",
+  "untouchableOriginalRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/downstream",
+  "writeTerritories": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03"
+  ],
+  "eligible": "regular non-hardlinked redundant copied working body with no-symlink canonical original byte equality; not selected Code/frozen/artifact/installed evidence",
+  "preserve": [
+    "all named text/visual extensions",
+    "every repository tracked path",
+    "archives and tool archives including extensionless bodies",
+    "logs",
+    ".git subtrees",
+    "symlinks/nonregulars/hardlinks",
+    "missing/nonregular/symlink/different original routes"
+  ],
+  "forbiddenEffects": [
+    "candidate/original/worktree mutations",
+    "deletion",
+    "move",
+    "Git commands",
+    "Product imports",
+    "build/test",
+    "Runtime/network/provider"
+  ],
+  "exit": "one exact frozen plan/protection/original/context handoff, then CLOSED; Root independently assures and selects deletion"
+}

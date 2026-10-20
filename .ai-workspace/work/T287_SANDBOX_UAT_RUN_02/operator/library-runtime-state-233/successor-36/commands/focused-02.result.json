@@ -1,0 +1,19 @@
+{
+  "kind": "runtime_selected_component_check",
+  "sourceCut": 36,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--expose-gc",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=terminal route-only|selected replay guard|finite pure candidate|ordinary selected route|drop complete output",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/input-02/test_env/tests/t287-route-reconstruction.test.mjs"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 2448.5417079999997,
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/inputs-02.json",
+  "limits": [
+    "Six unchanged finite conservation checks; controlled lower declaration/outcome/closure premises. No genuine structural/retry/native/Source41 installed join or capacity proof."
+  ]
+}

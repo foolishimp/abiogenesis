@@ -1,0 +1,66 @@
+{
+  "role": "Writer17 preparation only",
+  "executionAuthorized": false,
+  "launch": {
+    "executable": "/opt/homebrew/bin/node",
+    "args": [
+      "scripts/sandbox-uat.mjs",
+      "resume",
+      "--from",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T16-02-51-357Z-3143698d-5b27-4b56-8bda-9221932cdef4",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/extended-run-17/config.json",
+      "--case",
+      "data-mapper-full"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+  },
+  "recording": {
+    "owner": "existing commandRecorder",
+    "timeoutMs": 18660000,
+    "maxOutputBytes": 1048576,
+    "basis": "driver 18060000 plus existing 600000 setup/recording margin; no execution extension"
+  },
+  "nativeStart": {
+    "authority": "new archive commands/lifecycle-start.request.json.started immediately before CLI spawn; run.json timestamp is setup only",
+    "deadline": "T0 + 18000000 ms; Root externally observes and decides earlier stop based on actual progress",
+    "driverTimeoutMs": 18060000
+  },
+  "stop": {
+    "order": [
+      "resolve admitted C2 occurrence/task/attempt to exact launch.json/helper argv and matching live helper/command PID/PGID ancestry",
+      "stop only owned active helper/command via existing supervision while CLI lives; preserve missing result artifact when actual",
+      "stop only owned provider group via existing supervision while CLI lives",
+      "allow actual native exit/Result admission before driver drainage cleanup"
+    ],
+    "authority": "Root at common T0+5h or explicit earlier stop; no new watchdog, ABG event writer, or semantic progress classifier"
+  },
+  "resume": {
+    "source": "none",
+    "observations": [],
+    "synthesis": null,
+    "oldParentOrProducerCredit": false,
+    "newArchiveAndWorksite": true,
+    "originalFiles": 4,
+    "pinnedAuthoredFiles": 9
+  },
+  "limits": {
+    "rootExecutionMs": 18000000,
+    "driverDrainageMs": 18060000,
+    "inactivityMs": 18030000,
+    "absoluteMs": 18040000,
+    "recursionBound": 1000,
+    "optionalTurnAndBudgetFlagsOmitted": [
+      "--model",
+      "claude-opus-5-5"
+    ],
+    "originalTimeoutMs": 780000,
+    "effectiveTimeoutMs": 18000000,
+    "requestAsset": {
+      "path": "data-mapper-full/request.json",
+      "digest": "sha256:d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    },
+    "nonTimingRequestFieldsAndInstructionPrefixesConserved": true
+  }
+}

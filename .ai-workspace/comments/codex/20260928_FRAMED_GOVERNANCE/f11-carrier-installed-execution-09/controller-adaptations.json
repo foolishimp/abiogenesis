@@ -1,0 +1,22 @@
+{
+  "operation": "T287_F11_C09_CARRIER_EXECUTION_09",
+  "donor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/run-flow.mjs",
+    "bytes": 10803,
+    "sha256": "e27c5c8d5dff6b218a749e39a6166961b88cc65b4cb70a0e0626466b2cda03d1",
+    "mode": 420
+  },
+  "current": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/run-flow.mjs",
+    "bytes": 10738,
+    "sha256": "842cadf195274914d4ae09c0279b82a81fecac373bac0dd083d342440b62ba74",
+    "mode": 420
+  },
+  "changes": [
+    "operation consumed from activation/config",
+    "actual acceptance pin consumed without guessed filename",
+    "current prefix report label09"
+  ],
+  "strictCallerAndFlowDriverUnchanged": true,
+  "RuntimeCalls": 0
+}

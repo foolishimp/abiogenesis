@@ -1,0 +1,12 @@
+{
+  "stage": "product-verify-1-complete",
+  "elapsedMs": 23546.218916,
+  "at": "2026-10-10T05:55:23.907Z",
+  "rss": 2357460992,
+  "heapTotal": 2014855168,
+  "heapUsed": 1845877864,
+  "external": 20758217,
+  "arrayBuffers": 18089410,
+  "beforeAcquisition": true,
+  "prefixLength": null
+}

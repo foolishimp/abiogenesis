@@ -1,0 +1,938 @@
+{
+  "surfaces": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "selectedLines": [
+        {
+          "line": 75,
+          "text": "qualification subjects, and release lifecycle are defined in `PRODUCT.md`."
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 66149,
+      "sha256": "9e8fbf4e6df444bba9153dd3a7e4100fe3afe0ca9e163cbf7fc27c0084619ded",
+      "selectedLines": [
+        {
+          "line": 18,
+          "text": "| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits. S6's complete installed Hello lifecycle is independently accepted, including consequential correction, actual authorship, assessment, coverage and fresh Public closure. Ordinary stopped-Run evidence reuse is independently accepted: a fresh invocation preserves the producer and completes independent assessment and current parent/Run closure. T-287 owns remaining exact execution resumption and exact release qualification. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |"
+        },
+        {
+          "line": 51,
+          "text": "preserved. S6's complete installed Hello lifecycle is now"
+        },
+        {
+          "line": 64,
+          "text": "scenario coverage and exact-candidate release qualification remain."
+        },
+        {
+          "line": 72,
+          "text": "qualification or release readiness."
+        },
+        {
+          "line": 76,
+          "text": "Deliver the fixed fifteen-family ABG5 runtime through the existing GTL/HoG/ABG"
+        },
+        {
+          "line": 81,
+          "text": "Preserve the accepted installed Hello thread, including correction, independent"
+        },
+        {
+          "line": 89,
+          "text": "Publication, installed-RC qualification and actual owner acceptance remain distinct."
+        },
+        {
+          "line": 96,
+          "text": "GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original"
+        },
+        {
+          "line": 113,
+          "text": "Root accepts the seven [S02 continuation17](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/return.md) case outcomes in their exact"
+        },
+        {
+          "line": 123,
+          "text": "original caller03 and mixed-only continuation18. Root accepts [original03](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md) for repaired F_P/admission/foldback and its truthful construction-only `stage_revision_required` block; all 35 files remain unchanged and the genuine close is 1,285,520,237 B with fresh outcomes. [Mixed18](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/return.md) reached truthful human hold with accepted fresh-read scope; its result-only caller assertion defect remains retained. Seven prior S02 passes are preserved. [Accepted compiled13](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) and existing dev.7 completed the [Design-reentry attempt](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-launch-controls-01/return.md) (`51a0bd5a\u2026`) with lawful independent Design-assessment refusal. All 35 original files are conserved; the rejected new Design remains preserved and was not promoted. No further Data Mapper attempt is selected. [Basic-cli's retained core13 execution](../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md) used [two genuine Claude calls](../../odd_glc/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/actor-evidence.json): 19.490 s construction and 29.555 s execution. All four authored predicates and five tests pass with fresh installed [compiled14](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-14/return.md) Public result/replay. This is narrow C1\u2192C2 supporting proof; prior caller refusals and the repaired replay defect remain preserved. The five remaining reduced cases were not launched. The accepted complete Opus04 basic-cli outcome and closed remaining-five execution and bounded tenant/service acceptance are owned by [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation) and [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#current-bounded-selection). Native non-closing fields and prior failed attempts remain preserved. Suite, Data Mapper, fifteen-family delivery, qualification and RC1 remain open. Operator stop was admitted once on retained S02-19. Its preserving-obligation [source repair](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) is accepted; Root accepts [core18 installed readback](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/root-disposition.md): status/replay are stopped, the original open obligation is conserved, and absent Result is Public `not_found`. The retained S02-19 readback conjunction is closed; broader S02 and qualification remain open. Q07 is prepared/incomplete and carries no qualification acceptance. Q07 completion, independent stop readback and this paired checkpoint are not launch prerequisites. Full S1\u2013S5/oracle, qualification, QUAL056/F11/sole AF22 and RC1 remain open."
+        },
+        {
+          "line": 127,
+          "text": "Full S1\u2013S5/oracle, complete qualification, QUAL056, independent F11 J, sole AF22,"
+        },
+        {
+          "line": 138,
+          "text": "Predecessor readiness ABI `2b9e540\u2026` / GLC `8fd1de6\u2026` and the paired successor10 selection remain historical. The earlier one-launch GLC steel thread was selected under [historical Root disposition](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/root-disposition.json); its closed Design-assessment refusal retains its historical scope. [Historical successor10 selection](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/root-disposition.json)."
+        },
+        {
+          "line": 146,
+          "text": "event-log authentication before paid Design/Hello continuation. Method adoption"
+        },
+        {
+          "line": 149,
+          "text": "Executive accepts the [TRUST01 correction and installed composition](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/acceptance.md). Its three source files are applied; the existing installed mechanical Hello passes with zero historical reads during actor handoffs and fresh Public result/replay. Live LLM use, consequential correction and full release remain open. T-287 records the remaining supported cost opportunities without creating another optimization campaign."
+        },
+        {
+          "line": 154,
+          "text": "closed. Its [Executive disposition](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/t288-completion.md)"
+        },
+        {
+          "line": 162,
+          "text": "sequence. Its [Design diagnosis](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/design-timeout-diagnosis.md)"
+        },
+        {
+          "line": 171,
+          "text": "[disposition](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/t289-completion.md)"
+        },
+        {
+          "line": 174,
+          "text": "[T287-DESIGN01](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/design-discriminator.md)"
+        },
+        {
+          "line": 175,
+          "text": "remains never launched; [DESIGN02](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/design02.json) bound the accepted repair and closed failed at the unchanged600s limit. [CONTEXT03](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/context03/design03-return-and-live06.md) is accepted/applied; its fixed-input Design probe also timed out. [LIVE06](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live06-return.md) then refused before any Run or actor. [ENV01](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/env01-selection.md) selects the bounded Product-membership observation correction before the same Hello delivery objective. No timer, model,"
+        },
+        {
+          "line": 177,
+          "text": "or release is granted by cleanup closure. GOAL-035 and all fifteen Product"
+        },
+        {
+          "line": 178,
+          "text": "families remain the delivery goal; full live Hello, broader qualification and"
+        },
+        {
+          "line": 184,
+          "text": "inside the existing D1-D6 steel-thread delivery plan. This is a `goal_reprice`"
+        },
+        {
+          "line": 185,
+          "text": "of execution order within the current fifteen-family Product, not a new feature"
+        },
+        {
+          "line": 186,
+          "text": "family or a change to release scope. T-287 owns milestone status, dependencies,"
+        },
+        {
+          "line": 197,
+          "text": "evidence; source-development use supplies no such qualification."
+        },
+        {
+          "line": 217,
+          "text": "remains the full generic Hello lifecycle and live context discriminator."
+        },
+        {
+          "line": 220,
+          "text": "Executive accepts LIVE03's factual terminal evidence and evaluates full Hello as"
+        },
+        {
+          "line": 221,
+          "text": "falsified for that attempt; it is not full lifecycle qualification. The one live"
+        },
+        {
+          "line": 222,
+          "text": "start and fresh-read grant are consumed. Full Hello, correction, the second job,"
+        },
+        {
+          "line": 223,
+          "text": "the selected application witness and release qualification remain open; T-287"
+        },
+        {
+          "line": 226,
+          "text": "The [closed management disposition](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/execution.md#accepted-bounded-returns-and-independent-review)"
+        },
+        {
+          "line": 229,
+          "text": "not establish full Hello, integrated native supervision or lifecycle performance."
+        },
+        {
+          "line": 230,
+          "text": "The owner's 2026-09-19 correction is: \u201cno you misunderstood, you have full executive authority to continue, only stop if we start churning or going off steel thread delivery.\u201d"
+        },
+        {
+          "line": 232,
+          "text": "[installed Public preparation with native RC7 binding](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/installed-setup.md),"
+        },
+        {
+          "line": 233,
+          "text": "not full live qualification. [LIVE01](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live-hello.md)"
+        },
+        {
+          "line": 235,
+          "text": "[LIVE02](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live-hello-02.md)"
+        },
+        {
+          "line": 242,
+          "text": "[`T287-MGMT-04-LIVE03`](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live-hello-03-execution.md#executive-disposition-t287-mgmt-04-live03-status-w02)"
+        },
+        {
+          "line": 244,
+          "text": "and promotion as full-Hello qualification is rejected."
+        },
+        {
+          "line": 246,
+          "text": "[independent R01 satisfied/no findings](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live02-held-prefix-review.md)"
+        },
+        {
+          "line": 247,
+          "text": "and the [frozen repaired Public preparation](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live-hello-03.md)."
+        },
+        {
+          "line": 249,
+          "text": "ordinary Hello or broad performance qualification. LIVE03 returned native"
+        },
+        {
+          "line": 271,
+          "text": "P0\u2013P2 repair boundary, key end-to-end reviews and unfixed-bug register; those"
+        },
+        {
+          "line": 275,
+          "text": "and installed qualification, including child foldback, typed parent closure and"
+        },
+        {
+          "line": 300,
+          "text": "application oracle, qualify all fifteen families or close the release."
+        },
+        {
+          "line": 305,
+          "text": "remains bound to the earlier installed candidate. The separately installed-qualified"
+        },
+        {
+          "line": 310,
+          "text": "qualification. A reduced existing result cannot set the new acceptance oracle."
+        },
+        {
+          "line": 313,
+          "text": "increments; broad applicable assurance follows at integrated qualification."
+        },
+        {
+          "line": 322,
+          "text": "T-287; predecessor sixteen-family/full-Data-Mapper scheduling statements do not"
+        },
+        {
+          "line": 325,
+          "text": "Executive's retained implementation checkpoint is recorded in [Checkpoint12](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_12/checkpoint.md), under GOAL-035/T287 D1\u2013D6 and the current Product release allocation. Working solutions and accepted cuts that satisfy their design reference frames are preserved. The accepted [Integration02 canonical application](../.ai-workspace/comments/codex/20260911_ABG5_ACCEPTED_SOURCE_INTEGRATION_02/application-03/return.md) preserves complete Source20 plus Source42; Root53/56 accept bounded source/application, not native completion. All321 source/support and154 test/support members are preserved in the local WIP checkpoint scope. Root58 accepts corrected F11/D5 Source08/API03; Worker09 composes them with I02 only in isolated Integration03. Worker26 liveness/profile implementation remains isolated. D2 Execution37 is closed failed with no native recovery/retry grant."
+        },
+        {
+          "line": 327,
+          "text": "[Native09](../.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/execution-01/manifest.json) retains initial22 C0/C1, truthful C2 exit1 and fresh-read evidence. [Execution37](../.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-witness-continuation-13/execution-01/return.md) closes after nine Public launches/eight receipts at913 events: first selection/fresh reads/repair conformance pass, but start15 times out. No repair actor/helper/C0/C1/C2/app effect or post-repair replay occurs. Root Review40 accepts the preserved failure only; processes are quiescent while the native Run remains active, with the abandoned lock and stale receipt13 handoff preserved. Neither repair is qualified. Source04 old46/48/795-null, Source06 inherited24/26 and Integration01 inherited29/34 remain historical. Original Data Mapper, D1\u2013D6/S06 and same-subject qualification remain open."
+        },
+        {
+          "line": 329,
+          "text": "Reference frames apply through LLM role/context selection and typed native projections, not a new authority or ledger. Released RC7 Representation/a_c is used; the local ABI map is stale and unused. Accepted [native profile compatibility](../build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md) and [interrupted resource recovery](../build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) preserve genuine installed maintenance authority, exact handoff/prefix/lock ownership and existing witnessed stop under L before P. They grant no recovery or retry. EVENTS022/023 remains an active D4/F10 5.0 conservation gap, not F12 deferral; its accepted liveness HOW is applied and Worker26 composes the native kinds into one current profile. Corrected F11/D5 Source08/API03 is accepted bounded source readiness under [qualification HOW](../build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md);53 unbound mappings receive no native credit. That checkpoint's fixed gate expansion is historical; the current qualification contraction preserves behavioral coverage through F11 and sole AF22. Root55 accepted D6 artifact-admission HOW07, not yet canonical or implemented. Applied RC6 one-cut law adds no second cut or derived release gate; native qualification and actual human acceptance remain open."
+        },
+        {
+          "line": 331,
+          "text": "D1's [first full-source/paired-open-obligation checkpoint](../.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-acceptance/disposition.md), four assessed stages and earlier failures retain their scopes. [Recovery13](../.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/preserved-result-implementation-01/installed-run-preparation-04/execution-01/return.md) remains closed failed after22 C0,22-member C1 and prepared C2, with no C2 actor/command. Source20's [prospective composition proof](../.ai-workspace/comments/codex/20260911_D1_C2_FORWARD_COMPOSITION_PROOF_23/manifest.json) is accepted after Root48 and integrated as I02; final semantic consumption and native forward execution remain unqualified. D3 still owes full original-source obligations and application outcomes. D1\u2013D4/M5, mandatory F17/S06, other scenarios,4.6 conservation and F12/S04 at5.1 remain unchanged; [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#readiness-and-next-re-entry) owns remaining work."
+        },
+        {
+          "line": 335,
+          "text": "- Wave 1's functional substrate and [Wave 2's four threads/B06 closure](../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-04-acceptance/disposition.md) remain accepted for their exact subjects."
+        },
+        {
+          "line": 337,
+          "text": "- The [seven-scenario campaign](../../odd_glc/.ai-workspace/comments/codex/20260909_FULL_LIVE_SUITE/execution.md#executive-acceptance-of-the-seven-scenario-campaign) remains accepted construction/execution evidence: six Hello outcomes on artifact8a, Data Mapper construction on artifact9a and final repair/C2 on artifact4863, with 58 passes and nine predicates. It is not full original-specification Data Mapper, all-seven-on-one-artifact, repeatability or release qualification."
+        },
+        {
+          "line": 338,
+          "text": "- The [current method adoption](../.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md) selects the Definition basis and companion composition. The [RC7 installation](../.ai-workspace/comments/codex/20260915_STDO_RC7_INSTALL/README.md) and [RC6 migration](../.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md) remain historical evidence; they do not select current development routes. No downstream Product migration is selected."
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "selectedLines": [
+        {
+          "line": 4,
+          "text": "**Date**: 2026-03-15"
+        },
+        {
+          "line": 9,
+          "text": "`.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`"
+        },
+        {
+          "line": 64,
+          "text": "11. apply its own conformance, proof, qualification, and release law to the"
+        },
+        {
+          "line": 141,
+          "text": "- provenance, lineage, correction, qualification, and assurance evidence."
+        },
+        {
+          "line": 164,
+          "text": "native human response/resume, standalone Consensus qualification and mandatory"
+        },
+        {
+          "line": 189,
+          "text": "qualification, or release dependencies. The real specification-driven"
+        },
+        {
+          "line": 190,
+          "text": "lifecycle witness required by Product F17/S06 is ABIogenesis qualification"
+        },
+        {
+          "line": 249,
+          "text": "the evaluation family, attention scope, criteria, evidence, authority and result"
+        },
+        {
+          "line": 282,
+          "text": "- candidate, qualification-law, RC, final-delta, and release coherence."
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1",
+      "selectedLines": [
+        {
+          "line": 11,
+          "text": "`.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`"
+        },
+        {
+          "line": 16,
+          "text": "**Delivery-allocation ruling**: [2026-09-13 steel-thread selection](../.ai-workspace/comments/codex/20260913_ABG5_STEEL_THREAD_DELIVERY_PLAN/decision.md)."
+        },
+        {
+          "line": 17,
+          "text": "**Run-environment ruling**: [2026-09-15 owner course correction](../.ai-workspace/comments/codex/20260915_ABG5_STDO_ENVIRONMENT_COURSE_CORRECTION.md#owner-direction)."
+        },
+        {
+          "line": 25,
+          "text": "retained traversal behavior, feature families, cumulative scenarios, root"
+        },
+        {
+          "line": 26,
+          "text": "outcome, exclusions, qualification subjects, release boundary, and completion"
+        },
+        {
+          "line": 59,
+          "text": "For this release, feature-complete means complete against the 15 selected 5.0"
+        },
+        {
+          "line": 60,
+          "text": "outcome families and their explicit baseline dispositions below. It does not"
+        },
+        {
+          "line": 81,
+          "text": "8. a thin Public family, SDK and CLI let a user inspect the"
+        },
+        {
+          "line": 127,
+          "text": "| release-snapshot manifest SHA-256 | `39fd4bd30fc8647b66fe20af4e0e78e3d2327a7d519cad15e3f589eba0acb913` |"
+        },
+        {
+          "line": 381,
+          "text": "4.6 published nine allowed consequence traversal families. 5.0 accounts for"
+        },
+        {
+          "line": 382,
+          "text": "each family as declared GTL and ABG behavior with the release allocation below,"
+        },
+        {
+          "line": 385,
+          "text": "| 4.6 family | 5.0 conserved meaning |"
+        },
+        {
+          "line": 459,
+          "text": "Coverage is semantic, not a fixed execution partition or one-Result-per-row"
+        },
+        {
+          "line": 621,
+          "text": "intent or workspace authority. `B` remains fixed for the identity it names;"
+        },
+        {
+          "line": 654,
+          "text": "the owning evaluation family, subject/basis, material relations, criteria,"
+        },
+        {
+          "line": 724,
+          "text": "Selected material preserves its source, qualifications, uncertainty, version,"
+        },
+        {
+          "line": 859,
+          "text": "Qualification follows the actual declared composition: progressing values"
+        },
+        {
+          "line": 862,
+          "text": "qualifications survive sharing, and unknown physical state stays unknown."
+        },
+        {
+          "line": 865,
+          "text": "existing S02/S03/S06 and qualification scopes, not a new feature family or a"
+        },
+        {
+          "line": 876,
+          "text": "qualification claims; previous evidence is reused where its exact subject and"
+        },
+        {
+          "line": 904,
+          "text": "- qualification and release evidence for the exact bytes."
+        },
+        {
+          "line": 1026,
+          "text": "Dedicated Consensus qualification is reserved for 5.1. Existing ordinary"
+        },
+        {
+          "line": 1034,
+          "text": "Consensus has no special runner, scheduler, CLI command, event family, ticket"
+        },
+        {
+          "line": 1052,
+          "text": "the 5.0 feature, scenario, qualification, or release predicate. ABIogenesis"
+        },
+        {
+          "line": 1054,
+          "text": "substrate over which the later 5.1 Product may be designed and qualified."
+        },
+        {
+          "line": 1061,
+          "text": "or product feature family."
+        },
+        {
+          "line": 1086,
+          "text": "design and qualification surfaces. Fifteen feature families are selected for"
+        },
+        {
+          "line": 1088,
+          "text": "families exclude the reserved portions below."
+        },
+        {
+          "line": 1092,
+          "text": "composition under F02/F03/F04/F07/F09/F10/F17, qualified through S02/S03/S06."
+        },
+        {
+          "line": 1097,
+          "text": "remove its governance proof obligations. No new feature-family identity is added."
+        },
+        {
+          "line": 1112,
+          "text": "| Consensus | Ordinary composition, recursion, attribution, admission and replay remain generic runtime obligations. Existing Consensus code and exact evidence are preserved without a dedicated release-complete claim. | Standalone F08/S05 qualification, including agreement/dispute and multi-workspace campaigns. |"
+        },
+        {
+          "line": 1113,
+          "text": "| Host projection | Native SDK/CLI independence and the single Public authority are required. Any retained host adapter is a thin projection with truthful supported claims. Native worker transport remains required. | Additional host-adapter work and mandatory Codex/native parity qualification. |"
+        },
+        {
+          "line": 1149,
+          "text": "declared progression for steel-thread discovery while carrying the unmet"
+        },
+        {
+          "line": 1156,
+          "text": "the ordinary governance composition with its separately qualified observer/tuner"
+        },
+        {
+          "line": 1173,
+          "text": "qualified RC. Future runtime response and release acceptance are distinct."
+        },
+        {
+          "line": 1179,
+          "text": "ABIogenesis preserves this fixed separation:"
+        },
+        {
+          "line": 1218,
+          "text": "successor compression does not gate delivery of the fixed 5.0 capabilities and"
+        },
+        {
+          "line": 1221,
+          "text": "These 15 selected families define the repriced 5.0 product scope. They are"
+        },
+        {
+          "line": 1236,
+          "text": "| `A5-F11` | **Self-conformance.** The exact 5.0 candidate evaluates its own applicable specification, design, contract, realization, proof, qualification, and release obligations without exemption or self-minted assurance. |"
+        },
+        {
+          "line": 1237,
+          "text": "| `A5-F13` | **Native independence.** The product works through native SDK/CLI without a marketplace host. Any retained host projection delegates to the same public contract without copied semantics; additional host work and mandatory parity qualification are 5.1 scope. |"
+        },
+        {
+          "line": 1238,
+          "text": "| `A5-F14` | **Packed Hello World and live probabilistic proof.** A clean source-blind install executes a minimal deterministic path and one live `F_P` path with typed result, evidence, events, and replay. |"
+        },
+        {
+          "line": 1239,
+          "text": "| `A5-F15` | **Exact-candidate qualification.** One content-addressed qualification family preserves distinct `pre_rc_candidate` and `installed_rc` subjects; binds the exact `QualificationLawBasis`, authenticated self-conformance assessment and complete behavioral coverage, prospective RC authorization, exact installed-RC qualification and non-bypassed verdicts. A changed qualifying subject requires a higher RC and its applicable gates; acceptance creates no additional qualification subject. |"
+        },
+        {
+          "line": 1240,
+          "text": "| `A5-F16` | **Immutable RC and accepted 5.0 release.** The qualified pre-RC subject authorizes one immutable RC; that exact installed RC is qualified; actual human Product authority accepts or withholds that same unchanged RC. The immutable RC tag, package, manifest, checksums and post-publication install identify the accepted Product. The version-line selector advances to the highest published RC independently of acceptance or consumer adoption; acceptance creates no second cut, final-version rename or replacement package. |"
+        },
+        {
+          "line": 1241,
+          "text": "| `A5-F17` | **Specification-driven downstream lifecycle.** A prospectively selected real specification progresses through Intent/Product, Requirements, Design, working application behavior, admitted evidence and targeted revision through only installed public ABIogenesis contracts. The witness preserves original source, selected and excluded obligations, newly discovered obligations and residuals; satisfies every mandatory outcome of the selected contract; and owns no local runtime or controller. S06 owns qualification of this contract class. Full original Data Mapper upper-bound evaluation and any complete downstream application-delivery claim retain their distinct independently owned outcomes. |"
+        },
+        {
+          "line": 1243,
+          "text": "`A5-F08`, standalone Consensus free-construction qualification, and"
+        },
+        {
+          "line": 1246,
+          "text": "qualification, and release rather than silently weakened or renumbered. Ordinary"
+        },
+        {
+          "line": 1260,
+          "text": "scenarios `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, and `ABG5-S06` and"
+        },
+        {
+          "line": 1267,
+          "text": "### `ABG5-S01`: Clean Install And Minimal Invocation"
+        },
+        {
+          "line": 1271,
+          "text": "`program://abiogenesis/conformance/hello-world@5` and"
+        },
+        {
+          "line": 1272,
+          "text": "`graph-function://abiogenesis/conformance/hello-world@5`, invoke the function"
+        },
+        {
+          "line": 1315,
+          "text": "qualification family. Deferring this scenario does not defer, weaken, or merge"
+        },
+        {
+          "line": 1321,
+          "text": "result supplies no claim of complete Consensus qualification."
+        },
+        {
+          "line": 1334,
+          "text": "a marketplace host. Codex/native parity is a reserved 5.1 qualification claim;"
+        },
+        {
+          "line": 1372,
+          "text": "qualification and release. Selected-witness acceptance does not close those"
+        },
+        {
+          "line": 1375,
+          "text": "The default-library proof uses an independently authored minimal Hello World"
+        }
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 7453,
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
+      "selectedLines": [
+        {
+          "line": 7,
+          "text": "**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/ODD_METHOD.md), [DESIGN_MODULE_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [GOALS.md](../../GOALS.md) GOAL-035, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-WORKER.md](./REQ-R-ABG3-WORKER.md), [REQ-R-ABG3-POLICY.md](./REQ-R-ABG3-POLICY.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md)"
+        },
+        {
+          "line": 19,
+          "text": "**REQ-R-ABG3-SAGA-FRONTIER-001**: Product and GTL declarations shall identify lawful work, dependency meaning, steel-thread choice, fan-out opportunities, declared source/test/build/output targets, write territory or output allocation, evidence expectations, and fan-in meaning. The validator shall check those static relations, HoG shall traverse that declared topology, selected implementation bindings shall realize declared leaf effects, and ABG shall admit and replay the resulting runtime facts. ABG shall not own a scheduler or substitute an execution plan for the GTL topology."
+        },
+        {
+          "line": 23,
+          "text": "**REQ-R-ABG3-SAGA-FRONTIER-003**: A selected implementation binding may propose concurrent realization of GTL-declared branches only when replay-derived frontier truth, observed-state freshness, idempotency identity, branch lease truth, write-territory disjointness, and admitted runtime policy prove the batch safe. ABG shall admit or reject that proposal and its safety basis; HoG shall apply only the admitted traversal disposition, and selected implementation bindings shall realize only its leaf effects. Neither ABG nor an implementation selects undeclared branches or owns scheduling topology."
+        },
+        {
+          "line": 25,
+          "text": "**REQ-R-ABG3-SAGA-FRONTIER-004**: If dependency isolation, observed-state freshness, idempotency, branch lease, write territory, fan-in, or policy truth is missing or underdeclared, ABG shall reject a concurrent-transition proposal. A selected implementation binding may return only a typed serialize, yield, block, or escalation proposal declared by GTL and policy; ABG shall admit or reject it, HoG shall apply only an admitted disposition, and selected implementation bindings shall realize only the resulting leaf effects. ABG and implementations shall not choose a route by applicability or infer product topology from filenames, prompt text, worker prose, wall-clock completion order, or local promise state."
+        },
+        {
+          "line": 29,
+          "text": "**REQ-R-ABG3-SAGA-FRONTIER-006**: Branch command and result admission shall be idempotent. Duplicate delivery of the same idempotency key and same payload digest shall not create a second logical fact. The same idempotency key with a different payload digest shall fail closed as an idempotency conflict. A new attempt for the same logical branch may admit a different payload under retry or supersession law."
+        },
+        {
+          "line": 31,
+          "text": "**REQ-R-ABG3-SAGA-FRONTIER-007**: Dependency-frontier, branch-liveness, write-territory conflict, fan-in, and public progress surfaces shall be replay-derived projections over admitted runtime truth and existing ABG Event Calculus law. They shall not introduce a rival saga calculus, scheduler calculus, or runner-local state authority."
+        },
+        {
+          "line": 43,
+          "text": "**REQ-R-ABG3-SAGA-FRONTIER-013**: System-level parallelism shall satisfy `DESIGN_MODULE_METHOD.md` Prime Law and functional-realization review. Frontier selection, fan-in, progress, and runner semantic state shall be immutable carriers/projections returned as new values. Native async tasks may operate over the shared mutable workspace only as explicit effect edges guarded by observed-state freshness, write territory or output allocation, staging/publication, idempotent admission, and replay truth. Shared mutable workspace state shall not become scheduler truth."
+        },
+        {
+          "line": 45,
+          "text": "**REQ-R-ABG3-SAGA-FRONTIER-014**: GTL owns declared branch topology, traversal scope, dependency order, available consequence routes, and fan-in relations. The validator owns static checks over those declarations. HoG owns traversal and applies only ABG-admitted transition proposals. Selected implementation bindings own native leaf-effect realization. ABG owns admission of transition, branch, evidence, result, continuation, and replay truth. No one of those owners shall collapse the others into a rival scheduler, compiled plan, private queue authority, or controller-local state machine."
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2",
+      "selectedLines": [
+        {
+          "line": 24,
+          "text": "`REQ-P-SCENARIOS-018` within existing S02/S03/S06, not an additional campaign."
+        },
+        {
+          "line": 42,
+          "text": "**REQ-P-QUAL-005**: Transport failures (nonzero exit, timeout, crash) shall remain **diagnosable transport truth**. They shall not be masked as artifact quality failures or silently converted to empty output. A preserved artifact may only rescue the turn when ABG deterministically validates it as the authoritative result for that boundary; mere artifact presence is insufficient."
+        },
+        {
+          "line": 68,
+          "text": "to report its terminal result and preserve failure evidence. A deadline or"
+        },
+        {
+          "line": 72,
+          "text": "**REQ-P-QUAL-012**: When a transport timeout fires, the resulting error shall **name the timeout value and the agent** so the operator can distinguish \"agent was slow\" from \"transport configuration too aggressive.\""
+        },
+        {
+          "line": 84,
+          "text": "shall be a named constant rather than a magic number, and the resulting claim"
+        },
+        {
+          "line": 112,
+          "text": "identities, actual requests and results, relevant worksite changes, native"
+        },
+        {
+          "line": 187,
+          "text": "not substitute for the qualification basis, authenticated assessment results, or verdict"
+        },
+        {
+          "line": 206,
+          "text": "A red, incomplete, stale, cross-basis, or bypassed result refuses a"
+        },
+        {
+          "line": 238,
+          "text": "authenticated assessment result, the coverage catalog, the declared"
+        },
+        {
+          "line": 239,
+          "text": "`C.of(AF-22)` argument, and the resulting"
+        },
+        {
+          "line": 266,
+          "text": "GraphFunction, contracts, execution basis, causal ABG episode, and replay"
+        },
+        {
+          "line": 267,
+          "text": "basis. Replay shall derive the same typed terminal Hello World result and"
+        },
+        {
+          "line": 278,
+          "text": "start, expose replay-derived frontier and lawful actions, exercise bounded"
+        },
+        {
+          "line": 307,
+          "text": "result and replay without source import, feature-specific engine code, or"
+        },
+        {
+          "line": 311,
+          "text": "Product F17/S06 and `REQ-P-SCENARIOS-013` shall be required ABIogenesis 5.0"
+        },
+        {
+          "line": 316,
+          "text": "targeted revision. Intermediate thread/correction evidence, post-result scope"
+        },
+        {
+          "line": 343,
+          "text": "S01/S02/S03/S06 outcomes. The source-linked coverage catalog declares these"
+        },
+        {
+          "line": 344,
+          "text": "obligations without an executable slot, ordinal or owning-result requirement"
+        },
+        {
+          "line": 350,
+          "text": "qualification subject and law. Actual native results retain their producing"
+        },
+        {
+          "line": 361,
+          "text": "owning-result vector, adapter requirement or replacement reducer/controller."
+        },
+        {
+          "line": 365,
+          "text": "authenticated F11 result citations, explicit green/red/blocked disposition and"
+        },
+        {
+          "line": 370,
+          "text": "**REQ-P-QUAL-065**: Qualification on the supported trusted-developer-desktop boundary shall defend malformed GTL and F_P results, unresolved or incompatible contracts and capabilities, incorrect product identity or binding, source/private-import dependence, and false convergence or release claims. It shall not require hostile-local tamper resistance, a signing service, remote attestation, a hosted marketplace, or repeated adversarial campaigns."
+        },
+        {
+          "line": 374,
+          "text": "adapter paths over the same versioned public operation contract. A fixed-result"
+        },
+        {
+          "line": 375,
+          "text": "lane shall compare the declared result digest. A live F_P lane shall compare"
+        },
+        {
+          "line": 376,
+          "text": "the declared response/result schemas and replay-significant invariants, or both"
+        },
+        {
+          "line": 377,
+          "text": "paths may consume one identical recorded admitted result when the gate is"
+        },
+        {
+          "line": 384,
+          "text": "and pass the bounded installed catalog, public invocation and replay"
+        },
+        {
+          "line": 386,
+          "text": "result shall be a terminal addendum to the A5-R1 release read model. It shall not"
+        },
+        {
+          "line": 448,
+          "text": "coverage and authenticated F11 result shall enter the sole declared `C.of(AF-22)` evaluator; only the resulting"
+        },
+        {
+          "line": 479,
+          "text": "fresh public result/replay reads support distinct, explicitly bounded claims."
+        },
+        {
+          "line": 504,
+          "text": "  -> attributed candidate result and supporting evidence"
+        },
+        {
+          "line": 510,
+          "text": "supplied and the resulting admitted execution. Focused counterexamples shall"
+        },
+        {
+          "line": 511,
+          "text": "cover wrong/stale frame or observation basis, an unadmitted result influencing"
+        },
+        {
+          "line": 513,
+          "text": "Unknown or out-of-frame results shall retain their declared disposition."
+        },
+        {
+          "line": 518,
+          "text": "qualification claims. Historical results retain their exact supported scope;"
+        },
+        {
+          "line": 523,
+          "text": "requires no new ledger, mandatory auditor invocation, per-handoff full replay,"
+        },
+        {
+          "line": 534,
+          "text": "incomplete, contradictory, or missing post-dispatch result shall remain typed"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 16531,
+      "sha256": "aa6f0c878253541b50469ca5f04540f3007755272382d284e3a3234efffb99e5",
+      "selectedLines": [
+        {
+          "line": 1,
+          "text": "# REQ-P-SCENARIOS - ABIogenesis 5.0 Product Scenarios"
+        },
+        {
+          "line": 26,
+          "text": "**REQ-P-SCENARIOS-001**: Every claimed GTL, HoG, ABG, catalog, public-surface,"
+        },
+        {
+          "line": 28,
+          "text": "`ABG5-S01` through `ABG5-S07` on the exact subject named by that scenario."
+        },
+        {
+          "line": 30,
+          "text": "**REQ-P-SCENARIOS-002**: Scenario proof shall exercise the installed public"
+        },
+        {
+          "line": 35,
+          "text": "**REQ-P-SCENARIOS-003**: A scenario is open when its public path cannot be run,"
+        },
+        {
+          "line": 40,
+          "text": "**REQ-P-SCENARIOS-004**: Every scenario shall bind the exact product subject,"
+        },
+        {
+          "line": 43,
+          "text": "expected terminal or continuation result, replay basis, and named negative"
+        },
+        {
+          "line": 46,
+          "text": "**REQ-P-SCENARIOS-005**: Scenario fixtures and adapters may provide declared"
+        },
+        {
+          "line": 48,
+          "text": "directly, emit or mutate ABG events, author results, construct execution bases"
+        },
+        {
+          "line": 52,
+          "text": "**REQ-P-SCENARIOS-006**: The same GTL validator, HoG traversal, ABG runtime,"
+        },
+        {
+          "line": 57,
+          "text": "**REQ-P-SCENARIOS-007**: Definition coverage and realized proof are distinct."
+        },
+        {
+          "line": 71,
+          "text": "### `ABG5-S01` - Clean Install And Minimal Invocation"
+        },
+        {
+          "line": 73,
+          "text": "**REQ-P-SCENARIOS-008**: `ABG5-S01` shall use the exact root binding"
+        },
+        {
+          "line": 74,
+          "text": "`ABI5-ROOT-001` and governor `abg5.root.s01.hello_world@5`. It shall:"
+        },
+        {
+          "line": 82,
+          "text": "   `program://abiogenesis/conformance/hello-world@5`;"
+        },
+        {
+          "line": 84,
+          "text": "   `graph-function://abiogenesis/conformance/hello-world@5` and its exact"
+        },
+        {
+          "line": 85,
+          "text": "   `hello-input@5` and `hello-output@5` contracts;"
+        },
+        {
+          "line": 88,
+          "text": "9. admit the causal invocation, C-call, evidence, result, judgment, and closure"
+        },
+        {
+          "line": 90,
+          "text": "10. derive the same typed terminal result and closed state twice from replay"
+        },
+        {
+          "line": 97,
+          "text": "replay disagreement leaves the root red."
+        },
+        {
+          "line": 101,
+          "text": "**REQ-P-SCENARIOS-009**: `ABG5-S02` shall author, serialize, raw-admit,"
+        },
+        {
+          "line": 104,
+          "text": "It shall execute one live `F_P` boundary with declared instruction and result"
+        },
+        {
+          "line": 109,
+          "text": "unattributed `F_P` output shall refuse before effects, result admission,"
+        },
+        {
+          "line": 114,
+          "text": "**REQ-P-SCENARIOS-010**: `ABG5-S03` shall prove one admitted GTL program orders"
+        },
+        {
+          "line": 124,
+          "text": "action-result truth. The scenario observes a truthful stop, hold or gap and"
+        },
+        {
+          "line": 125,
+          "text": "the replay-derived frontier. One bounded correction under established"
+        },
+        {
+          "line": 146,
+          "text": "**REQ-P-SCENARIOS-011**: `ABG5-S04` is reserved for a lawful ABIogenesis 5.1"
+        },
+        {
+          "line": 150,
+          "text": "tuner operate over replay truth and prove truthful halt, grounded"
+        },
+        {
+          "line": 151,
+          "text": "attributed drafts, ratification, rejection, replay, and one injected negative"
+        },
+        {
+          "line": 159,
+          "text": "**REQ-P-SCENARIOS-012**: `ABG5-S05` is reserved for 5.1 and is not a 5.0 gate."
+        },
+        {
+          "line": 166,
+          "text": "Every result and continuation shall be typed and replay-derived. No shell,"
+        },
+        {
+          "line": 172,
+          "text": "**REQ-P-SCENARIOS-013**: `ABG5-S06` completes one public-contract"
+        },
+        {
+          "line": 195,
+          "text": "Failed verification or a changed requirement produces replay-visible pressure"
+        },
+        {
+          "line": 207,
+          "text": "not shrink after result inspection. Full original Data Mapper and downstream"
+        },
+        {
+          "line": 213,
+          "text": "**REQ-P-SCENARIOS-014**: `ABG5-S07` shall preserve distinct exact subjects and"
+        },
+        {
+          "line": 237,
+          "text": "**REQ-P-SCENARIOS-015**: `ABG5-S01` establishes the continuous delivery"
+        },
+        {
+          "line": 244,
+          "text": "**REQ-P-SCENARIOS-016**: One exact `pre_rc_candidate` shall pass"
+        },
+        {
+          "line": 245,
+          "text": "`ABG5-S01`, `ABG5-S02`, `ABG5-S03`, and `ABG5-S06` before RC"
+        },
+        {
+          "line": 254,
+          "text": "**REQ-P-SCENARIOS-017**: Changing a scenario identity, exact subject, root"
+        },
+        {
+          "line": 260,
+          "text": "**REQ-P-SCENARIOS-018**: The selected default-library governance proof shall"
+        },
+        {
+          "line": 263,
+          "text": "implementation and result inspection. Its finite cases shall establish:"
+        },
+        {
+          "line": 267,
+          "text": "| Fresh task | Real native F_P work produces the required files, executed checks, selected UAT, admitted evidence and fresh Public result through the installed default library. |"
+        },
+        {
+          "line": 268,
+          "text": "| Valid prior result | The declared selection reuses applicable admitted work without repeating it or treating unassessed work as accepted. |"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "selectedLines": [
+        {
+          "line": 38,
+          "text": "cross-subject basis truth shall produce a typed non-green result. A release cut,"
+        },
+        {
+          "line": 46,
+          "text": "unclassified or unreadable required surface shall be a typed incomplete result,"
+        },
+        {
+          "line": 55,
+          "text": "## Evaluation And Results"
+        },
+        {
+          "line": 64,
+          "text": "**REQ-P-SELF-CONFORMANCE-005**: The result shall carry the exact qualification"
+        },
+        {
+          "line": 82,
+          "text": "**REQ-P-SELF-CONFORMANCE-007A**: The admitted complete self-conformance result"
+        },
+        {
+          "line": 87,
+          "text": "without a distinct Result per behavior, but missing required coverage remains"
+        },
+        {
+          "line": 99,
+          "text": "applicable required surface and rule has a typed terminal disposition."
+        },
+        {
+          "line": 107,
+          "text": "**REQ-P-SELF-CONFORMANCE-010**: The release-grade self-conformance result shall"
+        },
+        {
+          "line": 109,
+          "text": "manifest, frozen subject inventory, and exact method/rule/source basis. A result"
+        },
+        {
+          "line": 115,
+          "text": "cite the exact self-conformance result and the qualification verdict that"
+        },
+        {
+          "line": 118,
+          "text": "blocked, incomplete, stale, cross-basis, or bypassed result green."
+        }
+      ]
+    }
+  ]
+}

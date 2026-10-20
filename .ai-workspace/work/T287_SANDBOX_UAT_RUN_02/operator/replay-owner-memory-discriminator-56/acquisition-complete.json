@@ -1,0 +1,18 @@
+{
+  "stage": "acquisition-complete",
+  "at": "2026-10-08T04:45:33.340Z",
+  "elapsedMs": 23823.168208000003,
+  "memory": {
+    "rss": 3496099840,
+    "heapTotal": 2117058560,
+    "heapUsed": 2023234032,
+    "external": 1184891950,
+    "arrayBuffers": 1182476825
+  },
+  "maxRSSKiB": 3414176,
+  "pid": 5261,
+  "eventCount": 165617,
+  "lastOrdinal": 165617,
+  "fullPrefixSelected": true,
+  "currentOwnerPrefix": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23"
+}

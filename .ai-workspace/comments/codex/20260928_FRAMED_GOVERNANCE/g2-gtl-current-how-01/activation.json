@@ -1,0 +1,24 @@
+{
+  "operation": "T287_G2_GTL_CURRENT_HOW_01",
+  "role": "Writer",
+  "actor": "/root/native_applicability_design",
+  "status": "ACTIVE",
+  "timeUTC": "2026-10-04T05:03:18.522383+00:00",
+  "grant": "Root operative seven-section message rendered through installed a_c; store f11_g2_gtl_current_how_grant_01",
+  "installedAC": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8"
+  },
+  "effects": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-gtl-current-how-01"
+  ],
+  "targetPreimage": "ABSENT",
+  "evidencePreimage": "ABSENT",
+  "governingBasis": "STDO2.5.1RC2",
+  "governingManifestSHA256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "reentry": "design_reframe",
+  "proposalOnly": true,
+  "SourceBuildRuntimeAndProviderEffects": 0,
+  "recordedBeforeDesignMutation": true
+}

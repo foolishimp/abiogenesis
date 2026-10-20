@@ -1,0 +1,19 @@
+{"type":"test:enqueue","data":{"nesting":0,"name":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs","type":"test","line":1,"column":1,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:dequeue","data":{"nesting":0,"name":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs","type":"test","line":1,"column":1,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:enqueue","data":{"nesting":0,"name":"actual native C10 consumer and current-bound canonical successor preparation","type":"test","line":22,"column":26,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:dequeue","data":{"nesting":0,"name":"actual native C10 consumer and current-bound canonical successor preparation","type":"test","line":22,"column":26,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:complete","data":{"name":"actual native C10 consumer and current-bound canonical successor preparation","nesting":0,"testNumber":1,"details":{"duration_ms":16948.050791,"type":"test","passed":true},"line":22,"column":26,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:start","data":{"nesting":0,"name":"actual native C10 consumer and current-bound canonical successor preparation","line":22,"column":26,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:pass","data":{"name":"actual native C10 consumer and current-bound canonical successor preparation","nesting":0,"testNumber":1,"details":{"duration_ms":16948.050791,"type":"test"},"line":22,"column":26,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:summary","data":{"success":true,"counts":{"tests":1,"failed":0,"passed":1,"cancelled":0,"skipped":0,"todo":0,"topLevel":1,"suites":0},"duration_ms":16950.305042,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:complete","data":{"name":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs","nesting":0,"testNumber":1,"details":{"duration_ms":17068.858417,"type":"test","passed":true},"line":1,"column":1,"file":"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"}}
+{"type":"test:plan","data":{"nesting":0,"count":1}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"tests 1","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"suites 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"pass 1","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"fail 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"cancelled 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"skipped 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"todo 0","level":"info"}}
+{"type":"test:diagnostic","data":{"nesting":0,"message":"duration_ms 17073.800042","level":"info"}}
+{"type":"test:summary","data":{"success":true,"counts":{"tests":1,"failed":0,"passed":1,"cancelled":0,"skipped":0,"todo":0,"topLevel":1,"suites":0},"duration_ms":17073.800042}}

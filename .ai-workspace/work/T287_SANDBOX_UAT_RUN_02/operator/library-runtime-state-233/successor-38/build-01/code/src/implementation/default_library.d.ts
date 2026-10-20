@@ -1,0 +1,18 @@
+import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
+import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
+import type { NativeInstructionAssembly } from "../abg/instruction_assembly.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+export declare const GOVERNANCE_SELECTION_TASK_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const GOVERNANCE_SELECTOR_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const GOVERNANCE_PARENT_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const GOVERNANCE_NATIVE_TASK_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const GOVERNANCE_TESTING_TASK_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const GOVERNANCE_FOLD_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare const GOVERNANCE_CHOICE_DESCRIPTOR: PackagedLeafImplementationDescriptor;
+export declare function prepareGovernanceSelection(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence): Promise<LeafRealizationCandidate>;
+export declare function prepareGovernanceNativeTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence): Promise<LeafRealizationCandidate>;
+export declare function prepareObservedTestingTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence, _resolution?: unknown, _inputDigest?: unknown, proof?: NativeLeafProofOperations): Promise<LeafRealizationCandidate>;
+export declare function foldGovernanceWork(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence): LeafRealizationCandidate;
+export declare function evaluateGovernanceParent(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence): LeafRealizationCandidate;
+export declare function projectGovernanceChoice(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence): LeafRealizationCandidate;
+export declare function selectGovernanceWork(input: Readonly<Record<string, JsonValue>>, _occurrence: LeafExecutionOccurrence, prepareAssembly: () => NativeInstructionAssembly): PreparedProbabilisticLeafInvocation<LeafRealizationCandidate>;

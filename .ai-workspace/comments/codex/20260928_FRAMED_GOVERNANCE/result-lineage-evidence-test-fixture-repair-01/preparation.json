@@ -1,0 +1,51 @@
+{
+  "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/readiness-stage",
+  "originalFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+    "bytes": 1920828,
+    "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+    "mode": 420
+  },
+  "originalStageRecordsVerified": 6515,
+  "ownedCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/readiness-stage",
+  "soleOverlay": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22568,
+    "sha256": "d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4",
+    "mode": 420
+  },
+  "oneFieldDelta": "supplied graphFunction effects: []",
+  "productionSourceReadOnly": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 68281,
+    "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+    "mode": 420
+  },
+  "compiledSourceReusedByteExact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+    "bytes": 56202,
+    "sha256": "e6cbf21433251b46dafcb149298a4539217eefd497dccaddc32442598e3c570c",
+    "mode": 420
+  },
+  "compileReceiptReused": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/compile-supervisor-close.json",
+    "bytes": 888,
+    "sha256": "ed3601a46d0c39198470bb5cca11075e7c0f3183d1a6e83f09fd709472ac7e88",
+    "mode": 420
+  },
+  "noCompileRerun": true,
+  "node": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "mode": 365
+  },
+  "supervisorDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/supervise.py",
+    "bytes": 4698,
+    "sha256": "775d6b13e8b528d6bd7788115df4fc5f4e21aa14553691f692f5fab2993f9696",
+    "mode": 420
+  },
+  "supervisorAdaptation": "mode restricted to regression only; same finite pre-import process-group supervisor",
+  "preparationMs": 1335.663499776274
+}

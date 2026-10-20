@@ -1,0 +1,13 @@
+{
+  "activation": "T287_Q11_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T01:52:29.388748+00:00",
+  "grant": "rc1-q10-material-projection-and-q11-controls-01/review-request.txt",
+  "grantSHA256": "838d60708f8167b2cf366d641f4f57f60c1a389753b149aac65808e03eef6e26",
+  "subject": "final-qualification-inputs-11/freeze.json",
+  "subjectSHA256": "827d5cbb98b5d68acb9af7da791f2173cb4f086f2fbd9a50bb3d047c051c76e5",
+  "scope": "independent frozen Q11 projection/failure; explicit producer-consumer Design relation and earliest omitted preflight",
+  "effects": "pure reads/hash/source comparison and only new review reports; no import/payload/repair/Runtime"
+}

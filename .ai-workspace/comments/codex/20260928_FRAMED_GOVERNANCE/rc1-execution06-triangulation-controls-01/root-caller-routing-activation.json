@@ -1,0 +1,14 @@
+{
+  "operation": "T287_EXEC06_ROOT_CALLER_REVIEW_ROUTING_01",
+  "role": "Writer",
+  "actor": "/root",
+  "previousRole": "Executive",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/root-caller-sections.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/root-caller-request.txt",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/root-caller-routing-activation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-execution06-triangulation-controls-01/root-caller-routing-closure.json"
+  ],
+  "purpose": "Independent caller review assigned to nonauthor Root after agent thread limit prevented new independent agent",
+  "activatedAt": "2026-10-02T04:22:25.562757+00:00"
+}

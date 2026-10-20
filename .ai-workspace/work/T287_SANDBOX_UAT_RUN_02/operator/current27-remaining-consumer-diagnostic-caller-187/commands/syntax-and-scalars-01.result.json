@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "exitCode": 0,
+  "wallMs": 25.86829202482477,
+  "syntaxExitCode": 0,
+  "helpers": [
+    {
+      "name": "verify-artifacts.mjs",
+      "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+      "byteCount": 2071,
+      "unchanged": true
+    },
+    {
+      "name": "packed-resources.mjs",
+      "sha256": "894b353f062c3a80072cb70b344d3b092c22d33d6e59eb8835e8b702ad8c9b3b",
+      "byteCount": 2167,
+      "unchanged": true
+    },
+    {
+      "name": "binding-inputs.mjs",
+      "sha256": "0c22433ee2c081b95398faf10c24daece3939d667d7c01eee5cfc0187061074e",
+      "byteCount": 1942,
+      "unchanged": true
+    },
+    {
+      "name": "operation-resource.mjs",
+      "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+      "byteCount": 695,
+      "unchanged": true
+    }
+  ],
+  "currentPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "prefixLength": 1690085978,
+    "prefixDigest": "sha256:b68f441da26478d80930a8c73cf45bbe0e7ce9c3f5016ac291db7c6f59e4e0cb",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 468327400,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:688caae17777565c7290744b7fc23bffdd3bd1b5608d5a1a2b84afb94786842a"
+  },
+  "completed185": {
+    "nativeInstallInvocationRef": "invocation://abiogenesis/b0f8790cdaf872a531a7906544c3a51f0034ebaf2d4b4edaa507bdecc90bdbae",
+    "consumerInstallInvocationRef": "invocation://abiogenesis/49e632526cdf7fe16a098ee83166aaa54e89590fd8ad4cbe8b94ae645f3e6ff0",
+    "binding": {
+      "ref": "workspace-binding://abiogenesis/2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8",
+      "digest": "sha256:2c9641d2b29a3ef2b5160f51f1949c11233d05aa123c879e594da723ff2163d8"
+    },
+    "catalog": {
+      "ref": "graph-function-catalog://abiogenesis/4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9",
+      "digest": "sha256:4f3a284b6cea19634f8a9bb8b313f458e0b6154c7dd0057f3cf4adb5ff3b90e9"
+    },
+    "view": {
+      "ref": "graph-function-catalog-view://abiogenesis/5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367",
+      "digest": "sha256:5f49d56bd6816e747d55d7d31f24ae60938380ff248e81817d30d1a58161e367"
+    },
+    "witnesses": 104,
+    "currentUseDigest": "sha256:f17b484fa3c4a24e6f24d3670e725705f69b3da7c67f54861cd1d8e5846386ba"
+  },
+  "exactIntegerStatPremise": "Original185 mtimeNs retained as decimal string; no correction01 numeric value or shadowed path used",
+  "largeDeclarationRead187": false,
+  "archiveOrCampaignReadHash187": false,
+  "actualResourceOrOwnerExecution187": false,
+  "limits": "Small recorded-coordinate/selector and intended-code checks only. No nominal receipt restore, actual projection, current-use/callback/private preparation/capacity/native/UAT claim."
+}

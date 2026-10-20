@@ -1,0 +1,72 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/isolated/build/code/src/abg/instruction_assembly.d.ts
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts
+@@ -224,10 +224,10 @@
+                 presentationRef: string;
+                 disposition: string;
+             };
+-            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
++            kind: "worksite_command_execution_task";
+             workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
+             workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
+-            kind: "worksite_command_execution_task";
++            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+             materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
+             schemaVersion: "5.0.0";
+             resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
+@@ -303,7 +303,6 @@
+         kind: "worksite_command_execution_observation";
+         schemaVersion: "5.0.0";
+         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
+-        observationRef: string;
+         observationDigest: Sha256Digest;
+         snapshotMembers: readonly import("../product/worksite_command_execution.js").WorksiteSnapshotMember[];
+         predicateObservations: readonly import("../product/worksite_command_execution.js").WorksitePredicateObservation[];
+@@ -311,6 +310,7 @@
+         productDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
+         snapshotRef: string;
+         snapshotDigest: Sha256Digest;
++        observationRef: string;
+         helperArtifactRef: string;
+         helperArtifactDigest: Sha256Digest;
+     } | {
+@@ -438,10 +438,10 @@
+                 presentationRef: string;
+                 disposition: string;
+             };
+-            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
++            kind: "worksite_command_execution_task";
+             workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
+             workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
+-            kind: "worksite_command_execution_task";
++            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+             materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
+             schemaVersion: "5.0.0";
+             resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
+@@ -518,13 +518,13 @@
+         snapshotMembers: readonly import("../index.js").WorksiteRevisionSnapshotMember[];
+         schemaVersion: "5.0.0";
+         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
+-        observationRef: string;
+         observationDigest: Sha256Digest;
+         predicateObservations: readonly import("../product/worksite_command_execution.js").WorksitePredicateObservation[];
+         worksiteDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
+         productDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
+         snapshotRef: string;
+         snapshotDigest: Sha256Digest;
++        observationRef: string;
+         helperArtifactRef: string;
+         helperArtifactDigest: Sha256Digest;
+     } | {
+@@ -652,10 +652,10 @@
+                 presentationRef: string;
+                 disposition: string;
+             };
+-            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
++            kind: "worksite_command_execution_task";
+             workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
+             workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
+-            kind: "worksite_command_execution_task";
++            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+             materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
+             schemaVersion: "5.0.0";
+             resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;

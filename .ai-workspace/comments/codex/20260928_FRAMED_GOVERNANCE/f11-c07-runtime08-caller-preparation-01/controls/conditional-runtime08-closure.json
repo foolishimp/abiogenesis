@@ -1,0 +1,20 @@
+{
+  "operation": "T287_Q09_REVIEW_AND_RUNTIME08_CONDITIONAL_GRANTS_01",
+  "status": "CLOSED",
+  "RootReturns": "Executive",
+  "conditionalRequests": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/q09-review-request.txt",
+      "bytes": 3774,
+      "sha256": "7bb23ce9de314366b77b94c2c6caaa13bef22ec2fc35316f830e50e20fdcf6af"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/runtime08-request.txt",
+      "bytes": 4927,
+      "sha256": "164e80ba6d82189b23d0558462ae11af6114c28e1a9de8ad1021a85f5d4a221a"
+    }
+  ],
+  "dependenciesNotYetClosed": true,
+  "WorkerReviewerNotActivated": true,
+  "payloadEffects": 0
+}

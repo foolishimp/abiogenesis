@@ -1,7 +1,7 @@
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { constructNativeInstructionAssembly, constructDeclaredNativeInstructionAssembly, requireNativeInstructionAssembly, requireDeclaredNativeInstructionAssembly, type NativeInstructionAssembly } from "./instruction_assembly.js";
-import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { isNativeWorkspaceWorkTask, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
 import { semanticInputValueAtBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
@@ -33,11 +33,12 @@ import {
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RootEventKind,
-  readRuntimeEventsAtDurablePrefix,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
-  selectValidatedRuntimeEventPrefix,
+  indexedRuntimeEvents,
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
+  selectRuntimeEventPrefixFromStore,
+  type RuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { OpenedTraversalScope } from "./open_call.js";
@@ -582,9 +583,17 @@ export interface ActorProcessLifecycleProjection {
 export function projectActorProcessLifecycle(
   prefix: ValidatedRuntimeEventPrefix,
   actorInvocationRef: string,
+): ActorProcessLifecycleProjection;
+/** @internal */
+export function projectActorProcessLifecycle(
+  prefix: RuntimeEventPrefix,
+  actorInvocationRef: string,
+): ActorProcessLifecycleProjection;
+export function projectActorProcessLifecycle(
+  prefix: RuntimeEventPrefix,
+  actorInvocationRef: string,
 ): ActorProcessLifecycleProjection {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const rows = events.filter((event) =>
+  const rows = indexedRuntimeEvents(prefix, "related:" + actorInvocationRef).filter((event) =>
     event.aggregateId === actorInvocationRef ||
     event.parentAggregateId === actorInvocationRef
   );
@@ -615,10 +624,8 @@ export function projectActorProcessLifecycle(
     event.kind === "actor_process_termination_unconfirmed"
   );
   const processLive = started.length === 1 && processTerminal === undefined;
-  const runTerminal = events.some((event) =>
-    event.kind === "run_stopped" ||
-    (event.kind === "runtime_failure_observed" && event.aggregateType === "run")
-  );
+  const runTerminal = indexedRuntimeEvents(prefix, "kind:run_stopped").length !== 0 ||
+    indexedRuntimeEvents(prefix, "kind:runtime_failure_observed").some(event => event.aggregateType === "run");
   const cleanupPending = actorTerminal === undefined &&
     (processTerminal !== undefined || (runTerminal && started.length === 1));
   return deepFreeze({
@@ -797,13 +804,13 @@ async function invokeActorProcessWithAssembly(
     input.request.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.authorImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.assessorImplementationRef;
   const semanticBasis = input.occurrence.semanticStageBasis;
   const worksiteBasis = input.occurrence.nativeInstructionAssemblyBasis;
-  const worksiteOwner = worksiteBasis === undefined ? null : authenticateNativeInstructionAssemblyBasis(worksiteBasis);
+  const worksiteOwner = worksiteBasis === undefined ? null : authenticateOwnedNativeInstructionAssemblyBasis(worksiteBasis);
   const instructionAssembly = preparedAssembly ?? (semanticCall && semanticBasis !== undefined
     ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis))
     : worksiteBasis !== undefined && worksiteOwner !== null
       ? constructDeclaredNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue, contractByRef) : null);
-  const invocation = rehydrateInvocationAdmissionAtPrefix(selectValidatedRuntimeEventPrefix(
-    readRuntimeEventsAtDurablePrefix(predecessorPrefix)), input.executionBasis.invocationAdmissionRef);
+  const invocation = rehydrateInvocationAdmissionAtPrefix(readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix),
+    input.executionBasis.invocationAdmissionRef);
   const assemblyRequired = semanticCall || invocation?.runEnvironment !== undefined || worksiteBasis !== undefined;
   if (worksiteOwner !== null && (worksiteOwner.call.cCallRef !== input.cCall.cCallRef ||
     worksiteOwner.execution.basisRef !== input.executionBasis.basisRef ||
@@ -1050,7 +1057,7 @@ async function invokeActorProcessWithAssembly(
   let observedProgressCount = 0;
   let observedFinalOutput = "";
   let supervisionInterrupted = false;
-  const nativeContext = () => projectActorLivenessContext(selectValidatedRuntimeEventPrefix(input.store.readAll()), actorInvocationRef);
+  const nativeContext = () => projectActorLivenessContext(selectRuntimeEventPrefixFromStore(input.store), actorInvocationRef);
   const probe = (source: RuntimeProbeSource, event: ReturnType<typeof append>, signal: RuntimeProbeObservation["signal"], elapsedMs: number,
     coverage: RuntimeProbeObservation["coverage"] = "observed") => {
     if (!currentProfile) return;
@@ -1081,7 +1088,7 @@ async function invokeActorProcessWithAssembly(
     if (bytes.length === 0) return;
     const sourceDigest = sha256Bytes(bytes);
     const underlyingObservationRef = `runtime-asset-observation://abiogenesis/${sha256Canonical({ probeRef: declaration.probeRef, sourceDigest, sourceRevisionDigest }).slice(7)}`;
-    if (input.store.readAll().some(event => {
+    if (indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(input.store), "payload:underlyingObservationRef:" + underlyingObservationRef).some(event => {
       const p = event.payload as Record<string, JsonValue>, observation = p.observation;
       return typeof observation === "object" && observation !== null && !Array.isArray(observation) && (observation as Readonly<Record<string, JsonValue>>).underlyingObservationRef === underlyingObservationRef;
     })) return;

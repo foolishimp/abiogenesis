@@ -1,0 +1,52 @@
+{
+  "actor": "Executive5",
+  "bindingOrdinal": 188608,
+  "bindingRef": "transport-binding://abiogenesis/5eea5ec6587e1aea02c609e79de46e58ee2df5b838f5dbd118957e11d7664474",
+  "paths": {
+    "output": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c4a63dc113b700b1-output.txt",
+    "prompt": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c4a63dc113b700b1-prompt.txt",
+    "stderr": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c4a63dc113b700b1-stderr.log",
+    "stdout": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c4a63dc113b700b1-stdout.log",
+    "transport": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/archives/fp-c4a63dc113b700b1-transport.json"
+  },
+  "promptBytes": 759327,
+  "transportStatus": {
+    "status": 0,
+    "timedOut": false,
+    "signal": null,
+    "terminationConfirmed": true,
+    "exitObserved": true,
+    "failureClass": null,
+    "toolCallCount": 0
+  },
+  "metrics": {
+    "duration_ms": 149692,
+    "duration_api_ms": 139354,
+    "num_turns": 2,
+    "total_cost_usd": 3.28614,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 379234,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 12613,
+      "output_tokens_details": {
+        "thinking_tokens": 2133
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 379234,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "is_error": false,
+    "subtype": "success"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+  "offset": 11753743,
+  "byteCount": 1801307,
+  "sha256": "f9ebfddaa07c663833d1db3e6be261b65beefabf9fdd0e38e36492d47f3221c0",
+  "admissionOrdinal": 1932,
+  "eventId": "event://abiogenesis/b0c301c56c996dbbcb8d75e754a4530ad96edde28eadff9abbdaa2500ebe6f56",
+  "runRef": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+  "worksiteRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/sandbox/worksite",
+  "archivedAcquisition": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/oracle-acquisition.json",
+  "reusedPriorAdmittedObservation": true,
+  "noNewRuntimeCredit": true
+}

@@ -1,0 +1,16 @@
+{
+  "stage": "source-complete",
+  "elapsedMs": 36898.36745800001,
+  "at": "2026-10-10T16:29:42.144Z",
+  "rss": 3144515584,
+  "heapTotal": 726827008,
+  "heapUsed": 579979736,
+  "external": 12970141,
+  "arrayBuffers": 10557834,
+  "basisRef": "invocation-source-result://abiogenesis/025fb7c8338b9bd0606530a7717f487fdce94d6f14bcb8a0afb6ced4ef0f0eaf",
+  "basisDigest": "sha256:025fb7c8338b9bd0606530a7717f487fdce94d6f14bcb8a0afb6ced4ef0f0eaf",
+  "observations": 1,
+  "inputDigest": "sha256:8ea15aebe7d1157d29f141b84bcaefeefd77705e2a61240443a10c3e42a72ee2",
+  "sourceResultAdmissionEventRef": "event://abiogenesis/d7a3a91da83426236a823066537ba05d7227706de73a964878eab4538e1c889f",
+  "sourceResultJudgmentEventRef": "event://abiogenesis/46046797a52f5c346c5b81c3b8690dd22e0b6d3b62898fdfc291f24317e138e1"
+}

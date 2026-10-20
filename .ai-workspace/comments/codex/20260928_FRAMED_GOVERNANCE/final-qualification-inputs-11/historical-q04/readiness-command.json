@@ -1,0 +1,47 @@
+{
+  "kind": "bounded_existing_component_readiness",
+  "status": "running",
+  "startedAt": "2026-10-01T22:49:48.699619+00:00",
+  "executable": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "args": [
+    "--experimental-vm-modules",
+    "--import",
+    "./.recipe/test-environment.mjs",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+    "--test-name-pattern=^(?:closed\\ resource\\ forms\\ retain\\ nonempty\\ group\\ arrays\\ and\\ actual\\ old\\ embedded\\ identities|full\\ omission\\ overlap\\ and\\ missing\\-domain\\ negatives\\ reach\\ complete\\ correspondence\\ after\\ every\\ identity\\ is\\ repaired|missing\\ crossed\\ ambiguous\\ inventory\\ sets\\ bodies\\ and\\ declaration\\ dependencies\\ refuse\\ before\\ material\\ can\\ be\\ used|Run\\ pre\\-effect\\ acquisition\\ borrows\\ only\\ the\\ exact\\ invoking\\ proof\\ and\\ rejects\\ redundant\\ dependencies|selected\\ full\\ prompt\\ preserves\\ source\\ bodies\\ rubric\\ ordering\\ and\\ attribution\\ apart\\ from\\ explicit\\ normalized\\ coordinates|fresh\\ explicit\\ acquisition\\ agrees;\\ warmed\\ and\\ fresh\\ missing\\ resources\\ refuse\\ at\\ actual\\ cold\\ consumer\\ entrypoints)$",
+    "test_env/tests/t287-qualification-carrier-resource.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant",
+  "environment": {
+    "GIT_CONFIG_GLOBAL": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.global.gitconfig",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_CONFIG_SYSTEM": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.system.gitconfig",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.tmp",
+    "npm_config_audit": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.npm-cache",
+    "npm_config_fund": "false",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.global.npmrc",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_logs_max": "0",
+    "npm_config_offline": "true",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.npm-prefix",
+    "npm_config_update_notifier": "false",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.user.npmrc",
+    "ABI5_F11_CARRIER_FULL_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.fixtures/carrier/assessment-input.json",
+    "ABI5_F11_CARRIER_REPORT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/reports/carrier-component"
+  },
+  "outerManagedDeadlineMs": 600000,
+  "heap": "unchanged default; NODE_OPTIONS absent",
+  "commandsExecuted": 1,
+  "actualNativeQualification": false
+}

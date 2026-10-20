@@ -1,0 +1,38 @@
+{
+  "mode": "cold",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/source-freeze/toolchain/bin/node",
+    "read-failed-run.mjs"
+  ],
+  "pid": 51303,
+  "processGroup": 51303,
+  "startedAt": "2026-10-02T04:48:26.134316+00:00",
+  "closedAt": "2026-10-02T04:48:39.706220+00:00",
+  "elapsedMs": 13571.871582884341,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "wait4ReapedMain": true,
+  "processGroupAfterWait": "absent",
+  "phaseCompletion": null,
+  "rssBytes": 1700429824,
+  "userSeconds": 17.291436,
+  "systemSeconds": 0.6162679999999999,
+  "knownCLIProcessGroups": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/failed-readback-failed-run_replay-process-start.json",
+      "processGroup": 51448,
+      "before": "absent",
+      "afterTERM": "absent"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/failed-readback-failed-run_result-process-start.json",
+      "processGroup": 51438,
+      "before": "absent",
+      "afterTERM": "absent"
+    }
+  ],
+  "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+}

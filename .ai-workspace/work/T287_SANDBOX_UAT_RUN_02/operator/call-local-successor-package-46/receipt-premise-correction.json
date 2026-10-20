@@ -1,0 +1,36 @@
+{
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17/commands/member-comparison.result.json",
+    "sha256": "ccfd043a1336e0fbe0094409b1c781a1112216700948d9a42e3ceeafe1a90a9f",
+    "byteCount": 2134
+  },
+  "failedComparator": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-package-46/member-comparison.py",
+    "sha256": "c6040c37b94c4a93157a9ef16d03bae21393070681498252bf90abd926ffa359",
+    "byteCount": 4149
+  },
+  "origin": "overstrict whole-contributionManifest equality in local receipt",
+  "rootConjoinedOwner": "generate-product-manifest.mjs1128-1193 and accepted45 generated manifest",
+  "correctedComparator": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-package-46/member-comparison-corrected.py",
+    "sha256": "2accc4ff8e0d0eff8a5f4ca1475e7d92fb3621da6de8effd3a4b969ff4f1d713",
+    "byteCount": 4941
+  },
+  "exactConsequenceCounts": {
+    "graph": 1,
+    "contentRefs": 3,
+    "publicationDigests": 10,
+    "provenanceRefs": 47
+  },
+  "canonicalBeforeAfterOwnerReconstruction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17/catalog-owner-derivation.json",
+    "sha256": "f6f4049b39637d830884fb608c7b857448f28e26dd2cb6a9a6bace6d02e83170",
+    "byteCount": 1596
+  },
+  "sameSingleArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "cc47965b537b417d262e5edcb211584d6412084c4f63e53628ceca6fdab5191c",
+    "byteCount": 10623828
+  },
+  "noSourceGeneratedBuildOrRepackEffects": true
+}

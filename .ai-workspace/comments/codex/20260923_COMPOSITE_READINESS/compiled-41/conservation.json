@@ -1,0 +1,13 @@
+{
+  "predecessor": "compiled-40",
+  "unchanged": 5229,
+  "changed": 4,
+  "changedPaths": [
+    "build/code/src/abg/event_store.js",
+    "build/code/src/abg/instruction_assembly.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "outsideAcceptedScope": [],
+  "initialCallerRefusal": "derived capability identity projection omitted from expected delta; reconciled without repacking"
+}

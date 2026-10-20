@@ -1,0 +1,11 @@
+{
+  "stage": "acquisition-start",
+  "elapsedMs": 24896.982374999963,
+  "at": "2026-10-10T13:31:33.294Z",
+  "rss": 2933669888,
+  "heapTotal": 2335866880,
+  "heapUsed": 2173708816,
+  "external": 20550499,
+  "arrayBuffers": 18138192,
+  "prefixLength": 8285789
+}

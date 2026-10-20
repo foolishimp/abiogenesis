@@ -1,0 +1,36 @@
+{
+  "setupMs": 22127.448792,
+  "accounting": {
+    "wallMs": {
+      "provisioning_pack": 3386.913041,
+      "provisioning_extract": 469.0540410000003,
+      "bootstrap_owner_loading_and_candidate_preparation": 420.7935000000002,
+      "provisioning_verify_artifact": 12324.96125,
+      "provisioning_install": 2679.998708000003,
+      "provisioning_installed_content_check": 498.01045800000065,
+      "provisioning_additional_products": 222.47604099999808,
+      "installed_owner_loading": 238.9476250000007,
+      "environment_install_and_workspace_admission": 531.5848750000005,
+      "execution_preparation_publication_program_and_catalog": 340.3450419999972,
+      "execution_preparation_resolution_and_program_validation": 623.9602500000001,
+      "execution_preparation_invocation_admission": 198.32424999999785,
+      "execution_preparation_graph_and_implementation_resolution": 69.75762500000201,
+      "execution_preparation_basis_and_leaf_port": 9.81670799999847
+    },
+    "volumes": {
+      "archiveBytes": 10369858,
+      "archiveUnpackedBytes": 67808253,
+      "archiveMemberCount": 5256,
+      "installedTreeBytes": null
+    }
+  },
+  "archiveDigests": [
+    "sha256:b798e20edd4ae1d8649499ad0ccd822d893968fad3a5498948346df45211e043",
+    "sha256:48795adfdb38d8c1b76adac700dd03efa81c24a7750525c68da7225e77f07ad4"
+  ],
+  "artifactPaths": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/disposable/abi5-root-env-jMFds2/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/disposable/abi5-root-env-jMFds2/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz"
+  ],
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/disposable/abi5-root-env-jMFds2/consumer/node_modules/@abiogenesis/typescript-tenant"
+}

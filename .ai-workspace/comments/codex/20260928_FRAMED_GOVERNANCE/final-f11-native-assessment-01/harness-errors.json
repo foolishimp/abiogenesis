@@ -1,0 +1,20 @@
+{
+  "errors": [
+    {
+      "command": "node final-f11-native-assessment-01/prepare-view.mjs",
+      "exitCode": 1,
+      "error": "AssertionError: undefined !== [] at prepare-view.mjs:19:8",
+      "cause": "The local caller harness required an optional undeclared runEnvironments field to be an empty array. The assessment Program has no abg.run_environment policy, and absent or empty declarations both represent its actual no-environment contract.",
+      "correction": "Select the actual full catalog publication for the conformance packet, and check publication.runEnvironments ?? [] against the empty declaration list.",
+      "classification": "External caller harness; no candidate defect inferred; native calls and moving-resource reads zero."
+    },
+    {
+      "command": "node final-f11-native-assessment-01/prepare-view.mjs",
+      "exitCode": 1,
+      "error": "raw_admission_refusal: Program validation input requires one Product-resolved declaration closure",
+      "cause": "The caller passed the execution closure to constructCatalogProgramValidationInput. Its published input requires resolveProgramDeclarationClosure, distinct from the selected execution closure.",
+      "correction": "Use the existing installed Program closure owner for static validation and retain the execution closure separately for selected GraphFunction correspondence.",
+      "classification": "External caller harness; no candidate defect inferred; native calls and moving-resource reads zero."
+    }
+  ]
+}

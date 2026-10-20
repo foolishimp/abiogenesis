@@ -1,0 +1,67 @@
+[
+  {
+    "path": "build/code/src/abg/semantic_job.d.ts",
+    "bytes": 6292,
+    "sha256": "2ae9200579ddd47944b59bac20d19cb8d0acfbf49bac6907445634194a62cd9d"
+  },
+  {
+    "path": "build/code/src/abg/semantic_job.js",
+    "bytes": 48525,
+    "sha256": "e7141fe1fb853667a6d56f3847d113bb975e1326aadf5b3349527821a53086c3"
+  },
+  {
+    "path": "build/code/src/gtl/worksite_command_execution.js",
+    "bytes": 25000,
+    "sha256": "96e9e46e2c8c37036a5d08395791fed63b7eafefe559dc789f5ad2b8014fbc4e"
+  },
+  {
+    "path": "build/code/src/implementation/semantic_stage.js",
+    "bytes": 14703,
+    "sha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913"
+  },
+  {
+    "path": "build/code/src/implementation/worksite_command_execution.d.ts",
+    "bytes": 4153,
+    "sha256": "0512f70d79d764ce79d4b807f7ba04d1100bd9f73fb20a6ad7980bde91afb257"
+  },
+  {
+    "path": "build/code/src/implementation/worksite_command_execution.js",
+    "bytes": 35890,
+    "sha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313"
+  },
+  {
+    "path": "build/code/src/product/semantic_job.d.ts",
+    "bytes": 32206,
+    "sha256": "663a7135420edeab24ab3440ac50d56b32f308a12d2e771c8ebbb0dabeb23665"
+  },
+  {
+    "path": "build/code/src/product/semantic_job.js",
+    "bytes": 83911,
+    "sha256": "ace741fb60d2f448cad23c5d886203bf9564bf0388b94c7143dd9e3d77cb51d2"
+  },
+  {
+    "path": "build/code/src/product/worksite_command_execution.d.ts",
+    "bytes": 28856,
+    "sha256": "2409c635d6b9409a8ab46cce02ad0c76f5b5b2dea8faed81646ca4765a46e4bf"
+  },
+  {
+    "path": "build/code/src/product/worksite_command_execution.js",
+    "bytes": 106106,
+    "sha256": "43451ebc4b5458acc2a8e711771a1e2b7baa3e29a4c9ab39bf1d56889cd2b6ef"
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "bytes": 197474,
+    "sha256": "923a7b662a1f2a01da0d083258424fac76812141ee50065fc1b10e5a56a8b928"
+  },
+  {
+    "path": "contracts/worksite/command-execution-context.inventory.json",
+    "bytes": 255,
+    "sha256": "3f696b3e1e34b3775988315d2a238baac67cb6c47ec66807ad766ce6691acbd8"
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "bytes": 2377790,
+    "sha256": "31dc2cb589835eb4cf4b91acbc0b83a70e48d623cd3434a98551152714770df2"
+  }
+]

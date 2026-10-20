@@ -1,0 +1,15 @@
+{
+  "maximumMs": 786000,
+  "preparationMs": 120000,
+  "operationCapsMs": {
+    "dependencies": 120000,
+    "build": 180000,
+    "pack": 90000,
+    "install": 90000,
+    "verify": 120000,
+    "installed-publications": 60000
+  },
+  "terminationGraceMs": 1000,
+  "perOperationOnce": true,
+  "costAccounting": "Preparation and actual owned command intervals incl termination; reasoning/record assembly excluded from execution cost; no native driver."
+}

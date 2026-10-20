@@ -1,0 +1,15 @@
+{
+  "status": "CLOSED_READ_ONLY_RCA_CONDITIONAL_CALLER_REPAIR_GO",
+  "reviewer": 215,
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-invocation-authority-independent-triage-215/return.md",
+    "sha256": "ab9d6dd51764bdf586674b7bf67b4857eac881dc00f877809d2c321b878f6686",
+    "byteCount": 4293
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current29-invocation-authority-independent-triage-215/pins.json",
+    "sha256": "e023ce5244f875f0ba7c2aa7541d62bca22b3942225d3bc774a643ecd64b947f",
+    "byteCount": 5679
+  },
+  "effects": "Only these new review carriers; no execution or repair."
+}

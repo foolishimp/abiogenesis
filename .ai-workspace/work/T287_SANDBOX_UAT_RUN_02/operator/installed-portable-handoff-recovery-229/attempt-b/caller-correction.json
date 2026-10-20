@@ -1,0 +1,40 @@
+{
+  "causeReference": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/pre-maintenance-comparator-rca.json",
+  "preservedFailedCaller": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/recover-stop-source.mjs",
+  "selectedAction": "Only replace executable-object reference equality with equality of canonical Public definition and typed-content owner coordinates; separate nominal verifier/resource owners and all real guards unchanged.",
+  "changedRegions": 1,
+  "priorOwnerResourceEntry": false,
+  "mechanicalCorrectionConstruction": "First expected literal used two indentation spaces while actual line used one; assertion stopped before caller write. Matched the exact unique existing line without changing any further region.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/recover-stop-source.mjs",
+      "sha256": "18fc0213f7363bff12d0f91da09e8630877c66b8cda1794f5e53132a867b5d47",
+      "byteCount": 25506
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/inputs.json",
+      "sha256": "1278578610dba94dcdc5ed7734c220991b0f0fe471ff5dfe1f5ebb02d435c2b7",
+      "byteCount": 4952
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/verify-artifacts.mjs",
+      "sha256": "e88aecf402cab7f59382af814f2dee56776d81fbf1f5ce4ba80663cea13509c0",
+      "byteCount": 2071
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/operation-resource.mjs",
+      "sha256": "36d5008da6cbe67af50dd2a17a6b5a9228892c5b0986fcb21e6be4454f768508",
+      "byteCount": 695
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/launch.mjs",
+      "sha256": "be043e241f8f4ff3427cabc3ae640df6dd4fcd753ecac86a25516d033e6ed33b",
+      "byteCount": 911
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/activation.json",
+      "sha256": "154357f8450083bd1956b81979368f7e9a792578515ddd896bd23cab0d2ac841",
+      "byteCount": 1966
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_07",
+  "workResult": "NO_GO_RECIPE_MEMBER_REFERENCE_ROUTING",
+  "closedAt": "2026-10-02T07:08:54.884568+00:00",
+  "returnTo": "Root Executive",
+  "noFurtherWrites": true,
+  "repairOrRetry": false,
+  "ReviewerActivated": false
+}

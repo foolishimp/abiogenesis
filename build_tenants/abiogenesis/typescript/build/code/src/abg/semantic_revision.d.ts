@@ -15,6 +15,8 @@ export declare function projectNativeSemanticRevisionRequest(basis: SemanticStag
 /** D2's job arm reuses this owner's parent/cause and physical-origin relations. */
 export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical?: boolean): {
     owner: {
+        events: readonly import("./event_store.js").RuntimeEvent[];
+        prefix: ValidatedRuntimeEventPrefix;
         publication: Readonly<import("../index.js").ModulePublication>;
         lifecycle: Readonly<import("../gtl/semantic_job.js").SemanticJobLifecycleDeclaration>;
         root: ExecutionBasis;
@@ -23,8 +25,6 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
         grant: import("../index.js").CapabilityGrant;
         role: "author" | "assessor" | null;
         stage: import("../index.js").SemanticStageDeclaration | undefined;
-        events: readonly import("./event_store.js").RuntimeEvent[];
-        prefix: ValidatedRuntimeEventPrefix;
         execution: ExecutionBasis;
         graph: Readonly<import("../index.js").GtlGraph>;
         call: import("./c_call.js").CCall;
@@ -137,6 +137,8 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
     counterevidenceAssets: import("../product/semantic_job.js").SemanticJobAsset[];
 } | {
     owner: {
+        events: readonly import("./event_store.js").RuntimeEvent[];
+        prefix: ValidatedRuntimeEventPrefix;
         publication: Readonly<import("../index.js").ModulePublication>;
         lifecycle: Readonly<import("../gtl/semantic_job.js").SemanticJobLifecycleDeclaration>;
         root: ExecutionBasis;
@@ -145,8 +147,6 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
         grant: import("../index.js").CapabilityGrant;
         role: "author" | "assessor" | null;
         stage: import("../index.js").SemanticStageDeclaration | undefined;
-        events: readonly import("./event_store.js").RuntimeEvent[];
-        prefix: ValidatedRuntimeEventPrefix;
         execution: ExecutionBasis;
         graph: Readonly<import("../index.js").GtlGraph>;
         call: import("./c_call.js").CCall;

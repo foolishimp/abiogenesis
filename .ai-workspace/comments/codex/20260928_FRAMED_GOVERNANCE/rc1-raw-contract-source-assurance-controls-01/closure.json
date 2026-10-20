@@ -1,0 +1,11 @@
+{
+  "operation": "T287_RAW_CONTRACT_SOURCE_ASSURANCE_GRANT_01",
+  "status": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/request.txt",
+    "bytes": 3861,
+    "sha256": "1b94f8a2e48685901634a6ffd0f8d456cee7aac9d568a137739dac44c6c31bbd"
+  },
+  "returnRole": "Executive",
+  "runtimeSourceGitNetworkEffects": 0
+}

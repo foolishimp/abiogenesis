@@ -1,0 +1,169 @@
+{
+  "status": "FIRST_FAILURE_LOCALIZED_WITHOUT_RETRY",
+  "fault": {
+    "code": "invalid_resource_assertion",
+    "definitionKey": {
+      "memberKey": "gtl_program",
+      "operationId": "abg.operation.conformance.evaluate"
+    },
+    "evidence": {},
+    "kind": "definition_execution_fault",
+    "message": "GTL Program conformance requires one exact typed publication and Program packet",
+    "schemaVersion": "5.0.0",
+    "stage": "resource_admission"
+  },
+  "ownerBoundary": {
+    "wrapper": "withAdmissionAuthority strips only admissionAuthority, authenticates resource digest/grants and reconstructs boundEnvironment; owner receives that separately",
+    "expectedKeys": [
+      "conformanceLaw",
+      "declarationCatalog",
+      "declaredInventory",
+      "kind",
+      "packet",
+      "schemaVersion"
+    ],
+    "observedKeys": [
+      "artifactTruth",
+      "conformanceLaw",
+      "declarationCatalog",
+      "declaredInventory",
+      "kind",
+      "packet",
+      "schemaVersion"
+    ],
+    "extraKeys": [
+      "artifactTruth"
+    ],
+    "missingKeys": [],
+    "otherInitialPredicateInputsValid": true,
+    "decisiveCause": "artifactTruth is an extra caller field rejected by exact keys before Program conformance evaluation"
+  },
+  "law": {
+    "actual": {
+      "ref": "law://abiogenesis/validator/gtl-program@5",
+      "digest": "sha256:60aed456f83753d7516635084f06768e4b068c227d10c32e3d3dcfb75fcc9f24"
+    },
+    "expected": {
+      "ref": "law://abiogenesis/validator/gtl-program@5",
+      "digest": "sha256:60aed456f83753d7516635084f06768e4b068c227d10c32e3d3dcfb75fcc9f24"
+    },
+    "equal": true
+  },
+  "packet": {
+    "kind": "conformance_evaluate_packet",
+    "schemaVersion": "5.0.0",
+    "memberKey": "gtl_program",
+    "program": {
+      "ref": "program://abiogenesis/conformance/hello-world@5",
+      "digest": "sha256:e1ac4c0cedc4eb6350369893db2c7768e05ce014697145d402cb86d47ce0afa9"
+    },
+    "programInPublication": true,
+    "publicationInInventory": true
+  },
+  "inventory": {
+    "declaredCount": 11,
+    "requestEquality": true,
+    "catalogEquality": true,
+    "coordinates": [
+      {
+        "ref": "module://abg/consensus@5",
+        "digest": "sha256:9476a5e9b2bef23d482be7e9d3f2fa71ea23f7e5e54613716cda26bc24e78bdb"
+      },
+      {
+        "ref": "module://abiogenesis/conformance/hello-world@5",
+        "digest": "sha256:89c8944abda8cf928f82ea8d85f7d27be4812924ecd1c0e887a784582c2a76e5"
+      },
+      {
+        "ref": "module://abiogenesis/default-library/default@5",
+        "digest": "sha256:f0a5a31f3b05b346e40aa217bbfa47987876f1670b71a6246263b9f4c6e5550d"
+      },
+      {
+        "ref": "module://abiogenesis/qualification/self-conformance@5",
+        "digest": "sha256:a68f029f3380429d17beab1f61b064d06db327d58f85e10d01c5517224dcd959"
+      },
+      {
+        "ref": "module://abiogenesis/requirement-handoff@5",
+        "digest": "sha256:96295e003ad9350c616bb3cfa32b3ae4c4495e1cecdd2461f53c13906853a35f"
+      },
+      {
+        "ref": "module://abiogenesis/semantic-revision@5",
+        "digest": "sha256:c711df2380f3857e545de99fdaccf79da9ebf404e71e177241a788fc13886cc6"
+      },
+      {
+        "ref": "module://abiogenesis/semantic-stage@5",
+        "digest": "sha256:27ac8a8aad662750a75e0e56894303afdfd1524b53184bcb6aa9b6b9f2a5aaf0"
+      },
+      {
+        "ref": "module://abiogenesis/worksite/command-execution@5",
+        "digest": "sha256:bae2c5ba5f2bf02a9177c874f65fa114ea7f6d5b1abdcd43dda74746f1304749"
+      },
+      {
+        "ref": "module://abiogenesis/worksite/command-forward@5",
+        "digest": "sha256:6eb0736be20ca2af67ba6a4b9c3f67fbdc7e12133ba93c041830d56a04e6257f"
+      },
+      {
+        "ref": "module://abiogenesis/worksite/construction@5",
+        "digest": "sha256:b920d254edeff6ddc8a11cb9741d0413102bf0e5c61427358fdb30ff31ace37c"
+      },
+      {
+        "ref": "module://abiogenesis/worksite/native-work@5",
+        "digest": "sha256:e43d4cd0ebd4f12f6db238db39398ebde9b4f37af144309855d4076585173a2a"
+      }
+    ]
+  },
+  "selection": {
+    "actual": {
+      "kind": "admission_environment_selection",
+      "schemaVersion": "5.0.0",
+      "prefix": {
+        "coordinateDigest": "sha256:7cb5efb8e5a16babfeb0c51dbb943913be21281e0e64f3bc8f6e94dcc6dd4757",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+        "prefixLength": 2475382,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464012478
+        }
+      },
+      "workspaceBinding": {
+        "ref": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+        "digest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8"
+      }
+    },
+    "currentPrefixAndBindingEqual": true,
+    "callerArtifactTruthEqualsFreshReadOnlyOwnerProjection": true,
+    "artifactTruthDigest": "sha256:de46208336bcbb78fc2f02bcd4c66f7879be07c134eb9665bc41eed02c0181fc",
+    "limit": "Equal content does not legalize a field absent from this owner resource contract"
+  },
+  "authority": {
+    "actor": "actor://abiogenesis/t287/final-native-setup-03/operator",
+    "workspaceBinding": {
+      "digest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+      "ref": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8"
+    },
+    "productSet": [
+      {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+        "digest": "sha256:af3bce94667637bb901110cc3d93288960c2dd0d9eb8a198bdbe29efbb541ee7"
+      }
+    ],
+    "dependencyLock": {
+      "ref": "product-lock://abiogenesis/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+      "digest": "sha256:669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695"
+    },
+    "resourceDigestMatches": true,
+    "scopeDigestMatches": true
+  },
+  "catalog": {
+    "digest": "sha256:1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907",
+    "ref": "graph-function-catalog://abiogenesis/1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907"
+  },
+  "catalogView": {
+    "digest": "sha256:2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723",
+    "ref": "graph-function-catalog-view://abiogenesis/2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723"
+  },
+  "remainingSemanticUncertainty": "Owner declaration closure and validateProgram are downstream of this rejected boundary and were not executed. No corrected conformance/start/read call was constructed or run."
+}

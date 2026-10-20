@@ -1,0 +1,19 @@
+{"phase":"full_sandbox_public_setup","ordinal":1,"label":"eventless"}
+✖ setup native lifetime retains actual successors and closes on result, refusal and exception (2.626584ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 283.440916
+
+✖ failing tests:
+
+test at build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs:39:1
+✖ setup native lifetime retains actual successors and closes on result, refusal and exception (2.626584ms)
+  TypeError [Error]: abg.abgEventLocatorDigest is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs:70:118)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

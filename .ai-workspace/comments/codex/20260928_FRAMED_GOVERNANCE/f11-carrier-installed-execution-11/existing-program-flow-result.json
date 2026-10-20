@@ -1,0 +1,44 @@
+{
+  "mechanicalPath": "completed_remaining_path",
+  "reusedAssessmentRun": "run://abiogenesis/06b733f76d8f9b5318185ed785f5ed130b3d7b6499ff431e230d44ea1b2d1964",
+  "selfConformanceRun": {
+    "digest": "sha256:ec294a641dcf797de0f943d6e53dfd73edf492e52f98c500823496f16af16809",
+    "ref": "run://abiogenesis/ee76004ae6e754c1d1cd64b97df3e1c9cbdd1f3b28adaa5269fc17bd96537b55"
+  },
+  "verdictRun": {
+    "digest": "sha256:b5fa347b412b8e6b3ebdf9ed9364180f7dd45e203b89b13d10013b78b93cf13f",
+    "ref": "run://abiogenesis/426d549825a1d613314c98049f00a7c85e455bf2ab50539f651af0d873ee9cb1"
+  },
+  "newCompletedRuns": 2,
+  "newFreshCLIReads": 4,
+  "reusedCompletedRuns": 1,
+  "reusedFreshCLIReads": 2,
+  "projectionChecks": {
+    "admittedAssessment": true,
+    "warmMissingResourceRefused": true,
+    "crossedResultRefused": true,
+    "semanticQualification": false
+  },
+  "final": {
+    "soleAF22": "c-call:sha256:727aeefe1835de9b410305a067535d61c83478e63279a32567773368e94637da",
+    "disposition": "red",
+    "releaseAuthorization": false
+  },
+  "originalAssessmentProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/selected-native-child-proof.json",
+    "bytes": 62866,
+    "sha256": "f41eadaa23a5b0ebab75ea45f0e017fc76521b5be92ad30f9786d036f2535d5b",
+    "mode": 420
+  },
+  "childGraphFoldback": {
+    "status": "actual",
+    "childCCallRef": "c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c",
+    "childGraphCallRef": "graph-call://abiogenesis/59eec0f5583145ae1d79bcf302f40ac7e3231df97c778257b8e83f64d3cbfac6",
+    "foldbackEventRef": "event://abiogenesis/6b9e38aab6d4d37986393c7b43c9f42f4ec2b0ed4ac70a59575ff1b89fb28491",
+    "childCloseEventRef": "event://abiogenesis/4187d90af47e82e951ef8ac8e2a28fbe920dad87f07b8ba4a50c143629763c72",
+    "parentCloseEventRef": "event://abiogenesis/f2f4562bb58d871156caf352ab33af32b159a22e7d694e2c80c6e7ee6d7ae894",
+    "runCloseEventRef": "event://abiogenesis/c3cde879439eca359181908561c5c1e387fd9412d5860a7b1616d9f9669231cd",
+    "semanticQualification": false
+  },
+  "fullQualification": false
+}

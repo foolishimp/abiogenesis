@@ -1,0 +1,228 @@
+{
+  "reviewCheckProcessCount": 22,
+  "reviewCheckElapsedMs": 3541.410045048024,
+  "aggregateCapMs": 600000,
+  "perProcessCapMs": 120000,
+  "ownedGraceMs": 1000,
+  "processes": [
+    {
+      "process": "bootstrap-and-source-discovery",
+      "elapsedMs": 69.22770896926522,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "source-discovery",
+      "command": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/source-discovery.py"
+      ],
+      "elapsedMs": 89.71266727894545,
+      "exitCode": 0,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "source-discovery.stdout",
+      "stderr": "source-discovery.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "causal-shapes",
+      "command": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/causal-shapes.py"
+      ],
+      "elapsedMs": 46.45629180595279,
+      "exitCode": 0,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "causal-shapes.stdout",
+      "stderr": "causal-shapes.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "terminal-checks",
+      "command": [
+        "node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/terminal-checks.mjs"
+      ],
+      "elapsedMs": 436.1581667326391,
+      "exitCode": 0,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "terminal-checks.stdout",
+      "stderr": "terminal-checks.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "causal-source-targeted-read",
+      "elapsedMs": 6.299624685198069,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "read-source-coordinate-discovery",
+      "elapsedMs": 68.25016671791673,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "causal-owner-signatures",
+      "elapsedMs": 9.449624922126532,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "causal-checks",
+      "command": [
+        "node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/causal-checks.mjs"
+      ],
+      "elapsedMs": 444.7833332233131,
+      "exitCode": 0,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "causal-checks.stdout",
+      "stderr": "causal-checks.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "process-authority-source",
+      "command": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/process-authority-source.py"
+      ],
+      "elapsedMs": 47.84191679209471,
+      "exitCode": 0,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "process-authority-source.stdout",
+      "stderr": "process-authority-source.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "physical-process-checks",
+      "command": [
+        "node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/physical-process-checks.mjs"
+      ],
+      "elapsedMs": 945.1869996264577,
+      "exitCode": 1,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "physical-process-checks.stdout",
+      "stderr": "physical-process-checks.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "conformance-resource-source-discovery",
+      "elapsedMs": 1.324583776295185,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "physical-process-checks-02",
+      "command": [
+        "node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/physical-process-checks-02.mjs"
+      ],
+      "elapsedMs": 901.6958340071142,
+      "exitCode": 0,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "physical-process-checks-02.stdout",
+      "stderr": "physical-process-checks-02.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "setup-shapes",
+      "command": [
+        "python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/setup-shapes.py"
+      ],
+      "elapsedMs": 83.81104189902544,
+      "exitCode": 0,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "setup-shapes.stdout",
+      "stderr": "setup-shapes.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "setup-coordinate-and-source-discovery",
+      "elapsedMs": 1.3211672194302082,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "function-walk-source-discovery",
+      "elapsedMs": 86.23495884239674,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "function-walk-source-spans",
+      "elapsedMs": 0.6202920340001583,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "setup-binding-checks",
+      "command": [
+        "node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/setup-binding-checks.mjs"
+      ],
+      "elapsedMs": 138.39050009846687,
+      "exitCode": 1,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "setup-binding-checks.stdout",
+      "stderr": "setup-binding-checks.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "product-set-digest-role-discovery",
+      "elapsedMs": 1.1326665990054607,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "setup-binding-checks-02",
+      "command": [
+        "node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/setup-binding-checks-02.mjs"
+      ],
+      "elapsedMs": 142.53587508574128,
+      "exitCode": 0,
+      "timedOut": false,
+      "ownedGroupSignals": [],
+      "stdout": "setup-binding-checks-02.stdout",
+      "stderr": "setup-binding-checks-02.stderr",
+      "nativeCalls": 0
+    },
+    {
+      "process": "function-walk-final-source-verification",
+      "elapsedMs": 14.765791594982147,
+      "exitCode": 0,
+      "nativeCalls": 0
+    },
+    {
+      "process": "failed-source-export-filename-discovery",
+      "elapsedMs": 4.740333,
+      "elapsedBasis": "observed exec tool wall time; normal in-script timer was not reached",
+      "exitCode": 1,
+      "nativeCalls": 0,
+      "failureRecord": "harness-failure-01.json"
+    },
+    {
+      "process": "method-frame-source-verification",
+      "elapsedMs": 1.470500137656927,
+      "exitCode": 0,
+      "nativeCalls": 0
+    }
+  ],
+  "historicalOriginalTwelveNativeElapsedSumMs": 126350.17,
+  "historicalNativeCostIsNotSupplementExecution": true,
+  "supplementNativeCalls": 0,
+  "reportFinalization": "separate report-only write/hash; no native, source repair or moving-resource effects",
+  "unmeasured": "model reasoning wall time is not represented as process execution time"
+}

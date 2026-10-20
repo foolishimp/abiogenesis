@@ -1,18 +1,25 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import fs from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { performance } from 'node:perf_hooks';
+import { SourceTextModule, SyntheticModule } from 'node:vm';
 import { loadWorksiteOwner, worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
 import * as p from '../../build/code/src/product/index.js';
 import { constructNativeWorkspaceWorkObservation } from '../../build/code/src/product/native_workspace_work.js';
+import { resolveExecutionDeclarationClosure } from '../../build/code/src/product/declaration_closure.js';
+import { isNativeWorkerResultAssessment } from '../../build/code/src/abg/transport_contracts.js';
 import { deepFreeze } from '../../build/code/src/shared/immutable.js';
-import { selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent } from '../../build/code/src/abg/event_prefix.js';
+import { selectValidatedRuntimeEventPrefix, selectOwnedRuntimeEventPrefix, readOwnedRuntimeEventPrefixAtDurablePrefix,
+  validatedRuntimeEventPrefixBeforeEvent } from '../../build/code/src/abg/event_prefix.js';
+import { createNewEmptyAppendSink, admitRuntimeEvent, admitRuntimeEventBatch,
+  selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';
 import { projectNativeWorkCommandSourceAtPrefix } from '../../build/code/src/abg/native_worksite_execution.js';
 import { deriveInvocationSourceResultBasisAtPrefix } from '../../build/code/src/abg/invocation_admission.js';
 import { projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
-import { ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS as semantics } from '../../build/code/src/product/builtin_semantics.js';
+import { ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS as semantics,
+  ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS as nativeSemantics } from '../../build/code/src/product/builtin_semantics.js';
 import { realizeWorksiteCommandExecution } from '../../build/code/src/implementation/worksite_command_execution.js';
 import { worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt,
   worksiteCommandExecutionWorkerResultSchema } from '../../build/code/src/product/worksite_command_execution.js';
@@ -44,6 +51,56 @@ async function fixture(t) {
     actorInvocationRef: 'actor-invocation://native-c2/component', transportBindingRef: 'transport://native-c2/component',
     transportBindingDigest: hash({ t: 1 }), promptDigest: hash({ p: 1 }), transportDigest: hash({ t: 2 }) });
   return { ...env, source, input: inputFor(source, ['changed.txt', 'unchanged.txt']) };
+}
+async function componentNativeAssessment(source){
+  // The existing F04 component premise supplies installation/admission facts.
+  // Actual declaration closure, singleton owner lookup, native report validation
+  // and the LeafInvocationPort preimage verifier execute without replacement.
+  const nativeIds=p.NATIVE_WORKSPACE_WORK_IDS;
+  const supplied=JSON.parse(await fs.readFile(process.env.ABI5_NATIVE_SOURCE_READY_CATALOG,'utf8'));
+  const catalog=p.admitGraphFunctionCatalog(supplied.readinessBasis);
+  assert.equal(catalog.kind,'graph_function_catalog',JSON.stringify(catalog));
+  assert.deepEqual(catalog,supplied,'complete Catalog rederives from actual finite installed owner facts');
+  const publication=catalog.boundPublications.find(row=>row.moduleRef===nativeIds.moduleRef);assert(publication);
+  const install=catalog.readinessBasis.installedProducts.find(row=>row.productId===publication.owningProductId);assert(install);
+  const view=p.narrowGraphFunctionCatalog(catalog,[nativeIds.graphFunctionRef]);assert.equal(view.kind,'graph_function_catalog_view');
+  const closure=resolveExecutionDeclarationClosure(catalog,view,nativeIds.programRef,nativeIds.graphFunctionRef);
+  assert.equal(closure.kind,'resolved_execution_declaration_closure',JSON.stringify(closure));
+  const binding=publication.implementationBindings.find(row=>row.implementationRef===nativeIds.implementationRef);
+  const publicationDigest=p.modulePublicationSemanticDigest(publication);
+  const row=deepFreeze({...binding,implementationBindingRef:binding.bindingRef,implementationOwnerProductId:install.productId,
+    implementationPublicationDigest:publicationDigest,graphFunctionRef:nativeIds.graphFunctionRef,programLocusRef:nativeIds.nodeRef});
+  const set=deepFreeze({rows:[row],implementationSetRef:'implementation-set://native-c2/component',
+    implementationSetDigest:hash({rows:[row]})});
+  const projection={...install,publicationDigest,bindingRef:publication.productSemanticsBinding.bindingRef};
+  const file=resolve(import.meta.dirname,'../../build/code/src/implementation/leaf_invocation_port.js');
+  const module=new SourceTextModule(await fs.readFile(file,'utf8'),{identifier:file});
+  const overrides={
+    '../abg/environment_admission.js':{hasAdmittedProductInstall:()=>true},
+    '../abg/execution_basis.js':{hasAdmittedImplementationSetAtPrefix:()=>true},
+    '../product/semantics.js':{inspectProductLeafSemanticsProjection:()=>({projection,
+      runtime:{...nativeSemantics,verifyInstalledContent:async()=>true}})},
+  };
+  await module.link(async specifier=>{
+    const native=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+    const values={...native,...overrides[specifier]};
+    return new SyntheticModule(Object.keys(values),function(){for(const[key,value]of Object.entries(values))this.setExport(key,value);});
+  });await module.evaluate();
+  const port=await module.namespace.constructAdmittedLeafInvocationPort({prefix:{},artifactTruth:{},implementationSet:set,
+    semanticsProjection:projection,graphFunctionRef:nativeIds.graphFunctionRef,
+    executionResolution:{declarationClosure:closure,declarationPublications:closure.publications,ownerInstalls:[install]}});
+  const preimage={resolution:row,input:source.task,inputDigest:hash(source.task),instructionContractRef:nativeIds.taskContractRef,
+    rawResultContractRef:nativeIds.workerReportContractRef,rawResult:source.report};
+  const verification=port.verifyProbabilisticResultContractPreimage(preimage);
+  assert.equal(verification.kind,'verified_probabilistic_result_contract_preimage',JSON.stringify(verification));
+  assert.equal(port.verifyProbabilisticResultContractPreimage({...preimage,rawResult:{...source.report,summary:17}}).kind,
+    'probabilistic_result_contract_preimage_refusal');
+  const output=JSON.stringify(source.report);
+  const assessment=deepFreeze({kind:'native_worker_result_assessment',schemaVersion:'5.0.0',
+    resultContractRef:nativeIds.workerReportContractRef,inputDigest:preimage.inputDigest,rawOutputDigest:p.sha256Bytes(output),
+    disposition:'admitted',verification});
+  assert.equal(isNativeWorkerResultAssessment(assessment,output,assessment.resultContractRef,assessment.inputDigest),true);
+  return assessment;
 }
 test('native C2 selects changed and unchanged files without acquiring C1 identity', async t => {
   const env = await fixture(t), task = p.constructNativeWorksiteCommandExecutionTask(env.input);
@@ -77,6 +134,92 @@ test('changed physical source refuses before archive publication or native dispa
     graphCallId: 'graph-call://native-c2/component', frameId: 'frame://native-c2/component', programLocusRef: ids.nodeRef,
     taskOrdinal: null, attempt: 1, executionAuthority: null }), /protected worksite observation changed/);
   await assert.rejects(fs.stat(env.workspaceBinding.roots.archiveRoot), { code: 'ENOENT' });
+});
+test('native source selection preserves complete values and exact membership across long producer history and cold coordinates',
+  {skip:process.env.ABI5_NATIVE_SOURCE_READY_CATALOG===undefined},async t=>{
+  const env=await fixture(t),task=p.constructNativeWorksiteCommandExecutionTask(env.input),source=env.source;
+  const nativeResultAssessment=await componentNativeAssessment(source);
+  const path=join(env.scratch,'native-source-selection.jsonl'),opened=createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});
+  assert(opened.store);t.after(()=>opened.store.closeDurableLog());
+  const basis={basisRef:'execution-basis://selected-native/source',graphFunctionRef:p.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef,
+    rawInputValue:source.task,workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest,
+    invocationAdmissionRef:'invocation://selected-native',closureContractRef:'closure://selected-native'};
+  // Real Product values and finite EventStore/codec/cold reads. Invocation and
+  // execution-basis lookup are disclosed lower premises, not F_P admission.
+  const file=new URL('../../build/code/src/abg/native_worksite_execution.js',import.meta.url),module=new SourceTextModule(await fs.readFile(file,'utf8'),{identifier:file.pathname});
+  let namedReads=0,extentReads=0;
+  await module.link(async specifier=>{
+    const native=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file.pathname),specifier)).href);
+    const values={...native,
+      ...(specifier==='./invocation_execution_truth.js'?{
+        projectExactExecutionBasisAtPrefix:(_prefix,ref)=>ref===basis.basisRef?basis:null,
+        projectExactInvocationAdmissionAtPrefix:()=>({workspaceId:env.workspaceAuthorityBasis.workspaceId,
+          workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest})}:{}),
+      ...(specifier==='./event_prefix.js'?{
+        runtimeEventAtPrefix:(...args)=>{namedReads++;return native.runtimeEventAtPrefix(...args);},
+        runtimeEventSelectorExtent:(...args)=>{extentReads++;return native.runtimeEventSelectorExtent(...args);}}:{})};
+    return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
+  });await module.evaluate();
+  const projection=module.namespace.projectNativeWorkspaceWorkSourceAtPrefix,admittedTask=module.namespace.admittedNativeTask;
+  const candidate=(kind,payload,{aggregateType='c_call',aggregateId=source.provenance.cCallRef,parentAggregateId=null,causationEventRefs=[],basisId=basis.basisRef,...extra}={})=>({
+    kind,payload,eventTime:'2026-10-10T00:00:00.000Z',aggregateType,aggregateId,parentAggregateId,causationEventRefs,
+    correlationId:'correlation://selected-native',workflowVersion:'5.0.0',scopeClass:'run',basisId,
+    runId:'run://selected-native',graphCallId:'graph-call://selected-native',frameId:'frame://selected-native',graphFunctionRef:basis.graphFunctionRef,...extra});
+  const admit=(...args)=>admitRuntimeEvent(opened.store,candidate(...args));
+  admitRuntimeEventBatch(opened.store,[()=>candidate('c_call_opened',{cCallRef:source.provenance.cCallRef,cCallDigest:hash('source-call'),callClass:'leaf'}),
+    prior=>candidate('c_call_fibre_selected',{cCallRef:source.provenance.cCallRef,callClass:'leaf',armId:'arm://selected-native',
+      regime:'F_P',implementationRef:p.NATIVE_WORKSPACE_WORK_IDS.implementationRef,
+      implementationBindingRef:p.NATIVE_WORKSPACE_WORK_IDS.implementationBindingRef},{causationEventRefs:[prior.at(-1).eventId]})]);
+  const producerRows=512;
+  for(let i=0;i<producerRows;i++)admit('actor_process_stdout_observed',{actorInvocationRef:'actor-invocation://selected-native',
+    processRef:'process://selected-native',streamOrdinal:i+1,chunkDigest:hash(i),byteLength:37},
+    {aggregateType:'process',aggregateId:'process://selected-native',parentAggregateId:'actor-invocation://selected-native'});
+  const evidence=admit('c_call_evidenced',{cCallRef:source.provenance.cCallRef,contractRef:p.NATIVE_WORKSPACE_WORK_IDS.observationContractRef,
+    evidenceRef:'evidence://selected-native',evidenceDigest:hash('evidence'),evidenceClass:'probabilistic_transport',
+    implementationRef:p.NATIVE_WORKSPACE_WORK_IDS.implementationRef,inputDigest:hash(source.task),
+    transportDigest:source.provenance.transportDigest,outputDigest:hash(source),nativeResultAssessment});
+  const result=admit('c_call_result_admitted',{cCallRef:source.provenance.cCallRef,resultClass:'success',contractRef:p.NATIVE_WORKSPACE_WORK_IDS.observationContractRef,
+    value:source,valueDigest:hash(source),evidenceRefs:[evidence.payload.evidenceRef],resultRef:'result://selected-native',resultDigest:hash('result')});
+  const judgmentPayload={cCallRef:source.provenance.cCallRef,judgmentRef:'judgment://selected-native',judgmentDigest:hash('judgment'),
+    resultRef:result.payload.resultRef,resultDigest:result.payload.resultDigest,judgment:'advance',retryAttemptRef:null};
+  const judgment=admit('c_call_judged',judgmentPayload,{causationEventRefs:[result.eventId]});
+  const frame=admit('frame_closed',{frameId:'frame://selected-native',terminalReachedEventRef:judgment.eventId},
+    {aggregateType:'frame',aggregateId:'frame://selected-native',causationEventRefs:[judgment.eventId]});
+  const closed=admit('graph_call_closed',{closureContractRef:basis.closureContractRef,graphCallId:'graph-call://selected-native',frameClosedEventRef:frame.eventId},
+    {aggregateType:'graph_call',aggregateId:'graph-call://selected-native',causationEventRefs:[frame.eventId]});
+  admit('basis_admitted',{basisRef:'execution-basis://selected-task',basisDigest:hash('task-basis'),basisClass:'child',rawInputValue:task},
+    {aggregateType:'frame',aggregateId:'frame://selected-task',basisId:'execution-basis://selected-task'});
+  const owned=()=>selectOwnedRuntimeEventPrefix(opened.store),complete=()=>selectValidatedRuntimeEventPrefix(opened.store.readAll());
+  const expected=projection(complete(),source);assert(expected);
+  assert.deepEqual(projection(owned(),source),expected);
+  assert.deepEqual(admittedTask(owned(),JSON.parse(JSON.stringify(task))),task);
+  assert.equal(admittedTask(owned(),{...task,taskDigest:hash('changed')}),null);
+  namedReads=0;extentReads=0;const warmStarted=performance.now();assert.deepEqual(projection(owned(),source),expected);
+  const warmMs=performance.now()-warmStarted,beforeGrowth=namedReads,beforeExtents=extentReads;
+  assert.ok(beforeExtents>0&&beforeExtents<=3,'long completed producer membership uses bounded exact owner extents');
+  for(let i=0;i<64;i++)admit('public_operation_admitted',{invocationRef:'invocation://unrelated/'+i,invocationDigest:hash(i),
+    operationId:'abg.operation.project.read',variant:'status'},
+    {aggregateType:'workspace',aggregateId:'workspace://unrelated/'+i,basisId:'basis://unrelated/'+i});
+  namedReads=0;extentReads=0;assert.deepEqual(projection(owned(),source),expected);
+  assert.equal(namedReads,beforeGrowth,'unrelated history does not increase named source-body reads');
+  assert.equal(extentReads,beforeExtents,'unchanged producer versions do not reopen complete membership derivation');
+  assert.throws(()=>projection({...owned()},source));
+  const completeRows=opened.store.readAll(),coordinate=structuredClone(selectHeldEventStoreDurablePrefix(opened.store));
+  admit('c_call_judged',{...judgmentPayload,judgmentRef:'judgment://duplicate-native',judgmentDigest:hash('duplicate')},
+    {causationEventRefs:[result.eventId]});
+  assert.equal(projection(owned(),source),null,'changed authentic membership reopens duplicate-judgment refusal');
+  opened.store.closeDurableLog();
+  const cold=readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate);
+  assert.deepEqual(projection(cold,source),expected);assert.deepEqual(admittedTask(cold,JSON.parse(JSON.stringify(task))),task);
+  const counterexample=deepFreeze([...completeRows,{...judgment,eventId:'event://duplicate-native-judgment',
+    admissionOrdinal:completeRows.length+1,causationEventRefs:[result.eventId]}]);
+  assert.equal(projection(selectValidatedRuntimeEventPrefix(counterexample),source),null,'duplicate advancing producer judgment refuses');
+  assert.equal(projection(validatedRuntimeEventPrefixBeforeEvent(cold,closed.eventId),source),null,'missing source closure refuses');
+  const crossed=p.constructNativeWorkspaceWorkObservation(source.task,source.after,source.report,{...source.provenance,cCallRef:'c-call://foreign-native'});
+  assert.equal(projection(cold,crossed),null);
+  t.diagnostic(JSON.stringify({kind:'native_source_selection_component',eventCount:completeRows.length,logBytes:coordinate.prefixLength,namedReads:beforeGrowth,
+    producerRows,unrelatedRows:64,warmMembershipExtentReads:beforeExtents,warmMs,completeValuesConserved:true,nativeAdmission:false,
+    premises:'Invocation/execution and install/admission premises supplied; actual declaration closure/leaf report verifier, Product source/task predicates, EventStore, indexes, codec, source uniqueness and cold physical owner execute.'}));
 });
 const retainedPath = process.env.ABG_NATIVE_EXECUTION_RETAINED_LOG;
 test('retained actual native producer joins C2 source admission; absent and foreign origins refuse', { skip: retainedPath === undefined }, async t => {

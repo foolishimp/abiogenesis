@@ -1,0 +1,10 @@
+{
+  "command": [
+    "./node_modules/.bin/tsc",
+    "-p",
+    "tsconfig.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "elapsedSeconds": 5.53656345885247,
+  "exitCode": 0
+}

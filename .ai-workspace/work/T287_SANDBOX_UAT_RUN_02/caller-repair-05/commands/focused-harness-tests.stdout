@@ -1,0 +1,12 @@
+✔ Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse (1.000417ms)
+✔ Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner (11.479334ms)
+✔ Native refusal without an admitted Run is preserved before any refresh, reopen or read (0.21975ms)
+✔ Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes (2.387625ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 264.128542

@@ -1,0 +1,167 @@
+{
+  "operation": "T287_RC1_PUBLIC_GROUP_DESIGN_01",
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "knownPublicationMappingCone": {
+    "existing": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+        "preimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+          "bytes": 387254,
+          "sha256": "d7d8941e831c8d0bee507643ef8904b3b3a3be560181f48f5361b9837edd7082",
+          "mode": 420
+        },
+        "proposedEffect": "owning HOW appendix"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "preimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+          "bytes": 9923,
+          "sha256": "b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396",
+          "mode": 420
+        },
+        "proposedEffect": "static address/group/capability projection only"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "preimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+          "bytes": 42963,
+          "sha256": "79ce13a2998a3b3a805391650eaaf6d0f7d12592e7d0df0937bd0f7e06def4c8",
+          "mode": 420
+        },
+        "proposedEffect": "static address/group/capability projection only"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+        "preimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+          "bytes": 26651,
+          "sha256": "3e2cc54899f17d47c928c77fe39907befebce3314fbf9cc166ea7e3f6ecc9088",
+          "mode": 420
+        },
+        "proposedEffect": "static address/group/capability projection only"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/capability_contracts.ts",
+        "preimage": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/capability_contracts.ts",
+          "bytes": 26794,
+          "sha256": "b56acca42e5cd383c09a778e85cad1a993cf5abf20f318ece2fe1333075f3501",
+          "mode": 420
+        },
+        "proposedEffect": "static address/group/capability projection only"
+      }
+    ],
+    "new": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+        "preimage": "verified absent",
+        "proposedEffect": "re-export-only canonical contract entrypoint"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+        "preimage": "verified absent",
+        "proposedEffect": "re-export-only canonical contract entrypoint"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/requirements.ts",
+        "preimage": "verified absent",
+        "proposedEffect": "re-export-only canonical contract entrypoint"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/requirements.ts",
+        "preimage": "verified absent",
+        "proposedEffect": "re-export-only canonical contract entrypoint"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+        "preimage": "verified absent",
+        "proposedEffect": "re-export-only canonical contract entrypoint"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/m03_transport.ts",
+        "preimage": "verified absent",
+        "proposedEffect": "re-export-only canonical contract entrypoint"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/m04.ts",
+        "preimage": "verified absent",
+        "proposedEffect": "re-export-only canonical contract entrypoint"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/m05.ts",
+        "preimage": "verified absent",
+        "proposedEffect": "re-export-only canonical contract entrypoint"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-public-contract-groups.test.mjs",
+        "preimage": "verified absent",
+        "proposedEffect": "focused external typed import/content/catalog regression"
+      }
+    ],
+    "pathCount": 14,
+    "notSufficientForCompleteRC1ContentClosure": true
+  },
+  "notYetSelectedContentCone": {
+    "nativeOwnerCandidates": [
+      "code/src/gtl/canonicalization.ts",
+      "code/src/validator/raw_admission.ts",
+      "code/src/validator/validation.ts",
+      "code/src/validator/conformance_operation_contracts.ts",
+      "code/src/abg/event_store.ts",
+      "code/src/product/contracts.ts",
+      "code/src/product/install_product.ts",
+      "code/src/product/release_snapshot_operations.ts"
+    ],
+    "reason": "Required named contracts, canonical assets, schema sources and supersession meanings need exact owner selection; these paths are not a grant and no adapter or schema is selected here.",
+    "missingRequiredNativeNames": [
+      "CanonicalRuntimeEvent",
+      "RUNTIME_EVENT_KIND_VALUES",
+      "GtlProgramDiagnosticId",
+      "GTL_PROGRAM_DIAGNOSTIC_ID_VALUES",
+      "GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES",
+      "GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS",
+      "admitGtlProgramConformanceInput",
+      "typecheckGtlProgram",
+      "admitGraphFunction",
+      "serializeGraphFunction",
+      "admitModule",
+      "serializeModule",
+      "admitCProgramSyntax",
+      "serializeCProgramCanonical",
+      "GtlProgramConformanceInput",
+      "AbgTypescriptInstallerManifest"
+    ],
+    "missingRequiredAssetIdentities": [
+      "abg.schema.native-contract-inventory",
+      "abg.schema.capability-contract",
+      "abg.schema.closed-vocabulary",
+      "abg.schema.gtl-graph-function",
+      "abg.schema.gtl-module",
+      "abg.schema.gtl-c-program",
+      "abg.schema.gtl-program-conformance-input",
+      "abg.schema.catalog-product-descriptor",
+      "abg.schema.catalog-contribution-manifest",
+      "abg.schema.resolved-product-lock",
+      "abg.schema.workspace-binding",
+      "abg.schema.install-manifest",
+      "abg.schema.installer-manifest",
+      "abg.schema.catalog-admission",
+      "abg.schema.host-invocation",
+      "abg.schema.runtime-event",
+      "abg.schema.runtime-result",
+      "abg.schema.runtime-replay",
+      "abg.schema.fh-interaction",
+      "abg.schema.release-snapshot",
+      "abg.schema.a5-r1-release-manifest",
+      "abg.vocabulary.runtime-event-kind",
+      "abg.vocabulary.gtl-program-diagnostic-id",
+      "abg.vocabulary.gtl-program-repair-edit-class",
+      "abg.asset.gtl.language-conformance-corpus"
+    ]
+  },
+  "callers": "existing seven generic addresses and closed PublicFunctionDefinition projections conserved; new required-address import proof and current manifest generator consume owner-defined contracts; no Runtime caller migration in this base scope",
+  "successor": "Root joins independently accepted parent repair and complete selected publication/content source scope before ONE successor. All emitted paths/counts/digests measured, not assumed from C09."
+}

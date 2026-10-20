@@ -1,0 +1,43 @@
+{
+  "managedPurePreflight": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/f11/delta-preflight.mjs"
+    ],
+    "pid": 16176,
+    "processGroup": 16176,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "exitCode": 1,
+    "timedOut": false,
+    "elapsedMs": 71.69329188764095,
+    "maxRSSBytesMacOS": 45301760,
+    "userSeconds": 0.015636999999999998,
+    "systemSeconds": 0.005827,
+    "RuntimeEffects": 0
+  },
+  "preflightStderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-13/delta-preflight.stderr",
+    "bytes": 839,
+    "sha256": "66cc931dc2edc51604920cc058c8a5be26ccaaabdc9b1b15500fcb693d05d286",
+    "mode": 384
+  },
+  "managedPurePreflightLaunches": 1,
+  "completeTaskPayloads": 0,
+  "packetPayloads": 0,
+  "publishedProductImports": 0,
+  "fullResourceBodyMaterialization": 0,
+  "resourceSerializationBytes": null,
+  "assertionSerializationBytes": null,
+  "requestOrPromptBytes": null,
+  "qualificationCommandsExecuted": 0,
+  "nativeTaskRunJHelperProviderCalls": 0,
+  "SourceChanges": 0,
+  "builds": 0,
+  "candidateChanges": 0,
+  "GitEffects": 0,
+  "networkEffects": 0,
+  "retries": 0,
+  "defaultHeap": true,
+  "ordinaryHOME": true
+}

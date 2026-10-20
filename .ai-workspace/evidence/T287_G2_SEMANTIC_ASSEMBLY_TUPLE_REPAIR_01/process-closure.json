@@ -1,0 +1,58 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "groups": [
+    {
+      "label": "preflight",
+      "pid": 66915,
+      "pgid": 66915,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "compile",
+      "pid": 67044,
+      "pgid": 67044,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "manifest",
+      "pid": 67723,
+      "pgid": 67723,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "pack",
+      "pid": 69730,
+      "pgid": 69730,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "extract",
+      "pid": 69981,
+      "pgid": 69981,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "schema_preflight",
+      "pid": 70239,
+      "pgid": 70239,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    },
+    {
+      "label": "focused",
+      "pid": 70421,
+      "pgid": 70421,
+      "wait4Reaped": true,
+      "absentAtClose": true
+    }
+  ],
+  "allKnownGroupsReapedAndAbsent": true,
+  "extractShimDiagnosticRetained": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/proofs/extract.stderr",
+  "defaultHeap": true,
+  "HOMEUnchanged": true
+}

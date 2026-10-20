@@ -1,0 +1,46 @@
+{
+  "operation": "T287_F11_C09_PROOF_CONSUMER_PREPARATION_10",
+  "status": "CLOSED_PREPARATION_ONLY",
+  "pureProbe": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/diagnostic-trap-probe.mjs"
+    ],
+    "pid": 17625,
+    "processGroup": 17625,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "exitCode": 0,
+    "timedOut": false,
+    "elapsedMs": 31.63895895704627,
+    "maxRSSBytesMacOS": 46989312,
+    "userSeconds": 0.016876,
+    "systemSeconds": 0.0046489999999999995,
+    "defaultHeap": true,
+    "HOME": "/Users/jim",
+    "ProductImports": 0,
+    "RunOrResourceEffects": 0
+  },
+  "syntaxModules": 10,
+  "futureBudgetsSeconds": {
+    "nominal": 180,
+    "flow": 600,
+    "stages": 180,
+    "reads": 60
+  },
+  "defaultHeap": true,
+  "HOME": "/Users/jim",
+  "ProductImports": 0,
+  "RunOrResourceEffects": 0,
+  "providerCalls": 0,
+  "SourceGitBuildQualificationEffects": 0,
+  "noPayloadExecuted": true,
+  "startingEventUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+    "bytes": 2844807,
+    "sha256": "374f6dddb7191acb4da6e9e5d093d4e247fcddb2139ece8dcd4c90159b9596a5",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464941019
+  }
+}

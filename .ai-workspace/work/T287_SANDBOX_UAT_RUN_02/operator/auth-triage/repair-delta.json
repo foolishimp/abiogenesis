@@ -1,0 +1,18 @@
+{
+  "changes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "preimageSha256": "8d9420bf16d6178f5a72b7397140abfdf2b1727a6d459898763efdfb8a6a5e88",
+      "postimageSha256": "bcd65d86f9f2fece3695342c977ad1fe72f0381f54e238811e53883d17355a4d",
+      "addedEnvironmentName": "CLAUDE_CODE_OAUTH_TOKEN"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-auth-02.json",
+      "sha256": "413824692abe66b374973af16446fa28a1b0d8626f79aaf5ce2b34a3ee31588b",
+      "onlySemanticDelta": "provider.inheritEnvironment adds CLAUDE_CODE_OAUTH_TOKEN"
+    }
+  ],
+  "originalConfigPreserved": true,
+  "candidateProductionIdentityUnchanged": true,
+  "credentialValuesWritten": false
+}

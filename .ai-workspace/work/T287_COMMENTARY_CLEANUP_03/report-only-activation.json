@@ -1,0 +1,17 @@
+{
+  "activatedUTC": "2026-10-04T07:38:54.055115+00:00",
+  "actor": "/root/rc1_c03_install_review",
+  "grant": "Root explicit REPORT FINALIZATION ONLY after saved result/terminal console error triangulation",
+  "oldArtifactsReadonly": true,
+  "operation": "T287_COMMENTARY_CLEANUP_DELETE_03_REPORT_ONLY_CLOSURE",
+  "payloadRerunAuthorized": false,
+  "reentry": "realization_refactor",
+  "role": "Worker",
+  "unlinksAuthorized": 0,
+  "writeOnly": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03/report-only-activation.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/closure.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/report-finalization.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/execution-freeze.json"
+  ]
+}

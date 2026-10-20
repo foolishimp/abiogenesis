@@ -1,0 +1,369 @@
+{
+  "scope": "Pure retained-input component reproduction; not a retained historical draft or newly authenticated runtime assembly",
+  "premises": [
+    "Exact native38 inline input/output Result bodies and real declared stage/role/source spans.",
+    "Existing instruction-assembly implementation executes with disclosed basis/role/current-context authentication premises, as existing focused component fixture.",
+    "Only an in-memory observation hook before unchanged byte guard; no cap change.",
+    "Source content comes from exact retained author/selector prompt span identities; STDO access projection reused from same invocation.",
+    "Current native target/origin projection is empty preconstruction as retained author prompt; no physical/history acquisition."
+  ],
+  "installedOwnerSha256": "sha256:60a2f44aba88642c9bbdeabf888cd1ca4870bf1b5b7596a0702ad96afc4fd6cb",
+  "inputDigest": "sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566",
+  "authorControl": {
+    "promptBytes": 986751,
+    "retainedPromptBytes": 986751,
+    "sectionsEqual": true,
+    "resultKind": "native_instruction_assembly"
+  },
+  "assessor": {
+    "promptBytes": 1051303,
+    "maxPromptBytes": 1048576,
+    "overflowBytes": 2727,
+    "result": {
+      "kind": "native_instruction_assembly_refusal",
+      "cause": "declared_bound_overflow",
+      "policy": "assembly://odd-glc/generic-lifecycle/design@5",
+      "role": "assessor",
+      "unresolvedRefs": [
+        "maxPromptBytes"
+      ]
+    },
+    "promptDigest": "sha256:dbda1460205a94bf96a1cced7e3318da821ee8544ab130848fdd5f1bb03bb813",
+    "sectionFramingBytes": 107
+  },
+  "inventory": {
+    "role": {
+      "bytes": 115596,
+      "members": [
+        {
+          "name": "native",
+          "bytes": 3421
+        },
+        {
+          "name": "actorContract",
+          "bytes": 21298
+        },
+        {
+          "name": "environment",
+          "bytes": 90834
+        }
+      ]
+    },
+    "source": {
+      "bytes": 6709,
+      "members": [
+        {
+          "index": 0,
+          "bytes": 6707
+        }
+      ]
+    },
+    "obligations": {
+      "bytes": 156072,
+      "members": [
+        {
+          "name": "jobRef",
+          "bytes": 93
+        },
+        {
+          "name": "installedTemplates",
+          "bytes": 620
+        },
+        {
+          "name": "activeBindings",
+          "bytes": 68465
+        },
+        {
+          "name": "groundedRequirements",
+          "bytes": 29474
+        },
+        {
+          "name": "applicationCoverage",
+          "bytes": 13
+        },
+        {
+          "name": "remainingGaps",
+          "bytes": 124
+        },
+        {
+          "name": "retainedTerms",
+          "bytes": 57151
+        }
+      ]
+    },
+    "predecessors": {
+      "bytes": 76638,
+      "members": [
+        {
+          "index": 0,
+          "bytes": 393
+        },
+        {
+          "index": 1,
+          "bytes": 394
+        },
+        {
+          "index": 2,
+          "bytes": 399
+        },
+        {
+          "index": 3,
+          "bytes": 75447
+        }
+      ]
+    },
+    "worksite": {
+      "bytes": 225506,
+      "members": [
+        {
+          "name": "scope",
+          "bytes": 286
+        },
+        {
+          "name": "observationRole",
+          "bytes": 26
+        },
+        {
+          "name": "currentRevisionTargets",
+          "bytes": 2
+        },
+        {
+          "name": "origins",
+          "bytes": 2
+        },
+        {
+          "name": "observation",
+          "bytes": 225109
+        }
+      ]
+    },
+    "evidence": {
+      "bytes": 349,
+      "members": [
+        {
+          "name": "observed",
+          "bytes": 4
+        },
+        {
+          "name": "evaluationData",
+          "bytes": 4
+        },
+        {
+          "name": "environmentAccess",
+          "bytes": 289
+        }
+      ]
+    },
+    "task": {
+      "bytes": 468714,
+      "members": [
+        {
+          "name": "stageRef",
+          "bytes": 44
+        },
+        {
+          "name": "assetKind",
+          "bytes": 26
+        },
+        {
+          "name": "purpose",
+          "bytes": 109
+        },
+        {
+          "name": "requiredContent",
+          "bytes": 675
+        },
+        {
+          "name": "rubric",
+          "bytes": 1248
+        },
+        {
+          "name": "bodyCapabilities",
+          "bytes": 19
+        },
+        {
+          "name": "taskData",
+          "bytes": 1305
+        },
+        {
+          "name": "currentCandidateRef",
+          "bytes": 99
+        },
+        {
+          "name": "revisionContext",
+          "bytes": 71124
+        },
+        {
+          "name": "historicalAssets",
+          "bytes": 393905
+        }
+      ]
+    },
+    "response": {
+      "bytes": 1612,
+      "members": [
+        {
+          "name": "type",
+          "bytes": 8
+        },
+        {
+          "name": "additionalProperties",
+          "bytes": 5
+        },
+        {
+          "name": "properties",
+          "bytes": 1494
+        },
+        {
+          "name": "required",
+          "bytes": 46
+        }
+      ]
+    }
+  },
+  "selectedSourceSpans": [
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 51219,
+      "memberDigest": "sha256:80a66946d4767b1ff857aad4bbaba696b591cd7e7529324c2ece8ced9754ced5",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/SPEC_METHOD.md",
+      "path": "standards/SPEC_METHOD.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:6eb574fc5cdb0e2157f0d0b90d93a306e520964bd42fe7bb91a7a1daeedf205d",
+      "startByte": 47166,
+      "textBytes": 4053
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 5630,
+      "memberDigest": "sha256:80a66946d4767b1ff857aad4bbaba696b591cd7e7529324c2ece8ced9754ced5",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/SPEC_METHOD.md",
+      "path": "standards/SPEC_METHOD.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:9fac422af08221d1af95fa135e91178cb7c9d25137f2f77a3dd7a1a8900e1dcc",
+      "startByte": 4130,
+      "textBytes": 1500
+    },
+    {
+      "contextRef": "context://odd-glc/fresh-native-config/current-meaning@5",
+      "endByte": 13840,
+      "memberDigest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+      "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+      "path": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+      "sourceLocator": "basis://odd-glc/fresh-native-config/9780971880110d0a1c107899aff2c3668150fcd87b4a13c47df7bc6e321d6adc",
+      "spanDigest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+      "startByte": 0,
+      "textBytes": 13840
+    },
+    {
+      "contextRef": "context://odd-glc/fresh-native-config/current-meaning@5",
+      "endByte": 14008,
+      "memberDigest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+      "memberRef": "member://odd-glc/fresh-native-config/specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+      "path": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+      "sourceLocator": "basis://odd-glc/fresh-native-config/9780971880110d0a1c107899aff2c3668150fcd87b4a13c47df7bc6e321d6adc",
+      "spanDigest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+      "startByte": 0,
+      "textBytes": 14008
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 34775,
+      "memberDigest": "sha256:6013e42693066127d729580ac3d01d31c2a82f00adea9d0fb1af3494b4ad9c3e",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:01d490aeacd00bec69851ce9ea1ef7c7dc637fd4bada096884e8f8bda9af81cf",
+      "startByte": 31176,
+      "textBytes": 3599
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 114008,
+      "memberDigest": "sha256:80a66946d4767b1ff857aad4bbaba696b591cd7e7529324c2ece8ced9754ced5",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/SPEC_METHOD.md",
+      "path": "standards/SPEC_METHOD.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:1de757693e72cc13d0f8c96b1e74650c0ac88590766fdc10140864504f3c41fb",
+      "startByte": 112016,
+      "textBytes": 1992
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 112016,
+      "memberDigest": "sha256:80a66946d4767b1ff857aad4bbaba696b591cd7e7529324c2ece8ced9754ced5",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/SPEC_METHOD.md",
+      "path": "standards/SPEC_METHOD.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:bfc29fb5fb2945408e52d77def912541eb35ddcac3bccf1c1faa4282b714a621",
+      "startByte": 110225,
+      "textBytes": 1791
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 116378,
+      "memberDigest": "sha256:80a66946d4767b1ff857aad4bbaba696b591cd7e7529324c2ece8ced9754ced5",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/SPEC_METHOD.md",
+      "path": "standards/SPEC_METHOD.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:8e692ada13790c09080df6d1b46c27262b38ed6583a53f66e4cd43282231eccc",
+      "startByte": 114008,
+      "textBytes": 2370
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 23161,
+      "memberDigest": "sha256:6fb49e186c15a3ebd48dec6b2728a397f1cd5199c4c0d112a0d0c70a2d6346fc",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/DESIGN_MODULE_METHOD.md",
+      "path": "standards/DESIGN_MODULE_METHOD.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:aaded0399d06c6acb8ab896822bc6da237e0e84c9bb78f5b3e09f3ecd269e4a4",
+      "startByte": 11353,
+      "textBytes": 11808
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 71900,
+      "memberDigest": "sha256:6fb49e186c15a3ebd48dec6b2728a397f1cd5199c4c0d112a0d0c70a2d6346fc",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/DESIGN_MODULE_METHOD.md",
+      "path": "standards/DESIGN_MODULE_METHOD.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:7ca71952fb9784c33be92f5e3353dc1c33252ca2ee1d11ca58628055c142c58f",
+      "startByte": 55679,
+      "textBytes": 16221
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/rc4-source@5/context",
+      "endByte": 80696,
+      "memberDigest": "sha256:6fb49e186c15a3ebd48dec6b2728a397f1cd5199c4c0d112a0d0c70a2d6346fc",
+      "memberRef": "dependency://odd-glc/application/rc4-source@5/context/standards/DESIGN_MODULE_METHOD.md",
+      "path": "standards/DESIGN_MODULE_METHOD.md",
+      "sourceLocator": "stdo://releases/v2.5.0-rc.4/",
+      "spanDigest": "sha256:144228e54940846c666784298625a839449214b31a43a7167d6005e95e75b7f2",
+      "startByte": 75556,
+      "textBytes": 5140
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/local-policy@5/context",
+      "endByte": 6249,
+      "memberDigest": "sha256:0dbe3a5ad2ebdf900e13eb138e57e2bfa87fad0b572773ef59010a98bda3d216",
+      "memberRef": "dependency://odd-glc/application/local-policy@5/context/reference-frame.md",
+      "path": "reference-frame.md",
+      "sourceLocator": "source://odd-glc/application-policy@5/",
+      "spanDigest": "sha256:805410bf5c37f56e6c30d73b7b044a23475371cdeb967c93d81b1d84fe96f01e",
+      "startByte": 4586,
+      "textBytes": 1663
+    },
+    {
+      "contextRef": "dependency://odd-glc/application/local-policy@5/context",
+      "endByte": 4341,
+      "memberDigest": "sha256:244db21118afa33e343bec0399c0701fecea6e181511e531cb5f3d10fc24d142",
+      "memberRef": "dependency://odd-glc/application/local-policy@5/context/worksite-lifecycle.md",
+      "path": "worksite-lifecycle.md",
+      "sourceLocator": "source://odd-glc/application-policy@5/",
+      "spanDigest": "sha256:244db21118afa33e343bec0399c0701fecea6e181511e531cb5f3d10fc24d142",
+      "startByte": 0,
+      "textBytes": 4341
+    }
+  ]
+}

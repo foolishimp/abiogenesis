@@ -1,0 +1,74 @@
+{
+  "recordedAt": "2026-10-06T05:59:23.709Z",
+  "providedExecutionContext": {
+    "filesystem": "unrestricted",
+    "network": "enabled",
+    "sandboxMode": "danger-full-access",
+    "approvalPolicy": "never"
+  },
+  "ordinaryResolver": [
+    {
+      "host": "api.anthropic.com",
+      "status": "resolved",
+      "addresses": [
+        {
+          "address": "160.79.104.10",
+          "family": 4
+        },
+        {
+          "address": "2607:6bc0::10",
+          "family": 6
+        }
+      ]
+    },
+    {
+      "host": "github.com",
+      "status": "resolved",
+      "addresses": [
+        {
+          "address": "4.237.22.38",
+          "family": 4
+        }
+      ]
+    }
+  ],
+  "authInheritance": [
+    {
+      "name": "HOME",
+      "present": true
+    },
+    {
+      "name": "PATH",
+      "present": true
+    },
+    {
+      "name": "TMPDIR",
+      "present": true
+    },
+    {
+      "name": "LANG",
+      "present": true
+    },
+    {
+      "name": "LC_ALL",
+      "present": true
+    },
+    {
+      "name": "JAVA_HOME",
+      "present": true
+    },
+    {
+      "name": "ANTHROPIC_API_KEY",
+      "present": false
+    },
+    {
+      "name": "CLAUDE_CONFIG_DIR",
+      "present": false
+    },
+    {
+      "name": "CLAUDE_CODE_OAUTH_TOKEN",
+      "present": true
+    }
+  ],
+  "credentials": "Names and presence only; values never retained"
+}

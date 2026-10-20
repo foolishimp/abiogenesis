@@ -1,0 +1,10 @@
+{
+  "label": "syntax-preflight",
+  "exitCode": 0,
+  "wallMs": 18.57891696272418,
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "timedOut": false,
+  "truncated": false,
+  "finished": "2026-10-09T04:55:55.493637+00:00"
+}

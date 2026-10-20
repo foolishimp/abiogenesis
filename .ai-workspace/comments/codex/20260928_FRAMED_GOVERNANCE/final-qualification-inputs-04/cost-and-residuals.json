@@ -1,0 +1,207 @@
+{
+  "status": "preparation_ready_subject; one isolated existing six-case component command passed; no observed QUAL056/runtime/semantic result",
+  "inputFiles": 3277,
+  "inputBodyBytes": 251384737,
+  "inputGroupFiles": {
+    "sourceFiles": 693,
+    "authoritySources": 87,
+    "lawMembers": 53,
+    "toolFiles": 2313,
+    "fixtureFiles": 102,
+    "dependencies": 16
+  },
+  "inputGroupBytes": {
+    "sourceFiles": 48800709,
+    "authoritySources": 707248,
+    "lawMembers": 1103287,
+    "toolFiles": 99458178,
+    "fixtureFiles": 86307640,
+    "dependencies": 9892099
+  },
+  "recipeFilesIncludingSelf": 13,
+  "qualifiedInventoryMembers": 4554,
+  "canonicalCurrentCandidatePaths": 1936,
+  "conservedDonorAliases": 96,
+  "additionalControlSupplierMembers": 20,
+  "expectedOutputBytes": 36918530,
+  "rawPreparationMaterial": {
+    "source-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/source-inventory.json",
+      "bytes": 1131186,
+      "sha256": "7d1fa733a598acec860d1ca1b816abc4d512978cb03cea61ebcc56cd320a500e"
+    },
+    "qualification-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/qualification-inventory.json",
+      "bytes": 2423195,
+      "sha256": "386e211128bed8c8964af2d222c1354269661bae2135c0854f3c66048085e122"
+    },
+    "input-manifest.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/input-manifest.json",
+      "bytes": 2274968,
+      "sha256": "1e5a50fe4cec268ab3a77e0ab04b1d4d4e95cd3b370612b7017b7f433ae1306a"
+    },
+    "protected-inputs.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/protected-inputs.json",
+      "bytes": 2279874,
+      "sha256": "7b0c67ac6c64786d0fbc67ae0d31b648c251b7cb3a1c6b8f9a5e122d9fc1e966"
+    },
+    "verification-recipe.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/verification-recipe.json",
+      "bytes": 741984,
+      "sha256": "cc912647fb1fe73d1cb50cd1a011e716d62511a79d67a746fc130383995429aa"
+    },
+    "expected-output-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/expected-output-inventory.json",
+      "bytes": 170300,
+      "sha256": "6060d83659dd6a74c272bd8e57ef161af6ebc7c00969960beb56a0ad6617c25d"
+    },
+    "test-selection.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/test-selection.json",
+      "bytes": 18954,
+      "sha256": "ccf824ab4f1686e3e2202ac1ce4fa2099320cd02da5b06841b1a732d89742b76"
+    },
+    "npm-toolchain-inventory.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/npm-toolchain-inventory.json",
+      "bytes": 1502703,
+      "sha256": "695abf66c2ec585765f6a59a9784136656548339cfe07d5dc9b93d8ca1c7e8c3"
+    },
+    "donor-authority-preimages.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/donor-authority-preimages.json",
+      "bytes": 110869,
+      "sha256": "d08b3c58a4b82dc53ff1886be8c66b46eda06fa4f3c4f0e5447729c596b006ba"
+    },
+    "component-stage-plan.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/component-stage-plan.json",
+      "bytes": 362397,
+      "sha256": "b49e171ed6b362a6f7c02e0432a47149a353c2dc47f741521513488066801ad6"
+    },
+    "component-stage.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/component-stage.mjs",
+      "bytes": 1812,
+      "sha256": "6dc892f16235e470d91bfc0a986bf1118c0b7d72cf09f4ba8f1954cfc08db8e1"
+    },
+    "readiness-copy.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness-copy.json",
+      "bytes": 2794548,
+      "sha256": "f848357667199fa333b14df4b984423bacd3bcb87c7736044efc330526ba2183"
+    },
+    "readiness-result.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness-result.json",
+      "bytes": 4274,
+      "sha256": "3ffb332e58b23b0b277804e819ab30bea11a0f9c6820bb9668c98601e56ab86c"
+    }
+  },
+  "futureBudgetProposal": {
+    "commandCapsAndGracesMs": 1293000,
+    "helperDispatchAndAckAllowanceMs": 5000,
+    "requiredHelperBudgetMs": 1298000,
+    "ABG_TS_FP_TIMEOUT_MS": "1418000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "1598000",
+    "outerC2PublicBudgetMs": 2198000,
+    "outerDriverBudgetMs": 3098000,
+    "status": "finite proposal; actual runtime selection remains pending",
+    "basis": "sum of all exact declared command bounds and graces; new authority stage, six carrier/cold cases, six law cases and four current context cases; no command executed"
+  },
+  "newDependenciesOrTools": 0,
+  "newInstallationCopies": 0,
+  "isolatedComponentReadinessCopies": 1,
+  "actualQualificationCommands": 0,
+  "actualNativeCalls": 0,
+  "genuineQualificationOrSemanticAssessment": false,
+  "residuals": [
+    {
+      "gate": "genuine observed QUAL056 C2",
+      "status": "not executed; restricted network/native/provider path blocked, not waived",
+      "requires": "actual current admitted setup, selected producer/CCall/Result and helper snapshot; all commands/predicates/reports and original input conservation"
+    },
+    {
+      "gate": "current whole installed F11 and independent J",
+      "status": "pending; separate installed mechanical discriminator is not qualification",
+      "requires": "complete current law/inventory/domain/source/resource proof, actual independent applicability/source-fidelity/sufficiency judgment and fresh semantic consumer agreement"
+    },
+    {
+      "gate": "sole AF22",
+      "status": "no green verdict",
+      "requires": "complete admitted same-subject F11 and every applicable installed_rc gate; pre_rc_candidate evidence cannot substitute"
+    },
+    {
+      "gate": "seeded negative matrix",
+      "status": "seven mandatory seeds unexecuted here",
+      "requires": "stable expected diagnostics and non-green dispositions under current exact subject/law"
+    },
+    {
+      "gate": "selected installed scenario/conservation joins",
+      "status": "not established by preparation or original component test titles",
+      "requires": "same exact candidate R1-R10/ABG5-S01, operator/failure loopS02, native assessment/consequenceS03, complete selected lifecycleF17/S06, S07 and retained traversal/coverage obligations as applicable; no current artifact relabel of historical Hello/lifecycle evidence"
+    },
+    {
+      "gate": "release",
+      "status": "unqualified/unpublished/unaccepted",
+      "requires": "output-only AF25 exact RC publication, applicable installed-RC rerun and actual original Product-owner acceptance/tapped_release; no third qualification subject"
+    },
+    {
+      "gate": "prospective filter/report execution",
+      "status": "future observed recipe unexecuted; six existing isolated carrier cases passed once in readiness",
+      "requires": "all46 selected report leaves and no skip/todo/zero selection. If actual Node/report filtering does not reproduce the exact selected set, result stays non-green and Root selects bounded re-entry."
+    },
+    {
+      "gate": "old whole-F11 carrier fixture seventh case",
+      "status": "explicitly not selected",
+      "requires": "current whole C03 installed discriminator and qualification; old RC1 embedded basis cannot be crossed with current RC2 tenant law"
+    },
+    {
+      "gate": "native performance/accounting",
+      "status": "unknown",
+      "requires": "actual whole-path memory/time, source acquisition, basis/Result/consumer/fresh-read accounting; current byte totals and old fixture timing do not prove native performance"
+    }
+  ],
+  "actualComponentReadiness": {
+    "command": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness-command.json",
+      "bytes": 4074,
+      "sha256": "6750d66d82e5c2e8f1f6b22a93bbccf9c32535cb7385f4789e85febf4878a958"
+    },
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness-result.json",
+      "bytes": 4274,
+      "sha256": "3ffb332e58b23b0b277804e819ab30bea11a0f9c6820bb9668c98601e56ab86c"
+    },
+    "copy": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness-copy.json",
+      "bytes": 2794548,
+      "sha256": "f848357667199fa333b14df4b984423bacd3bcb87c7736044efc330526ba2183"
+    },
+    "commands": 1,
+    "selectedCases": 6,
+    "skipped": 0,
+    "todo": 0,
+    "exit": 0,
+    "elapsedSeconds": 8.556370500009507,
+    "copyElapsedSeconds": 1.0056916670873761,
+    "copiedFiles": 5168,
+    "copiedBytes": 143465129,
+    "OSManagedChildrenMaxRSSBytes": 1684750336,
+    "RSSLimit": "OS RUSAGE_CHILDREN on this Darwin process; no native qualification, whole-runtime, attribution or speed/memory adequacy claim",
+    "outerManagedDeadlineMs": 600000,
+    "heap": "unchanged default; NODE_OPTIONS absent",
+    "processesStopped": true
+  },
+  "isolatedComponentOutputs": {
+    "files": 835,
+    "bytes": 29137818,
+    "roles": {
+      "current_C03_compiled_implementation": 735,
+      "historical_RC1_contract_not_current_qualification_law": 4,
+      "historical_RC1_source_projection": 95,
+      "unchanged_existing_source_case": 1
+    },
+    "newFixtureInputBodies": 0
+  },
+  "actualReadinessTree": {
+    "regularFiles": 5179,
+    "bytes": 170868684,
+    "includes": "exact source/dependency/fixture copies, confined configuration files and actual component outputs/stream receipts",
+    "separateFromProspectiveProtectedPopulation": true
+  },
+  "finalMechanicalClosureSeconds": 1.22223262488842
+}

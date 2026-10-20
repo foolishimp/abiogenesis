@@ -1,0 +1,202 @@
+{
+  "status": "CLOSED_FAILED",
+  "run": {
+    "digest": "sha256:8f152403d2f845b4f66279d65996ecb40866983f13538f6fdfc75d52d84b5d33",
+    "ref": "run://abiogenesis/b03597ae79756303688e03f268ad1e0b2cc97cfd7385fe70a300a6842dafc2b1"
+  },
+  "startedAt": "2026-09-25T19:23:53.318Z",
+  "disposition": "runtime_failed",
+  "result": null,
+  "sourceRun": {
+    "digest": "sha256:63a3f3048de463796332f89c159b15262a321719239895574d3046605d22feee",
+    "ref": "run://abiogenesis/74ac812ac32e24eb9d76a59aaebb55a957021d407ed112d8a2f22065cb33e116"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:6a3e7700cfe9e1badc79166753a3a1646f2ce3d143c8eea58a8a6bcef64e189b",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:fa48db8aba07673ebdb3cde85006e5c98a6574c134819bf8f83864b19dd3229c",
+    "prefixLength": 216334690,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "entry": {
+    "coordinateDigest": "sha256:7c7e80d791372ef31f52b4cb0076cdab9ab5a5818ffc7f50943d29f8c189a83f",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:f0efec3976558776ce3149ae4f69ffe1f55426a51bc32674429e2bd0a7c3b477",
+    "prefixLength": 324503143,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "close": {
+    "prefix": {
+      "coordinateDigest": "sha256:32b2fa1f01e5506fc53f8dfb35aa05a2cb96e27ff18ed06e668d9a14d611c8bd",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:363232d2c67c2b7b203eee8a2e95abb1e208c4fff649b9f9e5d8596d94e813aa",
+      "prefixLength": 325856830,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "inode": 459405010
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:f3b01045c6bd34ebe6e687fc510b4386f48269389983536d09b910aabc873e0d",
+      "device": 16777230,
+      "durableByteLength": 325856830,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "eventLogDigest": "sha256:363232d2c67c2b7b203eee8a2e95abb1e208c4fff649b9f9e5d8596d94e813aa",
+      "eventLogPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "inode": 459405010,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "eventGrowthBytes": 1353687,
+  "core": {
+    "artifactDigest": "sha256:758321d64dcbac39855f1bb95bafce90fb49148c202c7f60adb62d3af9cbf009",
+    "productContentDigest": "sha256:2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f",
+    "manifestDigest": "sha256:36bf7a6ad3beec53bf904fc5a654566d1598b15eb06bc86f6550475144d3ad22",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "consumer": {
+    "packageName": "@odd-glc/route-one-typescript",
+    "packageVersion": "0.2.0-dev.15",
+    "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.15",
+    "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+    "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+    "graphFunctionRef": "graph-function://odd-glc/generic-lifecycle-witness@5",
+    "graphRef": "graph://odd-glc/generic-lifecycle-witness@5",
+    "startRef": "start://odd-glc/generic-lifecycle-witness@5",
+    "closureContractRef": "contract://odd-glc/generic-lifecycle-witness/closure@5",
+    "descriptorRef": "descriptor://odd_glc/route-one-typescript@0.2.0-dev.15",
+    "contributionManifestRef": "contribution-manifest://odd_glc/route-one-typescript@0.2.0-dev.15",
+    "catalogRef": "catalog://odd_glc/public-contracts@0.2.0-dev.15",
+    "provenanceRef": "provenance://odd_glc/route-one-typescript@0.2.0-dev.15",
+    "sourceDeclarationRef": "declaration://odd-glc/generic-lifecycle/source@5",
+    "sourceGraphFunctionRef": "graph-function://odd-glc/generic-lifecycle/source@5",
+    "sourceModuleRef": "module://odd-glc/generic-lifecycle-source-setup@5",
+    "sourceProgramRef": "program://odd-glc/generic-lifecycle-source-setup@5",
+    "sourceClosureContractRef": "contract://odd-glc/generic-lifecycle/source/closure@5",
+    "lifecycleDeclarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+    "artifactDigest": "sha256:0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+    "productContentDigest": "sha256:33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e",
+    "manifestDigest": "sha256:0327ef3c929aecdd282342f93304ed45e1ae2fdeb71a528b4d113984cfdaf6ee"
+  },
+  "native": {
+    "wallSeconds": 62.99,
+    "userSeconds": 62.0,
+    "systemSeconds": 4.13,
+    "peakRssBytes": 3711451136,
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/native.stderr"
+  },
+  "resultAndReplayProcess": {
+    "wallSeconds": 42.17,
+    "userSeconds": 43.48,
+    "systemSeconds": 1.92,
+    "peakRssBytes": 1931608064,
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/readback.stderr"
+  },
+  "evidenceProcess": {
+    "wallSeconds": 28.74,
+    "userSeconds": 28.98,
+    "systemSeconds": 1.57,
+    "peakRssBytes": 2687713280,
+    "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/evidence.stderr"
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 20437.50875,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/read-run_result.json",
+      "resultDigest": "sha256:54ce88df20ab70d7790a1dfcafebf9d7fe461fd48abd508ee4eeba80200aecde",
+      "observation": "result_absent_not_found"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 20647.475875000004,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/read-run_replay.json",
+      "resultDigest": "sha256:912defabf620c10d7cfe10b79f6ac0a5e6d9fd0dcab49d535267e17b895b6283"
+    },
+    {
+      "memberKey": "run_evidence",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 27683.903333000002,
+      "run": {
+        "digest": "sha256:8f152403d2f845b4f66279d65996ecb40866983f13538f6fdfc75d52d84b5d33",
+        "ref": "run://abiogenesis/b03597ae79756303688e03f268ad1e0b2cc97cfd7385fe70a300a6842dafc2b1"
+      },
+      "prefix": {
+        "coordinateDigest": "sha256:32b2fa1f01e5506fc53f8dfb35aa05a2cb96e27ff18ed06e668d9a14d611c8bd",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:363232d2c67c2b7b203eee8a2e95abb1e208c4fff649b9f9e5d8596d94e813aa",
+        "prefixLength": 325856830,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+          "inode": 459405010
+        }
+      },
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/read-run_evidence.json",
+      "resultDigest": "sha256:199b843785768cad7fd808604d4f25ad1e92885ca8f2c1c476acbccf1b57cce4"
+    }
+  ],
+  "newSetupOperations": 0,
+  "newWitnessAdmissions": 0,
+  "providerDispatchObserved": false,
+  "newProviderTransportArchives": 0,
+  "providerUsage": null,
+  "providerBudgetStop": false,
+  "suffixInvocations": 0,
+  "transport": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "12"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:51050fef1e4a879e1ca851cdfefa9b50fed352647037f08fef95405c3edc6803"
+  },
+  "controls": {
+    "intakeOccurrences": 1,
+    "suffixOccurrenceCeiling": 12,
+    "intakePerOccurrenceUsd": 12,
+    "suffixPerOccurrenceUsd": 8,
+    "readbackMs": 600000,
+    "heap": "default",
+    "retry": false,
+    "fallback": false,
+    "profile": false
+  },
+  "scope": "One actual intake and three ordinary Public terminal projections; no new setup/witness, retries, actor salvage, journal scan, or private reconstruction."
+}

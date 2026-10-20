@@ -1,0 +1,3 @@
+AssertionError [ERR_ASSERTION]: every actual selected body must join current descriptor, owner observation and inventory
+    at assertPreparationCorrespondence (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/recipe-correspondence.mjs:21:10)
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/readiness-driver.mjs:200:24

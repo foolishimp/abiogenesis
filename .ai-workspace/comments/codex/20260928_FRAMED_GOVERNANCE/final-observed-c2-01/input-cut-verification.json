@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "cuts": [
+    {
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 4543994,
+        "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+      },
+      "verifiedRecords": 16774
+    },
+    {
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 24651,
+        "sha256": "b1f955be3959c8c17eba8254df5154342cd91a9d90f265ebf17d6deb1cbf0c5e"
+      },
+      "verifiedRecords": 110
+    },
+    {
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 15744,
+        "sha256": "a4c2b5afd94fd7402b6bbfc732e691eb345dbcf4334a0300de490f607b9aad79"
+      },
+      "verifiedRecords": 82
+    }
+  ],
+  "provider": {
+    "path": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "bytes": 217254576,
+    "sha256": "387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d"
+  },
+  "candidateMutation": false
+}

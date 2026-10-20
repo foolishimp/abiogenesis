@@ -1,0 +1,18 @@
+{
+  "label": "syntax-final-caller",
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prepare.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167",
+  "started": "2026-10-09T05:08:45.650392+00:00",
+  "RootSelection": "167 exact final caller syntax after scoped three-literal new intent namespace correction; no preflight rerun",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/prepare.mjs",
+    "sha256": "553851db1a6d75e5b37a9fba3c10dcfe2080190f25ad236d22b74b20f1be1950",
+    "byteCount": 36529
+  },
+  "NODE_OPTIONS": "unset",
+  "effects": "Only167 receipts; syntax only"
+}

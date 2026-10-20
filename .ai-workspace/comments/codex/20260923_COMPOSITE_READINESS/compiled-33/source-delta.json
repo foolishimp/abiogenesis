@@ -1,0 +1,38 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "bytes": 83429,
+      "sha256": "41ecdee597adb2f2eb18229ee7dc49557127f788b32dd6114c020d0e65b5d9aa"
+    },
+    "after": {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "bytes": 83408,
+      "sha256": "e45c1a74ad761d55c2fd4089cb38d7eb5bb1ff35e29e8c06011280ecc4711649"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/implementation/semantic_revision.ts",
+      "bytes": 13518,
+      "sha256": "2bd7db1ffaebdc72f0e956b1062da5343299715f93a6922d2effd9e1fe253bc2"
+    },
+    "after": {
+      "path": "code/src/implementation/semantic_revision.ts",
+      "bytes": 13854,
+      "sha256": "5ad7b666282327568624ae8d371169636c82a3c739e7970f0e0fb87c381f1384"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/product/semantic_job.ts",
+      "bytes": 91750,
+      "sha256": "22148c16b13afea031ebf126b01e0dc96fc705223e96a8c14e507bd4cf8239bf"
+    },
+    "after": {
+      "path": "code/src/product/semantic_job.ts",
+      "bytes": 92255,
+      "sha256": "f955ce6c36403709ea73dd447e3937a30bdf8ee1d78608b6effe833ee85482d3"
+    }
+  }
+]

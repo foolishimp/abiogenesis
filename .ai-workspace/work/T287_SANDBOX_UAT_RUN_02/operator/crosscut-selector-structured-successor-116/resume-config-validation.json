@@ -1,0 +1,29 @@
+{
+  "owner": "runner.mjs configuration(path): async path-owned reader",
+  "valid": true,
+  "package": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:e1deb8a3d000566ccc550055e333c422b759cb63b8b412820f147046685e2dcb"
+  },
+  "resumeEvidence": {
+    "observation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/material-observation.json",
+      "digest": "sha256:9da5a3b5075b7f9e2840e115bd3fd20bad40754d7a71937cc1765d06df6d1e52"
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/material-freeze.json",
+      "digest": "sha256:17ec7b3385847b45dfd8c6798bcd48398a1a498ce47da879714ab800aee8c5ee"
+    }
+  },
+  "processTimeoutMs": 18060000,
+  "maxProcessOutputBytes": 268435456,
+  "recursionBound": 1000,
+  "model": "claude-opus-5-5",
+  "inactivityTimeoutMs": 18030000,
+  "absoluteTimeoutMs": 18040000,
+  "maxTurnsOrBudgetSupplied": false,
+  "commandTimeoutOverrides": {
+    "command://abiogenesis-sandbox-uat/data-mapper-full/tests": 18000000
+  },
+  "nativeEffects": false
+}

@@ -1,0 +1,16 @@
+{
+  "stage": "sdk-recovery-return",
+  "at": "2026-10-09T09:13:37.078Z",
+  "wallMs": 53853.475208,
+  "pid": 68165,
+  "memory": {
+    "rss": 4679860224,
+    "heapTotal": 2654912512,
+    "heapUsed": 2534720120,
+    "external": 1692547358,
+    "arrayBuffers": 1690135051
+  },
+  "maxRSSKiB": 4576224,
+  "kind": "abg_event_resource_recovery_receipt",
+  "outcomeKind": "recovered"
+}

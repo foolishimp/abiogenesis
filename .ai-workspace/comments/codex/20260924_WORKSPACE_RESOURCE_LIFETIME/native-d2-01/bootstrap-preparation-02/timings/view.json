@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.catalog.view",
+    "memberKey": "allowlist"
+  },
+  "elapsedMs": 33049.57583299995,
+  "timingScope": "existing helper call including request write, Public CLI and receipt retention; not isolated runtime attribution"
+}

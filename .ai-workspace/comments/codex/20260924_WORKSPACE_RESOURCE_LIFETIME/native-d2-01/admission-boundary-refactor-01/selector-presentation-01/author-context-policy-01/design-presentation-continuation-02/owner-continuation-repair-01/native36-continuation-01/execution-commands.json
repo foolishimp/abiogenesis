@@ -1,0 +1,38 @@
+[
+  {
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/preparation",
+    "command": "/usr/bin/time -l node prepare.mjs > setup.stdout 2> setup.stderr",
+    "exitCode": 0,
+    "meaning": "Eight Public calls and resolution completed"
+  },
+  {
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/witness-01",
+    "command": "/usr/bin/time -l node execute.mjs > witness.stdout 2> witness.stderr",
+    "exitCode": 0,
+    "meaning": "Genuine source/current binding witness admitted"
+  },
+  {
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/intake-01",
+    "command": "/usr/bin/time -l node construct.mjs > construct.stdout 2> construct.stderr",
+    "exitCode": 0,
+    "meaning": "Ordinary current intake invocation constructed"
+  },
+  {
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/intake-01",
+    "command": "ODD_GLC_ALLOW_FULL_SANDBOX_LIVE=1 /usr/bin/time -l node run.mjs native-prepared.json > native.stdout 2> native.stderr",
+    "exitCode": 0,
+    "meaning": "Wrapper closed with actual native blocked outcome; zero does not imply native success"
+  },
+  {
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/intake-01",
+    "command": "/usr/bin/time -l node read-intake.mjs native-prepared.json > readback.stdout 2> readback.stderr",
+    "exitCode": 0,
+    "meaning": "Fresh Public Result absent and replay blocked"
+  },
+  {
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native36-continuation-01/intake-01",
+    "command": "/usr/bin/time -l node ../suffix-01/read-evidence.mjs native-prepared.json > evidence.stdout 2> evidence.stderr",
+    "exitCode": 0,
+    "meaning": "One normal Public first-cause read returned opaque coordinates"
+  }
+]

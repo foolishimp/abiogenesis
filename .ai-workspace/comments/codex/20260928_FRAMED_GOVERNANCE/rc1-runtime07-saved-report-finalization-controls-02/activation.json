@@ -1,0 +1,18 @@
+{
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RUNTIME07_SAVED_REPORT_FINALIZATION_GRANT_02",
+  "status": "ACTIVE",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-saved-report-finalization-controls-02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 523151,
+      "sha256": "08b1d553e13e5031b081287d5127cd1a9d5e9c765704d49624662b23573a589b"
+    }
+  ],
+  "exactGrant": "Record report-tail local-binding root cause and standalone saved-evidence closure grant only. No live resource or implementation changes."
+}

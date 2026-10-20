@@ -1,0 +1,17 @@
+✔ framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe (90.447334ms)
+(node:40601) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (49.39175ms)
+✔ selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges (21.985ms)
+✔ native observation facts preserve captured history through preparation admission and complete assembly (689.096667ms)
+ℹ {"metrics":[{"name":"actual34","observations":34,"oldCompletePromptBytes":2033265,"newCompletePromptBytes":652208,"factsBytes":569828,"namedFailureLines":52},{"name":"controlled51","observations":51,"oldCompletePromptBytes":2282212,"newCompletePromptBytes":715098,"factsBytes":632718,"namedFailureLines":64}],"controlled51":"distinct synthetic observation fixture; no authenticated producer or mutant credit","scope":"pure owners under disclosed lower premises; no provider/token-limit or UAT guarantee"}
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (262.256208ms)
+✔ C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources (530.7705ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2077.06075

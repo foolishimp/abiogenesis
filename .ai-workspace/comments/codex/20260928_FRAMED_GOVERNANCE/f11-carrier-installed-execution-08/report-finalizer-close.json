@@ -1,0 +1,12 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "elapsedMs": 1322.0122084021568,
+  "savedProducerSchemaOnly": true,
+  "RuntimeImportsCalls": 0,
+  "reportProcessUsage": {
+    "maxRSS": 59015168,
+    "userSeconds": 0.920732,
+    "systemSeconds": 0.383943
+  }
+}

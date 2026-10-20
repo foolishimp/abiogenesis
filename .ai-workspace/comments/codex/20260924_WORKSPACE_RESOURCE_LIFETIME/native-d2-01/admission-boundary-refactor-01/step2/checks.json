@@ -1,0 +1,42 @@
+{
+  "compile": {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json --pretty false",
+    "exitCode": 0,
+    "stdout": "",
+    "scope": "ordinary compiler; final source postimages emitted before focused checks; no manifest/package build"
+  },
+  "focused01": {
+    "command": "ABI5_PREPARATION_RESOLVE_CALL=<retained call below> /usr/bin/time -l node --experimental-vm-modules --test --test-name-pattern='^(preparation resolution|preparation module|native detachment|native transport delegates)' test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "exitCode": 1,
+    "passed": 3,
+    "failed": 1,
+    "elapsedSeconds": 18.57,
+    "peakRssBytes": 2582446080,
+    "failure": "Existing SourceTextModule fixture lacked dynamic-import callback; real loader returned load_failed; complete first output retained in focused-01.log"
+  },
+  "focused02": {
+    "command": "/usr/bin/time -l node --experimental-vm-modules --test --test-name-pattern='^preparation module loading' test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "exitCode": 0,
+    "passed": 1,
+    "failed": 0,
+    "elapsedSeconds": 0.42,
+    "peakRssBytes": 253984768,
+    "change": "Only existing fixture dynamic-import callback supplied; unaffected successful checks were not rerun"
+  },
+  "retainedInputs": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/02-resolve-core23-dev14.json": {
+      "sha256": "393140e5e7bb6a954a9dc13a51fb064c4500eec78fceedc76691f0d327d62f7a",
+      "bytes": 26310773
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/02-resolve-core23-dev14.json": {
+      "sha256": "862625194a8d44331391744b2a9969ce93e503eac0fc1a6214bfaaf22d6dd853",
+      "bytes": 5400
+    }
+  },
+  "limits": [
+    "No installed successor/setup/runtime or performance qualification.",
+    "Grant wrapper is excluded in local resolution-projection test; no historical authority was reconstructed.",
+    "Module imports are real; physical inventory check is a controlled small-file boundary, not qualification of the unchanged full-tree verifier.",
+    "Transport test uses a captured receiver after real verifier output and fixed-call admission; no effect/admission success is inferred."
+  ]
+}

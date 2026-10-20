@@ -1,0 +1,94 @@
+--- test_env/tests/t287-gtl-serialization-publication.test.mjs (preimage)
++++ test_env/tests/t287-gtl-serialization-publication.test.mjs (postimage)
+@@ -41,6 +41,56 @@
+  for(const key of keys){node=resolveSchemaNode(node);assert(Object.hasOwn(node,key),key);node=node[key];}
+  return ajv.compile({...resolveSchemaNode(node),$schema:schema.$schema,$defs:schema.$defs});
+ }
++
++test('closed tuple arity and closure-event order agree in native admission and the published schema',t=>{
++ const original=clone(corpus.programs[0].packet.publication),check=schemaCheck('ModulePublication');
++ const roundtrip=(publication,label)=>{const first=admitted(m02.admitModule(publication),label);
++  assert.equal(check(first.value),true,label+' published');const second=admitted(m02.admitModule(admitIJsonText(m02.serializeModule(first.value))),label+' serialized');
++  assert.deepEqual(second.value,first.value);assert.equal(second.subjectDigest,first.subjectDigest);};
++ // Complete original publication is supplied from the fixed corpus. The added
++ // authority declaration below proves local tuple shape, not whole-Program law.
++ roundtrip(original,'original publication');let negatives=0,restorations=0;
++ for(const [scope,expected]of [['run',['terminal_reached','frame_closed','graph_call_closed','run_closed']],
++  ['graph_call',['terminal_reached','frame_closed','graph_call_closed']]]){
++  const index=original.closureContracts.findIndex(row=>row.closureScope===scope);assert(index>=0,scope);
++  assert.deepEqual(original.closureContracts[index].eventKindRefs,expected);
++  for(const [label,items]of [['short',expected.slice(0,-1)],['surplus',[...expected,expected.at(-1)]],
++   ['wrong order',[expected[1],expected[0],...expected.slice(2)]]]){
++   const changed=clone(original);changed.closureContracts[index].eventKindRefs=items;
++   assert.equal(check(changed),false,scope+' '+label+' published');
++   const refused=m02.admitModule(changed);assert.equal(refused.code,'invalid_kind',scope+' '+label+' native');
++   assert(refused.message.includes('$/closureContracts'),refused.message);
++   assert.throws(()=>m02.serializeModule(changed),TypeError);negatives++;
++   roundtrip(original,scope+' '+label+' original restoration');restorations++;
++  }
++ }
++ const publication=clone(original),zero='sha256:'+'0'.repeat(64);
++ publication.programs[0].constructionComposition={kind:'construction_composition',schemaVersion:'5.0.0',
++  compositionRef:'composition://supplied-local',compositionDigest:zero,graphFunctionRef:'graph-function://supplied-local',
++  authorities:['synthesizeModel','evalGap','evaluateNext','evaluateAction'].map((semanticAuthority,index)=>({
++   kind:'construction_authority_binding',semanticAuthority,authorityRef:'authority://supplied-local/'+index,
++   initialProgramLocusRef:'locus://supplied-local/'+index,refreshProgramLocusRef:null})),
++  interactionProgramLocusRef:'locus://supplied-local/interaction',closurePolicy:{kind:'construction_policy',
++   policyRef:'policy://supplied-local',requireCompleteEvidence:true,requirePostEvidenceRefresh:true}};
++ roundtrip(publication,'four supplied local authorities');
++ const authorities=publication.programs[0].constructionComposition.authorities;
++ for(const [label,items]of [['short',authorities.slice(0,-1)],['surplus',[...authorities,clone(authorities[0])]],
++  ['wrong element',[{...authorities[0],semanticAuthority:'invented'},...authorities.slice(1)]]]){
++  const changed=clone(publication);changed.programs[0].constructionComposition.authorities=items;
++  assert.equal(check(changed),false,label+' authorities published');const refused=m02.admitModule(changed);
++  assert.equal(refused.code,'invalid_kind',label+' authorities native');assert(refused.message.includes('$/programs'),refused.message);
++  assert.throws(()=>m02.serializeModule(changed),TypeError);negatives++;
++  roundtrip(publication,label+' authorities original restoration');restorations++;
++ }
++ // All four positions have the same structural element contract. Authority
++ // order and uniqueness remain at the existing whole-Program validator.
++ for(const items of [[authorities[1],authorities[0],...authorities.slice(2)],Array.from({length:4},()=>clone(authorities[0]))]){
++  const local=clone(publication);local.programs[0].constructionComposition.authorities=items;
++  roundtrip(local,'local authority shape only');
++ }
++ t.diagnostic(JSON.stringify({closedTuples:3,arityOrderTailNegatives:negatives,originalRestorations:restorations,
++  suppliedLocalAuthorityDeclaration:true,authorityOrderAndUniquenessRemainWholeProgramLaw:true,wholeProgramClaims:0}));
++});
+ 
+ test('packaged environment scalar projections preserve the original predicate languages',async t=>{
+  const {STDO_RUN_ENVIRONMENT_SCHEMA:stdo,RUN_ENVIRONMENT_SCHEMA:run}=await import(pathToFileURL(path.join(root,'build/code/src/gtl/stdo_run_environment.js')));
+@@ -142,14 +192,24 @@
+   const absolute=path.join(directory,entry.name),relative=path.relative(root,absolute).split(path.sep).join('/');
+   assert(!entry.isSymbolicLink(),'extracted package has no hidden symlink dependency');
+   if(entry.isDirectory())visit(absolute);
+-  else if(entry.isFile()&&(relative.endsWith('.d.ts')||entry.name==='package.json')){
++  else if(entry.isFile()&&(/\.d\.(?:c|m)?ts$/u.test(relative)||entry.name==='package.json')){
+    const bytes=fs.readFileSync(absolute),row={path:relative,bytes};
+-   if(relative.endsWith('.d.ts'))sources.push(row);else metadata.push(row);
++   if(/\.d\.(?:c|m)?ts$/u.test(relative))sources.push(row);else metadata.push(row);
+   }
+  }};visit(root);
++ assert.deepEqual(sources.map(row=>row.path).sort(),manifest.productRelativeLocators.filter(locator=>/\.d\.(?:c|m)?ts$/u.test(locator)).sort(),
++  'consumer supplies the producer complete .d.ts/.d.cts/.d.mts population');
++ assert.deepEqual(metadata.map(row=>row.path).sort(),manifest.productRelativeLocators.filter(locator=>locator==='package.json'||locator.endsWith('/package.json')).sort(),
++  'consumer supplies the producer exact package metadata population');
+  const closures=await resolveNativeDeclarationClosures({packageName:packageJson.name,packageType:'module',
+   packageExports:packageJson.exports,declarationSources:sources,packageMetadataSources:metadata,
+   sourceProductContentDigest:manifest.productContentDigest});assert(closures);
++ for(const row of catalog.rows.filter(row=>row.nativeTypedLocator!==undefined&&row.nativeTypedLocator!==null)){
++  const native=row.nativeTypedLocator,closure=closures.find(value=>value.packageExportPath===native.packageExportPath);
++  assert(closure,row.contractId+' exact native export');
++  assert.deepEqual(native.declarationInventory,closure.declarationInventory,row.contractId+' current declaration inventory');
++  assert(closure.exportedSymbols.includes(native.namedSymbol),row.contractId+' current named symbol');
++ }
+  for(const [id,name,address,anchor,owner,functions]of selected){
+   const row=catalog.rows.find(r=>r.contractId===id);assert(row,id);
+   assert.equal(row.contractKind,'serialized_native_contract');
+@@ -176,6 +236,7 @@
+  assert.equal(schemaCheck('GtlLanguageConformanceCorpus')(corpus),true,JSON.stringify(schemaCheck('GtlLanguageConformanceCorpus').errors));
+  t.diagnostic(JSON.stringify({catalogRows:catalog.rows.length,oldIdentities:baseline.catalogIds.length,
+   packageExports:Object.keys(packageJson.exports).length,nativeDeclarationSources:sources.length,
++  ctsMtsDeclarations:sources.filter(row=>/\.d\.[cm]ts$/u.test(row.path)).length,completeProducerPopulation:true,
+   pairedRows:selected.length,corpusDigest:corpusRow.contractDigest,diagnosticValues:19}));
+ });
+ 

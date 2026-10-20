@@ -1,0 +1,6 @@
+{
+  "patchSHA256": "ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708",
+  "exitCode": 0,
+  "stdout": "patching file 'build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts'\npatching file 'build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs'\npatching file 'build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs'\n",
+  "allThreePostimagesEqual": true
+}

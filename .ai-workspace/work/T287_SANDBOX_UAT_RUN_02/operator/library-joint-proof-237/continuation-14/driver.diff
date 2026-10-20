@@ -1,0 +1,26 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-13/run-13.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/run-14.mjs
+@@ -1,4 +1,4 @@
+-// Root-selected exact41 installed Testing/restart discriminator; original DataMapper excluded.
++// Root-selected exact42 installed Testing/restart discriminator; original DataMapper excluded.
+ // Existing Public/setup/continuation owners do all admission and preparation.
+ import assert from 'node:assert/strict';
+ import {createHash} from 'node:crypto';
+@@ -24,7 +24,7 @@
+ const runtime=await installedModules(host.installedRoot),p=runtime.product,a=runtime.abg,hash=p.sha256Canonical;
+ const executionRoot=selected.fixtureRoot,outputRoot=join(root,'execution');await mkdir(outputRoot);
+ const environment={...Object.fromEntries(['HOME','PATH','TMPDIR','LANG','LC_ALL'].filter(key=>process.env[key]!==undefined).map(key=>[key,process.env[key]])),npm_config_cache:join(selected.publicationRoot,'npm-cache'),npm_config_offline:'true'};
+-const configuration={runId:'library-joint-proof-237-13',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
++const configuration={runId:'library-joint-proof-237-14',bootstrapRoot:host.installedRoot,worksiteRoot:join(executionRoot,'worksite'),
+   nodePath:process.execPath,setupEnvironment:environment,toolchains:{npm:{executable:selected.npm},node:{executable:process.execPath}},
+   recursionBound:1000,processTimeoutMs:300000,maxProcessOutputBytes:16777216};
+ const recordAt=directory=>async(name,value,raw=false)=>{const path=join(directory,name);assert(path.startsWith(directory+'/'));await mkdir(dirname(path),{recursive:true});await writeFile(path,raw?value:JSON.stringify(value,null,2)+'\n',{flag:'wx'});};
+@@ -267,7 +267,7 @@
+     sourceResultRef:restarted.summary.sourceResultRef,sourceBasisRef:restarted.summary.sourceBasisRef,currentUseDigest:restarted.summary.currentUseDigest,
+     setupEffects:restarted.calls.length,replay:restartComparison.replay,committedBytes:restartCycle.state.closeHandoff.prefix.prefixLength,orchestratorMemory:process.memoryUsage()});
+   for(const source of selectedFixture.sources)assert.equal(sha(await readFile(join(configuration.worksiteRoot,source.path))),source.digest.slice(7),source.path);
+-  await record('composition-result.json',{scope:'Installed41 Testing and same-pair restart from37 parent; original DataMapper/capacity/semantic UAT remain separate',
++  await record('composition-result.json',{scope:'Installed42 Testing and same-pair restart from37 parent; original DataMapper/capacity/semantic UAT remain separate',
+     programDigest:expectedProgramDigest,phases:phaseResults,finalClose:caller.state.closeHandoff,heapSample:process.memoryUsage()});
+ } catch(error) {
+   await record('first-cause.json',{stage,name:error.name,message:error.message,stack:error.stack,observation:error instanceof BoundaryFailure?error.observation:null,

@@ -1,0 +1,20 @@
+{
+  "operation": "T287_C07_INSTALL_AND_Q09_CONDITIONAL_GRANTS_01",
+  "status": "CLOSED",
+  "conditionalRequests": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-install-and-input-controls-01/setup-request.txt",
+      "bytes": 3421,
+      "sha256": "2a8ee74f40f2be30476c39a49cd954b7eb5e9d91f41680c84ff27b3258d57e6c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-install-and-input-controls-01/inputs-request.txt",
+      "bytes": 4707,
+      "sha256": "93a1957038c968d263f7d12affd090506c922ca261df21fa94c7f843765e4cb8"
+    }
+  ],
+  "RootReturns": "Executive",
+  "WorkersNotYetActivated": true,
+  "currentExactClosedDependencyPinsRequired": true,
+  "payloadRuntimeQualificationGitEffects": 0
+}

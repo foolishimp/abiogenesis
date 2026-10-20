@@ -1,0 +1,2 @@
+TypeError: Cannot read properties of undefined (reading 'input')
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/recover-stop-source.mjs:55:168

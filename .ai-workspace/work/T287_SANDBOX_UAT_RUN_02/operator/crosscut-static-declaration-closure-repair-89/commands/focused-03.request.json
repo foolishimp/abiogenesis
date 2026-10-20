@@ -1,0 +1,19 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--test",
+    "--test-concurrency=1",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-08T08:45:18.445308+00:00",
+  "selectedEnvironment": {
+    "ABI5_STATIC_CLOSURE_OWNER_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/compiled",
+    "ABI5_STATIC_CLOSURE_CAPTURED_INPUT": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/st4-81-declared-positive-request.jsonl",
+    "ABI5_STATIC_CLOSURE_BASELINE_MODULE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/compiled/product/declaration_closure.before.js"
+  },
+  "baselineSha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63",
+  "claim": "pure owner/source-unit checks; controlled readiness lower premises, no native admission",
+  "testSha256": "db678b7dde7029d41e7a82d0d67d8dddba749d25f0329b9524dc735018473a5b",
+  "correctedPremise": "canonical registered-selection contribution provenance metadata supplied through original catalogContribution owner"
+}

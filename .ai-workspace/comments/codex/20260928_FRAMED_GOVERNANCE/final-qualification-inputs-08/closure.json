@@ -1,0 +1,10 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_08",
+  "workResult": "GO_PREPARATION_C06_ACTUAL_SETUP_ASSERTIONS",
+  "closedAt": "2026-10-02T07:22:37.492727+00:00",
+  "noFurtherWrites": true,
+  "returnTo": "Root Executive",
+  "ReviewerActivated": false
+}

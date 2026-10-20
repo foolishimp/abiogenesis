@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "--project",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-covered-use-owned-projection-198/tsconfig.isolated.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-09T10:12:17.417083+00:00",
+  "environment": {
+    "NODE_OPTIONS": "unset"
+  },
+  "scope": "Worker198 strict full263 Source compilation into isolated198 output only"
+}

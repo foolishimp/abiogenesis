@@ -1,0 +1,32 @@
+(node:15060) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native acquisition child uses its exact admitted input when another Run acquired equal content (259.458458ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 298.881792
+
+✖ failing tests:
+
+test at test_env/tests/d2-binding-transition.test.mjs:6:1
+✖ native acquisition child uses its exact admitted input when another Run acquired equal content (259.458458ms)
+  AssertionError [ERR_ASSERTION]: equal historical acquisition cannot replace the exact current producer
+  + actual - expected
+  
+  + 'basis_fork_detected'
+  - 'covered'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:32:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'basis_fork_detected',
+    expected: 'covered',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

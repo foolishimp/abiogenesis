@@ -1,0 +1,891 @@
+--- a35/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ b36/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -130,6 +130,16 @@
+ planning similarly carries its finite checked suffix and replay guard internally;
+ its explicit Public plan and admission outputs keep their complete meanings.
+ Raw, copied and cold prefixes retain the original checks at those owners.
++
++That ordinary path includes the structural operator's route commit and declared
++retry failure/resume callees, even where an existing exported operator has a
++Public-shaped return. The owned graph engine selects stripped private entries
++into the same structural, finite-plan and transaction computations through the
++returned cursor's next-input use. Active and committed route receipts retain
++the owner's selected prefix and replay guard; complete Public wrappers still
++materialize their declared outputs. An incomplete child selects its last exact
++scope/causal event from the same indexed population instead of reading every
++body. Public declarations alone do not request historical output on this path.
+ 
+ Private completed-retry plan authentication compares the genuine admitted base,
+ exact finite ordered candidate suffix and canonical scope selection, the replay
+--- a35/code/src/hog/graph_execute.ts
++++ b36/code/src/hog/graph_execute.ts
+@@ -69,7 +69,7 @@
+   type ResumeProjectedRetryRequest,
+   type ResumeProjectedRetryRuntime,
+ } from "./retry_lifecycle.js";
+-import { advanceStructuralTransition } from "./structural_transition.js";
++import { advanceOwnedStructuralTransition as advanceStructuralTransition } from "./structural_transition.js";
+ import {
+   failTraversal,
+   GraphTraversalFailure,
+--- a35/code/src/hog/structural_transition.ts
++++ b36/code/src/hog/structural_transition.ts
+@@ -9,6 +9,7 @@
+ } from "../abg/index.js";
+ import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+ import * as AbgRetry from "../abg/retry.js";
++import * as OwnedRoutes from "../abg/traversal_route.js";
+ import type { CProgramNode } from "../gtl/c_algebra.js";
+ import type { GraphFunction, GtlGraph } from "../gtl/contracts.js";
+ import type { LeafInvocationPort } from "../implementation/contracts.js";
+@@ -19,8 +20,8 @@
+ import {
+   admissionBasis,
+   materializedInputAtCursor,
+-  replayAtDurable,
+-  runtimePrefixAtDurable,
++  ownedReplayAtDurable as replayAtDurable,
++  ownedRuntimePrefixAtDurable as runtimePrefixAtDurable,
+ } from "./operator_support.js";
+ import * as Routes from "./route_proposal.js";
+ import {
+@@ -59,6 +60,19 @@
+ }
+ 
+ export function advanceStructuralTransition(
++  input: StructuralTransitionInput,
++): StructuralTransitionAdvance {
++  return advanceStructuralTransitionUsing(input);
++}
++
++/** @internal The ordinary engine uses the same structural computation through its owned commit. */
++export function advanceOwnedStructuralTransition(
++  input: StructuralTransitionInput,
++): StructuralTransitionAdvance {
++  return advanceStructuralTransitionUsing(input);
++}
++
++function advanceStructuralTransitionUsing(
+   input: StructuralTransitionInput,
+ ): StructuralTransitionAdvance {
+   const fail = (
+@@ -157,7 +171,7 @@
+     completionWitnessEventRef: completionWitnessEventRef!,
+   };
+   const progressPlan = exitsRetry
+-    ? AbgRetry.planCompletedRetryProgress(
++    ? AbgRetry.planOwnedCompletedRetryProgress(
+         input.predecessorPrefix,
+         input.graph,
+         input.graphFunction,
+@@ -228,7 +242,7 @@
+       });
+   const routeBasis = admissionBasis(clock, `route/${input.structuralOrdinal}`);
+   const committed = progressPlan === null
+-    ? Abg.admitTraversalTransition({
++    ? OwnedRoutes.admitOwnedTraversalTransition({
+         predecessorPrefix: input.predecessorPrefix,
+         store: input.store,
+         executionBasis: input.executionBasis,
+@@ -239,7 +253,7 @@
+         candidate,
+         basis: routeBasis,
+       })
+-    : Abg.admitCompletedRetryTraversalTransition({
++    : OwnedRoutes.admitOwnedCompletedRetryTraversalTransition({
+         predecessorPrefix: input.predecessorPrefix,
+         store: input.store,
+         executionBasis: input.executionBasis,
+--- a35/code/src/abg/traversal_route.ts
++++ b36/code/src/abg/traversal_route.ts
+@@ -74,7 +74,8 @@
+   type RuntimeEvent,
+   type RuntimeEventCandidateFactory,
+ } from "./event_store.js";
+-import { indexedRuntimeEventEnvelopes, runtimeEventPrefixDigest,
++import { indexedRuntimeEventEnvelopes, runtimeEventPrefixDigest, isOwnedRuntimeEventPrefix,
++  projectOwnedRuntimeEventPrefixAtDurablePrefix,
+   runtimeEventBodiesAtPrefix,
+   runtimePrefixComputation,
+   isImmutableRuntimeValue,
+@@ -99,10 +100,13 @@
+ import {
+   admitPlannedRetryRuntimeFailureTransitionInActiveTransaction,
+   admitPlannedCompletedRetryProgressInActiveTransaction,
++  admitOwnedPlannedCompletedRetryProgressInActiveTransaction,
+   admitRetryAttempt,
+   projectDeclaredCRetryExitProgress,
+   projectDeclaredCRetryFrontier,
+   type CompletedRetryProgressPlan,
++  type OwnedCompletedRetryProgressPlan,
++  type OwnedRetryRuntimeFailureTransitionPlan,
+   type RetryAttemptAdmission,
+   type RetryAdmissionRefusal,
+   type RetryCompletedProgressAdmission,
+@@ -5122,6 +5126,13 @@
+   readonly successorPrefix: DurablePrefixCoordinate;
+ }
+ 
++/** @internal The committed ordinary route preserves its fields with a selected guard. */
++export type OwnedRouteTransitionAdmission = Omit<RouteTransitionAdmission, "replayState"> & {
++  readonly replayState: RuntimeReplayGuard;
++};
++/** @internal */
++export type OwnedRouteTransitionResult = OwnedRouteTransitionAdmission | RetryAdmissionRefusal | RouteAdmissionRefusal;
++
+ export type RouteTransitionResult =
+   | RouteTransitionAdmission
+   | RetryAdmissionRefusal
+@@ -5180,6 +5191,51 @@
+ /** @internal */
+ type OwnedStageTraversalTransitionInput = Omit<StageTraversalTransitionInput, "stagedPrefix" | "priorDerivation"> & { readonly stagedPrefix: RuntimeEventPrefix; readonly priorDerivation?: RuntimeReplayGuard };
+ 
++function transactionPrefixExtends(before: RuntimeEventPrefix, after: RuntimeEventPrefix): boolean {
++  if (isOwnedRuntimeEventPrefix(before) && isOwnedRuntimeEventPrefix(after)) {
++    return before.selection.length === before.selection.through &&
++      after.selection.length === after.selection.through &&
++      after.selection.sharesSource(before.selection) && after.selection.extends(before.selection);
++  }
++  const count = runtimeEventPrefixExtent(before).count;
++  return runtimeEventPrefixDigest(count === 0
++    ? selectValidatedRuntimeEventPrefix(Object.freeze([]))
++    : validatedRuntimeEventPrefixThroughEvent(after, runtimeEventPrefixLastEnvelope(before)!.eventId)) ===
++    runtimeEventPrefixDigest(before);
++}
++
++function transitionTransactionPrefix(store: AbgEventStore, predecessor: DurablePrefixCoordinate,
++  complete: boolean): RuntimeEventPrefix {
++  return complete
++    ? selectValidatedRuntimeEventPrefix(readActiveRuntimeTransactionAtDurablePrefix(store, predecessor, { durableOnly: true }))
++    : selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(store, predecessor, { durableOnly: true }));
++}
++
++function committedRouteTransition(input: Readonly<AdmitTraversalTransitionInput>,
++  staged: OwnedStagedRouteTransitionAdmission, successor: DurablePrefixCoordinate,
++  complete: true): RouteTransitionAdmission;
++function committedRouteTransition(input: Readonly<AdmitTraversalTransitionInput>,
++  staged: OwnedStagedRouteTransitionAdmission, successor: DurablePrefixCoordinate,
++  complete: false): OwnedRouteTransitionAdmission;
++function committedRouteTransition(input: Readonly<AdmitTraversalTransitionInput>,
++  staged: OwnedStagedRouteTransitionAdmission, successor: DurablePrefixCoordinate,
++  complete: boolean): OwnedRouteTransitionAdmission;
++function committedRouteTransition(input: Readonly<AdmitTraversalTransitionInput>,
++  staged: OwnedStagedRouteTransitionAdmission, successor: DurablePrefixCoordinate,
++  complete: boolean): OwnedRouteTransitionAdmission {
++  const authority = complete
++    ? selectValidatedRuntimeEventPrefix(projectRuntimeEventsAtDurablePrefix(successor))
++    : projectOwnedRuntimeEventPrefixAtDurablePrefix(successor);
++  const run = selectRuntimeEventPrefixFromAuthority(authority, { runId: input.source.runId });
++  return deepFreeze({
++    kind: "route_transition_admission" as const,
++    route: staged.route,
++    retryAttempt: staged.retryAttempt,
++    replayState: complete ? replayValidatedRuntimeEventPrefix(run, authority) : projectRuntimeReplayGuard(run, authority),
++    successorPrefix: successor,
++  });
++}
++
+ function selectOwnedTransactionStagedPrefix(
+   store: AbgEventStore,
+   predecessorEvents: RuntimeEventScan,
+@@ -5191,9 +5247,7 @@
+   const predecessorExtent = runtimeEventPrefixExtent(predecessorPrefix);
+   if (
+     stagedEvents.length <= predecessorExtent.count ||
+-    runtimeEventPrefixDigest(predecessorExtent.count === 0
+-      ? selectValidatedRuntimeEventPrefix(Object.freeze([]))
+-      : validatedRuntimeEventPrefixThroughEvent(stagedPrefix, predecessorEvents.at(predecessorExtent.count - 1)!.eventId)) !== runtimeEventPrefixDigest(predecessorPrefix) ||
++    !transactionPrefixExtends(predecessorPrefix, stagedPrefix) ||
+     store.digest() !== runtimeEventPrefixDigest(stagedPrefix)
+   ) {
+     throw new TypeError("traversal transition staged prefix does not extend its exact predecessor");
+@@ -5232,9 +5286,7 @@
+   const stagedEvents = runtimeEventBodiesAtPrefix(input.stagedPrefix);
+   if (
+     stagedEvents.length < events.length ||
+-    runtimeEventPrefixDigest(events.length === 0
+-      ? selectValidatedRuntimeEventPrefix(Object.freeze([]))
+-      : validatedRuntimeEventPrefixThroughEvent(input.stagedPrefix, stagedEvents.at(events.length - 1)!.eventId)) !== runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(events)) ||
++    !transactionPrefixExtends(selectValidatedRuntimeEventPrefix(events), input.stagedPrefix) ||
+     input.store.digest() !==
+       runtimeEventPrefixDigest(input.stagedPrefix)
+   ) {
+@@ -5359,6 +5411,22 @@
+ export function admitTraversalTransition(
+   input: Readonly<AdmitTraversalTransitionInput>,
+ ): RouteTransitionResult {
++  return admitTraversalTransitionUsing({ complete: true, input });
++}
++
++/** @internal Same atomic route computation without complete historical output. */
++export function admitOwnedTraversalTransition(
++  input: Readonly<AdmitTraversalTransitionInput>,
++): OwnedRouteTransitionResult {
++  return admitTraversalTransitionUsing({ complete: false, input });
++}
++
++function admitTraversalTransitionUsing(mode: Readonly<{ complete: true; input: Readonly<AdmitTraversalTransitionInput> }>): RouteTransitionResult;
++function admitTraversalTransitionUsing(mode: Readonly<{ complete: false; input: Readonly<AdmitTraversalTransitionInput> }>): OwnedRouteTransitionResult;
++function admitTraversalTransitionUsing(
++  mode: Readonly<{ complete: true; input: Readonly<AdmitTraversalTransitionInput> }> | Readonly<{ complete: false; input: Readonly<AdmitTraversalTransitionInput> }>,
++): OwnedRouteTransitionResult {
++  const input = mode.input;
+   if (isRuntimeEventTransactionActive(input.store)) {
+     throw new TypeError(
+       "traversal transition admission owns its complete ABG transaction",
+@@ -5371,13 +5439,11 @@
+       input.predecessorPrefix,
+       () => {
+         entered = true;
+-        const events = readActiveRuntimeTransactionAtDurablePrefix(
+-          input.store, input.predecessorPrefix, { durableOnly: true },
+-        );
++        const predecessor = transitionTransactionPrefix(input.store, input.predecessorPrefix, mode.complete);
+         const staged = admitTraversalTransitionInActiveTransaction({
+           ...input,
+           durablePredecessorPrefix: input.predecessorPrefix,
+-          stagedPrefix: selectValidatedRuntimeEventPrefix(events),
++          stagedPrefix: predecessor,
+         });
+         if (staged.kind !== "staged_route_transition_admission") {
+           throw new RouteTransitionAbort(staged);
+@@ -5390,27 +5456,7 @@
+         "traversal transition admission produced no durable successor prefix",
+       );
+     }
+-    const successorEvents = projectRuntimeEventsAtDurablePrefix(
+-      committed.successorPrefix,
+-    );
+-    const successorAuthorityPrefix = selectValidatedRuntimeEventPrefix(
+-      successorEvents,
+-    );
+-    const successorRunPrefix = selectRuntimeEventPrefixFromAuthority(
+-      successorAuthorityPrefix,
+-      { runId: input.source.runId },
+-    );
+-    return deepFreeze({
+-      kind: "route_transition_admission" as const,
+-      route: committed.value.route,
+-      retryAttempt: committed.value.retryAttempt,
+-      replayState: replayValidatedRuntimeEventPrefix(
+-        successorRunPrefix,
+-        successorAuthorityPrefix,
+-        committed.value.replayState,
+-      ),
+-      successorPrefix: committed.successorPrefix,
+-    });
++    return committedRouteTransition(input, committed.value, committed.successorPrefix, mode.complete);
+   } catch (error) {
+     if (!entered) {
+       return refusal(
+@@ -5438,6 +5484,11 @@
+   readonly progressBasis: RuntimeAdmissionBasis;
+ }
+ 
++/** @internal */
++export type OwnedAdmitCompletedRetryTraversalTransitionInput = Omit<AdmitCompletedRetryTraversalTransitionInput, "progressPlan"> & {
++  readonly progressPlan: OwnedCompletedRetryProgressPlan;
++};
++
+ /**
+  * Atomically admits the pre-effect completed-retry progress plan and its one
+  * HoG-selected consuming route. HoG supplies candidates; ABG alone owns the
+@@ -5446,6 +5497,22 @@
+ export function admitCompletedRetryTraversalTransition(
+   input: Readonly<AdmitCompletedRetryTraversalTransitionInput>,
+ ): RouteTransitionResult {
++  return admitCompletedRetryTraversalTransitionUsing({ complete: true, input });
++}
++
++/** @internal Same atomic route computation without complete historical output. */
++export function admitOwnedCompletedRetryTraversalTransition(
++  input: Readonly<OwnedAdmitCompletedRetryTraversalTransitionInput>,
++): OwnedRouteTransitionResult {
++  return admitCompletedRetryTraversalTransitionUsing({ complete: false, input });
++}
++
++function admitCompletedRetryTraversalTransitionUsing(mode: Readonly<{ complete: true; input: Readonly<AdmitCompletedRetryTraversalTransitionInput> }>): RouteTransitionResult;
++function admitCompletedRetryTraversalTransitionUsing(mode: Readonly<{ complete: false; input: Readonly<OwnedAdmitCompletedRetryTraversalTransitionInput> }>): OwnedRouteTransitionResult;
++function admitCompletedRetryTraversalTransitionUsing(
++  mode: Readonly<{ complete: true; input: Readonly<AdmitCompletedRetryTraversalTransitionInput> }> | Readonly<{ complete: false; input: Readonly<OwnedAdmitCompletedRetryTraversalTransitionInput> }>,
++): OwnedRouteTransitionResult {
++  const input = mode.input;
+   if (isRuntimeEventTransactionActive(input.store)) {
+     throw new TypeError(
+       "completed retry transition owns its complete ABG transaction",
+@@ -5458,31 +5525,24 @@
+       input.predecessorPrefix,
+       () => {
+         entered = true;
+-        const events = readActiveRuntimeTransactionAtDurablePrefix(
+-          input.store, input.predecessorPrefix, { durableOnly: true },
+-        );
++        const predecessor = transitionTransactionPrefix(input.store, input.predecessorPrefix, mode.complete);
+         if (
+           input.progressPlan.progresses.length === 0 ||
+           input.progressPlan.predecessorEventDigest !==
+-            runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(events))
++            runtimeEventPrefixDigest(predecessor)
+         ) {
+           throw new RouteTransitionAbort(refusal(
+             "candidate_mismatch",
+             "completed retry transition requires one non-empty exact progress plan",
+           ));
+         }
+-        const progresses =
+-          admitPlannedCompletedRetryProgressInActiveTransaction(
+-            input.store,
+-            input.predecessorPrefix,
+-            input.graph,
+-            input.graphFunction,
+-            input.source,
+-            input.target,
+-            input.completion,
+-            input.progressBasis,
+-            input.progressPlan,
+-          );
++        const progresses = mode.complete
++          ? admitPlannedCompletedRetryProgressInActiveTransaction(
++              input.store, input.predecessorPrefix, input.graph, input.graphFunction,
++              input.source, input.target, input.completion, input.progressBasis, mode.input.progressPlan)
++          : admitOwnedPlannedCompletedRetryProgressInActiveTransaction(
++              input.store, input.predecessorPrefix, input.graph, input.graphFunction,
++              input.source, input.target, input.completion, input.progressBasis, mode.input.progressPlan);
+         if ("kind" in progresses) {
+           throw new RouteTransitionAbort(progresses);
+         }
+@@ -5499,9 +5559,7 @@
+         const staged = admitTraversalTransitionInActiveTransaction({
+           ...input,
+           durablePredecessorPrefix: input.predecessorPrefix,
+-          stagedPrefix: selectValidatedRuntimeEventPrefix(
+-            input.store.readAll(),
+-          ),
++          stagedPrefix: mode.complete ? selectValidatedRuntimeEventPrefix(input.store.readAll()) : selectRuntimeEventPrefixFromStore(input.store),
+         });
+         if (staged.kind !== "staged_route_transition_admission") {
+           throw new RouteTransitionAbort(staged);
+@@ -5514,27 +5572,7 @@
+         "completed retry transition produced no durable successor prefix",
+       );
+     }
+-    const successorEvents = projectRuntimeEventsAtDurablePrefix(
+-      committed.successorPrefix,
+-    );
+-    const successorAuthorityPrefix = selectValidatedRuntimeEventPrefix(
+-      successorEvents,
+-    );
+-    const successorRunPrefix = selectRuntimeEventPrefixFromAuthority(
+-      successorAuthorityPrefix,
+-      { runId: input.source.runId },
+-    );
+-    return deepFreeze({
+-      kind: "route_transition_admission" as const,
+-      route: committed.value.route,
+-      retryAttempt: committed.value.retryAttempt,
+-      replayState: replayValidatedRuntimeEventPrefix(
+-        successorRunPrefix,
+-        successorAuthorityPrefix,
+-        committed.value.replayState,
+-      ),
+-      successorPrefix: committed.successorPrefix,
+-    });
++    return committedRouteTransition(input, committed.value, committed.successorPrefix, mode.complete);
+   } catch (error) {
+     if (!entered) {
+       return refusal(
+@@ -5566,6 +5604,12 @@
+   readonly failurePlan: RetryRuntimeFailureTransitionPlan;
+ }
+ 
++/** @internal */
++export type OwnedAdmitBlockedRetryTraversalTransitionInput = Omit<AdmitBlockedRetryTraversalTransitionInput, "failurePlan" | "selectRouteCandidate"> & {
++  readonly failurePlan: OwnedRetryRuntimeFailureTransitionPlan;
++  readonly selectRouteCandidate?: (replay: RuntimeReplayGuard) => TraversalTransitionCandidate;
++};
++
+ /**
+  * Atomically admits one planned blocked runtime-failure closure and its one
+  * HoG-selected consuming route. The caller supplies selection; ABG rederives
+@@ -5574,6 +5618,22 @@
+ export function admitBlockedRetryTraversalTransition(
+   input: Readonly<AdmitBlockedRetryTraversalTransitionInput>,
+ ): RouteTransitionResult {
++  return admitBlockedRetryTraversalTransitionUsing({ complete: true, input });
++}
++
++/** @internal Same atomic route computation without complete historical output. */
++export function admitOwnedBlockedRetryTraversalTransition(
++  input: Readonly<OwnedAdmitBlockedRetryTraversalTransitionInput>,
++): OwnedRouteTransitionResult {
++  return admitBlockedRetryTraversalTransitionUsing({ complete: false, input });
++}
++
++function admitBlockedRetryTraversalTransitionUsing(mode: Readonly<{ complete: true; input: Readonly<AdmitBlockedRetryTraversalTransitionInput> }>): RouteTransitionResult;
++function admitBlockedRetryTraversalTransitionUsing(mode: Readonly<{ complete: false; input: Readonly<OwnedAdmitBlockedRetryTraversalTransitionInput> }>): OwnedRouteTransitionResult;
++function admitBlockedRetryTraversalTransitionUsing(
++  mode: Readonly<{ complete: true; input: Readonly<AdmitBlockedRetryTraversalTransitionInput> }> | Readonly<{ complete: false; input: Readonly<OwnedAdmitBlockedRetryTraversalTransitionInput> }>,
++): OwnedRouteTransitionResult {
++  const input = mode.input;
+   if (isRuntimeEventTransactionActive(input.store)) {
+     throw new TypeError(
+       "blocked retry transition owns its complete ABG transaction",
+@@ -5587,9 +5647,7 @@
+       input.predecessorPrefix,
+       () => {
+         entered = true;
+-        const events = readActiveRuntimeTransactionAtDurablePrefix(
+-          input.store, input.predecessorPrefix, { durableOnly: true },
+-        );
++        const predecessor = transitionTransactionPrefix(input.store, input.predecessorPrefix, mode.complete);
+         const evidence = input.candidate.transitionClass === "route"
+           ? input.candidate.evidence
+           : null;
+@@ -5598,7 +5656,7 @@
+           evidence?.evidenceClass !== "blocked" ||
+           input.failurePlan.transition.disposition !== "blocked" ||
+           input.failurePlan.predecessorEventDigest !==
+-            runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(events)) ||
++            runtimeEventPrefixDigest(predecessor) ||
+           sha256Canonical(
+             evidence.stoppedProgresses as unknown as JsonValue,
+           ) !== sha256Canonical(
+@@ -5618,7 +5676,7 @@
+         const transition =
+           admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
+             input.store,
+-            selectValidatedRuntimeEventPrefix(events),
++            predecessor,
+             input.executionBasis,
+             input.graph,
+             input.graphFunction,
+@@ -5640,13 +5698,11 @@
+             "blocked retry plan admitted a non-blocked transition",
+           );
+         }
+-        const stagedPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+-        const candidate = input.selectRouteCandidate?.(
+-          replayValidatedRuntimeEventPrefix(
+-            selectValidatedRuntimeEventPrefix(input.store.readAll(), { runId: input.source.runId }),
+-            stagedPrefix,
+-          ),
+-        ) ?? input.candidate;
++        const stagedPrefix = mode.complete ? selectValidatedRuntimeEventPrefix(input.store.readAll()) : selectRuntimeEventPrefixFromStore(input.store);
++        const stagedRun = selectRuntimeEventPrefixFromAuthority(stagedPrefix, { runId: input.source.runId });
++        const candidate = mode.complete
++          ? mode.input.selectRouteCandidate?.(replayValidatedRuntimeEventPrefix(stagedRun, stagedPrefix)) ?? input.candidate
++          : mode.input.selectRouteCandidate?.(projectRuntimeReplayGuard(stagedRun, stagedPrefix)) ?? input.candidate;
+         if (candidate.transitionClass !== "route" ||
+             sha256Canonical(candidate.evidence as unknown as JsonValue) !==
+               sha256Canonical(input.candidate.evidence as unknown as JsonValue)) {
+@@ -5671,27 +5727,7 @@
+         "blocked retry transition produced no durable successor prefix",
+       );
+     }
+-    const successorEvents = projectRuntimeEventsAtDurablePrefix(
+-      committed.successorPrefix,
+-    );
+-    const successorAuthorityPrefix = selectValidatedRuntimeEventPrefix(
+-      successorEvents,
+-    );
+-    const successorRunPrefix = selectRuntimeEventPrefixFromAuthority(
+-      successorAuthorityPrefix,
+-      { runId: input.source.runId },
+-    );
+-    return deepFreeze({
+-      kind: "route_transition_admission" as const,
+-      route: committed.value.route,
+-      retryAttempt: committed.value.retryAttempt,
+-      replayState: replayValidatedRuntimeEventPrefix(
+-        successorRunPrefix,
+-        successorAuthorityPrefix,
+-        committed.value.replayState,
+-      ),
+-      successorPrefix: committed.successorPrefix,
+-    });
++    return committedRouteTransition(input, committed.value, committed.successorPrefix, mode.complete);
+   } catch (error) {
+     if (!entered) {
+       return refusal(
+--- a35/code/src/abg/retry.ts
++++ b36/code/src/abg/retry.ts
+@@ -1,7 +1,7 @@
+ import type { RuntimeEventScan } from "./runtime_history.js";
+ import { createHash } from "node:crypto";
+ import { writeCanonicalJson, compareUnicodeCodeUnits } from "../shared/canonical_json.js";
+-import { indexedRuntimeEvents } from "./event_prefix.js";
++import { indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope } from "./event_prefix.js";
+ import type { RuntimeEventPrefix } from "./event_prefix.js";
+ import { isJsonRecordShape as isRecord, isNonEmptyJsonString as nonEmptyString } from "../shared/admission_predicates.js";
+ import type {
+@@ -387,6 +387,12 @@
+   readonly projectedPrefix: ValidatedRuntimeEventPrefix;
+   readonly replayState: ReplayState;
+ }
++
++/** @internal Same failure transition with a finite prospective prefix and selected replay guard. */
++export type OwnedRetryRuntimeFailureTransitionPlan = Omit<RetryRuntimeFailureTransitionPlan, "projectedPrefix" | "replayState"> & {
++  readonly projectedPrefix: RuntimeEventPrefix;
++  readonly replayState: RuntimeReplayGuard;
++};
+ 
+ export type RetryRuntimeFailureTransitionResult =
+   | RetryRuntimeFailureTransitionAdmission
+@@ -4380,18 +4386,17 @@
+ 
+ function rehydrateRetryTraversalScope(
+   prefix: RuntimeEventPrefix,
+-  events: RuntimeEventScan,
+   executionBasis: ExecutionBasis,
+   cursor: TraversalCursorCandidate,
+ ): OpenedTraversalScope | null {
+-  const graphCallRows = events.filter((event) =>
++  const graphCallRows = indexedRuntimeEvents(prefix, "kind:graph_call_opened").filter((event) =>
+     event.kind === "graph_call_opened" &&
+     event.aggregateId === cursor.graphCallId &&
+     event.runId === cursor.runId &&
+     event.basisId === executionBasis.basisRef &&
+     isRecord(event.payload) && digestValue(event.payload.graphCallDigest)
+   );
+-  const runRows = events.filter((event) =>
++  const runRows = indexedRuntimeEvents(prefix, "kind:run_segment_opened").filter((event) =>
+     event.kind === "run_segment_opened" &&
+     event.aggregateId === cursor.runId &&
+     graphCallRows.some((graphCall) =>
+@@ -4399,7 +4404,7 @@
+     ) &&
+     isRecord(event.payload) && digestValue(event.payload.runDigest)
+   );
+-  const frameRows = events.filter((event) =>
++  const frameRows = indexedRuntimeEvents(prefix, "kind:frame_opened").filter((event) =>
+     event.kind === "frame_opened" &&
+     event.aggregateId === cursor.frameId &&
+     event.runId === cursor.runId &&
+@@ -4451,6 +4456,20 @@
+ export function projectExecutableRetryInput(
+   request: ProjectExecutableRetryInputRequest,
+ ): ProjectExecutableRetryInputResult {
++  return projectExecutableRetryInputUsing(request, true);
++}
++
++/** @internal The same complete selected frontier at its actual owned cut. */
++export function projectOwnedExecutableRetryInput(
++  request: ProjectExecutableRetryInputRequest,
++): ProjectExecutableRetryInputResult {
++  return projectExecutableRetryInputUsing(request, false);
++}
++
++function projectExecutableRetryInputUsing(
++  request: ProjectExecutableRetryInputRequest,
++  completePrefix: boolean,
++): ProjectExecutableRetryInputResult {
+   if (!isRetryFrontierSelector(request.selector)) {
+     return executableRetryInputRefusal(
+       request,
+@@ -4460,17 +4479,13 @@
+   }
+   let prefix: RuntimeEventPrefix;
+   let authorityPrefix: RuntimeEventPrefix;
+-  let events: RuntimeEventScan;
+   let lastAdmissionOrdinal: number;
+   try {
+-    const durableEvents = readRuntimeEventsAtDurablePrefix(request.prefix);
+-    lastAdmissionOrdinal = durableEvents.at(-1)?.admissionOrdinal ?? -1;
+-    authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
+-    prefix = selectValidatedRuntimeEventPrefix(
+-      runtimeEventBodiesAtPrefix(authorityPrefix),
+-      { runId: request.selector.runId },
+-    );
+-    events = runtimeEventBodiesAtPrefix(prefix);
++    authorityPrefix = completePrefix
++      ? selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(request.prefix))
++      : projectOwnedRuntimeEventPrefixAtDurablePrefix(request.prefix);
++    lastAdmissionOrdinal = runtimeEventPrefixLastEnvelope(authorityPrefix)?.admissionOrdinal ?? -1;
++    prefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: request.selector.runId });
+   } catch {
+     return executableRetryInputRefusal(
+       request,
+@@ -4479,7 +4494,7 @@
+     );
+   }
+   const selector = request.selector;
+-  const selectedProgressEvents = events.filter((event) =>
++  const selectedProgressEvents = indexedRuntimeEvents(prefix, "kind:retry_progress_recorded").filter((event) =>
+     event.kind === "retry_progress_recorded" &&
+     event.runId === selector.runId &&
+     event.graphCallId === selector.graphCallId &&
+@@ -4516,7 +4531,7 @@
+     );
+   }
+   const citedAttemptEventRef = selectedProgressEvent.causationEventRefs[0]!;
+-  const citedAttemptEvents = events.filter((event) =>
++  const citedAttemptEvents = indexedRuntimeEvents(prefix, "id:" + citedAttemptEventRef).filter((event) =>
+     event.kind === "retry_attempt_opened" &&
+     event.eventId === citedAttemptEventRef &&
+     isRecord(event.payload) &&
+@@ -4652,28 +4667,18 @@
+   const cited = new Set<string>();
+   for (const ownerRow of ownerRows) {
+     const phase = ownerRow.failureCCall.phaseProjection;
+-    const attemptEvent = events.find((event) =>
+-      event.eventId === ownerRow.attemptEventRef
+-    );
+-    const progressEvent = events.find((event) =>
+-      event.eventId === ownerRow.progressEventRef
+-    );
+-    const openedEvent = events.find((event) =>
+-      event.eventId === phase.openedEventRef
+-    );
+-    const fibreEvent = phase.fibreEventRef === null ? undefined : events.find(
+-      (event) => event.eventId === phase.fibreEventRef,
+-    );
+-    const resultEvent = phase.resultEventRef === null ? undefined : events.find(
+-      (event) => event.eventId === phase.resultEventRef,
+-    );
++    const attemptEvent = runtimeEventAtPrefix(prefix, ownerRow.attemptEventRef);
++    const progressEvent = runtimeEventAtPrefix(prefix, ownerRow.progressEventRef);
++    const openedEvent = phase.openedEventRef === null ? undefined : runtimeEventAtPrefix(prefix, phase.openedEventRef);
++    const fibreEvent = phase.fibreEventRef === null ? undefined : runtimeEventAtPrefix(prefix, phase.fibreEventRef);
++    const resultEvent = phase.resultEventRef === null ? undefined : runtimeEventAtPrefix(prefix, phase.resultEventRef);
+     const judgmentEvent = phase.judgmentEventRef === null
+       ? undefined
+-      : events.find((event) => event.eventId === phase.judgmentEventRef);
++      : runtimeEventAtPrefix(prefix, phase.judgmentEventRef);
+     const resultEvidenceEvents = resultEvent === undefined
+       ? []
+       : phase.evidenceEventRefs
+-        .map((eventRef) => events.find((event) => event.eventId === eventRef))
++        .map((eventRef) => runtimeEventAtPrefix(prefix, eventRef))
+         .filter((event): event is RuntimeEvent =>
+           event !== undefined &&
+           resultEvent.causationEventRefs.includes(event.eventId)
+@@ -4779,7 +4784,6 @@
+   const selectedCCall = selected.failureCCall.cCall;
+   const scope = rehydrateRetryTraversalScope(
+     prefix,
+-    events,
+     executionBasis,
+     sourceCursor,
+   );
+@@ -5249,7 +5253,7 @@
+   failureCandidate: JsonValue,
+   failureValueKind: string,
+   basis: RuntimeAdmissionBasis,
+-): RetryRuntimeFailureTransitionPlan | RetryAdmissionRefusal;
++): OwnedRetryRuntimeFailureTransitionPlan | RetryAdmissionRefusal;
+ export function planRetryRuntimeFailureTransition(
+   store: AbgEventStore,
+   prefix: RuntimeEventPrefix,
+@@ -5262,7 +5266,7 @@
+   failureCandidate: JsonValue,
+   failureValueKind: string,
+   basis: RuntimeAdmissionBasis,
+-): RetryRuntimeFailureTransitionPlan | RetryAdmissionRefusal {
++): OwnedRetryRuntimeFailureTransitionPlan | RetryAdmissionRefusal {
+   const expectedPrefixDigest = runtimeEventPrefixDigest(prefix);
+   if (store.digest() !== expectedPrefixDigest) {
+     return refusal(
+@@ -5524,18 +5528,18 @@
+   const close = closePlan.close;
+   const eventCandidates = [...closePlan.eventCandidates];
+   const projectedEvents = [...closePlan.projectedEvents];
+-  const projectedHistory = [
+-    ...runtimeEventBodiesAtPrefix(prefix),
+-    ...projectedEvents,
+-  ];
++  let projectedPrefix = prefix;
++  for (const event of projectedEvents) {
++    projectedPrefix = extendRuntimeEventPlanPrefixForValidation(projectedPrefix, event);
++  }
+   const project = (candidate: RuntimeEventCandidate): RuntimeEvent => {
+     const event = projectRuntimeEventFromValidatedHistory(
+-      projectedHistory,
++      runtimeEventBodiesAtPrefix(projectedPrefix),
+       candidate,
+     );
+     eventCandidates.push(deepFreeze(candidate));
+     projectedEvents.push(event);
+-    projectedHistory.push(event);
++    projectedPrefix = extendRuntimeEventPlanPrefixForValidation(projectedPrefix, event);
+     return event;
+   };
+   const progressBody = {
+@@ -5658,9 +5662,7 @@
+       predecessorEvent = cascadeEvent;
+     }
+   }
+-  const admittedPrefix = selectValidatedRuntimeEventPrefix(
+-    Object.freeze([...projectedHistory]),
+-  );
++  const admittedPrefix = projectedPrefix;
+   const projectedSignal = projectCCallRuntimeFailureSignal(
+     admittedPrefix,
+     cCall.cCallRef,
+@@ -5713,10 +5715,7 @@
+     stoppedProgresses,
+     eligibility,
+   });
+-  const runPrefix = selectValidatedRuntimeEventPrefix(
+-    Object.freeze([...projectedHistory]),
+-    { runId: cursor.runId },
+-  );
++  const runPrefix = selectRuntimeEventPrefixFromAuthority(admittedPrefix, { runId: cursor.runId });
+   return deepFreeze({
+     kind: "retry_runtime_failure_transition_plan" as const,
+     schemaVersion: "5.0.0" as const,
+@@ -5725,8 +5724,21 @@
+     projectedEvents,
+     transition,
+     projectedPrefix: admittedPrefix,
+-    replayState: replayValidatedRuntimeEventPrefix(runPrefix, admittedPrefix),
++    replayState: admittedPrefix.kind === "validated_runtime_event_prefix"
++      ? replayValidatedRuntimeEventPrefix(runPrefix, admittedPrefix)
++      : projectRuntimeReplayGuard(runPrefix, admittedPrefix),
+   });
++}
++
++/** @internal No complete historical output is acquired merely to compare private failure plans. */
++function ownedRetryRuntimeFailurePlansCorrespond(
++  left: OwnedRetryRuntimeFailureTransitionPlan, right: OwnedRetryRuntimeFailureTransitionPlan,
++): boolean {
++  const { projectedPrefix: aPrefix, replayState: aReplay, ...aFinite } = left;
++  const { projectedPrefix: bPrefix, replayState: bReplay, ...bFinite } = right;
++  return runtimeEventPrefixesHaveSameOwnedCut(aPrefix, bPrefix) &&
++    runtimeReplayGuardsHaveSameOwnedCut(aReplay, bReplay) &&
++    sha256Canonical(aFinite as unknown as JsonValue) === sha256Canonical(bFinite as unknown as JsonValue);
+ }
+ 
+ export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
+@@ -5756,7 +5768,7 @@
+   failureCandidate: JsonValue,
+   failureValueKind: string,
+   basis: RuntimeAdmissionBasis,
+-  plan: RetryRuntimeFailureTransitionPlan,
++  plan: OwnedRetryRuntimeFailureTransitionPlan,
+ ): StagedRetryRuntimeFailureTransitionAdmission | RetryAdmissionRefusal;
+ export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
+   store: AbgEventStore,
+@@ -5770,10 +5782,9 @@
+   failureCandidate: JsonValue,
+   failureValueKind: string,
+   basis: RuntimeAdmissionBasis,
+-  plan: RetryRuntimeFailureTransitionPlan,
++  plan: OwnedRetryRuntimeFailureTransitionPlan,
+ ): StagedRetryRuntimeFailureTransitionAdmission | RetryAdmissionRefusal {
+   assertRuntimeEventTransactionActive(store);
+-  const predecessorEvents = runtimeEventBodiesAtPrefix(prefix);
+   if (
+     plan.kind !== "retry_runtime_failure_transition_plan" ||
+     plan.schemaVersion !== "5.0.0" ||
+@@ -5802,18 +5813,19 @@
+   );
+   if (
+     exact.kind !== "retry_runtime_failure_transition_plan" ||
+-    sha256Canonical(exact as unknown as JsonValue) !==
+-      sha256Canonical(plan as unknown as JsonValue)
++    (prefix.kind === "validated_runtime_event_prefix"
++      ? sha256Canonical(exact as unknown as JsonValue) !== sha256Canonical(plan as unknown as JsonValue)
++      : !ownedRetryRuntimeFailurePlansCorrespond(exact, plan))
+   ) {
+     return refusal(
+       "progress_mismatch",
+       "runtime failure plan differs from its exact ABG owner relation",
+     );
+   }
+-  const projectedHistory = [...predecessorEvents];
++  let projectedPrefix = prefix;
+   for (const [index, candidate] of plan.eventCandidates.entries()) {
+     const projected = projectRuntimeEventFromValidatedHistory(
+-      projectedHistory,
++      runtimeEventBodiesAtPrefix(projectedPrefix),
+       candidate,
+     );
+     if (
+@@ -5825,7 +5837,7 @@
+         "runtime failure plan no longer projects its exact event sequence",
+       );
+     }
+-    projectedHistory.push(projected);
++    projectedPrefix = extendRuntimeEventPlanPrefixForValidation(projectedPrefix, projected);
+   }
+   const sampledEvents = plan.eventCandidates.map((candidate) => {
+     const sample = captureNativeFrameBoundary(store);
+--- a35/code/src/hog/retry_lifecycle.ts
++++ b36/code/src/hog/retry_lifecycle.ts
+@@ -2,6 +2,7 @@
+ import type { RuntimeAdmissionBasis } from "../abg/execution_basis.js";
+ import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+ import * as AbgRetry from "../abg/retry.js";
++import * as OwnedRoutes from "../abg/traversal_route.js";
+ import type { GraphFunction, GtlGraph } from "../gtl/contracts.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -222,7 +223,7 @@
+ ): ProjectedRetryResumeResult {
+   let fresh: AbgRetry.ProjectExecutableRetryInputResult;
+   try {
+-    fresh = AbgRetry.projectExecutableRetryInput({
++    fresh = AbgRetry.projectOwnedExecutableRetryInput({
+       prefix: request.predecessorPrefix,
+       selector: request.retry.selector,
+       program: request.runtime.program,
+@@ -454,7 +455,7 @@
+   }
+   let transition;
+   try {
+-    transition = Abg.admitTraversalTransition({
++    transition = OwnedRoutes.admitOwnedTraversalTransition({
+       predecessorPrefix: request.predecessorPrefix,
+       store: request.store,
+       executionBasis: request.runtime.executionBasis,
+@@ -610,7 +611,7 @@
+       },
+       terminalizeRun: runtime.scopeClass === "root",
+     });
+-    const route = Abg.admitBlockedRetryTraversalTransition({
++    const route = OwnedRoutes.admitOwnedBlockedRetryTraversalTransition({
+       predecessorPrefix: admitted.successorPrefix,
+       store: runtime.store,
+       executionBasis: runtime.executionBasis,
+@@ -692,7 +693,7 @@
+       retryTransition as unknown as JsonValue,
+     );
+   }
+-  const retry = AbgRetry.projectExecutableRetryInput({
++  const retry = AbgRetry.projectOwnedExecutableRetryInput({
+     prefix: retryTransition.successorPrefix,
+     selector: {
+       kind: "retry_frontier_selector",
+--- a35/code/src/hog/workflow_lifecycle.ts
++++ b36/code/src/hog/workflow_lifecycle.ts
+@@ -1,5 +1,5 @@
+ import * as Abg from "../abg/index.js";
+-import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
++import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority, indexedRuntimeEventEnvelopes } from "../abg/event_prefix.js";
+ import type {
+   AbgEventStore,
+   AdmittedImplementationSet,
+@@ -581,13 +581,18 @@
+     (child.disposition !== "failed" && child.disposition !== "closed" &&
+       child.disposition !== "blocked")
+   ) {
+-    const childCauseEventRefs = Abg.readRuntimeEventsAtDurablePrefix(child.successorPrefix)
++    const childPrefix = selectRuntimeEventPrefixFromAuthority(
++      projectOwnedRuntimeEventPrefixAtDurablePrefix(child.successorPrefix),
++      { runId: frame.childTraversalScope.runId },
++    );
++    const childCause = ["traversal_route_admitted", "c_call_judged", "runtime_failure_observed"]
++      .flatMap(kind => indexedRuntimeEventEnvelopes(childPrefix, "kind:" + kind))
+       .filter(event => event.runId === frame.childTraversalScope.runId &&
+         event.graphCallId === frame.childTraversalScope.graphCallId &&
+-        event.frameId === frame.childTraversalScope.frameId &&
+-        (event.kind === "traversal_route_admitted" || event.kind === "c_call_judged" ||
+-          event.kind === "runtime_failure_observed"))
+-      .slice(-1).map(event => event.eventId);
++        event.frameId === frame.childTraversalScope.frameId)
++      .reduce<(ReturnType<typeof indexedRuntimeEventEnvelopes>[number]) | null>(
++        (last, event) => last === null || event.admissionOrdinal > last.admissionOrdinal ? event : last, null);
++    const childCauseEventRefs = childCause === null ? [] : [childCause.eventId];
+     return {
+       completion: workflowFailure(
+         frame,

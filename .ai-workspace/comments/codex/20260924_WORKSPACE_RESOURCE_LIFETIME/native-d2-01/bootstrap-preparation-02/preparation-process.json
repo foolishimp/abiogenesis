@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-02/prepare.mjs"
+  ],
+  "pid": 1661,
+  "elapsedSeconds": 470.5548002081923,
+  "exitCode": 1,
+  "resourceObservations": "preparation.stderr /usr/bin/time -l; command group scope",
+  "noActorDuringSetup": true
+}

@@ -1,0 +1,53 @@
+{
+  "operation": "T287_G1_FINDING_CONSERVATION_REALIZATION_01",
+  "status": "SOURCE_COMPONENT_READY",
+  "subject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "bytes": 29339,
+      "sha256": "5183bce7a986462eb2d924fdd288cef23439dc72811f4047f3d964a286e46537",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "bytes": 43068,
+      "sha256": "a1e00db17056aebcd22186acdc87d2bd7d68985889d4572d81d0eedfdc85b051",
+      "mode": 420
+    }
+  ],
+  "expectedPreimage": {
+    "baselinePassedBeforeMixedAssertion": true,
+    "mixedActual": "blocked_incomplete",
+    "expected": "failed",
+    "missingCitation": true,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/preimage.json",
+      "bytes": 1573,
+      "sha256": "15c19fe2504eb4106dcfbf9e87ce82d8ecad627a1478952c2868f5a5a63c2512",
+      "mode": 420
+    }
+  },
+  "compile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/compile.json",
+    "bytes": 1642,
+    "sha256": "2e364eea0ed4d4c2803435ec014e1f49c506732fa3fd5e77b60fe7c7097004e5",
+    "mode": 420
+  },
+  "focused": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/focused.json",
+      "bytes": 1638,
+      "sha256": "cdb3da95f968585fd4b7971e693a41d88a506aa436456f1d378c8ca539251195",
+      "mode": 420
+    },
+    "testCount": 4,
+    "passed": 4,
+    "failed": 0,
+    "assertions": "all-present multi-root pass; mixed falsification+missing root stays failed and retains exact J citation; missing peer explicit without fabricated citation; partial non-failure blocked with available citation; all-unknown/inapplicable blocked; exact baseline restored; existing grouped/singleton and scope guards preserved"
+  },
+  "lowerPremises": "Existing component harness supplies small catalog, native execution, independent admitted assessment rows and tenant lookup; actual production matching/aggregation and typed result guard exercised. No native store, actor, Runtime or provider proof.",
+  "canonicalTypedContracts": "unchanged",
+  "AF22": "unchanged/not executed",
+  "endToEndExit": "Successor-bound native F11 -> sole AF22 -> fresh installed result/replay must conserve known failed disposition and original citation alongside unresolved support. Still OPEN.",
+  "independentAssurance": "not self-activated; Root alone accepts"
+}

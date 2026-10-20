@@ -30,7 +30,7 @@ import {
 } from "../shared/operation_definition_coordinate.js";
 import {
   projectExactPrefixArtifactTruth,
-  runtimePrefixFromArtifactTruth,
+  runtimePrefixFromOwnedArtifactTruth,
   prepareArtifactTruthCandidate,
   validateArtifactTruthProjectionValue,
   type AdmittedArtifactTruth,
@@ -514,7 +514,7 @@ export function projectWorkspaceEnvironmentFromArtifactTruth(
       "workspace environment projection requires one exact WorkspaceBinding ref and digest",
     );
   }
-  const ownerPrefix = runtimePrefixFromArtifactTruth(artifactTruth);
+  const ownerPrefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);
   const key = `${artifactTruth.projectionDigest}:${workspaceBindingCoordinate.ref}:${workspaceBindingCoordinate.digest}`;
   const facts = ownerPrefix === null ? null : runtimePrefixComputation(ownerPrefix,
     WORKSPACE_ENVIRONMENTS, () => new Map<string, ExactPrefixWorkspaceEnvironmentProjectionResult>());

@@ -1,0 +1,29 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/genuine-pilot.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/consumer/genuine-pilot.mjs
+@@ -17,7 +17,7 @@
+ const archiveDigest = 'sha256:214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6';
+ const pinnedNode = join(repo, '.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node');
+ const eventLogPath = join(originalRoot, 'resources/events/runtime.events.jsonl');
+-const historicalHandoff = join(repo, '.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/fresh/read-af22-run_replay-handoff.json');
++const historicalHandoff = join(repo, '.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2/assessment-handoff.json');
+ const constructionRoot = join(repo, '.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction');
+ const currentConstructionRoot = join(repo, '.ai-workspace/evidence/T287_CONTEXT_PROJECTION_REPAIR_01/source-construction');
+ const mode = process.env.ABI5_GENUINE_MODE ?? 'prepare';
+@@ -299,7 +299,7 @@
+   const handoff = await readJson(historicalHandoff);
+   assert.equal(hash(handoff.closeHandoff), handoff.handoffDigest);
+   const log = await readFile(eventLogPath), physical = await stat(eventLogPath);
+-  assert.equal(log.length, 5302025); assert.equal(digest(log), 'sha256:7208244c234cedf06b5785a1faecec4606063b40e87cf58b883109057bd33666');
++  assert.equal(log.length, 5489354); assert.equal(digest(log), 'sha256:0fb336ea0a4f2c69ae3f2c629a8fa39bd8a96d12fecd551cc93728d94cf41811');
+   assert.equal(physical.dev, 16777231); assert.equal(physical.ino, 465654884);
+   await writeJson(join(root, 'entry-handoff.json'), handoff);
+   const caller = createCaller({root, native, binding: selected.binding, closeHandoff: handoff.closeHandoff, eventLogPath});
+@@ -396,7 +396,7 @@
+       [key, observation.call.invocation.invocationAuthority.slots[key]])), terminalDigest: hash(result), result: result.result,
+     producer: result.producer, ...(label === 'assessment' ? {source: result.value.source} : {})}));
+   await writeJson(join(root, 'read-selection.json'), {binding: caller.state.binding, closeHandoff: caller.state.closeHandoff, selections});
+-  const newEvents = (await readFile(eventLogPath)).subarray(5302025).toString('utf8').trim().split('\n').map(JSON.parse);
++  const newEvents = (await readFile(eventLogPath)).subarray(5489354).toString('utf8').trim().split('\n').map(JSON.parse);
+   const closures = newEvents.filter(e => e.kind === 'run_closed');
+   assert.equal(closures.length, 2);
+   await writeJson(join(root, 'flow-observation.json'), {status: 'passed_bounded_genuine', criterion: packet.criterion,

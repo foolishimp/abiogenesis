@@ -1,0 +1,53 @@
+{
+  "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "startedAtUTC": "2026-10-04T15:12:43.915139+00:00",
+  "completedAtUTC": "2026-10-04T15:18:51.270580+00:00",
+  "donorStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript",
+  "newStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+  "sourceRows": 16,
+  "sourceChanges": 2,
+  "readOnlyOtherSourceRows": 14,
+  "borrowedDependencies": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules",
+  "borrowedTools": {
+    "node": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    "npm": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/package.json",
+      "bytes": 6603,
+      "sha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484",
+      "version": "11.5.1"
+    },
+    "typescript": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/package.json",
+      "bytes": 3620,
+      "sha256": "5a0bb7f286c4b3f1413a42c05f902311b161f70e5f52d9da10490443bfd595a3",
+      "version": "5.9.2"
+    },
+    "valibot": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/valibot/package.json",
+      "bytes": 1914,
+      "sha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb",
+      "version": "1.4.2"
+    },
+    "jsonSchemaConverter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/package.json",
+      "bytes": 1832,
+      "sha256": "5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+      "version": "1.7.1"
+    }
+  },
+  "donorSupervisorSHA256": "fffe39bc26407c936574b0109e9b2394b20775d050d9a3aac2e3155905c6b304",
+  "actualSupervisorContract": "configuration commands/stage/node; activation HOME/budgets; pre-spawn streams; start_new_session; wait4/grace/group absence",
+  "donorReporterSHA256": "0315807160de062b8dd9433f7db79bf05a0178d26eee587dbf7711c3800eb3d2",
+  "baselineSHA256": "bd6355873ac63b06fd472732fecc9e2f6535a5b0040b6bceb454bbfde9d760f0",
+  "elapsedMs": 396.9205832108855,
+  "userCPUSeconds": 0.091516,
+  "systemCPUSeconds": 0.191218,
+  "maxRSSPlatformBytes": 116342784,
+  "defaultHeap": true,
+  "HOMEUnchanged": true,
+  "effectsOnlyPrivateWorkAndEvidence": true
+}

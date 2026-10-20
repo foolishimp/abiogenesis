@@ -1,0 +1,10 @@
+{
+  "activation": "T287_RC1_C03_ACCEPTANCE_AND_RUNTIME_SELECTION_01",
+  "status": "CLOSED",
+  "postimages": {
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": "260da0a93f920a66bd0dca1d81e47db4757ca8d4e2ba6a1f2259d91a8f80d0e9",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/received-independent-review.md": "2d52e7aae67fb5b5111b616a093c7a39be7df24f36fb008959939a9a4d523b7c",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/acceptance.json": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f"
+  },
+  "rootRoleAfter": "Executive"
+}

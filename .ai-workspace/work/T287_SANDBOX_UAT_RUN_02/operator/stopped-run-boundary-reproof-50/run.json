@@ -1,0 +1,9 @@
+{
+  "classification": "Model-free post-stop evidence-boundary reproof; no new Run/native work or old truth alteration",
+  "fromArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+  "run": {
+    "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+    "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+  },
+  "originalRunId": "2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665"
+}

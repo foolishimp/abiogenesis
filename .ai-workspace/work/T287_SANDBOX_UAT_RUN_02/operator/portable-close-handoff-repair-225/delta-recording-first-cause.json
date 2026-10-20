@@ -1,0 +1,7 @@
+{
+  "phase": "delta recording",
+  "firstCause": "Python line15 print expression missed a closing brace; SyntaxError before any statement",
+  "error": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '{'",
+  "action": "Correct only recording expression; ordinary pre-owner format correction within225; no Source or checks rerun",
+  "effects": "Parser rejection before filesystem reads/writes in failed command"
+}

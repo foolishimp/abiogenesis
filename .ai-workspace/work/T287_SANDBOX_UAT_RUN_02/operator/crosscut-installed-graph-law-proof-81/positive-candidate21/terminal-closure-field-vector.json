@@ -1,0 +1,108 @@
+{
+  "kind": "pure_current_installed_owner_terminal_closure_field_correspondence",
+  "exactBasis": "event://abiogenesis/9329e59e422fc7ccdc3ee4d4b4e429d49ce9270868626aeddb32b1b4a433de7d",
+  "exactMaterializationRef": "graph-materialization://abiogenesis/0ffae0051bef75762416da0d6cabf4c960b5ad62f88c5a2bbf3e7fc224d2a282",
+  "cCall": {
+    "ref": "c-call:sha256:56cb3a1fdc2e5353904a1384d44d39e0d1878241080b2d24340e48842ac00065",
+    "digest": "sha256:56cb3a1fdc2e5353904a1384d44d39e0d1878241080b2d24340e48842ac00065",
+    "programLocusRef": "locus://abi5-tests/structural/graph-edge/render@5",
+    "implementationBindingRef": "implementation-binding://abi5-tests/structural/project@5"
+  },
+  "resultEvent": "event://abiogenesis/95a3b339e85df3c45fa2b131581cc4fea2fa39d1c6ea05bff413fc60ca052dde",
+  "resultRef": "result://abiogenesis/3a5c601ed98e6905b4a64a46a47747509fd73e6822ecd74b9a075fcf78766214",
+  "judgmentEvent": "event://abiogenesis/b7d9ebe092cc7e32fa1f4846f7868884d472b86b4b04d8273e8fd8726e526081",
+  "vector": [
+    {
+      "field": "closureContractRef",
+      "rootClosure": "contract://abi5-tests/structural/graph-edge/closure@5",
+      "terminalOwner": "contract://abi5-tests/structural/graph-edge/closure@5",
+      "matches": true
+    },
+    {
+      "field": "closureContractDigest",
+      "rootClosure": "sha256:0980e5cef135b2e2558ea946e35bd0b3f70565389ae84ea40de79cc9c8ce77cf",
+      "terminalOwner": "sha256:0980e5cef135b2e2558ea946e35bd0b3f70565389ae84ea40de79cc9c8ce77cf",
+      "matches": true
+    },
+    {
+      "field": "predicateRef",
+      "rootClosure": "predicate://abi5-tests/structural/graph-edge@5",
+      "terminalOwner": "predicate://abi5-tests/structural/graph-edge@5",
+      "matches": true
+    },
+    {
+      "field": "replayProjectionRef",
+      "rootClosure": "projection://abi5-tests/structural/contract://abi5-tests/structural/graph-edge/closure@5@5",
+      "terminalOwner": "projection://abi5-tests/structural/contract://abi5-tests/structural/graph-edge/closure@5@5",
+      "matches": true
+    },
+    {
+      "field": "terminalKind",
+      "rootClosure": "completed",
+      "terminalOwner": "completed",
+      "matches": true
+    },
+    {
+      "field": "evidenceContractRef",
+      "rootClosure": "contract://abi5-tests/structural/graph-edge/evidence@5",
+      "terminalOwner": "contract://abi5-tests/structural/project/evidence@5",
+      "matches": false
+    },
+    {
+      "field": "resultContractRef",
+      "rootClosure": "contract://abi5-tests/structural/atomic/output@5",
+      "terminalOwner": "contract://abi5-tests/structural/atomic/output@5",
+      "matches": true
+    },
+    {
+      "field": "refusalContractRef",
+      "rootClosure": "contract://abi5-tests/structural/graph-edge/refusal@5",
+      "terminalOwner": "contract://abi5-tests/structural/project/refusal@5",
+      "matches": false
+    },
+    {
+      "field": "judgmentContractRef",
+      "rootClosure": "contract://abi5-tests/structural/graph-edge/judgment@5",
+      "terminalOwner": "contract://abi5-tests/structural/project/judgment@5",
+      "matches": false
+    },
+    {
+      "field": "transitionBasisContractRef",
+      "rootClosure": "contract://abi5-tests/structural/graph-edge/transition@5",
+      "terminalOwner": "contract://abi5-tests/structural/graph-edge/transition@5",
+      "matches": true
+    },
+    {
+      "field": "closureScope",
+      "rootClosure": "run",
+      "terminalOwner": "run",
+      "matches": true
+    },
+    {
+      "field": "eventKindRefs",
+      "rootClosure": [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed",
+        "run_closed"
+      ],
+      "terminalOwner": [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed",
+        "run_closed"
+      ],
+      "matches": true
+    }
+  ],
+  "mismatchedFields": [
+    "evidenceContractRef",
+    "refusalContractRef",
+    "judgmentContractRef"
+  ],
+  "alreadyClosed": false,
+  "sourceLaw": "abg/closure.ts532–543, abg/c_call.ts2550–2551",
+  "transitionQualification": "No terminal route admitted; transition comparison is authentic C_Call/basis candidate contract only",
+  "retainedPureProbePremise": "First probe expected projectOpenedCCallCarrierAtPrefix at abg barrel; not exported there. Corrected by exact installed abg/c_call.js owning import, no source/runtime changes.",
+  "noRuntimeAdmissionOrWriterEffects": true
+}

@@ -1,0 +1,173 @@
+{
+  "source": "exact C and selected installed STDO; commentary source locators only",
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "spans": [
+        {
+          "startLine": 25,
+          "endLine": 108,
+          "startByte": 844,
+          "endByte": 5700,
+          "sha256": "12762000b2fddff59a68b7cb75eaddf70b77d6bbea00b546e9553c42e6393752"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2",
+      "spans": [
+        {
+          "startLine": 219,
+          "endLine": 261,
+          "startByte": 13902,
+          "endByte": 16637,
+          "sha256": "15ada19052f2c9f41f3a6e321de585c56e7dfc1d5d5bd42c55b07d1246fd5599"
+        },
+        {
+          "startLine": 338,
+          "endLine": 370,
+          "startByte": 21507,
+          "endByte": 24013,
+          "sha256": "881bba80114c473d076e6085239b57c57b33954e7b436648701b61315cfb0ae9"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_D4_SELF_CONFORMANCE_DESIGN.md",
+      "bytes": 17840,
+      "sha256": "b6d1edc9ea9c2847241c0855a8de92340b79aedf3459b18639a3fb748ccd3d4c",
+      "spans": [
+        {
+          "startLine": 83,
+          "endLine": 97,
+          "startByte": 5707,
+          "endByte": 7740,
+          "sha256": "16c965833cf125521ec91b5341249c20ba6f8f89f72f20483c7ef1096f9e0576"
+        },
+        {
+          "startLine": 121,
+          "endLine": 150,
+          "startByte": 9110,
+          "endByte": 11834,
+          "sha256": "d489d01b2e7dc5fcb1cca86c3302f536611f3e39baef874a485b8e08b2c015fe"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "bytes": 45510,
+      "sha256": "7f2ef6b22c5e6d7176e08dd2283ba3c09869a7738490090c444022a13ddfa41a",
+      "spans": [
+        {
+          "startLine": 23,
+          "endLine": 63,
+          "startByte": 2308,
+          "endByte": 15143,
+          "sha256": "24b8704375887c66aa49f07fafd0d796cbb4b52a8782168dba2c600946a8e7e1"
+        },
+        {
+          "startLine": 77,
+          "endLine": 89,
+          "startByte": 18155,
+          "endByte": 22951,
+          "sha256": "c5f8314a89d5d34f1bd7464bd7cbb85f4fecf2a3a295dc8be3fbe6a9144d94dc"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 34377,
+      "sha256": "cf50d1120b7a73aa8f09554a06793c419576bdf6d030c27d8af03c7168dd7e9b",
+      "spans": [
+        {
+          "startLine": 124,
+          "endLine": 141,
+          "startByte": 9984,
+          "endByte": 11492,
+          "sha256": "9924ae01fee6fe46fb6ad342a695fc5e4bbf03764d33807a1f78759e9c6e2217"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 59810,
+      "sha256": "f8e92aa311cc56ce7ead7b6b51905791ace6502d4a7b5972a7671503ebe505d8",
+      "spans": [
+        {
+          "startLine": 616,
+          "endLine": 714,
+          "startByte": 52237,
+          "endByte": 59701,
+          "sha256": "03eb3a7515bc0236ae4eb013b38b48211bc4d9fe32a51058d335ac1174ec9128"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 74715,
+      "sha256": "a5802f5cd7dcc267356f4d0769de320ac58e17b5a7b94d0d8ee88e70e56e5fcb",
+      "spans": [
+        {
+          "startLine": 535,
+          "endLine": 619,
+          "startByte": 45924,
+          "endByte": 52499,
+          "sha256": "44d57e77cc6fdbb035ba2db3c41807cac51dd8b21a2a5e1d5497d1edbbf34109"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/prepare.py",
+      "bytes": 10075,
+      "sha256": "e6196bcf41b9bc43368e46006db213e44b1f3b21bec70318723cad34598491b9",
+      "spans": [
+        {
+          "startLine": 6,
+          "endLine": 7,
+          "startByte": 487,
+          "endByte": 635,
+          "sha256": "e64fc126e6be21af586f0d366720c310838e747ad41abddb208939b049652d1f"
+        },
+        {
+          "startLine": 44,
+          "endLine": 66,
+          "startByte": 4374,
+          "endByte": 5934,
+          "sha256": "459f816fe3ef58b411cb5cef64506136f47afe9bb0b51069bfda860a866e7457"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/build.json",
+      "bytes": 1788,
+      "sha256": "352eb9aa07042662b8ca80bd3cb798113542439f1ab6cc814111a3a0abc536af",
+      "spans": [
+        {
+          "startLine": 1,
+          "endLine": 22,
+          "startByte": 0,
+          "endByte": 1788,
+          "sha256": "352eb9aa07042662b8ca80bd3cb798113542439f1ab6cc814111a3a0abc536af"
+        }
+      ]
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1/standards/TICKET_METHOD.md",
+      "bytes": 60674,
+      "sha256": "f031ce7fb3b5b366ffaee5996ae76e861697ad86897cc04c06b67da249fe0eca",
+      "spans": [
+        {
+          "startLine": 727,
+          "endLine": 745,
+          "startByte": 25936,
+          "endByte": 27031,
+          "sha256": "f5021aaf9a4ded09ca3973646ab2ea42b7c21117178bb46e0b8eb175f3c351a9"
+        }
+      ]
+    }
+  ]
+}

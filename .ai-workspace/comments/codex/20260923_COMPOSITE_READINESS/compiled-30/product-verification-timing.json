@@ -1,0 +1,11 @@
+{
+  "elapsedMs": 8773.437790999998,
+  "kind": "product_verification_success",
+  "memory": {
+    "rss": 1331838976,
+    "heapTotal": 1062354944,
+    "heapUsed": 870490560,
+    "external": 77954779,
+    "arrayBuffers": 75566060
+  }
+}

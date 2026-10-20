@@ -1,0 +1,59 @@
+{
+  "kind": "unchanged_accepted_dependency_conjunction",
+  "basis": {
+    "freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/freeze.json",
+      "sha256": "5881b4561e8221c9834ef1b486662845f98d9d1754a238e787a92a8edae28183",
+      "bytes": 13977
+    },
+    "postimages.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/postimages.json",
+      "sha256": "82a7ce17f9d6bb9ff0a23c4d8340605c9b7740b9f1d5e9f7c75266cd988fa7e8",
+      "bytes": 3853
+    },
+    "dependency-cut-38-inputs.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-inputs.json",
+      "sha256": "0a056ba82f21c0cd241f879c8977c12c27d3199e3fec5bd5d803ba5ef8a9a183",
+      "bytes": 80616
+    },
+    "dependency-cut-38-emission.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-cut-38-emission.json",
+      "sha256": "52e15cc740e072bfab393cf2e082f2cc066b9cb159fa31bfd7b472d05006c767",
+      "bytes": 161512
+    },
+    "dependency-conjunction.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-38/dependency-conjunction.json",
+      "sha256": "48f9ca9b0ee2c25787e7c5bdf27be996c8ab9091d0f73d0119b8e773d3ee1a03",
+      "bytes": 3364
+    }
+  },
+  "fullSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/dependency-cut-39-inputs.json",
+    "sha256": "3ae48fdeaeb686fa9cd7038fde10a0293d0836ff9d02db9dc3c5542ab84fcab5",
+    "bytes": 80616
+  },
+  "fullEmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/dependency-cut-39-emission.json",
+    "sha256": "b44b29b0ed56039bd2a09f4778043c67619221abd6b52daf86c290d56f2c3e64",
+    "bytes": 161512
+  },
+  "sourceConservation": {
+    "total": 264,
+    "unchanged": 263,
+    "changed": [
+      "abg/native_work_reacquisition.ts"
+    ]
+  },
+  "emissionConservation": {
+    "total": 528,
+    "unchanged": 527,
+    "changed": [
+      "abg/native_work_reacquisition.js"
+    ],
+    "publicDeclarations": 264,
+    "unchangedDeclarations": 264
+  },
+  "limits": [
+    "Accepted38 and its existing dependency conjunction are referenced unchanged; no ordinary publication/install."
+  ]
+}

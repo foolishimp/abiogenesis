@@ -1,0 +1,27 @@
+{
+  "status": "ACTIVE",
+  "operation": "T287_C06_REPORT_FINALIZATION_01",
+  "role": "Worker report-only",
+  "actor": "/root/native_applicability_design",
+  "startedAt": "2026-10-02T05:49:38.933020+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-report-finalization-controls-01/request.txt",
+    "bytes": 2626,
+    "sha256": "7fd3b6799f787f9e13ff694e8f45199dbcfe3a5acf1cf2363eae92f8ca75e090"
+  },
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-report-finalization-controls-01/disposition.json",
+    "bytes": 1596,
+    "sha256": "a759c013211dca4b790798e317fa3f30a74872bab99981a561bf9bc08c741691"
+  },
+  "literalSevenSectionJoin": true,
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06",
+  "sourceControlPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-controls/finalize.py",
+    "bytes": 16253,
+    "sha256": "844c71576fb05800e6fddc8e21260e4c903e5b2744bb1cdff44142cc1f3b7f56"
+  },
+  "actualRoute": "contracts/capabilities/capability-definition-graph.json",
+  "effect": "one report expected-route literal and remaining frozen reporting only",
+  "buildPackInstallNominalPubNativeWrapperTestRuntimeRepeats": 0
+}

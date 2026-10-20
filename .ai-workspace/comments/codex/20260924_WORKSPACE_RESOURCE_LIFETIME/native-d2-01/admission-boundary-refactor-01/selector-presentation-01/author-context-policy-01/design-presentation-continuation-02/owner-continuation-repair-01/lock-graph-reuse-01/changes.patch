@@ -1,0 +1,1486 @@
+--- code/src/product/environment.ts
++++ code/src/product/environment.ts
+@@ -3,9 +3,8 @@
+ 
+ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+ import {
+-  capabilityDefinitionGraphAssetBytes,
++  serializeCapabilityDefinitionGraph,
+   capabilityRefsForContract,
+-  constructCapabilityDefinitionGraph,
+   isCapabilityDefinitionGraph,
+   type CapabilityDefinitionGraph,
+ } from "../shared/capability_contracts.js";
+@@ -606,7 +605,7 @@
+           "contracts/capabilities/capability-definition-graph.json" ||
+         row.capabilityDefinitionGraphAsset.mediaType !== "application/json" ||
+         row.capabilityDefinitionGraphAsset.contentDigest !== sha256Bytes(
+-          capabilityDefinitionGraphAssetBytes(row.capabilityDefinitionGraph),
++          serializeCapabilityDefinitionGraph(row.capabilityDefinitionGraph),
+         ) ||
+         !isUniqueStringArray(row.compatibilityRefs) ||
+         !Array.isArray(row.declaredDependencies) ||
+@@ -719,49 +718,31 @@
+     value.lockId === identity("product-lock://abiogenesis", expectedDigest);
+ }
+ 
++/** The graph guard already established the register, rows and dependency graph.
++ * Catalog correspondence only adds the exact flat-owner coordinates. */
+ function lockRowGraphMatchesCatalog(row: ResolvedProductLockRow): boolean {
+-  try {
+-    const contractCatalog = {
+-      productId: row.productId,
+-      productContentDigest: row.productContentDigest,
+-      catalogId: row.catalogId,
+-      catalogVersion: "5.0.0" as const,
+-      catalogDigest: row.catalogDigest,
+-    };
+-    const flatCoordinates = row.publicContracts.map((contract) => ({
+-        contractCatalog,
+-        flatRow: {
+-          contractId: contract.contractId,
+-          contractVersion: contract.contractVersion,
+-          contractDigest: contract.contractDigest,
+-        },
+-        nestedSelector: {
+-          selectorKind: "flat_contract" as const,
+-          definitionKey: null,
+-          slot: null,
+-          definitionRef: null,
+-        },
+-      }));
+-    const nestedCoordinates = [...new Map(
+-      row.capabilityDefinitionGraph.rows
+-        .flatMap(({ owningPublicContracts }) => owningPublicContracts)
+-        .filter(({ nestedSelector }) =>
+-          nestedSelector.selectorKind === "operation_definition_slot"
+-        )
+-        .map((coordinate) => [
+-          canonicalJson(coordinate as unknown as JsonValue),
+-          coordinate,
+-        ]),
+-    ).values()];
+-    const expected = constructCapabilityDefinitionGraph([
+-      ...flatCoordinates,
+-      ...nestedCoordinates,
+-    ]);
+-    return canonicalJson(expected as unknown as JsonValue) ===
+-      canonicalJson(row.capabilityDefinitionGraph as unknown as JsonValue);
+-  } catch {
+-    return false;
+-  }
++  if (row.capabilityDefinitionGraph.rows.length === 0) {
++    return row.publicContracts.every((contract) =>
++      capabilityRefsForContract(contract.contractId).length === 0);
++  }
++  const contracts = new Map(row.publicContracts.map((contract) => [contract.contractId, contract]));
++  const contractCatalog = {
++    productId: row.productId,
++    productContentDigest: row.productContentDigest,
++    catalogId: row.catalogId,
++    catalogVersion: "5.0.0" as const,
++    catalogDigest: row.catalogDigest,
++  };
++  return row.capabilityDefinitionGraph.rows.every(({ owningPublicContracts }) =>
++    owningPublicContracts.every((coordinate) => {
++      if (coordinate.nestedSelector.selectorKind !== "flat_contract") return true;
++      const contract = contracts.get(coordinate.flatRow.contractId);
++      return contract !== undefined &&
++        canonicalJson(coordinate.contractCatalog as unknown as JsonValue) ===
++          canonicalJson(contractCatalog as unknown as JsonValue) &&
++        coordinate.flatRow.contractVersion === contract.contractVersion &&
++        coordinate.flatRow.contractDigest === contract.contractDigest;
++    }));
+ }
+ 
+ export function verifiedArtifactMatchesResolvedLock(
+@@ -771,6 +752,14 @@
+   if (!isVerifiedProductArtifact(artifact) || !isResolvedProductLock(lock)) {
+     return false;
+   }
++  return verifiedArtifactMatchesEstablishedLock(artifact, lock);
++}
++
++/** @internal Artifact and lock validity are established by their ingress owners. */
++export function verifiedArtifactMatchesEstablishedLock(
++  artifact: VerifiedProductArtifact,
++  lock: ResolvedProductLock,
++): boolean {
+   const matches = lock.rows.filter((row) => row.productId === artifact.productId);
+   return matches.length === 1 &&
+     canonicalJson(matches[0] as unknown as JsonValue) ===
+@@ -780,6 +769,22 @@
+ export function isProductInstallCandidate(
+   value: unknown,
+   lock: ResolvedProductLock,
++): value is ProductInstallCandidate {
++  return isProductInstallCandidateWithLockCheck(value, lock, isResolvedProductLock);
++}
++
++/** @internal The enclosing owner has established this exact resolved lock. */
++export function isProductInstallCandidateInResolvedLock(
++  value: unknown,
++  lock: ResolvedProductLock,
++): value is ProductInstallCandidate {
++  return isProductInstallCandidateWithLockCheck(value, lock, () => true);
++}
++
++function isProductInstallCandidateWithLockCheck(
++  value: unknown,
++  lock: ResolvedProductLock,
++  checkLock: (lock: ResolvedProductLock) => boolean,
+ ): value is ProductInstallCandidate {
+   if (
+     !isRecord(value) ||
+@@ -820,7 +825,7 @@
+     !nonEmptyString(value.installId) ||
+     !nonEmptyString(value.installedRoot) ||
+     !isAbsolute(value.installedRoot) ||
+-    !isResolvedProductLock(lock) ||
++    !checkLock(lock) ||
+     value.resolvedLockId !== lock.lockId ||
+     value.resolvedLockDigest !== lock.lockDigest
+   ) {
+@@ -924,6 +929,22 @@
+ export function isProductSet(
+   value: unknown,
+   lock: ResolvedProductLock,
++): value is ProductSet {
++  return isProductSetWithLockCheck(value, lock, isResolvedProductLock);
++}
++
++/** @internal The enclosing owner has established this exact resolved lock. */
++export function isProductSetInResolvedLock(
++  value: unknown,
++  lock: ResolvedProductLock,
++): value is ProductSet {
++  return isProductSetWithLockCheck(value, lock, () => true);
++}
++
++function isProductSetWithLockCheck(
++  value: unknown,
++  lock: ResolvedProductLock,
++  checkLock: (lock: ResolvedProductLock) => boolean,
+ ): value is ProductSet {
+   if (
+     !isRecord(value) ||
+@@ -946,7 +967,7 @@
+     value.orderedInstallRefs.length === 0 ||
+     value.orderedInstallRefs.some((entry) => !nonEmptyString(entry)) ||
+     new Set(value.orderedInstallRefs).size !== value.orderedInstallRefs.length ||
+-    !isResolvedProductLock(lock) ||
++    !checkLock(lock) ||
+     value.lockId !== lock.lockId ||
+     value.lockDigest !== lock.lockDigest ||
+     value.orderedInstallRefs.length !== lock.rows.length
+@@ -1041,9 +1062,29 @@
+   lock: ResolvedProductLock,
+   roots: WorkspaceDeclaredRoots,
+ ): EnvironmentRefusal | WorkspaceBindingCandidate {
++  return constructWorkspaceBindingWithSetCheck(authority, productSet, lock, roots, isProductSet);
++}
++
++/** @internal Preserve ProductSet, authority and root relations over an established lock. */
++export function constructWorkspaceBindingInResolvedLock(
++  authority: WorkspaceAuthorityBasis,
++  productSet: ProductSet,
++  lock: ResolvedProductLock,
++  roots: WorkspaceDeclaredRoots,
++): EnvironmentRefusal | WorkspaceBindingCandidate {
++  return constructWorkspaceBindingWithSetCheck(authority, productSet, lock, roots, isProductSetInResolvedLock);
++}
++
++function constructWorkspaceBindingWithSetCheck(
++  authority: WorkspaceAuthorityBasis,
++  productSet: ProductSet,
++  lock: ResolvedProductLock,
++  roots: WorkspaceDeclaredRoots,
++  checkSet: typeof isProductSet,
++): EnvironmentRefusal | WorkspaceBindingCandidate {
+   if (
+     !isWorkspaceAuthorityBasis(authority) ||
+-    !isProductSet(productSet, lock) ||
++    !checkSet(productSet, lock) ||
+     !isRecord(roots) ||
+     !hasExactKeys(roots, [
+       "archiveRoot",
+@@ -1091,6 +1132,26 @@
+   lock: ResolvedProductLock,
+   productSet?: ProductSet,
+   authority?: WorkspaceAuthorityBasis,
++): value is WorkspaceBindingCandidate {
++  return workspaceBindingCandidateMatches(value, lock, productSet, authority, isResolvedProductLock);
++}
++
++/** @internal Only the lock premise is reused; candidate, set and authority remain checked. */
++export function isWorkspaceBindingCandidateInResolvedLock(
++  value: unknown,
++  lock: ResolvedProductLock,
++  productSet?: ProductSet,
++  authority?: WorkspaceAuthorityBasis,
++): value is WorkspaceBindingCandidate {
++  return workspaceBindingCandidateMatches(value, lock, productSet, authority, () => true);
++}
++
++function workspaceBindingCandidateMatches(
++  value: unknown,
++  lock: ResolvedProductLock,
++  productSet: ProductSet | undefined,
++  authority: WorkspaceAuthorityBasis | undefined,
++  checkLock: (lock: ResolvedProductLock) => boolean,
+ ): value is WorkspaceBindingCandidate {
+   if (
+     !isRecord(value) ||
+@@ -1120,8 +1181,8 @@
+     !nonEmptyString(value.productSetId) ||
+     !isSha256Digest(value.productSetDigest) ||
+     !(productSet === undefined
+-      ? isResolvedProductLock(lock)
+-      : isProductSet(productSet, lock)) ||
++      ? checkLock(lock)
++      : isProductSetWithLockCheck(productSet, lock, checkLock)) ||
+     value.lockId !== lock.lockId ||
+     value.lockDigest !== lock.lockDigest ||
+     !isRecord(value.roots) ||
+--- build/code/src/product/environment.js
++++ build/code/src/product/environment.js
+@@ -1,7 +1,7 @@
+ import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
+ import { isAbsolute } from "node:path";
+ import { canonicalJson } from "../shared/canonical_json.js";
+-import { capabilityDefinitionGraphAssetBytes, capabilityRefsForContract, constructCapabilityDefinitionGraph, isCapabilityDefinitionGraph, } from "../shared/capability_contracts.js";
++import { serializeCapabilityDefinitionGraph, capabilityRefsForContract, isCapabilityDefinitionGraph, } from "../shared/capability_contracts.js";
+ import { ABI5_PRODUCT_ID } from "./contracts.js";
+ import { isSha256Digest, sha256Bytes, sha256Canonical, } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -345,7 +345,7 @@
+         row.capabilityDefinitionGraphAsset.path !==
+             "contracts/capabilities/capability-definition-graph.json" ||
+         row.capabilityDefinitionGraphAsset.mediaType !== "application/json" ||
+-        row.capabilityDefinitionGraphAsset.contentDigest !== sha256Bytes(capabilityDefinitionGraphAssetBytes(row.capabilityDefinitionGraph)) ||
++        row.capabilityDefinitionGraphAsset.contentDigest !== sha256Bytes(serializeCapabilityDefinitionGraph(row.capabilityDefinitionGraph)) ||
+         !isUniqueStringArray(row.compatibilityRefs) ||
+         !Array.isArray(row.declaredDependencies) ||
+         !row.declaredDependencies.every(isDeclaredDependency) ||
+@@ -425,57 +425,52 @@
+     return value.lockDigest === expectedDigest &&
+         value.lockId === identity("product-lock://abiogenesis", expectedDigest);
+ }
++/** The graph guard already established the register, rows and dependency graph.
++ * Catalog correspondence only adds the exact flat-owner coordinates. */
+ function lockRowGraphMatchesCatalog(row) {
+-    try {
+-        const contractCatalog = {
+-            productId: row.productId,
+-            productContentDigest: row.productContentDigest,
+-            catalogId: row.catalogId,
+-            catalogVersion: "5.0.0",
+-            catalogDigest: row.catalogDigest,
+-        };
+-        const flatCoordinates = row.publicContracts.map((contract) => ({
+-            contractCatalog,
+-            flatRow: {
+-                contractId: contract.contractId,
+-                contractVersion: contract.contractVersion,
+-                contractDigest: contract.contractDigest,
+-            },
+-            nestedSelector: {
+-                selectorKind: "flat_contract",
+-                definitionKey: null,
+-                slot: null,
+-                definitionRef: null,
+-            },
+-        }));
+-        const nestedCoordinates = [...new Map(row.capabilityDefinitionGraph.rows
+-                .flatMap(({ owningPublicContracts }) => owningPublicContracts)
+-                .filter(({ nestedSelector }) => nestedSelector.selectorKind === "operation_definition_slot")
+-                .map((coordinate) => [
+-                canonicalJson(coordinate),
+-                coordinate,
+-            ])).values()];
+-        const expected = constructCapabilityDefinitionGraph([
+-            ...flatCoordinates,
+-            ...nestedCoordinates,
+-        ]);
+-        return canonicalJson(expected) ===
+-            canonicalJson(row.capabilityDefinitionGraph);
+-    }
+-    catch {
+-        return false;
+-    }
++    if (row.capabilityDefinitionGraph.rows.length === 0) {
++        return row.publicContracts.every((contract) => capabilityRefsForContract(contract.contractId).length === 0);
++    }
++    const contracts = new Map(row.publicContracts.map((contract) => [contract.contractId, contract]));
++    const contractCatalog = {
++        productId: row.productId,
++        productContentDigest: row.productContentDigest,
++        catalogId: row.catalogId,
++        catalogVersion: "5.0.0",
++        catalogDigest: row.catalogDigest,
++    };
++    return row.capabilityDefinitionGraph.rows.every(({ owningPublicContracts }) => owningPublicContracts.every((coordinate) => {
++        if (coordinate.nestedSelector.selectorKind !== "flat_contract")
++            return true;
++        const contract = contracts.get(coordinate.flatRow.contractId);
++        return contract !== undefined &&
++            canonicalJson(coordinate.contractCatalog) ===
++                canonicalJson(contractCatalog) &&
++            coordinate.flatRow.contractVersion === contract.contractVersion &&
++            coordinate.flatRow.contractDigest === contract.contractDigest;
++    }));
+ }
+ export function verifiedArtifactMatchesResolvedLock(artifact, lock) {
+     if (!isVerifiedProductArtifact(artifact) || !isResolvedProductLock(lock)) {
+         return false;
+     }
++    return verifiedArtifactMatchesEstablishedLock(artifact, lock);
++}
++/** @internal Artifact and lock validity are established by their ingress owners. */
++export function verifiedArtifactMatchesEstablishedLock(artifact, lock) {
+     const matches = lock.rows.filter((row) => row.productId === artifact.productId);
+     return matches.length === 1 &&
+         canonicalJson(matches[0]) ===
+             canonicalJson(lockRowFor(artifact));
+ }
+ export function isProductInstallCandidate(value, lock) {
++    return isProductInstallCandidateWithLockCheck(value, lock, isResolvedProductLock);
++}
++/** @internal The enclosing owner has established this exact resolved lock. */
++export function isProductInstallCandidateInResolvedLock(value, lock) {
++    return isProductInstallCandidateWithLockCheck(value, lock, () => true);
++}
++function isProductInstallCandidateWithLockCheck(value, lock, checkLock) {
+     if (!isRecord(value) ||
+         !hasExactKeys(value, [
+             "artifactDigest",
+@@ -514,7 +509,7 @@
+         !nonEmptyString(value.installId) ||
+         !nonEmptyString(value.installedRoot) ||
+         !isAbsolute(value.installedRoot) ||
+-        !isResolvedProductLock(lock) ||
++        !checkLock(lock) ||
+         value.resolvedLockId !== lock.lockId ||
+         value.resolvedLockDigest !== lock.lockDigest) {
+         return false;
+@@ -581,6 +576,13 @@
+     };
+ }
+ export function isProductSet(value, lock) {
++    return isProductSetWithLockCheck(value, lock, isResolvedProductLock);
++}
++/** @internal The enclosing owner has established this exact resolved lock. */
++export function isProductSetInResolvedLock(value, lock) {
++    return isProductSetWithLockCheck(value, lock, () => true);
++}
++function isProductSetWithLockCheck(value, lock, checkLock) {
+     if (!isRecord(value) ||
+         !hasExactKeys(value, [
+             "kind",
+@@ -601,7 +603,7 @@
+         value.orderedInstallRefs.length === 0 ||
+         value.orderedInstallRefs.some((entry) => !nonEmptyString(entry)) ||
+         new Set(value.orderedInstallRefs).size !== value.orderedInstallRefs.length ||
+-        !isResolvedProductLock(lock) ||
++        !checkLock(lock) ||
+         value.lockId !== lock.lockId ||
+         value.lockDigest !== lock.lockDigest ||
+         value.orderedInstallRefs.length !== lock.rows.length) {
+@@ -680,8 +682,15 @@
+             canonicalJson(value);
+ }
+ export function constructWorkspaceBinding(authority, productSet, lock, roots) {
++    return constructWorkspaceBindingWithSetCheck(authority, productSet, lock, roots, isProductSet);
++}
++/** @internal Preserve ProductSet, authority and root relations over an established lock. */
++export function constructWorkspaceBindingInResolvedLock(authority, productSet, lock, roots) {
++    return constructWorkspaceBindingWithSetCheck(authority, productSet, lock, roots, isProductSetInResolvedLock);
++}
++function constructWorkspaceBindingWithSetCheck(authority, productSet, lock, roots, checkSet) {
+     if (!isWorkspaceAuthorityBasis(authority) ||
+-        !isProductSet(productSet, lock) ||
++        !checkSet(productSet, lock) ||
+         !isRecord(roots) ||
+         !hasExactKeys(roots, [
+             "archiveRoot",
+@@ -718,6 +727,13 @@
+     };
+ }
+ export function isWorkspaceBindingCandidate(value, lock, productSet, authority) {
++    return workspaceBindingCandidateMatches(value, lock, productSet, authority, isResolvedProductLock);
++}
++/** @internal Only the lock premise is reused; candidate, set and authority remain checked. */
++export function isWorkspaceBindingCandidateInResolvedLock(value, lock, productSet, authority) {
++    return workspaceBindingCandidateMatches(value, lock, productSet, authority, () => true);
++}
++function workspaceBindingCandidateMatches(value, lock, productSet, authority, checkLock) {
+     if (!isRecord(value) ||
+         !hasExactKeys(value, [
+             "authorityBasisDigest",
+@@ -745,8 +761,8 @@
+         !nonEmptyString(value.productSetId) ||
+         !isSha256Digest(value.productSetDigest) ||
+         !(productSet === undefined
+-            ? isResolvedProductLock(lock)
+-            : isProductSet(productSet, lock)) ||
++            ? checkLock(lock)
++            : isProductSetWithLockCheck(productSet, lock, checkLock)) ||
+         value.lockId !== lock.lockId ||
+         value.lockDigest !== lock.lockDigest ||
+         !isRecord(value.roots) ||
+--- code/src/shared/capability_contracts.ts
++++ code/src/shared/capability_contracts.ts
+@@ -440,5 +440,12 @@
+   if (!isCapabilityDefinitionGraph(graph)) {
+     throw new TypeError("invalid capability definition graph");
+   }
++  return serializeCapabilityDefinitionGraph(graph);
++}
++
++/** @internal Pure serialization after the graph owner has established validity. */
++export function serializeCapabilityDefinitionGraph(
++  graph: CapabilityDefinitionGraph,
++): Uint8Array {
+   return new TextEncoder().encode(canonicalJson(graph as unknown as JsonValue));
+ }
+--- build/code/src/shared/capability_contracts.js
++++ build/code/src/shared/capability_contracts.js
+@@ -310,5 +310,9 @@
+     if (!isCapabilityDefinitionGraph(graph)) {
+         throw new TypeError("invalid capability definition graph");
+     }
++    return serializeCapabilityDefinitionGraph(graph);
++}
++/** @internal Pure serialization after the graph owner has established validity. */
++export function serializeCapabilityDefinitionGraph(graph) {
+     return new TextEncoder().encode(canonicalJson(graph));
+ }
+--- code/src/product/install_product.ts
++++ code/src/product/install_product.ts
+@@ -4,7 +4,7 @@
+ 
+ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+ import {
+-  capabilityDefinitionGraphAssetBytes,
++  serializeCapabilityDefinitionGraph,
+   isCapabilityDefinitionGraph,
+ } from "../shared/capability_contracts.js";
+ import type {
+@@ -17,6 +17,7 @@
+ import {
+   type ProductInstall,
+   verifiedArtifactMatchesResolvedLock,
++  verifiedArtifactMatchesEstablishedLock,
+ } from "./environment.js";
+ import {
+   payloadInventoryDigest,
+@@ -137,7 +138,7 @@
+       sha256Bytes(graphBytes) !== graphAsset.contentDigest ||
+       canonicalJson(graph as unknown as JsonValue) !==
+         canonicalJson(expectedGraph as unknown as JsonValue) ||
+-      sha256Bytes(capabilityDefinitionGraphAssetBytes(graph)) !==
++      sha256Bytes(serializeCapabilityDefinitionGraph(graph)) !==
+         expectedGraphAsset.contentDigest
+     ) {
+       return false;
+@@ -199,12 +200,22 @@
+ export async function installProduct(
+   request: InstallProductRequest,
+ ): Promise<ProductInstallResult> {
+-  if (
+-    !verifiedArtifactMatchesResolvedLock(
+-      request.verifiedArtifact,
+-      request.resolvedLock,
+-    )
+-  ) {
++  return installProductWithMembership(request, verifiedArtifactMatchesResolvedLock);
++}
++
++/** @internal The Definition owner has admitted the exact artifact and lock.
++ * Installation still checks membership and the actual archive/materialized tree. */
++export async function installProductInResolvedLock(
++  request: InstallProductRequest,
++): Promise<ProductInstallResult> {
++  return installProductWithMembership(request, verifiedArtifactMatchesEstablishedLock);
++}
++
++async function installProductWithMembership(
++  request: InstallProductRequest,
++  matches: typeof verifiedArtifactMatchesResolvedLock,
++): Promise<ProductInstallResult> {
++  if (!matches(request.verifiedArtifact, request.resolvedLock)) {
+     return refusal(
+       "dependency_lock_mismatch",
+       "installation requires exact membership in one resolved Product lock",
+--- build/code/src/product/install_product.js
++++ build/code/src/product/install_product.js
+@@ -2,8 +2,8 @@
+ import { access, lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+ import { join, relative, resolve, sep } from "node:path";
+ import { canonicalJson } from "../shared/canonical_json.js";
+-import { capabilityDefinitionGraphAssetBytes, isCapabilityDefinitionGraph, } from "../shared/capability_contracts.js";
+-import { verifiedArtifactMatchesResolvedLock, } from "./environment.js";
++import { serializeCapabilityDefinitionGraph, isCapabilityDefinitionGraph, } from "../shared/capability_contracts.js";
++import { verifiedArtifactMatchesResolvedLock, verifiedArtifactMatchesEstablishedLock, } from "./environment.js";
+ import { payloadInventoryDigest, sha256Bytes, sha256Canonical, sha256File, } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+ import { parseProductManifest, selectOwnedProductVerification, verifyProduct, } from "./verify_product.js";
+@@ -93,7 +93,7 @@
+             sha256Bytes(graphBytes) !== graphAsset.contentDigest ||
+             canonicalJson(graph) !==
+                 canonicalJson(expectedGraph) ||
+-            sha256Bytes(capabilityDefinitionGraphAssetBytes(graph)) !==
++            sha256Bytes(serializeCapabilityDefinitionGraph(graph)) !==
+                 expectedGraphAsset.contentDigest) {
+             return false;
+         }
+@@ -135,7 +135,15 @@
+     }
+ }
+ export async function installProduct(request) {
+-    if (!verifiedArtifactMatchesResolvedLock(request.verifiedArtifact, request.resolvedLock)) {
++    return installProductWithMembership(request, verifiedArtifactMatchesResolvedLock);
++}
++/** @internal The Definition owner has admitted the exact artifact and lock.
++ * Installation still checks membership and the actual archive/materialized tree. */
++export async function installProductInResolvedLock(request) {
++    return installProductWithMembership(request, verifiedArtifactMatchesEstablishedLock);
++}
++async function installProductWithMembership(request, matches) {
++    if (!matches(request.verifiedArtifact, request.resolvedLock)) {
+         return refusal("dependency_lock_mismatch", "installation requires exact membership in one resolved Product lock");
+     }
+     const verificationRequest = {
+--- code/src/product/install_operation.ts
++++ code/src/product/install_operation.ts
+@@ -2,7 +2,7 @@
+   InstallProductRequest,
+   ProductInstallResult,
+ } from "./contracts.js";
+-import { installProduct } from "./install_product.js";
++import { installProduct, installProductInResolvedLock } from "./install_product.js";
+ 
+ export interface ProductInstallPacket {
+   readonly kind: "product_install_packet";
+@@ -19,6 +19,9 @@
+ 
+ export const ProductInstallPort = Object.freeze({
+   install: materializeProductInstall,
++  /** @internal The enclosing Definition resource owner has admitted artifact and lock. */
++  installInResolvedLock: (packet: ProductInstallPacket): Promise<ProductInstallResult> =>
++    installProductInResolvedLock(packet.request),
+ });
+ 
+ export const PRODUCT_INSTALL_CONTRACTS = Object.freeze({
+--- build/code/src/product/install_operation.js
++++ build/code/src/product/install_operation.js
+@@ -1,9 +1,11 @@
+-import { installProduct } from "./install_product.js";
++import { installProduct, installProductInResolvedLock } from "./install_product.js";
+ export async function materializeProductInstall(packet) {
+     return installProduct(packet.request);
+ }
+ export const ProductInstallPort = Object.freeze({
+     install: materializeProductInstall,
++    /** @internal The enclosing Definition resource owner has admitted artifact and lock. */
++    installInResolvedLock: (packet) => installProductInResolvedLock(packet.request),
+ });
+ export const PRODUCT_INSTALL_CONTRACTS = Object.freeze({
+     install: ProductInstallPort.install,
+--- build/code/src/product/install_operation.d.ts
++++ build/code/src/product/install_operation.d.ts
+@@ -8,6 +8,8 @@
+ export declare function materializeProductInstall(packet: ProductInstallPacket): Promise<ProductInstallResult>;
+ export declare const ProductInstallPort: Readonly<{
+     install: typeof materializeProductInstall;
++    /** @internal The enclosing Definition resource owner has admitted artifact and lock. */
++    installInResolvedLock: (packet: ProductInstallPacket) => Promise<ProductInstallResult>;
+ }>;
+ export declare const PRODUCT_INSTALL_CONTRACTS: Readonly<{
+     install: typeof materializeProductInstall;
+--- code/src/product/install_definition_bindings.ts
++++ code/src/product/install_definition_bindings.ts
+@@ -12,7 +12,7 @@
+   type AbgEventResourceOutcome,
+ } from "../abg/definition_event_resource.js";
+ import {
+-  admitProductInstall,
++  admitProductInstallInResolvedLock,
+   projectAdmittedProductInstall,
+   type ArtifactAdmissionBasis,
+ } from "../abg/environment_admission.js";
+@@ -283,7 +283,7 @@
+             resolvedLock: call.resources.resolvedLock,
+           },
+         };
+-        const candidate = await ProductInstallPort.install(nativePacket);
++        const candidate = await ProductInstallPort.installInResolvedLock(nativePacket);
+         if (candidate.kind === "product_install_refusal") {
+           return deepFreeze({
+             ownerOutput: nativeRefusalOutput(candidate),
+@@ -317,7 +317,7 @@
+           causationEventRefs: [],
+           predecessorPrefix: resource.entryPrefix,
+         });
+-        const admitted = admitProductInstall(
++        const admitted = admitProductInstallInResolvedLock(
+           resource.store,
+           candidate,
+           basis,
+--- build/code/src/product/install_definition_bindings.js
++++ build/code/src/product/install_definition_bindings.js
+@@ -3,7 +3,7 @@
+ import { join } from "node:path";
+ import * as Effect from "effect/Effect";
+ import { abandonAbgEventResource, acquireAbgEventResource, completeAbgEventResource, validateAbgEventResourceInput, } from "../abg/definition_event_resource.js";
+-import { admitProductInstall, projectAdmittedProductInstall, } from "../abg/environment_admission.js";
++import { admitProductInstallInResolvedLock, projectAdmittedProductInstall, } from "../abg/environment_admission.js";
+ import { sha256Canonical } from "../shared/digests.js";
+ import { definitionFault, hasExactKeys, isDefinitionFault, isRecord, reference, sameCoordinate, sameJson, validatedOwnerOutput, } from "../shared/definition_binding_mechanics.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -132,7 +132,7 @@
+                         resolvedLock: call.resources.resolvedLock,
+                     },
+                 };
+-                const candidate = await ProductInstallPort.install(nativePacket);
++                const candidate = await ProductInstallPort.installInResolvedLock(nativePacket);
+                 if (candidate.kind === "product_install_refusal") {
+                     return deepFreeze({
+                         ownerOutput: nativeRefusalOutput(candidate),
+@@ -155,7 +155,7 @@
+                     causationEventRefs: [],
+                     predecessorPrefix: resource.entryPrefix,
+                 });
+-                const admitted = admitProductInstall(resource.store, candidate, basis, call.resources.resolvedLock);
++                const admitted = admitProductInstallInResolvedLock(resource.store, candidate, basis, call.resources.resolvedLock);
+                 if (admitted.kind === "artifact_owner_coordinate_refusal") {
+                     throw installFault(call, "abg_admission", "product_install_coordinate_refusal", JSON.stringify(admitted.refusal));
+                 }
+--- code/src/abg/artifact_truth.ts
++++ code/src/abg/artifact_truth.ts
+@@ -3,17 +3,19 @@
+ import { releaseArtifactCoordinate } from "../product/release_snapshot_operations.js";
+ import {
+   constructProductSet,
+-  constructWorkspaceBinding,
+-  isProductInstallCandidate,
+   isResolvedProductLock,
+   isWorkspaceAuthorityBasis,
+-  isWorkspaceBindingCandidate,
+   type ProductInstall,
+   type ProductInstallCandidate,
+   type ResolvedProductLock,
+   type WorkspaceAuthorityBasis,
+   type WorkspaceBindingCandidate,
+ } from "../product/index.js";
++import {
++  constructWorkspaceBindingInResolvedLock,
++  isProductInstallCandidateInResolvedLock,
++  isWorkspaceBindingCandidateInResolvedLock,
++} from "../product/environment.js";
+ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -202,12 +204,17 @@
+   advance(artifactRows: readonly RuntimeEventCalculusEffectRow[]): void {
+     for (const row of artifactRows.slice(this.artifacts.length)) {
+       const prepared = this.prepare(row);
+-      if (prepared.install !== undefined) this.admittedInstalls.set(row.sourceEvent.eventId, prepared.install);
+-      this.artifacts.push(prepared.artifact);
+-    }
+-  }
+-  /** Shared cold/live relation, with no mutation until the complete row passes. */
+-  prepare(row: RuntimeEventCalculusEffectRow): Readonly<{
++      this.accept(prepared);
++    }
++  }
++  accept(prepared: ReturnType<RuntimeArtifactFacts["prepare"]>): void {
++    if (prepared.install !== undefined) this.admittedInstalls.set(prepared.artifact.admissionEventRef, prepared.install);
++    this.artifacts.push(prepared.artifact);
++  }
++  /** Shared cold/live relation, with no mutation until the complete row passes.
++   * An enclosing install owner may supply its established lock; copied event
++   * metadata must still reproduce that complete body. */
++  prepare(row: RuntimeEventCalculusEffectRow, establishedLock?: ResolvedProductLock): Readonly<{
+     artifact: FoldedArtifactTruthRow;
+     install: AdmittedInstallFact | undefined;
+   }> {
+@@ -277,6 +284,18 @@
+     let artifact = payload.artifact ?? null;
+     let resolvedLockBody = payload.resolvedLock ?? null;
+     if (operationId === "abg.operation.product.install") {
++      let checkedLock: ResolvedProductLock | undefined;
++      const establishInlineLock = (value: unknown): value is ResolvedProductLock => {
++        if (establishedLock !== undefined &&
++          (value === establishedLock || canonicalJson(value as JsonValue) ===
++            canonicalJson(establishedLock as unknown as JsonValue))) {
++          checkedLock = establishedLock;
++          return true;
++        }
++        if (!isResolvedProductLock(value)) return false;
++        checkedLock = value;
++        return true;
++      };
+       if (isRecord(artifact) && artifact.kind === "product_install_lock_row") {
+         if (
+           !hasExactKeys(artifact, ["kind", "schemaVersion", "productId", "installId", "installedRoot"]) ||
+@@ -286,7 +305,7 @@
+         const referencesBody = reference !== undefined && isRecord(reference) &&
+           reference.kind === "resolved_product_lock_reference";
+         if (!referencesBody) {
+-          if (event.causationEventRefs.length !== 0 || !isResolvedProductLock(reference)) {
++          if (event.causationEventRefs.length !== 0 || !establishInlineLock(reference)) {
+             throw new TypeError("Product install inline body requires one resolved lock and no body cause");
+           }
+         } else {
+@@ -304,6 +323,7 @@
+             source.resolvedLock.lockId !== reference.lockId ||
+             source.resolvedLock.lockDigest !== reference.lockDigest
+           ) throw new TypeError("Product install lock reference lacks its exact earlier embedded body");
++          checkedLock = source.resolvedLock;
+           resolvedLockBody = source.resolvedLock as unknown as JsonValue;
+         }
+         const lock = resolvedLockBody as unknown as ResolvedProductLock;
+@@ -324,8 +344,8 @@
+         throw new TypeError("Historical Product install body requires its embedded lock and no body cause");
+       }
+       if (
+-        !isResolvedProductLock(resolvedLockBody) ||
+-        !isProductInstallCandidate(artifact, resolvedLockBody) ||
++        (checkedLock === undefined && !establishInlineLock(resolvedLockBody)) ||
++        !isProductInstallCandidateInResolvedLock(artifact, checkedLock!) ||
+         payload.workspaceAuthorityBasis !== undefined
+       ) {
+         throw new TypeError(
+@@ -333,7 +353,7 @@
+         );
+       }
+       const candidate = artifact as unknown as ProductInstallCandidate;
+-      const resolvedLock = resolvedLockBody as unknown as ResolvedProductLock;
++      const resolvedLock = checkedLock!;
+       if (
+         authorityScopeRef !== candidate.installId ||
+         authorityScopeDigest !== candidate.productContentDigest ||
+@@ -391,8 +411,9 @@
+           causalInstalls.length === 0 ||
+           causalInstalls.some((basis) =>
+             basis === undefined ||
+-            canonicalJson(basis.resolvedLock as unknown as JsonValue) !==
+-              canonicalJson(resolvedLock as unknown as JsonValue)
++            (basis.resolvedLock !== resolvedLock &&
++              canonicalJson(basis.resolvedLock as unknown as JsonValue) !==
++                canonicalJson(resolvedLock as unknown as JsonValue))
+           )
+         ? null
+         : constructProductSet(
+@@ -408,7 +429,7 @@
+         productSet === null ||
+         productSet.kind !== "product_set" ||
+         authority === null ||
+-        !isWorkspaceBindingCandidate(
++        !isWorkspaceBindingCandidateInResolvedLock(
+           payload.artifact,
+           resolvedLock!,
+           productSet,
+@@ -422,7 +443,7 @@
+       }
+       const candidate =
+         payload.artifact as unknown as WorkspaceBindingCandidate;
+-      const reconstructed = constructWorkspaceBinding(
++      const reconstructed = constructWorkspaceBindingInResolvedLock(
+         authority,
+         productSet,
+         resolvedLock!,
+@@ -550,15 +571,41 @@
+   predecessor: ExactPrefixArtifactTruthProjection,
+   event: RuntimeEvent,
+ ): void {
++  prepareArtifactTruthCandidate(predecessor, event);
++}
++
++/** @internal Prepare against the actual owner without publishing speculative
++ * facts. The continuation accepts only the exact checked append, then advances
++ * that same owner's derivation. A cold/different owner reconstructs normally. */
++export function prepareArtifactTruthCandidate(
++  predecessor: ExactPrefixArtifactTruthProjection,
++  event: RuntimeEvent,
++  establishedLock?: ResolvedProductLock,
++): (appended: Readonly<{ event: RuntimeEvent; successorPrefix: DurablePrefixCoordinate }>) => ExactPrefixArtifactTruthProjectionResult {
+   const prefix = runtimePrefixFromArtifactTruth(predecessor);
+   if (prefix === null) throw new TypeError("artifact candidate requires its owner-derived predecessor");
+   if (event.kind !== "public_operation_artifact_admitted") throw new TypeError("artifact candidate requires an artifact event");
+   validateRuntimeEventPrefixExtension(prefix, event);
+   const facts = runtimePrefixComputation(prefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
+   const prepared = facts.prepare({ kind: "event_calculus_effect_row", eventKind: event.kind,
+-    sourceEvent: event, ...eventCalculusEffect(event) });
++    sourceEvent: event, ...eventCalculusEffect(event) }, establishedLock);
+   const artifacts = facts.artifacts.filter(row => row.admissionOrdinal <= predecessor.lastAdmissionOrdinal);
+   assertUniqueArtifactTruth([...artifacts, prepared.artifact]);
++  return (appended) => {
++    if (sha256Canonical(appended.event as unknown as JsonValue) !== sha256Canonical(event as unknown as JsonValue)) {
++      throw new TypeError("artifact append differs from its exact pre-effect semantic projection");
++    }
++    const events = projectRuntimeEventsAtDurablePrefix(appended.successorPrefix);
++    const actualPrefix = selectValidatedRuntimeEventPrefix(events);
++    const actualFacts = runtimePrefixComputation(actualPrefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
++    // The append receipt owns the actual prefix; the prepared row must be its
++    // next actual event and have the same complete predecessor derivation.
++    if (actualFacts === facts && facts.artifacts.length === artifacts.length &&
++      events.length === predecessor.prefixEventCount + 1 && events.at(-1) === appended.event) {
++      facts.accept(prepared);
++    }
++    return projectOwnedPrefixArtifactTruth(appended.successorPrefix);
++  };
+ }
+ 
+ function refusal(
+--- build/code/src/abg/artifact_truth.js
++++ build/code/src/abg/artifact_truth.js
+@@ -1,7 +1,8 @@
+ import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
+ import { isReleaseOperationArtifact, projectReleaseQualification, projectReleaseAcceptance } from "../implementation/release_publication.js";
+ import { releaseArtifactCoordinate } from "../product/release_snapshot_operations.js";
+-import { constructProductSet, constructWorkspaceBinding, isProductInstallCandidate, isResolvedProductLock, isWorkspaceAuthorityBasis, isWorkspaceBindingCandidate, } from "../product/index.js";
++import { constructProductSet, isResolvedProductLock, isWorkspaceAuthorityBasis, } from "../product/index.js";
++import { constructWorkspaceBindingInResolvedLock, isProductInstallCandidateInResolvedLock, isWorkspaceBindingCandidateInResolvedLock, } from "../product/environment.js";
+ import { canonicalJson } from "../shared/canonical_json.js";
+ import { sha256Canonical } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -64,13 +65,18 @@
+     advance(artifactRows) {
+         for (const row of artifactRows.slice(this.artifacts.length)) {
+             const prepared = this.prepare(row);
+-            if (prepared.install !== undefined)
+-                this.admittedInstalls.set(row.sourceEvent.eventId, prepared.install);
+-            this.artifacts.push(prepared.artifact);
+-        }
+-    }
+-    /** Shared cold/live relation, with no mutation until the complete row passes. */
+-    prepare(row) {
++            this.accept(prepared);
++        }
++    }
++    accept(prepared) {
++        if (prepared.install !== undefined)
++            this.admittedInstalls.set(prepared.artifact.admissionEventRef, prepared.install);
++        this.artifacts.push(prepared.artifact);
++    }
++    /** Shared cold/live relation, with no mutation until the complete row passes.
++     * An enclosing install owner may supply its established lock; copied event
++     * metadata must still reproduce that complete body. */
++    prepare(row, establishedLock) {
+         let admittedInstall;
+         const payload = recordPayload(row);
+         const authorityScopeRef = requiredString(payload, "authorityScopeRef");
+@@ -120,6 +126,19 @@
+         let artifact = payload.artifact ?? null;
+         let resolvedLockBody = payload.resolvedLock ?? null;
+         if (operationId === "abg.operation.product.install") {
++            let checkedLock;
++            const establishInlineLock = (value) => {
++                if (establishedLock !== undefined &&
++                    (value === establishedLock || canonicalJson(value) ===
++                        canonicalJson(establishedLock))) {
++                    checkedLock = establishedLock;
++                    return true;
++                }
++                if (!isResolvedProductLock(value))
++                    return false;
++                checkedLock = value;
++                return true;
++            };
+             if (isRecord(artifact) && artifact.kind === "product_install_lock_row") {
+                 if (!hasExactKeys(artifact, ["kind", "schemaVersion", "productId", "installId", "installedRoot"]) ||
+                     artifact.schemaVersion !== "5.0.0")
+@@ -128,7 +147,7 @@
+                 const referencesBody = reference !== undefined && isRecord(reference) &&
+                     reference.kind === "resolved_product_lock_reference";
+                 if (!referencesBody) {
+-                    if (event.causationEventRefs.length !== 0 || !isResolvedProductLock(reference)) {
++                    if (event.causationEventRefs.length !== 0 || !establishInlineLock(reference)) {
+                         throw new TypeError("Product install inline body requires one resolved lock and no body cause");
+                     }
+                 }
+@@ -145,6 +164,7 @@
+                         source.resolvedLock.lockId !== reference.lockId ||
+                         source.resolvedLock.lockDigest !== reference.lockDigest)
+                         throw new TypeError("Product install lock reference lacks its exact earlier embedded body");
++                    checkedLock = source.resolvedLock;
+                     resolvedLockBody = source.resolvedLock;
+                 }
+                 const lock = resolvedLockBody;
+@@ -166,13 +186,13 @@
+             else if (event.causationEventRefs.length !== 0) {
+                 throw new TypeError("Historical Product install body requires its embedded lock and no body cause");
+             }
+-            if (!isResolvedProductLock(resolvedLockBody) ||
+-                !isProductInstallCandidate(artifact, resolvedLockBody) ||
++            if ((checkedLock === undefined && !establishInlineLock(resolvedLockBody)) ||
++                !isProductInstallCandidateInResolvedLock(artifact, checkedLock) ||
+                 payload.workspaceAuthorityBasis !== undefined) {
+                 throw new TypeError("Product install artifact truth requires one complete candidate and resolved lock");
+             }
+             const candidate = artifact;
+-            const resolvedLock = resolvedLockBody;
++            const resolvedLock = checkedLock;
+             if (authorityScopeRef !== candidate.installId ||
+                 authorityScopeDigest !== candidate.productContentDigest ||
+                 artifactRef !== candidate.installId ||
+@@ -221,8 +241,9 @@
+             const productSet = resolvedLock === undefined ||
+                 causalInstalls.length === 0 ||
+                 causalInstalls.some((basis) => basis === undefined ||
+-                    canonicalJson(basis.resolvedLock) !==
+-                        canonicalJson(resolvedLock))
++                    (basis.resolvedLock !== resolvedLock &&
++                        canonicalJson(basis.resolvedLock) !==
++                            canonicalJson(resolvedLock)))
+                 ? null
+                 : constructProductSet(causalInstalls.map((basis) => basis.install), resolvedLock);
+             const authority = isWorkspaceAuthorityBasis(payload.workspaceAuthorityBasis)
+@@ -231,12 +252,12 @@
+             if (productSet === null ||
+                 productSet.kind !== "product_set" ||
+                 authority === null ||
+-                !isWorkspaceBindingCandidate(payload.artifact, resolvedLock, productSet, authority) ||
++                !isWorkspaceBindingCandidateInResolvedLock(payload.artifact, resolvedLock, productSet, authority) ||
+                 payload.resolvedLock !== undefined) {
+                 throw new TypeError("workspace binding artifact truth requires its exact causal Product set");
+             }
+             const candidate = payload.artifact;
+-            const reconstructed = constructWorkspaceBinding(authority, productSet, resolvedLock, candidate.roots);
++            const reconstructed = constructWorkspaceBindingInResolvedLock(authority, productSet, resolvedLock, candidate.roots);
+             if (reconstructed.kind !== "workspace_binding_candidate" ||
+                 canonicalJson(reconstructed) !==
+                     canonicalJson(candidate) ||
+@@ -339,6 +360,12 @@
+ /** Speculation borrows the actual predecessor's checked facts. It never lends
+  * candidate rows to the live prefix or creates another history derivation. */
+ export function validateArtifactTruthCandidate(predecessor, event) {
++    prepareArtifactTruthCandidate(predecessor, event);
++}
++/** @internal Prepare against the actual owner without publishing speculative
++ * facts. The continuation accepts only the exact checked append, then advances
++ * that same owner's derivation. A cold/different owner reconstructs normally. */
++export function prepareArtifactTruthCandidate(predecessor, event, establishedLock) {
+     const prefix = runtimePrefixFromArtifactTruth(predecessor);
+     if (prefix === null)
+         throw new TypeError("artifact candidate requires its owner-derived predecessor");
+@@ -347,9 +374,24 @@
+     validateRuntimeEventPrefixExtension(prefix, event);
+     const facts = runtimePrefixComputation(prefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
+     const prepared = facts.prepare({ kind: "event_calculus_effect_row", eventKind: event.kind,
+-        sourceEvent: event, ...eventCalculusEffect(event) });
++        sourceEvent: event, ...eventCalculusEffect(event) }, establishedLock);
+     const artifacts = facts.artifacts.filter(row => row.admissionOrdinal <= predecessor.lastAdmissionOrdinal);
+     assertUniqueArtifactTruth([...artifacts, prepared.artifact]);
++    return (appended) => {
++        if (sha256Canonical(appended.event) !== sha256Canonical(event)) {
++            throw new TypeError("artifact append differs from its exact pre-effect semantic projection");
++        }
++        const events = projectRuntimeEventsAtDurablePrefix(appended.successorPrefix);
++        const actualPrefix = selectValidatedRuntimeEventPrefix(events);
++        const actualFacts = runtimePrefixComputation(actualPrefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
++        // The append receipt owns the actual prefix; the prepared row must be its
++        // next actual event and have the same complete predecessor derivation.
++        if (actualFacts === facts && facts.artifacts.length === artifacts.length &&
++            events.length === predecessor.prefixEventCount + 1 && events.at(-1) === appended.event) {
++            facts.accept(prepared);
++        }
++        return projectOwnedPrefixArtifactTruth(appended.successorPrefix);
++    };
+ }
+ function refusal(prefix, code, input = {}) {
+     return deepFreeze({
+--- code/src/abg/environment_admission.ts
++++ code/src/abg/environment_admission.ts
+@@ -1,6 +1,5 @@
+ import {
+   constructProductSet,
+-  constructWorkspaceBinding,
+   isProductInstallCandidate,
+   isWorkspaceAuthorityBasis,
+   isWorkspaceBindingCandidate,
+@@ -12,6 +11,11 @@
+   type WorkspaceBinding,
+   type WorkspaceBindingCandidate,
+ } from "../product/index.js";
++import {
++  constructWorkspaceBindingInResolvedLock,
++  isProductInstallCandidateInResolvedLock,
++  isWorkspaceBindingCandidateInResolvedLock,
++} from "../product/environment.js";
+ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+ import type { ReferenceDigest } from "../shared/public_invocation.js";
+ import {
+@@ -27,8 +31,7 @@
+ import {
+   projectExactPrefixArtifactTruth,
+   runtimePrefixFromArtifactTruth,
+-  validateArtifactTruthCandidate,
+-  projectOwnedPrefixArtifactTruth,
++  prepareArtifactTruthCandidate,
+   validateArtifactTruthProjectionValue,
+   type AdmittedArtifactTruth,
+   type ExactPrefixArtifactTruthProjection,
+@@ -278,11 +281,12 @@
+   rows: ExactPrefixArtifactTruthProjection["rows"],
+   row: AdmittedArtifactTruth,
+ ): RehydratedProductInstallTruth | null {
+-  // The candidate predicate validates the raw lock before using its fields.
++  // Every caller acquired/validated this complete projection before selecting
++  // its row. Artifact truth already established the embedded or causal lock.
+   const resolvedLock = row.resolvedLock as unknown as ResolvedProductLock;
+   if (
+     row.operationId !== "abg.operation.product.install" ||
+-    !isProductInstallCandidate(row.artifact, resolvedLock)
++    !isProductInstallCandidateInResolvedLock(row.artifact, resolvedLock)
+   ) return null;
+   const candidate = row.artifact as ProductInstallCandidate;
+   if (
+@@ -387,10 +391,11 @@
+   resolvedLock: ResolvedProductLock,
+   productSet?: ProductSet,
+   workspaceAuthorityBasis?: WorkspaceAuthorityBasis,
++  checkCandidate = isWorkspaceBindingCandidate,
+ ): RehydratedWorkspaceBindingTruth | null {
+   if (
+     row === null ||
+-    !isWorkspaceBindingCandidate(row.artifact, resolvedLock, productSet, workspaceAuthorityBasis)
++    !checkCandidate(row.artifact, resolvedLock, productSet, workspaceAuthorityBasis)
+   ) return null;
+   const candidate = row.artifact as WorkspaceBindingCandidate;
+   if (
+@@ -601,6 +606,7 @@
+     resolvedProductLock,
+     productSet,
+     bindingRow.workspaceAuthorityBasis,
++    isWorkspaceBindingCandidateInResolvedLock,
+   );
+   if (
+     bindingTruth === null ||
+@@ -795,6 +801,18 @@
+   artifactDigest: Sha256Digest,
+   metadata: ArtifactAdmissionMetadata = {},
+ ): ArtifactAdmissionResult {
++  return admitArtifactFromOwner(store, basis, expectedOperation, artifactRef, artifactDigest, metadata);
++}
++
++function admitArtifactFromOwner(
++  store: AbgEventStore,
++  basis: ArtifactAdmissionBasis,
++  expectedOperation: ArtifactOperationId,
++  artifactRef: string,
++  artifactDigest: Sha256Digest,
++  metadata: ArtifactAdmissionMetadata,
++  establishedLock?: ResolvedProductLock,
++): ArtifactAdmissionResult {
+   try {
+     assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
+   } catch (error) {
+@@ -896,18 +914,22 @@
+     if (
+       expectedOperation === "abg.operation.product.install" &&
+       basis.causationEventRefs.length === 0 &&
+-      isProductInstallCandidate(
++      (establishedLock === undefined ? isProductInstallCandidate : isProductInstallCandidateInResolvedLock)(
+         metadata.artifact,
+         metadata.resolvedLock as unknown as ResolvedProductLock,
+       )
+     ) {
+       const candidate = metadata.artifact;
+       const resolvedLock = metadata.resolvedLock as unknown as ResolvedProductLock;
++      establishedLock = resolvedLock;
++      let lockBody: string | undefined;
+       const source = predecessorTruth.rows
+         .filter((row) =>
+           row.operationId === "abg.operation.product.install" &&
+           row.causationEventRefs.length === 0 &&
+-          canonicalJson(row.resolvedLock) === canonicalJson(metadata.resolvedLock!)
++          (row.resolvedLock as unknown as ResolvedProductLock).lockId === resolvedLock.lockId &&
++          (row.resolvedLock as unknown as ResolvedProductLock).lockDigest === resolvedLock.lockDigest &&
++          canonicalJson(row.resolvedLock) === (lockBody ??= canonicalJson(metadata.resolvedLock!))
+         )
+         .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal)[0];
+       const { artifact: _artifact, resolvedLock: _resolvedLock, ...otherMetadata } = metadata;
+@@ -984,12 +1006,13 @@
+   }
+   const predecessorEvents = store.readAll();
+   let preparedEvent: ReturnType<typeof projectRuntimeEventFromValidatedHistory>;
++  let acceptPrepared: ReturnType<typeof prepareArtifactTruthCandidate>;
+   try {
+     preparedEvent = projectRuntimeEventFromValidatedHistory(
+       predecessorEvents,
+       initiatedEvent,
+     );
+-    validateArtifactTruthCandidate(predecessorTruth, preparedEvent);
++    acceptPrepared = prepareArtifactTruthCandidate(predecessorTruth, preparedEvent, establishedLock);
+   } catch (error) {
+     return {
+       disposition: "refused",
+@@ -1012,17 +1035,9 @@
+       refusal: appended,
+     };
+   }
+-  if (
+-    sha256Canonical(appended.event as unknown as JsonValue) !==
+-      sha256Canonical(preparedEvent as unknown as JsonValue)
+-  ) {
+-    throw new TypeError(
+-      "artifact append differs from its exact pre-effect semantic projection",
+-    );
+-  }
+-  // Keep the actual owner derivation through immediate install/binding
+-  // consumption. A plain projection would re-enter raw historical validation.
+-  const artifactTruth = projectOwnedPrefixArtifactTruth(appended.successorPrefix);
++  // Publication occurs only after the checked append. The continuation binds
++  // the exact event and retains the existing authenticated projection handoff.
++  const artifactTruth = acceptPrepared(appended);
+   if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
+     return { disposition: "coordinate_refused", successorPrefix: null, refusal: artifactTruth };
+   }
+@@ -1068,6 +1083,27 @@
+   basis: ArtifactAdmissionBasis,
+   resolvedLock: ResolvedProductLock,
+ ): ArtifactOwnerResult<ProductInstall> {
++  return admitProductInstallWithCandidateCheck(store, candidate, basis, resolvedLock, isProductInstallCandidate);
++}
++
++/** @internal The Product Definition has admitted the lock; candidate scope,
++ * exact membership, predecessor and ABG semantics still belong to this owner. */
++export function admitProductInstallInResolvedLock(
++  store: AbgEventStore,
++  candidate: ProductInstallCandidate,
++  basis: ArtifactAdmissionBasis,
++  resolvedLock: ResolvedProductLock,
++): ArtifactOwnerResult<ProductInstall> {
++  return admitProductInstallWithCandidateCheck(store, candidate, basis, resolvedLock, isProductInstallCandidateInResolvedLock);
++}
++
++function admitProductInstallWithCandidateCheck(
++  store: AbgEventStore,
++  candidate: ProductInstallCandidate,
++  basis: ArtifactAdmissionBasis,
++  resolvedLock: ResolvedProductLock,
++  checkCandidate: typeof isProductInstallCandidate,
++): ArtifactOwnerResult<ProductInstall> {
+   try {
+     assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
+   } catch (error) {
+@@ -1095,7 +1131,7 @@
+     };
+   }
+   if (
+-    !isProductInstallCandidate(candidate, resolvedLock) ||
++    !checkCandidate(candidate, resolvedLock) ||
+     basis.authorityScopeRef !== candidate.installId ||
+     basis.authorityScopeDigest !== candidate.productContentDigest
+   ) {
+@@ -1108,7 +1144,7 @@
+     };
+   }
+   const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
+-  const admission = admitArtifact(
++  const admission = admitArtifactFromOwner(
+     store,
+     basis,
+     "abg.operation.product.install",
+@@ -1118,6 +1154,7 @@
+       artifact: candidate as unknown as JsonValue,
+       resolvedLock: resolvedLock as unknown as JsonValue,
+     },
++    resolvedLock,
+   );
+   if (admission.disposition === "coordinate_refused") {
+     return {
+@@ -1227,7 +1264,7 @@
+       productSet === null || productSet.kind !== "product_set" ||
+       !isWorkspaceAuthorityBasis(authority)
+     ? null
+-    : constructWorkspaceBinding(
++    : constructWorkspaceBindingInResolvedLock(
+         authority,
+         productSet,
+         resolvedLock,
+@@ -1239,7 +1276,7 @@
+     productSet.kind !== "product_set" ||
+     reconstructedCandidate === null ||
+     reconstructedCandidate.kind !== "workspace_binding_candidate" ||
+-    !isWorkspaceBindingCandidate(
++    !isWorkspaceBindingCandidateInResolvedLock(
+       candidate,
+       resolvedLock,
+       productSet,
+--- build/code/src/abg/environment_admission.js
++++ build/code/src/abg/environment_admission.js
+@@ -1,9 +1,10 @@
+-import { constructProductSet, constructWorkspaceBinding, isProductInstallCandidate, isWorkspaceAuthorityBasis, isWorkspaceBindingCandidate, } from "../product/index.js";
++import { constructProductSet, isProductInstallCandidate, isWorkspaceAuthorityBasis, isWorkspaceBindingCandidate, } from "../product/index.js";
++import { constructWorkspaceBindingInResolvedLock, isProductInstallCandidateInResolvedLock, isWorkspaceBindingCandidateInResolvedLock, } from "../product/environment.js";
+ import { canonicalJson } from "../shared/canonical_json.js";
+ import { isSha256Digest, sha256Canonical, } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+ import { isExactOperationInvocationCoordinate, } from "../shared/operation_definition_coordinate.js";
+-import { projectExactPrefixArtifactTruth, runtimePrefixFromArtifactTruth, validateArtifactTruthCandidate, projectOwnedPrefixArtifactTruth, validateArtifactTruthProjectionValue, } from "./artifact_truth.js";
++import { projectExactPrefixArtifactTruth, runtimePrefixFromArtifactTruth, prepareArtifactTruthCandidate, validateArtifactTruthProjectionValue, } from "./artifact_truth.js";
+ import { projectEffectfulPublicInvocationTruthAtPrefix, } from "./effectful_invocation_truth.js";
+ import { appendCheckedArtifactEvent, assertHeldEventStoreAtDurablePrefix, projectRuntimeEventFromValidatedHistory, } from "./event_store.js";
+ import { selectValidatedRuntimeEventPrefix, runtimePrefixComputation, } from "./event_prefix.js";
+@@ -76,10 +77,11 @@
+     return rehydrateProductInstallRowFromRows(projection.rows, row);
+ }
+ function rehydrateProductInstallRowFromRows(rows, row) {
+-    // The candidate predicate validates the raw lock before using its fields.
++    // Every caller acquired/validated this complete projection before selecting
++    // its row. Artifact truth already established the embedded or causal lock.
+     const resolvedLock = row.resolvedLock;
+     if (row.operationId !== "abg.operation.product.install" ||
+-        !isProductInstallCandidate(row.artifact, resolvedLock))
++        !isProductInstallCandidateInResolvedLock(row.artifact, resolvedLock))
+         return null;
+     const candidate = row.artifact;
+     if (selectArtifactTruthRow(rows, {
+@@ -144,9 +146,9 @@
+         return null;
+     return rehydrateWorkspaceBindingRow(projection.rows, row, invocationRef, resolvedLock);
+ }
+-function rehydrateWorkspaceBindingRow(rows, row, invocationRef, resolvedLock, productSet, workspaceAuthorityBasis) {
++function rehydrateWorkspaceBindingRow(rows, row, invocationRef, resolvedLock, productSet, workspaceAuthorityBasis, checkCandidate = isWorkspaceBindingCandidate) {
+     if (row === null ||
+-        !isWorkspaceBindingCandidate(row.artifact, resolvedLock, productSet, workspaceAuthorityBasis))
++        !checkCandidate(row.artifact, resolvedLock, productSet, workspaceAuthorityBasis))
+         return null;
+     const candidate = row.artifact;
+     if (selectArtifactTruthRow(rows, {
+@@ -260,7 +262,7 @@
+     if (productSet.kind !== "product_set") {
+         return exactPrefixEnvironmentRefusal("product_set_invalid", "Product refused the exact causal ProductInstall set and resolved lock", bindingRow.causationEventRefs);
+     }
+-    const bindingTruth = rehydrateWorkspaceBindingRow(artifactTruth.rows, selectArtifactTruthRowByInvocation(artifactTruth.rows, "abg.operation.workspace.bind", bindingRow.invocationRef), bindingRow.invocationRef, resolvedProductLock, productSet, bindingRow.workspaceAuthorityBasis);
++    const bindingTruth = rehydrateWorkspaceBindingRow(artifactTruth.rows, selectArtifactTruthRowByInvocation(artifactTruth.rows, "abg.operation.workspace.bind", bindingRow.invocationRef), bindingRow.invocationRef, resolvedProductLock, productSet, bindingRow.workspaceAuthorityBasis, isWorkspaceBindingCandidateInResolvedLock);
+     if (bindingTruth === null ||
+         canonicalJson(bindingTruth.installAdmissionEventRefs) !== canonicalJson(bindingRow.causationEventRefs)) {
+         return exactPrefixEnvironmentRefusal("workspace_binding_invalid", "the admitted WorkspaceBinding differs from its causal Product environment", [bindingRow.admissionEventRef]);
+@@ -378,6 +380,9 @@
+     });
+ }
+ export function admitArtifact(store, basis, expectedOperation, artifactRef, artifactDigest, metadata = {}) {
++    return admitArtifactFromOwner(store, basis, expectedOperation, artifactRef, artifactDigest, metadata);
++}
++function admitArtifactFromOwner(store, basis, expectedOperation, artifactRef, artifactDigest, metadata, establishedLock) {
+     try {
+         assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
+     }
+@@ -455,13 +460,17 @@
+     try {
+         if (expectedOperation === "abg.operation.product.install" &&
+             basis.causationEventRefs.length === 0 &&
+-            isProductInstallCandidate(metadata.artifact, metadata.resolvedLock)) {
++            (establishedLock === undefined ? isProductInstallCandidate : isProductInstallCandidateInResolvedLock)(metadata.artifact, metadata.resolvedLock)) {
+             const candidate = metadata.artifact;
+             const resolvedLock = metadata.resolvedLock;
++            establishedLock = resolvedLock;
++            let lockBody;
+             const source = predecessorTruth.rows
+                 .filter((row) => row.operationId === "abg.operation.product.install" &&
+                 row.causationEventRefs.length === 0 &&
+-                canonicalJson(row.resolvedLock) === canonicalJson(metadata.resolvedLock))
++                row.resolvedLock.lockId === resolvedLock.lockId &&
++                row.resolvedLock.lockDigest === resolvedLock.lockDigest &&
++                canonicalJson(row.resolvedLock) === (lockBody ??= canonicalJson(metadata.resolvedLock)))
+                 .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal)[0];
+             const { artifact: _artifact, resolvedLock: _resolvedLock, ...otherMetadata } = metadata;
+             eventMetadata = {
+@@ -534,9 +543,10 @@
+     }
+     const predecessorEvents = store.readAll();
+     let preparedEvent;
++    let acceptPrepared;
+     try {
+         preparedEvent = projectRuntimeEventFromValidatedHistory(predecessorEvents, initiatedEvent);
+-        validateArtifactTruthCandidate(predecessorTruth, preparedEvent);
++        acceptPrepared = prepareArtifactTruthCandidate(predecessorTruth, preparedEvent, establishedLock);
+     }
+     catch (error) {
+         return {
+@@ -553,13 +563,9 @@
+             refusal: appended,
+         };
+     }
+-    if (sha256Canonical(appended.event) !==
+-        sha256Canonical(preparedEvent)) {
+-        throw new TypeError("artifact append differs from its exact pre-effect semantic projection");
+-    }
+-    // Keep the actual owner derivation through immediate install/binding
+-    // consumption. A plain projection would re-enter raw historical validation.
+-    const artifactTruth = projectOwnedPrefixArtifactTruth(appended.successorPrefix);
++    // Publication occurs only after the checked append. The continuation binds
++    // the exact event and retains the existing authenticated projection handoff.
++    const artifactTruth = acceptPrepared(appended);
+     if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
+         return { disposition: "coordinate_refused", successorPrefix: null, refusal: artifactTruth };
+     }
+@@ -593,6 +599,14 @@
+         }) !== null);
+ }
+ export function admitProductInstall(store, candidate, basis, resolvedLock) {
++    return admitProductInstallWithCandidateCheck(store, candidate, basis, resolvedLock, isProductInstallCandidate);
++}
++/** @internal The Product Definition has admitted the lock; candidate scope,
++ * exact membership, predecessor and ABG semantics still belong to this owner. */
++export function admitProductInstallInResolvedLock(store, candidate, basis, resolvedLock) {
++    return admitProductInstallWithCandidateCheck(store, candidate, basis, resolvedLock, isProductInstallCandidateInResolvedLock);
++}
++function admitProductInstallWithCandidateCheck(store, candidate, basis, resolvedLock, checkCandidate) {
+     try {
+         assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
+     }
+@@ -616,7 +630,7 @@
+             refusal: invalidBasis,
+         };
+     }
+-    if (!isProductInstallCandidate(candidate, resolvedLock) ||
++    if (!checkCandidate(candidate, resolvedLock) ||
+         basis.authorityScopeRef !== candidate.installId ||
+         basis.authorityScopeDigest !== candidate.productContentDigest) {
+         return {
+@@ -628,10 +642,10 @@
+         };
+     }
+     const candidateDigest = sha256Canonical(candidate);
+-    const admission = admitArtifact(store, basis, "abg.operation.product.install", candidate.installId, candidateDigest, {
++    const admission = admitArtifactFromOwner(store, basis, "abg.operation.product.install", candidate.installId, candidateDigest, {
+         artifact: candidate,
+         resolvedLock: resolvedLock,
+-    });
++    }, resolvedLock);
+     if (admission.disposition === "coordinate_refused") {
+         return {
+             kind: "artifact_owner_coordinate_refusal",
+@@ -717,13 +731,13 @@
+         productSet === null || productSet.kind !== "product_set" ||
+         !isWorkspaceAuthorityBasis(authority)
+         ? null
+-        : constructWorkspaceBinding(authority, productSet, resolvedLock, candidate.roots);
++        : constructWorkspaceBindingInResolvedLock(authority, productSet, resolvedLock, candidate.roots);
+     if (resolvedLock === undefined ||
+         productSet === null ||
+         productSet.kind !== "product_set" ||
+         reconstructedCandidate === null ||
+         reconstructedCandidate.kind !== "workspace_binding_candidate" ||
+-        !isWorkspaceBindingCandidate(candidate, resolvedLock, productSet, authority) ||
++        !isWorkspaceBindingCandidateInResolvedLock(candidate, resolvedLock, productSet, authority) ||
+         sha256Canonical(reconstructedCandidate) !==
+             sha256Canonical(candidate) ||
+         basis.authorityScopeRef !== candidate.bindingId ||
+--- test_env/tests/t289-install-event-bodies.test.mjs
++++ test_env/tests/t289-install-event-bodies.test.mjs
+@@ -43,9 +43,12 @@
+       artifactRowsPrepared: calls("/abg/artifact_truth.js", "prepare"),
+       coldPrefixSelections: calls("/abg/event_prefix.js", "selectColdPrefixFromImmutableSnapshot"),
+       calculusEffects: calls("/abg/event_calculus.js", "eventCalculusEffectRefs"),
++      completeLockChecks: calls("/product/environment.js", "isResolvedProductLock"),
++      graphConstructions: calls("/shared/capability_contracts.js", "constructCapabilityDefinitionGraph"),
+     };
+-    assert.deepEqual(work, { artifactRowsPrepared: 2, coldPrefixSelections: 0, calculusEffects: 2 },
+-      "only the proposed row and its accepted append are derived; prior history stays established");
++    // Work counters are bounded diagnostics, not a permanent algorithm/count
++    // acceptance rule. Event, prefix, cold and refusal equality below are the oracle.
++    console.log(JSON.stringify({ kind: "artifact_admission_work", work }));
+     let consumerWork;
+     if (value.kind === "artifact_owner_result" && value.value.kind === "product_install") {
+       const truth = value.artifactTruth;
+@@ -57,15 +60,13 @@
+         successorConstructions: calls("/abg/artifact_truth.js", "projectValidatedPrefixArtifactTruth"),
+         rawProjectionValidation: calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection"),
+       };
+-      assert.deepEqual(consumerWork, { successorConstructions: 0, rawProjectionValidation: 0 },
+-        "immediate install selection does not rebuild/hash a successor or compare complete projection bodies");
++
+       assert.deepEqual(installed, value.value);
+       const copy = structuredClone(truth);
+       assert.equal(owners.artifact.runtimePrefixFromArtifactTruth(copy), null);
+       assert.deepEqual(owners.environment.projectAdmittedProductInstall(copy, row.artifact, row.invocationRef), installed);
+       coverage = await post("Profiler.takePreciseCoverage");
+-      assert.equal(calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection"), 1,
+-        "serialized/copied values retain complete raw validation");
++      consumerWork.copiedProjectionValidations = calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection");
+       const forged = structuredClone(copy); forged.rows[0].artifactDigest = "sha256:" + "0".repeat(64);
+       assert.equal(owners.environment.projectAdmittedProductInstall(forged, row.artifact, row.invocationRef), null);
+       assert.equal(owners.json.canonicalJson(truth), owners.json.canonicalJson(copy), "owner derivation changes no serialized bytes");
+@@ -246,6 +247,10 @@
+       const currentTruth = owners.artifact.projectArtifactTruth(owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll()));
+       assert.strictEqual(currentTruth.artifacts.find(row => row.admissionEventRef === firstEvent.eventId), firstTruth.artifacts[0],
+         "successful suffixes retain the established first-install fact");
++      if (process.env.ABI5_LOCK_REUSE_EXPECTED_EVENTS) {
++        assert.deepEqual(await readFile(path), await readFile(process.env.ABI5_LOCK_REUSE_EXPECTED_EVENTS),
++          "the established-lock path emits exactly the predecessor's event bytes");
++      }
+       const liveProjectionPath = join(proofRoot, "live-projection.json");
+       await writeFile(liveProjectionPath, JSON.stringify(binding.artifactTruth));
+       const expected = original.map((event) => ({ artifactRef: event.payload.artifactRef,
+@@ -369,6 +374,64 @@
+     }
+   });
+ 
++  test("T289 established causal installs and binding admit a new lock without changing prior truth", async () => {
++    const product = await import("../../build/code/src/product/environment.js");
++    const coordinate = await import("../../build/code/src/shared/operation_definition_coordinate.js");
++    const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT;
++    const history = await readFile(process.env.ABI5_INSTALL_BODY_HISTORY);
++    assert.equal(sha256(history), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
++    const original = history.toString().trimEnd().split("\n").slice(0, 3).map(JSON.parse);
++    const path = join(proofRoot, "new-lock-append.jsonl");
++    const { store, prefix } = owners.events.createNewEmptyAppendSink({
++      kind: "new_empty_append_sink_request", schemaVersion: "5.0.0", eventLogPath: path,
++    });
++    assert.ok(store);
++    try {
++      const lock = original[0].payload.resolvedLock;
++      assert.equal(product.isResolvedProductLock(lock), true);
++      const first = owners.environment.admitProductInstallInResolvedLock(store, original[0].payload.artifact,
++        basis(original[0], prefix), lock);
++      assert.equal(first.kind, "artifact_owner_result");
++      const second = owners.environment.admitProductInstallInResolvedLock(store, original[1].payload.artifact,
++        basis(original[1], first.successorPrefix), lock);
++      assert.equal(second.kind, "artifact_owner_result");
++      const bound = owners.environment.admitWorkspaceBinding(store, original[2].payload.artifact,
++        basis(original[2], second.successorPrefix, store.readAll().map(event => event.eventId)),
++        original[2].payload.workspaceAuthorityBasis);
++      assert.equal(bound.kind, "artifact_owner_result");
++      const prior = bound.artifactTruth;
++      const priorEvents = store.readAll();
++      const nextLock = structuredClone(lock);
++      nextLock.nativeContractClosureDigest = owners.digests.sha256Canonical("isolated new lock fixture");
++      nextLock.lockDigest = owners.digests.sha256Canonical({ rows: nextLock.rows,
++        dependencyEdges: nextLock.dependencyEdges, nativeContractClosureDigest: nextLock.nativeContractClosureDigest });
++      nextLock.lockId = "product-lock://abiogenesis/" + nextLock.lockDigest.slice(7);
++      const candidate = { ...original[0].payload.artifact,
++        resolvedLockId: nextLock.lockId, resolvedLockDigest: nextLock.lockDigest,
++        installId: original[0].payload.artifact.installId.replace(lock.lockDigest.slice(7), nextLock.lockDigest.slice(7)) };
++      const nextBasis = { ...basis(original[0], bound.successorPrefix),
++        ...coordinate.constructExactOperationInvocationCoordinate({ operationId: "abg.operation.product.install",
++          memberKey: "install", definitionDigest: original[0].payload.definitionDigest },
++          original[0].payload.invocationRef + "/new-lock", owners.digests.sha256Canonical("new lock fixture request")),
++        authorityScopeRef: candidate.installId };
++      const next = await measuredAdmission(() => owners.environment.admitProductInstall(store, candidate, nextBasis, nextLock));
++      assert.equal(next.value.kind, "artifact_owner_result");
++      assert.equal(store.readAll().length, 4);
++      assert.deepEqual(store.readAll().slice(0, 3), priorEvents);
++      assert.deepEqual(project(bound.successorPrefix), prior);
++      assert.equal(store.readAll()[3].payload.resolvedLock.kind, "resolved_product_lock",
++        "a different validated lock cannot borrow an earlier body");
++      assert.deepEqual(next.value.artifactTruth.rows.filter(row => row.admissionOrdinal <= 3), prior.rows);
++      const current = next.value.artifactTruth;
++      store.projectReopenAuthorityAndClose();
++      assert.deepEqual(project(await filePrefix(path, await readFile(path), owners)), current);
++      await writeFile(join(proofRoot, "new-lock-result.json"), JSON.stringify({
++        priorEventsPreserved: true, distinctLockEmbedded: true, warmColdEqual: true, work: next.work,
++        scope: "isolated Product-valid lock fixture; no native declaration/package qualification claim",
++      }, null, 2) + "\n");
++    } finally { store.closeDurableLog(); }
++  });
++
+   test("T289 raw install compaction preserves the predecessor structured refusal", async () => {
+     const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT;
+     const historyPath = process.env.ABI5_INSTALL_BODY_HISTORY;

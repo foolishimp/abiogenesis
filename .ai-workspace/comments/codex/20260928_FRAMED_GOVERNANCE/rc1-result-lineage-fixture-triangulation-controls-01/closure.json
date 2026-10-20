@@ -1,0 +1,9 @@
+{
+  "status": "CLOSED",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_RESULT_LINEAGE_FIXTURE_TRIAGE_GRANT_WRITER_01",
+  "returnsTo": "Executive",
+  "testWorkerNotActivated": true,
+  "sourceRuntimeGitEffects": 0
+}

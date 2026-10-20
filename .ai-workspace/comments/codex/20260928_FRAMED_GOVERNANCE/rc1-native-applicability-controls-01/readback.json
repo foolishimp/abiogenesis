@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/native-how-request.txt",
+    "bytes": 4105,
+    "sha256": "a9faa614aa21da5ad8a7e3a3f3277f7dda38ec7c20c8a4bf2cdeafe82d4a4d2c"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/received-s03-review.md",
+    "bytes": 2734,
+    "sha256": "092f6d5a5fbdb9a82b7db7e7c131e5a47bffd345f45e04b1db12cce54924d586"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/received-native-scope-review.md",
+    "bytes": 2930,
+    "sha256": "3896ddef319002509549e8b73da2583561aadfba9890f4cc7bb932d88f584c15"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/s03-acceptance.json",
+    "bytes": 608,
+    "sha256": "98c8fa1fe12d8935dc9c0cc517250925d4d2132a448323b0fe100cbc4b2fcbc9"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/triage.md",
+    "bytes": 2669,
+    "sha256": "bb020d66a68526c069368898ce1b50d6addcd821ec25b1138a47ee0ec179c8a0"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 469967,
+    "sha256": "808cd937c03938baac3a280dba6bb391cf3c5dbb53d2bb3bdb21988aaf5dbf30"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "bytes": 6088,
+    "sha256": "86b105c7d49bd29977e9c2526faf1629f78d931f8e2371a3fdd0163d672cbbc7"
+  }
+]

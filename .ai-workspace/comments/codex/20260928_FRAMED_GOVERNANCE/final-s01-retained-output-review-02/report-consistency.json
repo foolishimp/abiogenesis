@@ -1,0 +1,12 @@
+{
+  "scope": "Own completed proof records only; no external acquisition or new subject check during finalization",
+  "status": "passed",
+  "proofStatus": {
+    "terminal-checks.json": "passed",
+    "causal-checks.json": "passed",
+    "physical-process-checks-02.json": "passed",
+    "setup-binding-checks-02.json": "passed"
+  },
+  "nativeCalls": 0,
+  "movingResourceReads": 0
+}

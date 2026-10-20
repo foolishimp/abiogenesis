@@ -1,0 +1,90 @@
+{
+  "meaning": "Mechanical isolated input/emission byte comparison only; no installed or whole-ABI qualification. Shared build unchanged.",
+  "sourceCount": 263,
+  "sourceInventorySha256": "d47b7db98a0b1af444fb75086dd40505bc044ca7ae3544d82bc472c04e03a944",
+  "changedSourceCount": 11,
+  "unchangedSourceCount": 252,
+  "emittedCount": 526,
+  "emissionInventorySha256": "a9b9eb461b03df44502804105596c06f39215cfffa30e5bd372ed2c8839586d5",
+  "unchangedEmissionCount": 515,
+  "changedEmissions": [
+    {
+      "path": "gtl/graph_construction.js",
+      "sha256": "651b0d252781bc2289f0c14cd93cabfe71120f4f9f6087286e18da77375c797d",
+      "byteCount": 23031,
+      "baselineSha256": "6513d7417371a12cf71d76c390cdd097b8d7189ebf2ce9f49ed72004f859b5c7",
+      "baselineByteCount": 22752
+    },
+    {
+      "path": "gtl/materialize.js",
+      "sha256": "693f962584538c47ee9ebae31b14b016b53a693cd759d0ebda3d62145d394cfb",
+      "byteCount": 10102,
+      "baselineSha256": "90b500aa59ece6a294f6115a36c5c496eff583e33e92dd68f1ede1f9a3e45fcb",
+      "baselineByteCount": 8922
+    },
+    {
+      "path": "product/catalog.js",
+      "sha256": "363512b225fe9158256239e07c8824dfce66f41a2780aa41c8f2be907acc3fce",
+      "byteCount": 27967,
+      "baselineSha256": "be43625ca325855297a70e22707f951e4773b0594fbb4b4e0d021527758605a1",
+      "baselineByteCount": 26720
+    },
+    {
+      "path": "product/catalog_operations.js",
+      "sha256": "6763c00025e111248312b3fc29aa1dfb4a109adc080344b1b62bd79f9144e50e",
+      "byteCount": 10084,
+      "baselineSha256": "93ad4404f1ef8d6dd63dfba103d9449acde1dfb81128fcd42b9afcef1dbcc576",
+      "baselineByteCount": 8842
+    },
+    {
+      "path": "product/declaration_closure.js",
+      "sha256": "a645e7582dadc451f756e47e81648c89b9b62376c3e63f8422a6f66d0835cdae",
+      "byteCount": 37064,
+      "baselineSha256": "f703be04cdd9af9ee704266de57463342fd8f4fe80dbcc111283fd66e5934777",
+      "baselineByteCount": 35547
+    },
+    {
+      "path": "product/declaration_exports.js",
+      "sha256": "1b86274f36c7983619b2b2bd41aa765a6108d6aa17e2675f874213da8e8106c4",
+      "byteCount": 108529,
+      "baselineSha256": "38c1bee63429bd808f62a8564c13b83ce32a84a3c1f2e2b8502bee5c80b670b2",
+      "baselineByteCount": 108445
+    },
+    {
+      "path": "product/environment.js",
+      "sha256": "347263c8cd6b007b96aa82d15d848a267aeef5f285cc0234e478c354d62f1b37",
+      "byteCount": 36222,
+      "baselineSha256": "0b7d64479fd2fcfabb7a90b5f6acaefb51dfe5c8b61a7289d5d1561e7e5dcf64",
+      "baselineByteCount": 35210
+    },
+    {
+      "path": "product/execution_resolution.js",
+      "sha256": "bef3fe755fb8ab2756ceaf19fcd55042b8a12259e682e65eb543f4b5195d8818",
+      "byteCount": 38675,
+      "baselineSha256": "6386a34d145f664905dba199584876f44d3cd92b6bb1bdc747e063dbc65c5c82",
+      "baselineByteCount": 38571
+    },
+    {
+      "path": "shared/immutable.js",
+      "sha256": "147bc7a25a76babf73ee75b77e128f39445cafeb7759135da450689f8208dbaa",
+      "byteCount": 962,
+      "baselineSha256": "b8cc59aa2f8a8ccf6cdfbc9e5ac85c344f0e97604c55fb3f75cb9446daf2d2e7",
+      "baselineByteCount": 608
+    },
+    {
+      "path": "validator/graph.js",
+      "sha256": "3dce36f85e8408e322767f9989b86be8f1f7e230abc78736ed29e098910359be",
+      "byteCount": 4288,
+      "baselineSha256": "bfa9e03fbc21bc7697a5658d9b489944478015c547b9b0ce337edfc51667e36a",
+      "baselineByteCount": 3553
+    },
+    {
+      "path": "validator/validation.js",
+      "sha256": "1cc7b4ab720f31a3a1f67faac2075616853252d318fc1c54ec21816842e8e0a2",
+      "byteCount": 84670,
+      "baselineSha256": "4bd10fe875d4a3211f21e78ce4d185a474743914e8e0eecbd39d09dcfe4fb398",
+      "baselineByteCount": 81815
+    }
+  ],
+  "missingBaselineEmissions": []
+}

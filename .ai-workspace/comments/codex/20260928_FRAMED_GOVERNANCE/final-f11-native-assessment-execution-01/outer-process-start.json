@@ -1,0 +1,16 @@
+{
+  "pid": 27402,
+  "processGroup": 27402,
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/observe-process.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/driver-process.json",
+    "node",
+    "--max-old-space-size=4096",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/driver.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01"
+  ],
+  "startedAt": "2026-10-01T12:35:39.773455+00:00",
+  "ceilingMs": 2400000,
+  "terminationGraceMs": 1000
+}

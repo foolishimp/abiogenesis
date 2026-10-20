@@ -1,0 +1,4 @@
+source/code/src/abg/execution_basis.ts(1,131): error TS2300: Duplicate identifier 'runtimeEventAtPrefix'.
+source/code/src/abg/execution_basis.ts(131,3): error TS2300: Duplicate identifier 'runtimeEventAtPrefix'.
+source/code/src/abg/execution_basis.ts(2380,50): error TS2345: Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+  Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]

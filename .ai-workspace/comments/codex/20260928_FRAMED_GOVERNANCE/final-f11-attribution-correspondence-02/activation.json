@@ -1,0 +1,22 @@
+{
+  "role": "Worker",
+  "activation": "T287_F11_EXTERNAL_ATTRIBUTION_CORRESPONDENCE_02",
+  "externalAgent": "/root/f11_attribution_inputs",
+  "transition": "T287_DEFAULT_LIBRARY_PUBLICATION_REVIEW_01 CLOSED -> external-input Worker",
+  "at": "2026-09-30T07:42:44.045387+00:00",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-controls-02/request.txt",
+    "bytes": 7189,
+    "sha256": "b91b75e382fadc3a7b6d6f7b49eacf104164fddabb87b63bed6be33912c00924"
+  },
+  "territory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02",
+  "reentry": "realization_refactor",
+  "scope": "Two original four-member source operations and one separate three-member publication repair; derived correspondence and authentic attribution inputs only",
+  "successorBinding": null,
+  "limits": [
+    "No native/runtime/provider/source/Product/Git effects",
+    "No independent assurance of this authored cut",
+    "No successor or whole-inventory acquisition",
+    "No inferred identities or authority-grant correspondence"
+  ]
+}

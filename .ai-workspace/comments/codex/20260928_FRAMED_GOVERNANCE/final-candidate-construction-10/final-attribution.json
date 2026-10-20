@@ -1,0 +1,126 @@
+{
+  "sourceCutAuthor": "/root/rc1_c03_install_review selected copy under T287_G1_G3_C10_CONSTRUCTION_01; original semantic authors retained",
+  "sourceCutSHA256": "dfcbe13c1b667a9b16fb89caaf4afa59a1e911fa44b11e6508e847a2bd1c5aa8",
+  "originalSources": "all selected originalSource/originalAuthorship/sourceAuthor and nested historical SourceProvenance/preimage/sourceAuthorship relations retained",
+  "sourceChangesFromBaseline": 4,
+  "sourceAddedFromBaseline": 2,
+  "unchangedFromBaseline": 1107,
+  "selectedIncrementAuthors": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "sourceAuthor": "G1_FINDING_CONSERVATION",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+        "bytes": 29197,
+        "sha256": "9f8dff75486cde4d6cb704ee2d816a09c21d7a00aaed7ecc8fa589243b94b3f3",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/freeze.json",
+        "bytes": 171217,
+        "sha256": "8dd2269955829b3e5d2b62f6f3540896c31bb074bf570019e80b75b6957da730",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "sourceAuthor": "/root/q03_input_review under T287_RC1_PARENT_ALIAS_OWNER_REPAIR_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 81674,
+        "sha256": "8f4967157222757a32c1470fcb21370a023f535d0968a5b9b048319734efbebd",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-parent-alias-owner-repair-01/freeze.json",
+        "bytes": 171411,
+        "sha256": "6d5ab742d9ebf2a730e7d776aa2911c58503d0dc40c2928f18fa72eb3a305d2e",
+        "mode": 292
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "sourceAuthor": "G1_FINDING_CONSERVATION",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+        "bytes": 40019,
+        "sha256": "8d5cfcdf111641bb4ee651ea8ebb772a9e217de333a4c075f2fcde5e7d300a6d",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/freeze.json",
+        "bytes": 171217,
+        "sha256": "8dd2269955829b3e5d2b62f6f3540896c31bb074bf570019e80b75b6957da730",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "sourceAuthor": "Root documentary Writer accepted native qualification HOW",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+        "bytes": 39730,
+        "sha256": "6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c",
+        "mode": 420
+      },
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-grant.txt",
+        "bytes": 6025,
+        "sha256": "7f254642a603b1f90e7ce2a992f11c60bf84119a845a42f10687171a07d07a86",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs",
+      "sourceAuthor": "T287_G3_PARENT_ALIAS_FIXTURE_CONTINUATION_01",
+      "preimage": null,
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/freeze.json",
+        "bytes": 170192,
+        "sha256": "153a3eced2061acbb7b32c96904ad791d667186dcd4e3121fb4a9dbc80262e2c",
+        "mode": 292
+      },
+      "fixtureSuccessorAuthorship": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md",
+      "sourceAuthor": "Root documentary Writer accepted reusable-library target",
+      "preimage": null,
+      "sourceAuthorship": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-grant.txt",
+        "bytes": 6025,
+        "sha256": "7f254642a603b1f90e7ce2a992f11c60bf84119a845a42f10687171a07d07a86",
+        "mode": 420
+      },
+      "fixtureSuccessorAuthorship": null
+    }
+  ],
+  "acceptedSourceAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/freeze.json",
+    "bytes": 171217,
+    "sha256": "8dd2269955829b3e5d2b62f6f3540896c31bb074bf570019e80b75b6957da730",
+    "mode": 420
+  },
+  "acceptedTestFixtureAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/freeze.json",
+    "bytes": 170192,
+    "sha256": "153a3eced2061acbb7b32c96904ad791d667186dcd4e3121fb4a9dbc80262e2c",
+    "mode": 292
+  },
+  "acceptedSourceFreezeSHA256": "8dd2269955829b3e5d2b62f6f3540896c31bb074bf570019e80b75b6957da730",
+  "operativeSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-grant.txt",
+    "bytes": 6025,
+    "sha256": "7f254642a603b1f90e7ce2a992f11c60bf84119a845a42f10687171a07d07a86",
+    "mode": 420
+  },
+  "historicalPreparedReviewField": "Root grant conjoins independently accepted G1/G3 component assurance; no new installed proof",
+  "builderReportActor": "/root/rc1_c03_install_review under separately activated T287_G1_G3_C10_CONSTRUCTION_01",
+  "baselineSourceAttributionReference": "baseline-source-attribution-reference.json",
+  "sourceRepair": false,
+  "qualificationActorIndependence": "builder is not source author; no new qualification independence"
+}

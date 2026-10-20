@@ -1,0 +1,33 @@
+{
+  "total": 526,
+  "unchanged": 524,
+  "changed": [
+    {
+      "relativePath": "abg/event_store.d.ts",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.d.ts",
+        "sha256": "e71086d3e9f94224548024132950eedc7c6f05688fb49dfee3781837c679383c",
+        "byteCount": 38591
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/compiler/abg/event_store.d.ts",
+        "sha256": "5cfeac564900bcbf0ba949fa2a5090dfd673a6af5fcc15295ede23c879f85877",
+        "byteCount": 38655
+      }
+    },
+    {
+      "relativePath": "abg/event_store.js",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+        "sha256": "f24fd97ca5353636cb1c3f3fdeeb692cd008dcd627270d760905b1007aa1b34f",
+        "byteCount": 163300
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/portable-close-handoff-repair-225/compiler/abg/event_store.js",
+        "sha256": "3f261f946b570611f2a37547970ad62c7327c211ed667db68499a339b1e2b533",
+        "byteCount": 163410
+      }
+    }
+  ],
+  "reason": "Selected owner return and its exported documentation only; no other compiler output changes."
+}

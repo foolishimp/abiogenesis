@@ -1,0 +1,26 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/semantic_job.ts",
+      "bytes": 48750,
+      "sha256": "1ee24400b6e27ae4676112e33731d4d93cd89b966584284f74ca4b65fb8b9515"
+    },
+    "after": {
+      "path": "code/src/abg/semantic_job.ts",
+      "bytes": 48882,
+      "sha256": "5c9196e5761551d7bfa9c3f0841d8aaef84ed2430824866c405b02c4f9e54ff2"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/abg/semantic_revision.ts",
+      "bytes": 78483,
+      "sha256": "6f61fd28225b1f19c73cad4ba30426529501b10a679108cda87e7dae7d255b0a"
+    },
+    "after": {
+      "path": "code/src/abg/semantic_revision.ts",
+      "bytes": 79771,
+      "sha256": "cc5a526479f4ac70443bb89b933bfffd10cbee90bed4a28731ba8ce9ea9a1818"
+    }
+  }
+]

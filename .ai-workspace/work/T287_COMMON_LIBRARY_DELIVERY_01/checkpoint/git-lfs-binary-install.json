@@ -1,0 +1,12 @@
+{
+  "kind": "verified_official_bottle_binary_install",
+  "observed_utc": "2026-10-20T19:01:57.449533+00:00",
+  "bottle_sha256": "fcefb0b6742a77251b31a71780e91baba1cc02d23e2d36ef577fc91d4e74d751",
+  "member": "git-lfs/3.8.0/bin/git-lfs",
+  "destination": "/Users/jim/.local/bin/git-lfs",
+  "binary_sha256": "8e4ed79ff8562870a7f3b88993c221994e2bf44f8c65b930764b3f0ab0fcefa5",
+  "binary_bytes": 13314562,
+  "version": "git-lfs/3.8.0 (GitHub; darwin arm64; go 1.27.0)",
+  "version_exit_code": 0,
+  "scope": "Single user-local executable; existing PATH already includes parent; no Homebrew packages, PATH, global Git or billing configuration changed."
+}

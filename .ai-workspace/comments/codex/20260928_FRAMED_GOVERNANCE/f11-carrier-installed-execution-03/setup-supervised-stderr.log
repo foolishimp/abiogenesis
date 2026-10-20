@@ -1,0 +1,1 @@
+{"status":"FIRST_FAILURE_STOPPED","phase":"ordinary_wrapper_setup","error":"{\"kind\":\"environment_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"incompatible_dependency\",\"message\":\"invalid package-owned declaration metadata evidence\"}\n+ actual - expected\n\n+ 'environment_refusal'\n- 'resolved_product_lock'\n","physical":null}

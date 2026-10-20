@@ -1,0 +1,157 @@
+{
+  "subject": "T287 common computational library L2 conjoined execution contract",
+  "created_utc": "2026-10-20T18:45:02.285512+00:00",
+  "state": "candidate_for_independent_L2_design_assessment",
+  "executive": "/root",
+  "recording_writer": "/root/calculus_assessment",
+  "method_basis": "stdo://releases/v3.0.0-rc.1/",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "method_sources": [
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md",
+      "sha256": "50e70c797c93718e85192aaf2de39596f62f53030507ca8242c1af7e8f0ebcbe"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/FOUNDATIONS.md",
+      "sha256": "3e85b8d01360dfae6758566fd3aca309c977e7d9e15cdd2f9e8f2904f18f2545"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md",
+      "sha256": "c7b83b2b7e8c9a301d2e535fc3752c08f718d9fc679e32f8a91c15c285976e8e"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md",
+      "sha256": "7ad7b69b5ad8ec20678b3ef866a26fb328f2fa6f60c4d1d06ca0b926845b89bf"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md",
+      "sha256": "8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21"
+    }
+  ],
+  "head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "basis": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/basis.json",
+    "sha256": "39481bf3d0c77efc9da91139f933c2d59884e8eb6b42bded78eda603df8b6dbb",
+    "bytes": 297818
+  },
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "0c2876519cec2452480eb4e7a86fb26efdd0a0dcfa36a005b6336490e947d24b",
+      "bytes": 21965
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "sha256": "784b0bc807710f5e14930730bb13475096da0595c0fae9b9d06d71d5119e00d6",
+      "bytes": 36871
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/effects/L2-report.md",
+      "sha256": "4161ee63119c9b7490f0feb9cabe4c1d03b2c5ce6c040fb610af12737b998e66",
+      "bytes": 42381
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md",
+      "sha256": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+      "bytes": 29197
+    }
+  ],
+  "accepted_design": {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+    "bytes": 63515
+  },
+  "accepted_plan": {
+    "freeze": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/candidate-freeze.json",
+      "sha256": "d2cb0f2e7c3967a64d5719e29c9b1ce21f3a47fd61988e9645e4000607c90a0e",
+      "bytes": 1088
+    },
+    "files": [
+      {
+        "path": "specification/GOALS.md",
+        "sha256": "fd759854a8a4e868513653df7ab8228ecffb49d6beab0096448a0c64b6c059b9",
+        "bytes": 77637
+      },
+      {
+        "path": "specification/PRODUCT.md",
+        "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+        "bytes": 97498
+      },
+      {
+        "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "sha256": "f61e3b9e8db7b003165fdb337e6e2d665bb1e11a588f2a841c207501cca65861",
+        "bytes": 532032
+      }
+    ]
+  },
+  "support": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/activation.md",
+      "sha256": "0bd9a3562cc20a21a362659f514f44f2bbf11f72b981c42871355cfa93699fed",
+      "bytes": 4049
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/frontier.md",
+      "sha256": "f367349551037bb8a69310fd2e6eb3e24e9d2b5d83da8df4d2a04fc35153aba8",
+      "bytes": 4373
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/freeze.json",
+      "sha256": "ec83e28b8670b64d492762f7bbd7fa3485de87afd52ecdab08d8fe14f4b8c103",
+      "bytes": 1760
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/effects/sources.json",
+      "sha256": "b5df6b03a67cd17378d7cce7352763bd140f666ba9766166c327f03adf8401d6",
+      "bytes": 64696
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/source-hashes.json",
+      "sha256": "488c37ceb77b4d3138f1fd43d8d2c9babad699c7f39ed06f41ed27fd7dcd9f4a",
+      "bytes": 25303
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source-manifest.json",
+      "sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+      "bytes": 323086
+    }
+  ],
+  "recording_evidence": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/conjunction/activation.md",
+      "sha256": "169f88ce8a598822484109b9d37b0c15e748294cd0a1e4367fc595e7f152e22a",
+      "bytes": 1771
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/conjunction/preservation-basis.json",
+      "sha256": "afd501f66fdf2d39fdb7d099a98ccbfbe53305b7ddad18ebd64288b5a34d79a4",
+      "bytes": 2298800
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/conjunction/readiness.json",
+      "sha256": "c9af1765d2047d409e46c68e9c8f26853a329a2ff04bd9403265279e6cdda900",
+      "bytes": 3765956
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/conjunction/candidate.diff",
+      "sha256": "a56cd9ce915578f7c2faa96124db08034a26083f9117cac27a1cb00de1ebaee0",
+      "bytes": 24094
+    }
+  ],
+  "executive_refinements": [
+    "P2 preserves actual acquired returned prefix; no unconditional unchanged-prefix oracle.",
+    "HTTP diagnostics capture through bounded close or drain/disposal; distinct worker/command exit cuts remain.",
+    "Each command and HTTP probe budgets two grace phases plus min(grace,250) drain.",
+    "GTL command renderer emitted-member and span coordinates synchronize from actual isolated build bytes."
+  ],
+  "limits": "No implementation, builds, tests, package/install, native/runtime or Git effects. All 1311 basis files, 264 production TypeScript files, closed reports/records and 741 main generated build files remain unchanged. Independent L2 review and Executive acceptance, L3, L4, L5 and release remain unperformed."
+}

@@ -1,0 +1,8 @@
+--- /dev/null
++++ fixture/A/member.mjs
+@@ -0,0 +1,1 @@
++export const a = 1;
+--- /dev/null
++++ fixture/B/member.mjs
+@@ -0,0 +1,1 @@
++export const b = 2;

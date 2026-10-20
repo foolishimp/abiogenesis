@@ -1,0 +1,86 @@
+{
+  "donor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/freeze.json",
+    "bytes": 863173,
+    "sha256": "3ca693f27e86a063ce0f3d21da02852949e69b34a70da1bf11fd6f19e150b2a3",
+    "mode": 292
+  },
+  "strictCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/ordinary-caller.mjs",
+    "bytes": 18118,
+    "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+    "mode": 420
+  },
+  "flowDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/flow-driver.mjs",
+    "bytes": 6502,
+    "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+    "mode": 420
+  },
+  "reusedAlgorithmOrigins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/prepare-data.py",
+      "bytes": 14997,
+      "sha256": "380696e43be7180bdb8f24734862b8e22a2bece6a0c761561effafae33a000fd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/bind-data.py",
+      "bytes": 15945,
+      "sha256": "b0477f4feefa4169993ca57995fe74c1d4b571c57b044d2033cca571e26ede53",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/prepare-bijection.py",
+      "bytes": 3248,
+      "sha256": "f26e92026dd76808fdb833c26df1eb40626e866b347139cc6c9a3d6d9786a186",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/prepare-provenance.py",
+      "bytes": 6832,
+      "sha256": "606f3d42cbd1ac1333e81c030d484f28d269add212aa0ecefa38b9be66050938",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/prepare-setup-binding.py",
+      "bytes": 3194,
+      "sha256": "c6ee241f9cf2f34cc633f6c35eb239a158c829916ecd3e563dccdc2d24a5145a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/readiness-driver.mjs",
+      "bytes": 18910,
+      "sha256": "0f61f0ac7893e9b6fc19fe77b705ed99910bad15aa378bc11bceaff1c5ea5330",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/run-readiness.py",
+      "bytes": 2443,
+      "sha256": "440ae57e3d2678d3db7ae563677a562c408c1c64d55a7d6d54825a4eef06460e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/run-packet-readiness.py",
+      "bytes": 2459,
+      "sha256": "0a6408c14c8781e34df040ef8bbd6c48c8775e4b9b1950c1d84035279aef5337",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/f11/packet-readiness.mjs",
+      "bytes": 10546,
+      "sha256": "af80d58da61e90a8ca8af4be32c751a334fced6026c6f4f39ffd4eed2c7c95d7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/f11/current-resources.mjs",
+      "bytes": 22080,
+      "sha256": "8087a118a7a2f43a4953df6f77135d4a0d091cd3c3bb320cdce70394bfdfcd31",
+      "mode": 420
+    }
+  ],
+  "physicalRoot": "10",
+  "semanticMemberNamespace": "q07 deliberately retained from actual provided descriptors",
+  "constructionPreimageNamespace": "c09 exact current construction input bodies",
+  "authorship": "original author chains preserved; copy roles not authors"
+}

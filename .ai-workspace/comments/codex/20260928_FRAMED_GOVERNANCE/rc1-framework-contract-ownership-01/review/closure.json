@@ -1,0 +1,22 @@
+{
+  "operation": "T287_FRAMEWORK_CONTRACT_OWNERSHIP_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Reviewer",
+  "status": "CLOSED",
+  "disposition": "GO_CONSTRAINT_NOTES_ONLY",
+  "closedAt": "2026-10-03T07:42:37.861818+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/subject-pins.json",
+    "bytes": 1267,
+    "sha256": "eb6beb4610a4381545ed8f390ed942052c0b1aae2dbe87f38654ae691e29da7d",
+    "mode": 420
+  },
+  "fourExactBeforePostimageInsertions": true,
+  "boundedBlockers": [],
+  "currentNotesOutsideC09": true,
+  "noCodeLibraryCandidateRuntimeOrReleaseAcceptance": true,
+  "newReviewReportWritesOnly": true,
+  "allWritesStopped": true,
+  "testsImportsPayloadsBuildRepairRunProviderGitNetwork": 0,
+  "rootAloneConjoinsAndActivatesNextSubject": true
+}

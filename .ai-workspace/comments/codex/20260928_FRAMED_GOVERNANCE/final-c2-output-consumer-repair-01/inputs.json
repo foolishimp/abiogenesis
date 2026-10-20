@@ -1,0 +1,41 @@
+{
+  "donors": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/output-checks.mjs",
+      "bytes": 9424,
+      "sha256": "2da7268570fb9a11ac023b653e82adccb889c696ea8fe2bbda14701a1546f923"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/driver.mjs",
+      "bytes": 15079,
+      "sha256": "cd719b09003d8a1268bc6e9b9783dfb729644ce37280a1a55fa3a25204ea7f7e"
+    }
+  ],
+  "review": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-end-to-end-forward-review-01/return.md",
+      "bytes": 12429,
+      "sha256": "dcd96d53f7714024f04edc8f0ef7ad4f0bac6521817aa4fe1fa5a970952eaba1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-end-to-end-forward-review-01/freeze.json",
+      "bytes": 4807,
+      "sha256": "4397713136caac64f7d7d434429efe20d95f7fd22d388d1613e2ef2de9bf488e"
+    }
+  ],
+  "C02Freeze": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+    "bytes": 4543994,
+    "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+  },
+  "Q02Freeze": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/freeze.json",
+    "bytes": 15744,
+    "sha256": "a4c2b5afd94fd7402b6bbfc732e691eb345dbcf4334a0300de490f607b9aad79"
+  },
+  "failedEpisodeFreeze": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/freeze.json",
+    "bytes": 18324,
+    "sha256": "9949f56817f7f1f4bfca2a564e6de81146b9afedfde5698f573519500227efb8"
+  }
+}

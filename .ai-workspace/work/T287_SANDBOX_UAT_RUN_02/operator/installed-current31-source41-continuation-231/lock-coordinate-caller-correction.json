@@ -1,0 +1,18 @@
+{
+  "firstFailure": "first-cause.json",
+  "cause": "Added caller equality compared ProductLock coordinate {ref,digest} with exact publication {lockId,lockDigest}; actual identities both b95fabf2 matched. Canonical owner returned resolved_product_lock, no refusal.",
+  "selectedBoundedAction": "Only explicitly project expected lockId/lockDigest into the existing coordinate; preserve original script/receipt and every other input/guard.",
+  "ownerEffectsAtFailure": {
+    "verification": true,
+    "fixedResolution": true,
+    "historyAcquisition": false,
+    "PublicInstallBindCatalogWitness": false,
+    "RunModelApp": false
+  },
+  "successorCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/prepare.mjs",
+    "sha256": "f5e1fc616f372dc3f82766320f7250b2ccc1df428d81ee976d1b170118ffbb0f",
+    "byteCount": 45944
+  },
+  "allOtherFilesExactCopies": true
+}

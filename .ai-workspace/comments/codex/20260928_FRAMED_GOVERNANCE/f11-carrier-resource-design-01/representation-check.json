@@ -1,0 +1,42 @@
+{
+  "claim": "pure representation sketch only; not installed owner validation, execution, semantic J or qualification",
+  "fixtureRawCanonicalSha256": "a1bdf000af5f0857a1facc3f4d434a8452b0e094b0266ab81fb656eb94c19a7b",
+  "fixturePrettySha256": "10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901",
+  "rawInputCanonicalBytes": 67784040,
+  "legacyScopeCanonicalBytes": 43152263,
+  "internedScopeCanonicalBytes": 2051550,
+  "inventoryCanonicalBytes": 870019,
+  "internedScopePlusInventoryBytes": 2921569,
+  "referenceSets": 517,
+  "members": 1950,
+  "rules": 2137,
+  "ruleGroups": 187,
+  "applicationDomains": 187,
+  "domainSurfaceGroups": 777,
+  "fullStructuralRoundtripEqual": true,
+  "eachPerRuleDomainFullDisjointMemberCoverage": true,
+  "legacyScopeCoordinate": {
+    "ref": "qualification-scope://abiogenesis/04aee8faca20a74ed86b83d12ecde944bd438b41e63d522cb096374933366681",
+    "digest": "sha256:04aee8faca20a74ed86b83d12ecde944bd438b41e63d522cb096374933366681"
+  },
+  "newSketchScopeCoordinate": {
+    "ref": "qualification-scope://abiogenesis/9a3c13ef8bb2f08292a77f7fee30acd32932f0c1fe3737878cd3c9a0a0af4fe4",
+    "digest": "sha256:9a3c13ef8bb2f08292a77f7fee30acd32932f0c1fe3737878cd3c9a0a0af4fe4"
+  },
+  "currentTaskCoordinate": {
+    "ref": "qualification-task://abiogenesis/acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85",
+    "digest": "sha256:acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85"
+  },
+  "currentPlanCoordinate": {
+    "ref": "qualification-plan://abiogenesis/c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98",
+    "digest": "sha256:c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98"
+  },
+  "scopeRefIdentityRule": "new normalized body receives a new identity; old coordinate is not carried into new authoring",
+  "limitations": [
+    "Sketch uses frozen RC1 subject solely for representation conservation. Successor uses its own exact RC2 candidate/law/inventory/catalog.",
+    "Complete root/role/owner/source and catalog owner validation remains an implementation obligation.",
+    "No cost speedup or allocation conclusion follows from size or Python sketch."
+  ],
+  "memberEncoding": "ordered inventory-bound ordinals; integer positions resolve to exact original refs; all other relation sets retain ordered refs",
+  "earlierStringOnlySetSketchCanonicalBytes": 7046523
+}

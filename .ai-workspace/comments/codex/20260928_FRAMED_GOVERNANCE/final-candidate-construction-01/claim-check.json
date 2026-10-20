@@ -1,0 +1,8 @@
+{
+  "claimsSha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0",
+  "coverageSha256": "c7c45a998036c1cf1858701f00a5ed62ef7b3b957194dedfb18caedfaba5be4b",
+  "declarationGroups": 16,
+  "behaviors": 66,
+  "selectedCapabilitiesUnchanged": true,
+  "status": "prospective claims; native coverage not asserted"
+}

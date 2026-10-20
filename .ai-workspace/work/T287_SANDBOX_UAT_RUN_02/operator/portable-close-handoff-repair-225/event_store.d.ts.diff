@@ -1,0 +1,14 @@
+--- before/event_store.d.ts
++++ after/event_store.d.ts
+@@ -616,8 +616,9 @@
+     closeDurableLog(): void;
+     projectReopenAuthorityAndClose(): EventStoreCloseHandoff;
+ }
+-/** Bind the owner's committed history to its unchanged reopen carrier, then
+- * release ownership. A later reopen independently validates persisted bytes. */
++/** Return the owner's unchanged close coordinate as portable data, then release
++ * ownership. Separately retained nominal snapshots remain immutable evidence;
++ * a later reopen independently validates persisted bytes. */
+ export declare function closeHeldEventStoreAtDurablePrefix(store: AbgEventStore, expectedPrefix: DurablePrefixCoordinate): EventStoreCloseHandoff;
+ export declare function createNewEmptyAppendSink(request: NewEmptyAppendSinkRequest): NewEmptyAppendSinkResult;
+ export declare function isEventStoreAdmissionOpen(store: AbgEventStore): boolean;

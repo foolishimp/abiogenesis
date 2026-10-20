@@ -1,0 +1,7 @@
+{
+  "kind": "executive_scope_refinement",
+  "receivedAt": "2026-10-02T00:15:01.107503+00:00",
+  "source": "Root collaboration message to /root/q03_input_review",
+  "direction": "Published-only construction is correct; no new/private export selected. Use actual complete returned Task plus its published guard, and producer-defined canonical hashes of task.commands/outcomePredicates/allowedWriteTerritories. Existing validator/qualification.ts:134-141 owns those recipe digest comparisons. Bind proposed recipe digests from the actual complete task and make stale Q04 and changed-environment mismatches explicit. No manufactured observation/QUAL056 material; Q05 later acquires successor/admitted observations and native producer-to-material join.",
+  "runtimeAuthority": false
+}

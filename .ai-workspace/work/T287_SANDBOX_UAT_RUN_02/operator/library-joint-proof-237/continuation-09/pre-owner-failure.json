@@ -1,0 +1,62 @@
+{
+  "cause": "Caller setup body omitted the existing consumerOwner.prepareConsumer qualifier; ReferenceError before consumer owner entry.",
+  "failedDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/run-09.mjs",
+    "sha256": "a21953b8aa763ef25f2cca660884891c9f41ce15d5174ee7eee320ab4a1c932e",
+    "byteCount": 35840
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution/first-cause.json",
+    "sha256": "6e9fafa70aa0d2fc65904ec8a6cfc376c5e90169a25a4febab00a3e3b369eac6",
+    "byteCount": 617
+  },
+  "commandPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/commands/native-composition.request.json",
+      "sha256": "296217a58038238608de322764000e696df973244c8e77944ff81e33016466e1",
+      "byteCount": 1537
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/commands/native-composition.result.json",
+      "sha256": "ccb807a506cc6b070dd87c442d5e22764fbcb257ceb1ec886d97c0a1e3283f75",
+      "byteCount": 2173
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/commands/native-composition.stderr",
+      "sha256": "a461a469e47d5204affd9904db9564b78a4046e3b0c658c3d69d0023b61ae8b5",
+      "byteCount": 473
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/commands/native-composition.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    }
+  ],
+  "publication": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/publication/publication-result.json",
+    "sha256": "72619dbfb35e54e137184bab241f256a0f695d8fe2c1f44e88916d605b101e0e",
+    "byteCount": 1015
+  },
+  "liveNativeVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution/native-acquisition.json",
+    "sha256": "8c5817c3689062c3fc6c7ec54f4ecf43e1b55c25510f5274c94fb11decc0436a",
+    "byteCount": 16410447
+  },
+  "effects": {
+    "consumerBuild": 0,
+    "resourceAcquisition": 0,
+    "publicSetup": 0,
+    "nativeRun": 0,
+    "app": 0
+  },
+  "resourceStat": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "bytes": 3452868,
+    "device": 16777231,
+    "inode": 469917053,
+    "mtimeNs": "1791634877406119618"
+  },
+  "appendLockAbsent": true,
+  "ownedNodeProcesses": [],
+  "proposedAction": "Use the existing consumerOwner.prepareConsumer export; fresh execution-b receipts; retain this failed script/receipt and all08 completed work. No Source/helper/contract change."
+}

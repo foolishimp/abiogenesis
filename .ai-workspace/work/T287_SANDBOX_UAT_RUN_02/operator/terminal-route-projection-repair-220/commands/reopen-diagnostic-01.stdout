@@ -1,0 +1,33 @@
+✖ terminal route-only projection preserves complete replay and avoids nonreturned populations (2.326958ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 267.479125
+
+✖ failing tests:
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:77:1
+✖ terminal route-only projection preserves complete replay and avoids nonreturned populations (2.326958ms)
+  AssertionError [ERR_ASSERTION]: {"code":"contract_mismatch","message":"event-store reopen authority names another event contract"}
+  + actual - expected
+  
+  + 'event_store_reopen_refusal'
+  - 'reopened_event_store_context'
+  
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:46:9)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:78:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'event_store_reopen_refusal',
+    expected: 'reopened_event_store_context',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

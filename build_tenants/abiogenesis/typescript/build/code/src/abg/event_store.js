@@ -2,7 +2,8 @@ import { createHash } from "node:crypto";
 import { isRecord } from "../shared/admission_predicates.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { RuntimeDerivationSource } from "./runtime_derivation.js";
-import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody } from "./event_body_encoding.js";
+import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody, inlineEventBodyCoordinate, inlineEventBodyKey, inlineEventBodyValue } from "./event_body_encoding.js";
+import { RuntimeHistory, RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistoryRow, runtimeHistorySelectorKeys } from "./runtime_history.js";
 import { closeSync, constants, fstatSync, fsyncSync, ftruncateSync, linkSync, lstatSync, mkdirSync, openSync, readFileSync, readSync, statSync, unlinkSync, writeFileSync, writeSync, } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -595,9 +596,16 @@ const eventState = new WeakMap();
 // These exact event objects came from successful writes or complete cold decode.
 // The receipt describes bytes; it grants neither currentness nor append authority.
 const physicalEventPrefixes = new WeakMap();
-/** Internal physical-coordinate relation. Pure in-memory histories retain their
- * existing all-inline representation; mixed/unrelated physical provenance refuses. */
 export function runtimeEventPhysicalPrefix(events) {
+    if (RuntimeHistorySelection.is(events)) {
+        assertOwnedRuntimeHistorySelection(events);
+        if (events.length !== events.through)
+            throw new TypeError("physical event prefix requires the complete admitted cut");
+        const row = events.row(events.length - 1);
+        if (row?.body.offset === -1)
+            throw new TypeError("physical event prefix has an uncommitted suffix");
+        return { byteLength: row?.body.prefixByteLength ?? 0, digest: row?.body.prefixDigest ?? sha256Bytes(Buffer.alloc(0)) };
+    }
     const last = events.at(-1), receipt = last === undefined ? undefined : physicalEventPrefixes.get(last);
     if (receipt === undefined) {
         if (events.some(event => physicalEventPrefixes.has(event)))
@@ -607,7 +615,8 @@ export function runtimeEventPhysicalPrefix(events) {
     }
     for (let index = 0; index < events.length; index++) {
         const current = physicalEventPrefixes.get(events[index]);
-        if (current === undefined || current.source !== receipt.source || current.previous !== (events[index - 1] ?? null)) {
+        if (current === undefined || current.source !== receipt.source ||
+            current.previousEventRef !== (events[index - 1]?.eventId ?? null) || current.previousOrdinal !== index) {
             throw new TypeError("physical event prefix differs from its exact source sequence");
         }
     }
@@ -837,6 +846,11 @@ function releaseDurableOwnership(state) {
             closeError = error;
         }
         state.durableDescriptor = null;
+        if (state.history !== null) {
+            const source = runtimeHistoryPhysicalSources.get(state.history);
+            if (source !== undefined)
+                source.descriptor = null;
+        }
     }
     try {
         releaseDurableAppendLock(state.durableAppendLock);
@@ -870,12 +884,14 @@ const DURABLE_DERIVATION_CUTS = Symbol("owner_authenticated_durable_cuts");
 class DurableHistoryDerivation {
     #coordinate;
     #events;
+    #selection;
     #source;
     #cuts;
     #owner;
-    constructor(coordinate, events, source, cuts, owner) {
+    constructor(coordinate, events, source, cuts, owner, selection) {
         this.#coordinate = coordinate;
         this.#events = events;
+        this.#selection = selection;
         this.#source = source;
         this.#cuts = cuts;
         this.#owner = owner;
@@ -898,26 +914,41 @@ class DurableHistoryDerivation {
         if (!durableHistoryDerivations.has(coordinate))
             return events;
         const source = new RuntimeDerivationSource(), snapshot = source.snapshot(events);
+        if (this.selection(coordinate) !== undefined)
+            return snapshot;
         const cuts = source.scope("durable_history", snapshot).owner(DURABLE_DERIVATION_CUTS, () => new Map());
         cuts.set(coordinate.coordinateDigest, { coordinate: deepFreeze({ ...coordinate,
                 storeIdentity: { ...coordinate.storeIdentity } }), eventCount: snapshot.length });
         durableHistoryDerivations.set(coordinate, new DurableHistoryDerivation(coordinate, snapshot, source, cuts));
         return snapshot;
     }
-    static activeEvents(coordinate, requireCurrent = false) {
-        const proof = durableHistoryDerivations.get(coordinate);
-        const owner = proof === undefined ? undefined : proof.#owner;
+    static activeSelection(coordinate, requireCurrent = false) {
+        const proof = durableHistoryDerivations.get(coordinate), owner = (proof === undefined ? undefined : proof.#owner);
         if (owner === undefined || owner.durableAppendClosed || owner.durableHistory === null)
             return undefined;
-        if (requireCurrent && owner.durableHistory.prefix.coordinateDigest !== coordinate.coordinateDigest) {
+        if (requireCurrent && owner.durableHistory.prefix.coordinateDigest !== coordinate.coordinateDigest)
             throw new DurablePrefixReadError("prefix_length_mismatch", "ABG durable prefix is not the current durable event-log prefix");
-        }
-        return proof.#events;
+        return (proof === undefined ? undefined : proof.#selection);
+    }
+    static selection(coordinate) {
+        const proof = durableHistoryDerivations.get(coordinate);
+        return proof !== undefined && proof.#coordinate === coordinate ? proof.#selection : undefined;
+    }
+    static activeEvents(coordinate, requireCurrent = false) {
+        const selection = this.activeSelection(coordinate, requireCurrent);
+        if (selection !== undefined)
+            return selection.materialize();
+        const proof = durableHistoryDerivations.get(coordinate), owner = (proof === undefined ? undefined : proof.#owner);
+        return owner === undefined || owner.durableAppendClosed ? undefined : (proof === undefined ? undefined : proof.#events);
     }
     static events(coordinate) {
         const proof = durableHistoryDerivations.get(coordinate);
-        return typeof proof === "object" && proof !== null && #coordinate in proof && proof.#coordinate === coordinate
-            ? proof.#events : undefined;
+        return proof !== undefined && proof.#coordinate === coordinate ? proof.#events ?? proof.#selection?.materialize() : undefined;
+    }
+    static bindSelection(coordinate, selection, source = new RuntimeDerivationSource(), owner, cuts = new Map()) {
+        cuts.set(coordinate.coordinateDigest, { coordinate: deepFreeze({ ...coordinate,
+                storeIdentity: { ...coordinate.storeIdentity } }), eventCount: selection.through });
+        durableHistoryDerivations.set(coordinate, new DurableHistoryDerivation(coordinate, undefined, source, cuts, owner, selection));
     }
     static cut(current, events) {
         const proof = durableHistoryDerivations.get(current), physical = runtimeEventPhysicalPrefix(events);
@@ -927,27 +958,45 @@ class DurableHistoryDerivation {
     }
     static historical(current, historical) {
         const proof = durableHistoryDerivations.get(current);
-        if (proof === undefined || proof.#coordinate !== current || proof.#events === undefined)
+        if (proof === undefined || proof.#coordinate !== current)
+            return undefined;
+        const selection = proof.#selection;
+        if (selection !== undefined) {
+            if (historical.eventLogRef !== current.eventLogRef || historical.prefixLength > current.prefixLength ||
+                historical.storeIdentity.device !== current.storeIdentity.device || historical.storeIdentity.inode !== current.storeIdentity.inode)
+                return undefined;
+            let count = historical.prefixLength === 0 ? 0 : -1;
+            for (const row of selection.rows())
+                if (row.body.prefixByteLength === historical.prefixLength) {
+                    if (row.body.prefixDigest !== historical.prefixDigest)
+                        return undefined;
+                    count = row.envelope.admissionOrdinal;
+                    break;
+                }
+            if (count < 0)
+                return undefined;
+            const cut = selection.unscoped().prefix(count);
+            const profile = runtimeHistoryProfileAfter(cut);
+            if (profile !== historical.storeIdentity.eventContractDigest)
+                return undefined;
+            const coordinate = durablePrefixCoordinate(fileURLToPath(current.eventLogRef), current.storeIdentity, historical.prefixLength, historical.prefixDigest, profile);
+            this.bindSelection(coordinate, cut, proof.#source, proof.#owner, proof.#cuts);
+            return coordinate;
+        }
+        if (proof.#events === undefined)
             return undefined;
         let cut = proof.#cuts.get(historical.coordinateDigest);
-        if (cut === undefined && historical.prefixLength > 0 && DurableHistoryDerivation.activeEvents(current) !== undefined) {
-            // Cold acquisition established every physical row, including boundaries
-            // predating this session. Reuse its exact source through the existing cut
-            // owner; do not decode those same bytes again or retain every snapshot.
+        if (cut === undefined && historical.prefixLength > 0 && this.activeEvents(current) !== undefined) {
             const count = proof.#events.findIndex(event => physicalEventPrefixes.get(event)?.byteLength === historical.prefixLength) + 1;
             if (count !== 0) {
-                DurableHistoryDerivation.cut(current, proof.#source.prefix(proof.#events, count));
+                this.cut(current, proof.#source.prefix(proof.#events, count));
                 cut = proof.#cuts.get(historical.coordinateDigest);
             }
         }
-        if (cut === undefined || cut.eventCount > proof.#events.length ||
-            historical.eventLogRef !== current.eventLogRef ||
-            historical.prefixLength > current.prefixLength ||
-            historical.storeIdentity.device !== current.storeIdentity.device ||
-            historical.storeIdentity.inode !== current.storeIdentity.inode ||
-            historical.storeIdentity.eventContractDigest !== cut.coordinate.storeIdentity.eventContractDigest ||
-            historical.prefixDigest !== cut.coordinate.prefixDigest ||
-            historical.prefixLength !== cut.coordinate.prefixLength)
+        if (cut === undefined || cut.eventCount > proof.#events.length || historical.eventLogRef !== current.eventLogRef ||
+            historical.prefixLength > current.prefixLength || historical.storeIdentity.device !== current.storeIdentity.device ||
+            historical.storeIdentity.inode !== current.storeIdentity.inode || historical.storeIdentity.eventContractDigest !== cut.coordinate.storeIdentity.eventContractDigest ||
+            historical.prefixDigest !== cut.coordinate.prefixDigest || historical.prefixLength !== cut.coordinate.prefixLength)
             return undefined;
         const coordinate = deepFreeze({ ...cut.coordinate, storeIdentity: { ...cut.coordinate.storeIdentity } });
         durableHistoryDerivations.set(coordinate, new DurableHistoryDerivation(coordinate, proof.#source.prefix(proof.#events, cut.eventCount), proof.#source, proof.#cuts, proof.#owner));
@@ -968,7 +1017,7 @@ export function reidentifyHistoricalDurablePrefixCoordinate(current, historical)
         readAuthenticatedRuntimePrefixBytes(captured);
     }
     const known = DurableHistoryDerivation.historical(current, captured);
-    if (known !== undefined && DurableHistoryDerivation.activeEvents(current) !== undefined)
+    if (known !== undefined && (DurableHistoryDerivation.activeSelection(current) !== undefined || DurableHistoryDerivation.activeEvents(current) !== undefined))
         return known;
     readAuthenticatedRuntimePrefixBytes(captured);
     return known ?? captured;
@@ -1130,14 +1179,14 @@ export function validateEventStoreCloseHandoff(value) {
 /** Active ownership preserves the admitted byte correspondence. Outside that
  * session, reacquire the physical resource before relying on its coordinate. */
 export function assertDurableRuntimePrefixBytes(prefix) {
-    if (DurableHistoryDerivation.activeEvents(prefix) === undefined)
+    if (DurableHistoryDerivation.activeSelection(prefix) === undefined && DurableHistoryDerivation.activeEvents(prefix) === undefined)
         readAuthenticatedRuntimePrefixBytes(prefix);
 }
 /** Currentness of an already authenticated source, not byte/event admission.
  * The caller must retain its actual acquisition. Under the trusted-desktop
  * boundary, unchanged prior bytes are not rehashed to detect hostile mutation. */
 export function assertDurableRuntimePrefixCurrent(prefix) {
-    if (DurableHistoryDerivation.activeEvents(prefix, true) !== undefined)
+    if (DurableHistoryDerivation.activeSelection(prefix, true) !== undefined || DurableHistoryDerivation.activeEvents(prefix, true) !== undefined)
         return;
     if (!validateDurablePrefixCoordinate(prefix)) {
         throw new DurablePrefixReadError("event_envelope_invalid", "ABG durable prefix coordinate is invalid");
@@ -1266,7 +1315,7 @@ function ownedDurableDescriptor(state) {
     return state.durableDescriptor;
 }
 export function assertHeldEventStoreAtDurablePrefix(store, prefix) {
-    readHeldRuntimeEventsAtDurablePrefix(store, prefix);
+    heldRuntimePrefixState(store, prefix);
 }
 /** The explicit store supplies currentness and admitted correspondence. A
  * copied coordinate is ordinary input, not a reason to rescan owned history. */
@@ -1288,7 +1337,7 @@ export function projectHeldRuntimeEventsAtDurablePrefix(store, prefix) {
 }
 export function readHeldRuntimeEventsAtDurablePrefix(store, prefix) {
     const state = heldRuntimePrefixState(store, prefix);
-    return state.derivation.snapshot(state.durableHistory.events);
+    return new RuntimeDerivationSource().snapshot(state.durableHistory.selection.materialize());
 }
 export function selectHeldEventStoreDurablePrefix(store) {
     const state = eventState.get(store);
@@ -1299,56 +1348,91 @@ export function selectHeldEventStoreDurablePrefix(store) {
         throw new TypeError("durable selection requires its exact private admitted history");
     return state.durableHistory.prefix;
 }
+function currentRuntimeEventCount(state) { return state.history?.length ?? state.events.length; }
+function readCommittedInlineBody(state, coordinate) {
+    if (state.history === null) {
+        const event = state.events[coordinate.admissionOrdinal - 1];
+        if (event === undefined)
+            throw new TypeError("committed inline source is absent");
+        return runtimeInlineBodyValue(event, coordinate);
+    }
+    return runtimeInlineBodyValue(state.history.event(coordinate.admissionOrdinal - 1), coordinate);
+}
+function stageRuntimeEvent(state, event) {
+    if (state.history === null) {
+        state.events = state.derivation.append(state.events, [event]);
+        state.eventsById.set(event.eventId, event);
+        return;
+    }
+    state.history.appendValidated(runtimeHistoryRow(event, { offset: -1, byteLength: 0,
+        physicalDigest: sha256Bytes(Buffer.alloc(0)), prefixByteLength: state.durableByteLength,
+        prefixDigest: state.durableHistory.prefix.prefixDigest }, runtimeHistorySelectorKeys(event), isRootEventProfileBoundary(event) ? ROOT_EVENT_CONTRACT_DIGEST : state.activeEventContractDigest), event);
+    runtimeHistoryStagedBodies.get(state.history).set(event.eventId, event);
+    state.events = Object.freeze([...state.events, event]);
+    state.eventsById.set(event.eventId, event);
+}
 function appendDurablyBatch(state, events) {
     if (events.length === 0 || state.durableLogPath === null)
         return null;
-    const descriptor = ownedDurableDescriptor(state);
-    const priorByteLength = state.durableByteLength;
-    const priorHistory = state.durableHistory;
-    if (priorHistory === null || priorHistory.prefix.prefixLength !== priorByteLength ||
-        !state.derivation.hasPrefix(state.events, priorHistory.events) ||
-        (state.events.length !== priorHistory.events.length &&
-            (state.events.length !== priorHistory.events.length + events.length ||
-                events.some((event, index) => state.events[priorHistory.events.length + index] !== event)))) {
+    const descriptor = ownedDurableDescriptor(state), history = state.history, prior = state.durableHistory;
+    const committedCount = prior.selection.through, priorByteLength = state.durableByteLength;
+    if (prior.prefix.prefixLength !== priorByteLength ||
+        (history.length !== committedCount && (history.length !== committedCount + events.length ||
+            events.some((event, index) => history.row(committedCount + index)?.envelope.eventId !== event.eventId))) ||
+        events.some((event, index) => event.admissionOrdinal !== committedCount + index + 1))
         throw new TypeError("durable append lacks its exact private admitted history");
-    }
-    const encodedRows = [];
-    const stagedBodies = new Map();
+    const stagedBodies = new Map(), selectedBodies = new Map();
     const successorHash = state.durableHash.copy();
     let nextByteLength = priorByteLength;
-    const physicalRows = events.map((event, index) => {
-        const row = encodeEventBody(event, state.inlineBodies, stagedBodies);
-        encodedRows.push(row);
-        successorHash.update(row);
-        nextByteLength += Buffer.byteLength(row);
-        return [event, { source: state.physicalSource, previous: events[index - 1] ?? priorHistory.events.at(-1) ?? null,
-                byteLength: nextByteLength, digest: `sha256:${successorHash.copy().digest("hex")}` }];
+    const rows = events.map(event => {
+        const encoded = encodeEventBody(event, state.inlineBodies, stagedBodies, coordinate => runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate));
+        const bytes = Buffer.from(encoded, "utf8"), offset = nextByteLength;
+        successorHash.update(bytes);
+        nextByteLength += bytes.length;
+        const location = { offset, byteLength: bytes.length, physicalDigest: sha256Bytes(bytes),
+            prefixByteLength: nextByteLength, prefixDigest: `sha256:${successorHash.copy().digest("hex")}` };
+        return { event, bytes, location };
     });
-    const encoded = Buffer.from(encodedRows.join(""), "utf8");
     try {
-        let offset = 0;
-        while (offset < encoded.byteLength) {
-            const written = writeSync(descriptor, encoded, offset, encoded.byteLength - offset);
-            if (written <= 0)
-                throw new TypeError("ABG durable event append made no progress");
-            offset += written;
+        for (const { bytes } of rows) {
+            let offset = 0;
+            while (offset < bytes.length) {
+                const count = writeSync(descriptor, bytes, offset, bytes.length - offset);
+                if (count <= 0)
+                    throw new TypeError("ABG durable event append made no progress");
+                offset += count;
+            }
         }
         fsyncSync(descriptor);
-        const nextEvents = state.events.length === priorHistory.events.length
-            ? state.derivation.append(priorHistory.events, events) : state.events;
-        const prefix = durablePrefixCoordinate(state.durableLogPath, state.durableFileIdentity, nextByteLength, `sha256:${successorHash.copy().digest("hex")}`, state.activeEventContractDigest, { source: state.derivation, events: nextEvents, owner: state });
-        for (const [digest, body] of stagedBodies)
-            state.inlineBodies.set(digest, body);
-        for (const [event, receipt] of physicalRows)
-            physicalEventPrefixes.set(event, receipt);
+        for (const { event, location } of rows) {
+            if (history.length === committedCount + events.length)
+                history.commitLocation(event.admissionOrdinal - 1, location);
+            else
+                history.appendValidated(runtimeHistoryRow(event, location, runtimeHistorySelectorKeys(event), isRootEventProfileBoundary(event) ? ROOT_EVENT_CONTRACT_DIGEST : state.activeEventContractDigest), event);
+            physicalEventPrefixes.set(event, { source: history, previousEventRef: history.row(event.admissionOrdinal - 2)?.envelope.eventId ?? null,
+                previousOrdinal: event.admissionOrdinal - 1, byteLength: location.prefixByteLength, digest: location.prefixDigest });
+            runtimeHistoryStagedBodies.get(history).delete(event.eventId);
+        }
+        history.commitCanonicalPrefix();
+        for (const [digest, resident] of stagedBodies) {
+            const { value: _value, ...coordinate } = resident;
+            state.inlineBodies.set(digest, coordinate);
+            runtimeHistoryInlineSources.get(history).set(coordinate.eventRef, coordinate);
+        }
+        const prefix = durablePrefixCoordinate(state.durableLogPath, state.durableFileIdentity, nextByteLength, `sha256:${successorHash.copy().digest("hex")}`, state.activeEventContractDigest);
+        const selection = history.select();
+        DurableHistoryDerivation.bindSelection(prefix, selection, state.derivation, state);
         state.durableByteLength = nextByteLength;
         state.durableHash = successorHash;
-        state.durableHistory = Object.freeze({ prefix, events: nextEvents });
+        state.durableHistory = Object.freeze({ prefix, selection });
+        state.events = Object.freeze([]);
+        state.eventsById.clear();
         return prefix;
     }
     catch (error) {
         state.derivation.invalidate();
         state.derivation = new RuntimeDerivationSource();
+        runtimeHistoryDerivationSources.set(history, state.derivation);
         try {
             ftruncateSync(descriptor, priorByteLength);
             fsyncSync(descriptor);
@@ -1362,11 +1446,58 @@ function appendDurablyBatch(state, events) {
         }
         throw error;
     }
+    finally {
+        selectedBodies.clear();
+    }
+}
+/** Tentative batch validation keeps only its staged bodies, not a copy of the
+ * committed prefix. It cannot supply an owned projection or append authority. */
+class RuntimeAdmissionPrefix {
+    base;
+    staged;
+    constructor(base, staged) {
+        this.base = base;
+        this.staged = staged;
+    }
+    get length() { return this.base.length + this.staged.length; }
+    rowById(ref) {
+        const staged = this.staged.find(event => event.eventId === ref);
+        return staged === undefined ? this.base.rowById(ref) : { envelope: staged };
+    }
+    row(index) {
+        const staged = this.staged[index - this.base.length];
+        return index < this.base.length ? this.base.row(index) : staged === undefined ? undefined : { envelope: staged };
+    }
 }
 export function projectRuntimeEventFromValidatedHistory(events, candidate) {
-    return projectRuntimeEventAtContract(events, candidate, runtimeEventProfileAfter(events));
+    if (!(events instanceof RuntimeEventBodyView))
+        return projectRuntimeEventAtContract(events, candidate, runtimeEventProfileAfter(events));
+    const prefix = selectValidatedRuntimeEventPrefix(events);
+    if (prefix.kind === "validated_runtime_event_prefix")
+        return projectRuntimeEventAtContract(prefix.events, candidate, runtimeEventProfileAfter(prefix.events));
+    return projectRuntimeEventAtContract(prefix.selection, candidate, runtimeHistoryProfileAfter(prefix.selection));
 }
-function projectRuntimeEventAtContract(events, candidate, profileDigest, eventsById, candidateSource = "caller", committedBodies) {
+/** @internal One pure checked candidate, never a history/admission receipt. */
+export function validateOwnedRuntimeHistoryCandidate(selection, event) {
+    assertOwnedRuntimeHistorySelection(selection);
+    return validateRuntimeHistoryCandidate(selection, event);
+}
+/** @internal The same envelope/profile checker for an owner-issued pure plan.
+ * This function issues no owned-history or admission receipt. */
+export function validateRuntimeHistoryCandidate(selection, event) {
+    if (selection.length !== selection.through)
+        throw new TypeError("candidate validation requires an unscoped predecessor");
+    const { eventId, admissionOrdinal, payloadDigest, eventContractDigest, ...candidate } = event;
+    const profile = runtimeHistoryProfileAfter(selection);
+    const checked = projectRuntimeEventAtContract(selection, candidate, profile);
+    if (checked.eventId !== eventId || checked.admissionOrdinal !== admissionOrdinal || checked.payloadDigest !== payloadDigest ||
+        checked.eventContractDigest !== eventContractDigest)
+        throw new TypeError("candidate differs from its canonical predecessor projection");
+    if (!isRootEventProfileBoundary(checked))
+        return profile;
+    return extendRootEventProfileProjection(Object.freeze([...selection.materialize(), checked]), selection.length, projectRootEventProfileSchedule(selection.materialize())).currentEventContractDigest;
+}
+function projectRuntimeEventAtContract(events, candidate, profileDigest, eventsById, candidateSource = "caller", committedBodies, readCommittedBody) {
     if (!isRecord(candidate) ||
         !hasOnlyRuntimeEventCandidateKeys(candidate) ||
         !isRuntimeEventCandidateShape(candidate)) {
@@ -1377,6 +1508,8 @@ function projectRuntimeEventAtContract(events, candidate, profileDigest, eventsB
         throw new TypeError("runtime event causation refs must be unique admitted events in this store");
     }
     const causeEvents = candidate.causationEventRefs.map((eventRef) => {
+        if (RuntimeHistorySelection.is(events) || events instanceof RuntimeAdmissionPrefix)
+            return events.rowById(eventRef)?.envelope;
         if (eventsById === undefined)
             return events.find((event) => event.eventId === eventRef);
         const cause = eventsById.get(eventRef);
@@ -1400,11 +1533,13 @@ function projectRuntimeEventAtContract(events, candidate, profileDigest, eventsB
     const committedAtPrefix = committedBodies === undefined ? undefined : {
         get: (digest) => {
             const source = committedBodies.get(digest);
-            return source !== undefined && events[source.event.admissionOrdinal - 1] === source.event ? source : undefined;
+            const event = source === undefined ? undefined : RuntimeHistorySelection.is(events) || events instanceof RuntimeAdmissionPrefix
+                ? events.row(source.admissionOrdinal - 1)?.envelope : events[source.admissionOrdinal - 1];
+            return source !== undefined && event?.eventId === source.eventRef ? source : undefined;
         },
     };
     const immutableCandidate = deepFreeze(candidateSource === "decoded" ? candidate :
-        captureRuntimeEventCandidate(candidate, committedAtPrefix));
+        captureRuntimeEventCandidate(candidate, committedAtPrefix, readCommittedBody));
     const admissionOrdinal = events.length + 1;
     const stamp = profileDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? {} : { eventContractDigest: profileDigest };
     const payloadDigest = sha256Canonical(immutableCandidate.payload);
@@ -1430,6 +1565,7 @@ export class AbgEventStore {
         }
         const derivation = new RuntimeDerivationSource();
         eventState.set(this, {
+            history: null,
             events: derivation.snapshot([]),
             eventsById: new Map(),
             derivation,
@@ -1452,13 +1588,17 @@ export class AbgEventStore {
         const state = eventState.get(this);
         if (state === undefined)
             throw new TypeError("event store state is unavailable");
-        return state.derivation.snapshot(state.events);
+        return new RuntimeDerivationSource().snapshot(state.history === null ? state.events : state.history.select().materialize());
     }
     readScope(scope) {
-        return selectRuntimeEvents(this.readAll(), scope);
+        const state = eventState.get(this);
+        if (state === undefined)
+            throw new TypeError("event store state is unavailable");
+        return state.history === null ? selectRuntimeEvents(this.readAll(), scope) :
+            new RuntimeDerivationSource().snapshot(state.history.select().selectScope(scope).materialize());
     }
     digest(scope) {
-        return runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(this.readAll(), scope));
+        return runtimeEventPrefixDigest(selectRuntimeEventPrefixFromStore(this, scope));
     }
     configuredDurableLogPath() {
         return eventState.get(this)?.durableLogPath ?? null;
@@ -1481,8 +1621,9 @@ export class AbgEventStore {
         return closeHeldEventStoreAtDurablePrefix(this, history.prefix);
     }
 }
-/** Bind the owner's committed history to its unchanged reopen carrier, then
- * release ownership. A later reopen independently validates persisted bytes. */
+/** Return the owner's unchanged close coordinate as portable data, then release
+ * ownership. Separately retained nominal snapshots remain immutable evidence;
+ * a later reopen independently validates persisted bytes. */
 export function closeHeldEventStoreAtDurablePrefix(store, expectedPrefix) {
     assertHeldEventStoreAtDurablePrefix(store, expectedPrefix);
     const state = eventState.get(store);
@@ -1510,7 +1651,10 @@ export function closeHeldEventStoreAtDurablePrefix(store, expectedPrefix) {
         ...authorityBody,
         authorityDigest: sha256Canonical(authorityBody),
     });
-    const handoff = Object.freeze({ prefix, reopenAuthority });
+    const handoff = Object.freeze({
+        prefix: admitIJsonValue(prefix),
+        reopenAuthority,
+    });
     if (!validateEventStoreCloseHandoff(handoff)) {
         throw new TypeError("ABG durable close handoff failed validation");
     }
@@ -1555,28 +1699,20 @@ export function createNewEmptyAppendSink(request) {
         owned = openOwnedDurableSink(path);
         const store = new AbgEventStore(EVENT_STORE_CONSTRUCTION_AUTHORITY);
         const derivation = new RuntimeDerivationSource();
-        const events = derivation.snapshot([]);
-        const durableHash = createHash("sha256");
-        const prefix = durablePrefixCoordinate(path, owned.identity, 0, `sha256:${durableHash.copy().digest("hex")}`, ROOT_EVENT_CONTRACT_DIGEST, { source: derivation, events });
-        eventState.set(store, {
-            events,
-            eventsById: new Map(),
-            derivation,
-            durableHistory: Object.freeze({ prefix, events }),
-            activeEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
-            durableLogPath: path,
-            durableDescriptor: owned.descriptor,
-            durableFileIdentity: owned.identity,
-            durableAppendLock: owned.lock,
-            durableByteLength: 0,
-            durableHash,
-            inlineBodies: new Map(),
-            physicalSource: {},
-            durableAppendClosed: false,
-            transactionStartIndex: null,
-            transactionDurablePrefixDigest: null,
-        });
-        DurableHistoryDerivation.bindOwner(prefix, eventState.get(store));
+        const history = constructRuntimeHistory({ eventLogPath: path, identity: owned.identity, descriptor: owned.descriptor }, new Map());
+        authenticatedRuntimeHistories.add(history);
+        runtimeHistoryDerivationSources.set(history, derivation);
+        const durableHash = createHash("sha256"), selection = history.select();
+        const prefix = durablePrefixCoordinate(path, owned.identity, 0, `sha256:${durableHash.copy().digest("hex")}`, ROOT_EVENT_CONTRACT_DIGEST);
+        const state = {
+            history, events: Object.freeze([]), eventsById: new Map(), derivation,
+            durableHistory: Object.freeze({ prefix, selection }), activeEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
+            durableLogPath: path, durableDescriptor: owned.descriptor, durableFileIdentity: owned.identity,
+            durableAppendLock: owned.lock, durableByteLength: 0, durableHash, inlineBodies: new Map(), physicalSource: history,
+            durableAppendClosed: false, transactionStartIndex: null, transactionDurablePrefixDigest: null,
+        };
+        eventState.set(store, state);
+        DurableHistoryDerivation.bindSelection(prefix, selection, derivation, state);
         return Object.freeze({ store, prefix });
     }
     catch (error) {
@@ -2122,7 +2258,7 @@ function decodeHistoricalEvents(bytes, expectedProfileDigest) {
         catch {
             throw new TypeError("durable ABG event log contains invalid JSON");
         }
-        if (!isRecord(physical) || canonicalJson(physical) !== line) {
+        if (!isRecord(physical) || !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(encoded.subarray(start, end + 1))) {
             throw new TypeError("durable ABG event log contains a noncanonical event");
         }
         const representation = decodeEventBody(physical, inlineByEvent), decoded = representation.event;
@@ -2158,13 +2294,14 @@ function decodeHistoricalEvents(bytes, expectedProfileDigest) {
             const body = inlineEventBody(reconstructed);
             if (body !== null) {
                 inlineByEvent.set(reconstructed.eventId, body);
-                if (!inlineBodies.has(body.digest))
-                    inlineBodies.set(body.digest, body);
+                if (!inlineBodies.has(inlineEventBodyKey(body)))
+                    inlineBodies.set(inlineEventBodyKey(body), body);
             }
         }
         physicalHash.update(line + "\n");
         byteLength += Buffer.byteLength(line + "\n");
-        physicalRows.push([reconstructed, { source: physicalSource, previous: admitted.at(-1) ?? null, byteLength,
+        physicalRows.push([reconstructed, { source: physicalSource, previousEventRef: admitted.at(-1)?.eventId ?? null,
+                previousOrdinal: admitted.length, byteLength,
                 digest: `sha256:${physicalHash.copy().digest("hex")}` }]);
         admitted.push(reconstructed);
         if (isRootEventProfileBoundary(reconstructed)) {
@@ -2182,6 +2319,271 @@ function decodeHistoricalEvents(bytes, expectedProfileDigest) {
     for (const [event, receipt] of physicalRows)
         physicalEventPrefixes.set(event, receipt);
     return { events: Object.freeze(admitted), eventsById, inlineBodies, physicalSource };
+}
+const authenticatedRuntimeHistories = new WeakSet();
+const runtimeHistoryPhysicalSources = new WeakMap();
+const runtimeHistoryInlineSources = new WeakMap();
+const runtimeHistoryStagedBodies = new WeakMap();
+const runtimeHistoryDerivationSources = new WeakMap();
+function runtimeHistoryProfileAfter(selection) {
+    return selection.row(selection.length - 1)?.profileAfter ?? ROOT_EVENT_CONTRACT_DIGEST;
+}
+/** @internal A private representation is admitted only by this physical owner.
+ * A caller-constructed nominal Selection and reader confer no authenticity. */
+export function assertOwnedRuntimeHistorySelection(selection) {
+    const history = RuntimeHistorySelection.owner(selection);
+    const source = history === undefined ? undefined : runtimeHistoryDerivationSources.get(history);
+    if (history === undefined || !authenticatedRuntimeHistories.has(history) || source === undefined ||
+        !runtimeHistoryPhysicalSources.has(history))
+        throw new TypeError("runtime history lacks its actual Event Store owner");
+    return source;
+}
+/** @internal Current owned history, including a validated transaction suffix. */
+export function selectEventStoreRuntimeHistory(store, scope) {
+    const state = eventState.get(store);
+    if (state === undefined || state.history === null)
+        throw new TypeError("selected history requires its durable Event Store owner");
+    const selection = state.history.select().selectScope(scope);
+    assertOwnedRuntimeHistorySelection(selection);
+    return selection;
+}
+/** @internal Pure selected bodies of the already authenticated coordinate.
+ * Copies/unbound coordinates perform the full ordinary cold validation first. */
+export function projectOwnedRuntimeHistoryAtDurablePrefix(prefix) {
+    const known = DurableHistoryDerivation.selection(prefix);
+    if (known !== undefined) {
+        assertOwnedRuntimeHistorySelection(known);
+        return known;
+    }
+    return readOwnedRuntimeHistoryAtDurablePrefix(prefix);
+}
+/** @internal Explicit freshness never borrows a closed owner or copied proof. */
+export function readOwnedRuntimeHistoryAtDurablePrefix(prefix, options = {}) {
+    const active = DurableHistoryDerivation.activeSelection(prefix, options.requireCurrent);
+    if (active !== undefined)
+        return active;
+    if (!validateDurablePrefixCoordinate(prefix))
+        throw new DurablePrefixReadError("event_envelope_invalid", "ABG durable prefix coordinate is invalid");
+    const path = fileURLToPath(prefix.eventLogRef), descriptor = openSync(path, constants.O_RDONLY);
+    const physicalSource = { eventLogPath: path, identity: prefix.storeIdentity, descriptor };
+    try {
+        const before = fstatSync(descriptor), pathIdentity = durableIdentity(path);
+        if (!before.isFile() || !sameDurableIdentity(pathIdentity, prefix.storeIdentity) ||
+            before.dev !== prefix.storeIdentity.device || before.ino !== prefix.storeIdentity.inode)
+            throw new DurablePrefixReadError("file_identity_mismatch", "ABG durable prefix file identity differs from coordinate");
+        if (before.size < prefix.prefixLength || options.requireCurrent === true && before.size !== prefix.prefixLength)
+            throw new DurablePrefixReadError("prefix_length_mismatch", "ABG durable prefix is not the selected event-log extent");
+        const decoded = decodeRuntimeHistoryDescriptor(physicalSource, prefix.prefixLength, prefix.storeIdentity.eventContractDigest, prefix.prefixDigest);
+        const after = fstatSync(descriptor), finalIdentity = durableIdentity(path);
+        if (!sameDurableIdentity(pathIdentity, finalIdentity) || after.dev !== before.dev || after.ino !== before.ino ||
+            after.size < prefix.prefixLength || options.requireCurrent === true && after.size !== prefix.prefixLength)
+            throw new DurablePrefixReadError("file_identity_mismatch", "ABG durable prefix changed during cold validation");
+        const source = new RuntimeDerivationSource();
+        authenticatedRuntimeHistories.add(decoded.history);
+        runtimeHistoryDerivationSources.set(decoded.history, source);
+        const selection = decoded.history.select();
+        DurableHistoryDerivation.bindSelection(prefix, selection, source);
+        return selection;
+    }
+    catch (error) {
+        if (error instanceof DurablePrefixReadError)
+            throw error;
+        throw new DurablePrefixReadError("event_envelope_invalid", String(error));
+    }
+    finally {
+        closeSync(descriptor);
+        physicalSource.descriptor = null;
+    }
+}
+/** One selected row, not a read of the preceding history. Physical identity and
+ * its authenticated row digest qualify every acquisition from a location. */
+function readRuntimeHistoryRowBytes(source, location) {
+    const temporary = source.descriptor === null;
+    const descriptor = source.descriptor ?? openSync(source.eventLogPath, constants.O_RDONLY);
+    try {
+        const before = fstatSync(descriptor), identity = durableIdentity(source.eventLogPath);
+        if (!before.isFile() || before.dev !== source.identity.device || before.ino !== source.identity.inode ||
+            !sameDurableIdentity(source.identity, identity) || before.size < location.offset + location.byteLength)
+            throw new DurablePrefixReadError("file_identity_mismatch", "selected body differs from its authenticated resource");
+        const bytes = Buffer.alloc(location.byteLength);
+        let offset = 0;
+        while (offset < bytes.length) {
+            const count = readSync(descriptor, bytes, offset, bytes.length - offset, location.offset + offset);
+            if (count <= 0)
+                throw new TypeError("selected body read made no progress");
+            offset += count;
+        }
+        const after = fstatSync(descriptor), afterPath = durableIdentity(source.eventLogPath);
+        if (after.dev !== before.dev || after.ino !== before.ino || !sameDurableIdentity(identity, afterPath) ||
+            after.size < location.offset + location.byteLength || sha256Bytes(bytes) !== location.physicalDigest)
+            throw new DurablePrefixReadError("prefix_digest_mismatch", "selected body bytes differ from their authenticated location");
+        return bytes;
+    }
+    finally {
+        if (temporary)
+            closeSync(descriptor);
+    }
+}
+function runtimeInlineBodyValue(event, source) {
+    return inlineEventBodyValue(event, source);
+}
+function constructRuntimeHistory(source, inlineByEvent) {
+    let history;
+    const staged = new Map();
+    history = new RuntimeHistory((row, selectedBodies) => {
+        const prior = selectedBodies.get(row.envelope.eventId);
+        if (prior !== undefined)
+            return prior;
+        if (row.body.offset === -1) {
+            const event = staged.get(row.envelope.eventId);
+            if (event === undefined)
+                throw new TypeError("tentative body has no active Event Store owner");
+            return event;
+        }
+        const bytes = readRuntimeHistoryRowBytes(source, row.body);
+        if (bytes.at(-1) !== 10)
+            throw new TypeError("selected durable body has an incomplete row");
+        const line = bytes.toString("utf8", 0, bytes.length - 1), physical = JSON.parse(line);
+        if (!isRecord(physical) || !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
+            throw new TypeError("selected durable body is not the authenticated canonical row");
+        const representation = decodeEventBody(physical, inlineByEvent, coordinate => {
+            const selected = history.rowById(coordinate.eventRef);
+            if (selected === undefined || selected.envelope.admissionOrdinal >= row.envelope.admissionOrdinal)
+                throw new TypeError("selected reference lacks its exact earlier inline source");
+            return runtimeInlineBodyValue(history.event(selected.envelope.admissionOrdinal - 1, selectedBodies), coordinate);
+        });
+        const value = representation.event;
+        if (!isRecord(value) || !hasOnlyRuntimeEventKeys(value))
+            throw new TypeError("selected logical event is invalid");
+        const { payload, ...envelope } = value;
+        if (canonicalJson(envelope) !== canonicalJson(row.envelope) ||
+            sha256Canonical(payload) !== row.envelope.payloadDigest)
+            throw new TypeError("selected logical event differs from its authenticated envelope");
+        const event = deepFreeze(value);
+        selectedBodies.set(event.eventId, event);
+        physicalEventPrefixes.set(event, { source: history, previousEventRef: history.row(event.admissionOrdinal - 2)?.envelope.eventId ?? null,
+            previousOrdinal: event.admissionOrdinal - 1, byteLength: row.body.prefixByteLength, digest: row.body.prefixDigest });
+        return event;
+    });
+    runtimeHistoryPhysicalSources.set(history, source);
+    runtimeHistoryInlineSources.set(history, inlineByEvent);
+    runtimeHistoryStagedBodies.set(history, staged);
+    return history;
+}
+/** Bounded row decoding, including whole-extent framing precedence. An earlier
+ * logical error is retained while the remaining bytes establish framing and the
+ * physical digest; no partial history is published. */
+function foldRuntimeHistoryDescriptor(descriptor, byteLength, consume, expectedDigest) {
+    const hash = createHash("sha256"), chunk = Buffer.alloc(64 * 1024);
+    let position = 0, rowOffset = 0, pending = [], pendingLength = 0;
+    let primary, hasPrimary = false, framing = null;
+    let last = -1;
+    while (position < byteLength) {
+        const count = readSync(descriptor, chunk, 0, Math.min(chunk.length, byteLength - position), position);
+        if (count <= 0)
+            throw new TypeError("durable history read made no progress");
+        const current = chunk.subarray(0, count);
+        hash.update(current);
+        if (current.includes(13))
+            framing = "incomplete";
+        let start = 0;
+        for (let end = current.indexOf(10); end !== -1; end = current.indexOf(10, start)) {
+            const piece = current.subarray(start, end + 1);
+            const size = pendingLength + piece.length;
+            if (size === 1 && framing === null)
+                framing = "blank";
+            if (!hasPrimary && framing === null) {
+                const row = pendingLength === 0 ? Buffer.from(piece) : Buffer.concat([...pending, piece], size);
+                try {
+                    consume(row, rowOffset);
+                }
+                catch (error) {
+                    primary = error;
+                    hasPrimary = true;
+                }
+            }
+            rowOffset += size;
+            pending = [];
+            pendingLength = 0;
+            start = end + 1;
+        }
+        if (start < count) {
+            if (!hasPrimary && framing === null)
+                pending.push(Buffer.from(current.subarray(start)));
+            pendingLength += count - start;
+        }
+        last = current[count - 1];
+        position += count;
+    }
+    if (expectedDigest !== undefined && `sha256:${hash.copy().digest("hex")}` !== expectedDigest)
+        throw new DurablePrefixReadError("prefix_digest_mismatch", "ABG durable prefix bytes differ from coordinate");
+    if (framing === "incomplete" || byteLength !== 0 && last !== 10)
+        throw new TypeError("durable ABG event log has an incomplete trailing row");
+    if (framing === "blank")
+        throw new TypeError("durable ABG event log contains a blank record");
+    if (hasPrimary)
+        throw primary;
+    return hash;
+}
+function decodeRuntimeHistoryDescriptor(source, byteLength, expectedProfileDigest, expectedDigest) {
+    if (source.descriptor === null)
+        throw new TypeError("cold history requires its actual descriptor");
+    const inlineByEvent = new Map(), inlineBodies = new Map();
+    const history = constructRuntimeHistory(source, inlineByEvent), physicalHash = createHash("sha256");
+    let profile = null;
+    const durableHash = foldRuntimeHistoryDescriptor(source.descriptor, byteLength, (bytes, offset) => {
+        const line = bytes.toString("utf8", 0, bytes.length - 1);
+        let physical;
+        try {
+            physical = JSON.parse(line);
+        }
+        catch {
+            throw new TypeError("durable ABG event log contains invalid JSON");
+        }
+        if (!isRecord(physical) || !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
+            throw new TypeError("durable ABG event log contains a noncanonical event");
+        const selectedBodies = new Map();
+        const representation = decodeEventBody(physical, inlineByEvent, coordinate => runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate));
+        const decoded = representation.event;
+        if (!isRecord(decoded) || !hasOnlyRuntimeEventKeys(decoded))
+            throw new TypeError("durable ABG event log contains an invalid logical event");
+        const { eventId, admissionOrdinal, payloadDigest, eventContractDigest, ...candidate } = decoded;
+        if (!Number.isSafeInteger(admissionOrdinal) || admissionOrdinal !== history.length + 1)
+            throw new DurablePrefixReadError("admission_ordinal_invalid", "durable ABG event log contains an invalid admission ordinal");
+        if (typeof eventId !== "string" || !isSha256Digest(payloadDigest) || !isRuntimeEventCandidateShape(candidate))
+            throw new TypeError("durable ABG event log contains an invalid envelope");
+        if (profile === null)
+            profile = eventContractDigest === undefined ? LEGACY_ROOT_EVENT_CONTRACT_DIGEST : ROOT_EVENT_CONTRACT_DIGEST;
+        if (profile === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? eventContractDigest !== undefined : eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST)
+            throw new TypeError("event stamp differs from the exact native profile schedule");
+        const event = projectRuntimeEventAtContract(history.select(), candidate, profile, undefined, "decoded");
+        if (event.eventId !== eventId || event.admissionOrdinal !== admissionOrdinal || event.payloadDigest !== payloadDigest)
+            throw new TypeError("durable ABG event log contains restamped or inconsistent history");
+        if (isRootEventProfileBoundary(event)) {
+            // The transition is exceptional, with an explicitly named full prior
+            // actor/call obligation dependency. Its temporary materialization dies here.
+            assertRootEventProfileBoundary(history.select().materialize(), event);
+            if (profile !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST)
+                throw new TypeError("native profile boundary cannot repeat or reverse");
+            profile = ROOT_EVENT_CONTRACT_DIGEST;
+        }
+        physicalHash.update(bytes);
+        const body = { offset, byteLength: bytes.length, physicalDigest: sha256Bytes(bytes),
+            prefixByteLength: offset + bytes.length, prefixDigest: `sha256:${physicalHash.copy().digest("hex")}` };
+        history.appendValidated(runtimeHistoryRow(event, body, runtimeHistorySelectorKeys(event), profile), event);
+        if (representation.physicallyInline) {
+            const bodyCoordinate = inlineEventBodyCoordinate(event);
+            if (bodyCoordinate !== null) {
+                inlineByEvent.set(event.eventId, bodyCoordinate);
+                if (!inlineBodies.has(inlineEventBodyKey(bodyCoordinate)))
+                    inlineBodies.set(inlineEventBodyKey(bodyCoordinate), bodyCoordinate);
+            }
+        }
+    }, expectedDigest);
+    if (expectedProfileDigest !== undefined && (!isKnownRootEventContractDigest(expectedProfileDigest) ||
+        profile !== null && profile !== expectedProfileDigest))
+        throw new TypeError("durable coordinate profile differs from authenticated history");
+    return { history, inlineBodies, durableHash };
 }
 function isRootEventProfileBoundary(event) {
     return event.kind === "declaration_reprice_admitted" && isRecord(event.payload) &&
@@ -2230,8 +2632,8 @@ export function admitRootEventProfileUpgrade(store, entryPrefix, publicCandidate
         entryPrefix.prefixLength === 0 || !isRootEventProfileBoundary(repriceCandidate)) {
         throw new TypeError("profile upgrade requires an authentic nonempty exact-L acquired predecessor");
     }
-    const projectedPublic = projectRuntimeEventAtContract(state.events, publicCandidate, state.activeEventContractDigest, state.eventsById);
-    assertRootEventProfileBoundary([...state.events, projectedPublic], repriceCandidate);
+    const projectedPublic = projectRuntimeEventAtContract(state.history?.select() ?? state.events, publicCandidate, state.activeEventContractDigest, state.eventsById);
+    assertRootEventProfileBoundary([...(state.history?.select().materialize() ?? state.events), projectedPublic], repriceCandidate);
     const committed = runRuntimeEventTransaction(store, () => {
         const publicOperationEvent = admitRuntimeEventInternal(store, publicCandidate).event;
         if (publicOperationEvent.eventId !== projectedPublic.eventId)
@@ -2300,7 +2702,7 @@ export function authenticateRuntimePrefixAncestry(historical, current) {
             historical.storeIdentity.inode !== current.storeIdentity.inode ||
             historical.prefixLength > current.prefixLength)
             return false;
-        if (DurableHistoryDerivation.activeEvents(current) !== undefined &&
+        if ((DurableHistoryDerivation.activeSelection(current) !== undefined || DurableHistoryDerivation.activeEvents(current) !== undefined) &&
             DurableHistoryDerivation.historical(current, historical) !== undefined)
             return true;
         const oldEvents = readRuntimeEventsAtDurablePrefix(historical);
@@ -2330,42 +2732,22 @@ function reopenRefusal(code, message) {
     });
 }
 /** Shared seeding of already cold-validated bytes; neither caller nor receipt authors history. */
-function seedValidatedDurableHistory(exactPath, owned, byteLength, prefixDigest, profile, durableHash, history) {
-    const store = new AbgEventStore(EVENT_STORE_CONSTRUCTION_AUTHORITY);
-    const derivation = new RuntimeDerivationSource();
-    const events = derivation.snapshot(history.events);
-    const prefix = durablePrefixCoordinate(exactPath, owned.identity, byteLength, prefixDigest, profile, { source: derivation, events });
-    eventState.set(store, {
-        derivation,
-        events,
-        eventsById: history.eventsById,
-        durableHistory: Object.freeze({ prefix, events }),
-        activeEventContractDigest: profile,
-        durableLogPath: exactPath,
-        durableDescriptor: owned.descriptor,
-        durableFileIdentity: owned.identity,
-        durableAppendLock: owned.lock,
-        durableByteLength: byteLength,
-        durableHash,
-        inlineBodies: history.inlineBodies,
-        physicalSource: history.physicalSource,
-        durableAppendClosed: false,
-        transactionStartIndex: null,
-        transactionDurablePrefixDigest: null,
-    });
-    DurableHistoryDerivation.bindOwner(prefix, eventState.get(store));
-    return Object.freeze({
-        kind: "reopened_event_store_context",
-        schemaVersion: "5.0.0",
-        eventLogPath: exactPath,
-        eventLogDigest: prefixDigest,
-        eventContractDigest: profile,
-        historicalEventCount: events.length,
-        maxAdmissionOrdinal: events.length,
-        nextAdmissionOrdinal: events.length + 1,
-        store,
-        prefix,
-    });
+function seedValidatedDurableHistory(exactPath, owned, byteLength, prefixDigest, profile, durableHash, decoded) {
+    const store = new AbgEventStore(EVENT_STORE_CONSTRUCTION_AUTHORITY), derivation = new RuntimeDerivationSource();
+    const history = decoded.history, selection = history.select();
+    authenticatedRuntimeHistories.add(history);
+    runtimeHistoryDerivationSources.set(history, derivation);
+    const prefix = durablePrefixCoordinate(exactPath, owned.identity, byteLength, prefixDigest, profile);
+    const state = { derivation, history, events: Object.freeze([]), eventsById: new Map(),
+        durableHistory: Object.freeze({ prefix, selection }), activeEventContractDigest: profile,
+        durableLogPath: exactPath, durableDescriptor: owned.descriptor, durableFileIdentity: owned.identity,
+        durableAppendLock: owned.lock, durableByteLength: byteLength, durableHash, inlineBodies: decoded.inlineBodies,
+        physicalSource: history, durableAppendClosed: false, transactionStartIndex: null, transactionDurablePrefixDigest: null };
+    eventState.set(store, state);
+    DurableHistoryDerivation.bindSelection(prefix, selection, derivation, state);
+    return Object.freeze({ kind: "reopened_event_store_context", schemaVersion: "5.0.0",
+        eventLogPath: exactPath, eventLogDigest: prefixDigest, eventContractDigest: profile,
+        historicalEventCount: history.length, maxAdmissionOrdinal: history.length, nextAdmissionOrdinal: history.length + 1, store, prefix });
 }
 /** Native physical maintenance only. The resource owner validates external approval first.
  * One trusted operator excludes competing writers/recovery; the abandoned lock stays present
@@ -2459,34 +2841,29 @@ export function recoverInterruptedEventStore(selection) {
         stage = "history_validation";
         if (fstatSync(descriptor).size !== selection.expectedCurrent.byteLength)
             throw new TypeError("selected current log extent differs");
-        const bytes = readDescriptorBytes(descriptor, selection.expectedCurrent.byteLength);
-        const durableHash = createHash("sha256").update(bytes), digest = `sha256:${durableHash.copy().digest("hex")}`;
-        if (digest !== selection.expectedCurrent.digest || old !== undefined &&
-            (sha256Bytes(bytes.subarray(0, old.durableByteLength)) !== old.eventLogDigest ||
-                (old.durableByteLength !== 0 && bytes[old.durableByteLength - 1] !== 10))) {
-            throw new TypeError("current bytes or the genuine predecessor prefix differ");
-        }
-        const history = decodeHistoricalEvents(bytes, selected.eventContractDigest);
+        const physicalSource = { eventLogPath: selected.eventLogPath,
+            identity: { device: selected.device, inode: selected.inode }, descriptor };
+        const history = decodeRuntimeHistoryDescriptor(physicalSource, selection.expectedCurrent.byteLength, selected.eventContractDigest, selection.expectedCurrent.digest);
+        const digest = `sha256:${history.durableHash.copy().digest("hex")}`;
         if (old !== undefined) {
-            const oldCount = old.durableByteLength === 0 ? 0 : history.events.findIndex(event => physicalEventPrefixes.get(event)?.byteLength === old.durableByteLength) + 1;
-            if ((old.durableByteLength !== 0 && oldCount === 0) ||
-                runtimeEventProfileAfter(history.events.slice(0, oldCount)) !== old.eventContractDigest) {
-                throw new TypeError("predecessor boundary/profile differs from validated history");
-            }
+            const previous = old.durableByteLength === 0 ? undefined : [...history.history.select().rows()]
+                .find(row => row.body.prefixByteLength === old.durableByteLength);
+            if (old.durableByteLength === 0 ? old.eventLogDigest !== sha256Bytes(Buffer.alloc(0)) :
+                previous === undefined || previous.body.prefixDigest !== old.eventLogDigest || previous.profileAfter !== old.eventContractDigest)
+                throw new TypeError("current bytes or the genuine predecessor prefix differ");
         }
-        else if (history.events.length !== 0 && history.events[0].eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) {
+        else if (history.history.length !== 0 && history.history.row(0).envelope.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) {
             throw new TypeError("history differs from the current-profile initial new-resource origin");
         }
         exactIdentity(selected.eventLogPath, descriptor, selected);
         exactIdentity(lockPath, lockDescriptor, lockIdentity);
-        if (fstatSync(descriptor).size !== bytes.byteLength || fstatSync(lockDescriptor).size !== lockByteLength) {
+        if (fstatSync(descriptor).size !== selection.expectedCurrent.byteLength || fstatSync(lockDescriptor).size !== lockByteLength)
             throw new TypeError("resource extent changed during recovery validation");
-        }
         stage = "adoption";
-        store = seedValidatedDurableHistory(selected.eventLogPath, { descriptor, identity: { device: selected.device, inode: selected.inode }, lock: { descriptor: lockDescriptor, path: lockPath } }, bytes.byteLength, digest, selected.eventContractDigest, durableHash, history).store;
+        store = seedValidatedDurableHistory(selected.eventLogPath, { descriptor, identity: { device: selected.device, inode: selected.inode }, lock: { descriptor: lockDescriptor, path: lockPath } }, selection.expectedCurrent.byteLength, digest, selected.eventContractDigest, history.durableHash, history).store;
         stage = "close";
         const closeHandoff = store.projectReopenAuthorityAndClose();
-        return deepFreeze({ kind: "recovered", closeHandoff, validatedEventCount: history.events.length });
+        return deepFreeze({ kind: "recovered", closeHandoff, validatedEventCount: history.history.length });
     }
     catch (error) {
         if (store === undefined) {
@@ -2555,40 +2932,26 @@ export function reopenEventStore(authority) {
     catch (error) {
         return reopenRefusal("sink_unavailable", `durable event sink cannot acquire exact append ownership: ${String(error)}`);
     }
-    let bytes;
-    try {
-        const status = fstatSync(owned.descriptor);
-        bytes = readDescriptorBytes(owned.descriptor, status.size);
-        const finalStatus = fstatSync(owned.descriptor);
-        const pathIdentity = durableIdentity(exactPath);
-        if (finalStatus.size !== status.size ||
-            !sameDurableIdentity(owned.identity, pathIdentity)) {
-            throw new TypeError("durable event sink changed while its prefix was read");
-        }
-    }
-    catch (error) {
-        closeSync(owned.descriptor);
-        releaseDurableAppendLock(owned.lock);
-        return reopenRefusal("sink_unavailable", `durable event sink cannot be opened: ${String(error)}`);
-    }
-    const durableHash = createHash("sha256").update(bytes);
-    const prefixDigest = `sha256:${durableHash.copy().digest("hex")}`;
-    if (bytes.byteLength !== authority.durableByteLength ||
-        prefixDigest !== authority.eventLogDigest) {
+    const initial = fstatSync(owned.descriptor);
+    if (initial.size !== authority.durableByteLength) {
         closeSync(owned.descriptor);
         releaseDurableAppendLock(owned.lock);
         return reopenRefusal("durable_log_mismatch", "durable event sink differs from the selected exact prefix");
     }
-    let history;
     try {
-        history = decodeHistoricalEvents(bytes, authority.eventContractDigest);
+        const source = { eventLogPath: exactPath, identity: owned.identity, descriptor: owned.descriptor };
+        const decoded = decodeRuntimeHistoryDescriptor(source, initial.size, authority.eventContractDigest, authority.eventLogDigest);
+        const final = fstatSync(owned.descriptor);
+        if (final.size !== initial.size || !sameDurableIdentity(owned.identity, durableIdentity(exactPath)))
+            throw new TypeError("durable event sink changed while its prefix was read");
+        return seedValidatedDurableHistory(exactPath, owned, initial.size, authority.eventLogDigest, authority.eventContractDigest, decoded.durableHash, decoded);
     }
     catch (error) {
         closeSync(owned.descriptor);
         releaseDurableAppendLock(owned.lock);
-        return reopenRefusal("invalid_event_history", String(error));
+        return reopenRefusal(error instanceof DurablePrefixReadError && error.code === "prefix_digest_mismatch"
+            ? "durable_log_mismatch" : "invalid_event_history", String(error));
     }
-    return seedValidatedDurableHistory(exactPath, owned, bytes.byteLength, prefixDigest, authority.eventContractDigest, durableHash, history);
 }
 export function admitRuntimeEvent(store, candidate) {
     if (candidate.kind === "public_operation_artifact_admitted" || isRootEventProfileBoundary(candidate) || isLivenessCandidate(candidate)) {
@@ -2606,8 +2969,8 @@ export function admitNativeRuntimeLivenessEvent(store, candidate) {
     if (state === undefined || state.activeEventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || !isLivenessCandidate(candidate)) {
         throw new TypeError("liveness admission requires one held current-profile owner context");
     }
-    const prefix = selectValidatedRuntimeEventPrefix(state.derivation.snapshot(state.events));
-    const event = projectRuntimeEventAtContract(state.events, candidate, state.activeEventContractDigest, state.eventsById);
+    const prefix = selectRuntimeEventPrefixFromStore(store);
+    const event = projectRuntimeEventAtContract(state.history?.select() ?? state.events, candidate, state.activeEventContractDigest, state.eventsById);
     if (!validateRuntimeLivenessEventAtPrefix(prefix, event)) {
         state.derivation.invalidate();
         state.derivation = new RuntimeDerivationSource();
@@ -2620,15 +2983,12 @@ function admitRuntimeEventInternal(store, candidate, preparedEvent) {
     if (state === undefined) {
         throw new TypeError("event store was not constructed by this ABG module");
     }
-    const events = state.events;
-    const event = preparedEvent ?? projectRuntimeEventAtContract(events, candidate, state.activeEventContractDigest, state.eventsById, "caller", state.inlineBodies);
-    const successorPrefix = state.durableLogPath !== null &&
-        state.transactionStartIndex === null
-        ? appendDurablyBatch(state, [event])
-        : null;
-    state.events = successorPrefix === null
-        ? state.derivation.append(events, [event]) : state.durableHistory.events;
-    state.eventsById.set(event.eventId, event);
+    const prior = state.history?.select() ?? state.events;
+    const event = preparedEvent ?? projectRuntimeEventAtContract(prior, candidate, state.activeEventContractDigest, state.eventsById, "caller", state.inlineBodies, coordinate => readCommittedInlineBody(state, coordinate));
+    const successorPrefix = state.durableLogPath !== null && state.transactionStartIndex === null
+        ? appendDurablyBatch(state, [event]) : null;
+    if (successorPrefix === null)
+        stageRuntimeEvent(state, event);
     return Object.freeze({ event, successorPrefix });
 }
 function appendRefusal(code, message) {
@@ -2674,30 +3034,29 @@ export function admitRuntimeEventBatch(store, factories) {
     }
     if (factories.length === 0)
         return Object.freeze([]);
-    const staged = [...state.events];
-    const admitted = [];
-    const stagedById = new Map();
+    const baseCount = currentRuntimeEventCount(state);
+    const base = state.history?.select();
+    const staged = base === undefined ? [...state.events] : [];
+    const admitted = [], stagedById = new Map();
     const eventsById = { get: (ref) => stagedById.get(ref) ?? state.eventsById.get(ref) };
     for (const factory of factories) {
         const candidate = factory(Object.freeze([...admitted]));
-        if (candidate.kind === "public_operation_artifact_admitted" || isRootEventProfileBoundary(candidate) || isLivenessCandidate(candidate)) {
+        if (candidate.kind === "public_operation_artifact_admitted" || isRootEventProfileBoundary(candidate) || isLivenessCandidate(candidate))
             throw new TypeError("artifact truth is reachable only through its checked owner ingress");
-        }
-        const event = projectRuntimeEventAtContract(staged, candidate, state.activeEventContractDigest, eventsById, "caller", state.inlineBodies);
-        staged.push(event);
+        const prior = base === undefined ? staged : new RuntimeAdmissionPrefix(base, admitted);
+        const event = projectRuntimeEventAtContract(prior, candidate, state.activeEventContractDigest, eventsById, "caller", state.inlineBodies, coordinate => readCommittedInlineBody(state, coordinate));
+        if (base === undefined)
+            staged.push(event);
         admitted.push(event);
         stagedById.set(event.eventId, event);
     }
-    if (state.durableLogPath !== null &&
-        state.transactionStartIndex === null) {
+    if (currentRuntimeEventCount(state) !== baseCount)
+        throw new TypeError("batch validation changed its admitted predecessor");
+    if (state.durableLogPath !== null && state.transactionStartIndex === null)
         appendDurablyBatch(state, admitted);
-        state.events = state.durableHistory.events;
-    }
-    else {
-        state.events = state.derivation.append(state.events, admitted);
-    }
-    for (const event of admitted)
-        state.eventsById.set(event.eventId, event);
+    else
+        for (const event of admitted)
+            stageRuntimeEvent(state, event);
     return Object.freeze(admitted);
 }
 function runRuntimeEventTransaction(store, action, requireDurableSuccessor = false, authenticatedPredecessor = null) {
@@ -2709,13 +3068,13 @@ function runRuntimeEventTransaction(store, action, requireDurableSuccessor = fal
         throw new TypeError("ABG event admission transactions cannot nest");
     }
     const priorEvents = state.events;
-    const startIndex = priorEvents.length;
+    const startIndex = currentRuntimeEventCount(state);
     const priorProfile = state.activeEventContractDigest;
     state.transactionStartIndex = startIndex;
     state.transactionDurablePrefixDigest = authenticatedPredecessor?.coordinateDigest ?? null;
     try {
         const value = action();
-        const admitted = state.events.slice(startIndex);
+        const admitted = state.history === null ? state.events.slice(startIndex) : state.events.slice(priorEvents.length);
         if (requireDurableSuccessor &&
             (state.durableLogPath === null || admitted.length === 0)) {
             throw new TypeError("non-empty durable ABG transaction admitted no durable events");
@@ -2729,12 +3088,25 @@ function runRuntimeEventTransaction(store, action, requireDurableSuccessor = fal
         return Object.freeze({ value, successorPrefix });
     }
     catch (error) {
-        for (let index = startIndex; index < state.events.length; index++) {
-            state.eventsById.delete(state.events[index].eventId);
+        if (state.history !== null) {
+            for (const event of state.events.slice(priorEvents.length)) {
+                state.eventsById.delete(event.eventId);
+                runtimeHistoryStagedBodies.get(state.history).delete(event.eventId);
+            }
+            state.history.truncate(startIndex);
         }
+        else
+            for (let index = startIndex; index < state.events.length; index++)
+                state.eventsById.delete(state.events[index].eventId);
         state.derivation.invalidate();
         state.derivation = new RuntimeDerivationSource();
-        state.events = state.derivation.snapshot(priorEvents);
+        state.events = Object.freeze([...priorEvents]);
+        if (state.history !== null) {
+            runtimeHistoryDerivationSources.set(state.history, state.derivation);
+            const selection = state.history.select();
+            state.durableHistory = Object.freeze({ prefix: state.durableHistory.prefix, selection });
+            DurableHistoryDerivation.bindSelection(state.durableHistory.prefix, selection, state.derivation, state);
+        }
         state.activeEventContractDigest = priorProfile;
         if (authenticatedPredecessor !== null) {
             try {
@@ -2773,7 +3145,7 @@ export function admitRuntimeEventTransactionAtDurablePrefix(store, expectedPrede
 function assertHeldDurableTransactionHistory(store, expectedPredecessor) {
     const held = heldRuntimePrefixState(store, expectedPredecessor);
     const history = held.durableHistory;
-    if (history.events.length !== held.events.length || !held.derivation.hasPrefix(held.events, history.events)) {
+    if (history.selection.through !== currentRuntimeEventCount(held) || held.events.length !== 0) {
         throw new TypeError("runtime event transaction requires the exact durable event predecessor");
     }
 }
@@ -2786,6 +3158,18 @@ export function admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, expec
     assertHeldDurableTransactionHistory(store, expectedPredecessor);
     return runRuntimeEventTransaction(store, action, true, expectedPredecessor);
 }
+/** @internal The same active-transaction check without full historical output. */
+export function selectActiveRuntimeTransactionHistoryAtDurablePrefix(store, prefix, options = {}) {
+    assertRuntimeEventTransactionActive(store);
+    const state = eventState.get(store), history = state.durableHistory;
+    if (!validateDurablePrefixCoordinate(prefix) || state.durableAppendClosed || history === null ||
+        history.prefix.coordinateDigest !== prefix.coordinateDigest || history.selection.through !== state.transactionStartIndex ||
+        state.history === null || !state.history.select().sharesSource(history.selection))
+        throw new TypeError("active projection requires its exact durable transaction predecessor");
+    if (state.transactionDurablePrefixDigest !== prefix.coordinateDigest)
+        heldRuntimePrefixState(store, prefix);
+    return options.durableOnly === true ? history.selection : state.history.select();
+}
 /** Pure staged projection preserves its checked durable predecessor. Only
  * successful owned publication advances the committed history. */
 export function readActiveRuntimeTransactionAtDurablePrefix(store, prefix, options = {}) {
@@ -2794,17 +3178,17 @@ export function readActiveRuntimeTransactionAtDurablePrefix(store, prefix, optio
     const history = state.durableHistory;
     if (!validateDurablePrefixCoordinate(prefix) || state.durableAppendClosed ||
         history === null || history.prefix.coordinateDigest !== prefix.coordinateDigest ||
-        history.events.length !== state.transactionStartIndex ||
-        !state.derivation.hasPrefix(state.events, history.events)) {
+        history.selection.through !== state.transactionStartIndex || state.history === null ||
+        !state.history.select().sharesSource(history.selection)) {
         throw new TypeError("active projection requires its exact durable transaction predecessor");
     }
     // An unqualified local transaction has no checked durable entry to borrow.
     if (state.transactionDurablePrefixDigest !== prefix.coordinateDigest) {
-        readHeldRuntimeEventsAtDurablePrefix(store, prefix);
+        heldRuntimePrefixState(store, prefix);
     }
     return options.durableOnly === true
-        ? state.derivation.snapshot(history.events)
-        : state.derivation.snapshot(state.events);
+        ? new RuntimeDerivationSource().snapshot(history.selection.materialize())
+        : new RuntimeDerivationSource().snapshot(state.history.select().materialize());
 }
 export function assertRuntimeEventTransactionActive(store) {
     const state = eventState.get(store);
@@ -2829,5 +3213,5 @@ export function compareAndAppendExpectedPrefix(store, expectedPrefixDigest, fact
     return admitRuntimeEventBatch(store, factories);
 }
 import { validateRuntimeLivenessEventAtPrefix } from "./runtime_liveness.js";
-import { runtimeEventPrefixDigest, selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { runtimeEventPrefixDigest, selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore } from "./event_prefix.js";
 import { isNativeWorkerResultAssessment } from "./transport_contracts.js";

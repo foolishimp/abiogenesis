@@ -1,0 +1,30 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern",
+    "post-effect channel conflict",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T06:06:18.627Z",
+  "environmentKeys": [
+    "HOME",
+    "LANG",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 120000,
+  "exitCode": 1,
+  "signal": null,
+  "wallMs": 1530.171,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "✔ test_env/tests/m5-terminal-quiescence-owner.test.mjs (258.720084ms)\n✔ test_env/tests/m5-worker-transport.test.mjs (254.91175ms)\n(node:56014) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n✖ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (721.390958ms)\nℹ tests 3\nℹ suites 0\nℹ pass 2\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1499.09625\n\n✖ failing tests:\n\ntest at test_env/tests/t287-native-workspace-work.test.mjs:34:1\n✖ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (721.390958ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  false !== true\n  \n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs:142:49)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+  "stderr": ""
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "current_C09_full_F11_input_preparation",
+  "status": "CLOSED",
+  "workResult": "NO_GO",
+  "frontier": "concrete-full-current-b-task-plan-scope-material-construction",
+  "error": {
+    "name": "AssertionError",
+    "message": "actual carrier/authority deltas are explicit",
+    "stack": "AssertionError [ERR_ASSERTION]: actual carrier/authority deltas are explicit\n    at deriveResourcePacket (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/f11/prepare-resources.mjs:22:9)\n    at construct (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/f11/current-resources.mjs:173:15)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/f11/packet-readiness.mjs:29:15"
+  },
+  "noAutonomousRepair": true,
+  "RuntimeAdmission": false,
+  "cost": {
+    "elapsedMs": 5670.310541999999,
+    "resourceUsage": {
+      "userCPUTime": 5957858,
+      "systemCPUTime": 573516,
+      "maxRSS": 2508144,
+      "sharedMemorySize": 0,
+      "unsharedDataSize": 0,
+      "unsharedStackSize": 0,
+      "minorPageFault": 356241,
+      "majorPageFault": 82,
+      "swappedOut": 0,
+      "fsRead": 0,
+      "fsWrite": 0,
+      "ipcSent": 0,
+      "ipcReceived": 0,
+      "signalsCount": 0,
+      "voluntaryContextSwitches": 14,
+      "involuntaryContextSwitches": 48259
+    }
+  }
+}

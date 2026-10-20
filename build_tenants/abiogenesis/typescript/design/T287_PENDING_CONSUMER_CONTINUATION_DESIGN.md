@@ -112,6 +112,94 @@ exact call/actor/contract/subject and independence checks. The unchanged result,
 route, child and parent owners still produce all new runtime facts. Warm calls
 must not rederive the history or rehash established declarations.
 
+Ordinary owners consume the Event Store's private authenticated history selection
+and current folds. They acquire the exact prior input, Result or source body only
+for its named consumer, retaining the original admission, digest, producer and
+dependency coordinates. They do not create a full replay or retain every prior
+Result merely to obtain status, route, currentness or source facts. Complete
+event arrays, Event Calculus history and ReplayState remain explicit historical
+outputs with their original meaning and digest. Raw/copied inputs retain their
+ordinary complete validation; private selections supply no additional authority.
+
+The ordinary HoG next-input, structural advance, recursive restoration and
+failure-foldback handoffs use that same owned authority selection and its exact
+Run scope. They do not request the Public complete-prefix pair merely to pass
+authority to a selected-input or child-outcome owner. Selected admitted-leaf
+outcomes, interaction receipts and C0 held-fluent checks share their existing
+canonical guard computations with the complete readers. Declared retry exit
+planning similarly carries its finite checked suffix and replay guard internally;
+its explicit Public plan and admission outputs keep their complete meanings.
+Raw, copied and cold prefixes retain the original checks at those owners.
+
+Deferred recursion uses one canonical projection of the original admitted
+Result/Judgment and the supplied Run/frame/locus prefix, including later probe
+facts. Its ordinary restoration carries that owner's replay guard. Begin and
+child-foldback comparisons require the genuine same selected runtime/authority
+cut and every remaining completion field; a complete Public ReplayState is not
+the private carrier merely because its replay digest agrees. The explicit Public
+restore, begin and child-completion boundaries retain complete replay inputs,
+outputs and full canonical equality against that same projection. Null,
+copied/foreign guards, changed cuts, producer coordinates and currentness retain
+their original refusal meaning; no comparison manufactures admission or Source
+authority. The installed08 refusal did not capture which restoration disjunct
+failed, so the representation repair does not claim that branch was observed.
+
+That ordinary path includes the structural operator's route commit and declared
+retry failure/resume callees, even where an existing exported operator has a
+Public-shaped return. The owned graph engine selects stripped private entries
+into the same structural, finite-plan and transaction computations through the
+returned cursor's next-input use. Active and committed route receipts retain
+the owner's selected prefix and replay guard; complete Public wrappers still
+materialize their declared outputs. An incomplete child selects its last exact
+scope/causal event from the same indexed population instead of reading every
+body. Public declarations alone do not request historical output on this path.
+
+Private completed-retry plan authentication compares the genuine admitted base,
+exact finite ordered candidate suffix and canonical scope selection, the replay
+owner's guard at that same cut, and every remaining finite plan field. It does
+not stream complete historical prefix/replay values merely to compare two
+private carriers. Those cut relations are disposable receipts of the existing
+prefix and replay owners; they supply no admission or Source authority. Copies,
+foreign cuts, changed candidates, scopes or guard values do not inherit them.
+The explicit Public complete-plan comparison retains its original full canonical
+hash law. Any required replay digest still has its existing complete extent.
+
+Warm child, parent-return and resume validation consumes the actual immutable
+materialization and successful graph-validation relation for the same Program,
+function and occurrence basis. The graph owner checks current input/fan-out
+correspondence before reuse. Rehydrated, copied or foreign materializations
+retain full reconstruction, and changed input, Program or binding reopens its
+affected checks. This shares existing owner facts underneath unchanged entry
+points; no process-local receipt is required for cold continuation.
+
+An internal single-route replay read retains the complete existing replay
+validation responsibility, including malformed unrelated history and Run
+consistency. It consumes the existing dependency-qualified row facts without
+collecting the CCall, actor, fan-out, delta and observation populations that it
+does not return. Only the selected route and routes needed by Run consistency
+are retained by that read. Cold or changed facts still undergo their ordinary
+owner checks; a copied prefix or an internal boundary grants no validation
+shortcut. Complete ReplayState values and digests retain their existing law.
+
+The operational replay fold retains scalar call/actor facts and the exact named
+dependency versions of validated routes and observations, never historical
+Result values, route inputs or complete ReplayState objects. Its indexed
+count/last-ordinal versions belong to the same authenticated owner generation;
+an append touching a dependency reopens the existing canonical checks. Full
+historical output acquires those exact selected bodies transiently. Required
+whole-Run validation remains in the fold, including changed cardinality and
+unrelated malformed rows; selective collection does not weaken that duty.
+
+After every existing global single-route check succeeds, that same replay owner
+may retain a body-free checked-cut receipt: the exact runtime and authority
+selection identities, owner generations, ordered ends and profile extents. An
+unchanged genuine cut reuses those completed global checks and acquires only
+the named route through its existing canonical projector. It retains no Event,
+Result, route output or body. Any changed selection, authority, profile,
+generation or rollback re-enters the original validation path; raw, copied,
+foreign and prospective carriers cannot acquire this shortcut. Indexed
+membership for the named row keeps its actual logarithmic cost.
+
 Carry the selected source basis through the existing invocation/input admission;
 no new event kind is proposed for ordinary evidence use. The actual extension
 must preserve its published payload contract/validation and source projection
@@ -120,6 +208,117 @@ not reopen its Run or consume a `current_intent` continuation. New admission is
 idempotent under the existing operation/invocation key; deliberate later Runs
 remain separate bounded attempts. Applicable lineage/policy limits still apply;
 a caller cannot relabel an exact retry as fresh work merely to reset a bound.
+
+### Same-app covered use of retained library work
+
+This refines the ordinary evidence-use arm above under Product 817–837 and
+CONTINUATION-014/015/016. It does not reopen the producer Run or transplant its
+state into current authority. The historical `ProductInvocationSourceResultBasis`
+and exact retained `GovernanceWorkState` stay byte-correspondent to their admitted
+Result, judgment, call, invocation, Program, CatalogView and WorkspaceBinding.
+
+For an unchanged actual A, canonical root, actor and declared worksite meaning,
+the existing D2 `projectWorksiteRevisionBindingCover` authenticates the old/new
+bindings and every qualifying `witness.admit` / `declaration_reprice_admitted`
+occurrence. Its actual historical execution basis is the witness subject. Cover
+must precede the new source use; it does not establish semantic equivalence,
+current mutable observations or permission to call a new implementation.
+
+The current Program value must remain exactly equal. The historical and current
+installed declaration owners authenticate complete selected GraphFunctions,
+contracts, closures, rules, evaluators, policies, memberships and contribution
+permissions. The declared artifact/content/manifest/descriptor/contribution
+identity consequences may differ, and each is reconstructed under its actual
+installed owner. The canonical C2 renderer Context additionally distinguishes
+authenticated material location from its complete declared consumed source
+span through the following existing-owner call-through:
+
+| Source | Owner transformation | Destination and refusal |
+| --- | --- | --- |
+| Exact historical/current ArtifactTruth environments and reconstructed declaration closures | ABG passes each actual causal ProductInstall set to the private declaration comparison; Program, producer, source and occurrence guards remain exact | Raw two-argument comparison retains exact Context equality; no install or claimed span digest grants correspondence |
+| Each canonical C2 publication, actual installed manifest and declared inventory/member | Product's run-environment material owner binds the complete publication to its exact install and manifest publication binding, reads the confined declared inventory/member, and checks complete inventory, digest, byte count and span bounds | Missing, foreign, copied-but-unvalidated or changed material refuses; no separate observation, cache, proof packet or authority is created |
+| Both authenticated C2 source spans and complete declarations | Compare the actual consumed bytes byte-for-byte; distinguish only the member location/digest/length, span offsets and their derived inventory identities | All role/policy/Context/source refs, paths, access/effect/permission declarations, memberships, contracts, ordering and other semantic fields remain exact |
+
+This arm is limited to the canonical command-execution renderer Context with no
+corpus/tool accesses and an exact declared source span for its role. Whole-member
+consumption, unbound material, unknown consumption or any other Context retains
+exact equality/refusal. Equal policy/span digest claims or D2 covers alone are
+insufficient. A material location change does not establish changed implementation
+behavior equivalence. Complete public declarations and their physical identities
+remain unchanged; only the private consumed-meaning comparison uses this relation.
+
+For the already canonical contribution provenance inventory,
+the private comparison substitutes only the exact artifact and manifest
+identities with their roles, then orders those resulting references by the
+existing canonical string order. It preserves all other references and their
+multiplicity; no other declaration array is reordered. No general
+digest-stripping comparison or compatible flag is
+admitted. Changed declaration meaning refuses this arm. Changed implementation
+behavior requires the separately selected Source acceptance; binding cover is
+not a behavior-equivalence judgment.
+
+An ordinary covered-source preparation handoff consumes the already authenticated
+nominal predecessor snapshot through `projectOwnedPrefixArtifactTruth`, and both
+bindings through `projectWorkspaceEnvironmentFromArtifactTruth` over that one
+ArtifactTruth. Normal append-owner close releases the mutable lease, not the
+immutable evidence receipt. The same exact prefix, source and complete current-use
+checks still qualify the comparison. Raw or copied coordinates without that
+receipt retain cold validation; explicit fresh/current reads and new effect
+admission keep their existing physical and mutable-worksite checks. A retained
+projection is neither a saved successful callback nor current physical authority.
+
+```mermaid
+sequenceDiagram
+  participant R as Existing Public run owner
+  participant A as ABG source-use and D2 cover owners
+  participant P as Product input preparation
+  participant L as Current library consumers
+  R->>A: Exact historical source, current prefix and installed declarations
+  A-->>R: Established current-use correspondence or refusal
+  R->>P: Unchanged source/input plus private owner validation
+  P->>A: Current resolved Program/View/W
+  A-->>P: Exact correspondence or refusal
+  R->>A: New invocation admission (rederive before effects)
+  A-->>L: Admitted source membership and covered current-use relation
+```
+
+The private Product preparation handoff carries an owner operation, not a caller
+assertion or new Public source arm. Product input validation precedes ABG
+invocation admission; both therefore consume the same complete derivation.
+The comparison result is call-local and is not another persisted entity or an
+extra invocation-event field. The existing invocation admission attests those
+checks and binds the current Program/View/W/actor/raw input to the unchanged
+historical source basis. Its event contract, digest and historical bytes stay
+unchanged. Cold consumers authenticate that complete admitted record and each
+actual source Result/judgment/call/value, then reconstruct pre-invocation D2
+covers along the finite admitted source-use chain. A cover by itself cannot
+attest the declaration comparison. New runtime facts still come from the
+ordinary invocation, call, evidence, Result, judgment and fold owners.
+Historical metadata is not rewritten to the current W.
+
+The preparation-only `currentSourceUse` members of
+`PreparedProductRunInvocation` and `InvocationAdmissionInput`, and the latter's
+`sourceUseDeclarations` preimages, are internal implementation carriers. Their
+`@internal` annotations erase those members and unused imports from ordinary
+published declarations under `stripInternal`; executable preparation and the
+independent ABG checks remain unchanged. The native declaration closure still
+resolves every published type. Neither publishing the private comparison type
+nor exempting a dangling declaration from validation realizes this boundary.
+
+Later completed work is found through actual admitted source-use ancestry and
+its witnessed crossings. A later state, addition or completed child cannot
+disappear because it used a successor binding. Equal task names, guessed roots,
+equal snapshot values or an unadmitted pointer do not establish ancestry.
+Read-only preparation and selection without additions do not fabricate progress.
+
+Missing, reversed, foreign or ambiguous cover; changed A/root/actor/Program or
+selected meaning; altered input; unavailable declaration owners; copied proof;
+and later completed progress refuse before new effects. Each consumer separately
+acquires its required current observations and applies existing invalidators.
+Stale or unexplained physical replacement remains non-successful. Historical
+adverse judgments remain history; no new assessment, closure or old Run identity
+is manufactured. Same-basis source use and ordinary fresh input retain their
+existing exact guards.
 
 ## Exact ConstructionIntent Continuation: Selected Bounded Realization
 
@@ -438,3 +637,39 @@ existing lock-absent recovery owner uses the genuine predecessor, exact current
 bytes/resource identity and exclusive acquisition. Earlier committed invocation
 facts remain. Absence of a later basis/Run/selection supplies no pending work to
 resume; a fresh ordinary invocation can construct the still-missing source.
+
+Ordinary C_Call/HoG outcome and parent-return receipts carry only their declared
+current guard coordinates and currently selected input/result. They do not
+retain the complete authority Event array or complete historical ReplayState.
+The existing replay owner computes the unchanged full logical replay digest
+when it is required for a guard comparison. It streams each selected historical
+value through the same canonical writer and releases that value before the next;
+an ordinary receipt does not construct the complete historical output vectors
+first. This preserves the digest's full extent and its acquisition cost. Explicit
+Public receipts retain complete prefix/ReplayState meanings;
+their owner materializes those outputs when requested. Internal receipt types
+and helpers are stripped from publication, and no saved/copy-derived guard
+supplies durable or Source authority.
+
+Selected-action continuation reconstruction filters the authenticated envelope
+population by its consumed kinds and Run before acquiring bodies. It preserves
+the complete original selected-intent, route, delta, call and terminal population
+in admission order, including every continuation and global replay guard. A Run
+membership query does not itself require decoding unrelated basis or Result
+bodies. An empty selected-intent population yields the same empty continuation
+output without acquiring the remaining dependent bodies.
+
+The existing C_Call failure-close and pending-interaction planners construct
+their exact finite candidate suffix without copying the admitted historical
+base. Ordered envelope/profile/causation checks, event identities and plan
+digests are unchanged. The private pending plan retains its selected input and
+candidate events plus prefix/replay guard coordinates; the canonical writer
+streams complete prefix/replay fields when calculating the original plan digest.
+An explicit Public plan still materializes its complete historical outputs.
+Pure plan construction grants no append, currentness or Source authority.
+
+The existing historical Source owner selects the terminal GraphCall's admitted
+route, Result, Judgment, scope and declaration ancestry directly. It uses the
+same terminal constructor and guards as a complete Public read, without first
+constructing unrelated Run replay outputs. The selected producer's full value
+and original input remain authentic requested outputs.

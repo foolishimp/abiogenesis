@@ -1,0 +1,52 @@
+{
+  "operation": "T287_RC1_PUBLIC_GROUP_DESIGN_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Design Worker",
+  "status": "ACTIVE_DESIGN_PREPARATION_ONLY",
+  "activatedAt": "2026-10-03T16:23:35.100804+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/publication-request.txt",
+    "bytes": 3907,
+    "sha256": "5d75549a92814cb18b892664d1e14454995fcc5d769db1ff4e392757e44e42bb",
+    "mode": 420
+  },
+  "allSevenLiteralSectionsRead": true,
+  "subjectPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/subject-pins.json",
+    "bytes": 2724,
+    "sha256": "6b06bb605a66131cbf6fa8e67c6301295315a4db6ef9a4a350e3db17639ae44d",
+    "mode": 420
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/triage.md",
+    "bytes": 3560,
+    "sha256": "cf3bdfd1fa55302d7c4e798896a3d982f7088efa99d768b9cb7ac9f97f18eb43",
+    "mode": 420
+  },
+  "allExactSubjectPinsVerifiedBeforeEffects": true,
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "Product": "ABIogenesis5/fixed15/GOAL035/T287; eight required groups remain intended WHAT",
+  "selectedFrames": [
+    "Product/law",
+    "Design/typed transforms",
+    "GTL/HoG/ABG integration",
+    "identity/lifecycle",
+    "effects",
+    "proof/reuse",
+    "cost"
+  ],
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-public-group-design-01",
+  "effect": "new proposal/report only; Source and owner HOW readonly",
+  "existingAuthoritiesPreserved": [
+    "canonical framework definitions",
+    "closed PublicFunctionDefinition family",
+    "generic package addresses",
+    "GTL/HoG/ABG/Product ownership"
+  ],
+  "prohibitedEffects": [
+    "Source/HOW/package/generator/generated/candidate/install/resource/proof mutation",
+    "Product imports",
+    "Runtime/Run/reopen/helper/build/test/qualification/provider/network/auth/Hello/Git/release"
+  ],
+  "RootAloneAccepts": true
+}

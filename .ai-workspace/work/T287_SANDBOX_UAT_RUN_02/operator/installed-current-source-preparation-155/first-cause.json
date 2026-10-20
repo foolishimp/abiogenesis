@@ -1,0 +1,16 @@
+{
+  "stage": "terminal-resource-start",
+  "rss": 4151525376,
+  "heapTotal": 3822764032,
+  "heapUsed": 3609686640,
+  "external": 2560806,
+  "arrayBuffers": 150235,
+  "at": "2026-10-09T03:43:26.934Z",
+  "elapsedMs": 163661.416375,
+  "name": "TypeError",
+  "message": "a.projectHistoricalGraphCallSourceAtDurablePrefix is not a function",
+  "stack": "TypeError: a.projectHistoricalGraphCallSourceAtDurablePrefix is not a function\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current-source-preparation-155/prepare.mjs:55:31",
+  "actualOutcome": null,
+  "disposition": "HOLD; first actual failure preserved; no retry or model dispatch",
+  "action": "Root multi-frame owner triage and selected Product-bounded action required before any retry"
+}

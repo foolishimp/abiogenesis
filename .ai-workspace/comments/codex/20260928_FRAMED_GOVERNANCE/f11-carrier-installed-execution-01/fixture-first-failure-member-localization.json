@@ -1,0 +1,24 @@
+{
+  "phase": "packed-wrapper-ProductVerification",
+  "fixture": {
+    "artifactDigest": "sha256:e7071a19afddc6e5fcd1575d6e4eed131dd7dc93c1588fbe5f0254719c80208d",
+    "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c",
+    "manifestDigest": "sha256:4ed916733c1e7b42d4bf078313d6bb946d4597f34ba207af84a3b39ec1dbf73f",
+    "productId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+    "packageName": "@abiogenesis-fixtures/f11-carrier-child",
+    "packageVersion": "5.0.0"
+  },
+  "expectedMembers": 5264,
+  "actualMembers": 5262,
+  "missingCount": 2,
+  "extraCount": 0,
+  "missing": [
+    "node_modules/@abiogenesis/typescript-tenant/node_modules/fast-check/CHANGELOG.md",
+    "node_modules/@abiogenesis/typescript-tenant/node_modules/pure-rand/CHANGELOG.md"
+  ],
+  "extra": [],
+  "firstFailure": "payload_inventory_mismatch",
+  "comparison": "archive file population to selected fixture manifest, read-only localization only",
+  "runtimeCalls": 0,
+  "physicalPrefix": null
+}

@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_SCAFFOLD_NOTATION_CLARIFICATION_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "returnRole": "Executive",
+  "closedAt": "2026-10-03T02:21:35.905819+00:00",
+  "postimages": {
+    "/Users/jim/src/apps/abiogenesis/AGENTS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 11423,
+      "sha256": "d2b9a6df9c0c65ddfc3b3e6479f0b9fc03662432715296015746a2413282026a",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/CLAUDE.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+      "bytes": 5042,
+      "sha256": "c16f1755846ef27291f6d1f6fb8ee73d8860a2c4eacae14f2c9c26c1272d4dfe",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 25043,
+      "sha256": "cc7461b3089f6ad84fbede3bbda2f77308512015bf08d6a652c8c9f734c2fb7a",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 544053,
+      "sha256": "d0b1f1c9ffa38bfd38c320c2d7d671ace16c4eeb2b5f195412211616144bf3d2",
+      "mode": 420
+    }
+  },
+  "executionAppendOnly": true,
+  "candidateOrRuntimeEffects": 0,
+  "allWritesStopped": true
+}

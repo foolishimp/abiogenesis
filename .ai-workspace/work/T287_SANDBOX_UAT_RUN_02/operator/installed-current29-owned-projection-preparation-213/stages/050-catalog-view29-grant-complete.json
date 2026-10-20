@@ -1,0 +1,12 @@
+{
+  "stage": "catalog-view29-grant-complete",
+  "rss": 4277551104,
+  "heapTotal": 3867705344,
+  "heapUsed": 3746503992,
+  "external": 2472538,
+  "arrayBuffers": 60231,
+  "at": "2026-10-09T13:45:33.501Z",
+  "elapsedMs": 226910.949125,
+  "ownerArtifactReceiptRetained": true,
+  "capabilities": 1
+}

@@ -1,0 +1,10 @@
+{
+  "kind": "stripped_declaration_component_check",
+  "declarations": 264,
+  "skipLibCheck": false,
+  "elapsedMs": 3161.7377079999997,
+  "diagnostics": [],
+  "limits": [
+    "Type linkage only; no normal publication or runtime readiness"
+  ]
+}

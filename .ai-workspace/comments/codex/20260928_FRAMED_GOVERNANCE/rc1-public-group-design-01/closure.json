@@ -1,0 +1,33 @@
+{
+  "operation": "T287_RC1_PUBLIC_GROUP_DESIGN_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Design Worker",
+  "status": "CLOSED",
+  "disposition": "BOUNDED_PUBLICATION_PROPOSAL_WITH_MATERIAL_CONTENT_CLOSURE_UNRESOLVED",
+  "closedAt": "2026-10-03T16:44:44.316996+00:00",
+  "knowns": [
+    "eight required addresses and identity-to-existing-owner map",
+    "exact fourteen-path proposed base effect roster",
+    "one owning HOW appendix and unchanged canonical publication lifecycle",
+    "sixteen required native names and twenty-five required asset IDs not located"
+  ],
+  "unknowns": [
+    "canonical equivalence/supersession and complete diagnostic/repair/conformance/installer content",
+    "complete requirement algebra/proof-carry/refinement interface coverage",
+    "complete canonical asset owner/projection cone and cost",
+    "future successor tuple and affected genuine qualification"
+  ],
+  "decisionCompleteForFullContentClosure": false,
+  "effects": {
+    "proposalReportFilesOnly": true,
+    "SourceHOWPackageGeneratorGeneratedCandidateInstallResourceProofMutations": 0,
+    "importsBuildTestsRuntimeRunReopenHelpersProvidersNetworkAuthHelloGitRelease": 0
+  },
+  "priorProofsPreserved": [
+    "C09 mechanical three Runs/six reads",
+    "generated928/physical929",
+    "original Hello/Rust and every failed cut"
+  ],
+  "RootNextSelection": "accept bounded owner map/HOW direction and select complete missing-content/supersession cone before granting realization; join parent repair/independent source assurance before ONE successor",
+  "stopWritesAfterFreeze": true
+}

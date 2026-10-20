@@ -1,0 +1,12 @@
+{
+  "stage": "consumer-verify-complete",
+  "elapsedMs": 21297.979332999996,
+  "at": "2026-10-10T20:17:56.994Z",
+  "rss": 2819391488,
+  "heapTotal": 1554710528,
+  "heapUsed": 1414740400,
+  "external": 81728588,
+  "arrayBuffers": 79316281,
+  "beforeAcquisition": true,
+  "contentDigest": "sha256:bc21a6b32df24e56a97c237a40cf9b10a008f574f85ca680125239b6a979e4a6"
+}

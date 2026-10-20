@@ -1,0 +1,22 @@
+{
+  "serialReadCheckGroups": 3,
+  "perGroupTimeoutSeconds": 120,
+  "perGroupGraceAllowanceMilliseconds": 1000,
+  "aggregateLimitSeconds": 363,
+  "measuredGroupSeconds": [
+    0.06902333395555615,
+    0.006029041949659586,
+    0.03381591709330678
+  ],
+  "aggregateMeasuredReadCheckSeconds": 0.10886829299852252,
+  "elapsedWorkerWallSecondsIncludingReasoning": 418.467008,
+  "sessionPrefixBytesHashed": 35195554,
+  "minimalExtractBytes": 146892,
+  "selectedToolCalls": 23,
+  "selectedToolAndOutputExtracts": 46,
+  "fullRolloutsCopied": 0,
+  "actualSourceEdits": 0,
+  "nativeProviderCalls": 0,
+  "newQualificationChecks": 0,
+  "monetaryCostKnown": false
+}

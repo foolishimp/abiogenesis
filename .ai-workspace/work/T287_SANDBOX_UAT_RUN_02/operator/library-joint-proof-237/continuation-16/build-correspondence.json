@@ -1,0 +1,36 @@
+{
+  "sourceCount": 264,
+  "emissionCount": 528,
+  "sourceAndEmissionMismatchCount": 0,
+  "all264PublicDeclarationsExact44": true,
+  "declaredPayloadCount": 5265,
+  "declaredMembershipExact15": true,
+  "payloadBodyDelta": [
+    {
+      "relativePath": "build/code/src/abg/native_work_reacquisition.js",
+      "before": "b14f21b1b758d5591c7d6ac8174f9a2b8c76023b85d7f54e6a3fc70ad016cd69",
+      "after": "134e23bc6ba742a64c1fa9cab9dd9570c19a1d97b06a2607de7b961a756dc66a",
+      "byteCount": 32677
+    }
+  ],
+  "derivedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee",
+    "byteCount": 3189430,
+    "mode": 420
+  },
+  "derivedCapabilityGraph": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "sha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304",
+    "byteCount": 197474,
+    "mode": 420
+  },
+  "productContentDigest": "sha256:6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3",
+  "generatedPreimagesReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/generated-preimages.json",
+    "sha256": "6cd145913f6f68d90f948fa155b9de0545d201240e3037f55d6e8a950d1f89bd",
+    "byteCount": 398432,
+    "mode": 420
+  },
+  "elapsedMs": 193.70783300837502
+}

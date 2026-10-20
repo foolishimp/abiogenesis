@@ -1,0 +1,19 @@
+{
+  "stage": "sdk-recovery-start",
+  "at": "2026-10-09T04:10:33.012Z",
+  "wallMs": 583.453084,
+  "pid": 83681,
+  "memory": {
+    "rss": 425525248,
+    "heapTotal": 261554176,
+    "heapUsed": 123148872,
+    "external": 18589558,
+    "arrayBuffers": 16174473
+  },
+  "maxRSSKiB": 415552,
+  "requestDigest": "sha256:146d3306ecf5b841935f1fb566d93fef4f499fbabdb624b7d3d581f899a3fa01",
+  "scopeDigest": "sha256:9fc433c1437442464f200fbe26de59473b7a1e51070c71d9a17336f63af05503",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-repairs-successor-153/host-preparation/host/node_modules/@abiogenesis/typescript-tenant",
+  "ownerArtifactDigest": "sha256:95d1e5a7e98ab47ed762c2d1c5cb3224632910b0baf7363d9ad03e62d62ebf1e",
+  "noDuplicateManualVerification": true
+}

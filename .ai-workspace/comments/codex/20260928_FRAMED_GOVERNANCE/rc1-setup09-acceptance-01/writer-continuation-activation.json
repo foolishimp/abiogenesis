@@ -1,0 +1,27 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "priorRole": "Executive",
+  "role": "Writer",
+  "operation": "T287_SETUP09_ACCEPTANCE_AND_Q10_RELEASE_WRITER_01_CONTINUED_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01",
+    "append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "exactGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/request.txt",
+    "bytes": 2453,
+    "sha256": "b641f2ab107216e19536b4f8cdc8bdbd07484332f95af65d7695d1dbc5745a03",
+    "mode": 420
+  },
+  "rootTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/root-triage.json",
+    "bytes": 1397,
+    "sha256": "45d619f0791a885c4ab40e4555a8842fb63911d56d9aa86729ba7f73f1777f6c",
+    "mode": 420
+  },
+  "authorizedControlCorrection": "Use exact CLOSED_REOPENABLE_COMPLETE_SETUP producer status. Retain originalactivation/request/stop/triage unchanged; record acceptance and Eappend only.",
+  "activatedAt": "2026-10-02T16:41:25.193606+00:00",
+  "recordedBeforeContinuationEffects": true
+}

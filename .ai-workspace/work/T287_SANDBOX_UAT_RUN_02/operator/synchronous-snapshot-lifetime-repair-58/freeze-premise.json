@@ -1,0 +1,5 @@
+{
+  "origin": "first freeze preparation, before readiness/return/freeze writes",
+  "exception": "AssertionError: ('mtimeNs', 1791404494476866055, '1791404494476866055')",
+  "correction": "Represent mtimeNs as the original decimal string; equal numeric value, no changed metadata or material."
+}

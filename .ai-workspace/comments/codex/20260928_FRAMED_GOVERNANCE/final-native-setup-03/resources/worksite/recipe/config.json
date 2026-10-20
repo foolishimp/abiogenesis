@@ -1,0 +1,1316 @@
+{
+  "kind": "prospective_observed_source_c2_recipe",
+  "programRef": "program://abiogenesis/worksite/command-execution@5",
+  "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+  "inputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+  "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+  "sourceSelection": {
+    "kind": "none"
+  },
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/stage",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "recipe/recipe-stage.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": "verification/.global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": "verification/.system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": "verification/.npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        }
+      ],
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "cache",
+        "add",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "dependency-inputs/00.tgz",
+        "dependency-inputs/01.tgz",
+        "dependency-inputs/02.tgz",
+        "dependency-inputs/03.tgz",
+        "dependency-inputs/04.tgz",
+        "dependency-inputs/05.tgz",
+        "dependency-inputs/06.tgz",
+        "dependency-inputs/07.tgz",
+        "dependency-inputs/08.tgz",
+        "dependency-inputs/09.tgz",
+        "dependency-inputs/10.tgz",
+        "dependency-inputs/11.tgz",
+        "dependency-inputs/12.tgz",
+        "dependency-inputs/13.tgz",
+        "dependency-inputs/14.tgz",
+        "dependency-inputs/15.tgz"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": "verification/.global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": "verification/.system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": "verification/.npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "ci",
+        "--offline",
+        "--ignore-scripts",
+        "--include=dev",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/clean",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "scripts/clean.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 15000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/compile",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/generate",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 180000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/lint",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "scripts/lint-verification.mjs",
+        ".recipe/verification-recipe.json"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-observed-worksite-command.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 90000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "--test-name-pattern=^(?:M5\\ GTL\\ exposes\\ exactly\\ seven\\ direct\\ C\\ constructors|M5\\ C\\.compose\\ is\\ canonical,\\ flat,\\ and\\ identity\\-eliding|M5\\ native\\ constructors\\ refuse\\ invalid\\ batch,\\ retry,\\ and\\ F_H\\ realization|M5\\ whole\\-program\\ validation\\ refuses\\ forged\\ or\\ widened\\ graph\\-edge\\ declarations|M5\\ raw\\ admission\\ and\\ validator\\ reject\\ invented\\ or\\ contradictory\\ C\\ data|M4\\ Hello\\ World\\ remains\\ one\\ valid\\ direct\\ C\\.of\\ Program|M5\\ whole\\-root\\ validation\\ keeps\\ F_H\\ interaction\\ keys\\ out\\ of\\ executable\\ resolution)$",
+        "test_env/tests/m5-c-algebra-validation.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": ".global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": ".system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": ".tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": ".npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/compare",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "recipe/compare-generated.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "name": "GIT_CONFIG_GLOBAL",
+          "value": "verification/.global.gitconfig"
+        },
+        {
+          "name": "GIT_CONFIG_NOSYSTEM",
+          "value": "1"
+        },
+        {
+          "name": "GIT_CONFIG_SYSTEM",
+          "value": "verification/.system.gitconfig"
+        },
+        {
+          "name": "GIT_OPTIONAL_LOCKS",
+          "value": "0"
+        },
+        {
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        },
+        {
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "name": "npm_config_prefix",
+          "value": "verification/.npm-prefix"
+        },
+        {
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        }
+      ],
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": [
+        {
+          "reportIdentity": "report://abiogenesis/rc1-qual056/generated-comparison",
+          "relativePath": "verification/reports/generated-comparison.json"
+        }
+      ]
+    }
+  ],
+  "outcomePredicates": [
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/stage/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/stage",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/seed-npm-cache/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/locked-dependencies/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/clean/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/clean",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/compile/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compile",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/generate/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/generate",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/lint/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/lint",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qual056-material/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-release-acceptance/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "command://abiogenesis/rc1-qual056/compare/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compare",
+        "equals": 0
+      }
+    },
+    {
+      "predicateId": "predicate://abiogenesis/rc1-qual056/generated-equality",
+      "predicateKind": "stdout_exact",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compare",
+        "equals": "inventory matches\n"
+      }
+    }
+  ],
+  "allowedWriteTerritories": [
+    {
+      "pathKind": "subtree",
+      "relativePath": "verification"
+    }
+  ],
+  "supervisionProposal": {
+    "commandCapsAndGracesMs": 958000,
+    "helperDispatchAndAckAllowanceMs": 5000,
+    "requiredHelperBudgetMs": 963000,
+    "ABG_TS_FP_TIMEOUT_MS": "1083000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "1263000",
+    "outerC2PublicBudgetMs": 1863000,
+    "outerDriverBudgetMs": 2763000,
+    "status": "finite proposal for later Root grant; unexecuted",
+    "basis": "13 actual command bounds/graces; construction01 build20.641s, offline ci1.335s; native actor setup/ack and assessment separate. Idle timeout must cover longest silent helper run, not be mistaken for total episode elapsed. Absolute and outer budgets exceed complete helper aggregate."
+  },
+  "claim": "Prepared same-source build/lint/test/comparison producer only; execution and independent semantic adequacy pending"
+}

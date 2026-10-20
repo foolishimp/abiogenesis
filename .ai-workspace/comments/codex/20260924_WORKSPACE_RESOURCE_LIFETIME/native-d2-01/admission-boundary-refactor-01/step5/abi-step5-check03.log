@@ -1,0 +1,13 @@
+{"kind":"conformance_reuse_differential","predecessor":{"elapsedMs":1777.7750000000005,"physicalPrefixReads":2,"environmentDerivations":1,"warmEnvironmentRelations":0,"archiveChecks":1,"resourceSelfComparisons":1,"closureResolutions":1,"rawClosureValidations":0,"resolvedClosureContinuations":0},"successor":{"elapsedMs":1406.9681249999994,"physicalPrefixReads":1,"environmentDerivations":1,"warmEnvironmentRelations":0,"archiveChecks":1,"resourceSelfComparisons":0,"closureResolutions":1,"rawClosureValidations":0,"resolvedClosureContinuations":1},"ownerOutputDigest":"sha256:13c2dc1ce13d80435dc501fab14d814ea0502233271459fb2a8d700595aa652c","resourceDigest":"sha256:472df7a2e608463dc2352b329da3deae3e47dda80c13012b4045c7d3787387ab","predecessorReceiptBytes":21990418,"compactReceiptBytes":613,"fixtureOnly":true}
+{"kind":"conformance_resource_scaling","scaling":[{"rows":1,"oldBytes":17413776,"newBytes":17412545,"removedBytes":1231},{"rows":8,"oldBytes":17428378,"newBytes":17412545,"removedBytes":15833},{"rows":64,"oldBytes":17545302,"newBytes":17412545,"removedBytes":132757}],"scope":"finite supplied size fixtures; no original history or allocation attribution"}
+(node:21081) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ same-subject conformance retains one real owner derivation and predecessor semantic result (33905.524458ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 34580.275917

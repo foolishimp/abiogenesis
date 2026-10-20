@@ -1,0 +1,17 @@
+{
+  "pid": 55937,
+  "processGroup": 55937,
+  "command": [
+    "node",
+    "--max-old-space-size=4096",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/driver.mjs"
+  ],
+  "elapsedMs": 338105.609,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "peakRSSBytes": 5381554176,
+  "userSeconds": 275.422144,
+  "systemSeconds": 47.473016,
+  "observation": "wait4 actual driver; macOS ru_maxrss bytes; native children independently observed"
+}

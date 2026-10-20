@@ -1,0 +1,79 @@
+{
+  "status": "ROOT_RELEASED_EXACT_DEPENDENCIES_BOUND",
+  "operation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "preparedAt": "2026-10-02T11:17:11.030759+00:00",
+  "elapsedMs": 680.7543751783669,
+  "exactCopiedQ09Scripts": 12,
+  "selectedInputCopies": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/f11-bound-packet.json",
+        "bytes": 29340508,
+        "sha256": "61e939153c9e4a4f5094d79623dfb4c874cc91cde9399b35bde92c2303ac6b8c",
+        "mode": 420
+      },
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/f11-bound-packet.json",
+        "bytes": 29340508,
+        "sha256": "61e939153c9e4a4f5094d79623dfb4c874cc91cde9399b35bde92c2303ac6b8c",
+        "mode": 420
+      },
+      "bodyExact": true,
+      "role": "selected immutable current Q09 input replica; original actors and authored identities conserved"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/f11-bound-resource-manifest.json",
+        "bytes": 507725477,
+        "sha256": "df0658cbdac26d87874cf1c08e5c9cdbe5fce9bb98d7b28f8d6b869153bb1ec5",
+        "mode": 420
+      },
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/f11-bound-resource-manifest.json",
+        "bytes": 507725477,
+        "sha256": "df0658cbdac26d87874cf1c08e5c9cdbe5fce9bb98d7b28f8d6b869153bb1ec5",
+        "mode": 420
+      },
+      "bodyExact": true,
+      "role": "selected immutable current Q09 input replica; original actors and authored identities conserved"
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-09/freeze.json",
+        "bytes": 863173,
+        "sha256": "3ca693f27e86a063ce0f3d21da02852949e69b34a70da1bf11fd6f19e150b2a3",
+        "mode": 292
+      },
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/freeze.json",
+        "bytes": 863173,
+        "sha256": "3ca693f27e86a063ce0f3d21da02852949e69b34a70da1bf11fd6f19e150b2a3",
+        "mode": 420
+      },
+      "bodyExact": true,
+      "role": "selected immutable current Q09 input replica; original actors and authored identities conserved"
+    }
+  ],
+  "controller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-08/run-flow.mjs",
+    "bytes": 10803,
+    "sha256": "e27c5c8d5dff6b218a749e39a6166961b88cc65b4cb70a0e0626466b2cda03d1",
+    "mode": 420
+  },
+  "controllerDonor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01/freeze.json",
+    "bytes": 9512,
+    "sha256": "68dfefe160d1d46e03e8a43caf31be599032c0632ab84da67157d9cb6a6d18eb",
+    "mode": 420
+  },
+  "actualSetupStateFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/setup-state.json",
+  "inputResourceBytes": 507725477,
+  "ownerImportsOrPreparation": 0,
+  "resourceReopens": 0,
+  "helperLaunches": 0,
+  "RuntimeCalls": 0,
+  "realProviderCalls": 0,
+  "next": "one pre-import supervised unchanged strict carrier; first failure stops",
+  "finalRuntimeFreezeFile": "final-runtime-freeze.json",
+  "inputReplicaFreezeFile": "freeze.json"
+}

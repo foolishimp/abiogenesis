@@ -1,0 +1,26 @@
+{
+  "scope": "read-only physical final census of allowed Setup05 owner archive/runtime/projection roots",
+  "roots": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/archives",
+      "exists": false
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/runtime",
+      "exists": false
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/projections",
+      "exists": false
+    }
+  ],
+  "eventResource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+    "bytes": 2668364,
+    "sha256": "2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+    "device": 16777230,
+    "inode": 464611665,
+    "mode": "0o644"
+  },
+  "initialDurablePrefixPreserved": true
+}

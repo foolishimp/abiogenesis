@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "frozenCuts": [
+    {
+      "cut": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02",
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 4543994,
+        "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+      },
+      "records": 16774
+    },
+    {
+      "cut": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02",
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 15744,
+        "sha256": "a4c2b5afd94fd7402b6bbfc732e691eb345dbcf4334a0300de490f607b9aad79"
+      },
+      "records": 82
+    },
+    {
+      "cut": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04",
+      "freeze": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/freeze.json",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 24651,
+        "sha256": "b1f955be3959c8c17eba8254df5154342cd91a9d90f265ebf17d6deb1cbf0c5e"
+      },
+      "records": 110
+    }
+  ],
+  "N03ImmutableRecordsVerified": 5995,
+  "N03EventException": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "device": 16777230,
+    "inode": 464012478,
+    "bytes": 5577377,
+    "sha256": "e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+    "eventCount": 84,
+    "initialBytes": 2582298,
+    "initialSHA256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+    "prefixConserved": true,
+    "snapshotIdentical": true,
+    "stable": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock",
+    "lockPresent": false,
+    "coordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c"
+  },
+  "newN03Files": 724,
+  "protectedStagedInputs": 716,
+  "protectedBytesUnchanged": true,
+  "verificationSubtreeAbsent": true,
+  "newOwnerFiles": 8,
+  "controlsAndDonors": "all exact frozen records unchanged",
+  "candidateAndQ02": "unchanged",
+  "oldSetupS01ReceiptsAndPrefixes": "unchanged",
+  "scopeLimit": "Only selected cuts and original native resource territory; no host-wide filesystem claim"
+}

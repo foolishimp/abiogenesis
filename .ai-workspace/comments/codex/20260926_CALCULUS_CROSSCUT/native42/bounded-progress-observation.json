@@ -1,0 +1,21 @@
+{
+  "scope": "Bounded read-only live diagnostic; not an admitted terminal projection or benchmark",
+  "observedAtEventTime": "2026-09-26T08:16:11.753Z",
+  "graphFunction": "graph-function://abiogenesis/worksite/native-work@5",
+  "prefixBytesObserved": 499850384,
+  "priorCompletedIntakePrefixBytes": 442337570,
+  "lastObservedOrdinal": 106649,
+  "tailPattern": "Alternating actor_process_stdout_observed and runtime_activity_probe_observed at roughly50ms intervals in the final12 observed rows",
+  "promptBytes": {
+    "selector": 1210646,
+    "designAuthor": 744798,
+    "designAssessor": 823268,
+    "nativeConstruction": 1155768
+  },
+  "completedProviderDurationMs": {
+    "selector": 56519,
+    "designAuthor": 521197,
+    "designAssessor": 323554
+  },
+  "disposition": "Record under existing Native stream-observation volume/LIFE01 and context debt. No runtime-latency attribution, event deletion or new cleanup gate. Continue declared suffix."
+}

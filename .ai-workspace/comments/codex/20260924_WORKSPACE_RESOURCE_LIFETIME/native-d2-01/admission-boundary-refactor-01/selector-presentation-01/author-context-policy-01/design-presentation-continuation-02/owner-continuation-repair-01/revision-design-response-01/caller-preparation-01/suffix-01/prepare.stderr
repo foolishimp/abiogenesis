@@ -1,0 +1,20 @@
+{"phase":"full_sandbox_public_setup","ordinal":1,"label":"selected-suffix-view"}
+{"phase":"full_sandbox_public_setup","ordinal":2,"label":"selected-suffix-conformance"}
+      107.54 real       111.77 user         1.91 sys
+          3879010304  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             1441727  page reclaims
+                  89  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5276  messages sent
+                4073  messages received
+                   0  signals received
+                  52  voluntary context switches
+              110407  involuntary context switches
+       2443797362414  instructions retired
+        460041892420  cycles elapsed
+          3928342360  peak memory footprint

@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "exactOriginalHeldFluentsAllPresent": true,
+    "statusReplayCoordinateSame": true,
+    "statusReplaySubjectSame": true,
+    "statusReplayStopped": true,
+    "noTerminalResult": true,
+    "resultNotFound": true,
+    "allThreeGenuineCloseUnchanged": true,
+    "allEntryChecksPassed": true,
+    "selectedExecutingMembersUnchanged": true
+  },
+  "passed": true,
+  "run": {
+    "ref": "run://abiogenesis/eb9ad488d2a119081cf7ab6d0a3065f9eeda634b17cba30bac8f4c288b0f1a47",
+    "digest": "sha256:7bad920fb167872986188f6cb2a552f1a242c819e0c368af86a6d33078fb916a"
+  },
+  "executionBasis": {
+    "ref": "execution-basis://abiogenesis/96607c2f5ade84719749e3e8edca45e856116fd1cdf7b159754a31603b3228f0",
+    "digest": "sha256:96607c2f5ade84719749e3e8edca45e856116fd1cdf7b159754a31603b3228f0"
+  },
+  "preStopStatus": "held",
+  "status": "stopped",
+  "replay": {
+    "kind": "run_replay_projection",
+    "subject": {
+      "ref": "run://abiogenesis/eb9ad488d2a119081cf7ab6d0a3065f9eeda634b17cba30bac8f4c288b0f1a47",
+      "digest": "sha256:7bad920fb167872986188f6cb2a552f1a242c819e0c368af86a6d33078fb916a"
+    },
+    "replay": {
+      "ref": "replay://abiogenesis/ca8b3f8b182735342497ea6914ac0d289d26fa132c0db7db9c368c2b9d798cb0",
+      "digest": "sha256:ca8b3f8b182735342497ea6914ac0d289d26fa132c0db7db9c368c2b9d798cb0"
+    },
+    "fromOrdinal": 0,
+    "limit": 1000,
+    "status": "stopped",
+    "terminalResult": null
+  },
+  "conservedObligationFluents": [
+    {
+      "ref": "continuation_open(continuation://abiogenesis/8a79439b28647954619b28afbe3daa92ba18ece819a235528fdd6098cb97ea31)",
+      "digest": "sha256:58e78cd5baadc1b397f26b02fd192bdf27522dc5a2af3e26e735d3f01451d6c8"
+    },
+    {
+      "ref": "frame_held(frame://abiogenesis/7e8aa72279e5b83a47df0e4aa229d8433c834c67a000ce02442a2e04767f2c8b)",
+      "digest": "sha256:30c2478ceccbb408a16f42f6326715738fae8fe7ad11c7cd26cb9ba1e6b142aa"
+    },
+    {
+      "ref": "interaction_pending(continuation://abiogenesis/8a79439b28647954619b28afbe3daa92ba18ece819a235528fdd6098cb97ea31)",
+      "digest": "sha256:6f10557464055029058242951222f74fe7674bb4c3e941f55c0ee96f3e2787e2"
+    }
+  ],
+  "operatorStopFluent": [
+    {
+      "ref": "operator_run_stopped(run://abiogenesis/eb9ad488d2a119081cf7ab6d0a3065f9eeda634b17cba30bac8f4c288b0f1a47)",
+      "digest": "sha256:4330561bd3d0d7b1d24c3ad4e70edb50e2ac3c7b2e28bee5b09c231c0d437a7c"
+    }
+  ],
+  "absentResult": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "not_found",
+      "issuePaths": [],
+      "evidenceRefs": []
+    }
+  },
+  "limits": "Public run_replay exposes a bounded stopped projection and replay coordinate, not expanded continuation rows. Exact open obligation is directly witnessed by Public status activeFluents. No extra read, journal scan, or direct owner projection was invoked."
+}

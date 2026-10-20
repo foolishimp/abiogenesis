@@ -1,0 +1,47 @@
+{"phase":"full_sandbox_public_setup","ordinal":1,"label":"verify-core21"}
+{"phase":"full_sandbox_public_setup","ordinal":2,"label":"verify-dev11"}
+{"phase":"full_sandbox_public_setup","ordinal":3,"label":"resolve-core21-dev11"}
+{"phase":"full_sandbox_public_setup","ordinal":4,"label":"install-core21"}
+{"phase":"full_sandbox_public_setup","ordinal":5,"label":"install-dev11"}
+{"phase":"full_sandbox_public_setup","ordinal":6,"label":"bootstrap-native-d2-intake-bind-existing-workspace"}
+{"phase":"full_sandbox_public_setup","ordinal":7,"label":"catalog"}
+{"phase":"full_sandbox_public_setup","ordinal":8,"label":"view"}
+{"phase":"full_sandbox_public_setup","ordinal":9,"label":"intake-conformance"}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'product_execution_resolution_refusal'
+- 'loaded_product_execution_resolution'
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-02/prepare.mjs:104:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'product_execution_resolution_refusal',
+  expected: 'loaded_product_execution_resolution',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0
+      470.55 real       515.25 user        13.41 sys
+          3197255680  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             5789787  page reclaims
+                1056  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+               63709  messages sent
+               48799  messages received
+                   0  signals received
+                 330  voluntary context switches
+             1124376  involuntary context switches
+       3501763989995  instructions retired
+        668691448186  cycles elapsed
+          1733792072  peak memory footprint

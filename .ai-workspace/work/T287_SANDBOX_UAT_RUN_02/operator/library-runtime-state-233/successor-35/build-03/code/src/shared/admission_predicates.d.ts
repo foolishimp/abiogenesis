@@ -1,0 +1,17 @@
+import { type JsonValue } from "./canonical_json.js";
+export declare function isRecord(value: unknown): value is Readonly<Record<string, unknown>>;
+export declare function hasNulJoinedKeys(value: Readonly<Record<string, unknown>>, keys: readonly string[]): boolean;
+export declare function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>>;
+export declare function isJsonRecordShape(value: unknown): value is Readonly<Record<string, JsonValue>>;
+export declare function isOptionalJsonRecord(value: JsonValue | undefined): value is Readonly<Record<string, JsonValue>>;
+export declare function isNonblankNulFreeString(value: unknown): value is string;
+export declare function hasObjectUnicodeNulJoinedKeys(value: object, keys: readonly string[]): boolean;
+export declare function isNonEmptyJsonString(value: JsonValue | undefined): value is string;
+export declare function hasJsonNulJoinedKeys(value: Readonly<Record<string, JsonValue>>, keys: readonly string[]): boolean;
+export declare function isMutableRecord(value: unknown): value is Record<string, unknown>;
+export declare function hasNulJoinedFields(value: Readonly<Record<string, unknown>>, fields: readonly string[]): boolean;
+export declare function isNonblankString(value: unknown): value is string;
+export declare function hasUnicodeNulJoinedKeys(value: Readonly<Record<string, unknown>>, keys: readonly string[]): boolean;
+export declare function hasExactKeys(value: Readonly<Record<string, unknown>>, expected: readonly string[]): boolean;
+export declare function isNonEmptyString(value: unknown): value is string;
+export declare function hasExactJsonKeys(value: Readonly<Record<string, JsonValue>>, expected: readonly string[]): boolean;

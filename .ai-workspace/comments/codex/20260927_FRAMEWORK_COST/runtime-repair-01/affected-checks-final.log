@@ -1,0 +1,36 @@
+(node:29098) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster (254.37475ms)
+✔ legal I-JSON null is not absence (pure carrier and replay-row selection, not a new admitted result) (0.135791ms)
+✔ held/failed/missing terminal truth cannot become a completed Product result (0.225375ms)
+✔ read before Run close is not_ready while the actually closed root GraphCall is independently readable (126.255ms)
+✔ whole-prefix typed replay summary is conserved on first and empty-end pages; invalid offsets and arithmetic refuse (0.218791ms)
+✔ scope and packet crossings refuse; root does not accept a caller declarationProof field (93.39175ms)
+✔ Run reads validate selected liveness while workspace replay retains the complete calculus (112.855375ms)
+✔ native CCall owner rejects altered value, contract, producer, judgment and pre-result prefix without test-owned admission (3.97525ms)
+✔ the shared mapper rejects crossed result aliases and keeps failed-command observation data verbatim (64.829292ms)
+(node:29113) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ route-origin workflow cursor stages, replays, commits and cold-projects exact retained input (136.059916ms)
+ℹ {"admittedEvents":17,"retainedBytes":213,"retainedDigest":"sha256:10a2fce54706b328fe844849f69ff732ee7d0de49f8ee7ffdcd69d163825d07e","baseline":"injected missing provenance","material":false,"sourceEnteredRows":0,"sourceOrigin":"event://abiogenesis/c5ce8f65a4480fb64fe6b513802a3133e64407474daaa484f59fd63f6e7734aa","retainedRoute":"event://abiogenesis/8dfc129ef05889703d6ed0be5304e21146dd83e1a3774ef51328f79f99d48049","coldReplayDigest":"sha256:375ddec470d40ee96a9c1548594e9f5ebc12401e6d1ca54e83c6f59fd69219e2","lowerPremises":"Supplied declaration, basis, completed CCall carrier and inert native frame-clock observer; real cursor/provenance, append transaction, staged route admission and replay."}
+(node:29145) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ record decoder preserves complete framing precedence and exact historical refusals (2.264ms)
+✔ record decoder preserves UTF-8 replacement, offset views and physical-prefix identity (0.758458ms)
+﹣ material cold history above Node string length decodes by record with unchanged identities (0.0365ms) # explicit material-memory selection required
+✔ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (336.039875ms)
+ℹ {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+✔ physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences (52.715709ms)
+✔ nearest malformed body references refuse before logical history is exposed (69.456917ms)
+✔ reused cold bodies still require each new envelope identity, stamp, cause and logical digest (50.612125ms)
+✔ independently supplied mutable raw input remains detached at event admission (13.288542ms)
+✔ literal marker-shaped Product data and small duplicate values remain unambiguous (28.64375ms)
+✔ failed durable batch discards new inline sources; committed same-batch references survive reopen (26.442375ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 2517.036667

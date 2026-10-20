@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "completedAt": "2026-10-02T01:42:44.865Z",
+  "elapsedMs": 14599.402916000001,
+  "lockId": "product-lock://abiogenesis/6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544",
+  "products": [
+    {
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "productContentDigest": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5"
+    },
+    {
+      "productId": "product://abiogenesis-fixture/f11-carrier/fixture@5",
+      "productContentDigest": "sha256:3362ff727d98b0d1488c1f442dee7efced55721400fa9034d78ce196dc88eb9c"
+    }
+  ]
+}

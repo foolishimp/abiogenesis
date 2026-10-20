@@ -1,0 +1,33 @@
+{"label":"read-assessment-run_result","definitionKey":{"operationId":"abg.operation.project.read","memberKey":"run_result"},"invocation":{"ref":"invocation://abiogenesis/11d68925045f161851a9f76b3902093fb91e648ef5c818646dbab2a5ee0446c7","digest":"sha256:11d68925045f161851a9f76b3902093fb91e648ef5c818646dbab2a5ee0446c7"},"selectedBytes":545,"serializedCallBytes":null,"fullCallDiagnosticSerialization":false,"diagnosticSerializationMs":0.004499999999097781,"newEventBytes":0,"transportAndHandoffRetentionMs":404.9577500000014,"currentRssBytes":1981153280,"currentHeapUsedBytes":1545922408,"peakRssBytes":1981153280,"rssMeasurement":"process cumulative high water at phase end","outcomeKind":"result","exitCode":0,"outcomeCode":null,"valueDigest":"sha256:9f60098962314342d9432e4337a48d8707966c7f9e0d27caa7bbf95cdd5e0d90","prefixDigest":"sha256:6413a90729724b9f2c41d55fadcb4901b31dbe9649d3314451346206294c45ae","realProviderCalls":0}
+✖ fresh process Public Result/replay retain original producers (20996.734709ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21258.232959
+
+✖ failing tests:
+
+test at test_env/tests/t287-installed-qualification-conservation.test.mjs:347:1
+✖ fresh process Public Result/replay retain original producers (20996.734709ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'sha256:66f56a9686a8bee5008890000df31cfb80a9a2dc5664d5ff8a747fc73ba65453'
+  - 'sha256:f98ea2337df9d66a896bb6b7d291b4a0a5c2d4a7667abf72563709a5d58b7064'
+  
+      at freshRead (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/consumer/test_env/support/installed-qualification-conservation.mjs:486:10)
+      at async cold (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs:339:16)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs:350:78)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'sha256:66f56a9686a8bee5008890000df31cfb80a9a2dc5664d5ff8a747fc73ba65453',
+    expected: 'sha256:f98ea2337df9d66a896bb6b7d291b4a0a5c2d4a7667abf72563709a5d58b7064',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

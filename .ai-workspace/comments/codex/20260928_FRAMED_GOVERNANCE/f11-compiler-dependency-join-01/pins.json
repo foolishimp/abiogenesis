@@ -1,0 +1,36 @@
+{
+  "activation": "T287_F11_COMPILER_DEPENDENCY_JOIN_01",
+  "sourceFreezeSHA256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+  "sourceDevelopmentDependencies": [
+    {
+      "package": "typescript",
+      "version": "5.9.2",
+      "prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/staged-repo/build_tenants/abiogenesis/typescript/node_modules/typescript",
+      "files": 132,
+      "bytes": 23622869,
+      "recordSetSHA256": "d8357fa12e6b1e38fe2879c35a084dc2e7b1513bcaa2e822fe28edbf7e1e07b5",
+      "recipe": "SHA256 of UTF8 JSON sorted object keys and compact separators, original exact C02 freeze row order, full rows"
+    },
+    {
+      "package": "@types/node",
+      "version": "24.3.0",
+      "prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/staged-repo/build_tenants/abiogenesis/typescript/node_modules/@types/node",
+      "files": 67,
+      "bytes": 2406623,
+      "recordSetSHA256": "9c8908953029ecf9bcde30b1f7c7b71e5f178def67caae351c373944154351d0",
+      "recipe": "SHA256 of UTF8 JSON sorted object keys and compact separators, original exact C02 freeze row order, full rows"
+    },
+    {
+      "package": "undici-types",
+      "version": "7.10.0",
+      "prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/staged-repo/build_tenants/abiogenesis/typescript/node_modules/undici-types",
+      "files": 44,
+      "bytes": 104501,
+      "recordSetSHA256": "048db2f2d28c66567245dce086d1db8998b8095e6db82228c86272765b22462b",
+      "recipe": "SHA256 of UTF8 JSON sorted object keys and compact separators, original exact C02 freeze row order, full rows"
+    }
+  ],
+  "sourceChange": false,
+  "runtimeChange": false,
+  "RootRoutingMiss": true
+}

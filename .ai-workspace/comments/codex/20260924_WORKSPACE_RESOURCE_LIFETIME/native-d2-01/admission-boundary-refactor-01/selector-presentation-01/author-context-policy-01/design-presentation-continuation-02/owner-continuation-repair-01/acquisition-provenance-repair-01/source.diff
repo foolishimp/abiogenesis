@@ -1,0 +1,118 @@
+--- a/code/src/abg/worksite_revision.ts
++++ b/code/src/abg/worksite_revision.ts
+@@ -32,7 +32,7 @@
+ import { projectRuntimeEventFromValidatedHistory, type RuntimeEvent } from "./event_store.js";
+ import { projectWorksiteTransitionForResult, deriveRuntimeEventCalculusProjection, holdsAt,
+   constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
+-import type { ExecutionBasis } from "./execution_basis.js";
++import type { ChildExecutionBasisInput, ExecutionBasis } from "./execution_basis.js";
+ import { readFileSync, lstatSync, realpathSync } from "node:fs";
+ import { resolve, relative, isAbsolute } from "node:path";
+ 
+@@ -409,7 +409,8 @@
+ /** One selected native D2 admission gate, shared by new actions, child bases
+  * and later assembly. Raw kind strings cannot select an owner or grant. */
+ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeEventPrefix,graphFunction:Readonly<GraphFunction>,
+-  input:unknown,currentBinding:WorkspaceBinding):"not_applicable"|"covered"|"basis_fork_detected" {
++  input:unknown,currentBinding:WorkspaceBinding,
++  admittedInput?:Pick<ChildExecutionBasisInput,"admittedInputRef"|"admittedInputDigest">):"not_applicable"|"covered"|"basis_fork_detected" {
+   if(graphFunction.declarations["abg.semantic_revision_history"]!==SEMANTIC_REVISION_IDS.historicalOwnerDependencyRef)return "not_applicable";
+   try {
+     const nativeRequest = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
+@@ -418,9 +419,14 @@
+       if (!same(native.workspaceBinding,currentBinding)) return "basis_fork_detected";
+       const {acquisition:_acquisition,...retained} = native;
+       const prepared = {kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:nativeRequest.parent,causes:nativeRequest.causes,currentWorksite:null,nativeWorksite:retained};
+-      const sources = native.acquisition === undefined ? runtimeEventsFromValidatedPrefix(prefix).flatMap(event=>{
++      const events = runtimeEventsFromValidatedPrefix(prefix);
++      const sources = native.acquisition === undefined ? events.flatMap(event=>{
++        // Child admission already names its producer. Equal acquisitions in
++        // other Runs are not competitors for that exact admitted input.
++        if(admittedInput!==undefined && (!record(event.payload) || event.payload.resultRef!==admittedInput.admittedInputRef ||
++          event.payload.valueDigest!==admittedInput.admittedInputDigest))return [];
+         if(event.kind!=="c_call_result_admitted"||!record(event.payload)||!same(event.payload.value,prepared))return [];
+-        const c=coordinateFor(runtimeEventsFromValidatedPrefix(prefix),event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
++        const c=coordinateFor(events,event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
+         return state===null?[]:[state];
+       }) : [projectWorksiteRevisionNativeResult(prefix,native.acquisition)];
+       return sources.length===1 && sources[0]?.cCall.implementationRef===SEMANTIC_REVISION_IDS.nativeIntakeImplementationRef &&
+--- a/code/src/abg/execution_basis.ts
++++ b/code/src/abg/execution_basis.ts
+@@ -2309,7 +2309,7 @@
+       { ref: parent.workspaceBindingId, digest: parent.workspaceBindingDigest });
+     if (currentEnvironment.kind !== "exact_prefix_workspace_environment" ||
+       worksiteRevisionEntryBindingDisposition(authorityPrefix, input.graphFunction, rawInputValue,
+-        currentEnvironment.workspaceBinding) === "basis_fork_detected") {
++        currentEnvironment.workspaceBinding, input) === "basis_fork_detected") {
+       return childRefusal("basis_fork_detected", "selected D2 child lacks exact native binding correspondence");
+     }
+   }
+--- a/test_env/tests/d2-binding-transition.test.mjs
++++ b/test_env/tests/d2-binding-transition.test.mjs
+@@ -2,6 +2,66 @@
+ import test from 'node:test';
+ import {bindingHarness} from '../support/d2-binding-harness.mjs';
+ import {workflowStepHarness} from '../support/d2-workflow-step-harness.mjs';
++
++test('native acquisition child uses its exact admitted input when another Run acquired equal content',async t=>{
++  const h=await bindingHarness(),current=h.stage.worksite;
++  // Pure admitted-context/source premises. The existing harness supplies basis,
++  // install and final CCall-outcome lookups; this is not a physical acquisition.
++  const contextBody={workspaceAuthorityBasisRef:current.workspaceAuthorityBasis.authorityBasisId,
++    workspaceAuthorityBasisDigest:current.workspaceAuthorityBasis.authorityBasisDigest,
++    workspaceBindingIdentity:current.workspaceBinding.bindingId,workspaceBindingDigest:current.workspaceBinding.bindingDigest,
++    readRoots:['.'],maxFiles:1,maxBytes:0,entries:[{relativePath:'.',state:'directory',fileIdentity:'component:directory',members:[]}]};
++  const contextDigest=h.hash(contextBody),context={kind:'worksite_context_observation',schemaVersion:'5.0.0',...contextBody,
++    observationRef:'worksite-context-observation://abiogenesis/'+contextDigest.slice(7),observationDigest:contextDigest};
++  const {ROOT_EVENT_CONTRACT_DIGEST}=await import('../../build/code/src/abg/event_store.js');
++  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,
++    prefixDigest:h.hash('component source prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST}};
++  const source={kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun:{ref:'run://component/source',digest:h.hash('source Run')},
++    sourcePrefix:{...prefixBody,coordinateDigest:h.hash(prefixBody)}};
++  const input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[h.cause.coordinate],currentWorksite:null,
++    nativeWorksite:{kind:'native_semantic_revision_worksite',workspaceAuthorityBasis:current.workspaceAuthorityBasis,workspaceBinding:current.workspaceBinding,
++      capabilityGrant:current.capabilityGrant,context,commandExecutionLimits:{inactivityTimeoutMs:300000,absoluteTimeoutMs:900000},construction:null,source}};
++  assert(h.product.isSemanticRevisionSelectionInput(input));
++  const acquire=name=>h.addCall(name,structuredClone(input),{input:source,worksite:current,invocation:'invocation://component/'+name,
++    implementation:h.R.nativeIntakeImplementationRef,regime:'F_D',deterministic:true});
++  const coordinate=call=>({admittedInputRef:call.coordinate.resultRef,admittedInputDigest:h.hash(call.value)});
++  const gate=(call,changes={})=>h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,current.workspaceBinding,{...coordinate(call),...changes});
++  const rawGate=()=>h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,current.workspaceBinding);
++  const first=acquire('first-acquisition');assert.equal(gate(first),'covered');assert.equal(rawGate(),'covered');
++  const second=acquire('second-acquisition');assert.notEqual(first.opened.runId,second.opened.runId);
++  assert.deepEqual(first.value,second.value);assert.notEqual(first.coordinate.resultRef,second.coordinate.resultRef);
++  assert.equal(gate(second),'covered','equal historical acquisition cannot replace the exact current producer');
++  assert.equal(gate(first),'covered','the exact coordinate is used, not the latest equal value');
++  assert.equal(rawGate(),'basis_fork_detected','raw ambiguous value still cannot select a producer');
++  assert.equal(gate(second,{admittedInputRef:'result://component/absent'}),'basis_fork_detected');
++  assert.equal(gate(second,{admittedInputRef:h.parent.coordinate.resultRef}),'basis_fork_detected');
++  assert.equal(gate(second,{admittedInputDigest:h.hash('wrong input digest')}),'basis_fork_detected');
++  assert.notEqual(second.coordinate.resultDigest,h.hash(input),'Result identity is not input content identity');
++  assert.equal(gate(second,{admittedInputDigest:second.coordinate.resultDigest}),'basis_fork_detected');
++  const changedBinding=h.operating(current,'changed-binding').workspaceBinding;
++  assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,changedBinding,coordinate(second)),'basis_fork_detected');
++  for(const [object,key,value]of [
++    [second.fibre.payload,'callClass','workflow'],[second.result,'runId','run://component/crossed'],
++    [second.fibre.payload,'implementationRef','implementation://component/foreign'],
++    [second.result.payload,'resultClass','failure'],[second.judged.payload,'judgment','blocked'],
++  ]){
++    const old=object[key];object[key]=value;
++    assert.equal(gate(second),'basis_fork_detected',key+' remains authenticated; no fallback to the other equal acquisition');
++    object[key]=old;
++  }
++  const otherInput={...input,causes:[h.parent.coordinate]},other=h.addCall('different-acquisition',otherInput,
++    {input:source,worksite:current,implementation:h.R.nativeIntakeImplementationRef,regime:'F_D',deterministic:true});
++  assert.equal(gate(other),'basis_fork_detected','an authentic differently-valued producer cannot supply this input');
++  assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,JSON.parse(JSON.stringify(input)),
++    current.workspaceBinding,JSON.parse(JSON.stringify(coordinate(second)))),'covered','cold values undergo the same owner relation');
++  const request={kind:'semantic_revision_request',schemaVersion:'5.0.0',parent:input.parent,causes:input.causes,selection:h.cause.coordinate,
++    currentWorksite:null,nativeWorksite:{...input.nativeWorksite,acquisition:second.coordinate}};
++  assert(h.product.isSemanticRevisionRequest(request));
++  assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,request,current.workspaceBinding),'covered',
++    'the existing request acquisition coordinate remains the authority for later consumers');
++  assert.equal(gate(second),'covered');assert.equal(h.physicalReads,0);
++  t.diagnostic('Real binding/native-leaf projection with explicit upstream lookup premises; no journal, actor, physical observation or installed qualification.');
++});
+ 
+ test('mechanical exact cover; unchanged initial observation crosses W only with its actual native coordinates',async()=>{
+   const h=await bindingHarness(),old=h.stage.worksite,current=h.operating(old,'current'),input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[h.cause.coordinate],currentWorksite:current};

@@ -1,0 +1,32 @@
+✔ recursive fixture declares a valid bounded Program with one native selector (7.336083ms)
+✔ receiver counterevidence and unresolved task survive child returns until parent evaluation (1.108583ms)
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (309.55925ms)
+﹣ one installed Public start revises native choice from child evidence and reevaluates its parent (0.310292ms) # SKIP
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 589.005541
+
+✖ failing tests:
+
+test at test_env/tests/t287-recursive-registered-selection.test.mjs:96:1
+✖ authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth (309.55925ms)
+  Error: ENOENT: no such file or directory, scandir '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-LtqRsd/artifacts'
+      at async readdir (node:internal/fs/promises:958:18)
+      at async Object.prepareAdditionalProducts (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/tests/t287-recursive-registered-selection.test.mjs:108:58)
+      at async setupInstalledRootCatalog (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/support/root-installed-environment.mjs:260:7)
+      at async setupInstalledRootInvocation (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/support/root-installed-environment.mjs:612:23)
+      at async setupInstalledRootResolution (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/support/root-installed-environment.mjs:835:23)
+      at async setupInstalledRootExecutionBasis (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/support/root-installed-environment.mjs:996:23)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/baseline/test_env/tests/t287-recursive-registered-selection.test.mjs:104:15)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-LtqRsd/artifacts'
+  }

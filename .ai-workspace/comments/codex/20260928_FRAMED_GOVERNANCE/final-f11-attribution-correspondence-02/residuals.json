@@ -1,0 +1,128 @@
+{
+  "status": "bounded_input_cut_complete_dependent_claims_open",
+  "residuals": [
+    {
+      "id": "selected-action07-performance-actor",
+      "status": "missing_source_grounded_performance_correspondence",
+      "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "scopeRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs"
+      ],
+      "exactOriginals": [
+        {
+          "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt"
+        },
+        {
+          "preimageRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages.json"
+        },
+        {
+          "deltaRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch"
+        },
+        {
+          "closureRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json"
+        }
+      ],
+      "originalSpans": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "startByte": 0,
+          "endByte": 456,
+          "spanDigest": "sha256:b905d64148109bbe285a0d309a5fcd5a2e28a5296d1baa075c7585061b5037b0"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+          "startByte": 0,
+          "endByte": 433,
+          "spanDigest": "sha256:d55876c5c8b539acb9b68c6f456eb3b1d1ce52abce57f54718d83a90daa99c99"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+          "startByte": 0,
+          "endByte": 1368,
+          "spanDigest": "sha256:6922a30d72842443da26d82d1bf1d5734b24ecfcff5c5e9f47fab51be8190efa"
+        }
+      ],
+      "presentAccounts": {
+        "kind": "present_retrospective_source_statement",
+        "recordRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/record.json",
+        "accountRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/selected-action-account.md",
+        "freezeRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json",
+        "recordedDate": "2026-09-30",
+        "recordingActor": "/root",
+        "actualAddressedAgent": "/root/selected_action",
+        "supportsOperationPerformance": false,
+        "supportsAssignmentCorrespondence": true,
+        "separateSessionIdentifier": null,
+        "nativeABGAttribution": false,
+        "productOwnerAuthority": null,
+        "limit": "New source-grounded statement retained with exact originals. No recovered contemporaneous dispatch transcript, historical rewrite, native event, authority grant or independent assessment."
+      },
+      "missingObservation": "A truthful operation-to-performing-actor correspondence for the exact selected-action07 patch and four retained endpoints. The known present account establishes assignment only, and Root lacks a retained direct past dispatch/tool observation establishing performance. No further identity is inferred.",
+      "unavailableSessionId": null,
+      "nextLawfulRoute": "Acquire an actually supported narrowly routed performance/grant record or retain insufficient attribution for the existing scoped present-owner route after valid correspondence. No broad historical census, fabricated identifier or automatic acknowledgment."
+    },
+    {
+      "id": "all-three-product-authority-correspondence",
+      "status": "unestablished",
+      "publishedSlot": "actor-capability://abiogenesis/qualification/product-owner@5",
+      "originalGrantSpans": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+          "startByte": 0,
+          "endByte": 7917,
+          "spanDigest": "sha256:78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "startByte": 0,
+          "endByte": 8724,
+          "spanDigest": "sha256:b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+          "startByte": 0,
+          "endByte": 7347,
+          "spanDigest": "sha256:4c48aa2fd7d4112bcc2a6fd9025ae9b82c64395134b517d28033dd2c7faf2cdd"
+        }
+      ],
+      "missingObservation": "Authentic correspondence from the actual source grants/authorized owner to the published Product authority slot. The constant and Root work delegation alone do not establish that relation.",
+      "nextLawfulRoute": "Actual source-grounded grant/identity assessment, or the existing conditional scoped F_H attribution acknowledgment when applicable; no universal owner acknowledgment and no request made here."
+    },
+    {
+      "id": "attribution-assessment-and-independence",
+      "status": "not_executed",
+      "missingObservation": "An actual admitted assessor with the published role, real transport/grant and sufficient source-grounded J over the relevant semantic author relation. Compare the actual actor with established authors and peers; operation labels and empty raw attributions cannot prove independence.",
+      "nativeJudgments": 0,
+      "authorityOrIndependenceWaiver": false
+    },
+    {
+      "id": "successor-member-binding",
+      "status": "deliberately_unbound",
+      "oldBinding": {
+        "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+        "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+      },
+      "DMemberCount": 3,
+      "successorInventory": null,
+      "missingObservation": "A separately CLOSED and explicitly routed successor source/inventory/material basis and current grant selecting it. Verify all eleven member identities at that basis before carrying forward any correspondence; old C/Q and D source cuts remain distinct.",
+      "preconditions": [
+        "Reacquire exact CLOSED successor and source-member identities under a separate grant",
+        "Verify the old eight survive unchanged and the D three match their closed repair endpoints; affected differences require their own actual relation",
+        "Select actual task rule/surface/criterion scope and adequate material before constructing complete provenance",
+        "Conserve current record-set identities or calculate new identities for explicitly changed records",
+        "Obtain required attribution/authority and actual native assessor independence; do not turn these partial diagnostics into ready tasks"
+      ],
+      "excludedWork": [
+        "whole-inventory preservation/generated/Q-control chains",
+        "remaining eighteen source acquisitions",
+        "final source inventory and scope material adequacy",
+        "seven seeds",
+        "native assessment/F_H/AF22 or release"
+      ]
+    }
+  ],
+  "requestToUser": null
+}

@@ -1,0 +1,37 @@
+{
+  "status": "FROZEN caller-only correction",
+  "model": "astra",
+  "effort": "xhigh",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/construct.mjs",
+      "sha256": "94cce2d07977757fd11d3ac400ec09d844bb4e2662339b3dfbb3ea55991d584d",
+      "bytes": 7575
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/intake-start.jsonl",
+      "sha256": "8e15a61aaa5e38dd8d61d82e6f52b87a10ec6277b7bdb1862d4f8e22259b60bd",
+      "bytes": 26393298
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/native-prepared.json",
+      "sha256": "e95e96a8977978bbc8345feb0cce1ffa4d86a700abdce9a04821cd4e7f871fe5",
+      "bytes": 6434
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/basis-reference.json",
+      "sha256": "4284e96fa45ae7b59bc8347ec909f3a3499bc53936fc16ce8cfe5b72e585b2af",
+      "bytes": 400
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/constructor-checks.json",
+      "sha256": "7c1a1ce49facbfc803f9aa830a39934515850350a413bcec4edcb00d2c37d4f6",
+      "bytes": 4367
+    }
+  ],
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/review.md",
+    "sha256": "df32ff8a0edf58cfe2c90c65f9c3e854362cc58b1b79bcc4daa66cafe267ca89"
+  },
+  "runtimeEffects": false
+}

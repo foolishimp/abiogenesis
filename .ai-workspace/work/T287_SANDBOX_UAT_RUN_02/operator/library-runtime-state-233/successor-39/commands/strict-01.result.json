@@ -1,0 +1,18 @@
+{
+  "kind": "isolated_strict_runtime_dependency_compile",
+  "sourceCut": 39,
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "--project",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/tsconfig-01.json"
+  ],
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 6598.778458000001,
+  "sourceFiles": 264,
+  "input": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-39/inputs-01.json",
+  "limits": [
+    "Source-only; no normal generation/package/installed/runtime qualification"
+  ]
+}

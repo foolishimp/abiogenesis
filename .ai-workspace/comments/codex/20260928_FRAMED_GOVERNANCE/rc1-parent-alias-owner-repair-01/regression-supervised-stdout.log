@@ -1,0 +1,12 @@
+(node:75833) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native parent alias conserves the original child/J and rejects crossed provenance and competing producers (4890.725667ms)
+ℹ {"status":"PASS_COMPONENT_ONLY","parentCCallRef":"c-call:sha256:2d7e0b378d3b174c7b787e33e7d12bfeb7205e63275578dde4fa216970ab0d08","originalChildCCallRef":"c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c","originalChildResult":{"ref":"result://abiogenesis/81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4","digest":"sha256:81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4"},"parentResult":{"ref":"result://abiogenesis/d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee","digest":"sha256:d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee"},"parentBodyReferenceDecoded":true,"directChildPreserved":true,"aliasOriginalProducerCount":1,"sourceCursor":{"ref":"traversal-cursor://abiogenesis/9bb76415b4669383c06b37e56112470acdd8bb733462befa97246d22515c0193","digest":"sha256:9bb76415b4669383c06b37e56112470acdd8bb733462befa97246d22515c0193"},"parentGraphFunction":"graph-function://abiogenesis-fixture/f11-carrier/parent@5","negatives":[{"name":"missing foldback","refusal":{"name":"TypeError","message":"runtime event-prefix selection requires one explicit immutable snapshot"},"lowerPremise":"counterfactual event read supplied; no native admission"},{"name":"crossed child graph call","refusal":{"name":"TypeError","message":"runtime event-prefix selection requires one explicit immutable snapshot"},"lowerPremise":"counterfactual event read supplied; no native admission"},{"name":"crossed child result","refusal":{"name":"TypeError","message":"runtime event-prefix selection requires one explicit immutable snapshot"},"lowerPremise":"counterfactual event read supplied; no native admission"}],"competitionLowerPremise":"existing finite synthetic admitted-lookup fixture","resourceLowerPremise":"Only immutable declaration-proof lookup is supplied for the retained reference task; full 504760365-byte resource assembly and semantic adequacy are outside this focused proof.","RuntimeAdmissions":0,"providerCalls":0,"qualificationCredit":false,"elapsedMs":4889.672417,"maxRSSBytes":879181824}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4939.331167

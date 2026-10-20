@@ -1,0 +1,20 @@
+Activation and outcome
+T287_F11_LAW_INDEPENDENT_REVIEW_01; actor /root/rc1_successor_preflight; Reviewer read-only source. Independently assess the closed realization_refactor for exact selected-law staging and reproduction, so successor construction can use RC2 without relabeling old C02 or repinning unchanged runtime substrate.
+
+Product and exact basis
+Independently reacquire README, specification/GOALS.md, INTENT.md, PRODUCT.md and relevant SELF-CONFORMANCE/QUAL requirements before findings. Reconstruct Product Frame: fixed 15 ABG5 families; active GOAL-035/T287 F11/F15/F16, complete exact-subject qualification. GTL declares, HoG traverses, existing leaves effect, ABG alone admits, replay projects. Governing development law stdo://releases/v2.5.1-rc.2/, Definition SHA eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c, manifest 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782. C02/Q02 and accepted Hello/S02 evidence retain their exact original subjects and RC1 law. No private writer/controller/store/cache, weakened scope, invented authority or component-pass qualification.
+
+Selected reference frames
+repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration composed with Product/Owner, Design, Identity/Install and Proof. Bind exact workspace variables, earliest violated relation, supported joint cause, escape cause, cone, owner/reentry and reproof. Frame names alone are not triage.
+
+Exact subject and source routes
+Generator source SHA0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435; focused law test SHAae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6; law freezea4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872.
+
+Permitted effects and territory
+Read only the two source postimages, exact delta, frozen law-stage return/test evidence, relevant requirements and actual selected RC2 manifest/Definition. Optional new f11-law-stage-repair-review-01/ report territory only after explicit separate Writer/report activation. Nonmutating inspection and bounded read-only calculations allowed; no tests which write to ambient outputs, model/provider/network/Git/build/package effects. Existing 24,860-row frozen environment is evidence, not a demand to duplicate it.
+
+Evidence, counterexamples and stops
+Conjoin identity/integration/install/proof: derive release/version from exact selected Definition and verified supplied manifest, no replacement defaults; manifest/member-set/source-span correspondence; prewrite refusal including crossed release despite recomputed manifest hash; original RC1 byte-exact reproduction; stable ordinary generation from frozen inputs; current RC2 selected refs through all generated law/coverage/source spans. Inspect fixture failures vs source behavior and preserve actual limits. Return approval or severity-ranked concrete counterexamples, impacted sunny-day boundary, smallest repair and required reproof. Native assessment, carrier HOW, source candidate build and release remain separate. Stop on actual subject drift; preserve conflicts and uncertainty. Restricted native DNS is independent and cannot justify an invented pass or networking bypass.
+
+Return and independence
+Return CLOSED to Executive with Product Frame, exact subject/source verification, findings/verdict, design or source readiness, exclusions and affected proof. Do not repair or activate another actor. Freeze any new report cut and stop writes. Existing owner grant to fix and close5.0 remains active; this review adds no Product goal or exhaustive campaign.

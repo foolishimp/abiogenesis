@@ -1,0 +1,152 @@
+▶ physical managed dependency material must match the selected immutable Product lock
+  ✖ correct physical dependency succeeds and ordinary import consumes it (140.112625ms)
+  ✖ same-name/version old payload under the current lock refuses (138.455958ms)
+  ✖ missing managed dependency refuses (140.373667ms)
+  ✖ crossed Product identity under the selected package name refuses (141.810625ms)
+  ✖ a matching self-reported manifest cannot hide changed physical payload (270.281833ms)
+  ✖ selected transitive managed dependency also requires physical correspondence (283.163083ms)
+{"proof":"installed_dependency_lock","scratch":"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/fixtures/installed-dependency-lock-zU1Qhc","observations":[],"limits":"No native/source-use/UAT qualification"}
+✖ physical managed dependency material must match the selected immutable Product lock (1562.096709ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1708.431292
+
+✖ failing tests:
+
+test at test_env/tests/t287-installed-dependency-lock.test.mjs:117:11
+✖ correct physical dependency succeeds and ordinary import consumes it (140.112625ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"environment_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"unresolved_dependency","message":"resolved native meaning requires one exact ABIogenesis toolchain Product"}
+  + actual - expected
+  
+  + 'environment_refusal'
+  - 'resolved_product_lock'
+  
+      at installCase (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:94:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:117:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'environment_refusal',
+    expected: 'resolved_product_lock',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-installed-dependency-lock.test.mjs:118:11
+✖ same-name/version old payload under the current lock refuses (138.455958ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"environment_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"unresolved_dependency","message":"resolved native meaning requires one exact ABIogenesis toolchain Product"}
+  + actual - expected
+  
+  + 'environment_refusal'
+  - 'resolved_product_lock'
+  
+      at installCase (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:94:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:118:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'environment_refusal',
+    expected: 'resolved_product_lock',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-installed-dependency-lock.test.mjs:119:11
+✖ missing managed dependency refuses (140.373667ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"environment_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"unresolved_dependency","message":"resolved native meaning requires one exact ABIogenesis toolchain Product"}
+  + actual - expected
+  
+  + 'environment_refusal'
+  - 'resolved_product_lock'
+  
+      at installCase (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:94:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:119:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'environment_refusal',
+    expected: 'resolved_product_lock',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-installed-dependency-lock.test.mjs:120:11
+✖ crossed Product identity under the selected package name refuses (141.810625ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"environment_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"unresolved_dependency","message":"resolved native meaning requires one exact ABIogenesis toolchain Product"}
+  + actual - expected
+  
+  + 'environment_refusal'
+  - 'resolved_product_lock'
+  
+      at installCase (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:94:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:120:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'environment_refusal',
+    expected: 'resolved_product_lock',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-installed-dependency-lock.test.mjs:122:11
+✖ a matching self-reported manifest cannot hide changed physical payload (270.281833ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"environment_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"unresolved_dependency","message":"resolved native meaning requires one exact ABIogenesis toolchain Product"}
+  + actual - expected
+  
+  + 'environment_refusal'
+  - 'resolved_product_lock'
+  
+      at installCase (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:94:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:128:36)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:122:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'environment_refusal',
+    expected: 'resolved_product_lock',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-installed-dependency-lock.test.mjs:135:11
+✖ selected transitive managed dependency also requires physical correspondence (283.163083ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"environment_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"unresolved_dependency","message":"resolved native meaning requires one exact ABIogenesis toolchain Product"}
+  + actual - expected
+  
+  + 'environment_refusal'
+  - 'resolved_product_lock'
+  
+      at installCase (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:94:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:140:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:135:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'environment_refusal',
+    expected: 'resolved_product_lock',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

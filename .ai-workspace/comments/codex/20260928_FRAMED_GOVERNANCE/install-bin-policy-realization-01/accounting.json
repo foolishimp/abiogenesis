@@ -1,0 +1,84 @@
+{
+  "compile": {
+    "mode": "compile",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/source-freeze/toolchain/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "pid": 34769,
+    "processGroup": 34769,
+    "startedAt": "2026-10-02T01:41:19.632868+00:00",
+    "closedAt": "2026-10-02T01:41:25.722245+00:00",
+    "elapsedMs": 6089.623082894832,
+    "exitCode": 0,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "parentWait4Reaped": true,
+    "processGroupAfterWait": "absent",
+    "peakRSSBytes": 1098743808,
+    "userSeconds": 10.049583,
+    "systemSeconds": 0.22581299999999999,
+    "nominalCompletionObserved": false,
+    "installCompletionObserved": false,
+    "unknownChildren": "npm is awaited by unchanged owner execFile completion; individual npm PID not enumerated; process group probe records entire observed group boundary"
+  },
+  "readiness": {
+    "mode": "readiness",
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/source-freeze/toolchain/bin/node",
+      "readiness-check.mjs"
+    ],
+    "pid": 35510,
+    "processGroup": 35510,
+    "startedAt": "2026-10-02T01:42:30.242326+00:00",
+    "closedAt": "2026-10-02T01:42:50.381939+00:00",
+    "elapsedMs": 20140.31962491572,
+    "exitCode": 0,
+    "timedOut": false,
+    "deadlineReason": null,
+    "termMonotonic": null,
+    "killMonotonic": null,
+    "parentWait4Reaped": true,
+    "processGroupAfterWait": "absent",
+    "peakRSSBytes": 1628995584,
+    "userSeconds": 23.879096,
+    "systemSeconds": 4.882376,
+    "nominalCompletionObserved": true,
+    "installCompletionObserved": true,
+    "unknownChildren": "npm is awaited by unchanged owner execFile completion; individual npm PID not enumerated; process group probe records entire observed group boundary"
+  },
+  "actualExecutionElapsedMs": 26229.94270781055,
+  "hostileAmbientBinLinks": "true",
+  "ownedBinLinksCLI": "false",
+  "actualNpmCommands": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/task-cache/_logs/2026-10-02T01_42_44_964Z-debug-0.log",
+      "sha256": "e964ced7aecdb7eb6962d2be4d623f2616996bbbe275fbc85b6dab96abc7d3a6",
+      "observedArguments": [
+        "8 verbose argv \"install\" \"--bin-links\" \"false\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--offline\" \"--package-lock\" \"true\" \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz\""
+      ],
+      "toolVersions": [
+        "1 info using npm@11.5.1",
+        "2 info using node@v24.7.0"
+      ],
+      "exit": [
+        "24 verbose exit 0"
+      ]
+    }
+  ],
+  "positivePortCalls": 1,
+  "ABGInstalls": 0,
+  "providerCalls": 0,
+  "qualificationCredit": false,
+  "negativeChecks": 2,
+  "nativeOrHistoryOrHelloReruns": 0,
+  "defaultHeapUnchanged": true,
+  "HOMEUnchanged": true,
+  "knownProcessGroupsClosed": true,
+  "unknownChildren": "individual npm child PID not enumerated; unchanged owner awaited execFile and whole observed group is absent after main wait4",
+  "preparationRouteMiss": "preserved; Root selected actual producer tool route before continuing; no repeated executed work"
+}

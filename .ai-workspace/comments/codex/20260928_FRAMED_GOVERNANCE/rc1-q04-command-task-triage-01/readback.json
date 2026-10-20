@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-command-task-triage-01/received-independent-review.md",
+    "bytes": 2722,
+    "sha256": "5f76804f431e38d3eba3ed5f13f0a125dfec117c5302bd9416aeb9054cc1953c"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-command-task-triage-01/triage.md",
+    "bytes": 3617,
+    "sha256": "95410f39d336fa5d5a318274bab837db3ad55abe1670f7a17bec07a54dc734b2"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-command-task-triage-01/source-pins.json",
+    "bytes": 983,
+    "sha256": "ff1c729f1d6a0e5855cb05b22de4778ab1e224497049b1a989b29d473d3e7266"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 470013,
+    "sha256": "8245d985be24957a887a44c4d435b1b8d5e3616f1cb74851bb70fb27c78eb34b"
+  }
+]

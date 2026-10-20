@@ -1,0 +1,11 @@
+{
+  "origin": "first readiness preparation before identity/return/freeze writes",
+  "exception": "AssertionError: len(all build *.d.ts)==263",
+  "actual": {
+    "code": 263,
+    "toolchain": 205,
+    "total": 468,
+    "predecessorEqualsSuccessor": true
+  },
+  "correction": "263 is code/src declaration population. Compare all468 build declarations, preserving explicit263code count. No package member/source/identity change."
+}

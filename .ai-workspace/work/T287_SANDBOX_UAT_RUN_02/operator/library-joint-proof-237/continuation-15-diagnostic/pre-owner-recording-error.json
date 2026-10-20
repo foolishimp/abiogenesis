@@ -1,0 +1,20 @@
+{
+  "kind": "pre_owner_recording_error",
+  "operation": "record diagnostic inputs; helper pin comparison",
+  "unsupportedExpected": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/helpers/public-setup.mjs",
+    "sha256": "29abada29bbf76a409db90e24aacb7af62a5d26303d11cc081c97ae27bd18c73d",
+    "byteCount": 27984
+  },
+  "actual": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/helpers/public-setup.mjs",
+    "sha256": "29abada25c16efff12bbd7bf995645e3aa68bb043eb59d67c988311a705aac18",
+    "byteCount": 27984
+  },
+  "errorClass": "AssertionError",
+  "cause": "Manually expanded an abbreviated helper hash instead of selecting the complete literal frozen pin.",
+  "completed": "Empty new diagnostic directory only; input write was after failed assertion and did not execute.",
+  "acquisitions": 0,
+  "resourceOrNativeEffects": 0,
+  "selectedCorrection": "Use literal helper reference in frozen15, with unchanged bytes and no resource retry."
+}

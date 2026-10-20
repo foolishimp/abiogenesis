@@ -1,0 +1,234 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "priorFrozenSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/freeze.json",
+    "bytes": 1077414,
+    "sha256": "434b7ddcff2da1b4948de069e000c4f2d00d487012b822a42bf83d3d1e2ceee1"
+  },
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "relativePath": "code/src/abg/m03.ts",
+      "byteCount": 527,
+      "sha256": "2e30ad02228e7e99182e3a684810afe0296abd2439b44adbb44b1561a1c6a32a",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 527,
+        "sha256": "2e30ad02228e7e99182e3a684810afe0296abd2439b44adbb44b1561a1c6a32a"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+      "relativePath": "code/src/gtl/c_algebra.ts",
+      "byteCount": 21915,
+      "sha256": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 21915,
+        "sha256": "fe2b87a95728908807ff20fdba7b312a3e9a3ea32db8e873163ac24ef97b3583"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "relativePath": "code/src/gtl/contracts.ts",
+      "byteCount": 8897,
+      "sha256": "3e02aa184302fd3a38ba54bf3a63a9bbc30c8a0662aae5bda6fa09a0f61fdf2d",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 8897,
+        "sha256": "3e02aa184302fd3a38ba54bf3a63a9bbc30c8a0662aae5bda6fa09a0f61fdf2d"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "relativePath": "code/src/gtl/m01.ts",
+      "byteCount": 722,
+      "sha256": "71b67f5d89d683a7fdab6547490b43943a1f65d9fa1b0852e3b1fe67b4d5e078",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 722,
+        "sha256": "71b67f5d89d683a7fdab6547490b43943a1f65d9fa1b0852e3b1fe67b4d5e078"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "relativePath": "code/src/gtl/m02.ts",
+      "byteCount": 374,
+      "sha256": "641ef1e97f3fc133341def23fe61c10039a3e7ae8e4fff3482f9495ffc094615",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 374,
+        "sha256": "641ef1e97f3fc133341def23fe61c10039a3e7ae8e4fff3482f9495ffc094615"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+      "relativePath": "code/src/gtl/serialization.ts",
+      "byteCount": 2389,
+      "sha256": "96fd24a54ced49872c3f83e03e5258059cdc1c0cc7f79841ff205977a79fac97",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 2389,
+        "sha256": "96fd24a54ced49872c3f83e03e5258059cdc1c0cc7f79841ff205977a79fac97"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+      "relativePath": "code/src/gtl/serialization_contracts.ts",
+      "byteCount": 18277,
+      "sha256": "3205a8184b2290de347002122116e8903258bcbc645c3743b4330d773dc27b67",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 18277,
+        "sha256": "3205a8184b2290de347002122116e8903258bcbc645c3743b4330d773dc27b67"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+      "relativePath": "code/src/validator/conformance_operation.ts",
+      "byteCount": 13392,
+      "sha256": "5ac0dfb4c2c0cc7821c7611070d39075d6eb376a544e7b526027a316fe14e2c3",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 13392,
+        "sha256": "5ac0dfb4c2c0cc7821c7611070d39075d6eb376a544e7b526027a316fe14e2c3"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+      "relativePath": "code/src/validator/conformance_operation_contracts.ts",
+      "byteCount": 2999,
+      "sha256": "f310b4d29d5e6778b9c370c96b98458a75c6f229173ab5fb831727495943f527",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 2999,
+        "sha256": "f310b4d29d5e6778b9c370c96b98458a75c6f229173ab5fb831727495943f527"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+      "relativePath": "code/src/validator/raw_admission.ts",
+      "byteCount": 9341,
+      "sha256": "2b53abc5ca6684c78f3106cbcda924944a84519e7244b4683459b89177b6c2a3",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 9341,
+        "sha256": "2b53abc5ca6684c78f3106cbcda924944a84519e7244b4683459b89177b6c2a3"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "relativePath": "code/src/validator/validation.ts",
+      "byteCount": 81770,
+      "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 81770,
+        "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+      "relativePath": "contracts/conformance/gtl-language-conformance-corpus.json",
+      "byteCount": 138448,
+      "sha256": "4ef174f684023199da232f2bd3c3e5f46298c33ed81012a3a9096632f6c480bf",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 138448,
+        "sha256": "4ef174f684023199da232f2bd3c3e5f46298c33ed81012a3a9096632f6c480bf"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "relativePath": "scripts/generate-product-manifest.mjs",
+      "byteCount": 49057,
+      "sha256": "5ab823b9e010d1b57624020b1ea3d1e515bea7c845d123a7e49b26e40e7298aa",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 49057,
+        "sha256": "5ab823b9e010d1b57624020b1ea3d1e515bea7c845d123a7e49b26e40e7298aa"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "relativePath": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "byteCount": 5357,
+      "sha256": "132d1e815b9bb4e4e963bc047235379c996241f5022c4dc47a9ca96b1a20c1b9",
+      "mode": 420,
+      "authoredBy": "T287_G2_GTL_CORE_REALIZATION_01",
+      "writableInRepair": false,
+      "entryPreimage": {
+        "bytes": 5357,
+        "sha256": "132d1e815b9bb4e4e963bc047235379c996241f5022c4dc47a9ca96b1a20c1b9"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "relativePath": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "byteCount": 28414,
+      "sha256": "f203a9e6b1ec2a318551902ea78a2952a259b84aba099500afebcdcee69b49a4",
+      "mode": 420,
+      "authoredBy": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+      "writableInRepair": true,
+      "entryPreimage": {
+        "bytes": 17537,
+        "sha256": "bc9ab45ea3d76bed154458dccba2c8ee398275c70c9bad5dc729fc811ed4a08c"
+      },
+      "writableInContinuation": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "relativePath": "code/src/gtl/stdo_run_environment.ts",
+      "byteCount": 25241,
+      "sha256": "0e1d112eea7d0184ea37b3edcc20b9d425d3eaf1d95e8edc34ae0a52fd0f2f3b",
+      "mode": 420,
+      "authoredBy": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+      "writableInRepair": true,
+      "entryPreimage": {
+        "bytes": 24891,
+        "sha256": "c4d683191cdf1fd8e035488c44fe1ad6fa4f38cd878e6d77dfbe5b89f6e16932"
+      },
+      "writableInContinuation": false
+    }
+  ]
+}

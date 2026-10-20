@@ -1,0 +1,65 @@
+{
+  "kind": "runtime08_result_lineage_projection_diagnostic",
+  "role": "author technical inspection, not independent assurance",
+  "actualEvidenceEventId": "event://abiogenesis/2ab5886f9973cf691482c1086ba273ddc72f6c99f62dbfd53ef02f29cc50cd19",
+  "actualEvidenceAdmissionOrdinal": 46,
+  "actualEvidencePayloadFields": {
+    "inputDigest": "sha256:ec90e8e22f8436784383906dabdc6f02afdb7f15e5a6a258b38d33811633fc85",
+    "actorInvocationRef": "actor-invocation://abiogenesis/962afb543b32cdb3bd5141b152a98db6c45d0e46e60e8e94fcea159c69f8594a",
+    "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+    "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5",
+    "transportBindingRef": "transport-binding://abiogenesis/c404e65130b82248cd1bd4ff8d22582ac2a997d020b3bc7b58d888502fae1a1c",
+    "transportBindingDigest": "sha256:c404e65130b82248cd1bd4ff8d22582ac2a997d020b3bc7b58d888502fae1a1c",
+    "requestDigest": "sha256:14fcf7e282c2fb8fe2e32e8eba4d06894763128c938226a538b02b98a8191cca",
+    "promptDigest": "sha256:bf5e5f24b60bac564aedf73f29876daf24244ad8a407aa1392107348165dc785",
+    "transportDisposition": "success",
+    "transportFailureClass": null,
+    "cCallRef": "c-call:sha256:da48dab94edf7459981c11c57f0d92ff9d450015d4612a9ec86fd72b9f497a22",
+    "evidenceRef": "evidence://abiogenesis/aa15d5ea59900b8120f9f8f817ba892fc59e23325946e7bc9554f418353c494b",
+    "evidenceDigest": "sha256:aa15d5ea59900b8120f9f8f817ba892fc59e23325946e7bc9554f418353c494b",
+    "evidenceClass": "probabilistic_transport",
+    "outputDigest": "sha256:fdb86621c09cf2708cc481e317527a0367b4fd88bee14890da0d71c30252a224",
+    "transportDigest": "sha256:e965fc157943e4bca9cc854d59a36d858e838bf51dcf340b62de5b7984fdb7c2"
+  },
+  "actualFrozenOutcomeProjectionFields": [
+    "cCallRef",
+    "cCallAttempt",
+    "evidenceRef",
+    "evidenceDigest",
+    "evidenceClass",
+    "outputDigest",
+    "transportDigest"
+  ],
+  "absentRequiredProjectionFields": [
+    "inputDigest",
+    "actorInvocationRef",
+    "actorRef",
+    "workerBindingRef",
+    "transportBindingRef",
+    "transportBindingDigest",
+    "requestDigest",
+    "promptDigest",
+    "transportDisposition",
+    "transportFailureClass"
+  ],
+  "decisiveConjunct": {
+    "location": "validator/self_conformance_semantics.ts:113",
+    "expression": "e.inputDigest === value.source.inputDigest",
+    "projectedLeft": "undefined (field absent)",
+    "rightConstraint": "required sha256 digest by QUALIFICATION_JUDGMENT_SCHEMA; producer supplies actual input digest",
+    "actualAdmittedInputDigest": "sha256:ec90e8e22f8436784383906dabdc6f02afdb7f15e5a6a258b38d33811633fc85",
+    "outcome": "necessarily false for a schema-valid qualification judgment"
+  },
+  "executionLimits": {
+    "sourceOrOwnerImports": 0,
+    "pureComponentExecutions": 0,
+    "runtimeReads": 0,
+    "runs": 0,
+    "helpers": 0,
+    "providers": 0,
+    "repairedBytes": 0,
+    "actualRejectedCandidateBodyReconstructed": false,
+    "earlierBooleanConjunctsInstrumented": false
+  },
+  "claimLimit": "Static caller/owner relation and authentic frozen admitted evidence prove this necessary failure; no claim that it was the first evaluated false subexpression or the only possible candidate defect."
+}

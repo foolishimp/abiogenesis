@@ -1,0 +1,12 @@
+{
+  "stage": "binding-preflight-complete",
+  "elapsedMs": 322.107292,
+  "rss": 196345856,
+  "heapTotal": 120111104,
+  "heapUsed": 66537776,
+  "external": 2495733,
+  "arrayBuffers": 80648,
+  "syntaxChecks": 4,
+  "callableBindings": 54,
+  "noAcquisition": true
+}

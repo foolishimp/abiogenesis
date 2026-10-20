@@ -1,0 +1,62 @@
+{
+  "at": "2026-10-09T18:47:46.097970+00:00",
+  "ownedPids": [
+    {
+      "pid": 5659,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 14025,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 14027,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 17204,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 17206,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 73360,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 73362,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 73363,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 74771,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 74774,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 75901,
+      "state": "ESRCH"
+    },
+    {
+      "pid": 75903,
+      "state": "ESRCH"
+    }
+  ],
+  "ownedGroups": [],
+  "selectedLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+  "selectedLockAbsent": true,
+  "physicalConservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-portable-handoff-recovery-229/attempt-b/conservation.json",
+    "sha256": "81bb7f132cd91ddade6fce63000ca55fa0fc2a1a09258b964cd4c8fc1aabc561",
+    "byteCount": 16447
+  },
+  "freshHistoryAcquisition": "None during documentary finalization; only actual composition owner acquisitions occurred."
+}

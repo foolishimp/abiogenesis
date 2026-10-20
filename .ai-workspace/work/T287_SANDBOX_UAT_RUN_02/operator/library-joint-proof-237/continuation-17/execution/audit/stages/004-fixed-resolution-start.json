@@ -1,0 +1,11 @@
+{
+  "stage": "fixed-resolution-start",
+  "elapsedMs": 22346.367082999997,
+  "at": "2026-10-11T02:46:34.537Z",
+  "rss": 2928492544,
+  "heapTotal": 1706508288,
+  "heapUsed": 1608200216,
+  "external": 81731559,
+  "arrayBuffers": 79317066,
+  "beforeAcquisition": true
+}

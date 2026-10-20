@@ -1,0 +1,9 @@
+{
+  "observed": "KeyError: path in baseline protection check before source refresh/tsc",
+  "cause": "source263 records are relativePath/sha256/bytes; extension preimages are absolute path/sha256/bytes",
+  "selectedAction": "tenant-relative resolution for baseline rows; actual absolute extension paths must be beneath the tenant and are relativized there",
+  "effectsBeforeFailure": [
+    "documentary focused-02-owner-reentry.json written"
+  ],
+  "commandNotStarted": "strict-05"
+}

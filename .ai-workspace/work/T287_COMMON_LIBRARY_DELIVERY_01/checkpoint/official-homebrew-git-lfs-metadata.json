@@ -1,0 +1,21 @@
+{
+  "source": "https://formulae.brew.sh/api/formula/git-lfs.json",
+  "sha256": "bae79bb3fab670217e8359467be1ef7843e6d03f586f9e2b6f1278c2ea7e2623",
+  "name": "git-lfs",
+  "stable_version": "3.8.0",
+  "stable_source": {
+    "url": "https://github.com/git-lfs/git-lfs/releases/download/v3.8.0/git-lfs-v3.8.0.tar.gz",
+    "tag": null,
+    "revision": null,
+    "using": null,
+    "checksum": "4f75492c6832038fa73d39a45316657208bb6caa23b273451cb4ec2358d42ccb"
+  },
+  "bottle_arm64_tahoe": {
+    "cellar": ":any_skip_relocation",
+    "url": "https://ghcr.io/v2/homebrew/core/git-lfs/blobs/sha256:fcefb0b6742a77251b31a71780e91baba1cc02d23e2d36ef577fc91d4e74d751",
+    "sha256": "fcefb0b6742a77251b31a71780e91baba1cc02d23e2d36ef577fc91d4e74d751"
+  },
+  "dependencies": [],
+  "post_install_defined": false,
+  "environment_install_from_api_disabled": false
+}

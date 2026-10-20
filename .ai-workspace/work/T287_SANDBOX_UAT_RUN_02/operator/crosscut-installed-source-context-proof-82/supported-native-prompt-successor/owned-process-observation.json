@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-08T09:19:35.893039+00:00",
+  "exactAdmittedProviderPids": [
+    65682,
+    65721,
+    65760,
+    65805,
+    65835,
+    65880,
+    65918,
+    65958,
+    65980
+  ],
+  "psExitCode": 1,
+  "rows": "",
+  "stderr": "",
+  "actualAdmittedExits": [
+    {
+      "ordinal": 68,
+      "eventId": "event://abiogenesis/c3f413f546f6af557cd94e413d406206510514ac10121103a7b3534572ab2abe",
+      "actorInvocationRef": "actor-invocation://abiogenesis/5cf36510c4adc912f7ef025e1d3d85292dd05f85c648aaab489b647eb46be42f",
+      "processRef": "process://abiogenesis/a8cec0aec23da2c1c2e32f155f63bbc6fa4a5fa0a7746e2d7e1b0522978c8c31",
+      "signal": null,
+      "status": 0
+    },
+    {
+      "ordinal": 155,
+      "eventId": "event://abiogenesis/a8c930c64c61d4c2f26d7a93e93b741198f0bb627f7f864b9a3309e84c17574a",
+      "actorInvocationRef": "actor-invocation://abiogenesis/69b9c7ebc36c8de2b80e5a6f50461a53ff55bf8c59784cd0accc18c7959d7d51",
+      "processRef": "process://abiogenesis/c2c4f7e7d46ef3ffe2bc82c5abf18946115a25a38931b5259945a166180f014d",
+      "signal": null,
+      "status": 0
+    },
+    {
+      "ordinal": 281,
+      "eventId": "event://abiogenesis/38e7bc0a3892f096d5f45e993a4d6425290bfe477d9c75783943c5f6887d11f1",
+      "actorInvocationRef": "actor-invocation://abiogenesis/130082d38ee8933dd369e3858e8e7145c7e0ef90aa2fc5e207bca6b9b7afd202",
+      "processRef": "process://abiogenesis/bad87cf0c86a355486c73594f20ea79f35106426968d31a931eae32fe3281bf5",
+      "signal": null,
+      "status": 0
+    },
+    {
+      "ordinal": 366,
+      "eventId": "event://abiogenesis/f47235b4758b878a2a4931491944dc31956390037ae1cd77a77b2c9ec405474e",
+      "actorInvocationRef": "actor-invocation://abiogenesis/1d0ae1d4bc2a9d7745e0958df225ff80f8ab14c24acd2912a045205420f1d630",
+      "processRef": "process://abiogenesis/15f7a5a380a3bb2564040c3162812500d20bfdf1e86abab05dbb59c44c514e8d",
+      "signal": null,
+      "status": 0
+    },
+    {
+      "ordinal": 492,
+      "eventId": "event://abiogenesis/d96f967b66b0ddd10214ca0b20c9a583ece511f7f6813d780e53951fce190f5c",
+      "actorInvocationRef": "actor-invocation://abiogenesis/103e911d6f5615bd197ff14c63897795b8b884764131c9806d493f26aaa82344",
+      "processRef": "process://abiogenesis/8a6f29aa544be607e5682319bf69e4bf337ef1bd26aca9bad259eb71ca2d0542",
+      "signal": null,
+      "status": 0
+    },
+    {
+      "ordinal": 579,
+      "eventId": "event://abiogenesis/0df89d43ad176d817ce699b595bdbadba48f4c2c616c4309d16876032bc08702",
+      "actorInvocationRef": "actor-invocation://abiogenesis/4e52799e6c6a4ecc025dc7fbd4cc90a686c4bcd5f79b64f419adbc0709ae6c65",
+      "processRef": "process://abiogenesis/1d380e45d7d5ebff6372f01e778021619af06b4f1b9cb0cdcebb2654491d3398",
+      "signal": null,
+      "status": 0
+    },
+    {
+      "ordinal": 705,
+      "eventId": "event://abiogenesis/52035b1aa49fdba1883e25eeaf7b721a645b36ab37c3ac3f2d38a583589bb900",
+      "actorInvocationRef": "actor-invocation://abiogenesis/b8036cac04f94e45652e9fba00ceff573ee30a0ab30c76bb885077498407dd47",
+      "processRef": "process://abiogenesis/dbff11f33c980275ce2f968bec3bb339c1a5a185c91462e6130385090e0359a9",
+      "signal": null,
+      "status": 0
+    },
+    {
+      "ordinal": 790,
+      "eventId": "event://abiogenesis/c9810fae7aa9f79ca493e587a068d5081551500be242966fa0e2d9ef52517a57",
+      "actorInvocationRef": "actor-invocation://abiogenesis/53c642d1166dd7d2c9556112aeb8a80b042328abf62f71a386ec812847f6d53a",
+      "processRef": "process://abiogenesis/19743e2367d1590447a386197cf0689e512143790ec2b686a725b3b04c23d44d",
+      "signal": null,
+      "status": 0
+    },
+    {
+      "ordinal": 916,
+      "eventId": "event://abiogenesis/a923554728634b442bcbeb14c96f0b11257c4a8bfe25d72ba09acd8a1da88894",
+      "actorInvocationRef": "actor-invocation://abiogenesis/552740ec64924dd514486dd9db740f3ea362394c27a2db9b4cd65ac98de969b9",
+      "processRef": "process://abiogenesis/52f7c9ed5069850a6f504f27878e238387f80afb21320722f8858a998b4e9fab",
+      "signal": null,
+      "status": 0
+    }
+  ],
+  "signalEffects": 0,
+  "limits": "OS absence observation is separate from native exits and is not security/containment assurance"
+}

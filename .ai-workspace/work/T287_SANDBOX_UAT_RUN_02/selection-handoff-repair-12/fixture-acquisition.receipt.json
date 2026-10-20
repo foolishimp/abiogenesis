@@ -1,0 +1,17 @@
+{
+  "command": "/opt/homebrew/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=Seven exact original workloads|Resolved toolchain identity",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "environmentOverlay": {},
+  "startedAt": "2026-10-06T14:08:59.928Z",
+  "finishedAt": "2026-10-06T14:09:00.222Z",
+  "wallMs": 294.327542,
+  "exit": 0,
+  "signal": null,
+  "streamsClosed": true
+}

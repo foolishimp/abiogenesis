@@ -1,0 +1,380 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "phase": "phase2_stopped",
+  "standing": "Actual single native CLI transport and admitted owner-event observations; no authored runtime result.",
+  "nativeActorBindingEvent": "event://abiogenesis/0e1be5b06876340f185bdcdd32cbf06e44af3cb56f9f205ff340a0b0d38e856d",
+  "nativeActorBinding": {
+    "absoluteTimeoutMs": 360000,
+    "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+    "agentKey": "claude",
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives",
+    "args": [
+      "-p",
+      "--disable-slash-commands",
+      "--no-session-persistence",
+      "--output-format",
+      "stream-json",
+      "--include-partial-messages",
+      "--verbose",
+      "--permission-mode",
+      "bypassPermissions",
+      "--safe-mode",
+      "--tools",
+      "",
+      "--json-schema",
+      "{\"type\":\"object\",\"properties\":{\"kind\":{\"const\":\"qualification_raw_judgment\"},\"schemaVersion\":{\"const\":\"5.0.0\"},\"criteria\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"criterionRef\":{\"type\":\"string\",\"minLength\":1},\"ruleRef\":{\"type\":\"string\",\"minLength\":1},\"surfaceRef\":{\"type\":\"string\",\"minLength\":1},\"evidenceRole\":{\"type\":\"string\",\"minLength\":1},\"disposition\":{\"enum\":[\"satisfied\",\"falsified\",\"indeterminate\"],\"type\":\"string\"},\"applicability\":{\"enum\":[\"applicable\",\"inapplicable\",\"unknown\"],\"type\":\"string\"},\"grouping\":{\"enum\":[\"justified\",\"falsified\",\"unknown\"],\"type\":\"string\"},\"reason\":{\"type\":\"string\",\"minLength\":1},\"sourceRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"minItems\":1},\"evidenceRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"residuals\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}}},\"required\":[\"criterionRef\",\"ruleRef\",\"surfaceRef\",\"evidenceRole\",\"disposition\",\"applicability\",\"reason\",\"sourceRefs\",\"evidenceRefs\",\"residuals\"],\"additionalProperties\":false},\"minItems\":1},\"residuals\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"attributions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"activationRef\":{\"type\":\"string\",\"minLength\":1},\"authorRef\":{\"type\":\"string\",\"minLength\":1},\"actorIdentityRef\":{\"type\":\"string\",\"minLength\":1},\"authorityRef\":{\"type\":\"string\",\"minLength\":1},\"scopeRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}},\"disposition\":{\"enum\":[\"established\",\"disputed\",\"insufficient\"],\"type\":\"string\"},\"sourceRefs\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1},\"minItems\":1},\"reason\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"activationRef\",\"authorRef\",\"actorIdentityRef\",\"authorityRef\",\"scopeRefs\",\"disposition\",\"sourceRefs\",\"reason\"],\"additionalProperties\":false}}},\"required\":[\"kind\",\"schemaVersion\",\"criteria\",\"residuals\",\"attributions\"],\"additionalProperties\":false,\"$schema\":\"http://json-schema.org/draft-07/schema#\"}",
+      "--system-prompt",
+      " "
+    ],
+    "cCallRef": "c-call:sha256:c99b90baeda43aaf9e54f4f66f85e3b077a494d95dbe5dc8ac7eb4ff063e61f0",
+    "command": "/Users/jim/.local/bin/claude",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02",
+    "dispatchOrdinal": 1,
+    "environmentDigest": "sha256:9e7818231f45851a166307c2109b1773eecdaa66f815e7d82b83123e3adba566",
+    "environmentPolicyDigest": "sha256:28d63718c9607b33c1099e84e0bc3dd234d6a9543f54585e46f4366663278cc6",
+    "implementationBindingRef": "implementation-binding://abiogenesis/qualification/assess-fp@5",
+    "implementationRef": "implementation://abiogenesis/qualification/assess-fp@5",
+    "inputDigest": "sha256:93a894b2ad5aea2ace9a5206525ef0183ddad491378a6d37fbc0793416b7dea8",
+    "lane": "closed_prompt_proof",
+    "livenessBinding": {
+      "clockKind": "native_monotonic_elapsed",
+      "clockOriginRef": "runtime-clock://abiogenesis/738407e9a037cb834b38a9c492a174eb645a29013a10a2f859d280a6685f2351",
+      "kind": "runtime_liveness_binding",
+      "policy": {
+        "hardCapMs": 360000,
+        "inactivityMs": 120000,
+        "kind": "runtime_watchdog_policy",
+        "policyDigest": "sha256:f31b33d30b9b024ed1c315c31eb4284e8f30bfb7b6db9fb61e331f28fae4feff",
+        "policyRef": "runtime-watchdog-policy://abiogenesis/f31b33d30b9b024ed1c315c31eb4284e8f30bfb7b6db9fb61e331f28fae4feff",
+        "schemaVersion": "5.0.0",
+        "startupMs": 120000,
+        "terminationGraceMs": 1000
+      },
+      "schemaVersion": "5.0.0",
+      "sources": [
+        "stdout",
+        "stderr",
+        "structured_output",
+        "tool_progress",
+        "api_progress",
+        "process_lifecycle",
+        "archive",
+        "result_artifact"
+      ]
+    },
+    "parser": "claude_stream_json",
+    "paths": {
+      "output": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-output.txt",
+      "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-prompt.txt",
+      "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-stderr.log",
+      "stdout": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-stdout.log",
+      "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-transport.json"
+    },
+    "promptDigest": "sha256:347bc1cc48965b4923b43d683dc11914d1cc9eb88218990826a7b3d765c87b27",
+    "promptTransport": "stdin",
+    "responseJsonSchemaDigest": "sha256:dfd9197452f2a4d87a6b7f74a13b10c217f96b269bea1466faf12c8f462fbd64",
+    "terminationGraceMs": 1000,
+    "timeoutMs": 120000,
+    "transportBindingDigest": "sha256:08ad9678372229af8a6f44b6e752928d95869101694398afa81202bf95f430b0",
+    "transportBindingRef": "transport-binding://abiogenesis/08ad9678372229af8a6f44b6e752928d95869101694398afa81202bf95f430b0",
+    "transportContractDigest": "sha256:830d1c231cb9b01d349e10c43ff9a644ca434faabf682640783118b088d010d7",
+    "transportPlanDigest": "sha256:9f8fa0aa3837554539e66d3ceed06f49f068f92a89e38fd99dad04adf56b71c0",
+    "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5"
+  },
+  "actualArgv": {
+    "transport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-transport.json",
+      "bytes": 8690,
+      "sha256": "a594f41fc7690cd6d970b223f53e06aa703e1a561d104b9887e38455c64ffd23"
+    },
+    "selector": "args",
+    "command": "/Users/jim/.local/bin/claude",
+    "appendArgs": [
+      "--system-prompt",
+      " "
+    ],
+    "closedPromptSafeMode": true,
+    "toolsArgument": "",
+    "schemaMatchesExactFrozenRequest": true,
+    "jsonSchemaChars": 1961,
+    "noProtocolOrRoleOverride": true
+  },
+  "cliProfile": {
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02",
+    "model": "claude-opus-5-5",
+    "permissionMode": "bypassPermissions",
+    "apiKeySource": "none",
+    "claude_code_version": "2.1.289",
+    "output_style": "default",
+    "tools": [
+      "StructuredOutput"
+    ],
+    "mcp_servers": [],
+    "agents": [
+      "claude",
+      "Explore",
+      "general-purpose",
+      "Plan"
+    ],
+    "skills": [],
+    "plugins": [
+      {
+        "name": "spec",
+        "path": "/Users/jim/.claude/plugins/cache/specification_stack/spec/2.5.0-rc.6",
+        "source": "spec@specification_stack",
+        "version": "2.5.0-rc.6"
+      },
+      {
+        "name": "cc-plugin-agents-md",
+        "path": "builtin",
+        "source": "cc-plugin-agents-md@builtin"
+      },
+      {
+        "name": "cc-plugin-telemetry",
+        "path": "builtin",
+        "source": "cc-plugin-telemetry@builtin"
+      },
+      {
+        "name": "cc-plugin-plugin-authoring",
+        "path": "builtin",
+        "source": "cc-plugin-plugin-authoring@builtin"
+      }
+    ]
+  },
+  "actualCliResult": {
+    "duration_api_ms": 0,
+    "stop_reason": "stop_sequence",
+    "session_id": "27e6b521-bb43-4975-b590-65692d702ba7",
+    "total_cost_usd": 0,
+    "usage": {
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {},
+    "permission_denials": [],
+    "terminal_reason": "api_error",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": true,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": 400,
+    "result": "API Error: 400 system: text content blocks must contain non-whitespace text",
+    "type": "result",
+    "duration_ms": 851,
+    "uuid": "e55b958c-b0fd-495d-85fb-3ae327af13aa",
+    "queued_turn_count": 0,
+    "result_index": 0
+  },
+  "transportOutcome": {
+    "disposition": "failure",
+    "failureClass": "transport_failure",
+    "status": 1,
+    "signal": null,
+    "exitObserved": true,
+    "terminationConfirmed": true,
+    "timedOut": false,
+    "timeoutClass": null,
+    "timeoutMs": 120000,
+    "absoluteTimeoutMs": 360000,
+    "apiRetryCount": 0,
+    "progressEventCount": 1,
+    "structuredEventCount": 4,
+    "toolCallCount": 0,
+    "nativeResultAssessment": {
+      "disposition": "absent",
+      "inputDigest": "sha256:93a894b2ad5aea2ace9a5206525ef0183ddad491378a6d37fbc0793416b7dea8",
+      "kind": "native_worker_result_assessment",
+      "rawOutputDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "resultContractRef": "contract://abiogenesis/qualification/assessment-raw@5",
+      "schemaVersion": "5.0.0",
+      "verification": null
+    }
+  },
+  "promptRelationship": {
+    "canonicalRequestPromptBytes": 740737,
+    "actualActorArchivePrompt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-prompt.txt",
+      "bytes": 740737,
+      "sha256": "d7f998ee2cad3f45bf7815830e878145c9391fb82522f8875842898d3208c329"
+    },
+    "canonicalPromptCharacterOffset": 0,
+    "canonicalPromptFullyPresent": true,
+    "prefixBytesOutsideCanonicalPrompt": 0,
+    "suffixBytesOutsideCanonicalPrompt": 0
+  },
+  "actualNativeStops": [
+    {
+      "kind": "actor_process_started",
+      "event": "event://abiogenesis/e6eac528f974fcd9f9d9ebe3bab1d57933c41cc3635faafc8242de148b99eb82",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/54bb33b5b6df25b4266df6ce2b05a4801024dff1479025de4b2287d39acefbfb",
+        "cCallRef": "c-call:sha256:c99b90baeda43aaf9e54f4f66f85e3b077a494d95dbe5dc8ac7eb4ff063e61f0",
+        "processId": 16168,
+        "processRef": "process://abiogenesis/ac10ffa7d9e228f1e4824352a4cd181336f1a7cc375ca82cba36e4ab60ef497a"
+      }
+    },
+    {
+      "kind": "actor_process_exited",
+      "event": "event://abiogenesis/9191ffc52bb90987811b740305d60cd43aede2b9063781752393f3ec133c16b8",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/54bb33b5b6df25b4266df6ce2b05a4801024dff1479025de4b2287d39acefbfb",
+        "processRef": "process://abiogenesis/ac10ffa7d9e228f1e4824352a4cd181336f1a7cc375ca82cba36e4ab60ef497a",
+        "signal": null,
+        "status": 1
+      }
+    },
+    {
+      "kind": "c_call_judged",
+      "event": "event://abiogenesis/0ac568fe44a569b838f97d0931392ccd73ab0164c66d92fa729d157586714e51",
+      "payload": {
+        "cCallRef": "c-call:sha256:c99b90baeda43aaf9e54f4f66f85e3b077a494d95dbe5dc8ac7eb4ff063e61f0",
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/judgment@5",
+        "judgment": "blocked",
+        "judgmentDigest": "sha256:419457c9285b78f9fb0e5c488374531cb840b12bb92224440e8f2880b0588e56",
+        "judgmentRef": "judgment://abiogenesis/419457c9285b78f9fb0e5c488374531cb840b12bb92224440e8f2880b0588e56",
+        "predicateRef": "predicate://abiogenesis/qualification/assessment@5",
+        "reasonRef": "diagnostic://abiogenesis/qualification/assessment_transport_mismatch@5",
+        "replayStateDigest": "sha256:1c2627d5f46ac787cf68679df30f48c114e2e0997b1f3ce7ef87036749bfe512",
+        "resultDigest": "sha256:93195c2dd8c0f4388bca61abdc67c08cc16db45a716cd2cd5523779e46603623",
+        "resultRef": "result://abiogenesis/93195c2dd8c0f4388bca61abdc67c08cc16db45a716cd2cd5523779e46603623",
+        "retryAttemptRef": null
+      }
+    },
+    {
+      "kind": "traversal_route_admitted",
+      "event": "event://abiogenesis/9f660a8c1d164ee420b75f3d298e8fc369b8c5cad3290c211c9ac0d13d309c91",
+      "payload": {
+        "cCallRef": "c-call:sha256:c99b90baeda43aaf9e54f4f66f85e3b077a494d95dbe5dc8ac7eb4ff063e61f0",
+        "consumedAvailabilityRefs": [
+          "judgment://abiogenesis/419457c9285b78f9fb0e5c488374531cb840b12bb92224440e8f2880b0588e56"
+        ],
+        "contractRef": "contract://abiogenesis/qualification/self-conformance/transition@5",
+        "declarationDigest": "sha256:68057358124bfc43b6b341b238459453246a68e3ef2619fd4685bb07107280b4",
+        "declarationRef": "graph-materialization://abiogenesis/68057358124bfc43b6b341b238459453246a68e3ef2619fd4685bb07107280b4",
+        "judgmentRef": "judgment://abiogenesis/419457c9285b78f9fb0e5c488374531cb840b12bb92224440e8f2880b0588e56",
+        "replayStateDigest": "sha256:e4905ca0e7d51e2def954776d0a8512c643a91e05279d7463d5bb5ecf5653760",
+        "routeDigest": "sha256:20869ad374d903194506892359742debc7241c55b33496272e9644c4e6f64b58",
+        "routeKind": "failed",
+        "routeRef": "traversal-route://abiogenesis/20869ad374d903194506892359742debc7241c55b33496272e9644c4e6f64b58",
+        "sourceCursorDigest": "sha256:f5bfdf0b6f84aeb5345f13c2496f839ecab37a2547854c44dd12a4d181846d3f",
+        "sourceCursorRef": "traversal-cursor://abiogenesis/f5bfdf0b6f84aeb5345f13c2496f839ecab37a2547854c44dd12a4d181846d3f",
+        "targetCursorDigest": null,
+        "targetCursorRef": null
+      }
+    },
+    {
+      "kind": "run_stopped",
+      "event": "event://abiogenesis/97d234c65278bb726acba21f241b63b3fc346454b8c35ebfa080ac9a03f1211e",
+      "payload": {
+        "cCallRef": "c-call:sha256:c99b90baeda43aaf9e54f4f66f85e3b077a494d95dbe5dc8ac7eb4ff063e61f0",
+        "disposition": "failed",
+        "judgmentRef": "judgment://abiogenesis/419457c9285b78f9fb0e5c488374531cb840b12bb92224440e8f2880b0588e56",
+        "reasonRef": "diagnostic://abiogenesis/qualification/assessment_transport_mismatch@5",
+        "routeRef": "traversal-route://abiogenesis/20869ad374d903194506892359742debc7241c55b33496272e9644c4e6f64b58"
+      }
+    }
+  ],
+  "newEventKindCounts": {
+    "public_operation_admitted": 1,
+    "invocation_admitted": 1,
+    "implementation_admitted": 1,
+    "basis_admitted": 1,
+    "run_segment_opened": 1,
+    "graph_call_opened": 1,
+    "frame_opened": 1,
+    "runtime_activity_probe_observed": 16,
+    "traversal_cursor_entered": 1,
+    "c_call_opened": 1,
+    "c_call_fibre_selected": 1,
+    "actor_transport_binding_admitted": 1,
+    "actor_invocation_started": 1,
+    "actor_process_started": 1,
+    "actor_process_stdout_observed": 4,
+    "actor_process_exited": 1,
+    "actor_result_artifact_observed": 1,
+    "actor_invocation_failed": 1,
+    "c_call_evidenced": 1,
+    "c_call_result_admitted": 1,
+    "c_call_judged": 1,
+    "traversal_route_admitted": 1,
+    "run_stopped": 1
+  },
+  "newActorArchivePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-prompt.txt",
+      "bytes": 740737,
+      "sha256": "d7f998ee2cad3f45bf7815830e878145c9391fb82522f8875842898d3208c329"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-output.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-stdout.log",
+      "bytes": 3797,
+      "sha256": "493c4c3978360311620c3058f3e4e24dad347c0343c5955dd83dcd8b8fe7f90e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-transport.json",
+      "bytes": 8690,
+      "sha256": "a594f41fc7690cd6d970b223f53e06aa703e1a561d104b9887e38455c64ffd23"
+    }
+  ],
+  "realCliAttempts": 1,
+  "realHttpRequestCount": "unknown; HTTP400 is reported by actual CLI result, not a measured request count",
+  "tokensAndCostStanding": "CLI-reported failed invocation usage/cost. Zero reported model input/output tokens and0USD do not imply no transport request.",
+  "canonicalPreparationPassedBeforeDispatch": true,
+  "independentJudgmentProduced": false,
+  "F11Executed": false,
+  "freshReadsExecuted": false,
+  "observedFailureRelation": "Actual provider result rejects a system text block containing only whitespace. Exact authorized argv carries --system-prompt and one space. Native owner fails closed as assessment_transport_mismatch and run_stopped. No Source or prompt-overflow cause is asserted."
+}

@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.catalog.admit",
+    "memberKey": "admit"
+  },
+  "elapsedMs": 4995.362125,
+  "timingScope": "existing helper call including request/receipt retention and installed native Public transport; not isolated runtime attribution"
+}

@@ -1,0 +1,19 @@
+{
+  "status": "constructed",
+  "members": 1950,
+  "rules": 2137,
+  "partitionCounts": {
+    "construction-controls-and-claims": 34,
+    "other-runtime-hosts-unresolved": 253,
+    "abi-composition-frame-hosts": 10,
+    "published-law-contract-projections": 188,
+    "law-and-design": 409,
+    "proof-source": 316,
+    "historical-proof-records": 7,
+    "emitted-abi-projections": 520,
+    "supplier-toolchain": 213
+  },
+  "selectedBodies": 39,
+  "selectedRawBytes": 832398,
+  "genuineBinding": false
+}

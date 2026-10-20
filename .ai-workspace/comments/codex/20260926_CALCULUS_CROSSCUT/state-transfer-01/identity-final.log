@@ -1,0 +1,12 @@
+▶ real admitted compose and shared batches conserve changing inputs under one basis
+  ✔ identity_end (37295.20725ms)
+  ℹ {"shape":"identity_end","inputs":["seed","seed"],"basis":"execution-basis://abiogenesis/845b1d24afa2ac4ec6e0bc5515cceee3acb50c5c87bec774fbe0c9190e1fb101","result":{"kind":"hello_world_output","message":"Hello seed!","schemaVersion":"5.0.0"},"timings":{"setupMs":22067.908292000004,"traversalMs":2244.8965830000016},"scope":"scratch-installed deterministic admission/traversal/implementation; no provider or native actor"}
+✔ real admitted compose and shared batches conserve changing inputs under one basis (38454.651542ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 38529.98975

@@ -1,0 +1,7 @@
+{
+  "stage": "same-run-pure-source-context-checks",
+  "name": "ReferenceError",
+  "message": "runInstalledCliRequest is not defined",
+  "stack": "ReferenceError: runInstalledCliRequest is not defined\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/postprocess.mjs:93:18",
+  "elapsedMs": 1526.5502079999999
+}

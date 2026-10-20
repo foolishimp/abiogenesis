@@ -1,0 +1,9 @@
+{
+  "stage": "caller text adaptation before syntax/owner entry",
+  "cause": "The exact229 request/correlation label occurs twice; mechanical replacement asserted one occurrence. A subsequent syntax command encountered the uncreated script.",
+  "observedDiagnostics": [
+    "AssertionError: interrupted-run-stop-223 occurs2",
+    "MODULE_NOT_FOUND recover-stop-source.mjs during --check"
+  ],
+  "selectedBoundedAction": "Preserve this receipt; correct only expected replacement multiplicity to2, generate script once, then check syntax after generation succeeds. No canonical owner, history, recovery, stop or app operation entered."
+}

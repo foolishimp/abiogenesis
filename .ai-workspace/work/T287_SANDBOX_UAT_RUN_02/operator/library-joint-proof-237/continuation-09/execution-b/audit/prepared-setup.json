@@ -1,0 +1,83 @@
+{
+  "kind": "prepared_product_run_invocation",
+  "sourceResultRef": "result://abiogenesis/069031ccb3f2f154aa95a00e2ff5a9b4904ceec0806a27ff4d5a1715744ba3bd",
+  "sourceBasisRef": "invocation-source-result://abiogenesis/bd77c39fa2948fb61b957d55c1e52492ed199516b2cdf224b8c14366f80fddf1",
+  "sourceInputDigest": "sha256:8ea15aebe7d1157d29f141b84bcaefeefd77705e2a61240443a10c3e42a72ee2",
+  "observations": 1,
+  "terminal": false,
+  "workspaceBinding": {
+    "kind": "workspace_binding",
+    "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+    "authorityBasisId": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+    "authorizedActorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+    "bindingDigest": "sha256:5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "bindingId": "workspace-binding://abiogenesis/5b59b95d49347c2fc1982bc1bbec9e30c10a6086a9ae2b3f3b699ea7fcaca1a7",
+    "lockDigest": "sha256:75d23cc3cf2494168ac5ad2a4a0c827201436cd63f14b317e4c0050bdc509312",
+    "lockId": "product-lock://abiogenesis/75d23cc3cf2494168ac5ad2a4a0c827201436cd63f14b317e4c0050bdc509312",
+    "productSetDigest": "sha256:bcf2e99b12b8b5b8bddd00b3590a626863a0e626dc2d9049002f95ee67f0377f",
+    "productSetId": "product-set://abiogenesis/bcf2e99b12b8b5b8bddd00b3590a626863a0e626dc2d9049002f95ee67f0377f",
+    "roots": {
+      "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/archives",
+      "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events",
+      "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/projections",
+      "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/runtime",
+      "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg"
+    },
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37",
+    "admissionEventRef": "event://abiogenesis/94ddd0f9c6140d4d037fa101ca04039f9741498dae647e29b74330d7e346d7f8"
+  },
+  "workspaceAuthority": {
+    "authorityBasisDigest": "sha256:c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+    "authorityBasisId": "workspace-authority://abiogenesis/c9c080ea53d1627d1b1984a8e42fa1d375a6498692d0b5fd5c2f9c275156402a",
+    "authorityManifestDigest": "sha256:990ed6a2f1597122aab174fc1141c17ccb221ba31e0baf37103ed6773b69ea23",
+    "authorityManifestRef": "authority://abi5-tests/sandbox-uat/library-joint-proof-237/workspace",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://abi5-tests/sandbox-uat/library-joint-proof-237",
+    "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/worksite",
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/2d25fedd80245ba74a476529c1fdc30e01e2061e721de60299a8f7a8f12abd37"
+  },
+  "program": {
+    "ref": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2"
+  },
+  "view": {
+    "ref": "graph-function-catalog-view://abiogenesis/09241ddbe8bddcef3e0684700524f9b260ab6224952c2e8345dc98848f443d4f",
+    "digest": "sha256:09241ddbe8bddcef3e0684700524f9b260ab6224952c2e8345dc98848f443d4f"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "currentUseDigest": "sha256:17207e766528c5aae5643fe24b9a3ae9678efaa2a8ab9864506669cd09165780",
+  "consumedBases": 4,
+  "finalPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "prefixLength": 8285789,
+    "prefixDigest": "sha256:eb3fac69ad37aa6de27fe452c895923a1714ac9fc2a52e03c16c23a200566607",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 469917053,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:752a6178195c83c5011a3010f6202a53aaa8c73d38a9c2a579892ba11a930f20"
+  },
+  "launch": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "--jsonl",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/audit/calls/continuation-start.request.jsonl"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-09/execution-b/audit"
+  },
+  "operatorControl": null,
+  "setupMode": "unchanged-installed-pair",
+  "limits": {
+    "nativeMs": 300000,
+    "nativeBytes": 16777216
+  },
+  "qualityClock": "Actual future native CLI command.request.started + 18000000ms; preparation starts no clock"
+}

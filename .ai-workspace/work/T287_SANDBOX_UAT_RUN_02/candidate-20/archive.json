@@ -1,0 +1,20 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4",
+    "byteCount": 10629708
+  },
+  "pack": {
+    "exitCode": 0,
+    "wallMs": 3428.742459,
+    "timedOut": false,
+    "truncated": false
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/freeze.json",
+    "sha256": "80cc0615036f15be45c04591335a0ec65f7946075feea7e0a87aeac15b6adca4",
+    "byteCount": 18394
+  },
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "noBuildOrNative": true
+}

@@ -1,0 +1,47 @@
+{
+  "original": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/run-flow.mjs",
+    "bytes": 10721,
+    "sha256": "1329784b4e57e2a8982f52cedea983de872dcabf97819615af0116a5891757b5",
+    "mode": 420
+  },
+  "prepared": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01/run-flow.mjs",
+    "bytes": 10803,
+    "sha256": "e27c5c8d5dff6b218a749e39a6166961b88cc65b4cb70a0e0626466b2cda03d1",
+    "mode": 420
+  },
+  "exactChanges": [
+    {
+      "before": "// Thin external caller for the exact accepted C06/Q08/Setup06 subject.",
+      "after": "// Thin external caller template for C07/Setup07 and future exact accepted Q09.\n// Written under CONTROL_PREPARATION_ONLY; not imported or executed here."
+    },
+    {
+      "before": "assert.equal(activation.operation,'T287_F11_C06_CARRIER_EXECUTION_07');",
+      "after": "assert.equal(activation.operation,'T287_F11_C07_CARRIER_EXECUTION_08');"
+    },
+    {
+      "before": "'setup06-initial-durable-prefix.bin'",
+      "after": "'setup07-initial-durable-prefix.bin'"
+    }
+  ],
+  "strictCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/f11/ordinary-caller.mjs",
+    "bytes": 18118,
+    "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+    "mode": 420
+  },
+  "strictFlowDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/f11/flow-driver.mjs",
+    "bytes": 6502,
+    "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+    "mode": 420
+  },
+  "retainedSemanticNamespaces": [
+    "abiogenesis/t287/q06-selected-runtime",
+    "actual Q09-produced task, plan and member identities remain untouched"
+  ],
+  "legacyConfigurationKeys": "Q08Root and Q08FreezeSHA256 are donor consumer keys; will point only to the accepted Q09 replica and exact freeze hash in Runtime08",
+  "actualGrantOperation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "noBlindSuffixSubstitution": true
+}

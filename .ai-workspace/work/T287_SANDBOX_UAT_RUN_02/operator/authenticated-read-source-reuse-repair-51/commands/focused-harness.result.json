@@ -1,0 +1,26 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=Oracle event acquisition|Eventless read conservation|One authentic cold read|Native refusal without|Admitted failed and blocked|Both retained install",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T03:52:41.218Z",
+  "environmentKeys": [
+    "ABI5_AUTHENTIC_READ_HISTORY",
+    "ABI5_AUTHENTIC_READ_HISTORY_DIGEST",
+    "ABI5_UAT_UNIT_ROOT",
+    "PATH"
+  ],
+  "timeoutMs": 180000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 1496.0838749999966,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "✔ Oracle event acquisition records the authentic prefix without serializing or changing complete owner events (26.470834ms)\n✔ Oracle event acquisition preserves owner refusals and archive errors without writing alternate event evidence (19.492959ms)\n✔ Eventless read conservation hashes bounded chunks and detects tampering, append and identical-byte replacement (4.334167ms)\n✔ One authentic cold read supplies caller artifact/environment/read preparation without another physical decode (1076.73525ms)\n✔ Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse (0.569083ms)\n✔ Native refusal without an admitted Run is preserved before any refresh, reopen or read (0.233041ms)\n✔ Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes (4.692291ms)\nℹ tests 7\nℹ suites 0\nℹ pass 7\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1465.473084\n",
+  "stderr": ""
+}

@@ -1,0 +1,45 @@
+{
+  "operator": 219,
+  "role": "One actual native DataMapper sameW/current29 continuation",
+  "rootGrant": "GO218 explicitly authorizes219 after canonical positive preparation; Root independently confirmed actual218 positive and directs immediate launch.",
+  "preparedSetup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/prepared-setup.json",
+    "sha256": "1fcd14369e2e19b58cb428546c781762dc07b19a402dd2aa7ecab2bdbc2b154c",
+    "byteCount": 6934
+  },
+  "preparedSdkRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/calls/continuation-start.request.jsonl",
+    "byteCount": 68003846
+  },
+  "genuineCurrentClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-remaining-consumer-preparation-218/final-close-handoff.json",
+    "sha256": "a174afdd863e8fad4d5dd17105e69c7d40127cb06cbc79d7a37a72451c52afb5",
+    "byteCount": 1472
+  },
+  "launcher": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/launch.mjs",
+    "sha256": "d0db3a06bba920b2650a524e45e47e1b150d65bef112b89a1a5dcd2f61c16e06",
+    "byteCount": 2728
+  },
+  "outer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-219/execute-continuation.mjs",
+    "sha256": "8f4e8231075110d2750efd2a5d93a241638ba8268fec1efa32033932a09c4012",
+    "byteCount": 856
+  },
+  "originalRootControl": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-136/operator-control.json",
+    "sha256": "3a58164b6dc99b666859b09a2c3b2872e4112c3b2a7f4e752d30e1edbcd629b9",
+    "byteCount": 1723
+  },
+  "sameWorkspace": true,
+  "sourceNone": false,
+  "physicalCopy": false,
+  "qualityClock": "Actual native lifecycle-continuation.request.started+18000000ms only",
+  "limits": {
+    "nativeMs": 18060000,
+    "nativeBytes": 268435456,
+    "outerMs": 19260000,
+    "outerBytes": 536870912
+  },
+  "noManualAppSourceGitEffects": true
+}

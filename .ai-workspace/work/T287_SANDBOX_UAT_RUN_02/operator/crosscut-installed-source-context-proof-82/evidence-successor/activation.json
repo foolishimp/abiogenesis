@@ -1,0 +1,25 @@
+{
+  "role": "Writer82 fixture-only evidence successor",
+  "parentDisposition": "Root accepted87b pure predicate cause, one supported local-protocol source/context run released",
+  "preimageDriver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver-authority-root.mjs",
+    "sha256": "e90d6b13a9ff774e95a3202a7cebf32faea9aeac17861b2b58dfe904d9e24790",
+    "byteCount": 18060
+  },
+  "causeFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/freeze-corrected.json",
+    "sha256": "f206243bd31e5fe4f315773ca4b996d9c28894ba44b6b050b24dc6736d44c2f6",
+    "byteCount": 17259
+  },
+  "host": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+    "byteCount": 3158
+  },
+  "delta": [
+    "evidenceWriteRoots=[evidence]",
+    "same literal stdout/exit7 command also creates evidence/literal.txt in C2 snapshot",
+    "assert actual evidence file bytes using admitted helperPlan.sandboxRoot"
+  ],
+  "preserved": "four supplied seed bytes, method, protocol actor, all timings/caps/Production/source/support; no models or DataMapper"
+}

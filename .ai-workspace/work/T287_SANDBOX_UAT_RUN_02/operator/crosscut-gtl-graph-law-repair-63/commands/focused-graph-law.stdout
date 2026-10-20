@@ -1,0 +1,54 @@
+✔ released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values (11.090958ms)
+✔ nearest static and materialization refusal: duplicate node identities with distinct C loci (3.385125ms)
+✔ nearest static and materialization refusal: terminal node with outgoing edge (2.928125ms)
+✔ nearest static and materialization refusal: two ordinary edges without registered selection (3.255583ms)
+✔ existing constructor and source-path guards retain their earlier refusal precedence (0.328666ms)
+✖ authored composition, substitution, recursion and fan-out retain full static and materialized owner results (301.3175ms)
+✖ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (0.795792ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 909.369917
+
+✖ failing tests:
+
+test at test_env/tests/t287-gtl-graph-law.test.mjs:115:1
+✖ authored composition, substitution, recursion and fan-out retain full static and materialized owner results (301.3175ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'members')
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:127:52)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-gtl-graph-law.test.mjs:131:1
+✖ declared registered selection keeps its multi-edge workflow domain and separate whole-law checks (0.795792ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"raw_admission_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"invalid_kind","message":"raw value does not satisfy expected kind module_publication"}
+  + actual - expected
+  
+  + 'raw_admission_refusal'
+  - 'raw_admitted_value'
+             ^
+  
+      at raw (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:29:10)
+      at validate (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:35:18)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs:133:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'raw_admission_refusal',
+    expected: 'raw_admitted_value',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

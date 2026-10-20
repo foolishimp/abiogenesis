@@ -1,0 +1,17 @@
+{
+  "kind": "worker_mechanical_readiness",
+  "preparedAt": "2026-10-01T14:43:41.355149+00:00",
+  "status": "ready",
+  "effectsPending": true,
+  "actualNativeCalls": 0,
+  "callPopulation": 11,
+  "syntaxChecks": 7,
+  "strictConformanceResource": "six current keys",
+  "startResource": "actual exported native wrapper predicate plus actual Product inner prepare",
+  "terminalProof": "terminalResult.producer; native schema and projection owner re-entered",
+  "grant": "T287_RC1_S02_SUBSTITUTION_01",
+  "modelCalls": 0,
+  "providerCalls": 0,
+  "inputOracle": "World -> Hello World; three exact loci/two composition identities/advance advance terminal",
+  "readOnlyPins": "14 external plus 5256 C02 archive members verified"
+}

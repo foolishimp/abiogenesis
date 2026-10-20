@@ -1,0 +1,74 @@
+{
+  "role": "Worker160 exact maintenance recovery",
+  "disposition": "RECOVERED/CLOSED; preparation and native dispatch remain held",
+  "rootConjoinedRCA": "Closed158 memory RCA and159 lifecycle/authority RCA: serialized host26 verification loses disposable nominal receipt; grant construction re-verifies package while full history is held. Exact allocator/dominant retainer unproved; no parser receipt-loss claim.",
+  "selectedPreparationActionNotExecuted": "Caller realization only: verify before large acquisition and borrow exact owner verification result; preserve copied fallback/currentness/approval. Not executed in160.",
+  "actualMaintenanceOwner": {
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-26/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:95d1e5a7e98ab47ed762c2d1c5cb3224632910b0baf7363d9ad03e62d62ebf1e",
+    "manifestDigest": "sha256:9e7bf0ea5a77ca4367794d07744ee46c92a884023b5b94081b9928987acaf2fc",
+    "packageExport": "./abg",
+    "namedSymbol": "recoverInterruptedAbgEventResource"
+  },
+  "receiptDigest": "sha256:fb6a88f1b436d2b996301b9c91ceaecc71b540ea50f92f81234bb3d256cb6609",
+  "receipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/recovery-receipt.json",
+    "sha256": "ca25c648b11a0e552288361f9e9f83a72732a07948c4a6854a249029d93e9c82",
+    "byteCount": 5203
+  },
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/request.json",
+    "sha256": "dc942abef878d54329acf7d153fc073ca455607285d1fa43c695ea38e4945986",
+    "byteCount": 16138093
+  },
+  "scope": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/scope.json",
+    "sha256": "7a0e9b7f31feb9917fd0e45851de6b71a1ebe7644aab78961eadc363967f9578",
+    "byteCount": 213
+  },
+  "approval": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/interrupted-preparation-recovery-160/approval.json",
+    "sha256": "12a9cd441b32822f981cd7817077d98a835275e2cbdbbc4891ceca8ebac65ebf",
+    "byteCount": 1155
+  },
+  "command": {
+    "started": "2026-10-09T04:10:32.404Z",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 51176.448166,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "validatedEvents": 206277,
+  "sameOriginal136Handoff": true,
+  "eventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 468327400,
+    "byteCount": 1682431300,
+    "mtimeNs": "1791503650952848155",
+    "prefixDigest": "sha256:c24b51548ce6a12cc4bc540e34c61c8f6c45d5adcb05e774fc993b092a3b7160"
+  },
+  "physicalConservation": {
+    "files": 48,
+    "absence": 1,
+    "rowsExactBeforeAfter": true,
+    "selectedLockAbsent": true,
+    "ownProcessesAbsent": true
+  },
+  "lastMemoryObservation": {
+    "rss": 4707876864,
+    "heapTotal": 2666135552,
+    "heapUsed": 2547487440,
+    "external": 1685651029,
+    "arrayBuffers": 1683238722
+  },
+  "processMaxRSSKiB": 4609936,
+  "effects": "Only existing maintenance selected-lock adoption/normalclose/release and160 receipts. No append/Public/Run/model/app/source/Git/directunlink/preparation retry.",
+  "limits": [
+    "Memory capacity/source-use/private Product preparation/native currentness and fullUAT remain open.",
+    "Recovery success does not establish a dominant retainer or exact157 allocation site.",
+    "One maintenance invocation only; no duplicate manual owner verification or extra whole-log hash/parse."
+  ]
+}

@@ -1,0 +1,43 @@
+code/src/abg/semantic_revision.ts(480,44): error TS7006: Parameter 'row' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(492,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(prefix: ValidatedRuntimeEventPrefix, seedBasis: ExecutionBasis, historical: SemanticWorksiteBasis, current: SemanticWorksiteBasis, eligibleInvocationRefs: readonly string[]): readonly WorksiteRevisionOriginProof[] | null', gave the following error.
+    Argument of type 'Readonly<any>' is not assignable to parameter of type 'SemanticWorksiteBasis'.
+      Type 'Readonly<any>' is missing the following properties from type 'SemanticWorksiteBasis': workspaceAuthorityBasis, workspaceBinding, capabilityGrant, targets, and 3 more.
+  Overload 2 of 2, '(prefix: RuntimeEventPrefix, seedBasis: ExecutionBasis, historical: SemanticWorksiteBasis, current: SemanticWorksiteBasis, eligibleInvocationRefs: readonly string[]): readonly WorksiteRevisionOriginProof[] | null', gave the following error.
+    Argument of type 'Readonly<any>' is not assignable to parameter of type 'SemanticWorksiteBasis'.
+      Type 'Readonly<any>' is missing the following properties from type 'SemanticWorksiteBasis': workspaceAuthorityBasis, workspaceBinding, capabilityGrant, targets, and 3 more.
+code/src/abg/semantic_revision.ts(493,79): error TS2345: Argument of type 'Readonly<any>' is not assignable to parameter of type 'SemanticWorksiteBasis'.
+  Type 'Readonly<any>' is missing the following properties from type 'SemanticWorksiteBasis': workspaceAuthorityBasis, workspaceBinding, capabilityGrant, targets, and 3 more.
+code/src/abg/semantic_revision.ts(708,47): error TS7006: Parameter 'event' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(712,49): error TS7006: Parameter 'event' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(775,41): error TS7006: Parameter 'e' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(775,156): error TS7006: Parameter 'event' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(929,59): error TS7006: Parameter 't' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(956,44): error TS7006: Parameter 'e' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(956,90): error TS7006: Parameter 'event' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(967,79): error TS7006: Parameter 'e' implicitly has an 'any' type.
+code/src/abg/semantic_revision.ts(970,16): error TS7006: Parameter 'v' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(48,30): error TS2552: Cannot find name 'RuntimeEventPrefix'. Did you mean 'RuntimeEvent'?
+code/src/abg/semantic_stage.ts(65,11): error TS2552: Cannot find name 'RuntimeEventPrefix'. Did you mean 'RuntimeEvent'?
+code/src/abg/semantic_stage.ts(68,11): error TS2552: Cannot find name 'RuntimeEventPrefix'. Did you mean 'RuntimeEvent'?
+code/src/abg/semantic_stage.ts(92,76): error TS2304: Cannot find name 'runtimeEventBodiesAtPrefix'.
+code/src/abg/semantic_stage.ts(133,35): error TS7006: Parameter 'e' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(180,80): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(prefix: ValidatedRuntimeEventPrefix, events: readonly RuntimeEvent[], publication: Readonly<ModulePublication>, graphFunctions: readonly Readonly<...>[], input: SemanticStageEnvelope): boolean', gave the following error.
+    Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+      Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+  Overload 2 of 2, '(prefix: ValidatedRuntimeEventPrefix, events: RuntimeEventScan, publication: Readonly<ModulePublication>, graphFunctions: readonly Readonly<...>[], input: SemanticStageEnvelope): boolean', gave the following error.
+    Argument of type 'RuntimeEventPrefix' is not assignable to parameter of type 'ValidatedRuntimeEventPrefix'.
+      Type 'OwnedRuntimeEventPrefix' is missing the following properties from type 'ValidatedRuntimeEventPrefix': events, [VALIDATED_RUNTIME_EVENT_PREFIX], [PROFILE_SOURCE]
+code/src/abg/semantic_stage.ts(183,51): error TS7006: Parameter 'e' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(184,117): error TS7006: Parameter 'event' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(311,39): error TS7006: Parameter 'e' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(312,10): error TS7006: Parameter 'event' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(318,16): error TS7006: Parameter 'x' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(333,44): error TS7006: Parameter 'e' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(334,74): error TS7006: Parameter 'event' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(349,16): error TS7006: Parameter 'x' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(362,68): error TS7006: Parameter 't' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(363,54): error TS7006: Parameter 't' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(365,88): error TS7006: Parameter 't' implicitly has an 'any' type.
+code/src/abg/semantic_stage.ts(382,18): error TS2304: Cannot find name 'runtimeEventBodiesAtPrefix'.

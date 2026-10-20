@@ -1,0 +1,8 @@
+{
+  "definitionKey": {
+    "operationId": "abg.operation.workspace.bind",
+    "memberKey": "bind"
+  },
+  "elapsedMs": 52147.28445799998,
+  "timingScope": "existing helper call including request write, Public CLI and receipt retention; not isolated runtime attribution"
+}

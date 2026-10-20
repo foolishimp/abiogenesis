@@ -1,0 +1,4 @@
+Construct a parallel Hello World proof over generic dependency-frontier truth.
+The work shall decompose into a hello branch, a world branch, and a fan-in composition.
+The fan-in composition shall execute and produce exactly: Hello, world!
+Branch scheduling, fan-in acceptability, JavaScript meaning, and release meaning are proof binding policy, not ABI policy.

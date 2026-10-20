@@ -1,0 +1,71 @@
+{
+  "operation": "T287_G2_CORE_ADOPTION_CODE_STORAGE_RECORD_01",
+  "role": "Writer",
+  "status": "CLOSED_DOCUMENTS_ONLY",
+  "returnRole": "Executive",
+  "changed": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+      "bytes": 18222,
+      "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 492938,
+      "sha256": "9e6e81c0cf3ea3b2ea1127c34ba646ae97edb30f5a3a1703f56a056fdcbba10a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 67363,
+      "sha256": "78cdd89392f5b4b6304d2b328b1c12e447c7673ed3c3583a2ce786a4ad00c607",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "bytes": 21583,
+      "sha256": "db5435e69464dc87b0cc867e42e835e05c76dd6366db16f2ccafbd1677502cc6",
+      "mode": 420
+    }
+  ],
+  "created": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/controls/code-grant.txt",
+      "bytes": 7781,
+      "sha256": "4d4845561516e9e4ee2d485baee00328a533e0575a1e1832e940fa7368c41d3b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/controls/source-preimages.json",
+      "bytes": 4344,
+      "sha256": "02feda72fef4790123714c5254b36669407de091971271587738be7fcaacd4e9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/controls/root-writer-activation.json",
+      "bytes": 2221,
+      "sha256": "d033b59765ae67702655724c4810a68002605e414405402990fb099dddd237e2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/controls/core-design-review-root-record.json",
+      "bytes": 866,
+      "sha256": "5ef695e00170100dcef96f9daca82fe7be9c0c2e91e6541e0aef0b84fc7d88cb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/controls/design-acceptance.json",
+      "bytes": 1500,
+      "sha256": "9ee4831108e8a355c4bfc96c4ef52c5335a78235f8bfd48076ba3b848b9026fa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/controls/reviewed-design-preimage.md",
+      "bytes": 17997,
+      "sha256": "76a19668fc93f9efb769e13cc00d50d2ff22548239d23c5db2018ed79adcf5c4",
+      "mode": 420
+    }
+  ],
+  "CodeRuntimeProviderGitEffects": 0
+}

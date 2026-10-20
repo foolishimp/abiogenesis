@@ -1,0 +1,33 @@
+{
+  "results": [
+    {
+      "name": "syntax-offline-check02",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/offline-check.mjs"
+      ],
+      "pid": 27984,
+      "code": 0,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 43.47179131582379
+    },
+    {
+      "name": "offline-check02",
+      "args": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/offline-check.mjs"
+      ],
+      "pid": 27985,
+      "code": 0,
+      "timedOut": false,
+      "budgetMs": 60000,
+      "elapsedMs": 1155.2334590815008
+    }
+  ],
+  "elapsedMs": 1199.4042918086052,
+  "aggregateBudgetMs": 180000,
+  "futureDriverExecutedOrImported": false,
+  "pythonCheck": "ast.parse only; no execution of launcher/observer"
+}

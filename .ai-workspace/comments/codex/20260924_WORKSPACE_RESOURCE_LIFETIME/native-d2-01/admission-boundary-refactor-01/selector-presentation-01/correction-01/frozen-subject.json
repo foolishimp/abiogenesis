@@ -1,0 +1,49 @@
+{
+  "kind": "bounded_source_subject",
+  "predecessorSubject": "ca431d6a79e0fc9ee354bb5c1b60cae4073e17fbc7953cfbaf8491dc79e07597",
+  "baseCommit": "faf44bfb5904924272987b872d08b5c90d04a462",
+  "scope": "R-SP01 typed presentation routes; opaque application JSON conserved",
+  "paths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "preimageSha256": "f49db7e19b2a4850a583d3d70ca38db98bddb518d9bc2826763801571926f346",
+      "preimageBytes": 62543,
+      "sha256": "bc148fc67f660125025a0b9dd19e873a0ade3741e3530526df5e78d13056df91",
+      "bytes": 62698,
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "preimageSha256": "f38fe67524000ed82e26735d5c764817d95702ebf919ce654518892e280b9121",
+      "preimageBytes": 78884,
+      "sha256": "8d814ce4a654448bbe281b6364d2b69e5128e5bc88bd6fede27e55b89ba07039",
+      "bytes": 80663,
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "preimageSha256": "9c7a8c7572926ba61d2fbbb5dc798082a7baae106d2d28a3b2f7e3c165ac65ad",
+      "preimageBytes": 34367,
+      "sha256": "f08eaec00207bbd3ad127f860b1782f2ae207058cc740fba38fe39eeb6b303c7",
+      "bytes": 39291,
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "preimageSha256": "4fa6635144c038544bafb6eade658371a874c74d466ef93bdc459ebf6640117f",
+      "preimageBytes": 77009,
+      "sha256": "ccb002b6f9d426e646f1c96c88081515ce9643a71b375cce12c75bf7536592c7",
+      "bytes": 78590,
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "preimageSha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+      "preimageBytes": 14248,
+      "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+      "bytes": 14248,
+      "changed": false
+    }
+  ],
+  "subjectSha256": "4d23372410b91bc1772158741d94378a076ac073f119e1c0d5ccbc3cc1aa888e"
+}

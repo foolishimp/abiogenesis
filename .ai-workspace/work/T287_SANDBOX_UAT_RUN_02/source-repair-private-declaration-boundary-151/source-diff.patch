@@ -1,0 +1,41 @@
+--- code/src/product/run_invocation_operation.ts (pre151)
++++ code/src/product/run_invocation_operation.ts (151)
+@@ -95,6 +95,7 @@
+   readonly admittedInput: Readonly<Record<string, JsonValue>>;
+   readonly rawInput: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+   readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
++  /** @internal */
+   readonly currentSourceUse?: GovernanceCoveredSourceUse;
+   readonly policy: ReturnType<typeof constructRootInvocationPolicy>;
+   readonly grants: readonly CapabilityGrant[];
+--- code/src/abg/invocation_admission.ts (pre151)
++++ code/src/abg/invocation_admission.ts (151)
+@@ -128,8 +128,9 @@
+   readonly authority: InvocationAuthority;
+   readonly reentryBasis?: InvocationReentryBasis;
+   readonly sourceResultBasis?: ProductInvocationSourceResultBasis;
++  /** @internal */
+   readonly currentSourceUse?: GovernanceCoveredSourceUse;
+-  /** Private preparation preimages. They are verified here, never serialized
++  /** @internal Private preparation preimages. They are verified here, never serialized
+    * into the admission or accepted as a caller flag. */
+   readonly sourceUseDeclarations?: Readonly<{ current: AbgHistoricalDeclarationProof; historical: readonly AbgHistoricalDeclarationProof[] }>;
+ }
+--- design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md (pre151)
++++ design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md (151)
+@@ -174,6 +174,15 @@
+ attest the declaration comparison. New runtime facts still come from the
+ ordinary invocation, call, evidence, Result, judgment and fold owners.
+ Historical metadata is not rewritten to the current W.
++
++The preparation-only `currentSourceUse` members of
++`PreparedProductRunInvocation` and `InvocationAdmissionInput`, and the latter's
++`sourceUseDeclarations` preimages, are internal implementation carriers. Their
++`@internal` annotations erase those members and unused imports from ordinary
++published declarations under `stripInternal`; executable preparation and the
++independent ABG checks remain unchanged. The native declaration closure still
++resolves every published type. Neither publishing the private comparison type
++nor exempting a dangling declaration from validation realizes this boundary.
+ 
+ Later completed work is found through actual admitted source-use ancestry and
+ its witnessed crossings. A later state, addition or completed child cannot

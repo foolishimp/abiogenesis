@@ -1,0 +1,12 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+  "device": 16777231,
+  "inode": 468327400,
+  "byteCount": 2142089296,
+  "mtimeNs": "1791561048097567434",
+  "expectedCurrent": {
+    "byteLength": 2142089296,
+    "digest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277"
+  },
+  "acquisition": "Exact223 digest reused under unchanged fresh file facts; canonical maintenance owner validates full physical bytes. No external hash/read."
+}

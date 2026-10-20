@@ -1,0 +1,11 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "workResult": "ACTUAL_CONSTRUCTION_READY_REPORT_FINALIZATION_FALSE_REFUSAL",
+  "failedAttempt": "final-report-refusal-01.json",
+  "tenActualCommandAuthorship": "remains T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+  "return": "Root triangulated; separate report-only activation follows",
+  "sourceCandidateRuntimeEffectAfterFailure": 0
+}

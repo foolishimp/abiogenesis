@@ -1,0 +1,15 @@
+{
+  "status": "verified_reuse",
+  "receipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_REPAIR_01/compile.json",
+    "sha256": "8cf0dfd777cc9ec75fc436e485fe79f7960e6047d1ede4455c12909ca258c9fc"
+  },
+  "stageInventorySHA256": "957b9ba5ba1f6242edfa4a7e0a7a7390d595316558f3e2a35a74d93e46a50657",
+  "verifiedFiles": 5812,
+  "verifiedLogicalBytes": 104147655,
+  "filesystemCopyOnWrite": true,
+  "noHardLinks": true,
+  "recompiled": false,
+  "onlyChangedClonedFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_FIXTURE_REPAIR_02/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+  "elapsedMs": 778.4920829944895
+}

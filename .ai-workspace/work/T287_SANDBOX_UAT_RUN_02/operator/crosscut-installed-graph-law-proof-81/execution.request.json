@@ -1,0 +1,28 @@
+{
+  "kind": "authorized_installed_graph_law_proof_request",
+  "startedAt": "2026-10-08T07:46:33.553278+00:00",
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "argv": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/driver.mjs",
+    "--artifact-path",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "--artifact-sha256",
+    "88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4",
+    "--install-host",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host",
+    "--expected-content",
+    "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+    "--expected-manifest",
+    "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+    "--evidence-root",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/execution"
+  ],
+  "hostIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78"
+  },
+  "driverSha256": "14a64fb8e7715910834a796c0da010855b03b7cc8b952cd50f7702b2f58d1b65",
+  "nodeOptions": null,
+  "scope": "Root released single exact installed R03 compound proof; first integration failure stops"
+}

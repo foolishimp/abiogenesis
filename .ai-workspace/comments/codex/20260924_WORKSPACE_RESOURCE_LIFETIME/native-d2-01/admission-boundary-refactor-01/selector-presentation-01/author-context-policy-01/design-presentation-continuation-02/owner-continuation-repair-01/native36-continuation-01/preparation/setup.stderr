@@ -1,0 +1,27 @@
+{"phase":"full_sandbox_setup_start","pid":23450,"startedAt":"2026-09-25T20:14:03.548Z","nativeActors":false}
+{"phase":"full_sandbox_public_setup","ordinal":1,"label":"verify-core36"}
+{"phase":"full_sandbox_public_setup","ordinal":2,"label":"resolve-core36-dev15"}
+{"phase":"full_sandbox_public_setup","ordinal":3,"label":"install-core36"}
+{"phase":"full_sandbox_public_setup","ordinal":4,"label":"install-dev15"}
+{"phase":"full_sandbox_public_setup","ordinal":5,"label":"bootstrap-native-d2-intake-bind-existing-workspace"}
+{"phase":"full_sandbox_public_setup","ordinal":6,"label":"catalog"}
+{"phase":"full_sandbox_public_setup","ordinal":7,"label":"view"}
+{"phase":"full_sandbox_public_setup","ordinal":8,"label":"intake-conformance"}
+       54.04 real        60.99 user         5.44 sys
+          4895129600  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2667722  page reclaims
+                 313  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5296  messages sent
+                4063  messages received
+                   0  signals received
+                 335  voluntary context switches
+              336742  involuntary context switches
+       1151375721170  instructions retired
+        255281800486  cycles elapsed
+          4905591768  peak memory footprint

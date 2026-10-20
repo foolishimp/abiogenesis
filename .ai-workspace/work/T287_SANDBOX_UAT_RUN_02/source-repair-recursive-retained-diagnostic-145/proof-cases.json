@@ -1,0 +1,102 @@
+{
+  "cases": [
+    {
+      "scenario": "old-failure",
+      "eventCount": 144,
+      "runId": "run://abiogenesis/d7f2898729028089f2f04decde3bf31a855829b108184b73d035d673e6026302",
+      "disposition": "failed",
+      "diagnosticRef": "diagnostic://abiogenesis/hog/application-foldback-mismatch@5",
+      "priorParentResult": "result://abiogenesis/4cb3557632e234ad5b85c77bf33518fb634e07b9fec2df2775abbc4fd2df4d6c",
+      "childResultRef": "result://abiogenesis/4cb3557632e234ad5b85c77bf33518fb634e07b9fec2df2775abbc4fd2df4d6c",
+      "coldRuntimeStatus": "failed",
+      "prefixDigest": "sha256:f2c1008d1073f4d599050ca4eff75758d8abf13616b30125400e97350ce9227a",
+      "physicalEventStore": {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-IzutC4/runtime/events.jsonl",
+        "sha256": "7a1a11b908c86eab5566a5c3b79de8b7f3d94da203b44d7c2932625509bf2ff3",
+        "byteCount": 3579190,
+        "physicalRowCount": 144
+      }
+    },
+    {
+      "scenario": "failure",
+      "eventCount": 144,
+      "runId": "run://abiogenesis/0e883ca99ea712334ad9bda031b6f9329c7e826b12800aa0a9a690db64a070e6",
+      "disposition": "failed",
+      "diagnosticRef": "diagnostic://registered-selection/original-child-failure@5",
+      "priorParentResult": "result://abiogenesis/9787bda6276e0917619884b927553e1675ba7b249b7b5bd1ac68c739565dbb19",
+      "childResultRef": "result://abiogenesis/ec1afd32750bd79826f28329f3a08af599ab908c86243d471099a856057ab9f3",
+      "coldRuntimeStatus": "failed",
+      "prefixDigest": "sha256:648240fa45bf1ed6143763046abde1c61e22dbf6702d12939419b13f92c79398",
+      "physicalEventStore": {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-MTbDrL/runtime/events.jsonl",
+        "sha256": "0f2d01459d19e02d6e1e3c10a0bf17c8e26580c541f867752c440ffb385cc168",
+        "byteCount": 3578629,
+        "physicalRowCount": 144
+      }
+    },
+    {
+      "scenario": "retained-diagnostic",
+      "eventCount": 144,
+      "runId": "run://abiogenesis/add1c67b0e6050d54af94db3f96c35f2cc434ec3e1012c0e13927fc56878d01e",
+      "disposition": "failed",
+      "diagnosticRef": "data:application/json;charset=utf-8,%7B%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fundispatched%2Fpreparation%2Fthrown%405%22%2C%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22controlled%20F_D%20diagnostic%20bytes%20%C3%A9%F0%9D%84%9E%22%2C%22messageTruncated%22%3Afalse%2C%22reason%22%3A%22thrown%22%2C%22stack%22%3A%22TypeError%3A%20controlled%20F_D%20diagnostic%20bytes%20%C3%A9%F0%9D%84%9E%5Cn%20%20%20%20at%20TestContext.%3Canonymous%3E%20(file%3A%2F%2F%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_SANDBOX_UAT_RUN_02%2Fsource-repair-recursive-retained-diagnostic-145%2Fbaseline%2Ftest_env%2Ftests%2Ft287-recursive-failure-reuse-control.test.mjs%3A152%3A103)%5Cn%20%20%20%20at%20async%20Test.run%20(node%3Ainternal%2Ftest_runner%2Ftest%3A1113%3A7)%5Cn%20%20%20%20at%20async%20Test.processPendingSubtests%20(node%3Ainternal%2Ftest_runner%2Ftest%3A788%3A7)%22%2C%22stackTruncated%22%3Afalse%2C%22stage%22%3A%22preparation%22%7D",
+      "priorParentResult": "result://abiogenesis/b4ab32e5e44d94a7d8577dfdfffd24240412822b373427f8d3477af8c03657e3",
+      "childResultRef": "result://abiogenesis/6743d93ca3cb42d0726330a6ba2ee0060fdedfed38fd1bd9bd1f271e39f3831f",
+      "coldRuntimeStatus": "failed",
+      "prefixDigest": "sha256:b249e287efb72c3cc1cc150cbffd7a0d269497599f7ba76912da0160bda6b524",
+      "physicalEventStore": {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-An0EG1/runtime/events.jsonl",
+        "sha256": "e6a97cd73d52f5e2ada46614d8428140c8a0486c302bd736d611affee97474ac",
+        "byteCount": 3587055,
+        "physicalRowCount": 144
+      }
+    },
+    {
+      "scenario": "retained-null",
+      "eventCount": 144,
+      "runId": "run://abiogenesis/3bcca7f28b0256a3da014c7f1c147583a38df86d609b83a184f9458f9703f08a",
+      "disposition": "failed",
+      "diagnosticRef": "data:application/json;charset=utf-8,null",
+      "priorParentResult": "result://abiogenesis/be949598fcab9b9cfa235654b8c8f5e04ae2049de5386ddade29762a41b59460",
+      "childResultRef": "result://abiogenesis/bd026235ca7e102928bf63948d774ba7f919dac4adbae5e649d54aaaa227743a",
+      "coldRuntimeStatus": "failed",
+      "prefixDigest": "sha256:b53e43ae8ee1a71b3412d7737567cedb681f5f0debf35d05d31c32af7ee6dccc",
+      "physicalEventStore": {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-c5f47c/runtime/events.jsonl",
+        "sha256": "bcfdd7b4d5614ba9bc2edfb997f96d5f4330e90d9eb6927c427b2311c3e34a39",
+        "byteCount": 3579328,
+        "physicalRowCount": 144
+      }
+    },
+    {
+      "scenario": "success",
+      "eventCount": 176,
+      "runId": "run://abiogenesis/0d09ee55ae0413da417e1687cdb3109d0518e4e095ebdd0d5281ceb6ddd58a0f",
+      "disposition": "closed",
+      "diagnosticRef": null,
+      "priorParentResult": "result://abiogenesis/662b40eaecf0b90a23fc6b5fb3c05fb1753f3ffa3d000695be3de436922be03a",
+      "childResultRef": "result://abiogenesis/85f6992c11cb38e2ae543ba94ee15cff572d4edb9bcc13fa31941067cab0fde6",
+      "coldRuntimeStatus": "closed",
+      "prefixDigest": "sha256:bd2000d3d41a5d52e07cf43963d5110afce1e1f15fe1e902cf05a32cd58a1df0",
+      "physicalEventStore": {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Z9Oshd/runtime/events.jsonl",
+        "sha256": "1c1215ca8b5e214a9617fb48b7605f89512b43611d98ef4c52a82060d442c09d",
+        "byteCount": 3674330,
+        "physicalRowCount": 176
+      }
+    }
+  ],
+  "fixtureArtifact": {
+    "artifactDigest": "sha256:ee0c2c5598650d14274418d4deb84dc8a3fd173606ed57dbcda4231c8a84ba76",
+    "manifestDigest": "sha256:67662ee568908a3e322a962e5f0a8d80a53dd492aed59444172d740db7e852b3",
+    "productContentDigest": "sha256:bcaf6c2c04f5298db1e2ed36a30a447572c2a93efb51b66b98d564cb0f7fed8a",
+    "productId": "product://registered-selection/product@5",
+    "packageName": "@abiogenesis-fixtures/registered-selection",
+    "packageVersion": "5.0.0",
+    "artifactPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+    "sourceRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-YbRuQn/registered-selection-data-product-source"
+  },
+  "fixtureRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-recursive-failure-source-rSIC8X",
+  "sourceUnderTestDigest": "sha256:546fcd3e1259491cce7b01e4b0ecf495a9cee5bd91ad8f68ea2a65a9044345a4",
+  "proofLimit": "Genuine installed lower admission/storage/read owners with in-memory HoG linkage; retained lanes use a disclosed controlled F_D realizer through invokeLeafOwnerBoundary and unchanged declared fibre/contracts. Installed F_P exception reachability is source-proven separately; no installed145/F_P-to-HoG join, provider, DataMapper, UAT or semantic adequacy claim."
+}

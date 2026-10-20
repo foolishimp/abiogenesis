@@ -1,0 +1,24 @@
+{
+  "donorInventory": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/native-obligations.json",
+    "bytes": 8502,
+    "sha256": "cf57b43c1463b5a99322cf883c1db76f8b86e39f921af915e8e3c19b75f40875"
+  },
+  "coverageSelection": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+    "bytes": 23029,
+    "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+  },
+  "newImmutableSubject": {
+    "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+    "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+    "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "status": "unexecuted_and_unbound_in_this_cut",
+  "preserved": "Existing selected S01/S02/S03/S06/control, actual C2, complete F11/seven seeds and sole AF22 obligations remain. No widened or waived claim.",
+  "routes": "Historical caller/oracle inventories are retained at their actual identities; later Root binds actual current producers.",
+  "movingNative03": "excluded and not consumed"
+}

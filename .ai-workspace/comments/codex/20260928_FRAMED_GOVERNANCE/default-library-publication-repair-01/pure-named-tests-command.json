@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--test",
+    "--test-reporter=tap",
+    "--test-name-pattern=^(?:default library preserves cumulative wrapper bindings and rejects duplicate carried refs|installed root publication precondition rejects a bad non-selected publication|default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation)$",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/component/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/component",
+  "timeoutSeconds": 60,
+  "selectedNames": [
+    "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+    "installed root publication precondition rejects a bad non-selected publication",
+    "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation"
+  ],
+  "HOMEUnchanged": true,
+  "componentOnly": true
+}

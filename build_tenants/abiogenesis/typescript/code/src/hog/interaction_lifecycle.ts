@@ -1,3 +1,5 @@
+import { planOwnedPendingInteractionAdmission } from "../abg/c_call.js";
+import { admitOwnedFhInteractionHold } from "../abg/continuation.js";
 import * as Abg from "../abg/index.js";
 import type {
   AbgEventStore,
@@ -20,11 +22,11 @@ import { deepFreeze } from "../shared/immutable.js";
 import * as Routes from "./route_proposal.js";
 import {
   admissionBasis,
-  replayAtDurable,
+  ownedReplayAtDurable as replayAtDurable,
 } from "./operator_support.js";
 import { failTraversal } from "./traversal_failure.js";
 import {
-  projectExecutableTraversalCompletion,
+  projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion,
   type ExecutableTraversalCompletion,
 } from "./traversal_completion.js";
 
@@ -52,9 +54,16 @@ export interface InteractionHoldEvaluation {
   readonly outputContractRef: null;
 }
 
-export function holdInteraction(
+
+import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
+import * as OwnedOutcome from "../abg/c_call_outcome.js";
+import * as OwnedReplay from "../abg/replay.js";
+/** @internal */
+export type OwnedInteractionHoldEvaluation = OwnedOutcomeValue<InteractionHoldEvaluation>;
+/** @internal Same current completion with a selected guard receipt. */
+export function holdOwnedInteraction(
   input: InteractionHoldInput,
-): InteractionHoldEvaluation {
+): OwnedInteractionHoldEvaluation {
   const productBasis = input.continuationProductBasis;
   const row = Abg.selectAdmittedInteractionContract(input.interactionSet, {
     graphFunctionRef: input.graph.graphFunctionRef,
@@ -109,7 +118,7 @@ export function holdInteraction(
     clock,
     `interaction/${input.ordinal}/pending`,
   );
-  const plan = Abg.planPendingInteractionAdmission(
+  const plan = planOwnedPendingInteractionAdmission(
     input.store,
     input.graph,
     input.graphFunction,
@@ -150,7 +159,7 @@ export function holdInteraction(
     },
     terminalizeRun: false,
   });
-  const admitted = Abg.admitFhInteractionHold({
+  const admitted = admitOwnedFhInteractionHold({
     predecessorPrefix: opened.successorPrefix,
     store: input.store,
     executionBasis: input.executionBasis,
@@ -216,3 +225,7 @@ export function holdInteraction(
     outputContractRef: null,
   };
 }
+
+export function holdInteraction(
+  input: InteractionHoldInput
+): InteractionHoldEvaluation { return completePublicOutcome<InteractionHoldEvaluation>(holdOwnedInteraction(input)); }

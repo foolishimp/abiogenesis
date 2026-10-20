@@ -1,0 +1,38 @@
+{
+  "status": "FIRST_FAILURE_STOPPED",
+  "operation": "T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_02",
+  "phase": "same_process_nominal_fixture_verification_preflight",
+  "failureClass": "selected setup cost bound could not be established/observed by preflight caller",
+  "nativeRefusal": null,
+  "nativeReceipt": null,
+  "termination": {
+    "route": "managed exec session 93621 interrupted with Ctrl-C",
+    "exitCode": 130,
+    "pkillAttempt": "could not enumerate processes: sysmond not found",
+    "processGroupEvidence": "managed session closed; Product verifier execFile tar children use inherited group; no detached CLI/actor was spawned",
+    "lastSubprocessPID": null,
+    "independentProcessEnumeration": "unavailable under sandbox"
+  },
+  "timing": {
+    "activationAt": "2026-10-01T22:03:12.274548+00:00",
+    "runSetupFileWrittenAt": "2026-10-01T22:03:41.385371+00:00",
+    "closureReportAt": "2026-10-01T22:09:51.332776+00:00",
+    "activationToReportMs": 399058.228,
+    "scriptWriteToReportMs": 369947.405,
+    "actualProcessStart": "not recorded",
+    "actualTerminationTime": "not recorded; managed tool returned exit130 before closure report",
+    "exact180SecondTermination": "not established; stage timer begins only after nominal preflight"
+  },
+  "physicalPrefix": null,
+  "eventFileExists": false,
+  "PublicCLIInvocations": 0,
+  "nativeAssessorDispatches": 0,
+  "realProviderCalls": 0,
+  "newCallsAfterStop": 0,
+  "format": {
+    "kind": "standard PAX tar/gzip",
+    "extendedPathMemberCount": 3027,
+    "maxPathBytes": 159
+  },
+  "next": "Root triangulation before archive/caller repair/retry; no source or runtime patch granted"
+}

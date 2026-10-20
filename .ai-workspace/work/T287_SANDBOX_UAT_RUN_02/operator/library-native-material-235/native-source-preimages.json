@@ -1,0 +1,17 @@
+{
+  "scope": "Root-confirmed233 native task/source retention lease235",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/preimages/code/src/abg/native_worksite_execution.ts",
+      "sha256": "4a001a2828377c937a69ede474dfe9127a4e8daf18d3eacaecb346e7a041d49c",
+      "byteCount": 16287
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/preimages/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "9314eaf1b8af4e9cb1eb98e36bca78064d592ecf84ab04a1578f4a27a507f324",
+      "byteCount": 63281
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "separate_worker_activation",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_05",
+  "actor": "/root/q03_input_review",
+  "role": "Worker",
+  "declaredBeforeEffects": true,
+  "reentry": "realization_refactor",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05",
+  "createdAt": "2026-10-02T01:09:16.895588+00:00",
+  "runtimeAuthority": false,
+  "candidate": "C04",
+  "authority": "exact seven-section request.txt; Root acceptance separately pinned",
+  "stop": "one CLOSED subject; no writes after freeze"
+}

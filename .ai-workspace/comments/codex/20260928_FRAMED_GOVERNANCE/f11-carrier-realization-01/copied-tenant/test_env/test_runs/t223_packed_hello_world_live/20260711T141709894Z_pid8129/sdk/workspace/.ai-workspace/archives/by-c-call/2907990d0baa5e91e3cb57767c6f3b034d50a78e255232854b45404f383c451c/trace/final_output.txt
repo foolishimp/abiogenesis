@@ -1,0 +1,19 @@
+{
+  "edge": "hello-input-to-output",
+  "actor": "claude-fable-5-fp-worker",
+  "message": "hello world",
+  "fulfillment_assessments": [
+    {
+      "id": "instruction-response/hello-input-to-output/vector-0",
+      "evaluator": "claude-fable-5-fp-worker",
+      "fulfillment_status": "fulfilled",
+      "fulfillment_detail": "Transformed bound input {\"greeting\":\"world\"} from node://fixture/hello-world/helloinput into the hello-output message \"hello world\" for node://fixture/hello-world/hellooutput, following the hello-input-to-output edge with dependencyClosed=true and no prerequisite gaps.",
+      "blocking_reasons": [],
+      "evidence_refs": [
+        "input://t223/sdk",
+        "node://fixture/hello-world/hellooutput",
+        "dependency-instruction-truth://catalog-c0fd10b3d52a4e1a/vector-0/transform"
+      ]
+    }
+  ]
+}

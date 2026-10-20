@@ -1,0 +1,14 @@
+{
+  "role": "Worker",
+  "worker": "T287_FINAL_QUALIFICATION_INPUTS_01",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01",
+  "changeClass": "realization_refactor",
+  "basis": "STDO v2.5.1-rc.1",
+  "request": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-controls-01/request.txt",
+    "bytes": 7405,
+    "sha256": "0b4d06a9bbec27291ffef4aa9c8fab83baae3f006ef6a4903a79d0db83acdc5e"
+  },
+  "effects": "external input construction and pure installed constructor/schema checks only; no command recipe/test/native/resource/package/Git execution",
+  "status": "activated"
+}

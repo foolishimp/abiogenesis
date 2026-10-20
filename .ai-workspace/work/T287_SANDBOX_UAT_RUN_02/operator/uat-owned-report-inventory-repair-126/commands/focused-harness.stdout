@@ -1,0 +1,23 @@
+✔ Owned XML acquisition consumes authentic C2 reports outside the application without earning full UAT (304.652708ms)
+✔ Owned XML acquisition verifies literal report digest, length, identity, complete set and symlink confinement (79.193208ms)
+✔ Owned XML acquisition selects latest original red and its depth names, rejecting unadmitted and foreign sources (49.766ms)
+✔ Owned XML inventory requires the original complete matching set from the same selected observation (103.362417ms)
+✔ Owned XML mutation episodes require their own snapshot reports and distinct actual command experiments (56.756792ms)
+▶ Owned report repair preserves all six original Hello mechanical command and source cases
+  ✔ basic-cli (4.599792ms)
+  ✔ js-tenant-test (4.007458ms)
+  ✔ js-sdlc-bootstrap (3.87325ms)
+  ✔ rust-cli (4.129709ms)
+  ✔ rust-service (3.701209ms)
+  ✔ parallel-js (4.289667ms)
+✔ Owned report repair preserves all six original Hello mechanical command and source cases (25.393167ms)
+✔ Source-use attribution refuses unauthenticated or unadmitted current invocations through actual installed owners (21.898458ms)
+✔ Seven exact original workloads authenticate source, request and independent oracle before use (3.970542ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 933.59975

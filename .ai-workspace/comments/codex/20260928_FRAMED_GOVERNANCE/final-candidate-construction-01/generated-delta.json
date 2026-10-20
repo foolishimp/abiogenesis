@@ -1,0 +1,392 @@
+[
+  {
+    "path": "build/code/src/abg/project_read_definition_bindings.d.ts",
+    "before": {
+      "path": "build/code/src/abg/project_read_definition_bindings.d.ts",
+      "bytes": 2521,
+      "sha256": "f05666ddc8426621a04d9ef065de5187251fc0693b54af32aad3d40e881ccd1a"
+    },
+    "after": {
+      "path": "build/code/src/abg/project_read_definition_bindings.d.ts",
+      "bytes": 3068,
+      "sha256": "a709a33f9454996bf8746d36727535c5012dae9c6489fd68ae5e075aa9b40dfd"
+    }
+  },
+  {
+    "path": "build/code/src/abg/project_read_definition_bindings.js",
+    "before": {
+      "path": "build/code/src/abg/project_read_definition_bindings.js",
+      "bytes": 26971,
+      "sha256": "1cad02333882c8467f09fffbb4bc3102f5707aed73e4c386a9ffe8e8334fbc05"
+    },
+    "after": {
+      "path": "build/code/src/abg/project_read_definition_bindings.js",
+      "bytes": 27705,
+      "sha256": "8d445d598e6c1a9265502040b703907bf491c6197c2d06cc1ad0bd5921f14e2d"
+    }
+  },
+  {
+    "path": "build/code/src/abg/project_read_operation_contracts.d.ts",
+    "before": {
+      "path": "build/code/src/abg/project_read_operation_contracts.d.ts",
+      "bytes": 535378,
+      "sha256": "228c6f9140deaeaa48e2e6fbabaa95b3db07bc6be23ef10683457384ac6b33b0"
+    },
+    "after": {
+      "path": "build/code/src/abg/project_read_operation_contracts.d.ts",
+      "bytes": 568552,
+      "sha256": "de6c35dfc429b35539a37771cc2bdfb48fca496f02deef8ffbf403bd97bb5fa7"
+    }
+  },
+  {
+    "path": "build/code/src/abg/project_read_operation_contracts.js",
+    "before": {
+      "path": "build/code/src/abg/project_read_operation_contracts.js",
+      "bytes": 11770,
+      "sha256": "77e3ae90d7905ab258be3218b0ab66cc3d2ef66dda5e3e376e936f2b22d41ed4"
+    },
+    "after": {
+      "path": "build/code/src/abg/project_read_operation_contracts.js",
+      "bytes": 13367,
+      "sha256": "74e291ed53f1a494fb3754a65c95af0909ff5b6f0c54c6a5b4c3df19d08b5746"
+    }
+  },
+  {
+    "path": "build/code/src/abg/project_read_ports.d.ts",
+    "before": {
+      "path": "build/code/src/abg/project_read_ports.d.ts",
+      "bytes": 13396,
+      "sha256": "e16e1502cd90de541ce81567f288be6d1e5a0e033e6016c0e7cddb43df7f068e"
+    },
+    "after": {
+      "path": "build/code/src/abg/project_read_ports.d.ts",
+      "bytes": 13846,
+      "sha256": "d83e01249add0c10fbaafd9808dc14a8ac23302245e5a48c62838620c8d6dda1"
+    }
+  },
+  {
+    "path": "build/code/src/abg/project_read_ports.js",
+    "before": {
+      "path": "build/code/src/abg/project_read_ports.js",
+      "bytes": 64553,
+      "sha256": "8bb0814cccc3a1ea52d7c645b85dade45a2fd334a563f691c270d8e3c1d24d59"
+    },
+    "after": {
+      "path": "build/code/src/abg/project_read_ports.js",
+      "bytes": 76942,
+      "sha256": "7f76ba05fd279071f9be583064989340acaefdc7add9ec279f816cdf45864fcd"
+    }
+  },
+  {
+    "path": "build/code/src/shared/owner_contract_source_set.d.ts",
+    "before": {
+      "path": "build/code/src/shared/owner_contract_source_set.d.ts",
+      "bytes": 586691,
+      "sha256": "6f0ed20aa00be4d7ed3b46e9c40103a03d13dd642f4885ff2dca345ab9591f63"
+    },
+    "after": {
+      "path": "build/code/src/shared/owner_contract_source_set.d.ts",
+      "bytes": 603491,
+      "sha256": "dc0a9e76fd5fa4431d509cacfb38f059d6d883b60bb78802a0603abdf9dea402"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "7d667c25e039dbdf7f3793f0ac3e9f053faadc35c342e922b0cab794cd2cf211"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "74aaccc26d94bbaf397953e53b3873afe45ec5ea93eb10cb5f165ecd307b73b0"
+    }
+  },
+  {
+    "path": "contracts/public-functions/adapter-projection.json",
+    "before": {
+      "path": "contracts/public-functions/adapter-projection.json",
+      "bytes": 69025,
+      "sha256": "36b232bc10b96c825f001f1df59bcd46b5306971503bb9cc2cabbe32882d033b"
+    },
+    "after": {
+      "path": "contracts/public-functions/adapter-projection.json",
+      "bytes": 69025,
+      "sha256": "89db3ae9bf5d4e5184dec0a0cba594a4a243fb4902ce4ea7eff17d1c81796c25"
+    }
+  },
+  {
+    "path": "contracts/public-operations/catalog/admit/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/catalog/admit/operation-contract.json",
+      "bytes": 5941,
+      "sha256": "2eb64ce5ed9c432d87c0e4793f52af4ff934d052073705de2464b9834f6fed49"
+    },
+    "after": {
+      "path": "contracts/public-operations/catalog/admit/operation-contract.json",
+      "bytes": 5941,
+      "sha256": "97c38111bfad235d5280162454bffae4e9c9edba902286326ae154871409b6ad"
+    }
+  },
+  {
+    "path": "contracts/public-operations/catalog/apply/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/catalog/apply/operation-contract.json",
+      "bytes": 10721,
+      "sha256": "ed422bb2b1b5e0e81e8aa9789d09f85fe8551625c35b18521458c08d99e9562d"
+    },
+    "after": {
+      "path": "contracts/public-operations/catalog/apply/operation-contract.json",
+      "bytes": 10721,
+      "sha256": "8e2bd156e2a1e989991b3d814b28bf5bfa6b538f313e5475804cc0419c2317df"
+    }
+  },
+  {
+    "path": "contracts/public-operations/catalog/view/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/catalog/view/operation-contract.json",
+      "bytes": 6053,
+      "sha256": "8250f440badebf108d2d914b40ae6a6aeea95f3f8778a0515ed62c60a91a2315"
+    },
+    "after": {
+      "path": "contracts/public-operations/catalog/view/operation-contract.json",
+      "bytes": 6053,
+      "sha256": "30918fd670d72e7071abbbe18254e6645bd72f2c87c803a3b242621183fc2322"
+    }
+  },
+  {
+    "path": "contracts/public-operations/conformance/evaluate/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/conformance/evaluate/operation-contract.json",
+      "bytes": 6207,
+      "sha256": "f188d917a17ccd1805cb0613e46e2bde4105e91e510eb64a21667838bbba75dd"
+    },
+    "after": {
+      "path": "contracts/public-operations/conformance/evaluate/operation-contract.json",
+      "bytes": 6207,
+      "sha256": "30a71155cdb701017d34abdd5b49e357e5b75a4b50a880ffafcf6576ddb7e3cc"
+    }
+  },
+  {
+    "path": "contracts/public-operations/interaction/respond/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/interaction/respond/operation-contract.json",
+      "bytes": 30349,
+      "sha256": "a142d480e8820aeec1bc5f735db9a34112ba2828106439f1dd7e0845f58bdec8"
+    },
+    "after": {
+      "path": "contracts/public-operations/interaction/respond/operation-contract.json",
+      "bytes": 30349,
+      "sha256": "460ca3e7b6996ea54f92e962697354b71f2c3cef6e5fc3d980877c5e59a7fe2c"
+    }
+  },
+  {
+    "path": "contracts/public-operations/product/install/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/product/install/operation-contract.json",
+      "bytes": 5954,
+      "sha256": "0968851857ce4446c94cc32fb5366d2bd82274295f65878043dcb3945fae8add"
+    },
+    "after": {
+      "path": "contracts/public-operations/product/install/operation-contract.json",
+      "bytes": 5954,
+      "sha256": "ba376c9c81a6481e0b4729401b6f760fc11e7c96a12479af4ef8b7b2df526b96"
+    }
+  },
+  {
+    "path": "contracts/public-operations/product/materialize/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/product/materialize/operation-contract.json",
+      "bytes": 11023,
+      "sha256": "2a175cbc36068ea473a299578246fc9d3155b580cddad908346c8b54ae8850b2"
+    },
+    "after": {
+      "path": "contracts/public-operations/product/materialize/operation-contract.json",
+      "bytes": 11023,
+      "sha256": "f7312e897b9aa21afcd19308589e67e78eb4fbeb3f29def694a77b41c1ed4fdf"
+    }
+  },
+  {
+    "path": "contracts/public-operations/product/resolve/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/product/resolve/operation-contract.json",
+      "bytes": 6080,
+      "sha256": "f6fbf8ae444ef4562a23065c6f9e0023a9e3252e3045fa191d2feb81259b2e80"
+    },
+    "after": {
+      "path": "contracts/public-operations/product/resolve/operation-contract.json",
+      "bytes": 6080,
+      "sha256": "ad70be2af6bd7bc5c92fdd294c39d27abf85f9e18464a3b9667948e4e210fe21"
+    }
+  },
+  {
+    "path": "contracts/public-operations/product/verify/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/product/verify/operation-contract.json",
+      "bytes": 5952,
+      "sha256": "452642f8869bc9e60b2d396b4a15ec81b24bf9407cbcad99b815567cf2e42c29"
+    },
+    "after": {
+      "path": "contracts/public-operations/product/verify/operation-contract.json",
+      "bytes": 5952,
+      "sha256": "16e7dfdb6f641143c515f1a947ac50da3810e5111ead864b97280e891170809e"
+    }
+  },
+  {
+    "path": "contracts/public-operations/project/read/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/project/read/operation-contract.json",
+      "bytes": 114486,
+      "sha256": "9a5552c40802db69cecc2eba37fc1d1ca1cb8810c25be366fdc76114fbcb6f75"
+    },
+    "after": {
+      "path": "contracts/public-operations/project/read/operation-contract.json",
+      "bytes": 114486,
+      "sha256": "c2c4a0b1a9d9f4c23b5e42bce10b0c5f14bab0117b54078d0c7ded08944b5849"
+    }
+  },
+  {
+    "path": "contracts/public-operations/release/snapshot/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/release/snapshot/operation-contract.json",
+      "bytes": 11097,
+      "sha256": "db4c6a26ac9301b6c11861e152268e54ac080bf0733b69c618d1a4eea26e4e31"
+    },
+    "after": {
+      "path": "contracts/public-operations/release/snapshot/operation-contract.json",
+      "bytes": 11097,
+      "sha256": "68c12ea0eb408e5bcbee7e889cc9a5c4287d689786502ee1687e7d6b62d8b512"
+    }
+  },
+  {
+    "path": "contracts/public-operations/result/assess/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/result/assess/operation-contract.json",
+      "bytes": 6871,
+      "sha256": "d0eceec93bafb804b5e49d3fd6c71068f98019505e3ab8a6fd7310f058d7ba50"
+    },
+    "after": {
+      "path": "contracts/public-operations/result/assess/operation-contract.json",
+      "bytes": 6871,
+      "sha256": "f562aeeb6d2ff60d33789b77aefb065a4cf744ecda0a9c044e4a290bbfd1d3e3"
+    }
+  },
+  {
+    "path": "contracts/public-operations/run/continue/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/run/continue/operation-contract.json",
+      "bytes": 12809,
+      "sha256": "93123c72ba4f5ab04e6d0c60b8794a524b3f8c2cc51afa414ba18207a3fedac3"
+    },
+    "after": {
+      "path": "contracts/public-operations/run/continue/operation-contract.json",
+      "bytes": 12809,
+      "sha256": "9cbc6e1bc1890967aac77d1eac9a72d5b74edcdb4e2252dfa9586f7990907375"
+    }
+  },
+  {
+    "path": "contracts/public-operations/run/invoke/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/run/invoke/operation-contract.json",
+      "bytes": 12327,
+      "sha256": "094af8f940b5a9712a9526df3f0a1c0f633204b556753c6e67a0e199b7ecf13b"
+    },
+    "after": {
+      "path": "contracts/public-operations/run/invoke/operation-contract.json",
+      "bytes": 12327,
+      "sha256": "01570f4e80da5cd4db5b00b7bafe863240b9ffc390568ffe372160a0c78bc5ce"
+    }
+  },
+  {
+    "path": "contracts/public-operations/witness/admit/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/witness/admit/operation-contract.json",
+      "bytes": 29041,
+      "sha256": "044ef92519e1b305efdc73bcf43cead6c2b08078fe14794ca645d22fc7679cd8"
+    },
+    "after": {
+      "path": "contracts/public-operations/witness/admit/operation-contract.json",
+      "bytes": 29041,
+      "sha256": "dfdc7675a4bd11799deb8cfcce7cfb2acef884aa7e88f969ac9240456dcd4000"
+    }
+  },
+  {
+    "path": "contracts/public-operations/workspace/bind/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/workspace/bind/operation-contract.json",
+      "bytes": 6006,
+      "sha256": "33a2eb3d627c75da6410539aad7fc13316b9ebcc33e4449f803ca9f1aa3d8cc9"
+    },
+    "after": {
+      "path": "contracts/public-operations/workspace/bind/operation-contract.json",
+      "bytes": 6006,
+      "sha256": "22140137b8bfa6d0ac19f137fbee4a59353a4a695b4e991f43163626549a481a"
+    }
+  },
+  {
+    "path": "contracts/public-operations/workspace/create/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/workspace/create/operation-contract.json",
+      "bytes": 10823,
+      "sha256": "321e68bcde0cde4722b448e1bd11bb41ce6c6263639bd79ab0128c75b76e35d1"
+    },
+    "after": {
+      "path": "contracts/public-operations/workspace/create/operation-contract.json",
+      "bytes": 10823,
+      "sha256": "c1acec14134d47681254d789e68aa341d6e2162a6e36eab663094b1cf8d41aa8"
+    }
+  },
+  {
+    "path": "contracts/public-operations/workspace/open/operation-contract.json",
+    "before": {
+      "path": "contracts/public-operations/workspace/open/operation-contract.json",
+      "bytes": 6009,
+      "sha256": "e087e423f8fc0babd8627e8c51b738516dedf62214a8474576b8f3d4153ecfdf"
+    },
+    "after": {
+      "path": "contracts/public-operations/workspace/open/operation-contract.json",
+      "bytes": 6009,
+      "sha256": "0b976f3cc12a01f1feda2b9c97c9776205c319a7698121d625827d8b25018f41"
+    }
+  },
+  {
+    "path": "contracts/schemas/operations/project/read/result.schema.json",
+    "before": {
+      "path": "contracts/schemas/operations/project/read/result.schema.json",
+      "bytes": 132361,
+      "sha256": "aef039061e465894ed89da7cef4794daab5fdc2421cf047aed2bc1961487a60c"
+    },
+    "after": {
+      "path": "contracts/schemas/operations/project/read/result.schema.json",
+      "bytes": 144357,
+      "sha256": "2552ba5b8b7c24706620bfce7c334b2ed41c8b1272c1b9e9645671b601d1bcec"
+    }
+  },
+  {
+    "path": "contracts/schemas/public-operation.schema.json",
+    "before": {
+      "path": "contracts/schemas/public-operation.schema.json",
+      "bytes": 2855619,
+      "sha256": "59738888a90f40765f6f9a602aa7da1a6fd595a52d26023bd7baaa2ff64d5f27"
+    },
+    "after": {
+      "path": "contracts/schemas/public-operation.schema.json",
+      "bytes": 2867615,
+      "sha256": "80e86af99f43cbbea8d946e60250f468ae0b872cec164c728cea208380e3d188"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "6b3bb3055fbdfbc1c7430987a5d13ca101fb6955fe915596760844babfd03e9e"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "f966726a252d2aac3109d685b7f7e49d89c1f8c7d3836b34313d4f2152f39bc8"
+    }
+  }
+]

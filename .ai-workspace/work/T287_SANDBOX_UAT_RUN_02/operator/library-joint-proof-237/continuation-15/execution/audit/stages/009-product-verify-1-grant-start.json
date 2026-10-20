@@ -1,0 +1,11 @@
+{
+  "stage": "product-verify-1-grant-start",
+  "elapsedMs": 25013.602541,
+  "at": "2026-10-10T20:18:00.709Z",
+  "rss": 2709520384,
+  "heapTotal": 1269776384,
+  "heapUsed": 1147533368,
+  "external": 2740252,
+  "arrayBuffers": 327945,
+  "beforeAcquisition": true
+}

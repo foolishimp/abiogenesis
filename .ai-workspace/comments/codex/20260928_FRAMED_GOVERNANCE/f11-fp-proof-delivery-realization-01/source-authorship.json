@@ -1,0 +1,48 @@
+{
+  "operation": "T287_F11_FP_PROOF_DELIVERY_REALIZATION_01",
+  "sourceAuthor": "/root/native_applicability_design as separately activated Worker",
+  "originalC05SourceRecord": {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "bytes": 76350,
+    "sha256": "4a51cfe4adc7d5a200affb5b2ac8a704c01ead72a83e4fd1b632a4133f3ef997",
+    "mode": 420,
+    "sourceAuthor": "/root/f11_carrier_design_worker",
+    "selectedRelation": "immutable_C04_input_preimage",
+    "originalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "originalAuthorship": "/root/f11_carrier_design_worker",
+    "C04InputSHA256": "4a51cfe4adc7d5a200affb5b2ac8a704c01ead72a83e4fd1b632a4133f3ef997",
+    "C04SourceProvenance": {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76350,
+      "sha256": "4a51cfe4adc7d5a200affb5b2ac8a704c01ead72a83e4fd1b632a4133f3ef997",
+      "mode": 420,
+      "sourceAuthor": "/root/f11_carrier_design_worker",
+      "selectedRelation": "immutable_C03_input_preimage",
+      "originalSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "originalAuthorship": "/root/f11_carrier_design_worker",
+      "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_04",
+      "C03InputSHA256": "4a51cfe4adc7d5a200affb5b2ac8a704c01ead72a83e4fd1b632a4133f3ef997",
+      "changedFromC03": false,
+      "gitBlobOfSelectedBody": "3cf12b0f55e82f9254cfece8cf39ba0d4f9b046b"
+    },
+    "copyOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "copyBuildAuthor": "/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_05",
+    "changedFromC04": false,
+    "gitBlobOfSelectedBody": "3cf12b0f55e82f9254cfece8cf39ba0d4f9b046b"
+  },
+  "repairSourcePostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "bytes": 76530,
+    "sha256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5"
+  },
+  "testOriginalAuthorship": "/root/native_applicability_design under exact new-test grant",
+  "testPreimage": "ABSENT",
+  "testPostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+    "bytes": 11009,
+    "sha256": "7188a3e5238c532153398f1bc8448373b78986cf7477d6f0e4a5b1facf3073eb"
+  },
+  "scope": "one existing F_P proof delivery argument; no production API, signature, HOW or WHAT change"
+}

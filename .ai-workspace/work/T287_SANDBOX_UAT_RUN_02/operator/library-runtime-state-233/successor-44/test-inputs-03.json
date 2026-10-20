@@ -1,0 +1,7 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/test-inputs-03/test_env/tests/t287-native-work-reacquisition.test.mjs",
+  "sha256": "4343a1a6e5c5c3f7ac4fc24fc0c225b5eebb1a865ad4cc1a03d16d1a2dd776e6",
+  "bytes": 48465,
+  "canonicalPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+  "correction": "Only three standalone leaf assertions select the issued nativeOwnedWorkReacquisition hook. Judgment hook and legacy optional compatibility unchanged."
+}

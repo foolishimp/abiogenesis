@@ -1,0 +1,95 @@
+{
+  "donor": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/conserved-component-evidence.json",
+    "bytes": 10921,
+    "sha256": "40ec8c8d3a8c6f582a751b960dc5665f818cb6e41e54a96bf5652d9e7acdec65"
+  },
+  "coverageSelection": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+    "bytes": 23029,
+    "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+  },
+  "currentSourceJoins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "digest": "sha256:f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "priorClaim": "shared continuation workspace causes and authenticated cold pending Run payload; exact open current occurrence, ambiguity/crossed basis refusal and retained view authority",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "digest": "sha256:f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "priorClaim": "shared continuation workspace causes and authenticated cold pending Run payload; exact open current occurrence, ambiguity/crossed basis refusal and retained view authority",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "digest": "sha256:ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "priorClaim": "shared continuation workspace causes and authenticated cold pending Run payload; exact open current occurrence, ambiguity/crossed basis refusal and retained view authority",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+      "digest": "sha256:d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/staged-repo/build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+      "priorClaim": "shared continuation workspace causes and authenticated cold pending Run payload; exact open current occurrence, ambiguity/crossed basis refusal and retained view authority",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.d.ts",
+      "digest": "sha256:852608263015800f45625d9b9ebd439c5108044e173f8eefb710c34c8b7b8b05",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/staged-repo/build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.d.ts",
+      "priorClaim": "shared continuation workspace causes and authenticated cold pending Run payload; exact open current occurrence, ambiguity/crossed basis refusal and retained view authority",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "digest": "sha256:a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "priorClaim": "authenticated no-action input content, strict Public result, sole-input renderer, positive absence and meaningful crossed/missing refusals",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "digest": "sha256:c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "priorClaim": "authenticated no-action input content, strict Public result, sole-input renderer, positive absence and meaningful crossed/missing refusals",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "digest": "sha256:e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "priorClaim": "authenticated no-action input content, strict Public result, sole-input renderer, positive absence and meaningful crossed/missing refusals",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "digest": "sha256:a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "priorClaim": "authenticated no-action input content, strict Public result, sole-input renderer, positive absence and meaningful crossed/missing refusals",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+      "digest": "sha256:74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+      "currentOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+      "priorClaim": "authenticated no-action input content, strict Public result, sole-input renderer, positive absence and meaningful crossed/missing refusals",
+      "meaning": "Source byte premise conserved; original producing native/resource identity unchanged."
+    }
+  ],
+  "currentSubject": {
+    "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+    "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+    "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "reuse": "Closed component evidence may serve only its unchanged exact source premises; retained C01 installed/historical workload outcomes do not become C02 native proof.",
+  "C2selection": "Same five command groups/thirty titles; no whole native/private test file added.",
+  "nativeCredit": "No new claim; owner-specific applicability remains separate."
+}

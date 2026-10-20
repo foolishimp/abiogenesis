@@ -1,0 +1,33 @@
+{
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-prep-98/config.json",
+    "sha256": "4f53ac591c692f542ab4057c63f95433f97aebfcf3d5b32b96d30e298b9651a9",
+    "byteCount": 2991
+  },
+  "differences": [
+    {
+      "path": [
+        "package",
+        "archivePath"
+      ],
+      "before": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "after": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    },
+    {
+      "path": [
+        "package",
+        "sha256"
+      ],
+      "before": "sha256:a6e9ed7a905ed36d5575ce3a394f8d2a30a418718f6eb5f7cff86461480fb673",
+      "after": "sha256:515f208b27cffc784c006692726b7a81ac6717f6665a1400c4b55e583dcad6a9"
+    }
+  ],
+  "onlyTwoPackageFieldsChanged": true,
+  "resumeEvidenceUnchanged": true,
+  "sameControlsAndFullOriginalWorkload": true,
+  "retainedMaterial": {
+    "source": "old48 with accepted98/100 exact4+44 material selectors",
+    "currentConservation": "Operator101 freeze2cf1d803cc5eec0469295b70d1f0c0d72aad9546a2e23bb90a26dc5fb65ae577; no101 app work"
+  },
+  "runtimeExecutionHeld": true
+}

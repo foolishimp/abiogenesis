@@ -1,0 +1,19 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C06_REPORT_FINALIZATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker report-only",
+  "requestSHA256": "7fd3b6799f787f9e13ff694e8f45199dbcfe3a5acf1cf2363eae92f8ca75e090",
+  "correctedOnlyRoute": "contracts/capabilities/capability-definition-graph.json",
+  "originalTenCommandOperation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06",
+  "failedAttempt": "final-report-refusal-01.json",
+  "failedScript": "final-controls/finalize-failed-attempt-01.py",
+  "completedPopulationPreimages": "report-finalization-preimage-pins.json",
+  "controlPostimageSHA256": "3f01583ed3467a5874ccaa57476c8818a4c5e782962582e451a3ee0907796631",
+  "payloadSourceGeneratedRuntimeEffects": 0,
+  "allNativeBuildPackInstallTestChecksRepeated": 0,
+  "remainingNativeAndSemanticObligations": "unknown; no qualification credit",
+  "allWritesAfterFinalFreeze": "STOPPED",
+  "return": "Root Executive; independent review follows",
+  "reportedAt": "2026-10-02T05:53:23.504492+00:00"
+}

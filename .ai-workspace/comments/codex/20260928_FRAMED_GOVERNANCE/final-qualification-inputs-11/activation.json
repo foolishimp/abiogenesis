@@ -1,0 +1,32 @@
+{
+  "status": "ACTIVE",
+  "role": "Worker",
+  "actor": "/root/q03_input_review",
+  "operation": "T287_FINAL_QUALIFICATION_INPUTS_11",
+  "lawfulReentry": "realization_refactor",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11",
+  "activatedAt": "2026-10-02T17:39:26.448770+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/worker-request.txt",
+    "bytes": 4159,
+    "sha256": "34e4517bcc5d24819f17b40bbe154308bb73550c29c5e8af5c4c9c718a5166b1",
+    "mode": 420
+  },
+  "sevenSectionsRead": true,
+  "donorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/freeze.json",
+    "bytes": 867410,
+    "sha256": "9a380cedd7f1b306f5732ebfe200d71951fc1792f4f5e542431a2d32819f31d5",
+    "mode": 292
+  },
+  "RootTriage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/triage.json",
+    "bytes": 3847,
+    "sha256": "a8422a98c62b6a79cb4bdd7318bc0f57414db5f6ad7a162160f93c4437023b88",
+    "mode": 420
+  },
+  "currentSourceCandidateSetupUnchanged": true,
+  "permittedChange": "ONLY sourceOrigins and current-source supplier/control projection plus complete affected preparation bindings",
+  "forbiddenEffects": "Source/build/setup/resource reopen/native Task/Run/J/helper/provider/18commands/Git/network",
+  "returnsTo": "Root Executive"
+}

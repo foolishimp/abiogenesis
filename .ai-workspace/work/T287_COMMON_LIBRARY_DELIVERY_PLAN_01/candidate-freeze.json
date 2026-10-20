@@ -1,0 +1,25 @@
+{
+  "subject": "T287_COMMON_LIBRARY_PREREQUISITE_DELIVERY_PLAN",
+  "created_utc": "2026-10-20T18:12:48.975250+00:00",
+  "basis_sha256": "2ba9b4a9b9a3889e4de3bd8f39bf761f0cccc5575b08a357b559f6f583802536",
+  "files": [
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "fd759854a8a4e868513653df7ab8228ecffb49d6beab0096448a0c64b6c059b9",
+      "bytes": 77637
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "bytes": 97498
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "f61e3b9e8db7b003165fdb337e6e2d665bb1e11a588f2a841c207501cca65861",
+      "bytes": 532032
+    }
+  ],
+  "checks_sha256": "a8340fdf7dff09294c511614d4bda7c562c64e9c0fc3ee57510b3ed04df2a947",
+  "diff_sha256": "a94a012045d2ace579daff3dc9d089571d59ff5e3c4444f5601669f08dcd63a9",
+  "claim": "Explicit library deliverable, ordered L1-L5 exits and closed release-resumption gate; accepted design retained; implementation and delivery unperformed"
+}

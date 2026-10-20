@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/opt/homebrew/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-reporter=spec",
+    "--test-name-pattern",
+    "framed synthesis binds imported contracts|framed Testing prerequisite|fold and assessment consume actual",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "environment": {
+    "ABI5_DEFAULT_LIBRARY_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-presentation-repair-105/isolated"
+  },
+  "exitCode": 0,
+  "wallMs": 925.9215830243193,
+  "stdoutBytes": 631,
+  "stderrBytes": 0,
+  "scope": "selected three existing actual-owner tests with controlled occurrence/source premises; no provider/native Run/semantic adequacy"
+}

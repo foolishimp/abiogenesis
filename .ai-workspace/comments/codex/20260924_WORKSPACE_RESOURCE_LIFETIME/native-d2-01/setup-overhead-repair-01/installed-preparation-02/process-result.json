@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/prepare.mjs"
+  ],
+  "pid": 91327,
+  "exitCode": 0,
+  "elapsedSeconds": 130.13383154198527,
+  "peakRssBytes": 3441639424
+}

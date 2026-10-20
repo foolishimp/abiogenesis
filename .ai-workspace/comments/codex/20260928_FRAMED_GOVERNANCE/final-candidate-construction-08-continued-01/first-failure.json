@@ -1,0 +1,78 @@
+{
+  "kind": "preparation_control_metadata_consumer_refusal",
+  "actualBoundary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01/final-controls/prepare.py",
+    "line": 73,
+    "predicate": "prior.is_file() or row.get('preimage')=='ABSENT'",
+    "priorPhysicalFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "priorExists": false,
+    "actualSourceCutPreimage": "ABSENT in C07",
+    "expectedCopiedLiteral": "ABSENT"
+  },
+  "selectedMemberIndex": 968,
+  "selectedMember": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08/source-postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22568,
+    "sha256": "d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4",
+    "mode": 420,
+    "sourceAuthor": "/root/native_applicability_design under T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01; one-field successor T287_RESULT_LINEAGE_TEST_FIXTURE_REPAIR_01",
+    "originalSource": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "originalAuthorship": "/root/native_applicability_design under original exact new-test grant",
+    "sourceAuthorship": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+      "bytes": 1374,
+      "sha256": "68e2fb7240b051aa172f5cdc2785951a7b1f968fad019e9ef044845873ad6719",
+      "mode": 420
+    },
+    "fixtureSuccessorAuthorship": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+      "bytes": 2604,
+      "sha256": "d7f981087f6e67ca89d8b34a1e7c5909fb8a9e4d6b101f28632c89abaa649651",
+      "mode": 420
+    },
+    "selectedRelation": "accepted_actual_callback_lineage_component_regression",
+    "preimage": "ABSENT in C07",
+    "gitBlobOfSelectedBody": "4e2c3bba8f688b8d7fa7d48d56d84f38f22eceb9"
+  },
+  "ProductAndSourceUnchanged": true,
+  "operationIdentityAuthenticatedBeforeFailure": {
+    "operation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+    "actor": "/root/native_applicability_design",
+    "basisSHA256": "55ddf5217581fc7a8fcee8ff171e315df9e62885d25c9deeab7a364bdfdde558",
+    "ownActivationMatched": true
+  },
+  "earliestViolation": "Root data declares honest C07 absence; inherited caller exact-string preimage guard refuses that actual schema spelling after two exact physical copies",
+  "effects": {
+    "sourceCopies": 969,
+    "stageCopies": 969,
+    "toolchainCopies": 0,
+    "lawCopies": 0,
+    "offlineCachePreparation": 0,
+    "payloadCommands": 0,
+    "sourceCanonicalMutations": 0,
+    "runtimeResources": 0,
+    "providerNetworkGit": 0
+  },
+  "actualStderr": {
+    "path": "actual-preparation.stderr",
+    "sha256": "c14c07c86fafb91668c941b8c5f9250aba8e77f6842d1d393bcc7572e9f166d3"
+  },
+  "receipt": {
+    "pid": 67140,
+    "pgid": 67140,
+    "exitCode": 1,
+    "timedOut": false,
+    "wait4Reaped": true,
+    "wait4Status": 256,
+    "childUserCPUSeconds": 0.41284899999999997,
+    "childSystemCPUSeconds": 0.5450539999999999,
+    "childMaxResidentSetSizePlatformBytes": 136724480,
+    "elapsedMs": 1017.4815831705928,
+    "processGroupAbsent": true,
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "c14c07c86fafb91668c941b8c5f9250aba8e77f6842d1d393bcc7572e9f166d3"
+  },
+  "RootTriangulationRequiredBeforeAnyContinuation": true,
+  "repairRetry": false
+}

@@ -1,0 +1,29 @@
+{
+  "role": "Worker",
+  "activation": "T287_S03_PROOF_CONSUMER_02",
+  "reentry": "realization_refactor",
+  "request_sha256": "152124234da9e342c6666cd2cef88c1950fbc33257835454c66d195fb46861c4",
+  "ac_join_verified": true,
+  "editable_sources": [
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs"
+  ],
+  "evidence_territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02",
+  "preimages": [
+    {
+      "source": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/preimages/t287-s03-automatic.mjs",
+      "sha256": "b2ccf7c6f157b6cea11d31e1ceff9443fb38e122c3f1fcc7e2b626d8524f2be5",
+      "bytes": 25353
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+      "preimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-02/preimages/t287-s03-automatic.test.mjs",
+      "sha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+      "bytes": 1030
+    }
+  ],
+  "native_exception": "Existing event resource and original owner lock namespace only; cold positive reads then one no-action start and cold reads after complete pure positive oracle",
+  "prior_freeze_sha256": "c938b1584d20b64a882b54bb8a60e185826312f275dd3c981a1fd4dc6c51f6a6",
+  "no_positive_restart": true
+}

@@ -1,0 +1,176 @@
+{
+  "kind": "pure_catalog_publication_predicate_diagnostic",
+  "requestFileSha256": "e1aa08e269e08f648fe4257f23e55f94ae2129db60096d14470d783ed9e22f88",
+  "installedRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite20-install-xp2g82ge/node_modules/@abiogenesis/typescript-tenant",
+  "publicationCount": 11,
+  "rows": [
+    {
+      "index": 0,
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationValueDigest": "sha256:48cd4abc734f323f6b30f3d95ceaa052b219accb4c119fe01d08f9cea1b07e7b",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 20,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 1,
+      "moduleRef": "module://abg/consensus@5",
+      "publicationValueDigest": "sha256:9a5ddbd9a77606b85e37766d4ca5454d015247880a7157d5facfd8475d33cd51",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 15,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 2,
+      "moduleRef": "module://abiogenesis/worksite/construction@5",
+      "publicationValueDigest": "sha256:7715ee05a93b639daca0af041430aefe28e7723155649be2f5844940763c4e03",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 8,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 3,
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "publicationValueDigest": "sha256:cbb2ae17866c90236a748f806fe1cc2cb9da67ee346f955a91dfbfde0224e39d",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 3,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 4,
+      "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+      "publicationValueDigest": "sha256:d12829c0cd46f77dbc3211cfdbc7dea90c549c057bf0acdddc1344e089a65e52",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 2,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 5,
+      "moduleRef": "module://abiogenesis/requirement-handoff@5",
+      "publicationValueDigest": "sha256:8922b4d52d10d3ad0ef85a826b730591b9e4111c096655fc01240f30139d2958",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 1,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 6,
+      "moduleRef": "module://abiogenesis/semantic-stage@5",
+      "publicationValueDigest": "sha256:7e15f507cebb6a1b1b17dc0f9181acb3cf0c37d6c9d6c7aa2cd1eb90a2f084f6",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 1,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 7,
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "publicationValueDigest": "sha256:b1cf9ad0aac13526ebfffd2437605c5b1f4dee0a71f8bf5ee3ba3e836b0fd640",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 1,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 8,
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "publicationValueDigest": "sha256:71bab756b6f0376858d89d5fb0fd3d3a74cb74e8f798e0b6e28915f6657f708d",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 7,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 9,
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "publicationValueDigest": "sha256:9e9bcbc4f9dd82f1142025d9211bd33111f77c21b3e370f58e27f806df14ce40",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 2,
+      "resultKind": "publication_validation",
+      "disposition": "valid",
+      "diagnosticCount": 0,
+      "diagnostics": [],
+      "code": null,
+      "message": null
+    },
+    {
+      "index": 10,
+      "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+      "publicationValueDigest": "sha256:e91d45f595c80753409782085c19f7dbc93981e9075ee6ae9b571bc3e8a9641a",
+      "rawKind": "raw_admitted_value",
+      "contributionCount": 36,
+      "resultKind": "static_validation_refusal",
+      "disposition": "invalid",
+      "diagnosticCount": 1,
+      "diagnostics": [
+        {
+          "code": "duplicate_identity",
+          "path": "$.graphFunctions[graph-function://odd-glc/native-semantic-revision/construction@5].environment.carries",
+          "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/semantic-revision/envelope@5"
+        }
+      ],
+      "code": null,
+      "message": null
+    }
+  ],
+  "firstRefusal": {
+    "index": 10,
+    "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+    "publicationValueDigest": "sha256:e91d45f595c80753409782085c19f7dbc93981e9075ee6ae9b571bc3e8a9641a",
+    "rawKind": "raw_admitted_value",
+    "contributionCount": 36,
+    "resultKind": "static_validation_refusal",
+    "disposition": "invalid",
+    "diagnosticCount": 1,
+    "diagnostics": [
+      {
+        "code": "duplicate_identity",
+        "path": "$.graphFunctions[graph-function://odd-glc/native-semantic-revision/construction@5].environment.carries",
+        "message": "duplicate GraphFunction carried environment ref contract://abiogenesis/semantic-revision/envelope@5"
+      }
+    ],
+    "code": null,
+    "message": null
+  }
+}

@@ -1,0 +1,31 @@
+✖ physical managed dependency material must match the selected immutable Product lock (421.031667ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 565.569708
+
+✖ failing tests:
+
+test at test_env/tests/t287-installed-dependency-lock.test.mjs:74:1
+✖ physical managed dependency material must match the selected immutable Product lock (421.031667ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"product_verification_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"contract_asset_mismatch","message":"Error: Cannot find module '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/isolated/build/toolchain/typescript.cjs'\nRequire stack:\n- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-installed-dependency-lock-repair-207/isolated/build/code/src/product/declaration_exports.js","artifactRef":"abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"}
+  + actual - expected
+  
+  + 'product_verification_refusal'
+  - 'verified_product_artifact'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-dependency-lock.test.mjs:91:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'product_verification_refusal',
+    expected: 'verified_product_artifact',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

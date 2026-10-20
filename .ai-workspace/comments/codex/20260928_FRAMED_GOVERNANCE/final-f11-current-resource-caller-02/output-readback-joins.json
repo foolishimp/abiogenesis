@@ -1,0 +1,16 @@
+{
+  "status": "PASSED",
+  "futureOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02",
+  "actualFutureCalls": [
+    "assessment-view",
+    "conformance-assess",
+    "assess-rule",
+    "assess-rule-run_result",
+    "assess-rule-run_replay"
+  ],
+  "reportNamespaceDistinct": true,
+  "oldDriverAndExecutionUntouched": true,
+  "helpersUnchanged": true,
+  "readbackConstruction": "Same existing owner check over actual returned Run and current close; request uses coordinateDigest, not prefixDigest. Actual future result/replay are unavailable offline.",
+  "nativeCalls": 0
+}

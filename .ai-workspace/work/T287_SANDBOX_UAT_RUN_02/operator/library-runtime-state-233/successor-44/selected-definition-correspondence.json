@@ -1,0 +1,54 @@
+{
+  "kind": "source44_selected_canonical_definition_correspondence",
+  "selectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15-diagnostic/freeze.json",
+      "sha256": "554401ff0273928dd2bb55774c9ec1f13603d7fd8789b0686602d3930a353635",
+      "bytes": 14186
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15-diagnostic/selected-testing-definition.json",
+      "sha256": "7edf9e5309ccb3b12d0abd825f6232d5eb6ea2b73ecfab464f6c8e91fc433d13",
+      "bytes": 6722
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15-diagnostic/opened-execution.json",
+      "sha256": "ecb50118ff6ec022e446e27a83564320ac190727511350cf15d356e4b09a22b6",
+      "bytes": 17885
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-15-diagnostic/diagnostic-result.json",
+      "sha256": "cc2f2e6a0f0b7158cc4eda4c75a965c228dbd4901ab2017dae8beafd3ca28f19",
+      "bytes": 6619
+    }
+  ],
+  "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+  "canonicalDefinitionEqualsActualSelectedCompleteBody": true,
+  "rawDigest": "sha256:dc80de4064018925dc7a329442cda788912f6c635815e7bc1921f164cfa0be92",
+  "canonicalDefinitionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+  "actualExecutionDefinitionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+  "catalogDefinitionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+  "catalogEntryDigest": "sha256:ba8cbe390591146f21777f453dc6e9be5bdbd70e6a17778b9e32043197328645",
+  "canonicalMaterialization": {
+    "ref": "graph-materialization://abiogenesis/2b3163a5e9eb99a67240cca84f335b1125ac85aa178b52090bc194024f460ecd",
+    "digest": "sha256:2b3163a5e9eb99a67240cca84f335b1125ac85aa178b52090bc194024f460ecd"
+  },
+  "actualMaterialization": {
+    "ref": "graph-materialization://abiogenesis/2b3163a5e9eb99a67240cca84f335b1125ac85aa178b52090bc194024f460ecd",
+    "digest": "sha256:2b3163a5e9eb99a67240cca84f335b1125ac85aa178b52090bc194024f460ecd"
+  },
+  "rawMaterialization": {
+    "ref": "graph-materialization://abiogenesis/17fa339a58ad93222a3d07758f750ade1ce8954600c95b14708c00b0e500a8c6",
+    "digest": "sha256:17fa339a58ad93222a3d07758f750ade1ce8954600c95b14708c00b0e500a8c6"
+  },
+  "equality": {
+    "completeDefinition": true,
+    "materializationRef": true,
+    "materializationDigest": true
+  },
+  "limits": [
+    "Pure definition/materialization identity calculation over already frozen selected owner outputs.",
+    "No fan-out input body is consumed; this is not fresh input/request/currentness/occurrence authentication.",
+    "No resource acquisition, preparation callback, C2/native/model/worksite or admission operation."
+  ]
+}

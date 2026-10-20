@@ -1,0 +1,17 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+    "beforeSha256": "999995ac96dcfb723a4d3bc268c3d31cb44ba5cd8b273b5fd80d868e62d5f2a6",
+    "afterSha256": "ca6679f3b5d339cffad5decce958946c4308737559377e14014afa3d8788dfb9"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.d.ts",
+    "beforeSha256": "c5b870927bcde450143e6f21a0b08080d5f2d3af470d0b15659c68efdbc2d82c",
+    "afterSha256": "5d992663ebed8e2ce9d5998285101a856ff2e8219742b980c633a25deba0ca95"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+    "beforeSha256": "c1a59102de049eae0bfbcc55eb91605ec69c66148f084efe3af702d379d401a1",
+    "afterSha256": "c4e9d8c1a8e3b6934ec477d1e940744c6b7b0d40dfe1c5fd93a386e2f151e922"
+  }
+]

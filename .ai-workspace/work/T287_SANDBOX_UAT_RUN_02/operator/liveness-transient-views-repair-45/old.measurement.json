@@ -1,0 +1,1736 @@
+{
+  "kind": "authentic_liveness_transient_view_cost",
+  "variant": "old",
+  "started": "2026-10-07T15:49:14.852Z",
+  "completed": "2026-10-07T15:49:48.418Z",
+  "wallMs": 33565.270959,
+  "coordinate": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/resources/events/runtime.events.jsonl",
+    "prefixLength": 1167689615,
+    "prefixDigest": "sha256:e211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467205895
+    },
+    "coordinateDigest": "sha256:502b7663f83457530e3577fd4584517fa3880f6eb8c226ec6721e9df3917dc91"
+  },
+  "facts": {
+    "coldWallMs": 22273.956583000003,
+    "queryWallMs": 8629.295457999997,
+    "eventCount": 200571,
+    "initial": {
+      "label": "liveness_reconstruction_without_cut_queries",
+      "elapsedMs": 24078.756875,
+      "rss": 3059859456,
+      "heapTotal": 1702772736,
+      "heapUsed": 1556349128,
+      "external": 2429197,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    "initialCache": [
+      {
+        "historicalCutCount": 0,
+        "historicalVectorCount": 0,
+        "historicalVectorSlots": 0,
+        "structuralIntermediateVectorCount": 0,
+        "structuralIntermediateVectorSlots": 0,
+        "retainedIntermediatePaths": [],
+        "currentVectorCount": 953,
+        "currentVectorSlots": 505807,
+        "completedFactCounts": {
+          "contexts": 0,
+          "budgets": 0,
+          "folds": 0,
+          "historicalFolds": 0
+        }
+      }
+    ],
+    "coldReturned": {
+      "label": "cold_read_returned",
+      "elapsedMs": 22280.831125,
+      "rss": 3022258176,
+      "heapTotal": 1664876544,
+      "heapUsed": 1573063952,
+      "external": 1170118812,
+      "arrayBuffers": 1167716630,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    "coldHeld": {
+      "label": "cold_events_retained",
+      "elapsedMs": 22396.922334,
+      "rss": 2961686528,
+      "heapTotal": 1584824320,
+      "heapUsed": 1433320848,
+      "external": 2429197,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    "steps": [
+      {
+        "requestedActors": 1,
+        "cache": [
+          {
+            "historicalCutCount": 2,
+            "historicalVectorCount": 4,
+            "historicalVectorSlots": 208,
+            "structuralIntermediateVectorCount": 1,
+            "structuralIntermediateVectorSlots": 33,
+            "retainedIntermediatePaths": [
+              {
+                "path": "structuralCuts/value0",
+                "length": 33
+              },
+              {
+                "path": "cuts/value0/events",
+                "length": 54
+              },
+              {
+                "path": "cuts/value0/profile",
+                "length": 54
+              },
+              {
+                "path": "cuts/value1/events",
+                "length": 50
+              },
+              {
+                "path": "cuts/value1/profile",
+                "length": 50
+              }
+            ],
+            "currentVectorCount": 953,
+            "currentVectorSlots": 505807,
+            "completedFactCounts": {
+              "contexts": 1,
+              "budgets": 1,
+              "folds": 1,
+              "historicalFolds": 0
+            }
+          }
+        ],
+        "memory": {
+          "label": "after_1_distinct_actor_cuts",
+          "elapsedMs": 24486.833042,
+          "rss": 3063889920,
+          "heapTotal": 1703559168,
+          "heapUsed": 1556747896,
+          "external": 2436654,
+          "arrayBuffers": 27015,
+          "heapSizeLimit": 4496293888,
+          "maxRssKiB": 3228208
+        }
+      },
+      {
+        "requestedActors": 4,
+        "cache": [
+          {
+            "historicalCutCount": 8,
+            "historicalVectorCount": 16,
+            "historicalVectorSlots": 237808,
+            "structuralIntermediateVectorCount": 4,
+            "structuralIntermediateVectorSlots": 1014,
+            "retainedIntermediatePaths": [
+              {
+                "path": "structuralCuts/value0",
+                "length": 33
+              },
+              {
+                "path": "structuralCuts/value1",
+                "length": 159
+              },
+              {
+                "path": "structuralCuts/value2",
+                "length": 339
+              },
+              {
+                "path": "structuralCuts/value3",
+                "length": 483
+              },
+              {
+                "path": "cuts/value0/events",
+                "length": 54
+              },
+              {
+                "path": "cuts/value0/profile",
+                "length": 54
+              },
+              {
+                "path": "cuts/value1/events",
+                "length": 50
+              },
+              {
+                "path": "cuts/value1/profile",
+                "length": 50
+              },
+              {
+                "path": "cuts/value2/events",
+                "length": 4005
+              },
+              {
+                "path": "cuts/value2/profile",
+                "length": 4005
+              },
+              {
+                "path": "cuts/value3/events",
+                "length": 4001
+              },
+              {
+                "path": "cuts/value3/profile",
+                "length": 4001
+              },
+              {
+                "path": "cuts/value4/events",
+                "length": 17184
+              },
+              {
+                "path": "cuts/value4/profile",
+                "length": 17184
+              },
+              {
+                "path": "cuts/value5/events",
+                "length": 17180
+              },
+              {
+                "path": "cuts/value5/profile",
+                "length": 17180
+              },
+              {
+                "path": "cuts/value6/events",
+                "length": 38217
+              },
+              {
+                "path": "cuts/value6/profile",
+                "length": 38217
+              },
+              {
+                "path": "cuts/value7/events",
+                "length": 38213
+              },
+              {
+                "path": "cuts/value7/profile",
+                "length": 38213
+              }
+            ],
+            "currentVectorCount": 953,
+            "currentVectorSlots": 505807,
+            "completedFactCounts": {
+              "contexts": 4,
+              "budgets": 4,
+              "folds": 4,
+              "historicalFolds": 0
+            }
+          }
+        ],
+        "memory": {
+          "label": "after_4_distinct_actor_cuts",
+          "elapsedMs": 25505.256999999998,
+          "rss": 3069558784,
+          "heapTotal": 1707458560,
+          "heapUsed": 1560883600,
+          "external": 2436654,
+          "arrayBuffers": 27015,
+          "heapSizeLimit": 4496293888,
+          "maxRssKiB": 3228208
+        }
+      },
+      {
+        "requestedActors": 8,
+        "cache": [
+          {
+            "historicalCutCount": 16,
+            "historicalVectorCount": 32,
+            "historicalVectorSlots": 1213264,
+            "structuralIntermediateVectorCount": 8,
+            "structuralIntermediateVectorSlots": 4548,
+            "retainedIntermediatePaths": [
+              {
+                "path": "structuralCuts/value0",
+                "length": 33
+              },
+              {
+                "path": "structuralCuts/value1",
+                "length": 159
+              },
+              {
+                "path": "structuralCuts/value2",
+                "length": 339
+              },
+              {
+                "path": "structuralCuts/value3",
+                "length": 483
+              },
+              {
+                "path": "structuralCuts/value4",
+                "length": 663
+              },
+              {
+                "path": "structuralCuts/value5",
+                "length": 789
+              },
+              {
+                "path": "structuralCuts/value6",
+                "length": 969
+              },
+              {
+                "path": "structuralCuts/value7",
+                "length": 1113
+              },
+              {
+                "path": "cuts/value0/events",
+                "length": 54
+              },
+              {
+                "path": "cuts/value0/profile",
+                "length": 54
+              },
+              {
+                "path": "cuts/value1/events",
+                "length": 50
+              },
+              {
+                "path": "cuts/value1/profile",
+                "length": 50
+              },
+              {
+                "path": "cuts/value2/events",
+                "length": 4005
+              },
+              {
+                "path": "cuts/value2/profile",
+                "length": 4005
+              },
+              {
+                "path": "cuts/value3/events",
+                "length": 4001
+              },
+              {
+                "path": "cuts/value3/profile",
+                "length": 4001
+              },
+              {
+                "path": "cuts/value4/events",
+                "length": 17184
+              },
+              {
+                "path": "cuts/value4/profile",
+                "length": 17184
+              },
+              {
+                "path": "cuts/value5/events",
+                "length": 17180
+              },
+              {
+                "path": "cuts/value5/profile",
+                "length": 17180
+              },
+              {
+                "path": "cuts/value6/events",
+                "length": 38217
+              },
+              {
+                "path": "cuts/value6/profile",
+                "length": 38217
+              },
+              {
+                "path": "cuts/value7/events",
+                "length": 38213
+              },
+              {
+                "path": "cuts/value7/profile",
+                "length": 38213
+              },
+              {
+                "path": "cuts/value8/events",
+                "length": 45832
+              },
+              {
+                "path": "cuts/value8/profile",
+                "length": 45832
+              },
+              {
+                "path": "cuts/value9/events",
+                "length": 45828
+              },
+              {
+                "path": "cuts/value9/profile",
+                "length": 45828
+              },
+              {
+                "path": "cuts/value10/events",
+                "length": 53881
+              },
+              {
+                "path": "cuts/value10/profile",
+                "length": 53881
+              },
+              {
+                "path": "cuts/value11/events",
+                "length": 53877
+              },
+              {
+                "path": "cuts/value11/profile",
+                "length": 53877
+              },
+              {
+                "path": "cuts/value12/events",
+                "length": 67250
+              },
+              {
+                "path": "cuts/value12/profile",
+                "length": 67250
+              },
+              {
+                "path": "cuts/value13/events",
+                "length": 67246
+              },
+              {
+                "path": "cuts/value13/profile",
+                "length": 67246
+              },
+              {
+                "path": "cuts/value14/events",
+                "length": 76909
+              },
+              {
+                "path": "cuts/value14/profile",
+                "length": 76909
+              },
+              {
+                "path": "cuts/value15/events",
+                "length": 76905
+              },
+              {
+                "path": "cuts/value15/profile",
+                "length": 76905
+              }
+            ],
+            "currentVectorCount": 953,
+            "currentVectorSlots": 505807,
+            "completedFactCounts": {
+              "contexts": 8,
+              "budgets": 8,
+              "folds": 8,
+              "historicalFolds": 0
+            }
+          }
+        ],
+        "memory": {
+          "label": "after_8_distinct_actor_cuts",
+          "elapsedMs": 26394.726834,
+          "rss": 3078766592,
+          "heapTotal": 1717223424,
+          "heapUsed": 1570370776,
+          "external": 2436654,
+          "arrayBuffers": 27015,
+          "heapSizeLimit": 4496293888,
+          "maxRssKiB": 3228208
+        }
+      },
+      {
+        "requestedActors": 16,
+        "cache": [
+          {
+            "historicalCutCount": 32,
+            "historicalVectorCount": 64,
+            "historicalVectorSlots": 5529284,
+            "structuralIntermediateVectorCount": 16,
+            "structuralIntermediateVectorSlots": 19212,
+            "retainedIntermediatePaths": [
+              {
+                "path": "structuralCuts/value0",
+                "length": 33
+              },
+              {
+                "path": "structuralCuts/value1",
+                "length": 159
+              },
+              {
+                "path": "structuralCuts/value2",
+                "length": 339
+              },
+              {
+                "path": "structuralCuts/value3",
+                "length": 483
+              },
+              {
+                "path": "structuralCuts/value4",
+                "length": 663
+              },
+              {
+                "path": "structuralCuts/value5",
+                "length": 789
+              },
+              {
+                "path": "structuralCuts/value6",
+                "length": 969
+              },
+              {
+                "path": "structuralCuts/value7",
+                "length": 1113
+              },
+              {
+                "path": "structuralCuts/value8",
+                "length": 1293
+              },
+              {
+                "path": "structuralCuts/value9",
+                "length": 1419
+              },
+              {
+                "path": "structuralCuts/value10",
+                "length": 1599
+              },
+              {
+                "path": "structuralCuts/value11",
+                "length": 1743
+              },
+              {
+                "path": "structuralCuts/value12",
+                "length": 1923
+              },
+              {
+                "path": "structuralCuts/value13",
+                "length": 2049
+              },
+              {
+                "path": "structuralCuts/value14",
+                "length": 2229
+              },
+              {
+                "path": "structuralCuts/value15",
+                "length": 2409
+              },
+              {
+                "path": "cuts/value0/events",
+                "length": 54
+              },
+              {
+                "path": "cuts/value0/profile",
+                "length": 54
+              },
+              {
+                "path": "cuts/value1/events",
+                "length": 50
+              },
+              {
+                "path": "cuts/value1/profile",
+                "length": 50
+              },
+              {
+                "path": "cuts/value2/events",
+                "length": 4005
+              },
+              {
+                "path": "cuts/value2/profile",
+                "length": 4005
+              },
+              {
+                "path": "cuts/value3/events",
+                "length": 4001
+              },
+              {
+                "path": "cuts/value3/profile",
+                "length": 4001
+              },
+              {
+                "path": "cuts/value4/events",
+                "length": 17184
+              },
+              {
+                "path": "cuts/value4/profile",
+                "length": 17184
+              },
+              {
+                "path": "cuts/value5/events",
+                "length": 17180
+              },
+              {
+                "path": "cuts/value5/profile",
+                "length": 17180
+              },
+              {
+                "path": "cuts/value6/events",
+                "length": 38217
+              },
+              {
+                "path": "cuts/value6/profile",
+                "length": 38217
+              },
+              {
+                "path": "cuts/value7/events",
+                "length": 38213
+              },
+              {
+                "path": "cuts/value7/profile",
+                "length": 38213
+              },
+              {
+                "path": "cuts/value8/events",
+                "length": 45832
+              },
+              {
+                "path": "cuts/value8/profile",
+                "length": 45832
+              },
+              {
+                "path": "cuts/value9/events",
+                "length": 45828
+              },
+              {
+                "path": "cuts/value9/profile",
+                "length": 45828
+              },
+              {
+                "path": "cuts/value10/events",
+                "length": 53881
+              },
+              {
+                "path": "cuts/value10/profile",
+                "length": 53881
+              },
+              {
+                "path": "cuts/value11/events",
+                "length": 53877
+              },
+              {
+                "path": "cuts/value11/profile",
+                "length": 53877
+              },
+              {
+                "path": "cuts/value12/events",
+                "length": 67250
+              },
+              {
+                "path": "cuts/value12/profile",
+                "length": 67250
+              },
+              {
+                "path": "cuts/value13/events",
+                "length": 67246
+              },
+              {
+                "path": "cuts/value13/profile",
+                "length": 67246
+              },
+              {
+                "path": "cuts/value14/events",
+                "length": 76909
+              },
+              {
+                "path": "cuts/value14/profile",
+                "length": 76909
+              },
+              {
+                "path": "cuts/value15/events",
+                "length": 76905
+              },
+              {
+                "path": "cuts/value15/profile",
+                "length": 76905
+              },
+              {
+                "path": "cuts/value16/events",
+                "length": 87928
+              },
+              {
+                "path": "cuts/value16/profile",
+                "length": 87928
+              },
+              {
+                "path": "cuts/value17/events",
+                "length": 87924
+              },
+              {
+                "path": "cuts/value17/profile",
+                "length": 87924
+              },
+              {
+                "path": "cuts/value18/events",
+                "length": 98736
+              },
+              {
+                "path": "cuts/value18/profile",
+                "length": 98736
+              },
+              {
+                "path": "cuts/value19/events",
+                "length": 98732
+              },
+              {
+                "path": "cuts/value19/profile",
+                "length": 98732
+              },
+              {
+                "path": "cuts/value20/events",
+                "length": 112497
+              },
+              {
+                "path": "cuts/value20/profile",
+                "length": 112497
+              },
+              {
+                "path": "cuts/value21/events",
+                "length": 112493
+              },
+              {
+                "path": "cuts/value21/profile",
+                "length": 112493
+              },
+              {
+                "path": "cuts/value22/events",
+                "length": 121671
+              },
+              {
+                "path": "cuts/value22/profile",
+                "length": 121671
+              },
+              {
+                "path": "cuts/value23/events",
+                "length": 121667
+              },
+              {
+                "path": "cuts/value23/profile",
+                "length": 121667
+              },
+              {
+                "path": "cuts/value24/events",
+                "length": 135096
+              },
+              {
+                "path": "cuts/value24/profile",
+                "length": 135096
+              },
+              {
+                "path": "cuts/value25/events",
+                "length": 135092
+              },
+              {
+                "path": "cuts/value25/profile",
+                "length": 135092
+              },
+              {
+                "path": "cuts/value26/events",
+                "length": 144677
+              },
+              {
+                "path": "cuts/value26/profile",
+                "length": 144677
+              },
+              {
+                "path": "cuts/value27/events",
+                "length": 144673
+              },
+              {
+                "path": "cuts/value27/profile",
+                "length": 144673
+              },
+              {
+                "path": "cuts/value28/events",
+                "length": 178031
+              },
+              {
+                "path": "cuts/value28/profile",
+                "length": 178031
+              },
+              {
+                "path": "cuts/value29/events",
+                "length": 178027
+              },
+              {
+                "path": "cuts/value29/profile",
+                "length": 178027
+              },
+              {
+                "path": "cuts/value30/events",
+                "length": 200385
+              },
+              {
+                "path": "cuts/value30/profile",
+                "length": 200385
+              },
+              {
+                "path": "cuts/value31/events",
+                "length": 200381
+              },
+              {
+                "path": "cuts/value31/profile",
+                "length": 200381
+              }
+            ],
+            "currentVectorCount": 953,
+            "currentVectorSlots": 505807,
+            "completedFactCounts": {
+              "contexts": 16,
+              "budgets": 16,
+              "folds": 16,
+              "historicalFolds": 0
+            }
+          }
+        ],
+        "memory": {
+          "label": "after_16_distinct_actor_cuts",
+          "elapsedMs": 27874.685459,
+          "rss": 3116515328,
+          "heapTotal": 1754513408,
+          "heapUsed": 1607967520,
+          "external": 2436654,
+          "arrayBuffers": 27015,
+          "heapSizeLimit": 4496293888,
+          "maxRssKiB": 3228208
+        }
+      }
+    ],
+    "repeatedCache": [
+      {
+        "historicalCutCount": 33,
+        "historicalVectorCount": 66,
+        "historicalVectorSlots": 5930364,
+        "structuralIntermediateVectorCount": 17,
+        "structuralIntermediateVectorSlots": 21647,
+        "retainedIntermediatePaths": [
+          {
+            "path": "structuralCuts/value0",
+            "length": 33
+          },
+          {
+            "path": "structuralCuts/value1",
+            "length": 159
+          },
+          {
+            "path": "structuralCuts/value2",
+            "length": 339
+          },
+          {
+            "path": "structuralCuts/value3",
+            "length": 483
+          },
+          {
+            "path": "structuralCuts/value4",
+            "length": 663
+          },
+          {
+            "path": "structuralCuts/value5",
+            "length": 789
+          },
+          {
+            "path": "structuralCuts/value6",
+            "length": 969
+          },
+          {
+            "path": "structuralCuts/value7",
+            "length": 1113
+          },
+          {
+            "path": "structuralCuts/value8",
+            "length": 1293
+          },
+          {
+            "path": "structuralCuts/value9",
+            "length": 1419
+          },
+          {
+            "path": "structuralCuts/value10",
+            "length": 1599
+          },
+          {
+            "path": "structuralCuts/value11",
+            "length": 1743
+          },
+          {
+            "path": "structuralCuts/value12",
+            "length": 1923
+          },
+          {
+            "path": "structuralCuts/value13",
+            "length": 2049
+          },
+          {
+            "path": "structuralCuts/value14",
+            "length": 2229
+          },
+          {
+            "path": "structuralCuts/value15",
+            "length": 2409
+          },
+          {
+            "path": "structuralCuts/value16",
+            "length": 2435
+          },
+          {
+            "path": "cuts/value0/events",
+            "length": 54
+          },
+          {
+            "path": "cuts/value0/profile",
+            "length": 54
+          },
+          {
+            "path": "cuts/value1/events",
+            "length": 50
+          },
+          {
+            "path": "cuts/value1/profile",
+            "length": 50
+          },
+          {
+            "path": "cuts/value2/events",
+            "length": 4005
+          },
+          {
+            "path": "cuts/value2/profile",
+            "length": 4005
+          },
+          {
+            "path": "cuts/value3/events",
+            "length": 4001
+          },
+          {
+            "path": "cuts/value3/profile",
+            "length": 4001
+          },
+          {
+            "path": "cuts/value4/events",
+            "length": 17184
+          },
+          {
+            "path": "cuts/value4/profile",
+            "length": 17184
+          },
+          {
+            "path": "cuts/value5/events",
+            "length": 17180
+          },
+          {
+            "path": "cuts/value5/profile",
+            "length": 17180
+          },
+          {
+            "path": "cuts/value6/events",
+            "length": 38217
+          },
+          {
+            "path": "cuts/value6/profile",
+            "length": 38217
+          },
+          {
+            "path": "cuts/value7/events",
+            "length": 38213
+          },
+          {
+            "path": "cuts/value7/profile",
+            "length": 38213
+          },
+          {
+            "path": "cuts/value8/events",
+            "length": 45832
+          },
+          {
+            "path": "cuts/value8/profile",
+            "length": 45832
+          },
+          {
+            "path": "cuts/value9/events",
+            "length": 45828
+          },
+          {
+            "path": "cuts/value9/profile",
+            "length": 45828
+          },
+          {
+            "path": "cuts/value10/events",
+            "length": 53881
+          },
+          {
+            "path": "cuts/value10/profile",
+            "length": 53881
+          },
+          {
+            "path": "cuts/value11/events",
+            "length": 53877
+          },
+          {
+            "path": "cuts/value11/profile",
+            "length": 53877
+          },
+          {
+            "path": "cuts/value12/events",
+            "length": 67250
+          },
+          {
+            "path": "cuts/value12/profile",
+            "length": 67250
+          },
+          {
+            "path": "cuts/value13/events",
+            "length": 67246
+          },
+          {
+            "path": "cuts/value13/profile",
+            "length": 67246
+          },
+          {
+            "path": "cuts/value14/events",
+            "length": 76909
+          },
+          {
+            "path": "cuts/value14/profile",
+            "length": 76909
+          },
+          {
+            "path": "cuts/value15/events",
+            "length": 76905
+          },
+          {
+            "path": "cuts/value15/profile",
+            "length": 76905
+          },
+          {
+            "path": "cuts/value16/events",
+            "length": 87928
+          },
+          {
+            "path": "cuts/value16/profile",
+            "length": 87928
+          },
+          {
+            "path": "cuts/value17/events",
+            "length": 87924
+          },
+          {
+            "path": "cuts/value17/profile",
+            "length": 87924
+          },
+          {
+            "path": "cuts/value18/events",
+            "length": 98736
+          },
+          {
+            "path": "cuts/value18/profile",
+            "length": 98736
+          },
+          {
+            "path": "cuts/value19/events",
+            "length": 98732
+          },
+          {
+            "path": "cuts/value19/profile",
+            "length": 98732
+          },
+          {
+            "path": "cuts/value20/events",
+            "length": 112497
+          },
+          {
+            "path": "cuts/value20/profile",
+            "length": 112497
+          },
+          {
+            "path": "cuts/value21/events",
+            "length": 112493
+          },
+          {
+            "path": "cuts/value21/profile",
+            "length": 112493
+          },
+          {
+            "path": "cuts/value22/events",
+            "length": 121671
+          },
+          {
+            "path": "cuts/value22/profile",
+            "length": 121671
+          },
+          {
+            "path": "cuts/value23/events",
+            "length": 121667
+          },
+          {
+            "path": "cuts/value23/profile",
+            "length": 121667
+          },
+          {
+            "path": "cuts/value24/events",
+            "length": 135096
+          },
+          {
+            "path": "cuts/value24/profile",
+            "length": 135096
+          },
+          {
+            "path": "cuts/value25/events",
+            "length": 135092
+          },
+          {
+            "path": "cuts/value25/profile",
+            "length": 135092
+          },
+          {
+            "path": "cuts/value26/events",
+            "length": 144677
+          },
+          {
+            "path": "cuts/value26/profile",
+            "length": 144677
+          },
+          {
+            "path": "cuts/value27/events",
+            "length": 144673
+          },
+          {
+            "path": "cuts/value27/profile",
+            "length": 144673
+          },
+          {
+            "path": "cuts/value28/events",
+            "length": 178031
+          },
+          {
+            "path": "cuts/value28/profile",
+            "length": 178031
+          },
+          {
+            "path": "cuts/value29/events",
+            "length": 178027
+          },
+          {
+            "path": "cuts/value29/profile",
+            "length": 178027
+          },
+          {
+            "path": "cuts/value30/events",
+            "length": 200385
+          },
+          {
+            "path": "cuts/value30/profile",
+            "length": 200385
+          },
+          {
+            "path": "cuts/value31/events",
+            "length": 200381
+          },
+          {
+            "path": "cuts/value31/profile",
+            "length": 200381
+          },
+          {
+            "path": "cuts/value32/events",
+            "length": 200540
+          },
+          {
+            "path": "cuts/value32/profile",
+            "length": 200540
+          }
+        ],
+        "currentVectorCount": 953,
+        "currentVectorSlots": 505807,
+        "completedFactCounts": {
+          "contexts": 16,
+          "budgets": 32,
+          "folds": 16,
+          "historicalFolds": 0
+        }
+      }
+    ],
+    "held": {
+      "label": "completed_queries_owner_and_inputs_held",
+      "elapsedMs": 33294.117000000006,
+      "rss": 3191259136,
+      "heapTotal": 1787445248,
+      "heapUsed": 1639114384,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3244896
+    },
+    "projectionFacts": [
+      {
+        "ordinal": 1481,
+        "actorInvocationRef": "actor-invocation://abiogenesis/8c787c2e7bd0096b77b29c5b09703926116213c3c31434116b22ecba0a29d050",
+        "currentContextDigest": "sha256:59a7ca717b153ece9a527e7c109d745eebe8a2e2707825d875f45fa210a83648",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:71cf87441a92a5fe246ee59d05133859ecc6a2dacafbd3134988a327c472e1cd",
+        "contextDigest": "sha256:59a7ca717b153ece9a527e7c109d745eebe8a2e2707825d875f45fa210a83648",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:32740d7238065ecb0f06b70b63172cade25bfcec082b9cbfd6283bd7a0692004",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 11273,
+        "actorInvocationRef": "actor-invocation://abiogenesis/24f7e735f35d64c18dbb0f1b4a169c1981c4e6cdfaa8d1808c37efb9e7866918",
+        "currentContextDigest": "sha256:391ea1bc567d9353f4bd8ee942a591f88f6427f8089cd9f07c2168a811b0f9a7",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:c79701c8f80f6220cf89544dbbe1490199668749531af63cb4c7914cd868d6cb",
+        "contextDigest": "sha256:391ea1bc567d9353f4bd8ee942a591f88f6427f8089cd9f07c2168a811b0f9a7",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:3c547f3308c21ea590ed627eea8137a98e24b9b597a254a9fe3f1db54cf48ab2",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 31435,
+        "actorInvocationRef": "actor-invocation://abiogenesis/c71b2fb916b4c48392a5a281f058d33dd4b5eb817c65ef302a47f71a6e879773",
+        "currentContextDigest": "sha256:415c5e2d11767d2413a2981666ff74a0e79255dac1b80e8eb37f662f85c324e1",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:a0af1e2cfc2990090af1b8bfb40dd86019072d0e3b9c098d11ff717a100a049e",
+        "contextDigest": "sha256:415c5e2d11767d2413a2981666ff74a0e79255dac1b80e8eb37f662f85c324e1",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:d26442ced903f5884309f1ebd57ff60cb85f26dfaa4343818d17ed5967474314",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 38830,
+        "actorInvocationRef": "actor-invocation://abiogenesis/8adfb9c6bd81c07bc970f0a6951c19b314851398751e910202613e3d96c59ba5",
+        "currentContextDigest": "sha256:62e4e5103352d5360c3829af0b00084c8e3d2cad08438a21623e38b5e5a458ec",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:0997cffd66f5bcadc37879f77858e7eeb2e02e95f8c5c1abd707f667d312e9dd",
+        "contextDigest": "sha256:62e4e5103352d5360c3829af0b00084c8e3d2cad08438a21623e38b5e5a458ec",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:6a0dec7095d330c514f9aeaac601ef2ab5fcf14614cd18d95677f8adcb7f505b",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 49373,
+        "actorInvocationRef": "actor-invocation://abiogenesis/fd9f1671a78887d6f9b331913761412a565d679d9c264da79f068089dc291dbc",
+        "currentContextDigest": "sha256:4a148fedcd9c7353807b473ce068fa955bf6701f49954f78cfb32ddd2656c7cf",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:e0615c8b7754a5d1612647e1a85112f37eb6dd4e76523cfc148c6097a4a18e7d",
+        "contextDigest": "sha256:4a148fedcd9c7353807b473ce068fa955bf6701f49954f78cfb32ddd2656c7cf",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:041413526256a75325acea7edb6a6032e4c96da92324c812c33ae0f4c89c4b56",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 59119,
+        "actorInvocationRef": "actor-invocation://abiogenesis/ab8f0961e0cc4fb37eb981c636a6e534fd836834916c080a9819400ad7a2ccab",
+        "currentContextDigest": "sha256:36ceae8c2e87193ed93c2f017f20fbe67f42583c75c349a6d71250bc69342986",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:0bb3feec9f8f78fe403f8953ea2dd5e60030d183bb38ab5b6bdeb220e892d612",
+        "contextDigest": "sha256:36ceae8c2e87193ed93c2f017f20fbe67f42583c75c349a6d71250bc69342986",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:4ae3e77386f069d288c7acd2be9a5180fa82e7460bde582ed7faf448b7dd6743",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 72888,
+        "actorInvocationRef": "actor-invocation://abiogenesis/90acf0ab1c78763b1c8b74c78f732b898e25739061c9f8fee04361d6aaa3fbb1",
+        "currentContextDigest": "sha256:276448b2285873dd92ca4fefd181dc1fbf3e90da24e57f86113ef2909417964a",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:bbef22c43fcaf1046f2f7283a5e06c346b117a297ff051eaab2a5a10c076a007",
+        "contextDigest": "sha256:276448b2285873dd92ca4fefd181dc1fbf3e90da24e57f86113ef2909417964a",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:90c67fa5314295903831f2c0d2e557f3ab5a5478d979c49069f0d080dfb9b847",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 77860,
+        "actorInvocationRef": "actor-invocation://abiogenesis/6a2694ca359ab9ac6b1d86199c1fa31059d7e36f9d2af434ffbc98570db47f07",
+        "currentContextDigest": "sha256:6a6ece8a48524724f4c59c23b2c4298aeefe4ed21c454b349847b980bd32713b",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:dab447efb481c1cac4ebcedd1a448fb3dc5379d08876994b3da5f22b48fdca81",
+        "contextDigest": "sha256:6a6ece8a48524724f4c59c23b2c4298aeefe4ed21c454b349847b980bd32713b",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:e595ff5d029929e62670aeba6ce760933690bff8dbf160f951dd285dd32d85e9",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 92253,
+        "actorInvocationRef": "actor-invocation://abiogenesis/3e020f58bb5a4a0e3db68d136bb1e9c42ac9334fc4b67b8ce6f9186e64848067",
+        "currentContextDigest": "sha256:c279b68ee92a9ad20a198f86ce59df047f0d1c16d3f68926d0dd1fd70446097e",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:a30bffb563f28d9c60ba60049ef94972acfd007ace9012c9f0c796f3e2a8f1b9",
+        "contextDigest": "sha256:c279b68ee92a9ad20a198f86ce59df047f0d1c16d3f68926d0dd1fd70446097e",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:7dcdfa34a5a1d8c9a0f5d582969ee0067e478be779e81ee0b05aff862ba10a9b",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 98975,
+        "actorInvocationRef": "actor-invocation://abiogenesis/3b684da2cb52ef72369a88f480fbf2cfa8373e52b21bc8908b12dc696daf89cc",
+        "currentContextDigest": "sha256:ba54dd501f1a7bb58165ca6604ffcaebc27f2a2c8fbf38030cf10fcc9f9756e0",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:cfe01eb2599e06408918295e05a97c2096a6decdbf26dbc5aede80690904fa85",
+        "contextDigest": "sha256:ba54dd501f1a7bb58165ca6604ffcaebc27f2a2c8fbf38030cf10fcc9f9756e0",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:69a4c406ac7f36c361e9d673b05265f3de339a235cb7ed1f00f9fe1749bcfbe3",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 112762,
+        "actorInvocationRef": "actor-invocation://abiogenesis/569b79efe6b304c1c1ebc4ecc305ae566438c5efa2921cd4ab8e40fc9b3d4914",
+        "currentContextDigest": "sha256:c49d2c13059b1fc283af15327e37e1d6ede9dd0c0ed98d2b8a95cff15290a0d4",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:597bc9ed8a8a2fc23a220d5b5c11f023ef733be180d82e87f1772e3825abd299",
+        "contextDigest": "sha256:c49d2c13059b1fc283af15327e37e1d6ede9dd0c0ed98d2b8a95cff15290a0d4",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:a2104d71db659d3be4a274223d802c691881e3729f0e0e12290fd7c6e1f094c5",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 125962,
+        "actorInvocationRef": "actor-invocation://abiogenesis/1999f01f188353ddf5434bfd2a153ddac45921207d32059f55ce0df49569817e",
+        "currentContextDigest": "sha256:37016c97ddcba98adb0e91d97830fbeb9230de22165b752f2dde61e0db6c7a11",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:358fefa87dfe5b8fadb2e77a93b5271e2def8d8dba1ee7689fc5d04006df5a44",
+        "contextDigest": "sha256:37016c97ddcba98adb0e91d97830fbeb9230de22165b752f2dde61e0db6c7a11",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:25873ea2f99024a05823b7828bea4de6375461f74f40e78ad13f15f7aaf7a096",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 139579,
+        "actorInvocationRef": "actor-invocation://abiogenesis/8e1a30fe427b1bcb1c59acf8d7a55429411629d13369d20a5b480c6763563e56",
+        "currentContextDigest": "sha256:fa98769bbabce7a494fa910c0dfc502e2d3d67d6021219a034abd96ffe47af62",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:c01831aaafce109c78cf242137e33d6334ac2a69da27dc62a442a2e28d09ba82",
+        "contextDigest": "sha256:fa98769bbabce7a494fa910c0dfc502e2d3d67d6021219a034abd96ffe47af62",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:81972ae6a3e954b2880f48ae96b65b3c71b9212363ec7a01c2c7c31757abbd74",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 152095,
+        "actorInvocationRef": "actor-invocation://abiogenesis/1195697a66dff18124553babcf0e05a0bf46da9b20c00941f37c4ee82908bf21",
+        "currentContextDigest": "sha256:3f069bf7a197345b75c13920fd76b4b89ef4d2664adde063a3a1bd14853eac9d",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:5be09acd3055ee89b6fce8c24bd45050d33ff4c1c3989fbf0b395c11180c977f",
+        "contextDigest": "sha256:3f069bf7a197345b75c13920fd76b4b89ef4d2664adde063a3a1bd14853eac9d",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:8e599636cba81fb2eecec15b218073d311375d827fd6fd3990336ada40fe254f",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 182511,
+        "actorInvocationRef": "actor-invocation://abiogenesis/8673a7480334fb248bdb19983a4765913eaafb2a2b158ba41cb99a598ec94e45",
+        "currentContextDigest": "sha256:3841b9e91a02229b2d3611b9a3d3c01f96f6b4f6d676233c1fe9cc0024f6ac41",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:552b714d9e7a9c5a24b665409bfb982b9824a9ac41162496cff3b5dc6b40ed4c",
+        "contextDigest": "sha256:3841b9e91a02229b2d3611b9a3d3c01f96f6b4f6d676233c1fe9cc0024f6ac41",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:83f7b6e99a6db3c037062aeaa06b6579d6fd2cd6c550c761e6ec66b40d582a90",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      },
+      {
+        "ordinal": 200512,
+        "actorInvocationRef": "actor-invocation://abiogenesis/a029345b51836d0a73e69c46c011755a93fb27ac873403b2658be11025568a97",
+        "currentContextDigest": "sha256:392e7b2adca297f54b5a20f9effb345b4318c537a56bbd0a3e86d1a7204cef07",
+        "currentBudgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "currentProjectionDigest": "sha256:9208548754e90ea863a7124258e1bd05c155a02beadc783b09defc86fe1ea148",
+        "contextDigest": "sha256:392e7b2adca297f54b5a20f9effb345b4318c537a56bbd0a3e86d1a7204cef07",
+        "budgetDigest": "sha256:ed50b897587af7613e106cc472fd33d53884909dd22757b991d4878d4179c12e",
+        "projectionDigest": "sha256:973146f9b08b6eb74892d0e3918588542137c9a30b9283d3c545657a693a3702",
+        "nullable": {
+          "currentContext": false,
+          "currentProjection": false,
+          "historicalContext": false,
+          "historicalProjection": false
+        }
+      }
+    ],
+    "projectionFactDigest": "sha256:5269b41a3126550f81efbcefd6f9a1ca18c4dde6a430c7b39585a02f4b18be53",
+    "acceptedFacts": [
+      {
+        "eventRef": "event://abiogenesis/ba6a0e6db7c6b1c32a9c4c8f2c6462d074c5bd660d4c6444ad1b88098ecfefcd",
+        "ordinal": 1481,
+        "payloadDigest": "sha256:663d12bf5c298e625ac13a946e5264504a6796b996452f3051bccb98eca395ba",
+        "actorInvocationRef": "actor-invocation://abiogenesis/8c787c2e7bd0096b77b29c5b09703926116213c3c31434116b22ecba0a29d050",
+        "underlyingEventRef": "event://abiogenesis/fa87abeba8dfed8ecc73807a177b4f7d668724408242b2d74a26ab9b78bb62b5",
+        "elapsedMs": 58217.138792,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/4857bb54f3d4ec5e77b710cac5b8df80543867d57fea7084f34d43fe784415b1",
+        "ordinal": 11273,
+        "payloadDigest": "sha256:c9e441953c89ac0af69ac076b343405bde04928dba87791f653f4fb29b512305",
+        "actorInvocationRef": "actor-invocation://abiogenesis/24f7e735f35d64c18dbb0f1b4a169c1981c4e6cdfaa8d1808c37efb9e7866918",
+        "underlyingEventRef": "event://abiogenesis/56d05140e58f0cd1f5c8dbfd4f8a8447d382748fcda4cf62acc422001bb1da55",
+        "elapsedMs": 308309.753834,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/ba633673a27642df51e1a22cf51838141a330b6b933b57bde9d35a6346bf48ca",
+        "ordinal": 31435,
+        "payloadDigest": "sha256:03153d4866f2fe16ebee784dcccb6605864cf2ea44befb8e020d72f692241f16",
+        "actorInvocationRef": "actor-invocation://abiogenesis/c71b2fb916b4c48392a5a281f058d33dd4b5eb817c65ef302a47f71a6e879773",
+        "underlyingEventRef": "event://abiogenesis/c2ebd98bbdd17ac89713a0624c6b46126fd597d195b9caedbb17636440093263",
+        "elapsedMs": 651090.2185829999,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/f3413312c96261b0482fa36a88166372664035e9fd5edc4e2ff30e2b85efa16c",
+        "ordinal": 38830,
+        "payloadDigest": "sha256:b82659c2eb829c0ed77ece2bcec1ba8ec83e3301266534a82b8997dee669b624",
+        "actorInvocationRef": "actor-invocation://abiogenesis/8adfb9c6bd81c07bc970f0a6951c19b314851398751e910202613e3d96c59ba5",
+        "underlyingEventRef": "event://abiogenesis/bdc68d5f9470cb6a0e4ec6779e46832f15c463aa0980068385bb951843646dab",
+        "elapsedMs": 167511.2763749999,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/2447e821f14d49bfea22304e237cff30ec328284b54d723606b02564fa92cf95",
+        "ordinal": 49373,
+        "payloadDigest": "sha256:fce06d47030eed53a8aeb5d4fbf5d9ce575035808de870d7c5a0a2342b189bb8",
+        "actorInvocationRef": "actor-invocation://abiogenesis/fd9f1671a78887d6f9b331913761412a565d679d9c264da79f068089dc291dbc",
+        "underlyingEventRef": "event://abiogenesis/9ab9a0ee8ca372eaa5fca59316e8581db6b58e57725413a42a217336439c97a6",
+        "elapsedMs": 131767.31470800005,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/b775b11e6fad70f50a8bb55a65727d3c67b1a670be648f8038a45a8414219cd1",
+        "ordinal": 59119,
+        "payloadDigest": "sha256:c5d552b237ddaafd027a23f1c2df2b660b16c9f4025c53fd134d846f99311ec2",
+        "actorInvocationRef": "actor-invocation://abiogenesis/ab8f0961e0cc4fb37eb981c636a6e534fd836834916c080a9819400ad7a2ccab",
+        "underlyingEventRef": "event://abiogenesis/ed86e693964b8121a097378c9ae25eb39eacbf63c4a476ad896edb4ef6430f91",
+        "elapsedMs": 276080.2352500004,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/2aa662da4a7434a92410e11102b073f4a11cc0bccd6c8fc99f576900547b5009",
+        "ordinal": 72888,
+        "payloadDigest": "sha256:6372548bdf54d7d8dfed1107894ad77a7c9b41384ffb50c857f687d8d5cf59bf",
+        "actorInvocationRef": "actor-invocation://abiogenesis/90acf0ab1c78763b1c8b74c78f732b898e25739061c9f8fee04361d6aaa3fbb1",
+        "underlyingEventRef": "event://abiogenesis/01e91491ef52506fda231d232d40daf05096663569e1fdca17d1701d08a5c1f7",
+        "elapsedMs": 347006.2672910001,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/0c531f43e016ba331d7ae87c063a29856da29c06c5cae5a3b529aa35cb9a761c",
+        "ordinal": 77860,
+        "payloadDigest": "sha256:bbcd88efb5d915743d6523afb393a28701b1d332adfb2c1a5a77f2fc06e7f014",
+        "actorInvocationRef": "actor-invocation://abiogenesis/6a2694ca359ab9ac6b1d86199c1fa31059d7e36f9d2af434ffbc98570db47f07",
+        "underlyingEventRef": "event://abiogenesis/7ce139ad683410e8afce273c5c479cd564fee7a934e160cc38bf963d6e5d6fea",
+        "elapsedMs": 268112.7821249999,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/cb28fbd4db26fff9f9893d20d016e397b94601bab6207347dc47e69716f67120",
+        "ordinal": 92253,
+        "payloadDigest": "sha256:b2de55403cef7abb9d70712d64006e59251bcfbc306165982a8b364b9f2978a6",
+        "actorInvocationRef": "actor-invocation://abiogenesis/3e020f58bb5a4a0e3db68d136bb1e9c42ac9334fc4b67b8ce6f9186e64848067",
+        "underlyingEventRef": "event://abiogenesis/3f15fc43e243d5bcb60a022f75f386b9a5e80ba6b6c781c4f9951b3349ea4251",
+        "elapsedMs": 159813.4340420002,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/92496873c39cd9007b6a21c2826c039f638b4ff52745423ff853e194c4bd6a84",
+        "ordinal": 98975,
+        "payloadDigest": "sha256:0002dec47f0e24692f511fc8a8a4ce5eec73cd6f6be50944ba3d9037e0cbaa7e",
+        "actorInvocationRef": "actor-invocation://abiogenesis/3b684da2cb52ef72369a88f480fbf2cfa8373e52b21bc8908b12dc696daf89cc",
+        "underlyingEventRef": "event://abiogenesis/d504b53ba0673b7faa99cbfff46294f9d350d75bacbb4e4d24f061ffd946195d",
+        "elapsedMs": 65334.76908299979,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/5dff48e4532e1f3135fb02775e4921e43fd75506e29cf2e16747636e002a9d96",
+        "ordinal": 112762,
+        "payloadDigest": "sha256:53de21242b54c12e064988360c1cab532a37b78fb95ae988a258770632c37cbb",
+        "actorInvocationRef": "actor-invocation://abiogenesis/569b79efe6b304c1c1ebc4ecc305ae566438c5efa2921cd4ab8e40fc9b3d4914",
+        "underlyingEventRef": "event://abiogenesis/c5802c0631bb3ea6839de6bbb044dbd201e2dc67634cdcf718a9a28e3830c230",
+        "elapsedMs": 66444.91674999986,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/0e85ae5c179841148a71ad1ff5fe7a5671d068e59ce2379c7ed99aef21fc3ab5",
+        "ordinal": 125962,
+        "payloadDigest": "sha256:09423aa9021e8d167a191f8914c63d051b5bd9a7c1f0c3ed13ccea62dff9aa0b",
+        "actorInvocationRef": "actor-invocation://abiogenesis/1999f01f188353ddf5434bfd2a153ddac45921207d32059f55ce0df49569817e",
+        "underlyingEventRef": "event://abiogenesis/46b3d0d2967a9d0bb1fe5f71a3351958bfcd143bfb353c348b0791bfa0ace7b7",
+        "elapsedMs": 138889.33395799994,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/48b020c37103c0b361dcf3477a8f99260497284705899984853eafbd768d5a56",
+        "ordinal": 139579,
+        "payloadDigest": "sha256:b4dfcc3397e9eb6517475e19e6a8588ebcdec32706e638f43c8934f077a0102e",
+        "actorInvocationRef": "actor-invocation://abiogenesis/8e1a30fe427b1bcb1c59acf8d7a55429411629d13369d20a5b480c6763563e56",
+        "underlyingEventRef": "event://abiogenesis/0e7f36989d519929171a29d364619eea56ccc0603b15cbf784369fd6e3f2390a",
+        "elapsedMs": 152265.39545799978,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/22c465ed3e7ff683b7a50e130874ececdacbe936e47f8e7855c1cc4db37252a8",
+        "ordinal": 152095,
+        "payloadDigest": "sha256:f540d182af80de5ae4100b6705ed97ae8ebe3ac0e88310934cfb05879fd8c459",
+        "actorInvocationRef": "actor-invocation://abiogenesis/1195697a66dff18124553babcf0e05a0bf46da9b20c00941f37c4ee82908bf21",
+        "underlyingEventRef": "event://abiogenesis/2f941cd1150e4e1eb4514f99f111170733a976f00fe4d59043f1e9e111a1d0b5",
+        "elapsedMs": 422075.94783299975,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/cde287dc494494a191c84b4f0c87aabb489e103ad7b116e0f6035576d4c2a1a5",
+        "ordinal": 182511,
+        "payloadDigest": "sha256:2a38eb3981bc05a25f0f250ac8b571d0c560f051164fab251e2043f325e5bb7c",
+        "actorInvocationRef": "actor-invocation://abiogenesis/8673a7480334fb248bdb19983a4765913eaafb2a2b158ba41cb99a598ec94e45",
+        "underlyingEventRef": "event://abiogenesis/1cf92b2ac0515e7325ac4beebfcb5017cb126041a97ed307453bdb2f2283752e",
+        "elapsedMs": 461149.0884169992,
+        "accepted": true
+      },
+      {
+        "eventRef": "event://abiogenesis/468e7c5b3c9bb7df1e3e6659ac0c74495ee779441e65a3fd223c24e2e9a91708",
+        "ordinal": 200512,
+        "payloadDigest": "sha256:b2f5de8881d7a37f72e72c8f82999f6728d3f0a6470f1c9779163fb513e246a1",
+        "actorInvocationRef": "actor-invocation://abiogenesis/a029345b51836d0a73e69c46c011755a93fb27ac873403b2658be11025568a97",
+        "underlyingEventRef": "event://abiogenesis/652c59799f4c06f4044621ba9d1c18d9440a98c6ac5eefad867d31888b5113c4",
+        "elapsedMs": 67906.64866700023,
+        "accepted": true
+      }
+    ],
+    "acceptedFactDigest": "sha256:353df752e9843de27c31474b4ce1a1f3a95d410afa5a137b7661234572f139ec",
+    "lastEventRef": "event://abiogenesis/08f215fb0cb2d1c15560b77628e66fa82af62ea4cd633c88f905d13b527a08c4",
+    "lastOrdinal": 200571
+  },
+  "ownerHeld": {
+    "label": "closed_caller_scope_owner_source_held",
+    "elapsedMs": 33479.208542,
+    "rss": 3185983488,
+    "heapTotal": 1782169600,
+    "heapUsed": 1633839344,
+    "external": 2436654,
+    "arrayBuffers": 27015,
+    "heapSizeLimit": 4496293888,
+    "maxRssKiB": 3244896
+  },
+  "afterInvalidate": {
+    "label": "disposable_source_invalidated",
+    "elapsedMs": 33557.857834,
+    "rss": 2914664448,
+    "heapTotal": 181141504,
+    "heapUsed": 42136976,
+    "external": 2436654,
+    "arrayBuffers": 27015,
+    "heapSizeLimit": 4496293888,
+    "maxRssKiB": 3244896
+  },
+  "afterRelease": {
+    "label": "source_reference_released",
+    "elapsedMs": 33565.007125000004,
+    "rss": 2914664448,
+    "heapTotal": 181141504,
+    "heapUsed": 42116992,
+    "external": 2436654,
+    "arrayBuffers": 27015,
+    "heapSizeLimit": 4496293888,
+    "maxRssKiB": 3244896
+  },
+  "invalidatedCache": [],
+  "weakFacts": {
+    "eventsReachable": false,
+    "authorityEventsReachable": false,
+    "lastEventReachable": false
+  },
+  "samples": [
+    {
+      "label": "before_one_cold_read",
+      "elapsedMs": 6.723917000000029,
+      "rss": 174358528,
+      "heapTotal": 105365504,
+      "heapUsed": 34070416,
+      "external": 2433711,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 191520
+    },
+    {
+      "label": "cold_read_returned",
+      "elapsedMs": 22280.831125,
+      "rss": 3022258176,
+      "heapTotal": 1664876544,
+      "heapUsed": 1573063952,
+      "external": 1170118812,
+      "arrayBuffers": 1167716630,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    {
+      "label": "cold_events_retained",
+      "elapsedMs": 22396.922334,
+      "rss": 2961686528,
+      "heapTotal": 1584824320,
+      "heapUsed": 1433320848,
+      "external": 2429197,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    {
+      "label": "liveness_reconstruction_without_cut_queries",
+      "elapsedMs": 24078.756875,
+      "rss": 3059859456,
+      "heapTotal": 1702772736,
+      "heapUsed": 1556349128,
+      "external": 2429197,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    {
+      "label": "after_1_distinct_actor_cuts",
+      "elapsedMs": 24486.833042,
+      "rss": 3063889920,
+      "heapTotal": 1703559168,
+      "heapUsed": 1556747896,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    {
+      "label": "after_4_distinct_actor_cuts",
+      "elapsedMs": 25505.256999999998,
+      "rss": 3069558784,
+      "heapTotal": 1707458560,
+      "heapUsed": 1560883600,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    {
+      "label": "after_8_distinct_actor_cuts",
+      "elapsedMs": 26394.726834,
+      "rss": 3078766592,
+      "heapTotal": 1717223424,
+      "heapUsed": 1570370776,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    {
+      "label": "after_16_distinct_actor_cuts",
+      "elapsedMs": 27874.685459,
+      "rss": 3116515328,
+      "heapTotal": 1754513408,
+      "heapUsed": 1607967520,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3228208
+    },
+    {
+      "label": "completed_queries_owner_and_inputs_held",
+      "elapsedMs": 33294.117000000006,
+      "rss": 3191259136,
+      "heapTotal": 1787445248,
+      "heapUsed": 1639114384,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3244896
+    },
+    {
+      "label": "closed_caller_scope_owner_source_held",
+      "elapsedMs": 33479.208542,
+      "rss": 3185983488,
+      "heapTotal": 1782169600,
+      "heapUsed": 1633839344,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3244896
+    },
+    {
+      "label": "disposable_source_invalidated",
+      "elapsedMs": 33557.857834,
+      "rss": 2914664448,
+      "heapTotal": 181141504,
+      "heapUsed": 42136976,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3244896
+    },
+    {
+      "label": "source_reference_released",
+      "elapsedMs": 33565.007125000004,
+      "rss": 2914664448,
+      "heapTotal": 181141504,
+      "heapUsed": 42116992,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888,
+      "maxRssKiB": 3244896
+    }
+  ],
+  "defaultHeap": true,
+  "noReplayOrRuntimeEffects": true,
+  "limitations": "One cold pure-owner query pattern; retained vector counts inspect actual current owner roots, including structural intermediates. Heap/RSS deltas include other owner facts and collector effects, not dominant native4GB attribution or whole-run closure."
+}

@@ -1,0 +1,89 @@
+{
+  "status": "stopped_first_failure",
+  "frontier": "actual wrapper parent -> core assessment -> child foldback -> F11 -> sole AF22; six cold reads",
+  "error": {
+    "name": "Error",
+    "message": "actual selected whole path stopped at runtime_failed; retained typed owner outcome; no fallback",
+    "stack": "Error: actual selected whole path stopped at runtime_failed; retained typed owner outcome; no fallback\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/run-flow.mjs:101:37"
+  },
+  "elapsedMs": 30370.822874999998,
+  "calls": [
+    {
+      "label": "parent",
+      "definitionKey": {
+        "operationId": "abg.operation.run.invoke",
+        "memberKey": "start"
+      },
+      "invocationRef": "invocation://abiogenesis/85719cbfa7318155b76b195b90f3909a6e1c81a8f23c70d7bcf71170d841fb2d",
+      "outcomeKind": "result",
+      "elapsedMs": 9021.578375000001,
+      "processFailure": null
+    }
+  ],
+  "latestActualClosedHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:41c143e37effce5af95270d3e9f56dd42dd7d8845ae9a98a3a895b3fe450a6f0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "prefixLength": 2750762,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464698960
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:a035fec857eced20ca99156c24c70419177d40a2d6c89d19a80da5a8e9f22669",
+      "device": 16777230,
+      "durableByteLength": 2750762,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "inode": 464698960,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+    "bytes": 2750762,
+    "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+    "device": 16777230,
+    "inode": 464698960,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/task-tmp/abiogenesis-event-store-locks-v5/16777230-464698960.lock",
+    "lockPresent": false,
+    "originalPrefixBytes": 2490814,
+    "originalPrefixSHA256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+    "originalPrefixUnchanged": true
+  },
+  "realProviderCalls": 0,
+  "noRetry": true,
+  "noSourceRepair": true,
+  "processUsage": {
+    "userCPUTime": 23583888,
+    "systemCPUTime": 2294438,
+    "maxRSS": 7322912,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 942392,
+    "majorPageFault": 84,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 0,
+    "ipcReceived": 4148,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 882,
+    "involuntaryContextSwitches": 275374
+  },
+  "memory": {
+    "rss": 6679937024,
+    "heapTotal": 2624192512,
+    "heapUsed": 2477651680,
+    "external": 588243291,
+    "arrayBuffers": 585829899
+  }
+}

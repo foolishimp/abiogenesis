@@ -1,0 +1,92 @@
+{
+  "observedAt": "2026-10-09T17:37:59.944157+00:00",
+  "disposition": "CLOSED_FAILED/HOLD: no retry or additional resource recovery",
+  "origin": "Actual corrected223 worker75903 SIGABRT; V8 fatal heap exhaustion",
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/commands/recovery-stop-source.result.json",
+    "sha256": "1e7d55f30d2049eda694ce15543d06ec242eb9d372ff517d9b58051f1d119ea5",
+    "byteCount": 13765
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/commands/recovery-stop-source.stderr",
+    "sha256": "8617d298850e34bb8c3651d8ef90144ece2b234212fff97241d535b10a28a9c4",
+    "byteCount": 6071
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/commands/recovery-stop-source.stdout",
+    "sha256": "41c935e76563f1d664774d38b944d4bf6afb588b2a7e2eca578a2e8c8cb452bf",
+    "byteCount": 5393
+  },
+  "wallMs": 110137.93062500001,
+  "exitCode": null,
+  "signal": "SIGABRT",
+  "timedOut": false,
+  "truncated": false,
+  "transportFailure": null,
+  "lastEnteredStage": {
+    "stage": "reopen-current-resource-start",
+    "at": "2026-10-09T17:35:02.953Z",
+    "wallMs": 81757.42758399999,
+    "pid": 75903,
+    "memory": {
+      "rss": 5610176512,
+      "heapTotal": 2987507712,
+      "heapUsed": 2850731472,
+      "external": 2144580610,
+      "arrayBuffers": 2142168303
+    },
+    "maxRSSKiB": 5692832,
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "prefixLength": 2142089296,
+      "prefixDigest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 468327400,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:e4df7e94bd71bbf08b085883442ed61aae94590ffa51339c6e9b545e6767fdbd"
+    }
+  },
+  "lastReturnedStage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/008-maintenance-recovery-returned.json",
+    "sha256": "4a28c94ef2ff24f4f9cc44715b7470452da4e8ab7348afdd08b8a15aa9f23d65",
+    "byteCount": 391
+  },
+  "nearestCallerCone": "After reopen-current-resource-start: acquireAbgEventResource then current-prefix Run identity/ExecutionBasis/invocation/environment projection, before current-run-context completion. The return of acquisition was not separately instrumented.",
+  "exactJavascriptAllocationOwnerUnproved": true,
+  "dominantRetainerUnproved": true,
+  "nativeStackObservation": "V8 JsonParser<unsigned short> / ParseJsonArray / ParseJsonObject / Builtin_JsonParse appears in the fatal native stack; this does not identify a JavaScript owner or dominant retainer.",
+  "successfulMaintenanceReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recovery-receipt.json",
+    "sha256": "8582c5d84a6c17ec5009c354fedda3cd70799199a66c1bbcc01793182412fd41",
+    "byteCount": 5184
+  },
+  "successfulRecoveredHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/attempt-b/recovered-close-handoff.json",
+    "sha256": "10a1f7047255f068840dd33f8d01763941287ed913e4fad55705e82b3325ce05",
+    "byteCount": 1472
+  },
+  "stopGrantEntered": false,
+  "stopAdmitted": false,
+  "source41Derived": false,
+  "fallback34Used": false,
+  "selectedSource41Result": "result://abiogenesis/a8746cb4c4fbbe7e6021dccd54f99bfad76bad50b4314ccbfb58f87da3db767c",
+  "selectedSourceRun": "run://abiogenesis/6ea5bad308dc191a2e84cb887b3555ce26c5d2f20e33ed6b142b6b505c83d43c",
+  "actualLatestJudgmentAdmissionOrdinal": 271560,
+  "counter271559IsPriorDiagnosticOnly": true,
+  "normalCloseAfterReopenProduced": false,
+  "earliestFormatFailurePreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/first-cause.json",
+    "sha256": "80277ca9b9931c79bdaeb762e420c606ddc66ac35aafb17e3fd57e175766d078",
+    "byteCount": 760
+  },
+  "boundedPreOwnerFormatCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current29-interrupted-run-recovery-223/pre-owner-format-correction.json",
+    "sha256": "ccdeda6c2697019fdaaddc8a6cf7e402263a5a64cf9c55dd1186bb58e4f016e5",
+    "byteCount": 978
+  },
+  "onlyRecoveryEffectsCompleted": true
+}

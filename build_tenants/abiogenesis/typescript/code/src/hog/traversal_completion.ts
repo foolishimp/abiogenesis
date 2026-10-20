@@ -123,12 +123,20 @@ type CompletionValues = Partial<Readonly<{
   parentSuspensions: readonly HeldParentTraversalSuspension[];
 }>>;
 
-export function projectExecutableTraversalCompletion(
-  disposition: ExecutableTraversalCompletion["disposition"],
-  replayState: ReplayState,
+
+import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
+import type { RuntimeReplayGuard } from "../abg/replay.js";
+/** @internal */
+export type OwnedExecutableTraversalCompletion = Omit<ExecutableTraversalCompletion, "replayState"> & { readonly replayState: RuntimeReplayGuard };
+/** @internal */
+type OwnedRouteTransitionAdmission = OwnedOutcomeValue<RouteTransitionAdmission>;
+/** @internal Same owner computation with a selected guard receipt. */
+export function projectOwnedExecutableTraversalCompletion(
+  disposition: OwnedExecutableTraversalCompletion["disposition"],
+  replayState: RuntimeReplayGuard,
   successorPrefix: DurablePrefixCoordinate,
   values: CompletionValues = {},
-): ExecutableTraversalCompletion {
+): OwnedExecutableTraversalCompletion {
   return deepFreeze({
     kind: "executable_traversal_completion" as const,
     schemaVersion: "5.0.0" as const,
@@ -153,15 +161,16 @@ export function projectExecutableTraversalCompletion(
   });
 }
 
-export function projectHeldTraversalCompletion(input: Readonly<{
+/** @internal Same owner computation with a selected guard receipt. */
+export function projectOwnedHeldTraversalCompletion(input: Readonly<{
   hold: FhInteractionHoldAdmission;
   cursor: TraversalCursorCandidate;
   graph: Readonly<GtlGraph>;
   closureContract: Readonly<ClosureContract>;
-  replayState: ReplayState;
+  replayState: RuntimeReplayGuard;
   parentSuspensions: readonly HeldParentTraversalSuspension[];
-}>): ExecutableTraversalCompletion {
-  return projectExecutableTraversalCompletion(
+}>): OwnedExecutableTraversalCompletion {
+  return projectOwnedExecutableTraversalCompletion(
     "held",
     input.replayState,
     input.hold.successorPrefix,
@@ -185,17 +194,18 @@ export function projectHeldTraversalCompletion(input: Readonly<{
   );
 }
 
-export function projectBlockedRetryTraversalCompletion(input: Readonly<{
+/** @internal Same owner computation with a selected guard receipt. */
+export function projectOwnedBlockedRetryTraversalCompletion(input: Readonly<{
   plan: RetryRuntimeFailureTransitionPlan;
-  route: RouteTransitionAdmission;
-}>): ExecutableTraversalCompletion {
+  route: OwnedRouteTransitionAdmission;
+}>): OwnedExecutableTraversalCompletion {
   const transition = input.plan.transition;
   if (transition.disposition !== "blocked") {
     throw new TypeError(
       "blocked retry completion requires one exact blocked transition plan",
     );
   }
-  return projectExecutableTraversalCompletion(
+  return projectOwnedExecutableTraversalCompletion(
     "blocked",
     input.route.replayState,
     input.route.successorPrefix,
@@ -207,4 +217,35 @@ export function projectBlockedRetryTraversalCompletion(input: Readonly<{
       diagnosticRef: transition.close.judgment.reasonRef,
     },
   );
+}
+
+export function projectExecutableTraversalCompletion(
+  disposition: ExecutableTraversalCompletion["disposition"],
+  replayState: ReplayState,
+  successorPrefix: DurablePrefixCoordinate,
+  values: CompletionValues = {}
+): ExecutableTraversalCompletion {
+  return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedExecutableTraversalCompletion(disposition, replayState, successorPrefix, values));
+}
+
+export function projectHeldTraversalCompletion(
+  input: Readonly<{
+  hold: FhInteractionHoldAdmission;
+  cursor: TraversalCursorCandidate;
+  graph: Readonly<GtlGraph>;
+  closureContract: Readonly<ClosureContract>;
+  replayState: ReplayState;
+  parentSuspensions: readonly HeldParentTraversalSuspension[];
+}>
+): ExecutableTraversalCompletion {
+  return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedHeldTraversalCompletion(input));
+}
+
+export function projectBlockedRetryTraversalCompletion(
+  input: Readonly<{
+  plan: RetryRuntimeFailureTransitionPlan;
+  route: RouteTransitionAdmission;
+}>
+): ExecutableTraversalCompletion {
+  return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedBlockedRetryTraversalCompletion(input));
 }

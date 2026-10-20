@@ -1,0 +1,15 @@
+{
+  "operation": "T287_C06_ACCEPTANCE_AND_INSTALLED_EFFECTS_GRANTS_01",
+  "actor": "/root",
+  "previousRole": "Executive",
+  "role": "Writer",
+  "activatedAt": "2026-10-02T06:16:26.222927+00:00",
+  "grant": "Record conjoined CLOSED C06 construction and independent assurance acceptance, route separately activated installed Setup06 and exact generated reconciliation; owner fix it and close5",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "prohibitedEffects": "No candidate/source/Product/Runtime/Git/network implementation effects by Root"
+}

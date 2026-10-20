@@ -1,0 +1,20 @@
+{
+  "command": "npm",
+  "args": [
+    "pack",
+    "--ignore-scripts",
+    "--json",
+    "--pack-destination",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/packs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "environmentOverlay": {
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/npm-cache"
+  },
+  "startedAt": "2026-10-06T14:43:18.501Z",
+  "finishedAt": "2026-10-06T14:43:21.701Z",
+  "wallMs": 3200.0760830000004,
+  "exit": 0,
+  "signal": null,
+  "streamsClosed": true
+}

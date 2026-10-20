@@ -1,0 +1,43 @@
+{
+  "status": "CLOSED",
+  "role": "Runtime Worker",
+  "operation": "T287_F11_C05_CARRIER_EXECUTION_06",
+  "returnRole": "Executive; no mutation authority",
+  "workResult": "NO_GO_FIRST_CORE_CHILD_PREPARATION_FAILURE_WITH_SECOND_COLD_RESOURCE_FAULT",
+  "resourceHandoff": "closed-event-resource-handoff.json",
+  "resourceHandoffDigest": "sha256:1d13a5f46009c0345eb54277017f6243995c98af66b96d34a20afd3e17e934ca",
+  "firstFailure": "first-violated-relations.json",
+  "firstChildPredicate": "qualification assessment lacks an exact current owner and admitted task",
+  "secondReadPredicate": {
+    "code": "invalid_resource_assertion",
+    "definitionKey": {
+      "memberKey": "run_result",
+      "operationId": "abg.operation.project.read"
+    },
+    "evidence": {},
+    "kind": "definition_execution_fault",
+    "message": "definition resources differ from the owner-authored structural contract",
+    "schemaVersion": "5.0.0",
+    "stage": "resource_admission"
+  },
+  "effects": {
+    "actualPublicCalls": 2,
+    "ABGAppendedRecords": 44,
+    "ABGAppendedBytes": 177550,
+    "failedChildResult": "result://abiogenesis/65463294c62be87c890a06c977e40b7bf879d3ef514bfcfd84977d6f4c51477c",
+    "failedParentResult": "result://abiogenesis/de40fb08932de421ee00df4382c9358de9bc9d846f4d5f714b4c2e26d26bb183",
+    "run": {
+      "digest": "sha256:b9855e8ce73c18fc5f2d94bea62b101dcc076f850e1f9d7e7fbbf98e664a5924",
+      "ref": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271"
+    },
+    "runDisposition": "runtime_failed",
+    "helperProviderCalls": 0,
+    "sourceGitNetworkSetupQualificationCommands": 0
+  },
+  "actualRootActor": "actor://abiogenesis/t287/f11-c05-installed-setup-05/operator",
+  "remaining": "successful wrapper-child/J/foldback/parent RunClosed; six actual agreeing cold reads; fresh F11/sole non-greenAF22; nearest negatives; all genuine semantic/context/qualification/release obligations remain unproved",
+  "afterResultBeforeJ": "unsupported authoritative selected cut not exercised; unknown",
+  "sourceConservation": "conservation.json",
+  "allWritesAfterFreeze": "STOPPED",
+  "ReviewerActivation": false
+}

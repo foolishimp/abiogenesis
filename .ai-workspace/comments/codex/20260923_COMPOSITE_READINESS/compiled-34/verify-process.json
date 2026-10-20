@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "verify-installed.mjs"
+  ],
+  "elapsedSeconds": 9.313096625264734,
+  "exitCode": 0,
+  "stdoutSha256": "bd33a3fefa19ea702ee5896f3f85c6b653f9eddc88192ce01b3a0fa7da7af917",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

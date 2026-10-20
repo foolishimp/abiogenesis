@@ -1,0 +1,5 @@
+Error: actual Public boundary execution_failure; retained receipt, no fallback
+    at requirePublicResult (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/f11/public-outcomes.mjs:28:48)
+    at Object.freshReads (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/f11/ordinary-caller.mjs:106:66)
+    at async runBoundExistingPrograms (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/f11/flow-driver.mjs:32:14)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/run-flow.mjs:99:15

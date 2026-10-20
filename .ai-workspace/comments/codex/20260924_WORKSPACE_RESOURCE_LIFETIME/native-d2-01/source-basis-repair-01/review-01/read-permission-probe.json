@@ -1,0 +1,36 @@
+{
+  "scope": "One pure read-permission constructor check over retained ordinary W0 environment; no event acquisition, Public invocation, witness construction or actor.",
+  "packet": {
+    "operationId": "abg.operation.project.read",
+    "memberKey": "run_status"
+  },
+  "sourceReadback": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/jobs/js-sdlc-bootstrap/readback-basis.json",
+    "sha256": "ba224cca630033ee3a10f3939fbc87d064417df9911fb9c06f63d0a24e693341"
+  },
+  "permissionBinding": {
+    "ref": "workspace-binding://abiogenesis/4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826",
+    "digest": "sha256:4daf6ee981d887a196dfb2d4e36f9067141877122a4e7a232adbf670cefa0826"
+  },
+  "actorSlot": null,
+  "grantCount": 1,
+  "allGrantValidationPassed": true,
+  "validation": [
+    true
+  ],
+  "readAuthorityProductSet": [
+    {
+      "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e/b884445d603cb1da8235fb86abf094830f98e1f4d2148e3a9484e2186b5dc688",
+      "digest": "sha256:ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e"
+    },
+    {
+      "ref": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.8/e051c3c9a1260fac803b20c74658f34ba732699c972779a0b8aeed6950e21d16/b884445d603cb1da8235fb86abf094830f98e1f4d2148e3a9484e2186b5dc688",
+      "digest": "sha256:e051c3c9a1260fac803b20c74658f34ba732699c972779a0b8aeed6950e21d16"
+    }
+  ],
+  "dependencyLock": {
+    "ref": "product-lock://abiogenesis/b884445d603cb1da8235fb86abf094830f98e1f4d2148e3a9484e2186b5dc688",
+    "digest": "sha256:b884445d603cb1da8235fb86abf094830f98e1f4d2148e3a9484e2186b5dc688"
+  },
+  "limit": "Constructibility only. The unchanged read owner separately authenticates these retained facts against its selected prefix and source Run. W1 cannot substitute for W0 read permission."
+}

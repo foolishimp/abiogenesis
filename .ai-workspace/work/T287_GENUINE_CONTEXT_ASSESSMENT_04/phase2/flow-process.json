@@ -1,0 +1,42 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "phase": "phase2_flow",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/genuine-pilot.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer",
+  "capSeconds": 600,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/tmp",
+    "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2/tmp/node-compile-cache",
+    "ABI5_GENUINE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2",
+    "ABI5_GENUINE_INPUT_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+    "ABI5_GENUINE_MODE": "flow",
+    "ABG_TS_CLAUDE_COMMAND": "/Users/jim/.local/bin/claude",
+    "ABG_TS_CLAUDE_APPEND_ARGS": "[\"--system-prompt\",\" \"]",
+    "ABG_TS_FP_TIMEOUT_MS": "120000",
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "360000",
+    "ABG_TS_FP_TERMINATION_GRACE_MS": "1000"
+  },
+  "pid": 15872,
+  "pgid": 15872,
+  "exitCode": 1,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "groupAbsent": true,
+  "elapsedMs": 30865.295041003264,
+  "maxRSSPlatformBytes": 2525364224,
+  "userCPUSeconds": 32.603618,
+  "systemCPUSeconds": 3.267779,
+  "controlledTransport": false,
+  "realHttpRequestCount": "unknown unless observed in actual CLI transport",
+  "frozenPhase1InputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "stdoutBytes": 1122,
+  "stdoutSHA256": "8069d61981fff1f2efbb39b0717320d05007f8d574291eeb54a7230145dedf52",
+  "stderrBytes": 331,
+  "stderrSHA256": "93ec6092c312cf81a25ab39d4dd5e7f9c3d39c1cfe0762f1781a3dacb9e4970f"
+}

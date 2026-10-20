@@ -1,0 +1,11 @@
+--- final-observed-c2-01/ordinary-caller.mjs
++++ final-c2-current-resource-caller-02/ordinary-caller.mjs
+@@ -15,7 +15,7 @@
+  const r=await loadRuntime(packageIdentity.installedRoot),{product,abg,public:installedPublic}=r,hash=product.sha256Canonical,cli=await declaredCli(packageIdentity.installedRoot);
+  const core=prospect.core,verification=nominalVerification,verified=verification.verifiedArtifact;
+  const ownerRequest=verificationRequest(core),contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,catalogId:verified.catalogId,catalogVersion:schemaVersion,catalogDigest:verified.catalogDigest};
+- const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-observed-c2-01',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';
++ const coord=(ref,value={ref})=>({ref,digest:hash(value)}),base='abiogenesis/t287/final-c2-current-resource-caller-02',actorRef='actor://abiogenesis/t287/final-native-setup-03/operator';
+  const op={actorRef,attributionRef:'attribution://'+base,authorityRef:'authority://'+base,approvalRef:'approval://'+base,requestBaseRef:'request://'+base,correlationRef:'correlation://'+base,provenanceRefs:[pathToFileURL(join(here,'worker-activation.json')).href,pathToFileURL(join(here,'prospective-cases.json')).href]};
+  const state={closeHandoff:null,environment:null,catalog:null,catalogView:null,binding:null,resolvedLock:null,calls:[]};
+  const budgets=await read(join(here,'budgets.json')),taskEnvironment=await read(join(here,'runtime-environment.json'));

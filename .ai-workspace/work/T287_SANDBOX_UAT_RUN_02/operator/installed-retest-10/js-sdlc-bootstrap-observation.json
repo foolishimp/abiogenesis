@@ -1,0 +1,198 @@
+{
+  "recordedAt": "2026-10-06T11:02:28.647Z",
+  "scenario": "js-sdlc-bootstrap",
+  "wrapper": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 1014893.167083,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "nativeSummary": {
+    "scenario": "js-sdlc-bootstrap",
+    "runId": "2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f",
+    "mode": "run",
+    "status": "passed",
+    "uatPass": true,
+    "runtimeDisposition": "result",
+    "terminalAvailable": true,
+    "independentOracle": "satisfied",
+    "reason": "Selected original obligations and exact terminal/readbacks agree"
+  },
+  "nativeProof": {
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f",
+    "assessment": {
+      "disposition": "satisfied",
+      "unresolvedCriteria": [],
+      "reasonSha256": "3c131c42355d18c1b9bb12731a80cd693d3cf88b9c6731ba0af6a909207db6ed"
+    },
+    "assessmentAdmission": {
+      "ordinal": 9633,
+      "eventRef": "event://abiogenesis/aa0dd30f87fbe97997c46c0e6db91503274619e534249f0d271cb95fcfecca97",
+      "resultRef": "result://abiogenesis/16d351c19391393179120bd16936261ee705b6364f2e4ba4da4c8dfd108a9a1d"
+    },
+    "runClosure": {
+      "ordinal": 9718,
+      "eventRef": "event://abiogenesis/76c6a76327057656772c299602d2c93f00bd90195d72dfc7ef68fbe7b7546a0d",
+      "runRef": "run://abiogenesis/d4402676b63aa801bdd7e90acc7bf21232ac4b6fac53c6e362fa5b31a51c0412"
+    },
+    "actorCounts": {
+      "actor_invocation_started": 6,
+      "actor_process_exited": 6,
+      "actor_invocation_closed": 6,
+      "actor_invocation_failed": 0
+    },
+    "fresh": {
+      "members": [
+        "run_result",
+        "run_replay"
+      ],
+      "ownerOutcomes": [
+        "result",
+        "result"
+      ],
+      "replayStatus": "closed",
+      "fullValueAgreement": true,
+      "producerAgreement": true,
+      "resultAgreement": true,
+      "valueDigestAgreement": true,
+      "terminalResult": {
+        "digest": "sha256:0aed11b67b2f435d9ded7c2f3985403b6a27355181bfeaf5e4bb10c524f8f33c",
+        "ref": "result://abiogenesis/0aed11b67b2f435d9ded7c2f3985403b6a27355181bfeaf5e4bb10c524f8f33c"
+      },
+      "valueDigest": "sha256:3880d1f33f3f8a0f53aa29ad49308d0dbc6242e846fccf9a9b3d9ab2978ac4f5",
+      "cCallRef": "c-call:sha256:60db98e981967238cc25acbcf91108ef9a7c11a70d7728814129431f883b329c",
+      "resultAdmissionEventRef": "event://abiogenesis/b8e1ab61165f490b7b016cd8f0d7a8c4c0c20495b35863af0bdc08563d8ffaf0"
+    },
+    "oracle": {
+      "disposition": "satisfied",
+      "unresolvedCriteria": [],
+      "criteriaCount": 14
+    },
+    "zeroDelta": {
+      "bothInstallsMatchAndEqual": true,
+      "installedContentDigests": [
+        "sha256:403dd393cd35f306764070c4861c799464373bc736bd348c7f9b64ce157f9310",
+        "sha256:29cd2557fbab5e021f2f3d44c944620b745f805a9b38600911e3352f916104a7"
+      ],
+      "allOriginalSourceConserved": true
+    },
+    "providerResults": [
+      {
+        "path": "resources/archives/fp-294892292c68d1ff-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 15,
+        "durationMs": 154933,
+        "costUsd": "0.6956572"
+      },
+      {
+        "path": "resources/archives/fp-34f44f97e2654695-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 58842,
+        "costUsd": "0.3038200"
+      },
+      {
+        "path": "resources/archives/fp-682e3f0331831947-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 3,
+        "durationMs": 34417,
+        "costUsd": "0.3367568"
+      },
+      {
+        "path": "resources/archives/fp-8e37de702e0b6248-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 16,
+        "durationMs": 305160,
+        "costUsd": "0.8471776"
+      },
+      {
+        "path": "resources/archives/fp-e609d93ead44598e-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 60894,
+        "costUsd": "0.3627320"
+      },
+      {
+        "path": "resources/archives/fp-e8aaade7c38a20e8-stdout.log",
+        "subtype": "success",
+        "isError": false,
+        "turns": 2,
+        "durationMs": 62389,
+        "costUsd": "0.3494000"
+      }
+    ],
+    "observedCostUsd": "2.8955436",
+    "evidencePins": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/summary.json",
+        "sha256": "59d9e00b4d8617c6393554547726c521cf1247a1dccab0864ae92bc94bef5594",
+        "bytes": 547
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/SEALED.json",
+        "sha256": "f456135031ed2a68a4c67e22cfe467989c1d925aa8c26ba7b43efdff9ea0496d",
+        "bytes": 287
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/fresh-readback.json",
+        "sha256": "4e3ecb36220d35ce16bd07f2c75458ae8dd81d246df8d305d066bf63475196f3",
+        "bytes": 253501
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/independent-oracle.json",
+        "sha256": "865580c698a001201829766bdba3940e45498594e950bfdba6ebb7c179c99d03",
+        "bytes": 5012
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/installed-content-before-run.json",
+        "sha256": "208c9b437d927fb59a3f628ee89e9fad3ccc6285dd5727f4bf54c808cb741fa6",
+        "bytes": 2168
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/installed-content-after-run.json",
+        "sha256": "da0293e97a55f8dfdeb5bbea33f57752e5bceff7a86a3b42b6a18dba8302e84d",
+        "bytes": 2167
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/source-conservation.json",
+        "sha256": "8f6985fc564e7a80774abbda58df2cf48b1c99eefee77977eb60af21b10efb6b",
+        "bytes": 742
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/final-close-handoff.json",
+        "sha256": "a866adcda6033a7c9b6268b21bf2491e260e26931bf0e20b0ba44b7c0d66f52c",
+        "bytes": 1470
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f/resources/events/runtime.events.jsonl",
+        "sha256": "0e4275e57ae7bdb10b40520166197ddd935c91134394611010b484ed866ddcf5",
+        "bytes": 38042962
+      }
+    ],
+    "selectedAuthorPurposes": [
+      {
+        "path": "terminalResult.value.observations[0].purpose",
+        "purpose": "specification",
+        "actorInvocationRef": null
+      },
+      {
+        "path": "terminalResult.value.observations[1].purpose",
+        "purpose": "testing",
+        "actorInvocationRef": null
+      },
+      {
+        "path": "terminalResult.value.observations[2].purpose",
+        "purpose": "uat",
+        "actorInvocationRef": null
+      }
+    ]
+  }
+}

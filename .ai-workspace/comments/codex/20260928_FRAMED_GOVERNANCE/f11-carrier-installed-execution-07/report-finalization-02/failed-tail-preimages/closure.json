@@ -1,0 +1,32 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME07_REPORT_FINALIZATION_01",
+  "role": "Writer, report-only",
+  "closedAt": "2026-10-02T08:12:36.647919+00:00",
+  "priorRuntimeOperation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "priorRuntimeStatus": "CLOSED stopped first native raw-result refusal",
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/close-failed-cut.py",
+    "bytes": 23390,
+    "sha256": "8bcd9c3f3217d6e55716d7f404a4bd709e8c8008a835beb561643efa365785a9",
+    "mode": 420
+  },
+  "postimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/close-failed-cut.py",
+    "bytes": 23414,
+    "sha256": "2e773de5128ee79d88785f6cb278715798fa446f735f0d474305f5f76d3f845c",
+    "mode": 420
+  },
+  "soleHOMEProducerCorrection": true,
+  "protectedCompletedReportsPreserved": true,
+  "currentEventUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+    "bytes": 2750762,
+    "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+    "mode": 420
+  },
+  "remainingOutputsProducedBySavedTail": true,
+  "additionalRuntimeOwnerImportsReadbacksHelpersPayloadReproof": 0,
+  "allWritesAfterFinalFreeze": "STOPPED",
+  "returnRole": "Root Executive; no mutation authority"
+}

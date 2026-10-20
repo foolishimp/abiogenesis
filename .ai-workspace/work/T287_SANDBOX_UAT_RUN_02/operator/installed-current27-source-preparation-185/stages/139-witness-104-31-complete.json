@@ -1,0 +1,13 @@
+{
+  "stage": "witness-104-31-complete",
+  "rss": 4489723904,
+  "heapTotal": 3914596352,
+  "heapUsed": 3761760144,
+  "external": 2489355,
+  "arrayBuffers": 77048,
+  "at": "2026-10-09T07:43:00.370Z",
+  "elapsedMs": 246992.912667,
+  "wallMs": 123.6917919999978,
+  "invocationRef": "invocation://abiogenesis/3079dfe57d34c5f1b770f2d01b9e6615ac2a9288b29b6adc973a2fec80671652",
+  "prefixLength": 1689523978
+}

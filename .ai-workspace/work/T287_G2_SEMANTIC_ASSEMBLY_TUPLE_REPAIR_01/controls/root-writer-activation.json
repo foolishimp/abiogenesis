@@ -1,0 +1,27 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01_GRANT_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "activatedAtUTC": "2026-10-04T16:28:12.316123+00:00",
+  "operationGrant": "Exact documentary controls/preimages plus three tracking/commentary surfaces only; no Code/runtime/Git effects",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/controls",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/controls",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md"
+  ],
+  "documentPreimages": {
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": "4fe48527e0cfddd1b321544e9e4e63e86dbd0e48c00ba3c4292aed17acaa1d1c",
+    "specification/GOALS.md": "3c445d53bec81a6b6a528b3c9792331e276929299e005d59791c80413b28b42d",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md": "fe18fae1b9763763a068ed5fe6438b6fbb39f49499e59679241f6e2594e209f5"
+  },
+  "workerSourceWrites": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts"
+  ],
+  "basis": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifestSHA256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  }
+}

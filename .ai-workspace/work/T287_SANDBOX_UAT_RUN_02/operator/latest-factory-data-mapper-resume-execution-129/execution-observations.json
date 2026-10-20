@@ -1,0 +1,170 @@
+{
+  "closedAt": "2026-10-08T22:05:12.173502+00:00",
+  "classification": "Actual installed native UAT stopped blocked; application incomplete, no framework failure or qualification claim",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+  "runRef": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+  "nativeT0": "2026-10-08T17:45:46.407Z",
+  "qualityCheckpoint": "2026-10-08T22:45:46.407Z",
+  "driverDeadline": "2026-10-08T22:46:46.407Z",
+  "nativeCommand": {
+    "started": "2026-10-08T17:45:46.407Z",
+    "wallMs": 14932347.393292,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "outerCommand": {
+    "started": "2026-10-08T17:40:42.372Z",
+    "wallMs": 15680065.245209,
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null
+  },
+  "summary": {
+    "scenario": "data-mapper-full",
+    "runId": "2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9",
+    "mode": "resume",
+    "status": "failed",
+    "uatPass": false,
+    "runtimeDisposition": "result",
+    "terminalAvailable": false,
+    "independentOracle": "unmet",
+    "reason": "Original application obligations or terminal evidence remain incomplete"
+  },
+  "nativeDisposition": "blocked",
+  "nativeTerminalResult": null,
+  "frameworkFirstCause": null,
+  "stop": {
+    "ordinal": 175991,
+    "eventTime": "2026-10-08T21:54:02.980Z",
+    "eventRef": "event://abiogenesis/69535b09bbca5cd994349dedf6e163fc4620ff1302841c42c1cf9cf79527c7d5",
+    "offset": 1398509308,
+    "byteCount": 1858,
+    "sha256": "dd8afabe8ddb810100d793ccc1531eefb069f7ab702217adce93976d8737b133"
+  },
+  "latestSuccessfulJudgedParent": {
+    "ordinal": 174956,
+    "offset": 1387241127,
+    "byteCount": 1813642,
+    "sha256": "46291356d40ed3b4dcfb040913fd51576a3dda2e3888f3780e4fd19d15d81178",
+    "resultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+    "resultDigest": "sha256:b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+    "observations": 30,
+    "terminal": false
+  },
+  "earned": {
+    "distinctCompiledDetections": 12,
+    "exactBaselineRestorations": 12,
+    "requiredDistinctMutants": 16,
+    "actualRestoredGreenTests": 44,
+    "missingDedicatedINV": [
+      "Executor",
+      "Accounting",
+      "Assurance",
+      "Engine"
+    ],
+    "fullOriginalUAT": "unmet"
+  },
+  "originalOracle": {
+    "disposition": "unmet",
+    "satisfiedCount": 66,
+    "criteriaCount": 67,
+    "unresolvedCriteria": [
+      "compiled-kills-and-declared-restoration"
+    ]
+  },
+  "freshReads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "refusal",
+      "code": "not_found",
+      "status": null,
+      "terminalResult": null
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "code": null,
+      "status": "blocked",
+      "terminalResult": null
+    }
+  ],
+  "material": {
+    "fileCount": 48,
+    "absentPaths": [
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/sandbox/worksite/test-execution-result.json"
+    ],
+    "nativeAfterOrdinal": 165230,
+    "nativeAfterEventSHA256": "33216f37bef4ee3021d3bd48a5b9f55c193a4ca5499308e9fd885f52f6156f8a",
+    "allPhysicalFilesMatchNativeAfter": true,
+    "protectedOriginalCount": 4,
+    "installedObservationsEqualBeforeAfter": true
+  },
+  "providerTotals": {
+    "completedActors": 61,
+    "providerWallMsSum": 12057482,
+    "turns": 535,
+    "costUSD": 199.4624182,
+    "individualReceipts": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-resume-execution-129/milestones.jsonl",
+    "timingLimit": "Provider wall is distinct from command/SBT elapsed; canonical C2/helper artifacts do not declare elapsedMs."
+  },
+  "capacity": {
+    "highestSampledNativeRSSKiB": 4490224,
+    "rssIsNotRetainedHeap": true,
+    "eventRows": 175991,
+    "eventBytes": 1398511166,
+    "nativeWholeRunMemoryClosureClaim": false
+  },
+  "quiescence": {
+    "ownedPIDs": [
+      85325,
+      85327,
+      88828,
+      46931
+    ],
+    "ps": "  PID  PPID  PGID    RSS ELAPSED STAT COMM\n",
+    "eventStoreLockPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abiogenesis-event-store-locks-v5/16777231-468327400.lock",
+    "lockAbsent": true,
+    "actorStarts": 61,
+    "actorExits": 61,
+    "operatorSignals": []
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:834bbe5f643c1e0db7453e8d013b9a9e613a4fba6165c55fb2c4640dfb01a07a",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:89c73404ba4550a5b1fa7ece8149b7e0de2f8a2d34ac02506e22239e06bc92f4",
+      "prefixLength": 1398511166,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 468327400
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:7094b83786558224fca9c54efe1cb883be19521dd08213952681e89699f34c06",
+      "device": 16777231,
+      "durableByteLength": 1398511166,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:89c73404ba4550a5b1fa7ece8149b7e0de2f8a2d34ac02506e22239e06bc92f4",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T17-40-42-399Z-9331fc68-b309-49fb-a8f1-9a544450add9/resources/events/runtime.events.jsonl",
+      "inode": 468327400,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "continuation": {
+    "frozen130Unchanged": true,
+    "sourcePreparationExecuted": false,
+    "sourceApplicability": "Not yet dynamically proved",
+    "sameWorkspacePreserved": true,
+    "sourceNoneFallback": false
+  }
+}

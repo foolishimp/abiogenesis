@@ -1,0 +1,33 @@
+{
+  "preparationMs": 2084.5014578662813,
+  "executedCommands": 2,
+  "compileCount": 1,
+  "targetedTestCount": 1,
+  "supervisedElapsedMs": 7015.683957841247,
+  "peakRSSBytes": 1103904768,
+  "userSeconds": 11.140872,
+  "systemSeconds": 0.357187,
+  "budgetsSeconds": {
+    "compile": 180,
+    "test": 180,
+    "combined": 360
+  },
+  "heap": "default",
+  "HOME": "/Users/jim",
+  "groups": [
+    {
+      "pid": 37514,
+      "PGID": 37514,
+      "reaped": true,
+      "absent": true
+    },
+    {
+      "pid": 37786,
+      "PGID": 37786,
+      "reaped": true,
+      "absent": true
+    }
+  ],
+  "RuntimeResourceHelperActorProviderGitNetworkCandidateInstallEffects": 0,
+  "processObservationLimit": "Known supervised groups absent; no broad process enumeration or speculative child claim."
+}

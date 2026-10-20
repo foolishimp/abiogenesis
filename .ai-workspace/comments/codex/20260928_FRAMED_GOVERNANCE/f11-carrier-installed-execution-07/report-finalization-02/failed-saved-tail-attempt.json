@@ -1,0 +1,149 @@
+{
+  "status": "STOPPED_REPORT_NAMESPACE_MISS",
+  "operation": "T287_RUNTIME07_REPORT_FINALIZATION_01",
+  "failure": "NameError: name 'rows' is not defined during closure.json value construction after accounting.json was written",
+  "origin": "partial external Python namespace, not Product Runtime",
+  "alreadySavedAccounting": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/accounting.json",
+    "bytes": 47017,
+    "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+    "mode": 420
+  },
+  "actualRecordsProducer": "appended-runtime-records.json records:64; events:63; bodyReferenceRecords:1",
+  "absentOutputs": [
+    "closure.json",
+    "return.md",
+    "final-runtime-freeze.json"
+  ],
+  "preservedPreimages": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-01/activation.json",
+        "bytes": 5019,
+        "sha256": "2e96f4cb8a57d9ce11dd688b86c82295868287987c7a259ac29005f7513efa28",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/activation.json",
+        "bytes": 5019,
+        "sha256": "2e96f4cb8a57d9ce11dd688b86c82295868287987c7a259ac29005f7513efa28",
+        "mode": 420
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-01/closure.json",
+        "bytes": 1527,
+        "sha256": "b534e9dfb339325c39e0858b5838ba3bab2281633b384f5d4c8e83252b2b13ee",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/closure.json",
+        "bytes": 1527,
+        "sha256": "b534e9dfb339325c39e0858b5838ba3bab2281633b384f5d4c8e83252b2b13ee",
+        "mode": 420
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-01/preimage-close-failed-cut.py",
+        "bytes": 23390,
+        "sha256": "8bcd9c3f3217d6e55716d7f404a4bd709e8c8008a835beb561643efa365785a9",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/preimage-close-failed-cut.py",
+        "bytes": 23390,
+        "sha256": "8bcd9c3f3217d6e55716d7f404a4bd709e8c8008a835beb561643efa365785a9",
+        "mode": 420
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-01/preimage-failed-report-attempt-01.json",
+        "bytes": 3947,
+        "sha256": "e265a6afea1e60a0b997a5c96eac8d7b5c2ba60b4635793e8ae1a390224852d1",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/preimage-failed-report-attempt-01.json",
+        "bytes": 3947,
+        "sha256": "e265a6afea1e60a0b997a5c96eac8d7b5c2ba60b4635793e8ae1a390224852d1",
+        "mode": 420
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-01/receipt.json",
+        "bytes": 3658,
+        "sha256": "6f51bf7c0cccbe43192acbeed9c77bdb6119a138b22321e6b9c555b1feb11bf7",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/receipt.json",
+        "bytes": 3658,
+        "sha256": "6f51bf7c0cccbe43192acbeed9c77bdb6119a138b22321e6b9c555b1feb11bf7",
+        "mode": 420
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-01/sole-home-producer-route-patch.json",
+        "bytes": 4238,
+        "sha256": "e066c153d1ac8123059fb6d752fa11067b6f7d3879c2bd6ed23aaae92193ea74",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/sole-home-producer-route-patch.json",
+        "bytes": 4238,
+        "sha256": "e066c153d1ac8123059fb6d752fa11067b6f7d3879c2bd6ed23aaae92193ea74",
+        "mode": 420
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-01/stopped-runtime-worker-closure.json",
+        "bytes": 438,
+        "sha256": "230c34899ad30873cad7b933daa3985424831641cbc15c3aad24edb740290f0f",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/stopped-runtime-worker-closure.json",
+        "bytes": 438,
+        "sha256": "230c34899ad30873cad7b933daa3985424831641cbc15c3aad24edb740290f0f",
+        "mode": 420
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/accounting.json",
+        "bytes": 47017,
+        "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/accounting.json",
+        "bytes": 47017,
+        "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+        "mode": 420
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/close-failed-cut.py",
+        "bytes": 23414,
+        "sha256": "2e773de5128ee79d88785f6cb278715798fa446f735f0d474305f5f76d3f845c",
+        "mode": 420
+      },
+      "saved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/failed-tail-preimages/close-failed-cut.py",
+        "bytes": 23414,
+        "sha256": "2e773de5128ee79d88785f6cb278715798fa446f735f0d474305f5f76d3f845c",
+        "mode": 420
+      }
+    }
+  ],
+  "priorClosureClaim": "report-finalization-01/closure.json was saved before tail execution; remainingOutputsProducedBySavedTail:true is not evidence of completion; retained as the failed control preimage",
+  "reportAttempt02Disposition": "Separate self-contained saved-producer finalizer authorized; no partial tail execution",
+  "newRuntimeOwnerImportsReadbacksHelpersPayloadReproof": 0
+}

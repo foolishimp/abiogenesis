@@ -1,0 +1,10 @@
+{
+  "stderr": [
+    "rg: code/src/product/install.ts: No such file or directory (os error 2)",
+    "rg: code/src/product/verification.ts: No such file or directory (os error 2)"
+  ],
+  "meaning": "Guessed optional location, no owner/caller/source execution defect",
+  "RootSelectedAction": "Recording-only: retain lookup error; omit unnecessary lookup without retry or broader search; use already canonical installed27 packet exports",
+  "contractChanges": false,
+  "lookupRerun": false
+}

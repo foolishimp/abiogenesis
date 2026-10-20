@@ -1,0 +1,54 @@
+{
+  "status": "FROZEN_SOURCE_PACKAGE_PREPARATION_INDEPENDENT_REVIEW_PENDING",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/subject-delta.json",
+    "sha256": "08e6695dc3994b3625089c423e208b03508e5a462607f1901790b0147e308bc7"
+  },
+  "sourceReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/return.md",
+    "sha256": "7d741af5b618c40838f88f732b68481e345e4572b396f531ee47c276725fd8aa"
+  },
+  "evidenceRefs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/evidence-refs.json",
+    "sha256": "6639fb27ddabe889b18adb9067ac37847143a5d4e0a98366a610dbaffb49e7e9"
+  },
+  "compileReused": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/compile.json",
+    "sha256": "a926011a40680d54d8406ea91603f52b9e14fff9fb7208f728d6ac0fac317467"
+  },
+  "preservedPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-33/return.md",
+    "sha256": "332a8d8cf79aea9b76754d64eb27b57c258e724a85f8301b43c1053902a17e98"
+  },
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "354dde450eda3c986c25ec4919f2884ef54a13d4bebde8647693a6af97f2ed0e",
+      "preimageSha256": "100d037846789f56fbbc279ece7923a3f4d2b04effefdb5ae0f35e21357ae467",
+      "byteCount": 75468
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd",
+      "preimageSha256": "a0ee579a28c6372ccb2bbb65d581b1953f4c27e829721a2189ea92102784f7f4",
+      "byteCount": 76115
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "sha256": "f9defa9971b351f5d9aa578e4a60fe2fcd09f07da1042898541e781321548312",
+      "preimageSha256": "9edc80e3277e89b26103da2a0d646dba050282698753e5ed4b2b18cf680f2c1a",
+      "byteCount": 78798
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09",
+      "preimageSha256": "0eb18b3605551e02098ca3ad60e65f8776d178a76723b3bed6e1a8606b96f008",
+      "byteCount": 74635
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "sha256": "0f86b55946040837d508345ad4a9233a86affa81aea0bd1022a36a20425c312f",
+      "byteCount": 16791
+    }
+  ]
+}

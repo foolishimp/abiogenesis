@@ -1,0 +1,25 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=command cleanup budget",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-08T06:37:01.632Z",
+  "environmentKeys": [
+    "ABG_WORKSITE_BUILD_ROOT",
+    "ABI5_GENERIC_JOB_BUILD_ROOT",
+    "PATH"
+  ],
+  "timeoutMs": 180000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 577.050916,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "✔ command cleanup budget rejects the old one-grace envelope through the semantic owner (108.671334ms)\nℹ Controlled Product worksite/semantic values; no helper, actor, installed execution or UAT credit.\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 548.153791\n",
+  "stderr": ""
+}

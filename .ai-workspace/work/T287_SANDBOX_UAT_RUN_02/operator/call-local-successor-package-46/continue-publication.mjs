@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {readFile,writeFile,mkdir,lstat} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+const repo='/Users/jim/src/apps/abiogenesis',tenant=repo+'/build_tenants/abiogenesis/typescript',work=repo+'/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02';
+const phase=work+'/operator/call-local-successor-package-46',candidate=work+'/candidate-17',source=work+'/operator/liveness-transient-views-repair-45';
+const pin=async path=>{const status=await lstat(path);assert(status.isFile()&&!status.isSymbolicLink(),path);const bytes=await readFile(path);return {path,sha256:createHash('sha256').update(bytes).digest('hex'),byteCount:bytes.length};};
+const inputs=JSON.parse(await readFile(phase+'/inputs.json','utf8'));
+const fixed=inputs.fixedPins,selected=[...fixed,...inputs.sourcePins,...inputs.generatedPins];
+for(const expected of selected)assert.deepEqual(await pin(expected.path),expected);
+
+const {commandRecorder}=await import(pathToFileURL(tenant+'/test_env/uat/runner.mjs').href);
+const command=commandRecorder(candidate,{environment:{...process.env,npm_config_cache:candidate+'/scratch/npm-cache'},timeoutMs:300000,maxOutputBytes:1048576});
+const requireSuccess=result=>{assert.equal(result.exitCode,0);assert.equal(result.signal,null);assert(!result.timedOut&&!result.truncated&&!result.failure);};
+const archive=JSON.parse(await readFile(candidate+'/archive.json','utf8')).archive;
+assert.deepEqual(await pin(archive.path),archive);
+const pack=JSON.parse(await readFile(candidate+'/commands/pack.result.json','utf8'));
+const comparison=await command('member-comparison-corrected','/usr/bin/python3',[phase+'/member-comparison-corrected.py'],{cwd:tenant});requireSuccess(comparison);
+await mkdir(candidate+'/scratch/successor',{recursive:true});
+const extract=await command('extract','/usr/bin/tar',['-xzf',archive.path,'-C',candidate+'/scratch/successor'],{cwd:tenant});requireSuccess(extract);
+const owner=await command('packaged-owner','/opt/homebrew/bin/node',[phase+'/packaged-owner-corrected.mjs'],{cwd:tenant});requireSuccess(owner);
+for(const expected of selected)assert.deepEqual(await pin(expected.path),expected);
+await writeFile(phase+'/mechanical-result.json',JSON.stringify({archive,allSelectedPinsStillExact:true,allInputCount:inputs.allInputCount,sourcePins:inputs.sourcePins,generatedDelta:JSON.parse(await readFile(source+'/generated-delta.json','utf8')).changed,commandScalars:[['pack',pack],['member-comparison-corrected',comparison],['extract',extract],['packaged-owner',owner]].map(([label,value])=>({label,exitCode:value.exitCode,wallMs:value.wallMs,timedOut:value.timedOut,truncated:value.truncated,failure:value.failure})),preservedInitialComparatorRefusal:true,exact61CanonicalContributionConsequencesRecomputed:true,noBuildOrInstallOrNative:true},null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({phase:'owner-verified',commandWallMs:owner.wallMs,owner:JSON.parse(await readFile(candidate+'/owner-verification.json','utf8')).projection}));

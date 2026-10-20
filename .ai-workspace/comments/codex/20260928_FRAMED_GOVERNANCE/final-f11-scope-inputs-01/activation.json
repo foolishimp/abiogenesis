@@ -1,0 +1,12 @@
+{
+  "activation": "T287_FINAL_F11_SCOPE_INPUTS_01",
+  "role": "Worker",
+  "priorReview": "CLOSED; no independent assessment of this Worker's newly authored scope adequacy",
+  "changeClass": "realization_refactor",
+  "territory": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-scope-inputs-01",
+  "requestBytes": 6348,
+  "requestSha256": "bdd00cc903ac9343df9299f1fb81bd9e32b67896d734ad46ebcb2d4cec8cd806",
+  "operation": "Pure external scope, member-domain and assessor-material construction through frozen installed owners",
+  "effectsExcluded": ["native", "provider", "resource", "qualification execution", "seed", "source", "recipe", "build", "package", "install", "test suite", "Git"],
+  "movingNativeSetup": "excluded"
+}

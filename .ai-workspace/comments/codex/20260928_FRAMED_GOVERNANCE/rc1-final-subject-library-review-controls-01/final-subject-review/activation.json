@@ -1,0 +1,16 @@
+{
+  "operation": "T287_RC1_FINAL_SUBJECT_APPLICABILITY_REVIEW_01",
+  "role": "independent Reviewer",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-03T14:23:11.068174+00:00",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/subject-request.txt",
+  "grantBytes": 3343,
+  "grantSHA256": "68eb8904cb365364c559577143b9c52a3598f1bbc85f78a3d1f30431fe4370bc",
+  "subjectPins": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/subject-pins.json",
+  "subjectPinsBytes": 1771,
+  "subjectPinsSHA256": "356d2b3bd7c819506f939772e4cb87b06ad8c7a64e988eda97ad9da65c8aa533",
+  "allSevenSectionsRead": true,
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/final-subject-review",
+  "effects": "read/hash/source comparison plus NEW report only; no imports/Run/reopen/native/build/tests/provider/network/Git"
+}

@@ -1,0 +1,333 @@
+{
+  "status": "CLOSED_READ_ONLY_READINESS_RECONCILIATION",
+  "purpose": "Remaining dependency path from completed D2 to exact 5.0 RC1 qualification/publication/acceptance; not a native34 gate",
+  "observed": {
+    "recordedAtUtc": "2026-09-25T19:13:23.501484+00:00",
+    "files": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+        "bytes": 71660,
+        "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 376433,
+        "sha256": "364ec4f261f40203124df6744a07b20f12ea6204196394656480bb471235b7c3"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md",
+        "bytes": 54870,
+        "sha256": "5871bf1c37da88e9e3b5f19444238c97743172c620657c1784a5ec4450d7a99c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/return.md",
+        "bytes": 4083,
+        "sha256": "d27fd0a1b93c91f68d5ceb4639043910f27d272d83c9e5e0abb3ccfb565e0b2a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/selected-core.json",
+        "bytes": 986,
+        "sha256": "71528a44eb150ee9f6c29bdca2566367a1b8b8123a27d32e61e345a49011ddb1"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/ec-owner-reuse-01/installed-read-01/return.md",
+        "bytes": 3898,
+        "sha256": "1dc9b6058d49e95521b08fd0c421dd6fc4d1d69ba1692f7677c3772e0a00ebc3"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/return.md",
+        "bytes": 17978,
+        "sha256": "21509ac0990faec5a48e39d4aa00ad0c40cf28099c26acb680f0732865f2bc0a"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/recipe.mjs",
+        "bytes": 3442,
+        "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/basis-template.json",
+        "bytes": 2845,
+        "sha256": "724c72d5e98ff29508dafd60d7a287a645a666fae4b5de1852362c6877c522a8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/verification-recipe.json",
+        "bytes": 86324,
+        "sha256": "7bbf1f3cb7a6a4260eca50f1de64d9a68a95f75c4a746736cad385ff3c100b6c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/return.md",
+        "bytes": 7124,
+        "sha256": "095b86f5c661166922f8bd85e3e29621d16d1baf34cc40456c1833c17928ed72"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/held-readback-disposition.json",
+        "bytes": 7809,
+        "sha256": "0aee61496cd6b709b1b9b45aaa76c51930b71aa0bf1bd76032864b989ecdcfbe"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/self_conformance.ts",
+        "bytes": 3052,
+        "sha256": "0e07e01550b2bb48e3deaff0107e3ff1570220526149801d3084388c164807a0"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        "bytes": 8344,
+        "sha256": "33e8a5f9832c5d0989bc1c174545fcebfafbd65ac0ccf3235dadf41e2f5dbe95"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+        "bytes": 28309,
+        "sha256": "3e14d15f29656e9bb3e37b5d2bc110104523c349f09911b1f1353890d570eb81"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "bytes": 59810,
+        "sha256": "f8e92aa311cc56ce7ead7b6b51905791ace6502d4a7b5972a7671503ebe505d8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/release_publication.ts",
+        "bytes": 32769,
+        "sha256": "dcd2a8074ad11c07a8eaa1e8ff6e79b8b12613eaac5ba3643963ec23c79f6827"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/release_acceptance.ts",
+        "bytes": 5264,
+        "sha256": "d14a7eb32338e6fe0c31cdf6446da5f6b17ca203a4b08abd9df75e5a175f91eb"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+        "bytes": 21326,
+        "sha256": "878ec82f82908542aa3a762fe708eb031ea67f43de45c45e4a205a24fb31c989"
+      }
+    ],
+    "ticketFields": {
+      "current_activation": "NATIVE_D2_01_CORE34_PRESERVED_STEEL_THREAD",
+      "current_candidate_record": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-34/selected-core.json",
+      "current_candidate_scope": "core34_EC_source_review_package_and_identical_installed_replay_accepted_native_core33_Design_failed",
+      "current_live_execution_status": "ACTIVE_native34_exact_prepared_sequence_selected",
+      "qualification_work": "fixed_executable_roster_and_vector_removed_shared_native_evidence_independent_F11_J_and_sole_AF22_preserved_complete_qualification_still_open",
+      "release_work": "QUAL056_and_F16_source_component_accepted_exact_RC_native_qualification_and_actual_human_ruling_open"
+    },
+    "recipeBasisKeys": [
+      "status",
+      "body",
+      "requiredNativeBindings",
+      "construction"
+    ],
+    "ownerEquality": [
+      {
+        "relativePath": "implementation/self_conformance.js",
+        "sha256": "d3c3c38e834f11d8b5e25947d025d4b1fc1fb06944cc4b29c9ad5233c9ef775b",
+        "installedEqualsCanonical": true
+      },
+      {
+        "relativePath": "implementation/qualification.js",
+        "sha256": "5dbd072673e4179ba18593b1394d61a3ab0f7226ea6d5dcc5fd4c0ebcd20a5ad",
+        "installedEqualsCanonical": true
+      },
+      {
+        "relativePath": "validator/self_conformance.js",
+        "sha256": "f4fafd0ab7b58f5b9fe0010d6684e0321fb5c19f1225470639e47359890507c1",
+        "installedEqualsCanonical": true
+      },
+      {
+        "relativePath": "validator/qualification.js",
+        "sha256": "ebd5a1eab534adaf55a4e5c987156dec2ddc00dcc5a5aa608e6a566251d0b7ec",
+        "installedEqualsCanonical": true
+      },
+      {
+        "relativePath": "implementation/release_publication.js",
+        "sha256": "731cf53b84b19749ea051ca8065492cc729085705a84036ef3043671ad439f1e",
+        "installedEqualsCanonical": true
+      },
+      {
+        "relativePath": "product/release_acceptance.js",
+        "sha256": "d52ec8f9d08240f1be5fe5192e65f3f2243fc0fda234bbcd1f57b93294dc9f30",
+        "installedEqualsCanonical": true
+      },
+      {
+        "relativePath": "product/release_snapshot_definition_bindings.js",
+        "sha256": "3e4c10d81ffdfe2b42657f69ebed181488e9d604ce5367a505d8934532312eda",
+        "installedEqualsCanonical": true
+      }
+    ],
+    "recipeBasisTemplate": {
+      "status": "unbound_preparation_only",
+      "body": {
+        "subjectKind": "pre_rc_candidate",
+        "artifact": {
+          "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+          "digest": "sha256:74d8fd80c618ef09189fbef13fc10fd6d09ff2563864804d53a2d8195c97b8be"
+        },
+        "productContentDigest": "sha256:b288ec3d941770786b49dfccf9503028cf84f77dcff331fcabee9656d6c630e3",
+        "productManifest": {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+          "digest": "sha256:bf5a38a55595b2da24015753d8eaaa6bca6878f9565db1ca1836f4f63aabe8b3"
+        },
+        "installedProduct": null,
+        "workspaceBinding": null,
+        "tenantManifest": null,
+        "sourceInventory": {
+          "ref": "qualification-inventory://abiogenesis/da1a0162559ce39fbea659335ae17b108e371e660cc12999d470970bce1e6ab6",
+          "digest": "sha256:da1a0162559ce39fbea659335ae17b108e371e660cc12999d470970bce1e6ab6"
+        }
+      },
+      "requiredNativeBindings": [
+        "installedProduct",
+        "workspaceBinding",
+        "tenantManifest"
+      ],
+      "construction": "Supply genuine current admitted install/workspace and exact tenant manifest, then existing constructQualificationIdentity(body, basisRef, basisDigest, qualification-basis://abiogenesis/). No ready basis or verdict is minted here."
+    }
+  },
+  "governingRoutes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "lines": [
+        752,
+        826,
+        878,
+        906,
+        918,
+        954,
+        982,
+        1048,
+        1213,
+        1264
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "lines": [
+        20,
+        61,
+        644,
+        651,
+        686,
+        687,
+        917,
+        938
+      ],
+      "note": "Current fields and bounded evidence/debt; historical delivery checkpoint statements do not select new implementation."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md",
+      "lines": [
+        735,
+        825
+      ],
+      "anchor": "parallel-release-readiness-reconciliation"
+    }
+  ],
+  "sourceRoutes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/self_conformance.ts",
+      "lines": [
+        20,
+        33
+      ],
+      "relation": "Native F11 owner dispatch"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "lines": [
+        34,
+        67
+      ],
+      "relation": "Independent F_P assessment and sole verdict owner dispatch"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "lines": [
+        26,
+        112
+      ],
+      "relation": "Exact subject/law/inventory/execution/J material relation"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "lines": [
+        582,
+        613
+      ],
+      "relation": "Ready exact basis and sole AF22 green/refusal predicates"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+      "lines": [
+        37,
+        62,
+        127,
+        157
+      ],
+      "relation": "Actual published_rc and tapped_release Public owners"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/release_publication.ts",
+      "lines": [
+        50,
+        138,
+        191,
+        249
+      ],
+      "relation": "Qualified immutable effect and distinct installed-RC acceptance"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/release_acceptance.ts",
+      "lines": [
+        9,
+        24,
+        31,
+        66
+      ],
+      "relation": "Original actual owner ruling, exact request and trusted source premise"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/recipe.mjs",
+      "lines": [
+        10,
+        44
+      ],
+      "relation": "Reusable staging and observed-worksite task construction; immutable old input population requires rebind"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/return.md",
+      "lines": [
+        21,
+        27,
+        51,
+        63,
+        73,
+        81,
+        93,
+        95
+      ],
+      "relation": "Component/readiness scope, finite recipe, no native qualification, shared material and release order"
+    }
+  ],
+  "implementationDisposition": "No new implementation blocker identified in the bounded selected owners; not a general implementation-completeness claim",
+  "missingResults": [
+    "Completed selected D2 witness outcome and owner disposition",
+    "Current exact pre-RC input/evidence binding",
+    "Same-candidate required scenario/conservation/negative material and QUAL056 execution",
+    "Independent source/applicability/sufficiency judgments plus green F11/AF22",
+    "Authorized immutable RC publication and fresh installed-RC qualification",
+    "Actual human same-RC ruling and source-blind post-publication install proof"
+  ],
+  "reuseLimits": [
+    "S02 continuation17/18 are older exact-candidate evidence, not core34 passes",
+    "Original Hello and retained lifecycle stages preserve scope and source ancestry",
+    "Core34 accepted installed replay remains a recovery claim",
+    "Recipe's thirty selected component titles and 66 declared behaviors are not native qualification passes or a new execution roster"
+  ],
+  "noEffects": [
+    "No new agents",
+    "No source changes",
+    "No tests/builds/packages",
+    "No Public/history/resource reads",
+    "No live model/provider calls",
+    "No Git or publication",
+    "Native34 not gated/interrupted"
+  ]
+}
+

@@ -1,0 +1,28 @@
+{
+  "kind": "independent_successor36_delta_review_freeze",
+  "status": "CLOSED_STOPPED",
+  "disposition": "BOUNDED_SOURCE_OWNER_GO",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/freeze.json",
+    "sha256": "96a70903ac1c9409168d7acd0bcc46261c2d4f0da2c4cb915a81eca169e5d0d9",
+    "bytes": 16993
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/review-235/review.md",
+      "sha256": "08ce94f3141422445200d7034d2fe60cbe11f8a25f5f5ac6d6db3ac243d4fd54",
+      "bytes": 5828
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-36/review-235/pins.json",
+      "sha256": "8993ba879cf95fc4b5b3f6290d22c5353bca34f7f63c5f23f45983c1bbf5fd29",
+      "bytes": 12512
+    }
+  ],
+  "selectedReferencePins": 42,
+  "limits": [
+    "Source/owner correspondence only; no actual installed structural/retry/HoG/Source41/capacity/UAT qualification.",
+    "No reviewer tests or original-resource/runtime/worksite/Git effects. Root owns subsequent integration and effects."
+  ]
+}
+

@@ -1,0 +1,22 @@
+{
+  "classification": "External receipt premise only, after native reproof already SIGABRT; not another factory failure",
+  "command": [
+    "/bin/ps",
+    "-o",
+    "pid,ppid,pgid,rss,etime,args",
+    "-p",
+    "91313,91315"
+  ],
+  "error": "execFileSync throws for expected ps exit1/header-only when both exact owned processes are absent",
+  "priorStatus": 1,
+  "priorStdout": "  PID  PPID  PGID    RSS ELAPSED ARGS\n",
+  "precedingAssertionsCompleted": {
+    "controlPinsConserved": 15,
+    "physicalFilePinsConserved": 48,
+    "streamingStoreHashMatched": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+    "storeBytes": 1182449986,
+    "unchangedDeviceInodeMtime": true,
+    "bootstrapInstalledOwnerPairsEqual": 6
+  },
+  "correctedCollection": "spawnSync preserves actual status/stdout; no second streaming hash/acquisition performed"
+}

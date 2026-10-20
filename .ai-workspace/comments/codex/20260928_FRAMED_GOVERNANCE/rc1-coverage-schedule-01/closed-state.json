@@ -1,0 +1,23 @@
+{
+  "activation_id": "T287_RC1_COVERAGE_SCHEDULE_01",
+  "actor": "/root/rc1_coverage_schedule",
+  "role": "Worker",
+  "status": "CLOSED",
+  "worker_result": "completed bounded report and evidence-selection schedule",
+  "frame_method_result": "satisfied",
+  "frame_method_result_scope": "Finite obligation/producer/claim/missing-join/discriminator schedule only; no semantic/native/scenario/qualification/release acceptance.",
+  "date": "2026-10-02",
+  "governance": "stdo://releases/v2.5.1-rc.2/",
+  "governance_manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "candidate_qualification_law": "Immutable recorded C02/Q02 RC1; retained distinctly from RC2 work controls.",
+  "primary_records": ["activation.json", "schedule.md", "ready-increment.json", "coverage-map.json", "f11-responsibilities.json", "evidence-index.json", "verification.json", "return.md"],
+  "first_ready_increment": "one isolated installed C02 World graph-substitution through ordinary Public setup/start/cold-read path",
+  "executive_selected_successor_effect": "Separate Root grant and Worker, rc1-s02-substitution-01; no runtime effect executed by this report Worker.",
+  "effects_performed": ["new bounded report files only", "installed a_c joins Root material sections into this report directory", "pure source/file hashing"],
+  "effects_not_performed": ["test", "build", "native/model/provider dispatch", "helper commands", "physical install", "runtime event acquisition/append", "source/candidate mutation", "Git effect", "sibling mutation", "Reviewer activation"],
+  "qualification_or_acceptance_claim": false,
+  "unknowns": ["actual same-subject S02/S03/S06 and full behavioral applicability/sufficiency joins", "first genuine semantic F11 J/context/independence", "observed QUAL056 success", "whole F11 and valid-companion seven seed assessments", "provider underlying transport cause and context capacity", "actual AF22/release/installed-RC/human/terminal outcomes"],
+  "invalidation": ["material change to selected immutable subject/law/input/oracle", "actual owner invalidator or conflicting producer", "source authority/declared scope or grants change"],
+  "return_to": "/root",
+  "implicit_continuation": false
+}

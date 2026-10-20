@@ -1,0 +1,35 @@
+{
+  "kind": "continuation14_readiness",
+  "disposition": "CLOSED/HOLD",
+  "acceptedSource": "42",
+  "syntax": "PASS",
+  "lexicalUnresolvedNames": 0,
+  "liveSourceFiles": 264,
+  "compiledOutputs": 528,
+  "allSourceAndEmitsExact": true,
+  "canonicalBuildMs": 32011.945499999998,
+  "publicationMs": 9944.774292,
+  "archiveMembers": 5267,
+  "installedMembers": 5267,
+  "externalStrictTypeScript": "PASS;5.9.2;skipLibCheck:false;zero diagnostics",
+  "actualProductContentDigest": "sha256:502cbd2d38c6a54a864ddb509c8d9d38c6ee27e929ef12de006df3f274c218fa",
+  "archiveArtifactDigest": "sha256:68103d428bc3278a360a46b0efe28f8050f920db000b748bdb3ccf3caae7425b",
+  "completedPublicSetupCalls": 12,
+  "targetCovers": 4,
+  "currentSourceUse": "actual null, retained before assertion",
+  "privateProductPreparation": "not entered",
+  "nativeTestingC2": "not entered",
+  "sourceOwnerBoundaryElapsedMs": 108770.58445799998,
+  "samples": {
+    "sampledMaxHeapUsed": 2422132600,
+    "sampledMaxRss": 2967601152,
+    "meaning": "Stage samples only; not a peak or per-allocation attribution"
+  },
+  "normalClose": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-14/execution/audit/final-close-handoff.json",
+    "sha256": "025c56c5e836a39efcaccf1fe8b91f1ce654e4187ac9d0154416c32bd3bb778a",
+    "byteCount": 1368,
+    "mode": 420
+  },
+  "limits": "No genuine Claude/DataMapper/capacity/UAT/release claim. Original12 inner constructor uncertainty is unchanged;14 failed earlier at its own covered-source use."
+}

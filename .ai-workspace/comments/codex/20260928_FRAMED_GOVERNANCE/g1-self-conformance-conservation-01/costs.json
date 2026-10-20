@@ -1,0 +1,38 @@
+{
+  "commands": [
+    {
+      "label": "preimage",
+      "pid": 82753,
+      "pgid": 82753,
+      "elapsedMs": 453.1052918173373,
+      "userCPUSeconds": 0.38043299999999997,
+      "systemCPUSeconds": 0.080611,
+      "maxRSSPlatformBytes": 195248128,
+      "exitCode": 1
+    },
+    {
+      "label": "compile",
+      "pid": 83565,
+      "pgid": 83565,
+      "elapsedMs": 6836.8204170838,
+      "userCPUSeconds": 11.05937,
+      "systemCPUSeconds": 0.31065,
+      "maxRSSPlatformBytes": 1099956224,
+      "exitCode": 0
+    },
+    {
+      "label": "focused",
+      "pid": 83747,
+      "pgid": 83747,
+      "elapsedMs": 577.2595410235226,
+      "userCPUSeconds": 0.590264,
+      "systemCPUSeconds": 0.060829999999999995,
+      "maxRSSPlatformBytes": 195428352,
+      "exitCode": 0
+    }
+  ],
+  "commandElapsedMs": 7867.18524992466,
+  "maximumRSSPlatformBytes": 1099956224,
+  "noFreshExternalComputation": true,
+  "expectedPreimageNotQualification": true
+}

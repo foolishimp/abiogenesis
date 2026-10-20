@@ -1,0 +1,8 @@
+file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:524
+  throw new Error("packed native declaration closure is invalid");
+        ^
+
+Error: packed native declaration closure is invalid
+    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:524:9
+
+Node.js v24.7.0

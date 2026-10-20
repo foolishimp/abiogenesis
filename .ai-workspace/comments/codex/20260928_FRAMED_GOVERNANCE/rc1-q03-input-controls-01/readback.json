@@ -1,0 +1,10 @@
+{
+  "activation": "T287_RC1_Q03_INPUT_CONTROLS_01",
+  "status": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q03-input-controls-01/request.txt",
+    "bytes": 5341,
+    "sha256": "e57083e66ae0b2de8ba736d0535a4a6ef45c9a34a55a16f2051a2305447b8189"
+  },
+  "rootRoleAfter": "Executive"
+}

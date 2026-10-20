@@ -1,0 +1,16 @@
+{
+  "status": "CLOSED",
+  "retainedRecords": 121,
+  "retainedChains": 12,
+  "retainedSpans": 46,
+  "newChains": 11,
+  "allHistoricalChainsAndSpansUnchanged": true,
+  "sourceCopyOrBuildIsAuthorship": false,
+  "recordBytes": 10759304,
+  "records": 174,
+  "chains": 23,
+  "spans": 90,
+  "attributionSufficiency": "unknown",
+  "independence": "unknown",
+  "currentSourceAuthorship": "typed six production bodies and canonical type-test successor by /root/q03_input_review; HOW/T by /root; ten-field/regression donor by /root/native_applicability_design"
+}

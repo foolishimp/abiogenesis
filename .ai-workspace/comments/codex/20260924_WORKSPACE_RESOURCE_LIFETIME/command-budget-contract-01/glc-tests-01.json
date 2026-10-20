@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=native command budget selection",
+    "test/full-sandbox.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript",
+  "sourceBuildRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "exitCode": 0,
+  "elapsedSeconds": 0.2763677923940122
+}

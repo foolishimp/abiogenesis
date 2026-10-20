@@ -1,0 +1,84 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/r10-private-owner-harness.mjs:4
+import {SourceTextModule,SyntheticModule} from 'node:vm';
+        ^^^^^^^^^^^^^^^^
+SyntaxError: The requested module 'node:vm' does not provide an export named 'SourceTextModule'
+    at #_instantiate (node:internal/modules/esm/module_job:254:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:363:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0
+✖ test_env/tests/t287-qualification-contraction.test.mjs (176.117125ms)
+✖ same candidate in distinct original install/workspace/resource authenticates and conserves original producer material (245.412125ms)
+✖ candidate law source and genuine runtime coordinates cannot be crossed or replaced by a read wrapper (1.530167ms)
+✖ original source currentness is rechecked at dispatch while historical authenticated prefix remains replayable (1.441125ms)
+✖ duplicate aliases and competing successful producers remain refused in their original context (1.372958ms)
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/r10-private-owner-harness.mjs:4
+import {SourceTextModule,SyntheticModule} from 'node:vm';
+        ^^^^^^^^^^^^^^^^
+SyntaxError: The requested module 'node:vm' does not provide an export named 'SourceTextModule'
+    at #_instantiate (node:internal/modules/esm/module_job:254:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:363:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0
+✖ test_env/tests/t287-qualification-scopes.test.mjs (168.1785ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 0
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 647.3225
+
+✖ failing tests:
+
+test at test_env/tests/t287-qualification-contraction.test.mjs:1:1
+✖ test_env/tests/t287-qualification-contraction.test.mjs (176.117125ms)
+  'test failed'
+
+test at test_env/tests/t287-qualification-producer-context.test.mjs:22:1
+✖ same candidate in distinct original install/workspace/resource authenticates and conserves original producer material (245.412125ms)
+  TypeError [Error]: vm.SourceTextModule is not a constructor
+      at load (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:213:15)
+      at nativeJoinFixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:219:24)
+      at async prepared (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs:11:15)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs:23:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+
+test at test_env/tests/t287-qualification-producer-context.test.mjs:33:1
+✖ candidate law source and genuine runtime coordinates cannot be crossed or replaced by a read wrapper (1.530167ms)
+  TypeError [Error]: vm.SourceTextModule is not a constructor
+      at load (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:213:15)
+      at nativeJoinFixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:219:24)
+      at async prepared (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs:11:15)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs:51:13)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-qualification-producer-context.test.mjs:56:1
+✖ original source currentness is rechecked at dispatch while historical authenticated prefix remains replayable (1.441125ms)
+  TypeError [Error]: vm.SourceTextModule is not a constructor
+      at load (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:213:15)
+      at nativeJoinFixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:219:24)
+      at async prepared (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs:11:15)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs:57:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-qualification-producer-context.test.mjs:61:1
+✖ duplicate aliases and competing successful producers remain refused in their original context (1.372958ms)
+  TypeError [Error]: vm.SourceTextModule is not a constructor
+      at load (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:213:15)
+      at nativeJoinFixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/support/malformed-gtl-native-fixture.mjs:219:24)
+      at async prepared (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs:11:15)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-producer-context.test.mjs:62:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-qualification-scopes.test.mjs:1:1
+✖ test_env/tests/t287-qualification-scopes.test.mjs (168.1785ms)
+  'test failed'

@@ -1,0 +1,77 @@
+{
+  "status": "closed_native_failure_observed",
+  "actualDisposition": "runtime_failed",
+  "actualStop": {
+    "digest": "sha256:d76f7e0743dcb8b2f88a760fde66d1df6f9bd3598ef49056ba3945b170232b80",
+    "ref": "event://abiogenesis/a3a84a7a6f6d2657fe7f63394254c42d412bc19bde8ce1881019a261bef8719f"
+  },
+  "judgmentProduced": false,
+  "semanticDispositions": [],
+  "priorPrefixConserved": true,
+  "initialPrefix": {
+    "coordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+    "prefixLength": 5577377,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464012478
+    }
+  },
+  "finalPrefix": {
+    "coordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+    "prefixLength": 73530699,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464012478
+    }
+  },
+  "ordinaryCalls": 5,
+  "assessmentDispatches": 1,
+  "freshReads": 2,
+  "C2Calls": 0,
+  "HelloCalls": 0,
+  "elapsedMs": 291056.693167,
+  "reached": [
+    "exact original84 prefix/A-W/install/lock/productSet/root actor verified current",
+    "closed bound input/plan/full unchanged-owner prompt matched",
+    "ordinary assessment view operation",
+    "ordinary exact assessment Program conformance passed",
+    "actual ordinary owner/input/grant/policy preparation",
+    "actual native start outcome and lawful returned handoff",
+    "two fresh supported result/replay reads; prefix unchanged"
+  ],
+  "finalEventBytes": 73530699,
+  "eventGrowthBytes": 67953322,
+  "processEvidence": [
+    {
+      "label": "assessment-view",
+      "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assessment-view-native-process.json"
+    },
+    {
+      "label": "conformance-assess",
+      "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-conformance-assess-native-process.json"
+    },
+    {
+      "label": "assess-rule",
+      "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule-native-process.json"
+    },
+    {
+      "label": "assess-rule-run_result",
+      "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule-run_result-native-process.json"
+    },
+    {
+      "label": "assess-rule-run_replay",
+      "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-assess-rule-run_replay-native-process.json"
+    }
+  ],
+  "claim": "One bounded selection/assessment/readback discriminator. Failed/indeterminate/insufficient findings remain live; no complete F11, qualification or AF22 verdict."
+}

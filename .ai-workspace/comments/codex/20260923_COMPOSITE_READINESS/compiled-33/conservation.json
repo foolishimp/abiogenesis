@@ -1,0 +1,121 @@
+{
+  "closedAtUtc": "2026-09-25T16:38:47.323848+00:00",
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/frozen-subject.json",
+    "sha256": "915f5668a638690433de3de1d7270439aca6169a55d5f8d3f65f30e319341591"
+  },
+  "frozenPostimagesMatched": 12,
+  "preservedLockGraphMembers": 22,
+  "predecessorArchive": "sha256:1574cbf5e32e74565ba9ac0851899599757122531079fe0359cce6f3f33ee337",
+  "archiveDelta": [
+    {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "before": {
+        "path": "build/code/src/abg/instruction_assembly.js",
+        "bytes": 81288,
+        "sha256": "531b090ad5dbf1aa0cf930ff13e0e26ef564ed52f3f0928ca5b5143aa64e7225"
+      },
+      "after": {
+        "path": "build/code/src/abg/instruction_assembly.js",
+        "bytes": 81267,
+        "sha256": "de6d482fdcfd0951cbe728c50787826d569730fb68648de425974e4746734127"
+      }
+    },
+    {
+      "path": "build/code/src/implementation/semantic_revision.js",
+      "before": {
+        "path": "build/code/src/implementation/semantic_revision.js",
+        "bytes": 11907,
+        "sha256": "af6d25986a512e7244353ad2dd6917d382a5a1af49907ff30ef07f72a83a3a3b"
+      },
+      "after": {
+        "path": "build/code/src/implementation/semantic_revision.js",
+        "bytes": 12261,
+        "sha256": "93d7933e7f0f133a1bce7e6ead260e5b9170bd325ce4a111148ddc0f11052c50"
+      }
+    },
+    {
+      "path": "build/code/src/product/semantic_job.d.ts",
+      "before": {
+        "path": "build/code/src/product/semantic_job.d.ts",
+        "bytes": 32874,
+        "sha256": "291551278d6aeef1bd1804639429b7b8d85710f6fbc0feef95566e0c9802d89f"
+      },
+      "after": {
+        "path": "build/code/src/product/semantic_job.d.ts",
+        "bytes": 32976,
+        "sha256": "6cd62b9d4978127328ce3614fc4ce8276f06213fa0bbd8c33ae4042e39d0cc92"
+      }
+    },
+    {
+      "path": "build/code/src/product/semantic_job.js",
+      "before": {
+        "path": "build/code/src/product/semantic_job.js",
+        "bytes": 85419,
+        "sha256": "483bd9e98e388110a71536b9026a87550c67bce2efa6d09be0be2fcd73d12435"
+      },
+      "after": {
+        "path": "build/code/src/product/semantic_job.js",
+        "bytes": 85855,
+        "sha256": "0fb18d4662143abd28dc15acd43f2e3e3c9be0233b4fbab0ebf20e827f67cae7"
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "f824dab2abb82ff5aa1ca3230bc7d26273dac1285bbde8597411b0daa83b18bf"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "de477a32269a9c4874cca2da8056249c500f70ef337e984bbe1b56b248400734"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "dca011dc9d410c2a69d07d756dfd176161655fe9b30ccb128326a2dd023668fa"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "c371fcea1fcb64e87f3b0231bcb23c8f37f1be92df5a6ae93c979a01e4ccc056"
+      }
+    }
+  ],
+  "unchangedArchiveMembers": 5227,
+  "generatedMetadataOnly": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "f824dab2abb82ff5aa1ca3230bc7d26273dac1285bbde8597411b0daa83b18bf"
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "de477a32269a9c4874cca2da8056249c500f70ef337e984bbe1b56b248400734"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "dca011dc9d410c2a69d07d756dfd176161655fe9b30ccb128326a2dd023668fa"
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 2384496,
+        "sha256": "c371fcea1fcb64e87f3b0231bcb23c8f37f1be92df5a6ae93c979a01e4ccc056"
+      }
+    }
+  ],
+  "dev15ArchiveUnchanged": "sha256:0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+  "noCompileOrTestRerun": true
+}

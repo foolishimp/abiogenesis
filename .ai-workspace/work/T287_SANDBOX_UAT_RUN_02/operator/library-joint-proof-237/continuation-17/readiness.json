@@ -1,0 +1,78 @@
+{
+  "status": "HOLD / STOP",
+  "scope": "finite17 existing original37 Source to accepted44 pair; responder17 selected but not reached",
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/execution/first-cause.json",
+    "sha256": "c3833554477b92e97a52ce649125acacf76b4f665cce70f9f19492ca17038aea",
+    "byteCount": 1234
+  },
+  "installComparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/install-failure-comparison.json",
+    "sha256": "5aaa06a4002d4619993e22e8c985b0d2b8074c7d2215e0aa423f4fed3457dbc1",
+    "byteCount": 5142
+  },
+  "completedOwnerCalls": [
+    {
+      "label": "product-install-0",
+      "invocationRef": "invocation://abiogenesis/65a3da2a06310a0cf8e37e72cf3e71ab0f1e9b5792cea01876e1202887e12110",
+      "outcomeKind": "refusal",
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/execution/audit/calls/product-install-0.outcome.json",
+        "sha256": "5d5401619bc424e107875199ddd9722f8d744a7be9afc992cd50460291b27efa",
+        "byteCount": 3930
+      }
+    },
+    {
+      "label": "product-resolve",
+      "invocationRef": "invocation://abiogenesis/e11c4176a88b38b7707f0c5ffcfa081a0957b0da22e4c0d2be9d0bdde46da708",
+      "outcomeKind": "result",
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/execution/audit/calls/product-resolve.outcome.json",
+        "sha256": "a45fdd828fc609f595a2ff23a00215428f34c60affdbf8936d4cc191486f15eb",
+        "byteCount": 5354
+      }
+    },
+    {
+      "label": "product-verify-0",
+      "invocationRef": "invocation://abiogenesis/0f4fd21bef12b9425e3e13bc2e292cc70995de738351d1f2a21b1cefcba1e62b",
+      "outcomeKind": "result",
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/execution/audit/calls/product-verify-0.outcome.json",
+        "sha256": "d8925ca6f21001f1132188f4f175ee8848bf9564c86590ecaeb94b8f81740ac9",
+        "byteCount": 257244
+      }
+    },
+    {
+      "label": "product-verify-1",
+      "invocationRef": "invocation://abiogenesis/8c3edc8fea00548ec7bacbec04ceec0d180616c036faf524adeb0e4c9d1533ff",
+      "outcomeKind": "result",
+      "outcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/execution/audit/calls/product-verify-1.outcome.json",
+        "sha256": "53261a0e9887d15422e2c9422042c317d01cf8d1adbba91d6f36919db481b2d0",
+        "byteCount": 2119
+      }
+    }
+  ],
+  "resourceHistoryAppended": false,
+  "physicalNewInstallTree": true,
+  "admittedNewInstall": false,
+  "consumerInstallBindingCatalogViewCoversCurrentUsePrivatePreparation": false,
+  "nativeTestingC2ResponderReached": false,
+  "command": {
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 103383.00879200001,
+    "timedOut": false
+  },
+  "checks": {
+    "syntaxMs": 24.468083,
+    "lexical02Ms": 440.137959,
+    "lexical01": "pre-owner missing .js module; corrected actual .cjs checker premise only"
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/stopped-conservation.json",
+    "sha256": "dcc4eeddd552e98580aaed24cd67778a197d9890def1cf77814acd8f0502763e",
+    "byteCount": 2907
+  },
+  "limits": "No native17 exit proof, C2 red/repair/green, restart, capacity, Claude or Data Mapper UAT credit. Framework guard was preserved; Root selects next integration action."
+}

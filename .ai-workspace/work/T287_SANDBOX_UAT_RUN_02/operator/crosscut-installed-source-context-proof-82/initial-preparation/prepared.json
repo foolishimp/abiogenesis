@@ -1,0 +1,46 @@
+{
+  "prepared": true,
+  "manifestDigest": "sha256:3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "genericSourceOnly": true,
+  "corpusAccess": null,
+  "roles": [
+    {
+      "role": "selector",
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ]
+    },
+    {
+      "role": "constructor",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-generic-specialist-frame-set",
+        "stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+      ]
+    },
+    {
+      "role": "assessor",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+        "stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame"
+      ]
+    },
+    {
+      "role": "command_executor",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+        "stdo://releases/v2.5.1-rc.2/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+      ]
+    }
+  ],
+  "inputDigest": "sha256:af4f3cce2c2e3f04bf4edc55d050fa20e42c1b809edcce78e6578b932622d71e",
+  "literalBytes": 14440,
+  "literalDigest": "sha256:a882a43dcd81af924b65e7d8a6fb2643a779de911b139e402b9d86c62931484e",
+  "candidate20": null,
+  "installedExecution": false,
+  "modelExecution": false,
+  "specializedStdoAcceptance": false
+}

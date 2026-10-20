@@ -1,0 +1,23 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/installed-physical-population.json",
+    "bytes": 3155190,
+    "sha256": "19b6b333628b2ab4aed66d6bf6f0e7c4cc57b63a85e957750e8b99fb74b455b8"
+  },
+  "products": {
+    "core": [
+      {
+        "path": "build/code/src/public/cli.js",
+        "archiveMode": "0o644",
+        "installedMode": "0o755"
+      },
+      {
+        "path": "build/code/src/public/codex_cli.js",
+        "archiveMode": "0o644",
+        "installedMode": "0o755"
+      }
+    ],
+    "fixture": []
+  },
+  "policy": "actual owner/npm executable bin role adaptations; bytes remain exact; no chmod/filter/deletion by caller"
+}

@@ -1,0 +1,117 @@
+{
+  "scope": "Read-only retained caller and existing owner-predicate comparison; no runtime reexecution",
+  "requestEqual": true,
+  "slotEqualities": {
+    "actor": true,
+    "capability_grants": true,
+    "catalog_scope": true,
+    "dependency_lock": true,
+    "execution_basis": true,
+    "execution_program": true,
+    "graph_function": true,
+    "input_contract": true,
+    "product_set": true,
+    "session_policy": true,
+    "transport_steering": false,
+    "verification_references": true,
+    "workspace_binding": true
+  },
+  "resourceEqualities": {
+    "applicationResources": true,
+    "applications": true,
+    "catalog": true,
+    "catalogView": true,
+    "eventResource": false,
+    "kind": true,
+    "runEnvironmentResources": true,
+    "schemaVersion": true,
+    "source": true
+  },
+  "workspaceBinding": {
+    "ref": "workspace-binding://abiogenesis/ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132",
+    "digest": "sha256:ff010581c09bdfea5534484eac86958fcd3b0f9067f5451084cf4c7d5b00a132"
+  },
+  "inputDigest": "sha256:e057035b33ded64e3573adf727fb5edb1a34af80854dd0007b4a87ac7916335a",
+  "priorActualSelectorInputDigest": "sha256:33a4a66e168db69442f8dd0d2264c4040cf5af0944c5fbe8c5e5f0336f257f4b",
+  "newRefusedChildInputDigest": "sha256:33a4a66e168db69442f8dd0d2264c4040cf5af0944c5fbe8c5e5f0336f257f4b",
+  "intakeTransportBefore": {
+    "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "expectedVersion": "2.1.280 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "extraArgs": [
+      "--max-budget-usd",
+      "5"
+    ],
+    "inactivityMs": 300000,
+    "absoluteMs": 900000,
+    "terminationGraceMs": 1000,
+    "wholeRunMs": 5400000
+  },
+  "intakeTransportAfter": {
+    "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "expectedVersion": "2.1.280 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "extraArgs": [
+      "--max-budget-usd",
+      "12"
+    ],
+    "inactivityMs": 300000,
+    "absoluteMs": 900000,
+    "terminationGraceMs": 1000,
+    "wholeRunMs": 5400000
+  },
+  "sourceRoutes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "sha256": "9843dca203feeaeb701f1640bd080d91ad3166670fe9c4217621b981ea1a6ace",
+      "byteCount": 121970,
+      "lines": [
+        2308,
+        2313
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "sha256": "947a882c9473ae5e4fd8cdc6d9dab021cf63bc6e00169984177859f939637e0e",
+      "byteCount": 62993,
+      "lines": [
+        415,
+        429
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "sha256": "ac240bfe34dc6a344f79415fa8da65f23d1c6596d27263d3995fb1a39fae6d02",
+      "byteCount": 84342,
+      "lines": [
+        204,
+        228
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/intake-01/live-start.jsonl",
+      "sha256": "a1951d99de08181672802ad611a7f906dfe8f510616e5803fcd7a65f6324d345",
+      "byteCount": 19234463
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/intake-01/live-start.jsonl",
+      "sha256": "ecc06eb1a3a8a79e15e93b3f5b0dbafe891247cbd1afe5d48ee9aa2a7af976fe",
+      "byteCount": 19234463
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-01/preparation/invocation/archives/fp-0ff8504ec49f8928-transport.json",
+      "sha256": "a52fb934c8f40b08e399d310f62f51d622f2736bcf5ffd2ec9485e015262e0bc",
+      "byteCount": 177485
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native34-continuation-02/child-preparation-refused-72849.jsonl",
+      "sha256": "839eacd32bca9612c951ee1c8d4ec81b85f1af7cca0138b393c8589c1ddf2be1",
+      "byteCount": 2075
+    }
+  ],
+  "classification": "No mismatched caller binding/input/declared budget relation demonstrated. Source-supported equal-value acquisition cardinality hazard across repeated Runs. Exact live sources.length/subpredicate was not recorded and was not reexecuted."
+}

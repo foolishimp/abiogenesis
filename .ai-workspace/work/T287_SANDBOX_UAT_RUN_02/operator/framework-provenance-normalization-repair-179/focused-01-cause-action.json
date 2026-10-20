@@ -1,0 +1,18 @@
+{
+  "failedReceipt": "commands/focused-01.result.json",
+  "observedCounts": {
+    "pass": 5,
+    "fail": 1,
+    "skip": 0
+  },
+  "firstCause": "test selected canonical evaluator index0 (parent), whose consumedFieldRefs is the one-element $.terminal inventory; reverse was a no-op",
+  "originatingOwner": "GTL canonicalization63-89 orders evaluator declarations by identity; default_library155 declares parent consumedFieldRefs [$.terminal]",
+  "mutatedField": "publication0.evaluators[0].consumedFieldRefs",
+  "cardinality": 1,
+  "reversalChangesBytes": false,
+  "frameworkRefusalMissing": false,
+  "sourceOrProductRepairRequired": false,
+  "failedTestSha256": "5d85a47689b52bd9319236da882f02cf41070a39b6a3a0e8f1a35af4780587bf",
+  "proposedAction": "test-only select declared select evaluator by its canonical owner name; require cardinality2 and changed bytes before negative comparison",
+  "decision": "await Executive selection; no rerun"
+}

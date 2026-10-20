@@ -1,0 +1,72 @@
+{
+  "standing": "actual partial extents; no complete/matched savings claim",
+  "originalPinColdReads": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/installed-authority-handoff.json",
+      "bytes": 7357822,
+      "sha256": "97b61ffc7d34d14ee18f4618192fcb7180728019e5e4911799f65af5fdbee56a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/closed-event-resource-handoff.json",
+      "bytes": 3591718,
+      "sha256": "d60035d70e3bd00ad157cdc64d59964b3d3fc01856f1729293b44de989739cd0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-closed-environment.json",
+      "bytes": 57715713,
+      "sha256": "58d22ec5859cc199416e6bd3666915ff059f1995e6e0d427fa9de72fc67f64a3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/workspace-binding-coordinate-join.json",
+      "bytes": 2839,
+      "sha256": "6970aab6a91ce2c7baccc1a126747496419a3dea21badb2b15cfb6de22c28459",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-packet.json",
+      "bytes": 29410022,
+      "sha256": "c50b50b153a69104b7f54c6420368b786d6225c7394cd49923235e1a7ecae548",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/f11-bound-resource-manifest.json",
+      "bytes": 504760365,
+      "sha256": "a920b4842b7cb779282ed7417deadd3361f75f2dfce79dc36324976d8c0e890b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+      "bytes": 61459,
+      "sha256": "41a3ab04f071c10c39e4d713f4ca2f4e2dfc744bb81e44ae19e23e0840199033",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_resources.js",
+      "bytes": 20061,
+      "sha256": "6be11c82e80e718ab3cebfd829e6d31baf1e661e1e9418278312dd0e906a3ff4",
+      "mode": 420
+    }
+  ],
+  "necessaryOriginalPinReadBytes": 602919999,
+  "selectedAcquisition": {
+    "entries": 182,
+    "encodedEntryBytes": 20963216,
+    "selectedTaskBodies": 4,
+    "selectedDecodedTaskBytes": 85591,
+    "completeRequiredRecordDecodedBytes": 11050145,
+    "fullInventoryMembers": 4653
+  },
+  "originalManifestBodyBytes": 504760365,
+  "selectedBodySnapshotsWritten": 0,
+  "originalProducerReruns": 0,
+  "actualRetainedNativeReportBytes": 2732,
+  "actualNativeInvocations": 2,
+  "fullVerifierOrCLITransportBodiesWritten": 0,
+  "comparisonScope": "same current catalog/View operation and checked retained expected View; no fourteen-call historical aggregate reduction claimed",
+  "newSourceTestBytes": 17006,
+  "dependencyBodiesRemainAtOriginalOwners": true,
+  "inMemoryDetachmentAndFullLoaderIO": "unmeasured; complete cost/savings claim remains open"
+}

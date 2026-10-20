@@ -1,0 +1,12 @@
+{
+  "activation": "T287_F11_CARRIER_AND_LAW_REVIEW_CONTROLS_01",
+  "role": "Writer_controls_only",
+  "preimage": "2dff7552115a8965ef27e66848333fa8e5db9517ee55b3c7e622fe3265a7095e",
+  "subjectPins": {
+    "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-resource-design-01/freeze.json": "365bb3c465906335989b34e7d6be1c25301557fe13a07b2e062c9deb4ec10c12",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/freeze.json": "a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872",
+    "build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs": "0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174/operation-resource.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-operation-resource-caller-repair-174",
+  "started": "2026-10-09T05:52:06.730795+00:00",
+  "NODE_OPTIONS": null,
+  "stockHeap": true,
+  "effectScope": "174 disposable fixture only; no campaign acquisition/verification/Public dispatch"
+}

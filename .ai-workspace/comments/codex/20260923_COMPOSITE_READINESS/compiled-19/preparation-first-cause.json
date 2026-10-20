@@ -1,0 +1,6 @@
+{
+  "stage": "source inventory precheck before npm build",
+  "cause": "Prior source freeze contained generated pre-build members; compare prior generated postimage and accepted compiler delta separately.",
+  "buildInvoked": false,
+  "sourceChanged": false
+}

@@ -1,0 +1,284 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/abi/code/src/product/semantic_revision.ts
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts
+@@ -80,6 +80,9 @@
+   readonly kind: "semantic_revision_request"; readonly schemaVersion: "5.0.0";
+   readonly parent: SemanticRevisionCoordinate; readonly causes: readonly SemanticRevisionCoordinate[];
+   readonly selection: SemanticRevisionCoordinate;
++  /** Terminal-readable projection of the admitted selection; absent on historical requests. */
++  readonly selectionChoice?: { readonly mode: "construction_repair"; readonly selectedStageRef: null } |
++    { readonly mode: "stage_revision"; readonly selectedStageRef: string };
+   readonly currentWorksite: SemanticWorksiteBasis | null;
+   readonly nativeWorksite?: NativeSemanticRevisionWorksite;
+ }
+@@ -123,7 +126,15 @@
+       ...(nativePhase === undefined ? {} : { nativePhase: { const: nativePhase } }) } };
+ }
+ const requestSchema = v.strictObject({ kind: v.literal("semantic_revision_request"), schemaVersion: v.literal("5.0.0"),
+-  parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), selection: coordinate, currentWorksite: v.unknown(), nativeWorksite: v.optional(v.unknown()) });
++  parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), selection: coordinate,
++  selectionChoice: v.optional(v.variant("mode", [
++    v.strictObject({ mode: v.literal("construction_repair"), selectedStageRef: v.null() }),
++    v.strictObject({ mode: v.literal("stage_revision"), selectedStageRef: ref })])),
++  currentWorksite: v.unknown(), nativeWorksite: v.optional(v.unknown()) });
++function requestChoiceMatchesSelection(request: SemanticRevisionRequest, selection: SemanticRevisionSelection): boolean {
++  return request.selectionChoice === undefined || request.selectionChoice.mode === selection.mode &&
++    request.selectionChoice.selectedStageRef === selection.selectedStageRef;
++}
+ export interface SemanticRevisionBasis {
+   readonly basisRef: string; readonly basisDigest: Sha256Digest;
+   readonly request: SemanticRevisionRequest; readonly selection: SemanticRevisionSelection;
+@@ -173,7 +184,7 @@
+ /** Pure projection only. ABG must authenticate every input and regenerate this value before admission. */
+ export function deriveSemanticRevision(parent: SemanticStageEnvelope | SemanticRevisionEnvelope,
+   request: SemanticRevisionRequest, selection: SemanticRevisionSelection): Readonly<SemanticRevisionEnvelope> | null {
+-  if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || request.nativeWorksite !== undefined || selection.nativePhase !== undefined ||
++  if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || !requestChoiceMatchesSelection(request, selection) || request.nativeWorksite !== undefined || selection.nativePhase !== undefined ||
+     hash(request.parent) !== hash(selection.parent) || hash(request.causes) !== hash(selection.causes)) return null;
+   const priorRevision = isSemanticRevisionEnvelope(parent) ? parent : null;
+   const prior = priorRevision?.current ?? parent as SemanticStageEnvelope;
+@@ -243,7 +254,7 @@
+   counterevidenceAssets: readonly SemanticJobAsset[] = [], counterevidence?: SemanticJobEnvelope): Readonly<SemanticJobRevisionEnvelope> | null {
+   try {
+     const native = request.nativeWorksite;
+-    if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) ||
++    if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || !requestChoiceMatchesSelection(request, selection) ||
+       (native === undefined ? !isSemanticWorksiteBasis(worksite) || historicalWorksite === null || selection.nativePhase !== undefined :
+         worksite !== null || selection.nativePhase !== (native.construction === null ? "preconstruction" : "postconstruction")) ||
+       hash(request.parent) !== hash(selection.parent) || hash(request.causes) !== hash(selection.causes)) return null;
+@@ -348,7 +359,7 @@
+       return isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output) && output.nativeWorksite !== undefined && same(input,output.nativeWorksite.source);
+     if (predicate === ids.nativeRequestPredicateRef || step && (isSemanticRevisionSelectionInput(input) || isSemanticRevisionSelection(input)) && isSemanticRevisionRequest(output))
+       return isSemanticRevisionRequest(output) && output.nativeWorksite?.acquisition !== undefined &&
+-        (isSemanticRevisionSelection(input) ? same(input.parent,output.parent) && same(input.causes,output.causes) :
++        (isSemanticRevisionSelection(input) ? same(input.parent,output.parent) && same(input.causes,output.causes) && requestChoiceMatchesSelection(output,input) :
+           isSemanticRevisionSelectionInput(input) ? semanticRevisionSelectionInputMatchesRequest(input,output) :
+             isNativeSemanticRevisionIntake(input) && same(input,output.nativeWorksite.source));
+     if (step && isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output))
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/abi/code/src/abg/semantic_revision.ts
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
+@@ -211,9 +211,14 @@
+   const prepared = owner.execution.rawInputValue;
+   const subject = nativeJobRevisionSubject(basis, prepared, true);
+   const decision = selectedSemanticPredecessor(basis, ids.selectionImplementationRef, input);
+-  if (subject === null || decision === null || !same(decision.execution.rawInputValue, prepared)) return null;
++  if (subject === null || decision === null || !same(decision.execution.rawInputValue, prepared) ||
++    !isSemanticRevisionSelection(decision.previous.result.value)) return null;
++  const selected = decision.previous.result.value;
++  const selectionChoice: NonNullable<SemanticRevisionRequest["selectionChoice"]> = selected.mode === "construction_repair"
++    ? { mode: selected.mode, selectedStageRef: null }
++    : { mode: selected.mode, selectedStageRef: selected.selectedStageRef! };
+   return deepFreeze({ kind:"semantic_revision_request", schemaVersion:"5.0.0", parent:subject.request.parent,
+-    causes:subject.request.causes, selection:resultCoordinate(decision.previous), currentWorksite:null,
++    causes:subject.request.causes, selection:resultCoordinate(decision.previous), selectionChoice, currentWorksite:null,
+     nativeWorksite:{...subject.nativeWorksite, acquisition:resultCoordinate(subject.acquisition)} });
+ }
+ /** D2's job arm reuses this owner's parent/cause and physical-origin relations. */
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/abi/test_env/tests/t287-native-semantic-revision.test.mjs
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
+@@ -5,7 +5,6 @@
+ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+ import { dirname, join, resolve } from 'node:path';
+ import { pathToFileURL } from 'node:url';
+-import { genericLifecyclePublicationData } from '../support/t287-generic-job-lifecycle.mjs';
+ import { ordinaryJob } from '../support/t287-generic-job-intake.mjs';
+ import { worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
+ const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirname, '../..');
+@@ -15,8 +14,20 @@
+ const hash=p.sha256Canonical, zero='sha256:'+'0'.repeat(64);
+ const publication=g.constructSemanticStageModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
+  artifactDigest:zero,productContentDigest:zero,productManifestDigest:zero});
+-const old=genericLifecyclePublicationData({product:p,gtl:g,abiPublication:publication}).semanticJobLifecycle;
+-const declaration=g.constructSemanticJobLifecycleDeclaration({...old,proofTemplates:old.proofTemplates.map(t=>({...t,realizationContractRef:g.NATIVE_WORKSPACE_WORK_IDS.observationContractRef}))});
++const glcRoot=process.env.ODD_GLC_NATIVE_DECLARATION_ROOT ?? resolve(root,'../../../../odd_glc/build_tenants/odd_glc/typescript');
++const {constructFreshNativeLifecyclePublication,selectNativeSemanticRevisionStart}=await import(pathToFileURL(join(glcRoot,'src/native-lifecycle-declarations.mjs')).href);
++const ids=Object.fromEntries(Object.entries({productId:'product',moduleRef:'module',descriptorRef:'descriptor',contributionManifestRef:'contribution-manifest',
++ lifecycleDeclarationRef:'lifecycle',graphFunctionRef:'graph-function',graphRef:'graph',closureContractRef:'contract',programRef:'program',startRef:'start'})
++ .map(([key,kind])=>[key,kind+'://component/native-d2@5']));
++const declaredPublication=constructFreshNativeLifecyclePublication({gtl:g,product:p,ids,semanticPublication:publication});
++const declaration=declaredPublication.semanticJobLifecycle;
++// Ordinary caller data only: no local selection, admitted leaf lookup or cause inference.
++function declaredCorrection(request){
++ const start=selectNativeSemanticRevisionStart({product:p,publication:declaredPublication,request});assert(start);
++ const root=declaredPublication.graphFunctions.find(graph=>graph.name===start.graphFunctionRef);
++ const first=root.template.nodes.find(node=>node.nodeRef===root.template.startNodeRef);
++ return {start,projection:declaredPublication.graphFunctions.find(graph=>graph.name===first.term.graphFunctionRef)};
++}
+ const provenance = key => ({ cCallRef:'component:c-call:'+key,executionAuthorityRef:'component:authority:'+key,executionAuthorityDigest:hash(key),
+  actorInvocationRef:'component:actor:'+key,transportBindingRef:'component:transport',transportBindingDigest:hash('transport'),promptDigest:hash(key),transportDigest:hash('transport:'+key) });
+ const adapter=(key,input)=>({cCallRef:'component:adapter:'+key,inputDigest:hash(input)});
+@@ -24,7 +35,7 @@
+  const env=await worksiteFixture({...p,...effects,...ops});t.after(()=>rm(env.scratch,{recursive:true,force:true}));
+  const selectedDeclaration=commandExecutionLimits===undefined?declaration:g.constructSemanticJobLifecycleDeclaration({...declaration,bounds:{...declaration.bounds,maxCommands:32}});
+  const initial=ordinaryJob(p,g,'Build an application and an independent verifier. Preserve complete source and all unresolved obligations.');
+- const job=p.constructSemanticJobInput({...initial,evaluationData:{independentSentinel:'evaluator-only-9bff'},taskData:{...initial.taskData,nativeLifecycle:{assets:declaration.stages.map((s,i)=>({stageRef:s.declarationRef,path:`assets/${i}.json`})),rubricPath:'assets/rubric.json',
++ const job=p.constructSemanticJobInput({...initial,lifecycleRef:selectedDeclaration.declarationRef,evaluationData:{independentSentinel:'evaluator-only-9bff'},taskData:{...initial.taskData,nativeLifecycle:{assets:declaration.stages.map((s,i)=>({stageRef:s.declarationRef,path:`assets/${i}.json`})),rubricPath:'assets/rubric.json',
+  ...(commandExecutionLimits===undefined?{}:{commandExecutionLimits})}},
+  worksiteScope:{...initial.worksiteScope,readRoots:['.'],writeRoots:['.'],parentWriteRoots:['.'],evidenceWriteRoots:['evidence'],
+  ...(commandExecutionLimits===undefined?{}:{executableCapabilities:initial.worksiteScope.executableCapabilities.map(c=>({...c,maxTimeoutMs:120000}))})}});
+@@ -65,7 +76,7 @@
+   rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:env.envelope.basis.rootInputRef,invocationAdmissionRef:env.envelope.basis.invocationAdmissionRef};
+  bases.set(original.basisRef,original);
+  const environment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
+- const lifecyclePublication={...publication,semanticJobLifecycle:declaration};
++ const lifecyclePublication=declaredPublication;
+  const pub=await load('product/publication');environment.productInstalls.push({productId:lifecyclePublication.owningProductId,artifactDigest:lifecyclePublication.artifactDigest,productContentDigest:lifecyclePublication.productContentDigest,
+   manifestDigest:lifecyclePublication.productManifestDigest,installedRoot:env.scratch,contributionManifest:{publicationBindings:[{moduleRef:lifecyclePublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(lifecyclePublication)}]}});
+  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:(await load('abg/event_store')).ROOT_EVENT_CONTRACT_DIGEST}};
+@@ -98,7 +109,7 @@
+ }
+ function actorSource(name,input){return {cCallRef:'component:revision:'+name,inputDigest:hash(input),actorInvocationRef:'component:actor:'+name,promptDigest:hash(name),transportDigest:hash('transport:'+name)};}
+ 
+-test('native D2 public intake keeps an old job, rejects absent/ambiguous causes, and composes Requirements correction through native C2 and fresh Evidence',async t=>{
++test('native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence',async t=>{
+  const env=await fixture(t);let parent=env.envelope;for(let i=0;i<2;i++){const a=await author(env,parent,i);parent=assess(env,a.authored,i).assessed;}
+  const rejectedAuthor=await author(env,parent,2),rejected=assess(env,rejectedAuthor.authored,2,'falsified').assessed;
+  assert.equal(m.nativeSemanticCommandExecutionLimits(parent),null,'historical old job has no selected limits');
+@@ -117,22 +128,35 @@
+  h.basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};
+  h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:selection-graph'});
+  assert.equal(h.jobOwner.authenticateSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'selection recovers the actual original root');
+- const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:declaration.stages[2].declarationRef,
++ const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:declaration.stages[1].declarationRef,
+   selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:requirements-falsified',nativePhase:'preconstruction'};
+  assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);
++ for(const stage of declaration.stages.slice(0,3))assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,selectedStageRef:stage.declarationRef}),true,'Intent, Product and Requirements are eligible; the cause does not select one');
+  assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,mode:'construction_repair',selectedStageRef:null}),false);
+  assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,selectedStageRef:declaration.stages[3].declarationRef}),false,'no future stage authority');
+  h.admit(selection,R.selectionImplementationRef);h.basis.declarationGraphFunctions=[h.basis.graphFunction];
+  h.call(R.nativeRequestImplementationRef,selection,prepared);
+  const request=h.implementation.realizeSemanticRevisionNativeRequest(selection,{semanticStageBasis:h.basis});assert.equal(request.disposition,'success');
+  assert.deepEqual(request.resultCandidate.causes,[coordinate(cause)]);assert(request.resultCandidate.nativeWorksite.acquisition);
+- h.invocation('correction',request.resultCandidate);h.basis.graphFunction={declarations:{'abg.semantic_native_revision_entry':selection.selectedStageRef}};h.call(R.projectionImplementationRef,request.resultCandidate);
++ const terminalValue=JSON.parse(JSON.stringify(request.resultCandidate));assert(p.isSemanticRevisionRequest(terminalValue));
++ assert.deepEqual(terminalValue.selectionChoice,{mode:'stage_revision',selectedStageRef:declaration.stages[1].declarationRef});
++ assert.equal(h.owner.semanticJobRevisionResultMatchesBasis(h.basis,selection,terminalValue),true,'request admission checks the owner projection');
++ const tampered={...terminalValue,selectionChoice:{mode:'stage_revision',selectedStageRef:declaration.stages[2].declarationRef}};
++ assert(p.isSemanticRevisionRequest(tampered));assert.equal(h.owner.semanticJobRevisionResultMatchesBasis(h.basis,selection,tampered),false,'an eligible alternative is not the admitted choice');
++ assert.equal(revision.evaluateNativeSemanticRevisionRelation(R.nativeRequestPredicateRef,selection,tampered),false);
++ assert.equal(p.isSemanticRevisionRequest({...terminalValue,selectionChoice:{mode:'construction_repair',selectedStageRef:declaration.stages[1].declarationRef}}),false);
++ const {selectionChoice:_choice,...historicalRequest}=terminalValue;assert(p.isSemanticRevisionRequest(historicalRequest));
++ assert.equal(selectNativeSemanticRevisionStart({product:p,publication:declaredPublication,request:historicalRequest}),null,'missing historical choice is not guessed');
++ const next=declaredCorrection(terminalValue);assert.equal(next.start.programRef,'program://odd-glc/native-semantic-revision/from-product@5');
++ h.invocation('tampered-correction',tampered);h.basis.graphFunction=declaredCorrection(tampered).projection;h.call(R.projectionImplementationRef,tampered);
++ assert.equal(h.owner.projectSemanticJobRevision(h.basis,tampered),null,'even the suffix matching a modified returned choice cannot create authority');
++ h.invocation('correction',terminalValue);h.basis.graphFunction=next.projection;h.call(R.projectionImplementationRef,terminalValue);
+  assert.equal(h.jobOwner.authenticateSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'successor Run does not replace original root');
+- let current=h.owner.projectSemanticJobRevision(h.basis,request.resultCandidate);assert(current);assert.deepEqual(current.current.job,env.job);assert.deepEqual(current.current.assets,parent.assets);
++ let current=h.owner.projectSemanticJobRevision(h.basis,terminalValue);assert(current);assert.deepEqual(current.current.job,env.job);assert.deepEqual(current.current.assets,parent.assets.slice(0,1));
+  assert(current.revisionBasis.historicalAssets.some(a=>a.assetRef===rejected.assets.at(-1).assetRef));assert(!current.current.assets.some(a=>a.assessment?.disposition==='falsified'));
+- h.basis.graphFunction.declarations['abg.semantic_native_revision_entry']=declaration.stages[3].declarationRef;assert.equal(h.owner.projectSemanticJobRevision(h.basis,request.resultCandidate),null);h.basis.graphFunction.declarations['abg.semantic_native_revision_entry']=selection.selectedStageRef;
++ h.basis.graphFunction=declaredCorrection(tampered).projection;assert.equal(h.owner.projectSemanticJobRevision(h.basis,terminalValue),null);h.basis.graphFunction=next.projection;
+  h.admit(current,R.projectionImplementationRef);
+- for(let i=2;i<4;i++){
++ for(let i=1;i<4;i++){
+   const source=actorSource('author-'+i,current),authored=revision.deriveJobRevisionAsset(current,declaration.stages[i].declarationRef,candidate(current.current,i),source);assert(authored);
+   const contract=m.projectSemanticJobActorContract(current.current,declaration.stages[i].declarationRef,'author',current.revisionBasis.retainedTerms,limits);
+   assert.deepEqual(contract.design.executionCapacity.selectedLimits,limits);
+@@ -160,7 +184,7 @@
+  const authored=revision.deriveJobRevisionAsset(evidence.resultCandidate,declaration.stages[4].declarationRef,candidate(evidence.resultCandidate.current,4),actorSource('evidence-author',evidence.resultCandidate));assert(authored);
+  const finished=revision.deriveJobRevisionAssessment(authored,declaration.stages[4].declarationRef,verdict(authored.current,4),actorSource('evidence-assessor',authored));assert(finished);
+  assert.equal(semantics.ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS.resolveJudgmentRelation(R.stepPredicateRef).evaluate(finished,finished),true);
+- assert.deepEqual(finished.current.job,env.job);assert.deepEqual(finished.current.assets.slice(0,2),parent.assets);
++ assert.deepEqual(finished.current.job,env.job);assert.deepEqual(finished.current.assets.slice(0,1),parent.assets.slice(0,1));
+  assert.equal(m.nativeSemanticCommandExecutionLimits(finished.current),null,'new limits did not rewrite the old job');
+  const crossed=structuredClone(observed);crossed.snapshotMembers.pop();assert.equal(revision.deriveNativeRevisionEvidence(current,crossed,coordinate(nativeState),coordinate(nativeState)),null);
+  t.diagnostic('Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.');
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/abi/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md
+@@ -35,6 +35,14 @@
+ target references; postconstruction also admits construction repair and exact
+ historical Design paths. F_D request construction binds the admitted selection
+ and intake Results into the existing terminal-readable SemanticRevisionRequest.
++Its `selectionChoice` contains the admitted `mode` and `selectedStageRef`, so
++the caller can select the exact declared suffix from the serialized terminal
++value and public Program data alone, even when several stages were eligible.
++Request admission regenerates that projection; suffix derivation compares it
++with the referenced admitted selection as well as checking the declared entry.
++Changing the returned choice creates no selection authority. Historical requests
++without this optional field retain their existing input behavior; a caller
++cannot infer a missing choice through the new declaration lookup.
+ No caller extracts private leaf ids or writes a proof packet. Selection and
+ execution are two ordinary invocations: the second starts a declared whole
+ suffix. Its projection refuses a start whose entry differs from the admitted
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/glc/src/native-lifecycle-declarations.mjs
++++ /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs
+@@ -263,6 +263,24 @@
+   return rows;
+ }
+ 
++/** Pure public declaration lookup, not selection or runtime authority. The
++ * request owner and suffix admission authenticate the returned choice. */
++export function selectNativeSemanticRevisionStart({ product, publication, request }) {
++  if (!product.isSemanticRevisionRequest(request) || request.selectionChoice === undefined) return null;
++  const choice = request.selectionChoice;
++  const entry = choice.mode === "construction_repair" ? "construction_repair" : choice.selectedStageRef;
++  const matches = publication.programs.flatMap(program => program.starts.flatMap(start => {
++    const roots = publication.graphFunctions.filter(graph => graph.name === start.graphFunctionRef);
++    if (roots.length !== 1 || !program.callableMembership.includes(start.graphFunctionRef)) return [];
++    const graph = roots[0], nodes = graph.template.nodes.filter(node => node.nodeRef === graph.template.startNodeRef);
++    if (nodes.length !== 1 || nodes[0].term.kind !== "c_workflow") return [];
++    const projections = publication.graphFunctions.filter(graph => graph.name === nodes[0].term.graphFunctionRef &&
++      program.callableMembership.includes(graph.name) && graph.declarations["abg.semantic_native_revision_entry"] === entry);
++    return projections.length === 1 ? [{ programRef: program.programRef, startRef: start.startRef, graphFunctionRef: start.graphFunctionRef }] : [];
++  }));
++  return matches.length === 1 ? Object.freeze(matches[0]) : null;
++}
++
+ /** Whole declared suffixes. The caller chooses one ordinary start after reading
+  * the admitted request; ABG's projection requires its exact selected entry. */
+ function nativeRevisionDeclarations({gtl,product,lifecycle,close,program}) {
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/glc/test/full-sandbox.test.mjs
++++ /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs
+@@ -418,7 +418,7 @@
+ // The governance Context below is declared component data, not STDO admission.
+ // GTL, exact factory retention, and Program/role admission run their real owners.
+ test("native D2 declares public intake and every selected whole suffix with exact GTL and role owners", {skip:!sourceRoot}, async()=>{
+- const {constructFreshNativeLifecyclePublication,constructFreshNativeLifecycleEnvironmentRoles}=await import('../src/native-lifecycle-declarations.mjs');
++ const {constructFreshNativeLifecyclePublication,constructFreshNativeLifecycleEnvironmentRoles,selectNativeSemanticRevisionStart}=await import('../src/native-lifecycle-declarations.mjs');
+  const rolesOwner=await import(pathToFileURL(join(sourceRoot,'build/code/src/gtl/stdo_run_environment.js')).href);
+  const retention=await import(pathToFileURL(join(sourceRoot,'build/code/src/product/execution_resolution.js')).href);
+  const nativePublications=nativeFullSandboxPublications(gtl,artifact,true),semantic=nativePublications.find(p=>p.moduleRef===gtl.SEMANTIC_STAGE_IDS.moduleRef),revision=nativePublications.find(p=>p.moduleRef===gtl.SEMANTIC_REVISION_IDS.moduleRef);
+@@ -433,6 +433,18 @@
+   contexts:[{contextRef:binding.contextRef,sourceLocator:'generic://component/',inventoryDigest:product.sha256Canonical([contextMember]),members:[contextMember]}],corpusAccess:null,accesses:[],roles});
+  const publication=constructFreshNativeLifecyclePublication({gtl,product,ids:FULL_SANDBOX_IDS,semanticPublication:semantic,runEnvironment:environment});
+  assert.equal(publication.programs.length,8,'fresh, intake, five declared stages and construction repair');
++ const coordinate={cCallRef:'component:call',resultRef:'component:result',resultDigest:digest,resultAdmissionEventRef:'component:admission',judgmentEventRef:'component:judgment'};
++ const request={kind:'semantic_revision_request',schemaVersion:'5.0.0',parent:coordinate,causes:[coordinate],selection:coordinate,currentWorksite:null};
++ assert.equal(selectNativeSemanticRevisionStart({product,publication,request}),null,'historical requests do not invent a returned choice');
++ for(const selectionChoice of [{mode:'construction_repair',selectedStageRef:null},...publication.semanticJobLifecycle.stages.map(stage=>({mode:'stage_revision',selectedStageRef:stage.declarationRef}))]){
++  const terminalValue=JSON.parse(JSON.stringify({...request,selectionChoice}));
++  const start=selectNativeSemanticRevisionStart({product,publication,request:terminalValue});assert(start);
++  const program=publication.programs.find(p=>p.programRef===start.programRef);assert(program.starts.some(s=>s.startRef===start.startRef&&s.graphFunctionRef===start.graphFunctionRef));
++  const root=publication.graphFunctions.find(g=>g.name===start.graphFunctionRef),first=root.template.nodes.find(n=>n.nodeRef===root.template.startNodeRef);
++  assert.equal(publication.graphFunctions.find(g=>g.name===first.term.graphFunctionRef).declarations['abg.semantic_native_revision_entry'],selectionChoice.mode==='construction_repair'?'construction_repair':selectionChoice.selectedStageRef);
++  assert.equal(selectNativeSemanticRevisionStart({product,publication:{...publication,programs:[...publication.programs,program]},request:terminalValue}),null,'ambiguous starts do not choose an arbitrary route');
++ }
++ assert.equal(selectNativeSemanticRevisionStart({product,publication,request:{...request,selectionChoice:{mode:'stage_revision',selectedStageRef:'stage:unknown'}}}),null);
+  const allGraphs=[...publication.graphFunctions,...nativePublications.flatMap(p=>p.graphFunctions)];
+  for(const program of publication.programs){const checked=validateDeclaredProgram(publication,true,program);
+   assert.equal(checked.kind,'program_validation',JSON.stringify(checked.diagnostics));assert.equal(checked.disposition,'valid',program.programRef+JSON.stringify(checked.diagnostics));
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/glc-common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md
++++ /Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md
+@@ -8,13 +8,21 @@
+ acquire one eligible failure, one advancing semantic predecessor, original
+ job/root and current workspace context; absent or ambiguous joins refuse.
+ F_P assesses affectedness only among those admitted alternatives. F_D seals
+-the existing SemanticRevisionRequest, which ordinary terminal read returns.
++the existing SemanticRevisionRequest, which ordinary terminal read returns
++with `selectionChoice: {mode, selectedStageRef}` projected from that admission.
+ 
+ The caller then invokes the declared `construction-repair`, `from-intent`,
+ `from-product`, `from-requirements`, `from-design` or `from-evidence` Program
+ under `program://odd-glc/native-semantic-revision/<name>@5`. The projection
+ requires its entry to match the actual admitted selection. Each Program
+ contains the complete suffix; GLC adds no caller traversal or runtime.
++`selectNativeSemanticRevisionStart` is a pure lookup over the returned request
++and public Program/GraphFunction declarations: it matches the declared first
++projection's entry and requires one start. It neither discovers history nor
++judges affectedness. A missing historical choice, absent entry or ambiguous
++start returns no selection. ABG still authenticates the returned choice against
++the referenced admitted decision and the selected suffix; modifying the field
++cannot authorize another eligible stage.
+ 
+ Before construction, the actual rejected native candidate/assessment is cause
+ and the accepted semantic predecessor remains parent. There is no constructed

@@ -1,0 +1,14 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RUNTIME09_PROOF_CONSUMER_GRANTS_WRITER_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "reentry": "realization_refactor",
+  "grant": "Record exact saved failure triangulation and prepare conditional external-proof-consumer grants. No runtime release or component acceptance yet.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-proof-consumer-controls-01"
+  ],
+  "SourceCandidateRuntimeGitEffects": 0,
+  "activatedAt": "2026-10-03T09:24:36.576808+00:00"
+}

@@ -1,0 +1,30 @@
+{
+  "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "firstMaterialFailure": "manifest bundled dependency physical containment",
+  "originatingViolatedRelation": "preparation selected a read-only dependency symlink; unchanged bundler requires dependency entry relative to new package root, rather than realpath of borrowed physical root",
+  "actualOwner": {
+    "path": "scripts/generate-product-manifest.mjs",
+    "lines": [
+      411,
+      424
+    ],
+    "predicate": "dependencyEntry relative to resolve(expectedRoot) must not be empty or begin ../"
+  },
+  "diagnostic": "bundled dependency resolves outside its exact package root: @standard-schema/spec",
+  "expectedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/stage/build_tenants/abiogenesis/typescript/node_modules/@standard-schema/spec",
+  "actualPhysicalDependencyRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@standard-schema/spec",
+  "nodeModulesLink": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript/node_modules",
+  "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSHA256": "db5be3614e7f8f5770b75d4e11d6bcf00ebde52221983062159fd4735c702d92",
+  "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/receipts/manifest.json",
+  "frames": {
+    "Product": "unchanged canonical GTL/native/Public meaning",
+    "Design": "accepted projection/physical correspondence remains intact",
+    "Integration": "borrowed dependency arrangement violates exact physical package-root join",
+    "Identity": "new stage lexical root differs from actual borrowed module realpath",
+    "Effects": "new private stage/build/assets/caches only; no pack or Runtime",
+    "Proof": "compile passes and complete GTL schema is emitted; downstream complete manifest and extracted proof unknown",
+    "smallestReentryProposal": "realization_refactor of private staging arrangement to physical copied frozen dependency closure in a separately granted continuation; retain strict bundler and Source semantics"
+  },
+  "noRepairOrRetry": true
+}

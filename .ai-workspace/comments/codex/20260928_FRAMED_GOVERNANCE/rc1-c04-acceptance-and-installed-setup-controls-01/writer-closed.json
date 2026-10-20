@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_C04_ACCEPTANCE_INSTALLED_SETUP_CONTROLS_01",
+  "resumedRole": "Executive",
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 487114,
+      "sha256": "af928665b199c0b48fb0822520e6066a23bd8f029d8ef9e098c30a0ffb0c0b64"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 470267,
+      "sha256": "e75f0e508748cbdb64766c1aa995d8deae2031ad25a45f85c9cfca89c04e1532"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 6849,
+      "sha256": "760fd1f3d6562098405bba558ec95a6d240994293ba1b8a0d6603d8b23e09e07"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c04-acceptance-and-installed-setup-controls-01/acceptance.json",
+      "bytes": 1068,
+      "sha256": "771620283cb16a09c5ef7a25bd39c52b747d8248a6b96dc6f5f579349054d753"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c04-acceptance-and-installed-setup-controls-01/received-independent-review.md",
+      "bytes": 2614,
+      "sha256": "90cd12ff0aa1531593cc857754141499c62b07427d318e08acf40c14cc70911a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c04-acceptance-and-installed-setup-controls-01/request.txt",
+      "bytes": 6897,
+      "sha256": "a342701630c079d433e62c7bb26fa7c507e90fb841a44a35878cfb22d604ab9f"
+    }
+  ]
+}

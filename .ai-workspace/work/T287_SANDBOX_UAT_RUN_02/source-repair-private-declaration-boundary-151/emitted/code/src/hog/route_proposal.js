@@ -1,0 +1,642 @@
+import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
+import { constructTraversalCursorCandidate } from "../abg/traversal_cursor.js";
+import {} from "../abg/graph_application.js";
+import { graphFunctionApplicationRef } from "../gtl/graph_applications.js";
+import { isMaterializedGtlGraph } from "../gtl/materialize.js";
+import { deriveCContinuationTarget, deriveCSourceContinuation, } from "../gtl/source_path.js";
+import { isTraversalCursorCandidate, } from "../abg/traversal_cursor.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { completeRouteCandidate, completeTraversalTransitionCandidate, } from "../abg/traversal_transition.js";
+import { deriveGraphSpanReentryCursor } from "./traversal.js";
+function routeRefusal(code, message) {
+    return {
+        kind: "traversal_route_proposal_refusal",
+        schemaVersion: "5.0.0",
+        disposition: "refused",
+        code,
+        message,
+    };
+}
+function graphRouteCandidate(input) {
+    return completeRouteCandidate({
+        routeKind: input.routeKind,
+        declarationRef: input.graph.materializationRef,
+        declarationDigest: input.graph.materializationDigest,
+        sourceCursorRef: input.sourceCursor.cursorRef,
+        sourceCursorDigest: input.sourceCursor.cursorDigest,
+        targetCursorRef: input.targetCursor?.cursorRef ?? null,
+        targetCursorDigest: input.targetCursor?.cursorDigest ?? null,
+        cCallRef: input.cCallRef,
+        judgmentRef: input.judgmentRef,
+        consumedAvailabilityRefs: input.consumedAvailabilityRefs,
+        contractRef: input.contractRef,
+        replayStateDigest: input.replayState.replayDigest,
+        ...input.extras,
+    });
+}
+function isDeclaredCompletion(graph, sourceCursor, targetCursor, completedInput) {
+    const declared = deriveCContinuationTarget(graph, {
+        nodeRef: sourceCursor.currentNodeRef,
+        termPath: sourceCursor.termPath,
+        taskOrdinal: sourceCursor.taskOrdinal,
+        attempt: sourceCursor.attempt,
+        retryPath: sourceCursor.retryPath,
+        inputRef: sourceCursor.inputRef,
+        inputDigest: sourceCursor.inputDigest,
+    }, completedInput, 
+    // HoG already carries the selected target input. ABG authenticates that
+    // reference against the enclosing entry; this proposal owns no history.
+    targetCursor ?? undefined);
+    if (declared.kind === "c_source_path_refusal")
+        return false;
+    if (declared.disposition === "terminal")
+        return targetCursor === null;
+    return targetCursor !== null &&
+        targetCursor.currentNodeRef === declared.nodeRef &&
+        targetCursor.termPath.length === declared.termPath.length &&
+        targetCursor.termPath.every((part, index) => part === declared.termPath[index]) &&
+        targetCursor.taskOrdinal === declared.taskOrdinal &&
+        targetCursor.attempt === declared.attempt &&
+        targetCursor.retryPath.length === declared.retryPath.length &&
+        targetCursor.retryPath.every((attempt, index) => attempt === declared.retryPath[index]) &&
+        targetCursor.inputRef === declared.inputRef &&
+        targetCursor.inputDigest === declared.inputDigest;
+}
+export function proposeStructuralRoute(graph, sourceCursor, targetCursor, routeKind, replayState, completedProgresses = [], boundInput) {
+    if (!isMaterializedGtlGraph(graph) ||
+        sourceCursor.graphRef !== graph.materializationRef ||
+        targetCursor.graphRef !== graph.materializationRef ||
+        sourceCursor.executionBasisRef !== targetCursor.executionBasisRef ||
+        sourceCursor.traversalScopeRef !== targetCursor.traversalScopeRef ||
+        sourceCursor.frameId !== targetCursor.frameId ||
+        (completedProgresses.length !== 0 && routeKind !== "advance")) {
+        return routeRefusal("structural_step_missing", "structural route requires one HoG-derived target under the original GTL Graph");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind,
+        sourceCursor,
+        targetCursor,
+        cCallRef: null,
+        judgmentRef: null,
+        consumedAvailabilityRefs: completedProgresses.map((progress) => progress.progressRef),
+        contractRef: null,
+        replayState,
+    });
+}
+export function proposeRetryRoute(graph, sourceCursor, targetCursor, cCall, progress, replayState, contractRef) {
+    if (progress.progressClass !== "retry" ||
+        !isMaterializedGtlGraph(graph) ||
+        sourceCursor.graphRef !== graph.materializationRef ||
+        targetCursor.graphRef !== graph.materializationRef ||
+        targetCursor.executionBasisRef !== sourceCursor.executionBasisRef ||
+        targetCursor.traversalScopeRef !== sourceCursor.traversalScopeRef ||
+        targetCursor.frameId !== sourceCursor.frameId ||
+        targetCursor.attempt !== sourceCursor.attempt + 1 ||
+        targetCursor.retryPath.length !== sourceCursor.retryPath.length ||
+        progress.cCallRef !== cCall.cCallRef ||
+        progress.judgmentRef.length === 0 ||
+        progress.remainingBudget < 1) {
+        return routeRefusal("retry_progress_missing", "retry route requires one admitted bounded progress row and HoG-derived target");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: "retry",
+        sourceCursor,
+        targetCursor,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: progress.judgmentRef,
+        consumedAvailabilityRefs: [
+            progress.judgmentRef,
+            progress.progressRef,
+        ],
+        contractRef,
+        replayState,
+    });
+}
+export function proposeTerminalRoute(graph, stop, cCall, judgment, replayState, contractRef) {
+    if (judgment.judgment !== "advance") {
+        return routeRefusal("judgment_not_advance", "terminal route requires an admitted advance judgment");
+    }
+    const continuation = deriveCSourceContinuation(graph.template, stop.cursor.currentNodeRef, stop.cursor.termPath);
+    if (stop.programLocusRef !== cCall.programLocusRef ||
+        !graph.template.terminalNodeRefs.includes(stop.nodeRef) ||
+        continuation.kind === "c_source_path_refusal" ||
+        continuation.disposition !== "terminal") {
+        return routeRefusal("terminal_not_declared", "current GTL locus is not a declared terminal node");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: "terminal",
+        sourceCursor: stop.cursor,
+        targetCursor: null,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: [judgment.judgmentRef],
+        contractRef,
+        replayState,
+    });
+}
+export function proposeJudgedRoute(graph, sourceCursor, targetCursor, cCall, result, judgment, replayState, contractRef, completedProgresses = [], boundInput, definitionDigests = {}) {
+    if (judgment.judgment !== "advance") {
+        return routeRefusal("judgment_not_advance", "post-judgment route requires an admitted advance judgment");
+    }
+    const selected = resolveRegisteredSelection(graph.template, sourceCursor, cCall.outputContractRef, result.value, definitionDigests);
+    const declared = selected === null ? isDeclaredCompletion(graph, sourceCursor, targetCursor, {
+        inputRef: boundInput?.admissionRef ?? result.resultRef, inputDigest: boundInput?.subjectDigest ?? result.valueDigest,
+    }) : selected.disposition === "selected" && targetCursor !== null && boundInput !== undefined &&
+        targetCursor.currentNodeRef === selected.nodeRef && targetCursor.termPath.join("\0") === selected.termPath.join("\0") &&
+        targetCursor.inputRef === boundInput.admissionRef && targetCursor.inputDigest === boundInput.subjectDigest;
+    const routeKind = targetCursor === null ? "terminal" : "advance";
+    if (!isMaterializedGtlGraph(graph) ||
+        !isTraversalCursorCandidate(sourceCursor) ||
+        (targetCursor !== null && !isTraversalCursorCandidate(targetCursor)) ||
+        sourceCursor.graphRef !== graph.materializationRef ||
+        sourceCursor.frameId !== cCall.frameId ||
+        !declared ||
+        result.cCallRef !== cCall.cCallRef ||
+        judgment.resultRef !== result.resultRef ||
+        judgment.cCallRef !== cCall.cCallRef) {
+        return routeRefusal("structural_step_missing", "judged route requires HoG's exact declared continuation step");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind,
+        sourceCursor,
+        targetCursor,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: [
+            judgment.judgmentRef,
+            ...completedProgresses.map((progress) => progress.progressRef),
+        ],
+        contractRef,
+        replayState,
+        extras: { ...(boundInput === undefined ? {} : { boundInput }),
+            ...(selected === null ? {} : { registeredSelectionApplicationRef: selected.applicationRef }) },
+    });
+}
+export function proposeGraphSpanReentryRoute(graph, sourceCursor, targetCursor, cCall, result, judgment, replayState, contractRef, projection) {
+    const application = graph.template.applications.find((candidate) => candidate.relationKind === "re_enter" &&
+        candidate.applicationRef === projection.applicationRef);
+    if (!isMaterializedGtlGraph(graph) ||
+        !isTraversalCursorCandidate(sourceCursor) ||
+        !isTraversalCursorCandidate(targetCursor) ||
+        judgment.judgment !== "advance" ||
+        result.cCallRef !== cCall.cCallRef ||
+        judgment.cCallRef !== cCall.cCallRef ||
+        judgment.resultRef !== result.resultRef ||
+        sourceCursor.graphRef !== graph.materializationRef ||
+        sourceCursor.frameId !== cCall.frameId ||
+        application?.relationKind !== "re_enter" ||
+        application.graphFunctionRef !== graph.graphFunctionRef ||
+        application.sourceProgramLocusRef !== cCall.programLocusRef ||
+        application.targetProgramLocusRef !==
+            projection.targetProgramLocusRef ||
+        projection.graphFunctionRef !== graph.graphFunctionRef ||
+        projection.sourceProgramLocusRef !== cCall.programLocusRef ||
+        targetCursor.inputRef !== projection.targetInputRef ||
+        targetCursor.inputDigest !== projection.targetInputDigest) {
+        return routeRefusal("graph_span_reentry_not_declared", "graph-span re-entry requires one Product projection and HoG-derived target under the exact declared application");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: "re_enter",
+        sourceCursor,
+        targetCursor,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: [judgment.judgmentRef],
+        contractRef,
+        replayState,
+        extras: {
+            graphSpanReentryProjectionRef: projection.projectionRef,
+            graphSpanReentryProjectionDigest: projection.projectionDigest,
+            graphSpanReentryProjection: projection,
+        },
+    });
+}
+export function proposeGapStopRoute(graph, stop, cCall, result, judgment, replayState, contractRef) {
+    const projection = typeof result.value === "object" &&
+        result.value !== null &&
+        !Array.isArray(result.value)
+        ? result.value
+        : null;
+    if (!isMaterializedGtlGraph(graph) ||
+        stop.cursor.graphRef !== graph.materializationRef ||
+        stop.cursor.frameId !== cCall.frameId ||
+        stop.programLocusRef !== cCall.programLocusRef ||
+        result.cCallRef !== cCall.cCallRef ||
+        judgment.cCallRef !== cCall.cCallRef ||
+        judgment.resultRef !== result.resultRef ||
+        judgment.judgment !== "advance" ||
+        projection === null ||
+        projection.kind !== "next_action_projection" ||
+        projection.disposition !== "no_action" ||
+        ![
+            "gap_stop",
+            "reprice_required",
+            "repair",
+            "inspect_runtime_archive",
+            "reprice",
+            "escalate",
+        ].includes(String(projection.noActionDisposition))) {
+        return routeRefusal("gap_stop_not_declared", "gap_stop requires the exact judged Product no-action projection at the current cursor");
+    }
+    const nextActionProjectionRef = projection.projectionRef;
+    const nextActionProjectionDigest = projection.projectionDigest;
+    if (typeof nextActionProjectionRef !== "string" ||
+        typeof nextActionProjectionDigest !== "string") {
+        return routeRefusal("gap_stop_not_declared", "gap_stop projection lacks its exact Product identity");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: "gap_stop",
+        sourceCursor: stop.cursor,
+        targetCursor: null,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: [judgment.judgmentRef],
+        contractRef,
+        replayState,
+        extras: {
+            nextActionProjectionRef,
+            nextActionProjectionDigest: nextActionProjectionDigest,
+            nextActionProjection: projection,
+        },
+    });
+}
+export function proposeBlockedRoute(graph, stop, cCall, judgmentRef, replayState, contractRef, stoppedProgressRefs = []) {
+    if (!isMaterializedGtlGraph(graph) ||
+        stop.cursor.graphRef !== graph.materializationRef ||
+        stop.cursor.frameId !== cCall.frameId ||
+        stop.programLocusRef !== cCall.programLocusRef) {
+        return routeRefusal("structural_step_missing", "blocked route requires the exact open CCall and source cursor");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: "blocked",
+        sourceCursor: stop.cursor,
+        targetCursor: null,
+        cCallRef: cCall.cCallRef,
+        judgmentRef,
+        consumedAvailabilityRefs: [judgmentRef, ...stoppedProgressRefs],
+        contractRef,
+        replayState,
+    });
+}
+export function proposeFailedRoute(graph, stop, cCall, result, judgment, replayState, contractRef) {
+    if (!isMaterializedGtlGraph(graph) ||
+        stop.cursor.graphRef !== graph.materializationRef ||
+        stop.cursor.frameId !== cCall.frameId ||
+        stop.programLocusRef !== cCall.programLocusRef ||
+        result.cCallRef !== cCall.cCallRef ||
+        result.resultClass !== "failure" ||
+        judgment.cCallRef !== cCall.cCallRef ||
+        judgment.resultRef !== result.resultRef ||
+        judgment.resultDigest !== result.resultDigest ||
+        judgment.judgment !== "blocked") {
+        return routeRefusal("structural_step_missing", "failed route requires the exact admitted failure result, judgment, and source cursor");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: "failed",
+        sourceCursor: stop.cursor,
+        targetCursor: null,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: [judgment.judgmentRef],
+        contractRef,
+        replayState,
+    });
+}
+/**
+ * HoG's single ordinary CCall transition relation. Result and judgment truth
+ * are already admitted by ABG; this function derives only the exact structural
+ * route candidate and binds the corresponding admitted evidence.
+ */
+function selectedCCallOutcomeRoute(outcome) {
+    if (outcome.disposition !== "judged" ||
+        outcome.admitted.result.resultClass !== "success" ||
+        outcome.admitted.judgment.judgment !== "advance")
+        return null;
+    const value = outcome.admitted.result.value;
+    if (typeof value !== "object" || value === null || Array.isArray(value)) {
+        return null;
+    }
+    const projection = value;
+    if (projection.kind === "graph_span_selection" && projection.disposition === "re_enter") {
+        return "re_enter";
+    }
+    return projection.kind === "next_action_projection" && projection.disposition === "no_action"
+        ? "gap_stop"
+        : null;
+}
+/** Undefined retains ordinary continuation; null is the selected no-action stop. */
+export function deriveSelectedCCallOutcomeTarget(graph, source, outcome, definitionDigests = {}, boundInput) {
+    if (outcome.disposition === "judged" && outcome.admitted.judgment.judgment === "advance") {
+        const selected = resolveRegisteredSelection(graph.template, source, outcome.admitted.cCall.outputContractRef, outcome.admitted.result.value, definitionDigests);
+        if (selected !== null) {
+            if (selected.disposition !== "selected" || boundInput === undefined)
+                return routeRefusal("structural_step_missing", "registered selection lacks admitted child input");
+            const { kind: _kind, schemaVersion: _schema, cursorRef: _ref, cursorDigest: _digest, ...body } = source;
+            return constructTraversalCursorCandidate({ ...body, currentNodeRef: selected.nodeRef, termPath: selected.termPath,
+                position: "at_term", taskOrdinal: null, attempt: 1, retryPath: [], inputRef: boundInput.admissionRef, inputDigest: boundInput.subjectDigest });
+        }
+    }
+    const routeKind = selectedCCallOutcomeRoute(outcome);
+    if (routeKind === null || outcome.disposition !== "judged")
+        return undefined;
+    if (routeKind === "gap_stop")
+        return null;
+    const projection = outcome.admitted.result.value;
+    const application = graph.template.applications.find(candidate => candidate.relationKind === "re_enter" && candidate.applicationRef === projection.applicationRef);
+    if (application?.relationKind !== "re_enter" ||
+        typeof projection.targetInputRef !== "string" ||
+        typeof projection.targetInputDigest !== "string") {
+        return routeRefusal("graph_span_reentry_not_declared", "graph-span selection requires its declared application and exact target input coordinates");
+    }
+    const target = deriveGraphSpanReentryCursor(graph, source, application, {
+        inputRef: projection.targetInputRef,
+        inputDigest: projection.targetInputDigest,
+    });
+    return target.kind === "traversal_refusal"
+        ? routeRefusal("graph_span_reentry_not_declared", target.message)
+        : target;
+}
+export function proposeCCallOutcomeTransition(input) {
+    const outcome = input.outcome;
+    const blocked = outcome.disposition === "blocked";
+    const admitted = blocked ? null : outcome.admitted;
+    const cCall = blocked ? outcome.cCall : admitted.cCall;
+    const stop = {
+        stopClass: cCall.regime === "F_H" ? "interaction" : "executable",
+        nodeRef: input.sourceCursor.currentNodeRef,
+        programLocusRef: cCall.programLocusRef,
+        cursor: input.sourceCursor,
+    };
+    const completedRetryProgress = input.completedRetryProgress;
+    if (completedRetryProgress?.progresses.length === 0) {
+        return routeRefusal("retry_progress_missing", "completed retry progress requires one or more exact progress rows");
+    }
+    const completedProgresses = completedRetryProgress?.progresses ?? [];
+    const replayState = completedRetryProgress?.replayState ?? outcome.replayState;
+    const selectedRoute = selectedCCallOutcomeRoute(outcome);
+    const proposal = blocked
+        ? proposeBlockedRoute(input.graph, stop, cCall, outcome.completion.rejectionJudgmentRef, replayState, cCall.transitionContractRef)
+        : admitted.result.resultClass === "failure"
+            ? proposeFailedRoute(input.graph, stop, cCall, admitted.result, admitted.judgment, replayState, cCall.transitionContractRef)
+            : admitted.judgment.judgment === "blocked"
+                ? proposeBlockedRoute(input.graph, stop, cCall, admitted.judgment.judgmentRef, replayState, cCall.transitionContractRef)
+                : selectedRoute === "re_enter"
+                    ? input.targetCursor === null
+                        ? routeRefusal("graph_span_reentry_not_declared", "graph-span selection requires its derived target")
+                        : proposeGraphSpanReentryRoute(input.graph, input.sourceCursor, input.targetCursor, cCall, admitted.result, admitted.judgment, replayState, cCall.transitionContractRef, admitted.result.value)
+                    : selectedRoute === "gap_stop"
+                        ? proposeGapStopRoute(input.graph, stop, cCall, admitted.result, admitted.judgment, replayState, cCall.transitionContractRef)
+                        : proposeJudgedRoute(input.graph, input.sourceCursor, input.targetCursor, cCall, admitted.result, admitted.judgment, replayState, cCall.transitionContractRef, completedProgresses, input.boundInput, input.registeredSelectionDefinitionDigests);
+    if (proposal.kind !== "traversal_route_candidate")
+        return proposal;
+    const evidence = blocked
+        ? {
+            evidenceClass: "blocked",
+            graphFunction: input.graphFunction,
+            cCall,
+            resultRef: outcome.completion.refusalResultRef,
+            judgmentRef: outcome.completion.rejectionJudgmentRef,
+            judgmentEventRef: outcome.completion.judgmentEventRef,
+            reasonRef: outcome.diagnosticRef,
+            stoppedProgresses: [],
+        }
+        : admitted.judgment.judgment === "blocked" &&
+            admitted.result.resultClass !== "failure"
+            ? {
+                evidenceClass: "blocked",
+                graphFunction: input.graphFunction,
+                cCall,
+                resultRef: admitted.result.resultRef,
+                judgmentRef: admitted.judgment.judgmentRef,
+                judgmentEventRef: admitted.judgment.admissionEventRef,
+                reasonRef: admitted.judgment.reasonRef,
+                stoppedProgresses: [],
+            }
+            : {
+                evidenceClass: "judged",
+                graphFunction: input.graphFunction,
+                cCall,
+                result: admitted.result,
+                judgment: admitted.judgment,
+                completedProgresses,
+            };
+    return completeTraversalTransitionCandidate({
+        kind: "traversal_transition_candidate",
+        schemaVersion: "5.0.0",
+        transitionClass: "route",
+        route: proposal,
+        evidence,
+        terminalizeRun: proposal.routeKind !== "advance" && proposal.routeKind !== "re_enter" &&
+            input.terminalizeNonAdvance,
+    });
+}
+export function proposeHoldRoute(graph, stop, cCall, judgment, replayState, contractRef) {
+    if (!isMaterializedGtlGraph(graph) ||
+        stop.stopClass !== "interaction" ||
+        stop.cursor.graphRef !== graph.materializationRef ||
+        stop.cursor.frameId !== cCall.frameId ||
+        stop.programLocusRef !== cCall.programLocusRef ||
+        cCall.regime !== "F_H" ||
+        judgment.cCallRef !== cCall.cCallRef ||
+        judgment.judgment !== "pending" ||
+        contractRef !== cCall.continuationContractRef) {
+        return routeRefusal("judgment_not_pending", "hold route requires the exact F_H locus and admitted pending judgment");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: "hold",
+        sourceCursor: stop.cursor,
+        targetCursor: null,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: [judgment.judgmentRef],
+        contractRef,
+        replayState,
+    });
+}
+export function proposeInteractionResumeTerminalRoute(graph, cursor, cCall, judgment, resume, replayState, contractRef) {
+    const continuation = deriveCSourceContinuation(graph.template, cursor.currentNodeRef, cursor.termPath);
+    if (!isMaterializedGtlGraph(graph) ||
+        cursor.graphRef !== graph.materializationRef ||
+        cursor.frameId !== cCall.frameId ||
+        cursor.graphCallId !== cCall.graphCallId ||
+        cursor.cursorRef !== resume.successorCursorRef ||
+        cursor.cursorDigest !== resume.successorCursorDigest ||
+        cursor.inputRef !== resume.successorInputRef ||
+        cursor.inputDigest !== resume.successorInputDigest ||
+        cCall.regime !== "F_H" ||
+        judgment.cCallRef !== cCall.cCallRef ||
+        judgment.judgment !== "pending" ||
+        continuation.kind === "c_source_path_refusal" ||
+        continuation.disposition !== "terminal" ||
+        !graph.template.terminalNodeRefs.includes(cursor.currentNodeRef) ||
+        contractRef !== cCall.transitionContractRef) {
+        return routeRefusal("resume_not_admitted", "F_H resume route requires the exact admitted response cursor at a declared terminal locus");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: "terminal",
+        sourceCursor: cursor,
+        targetCursor: null,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: [
+            judgment.judgmentRef,
+            resume.admissionEventRef,
+        ],
+        contractRef,
+        replayState,
+    });
+}
+export function proposeInteractionResumeRoute(graph, cursor, targetCursor, cCall, judgment, resume, replayState, contractRef, completedProgresses = [], boundInput, definitionDigests = {}) {
+    const continuation = deriveCSourceContinuation(graph.template, cursor.currentNodeRef, cursor.termPath);
+    const terminal = continuation.kind === "c_source_continuation" &&
+        continuation.disposition === "terminal" &&
+        continuation.targetPath === null &&
+        targetCursor === null &&
+        graph.template.terminalNodeRefs.includes(cursor.currentNodeRef);
+    const advancing = continuation.kind === "c_source_continuation" &&
+        continuation.disposition === "advance" &&
+        continuation.targetPath !== null &&
+        targetCursor !== null;
+    if (!isMaterializedGtlGraph(graph) ||
+        !isTraversalCursorCandidate(cursor) ||
+        (targetCursor !== null && !isTraversalCursorCandidate(targetCursor)) ||
+        cursor.graphRef !== graph.materializationRef ||
+        cursor.frameId !== cCall.frameId ||
+        cursor.graphCallId !== cCall.graphCallId ||
+        cursor.cursorRef !== resume.successorCursorRef ||
+        cursor.cursorDigest !== resume.successorCursorDigest ||
+        cursor.inputRef !== resume.successorInputRef ||
+        cursor.inputDigest !== resume.successorInputDigest ||
+        cCall.regime !== "F_H" ||
+        judgment.cCallRef !== cCall.cCallRef ||
+        judgment.judgment !== "pending" ||
+        (!terminal && !advancing) ||
+        !isDeclaredCompletion(graph, cursor, targetCursor, {
+            inputRef: cursor.inputRef,
+            inputDigest: cursor.inputDigest,
+        }) ||
+        contractRef !== cCall.transitionContractRef) {
+        return routeRefusal("resume_not_admitted", "F_H resume route requires the exact admitted response and GTL-declared continuation");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: terminal ? "terminal" : "advance",
+        sourceCursor: cursor,
+        targetCursor,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: [
+            judgment.judgmentRef,
+            resume.admissionEventRef,
+            ...completedProgresses.map((progress) => progress.progressRef),
+        ],
+        contractRef,
+        replayState,
+    });
+}
+export function proposeFanOutRoute(graph, application, sourceCursor, targetCursor, cCall, completion, replayState, contractRef, completedProgresses = [], boundInput, definitionDigests = {}) {
+    const complete = completion.completionKind === "complete_vector";
+    const taskRow = complete
+        ? completion.taskRows.at(-1)
+        : completion.stoppingRow;
+    if (!isMaterializedGtlGraph(graph) ||
+        graph.template.applications.find((candidate) => candidate.applicationRef === application.applicationRef) !== application ||
+        application.relationKind !== "fan_out" ||
+        application.applicationRef !== graphFunctionApplicationRef(application) ||
+        !isTraversalCursorCandidate(sourceCursor) ||
+        (targetCursor !== null && !isTraversalCursorCandidate(targetCursor)) ||
+        sourceCursor.graphRef !== graph.materializationRef ||
+        sourceCursor.frameId !== cCall.frameId ||
+        cCall.batchRef !== application.batchRef ||
+        taskRow === undefined ||
+        taskRow.cCallRef !== cCall.cCallRef ||
+        taskRow.ordinal !== sourceCursor.taskOrdinal ||
+        completion.applicationRef !== application.applicationRef ||
+        (!complete && completedProgresses.length !== 0) ||
+        (complete
+            ? targetCursor === null ||
+                !isDeclaredCompletion(graph, sourceCursor, targetCursor, {
+                    inputRef: completion.outputVectorRef,
+                    inputDigest: completion.outputVectorDigest,
+                })
+            : targetCursor !== null)) {
+        return routeRefusal("structural_step_missing", "fan-out route requires the exact terminal task cursor and admitted completion variant");
+    }
+    return graphRouteCandidate({
+        graph,
+        routeKind: complete ? "advance" : "blocked",
+        sourceCursor,
+        targetCursor,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: taskRow.judgmentRef,
+        consumedAvailabilityRefs: [
+            taskRow.judgmentRef,
+            application.applicationRef,
+            ...completedProgresses.map((progress) => progress.progressRef),
+        ],
+        contractRef,
+        replayState,
+    });
+}
+export function proposeRecursionRoute(graph, application, sourceCursor, targetCursor, cCall, judgment, foldback, replayState, contractRef, routeKind, preparationRefusal = null) {
+    if (!isMaterializedGtlGraph(graph) ||
+        graph.template.applications.find((candidate) => candidate.applicationRef === application.applicationRef) !== application ||
+        application.relationKind !== "recurse" ||
+        application.applicationRef !== graphFunctionApplicationRef(application) ||
+        sourceCursor.graphRef !== graph.materializationRef ||
+        cCall.frameId !== sourceCursor.frameId ||
+        cCall.compositionRef !== application.applicationRef ||
+        judgment.cCallRef !== cCall.cCallRef ||
+        judgment.judgment !== "advance" ||
+        (routeKind === "advance"
+            ? targetCursor === null ||
+                foldback === null ||
+                preparationRefusal !== null ||
+                foldback.parentCCallRef !== cCall.cCallRef ||
+                foldback.parentJudgmentRef !== judgment.judgmentRef
+            : targetCursor !== null ||
+                (foldback !== null
+                    ? preparationRefusal !== null ||
+                        foldback.parentCCallRef !== cCall.cCallRef ||
+                        foldback.parentJudgmentRef !== judgment.judgmentRef ||
+                        foldback.childDisposition !== "blocked"
+                    : preparationRefusal === null
+                        ? sourceCursor.attempt < application.bound
+                        : preparationRefusal.applicationRef !==
+                            application.applicationRef ||
+                            preparationRefusal.parentCCallRef !== cCall.cCallRef ||
+                            preparationRefusal.parentJudgmentRef !== judgment.judgmentRef))) {
+        return routeRefusal("structural_step_missing", "recursion route requires one exact declared application, parent judgment, and bounded foldback");
+    }
+    const body = {
+        routeKind,
+        declarationRef: application.applicationRef,
+        declarationDigest: sha256Canonical(application),
+        sourceCursorRef: sourceCursor.cursorRef,
+        sourceCursorDigest: sourceCursor.cursorDigest,
+        targetCursorRef: targetCursor?.cursorRef ?? null,
+        targetCursorDigest: targetCursor?.cursorDigest ?? null,
+        cCallRef: cCall.cCallRef,
+        judgmentRef: judgment.judgmentRef,
+        consumedAvailabilityRefs: routeKind === "advance"
+            ? [judgment.judgmentRef, foldback.foldbackRef]
+            : foldback !== null
+                ? [judgment.judgmentRef, foldback.foldbackRef]
+                : preparationRefusal === null
+                    ? [judgment.judgmentRef]
+                    : [judgment.judgmentRef, preparationRefusal.refusalRef],
+        contractRef,
+        replayStateDigest: replayState.replayDigest,
+    };
+    return completeRouteCandidate(body);
+}

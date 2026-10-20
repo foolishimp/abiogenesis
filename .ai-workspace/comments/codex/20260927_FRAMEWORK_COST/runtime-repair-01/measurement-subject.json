@@ -1,0 +1,55 @@
+{
+  "head": "a045517364171df7f85b4606337a25a1d115ad75",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "sha256": "0892ffad2ea04dd7e37dfc98dfde9c87d92670ed234035df857435a1e505f61a",
+      "bytes": 72232
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "03f6779d87bb44e7564c001ad4a130f891ab348a112d042c2f73f48c976276f1",
+      "bytes": 170307
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "sha256": "1ea66289ada8280730ebd671aa120e5e99664f6a84cbfb1848dcc3f2ed805d33",
+      "bytes": 86157
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_ports.js",
+      "sha256": "dbb09cd9bad7951fbf78b8eccda6dc12e3065be85596e24b1e2c667c663c12a2",
+      "bytes": 64253
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "sha256": "7884f2aa60024b3b2e2aee0f85b63332d75a9d80e912e69f1f9eadfcb3acf351",
+      "bytes": 156771
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+      "sha256": "7e99fdeb4879be8d4b5508243fba1d11c9b6159e9a9c891127cedc4762421eb9",
+      "bytes": 74047
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-cold-record-decoder.test.mjs",
+      "sha256": "3d9021e7172d5f7ef6ed544dc5e94d12d0cdd10e731a2126576d7cc30cb5ac98",
+      "bytes": 8707
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/retained-route-cursor-transition.test.mjs",
+      "sha256": "60d88c113b40b83fbb8deb6506171c145060aeef2aed16a90d4052c539d4272e",
+      "bytes": 18514
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r10-projection-contracts.test.mjs",
+      "sha256": "bcc9bd90ef0e5693d4a8f595e01061261f7ce41e8a885efa012aa2fac496931b",
+      "bytes": 14071
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs",
+      "sha256": "89521a9bacac4513af36fc993b4dcbd92104e69a80ae575f2ee47ee0a5049f99",
+      "bytes": 5860
+    }
+  ]
+}

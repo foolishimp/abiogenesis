@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=complete canonical declarations|covered use binds|built-in ingress|library prepare-testing|reference preparation|cold admitted preparation|inline request",
+    "test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "test_env/tests/t287-native-work-reacquisition.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-09T01:32:47.476844+00:00",
+  "environment": {
+    "ABG_GOVERNANCE_COVERED_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/build/code/src",
+    "ABG_WORKSITE_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/isolated/build/code/src",
+    "ABG_GOVERNANCE_COVERED_FIXTURE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/controlled-owner-fixtures.json"
+  },
+  "scope": "unit owners/controlled lower premises; no current-app admission"
+}

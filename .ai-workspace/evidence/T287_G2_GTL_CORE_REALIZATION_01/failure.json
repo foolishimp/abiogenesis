@@ -1,0 +1,44 @@
+{
+  "classification": "realization integration input refused by the existing canonical schema projector",
+  "firstNonCompilerPayload": "manifest",
+  "predicate": "RegExp flags are not supported by JSON Schema.",
+  "origin": {
+    "source": "code/src/gtl/serialization_contracts.ts",
+    "patterns": [
+      "/\\S/u",
+      "/^sha256:[0-9a-f]{64}$/u"
+    ],
+    "projector": "@valibot/to-json-schema/dist/index.mjs:302",
+    "caller": "scripts/generate-product-manifest.mjs:188"
+  },
+  "fullStderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/manifest.stderr",
+    "bytes": 2011,
+    "sha256": "32a13d26492c18ec592d08e69e5dbbb0a997bacd67ba9a5c780da0f5306dc73c"
+  },
+  "firstStackExcerpt": [
+    "    at handleError (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:46:18)",
+    "    at convertAction (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:302:44)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:373:24)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)",
+    "    at convertSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:430:34)",
+    "    at toJsonSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs:580:21)",
+    "    at projectStrictJsonSchema (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/public_function_contracts.js:344:23)",
+    "    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:188:29",
+    "",
+    "Node.js v24.7.0"
+  ],
+  "frames": {
+    "ProductWHAT": "unchanged current original GTL/ABG5/publication requirements",
+    "Design": "adopted core still selected; no missing authority identified",
+    "Integration": "authored Unicode RegExp flag is unsupported in selected JSON-schema conversion",
+    "Identity": "frozen Node24.7/npm11.5.1/TS5.9.2 and actual Valibot converter unchanged",
+    "Effects": "all 15 Source paths authored; isolated stage and one refused manifest, no pack/install/Runtime",
+    "Proof": "Source compile passes; native/schema/corpus/packed tests unexecuted",
+    "Cost": "five supervised child processes reaped; finite caps, no provider/Run effects"
+  },
+  "missedPreparationCheck": "new schema primitive regex flags were not checked against the already selected converter restriction before the first manifest",
+  "smallestProposedReentry": "realization_refactor at serialization_contracts.ts: remove the semantically unnecessary u flags from these ASCII/ref patterns and reprove the affected compile/manifest/pack/consumer cone only after Root disposition",
+  "autonomousRepair": false,
+  "retry": false
+}

@@ -1,0 +1,27 @@
+{"phase":"original_public_root_and_genuine_reprice","pid":36875,"entryBytes":119770004}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+TypeError: abg.validateAbgEventResourceAssertion is not a function
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/execute.mjs:43:19
+
+Node.js v24.7.0
+        9.00 real        12.44 user         0.34 sys
+          1663369216  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              173749  page reclaims
+                  86  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5277  messages sent
+                4044  messages received
+                   0  signals received
+                   5  voluntary context switches
+               22208  involuntary context switches
+        223600932258  instructions retired
+         51373606451  cycles elapsed
+          1710489400  peak memory footprint

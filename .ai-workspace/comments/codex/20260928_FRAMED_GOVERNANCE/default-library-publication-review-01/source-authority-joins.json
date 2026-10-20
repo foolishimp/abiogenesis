@@ -1,0 +1,129 @@
+{
+  "authority": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 66149,
+      "sha256": "9e8fbf4e6df444bba9153dd3a7e4100fe3afe0ca9e163cbf7fc27c0084619ded"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "bytes": 6880,
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "bytes": 42946,
+      "sha256": "8f87b9d6c476ed27650c1904bbfdaa3059d7e0c1b8912a74bf9e92b922a88c2b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "bytes": 133684,
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d"
+    }
+  ],
+  "sourcePreimages": [
+    {
+      "source": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "originalFrozenCandidate": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "bytes": 18901,
+        "sha256": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35"
+      },
+      "repairPreimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/preimages/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "bytes": 18901,
+        "sha256": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "bytes": 18915,
+        "sha256": "f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d"
+      },
+      "externalAuthor": {
+        "agent": "/root/s03_phase_b",
+        "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+        "sessionId": "not separately available",
+        "origin": "external Worker source edit",
+        "nativeABGAuthorship": false
+      }
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "originalFrozenCandidate": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 75599,
+        "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17"
+      },
+      "repairPreimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 75599,
+        "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 77554,
+        "sha256": "d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128"
+      },
+      "externalAuthor": {
+        "agent": "/root/s03_phase_b",
+        "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+        "sessionId": "not separately available",
+        "origin": "external Worker source edit",
+        "nativeABGAuthorship": false
+      }
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "originalFrozenCandidate": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 38681,
+        "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+      },
+      "repairPreimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 38681,
+        "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/postimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 39208,
+        "sha256": "4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4"
+      },
+      "externalAuthor": {
+        "agent": "/root/s03_phase_b",
+        "activation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+        "sessionId": "not separately available",
+        "origin": "external Worker source edit",
+        "nativeABGAuthorship": false
+      }
+    }
+  ],
+  "constructionAuthorshipMeaning": "Actual external source edit by /root/s03_phase_b under the retained grant; no ABG author event, supplier authorship or whole F11 attribution ruling is inferred.",
+  "reviewerTask": "/root/f11_attribution_inputs",
+  "independentSubject": "Distinct other-Worker publication repair only. Closed attribution input work and moving attribution review were not inspected."
+}

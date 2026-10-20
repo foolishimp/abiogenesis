@@ -1,0 +1,20 @@
+{
+  "donor": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/environment-delta.json",
+    "bytes": 1076,
+    "sha256": "8771011ad0cf8e5e0412e672b2b9fd3b951358736ccd0bae509797d06374f048"
+  },
+  "config": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/config.json",
+    "bytes": 34145,
+    "sha256": "1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4"
+  },
+  "preloader": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-environment.mjs",
+    "bytes": 779,
+    "sha256": "2e578975a7bfe7b89e8c54e55cef3f7da318aa2e40d10572ae69ea54b13e2c15"
+  },
+  "currentChange": "none; accepted corrected environment and staging/preloader bytes preserved exactly",
+  "HOME_home_CODEX_HOME": "not assigned",
+  "execution": "none"
+}

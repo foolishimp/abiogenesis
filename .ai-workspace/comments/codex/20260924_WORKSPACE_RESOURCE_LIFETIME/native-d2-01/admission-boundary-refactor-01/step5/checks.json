@@ -1,0 +1,109 @@
+{
+  "compile": {
+    "command": [
+      "./node_modules/.bin/tsc",
+      "-p",
+      "tsconfig.json",
+      "--pretty",
+      "false"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "log": "abi-step5-compile02.log",
+    "scope": "combined canonical source including accepted STEP2/3/4 and Root S9; no package/manifest build"
+  },
+  "focusedChecks": [
+    {
+      "name": "same-subject conformance",
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-name-pattern=same-subject conformance",
+        "test_env/tests/t287-conformance-owner-reuse.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "environment": {
+        "ABI5_CONFORMANCE_PREDECESSOR_ROOT": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite-install-fz84kes0/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_CONFORMANCE_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/scratch",
+        "ABI5_CONFORMANCE_METADATA": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_CONFORMANCE_RESOURCE_REPAIR/implementation-01/fixture-metadata.json"
+      },
+      "log": "abi-step5-check03.log",
+      "exitCode": 0,
+      "passed": 1,
+      "durationMs": 34580.275917
+    },
+    {
+      "name": "resolved-closure continuation",
+      "log": "abi-step5-check02.log",
+      "selection": "conformance resolved-closure continuation preserves raw readiness and complete validation outcomes",
+      "passed": 1,
+      "note": "This selected case passed; same run retains the separately corrected simulated verifier-object reuse failure."
+    },
+    {
+      "name": "Root S9 composition",
+      "log": "abi-step5-check01.log",
+      "selection": "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+      "passed": 1,
+      "note": "Actual selected test passed; other file in that run retains first STEP5 fixture failures."
+    },
+    {
+      "name": "GLC receipt consumer",
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=setup retains compact conformance receipt",
+        "build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/odd_glc",
+      "log": "glc-step5-check01.log",
+      "exitCode": 0,
+      "passed": 1,
+      "durationMs": 50.134042
+    }
+  ],
+  "firstFailures": "Retained older verification slot digests refused current raw ingress; changed catalog workspace field did not invalidate raw Catalog/View basis; same fixture verifier object across simulated cold calls bypassed later manifest hook under accepted STEP2 reuse. Only explicit fixture premises/assertions were corrected; raw guards unchanged.",
+  "fixturePremises": "Retained materialized installs/archive verification/executing manifest are supplied metadata; current operation slot digests come from actual current source projection. Each simulated cold verification returns a fresh body. Finite install/bind/artifact/grant/Definition/closure/validation owners execute; no installed qualification.",
+  "fixtureMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_CONFORMANCE_RESOURCE_REPAIR/implementation-01/fixture-metadata.json",
+    "sha256": "e801bd447ad260b9ee492ebeb1ca0eaeb7358c260bdca3e28d5e4d6b755c83a0"
+  },
+  "observations": {
+    "resourceReceiptBytes": {
+      "historical": 21990418,
+      "current": 613
+    },
+    "currentConformance": {
+      "closureResolutions": 1,
+      "rawClosureValidations": 0,
+      "resolvedClosureContinuations": 1
+    },
+    "scope": "controlled finite owner fixture; historical predecessor spans prior accepted repairs; no installed or isolated timing claim"
+  },
+  "logs": [
+    {
+      "path": "abi-step5-compile01.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "abi-step5-compile02.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "abi-step5-check01.log",
+      "sha256": "32fb3bc2049e60c6ba23cbf881c96aa33f669821a104ecda872b549a4751b074"
+    },
+    {
+      "path": "abi-step5-check02.log",
+      "sha256": "c43de66e04f277ac37b16bd259f39ab466f5535ae5056dff4836f0180d6d9234"
+    },
+    {
+      "path": "abi-step5-check03.log",
+      "sha256": "41ad6701d4512db4a21376d3151627826b5210e0198bc944d330d44c932986ca"
+    },
+    {
+      "path": "glc-step5-check01.log",
+      "sha256": "1616ded271edcde03f6192f663efaef36ccfccc3e2259d6870f0b95a8dc7e621"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "operation": "T287_F11_REPAIRED_CALLER_ASSURANCE_01",
+  "actor": "/root",
+  "role": "Reviewer",
+  "previousRole": "Executive",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/caller-request.txt",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/root-caller-review"
+  ],
+  "independence": "Root authored prior grants/triage, not inherited or repaired caller code; distinct source frame assigned independently",
+  "activatedAt": "2026-10-02T05:05:16.183153+00:00",
+  "effects": "Reports only; no execution/repair/event/source effects"
+}

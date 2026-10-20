@@ -1,0 +1,92 @@
+{
+  "kind": "continuation16_frozen_disposition",
+  "status": "CLOSED_HOLD_STOP",
+  "sourceCut": 44,
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "actualPublication": {
+    "generationPerformed": false,
+    "packMs": 3323.491875,
+    "installMs": 2352.4092920000003,
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/publication/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+    "byteCount": 10676374,
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1",
+    "productContentDigest": "sha256:6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3",
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/publication/host/node_modules/@abiogenesis/typescript-tenant",
+    "claim": "Direct exact canonical package/archive/installed correspondence; native composition follows separately in this grant"
+  },
+  "currentSetup": {
+    "installedNativeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/execution/audit/installed-native/node_modules/@abiogenesis/typescript-tenant",
+    "workspaceBinding": {
+      "ref": "workspace-binding://abiogenesis/5bde13de46f2f041e0d77192b2d249f260d5fe82348b2b5eee95f4719e40abaa",
+      "digest": "sha256:5bde13de46f2f041e0d77192b2d249f260d5fe82348b2b5eee95f4719e40abaa"
+    },
+    "resolvedLock": {
+      "ref": "product-lock://abiogenesis/d3781e8c67c48e6aa22ca151af4b170f135ce3c753f2cbc01b0b9747b4ce2b54",
+      "digest": "sha256:d3781e8c67c48e6aa22ca151af4b170f135ce3c753f2cbc01b0b9747b4ce2b54"
+    },
+    "catalogBasisDigest": "sha256:c0b4fe1daba265ac575173ffbe9163a892773f50e4a74e314b19b9109cff44dd",
+    "catalogViewDigest": "sha256:dfe2b56ccd8ab1599841fff2799856e3a4a384602c0bb3712b43e59668b3a3b8",
+    "programDigest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+    "sourceResultRef": "result://abiogenesis/069031ccb3f2f154aa95a00e2ff5a9b4904ceec0806a27ff4d5a1715744ba3bd",
+    "sourceBasisRef": "invocation-source-result://abiogenesis/43da864d145f10ed91dd07d2464ffc10479237cac4eebc80f33d9729795e9e48",
+    "currentUseDigest": "sha256:7805da0dde5394d5897a4e4292aa7e80c368700e32c890e18304157541c88a91",
+    "targetCoverEventRefs": [
+      "event://abiogenesis/87205ef2628319cec754bbd0a8ead9af0f4586587c0f69c8a45948966d1f07fb"
+    ],
+    "consumer": {
+      "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+      "artifactDigest": "sha256:ed8a2aa60fdcfc7dd5be939605488498c20de5226aa9b042077e4a442bf36e9d",
+      "productContentDigest": "sha256:bb4f07b8cf17330ba56f1a58584f8a50bd762162878c7d87c118d5f3deb994cc",
+      "manifestDigest": "sha256:561392c4b7c5678fcef15fc0e264bf39d6e30df3d6d69068987b767e9e0508c8"
+    }
+  },
+  "timings": {
+    "canonical-build": 32573.092083000003,
+    "canonical-publication": 9958.913499999999,
+    "installed-testing": 389618.6755,
+    "selected-failure-readback": 1246.766583,
+    "nativeLifecycleMs": 203097.240542
+  },
+  "helperMemorySamples": {
+    "sampleCount": 52,
+    "maxRecordedHelperHeapBytes": 2493101816,
+    "maxRecordedHelperRssBytes": 2961801216,
+    "limits": "Entry/exit samples only, not peak or per-owner heap attribution; no native peak/capacity claim"
+  },
+  "firstFailure": {
+    "diagnostic": "diagnostic://abiogenesis/worksite/command-execution/transport-identity-mismatch@5",
+    "runRef": "run://abiogenesis/ef243f5ab796e5332cffc0cea94649160ad6d579a7ff533cff71c12313e8658c",
+    "failureLeaf": "c-call:sha256:a07ecccb182bf837774b0f9591b4a6d3751f1882cb7b403f426d644d3c7b8b40",
+    "failureBasisRef": "execution-basis://abiogenesis/9ecae427d9aaf7299ef0afc7076c730f63d4a260793cfc22630d0d4fc3575506",
+    "failureResultRef": "result://abiogenesis/67f98f41cbf407c421a81081ef13b50137b4cae617277618bab8200761a9d971",
+    "ownerBoundary": "implementation/worksite_command_execution.ts exactExchange250-275, complete699-705",
+    "supportedFalseRelation": "The existing exactExchange conjunction returned false; no individual conjunct is established from the retained scalar joins.",
+    "originLimits": "The full exchange/request/helper-plan tuple is not retained in these selected outputs; command effect/C2-red completion remains unproved."
+  },
+  "currentClose": {
+    "coordinateDigest": "sha256:782900f814ac04f8623000ba058356e2f10a5b0ce8e27fccff92bc9cb6984b5e",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/attempt-07/execution/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:4350f5f17e39e115c0dcd5f8fee43df9902e42d2556449c98ffeaf711e230f9e",
+    "prefixLength": 32758262,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 469917053
+    }
+  },
+  "mtimeNs": "1791667712606460604",
+  "candidateUnchanged": true,
+  "quiescent": true,
+  "unearned": [
+    "C2 red/repair/green",
+    "same-pair restart and complete26/nativeLiveness/raw logical proof",
+    "genuineClaude/DataMapper UAT",
+    "original2.14GB capacity"
+  ],
+  "nextEffects": "Root selection only; no retry or repair"
+}

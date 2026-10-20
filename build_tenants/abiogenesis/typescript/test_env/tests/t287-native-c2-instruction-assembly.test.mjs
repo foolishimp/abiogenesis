@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { createHash } from 'node:crypto';
 import fs from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -30,7 +31,7 @@ async function fixture(t) {
   const observe = () => owner.observeWorksiteContext({ ...env, readRoots: ['changed.txt', 'unchanged.txt'], maxFiles: 2, maxBytes: 1000 });
   const task = p.constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: env.workspaceAuthorityBasis, workspaceBinding: env.workspaceBinding, capabilityGrant: env.capabilityGrant, context: await observe(), outcome: 'local edit', instructions: ['Preserve retained source.'],
     readFirst: ['changed.txt'], writeRoots: ['changed.txt'], checks: [] });
-  await fs.writeFile(join(env.canonicalRoot, 'changed.txt'), 'after');
+  await fs.writeFile(join(env.canonicalRoot, 'changed.txt'), '\uFEFFafter Ω😀\n');
   // Cold Product value only. The ABG absent-source check below refuses it.
   const source = constructNativeWorkspaceWorkObservation(task, await observe(), { summary: 'edited', gaps: [] }, {
     cCallRef: 'c-call://native-c2/component', executionAuthorityRef: 'authority://native-c2/component', executionAuthorityDigest: hash({ a: 1 }),
@@ -68,8 +69,8 @@ test('declared command-executor assembly accepts native C2 and keeps exact task,
   await module.link(async specifier => {
     const native = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(implementationPath), specifier)).href);
     const values = { ...native,
-      ...(specifier === './execution_basis.js' ? { authenticateNativeInstructionAssemblyBasis: () => ownerValue } : {}),
-      ...(specifier === './stdo_environment.js' ? { projectRunEnvironmentRoleEvidence: () => context } : {}) };
+      ...(specifier === './execution_basis.js' ? { authenticateOwnedNativeInstructionAssemblyBasis: () => ownerValue } : {}),
+      ...(specifier === './stdo_environment.js' ? { projectRunEnvironmentRoleEvidenceAtPrefix: () => context } : {}) };
     return new SyntheticModule(Object.keys(values), function () { for (const [k,v] of Object.entries(values)) this.setExport(k,v); });
   });
   await module.evaluate();
@@ -81,6 +82,32 @@ test('declared command-executor assembly accepts native C2 and keeps exact task,
   assert.equal(assembly.request.inputDigest, hash(task));
   assert.deepEqual(assembly.request.responseJsonSchema, worksiteCommandExecutionWorkerResultSchema(task,
     worksiteCommandExecutionHelperPlan(task, worksiteCommandExecutionAttemptRef(call))));
+  if(process.env.ABI5_NATIVE_MATERIAL_PREIMAGE){
+    const {default:ts}=await import('typescript');
+    const previous=new SourceTextModule(ts.transpileModule(await fs.readFile(process.env.ABI5_NATIVE_MATERIAL_PREIMAGE,'utf8'),{
+      compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText,{identifier:implementationPath});
+    await previous.link(async specifier=>{
+      const native=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(implementationPath),specifier)).href);
+      const values={...native,
+        ...(specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>ownerValue}:{}),
+        ...(specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidence:()=>context}:{})};
+      return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});
+    });
+    await previous.evaluate();const oldAssembly=previous.namespace.constructWorksiteNativeInstructionAssembly(basis,task);
+    assert.ok(oldAssembly);assert.equal(hash(assembly),hash(oldAssembly),'exact legacy logical assembly/prompt/schema/plan bytes');
+    const measure=value=>({digest:hash(value),canonicalBytes:Buffer.byteLength(p.canonicalJson(value))});
+    const fields={assembly:value=>value,request:value=>value.request,prompt:value=>value.request.prompt,
+      schema:value=>value.request.responseJsonSchema,plan:value=>value.plan};
+    const correspondence=Object.fromEntries(Object.entries(fields).map(([name,select])=>{
+      const old=measure(select(oldAssembly)),current=measure(select(assembly));
+      assert.deepEqual(current,old,name+' complete logical bytes and digest');return [name,{old,current}];
+    }));
+    const promptBytes=Buffer.from(assembly.request.prompt,'utf8');
+    console.log(JSON.stringify({kind:'native_c2_material_correspondence_component',correspondence,
+      renderedPrompt:{utf8Bytes:promptBytes.length,sha256:createHash('sha256').update(promptBytes).digest('hex')},
+      nativeAdmission:false,lowerAuthentication:'controlled; Product task/context/prompt/schema owners execute'}));
+    assert.equal(previous.namespace.constructWorksiteNativeInstructionAssembly(basis,{...task,taskDigest:hash('foreign-task')}),null);
+  }
   assert.equal(construct(basis, { ...task, taskDigest: hash('foreign-task') }), null);
   const originalOwner = ownerValue;
   ownerValue = null; assert.equal(construct(basis, task), null, 'stale or absent admitted owner refuses');

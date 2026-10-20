@@ -1,0 +1,59 @@
+{
+  "status": "CLOSED_DOCUMENTS_ONLY",
+  "operation": "T287_G2_ACCEPTANCE_C10_CENSUS_CONTINUATION_RECORD_WRITER_01",
+  "actor": "/root",
+  "role": "Writer",
+  "effects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-census-supplement-grant.txt",
+      "bytes": 4385,
+      "sha256": "e2ffad4bb392d67e98ac5960dd0581ed323aed521ec4e3d9022735d4df83749c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/g2-source-assurance-grant.txt",
+      "bytes": 3903,
+      "sha256": "7c5670977fa43394e96bdb0afb242ec1badcb5b6f4fa442003860dc5c11b4ac5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/g2-gtl-current-how-grant.txt",
+      "bytes": 4871,
+      "sha256": "5fcc606f850e7d1f1b86852482b2451c114ad9a821c5e6fe9f9cc309ca1f6313",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-assurance-continuation-grant.txt",
+      "bytes": 4031,
+      "sha256": "f677e2c3ff9fc694f9e179dac524c893b5589f4e47df78f15f52aa3be715d408",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/g2-eight-group-source-acceptance.json",
+      "bytes": 1092,
+      "sha256": "6614ec3c28625a51a0b34df42a18b9c10519c2920e0a73b4cac61793a16bb97d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "bytes": 19117,
+      "sha256": "414a8347f631dacc46c45521b7eb2553f0ed3fb8cbbf9a188d557d143965aaf9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 492968,
+      "sha256": "6d3fa2c211cb395098ec69424fde69e4e82a2f2e38fba207d1c30f8292f0b164",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 67240,
+      "sha256": "d2381b88952b8c83a5e153e8edda5aa3dddd44204087f3d6e790e0b6406221de",
+      "mode": 420
+    }
+  ],
+  "CodeCandidateRuntimeGitEffects": 0,
+  "nextRole": "Executive",
+  "closedAt": "2026-10-04T05:06:38.102646+00:00"
+}

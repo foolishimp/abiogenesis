@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "beforeSha256": "e9c3a718aef3e7ecb91d11c445f6a7146c9ae9fa7ee5f3929cd0f4d29932f06e",
+    "afterSha256": "11553e0af3959163b56be0bcd9743ac741330d2fa89273b6cc05a91e51a2748b"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "beforeSha256": "6d71c9efbd24f8ba16df75d8962d63b753ae39a0b473986154539f1d9346d89c",
+    "afterSha256": "1e55968fad10ed7625a7ba0a6d494cb5f885e20e1b57cf0ba3bb2f296913d575"
+  }
+]

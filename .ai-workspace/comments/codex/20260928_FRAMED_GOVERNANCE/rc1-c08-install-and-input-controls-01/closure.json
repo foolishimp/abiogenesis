@@ -1,0 +1,9 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C08_SETUP_Q10_CONDITIONAL_GRANTS_WRITER_01",
+  "returnsTo": "Executive",
+  "WorkersNotActivated": true,
+  "sourceRuntimeGitEffects": 0
+}

@@ -1,0 +1,41 @@
+{
+  "frozenAt": "2026-10-06T15:59:21.802Z",
+  "scope": "Writer/Operator14 configuration/preparation only; example old/new identity in setup.json",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-13.json",
+      "sha256": "099050b5a7d3db3fba140fd1aca97c2daca39e82ac248dc3bcb78a1aedcfba7d",
+      "byteCount": 2328
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-14.json",
+      "sha256": "faed4f323de6a9979102d89d193744e07333dbdf6f9b339ad4dd0c4ea754d4c9",
+      "byteCount": 2329
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "sha256": "4e706d1b127667780543a7a33e4ae0516f2a3abcfc3cc304f29aacbc9c6b20f6",
+      "byteCount": 1850
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "dd5e5b164af8198997b45d5575fc7febd43b4b9fcabc46073bdf8ffc7ce5904f",
+      "byteCount": 10621478
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-14/grant.md",
+      "sha256": "5194522e99e30d2b50e9f63ee537d44e1d14995c509e45d35a96043329263614",
+      "byteCount": 1466
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-14/setup.json",
+      "sha256": "45c1f357f6c72849a349ab909fc98769e74f3cfcb37157d62d536d152abe5265",
+      "byteCount": 2537
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-14/preparation-return.md",
+      "sha256": "021b9bd3c8c277cef4d643f99d0cc69a87c634714aa1e438ee11ea7dbab50378",
+      "byteCount": 1089
+    }
+  ]
+}

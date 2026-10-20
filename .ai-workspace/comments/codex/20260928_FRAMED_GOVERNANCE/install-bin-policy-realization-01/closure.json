@@ -1,0 +1,25 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_INSTALL_BIN_POLICY_SOURCE_01",
+  "role": "Source Worker",
+  "actor": "/root/native_applicability_design",
+  "closedAt": "2026-10-02T01:45:39.933706+00:00",
+  "result": "one_file_readiness_passed",
+  "reentry": "realization_refactor",
+  "sourcePostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+    "bytes": 15108,
+    "sha256": "2a59298ed1f74398d3b469030439a31bf9e5a5ef1cc999a6c8489f962d96bd01",
+    "mode": 420
+  },
+  "compile": "compile-supervisor-close.json",
+  "readiness": "readiness-outcome.json",
+  "physicalConservation": "restored-complete-physical-population.json",
+  "emittedCone": "emitted-cone.json",
+  "liveCorrespondence": "conservation.json",
+  "sourceBuiltOnly": true,
+  "candidateConstruction": "separate Root C05 activation",
+  "noIndependentAssuranceCredit": true,
+  "ABGAdmission": false,
+  "providerCalls": 0
+}

@@ -1,0 +1,428 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts
+@@ -502,14 +502,15 @@
+   selectedAction: SelectedCoordinate; basisRelation: Readonly<{ kind: "same_basis" }> |
+     Readonly<{ kind: "authority_changed"; coveringReprice: SelectedCoordinate }> }>;
+ 
+-function pendingSelectedOccurrence(candidates: readonly SelectedActionContinuation[]): SelectedActionContinuation | null {
+-  const current = candidates.length === 1 ? candidates[0] : undefined;
+-  return current?.status === "open" ? current : null;
++function pendingSelectedOccurrence(candidates: readonly SelectedActionContinuation[], currentBasis: SelectedCoordinate): SelectedActionContinuation | null {
++  const pending = candidates.filter(candidate => candidate.status === "open" &&
++    candidate.executionBasisRef === currentBasis.ref && candidate.executionBasisDigest === currentBasis.digest);
++  return pending.length === 1 ? pending[0]! : null;
+ }
+ 
+ /** Same owner predicate for new admission and cold operation correspondence. A
+  * covering witness never substitutes for a fresh current semantic selection. */
+-export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest) {
++export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined) {
+   const source = projectSelectedActionContinuations(prefix, request.run.ref).find(c =>
+     c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
+   if (source === undefined) return { kind: "refused" as const, code: "missing_continuation" as const };
+@@ -521,7 +522,8 @@
+     e.payload.nextActionProjectionRef === request.selectedAction.ref && e.payload.nextActionProjectionDigest === request.selectedAction.digest);
+   const candidates = selectedRows.flatMap(e => typeof e.runId === "string" ? projectSelectedActionContinuations(prefix, e.runId)
+     .filter(c => c.intentAdmissionEventRef === e.eventId) : []);
+-  const current = pendingSelectedOccurrence(candidates);
++  if (currentExecutionBasis == null) return { kind: "refused" as const, code: "basis_mismatch" as const };
++  const current = pendingSelectedOccurrence(candidates, currentExecutionBasis);
+   if (current === null) return { kind: "refused" as const, code: "stale_action" as const };
+   const currentBasis = projectExactExecutionBasisAtPrefix(prefix, current.executionBasisRef);
+   if (sourceBasis === null || currentBasis === null) return { kind: "refused" as const, code: "basis_mismatch" as const };
+@@ -538,7 +540,7 @@
+     const witness = one(indexedRuntimeEvents(prefix, "kind:declaration_reprice_admitted").filter(e =>
+       covers?.includes(e.eventId) && isRecord(e.payload) && e.payload.witnessedActRef === coordinate.ref && e.payload.witnessedActDigest === coordinate.digest));
+     const sourceEvent = indexedRuntimeEvents(prefix, "kind:construction_intent_selected").find(e => e.eventId === source.intentAdmissionEventRef);
+-    const currentEvent = selectedRows[0];
++    const currentEvent = selectedRows.find(e => e.eventId === current.intentAdmissionEventRef);
+     const oldSelection = isRecord(sourceEvent?.payload) ? sourceEvent.payload.nextActionProjection : null;
+     const selection = isRecord(currentEvent?.payload) ? currentEvent.payload.nextActionProjection : null;
+     if (source.continuationRef === current.continuationRef || witness === null || currentEvent === undefined ||
+@@ -629,13 +631,15 @@
+     typeof p.sourceRunId !== "string" || typeof p.sourceRunDigest !== "string" ||
+     typeof p.continuationRef !== "string" || typeof p.continuationDigest !== "string" ||
+     typeof p.selectedActionRef !== "string" || typeof p.selectedActionDigest !== "string" ||
++    typeof p.executionBasisRef !== "string" || typeof p.executionBasisDigest !== "string" ||
+     !isRecord(p.basisRelation) || (p.basisRelation.kind !== "same_basis" &&
+       (p.basisRelation.kind !== "authority_changed" || !isRecord(p.basisRelation.coveringReprice))) ||
+     !isCapabilityGrantValue(p.capabilityGrant) || typeof p.invocationRef !== "string" || typeof p.invocationDigest !== "string") return null;
+   const before = validatedRuntimeEventPrefixBeforeEvent(prefix, operation.eventId);
+   const use = selectPendingActionUse(before, { run: { ref: p.sourceRunId, digest: p.sourceRunDigest },
+     continuation: { ref: p.continuationRef, digest: p.continuationDigest }, selectedAction: { ref: p.selectedActionRef, digest: p.selectedActionDigest },
+-    basisRelation: p.basisRelation as unknown as SelectedActionUseRequest["basisRelation"] });
++    basisRelation: p.basisRelation as unknown as SelectedActionUseRequest["basisRelation"] },
++    { ref: p.executionBasisRef, digest: p.executionBasisDigest });
+   if (use.kind !== "selected_action_use" || p.currentContinuationRef !== use.current.continuationRef ||
+     p.currentContinuationDigest !== use.current.continuationDigest || p.currentRunId !== use.current.runId ||
+     p.currentIntentRef !== use.current.constructionIntentRef || p.currentIntentDigest !== use.current.constructionIntentDigest ||
+--- a/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+@@ -1864,7 +1864,7 @@
+     const prefix = prefixes.authorityPrefix;
+     const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
+     if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
+-    const use = yield* syncStage(call, "runtime_truth", () => selectPendingActionUse(prefix, request as SelectedActionUseRequest));
++    const use = yield* syncStage(call, "runtime_truth", () => selectPendingActionUse(prefix, request as SelectedActionUseRequest, call.invocation.invocationAuthority.slots.execution_basis));
+     if (use.kind === "refused") return yield* refuse(use.code, "/request");
+     const resolution = yield* asyncStage(call, "product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
+       catalog: call.resources.catalog, catalogView: call.resources.catalogView, admittedInstalls: setup.admittedInstalls,
+--- a/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs
+@@ -2,17 +2,20 @@
+ import fs from 'node:fs';
+ import {syncBuiltinESMExports} from 'node:module';
+ import {join,basename} from 'node:path';
+-import {pathToFileURL} from 'node:url';
++import {pathToFileURL,fileURLToPath} from 'node:url';
+ import {setupInstalledRootExecutionBasis,publicOperationBasis,requireRawAdmission} from './root-installed-environment.mjs';
+ import {prepareRegisteredSelectionProduct} from './registered-graph-selection.mjs';
+ import {declarations,ref,contract,fixtureInput,hash,model,gap,next,refreshModel,refreshGap,finish,spanApplication,selectedDeclaredAction} from '../fixtures/t287-selected-action-product/index.mjs';
+ const proof=process.env.ABI5_SELECTED_ACTION_EVIDENCE_ROOT;
+-assert.ok(proof);
++const isMain=process.argv[1]===fileURLToPath(import.meta.url);
++if(isMain)assert.ok(proof);
+ const save=(name,value)=>fs.writeFileSync(join(proof,name),JSON.stringify(value,null,2)+'\n');
+ const root=new URL('../..',import.meta.url).pathname,started=performance.now(),accounting={wallMs:{}};
+ let e;
+-try {
+- e=process.env.ABI5_SELECTED_ACTION_CURRENT_ENV ? await prepareCurrentRoot(JSON.parse(fs.readFileSync(process.env.ABI5_SELECTED_ACTION_CURRENT_ENV,'utf8'))) : await setupInstalledRootExecutionBasis({after:()=>{}},root,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,programRef:ref('program','root'),graphFunctionRef:ref('graph-function','root'),inputContractRef:contract('request'),setupAccounting:accounting,
++if(isMain && process.env.ABI5_SELECTED_ACTION_PUBLIC_START) {
++ await runPublicStart(JSON.parse(fs.readFileSync(process.env.ABI5_SELECTED_ACTION_PUBLIC_START,'utf8')));
++} else if(isMain) try {
++ e=await setupInstalledRootExecutionBasis({after:()=>{}},root,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,programRef:ref('program','root'),graphFunctionRef:ref('graph-function','root'),inputContractRef:contract('request'),setupAccounting:accounting,
+  prepareAdditionalProducts:async basis=>[process.env.ABI5_SELECTED_ACTION_FROZEN_FIXTURE_ENV ? await reuseFixture(basis,JSON.parse(fs.readFileSync(process.env.ABI5_SELECTED_ACTION_FROZEN_FIXTURE_ENV,'utf8'))) : await prepareRegisteredSelectionProduct({...basis,declarationFactory:declarations,fixtureFiles:[{path:'build/index.js',source:new URL('../fixtures/t287-selected-action-product/index.mjs',import.meta.url)}]})],
+  inputFactory:fixtureInput});
+  // Both branches use the actual installed Program and one declared kind per output.
+@@ -42,7 +45,7 @@
+  const {abg}=e,opened=abg.openTraversalScope(e.store,e.durablePrefix,{kind:'root',executionBasis:e.executionBasis},{eventTime:'2026-09-30T00:00:00.000Z',correlationId:'correlation://selected-action/initial',causationEventRefs:[]});
+  assert.equal(opened.kind,'traversal_scope_open_admission',JSON.stringify(opened));save('opened.json',opened);
+  const runStarted=performance.now(),nativeFsync=fs.fsyncSync;
+- fs.fsyncSync=function(fd){nativeFsync(fd);const bytes=fs.readFileSync(eventLogPath);if(bytes.length===0||bytes.at(-1)!==10)return;const events=bytes.toString().trim().split('\n').map(JSON.parse);const selections=events.filter(v=>v.kind==='construction_intent_selected'&&v.runId===opened.scope.runId);if(selections.length===(process.env.ABI5_SELECTED_ACTION_CURRENT_ENV?1:2)){
++ fs.fsyncSync=function(fd){nativeFsync(fd);const bytes=fs.readFileSync(eventLogPath);if(bytes.length===0||bytes.at(-1)!==10)return;const events=bytes.toString().trim().split('\n').map(JSON.parse);const selections=events.filter(v=>v.kind==='construction_intent_selected'&&v.runId===opened.scope.runId);if(selections.length===2){
+   fs.writeFileSync(join(proof,'interrupted-prefix.jsonl'),bytes);
+   save('interruption.json',{hook:'test-only node:fs fsyncSync wrapper after native fsync; no runtime bytes patched',processId:process.pid,signal:'SIGKILL',eventCount:events.length,selectionCount:selections.length,selectedEvent:selections.at(-1),initialTraversalMs:performance.now()-runStarted});
+   process.kill(process.pid,'SIGKILL');
+@@ -60,33 +63,247 @@
+   return gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...data,artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.manifestDigest,contributions:data.contributions.map(row=>({...row,provenanceRefs:[basis.artifactDigest,basis.manifestDigest]}))});
+  }};
+ }
+-// A separately admitted current invocation and basis, using the same installed owner pipeline.
+-async function prepareCurrentRoot(saved) {
+- const load=p=>import(pathToFileURL(join(saved.installedRoot,`build/code/src/${p}.js`)).href);
+- const product=await load('product/index'),abg=await load('abg/index'),gtl=await load('gtl/index'),validator=await load('validator/index'),hog=await load('hog/index'),implementationLeafPort=await load('implementation/leaf_invocation_port');
+- const acquired=abg.reopenEventStore(saved.closeHandoff.reopenAuthority);assert.ok(acquired.store,JSON.stringify(acquired));
+- const store=acquired.store,workspaceBinding=saved.workspaceBinding,artifactTruth=abg.projectExactPrefixArtifactTruth(saved.closeHandoff.prefix);
+- const executionResolution=await product.ProductExecutionResolutionPort.resolve({catalog:saved.catalog,catalogView:saved.catalogView,admittedInstalls:saved.admittedInstalls,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(artifactTruth,i),programRef:ref('program','root'),selection:{kind:'direct',catalogHandle:ref('graph-function','root')}});
+- assert.equal(executionResolution.kind,'loaded_product_execution_resolution',JSON.stringify(executionResolution));
+- const {program,graphFunction,programValidation}=executionResolution,publication=executionResolution.programPublication;
+- const policy=product.constructRootInvocationPolicy(workspaceBinding,program,programValidation.interactionLeafRows.map(row=>({requirementKey:row.requirementKey,requirementKeyDigest:row.requirementKeyDigest,actorCapabilityRef:row.requirement.actorCapabilityRef})),['F_D']);
+- const actorRef=workspaceBinding.authorizedActorRef,capabilityGrantBasis={admittedInstalls:saved.admittedInstalls,workspaceBinding,fixedPacket:product.RUN_OPERATION_CONTRACTS.invoke.start};
+- const capabilityGrant=product.constructCapabilityGrant(policy,actorRef,'abg.operation.run.invoke',product.DIRECT_INVOKE_CAPABILITY,capabilityGrantBasis),capabilityGrants=[capabilityGrant];
+- const input={...fixtureInput({workspaceBinding,program}),phase:1,task:{kind:'fixture_task',schemaVersion:'5.0.0',payload:'selected second action',currentAuthorityMarker:workspaceBinding.bindingId},coveredSelectionRefs:saved.coveredSelectionRefs};
+- const rawInput=requireRawAdmission(validator,input,'invocation_input',contract('request'));
+- const rawRequest=requireRawAdmission(validator,{kind:'public_invocation',schemaVersion:'5.0.0',operationId:'abg.operation.run.invoke',variant:'start',invocationRef:'invocation://selected-action/covered-current',eventTime:'2026-09-30T00:03:00.000Z',correlationId:'correlation://selected-action/covered-current',payload:{programRef:program.programRef,catalogHandle:graphFunction.name,scope:'program',target:program.policies['abg.default_start_ref'],startRef:program.policies['abg.default_start_ref'],until:'converged',rootMode:'supervised'}},'public_operation_request','contract://abiogenesis/public/run-invoke-request@5');
+- const selectedRow=product.lookupGraphFunction(saved.catalogView,graphFunction.name);
+- const invocationAuthority=product.constructInvocationAuthority(actorRef,workspaceBinding,saved.catalogView,program.programRef,selectedRow,policy,capabilityGrants,capabilityGrantBasis);
+- const invocation=product.constructStartInvocation(workspaceBinding,saved.catalogView,program,selectedRow,rawRequest,rawInput,policy,capabilityGrants,invocationAuthority);assert.equal(invocation.kind,'public_invocation_candidate',JSON.stringify(invocation));
+- const receipt=abg.admitInvocation(store,{invocation,rawRequest,rawInput,programPublication:publication,executionResolution:executionResolution.resolution,program,graphFunction,programValidation,workspaceBinding,artifactTruth,catalogView:saved.catalogView,policy,capabilityGrants,authority:invocationAuthority},publicOperationBasis(product,'abg.operation.run.invoke',workspaceBinding.bindingId,workspaceBinding.bindingDigest,invocation.publicRequestInvocationRef,[workspaceBinding.admissionEventRef],'start'));
+- assert.equal(receipt.kind,'invocation_admission_receipt',JSON.stringify(receipt));const invocationAdmission=receipt.admission;
+- const graphContext={invocationAdmissionRef:invocationAdmission.invocationAdmissionRef,admittedInputRef:rawInput.admissionRef,admittedInputDigest:rawInput.subjectDigest,admittedInput:input};
+- const graph=gtl.materializeGraph(graphFunction,graphContext),graphValidation=validator.validateGraph(graph,programValidation,graphFunction,graphContext);assert.equal(graphValidation.kind,'graph_validation',JSON.stringify(graphValidation));
+- const resolutionSetCandidate=product.resolveImplementationSet(saved.catalogView,executionResolution.declarationClosure,programValidation,executionResolution.packagedImplementations);
+- const resolutionSetValidation=validator.validateImplementationResolutionSet(resolutionSetCandidate,saved.catalogView,executionResolution.declarationClosure,programValidation,executionResolution.packagedImplementations);assert.equal(resolutionSetValidation.kind,'implementation_resolution_set_validation',JSON.stringify(resolutionSetValidation));
+- const closureContract=publication.closureContracts.find(c=>c.closureContractRef===program.closureContractRef);
+- const executionBasisAdmission=abg.admitExecutionBasis(store,receipt.successorPrefix,{invocationAdmission,rawInputValue:input,program,programPublication:publication,executionResolution:executionResolution.resolution,programValidation,graph,graphValidation,resolutionSetCandidate,resolutionSetValidation,closureContract},{eventTime:'2026-09-30T00:03:00.000Z',correlationId:'correlation://selected-action/covered-current-basis',causationEventRefs:[]});
+- assert.equal(executionBasisAdmission.kind,'execution_basis_admission',JSON.stringify(executionBasisAdmission));
+- const leafPort=await implementationLeafPort.constructAdmittedLeafInvocationPort({prefix:abg.selectValidatedRuntimeEventPrefix(abg.readRuntimeEventsAtDurablePrefix(executionBasisAdmission.successorPrefix)),artifactTruth,implementationSet:executionBasisAdmission.implementationSet,executionResolution,semanticsProjection:product.projectInstalledLeafSemantics(executionResolution.productSemantics)});
+- return {...saved,product,abg,gtl,validator,hog,store,artifactTruth,executionResolution,program,graphFunction,programValidation,publication,policy,actorRef,capabilityGrant,capabilityGrants,input,rawInput,rawRequest,invocationAuthority,invocationAdmission,graph,graphValidation,closureContract,executionBasisAdmission,executionBasis:executionBasisAdmission.executionBasis,implementationSet:executionBasisAdmission.implementationSet,leafPort,durablePrefix:executionBasisAdmission.successorPrefix};
++
++// Test-only process host: the actual installed Public CLI owns start/admission.
++// This wrapper observes native fsync only and never constructs current runtime facts.
++async function runPublicStart(saved) {
++ const {environment,call,closeHandoff,selectionCount}=saved;
++ const load=p=>import(pathToFileURL(join(environment.installedRoot,`build/code/src/${p}.js`)).href);
++ const product=await load('product/index'),abg=await load('abg/index'),scopeOwner=await load('abg/open_call'),truth=await load('abg/invocation_execution_truth');
++ const eventLogPath=join(environment.scratch,'runtime/events.jsonl'),identity=fs.statSync(eventLogPath),before=fs.readFileSync(eventLogPath).toString().trim().split('\n').length;
++ save('initial-origin.json',{initialOrigin:{newResourceRequest:{kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath},device:identity.dev,inode:identity.ino},ownerPid:process.pid});
++ const nativeFsync=fs.fsyncSync,started=performance.now();
++ fs.fsyncSync=function(fd){nativeFsync(fd);const bytes=fs.readFileSync(eventLogPath);if(bytes.length===0||bytes.at(-1)!==10)return;const rows=bytes.toString().trim().split('\n').map(JSON.parse),selections=rows.slice(before).filter(e=>e.kind==='construction_intent_selected');if(selections.length!==selectionCount)return;
++  const selected=selections.at(-1),prefix=abg.selectValidatedRuntimeEventPrefix(rows),scope=scopeOwner.projectOpenedTraversalScopeForFrameAtPrefix(prefix,selected.frameId),executionBasis=truth.projectExactExecutionBasisAtPrefix(prefix,selected.basisId);assert.ok(scope);assert.ok(executionBasis);
++  const invocationAdmission=truth.projectExactInvocationAdmissionAtPrefix(prefix,executionBasis.invocationAdmissionRef);assert.ok(invocationAdmission);assert.equal(invocationAdmission.catalogBasisDigest,environment.catalog.basisDigest);assert.equal(invocationAdmission.catalogViewDigest,environment.catalogView.viewDigest);assert.equal(invocationAdmission.workspaceBindingDigest,environment.workspaceBinding.bindingDigest);assert.equal(invocationAdmission.policyDigest,environment.policy.policyDigest);
++  save('environment.json',{...environment,executionBasis,invocationAdmission});save('opened.json',{kind:'actual_public_start_scope_projection',scope});fs.writeFileSync(join(proof,'interrupted-prefix.jsonl'),bytes);save('interruption.json',{hook:'test-only fsyncSync wrapper after native fsync of actual installed Public start',processId:process.pid,signal:'SIGKILL',eventCount:rows.length,selectionCount:selections.length,selectedEvent:selected,initialTraversalMs:performance.now()-started});process.kill(process.pid,'SIGKILL');
++ };syncBuiltinESMExports();
++ const requestPath=join(proof,'public-start-transport.jsonl'),cliPath=join(environment.installedRoot,'build/code/src/public/cli.js');fs.writeFileSync(requestPath,JSON.stringify({kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition:{kind:'reopen',closeHandoff},invocation:call})+'\n');process.argv=[process.execPath,cliPath,'--jsonl',requestPath];
++ await import(pathToFileURL(cliPath).href);fs.fsyncSync=nativeFsync;syncBuiltinESMExports();save('unexpected-public-completion.json',{exitCode:process.exitCode??0});
+ }
++
++// Bounded Public envelope acquisition adapted from constructInstalledStartCall.
++export async function constructSelectedPublicStart({
++  environment,
++  publicApi,
++  eventResource,
++  input,
++  identity = "st-1",
++  runEnvironmentResourceFactory,
++}) {
++  const operationId="abg.operation.run.invoke",schemaVersion="5.0.0";
++  const {
++    product,
++    abg,
++    catalog,
++    catalogView,
++    admittedInstalls,
++    workspaceBinding,
++
++  } = environment;
++  const resolution = await product.ProductExecutionResolutionPort.resolve({
++    catalog,
++    catalogView,
++    admittedInstalls,
++    verifyInstallAdmission: (install) =>
++      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
++    programRef: ref('program','root'),
++    selection: Object.freeze({
++      kind: "start",
++      scope: "program",
++      target: "next",
++      until: "converged",
++      rootMode: "supervised",
++    }),
++  });
++  assert.equal(
++    resolution.kind,
++    "loaded_product_execution_resolution",
++    JSON.stringify(resolution),
++  );
++  const admittedInput = product.admitInstalledProductInput(
++    resolution.productSemantics,
++    resolution.resolution.inputContract.contractRef,
++    input,
++  );
++  assert.ok(admittedInput);
++  const inputContract = Object.freeze({
++    ref: resolution.resolution.inputContract.contractRef,
++    digest: resolution.resolution.inputContractDigest,
++  });
++  const contractBoundInput = Object.freeze({
++    contract: inputContract,
++    valueRef: `value://odd-glc/${identity}/hello-input`,
++    valueDigest: product.sha256Canonical(input),
++    value: input,
++  });
++  const declaredRegimes = new Set([
++    ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
++    ...resolution.programValidation.interactionLeafRows.map((row) => row.fibre),
++  ]);
++  const policy = product.constructRootInvocationPolicy(
++    workspaceBinding,
++    resolution.program,
++    resolution.programValidation.interactionLeafRows.map((row) => ({
++      requirementKey: row.requirementKey,
++      requirementKeyDigest: row.requirementKeyDigest,
++      actorCapabilityRef: row.requirement.actorCapabilityRef,
++    })),
++    ["F_D", "F_P", "F_H"].filter((regime) => declaredRegimes.has(regime)),
++    [],
++  );
++  const actorRef = workspaceBinding.authorizedActorRef;
++  const fixedPacket = product.RUN_OPERATION_CONTRACTS.invoke.start;
++  const grants = Object.freeze([
++    product.constructCapabilityGrant(
++      policy,
++      actorRef,
++      operationId,
++      product.DIRECT_INVOKE_CAPABILITY,
++      {
++        admittedInstalls,
++        workspaceBinding,
++        fixedPacket,
++      },
++    ),
++  ]);
++  const authority = product.constructInvocationAuthority(
++    actorRef,
++    workspaceBinding,
++    catalogView,
++    resolution.program.programRef,
++    resolution.selectedCatalogEntry,
++    policy,
++    grants,
++    {
++      admittedInstalls,
++      workspaceBinding,
++      fixedPacket,
++    },
++  );
++  const program = Object.freeze({
++    ref: resolution.resolution.programRef,
++    digest: resolution.resolution.programDigest,
++  });
++  const view = Object.freeze({
++    ref: `graph-function-catalog-view://abiogenesis/${catalogView.viewDigest.slice("sha256:".length)}`,
++    digest: catalogView.viewDigest,
++  });
++  const request = Object.freeze({
++    program,
++    scope: "program",
++    target: Object.freeze({ kind: "next" }),
++    until: "converged",
++    catalogView: view,
++    allowlist: Object.freeze([...catalogView.allowlist]),
++    input: contractBoundInput,
++    fhMode: "direct",
++    rootMode: "supervised",
++    sourceBasis: Object.freeze({ kind: "none" }),
++  });
++  const steeringDigest = product.sha256Canonical(eventResource);
++  const slots = Object.freeze({
++    workspace_binding: Object.freeze({
++      ref: workspaceBinding.bindingId,
++      digest: workspaceBinding.bindingDigest,
++    }),
++    product_set: Object.freeze(admittedInstalls.map((install) => Object.freeze({
++      ref: install.installId,
++      digest: install.productContentDigest,
++    }))),
++    dependency_lock: Object.freeze({
++      ref: workspaceBinding.lockId,
++      digest: workspaceBinding.lockDigest,
++    }),
++    catalog_scope: Object.freeze({
++      catalog: Object.freeze({
++        ref: `graph-function-catalog://abiogenesis/${catalog.basisDigest.slice("sha256:".length)}`,
++        digest: catalog.basisDigest,
++      }),
++      view,
++      allowlist: request.allowlist,
++    }),
++    execution_program: program,
++    graph_function: null,
++    input_contract: contractBoundInput,
++    session_policy: Object.freeze({
++      ref: policy.policyRef,
++      digest: policy.policyDigest,
++    }),
++    capability_grants: Object.freeze({
++      requiredCapabilityRefs: Object.freeze([
++        ...product.RUN_OPERATION_CONTRACTS.invoke.start.metadata.capabilityRefs,
++      ]),
++      grants: Object.freeze(grants.map((grant) => Object.freeze({
++        ref: grant.grantRef,
++        digest: grant.grantDigest,
++      }))),
++    }),
++    actor: Object.freeze({
++      actor: Object.freeze({
++        ref: actorRef,
++        digest: product.sha256Canonical({ actorRef }),
++      }),
++      attribution: Object.freeze({
++        ref: authority.authorityRef,
++        digest: authority.authorityDigest,
++      }),
++    }),
++    transport_steering: Object.freeze({
++      ref: `transport-steering://abiogenesis/${steeringDigest.slice("sha256:".length)}`,
++      digest: steeringDigest,
++    }),
++    verification_references: null,
++    execution_basis: null,
++  });
++  const contractCatalog = environment.verified.definitionContractCoordinates
++    ?.operations.find((candidate) => candidate.operationId === operationId)
++    ?.members.find((candidate) => candidate.memberKey === "start")
++    ?.slots.request.contractCatalog;
++  assert.ok(
++    contractCatalog,
++    "verified ABIogenesis truth must issue the installed start contract catalog",
++  );
++  const resources = Object.freeze({
++    kind: "run_invocation_resource_assertion",
++    schemaVersion,
++    eventResource,
++    catalog,
++    catalogView,
++    applications: Object.freeze([]),
++    source: Object.freeze({ kind: "none" }),
++    ...(runEnvironmentResourceFactory === undefined ? {} : {runEnvironmentResources:await runEnvironmentResourceFactory({authority,program:resolution.program,workspaceBinding,product})}),
++  });
++  return {
++    authority, policy,
++    call: publicApi.constructInstalledPublicDefinitionCall({
++      product,
++      installedPublic: publicApi,
++      definitionContractCoordinates:
++        environment.verified.definitionContractCoordinates,
++      contractCatalog,
++      operationId,
++      memberKey: "start",
++      request,
++      slots,
++      resources,
++      requestRef: `public-request://odd-glc/${identity}/run-start`,
++      correlationRef: `correlation://odd-glc/${identity}/run-start`,
++      eventTime: identity === "st-1"
++        ? "2026-08-21T00:00:00.000Z"
++        : "2026-08-22T01:00:00.000Z",
++      provenanceRefs: [`provenance://odd-glc/${identity}-worker`],
++    }),
++    resolution,
++    capabilityBasis: Object.freeze({
++      actorRef,
++      capabilityGrants: grants,
++      policy,
++      productInstalls: admittedInstalls,
++      program: resolution.program,
++      programValidation: resolution.programValidation,
++      workspaceBinding,
++    }),
++  };
++}
++
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs
+@@ -41,7 +41,7 @@
+   const invocation=truth.projectExactInvocationAdmissionAtPrefix(prefix,run.payload.invocationAdmissionRef);assert.ok(invocation);
+   const pending=owner.projectSelectedActionContinuations(prefix,run.runId);assert.equal(pending.length,1);assert.equal(pending[0].status,'open');
+   const current=pending[0],request={run:{ref:run.runId,digest:run.payload.runDigest},continuation:{ref:current.continuationRef,digest:current.continuationDigest},selectedAction:{ref:current.selectedActionRef,digest:current.selectedActionDigest},basisRelation:{kind:'same_basis'}};
+-  const use=owner.selectPendingActionUse(prefix,request);assert.equal(use.kind,'selected_action_use',JSON.stringify(use));
++  const use=owner.selectPendingActionUse(prefix,request,{ref:current.executionBasisRef,digest:current.executionBasisDigest});assert.equal(use.kind,'selected_action_use',JSON.stringify(use));
+   const historical=fixture.currentIntentOperation,p=historical.payload;
+   const currentBasis={eventTime:historical.eventTime,correlationId:historical.correlationId,causationEventRefs:[],definitionDigest:p.definitionDigest,invocationRef:p.invocationRef,invocationPayloadDigest:p.invocationPayloadDigest,invocationDigest:p.invocationDigest};
+   const retainedCurrent=owner.constructionContinuationOperationCandidate(invocation,p.capabilityGrant,currentBasis,{operationId:p.operationId,memberKey:p.memberKey,variant:p.variant,continuationKind:p.continuationKind,continuationRef:p.continuationRef,continuationDigest:p.continuationDigest,currentIntentRef:p.currentIntentRef,currentIntentDigest:p.currentIntentDigest});
+@@ -73,7 +73,7 @@
+   assert.equal(owner.projectSelectedActionOperation(prefix,{...selectedOperation,payload:{...selectedOperation.payload,sourceRunId:'run://unknown'}}),null);
+   assert.equal(owner.projectSelectedActionOperation(prefix,{...selectedOperation,causationEventRefs:[]}),null,'workspace source remains required');
+   assert.equal(owner.projectSelectedActionContinuations(prefix,run.runId)[0].status,'consumed');
+-  assert.equal(owner.selectPendingActionUse(prefix,request).code,'resolved_continuation');
++  assert.equal(owner.selectPendingActionUse(prefix,request,{ref:current.executionBasisRef,digest:current.executionBasisDigest}).code,'resolved_continuation');
+   const handoff=store.projectReopenAuthorityAndClose();store=null;
+   const cold=events.reopenEventStore(handoff.reopenAuthority);assert.equal(cold.kind,'reopened_event_store_context');store=cold.store;
+   const coldRows=store.readAll(),coldPrefix=prefixes.selectValidatedRuntimeEventPrefix(coldRows);
+--- a/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -304,3 +304,13 @@
+ causation guard remains unchanged. This corrects the selected-action recurrence
+ of exact-intent-02's earlier envelope defect; it does not qualify the still-unproved
+ selected-action traversal or covered-authority path.
++
++The selected-action owner resolves current occurrences from the supplied existing
++`execution_basis` authority coordinate before deciding pending cardinality. Equal
++projection values in other admitted bases, including abandoned history, do not
++identify the current occurrence. More than one open occurrence at that exact basis
++still refuses. Cover temporal/conservation checks use the resolved occurrence's
++actual selection event. Cold operation projection repeats this relation at the
++operation's predecessor with its recorded execution-basis coordinate. Catalog/view
++correspondence remains bound through declaration closure and retained Program
++validation; this occurrence correction adds no catalog authority rule.
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs
+@@ -38,6 +38,6 @@
+  assert.ok(owner.prepareSelectedActionContinuation(prefix,use,exact),'exact actual retained context prepares');
+  const handles=environment.catalog.entries.map(e=>e.handle),extra=handles.find(h=>!environment.catalogView.allowlist.includes(h));assert.ok(extra,'same catalog has an unused valid handle');
+  const alternate=product.narrowGraphFunctionCatalog(environment.catalog,[...environment.catalogView.allowlist,extra]);assert.equal(alternate.kind,'graph_function_catalog_view');assert.notEqual(alternate.viewDigest,environment.catalogView.viewDigest);
+- const changed=await resolve(alternate);assert.equal(changed.kind,'loaded_product_execution_resolution',JSON.stringify(changed));assert.equal(changed.resolution.programDigest,exact.resolution.programDigest);assert.equal(changed.resolution.graphFunctionDigest,exact.resolution.graphFunctionDigest);assert.equal(changed.programValidation.validationRef,exact.programValidation.validationRef,'same selected Program validation is a counterexample precondition');
++ const changed=await resolve(alternate);assert.equal(changed.kind,'loaded_product_execution_resolution',JSON.stringify(changed));assert.equal(changed.resolution.programDigest,exact.resolution.programDigest);assert.equal(changed.resolution.graphFunctionDigest,exact.resolution.graphFunctionDigest);assert.notEqual(changed.programValidation.validationRef,exact.programValidation.validationRef,'exact catalog/view flows through declaration basis into retained Program-validation authority');
+  assert.equal(owner.prepareSelectedActionContinuation(prefix,use,changed),null,'different valid view must not replace the retained current authority');
+ });

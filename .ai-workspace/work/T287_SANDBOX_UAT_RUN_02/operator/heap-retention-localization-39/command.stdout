@@ -1,0 +1,1 @@
+{"kind":"bounded_existing_owner_memory_diagnostic","parentCount":27,"eventCount":434,"scopeCount":5,"wallMs":2022.4201249999999,"ownerCorrespondencePassed":true,"callerIsolation":true,"sourceKeepsLastEvent":true,"invalidatedKeepsLastEvent":false,"releasedKeepsLastEvent":false}

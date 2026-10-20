@@ -2,7 +2,7 @@
 
 **Product ID**: PROD-001
 **Version target**: 5.0.0
-**Updated**: 2026-10-06
+**Updated**: 2026-10-21
 **Status**: Active - T-283 base; owner-directed T-287 governance re-entry
 **Derives from**: INT-001 through INT-008
 **Change authority**: T-283 `intent_reprice`; T-287 D1-AUTH-ABG lifecycle, owner-directed 5.0/5.1 boundary, STDO run-environment and [execution-calculus Product re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#execution-calculus-product-re-entry)
@@ -12,10 +12,14 @@
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 **Method adoption authority**: direct Product-owner `F_H` ruling and bounded
 `product_reprice` recorded in
-[STDO method adoption](../.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md).
+[STDO 3.0.0 RC1 adoption](../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md).
 **Release-scope ruling**: [2026-09-13 boundary amendment](../.ai-workspace/comments/codex/20260913_ABG5_ARCHITECTURE_FIXES/release-boundaries.md).
 **Delivery-allocation ruling**: [2026-09-13 steel-thread selection](../.ai-workspace/comments/codex/20260913_ABG5_STEEL_THREAD_DELIVERY_PLAN/decision.md).
 **Run-environment ruling**: [2026-09-15 owner course correction](../.ai-workspace/comments/codex/20260915_ABG5_STDO_ENVIRONMENT_COURSE_CORRECTION.md#owner-direction).
+**STDO 3 reconciliation authority**: direct Product-owner instruction,
+2026-10-21, and [bounded Product/requirement re-entry](../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/activation.md).
+**Common library prerequisite authority**: direct Product-owner instruction,
+2026-10-21, and [bounded delivery-allocation re-entry](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md).
 
 ---
 
@@ -656,7 +660,7 @@ the owning evaluation family, subject/basis, material relations, criteria,
 authority, admissible evidence, exclusions, result relation, invalidation and
 actor capability envelope. Role, question, scope, required inputs and response
 contract are its usable projection, not a replacement definition. Under STDO,
-[Reference Frame Method](stdo://releases/v2.5.1-rc.2/standards/REFERENCE_FRAME_METHOD.md#reference-frame)
+[Reference Frame](stdo://releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit)
 owns that meaning. General GTL Programs need not adopt STDO to declare their
 own evaluation contracts.
 
@@ -919,26 +923,40 @@ inspected and composed but are not callable.
 
 ABIogenesis publishes a reusable STDO environment template as GTL-declared
 environment and Context data. An STDO-governed Program explicitly adopts the
-template; its Run binds the exact released STDO basis, matching axiomatic
-program and index, released Axiom Indexer (`a_c`) implementation and permitted
-corpus-access capability, and role-specific frame and instruction-policy refs.
+template; its Run binds the exact released STDO source basis, required native
+source material, role-specific frame and instruction-policy refs, and the
+permitted means and evidence of acquiring that material. A supplementary
+representation, index or corpus-access implementation is required only when
+the environment explicitly selects it. Each selected supplement binds its exact
+released identity, source relationship, access contract and required evidence.
 Release identities are immutable and content-bound. An ambient installation,
-mutable version selector or prompt-only instruction supplies no Run binding.
+mutable version selector, available tool or prompt-only instruction supplies no
+Run binding.
 
-Source development and STDO-governed ABI runs consume the same external released
-STDO Product and its released companions. In development, the LLM applies the
-framework and directs the work. In the ABI Product, the framework governs LLM
-execution. Development's use of STDO or `a_c` does not establish the Product's
-runtime capability, and ABI does not redefine or implement a competing STDO.
+Source development and STDO-governed ABI runs consume the external released
+STDO through their separately declared exact bindings. The source project's
+Definition selects its development basis and composition; a Program's declared
+environment selects its runtime dependencies and access. Neither selection
+implicitly supplies the other. In development, the LLM applies the framework
+and directs the work. In the ABI Product, the declared framework governs LLM
+execution. Development's use of STDO or a supplementary tool does not establish
+the Product's runtime capability, and ABI does not redefine or implement a
+competing STDO.
 
 GTL owns the environment declaration and required corpus-access relations.
 ABG validates and admits the exact bindings and required access/context evidence
-through existing owners before dependent work. `a_c` supplies access to the
-axiomatic corpus and its indexed relationships; it does not apply axioms,
-choose work, confer authority or accept results. LLM interpretation and
-evaluation remain distinct from mechanical binding and evidence checks.
-A successful retrieval proves access, not correct application of its contents.
-Valid access evidence is reusable within its declared basis and scope.
+through existing owners before dependent work. Required native material and
+every explicitly selected supplementary dependency remain mandatory: missing,
+ambiguous, mismatched, inaccessible or unpermitted inputs produce a typed
+refusal or block before dependent dispatch. Exact native-source access does not
+require an unselected representation or index, but it still requires the
+declared content, permissions and access evidence. A selected `a_c` or other
+corpus-access tool supplies only its declared access or structural computation;
+it does not replace source authority, apply open-world meaning, choose work,
+confer authority or accept results. LLM interpretation and evaluation remain
+distinct from mechanical binding and evidence checks. A successful retrieval
+proves access, not correct application of its contents. Valid access evidence is
+reusable within its declared basis and scope.
 
 HoG retains its existing linear Worker -> Evaluator -> Consequence workflow.
 Each step consumes its declared frame, policy and relevant current workspace
@@ -961,6 +979,10 @@ This template realizes existing F02/F04/F07/F10/F17 obligations. General GTL and
 ABG remain independent of STDO-specific interpretation. The selected Executive
 overlay follows the governance calculus and release allocation; autonomous
 upstream re-entry and native human-response resumption retain their 5.1 boundaries.
+The V3 source adoption and this declared destination do not migrate a prior
+Run, accept a changed implementation or qualify an installed candidate.
+Historical Runs and evidence retain their exact original bases; a changed
+runtime environment requires its declared re-entry and affected proof.
 
 ## SDK And CLI
 
@@ -1212,7 +1234,24 @@ duplicates an existing authority is deleted before release. An inherited or
 new redundancy that changes admission, identity, currentness, replay, or
 fresh-process behavior is a 5.0 correctness defect and cannot be deferred.
 
-After those correctness and authority conditions hold, further contraction of
+<a id="common-computational-library-prerequisite"></a>
+
+The owner-selected common computational capability library is a prerequisite
+deliverable before remaining ABIogenesis 5.0 release work resumes.
+[T-287's library delivery contract](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable)
+binds its exact capability and consumer scope. Delivery requires accepted
+design, usable implementations consumed by the selected production paths,
+retirement or justified retention of duplicate computational responsibilities,
+executed obligations and independent assessment with recorded acceptance.
+Design acceptance alone does not close the prerequisite. Necessary bounded
+integration and installed proof belong to library delivery; general release
+integration, lifecycle, qualification and publication wait for its acceptance.
+This selects no new feature family, runtime, semantic authority or separately
+published package. Existing 5.0 qualification and human release acceptance
+remain required after the library gate opens.
+
+Outside this selected deliverable, after those correctness and authority
+conditions hold, further contraction of
 semantically equivalent pure helpers, internal validator placement, test
 harness mechanics, cache implementations, module layout, or other non-
 authoritative structure may proceed as a 5.1 realization compression. That
@@ -1521,21 +1560,24 @@ There is one lawful STDO identity. ABIogenesis 5.0 development is governed by
 the immutable installed release selected by
 [`stdo_abiogenesis.json`](../stdo_abiogenesis.json),
 `constitution.stdo.basis`. That Definition is the sole exact method selection;
-its composition selects the release-matched Development Products. The direct
-Product-owner ruling selects the complete published cohort recorded in the
-linked adoption evidence for resumed work. Its exact identity is owned by the
-Definition, not independently selected by this document.
+its composition selects any additional Development Products. The direct
+Product-owner ruling selects the published standalone V3 method and supplied
+plugin payload recorded in the linked adoption evidence for resumed source
+work. Its exact identity is owned by the Definition, not independently selected
+by this document. The published cut retains its prerelease qualification scope.
 Self-conformance, qualification, and release must bind that same exact basis.
 Another STDO version cannot substitute without lawful Product re-entry and an
 F_H disposition. Mutable methodology source and candidate work are authoring
 inputs for a future release, not operative ABIogenesis law.
 
-Source development consumes the exact Axiom Indexer and STDO Representation
-companions selected by the Definition's composition and verified against the
-same release-matched cohort. Older companion installs and their maps are
-historical evidence only, not current development routes. A source-linked
-`a_c` map may route attention only when its represented cut and selected source
-bytes verify fresh through those released tools. A map or native skill does not
+Source development consumes the exact native method documents through the STDO
+toolchain manager. The standalone V3 selection has no matched Axiom Indexer or
+STDO Representation dependency; the Definition's composition is empty. Older
+companion installs and their maps remain historical evidence. A supplemental
+`a_c` artifact is not selected implicitly by its publication beside the method.
+A source-linked map may route attention only after explicit selection and
+verification of its exact source basis and selected source bytes through its
+declared tools. A map or native skill does not
 by its existence become ABI behavior, constitutional authority, GTL, an ABG
 event, runtime truth or qualification evidence. The
 [STDO-Governed Run Environment](#stdo-governed-run-environment) explicitly declares
@@ -1543,14 +1585,25 @@ runtime consumption of those released Products; their installation for source
 development does not supply that Run binding.
 
 For the exact T-287 increment selected by Goals, Product adopts the optional
-STDO Reference Frame Baseline through the Project-owned
+STDO executive profile through the Project-owned
 `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis`.
 That basis governs only the named T-287 activation. It adds one local
 mutable-worksite-causality evaluation frame, imports the existing ABI frame
 atlas, and grants no implementation, mutation, admission, or release
 authority.
 
-Source development applies the released STDO 2.5 disciplines:
+The TypeScript realization applies the selected release's
+[software-design profile](stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md)
+and [build-tenant binding law](stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding).
+The [STDO 3 computational binding](../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md)
+records their application to the existing Product and requirement owners.
+Algorithmic description, informational interpretation and computational
+realization remain distinct linked accounts. Design supplies their concrete
+composition and effect relations without creating another Product definition,
+runtime calculus or execution authority. Design completeness, implementation
+conformance, integrated behavior and release acceptance remain separate claims.
+
+Source development applies the selected released STDO disciplines:
 
 - one product definition rather than competing target surfaces;
 - one immutable 4.6 origin baseline with semantic successor conservation;

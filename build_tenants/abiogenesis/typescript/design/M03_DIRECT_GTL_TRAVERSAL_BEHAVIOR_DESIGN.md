@@ -29,6 +29,17 @@ not authority to reinstall the removed test-specific code. T-270's accepted veri
 leaf-semantics authority relation explicit; it does not enlarge Product or the
 S03 boundary.
 
+The 2026-10-21 STDO 3 reconciliation corrects only the stale Catalog/View
+projection cone below against current Product's
+[Definition, Tool, And Runtime Authority](../../../../specification/PRODUCT.md#definition-tool-and-runtime-authority).
+Catalog readiness, view narrowing and declaration application are pure,
+eventless constructions. `catalog.admit` retains its public name; here admission
+means validation for an exact construction basis, never an ABG Catalog event.
+The [computational binding](ABI5_STDO3_COMPUTATIONAL_BINDING.md) records the
+current owner and evidence relation. Historical accepted hashes and M3 proof
+remain on their original subjects; the changed projections require the
+reconciliation's independent assessment.
+
 ## 1. Design Claim
 
 ABIogenesis 5.0 needs one execution relation:
@@ -114,8 +125,8 @@ weakened, or delegated to imperative glue.
 | WorkspaceBinding | authoritative entity | Product contract and ABG admission | immutably joins workspace authority to ProductSet, resolved lock, and declared roots |
 | ModulePublication | authoritative declaration | GTL module | publishes one or more typed contribution rows; any Program, GraphFunction, Graph, contract, or implementation reference is present only when required by that contribution kind |
 | CatalogContribution | subordinate publication payload | ModulePublication | declares one `graph_function`, `node_type`, or `overlay` row with its exact declaration or contract reference; only `graph_function` may carry callable membership |
-| AdmittedCatalog | authoritative admission | ABG catalog admission | admits exact ModulePublications against WorkspaceBinding and resolved lock |
-| CatalogView | admitted projection | catalog.view plus ABG admission | narrows one AdmittedCatalog without creating execution authority |
+| ReadyGraphFunctionCatalog | pure immutable readiness projection | Product Catalog construction | validates exact ModulePublications, verified installs, WorkspaceBinding and resolved lock; discardable and reconstructible, with no runtime lifecycle |
+| CatalogView | pure immutable narrowing projection | Product catalog.view | narrows one ReadyGraphFunctionCatalog without creating execution authority or runtime events |
 | GtlProgram | authoritative declaration | GTL | owns topology, starts, callable membership, policies, results, and proof obligations |
 | GraphFunction | authoritative declaration | GTL | belongs to one or more admitted programs and materializes one replayable Graph |
 | Graph | authoritative materialized GTL value | GraphFunction constructor | preserves one materialization identity and the original declared topology |
@@ -156,7 +167,7 @@ weakened, or delegated to imperative glue.
    CatalogView may contain zero Modules, Programs, GraphFunctions, or callable
    rows after lawful narrowing; emptiness never activates fallback. One
    invocation requires exact membership for one ProductSet, WorkspaceBinding,
-   AdmittedCatalog, non-empty selected CatalogView row, GtlProgram,
+   ReadyGraphFunctionCatalog, non-empty selected CatalogView row, GtlProgram,
    GraphFunction, input contract, output contract, materialized Graph,
    ImplementationBinding, and ExecutionBasis. The root ProductSet contains one
    ABIogenesis install; the model does not impose that cardinality on later
@@ -240,15 +251,15 @@ weakened, or delegated to imperative glue.
 | WorkspaceBinding | workspace.bind admission | binding projection | immutable; changed authority creates a new binding | outside 5.0 root |
 | ModulePublication | typed GTL authoring and raw admission | catalog publication | new version or digest creates new identity | superseded publication |
 | CatalogContribution | ModulePublication construction | catalog list and describe | immutable row; changed kind or declaration creates a new publication | superseded with its ModulePublication |
-| AdmittedCatalog | catalog.admit | catalog projections | immutable for one binding and publication basis | replaced by separately admitted catalog |
-| CatalogView | catalog.view narrowing | catalog.view | new narrowing, including an empty effective callable view, creates new view basis | invocation-local expiry |
+| ReadyGraphFunctionCatalog | Product catalog.admit readiness construction | catalog projections | reconstruct for changed binding, lock, installed or publication basis; no runtime transition | discardable without a retirement event |
+| CatalogView | Product catalog.view pure narrowing | catalog.view | new narrowing, including an empty effective callable view, creates a new immutable view basis | discardable without a retirement event |
 | GtlProgram | typed GTL authoring and module admission | validator and catalog projection | immutable versioned declaration | superseded declaration |
 | GraphFunction | typed GTL authoring and module admission | callable catalog projection | immutable versioned declaration | superseded declaration |
 | Graph | GraphFunction materialization | validator and HoG | immutable for one materialization basis | expires with its GraphCall basis |
 | ImplementationBinding | typed module publication | catalog and validator projection | immutable versioned declaration | superseded declaration |
 | LeafImplementation | package build under src/implementation | invoked only through an admitted binding | stateless function execution | superseded package identity |
 | RawAdmittedValue<S> | raw contract admission | validator or ABG admission input | immutable; changed bytes, contract, or kind creates a new value | discarded after refusal or superseded input |
-| PublicationValidation | contribution-manifest validator | diagnostics and catalog admission | rerun for changed publication or contribution basis | stale when either digest changes |
+| PublicationValidation | contribution-manifest validator | diagnostics and catalog readiness | rerun for changed publication or contribution basis | stale when either digest changes |
 | ProgramValidation | whole-program validator | diagnostics, catalog, and invocation admission | rerun for changed declaration basis | stale when source digest changes |
 | GraphValidation | graph validator after materialization | diagnostics and basis finalization | rerun for changed graph or ProgramValidation | stale when either digest changes |
 | InvocationAdmission | ABG input and invocation admission | materialization and audit projection | immutable; changed constituent requires new admission | refused before ExecutionBasis or superseded by terminal invocation |
@@ -274,12 +285,12 @@ weakened, or delegated to imperative glue.
 
 | Decision or effect | Declares or proposes | Validates | Admits truth | Applies or executes | Projects |
 |---|---|---|---|---|---|
-| erased GTL and request values | caller or package bytes | raw admission against exact contract | none until catalog or invocation admission | none | diagnostics |
-| topology and callable membership | GTL Program | ProgramValidation | catalog and ABG InvocationAdmission | HoG traverses | catalog |
+| erased GTL and request values | caller or package bytes | raw admission against exact contract | no runtime fact from raw admission or Catalog construction; ABG separately owns invocation admission | none | diagnostics |
+| topology and callable membership | GTL Program | ProgramValidation and exact Catalog readiness | GTL retains declared meaning; ABG InvocationAdmission binds its use at runtime | HoG traverses | catalog |
 | GraphFunction materialization | GraphFunction template and admitted input | GraphValidation against ProgramValidation | ABG finalizes ExecutionBasis | HoG reads Graph | catalog and replay |
 | workspace and Product basis | Product or caller supplies exact ProductInstall rows and lock | Product set and workspace checks | ABG binding admission | none | SDK and CLI |
 | product installation | VerifiedProductArtifact | artifact and destination checks | ABG admits the immutable installed artifact boundary | installer materializes exact bytes | SDK and CLI |
-| catalog admission | ModulePublication, CatalogContribution rows, and WorkspaceBinding | PublicationValidation plus ProgramValidation for each contributed Program | ABG catalog admission with one disposition per row | none | catalog reads |
+| catalog readiness and view | exact binding, lock, verified installed Products, ModulePublication and CatalogContribution rows | Product readiness plus PublicationValidation and ProgramValidation for each contributed Program | none: Product returns a pure immutable Catalog with one disposition per row, or a pure narrowed view | no runtime effect | catalog reads |
 | implementation resolution | Product derives one exact candidate from CatalogView and declared locus | validator checks declaration, package, and contract relations | ABG AdmittedImplementationResolution | selected LeafImplementation realizes only its port | catalog and replay |
 | next GTL locus | GTL relation; HoG proposes current step | validator plus current replay guard | ABG transition admission | HoG applies admitted transition | replay |
 | C-call and fibre | GTL locus, role, fibre, arm, and admitted implementation resolution | validator plus current basis | ABG atomically opens the locus and admits fibre selection or creates no CCall | none | replay |
@@ -305,8 +316,8 @@ fixture, or implementation binding.
 | constructProductSet | ordered ProductInstall identities x resolved lock -> ProductSet or refusal | Product boundary | no runtime effect |
 | constructWorkspaceBinding | workspace authority x ProductSet x lock x declared roots -> binding candidate or refusal | Product boundary | no runtime effect |
 | admitWorkspaceBinding | binding candidate x authority -> WorkspaceBinding or refusal | ABG | emits binding event when admitted |
-| admitCatalog | ModulePublication x PublicationValidation x applicable ProgramValidation rows x binding x lock -> AdmittedCatalog or refusal | ABG | emits catalog admission event plus one typed disposition per contribution row; no ProgramValidation is required when no Program is contributed |
-| narrowCatalogView | AdmittedCatalog x allowlist -> CatalogView or refusal | ABG | emits view admission event |
+| constructReadyCatalog (`catalog.admit`) | exact binding x lock x verified installed Products x supplied ModulePublications x applicable validation -> ReadyGraphFunctionCatalog or refusal | Product Catalog | pure readiness with one typed disposition per contribution row; no runtime event; no ProgramValidation is required when no Program is contributed |
+| narrowCatalogView | ReadyGraphFunctionCatalog x allowlist -> CatalogView or refusal | Product Catalog | pure narrowing; no runtime event or independent authority |
 | rawAdmitValue | unknown value x exact contract x expected kind -> RawAdmittedValue<S> or typed refusal | raw admission | no runtime effect |
 | validatePublication | raw-admitted ModulePublication and CatalogContribution rows -> PublicationValidation or diagnostics | GTL validator | no runtime effect; validates graph_function, node_type, and overlay rows without inventing missing kinds |
 | validateProgram | raw-admitted Program, GraphFunction, contracts, Module, and implementation declarations -> ProgramValidation or diagnostics | GTL validator | no runtime effect |
@@ -433,7 +444,7 @@ They do not justify one peer service or public operation each.
 |---|---|---|
 | declaration | Module, Program, GraphFunction, Graph, GraphVector, contracts, implementation refs | owns versioned GTL meaning |
 | validation | RawAdmittedValue, PublicationValidation, ProgramValidation, GraphValidation, and diagnostics | distinct staged static judgments without runtime effect or lowering |
-| environment | VerifiedProductArtifact, ProductInstall, ProductSet, WorkspaceBinding, AdmittedCatalog, CatalogView | exact artifact, installed, and environmental authority |
+| environment | VerifiedProductArtifact, ProductInstall, ProductSet and WorkspaceBinding; downstream ReadyGraphFunctionCatalog and CatalogView | preserve distinct artifact/install/binding authority and pure readiness/narrowing; Catalog/View acquire no runtime lifecycle |
 | invocation | InvocationAdmission, AdmittedImplementationResolution, and ExecutionBasis | staged but singular ABG admission family for one execution |
 | traversal | Run, GraphCall, Frame, CCall; subordinate OpenedTraversalScope, TraversalCursor, TransitionProposal, and TraversalStopRef | one direct executor and recursive compute locus with explicit lineage |
 | leaf realization | ImplementationBinding and its bound host function; LeafRealizationCandidate subordinate | independently admitted effect seam; cannot collapse into traversal or runtime truth |
@@ -535,7 +546,7 @@ explicit because compression must not erase lineage or admission staging.
   "promotionTests": [
     {"candidate": "GtlDeclarationFamily", "verdict": "promote", "reason": "Program, GraphFunction, Graph, contracts, implementation declarations, and ClosureContract are independently versioned and pattern-matched as the sole semantic source."},
     {"candidate": "ValidationFamily", "verdict": "promote", "reason": "Raw admission plus PublicationValidation, ProgramValidation, and GraphValidation form one independently consumed static-judgment boundary and cannot become runtime truth or an execution plan."},
-    {"candidate": "EnvironmentBasis", "verdict": "promote", "reason": "Verified artifacts, installs, ProductSet, WorkspaceBinding, AdmittedCatalog, and CatalogView have independent immutable identity and admission lifecycles."},
+    {"candidate": "EnvironmentBasis", "verdict": "promote", "reason": "Verified artifacts, installs, ProductSet and WorkspaceBinding retain their exact distinct boundaries; ReadyGraphFunctionCatalog and CatalogView are dependent immutable readiness/narrowing projections, not runtime admissions or lifecycles."},
     {"candidate": "InvocationBasis", "verdict": "promote", "reason": "InvocationAdmission, admitted implementation resolution, and ExecutionBasis are ABG-owned staged runtime admissions consumed before any effect."},
     {"candidate": "TraversalAggregateFamily", "verdict": "promote", "reason": "Run, GraphCall, Frame, and CCall are independently replayed causal aggregates while traversal payloads remain subordinate."},
     {"candidate": "LeafRealizationBoundary", "verdict": "promote", "reason": "The admitted ImplementationBinding and exact packaged leaf function form the only effect seam and expose no event or control authority."},
@@ -558,7 +569,7 @@ explicit because compression must not erase lineage or admission staging.
 |---|---|---|---|
 | GtlDeclarationFamily | authoritative semantic source including ClosureContract | Program and GraphFunction are inspectable; GraphFunction callable | canonical package serialization |
 | ValidationFamily | RawAdmittedValue, PublicationValidation, ProgramValidation, GraphValidation, and diagnostics over exact subject identities | inspectable diagnostics | optional evidence; never executable |
-| EnvironmentBasis | VerifiedProductArtifact, ProductInstall, ProductSet, WorkspaceBinding, AdmittedCatalog, and CatalogView | inspectable | immutable verification, install, binding, and admission evidence |
+| EnvironmentBasis | VerifiedProductArtifact, ProductInstall, ProductSet and WorkspaceBinding; dependent ReadyGraphFunctionCatalog and CatalogView | inspectable | owning verification/install/binding evidence; Catalog/View are discardable pure projections, with no independent persisted registry or event lifecycle |
 | InvocationBasis | InvocationAdmission, AdmittedImplementationResolution, and ExecutionBasis | opaque refs in public outcome | ABG event truth |
 | TraversalAggregateFamily | Run, GraphCall, Frame, and CCall authoritative identities; OpenedTraversalScope, cursor, proposals, and stop refs subordinate | replay-visible | ABG event truth; subordinate payloads are invocation-local |
 | LeafRealizationBoundary | ImplementationBinding and bound leaf function; realization candidate subordinate | binding inspectable; function private | package code addressed by immutable binding identity |
@@ -701,8 +712,8 @@ classDiagram
       +viewRef
       +viewDigest
     }
-    class AdmittedCatalog {
-      <<authoritative>>
+    class ReadyGraphFunctionCatalog {
+      <<downstream>>
       +catalogRef
       +catalogDigest
     }
@@ -891,8 +902,8 @@ classDiagram
     ProductInstall "0..*" --> "1" VerifiedProductArtifact
     ProductSet "1" --> "1..*" ProductInstall
     WorkspaceBinding "0..*" --> "1" ProductSet
-    AdmittedCatalog "0..*" --> "1" WorkspaceBinding
-    CatalogView "0..*" --> "1" AdmittedCatalog
+    ReadyGraphFunctionCatalog "0..*" --> "1" WorkspaceBinding
+    CatalogView "0..*" --> "1" ReadyGraphFunctionCatalog
     CatalogView "1" --> "0..*" ModulePublication
     ModulePublication "1" *-- "1..*" CatalogContribution
     ModulePublication "1" *-- "0..*" GtlProgram
@@ -932,7 +943,7 @@ classDiagram
     ExecutionBasis "1" --> "1" ClosureContract
     ExecutionBasis "1" --> "1" WorkspaceBinding
     ExecutionBasis "1" --> "1" ProductSet
-    ExecutionBasis "1" --> "1" AdmittedCatalog
+    ExecutionBasis "1" --> "1" ReadyGraphFunctionCatalog
     ExecutionBasis "1" --> "1" CatalogView
     ExecutionBasis "1" --> "1" GtlProgram
     ExecutionBasis "1" --> "1" GraphFunction
@@ -966,8 +977,8 @@ classDiagram
     ValidationFamily "1" *-- "0..*" GraphValidation
     EnvironmentBasis "1" *-- "1" ProductSet
     EnvironmentBasis "1" *-- "1" WorkspaceBinding
-    EnvironmentBasis "1" *-- "1" AdmittedCatalog
-    EnvironmentBasis "1" *-- "1" CatalogView
+    EnvironmentBasis "1" --> "1" ReadyGraphFunctionCatalog
+    EnvironmentBasis "1" --> "1" CatalogView
     InvocationBasis "1" *-- "1" InvocationAdmission
     InvocationBasis "1" *-- "1" AdmittedImplementationResolution
     InvocationBasis "1" *-- "1" ExecutionBasis
@@ -990,7 +1001,7 @@ classDiagram
 | User | explicitly external actor |
 | abg.cli | parser, transport, PublicOutcome renderer |
 | Operation Application | stateless wiring of one declared public operation contract to owner ports |
-| Product and Catalog | VerifiedProductArtifact, ProductInstall, ProductSet, WorkspaceBinding, ModulePublication, AdmittedCatalog, and CatalogView |
+| Product and Catalog | VerifiedProductArtifact, ProductInstall, ProductSet, WorkspaceBinding, ModulePublication, ReadyGraphFunctionCatalog, and CatalogView |
 | GTL | GtlProgram, GraphFunction, Graph, ImplementationBinding, and ClosureContract declarations |
 | GTL Validator | RawAdmittedValue, PublicationValidation, ProgramValidation, GraphValidation, and implementation-resolution diagnostics |
 | ABG | InvocationAdmission, AdmittedImplementationResolution, ExecutionBasis, Run, GraphCall, Frame, CCall, RuntimeEvent, and ReplayState |
@@ -1036,17 +1047,13 @@ sequenceDiagram
     Validator-->>Operation: PublicationValidation
     Operation->>Validator: validate each contributed Program, template, contract, and binding
     Validator-->>Operation: applicable ProgramValidation rows
-    Operation->>Product: construct publication candidate from validated declarations
-    Product-->>Operation: exact publication candidate
-    Operation->>ABG: admit catalog against binding and lock
-    ABG-->>Operation: AdmittedCatalog
+    Operation->>Product: construct readiness from exact binding, lock, verified installs and validated publications
+    Product-->>Operation: ReadyGraphFunctionCatalog and contribution dispositions
     Operation-->>CLI: typed catalog result
     User->>CLI: catalog.view exact narrowing
     CLI->>Operation: typed narrowing request
-    Operation->>Product: validate narrowing candidate
-    Product-->>Operation: exact narrowing candidate
-    Operation->>ABG: admit narrowed view
-    ABG-->>Operation: CatalogView
+    Operation->>Product: construct pure narrowed view against exact Catalog
+    Product-->>Operation: CatalogView
     Operation-->>CLI: typed view result
     User->>CLI: run.invoke exact Program and GraphFunction
     CLI->>Operation: one serialized invocation request
@@ -1111,6 +1118,11 @@ continuation, event, replay, or closure state. HoG receives validated values;
 it never invokes the validator. Product emits candidates; it never calls ABG.
 
 ### 9.3 Runtime Lifecycle View
+
+Catalog and view are inputs to this runtime view, never states or transitions
+inside it. Their pure reconstruction/discard does not open, advance or retire
+an ABG aggregate. Changed construction inputs require Product readiness again;
+runtime invocation still admits its exact selected basis.
 
 ```mermaid
 stateDiagram-v2
@@ -1267,7 +1279,7 @@ later Product slices and do not block native construction of this boundary.
 | R1 exact artifacts verified | product.verifyProduct | package digest and manifest verification from packed bytes |
 | R2 clean install complete | product.install -> ProductInstall | source-blind temporary installation with no source import |
 | R3 workspace bound | product.bindWorkspace plus ABG admission | immutable WorkspaceBinding and basis event |
-| R4 catalog admitted and narrowed | rawAdmitValue, validatePublication, applicable validateProgram calls, product publication, admitCatalog, narrowCatalogView | exact Module, CatalogContribution dispositions, PublicationValidation, any applicable ProgramValidation, and possibly-empty view rows; root view contains the selected graph_function row |
+| R4 catalog ready and purely narrowed | rawAdmitValue, validatePublication, applicable validateProgram calls, Product constructReadyCatalog and narrowCatalogView | exact binding/lock/verified installs, supplied ModulePublication rows, contribution dispositions, applicable validation and possibly-empty view rows; root view contains the selected graph_function row; no Catalog/View event or runtime lifecycle |
 | R5 target Program selected and admitted | ABG admitInvocation | exact ProgramValidation, Program membership, raw-admitted input, environment, policy, capability, and authority evidence |
 | R6 GraphFunction and contracts resolved | resolveImplementation, validateImplementation, and ABG admission | exact function, input, output, failure, binding, package, and LeafImplementation identities |
 | R7 materialized graph validated | GraphFunction materialize, validateGraph, admitExecutionBasis | same GTL identity, GraphValidation, graph digest, admitted implementation resolution, and final basis |
@@ -1387,7 +1399,7 @@ facade preserves prohibited identity.
 |---|---|---|---|---|---|---|---|---|---|
 | one GTL language and Program authority | GtlProgram and declaration family | GTL | Program relates to GraphFunction | raw-admitted GTL enters validator; validated original enters HoG | invalid GTL refuses before call | TypeScript types and raw admission | ProgramValidation | pass | none |
 | GraphFunction has constructive graph | GraphFunction entity | GTL | materialize relation | materialization precedes call opening | missing graph refuses | typed constructor | materialized graph validation | pass | none |
-| validator does not lower | PublicationValidation, ProgramValidation, and GraphValidation | validator | static judgments over exact publication, source, and materialization identities | applicable exact views enter catalog admission or ExecutionBasis and HoG | no execution state | return types exclude plan | validator output contracts | pass | none |
+| validator does not lower | PublicationValidation, ProgramValidation, and GraphValidation | validator | static judgments over exact publication, source, and materialization identities | applicable exact views enter pure catalog readiness or ABG ExecutionBasis and HoG | no execution state | return types exclude plan | validator output contracts | pass on the retained base; changed Catalog projection awaits reconciliation assessment | reconciliation design reviewer |
 | one HoG executor | traversal family | HoG | cursor subordinate to explicit OpenedTraversalScope and Frame | HoG alone proposes and applies steps | Traversing follows HoG relation | module dependency and required scope parameter | admitted-transition guard | pass | none |
 | ABG owns runtime truth | RuntimeEvent family | ABG | events feed ReplayState | every candidate crosses ABG | runtime states replay-derived | private emit API | event and result admission | pass | none |
 | uniform C-call spine | CCall aggregate | ABG | CCall relates to ordered events | atomic open/select then evidence, result, judgment are explicit | all post-open success and failure paths preserve order | event constructors private to ABG | spine-order admission | pass | none |

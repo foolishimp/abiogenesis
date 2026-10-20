@@ -1,0 +1,17 @@
+node:internal/modules/esm/resolve:313
+  return new ERR_PACKAGE_PATH_NOT_EXPORTED(
+         ^
+
+Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './product' is not defined by "exports" in /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof/installed-host/node_modules/@abiogenesis/typescript-tenant/package.json
+    at exportsNotFound (node:internal/modules/esm/resolve:313:10)
+    at packageExportsResolve (node:internal/modules/esm/resolve:604:13)
+    at resolveExports (node:internal/modules/cjs/loader:671:36)
+    at Module._findPath (node:internal/modules/cjs/loader:738:31)
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1396:27)
+    at require.resolve (node:internal/modules/helpers:163:19)
+    at proveConsumer (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/consumer-proof.mjs:45:41)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/host-preparation/host-preparation.mjs:57:1 {
+  code: 'ERR_PACKAGE_PATH_NOT_EXPORTED'
+}
+
+Node.js v24.7.0

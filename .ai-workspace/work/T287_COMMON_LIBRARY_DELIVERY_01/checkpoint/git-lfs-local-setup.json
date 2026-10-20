@@ -1,0 +1,25 @@
+{
+  "kind": "exact_path_repo_local_git_lfs_setup",
+  "observed_utc": "2026-10-20T19:02:14.909867+00:00",
+  "command": [
+    "git",
+    "lfs",
+    "install",
+    "--local"
+  ],
+  "exit_code": 0,
+  "stdout": "Updated Git hooks.\nGit LFS initialized.\n",
+  "stderr": "",
+  "attributes_path": ".gitattributes",
+  "attributes_sha256": "63b04f2ff425c75d9ab9857be9fa71c15afc5ed2fcbbd8f3f2fca004ab4ee346",
+  "attributes_entries": 35,
+  "attribute_checks": 140,
+  "all_exact_attributes_valid": true,
+  "pre_push_hook_created": true,
+  "pre_push_hook_sha256": "a52d0510d0f8c75e27852156ec6f7791f0d8ed65fc58fcc368dd1de0a60a1d74",
+  "global_git_config_unchanged": true,
+  "oversized_original_stats_unchanged": true,
+  "staged": false,
+  "committed": false,
+  "pushed": false
+}

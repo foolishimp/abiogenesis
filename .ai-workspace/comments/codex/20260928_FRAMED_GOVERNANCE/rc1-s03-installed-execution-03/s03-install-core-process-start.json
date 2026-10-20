@@ -1,0 +1,14 @@
+{
+  "pid": 69874,
+  "processGroup": 69874,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/s03-install-core.jsonl"
+  ],
+  "startedAt": "2026-10-01T21:34:04.933Z",
+  "mode": "s03",
+  "label": "install-core",
+  "capMs": 180000
+}

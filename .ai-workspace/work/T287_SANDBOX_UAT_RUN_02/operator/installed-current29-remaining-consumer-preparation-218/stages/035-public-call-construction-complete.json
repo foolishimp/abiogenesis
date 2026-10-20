@@ -1,0 +1,13 @@
+{
+  "stage": "public-call-construction-complete",
+  "rss": 4337631232,
+  "heapTotal": 3883270144,
+  "heapUsed": 3750318568,
+  "external": 2455530,
+  "arrayBuffers": 43223,
+  "at": "2026-10-09T14:38:56.140Z",
+  "elapsedMs": 317027.05216699996,
+  "invocationRef": "invocation://abiogenesis/c63b2883358c97e3226c9b43c6a276df042bd75d6c36575811cb888c121c6f95",
+  "invocationDigest": "sha256:c63b2883358c97e3226c9b43c6a276df042bd75d6c36575811cb888c121c6f95",
+  "requestDigest": "sha256:aa8d80f2ffd7d951b641ad1839e4f4a2885df9b06876c5581bebc90a6818f582"
+}

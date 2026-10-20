@@ -1,0 +1,59 @@
+{
+  "at": "2026-09-30T02:57:26.116431+00:00",
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+    "bytes": 3863401,
+    "sha256": "c00b129cb95ec9d89d8f73e3f40fe85eeb646001616bfe100a7fee75f4b7d564",
+    "device": 16777230,
+    "inode": 463811526,
+    "mtime_ns": 1790736826154539492
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:704eb98c676910e535daed71413ebdc5838121bac72afc9d12eaba937018d122",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:c00b129cb95ec9d89d8f73e3f40fe85eeb646001616bfe100a7fee75f4b7d564",
+    "prefixLength": 3863401,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 463811526
+    }
+  },
+  "last_genuine_handoff": "latest-handoff.json",
+  "matches_genuine_handoff": true,
+  "failed_native_copy_equal": true,
+  "unchanged_since_causal_observation_at": "2026-09-30T02:55:53.669Z",
+  "lock": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abiogenesis-event-store-locks-v5/16777230-463811526.lock",
+    "exists": false
+  },
+  "processes": {
+    "phase_b_test": {
+      "pid": 64652,
+      "state": "exited and reaped by Popen.wait; exit 1",
+      "pid_probe": "absent"
+    },
+    "public_cli": {
+      "state": "execFileAsync returned receipt; Public call completed before test assertion"
+    },
+    "host_process_inventory": {
+      "status": "unavailable",
+      "attempted": [
+        "ps",
+        "-axo",
+        "pid=,ppid=,state=,command="
+      ],
+      "error": "PermissionError: [Errno 1] Operation not permitted: ps",
+      "retry": false
+    }
+  },
+  "no_action_directory_exists": false,
+  "cold_files": [],
+  "cache_exclusion": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-b-npm-cache",
+    "reason": "mutable npm cache; retained physically, excluded from frozen subject"
+  },
+  "scope": "One retained disposable installation/population; no deletion or resource reacquisition"
+}

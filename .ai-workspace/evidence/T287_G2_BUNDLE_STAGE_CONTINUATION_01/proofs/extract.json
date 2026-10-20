@@ -1,0 +1,29 @@
+{
+  "operation": "T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "command": [
+    "/usr/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/extract.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01",
+  "capSeconds": 120,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_BUNDLE_STAGE_CONTINUATION_01/tmp"
+  },
+  "pid": 35043,
+  "pgid": 35043,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 0,
+  "groupAbsent": true,
+  "elapsedMs": 2626.438166,
+  "userCPUSeconds": 0.491251,
+  "systemCPUSeconds": 0.546133,
+  "maxRSSPlatformBytes": 68288512,
+  "stdoutSHA256": "bb8ad76e9a5cb76883b99c481fdb0ce894d52f0fedb71669d4e569c17f27f27f",
+  "stderrSHA256": "e7499284b03847003aebbfc2d2422a0ad2caa49e62185d8687b88bd163e0f268"
+}

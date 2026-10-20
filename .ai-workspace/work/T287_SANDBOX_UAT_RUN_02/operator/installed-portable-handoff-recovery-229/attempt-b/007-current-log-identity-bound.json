@@ -1,0 +1,19 @@
+{
+  "stage": "current-log-identity-bound",
+  "at": "2026-10-09T18:41:35.928Z",
+  "wallMs": 40319.507083,
+  "pid": 17206,
+  "memory": {
+    "rss": 2248589312,
+    "heapTotal": 1905410048,
+    "heapUsed": 1801627136,
+    "external": 97625843,
+    "arrayBuffers": 95211410
+  },
+  "maxRSSKiB": 2195888,
+  "expectedCurrent": {
+    "byteLength": 2142089296,
+    "digest": "sha256:10912d81c137b807ed30a7fbce359963b26ce970c0eafaad1ab91ceb1e548277"
+  },
+  "noExternalHash": true
+}

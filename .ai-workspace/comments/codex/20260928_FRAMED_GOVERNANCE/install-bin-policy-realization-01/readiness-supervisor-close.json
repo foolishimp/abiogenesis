@@ -1,0 +1,25 @@
+{
+  "mode": "readiness",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/source-freeze/toolchain/bin/node",
+    "readiness-check.mjs"
+  ],
+  "pid": 35510,
+  "processGroup": 35510,
+  "startedAt": "2026-10-02T01:42:30.242326+00:00",
+  "closedAt": "2026-10-02T01:42:50.381939+00:00",
+  "elapsedMs": 20140.31962491572,
+  "exitCode": 0,
+  "timedOut": false,
+  "deadlineReason": null,
+  "termMonotonic": null,
+  "killMonotonic": null,
+  "parentWait4Reaped": true,
+  "processGroupAfterWait": "absent",
+  "peakRSSBytes": 1628995584,
+  "userSeconds": 23.879096,
+  "systemSeconds": 4.882376,
+  "nominalCompletionObserved": true,
+  "installCompletionObserved": true,
+  "unknownChildren": "npm is awaited by unchanged owner execFile completion; individual npm PID not enumerated; process group probe records entire observed group boundary"
+}

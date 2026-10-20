@@ -1,0 +1,14 @@
+{
+  "pid": 57978,
+  "processGroup": 57978,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/setup-resolve-singleton.jsonl"
+  ],
+  "startedAt": "2026-10-04T05:23:17.875Z",
+  "mode": "setup",
+  "label": "resolve-singleton",
+  "capMs": 180000
+}

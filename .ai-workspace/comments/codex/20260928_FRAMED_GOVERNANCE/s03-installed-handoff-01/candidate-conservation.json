@@ -1,0 +1,9 @@
+{
+  "status": "exact",
+  "records": 16732,
+  "candidateFreezeSha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f",
+  "historicalHandoffUnchanged": true,
+  "historicalFrozenPrefixUnchanged": true,
+  "candidateAndSourceFreezeUnchanged": true,
+  "liveTicket": "Deliberately advanced operational record excluded from canonical equality; frozen candidate ticket conserved"
+}

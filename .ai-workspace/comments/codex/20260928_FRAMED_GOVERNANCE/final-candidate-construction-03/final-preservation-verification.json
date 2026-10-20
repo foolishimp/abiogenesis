@@ -1,0 +1,16 @@
+{
+  "status": "verified",
+  "closedPreparationRecordCopiesVerified": 4561,
+  "heldLawPostimagesVerified": 2,
+  "knownPendingSourceAbsencesPreserved": 15,
+  "C02ArchiveAndFreezePreserved": true,
+  "Q02FreezePreserved": true,
+  "acceptedCarrierFreezeSHA256": "51bfa2ad75ab9d2c0858998c7e4a82a6e7a4269a4c277c842af07ae1c7f6da1c",
+  "ordinaryStageInputConservation": {
+    "sourceMembers": 1106,
+    "declaredDerivedAuthorityPreimages": 96,
+    "changedDerivedAuthorityPreimages": 12,
+    "allOtherSourceStageInputsByteExact": true
+  },
+  "scope": "Actual input/source/archive bodies and original closed preparation physical copies; old runtime stores were never opened or written by this activation"
+}

@@ -1,0 +1,38 @@
+{
+  "kind": "bounded_owned_process_closure_observation",
+  "at": "2026-10-08T08:37:22.161637+00:00",
+  "ownedReproofPid": 36877,
+  "psOutput": "",
+  "psExitCode": 1,
+  "directChildrenOutput": "",
+  "directChildrenQueryExitCode": 1,
+  "knownOwnerAbsent": true,
+  "publicCLIProcessesClosedByCommandRecorder": [
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/calls/run_result.request.jsonl"
+      ],
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/calls/run_replay.request.jsonl"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    }
+  ],
+  "signalsSentByReviewer": false,
+  "limit": "known reproof PID/direct children + actual command close receipts only; no broad process containment claim"
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/execute.mjs"
+  ],
+  "scriptSha256": "22ebeb6726b499f8eae6f4ed2e8cef510ab43bf0fa86abadfc6593eac496d331",
+  "defaultHeap": true,
+  "readAllowanceMs": 600000,
+  "actors": 0,
+  "callerPreparationIsNotReadTime": true
+}

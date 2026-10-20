@@ -1,0 +1,15 @@
+{
+  "operation": "T287_EXEC06_FP_SOURCE_REVIEW_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "previousRole": "T287_Q06_FINAL_INPUT_REVIEW_01 CLOSED",
+  "grant": "../source-request.txt",
+  "grantBytes": 3256,
+  "grantSHA256": "ac7ccc23fcd61dc99693c56496d878e51b798d79e9c0b4d2f0a4085e9f845fe6",
+  "subjectPinsSHA256": "8c401b6fb4e7265feed6082539941f27cc29b012a566587377f98230adddef10",
+  "runtimeFreezeSHA256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+  "writeTerritory": "rc1-execution06-triangulation-controls-01/source-review only",
+  "sourceCandidateRuntimeWrites": 0,
+  "importsTestsOwnerHelperProviderNetworkGit": 0,
+  "returnRelation": "CLOSED recommendation to Root only; Reviewer never activates Worker"
+}

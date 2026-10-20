@@ -1,0 +1,32 @@
+node:internal/fs/promises:861
+  return await PromisePrototypeThen(
+         ^
+
+Error: EEXIST: file already exists, mkdir '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/witness-01/calls'
+    at async mkdir (node:internal/fs/promises:861:10)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/witness-01/execute.mjs:9:50 {
+  errno: -17,
+  code: 'EEXIST',
+  syscall: 'mkdir',
+  path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/witness-01/calls'
+}
+
+Node.js v24.7.0
+        0.02 real         0.02 user         0.00 sys
+            52936704  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                3473  page reclaims
+                  71  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                  68  involuntary context switches
+           404655625  instructions retired
+           123670279  cycles elapsed
+            17828336  peak memory footprint

@@ -1,0 +1,58 @@
+{
+  "kind": "owned_process_exit_store_quiescence",
+  "samples": [
+    {
+      "at": "2026-10-07T08:01:47.484898+00:00",
+      "scopedPids": [
+        56743,
+        56776,
+        60102,
+        99163,
+        96764,
+        90567,
+        81695
+      ],
+      "psExit": 1,
+      "matchingRows": [],
+      "storeByteCount": 1167689615,
+      "storeMtimeNs": 1791359951311203492
+    },
+    {
+      "at": "2026-10-07T08:01:49.539315+00:00",
+      "scopedPids": [
+        56743,
+        56776,
+        60102,
+        99163,
+        96764,
+        90567,
+        81695
+      ],
+      "psExit": 1,
+      "matchingRows": [],
+      "storeByteCount": 1167689615,
+      "storeMtimeNs": 1791359951311203492
+    },
+    {
+      "at": "2026-10-07T08:01:49.976268+00:00",
+      "scopedPids": [
+        56743,
+        56776,
+        60102,
+        99163,
+        96764,
+        90567,
+        81695
+      ],
+      "psExit": 1,
+      "matchingRows": [],
+      "storeByteCount": 1167689615,
+      "storeMtimeNs": 1791359951311203492
+    }
+  ],
+  "ownedKnownPidsAbsent": true,
+  "signalsSent": [],
+  "storeUnchangedAcrossSamples": true,
+  "storeSha256": "e211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825",
+  "scopeLimit": "exact recorder/harness/CLI and last admitted providers only; no global containment claim"
+}

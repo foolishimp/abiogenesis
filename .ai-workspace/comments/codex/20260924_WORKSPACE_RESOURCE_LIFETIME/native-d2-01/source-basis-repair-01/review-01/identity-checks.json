@@ -1,0 +1,177 @@
+{
+  "scope": "Nonmutating identity and reverse-diff verification; no Git command or test rerun",
+  "frozenManifestSha256": "90df7dceeb0353c89123f0fb591d5d7287ab19089dfe5344a5e901dbdfbf46e8",
+  "suppliedSubjectSha256": "d321ffba668c3733c3f003a2d26dfb6a5847790588a7c19fbad4011f5c02f003",
+  "subjectDigestRecomputedFrom": [
+    "members"
+  ],
+  "fourDiffPreimages": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": {
+      "sha256": "1ee24400b6e27ae4676112e33731d4d93cd89b966584284f74ca4b65fb8b9515",
+      "byteLength": 48750,
+      "matchesFrozenPreimage": true
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts": {
+      "sha256": "6f61fd28225b1f19c73cad4ba30426529501b10a679108cda87e7dae7d255b0a",
+      "byteLength": 78483,
+      "matchesFrozenPreimage": true
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md": {
+      "sha256": "ca5ac049892b817b07432baf7bf821de75b01898ad5c4d546fa26d262a89abde",
+      "byteLength": 60016,
+      "matchesFrozenPreimage": true
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs": {
+      "sha256": "a1d094b4e87783748bcdac49ba83344d9c89d67493259f369a2746677915628c",
+      "byteLength": 32246,
+      "matchesFrozenPreimage": true
+    }
+  },
+  "members": [
+    {
+      "repo": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "kind": "source",
+      "sha256": "5c9196e5761551d7bfa9c3f0841d8aaef84ed2430824866c405b02c4f9e54ff2",
+      "byteLength": 48882,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "kind": "source",
+      "sha256": "cc5a526479f4ac70443bb89b933bfffd10cbee90bed4a28731ba8ce9ea9a1818",
+      "byteLength": 79771,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "kind": "test",
+      "sha256": "5299f9fa948555e908e5fb39b01a5577fc81405d4bc773c82bc68a920f6c8771",
+      "byteLength": 39825,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "kind": "design",
+      "sha256": "9ce7221a2425c26a5fe914633c91a5a547981690a0ef81a01ee04b832102d07e",
+      "byteLength": 61322,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+      "kind": "compiler_emit",
+      "sha256": "89a7a2f7bdc264ff04f87bfe1119c0a0faf5e9080764e3c68c2402e6106e810f",
+      "byteLength": 49133,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts",
+      "kind": "compiler_emit",
+      "sha256": "14c8e5c640da281d7b96a888322ca37e915158ecb75d4dfd03eb2526187a114a",
+      "byteLength": 6519,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "kind": "compiler_emit",
+      "sha256": "cd9ed62d7c33b180ed98d65a93ec97302ade025d03f58796d4e6209b0e6d215a",
+      "byteLength": 81387,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "abiogenesis",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "kind": "current_tracking",
+      "sha256": "8f08697d7af4e9d91220d8672f43101b5aaea0292ed90c96ca9a56d9d1902775",
+      "byteLength": 359207,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "odd_glc",
+      "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "kind": "current_tracking",
+      "sha256": "31bd05fc70924ebf331b43635400e07bf61ca8b12023c85d88a5e1fe40ea3c3d",
+      "byteLength": 63697,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "abiogenesis",
+      "path": "specification/GOALS.md",
+      "kind": "current_tracking",
+      "sha256": "a26904137dbf759af4364aeec8b1b3c259e3e382ac0752d5673225ed9ded8617",
+      "byteLength": 60105,
+      "matchesFrozenPostimage": true
+    },
+    {
+      "repo": "odd_glc",
+      "path": "specification/GOALS.md",
+      "kind": "current_tracking",
+      "sha256": "b4ac7c7d43cb4c793017f543270eb796eb5d5ee7745cae3f710e3355496aa762",
+      "byteLength": 18772,
+      "matchesFrozenPostimage": true
+    }
+  ],
+  "unchangedOwningRelations": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "sha256": "947a882c9473ae5e4fd8cdc6d9dab021cf63bc6e00169984177859f939637e0e",
+      "equalsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts",
+      "sha256": "a7aa452807794f68db2697345689a2ceb7d46828f63a7cbdc8dd9dbe6ecea3f5",
+      "equalsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+      "sha256": "ba07832b5d7e03760ece4acfb22504325fe5b65e77367d0cf34be6aa6449fab5",
+      "equalsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "sha256": "a095a108400e5fb91ca1e49027526c9d8dcfc8dcb9b53a4d6c24c790cc730936",
+      "equalsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "sha256": "69624a50cff0f736434b7900bd8a356db0f6576bc373566bacc6fffc92a6a8ea",
+      "equalsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "sha256": "8f5137dbd7785d392c208007b3c51ca12e1cc2c5a3adc6a96d5b0fc2311ccc9b",
+      "equalsClosedSB01": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "sha256": "2bd7db1ffaebdc72f0e956b1062da5343299715f93a6922d2effd9e1fe253bc2",
+      "equalsClosedSB01": true
+    }
+  ],
+  "workerLogIdentityChecks": [
+    {
+      "path": "compile-01.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "matchesRecordedIdentity": true,
+      "reportedExitCode": 0
+    },
+    {
+      "path": "focused-01.log",
+      "sha256": "ee77fc824e3e8e4e17e030b406b436d9c27398847e662ca5cb0dbc1468f3c5d1",
+      "matchesRecordedIdentity": true,
+      "reportedExitCode": 1
+    },
+    {
+      "path": "focused-02.log",
+      "sha256": "c5afabb0feb804602f17b21194613c040b112b108c495742a02976b021d1245c",
+      "matchesRecordedIdentity": true,
+      "reportedExitCode": 0
+    }
+  ]
+}

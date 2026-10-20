@@ -1,0 +1,12 @@
+node:internal/fs/promises:619
+  dest = getValidatedPath(dest, 'dest');
+         ^
+
+TypeError [ERR_INVALID_ARG_TYPE]: The "dest" argument must be of type string or an instance of Buffer or URL. Received undefined
+    at cp (node:internal/fs/promises:619:10)
+    at execute (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver-c0-setup.mjs:76:59)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/[eval1]:1:130 {
+  code: 'ERR_INVALID_ARG_TYPE'
+}
+
+Node.js v24.7.0

@@ -1,0 +1,21 @@
+{
+  "failure": "MODULE_NOT_FOUND before essential parity owner entered",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/commands/essential-parity.request.json",
+    "sha256": "30f88477ec511b3efacab03c7f481ab04df81a07c9933b898957f024302abe9c",
+    "byteCount": 1544
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/commands/essential-parity.stderr",
+    "sha256": "8434efabfd9f2aeb869697eb89128594b5b746914613c2215a63ade478f79fe9",
+    "byteCount": 879
+  },
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/framework-dependency-lock-successor-209/commands/essential-parity.result.json",
+    "sha256": "4327f3aa7d0083cbf468cac3513b47b654f0d3ca344450c2d3053cf733e9cea0",
+    "byteCount": 2593
+  },
+  "rootCause": "Caller supplied repo-relative helper argv under recorder tenant cwd.",
+  "selectedAction": "Executive selected absolute existing209 helper path under new command stem; preserve original request/receipt. No helper/Source/build/pack change or repetition.",
+  "affectedRuntimeOrCampaignEffects": false
+}

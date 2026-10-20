@@ -1,0 +1,44 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root",
+  "priorRole": "Executive",
+  "role": "Writer",
+  "operation": "T287_SCAFFOLD_NOTATION_CLARIFICATION_WRITER_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "activatedAt": "2026-10-03T02:21:35.903586+00:00",
+  "exactGrant": "Clarify owner figurative agent design scaffold as notation-neutral UML/diagram/table/short statement. No scaffold implementation or mandatory JSON schema. Preserve triage and all frozen cuts.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-scaffold-notation-clarification-01",
+    "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+    "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "append only /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "preimages": {
+    "/Users/jim/src/apps/abiogenesis/AGENTS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 11263,
+      "sha256": "849da31e8a2cf4b7bffb714c8a704482827acf978c0d2fa4bb6937028cd238e9",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/CLAUDE.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+      "bytes": 4890,
+      "sha256": "62882dad35a00e372fb80ae6b55d28f628bcfd92dac8d81d739ca57a0e9be203",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24861,
+      "sha256": "617bcd10d0ecc61fa7ee0bd48360ad8bc71420a84e2ca5c00f5572d2ba04f276",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 543502,
+      "sha256": "0273bff32b2c6f4e3634151bce53c956411495ed4f0473a84af58a9dcc7c31ee",
+      "mode": 420
+    }
+  },
+  "recordedBeforeOtherEffects": true
+}

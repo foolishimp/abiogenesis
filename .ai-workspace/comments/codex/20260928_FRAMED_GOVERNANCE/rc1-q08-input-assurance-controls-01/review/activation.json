@@ -1,0 +1,21 @@
+{
+  "operation": "T287_Q08_CURRENT_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent focused nonauthor input Reviewer",
+  "previousRole": "T287_RC1_C06_CONSTRUCTION_ASSURANCE_01 CLOSED; no retained effect grant",
+  "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-assurance-controls-01/request.txt",
+  "grantBytes": 3538,
+  "grantSHA256": "68bde09a42d082b8fc146b4feb646661a5e39f20c95fd4d48f447d04aaf95b67",
+  "selectedFrame": "f-end-to-end-interface-integration + Identity/Material/Attribution/Proof/Effects/Reuse/Cost",
+  "exactSubject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+  "exactSubjectSHA256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-assurance-controls-01/review only",
+  "literalAC": {
+    "file": "a_c.literal.txt",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "exactBytesNoAppendedNewline": true
+  },
+  "sourceCandidateInputRuntimeReadOnly": true,
+  "activatedAt": "2026-10-02T07:42:18.328711+00:00"
+}

@@ -1,0 +1,81 @@
+{
+  "readDefinitions": [
+    {
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_result"
+      },
+      "definitionDigest": "sha256:f151da560be0eca3737cccbd5132f8a533fdaee3947cf297ac0c7b58790c0787",
+      "adapterExitMap": {
+        "acceptedTerminal": 0,
+        "refused": 1,
+        "invalidInvocation": 2,
+        "acceptedNonTerminal": null,
+        "adapterFailure": 70
+      }
+    },
+    {
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_replay"
+      },
+      "definitionDigest": "sha256:6c97714ef530747f125175b3c3d6bcfbdad69600cd1dc59cc5a4848e8892a829",
+      "adapterExitMap": {
+        "acceptedTerminal": 0,
+        "refused": 1,
+        "invalidInvocation": 2,
+        "acceptedNonTerminal": null,
+        "adapterFailure": 70
+      }
+    },
+    {
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_status"
+      },
+      "definitionDigest": "sha256:8633abe7e550a4b90c0b246f7137a3b345bf2a76a283024c2158bb53b26cae00",
+      "adapterExitMap": {
+        "acceptedTerminal": 0,
+        "refused": 1,
+        "invalidInvocation": 2,
+        "acceptedNonTerminal": null,
+        "adapterFailure": 70
+      }
+    },
+    {
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_gaps"
+      },
+      "definitionDigest": "sha256:b084e5bf73f78ac8f0883e540a82f12ad8b22d59c74d13c18ee75feddac564b2",
+      "adapterExitMap": {
+        "acceptedTerminal": 0,
+        "refused": 1,
+        "invalidInvocation": 2,
+        "acceptedNonTerminal": null,
+        "adapterFailure": 70
+      }
+    }
+  ],
+  "oldNegativeStart": {
+    "definitionKey": {
+      "operationId": "abg.operation.run.invoke",
+      "memberKey": "start"
+    },
+    "adapterExitMap": {
+      "acceptedTerminal": 0,
+      "refused": 1,
+      "invalidInvocation": 2,
+      "acceptedNonTerminal": 3,
+      "adapterFailure": 70
+    },
+    "outcomeKind": "nonterminal",
+    "exitCode": 3,
+    "interpretation": "valid published acceptedNonTerminal preserved unchanged, never relabeled result"
+  },
+  "mapping": {
+    "result": "acceptedTerminal",
+    "refusal": "refused",
+    "nonterminal": "acceptedNonTerminal"
+  }
+}

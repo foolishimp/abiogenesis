@@ -1,0 +1,18 @@
+{
+  "label": "dns",
+  "host": "api.anthropic.com",
+  "command": [
+    "/usr/local/bin/python3",
+    "-c",
+    "import socket,json; print(json.dumps({'host':'api.anthropic.com','addresses':sorted({a[4][0] for a in socket.getaddrinfo('api.anthropic.com',443,type=socket.SOCK_STREAM)})}))"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+  "observedAt": "2026-10-01T14:25:33.294781+00:00",
+  "timeoutSeconds": 10,
+  "authenticated": false,
+  "modelDispatch": false,
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/socket.py\", line 976, in getaddrinfo\n    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsocket.gaierror: [Errno 8] nodename nor servname provided, or not known\n",
+  "elapsedMs": 27.039
+}

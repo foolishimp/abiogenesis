@@ -36,6 +36,18 @@ The EC layer is not a controller. It derives fluent truth from event truth.
 ABG iteration still decides traversal advancement and closure through the
 existing runtime decision path.
 
+## Operational Fold And Historical Output
+
+The live fold consumes each newly admitted suffix once and retains current
+holds, transition coordinates and the dependency facts needed by later effects.
+Its history selection belongs to the existing Event Store/prefix owner; it does
+not retain decoded event bodies through historical effect rows or prior-event
+maps. An explicitly requested complete Event Calculus projection reconstructs
+its original source events and ordered effects from that authenticated selection.
+Its values, historical holds, clipping/de-clipping and digest meaning stay exact.
+Cold reconstruction applies the same canonical effect law and releases transient
+body values. Copied or foreign selections confer no fold or admission authority.
+
 
 ## Task, Workspace And Run Correspondence
 
@@ -107,7 +119,52 @@ The actual owner must establish phase and effects. Default-library names, a
 failure diagnostic, or deterministic compute means do not establish safety to
 repeat an operation.
 
+At that existing deterministic leaf boundary, totalization retains the first
+boundary stage and reason: authority verification refused or threw,
+implementation loading threw or lacked the export, or implementation invocation
+threw. The existing `diagnosticRef` retains a small canonical JSON subject through
+the runtime-failure diagnostic owner. It binds the original diagnostic class,
+`F_D`, implementation ref and input digest to that stage/reason. Caught causes
+use the existing safe class/code classification and only a native Error's own
+data message, bounded to 8192 characters with explicit truncation; arbitrary
+getters/proxies, full Errors/stacks, inputs, workspace or transport bodies are
+not captured. An unclassifiable thrown value remains explicitly unknown.
+
+```text
+F_D boundary failure -> retained diagnostic subject -> typed failed candidate
+  -> deterministic evidence over the exact candidate -> admitted Result
+  -> existing failure/parent/evidence projections
+```
+
+The failed value's existing fields and `failureClass`, owner receipt meaning and
+authority/currentness checks are unchanged. Replacing `diagnosticRef` changes
+the candidate bytes, so deterministic evidence recomputes its output digest.
+Legacy opaque diagnostics remain readable. Neither a null F_D receipt nor this
+diagnostic asserts undispatched work or absence of physical effects; it supplies
+the next failure discriminator, not permission to retry or a functional repair.
+
+A normal nullable library Testing refusal uses that same retained-subject owner
+without becoming an F_D exception. Its first owner relation and bounded scalar
+selectors flow through the existing private proof operation; native errors
+already caught as null retain their stage and safe class/code. Success, guard
+order and receipt/effect uncertainty stay unchanged. The failed candidate and
+deterministic evidence agree on the replaced diagnostic's bytes.
+
 ## Event Effects, Inertia And Validity
+
+An owner-checked private candidate view borrows the exact admitted predecessor's
+completed effect facts and applies only its one prospective event to a disposable
+delta. The existing failure-close and pending-interaction pure planners may
+construct a finite ordered suffix over that same genuine base. Each candidate
+uses the existing envelope, profile and causation checker against its exact
+predecessor; a later candidate borrows the prior disposable fold, never mutating
+the accepted base. This plan view is separate from the single-candidate extension
+surface and cannot become owned admitted history. Neither view appends, creates
+a durable receipt, advances currentness, or lends candidate truth to Source
+admission. Historical cuts reconstruct current
+metadata at that cut; unchanged predecessor bodies are not decoded again merely
+for preview. Explicit full-array callers retain complete effects and their
+existing value/digest law. Copied or foreign values receive no owner shortcut.
 
 - Existing call/selection/transfer and child-basis admissions establish the
   derived pending position/parent return. Their exact completion events advance

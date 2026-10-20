@@ -1,0 +1,41 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "operation": "T287_F11_FP_PROOF_DELIVERY_REALIZATION_01",
+  "actor": "/root/native_applicability_design",
+  "closedAt": "2026-10-02T04:52:37.008888+00:00",
+  "workResult": "GO_BOUNDED_SOURCE_READINESS_ONLY",
+  "canonicalPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76530,
+      "sha256": "c5fcd0b57ae902c0796e307ab3b0b5beb791708036ad1e71e44438e84c9ea1c5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+      "bytes": 11009,
+      "sha256": "7188a3e5238c532153398f1bc8448373b78986cf7477d6f0e4a5b1facf3073eb",
+      "mode": 420
+    }
+  ],
+  "sourceEffect": "one existing F_P argument5; arguments3/4, exact input/occurrence, all owner checks and failure totalization retained",
+  "readiness": "one compile, actual F_P dispatcher/qualification realization regression plus three selected existing owner checks pass",
+  "compiledEmission": {
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/leaf_invocation_port.js",
+    "kind": "file",
+    "bytes": 70127,
+    "sha256": "f97b4ba6ca2204a24b5bf353b1eb899df763d9ac4e4b801cbb2519ee3b721541",
+    "mode": 420
+  },
+  "originalAuthorship": "source-authorship.json",
+  "independentAssurance": "not performed or activated by this Worker; returns Root Executive",
+  "allWritesAfterFreeze": "STOPPED",
+  "semanticQualification": "unknown; no credit",
+  "returnRole": "Executive; no mutation authority",
+  "remaining": [
+    "actual successor Product/Install/Q input correspondence",
+    "whole installed wrapper child/J/foldback/parent/RunClosed/cold/F11/AF22 proof",
+    "semantic qualification and release acceptance"
+  ]
+}

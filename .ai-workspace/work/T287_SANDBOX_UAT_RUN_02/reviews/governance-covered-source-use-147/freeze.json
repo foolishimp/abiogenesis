@@ -1,0 +1,23 @@
+{
+  "status": "CLOSED",
+  "verdict": "GO \u2014 bounded Source/UnitProof",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/freeze.json",
+    "sha256": "57cc8f6ad69c1549d49a2492ee18422c784b4f01ae62270f366f5f283a0cf665",
+    "bytes": 43224
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/governance-covered-source-use-147/return.md",
+      "sha256": "e7689daa4c0918372b6af9b7c15ec4684d14f35583e29d801c6c9b13be6af6fe",
+      "bytes": 3564
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/reviews/governance-covered-source-use-147/pins.json",
+      "sha256": "1787e6dee8ccd2d21982ff3094b355f59786e0f107dca9c0815f12c3146b9bf2",
+      "bytes": 16094
+    }
+  ],
+  "selectedPinCount": 52,
+  "stop": "No further Reviewer147 effects; Root alone conjoins and selects installed proof."
+}

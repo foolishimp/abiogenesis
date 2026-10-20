@@ -1,0 +1,16 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "operation": "T287_C09_GENERATED_RECONCILIATION_CONTROLS_WRITER_05",
+  "restoredRole": "Executive",
+  "workerGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-controls-05/worker-request.txt",
+    "exists": true,
+    "bytes": 3252,
+    "sha256": "bc9fa44cc7bf0d0f6fad3c6aaf7aa7c02422ef3f256c7770f1e222abc7987a20",
+    "mode": 420
+  },
+  "selectedFiles": 9,
+  "SourceRuntimeGeneratedGitEffects": 0,
+  "closedAt": "2026-10-03T11:12:00.575628+00:00"
+}

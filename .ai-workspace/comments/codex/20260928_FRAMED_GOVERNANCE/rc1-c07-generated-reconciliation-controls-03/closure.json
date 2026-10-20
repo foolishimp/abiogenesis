@@ -1,0 +1,13 @@
+{
+  "operation": "T287_C07_GENERATED_CONDITIONAL_GRANT_03",
+  "status": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-controls-03/request.txt",
+    "bytes": 2508,
+    "sha256": "1554eb91154af9c550fd607aedc74d8062610938f786ba4477e08befa690a141",
+    "mode": 420
+  },
+  "RootRole": "Executive",
+  "canonicalEffects": 0,
+  "WorkerActivation": "PENDING exact independent acceptance"
+}

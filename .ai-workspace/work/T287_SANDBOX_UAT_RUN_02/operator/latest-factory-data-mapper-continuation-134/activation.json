@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-08T22:42:34.811412+00:00",
+  "role": "Worker/Operator134 preparation only, Root runtime dispatch HOLD",
+  "classification": "External ingress realization refactor; inherited parent environment restored, declared inner workerEnvironment unchanged",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+  ],
+  "basis": "Fixed15 ABI5/GOAL035/T287/STDO2.5.1rc2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "ownError": "My130 outer commandRecorder omitted environment:process.env; its default {} cleared inherited HOME/PATH/authentication environment before declared inner filtering. All new outer recorders explicitly inherit process.env.",
+  "preservedSourceResultRef": "result://abiogenesis/b5e95b06c2c7cf7f99836a96b53fe871573ecc8a4bc2b4ea8e74706810445356",
+  "preservedSourceRunRef": "run://abiogenesis/dceb321b4109a2c369ea0f2740a3436601be58b669f6939cd933f5d8e0a0d74b",
+  "currentCloseHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/latest-factory-data-mapper-continuation-130/final-close-handoff.json",
+    "sha256": "5ab682c1d96e3743bcb316ba299ce75e34dc717cb0482ac08bd53bde6c94fdf6",
+    "byteCount": 1472
+  },
+  "path": "Inherited outer environment -> declared workerEnvironment(config) -> exact installed24 sameW source/result owner -> fresh distinct Public request after current130 close",
+  "grantedComputations": "Syntax, safe readonly Claude auth status, pure owner read/source derivation and call preparation once after Root closed-triage release",
+  "preserved": "Original complete30 observations,12 detections/12 exact restores/44green,original16 distinct mutant/full UAT demand; same Program/View/W/catalog/install/provider/time/output controls; no current native/model/Run/app effects",
+  "credentialRule": "Never print/serialize/hash credential values; auth output restricted to safe fields and variable names/presence",
+  "stop": "Actual owner/source/currentness/quiescence/material/auth refusal -> HOLD exact diagnostic, no SourceNone/copied-W/retag fallback",
+  "dynamicPreparationReleased": "Root closed authority ingress+failure/source-owner triage; one pure --prepare at current130 genuine prefix, original129 source authority only; native dispatch held"
+}

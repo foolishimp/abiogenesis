@@ -1,0 +1,353 @@
+TAP version 13
+# Subtest: CCall opening is one atomic open-and-fibre transition
+ok 1 - CCall opening is one atomic open-and-fibre transition
+  ---
+  duration_ms: 1.031375
+  type: 'test'
+  ...
+# Subtest: timeout and termination-unconfirmed never prove a started process absent
+ok 2 - timeout and termination-unconfirmed never prove a started process absent
+  ---
+  duration_ms: 1.359375
+  type: 'test'
+  ...
+# Subtest: preterminal Process exit is the single cleanup confirmation
+ok 3 - preterminal Process exit is the single cleanup confirmation
+  ---
+  duration_ms: 0.109125
+  type: 'test'
+  ...
+# Subtest: duplicate Process terminality and Actor terminal before confirmation fail closed
+ok 4 - duplicate Process terminality and Actor terminal before confirmation fail closed
+  ---
+  duration_ms: 0.143292
+  type: 'test'
+  ...
+# Subtest: cold leader exit preserves unknown group cleanup across ordinary Run failure
+ok 5 - cold leader exit preserves unknown group cleanup across ordinary Run failure
+  ---
+  duration_ms: 0.765583
+  type: 'test'
+  ...
+# Subtest: owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes
+ok 6 - owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes
+  ---
+  duration_ms: 37.359916
+  type: 'test'
+  ...
+# Subtest: core C2 declares its exact existing Product relay source and only its lawful root callable
+ok 7 - core C2 declares its exact existing Product relay source and only its lawful root callable
+  ---
+  duration_ms: 2.284875
+  type: 'test'
+  ...
+# Subtest: actual C2 context observation requires explicit matching resources and rejects unavailable or changed source
+ok 8 - actual C2 context observation requires explicit matching resources and rejects unavailable or changed source
+  ---
+  duration_ms: 8.256292
+  type: 'test'
+  ...
+# (node:8508) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: observed root C2 assembles the single exact helper request from actual context evidence
+ok 9 - observed root C2 assembles the single exact helper request from actual context evidence
+  ---
+  duration_ms: 26.949375
+  type: 'test'
+  ...
+# Subtest: prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes
+ok 10 - prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes
+  ---
+  duration_ms: 64.386167
+  type: 'test'
+  ...
+# Subtest: fulfillment raw schema and binder share nonempty support role forms without semantic judgment
+ok 11 - fulfillment raw schema and binder share nonempty support role forms without semantic judgment
+  ---
+  duration_ms: 162.914834
+  type: 'test'
+  ...
+# Subtest: pure projection separates historical adverse evidence, current roles, policy completeness and later obligations
+ok 12 - pure projection separates historical adverse evidence, current roles, policy completeness and later obligations
+  ---
+  duration_ms: 6.048791
+  type: 'test'
+  ...
+# (node:8509) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage
+ok 13 - real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage
+  ---
+  duration_ms: 184.147209
+  type: 'test'
+  ...
+# Subtest: selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection
+ok 14 - selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection
+  ---
+  duration_ms: 26.185958
+  type: 'test'
+  ...
+# Subtest: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents
+ok 15 - UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents
+  ---
+  duration_ms: 328.375375
+  type: 'test'
+  ...
+# Controlled admitted occurrence and currentness callback; actual typed native/C2 observations, filesystem context, task preparation, admission/result matching and independent-actor guards. Retained mode controls only the already-admitted invocation/source use and historical execution coordinates; source/cold admission is checked separately against actual failed histories. No provider or semantic adequacy claim.
+# Subtest: Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents
+ok 16 - Retained prior-Run source use: UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents
+  ---
+  duration_ms: 328.654209
+  type: 'test'
+  ...
+# Controlled admitted occurrence and currentness callback; actual typed native/C2 observations, filesystem context, task preparation, admission/result matching and independent-actor guards. Retained mode controls only the already-admitted invocation/source use and historical execution coordinates; source/cold admission is checked separately against actual failed histories. No provider or semantic adequacy claim.
+# Subtest: shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays
+ok 17 - shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays
+  ---
+  duration_ms: 0.358583
+  type: 'test'
+  ...
+# Subtest: shared canonical traversal preserves captured entries, array length and refusal precedence
+ok 18 - shared canonical traversal preserves captured entries, array length and refusal precedence
+  ---
+  duration_ms: 4.3385
+  type: 'test'
+  ...
+# Subtest: incremental canonical hashes preserve independently declared golden bytes and refusal behavior
+ok 19 - incremental canonical hashes preserve independently declared golden bytes and refusal behavior
+  ---
+  duration_ms: 4.735333
+  type: 'test'
+  ...
+# Subtest: typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact
+not ok 20 - typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact
+  ---
+  duration_ms: 23.600417
+  type: 'test'
+  location: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/test_env/tests/t287-event-body-encoding.test.mjs:165:1'
+  failureType: 'testCodeFailure'
+  error: 'current actor binding requires its closed native liveness declaration'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:1924:19)
+    projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:1501:5)
+    admitRuntimeEventInternal (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:2982:36)
+    Module.admitRuntimeEvent (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:2955:12)
+    TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/test_env/tests/t287-event-body-encoding.test.mjs:168:55)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: native definition references refuse missing, forward, foreign-slot, changed and injected material
+not ok 21 - native definition references refuse missing, forward, foreign-slot, changed and injected material
+  ---
+  duration_ms: 20.695625
+  type: 'test'
+  location: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/test_env/tests/t287-event-body-encoding.test.mjs:197:1'
+  failureType: 'testCodeFailure'
+  error: 'current actor binding requires its closed native liveness declaration'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:1924:19)
+    projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:1501:5)
+    admitRuntimeEventInternal (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:2982:36)
+    Module.admitRuntimeEvent (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:2955:12)
+    TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/test_env/tests/t287-event-body-encoding.test.mjs:200:14)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append
+ok 22 - native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append
+  ---
+  duration_ms: 368.319916
+  type: 'test'
+  ...
+# {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+# Subtest: physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences
+ok 23 - physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences
+  ---
+  duration_ms: 50.595917
+  type: 'test'
+  ...
+# Subtest: nearest malformed body references refuse before logical history is exposed
+ok 24 - nearest malformed body references refuse before logical history is exposed
+  ---
+  duration_ms: 56.981917
+  type: 'test'
+  ...
+# Subtest: reused cold bodies still require each new envelope identity, stamp, cause and logical digest
+ok 25 - reused cold bodies still require each new envelope identity, stamp, cause and logical digest
+  ---
+  duration_ms: 45.559667
+  type: 'test'
+  ...
+# Subtest: independently supplied mutable raw input remains detached at event admission
+ok 26 - independently supplied mutable raw input remains detached at event admission
+  ---
+  duration_ms: 11.16725
+  type: 'test'
+  ...
+# Subtest: live body reuse preserves caller isolation, owned prefix and transaction rollback
+ok 27 - live body reuse preserves caller isolation, owned prefix and transaction rollback
+  ---
+  duration_ms: 52.187916
+  type: 'test'
+  ...
+# Subtest: literal marker-shaped Product data and small duplicate values remain unambiguous
+ok 28 - literal marker-shaped Product data and small duplicate values remain unambiguous
+  ---
+  duration_ms: 26.388583
+  type: 'test'
+  ...
+# Subtest: failed durable batch discards new inline sources; committed same-batch references survive reopen
+ok 29 - failed durable batch discards new inline sources; committed same-batch references survive reopen
+  ---
+  duration_ms: 23.142625
+  type: 'test'
+  ...
+# Subtest: large duplicate Result bodies and complete replay hashing fit a constrained heap
+ok 30 - large duplicate Result bodies and complete replay hashing fit a constrained heap
+  ---
+  duration_ms: 10478.13
+  type: 'test'
+  ...
+# {"seed":"portable-synthetic","copies":96,"valueBytes":1381713,"logicalBodyBytes":134026161,"physicalBytes":1730016,"valueDigest":"sha256:4cb713c40d5acf555d8e0c4891f8dd2a31b3cbd9b3b2b121a0bde141c164e4fb","replayDigest":"sha256:a737ffffd7f70d3bcf1145f978391a43f3c7dbbeaf031280a9f9181fe4eaa5fa","completeStateDigest":"sha256:99b855bded2bb1132e8586494b6bad600099881c24b397580d1924d79f5b1112","heapUsed":78584712,"rss":282558464,"maxRSSKiB":335024,"heapLimitMiB":128,"allDistinctAdmissions":true,"callerIsolation":true,"coldReplayEqual":true,"noNativeCredit":true}
+# (node:8638) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# {"kind":"native_c2_material_correspondence_component","correspondence":{"assembly":{"old":{"digest":"sha256:bcbd1a3591fca043aafe2e7ff95ba9f80d57497781e7a890c2a87e76d6621161","canonicalBytes":54952},"current":{"digest":"sha256:bcbd1a3591fca043aafe2e7ff95ba9f80d57497781e7a890c2a87e76d6621161","canonicalBytes":54952}},"request":{"old":{"digest":"sha256:023e8634a2862be45e0a9fd0cfda908239b6dd35dca16380a1004afe26c94e2d","canonicalBytes":5625},"current":{"digest":"sha256:023e8634a2862be45e0a9fd0cfda908239b6dd35dca16380a1004afe26c94e2d","canonicalBytes":5625}},"prompt":{"old":{"digest":"sha256:5305bb2895c3122634686e079fa99df9231e107d5825af60df8c883345aae048","canonicalBytes":4042},"current":{"digest":"sha256:5305bb2895c3122634686e079fa99df9231e107d5825af60df8c883345aae048","canonicalBytes":4042}},"schema":{"old":{"digest":"sha256:73749a1c0718159976d6953e86573dff6941bbadb96b57d4c982edb742ba1c23","canonicalBytes":816},"current":{"digest":"sha256:73749a1c0718159976d6953e86573dff6941bbadb96b57d4c982edb742ba1c23","canonicalBytes":816}},"plan":{"old":{"digest":"sha256:edbfdc72c5dea435b0be8a99fc109bceabfcfc150f28828e38d8ca97cc62d32e","canonicalBytes":1529},"current":{"digest":"sha256:edbfdc72c5dea435b0be8a99fc109bceabfcfc150f28828e38d8ca97cc62d32e","canonicalBytes":1529}}},"renderedPrompt":{"utf8Bytes":3800,"sha256":"1c0b9a5e7c0c0ae5f23d7cf50e02d20a4a22186149427d6f66f0b1d847cec810"},"nativeAdmission":false,"lowerAuthentication":"controlled; Product task/context/prompt/schema owners execute"}
+# Subtest: declared command-executor assembly accepts native C2 and keeps exact task, owner and context refusals
+ok 31 - declared command-executor assembly accepts native C2 and keeps exact task, owner and context refusals
+  ---
+  duration_ms: 244.84125
+  type: 'test'
+  ...
+# Subtest: native C2 selects changed and unchanged files without acquiring C1 identity
+ok 32 - native C2 selects changed and unchanged files without acquiring C1 identity
+  ---
+  duration_ms: 23.308917
+  type: 'test'
+  ...
+# Subtest: native C2 refuses missing, duplicate, crossed and counterfeit source selections
+ok 33 - native C2 refuses missing, duplicate, crossed and counterfeit source selections
+  ---
+  duration_ms: 9.171292
+  type: 'test'
+  ...
+# Subtest: changed physical source refuses before archive publication or native dispatch
+ok 34 - changed physical source refuses before archive publication or native dispatch
+  ---
+  duration_ms: 7.551875
+  type: 'test'
+  ...
+# (node:8653) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: native source selection preserves complete values and exact membership across long producer history and cold coordinates
+not ok 35 - native source selection preserves complete values and exact membership across long producer history and cold coordinates
+  ---
+  duration_ms: 2617.294708
+  type: 'test'
+  location: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/test_env/tests/t287-native-worksite-execution.test.mjs:85:1'
+  failureType: 'testCodeFailure'
+  error: 'runtime event payload matches no admitted event-contract variant'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:1806:15)
+    projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:1501:5)
+    admitRuntimeEventInternal (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:2982:36)
+    admitRuntimeEvent (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/build/code/src/abg/event_store.js:2955:12)
+    admit (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/test_env/tests/t287-native-worksite-execution.test.mjs:113:26)
+    TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-15/test_env/tests/t287-native-worksite-execution.test.mjs:122:18)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: retained actual native producer joins C2 source admission; absent and foreign origins refuse
+ok 36 - retained actual native producer joins C2 source admission; absent and foreign origins refuse # SKIP
+  ---
+  duration_ms: 1.018625
+  type: 'test'
+  ...
+# Subtest: native source currentness includes admitted failed-write residue after the child basis cut
+ok 37 - native source currentness includes admitted failed-write residue after the child basis cut # SKIP
+  ---
+  duration_ms: 0.066042
+  type: 'test'
+  ...
+# (node:8675) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data
+ok 38 - native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data # SKIP
+  ---
+  duration_ms: 0.72
+  type: 'test'
+  ...
+# Subtest: native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations
+ok 39 - native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations
+  ---
+  duration_ms: 248.022792
+  type: 'test'
+  ...
+# Subtest: native revision decision view leaves all opaque C2 and application JSON verbatim
+ok 40 - native revision decision view leaves all opaque C2 and application JSON verbatim
+  ---
+  duration_ms: 1.720583
+  type: 'test'
+  ...
+# Subtest: actor owner retains its own assembly, authenticates raw dispatch, and rejects forged return/basis/drift
+ok 41 - actor owner retains its own assembly, authenticates raw dispatch, and rejects forged return/basis/drift
+  ---
+  duration_ms: 5.654208
+  type: 'test'
+  ...
+# Subtest: semantic stage, revision and selection implementations preserve the complete owner request
+ok 42 - semantic stage, revision and selection implementations preserve the complete owner request
+  ---
+  duration_ms: 5.606959
+  type: 'test'
+  ...
+# Subtest: retained native assemblies conserve every canonical part and required-content refusal
+ok 43 - retained native assemblies conserve every canonical part and required-content refusal # SKIP
+  ---
+  duration_ms: 0.062333
+  type: 'test'
+  ...
+# Subtest: actual derived revision successor shares complete typed assets under the unchanged Design bound
+ok 44 - actual derived revision successor shares complete typed assets under the unchanged Design bound # SKIP
+  ---
+  duration_ms: 0.025417
+  type: 'test'
+  ...
+# Subtest: semantic result matcher follows the exact native compact Design materialization and preserves other roles
+ok 45 - semantic result matcher follows the exact native compact Design materialization and preserves other roles # SKIP
+  ---
+  duration_ms: 0.019458
+  type: 'test'
+  ...
+# Subtest: assessment-first actual successor preserves typed retained terms and full pending candidate under the unchanged bound
+ok 46 - assessment-first actual successor preserves typed retained terms and full pending candidate under the unchanged bound # SKIP
+  ---
+  duration_ms: 0.032042
+  type: 'test'
+  ...
+# Subtest: native42 operational selector context preserves current inventory and qualified completed evidence
+ok 47 - native42 operational selector context preserves current inventory and qualified completed evidence # SKIP
+  ---
+  duration_ms: 0.051666
+  type: 'test'
+  ...
+# Subtest: native42 Evidence role context preserves selected observations under the unchanged bound
+ok 48 - native42 Evidence role context preserves selected observations under the unchanged bound # SKIP
+  ---
+  duration_ms: 0.025291
+  type: 'test'
+  ...
+1..48
+# tests 48
+# suites 0
+# pass 36
+# fail 3
+# cancelled 0
+# skipped 9
+# todo 0
+# duration_ms 17264.394875

@@ -1,0 +1,14 @@
+{
+  "process": "causal-shapes",
+  "command": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/causal-shapes.py"
+  ],
+  "elapsedMs": 46.45629180595279,
+  "exitCode": 0,
+  "timedOut": false,
+  "ownedGroupSignals": [],
+  "stdout": "causal-shapes.stdout",
+  "stderr": "causal-shapes.stderr",
+  "nativeCalls": 0
+}

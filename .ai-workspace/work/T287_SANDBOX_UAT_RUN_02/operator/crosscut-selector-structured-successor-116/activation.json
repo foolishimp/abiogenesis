@@ -1,0 +1,6 @@
+{
+  "RootRelease": "116;113/114+actual115 conjoined; bounded metadata-shape correction separately granted",
+  "productFrame": "fixed15 ABI5.0 GOAL035/T287/STDO2.5.1RC2; integration/worksite-causality",
+  "allowed": "One actual normal build/pack/clean offline install/actual installed verify; generated/newcandidate23/phase116; copied107 config package2 only",
+  "forbidden": "Source/HOW/test/app/oldarchive/Git/provider/Run effects;109 source reuse not assumed"
+}

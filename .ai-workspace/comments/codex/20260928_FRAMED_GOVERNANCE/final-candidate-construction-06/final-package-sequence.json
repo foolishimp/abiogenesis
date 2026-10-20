@@ -1,0 +1,23 @@
+{
+  "statuses": [
+    {
+      "stage": "pack",
+      "supervisorExitCode": 0,
+      "stdout": "{\"pid\": 80067, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 3214.5895827561617}\n",
+      "stderr": ""
+    },
+    {
+      "stage": "install",
+      "supervisorExitCode": 0,
+      "stdout": "{\"pid\": 80091, \"exitCode\": 0, \"signal\": null, \"timedOut\": false, \"elapsedMs\": 2376.514666713774}\n",
+      "stderr": ""
+    },
+    {
+      "stage": "package-correspondence",
+      "supervisorExitCode": 0,
+      "stdout": "{\"artifactPath\": \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz\", \"artifactDigest\": \"sha256:9ac4ca5a40940cc98de8080d9c119788f75596890dde3aae4050a058fe383ced\", \"archiveBytes\": 10427997, \"packageRoot\": \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant\", \"bootstrapRoot\": \"/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install\", \"archiveMembers\": 5258}\n",
+      "stderr": ""
+    }
+  ],
+  "elapsedMs": 7005.459167063236
+}

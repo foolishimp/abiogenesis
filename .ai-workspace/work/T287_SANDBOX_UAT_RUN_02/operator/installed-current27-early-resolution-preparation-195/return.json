@@ -1,0 +1,58 @@
+{
+  "status": "CLOSED_STOPPED_FIRST_FAILURE",
+  "ProductFrame": "Fixed15 ABI5.0/GOAL035/T287/STDO2.5.1rc2/Product817–867/CONT014–016/integration/identity/lifecycle/effects/Proof",
+  "acceptedCaller": "Byte-identical193 six files;194 independent GO and actual192 recovery; no new Source/package behavior",
+  "timing": {
+    "started": "2026-10-09T09:32:20.598Z",
+    "wallMs": 373063.870542,
+    "earlyFixedResolutionMs": 27357.953708,
+    "coversCompleteMs": 350149.444041,
+    "directUseMs": 354794.71875,
+    "normalCloseMs": 354835.48,
+    "publicCallConstructedMs": 354893.83249999996,
+    "coveredUseCallbackEnteredMs": 356901.211541
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/operator-first-cause.json",
+    "sha256": "7ba53c0e5cbb42159c1316f4cdf977d8fe5c9c95faa28d040f3c44583cbaab48",
+    "byteCount": 2891
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/readiness.json",
+    "sha256": "b72e32c3b15d27258d9e50f06e9b7ddd528937e2260272dd707d6c2ada689f97",
+    "byteCount": 1795
+  },
+  "callback": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/callback-boundary.json",
+    "sha256": "e86cbfe452f1aa9bb4a9c86e76c91ab2ae14085a2f39e6ac22c954ec1cbbe48e",
+    "byteCount": 4216
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/closure-conservation.json",
+    "sha256": "48c3551ea2c7bf3392142a54874f900b259d18fd28dcc634285b764fc94d1740",
+    "byteCount": 2824
+  },
+  "quiescence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/execution-quiescence.json",
+    "sha256": "23fdc02d3781c8c93fc23cfd34235354debfeb69786d6eaf42ad79a5a48f8a9b",
+    "byteCount": 1624
+  },
+  "stageIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current27-early-resolution-preparation-195/stage-index.json",
+    "sha256": "6cda6ea954136cd7d0ba555d2540bab8b8ec5ee8f69ccb68e22561f901036523",
+    "byteCount": 12617
+  },
+  "source": {
+    "sourceResultRef": "result://abiogenesis/64ae93062197bb3a5256668a082aa4e5fdfd3c1c678fa489282bda3cafa2b455",
+    "sourceRunRef": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+    "basisRef": "invocation-source-result://abiogenesis/8b319c81f1778f0db452073d2ba1763f2612839e47fefe3fdec6696b583857fb",
+    "observations": 34,
+    "terminal": false,
+    "directCurrentUseDigest": "sha256:f17b484fa3c4a24e6f24d3670e725705f69b3da7c67f54861cd1d8e5846386ba",
+    "consumedBases": 104,
+    "producerOrInputRelabel": false
+  },
+  "effectStatus": "No new Public admission/Run/model/app/Source/Git effect; normal resource close recorded before abort, exact log metadata/49 physical observations preserved, lock absent, own PIDs/groups ESRCH.",
+  "remaining": "Callback result and complete Product preparation remain unproved; exact allocator/dominant retainer and global capacity/P0/UAT open.",
+  "selectedNextAction": "STOP for Root196/197 RCA/action; no further acquisition, retry, repair or recovery."
+}

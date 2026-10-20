@@ -1,0 +1,3 @@
+{"boundary":"cold_replay_started","pid":21255,"setupElapsedMs":9243.021,"run":"run://abiogenesis/a6d993ab5e81dbc9ae08d5069f68ae1503224100fe537634a8658513aba55dbd","close":"sha256:158f2797ef17d8d84e1311b989db109966ecb367de10caeb786523e69e0997dd"}
+{"boundary":"cold_replay_returned","readElapsedMs":20281.23725,"kind":"installed_definition_call_transport_result","exitCode":0,"ownerOutcome":"result","refusal":null}
+{"boundary":"closed_comparison_passed","readElapsedMs":20281.23725,"semanticDigest":"sha256:15c36ab1326ab82a5fb2b3f6bc4b8344faaa93197294b51d3e755160752f5a09","status":"failed"}

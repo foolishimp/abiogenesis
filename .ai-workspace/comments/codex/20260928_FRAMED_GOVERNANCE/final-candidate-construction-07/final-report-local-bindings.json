@@ -1,0 +1,8 @@
+{
+  "status": "DEFINED_SELF_CONTAINED_REPORT_LOCALS",
+  "scriptSHA256": "2ed9642cc5ef45025f2d648b630171e8bb6774e6ab8f023e4f5e39d4168b5c05",
+  "undefinedGlobalNames": [],
+  "scopeCount": 25,
+  "partialTailExecOrEval": false,
+  "ownerRuntimeImportsOrTests": 0
+}

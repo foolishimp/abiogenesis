@@ -1,0 +1,20 @@
+--- build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts.preimage
++++ build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts.postimage
+@@ -1066,7 +1066,17 @@
+                   evidenceRef: row.evidenceRef,
+                   evidenceDigest: row.evidenceDigest,
+                   evidenceClass: row.evidenceClass,
++                  inputDigest: row.inputDigest,
+                   outputDigest: row.outputDigest,
++                  ...(row.actorInvocationRef === undefined ? {} : { actorInvocationRef: row.actorInvocationRef }),
++                  ...(row.actorRef === undefined ? {} : { actorRef: row.actorRef }),
++                  ...(row.workerBindingRef === undefined ? {} : { workerBindingRef: row.workerBindingRef }),
++                  ...(row.transportBindingRef === undefined ? {} : { transportBindingRef: row.transportBindingRef }),
++                  ...(row.transportBindingDigest === undefined ? {} : { transportBindingDigest: row.transportBindingDigest }),
++                  ...(row.requestDigest === undefined ? {} : { requestDigest: row.requestDigest }),
++                  ...(row.promptDigest === undefined ? {} : { promptDigest: row.promptDigest }),
++                  ...(row.transportDisposition === undefined ? {} : { transportDisposition: row.transportDisposition }),
++                  ...(row.transportFailureClass === undefined ? {} : { transportFailureClass: row.transportFailureClass }),
+                   transportDigest:
+                     row.evidenceClass === "probabilistic_transport" &&
+                       "transportDigest" in row

@@ -1,0 +1,86 @@
+{
+  "dependencies": [
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/freeze.json",
+        "bytes": 14545,
+        "sha256": "f1937dec28204ef6790f9650edb27c031ee62f1abb7960b80119517339d570a6"
+      },
+      "verifiedRecords": 67,
+      "conserved": true
+    },
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+        "bytes": 13795,
+        "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+      },
+      "verifiedRecords": 66,
+      "conserved": true
+    },
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/freeze.json",
+        "bytes": 20105,
+        "sha256": "31162ce8dadbcbb1572d1043c009fba71be4303875165ff562461b84b70c3feb"
+      },
+      "verifiedRecords": 80,
+      "conserved": true
+    }
+  ],
+  "currentHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+    "bytes": 1330,
+    "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a"
+  },
+  "currentSnapshot": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-native-prefix.jsonl",
+    "bytes": 73530699,
+    "sha256": "146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c"
+  },
+  "control": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-controls-02/request.txt",
+    "bytes": 5896,
+    "sha256": "788d3b7cdf50a62b7e94dd97de7329e1e358dcbf747e5f98f84ce872fac4f761"
+  },
+  "assessmentDeclarations": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/assessment-declarations.json",
+    "bytes": 24097396,
+    "sha256": "082d375da305a51c0da70fe4c5d1a925d43b9aab1446d6cf72125da982576276"
+  },
+  "reusedFullRender": {
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01",
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+      "bytes": 13795,
+      "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+    },
+    "assessmentInput": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/assessment-input.json",
+      "bytes": 82175295,
+      "sha256": "10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901"
+    },
+    "workerRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/worker-request.json",
+      "bytes": 1062803,
+      "sha256": "0d21b292dc1944eac9c8fbf01475a68e72ca27e17c083af2929c4402818e7401"
+    },
+    "prompt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/prompt.txt",
+      "bytes": 1021244,
+      "sha256": "35d718313300c7feb1ebc64d699c373c58dd9de868bc68c9c14a83e7d7ee4264"
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/prompt-measurement.json",
+      "bytes": 5914,
+      "sha256": "693b7858ea8381f279afa80560633e178f2380d922cca44df5690414472e96d4"
+    },
+    "candidateLaw": "Immutable C02/Q02 RC1",
+    "controlBasis": "stdo://releases/v2.5.1-rc.2/"
+  },
+  "staticConformance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/f11-conformance-assess-stdout.json",
+    "bytes": 1963,
+    "sha256": "830aa9a7c8aae10b408c1d0915976373e45dad34bf755e41ad67c852b9247861"
+  }
+}

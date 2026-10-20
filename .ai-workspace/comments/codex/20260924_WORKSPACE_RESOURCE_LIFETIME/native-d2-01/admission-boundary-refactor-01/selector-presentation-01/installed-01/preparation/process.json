@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/preparation/prepare.mjs"
+  ],
+  "pid": 75933,
+  "startedEpoch": 1790305308.402567,
+  "effects": "nine-call setup plus execution resolution; no actor"
+}

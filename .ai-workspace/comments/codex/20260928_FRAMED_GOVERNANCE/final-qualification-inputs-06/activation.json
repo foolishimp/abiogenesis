@@ -1,0 +1,17 @@
+{
+  "role": "Worker",
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_06",
+  "state": "OPEN",
+  "reentry": "realization_refactor",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-input-controls-06/request.txt",
+    "bytes": 8257,
+    "sha256": "a43a3031fcd50c551f9e48d898f0cd370979dee17f31c436bf881fd38905fb68"
+  },
+  "productFrame": "EndToEndInterfaceIntegration/Product/NativeDefinition/Identity/Install/Reuse/Lifecycle/Effects/Proof/Cost",
+  "effects": "ordinary assertion/caller bytes and pure published preparation only",
+  "runtimeEffects": false,
+  "previousRole": "Q05 CLOSED C04-only",
+  "candidateBinding": "pending exact Root accepted C05 dependency"
+}

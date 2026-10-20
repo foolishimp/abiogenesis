@@ -1,0 +1,71 @@
+{
+  "scope": "Existing owner completion/private guard call-through",
+  "files": [
+    {
+      "relativePath": "code/src/hog/traversal_completion.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/traversal_completion.ts",
+      "sha256": "cf719c6fca7468e22a4310778fe6bf8c38c7708e1b0f14e9ea4281b60d958a4a",
+      "byteCount": 7925
+    },
+    {
+      "relativePath": "code/src/hog/evaluation_frame.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/evaluation_frame.ts",
+      "sha256": "f56611605a9b31a5d24319454a2bca797564f87c7acf12ca3d9e188d9c4a1bbf",
+      "byteCount": 6451
+    },
+    {
+      "relativePath": "code/src/hog/graph_execute.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/graph_execute.ts",
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6",
+      "byteCount": 47589
+    },
+    {
+      "relativePath": "code/src/hog/ccall_lifecycle.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/ccall_lifecycle.ts",
+      "sha256": "3cb0d09a18e00af62bbb1d8ff4518fa7de04befdb3ba979fe06b1d2bb1ad01e4",
+      "byteCount": 35923
+    },
+    {
+      "relativePath": "code/src/hog/workflow_lifecycle.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/workflow_lifecycle.ts",
+      "sha256": "b4f427f00750451ba646375a7dc8dca9cf01f1de118979f81ed3e20e46d17906",
+      "byteCount": 38714
+    },
+    {
+      "relativePath": "code/src/hog/recursion_lifecycle.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/recursion_lifecycle.ts",
+      "sha256": "6155d94bd085d8415761b00520d72251438829eae5dea3e252d2929d3b15f6b7",
+      "byteCount": 36278
+    },
+    {
+      "relativePath": "code/src/hog/judgment.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/judgment.ts",
+      "sha256": "e35c0cf31cf2468b0eb18bf3616c72b8d8f39fad2cd5c24a1408b7dd38aada18",
+      "byteCount": 2755
+    },
+    {
+      "relativePath": "code/src/hog/interaction_resume.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/interaction_resume.ts",
+      "sha256": "1134b13185cefd7e31642dddee8d3e8b28e3bacd746094d4bcb22d1e49ec439d",
+      "byteCount": 8344
+    },
+    {
+      "relativePath": "code/src/hog/interaction_lifecycle.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/interaction_lifecycle.ts",
+      "sha256": "8958e11708e5762e5ac45a5b13753294c9d874f3b682c4e9c8999895a59a0729",
+      "byteCount": 7240
+    },
+    {
+      "relativePath": "code/src/hog/retry_lifecycle.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/hog/retry_lifecycle.ts",
+      "sha256": "c1b2a20e993f3f644d372f4fa3604f373bef35aa7b965477ce74e22e574a1b55",
+      "byteCount": 23085
+    },
+    {
+      "relativePath": "code/src/abg/closure.ts",
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/preimages/code/src/abg/closure.ts",
+      "sha256": "3e3cfea9caac73f71d3b9eab8d162a262949b6ea118b3cb0c1c136bc260b340c",
+      "byteCount": 24482
+    }
+  ]
+}

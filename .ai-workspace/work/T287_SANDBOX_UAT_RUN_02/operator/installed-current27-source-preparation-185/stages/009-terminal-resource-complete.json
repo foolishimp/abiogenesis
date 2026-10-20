@@ -1,0 +1,12 @@
+{
+  "stage": "terminal-resource-complete",
+  "rss": 4287856640,
+  "heapTotal": 3827924992,
+  "heapUsed": 3722878752,
+  "external": 31944454,
+  "arrayBuffers": 29532147,
+  "at": "2026-10-09T07:42:10.390Z",
+  "elapsedMs": 197013.031167,
+  "resultRef": "result://abiogenesis/072027338ef9b9323f02d16598cb0903e80cc9adbe2a5771f56e159be0349d16",
+  "sourceInputGraphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5"
+}

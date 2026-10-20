@@ -1,0 +1,74 @@
+{
+  "operation": "T287_REUSE_CONSUMER_REPAIR_04",
+  "actor": "/root/native_applicability_design",
+  "status": "CLOSED_SOURCE",
+  "entry": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10687,
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 8505,
+      "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 17006,
+      "sha256": "f383324b64602f0419bc0cd17ad5fdde2dbb82ff3c80ee857c27a5323b646c22",
+      "mode": 420
+    }
+  ],
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10687,
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 8505,
+      "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 17022,
+      "sha256": "54eab951cd96e5dfd82ace948b79c39e3ba98ea7e2e8d83e6323158fecc1e6b1",
+      "mode": 420
+    }
+  ],
+  "changedPaths": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+  ],
+  "unchangedPaths": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs"
+  ],
+  "preimageAtOriginalOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_03/t287-retained-installed-consumer.test.mjs",
+    "bytes": 17006,
+    "sha256": "f383324b64602f0419bc0cd17ad5fdde2dbb82ff3c80ee857c27a5323b646c22",
+    "mode": 420
+  },
+  "delta": "One expected diagnostic changed to qualification_declaration_selection_unbound; no fixture or guard change.",
+  "fixedHelperAndPreparationAuthorship": "Original Worker01 author and bounded Worker02 correction; conserved as exact Source bodies.",
+  "testAuthorship": "Worker01/02/03 original test with this separately granted Worker04 oracle correction.",
+  "retainedPostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_04/t287-retained-installed-consumer.test.mjs",
+    "bytes": 17022,
+    "sha256": "54eab951cd96e5dfd82ace948b79c39e3ba98ea7e2e8d83e6323158fecc1e6b1",
+    "mode": 420
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_04/source.patch",
+    "bytes": 968,
+    "sha256": "8bd27722a149fc8dc3ae4358bf90ad849011deb3b31430629327961a94aca2ec",
+    "mode": 420
+  },
+  "frameworkSourceChanges": 0
+}

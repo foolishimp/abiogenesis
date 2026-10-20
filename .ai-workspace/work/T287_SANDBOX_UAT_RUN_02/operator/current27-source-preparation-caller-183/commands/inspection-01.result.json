@@ -1,0 +1,25 @@
+{
+  "exitCode": 1,
+  "error": "KeyError: descriptorDigest",
+  "verificationCoordinatesPrinted": {
+    "verifiedArtifact": {
+      "ref": "product-verification://abiogenesis/3366b44d6fcf7e25d212b7adf9371ae7577d7dc69e0766e027fecb5910a67826",
+      "digest": "sha256:3366b44d6fcf7e25d212b7adf9371ae7577d7dc69e0766e027fecb5910a67826"
+    },
+    "descriptor": {
+      "ref": "descriptor://abiogenesis/typescript-tenant/156bed4793d6de23cfb2aa99d40b1afc004067b507e1cc442d7016c525f60bc1",
+      "digest": "sha256:d3a93a014c9a2541b9222b208f906187d920a99e8d9f3d666cda369f8c226cfc"
+    },
+    "localNativeEvidence": {
+      "ref": "local-native-evidence://abiogenesis/product-verification/10f2840d954f10ee1344832bf87859a513d34db53e4cb18ccc56d36d9ebca523",
+      "digest": "sha256:10f2840d954f10ee1344832bf87859a513d34db53e4cb18ccc56d36d9ebca523"
+    },
+    "provenance": {
+      "ref": "provenance://abiogenesis/product-verification/c5707182772ba575919cb674a10a7fdf45f157e1d88d59c972ca9e5859809976",
+      "digest": "sha256:c5707182772ba575919cb674a10a7fdf45f157e1d88d59c972ca9e5859809976"
+    }
+  },
+  "callerCreationBeforeFailure": false,
+  "effects": false,
+  "RootSelectedAction": "Use existing verification.coordinates.descriptor.digest; omit unsupported accessor, no inspection rerun or payload/contract change"
+}

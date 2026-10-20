@@ -1,0 +1,67 @@
+{
+  "previousActivation": "T287_RC1_S03_INSTALLED_PAIR_03",
+  "previousSetupCalls": 9,
+  "oldFailureFreezeSHA256": "ba1fcefd7259d3641f187fcefb1e545f45dfecb321fb273b2ab5d1e04e7f59bd",
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:6f015985dec8b70ff4b2e82568b96c3d8307b820c7fdb91f5eac21200337f388",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:3f4f443fe609b278d375e7667137e330fa25efcdc46c2297afc018bda4bc5298",
+      "prefixLength": 2490961,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464429281
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:55216d2d21bcd961ad093ef8e2bd47a2cc5fd26cb7781c8f4d2aa207d59bcc96",
+      "device": 16777230,
+      "durableByteLength": 2490961,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:3f4f443fe609b278d375e7667137e330fa25efcdc46c2297afc018bda4bc5298",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "inode": 464429281,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "binding": {
+    "digest": "sha256:893b251242652b928d9961e17be80655a14056f5c6fbbdc7d7ed2c033e87294b",
+    "ref": "workspace-binding://abiogenesis/893b251242652b928d9961e17be80655a14056f5c6fbbdc7d7ed2c033e87294b"
+  },
+  "resolvedLock": {
+    "ref": "product-lock://abiogenesis/f391b2f876504df1bc8800066f87908ed898e743d368bfc9e47840f29f97aa7b",
+    "digest": "sha256:f391b2f876504df1bc8800066f87908ed898e743d368bfc9e47840f29f97aa7b"
+  },
+  "actorRef": "actor://abiogenesis/t287/rc1-s03-installed-execution-03/operator",
+  "workspaceAuthority": {
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/b216715920214db96f14543ee4dd82d46dddae8c4add233ae563fa04fd14dbb6",
+    "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/worksite",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://abiogenesis/t287/rc1-s03-installed-execution-03/operator",
+    "authorityManifestRef": "authority://abiogenesis/t287/rc1-s03-installed-execution-03/workspace-manifest",
+    "authorityManifestDigest": "sha256:17f0b5257fa5a10aff16e8c5eae14b0147829a8fa652c993955f94f385be34df",
+    "authorityBasisId": "workspace-authority://abiogenesis/1f4f3f95d39407c76ccd1c196bae2cb34183135cf5369f1e7f4c41861fe6ab17",
+    "authorityBasisDigest": "sha256:1f4f3f95d39407c76ccd1c196bae2cb34183135cf5369f1e7f4c41861fe6ab17"
+  },
+  "catalog": {
+    "digest": "sha256:d34e8714bcfc93acfe9f262958724b081bb6bed1a35ec2d9efab0e058ffe006e",
+    "ref": "graph-function-catalog://abiogenesis/d34e8714bcfc93acfe9f262958724b081bb6bed1a35ec2d9efab0e058ffe006e"
+  },
+  "view": {
+    "digest": "sha256:9adb5d69d7a16d56be931384b10e92723b8d19e19ccd09d56c9b8bc3c759508f",
+    "ref": "graph-function-catalog-view://abiogenesis/9adb5d69d7a16d56be931384b10e92723b8d19e19ccd09d56c9b8bc3c759508f"
+  },
+  "publicationInputDigest": "sha256:505954dff47c51133b1f6b56d258c0b755b74d461639cc1baea4cffe167cf30a",
+  "publications": 12,
+  "ownerPublicationBindings": 12,
+  "nominalReacquisition": "Actual ProductVerificationPort.verify -> identical owner selection -> GTL publications -> actual pure CatalogOperationPort.admit/narrow -> old producer digest checks",
+  "setupCLIRepeated": 0,
+  "storeCopied": false,
+  "newRequestNamespace": "request://abiogenesis/t287/rc1-s03-installed-execution-04"
+}

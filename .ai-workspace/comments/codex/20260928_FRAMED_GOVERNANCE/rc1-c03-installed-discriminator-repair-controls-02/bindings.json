@@ -1,0 +1,25 @@
+{
+  "Writer": "T287_RC1_C03_DISCRIMINATOR_REPAIR_CONTROLS_02",
+  "executionPreimage": "afa3720c6a9692f7c65e441238eb23a21d50618c5c002b7f7699a0e9b0a87e9b",
+  "a_c": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8"
+  },
+  "requests": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminator-repair-controls-02/f11-request.txt",
+      "bytes": 8155,
+      "sha256": "c8c082e85fe958a4034edd3e17be6caa076abc3fb1bea1bc5c51e7833e1d686c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminator-repair-controls-02/s03-request.txt",
+      "bytes": 7966,
+      "sha256": "c1b45835e842986ed1bab29f6ea781747fcb5b8780b9f60e67b6584a160fc164"
+    }
+  ],
+  "sharedHelperFreeze": "636b261b43337cc4cb42d7faf9e0503e91e80c4ff2c6f64238d19bc4e0580262",
+  "priorFailures": [
+    "70fbfe4ae6065eeedb59eebae09c69419d76fb1237bac21fb4d239342c3ffe6d",
+    "ba1fcefd7259d3641f187fcefb1e545f45dfecb321fb273b2ab5d1e04e7f59bd"
+  ]
+}

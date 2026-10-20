@@ -1,0 +1,93 @@
+{
+  "status": "passed bounded independent delta review",
+  "subjects": {
+    "final-c2-output-consumer-review-controls-01/request.txt": "b76ac609dad0865d23a73bdd89ccf49606b4be9c0db471df5567a1dd779d51ce",
+    "final-c2-output-consumer-repair-01/freeze.json": "5b705555a5ebd9a58e0402667a0f31f9256e3e3ce643930f065d33bee34650f6",
+    "final-c2-output-consumer-repair-01/return.md": "1deaeb5758fdefd6bcda6a2f278e1b8130d636590a74504016ad7b319925d45b",
+    "final-c2-output-consumer-repair-01/output-checks.mjs": "d59cebeeed35234f4d69f978030a5a1094919291513c523a0d34b07fcb6f8b2a",
+    "final-end-to-end-forward-review-01/freeze.json": "4397713136caac64f7d7d434429efe20d95f7fd22d388d1613e2ef2de9bf488e"
+  },
+  "freeze": {
+    "records": 44,
+    "fileCount": 43,
+    "symlinkCount": 1,
+    "totalBytes": 169168
+  },
+  "sourceRecords": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 132250,
+      "sha256": "bb1b24e30d8c4668444481085530aca5f5ab3ce935677cbc882faa83208004bf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 59485,
+      "sha256": "44d7c23c5bd492d659adf29596e75611c19b4d69375881cd6911a2dfc0a2880d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 61435,
+      "sha256": "72a21030d65bdc18a66c98b17e585b05e3c73bd3146bb8d8f8f42349b17e27ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 25105,
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9623,
+      "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0"
+    }
+  ],
+  "originalsMatch": true,
+  "preservation": {
+    "schemaStreamProcessChecks": true,
+    "terminalTaskChecks": true,
+    "protected716AndProductChecks": true,
+    "command13": true,
+    "predicates14": true,
+    "testAndLintBlocks": true,
+    "comparison925Oracles": true,
+    "resultAndColdChecks": true,
+    "originalDriverBytes": true
+  },
+  "changedRelation": {
+    "allPhysicalReadSites": 3,
+    "callerRootParameterRemoved": true,
+    "successorHandoffAgrees": true,
+    "planArtifactSnapshotJoin": "independently source reviewed",
+    "canonicalContainmentAndNoAlias": "independently source reviewed",
+    "outputVectorConservation": "independently source reviewed"
+  },
+  "focusedWorkerEvidence": {
+    "checks": 10,
+    "initialProbeExit": 1,
+    "correctedProbeExit": 0,
+    "rerun": false,
+    "nativeCredit": false,
+    "sourceReview": "read all frozen harness checks and retained failure triage; did not execute or reconstruct fixtures"
+  },
+  "independentActualFailedCheck": {
+    "disposition": "runtime_failed",
+    "refusedBeforeCallbacks": true,
+    "callbacks": 0,
+    "positiveSuccessExecuted": false
+  },
+  "limits": [
+    "No new fixtures, helper commands, native/provider/network/current resource reads, repairs or qualification.",
+    "A valid supplied component carrier does not establish native admission.",
+    "Future driver import/argument handoff is specified, not installed or executed.",
+    "C2 success and both fresh native reads remain open."
+  ]
+}

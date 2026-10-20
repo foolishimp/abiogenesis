@@ -1,0 +1,14 @@
+{
+  "pid": 11166,
+  "processGroup": 11166,
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/source-freeze/toolchain/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/setup-install-fixture.jsonl"
+  ],
+  "startedAt": "2026-10-02T06:24:55.727Z",
+  "mode": "setup",
+  "label": "install-fixture",
+  "capMs": 180000
+}

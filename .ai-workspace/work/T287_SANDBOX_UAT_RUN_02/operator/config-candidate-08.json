@@ -1,0 +1,87 @@
+{
+  "package": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4"
+  },
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "archiveRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat",
+  "nodePath": "/opt/homebrew/bin/node",
+  "recursionBound": 12,
+  "processTimeoutMs": 3600000,
+  "maxProcessOutputBytes": 16777216,
+  "inheritEnvironment": [
+    "HOME",
+    "PATH",
+    "TMPDIR",
+    "LANG",
+    "LC_ALL"
+  ],
+  "toolchainEnvironment": {
+    "JAVA_HOME": "/opt/homebrew/opt/openjdk@11"
+  },
+  "toolchains": {
+    "node": {
+      "executable": "/opt/homebrew/bin/node",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "npm": {
+      "executable": "/opt/homebrew/bin/npm",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "rustc": {
+      "executable": "/Users/jim/.cargo/bin/rustc",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "cargo": {
+      "executable": "/Users/jim/.cargo/bin/cargo",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "sbt": {
+      "executable": "/opt/homebrew/bin/sbt",
+      "versionArgs": [
+        "--script-version"
+      ],
+      "environment": {
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@11",
+        "PATH_PREFIX": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin"
+      }
+    },
+    "java": {
+      "executable": "/opt/homebrew/opt/openjdk@11/bin/java",
+      "versionArgs": [
+        "-version"
+      ],
+      "environment": {
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@11"
+      }
+    }
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "versionArgs": [
+      "--version"
+    ],
+    "model": "claude-opus-5-5",
+    "maxTurns": 24,
+    "maxBudgetUsd": 5,
+    "inactivityTimeoutMs": 900000,
+    "absoluteTimeoutMs": 1200000,
+    "appendArgs": [],
+    "inheritEnvironment": [
+      "ANTHROPIC_API_KEY",
+      "CLAUDE_CONFIG_DIR",
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  },
+  "fixtureRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat"
+}

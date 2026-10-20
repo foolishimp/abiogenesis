@@ -1,0 +1,82 @@
+{
+  "kind": "traversal_scope_open_admission",
+  "schemaVersion": "5.0.0",
+  "disposition": "opened",
+  "scopeClass": "root",
+  "run": {
+    "runId": "run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029",
+    "runDigest": "sha256:9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029",
+    "executionBasisRef": "execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+    "executionBasisDigest": "sha256:81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/115c03f78986ff9f1f0fc0a7c6bee607715ab55be3b7c0ffe60a7c88a30c5d0b",
+    "invocationRef": "invocation://abiogenesis/95ac3a56a2f3d5b0819085b79d798118f645ee6b641001ee1412bf70c5f06fa7",
+    "workspaceBindingId": "workspace-binding://abiogenesis/70b4cba4699a21d7737eb6a01e60e925c51fe568514de6c1a87a8083b62289b5",
+    "programRef": "program://selected-action/root@5",
+    "graphFunctionRef": "graph-function://selected-action/root@5",
+    "graphRef": "graph-materialization://abiogenesis/5ada78c69c1c60e8575c566316529118c7e59fa957142b431562dc87d2b7cc7e",
+    "graphDigest": "sha256:5ada78c69c1c60e8575c566316529118c7e59fa957142b431562dc87d2b7cc7e",
+    "openEventRef": "event://abiogenesis/c88d030b920a47bc2643394785f4f49dc9bae71dc5128be51b9b23f4623b223d"
+  },
+  "graphCall": {
+    "graphCallId": "graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467",
+    "graphCallDigest": "sha256:30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467",
+    "runId": "run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029",
+    "executionBasisRef": "execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+    "invocationRef": "invocation://abiogenesis/95ac3a56a2f3d5b0819085b79d798118f645ee6b641001ee1412bf70c5f06fa7",
+    "graphFunctionRef": "graph-function://selected-action/root@5",
+    "graphFunctionDigest": "sha256:492497c253379819ff4d7ebffa9b0a7be2ddb438921d2615ad3ca9fe5f6a6d81",
+    "graphRef": "graph-materialization://abiogenesis/5ada78c69c1c60e8575c566316529118c7e59fa957142b431562dc87d2b7cc7e",
+    "graphDigest": "sha256:5ada78c69c1c60e8575c566316529118c7e59fa957142b431562dc87d2b7cc7e",
+    "openEventRef": "event://abiogenesis/b999c5e9a30fba4a8323acfc2acea932393d9f2d8f2b239016e511885d9b7e45"
+  },
+  "frame": {
+    "frameId": "frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d",
+    "frameDigest": "sha256:d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d",
+    "frameLineageId": "frame-lineage://abiogenesis/5f964d9b55e87db40d1ffb91be7c8541e6e0ae4a610a66fb631c170026521523",
+    "attempt": 1,
+    "parentFrameId": null,
+    "runId": "run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029",
+    "graphCallId": "graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467",
+    "executionBasisRef": "execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+    "invocationRef": "invocation://abiogenesis/95ac3a56a2f3d5b0819085b79d798118f645ee6b641001ee1412bf70c5f06fa7",
+    "admittedInputRef": "raw-admission://abiogenesis/c34189edb2d6d3d80d6eb98e3e7500e150dc08b29e7fe93deba4ca6450579187",
+    "admittedInputDigest": "sha256:e121076b64a50492e92c6b7cc0969f410fc7cc80149f01d7c7b099b838c174b9",
+    "openEventRef": "event://abiogenesis/965d74ee0c68d11b062548a2f239875314e1f52f5174910f06ae00a5b70504fc"
+  },
+  "scope": {
+    "kind": "opened_traversal_scope",
+    "schemaVersion": "5.0.0",
+    "scopeRef": "traversal-scope://abiogenesis/1e28be1c958019e83048486b26e5090ecaa765c8e620d79573a23e1550a4cb0d",
+    "scopeDigest": "sha256:1e28be1c958019e83048486b26e5090ecaa765c8e620d79573a23e1550a4cb0d",
+    "executionBasisRef": "execution-basis://abiogenesis/81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+    "executionBasisDigest": "sha256:81fb733d31911b1a84bdc43f3431fe7f7758d3e9478030f2d32a2efb8125d7ac",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/115c03f78986ff9f1f0fc0a7c6bee607715ab55be3b7c0ffe60a7c88a30c5d0b",
+    "invocationRef": "invocation://abiogenesis/95ac3a56a2f3d5b0819085b79d798118f645ee6b641001ee1412bf70c5f06fa7",
+    "programRef": "program://selected-action/root@5",
+    "graphFunctionRef": "graph-function://selected-action/root@5",
+    "graphRef": "graph-materialization://abiogenesis/5ada78c69c1c60e8575c566316529118c7e59fa957142b431562dc87d2b7cc7e",
+    "runId": "run://abiogenesis/9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029",
+    "runDigest": "sha256:9bafb7fcd4bf29d8dc8a1fa8d2881b7604fe5e5a9536f79acff7a32451938029",
+    "runOpenEventRef": "event://abiogenesis/c88d030b920a47bc2643394785f4f49dc9bae71dc5128be51b9b23f4623b223d",
+    "graphCallId": "graph-call://abiogenesis/30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467",
+    "graphCallDigest": "sha256:30ec5a870a28f30b3cd5d00cfcab49a26b87017944b8171cc67756c04c57d467",
+    "graphCallOpenEventRef": "event://abiogenesis/b999c5e9a30fba4a8323acfc2acea932393d9f2d8f2b239016e511885d9b7e45",
+    "frameId": "frame://abiogenesis/d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d",
+    "frameDigest": "sha256:d8c80eb721f986fcc735d732996fcb97581889080c689f1544013a90ae34748d",
+    "frameLineageId": "frame-lineage://abiogenesis/5f964d9b55e87db40d1ffb91be7c8541e6e0ae4a610a66fb631c170026521523",
+    "frameOpenEventRef": "event://abiogenesis/965d74ee0c68d11b062548a2f239875314e1f52f5174910f06ae00a5b70504fc"
+  },
+  "successorPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/runtime/events.jsonl",
+    "prefixLength": 2555922,
+    "prefixDigest": "sha256:0b012f51b3a7f8a161bd107acfa2a8bd6badac71a4f391f98370fbbb34be8201",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 463692735,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:e36d8ac7381002c85468d2ea0331fe42642ca4a53a3ca38931d4d346b6e00425"
+  }
+}

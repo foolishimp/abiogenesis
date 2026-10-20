@@ -1,0 +1,447 @@
+{
+  "kind": "graph_function_catalog_view",
+  "catalogBasisDigest": "sha256:b40a7249bf6e37dc73cecd24451852cbf4efc111c8a06c2a2058d1fd449240b5",
+  "allowlist": [
+    "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+    "graph-function://abiogenesis/conformance/bounded-recursion@5"
+  ],
+  "entries": [
+    {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+      "definitionDigest": "sha256:0d6afe4fe8ef90ca1660b16a9598aa29e0cc3202f44215e940d2c20e95149d33",
+      "definition": {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/conformance/bounded-recursion-step-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/conformance/bounded-recursion-step-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/bounded-recursion-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/conformance/bounded-recursion-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/conformance/bounded-recursion-step@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/bounded-recursion-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/bounded-recursion-input@5",
+            "contract://abiogenesis/conformance/bounded-recursion-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/bounded-recursion-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/bounded-recursion-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/bounded-recursion-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/bounded-recursion-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "all-fd",
+          "bounded-recursion-step",
+          "conformance"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/bounded-recursion-step@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/bounded-recursion/step@5",
+              "term": {
+                "armId": "arm://abiogenesis/conformance/bounded-recursion/step@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/conformance/bounded-recursion-step@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+                "programLocusRef": "node://abiogenesis/conformance/bounded-recursion/step@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/conformance/bounded-recursion-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/conformance/bounded-recursion-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/conformance/bounded-recursion-step@5",
+                  "inputContractRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/conformance/bounded-recursion-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+                  "refusalContractRef": "contract://abiogenesis/conformance/bounded-recursion-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "recursion_step",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/bounded-recursion/step@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/bounded-recursion/step@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/bounded-recursion@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:7e97beb6724baa53a6b8e568eaa67e9790882dcc7707bee6c6bd98755707edc6"
+    },
+    {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "definitionDigest": "sha256:ca5b46e115615a28fdc50e2f318bdbf4c2b64047666a280a5957a8173bc616c3",
+      "definition": {
+        "declarations": {
+          "abg.closure_contract": "contract://abiogenesis/conformance/bounded-recursion-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/bounded-recursion-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/conformance/bounded-recursion-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/conformance/bounded-recursion-evaluation@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/bounded-recursion-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/bounded-recursion-input@5",
+            "contract://abiogenesis/conformance/bounded-recursion-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/bounded-recursion-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/bounded-recursion-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/bounded-recursion-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/bounded-recursion-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "all-fd",
+          "bounded-recursion",
+          "conformance"
+        ],
+        "template": {
+          "applications": [
+            {
+              "applicationRef": "graph-function-application://abiogenesis/ed37a1e384faf706b1150da2322a311ab13ec069092dc2bcd12bf282880cf3c6",
+              "bound": 4,
+              "foldback": {
+                "binding": "$",
+                "mode": "rebind",
+                "requiresParentEvaluation": true
+              },
+              "foldbackRef": "foldback://abiogenesis/e7df59cd5dc25a9252febf61e03e386cd22158dca44e9380fab9c984465b9a17",
+              "graphFunctionRef": "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+              "inputContractRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+              "kind": "graph_function_application",
+              "outputContractRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+              "relationKind": "recurse",
+              "terminationEvaluatorRefs": [
+                "evaluator://abiogenesis/conformance/bounded-recursion-terminal@5"
+              ],
+              "terminationFieldRef": "$.terminal",
+              "terminationRuleRef": "rule://abiogenesis/conformance/bounded-recursion-terminal@5"
+            }
+          ],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/bounded-recursion@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/bounded-recursion/evaluate@5",
+              "term": {
+                "armId": "arm://abiogenesis/conformance/bounded-recursion/evaluate@5",
+                "compositionRef": "graph-function-application://abiogenesis/ed37a1e384faf706b1150da2322a311ab13ec069092dc2bcd12bf282880cf3c6",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/conformance/bounded-recursion-evaluation@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+                "programLocusRef": "node://abiogenesis/conformance/bounded-recursion/evaluate@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/conformance/bounded-recursion-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/conformance/bounded-recursion-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/conformance/bounded-recursion-evaluate@5",
+                  "inputContractRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/conformance/bounded-recursion-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+                  "refusalContractRef": "contract://abiogenesis/conformance/bounded-recursion-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "termination",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/bounded-recursion/evaluate@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/bounded-recursion/evaluate@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/bounded-recursion@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:0b94c0edab97891b0a08371d2162b50b9f3645154b0bed25405bd3d31a9b6f86"
+    }
+  ],
+  "byHandle": {
+    "graph-function://abiogenesis/conformance/bounded-recursion-step@5": {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+      "definitionDigest": "sha256:0d6afe4fe8ef90ca1660b16a9598aa29e0cc3202f44215e940d2c20e95149d33",
+      "definition": {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/conformance/bounded-recursion-step-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/conformance/bounded-recursion-step-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/bounded-recursion-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/conformance/bounded-recursion-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/conformance/bounded-recursion-step@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/bounded-recursion-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/bounded-recursion-input@5",
+            "contract://abiogenesis/conformance/bounded-recursion-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/bounded-recursion-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/bounded-recursion-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/bounded-recursion-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/bounded-recursion-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "all-fd",
+          "bounded-recursion-step",
+          "conformance"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/bounded-recursion-step@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/bounded-recursion/step@5",
+              "term": {
+                "armId": "arm://abiogenesis/conformance/bounded-recursion/step@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/conformance/bounded-recursion-step@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+                "programLocusRef": "node://abiogenesis/conformance/bounded-recursion/step@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/conformance/bounded-recursion-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/conformance/bounded-recursion-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/conformance/bounded-recursion-step@5",
+                  "inputContractRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/conformance/bounded-recursion-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+                  "refusalContractRef": "contract://abiogenesis/conformance/bounded-recursion-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "recursion_step",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/bounded-recursion/step@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/bounded-recursion/step@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/bounded-recursion@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:7e97beb6724baa53a6b8e568eaa67e9790882dcc7707bee6c6bd98755707edc6"
+    },
+    "graph-function://abiogenesis/conformance/bounded-recursion@5": {
+      "kind": "graph_function_catalog_entry",
+      "handle": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "definitionRef": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+      "definitionDigest": "sha256:ca5b46e115615a28fdc50e2f318bdbf4c2b64047666a280a5957a8173bc616c3",
+      "definition": {
+        "declarations": {
+          "abg.closure_contract": "contract://abiogenesis/conformance/bounded-recursion-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/conformance/bounded-recursion-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/conformance/bounded-recursion-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/conformance/bounded-recursion-evaluation@5",
+          "abg.transition_contract": "contract://abiogenesis/conformance/bounded-recursion-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/conformance/bounded-recursion-input@5",
+            "contract://abiogenesis/conformance/bounded-recursion-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/conformance/bounded-recursion-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/conformance/bounded-recursion-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/conformance/bounded-recursion-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/conformance/bounded-recursion@5",
+        "outputs": [
+          "contract://abiogenesis/conformance/bounded-recursion-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "all-fd",
+          "bounded-recursion",
+          "conformance"
+        ],
+        "template": {
+          "applications": [
+            {
+              "applicationRef": "graph-function-application://abiogenesis/ed37a1e384faf706b1150da2322a311ab13ec069092dc2bcd12bf282880cf3c6",
+              "bound": 4,
+              "foldback": {
+                "binding": "$",
+                "mode": "rebind",
+                "requiresParentEvaluation": true
+              },
+              "foldbackRef": "foldback://abiogenesis/e7df59cd5dc25a9252febf61e03e386cd22158dca44e9380fab9c984465b9a17",
+              "graphFunctionRef": "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+              "inputContractRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+              "kind": "graph_function_application",
+              "outputContractRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+              "relationKind": "recurse",
+              "terminationEvaluatorRefs": [
+                "evaluator://abiogenesis/conformance/bounded-recursion-terminal@5"
+              ],
+              "terminationFieldRef": "$.terminal",
+              "terminationRuleRef": "rule://abiogenesis/conformance/bounded-recursion-terminal@5"
+            }
+          ],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/conformance/bounded-recursion@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/conformance/bounded-recursion/evaluate@5",
+              "term": {
+                "armId": "arm://abiogenesis/conformance/bounded-recursion/evaluate@5",
+                "compositionRef": "graph-function-application://abiogenesis/ed37a1e384faf706b1150da2322a311ab13ec069092dc2bcd12bf282880cf3c6",
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/conformance/bounded-recursion-evaluation@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+                "programLocusRef": "node://abiogenesis/conformance/bounded-recursion/evaluate@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/conformance/bounded-recursion-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/conformance/bounded-recursion-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/conformance/bounded-recursion-evaluate@5",
+                  "inputContractRef": "contract://abiogenesis/conformance/bounded-recursion-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/conformance/bounded-recursion-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/conformance/bounded-recursion-output@5",
+                  "refusalContractRef": "contract://abiogenesis/conformance/bounded-recursion-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "termination",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/conformance/bounded-recursion/evaluate@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/conformance/bounded-recursion/evaluate@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899",
+      "programMembershipRefs": [
+        "program://abiogenesis/conformance/bounded-recursion@5"
+      ],
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "provenanceRefs": [
+        "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+        "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4"
+      ],
+      "entryDigest": "sha256:0b94c0edab97891b0a08371d2162b50b9f3645154b0bed25405bd3d31a9b6f86"
+    }
+  },
+  "declarationEntries": [],
+  "declarationsByHandle": {},
+  "viewDigest": "sha256:4732c1291a3c53494434531d4ed3a70538f72488e055ec384d415f0083f2fd38"
+}

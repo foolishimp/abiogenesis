@@ -1,0 +1,35 @@
+{
+  "projectedCoordinate": {
+    "ref": "workspace-binding://abiogenesis/656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce",
+    "digest": "sha256:656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce"
+  },
+  "publicCoordinate": {
+    "digest": "sha256:656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce",
+    "ref": "workspace-binding://abiogenesis/656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce"
+  },
+  "equal": true,
+  "fullProjection": {
+    "kind": "workspace_binding",
+    "authorityBasisDigest": "sha256:5308aa9be868d69b203eaae0436df44f5f4e869032c7f617956ea736fcb41b94",
+    "authorityBasisId": "workspace-authority://abiogenesis/5308aa9be868d69b203eaae0436df44f5f4e869032c7f617956ea736fcb41b94",
+    "authorizedActorRef": "actor://abiogenesis/t287/f11-c07-installed-setup-07/operator",
+    "bindingDigest": "sha256:656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce",
+    "bindingId": "workspace-binding://abiogenesis/656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce",
+    "lockDigest": "sha256:4b280c13957dcf3fdf8a9f5cfaf750730774170d1f1943e97616edcea7b5408e",
+    "lockId": "product-lock://abiogenesis/4b280c13957dcf3fdf8a9f5cfaf750730774170d1f1943e97616edcea7b5408e",
+    "productSetDigest": "sha256:dcdfb08318cfa79d5b8b8a7f5f84961af3f1a290688c87edf9b2d7056aaf8303",
+    "productSetId": "product-set://abiogenesis/dcdfb08318cfa79d5b8b8a7f5f84961af3f1a290688c87edf9b2d7056aaf8303",
+    "roots": {
+      "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/archives",
+      "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/events",
+      "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+      "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/projections",
+      "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/runtime",
+      "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed"
+    },
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/9a779d2949cbd13b5b06564d00fb40c94390d39f48942edf3668c42920ca3283",
+    "admissionEventRef": "event://abiogenesis/9fd23899ee0389ca781e7a696f1f91110a60528b7327755fda42601f65f3355d"
+  },
+  "fullProjectionPreservedSeparately": true
+}

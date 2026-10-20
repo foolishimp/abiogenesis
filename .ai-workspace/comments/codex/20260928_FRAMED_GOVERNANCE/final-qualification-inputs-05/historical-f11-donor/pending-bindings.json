@@ -1,0 +1,49 @@
+{
+  "status": "unbound_preparation",
+  "currentLaw": "stdo://releases/v2.5.1-rc.2/",
+  "definitionSHA256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+  "candidateAcceptance": null,
+  "executionRoot": null,
+  "artifactIdentity": null,
+  "installedOwner": null,
+  "ordinaryAdmittedInstall": null,
+  "workspaceBinding": null,
+  "qualificationInventory": null,
+  "qualificationBasis": null,
+  "scope": null,
+  "declarationProof": null,
+  "semanticMaterialSelection": null,
+  "constructionAttribution": null,
+  "controlledHelperBinding": null,
+  "childWrapperProduct": null,
+  "observedCandidateReadiness": {
+    "report": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-return.md",
+      "bytes": 5908,
+      "sha256": "5cc281613fc90d7e5e7a198602ef14868d30549bc3220a5c41c0bebb073d8bc4"
+    },
+    "sourceInputs": 1106,
+    "newSourcePaths": 3,
+    "sourceChanges": 32,
+    "generatedAssets": 830,
+    "derivedStageAuthorityCopies": 96,
+    "derivedStageAuthorityChanges": 12,
+    "changedOutputPaths": 45,
+    "ruleSources": 95,
+    "ruleSpans": 2137,
+    "coverageClaims": 16,
+    "coverageBehaviors": 66,
+    "meaning": "Observed closed construction report, not runtime admission/qualification; quantities must be bound to the accepted C03 freeze."
+  },
+  "historicalComparison": {
+    "members": 1950,
+    "rules": 2137,
+    "domains": 187,
+    "domainGroups": 777,
+    "distinctPartitions": 54,
+    "oldCanonicalInputBytes": 67784040,
+    "compactCanonicalInputBytes": 42779,
+    "resourceAssertionCanonicalBytes": 27312606,
+    "claim": "Retained C02/Q02 comparison only; no relabelling or successor applicability claim."
+  }
+}

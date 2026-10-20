@@ -1,0 +1,44 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_BRIDGE_01",
+  "acceptedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/acceptance.json",
+    "sha256": "97912eaf2050c8b88c12c35f00444e7743069a3b60ddb3c59b27c5bba43280fb",
+    "subject": {
+      "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/freeze.json",
+        "bytes": 7759222,
+        "sha256": "2b30493d4874518d96613e04211cfbd4c4c76dda5989b74c688717fa22af70c4"
+      },
+      "sourcePostimages": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/source-postimages.json",
+        "bytes": 21822,
+        "sha256": "6d9482a52b982a3379a5c1f30d76f177a797b3320eb88e951c95a83d4b69943a",
+        "rows": 17
+      },
+      "archive": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "bytes": 10660984,
+        "sha256": "c00589d0073f6f118f7ab0209ae90d21ef53d5ec976845e1dc0e95918e2d925b"
+      },
+      "productContentDigest": "sha256:433af1826cd65b03785a61f63b1111bd78978701d17f58445286b9e73f52e398",
+      "catalogDigest": "sha256:4c33dbab3f9fb3d67b1324939ebb60f4dcc7913109c883b10811d5769dd0add0"
+    }
+  },
+  "oldStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+  "newStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/stage/build_tenants/abiogenesis/typescript",
+  "verifiedFrozenRows": 7098,
+  "verifiedFrozenLogicalBytes": 149995357,
+  "oldFrozenDevice": 16777230,
+  "currentDevice": 16777231,
+  "runtimeHandoffsConsumed": 0,
+  "outsideDependencySymlinks": 0,
+  "changedStageSource": [
+    "code/src/qualification/m05.ts",
+    "test_env/tests/t287-public-preparation.test.mjs"
+  ],
+  "elapsedMs": 949.9653750026482,
+  "maxRSSPlatformBytes": 47415296,
+  "HOMEUnchanged": true,
+  "defaultHeap": true
+}

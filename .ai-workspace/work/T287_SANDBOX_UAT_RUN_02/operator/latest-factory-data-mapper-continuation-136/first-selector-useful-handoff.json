@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "classification": "Actual current-control→admitted selector→bounded native job proof, not mutation/UAT completion",
+  "at": "2026-10-08T23:30:27.401302+00:00",
+  "publicInvocationRef": "invocation://abiogenesis/cbf84ce05e2019602f03149ba5deb8dc541246900ba83c24cab409543ceec4f8",
+  "nativeRun": "run://abiogenesis/1e5e788c562a35e465f6f3875b21fa33cf14a0c2c1804d82ed91a59933989070",
+  "selectorResult": "result://abiogenesis/096cc43ebf9b58b616f71bea2bfe42f43a82bcfeab8a1b454b24f6328d77f565",
+  "choiceResult": "result://abiogenesis/9e50a3f699284575ef7d0e3c57fe70acf0278418b32aca9e500f09e90c428c90",
+  "taskResult": "result://abiogenesis/54fa491afee56a57d7af039d72552b622a724fa64a936f57aac8eb46d24cdfcd",
+  "source30ObsStateDeepEqual": true,
+  "originalDeepEqual": true,
+  "selectedGraphFunction": "graph-function://abiogenesis/default-library/construction@5",
+  "selectedContributionUtf8SHA256": "3ffe2b7dee41d692d823b4aa72f818ab943131d648b08980a0494805382375d8",
+  "selectedContributionByteCount": 2589,
+  "actualTaskOutcomeEqualsSingleSelectedContribution": true,
+  "plannedIncrement": "Dedicated row13 EXECUTOR invariant production mutant, then Testing/C2; no mutation credit yet",
+  "currentControlReason": "The largest unmet obligation that existing authority can still discharge is the four missing dedicated mutation cycles, which the UAT ruled spillover cannot prove (source L504, REQ-MUT-01).\n\nThe worksite currently sits on the b5b5cad3 green bytes. That gives this mutant a fresh green full-suite baseline, which is stronger than byte-identity reuse.\n\nConstruction's write roots include every production source file and mutation-outcomes.json. The fresh five-hour window leaves room for the four construction→Testing cycles (about 17 minutes each in recent runs), the final green run, the re-projections and a final UAT.",
+  "nextReason": "UAT ba4aff23 returned unmet. The most significant unmet obligation that existing authority can still close is the dedicated mutant for each of rows 13, 23, 28 and 38.\n\nThe worksite is at the b5b5cad3 green bytes (inventory f0b2ea74, and the UAT wrote nothing), so b5b5cad3 is a fresh green full-suite baseline. Construction's write roots cover the production sources, and Root's fresh five-hour window leaves room for the four cycles, the re-projections and a final UAT.\n\nConstruction therefore applies the row-13 (EXECUTOR × invariant) output-filter mutant next, for Testing/C2 to observe.",
+  "selectedSlices": [
+    {
+      "ordinal": 180555,
+      "offset": 1425736235,
+      "byteCount": 1838427,
+      "sha256": "7ee96d25b4d9a024c08376998ece6e79b12e83cc4e4b71625d0b35c201cdaf7f"
+    },
+    {
+      "ordinal": 180568,
+      "offset": 1427613903,
+      "byteCount": 1819308,
+      "sha256": "4218e2f5666ea291a5e2ab749fa6a4607bda54bba1df5bdb490a690aee6859b1"
+    },
+    {
+      "ordinal": 180595,
+      "offset": 1433157525,
+      "byteCount": 2796225,
+      "sha256": "4ec21148bbe3f55f47d2433f9969069aead1bbc44902da6eeba880901d2307eb"
+    }
+  ],
+  "provider": {
+    "disposition": "success",
+    "status": 0,
+    "signal": null,
+    "timedOut": false,
+    "exitObserved": true,
+    "terminationConfirmed": true,
+    "toolCallCount": 0,
+    "failureClass": null
+  },
+  "metrics": {
+    "duration_ms": 237141,
+    "duration_api_ms": 226976,
+    "num_turns": 2,
+    "total_cost_usd": 3.1902999999999997,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 360309,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 15391,
+      "output_tokens_details": {
+        "thinking_tokens": 5160
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 360309,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "stop_reason": "tool_use"
+  },
+  "activeNextActorPID": 7149,
+  "newActualMutationCredit": 0,
+  "priorApplicableCredit": "12 detections/12 exact restorations/44 green via actual retained source; four INV/full UAT remain open",
+  "recordingPremiseCorrection": {
+    "initialError": "KeyError original on choice.input",
+    "actualCarrier": "choice.input.value.original (bound input)",
+    "ownerFailure": false,
+    "repeatedNativeWork": false
+  }
+}

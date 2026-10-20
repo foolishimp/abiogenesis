@@ -1,0 +1,45 @@
+{
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_SOURCE_ASSURANCE",
+  "activation": "T287_QUALIFICATION_RAW_CONTRACT_SOURCE_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "independent Reviewer",
+  "closedAt": "2026-10-02T09:29:21.423922+00:00",
+  "subjectFreezeSHA256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+  "canonicalPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18733,
+      "sha256": "8396aee64c5d800861c97b9a5ce0ccdde06d5ba507539da7216f62080238614f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+      "bytes": 14115,
+      "sha256": "f57e520c9a7ce2ca5ee61044bc70293b93618f4649a816b52d1fc4393d29334e",
+      "mode": 420
+    }
+  ],
+  "blockingFindings": [],
+  "acceptedScope": "exact 84-byte F_P raw declaration/new regression/source-component proof only",
+  "smallestReentry": "realization_refactor",
+  "genericResolverChange": false,
+  "sourceAuthorIndependent": true,
+  "SourceComponentLowerAdmissionPremisesSupplied": true,
+  "actualNewInstalledAdmission": "unproved",
+  "Runtime07OrC07Accepted": false,
+  "nativeWholeCarrier": "unproved",
+  "semanticAdequacy": "unknown",
+  "sourceAuthAdequacy": "unknown",
+  "F11QUAL056": "unproved",
+  "AF22": "no new result; no green",
+  "fullScenariosRelease": "open",
+  "RootAloneAcceptsAndGrants": true,
+  "ReviewerEffects": {
+    "pureReadHashCompare": true,
+    "newReportWrites": true,
+    "importsTestsBuildOwnerRuntimeProviderNetworkGit": 0,
+    "canonicalSourceOrOldEvidenceWrites": 0
+  },
+  "stop": "freeze is final write; all read processes complete; no workload process started"
+}

@@ -1,0 +1,1440 @@
+{
+  "baseline": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-24/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "successor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-25/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "memberCount": 5265,
+  "allPathsTypesModesAndDigestsCompared": true,
+  "samePathsTypesModes": true,
+  "unchangedMemberCount": 5260,
+  "exactComposedFrozenDelta": [
+    {
+      "path": "package/build/code/src/abg/default_library.js",
+      "before": {
+        "path": "package/build/code/src/abg/default_library.js",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 31678,
+        "sha256": "633fc8610abb16c0df64c50674cbbd1e5f9d3998c4661aa96d45996614b8a5aa"
+      },
+      "after": {
+        "path": "package/build/code/src/abg/default_library.js",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 32191,
+        "sha256": "b938c8753a09c082ba22dd0f636d1cb3ee3998ae6b325ddbfc496b7e7b590c79"
+      },
+      "supportedStages": [
+        "native-observation-presentation-successor-140"
+      ]
+    },
+    {
+      "path": "package/build/code/src/product/default_library.d.ts",
+      "before": {
+        "path": "package/build/code/src/product/default_library.d.ts",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 38602,
+        "sha256": "c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa"
+      },
+      "after": {
+        "path": "package/build/code/src/product/default_library.d.ts",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 40079,
+        "sha256": "546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+      },
+      "supportedStages": [
+        "native-observation-presentation-successor-140"
+      ]
+    },
+    {
+      "path": "package/build/code/src/product/default_library.js",
+      "before": {
+        "path": "package/build/code/src/product/default_library.js",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 31335,
+        "sha256": "13d5efeab4c0aea6043469cd6005e05635d4202cd00ac2ac1e57b485f13bb7b7"
+      },
+      "after": {
+        "path": "package/build/code/src/product/default_library.js",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 31609,
+        "sha256": "06f27b201de7e2b91226793f48a2b561dbbc57fb1226bfa12b5fa0724aaebdef"
+      },
+      "supportedStages": [
+        "native-observation-presentation-successor-140"
+      ]
+    },
+    {
+      "path": "package/contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "package/contracts/capabilities/capability-definition-graph.json",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 197474,
+        "sha256": "d947891110a8f3c80b7cd3c4f2b18128fa55fb7d21a90bc9526bd5878520af4d"
+      },
+      "after": {
+        "path": "package/contracts/capabilities/capability-definition-graph.json",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 197474,
+        "sha256": "6e5553a715fd4cc9831da97b738c29e63984343e63bf565a70a95e1bf3a927bc"
+      },
+      "supportedStages": [
+        "native-observation-presentation-successor-140"
+      ]
+    },
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "before": {
+        "path": "package/product-toolchain-manifest.json",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 3171685,
+        "sha256": "eff1f1ea632fc735ceb9e90cec6a431d5e52a122a0b26c211fc30754bc1af286"
+      },
+      "after": {
+        "path": "package/product-toolchain-manifest.json",
+        "type": "0",
+        "mode": 420,
+        "byteCount": 3171685,
+        "sha256": "d149f5a5e9517370ce7c21a7ab8195e30a238800e6d321d007a480cb4722e32e"
+      },
+      "supportedStages": [
+        "native-observation-presentation-successor-140"
+      ]
+    }
+  ],
+  "metadataAndDependenciesEqual": true,
+  "externalFixturesExcluded": true,
+  "catalogDifferences": [
+    {
+      "path": [
+        "catalogDigest"
+      ],
+      "before": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7",
+      "after": "sha256:0fcd03d2c263b67a0c307f43f16e9238991d72393c4e5dc27b35634bbd1159cc"
+    },
+    {
+      "path": [
+        "rows",
+        1,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        2,
+        "contractDigest"
+      ],
+      "before": "sha256:2402d28b9102447395da01f1de70a0611b708a3da1fcee763c1dff59d8faf8e5",
+      "after": "sha256:40f6efc6a0413afe370cc7830569e9f3832fc24700145a432f3ff5f85c7b9180"
+    },
+    {
+      "path": [
+        "rows",
+        2,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        3,
+        "contractDigest"
+      ],
+      "before": "sha256:2402d28b9102447395da01f1de70a0611b708a3da1fcee763c1dff59d8faf8e5",
+      "after": "sha256:40f6efc6a0413afe370cc7830569e9f3832fc24700145a432f3ff5f85c7b9180"
+    },
+    {
+      "path": [
+        "rows",
+        3,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        4,
+        "contractDigest"
+      ],
+      "before": "sha256:2402d28b9102447395da01f1de70a0611b708a3da1fcee763c1dff59d8faf8e5",
+      "after": "sha256:40f6efc6a0413afe370cc7830569e9f3832fc24700145a432f3ff5f85c7b9180"
+    },
+    {
+      "path": [
+        "rows",
+        4,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        5,
+        "contractDigest"
+      ],
+      "before": "sha256:2402d28b9102447395da01f1de70a0611b708a3da1fcee763c1dff59d8faf8e5",
+      "after": "sha256:40f6efc6a0413afe370cc7830569e9f3832fc24700145a432f3ff5f85c7b9180"
+    },
+    {
+      "path": [
+        "rows",
+        5,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        6,
+        "contractDigest"
+      ],
+      "before": "sha256:3721959e1351cdf7296e91fe68a5db93bfdeb1b24cc2ab6b1fbc60e69cecada3",
+      "after": "sha256:5ad33e63b140cea6fe0afa8869f132428ff895937ddd59faba7d720364a03140"
+    },
+    {
+      "path": [
+        "rows",
+        6,
+        "nativeTypedLocator",
+        "declarationInventory",
+        113,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        7,
+        "contractDigest"
+      ],
+      "before": "sha256:2402d28b9102447395da01f1de70a0611b708a3da1fcee763c1dff59d8faf8e5",
+      "after": "sha256:40f6efc6a0413afe370cc7830569e9f3832fc24700145a432f3ff5f85c7b9180"
+    },
+    {
+      "path": [
+        "rows",
+        7,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        8,
+        "contractDigest"
+      ],
+      "before": "sha256:2402d28b9102447395da01f1de70a0611b708a3da1fcee763c1dff59d8faf8e5",
+      "after": "sha256:40f6efc6a0413afe370cc7830569e9f3832fc24700145a432f3ff5f85c7b9180"
+    },
+    {
+      "path": [
+        "rows",
+        8,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        9,
+        "contractDigest"
+      ],
+      "before": "sha256:dacb7e1bfd62fef578fe3a87ab52bf7b650c9bb017e9283bcd86d0a2c8a5fab5",
+      "after": "sha256:617546bb5a0a8bd7760176a19271e4ad526c6ef1e9e89bf35fa7a26c9e1147ed"
+    },
+    {
+      "path": [
+        "rows",
+        9,
+        "nativeTypedLocator",
+        "declarationInventory",
+        113,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        10,
+        "contractDigest"
+      ],
+      "before": "sha256:2adad3ce42a587082663e864d8ec11c50102cad06ec2dfac91aa026cd4fa1240",
+      "after": "sha256:80332211fd80f0023924aadd898f539d498d951c1a976adbf7f8eae900e3977f"
+    },
+    {
+      "path": [
+        "rows",
+        10,
+        "nativeTypedLocator",
+        "declarationInventory",
+        113,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        11,
+        "contractDigest"
+      ],
+      "before": "sha256:308d3d84633fd9af639dc59ee7ff35c44d4fe9ed1d4acdc4999bd2ab162bdb45",
+      "after": "sha256:8e42b4f5838c3fc45e448cb9efe639b4245cf886785a5548670a170564395174"
+    },
+    {
+      "path": [
+        "rows",
+        11,
+        "nativeTypedLocator",
+        "declarationInventory",
+        113,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        12,
+        "contractDigest"
+      ],
+      "before": "sha256:4bbd22cd32b55b92f58936746ae8cbf176f60bbd7650cc546cdc0c60e83f1f94",
+      "after": "sha256:d84bc66c79af9ca9017fcf015713831e661b6aa98f667f2bfdd8cbec49524f06"
+    },
+    {
+      "path": [
+        "rows",
+        12,
+        "nativeTypedLocator",
+        "declarationInventory",
+        114,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        14,
+        "contractDigest"
+      ],
+      "before": "sha256:823217f3e4be63b7fc4e457d8b2183664d33a8f07cbaa3f7e23f072c5e1e2549",
+      "after": "sha256:29256b941e0f2ce3282cc136be90b56d7c2567310f57498647471c87f4c7592c"
+    },
+    {
+      "path": [
+        "rows",
+        14,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        16,
+        "contractDigest"
+      ],
+      "before": "sha256:823217f3e4be63b7fc4e457d8b2183664d33a8f07cbaa3f7e23f072c5e1e2549",
+      "after": "sha256:29256b941e0f2ce3282cc136be90b56d7c2567310f57498647471c87f4c7592c"
+    },
+    {
+      "path": [
+        "rows",
+        16,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        17,
+        "contractDigest"
+      ],
+      "before": "sha256:bcc88c8a689ab3aa6bbc095f84014ecd5f1af18379edb2beb2ea62da3e764040",
+      "after": "sha256:3ed469400ebcf636ae5f8131edc790c05178c113f9df3ae6121d525ceb9e16f4"
+    },
+    {
+      "path": [
+        "rows",
+        17,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        18,
+        "contractDigest"
+      ],
+      "before": "sha256:22f1e64315596039fe909b678787ebe665acc76782485459372516f0d6a00235",
+      "after": "sha256:7737dffd1d2bd8eab346a86d4a7d6250ebca68bc28ea590f27cc4c4206cc2898"
+    },
+    {
+      "path": [
+        "rows",
+        18,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        19,
+        "contractDigest"
+      ],
+      "before": "sha256:b7c5375f866f801397904d90c1210a9e6517259405a376c2edd44d627df8408d",
+      "after": "sha256:559e2232194a2ac7688c26e23a4b953d1c3cc2a85b765b518147f56f80c8f58f"
+    },
+    {
+      "path": [
+        "rows",
+        19,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        20,
+        "contractDigest"
+      ],
+      "before": "sha256:b7c5375f866f801397904d90c1210a9e6517259405a376c2edd44d627df8408d",
+      "after": "sha256:559e2232194a2ac7688c26e23a4b953d1c3cc2a85b765b518147f56f80c8f58f"
+    },
+    {
+      "path": [
+        "rows",
+        20,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        21,
+        "contractDigest"
+      ],
+      "before": "sha256:22f1e64315596039fe909b678787ebe665acc76782485459372516f0d6a00235",
+      "after": "sha256:7737dffd1d2bd8eab346a86d4a7d6250ebca68bc28ea590f27cc4c4206cc2898"
+    },
+    {
+      "path": [
+        "rows",
+        21,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        22,
+        "contractDigest"
+      ],
+      "before": "sha256:22f1e64315596039fe909b678787ebe665acc76782485459372516f0d6a00235",
+      "after": "sha256:7737dffd1d2bd8eab346a86d4a7d6250ebca68bc28ea590f27cc4c4206cc2898"
+    },
+    {
+      "path": [
+        "rows",
+        22,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        23,
+        "contractDigest"
+      ],
+      "before": "sha256:22f1e64315596039fe909b678787ebe665acc76782485459372516f0d6a00235",
+      "after": "sha256:7737dffd1d2bd8eab346a86d4a7d6250ebca68bc28ea590f27cc4c4206cc2898"
+    },
+    {
+      "path": [
+        "rows",
+        23,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        24,
+        "contractDigest"
+      ],
+      "before": "sha256:91c979d8079d5229b95c7774013f4830e890d2e8c6ec2863aab4d27fac051dcf",
+      "after": "sha256:3317158eba2d4d9f6c1b65d5ca9678311686ebd5e8e147a69533af6c87700e19"
+    },
+    {
+      "path": [
+        "rows",
+        24,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        25,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        26,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        27,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        28,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        29,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        30,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        31,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        32,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        33,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        34,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        35,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        36,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        37,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        38,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        39,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        40,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        41,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        42,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        54,
+        "nativeTypedLocator",
+        "declarationInventory",
+        114,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        55,
+        "nativeTypedLocator",
+        "declarationInventory",
+        114,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        57,
+        "nativeTypedLocator",
+        "declarationInventory",
+        113,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        60,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        61,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        62,
+        "nativeTypedLocator",
+        "declarationInventory",
+        112,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    },
+    {
+      "path": [
+        "rows",
+        72,
+        "nativeTypedLocator",
+        "declarationInventory",
+        113,
+        "declarationDigest"
+      ],
+      "before": "sha256:c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+      "after": "sha256:546c0217d9e17074544adc31f6d3bb4d73ffbc303d4cc511aee289583e17a0e0"
+    }
+  ],
+  "publicNonDigestFieldsEqual": true,
+  "exactContributionIdentityConsequences": [
+    {
+      "path": [
+        "capabilityDefinitionGraph",
+        "graphDigest"
+      ],
+      "before": "sha256:82caff37f03dae389dd54d63b37ab5ba3c0382e3b225bea97f24f6ffc67c728c",
+      "after": "sha256:4ee119b35c6b5581ee6289d74a4ae421a524943564c1020c921b32989b1c0647"
+    },
+    {
+      "path": [
+        "contributionManifestRef"
+      ],
+      "before": "contribution-manifest://abiogenesis/conformance/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "contribution-manifest://abiogenesis/conformance/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "descriptorRef"
+      ],
+      "before": "descriptor://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "descriptor://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "productContentDigest"
+      ],
+      "before": "sha256:0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "sha256:9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "publicContractCatalogDigest"
+      ],
+      "before": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7",
+      "after": "sha256:0fcd03d2c263b67a0c307f43f16e9238991d72393c4e5dc27b35634bbd1159cc"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        0,
+        "publicationDigest"
+      ],
+      "before": "sha256:4719bff90aafa5b2e7822aa98fab228b0125d879f034efb5e4b818b07ae35a16",
+      "after": "sha256:8693cf79ff5b4312e3675a3eea15752a403a527106f1e79b887ef2535b960a43"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        1,
+        "publicationDigest"
+      ],
+      "before": "sha256:2a6ba4c3eb161e48941dd03cde23af68e150fae891f55fd0dd03f9a2036a1b9b",
+      "after": "sha256:30cc1135f935463782ea6b8214e69a0d593f5a0c055e5083c16e80bc190ff8a4"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        2,
+        "publicationDigest"
+      ],
+      "before": "sha256:fb6c997e564581d2150507b626950777acbee75a53c247831ce5c668caa164d2",
+      "after": "sha256:ee711c8bccd9bb636de9d75038e372a54795463d329ae82e6635d5dd850cb28d"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        3,
+        "publicationDigest"
+      ],
+      "before": "sha256:c5b27c913f72cdd2a34d6fe087d5bc1380b207010a896760dd93c0284245b99a",
+      "after": "sha256:c63ed6be67cd3855b5f407e8b38da4649039b855371b5b04f279a8ae42475557"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        4,
+        "publicationDigest"
+      ],
+      "before": "sha256:f966458e16e1b76b424bc9acdd0c256a832c567d6c74b4539e5a83f071458cce",
+      "after": "sha256:218b08bf4769a8764d428b89577ad784bec3dbbbff5511bf920154a7b26e8940"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        5,
+        "publicationDigest"
+      ],
+      "before": "sha256:2c1b35f26d5e9e62f1146917a488b3a7d6bb512d171bc0a06986f9c068ca20ff",
+      "after": "sha256:2740f8f9bd83ccc9d2424b56c10ac850c8bcbc6ce196026df76468c8ca88ed53"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        6,
+        "publicationDigest"
+      ],
+      "before": "sha256:a072b622b6b3e2b9773a083d0de2df30524000918c73c506f5c182fc26ec0ed8",
+      "after": "sha256:38e412332faea5b7b5e9b059cb7f692348f784920fe0fe545e8f2e5a9328d025"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        7,
+        "publicationDigest"
+      ],
+      "before": "sha256:f158a1ff64e61ac8f88b0319a48d06cca19a5b495525ed2c5afcde7a8f5b7595",
+      "after": "sha256:2bef583d68947f0d736aecb67b29b7edded478407e95d2e708811ebdfa211312"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        8,
+        "publicationDigest"
+      ],
+      "before": "sha256:f28d92dd2dbeb25c0dfc5654360126e3c42d753154c652aa3f49454382d86b00",
+      "after": "sha256:f6f58b10bc97fed053155d8a7e92364fbb651c938a74a77c412888b6497cf70b"
+    },
+    {
+      "path": [
+        "publicationBindings",
+        9,
+        "publicationDigest"
+      ],
+      "before": "sha256:384749b65125b52fe8dd5a66ed6827249539404adb95df8324ee27f0eef2f12c",
+      "after": "sha256:a19030f9b083b6c9de9f1d32026ee64cbbde5a7eedc73c60068b3b3ac6f29a31"
+    },
+    {
+      "path": [
+        "rows",
+        0,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        1,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        2,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        3,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        4,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        5,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        6,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        7,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        8,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        9,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        10,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        11,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        12,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        13,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        14,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        15,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        16,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        17,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        18,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        19,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        20,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        21,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        22,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        23,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        24,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        25,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        26,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        27,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        28,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        29,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        30,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        31,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        32,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        33,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        34,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        35,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        36,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        37,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        38,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        39,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        40,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        41,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        42,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        43,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        44,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        45,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    },
+    {
+      "path": [
+        "rows",
+        46,
+        "provenanceRef"
+      ],
+      "before": "provenance://abiogenesis/typescript-tenant/0ff5345493d558e5d9c3a3e7454100920d4d6dffc11c52148d58ac066c42843d",
+      "after": "provenance://abiogenesis/typescript-tenant/9857802218b76ffc1229ef6de742f155ac590a264ecba1bff5482d2d6a7f180c"
+    }
+  ],
+  "contributionIdentityCounts": {
+    "graph": 1,
+    "contentRefs": 3,
+    "publicationDigests": 10,
+    "provenanceRefs": 47,
+    "catalog": 1
+  },
+  "allOtherContributionFieldsEqual": true,
+  "fixtureMembers": [
+    "package/node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+    "package/node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+    "package/node_modules/json-schema-traverse/spec/fixtures/schema.js"
+  ],
+  "baselineRelation": "Immutable24; Root accepted138+independent Authority. Before matches frozen24; after matches one normal140 build and exact accepted138 isolated compiler counterparts plus canonical metadata."
+}

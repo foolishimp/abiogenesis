@@ -1,0 +1,47 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.catalog.view",
+      "memberKey": "allowlist"
+    },
+    "invocationRef": "invocation://abiogenesis/364f0bb9129e72a1bbcc9938887535ac7709ed5d2cc5015554b6d81c788f26f6",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "view": {
+          "ref": "graph-function-catalog-view://abiogenesis/c776f05138235052ebae2f968808debf58e149df3c016713f485a77e83bc878a",
+          "digest": "sha256:c776f05138235052ebae2f968808debf58e149df3c016713f485a77e83bc878a"
+        },
+        "effectiveHandles": [
+          "graph-function://odd-glc/native-semantic-revision/construction@5",
+          "graph-function://odd-glc/native-semantic-revision/from-design-assessment-projection@5",
+          "graph-function://odd-glc/native-semantic-revision/from-design-assessment@5",
+          "graph-function://odd-glc/native-semantic-revision/stage-3-assessment@5",
+          "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+          "graph-function://odd-glc/native-semantic-revision/terminal@5"
+        ],
+        "residuals": []
+      }
+    },
+    "resources": {
+      "kind": "catalog_view_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "disposition": "read_only_unchanged",
+      "catalog": {
+        "ref": "graph-function-catalog://abiogenesis/84853787a972bcf0bf2cd634e6d4c4c84ed19ba62b7e484290e0b9422db9fa3a",
+        "digest": "sha256:84853787a972bcf0bf2cd634e6d4c4c84ed19ba62b7e484290e0b9422db9fa3a"
+      },
+      "view": {
+        "ref": "graph-function-catalog-view://abiogenesis/c776f05138235052ebae2f968808debf58e149df3c016713f485a77e83bc878a",
+        "digest": "sha256:c776f05138235052ebae2f968808debf58e149df3c016713f485a77e83bc878a"
+      }
+    },
+    "failure": null
+  }
+}

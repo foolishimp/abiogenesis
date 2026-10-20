@@ -1,0 +1,8 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/stage/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:424
+    throw new Error(`bundled dependency resolves outside its exact package root: ${name}`);
+          ^
+
+Error: bundled dependency resolves outside its exact package root: @standard-schema/spec
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/stage/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:424:11
+
+Node.js v24.7.0

@@ -1,0 +1,15 @@
+Invoke the Bash tool exactly once with the exact semantic tool-input object below. The ABI-owned helper executes every declared command in order and records its exact argv, cwd, environment, streams, exit status, reports, and protected-file observations.
+
+{"command":"'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/steel-single-start/live-attempt-11/installed-0/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/steel-single-start/live-attempt-11/workspace/archives/worksite-command-execution/736b7872442638bb3fa8ba1d9cd771301593756e43be8f67873c20d9ebff9909/6659dce651b818d8afbad9f8d89b5c54d2c184470dd603009f1e4e3cdff38594/launch.json'"}
+
+Do not add timeout, run_in_background, or any other operational input field. An optional string description is metadata only. Preserve the command string exactly.
+
+Use the helper tool output to return its commandResults and predicateObservations unchanged. The helper, not you, performs every probe.
+
+Do not run any declared command directly and do not use another tool call.
+
+A nonzero subject-command exit is an observation, not a transport failure.
+
+Return only the JSON value required by the supplied schema.
+
+{"commands":[{"commandId":"command://order-summary.example/two-orders/market@5","ordinal":0},{"commandId":"command://order-summary.example/two-orders/office@5","ordinal":1}],"outcomePredicates":[{"ordinal":0,"predicateId":"predicate://order-summary.example/two-orders/market/exit@5","predicateKind":"process_exit"},{"ordinal":1,"predicateId":"predicate://order-summary.example/two-orders/market/stdout@5","predicateKind":"stdout_exact"},{"ordinal":2,"predicateId":"predicate://order-summary.example/two-orders/office/exit@5","predicateKind":"process_exit"},{"ordinal":3,"predicateId":"predicate://order-summary.example/two-orders/office/stdout@5","predicateKind":"stdout_exact"}],"sourceConstructionResultDigest":"sha256:f207301af1593259688b3e9ab0c8c12906d9eb09a5409a4c6b82d509fe0cc948","sourceConstructionResultRef":"worksite-construction-result://abiogenesis/f207301af1593259688b3e9ab0c8c12906d9eb09a5409a4c6b82d509fe0cc948","taskDigest":"sha256:736b7872442638bb3fa8ba1d9cd771301593756e43be8f67873c20d9ebff9909","taskRef":"worksite-command-execution-task://abiogenesis/736b7872442638bb3fa8ba1d9cd771301593756e43be8f67873c20d9ebff9909","workspaceBindingDigest":"sha256:37bb8a323ee3fcc05539fe3bee0026f4d0a51e4ddfa16d238cf369e9ad1b7c54","workspaceBindingIdentity":"workspace-binding://abiogenesis/37bb8a323ee3fcc05539fe3bee0026f4d0a51e4ddfa16d238cf369e9ad1b7c54"}

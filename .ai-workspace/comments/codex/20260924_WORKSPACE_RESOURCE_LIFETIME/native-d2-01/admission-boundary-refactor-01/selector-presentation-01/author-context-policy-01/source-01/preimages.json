@@ -1,0 +1,18 @@
+[
+  {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+    "beforeSha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "beforeSha256": "2cbbe5fa8fca49564b7e1aeddb18dfbb51aaa5de1f1ed50cf50387a0abaaa76b"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/management-environment.test.mjs",
+    "beforeSha256": "c5e8cb6e4f7d667cb52b903a521c0f2549dda1f96b2531e89111fc42c7790d34"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+    "beforeSha256": "d4a3f28aefad5a6343f909ee3e1b2a77c1f347bb6a8516666abce0727a4d64fc"
+  }
+]

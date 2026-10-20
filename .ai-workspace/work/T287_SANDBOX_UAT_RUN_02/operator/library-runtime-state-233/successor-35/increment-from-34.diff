@@ -1,0 +1,846 @@
+--- a/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ b/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -120,6 +120,26 @@
+ event arrays, Event Calculus history and ReplayState remain explicit historical
+ outputs with their original meaning and digest. Raw/copied inputs retain their
+ ordinary complete validation; private selections supply no additional authority.
++
++The ordinary HoG next-input, structural advance, recursive restoration and
++failure-foldback handoffs use that same owned authority selection and its exact
++Run scope. They do not request the Public complete-prefix pair merely to pass
++authority to a selected-input or child-outcome owner. Selected admitted-leaf
++outcomes, interaction receipts and C0 held-fluent checks share their existing
++canonical guard computations with the complete readers. Declared retry exit
++planning similarly carries its finite checked suffix and replay guard internally;
++its explicit Public plan and admission outputs keep their complete meanings.
++Raw, copied and cold prefixes retain the original checks at those owners.
++
++Private completed-retry plan authentication compares the genuine admitted base,
++exact finite ordered candidate suffix and canonical scope selection, the replay
++owner's guard at that same cut, and every remaining finite plan field. It does
++not stream complete historical prefix/replay values merely to compare two
++private carriers. Those cut relations are disposable receipts of the existing
++prefix and replay owners; they supply no admission or Source authority. Copies,
++foreign cuts, changed candidates, scopes or guard values do not inherit them.
++The explicit Public complete-plan comparison retains its original full canonical
++hash law. Any required replay digest still has its existing complete extent.
+ 
+ Warm child, parent-return and resume validation consumes the actual immutable
+ materialization and successful graph-validation relation for the same Program,
+--- a/code/src/hog/graph_execute.ts
++++ b/code/src/hog/graph_execute.ts
+@@ -8,9 +8,9 @@
+   commitFhInteractionResumeAtExpectedPrefix,
+   deriveFhResumeSuccessorInputAtPrefix,
+   projectOpenedTraversalScopeClassAtDurablePrefix,
+-  projectRuntimePrefixesAtDurablePrefix,
+   selectAdmittedImplementationResolution,
+ } from "../abg/index.js";
++import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
+ import { projectTraversalInputAtPrefix } from "../abg/traversal_cursor.js";
+ import type { CProgramNode } from "../gtl/c_algebra.js";
+ import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
+@@ -510,7 +510,7 @@
+     });
+   }
+   const selected = completion.nextCursor === null ? null : projectTraversalInputAtPrefix(
+-    projectRuntimePrefixesAtDurablePrefix(completion.successorPrefix, completion.nextCursor.runId).authorityPrefix,
++    projectOwnedRuntimeEventPrefixAtDurablePrefix(completion.successorPrefix),
+     runtime.graph, runtime.executionBasis, completion.nextCursor);
+   const targetTerm = completion.nextCursor === null ? null : resolveCProgramTermAtSourcePath(
+     runtime.graph.template, completion.nextCursor.currentNodeRef, completion.nextCursor.termPath);
+@@ -646,7 +646,7 @@
+           correlationId: frame.runtime.correlationId,
+         });
+         const selected = projectTraversalInputAtPrefix(
+-          projectRuntimePrefixesAtDurablePrefix(advanced.successorPrefix, advanced.cursor.runId).authorityPrefix,
++          projectOwnedRuntimeEventPrefixAtDurablePrefix(advanced.successorPrefix),
+           frame.runtime.graph, frame.runtime.executionBasis, advanced.cursor);
+         if (selected === null || selected.value === null || typeof selected.value !== "object" || Array.isArray(selected.value))
+           return Effect.sync(() => failFrame(frame, advanced.successorPrefix, `structural-input-${frame.ordinal}`,
+--- a/code/src/hog/recursion_lifecycle.ts
++++ b/code/src/hog/recursion_lifecycle.ts
+@@ -1,4 +1,6 @@
+ import * as Abg from "../abg/index.js";
++import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
++import { projectOwnedAdmittedLeafCCallOutcomeAtPrefix } from "../abg/c_call.js";
+ import { projectChildFoldbackTruth } from "../abg/child_lifecycle.js";
+ import { indexedRuntimeEvents } from "../abg/event_prefix.js";
+ import {
+@@ -44,7 +46,7 @@
+   type ExecutionClock,
+ } from "./operator_support.js";
+ import * as Routes from "./route_proposal.js";
+-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
++import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
+ import {
+   applyRecursionRoute,
+   deriveCompletedTraversalCursor,
+@@ -209,7 +211,7 @@
+   input: RestoreDeferredRecursionInput,
+ ): DeferredApplicationState | null {
+   const traversal = input.traversalInput;
+-  const outcome = Abg.projectAdmittedLeafCCallOutcomeAtPrefix(
++  const outcome = projectOwnedAdmittedLeafCCallOutcomeAtPrefix(
+     traversal.predecessorPrefix,
+     {
+     executionBasis: traversal.executionBasis,
+@@ -231,7 +233,7 @@
+       inputRef: outcome.result.resultRef,
+       inputDigest: outcome.result.valueDigest,
+     },
+-    Abg.projectRuntimePrefixesAtDurablePrefix(traversal.predecessorPrefix, traversal.traversalStop.cursor.runId).authorityPrefix,
++    projectOwnedRuntimeEventPrefixAtDurablePrefix(traversal.predecessorPrefix),
+   );
+   if (
+     target?.kind === "traversal_refusal" ||
+@@ -708,9 +710,8 @@
+   if (child.disposition !== "failed" || child.cCallRef === null ||
+       child.resultRef === null || child.judgmentRef === null ||
+       child.resultValue === null || child.diagnosticRef === null) return null;
+-  const { authorityPrefix, runtimePrefix } = Abg.projectRuntimePrefixesAtDurablePrefix(
+-    child.successorPrefix, state.cCall.runId,
+-  );
++  const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(child.successorPrefix);
++  const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: state.cCall.runId });
+   const childBasis = frame.childExecutionBasis;
+   const childScope = frame.childTraversalScope;
+   const truth = childBasis.parentExecutionBasisRef === state.input.executionBasis.basisRef &&
+--- a/code/src/hog/ccall_lifecycle.ts
++++ b/code/src/hog/ccall_lifecycle.ts
+@@ -11,6 +11,8 @@
+ import * as Effect from "effect/Effect";
+ 
+ import * as Abg from "../abg/index.js";
++import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
++import { deriveRuntimeHeldFluentProjection } from "../abg/event_calculus.js";
+ import { hasNoCompletedRetryExit } from "../abg/retry.js";
+ import type {
+   AbgEventStore,
+@@ -55,7 +57,7 @@
+   type ExecutionClock,
+ } from "./operator_support.js";
+ import * as Routes from "./route_proposal.js";
+-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
++import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
+ import {
+   applyAdmittedRoute,
+   deriveCompletedTraversalCursor,
+@@ -161,12 +163,9 @@
+     input.input.capabilityGrant.scopeDigest !== input.executionBasis.workspaceBindingDigest
+   ) return null;
+   Abg.assertHeldEventStoreAtDurablePrefix(input.store, openedPrefix);
+-  const current = Abg.projectRuntimePrefixesAtDurablePrefix(
+-    openedPrefix,
+-    cCall.runId,
+-  );
+-  const calculus = Abg.deriveRuntimeEventCalculusProjection(
+-    current.runtimePrefix,
++  const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(openedPrefix);
++  const calculus = deriveRuntimeHeldFluentProjection(
++    selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: cCall.runId }),
+   );
+   if (!parents && isWorksiteFileReplaceRequest(input.input) &&
+     !Abg.holdsAt(
+@@ -335,11 +334,8 @@
+         },
+       );
+     }
+-    const { runtimePrefix, authorityPrefix } =
+-      Abg.projectRuntimePrefixesAtDurablePrefix(
+-        admitted.transition.successorPrefix,
+-        source.runId,
+-      );
++    const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.transition.successorPrefix);
++    const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: source.runId });
+     const route = admitted.transition.route;
+     const continuationKind = route.routeKind === "re_enter" ? "re_enter" : "advance";
+     const nextCursor = applyAdmittedRoute(
+@@ -686,8 +682,8 @@
+     if (admitted.disposition === "judged" && admitted.admitted.result.resultClass === "success" &&
+       admitted.admitted.judgment.judgment === "advance" && input.deferToApplication !== true) {
+       try {
+-        const truth = Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId);
+-        retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, input.executionBasis,
++        const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.successorPrefix);
++        retained = Abg.deriveRetainedCCallInputAtPrefix(authorityPrefix, input.executionBasis,
+           input.graph, input.stop.cursor, admitted.admitted.cCall, admitted.admitted.result, admitted.admitted.judgment);
+       } catch (error) {
+         return failCCall(input, admitted.successorPrefix, `leaf-retention-${input.ordinal}`,
+@@ -716,7 +712,7 @@
+           inputRef: retained?.input.admissionRef ?? admitted.admitted.result.resultRef,
+           inputDigest: retained?.input.subjectDigest ?? admitted.admitted.result.valueDigest,
+         },
+-        Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId).authorityPrefix,
++        projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.successorPrefix),
+       );
+       if (derived?.kind === "traversal_refusal") {
+         return failCCall(
+--- a/code/src/hog/workflow_lifecycle.ts
++++ b/code/src/hog/workflow_lifecycle.ts
+@@ -1,4 +1,5 @@
+ import * as Abg from "../abg/index.js";
++import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
+ import type {
+   AbgEventStore,
+   AdmittedImplementationSet,
+@@ -31,7 +32,7 @@
+   type ExecutionClock,
+ } from "./operator_support.js";
+ import * as Routes from "./route_proposal.js";
+-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
++import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
+ import {
+   applyAdmittedRoute,
+   deriveCompletedTraversalCursor,
+@@ -338,8 +339,8 @@
+       failureResolution.kind !== "workflow_failure_contract_resolution" ||
+       childClosureContract === null ||
+       childClosureContract.closureScope !== "graph_call" ||
+-      !workflowOutputContractCorresponds({ prefix: Abg.projectRuntimePrefixesAtDurablePrefix(
+-        runtime.predecessorPrefix, cursor.runId).authorityPrefix, executionBasis: runtime.executionBasis,
++      !workflowOutputContractCorresponds({ prefix: projectOwnedRuntimeEventPrefixAtDurablePrefix(
++        runtime.predecessorPrefix), executionBasis: runtime.executionBasis,
+         graph: runtime.graph, cursor, childGraphFunction, childClosureContract }) ||
+       childClosureContract.predicateRef.length === 0 ||
+       judgmentPredicateRef === undefined || judgmentPredicateRef.length === 0 ||
+@@ -798,8 +799,8 @@
+     let retained: ReturnType<typeof Abg.deriveRetainedCCallInputAtPrefix> = null;
+     if (result.resultClass === "success" && judgment.judgment === "advance") {
+       try {
+-        const truth = Abg.projectRuntimePrefixesAtDurablePrefix(outcome.successorPrefix, cursor.runId);
+-        retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, runtime.executionBasis,
++        const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(outcome.successorPrefix);
++        retained = Abg.deriveRetainedCCallInputAtPrefix(authorityPrefix, runtime.executionBasis,
+           runtime.graph, cursor, outcome.admitted.cCall, result, judgment);
+       } catch {
+         return failWorkflow(frame, outcome.successorPrefix, `workflow-retention-${ordinal}`,
+@@ -811,7 +812,7 @@
+       const derived = deriveCompletedTraversalCursor(runtime.graph, cursor, {
+         inputRef: retained?.input.admissionRef ?? result.resultRef,
+         inputDigest: retained?.input.subjectDigest ?? result.valueDigest,
+-      }, Abg.projectRuntimePrefixesAtDurablePrefix(outcome.successorPrefix, cursor.runId).authorityPrefix);
++      }, projectOwnedRuntimeEventPrefixAtDurablePrefix(outcome.successorPrefix));
+       if (derived?.kind === "traversal_refusal") {
+         return failWorkflow(frame,
+           outcome.successorPrefix,
+@@ -948,7 +949,7 @@
+     const derived = deriveCompletedTraversalCursor(runtime.graph, cursor, {
+       inputRef: fanOutAdmission.outputVectorRef,
+       inputDigest: fanOutAdmission.outputVectorDigest,
+-    }, Abg.projectRuntimePrefixesAtDurablePrefix(fanOutCompletion.successorPrefix, cursor.runId).authorityPrefix);
++    }, projectOwnedRuntimeEventPrefixAtDurablePrefix(fanOutCompletion.successorPrefix));
+     if (derived?.kind === "traversal_refusal") {
+       return failWorkflow(frame,
+         fanOutCompletion.successorPrefix,
+--- a/code/src/hog/structural_transition.ts
++++ b/code/src/hog/structural_transition.ts
+@@ -1,4 +1,5 @@
+ import * as Abg from "../abg/index.js";
++import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
+ import {
+   isTraversalCursorCandidate,
+   traversalCursorAdmissionEventRefAtPrefix,
+@@ -94,7 +95,7 @@
+     input.graph,
+     input.cursor,
+     input.term,
+-    Abg.projectRuntimePrefixesAtDurablePrefix(input.predecessorPrefix, input.cursor.runId).authorityPrefix,
++    projectOwnedRuntimeEventPrefixAtDurablePrefix(input.predecessorPrefix),
+   );
+   if (target === null || target.kind === "traversal_refusal") {
+     return fail(
+--- a/code/src/hog/interaction_resume.ts
++++ b/code/src/hog/interaction_resume.ts
+@@ -1,4 +1,5 @@
+ import * as Abg from "../abg/index.js";
++import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
+ 
+ import type {
+   ExecutionBasis,
+@@ -25,7 +26,7 @@
+ import {
+   proposeInteractionResumeRoute,
+ } from "./route_proposal.js";
+-import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
++import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
+ import {
+   projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion,
+   type ExecutableTraversalCompletion,
+@@ -107,7 +108,7 @@
+       inputRef: input.resume.successorInputRef,
+       inputDigest: input.resume.successorInputDigest,
+     },
+-    Abg.projectRuntimePrefixesAtDurablePrefix(input.predecessorPrefix, input.successorCursor.runId).authorityPrefix,
++    projectOwnedRuntimeEventPrefixAtDurablePrefix(input.predecessorPrefix),
+   );
+   if (target?.kind === "traversal_refusal") {
+     return fail(
+@@ -116,7 +117,7 @@
+       target as unknown as JsonValue,
+     );
+   }
+-  const outcome = Abg.projectCCallOutcomeReceiptAtPrefix(
++  const outcome = OwnedOutcome.projectOwnedCCallOutcomeReceiptAtPrefix(
+     input.predecessorPrefix,
+     {
+       disposition: "judged",
+--- a/code/src/hog/retry_lifecycle.ts
++++ b/code/src/hog/retry_lifecycle.ts
+@@ -106,6 +106,14 @@
+ import * as OwnedReplay from "../abg/replay.js";
+ /** @internal */
+ export type OwnedRetryLifecycleStep = OwnedOutcomeValue<RetryLifecycleStep>;
++/** @internal Ordinary retry exit carries its finite suffix and canonical replay guard. */
++export type OwnedSuccessfulRetryExitPlan = Exclude<SuccessfulRetryExitPlan, { kind: "successful_retry_exit_plan" }> |
++  Readonly<{
++    kind: "successful_retry_exit_plan";
++    plan: AbgRetry.OwnedCompletedRetryProgressPlan;
++    completion: AbgRetry.RetrySuccessfulExitEvidence;
++    basis: RuntimeAdmissionBasis;
++  }>;
+ export function planSuccessfulRetryExit(input: Readonly<{
+   predecessorPrefix: DurablePrefixCoordinate;
+   graph: Readonly<GtlGraph>;
+@@ -115,10 +123,24 @@
+   completion: AbgRetry.RetrySuccessfulExitEvidence;
+   basis: RuntimeAdmissionBasis;
+ }>): SuccessfulRetryExitPlan {
++  return planSuccessfulRetryExitUsing(input, AbgRetry.planCompletedRetryProgress);
++}
++
++/** @internal Same declared exit relation through the owned planner. */
++export function planOwnedSuccessfulRetryExit(input: Parameters<typeof planSuccessfulRetryExit>[0]): OwnedSuccessfulRetryExitPlan {
++  return planSuccessfulRetryExitUsing(input, AbgRetry.planOwnedCompletedRetryProgress);
++}
++
++function planSuccessfulRetryExitUsing(input: Parameters<typeof planSuccessfulRetryExit>[0],
++  planner: typeof AbgRetry.planCompletedRetryProgress): SuccessfulRetryExitPlan;
++function planSuccessfulRetryExitUsing(input: Parameters<typeof planSuccessfulRetryExit>[0],
++  planner: typeof AbgRetry.planOwnedCompletedRetryProgress): OwnedSuccessfulRetryExitPlan;
++function planSuccessfulRetryExitUsing(input: Parameters<typeof planSuccessfulRetryExit>[0],
++  planner: typeof AbgRetry.planOwnedCompletedRetryProgress): OwnedSuccessfulRetryExitPlan {
+   if (AbgRetry.hasNoCompletedRetryExit(input.graph, input.source, input.target)) {
+     return Object.freeze({ kind: "successful_retry_exit_not_applicable" as const });
+   }
+-  const plan = AbgRetry.planCompletedRetryProgress(
++  const plan = planner(
+     input.predecessorPrefix,
+     input.graph,
+     input.graphFunction,
+--- a/code/src/abg/c_call.ts
++++ b/code/src/abg/c_call.ts
+@@ -4605,6 +4605,22 @@
+   predecessorPrefix: DurablePrefixCoordinate,
+   input: AdmittedLeafCCallOutcomeProjectionInput,
+ ): RehydratedAdmittedCCallState | null {
++  const authorityPrefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
++  return projectAdmittedLeafCCallOutcomeFromPrefix(authorityPrefix, input);
++}
++
++/** @internal Reuse the current owned cut; the selected outcome keeps all leaf guards. */
++export function projectOwnedAdmittedLeafCCallOutcomeAtPrefix(
++  predecessorPrefix: DurablePrefixCoordinate,
++  input: AdmittedLeafCCallOutcomeProjectionInput,
++): RehydratedAdmittedCCallState | null {
++  return projectAdmittedLeafCCallOutcomeFromPrefix(projectOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix), input);
++}
++
++function projectAdmittedLeafCCallOutcomeFromPrefix(
++  authorityPrefix: RuntimeEventPrefix,
++  input: AdmittedLeafCCallOutcomeProjectionInput,
++): RehydratedAdmittedCCallState | null {
+   const basis = input.executionBasis;
+   const implementationSet = input.implementationSet;
+   const scope = input.openedTraversalScope;
+@@ -4619,9 +4635,7 @@
+       implementationBindingRef: stop.implementationBindingRef,
+     },
+   );
+-  const snapshot = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
+-  const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+-  const prefix = selectValidatedRuntimeEventPrefix(snapshot, {
++  const prefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
+     runId: scope.runId,
+   });
+   if (
+--- a/code/src/abg/retry.ts
++++ b/code/src/abg/retry.ts
+@@ -1,4 +1,6 @@
+ import type { RuntimeEventScan } from "./runtime_history.js";
++import { createHash } from "node:crypto";
++import { writeCanonicalJson, compareUnicodeCodeUnits } from "../shared/canonical_json.js";
+ import { indexedRuntimeEvents } from "./event_prefix.js";
+ import type { RuntimeEventPrefix } from "./event_prefix.js";
+ import { isJsonRecordShape as isRecord, isNonEmptyJsonString as nonEmptyString } from "../shared/admission_predicates.js";
+@@ -73,6 +75,7 @@
+   readRuntimeEventsAtDurablePrefix,
+   projectRuntimeEventsAtDurablePrefix,
+   readActiveRuntimeTransactionAtDurablePrefix,
++  selectActiveRuntimeTransactionHistoryAtDurablePrefix,
+   ROOT_EVENT_CONTRACT_DIGEST,
+   validateDurablePrefixCoordinate,
+   type DurablePrefixCoordinate,
+@@ -88,6 +91,11 @@
+ } from "./event_calculus.js";
+ import { projectFhContinuations } from "./fh_continuation_projection.js";
+ import { runtimeEventPrefixDigest,
++  projectOwnedRuntimeEventPrefixAtDurablePrefix,
++  selectOwnedRuntimeEventPrefix,
++  extendRuntimeEventPlanPrefixForValidation,
++  writeRuntimeEventPrefixValue,
++  runtimeEventPrefixesHaveSameOwnedCut,
+   runtimeEventBodiesAtPrefix,
+   selectRuntimeEventPrefixFromAuthority,
+   selectValidatedRuntimeEventPrefix,
+@@ -96,7 +104,11 @@
+   type ValidatedRuntimeEventPrefix,
+ } from "./event_prefix.js";
+ import {
++  projectRuntimeReplayGuard,
++  writeRuntimeReplayGuardValue,
++  runtimeReplayGuardsHaveSameOwnedCut,
+   replayValidatedRuntimeEventPrefix,
++  type RuntimeReplayGuard,
+   type ReplayState,
+ } from "./replay.js";
+ import {
+@@ -286,8 +298,11 @@
+   readonly replayState: ReplayState;
+ }
+ 
+-/** @internal Complete plan meaning, with a private owner prefix instead of a requested public vector. */
+-type OwnedCompletedRetryProgressPlan = Omit<CompletedRetryProgressPlan, "projectedPrefix"> & { readonly projectedPrefix: RuntimeEventPrefix };
++/** @internal Same finite plan and full digest extent, without historical output vectors. */
++export type OwnedCompletedRetryProgressPlan = Omit<CompletedRetryProgressPlan, "projectedPrefix" | "replayState"> & {
++  readonly projectedPrefix: RuntimeEventPrefix;
++  readonly replayState: RuntimeReplayGuard;
++};
+ 
+ export type RetrySuccessfulExitEvidence =
+   | Readonly<{
+@@ -5999,6 +6014,20 @@
+     sourceCursor, targetCursor, completion, basis);
+ }
+ 
++/** @internal Normal HoG planning borrows its actual predecessor and finite suffix. */
++export function planOwnedCompletedRetryProgress(
++  predecessorPrefix: DurablePrefixCoordinate,
++  graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
++  sourceCursor: TraversalCursorCandidate, targetCursor: TraversalCursorCandidate | null,
++  completion: RetrySuccessfulExitEvidence, basis: RuntimeAdmissionBasis,
++): OwnedCompletedRetryProgressPlan | RetryAdmissionRefusal {
++  let prefix: RuntimeEventPrefix;
++  try { prefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix); }
++  catch { return refusal("progress_mismatch", "completed retry progress requires its exact durable predecessor"); }
++  return planCompletedRetryProgressFromHistory(runtimeEventBodiesAtPrefix(prefix), predecessorPrefix,
++    graph, graphFunction, sourceCursor, targetCursor, completion, basis);
++}
++
+ function planCompletedRetryProgressFromHistory(
+   snapshot: readonly RuntimeEvent[],
+   predecessorPrefix: DurablePrefixCoordinate,
+@@ -6403,7 +6432,7 @@
+       }`;
+     return { body, progressDigest, progressRef };
+   });
+-  const projectedHistory = [...snapshot];
++  let projectedPrefix = prefix;
+   const eventCandidates: RuntimeEventCandidate[] = [];
+   const projectedEvents: RuntimeEvent[] = [];
+   for (const [index, identity] of identities.entries()) {
+@@ -6449,12 +6478,12 @@
+           },
+     };
+     const projected = projectRuntimeEventFromValidatedHistory(
+-      projectedHistory,
++      runtimeEventBodiesAtPrefix(projectedPrefix),
+       candidate,
+     );
+     eventCandidates.push(deepFreeze(candidate));
+     projectedEvents.push(projected);
+-    projectedHistory.push(projected);
++    projectedPrefix = extendRuntimeEventPlanPrefixForValidation(projectedPrefix, projected);
+   }
+   const progresses = identities.map((identity, index) =>
+     deepFreeze({
+@@ -6466,9 +6495,6 @@
+       ...identity.body,
+       admissionEventRef: projectedEvents[index]!.eventId,
+     }) as RetryCompletedProgressAdmission
+-  );
+-  const projectedPrefix = selectValidatedRuntimeEventPrefix(
+-    Object.freeze([...projectedHistory]),
+   );
+   const ownerMismatch = plannedAttempts.some((attempt, index) => {
+     const owner = projectDeclaredCRetryFrontier(
+@@ -6493,10 +6519,7 @@
+       "planned completed retry progress does not reproject through every declared owner",
+     );
+   }
+-  const projectedRunPrefix = selectValidatedRuntimeEventPrefix(
+-    Object.freeze([...projectedHistory]),
+-    { runId: sourceCursor.runId },
+-  );
++  const projectedRunPrefix = selectRuntimeEventPrefixFromAuthority(projectedPrefix, { runId: sourceCursor.runId });
+   return deepFreeze({
+     kind: "completed_retry_progress_plan" as const,
+     schemaVersion: "5.0.0" as const,
+@@ -6505,10 +6528,10 @@
+     projectedEvents,
+     progresses,
+     projectedPrefix,
+-    replayState: replayValidatedRuntimeEventPrefix(
+-      projectedRunPrefix,
+-      projectedPrefix,
+-    ),
++    replayState: projectedPrefix.kind === "validated_runtime_event_prefix" &&
++        projectedRunPrefix.kind === "validated_runtime_event_prefix"
++      ? replayValidatedRuntimeEventPrefix(projectedRunPrefix, projectedPrefix)
++      : projectRuntimeReplayGuard(projectedRunPrefix, projectedPrefix),
+   });
+ }
+ 
+@@ -6540,6 +6563,56 @@
+       "completed retry progress admission requires its exact durable predecessor",
+     );
+   }
++  return admitPlannedCompletedRetryProgressFromHistory(store, predecessorPrefix, graph, graphFunction,
++    sourceCursor, targetCursor, completion, basis, plan, predecessorEvents);
++}
++
++/** @internal Same pre-effect reprojection and admission against the owned predecessor. */
++export function admitOwnedPlannedCompletedRetryProgressInActiveTransaction(
++  store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
++  graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
++  sourceCursor: TraversalCursorCandidate, targetCursor: TraversalCursorCandidate | null,
++  completion: RetrySuccessfulExitEvidence, basis: RuntimeAdmissionBasis,
++  plan: OwnedCompletedRetryProgressPlan,
++): readonly RetryCompletedProgressAdmission[] | RetryAdmissionRefusal {
++  assertRuntimeEventTransactionActive(store);
++  let predecessor: RuntimeEventPrefix;
++  try {
++    predecessor = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(
++      store, predecessorPrefix, { durableOnly: true }));
++  } catch { return refusal("progress_mismatch", "completed retry progress admission requires its exact durable predecessor"); }
++  return admitPlannedCompletedRetryProgressFromHistory(store, predecessorPrefix, graph, graphFunction,
++    sourceCursor, targetCursor, completion, basis, plan, runtimeEventBodiesAtPrefix(predecessor));
++}
++
++function completedRetryProgressPlanDigest(plan: OwnedCompletedRetryProgressPlan): Sha256Digest {
++  const digest = createHash("sha256");
++  const write = (part: string): void => { digest.update(part, "utf8"); };
++  write("{"); let comma = false;
++  for (const key of Object.keys(plan).sort(compareUnicodeCodeUnits)) {
++    if (comma) write(","); comma = true;
++    writeCanonicalJson(key, write); write(":");
++    if (key === "projectedPrefix") writeRuntimeEventPrefixValue(plan.projectedPrefix, write);
++    else if (key === "replayState") writeRuntimeReplayGuardValue(plan.replayState, write);
++    else writeCanonicalJson((plan as unknown as Record<string, JsonValue>)[key]!, write);
++  }
++  write("}"); return `sha256:${digest.digest("hex")}`;
++}
++
++function ownedCompletedRetryProgressPlansCorrespond(left: OwnedCompletedRetryProgressPlan, right: OwnedCompletedRetryProgressPlan): boolean {
++  const { projectedPrefix: aPrefix, replayState: aReplay, ...aFinite } = left;
++  const { projectedPrefix: bPrefix, replayState: bReplay, ...bFinite } = right;
++  return runtimeEventPrefixesHaveSameOwnedCut(aPrefix, bPrefix) && runtimeReplayGuardsHaveSameOwnedCut(aReplay, bReplay) &&
++    sha256Canonical(aFinite as unknown as JsonValue) === sha256Canonical(bFinite as unknown as JsonValue);
++}
++
++function admitPlannedCompletedRetryProgressFromHistory(
++  store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
++  graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
++  sourceCursor: TraversalCursorCandidate, targetCursor: TraversalCursorCandidate | null,
++  completion: RetrySuccessfulExitEvidence, basis: RuntimeAdmissionBasis,
++  plan: OwnedCompletedRetryProgressPlan, predecessorEvents: RuntimeEventScan,
++): readonly RetryCompletedProgressAdmission[] | RetryAdmissionRefusal {
+   if (
+     plan.kind !== "completed_retry_progress_plan" ||
+     plan.schemaVersion !== "5.0.0" ||
+@@ -6565,18 +6638,19 @@
+   );
+   if (
+     exactPlan.kind !== "completed_retry_progress_plan" ||
+-    sha256Canonical(exactPlan as unknown as JsonValue) !==
+-      sha256Canonical(plan as unknown as JsonValue)
++    (Array.isArray(predecessorEvents)
++      ? completedRetryProgressPlanDigest(exactPlan) !== completedRetryProgressPlanDigest(plan)
++      : !ownedCompletedRetryProgressPlansCorrespond(exactPlan, plan))
+   ) {
+     return refusal(
+       "progress_mismatch",
+       "completed retry progress plan differs from its exact owner relation",
+     );
+   }
+-  const projectedHistory = [...predecessorEvents];
++  let projectedPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
+   for (const [index, candidate] of plan.eventCandidates.entries()) {
+     const projected = projectRuntimeEventFromValidatedHistory(
+-      projectedHistory,
++      runtimeEventBodiesAtPrefix(projectedPrefix),
+       candidate,
+     );
+     if (
+@@ -6589,7 +6663,7 @@
+         "completed retry progress plan no longer projects its exact events",
+       );
+     }
+-    projectedHistory.push(projected);
++    projectedPrefix = extendRuntimeEventPlanPrefixForValidation(projectedPrefix, projected);
+   }
+   const admittedEvents = plan.eventCandidates.map((candidate) =>
+     admitRuntimeEvent(store, candidate)
+--- a/code/src/abg/c_call_outcome.ts
++++ b/code/src/abg/c_call_outcome.ts
+@@ -111,8 +111,9 @@
+   projectRuntimeReplayGuard, materializeRuntimeReplayGuard,
+ } from "./replay.js";
+ import {
+-  admitPlannedCompletedRetryProgressInActiveTransaction,
++  admitOwnedPlannedCompletedRetryProgressInActiveTransaction,
+   type CompletedRetryProgressPlan,
++  type OwnedCompletedRetryProgressPlan,
+   type RetryAdmissionRefusal,
+   type RetrySuccessfulExitEvidence,
+ } from "./retry.js";
+@@ -652,7 +653,11 @@
+ /** @internal */
+ export type OwnedAdmitCCallJudgmentInput = OwnedOutcomeValue<AdmitCCallJudgmentInput>;
+ /** @internal */
+-export type OwnedAdmitCCallCompletionInput = OwnedOutcomeValue<AdmitCCallCompletionInput>;
++export type OwnedAdmitCCallCompletionInput = Omit<OwnedOutcomeValue<AdmitCCallCompletionInput>, "completedRetryProgress"> & {
++  readonly completedRetryProgress?: Omit<NonNullable<AdmitCCallCompletionInput["completedRetryProgress"]>, "plan"> & {
++    readonly plan: OwnedCompletedRetryProgressPlan;
++  };
++};
+ /** @internal */
+ type OwnedResultCCallOutcomeReceiptBody = Omit<OwnedResultCCallOutcomeReceipt, "successorPrefix">;
+ /** @internal */
+@@ -1499,7 +1504,7 @@
+         if (input.completedRetryProgress !== undefined) {
+           const retryProgress = input.completedRetryProgress;
+           const completedProgresses =
+-            admitPlannedCompletedRetryProgressInActiveTransaction(
++            admitOwnedPlannedCompletedRetryProgressInActiveTransaction(
+               input.store,
+               input.predecessorPrefix,
+               input.graph,
+--- a/code/src/hog/traversal.ts
++++ b/code/src/hog/traversal.ts
+@@ -250,6 +250,15 @@
+   sourceCursor: TraversalCursor,
+   term: Readonly<CProgramNode>,
+   prefix?: ValidatedRuntimeEventPrefix,
++): TraversalCursor | TraversalRefusal | null;
++/** @internal Same structural cursor checks against the owned authority. */
++export function deriveStructuralTargetCursor(
++  graph: Readonly<GtlGraph>, sourceCursor: TraversalCursor,
++  term: Readonly<CProgramNode>, prefix?: RuntimeEventPrefix,
++): TraversalCursor | TraversalRefusal | null;
++export function deriveStructuralTargetCursor(
++  graph: Readonly<GtlGraph>, sourceCursor: TraversalCursor,
++  term: Readonly<CProgramNode>, prefix?: RuntimeEventPrefix,
+ ): TraversalCursor | TraversalRefusal | null {
+   const source = cursorCoordinate(sourceCursor);
+   const declaredTerm = resolveTraversalTerm(graph, sourceCursor);
+@@ -310,6 +319,15 @@
+   sourceCursor: TraversalCursor,
+   completedInput: TraversalInputBasis,
+   prefix?: ValidatedRuntimeEventPrefix,
++): TraversalCursor | TraversalRefusal | null;
++/** @internal Same completed-input cursor checks against the owned authority. */
++export function deriveCompletedTraversalCursor(
++  graph: Readonly<GtlGraph>, sourceCursor: TraversalCursor,
++  completedInput: TraversalInputBasis, prefix?: RuntimeEventPrefix,
++): TraversalCursor | TraversalRefusal | null;
++export function deriveCompletedTraversalCursor(
++  graph: Readonly<GtlGraph>, sourceCursor: TraversalCursor,
++  completedInput: TraversalInputBasis, prefix?: RuntimeEventPrefix,
+ ): TraversalCursor | TraversalRefusal | null {
+   const term = resolveTraversalTerm(graph, sourceCursor);
+   if (term.kind === "traversal_refusal") return term;
+--- a/code/src/hog/route_proposal.ts
++++ b/code/src/hog/route_proposal.ts
+@@ -16,6 +16,7 @@
+ import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
+ import type {
+   CompletedRetryProgressPlan,
++  OwnedCompletedRetryProgressPlan,
+   RetryCompletedProgressAdmission,
+   RetryProgressAdmission,
+ } from "../abg/retry.js";
+@@ -819,7 +820,7 @@
+   sourceCursor: TraversalCursor;
+   targetCursor: TraversalCursor | null;
+   outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt;
+-  completedRetryProgress?: CompletedRetryProgressPlan;
++  completedRetryProgress?: OwnedCompletedRetryProgressPlan;
+   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+   terminalizeNonAdvance: boolean;
+   registeredSelectionDefinitionDigests?: Readonly<Record<string, `sha256:${string}`>>;
+@@ -830,7 +831,7 @@
+   sourceCursor: TraversalCursor;
+   targetCursor: TraversalCursor | null;
+   outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt;
+-  completedRetryProgress?: CompletedRetryProgressPlan;
++  completedRetryProgress?: OwnedCompletedRetryProgressPlan;
+   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+   terminalizeNonAdvance: boolean;
+   registeredSelectionDefinitionDigests?: Readonly<Record<string, `sha256:${string}`>>;
+--- a/test_env/tests/t287-route-reconstruction.test.mjs
++++ b/test_env/tests/t287-route-reconstruction.test.mjs
+@@ -128,6 +128,16 @@
+   return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});
+  });await module.evaluate();return {api:module.namespace,counts};
+ }
++// Inspect the actual private plan writer with its genuine imported owners.
++// This checks the complete canonical carrier law, not retry admission premises.
++async function ownedRetryPlanDigest(){
++ const built=resolve(import.meta.dirname,'../../build/code/src/abg/retry.js');
++ const module=new SourceTextModule(fs.readFileSync(built,'utf8')+'\nexport {completedRetryProgressPlanDigest,ownedCompletedRetryProgressPlansCorrespond};',{identifier:built});
++ await module.link(async spec=>{
++  const values=await import(spec.startsWith('.')?pathToFileURL(resolve(dirname(built),spec)).href:spec);
++  return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});
++ });await module.evaluate();return module.namespace;
++}
+ function appendControl(rows,template,patch){
+  const {eventId,admissionOrdinal,payloadDigest,eventContractDigest,...candidate}=template;
+  const row=store.projectRuntimeEventFromValidatedHistory(rows,{...candidate,...patch});rows.push(row);return row;
+@@ -311,12 +321,18 @@
+  assert.equal(chunks.join(''),canonicalJson(full));assert.deepEqual(replay.materializeRuntimeReplayGuard(guard),full);
+  assert.throws(()=>replay.writeRuntimeReplayGuardValue({...guard},()=>{}),/owner receipt/);
+  const all=[];prefix.writeRuntimeEventPrefixValue(o.authority,s=>all.push(s));assert.equal(all.join(''),canonicalJson(f.authority));
++ const retry=await ownedRetryPlanDigest(),digest=retry.completedRetryProgressPlanDigest,common={kind:'completed_retry_progress_plan',schemaVersion:'5.0.0',
++  predecessorEventDigest:prefix.runtimeEventPrefixDigest(o.authority),eventCandidates:[],projectedEvents:[],progresses:[]};
++ const complete={...common,projectedPrefix:f.authority,replayState:full},owned={...common,projectedPrefix:o.authority,replayState:guard};
++ assert.equal(digest(owned),sha256Canonical(complete),'private retry admission compares the original complete plan extent');
++ assert.equal(digest(complete),sha256Canonical(complete),'explicit Public plan keeps the same hash law');
++ assert.notEqual(digest({...owned,progresses:[{guard:'changed'}]}),sha256Canonical(complete));
+  t.diagnostic(JSON.stringify({eventCount:f.rows.length,replayDigest:guard.replayDigest,completeBytes:Buffer.byteLength(chunks.join('')),
+   limit:'Selected Result/route fields on genuine durable owner; native/continuation coverage remains the genuine owner composition proof.'}));
+ });
+ test('finite pure candidate plan equals complete-array construction without advancing the accepted base',async t=>{
+  const f=terminalOwner(t),o=ownedTerminal(t,f),baseDigest=prefix.runtimeEventPrefixDigest(o.authority),baseExtent=prefix.runtimeEventPrefixExtent(o.authority);
+- const accepted=calculus.deriveRuntimeHeldFluentProjection(o.authority);let selected=o.authority,explicit=f.authority;const events=[];
++ const accepted=calculus.deriveRuntimeHeldFluentProjection(o.authority);let selected=o.authority,second=o.authority,explicit=f.authority;const events=[],candidates=[];
+  for(let i=0;i<3;i++) {
+   const value=deepFreeze({kind:'plan_input',step:i}),body={basisClass:'root',rawInputValue:value,rawInputDigest:sha256Canonical(value),invocationRef:'invocation://component/plan/'+i};
+   const basisDigest=sha256Canonical(body),basisRef='execution-basis://abiogenesis/'+basisDigest.slice(7);
+@@ -326,6 +342,7 @@
+   const row=store.projectRuntimeEventFromValidatedHistory(prefix.runtimeEventBodiesAtPrefix(selected),candidate);
+   const expected=store.projectRuntimeEventFromValidatedHistory(prefix.runtimeEventsFromValidatedPrefix(explicit),candidate);assert.deepEqual(row,expected);
+   selected=prefix.extendRuntimeEventPlanPrefixForValidation(selected,row);explicit=prefix.extendRuntimeEventPrefixForValidation(explicit,expected);events.push(row);
++  second=prefix.extendRuntimeEventPlanPrefixForValidation(second,row);candidates.push(deepFreeze(candidate));
+   assert.equal(prefix.isOwnedRuntimeEventPrefix(selected),false);assert.equal(prefix.isValidationRuntimeEventPrefix(selected),true);
+   assert.deepEqual(calculus.deriveRuntimeHeldFluentProjection(selected),calculus.deriveRuntimeHeldFluentProjection(explicit));
+   assert.equal(prefix.runtimeEventPrefixDigest(selected),prefix.runtimeEventPrefixDigest(explicit));
+@@ -339,7 +356,24 @@
+   kind:'basis_admitted',eventTime:'2026-10-10T00:00:00.000Z',aggregateType:'workspace',aggregateId:'workspace://component/plan',parentAggregateId:null,
+   causationEventRefs:[events.at(-1).eventId],correlationId:'correlation://component/plan',workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://future',
+   payload:{basisClass:'root',rawInputValue:null,rawInputDigest:sha256Canonical(null),invocationRef:'invocation://future',basisRef:'basis://future',basisDigest:sha256Canonical(null)}}),/causation/);
+- t.diagnostic(JSON.stringify({acceptedEvents:baseExtent.count,prospectiveEvents:events.length,acceptedDigest:baseDigest,pure:true}));
++ const retry=await ownedRetryPlanDigest(),run=p=>prefix.selectRuntimeEventPrefixFromAuthority(p,{runId:f.route.runId});
++ const guard=replay.projectRuntimeReplayGuard(run(selected),selected),otherGuard=replay.projectRuntimeReplayGuard(run(second),second);
++ const common={kind:'completed_retry_progress_plan',schemaVersion:'5.0.0',predecessorEventDigest:baseDigest,eventCandidates:candidates,projectedEvents:events,progresses:[]};
++ const left={...common,projectedPrefix:selected,replayState:guard},right={...common,projectedPrefix:second,replayState:otherGuard};
++ const complete={...common,projectedPrefix:explicit,replayState:replay.replayValidatedRuntimeEventPrefix(run(explicit),explicit)};
++ assert.equal(retry.completedRetryProgressPlanDigest(left),sha256Canonical(complete));
++ const foreign=ownedTerminal(t,terminalOwner(t)),foreignPlan={...common,projectedPrefix:foreign.authority,replayState:replay.projectRuntimeReplayGuard(foreign.run,foreign.authority)};
++ assert.equal(foreign.authority.selection.sharesSource(o.authority.selection),false,'the foreign cut has its own actual append owner');
++ const before={...RuntimeHistorySelection.owner(o.authority.selection).work};
++ assert.equal(retry.ownedCompletedRetryProgressPlansCorrespond(left,right),true);
++ for(const changed of [{...right,projectedPrefix:{...second}},{...right,replayState:{...otherGuard}},
++  {...right,projectedPrefix:o.authority},{...right,eventCandidates:[{...candidates[0],correlationId:'crossed'},...candidates.slice(1)]},
++  {...right,projectedEvents:events.slice(1)},foreignPlan])assert.equal(retry.ownedCompletedRetryProgressPlansCorrespond(left,changed),false);
++ const comparisonWork=diff(before,RuntimeHistorySelection.owner(o.authority.selection).work);
++ assert.equal(comparisonWork.bodyRows,0,'authentic private plan comparison never reads historical bodies');
++ assert.equal(prefix.isOwnedRuntimeEventPrefix(selected),false);assert.equal(o.store.readAll().length,f.rows.length);
++ t.diagnostic(JSON.stringify({acceptedEvents:baseExtent.count,prospectiveEvents:events.length,acceptedDigest:baseDigest,pure:true,comparisonWork,
++  limit:'Finite carrier/cut authentication only; basis candidates do not claim completed retry admission or genuine HoG execution.'}));
+ });
+ test('ordinary selected route and scoped extent avoid growing historical bodies; explicit snapshots have their own lifetime',async t=>{
+  const measured=[];
+--- a/code/src/abg/event_prefix.ts
++++ b/code/src/abg/event_prefix.ts
+@@ -1,6 +1,6 @@
+ import { createHash } from "node:crypto";
+ import { canonicalJson, writeCanonicalJson, type JsonValue } from "../shared/canonical_json.js";
+-import type { Sha256Digest } from "../shared/digests.js";
++import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+ import { ownedRuntimeDerivationSource, runtimeDerivationSource, RuntimeDerivationSource, type RuntimeDerivationScope } from "./runtime_derivation.js";
+ import {
+   selectRuntimeEvents,
+@@ -52,6 +52,7 @@
+   readonly source: RuntimeDerivationSource; readonly scopeKey: string; readonly selection: RuntimeHistorySelection;
+   readonly base: OwnedRuntimeEventPrefix; readonly candidate: RuntimeEvent;
+   readonly predecessor: OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix;
++  readonly scopedFrom?: ValidationRuntimeEventPrefix;
+ }>();
+ const OWNED_PREFIXES = new WeakMap<OwnedRuntimeEventPrefix, {
+   readonly source: RuntimeDerivationSource; readonly scopeKey: string; readonly selection: RuntimeHistorySelection;
+@@ -107,6 +108,26 @@
+ }
+ function locatedReceipt(prefix: OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix) {
+   return prefix.kind === "owned_runtime_event_prefix" ? OWNED_PREFIXES.get(prefix)! : VALIDATION_PREFIXES.get(prefix)!;
++}
++
++/** @internal Exact owner-issued cut relation, never an admission or raw-copy shortcut. */
++export function runtimeEventPrefixesHaveSameOwnedCut(left: RuntimeEventPrefix, right: RuntimeEventPrefix): boolean {
++  if (!isLocatedPrefix(left) || !isLocatedPrefix(right) || left.kind !== right.kind ||
++      left.selection.through !== right.selection.through || left.selection.length !== right.selection.length) return false;
++  if (isOwnedRuntimeEventPrefix(left) && isOwnedRuntimeEventPrefix(right)) {
++    return left.selection.sharesSource(right.selection) && left.selection.extends(right.selection) &&
++      right.selection.extends(left.selection);
++  }
++  if (!isValidationRuntimeEventPrefix(left) || !isValidationRuntimeEventPrefix(right)) return false;
++  const a = VALIDATION_PREFIXES.get(left)!, b = VALIDATION_PREFIXES.get(right)!;
++  if (a.scopeKey !== b.scopeKey) return false;
++  if (a.scopedFrom !== undefined || b.scopedFrom !== undefined) {
++    return a.scopedFrom !== undefined && b.scopedFrom !== undefined &&
++      runtimeEventPrefixesHaveSameOwnedCut(a.scopedFrom, b.scopedFrom);
++  }
++  return left.selection.length === left.selection.through && a.scopeKey === "all" &&
++    runtimeEventPrefixesHaveSameOwnedCut(a.predecessor, b.predecessor) &&
++    sha256Canonical(a.candidate as unknown as JsonValue) === sha256Canonical(b.candidate as unknown as JsonValue);
+ }
+ function selectValidationPrefix(base: OwnedRuntimeEventPrefix, candidate: RuntimeEvent,
+   selection: RuntimeHistorySelection, source = new RuntimeDerivationSource(), selectedScope = "all",
+@@ -476,7 +497,12 @@
+ /** @internal */
+ export function selectRuntimeEventPrefixFromAuthority(authorityPrefix: RuntimeEventPrefix, scope: RuntimeEventScope): RuntimeEventPrefix;
+ export function selectRuntimeEventPrefixFromAuthority(authorityPrefix: RuntimeEventPrefix, scope: RuntimeEventScope): RuntimeEventPrefix {
+-  if (isLocatedPrefix(authorityPrefix)) return selectLocatedSubset(authorityPrefix, authorityPrefix.selection.selectScope(scope), scopeKey(scope));
++  if (isLocatedPrefix(authorityPrefix)) {
++    const selected = selectLocatedSubset(authorityPrefix, authorityPrefix.selection.selectScope(scope), scopeKey(scope));
++    if (isValidationRuntimeEventPrefix(authorityPrefix) && isValidationRuntimeEventPrefix(selected))
++      VALIDATION_PREFIXES.set(selected, { ...VALIDATION_PREFIXES.get(selected)!, scopedFrom: authorityPrefix });
++    return selected;
++  }
+   const events = runtimeEventsFromValidatedPrefix(authorityPrefix);
+   return selectPrefixFromImmutableSnapshot(events, scope, computationReceipt(authorityPrefix).source);
+ }
+--- a/code/src/abg/replay.ts
++++ b/code/src/abg/replay.ts
+@@ -39,6 +39,7 @@
+ } from "./event_calculus.js";
+ import {
+   runtimeEventBodiesAtPrefix,
++  runtimeEventPrefixesHaveSameOwnedCut,
+   projectOwnedRuntimeEventPrefixAtDurablePrefix,
+   selectOwnedRuntimeEventPrefix,
+   runtimeEventAtPrefix,
+@@ -180,6 +181,13 @@
+ export function projectRuntimeReplayGuard(prefix: RuntimeEventPrefix, authority: RuntimeEventPrefix = prefix): RuntimeReplayGuard {
+   const value = deriveReplayPrefixFacts(prefix, authority, undefined, undefined, true) as RuntimeReplayGuard;
+   REPLAY_GUARD_PREFIXES.set(value, { prefix, authority }); return value;
++}
++/** @internal Compare only authentic guards of the same complete owner cut. */
++export function runtimeReplayGuardsHaveSameOwnedCut(left: RuntimeReplayGuard, right: RuntimeReplayGuard): boolean {
++  const a = REPLAY_GUARD_PREFIXES.get(left), b = REPLAY_GUARD_PREFIXES.get(right);
++  return a !== undefined && b !== undefined && runtimeEventPrefixesHaveSameOwnedCut(a.prefix, b.prefix) &&
++    runtimeEventPrefixesHaveSameOwnedCut(a.authority, b.authority) &&
++    sha256Canonical(left as unknown as JsonValue) === sha256Canonical(right as unknown as JsonValue);
+ }
+ /** @internal Explicit complete-output boundary, with exact prefix/digest proof. */
+ export function materializeRuntimeReplayGuard(guard: RuntimeReplayGuard): ReplayState {

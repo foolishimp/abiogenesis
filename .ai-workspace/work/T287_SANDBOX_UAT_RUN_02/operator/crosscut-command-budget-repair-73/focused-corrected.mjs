@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {writeFile,readFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+const repo='/Users/jim/src/apps/abiogenesis',tenant=repo+'/build_tenants/abiogenesis/typescript',phase=repo+'/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73';
+await writeFile(phase+'/fixture-premise-correction.json',JSON.stringify({superseded:'commands/focused.result.json',cause:'Generic executableCapabilities maxTerminationGraceMs1000 rejected legal-enclosing-envelope test command grace30000 at semantic owner; budget branch itself correct.',correction:'Only new test supplies30000 grace capability via optional fixture argument; existing default1000 unchanged.',productionChange:false,compileRepeated:false},null,2)+'\n',{flag:'wx'});
+const {commandRecorder}=await import(pathToFileURL(tenant+'/test_env/uat/runner.mjs').href);
+const record=commandRecorder(phase,{environment:{PATH:'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin',ABI5_GENERIC_JOB_BUILD_ROOT:phase+'/isolated',ABG_WORKSITE_BUILD_ROOT:phase+'/isolated/build/code/src'},timeoutMs:180000,maxOutputBytes:1048576});
+const selection='command cleanup budget';
+const result=await record('focused-fixture-corrected','/opt/homebrew/bin/node',['--experimental-vm-modules','--test','--test-name-pattern='+selection,tenant+'/test_env/tests/t287-native-semantic-job.test.mjs'],{cwd:tenant});
+console.log(JSON.stringify({exitCode:result.exitCode,wallMs:result.wallMs}));assert.equal(result.exitCode,0);assert.equal(result.signal,null);assert(!result.timedOut&&!result.truncated&&!result.failure);
+const old=JSON.parse(await readFile(phase+'/commands/isolated-compile.result.json','utf8'));
+await writeFile(phase+'/check-summary.json',JSON.stringify({compile:{exitCode:old.exitCode,wallMs:old.wallMs},initialFocused:{result:'commands/focused.result.json',passes:3,fails:1,wallMs:JSON.parse(await readFile(phase+'/commands/focused.result.json','utf8')).wallMs},correctedFocused:{exitCode:result.exitCode,wallMs:result.wallMs,selection,passes:1,fails:0},boundedCredit:'Three unchanged first-run checks + one corrected selected regression. Not a single four-green transcript.',isolatedCompileOnly:true,normalGeneratedUntouched:true,nativeExecutionOrQualification:false},null,2)+'\n',{flag:'wx'});

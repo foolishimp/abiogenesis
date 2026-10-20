@@ -1,0 +1,12 @@
+{
+  "pid": 94535,
+  "startedAt": "2026-09-30T08:35:32.797Z",
+  "budgetMs": 2705000,
+  "operationPlan": [
+    "conformance-hello-world",
+    "conformance-command-execution",
+    "hello-root",
+    "hello-root-run_result",
+    "hello-root-run_replay"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "stderr": "zsh:1: no matches found: build_tenants/abiogenesis/typescript/code/src/abg/catalog*",
+  "RootSelectedAction": "Recording-only; preserve failure, never repeat glob; targeted canonical symbol lookup permitted",
+  "ownerResolved": "product/declaration_closure.ts43 reconstructHistoricalDeclarationCatalog",
+  "additionalUnnecessaryOperand": "owner_bindings/catalog_operations.ts absent; omitted without requery",
+  "meaning": "Locator misses have no runtime/owner evidence value"
+}

@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "checkCount": 15,
+  "terminalCount": 3,
+  "valueDigest": "sha256:360521a0d0e324268e843f09d86c9fa3dedd314915e74283df96fb6b87d96967",
+  "run": {
+    "digest": "sha256:52bd5ecac82149d0fcf0783c248069e5feb44e43e40ca9afbdf9525d59bc2922",
+    "ref": "run://abiogenesis/ad1178eacb257eb403f511d54751b84c95f4c226a47318a82269bbc96eeb0c61"
+  },
+  "expectedInput": {
+    "kind": "hello_world_input",
+    "schemaVersion": "5.0.0",
+    "subject": "prospective 5.0.0-rc.1 qualification"
+  },
+  "transportInvocationKeys": [
+    "invocation",
+    "resources"
+  ],
+  "request": {
+    "program": {
+      "ref": "program://abiogenesis/conformance/hello-world@5",
+      "digest": "sha256:e1ac4c0cedc4eb6350369893db2c7768e05ce014697145d402cb86d47ce0afa9"
+    },
+    "scope": "program",
+    "target": {
+      "kind": "graph_function",
+      "handle": "graph-function://abiogenesis/conformance/hello-world@5"
+    },
+    "until": "converged",
+    "catalogView": {
+      "ref": "graph-function-catalog-view://abiogenesis/2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723",
+      "digest": "sha256:2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723"
+    },
+    "allowlist": [
+      "graph-function://abiogenesis/conformance/hello-world@5",
+      "graph-function://abiogenesis/worksite/command-execution@5"
+    ],
+    "input": {
+      "contract": {
+        "ref": "contract://abiogenesis/conformance/hello-input@5",
+        "digest": "sha256:dbadb1a897b7a2326a50fb137583f32da828f9e3dde9481d141f0b58dcf05b53"
+      },
+      "valueRef": "input://abiogenesis/t287/final-native-continuation-04/hello-root",
+      "valueDigest": "sha256:81b4b7f9af125c596f1d3dc8f7f09935ad0232fa4e68048f500604df91921903",
+      "value": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "prospective 5.0.0-rc.1 qualification"
+      }
+    },
+    "fhMode": "direct",
+    "rootMode": "direct",
+    "sourceBasis": {
+      "kind": "none"
+    }
+  },
+  "projectionShapes": {
+    "result": [
+      "kind",
+      "replay",
+      "result",
+      "subject",
+      "terminalResult",
+      "terminalRoute"
+    ],
+    "replay": [
+      "fromOrdinal",
+      "kind",
+      "limit",
+      "replay",
+      "status",
+      "subject",
+      "terminalResult"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "operation": "T287_Q11_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INPUT_PREPARATION_ONLY",
+  "closedAt": "2026-10-03T01:59:59.198359+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/freeze.json",
+    "bytes": 867975,
+    "sha256": "827d5cbb98b5d68acb9af7da791f2173cb4f086f2fbd9a50bb3d047c051c76e5",
+    "mode": 292
+  },
+  "blockingBoundary": "external accepted Source delta producer -> derived source-control selection -> packet delta consumer",
+  "smallestReEntry": "design_reframe limited to external preparation path; subsequent separately granted realization",
+  "reportWritesOnly": true,
+  "importsOrPayloadsOrTestsOrNativeEffects": 0,
+  "runtimeQualificationOrSemanticAcceptance": false,
+  "rootAloneSelectsNextEffect": true,
+  "processesStarted": 0,
+  "allReviewerWritesStopped": true
+}

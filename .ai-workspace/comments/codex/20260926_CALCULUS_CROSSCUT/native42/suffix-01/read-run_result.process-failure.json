@@ -1,0 +1,5 @@
+{
+  "code": 1,
+  "signal": null,
+  "message": "Command failed: /opt/homebrew/Cellar/node/24.7.0/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/preparation/products/core42/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js --jsonl /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/suffix-01/read-run_result.jsonl\n"
+}

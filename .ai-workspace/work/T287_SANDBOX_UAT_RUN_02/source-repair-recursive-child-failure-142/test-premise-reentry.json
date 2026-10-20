@@ -1,0 +1,7 @@
+{
+  "thirdCause": "Test called retired openCall; canonical current owner is openTraversalScope",
+  "action": "Current canonical signature in granted test only",
+  "singlePackPreserved": true,
+  "fourthControlDelta": "Phase-only fixture acquisition import reuses exactly the already packed external test artifact. All assertion/source-under-test and lower owners are unchanged; no admission/replay doubles.",
+  "fixtureIdentity": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-child-failure-142/test-fixture-identity.json"
+}

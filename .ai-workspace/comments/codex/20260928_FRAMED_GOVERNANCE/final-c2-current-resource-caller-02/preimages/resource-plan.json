@@ -1,0 +1,15 @@
+{
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite",
+  "installRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/installed",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+  "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5",
+  "lockFileRule": "<actual-device>-<actual-inode>.lock; same original N03 namespace all calls",
+  "history": "Same genuine N03 A/W/install/catalog; all12 prior calls preserved; latest N04 prefix",
+  "HOME": "unchanged",
+  "permittedWrites": "Exact Q02 716 absent target writes at original N03 worksite; existing C2 native/helper worksite verification and owned event/archive/runtime/transport effects, original lock namespace; exactly start/result/replay",
+  "nativeCalls": 3,
+  "actualActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "device": 16777230,
+  "inode": 464012478,
+  "initialPrefixSHA256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc"
+}

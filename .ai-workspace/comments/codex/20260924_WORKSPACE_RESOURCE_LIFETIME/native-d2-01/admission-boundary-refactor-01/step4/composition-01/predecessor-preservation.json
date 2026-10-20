@@ -1,0 +1,58 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+    "sha256": "db5de97b08af4dfdeff8c05901aaf845e1555be7efc518e1380008442bedcb36"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+    "sha256": "1825b0b1674c81d89dc591cfb7a643ddca0baca68733dc8b52a367c088877ea6"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "sha256": "6edc41e7c88242d95d62333df32cf083ee815d19aad3a7cc022fee6466c23cd6"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/implementation_resolution.ts",
+    "sha256": "d2c6d468d36327acf4889839d0b46a4292cdced28bf1f2946be71205a5fabbd1"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+    "sha256": "db7a4a220ffe79f9eabe21e96e9129e0f5e993959d0e27cb3b6cfbb396a681ea"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/installed_module.ts",
+    "sha256": "03292ca447000174d07f0a64092f00a465e4e8c32df02d19242f557ed994745a"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "sha256": "84b10ac9eb4f2ff2c3fde79f1a202764eab68cc2aeae694e707abb34b105e6f2"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+    "sha256": "2fcf1a47f5c0760f3fdd38c4caa34b4252b1ad989f1943c098152a60a0387cfc"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+    "sha256": "a5e908e5da7a9d1059ae8dbc4446a5a407c10d43c8218c9f1c99fd1a9d77087b"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "sha256": "eea1089a08001120f8d71d5ad0c487d1914473c2404893d0c9448f8833a929b6"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "sha256": "3d4ec834d362107a5cbf16ac597e28fdfd733a1ff2ad275c1cd295046ca8c065"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "sha256": "fe1bda23ff6ad6cce3c1b58b0239b971a46690d3b55e9984c3bf885e91dd3c26"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "sha256": "7ce5bc2f9f04c649fd7e83175dff5ca4e4977c3005b79c727138dfb19c1ee3c2"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+    "sha256": "9a951b33dd5ea30d5f91efeaa01bbeb46a32f756287c6b6df2823a698039ac80"
+  }
+]

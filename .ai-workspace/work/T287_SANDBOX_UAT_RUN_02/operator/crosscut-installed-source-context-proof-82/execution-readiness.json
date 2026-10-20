@@ -1,0 +1,106 @@
+{
+  "state": "STOPPED_ON_FIRST_REAL_SETUP_INTEGRATION_FAILURE",
+  "preparedSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/freeze.json",
+    "sha256": "85326cd2d74a380fb0e0d15fadcfdd25c38d8771066e20017a66b52f85996922",
+    "byteCount": 20440
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/driver.mjs",
+    "sha256": "b8c76599fe74813ea24d12edf7fd81bad9099a61b7535d4323eea361b4476e77",
+    "byteCount": 16834
+  },
+  "hostSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+    "byteCount": 3158
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/commands/execute-installed82-corrected-entry.result.json",
+    "sha256": "a49483460e09d7c1ab886fd0a58ece4997615c2068b50d91968c78f835e6d268",
+    "byteCount": 1817
+  },
+  "timings": {
+    "actualSetupWallMs": 30937.593208000002,
+    "initialLauncherPremiseMs": 29.055125
+  },
+  "firstCause": {
+    "owner": "Actual installed validator.validateProgram(rawProgramInput local external publication)",
+    "result": "static_validation_refusal",
+    "stage": "program",
+    "disposition": "invalid",
+    "diagnosticCount": 50,
+    "diagnosticCounts": {
+      "invalid_reference": 4,
+      "missing_membership": 6,
+      "missing_contract": 32,
+      "missing_binding": 4,
+      "invalid_application": 4
+    },
+    "actualRefusal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/execution/validation-localization.json",
+      "sha256": "3fd2ae0301d8e10b632e518554ca3b95ee6e3c6216317d31dbc7a3cf061759bb",
+      "byteCount": 18774
+    }
+  },
+  "downstream": {
+    "path": "test_env/support/root-installed-environment.mjs",
+    "line": 500,
+    "diagnostic": "programValidation undefined after .find(programRef) discarded static_validation_refusal; TypeError reading kind"
+  },
+  "relation": {
+    "requiredCallableRefs": [
+      "graph-function://abiogenesis/default-library/construction@5",
+      "graph-function://abiogenesis/default-library/testing@5",
+      "graph-function://abiogenesis/default-library/uat@5",
+      "graph-function://abiogenesis/worksite/command-execution@5",
+      "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "graph-function://abiogenesis/worksite/native-work@5",
+      "graph-function://default-library-witness/executive-step@5",
+      "graph-function://default-library-witness/executive@5"
+    ],
+    "localGraphRefs": [
+      "graph-function://default-library-witness/executive-step@5",
+      "graph-function://default-library-witness/executive@5"
+    ],
+    "existing80Route": "canonical C0 file-replace Program selected during support setup; actual external cross-owner Program resolves through real ProductExecutionResolutionPort at Public start"
+  },
+  "resource": {
+    "path": "/private/tmp/abi5-root-env-hWOknd/runtime/events.jsonl",
+    "sha256": "8e743d9b860e17ccab2a17c26929aa6c2a029437f9884a9f23ad185a9feb0e48",
+    "byteCount": 3094916,
+    "device": 16777231,
+    "inode": 467697285,
+    "mtime": "2026-10-08T07:44:25.836Z",
+    "identityStableAcrossStreamingPin": true,
+    "limitation": "Physical failed-setup resource only; no normal close handoff, Run, supported terminal or nominal prefix is claimed. Owned lock/disposable resource close not observed; no recovery or cleanup issued."
+  },
+  "conservation": {
+    "preparedAndOwnerPins": 72,
+    "allMatched": true,
+    "driverMethodHelperSourceUnchanged": true
+  },
+  "claims": {
+    "nativeStartEntered": false,
+    "realC2": false,
+    "nullNativeTesting": false,
+    "uatC2": false,
+    "bomStreamCitation": false,
+    "model": false,
+    "DataMapper": false,
+    "fullStdo": false,
+    "old48": false,
+    "retry": false
+  },
+  "disclosures": [
+    "First eval argv order triggered unchanged direct-entry --prepare guard before setup; corrected command retained separately",
+    "Pure localization initially named wrong artifact directory; existing helper193 corrected only phase read selector, before validator; receipt retained",
+    "Pure refusal reacquisition reuses actual installed publication/archive/manifest and canonical raw/validation owners, not runtime admission",
+    "Failed helper setup created isolated temporary external Product/install/event resources before validation; no own signals/recovery/cleanup or complete containment claim"
+  ],
+  "residuals": [
+    "Root selects any fixture-only C0 setup correction after actual refusal triangulation",
+    "Current source/context/BOM/citation proof is unearned",
+    "Failed setup event resource normal-close/lock state remains unobserved"
+  ]
+}

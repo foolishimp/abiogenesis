@@ -1,0 +1,1206 @@
+{
+  "definitionKey": {
+    "memberKey": "start",
+    "operationId": "abg.operation.run.invoke"
+  },
+  "exitCode": 0,
+  "failure": null,
+  "invocationRef": "invocation://abiogenesis/9bd4889f122a7bf62ece3d826a7b58ba3f69f6eb7f7a9e4f79dd620a73178343",
+  "kind": "definition_host_receipt",
+  "ownerOutput": {
+    "outcomeKind": "result",
+    "value": {
+      "disposition": "completed",
+      "evidence": [
+        {
+          "digest": "sha256:b1a99a3fb9f3bac832fd094f82256d1157acd12dd1b5c3c0bb360eae8f92553e",
+          "ref": "event://abiogenesis/74438b642a05d8663b5005ea93bd967f939ac10d9f319bbd88d92fbc57e7b077"
+        },
+        {
+          "digest": "sha256:204f8357c9a0ba4ae5d2707eb0dd9951acef994cc188c48016a2458947bf0cf8",
+          "ref": "event://abiogenesis/589a3b857c0bc3b34b3bb3e03f5d46e19ea2505538853345011c0535400f133c"
+        },
+        {
+          "digest": "sha256:b77f6e247f36aa9f5b4914ef02c18872df6a0c670392db0fd4a1845d43043989",
+          "ref": "event://abiogenesis/efc79a3b9e6c73df667fffeb9f9a97efb1bbf038aa367891f4ba9ff249e754e4"
+        },
+        {
+          "digest": "sha256:7ad0adb8028a31fef0d108e5ab1b38125d800f6ac13016ed30dc81f0a04bef86",
+          "ref": "event://abiogenesis/628d595afad3bd50feba47ecaa2737c37991734f81935df686a80c11d98b01a2"
+        },
+        {
+          "digest": "sha256:6fba1249bee24b00fccb203a0eb497f930e3a35711dbae782bdc0a778a1f4778",
+          "ref": "event://abiogenesis/aaa2801309d93f5011a812da107887a96202b5bda3f5cf3689e96031c0bdf5a0"
+        },
+        {
+          "digest": "sha256:ff8137a480d5bb96e3a84e8739e32fa8d6fca90e8d4d23f85cc6b230a40e517e",
+          "ref": "event://abiogenesis/430b5b83de8943877a2e04abf523ceb1b882ab8f121fcddf2f570ded5cf4671f"
+        },
+        {
+          "digest": "sha256:ac8b7a6bc7e6116a9e3ba74972dc3581317944a33f0435ff930ddeabed719ad0",
+          "ref": "event://abiogenesis/15f4ccd151c3ba983fe23b4f05bf283efd773139b98af54992302693233b8737"
+        },
+        {
+          "digest": "sha256:ee2a34d4b4aaa6476a3aee59e9df7c8f2e4d4b86d6cdda99bba6ac4ade5d3221",
+          "ref": "event://abiogenesis/561a494ac82307ec558235da478ead530a8854d79b03175f5b91e488c9e34042"
+        },
+        {
+          "digest": "sha256:d48f146c928bb504ae3521d10ecb20fe3885952e8e703dc4761f201facb817af",
+          "ref": "event://abiogenesis/d772e5849990deff283ac486dab6224e3f1c7a26038676bbda19632c9e848a35"
+        },
+        {
+          "digest": "sha256:fe9c93908c9468c4217c51a8c4c403037422b37a63054ad80c2ae0295006e6a7",
+          "ref": "event://abiogenesis/0640125b81f0fd69a5a6f757904504810ab794e42ebaeaa8aa7d30d1b0495556"
+        },
+        {
+          "digest": "sha256:71734f8533cb2ae7c5aab2a22d1040251330e9798c1785f2ef8e2c6ddd83f9cc",
+          "ref": "event://abiogenesis/d97f3c49995d077cc543585d8978481f24665a4a84e5d1f77c4792a251c09f2e"
+        },
+        {
+          "digest": "sha256:46790a64e0c5a1db6da8c2334782dcd177a8eaa656c5737e3f5c10827ee08e5f",
+          "ref": "event://abiogenesis/e74af9427939371863039cf0ae6d3b89fc566fb41d37c8595ba7dcbb4cce9e6b"
+        },
+        {
+          "digest": "sha256:59830f28cb0e8c059e2843f486d0b75e0d890fe0cf4293869b12134a371ed6e9",
+          "ref": "event://abiogenesis/d8b7c21604051d6ba7b9a9b1aa5ba49107feccb6ccee9ec2cc7b55ee58932403"
+        },
+        {
+          "digest": "sha256:4cf96f5925336a5c7be32ac61b1a095d75826a4953f964cadb82210a203d09f1",
+          "ref": "event://abiogenesis/aed4dc90c735bbf0259beedb7c94fc4d2f8eeb0984725aa88b8ca55f78d8d581"
+        },
+        {
+          "digest": "sha256:c880024345e90cf6b4881109ec4830a0ab8fe88a17d4a981055a7f74cff77f3c",
+          "ref": "event://abiogenesis/25123d461f9f060e964bad1eba180d83823e6f1d018509ecd08deee4d295d85e"
+        },
+        {
+          "digest": "sha256:4f9325d9206fe87f12cb1e0434181535311c2420957a52c69c408af850f70105",
+          "ref": "event://abiogenesis/1058929d5e03a6b12919f77da79c78eb8c450211b174c12068f8dd834be927da"
+        },
+        {
+          "digest": "sha256:07ade3b1e99f7a541c7544c8d012686025f07538bc60f221540853ac4ce76a09",
+          "ref": "event://abiogenesis/7a8306fabb6c3bc81acc9c0e31a26bd550bbc5590feb6ed3418b2115df72bbe9"
+        },
+        {
+          "digest": "sha256:2dae48d74fc4d6998f05cd636549ebaa8757615dd70ec2f0fa7717e545a2c1ae",
+          "ref": "event://abiogenesis/7efa1c61d45b5785749efd925a39019be02d80348d72c4ef4128896667414b62"
+        },
+        {
+          "digest": "sha256:5898937468986841b8151491dd62f118e31e02c84a1c6c036784e130cccfa11c",
+          "ref": "event://abiogenesis/a16c205a5a4092484d0979c5b7412b7620cd5ac4d293ae70441b57f1ebe8112a"
+        },
+        {
+          "digest": "sha256:8183948bcdaf97ea814014e21dbd9d4fc9367a8682bc5dd04cc1ffa57c13ef7c",
+          "ref": "event://abiogenesis/a0be6834f9d440b4698b9a20257103b87429c6055e6563ebb1f59aa39d63ad14"
+        },
+        {
+          "digest": "sha256:ff10f68e7a9e4e52f0da81e75506ddd42690ad5a535da2d559e653f2e936883b",
+          "ref": "event://abiogenesis/d4954ad1cf3b1379c8c28e316fc495f3251a6b2d765837ac221e7511b84713c7"
+        },
+        {
+          "digest": "sha256:aab44a7eb380a6c13127b1d6131c10fd73980fd2e8f57d6db69e9c54055f184f",
+          "ref": "event://abiogenesis/6cce7a8c30e692744bf4bacdac25233e6b343cad27a9c391d370bdc16b9ed313"
+        },
+        {
+          "digest": "sha256:694a202a68139236572e4f929892b261f641d71d24b6ff067e5df5e679aa75ab",
+          "ref": "event://abiogenesis/09ac1ea5d6824917c55cde61d5ad213d510caf9643598531c0d1d76d16a39b48"
+        },
+        {
+          "digest": "sha256:d1b7e41f6abf91eeb8306b67ba29ae592fabb8bdd94151461ddca9a56e8070c1",
+          "ref": "event://abiogenesis/8449230013ef9931a3a24a4445a450ba88677617c9e46c65e4cfc9203682c3c5"
+        },
+        {
+          "digest": "sha256:7ea073d4d992595d5e9b0af4abc697c0f57975d2a888efb60ed37ed8c011cf49",
+          "ref": "event://abiogenesis/45ae08524b863094b52eb0136bfdd0d5cbe2f770fd2acdfd7d543a34c9175cb3"
+        },
+        {
+          "digest": "sha256:a4425cabd17cab439a0efeb88ec7e5b226a442be4756c5cf65741cd27a1b00d2",
+          "ref": "event://abiogenesis/3e231227be28841d4731d0b9e6607913ddc101d4f84eaa9359c8b4fc0bcf5b5f"
+        },
+        {
+          "digest": "sha256:c3b651d0e5ee4f34e40ec1e0c9df430bcbc04294b8cc62ba35e077e3eebc8289",
+          "ref": "event://abiogenesis/2fecdee1c3b8ee70797699143cb553f501a91e0c11f8182ed5e84e370aa28f5d"
+        },
+        {
+          "digest": "sha256:9b2666a8f4097fdca78c5005b15df790ed7d295548c8a0ed9ec1b6ef44caabcb",
+          "ref": "event://abiogenesis/40d795a16f7dca508222682d029abffb8d4f877c5d80663525290854ead1ed19"
+        },
+        {
+          "digest": "sha256:bc873fbf5d293e9ba7561bb867be5566ad0d38bab529ddb21273a21d7b2852a7",
+          "ref": "event://abiogenesis/5db2596ccda31fdb90613b9afb9611b67618b7ef8e324c6511397e597b4a5f19"
+        },
+        {
+          "digest": "sha256:bdd8708b09c3c2ea8e0f1c226fabcfec4b1f6727cd725978e92c8f7c90298142",
+          "ref": "event://abiogenesis/765e1769ddbae63b15cea58d6f0221cee9645eae6a028880e26bf7299fe86276"
+        },
+        {
+          "digest": "sha256:816b86fa76a8692255386f368ae0bda8f407879ca033269db249e224a1f5eb2d",
+          "ref": "event://abiogenesis/fe9a6716f26993ddb8dbf0770a39f0df2daf071f0dac27b665b8316f7ec99720"
+        },
+        {
+          "digest": "sha256:37802a6b424769be21d2145a98b1c0a95ab74f7997deeed9650f4a8be65acace",
+          "ref": "event://abiogenesis/d7684a2b82e46a62ba88bf6e023d8222dec2b1ca1d8466ead47b70f4419ae79e"
+        },
+        {
+          "digest": "sha256:cbd3c08e2566795864c9ec82d1c1d3ac80f7218d53c2e9a232f70248135aba61",
+          "ref": "event://abiogenesis/db966249da5657cbdaabc0662f8c889c61446790f90eb36b4f37e565bbb9c8ef"
+        },
+        {
+          "digest": "sha256:02830e05e0ab96054af32f67b9b488fc57e81a71a46b561646a6f4c57b0d4595",
+          "ref": "event://abiogenesis/ab6e8a382ab4e4217b8f703e557d1eeaa4aacc324d9df4da20c5ae8f11d3f9d9"
+        },
+        {
+          "digest": "sha256:ea3b7f54b7cefb63a6c5b58227e85ae8f8c26855abc7c8e36e9a37ed80998988",
+          "ref": "event://abiogenesis/044adaf187fb8936beb3c36601ec114b2a5cb6e226df39e0b3accdbe62e6d2ce"
+        },
+        {
+          "digest": "sha256:136701d365de87e06f512cc78604d5454b76709448b12ccba82342c4010e6842",
+          "ref": "event://abiogenesis/e7d30a0beb5b57f2700eb56059dfe6ce187984a755f7d85032e9b4cbeb595593"
+        },
+        {
+          "digest": "sha256:b7628737c797c82115dd9c341f98d3060a61a82b784261c4ba45e8381e10c20f",
+          "ref": "event://abiogenesis/3de5a97654fce2b65582fb0bd276f9505d6b89519f3807b077c46acccf31ae49"
+        },
+        {
+          "digest": "sha256:6ba3f19d89ff06b5960ff4567341bd31d6bf36581f3e44904a35eb03bea8aa6d",
+          "ref": "event://abiogenesis/994f2e0b123245335c52cc4d5268a7ce0323f48d8e413f1861bc48a1d328fdf1"
+        },
+        {
+          "digest": "sha256:665742f0ee3596f502a1f63e296e4614bea85b5302d08e4c5b80aa3135c836ae",
+          "ref": "event://abiogenesis/486b04d6ae23fbe31fb575ae82b1fff684596def0f277aad1ebaec2c839e67dc"
+        },
+        {
+          "digest": "sha256:7b68903783eca147cf7a1adddd8f984d064dfc500255a77ea4074d0cd70f6132",
+          "ref": "event://abiogenesis/0b91f21d5696da1b81576c838761e694199993f6ed44ca329f33ee71a6712f4e"
+        },
+        {
+          "digest": "sha256:e1087f5a16e8c081a0856b45e239bb2402f4d22387a39b2b1c20404217c085b6",
+          "ref": "event://abiogenesis/c16c576d491c3a3e3ec3caf654c3ef3ae7aac8d4082efa71e388de00aa5d9b95"
+        },
+        {
+          "digest": "sha256:5cbad02e1fb690939b47994c91a6c3e4a101b6c8311703932a1b803262ef1d18",
+          "ref": "event://abiogenesis/ba3f3749c4519673ea669e9dd33591b269de1b3d44702877ec1d569b5d83ab5a"
+        },
+        {
+          "digest": "sha256:32e5d903750108f80187f006c43c149bb3c4b46fe1f3d14c5f5bfe3df87f3fd1",
+          "ref": "event://abiogenesis/307e84fb3e4a281fb278e1fbc40aa9c610858443efb7328515e16f8e183536c6"
+        },
+        {
+          "digest": "sha256:c4f70dcd046881ffbf00d17c3ef012fc104b3eeea0a468fd22920634d21f6577",
+          "ref": "event://abiogenesis/6f5c92a016f5873782e93b3ace146853f34411b818e9146bc33686494769d6b2"
+        },
+        {
+          "digest": "sha256:5512ca5566744e4beac3ddc8d0a8221da5f8de0f3b36eade7d5372d27dbf5a05",
+          "ref": "event://abiogenesis/3b724b3342c5f36ddc732a51b8cac0cb2bc3236304a5426f373c6be7d877ebf3"
+        },
+        {
+          "digest": "sha256:04865a8738c25543115226fd6ff7e2bbced6994685adf2a516b85971df24d8fc",
+          "ref": "event://abiogenesis/a8aab8273964a645ba6a42b27a2726f7283a75255f60d49853eb459e0b3a3359"
+        },
+        {
+          "digest": "sha256:8ba4a4d7004283cdd526c5e744dbd09c8570175d72a680efee531ec0112aa456",
+          "ref": "event://abiogenesis/07555f51c33c600523313185d26deb4b4840deba3ea5c6fd561f5129c8c73089"
+        },
+        {
+          "digest": "sha256:6060fcdea9e0a0c987a18e7ba774c0093d012ea5aa22cca8d29c0b9002bc5d5e",
+          "ref": "event://abiogenesis/21426d5a5d91fd24a8873a27ba0e268f18b8164aea8f88adabc5d24ef6a7e74e"
+        },
+        {
+          "digest": "sha256:d038b4c4e25ad31c2b353ea724f8e512f9c54cb328bece76341727fe429551e9",
+          "ref": "event://abiogenesis/0a9e3eb7cee2ac8b4ceec8320e61905b08c1885a7660e99a2e5afee3b6667e03"
+        },
+        {
+          "digest": "sha256:5383ca3a7febc2ecd55c78596171d57b4659b0305a1ab61cb713d1df2e6af769",
+          "ref": "event://abiogenesis/02d0a42093b8a5ba18c73a8e3fe542907a016e728f43502be4b00c250ebb9285"
+        },
+        {
+          "digest": "sha256:3096b7ea228b0327a4d373c083ab7de721a2ccd7439833e975fd829763573384",
+          "ref": "event://abiogenesis/a2392f2b8bbe13e1d6037f4bb9f550765c6d501ed2b67f8781ae5884b66f9db0"
+        },
+        {
+          "digest": "sha256:bdf8015ebae58482297efaf8c8771d0b9ca57d4a8034a1a6b2c30065a7d54eb5",
+          "ref": "event://abiogenesis/c79a6149b7de9a0e46e56b2d5401f58441fb9299e853b74bd3b651c92932ec80"
+        },
+        {
+          "digest": "sha256:7fd7b49d737d2770440f07712d223bbc0d1f68b5c12430f486aa1aaedf1cbc82",
+          "ref": "event://abiogenesis/cc12d9442f55196c616d98be2b8cc391975fae8f95cb46e2d51a28f2e5b934bb"
+        },
+        {
+          "digest": "sha256:459a5d848aa908c7a5fba2507fc90ed073d878d3f63c095026c5e43543354591",
+          "ref": "event://abiogenesis/255271161433326fa7e8a476f8ab375b0d36290855d0202e977b1d962f993158"
+        },
+        {
+          "digest": "sha256:48b8e6fe1f6718e282631dc54567d57575ef6dc723687a4a926ae33c7f103393",
+          "ref": "event://abiogenesis/4187d90af47e82e951ef8ac8e2a28fbe920dad87f07b8ba4a50c143629763c72"
+        },
+        {
+          "digest": "sha256:ed1ce5734ce564b78973134ead6b07f574483a15d1fdc5ce0246eb1e7057fff8",
+          "ref": "event://abiogenesis/6b9e38aab6d4d37986393c7b43c9f42f4ec2b0ed4ac70a59575ff1b89fb28491"
+        },
+        {
+          "digest": "sha256:a27575430e0fa824be5cf14c0898616ba9eeb89afbca3bdbf79543abb5a0a7f5",
+          "ref": "event://abiogenesis/795c25534476d7f467cef713e7858a57c6968f783177aa722668c1a8df1d7776"
+        },
+        {
+          "digest": "sha256:464cce929da6bec23e1418ce46508a5c5133167752f2a0b0561bfc5ee2795381",
+          "ref": "event://abiogenesis/45a861463f2af3b6bfe93abe05a2a676c2ede283e252e60ce89d8c8acdb368b3"
+        },
+        {
+          "digest": "sha256:db9ae8d6b484b981d954142813c17d6acdbd239bcdbb0e9f2b49c580704beb1e",
+          "ref": "event://abiogenesis/d1cc91b2dbc4d6b51675f712191237a704a70457f73062fd968e171a4ba2b1f1"
+        },
+        {
+          "digest": "sha256:1ec207af8835d5490d19685debb432120a07145d8bf2d0e67761f41048c28e19",
+          "ref": "event://abiogenesis/153e0cfb4c3d7b666974139e226580c143e27f7b6fc13c903f3ab16870d258f0"
+        },
+        {
+          "digest": "sha256:109c77c0790aa11f5c76fcab335db058a9880f2b9c78320fed62d7ec6f5272a6",
+          "ref": "event://abiogenesis/9b51469ae2d2b1f57d964a28c791c7090027861dcde40948baea918b4f2da59a"
+        },
+        {
+          "digest": "sha256:c66f72d0a49a6ee5334d3df7121d8e16c037ed7cadb1fee3b8bf97892e609ba7",
+          "ref": "event://abiogenesis/e9d519952b0a9de119d3925329c6553bafd19eb08945e79e7b211c6c75d61c88"
+        },
+        {
+          "digest": "sha256:e4070c7436f33737b65d1fa75b262e36861f493c958e312618434da94598540c",
+          "ref": "event://abiogenesis/3f1ace889d7ee83314962a122ca46de92ef469f49cb68427e961406e66cc62ec"
+        },
+        {
+          "digest": "sha256:c32bc989733e20a3850cb5114c823367b47f7c377b5346722feec7cba980b307",
+          "ref": "event://abiogenesis/e82adf0bb4db107b4284a2d3cda67acac61b173e200a8f52b4989cfbd60980e2"
+        },
+        {
+          "digest": "sha256:c38908ad681b50195c7144e74c34a59db9979a6c78a7c4ce6503f97feea26042",
+          "ref": "event://abiogenesis/668f9292dd27e384ef2da86b26ebf1015b9f53bd424b68d0f49faa6a8e134115"
+        },
+        {
+          "digest": "sha256:3fa06499561856f6700ed70cca4999d95cb79b6ae744b764d4e9295c8bc201e4",
+          "ref": "event://abiogenesis/62193bf5f2f2f8c4ae1c7c5bab14900a1455429035e29ab67d60552bd6351561"
+        },
+        {
+          "digest": "sha256:82e796d917babfb4fc9bee1bd7664b1a24ed90a53ecc32947efeee3e71a4d7c4",
+          "ref": "event://abiogenesis/61d281f375f0a47cdb785eb08c27ed64e50ac9532cd6af2aa9e4195d9c2a9a19"
+        },
+        {
+          "digest": "sha256:00bd46c45c8494bde974cc521d742fffd48de30e46e6009cbc0b0e5bc562300c",
+          "ref": "event://abiogenesis/09c749973f14bb7b934aa7ea87329a026a4845d975e1be0c2be0e46274565624"
+        },
+        {
+          "digest": "sha256:f2c7b48d75994c825a85a5baf189d783974e4ced95276e40af756854f78c388a",
+          "ref": "event://abiogenesis/4b5185d473cb3cc6b5b492a4dfe2aa8a64dd1c59d188c0b482ee1b7858565a82"
+        },
+        {
+          "digest": "sha256:eb13bb3ce27c5a61cf242ce0b367314deedc9bf7c43bc97af2fec59d424ca0db",
+          "ref": "event://abiogenesis/9c253d544b8bfef44fcbe5b723613783eaa9f10d1beee8b1145909d7be7c0b59"
+        },
+        {
+          "digest": "sha256:e3472d68e1515bbd81c082b8cdd381cdce218afe2f64a14906dc46897bdb6fa3",
+          "ref": "event://abiogenesis/134895adbef0bba938268733a7e367b11a39d592ccb4748fe6f84eeee75876ad"
+        },
+        {
+          "digest": "sha256:a02263f3fb06de495e7daeda5423dae73be9e9e8a2c9f3ef0afa5616b0dc2c95",
+          "ref": "event://abiogenesis/f2f4562bb58d871156caf352ab33af32b159a22e7d694e2c80c6e7ee6d7ae894"
+        },
+        {
+          "digest": "sha256:f79021f6b75afd5bf9e4e721c73b409c45a94d5abd7edd2f19b547aab61171f6",
+          "ref": "event://abiogenesis/c3cde879439eca359181908561c5c1e387fd9412d5860a7b1616d9f9669231cd"
+        }
+      ],
+      "gap": null,
+      "graphCall": {
+        "digest": "sha256:ff8137a480d5bb96e3a84e8739e32fa8d6fca90e8d4d23f85cc6b230a40e517e",
+        "ref": "graph-call://abiogenesis/da0f679001c1669fdbd4efc968fe7927be94e526632b0fa61b609c316250d93a"
+      },
+      "interaction": null,
+      "invocationKind": "start",
+      "replay": {
+        "digest": "sha256:b4a882f25659daefb67ea6ab3a78d81e19c62a1b19ad18184e1fa81b6cbd9ca2",
+        "ref": "replay://abiogenesis/b4a882f25659daefb67ea6ab3a78d81e19c62a1b19ad18184e1fa81b6cbd9ca2"
+      },
+      "result": {
+        "digest": "sha256:d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee",
+        "ref": "result://abiogenesis/d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee"
+      },
+      "run": {
+        "digest": "sha256:6fba1249bee24b00fccb203a0eb497f930e3a35711dbae782bdc0a778a1f4778",
+        "ref": "run://abiogenesis/06b733f76d8f9b5318185ed785f5ed130b3d7b6499ff431e230d44ea1b2d1964"
+      },
+      "stop": null,
+      "terminalResult": {
+        "contract": {
+          "digest": "sha256:696168f42040e1c1b77818b544031f206c8781b9e5a467f8e10186fde1431ab6",
+          "ref": "contract://abiogenesis/qualification/judgment@5"
+        },
+        "kind": "abg_typed_terminal_result",
+        "producer": {
+          "cCallRef": "c-call:sha256:2d7e0b378d3b174c7b787e33e7d12bfeb7205e63275578dde4fa216970ab0d08",
+          "executionBasis": {
+            "digest": "sha256:e1f00b8690d73faac6c79d05ad39b582aa6377c386ae0fcf68fb03272d0cc5ec",
+            "ref": "execution-basis://abiogenesis/e1f00b8690d73faac6c79d05ad39b582aa6377c386ae0fcf68fb03272d0cc5ec"
+          },
+          "graphCallRef": "graph-call://abiogenesis/da0f679001c1669fdbd4efc968fe7927be94e526632b0fa61b609c316250d93a",
+          "graphFunction": {
+            "digest": "sha256:a7373129ed37990760612637bb432cbdcbcfeb4e122525027e3e9c4e15a68528",
+            "ref": "graph-function://abiogenesis-fixture/f11-carrier/parent@5"
+          },
+          "invocationAdmissionRef": "invocation-admission://abiogenesis/1777212b49f005b1452832d29e827490386a3336c100ba9e13520c25c3e70071",
+          "judgmentAdmissionEventRef": "event://abiogenesis/3f1ace889d7ee83314962a122ca46de92ef469f49cb68427e961406e66cc62ec",
+          "judgmentRef": "judgment://abiogenesis/156a62b63334d623407eca46a3644301253d5ae91a95057abccd0610832bbecd",
+          "program": {
+            "digest": "sha256:a1c7af13bea9227f301a4863219b9d6cff55cb851dcc3901ce76dc608ab6ab7f",
+            "ref": "program://abiogenesis-fixture/f11-carrier/parent@5"
+          },
+          "resultAdmissionEventRef": "event://abiogenesis/d1cc91b2dbc4d6b51675f712191237a704a70457f73062fd968e171a4ba2b1f1",
+          "runRef": "run://abiogenesis/06b733f76d8f9b5318185ed785f5ed130b3d7b6499ff431e230d44ea1b2d1964",
+          "terminalRoute": {
+            "digest": "sha256:839d62334cc80a3c6bd9b6d50b23f1b15e9ae7896756364be031efb28a67e086",
+            "ref": "traversal-route://abiogenesis/839d62334cc80a3c6bd9b6d50b23f1b15e9ae7896756364be031efb28a67e086"
+          }
+        },
+        "projectionBasis": {
+          "digest": "sha256:3f5b57f730b07a54fd4e3fa367b0952cc24822243f2acb3aedbafbb349c71689",
+          "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl"
+        },
+        "result": {
+          "digest": "sha256:d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee",
+          "ref": "result://abiogenesis/d2627b4f80a91502765e1a2cd206c0ef684dd9161a3c32341ed5dc491c4bafee"
+        },
+        "schemaVersion": "5.0.0",
+        "value": {
+          "judgmentDigest": "sha256:921cd358d20af0d1944c9742b4541956e0b9e6632dabeb1f154425eefbcfdeb7",
+          "judgmentRef": "qualification-judgment://abiogenesis/921cd358d20af0d1944c9742b4541956e0b9e6632dabeb1f154425eefbcfdeb7",
+          "kind": "qualification_judgment",
+          "nativeBasis": {
+            "cCallRef": "c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c",
+            "predecessorPrefix": {
+              "coordinateDigest": "sha256:3e827e145dd69ed35c7a3625543991e1e06d056da038e982e20d9a0b116c4f60",
+              "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:8e8ef94c7059c4f6084a87f8b4792c8bae7163e34eb0bf13abbdbd3322878851",
+              "prefixLength": 2593212,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+                "inode": 464941019
+              }
+            }
+          },
+          "plan": {
+            "coverage": [
+              {
+                "criterionRef": "criterion://abiogenesis/q07/current-definition-catalog-fidelity",
+                "evidenceRole": "catalog_fidelity",
+                "ruleRef": "scope-group://abiogenesis/q07/rule/retained/0",
+                "surfaceRef": "catalog://abiogenesis/qualification/self-conformance@2"
+              }
+            ],
+            "kind": "qualification_assessment_plan",
+            "lawBasis": {
+              "digest": "sha256:edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f",
+              "ref": "qualification-law://abiogenesis/edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f"
+            },
+            "ownerActorRef": "actor://abiogenesis/t287/f11-c09-installed-setup-09/operator",
+            "ownerAuthorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+            "planDigest": "sha256:4f8a016b01f648147dfdac51a392998c88f4b32b97c37d5cb4abb6f4cd0ccfc1",
+            "planRef": "qualification-plan://abiogenesis/4f8a016b01f648147dfdac51a392998c88f4b32b97c37d5cb4abb6f4cd0ccfc1",
+            "sharedCoverage": "disjoint",
+            "slots": [
+              {
+                "coverage": [
+                  {
+                    "criterionRef": "criterion://abiogenesis/q07/current-definition-catalog-fidelity",
+                    "evidenceRole": "catalog_fidelity",
+                    "ruleRef": "scope-group://abiogenesis/q07/rule/retained/0",
+                    "surfaceRef": "catalog://abiogenesis/qualification/self-conformance@2"
+                  }
+                ],
+                "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+                "programLocusRef": "node://abiogenesis/qualification/assess@5",
+                "role": {
+                  "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+                  "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+                  "independence": "author_distinct",
+                  "materializationPlanRef": "materialization-plan://abiogenesis/qualification/assessment@5",
+                  "rendererRef": "renderer://abiogenesis/qualification/assessment@5",
+                  "roleRef": "qualification-role://abiogenesis/catalog@5",
+                  "sourceBindings": [
+                    {
+                      "byteCount": 6687,
+                      "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+                      "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+                      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md"
+                    },
+                    {
+                      "byteCount": 35509,
+                      "digest": "sha256:9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+                      "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+                      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md"
+                    }
+                  ],
+                  "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5"
+                },
+                "slotRef": "qualification-slot://abiogenesis/q07/current-definition-catalog-fidelity",
+                "task": {
+                  "digest": "sha256:6280128d3bcd8cc8416ab95428c1af966262e6a278e7240f5b1cf5b372545f6e",
+                  "ref": "qualification-task://abiogenesis/6280128d3bcd8cc8416ab95428c1af966262e6a278e7240f5b1cf5b372545f6e"
+                },
+                "taskOrdinal": 0
+              }
+            ],
+            "subjectBasis": {
+              "digest": "sha256:f1f326a39cdb06cd343aab92ca966e6cfe46bf99117b2158b97a7436154ce4af",
+              "ref": "qualification-basis://abiogenesis/f1f326a39cdb06cd343aab92ca966e6cfe46bf99117b2158b97a7436154ce4af"
+            }
+          },
+          "raw": {
+            "attributions": [
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/activation.json",
+                "actorIdentityRef": "/root/s03_phase_b",
+                "authorRef": "/root/s03_phase_b",
+                "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library_identity.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/operation-attribution.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/controls/final-candidate-construction-controls-02/request.txt",
+                  "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/c02-preservation-closure-view.json",
+                  "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/c02-preservation-derivation.json",
+                  "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/owner-mandate-correspondence.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/activation.json",
+                "actorIdentityRef": "/root/s03_phase_b",
+                "authorRef": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+                "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source-attribution.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/return.md",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+                  "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/publication-repair-closure-member-view.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-03/s03_phase_b-session-metadata.json",
+                  "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/owner-mandate-correspondence.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/activation.json",
+                "actorIdentityRef": "/root/f11_attribution_inputs",
+                "authorRef": "/root/f11_attribution_inputs",
+                "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "material://abiogenesis/final-f11-material-selection-02/selection-rationale"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/construction-attribution.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/request.txt",
+                  "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/material02-rationale-closure-view.json",
+                  "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/derived/owner-mandate-correspondence.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/activation.json",
+                "actorIdentityRef": "/root/f11_carrier_design_worker",
+                "authorRef": "/root/f11_carrier_design_worker",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-implementation-controls-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_contracts.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-carrier-resource.test.mjs",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/return.md",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/source-postimages.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-implementation-controls-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/activation.json",
+                "actorIdentityRef": "/root/native_applicability_design",
+                "authorRef": "/root/native_applicability_design",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-source-controls-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/postimages.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/activation.json",
+                "actorIdentityRef": "/root/native_applicability_design",
+                "authorRef": "/root/native_applicability_design",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-source-controls-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/postimages.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/activation.json",
+                "actorIdentityRef": "/root/native_applicability_design",
+                "authorRef": "/root/native_applicability_design",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-source-controls-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/postimages.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/activation.json",
+                "actorIdentityRef": "/root/native_applicability_design",
+                "authorRef": "/root/native_applicability_design",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-install-bin-policy-source-controls-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/install-bin-policy-realization-01/closure.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/activation.json",
+                "actorIdentityRef": "/root/native_applicability_design",
+                "authorRef": "/root/native_applicability_design",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-fp-delivery-repair-controls-01/source-request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-fp-proof-delivery.test.mjs"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-fp-delivery-repair-controls-01/source-request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/activation.json",
+                "actorIdentityRef": "/root",
+                "authorRef": "/root",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/activation.json",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/closure.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-triangulation-and-raw-contract-repair-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/closed-result.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-triangulation-and-raw-contract-repair-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-07/activation.json",
+                "actorIdentityRef": "/root",
+                "authorRef": "/root",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-07/activation.json",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-07/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-07/closure.json"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/activation.json",
+                "actorIdentityRef": "/root/native_applicability_design",
+                "authorRef": "/root/native_applicability_design",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "external-authored-postimage://abiogenesis/dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+                  "external-authored-postimage://abiogenesis/1b2a88a2648e024d1fb056b0c5c1430736d9e4283c3d8785f1ac7f1700aaab6e/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/activation.json",
+                "actorIdentityRef": "/root/native_applicability_design",
+                "authorRef": "/root/native_applicability_design",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "external-authored-postimage://abiogenesis/0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/activation.json",
+                "actorIdentityRef": "/root/q03_input_review",
+                "authorRef": "/root/q03_input_review",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/source-authorship.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/request.txt"
+                ]
+              },
+              {
+                "activationRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/activation.json",
+                "actorIdentityRef": "/root",
+                "authorRef": "/root",
+                "authorityRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+                "disposition": "insufficient",
+                "reason": "Retained exact record/span correspondence does not establish actual authorship sufficiency or independence.",
+                "scopeRefs": [
+                  "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+                  "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+                ],
+                "sourceRefs": [
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/activation.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/closure.json",
+                  "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt"
+                ]
+              }
+            ],
+            "criteria": [
+              {
+                "applicability": "unknown",
+                "criterionRef": "criterion://abiogenesis/q07/current-definition-catalog-fidelity",
+                "disposition": "indeterminate",
+                "evidenceRefs": [],
+                "evidenceRole": "catalog_fidelity",
+                "grouping": "unknown",
+                "reason": "Controlled transport fixture preserves unresolved semantic obligations.",
+                "residuals": [
+                  "residual://independent-semantic-assessment-open"
+                ],
+                "ruleRef": "scope-group://abiogenesis/q07/rule/retained/0",
+                "sourceRefs": [
+                  "repo://abiogenesis/stdo_abiogenesis.json"
+                ],
+                "surfaceRef": "catalog://abiogenesis/qualification/self-conformance@2"
+              }
+            ],
+            "kind": "qualification_raw_judgment",
+            "residuals": [
+              "residual://independent-semantic-assessment-open",
+              "residual://complete-F11-open"
+            ],
+            "schemaVersion": "5.0.0"
+          },
+          "schemaVersion": "5.0.0",
+          "source": {
+            "actorInvocationRef": "actor-invocation://abiogenesis/81c9ea638f448a248e39acdaca1a0cfabef38e7264012b48f1a3633d4ecc6919",
+            "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+            "cCallRef": "c-call:sha256:324a05c86640e491daf61bfe9c877130ea8a575cdb1b2fd684394a8845380c2c",
+            "inputDigest": "sha256:eca2b385b024d542efefd0f29c8e2cf10246f4c9bdff05d5add4c1763eff161c",
+            "observationDigest": "sha256:530ce06b91c0151c6d9c6d77223ac57cf1e6314131691e8523272deab5bce98c",
+            "promptDigest": "sha256:c644d5a575f380198bcda3e5dfaa4b43cfcd3fe768762e35ff9b3cef51a9821c",
+            "rawValueDigest": "sha256:caee3684318977505db8af80af3b00a2c096264f9927b879e2c65dd72ceb34c1",
+            "requestDigest": "sha256:035fe24ed43d193b42434e5e8433209dc3c4daf88391fd5220042bc4817ec73e",
+            "transportBindingDigest": "sha256:01944b03b3059e2883fe2f863e6fef3a29135f55c32b21eb9ce531c04e792980",
+            "transportBindingRef": "transport-binding://abiogenesis/01944b03b3059e2883fe2f863e6fef3a29135f55c32b21eb9ce531c04e792980",
+            "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5"
+          },
+          "task": {
+            "assetSurface": {
+              "authoritySlots": [
+                {
+                  "authorityKindRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+                  "disposition": "normal",
+                  "fallbackPreconditionRefs": []
+                }
+              ],
+              "constructorRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts#constructQualificationJudgment",
+              "kind": "qualification_assessment",
+              "outputContractRefs": [
+                "contract://abiogenesis/qualification/assessment-raw@5",
+                "contract://abiogenesis/qualification/judgment@5"
+              ],
+              "proofObligationRefs": [
+                "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md#REQ-P-SELF-CONFORMANCE-008",
+                "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064A"
+              ],
+              "rendererRef": "renderer://abiogenesis/qualification/assessment@5",
+              "requiredContexts": [
+                "qualification-context://abiogenesis/dd1614487a0423ff0f08d320ac4c6090054cee471801dca130eff75e4e281164"
+              ],
+              "standardsRefs": [
+                "repo://abiogenesis/stdo_abiogenesis.json"
+              ]
+            },
+            "catalog": {
+              "digest": "sha256:bd58d739d6efddf466d2bee99c95bc0e49ca9ff3de820ec5aab217557f9afa16",
+              "ref": "catalog://abiogenesis/qualification/self-conformance@2"
+            },
+            "context": {
+              "contextRef": "qualification-context://abiogenesis/dd1614487a0423ff0f08d320ac4c6090054cee471801dca130eff75e4e281164",
+              "inventoryDigest": "sha256:dd1614487a0423ff0f08d320ac4c6090054cee471801dca130eff75e4e281164",
+              "members": [
+                {
+                  "byteCount": 4277,
+                  "digest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+                  "memberRef": "repo://abiogenesis/stdo_abiogenesis.json",
+                  "path": "contracts/qualification/sources/stdo_abiogenesis.json"
+                },
+                {
+                  "byteCount": 6687,
+                  "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+                  "memberRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+                  "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md"
+                },
+                {
+                  "byteCount": 35509,
+                  "digest": "sha256:9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+                  "memberRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+                  "path": "contracts/qualification/sources/REQ-P-QUAL.md"
+                },
+                {
+                  "byteCount": 39118,
+                  "digest": "sha256:8ea6e684560c362deb1eeeecbc643d48ccb294d5455a223421f0051f1ff8f3b8",
+                  "memberRef": "qualification-derivation://abiogenesis/q07/material-role-alias-context",
+                  "path": ".qualification-material/derivation/member-alias-context.json"
+                }
+              ],
+              "sourceLocator": "current-exact-Definition-and-role-authority"
+            },
+            "coverage": [
+              {
+                "criterionRef": "criterion://abiogenesis/q07/current-definition-catalog-fidelity",
+                "evidenceRole": "catalog_fidelity",
+                "ruleRef": "scope-group://abiogenesis/q07/rule/retained/0",
+                "surfaceRef": "catalog://abiogenesis/qualification/self-conformance@2"
+              }
+            ],
+            "declarations": [
+              {
+                "catalogBasisDigest": "sha256:b3abe5f59fd1862dd05006b31de53a34265a7f9fb945f1b4c999666eb00ba3bd",
+                "proofDigest": "sha256:b28303a35f73dc8a76d386e3c1ca0ae5810c6c2b743399a7dcb8ce099df9bb8e",
+                "readinessBasisDigest": "sha256:b3abe5f59fd1862dd05006b31de53a34265a7f9fb945f1b4c999666eb00ba3bd",
+                "viewDigest": "sha256:2c396e2d38bc9635a0ff50657efac5b1ff29e55468b0cfd0759e84d05af58531"
+              }
+            ],
+            "inventory": {
+              "digest": "sha256:e93f720a1c695fb8fdeaabeb941a3e3e031f463b6c88627a5ca4ebdd61301c66",
+              "ref": "qualification-inventory://abiogenesis/e93f720a1c695fb8fdeaabeb941a3e3e031f463b6c88627a5ca4ebdd61301c66"
+            },
+            "kind": "qualification_assessment_task",
+            "lawBasis": {
+              "digest": "sha256:edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f",
+              "ref": "qualification-law://abiogenesis/edb2aa8e3fe88da309ed252835344d9d49ecf95407534581596a4d2f7d45be0f"
+            },
+            "material": [
+              {
+                "entry": {
+                  "digest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+                  "ref": "repo://abiogenesis/stdo_abiogenesis.json"
+                },
+                "entryKind": "material",
+                "kind": "qualification_resource_selection",
+                "resource": {
+                  "digest": "sha256:e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011",
+                  "ref": "qualification-resource://abiogenesis/e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011"
+                },
+                "schemaVersion": "1"
+              },
+              {
+                "entry": {
+                  "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+                  "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md"
+                },
+                "entryKind": "material",
+                "kind": "qualification_resource_selection",
+                "resource": {
+                  "digest": "sha256:e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011",
+                  "ref": "qualification-resource://abiogenesis/e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011"
+                },
+                "schemaVersion": "1"
+              },
+              {
+                "entry": {
+                  "digest": "sha256:9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+                  "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md"
+                },
+                "entryKind": "material",
+                "kind": "qualification_resource_selection",
+                "resource": {
+                  "digest": "sha256:e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011",
+                  "ref": "qualification-resource://abiogenesis/e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011"
+                },
+                "schemaVersion": "1"
+              },
+              {
+                "entry": {
+                  "digest": "sha256:8ea6e684560c362deb1eeeecbc643d48ccb294d5455a223421f0051f1ff8f3b8",
+                  "ref": "qualification-derivation://abiogenesis/q07/material-role-alias-context"
+                },
+                "entryKind": "material",
+                "kind": "qualification_resource_selection",
+                "resource": {
+                  "digest": "sha256:e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011",
+                  "ref": "qualification-resource://abiogenesis/e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011"
+                },
+                "schemaVersion": "1"
+              }
+            ],
+            "priorEvidenceRefs": [],
+            "provenance": {
+              "entry": {
+                "digest": "sha256:654f6a1c847b2175d99651803fe11081ffecd8e2877d82481ae2ce3c9ad21c01",
+                "ref": "qualification-provenance://abiogenesis/654f6a1c847b2175d99651803fe11081ffecd8e2877d82481ae2ce3c9ad21c01"
+              },
+              "entryKind": "provenance",
+              "kind": "qualification_resource_selection",
+              "resource": {
+                "digest": "sha256:e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011",
+                "ref": "qualification-resource://abiogenesis/e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011"
+              },
+              "schemaVersion": "1"
+            },
+            "representation": "resource_refs_v1",
+            "residuals": [
+              "residual://complete-F11-open",
+              "residual://independent-semantic-assessment-open",
+              "residual://source-authorship-and-independence-unresolved",
+              "residual://unprovided-other-criterion-context"
+            ],
+            "resource": {
+              "digest": "sha256:e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011",
+              "ref": "qualification-resource://abiogenesis/e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011"
+            },
+            "role": {
+              "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+              "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+              "independence": "author_distinct",
+              "materializationPlanRef": "materialization-plan://abiogenesis/qualification/assessment@5",
+              "rendererRef": "renderer://abiogenesis/qualification/assessment@5",
+              "roleRef": "qualification-role://abiogenesis/catalog@5",
+              "sourceBindings": [
+                {
+                  "byteCount": 6687,
+                  "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+                  "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+                  "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md"
+                },
+                {
+                  "byteCount": 35509,
+                  "digest": "sha256:9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+                  "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+                  "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md"
+                }
+              ],
+              "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5"
+            },
+            "schemaVersion": "5.0.0",
+            "scope": {
+              "entry": {
+                "digest": "sha256:9c49b8c00b89c1e86268fdd0ff0e373f8384dc32d8e2bd66d27dd67dcbedbbcb",
+                "ref": "qualification-scope://abiogenesis/9c49b8c00b89c1e86268fdd0ff0e373f8384dc32d8e2bd66d27dd67dcbedbbcb"
+              },
+              "entryKind": "scope",
+              "kind": "qualification_resource_selection",
+              "resource": {
+                "digest": "sha256:e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011",
+                "ref": "qualification-resource://abiogenesis/e06a63fc94d91e0a6f08aabbb4030343645bb0f46324d7a984dd7b6d6b6ca011"
+              },
+              "schemaVersion": "1"
+            },
+            "slotRef": "qualification-slot://abiogenesis/q07/current-definition-catalog-fidelity",
+            "subjectBasis": {
+              "digest": "sha256:f1f326a39cdb06cd343aab92ca966e6cfe46bf99117b2158b97a7436154ce4af",
+              "ref": "qualification-basis://abiogenesis/f1f326a39cdb06cd343aab92ca966e6cfe46bf99117b2158b97a7436154ce4af"
+            },
+            "subjectMembers": [
+              {
+                "byteCount": 4277,
+                "digest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+                "path": "stdo_abiogenesis.json",
+                "ref": "qualification-source-member://abiogenesis/q07/repo%3A%2F%2Fabiogenesis%2Fstdo_abiogenesis.json"
+              }
+            ],
+            "taskDigest": "sha256:6280128d3bcd8cc8416ab95428c1af966262e6a278e7240f5b1cf5b372545f6e",
+            "taskOrdinal": 0,
+            "taskRef": "qualification-task://abiogenesis/6280128d3bcd8cc8416ab95428c1af966262e6a278e7240f5b1cf5b372545f6e"
+          }
+        },
+        "valueDigest": "sha256:0101053a7bb710ef94d280e5d5fcd6af20dd3e09efbdc6a484d55a6200f94d58",
+        "valueKind": "qualification_judgment"
+      }
+    }
+  },
+  "resources": {
+    "eventResource": {
+      "acquisitionKind": "reopen",
+      "closeHandoff": {
+        "prefix": {
+          "coordinateDigest": "sha256:3f5b57f730b07a54fd4e3fa367b0952cc24822243f2acb3aedbafbb349c71689",
+          "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+          "kind": "durable_prefix_coordinate",
+          "prefixDigest": "sha256:374f6dddb7191acb4da6e9e5d093d4e247fcddb2139ece8dcd4c90159b9596a5",
+          "prefixLength": 2844807,
+          "schemaVersion": "5.0.0",
+          "storeIdentity": {
+            "device": 16777230,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+            "inode": 464941019
+          }
+        },
+        "reopenAuthority": {
+          "authorityDigest": "sha256:78993e93f065b01a1344ca77357c8e36b5cd16f32cc1482f0fe707e32ee5898b",
+          "device": 16777230,
+          "durableByteLength": 2844807,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "eventLogDigest": "sha256:374f6dddb7191acb4da6e9e5d093d4e247fcddb2139ece8dcd4c90159b9596a5",
+          "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+          "inode": 464941019,
+          "kind": "event_store_reopen_authority",
+          "schemaVersion": "5.0.0"
+        }
+      },
+      "entryPrefix": {
+        "coordinateDigest": "sha256:baa5de90a882af8212e6548a916e4de60f5b246f4ab7cacd1adc0a33b2991a87",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:7b579e0dfb1bf3f99c16687c641b09480433ec7eea127d1238e4e0e1796e5048",
+        "prefixLength": 2498379,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464941019
+        }
+      },
+      "kind": "abg_event_resource_receipt",
+      "receiptDigest": "sha256:0febe3c3e9f1e69f804613456902f592e39121c6c900d73e8f57ad23ce5aa781",
+      "schemaVersion": "5.0.0"
+    },
+    "invocationAdmission": {
+      "digest": "sha256:1777212b49f005b1452832d29e827490386a3336c100ba9e13520c25c3e70071",
+      "ref": "invocation-admission://abiogenesis/1777212b49f005b1452832d29e827490386a3336c100ba9e13520c25c3e70071"
+    },
+    "kind": "run_invocation_resource_receipt",
+    "productExecutionResolution": {
+      "digest": "sha256:f4f1aa12746b7f39fe68bfa88026f88a4d8ab329977c03611132c9be83031d09",
+      "ref": "product-execution-resolution://abiogenesis/f4f1aa12746b7f39fe68bfa88026f88a4d8ab329977c03611132c9be83031d09"
+    },
+    "replay": {
+      "digest": "sha256:b4a882f25659daefb67ea6ab3a78d81e19c62a1b19ad18184e1fa81b6cbd9ca2",
+      "ref": "replay://abiogenesis/b4a882f25659daefb67ea6ab3a78d81e19c62a1b19ad18184e1fa81b6cbd9ca2"
+    },
+    "run": {
+      "digest": "sha256:6fba1249bee24b00fccb203a0eb497f930e3a35711dbae782bdc0a778a1f4778",
+      "ref": "run://abiogenesis/06b733f76d8f9b5318185ed785f5ed130b3d7b6499ff431e230d44ea1b2d1964"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

@@ -1,0 +1,45 @@
+{
+  "scope": "Bounded diagnostic records, not runtime inputs",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/return.md",
+      "bytes": 5385,
+      "sha256": "34f5887a3b932e903496a41f92b7e2931c70d8d775a5558a052a866b4416eced"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/inventory.json",
+      "bytes": 3749,
+      "sha256": "a5eab53173f86501770f1479c66d4c95a0e0ba528e2208a4e336304bd35db6c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/requirements-admission.json",
+      "bytes": 4689,
+      "sha256": "fdc16fc7e7a6034302ef8eb2f2b0b95cb9580a1c0cd998f14ee59956e18cda10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/design-input.json",
+      "bytes": 1545750,
+      "sha256": "49b8be73c46368cecfe625779630a165177d10398ee539d9685ca0244aa25856"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/suffix-metadata.json",
+      "bytes": 6584355,
+      "sha256": "93ed2295c7ed2c84125f934c8d5fd1b4182b3127099b3ed6afdaebc77dbb9e33"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/result-events.json",
+      "bytes": 6811169,
+      "sha256": "5976ae9e479ad88f2671ddfbf3e27800678342e008c33029f9af7d6c95e4e384"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/extract.mjs",
+      "bytes": 2938,
+      "sha256": "91366e4b4c26f5e2cf1cd9c82b70ea3aaee07522e98b522b279a09a8abcba726"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01/inventory.mjs",
+      "bytes": 5764,
+      "sha256": "154de1254c50d88db02f4bfdd86af61b05813377a8281d3f3b59fdcd08179b4b"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "stages": {
+    "setup": 600000,
+    "conformance": 600000,
+    "hello": 300000,
+    "read": 600000
+  },
+  "operationPlan": [
+    "workspace",
+    "verify-core",
+    "resolve",
+    "install-core",
+    "bind",
+    "catalog",
+    "catalog-view",
+    "conformance-hello-world",
+    "conformance-command-execution",
+    "hello-root",
+    "hello-root-run_result",
+    "hello-root-run_replay"
+  ],
+  "setupAndConformanceCalls": 9,
+  "helloCalls": 1,
+  "readCalls": 2,
+  "nativeCapSumMs": 6900000,
+  "terminationGraceMs": 1000,
+  "allCommandGraceMs": 12000,
+  "driverBudgetMs": 6912000,
+  "driverScope": "6912000ms after preflight; exact12 calls, no retry; original setup/Hello/cold-read caps",
+  "retry": "none",
+  "purePreflightAllowanceMs": 120000,
+  "totalCeilingMs": 7032000,
+  "basis": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-controls-03/request.txt",
+    "bytes": 7998,
+    "sha256": "1106acffbe2a6da2149c12b007f06bb2185c75d8b7fa813695f9c246fe4a798a"
+  }
+}

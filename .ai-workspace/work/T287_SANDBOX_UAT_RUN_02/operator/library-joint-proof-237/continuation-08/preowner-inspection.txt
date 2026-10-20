@@ -1,0 +1,1 @@
+Read-only inspector accessed consumer-acquisition.verified; canonical record owns request plus verification. KeyError: 'verified' occurred before any owner/effect. Bounded accessor correction uses verification.verifiedArtifact through the unchanged verifyArtifact owner. The completed earlier inspection was not rerun. No Source or semantic repair.

@@ -1,0 +1,66 @@
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts (before)
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts
+@@ -24,7 +24,9 @@
+     kind: "packaged_leaf_implementation_descriptor" as const, schemaVersion: "5.0.0" as const, ...body, descriptorDigest: hash(body) }) as PackagedLeafImplementationDescriptor);
+ export const [SEMANTIC_REVISION_SELECTION_DESCRIPTOR, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR,
+   SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR,
+-  SEMANTIC_REVISION_TERMINAL_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
++  SEMANTIC_REVISION_TERMINAL_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_INTAKE_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_REQUEST_DESCRIPTOR,
++  SEMANTIC_REVISION_NATIVE_CONSTRUCTION_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_EXECUTION_DESCRIPTOR,
++  SEMANTIC_REVISION_NATIVE_EVIDENCE_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
+ function result(input: Readonly<Record<string, JsonValue>>, output: unknown, implementationRef: string, deterministic: boolean, failureClass = "revision_basis_or_evidence_unavailable"): Readonly<LeafRealizationCandidate> {
+   const failure = output === null;
+   const value = failure ? { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass,
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs (before)
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
+@@ -213,3 +213,28 @@
+  assert.equal(isNativeSemanticRevisionGraphFunction(duplicate,changed),false);
+  assert.equal(validate(duplicate).kind,'static_validation_refusal');
+ });
++
++
++test('native revision installed descriptor loader discovers every declared leaf through module exports', async () => {
++ const namespace=await load('implementation/semantic_revision');
++ const publication=g.constructSemanticRevisionModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,
++   packageVersion:p.ABI5_PACKAGE_VERSION,artifactDigest:zero,productContentDigest:zero,productManifestDigest:zero});
++ const requested=[];
++ // Isolate only installed-byte custody; exercise the actual loader and real emitted module namespace.
++ // Package verification separately owns the installed-byte correspondence claim.
++ const loader=await component('product/implementation_resolution',{'./installed_module.js':{
++   loadVerifiedInstalledModule:async (_install,modulePath)=>{requested.push(modulePath);return {kind:'loaded',module:namespace};}
++ }});
++ const offered=await loader.loadInstalledImplementationDescriptors({packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION},publication);
++ assert(Array.isArray(offered));
++ assert.deepEqual(requested,[publication.implementationBindings[0].modulePath]);
++ assert.equal(offered.length,publication.implementationBindings.length);
++ const fields=['implementationRef','packageName','packageVersion','modulePath','namedSymbol','computeRegime','inputContractRef',
++   'outputContractRef','failureContractRef','refusalContractRef'];
++ for(const binding of publication.implementationBindings){
++   assert.equal(typeof namespace[binding.namedSymbol],'function',binding.namedSymbol);
++   const matches=offered.filter(descriptor=>fields.every(key=>descriptor[key]===binding[key]));
++   assert.equal(matches.length,1,binding.bindingRef);
++   assert.equal(p.isPackagedLeafImplementationDescriptor(matches[0]),true);
++ }
++});
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js (before)
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js
+@@ -16,7 +16,7 @@
+     productId: ABI5_PRODUCT_ID, artifactDigest: placeholder, productContentDigest: placeholder, productManifestDigest: placeholder }).map(({ kind: _kind, bindingRef: _ref, ...body }) => deepFreeze({
+     kind: "packaged_leaf_implementation_descriptor", schemaVersion: "5.0.0", ...body, descriptorDigest: hash(body)
+ }));
+-export const [SEMANTIC_REVISION_SELECTION_DESCRIPTOR, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR, SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR, SEMANTIC_REVISION_TERMINAL_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
++export const [SEMANTIC_REVISION_SELECTION_DESCRIPTOR, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR, SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR, SEMANTIC_REVISION_TERMINAL_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_INTAKE_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_REQUEST_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_CONSTRUCTION_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_EXECUTION_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_EVIDENCE_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
+ function result(input, output, implementationRef, deterministic, failureClass = "revision_basis_or_evidence_unavailable") {
+     const failure = output === null;
+     const value = failure ? { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass,
+--- build/code/src/implementation/semantic_revision.d.ts before
++++ build/code/src/implementation/semantic_revision.d.ts
+@@ -3,7 +3,7 @@
+ import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation } from "./contracts.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ export declare const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS: PackagedLeafImplementationDescriptor[];
+-export declare const SEMANTIC_REVISION_SELECTION_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_TERMINAL_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined;
++export declare const SEMANTIC_REVISION_SELECTION_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_TERMINAL_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_NATIVE_INTAKE_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_NATIVE_REQUEST_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_NATIVE_CONSTRUCTION_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_NATIVE_EXECUTION_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_NATIVE_EVIDENCE_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined;
+ export declare function realizeSemanticRevisionProjection(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;
+ export declare function realizeSemanticRevisionAuthor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>, prepareAssembly?: () => Readonly<NativeInstructionAssembly>): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>>;
+ export declare function realizeSemanticRevisionAssessor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>, prepareAssembly?: () => Readonly<NativeInstructionAssembly>): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>>;

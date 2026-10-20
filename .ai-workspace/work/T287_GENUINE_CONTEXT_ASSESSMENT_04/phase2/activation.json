@@ -1,0 +1,41 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "phase": "phase2_native_genuine_assessment",
+  "workerIdentity": "/root/public_preparation_worker",
+  "RootExplicitRelease": "Parent Executive activation following both CLOSED_GO independent input reviews",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/grant.md",
+    "bytes": 9251,
+    "sha256": "2740da3e83f1318613e9aae1f6db915202112a52c16f8ed012aa97e018db5c24"
+  },
+  "phase1Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-acceptance.json",
+    "bytes": 4868,
+    "sha256": "97a3089f14bdb5c2f72e96bba450b4b8624731018566a31fe9ab5dd8427eb131"
+  },
+  "frozenInputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "frozenInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/assessment-input.json",
+    "bytes": 40026,
+    "sha256": "fea8a1a879e9c2d22015ece337f6b5637c32b07341eb86d80633f1998bc39869"
+  },
+  "frozenRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/prepared-request.json",
+    "bytes": 766415,
+    "sha256": "88f338dd707e8a49a5c891b7903e4ff9b756837e1d9ddef8dc9b1ebc8df0de35"
+  },
+  "immutableCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/genuine-pilot.mjs",
+    "bytes": 39329,
+    "sha256": "db6c28138150218709c96a3bddecdae359e4a24cebac4213b1a160b174772271"
+  },
+  "originalBoundary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/fresh/read-af22-run_replay-handoff.json",
+    "bytes": 1235,
+    "sha256": "43e06fea3795d0cbe575096172da2dd4945390fe578547a0a2fcd1e2f5cb951c"
+  },
+  "effects": "Exact controlled02 log ordinary append, original TMPDIR/locks, fresh five exclusive archive artifacts at existing W.archiveRoot; new phase2 own outputs only. No Source/package/install/AF22 effects.",
+  "oneNativeCliAttempt": true,
+  "manualCliOrModelProbe": false,
+  "firstMaterialFailureStops": true
+}

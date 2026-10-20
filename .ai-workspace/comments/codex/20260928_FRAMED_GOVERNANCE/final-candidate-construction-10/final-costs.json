@@ -1,0 +1,155 @@
+{
+  "preparationMs": 2953.8589157164097,
+  "operationMs": 44333.62612640485,
+  "operations": [
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/npm",
+        "ci",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "elapsedMs": 1503.2631251960993,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.548628,
+      "childSystemCPUSeconds": 0.65704,
+      "childMaxResidentSetSizePlatformBytes": 242368512
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+        "scripts/clean.mjs"
+      ],
+      "elapsedMs": 32.469790894538164,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.018489,
+      "childSystemCPUSeconds": 0.006842,
+      "childMaxResidentSetSizePlatformBytes": 46579712
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "elapsedMs": 6939.955625217408,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 11.242545,
+      "childSystemCPUSeconds": 0.362693,
+      "childMaxResidentSetSizePlatformBytes": 1097990144
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+        "scripts/generate-qualification-rule-catalog.mjs",
+        "--stage-authorities",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-source",
+        "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2"
+      ],
+      "elapsedMs": 121.94725032895803,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.12155099999999999,
+      "childSystemCPUSeconds": 0.026253,
+      "childMaxResidentSetSizePlatformBytes": 96108544
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "elapsedMs": 16129.62054181844,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 19.936422,
+      "childSystemCPUSeconds": 1.37641,
+      "childMaxResidentSetSizePlatformBytes": 1505132544
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts"
+      ],
+      "elapsedMs": 3597.4445836618543,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 3.7419890000000002,
+      "childSystemCPUSeconds": 0.439697,
+      "childMaxResidentSetSizePlatformBytes": 356368384
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/npm",
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--package-lock=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "elapsedMs": 2616.9839170761406,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 2.110651,
+      "childSystemCPUSeconds": 2.822097,
+      "childMaxResidentSetSizePlatformBytes": 423526400
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-controls/verify-installed.mjs"
+      ],
+      "elapsedMs": 12560.987249948084,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 16.610238,
+      "childSystemCPUSeconds": 0.546599,
+      "childMaxResidentSetSizePlatformBytes": 1550254080
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-controls/validate-installed-publications.mjs"
+      ],
+      "elapsedMs": 397.3248330876231,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.412802,
+      "childSystemCPUSeconds": 0.073491,
+      "childMaxResidentSetSizePlatformBytes": 294436864
+    },
+    {
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/source-freeze/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-controls/compare-wrapper.mjs"
+      ],
+      "elapsedMs": 433.6292091757059,
+      "exitCode": 0,
+      "timedOut": false,
+      "childUserCPUSeconds": 0.453407,
+      "childSystemCPUSeconds": 0.0775,
+      "childMaxResidentSetSizePlatformBytes": 280772608
+    }
+  ],
+  "generatedCorrespondenceMs": 667.7607921883464,
+  "packageCorrespondenceMs": 1090.064000338316,
+  "retainedComparisonAttempt": "current candidate uses one distinct-path comparison; all earlier failed cuts remain preserved, no repeat pack/install",
+  "defaultHeapUnchanged": true,
+  "allFinalOwnedExitObserved": true,
+  "donorBaselineTenIntervalMs": 40619.46445936337,
+  "donorBaselinePreparationMs": 2539.218041114509,
+  "basis": "actual finite subprocess intervals; reasoning/report assembly and retained first-comparison timing uncertainty are separate",
+  "sourceTestsRepeated": 0,
+  "nativeModelProviderNetworkRuntimeStoreGitEffects": 0
+}

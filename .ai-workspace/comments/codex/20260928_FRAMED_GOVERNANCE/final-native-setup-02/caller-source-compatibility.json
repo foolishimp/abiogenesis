@@ -1,0 +1,54 @@
+{
+  "selectedChanges": [
+    "all shared required-WB admissions use admissionEnvironmentSelection(current genuine prefix, WB ref/digest)",
+    "actual original actor preserved; new N2 approval/request/attribution/provenance",
+    "cold calls use each immediately preceding real owner close handoff",
+    "Hello actual resolved regimes must be exactly F_D before start effect"
+  ],
+  "remainingPaths": "Public start retains current Product resolver/policy/authority/input admission/DefinitionCall owner constructors. Current installed definition coordinates use request/result/refusal/nonTerminal slots. Read grants/slots/source/selector match current supported Run-read owner; actual catalog and Run identities cannot be constructed until their real producers succeed.",
+  "sourceBindings": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "lines": [
+        71,
+        81,
+        148,
+        186,
+        297
+      ],
+      "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c",
+      "claim": "closed selection -> scope/approval -> current owner reconstruction"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+      "lines": [
+        352
+      ],
+      "sha256": "4a96998044b26793a8d410b7808062eff8cead4b0246f8a84d5153ed8916ca04",
+      "claim": "existing current shared admission caller pattern"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "lines": [
+        233,
+        356,
+        463,
+        495
+      ],
+      "sha256": "a9ea368be43d6b6d93dff8b1084f653997408185956f0f8a26b422520186d16d",
+      "claim": "current start/read carriers; execution product_set uses installed productContentDigest, distinct from admission productInstallCoordinate"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "lines": [
+        577,
+        657,
+        676,
+        703
+      ],
+      "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+      "claim": "current Run-read authority/environment, source and acquired-prefix owner checks"
+    }
+  ],
+  "noFakeFutureSlots": true
+}

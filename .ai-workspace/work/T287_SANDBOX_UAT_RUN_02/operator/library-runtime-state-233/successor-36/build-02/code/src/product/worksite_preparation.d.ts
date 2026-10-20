@@ -1,0 +1,26 @@
+import type { GtlEdgeInputBinding } from "../gtl/contracts.js";
+import { type JsonValue } from "../shared/canonical_json.js";
+import { type WorksiteExecutionTask, type WorksiteRevisionCommandPreparationInput } from "./worksite_revision.js";
+import { type WorksiteConstructionTask } from "./worksite_construction.js";
+import { type WorksiteBranchConstructionTask } from "./worksite_branch_construction.js";
+import { type WorksiteCommandPreparationInput, type WorksiteBranchCommandPreparationInput, type WorksitePreparationInput, type WorksitePreparationBoundInput } from "./worksite_preparation_contracts.js";
+export declare function preparationConstructionTasks(input: WorksitePreparationInput): readonly WorksiteConstructionTask[];
+export declare function constructWorksiteCommandPreparationInput(input: Omit<WorksiteCommandPreparationInput, "kind" | "schemaVersion">): WorksiteCommandPreparationInput;
+export declare function constructWorksiteBranchCommandPreparationInput(input: Omit<WorksiteBranchCommandPreparationInput, "kind" | "schemaVersion">): WorksiteBranchCommandPreparationInput;
+export declare function isWorksitePreparationInput(value: unknown): value is WorksitePreparationInput;
+export declare function isWorksitePreparationBoundInput(value: unknown): value is WorksitePreparationBoundInput;
+export declare function constructWorksiteRevisionCommandPreparationInput(input: Omit<WorksiteRevisionCommandPreparationInput, "kind" | "schemaVersion">): WorksiteRevisionCommandPreparationInput;
+export declare function validateWorksitePreparationContractValue(valueKind: string, value: unknown): boolean;
+export declare function admitWorksitePreparationInput(contractRef: string, value: unknown): Readonly<Record<string, JsonValue>> | null;
+export declare function constructRetainedWorksiteInput(binding: GtlEdgeInputBinding, entry: unknown, source: unknown): WorksitePreparationBoundInput;
+export declare function selectWorksiteConstructionTask(input: WorksitePreparationInput): WorksiteConstructionTask | WorksiteBranchConstructionTask;
+export declare function prepareWorksiteCommandTask(input: WorksitePreparationBoundInput): WorksiteExecutionTask;
+export declare function resolveWorksitePreparationJudgmentRelation(predicateRef: string): Readonly<{
+    predicateRef: string;
+    advanceReasonRef: string;
+    rejectionReasonRef: string;
+    evaluate: (input: unknown, output: unknown) => boolean;
+}> | null;
+export { WORKSITE_PREPARATION_IDS, worksiteRetentionBinding } from "./worksite_preparation_contracts.js";
+export { worksitePreparationContractDeclarations } from "./worksite_preparation_contracts.js";
+export type { WorksiteCommandPreparationInput, WorksiteBranchCommandPreparationInput, WorksiteCommandPreparationBoundInput, WorksiteBranchCommandPreparationBoundInput, WorksitePreparationInput, WorksitePreparationBoundInput } from "./worksite_preparation_contracts.js";

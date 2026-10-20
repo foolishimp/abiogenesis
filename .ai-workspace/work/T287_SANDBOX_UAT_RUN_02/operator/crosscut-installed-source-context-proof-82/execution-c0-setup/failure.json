@@ -1,0 +1,7 @@
+{
+  "firstFailure": "Phase-only env.workspaceBinding.canonicalRoot was undefined; fs.cp refused destination before seed transfer or Public start.",
+  "owner": "WorkspaceAuthorityBasis owns canonicalRoot; WorkspaceBinding references authorityBasisId/Digest and declared roots.",
+  "sourceSha256": "d5ba88c7b9319c907bc173c1d068a419127022baee8704b553a7e818d1bd9663",
+  "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/commands/execute-installed82-c0-setup.result.json",
+  "productionChanged": false
+}

@@ -1,0 +1,17 @@
+{
+  "failure": "commands/canonical-preflight.result.json exit1/346.0587919689715ms; assertion preflight17; before current-lock checks",
+  "originatingRelation": "Native WorkspaceBindingPacket.authority is WorkspaceAuthorityBasisInput. Fixture passed captured full WorkspaceAuthorityBasis instead. ConstructWorkspaceAuthorityBasis hashes the entire input; adding its kind/schema/id/digest changes basis digest and the canonical reconstructed six-field check refuses.",
+  "ownerDiagnostic": {
+    "kind": "environment_refusal",
+    "code": "invalid_declared_root"
+  },
+  "scope": "Preflight carrier only; actual intended Public bind uses full resource authority with canonical owner projection of the six input fields. No event acquisition or transport.",
+  "proposedAction": "Project exactly workspaceId/canonicalRoot/authorityMode/authorizedActorRef/authorityManifestRef/authorityManifestDigest in pure preflight; preserve first receipt and source; await Root selected action before retry.",
+  "sourcePin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/current-source-binding-caller-repair-167/failed-preflight/preflight.mjs",
+    "sha256": "ad7dd11d72784c0f46e74895e96ef58aac6f7d9b204ed6a1126834456c26fe62",
+    "byteCount": 8469
+  },
+  "sourceAuthority": "code/src/product/environment_definition_bindings.ts693\u2013700; environment.ts987\u20131009 and isWorkspaceAuthorityBasis",
+  "newProductOrSourceLaw": false
+}

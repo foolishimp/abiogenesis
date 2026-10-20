@@ -1,0 +1,73 @@
+{
+  "status": "CLOSED",
+  "pureProcessCount": 4,
+  "aggregateElapsedMs": 708.857832942158,
+  "budgetMs": 300000,
+  "processes": [
+    {
+      "label": "syntax",
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/output-checks.mjs"
+      ],
+      "pid": 51487,
+      "exitCode": 0,
+      "elapsedMs": 45.39433307945728,
+      "capMs": 120000,
+      "timedOut": false,
+      "signals": [],
+      "exitObserved": true
+    },
+    {
+      "label": "relation",
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/check.mjs"
+      ],
+      "pid": 51488,
+      "exitCode": 1,
+      "elapsedMs": 310.5429159477353,
+      "capMs": 120000,
+      "timedOut": false,
+      "signals": [],
+      "exitObserved": true
+    },
+    {
+      "label": "syntax02",
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/output-checks.mjs"
+      ],
+      "pid": 51936,
+      "exitCode": 0,
+      "elapsedMs": 23.368542082607746,
+      "capMs": 120000,
+      "timedOut": false,
+      "signals": [],
+      "exitObserved": true
+    },
+    {
+      "label": "relation02",
+      "command": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/check.mjs"
+      ],
+      "pid": 51937,
+      "exitCode": 0,
+      "elapsedMs": 329.55204183235765,
+      "capMs": 120000,
+      "timedOut": false,
+      "signals": [],
+      "exitObserved": true
+    }
+  ],
+  "failedProbePreserved": true,
+  "nativeCalls": 0,
+  "helperCommands": 0,
+  "providerCalls": 0,
+  "runtimeResourceOpens": 0,
+  "allOwnedProcessesExited": true,
+  "hostWideClaim": false
+}

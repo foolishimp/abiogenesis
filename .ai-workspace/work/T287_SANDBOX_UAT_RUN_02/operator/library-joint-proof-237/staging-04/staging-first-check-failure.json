@@ -1,0 +1,11 @@
+{
+  "stage": "generator-input-byte-comparison",
+  "exitCode": 1,
+  "wallTimeSeconds": 0.887251459,
+  "entry": "local Python staging checker only",
+  "expression": "for q in (typescriptInput / 'lib').glob('*.d.ts'): compare q with build/toolchain/q.name",
+  "error": "FileNotFoundError: build/toolchain/tsserverlibrary.d.ts",
+  "cause": "Checker included TypeScript declarations outside the existing generator inventory. generate-product-manifest.mjs252-259 copies only /^lib(?:\\..+)?\\.d\\.ts$/u.",
+  "proposedAction": "Use that exact generator filter, leaving every staged Source/emitted/package byte unchanged.",
+  "effects": "Only isolated stage copies. No generator, framework imports, pack, install or runtime effects."
+}

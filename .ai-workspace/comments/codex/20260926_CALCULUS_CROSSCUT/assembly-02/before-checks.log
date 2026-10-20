@@ -1,0 +1,19 @@
+(node:24118) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data (320.153542ms)
+ℹ {"retainedPromptBytes":1052422,"decisionSectionsBytes":421836,"distinctAssets":3,"distinctAdditionalByteBodies":5,"sourceBytes":6120,"fullAssessments":3}
+✔ native revision decision view leaves all opaque C2 and application JSON verbatim (1.260042ms)
+✔ actual derived revision successor shares complete typed assets under the unchanged Design bound (1247.137833ms)
+ℹ {"scope":"DR01 component completion, upstream admission/role premises supplied; no failed-output reuse","revisionRequirementDomain":29,"ordinaryRequirementDomain":15,"exactRetainedPromptContractCompared":false,"typedResponseBytes":8606,"canonicalResponseBytes":24713}
+ℹ {"scope":"actual pure Product successor; upstream authentication/currentness/role evidence and future coordinates supplied","parentInputDigest":"sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185","componentSuccessorDigest":"sha256:41ce3d8a3ae590078ba813071868a56cfc23611043c8109129b88769f9e2aacf","promptBytes":650393,"maxPromptBytes":1048576,"headroomBytes":398183,"historyAssets":4,"sharedPredecessors":3,"sections":{"role":115076,"source":6709,"obligations":126795,"predecessors":1190,"worksite":30107,"evidence":349,"task":356411,"response":13649},"roleSourceSpans":13}
+✔ assessment-first actual successor preserves typed retained terms and full pending candidate under the unchanged bound (287.264083ms)
+ℹ {"scope":"actual composed assessment-first successor; disclosed component authentication/role/currentness premises","retainedInputDigest":"sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566","successorDigest":"sha256:6b4917a497fbb0de0b1b75817feb4ab99adb109186b72fb2f0f49ac7fdc616c4","promptBytes":712820,"maxPromptBytes":1048576,"headroomBytes":335756,"historicalAssets":5,"retainedTerms":29,"retainedTermsBytes":57151,"pendingAssetRef":"semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df","sections":{"role":116023,"source":6709,"obligations":126795,"predecessors":1584,"worksite":30107,"evidence":349,"task":429534,"response":1612}}
+✔ stage assembly common mechanics preserve author and assessor wire values (5.719917ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1907.411583

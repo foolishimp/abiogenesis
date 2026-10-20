@@ -1,0 +1,32 @@
+{
+  "role": "Worker with separately declared bounded Writer activation",
+  "activation": "T287_C2_OUTPUT_CONSUMER_REPAIR_01",
+  "actor": "/root/s03_phase_b",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "profile": "Existing Astra/xhigh assigned by Root; metadata does not independently attest model",
+  "time": "2026-09-30T09:59:48.167592+00:00",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-controls-01/request.txt",
+    "bytes": 5096,
+    "sha256": "ccfb76be5b8a17d209de775348279a7392b6912a9f301e67dd187c72199c0a45"
+  },
+  "a_cJoin": "exact installed join reproduced request bytes",
+  "frames": [
+    "F-END-TO-END-INTERFACE-INTEGRATION",
+    "F-WORKSITE-CAUSALITY",
+    "SP-03",
+    "SP-08"
+  ],
+  "changeClass": "realization_refactor",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01",
+  "scope": "External consumer three physical output reads, root/provenance join, focused pure relation tests and frozen return; no native driver",
+  "prohibitions": "All original files, N03 live resource/worksite, source/Product/recipe and native/provider/network/qualification/Git effects excluded",
+  "pureCheckBudget": {
+    "aggregateMs": 300000,
+    "perProcessCapMs": 120000,
+    "ownedGraceMs": 1000
+  },
+  "sourceAcquisitionNotes": [
+    "Initial guessed forward-review path-seam-check.mjs did not exist; rg --files showed actual path-check.mjs. Read-only acquisition mistake; no execution/effect."
+  ]
+}

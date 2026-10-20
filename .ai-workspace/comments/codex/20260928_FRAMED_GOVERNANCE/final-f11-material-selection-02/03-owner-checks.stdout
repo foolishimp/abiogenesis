@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "before": {
+    "assessedMembers": 669,
+    "bodies": 686,
+    "rawBytes": 65964603,
+    "ownerSourceSegmentBytes": 69110115
+  },
+  "after": {
+    "assessedMembers": 10,
+    "bodies": 39,
+    "rawBytes": 832398,
+    "ownerSourceSegmentBytes": 860584
+  },
+  "scopeErrors": [],
+  "missing": [
+    "basis.installedProduct",
+    "basis.workspaceBinding",
+    "basis.tenantManifest",
+    "provenance",
+    "role",
+    "assetSurface",
+    "slotRef",
+    "taskOrdinal",
+    "declarations: actual owner/actor grants and historical declarations"
+  ],
+  "genuinelyBoundRequest": false
+}

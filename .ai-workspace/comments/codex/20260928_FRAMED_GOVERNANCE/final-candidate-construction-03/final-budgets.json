@@ -1,0 +1,16 @@
+{
+  "operationCapsMs": {
+    "dependencies": 240000,
+    "clean": 60000,
+    "compile": 600000,
+    "authority-stage": 300000,
+    "manifest": 600000,
+    "pack": 240000,
+    "install": 240000,
+    "verify": 300000,
+    "installed-publications": 240000
+  },
+  "maximumMs": 2880000,
+  "terminationGraceMs": 1000,
+  "reason": "One 1106-source tenant and locked16 dependency closure; full qualification schema/catalog output. Conservative phase allowance, finite per-operation only; no native workloads."
+}

@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "inputSha": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59",
+  "events": 566,
+  "positiveGapCount": 0,
+  "equalContentConservation": true,
+  "negativeGapCount": 1,
+  "redCases": [
+    "missing_basis",
+    "crossed_positive_basis",
+    "crossed_selected_input_evidence",
+    "content_digest_mismatch",
+    "missing_selected_input_evidence",
+    "crossed_physical_prefix",
+    "missing_run",
+    "crossed_supported_run_source",
+    "strict_frontier_rejects_extra_internal_route"
+  ],
+  "workspaceCompanion": "same retained workspace pure owner and strict carrier; no workspace-wide acceptance",
+  "futureReader": "pure grant construction and validation only",
+  "liveResourceAccesses": [],
+  "elapsedMs": 1422.335208
+}

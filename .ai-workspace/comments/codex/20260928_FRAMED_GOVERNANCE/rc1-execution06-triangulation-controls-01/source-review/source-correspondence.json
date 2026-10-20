@@ -1,0 +1,479 @@
+{
+  "operation": "T287_EXEC06_FP_SOURCE_REVIEW_01",
+  "subjectPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/first-failure.json",
+      "bytes": 4727,
+      "sha256": "7c6ef048449e41ca1f9897a24d363ec4ec02894759323abb0a75e00020860b55"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/flow-parent-owner-outcome.json",
+      "bytes": 10415,
+      "sha256": "898381474e87e08cd66b4e152ff928003f7b37e0cd37d35bb1513e22670ae88d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/flow-assess-run_result-host-receipt.json",
+      "bytes": 1189,
+      "sha256": "8817dd098fe331a65a15e21ead61e083148ad947bc33a68d2cdab86c3ef99777"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/flow-supervisor-close.json",
+      "bytes": 1385,
+      "sha256": "cf6c16f377fea924f68c620601002cc51656d6e5e4c29f89f57f0c01f88e6813"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76350,
+      "sha256": "4a51cfe4adc7d5a200affb5b2ac8a704c01ead72a83e4fd1b632a4133f3ef997"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "bytes": 8607,
+      "sha256": "6534d19d6ea0c5a60fc1b12a548c69847aec85f62c2494b98780396711eb2891"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 32200,
+      "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/f11/ordinary-caller.mjs",
+      "bytes": 17926,
+      "sha256": "dac635825ab7941766c2086433170bc5935d94bc3566bdad01755961ed82f9b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/f11/flow-driver.mjs",
+      "bytes": 6002,
+      "sha256": "7b1e47b4703583cce853e3f50e136b6b7ec7c5490f77030871048c3ae0ecd8dc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "bytes": 23400,
+      "sha256": "f63b2af71a4a5eb900f961a590b891a2eee95161a76e61e971b93fd3c9eb7af0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 36658,
+      "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b"
+    }
+  ],
+  "runtimeFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/final-runtime-freeze.json",
+    "bytes": 20017,
+    "sha256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+    "mode": "0o644"
+  },
+  "verifiedRuntimeRecords": 77,
+  "verifiedRuntimeBodyBytes": 1004894047,
+  "verifiedDirectories": 5,
+  "nativeFpImplementationCount": 15,
+  "nativeFpExportSymbolCount": 14,
+  "nativeFpModuleCount": 10,
+  "nativeFpRows": [
+    {
+      "implementationRef": "implementation://abg/consensus/reviewer@5",
+      "modulePath": "build/code/src/implementation/consensus.js",
+      "namedSymbol": "realizeConsensusRole",
+      "existingArgumentRoles": "first two only",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abg/consensus/submitter@5",
+      "modulePath": "build/code/src/implementation/consensus.js",
+      "namedSymbol": "realizeConsensusRole",
+      "existingArgumentRoles": "first two only",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/conformance/fp-hello@5",
+      "modulePath": "build/code/src/implementation/fp_hello.js",
+      "namedSymbol": "realizeFpHello",
+      "existingArgumentRoles": "first two only",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/default-library/select@5",
+      "modulePath": "build/code/src/implementation/default_library.js",
+      "namedSymbol": "selectGovernanceWork",
+      "existingArgumentRoles": "assembly third",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/qualification/assess-fp@5",
+      "modulePath": "build/code/src/implementation/qualification.js",
+      "namedSymbol": "realizeQualificationAssessment",
+      "existingArgumentRoles": "3/4 reserved; fifth existing NativeLeafProofOperations",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/semantic-revision/assessor@5",
+      "modulePath": "build/code/src/implementation/semantic_revision.js",
+      "namedSymbol": "realizeSemanticRevisionAssessor",
+      "existingArgumentRoles": "assembly third",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/semantic-revision/author@5",
+      "modulePath": "build/code/src/implementation/semantic_revision.js",
+      "namedSymbol": "realizeSemanticRevisionAuthor",
+      "existingArgumentRoles": "assembly third",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/semantic-revision/selection@5",
+      "modulePath": "build/code/src/implementation/semantic_revision.js",
+      "namedSymbol": "realizeSemanticRevisionSelection",
+      "existingArgumentRoles": "assembly third",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/semantic-stage/assessor@5",
+      "modulePath": "build/code/src/implementation/semantic_stage.js",
+      "namedSymbol": "realizeSemanticAssessor",
+      "existingArgumentRoles": "assembly third",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/semantic-stage/author@5",
+      "modulePath": "build/code/src/implementation/semantic_stage.js",
+      "namedSymbol": "realizeSemanticAuthor",
+      "existingArgumentRoles": "assembly third",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/worksite/command-execution-fp@5",
+      "modulePath": "build/code/src/implementation/worksite_command_execution.js",
+      "namedSymbol": "realizeWorksiteCommandExecution",
+      "existingArgumentRoles": "assembly third; exact occurrence verifier fourth",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/worksite/command-forward/execute@5",
+      "modulePath": "build/code/src/implementation/worksite_command_forward.js",
+      "namedSymbol": "realizeWorksiteCommandForward",
+      "existingArgumentRoles": "first two only",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/worksite/construction-candidate-fp@5",
+      "modulePath": "build/code/src/implementation/worksite_construction.js",
+      "namedSymbol": "realizeWorksiteConstructionCandidate",
+      "existingArgumentRoles": "assembly third",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/worksite/native-work-fp@5",
+      "modulePath": "build/code/src/implementation/native_workspace_work.js",
+      "namedSymbol": "realizeNativeWorkspaceWork",
+      "existingArgumentRoles": "assembly third",
+      "addedFifthCompatible": true
+    },
+    {
+      "implementationRef": "implementation://abiogenesis/worksite/revision-command-execution-fp@5",
+      "modulePath": "build/code/src/implementation/worksite_command_execution.js",
+      "namedSymbol": "realizeWorksiteRevisionCommandExecution",
+      "existingArgumentRoles": "assembly third; exact occurrence verifier fourth",
+      "addedFifthCompatible": true
+    }
+  ],
+  "completeAffectedModules": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/consensus.ts",
+        "bytes": 28250,
+        "sha256": "cf9953204f08aa955a0bf880e5c453bab0af3b347da587d89d2b4b269e2a0c81",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/consensus.ts",
+        "bytes": 28250,
+        "sha256": "cf9953204f08aa955a0bf880e5c453bab0af3b347da587d89d2b4b269e2a0c81",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/consensus.js",
+        "bytes": 23934,
+        "sha256": "6acf72e6d51a44a08962181f192254863d55324d9b960d5541a7298db2d6f9a9",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/consensus.js",
+        "bytes": 23934,
+        "sha256": "6acf72e6d51a44a08962181f192254863d55324d9b960d5541a7298db2d6f9a9",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+        "bytes": 6205,
+        "sha256": "6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+        "bytes": 6205,
+        "sha256": "6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js",
+        "bytes": 5085,
+        "sha256": "c993b1aa648a1b261726f1a7ed9a52a5d6174a0357e5904892f1deb27eec0dd2",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/default_library.js",
+        "bytes": 5085,
+        "sha256": "c993b1aa648a1b261726f1a7ed9a52a5d6174a0357e5904892f1deb27eec0dd2",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/fp_hello.ts",
+        "bytes": 9851,
+        "sha256": "2f028ef05e59732d0bdd5761d7616db3d9216e0ada93c6e410fae03b8135b19f",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/fp_hello.ts",
+        "bytes": 9851,
+        "sha256": "2f028ef05e59732d0bdd5761d7616db3d9216e0ada93c6e410fae03b8135b19f",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/fp_hello.js",
+        "bytes": 8847,
+        "sha256": "475a42fe6affe9d5b12021a0bd5927c64a82653b34196935db094ecd2dd1b155",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/fp_hello.js",
+        "bytes": 8847,
+        "sha256": "475a42fe6affe9d5b12021a0bd5927c64a82653b34196935db094ecd2dd1b155",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+        "bytes": 6736,
+        "sha256": "0ef1238ca721bd2877a5ba1e257119544c6705f940324138012934f6d04b8d9a",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+        "bytes": 6736,
+        "sha256": "0ef1238ca721bd2877a5ba1e257119544c6705f940324138012934f6d04b8d9a",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/native_workspace_work.js",
+        "bytes": 6175,
+        "sha256": "9d4cec38f6354addb473df8e21dd58051661b6e2e7620870e17fbf0168a6e432",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/native_workspace_work.js",
+        "bytes": 6175,
+        "sha256": "9d4cec38f6354addb473df8e21dd58051661b6e2e7620870e17fbf0168a6e432",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        "bytes": 8607,
+        "sha256": "6534d19d6ea0c5a60fc1b12a548c69847aec85f62c2494b98780396711eb2891",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+        "bytes": 8607,
+        "sha256": "6534d19d6ea0c5a60fc1b12a548c69847aec85f62c2494b98780396711eb2891",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/qualification.js",
+        "bytes": 7461,
+        "sha256": "1b082310a15cfd6144a8d7b7311567ca9d7190ced3baa2740ed334baccddc535",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/qualification.js",
+        "bytes": 7461,
+        "sha256": "1b082310a15cfd6144a8d7b7311567ca9d7190ced3baa2740ed334baccddc535",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+        "bytes": 13854,
+        "sha256": "5ad7b666282327568624ae8d371169636c82a3c739e7970f0e0fb87c381f1384",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+        "bytes": 13854,
+        "sha256": "5ad7b666282327568624ae8d371169636c82a3c739e7970f0e0fb87c381f1384",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.js",
+        "bytes": 12261,
+        "sha256": "93d7933e7f0f133a1bce7e6ead260e5b9170bd325ce4a111148ddc0f11052c50",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+        "bytes": 12261,
+        "sha256": "93d7933e7f0f133a1bce7e6ead260e5b9170bd325ce4a111148ddc0f11052c50",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+        "bytes": 16676,
+        "sha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+        "bytes": 16676,
+        "sha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_stage.js",
+        "bytes": 14703,
+        "sha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_stage.js",
+        "bytes": 14703,
+        "sha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+        "bytes": 39509,
+        "sha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+        "bytes": 39509,
+        "sha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_execution.js",
+        "bytes": 35890,
+        "sha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_execution.js",
+        "bytes": 35890,
+        "sha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_forward.ts",
+        "bytes": 4271,
+        "sha256": "2107caebe15549081d7e55e05e2493d5e9946bcc16021a5a5b09631b5f11bdc2",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_forward.ts",
+        "bytes": 4271,
+        "sha256": "2107caebe15549081d7e55e05e2493d5e9946bcc16021a5a5b09631b5f11bdc2",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_forward.js",
+        "bytes": 4063,
+        "sha256": "83169bc1ece4e0517b47b9ee5b635c1880193be8a0ac107dbb43f0b969c4b75f",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_forward.js",
+        "bytes": 4063,
+        "sha256": "83169bc1ece4e0517b47b9ee5b635c1880193be8a0ac107dbb43f0b969c4b75f",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_construction.ts",
+        "bytes": 12473,
+        "sha256": "9241c86f91adaa9a8a694803d2be2da6829610ea36ace0df643267f44cebabfc",
+        "mode": "0o644"
+      },
+      "frozenSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_construction.ts",
+        "bytes": 12473,
+        "sha256": "9241c86f91adaa9a8a694803d2be2da6829610ea36ace0df643267f44cebabfc",
+        "mode": "0o644"
+      },
+      "installedCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_construction.js",
+        "bytes": 10204,
+        "sha256": "f35f9bac5d7520af267aaca6eda50cc1407b97852476e3510ba2949c7b9b2e48",
+        "mode": "0o644"
+      },
+      "frozenCompiled": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_construction.js",
+        "bytes": 10204,
+        "sha256": "f35f9bac5d7520af267aaca6eda50cc1407b97852476e3510ba2949c7b9b2e48",
+        "mode": "0o644"
+      },
+      "bodiesEqual": true,
+      "aritySensitiveBehaviorFound": false
+    }
+  ],
+  "separateColdReadCompiledPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_definition_bindings.js",
+    "bytes": 27705,
+    "sha256": "8d445d598e6c1a9265502040b703907bf491c6197c2d06cc1ad0bd5921f14e2d",
+    "mode": "0o644"
+  },
+  "separateColdReadFrozenCompiledPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_definition_bindings.js",
+    "bytes": 27705,
+    "sha256": "8d445d598e6c1a9265502040b703907bf491c6197c2d06cc1ad0bd5921f14e2d",
+    "mode": "0o644"
+  },
+  "finding": "existing native proof operation omitted from argument five of actual F_P dispatcher",
+  "sourceReentry": "realization_refactor",
+  "canonicalRepairPath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+  "canonicalRepairSpan": "678-684",
+  "signatureChangesRequired": false,
+  "sourceRuntimeAcceptance": false
+}

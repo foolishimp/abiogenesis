@@ -1,0 +1,4261 @@
+{
+  "history_reopened": {
+    "self": [
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 10983.406,
+        "percent": 44.954
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 3496.755,
+        "percent": 14.312
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 2225.0,
+        "percent": 9.107
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 1960.498,
+        "percent": 8.024
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:19",
+        "sampledMs": 1866.845,
+        "percent": 7.641
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 1160.04,
+        "percent": 4.748
+      },
+      {
+        "function": "<anonymous> :0",
+        "sampledMs": 430.126,
+        "percent": 1.76
+      },
+      {
+        "function": "slice node:buffer:646",
+        "sampledMs": 371.085,
+        "percent": 1.519
+      },
+      {
+        "function": "deepFreeze shared/immutable.js:1",
+        "sampledMs": 215.331,
+        "percent": 0.881
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 185.043,
+        "percent": 0.757
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:17",
+        "sampledMs": 136.37,
+        "percent": 0.558
+      },
+      {
+        "function": "hasOnlyRuntimeEventKeys abg/event_store.js:1994",
+        "sampledMs": 117.419,
+        "percent": 0.481
+      },
+      {
+        "function": "isRuntimeEventCandidateShape abg/event_store.js:2010",
+        "sampledMs": 117.25,
+        "percent": 0.48
+      },
+      {
+        "function": "Hash :0",
+        "sampledMs": 92.166,
+        "percent": 0.377
+      },
+      {
+        "function": "digest :0",
+        "sampledMs": 89.666,
+        "percent": 0.367
+      },
+      {
+        "function": "hasOnlyRuntimeEventCandidateKeys abg/event_store.js:2003",
+        "sampledMs": 81.124,
+        "percent": 0.332
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 80.834,
+        "percent": 0.331
+      },
+      {
+        "function": "read :0",
+        "sampledMs": 75.791,
+        "percent": 0.31
+      },
+      {
+        "function": "isSha256Digest shared/digests.js:19",
+        "sampledMs": 67.543,
+        "percent": 0.276
+      },
+      {
+        "function": "assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 60.792,
+        "percent": 0.249
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1605",
+        "sampledMs": 53.415,
+        "percent": 0.219
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:15",
+        "sampledMs": 52.254,
+        "percent": 0.214
+      },
+      {
+        "function": "exact abg/runtime_liveness_contracts.js:23",
+        "sampledMs": 50.793,
+        "percent": 0.208
+      },
+      {
+        "function": "isRuntimeProbeObservation abg/runtime_liveness_contracts.js:94",
+        "sampledMs": 28.624,
+        "percent": 0.117
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2011",
+        "sampledMs": 28.416,
+        "percent": 0.116
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness_contracts.js:26",
+        "sampledMs": 28.415,
+        "percent": 0.116
+      },
+      {
+        "function": "slice node:buffer:695",
+        "sampledMs": 28.335,
+        "percent": 0.116
+      },
+      {
+        "function": "Hash node:internal/crypto/hash:90",
+        "sampledMs": 26.667,
+        "percent": 0.109
+      },
+      {
+        "function": "post node:inspector:115",
+        "sampledMs": 25.666,
+        "percent": 0.105
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 25.333,
+        "percent": 0.104
+      },
+      {
+        "function": "base64Write :0",
+        "sampledMs": 23.832,
+        "percent": 0.098
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1579",
+        "sampledMs": 22.625,
+        "percent": 0.093
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 22.583,
+        "percent": 0.092
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2000",
+        "sampledMs": 19.458,
+        "percent": 0.08
+      },
+      {
+        "function": "indexOfString :0",
+        "sampledMs": 18.125,
+        "percent": 0.074
+      },
+      {
+        "function": "reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 14.999,
+        "percent": 0.061
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2008",
+        "sampledMs": 12.124,
+        "percent": 0.05
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1610",
+        "sampledMs": 12.001,
+        "percent": 0.049
+      },
+      {
+        "function": "utf8Slice :0",
+        "sampledMs": 10.541,
+        "percent": 0.043
+      },
+      {
+        "function": "isRunEnvironmentEvidence abg/stdo_environment.js:214",
+        "sampledMs": 10.459,
+        "percent": 0.043
+      },
+      {
+        "function": "digest node:internal/crypto/hash:152",
+        "sampledMs": 8.999,
+        "percent": 0.037
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1327",
+        "sampledMs": 7.541,
+        "percent": 0.031
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:2882",
+        "sampledMs": 7.5,
+        "percent": 0.031
+      },
+      {
+        "function": "base64Slice :0",
+        "sampledMs": 7.416,
+        "percent": 0.03
+      },
+      {
+        "function": "fsync :0",
+        "sampledMs": 6.709,
+        "percent": 0.027
+      },
+      {
+        "function": "isRuntimeInvocationScope abg/runtime_liveness_contracts.js:57",
+        "sampledMs": 6.042,
+        "percent": 0.025
+      },
+      {
+        "function": "<anonymous> abg/stdo_environment.js:286",
+        "sampledMs": 6.0,
+        "percent": 0.025
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2001",
+        "sampledMs": 5.958,
+        "percent": 0.024
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1581",
+        "sampledMs": 3.042,
+        "percent": 0.012
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1609",
+        "sampledMs": 3.042,
+        "percent": 0.012
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1338",
+        "sampledMs": 3.0,
+        "percent": 0.012
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:7490",
+        "sampledMs": 3.0,
+        "percent": 0.012
+      },
+      {
+        "function": "exactStdoBytes abg/stdo_environment.js:34",
+        "sampledMs": 3.0,
+        "percent": 0.012
+      },
+      {
+        "function": "createHash node:crypto:144",
+        "sampledMs": 3.0,
+        "percent": 0.012
+      },
+      {
+        "function": "toString node:buffer:845",
+        "sampledMs": 3.0,
+        "percent": 0.012
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4295",
+        "sampledMs": 3.0,
+        "percent": 0.012
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:6330",
+        "sampledMs": 2.876,
+        "percent": 0.012
+      },
+      {
+        "function": "sha256Bytes shared/digests.js:4",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "get node:internal/bootstrap/node:466",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "decodeEventBody abg/event_body_encoding.js:38",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "sorted gtl/stdo_run_environment.js:40",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:924",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "copy node:internal/crypto/hash:116",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "_stringify file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:159",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:6086",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "getCachedHashId node:internal/crypto/util:119",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4440",
+        "sampledMs": 1.459,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1607",
+        "sampledMs": 1.417,
+        "percent": 0.006
+      },
+      {
+        "function": "exactKeys abg/event_body_encoding.js:9",
+        "sampledMs": 1.416,
+        "percent": 0.006
+      },
+      {
+        "function": "inlineEventBody abg/event_body_encoding.js:10",
+        "sampledMs": 1.166,
+        "percent": 0.005
+      },
+      {
+        "function": "isRootEventProfileBoundary abg/event_store.js:2127",
+        "sampledMs": 0.791,
+        "percent": 0.003
+      }
+    ],
+    "inclusive": [
+      {
+        "function": "(root) :0",
+        "sampledMs": 24432.333,
+        "percent": 100.0
+      },
+      {
+        "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+        "sampledMs": 22364.21,
+        "percent": 91.535
+      },
+      {
+        "function": "reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 22338.544,
+        "percent": 91.43
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 21951.545,
+        "percent": 89.846
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 14263.141,
+        "percent": 58.378
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 13448.384,
+        "percent": 55.043
+      },
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 13021.001,
+        "percent": 53.294
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:19",
+        "sampledMs": 12104.504,
+        "percent": 49.543
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:15",
+        "sampledMs": 6622.222,
+        "percent": 27.104
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 5721.755,
+        "percent": 23.419
+      },
+      {
+        "function": "sha256Bytes shared/digests.js:4",
+        "sampledMs": 4077.632,
+        "percent": 16.689
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 2225.0,
+        "percent": 9.107
+      },
+      {
+        "function": "assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 2059.165,
+        "percent": 8.428
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 1960.498,
+        "percent": 8.024
+      },
+      {
+        "function": "inlineEventBody abg/event_body_encoding.js:10",
+        "sampledMs": 1472.248,
+        "percent": 6.026
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 1296.121,
+        "percent": 5.305
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 1016.203,
+        "percent": 4.159
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 434.879,
+        "percent": 1.78
+      },
+      {
+        "function": "<anonymous> :0",
+        "sampledMs": 430.126,
+        "percent": 1.76
+      },
+      {
+        "function": "toString node:buffer:845",
+        "sampledMs": 420.377,
+        "percent": 1.721
+      },
+      {
+        "function": "slice node:buffer:646",
+        "sampledMs": 381.626,
+        "percent": 1.562
+      },
+      {
+        "function": "byteLength node:buffer:781",
+        "sampledMs": 365.335,
+        "percent": 1.495
+      },
+      {
+        "function": "isRunEnvironmentEvidence abg/stdo_environment.js:214",
+        "sampledMs": 272.086,
+        "percent": 1.114
+      },
+      {
+        "function": "deepFreeze shared/immutable.js:1",
+        "sampledMs": 215.331,
+        "percent": 0.881
+      },
+      {
+        "function": "isRuntimeEventCandidateShape abg/event_store.js:2010",
+        "sampledMs": 144.166,
+        "percent": 0.59
+      },
+      {
+        "function": "hasOnlyRuntimeEventKeys abg/event_store.js:1994",
+        "sampledMs": 142.835,
+        "percent": 0.585
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:17",
+        "sampledMs": 136.37,
+        "percent": 0.558
+      },
+      {
+        "function": "Hash node:internal/crypto/hash:90",
+        "sampledMs": 120.333,
+        "percent": 0.493
+      },
+      {
+        "function": "hash abg/stdo_environment.js:30",
+        "sampledMs": 111.041,
+        "percent": 0.454
+      },
+      {
+        "function": "exactStdoBytes abg/stdo_environment.js:34",
+        "sampledMs": 110.541,
+        "percent": 0.452
+      },
+      {
+        "function": "digest node:internal/crypto/hash:152",
+        "sampledMs": 98.665,
+        "percent": 0.404
+      },
+      {
+        "function": "hasOnlyRuntimeEventCandidateKeys abg/event_store.js:2003",
+        "sampledMs": 93.248,
+        "percent": 0.382
+      },
+      {
+        "function": "Hash :0",
+        "sampledMs": 92.166,
+        "percent": 0.377
+      },
+      {
+        "function": "digest :0",
+        "sampledMs": 89.666,
+        "percent": 0.367
+      },
+      {
+        "function": "indexOf node:buffer:1029",
+        "sampledMs": 82.916,
+        "percent": 0.339
+      },
+      {
+        "function": "bidirectionalIndexOf node:buffer:984",
+        "sampledMs": 82.916,
+        "percent": 0.339
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 80.834,
+        "percent": 0.331
+      },
+      {
+        "function": "exact abg/runtime_liveness_contracts.js:23",
+        "sampledMs": 76.167,
+        "percent": 0.312
+      },
+      {
+        "function": "readSync node:fs:696",
+        "sampledMs": 75.791,
+        "percent": 0.31
+      },
+      {
+        "function": "readDescriptorBytes abg/event_store.js:821",
+        "sampledMs": 75.791,
+        "percent": 0.31
+      },
+      {
+        "function": "read :0",
+        "sampledMs": 75.791,
+        "percent": 0.31
+      },
+      {
+        "function": "createHash node:crypto:144",
+        "sampledMs": 72.291,
+        "percent": 0.296
+      },
+      {
+        "function": "isRuntimeProbeObservation abg/runtime_liveness_contracts.js:94",
+        "sampledMs": 72.125,
+        "percent": 0.295
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1605",
+        "sampledMs": 68.458,
+        "percent": 0.28
+      },
+      {
+        "function": "isSha256Digest shared/digests.js:19",
+        "sampledMs": 67.543,
+        "percent": 0.276
+      },
+      {
+        "function": "copy node:internal/crypto/hash:116",
+        "sampledMs": 42.042,
+        "percent": 0.172
+      },
+      {
+        "function": "isRuntimeInvocationScope abg/runtime_liveness_contracts.js:57",
+        "sampledMs": 36.123,
+        "percent": 0.148
+      },
+      {
+        "function": "slice node:buffer:695",
+        "sampledMs": 35.751,
+        "percent": 0.146
+      },
+      {
+        "function": "includes node:buffer:1037",
+        "sampledMs": 33.084,
+        "percent": 0.135
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2011",
+        "sampledMs": 28.416,
+        "percent": 0.116
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness_contracts.js:26",
+        "sampledMs": 28.415,
+        "percent": 0.116
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1579",
+        "sampledMs": 25.667,
+        "percent": 0.105
+      },
+      {
+        "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:22",
+        "sampledMs": 25.666,
+        "percent": 0.105
+      },
+      {
+        "function": "post node:inspector:115",
+        "sampledMs": 25.666,
+        "percent": 0.105
+      },
+      {
+        "function": "post file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:22",
+        "sampledMs": 25.666,
+        "percent": 0.105
+      },
+      {
+        "function": "createFromString node:buffer:484",
+        "sampledMs": 23.832,
+        "percent": 0.098
+      },
+      {
+        "function": "fromStringFast node:buffer:457",
+        "sampledMs": 23.832,
+        "percent": 0.098
+      },
+      {
+        "function": "base64Write :0",
+        "sampledMs": 23.832,
+        "percent": 0.098
+      },
+      {
+        "function": "write node:buffer:694",
+        "sampledMs": 23.832,
+        "percent": 0.098
+      },
+      {
+        "function": "from node:buffer:304",
+        "sampledMs": 23.832,
+        "percent": 0.098
+      },
+      {
+        "function": "fromString node:buffer:490",
+        "sampledMs": 23.832,
+        "percent": 0.098
+      },
+      {
+        "function": "is file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4247",
+        "sampledMs": 22.377,
+        "percent": 0.092
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:6330",
+        "sampledMs": 22.377,
+        "percent": 0.092
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4295",
+        "sampledMs": 22.377,
+        "percent": 0.092
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2000",
+        "sampledMs": 19.458,
+        "percent": 0.08
+      },
+      {
+        "function": "indexOfString :0",
+        "sampledMs": 18.125,
+        "percent": 0.074
+      },
+      {
+        "function": "indexOf node:buffer:647",
+        "sampledMs": 18.125,
+        "percent": 0.074
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:7490",
+        "sampledMs": 15.001,
+        "percent": 0.061
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2008",
+        "sampledMs": 12.124,
+        "percent": 0.05
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1610",
+        "sampledMs": 12.001,
+        "percent": 0.049
+      },
+      {
+        "function": "utf8Slice :0",
+        "sampledMs": 10.541,
+        "percent": 0.043
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1327",
+        "sampledMs": 7.541,
+        "percent": 0.031
+      },
+      {
+        "function": "isRunEnvironmentDeclaration gtl/stdo_run_environment.js:162",
+        "sampledMs": 7.501,
+        "percent": 0.031
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:2882",
+        "sampledMs": 7.5,
+        "percent": 0.031
+      },
+      {
+        "function": "base64Slice :0",
+        "sampledMs": 7.416,
+        "percent": 0.03
+      },
+      {
+        "function": "fsync :0",
+        "sampledMs": 6.709,
+        "percent": 0.027
+      },
+      {
+        "function": "openOwnedDurableSink abg/event_store.js:769",
+        "sampledMs": 6.709,
+        "percent": 0.027
+      },
+      {
+        "function": "fsyncSync node:fs:1283",
+        "sampledMs": 6.709,
+        "percent": 0.027
+      },
+      {
+        "function": "acquireDurableAppendLock abg/event_store.js:691",
+        "sampledMs": 6.709,
+        "percent": 0.027
+      },
+      {
+        "function": "sourceMatches abg/stdo_environment.js:285",
+        "sampledMs": 6.0,
+        "percent": 0.025
+      },
+      {
+        "function": "<anonymous> abg/stdo_environment.js:286",
+        "sampledMs": 6.0,
+        "percent": 0.025
+      },
+      {
+        "function": "<anonymous> abg/stdo_environment.js:285",
+        "sampledMs": 6.0,
+        "percent": 0.025
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:7053",
+        "sampledMs": 5.959,
+        "percent": 0.024
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4815",
+        "sampledMs": 5.959,
+        "percent": 0.024
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:6086",
+        "sampledMs": 5.959,
+        "percent": 0.024
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2001",
+        "sampledMs": 5.958,
+        "percent": 0.024
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1581",
+        "sampledMs": 3.042,
+        "percent": 0.012
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1609",
+        "sampledMs": 3.042,
+        "percent": 0.012
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1338",
+        "sampledMs": 3.0,
+        "percent": 0.012
+      },
+      {
+        "function": "decodeEventBody abg/event_body_encoding.js:38",
+        "sampledMs": 2.958,
+        "percent": 0.012
+      },
+      {
+        "function": "get node:internal/bootstrap/node:466",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "sorted gtl/stdo_run_environment.js:40",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> gtl/stdo_run_environment.js:167",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:924",
+        "sampledMs": 1.542,
+        "percent": 0.006
+      },
+      {
+        "function": "_stringify file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:159",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "_addIssue file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:180",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:5476",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "hash gtl/stdo_run_environment.js:41",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> gtl/stdo_run_environment.js:169",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "getCachedHashId node:internal/crypto/util:119",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4440",
+        "sampledMs": 1.459,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1607",
+        "sampledMs": 1.417,
+        "percent": 0.006
+      },
+      {
+        "function": "exactKeys abg/event_body_encoding.js:9",
+        "sampledMs": 1.416,
+        "percent": 0.006
+      },
+      {
+        "function": "isRootEventProfileBoundary abg/event_store.js:2127",
+        "sampledMs": 0.791,
+        "percent": 0.003
+      }
+    ],
+    "canonicalCaller": [
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 9362.961,
+        "percent": 38.322
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 2793.372,
+        "percent": 11.433
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 707.791,
+        "percent": 2.897
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 60.457,
+        "percent": 0.247
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 54.295,
+        "percent": 0.222
+      },
+      {
+        "function": "hash abg/stdo_environment.js:30",
+        "sampledMs": 36.125,
+        "percent": 0.148
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 6.0,
+        "percent": 0.025
+      }
+    ],
+    "selectedCallers": [
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038 <- reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 21951.545,
+        "percent": 89.846
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 10659.601,
+        "percent": 43.629
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- inlineEventBody abg/event_body_encoding.js:10",
+        "sampledMs": 1471.082,
+        "percent": 6.021
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 1005.661,
+        "percent": 4.116
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 250.707,
+        "percent": 1.026
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- hash abg/stdo_environment.js:30",
+        "sampledMs": 59.833,
+        "percent": 0.245
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- hash gtl/stdo_run_environment.js:41",
+        "sampledMs": 1.5,
+        "percent": 0.006
+      }
+    ],
+    "sampledMs": 24432.333
+  },
+  "prepared_run_truth_complete": {
+    "self": [
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 10624.654,
+        "percent": 51.935
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 2919.453,
+        "percent": 14.271
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 1659.92,
+        "percent": 8.114
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:19",
+        "sampledMs": 1428.754,
+        "percent": 6.984
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 1334.923,
+        "percent": 6.525
+      },
+      {
+        "function": "isImmutableRuntimeValue abg/event_prefix.js:72",
+        "sampledMs": 580.381,
+        "percent": 2.837
+      },
+      {
+        "function": "<anonymous> abg/event_prefix.js:82",
+        "sampledMs": 302.37,
+        "percent": 1.478
+      },
+      {
+        "function": "advance abg/event_prefix.js:353",
+        "sampledMs": 284.877,
+        "percent": 1.393
+      },
+      {
+        "function": "projectRuntimeRetryBudgetFacts abg/retry.js:3064",
+        "sampledMs": 157.249,
+        "percent": 0.769
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 114.704,
+        "percent": 0.561
+      },
+      {
+        "function": "projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 95.835,
+        "percent": 0.468
+      },
+      {
+        "function": "prefix abg/runtime_derivation.js:39",
+        "sampledMs": 92.792,
+        "percent": 0.454
+      },
+      {
+        "function": "same abg/worksite_input_provenance.js:26",
+        "sampledMs": 91.501,
+        "percent": 0.447
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:17",
+        "sampledMs": 83.582,
+        "percent": 0.409
+      },
+      {
+        "function": "advance abg/runtime_liveness.js:516",
+        "sampledMs": 58.499,
+        "percent": 0.286
+      },
+      {
+        "function": "<anonymous> validator/raw_admission.js:70",
+        "sampledMs": 55.75,
+        "percent": 0.273
+      },
+      {
+        "function": "range abg/event_prefix.js:409",
+        "sampledMs": 49.416,
+        "percent": 0.242
+      },
+      {
+        "function": "one abg/worksite_input_provenance.js:29",
+        "sampledMs": 47.501,
+        "percent": 0.232
+      },
+      {
+        "function": "isSha256Digest shared/digests.js:19",
+        "sampledMs": 44.21,
+        "percent": 0.216
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:15",
+        "sampledMs": 43.419,
+        "percent": 0.212
+      },
+      {
+        "function": "exact abg/runtime_liveness_contracts.js:23",
+        "sampledMs": 39.377,
+        "percent": 0.192
+      },
+      {
+        "function": "<anonymous> abg/event_prefix.js:356",
+        "sampledMs": 33.625,
+        "percent": 0.164
+      },
+      {
+        "function": "isRuntimeProbeObservation abg/runtime_liveness_contracts.js:94",
+        "sampledMs": 28.457,
+        "percent": 0.139
+      },
+      {
+        "function": "selectValidatedRuntimeEventPrefix abg/event_prefix.js:146",
+        "sampledMs": 27.458,
+        "percent": 0.134
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness_contracts.js:26",
+        "sampledMs": 26.791,
+        "percent": 0.131
+      },
+      {
+        "function": "structure abg/event_prefix.js:239",
+        "sampledMs": 19.833,
+        "percent": 0.097
+      },
+      {
+        "function": "Hash :0",
+        "sampledMs": 16.249,
+        "percent": 0.079
+      },
+      {
+        "function": "<anonymous> abg/retry.js:3067",
+        "sampledMs": 14.292,
+        "percent": 0.07
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 14.042,
+        "percent": 0.069
+      },
+      {
+        "function": "projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 13.208,
+        "percent": 0.065
+      },
+      {
+        "function": "deepFreeze shared/immutable.js:1",
+        "sampledMs": 11.958,
+        "percent": 0.058
+      },
+      {
+        "function": "digest :0",
+        "sampledMs": 11.916,
+        "percent": 0.058
+      },
+      {
+        "function": "projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 10.459,
+        "percent": 0.051
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:52",
+        "sampledMs": 8.917,
+        "percent": 0.044
+      },
+      {
+        "function": "selectPrefixFromImmutableSnapshot abg/event_prefix.js:178",
+        "sampledMs": 8.167,
+        "percent": 0.04
+      },
+      {
+        "function": "<anonymous> :0",
+        "sampledMs": 7.542,
+        "percent": 0.037
+      },
+      {
+        "function": "RuntimeLivenessReconstruction abg/runtime_liveness.js:515",
+        "sampledMs": 7.542,
+        "percent": 0.037
+      },
+      {
+        "function": "projectRootEventProfileSchedule abg/event_store.js:2191",
+        "sampledMs": 7.25,
+        "percent": 0.035
+      },
+      {
+        "function": "projectRuntimeLivenessForScope abg/runtime_liveness.js:994",
+        "sampledMs": 6.833,
+        "percent": 0.033
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:270",
+        "sampledMs": 6.666,
+        "percent": 0.033
+      },
+      {
+        "function": "digest node:internal/crypto/hash:152",
+        "sampledMs": 6.042,
+        "percent": 0.03
+      },
+      {
+        "function": "advance abg/event_prefix.js:438",
+        "sampledMs": 5.959,
+        "percent": 0.029
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:999",
+        "sampledMs": 4.417,
+        "percent": 0.022
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:46",
+        "sampledMs": 4.25,
+        "percent": 0.021
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:270",
+        "sampledMs": 4.042,
+        "percent": 0.02
+      },
+      {
+        "function": "validateCauses abg/event_prefix.js:273",
+        "sampledMs": 3.334,
+        "percent": 0.016
+      },
+      {
+        "function": "extendRootEventProfileProjection abg/event_store.js:2203",
+        "sampledMs": 3.292,
+        "percent": 0.016
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:241",
+        "sampledMs": 3.291,
+        "percent": 0.016
+      },
+      {
+        "function": "deriveRuntimeLivenessSemantics abg/runtime_liveness.js:742",
+        "sampledMs": 3.042,
+        "percent": 0.015
+      },
+      {
+        "function": "Hash node:internal/crypto/hash:90",
+        "sampledMs": 2.958,
+        "percent": 0.014
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:726",
+        "sampledMs": 2.583,
+        "percent": 0.013
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:273",
+        "sampledMs": 2.291,
+        "percent": 0.011
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:32",
+        "sampledMs": 1.667,
+        "percent": 0.008
+      },
+      {
+        "function": "projectRunTruthAtDurablePrefix abg/project_read_ports.js:614",
+        "sampledMs": 1.542,
+        "percent": 0.008
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 1.542,
+        "percent": 0.008
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:236",
+        "sampledMs": 1.501,
+        "percent": 0.007
+      },
+      {
+        "function": "reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:668",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "validateRuntimeLivenessEvent abg/runtime_liveness.js:681",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/replay.js:682",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1295",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "some abg/runtime_liveness.js:599",
+        "sampledMs": 1.417,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:23",
+        "sampledMs": 1.333,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:600",
+        "sampledMs": 1.209,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:251",
+        "sampledMs": 1.207,
+        "percent": 0.006
+      },
+      {
+        "function": "value node:internal/console/constructor:270",
+        "sampledMs": 1.0,
+        "percent": 0.005
+      },
+      {
+        "function": "through abg/event_prefix.js:424",
+        "sampledMs": 0.667,
+        "percent": 0.003
+      },
+      {
+        "function": "eventCalculusEffectRefs abg/event_calculus.js:532",
+        "sampledMs": 0.5,
+        "percent": 0.002
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 0.292,
+        "percent": 0.001
+      },
+      {
+        "function": "recordFluent abg/event_calculus.js:1490",
+        "sampledMs": 0.25,
+        "percent": 0.001
+      },
+      {
+        "function": "isRuntimeThresholdObservation abg/runtime_liveness_contracts.js:106",
+        "sampledMs": 0.042,
+        "percent": 0.0
+      },
+      {
+        "function": "isRuntimeInvocationScope abg/runtime_liveness_contracts.js:57",
+        "sampledMs": 0.041,
+        "percent": 0.0
+      }
+    ],
+    "inclusive": [
+      {
+        "function": "(root) :0",
+        "sampledMs": 20457.583,
+        "percent": 100.0
+      },
+      {
+        "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+        "sampledMs": 18663.293,
+        "percent": 91.229
+      },
+      {
+        "function": "projectRunTruthAtDurablePrefix abg/project_read_ports.js:614",
+        "sampledMs": 18637.709,
+        "percent": 91.104
+      },
+      {
+        "function": "canonicalRunContext abg/project_read_ports.js:533",
+        "sampledMs": 17317.747,
+        "percent": 84.652
+      },
+      {
+        "function": "runContext abg/project_read_ports.js:481",
+        "sampledMs": 17107.914,
+        "percent": 83.626
+      },
+      {
+        "function": "projectRunReplayContext abg/replay.js:1271",
+        "sampledMs": 17107.914,
+        "percent": 83.626
+      },
+      {
+        "function": "deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 15494.827,
+        "percent": 75.741
+      },
+      {
+        "function": "replayValidatedRuntimeEventPrefix abg/replay.js:425",
+        "sampledMs": 15494.827,
+        "percent": 75.741
+      },
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 12162.285,
+        "percent": 59.451
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:19",
+        "sampledMs": 11595.914,
+        "percent": 56.683
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:15",
+        "sampledMs": 7862.466,
+        "percent": 38.433
+      },
+      {
+        "function": "advance abg/event_prefix.js:438",
+        "sampledMs": 7795.376,
+        "percent": 38.105
+      },
+      {
+        "function": "runtimeEventPrefixDigest abg/event_prefix.js:451",
+        "sampledMs": 7795.376,
+        "percent": 38.105
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 6899.079,
+        "percent": 33.724
+      },
+      {
+        "function": "projectRuntimeLivenessForScope abg/runtime_liveness.js:994",
+        "sampledMs": 6483.917,
+        "percent": 31.694
+      },
+      {
+        "function": "projectNativeLivenessRead abg/runtime_liveness.js:1006",
+        "sampledMs": 6483.917,
+        "percent": 31.694
+      },
+      {
+        "function": "deriveRuntimeLivenessWithPrefixDigest abg/runtime_liveness.js:966",
+        "sampledMs": 6472.667,
+        "percent": 31.639
+      },
+      {
+        "function": "projectRuntimeLivenessAtPrefixWithDigest abg/runtime_liveness.js:985",
+        "sampledMs": 6472.667,
+        "percent": 31.639
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:1001",
+        "sampledMs": 6472.667,
+        "percent": 31.639
+      },
+      {
+        "function": "prefixDigest abg/runtime_liveness.js:998",
+        "sampledMs": 6458.083,
+        "percent": 31.568
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 4254.376,
+        "percent": 20.796
+      },
+      {
+        "function": "projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 4064.872,
+        "percent": 19.87
+      },
+      {
+        "function": "advance abg/event_calculus.js:1507",
+        "sampledMs": 3879.291,
+        "percent": 18.963
+      },
+      {
+        "function": "eventCalculusDerivation abg/event_calculus.js:1671",
+        "sampledMs": 3879.291,
+        "percent": 18.963
+      },
+      {
+        "function": "deriveRuntimeEventCalculusProjection abg/event_calculus.js:1676",
+        "sampledMs": 3879.291,
+        "percent": 18.963
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:677",
+        "sampledMs": 3672.123,
+        "percent": 17.95
+      },
+      {
+        "function": "validateRuntimeLivenessEvent abg/runtime_liveness.js:681",
+        "sampledMs": 3672.123,
+        "percent": 17.95
+      },
+      {
+        "function": "context abg/runtime_liveness.js:647",
+        "sampledMs": 3461.499,
+        "percent": 16.92
+      },
+      {
+        "function": "contextFacts abg/runtime_liveness.js:650",
+        "sampledMs": 3461.499,
+        "percent": 16.92
+      },
+      {
+        "function": "rehydrateExecutionBasisAtPrefix abg/execution_basis.js:760",
+        "sampledMs": 3404.665,
+        "percent": 16.643
+      },
+      {
+        "function": "contextForOccurrence abg/runtime_liveness.js:197",
+        "sampledMs": 3404.665,
+        "percent": 16.643
+      },
+      {
+        "function": "<anonymous> abg/replay.js:512",
+        "sampledMs": 3030.62,
+        "percent": 14.814
+      },
+      {
+        "function": "fact abg/replay.js:416",
+        "sampledMs": 2643.081,
+        "percent": 12.92
+      },
+      {
+        "function": "<anonymous> abg/replay.js:513",
+        "sampledMs": 2643.081,
+        "percent": 12.92
+      },
+      {
+        "function": "projectReplayRouteAtPrefix abg/replay.js:264",
+        "sampledMs": 2643.081,
+        "percent": 12.92
+      },
+      {
+        "function": "projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+        "sampledMs": 2642.373,
+        "percent": 12.916
+      },
+      {
+        "function": "sha256Bytes shared/digests.js:4",
+        "sampledMs": 2004.5,
+        "percent": 9.798
+      },
+      {
+        "function": "canonicalRecordDigest abg/invocation_execution_truth.js:6",
+        "sampledMs": 1967.164,
+        "percent": 9.616
+      },
+      {
+        "function": "deriveFrameLivenessContext abg/runtime_liveness.js:157",
+        "sampledMs": 1810.332,
+        "percent": 8.849
+      },
+      {
+        "function": "same abg/worksite_input_provenance.js:26",
+        "sampledMs": 1677.581,
+        "percent": 8.2
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 1659.92,
+        "percent": 8.114
+      },
+      {
+        "function": "projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 1613.087,
+        "percent": 7.885
+      },
+      {
+        "function": "deriveCCallLivenessContext abg/runtime_liveness.js:115",
+        "sampledMs": 1594.333,
+        "percent": 7.793
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 1334.923,
+        "percent": 6.525
+      },
+      {
+        "function": "prepareRead abg/project_read_ports.js:451",
+        "sampledMs": 1318.42,
+        "percent": 6.445
+      },
+      {
+        "function": "selectValidatedRuntimeEventPrefix abg/event_prefix.js:146",
+        "sampledMs": 1318.42,
+        "percent": 6.445
+      },
+      {
+        "function": "semanticPayloadDigest abg/replay.js:1039",
+        "sampledMs": 1311.545,
+        "percent": 6.411
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1301",
+        "sampledMs": 1311.545,
+        "percent": 6.411
+      },
+      {
+        "function": "isImmutableRuntimeValue abg/event_prefix.js:72",
+        "sampledMs": 882.751,
+        "percent": 4.315
+      },
+      {
+        "function": "<anonymous> abg/event_prefix.js:82",
+        "sampledMs": 832.126,
+        "percent": 4.068
+      },
+      {
+        "function": "rawAdmitValue validator/raw_admission.js:50",
+        "sampledMs": 465.708,
+        "percent": 2.276
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:219",
+        "sampledMs": 415.168,
+        "percent": 2.029
+      },
+      {
+        "function": "selectPrefixFromImmutableSnapshot abg/event_prefix.js:178",
+        "sampledMs": 408.211,
+        "percent": 1.995
+      },
+      {
+        "function": "retainedWorksiteInputRelationVersion abg/worksite_input_provenance.js:140",
+        "sampledMs": 387.539,
+        "percent": 1.894
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:160",
+        "sampledMs": 387.539,
+        "percent": 1.894
+      },
+      {
+        "function": "rows abg/worksite_input_provenance.js:142",
+        "sampledMs": 387.539,
+        "percent": 1.894
+      },
+      {
+        "function": "structure abg/event_prefix.js:239",
+        "sampledMs": 336.793,
+        "percent": 1.646
+      },
+      {
+        "function": "advance abg/event_prefix.js:353",
+        "sampledMs": 318.502,
+        "percent": 1.557
+      },
+      {
+        "function": "successfulResult abg/worksite_input_provenance.js:45",
+        "sampledMs": 272.751,
+        "percent": 1.333
+      },
+      {
+        "function": "<anonymous> validator/raw_admission.js:70",
+        "sampledMs": 222.917,
+        "percent": 1.09
+      },
+      {
+        "function": "deriveRuntimeLivenessSemantics abg/runtime_liveness.js:742",
+        "sampledMs": 217.875,
+        "percent": 1.065
+      },
+      {
+        "function": "livenessReconstruction abg/runtime_liveness.js:667",
+        "sampledMs": 206.418,
+        "percent": 1.009
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:668",
+        "sampledMs": 206.418,
+        "percent": 1.009
+      },
+      {
+        "function": "runtimePrefixComputation abg/event_prefix.js:102",
+        "sampledMs": 206.418,
+        "percent": 1.009
+      },
+      {
+        "function": "owner abg/runtime_derivation.js:15",
+        "sampledMs": 206.418,
+        "percent": 1.009
+      },
+      {
+        "function": "createRuntimeLivenessEventValidator abg/runtime_liveness.js:674",
+        "sampledMs": 206.418,
+        "percent": 1.009
+      },
+      {
+        "function": "budget abg/runtime_liveness.js:656",
+        "sampledMs": 206.041,
+        "percent": 1.007
+      },
+      {
+        "function": "RuntimeLivenessReconstruction abg/runtime_liveness.js:515",
+        "sampledMs": 204.918,
+        "percent": 1.002
+      },
+      {
+        "function": "advance abg/runtime_liveness.js:516",
+        "sampledMs": 197.376,
+        "percent": 0.965
+      },
+      {
+        "function": "projectRuntimeRetryBudgetFacts abg/retry.js:3064",
+        "sampledMs": 171.541,
+        "percent": 0.839
+      },
+      {
+        "function": "isRuntimeProbeObservation abg/runtime_liveness_contracts.js:94",
+        "sampledMs": 138.835,
+        "percent": 0.679
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 114.704,
+        "percent": 0.561
+      },
+      {
+        "function": "validatedRuntimeEventPrefixThroughEvent abg/event_prefix.js:121",
+        "sampledMs": 92.792,
+        "percent": 0.454
+      },
+      {
+        "function": "historicalRuntimeEventPrefix abg/event_prefix.js:127",
+        "sampledMs": 92.792,
+        "percent": 0.454
+      },
+      {
+        "function": "prefix abg/runtime_derivation.js:39",
+        "sampledMs": 92.792,
+        "percent": 0.454
+      },
+      {
+        "function": "cut abg/runtime_liveness.js:614",
+        "sampledMs": 86.792,
+        "percent": 0.424
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:17",
+        "sampledMs": 83.582,
+        "percent": 0.409
+      },
+      {
+        "function": "one abg/worksite_input_provenance.js:29",
+        "sampledMs": 71.458,
+        "percent": 0.349
+      },
+      {
+        "function": "exact abg/runtime_liveness_contracts.js:23",
+        "sampledMs": 66.168,
+        "percent": 0.323
+      },
+      {
+        "function": "validateCauses abg/event_prefix.js:273",
+        "sampledMs": 52.709,
+        "percent": 0.258
+      },
+      {
+        "function": "through abg/event_prefix.js:424",
+        "sampledMs": 50.083,
+        "percent": 0.245
+      },
+      {
+        "function": "range abg/event_prefix.js:409",
+        "sampledMs": 49.416,
+        "percent": 0.242
+      },
+      {
+        "function": "isSha256Digest shared/digests.js:19",
+        "sampledMs": 44.21,
+        "percent": 0.216
+      },
+      {
+        "function": "<anonymous> abg/event_prefix.js:356",
+        "sampledMs": 33.625,
+        "percent": 0.164
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness_contracts.js:26",
+        "sampledMs": 26.791,
+        "percent": 0.131
+      },
+      {
+        "function": "reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 24.584,
+        "percent": 0.12
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1131",
+        "sampledMs": 23.958,
+        "percent": 0.117
+      },
+      {
+        "function": "projectOwnerFacts abg/replay.js:1094",
+        "sampledMs": 23.958,
+        "percent": 0.117
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 23.084,
+        "percent": 0.113
+      },
+      {
+        "function": "Hash node:internal/crypto/hash:90",
+        "sampledMs": 19.207,
+        "percent": 0.094
+      },
+      {
+        "function": "digest node:internal/crypto/hash:152",
+        "sampledMs": 17.958,
+        "percent": 0.088
+      },
+      {
+        "function": "projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 17.958,
+        "percent": 0.088
+      },
+      {
+        "function": "rehydrateInvocationAdmissionAtPrefix abg/invocation_admission.js:329",
+        "sampledMs": 17.958,
+        "percent": 0.088
+      },
+      {
+        "function": "Hash :0",
+        "sampledMs": 16.249,
+        "percent": 0.079
+      },
+      {
+        "function": "copy node:internal/crypto/hash:116",
+        "sampledMs": 16.249,
+        "percent": 0.079
+      },
+      {
+        "function": "<anonymous> abg/retry.js:3067",
+        "sampledMs": 14.292,
+        "percent": 0.07
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 12.458,
+        "percent": 0.061
+      },
+      {
+        "function": "deepFreeze shared/immutable.js:1",
+        "sampledMs": 11.958,
+        "percent": 0.058
+      },
+      {
+        "function": "digest :0",
+        "sampledMs": 11.916,
+        "percent": 0.058
+      },
+      {
+        "function": "profile abg/event_prefix.js:247",
+        "sampledMs": 10.542,
+        "percent": 0.052
+      },
+      {
+        "function": "projectRootEventProfileSchedule abg/event_store.js:2191",
+        "sampledMs": 10.542,
+        "percent": 0.052
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:52",
+        "sampledMs": 8.917,
+        "percent": 0.044
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 7.625,
+        "percent": 0.037
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 7.583,
+        "percent": 0.037
+      },
+      {
+        "function": "probeObservationMatches abg/runtime_liveness.js:351",
+        "sampledMs": 7.583,
+        "percent": 0.037
+      },
+      {
+        "function": "<anonymous> :0",
+        "sampledMs": 7.542,
+        "percent": 0.037
+      },
+      {
+        "function": "byteLength node:buffer:781",
+        "sampledMs": 7.542,
+        "percent": 0.037
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:270",
+        "sampledMs": 6.666,
+        "percent": 0.033
+      },
+      {
+        "function": "some abg/runtime_liveness.js:599",
+        "sampledMs": 5.209,
+        "percent": 0.025
+      },
+      {
+        "function": "livenessContextFacts abg/runtime_liveness.js:28",
+        "sampledMs": 4.542,
+        "percent": 0.022
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:33",
+        "sampledMs": 4.542,
+        "percent": 0.022
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:999",
+        "sampledMs": 4.417,
+        "percent": 0.022
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:46",
+        "sampledMs": 4.25,
+        "percent": 0.021
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:270",
+        "sampledMs": 4.042,
+        "percent": 0.02
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:600",
+        "sampledMs": 3.792,
+        "percent": 0.019
+      },
+      {
+        "function": "extendRootEventProfileProjection abg/event_store.js:2203",
+        "sampledMs": 3.292,
+        "percent": 0.016
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:241",
+        "sampledMs": 3.291,
+        "percent": 0.016
+      },
+      {
+        "function": "createHash node:crypto:144",
+        "sampledMs": 2.958,
+        "percent": 0.014
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:726",
+        "sampledMs": 2.583,
+        "percent": 0.013
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:273",
+        "sampledMs": 2.291,
+        "percent": 0.011
+      },
+      {
+        "function": "indexedRuntimeEvents abg/event_prefix.js:428",
+        "sampledMs": 2.25,
+        "percent": 0.011
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:32",
+        "sampledMs": 1.667,
+        "percent": 0.008
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:236",
+        "sampledMs": 1.501,
+        "percent": 0.007
+      },
+      {
+        "function": "assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "same abg/runtime_liveness.js:15",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/replay.js:682",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1295",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:23",
+        "sampledMs": 1.333,
+        "percent": 0.007
+      },
+      {
+        "function": "any abg/runtime_liveness.js:842",
+        "sampledMs": 1.209,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:251",
+        "sampledMs": 1.207,
+        "percent": 0.006
+      },
+      {
+        "function": "mark file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:27",
+        "sampledMs": 1.0,
+        "percent": 0.005
+      },
+      {
+        "function": "value node:internal/console/constructor:270",
+        "sampledMs": 1.0,
+        "percent": 0.005
+      },
+      {
+        "function": "consoleCall :0",
+        "sampledMs": 1.0,
+        "percent": 0.005
+      },
+      {
+        "function": "log node:internal/console/constructor:380",
+        "sampledMs": 1.0,
+        "percent": 0.005
+      },
+      {
+        "function": "eventCalculusEffectRefs abg/event_calculus.js:532",
+        "sampledMs": 0.5,
+        "percent": 0.002
+      },
+      {
+        "function": "recordFluent abg/event_calculus.js:1490",
+        "sampledMs": 0.25,
+        "percent": 0.001
+      },
+      {
+        "function": "isRuntimeThresholdObservation abg/runtime_liveness_contracts.js:106",
+        "sampledMs": 0.042,
+        "percent": 0.0
+      },
+      {
+        "function": "isRuntimeInvocationScope abg/runtime_liveness_contracts.js:57",
+        "sampledMs": 0.041,
+        "percent": 0.0
+      }
+    ],
+    "canonicalCaller": [
+      {
+        "function": "advance abg/event_prefix.js:438",
+        "sampledMs": 5502.376,
+        "percent": 26.897
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 4893.037,
+        "percent": 23.918
+      },
+      {
+        "function": "same abg/worksite_input_provenance.js:26",
+        "sampledMs": 1586.08,
+        "percent": 7.753
+      },
+      {
+        "function": "<anonymous> validator/raw_admission.js:70",
+        "sampledMs": 167.167,
+        "percent": 0.817
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 7.583,
+        "percent": 0.037
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 6.042,
+        "percent": 0.03
+      }
+    ],
+    "selectedCallers": [
+      {
+        "function": "runtimeEventPrefixDigest abg/event_prefix.js:451 <- prefixDigest abg/runtime_liveness.js:998",
+        "sampledMs": 6458.083,
+        "percent": 31.568
+      },
+      {
+        "function": "deriveRuntimeEventCalculusProjection abg/event_calculus.js:1676 <- deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 3879.291,
+        "percent": 18.963
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 1995.207,
+        "percent": 9.753
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- canonicalRecordDigest abg/invocation_execution_truth.js:6",
+        "sampledMs": 1967.164,
+        "percent": 9.616
+      },
+      {
+        "function": "runtimeEventPrefixDigest abg/event_prefix.js:451 <- deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 1337.293,
+        "percent": 6.537
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- semanticPayloadDigest abg/replay.js:1039",
+        "sampledMs": 1311.545,
+        "percent": 6.411
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 760.664,
+        "percent": 3.718
+      },
+      {
+        "function": "rawAdmitValue validator/raw_admission.js:50 <- projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+        "sampledMs": 465.708,
+        "percent": 2.276
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 265.625,
+        "percent": 1.298
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- successfulResult abg/worksite_input_provenance.js:45",
+        "sampledMs": 238.583,
+        "percent": 1.166
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- rawAdmitValue validator/raw_admission.js:50",
+        "sampledMs": 230.833,
+        "percent": 1.128
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+        "sampledMs": 126.208,
+        "percent": 0.617
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038 <- reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 23.084,
+        "percent": 0.113
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 1.75,
+        "percent": 0.009
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 1.5,
+        "percent": 0.007
+      }
+    ],
+    "sampledMs": 20457.583
+  },
+  "held_semantic_identity_complete": {
+    "self": [
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 1048.914,
+        "percent": 58.619
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 326.625,
+        "percent": 18.254
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 138.126,
+        "percent": 7.719
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 125.543,
+        "percent": 7.016
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:19",
+        "sampledMs": 103.125,
+        "percent": 5.763
+      },
+      {
+        "function": "projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 13.583,
+        "percent": 0.759
+      },
+      {
+        "function": "projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 9.417,
+        "percent": 0.526
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:17",
+        "sampledMs": 7.542,
+        "percent": 0.421
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:15",
+        "sampledMs": 6.0,
+        "percent": 0.335
+      },
+      {
+        "function": "prefix abg/runtime_derivation.js:39",
+        "sampledMs": 4.458,
+        "percent": 0.249
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:32",
+        "sampledMs": 3.0,
+        "percent": 0.168
+      },
+      {
+        "function": "runtimeEventsFromValidatedPrefix abg/event_prefix.js:87",
+        "sampledMs": 1.542,
+        "percent": 0.086
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 1.5,
+        "percent": 0.084
+      }
+    ],
+    "inclusive": [
+      {
+        "function": "(root) :0",
+        "sampledMs": 1789.375,
+        "percent": 100.0
+      },
+      {
+        "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+        "sampledMs": 1660.832,
+        "percent": 92.816
+      },
+      {
+        "function": "projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 1635.207,
+        "percent": 91.384
+      },
+      {
+        "function": "projectRunSemanticReplayProjection abg/replay.js:1267",
+        "sampledMs": 1635.207,
+        "percent": 91.384
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 1628.832,
+        "percent": 91.028
+      },
+      {
+        "function": "semanticPayloadDigest abg/replay.js:1039",
+        "sampledMs": 1349.331,
+        "percent": 75.408
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1301",
+        "sampledMs": 1349.331,
+        "percent": 75.408
+      },
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 1164.081,
+        "percent": 65.055
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:19",
+        "sampledMs": 1122.456,
+        "percent": 62.729
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:15",
+        "sampledMs": 853.544,
+        "percent": 47.701
+      },
+      {
+        "function": "sha256Bytes shared/digests.js:4",
+        "sampledMs": 464.751,
+        "percent": 25.973
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 464.751,
+        "percent": 25.973
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 138.126,
+        "percent": 7.719
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 125.543,
+        "percent": 7.016
+      },
+      {
+        "function": "canonicalRunContext abg/project_read_ports.js:533",
+        "sampledMs": 25.625,
+        "percent": 1.432
+      },
+      {
+        "function": "projectRunTruthAtDurablePrefix abg/project_read_ports.js:614",
+        "sampledMs": 25.625,
+        "percent": 1.432
+      },
+      {
+        "function": "projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 25.625,
+        "percent": 1.432
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1131",
+        "sampledMs": 24.0,
+        "percent": 1.341
+      },
+      {
+        "function": "projectOwnerFacts abg/replay.js:1094",
+        "sampledMs": 24.0,
+        "percent": 1.341
+      },
+      {
+        "function": "projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 19.542,
+        "percent": 1.092
+      },
+      {
+        "function": "rehydrateInvocationAdmissionAtPrefix abg/invocation_admission.js:329",
+        "sampledMs": 19.542,
+        "percent": 1.092
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:17",
+        "sampledMs": 7.542,
+        "percent": 0.421
+      },
+      {
+        "function": "prefix abg/runtime_derivation.js:39",
+        "sampledMs": 4.458,
+        "percent": 0.249
+      },
+      {
+        "function": "validatedRuntimeEventPrefixThroughEvent abg/event_prefix.js:121",
+        "sampledMs": 4.458,
+        "percent": 0.249
+      },
+      {
+        "function": "historicalRuntimeEventPrefix abg/event_prefix.js:127",
+        "sampledMs": 4.458,
+        "percent": 0.249
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:32",
+        "sampledMs": 3.0,
+        "percent": 0.168
+      },
+      {
+        "function": "deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 1.542,
+        "percent": 0.086
+      },
+      {
+        "function": "replayValidatedRuntimeEventPrefix abg/replay.js:425",
+        "sampledMs": 1.542,
+        "percent": 0.086
+      },
+      {
+        "function": "runtimeEventsFromValidatedPrefix abg/event_prefix.js:87",
+        "sampledMs": 1.542,
+        "percent": 0.086
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 1.5,
+        "percent": 0.084
+      }
+    ],
+    "canonicalCaller": [
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 1164.081,
+        "percent": 65.055
+      }
+    ],
+    "selectedCallers": [
+      {
+        "function": "projectRunSemanticReplayProjection abg/replay.js:1267 <- <anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+        "sampledMs": 1635.207,
+        "percent": 91.384
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- semanticPayloadDigest abg/replay.js:1039",
+        "sampledMs": 1349.331,
+        "percent": 75.408
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 250.917,
+        "percent": 14.023
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 25.625,
+        "percent": 1.432
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 2.959,
+        "percent": 0.165
+      }
+    ],
+    "sampledMs": 1789.375
+  },
+  "whole_profile": {
+    "self": [
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 22656.974,
+        "percent": 48.509
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 6751.875,
+        "percent": 14.456
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 3745.961,
+        "percent": 8.02
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 3714.591,
+        "percent": 7.953
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:19",
+        "sampledMs": 3398.724,
+        "percent": 7.277
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 1174.082,
+        "percent": 2.514
+      },
+      {
+        "function": "isImmutableRuntimeValue abg/event_prefix.js:72",
+        "sampledMs": 580.381,
+        "percent": 1.243
+      },
+      {
+        "function": "<anonymous> :0",
+        "sampledMs": 437.668,
+        "percent": 0.937
+      },
+      {
+        "function": "slice node:buffer:646",
+        "sampledMs": 371.085,
+        "percent": 0.795
+      },
+      {
+        "function": "<anonymous> abg/event_prefix.js:82",
+        "sampledMs": 302.37,
+        "percent": 0.647
+      },
+      {
+        "function": "advance abg/event_prefix.js:353",
+        "sampledMs": 284.877,
+        "percent": 0.61
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:17",
+        "sampledMs": 227.494,
+        "percent": 0.487
+      },
+      {
+        "function": "deepFreeze shared/immutable.js:1",
+        "sampledMs": 227.289,
+        "percent": 0.487
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 197.038,
+        "percent": 0.422
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 185.043,
+        "percent": 0.396
+      },
+      {
+        "function": "projectRuntimeRetryBudgetFacts abg/retry.js:3064",
+        "sampledMs": 157.249,
+        "percent": 0.337
+      },
+      {
+        "function": "hasOnlyRuntimeEventKeys abg/event_store.js:1994",
+        "sampledMs": 117.419,
+        "percent": 0.251
+      },
+      {
+        "function": "isRuntimeEventCandidateShape abg/event_store.js:2010",
+        "sampledMs": 117.25,
+        "percent": 0.251
+      },
+      {
+        "function": "isSha256Digest shared/digests.js:19",
+        "sampledMs": 111.753,
+        "percent": 0.239
+      },
+      {
+        "function": "Hash :0",
+        "sampledMs": 108.415,
+        "percent": 0.232
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:15",
+        "sampledMs": 101.673,
+        "percent": 0.218
+      },
+      {
+        "function": "digest :0",
+        "sampledMs": 101.582,
+        "percent": 0.217
+      },
+      {
+        "function": "prefix abg/runtime_derivation.js:39",
+        "sampledMs": 97.25,
+        "percent": 0.208
+      },
+      {
+        "function": "projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 95.835,
+        "percent": 0.205
+      },
+      {
+        "function": "same abg/worksite_input_provenance.js:26",
+        "sampledMs": 91.501,
+        "percent": 0.196
+      },
+      {
+        "function": "exact abg/runtime_liveness_contracts.js:23",
+        "sampledMs": 90.17,
+        "percent": 0.193
+      },
+      {
+        "function": "hasOnlyRuntimeEventCandidateKeys abg/event_store.js:2003",
+        "sampledMs": 81.124,
+        "percent": 0.174
+      },
+      {
+        "function": "read :0",
+        "sampledMs": 75.791,
+        "percent": 0.162
+      },
+      {
+        "function": "assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 60.792,
+        "percent": 0.13
+      },
+      {
+        "function": "advance abg/runtime_liveness.js:516",
+        "sampledMs": 58.499,
+        "percent": 0.125
+      },
+      {
+        "function": "isRuntimeProbeObservation abg/runtime_liveness_contracts.js:94",
+        "sampledMs": 57.081,
+        "percent": 0.122
+      },
+      {
+        "function": "<anonymous> validator/raw_admission.js:70",
+        "sampledMs": 55.75,
+        "percent": 0.119
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness_contracts.js:26",
+        "sampledMs": 55.206,
+        "percent": 0.118
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1605",
+        "sampledMs": 53.415,
+        "percent": 0.114
+      },
+      {
+        "function": "range abg/event_prefix.js:409",
+        "sampledMs": 49.416,
+        "percent": 0.106
+      },
+      {
+        "function": "one abg/worksite_input_provenance.js:29",
+        "sampledMs": 47.501,
+        "percent": 0.102
+      },
+      {
+        "function": "<anonymous> abg/event_prefix.js:356",
+        "sampledMs": 33.625,
+        "percent": 0.072
+      },
+      {
+        "function": "Hash node:internal/crypto/hash:90",
+        "sampledMs": 29.625,
+        "percent": 0.063
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2011",
+        "sampledMs": 28.416,
+        "percent": 0.061
+      },
+      {
+        "function": "slice node:buffer:695",
+        "sampledMs": 28.335,
+        "percent": 0.061
+      },
+      {
+        "function": "selectValidatedRuntimeEventPrefix abg/event_prefix.js:146",
+        "sampledMs": 27.458,
+        "percent": 0.059
+      },
+      {
+        "function": "projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 26.791,
+        "percent": 0.057
+      },
+      {
+        "function": "post node:inspector:115",
+        "sampledMs": 25.666,
+        "percent": 0.055
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 25.625,
+        "percent": 0.055
+      },
+      {
+        "function": "base64Write :0",
+        "sampledMs": 23.832,
+        "percent": 0.051
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1579",
+        "sampledMs": 22.625,
+        "percent": 0.048
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 22.583,
+        "percent": 0.048
+      },
+      {
+        "function": "projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 19.876,
+        "percent": 0.043
+      },
+      {
+        "function": "structure abg/event_prefix.js:239",
+        "sampledMs": 19.833,
+        "percent": 0.042
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2000",
+        "sampledMs": 19.458,
+        "percent": 0.042
+      },
+      {
+        "function": "indexOfString :0",
+        "sampledMs": 18.125,
+        "percent": 0.039
+      },
+      {
+        "function": "reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 16.499,
+        "percent": 0.035
+      },
+      {
+        "function": "digest node:internal/crypto/hash:152",
+        "sampledMs": 15.041,
+        "percent": 0.032
+      },
+      {
+        "function": "<anonymous> abg/retry.js:3067",
+        "sampledMs": 14.292,
+        "percent": 0.031
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2008",
+        "sampledMs": 12.124,
+        "percent": 0.026
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1610",
+        "sampledMs": 12.001,
+        "percent": 0.026
+      },
+      {
+        "function": "utf8Slice :0",
+        "sampledMs": 10.541,
+        "percent": 0.023
+      },
+      {
+        "function": "isRunEnvironmentEvidence abg/stdo_environment.js:214",
+        "sampledMs": 10.459,
+        "percent": 0.022
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:52",
+        "sampledMs": 8.917,
+        "percent": 0.019
+      },
+      {
+        "function": "selectPrefixFromImmutableSnapshot abg/event_prefix.js:178",
+        "sampledMs": 8.167,
+        "percent": 0.017
+      },
+      {
+        "function": "RuntimeLivenessReconstruction abg/runtime_liveness.js:515",
+        "sampledMs": 7.542,
+        "percent": 0.016
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1327",
+        "sampledMs": 7.541,
+        "percent": 0.016
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:2882",
+        "sampledMs": 7.5,
+        "percent": 0.016
+      },
+      {
+        "function": "base64Slice :0",
+        "sampledMs": 7.416,
+        "percent": 0.016
+      },
+      {
+        "function": "projectRootEventProfileSchedule abg/event_store.js:2191",
+        "sampledMs": 7.25,
+        "percent": 0.016
+      },
+      {
+        "function": "projectRuntimeLivenessForScope abg/runtime_liveness.js:994",
+        "sampledMs": 6.833,
+        "percent": 0.015
+      },
+      {
+        "function": "fsync :0",
+        "sampledMs": 6.709,
+        "percent": 0.014
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:270",
+        "sampledMs": 6.666,
+        "percent": 0.014
+      },
+      {
+        "function": "isRuntimeInvocationScope abg/runtime_liveness_contracts.js:57",
+        "sampledMs": 6.083,
+        "percent": 0.013
+      },
+      {
+        "function": "<anonymous> abg/stdo_environment.js:286",
+        "sampledMs": 6.0,
+        "percent": 0.013
+      },
+      {
+        "function": "advance abg/event_prefix.js:438",
+        "sampledMs": 5.959,
+        "percent": 0.013
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2001",
+        "sampledMs": 5.958,
+        "percent": 0.013
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:32",
+        "sampledMs": 4.667,
+        "percent": 0.01
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:999",
+        "sampledMs": 4.417,
+        "percent": 0.009
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:46",
+        "sampledMs": 4.25,
+        "percent": 0.009
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:270",
+        "sampledMs": 4.042,
+        "percent": 0.009
+      },
+      {
+        "function": "validateCauses abg/event_prefix.js:273",
+        "sampledMs": 3.334,
+        "percent": 0.007
+      },
+      {
+        "function": "extendRootEventProfileProjection abg/event_store.js:2203",
+        "sampledMs": 3.292,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:241",
+        "sampledMs": 3.291,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1581",
+        "sampledMs": 3.042,
+        "percent": 0.007
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 3.042,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1609",
+        "sampledMs": 3.042,
+        "percent": 0.007
+      },
+      {
+        "function": "deriveRuntimeLivenessSemantics abg/runtime_liveness.js:742",
+        "sampledMs": 3.042,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1338",
+        "sampledMs": 3.0,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:7490",
+        "sampledMs": 3.0,
+        "percent": 0.006
+      },
+      {
+        "function": "exactStdoBytes abg/stdo_environment.js:34",
+        "sampledMs": 3.0,
+        "percent": 0.006
+      },
+      {
+        "function": "createHash node:crypto:144",
+        "sampledMs": 3.0,
+        "percent": 0.006
+      },
+      {
+        "function": "toString node:buffer:845",
+        "sampledMs": 3.0,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4295",
+        "sampledMs": 3.0,
+        "percent": 0.006
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:6330",
+        "sampledMs": 2.876,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:726",
+        "sampledMs": 2.583,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:273",
+        "sampledMs": 2.291,
+        "percent": 0.005
+      },
+      {
+        "function": "sha256Bytes shared/digests.js:4",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "get node:internal/bootstrap/node:466",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "decodeEventBody abg/event_body_encoding.js:38",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "sorted gtl/stdo_run_environment.js:40",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:924",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "projectRunTruthAtDurablePrefix abg/project_read_ports.js:614",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "runtimeEventsFromValidatedPrefix abg/event_prefix.js:87",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:236",
+        "sampledMs": 1.501,
+        "percent": 0.003
+      },
+      {
+        "function": "copy node:internal/crypto/hash:116",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "_stringify file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:159",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:6086",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "getCachedHashId node:internal/crypto/util:119",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:668",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "validateRuntimeLivenessEvent abg/runtime_liveness.js:681",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/replay.js:682",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1295",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "innerDeepEqual node:internal/util/comparisons:232",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4440",
+        "sampledMs": 1.459,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1607",
+        "sampledMs": 1.417,
+        "percent": 0.003
+      },
+      {
+        "function": "some abg/runtime_liveness.js:599",
+        "sampledMs": 1.417,
+        "percent": 0.003
+      },
+      {
+        "function": "exactKeys abg/event_body_encoding.js:9",
+        "sampledMs": 1.416,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:23",
+        "sampledMs": 1.333,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:600",
+        "sampledMs": 1.209,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:251",
+        "sampledMs": 1.207,
+        "percent": 0.003
+      },
+      {
+        "function": "inlineEventBody abg/event_body_encoding.js:10",
+        "sampledMs": 1.166,
+        "percent": 0.002
+      },
+      {
+        "function": "value node:internal/console/constructor:270",
+        "sampledMs": 1.0,
+        "percent": 0.002
+      },
+      {
+        "function": "isRootEventProfileBoundary abg/event_store.js:2127",
+        "sampledMs": 0.791,
+        "percent": 0.002
+      },
+      {
+        "function": "through abg/event_prefix.js:424",
+        "sampledMs": 0.667,
+        "percent": 0.001
+      },
+      {
+        "function": "eventCalculusEffectRefs abg/event_calculus.js:532",
+        "sampledMs": 0.5,
+        "percent": 0.001
+      },
+      {
+        "function": "recordFluent abg/event_calculus.js:1490",
+        "sampledMs": 0.25,
+        "percent": 0.001
+      },
+      {
+        "function": "dispatch :0",
+        "sampledMs": 0.25,
+        "percent": 0.001
+      },
+      {
+        "function": "isRuntimeThresholdObservation abg/runtime_liveness_contracts.js:106",
+        "sampledMs": 0.042,
+        "percent": 0.0
+      }
+    ],
+    "inclusive": [
+      {
+        "function": "(root) :0",
+        "sampledMs": 46706.625,
+        "percent": 100.0
+      },
+      {
+        "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+        "sampledMs": 42715.669,
+        "percent": 91.455
+      },
+      {
+        "function": "canonicalJson shared/canonical_json.js:4",
+        "sampledMs": 26347.367,
+        "percent": 56.41
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:19",
+        "sampledMs": 24822.874,
+        "percent": 53.146
+      },
+      {
+        "function": "reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 22363.128,
+        "percent": 47.88
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 22001.879,
+        "percent": 47.107
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 21974.629,
+        "percent": 47.048
+      },
+      {
+        "function": "projectRunTruthAtDurablePrefix abg/project_read_ports.js:614",
+        "sampledMs": 18663.334,
+        "percent": 39.959
+      },
+      {
+        "function": "canonicalRunContext abg/project_read_ports.js:533",
+        "sampledMs": 17343.372,
+        "percent": 37.133
+      },
+      {
+        "function": "runContext abg/project_read_ports.js:481",
+        "sampledMs": 17107.914,
+        "percent": 36.628
+      },
+      {
+        "function": "projectRunReplayContext abg/replay.js:1271",
+        "sampledMs": 17107.914,
+        "percent": 36.628
+      },
+      {
+        "function": "deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 15496.369,
+        "percent": 33.178
+      },
+      {
+        "function": "replayValidatedRuntimeEventPrefix abg/replay.js:425",
+        "sampledMs": 15496.369,
+        "percent": 33.178
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:15",
+        "sampledMs": 15338.232,
+        "percent": 32.84
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 14264.641,
+        "percent": 30.541
+      },
+      {
+        "function": "update node:internal/crypto/hash:134",
+        "sampledMs": 10466.466,
+        "percent": 22.409
+      },
+      {
+        "function": "advance abg/event_prefix.js:438",
+        "sampledMs": 7795.376,
+        "percent": 16.69
+      },
+      {
+        "function": "runtimeEventPrefixDigest abg/event_prefix.js:451",
+        "sampledMs": 7795.376,
+        "percent": 16.69
+      },
+      {
+        "function": "sha256Bytes shared/digests.js:4",
+        "sampledMs": 6572.467,
+        "percent": 14.072
+      },
+      {
+        "function": "projectRuntimeLivenessForScope abg/runtime_liveness.js:994",
+        "sampledMs": 6483.917,
+        "percent": 13.882
+      },
+      {
+        "function": "projectNativeLivenessRead abg/runtime_liveness.js:1006",
+        "sampledMs": 6483.917,
+        "percent": 13.882
+      },
+      {
+        "function": "deriveRuntimeLivenessWithPrefixDigest abg/runtime_liveness.js:966",
+        "sampledMs": 6472.667,
+        "percent": 13.858
+      },
+      {
+        "function": "projectRuntimeLivenessAtPrefixWithDigest abg/runtime_liveness.js:985",
+        "sampledMs": 6472.667,
+        "percent": 13.858
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:1001",
+        "sampledMs": 6472.667,
+        "percent": 13.858
+      },
+      {
+        "function": "prefixDigest abg/runtime_liveness.js:998",
+        "sampledMs": 6458.083,
+        "percent": 13.827
+      },
+      {
+        "function": "projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 4090.497,
+        "percent": 8.758
+      },
+      {
+        "function": "advance abg/event_calculus.js:1507",
+        "sampledMs": 3879.291,
+        "percent": 8.306
+      },
+      {
+        "function": "eventCalculusDerivation abg/event_calculus.js:1671",
+        "sampledMs": 3879.291,
+        "percent": 8.306
+      },
+      {
+        "function": "deriveRuntimeEventCalculusProjection abg/event_calculus.js:1676",
+        "sampledMs": 3879.291,
+        "percent": 8.306
+      },
+      {
+        "function": "(garbage collector) :0",
+        "sampledMs": 3745.961,
+        "percent": 8.02
+      },
+      {
+        "function": "update :0",
+        "sampledMs": 3714.591,
+        "percent": 7.953
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:677",
+        "sampledMs": 3672.123,
+        "percent": 7.862
+      },
+      {
+        "function": "validateRuntimeLivenessEvent abg/runtime_liveness.js:681",
+        "sampledMs": 3672.123,
+        "percent": 7.862
+      },
+      {
+        "function": "context abg/runtime_liveness.js:647",
+        "sampledMs": 3461.499,
+        "percent": 7.411
+      },
+      {
+        "function": "contextFacts abg/runtime_liveness.js:650",
+        "sampledMs": 3461.499,
+        "percent": 7.411
+      },
+      {
+        "function": "rehydrateExecutionBasisAtPrefix abg/execution_basis.js:760",
+        "sampledMs": 3404.665,
+        "percent": 7.289
+      },
+      {
+        "function": "contextForOccurrence abg/runtime_liveness.js:197",
+        "sampledMs": 3404.665,
+        "percent": 7.289
+      },
+      {
+        "function": "projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 3273.878,
+        "percent": 7.009
+      },
+      {
+        "function": "<anonymous> abg/replay.js:512",
+        "sampledMs": 3030.62,
+        "percent": 6.489
+      },
+      {
+        "function": "semanticPayloadDigest abg/replay.js:1039",
+        "sampledMs": 2660.876,
+        "percent": 5.697
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1301",
+        "sampledMs": 2660.876,
+        "percent": 5.697
+      },
+      {
+        "function": "fact abg/replay.js:416",
+        "sampledMs": 2643.081,
+        "percent": 5.659
+      },
+      {
+        "function": "<anonymous> abg/replay.js:513",
+        "sampledMs": 2643.081,
+        "percent": 5.659
+      },
+      {
+        "function": "projectReplayRouteAtPrefix abg/replay.js:264",
+        "sampledMs": 2643.081,
+        "percent": 5.659
+      },
+      {
+        "function": "projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+        "sampledMs": 2642.373,
+        "percent": 5.657
+      },
+      {
+        "function": "assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 2060.665,
+        "percent": 4.412
+      },
+      {
+        "function": "canonicalRecordDigest abg/invocation_execution_truth.js:6",
+        "sampledMs": 1967.164,
+        "percent": 4.212
+      },
+      {
+        "function": "deriveFrameLivenessContext abg/runtime_liveness.js:157",
+        "sampledMs": 1810.332,
+        "percent": 3.876
+      },
+      {
+        "function": "same abg/worksite_input_provenance.js:26",
+        "sampledMs": 1677.581,
+        "percent": 3.592
+      },
+      {
+        "function": "projectRunSemanticReplayProjection abg/replay.js:1267",
+        "sampledMs": 1660.791,
+        "percent": 3.556
+      },
+      {
+        "function": "deriveCCallLivenessContext abg/runtime_liveness.js:115",
+        "sampledMs": 1594.333,
+        "percent": 3.414
+      },
+      {
+        "function": "inlineEventBody abg/event_body_encoding.js:10",
+        "sampledMs": 1472.248,
+        "percent": 3.152
+      },
+      {
+        "function": "prepareRead abg/project_read_ports.js:451",
+        "sampledMs": 1318.42,
+        "percent": 2.823
+      },
+      {
+        "function": "selectValidatedRuntimeEventPrefix abg/event_prefix.js:146",
+        "sampledMs": 1318.42,
+        "percent": 2.823
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 1308.579,
+        "percent": 2.802
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 1023.786,
+        "percent": 2.192
+      },
+      {
+        "function": "isImmutableRuntimeValue abg/event_prefix.js:72",
+        "sampledMs": 882.751,
+        "percent": 1.89
+      },
+      {
+        "function": "<anonymous> abg/event_prefix.js:82",
+        "sampledMs": 832.126,
+        "percent": 1.782
+      },
+      {
+        "function": "rawAdmitValue validator/raw_admission.js:50",
+        "sampledMs": 465.708,
+        "percent": 0.997
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 442.504,
+        "percent": 0.947
+      },
+      {
+        "function": "<anonymous> :0",
+        "sampledMs": 437.668,
+        "percent": 0.937
+      },
+      {
+        "function": "toString node:buffer:845",
+        "sampledMs": 420.377,
+        "percent": 0.9
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:219",
+        "sampledMs": 415.168,
+        "percent": 0.889
+      },
+      {
+        "function": "selectPrefixFromImmutableSnapshot abg/event_prefix.js:178",
+        "sampledMs": 408.211,
+        "percent": 0.874
+      },
+      {
+        "function": "retainedWorksiteInputRelationVersion abg/worksite_input_provenance.js:140",
+        "sampledMs": 387.539,
+        "percent": 0.83
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:160",
+        "sampledMs": 387.539,
+        "percent": 0.83
+      },
+      {
+        "function": "rows abg/worksite_input_provenance.js:142",
+        "sampledMs": 387.539,
+        "percent": 0.83
+      },
+      {
+        "function": "slice node:buffer:646",
+        "sampledMs": 381.626,
+        "percent": 0.817
+      },
+      {
+        "function": "byteLength node:buffer:781",
+        "sampledMs": 372.877,
+        "percent": 0.798
+      },
+      {
+        "function": "structure abg/event_prefix.js:239",
+        "sampledMs": 336.793,
+        "percent": 0.721
+      },
+      {
+        "function": "advance abg/event_prefix.js:353",
+        "sampledMs": 318.502,
+        "percent": 0.682
+      },
+      {
+        "function": "successfulResult abg/worksite_input_provenance.js:45",
+        "sampledMs": 272.751,
+        "percent": 0.584
+      },
+      {
+        "function": "isRunEnvironmentEvidence abg/stdo_environment.js:214",
+        "sampledMs": 272.086,
+        "percent": 0.583
+      },
+      {
+        "function": "<anonymous> shared/canonical_json.js:17",
+        "sampledMs": 227.494,
+        "percent": 0.487
+      },
+      {
+        "function": "deepFreeze shared/immutable.js:1",
+        "sampledMs": 227.289,
+        "percent": 0.487
+      },
+      {
+        "function": "<anonymous> validator/raw_admission.js:70",
+        "sampledMs": 222.917,
+        "percent": 0.477
+      },
+      {
+        "function": "deriveRuntimeLivenessSemantics abg/runtime_liveness.js:742",
+        "sampledMs": 217.875,
+        "percent": 0.466
+      },
+      {
+        "function": "isRuntimeProbeObservation abg/runtime_liveness_contracts.js:94",
+        "sampledMs": 210.96,
+        "percent": 0.452
+      },
+      {
+        "function": "livenessReconstruction abg/runtime_liveness.js:667",
+        "sampledMs": 206.418,
+        "percent": 0.442
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:668",
+        "sampledMs": 206.418,
+        "percent": 0.442
+      },
+      {
+        "function": "runtimePrefixComputation abg/event_prefix.js:102",
+        "sampledMs": 206.418,
+        "percent": 0.442
+      },
+      {
+        "function": "owner abg/runtime_derivation.js:15",
+        "sampledMs": 206.418,
+        "percent": 0.442
+      },
+      {
+        "function": "createRuntimeLivenessEventValidator abg/runtime_liveness.js:674",
+        "sampledMs": 206.418,
+        "percent": 0.442
+      },
+      {
+        "function": "budget abg/runtime_liveness.js:656",
+        "sampledMs": 206.041,
+        "percent": 0.441
+      },
+      {
+        "function": "RuntimeLivenessReconstruction abg/runtime_liveness.js:515",
+        "sampledMs": 204.918,
+        "percent": 0.439
+      },
+      {
+        "function": "advance abg/runtime_liveness.js:516",
+        "sampledMs": 197.376,
+        "percent": 0.423
+      },
+      {
+        "function": "(program) :0",
+        "sampledMs": 197.038,
+        "percent": 0.422
+      },
+      {
+        "function": "projectRuntimeRetryBudgetFacts abg/retry.js:3064",
+        "sampledMs": 171.541,
+        "percent": 0.367
+      },
+      {
+        "function": "isRuntimeEventCandidateShape abg/event_store.js:2010",
+        "sampledMs": 144.166,
+        "percent": 0.309
+      },
+      {
+        "function": "hasOnlyRuntimeEventKeys abg/event_store.js:1994",
+        "sampledMs": 142.835,
+        "percent": 0.306
+      },
+      {
+        "function": "exact abg/runtime_liveness_contracts.js:23",
+        "sampledMs": 142.335,
+        "percent": 0.305
+      },
+      {
+        "function": "Hash node:internal/crypto/hash:90",
+        "sampledMs": 139.54,
+        "percent": 0.299
+      },
+      {
+        "function": "digest node:internal/crypto/hash:152",
+        "sampledMs": 116.623,
+        "percent": 0.25
+      },
+      {
+        "function": "isSha256Digest shared/digests.js:19",
+        "sampledMs": 111.753,
+        "percent": 0.239
+      },
+      {
+        "function": "hash abg/stdo_environment.js:30",
+        "sampledMs": 111.041,
+        "percent": 0.238
+      },
+      {
+        "function": "exactStdoBytes abg/stdo_environment.js:34",
+        "sampledMs": 110.541,
+        "percent": 0.237
+      },
+      {
+        "function": "Hash :0",
+        "sampledMs": 108.415,
+        "percent": 0.232
+      },
+      {
+        "function": "digest :0",
+        "sampledMs": 101.582,
+        "percent": 0.217
+      },
+      {
+        "function": "validatedRuntimeEventPrefixThroughEvent abg/event_prefix.js:121",
+        "sampledMs": 97.25,
+        "percent": 0.208
+      },
+      {
+        "function": "historicalRuntimeEventPrefix abg/event_prefix.js:127",
+        "sampledMs": 97.25,
+        "percent": 0.208
+      },
+      {
+        "function": "prefix abg/runtime_derivation.js:39",
+        "sampledMs": 97.25,
+        "percent": 0.208
+      },
+      {
+        "function": "hasOnlyRuntimeEventCandidateKeys abg/event_store.js:2003",
+        "sampledMs": 93.248,
+        "percent": 0.2
+      },
+      {
+        "function": "cut abg/runtime_liveness.js:614",
+        "sampledMs": 86.792,
+        "percent": 0.186
+      },
+      {
+        "function": "indexOf node:buffer:1029",
+        "sampledMs": 82.916,
+        "percent": 0.178
+      },
+      {
+        "function": "bidirectionalIndexOf node:buffer:984",
+        "sampledMs": 82.916,
+        "percent": 0.178
+      },
+      {
+        "function": "readSync node:fs:696",
+        "sampledMs": 75.791,
+        "percent": 0.162
+      },
+      {
+        "function": "readDescriptorBytes abg/event_store.js:821",
+        "sampledMs": 75.791,
+        "percent": 0.162
+      },
+      {
+        "function": "read :0",
+        "sampledMs": 75.791,
+        "percent": 0.162
+      },
+      {
+        "function": "createHash node:crypto:144",
+        "sampledMs": 75.249,
+        "percent": 0.161
+      },
+      {
+        "function": "one abg/worksite_input_provenance.js:29",
+        "sampledMs": 71.458,
+        "percent": 0.153
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1605",
+        "sampledMs": 68.458,
+        "percent": 0.147
+      },
+      {
+        "function": "copy node:internal/crypto/hash:116",
+        "sampledMs": 58.291,
+        "percent": 0.125
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness_contracts.js:26",
+        "sampledMs": 55.206,
+        "percent": 0.118
+      },
+      {
+        "function": "validateCauses abg/event_prefix.js:273",
+        "sampledMs": 52.709,
+        "percent": 0.113
+      },
+      {
+        "function": "through abg/event_prefix.js:424",
+        "sampledMs": 50.083,
+        "percent": 0.107
+      },
+      {
+        "function": "range abg/event_prefix.js:409",
+        "sampledMs": 49.416,
+        "percent": 0.106
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1131",
+        "sampledMs": 47.958,
+        "percent": 0.103
+      },
+      {
+        "function": "projectOwnerFacts abg/replay.js:1094",
+        "sampledMs": 47.958,
+        "percent": 0.103
+      },
+      {
+        "function": "projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 37.5,
+        "percent": 0.08
+      },
+      {
+        "function": "rehydrateInvocationAdmissionAtPrefix abg/invocation_admission.js:329",
+        "sampledMs": 37.5,
+        "percent": 0.08
+      },
+      {
+        "function": "isRuntimeInvocationScope abg/runtime_liveness_contracts.js:57",
+        "sampledMs": 36.164,
+        "percent": 0.077
+      },
+      {
+        "function": "slice node:buffer:695",
+        "sampledMs": 35.751,
+        "percent": 0.077
+      },
+      {
+        "function": "<anonymous> abg/event_prefix.js:356",
+        "sampledMs": 33.625,
+        "percent": 0.072
+      },
+      {
+        "function": "includes node:buffer:1037",
+        "sampledMs": 33.084,
+        "percent": 0.071
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2011",
+        "sampledMs": 28.416,
+        "percent": 0.061
+      },
+      {
+        "function": "<anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:22",
+        "sampledMs": 25.916,
+        "percent": 0.055
+      },
+      {
+        "function": "post node:inspector:115",
+        "sampledMs": 25.916,
+        "percent": 0.055
+      },
+      {
+        "function": "post file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:22",
+        "sampledMs": 25.916,
+        "percent": 0.055
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1579",
+        "sampledMs": 25.667,
+        "percent": 0.055
+      },
+      {
+        "function": "createFromString node:buffer:484",
+        "sampledMs": 23.832,
+        "percent": 0.051
+      },
+      {
+        "function": "fromStringFast node:buffer:457",
+        "sampledMs": 23.832,
+        "percent": 0.051
+      },
+      {
+        "function": "base64Write :0",
+        "sampledMs": 23.832,
+        "percent": 0.051
+      },
+      {
+        "function": "write node:buffer:694",
+        "sampledMs": 23.832,
+        "percent": 0.051
+      },
+      {
+        "function": "from node:buffer:304",
+        "sampledMs": 23.832,
+        "percent": 0.051
+      },
+      {
+        "function": "fromString node:buffer:490",
+        "sampledMs": 23.832,
+        "percent": 0.051
+      },
+      {
+        "function": "is file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4247",
+        "sampledMs": 22.377,
+        "percent": 0.048
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:6330",
+        "sampledMs": 22.377,
+        "percent": 0.048
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4295",
+        "sampledMs": 22.377,
+        "percent": 0.048
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2000",
+        "sampledMs": 19.458,
+        "percent": 0.042
+      },
+      {
+        "function": "indexOfString :0",
+        "sampledMs": 18.125,
+        "percent": 0.039
+      },
+      {
+        "function": "indexOf node:buffer:647",
+        "sampledMs": 18.125,
+        "percent": 0.039
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:7490",
+        "sampledMs": 15.001,
+        "percent": 0.032
+      },
+      {
+        "function": "<anonymous> abg/retry.js:3067",
+        "sampledMs": 14.292,
+        "percent": 0.031
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2008",
+        "sampledMs": 12.124,
+        "percent": 0.026
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1610",
+        "sampledMs": 12.001,
+        "percent": 0.026
+      },
+      {
+        "function": "profile abg/event_prefix.js:247",
+        "sampledMs": 10.542,
+        "percent": 0.023
+      },
+      {
+        "function": "projectRootEventProfileSchedule abg/event_store.js:2191",
+        "sampledMs": 10.542,
+        "percent": 0.023
+      },
+      {
+        "function": "utf8Slice :0",
+        "sampledMs": 10.541,
+        "percent": 0.023
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:52",
+        "sampledMs": 8.917,
+        "percent": 0.019
+      },
+      {
+        "function": "probeObservationMatches abg/runtime_liveness.js:351",
+        "sampledMs": 7.583,
+        "percent": 0.016
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1327",
+        "sampledMs": 7.541,
+        "percent": 0.016
+      },
+      {
+        "function": "isRunEnvironmentDeclaration gtl/stdo_run_environment.js:162",
+        "sampledMs": 7.501,
+        "percent": 0.016
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:2882",
+        "sampledMs": 7.5,
+        "percent": 0.016
+      },
+      {
+        "function": "base64Slice :0",
+        "sampledMs": 7.416,
+        "percent": 0.016
+      },
+      {
+        "function": "fsync :0",
+        "sampledMs": 6.709,
+        "percent": 0.014
+      },
+      {
+        "function": "openOwnedDurableSink abg/event_store.js:769",
+        "sampledMs": 6.709,
+        "percent": 0.014
+      },
+      {
+        "function": "fsyncSync node:fs:1283",
+        "sampledMs": 6.709,
+        "percent": 0.014
+      },
+      {
+        "function": "acquireDurableAppendLock abg/event_store.js:691",
+        "sampledMs": 6.709,
+        "percent": 0.014
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:270",
+        "sampledMs": 6.666,
+        "percent": 0.014
+      },
+      {
+        "function": "sourceMatches abg/stdo_environment.js:285",
+        "sampledMs": 6.0,
+        "percent": 0.013
+      },
+      {
+        "function": "<anonymous> abg/stdo_environment.js:286",
+        "sampledMs": 6.0,
+        "percent": 0.013
+      },
+      {
+        "function": "<anonymous> abg/stdo_environment.js:285",
+        "sampledMs": 6.0,
+        "percent": 0.013
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:7053",
+        "sampledMs": 5.959,
+        "percent": 0.013
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4815",
+        "sampledMs": 5.959,
+        "percent": 0.013
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:6086",
+        "sampledMs": 5.959,
+        "percent": 0.013
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:2001",
+        "sampledMs": 5.958,
+        "percent": 0.013
+      },
+      {
+        "function": "some abg/runtime_liveness.js:599",
+        "sampledMs": 5.209,
+        "percent": 0.011
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:32",
+        "sampledMs": 4.667,
+        "percent": 0.01
+      },
+      {
+        "function": "livenessContextFacts abg/runtime_liveness.js:28",
+        "sampledMs": 4.542,
+        "percent": 0.01
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:33",
+        "sampledMs": 4.542,
+        "percent": 0.01
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:999",
+        "sampledMs": 4.417,
+        "percent": 0.009
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:46",
+        "sampledMs": 4.25,
+        "percent": 0.009
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:270",
+        "sampledMs": 4.042,
+        "percent": 0.009
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:600",
+        "sampledMs": 3.792,
+        "percent": 0.008
+      },
+      {
+        "function": "extendRootEventProfileProjection abg/event_store.js:2203",
+        "sampledMs": 3.292,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:241",
+        "sampledMs": 3.291,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1581",
+        "sampledMs": 3.042,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1609",
+        "sampledMs": 3.042,
+        "percent": 0.007
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1338",
+        "sampledMs": 3.0,
+        "percent": 0.006
+      },
+      {
+        "function": "decodeEventBody abg/event_body_encoding.js:38",
+        "sampledMs": 2.958,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> abg/runtime_liveness.js:726",
+        "sampledMs": 2.583,
+        "percent": 0.006
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:273",
+        "sampledMs": 2.291,
+        "percent": 0.005
+      },
+      {
+        "function": "indexedRuntimeEvents abg/event_prefix.js:428",
+        "sampledMs": 2.25,
+        "percent": 0.005
+      },
+      {
+        "function": "get node:internal/bootstrap/node:466",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "sorted gtl/stdo_run_environment.js:40",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> gtl/stdo_run_environment.js:167",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:924",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "runtimeEventsFromValidatedPrefix abg/event_prefix.js:87",
+        "sampledMs": 1.542,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:236",
+        "sampledMs": 1.501,
+        "percent": 0.003
+      },
+      {
+        "function": "_stringify file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:159",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "_addIssue file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:180",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:5476",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "hash gtl/stdo_run_environment.js:41",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> gtl/stdo_run_environment.js:169",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "getCachedHashId node:internal/crypto/util:119",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "same abg/runtime_liveness.js:15",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/replay.js:682",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/replay.js:1295",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "detectCycles node:internal/util/comparisons:1011",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "isDeepStrictEqual node:internal/util/comparisons:1024",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "deepStrictEqual node:assert:334",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "innerDeepEqual node:internal/util/comparisons:232",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      },
+      {
+        "function": "~run file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs:4440",
+        "sampledMs": 1.459,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/event_store.js:1607",
+        "sampledMs": 1.417,
+        "percent": 0.003
+      },
+      {
+        "function": "exactKeys abg/event_body_encoding.js:9",
+        "sampledMs": 1.416,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/invocation_execution_truth.js:23",
+        "sampledMs": 1.333,
+        "percent": 0.003
+      },
+      {
+        "function": "any abg/runtime_liveness.js:842",
+        "sampledMs": 1.209,
+        "percent": 0.003
+      },
+      {
+        "function": "<anonymous> abg/worksite_input_provenance.js:251",
+        "sampledMs": 1.207,
+        "percent": 0.003
+      },
+      {
+        "function": "mark file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:27",
+        "sampledMs": 1.0,
+        "percent": 0.002
+      },
+      {
+        "function": "value node:internal/console/constructor:270",
+        "sampledMs": 1.0,
+        "percent": 0.002
+      },
+      {
+        "function": "consoleCall :0",
+        "sampledMs": 1.0,
+        "percent": 0.002
+      },
+      {
+        "function": "log node:internal/console/constructor:380",
+        "sampledMs": 1.0,
+        "percent": 0.002
+      },
+      {
+        "function": "isRootEventProfileBoundary abg/event_store.js:2127",
+        "sampledMs": 0.791,
+        "percent": 0.002
+      },
+      {
+        "function": "eventCalculusEffectRefs abg/event_calculus.js:532",
+        "sampledMs": 0.5,
+        "percent": 0.001
+      },
+      {
+        "function": "recordFluent abg/event_calculus.js:1490",
+        "sampledMs": 0.25,
+        "percent": 0.001
+      },
+      {
+        "function": "dispatch :0",
+        "sampledMs": 0.25,
+        "percent": 0.001
+      },
+      {
+        "function": "isRuntimeThresholdObservation abg/runtime_liveness_contracts.js:106",
+        "sampledMs": 0.042,
+        "percent": 0.0
+      }
+    ],
+    "canonicalCaller": [
+      {
+        "function": "sha256Canonical shared/digests.js:10",
+        "sampledMs": 15420.079,
+        "percent": 33.015
+      },
+      {
+        "function": "advance abg/event_prefix.js:438",
+        "sampledMs": 5502.376,
+        "percent": 11.781
+      },
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038",
+        "sampledMs": 2793.372,
+        "percent": 5.981
+      },
+      {
+        "function": "same abg/worksite_input_provenance.js:26",
+        "sampledMs": 1586.08,
+        "percent": 3.396
+      },
+      {
+        "function": "projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 707.791,
+        "percent": 1.515
+      },
+      {
+        "function": "<anonymous> validator/raw_admission.js:70",
+        "sampledMs": 167.167,
+        "percent": 0.358
+      },
+      {
+        "function": "isRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:83",
+        "sampledMs": 60.457,
+        "percent": 0.129
+      },
+      {
+        "function": "constructRuntimeSystemProbeContract abg/runtime_liveness_contracts.js:74",
+        "sampledMs": 60.337,
+        "percent": 0.129
+      },
+      {
+        "function": "hash abg/stdo_environment.js:30",
+        "sampledMs": 36.125,
+        "percent": 0.077
+      },
+      {
+        "function": "runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 13.583,
+        "percent": 0.029
+      }
+    ],
+    "selectedCallers": [
+      {
+        "function": "decodeHistoricalEvents abg/event_store.js:2038 <- reopenEventStore abg/event_store.js:2473",
+        "sampledMs": 21974.629,
+        "percent": 47.048
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectRuntimeEventAtContract abg/event_store.js:1317",
+        "sampledMs": 10659.601,
+        "percent": 22.822
+      },
+      {
+        "function": "runtimeEventPrefixDigest abg/event_prefix.js:451 <- prefixDigest abg/runtime_liveness.js:998",
+        "sampledMs": 6458.083,
+        "percent": 13.827
+      },
+      {
+        "function": "deriveRuntimeEventCalculusProjection abg/event_calculus.js:1676 <- deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 3879.291,
+        "percent": 8.306
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- semanticPayloadDigest abg/replay.js:1039",
+        "sampledMs": 2660.876,
+        "percent": 5.697
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectExactExecutionBasisAtPrefix abg/invocation_execution_truth.js:269",
+        "sampledMs": 2020.832,
+        "percent": 4.327
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- canonicalRecordDigest abg/invocation_execution_truth.js:6",
+        "sampledMs": 1967.164,
+        "percent": 4.212
+      },
+      {
+        "function": "projectRunSemanticReplayProjection abg/replay.js:1267 <- <anonymous> file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/profile-read.mjs:0",
+        "sampledMs": 1660.791,
+        "percent": 3.556
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- inlineEventBody abg/event_body_encoding.js:10",
+        "sampledMs": 1471.082,
+        "percent": 3.15
+      },
+      {
+        "function": "runtimeEventPrefixDigest abg/event_prefix.js:451 <- deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 1337.293,
+        "percent": 2.863
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- runtimeLivenessDigest abg/runtime_liveness_contracts.js:33",
+        "sampledMs": 1005.661,
+        "percent": 2.153
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- deriveReplayPrefixFacts abg/replay.js:433",
+        "sampledMs": 760.664,
+        "percent": 1.629
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectRunSemanticReplay abg/replay.js:1279",
+        "sampledMs": 542.126,
+        "percent": 1.161
+      },
+      {
+        "function": "rawAdmitValue validator/raw_admission.js:50 <- projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+        "sampledMs": 465.708,
+        "percent": 0.997
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- assertRuntimeEventContract abg/event_store.js:1570",
+        "sampledMs": 252.207,
+        "percent": 0.54
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- successfulResult abg/worksite_input_provenance.js:45",
+        "sampledMs": 238.583,
+        "percent": 0.511
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- rawAdmitValue validator/raw_admission.js:50",
+        "sampledMs": 230.833,
+        "percent": 0.494
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectRetainedWorksiteInputAtPrefix abg/worksite_input_provenance.js:217",
+        "sampledMs": 126.208,
+        "percent": 0.27
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- hash abg/stdo_environment.js:30",
+        "sampledMs": 59.833,
+        "percent": 0.128
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- projectExactInvocationAdmissionAtPrefix abg/invocation_execution_truth.js:21",
+        "sampledMs": 4.709,
+        "percent": 0.01
+      },
+      {
+        "function": "sha256Canonical shared/digests.js:10 <- hash gtl/stdo_run_environment.js:41",
+        "sampledMs": 1.5,
+        "percent": 0.003
+      }
+    ],
+    "sampledMs": 46706.625
+  }
+}

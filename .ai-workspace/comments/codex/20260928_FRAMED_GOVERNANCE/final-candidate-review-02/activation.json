@@ -1,0 +1,28 @@
+{
+  "activation": "T287_FINAL_CANDIDATE_REVIEW_02",
+  "role": "independent Reviewer with sole review-output Writer grant",
+  "previousReview": "T287_F11_EXTERNAL_ATTRIBUTION_REVIEW_01 CLOSED; no prior review reopened",
+  "actor": "/root/s03_independent_review",
+  "profile": "Astra/max",
+  "separateSessionIdentity": "not separately available",
+  "candidateAuthor": false,
+  "sourceRepairAuthor": false,
+  "at": "2026-09-30T07:41:18.395248+00:00",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-controls-02/request.txt",
+    "bytes": 6289,
+    "sha256": "5326451a193f970c5bc3d23d3d9e5b4cb28b41693699da33c39c6455f744fd3d",
+    "installedACExactJoin": true,
+    "ac": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "acSHA256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8"
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02",
+  "grant": "Review evidence/scripts/report/freeze only; one new-installed nominal Product verification (120000ms), one full11 pure static pass (60000ms), each 1000ms termination grace; 120000ms inspection allowance; no native or qualification effect",
+  "excluded": [
+    "authored F11 scope grouping/material adequacy",
+    "source/build/package/install/Git/provider/native effects",
+    "moving canonical or successor output",
+    "new actor activation"
+  ],
+  "HOME_home_CODEX_HOME": "unchanged"
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "disposable_model_free_logical_history_fixture",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T00-36-16-801Z-aba03409-467d-452b-a547-b87a81db6f45/resources/events/runtime.events.jsonl",
+  "sourceFrozenByteCount": 816181362,
+  "sourceFrozenSha256": "03147e0ec30ee4c5b935c9b6a6d6de5ed4283d6614d8658194ebe24ef9798ba9",
+  "sourceFreeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-34/execution-freeze.json",
+  "cut": {
+    "offset": 0,
+    "byteCount": 6191541,
+    "sha256": "d37d30df4ba656cab7b31e233ca566fa9ba97b830f564568f13f9bac3990a89f",
+    "eventCount": 434,
+    "lastEventRef": "event://abiogenesis/1089433ffdf7e80ab695c299da9837f6b22f4c43bf7d83d11802430731da4762"
+  },
+  "decoder": "validateHistoricalEvents",
+  "logicalFixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.logical.jsonl",
+    "byteCount": 6341605,
+    "sha256": "b22178799d600fbde510c235b8cee58f95b458b363507f98e4da7738557d7afb",
+    "eventVectorDigest": "sha256:42983e14b59952906a6f87e627f9bc82c2e87463575c3af937a2b52540a6cc92"
+  },
+  "ABI5_OWNER_HISTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.logical.jsonl",
+  "noRuntimeCurrentnessRecoveryOrContinuationCredit": true,
+  "noWholeStoreReplay": true
+}

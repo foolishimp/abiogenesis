@@ -26,7 +26,7 @@ import {
 import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
 
 import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
-import { authenticateNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
 import { requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly, worksiteCommandExecutionAttemptRef } from "../abg/instruction_assembly.js";
 import {
   ABI5_PACKAGE_NAME,
@@ -142,7 +142,7 @@ function exactAuthorityFreeOccurrence(
 ): AuthorityFreeWorksiteCommandExecutionOccurrence {
   const { nativeInstructionAssemblyBasis, ...coordinates } = occurrence;
   if (nativeInstructionAssemblyBasis !== undefined) {
-    const owner = verifyNativeOccurrence === undefined ? authenticateNativeInstructionAssemblyBasis(nativeInstructionAssemblyBasis) : null;
+    const owner = verifyNativeOccurrence === undefined ? authenticateOwnedNativeInstructionAssemblyBasis(nativeInstructionAssemblyBasis) : null;
     if (verifyNativeOccurrence !== undefined ? !verifyNativeOccurrence(occurrence) : owner === null ||
       owner.call.cCallRef !== occurrence.cCallRef || owner.call.runId !== occurrence.runId ||
       owner.call.graphCallId !== occurrence.graphCallId || owner.call.frameId !== occurrence.frameId ||

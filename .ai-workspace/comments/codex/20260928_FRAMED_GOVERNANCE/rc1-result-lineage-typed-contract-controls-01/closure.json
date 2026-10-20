@@ -1,0 +1,7 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RESULT_LINEAGE_TYPED_CONTRACT_GRANT_WRITER_01",
+  "returnsTo": "Executive",
+  "sourceCandidateRuntimeGitEffects": 0,
+  "writeStopped": true
+}

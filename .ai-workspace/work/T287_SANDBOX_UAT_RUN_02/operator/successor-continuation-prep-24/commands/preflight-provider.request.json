@@ -1,0 +1,17 @@
+{
+  "executable": "/Users/jim/.local/bin/claude",
+  "args": [
+    "--version"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-continuation-prep-24",
+  "started": "2026-10-06T20:36:57.405Z",
+  "environmentKeys": [
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 20000
+}

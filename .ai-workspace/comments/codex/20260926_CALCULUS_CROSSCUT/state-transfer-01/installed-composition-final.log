@@ -1,0 +1,48 @@
+▶ real admitted compose and shared batches conserve changing inputs under one basis
+  ✔ compose (38739.933417ms)
+  ℹ {"shape":"compose","inputs":["seed","seed!"],"basis":"execution-basis://abiogenesis/b510a20bc750bbc1e9b885cfb0d3b7b370a0531dbebb8afbd86bc18c049ef601","result":{"kind":"hello_world_output","message":"Hello seed!!","schemaVersion":"5.0.0"},"timings":{"setupMs":22985.603583000004,"traversalMs":2471.450582999998},"scope":"scratch-installed deterministic admission/traversal/implementation; no provider or native actor"}
+  ✔ nested (40107.8665ms)
+  ℹ {"shape":"nested","inputs":["seed","seed!","seed","seed!"],"basis":"execution-basis://abiogenesis/e99500db26d1f55c03a668d5aaac48f41bd1109adfaa5fa07551fb5bcc8604fb","result":{"kind":"hello_world_output","message":"Hello seed!!","schemaVersion":"5.0.0"},"timings":{"setupMs":22737.276167000004,"traversalMs":3457.961500000005},"scope":"scratch-installed deterministic admission/traversal/implementation; no provider or native actor"}
+  ✔ progressed (37655.067875ms)
+  ℹ {"shape":"progressed","inputs":["seed","seed!","seed!"],"basis":"execution-basis://abiogenesis/4fb44a36d1528d41fd8a76b27eaabbcca2a97caab4b2be225cb2fd315a0b08b3","result":{"kind":"hello_world_output","message":"Hello seed!!","schemaVersion":"5.0.0"},"timings":{"setupMs":21772.997332999992,"traversalMs":2762.746874999997},"scope":"scratch-installed deterministic admission/traversal/implementation; no provider or native actor"}
+  ✖ identity_end (12712.754792ms)
+✖ real admitted compose and shared batches conserve changing inputs under one basis (130359.688209ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 3
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 130452.026375
+
+✖ failing tests:
+
+test at test_env/tests/t287-calculus-state-transfer.test.mjs:87:13
+✖ identity_end (12712.754792ms)
+  Error: Command failed: /opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs
+  file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/build/code/src/gtl/hello_world.js:1990
+        identity_end: () => batch('identity-end', [gtl.C.compose(leaf('A'), gtl.C.identity(gtl.cCarrier(pass.outputCarrierRef))), leaf('B')]),
+                                                                                  ^
+  
+  TypeError: gtl.C.identity is not a function
+      at Object.identity_end (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/build/code/src/gtl/hello_world.js:1990:81)
+      at file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/build/code/src/gtl/hello_world.js:1993:70
+      at constructHelloWorldModulePublication (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/build/code/src/gtl/hello_world.js:1999:19)
+      at file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/scripts/generate-product-manifest.mjs:1048:3
+  
+  Node.js v24.7.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at ChildProcess.exithandler (node:child_process:417:12)
+      at ChildProcess.emit (node:events:508:28)
+      at maybeClose (node:internal/child_process:1101:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:305:5) {
+    code: 1,
+    killed: false,
+    signal: null,
+    cmd: '/opt/homebrew/Cellar/node/24.7.0/bin/node scripts/generate-product-manifest.mjs',
+    stdout: '',
+    stderr: "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/build/code/src/gtl/hello_world.js:1990\n      identity_end: () => batch('identity-end', [gtl.C.compose(leaf('A'), gtl.C.identity(gtl.cCarrier(pass.outputCarrierRef))), leaf('B')]),\n                                                                                ^\n\nTypeError: gtl.C.identity is not a function\n    at Object.identity_end (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/build/code/src/gtl/hello_world.js:1990:81)\n    at file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/build/code/src/gtl/hello_world.js:1993:70\n    at constructHelloWorldModulePublication (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/build/code/src/gtl/hello_world.js:1999:19)\n    at file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-calculus-transfer-BkXpn9/scripts/generate-product-manifest.mjs:1048:3\n\nNode.js v24.7.0\n"
+  }

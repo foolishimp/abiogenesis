@@ -1,0 +1,15 @@
+✔ Oracle event acquisition records the authentic prefix without serializing or changing complete owner events (26.470834ms)
+✔ Oracle event acquisition preserves owner refusals and archive errors without writing alternate event evidence (19.492959ms)
+✔ Eventless read conservation hashes bounded chunks and detects tampering, append and identical-byte replacement (4.334167ms)
+✔ One authentic cold read supplies caller artifact/environment/read preparation without another physical decode (1076.73525ms)
+✔ Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse (0.569083ms)
+✔ Native refusal without an admitted Run is preserved before any refresh, reopen or read (0.233041ms)
+✔ Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes (4.692291ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1465.473084

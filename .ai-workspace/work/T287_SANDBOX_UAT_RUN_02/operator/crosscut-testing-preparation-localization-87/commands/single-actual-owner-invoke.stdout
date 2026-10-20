@@ -1,0 +1,11 @@
+{
+  "status": "STOP-first-error",
+  "elapsedMs": 1710.085959,
+  "stages": [],
+  "exceptions": [],
+  "error": {
+    "name": "AssertionError",
+    "message": "{\"kind\":\"product_execution_resolution_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"absent\",\"stage\":\"catalog\",\"message\":\"admitted GraphFunction coordinate does not reproduce one exact Program-aware CatalogView definition\"}\n+ actual - expected\n\n+ 'product_execution_resolution_refusal'\n- 'loaded_product_execution_resolution'\n",
+    "stack": "AssertionError [ERR_ASSERTION]: {\"kind\":\"product_execution_resolution_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"absent\",\"stage\":\"catalog\",\"message\":\"admitted GraphFunction coordinate does not reproduce one exact Program-aware CatalogView definition\"}\n+ actual - expected\n\n+ 'product_execution_resolution_refusal'\n- 'loaded_product_execution_resolution'\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87/diagnose.mjs:50:10"
+  }
+}

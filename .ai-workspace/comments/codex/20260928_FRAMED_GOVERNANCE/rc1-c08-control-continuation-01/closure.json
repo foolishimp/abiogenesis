@@ -1,0 +1,8 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_C08_CONTROL_IDENTITY_TRIAGE_GRANT_WRITER_01",
+  "returnsTo": "Executive",
+  "sourceCandidateRuntimeGitEffects": 0
+}

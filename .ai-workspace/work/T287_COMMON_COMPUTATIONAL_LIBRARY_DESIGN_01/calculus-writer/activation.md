@@ -1,0 +1,13 @@
+# Computational capability library Writer activation
+
+Role: bounded computational Design / Reuse / Foundation Writer, activated by the root Executive for the Product owner's 2026-10-21 clarification. The concrete asset is a library of common computational capabilities. This design is the first ABG activity; accepted obligations precede realization and actual outcomes require execution.
+
+A: [the Executive activation](../activation.md) and [basis.json](../basis.json), SHA-256 `7c4196afaf481be05056a5c3b5120b98b9e4d012ccf2b673f765076b3ec23376`, HEAD `727f1dbcab3c198f7704735fdf91b994b7aac243` plus its inventoried dirty bytes. Z: one source-grounded design candidate for independent assessment, with selected library organization, contracts, composition, consumer routes, consolidation dispositions, foundation basis, and finite realization/proof obligations.
+
+Frame: `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`; exact method `stdo://releases/v3.0.0-rc.1/`, manifest `069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232`. Apply the selected computational Design and Reuse/Foundation relations, including DESIGN_MODULE UP-019/UP-023, existing ABI realization constitution §5.6/§10, and computational whole-path evidence. Product and realization Workers supply separately frozen assessments; root Executive alone conjoins their findings.
+
+Permitted writes: the new `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` and new records in this `calculus-writer/` directory. The design path has no preimage at activation. Root independently owns current routing edits. Product, requirements, prior binding, prior evidence, all source/tests/contracts, runtime, packages, installs and Git effects are outside this grant.
+
+The candidate retains the fixed fifteen Product families, existing eight operator classes, seven C constructors and three static binding combinators. It introduces no callable registry, dispatcher, new runtime, semantic compiler, common authority, extra public package or all-helper cleanup release gate. Capability groups classify typed contracts and compositions; they do not automatically create primitives or exports.
+
+Readiness: check source links, exact basis preservation outside authorized concurrent Writer territory, closed contract distinctions, finite obligations and document consistency. No code execution or outcome proof is claimed. Freeze the exact candidate and records, return to root Executive, and stop editing. Material unresolved design choices block only their dependent retained realization.

@@ -1,0 +1,23 @@
+{
+  "observedAt": "2026-10-06T02:56:40.138282+00:00",
+  "shellHelperSource": [
+    {
+      "path": "/Users/jim/.zshrc",
+      "line": 11,
+      "operation": "security find-generic-password",
+      "credentialReadRequested": true,
+      "service": "claude-oauth-token"
+    }
+  ],
+  "actualHelperReadStatus": [
+    {
+      "operation": "security find-generic-password",
+      "service": "claude-oauth-token",
+      "exitCode": 44,
+      "status": "item_not_found",
+      "credentialStdoutDiscarded": true,
+      "stderrBodyArchived": false
+    }
+  ],
+  "credentialBodiesCopiedOrArchived": false
+}

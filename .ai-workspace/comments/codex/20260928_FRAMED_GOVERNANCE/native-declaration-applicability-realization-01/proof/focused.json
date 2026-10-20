@@ -1,0 +1,61 @@
+{
+  "kind": "pure_owner_output_conservation",
+  "passed": true,
+  "reports": [
+    {
+      "name": "cycle retains complete refs from either entry and aliases",
+      "refused": false,
+      "sha256": "ffe16ffa0f273be1789f0947d4d4c3372c949540e9abf1fbe91e72ef725f21a3"
+    },
+    {
+      "name": "diamond aliases and merged declarations retain both branches",
+      "refused": false,
+      "sha256": "b3e63bbd072ba5c168d2fc463217f26b3650fcf0cd7fb9391f4de643de91a560"
+    },
+    {
+      "name": "root and reachable relation bases do not leak",
+      "refused": false,
+      "sha256": "4843f829c7a85384bc81f98f2fe62b0b28c887a18671e76caaa39c27adc2bf3a"
+    },
+    {
+      "name": "metadata-proven bundled declaration remains local",
+      "refused": false,
+      "sha256": "d3700933b2374f02eadc643539a9b78cea5e27f130ee84032269fdeaf8a539af"
+    },
+    {
+      "name": "node_modules presence without declared bundle remains external",
+      "refused": false,
+      "sha256": "7312bdb4d10dcc1a873fb147c9c532073f4fa76d3033b8cfaedb4c4ab59058ce"
+    },
+    {
+      "name": "new request with same path has no prior symbol analysis",
+      "refused": false,
+      "sha256": "46c996250cc299cd6b5cae514b0d2300da8b9c8ac316c9bf7faf93ea1c741c0d"
+    },
+    {
+      "name": "one checker merged symbol is analyzed on each exact root basis",
+      "refused": false,
+      "sha256": "e9e88f288c7cf2b4b2ea899db7faf14d17acf571507447e9aafccb4a3cec5a28"
+    },
+    {
+      "name": "missing claimed bundled declaration refuses",
+      "refused": true,
+      "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "missing claimed bundle metadata refuses",
+      "refused": true,
+      "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "substituted claimed package identity refuses",
+      "refused": true,
+      "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "relative escape cannot become ambient resolution",
+      "refused": true,
+      "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "activation": "T287_F11_NATIVE_CALLER_PREP_01",
+  "worker": "/root/f11_validation_path_plan",
+  "authorityRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-controls-01/request.txt",
+    "bytes": 6946,
+    "sha256": "65861539ac2c4a1e76b8f83a097cc893e2a67cb0d816cb364670b901a4edcc22"
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01",
+  "preimages": "preimages/* pinned donor files",
+  "deltas": [
+    "ordinary-caller.mjs.patch",
+    "public-support.mjs.patch",
+    "owner-checks.mjs.patch"
+  ],
+  "construction": "External ordinary assessment caller, frozen declaration/view/conformance resources, exact CLOSED bound-input pin, native evidence/readback checks and finite separate execution effect plan",
+  "newAssetAuthor": "/root/f11_validation_path_plan under this exact prep grant",
+  "originalCandidateAuthors": "Unchanged; this record does not establish historical semantic authors, acknowledgments or independent acceptance",
+  "nativeEffects": false,
+  "original84Prefix": "Conserved frozen snapshot; moving original store not opened in prep",
+  "sourceOrCandidateChanges": false,
+  "qualificationVerdict": null
+}

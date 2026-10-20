@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED read-only source acquisition notes",
+  "additionalObservationErrors": [
+    {
+      "operation": "post-compaction source lookup",
+      "error": "An rg call omitted the code segment in the frozen qualification.ts and qualification_proof.ts paths and returned exit 2, file not found.",
+      "resolution": "The parallel rg --files discovery returned the actual code/src paths. The subsequent selected-span reads used those paths. No runtime probe or candidate effect occurred."
+    }
+  ],
+  "interimCorrection": "An earlier progress message reported no incompatible handoff yet. The completed actual helper-to-physical-output-consumer check falsified that interim observation. The CLOSED return and path-seam-observation retain the incompatible root finding.",
+  "verificationMaterialCone": "constructQualificationVerificationMaterial reads the authenticated observation/recipe/inventory bodies in memory. No physical report/generated-file read uses workspaceRoot or sandboxRoot; the caller repair does not alter this owner.",
+  "currentness": "Only closed C2 resource snapshots and frozen C02/Q02 sources were read. Absolute paths in the genuine launch/task were compared as strings and not reopened as native resources or worksite paths."
+}

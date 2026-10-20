@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "sourceOrCandidateEffects": 0,
+  "Q07Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-07/freeze.json",
+    "bytes": 860629,
+    "sha256": "49228e206300c47340bf01e70cdcdd444621a4078e43937bcacfb8fa491331ce",
+    "mode": 292
+  },
+  "C06Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "bytes": 140347,
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "mode": 420
+  },
+  "actualSetup06": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/freeze.json",
+    "bytes": 3900408,
+    "sha256": "b44c8a054b19f7eeb84473ada9ba677d51001317d2dac5d213cb92e7469a0cd7",
+    "mode": 420
+  },
+  "eventPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+    "bytes": 2490814,
+    "sha256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464698960,
+    "appendBytes": 0
+  },
+  "110AuthRecordsAnd10ChainsByteExact": true,
+  "strictCallerModulesByteExact": true,
+  "historical835ComponentBodiesConserved": true,
+  "semanticNamespace": "q07 conserved",
+  "aliasCount": 95,
+  "sourceAuthPostimageIntersections": 0
+}

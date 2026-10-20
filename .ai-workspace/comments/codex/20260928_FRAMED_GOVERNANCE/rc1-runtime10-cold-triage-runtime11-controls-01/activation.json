@@ -1,0 +1,16 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer",
+  "actor": "/root",
+  "operation": "T287_RUNTIME10_COLD_TRIAGE_RUNTIME11_GRANTS_WRITER_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "grant": "Record independently localized failure/Root material triangulation; select a new external native-child proof descriptor and prepare conditional remaining-path grants; update current task tracking. No Source/runtime release.",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md"
+  ],
+  "SourceCandidateRuntimeGitEffects": 0,
+  "activatedAt": "2026-10-03T10:44:11.946914+00:00"
+}

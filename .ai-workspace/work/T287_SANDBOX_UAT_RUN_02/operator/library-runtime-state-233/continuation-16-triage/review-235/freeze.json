@@ -1,0 +1,42 @@
+{
+  "kind": "continuation16_independent_product_triage_freeze",
+  "status": "CLOSED",
+  "evaluation": "indeterminate",
+  "runtimeDisposition": "HOLD",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/freeze.json",
+    "sha256": "134eeb4c526552027daddd356f338eba4748e885bcbe54b83504e02adc07d8a2",
+    "bytes": 66915
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-16-triage/review-235/review.md",
+      "sha256": "847bb070525cf2b482750f40c9233e7be3151950bb818b23e188b4655ae741d4",
+      "bytes": 6838
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/continuation-16-triage/review-235/pins.json",
+      "sha256": "2c635d34cb0c2f2cc326b7e70ce6ebd0069847884424e6f29d0bffc827bf762a",
+      "bytes": 9602
+    }
+  ],
+  "verification": {
+    "selectedFileCount": 30,
+    "selectedBytes": 1284001,
+    "selectedMismatches": 0,
+    "installed44OwnersCompared": 3,
+    "installed44OwnerMismatches": 0,
+    "selectedReadCloseEqualsActualNativeFinal": true,
+    "fullSubjectVerification": "Root verified204 unique frozen files; not independently repeated here",
+    "testsOrResourceAcquisitions": 0
+  },
+  "supportedFinding": "Actual C2 exactExchange acceptance failed; no unique conjunct, command effect or exclusive responder/framework cause established.",
+  "requiredReentry": "Executive conjoins existing-owner request/plan/exchange facts or selects minimal first-refusal cause retention at C2 completion/actor evidence; no functional repair selected by this evaluation.",
+  "limits": [
+    "Source44 acceptance and completed source/task/setup work are preserved.",
+    "No native/C2/restart/capacity/UAT/release acceptance.",
+    "Three reviewer carriers only; no resource/Source/test/import/build/native/model/worksite/Git effects."
+  ],
+  "stop": true
+}
+

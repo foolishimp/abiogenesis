@@ -1,0 +1,46 @@
+✔ closed resource forms retain nonempty group arrays and actual old embedded identities (1219.65175ms)
+ℹ {"members":1950,"rules":2137,"domains":187,"domainGroups":777,"distinctPartitions":54,"referenceSets":517}
+✔ full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired (1690.163334ms)
+✖ missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used (258.420209ms)
+✔ Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies (592.364ms)
+✔ selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates (1872.916958ms)
+ℹ {"semanticInputBytes":42779,"oldInputBytes":67784040,"assertionBytes":27312606,"normalizedScopeBytes":2051550,"inventoryBytes":870019,"promptBytes":1021244,"judgmentBytes":45279,"baselineMs":1192.7005419999996,"preparedMs":243.01787500000046,"normalizationAcquisitionMs":648.796458,"measurement":"pure fixture process only; no installed admission, memory or speed claim","semanticQualification":"open"}
+✔ fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints (806.692542ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6755.7815
+
+✖ failing tests:
+
+test at test_env/tests/t287-qualification-carrier-resource.test.mjs:78:1
+✖ missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used (258.420209ms)
+  AssertionError [ERR_ASSERTION]: crossed inventory
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-carrier-resource.test.mjs:85:41)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: qualification_scope_resource_basis
+        at QualificationResources.scope (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification_resources.js:155:19)
+        at new QualificationResources (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification_resources.js:57:26)
+        at acquireQualificationResources (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/build/code/src/validator/qualification_resources.js:203:12)
+        at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-carrier-resource.test.mjs:85:52
+        at getActual (node:assert:609:5)
+        at strict.throws (node:assert:757:24)
+        at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/tests/t287-qualification-carrier-resource.test.mjs:85:41)
+        at Test.runInAsyncScope (node:async_hooks:214:14)
+        at Test.run (node:internal/test_runner/test:1106:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:788:18),
+    expected: /inventory_or_ordinal/,
+    operator: 'throws',
+    diff: 'simple'
+  }

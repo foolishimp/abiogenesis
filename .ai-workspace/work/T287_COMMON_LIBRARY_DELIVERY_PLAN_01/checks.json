@@ -1,0 +1,3667 @@
+{
+  "counts": {
+    "checks": 731,
+    "passed": 731,
+    "references": 11,
+    "unchanged_inventoried_files": 696,
+    "unchanged_production_typescript_files": 264
+  },
+  "scope": "Document references, exact source/preservation checks only; no runtime, semantic or delivery outcome proof.",
+  "checks": [
+    {
+      "name": "preimage:specification/GOALS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "added-whitespace:specification/GOALS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reference:specification/GOALS.md",
+      "passed": true,
+      "detail": "../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable"
+    },
+    {
+      "name": "reference:specification/GOALS.md",
+      "passed": true,
+      "detail": "../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+    },
+    {
+      "name": "reference:specification/GOALS.md",
+      "passed": true,
+      "detail": "../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md"
+    },
+    {
+      "name": "reference:specification/GOALS.md",
+      "passed": true,
+      "detail": "../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable"
+    },
+    {
+      "name": "reference:specification/GOALS.md",
+      "passed": true,
+      "detail": "PRODUCT.md#common-computational-library-prerequisite"
+    },
+    {
+      "name": "preimage:specification/PRODUCT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "added-whitespace:specification/PRODUCT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reference:specification/PRODUCT.md",
+      "passed": true,
+      "detail": "../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md"
+    },
+    {
+      "name": "reference:specification/PRODUCT.md",
+      "passed": true,
+      "detail": "../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable"
+    },
+    {
+      "name": "preimage:.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "added-whitespace:.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reference:.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "passed": true,
+      "detail": "../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md"
+    },
+    {
+      "name": "reference:.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "passed": true,
+      "detail": "../../work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md"
+    },
+    {
+      "name": "reference:.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "passed": true,
+      "detail": "../../../specification/PRODUCT.md#50-compression-boundary"
+    },
+    {
+      "name": "reference:.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "passed": true,
+      "detail": "../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md"
+    },
+    {
+      "name": "preserved-source:.ai-workspace/comments/codex/20261021_STDO3_ABG5_RECONCILIATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:.ai-workspace/tickets/active/.gitkeep",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:AGENTS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:CLAUDE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/child_lifecycle.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/event_log.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/fan_out.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/fan_out_projection.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/fh_resume_relation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/m03/transport.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/native_event_time.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/requirements.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/retry_lifecycle.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/traversal_transition.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/app/m04.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/canonicalization.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/consensus.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/consensus_schema.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/declaration_references.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/graph_applications.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/graph_construction.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/public_start.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/requirements.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/semantic_job.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_identity.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_identity.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/source_path.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/worksite_branch_construction.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/worksite_c0.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_forward.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction_recovery.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/child_traversal.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/evaluation_frame.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/interaction_lifecycle.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/interaction_resume.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/judgment.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/retry_lifecycle.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/structural_transition.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/traversal.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/traversal_completion.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/traversal_failure.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/consensus.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/leaf_execution_authority.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/release_publication.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/requirement_handoff.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/self_conformance.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/worksite_branch_construction.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_forward.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/worksite_construction.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/catalog_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/default_library_identity.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/environment_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/environment_operations.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/exact_match.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/implementation_resolution.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/install_operation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/install_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/installed_module.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/interaction_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/materialization_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/materialization_operations.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/project_read_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/publication.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/release_acceptance.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_operations.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/requirement_handoff.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/verification_operation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/verification_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution_identity.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_revision.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/worksite_revision_identity.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/workspace_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/product/workspace_operations.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/public/codex_cli.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/public/continuation_authority.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/capability_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/digests.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/i_json.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/owner_contract_source_set.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/public_function_projections.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/public_invocation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/references.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/shared/static_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/c_algebra.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/graph.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/implementation_resolution.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/index.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_contracts.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_publication.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/A5_PRIME_CONTRACTION_CENSUS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_3_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_3_MODULE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_PROJECTION_REFACTOR_PLAN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_T119_TEMPORAL_EXTENSION_CONTRACT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_METHOD_TRACE_CLOSURE_GUARD_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABG_SCHEDULE_RUNTIME_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_3_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_3_GRAPH_FUNCTION_ZOOM_PLAN_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_3_IMPLEMENTATION_PLAN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_3_INTERFACE_CONTRACTS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_3_M02_WORK_PUBLICATION_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_3_MODULE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_3_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_ASSET_SURFACE_PROMPT_INTERFACE_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_ODD_ZOOM_FOLD_ALGEBRA_DECISION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_FIRST_PROOF_PLAN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M03_LOOKUP_AUTHORITY_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ABG_FN_COMPOSITION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_COMPLETE_C_PROGRAM_INTERPRETER_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_COMPOSED_C_STAGE_SET_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSEQUENCE_ALLOWED_TRAVERSAL_CATALOG_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_INTENT_RUNNER_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_INTENT_RUNNER_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_INTENT_RUNNER_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_PRESSURE_PACKAGE_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_DISTRIBUTED_EXECUTOR_BACKENDS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_EDGE_ASSURANCE_CONTRACT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_EDGE_ASSURANCE_CONTRACT_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_EDGE_ASSURANCE_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_EXECUTION_AUTHORITY_PROVENANCE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_FD_AUTHORITY_PLACEMENT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_FD_AUTHORITY_PLACEMENT_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_FD_AUTHORITY_PLACEMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ITERATION_STATE_ACTION_ALGEBRA_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ITERATION_STATE_ACTION_ALGEBRA_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_ITERATION_STATE_ACTION_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_OBSERVED_STATE_ADMISSION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_OBSERVED_STATE_ADMISSION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_OBSERVED_STATE_ADMISSION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_OVERLAY_FRAME_CONTRACT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_OVERLAY_FRAME_CONTRACT_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_OVERLAY_FRAME_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_ROUTE_REQUIREMENTS_AUDIT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RUNTIME_CONTINUATION_TRANSITION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RUNTIME_CONTINUATION_TRANSITION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_SAGA_FRONTIER_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_SAGA_FRONTIER_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRACED_EXECUTOR_BACKENDS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRANSPORT_PROTOCOL_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_MODULATION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_MODULATION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_BOOTLOADER_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_BOOTLOADER_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_CONTROL_LOOP_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_EVENT_INGRESS_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_EVENT_INGRESS_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_GAP_TRIAGE_GRAPH_FUNCTION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_INSTALL_BOOTSTRAP_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_LIVE_STATUS_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_LIVE_STATUS_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_M05_INSTALLED_CONSENSUS_SCENARIO_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_START_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_RESULT_ASSESSMENT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_ARCHIVE_FINALIZATION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_SANDBOX_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_QUALIFICATION_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_QUALIFICATION_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_RC_LIVE_PORTFOLIO_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_RC_LIVE_UAT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_RELEASE_SNAPSHOT_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_RELEASE_SNAPSHOT_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M06_MAPPING_DEFERRED_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/M06_MAPPING_DEFERRED_TRIGGER_IACS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/SCHEDULE_DOMAIN_MODULE_DERIVATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/SCHEDULE_RUN_PROJECTION_AND_SLA_ANALYTICS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_C1_PRESERVED_RESULT_ARTIFACT_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_C2_FORWARD_REENTRY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_D4_SELF_CONFORMANCE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_DECLARED_TESTING_CAPABILITY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_W2_R3_C1_LIVE_LLM_WORKSITE_CONSTRUCTION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/TIMER_PROVIDER_CONTRACT_SKETCH.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/TWO_STAGE_EVALUATION_MODEL.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/TYPESCRIPT_REALIZATION_GUARDRAILS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/TYPESCRIPT_STRICT_LANE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/adrs/ADR-040-typescript-tenant-as-package-first-realization.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/adrs/ADR-045-global-design-constraints-survive-local-projection.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/design/adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/package-lock.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:build_tenants/abiogenesis/typescript/package.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/INTENT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/00-starter.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-CORRECTION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-FRAME.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-GRAPHCALL.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-INTERPRET.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-ITERATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-JOB-WORKER.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-LEAFTASK.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-LINEAGE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-POLICY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-PROVENANCE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-RETRY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-SELFHOSTING.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-TUNER.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/abg/REQ-R-ABG3-WORKER.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-ASSET-SURFACE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-ATTRS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-EVALUATOR.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-GRAPH.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-HOF.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-HOOKS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-IDENTITY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-JOB.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-LAWS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-MODULE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-NODE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-OPERATOR.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-RECURSE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-ROLE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-RULE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-SUBSTITUTE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-SUBWORK.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-SYNTHESIS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/mapping/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/mapping/REQ-M-GTL3-MAPPING.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/mapping/REQ-M-GTL3-PROVENANCE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/REQ-P-CATALOG.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/REQ-P-CONSENSUS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/REQ-P-INSTALL.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/REQ-P-POLICY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/REQ-P-QUAL.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/REQ-P-SCENARIOS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/01-language-primitives-and-traversal.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/02-governed-transition-surfaces.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/03-graph-function-algebra.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/04-publication-and-semantic-work.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/05-runtime-aggregates-and-event-truth.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/06-replay-lineage-and-correction.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/07-governed-probabilistic-runtime.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/08-derived-artifact-governance.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/09-research-product-lab-scenario-catalog.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/10-total-assurance-projection-uat.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/11-event-sourced-payload-ledger-uat.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:specification/scenarios/TESTCASE_AUTHORITY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-source:stdo_abiogenesis.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/candidate-freeze.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/candidate-freeze-02.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/completion.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review-checks.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review-02.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/review-checks-02.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/document-checks.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preserved-evidence:.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/document-checks-02.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "historical-ticket-tail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sole-current-delivery-plan",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "product-feature-outcomes-and-later-body-preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prior-accepted-design-subject-retained:.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prior-accepted-design-subject-retained:build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prior-accepted-design-subject-retained:build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prior-accepted-design-subject-retained:build_tenants/abiogenesis/typescript/design/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prior-accepted-design-subject-retained:specification/GOALS.md",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

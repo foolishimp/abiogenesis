@@ -1,0 +1,31 @@
+{
+  "status": "CLOSED_FIRST_MATERIAL_NATIVE_FAILURE",
+  "activation": "T287_FINAL_OBSERVED_C2_01",
+  "actor": "/root/s03_phase_b",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "actualNativeCalls": 1,
+  "providerEpisodes": 1,
+  "helperInvocations": 0,
+  "commandCount": 0,
+  "freshReads": 0,
+  "physical": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "device": 16777230,
+    "inode": 464012478,
+    "bytes": 5577377,
+    "sha256": "e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+    "eventCount": 84,
+    "initialBytes": 2582298,
+    "initialSHA256": "90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+    "prefixConserved": true,
+    "snapshotIdentical": true,
+    "stable": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5/16777230-464012478.lock",
+    "lockPresent": false,
+    "coordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c"
+  },
+  "finalHandoff": "final-handoff.json",
+  "snapshot": "failure-native-prefix.jsonl",
+  "remaining": "Root network/environment disposition and selected current lifecycle continuation; no autonomous retry",
+  "Worker": "CLOSED"
+}

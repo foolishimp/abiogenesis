@@ -1,0 +1,22 @@
+{
+  "status": "CLOSED",
+  "role": "Writer",
+  "operation": "T287_RUNTIME11_RELEASE_WRITER_01",
+  "restoredRole": "Executive",
+  "Runtime11Released": true,
+  "RootRuntimeSourceCandidateGitEffects": 0,
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime11-release-and-assurance-01/acceptance.json",
+    "bytes": 4730,
+    "sha256": "41212f201bc6be97da8f692978ce05e53d3d508941b70f292290b994a9fb9d21",
+    "mode": 420
+  },
+  "wholeReviewGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime11-release-and-assurance-01/whole-review-request.txt",
+    "bytes": 3338,
+    "sha256": "9160eefc7f200b2e3b2894c0057cbf438d4ca0c8eb6af24e0103399e076ab3e1",
+    "mode": 420
+  },
+  "originalExecutionPrefixConserved": true,
+  "closedAt": "2026-10-03T11:05:03.360008+00:00"
+}

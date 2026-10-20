@@ -1,0 +1,47 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "phase": "continued-01-after-control-only-stop",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "ACTIVE",
+  "activatedAt": "2026-10-02T13:32:18.933082+00:00",
+  "operationBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/operation-basis.json",
+    "bytes": 1706,
+    "sha256": "55ddf5217581fc7a8fcee8ff171e315df9e62885d25c9deeab7a364bdfdde558"
+  },
+  "continuationGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/request.txt",
+    "bytes": 3930,
+    "sha256": "8d97656765be0ef2e6effdda2d168bd0078f2f54b46bc9fe3de932baa50c5311"
+  },
+  "allSevenSectionsReadAndJoined": true,
+  "payloadGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/request.txt",
+    "bytes": 4710,
+    "sha256": "032cf6072adb9e2350f8e5207e3c5a9e59d43603b7af3b36c31c94ecac174661",
+    "mode": 420
+  },
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08/source-cut.json",
+    "bytes": 13018234,
+    "sha256": "f131c687fbae3be7cf0cbb4ee340def5d4a328de0716e883d4be08d471b5c18c",
+    "mode": 420
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08/acceptance.json",
+    "bytes": 3828,
+    "sha256": "cbf7b233abb96b0957f6df749f372c6b78fa47d57730b5158a2f7b50a5649b32",
+    "mode": 420
+  },
+  "stoppedPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/stopped-preparation-01/freeze.json",
+    "bytes": 5435,
+    "sha256": "e30184d40b485707ba604b12cefd246a92fe8f0c196d8cbd8fc6387a1a97b828",
+    "mode": 420
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-01",
+  "smallestReentry": "realization_refactor for external current control identity delivery",
+  "priorRolesClosed": true,
+  "noSourceRuntimeProviderGitNetworkEffects": true
+}

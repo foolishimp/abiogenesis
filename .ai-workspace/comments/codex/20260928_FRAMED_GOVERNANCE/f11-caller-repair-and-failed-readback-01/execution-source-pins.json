@@ -1,0 +1,69 @@
+{
+  "status": "PINNED_BEFORE_ANY_IMPORT_OR_OWNER_CALL",
+  "operation": "T287_F11_CALLER_REPAIR_AND_FAILED_READBACK_01",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/ordinary-caller.mjs",
+      "bytes": 18118,
+      "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/f11/flow-driver.mjs",
+      "bytes": 6502,
+      "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/read-failed-run.mjs",
+      "bytes": 12653,
+      "sha256": "9612d81badc5151f802d2a2c3cab6bf146a5671d753c64aa583ae490b5971d6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/supervise.py",
+      "bytes": 4750,
+      "sha256": "f6dc0dfa5a6bcfd509fc88474390eb143c43d5c51aec448df5a9c8e5960653be"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/budgets.json",
+      "bytes": 252,
+      "sha256": "9712f17255e7af9aee6040050f9cb1ad102faf3cadecc4e759cda59faeaadad6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/runtime-environment.json",
+      "bytes": 1252,
+      "sha256": "11ad86127b59ca7f5f07996cb7a69667036f19bb891888917aa66f0734ebf46a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/runtime-activation.json",
+      "bytes": 804,
+      "sha256": "775d3a76d036a85abae30b89a60578837bb10ab6f6b9ba69f4ea29f7372fcf1e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/selected-core.json",
+      "bytes": 889,
+      "sha256": "874e8415190c8a0a91fc4ee3338fd492720a77cc7a87299f2301b218f1cecfda"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/prospective-cases.json",
+      "bytes": 3266,
+      "sha256": "fc585a1b1348f7e4527f6716fe3e8ef9d87ed9c060e2aec64f4aba346d3624cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/resource-plan.json",
+      "bytes": 704,
+      "sha256": "c10f89c33df9a6acbe5303982282a98c3c3b4af02efef3fcc664fc6c790bfd44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/driver-config.json",
+      "bytes": 1221,
+      "sha256": "5dd066821d22d5cf34b7619e2118274490b78e34f495bb909572e1783466b60c"
+    }
+  ],
+  "HOME": "/Users/jim",
+  "NODE_OPTIONS": "cleared by supervisor; default heap",
+  "recordedAt": "2026-10-02T04:48:18.496815+00:00"
+}

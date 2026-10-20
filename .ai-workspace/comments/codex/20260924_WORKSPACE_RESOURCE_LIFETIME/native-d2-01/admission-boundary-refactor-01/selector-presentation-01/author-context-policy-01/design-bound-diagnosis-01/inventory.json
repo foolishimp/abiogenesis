@@ -1,0 +1,94 @@
+{
+  "scope": "Deterministic value inventory only. Existing installed pure Product projections plus exact source-traced section fields; no authenticated assembly or runtime authority reconstructed.",
+  "designInputDigest": "sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185",
+  "declaredBound": 1048576,
+  "knownSectionBytes": {
+    "source": 6709,
+    "obligations": 126599,
+    "predecessors": 176985,
+    "worksiteObservation": 506683,
+    "task": 513911,
+    "response": 12925
+  },
+  "knownSectionBodyLowerBound": 1343812,
+  "excludedFromLowerBound": [
+    "role including actor contract/instructions/GLC environment",
+    "worksite wrapper/scope/current targets/origins",
+    "evidence wrapper/environmentAccess",
+    "section labels and separators"
+  ],
+  "actorContractBytes": 20444,
+  "unchangedPreviousAuthorEnvironmentBytes": 89696,
+  "exactDuplicates": [
+    {
+      "routeA": "task.revisionContext.historicalAssets",
+      "routeB": "task.historicalAssets",
+      "bytesPerArray": 239391,
+      "equal": true,
+      "meaning": "Retain distinct accepted/rejected historical material once; references retain provenance."
+    },
+    {
+      "routes": "worksite.observation.entries[file].bytes plus .textView.text",
+      "base64Characters": 281544,
+      "decodedUtf8Bytes": 211153,
+      "meaning": "Both encode the exact same authenticated file bytes; text round-trip/digest checked in this inventory."
+    }
+  ],
+  "worksiteFiles": [
+    {
+      "path": ".abiogenesis/workspace-manifest.json",
+      "digest": "sha256:832b9441f86c142f989c6a04fa50b58c73a2437508056eb392fd56aecb2ad52d",
+      "decodedBytes": 1494,
+      "base64Characters": 1992
+    },
+    {
+      "path": "original-js-sdlc-bootstrap-declaration.txt",
+      "digest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+      "decodedBytes": 6120,
+      "base64Characters": 8160
+    },
+    {
+      "path": "semantic-assets/lifecycle-rubric.json",
+      "digest": "sha256:c77a38d684dde09c38197415796c9594c900278dcc047abf8744c07f382a0edf",
+      "decodedBytes": 16810,
+      "base64Characters": 22416
+    },
+    {
+      "path": "semantic-assets/stage-0.json",
+      "digest": "sha256:9f9003ed19bdeb7a43616baa2c5c28daaeabc2b932947db52a302e6773a82ffa",
+      "decodedBytes": 32404,
+      "base64Characters": 43208
+    },
+    {
+      "path": "semantic-assets/stage-1.json",
+      "digest": "sha256:37cd402698f52fd722a6f00b20566e03c8037daeef7ce10fb5f53744c26fec9a",
+      "decodedBytes": 47430,
+      "base64Characters": 63240
+    },
+    {
+      "path": "semantic-assets/stage-2.json",
+      "digest": "sha256:bb93b54aed07ea9c68a91d1aa152b80f972d08ee4523ffc0421cc68b0d7d5fc1",
+      "decodedBytes": 106895,
+      "base64Characters": 142528
+    }
+  ],
+  "preservedHistoricalCurrentMatches": [
+    {
+      "assetRef": "semantic-job-asset://abiogenesis/9f9c337f3df0d254747a496e15ef01663c42cd6274368164f8cee900338c4c0a",
+      "stageRef": "stage://odd-glc/generic-lifecycle/intent@5",
+      "bytes": 44055,
+      "exactEqual": true
+    },
+    {
+      "assetRef": "semantic-job-asset://abiogenesis/0f5e3bf0a1e555a1b418b15cc3236ff76dffedbf8c5378b6cf01c39caaa16560",
+      "stageRef": "stage://odd-glc/generic-lifecycle/product@5",
+      "bytes": 58708,
+      "exactEqual": true
+    }
+  ],
+  "limits": [
+    "Exact whole Design draft/manifest was not retained by refusal before return; private authenticating assembly requires admitted-prefix state, so not invoked with fabricated facts.",
+    "This lower bound excludes bytes and therefore does not assert an exact full prompt size.",
+    "Original full source, distinct accepted/rejected assets/assessments, obligation/binding domains and current inventory meaning remain required."
+  ]
+}

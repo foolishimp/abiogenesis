@@ -1,0 +1,11 @@
+{"kind":"d12_duplicate_boundary_regression","routes":["raw-cold-to-cut-1","warmed-source-to-cut-2"],"actual":[{"kind":"root_event_profile_schedule","schemaVersion":"5.0.0","spans":[{"eventContractDigest":"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c","firstOrdinal":1,"lastOrdinal":1}],"boundaryEventRef":null,"currentEventContractDigest":"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c"},{"kind":"root_event_profile_schedule","schemaVersion":"5.0.0","spans":[{"eventContractDigest":"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c","firstOrdinal":1,"lastOrdinal":2}],"boundaryEventRef":null,"currentEventContractDigest":"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c"}],"expected":[{"kind":"root_event_profile_schedule","schemaVersion":"5.0.0","spans":[{"eventContractDigest":"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c","firstOrdinal":1,"lastOrdinal":1}],"boundaryEventRef":null,"currentEventContractDigest":"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c"},{"kind":"root_event_profile_schedule","schemaVersion":"5.0.0","spans":[{"eventContractDigest":"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c","firstOrdinal":1,"lastOrdinal":2}],"boundaryEventRef":null,"currentEventContractDigest":"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c"}]}
+{"kind":"d12_profile_controls","validBoundaryAndReverseCuts":true,"malformedAndRepeatedBoundariesRefused":true}
+✔ profile suffix progress preserves the exact witnessed boundary and historical profile cuts (33.97975ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 547.163792

@@ -1,0 +1,28 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C06_GENERATED_RECONCILIATION_01",
+  "workResult": "STOPPED_FIRST_DISCREPANCY",
+  "actor": "/root/q03_input_review Worker",
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-01/result.json",
+    "bytes": 2589,
+    "sha256": "07545287e6bc4c7eb0820ec87c386774571d15f351f08336c9b2eb7a58cae083",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464734837,
+    "mtimeNs": 1790922484818946322
+  },
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-generated-reconciliation-01/report.md",
+    "bytes": 2371,
+    "sha256": "b3db1c9406e379034a311148fa1d9c6aa7da1a224fd06b1b6ff5a287fcfa7d3a",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464734838,
+    "mtimeNs": 1790922484819020489
+  },
+  "independentAssurance": false,
+  "closedAt": "2026-10-02T06:28:04.818803+00:00",
+  "noFurtherWritesOrExecution": true,
+  "return": "Root only"
+}

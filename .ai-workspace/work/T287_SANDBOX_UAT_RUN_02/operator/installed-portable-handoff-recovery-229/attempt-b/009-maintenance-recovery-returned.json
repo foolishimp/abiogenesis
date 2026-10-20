@@ -1,0 +1,16 @@
+{
+  "stage": "maintenance-recovery-returned",
+  "at": "2026-10-09T18:42:41.208Z",
+  "wallMs": 105603.83899999999,
+  "pid": 17206,
+  "memory": {
+    "rss": 5618221056,
+    "heapTotal": 3053240320,
+    "heapUsed": 2911189064,
+    "external": 2144534274,
+    "arrayBuffers": 2142121967
+  },
+  "maxRSSKiB": 5565888,
+  "kind": "abg_event_resource_recovery_receipt",
+  "outcomeKind": "recovered"
+}

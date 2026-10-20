@@ -1,0 +1,40 @@
+{
+  "status": "SELECTED_TEST_CALLER_CORRECTION",
+  "firstCause": "Cold runtime_failure_evidence projection does not publish diagnosticRef; test asserted undefined against retained diagnostic URI",
+  "ownerContract": "abg/runtime_failure.ts:137-145 exposes failureRef/failureDigest/admissionEventRef/admissionEventDigest/subjectDigest/subject; diagnostic remains on authenticated runtime_failure_observed payload",
+  "selectedAction": "Join cold evidence to authentic admission event, verify failure identity/subject digest and compare actual event diagnostic; no Source/HOW/owner change",
+  "assertionAudit": {
+    "retainedObjectAndNull": "Canonical owner subject decoder and failure digest checks; JSON null is retained using exact owner constructor(null)",
+    "coldReplay": "prepareRunReadAtDurablePrefix(...run_replay).project() yields projected value.runtimeStatus and terminalResult",
+    "coldResult": "Failed route is target_absent; success is projected",
+    "coldClose": "Actual reopened store owns projectReopenAuthorityAndClose; same exact prefix compared",
+    "remainingAPIFields": [
+      "failureRef",
+      "failureDigest",
+      "admissionEventRef",
+      "admissionEventDigest",
+      "subjectDigest",
+      "availability",
+      "subject"
+    ]
+  },
+  "failedReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/source-repair-recursive-retained-diagnostic-145/commands/focused-owner-retained-145.result.json",
+    "sha256": "428df579805e001573cf69f19360d1d5aac72d8b997e7b57dbc41305e115e5ca"
+  },
+  "failedCut": "Test process exited1 after cold reopen assertion; isolated resources conserved. No provider/model/campaign effects. Retry uses fresh ordinary fixture resources and the same sole frozen artifact.",
+  "unchangedProduction": {
+    "hog": "6155d94bd085d8415761b00520d72251438829eae5dea3e252d2929d3b15f6b7",
+    "how": "504a7647805304ff160c43717ec66c5fd00a73aa53360904e56ce4a44e9d9b51",
+    "runtimeFailureOwner": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994"
+  },
+  "correctedTest": {
+    "sha256": "0967cd09ec698275a9713673cc91dff0e3d902147f45f1a3d0fb8f60c98a80ad",
+    "byteCount": 35217
+  },
+  "control": {
+    "sha256": "52af183ff85c7ee2647c312f4eb27be1f1b37b804e1ffb96555c67d0d82a9fa2",
+    "byteCount": 35261
+  },
+  "recompileRequired": false
+}

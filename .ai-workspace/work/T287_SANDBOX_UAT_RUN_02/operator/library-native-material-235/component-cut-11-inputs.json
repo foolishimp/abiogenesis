@@ -1,0 +1,76 @@
+{
+  "dependencyCut": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/dependency-cut-11",
+  "dependencyCutInputs": {
+    "sha256": "a8a010a3e620f74a723f3f23aab2d484de09dea70c6789e04ed4e1969546e8b5",
+    "byteCount": 79971
+  },
+  "tests": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "81278a3b1ef02f80b68eee841ef551926639d95d41ca0970f2aa901f41ed675b",
+      "byteCount": 38460
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "sha256": "f6ce712c35478568a0e7bd08722c8804b2d7c88ac58920273ce6abaf7163ae7a",
+      "byteCount": 10486
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "sha256": "b6ccb22c2c9e67472558a8ad2501a65386d5f746b5d1c0ddc43c175d6117c03a",
+      "byteCount": 10551
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-core-environment.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-c2-core-environment.test.mjs",
+      "sha256": "ff72cdacbfe8ce0c27c9eac730248843154593f2153d43817f2c4b4c91481592",
+      "byteCount": 11736
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "39246ce097de388db5a162179564370b1d8f3183822ec7f1298a605b63d06f3c",
+      "byteCount": 153336
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "sha256": "c86cd1fdb3a9488665e041bd53b90862602f693a671ce44bb12c6ee08e9fa75c",
+      "byteCount": 44606
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "sha256": "21735673d5ec9dcb3d840c8baecd4e3f856370389c49d2d1e162a9b3eeae75fa",
+      "byteCount": 108767
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "49294a67008612a1000853293dec3c17d9f17e56ecb0f4771063aa9a9763a391",
+      "byteCount": 84693
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-management-context.test.mjs",
+      "sha256": "7ad29075cdb742c2575bc7edd11a420e90a02cf1a1b957990c69091f40bcb05b",
+      "byteCount": 42877
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "sha256": "18859359b17c3212ba019d0518c22b596ddf673d9fe23955d5f8222fd2eac8b0",
+      "byteCount": 14379
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-native-material-235/component-cut-11/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "sha256": "03b0373acd2b2ba15fe7597de4a68f02a39314cc07ff82987d2b6eb417638683",
+      "byteCount": 21537
+    }
+  ],
+  "limits": "finite model-free component fixture; no installed publication or native admission inference"
+}

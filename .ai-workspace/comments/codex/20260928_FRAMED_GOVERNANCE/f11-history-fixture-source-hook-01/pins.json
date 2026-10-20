@@ -1,0 +1,13 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/postimages/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "bytes": 168233,
+    "sha256": "ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf"
+  },
+  "freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/freeze.json",
+    "bytes": 8131,
+    "sha256": "4b47285b95656c83dd07f0d6cbcf794738b8328404aacc35cb9e0111e62559a3"
+  },
+  "priorControl": "f11-history-fixture-owner-join-01/request.txt"
+}

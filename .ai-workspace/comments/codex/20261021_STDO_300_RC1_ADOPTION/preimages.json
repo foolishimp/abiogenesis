@@ -1,0 +1,62 @@
+{
+  "head": "727f1dbcab3c198f7704735fdf91b994b7aac243",
+  "observed_at": "2026-10-20T15:42:57.267621+00:00",
+  "paths": {
+    "stdo_abiogenesis.json": {
+      "type": "file",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+    },
+    "AGENTS.md": {
+      "type": "file",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828"
+    },
+    "CLAUDE.md": {
+      "type": "file",
+      "sha256": "13bf0624db72c64a11cb2cff16848599b32f174fb61b7d3b77c426e561c4f0fc"
+    },
+    "specification/PRODUCT.md": {
+      "type": "file",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6"
+    },
+    "specification/GOALS.md": {
+      "type": "file",
+      "sha256": "3676304839a52127559e1897450e0d149a289b4c59f2311e4251c46a813f5173"
+    },
+    "specification/requirements/README.md": {
+      "type": "file",
+      "sha256": "4f364154780bd3b084e9af57e8d031cb021225ae46995837d719e560bf7c71a0"
+    },
+    "build_tenants/abiogenesis/typescript/design/README.md": {
+      "type": "file",
+      "sha256": "526e175a231916f2e12b81b26527c9b78e83b85e62096149a6a46b15d036d274"
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "type": "file",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda"
+    },
+    ".genesis/development-products/axiom-indexer": {
+      "type": "symlink",
+      "target": "/Users/jim/Library/Application Support/Axiom Indexer/releases/v2.5.1-rc.1"
+    },
+    ".genesis/development-products/stdo-representation": {
+      "type": "symlink",
+      "target": "/Users/jim/Library/Application Support/STDO Representation/releases/v2.5.1-rc.1"
+    },
+    ".agents/skills/axiomatize-corpus": {
+      "type": "symlink",
+      "target": "/Users/jim/Library/Application Support/Axiom Indexer/releases/v2.5.1-rc.1/skills/axiomatize-corpus"
+    },
+    ".agents/skills/stdo-representation": {
+      "type": "symlink",
+      "target": "/Users/jim/Library/Application Support/STDO Representation/releases/v2.5.1-rc.1/skills/stdo-representation"
+    },
+    ".claude/skills/axiomatize-corpus": {
+      "type": "symlink",
+      "target": "/Users/jim/Library/Application Support/Axiom Indexer/releases/v2.5.1-rc.1/skills/axiomatize-corpus"
+    },
+    ".claude/skills/stdo-representation": {
+      "type": "symlink",
+      "target": "/Users/jim/Library/Application Support/STDO Representation/releases/v2.5.1-rc.1/skills/stdo-representation"
+    }
+  }
+}

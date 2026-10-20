@@ -1,0 +1,99 @@
+{
+  "stage": "product-resolve-transport-start",
+  "signal": "SIGABRT",
+  "name": "V8 fatal JavaScript heap out of memory",
+  "literalMessage": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "actualCommand": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/commands/current-source-preparation.result.json",
+    "sha256": "ba36db092be5c61125e5dddece0b2bb2e43ba178f043abf47f3831df369529ba",
+    "byteCount": 23659
+  },
+  "rawStderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/commands/current-source-preparation.stderr",
+    "sha256": "49d30a9373b762851da88e3c23f2a8b5dbbd628eb76d47334c0bafc2d38f4f80",
+    "byteCount": 7672
+  },
+  "lastCheckpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-current31-source41-continuation-231/attempt-b/stages/026-product-resolve-transport-start.json",
+    "sha256": "19fd7f0ea3b336f601dca5077e1c8525f55baad92dfbae7fbe6c625db989da15",
+    "byteCount": 242
+  },
+  "commandWallMs": 266124.137292,
+  "lastEnteredElapsedMs": 258975.07070799998,
+  "lastMemorySample": {
+    "rss": 4627677184,
+    "heapUsed": 4109176072,
+    "heapTotal": 4175298560,
+    "external": 2471970,
+    "arrayBuffers": 59663
+  },
+  "nearestCone": "Public Product resolve transport entered after grant and request projection; no returned resolve outcome. Exact JS allocation/line and dominant retainer unproved by retained native stack.",
+  "knownCompleted": [
+    {
+      "stage": "native31-preverify-complete",
+      "elapsedMs": 20313.811166000003
+    },
+    {
+      "stage": "consumer-preverify-complete",
+      "elapsedMs": 20324.885291000002
+    },
+    {
+      "stage": "packed-resource-correspondence-complete",
+      "elapsedMs": 20325.298375000002
+    },
+    {
+      "stage": "early-fixed-product-resolve-complete",
+      "elapsedMs": 23949.702291
+    },
+    {
+      "stage": "acquisition-complete",
+      "elapsedMs": 63645.785416
+    },
+    {
+      "stage": "terminal-resource-complete",
+      "elapsedMs": 258352.286291
+    },
+    {
+      "stage": "old-environment-complete",
+      "elapsedMs": 258353.567166
+    },
+    {
+      "stage": "product-verify-0-grant-complete",
+      "elapsedMs": 258456.360583
+    },
+    {
+      "stage": "product-verify-0-complete",
+      "elapsedMs": 258685.153708
+    },
+    {
+      "stage": "product-verify-1-grant-complete",
+      "elapsedMs": 258706.746708
+    },
+    {
+      "stage": "product-verify-1-complete",
+      "elapsedMs": 258786.443416
+    },
+    {
+      "stage": "product-resolve-grant-complete",
+      "elapsedMs": 258865.436708
+    }
+  ],
+  "effects": {
+    "actual31NominalVerification": true,
+    "consumerNominalVerification": true,
+    "earlyFixedResolution": true,
+    "canonicalAcquisition": true,
+    "Source41": true,
+    "auxiliaryTerminalHistoricalSource": true,
+    "old29Environment": true,
+    "PublicVerifyBoth": true,
+    "PublicResolveReturned": false,
+    "newInstallBindCatalogCover": false,
+    "ProductPreparationCallback": false,
+    "newRunModelApp": false,
+    "eventExtentUnchanged": true
+  },
+  "normalClose": "Not returned",
+  "source41": "Owner-derivedc0bce28a/6538aedc/41 in stage010; no fallback34",
+  "disposition": "STOP/HOLD; no retry/recovery/acquisition/Source or caller repair. Root multi-frame RCA and bounded action required before another attempt."
+}
